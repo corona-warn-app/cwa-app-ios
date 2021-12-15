@@ -33,8 +33,7 @@ class HealthCertificateQRCodeViewTests: XCTestCase {
 		qrCodeView.configure(with: viewModel)
 
 		// THEN
-		XCTAssertFalse(qrCodeView.covPassCheckInfoLabelIsHidden)
-		XCTAssertFalse(qrCodeView.covPassCheckInfoButtonIsHidden)
+		XCTAssertFalse(qrCodeView.covPassCheckInfoStackViewIsHidden)
 	}
 
 	func testGIVEN_QRCodeView_WHEN_ConfigureWithInvalidHealthcertificate_THEN_NoticeLabelIsNotisible() throws {
@@ -62,8 +61,7 @@ class HealthCertificateQRCodeViewTests: XCTestCase {
 		qrCodeView.configure(with: viewModel)
 
 		// THEN
-		XCTAssertTrue(qrCodeView.covPassCheckInfoLabelIsHidden)
-		XCTAssertTrue(qrCodeView.covPassCheckInfoButtonIsHidden)
+		XCTAssertTrue(qrCodeView.covPassCheckInfoStackViewIsHidden)
 	}
 
 }

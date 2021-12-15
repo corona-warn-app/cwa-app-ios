@@ -172,12 +172,8 @@ class HealthCertificateQRCodeView: UIView {
 	// MARK: - Unitest helpers
 
 #if DEBUG
-	var covPassCheckInfoLabelIsHidden: Bool {
-		covPassCheckInfoLabel.isHidden
-	}
-
-	var covPassCheckInfoButtonIsHidden: Bool {
-		covPassCheckInfoButton.isHidden
+	var covPassCheckInfoStackViewIsHidden: Bool {
+		covPassCheckInfoStackView.isHidden
 	}
 #endif
 
