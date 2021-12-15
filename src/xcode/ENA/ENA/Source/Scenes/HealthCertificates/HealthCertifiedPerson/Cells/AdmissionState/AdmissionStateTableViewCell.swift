@@ -46,12 +46,11 @@ class AdmissionStateTableViewCell: UITableViewCell, UITextViewDelegate, ReuseIde
 		faqLinkTextView.isHidden = cellModel.faqLink == nil
 		faqLinkTextView.accessibilityIdentifier = AccessibilityIdentifiers.HealthCertificate.AdmissionState.faq
 
-		roundedLabeledView?.configure(title: cellModel.shortTitle)
+		roundedLabeledView?.configure(title: cellModel.shortTitle, gradientType: cellModel.gradientType)
 	}
 
 	// MARK: - Private
 	
-	private var roundedLabeledView: RoundedLabeledView?
 	private let backgroundContainerView: UIView = {
 		let backgroundContainerView = UIView()
 		backgroundContainerView.backgroundColor = .enaColor(for: .cellBackground2)
@@ -74,7 +73,7 @@ class AdmissionStateTableViewCell: UITableViewCell, UITextViewDelegate, ReuseIde
 		return contentStackView
 	}()
 
-	private let titleStackView: UIStackView = {
+	private let topStackView: UIStackView = {
 		let titleStackView = UIStackView()
 		titleStackView.axis = .horizontal
 		titleStackView.distribution = .fill
@@ -84,7 +83,7 @@ class AdmissionStateTableViewCell: UITableViewCell, UITextViewDelegate, ReuseIde
 		return titleStackView
 	}()
 	
-	private let topStackView: UIStackView = {
+	private let titleStackView: UIStackView = {
 		let topStackView = UIStackView()
 		topStackView.axis = .vertical
 		topStackView.distribution = .fill
@@ -99,8 +98,7 @@ class AdmissionStateTableViewCell: UITableViewCell, UITextViewDelegate, ReuseIde
 		titleLabel.numberOfLines = 0
 		titleLabel.textColor = .enaColor(for: .textPrimary1)
 		titleLabel.setContentCompressionResistancePriority(.required, for: .horizontal)
-		titleLabel.setContentHuggingPriority(.defaultLow, for: .horizontal)
-		
+
 		return titleLabel
 	}()
 
@@ -110,6 +108,13 @@ class AdmissionStateTableViewCell: UITableViewCell, UITextViewDelegate, ReuseIde
 		subtitleLabel.textColor = .enaColor(for: .textPrimary2)
 
 		return subtitleLabel
+	}()
+
+	private lazy var roundedLabeledView: RoundedLabeledView? = {
+		let nibName = String(describing: RoundedLabeledView.self)
+		let nib = UINib(nibName: nibName, bundle: .main)
+
+		return nib.instantiate(withOwner: self, options: nil).first as? RoundedLabeledView
 	}()
 
 	private let descriptionLabel: ENALabel = {
@@ -152,25 +157,18 @@ class AdmissionStateTableViewCell: UITableViewCell, UITextViewDelegate, ReuseIde
 		backgroundContainerView.addSubview(contentStackView)
 		
 		titleStackView.addArrangedSubview(titleLabel)
-		let nibName = String(describing: RoundedLabeledView.self)
-		let nib = UINib(nibName: nibName, bundle: .main)
+		titleStackView.addArrangedSubview(subtitleLabel)
 
-		if let roundedLabeledView = nib.instantiate(withOwner: self, options: nil).first as? RoundedLabeledView {
-			self.roundedLabeledView = roundedLabeledView
-			
-			roundedLabeledView.setContentHuggingPriority(.required, for: .horizontal)
-			titleStackView.addArrangedSubview(roundedLabeledView)
-		}
-		
 		topStackView.addArrangedSubview(titleStackView)
-		topStackView.setCustomSpacing(0, after: titleStackView)
-		topStackView.addArrangedSubview(subtitleLabel)
-		
+
+		if let roundedLabeledView = roundedLabeledView {
+			topStackView.addArrangedSubview(roundedLabeledView)
+		}
+
 		contentStackView.addArrangedSubview(topStackView)
 		contentStackView.addArrangedSubview(descriptionLabel)
 		contentStackView.setCustomSpacing(16, after: descriptionLabel)
 		contentStackView.addArrangedSubview(faqLinkTextView)
-		
 
 		NSLayoutConstraint.activate(
 			[

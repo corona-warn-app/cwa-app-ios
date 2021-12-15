@@ -2792,27 +2792,15 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "HealthCertificate_Overview_Covid_Title" = "Digitales COVID-Zertifikat der EU";
 
-"VaccinationCertificate_title" = "Digitaler\n**COVID-Impfnachweis der EU**";
-
-"VaccinationCertificate_partiallyVaccinated" = "Unvollständiger Impfschutz";
-
-"VaccinationCertificate_vaccinationValidUntil" = "Gültig bis einschließlich %@";
-
 "HealthCertificate_Overview_Covid_Certificate_Description" = "Ein QR-Code mit dem Zertifikat";
 
+"HealthCertificate_Overview_AdmissionState_Title" = "Status-Nachweis";
+
+"HealthCertificate_Overview_TwoGCertificate" = "2G-Zertifikat";
+
+"HealthCertificate_Overview_TestCertificate" = "Testzertifikat";
+
 "HealthCertificate_Overview_News" = "Es gibt Neuigkeiten zu Ihren Zertifikaten";
-
-/* - Test Certificate Info */
-
-"TestCertificate_Info_title" = "Digitales\n**COVID-Testzertifikat der EU**";
-
-"TestCertificate_Info_description" = "Registrieren Sie einen Test auf der Startseite und stimmen Sie zu, ein digitales Testzertifikat zu erhalten. Sobald das Zertifikat vorliegt, wird es hier angezeigt.";
-
-/* - Test Certificate */
-
-"TestCertificate_title" = "Digitales\n**COVID-Testzertifikat der EU**";
-
-"TestCertificate_testDate" = "Test durchgeführt am %@";
 
 /* - Test Certificate Request */
 
@@ -2916,15 +2904,15 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "HealthCertifiedPerson_AdmissionState_subtitle3GPlus" = "3G+";
 
-"HealthCertifiedPerson_AdmissionState_description2G" = "Ihre Zertifikate ermöglichen Ihnen Zutritt für 2G Events. Wenn Sie Ihren aktuellen Status vorweisen müssen, schließen sie diese Ansicht und zeigen Sie den QR-Code auf der Zertifikatsübersicht.";
+"HealthCertifiedPerson_AdmissionState_description2G" = "Ihre Zertifikate erfüllen die 2G-Regel. Wenn Sie Ihren aktuellen Status vorweisen müssen, schließen sie diese Ansicht und zeigen Sie den QR-Code auf der Zertifikatsübersicht.";
 
-"HealthCertifiedPerson_AdmissionState_description2GPlusPCR" = "Ihre Zertifikate ermöglichen Ihnen Zutritt für 2G+ Events. Wenn Sie Ihren aktuellen Status vorweisen müssen, schließen sie diese Ansicht und zeigen Sie den QR-Code auf der Zertifikatsübersicht.";
+"HealthCertifiedPerson_AdmissionState_description2GPlusPCR" = "Ihre Zertifikate erfüllen die 2G-Plus-Regel. Wenn Sie Ihren aktuellen Status vorweisen müssen, schließen sie diese Ansicht und zeigen Sie den QR-Code auf der Zertifikatsübersicht.";
 
-"HealthCertifiedPerson_AdmissionState_description2GPlusAntigen" = "Ihre Zertifikate ermöglichen Ihnen Zutritt für 2G+ Events. Wenn Sie Ihren aktuellen Status vorweisen müssen, schließen sie diese Ansicht und zeigen Sie den QR-Code auf der Zertifikatsübersicht.";
+"HealthCertifiedPerson_AdmissionState_description2GPlusAntigen" = "Ihre Zertifikate erfüllen die 2G-Plus-Regel. Wenn Sie Ihren aktuellen Status vorweisen müssen, schließen sie diese Ansicht und zeigen Sie den QR-Code auf der Zertifikatsübersicht.";
 
-"HealthCertifiedPerson_AdmissionState_description3G" = "Ihre Zertifikate ermöglichen Ihnen Zutritt für 3G Events. Wenn Sie Ihren aktuellen Status vorweisen müssen, schließen sie diese Ansicht und zeigen Sie den QR-Code auf der Zertifikatsübersicht.";
+"HealthCertifiedPerson_AdmissionState_description3G" = "Ihre Zertifikate erfüllen die 3G-Regel. Wenn Sie Ihren aktuellen Status vorweisen müssen, schließen sie diese Ansicht und zeigen Sie den QR-Code auf der Zertifikatsübersicht.";
 
-"HealthCertifiedPerson_AdmissionState_description3GPlus" = "Ihre Zertifikate ermöglichen Ihnen Zutritt für 3G+ Events. Wenn Sie Ihren aktuellen Status vorweisen müssen, schließen sie diese Ansicht und zeigen Sie den QR-Code auf der Zertifikatsübersicht.";
+"HealthCertifiedPerson_AdmissionState_description3GPlus" = "Ihre Zertifikate erfüllen die 3G-Plus-Regel. Wenn Sie Ihren aktuellen Status vorweisen müssen, schließen sie diese Ansicht und zeigen Sie den QR-Code auf der Zertifikatsübersicht.";
 
 "HealthCertifiedPerson_AdmissionStateFAQ" = "Mehr Informationen finden Sie in den %@.";
 

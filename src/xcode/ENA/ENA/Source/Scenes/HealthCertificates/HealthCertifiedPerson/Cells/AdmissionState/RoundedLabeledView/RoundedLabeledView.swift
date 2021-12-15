@@ -22,17 +22,17 @@ class RoundedLabeledView: UIView {
 
 	// MARK: - Internal
 
-	func configure(title: String?) {
+	func configure(title: String?, gradientType: GradientView.GradientType) {
 		titleLabel.text = title
 		accessibilityLabel = title
 
-		setupGradient()
+		setupGradient(gradientType: gradientType)
 	}
 	
 	// MARK: - Private
 	
-	private func setupGradient() {
-		let gradientView = GradientView(type: .darkBlue(withStars: false))
+	private func setupGradient(gradientType: GradientView.GradientType) {
+		let gradientView = GradientView(type: gradientType)
 		gradientView.translatesAutoresizingMaskIntoConstraints = false
 		roundedView.insertSubview(gradientView, belowSubview: titleLabel)
 		NSLayoutConstraint.activate(
@@ -47,4 +47,5 @@ class RoundedLabeledView: UIView {
 	
 	@IBOutlet private weak var roundedView: UIView!
 	@IBOutlet private weak var titleLabel: ENALabel!
+
 }

@@ -139,6 +139,7 @@ class HealthCertifiedPerson: Codable, Equatable, Comparable {
 		didSet {
 			if vaccinationState != oldValue {
 				objectDidChange.send(self)
+				updateAdmissionState()
 			}
 		}
 	}
@@ -159,7 +160,7 @@ class HealthCertifiedPerson: Codable, Equatable, Comparable {
 		}
 	}
 
-	@DidSetPublished var gradientType: GradientView.GradientType = .lightBlue(withStars: true)
+	@DidSetPublished var gradientType: GradientView.GradientType = .lightBlue
 
 	@DidSetPublished var boosterRule: Rule? {
 		didSet {
@@ -271,6 +272,7 @@ class HealthCertifiedPerson: Codable, Equatable, Comparable {
 					guard let self = self else { return }
 
 					self.updateVaccinationState()
+					self.updateAdmissionState()
 					self.updateMostRelevantHealthCertificate()
 
 					self.objectDidChange.send(self)

@@ -10,19 +10,19 @@ final class AdmissionStateCellModel {
 
 	// MARK: - Init
 
-	init(admissionState: HealthCertifiedPersonAdmissionState) {
-		self.admissionState = admissionState
+	init(healthCertifiedPerson: HealthCertifiedPerson) {
+		self.healthCertifiedPerson = healthCertifiedPerson
 	}
 
 	// MARK: - Internal
 
 	let title = AppStrings.HealthCertificate.Person.AdmissionState.title
 	var subtitle: String? {
-		return admissionState.subtitle
+		return healthCertifiedPerson.admissionState.subtitle
 	}
 
 	var description: String? {
-		return admissionState.description
+		return healthCertifiedPerson.admissionState.description
 	}
 
 	var faqLink: NSAttributedString? {
@@ -54,11 +54,15 @@ final class AdmissionStateCellModel {
 	}
 	
 	var shortTitle: String? {
-		return admissionState.shortTitle
+		return healthCertifiedPerson.admissionState.shortTitle
+	}
+
+	var gradientType: GradientView.GradientType {
+		return healthCertifiedPerson.gradientType
 	}
 
 	// MARK: - Private
 
-	let admissionState: HealthCertifiedPersonAdmissionState
+	let healthCertifiedPerson: HealthCertifiedPerson
 
 }
