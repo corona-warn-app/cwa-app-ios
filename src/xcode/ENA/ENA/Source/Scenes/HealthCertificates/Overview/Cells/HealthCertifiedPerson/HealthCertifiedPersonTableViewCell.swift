@@ -205,7 +205,6 @@ class HealthCertifiedPersonTableViewCell: UITableViewCell, ReuseIdentifierProvid
 	private let segmentedControl: UISegmentedControl = {
 		let segmentedControl = UISegmentedControl()
 
-		// required to make segmented control look a bit like iOS 13
 		if #available(iOS 13, *) {
 			segmentedControl.backgroundColor = .enaColor(for: .cellBackground)
 			segmentedControl.selectedSegmentTintColor = .enaColor(for: .selectedSegmentTint)
