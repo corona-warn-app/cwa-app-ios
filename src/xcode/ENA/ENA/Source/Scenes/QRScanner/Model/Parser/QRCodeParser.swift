@@ -33,6 +33,8 @@ class QRCodeParser: QRCodeParsable {
 		qrCode: String,
 		completion: @escaping (Result<QRCodeResult, QRCodeParserError>) -> Void
 	) {
+		Log.info("Parse qr code.")
+
 		var parser: QRCodeParsable?
 
 		// Check the prefix to know which type
