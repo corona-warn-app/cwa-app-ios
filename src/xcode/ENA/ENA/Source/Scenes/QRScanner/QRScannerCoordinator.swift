@@ -149,6 +149,9 @@ class QRScannerCoordinator {
 					},
 					hideActivityIndicator: {
 						self?.hideActivityIndicator()
+					},
+					onQRCodeParserError: { [weak self] error in
+						self?.showQRCodeParserErrorAlert(error: error)
 					}
 				)
 				self?.fileScannerCoordinator?.start()
@@ -159,8 +162,8 @@ class QRScannerCoordinator {
 			onShowCameraPermissionError: { [weak self] in
 				self?.showCameraPermissionErrorAlert()
 			},
-			onOtherScanningError: { weak self] error in
-				self?.showScanningErrorAlert(error: error)
+			onQRCodeParserError: { weak self] error in
+				self?.showQRCodeParserErrorAlert(error: error)
 			}
 		)
 		return qrScannerViewController
@@ -455,7 +458,7 @@ class QRScannerCoordinator {
 	}
 
 	// swiftlint:disable cyclomatic_complexity
-	private func showScanningErrorAlert(error: QRCodeParserError) {
+	private func showQRCodeParserErrorAlert(error: QRCodeParserError) {
 		let unwrappedError: Error
 		switch error {
 		case .scanningError(let qrScannerError):
