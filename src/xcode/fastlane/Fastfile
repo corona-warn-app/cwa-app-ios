@@ -222,14 +222,6 @@ platform :ios do
       --header 'Authorization: Bearer #{ENV["TSI_CLOUD_TOKEN"]}' \
       --form 'file=@../ENA.ipa'"
     )
-
-    appcenter_upload(
-      api_token: ENV["MS_APP_CENTER_TOKEN"],
-      owner_name: "Corona-Warn-App",
-      owner_type: "organization",
-      app_name: "Corona-Warn-App",
-      file: "ENA.ipa"
-    )
   end
 
   desc "Update GitHub Pages"
