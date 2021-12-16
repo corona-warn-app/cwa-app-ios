@@ -10,7 +10,7 @@ struct AppConfigurationResource: Resource {
 
 	init() {
 		self.locator = .appConfiguration
-		self.type = .caching([])
+		self.type = .caching()
 		self.sendResource = EmptySendResource()
 		self.receiveResource = ProtobufReceiveResource<SAP_Internal_V2_ApplicationConfigurationIOS>()
 	}

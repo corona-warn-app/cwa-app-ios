@@ -7,7 +7,7 @@
 class ResourceFake: Resource {
 	init(
 		locator: Locator = .fake(),
-		type: ServiceType = .caching([]),
+		type: ServiceType = .caching(),
 		sendResource: PaddingJSONSendResource<DummyResourceModel> = PaddingJSONSendResource<DummyResourceModel>(DummyResourceModel(dummyValue: "SomeValue", requestPadding: "")),
 		receiveResource: JSONReceiveResource<DummyResourceModel> = JSONReceiveResource<DummyResourceModel>(),
 		defaultModel: ResourceFake.Receive.ReceiveModel? = nil
