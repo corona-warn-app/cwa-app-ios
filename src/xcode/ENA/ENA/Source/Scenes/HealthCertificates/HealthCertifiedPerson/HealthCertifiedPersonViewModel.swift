@@ -209,7 +209,7 @@ final class HealthCertifiedPersonViewModel {
 	private var subscriptions = Set<AnyCancellable>()
 
 	private var healthCertificateCellViewModels = [HealthCertificateCellViewModel]()
-	private var admissionStateIsVisible: Bool {
+	var admissionStateIsVisible: Bool {
 		return healthCertifiedPerson.admissionState != .other
 	}
 

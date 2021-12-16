@@ -181,7 +181,9 @@ class HealthCertifiedPersonViewController: UIViewController, UITableViewDataSour
 				} else if !vaccinationHintWasVisible && self.viewModel.vaccinationHintIsVisible {
 					insertIndexPaths.append(IndexPath(row: 0, section: HealthCertifiedPersonViewModel.TableViewSection.vaccinationHint.rawValue))
 				}
-
+				if !self.viewModel.admissionStateIsVisible {
+					deleteIndexPaths.append(IndexPath(row: 0, section: HealthCertifiedPersonViewModel.TableViewSection.admissionState.rawValue))
+				} 
 				tableView.deleteRows(at: deleteIndexPaths, with: .automatic)
 				tableView.insertRows(at: insertIndexPaths, with: .automatic)
 			}, completion: { _ in
