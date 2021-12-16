@@ -90,6 +90,7 @@ extension Service {
 				Log.debug("URL Response \(response.statusCode)", log: .client)
 				#endif
 
+				// cache policy handling only for the status codes.
 				guard hasNoStatusCodeCachePolicy(resource, response.statusCode) else {
 					cachePolicyHandling(.statusCode(response.statusCode), nil, resource, completion)
 					return
