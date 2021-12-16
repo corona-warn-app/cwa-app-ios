@@ -162,7 +162,7 @@ class QRScannerCoordinator {
 			onShowCameraPermissionError: { [weak self] in
 				self?.showCameraPermissionErrorAlert()
 			},
-			onQRCodeParserError: { weak self] error in
+			onQRCodeParserError: { [weak self] error in
 				self?.showQRCodeParserErrorAlert(error: error)
 			}
 		)

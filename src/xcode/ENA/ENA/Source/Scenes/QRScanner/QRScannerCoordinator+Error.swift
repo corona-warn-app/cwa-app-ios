@@ -3,7 +3,7 @@
 //
 
 extension QRScannerCoordinator {
-	private func showTicketValidationErrorAlert(error: TicketValidationError, serviceProvider: String) {
+	func showTicketValidationErrorAlert(error: TicketValidationError, serviceProvider: String) {
 		let title: String
 		if case .allowListError(.SP_ALLOWLIST_NO_MATCH) = error {
 			title = AppStrings.TicketValidation.Error.serviceProviderErrorNoMatchTitle
@@ -45,7 +45,7 @@ extension QRScannerCoordinator {
 	}
 
 	// swiftlint:disable cyclomatic_complexity
-	private func showQRCodeParserErrorAlert(error: QRCodeParserError) {
+	func showQRCodeParserErrorAlert(error: QRCodeParserError) {
 		let unwrappedError: Error
 		switch error {
 		case .scanningError(let qrScannerError):
@@ -145,7 +145,7 @@ extension QRScannerCoordinator {
 		}
 	}
 
-	private func showCameraPermissionErrorAlert() {
+	func showCameraPermissionErrorAlert() {
 		let alert = UIAlertController(
 			title: AppStrings.UniversalQRScanner.Error.CameraPermissionDenied.title,
 			message: QRScannerError.cameraPermissionDenied.localizedDescription,
