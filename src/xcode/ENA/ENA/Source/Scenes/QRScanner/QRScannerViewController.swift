@@ -19,7 +19,7 @@ class QRScannerViewController: UIViewController {
 		presentFileScanner: @escaping () -> Void,
 		onInfoButtonTap: @escaping () -> Void,
 		onShowCameraPermissionError: @escaping () -> Void,
-		onOtherScanningError: @escaping (QRCodeParserError) -> Void
+		onQRCodeParserError: @escaping (QRCodeParserError) -> Void
 	) {
 		self.dismiss = dismiss
 		self.presentFileScanner = presentFileScanner
@@ -53,7 +53,7 @@ class QRScannerViewController: UIViewController {
 						onShowCameraPermissionError()
 						#endif
 					} else {
-						onOtherScanningError(error)
+						onQRCodeParserError(error)
 					}
 				}
 			}
