@@ -116,13 +116,13 @@
                     <constraint firstAttribute="trailingMargin" secondItem="c8V-vr-iJ1" secondAttribute="trailing" id="COA-aU-7xZ"/>
                     <constraint firstItem="pUZ-ii-1cU" firstAttribute="top" secondItem="7c9-5G-0Cv" secondAttribute="topMargin" id="Cuy-1P-tnE"/>
                     <constraint firstItem="pUZ-ii-1cU" firstAttribute="height" relation="greaterThanOrEqual" secondItem="R7g-Rj-rbB" secondAttribute="height" id="E27-22-blZ"/>
+                    <constraint firstItem="R7g-Rj-rbB" firstAttribute="top" secondItem="pUZ-ii-1cU" secondAttribute="top" id="KZ2-aa-B1Q"/>
                     <constraint firstItem="c8V-vr-iJ1" firstAttribute="bottom" secondItem="cxk-TU-Saa" secondAttribute="bottom" constant="16" id="Ubh-6l-yHq"/>
                     <constraint firstItem="pUZ-ii-1cU" firstAttribute="leading" secondItem="R7g-Rj-rbB" secondAttribute="trailing" constant="16" id="bcw-QO-ZXP"/>
                     <constraint firstAttribute="bottomMargin" secondItem="c8V-vr-iJ1" secondAttribute="bottom" id="dhf-Al-VdG"/>
                     <constraint firstItem="c8V-vr-iJ1" firstAttribute="top" secondItem="pUZ-ii-1cU" secondAttribute="bottom" constant="16" id="gWo-ho-dkg"/>
                     <constraint firstItem="cxk-TU-Saa" firstAttribute="top" secondItem="R7g-Rj-rbB" secondAttribute="centerY" id="kHe-gh-dUO"/>
                     <constraint firstAttribute="trailingMargin" secondItem="pUZ-ii-1cU" secondAttribute="trailing" id="oHn-Kv-Ydg"/>
-                    <constraint firstItem="R7g-Rj-rbB" firstAttribute="top" secondItem="7c9-5G-0Cv" secondAttribute="topMargin" id="sMO-ju-Ig1"/>
                 </constraints>
                 <edgeInsets key="layoutMargins" top="16" left="16" bottom="16" right="16"/>
             </tableViewCellContentView>
@@ -137,16 +137,16 @@
     </objects>
     <designables>
         <designable name="Pdw-cJ-U3Q">
-            <size key="intrinsicContentSize" width="44" height="20.5"/>
+            <size key="intrinsicContentSize" width="39.5" height="18"/>
         </designable>
         <designable name="QcH-xF-ccQ">
-            <size key="intrinsicContentSize" width="46" height="20.5"/>
+            <size key="intrinsicContentSize" width="41.5" height="18"/>
         </designable>
         <designable name="bZC-BT-HFb">
-            <size key="intrinsicContentSize" width="46.5" height="20.5"/>
+            <size key="intrinsicContentSize" width="42" height="18"/>
         </designable>
         <designable name="pUZ-ii-1cU">
-            <size key="intrinsicContentSize" width="221.5" height="20.5"/>
+            <size key="intrinsicContentSize" width="199.5" height="18"/>
         </designable>
     </designables>
     <resources>

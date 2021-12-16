@@ -82,7 +82,7 @@ extension HealthCertificateService {
 					name: .fake(familyName: "Schneider", givenName: "Andrea", standardizedFamilyName: "SCHNEIDER", standardizedGivenName: "ANDREA"),
 					testEntries: [TestEntry.fake(dateTimeOfSampleCollection: "2021-04-12T16:01:00Z")]
 				),
-				and: CBORWebTokenHeader.fake()
+				and: CBORWebTokenHeader.fake(expirationTime: expirationTime)
 			)
 			if case let .success(base45) = testCert1 {
 				registerHealthCertificate(base45: base45)
@@ -92,7 +92,7 @@ extension HealthCertificateService {
 					name: .fake(familyName: "Schneider", givenName: "Toni", standardizedFamilyName: "SCHNEIDER", standardizedGivenName: "TONI"),
 					testEntries: [TestEntry.fake(dateTimeOfSampleCollection: "2021-04-12T17:01:00Z")]
 				),
-				and: CBORWebTokenHeader.fake()
+				and: CBORWebTokenHeader.fake(expirationTime: expirationTime)
 			)
 			if case let .success(base45) = testCert2 {
 				registerHealthCertificate(base45: base45)
@@ -102,7 +102,7 @@ extension HealthCertificateService {
 					name: .fake(familyName: "Schneider", givenName: "Victoria", standardizedFamilyName: "SCHNEIDER", standardizedGivenName: "VICTORIA"),
 					testEntries: [TestEntry.fake(dateTimeOfSampleCollection: "2021-04-13T18:01:00Z")]
 				),
-				and: CBORWebTokenHeader.fake()
+				and: CBORWebTokenHeader.fake(expirationTime: expirationTime)
 			)
 			if case let .success(base45) = testCert3 {
 				registerHealthCertificate(base45: base45)
@@ -112,7 +112,7 @@ extension HealthCertificateService {
 					name: .fake(familyName: "Schneider", givenName: "Thomas", standardizedFamilyName: "SCHNEIDER", standardizedGivenName: "THOMAS"),
 					testEntries: [TestEntry.fake(dateTimeOfSampleCollection: "2021-04-15T12:01:00Z")]
 				),
-				and: CBORWebTokenHeader.fake()
+				and: CBORWebTokenHeader.fake(expirationTime: expirationTime)
 			)
 			if case let .success(base45) = testCert4 {
 				registerHealthCertificate(base45: base45)
@@ -123,9 +123,13 @@ extension HealthCertificateService {
 			let result = DigitalCovidCertificateFake.makeBase45Fake(
 				from: DigitalCovidCertificate.fake(
 					name: .fake(familyName: "Schneider", givenName: "Andrea", standardizedFamilyName: "SCHNEIDER", standardizedGivenName: "ANDREA"),
-					testEntries: [TestEntry.fake(dateTimeOfSampleCollection: "2021-04-12T16:01:00Z")]
+					testEntries: [
+						.fake(
+							dateTimeOfSampleCollection: ISO8601DateFormatter.string(from: Date(timeIntervalSinceNow: -60 * 60), timeZone: .utcTimeZone, formatOptions: [.withInternetDateTime])
+						)
+					]
 				),
-				and: CBORWebTokenHeader.fake()
+				and: CBORWebTokenHeader.fake(expirationTime: expirationTime)
 			)
 			if case let .success(base45) = result {
 				registerHealthCertificate(base45: base45, checkSignatureUpfront: shouldCheckSignatureUpfront)
@@ -136,9 +140,9 @@ extension HealthCertificateService {
 			let result = DigitalCovidCertificateFake.makeBase45Fake(
 				from: DigitalCovidCertificate.fake(
 					name: .fake(familyName: "Schneider", givenName: "Andrea", standardizedFamilyName: "SCHNEIDER", standardizedGivenName: "ANDREA"),
-					testEntries: [TestEntry.fake(dateTimeOfSampleCollection: "2021-04-12T16:01:00Z")]
+					testEntries: [.fake(dateTimeOfSampleCollection: "2021-04-12T16:01:00Z")]
 				),
-				and: CBORWebTokenHeader.fake()
+				and: CBORWebTokenHeader.fake(expirationTime: expirationTime)
 			)
 			if case let .success(base45) = result {
 				registerHealthCertificate(base45: base45, checkSignatureUpfront: shouldCheckSignatureUpfront, markAsNew: true)
@@ -150,7 +154,10 @@ extension HealthCertificateService {
 				from: DigitalCovidCertificate.fake(
 					name: .fake(familyName: "Schneider", givenName: "Andrea", standardizedFamilyName: "SCHNEIDER", standardizedGivenName: "ANDREA"),
 					recoveryEntries: [
-						RecoveryEntry.fake()
+						.fake(
+							certificateValidFrom: ISO8601DateFormatter.string(from: Date(timeIntervalSinceNow: -120 * 24 * 60 * 60), timeZone: .utcTimeZone, formatOptions: [.withFullDate]),
+							certificateValidUntil: ISO8601DateFormatter.string(from: Date(timeIntervalSinceNow: 30 * 24 * 60 * 60), timeZone: .utcTimeZone, formatOptions: [.withFullDate])
+						)
 					]
 				),
 				and: CBORWebTokenHeader.fake(expirationTime: expirationTime)
