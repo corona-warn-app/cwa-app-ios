@@ -124,7 +124,6 @@ final class MockTestStore: Store, PPAnalyticsData {
 
 	var pcrTest: PCRTest?
 	var antigenTest: AntigenTest?
-	var unseenTestsCount: Int = 0
 
 	// MARK: - AntigenTestProfileStoring
 
@@ -198,6 +197,10 @@ final class MockTestStore: Store, PPAnalyticsData {
 			recycleBinItemsSubject.value = recycleBinItems
 		}
 	}
+
+	// MARK: - HomeBadgeStoring
+	var badgesData: [HomeBadgeWrapper.BadgeType: Int?] = [:]
+
 }
 
 #endif

@@ -326,7 +326,7 @@ class HealthCertificateServiceTests: CWATestCase {
 
 		XCTAssertEqual(store.healthCertifiedPersons.count, 1)
 		XCTAssertEqual(store.healthCertifiedPersons.first?.healthCertificates, [firstVaccinationCertificate, firstTestCertificate, secondTestCertificate])
-		XCTAssertEqual(service.healthCertifiedPersons.first?.gradientType, .lightBlue(withStars: true))
+		XCTAssertEqual(service.healthCertifiedPersons.first?.gradientType, .lightBlue)
 
 		// Marking as new increases unseen news count
 		XCTAssertEqual(service.unseenNewsCount.value, 2)
@@ -360,10 +360,10 @@ class HealthCertificateServiceTests: CWATestCase {
 
 		// New health certified person comes first due to alphabetical ordering
 		XCTAssertEqual(store.healthCertifiedPersons.first?.healthCertificates, [secondVaccinationCertificate])
-		XCTAssertEqual(service.healthCertifiedPersons.first?.gradientType, .lightBlue(withStars: true))
+		XCTAssertEqual(service.healthCertifiedPersons.first?.gradientType, .lightBlue)
 
 		XCTAssertEqual(store.healthCertifiedPersons.last?.healthCertificates, [firstVaccinationCertificate, firstTestCertificate, secondTestCertificate])
-		XCTAssertEqual(service.healthCertifiedPersons.last?.gradientType, .mediumBlue(withStars: true))
+		XCTAssertEqual(service.healthCertifiedPersons.last?.gradientType, .mediumBlue)
 
 		// Register test certificate for second person
 
@@ -391,10 +391,10 @@ class HealthCertificateServiceTests: CWATestCase {
 		XCTAssertEqual(store.healthCertifiedPersons.count, 2)
 
 		XCTAssertEqual(store.healthCertifiedPersons.first?.healthCertificates, [thirdTestCertificate, secondVaccinationCertificate])
-		XCTAssertEqual(service.healthCertifiedPersons.first?.gradientType, .lightBlue(withStars: true))
+		XCTAssertEqual(service.healthCertifiedPersons.first?.gradientType, .lightBlue)
 
 		XCTAssertEqual(store.healthCertifiedPersons.last?.healthCertificates, [firstVaccinationCertificate, firstTestCertificate, secondTestCertificate])
-		XCTAssertEqual(service.healthCertifiedPersons.last?.gradientType, .mediumBlue(withStars: true))
+		XCTAssertEqual(service.healthCertifiedPersons.last?.gradientType, .mediumBlue)
 
 		// Register expired recovery certificate for a third person to check gradients are correct
 
@@ -420,11 +420,11 @@ class HealthCertificateServiceTests: CWATestCase {
 		}
 
 		XCTAssertEqual(store.healthCertifiedPersons[safe: 0]?.healthCertificates, [thirdTestCertificate, secondVaccinationCertificate])
-		XCTAssertEqual(service.healthCertifiedPersons[safe: 0]?.gradientType, .lightBlue(withStars: true))
+		XCTAssertEqual(service.healthCertifiedPersons[safe: 0]?.gradientType, .lightBlue)
 		XCTAssertEqual(try XCTUnwrap(store.healthCertifiedPersons[safe: 0]).unseenNewsCount, 0)
 
 		XCTAssertEqual(store.healthCertifiedPersons[safe: 1]?.healthCertificates, [firstRecoveryCertificate])
-		XCTAssertEqual(service.healthCertifiedPersons[safe: 1]?.gradientType, .solidGrey(withStars: true))
+		XCTAssertEqual(service.healthCertifiedPersons[safe: 1]?.gradientType, .solidGrey)
 		XCTAssertEqual(try XCTUnwrap(store.healthCertifiedPersons[safe: 1]).unseenNewsCount, 1)
 
 		// Expired state increases unseen news count
@@ -432,7 +432,7 @@ class HealthCertificateServiceTests: CWATestCase {
 		XCTAssertTrue(try XCTUnwrap(store.healthCertifiedPersons[safe: 1]?.healthCertificates[safe: 0]).isValidityStateNew)
 
 		XCTAssertEqual(store.healthCertifiedPersons[safe: 2]?.healthCertificates, [firstVaccinationCertificate, firstTestCertificate, secondTestCertificate])
-		XCTAssertEqual(service.healthCertifiedPersons[safe: 2]?.gradientType, .darkBlue(withStars: true))
+		XCTAssertEqual(service.healthCertifiedPersons[safe: 2]?.gradientType, .darkBlue)
 		XCTAssertEqual(try XCTUnwrap(store.healthCertifiedPersons[safe: 2]).unseenNewsCount, 2)
 
 		// Set last person as preferred person and check that positions switched and gradients are correct
@@ -440,13 +440,13 @@ class HealthCertificateServiceTests: CWATestCase {
 		service.healthCertifiedPersons.last?.isPreferredPerson = true
 
 		XCTAssertEqual(store.healthCertifiedPersons[safe: 0]?.healthCertificates, [firstVaccinationCertificate, firstTestCertificate, secondTestCertificate])
-		XCTAssertEqual(service.healthCertifiedPersons[safe: 0]?.gradientType, .lightBlue(withStars: true))
+		XCTAssertEqual(service.healthCertifiedPersons[safe: 0]?.gradientType, .lightBlue)
 
 		XCTAssertEqual(store.healthCertifiedPersons[safe: 1]?.healthCertificates, [thirdTestCertificate, secondVaccinationCertificate])
-		XCTAssertEqual(service.healthCertifiedPersons[safe: 1]?.gradientType, .mediumBlue(withStars: true))
+		XCTAssertEqual(service.healthCertifiedPersons[safe: 1]?.gradientType, .mediumBlue)
 
 		XCTAssertEqual(store.healthCertifiedPersons[safe: 2]?.healthCertificates, [firstRecoveryCertificate])
-		XCTAssertEqual(service.healthCertifiedPersons[safe: 2]?.gradientType, .solidGrey(withStars: true))
+		XCTAssertEqual(service.healthCertifiedPersons[safe: 2]?.gradientType, .solidGrey)
 
 		// Attempt to add a 4th person, max amount was set to 3
 
@@ -480,10 +480,10 @@ class HealthCertificateServiceTests: CWATestCase {
 		XCTAssertEqual(store.healthCertifiedPersons.count, 2)
 
 		XCTAssertEqual(store.healthCertifiedPersons[safe: 0]?.healthCertificates, [thirdTestCertificate, secondVaccinationCertificate])
-		XCTAssertEqual(service.healthCertifiedPersons[safe: 0]?.gradientType, .lightBlue(withStars: true))
+		XCTAssertEqual(service.healthCertifiedPersons[safe: 0]?.gradientType, .lightBlue)
 
 		XCTAssertEqual(store.healthCertifiedPersons[safe: 1]?.healthCertificates, [firstRecoveryCertificate])
-		XCTAssertEqual(service.healthCertifiedPersons[safe: 1]?.gradientType, .solidGrey(withStars: true))
+		XCTAssertEqual(service.healthCertifiedPersons[safe: 1]?.gradientType, .solidGrey)
 	}
 
 	func testLoadingCertificatesFromStoreAndRemovingCertificates() throws {

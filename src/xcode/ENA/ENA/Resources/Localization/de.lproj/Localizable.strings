@@ -115,7 +115,7 @@
 
 "ExposureDetection_Guide_Ventilation" = "Lüften Sie Innenräume mehrmals täglich. Öffnen Sie dazu die Fenster einige Minuten lang so weit wie möglich (Stoßlüftung).";
 
-"ExposureDetection_Guide_Symptoms" = "Achten Sie auf Symptome. Symptome können auch bei geimpften und bei genesenen Personen auftreten. Falls Sie sich krank fühlen oder Symptome auftreten, wenden Sie sich bitte an Ihre Hausarztpraxis.";
+"ExposureDetection_Guide_Symptoms" = "Achten Sie auf Krankheitssymptome. Symptome können auch bei geimpften und bei genesenen Personen auftreten. Falls Sie sich krank fühlen oder Symptome auftreten, wenden Sie sich bitte an Ihre Hausarztpraxis.";
 
 "ExposureDetection_Guide_Home" = "Begeben Sie sich, wenn möglich, nach Hause bzw. bleiben Sie zu Hause und vermeiden Sie Begegnungen außerhalb Ihres Haushalts.";
 
@@ -126,11 +126,11 @@
 "ExposureDetection_Guide_Title" = "Lassen Sie sich testen, auch wenn Sie keine Symptome haben. Bei einer Warnung über ein erhöhtes Risiko (\"Rote Kachel\") haben Sie Anspruch auf einen kostenlosen Test. Dies muss nicht notwendigerweise ein PCR-Test sein.
 ";
 
-"ExposureDetection_Guide_Point1" = "Testmöglichkeiten finden Sie hier  oder wenden Sie sich an Ihre Hausarztpraxis oder Apotheke.";
-"ExposureDetection_Guide_Point1_LinkText" = "Testmöglichkeiten finden Sie hier";
+"ExposureDetection_Guide_Point1" = "Testmöglichkeiten finden Sie hier. Sie können sich auch an Ihre Hausarztpraxis oder Apotheke wenden.";
+"ExposureDetection_Guide_Point1_LinkText" = "Testmöglichkeiten finden Sie hier.";
 
 "ExposureDetection_Guide_Point2" = "Weitere Informationen in der FAQ zum Testablauf.";
-"ExposureDetection_Guide_Point2_LinkText" = "FAQ zum Testablauf";
+"ExposureDetection_Guide_Point2_LinkText" = "Weitere Informationen in der FAQ zum Testablauf.";
 
 "ExposureDetection_Explanation_Title" = "Infektionsrisiko";
 
@@ -220,7 +220,7 @@
 
 "ExposureDetection_Info_Contagion_Footer" = "Weitere Hinweise finden Sie in der FAQ zur freiwilligen Selbstquarantäne.";
 
-"ExposureDetection_Info_Contagion_Footer_LinkText" = "FAQ zur freiwilligen Selbstquarantäne";
+"ExposureDetection_Info_Contagion_Footer_LinkText" = "Weitere Hinweise finden Sie in der FAQ zur freiwilligen Selbstquarantäne.";
 
 /* Survey Errors */
 
@@ -2792,27 +2792,15 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "HealthCertificate_Overview_Covid_Title" = "Digitales COVID-Zertifikat der EU";
 
-"VaccinationCertificate_title" = "Digitaler\n**COVID-Impfnachweis der EU**";
-
-"VaccinationCertificate_partiallyVaccinated" = "Unvollständiger Impfschutz";
-
-"VaccinationCertificate_vaccinationValidUntil" = "Gültig bis einschließlich %@";
-
 "HealthCertificate_Overview_Covid_Certificate_Description" = "Ein QR-Code mit dem Zertifikat";
 
+"HealthCertificate_Overview_AdmissionState_Title" = "Status-Nachweis";
+
+"HealthCertificate_Overview_TwoGCertificate" = "2G-Zertifikat";
+
+"HealthCertificate_Overview_TestCertificate" = "Testzertifikat";
+
 "HealthCertificate_Overview_News" = "Es gibt Neuigkeiten zu Ihren Zertifikaten";
-
-/* - Test Certificate Info */
-
-"TestCertificate_Info_title" = "Digitales\n**COVID-Testzertifikat der EU**";
-
-"TestCertificate_Info_description" = "Registrieren Sie einen Test auf der Startseite und stimmen Sie zu, ein digitales Testzertifikat zu erhalten. Sobald das Zertifikat vorliegt, wird es hier angezeigt.";
-
-/* - Test Certificate */
-
-"TestCertificate_title" = "Digitales\n**COVID-Testzertifikat der EU**";
-
-"TestCertificate_testDate" = "Test durchgeführt am %@";
 
 /* - Test Certificate Request */
 
@@ -2901,6 +2889,44 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 "HealthCertificate_unified_QR_code_notice" = "Dieser QR-Code lässt sich verlässlich mit der CovPassCheck-App überprüfen.";
 
 "HealthCertifiedPerson_title" = "Digitales COVID-Zertifikat der EU";
+
+/* Health Certified Person Admission State */
+
+"HealthCertifiedPerson_AdmissionState_title" = "Status-Nachweis";
+
+"HealthCertifiedPerson_AdmissionState_subtitle2G" = "2G";
+
+"HealthCertifiedPerson_AdmissionState_subtitle2GPlusPCR" = "2G+ PCR-Test";
+
+"HealthCertifiedPerson_AdmissionState_subtitle2GPlusAntigen" = "2G+ Schnelltest";
+
+"HealthCertifiedPerson_AdmissionState_subtitle3G" = "3G";
+
+"HealthCertifiedPerson_AdmissionState_subtitle3GPlus" = "3G+";
+
+"HealthCertifiedPerson_AdmissionState_description2G" = "Ihre Zertifikate erfüllen die 2G-Regel. Wenn Sie Ihren aktuellen Status vorweisen müssen, schließen sie diese Ansicht und zeigen Sie den QR-Code auf der Zertifikatsübersicht.";
+
+"HealthCertifiedPerson_AdmissionState_description2GPlusPCR" = "Ihre Zertifikate erfüllen die 2G-Plus-Regel. Wenn Sie Ihren aktuellen Status vorweisen müssen, schließen sie diese Ansicht und zeigen Sie den QR-Code auf der Zertifikatsübersicht.";
+
+"HealthCertifiedPerson_AdmissionState_description2GPlusAntigen" = "Ihre Zertifikate erfüllen die 2G-Plus-Regel. Wenn Sie Ihren aktuellen Status vorweisen müssen, schließen sie diese Ansicht und zeigen Sie den QR-Code auf der Zertifikatsübersicht.";
+
+"HealthCertifiedPerson_AdmissionState_description3G" = "Ihre Zertifikate erfüllen die 3G-Regel. Wenn Sie Ihren aktuellen Status vorweisen müssen, schließen sie diese Ansicht und zeigen Sie den QR-Code auf der Zertifikatsübersicht.";
+
+"HealthCertifiedPerson_AdmissionState_description3GPlus" = "Ihre Zertifikate erfüllen die 3G-Plus-Regel. Wenn Sie Ihren aktuellen Status vorweisen müssen, schließen sie diese Ansicht und zeigen Sie den QR-Code auf der Zertifikatsübersicht.";
+
+"HealthCertifiedPerson_AdmissionStateFAQ" = "Mehr Informationen finden Sie in den %@.";
+
+"HealthCertifiedPerson_AdmissionState_FAQ_Placeholder" = "FAQ";
+
+"HealthCertifiedPerson_AdmissionState_shortTitle_title2G" = "2G";
+
+"HealthCertifiedPerson_AdmissionState_shortTitle_title2GPlus" = "2G+";
+
+"HealthCertifiedPerson_AdmissionState_shortTitle_title3G" = "3G";
+
+"HealthCertifiedPerson_AdmissionState_shortTitle_title3GPlus" = "3G+";
+
+/* Health Certified Person Hint */
 
 "HealthCertifiedPerson_VaccinationHint_title" = "Impfstatus";
 
@@ -3259,9 +3285,9 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "UniversalQRScanner_MaxPersonAmountAlert_errorTitle" = "Fehler";
 
-"UniversalQRScanner_MaxPersonAmountAlert_warningMessage" = "Die Corona-Warn-App darf nicht zur Zertifikatsprüfung durch Dritte verwendet werden. Nutzen Sie dafür die CovPassCheck-App.\n\nSie können maximal für %i Personen Zertifikate hinzufügen. Danach können Sie keine neuen Zertifikate mehr für weitere Personen einscannen.\n\nWeitere Informationen zur Zertifikatsprüfung finden Sie in den FAQ.";
+"UniversalQRScanner_MaxPersonAmountAlert_warningMessage" = "Die Corona-Warn-App darf nicht zur Prüfung fremder Zertifikate verwendet werden. Nutzen Sie dafür die CovPassCheck-App.\n\nSie können maximal für %i Personen Zertifikate hinzufügen. Danach können Sie keine neuen Zertifikate mehr für weitere Personen einscannen.\n\nWeitere Informationen zur Zertifikatsprüfung finden Sie in den FAQ.";
 
-"UniversalQRScanner_MaxPersonAmountAlert_errorMessage" = "Die Corona-Warn-App darf nicht zur Zertifikatsprüfung durch Dritte verwendet werden. Nutzen Sie dafür die CovPassCheck-App.\n\nSie können maximal für %i Personen Zertifikate hinzufügen. Sie können keine neuen Zertifikate mehr für weitere Personen einscannen.\n\nWeitere Informationen zur Zertifikatsprüfung finden Sie in den FAQ.";
+"UniversalQRScanner_MaxPersonAmountAlert_errorMessage" = "Die Corona-Warn-App darf nicht zur Prüfung fremder Zertifikate verwendet werden. Nutzen Sie dafür die CovPassCheck-App.\n\nSie können maximal für %i Personen Zertifikate hinzufügen. Sie können keine neuen Zertifikate mehr für weitere Personen einscannen.\n\nWeitere Informationen zur Zertifikatsprüfung finden Sie in den FAQ.";
 
 "UniversalQRScanner_MaxPersonAmountAlert_covPassCheckButton" = "Download CovPassCheck-App";
 

@@ -186,7 +186,7 @@
 
 "ExposureDetection_Info_HygieneRules_Title" = "Zasady higieny";
 
-"ExposureDetection_Info_HygieneRules_Point1" = "Podczas spotkań z innymi ludźmi należy nosić maseczkę.";
+"ExposureDetection_Info_HygieneRules_Point1" = "Załóż maseczkę na twarz, mając kontakt z innymi osobami.";
 
 "ExposureDetection_Info_HygieneRules_Point2" = "Zachowuj odległość co najmniej 1,5 metra od innych osób.";
 
@@ -216,11 +216,11 @@
 
 "ExposureDetection_Info_Contagion_Point6" = "W przypadku pytań dotyczących kwarantanny skontaktuj się z departamentem zdrowia publicznego.";
 
-"ExposureDetection_Info_Contagion_Point6_LinkText" = "Często zadawane pytania na temat kwarantanny";
+"ExposureDetection_Info_Contagion_Point6_LinkText" = "pytań dotyczących kwarantanny";
 
 "ExposureDetection_Info_Contagion_Footer" = "Dodatkowe informacje są dostępne na stronie „Często zadawane pytania” dotyczącej dobrowolnej samoizolacji.";
 
-"ExposureDetection_Info_Contagion_Footer_LinkText" = "Często zadawane pytania na temat dobrowolnej samoizolacji";
+"ExposureDetection_Info_Contagion_Footer_LinkText" = "Często zadawane pytania";
 
 /* Survey Errors */
 "SurveyConsent_Error_Title" = "Błąd";
@@ -747,13 +747,13 @@
 
 "ExposureSubmissionResult_testNegative_furtherInfos_title" = "Inne informacje:";
 
-"ExposureSubmissionResult_testNegative_furtherInfos_listItem1" = "Nadal nie czujesz się dobrze? Jeśli czujesz się bardzo słabo i/lub objawy się nasiliły, skontaktuj się z lekarzem rodzinnym.";
+"ExposureSubmissionResult_testNegative_furtherInfos_desc" = "Czy masz ostre objawy?";
 
-"ExposureSubmissionResult_testNegative_furtherInfos_listItem2" = "Pozostań w domu, dopóki nie poczujesz się znowu dobrze. Zarażenie się koronawirusem (SARS-CoV-2) w stanie osłabienia przez inną infekcję może prowadzić do poważnej choroby.";
+"ExposureSubmissionResult_testNegative_furtherInfos_listItem1" = "Pozostań w domu tak długo, jak to możliwe, dopóki nie poczujesz się dobrze. Zmniejsz swoje ryzyko zakażenia koronawirusem dodatkowo oprócz innej infekcji.";
 
-"ExposureSubmissionResult_testNegative_furtherInfos_listItem3" = "Nie idź do pracy, jeśli nie czujesz się dobrze, aby nie stwarzać zagrożenia dla innych osób.";
+"ExposureSubmissionResult_testNegative_furtherInfos_listItem2" = "Nie idź do pracy, jeśli nie czujesz się dobrze, aby nie stwarzać zagrożenia dla innych osób.";
 
-"ExposureSubmissionResult_furtherInfos_hint_testAgain" = "Jeśli objawy nasilą się, może być konieczne wykonanie kolejnego testu na SARS-CoV-2.";
+"ExposureSubmissionResult_testNegative_furtherInfos_listItem3" = "Jeżeli poczujesz się bardzo źle lub objawy się nasilą, skontaktuj się z lekarzem rodzinnym. Może on również Ci doradzić, czy powinieneś (powinnaś) wykonać kolejny test w kierunku SARS-CoV-2.";
 
 "ExposureSubmissionResult_testInvalid" = "Ustalenie wyniku Twojego testu jest niemożliwe";
 
@@ -918,7 +918,7 @@
 
 "ExposureSubmissionResult_Negative_Antigen_Proof_Title" = " ";
 
-"ExposureSubmissionResult_Negative_Antigen_Proof_Desc" = "Wyświetlony tutaj wynik testu jest prywatny, ale niektóre przepisy prawne mogą wymagać jego udostępnienia. Jeśli to wymagane, możesz go udostępnić na jeden z podanych sposobów.";
+"ExposureSubmissionResult_Negative_Antigen_Proof_Desc" = "Do rzetelnej weryfikacji wyświetlanego tutaj wyniku wymagany jest unijny cyfrowy certyfikat Covid. Jeśli podczas rejestracji testu zażądałeś(-aś) cyfrowego certyfikatu testu, a punkt testowy wydaje cyfrowe certyfikaty, możesz znaleźć swój cyfrowy certyfikat testu, korzystając z linku podanego powyżej. Znajdziesz go również na karcie „Certyfikaty”.\nProsimy również o zapoznanie się z kryteriami uznawania i ważności certyfikatów testów w kontekście celu, dla którego potrzebujesz dowodu.";
 
 "ExposureSubmissionResult_Negative_Antigen_NoProof_Title" = "Brak funkcji weryfikacji";
 
@@ -1595,10 +1595,18 @@
 /* New Version Features */
 "NewVersionFeatures_Info_about_abb_information" = "Dane o zmianach w tej wersji można znaleźć w informacjach o aplikacji w sekcji „Nowe funkcje”.";
 
-/* Version 2.15 */
-"NewVersionFeature_215_ticketValidation_title" = "Weryfikacja certyfikatów podczas rezerwacji biletów";
+/* Version 2.16 */
+"NewVersionFeature_216_2g_title" = "Dowód 2G+ status";
 
-"NewVersionFeature_215_ticketValidation_description" = "Podczas rezerwacji biletu możesz przedstawić dowód zaszczepienia, statusu ozdrowieńca lub negatywnego wyniku testu. W tym celu zeskanuj kod QR wyświetlony w systemie biletowym, a następnie wybierz odpowiedni certyfikat w aplikacji. Wynik weryfikacji certyfikatu jest przesyłany do systemu biletowego przez partnera weryfikacyjnego.";
+"NewVersionFeature_216_2g_description" = "Jeśli posiadasz ważny certyfikat szczepienia lub certyfikat statusu ozdrowieńca i dodasz w aplikacji certyfikat testu, zostaną one wyświetlone razem w przeglądzie certyfikatów. Możesz przełączać się między kodem QR certyfikatu szczepienia lub certyfikatem statusu ozdrowieńca a certyfikatem testu za pomocą odpowiedniego elementu sterującego. Oba kody QR muszą być zweryfikowane przez aplikację CovPassCheck, jeśli wymagany jest dowód 2G+.";
+
+"NewVersionFeature_216_negativeTestNotice_title" = "Informacje w przypadku negatywnego wyniku testu";
+
+"NewVersionFeature_216_negativeTestNotice_description" = "Jeśli wynik testu będzie negatywny, otrzymasz teraz dodatkowe zalecenia w przypadku nieustąpienia ostrych objawów.";
+
+"NewVersionFeature_216_highRiskNotification_title" = "Powiadomienie o zwiększonym ryzyku";
+
+"NewVersionFeature_216_highRiskNotification_description" = "Teraz otrzymasz powiadomienie, jeśli będziesz mieć zwiększone ryzyko zakażenia, nawet jeśli aplikacja będzie otwarta. Ma to na celu zapobieżenie przeoczeniu ostrzeżenia o ryzyku na karcie statusu, jeśli w danej chwili korzystasz z innej karty. Ponadto na karcie statusu będzie wyświetlać się czerwona kropka, dopóki nie otworzysz tej karty ponownie.";
 
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Rejestrowanie narażenia w różnych krajach";
@@ -2695,25 +2703,15 @@
 
 "HealthCertificate_Overview_Covid_Title" = "Unijny cyfrowy certyfikat COVID";
 
-"VaccinationCertificate_title" = "Unijne\n**cyfrowy certyfikat szczepienia**";
-
-"VaccinationCertificate_partiallyVaccinated" = "Niepełne zaszczepienie";
-
-"VaccinationCertificate_vaccinationValidUntil" = "Ważne do %@";
-
 "HealthCertificate_Overview_Covid_Certificate_Description" = "Kod QR z certyfikatem";
 
+"HealthCertificate_Overview_AdmissionState_Title" = "Dowód status";
+
+"HealthCertificate_Overview_TwoGCertificate" = "Certyfikat 2G";
+
+"HealthCertificate_Overview_TestCertificate" = "Certyfikat testu";
+
 "HealthCertificate_Overview_News" = "Dostępne są nowe informacje na temat Twoich certyfikatów";
-
-/* - Test Certificate Info */
-"TestCertificate_Info_title" = "Unijny\n**cyfrowy certyfikat testu na COVID**";
-
-"TestCertificate_Info_description" = "Zarejestruj test na ekranie głównym i wyraź zgodę na otrzymanie cyfrowego certyfikatu testu. Gdy tylko certyfikat będzie dostępny, pojawi się w tym miejscu.";
-
-/* - Test Certificate */
-"TestCertificate_title" = "Unijny\n**cyfrowy certyfikat testu na COVID**";
-
-"TestCertificate_testDate" = "Test wykonany dnia %@";
 
 /* - Test Certificate Request */
 "TestCertificateRequest_title" = "Unijny\n**cyfrowy certyfikat testu na COVID**";
@@ -2796,6 +2794,42 @@
 
 "HealthCertifiedPerson_title" = "Unijny cyfrowy certyfikat COVID";
 
+/* Health Certified Person Admission State */
+"HealthCertifiedPerson_AdmissionState_title" = "Dowód status";
+
+"HealthCertifiedPerson_AdmissionState_subtitle2G" = "2G";
+
+"HealthCertifiedPerson_AdmissionState_subtitle2GPlusPCR" = "2G+ test PCR";
+
+"HealthCertifiedPerson_AdmissionState_subtitle2GPlusAntigen" = "2G+ szybki test";
+
+"HealthCertifiedPerson_AdmissionState_subtitle3G" = "3G";
+
+"HealthCertifiedPerson_AdmissionState_subtitle3GPlus" = "3G+";
+
+"HealthCertifiedPerson_AdmissionState_description2G" = "Twoje certyfikaty są zgodne z zasadą 2G. Jeśli musisz udowodnić swój aktualny status, zamknij ten widok i wyświetl kod QR w przeglądzie certyfikatów.";
+
+"HealthCertifiedPerson_AdmissionState_description2GPlusPCR" = "Twoje certyfikaty są zgodne z zasadą 2G plus. Jeśli musisz udowodnić swój aktualny status, zamknij ten widok i wyświetl kod QR w przeglądzie certyfikatów.";
+
+"HealthCertifiedPerson_AdmissionState_description2GPlusAntigen" = "Twoje certyfikaty są zgodne z zasadą 2G plus. Jeśli musisz udowodnić swój aktualny status, zamknij ten widok i wyświetl kod QR w przeglądzie certyfikatów.";
+
+"HealthCertifiedPerson_AdmissionState_description3G" = "Twoje certyfikaty są zgodne z zasadą 3G. Jeśli musisz udowodnić swój aktualny status, zamknij ten widok i pokaż kod QR w przeglądzie certyfikatów.";
+
+"HealthCertifiedPerson_AdmissionState_description3GPlus" = "Twoje certyfikaty są zgodne z zasadą 3G plus. Jeśli musisz udowodnić swój aktualny status, zamknij ten widok i pokaż kod QR w przeglądzie certyfikatów.";
+
+"HealthCertifiedPerson_AdmissionStateFAQ" = "Więcej informacji znajduje się na naszej stronie %@.";
+
+"HealthCertifiedPerson_AdmissionState_FAQ_Placeholder" = "Często zadawane pytania";
+
+"HealthCertifiedPerson_AdmissionState_shortTitle_title2G" = "2G";
+
+"HealthCertifiedPerson_AdmissionState_shortTitle_title2GPlus" = "2G+";
+
+"HealthCertifiedPerson_AdmissionState_shortTitle_title3G" = "3G";
+
+"HealthCertifiedPerson_AdmissionState_shortTitle_title3GPlus" = "3G+";
+
+/* Health Certified Person Hint */
 "HealthCertifiedPerson_VaccinationHint_title" = "Status zaszczepienia";
 
 "HealthCertifiedPerson_partiallyVaccinated" = "Nie otrzymałeś(-aś jeszcze wszystkich zaplanowanych szczepień. W związku z tym Twoja ochrona poszczepienna nie jest jeszcze pełna.";
@@ -3132,9 +3166,9 @@
 
 "UniversalQRScanner_MaxPersonAmountAlert_errorTitle" = "Błąd";
 
-"UniversalQRScanner_MaxPersonAmountAlert_warningMessage" = "Aplikacja Corona-Warn-App nie może być używana do weryfikacji zewnętrznych certyfikatów. Do tego celu należy użyć aplikacji CovPassCheck.\n\nMożesz dodać certyfikaty dla maksymalnie %i osób. Po osiągnięciu tego limitu nie możesz skanować nowych certyfikatów dla kolejnych osób.\n\nWięcej informacji na temat certyfikatów szczepień znajdziesz na naszej stronie „Często zadawane pytania”.";
+"UniversalQRScanner_MaxPersonAmountAlert_warningMessage" = "Aplikacja Corona-Warn-App nie może być używana do weryfikacji zewnętrznych certyfikatów. Do tego celu należy użyć aplikacji CovPassCheck.\n\nMożesz dodać certyfikaty dla maksymalnie %i osób. Po osiągnięciu tego limitu nie możesz skanować nowych certyfikatów dla kolejnych osób.\n\nWięcej informacji na temat weryfikacji certyfikatów znajdziesz na naszej stronie „Często zadawane pytania”.";
 
-"UniversalQRScanner_MaxPersonAmountAlert_errorMessage" = "Aplikacja Corona-Warn-App nie może być używana do weryfikacji zewnętrznych certyfikatów. Do tego celu należy użyć aplikacji CovPassCheck.\n\nMożesz dodać certyfikaty dla maksymalnie %i osób. Nie możesz skanować nowych certyfikatów dla kolejnych osób.\n\nWięcej informacji na temat certyfikatów szczepień znajdziesz na naszej stronie „Często zadawane pytania”.";
+"UniversalQRScanner_MaxPersonAmountAlert_errorMessage" = "Aplikacja Corona-Warn-App nie może być używana do weryfikacji zewnętrznych certyfikatów. Do tego celu należy użyć aplikacji CovPassCheck.\n\nMożesz dodać certyfikaty dla maksymalnie %i osób. Nie możesz skanować nowych certyfikatów dla kolejnych osób.\n\nWięcej informacji na temat weryfikacji certyfikatów znajdziesz na naszej stronie „Często zadawane pytania”.";
 
 "UniversalQRScanner_MaxPersonAmountAlert_covPassCheckButton" = "Pobierz aplikację CovPassCheck";
 

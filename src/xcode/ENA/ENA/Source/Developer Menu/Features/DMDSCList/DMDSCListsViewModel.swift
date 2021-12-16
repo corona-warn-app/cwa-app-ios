@@ -52,7 +52,7 @@ final class DMDSCListsViewModel {
 				backgroundColor: .enaColor(for: .buttonPrimary),
 				action: {
 					guard var metaData = self.store.dscList else {
-						Log.info("no meta data found to manipulate")
+						Log.info("no meta data found to manipulate", log: .debugMenu)
 						return
 					}
 					metaData.timestamp = Date(timeIntervalSinceNow: -DSCListProvider.updateInterval)
@@ -62,6 +62,7 @@ final class DMDSCListsViewModel {
 							title: "yes, refresh it!",
 							style: .destructive,
 							handler: { [weak self] _ in
+								Log.info("Refresh DSCList.", log: .debugMenu)
 								self?.store.dscList = metaData
 							}
 						),
@@ -84,6 +85,7 @@ final class DMDSCListsViewModel {
 							title: "Clean it!",
 							style: .destructive,
 							handler: { [weak self] _ in
+								Log.info("Reset DSCList.", log: .debugMenu)
 								self?.store.dscList = nil
 								exit(0)
 							}

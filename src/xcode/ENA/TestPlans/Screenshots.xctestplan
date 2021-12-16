@@ -71,6 +71,7 @@
         "ENAUITests_09_TraceLocations\/test_screenshots_of_traceLocation_print_flow()",
         "ENAUITests_10_CheckIns\/test_screenshot_WHEN_scan_QRCode_THEN_checkin_and_checkout()",
         "ENAUITests_12_AntigenTestProfile\/test_screenshot_FIRST_CreateAntigenTestProfile_THEN_EditProfile_THEN_DeleteProfile()",
+        "ENAUITests_13_CreateHealthCertificate\/test_screenshot_2GPlusCertificate()",
         "ENAUITests_13_CreateHealthCertificate\/test_screenshot_CompleteVaccinationProtectionWithTestCertificate()",
         "ENAUITests_13_CreateHealthCertificate\/test_screenshot_CreateAntigenTestProfileWithFirstCertificate()",
         "ENAUITests_13_CreateHealthCertificate\/test_screenshot_CreateAntigenTestProfileWithLastCertificate()",
