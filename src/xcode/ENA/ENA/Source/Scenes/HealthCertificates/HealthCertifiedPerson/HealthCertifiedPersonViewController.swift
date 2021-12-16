@@ -166,6 +166,7 @@ class HealthCertifiedPersonViewController: UIViewController, UITableViewDataSour
 		guard editingStyle == .delete, let healthCertificate = viewModel.healthCertificate(for: indexPath) else { return }
 
 		let vaccinationHintWasVisible = viewModel.vaccinationHintIsVisible
+		let admissionStateWasVisible = viewModel.admissionStateIsVisible
 
 		self.didSwipeToDelete(healthCertificate) { [weak self] in
 			guard let self = self else { return }
@@ -181,7 +182,13 @@ class HealthCertifiedPersonViewController: UIViewController, UITableViewDataSour
 				} else if !vaccinationHintWasVisible && self.viewModel.vaccinationHintIsVisible {
 					insertIndexPaths.append(IndexPath(row: 0, section: HealthCertifiedPersonViewModel.TableViewSection.vaccinationHint.rawValue))
 				}
-
+				
+				if !self.viewModel.admissionStateIsVisible && admissionStateWasVisible {
+					deleteIndexPaths.append(IndexPath(row: 0, section: HealthCertifiedPersonViewModel.TableViewSection.admissionState.rawValue))
+				} else if self.viewModel.admissionStateIsVisible && !admissionStateWasVisible {
+					insertIndexPaths.append(IndexPath(row: 0, section: HealthCertifiedPersonViewModel.TableViewSection.admissionState.rawValue))
+				}
+				
 				tableView.deleteRows(at: deleteIndexPaths, with: .automatic)
 				tableView.insertRows(at: insertIndexPaths, with: .automatic)
 			}, completion: { _ in
