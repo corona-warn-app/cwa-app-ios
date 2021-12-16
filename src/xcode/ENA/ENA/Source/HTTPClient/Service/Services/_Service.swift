@@ -94,13 +94,13 @@ protocol Service {
 		_ locator: Locator
 	) -> [String: String]? where R: ReceiveResource
 
-	/// override to indicate for given status codes a special use case cache handling will be done
+	/// override to indicate for given status codes a special cache policy handling will be done
 	///
 	/// - Parameters:
 	///   - resource: Generic ("R") object and normally of type ReceiveResource.
 	///   - statusCode: the status code of the URLResponse
-	///   - return: true if no special cache use case handling exists for the given status code
-	func hasNoStatusCodeCacheUseCase<R>(
+	///   - return: true if no special cache policy handling exists for the given status code
+	func hasNoStatusCodeCachePolicy<R>(
 		_ resource: R,
 		_ statusCode: Int
 	) -> Bool where R: Resource

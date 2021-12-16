@@ -96,7 +96,7 @@ class CachedRestService: Service {
 		return ["If-None-Match": cachedModel.eTag]
 	}
 
-	func hasNoStatusCodeCacheUseCase<R>(
+	func hasNoStatusCodeCachePolicy<R>(
 		_ resource: R,
 		_ statusCode: Int
 	) -> Bool where R: Resource {
@@ -105,7 +105,7 @@ class CachedRestService: Service {
 			return true
 		}
 		return !usage.contains(
-			CacheUseCase.statusCode(statusCode)
+			CacheUsePolicy.statusCode(statusCode)
 		)
 	}
 

@@ -70,7 +70,7 @@ extension Service {
 				}
 				
 				if let error = error {
-					cacheUseCaseHandling(.noNetwork, error, resource, completion)
+					cachePolicyHandling(.noNetwork, error, resource, completion)
 					return
 				}
 								
@@ -90,8 +90,8 @@ extension Service {
 				Log.debug("URL Response \(response.statusCode)", log: .client)
 				#endif
 
-				guard hasNoStatusCodeCacheUseCase(resource, response.statusCode) else {
-					cacheUseCaseHandling(.statusCode(response.statusCode), nil, resource, completion)
+				guard hasNoStatusCodeCachePolicy(resource, response.statusCode) else {
+					cachePolicyHandling(.statusCode(response.statusCode), nil, resource, completion)
 					return
 				}
 
@@ -150,7 +150,7 @@ extension Service {
 		return nil
 	}
 
-	func hasNoStatusCodeCacheUseCase<R>(
+	func hasNoStatusCodeCachePolicy<R>(
 		_ resource: R,
 		_ statusCode: Int
 	) -> Bool where R: Resource {
@@ -198,25 +198,25 @@ extension Service {
 	// MARK: - Private
 
 	/// checks if special cache handlings needs to be done. If looks up if cached data or default data can be returned.
-	/// Then the special use case handling is done otherwise the original error is given in completion handler
+	/// Then the special cache policy handling is done otherwise the original error is given in completion handler
 	///
 	/// - Parameters:
-	///   - cacheUseCase: the caching use case that gets handled
-	///   - error: original error as a fallback for some cached use cases
+	///   - cachePolicy: the caching policy that gets handled
+	///   - error: original error as a fallback for some cached policies
 	///   - resource: Generic ("R") object and normally of type ReceiveResource.
 	///   - completion: Swift-Result of loading. If successful, it contains the concrete object of our call.
-	private func cacheUseCaseHandling<R>(
-		_ cacheUseCase: CacheUseCase,
+	private func cachePolicyHandling<R>(
+		_ cachePolicy: CacheUsePolicy,
 		_ error: Error?,
 		_ resource: R,
 		_ completion: @escaping (Result<R.Receive.ReceiveModel, ServiceError<R.CustomError>>) -> Void
 	) where R: Resource {
 		
-		// Check if we can handle caching use case handling
-		guard case let .caching(usage) = resource.type,
-			  usage.contains(cacheUseCase) else {
+		// Check if we can handle caching policy handling
+		guard case let .caching(policies) = resource.type,
+			  policies.contains(cachePolicy) else {
 				  // Otherwise, fall back to the default
-				  Log.info("No cache use case handling defined. Fallback to default error handling")
+				  Log.info("No cache policy handling defined. Fallback to default error handling")
 				  responseNetworkErrorHandling(error, resource, completion)
 				  return
 		}
@@ -227,15 +227,15 @@ extension Service {
 			cached(resource, completion)
 			return
 		}
-		// If not, we will handle now the cache use cases
+		// If not, we will handle now the policy cases
 		else {
-			Log.info("Found nothing cached. Handling cache use cases")
-			switch cacheUseCase {
+			Log.info("Found nothing cached. Handling policy cases")
+			switch cachePolicy {
 			case .noNetwork:
 				responseNetworkErrorHandling(error, resource, completion)
 			case .statusCode(let statusCodes):
 				Log.error("Unexpected server error: (\(statusCodes)", log: .client)
-				completion(.failure(customError(in: resource, for: .unexpectedServerError(statusCodes))))
+				failureOrDefaultValueHandling(resource, .unexpectedServerError(statusCodes), completion)
 			}
 		}
 	}
@@ -253,11 +253,11 @@ extension Service {
 	) where R: Resource {
 		guard let error = error else {
 			Log.error("No custom error given", log: .client)
-			completion(.failure(customError(in: resource, for: .invalidResponse)))
+			failureOrDefaultValueHandling(resource, .invalidResponse, completion)
 			return
 		}
 		Log.info("No network connection (.transportationError)", log: .client)
-		completion(.failure(customError(in: resource, for: .transportationError(error))))
+		failureOrDefaultValueHandling(resource, .transportationError(error), completion)
 		return
 	}
 }

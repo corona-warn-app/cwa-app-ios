@@ -11,8 +11,8 @@ struct AllowListResource: Resource {
 	init() {
 		self.locator = .validationServiceAllowlist()
 		self.type = .caching(
-			// define special use cases to handle from the cache
-			Set<CacheUseCase>([.noNetwork])
+			// define special cache policies to handle from the cache
+			Set<CacheUsePolicy>([.noNetwork])
 				.statusCode(400...409)
 				.statusCode(500...509)
 		)

@@ -224,7 +224,7 @@ class CachedRestServiceTests: XCTestCase {
 		waitForExpectations(timeout: .short)
 	}
 	
-	func test_CachedValueIsLoadedWithDefinedCacheUseCases() throws {
+	func test_CachedValueIsLoadedWithDefinedCachePolicyStatusCode() throws {
 		let eTag = "DummyDataETag"
 		let cachedDummyModel = DummyResourceModel(
 			dummyValue: "Donald"
@@ -240,7 +240,7 @@ class CachedRestServiceTests: XCTestCase {
 		let cache = KeyValueCacheFake()
 		cache[locator.hashValue] = CacheData(data: cachedDummyData, eTag: eTag, date: Date())
 
-		// Return nil and http code 500. Normally this would lead to a look up for default values. But later we define a cache use case to return cache values for a specific http status code (500)
+		// Return nil and http code 500. Normally this would lead to a look up for default values. But later we define a cache policy to return cache values for a specific http status code (500)
 		let stack = MockNetworkStack(
 			httpStatus: 500,
 			headerFields: [
@@ -277,12 +277,12 @@ class CachedRestServiceTests: XCTestCase {
 		waitForExpectations(timeout: .short)
 	}
 	
-	func test_NoCachedAndNoValueIsLoadedWithDefinedCacheUseCases() throws {
+	func test_NoCachedAndNoValueIsLoadedWithDefinedCachePolicyNoNetwork() throws {
 		
 		// Store the dummy data in the cache.
 		let cache = KeyValueCacheFake()
 
-		// Return nil and http code 500. Normally this would lead to a look up for default values. But later we define a cache use case to return cache values for a specific http status code (500)
+		// Return nil and http code 500. Normally this would lead to a look up for default values. But later we define a cache policy to return cache values for a specific http status code (500)
 		let stack = MockNetworkStack(
 			httpStatus: 500,
 			responseData: nil
