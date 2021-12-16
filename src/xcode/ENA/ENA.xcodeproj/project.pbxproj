@@ -3487,12 +3487,12 @@
 			path = CoronaTestService;
 			sourceTree = "<group>";
 		};
-		01131E40261610F7001DB2CD /* __test__ */ = {
+		01131E40261610F7001DB2CD /* __tests__ */ = {
 			isa = PBXGroup;
 			children = (
 				01131E41261610F7001DB2CD /* TraceLocationsConfigurationViewModelTest.swift */,
 			);
-			path = __test__;
+			path = __tests__;
 			sourceTree = "<group>";
 		};
 		01164CCF26C55187007F9C3E /* Info */ = {
@@ -3558,13 +3558,13 @@
 			path = Cells;
 			sourceTree = "<group>";
 		};
-		0123D5962501381900A91838 /* __test__ */ = {
+		0123D5962501381900A91838 /* __tests__ */ = {
 			isa = PBXGroup;
 			children = (
 				0123D5972501383100A91838 /* ExposureSubmissionErrorTests.swift */,
 				CDF27BD2246ADBA70044D32B /* ExposureSubmissionServiceTests.swift */,
 			);
-			path = __test__;
+			path = __tests__;
 			sourceTree = "<group>";
 		};
 		0130694A2705D46F00D945E3 /* Tooltip */ = {
@@ -3651,7 +3651,7 @@
 		0138F63A25F1173E00A9B075 /* Overview */ = {
 			isa = PBXGroup;
 			children = (
-				01DF18692603B16800A002E4 /* __test__ */,
+				01DF18692603B16800A002E4 /* __tests__ */,
 				0138F64025F1173F00A9B075 /* TraceLocationsOverviewViewController.swift */,
 				0138F63F25F1173F00A9B075 /* TraceLocationsOverviewViewModel.swift */,
 				0138F63D25F1173F00A9B075 /* TraceLocationsOverviewEmptyStateViewModel.swift */,
@@ -3716,7 +3716,7 @@
 		0138F6FE25F6782F00A9B075 /* Configuration */ = {
 			isa = PBXGroup;
 			children = (
-				01131E40261610F7001DB2CD /* __test__ */,
+				01131E40261610F7001DB2CD /* __tests__ */,
 				0138F70025F6784000A9B075 /* TraceLocationConfigurationViewController.swift */,
 				01DF188D2608D3BB00A002E4 /* TraceLocationConfigurationViewController.xib */,
 				0138F6FF25F6784000A9B075 /* TraceLocationConfigurationViewModel.swift */,
@@ -3724,13 +3724,13 @@
 			path = Configuration;
 			sourceTree = "<group>";
 		};
-		014086B52588F8EB00E9E5B2 /* __test__ */ = {
+		014086B52588F8EB00E9E5B2 /* __tests__ */ = {
 			isa = PBXGroup;
 			children = (
 				014086C42589040200E9E5B2 /* DiaryEditEntriesCellModelTest.swift */,
 				014086B72588F95000E9E5B2 /* DiaryEditEntriesViewModelTest.swift */,
 			);
-			path = __test__;
+			path = __tests__;
 			sourceTree = "<group>";
 		};
 		0144DD8B25D40C9700CFB1D1 /* __tests__ */ = {
@@ -3815,7 +3815,7 @@
 		017D8D96263ACD760009E91C /* HealthCertificate */ = {
 			isa = PBXGroup;
 			children = (
-				017D8D9B263B02520009E91C /* __test__ */,
+				017D8D9B263B02520009E91C /* __tests__ */,
 				017D8D9C263B02860009E91C /* HealthCertificateService.swift */,
 				34079850274D3D40007E6071 /* HealthCertificateService+UITestingMethods.swift */,
 				017D8DAB263BEF920009E91C /* HealthCertificateServiceError.swift */,
@@ -3825,20 +3825,20 @@
 			path = HealthCertificate;
 			sourceTree = "<group>";
 		};
-		017D8D9B263B02520009E91C /* __test__ */ = {
+		017D8D9B263B02520009E91C /* __tests__ */ = {
 			isa = PBXGroup;
 			children = (
 				BA83C194271707A40039D504 /* HealthCertificateServiceMigrationTests.swift */,
 				017D8D99263AF3730009E91C /* HealthCertificateServiceTests.swift */,
 				BA821E9226B41F81008DA362 /* ValidationStateServiceTests.swift */,
 			);
-			path = __test__;
+			path = __tests__;
 			sourceTree = "<group>";
 		};
 		017D8D9E263B02C40009E91C /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				01FE5E532648511100155906 /* __test__ */,
+				01FE5E532648511100155906 /* __tests__ */,
 				01E05137263C436100D57A5E /* Extensions */,
 				017D8DA4263B02F40009E91C /* HealthCertificate.swift */,
 				01D319D326C18B9B008698D8 /* HealthCertificateDecodingContainer.swift */,
@@ -3914,7 +3914,7 @@
 		0190982C257E5B340065D050 /* Info */ = {
 			isa = PBXGroup;
 			children = (
-				BA288AEF25825D5B0071009A /* __test__ */,
+				BA288AEF25825D5B0071009A /* __tests__ */,
 				EB912889257FBD1E00241D3E /* DiaryInfoViewController.swift */,
 				EB912888257FBD1E00241D3E /* DiaryInfoViewModel.swift */,
 			);
@@ -3924,7 +3924,7 @@
 		0190982D257E5B4F0065D050 /* Overview */ = {
 			isa = PBXGroup;
 			children = (
-				019C9F5A2589537300B26392 /* __test__ */,
+				019C9F5A2589537300B26392 /* __tests__ */,
 				01F2A560257FC79F00DA96A6 /* Cells */,
 				01909845257E61350065D050 /* DiaryOverviewTableViewController.swift */,
 				019C9F1D25894CDD00B26392 /* DiaryOverviewViewModel.swift */,
@@ -3935,7 +3935,7 @@
 		0190982E257E5B5E0065D050 /* Day */ = {
 			isa = PBXGroup;
 			children = (
-				01B72BA4258360BC00A3E3BC /* __test__ */,
+				01B72BA4258360BC00A3E3BC /* __tests__ */,
 				01909862257E63810065D050 /* DiaryDayViewController.swift */,
 				01F2A5D4258208C500DA96A6 /* DiaryDayViewController.xib */,
 				01F2A5DC25820EE700DA96A6 /* DiaryDayViewModel.swift */,
@@ -3951,7 +3951,7 @@
 		0190982F257E5B7F0065D050 /* AddAndEditEntry */ = {
 			isa = PBXGroup;
 			children = (
-				BA11D5B82588D576005DCD6B /* __test__ */,
+				BA11D5B82588D576005DCD6B /* __tests__ */,
 				BA06D5B225DC11C60039D1DB /* DiaryAddAndEditEntryModel.swift */,
 				01909851257E62CB0065D050 /* DiaryAddAndEditEntryViewModel.swift */,
 				0190984C257E62C70065D050 /* DiaryAddAndEditEntryViewController.swift */,
@@ -3963,7 +3963,7 @@
 		01909830257E5CCF0065D050 /* EditEntries */ = {
 			isa = PBXGroup;
 			children = (
-				014086B52588F8EB00E9E5B2 /* __test__ */,
+				014086B52588F8EB00E9E5B2 /* __tests__ */,
 				01909834257E606C0065D050 /* DiaryEditEntriesViewController.swift */,
 				01B72BDC2583AB1400A3E3BC /* DiaryEditEntriesViewController.xib */,
 				0190983C257E60760065D050 /* DiaryEditEntriesViewModel.swift */,
@@ -4019,7 +4019,7 @@
 		019C9F2225894D2A00B26392 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				019C9F592589536000B26392 /* __test__ */,
+				019C9F592589536000B26392 /* __tests__ */,
 				019C9F33258951BB00B26392 /* DiaryDay.swift */,
 				019C9F3A258951BE00B26392 /* DiaryEntry.swift */,
 				019C9F38258951BC00B26392 /* DiaryEntryType.swift */,
@@ -4035,7 +4035,7 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
-		019C9F592589536000B26392 /* __test__ */ = {
+		019C9F592589536000B26392 /* __tests__ */ = {
 			isa = PBXGroup;
 			children = (
 				01B605C8258A32930093DB8E /* DiaryDayTest.swift */,
@@ -4043,15 +4043,15 @@
 				01B605E6258A4A980093DB8E /* DiaryContactPersonTest.swift */,
 				01B605D8258A49E70093DB8E /* DiaryLocationTest.swift */,
 			);
-			path = __test__;
+			path = __tests__;
 			sourceTree = "<group>";
 		};
-		019C9F5A2589537300B26392 /* __test__ */ = {
+		019C9F5A2589537300B26392 /* __tests__ */ = {
 			isa = PBXGroup;
 			children = (
 				01B605C3258A181C0093DB8E /* DiaryOverviewViewModelTest.swift */,
 			);
-			path = __test__;
+			path = __tests__;
 			sourceTree = "<group>";
 		};
 		01A1A25426443FBD001E8183 /* dgc */ = {
@@ -4180,7 +4180,7 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
-		01B72BA4258360BC00A3E3BC /* __test__ */ = {
+		01B72BA4258360BC00A3E3BC /* __tests__ */ = {
 			isa = PBXGroup;
 			children = (
 				01B72BBF2583875600A3E3BC /* DiaryDayViewModelTest.swift */,
@@ -4189,7 +4189,7 @@
 				01B72BA5258360CD00A3E3BC /* DiaryDayEmptyViewModelTest.swift */,
 				940109ED25DFB40E0017355C /* DiaryDayNotesInfoViewModelTest.swift */,
 			);
-			path = __test__;
+			path = __tests__;
 			sourceTree = "<group>";
 		};
 		01B72BEC2583B51B00A3E3BC /* Cells */ = {
@@ -4406,12 +4406,12 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
-		01DF18692603B16800A002E4 /* __test__ */ = {
+		01DF18692603B16800A002E4 /* __tests__ */ = {
 			isa = PBXGroup;
 			children = (
 				01DF186A2603B17000A002E4 /* TraceLocationsOverviewViewModelTest.swift */,
 			);
-			path = __test__;
+			path = __tests__;
 			sourceTree = "<group>";
 		};
 		01E05137263C436100D57A5E /* Extensions */ = {
@@ -4541,7 +4541,7 @@
 		01F33221270F3D68005CE21E /* RecycleBin */ = {
 			isa = PBXGroup;
 			children = (
-				01F3322C270F3D8C005CE21E /* __test__ */,
+				01F3322C270F3D8C005CE21E /* __tests__ */,
 				01F33227270F3D8B005CE21E /* RecycleBinViewController.swift */,
 				01F33228270F3D8C005CE21E /* RecycleBinViewModel.swift */,
 				01F33226270F3D8B005CE21E /* RecycleBinEmptyStateViewModel.swift */,
@@ -4561,12 +4561,12 @@
 			path = Cells;
 			sourceTree = "<group>";
 		};
-		01F3322C270F3D8C005CE21E /* __test__ */ = {
+		01F3322C270F3D8C005CE21E /* __tests__ */ = {
 			isa = PBXGroup;
 			children = (
 				01F3322D270F3D8D005CE21E /* RecycleBinViewModelTest.swift */,
 			);
-			path = __test__;
+			path = __tests__;
 			sourceTree = "<group>";
 		};
 		01F3322E270F3D8D005CE21E /* __tests__ */ = {
@@ -4580,7 +4580,7 @@
 		01F6702125FF80470069C4F9 /* Overview */ = {
 			isa = PBXGroup;
 			children = (
-				5081EF1625FFE1F7004B8FDE /* __test__ */,
+				5081EF1625FFE1F7004B8FDE /* __tests__ */,
 				BAC7290C26037B5C006D83C7 /* Cells */,
 				01F6702225FF80480069C4F9 /* CheckinsOverviewEmptyStateViewModel.swift */,
 				01F6702325FF80480069C4F9 /* CheckinsOverviewViewController.swift */,
@@ -4599,7 +4599,7 @@
 			path = DeadmanNotification;
 			sourceTree = "<group>";
 		};
-		01FE5E532648511100155906 /* __test__ */ = {
+		01FE5E532648511100155906 /* __tests__ */ = {
 			isa = PBXGroup;
 			children = (
 				BA19978A2715B006009FEC00 /* Name+ExtensionTests.swift */,
@@ -4614,7 +4614,7 @@
 				AB9B991B26D5389100F2506D /* HealthCertificate+PDFTests.swift */,
 				BAC1FCB126D910B60095E6D8 /* HealthCertifiedPersonBoosterTests.swift */,
 			);
-			path = __test__;
+			path = __tests__;
 			sourceTree = "<group>";
 		};
 		13091950247972CF0066E329 /* PrivacyProtectionViewController */ = {
@@ -4722,7 +4722,7 @@
 		2FA9E39124D2F2620030561C /* Exposure Submission */ = {
 			isa = PBXGroup;
 			children = (
-				0123D5962501381900A91838 /* __test__ */,
+				0123D5962501381900A91838 /* __tests__ */,
 				CD99A3A8245C272400BF12AF /* ExposureSubmissionService.swift */,
 				2FA9E39424D2F2B00030561C /* ExposureSubmission+DeviceRegistrationKey.swift */,
 				2FA9E39624D2F3C60030561C /* ExposureSubmissionError.swift */,
@@ -5112,12 +5112,12 @@
 			path = V2;
 			sourceTree = "<group>";
 		};
-		4B46EB5026E6527A00A667AA /* __test__ */ = {
+		4B46EB5026E6527A00A667AA /* __tests__ */ = {
 			isa = PBXGroup;
 			children = (
 				4B46EB6926E6561200A667AA /* NavigationControllerViewScrollingTest.swift */,
 			);
-			path = __test__;
+			path = __tests__;
 			sourceTree = "<group>";
 		};
 		5008F60125DC0219008B516F /* PPAnalyticsCollector */ = {
@@ -5443,27 +5443,27 @@
 		5081EEF525FF74A5004B8FDE /* Info */ = {
 			isa = PBXGroup;
 			children = (
-				5081EEFC25FF9C33004B8FDE /* __test__ */,
+				5081EEFC25FF9C33004B8FDE /* __tests__ */,
 				5081EF0525FFB7E0004B8FDE /* CheckinsInfoScreenViewController.swift */,
 				5081EEF025FF739B004B8FDE /* CheckinsInfoScreenViewModel.swift */,
 			);
 			path = Info;
 			sourceTree = "<group>";
 		};
-		5081EEFC25FF9C33004B8FDE /* __test__ */ = {
+		5081EEFC25FF9C33004B8FDE /* __tests__ */ = {
 			isa = PBXGroup;
 			children = (
 				5081EEFD25FF9C5E004B8FDE /* CheckinsInfoScreenViewModelTest.swift */,
 			);
-			path = __test__;
+			path = __tests__;
 			sourceTree = "<group>";
 		};
-		5081EF1625FFE1F7004B8FDE /* __test__ */ = {
+		5081EF1625FFE1F7004B8FDE /* __tests__ */ = {
 			isa = PBXGroup;
 			children = (
 				0109DB762603682C00624BB3 /* CheckinsOverviewViewModelTest.swift */,
 			);
-			path = __test__;
+			path = __tests__;
 			sourceTree = "<group>";
 		};
 		5084889E26822D53004299E6 /* DMErrorLogSharing */ = {
@@ -5541,13 +5541,13 @@
 			path = DMOTPService;
 			sourceTree = "<group>";
 		};
-		50BD2E6724FE26F300932566 /* __test__ */ = {
+		50BD2E6724FE26F300932566 /* __tests__ */ = {
 			isa = PBXGroup;
 			children = (
 				50BD2E6F24FE26F300932566 /* AppInformationImprintTest.swift */,
 				50DC527A24FEB5CA00F6D8EB /* AppInformationModelTest.swift */,
 			);
-			name = __test__;
+			name = __tests__;
 			sourceTree = "<group>";
 		};
 		50C0296725E4067400460FA4 /* Metadata */ = {
@@ -5986,7 +5986,7 @@
 		71176E30248957B1004B0C9F /* App */ = {
 			isa = PBXGroup;
 			children = (
-				4B46EB5026E6527A00A667AA /* __test__ */,
+				4B46EB5026E6527A00A667AA /* __tests__ */,
 				71176E31248957C3004B0C9F /* AppNavigationController.swift */,
 				945CCFE525D68C2E007ADB4F /* AppOnboardingNavigationController.swift */,
 			);
@@ -7271,7 +7271,7 @@
 			isa = PBXGroup;
 			children = (
 				ABBF42942620993E002A9A2B /* Extensions */,
-				BADE38072608D9D200E07890 /* __test__ */,
+				BADE38072608D9D200E07890 /* __tests__ */,
 				ABE9616625F1208300D0F699 /* TraceLocation.swift */,
 				8FA88F9E2613A7E300FD36DA /* EncodingType.swift */,
 				8FA88F662613325700FD36DA /* QRCodePayload+extention.swift */,
@@ -7998,13 +7998,13 @@
 			path = Cell;
 			sourceTree = "<group>";
 		};
-		BA11D5B82588D576005DCD6B /* __test__ */ = {
+		BA11D5B82588D576005DCD6B /* __tests__ */ = {
 			isa = PBXGroup;
 			children = (
 				BA11D5B92588D590005DCD6B /* DiaryAddAndEditEntryViewModelTest.swift */,
 				BA06D5BA25DC2E910039D1DB /* TextFieldsManagerTests.swift */,
 			);
-			path = __test__;
+			path = __tests__;
 			sourceTree = "<group>";
 		};
 		BA1FC82726E2508000CCCC17 /* DMNotifications */ = {
@@ -8016,12 +8016,12 @@
 			path = DMNotifications;
 			sourceTree = "<group>";
 		};
-		BA288AEF25825D5B0071009A /* __test__ */ = {
+		BA288AEF25825D5B0071009A /* __tests__ */ = {
 			isa = PBXGroup;
 			children = (
 				BA288AF32582616E0071009A /* DiaryInfoViewModelTest.swift */,
 			);
-			path = __test__;
+			path = __tests__;
 			sourceTree = "<group>";
 		};
 		BA291ABF275A4830003C42C2 /* DMTicketValidation */ = {
@@ -8348,7 +8348,7 @@
 		BA6C8A8E254D60E0008344F5 /* Calculation */ = {
 			isa = PBXGroup;
 			children = (
-				BA6C8B0C254D6BC9008344F5 /* __test__ */,
+				BA6C8B0C254D6BC9008344F5 /* __tests__ */,
 				BA6C8B04254D6B1F008344F5 /* RiskCalculation.swift */,
 				013C412725545C2D00826C9F /* DebugRiskCalculation.swift */,
 				01F52F892550679600997A26 /* RiskCalculationExposureWindow.swift */,
@@ -8375,7 +8375,7 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
-		BA6C8B0C254D6BC9008344F5 /* __test__ */ = {
+		BA6C8B0C254D6BC9008344F5 /* __tests__ */ = {
 			isa = PBXGroup;
 			children = (
 				BA6C8B32254D7738008344F5 /* Models */,
@@ -8385,7 +8385,7 @@
 				01F52FFB2552E6F600997A26 /* ENARangeTest.swift */,
 				0177F4B025503805009DD568 /* ScanInstanceTest.swift */,
 			);
-			path = __test__;
+			path = __tests__;
 			sourceTree = "<group>";
 		};
 		BA6C8B32254D7738008344F5 /* Models */ = {
@@ -8795,12 +8795,12 @@
 			path = __tests__;
 			sourceTree = "<group>";
 		};
-		BACCCC6325ADB7B400195AC3 /* __test__ */ = {
+		BACCCC6325ADB7B400195AC3 /* __tests__ */ = {
 			isa = PBXGroup;
 			children = (
 				BACCCC7425ADB9FD00195AC3 /* RiskLegendeTest.swift */,
 			);
-			path = __test__;
+			path = __tests__;
 			sourceTree = "<group>";
 		};
 		BACD17692624976E00104AD9 /* __tests__ */ = {
@@ -8940,7 +8940,7 @@
 			path = CheckIns;
 			sourceTree = "<group>";
 		};
-		BADE38072608D9D200E07890 /* __test__ */ = {
+		BADE38072608D9D200E07890 /* __tests__ */ = {
 			isa = PBXGroup;
 			children = (
 				01BA071A2620921300237DD8 /* Models */,
@@ -8950,7 +8950,7 @@
 				01BA07112620918200237DD8 /* CheckInTests.swift */,
 				35C0C88A2614946F004BF509 /* CheckinSubmissionPreparationTests.swift */,
 			);
-			path = __test__;
+			path = __tests__;
 			sourceTree = "<group>";
 		};
 		BAE106E226710DEE002D91FB /* __tests__ */ = {
@@ -9258,7 +9258,7 @@
 		EE20EA0824699A3A00770683 /* RiskLegend */ = {
 			isa = PBXGroup;
 			children = (
-				BACCCC6325ADB7B400195AC3 /* __test__ */,
+				BACCCC6325ADB7B400195AC3 /* __tests__ */,
 				BA0FC256259C9A6600EF7E6B /* Cell */,
 				71B804482484D37300D53506 /* RiskLegendViewController.swift */,
 			);
@@ -9292,7 +9292,7 @@
 		EE85998B2462EFD4002E7AE2 /* AppInformation */ = {
 			isa = PBXGroup;
 			children = (
-				50BD2E6724FE26F300932566 /* __test__ */,
+				50BD2E6724FE26F300932566 /* __tests__ */,
 				01F5F7212487B9C000229720 /* AppInformationViewController.swift */,
 				0103CED02536D1A100BDAAD1 /* AppInformationCellModel.swift */,
 				50BD2E6124FE1E8700932566 /* AppInformationModel.swift */,
