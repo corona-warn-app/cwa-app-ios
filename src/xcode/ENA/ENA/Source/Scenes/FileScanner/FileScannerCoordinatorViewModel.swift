@@ -59,7 +59,7 @@ protocol FileScannerProcessing {
 	var processingStarted: (() -> Void)? { get set }
 	var processingFinished: ((QRCodeResult) -> Void)? { get set }
 	var processingFailed: ((FileScannerError?) -> Void)? { get set }
-	var parsingFailed: ((QRCodeParserError?) -> Void)?
+	var parsingFailed: ((QRCodeParserError) -> Void)? { get set }
 	var missingPasswordForPDF: ((@escaping (String) -> Void) -> Void)? { get set }
 
 	var authorizationStatus: PHAuthorizationStatus { get }
@@ -91,7 +91,7 @@ class FileScannerCoordinatorViewModel: FileScannerProcessing {
 	var processingStarted: (() -> Void)?
 	var processingFinished: ((QRCodeResult) -> Void)?
 	var processingFailed: ((FileScannerError?) -> Void)?
-	var parsingFailed: ((QRCodeParserError?) -> Void)?
+	var parsingFailed: ((QRCodeParserError) -> Void)?
 	var missingPasswordForPDF: ((@escaping (String) -> Void) -> Void)?
 
 	var authorizationStatus: PHAuthorizationStatus {
@@ -295,7 +295,7 @@ class FileScannerCoordinatorViewModel: FileScannerProcessing {
 		}
 	}
 
-	private func parsingFailedOnQueue(_ error: QRCodeParserError?) {
+	private func parsingFailedOnQueue(_ error: QRCodeParserError) {
 		DispatchQueue.main.async {
 			self.parsingFailed?(error)
 		}

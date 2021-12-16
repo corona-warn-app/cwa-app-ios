@@ -25,6 +25,7 @@ class FileScannerCoordinator: NSObject, UIImagePickerControllerDelegate, UINavig
 		self.noQRCodeFound = noQRCodeFound
 		self.showActivityIndicator = showActivityIndicator
 		self.hideActivityIndicator = hideActivityIndicator
+		self.onQRCodeParserError = onQRCodeParserError
 	}
 
 	// MARK: - UIImagePickerControllerDelegate
