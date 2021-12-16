@@ -126,11 +126,11 @@
 "ExposureDetection_Guide_Title" = "Lassen Sie sich testen, auch wenn Sie keine Symptome haben. Bei einer Warnung über ein erhöhtes Risiko (\"Rote Kachel\") haben Sie Anspruch auf einen kostenlosen Test. Dies muss nicht notwendigerweise ein PCR-Test sein.
 ";
 
-"ExposureDetection_Guide_Point1" = "Testmöglichkeiten finden Sie hier  oder wenden Sie sich an Ihre Hausarztpraxis oder Apotheke.";
-"ExposureDetection_Guide_Point1_LinkText" = "Testmöglichkeiten finden Sie hier";
+"ExposureDetection_Guide_Point1" = "Testmöglichkeiten finden Sie hier. Sie können sich auch an Ihre Hausarztpraxis oder Apotheke wenden.";
+"ExposureDetection_Guide_Point1_LinkText" = "Testmöglichkeiten finden Sie hier.";
 
 "ExposureDetection_Guide_Point2" = "Weitere Informationen in der FAQ zum Testablauf.";
-"ExposureDetection_Guide_Point2_LinkText" = "FAQ zum Testablauf";
+"ExposureDetection_Guide_Point2_LinkText" = "Weitere Informationen in der FAQ zum Testablauf.";
 
 "ExposureDetection_Explanation_Title" = "Infektionsrisiko";
 
@@ -216,11 +216,11 @@
 
 "ExposureDetection_Info_Contagion_Point6" = "Bei Fragen zu Quarantäne-Maßnahmen wenden Sie sich bitte an Ihr Gesundheitsamt.";
 
-"ExposureDetection_Info_Contagion_Point6_LinkText" = "Fragen zu Quarantäne-Maßnahmen";
+"ExposureDetection_Info_Contagion_Point6_LinkText" = "Weitere Informationen finden Sie in den FAQ zu Quarantäne-Maßnahmen";
 
-"ExposureDetection_Info_Contagion_Footer" = "Weitere Hinweise finden Sie in der FAQ zur freiwilligen Selbstquarantäne.";
+"ExposureDetection_Info_Contagion_Footer" = "Weitere Hinweise finden Sie in den FAQ zur freiwilligen Selbstquarantäne.";
 
-"ExposureDetection_Info_Contagion_Footer_LinkText" = "FAQ zur freiwilligen Selbstquarantäne";
+"ExposureDetection_Info_Contagion_Footer_LinkText" = "Weitere Hinweise finden Sie in den FAQ zur freiwilligen Selbstquarantäne.";
 
 /* Survey Errors */
 

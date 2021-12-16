@@ -186,7 +186,7 @@
 
 "ExposureDetection_Info_HygieneRules_Title" = "Hijyen Kuralları";
 
-"ExposureDetection_Info_HygieneRules_Point1" = "Başka kişilerle karşılaşmalarınız sırasında maske takın.";
+"ExposureDetection_Info_HygieneRules_Point1" = "Diğer insanlarla karşılaştığınızda yüz maskesi takın.";
 
 "ExposureDetection_Info_HygieneRules_Point2" = "Diğer insanlarla aranızda en az 1,5 metre mesafeyi koruyun.";
 
@@ -216,7 +216,7 @@
 
 "ExposureDetection_Info_Contagion_Point6" = "Karantina önlemleri hakkında sorularınız varsa lütfen kamu sağlığı departmanınızla iletişime geçin.";
 
-"ExposureDetection_Info_Contagion_Point6_LinkText" = "Karantina önlemleri hakkında SSS";
+"ExposureDetection_Info_Contagion_Point6_LinkText" = "Karantina önlemleri hakkında";
 
 "ExposureDetection_Info_Contagion_Footer" = "Gönüllü bireysel karantina hakkında SSS sayfamızda ek bilgiler bulunmaktadır:";
 
@@ -747,13 +747,13 @@
 
 "ExposureSubmissionResult_testNegative_furtherInfos_title" = "Diğer bilgiler:";
 
-"ExposureSubmissionResult_testNegative_furtherInfos_listItem1" = "Hâlâ kendinizi iyi hissetmiyor musunuz? Kendinizi kötü hissediyorsanız ve/veya belirtileriniz kötüleştiyse lütfen aile hekiminizle iletişime geçin.";
+"ExposureSubmissionResult_testNegative_furtherInfos_desc" = "Yine de akut belirtileriniz mi var?";
 
-"ExposureSubmissionResult_testNegative_furtherInfos_listItem2" = "Kendinizi yeniden iyi hissedene dek evde kalın. Başka bir enfeksiyon nedeniyle bağışıklığınız zayıflamışken koronavirüse (SARS-CoV-2) yakalanırsanız ciddi bir hastalıkla karşılaşabilirsiniz.";
+"ExposureSubmissionResult_testNegative_furtherInfos_listItem1" = "Yapabiliyorsanız kendinizi yeniden iyi hissedene dek evde kalın. Koronavirüsün yanında farklı bir enfeksiyonla enfekte olma riskinizi azaltın.";
 
-"ExposureSubmissionResult_testNegative_furtherInfos_listItem3" = "Kendinizi iyi hissetmiyorsanız diğer insanları riske atmamak için işe gitmeyin.";
+"ExposureSubmissionResult_testNegative_furtherInfos_listItem2" = "Kendinizi iyi hissetmiyorsanız diğer insanları riske atmamak için işe gitmeyin.";
 
-"ExposureSubmissionResult_furtherInfos_hint_testAgain" = "Belirtileriniz kötüleşirse başka bir SARS-CoV-2 testinin yapılması gerekebilir.";
+"ExposureSubmissionResult_testNegative_furtherInfos_listItem3" = "Çok hasta hissediyorsanız ya da belirtileriniz kötüleşirse lütfen aile hekiminizle iletişime geçin. Aile hekiminiz, başka bir SARS-CoV-2 testi yaptırmanızın gerekip gerekmediği konusunda da size tavsiyede bulunabilir.";
 
 "ExposureSubmissionResult_testInvalid" = "Testiniz değerlendirilemiyor";
 
@@ -918,7 +918,7 @@
 
 "ExposureSubmissionResult_Negative_Antigen_Proof_Title" = " ";
 
-"ExposureSubmissionResult_Negative_Antigen_Proof_Desc" = "Test sonucunuz özeldir ancak bazı yasalar nedeniyle paylaşmanız gerekebilir. Paylaşmanız gerekirse sunulan pek çok yöntemden birini kullanarak gösterebilirsiniz.";
+"ExposureSubmissionResult_Negative_Antigen_Proof_Desc" = "Burada görüntülenen sonucunuzu doğrulanabilir şekilde kanıtlamak için AB Dijital Covid Sertifikası gereklidir. Testinizi kaydettiğinizde dijital test sertifikası talebinde bulunduysanız ve test noktası, dijital sertifika düzenlemeyi destekliyorsa yukarıda belirtilen bağlantıyı kullanarak dijital test sertifikanızı bulabilirsiniz. Sertifikayı \"Sertifikalar\" sekmesinde de bulabilirsiniz.\nKanıt gerektiren amaç bağlamında test sertifikalarının geçerliliği ve kabulüne ilişkin ölçütleri de bulabilirsiniz.";
 
 "ExposureSubmissionResult_Negative_Antigen_NoProof_Title" = "Doğrulama Özelliği Yok";
 
@@ -1595,10 +1595,18 @@
 /* New Version Features */
 "NewVersionFeatures_Info_about_abb_information" = "Bu sürümdeki değişiklikleri uygulama bilgilerinde “Yeni Özellikler” bölümünde bulabilirsiniz.";
 
-/* Version 2.15 */
-"NewVersionFeature_215_ticketValidation_title" = "Biletleme Sırasında Sertifika Doğrulaması";
+/* Version 2.16 */
+"NewVersionFeature_216_2g_title" = "2G+ Durumu Kanıtı";
 
-"NewVersionFeature_215_ticketValidation_description" = "Bir bilet rezervasyonu yaptığınızda aşı olduğunuza, iyileştiğinize veya test sonucunuzun negatif olduğuna dair kanıt sunabilirsiniz. Bunun için, biletleme sisteminde görüntülenen QR kodu taratın ve ardından uygulamada doğru sertifikayı seçin. Sertifika doğrulama sonnucu, doğrulama ortağı tarafından biletleme sistemine gönderilir.";
+"NewVersionFeature_216_2g_description" = "Geçerli bir aşı sertifikanız ya da iyileşme sertifikanız varsa ve uygulamaya bir test sertifikası eklerseniz bunların tümü sertifikaya genel bakış bölümünde birleşik şekilde gösterilir. İlgili kontrolü kullanarak aşı sertifikasının veya iyileşme sertifikasının ve test sertifikasının QR kodu arasında geçiş yapabilirsiniz. 2G+ kanıtı gerekiyorsa her iki QR kodun CovPassCheck uygulaması ile doğrulanması gerekir.";
+
+"NewVersionFeature_216_negativeTestNotice_title" = "Negatif Test Sonucu Durumunda Bilgi";
+
+"NewVersionFeature_216_negativeTestNotice_description" = "Negatif test sonucu alırsanız yine de akut belirtilerinizin olması durumunda ilave tavsiyeler sunulacaktır.";
+
+"NewVersionFeature_216_highRiskNotification_title" = "Daha Yüksek Risk Bildirimi";
+
+"NewVersionFeature_216_highRiskNotification_description" = "Artık uygulama açık olsa da daha yüksek enfeksiyon riskiniz varsa bir bildirim alırsınız. Bunun amacı, farklı bir sekme kullanıyorsanız durum sekmesindeki risk uyarısının gözden kaçırılmasının önüne geçmektir. Ek olarak, siz durum sekmesini yeniden açana dek bu sekmede kırmızı bir nokta görüntülenir.";
 
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Uluslararası Maruz Kalma Günlüğü";
@@ -2695,25 +2703,15 @@
 
 "HealthCertificate_Overview_Covid_Title" = "AB Dijital COVID Sertifikası";
 
-"VaccinationCertificate_title" = "AB\n**Dijital Aşı Sertifikası**";
-
-"VaccinationCertificate_partiallyVaccinated" = "Aşı tamamlanmadı";
-
-"VaccinationCertificate_vaccinationValidUntil" = "Son geçerlilik tarihi: %@";
-
 "HealthCertificate_Overview_Covid_Certificate_Description" = "Sertifikayı içeren bir QR kod";
 
+"HealthCertificate_Overview_AdmissionState_Title" = "Durum Kanıtı";
+
+"HealthCertificate_Overview_TwoGCertificate" = "2G Sertifikası";
+
+"HealthCertificate_Overview_TestCertificate" = "Test Sertifikası";
+
 "HealthCertificate_Overview_News" = "Sertifikalarınızla ilgili gelişme var";
-
-/* - Test Certificate Info */
-"TestCertificate_Info_title" = "AB\n**Dijital COVID Test Sertifikası**";
-
-"TestCertificate_Info_description" = "Ana ekranda bir testi kaydedin ve dijital test sertifikası almayı kabul edin. Sertifika düzenlenir düzenlenmez burada görüntülenir.";
-
-/* - Test Certificate */
-"TestCertificate_title" = "AB\n**Dijital COVID Test Sertifikası**";
-
-"TestCertificate_testDate" = "Testin gerçekleştirildiği tarih: %@";
 
 /* - Test Certificate Request */
 "TestCertificateRequest_title" = "AB\n**Dijital COVID Test Sertifikası**";
@@ -2796,6 +2794,42 @@
 
 "HealthCertifiedPerson_title" = "AB Dijital COVID Sertifikası";
 
+/* Health Certified Person Admission State */
+"HealthCertifiedPerson_AdmissionState_title" = "Durum Kanıtı";
+
+"HealthCertifiedPerson_AdmissionState_subtitle2G" = "2G";
+
+"HealthCertifiedPerson_AdmissionState_subtitle2GPlusPCR" = "2G+ PCR testi";
+
+"HealthCertifiedPerson_AdmissionState_subtitle2GPlusAntigen" = "2G+ hızlı testi";
+
+"HealthCertifiedPerson_AdmissionState_subtitle3G" = "3G";
+
+"HealthCertifiedPerson_AdmissionState_subtitle3GPlus" = "3G+";
+
+"HealthCertifiedPerson_AdmissionState_description2G" = "Sertifikalarınız 2G kuralına uygun. Güncel durumunuzu kanıtlamanız gerekiyorsa bu görünümünü kapatın ve sertifikaya genel bakış bölümündeki QR kodu gösterin.";
+
+"HealthCertifiedPerson_AdmissionState_description2GPlusPCR" = "Sertifikalarınız 2G plus kuralına uygun. Güncel durumunuzu kanıtlamanız gerekiyorsa bu görünümünü kapatın ve sertifikaya genel bakış bölümündeki QR kodu gösterin.";
+
+"HealthCertifiedPerson_AdmissionState_description2GPlusAntigen" = "Sertifikalarınız 2G plus kuralına uygun. Güncel durumunuzu kanıtlamanız gerekiyorsa bu görünümünü kapatın ve sertifikaya genel bakış bölümündeki QR kodu gösterin.";
+
+"HealthCertifiedPerson_AdmissionState_description3G" = "Sertifikalarınız 3G kuralına uygun. Güncel durumunuzu kanıtlamanız gerekiyorsa bu görünümünü kapatın ve sertifikaya genel bakış bölümündeki QR kodu gösterin.";
+
+"HealthCertifiedPerson_AdmissionState_description3GPlus" = "Sertifikalarınız 3G plus kuralına uygun. Güncel durumunuzu kanıtlamanız gerekiyorsa bu görünümünü kapatın ve sertifikaya genel bakış bölümündeki QR kodu gösterin.";
+
+"HealthCertifiedPerson_AdmissionStateFAQ" = "Daha fazla bilgi için lütfen %@ sayfamıza bakın.";
+
+"HealthCertifiedPerson_AdmissionState_FAQ_Placeholder" = "SSS";
+
+"HealthCertifiedPerson_AdmissionState_shortTitle_title2G" = "2G";
+
+"HealthCertifiedPerson_AdmissionState_shortTitle_title2GPlus" = "2G+";
+
+"HealthCertifiedPerson_AdmissionState_shortTitle_title3G" = "3G";
+
+"HealthCertifiedPerson_AdmissionState_shortTitle_title3GPlus" = "3G+";
+
+/* Health Certified Person Hint */
 "HealthCertifiedPerson_VaccinationHint_title" = "Aşı Durumu";
 
 "HealthCertifiedPerson_partiallyVaccinated" = "Henüz şu anda tüm planlanan aşıları olmadınız. Dolayısıyla aşı korumanız henüz tamamlanmadı.";
@@ -3132,9 +3166,9 @@
 
 "UniversalQRScanner_MaxPersonAmountAlert_errorTitle" = "Hata";
 
-"UniversalQRScanner_MaxPersonAmountAlert_warningMessage" = "Corona-Warn-App üçüncü taraf sertifika doğrulaması için kullanılamayabilir. Bunun için CovPassCheck uygulamasını kullanın.\n\nEn fazla %i kişi için sertifika ekleyebilirsiniz. Bu limite ulaşıldığında, başka kişiler için daha fazla yeni sertifika ekleyemezsiniz.\n\nSSS sayfamızda aşı sertifikaları hakkında daha fazla bilgi bulabilirsiniz.";
+"UniversalQRScanner_MaxPersonAmountAlert_warningMessage" = "Corona-Warn-App üçüncü taraf sertifika doğrulaması için kullanılamayabilir. Bunun için CovPassCheck uygulamasını kullanın.\n\nEn fazla %i kişi için sertifika ekleyebilirsiniz. Bu limite ulaşıldığında, başka kişiler için daha fazla yeni sertifika ekleyemezsiniz.\n\nSSS sayfamızda sertifika doğrulama hakkında daha fazla bilgi bulabilirsiniz.";
 
-"UniversalQRScanner_MaxPersonAmountAlert_errorMessage" = "Corona-Warn-App üçüncü taraf sertifika doğrulaması için kullanılamayabilir. Bunun için CovPassCheck uygulamasını kullanın.\n\nEn fazla %i kişi için sertifika ekleyebilirsiniz. Başka kişiler için daha fazla yeni sertifika ekleyemezsiniz.\n\nSSS sayfamızda aşı sertifikaları hakkında daha fazla bilgi bulabilirsiniz.";
+"UniversalQRScanner_MaxPersonAmountAlert_errorMessage" = "Corona-Warn-App üçüncü taraf sertifika doğrulaması için kullanılamayabilir. Bunun için CovPassCheck uygulamasını kullanın.\n\nEn fazla %i kişi için sertifika ekleyebilirsiniz. Başka kişiler için daha fazla yeni sertifika ekleyemezsiniz.\n\nSSS sayfamızda sertifika doğrulama hakkında daha fazla bilgi bulabilirsiniz.";
 
 "UniversalQRScanner_MaxPersonAmountAlert_covPassCheckButton" = "CovPassCheck App'i İndir";
 
