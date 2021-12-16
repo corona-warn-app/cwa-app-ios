@@ -69,33 +69,39 @@ extension Service {
 					return
 				}
 				
+				// case we have no network.
 				if let error = error {
 					cachePolicyHandling(.noNetwork, error, resource, completion)
 					return
 				}
 								
+				// case we have a fake.
 				guard !resource.locator.isFake else {
 					Log.info("Fake detected no response given", log: .client)
 					failureOrDefaultValueHandling(resource, .fakeResponse, completion)
 					return
 				}
 
+				// case we have an invalid response.
 				guard let response = response as? HTTPURLResponse else {
 					Log.error("Invalid response.", log: .client, error: error)
 					failureOrDefaultValueHandling(resource, .invalidResponseType, completion)
 					return
 				}
+				
+				// Now we have a response and a valid status code.
 
 				#if DEBUG
 				Log.debug("URL Response \(response.statusCode)", log: .client)
 				#endif
 
-				// cache policy handling only for the status codes.
+				// override status code by cache policy and handle it on other way.
 				guard hasNoStatusCodeCachePolicy(resource, response.statusCode) else {
 					cachePolicyHandling(.statusCode(response.statusCode), nil, resource, completion)
 					return
 				}
 
+				// normal status code handling
 				switch response.statusCode {
 				case 200, 201:
 					decodeModel(resource, bodyData, response, completion)
@@ -187,10 +193,12 @@ extension Service {
 		_ error: ServiceError<R.CustomError>,
 		_ completion: @escaping (Result<R.Receive.ReceiveModel, ServiceError<R.CustomError>>) -> Void
 	) where R: Resource {
+		// Check if we have default value. If so, return it independent wich error we had
 		if let defaultModel = resource.defaultModel {
 			Log.info("Found some default value", log: .client)
 			completion(.success(defaultModel))
 		} else {
+			// We don't have a default value. And now check if we want to override the error by a custom error defined in the resource
 			Log.error("Found no default value. Will fail now.", log: .client, error: error)
 			completion(.failure(customError(in: resource, for: error)))
 		}
