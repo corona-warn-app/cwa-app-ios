@@ -186,7 +186,7 @@
 
 "ExposureDetection_Info_HygieneRules_Title" = "Правила за хигиена";
 
-"ExposureDetection_Info_HygieneRules_Point1" = "Носете маска, когато се виждате с други хора.";
+"ExposureDetection_Info_HygieneRules_Point1" = "Носете маска при контакт с други хора.";
 
 "ExposureDetection_Info_HygieneRules_Point2" = "Спазвайте дистанция от поне 1,5 м от околните.";
 
@@ -216,11 +216,11 @@
 
 "ExposureDetection_Info_Contagion_Point6" = "Ако имате въпроси относно карантинните мерки моля, свържете се с Вашата здравна служба.";
 
-"ExposureDetection_Info_Contagion_Point6_LinkText" = "ЧЗВ относно карантинните мерки";
+"ExposureDetection_Info_Contagion_Point6_LinkText" = "въпроси относно карантинните мерки";
 
 "ExposureDetection_Info_Contagion_Footer" = "Допълнителна информация относно доброволната карантина е достъпна на нашата страница “ЧЗВ”.";
 
-"ExposureDetection_Info_Contagion_Footer_LinkText" = "ЧЗВ относно доброволната карантина";
+"ExposureDetection_Info_Contagion_Footer_LinkText" = "ЧЗВ";
 
 /* Survey Errors */
 "SurveyConsent_Error_Title" = "Грешка";
@@ -747,13 +747,13 @@
 
 "ExposureSubmissionResult_testNegative_furtherInfos_title" = "Още информация:";
 
-"ExposureSubmissionResult_testNegative_furtherInfos_listItem1" = "Все още ли не се чувствате добре? Обадете се на личния си лекар, ако се чувствате много зле и/или симптомите Ви са се влошили.";
+"ExposureSubmissionResult_testNegative_furtherInfos_desc" = "Проявявате ли някакви остри симптоми?";
 
-"ExposureSubmissionResult_testNegative_furtherInfos_listItem2" = "Останете си вкъщи, докато се почувствате добре. Ако се заразите с коронавирус (SARS-CoV-2) в момент, когато организмът Ви е отслабен от друга инфекция, това може да доведе до сериозно заболяване.";
+"ExposureSubmissionResult_testNegative_furtherInfos_listItem1" = "Останете си вкъщи възможно най-дълго, докато се почувствате добре. Намелете риска си от заразяване с корона вирус, както и с друга инфекция.";
 
-"ExposureSubmissionResult_testNegative_furtherInfos_listItem3" = "Не ходете на работа, ако не се чувствате добре, за да не излагате други хора на риск.";
+"ExposureSubmissionResult_testNegative_furtherInfos_listItem2" = "Не ходете на работа, ако не се чувствате добре, за да не излагате други хора на риск.";
 
-"ExposureSubmissionResult_furtherInfos_hint_testAgain" = "Ако симптомите Ви се влошат, може да се наложи да направите нов тест за SARS-CoV-2.";
+"ExposureSubmissionResult_testNegative_furtherInfos_listItem3" = "Ако се почувствате много зле или симптомите Ви се влошават моля, свържете се с личния си лекар. Той може да Ви посъветва дали трябва да си направите още един тест за SARS-CoV-2.";
 
 "ExposureSubmissionResult_testInvalid" = "Не може да бъде определен резултат от теста Ви";
 
@@ -918,7 +918,7 @@
 
 "ExposureSubmissionResult_Negative_Antigen_Proof_Title" = " ";
 
-"ExposureSubmissionResult_Negative_Antigen_Proof_Desc" = "Резултатът от Вашия тест е поверителен и не сте задължени да го споделяте. В случаите, когато това се изисква по закон, можете да да използвате който и да е от предоставените начини.";
+"ExposureSubmissionResult_Negative_Antigen_Proof_Desc" = "За да докажете резултата, който се показва тук се изисква цифров COVID сертификат на ЕС. Ако сте заявили цифров сертификат за направен тест, когато сте регистрирали своя тест и пунктът поддържа издаването на такива, може да откриете своя цифров сертификат за направен тест в посоченият линк по-горе. Също така може да го намерите в таба “Сертификати”. \nМоля, запознайте се с критериите за признаване на валидност на цифрови сертификати за направени тестове, според това за какво Ви трябва доказателство.";
 
 "ExposureSubmissionResult_Negative_Antigen_NoProof_Title" = "Без функция за проверка";
 
@@ -1595,10 +1595,18 @@
 /* New Version Features */
 "NewVersionFeatures_Info_about_abb_information" = "Може да видите промените в тази версия в подраздела „Нови функции“ на информацията за приложението.";
 
-/* Version 2.15 */
-"NewVersionFeature_215_ticketValidation_title" = "Валидиране на сертификат при продажба на билети";
+/* Version 2.16 */
+"NewVersionFeature_216_2g_title" = "Доказателство за статус 2G+";
 
-"NewVersionFeature_215_ticketValidation_description" = "Когато резервирате билет, можете да предоставите доказателство, че сте ваксинирани, преболедували или имате отрицателен резултат от тестване. За целта сканирайте QR кода, показан в системата за продажба на билети и изберете правилния сертификат в приложението. Резултатът от проверката на сертификата ще бъде изпратен до системата за продажба на билети от партньора за валидиране.";
+"NewVersionFeature_216_2g_description" = "Ако имате валиден сертификат за ваксинация или сертификат за възстановяване и добавите сертификат за тест в приложението, те всички ще се покажат в комбиниран екран в “Преглед на сертификати”. Може да сменяте QR кодовете на различните сертификати чрез съответните бутони. Всичко QR кодове трябва да се валидират от приложението CovPassCheck, ако се изисква доказателство за статус 2G+.";
+
+"NewVersionFeature_216_negativeTestNotice_title" = "Информация в случай на отрицателен резултат от тест";
+
+"NewVersionFeature_216_negativeTestNotice_description" = "Ако имате отрицателен резултат от тест сега ще получите допълнителни препоръки в случай, че още проявявате остри симптоми.";
+
+"NewVersionFeature_216_highRiskNotification_title" = "Известие за повишено ниво на риск";
+
+"NewVersionFeature_216_highRiskNotification_description" = "Сега ще получите известие, ако сте с повишено ниво на риск от заразяване, дори и приложението да е отворено. Това се прави с цел да предотврати това да не забележите предупреждението в таба \"Статус”, ако в този момент сте отворили друг таб. В допълнение, червена точка ще се появи и ще седи в таб “Статус”, докато не го отоврите отново.";
 
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Международно регистриране на излаганията";
@@ -2695,25 +2703,15 @@
 
 "HealthCertificate_Overview_Covid_Title" = "Цифров COVID сертификат на ЕС";
 
-"VaccinationCertificate_title" = "ЕС\n**Цифров сертификат за ваксинация**";
-
-"VaccinationCertificate_partiallyVaccinated" = "Ваксинирането не е пълно";
-
-"VaccinationCertificate_vaccinationValidUntil" = "Валидно до %@";
-
 "HealthCertificate_Overview_Covid_Certificate_Description" = "QR код със сертификата";
 
+"HealthCertificate_Overview_AdmissionState_Title" = "Доказателство за статус";
+
+"HealthCertificate_Overview_TwoGCertificate" = "2G Сертификат";
+
+"HealthCertificate_Overview_TestCertificate" = "Сертификат за тестване";
+
 "HealthCertificate_Overview_News" = "Има новини относно сертификатите Ви";
-
-/* - Test Certificate Info */
-"TestCertificate_Info_title" = "ЕС\n**Цифров сертификат за тест за COVID**";
-
-"TestCertificate_Info_description" = "Регистрирайте тест от началния екран и дайте съгласие да получите цифров сертификат за тест. Той ще се покаже тук веднага щом стане наличен.";
-
-/* - Test Certificate */
-"TestCertificate_title" = "ЕС\n**Цифров сертификат за тест за COVID**";
-
-"TestCertificate_testDate" = "Тестът е извършен на %@";
 
 /* - Test Certificate Request */
 "TestCertificateRequest_title" = "ЕС\n**Цифров сертификат за тест за COVID**";
@@ -2796,6 +2794,42 @@
 
 "HealthCertifiedPerson_title" = "Цифров сертификат за COVID на ЕС";
 
+/* Health Certified Person Admission State */
+"HealthCertifiedPerson_AdmissionState_title" = "Доказателство за статус";
+
+"HealthCertifiedPerson_AdmissionState_subtitle2G" = "2G";
+
+"HealthCertifiedPerson_AdmissionState_subtitle2GPlusPCR" = "2G+ PCR тест";
+
+"HealthCertifiedPerson_AdmissionState_subtitle2GPlusAntigen" = "2G+ бърз тест";
+
+"HealthCertifiedPerson_AdmissionState_subtitle3G" = "3G";
+
+"HealthCertifiedPerson_AdmissionState_subtitle3GPlus" = "3G+";
+
+"HealthCertifiedPerson_AdmissionState_description2G" = "Вашите сертификати отговарят на 2G правилото. Ако Ви се налага да доказвате своя текущ статус затворете този изглед и покажете QR кода в “Преглед на сертификати”.";
+
+"HealthCertifiedPerson_AdmissionState_description2GPlusPCR" = "Вашите сертификати отговарят на 2G plus правилото. Ако Ви се налага да доказвате своя текущ статус затворете този изглед и покажете QR кода в “Преглед на сертификати”.";
+
+"HealthCertifiedPerson_AdmissionState_description2GPlusAntigen" = "Вашите сертификати отговарят на 2G plus правилото. Ако Ви се налага да доказвате своя текущ статус затворете този изглед и покажете QR кода в “Преглед на сертификати”.";
+
+"HealthCertifiedPerson_AdmissionState_description3G" = "Вашите сертификати отговарят на 3G правилото. Ако Ви се налага да доказвате своя текущ статус затворете този изглед и покажете QR кода в “Преглед на сертификати”.";
+
+"HealthCertifiedPerson_AdmissionState_description3GPlus" = "Вашите сертификати отговарят на 3G plus правилото. Ако Ви се налага да доказвате своя текущ статус затворете този изглед и покажете QR кода в “Преглед на сертификати”.";
+
+"HealthCertifiedPerson_AdmissionStateFAQ" = "За повече информация вижте страницата ни с %@.";
+
+"HealthCertifiedPerson_AdmissionState_FAQ_Placeholder" = "ЧЗВ";
+
+"HealthCertifiedPerson_AdmissionState_shortTitle_title2G" = "2G";
+
+"HealthCertifiedPerson_AdmissionState_shortTitle_title2GPlus" = "2G+";
+
+"HealthCertifiedPerson_AdmissionState_shortTitle_title3G" = "3G";
+
+"HealthCertifiedPerson_AdmissionState_shortTitle_title3GPlus" = "3G+";
+
+/* Health Certified Person Hint */
 "HealthCertifiedPerson_VaccinationHint_title" = "Ваксинационен статус";
 
 "HealthCertifiedPerson_partiallyVaccinated" = "Не сте получили всички планирани за момента ваксинации – Вашата ваксинационна защита все още не е пълна.";
@@ -3132,9 +3166,9 @@
 
 "UniversalQRScanner_MaxPersonAmountAlert_errorTitle" = "Грешка";
 
-"UniversalQRScanner_MaxPersonAmountAlert_warningMessage" = "Приложението Corona-Warn-App не може да се използва за валидиране на сертификат от трети страни. За тази цел използвайте приложението  CovPassCheck.\n\nМоже да добавите сертификати за до %i човека. Когато достигнете лимита Вие няма да може да сканирате повече сертификати за допълнителни лица.\n\nЩе откриете повече информация за ваксинационни сертификати на нашата страница “ЧЗВ”.";
+"UniversalQRScanner_MaxPersonAmountAlert_warningMessage" = "Приложението Corona-Warn-App не може да се използва за валидиране на сертификат от трети страни. За тази цел използвайте приложението  CovPassCheck.\n\nМоже да добавите сертификати за до %i човека. Когато достигнете лимита Вие няма да може да сканирате повече сертификати за допълнителни лица.\n\nЩе откриете повече информация за валидиране на сертификат на нашата страница “ЧЗВ”.";
 
-"UniversalQRScanner_MaxPersonAmountAlert_errorMessage" = "Приложението Corona-Warn-App не може да се използва за валидиране на сертификат от трети страни. За тази цел използвайте приложението  CovPassCheck.\n\nМоже да добавите сертификати за до %i човека. Не може да сканирате повече сертификати за допълнителни лица.\n\nЩе откриете повече информация за ваксинационни сертификати на нашата страница “ЧЗВ”.";
+"UniversalQRScanner_MaxPersonAmountAlert_errorMessage" = "Приложението Corona-Warn-App не може да се използва за валидиране на сертификат от трети страни. За тази цел използвайте приложението  CovPassCheck.\n\nМоже да добавите сертификати за до %i човека. Не може да сканирате повече сертификати за допълнителни лица.\n\nЩе откриете повече информация за валидиране на сертификат на нашата страница “ЧЗВ”.";
 
 "UniversalQRScanner_MaxPersonAmountAlert_covPassCheckButton" = "Изтегляне не CovPassCheck App";
 
