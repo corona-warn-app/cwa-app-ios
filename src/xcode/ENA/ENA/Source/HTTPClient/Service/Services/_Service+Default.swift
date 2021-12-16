@@ -240,10 +240,10 @@ extension Service {
 		}
 	}
 	
-	/// Handle default error for no network. If the error is nil, it is an invalid response.
+	/// Proofs only in case of response error problems the given optional error. If the error nil, it must be an invalid response. If we can unwrap the error, it must be an transportationError aka no network.
 	///
 	/// - Parameters:
-	///   - error: original error.
+	///   - error: optional error.
 	///   - resource: Generic ("R") object and normally of type ReceiveResource.
 	///   - completion: Swift-Result of loading. If successful, it contains the concrete object of our call.
 	private func defaultErrorHandling<R>(
