@@ -456,12 +456,6 @@ class QRScannerCoordinator {
 
 	// swiftlint:disable cyclomatic_complexity
 	private func showScanningErrorAlert(error: QRCodeParserError) {
-		guard let viewModel = viewModel else {
-			return
-		}
-
-		viewModel.deactivateScanning()
-
 		let unwrappedError: Error
 		switch error {
 		case .scanningError(let qrScannerError):

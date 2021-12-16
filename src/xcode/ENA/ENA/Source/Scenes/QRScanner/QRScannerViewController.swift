@@ -49,6 +49,7 @@ class QRScannerViewController: UIViewController {
 						// Don't show an error in simulator to enable debugging/UI-Tests
 						return
 						#else
+						self?.viewModel?.deactivateScanning()
 						onShowCameraPermissionError()
 						#endif
 					} else {
