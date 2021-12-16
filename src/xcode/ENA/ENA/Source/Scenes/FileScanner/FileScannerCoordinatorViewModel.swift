@@ -272,12 +272,6 @@ class FileScannerCoordinatorViewModel: FileScannerProcessing {
 				if let parseError = errors.first {
 					self?.parsingFailedOnQueue(parseError)
 				}
-//				   case let .certificateQrError(registerError) = parseError,
-//				   case .certificateAlreadyRegistered = registerError {
-//					self?.processingFailedOnQueue(.alreadyRegistered)
-//				} else {
-//					self?.processingFailedOnQueue(.invalidQRCode)
-//				}
 				completion(nil)
 			}
 		}
