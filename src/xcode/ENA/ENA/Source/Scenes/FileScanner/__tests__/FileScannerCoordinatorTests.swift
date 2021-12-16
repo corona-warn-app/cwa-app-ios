@@ -23,7 +23,7 @@ class FileScannerCoordinatorTests: XCTestCase {
 			noQRCodeFound: { },
 			showActivityIndicator: { },
 			hideActivityIndicator: { },
-			onQRCodeParserError: { }
+			onQRCodeParserError: { _ in }
 		)
 		fileScannerCoordinator.start()
 
@@ -44,7 +44,7 @@ class FileScannerCoordinatorTests: XCTestCase {
 			noQRCodeFound: { },
 			showActivityIndicator: { },
 			hideActivityIndicator: { },
-			onQRCodeParserError: { }
+			onQRCodeParserError: { _ in }
 		)
 		fileScannerCoordinator.start()
 
@@ -69,7 +69,7 @@ class FileScannerCoordinatorTests: XCTestCase {
 			noQRCodeFound: { },
 			showActivityIndicator: { },
 			hideActivityIndicator: { },
-			onQRCodeParserError: { }
+			onQRCodeParserError: { _ in }
 		)
 		fileScannerCoordinator.start()
 
