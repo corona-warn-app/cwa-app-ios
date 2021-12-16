@@ -59,6 +59,7 @@ protocol FileScannerProcessing {
 	var processingStarted: (() -> Void)? { get set }
 	var processingFinished: ((QRCodeResult) -> Void)? { get set }
 	var processingFailed: ((FileScannerError?) -> Void)? { get set }
+	
 	var missingPasswordForPDF: ((@escaping (String) -> Void) -> Void)? { get set }
 
 	var authorizationStatus: PHAuthorizationStatus { get }
@@ -90,6 +91,7 @@ class FileScannerCoordinatorViewModel: FileScannerProcessing {
 	var processingStarted: (() -> Void)?
 	var processingFinished: ((QRCodeResult) -> Void)?
 	var processingFailed: ((FileScannerError?) -> Void)?
+	var parsingFailed: ((QRCodeParserError?) -> Void)?
 	var missingPasswordForPDF: ((@escaping (String) -> Void) -> Void)?
 
 	var authorizationStatus: PHAuthorizationStatus {
@@ -267,13 +269,15 @@ class FileScannerCoordinatorViewModel: FileScannerProcessing {
 				completion(firstValidResult)
 			} else {
 				Log.debug("Didn't find a valid QR-Code from codes.", log: .fileScanner)
-				if let parseError = errors.first,
-				   case let .certificateQrError(registerError) = parseError,
-				   case .certificateAlreadyRegistered = registerError {
-					self?.processingFailedOnQueue(.alreadyRegistered)
-				} else {
-					self?.processingFailedOnQueue(.invalidQRCode)
+				if let parseError = errors.first {
+					self?.parsingFailedOnQueue(parseError)
 				}
+//				   case let .certificateQrError(registerError) = parseError,
+//				   case .certificateAlreadyRegistered = registerError {
+//					self?.processingFailedOnQueue(.alreadyRegistered)
+//				} else {
+//					self?.processingFailedOnQueue(.invalidQRCode)
+//				}
 				completion(nil)
 			}
 		}
@@ -297,6 +301,12 @@ class FileScannerCoordinatorViewModel: FileScannerProcessing {
 		}
 	}
 
+	private func parsingFailedOnQueue(_ error: QRCodeParserError?) {
+		DispatchQueue.main.async {
+			self.parsingFailed?(error)
+		}
+	}
+	
 	private func missingPasswordForPDFOnQueue(_ callback: @escaping (String) -> Void) {
 		DispatchQueue.main.async {
 			self.missingPasswordForPDF?(callback)
