@@ -26,27 +26,32 @@ struct HygieneRulesInfoViewModel {
 					.icon(
 						UIImage(imageLiteralResourceName: "Icons - Mundschutz"),
 						text: .string(AppStrings.ExposureDetection.hygieneRulesPoint1),
-						tintColor: .enaColor(for: .riskHigh)
+						tintColor: .enaColor(for: .riskHigh),
+						alignment: .top
 					),
 					.icon(
 						UIImage(imageLiteralResourceName: "Icons - Abstand"),
 						text: .string(AppStrings.ExposureDetection.hygieneRulesPoint2),
-						tintColor: .enaColor(for: .riskHigh)
+						tintColor: .enaColor(for: .riskHigh),
+						alignment: .top
 					),
 					.icon(
 						UIImage(imageLiteralResourceName: "Icons - Niesen"),
 						text: .string(AppStrings.ExposureDetection.hygieneRulesPoint3),
-						tintColor: .enaColor(for: .riskHigh)
+						tintColor: .enaColor(for: .riskHigh),
+						alignment: .top
 					),
 					.icon(
 						UIImage(imageLiteralResourceName: "Icons - Hands"),
 						text: .string(AppStrings.ExposureDetection.hygieneRulesPoint4),
-						tintColor: .enaColor(for: .riskHigh)
+						tintColor: .enaColor(for: .riskHigh),
+						alignment: .top
 					),
 					.icon(
 						UIImage(imageLiteralResourceName: "Icons - Ventilation"),
 						text: .string(AppStrings.ExposureDetection.hygieneRulesPoint5),
-						tintColor: .enaColor(for: .riskHigh)
+						tintColor: .enaColor(for: .riskHigh),
+						alignment: .top
 					)
 				]
 			)
