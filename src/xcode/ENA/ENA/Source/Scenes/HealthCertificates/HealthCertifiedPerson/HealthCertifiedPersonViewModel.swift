@@ -145,6 +145,10 @@ final class HealthCertifiedPersonViewModel {
 	var vaccinationHintIsVisible: Bool {
 		return !healthCertifiedPerson.vaccinationCertificates.isEmpty
 	}
+	
+	var admissionStateIsVisible: Bool {
+		return healthCertifiedPerson.admissionState != .other
+	}
 
 	var preferredPersonCellModel: PreferredPersonCellModel {
 		PreferredPersonCellModel(
@@ -209,10 +213,7 @@ final class HealthCertifiedPersonViewModel {
 	private var subscriptions = Set<AnyCancellable>()
 
 	private var healthCertificateCellViewModels = [HealthCertificateCellViewModel]()
-	var admissionStateIsVisible: Bool {
-		return healthCertifiedPerson.admissionState != .other
-	}
-
+	
 	private func constructHealthCertificateCellViewModels(for person: HealthCertifiedPerson) {
 		let sortedHealthCertificates = person.healthCertificates.sorted(by: >)
 		healthCertificateCellViewModels = sortedHealthCertificates.map {
