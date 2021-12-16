@@ -216,11 +216,11 @@
 
 "ExposureDetection_Info_Contagion_Point6" = "Bei Fragen zu Quarantäne-Maßnahmen wenden Sie sich bitte an Ihr Gesundheitsamt.";
 
-"ExposureDetection_Info_Contagion_Point6_LinkText" = "Fragen zu Quarantäne-Maßnahmen";
+"ExposureDetection_Info_Contagion_Point6_LinkText" = "Weitere Informationen finden Sie in den FAQ zu Quarantäne-Maßnahmen";
 
-"ExposureDetection_Info_Contagion_Footer" = "Weitere Hinweise finden Sie in der FAQ zur freiwilligen Selbstquarantäne.";
+"ExposureDetection_Info_Contagion_Footer" = "Weitere Hinweise finden Sie in den FAQ zur freiwilligen Selbstquarantäne.";
 
-"ExposureDetection_Info_Contagion_Footer_LinkText" = "Weitere Hinweise finden Sie in der FAQ zur freiwilligen Selbstquarantäne.";
+"ExposureDetection_Info_Contagion_Footer_LinkText" = "Weitere Hinweise finden Sie in den FAQ zur freiwilligen Selbstquarantäne.";
 
 /* Survey Errors */
 
