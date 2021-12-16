@@ -217,7 +217,7 @@ extension Service {
 			  usage.contains(cacheUseCase) else {
 				  // Otherwise, fall back to the default
 				  Log.info("No cache use case handling defined. Fallback to default error handling")
-				  defaultErrorHandling(error, resource, completion)
+				  responseNetworkErrorHandling(error, resource, completion)
 				  return
 		}
 		
@@ -232,7 +232,7 @@ extension Service {
 			Log.info("Found nothing cached. Handling cache use cases")
 			switch cacheUseCase {
 			case .noNetwork:
-				defaultErrorHandling(error, resource, completion)
+				responseNetworkErrorHandling(error, resource, completion)
 			case .statusCode(let statusCodes):
 				Log.error("Unexpected server error: (\(statusCodes)", log: .client)
 				completion(.failure(customError(in: resource, for: .unexpectedServerError(statusCodes))))
@@ -240,13 +240,13 @@ extension Service {
 		}
 	}
 	
-	/// Proofs only in case of response error problems the given optional error. If the error nil, it must be an invalid response. If we can unwrap the error, it must be an transportationError aka no network.
+	/// Proofs only in case of response error problems with the network connection the given optional error. If the error nil, it must be an invalid response. If we can unwrap the error, it must be an transportationError aka no network.
 	///
 	/// - Parameters:
 	///   - error: optional error.
 	///   - resource: Generic ("R") object and normally of type ReceiveResource.
 	///   - completion: Swift-Result of loading. If successful, it contains the concrete object of our call.
-	private func defaultErrorHandling<R>(
+	private func responseNetworkErrorHandling<R>(
 		_ error: Error?,
 		_ resource: R,
 		_ completion: @escaping (Result<R.Receive.ReceiveModel, ServiceError<R.CustomError>>) -> Void
