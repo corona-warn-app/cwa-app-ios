@@ -150,7 +150,6 @@ GEM
       xcodeproj (>= 1.13.0, < 2.0.0)
       xcpretty (~> 0.3.0)
       xcpretty-travis-formatter (>= 0.0.3)
-    fastlane-plugin-appcenter (1.11.1)
     fastlane-plugin-trainer (0.4.1)
       trainer (>= 0.7.0)
     ffi (1.15.3)
@@ -309,7 +308,6 @@ PLATFORMS
 
 DEPENDENCIES
   fastlane
-  fastlane-plugin-appcenter
   fastlane-plugin-trainer
   jazzy
   xcode-install
