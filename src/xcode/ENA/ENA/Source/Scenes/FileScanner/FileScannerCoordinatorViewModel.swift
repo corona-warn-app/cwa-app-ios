@@ -59,7 +59,7 @@ protocol FileScannerProcessing {
 	var processingStarted: (() -> Void)? { get set }
 	var processingFinished: ((QRCodeResult) -> Void)? { get set }
 	var processingFailed: ((FileScannerError?) -> Void)? { get set }
-	
+	var parsingFailed: ((QRCodeParserError?) -> Void)?
 	var missingPasswordForPDF: ((@escaping (String) -> Void) -> Void)? { get set }
 
 	var authorizationStatus: PHAuthorizationStatus { get }
