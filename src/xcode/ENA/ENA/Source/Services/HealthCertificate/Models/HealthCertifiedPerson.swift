@@ -139,7 +139,6 @@ class HealthCertifiedPerson: Codable, Equatable, Comparable {
 		didSet {
 			if vaccinationState != oldValue {
 				objectDidChange.send(self)
-				updateAdmissionState()
 			}
 		}
 	}
@@ -310,6 +309,7 @@ class HealthCertifiedPerson: Codable, Equatable, Comparable {
 			.publisher(for: UIApplication.didBecomeActiveNotification)
 			.sink { [weak self] _ in
 				self?.updateVaccinationState()
+				self?.updateAdmissionState()
 			}
 			.store(in: &subscriptions)
 
@@ -317,6 +317,7 @@ class HealthCertifiedPerson: Codable, Equatable, Comparable {
 			.publisher(for: UIApplication.significantTimeChangeNotification)
 			.sink { [weak self] _ in
 				self?.updateVaccinationState()
+				self?.updateAdmissionState()
 				self?.scheduleMostRelevantCertificateTimer()
 			}
 			.store(in: &subscriptions)

@@ -380,6 +380,7 @@
 		01E10278266BC4B1009ED803 /* TestCertificateRequestCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01E10274266BC362009ED803 /* TestCertificateRequestCellModel.swift */; };
 		01E1027A266BCD2B009ED803 /* TestCertificateRequestTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01E10279266BC4BA009ED803 /* TestCertificateRequestTableViewCell.xib */; };
 		01E10284266E2F7F009ED803 /* TestEntry+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01E10283266E2F7F009ED803 /* TestEntry+Extension.swift */; };
+		01E107F4276B426200E0595B /* AdmissionStateCellModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01E107F3276B426200E0595B /* AdmissionStateCellModelTests.swift */; };
 		01E1C944274BA2F9007FD7B3 /* QRScannerInfoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01E1C941274B96F9007FD7B3 /* QRScannerInfoViewModel.swift */; };
 		01E1C945274BA2FE007FD7B3 /* QRScannerInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01E1C940274B96F9007FD7B3 /* QRScannerInfoViewController.swift */; };
 		01E1C947274FB331007FD7B3 /* TicketValidationAccessTokenResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01E1C946274FB331007FD7B3 /* TicketValidationAccessTokenResource.swift */; };
@@ -2001,6 +2002,7 @@
 		01E10275266BC363009ED803 /* TestCertificateRequestTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestCertificateRequestTableViewCell.swift; sourceTree = "<group>"; };
 		01E10279266BC4BA009ED803 /* TestCertificateRequestTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TestCertificateRequestTableViewCell.xib; sourceTree = "<group>"; };
 		01E10283266E2F7F009ED803 /* TestEntry+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TestEntry+Extension.swift"; sourceTree = "<group>"; };
+		01E107F3276B426200E0595B /* AdmissionStateCellModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdmissionStateCellModelTests.swift; sourceTree = "<group>"; };
 		01E1C940274B96F9007FD7B3 /* QRScannerInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRScannerInfoViewController.swift; sourceTree = "<group>"; };
 		01E1C941274B96F9007FD7B3 /* QRScannerInfoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRScannerInfoViewModel.swift; sourceTree = "<group>"; };
 		01E1C946274FB331007FD7B3 /* TicketValidationAccessTokenResource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketValidationAccessTokenResource.swift; sourceTree = "<group>"; };
@@ -8959,6 +8961,7 @@
 				BAE106E326710E19002D91FB /* HealthCertifiedPersonViewModelTests.swift */,
 				019DDEDE26F1E48B00390509 /* VaccinationHintCellModelTests.swift */,
 				01915573268475EB00D49C88 /* HealthCertificateCellViewModelTests.swift */,
+				01E107F3276B426200E0595B /* AdmissionStateCellModelTests.swift */,
 			);
 			path = __tests__;
 			sourceTree = "<group>";
@@ -11096,6 +11099,7 @@
 				8F63407C262D8F4400077240 /* AntigenTestInformation+Mock.swift in Sources */,
 				ABAC9D2E2624938100EB183F /* TestResultTests.swift in Sources */,
 				017EE867267B4F2600CD18F6 /* CWATestCase+HealthCertificateConvenience.swift in Sources */,
+				01E107F4276B426200E0595B /* AdmissionStateCellModelTests.swift in Sources */,
 				01F3323D27174583005CE21E /* PCRTest+Mock.swift in Sources */,
 				BAB6C82325C4666900E042FB /* PPACServiceTest.swift in Sources */,
 				50842BF0274FCFFB0015E63F /* TicketValidationServiceIdentityDocument+Fake.swift in Sources */,

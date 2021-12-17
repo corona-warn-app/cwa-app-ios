@@ -17,6 +17,7 @@ final class AdmissionStateCellModel {
 	// MARK: - Internal
 
 	let title = AppStrings.HealthCertificate.Person.AdmissionState.title
+
 	var subtitle: String? {
 		return healthCertifiedPerson.admissionState.subtitle
 	}
@@ -26,7 +27,6 @@ final class AdmissionStateCellModel {
 	}
 
 	var faqLink: NSAttributedString? {
-		
 		let text = String(
 			format: AppStrings.HealthCertificate.Person.AdmissionState.faq,
 			AppStrings.HealthCertificate.Person.AdmissionState.faqPlaceHolder
@@ -63,6 +63,6 @@ final class AdmissionStateCellModel {
 
 	// MARK: - Private
 
-	let healthCertifiedPerson: HealthCertifiedPerson
+	private let healthCertifiedPerson: HealthCertifiedPerson
 
 }
