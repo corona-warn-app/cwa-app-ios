@@ -186,7 +186,7 @@
 
 "ExposureDetection_Info_HygieneRules_Title" = "Reguli de igienă";
 
-"ExposureDetection_Info_HygieneRules_Point1" = "Purtați o mască atunci când vă întâlniți cu alte persoane.";
+"ExposureDetection_Info_HygieneRules_Point1" = "Purtați o mască facială când întâlniți alte persoane.";
 
 "ExposureDetection_Info_HygieneRules_Point2" = "Păstrați o distanță de cel puțin 1,5 metri față de alte persoane.";
 
@@ -216,11 +216,11 @@
 
 "ExposureDetection_Info_Contagion_Point6" = "Dacă aveți întrebări despre măsurile de carantină, contactați departamentul aferent de sănătate publică.";
 
-"ExposureDetection_Info_Contagion_Point6_LinkText" = "Întrebări frecvente despre măsurile de carantină";
+"ExposureDetection_Info_Contagion_Point6_LinkText" = "întrebări despre măsurile de carantină";
 
 "ExposureDetection_Info_Contagion_Footer" = "Informații suplimentare despre autocarantina voluntară sunt disponibile pe pagina noastră de întrebări frecvente.";
 
-"ExposureDetection_Info_Contagion_Footer_LinkText" = "Întrebări frecvente despre autocarantina voluntară";
+"ExposureDetection_Info_Contagion_Footer_LinkText" = "pagina noastră de întrebări frecvente";
 
 /* Survey Errors */
 "SurveyConsent_Error_Title" = "Eroare";
@@ -747,13 +747,13 @@
 
 "ExposureSubmissionResult_testNegative_furtherInfos_title" = "Alte informații:";
 
-"ExposureSubmissionResult_testNegative_furtherInfos_listItem1" = "Încă vă simțiți rău? Dacă vă simțiți foarte rău și/sau simptomele dvs. s-au agravat, vă rugăm să contactați medicul dvs. de familie.";
+"ExposureSubmissionResult_testNegative_furtherInfos_desc" = "Aveți totuși simptome acute?";
 
-"ExposureSubmissionResult_testNegative_furtherInfos_listItem2" = "Rămâneți acasă până vă simțiți din nou bine. Dacă v-ați infecta cu coronavirus (SARS-CoV-2) în timp ce organismul dvs. este slăbit din cauza unei alte infecții, aceasta ar putea duce la o boală gravă.";
+"ExposureSubmissionResult_testNegative_furtherInfos_listItem1" = "Rămâneți în casă în măsura în care este posibil, până când vă simțiți din nou bine. Reduceți riscul de a vă infecta cu coronavirus, pe lângă infecția pe care o puteți avea deja.";
 
-"ExposureSubmissionResult_testNegative_furtherInfos_listItem3" = "Nu mergeți la serviciu dacă nu vă simțiți bine pentru a nu expune la risc alte persoane.";
+"ExposureSubmissionResult_testNegative_furtherInfos_listItem2" = "Nu mergeți la serviciu dacă nu vă simțiți bine pentru a nu expune la risc alte persoane.";
 
-"ExposureSubmissionResult_furtherInfos_hint_testAgain" = "Dacă simptomele dvs. se agravează, se poate să aveți nevoie de un alt test SARS-CoV-2.";
+"ExposureSubmissionResult_testNegative_furtherInfos_listItem3" = "Dacă vă simțiți foarte rău sau dacă simptomele dvs. se agravează, contactați medicul de familie. Acesta vă poate sfătui dacă este necesar să faceți un alt test SARS-CoV-2.";
 
 "ExposureSubmissionResult_testInvalid" = "Testul dvs. nu poate fi evaluat";
 
@@ -918,7 +918,7 @@
 
 "ExposureSubmissionResult_Negative_Antigen_Proof_Title" = " ";
 
-"ExposureSubmissionResult_Negative_Antigen_Proof_Desc" = "Rezultatul testului dvs. este privat, deși unele legi vă pot solicita să îl partajați. Când vi se solicită acest lucru, îl puteți arăta prin intermediul unuia dintre modurile furnizate.";
+"ExposureSubmissionResult_Negative_Antigen_Proof_Desc" = "Pentru a dovedi într-un mod verificabil rezultatul afișat aici, este nevoie de un Certificat covid digital UE. Dacă ați solicitat un certificat de test digital când v-ați înregistrat testul și dacă punctul de testare suportă emiterea certificatelor digitale, puteți găsi certificatul dvs. de test digital utilizând legătura specificată mai sus. De asemenea, veți găsi certificatul dvs. pe tabul „Certificate”.\nVă rugăm să consultați și criteriile pentru recunoașterea și valabilitatea certificatelor de test în funcție de scopul pentru care vă este necesară dovada.";
 
 "ExposureSubmissionResult_Negative_Antigen_NoProof_Title" = "Caracteristica fără verificare";
 
@@ -1595,10 +1595,18 @@
 /* New Version Features */
 "NewVersionFeatures_Info_about_abb_information" = "Modificările din această versiune pot fi găsite în informațiile aplicației, la „Caracteristici noi”.";
 
-/* Version 2.15 */
-"NewVersionFeature_215_ticketValidation_title" = "Verificarea certificatului la emiterea biletului";
+/* Version 2.16 */
+"NewVersionFeature_216_2g_title" = "Dovada stării 2G+";
 
-"NewVersionFeature_215_ticketValidation_description" = "Când rezervați un bilet, puteți prezenta dovada că sunteți vaccinat, că v-ați recuperat după boală sau că aveți un test negativ. Pentru aceasta, scanați codul QR afișat în sistemul de bilete și apoi selectați certificatul corect din aplicație. Rezultatul verificării certificatului este expediat la sistemul de bilete de către partenerul de verificare.";
+"NewVersionFeature_216_2g_description" = "Dacă aveți un certificat de vaccinare valabil sau un certificat de recuperare valabil și adăugați un certificat de test în aplicație, acestea sunt afișate într-un afișaj combinat în sumarul certificatului. Puteți schimba între codurile QR al certificatului de vaccinare sau al certificatului de recuperare și cel al certificatul de test utilizând controlul corespunzător. Ambele coduri QR trebuie verificate cu aplicația CovPassCheck dacă este nevoie de dovada 2G+.";
+
+"NewVersionFeature_216_negativeTestNotice_title" = "Informații în caz de rezultat de test negativ";
+
+"NewVersionFeature_216_negativeTestNotice_description" = "Dacă primiți un rezultat de test negativ, nu veți primi recomandări suplimentare dacă aveți în continuare simptome acute.";
+
+"NewVersionFeature_216_highRiskNotification_title" = "Notificare de risc crescut";
+
+"NewVersionFeature_216_highRiskNotification_description" = "Acum veți primi o notificare dacă aveți risc crescut de infectare, chiar dacă aplicația este deschisă. Scopul acesteia este de a vă împiedica să ignorați o avertizare de risc de pe tabul de stare dacă, în mod curent, utilizați un tab diferit. În plus, va apărea un punct roșu pe tabul de stare, până când deschideți din nou acest tab.";
 
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Înregistrare transnațională a expunerilor în jurnal";
@@ -2695,25 +2703,15 @@
 
 "HealthCertificate_Overview_Covid_Title" = "Certificat COVID digital UE";
 
-"VaccinationCertificate_title" = "**Certificat de vaccinare digital**\nUE";
-
-"VaccinationCertificate_partiallyVaccinated" = "Vaccinare incompletă";
-
-"VaccinationCertificate_vaccinationValidUntil" = "Valabil până la %@";
-
 "HealthCertificate_Overview_Covid_Certificate_Description" = "Un cod QR cu certificatul";
 
+"HealthCertificate_Overview_AdmissionState_Title" = "Dovada stării";
+
+"HealthCertificate_Overview_TwoGCertificate" = "Certificat 2G";
+
+"HealthCertificate_Overview_TestCertificate" = "Certificat de test";
+
 "HealthCertificate_Overview_News" = "Există noutăți despre certificatele dvs.";
-
-/* - Test Certificate Info */
-"TestCertificate_Info_title" = "**Certificat de test COVID digital**\nUE";
-
-"TestCertificate_Info_description" = "Înregistrați un test pe ecranul inițial și consimțiți să primiți un certificat de test digital. De îndată ce este disponibil certificatul, acesta este afișat aici.";
-
-/* - Test Certificate */
-"TestCertificate_title" = "**Certificat de test COVID digital**\nUE";
-
-"TestCertificate_testDate" = "Test efectuat pe %@";
 
 /* - Test Certificate Request */
 "TestCertificateRequest_title" = "**Certificat de test COVID digital**\nUE";
@@ -2796,6 +2794,42 @@
 
 "HealthCertifiedPerson_title" = "Certificat COVID digital UE";
 
+/* Health Certified Person Admission State */
+"HealthCertifiedPerson_AdmissionState_title" = "Dovada stării";
+
+"HealthCertifiedPerson_AdmissionState_subtitle2G" = "2G";
+
+"HealthCertifiedPerson_AdmissionState_subtitle2GPlusPCR" = "2G+ test PCR";
+
+"HealthCertifiedPerson_AdmissionState_subtitle2GPlusAntigen" = "2G+ test rapid";
+
+"HealthCertifiedPerson_AdmissionState_subtitle3G" = "3G";
+
+"HealthCertifiedPerson_AdmissionState_subtitle3GPlus" = "3G+";
+
+"HealthCertifiedPerson_AdmissionState_description2G" = "Certificatele dvs. respectă regula 2G. Dacă trebuie să dovediți starea dvs. curentă, închideți această vizualizare și afișați codul QR în sumarul certificatului.";
+
+"HealthCertifiedPerson_AdmissionState_description2GPlusPCR" = "Certificatele dvs. respectă regula 2G plus. Dacă trebuie să dovediți starea dvs. curentă, închideți această vizualizare și afișați codul QR în sumarul certificatului.";
+
+"HealthCertifiedPerson_AdmissionState_description2GPlusAntigen" = "Certificatele dvs. respectă regula 2G plus. Dacă trebuie să dovediți starea dvs. curentă, închideți această vizualizare și afișați codul QR în sumarul certificatului.";
+
+"HealthCertifiedPerson_AdmissionState_description3G" = "Certificatele dvs. respectă regula 3G. Dacă trebuie să dovediți starea dvs. curentă, închideți această vizualizare și afișați codul QR în sumarul certificatului.";
+
+"HealthCertifiedPerson_AdmissionState_description3GPlus" = "Certificatele dvs. respectă regula 3G plus. Dacă trebuie să dovediți starea dvs. curentă, închideți această vizualizare și afișați codul QR în sumarul certificatului.";
+
+"HealthCertifiedPerson_AdmissionStateFAQ" = "Pentru mai multe informații, consultați pagina noastră %@.";
+
+"HealthCertifiedPerson_AdmissionState_FAQ_Placeholder" = "Întrebări frecvente";
+
+"HealthCertifiedPerson_AdmissionState_shortTitle_title2G" = "2G";
+
+"HealthCertifiedPerson_AdmissionState_shortTitle_title2GPlus" = "2G+";
+
+"HealthCertifiedPerson_AdmissionState_shortTitle_title3G" = "3G";
+
+"HealthCertifiedPerson_AdmissionState_shortTitle_title3GPlus" = "3G+";
+
+/* Health Certified Person Hint */
 "HealthCertifiedPerson_VaccinationHint_title" = "Starea vaccinării";
 
 "HealthCertifiedPerson_partiallyVaccinated" = "Nu ați primit încă toate vaccinările planificate curente. Astfel, protecția dvs. prin vaccinare nu este completă încă.";
@@ -3132,9 +3166,9 @@
 
 "UniversalQRScanner_MaxPersonAmountAlert_errorTitle" = "Eroare";
 
-"UniversalQRScanner_MaxPersonAmountAlert_warningMessage" = "Corona-Warn-App nu poate fi utilizată pentru verificarea certificatelor de la terți. În acest scop, utilizați aplicația CovPassCheck.\n\nPuteți adăuga certificate pentru maximum %i persoane. După ce este atinsă această limită, nu mai puteți scana alte certificate noi pentru alte persoane.\n\nVeți găsi mai multe informații despre certificatele de vaccinare pe pagina noastră de întrebări frecvente.";
+"UniversalQRScanner_MaxPersonAmountAlert_warningMessage" = "Corona-Warn-App nu poate fi utilizată pentru verificarea certificatelor de la terți. În acest scop, utilizați aplicația CovPassCheck.\n\nPuteți adăuga certificate pentru maximum %i persoane. După ce este atinsă această limită, nu mai puteți scana alte certificate noi pentru alte persoane.\n\nVeți găsi mai multe informații despre verificarea certificatului pe pagina noastră de întrebări frecvente.";
 
-"UniversalQRScanner_MaxPersonAmountAlert_errorMessage" = "Corona-Warn-App nu poate fi utilizată pentru verificarea certificatelor de la terți. În acest scop, utilizați aplicația CovPassCheck.\n\nPuteți adăuga certificate pentru maximum %i persoane. Nu mai puteți scana alte certificate noi pentru alte persoane.\n\nVeți găsi mai multe informații despre certificatele de vaccinare pe pagina noastră de întrebări frecvente.";
+"UniversalQRScanner_MaxPersonAmountAlert_errorMessage" = "Corona-Warn-App nu poate fi utilizată pentru verificarea certificatelor de la terți. În acest scop, utilizați aplicația CovPassCheck.\n\nPuteți adăuga certificate pentru maximum %i persoane. Nu mai puteți scana alte certificate noi pentru alte persoane.\n\nVeți găsi mai multe informații despre verificarea certificatului pe pagina noastră de întrebări frecvente.";
 
 "UniversalQRScanner_MaxPersonAmountAlert_covPassCheckButton" = "Descărcați aplicația CovPassCheck";
 

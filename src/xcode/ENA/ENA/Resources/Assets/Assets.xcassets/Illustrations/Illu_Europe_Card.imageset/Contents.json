@@ -1,7 +1,7 @@
 {
   "images" : [
     {
-      "filename" : "Illu_Europe_Light.pdf",
+      "filename" : "Europa_Card_Light.pdf",
       "idiom" : "universal"
     },
     {
@@ -11,7 +11,7 @@
           "value" : "dark"
         }
       ],
-      "filename" : "Europe_Dark.pdf",
+      "filename" : "Europa_Card_Dark.pdf",
       "idiom" : "universal"
     }
   ],

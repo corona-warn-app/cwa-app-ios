@@ -519,6 +519,39 @@ class HealthCertificateQRCodeViewModelTests: XCTestCase {
 		XCTAssertFalse(viewModel.shouldBlockCertificateCode)
 	}
 
+	func testImageUpdatedCorrectly() throws {
+		let vaccinationCertificate = try vaccinationCertificate()
+		let testCertificate = try testCertificate()
+
+
+		let viewModel = HealthCertificateQRCodeViewModel(
+			healthCertificate: vaccinationCertificate,
+			showRealQRCodeIfValidityStateBlocked: false,
+			accessibilityLabel: "accessibilityLabel",
+			covPassCheckInfoPosition: .top,
+			onCovPassCheckInfoButtonTap: { }
+		)
+
+		XCTAssertEqual(
+			viewModel.qrCodeImage?.parsedQRCodeStrings.first,
+			vaccinationCertificate.base45
+		)
+
+		viewModel.updateImage(with: testCertificate)
+
+		XCTAssertEqual(
+			viewModel.qrCodeImage?.parsedQRCodeStrings.first,
+			testCertificate.base45
+		)
+
+		viewModel.updateImage(with: vaccinationCertificate)
+
+		XCTAssertEqual(
+			viewModel.qrCodeImage?.parsedQRCodeStrings.first,
+			vaccinationCertificate.base45
+		)
+	}
+
 }
 
 private extension UIImage {
