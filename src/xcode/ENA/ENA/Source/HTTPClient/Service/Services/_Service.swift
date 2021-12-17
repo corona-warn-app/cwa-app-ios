@@ -73,6 +73,16 @@ protocol Service {
 		_ completion: @escaping (Result<R.Receive.ReceiveModel, ServiceError<R.CustomError>>) -> Void
 	) where R: Resource
 	
+	
+	/// implement this functions if you want to check if we have something cached for this resource.
+	///
+	/// - Parameters:
+	///   - resource: Generic ("R") object and normally of type ReceiveResource.
+	///   - return: True if we have a cached model of this resource, otherwise false.
+	func hasCachedData<R>(
+		_ resource: R
+	) -> Bool where R: Resource
+	
 	/// implement this functions if you want to set special headers.
 	///
 	/// - Parameters:
@@ -83,19 +93,16 @@ protocol Service {
 		_ receiveResource: R,
 		_ locator: Locator
 	) -> [String: String]? where R: ReceiveResource
-	
-}
 
-extension Service {
-	
-	func customError<R>(
-		in resource: R,
-		for serviceError: ServiceError<R.CustomError>
-	) -> ServiceError<R.CustomError> where R: Resource {
-		if let customError = resource.customError(for: serviceError) {
-			return .receivedResourceError(customError)
-		} else {
-			return serviceError
-		}
-	}
+	/// override to indicate for given status codes a special cache policy handling will be done
+	///
+	/// - Parameters:
+	///   - resource: Generic ("R") object and normally of type ReceiveResource.
+	///   - statusCode: the status code of the URLResponse
+	///   - return: false if no special cache policy handling exists for the given status code
+	func hasStatusCodeCachePolicy<R>(
+		_ resource: R,
+		_ statusCode: Int
+	) -> Bool where R: Resource
+
 }
