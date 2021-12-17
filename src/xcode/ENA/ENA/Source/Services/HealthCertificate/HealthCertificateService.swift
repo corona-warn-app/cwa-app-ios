@@ -141,8 +141,9 @@ class HealthCertificateService {
 			applyBoosterRulesForHealthCertificatesOfAPerson(healthCertifiedPerson: healthCertifiedPerson, completion: completion)
 		}
 	}
-	
+
 	@discardableResult
+	// swiftlint:disable:next cyclomatic_complexity
 	func registerHealthCertificate(
 		base45: Base45,
 		checkSignatureUpfront: Bool = true,
