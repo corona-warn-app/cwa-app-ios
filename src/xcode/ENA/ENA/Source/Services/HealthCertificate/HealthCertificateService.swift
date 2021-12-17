@@ -196,6 +196,8 @@ class HealthCertificateService {
 				healthCertifiedPerson = registeredHealthCertifiedPerson
 			} else {
 				if checkMaxPersonCount {
+					Log.debug("Check agains max person count.")
+
 					if healthCertifiedPersons.count >= appConfiguration.featureProvider.intValue(for: .dccPersonCountMax) {
 						Log.debug("Abort registering certificate due to too many persons registered.")
 						return .failure(.tooManyPersonsRegistered)
