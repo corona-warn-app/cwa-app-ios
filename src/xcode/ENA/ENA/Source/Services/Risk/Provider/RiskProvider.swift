@@ -303,13 +303,13 @@ final class RiskProvider: RiskProviding {
 		}
 
 		// 2. There is a previous risk that is still valid and should not be recalculated
-//		if let risk = previousRiskIfExistingAndNotExpired(userInitiated: userInitiated) {
-//			Log.info("RiskProvider: Using risk from previous detection", log: .riskDetection)
-//			// update the risk exposure metadatas if new risk calculations are not done in the meanwhile
-//			Analytics.collect(.riskExposureMetadata(.update))
-//			completion(.success(risk))
-//			return
-//		}
+		if let risk = previousRiskIfExistingAndNotExpired(userInitiated: userInitiated) {
+			Log.info("RiskProvider: Using risk from previous detection", log: .riskDetection)
+			// update the risk exposure metadatas if new risk calculations are not done in the meanwhile
+			Analytics.collect(.riskExposureMetadata(.update))
+			completion(.success(risk))
+			return
+		}
 
 		executeExposureDetection(
 			appConfiguration: appConfiguration,
@@ -409,14 +409,12 @@ final class RiskProvider: RiskProviding {
 
 		let checkinRiskCalculationResult = checkinRiskCalculation.calculateRisk(with: appConfiguration)
 
-//		let risk = Risk(
-//			enfRiskCalculationResult: enfRiskCalculationResult,
-//			previousENFRiskCalculationResult: store.enfRiskCalculationResult,
-//			checkinCalculationResult: checkinRiskCalculationResult,
-//			previousCheckinCalculationResult: store.checkinRiskCalculationResult
-//		)
-		
-		let risk = Risk.mocked(level: .high)
+		let risk = Risk(
+			enfRiskCalculationResult: enfRiskCalculationResult,
+			previousENFRiskCalculationResult: store.enfRiskCalculationResult,
+			checkinCalculationResult: checkinRiskCalculationResult,
+			previousCheckinCalculationResult: store.checkinRiskCalculationResult
+		)
 
 		store.enfRiskCalculationResult = enfRiskCalculationResult
 		store.checkinRiskCalculationResult = checkinRiskCalculationResult
