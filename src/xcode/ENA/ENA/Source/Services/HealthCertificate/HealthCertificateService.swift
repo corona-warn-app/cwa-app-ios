@@ -146,6 +146,7 @@ class HealthCertificateService {
 	func registerHealthCertificate(
 		base45: Base45,
 		checkSignatureUpfront: Bool = true,
+		checkMaxPersonCount: Bool = true,
 		markAsNew: Bool = false
 	) -> Result<CertificateResult, HealthCertificateServiceError.RegistrationError> {
 		Log.info("[HealthCertificateService] Registering health certificate from payload: \(private: base45)", log: .api)
@@ -193,14 +194,16 @@ class HealthCertificateService {
 			if let registeredHealthCertifiedPerson = registeredHealthCertifiedPerson(for: healthCertificate) {
 				healthCertifiedPerson = registeredHealthCertifiedPerson
 			} else {
-				if healthCertifiedPersons.count >= appConfiguration.featureProvider.intValue(for: .dccPersonCountMax) {
-					Log.debug("Abort registering certificate due to too many persons registered.")
-					return .failure(.tooManyPersonsRegistered)
-				}
+				if checkMaxPersonCount {
+					if healthCertifiedPersons.count >= appConfiguration.featureProvider.intValue(for: .dccPersonCountMax) {
+						Log.debug("Abort registering certificate due to too many persons registered.")
+						return .failure(.tooManyPersonsRegistered)
+					}
 
-				if healthCertifiedPersons.count + 1 >= appConfiguration.featureProvider.intValue(for: .dccPersonWarnThreshold) {
-					Log.debug("Person warn treshhold is reached.")
-					personWarnThresholdReached = true
+					if healthCertifiedPersons.count + 1 >= appConfiguration.featureProvider.intValue(for: .dccPersonWarnThreshold) {
+						Log.debug("Person warn treshhold is reached.")
+						personWarnThresholdReached = true
+					}
 				}
 
 				healthCertifiedPerson = HealthCertifiedPerson(healthCertificates: [])
@@ -853,6 +856,7 @@ class HealthCertificateService {
 				let registerResult = registerHealthCertificate(
 					base45: healthCertificateBase45,
 					checkSignatureUpfront: false,
+					checkMaxPersonCount: false,
 					markAsNew: true
 				)
 
