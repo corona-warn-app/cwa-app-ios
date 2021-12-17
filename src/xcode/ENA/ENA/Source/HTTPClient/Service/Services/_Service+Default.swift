@@ -71,7 +71,7 @@ extension Service {
 				
 				// case we have no network.
 				if let error = error {
-					cachePolicyHandling(.noNetwork, error, resource, completion)
+					handleCachePolicyNoNetwork(error, resource, completion)
 					return
 				}
 								
@@ -96,11 +96,11 @@ extension Service {
 				#endif
 
 				// override status code by cache policy and handle it on other way.
-				guard hasNoStatusCodeCachePolicy(resource, response.statusCode) else {
-					cachePolicyHandling(.statusCode(response.statusCode), nil, resource, completion)
+				guard !hasCachePolicyStatusCode(resource, response.statusCode) else {
+					handleCachePolicyStatusCode(response.statusCode, resource, completion)
 					return
 				}
-
+				
 				// normal status code handling
 				switch response.statusCode {
 				case 200, 201:
@@ -157,11 +157,11 @@ extension Service {
 		return nil
 	}
 
-	func hasNoStatusCodeCachePolicy<R>(
+	func hasCachePolicyStatusCode<R>(
 		_ resource: R,
 		_ statusCode: Int
 	) -> Bool where R: Resource {
-		return true
+		return false
 	}
 	
 	// MARK: - Internal
@@ -203,30 +203,64 @@ extension Service {
 			completion(.failure(customError(in: resource, for: error)))
 		}
 	}
-
+	
 	// MARK: - Private
 
-	/// checks if special cache handlings needs to be done. If looks up if cached data or default data can be returned.
-	/// Then the special cache policy handling is done otherwise the original error is given in completion handler
+	/// Handles the noNetwork cache policy: Checks first, if the cache policy is defined. If not, proceed with the transportation error. Otherwise, try to load the cached data. If this fails, we fall back to the the transportation error.
 	///
 	/// - Parameters:
-	///   - cachePolicy: the caching policy that gets handled
-	///   - error: original error as a fallback for some cached policies
+	///   - error: the no network error
 	///   - resource: Generic ("R") object and normally of type ReceiveResource.
 	///   - completion: Swift-Result of loading. If successful, it contains the concrete object of our call.
-	private func cachePolicyHandling<R>(
-		_ cachePolicy: CacheUsePolicy,
-		_ error: Error?,
+	private func handleCachePolicyNoNetwork<R>(
+		_ error: Error,
+		_ resource: R,
+		_ completion: @escaping (Result<R.Receive.ReceiveModel, ServiceError<R.CustomError>>) -> Void
+	) where R: Resource {
+		
+		// Check if we can handle caching policy noNetwork
+		guard case let .caching(policies) = resource.type,
+			  policies.contains(.noNetwork) else {
+				  // Otherwise, fall back to the default
+				  Log.info("No cache policy .noNetwork found.", log: .client)
+				  failureOrDefaultValueHandling(resource, .transportationError(error), completion)
+				  return
+		}
+		
+		// If so, first we check if we have something cached
+		if hasCachedData(resource) {
+			Log.info("Found some cached data.", log: .client)
+			cached(resource, completion)
+			return
+		}
+		// If not, we will fail with the original error
+		else {
+			Log.info("Found nothing cached.")
+			failureOrDefaultValueHandling(resource, .transportationError(error), completion)
+			return
+		}
+	}
+	
+	// MARK: - Private
+
+	/// Handles the statusCode cache policy. Checks first, if the cache policy is defined. If not, proceed with the invalidResponse error. Otherwise, try to load the cached data. If this fails, we fall back to the the invalidResponse error.
+	///
+	/// - Parameters:
+	///   - statusCode: The status code of the response
+	///   - resource: Generic ("R") object and normally of type ReceiveResource.
+	///   - completion: Swift-Result of loading. If successful, it contains the concrete object of our call.
+	private func handleCachePolicyStatusCode<R>(
+		_ statusCode: Int,
 		_ resource: R,
 		_ completion: @escaping (Result<R.Receive.ReceiveModel, ServiceError<R.CustomError>>) -> Void
 	) where R: Resource {
 		
 		// Check if we can handle caching policy handling
 		guard case let .caching(policies) = resource.type,
-			  policies.contains(cachePolicy) else {
+			  policies.contains(.statusCode(statusCode)) else {
 				  // Otherwise, fall back to the default
-				  Log.info("No cache policy handling defined. Fallback to default error handling")
-				  responseNetworkErrorHandling(error, resource, completion)
+				  Log.error("No cache policy .statusCode found.", log: .client)
+				  failureOrDefaultValueHandling(resource, .invalidResponse, completion)
 				  return
 		}
 		
@@ -236,37 +270,10 @@ extension Service {
 			cached(resource, completion)
 			return
 		}
-		// If not, we will handle now the policy cases
+		// If not, we will fail with the original error
 		else {
-			Log.info("Found nothing cached. Handling policy cases")
-			switch cachePolicy {
-			case .noNetwork:
-				responseNetworkErrorHandling(error, resource, completion)
-			case .statusCode(let statusCodes):
-				Log.error("Unexpected server error: (\(statusCodes)", log: .client)
-				failureOrDefaultValueHandling(resource, .unexpectedServerError(statusCodes), completion)
-			}
+			Log.info("Found nothing cached.")
+			failureOrDefaultValueHandling(resource, .unexpectedServerError(statusCode), completion)
 		}
-	}
-	
-	/// Proofs only in case of response error problems with the network connection the given optional error. If the error nil, it must be an invalid response. If we can unwrap the error, it must be an transportationError aka no network.
-	///
-	/// - Parameters:
-	///   - error: optional error.
-	///   - resource: Generic ("R") object and normally of type ReceiveResource.
-	///   - completion: Swift-Result of loading. If successful, it contains the concrete object of our call.
-	private func responseNetworkErrorHandling<R>(
-		_ error: Error?,
-		_ resource: R,
-		_ completion: @escaping (Result<R.Receive.ReceiveModel, ServiceError<R.CustomError>>) -> Void
-	) where R: Resource {
-		guard let error = error else {
-			Log.error("No custom error given", log: .client)
-			failureOrDefaultValueHandling(resource, .invalidResponse, completion)
-			return
-		}
-		Log.info("No network connection (.transportationError)", log: .client)
-		failureOrDefaultValueHandling(resource, .transportationError(error), completion)
-		return
 	}
 }

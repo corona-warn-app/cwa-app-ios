@@ -96,17 +96,20 @@ class CachedRestService: Service {
 		return ["If-None-Match": cachedModel.eTag]
 	}
 
-	func hasNoStatusCodeCachePolicy<R>(
+	func hasCachePolicyStatusCode<R>(
 		_ resource: R,
 		_ statusCode: Int
 	) -> Bool where R: Resource {
-		// lookup if type has a cache usage
-		guard case let .caching(usage) = resource.type else {
-			return true
+		// Check if Resource.type has a cache policies and if policy .statusCode is included
+		guard case let .caching(cachePolicies) = resource.type,
+			  cachePolicies.contains(CacheUsePolicy.statusCode(statusCode)) else {
+			return false
 		}
-		return !usage.contains(
-			CacheUsePolicy.statusCode(statusCode)
-		)
+		// Fail because you should not override status codes 200, 201 and 204 with this cache policy.
+		guard statusCode == 200, statusCode == 201, statusCode == 204 else {
+			fatalError("You should not override status code 200, 201 and 204 with a cache policy.")
+		}
+		return true
 	}
 
 	// MARK: - Private

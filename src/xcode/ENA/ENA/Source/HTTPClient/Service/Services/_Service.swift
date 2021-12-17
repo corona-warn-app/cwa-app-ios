@@ -99,8 +99,8 @@ protocol Service {
 	/// - Parameters:
 	///   - resource: Generic ("R") object and normally of type ReceiveResource.
 	///   - statusCode: the status code of the URLResponse
-	///   - return: true if no special cache policy handling exists for the given status code
-	func hasNoStatusCodeCachePolicy<R>(
+	///   - return: false if no special cache policy handling exists for the given status code
+	func hasCachePolicyStatusCode<R>(
 		_ resource: R,
 		_ statusCode: Int
 	) -> Bool where R: Resource
