@@ -101,7 +101,8 @@ extension Service {
 					return
 				}
 				
-				// normal status code handling
+				// Normal status code handling
+				// The codes here are in sync with the one in hasStatusCodeCachePolicy in the CachedRestService - do always sync them!
 				switch response.statusCode {
 				case 200, 201:
 					decodeModel(resource, bodyData, response, completion)

@@ -106,6 +106,7 @@ class CachedRestService: Service {
 			return false
 		}
 		// Fail because you should not override status codes 200, 201 and 204 with this cache policy.
+		// The codes here are mapped from the status code handling in _Service+Default. This must always be synced.
 		if statusCode == 200 || statusCode == 201 || statusCode == 204 {
 			fatalError("You should not override status code 200, 201 and 204 with a cache policy.")
 		}
