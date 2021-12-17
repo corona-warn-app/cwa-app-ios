@@ -730,26 +730,14 @@ class QRScannerCoordinator {
 	}
 
 	private func showQRCodeParserErrorAlert(error: QRCodeParserError) {
-		let unwrappedError: Error
-		switch error {
-		case .scanningError(let qrScannerError):
-			unwrappedError = qrScannerError
-		case .checkinQrError(let checkinQRScannerError):
-			unwrappedError = checkinQRScannerError
-		case .certificateQrError(let healthCertificateServiceError):
-			unwrappedError = healthCertificateServiceError
-		case .ticketValidation(let ticketValidationError):
-			unwrappedError = ticketValidationError
-		}
-
 		var alertTitle = AppStrings.HealthCertificate.Error.title
-		var errorMessage = unwrappedError.localizedDescription
+		var errorMessage = qrCodeParserErrorDescription(error: error)
 		var additionalActions = [UIAlertAction]()
 
 		if case .certificateQrError(.invalidSignature) = error {
 			// invalid signature error on certificates needs a specific title, errorMessage and FAQ action
 			alertTitle = AppStrings.HealthCertificate.Error.invalidSignatureTitle
-			errorMessage = unwrappedError.localizedDescription
+			errorMessage = qrCodeParserErrorDescription(error: error)
 			additionalActions.append(
 				UIAlertAction(
 					title: AppStrings.HealthCertificate.Error.invalidSignatureFAQButtonTitle,
@@ -765,7 +753,7 @@ class QRScannerCoordinator {
 			// invalid signature error on certificates needs a specific title, errorMessage and FAQ action
 			alertTitle = AppStrings.UniversalQRScanner.MaxPersonAmountAlert.errorTitle
 			errorMessage = String(
-				format: unwrappedError.localizedDescription,
+				format: qrCodeParserErrorDescription(error: error),
 				appConfiguration.featureProvider.intValue(for: .dccPersonCountMax)
 			)
 			additionalActions.append(contentsOf: [
@@ -827,6 +815,22 @@ class QRScannerCoordinator {
 		DispatchQueue.main.async { [weak self] in
 			self?.qrScannerViewController?.present(alert, animated: true)
 		}
+	}
+
+	private func qrCodeParserErrorDescription(error: QRCodeParserError) -> String {
+		let unwrappedError: Error
+		switch error {
+		case .scanningError(let qrScannerError):
+			unwrappedError = qrScannerError
+		case .checkinQrError(let checkinQRScannerError):
+			unwrappedError = checkinQRScannerError
+		case .certificateQrError(let healthCertificateServiceError):
+			unwrappedError = healthCertificateServiceError
+		case .ticketValidation(let ticketValidationError):
+			unwrappedError = ticketValidationError
+		}
+		
+		return unwrappedError.localizedDescription
 	}
 
 	private func showCameraPermissionErrorAlert() {
