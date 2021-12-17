@@ -97,6 +97,10 @@ class QRScannerViewController: UIViewController {
 		viewModel?.activateScanning()
 	}
 
+	func deactivateScanning() {
+		viewModel?.deactivateScanning()
+	}
+
 	// MARK: - Private
 
 	private let focusView = QRScannerFocusView()

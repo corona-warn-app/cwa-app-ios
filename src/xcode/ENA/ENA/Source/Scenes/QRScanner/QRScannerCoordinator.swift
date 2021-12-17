@@ -730,7 +730,7 @@ class QRScannerCoordinator {
 	}
 
 	private func showQRCodeParserErrorAlert(error: QRCodeParserError) {
-		self?.qrScannerViewController?.deactivateScanning()
+		qrScannerViewController?.deactivateScanning()
 		
 		var alertTitle = AppStrings.HealthCertificate.Error.title
 		var errorMessage = qrCodeParserErrorDescription(error: error)
