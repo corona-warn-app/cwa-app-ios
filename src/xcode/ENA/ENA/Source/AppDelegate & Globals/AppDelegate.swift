@@ -33,7 +33,7 @@ protocol CoronaWarnAppDelegate: AnyObject {
 class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, RequiresAppDependencies, ENAExposureManagerObserver, CoordinatorDelegate, ExposureStateUpdating, ENStateHandlerUpdating {
 
 	// MARK: - Init
-
+	
 	override init() {
 		self.environmentProvider = Environments()
 
@@ -92,7 +92,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 			Log.warning("ELS is not set to be active at app startup.")
 		}
 		#endif
-
+		
 		// Migrate the old pcr test structure from versions older than v2.1
 		coronaTestService.migrate()
 	}
@@ -224,6 +224,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 
 		// Cleanup recycle-bin. Remove old entries.
 		recycleBin.cleanup()
+		
+		// Save and possibly log current app version number and the timestamp.
+		logCurrentAppVersion()
 	}
 
 	func applicationDidEnterBackground(_ application: UIApplication) {
@@ -904,6 +907,32 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 	@objc
 	private func backgroundRefreshStatusDidChange() {
 		coordinator.updateDetectionMode(currentDetectionMode)
+	}
+	
+	/// Checks if we should log the current app version. To avoid spam, we have two conditions: We only want to log every 24 hours or if the version number has changed (possibly also downgraded versions for testing cases). We don't need a check for ELS beeing active, because the Log is only persisted with ELS is activated in RELEASE builds.
+	/// Internal for testing purposes.
+	private func logCurrentAppVersion() {
+		let clientMetadata = ClientMetadata()
+		
+		// Check if we have some data.
+		if let version = clientMetadata.cwaVersion,
+		   let lastVersion = store.lastLoggedAppVersionNumber,
+		   let lastTimestamp = store.lastLoggedAppVersionTimestamp {
+			
+			// If we have some data, check if we should log again.
+			let lastTimestampInHours = Calendar.current.component(.hour, from: lastTimestamp)
+			if version != lastVersion || lastTimestampInHours > 24 {
+				Log.info("Current CWA version number: \(String(describing: clientMetadata.cwaVersion))")
+				store.lastLoggedAppVersionNumber = clientMetadata.cwaVersion
+				store.lastLoggedAppVersionTimestamp = Date()
+			}
+		}
+		// Otherwise, save some fresh data.
+		else {
+			Log.info("Current CWA version number: \(String(describing: clientMetadata.cwaVersion))")
+			store.lastLoggedAppVersionNumber = clientMetadata.cwaVersion
+			store.lastLoggedAppVersionTimestamp = Date()
+		}
 	}
 
 	// MARK: Privacy Protection
