@@ -639,6 +639,7 @@
 		50293D56267A41BC004B3EBE /* AddCertificateCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50293D54267A417D004B3EBE /* AddCertificateCellModel.swift */; };
 		50293D57267A41C1004B3EBE /* AddButtonAsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 50293D53267A417D004B3EBE /* AddButtonAsTableViewCell.xib */; };
 		502AB79926E64E5B00536DD2 /* NotificationManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 502AB79826E64E5B00536DD2 /* NotificationManagerTests.swift */; };
+		502B60FC276CB7B60049CC60 /* Error+Fake.swift in Sources */ = {isa = PBXBuildFile; fileRef = 502B60FA276CB7640049CC60 /* Error+Fake.swift */; };
 		50352C8B25C94961007193D2 /* OTPServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50352C8A25C94961007193D2 /* OTPServiceTests.swift */; };
 		50352C9F25C96687007193D2 /* HTTPClient+AuthorizationOTPEdusTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50352C9725C9665A007193D2 /* HTTPClient+AuthorizationOTPEdusTests.swift */; };
 		50373EC925FBD08A000109AE /* HTTPClient+TraceWarningPackageDownloadTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50373EC825FBD08A000109AE /* HTTPClient+TraceWarningPackageDownloadTests.swift */; };
@@ -2260,6 +2261,7 @@
 		50293D53267A417D004B3EBE /* AddButtonAsTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AddButtonAsTableViewCell.xib; sourceTree = "<group>"; };
 		50293D54267A417D004B3EBE /* AddCertificateCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCertificateCellModel.swift; sourceTree = "<group>"; };
 		502AB79826E64E5B00536DD2 /* NotificationManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManagerTests.swift; sourceTree = "<group>"; };
+		502B60FA276CB7640049CC60 /* Error+Fake.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Error+Fake.swift"; sourceTree = "<group>"; };
 		50352C8A25C94961007193D2 /* OTPServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OTPServiceTests.swift; sourceTree = "<group>"; };
 		50352C9725C9665A007193D2 /* HTTPClient+AuthorizationOTPEdusTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HTTPClient+AuthorizationOTPEdusTests.swift"; sourceTree = "<group>"; };
 		50373EC825FBD08A000109AE /* HTTPClient+TraceWarningPackageDownloadTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HTTPClient+TraceWarningPackageDownloadTests.swift"; sourceTree = "<group>"; };
@@ -8443,6 +8445,7 @@
 				CD678F6E246C43FC00B6A0F8 /* MockURLSession.swift */,
 				ABB078F327316EB60037B30F /* CachedRestServiceTests.swift */,
 				506BEF04276A465A0062D5D6 /* StandardRestServiceTests.swift */,
+				502B60FA276CB7640049CC60 /* Error+Fake.swift */,
 			);
 			path = __tests__;
 			sourceTree = "<group>";
@@ -11106,6 +11109,7 @@
 				BA7D177925D547D4006B9EBF /* DataDonationModelTests.swift in Sources */,
 				01B605E7258A4A980093DB8E /* DiaryContactPersonTest.swift in Sources */,
 				B18C411D246DB30000B8D8CB /* URL+Helper.swift in Sources */,
+				502B60FC276CB7B60049CC60 /* Error+Fake.swift in Sources */,
 				CDF27BD5246ADBF30044D32B /* HTTPClient+DaysAndHoursTests.swift in Sources */,
 				B117909824914D77007FF821 /* StoreTests.swift in Sources */,
 				01A6C3152626EA8000B6E95A /* HomeTestResultCellModelTests.swift in Sources */,

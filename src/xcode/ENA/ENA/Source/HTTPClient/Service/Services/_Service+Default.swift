@@ -255,16 +255,9 @@ extension Service {
 		_ completion: @escaping (Result<R.Receive.ReceiveModel, ServiceError<R.CustomError>>) -> Void
 	) where R: Resource {
 		
-		// Check if we can handle caching policy handling
-		guard case let .caching(policies) = resource.type,
-			  policies.contains(.statusCode(statusCode)) else {
-				  // Otherwise, fall back to the default
-				  Log.error("No cache policy .statusCode found.", log: .client)
-				  failureOrDefaultValueHandling(resource, .invalidResponse, completion)
-				  return
-		}
+		// We do not need to check here if the policy is supported, because we do it already right before the call if this function (see hasStatusCodeCachePolicy).
 		
-		// If so, first we check if have something cached
+		// First we check if have something cached
 		if hasCachedData(resource) {
 			Log.info("Found some cached data", log: .client)
 			cached(resource, completion)

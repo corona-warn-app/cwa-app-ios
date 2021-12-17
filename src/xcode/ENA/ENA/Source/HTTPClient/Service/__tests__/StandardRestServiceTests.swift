@@ -5,7 +5,6 @@
 import XCTest
 @testable import ENA
 
-
 class StandardRestServiceTests: XCTestCase {
 	
 	func test_DefaultValueIsLoaded() throws {
