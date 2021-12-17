@@ -7,7 +7,7 @@ import PhotosUI
 import PDFKit
 import OpenCombine
 
-enum FileScannerError: CaseIterable {
+enum FileScannerError: Equatable {
 	case noQRCodeFound
 	case fileNotReadable
 	case invalidQRCode
@@ -15,6 +15,7 @@ enum FileScannerError: CaseIterable {
 	case passwordInput
 	case unlockPDF
 	case alreadyRegistered
+	case qrCodeParserError(QRCodeParserError)
 
 	var title: String {
 		switch self {
@@ -32,6 +33,8 @@ enum FileScannerError: CaseIterable {
 			return AppStrings.FileScanner.PasswordError.title
 		case .alreadyRegistered:
 			return AppStrings.FileScanner.AlreadyRegistered.title
+		default:
+			return ""
 		}
 	}
 
@@ -51,6 +54,8 @@ enum FileScannerError: CaseIterable {
 			return AppStrings.FileScanner.PasswordError.message
 		case .alreadyRegistered:
 			return AppStrings.FileScanner.AlreadyRegistered.message
+		default:
+			return ""
 		}
 	}
 }
@@ -59,7 +64,6 @@ protocol FileScannerProcessing {
 	var processingStarted: (() -> Void)? { get set }
 	var processingFinished: ((QRCodeResult) -> Void)? { get set }
 	var processingFailed: ((FileScannerError?) -> Void)? { get set }
-	var parsingFailed: ((QRCodeParserError) -> Void)? { get set }
 	var missingPasswordForPDF: ((@escaping (String) -> Void) -> Void)? { get set }
 
 	var authorizationStatus: PHAuthorizationStatus { get }
@@ -91,7 +95,6 @@ class FileScannerCoordinatorViewModel: FileScannerProcessing {
 	var processingStarted: (() -> Void)?
 	var processingFinished: ((QRCodeResult) -> Void)?
 	var processingFailed: ((FileScannerError?) -> Void)?
-	var parsingFailed: ((QRCodeParserError) -> Void)?
 	var missingPasswordForPDF: ((@escaping (String) -> Void) -> Void)?
 
 	var authorizationStatus: PHAuthorizationStatus {
@@ -270,7 +273,7 @@ class FileScannerCoordinatorViewModel: FileScannerProcessing {
 			} else {
 				Log.debug("Didn't find a valid QR-Code from codes.", log: .fileScanner)
 				if let parseError = errors.first {
-					self?.parsingFailedOnQueue(parseError)
+					self?.processingFailedOnQueue(.qrCodeParserError(parseError))
 				}
 				completion(nil)
 			}
@@ -292,12 +295,6 @@ class FileScannerCoordinatorViewModel: FileScannerProcessing {
 	private func processingFailedOnQueue(_ error: FileScannerError?) {
 		DispatchQueue.main.async {
 			self.processingFailed?(error)
-		}
-	}
-
-	private func parsingFailedOnQueue(_ error: QRCodeParserError) {
-		DispatchQueue.main.async {
-			self.parsingFailed?(error)
 		}
 	}
 	

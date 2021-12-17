@@ -111,12 +111,12 @@ class FileScannerCoordinator: NSObject, UIImagePickerControllerDelegate, UINavig
 			}
 		}
 
-		viewModel.processingFailed = { [weak self] alertType in
-			self?.presentSimpleAlert(alertType)
-		}
-		 
-		viewModel.parsingFailed = { [weak self] error in
-			self?.onQRCodeParserError(error)
+		viewModel.processingFailed = { [weak self] error in
+			if case .qrCodeParserError(let parserError) = error {
+				self?.onQRCodeParserError(parserError)
+			} else {
+				self?.presentSimpleAlert(error)
+			}
 		}
 
 		viewModel.missingPasswordForPDF = { [weak self] callback in
