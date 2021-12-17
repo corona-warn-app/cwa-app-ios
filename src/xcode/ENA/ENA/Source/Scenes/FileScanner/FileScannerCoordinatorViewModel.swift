@@ -37,7 +37,7 @@ enum FileScannerError: CaseIterable {
 			return AppStrings.FileScanner.PasswordError.title
 		case .alreadyRegistered:
 			return AppStrings.FileScanner.AlreadyRegistered.title
-		case .qrCodeParserError(_):
+		default:
 			return ""
 		}
 	}
@@ -58,7 +58,7 @@ enum FileScannerError: CaseIterable {
 			return AppStrings.FileScanner.PasswordError.message
 		case .alreadyRegistered:
 			return AppStrings.FileScanner.AlreadyRegistered.message
-		case .qrCodeParserError(_):
+		default:
 			return ""
 		}
 	}
