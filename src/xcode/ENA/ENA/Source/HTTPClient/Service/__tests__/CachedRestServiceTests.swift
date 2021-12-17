@@ -224,7 +224,127 @@ class CachedRestServiceTests: XCTestCase {
 		waitForExpectations(timeout: .short)
 	}
 	
-	func test_CachedValueIsLoadedWithDefinedCachePolicyStatusCode() throws {
+	// MARK: - Cache Policy tests
+	
+	
+	func test_GIVEN_CachePolicyNoNetwork_WHEN_DefaultValueNoCacheIsSet_THEN_DefaultValueIsReturned() {
+		// Store the dummy data in the cache.
+		let cache = KeyValueCacheFake()
+
+		let stack = MockNetworkStack(
+			httpStatus: 304,
+			responseData: nil,
+			error:  
+		)
+
+		let cachedService = CachedRestService(
+			session: stack.urlSession,
+			cache: cache
+		)
+		
+		let defaultDummyModel = DummyResourceModel(
+			dummyValue: "Stark"
+		)
+
+		let resource = ResourceFake(
+			type: .caching([.noNetwork]),
+			defaultModel: defaultDummyModel
+		)
+		let loadExpectation = expectation(description: "Load completion should be called.")
+
+		cachedService.load(resource) { result in
+			// Check if the value returned is the same like the one stored in the cache before.
+
+			guard case let .failure(error) = result else {
+				XCTFail("Error expected")
+				return
+			}
+
+			XCTAssertEqual(error, .unexpectedServerError(500))
+			loadExpectation.fulfill()
+		}
+
+		waitForExpectations(timeout: .short)
+
+	}
+	
+	func test_GIVEN_CachePolicyNoNetwork_WHEN_NoDefaultValueButCacheIsSet_THEN_CacheIsReturned() {
+
+
+	}
+	
+	func test_GIVEN_CachePolicyNoNetwork_WHEN_NoDefaultValueNoCacheIsSet_THEN_OriginalErrorIsReturned() {
+		// Store the dummy data in the cache.
+		let cache = KeyValueCacheFake()
+
+		let stack = MockNetworkStack(
+			httpStatus: 500,
+			responseData: nil
+		)
+
+		let cachedService = CachedRestService(
+			session: stack.urlSession,
+			cache: cache
+		)
+
+		let resource = ResourceFake(
+			type: .caching([.noNetwork])
+		)
+		let loadExpectation = expectation(description: "Load completion should be called.")
+
+		cachedService.load(resource) { result in
+			// Check if the value returned is the same like the one stored in the cache before.
+
+			guard case let .failure(error) = result else {
+				XCTFail("Error expected")
+				return
+			}
+
+			XCTAssertEqual(error, .unexpectedServerError(500))
+			loadExpectation.fulfill()
+		}
+
+		waitForExpectations(timeout: .short)
+
+	}
+	
+	
+	func test_GIVEN_CachePolicyStatusCode500_WHEN_DefaultValueNoCacheIsSet_THEN_DefaultValueIsReturned() {
+		// Store the dummy data in the cache.
+		let cache = KeyValueCacheFake()
+
+		let stack = MockNetworkStack(
+			httpStatus: 500,
+			responseData: nil
+		)
+
+		let cachedService = CachedRestService(
+			session: stack.urlSession,
+			cache: cache
+		)
+
+		let resource = ResourceFake(
+			type: .caching([.noNetwork])
+		)
+		let loadExpectation = expectation(description: "Load completion should be called.")
+
+		cachedService.load(resource) { result in
+			// Check if the value returned is the same like the one stored in the cache before.
+
+			guard case let .failure(error) = result else {
+				XCTFail("Error expected")
+				return
+			}
+
+			XCTAssertEqual(error, .unexpectedServerError(500))
+			loadExpectation.fulfill()
+		}
+
+		waitForExpectations(timeout: .short)
+
+	}
+	
+	func test_GIVEN_CachePolicyStatusCode500_WHEN_NoDefaultValueButCacheIsSet_THEN_CacheIsReturned() throws {
 		let eTag = "DummyDataETag"
 		let cachedDummyModel = DummyResourceModel(
 			dummyValue: "Donald"
@@ -240,7 +360,6 @@ class CachedRestServiceTests: XCTestCase {
 		let cache = KeyValueCacheFake()
 		cache[locator.hashValue] = CacheData(data: cachedDummyData, eTag: eTag, date: Date())
 
-		// Return nil and http code 500. Normally this would lead to a look up for default values. But later we define a cache policy to return cache values for a specific http status code (500)
 		let stack = MockNetworkStack(
 			httpStatus: 500,
 			headerFields: [
@@ -277,12 +396,10 @@ class CachedRestServiceTests: XCTestCase {
 		waitForExpectations(timeout: .short)
 	}
 	
-	func test_NoCachedAndNoValueIsLoadedWithDefinedCachePolicyNoNetwork() throws {
-		
+	func test_GIVEN_CachePolicyStatusCode500_WHEN_NoDefaultNoCacheValueIsSet_THEN_OriginalErrorIsReturned() {
 		// Store the dummy data in the cache.
 		let cache = KeyValueCacheFake()
 
-		// Return nil and http code 500. Normally this would lead to a look up for default values. But later we define a cache policy to return cache values for a specific http status code (500)
 		let stack = MockNetworkStack(
 			httpStatus: 500,
 			responseData: nil

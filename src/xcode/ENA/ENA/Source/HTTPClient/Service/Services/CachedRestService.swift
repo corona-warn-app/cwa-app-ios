@@ -96,7 +96,7 @@ class CachedRestService: Service {
 		return ["If-None-Match": cachedModel.eTag]
 	}
 
-	func hasCachePolicyStatusCode<R>(
+	func hasStatusCodeCachePolicy<R>(
 		_ resource: R,
 		_ statusCode: Int
 	) -> Bool where R: Resource {
@@ -106,7 +106,7 @@ class CachedRestService: Service {
 			return false
 		}
 		// Fail because you should not override status codes 200, 201 and 204 with this cache policy.
-		guard statusCode == 200, statusCode == 201, statusCode == 204 else {
+		if statusCode == 200 || statusCode == 201 || statusCode == 204 {
 			fatalError("You should not override status code 200, 201 and 204 with a cache policy.")
 		}
 		return true

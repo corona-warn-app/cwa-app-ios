@@ -71,7 +71,7 @@ extension Service {
 				
 				// case we have no network.
 				if let error = error {
-					handleCachePolicyNoNetwork(error, resource, completion)
+					handleNoNetworkCachePolicy(error, resource, completion)
 					return
 				}
 								
@@ -96,8 +96,8 @@ extension Service {
 				#endif
 
 				// override status code by cache policy and handle it on other way.
-				guard !hasCachePolicyStatusCode(resource, response.statusCode) else {
-					handleCachePolicyStatusCode(response.statusCode, resource, completion)
+				if hasStatusCodeCachePolicy(resource, response.statusCode) {
+					handleStatusCodeCachePolicy(response.statusCode, resource, completion)
 					return
 				}
 				
@@ -157,7 +157,7 @@ extension Service {
 		return nil
 	}
 
-	func hasCachePolicyStatusCode<R>(
+	func hasStatusCodeCachePolicy<R>(
 		_ resource: R,
 		_ statusCode: Int
 	) -> Bool where R: Resource {
@@ -212,7 +212,7 @@ extension Service {
 	///   - error: the no network error
 	///   - resource: Generic ("R") object and normally of type ReceiveResource.
 	///   - completion: Swift-Result of loading. If successful, it contains the concrete object of our call.
-	private func handleCachePolicyNoNetwork<R>(
+	private func handleNoNetworkCachePolicy<R>(
 		_ error: Error,
 		_ resource: R,
 		_ completion: @escaping (Result<R.Receive.ReceiveModel, ServiceError<R.CustomError>>) -> Void
@@ -249,7 +249,7 @@ extension Service {
 	///   - statusCode: The status code of the response
 	///   - resource: Generic ("R") object and normally of type ReceiveResource.
 	///   - completion: Swift-Result of loading. If successful, it contains the concrete object of our call.
-	private func handleCachePolicyStatusCode<R>(
+	private func handleStatusCodeCachePolicy<R>(
 		_ statusCode: Int,
 		_ resource: R,
 		_ completion: @escaping (Result<R.Receive.ReceiveModel, ServiceError<R.CustomError>>) -> Void

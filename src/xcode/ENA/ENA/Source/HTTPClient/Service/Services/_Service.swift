@@ -100,7 +100,7 @@ protocol Service {
 	///   - resource: Generic ("R") object and normally of type ReceiveResource.
 	///   - statusCode: the status code of the URLResponse
 	///   - return: false if no special cache policy handling exists for the given status code
-	func hasCachePolicyStatusCode<R>(
+	func hasStatusCodeCachePolicy<R>(
 		_ resource: R,
 		_ statusCode: Int
 	) -> Bool where R: Resource
