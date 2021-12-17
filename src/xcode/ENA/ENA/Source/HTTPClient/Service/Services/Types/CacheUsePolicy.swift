@@ -10,7 +10,7 @@ enum CacheUsePolicy: Equatable, Hashable {
 
 extension Set where Element == CacheUsePolicy {
 
-	func statusCode(_ range: ClosedRange<Int>) -> Set<CacheUsePolicy> {
+	func appendingStatusCodes(_ range: ClosedRange<Int>) -> Set<CacheUsePolicy> {
 		var rangeSet = Set<CacheUsePolicy>()
 		range.forEach { code in
 			rangeSet.insert(.statusCode(code))

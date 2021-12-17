@@ -13,8 +13,8 @@ struct AllowListResource: Resource {
 		self.type = .caching(
 			// define special cache policies to handle from the cache
 			Set<CacheUsePolicy>([.noNetwork])
-				.statusCode(400...409)
-				.statusCode(500...509)
+				.appendingStatusCodes(400...409)
+				.appendingStatusCodes(500...509)
 		)
 		self.sendResource = EmptySendResource()
 		self.receiveResource = ProtobufReceiveResource<SAP_Internal_Dgc_ValidationServiceAllowlist>()
