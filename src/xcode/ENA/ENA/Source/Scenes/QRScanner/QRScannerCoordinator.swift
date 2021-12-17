@@ -718,7 +718,7 @@ class QRScannerCoordinator {
 					title: AppStrings.TicketValidation.Error.updateApp,
 					style: .default,
 					handler: { _ in
-						LinkHelper.open(urlString: "https://apps.apple.com/de/app/corona-warn-app/id1512595757?mt=8")
+						LinkHelper.open(urlString: AppStrings.Links.coronaWarnAppStoreLink)
 					}
 				)
 			)
@@ -729,7 +729,6 @@ class QRScannerCoordinator {
 		}
 	}
 
-	// swiftlint:disable cyclomatic_complexity
 	private func showQRCodeParserErrorAlert(error: QRCodeParserError) {
 		let unwrappedError: Error
 		switch error {

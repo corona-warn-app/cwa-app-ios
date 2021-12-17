@@ -6,15 +6,6 @@ import XCTest
 @testable import ENA
 
 class FileScannerErrorTests: XCTestCase {
-
-	// check count of errors we know so far - if extended we need to add a test as well
-	func testFileScannerError_Count_THEN_isSix() {
-		let count = FileScannerError.allCases.count
-
-		// THEN
-		XCTAssertEqual(count, 8)
-	}
-
 	func testGIVEN_FileScannerError_noQRCodeFound_THEN_TextsAreCorrect() {
 		// GIVEN
 		let error: FileScannerError = .noQRCodeFound
