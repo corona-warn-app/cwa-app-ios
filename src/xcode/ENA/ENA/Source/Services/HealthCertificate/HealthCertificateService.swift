@@ -204,7 +204,7 @@ class HealthCertificateService {
 					}
 
 					if healthCertifiedPersons.count + 1 >= appConfiguration.featureProvider.intValue(for: .dccPersonWarnThreshold) {
-						Log.debug("Person warn treshhold is reached.")
+						Log.debug("Person warn threshold is reached.")
 						personWarnThresholdReached = true
 					}
 				}
