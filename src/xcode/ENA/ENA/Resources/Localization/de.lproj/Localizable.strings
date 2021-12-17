@@ -214,9 +214,9 @@
 
 "ExposureDetection_Info_Contagion_Point5" = "Reisen: Verzichten Sie auf Flug- und Zugreisen.";
 
-"ExposureDetection_Info_Contagion_Point6" = "Bei Fragen zu Quarantäne-Maßnahmen wenden Sie sich bitte an Ihr Gesundheitsamt.";
+"ExposureDetection_Info_Contagion_Point6" = "Bei Fragen zu Quarantäne-Maßnahmen wenden Sie sich bitte an Ihr Gesundheitsamt. Weitere Informationen finden Sie in den FAQ zu Quarantäne-Maßnahmen.";
 
-"ExposureDetection_Info_Contagion_Point6_LinkText" = "Weitere Informationen finden Sie in den FAQ zu Quarantäne-Maßnahmen";
+"ExposureDetection_Info_Contagion_Point6_LinkText" = "Weitere Informationen finden Sie in den FAQ zu Quarantäne-Maßnahmen.";
 
 "ExposureDetection_Info_Contagion_Footer" = "Weitere Hinweise finden Sie in den FAQ zur freiwilligen Selbstquarantäne.";
 
