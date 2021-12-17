@@ -82,7 +82,7 @@ class DynamicTableViewHeadlineWithImageCell: UITableViewCell {
 		)
 	}
 
-	/// UIImageView mode .scaleAspectFit will center the image and result in clear boarders.
+	/// UIImageView mode .scaleAspectFit will center the image with clear borders.
 	/// By calculation the resulting height, we can set a layout constraint, this will draw the image without borders.
 	private var imageHeight: CGFloat {
 		guard let originalSize = backgroundImageView.image?.size else {
