@@ -22,7 +22,8 @@ class FileScannerCoordinatorTests: XCTestCase {
 			},
 			noQRCodeFound: { },
 			showActivityIndicator: { },
-			hideActivityIndicator: { }
+			hideActivityIndicator: { },
+			onQRCodeParserError: { _ in }
 		)
 		fileScannerCoordinator.start()
 
@@ -42,7 +43,8 @@ class FileScannerCoordinatorTests: XCTestCase {
 			qrCodeFound: { _ in },
 			noQRCodeFound: { },
 			showActivityIndicator: { },
-			hideActivityIndicator: { }
+			hideActivityIndicator: { },
+			onQRCodeParserError: { _ in }
 		)
 		fileScannerCoordinator.start()
 
@@ -66,7 +68,8 @@ class FileScannerCoordinatorTests: XCTestCase {
 			qrCodeFound: { _ in },
 			noQRCodeFound: { },
 			showActivityIndicator: { },
-			hideActivityIndicator: { }
+			hideActivityIndicator: { },
+			onQRCodeParserError: { _ in }
 		)
 		fileScannerCoordinator.start()
 
@@ -130,5 +133,6 @@ private class FileScannerViewModelStub: FileScannerProcessing {
 	var processingStarted: (() -> Void)?
 	var processingFinished: ((QRCodeResult) -> Void)?
 	var processingFailed: ((FileScannerError?) -> Void)?
+	var parsingFailed: ((QRCodeParserError) -> Void)?
 	var missingPasswordForPDF: ((@escaping (String) -> Void) -> Void)?
 }

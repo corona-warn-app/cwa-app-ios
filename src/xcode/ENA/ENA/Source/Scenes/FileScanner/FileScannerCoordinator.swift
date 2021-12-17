@@ -16,7 +16,8 @@ class FileScannerCoordinator: NSObject, UIImagePickerControllerDelegate, UINavig
 		qrCodeFound: @escaping (QRCodeResult) -> Void,
 		noQRCodeFound: @escaping () -> Void,
 		showActivityIndicator: @escaping () -> Void,
-		hideActivityIndicator: @escaping () -> Void
+		hideActivityIndicator: @escaping () -> Void,
+		onQRCodeParserError: @escaping (QRCodeParserError) -> Void
 	) {
 		self.parentViewController = parentViewController
 		self.viewModel = viewModel
@@ -24,6 +25,7 @@ class FileScannerCoordinator: NSObject, UIImagePickerControllerDelegate, UINavig
 		self.noQRCodeFound = noQRCodeFound
 		self.showActivityIndicator = showActivityIndicator
 		self.hideActivityIndicator = hideActivityIndicator
+		self.onQRCodeParserError = onQRCodeParserError
 	}
 
 	// MARK: - UIImagePickerControllerDelegate
@@ -109,8 +111,12 @@ class FileScannerCoordinator: NSObject, UIImagePickerControllerDelegate, UINavig
 			}
 		}
 
-		viewModel.processingFailed = { [weak self] alertType in
-			self?.presentSimpleAlert(alertType)
+		viewModel.processingFailed = { [weak self] error in
+			if case .qrCodeParserError(let parserError) = error {
+				self?.onQRCodeParserError(parserError)
+			} else {
+				self?.presentSimpleAlert(error)
+			}
 		}
 
 		viewModel.missingPasswordForPDF = { [weak self] callback in
@@ -129,7 +135,8 @@ class FileScannerCoordinator: NSObject, UIImagePickerControllerDelegate, UINavig
 	private let noQRCodeFound: () -> Void
 	private let showActivityIndicator: () -> Void
 	private let hideActivityIndicator: () -> Void
-
+	private let onQRCodeParserError: (QRCodeParserError) -> Void
+	
 	private var viewModel: FileScannerProcessing
 
 	private func finishedPickingImage() {
