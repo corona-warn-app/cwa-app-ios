@@ -1860,6 +1860,93 @@ class HealthCertificateServiceTests: CWATestCase {
 		)
 		XCTAssertTrue(service.testCertificateRequests.isEmpty)
 	}
+
+	func testTestCertificateRegistrationAndExecution_MaxPersonCountNotConsideredOnRegistration() throws {
+		let client = ClientMock()
+
+		var keyPair: DCCRSAKeyPair?
+
+		let getDigitalCovid19CertificateExpectation = expectation(description: "getDigitalCovid19Certificate called")
+		client.onGetDigitalCovid19Certificate = { _, _, completion in
+			let dek = (try? keyPair?.encrypt(Data()).base64EncodedString()) ?? ""
+			getDigitalCovid19CertificateExpectation.fulfill()
+			completion(.success((DCCResponse(dek: dek, dcc: "coseObject"))))
+		}
+
+		var maxCountFeature = SAP_Internal_V2_AppFeature()
+		maxCountFeature.label = "dcc-person-count-max"
+		maxCountFeature.value = 1
+
+		var appFeatures = SAP_Internal_V2_AppFeatures()
+		appFeatures.appFeatures = [maxCountFeature]
+
+		var config = CachedAppConfigurationMock.defaultAppConfiguration
+		config.dgcParameters.testCertificateParameters.waitAfterPublicKeyRegistrationInSeconds = 1
+		config.dgcParameters.testCertificateParameters.waitForRetryInSeconds = 1
+		config.appFeatures = appFeatures
+		let appConfig = CachedAppConfigurationMock(with: config)
+
+		let base45TestCertificate = try base45Fake(
+			from: DigitalCovidCertificate.fake(
+				dateOfBirth: "1970-03-26",
+				testEntries: [TestEntry.fake()]
+			)
+		)
+
+		var digitalCovidCertificateAccess = MockDigitalCovidCertificateAccess()
+		digitalCovidCertificateAccess.convertedToBase45 = .success(base45TestCertificate)
+
+		let store = MockTestStore()
+		store.healthCertifiedPersons = [
+			HealthCertifiedPerson(
+				healthCertificates: [try vaccinationCertificate(dateOfBirth: "1997-06-16")],
+				boosterRule: .fake()
+			)
+		]
+
+		let service = HealthCertificateService(
+			store: store,
+			// Return error on signature check to ensure the certificate is registered regardless
+			dccSignatureVerifier: DCCSignatureVerifyingStub(error: .HC_DSC_NO_MATCH),
+			dscListProvider: MockDSCListProvider(),
+			client: client,
+			appConfiguration: appConfig,
+			digitalCovidCertificateAccess: digitalCovidCertificateAccess,
+			boosterNotificationsService: BoosterNotificationsService(
+				rulesDownloadService: RulesDownloadService(store: store, client: client)
+			),
+			recycleBin: .fake()
+		)
+
+		let requestsSubscription = service.$testCertificateRequests
+			.sink {
+				if let requestWithKeyPair = $0.first(where: { $0.rsaKeyPair != nil }) {
+					keyPair = requestWithKeyPair.rsaKeyPair
+				}
+			}
+
+		let completionExpectation = expectation(description: "registerAndExecuteTestCertificateRequest completion called")
+		service.registerAndExecuteTestCertificateRequest(
+			coronaTestType: .pcr,
+			registrationToken: "registrationToken",
+			registrationDate: Date(),
+			retryExecutionIfCertificateIsPending: false,
+			labId: "SomeLabId"
+		) { result in
+			if case .failure = result {
+				XCTFail("Success expected")
+			}
+
+			completionExpectation.fulfill()
+		}
+
+		waitForExpectations(timeout: .medium)
+
+		requestsSubscription.cancel()
+
+		XCTAssertEqual(service.healthCertifiedPersons.count, 2)
+		XCTAssertTrue(service.testCertificateRequests.isEmpty)
+	}
 	
 	func testGIVEN_HealthCertificate_WHEN_CertificatesAreAddedAndRemoved_THEN_NotificationsShouldBeCreatedAndRemoved() throws {
 		// GIVEN
