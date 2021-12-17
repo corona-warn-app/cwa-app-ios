@@ -56,4 +56,29 @@ extension XCTestCase {
 		return try HealthCertificate(base45: firstTestCertificateBase45)
 	}
 
+	func testCertificate(
+		daysOffset: Int = 0,
+		type: CoronaTestType = .antigen,
+		identifier: String = "01DE/84503/1119349007/DXSGWLWL40SU8ZFKIYIBK39A4#S",
+		dateOfBirth: String = "1942-01-01"
+	) throws -> HealthCertificate {
+		let date = Calendar.current.date(byAdding: .day, value: daysOffset, to: Date())
+		let testEntry = TestEntry.fake(
+			typeOfTest: type == .antigen ? TestEntry.antigenTypeString : TestEntry.pcrTypeString,
+			dateTimeOfSampleCollection: ISO8601DateFormatter().string(from: try XCTUnwrap(date)),
+			uniqueCertificateIdentifier: identifier
+		)
+
+		let firstTestCertificateBase45 = try base45Fake(
+			from: DigitalCovidCertificate.fake(
+				dateOfBirth: dateOfBirth,
+				testEntries: [
+					testEntry
+				]
+			)
+		)
+
+		return try HealthCertificate(base45: firstTestCertificateBase45)
+	}
+
 }
