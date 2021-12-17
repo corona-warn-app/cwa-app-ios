@@ -12,7 +12,7 @@ class FileScannerErrorTests: XCTestCase {
 		let count = FileScannerError.allCases.count
 
 		// THEN
-		XCTAssertEqual(count, 7)
+		XCTAssertEqual(count, 8)
 	}
 
 	func testGIVEN_FileScannerError_noQRCodeFound_THEN_TextsAreCorrect() {

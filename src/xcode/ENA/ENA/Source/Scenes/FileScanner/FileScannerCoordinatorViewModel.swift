@@ -7,7 +7,11 @@ import PhotosUI
 import PDFKit
 import OpenCombine
 
-enum FileScannerError {
+enum FileScannerError: CaseIterable {
+	static var allCases: [FileScannerError] {
+		return [.noQRCodeFound, .fileNotReadable, .invalidQRCode, .photoAccess, .passwordInput, .unlockPDF, .alreadyRegistered, .qrCodeParserError(.scanningError(.codeNotFound))]
+	}
+
 	case noQRCodeFound
 	case fileNotReadable
 	case invalidQRCode
@@ -33,7 +37,7 @@ enum FileScannerError {
 			return AppStrings.FileScanner.PasswordError.title
 		case .alreadyRegistered:
 			return AppStrings.FileScanner.AlreadyRegistered.title
-		default:
+		case .qrCodeParserError(_):
 			return ""
 		}
 	}
@@ -54,7 +58,7 @@ enum FileScannerError {
 			return AppStrings.FileScanner.PasswordError.message
 		case .alreadyRegistered:
 			return AppStrings.FileScanner.AlreadyRegistered.message
-		default:
+		case .qrCodeParserError(_):
 			return ""
 		}
 	}
