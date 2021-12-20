@@ -112,6 +112,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 	) -> Bool {
 		Log.info("Application did finish launching.", log: .appLifecycle)
 
+		// Save and possibly log current app version number and the timestamp.
+		logCurrentAppVersion()
+		
 		#if DEBUG
 		setupOnboardingForTesting()
 		setupDataDonationForTesting()
@@ -119,7 +122,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		setupAntigenTestProfileForTesting()
 		setupSelectedRegionsForTesting()
 		#endif
-
+		
 		if AppDelegate.isAppDisabled() {
 			// Show Disabled UI
 			setupUpdateOSUI()
@@ -224,9 +227,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 
 		// Cleanup recycle-bin. Remove old entries.
 		recycleBin.cleanup()
-		
-		// Save and possibly log current app version number and the timestamp.
-		logCurrentAppVersion()
 	}
 
 	func applicationDidEnterBackground(_ application: UIApplication) {
