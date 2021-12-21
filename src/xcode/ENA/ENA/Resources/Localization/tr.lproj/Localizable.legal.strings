@@ -223,7 +223,7 @@
 
 "TicketValidation_FirstConsent_Legal_title" = "Rıza beyanız";
 
-"TicketValidation_FirstConsent_Legal_subtitle" = "“Anladım” üzerine tıklayarak aşağıdaki adımları onaylarsınız:";
+"TicketValidation_FirstConsent_Legal_subtitle" = "“Kabul et” üzerine tıklayarak aşağıdaki adımları onaylarsınız:";
 
 "TicketValidation_FirstConsent_Legal_bulletPoint1" = "Uygulama, sağlayıcının sunduğu rezervasyonda belirtilen kişinin isim ve doğum tarihini, kontrolle ilgili rezervasyon ayrıntılarını (örn. hedef ülke ve seyahat tarihi) ve sağlayıcı tarafından rezervasyonunuza ilişkin belirlenen sertifika taleplerini açar.";
 
@@ -233,7 +233,7 @@
 
 "TicketValidation_SecondConsent_Legal_title" = "Rıza beyanınız";
 
-"TicketValidation_SecondConsent_Legal_subtitle" = "“Kabul ediyorum” üzerine tıklayarak aşağıdaki bilgilerin kontrol ortağına aktarılmasına onay verirsiniz:";
+"TicketValidation_SecondConsent_Legal_subtitle" = "“Kabul et” üzerine tıklayarak aşağıdaki bilgilerin kontrol ortağına aktarılmasına onay verirsiniz:";
 
 "TicketValidation_SecondConsent_Legal_bulletPoint1" = "Seçilen sertifikanın (özellikle sertifika sahibinin adı ve doğum tarihi, geçerlilik süresi, düzenleyen ve düzenleme tarihi, aşı/test/iyileşme ile ilgili bilgiler) sertifika içeriği ve elektronik imza.";
 
