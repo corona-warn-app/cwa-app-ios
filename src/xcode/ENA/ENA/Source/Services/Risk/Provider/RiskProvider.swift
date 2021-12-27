@@ -212,7 +212,7 @@ final class RiskProvider: RiskProviding {
 				self.updateRiskProvidingConfiguration(with: appConfiguration)
 
 				// First, download the diagnosis keys
-				self.downloadKeyPackages {result in
+				self.downloadKeyPackages { result in
 					switch result {
 					case .success:
 						// If key download succeeds, continue with the download of the trace warning packages
