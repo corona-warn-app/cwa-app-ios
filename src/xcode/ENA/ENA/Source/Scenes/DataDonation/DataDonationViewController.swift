@@ -14,7 +14,7 @@ class DataDonationViewController: DynamicTableViewController, DeltaOnboardingVie
 		largeTitleDisplayMode: UINavigationItem.LargeTitleDisplayMode = .never
 	) {
 		self.viewModel = viewModel
-		self.largeTitleDisplayMode = largeTitleDisplayMode
+		self.largeTitleDisplayMode = .never
 
 		super.init(nibName: nil, bundle: nil)
 	}
@@ -28,7 +28,7 @@ class DataDonationViewController: DynamicTableViewController, DeltaOnboardingVie
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		navigationItem.title = AppStrings.DataDonation.Info.title
+
 		navigationItem.largeTitleDisplayMode = largeTitleDisplayMode
 		navigationController?.navigationBar.prefersLargeTitles = true
 		setupTableView()
