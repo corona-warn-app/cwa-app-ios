@@ -25,8 +25,21 @@ final class SettingsDataDonationViewModel: BaseDataDonationViewModel {
 		var dynamicTableViewModel = DynamicTableViewModel.with {
 			$0.add(
 				.section(
+					header: .image(
+						UIImage(named: "Illustration_Datenspendedatenspende"),
+						accessibilityLabel: AppStrings.NotificationSettings.imageDescriptionOn,
+						accessibilityIdentifier: AccessibilityIdentifiers.NotificationSettings.DeltaOnboarding.imageOn,
+						height: 250
+					),
 					cells: [
-						.headline(text: AppStrings.DataDonation.Info.introductionText),
+						.title1(text: AppStrings.DataDonation.Info.title)
+					]
+				)
+			)
+			$0.add(
+				.section(
+					cells: [
+						.headline(text: AppStrings.DataDonation.Info.description),
 						.footnote(text: AppStrings.DataDonation.Info.settingsSubHeadline, accessibilityIdentifier: nil)
 					]
 				)
@@ -111,7 +124,6 @@ final class SettingsDataDonationViewModel: BaseDataDonationViewModel {
 		dynamicTableViewModel.add(
 			.section(
 				cells: [
-					.headline(text: AppStrings.DataDonation.Info.description),
 					.legalExtendedDataDonation(
 						title: NSAttributedString(string: AppStrings.DataDonation.Info.legalTitle),
 						description: NSAttributedString(
