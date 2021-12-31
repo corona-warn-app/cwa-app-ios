@@ -34,7 +34,14 @@ enum CoronaTestServiceError: LocalizedError, Equatable {
 				return AppStrings.ExposureSubmissionError.noResponse
 			case .resourceError, .invalidResponse:
 				return AppStrings.ExposureSubmissionError.invalidResponse
-			case .invalidRequestError, .trustEvaluationError, .fakeResponse:
+			case .invalidRequestError:
+				Log.error("ExposureSubmissionError: serviceError invalidRequestError", log: .api)
+				return AppStrings.ExposureSubmissionError.defaultError
+			case .trustEvaluationError:
+				Log.error("ExposureSubmissionError: serviceError trustEvaluationError", log: .api)
+				return AppStrings.ExposureSubmissionError.defaultError
+			case .fakeResponse:
+				Log.error("ExposureSubmissionError: serviceError fakeResponse", log: .api)
 				return AppStrings.ExposureSubmissionError.defaultError
 			}
 		case .registrationTokenError(let registrationTokenError):
@@ -49,12 +56,29 @@ enum CoronaTestServiceError: LocalizedError, Equatable {
 				return AppStrings.ExposureSubmissionError.noResponse
 			case .resourceError, .invalidResponse:
 				return AppStrings.ExposureSubmissionError.invalidResponse
-			case .invalidRequestError, .trustEvaluationError, .fakeResponse:
+			case .invalidRequestError:
+				Log.error("ExposureSubmissionError: registrationTokenError invalidRequestError", log: .api)
+				return AppStrings.ExposureSubmissionError.defaultError
+			case .trustEvaluationError:
+				Log.error("ExposureSubmissionError: registrationTokenError trustEvaluationError", log: .api)
+				return AppStrings.ExposureSubmissionError.defaultError
+			case .fakeResponse:
+				Log.error("ExposureSubmissionError: registrationTokenError fakeResponse", log: .api)
 				return AppStrings.ExposureSubmissionError.defaultError
 			}
-		case .unknownTestResult, .noCoronaTestOfRequestedType, .malformedDateOfBirthKey:
+		case .unknownTestResult:
 			Log.error("\(self)", log: .api)
+			Log.error("ExposureSubmissionError: unknownTestResult", log: .api)
 			return AppStrings.ExposureSubmissionError.defaultError
+		case .noCoronaTestOfRequestedType,:
+			Log.error("\(self)", log: .api)
+			Log.error("ExposureSubmissionError: noCoronaTestOfRequestedType", log: .api)
+			return AppStrings.ExposureSubmissionError.defaultError
+		case .malformedDateOfBirthKey:
+			Log.error("\(self)", log: .api)
+			Log.error("ExposureSubmissionError: malformedDateOfBirthKey", log: .api)
+			return AppStrings.ExposureSubmissionError.defaultError
+
 		}
 	}
 }
