@@ -63,7 +63,7 @@ class AdmissionStateCellModelTests: XCTestCase {
 		let cellModel = AdmissionStateCellModel(healthCertifiedPerson: healthCertifiedPerson)
 
 		XCTAssertEqual(cellModel.subtitle, "2G+ Schnelltest")
-		XCTAssertEqual(cellModel.description, "Ihre Zertifikate erfüllen die 2G-Plus-Regel. Wenn Sie Ihren aktuellen Status vorweisen müssen, schließen sie diese Ansicht und zeigen Sie den QR-Code auf der Zertifikatsübersicht.")
+		XCTAssertEqual(cellModel.description, "Ihre Zertifikate erfüllen die 2G-Plus-Regel, es sei denn, es wird ein PCR-Test benötigt. Wenn Sie Ihren aktuellen Status vorweisen müssen, schließen sie diese Ansicht und zeigen Sie den QR-Code auf der Zertifikatsübersicht.")
 		XCTAssertEqual(cellModel.shortTitle, "2G+")
 		XCTAssertEqual(cellModel.faqLink?.string, "Mehr Informationen finden Sie in den FAQ.")
 	}

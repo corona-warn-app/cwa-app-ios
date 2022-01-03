@@ -704,7 +704,7 @@ class HealthCertifiedPersonCellModelTests: XCTestCase {
 			)
 		)
 
-		XCTAssertEqual(cellModel.qrCodeViewModel.covPassCheckInfoPosition, .top)
+		XCTAssertEqual(cellModel.qrCodeViewModel.covPassCheckInfoPosition, .bottom)
 		XCTAssertFalse(cellModel.isStatusTitleVisible)
 		XCTAssertTrue(cellModel.switchableHealthCertificates.isEmpty)
 		XCTAssertNil(cellModel.shortStatus)
