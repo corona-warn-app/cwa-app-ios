@@ -55,6 +55,7 @@ enum RiskProviderActivityState: Int {
 	case idle
 	case onlyDownloadsRequested
 	case riskRequested
+	case riskManuallyRequested
 	case downloading
 	case detecting
 
