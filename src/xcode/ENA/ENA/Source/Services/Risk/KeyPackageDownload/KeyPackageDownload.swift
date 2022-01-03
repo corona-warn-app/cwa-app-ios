@@ -16,6 +16,7 @@ enum KeyPackageDownloadError: Error {
 	case noDiskSpace
 	case unableToWriteDiagnosisKeys
 	case downloadIsRunning
+	case noInternetConnection
 
 	var description: String {
 		switch self {
@@ -355,8 +356,12 @@ class KeyPackageDownload: KeyPackageDownloadProtocol {
 				case let .success(days):
 					Log.info("KeyPackageDownload: Server data is available for day packages.", log: .riskDetection)
 					completion(.success(days))
-				case .failure:
-					completion(.failure(.uncompletedPackages))
+				case .failure(let error):
+					if case .noResponse = error {
+						completion(.failure(.noInternetConnection))
+					} else {
+						completion(.failure(.uncompletedPackages))
+					}
 				}
 			}
 		case .hourly(let dayKey):
@@ -366,8 +371,12 @@ class KeyPackageDownload: KeyPackageDownloadProtocol {
 					Log.info("KeyPackageDownload: Server data is available for hour packages.", log: .riskDetection)
 					let packageKeys = hours.map { String($0) }
 					completion(.success(packageKeys))
-				case .failure:
-					completion(.failure(.uncompletedPackages))
+				case .failure(let error):
+					if case .noResponse = error {
+						completion(.failure(.noInternetConnection))
+					} else {
+						completion(.failure(.uncompletedPackages))
+					}
 				}
 			}
 		}
