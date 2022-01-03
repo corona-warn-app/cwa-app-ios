@@ -41,9 +41,9 @@ class ExposureDetectionViewModel: CountdownTimerDelegate {
 				self?.riskProviderActivityState = $0
 
 				switch $0 {
-				case .downloading:
+				case .downloading, .riskManuallyRequested:
 					self?.setupForDownloadingState()
-				case .detecting, .riskRequested:
+				case .detecting:
 					self?.setupForDetectingState()
 				default:
 					break
