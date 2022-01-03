@@ -263,17 +263,13 @@ final class RiskProvider: RiskProviding {
 	}
 
 	private func downloadDayPackages(completion: @escaping (Result<Void, RiskProviderError>) -> Void) {
-		keyPackageDownload.startDayPackagesDownload(completion: { result in
+		keyPackageDownload.startDayPackagesDownload(completion: { [weak self] result in
 			switch result {
 			case .success:
 				completion(.success(()))
 			case .failure(let error):
-				if case .noNetworkConnection = error {
-					// we need this delay so the user can see something happened
-					DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-						completion(.failure(.failedKeyPackageDownload(error)))
-					}
-				} else {
+				// we need this delay so the user can see something happened
+				self?.targetQueue.asyncAfter(deadline: .now() + 1.0) {
 					completion(.failure(.failedKeyPackageDownload(error)))
 				}
 			}
