@@ -46,14 +46,13 @@ class MockRiskProvider: RiskProviding {
 
 	func requestRisk(userInitiated: Bool, timeoutInterval: TimeInterval) {
 		for consumer in consumers {
-			consumer.didChangeActivityState?(.riskRequested)
+			userInitiated ? consumer.didChangeActivityState?(.riskManuallyRequested) : consumer.didChangeActivityState?(.riskRequested)
 			consumer.didChangeActivityState?(.downloading)
 			consumer.didChangeActivityState?(.detecting)
 			consumer.didChangeActivityState?(.idle)
 			consumer.provideRiskCalculationResult(result)
 		}
 	}
-
 	
 	// MARK: - Internal
 	
