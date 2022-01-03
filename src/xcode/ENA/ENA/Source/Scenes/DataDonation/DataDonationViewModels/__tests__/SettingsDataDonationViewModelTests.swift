@@ -45,10 +45,12 @@ class SettingsDataDonationViewModelTests: CWATestCase {
 
 		// THEN
 		XCTAssertEqual(dynamicTableViewModel.numberOfSection, 5)
-		XCTAssertEqual(dynamicTableViewModel.numberOfRows(section: 0), 2)
-		XCTAssertEqual(dynamicTableViewModel.numberOfRows(section: 1), 1)
-		XCTAssertEqual(dynamicTableViewModel.numberOfRows(section: 2), 2)
-		XCTAssertEqual(dynamicTableViewModel.numberOfRows(section: 3), 2)
+		XCTAssertEqual(dynamicTableViewModel.numberOfRows(section: 0), 1)
+		XCTAssertEqual(dynamicTableViewModel.numberOfRows(section: 1), 2)
+		XCTAssertEqual(dynamicTableViewModel.numberOfRows(section: 2), 1)
+		XCTAssertEqual(dynamicTableViewModel.numberOfRows(section: 3), 1)
+		XCTAssertEqual(dynamicTableViewModel.numberOfRows(section: 4), 2)
+
 	}
 
 	func testGIVEN_DataDonationModel_WHEN_TapSelectState_THEN_ClosureGetsCalled() throws {
