@@ -42,9 +42,9 @@ class HomeRiskCellModel: CountdownTimerDelegate {
 		homeState.$riskProviderActivityState
 			.sink { [weak self] in
 				switch $0 {
-				case .downloading:
+				case .downloading, .riskManuallyRequested:
 					self?.setupForDownloadingState()
-				case .detecting, .riskRequested:
+				case .detecting:
 					self?.setupForDetectingState()
 				default:
 					break
