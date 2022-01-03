@@ -492,6 +492,16 @@ extension SecureStore: PrivacyPreservingProviding {
 }
 
 extension SecureStore: ErrorLogProviding {
+
+	var lastLoggedAppVersionNumber: Version? {
+		get { kvStore["lastLoggedAppVersionNumber"] as Version? }
+		set { kvStore["lastLoggedAppVersionNumber"] = newValue }
+	}
+	
+	var lastLoggedAppVersionTimestamp: Date? {
+		get { kvStore["lastLoggedAppVersionTimestamp"] as Date? }
+		set { kvStore["lastLoggedAppVersionTimestamp"] = newValue }
+	}
 	
 	var ppacApiTokenEls: TimestampedToken? {
 		get { kvStore["ppacApiTokenEls"] as TimestampedToken? }
