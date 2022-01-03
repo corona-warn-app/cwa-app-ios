@@ -142,7 +142,7 @@ final class RiskProvider: RiskProviding {
 		}
 
 		queue.async {
-			self.updateActivityState(.riskRequested)
+			userInitiated ? self.updateActivityState(.riskManuallyRequested) : self.updateActivityState(.riskRequested)
 			self._requestRiskLevel(userInitiated: userInitiated, timeoutInterval: timeoutInterval)
 		}
 	}
@@ -268,7 +268,13 @@ final class RiskProvider: RiskProviding {
 			case .success:
 				completion(.success(()))
 			case .failure(let error):
-				completion(.failure(.failedKeyPackageDownload(error)))
+				if case .noInternetConnection = error {
+					DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+						completion(.failure(.failedKeyPackageDownload(error)))
+					}
+				} else {
+					completion(.failure(.failedKeyPackageDownload(error)))
+				}
 			}
 		})
 	}
