@@ -654,7 +654,7 @@ final class RiskProviderTests: CWATestCase {
 		
 		let didFailCalculateRiskExpectation = expectation(description: "expect didFailCalculateRisk not to be called")
 		
-		let expectedActivityStates: [RiskProviderActivityState] = [.riskRequested, .downloading, .detecting, .idle]
+		let expectedActivityStates: [RiskProviderActivityState] = [.riskManuallyRequested, .downloading, .detecting, .idle]
 		let didChangeActivityStateExpectation = expectation(description: "expect didChangeActivityState to be called")
 		didChangeActivityStateExpectation.expectedFulfillmentCount = expectedActivityStates.count
 		
