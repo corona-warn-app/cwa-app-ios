@@ -646,8 +646,11 @@ class QRScannerCoordinator {
 		}
 
 		self.recycleBin.restore(recycleBinItem)
-		let exposureSubmissionCoordinator = self.exposureSubmissionCoordinator(parentViewController: parentViewController)
-		exposureSubmissionCoordinator.start(with: coronaTest.type)
+
+		self.parentViewController?.dismiss(animated: true) {
+			let exposureSubmissionCoordinator = self.exposureSubmissionCoordinator(parentViewController: parentViewController)
+			exposureSubmissionCoordinator.start(with: coronaTest.type)
+		}
 	}
 
 	private func showActivityIndicator() {
