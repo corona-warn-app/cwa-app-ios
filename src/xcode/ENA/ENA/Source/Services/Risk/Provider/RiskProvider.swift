@@ -142,7 +142,7 @@ final class RiskProvider: RiskProviding {
 		}
 
 		queue.async {
-			userInitiated ? self.updateActivityState(.riskManuallyRequested) : self.updateActivityState(.riskRequested)
+			self.updateActivityState(userInitiated ? .riskManuallyRequested : .riskRequested)
 			self._requestRiskLevel(userInitiated: userInitiated, timeoutInterval: timeoutInterval)
 		}
 	}
