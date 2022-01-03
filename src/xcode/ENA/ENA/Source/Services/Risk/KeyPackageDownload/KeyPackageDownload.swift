@@ -16,7 +16,7 @@ enum KeyPackageDownloadError: Error {
 	case noDiskSpace
 	case unableToWriteDiagnosisKeys
 	case downloadIsRunning
-	case noInternetConnection
+	case noNetworkConnection
 
 	var description: String {
 		switch self {
@@ -358,7 +358,7 @@ class KeyPackageDownload: KeyPackageDownloadProtocol {
 					completion(.success(days))
 				case .failure(let error):
 					if case .noResponse = error {
-						completion(.failure(.noInternetConnection))
+						completion(.failure(.noNetworkConnection))
 					} else {
 						completion(.failure(.uncompletedPackages))
 					}
@@ -373,7 +373,7 @@ class KeyPackageDownload: KeyPackageDownloadProtocol {
 					completion(.success(packageKeys))
 				case .failure(let error):
 					if case .noResponse = error {
-						completion(.failure(.noInternetConnection))
+						completion(.failure(.noNetworkConnection))
 					} else {
 						completion(.failure(.uncompletedPackages))
 					}

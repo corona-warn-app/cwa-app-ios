@@ -268,7 +268,7 @@ final class RiskProvider: RiskProviding {
 			case .success:
 				completion(.success(()))
 			case .failure(let error):
-				if case .noInternetConnection = error {
+				if case .noNetworkConnection = error {
 					// we need this delay so the user can see something happened
 					DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
 						completion(.failure(.failedKeyPackageDownload(error)))
