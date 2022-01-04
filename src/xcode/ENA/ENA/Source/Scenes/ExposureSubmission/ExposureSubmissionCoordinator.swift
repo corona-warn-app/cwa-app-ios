@@ -1228,7 +1228,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 				self?.showAntigenTestProfileInput(editMode: true)
 			},
 			didTapDeleteProfile: { [weak self] in
-				self?.navigationController?.popViewController(animated: true)
+				self?.navigationController?.popToRootViewController(animated: true)
 			}, dismiss: { [weak self] in self?.dismiss() }
 		)
 
