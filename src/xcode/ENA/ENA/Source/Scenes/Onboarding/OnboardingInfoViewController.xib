@@ -51,7 +51,7 @@
                                                 <imageView clipsSubviews="YES" contentMode="scaleAspectFill" verticalHuggingPriority="1000" image="Illu_Onboarding_GemeinsamCoronabekaempfen" translatesAutoresizingMaskIntoConstraints="NO" id="03z-yc-6d8">
                                                     <rect key="frame" x="-16" y="0.0" width="414" height="229"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" secondItem="03z-yc-6d8" secondAttribute="height" multiplier="414:229" id="9Dr-cA-fQZ"/>
+                                                        <constraint firstAttribute="width" secondItem="03z-yc-6d8" secondAttribute="height" multiplier="375:229" id="9Dr-cA-fQZ"/>
                                                     </constraints>
                                                 </imageView>
                                             </subviews>
