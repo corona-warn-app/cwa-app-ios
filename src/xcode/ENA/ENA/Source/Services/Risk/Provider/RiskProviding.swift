@@ -60,7 +60,7 @@ enum RiskProviderActivityState: Int {
 	case detecting
 
 	var isActive: Bool {
-		self == .downloading || self == .detecting
+		self == .downloading || self == .detecting || self == .riskManuallyRequested
 	}
 }
 
