@@ -31,6 +31,7 @@ class DynamicTableViewHeadlineWithImageCell: UITableViewCell {
 		backgroundImageView.image = image
 		topInsetConstraint.constant = topInset
 		imageHeightConstraint.constant = imageHeight
+		imageHeightConstraint.isActive = isDownScalingEnabled
 
 		backgroundImageView.accessibilityLabel = imageAccessibilityLabel
 		backgroundImageView.isAccessibilityElement = imageAccessibilityLabel != nil
@@ -93,4 +94,11 @@ class DynamicTableViewHeadlineWithImageCell: UITableViewCell {
 		return screenSize.width * originalSize.height / originalSize.width
 	}
 
+	private var isDownScalingEnabled: Bool {
+		guard let originalSize = backgroundImageView.image?.size,
+			  UIScreen.main.bounds.size.width < originalSize.width else {
+				  return false
+			  }
+		return true
+	}
 }
