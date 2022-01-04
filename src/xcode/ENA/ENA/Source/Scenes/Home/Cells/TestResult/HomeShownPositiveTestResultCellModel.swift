@@ -82,53 +82,66 @@ class HomeShownPositiveTestResultCellModel {
 
 		var homeItemViewModels = [HomeImageItemViewModel]()
 
-		if coronaTest.type == .antigen {
-			homeItemViewModels.append(
+		if coronaTest.type == .pcr {
+			homeItemViewModels.append(contentsOf: [
 				HomeImageItemViewModel(
-					title: AppStrings.Home.TestResult.ShownPositive.verifyItemTitle,
+					title: AppStrings.Home.TestResult.ShownPositive.itemPCR0,
+					titleColor: .enaColor(for: .textPrimary1),
+					iconImageName: "Icons - Home",
+					iconTintColor: .enaColor(for: .riskHigh),
+					color: .clear,
+					separatorColor: .clear,
+					containerInsets: .init(top: 10.0, left: 0.0, bottom: 10.0, right: 0)
+				),
+				HomeImageItemViewModel(
+					title: AppStrings.Home.TestResult.ShownPositive.itemPCR1,
+					titleColor: .enaColor(for: .textPrimary1),
+					iconImageName: "Icons - Hotline",
+					iconTintColor: .enaColor(for: .riskHigh),
+					color: .clear,
+					separatorColor: .clear,
+					containerInsets: .init(top: 10.0, left: 0.0, bottom: 10.0, right: 0)
+				),
+				HomeImageItemViewModel(
+					title: AppStrings.Home.TestResult.ShownPositive.itemPCR2,
+					titleColor: .enaColor(for: .textPrimary1),
+					iconImageName: "Icons - Red Plus",
+					iconTintColor: .enaColor(for: .riskHigh),
+					color: .clear,
+					separatorColor: .clear,
+					containerInsets: .init(top: 10.0, left: 0.0, bottom: 10.0, right: 0)
+				)
+			])
+		} else if coronaTest.type == .antigen {
+			homeItemViewModels.append(contentsOf: [
+				HomeImageItemViewModel(
+					title: AppStrings.Home.TestResult.ShownPositive.itemRAT0,
+					titleColor: .enaColor(for: .textPrimary1),
+					iconImageName: "Icons - Home",
+					iconTintColor: .enaColor(for: .riskHigh),
+					color: .clear,
+					separatorColor: .clear,
+					containerInsets: .init(top: 10.0, left: 0.0, bottom: 10.0, right: 0)
+				),
+				HomeImageItemViewModel(
+					title: AppStrings.Home.TestResult.ShownPositive.itemRAT1,
 					titleColor: .enaColor(for: .textPrimary1),
 					iconImageName: "Icons - Test Tube",
 					iconTintColor: .enaColor(for: .riskHigh),
 					color: .clear,
 					separatorColor: .clear,
 					containerInsets: .init(top: 10.0, left: 0.0, bottom: 10.0, right: 0)
-				)
-			)
-		}
-
-		homeItemViewModels.append(contentsOf: [
-			HomeImageItemViewModel(
-				title: AppStrings.Home.TestResult.ShownPositive.phoneItemTitle,
-				titleColor: .enaColor(for: .textPrimary1),
-				iconImageName: "Icons - Hotline",
-				iconTintColor: .enaColor(for: .riskHigh),
-				color: .clear,
-				separatorColor: .clear,
-				containerInsets: .init(top: 10.0, left: 0.0, bottom: 10.0, right: 0)
-			),
-			HomeImageItemViewModel(
-				title: AppStrings.Home.TestResult.ShownPositive.homeItemTitle,
-				titleColor: .enaColor(for: .textPrimary1),
-				iconImageName: "Icons - Home",
-				iconTintColor: .enaColor(for: .riskHigh),
-				color: .clear,
-				separatorColor: .clear,
-				containerInsets: .init(top: 10.0, left: 0.0, bottom: 10.0, right: 0)
-			)
-		])
-
-		if !coronaTest.keysSubmitted {
-			homeItemViewModels.append(
+				),
 				HomeImageItemViewModel(
-					title: AppStrings.Home.TestResult.ShownPositive.shareItemTitle,
+					title: AppStrings.Home.TestResult.ShownPositive.itemRAT2,
 					titleColor: .enaColor(for: .textPrimary1),
-					iconImageName: "Icons - Warnen",
+					iconImageName: "Icons - Hotline",
 					iconTintColor: .enaColor(for: .riskHigh),
 					color: .clear,
 					separatorColor: .clear,
 					containerInsets: .init(top: 10.0, left: 0.0, bottom: 10.0, right: 0)
 				)
-			)
+			])
 		}
 
 		self.homeItemViewModels = homeItemViewModels
