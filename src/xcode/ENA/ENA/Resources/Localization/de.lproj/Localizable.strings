@@ -123,13 +123,14 @@
 
 "ExposureDetection_Guide_Vaccination_HighRisk" = "Sollten Sie bisher nicht geimpft sein, besprechen Sie nach der Testung die Impfung mit Ihrer Hausarztpraxis.";
 
-"ExposureDetection_Guide_Title" = "Lassen Sie sich testen, auch wenn Sie keine Symptome haben. Bei einer Warnung über ein erhöhtes Risiko (\"Rote Kachel\") haben Sie Anspruch auf einen kostenlosen Test. Dies muss nicht notwendigerweise ein PCR-Test sein.
-";
+"ExposureDetection_Guide_Title" = "Lassen Sie sich testen, auch wenn Sie keine Symptome haben. Bei einer Warnung über ein erhöhtes Risiko (\"Rote Kachel\") haben Sie Anspruch auf einen kostenlosen Test. Abhängig von den örtlichen Regelungen kann Ihr Anspruch auf einen kostenlosen Antigen-Schnelltest beschränkt sein. Wir regen an, einen PCR-Test durchführen zu lassen, vor allem, wenn der Test kostenlos ist.";
 
 "ExposureDetection_Guide_Point1" = "Testmöglichkeiten finden Sie hier. Sie können sich auch an Ihre Hausarztpraxis oder Apotheke wenden.";
+
 "ExposureDetection_Guide_Point1_LinkText" = "Testmöglichkeiten finden Sie hier.";
 
 "ExposureDetection_Guide_Point2" = "Weitere Informationen in den FAQ zum Testablauf.";
+
 "ExposureDetection_Guide_Point2_LinkText" = "Weitere Informationen in den FAQ zum Testablauf.";
 
 "ExposureDetection_Explanation_Title" = "Infektionsrisiko";
@@ -2908,7 +2909,7 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "HealthCertifiedPerson_AdmissionState_description2GPlusPCR" = "Ihre Zertifikate erfüllen die 2G-Plus-Regel. Wenn Sie Ihren aktuellen Status vorweisen müssen, schließen sie diese Ansicht und zeigen Sie den QR-Code auf der Zertifikatsübersicht.";
 
-"HealthCertifiedPerson_AdmissionState_description2GPlusAntigen" = "Ihre Zertifikate erfüllen die 2G-Plus-Regel. Wenn Sie Ihren aktuellen Status vorweisen müssen, schließen sie diese Ansicht und zeigen Sie den QR-Code auf der Zertifikatsübersicht.";
+"HealthCertifiedPerson_AdmissionState_description2GPlusAntigen" = "Ihre Zertifikate erfüllen die 2G-Plus-Regel, es sei denn, es wird ein PCR-Test benötigt. Wenn Sie Ihren aktuellen Status vorweisen müssen, schließen sie diese Ansicht und zeigen Sie den QR-Code auf der Zertifikatsübersicht.";
 
 "HealthCertifiedPerson_AdmissionState_description3G" = "Ihre Zertifikate erfüllen die 3G-Regel. Wenn Sie Ihren aktuellen Status vorweisen müssen, schließen sie diese Ansicht und zeigen Sie den QR-Code auf der Zertifikatsübersicht.";
 
