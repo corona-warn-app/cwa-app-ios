@@ -214,11 +214,6 @@ final class EventCheckoutService {
 			locationNameElements.append(checkin.traceLocationAddress)
 		}
 
-		if let startDate = checkin.traceLocationStartDate,
-		   let endDate = checkin.traceLocationEndDate {
-			locationNameElements.append(dateIntervalFormatter.string(from: startDate, to: endDate))
-		}
-
 		let addLocationResult = contactDiaryStore.addLocation(
 			name: locationNameElements.joined(separator: ", "),
 			phoneNumber: "",
