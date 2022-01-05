@@ -7,7 +7,7 @@ import UserNotifications
 
 class MockUserNotificationCenter: UserNotificationCenter {
 
-	var notificationRequests = [UNNotificationRequest]()
+	// MARK: - Protocol UserNotificationCenter
 
 	func getPendingNotificationRequests(completionHandler: @escaping ([UNNotificationRequest]) -> Void) {
 		completionHandler(notificationRequests)
@@ -15,10 +15,16 @@ class MockUserNotificationCenter: UserNotificationCenter {
 
 	func add(_ request: UNNotificationRequest, withCompletionHandler completionHandler: ((Error?) -> Void)?) {
 		notificationRequests.append(request)
+		onAdding?(request)
 	}
 
 	func removePendingNotificationRequests(withIdentifiers identifiers: [String]) {
 		notificationRequests.removeAll(where: { identifiers.contains($0.identifier) })
 	}
+
+	// MARK: - Internal
+
+	var notificationRequests = [UNNotificationRequest]()
+	var onAdding: ((UNNotificationRequest) -> Void)?
 
 }
