@@ -28,6 +28,7 @@ class HealthCertificateKeyValueTextCell: UITableViewCell, ReuseIdentifierProvidi
 		detailsTextLabel.textColor = cellViewModel.textTextColor
 		headlineTextLabel.text = cellViewModel.headline
 		detailsTextLabel.text = cellViewModel.text
+		backgroundContainerView.accessibilityLabel = [cellViewModel.headline, cellViewModel.text].joined(separator: " ")
 		bottomSeparatorView.isHidden = cellViewModel.isBottomSeparatorHidden
 		topSpaceLayoutConstraint.constant = cellViewModel.topSpace ?? 8.0
 		bottomSpaceLayoutConstraint.constant = cellViewModel.bottomSpace ?? -8.0
@@ -89,10 +90,8 @@ class HealthCertificateKeyValueTextCell: UITableViewCell, ReuseIdentifierProvidi
 	}
 
 	private func setupAccessibility() {
-		accessibilityElements = [backgroundContainerView as Any]
-		backgroundContainerView.accessibilityElements = [headlineTextLabel as Any, detailsTextLabel as Any]
-		headlineTextLabel.accessibilityTraits = .staticText
-		detailsTextLabel.accessibilityTraits = .staticText
+		backgroundContainerView.isAccessibilityElement = true
+		backgroundContainerView.accessibilityTraits = .staticText
 	}
 
 }
