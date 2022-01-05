@@ -119,7 +119,7 @@ class ExposureSubmissionSuccessViewController: DynamicTableViewController, ENANa
 					title: AppStrings.ExposureSubmissionSuccess.listItemPCR2,
 					icon: UIImage(named: "Icons - Red Plus"),
 					hairline: .none,
-					bottomSpacing: .large
+					bottomSpacing: .medium
 				)
 			])
 		} else if coronaTestType == .antigen {
@@ -146,7 +146,7 @@ class ExposureSubmissionSuccessViewController: DynamicTableViewController, ENANa
 					icon: UIImage(named: "Icons - Hotline"),
 					iconTint: .enaColor(for: .riskHigh),
 					hairline: .none,
-					bottomSpacing: .large
+					bottomSpacing: .medium
 				)
 			])
 		}

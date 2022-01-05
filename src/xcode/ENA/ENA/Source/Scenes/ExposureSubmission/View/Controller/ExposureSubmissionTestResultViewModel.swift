@@ -478,7 +478,7 @@ extension ExposureSubmissionTestResultViewModel {
 					title: AppStrings.ExposureSubmissionPositiveTestResult.keysSubmittedPCRInfo3,
 					icon: UIImage(named: "Icons - Red Plus"),
 					hairline: .none,
-					bottomSpacing: .large
+					bottomSpacing: .medium
 				)
 			])
 		} else if coronaTest.type == .antigen {
@@ -505,7 +505,7 @@ extension ExposureSubmissionTestResultViewModel {
 					icon: UIImage(named: "Icons - Hotline"),
 					iconTint: .enaColor(for: .riskHigh),
 					hairline: .none,
-					bottomSpacing: .large
+					bottomSpacing: .medium
 				)
 			])
 		}
