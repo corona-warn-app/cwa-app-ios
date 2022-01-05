@@ -409,7 +409,27 @@ class HealthCertificateServiceTests: CWATestCase {
 		)
 		let firstRecoveryCertificate = try HealthCertificate(base45: firstRecoveryCertificateBase45, validityState: .expired, isValidityStateNew: true)
 
+		let personsExpectation = expectation(description: "healthCertifiedPersons publisher triggered")
+		personsExpectation.expectedFulfillmentCount = 4
+
+		let personsSubscription = service.$healthCertifiedPersons
+			.sink { _ in
+				personsExpectation.fulfill()
+			}
+
+		let newsExpectation = expectation(description: "healthCertifiedPersons publisher triggered")
+		newsExpectation.expectedFulfillmentCount = 2
+
+		let newsSubscription = service.unseenNewsCount
+			.sink { _ in
+				newsExpectation.fulfill()
+			}
+
 		registrationResult = service.registerHealthCertificate(base45: firstRecoveryCertificateBase45)
+
+		waitForExpectations(timeout: .short)
+		personsSubscription.cancel()
+		newsSubscription.cancel()
 
 		switch registrationResult {
 		case let .success(certificateResult):
