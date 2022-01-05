@@ -2038,11 +2038,18 @@ class HealthCertificateServiceTests: CWATestCase {
 			   ]
 		   )
 		store.healthCertifiedPersons = [healthCertifiedPerson]
+
+		let expectation = expectation(description: "notificationRequests changed")
+		expectation.expectedFulfillmentCount = 3
+
+		notificationCenter.onAdding = { _ in
+			expectation.fulfill()
+		}
 		
 		// WHEN
 		// When creating the service with the store, all certificates are checked for their validityStatus and thus their notifications are created.
 		let client = ClientMock()
-		_ = HealthCertificateService(
+		let service = HealthCertificateService(
 			store: store,
 			dccSignatureVerifier: DCCSignatureVerifyingStub(error: .HC_DSC_EXPIRED),
 			dscListProvider: MockDSCListProvider(),
@@ -2055,7 +2062,11 @@ class HealthCertificateServiceTests: CWATestCase {
 			),
 			recycleBin: .fake()
 		)
-		
+
+		XCTAssertEqual(service.healthCertifiedPersons.count, 1)
+
+		waitForExpectations(timeout: .medium)
+
 		// There should be now 1 notification for invalid, 1 for expireSoon and 1 for expired.
 		XCTAssertEqual(notificationCenter.notificationRequests.count, 3)
 	}
