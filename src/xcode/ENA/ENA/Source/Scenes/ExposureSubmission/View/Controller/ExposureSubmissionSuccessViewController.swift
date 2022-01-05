@@ -104,7 +104,7 @@ class ExposureSubmissionSuccessViewController: DynamicTableViewController, ENANa
 					icon: UIImage(named: "Icons - Home"),
 					iconTint: .enaColor(for: .riskHigh),
 					hairline: .none,
-					bottomSpacing: .normal
+					bottomSpacing: .medium
 				),
 				ExposureSubmissionDynamicCell.stepCell(
 					style: .body,
@@ -112,7 +112,7 @@ class ExposureSubmissionSuccessViewController: DynamicTableViewController, ENANa
 					icon: UIImage(named: "Icons - Hotline"),
 					iconTint: .enaColor(for: .riskHigh),
 					hairline: .none,
-					bottomSpacing: .normal
+					bottomSpacing: .medium
 				),
 				ExposureSubmissionDynamicCell.stepCell(
 					style: .body,
@@ -130,7 +130,7 @@ class ExposureSubmissionSuccessViewController: DynamicTableViewController, ENANa
 					icon: UIImage(named: "Icons - Home"),
 					iconTint: .enaColor(for: .riskHigh),
 					hairline: .none,
-					bottomSpacing: .normal
+					bottomSpacing: .medium
 				),
 				ExposureSubmissionDynamicCell.stepCell(
 					style: .body,
@@ -138,7 +138,7 @@ class ExposureSubmissionSuccessViewController: DynamicTableViewController, ENANa
 					icon: UIImage(named: "Icons - Test Tube"),
 					iconTint: .enaColor(for: .riskHigh),
 					hairline: .none,
-					bottomSpacing: .normal
+					bottomSpacing: .medium
 				),
 				ExposureSubmissionDynamicCell.stepCell(
 					style: .body,
