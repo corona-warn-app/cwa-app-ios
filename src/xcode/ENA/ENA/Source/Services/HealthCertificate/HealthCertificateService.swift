@@ -537,7 +537,9 @@ class HealthCertificateService {
 	func updateValidityStatesAndNotifications(shouldScheduleTimer: Bool = true) {
 		Log.info("Update validity state and notifications.")
 
-		DispatchQueue.global(qos: .default).async {
+		DispatchQueue.global(qos: .default).async { [weak self] in
+			guard let self = self else { return }
+
 			let currentAppConfiguration = self.appConfiguration.currentAppConfig.value
 			self.healthCertifiedPersons.forEach { healthCertifiedPerson in
 				healthCertifiedPerson.healthCertificates.forEach { healthCertificate in
