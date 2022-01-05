@@ -60,11 +60,15 @@ struct AntigenTestProfileViewModel {
 	}
 
 	var profileCellViewModel: SimpleTextCellViewModel {
+		let paragraphStyle = NSMutableParagraphStyle()
+		paragraphStyle.alignment = .left
+
 		let attributedName = NSAttributedString(
 			string: friendlyName,
 			attributes: [
 				.font: UIFont.enaFont(for: .headline),
-				.foregroundColor: UIColor.enaColor(for: .textPrimary1)
+				.foregroundColor: UIColor.enaColor(for: .textPrimary1),
+				.paragraphStyle: paragraphStyle
 			]
 		)
 
@@ -74,10 +78,12 @@ struct AntigenTestProfileViewModel {
 				formattedAddress,
 				antigenTestProfile.phoneNumber,
 				antigenTestProfile.email
-			].compactMap({ $0 }).joined(separator: "\n"),
+			]
+				.compactMap({ $0 }).joined(separator: "\n"),
 			attributes: [
 				.font: UIFont.enaFont(for: .body),
-				.foregroundColor: UIColor.enaColor(for: .textPrimary1)
+				.foregroundColor: UIColor.enaColor(for: .textPrimary1),
+				.paragraphStyle: paragraphStyle
 			]
 		)
 

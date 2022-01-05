@@ -727,7 +727,7 @@ class ExposureDetectionViewModelTests: CWATestCase {
 
 		var subscriptions = Set<AnyCancellable>()
 
-		let expectedActivityStates: [RiskProviderActivityState] = [.idle, .riskRequested, .downloading, .detecting, .idle]
+		let expectedActivityStates: [RiskProviderActivityState] = [.idle, .riskManuallyRequested, .downloading, .detecting, .idle]
 
 		let activityStateExpectation = expectation(description: "riskProviderActivityState updated")
 		activityStateExpectation.expectedFulfillmentCount = expectedActivityStates.count
@@ -800,7 +800,7 @@ class ExposureDetectionViewModelTests: CWATestCase {
 
 		var subscriptions = Set<AnyCancellable>()
 
-		let expectedActivityStates: [RiskProviderActivityState] = [.idle, .riskRequested, .downloading, .detecting, .idle]
+		let expectedActivityStates: [RiskProviderActivityState] = [.idle, .riskManuallyRequested, .downloading, .detecting, .idle]
 
 		let activityStateExpectation = expectation(description: "riskProviderActivityState updated")
 		activityStateExpectation.expectedFulfillmentCount = expectedActivityStates.count
@@ -903,7 +903,7 @@ class ExposureDetectionViewModelTests: CWATestCase {
 
 		var subscriptions = Set<AnyCancellable>()
 
-		let expectedActivityStates: [RiskProviderActivityState] = [.idle, .riskRequested, .downloading, .detecting, .idle]
+		let expectedActivityStates: [RiskProviderActivityState] = [.idle, .riskManuallyRequested, .downloading, .detecting, .idle]
 
 		let activityStateExpectation = expectation(description: "riskProviderActivityState updated")
 		activityStateExpectation.expectedFulfillmentCount = expectedActivityStates.count
