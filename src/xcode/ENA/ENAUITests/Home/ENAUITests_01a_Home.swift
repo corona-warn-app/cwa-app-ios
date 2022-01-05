@@ -102,6 +102,8 @@ class ENAUITests_01a_Home: CWATestCase {
 		// only run if home screen is present
 		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Home.ShownPositiveTestResultCell.removeTestButton].waitForExistence(timeout: .medium))
 
+		app.swipeUp(velocity: .slow)
+
 		// remove test
 		app.buttons[AccessibilityIdentifiers.Home.ShownPositiveTestResultCell.removeTestButton].waitAndTap()
 		
