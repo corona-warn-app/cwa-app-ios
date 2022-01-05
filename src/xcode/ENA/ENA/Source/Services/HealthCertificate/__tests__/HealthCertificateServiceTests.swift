@@ -111,13 +111,13 @@ class HealthCertificateServiceTests: CWATestCase {
 		)
 
 		let healthCertifiedPersonsExpectation = expectation(description: "healthCertifiedPersons publisher updated")
+		healthCertifiedPersonsExpectation.expectedFulfillmentCount = 3
 
 		service.$healthCertifiedPersons
 			.sink { _ in
 				healthCertifiedPersonsExpectation.fulfill()
 			}
 			.store(in: &subscriptions)
-
 
 		waitForExpectations(timeout: .short)
 
