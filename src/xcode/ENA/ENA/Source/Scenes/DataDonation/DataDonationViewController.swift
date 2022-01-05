@@ -9,12 +9,8 @@ class DataDonationViewController: DynamicTableViewController, DeltaOnboardingVie
 
 	// MARK: - Init
 
-	init(
-		viewModel: DataDonationViewModelProtocol,
-		largeTitleDisplayMode: UINavigationItem.LargeTitleDisplayMode = .never
-	) {
+	init(viewModel: DataDonationViewModelProtocol) {
 		self.viewModel = viewModel
-		self.largeTitleDisplayMode = largeTitleDisplayMode
 
 		super.init(nibName: nil, bundle: nil)
 	}
@@ -28,8 +24,8 @@ class DataDonationViewController: DynamicTableViewController, DeltaOnboardingVie
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		navigationItem.title = AppStrings.DataDonation.Info.title
-		navigationItem.largeTitleDisplayMode = largeTitleDisplayMode
+
+		navigationItem.largeTitleDisplayMode = .never
 		navigationController?.navigationBar.prefersLargeTitles = true
 		setupTableView()
 	}
@@ -46,7 +42,6 @@ class DataDonationViewController: DynamicTableViewController, DeltaOnboardingVie
 	// MARK: - Private
 
 	private let viewModel: DataDonationViewModelProtocol
-	private let largeTitleDisplayMode: UINavigationItem.LargeTitleDisplayMode
 	private var subscriptions: [AnyCancellable] = []
 
 	private func setupTableView() {
