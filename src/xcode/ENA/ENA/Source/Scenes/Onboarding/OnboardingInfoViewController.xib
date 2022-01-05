@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -40,16 +40,19 @@
                     <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                     <subviews>
                         <view contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fqq-PR-maG" userLabel="Container View">
-                            <rect key="frame" x="0.0" y="0.0" width="414" height="686.5"/>
+                            <rect key="frame" x="0.0" y="0.0" width="414" height="689"/>
                             <subviews>
                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="32" translatesAutoresizingMaskIntoConstraints="NO" id="u0Z-dj-KUh">
-                                    <rect key="frame" x="16" y="16" width="382" height="654.5"/>
+                                    <rect key="frame" x="16" y="16" width="382" height="657"/>
                                     <subviews>
                                         <view contentMode="scaleAspectFill" translatesAutoresizingMaskIntoConstraints="NO" id="jKw-RG-YP1">
                                             <rect key="frame" x="0.0" y="0.0" width="382" height="229"/>
                                             <subviews>
-                                                <imageView clipsSubviews="YES" contentMode="scaleAspectFit" verticalHuggingPriority="1000" image="Illu_Onboarding_GemeinsamCoronabekaempfen" translatesAutoresizingMaskIntoConstraints="NO" id="03z-yc-6d8">
+                                                <imageView clipsSubviews="YES" contentMode="scaleAspectFill" verticalHuggingPriority="1000" image="Illu_Onboarding_GemeinsamCoronabekaempfen" translatesAutoresizingMaskIntoConstraints="NO" id="03z-yc-6d8">
                                                     <rect key="frame" x="-16" y="0.0" width="414" height="229"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" secondItem="03z-yc-6d8" secondAttribute="height" multiplier="375:229" id="9Dr-cA-fQZ"/>
+                                                    </constraints>
                                                 </imageView>
                                             </subviews>
                                             <constraints>
@@ -121,7 +124,7 @@
                                             </constraints>
                                         </view>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="800" verticalCompressionResistancePriority="50" text="Title 1" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PuR-3M-Pvl" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
-                                            <rect key="frame" x="0.0" y="476.5" width="382" height="20.5"/>
+                                            <rect key="frame" x="0.0" y="476.5" width="382" height="31.5"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <color key="textColor" name="ENA Text Primary 1 Color"/>
                                             <nil key="highlightedColor"/>
@@ -130,10 +133,10 @@
                                             </userDefinedRuntimeAttributes>
                                         </label>
                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="24" translatesAutoresizingMaskIntoConstraints="NO" id="Lgs-ln-Zc7">
-                                            <rect key="frame" x="0.0" y="529" width="382" height="125.5"/>
+                                            <rect key="frame" x="0.0" y="540" width="382" height="117"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Headline" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Nk7-Zk-JE2" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
-                                                    <rect key="frame" x="0.0" y="0.0" width="382" height="20.5"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="382" height="18"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" name="ENA Text Primary 1 Color"/>
                                                     <nil key="highlightedColor"/>
@@ -142,7 +145,7 @@
                                                     </userDefinedRuntimeAttributes>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Subheadline" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="znr-XX-rfp" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
-                                                    <rect key="frame" x="0.0" y="44.5" width="382" height="20.5"/>
+                                                    <rect key="frame" x="0.0" y="42" width="382" height="14.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" name="ENA Text Primary 1 Color"/>
                                                     <nil key="highlightedColor"/>
@@ -151,7 +154,7 @@
                                                     </userDefinedRuntimeAttributes>
                                                 </label>
                                                 <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" contentInsetAdjustmentBehavior="never" editable="NO" allowsEditingTextAttributes="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Vwe-7A-NHS">
-                                                    <rect key="frame" x="0.0" y="89" width="382" height="36.5"/>
+                                                    <rect key="frame" x="0.0" y="80.5" width="382" height="36.5"/>
                                                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                     <accessibility key="accessibilityConfiguration">
                                                         <accessibilityTraits key="traits" link="YES"/>
@@ -252,25 +255,25 @@
             <size key="intrinsicContentSize" width="41.5" height="20.5"/>
         </designable>
         <designable name="9f7-Oe-AOV">
-            <size key="intrinsicContentSize" width="51" height="34"/>
+            <size key="intrinsicContentSize" width="62" height="50"/>
         </designable>
         <designable name="Nk7-Zk-JE2">
-            <size key="intrinsicContentSize" width="67" height="20.5"/>
+            <size key="intrinsicContentSize" width="63" height="18"/>
         </designable>
         <designable name="PuR-3M-Pvl">
-            <size key="intrinsicContentSize" width="45" height="20.5"/>
+            <size key="intrinsicContentSize" width="71.5" height="31.5"/>
         </designable>
         <designable name="lge-Dm-wcC">
             <size key="intrinsicContentSize" width="41.5" height="20.5"/>
         </designable>
         <designable name="vh2-Dv-3W6">
-            <size key="intrinsicContentSize" width="41.5" height="20.5"/>
+            <size key="intrinsicContentSize" width="31" height="14.5"/>
         </designable>
         <designable name="vo8-Zn-enn">
-            <size key="intrinsicContentSize" width="38" height="34"/>
+            <size key="intrinsicContentSize" width="50" height="50"/>
         </designable>
         <designable name="znr-XX-rfp">
-            <size key="intrinsicContentSize" width="94.5" height="20.5"/>
+            <size key="intrinsicContentSize" width="70" height="14.5"/>
         </designable>
     </designables>
     <resources>

@@ -28,7 +28,7 @@ class HealthCertifiedPersonCellModel {
 			healthCertificate: mostRelevantCertificate,
 			showRealQRCodeIfValidityStateBlocked: false,
 			accessibilityLabel: AppStrings.HealthCertificate.Overview.covidDescription,
-			covPassCheckInfoPosition: healthCertifiedPerson.admissionState == .other ? .top : .bottom,
+			covPassCheckInfoPosition: .bottom,
 			onCovPassCheckInfoButtonTap: onCovPassCheckInfoButtonTap
 		)
 
