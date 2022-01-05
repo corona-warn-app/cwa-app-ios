@@ -72,11 +72,9 @@ class AntigenTestProfileViewController: UIViewController, UITableViewDataSource,
 
 	func didTapFooterViewButton(_ type: FooterViewModel.ButtonType) {
 		switch type {
-
 		case .primary:
 			didTapContinue({ _ in Log.debug("is loading closure here") })
 		case .secondary:
-			
 			let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
 			alertController.addAction(UIAlertAction(title: AppStrings.AntigenProfile.Profile.infoActionTitle, style: .default, handler: { [weak self] _ in
 				self?.didTapProfileInfo()
