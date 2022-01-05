@@ -30,9 +30,12 @@ extension HealthCertificate {
 			throw PDFGenerationError.qrCodeCreationFailed
 		}
 
+		// We need to adjust the orientation of the qrCode image because the coordinate system is upside-down. So flip it horizontally.
+		let flippedImage = image.transformed(by: CGAffineTransform(scaleX: 1, y: -1))
+
 		do {
 			let pdfDocument = try originalDocument.pdfDocumentEmbeddingImageAndText(
-				image: image,
+				image: flippedImage,
 				at: CGRect(x: 132, y: 436, width: 150, height: 150),
 				texts: texts(with: valueSets)
 			)
