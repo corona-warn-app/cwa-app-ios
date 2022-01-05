@@ -178,6 +178,49 @@ final class CachedAppConfigurationTests: CWATestCase {
 
 		waitForExpectations(timeout: .medium)
 	}
+
+	func test_stressTestAppConfigurationAccess() {
+		let store = MockTestStore()
+		let config = SAP_Internal_V2_ApplicationConfigurationIOS()
+
+		let client = CachingHTTPClientMock()
+		client.onFetchAppConfiguration = { _, completeWith in
+			let config = AppConfigurationFetchingResponse(config, "etag")
+			let clientQueue = DispatchQueue(label: "ClientQueue", attributes: .concurrent)
+			
+			// Dispatch the completion call to simulate URLSession calling back on another thread.
+			clientQueue.async {
+				usleep(100_000) // 0.1s
+				completeWith((.success(config), nil))
+			}
+		}
+
+		let cache = CachedAppConfiguration(client: client, store: store)
+		let callbackExpectations = expectation(description: "AppConfigurationCallback")
+		callbackExpectations.expectedFulfillmentCount = 1001
+		
+		var stressTestSubscriptions = [AnyCancellable]()
+		let concurrentQueue = DispatchQueue(label: "AppConfigurationAccessQueue", attributes: .concurrent)
+		let subscriptionQueue = DispatchQueue(label: "SubscriptionQueue")
+		
+		for _ in 0...1000 {
+			// Stress the CachedAppConfiguration with a lot a concurrent calls.
+			concurrentQueue.async {
+				usleep(10_000) // 0.01s
+
+				let subscription = cache.appConfiguration(forceFetch: true).sink { _ in
+					callbackExpectations.fulfill()
+				}
+				
+				// Because we are in a concurrent call, we need to serial sync the access to the subsciptions queue to avoid data inconsistencies.
+				subscriptionQueue.sync {
+					stressTestSubscriptions.append(subscription)
+				}
+			}
+		}
+		
+		waitForExpectations(timeout: .medium)
+	}
 }
 
 extension Int {
