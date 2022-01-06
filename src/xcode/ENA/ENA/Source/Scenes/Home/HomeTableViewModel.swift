@@ -129,6 +129,7 @@ class HomeTableViewModel {
 	func updateTestResult() {
 		// According to the tech spec, test results should always be updated in the foreground, even if the final test result was received. Therefore: force = true
 		CoronaTestType.allCases.forEach { coronaTestType in
+			Log.info("Updating result for test of type: \(coronaTestType)")
 			coronaTestService.updateTestResult(for: coronaTestType, force: true) { [weak self] result in
 				guard let self = self else { return }
 
@@ -140,9 +141,7 @@ class HomeTableViewModel {
 					case .responseFailure(let responseFailure):
 						switch responseFailure {
 						case .fakeResponse:
-							Log.info("fake response - skip this error")
-						case .noNetworkConnection:
-							Log.info("tried to get test result without a network connection")
+							Log.info("fake response - skip it's not an error")
 						case .noResponse:
 							Log.info("tried to get test result but no response was given")
 						default:
