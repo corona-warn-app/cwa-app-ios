@@ -20,6 +20,9 @@ extension RestServiceProviding where Self == RestServiceProviderStub {
 	static var coronaTestServiceProvider: RestServiceProviderStub {
 		RestServiceProviderStub(results: [
 			.success(
+				TestResultModel(testResult: TestResult.pending.rawValue, sc: nil, labId: "SomeLabId")
+			),
+			.success(
 				RegistrationTokenModel(registrationToken: "registrationToken")
 			),
 			.success(
