@@ -35,6 +35,14 @@ struct TestResultResource: Resource {
 			return nil
 		}
 	}
+	
+#if !RELEASE
+	var defaultMockLoadResource: LoadResource? = LoadResource(
+		result: .success(TestResultModel(testResult: TestResult.negative.rawValue, sc: nil, labId: nil)),
+		willLoadResource: nil
+	)
+#endif
+	
 
 	// MARK: - Private
 	private let regTokenModel: RegistrationTokenSendModel
