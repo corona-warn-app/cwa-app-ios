@@ -1008,13 +1008,13 @@ class CoronaTestServiceTests: CWATestCase {
 			.success(
 				RegistrationTokenModel(registrationToken: "registrationToken")
 			),
+			.failure(
+				ServiceError<TestResultError>.unexpectedServerError(500)
+			),
 			.success(SubmissionTANModel(submissionTAN: "fake"))
 		])
 
 		let client = ClientMock()
-		client.onGetTestResult = { _, _, completion in
-			completion(.failure(.serverError(500)))
-		}
 
 		let appConfiguration = CachedAppConfigurationMock()
 
@@ -1692,13 +1692,10 @@ class CoronaTestServiceTests: CWATestCase {
 
 		let restServiceProvider = RestServiceProviderStub(results: [
 			.success(RegistrationTokenModel(registrationToken: "registrationToken")),
+			.failure(ServiceError<TestResultError>.unexpectedServerError(500)),
 			.success(SubmissionTANModel(submissionTAN: "fake"))
 		]
 		)
-
-		client.onGetTestResult = { _, _, completion in
-			completion(.failure(.serverError(500)))
-		}
 
 		let store = MockTestStore()
 		let appConfiguration = CachedAppConfigurationMock()
@@ -2081,13 +2078,11 @@ class CoronaTestServiceTests: CWATestCase {
 	func test_When_UpdatePresentNotificationTrue_Then_NotificationShouldBePresented() {
 		let mockNotificationCenter = MockUserNotificationCenter()
 		let client = ClientMock()
-		client.onGetTestResult = { _, _, completion in
-			completion(.success(.fake(testResult: TestResult.positive.rawValue)))
-		}
-
+		
 		let store = MockTestStore()
 		let appConfiguration = CachedAppConfigurationMock()
 		let restServiceProvider = RestServiceProviderStub(results: [
+			.success(TestResultModel(testResult: TestResult.pending.rawValue, sc: nil, labId: "SomeLabId")),
 			.success(SubmissionTANModel(submissionTAN: "fake")),
 			.success(SubmissionTANModel(submissionTAN: "fake")),
 			.success(SubmissionTANModel(submissionTAN: "fake")),

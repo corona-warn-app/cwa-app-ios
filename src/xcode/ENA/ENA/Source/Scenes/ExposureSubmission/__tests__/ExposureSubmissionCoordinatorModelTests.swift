@@ -1113,9 +1113,6 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 		)
 
 		let client = ClientMock()
-//		client.onGetTestResult = { _, _, completion in
-//			completion(.failure(.invalidResponse))
-//		}
 
 		let store = MockTestStore()
 		let appConfiguration = CachedAppConfigurationMock()
