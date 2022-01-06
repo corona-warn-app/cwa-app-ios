@@ -51,6 +51,7 @@ final class ClientMock {
 
 	// MARK: - Configurable Mock Callbacks.
 
+	@available(*, deprecated, message: "please use the real client")
 	var onGetTestResult: ((String, Bool, TestResultHandler) -> Void)?
 	var onSubmitCountries: ((_ payload: SubmissionPayload, _ isFake: Bool, _ completion: @escaping KeySubmissionResponse) -> Void) = { $2(.success(())) }
 	var onSubmitOnBehalf: ((_ payload: SubmissionPayload, _ isFake: Bool, _ completion: @escaping KeySubmissionResponse) -> Void) = { $2(.success(())) }
@@ -153,6 +154,7 @@ extension ClientMock: Client {
 		onSubmitOnBehalf(payload, isFake, completion)
 	}
 
+	@available(*, deprecated, message: "please use the real client")
 	func getTestResult(forDevice device: String, isFake: Bool, completion completeWith: @escaping TestResultHandler) {
 		guard let onGetTestResult = self.onGetTestResult else {
 			completeWith(

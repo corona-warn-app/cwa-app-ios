@@ -42,53 +42,6 @@ final class HTTPClient: Client {
 		fetchDay(from: url, completion: completeWith)
 	}
 
-	func getTestResult(forDevice registrationToken: String, isFake: Bool = false, completion completeWith: @escaping TestResultHandler) {
-		guard
-			let testResultRequest = try? URLRequest.getTestResultRequest(
-				configuration: configuration,
-				registrationToken: registrationToken,
-				headerValue: isFake ? 1 : 0
-			) else {
-			completeWith(.failure(.invalidResponse))
-			return
-		}
-		Log.debug("Requesting TestResult", log: .api)
-		session.response(for: testResultRequest, isFake: isFake) { result in
-			Log.debug("Received TestResult", log: .api)
-			switch result {
-			case let .success(response):
-
-				if response.statusCode == 400 {
-					completeWith(.failure(.qrDoesNotExist))
-					return
-				}
-
-				guard response.hasAcceptableStatusCode else {
-					completeWith(.failure(.serverError(response.statusCode)))
-					return
-				}
-				guard let testResultResponseData = response.body else {
-					completeWith(.failure(.invalidResponse))
-					Log.error("Failed to register Device with invalid response", log: .api)
-					return
-				}
-				do {
-					let testResultResponse = try JSONDecoder().decode(
-						FetchTestResultResponse.self,
-						from: testResultResponseData
-					)
-					completeWith(.success(testResultResponse))
-				} catch {
-					Log.error("Failed to get test result with invalid response payload structure", log: .api)
-					completeWith(.failure(.invalidResponse))
-				}
-			case let .failure(error):
-				completeWith(.failure(error))
-				Log.error("Failed to get test result due to error: \(error).", log: .api)
-			}
-		}
-	}
-
 	func submit(payload: SubmissionPayload, isFake: Bool, completion: @escaping KeySubmissionResponse) {
 		guard let request = try? URLRequest.keySubmissionRequest(configuration: configuration, payload: payload, isFake: isFake) else {
 			completion(.failure(SubmissionError.requestCouldNotBeBuilt))
@@ -1031,43 +984,6 @@ private extension URLRequest {
 		
 		request.httpMethod = HttpMethod.post
 		request.httpBody = payloadData
-		
-		return request
-	}
-	
-	static func getTestResultRequest(
-		configuration: HTTPClient.Configuration,
-		registrationToken: String,
-		headerValue: Int
-	) throws -> URLRequest {
-		
-		var request = URLRequest(url: configuration.testResultURL)
-		
-		request.setValue(
-			"\(headerValue)",
-			// Requests with a value of "0" will be fully processed.
-			// Any other value indicates that this request shall be
-			// handled as a fake request." ,
-			forHTTPHeaderField: "cwa-fake"
-		)
-		
-		// Add header padding.
-		request.setValue(
-			String.getRandomString(of: 7),
-			forHTTPHeaderField: "cwa-header-padding"
-		)
-		
-		request.setValue(
-			"application/json",
-			forHTTPHeaderField: "Content-Type"
-		)
-		
-		request.httpMethod = HttpMethod.post
-		
-		// Add body padding to request.
-		let originalBody = ["registrationToken": registrationToken]
-		let paddedData = try getPaddedRequestBody(for: originalBody)
-		request.httpBody = paddedData
 		
 		return request
 	}

@@ -6,8 +6,9 @@ import Foundation
 
 enum CoronaTestServiceError: LocalizedError, Equatable {
 	case responseFailure(URLSession.Response.Failure)
-	case serviceError(ServiceError<TeleTanError>)
+	case serviceError(ServiceError<TeleTanError>) // Rename to teleTanServiceError ?
 	case registrationTokenError(ServiceError<RegistrationTokenError>)
+	case testResultError(ServiceError<TestResultError>)
 	case unknownTestResult
 	case testExpired
 	case noRegistrationToken
@@ -52,7 +53,7 @@ enum CoronaTestServiceError: LocalizedError, Equatable {
 			case .invalidRequestError, .trustEvaluationError, .fakeResponse:
 				return AppStrings.ExposureSubmissionError.defaultError
 			}
-		case .unknownTestResult, .noCoronaTestOfRequestedType, .malformedDateOfBirthKey:
+		case .unknownTestResult, .noCoronaTestOfRequestedType, .malformedDateOfBirthKey, .testResultError:
 			Log.error("\(self)", log: .api)
 			return AppStrings.ExposureSubmissionError.defaultError
 		}
