@@ -2111,6 +2111,22 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "Statistics_Card_IntensiveCare_SecondaryLabelTitle" = "COVID-19-Belegung aller betreibbaren Intensivbetten";
 
+/* - Booster vaccination card */
+
+"Statistics_Card_BoosterVaccination_Title" = "Personen mit Auffrischimpfung";
+
+"Statistics_Card_BoosterVaccination_Today" = "Bis heute";
+
+"Statistics_Card_BoosterVaccination_Yesterday" = "Bis gestern";
+
+"Statistics_Card_BoosterVaccination_Date" = "Bis %@";
+
+"Statistics_Card_BoosterVaccination_SecondaryLabelTitle" = "der Bevölkerung";
+
+"Statistics_Card_BoosterVaccination_TertiaryLabelTitle" = "Gesamt";
+
+"Statistics_Card_BoosterVaccination_SecondarySubtitleLabel" = "der Bevölkerung";
+
 /* Error */
 
 "Statistics_LoadingError" = "Die Statistiken konnten nicht geladen werden. Bitte schließen Sie die App und versuchen Sie es erneut.";
@@ -2157,7 +2173,11 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "Statistics_Info_FullyVaccinated_Title" = "Vollständig geimpfte Personen";
 
-"Statistics_Info_FullyVaccinated_Text" = "Anzahl der an das RKI übermittelten Personen, die alle notwendigen Impfdosen erhalten haben.";
+"Statistics_Info_FullyVaccinated_Text" = "Anzahl der an das RKI übermittelten Personen, die alle notwendigen Impfdosen der Grundimmunisierung erhalten haben.";
+
+"Statistics_Info_BoosterVaccination_Title" = "Personen mit Auffrischimpfung";
+
+"Statistics_Info_BoosterVaccination_Text" = "Anzahl der an das RKI übermittelten Personen, die eine Auffrischimpfung erhalten haben.";
 
 "Statistics_Info_DosesAdministered_Title" = "Verabreichte Impfdosen";
 
