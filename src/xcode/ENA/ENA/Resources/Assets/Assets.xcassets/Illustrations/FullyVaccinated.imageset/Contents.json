@@ -1,7 +1,7 @@
 {
   "images" : [
     {
-      "filename" : "FullyVaccinated.pdf",
+      "filename" : "Light_vollständigGeimpft.pdf",
       "idiom" : "universal"
     },
     {
@@ -11,7 +11,7 @@
           "value" : "dark"
         }
       ],
-      "filename" : "FullyVaccinated_d.pdf",
+      "filename" : "Dark_vollständigGeimpft.pdf",
       "idiom" : "universal"
     }
   ],
