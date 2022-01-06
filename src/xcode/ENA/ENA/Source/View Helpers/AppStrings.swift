@@ -1507,6 +1507,8 @@ enum AppStrings {
 			static let vaccinatedAtLeastOnceText = NSLocalizedString("Statistics_Info_AtLeastOnce_Text", comment: "")
 			static let fullyVaccinatedTitle = NSLocalizedString("Statistics_Info_FullyVaccinated_Title", comment: "")
 			static let fullyVaccinatedText = NSLocalizedString("Statistics_Info_FullyVaccinated_Text", comment: "")
+			static let boosterVaccinationTitle = NSLocalizedString("Statistics_Info_BoosterVaccination_Title", comment: "")
+			static let boosterVaccinationText = NSLocalizedString("Statistics_Info_BoosterVaccination_Text", comment: "")
 			static let dosesAdministeredTitle = NSLocalizedString("Statistics_Info_DosesAdministered_Title", comment: "")
 			static let dosesAdministeredText = NSLocalizedString("Statistics_Info_DosesAdministered_Text", comment: "")
 			static let faqLinkText = NSLocalizedString("Statistics_Info_FAQLink_Text", comment: "")
