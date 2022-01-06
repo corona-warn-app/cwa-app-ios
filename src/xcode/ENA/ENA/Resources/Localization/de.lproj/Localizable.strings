@@ -2085,6 +2085,22 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "Statistics_Card_FullyVaccinated_SecondarySubtitleLabel" = "der Bevölkerung";
 
+/* - Booster vaccination card */
+
+"Statistics_Card_BoosterVaccination_Title" = "Personen mit Auffrischimpfung";
+
+"Statistics_Card_BoosterVaccination_Today" = "Bis heute";
+
+"Statistics_Card_BoosterVaccination_Yesterday" = "Bis gestern";
+
+"Statistics_Card_BoosterVaccination_Date" = "Bis %@";
+
+"Statistics_Card_BoosterVaccination_SecondaryLabelTitle" = "der Bevölkerung";
+
+"Statistics_Card_BoosterVaccination_TertiaryLabelTitle" = "Gesamt";
+
+"Statistics_Card_BoosterVaccination_SecondarySubtitleLabel" = "der Bevölkerung";
+
 /* - Applied vaccination dose rates card */
 
 "Statistics_Card_AppliedDoseRates_Title" = "Verabreichte Impfdosen";
@@ -2110,22 +2126,6 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 "Statistics_Card_IntensiveCare_Date" = "Bis %@";
 
 "Statistics_Card_IntensiveCare_SecondaryLabelTitle" = "COVID-19-Belegung aller betreibbaren Intensivbetten";
-
-/* - Booster vaccination card */
-
-"Statistics_Card_BoosterVaccination_Title" = "Personen mit Auffrischimpfung";
-
-"Statistics_Card_BoosterVaccination_Today" = "Bis heute";
-
-"Statistics_Card_BoosterVaccination_Yesterday" = "Bis gestern";
-
-"Statistics_Card_BoosterVaccination_Date" = "Bis %@";
-
-"Statistics_Card_BoosterVaccination_SecondaryLabelTitle" = "der Bevölkerung";
-
-"Statistics_Card_BoosterVaccination_TertiaryLabelTitle" = "Gesamt";
-
-"Statistics_Card_BoosterVaccination_SecondarySubtitleLabel" = "der Bevölkerung";
 
 /* Error */
 
