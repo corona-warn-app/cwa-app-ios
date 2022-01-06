@@ -548,6 +548,10 @@ enum AccessibilityIdentifiers {
 			static let title = "AppStrings.Statistics.Card.FullyVaccinated.title"
 			static let infoButton = "AppStrings.Statistics.Card.FullyVaccinated.infoButton"
 		}
+		enum BoosterVaccination {
+			static let title = "AppStrings.Statistics.Card.BoosterVaccination.title"
+			static let infoButton = "AppStrings.Statistics.Card.BoosterVaccination.infoButton"
+		}
 		enum Doses {
 			static let title = "AppStrings.Statistics.Card.Doses.title"
 			static let infoButton = "AppStrings.Statistics.Card.Doses.infoButton"
