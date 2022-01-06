@@ -1028,18 +1028,17 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 	}
 
 	func testGetTestResultSucceeds() {
+		let expectedTestResult: TestResult = .positive
+
+		
 		let restServiceProvider = RestServiceProviderStub(
 			results: [
-				.success(RegistrationTokenModel(registrationToken: "fake"))
+				.success(RegistrationTokenModel(registrationToken: "fake")),
+				.success(TestResultModel(testResult: expectedTestResult.rawValue, sc: nil, labId: nil))
 			]
 		)
 
-		let expectedTestResult: TestResult = .positive
-
 		let client = ClientMock()
-		client.onGetTestResult = { _, _, completion in
-			completion(.success(.fake(testResult: expectedTestResult.rawValue)))
-		}
 
 		let store = MockTestStore()
 		let appConfiguration = CachedAppConfigurationMock()
@@ -1102,20 +1101,21 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 	}
 
 	func testGetTestResultFails() {
-		let expectedError: CoronaTestServiceError = .responseFailure(.invalidResponse)
+		let expectedError: CoronaTestServiceError = .testResultError(.invalidResponse)
 
 		let exposureSubmissionService = MockExposureSubmissionService()
 		let restServiceProvider = RestServiceProviderStub(
 			results: [
 				.success(RegistrationTokenModel(registrationToken: "fake")),
+				.failure(ServiceError<TestResultError>.invalidResponse),
 				.success(SubmissionTANModel(submissionTAN: "fake"))
 			]
 		)
 
 		let client = ClientMock()
-		client.onGetTestResult = { _, _, completion in
-			completion(.failure(.invalidResponse))
-		}
+//		client.onGetTestResult = { _, _, completion in
+//			completion(.failure(.invalidResponse))
+//		}
 
 		let store = MockTestStore()
 		let appConfiguration = CachedAppConfigurationMock()

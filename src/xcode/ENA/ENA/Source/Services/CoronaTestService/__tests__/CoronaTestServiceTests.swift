@@ -555,16 +555,12 @@ class CoronaTestServiceTests: CWATestCase {
 		let restServiceProvider = RestServiceProviderStub(results: [
 			.success(
 				RegistrationTokenModel(registrationToken: "registrationToken")
-			)
+			),
+			.success(TestResultModel(testResult: TestResult.pending.rawValue, sc: nil, labId: "SomeLabId"))
+
 		])
 
 		let client = ClientMock()
-		client.onGetTestResult = { _, _, completion in
-			completion(.success(.fake(
-									testResult: TestResult.pending.rawValue,
-									labId: "SomeLabId"
-			)))
-		}
 
 		let appConfiguration = CachedAppConfigurationMock()
 
@@ -660,13 +656,12 @@ class CoronaTestServiceTests: CWATestCase {
 					}
 					XCTAssertEqual(sendModel.keyDob, "xfa760e171f000ef5a7f863ab180f6f6e8185c4890224550395281d839d85458")
 				}
-			)
+			),
+			LoadResource(
+				result: .success(TestResultModel(testResult: TestResult.negative.rawValue, sc: nil, labId: nil)), willLoadResource: nil)
 		])
 
 		let client = ClientMock()
-		client.onGetTestResult = { _, _, completion in
-			completion(.success(.fake(testResult: TestResult.negative.rawValue)))
-		}
 
 		let appConfiguration = CachedAppConfigurationMock()
 		let badgeWrapper = HomeBadgeWrapper.fake()
@@ -784,13 +779,12 @@ class CoronaTestServiceTests: CWATestCase {
 					}
 					XCTAssertEqual(sendModel.keyDob, "x4a7788ef394bc7d52112014b127fe2bf142c51fe1bbb385214280e9db670193")
 				}
-			)
+			),
+			LoadResource(
+				result: .success(TestResultModel(testResult: TestResult.negative.rawValue, sc: nil, labId: nil)), willLoadResource: nil)
 		])
 
 		let client = ClientMock()
-		client.onGetTestResult = { _, _, completion in
-			completion(.success(.fake(testResult: TestResult.negative.rawValue)))
-		}
 
 		let appConfiguration = CachedAppConfigurationMock()
 		let badgeWrapper = HomeBadgeWrapper.fake()
@@ -880,14 +874,12 @@ class CoronaTestServiceTests: CWATestCase {
 					}
 					XCTAssertNil(sendModel.keyDob)
 				}
-			)
+			),
+			LoadResource(
+				result: .success(TestResultModel(testResult: TestResult.negative.rawValue, sc: nil, labId: nil)), willLoadResource: nil)
 		])
 
 		let client = ClientMock()
-
-		client.onGetTestResult = { _, _, completion in
-			completion(.success(.fake(testResult: TestResult.negative.rawValue)))
-		}
 
 		let appConfiguration = CachedAppConfigurationMock()
 
@@ -1347,17 +1339,12 @@ class CoronaTestServiceTests: CWATestCase {
 					}
 					XCTAssertNil(sendModel.keyDob)
 				}
-			)
+			),
+			LoadResource(
+				result: .success(TestResultModel(testResult: TestResult.pending.rawValue, sc: 123456789, labId: "SomeLabId")), willLoadResource: nil)
 		])
 
 		let client = ClientMock()
-		client.onGetTestResult = { _, _, completion in
-			completion(.success(.fake(
-									testResult: TestResult.pending.rawValue,
-									sc: 123456789,
-									labId: "SomeLabId"
-			)))
-		}
 
 		let store = MockTestStore()
 		let appConfiguration = CachedAppConfigurationMock()
@@ -1439,13 +1426,11 @@ class CoronaTestServiceTests: CWATestCase {
 			.success(
 				RegistrationTokenModel(registrationToken: "registrationToken")
 			),
+			.success(TestResultModel(testResult: TestResult.pending.rawValue, sc: nil, labId: nil)),
 			.success(SubmissionTANModel(submissionTAN: "fake"))
 		])
 
 		let client = ClientMock()
-		client.onGetTestResult = { _, _, completion in
-			completion(.success(.fake(testResult: TestResult.pending.rawValue)))
-		}
 
 		let store = MockTestStore()
 		let appConfiguration = CachedAppConfigurationMock()
@@ -1560,14 +1545,13 @@ class CoronaTestServiceTests: CWATestCase {
 					}
 					XCTAssertNil(sendModel.keyDob)
 				}
+			),
+			LoadResource(
+				   result: .success(TestResultModel(testResult: TestResult.negative.rawValue, sc: nil, labId: nil)), willLoadResource: nil
 			)
 		])
 
 		let client = ClientMock()
-
-		client.onGetTestResult = { _, _, completion in
-			completion(.success(.fake(testResult: TestResult.negative.rawValue)))
-		}
 
 		let appConfiguration = CachedAppConfigurationMock()
 		let badgeWrapper = HomeBadgeWrapper.fake()
@@ -1790,13 +1774,11 @@ class CoronaTestServiceTests: CWATestCase {
 
 	func testUpdatePCRTestResult_success() {
 		let restServiceProvider = RestServiceProviderStub(results: [
-			.success(SubmissionTANModel(submissionTAN: "fake"))
+			.success(SubmissionTANModel(submissionTAN: "fake")),
+			.success(TestResultModel(testResult: TestResult.positive.rawValue, sc: nil, labId: nil))
 		])
 
 		let client = ClientMock()
-		client.onGetTestResult = { _, _, completion in
-			completion(.success(.fake(testResult: TestResult.positive.rawValue)))
-		}
 
 		let store = MockTestStore()
 		let appConfiguration = CachedAppConfigurationMock()
@@ -1853,13 +1835,11 @@ class CoronaTestServiceTests: CWATestCase {
 
 	func testUpdateAntigenTestResult_success() {
 		let restServiceProvider = RestServiceProviderStub(results: [
+			.success(TestResultModel(testResult: TestResult.positive.rawValue, sc: nil, labId: nil)),
 			.success(SubmissionTANModel(submissionTAN: "fake"))
 		])
 		
 		let client = ClientMock()
-		client.onGetTestResult = { _, _, completion in
-			completion(.success(.fake(testResult: TestResult.positive.rawValue)))
-		}
 		
 		let store = MockTestStore()
 		let appConfiguration = CachedAppConfigurationMock()
