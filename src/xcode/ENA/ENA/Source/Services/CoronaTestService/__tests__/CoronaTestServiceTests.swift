@@ -3483,14 +3483,6 @@ class CoronaTestServiceTests: CWATestCase {
 
 		let client = ClientMock()
 
-		client.onGetTestResult = { _, isFake, completion in
-			expectation.fulfill()
-			XCTAssertFalse(isFake)
-			XCTAssertEqual(count, 0)
-			count += 1
-			completion(.success(.fake(testResult: testResult.rawValue)))
-		}
-
 		client.onSubmitCountries = { _, isFake, completion in
 			expectation.fulfill()
 			XCTAssertTrue(isFake)
@@ -3502,6 +3494,19 @@ class CoronaTestServiceTests: CWATestCase {
 		let store = MockTestStore()
 		let appConfiguration = CachedAppConfigurationMock()
 		let restServiceProvider = RestServiceProviderStub(loadResources: [
+			LoadResource(
+				result: .success(TestResultModel(testResult: testResult.rawValue, sc: nil, labId: nil)),
+				willLoadResource: { resource in
+					guard let resource = resource as? TestResultResource  else {
+						XCTFail("TestResultResource expected.")
+						return
+					}
+					expectation.fulfill()
+					XCTAssertFalse(resource.locator.isFake)
+					XCTAssertEqual(count, 0)
+					count += 1
+				}
+			),
 			LoadResource(
 				result: .success(
 					SubmissionTANModel(submissionTAN: "fake")
