@@ -1433,7 +1433,6 @@ enum AppStrings {
 				static let secondaryLabelTitle = NSLocalizedString("Statistics_Card_AtLeastOneVaccinated_SecondaryLabelTitle", comment: "")
 				static let primarySubtitle = NSLocalizedString("Statistics_Card_AtLeastOneVaccinated_SecondarySubtitleLabel", comment: "")
 				static let tertiaryLabelTitle = NSLocalizedString("Statistics_Card_AtLeastOneVaccinated_TertiaryLabelTitle", comment: "")
-
 			}
 			
 			enum FullyVaccinated {
@@ -1444,7 +1443,16 @@ enum AppStrings {
 				static let secondaryLabelTitle = NSLocalizedString("Statistics_Card_FullyVaccinated_SecondaryLabelTitle", comment: "")
 				static let tertiaryLabelTitle = NSLocalizedString("Statistics_Card_FullyVaccinated_TertiaryLabelTitle", comment: "")
 				static let primarySubtitle = NSLocalizedString("Statistics_Card_FullyVaccinated_SecondarySubtitleLabel", comment: "")
-				static let percent = NSLocalizedString("Statistics_Card_FullyVaccinated_Percent", comment: "")
+			}
+			
+			enum BoosterVaccination {
+				static let title = NSLocalizedString("Statistics_Card_BoosterVaccination_Title", comment: "")
+				static let today = NSLocalizedString("Statistics_Card_BoosterVaccination_Today", comment: "")
+				static let yesterday = NSLocalizedString("Statistics_Card_BoosterVaccination_Yesterday", comment: "")
+				static let date = NSLocalizedString("Statistics_Card_BoosterVaccination_Date", comment: "")
+				static let secondaryLabelTitle = NSLocalizedString("Statistics_Card_BoosterVaccination_SecondaryLabelTitle", comment: "")
+				static let tertiaryLabelTitle = NSLocalizedString("Statistics_Card_BoosterVaccination_TertiaryLabelTitle", comment: "")
+				static let primarySubtitle = NSLocalizedString("Statistics_Card_BoosterVaccination_SecondarySubtitleLabel", comment: "")
 			}
 			
 			enum DoseRates {
