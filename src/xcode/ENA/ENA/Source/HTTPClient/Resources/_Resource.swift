@@ -2,8 +2,6 @@
 // 🦠 Corona-Warn-App
 //
 
-import Foundation
-
 /**
 A Resource is a composition of locator (where a resources can be found), service type to be used, data to send (sendResource) and data to receive (receiveResource).
 */

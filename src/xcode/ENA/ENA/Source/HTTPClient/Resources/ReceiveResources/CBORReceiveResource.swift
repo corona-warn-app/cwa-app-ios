@@ -3,8 +3,6 @@
 //
 
 import Foundation
-import SwiftProtobuf
-
 
 /**
 Protocol for a specific Model to decode from CBOR data.
