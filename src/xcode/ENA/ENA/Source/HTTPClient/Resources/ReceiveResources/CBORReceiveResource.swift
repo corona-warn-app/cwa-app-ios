@@ -5,7 +5,7 @@
 import Foundation
 
 /**
-Protocol for a specific Model to decode from CBOR data.
+Protocol for a specific Model to decode from CBOR data. Should normally be implemented by the Model which shall be decoded, NOT the Resource.
 */
 protocol CBORDecoding {
 	init(decodeCBOR: Data) throws
