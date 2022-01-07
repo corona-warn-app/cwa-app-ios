@@ -87,6 +87,7 @@ enum AccessibilityIdentifiers {
 			static let recycleBinLabel = "AppStrings.Home.recycleBinActionView"
 			static let appInformationLabel = "AppStrings.Home.appInformationActionView"
 			static let faqLabel = "AppStrings.Home.faqActionView"
+			static let socialMediaLabel = "AppStrings.Home.socialMediaActionView"
 			static let shareLabel = "AppStrings.Home.shareActionView"
 		}
 		
