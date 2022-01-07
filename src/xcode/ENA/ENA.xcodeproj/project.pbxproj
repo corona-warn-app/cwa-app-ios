@@ -7553,13 +7553,6 @@
 			path = Mocks;
 			sourceTree = "<group>";
 		};
-		B15382DF248270E90010F007 /* Helper */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Helper;
-			sourceTree = "<group>";
-		};
 		B15382E0248273A50010F007 /* Mocks */ = {
 			isa = PBXGroup;
 			children = (
@@ -7750,7 +7743,6 @@
 		B1EAEC8C24711889003BE9A2 /* __tests__ */ = {
 			isa = PBXGroup;
 			children = (
-				B15382DF248270E90010F007 /* Helper */,
 				B1D431C7246C69F300E728AD /* HTTPClient+ConfigurationTests.swift */,
 				CDF27BD4246ADBF30044D32B /* HTTPClient+DaysAndHoursTests.swift */,
 				A1E419532495A7850016E52A /* HTTPClient+GetTestResultTests.swift */,
