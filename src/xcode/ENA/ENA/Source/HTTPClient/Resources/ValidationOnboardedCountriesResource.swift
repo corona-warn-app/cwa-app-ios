@@ -14,7 +14,7 @@ struct ValidationOnboardedCountriesResource: Resource {
 		self.locator = .validationOnboardedCountries(isFake: isFake)
 		self.type = .caching()
 		self.sendResource = EmptySendResource()
-		self.receiveResource = EmptyReceiveResource()
+		self.receiveResource = ProtobufReceiveResource<ValidationOnboardedCountriesModel>()
 	}
 
 	// MARK: - Protocol Resource
@@ -26,6 +26,6 @@ struct ValidationOnboardedCountriesResource: Resource {
 	var locator: Locator
 	var type: ServiceType
 	var sendResource: EmptySendResource
-	var receiveResource: EmptyReceiveResource
+	var receiveResource: ProtobufReceiveResource<ValidationOnboardedCountriesModel>
 
 }
