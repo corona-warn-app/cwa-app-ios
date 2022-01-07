@@ -3,6 +3,7 @@
 //
 
 import Foundation
+import HealthCertificateToolkit
 
 struct ValidationOnboardedCountriesModel: CBORDecoding {
 	init(decodeCBOR: Data) throws {
