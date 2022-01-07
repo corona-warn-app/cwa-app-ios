@@ -146,7 +146,7 @@ class HomeTableViewModel {
 						case .fakeResponse:
 							Log.info("fake response - skip it's not an error")
 						case .noResponse:
-							Log.info("tried to get test result but no response was given")
+							Log.info("Tried to get test result but no response was received")
 						default:
 							self.showErrorIfNeeded(testType: coronaTestType, error)
 						}
