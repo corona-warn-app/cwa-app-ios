@@ -2140,15 +2140,18 @@ class CoronaTestServiceTests: CWATestCase {
 	func test_When_UpdatePresentNotificationFalse_Then_NotificationShouldNOTBePresented() {
 		let mockNotificationCenter = MockUserNotificationCenter()
 		let client = ClientMock()
-		client.onGetTestResult = { _, _, completion in
-			completion(.success(.fake(testResult: TestResult.positive.rawValue)))
-		}
 
+		let restServiceProvider = RestServiceProviderStub(results: [
+			.success(TestResultModel(testResult: TestResult.positive.rawValue, sc: nil, labId: "SomeLabId")),
+			.success(RegistrationTokenModel(registrationToken: "token"))
+		])
+		
 		let store = MockTestStore()
 		let appConfiguration = CachedAppConfigurationMock()
 
 		let testService = CoronaTestService(
 			client: client,
+			restServiceProvider: restServiceProvider,
 			store: store,
 			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
@@ -2182,15 +2185,18 @@ class CoronaTestServiceTests: CWATestCase {
 
 	func test_When_UpdateTestResultsFails_Then_ErrorIsReturned() {
 		let client = ClientMock()
-		client.onGetTestResult = { _, _, completion in
-			completion(.failure(.invalidResponse))
-		}
+		
+		let restServiceProvider = RestServiceProviderStub(results: [
+			.failure(ServiceError<TestResultError>.invalidResponse),
+			.success(RegistrationTokenModel(registrationToken: "token"))
+		])
 
 		let store = MockTestStore()
 		let appConfiguration = CachedAppConfigurationMock()
 
 		let testService = CoronaTestService(
 			client: client,
+			restServiceProvider: restServiceProvider,
 			store: store,
 			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
@@ -2225,15 +2231,18 @@ class CoronaTestServiceTests: CWATestCase {
 	func test_When_UpdateTestResultsSuccessWithPending_Then_NoNotificationIsShown() {
 		let mockNotificationCenter = MockUserNotificationCenter()
 		let client = ClientMock()
-		client.onGetTestResult = { _, _, completion in
-			completion(.success(.fake(testResult: TestResult.pending.rawValue)))
-		}
+		
+		let restServiceProvider = RestServiceProviderStub(results: [
+			.success(TestResultModel(testResult: TestResult.pending.rawValue, sc: nil, labId: "SomeLabId")),
+			.success(TestResultModel(testResult: TestResult.pending.rawValue, sc: nil, labId: "SomeLabId"))
+		])
 
 		let store = MockTestStore()
 		let appConfiguration = CachedAppConfigurationMock()
 
 		let testService = CoronaTestService(
 			client: client,
+			restServiceProvider: restServiceProvider,
 			store: store,
 			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
