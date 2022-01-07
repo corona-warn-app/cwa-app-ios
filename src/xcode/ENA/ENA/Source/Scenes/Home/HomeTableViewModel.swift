@@ -144,7 +144,7 @@ class HomeTableViewModel {
 					case .responseFailure(let responseFailure):
 						switch responseFailure {
 						case .fakeResponse:
-							Log.info("fake response - skip it's not an error")
+							Log.info("Fake response - skip it as it's not an error")
 						case .noResponse:
 							Log.info("Tried to get test result but no response was received")
 						default:
