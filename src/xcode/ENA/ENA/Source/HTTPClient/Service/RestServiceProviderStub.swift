@@ -32,14 +32,13 @@ class RestServiceProviderStub: RestServiceProviding {
 		_ resource: R,
 		_ completion: @escaping (Result<R.Receive.ReceiveModel, ServiceError<R.CustomError>>) -> Void
 	) where R: Resource {
+		guard !resource.locator.isFake else {
+			Log.debug("Fake detected no response given", log: .client)
+			completion(.failure(.fakeResponse))
+			return
+		}
 		if let loadResource = loadResources.first {
 			loadResource.willLoadResource?(resource)
-			guard !resource.locator.isFake else {
-				Log.debug("Fake detected no response given", log: .client)
-				completion(.failure(.fakeResponse))
-				return
-			}
-
 			switch loadResource.result {
 			case .success(let model):
 				guard let _model = model as? R.Receive.ReceiveModel else {
