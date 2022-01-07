@@ -132,9 +132,9 @@ class HomeTableViewModel {
 			Log.info("Updating result for test of type: \(coronaTestType)")
 			coronaTestService.updateTestResult(for: coronaTestType, force: true) { [weak self] result in
 				guard let self = self else {
-				Log.error("Could not create strong self")
-				 return 
-				 }
+					Log.error("Could not create strong self")
+					return
+				}
 
 				if case .failure(let error) = result {
 					switch error {
