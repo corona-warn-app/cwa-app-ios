@@ -229,7 +229,7 @@ class ENAUITests_01b_Statistics: CWATestCase {
 			cardDosesInfoScreenTest(title8)
 			app.staticTexts[title8].swipeLeft()
 			
-			cardDosesInfoScreenTest(title9)
+			cardBoosterVaccinationInfoScreen(title9)
 			app.staticTexts[title9].swipeRight()
 		}
 	}
@@ -364,7 +364,7 @@ class ENAUITests_01b_Statistics: CWATestCase {
 			snapshot("statistics_booster_vaccination")
 			app.staticTexts[boosterVaccinationTitle].swipeRight()
 			
-			cardFullyVaccinatedTitleOpenInfoScreen(fullyVaccinatedTitle)
+			cardDosesOpenInfoScreen(fullyVaccinatedTitle)
 			
 			snapshot("statistics_info_screen_\(String(format: "%04d", (screenshotCounter.inc() )))")
 			app.swipeUp(velocity: .slow)
@@ -428,8 +428,8 @@ class ENAUITests_01b_Statistics: CWATestCase {
 		app.buttons["AppStrings.AccessibilityLabel.close"].waitAndTap()
 	}
 
-	private func cardFullyVaccinatedTitleOpenInfoScreen(_ title: String) {
+	private func cardDosesOpenInfoScreen(_ title: String) {
 		XCTAssert(app.staticTexts[title].waitForExistence(timeout: .medium))
-		app.buttons[AccessibilityIdentifiers.Statistics.FullyVaccinated.infoButton].waitAndTap()
+		app.buttons[AccessibilityIdentifiers.Statistics.Doses.infoButton].waitAndTap()
 	}
 }
