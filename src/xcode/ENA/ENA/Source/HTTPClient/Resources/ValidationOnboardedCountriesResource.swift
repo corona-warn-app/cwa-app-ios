@@ -14,18 +14,18 @@ struct ValidationOnboardedCountriesResource: Resource {
 		self.locator = .validationOnboardedCountries(isFake: isFake)
 		self.type = .caching()
 		self.sendResource = EmptySendResource()
-		self.receiveResource = ProtobufReceiveResource<ValidationOnboardedCountriesModel>()
+		self.receiveResource = CBORReceiveResource<ValidationOnboardedCountriesModel>()
 	}
 
 	// MARK: - Protocol Resource
 
 	typealias Send = EmptySendResource
-	typealias Receive = EmptyReceiveResource
+	typealias Receive = CBORReceiveResource<ValidationOnboardedCountriesModel>
 	typealias CustomError = Error // no CustomError at the moment
 
 	var locator: Locator
 	var type: ServiceType
 	var sendResource: EmptySendResource
-	var receiveResource: ProtobufReceiveResource<ValidationOnboardedCountriesModel>
+	var receiveResource: CBORReceiveResource<ValidationOnboardedCountriesModel>
 
 }
