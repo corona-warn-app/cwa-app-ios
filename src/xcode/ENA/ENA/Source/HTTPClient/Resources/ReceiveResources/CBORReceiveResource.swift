@@ -5,10 +5,18 @@
 import Foundation
 import SwiftProtobuf
 
+
 /**
-Concrete implementation of ReceiveResource for ProtoBuf objects.
-Because ProtoBuf objects are always packed into a signed package, we need the SignatureVerifier to ensure the correctness of the package.
-When a service receives a http response with body, containing some data, we just decode the data to make some ProtoBuf file of it.
+Protocol for a specific Model to decode from CBOR data.
+*/
+protocol CBORDecoding {
+	init(decodeCBOR: Data) throws
+}
+
+/**
+Concrete implementation of ReceiveResource for CBOR objects.
+Because CBOR objects are always packed into a signed package, we need the SignatureVerifier to ensure the correctness of the package.
+When a service receives a http response with body, containing some data, we just decode the cbor data to make a specific model.
 Returns different RessourceErrors when decoding fails.
 */
 struct CBORReceiveResource<R>: ReceiveResource where R: CBORDecoding {
@@ -37,8 +45,7 @@ struct CBORReceiveResource<R>: ReceiveResource where R: CBORDecoding {
 		}
 
 		do {
-			let model = R.decodeCBOR(data: package.bin)
-			ReceiveModel.test()
+			let model = try R(decodeCBOR: package.bin)
 			return Result.success(model)
 		} catch {
 			return Result.failure(.decoding)

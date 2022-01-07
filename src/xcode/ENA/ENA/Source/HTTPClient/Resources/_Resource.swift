@@ -48,10 +48,3 @@ enum ResourceError: Error {
 	case notModified
 	case undefined
 }
-
-
-protocol CBORDecoding {
-	func decodeCBOR(data: Data) -> Any
-	
-	func test()
-}
