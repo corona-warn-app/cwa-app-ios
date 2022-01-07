@@ -2,6 +2,8 @@
 // 🦠 Corona-Warn-App
 //
 
+import Foundation
+
 /**
 A Resource is a composition of locator (where a resources can be found), service type to be used, data to send (sendResource) and data to receive (receiveResource).
 */
@@ -45,4 +47,11 @@ enum ResourceError: Error {
 	case signatureVerification
 	case notModified
 	case undefined
+}
+
+
+protocol CBORDecoding {
+	func decodeCBOR(data: Data) -> Any
+	
+	func test()
 }
