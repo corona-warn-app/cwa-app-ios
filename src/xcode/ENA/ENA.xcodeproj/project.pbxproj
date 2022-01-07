@@ -6274,8 +6274,6 @@
 		85D759802459A82D008175F0 /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				0104CBCB273EAC26009A543D /* TicketValidation */,
-				ABCAD91D270EF597000E8BAA /* RecycleBin */,
 				B15382DC248270220010F007 /* __tests__ */,
 				011216F22617360800320745 /* CoronaTestService */,
 				01FD3ED625D2F0D00049497A /* DeadmanNotification */,
@@ -6297,7 +6295,9 @@
 				BA07735A25C2FC5E00EAF6B8 /* PPAccessControl */,
 				5008F60125DC0219008B516F /* PPAnalyticsCollector */,
 				500DB4BB25CDDC4B0038DFED /* PPAnalyticsSubmitter */,
+				ABCAD91D270EF597000E8BAA /* RecycleBin */,
 				B1175211248A837300C3325C /* Risk */,
+				0104CBCB273EAC26009A543D /* TicketValidation */,
 				50AA51F825FA4D3F000C77BB /* TraceWarningDownload */,
 				8F39D05C263C40DB0096F4E2 /* VaccinationValueSets */,
 			);
