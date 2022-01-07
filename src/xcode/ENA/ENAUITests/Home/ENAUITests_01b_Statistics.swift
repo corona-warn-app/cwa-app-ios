@@ -104,6 +104,7 @@ class ENAUITests_01b_Statistics: CWATestCase {
 		let title6 = AccessibilityIdentifiers.Statistics.AtLeastOneVaccination.title
 		let title7 = AccessibilityIdentifiers.Statistics.FullyVaccinated.title
 		let title8 = AccessibilityIdentifiers.Statistics.Doses.title
+		let title9 = AccessibilityIdentifiers.Statistics.BoosterVaccination.title
 
 		let layoutDirection = UIView.userInterfaceLayoutDirection(for: UIView().semanticContentAttribute)
 
@@ -115,6 +116,8 @@ class ENAUITests_01b_Statistics: CWATestCase {
 		// THEN
 		switch layoutDirection {
 		case .rightToLeft:
+			XCTAssertTrue(self.app.staticTexts[title9].waitForExistence(timeout: .medium))
+			app.staticTexts[title9].swipeLeft()
 			XCTAssertTrue(self.app.staticTexts[title8].waitForExistence(timeout: .medium))
 			app.staticTexts[title8].swipeLeft()
 			XCTAssertTrue(self.app.staticTexts[title7].waitForExistence(timeout: .medium))
@@ -149,6 +152,8 @@ class ENAUITests_01b_Statistics: CWATestCase {
 			app.staticTexts[title7].swipeLeft()
 			XCTAssertTrue(self.app.staticTexts[title8].waitForExistence(timeout: .medium))
 			app.staticTexts[title8].swipeLeft()
+			XCTAssertTrue(self.app.staticTexts[title9].waitForExistence(timeout: .medium))
+			app.staticTexts[title9].swipeRight()
 		}
 	}
 	
@@ -162,6 +167,8 @@ class ENAUITests_01b_Statistics: CWATestCase {
 		let title6 = AccessibilityIdentifiers.Statistics.AtLeastOneVaccination.title
 		let title7 = AccessibilityIdentifiers.Statistics.FullyVaccinated.title
 		let title8 = AccessibilityIdentifiers.Statistics.Doses.title
+		let title9 = AccessibilityIdentifiers.Statistics.BoosterVaccination.title
+
 		let layoutDirection = UIView.userInterfaceLayoutDirection(for: UIView().semanticContentAttribute)
 		
 		// WHEN
@@ -220,7 +227,10 @@ class ENAUITests_01b_Statistics: CWATestCase {
 			app.staticTexts[title7].swipeLeft()
 			
 			cardDosesInfoScreenTest(title8)
-			app.staticTexts[title8].swipeRight()
+			app.staticTexts[title8].swipeLeft()
+			
+			cardDosesInfoScreenTest(title9)
+			app.staticTexts[title9].swipeRight()
 		}
 	}
 	
@@ -276,7 +286,8 @@ class ENAUITests_01b_Statistics: CWATestCase {
 		let atLeastOneVaccinationTitle = AccessibilityIdentifiers.Statistics.AtLeastOneVaccination.title
 		let fullyVaccinatedTitle = AccessibilityIdentifiers.Statistics.FullyVaccinated.title
 		let dosesTitle = AccessibilityIdentifiers.Statistics.Doses.title
-		
+		let boosterVaccinationTitle = AccessibilityIdentifiers.Statistics.BoosterVaccination.title
+
 		let layoutDirection = UIView.userInterfaceLayoutDirection(for: UIView().semanticContentAttribute)
 		var screenshotCounter = 0
 
@@ -288,6 +299,9 @@ class ENAUITests_01b_Statistics: CWATestCase {
 		// THEN
 		switch layoutDirection {
 		case .rightToLeft:
+			XCTAssert(self.app.staticTexts[boosterVaccinationTitle].waitForExistence(timeout: .medium))
+			app.staticTexts[boosterVaccinationTitle].swipeLeft()
+			
 			XCTAssert(self.app.staticTexts[dosesTitle].waitForExistence(timeout: .medium))
 			app.staticTexts[dosesTitle].swipeLeft()
 			
@@ -344,7 +358,11 @@ class ENAUITests_01b_Statistics: CWATestCase {
 
 			XCTAssert(self.app.staticTexts[dosesTitle].waitForExistence(timeout: .medium))
 			snapshot("statistics_doses")
-			app.staticTexts[dosesTitle].swipeRight()
+			app.staticTexts[dosesTitle].swipeLeft()
+			
+			XCTAssert(self.app.staticTexts[boosterVaccinationTitle].waitForExistence(timeout: .medium))
+			snapshot("statistics_booster_vaccination")
+			app.staticTexts[boosterVaccinationTitle].swipeRight()
 			
 			cardFullyVaccinatedTitleOpenInfoScreen(fullyVaccinatedTitle)
 			
@@ -404,9 +422,14 @@ class ENAUITests_01b_Statistics: CWATestCase {
 		app.buttons["AppStrings.AccessibilityLabel.close"].waitAndTap()
 	}
 	
+	private func cardBoosterVaccinationInfoScreen(_ title9: String) {
+		XCTAssert(app.staticTexts[title9].waitForExistence(timeout: .medium))
+		app.buttons[AccessibilityIdentifiers.Statistics.BoosterVaccination.infoButton].waitAndTap()
+		app.buttons["AppStrings.AccessibilityLabel.close"].waitAndTap()
+	}
+
 	private func cardFullyVaccinatedTitleOpenInfoScreen(_ title: String) {
 		XCTAssert(app.staticTexts[title].waitForExistence(timeout: .medium))
 		app.buttons[AccessibilityIdentifiers.Statistics.FullyVaccinated.infoButton].waitAndTap()
 	}
-
 }
