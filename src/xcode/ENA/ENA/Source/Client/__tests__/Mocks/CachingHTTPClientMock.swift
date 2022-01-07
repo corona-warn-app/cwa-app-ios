@@ -68,12 +68,21 @@ final class CachingHTTPClientMock: CachingHTTPClient {
 	var onFetchAppConfiguration: ((String?, @escaping CachingHTTPClient.AppConfigResultHandler) -> Void)?
 
 	override func fetchAppConfiguration(etag: String? = nil, completion: @escaping CachingHTTPClient.AppConfigResultHandler) {
+		let clientQueue = DispatchQueue(label: "ClientQueue", attributes: .concurrent)
+
 		guard let handler = self.onFetchAppConfiguration else {
 			let response = AppConfigurationFetchingResponse(CachingHTTPClientMock.staticAppConfig, "fake")
-			completion((.success(response), nil))
+			// Dispatch the completion call to simulate URLSession calling back on another thread.
+			clientQueue.async {
+				completion((.success(response), nil))
+			}
 			return
 		}
-		handler(etag, completion)
+		
+		// Dispatch the completion call to simulate URLSession calling back on another thread.
+		clientQueue.async {
+			handler(etag, completion)
+		}
 	}
 
 	// MARK: - Statistics

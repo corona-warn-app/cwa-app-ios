@@ -100,8 +100,8 @@ final class CachedAppConfigurationTests: CWATestCase {
 		}
 
 		let gotValue = expectation(description: "got countries list")
-
 		let cache = CachedAppConfiguration(client: client, store: store)
+
 		wait(for: [fetchedFromClientExpectation], timeout: .medium)
 
 		let subscription = cache
@@ -112,15 +112,17 @@ final class CachedAppConfigurationTests: CWATestCase {
 				gotValue.fulfill()
 			}
 
-		wait(for: [gotValue], timeout: .medium)
+		waitForExpectations(timeout: .medium)
 
 		subscription.cancel()
 	}
 
-	func testGIVEN_CachedAppConfigration_WHEN_FetchAppConfigIsCalledMultipleTimes_THEN_FetchIsCalledOnce() {
+	func testGIVEN_CachedAppConfigration_WHEN_FetchAppConfigIsCalledMultipleTimes_THEN_FetchIsCalledAtLeastOnce() {
 		// GIVEN
 		let fetchedFromClientExpectation = expectation(description: "configuration fetched from client only once")
-		fetchedFromClientExpectation.expectedFulfillmentCount = 1
+		
+		// The callback might be called more than once, depending on how fast the HTTPClient responds.
+		fetchedFromClientExpectation.assertForOverFulfill = false
 
 		let store = MockTestStore()
 		XCTAssertNil(store.appConfigMetadata)
@@ -129,20 +131,34 @@ final class CachedAppConfigurationTests: CWATestCase {
 		let expectedConfig = SAP_Internal_V2_ApplicationConfigurationIOS()
 
 		client.onFetchAppConfiguration = { _, completeWith in
-			sleep(2) // network
 			let config = AppConfigurationFetchingResponse(expectedConfig, "etag")
 			completeWith((.success(config), nil))
 			fetchedFromClientExpectation.fulfill()
 		}
 
 		// WHEN
+		var subscriptions = [AnyCancellable]()
+
+		let configFetchFinished = expectation(description: "Configuration fetch finished.")
+		configFetchFinished.expectedFulfillmentCount = 5
+
 		// Initialize the `CachedAppConfiguration` will trigger `fetchAppConfiguration`.
-		_ = CachedAppConfiguration(client: client, store: store)
-		_ = CachedAppConfiguration(client: client, store: store)
-		_ = CachedAppConfiguration(client: client, store: store)
-		_ = CachedAppConfiguration(client: client, store: store)
-		_ = CachedAppConfiguration(client: client, store: store)
-		_ = CachedAppConfiguration(client: client, store: store)
+		let cachedAppConfiguration = CachedAppConfiguration(client: client, store: store)
+		cachedAppConfiguration.appConfiguration(forceFetch: true).sink { _ in
+			configFetchFinished.fulfill()
+		}.store(in: &subscriptions)
+		cachedAppConfiguration.appConfiguration(forceFetch: true).sink { _ in
+			configFetchFinished.fulfill()
+		}.store(in: &subscriptions)
+		cachedAppConfiguration.appConfiguration(forceFetch: true).sink { _ in
+			configFetchFinished.fulfill()
+		}.store(in: &subscriptions)
+		cachedAppConfiguration.appConfiguration(forceFetch: true).sink { _ in
+			configFetchFinished.fulfill()
+		}.store(in: &subscriptions)
+		cachedAppConfiguration.appConfiguration(forceFetch: true).sink { _ in
+			configFetchFinished.fulfill()
+		}.store(in: &subscriptions)
 
 		waitForExpectations(timeout: .medium)
 		XCTAssertNotNil(store.appConfigMetadata)
@@ -154,6 +170,9 @@ final class CachedAppConfigurationTests: CWATestCase {
 		config.supportedCountries = ["DE", "ES", "FR", "IT", "IE", "DK"]
 
 		let httpRequest = expectation(description: "server request")
+		// Could be overfullfilled if response returns fast enough.
+		httpRequest.assertForOverFulfill = false
+		
 		let gotValue = expectation(description: "got countries list")
 		gotValue.expectedFulfillmentCount = 3
 
@@ -165,8 +184,9 @@ final class CachedAppConfigurationTests: CWATestCase {
 		}
 
 		var subscriptions = [AnyCancellable]()
+		let cache = CachedAppConfiguration(client: client, store: store)
+
 		for _ in 0..<gotValue.expectedFulfillmentCount {
-			let cache = CachedAppConfiguration(client: client, store: store)
 			cache
 				.supportedCountries()
 				.sink { countries in
@@ -186,13 +206,7 @@ final class CachedAppConfigurationTests: CWATestCase {
 		let client = CachingHTTPClientMock()
 		client.onFetchAppConfiguration = { _, completeWith in
 			let config = AppConfigurationFetchingResponse(config, "etag")
-			let clientQueue = DispatchQueue(label: "ClientQueue", attributes: .concurrent)
-			
-			// Dispatch the completion call to simulate URLSession calling back on another thread.
-			clientQueue.async {
-				usleep(100_000) // 0.1s
-				completeWith((.success(config), nil))
-			}
+			completeWith((.success(config), nil))
 		}
 
 		let cache = CachedAppConfiguration(client: client, store: store)
