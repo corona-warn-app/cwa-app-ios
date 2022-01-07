@@ -1160,12 +1160,14 @@ enum AppStrings {
 		
 		/* Version 2.17 */
 		
-		static let feature2162GTitle = NSLocalizedString("NewVersionFeature_216_2g_title", comment: "")
-		static let feature2162GDescription = NSLocalizedString("NewVersionFeature_216_2g_description", comment: "")
-		static let feature216NegativeTestNoticeTitle = NSLocalizedString("NewVersionFeature_216_negativeTestNotice_title", comment: "")
-		static let feature216NegativeTestNoticeDescription = NSLocalizedString("NewVersionFeature_216_negativeTestNotice_description", comment: "")
-		static let feature216HighRiskNotificationTitle = NSLocalizedString("NewVersionFeature_216_highRiskNotification_title", comment: "")
-		static let feature216HighRiskNotificationDescription = NSLocalizedString("NewVersionFeature_216_highRiskNotification_description", comment: "")
+		static let feature217PositiveTestTitle = NSLocalizedString("NewVersionFeature_217_positiveTest_title", comment: "")
+		static let feature217PositiveTestDescription = NSLocalizedString("NewVersionFeature_217_positiveTest_description", comment: "")
+		static let feature217StatisticsBoosterVaccinationTitle = NSLocalizedString("NewVersionFeature_217_statisticsBoosterVaccination_title", comment: "")
+		static let feature217StatisticsBoosterVaccinationDescription = NSLocalizedString("NewVersionFeature_217_statisticsBoosterVaccination_description", comment: "")
+		static let feature217LinkSocialMediaTitle = NSLocalizedString("NewVersionFeature_217_linkSocialMedia_title", comment: "")
+		static let feature217LinkSocialMediaDescription = NSLocalizedString("NewVersionFeature_217_linkSocialMedia_description", comment: "")
+		static let feature217DeleteDateRecycleBinTitle = NSLocalizedString("NewVersionFeature_217_deleteDateRecycleBin_title", comment: "")
+		static let feature217DeleteDateRecycleBinDescription = NSLocalizedString("NewVersionFeature_217_deleteDateRecycleBin_description", comment: "")
 	}
 	
 	enum DeltaOnboarding {
