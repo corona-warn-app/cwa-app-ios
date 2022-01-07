@@ -25,7 +25,7 @@ class RestServiceProviderStub: RestServiceProviding {
 	}
 
 	private var loadResources: [LoadResource]
-
+	
 	// MARK: Protocol RestServiceProviding
 
 	func load<R>(
@@ -34,6 +34,9 @@ class RestServiceProviderStub: RestServiceProviding {
 	) where R: Resource {
 		guard !resource.locator.isFake else {
 			Log.debug("Fake detected no response given", log: .client)
+			if let loadResource = loadResources.first {
+				loadResource.willLoadResource?(resource)
+			}
 			completion(.failure(.fakeResponse))
 			return
 		}

@@ -14,6 +14,7 @@ struct RegistrationTokenSendModel: PaddingResource {
 	}
 
 	// MARK: - Protocol PaddingResource
+	
 	var requestPadding: String = ""
 
 

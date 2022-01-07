@@ -13,7 +13,7 @@ class HTTPClientPlausibleDeniabilityTests: CWATestCase {
 	func test_getTestResult_requestPadding() {
 
 		// GIVEN
-		let sendResource = JSONSendResource<RegistrationTokenSendModel>(
+		let sendResource = PaddingJSONSendResource<RegistrationTokenSendModel>(
 			RegistrationTokenSendModel(
 				registrationToken: "123456789"
 			)
