@@ -159,13 +159,13 @@ class HomeCoordinator: RequiresAppDependencies {
 		})
 	}
 
-	func showTestResultFromNotification(with testType: CoronaTestType) {
+	func showTestResultFromNotification(with testType: CoronaTestType, visibleViewController: UIViewController?) {
 		if let presentedViewController = rootViewController.presentedViewController {
 			presentedViewController.dismiss(animated: true) {
-				self.showExposureSubmission(testType: testType)
+				self.showExposureSubmission(testType: testType, visibleViewController: visibleViewController)
 			}
 		} else {
-			self.showExposureSubmission(testType: testType)
+			self.showExposureSubmission(testType: testType, visibleViewController: visibleViewController)
 		}
 	}
 
@@ -320,12 +320,12 @@ class HomeCoordinator: RequiresAppDependencies {
 		exposureDetectionCoordinator?.start()
 	}
 
-	private func showExposureSubmission(testType: CoronaTestType? = nil, testInformationResult: Result<CoronaTestRegistrationInformation, QRCodeError>? = nil) {
+	private func showExposureSubmission(testType: CoronaTestType? = nil, visibleViewController: UIViewController? = nil, testInformationResult: Result<CoronaTestRegistrationInformation, QRCodeError>? = nil) {
 		// A strong reference to the coordinator is passed to the exposure submission navigation controller
 		// when .start() is called. The coordinator is then bound to the lifecycle of this navigation controller
 		// which is managed by UIKit.
 		let coordinator = ExposureSubmissionCoordinator(
-			parentViewController: rootViewController,
+			parentViewController: visibleViewController ?? rootViewController,
 			exposureSubmissionService: exposureSubmissionService,
 			coronaTestService: coronaTestService,
 			healthCertificateService: healthCertificateService,
