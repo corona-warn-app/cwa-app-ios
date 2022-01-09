@@ -250,17 +250,17 @@ class RootCoordinator: NSObject, RequiresAppDependencies, UITabBarControllerDele
 		viewController.embedViewController(childViewController: tabBarController)
 	}
 
-	func showTestResultFromNotification(with testType: CoronaTestType, vc: UIViewController? = nil) {
+	func showTestResultFromNotification(with testType: CoronaTestType, visibleViewController: UIViewController? = nil) {
 		guard let homeCoordinator = homeCoordinator else {
 			showHome(enStateHandler: ENStateHandler(
 				initialExposureManagerState: exposureManager.exposureManagerState,
 				delegate: self
 			), route: nil
 			)
-			homeCoordinator?.showTestResultFromNotification(with: testType, vc: vc)
+			homeCoordinator?.showTestResultFromNotification(with: testType, visibleViewController: visibleViewController)
 			return
 		}
-		homeCoordinator.showTestResultFromNotification(with: testType, vc: vc)
+		homeCoordinator.showTestResultFromNotification(with: testType, visibleViewController: visibleViewController)
 	}
 	
 	func showHealthCertificateFromNotification(
