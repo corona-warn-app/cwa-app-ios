@@ -985,7 +985,7 @@ class CoronaTestServiceTests: CWATestCase {
 			expectation.fulfill()
 			switch result {
 			case .failure(let error):
-				XCTAssertEqual(error, .serviceError(.receivedResourceError(.qrAlreadyUsed)))
+				XCTAssertEqual(error, .teleTanError(.receivedResourceError(.qrAlreadyUsed)))
 			case .success:
 				XCTFail("This test should always return a failure.")
 			}
@@ -1310,7 +1310,7 @@ class CoronaTestServiceTests: CWATestCase {
 			expectation.fulfill()
 			switch result {
 			case .failure(let error):
-				XCTAssertEqual(error, .serviceError(.receivedResourceError(.teleTanAlreadyUsed)))
+				XCTAssertEqual(error, .teleTanError(.receivedResourceError(.teleTanAlreadyUsed)))
 			case .success:
 				XCTFail("This test should always return a failure.")
 			}
@@ -1676,7 +1676,7 @@ class CoronaTestServiceTests: CWATestCase {
 			expectation.fulfill()
 			switch result {
 			case .failure(let error):
-				XCTAssertEqual(error, .serviceError(ServiceError<TeleTanError>.receivedResourceError(.qrAlreadyUsed)))
+				XCTAssertEqual(error, .teleTanError(ServiceError<TeleTanError>.receivedResourceError(.qrAlreadyUsed)))
 			case .success:
 				XCTFail("This test should always return a failure.")
 			}

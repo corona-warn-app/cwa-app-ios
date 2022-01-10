@@ -150,7 +150,7 @@ class HomeTableViewModel {
 						default:
 							self.showErrorIfNeeded(testType: coronaTestType, error)
 						}
-					case .serviceError, .registrationTokenError, .unknownTestResult, .malformedDateOfBirthKey, .testResultError:
+					case .teleTanError, .registrationTokenError, .unknownTestResult, .malformedDateOfBirthKey, .testResultError:
 						self.showErrorIfNeeded(testType: coronaTestType, error)
 					}
 				}

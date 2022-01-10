@@ -667,7 +667,7 @@ class CoronaTestService {
 			case .success(let model):
 				completion(.success(model.registrationToken))
 			case .failure(let error):
-				completion(.failure(.serviceError(error)))
+				completion(.failure(.teleTanError(error)))
 			}
 		}
 	}

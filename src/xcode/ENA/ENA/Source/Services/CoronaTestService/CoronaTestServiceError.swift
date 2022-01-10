@@ -6,7 +6,7 @@ import Foundation
 
 enum CoronaTestServiceError: LocalizedError, Equatable {
 	case responseFailure(URLSession.Response.Failure)
-	case serviceError(ServiceError<TeleTanError>) // Rename to teleTanServiceError ?
+	case teleTanError(ServiceError<TeleTanError>) // Rename to teleTanServiceError ?
 	case registrationTokenError(ServiceError<RegistrationTokenError>)
 	case testResultError(ServiceError<TestResultError>)
 	case unknownTestResult
@@ -23,7 +23,7 @@ enum CoronaTestServiceError: LocalizedError, Equatable {
 			return AppStrings.ExposureSubmissionError.noRegistrationToken
 		case .testExpired:
 			return AppStrings.ExposureSubmission.qrCodeExpiredAlertText
-		case .serviceError(let serviceError):
+		case .teleTanError(let serviceError):
 			switch serviceError {
 			case .transportationError:
 				return AppStrings.ExposureSubmissionError.noNetworkConnection
