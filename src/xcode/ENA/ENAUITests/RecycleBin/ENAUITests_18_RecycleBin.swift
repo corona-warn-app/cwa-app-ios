@@ -95,7 +95,15 @@ class ENAUITests_18_RecycleBin: CWATestCase {
 
 		/// Go back to home screen and remove test
 		app.navigationBars.buttons.element(boundBy: 0).waitAndTap()
+
+		/// To wait until the remove test button exist
+		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Home.ShownPositiveTestResultCell.removeTestButton].waitForExistence(timeout: .extraLong))
+		
+		/// Navigate to the remove test button and tap
+		app.swipeDown()
+		app.swipeDown()
 		app.buttons[AccessibilityIdentifiers.Home.ShownPositiveTestResultCell.removeTestButton].waitAndTap()
+		
 		app.alerts.firstMatch.buttons.element(boundBy: 0).waitAndTap()
 
 		/// check if the pcr test cell disappears
