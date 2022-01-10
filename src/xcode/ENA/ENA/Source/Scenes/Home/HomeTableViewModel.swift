@@ -128,35 +128,30 @@ class HomeTableViewModel {
 
 	func updateTestResult() {
 		// According to the tech spec, test results should always be updated in the foreground, even if the final test result was received. Therefore: force = true
-		coronaTestService.updateTestResult(for: .pcr, force: true) { [weak self] result in
-			guard let self = self else { return }
-
-			if case .failure(let error) = result {
-				switch error {
-				case .noCoronaTestOfRequestedType, .noRegistrationToken, .testExpired:
-					// Errors because of no registered corona tests or expired tests are ignored
-					break
-				case .responseFailure, .serviceError, .registrationTokenError, .unknownTestResult, .malformedDateOfBirthKey:
-					// Only show errors for corona tests that are still expecting their final test result
-					if self.coronaTestService.pcrTest != nil && self.coronaTestService.pcrTest?.finalTestResultReceivedDate == nil {
-						self.testResultLoadingError = error
-					}
+		CoronaTestType.allCases.forEach { coronaTestType in
+			Log.info("Updating result for test of type: \(coronaTestType)")
+			coronaTestService.updateTestResult(for: coronaTestType, force: true) { [weak self] result in
+				guard let self = self else {
+					Log.error("Could not create strong self")
+					return
 				}
-			}
-		}
 
-		coronaTestService.updateTestResult(for: .antigen, force: true) { [weak self] result in
-			guard let self = self else { return }
-
-			if case .failure(let error) = result {
-				switch error {
-				case .noCoronaTestOfRequestedType, .noRegistrationToken, .testExpired:
-					// Errors because of no registered corona tests or expired tests are ignored
-					break
-				case .responseFailure, .serviceError, .registrationTokenError, .unknownTestResult, .malformedDateOfBirthKey:
-					// Only show errors for corona tests that are still expecting their final test result
-					if self.coronaTestService.antigenTest != nil && self.coronaTestService.antigenTest?.finalTestResultReceivedDate == nil {
-						self.testResultLoadingError = error
+				if case .failure(let error) = result {
+					switch error {
+					case .noCoronaTestOfRequestedType, .noRegistrationToken, .testExpired:
+						// Errors because of no registered corona tests or expired tests are ignored
+						break
+					case .responseFailure(let responseFailure):
+						switch responseFailure {
+						case .fakeResponse:
+							Log.info("Fake response - skip it as it's not an error")
+						case .noResponse:
+							Log.info("Tried to get test result but no response was received")
+						default:
+							self.showErrorIfNeeded(testType: coronaTestType, error)
+						}
+					case .serviceError, .registrationTokenError, .unknownTestResult, .malformedDateOfBirthKey:
+						self.showErrorIfNeeded(testType: coronaTestType, error)
 					}
 				}
 			}
@@ -173,6 +168,20 @@ class HomeTableViewModel {
 	private let badgeWrapper: HomeBadgeWrapper
 
 	private var subscriptions = Set<AnyCancellable>()
+
+	private func showErrorIfNeeded(testType: CoronaTestType, _ error: CoronaTestServiceError) {
+		switch testType {
+			// Only show errors for corona tests that are still expecting their final test result
+		case .pcr:
+			if self.coronaTestService.pcrTest != nil && self.coronaTestService.pcrTest?.finalTestResultReceivedDate == nil {
+				self.testResultLoadingError = error
+			}
+		case .antigen:
+			if self.coronaTestService.antigenTest != nil && self.coronaTestService.antigenTest?.finalTestResultReceivedDate == nil {
+				self.testResultLoadingError = error
+			}
+		}
+	}
 
 	private var computedRiskAndTestResultsRows: [RiskAndTestResultsRow] {
 		var riskAndTestResultsRows = [RiskAndTestResultsRow]()
