@@ -38,16 +38,12 @@ struct ExposureSubmissionQRInfoViewModel {
 			.section(cells: [
 				.body(text: AppStrings.ExposureSubmissionQRInfo.titleDescription),
 				.icon(
-					UIImage(imageLiteralResourceName: "Icons_QR5"),
+					UIImage(imageLiteralResourceName: "Icons - Once"),
 					text: .string(AppStrings.ExposureSubmissionQRInfo.instruction1)
 				),
 				.icon(
-					UIImage(imageLiteralResourceName: "Icons - Once"),
-					text: .string(AppStrings.ExposureSubmissionQRInfo.instruction2)
-				),
-				.icon(
 					UIImage(imageLiteralResourceName: "Icons_Certificates_01"),
-					text: .string(AppStrings.ExposureSubmissionQRInfo.instruction2a)
+					text: .string(AppStrings.ExposureSubmissionQRInfo.instruction1a)
 				)
 			])
 		)
