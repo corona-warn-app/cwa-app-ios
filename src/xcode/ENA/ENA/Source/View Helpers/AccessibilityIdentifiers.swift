@@ -87,6 +87,7 @@ enum AccessibilityIdentifiers {
 			static let recycleBinLabel = "AppStrings.Home.recycleBinActionView"
 			static let appInformationLabel = "AppStrings.Home.appInformationActionView"
 			static let faqLabel = "AppStrings.Home.faqActionView"
+			static let socialMediaLabel = "AppStrings.Home.socialMediaActionView"
 			static let shareLabel = "AppStrings.Home.shareActionView"
 		}
 		
@@ -547,6 +548,10 @@ enum AccessibilityIdentifiers {
 		enum FullyVaccinated {
 			static let title = "AppStrings.Statistics.Card.FullyVaccinated.title"
 			static let infoButton = "AppStrings.Statistics.Card.FullyVaccinated.infoButton"
+		}
+		enum BoosterVaccination {
+			static let title = "AppStrings.Statistics.Card.BoosterVaccination.title"
+			static let infoButton = "AppStrings.Statistics.Card.BoosterVaccination.infoButton"
 		}
 		enum Doses {
 			static let title = "AppStrings.Statistics.Card.Doses.title"

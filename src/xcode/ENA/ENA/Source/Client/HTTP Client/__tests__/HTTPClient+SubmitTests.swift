@@ -218,32 +218,4 @@ final class HTTPClientSubmitTests: CWATestCase {
 
 		waitForExpectations(timeout: expectationsTimeout)
 	}
-
-	func testSubmit_VerifyPOSTBodyContent() throws {
-		let expectedToken = "SomeToken"
-		let sendPostExpectation = expectation(
-			description: "Expect that the client sends a POST request"
-		)
-		let verifyPostBodyContent: MockUrlSession.URLRequestObserver = { request in
-			defer { sendPostExpectation.fulfill() }
-
-			guard let content = try? JSONDecoder().decode([String: String].self, from: request.httpBody ?? Data()) else {
-				XCTFail("POST body was empty, expected registrationToken JSON!")
-				return
-			}
-
-			guard content["registrationToken"] == expectedToken else {
-				XCTFail("POST JSON body did not have registrationToken value, or it was incorrect!")
-				return
-			}
-		}
-		let stack = MockNetworkStack(
-			httpStatus: 200,
-			responseData: try JSONEncoder().encode(GetRegistrationTokenResponse(registrationToken: expectedToken)),
-			requestObserver: verifyPostBodyContent
-		)
-
-		HTTPClient.makeWith(mock: stack).getTestResult(forDevice: expectedToken) { _ in }
-		waitForExpectations(timeout: expectationsTimeout)
-	}
 }

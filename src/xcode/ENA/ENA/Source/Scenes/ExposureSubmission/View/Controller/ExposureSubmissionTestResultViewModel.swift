@@ -455,36 +455,62 @@ extension ExposureSubmissionTestResultViewModel {
 			.title2(text: AppStrings.ExposureSubmissionPositiveTestResult.keysSubmittedTitle1)
 		]
 
-		if coronaTest.type == .antigen {
-			cells.append(
+		if coronaTest.type == .pcr {
+			cells.append(contentsOf: [
 				ExposureSubmissionDynamicCell.stepCell(
 					style: .body,
-					title: AppStrings.ExposureSubmissionPositiveTestResult.keysSubmittedInfo1,
+					title: AppStrings.ExposureSubmissionPositiveTestResult.keysSubmittedPCRInfo1,
+					icon: UIImage(named: "Icons - Home"),
+					iconTint: .enaColor(for: .riskHigh),
+					hairline: .none,
+					bottomSpacing: .medium
+				),
+				ExposureSubmissionDynamicCell.stepCell(
+					style: .body,
+					title: AppStrings.ExposureSubmissionPositiveTestResult.keysSubmittedPCRInfo2,
+					icon: UIImage(named: "Icons - Hotline"),
+					iconTint: .enaColor(for: .riskHigh),
+					hairline: .none,
+					bottomSpacing: .medium
+				),
+				ExposureSubmissionDynamicCell.stepCell(
+					style: .body,
+					title: AppStrings.ExposureSubmissionPositiveTestResult.keysSubmittedPCRInfo3,
+					icon: UIImage(named: "Icons - Red Plus"),
+					hairline: .none,
+					bottomSpacing: .medium
+				)
+			])
+		} else if coronaTest.type == .antigen {
+			cells.append(contentsOf: [
+				ExposureSubmissionDynamicCell.stepCell(
+					style: .body,
+					title: AppStrings.ExposureSubmissionPositiveTestResult.keysSubmittedRATInfo1,
+					icon: UIImage(named: "Icons - Home"),
+					iconTint: .enaColor(for: .riskHigh),
+					hairline: .none,
+					bottomSpacing: .medium
+				),
+				ExposureSubmissionDynamicCell.stepCell(
+					style: .body,
+					title: AppStrings.ExposureSubmissionPositiveTestResult.keysSubmittedRATInfo2,
 					icon: UIImage(named: "Icons - Test Tube"),
 					iconTint: .enaColor(for: .riskHigh),
 					hairline: .none,
 					bottomSpacing: .medium
+				),
+				ExposureSubmissionDynamicCell.stepCell(
+					style: .body,
+					title: AppStrings.ExposureSubmissionPositiveTestResult.keysSubmittedRATInfo3,
+					icon: UIImage(named: "Icons - Hotline"),
+					iconTint: .enaColor(for: .riskHigh),
+					hairline: .none,
+					bottomSpacing: .medium
 				)
-			)
+			])
 		}
 
 		cells.append(contentsOf: [
-			ExposureSubmissionDynamicCell.stepCell(
-				style: .body,
-				title: AppStrings.ExposureSubmissionPositiveTestResult.keysSubmittedInfo2,
-				icon: UIImage(named: "Icons - Hotline"),
-				iconTint: .enaColor(for: .riskHigh),
-				hairline: .none,
-				bottomSpacing: .medium
-			),
-			ExposureSubmissionDynamicCell.stepCell(
-				style: .body,
-				title: AppStrings.ExposureSubmissionPositiveTestResult.keysSubmittedInfo3,
-				icon: UIImage(named: "Icons - Home"),
-				iconTint: .enaColor(for: .riskHigh),
-				hairline: .none,
-				bottomSpacing: .medium
-			),
 			.title2(text: AppStrings.ExposureSubmissionPositiveTestResult.keysSubmittedTitle2),
 			.bulletPoint(
 				text: AppStrings.ExposureSubmissionPositiveTestResult.keysSubmittedFurtherInfo1,

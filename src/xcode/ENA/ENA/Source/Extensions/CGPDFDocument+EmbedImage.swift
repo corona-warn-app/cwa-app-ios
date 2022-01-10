@@ -97,8 +97,11 @@ extension CGPDFDocument {
 		pdfContext.translateBy(x: 0, y: pageSize.height)
 		pdfContext.scaleBy(x: 1, y: -1)
 
+		// Because the coordinate system is now upside-down, we revert this only for the image.
+		let flippedImage = image.transformed(by: CGAffineTransform(scaleX: 1, y: -1))
+		
 		// `CGRect` for the image.
-		guard let cgImage = CIContext(options: nil).createCGImage(image, from: image.extent) else {
+		guard let cgImage = CIContext(options: nil).createCGImage(flippedImage, from: flippedImage.extent) else {
 			throw PDFEmbeddingError.cgImageCreationFailed
 		}
 
