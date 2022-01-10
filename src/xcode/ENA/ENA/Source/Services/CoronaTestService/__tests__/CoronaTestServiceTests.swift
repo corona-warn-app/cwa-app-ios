@@ -1052,7 +1052,7 @@ class CoronaTestServiceTests: CWATestCase {
 			expectation.fulfill()
 			switch result {
 			case .failure(let error):
-				XCTAssertEqual(error, .serviceError(.unexpectedServerError(500)))
+				XCTAssertEqual(error, .testResultError(.unexpectedServerError(500)))
 			case .success:
 				XCTFail("This test should always return a failure.")
 			}
