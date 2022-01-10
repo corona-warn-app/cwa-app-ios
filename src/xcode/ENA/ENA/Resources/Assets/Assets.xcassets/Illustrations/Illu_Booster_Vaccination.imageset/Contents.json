@@ -1,7 +1,7 @@
 {
   "images" : [
     {
-      "filename" : "Light_booster.pdf",
+      "filename" : "Light_boosterVaccination.pdf",
       "idiom" : "universal"
     },
     {
@@ -11,7 +11,7 @@
           "value" : "dark"
         }
       ],
-      "filename" : "Light_booster-1.pdf",
+      "filename" : "Dark_boosterVaccination.pdf",
       "idiom" : "universal"
     }
   ],
