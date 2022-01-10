@@ -13,21 +13,26 @@ struct DeltaOnboardingNewVersionFeaturesViewModel {
 		
 		// ADD NEW FEATURES HERE
 		
-		self.featureVersion = "2.16"
+		self.featureVersion = "2.17"
 		
-		// 2G
+		// Advice for positive test result
 		self.newVersionFeatures.append(
-			NewVersionFeature(title: AppStrings.NewVersionFeatures.feature2162GTitle, description: AppStrings.NewVersionFeatures.feature2162GDescription)
+			NewVersionFeature(title: AppStrings.NewVersionFeatures.feature217PositiveTestTitle, description: AppStrings.NewVersionFeatures.feature217PositiveTestDescription)
 		)
 		
-		// Negative Test Notice
+		// New statistics tile for booster vaccination
 		self.newVersionFeatures.append(
-			NewVersionFeature(title: AppStrings.NewVersionFeatures.feature216NegativeTestNoticeTitle, description: AppStrings.NewVersionFeatures.feature216NegativeTestNoticeDescription)
+			NewVersionFeature(title: AppStrings.NewVersionFeatures.feature217StatisticsBoosterVaccinationTitle, description: AppStrings.NewVersionFeatures.feature217StatisticsBoosterVaccinationDescription)
 		)
 		
-		// High Risk Notification
+		// Link to Social Media
 		self.newVersionFeatures.append(
-			NewVersionFeature(title: AppStrings.NewVersionFeatures.feature216HighRiskNotificationTitle, description: AppStrings.NewVersionFeatures.feature216HighRiskNotificationDescription)
+			NewVersionFeature(title: AppStrings.NewVersionFeatures.feature217LinkSocialMediaTitle, description: AppStrings.NewVersionFeatures.feature217LinkSocialMediaDescription)
+		)
+		
+		// Delete date recycle bin
+		self.newVersionFeatures.append(
+			NewVersionFeature(title: AppStrings.NewVersionFeatures.feature217DeleteDateRecycleBinTitle, description: AppStrings.NewVersionFeatures.feature217DeleteDateRecycleBinDescription)
 		)
 	}
 

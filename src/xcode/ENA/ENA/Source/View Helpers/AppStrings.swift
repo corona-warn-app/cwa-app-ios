@@ -371,9 +371,12 @@ enum AppStrings {
 
 		static let keysSubmittedDescription = NSLocalizedString("TestResultPositive_KeysSubmitted_Description", comment: "")
 		static let keysSubmittedTitle1 = NSLocalizedString("TestResultPositive_KeysSubmitted_Title1", comment: "")
-		static let keysSubmittedInfo1 = NSLocalizedString("TestResultPositive_KeysSubmitted_Info1", comment: "")
-		static let keysSubmittedInfo2 = NSLocalizedString("TestResultPositive_KeysSubmitted_Info2", comment: "")
-		static let keysSubmittedInfo3 = NSLocalizedString("TestResultPositive_KeysSubmitted_Info3", comment: "")
+		static let keysSubmittedPCRInfo1 = NSLocalizedString("TestResultPositive_KeysSubmitted_PCR_Info1", comment: "")
+		static let keysSubmittedPCRInfo2 = NSLocalizedString("TestResultPositive_KeysSubmitted_PCR_Info2", comment: "")
+		static let keysSubmittedPCRInfo3 = NSLocalizedString("TestResultPositive_KeysSubmitted_PCR_Info3", comment: "")
+		static let keysSubmittedRATInfo1 = NSLocalizedString("TestResultPositive_KeysSubmitted_RAT_Info1", comment: "")
+		static let keysSubmittedRATInfo2 = NSLocalizedString("TestResultPositive_KeysSubmitted_RAT_Info2", comment: "")
+		static let keysSubmittedRATInfo3 = NSLocalizedString("TestResultPositive_KeysSubmitted_RAT_Info3", comment: "")
 		static let keysSubmittedTitle2 = NSLocalizedString("TestResultPositive_KeysSubmitted_Title2", comment: "")
 		static let keysSubmittedFurtherInfo1 = NSLocalizedString("TestResultPositive_KeysSubmitted_FurtherInfo1", comment: "")
 		static let keysSubmittedFurtherInfo2 = NSLocalizedString("TestResultPositive_KeysSubmitted_FurtherInfo2", comment: "")
@@ -450,9 +453,12 @@ enum AppStrings {
 		static let button = NSLocalizedString("ExposureSubmissionSuccess_Button", comment: "")
 		static let description = NSLocalizedString("ExposureSubmissionSuccess_Description", comment: "")
 		static let listTitle = NSLocalizedString("ExposureSubmissionSuccess_listTitle", comment: "")
-		static let listItem0 = NSLocalizedString("ExposureSubmissionSuccess_listItem0", comment: "")
-		static let listItem1 = NSLocalizedString("ExposureSubmissionSuccess_listItem1", comment: "")
-		static let listItem2 = NSLocalizedString("ExposureSubmissionSuccess_listItem2", comment: "")
+		static let listItemPCR0 = NSLocalizedString("ExposureSubmissionSuccess_PCR_listItem0", comment: "")
+		static let listItemPCR1 = NSLocalizedString("ExposureSubmissionSuccess_PCR_listItem1", comment: "")
+		static let listItemPCR2 = NSLocalizedString("ExposureSubmissionSuccess_PCR_listItem2", comment: "")
+		static let listItemRAT0 = NSLocalizedString("ExposureSubmissionSuccess_RAT_listItem0", comment: "")
+		static let listItemRAT1 = NSLocalizedString("ExposureSubmissionSuccess_RAT_listItem1", comment: "")
+		static let listItemRAT2 = NSLocalizedString("ExposureSubmissionSuccess_RAT_listItem2", comment: "")
 		static let subTitle = NSLocalizedString("ExposureSubmissionSuccess_subTitle", comment: "")
 		static let listItem2_1 = NSLocalizedString("ExposureSubmissionSuccess_listItem2_1", comment: "")
 		static let listItem2_2 = NSLocalizedString("ExposureSubmissionSuccess_listItem2_2", comment: "")
@@ -965,10 +971,12 @@ enum AppStrings {
 				static let statusDatePCR = NSLocalizedString("Home_Finding_Positive_Card_Status_DatePCR", comment: "")
 				static let statusDateAntigen = NSLocalizedString("Home_Finding_Positive_Card_Status_DateAntigen", comment: "")
 				static let noteTitle = NSLocalizedString("Home_Finding_Positive_Card_Note_Title", comment: "")
-				static let verifyItemTitle = NSLocalizedString("Home_Finding_Positive_Card_Verify_Item_Title", comment: "")
-				static let phoneItemTitle = NSLocalizedString("Home_Finding_Positive_Card_Phone_Item_Title", comment: "")
-				static let homeItemTitle = NSLocalizedString("Home_Finding_Positive_Card_Home_Item_Title", comment: "")
-				static let shareItemTitle = NSLocalizedString("Home_Finding_Positive_Card_Share_Item_Title", comment: "")
+				static let itemPCR0 = NSLocalizedString("Home_Finding_Positive_Card_PCR_Item0", comment: "")
+				static let itemPCR1 = NSLocalizedString("Home_Finding_Positive_Card_PCR_Item1", comment: "")
+				static let itemPCR2 = NSLocalizedString("Home_Finding_Positive_Card_PCR_Item2", comment: "")
+				static let itemRAT0 = NSLocalizedString("Home_Finding_Positive_Card_RAT_Item0", comment: "")
+				static let itemRAT1 = NSLocalizedString("Home_Finding_Positive_Card_RAT_Item1", comment: "")
+				static let itemRAT2 = NSLocalizedString("Home_Finding_Positive_Card_RAT_Item2", comment: "")
 				static let button = NSLocalizedString("Home_Finding_Positive_Card_Button", comment: "")
 				static let removeTestButton = NSLocalizedString("Home_Finding_Positive_Card_Button_Remove_Test", comment: "")
 			}
@@ -986,6 +994,7 @@ enum AppStrings {
 			static let recycleBinTitle = NSLocalizedString("Home_MoreCard_RecycleBinTitle", comment: "")
 			static let appInformationTitle = NSLocalizedString("Home_MoreCard_AppInformationTitle", comment: "")
 			static let faqTitle = NSLocalizedString("Home_MoreCard_FAQTitle", comment: "")
+			static let socialMediaTitle = NSLocalizedString("Home_MoreCard_SocialMedia", comment: "")
 			static let shareTitle = NSLocalizedString("Home_MoreCard_ShareTitle", comment: "")
 		}
 		
@@ -1034,6 +1043,7 @@ enum AppStrings {
 
 	enum SafariView {
 		static let targetURL = NSLocalizedString("safari_corona_website", tableName: "Localizable.links", comment: "")
+		static let socialMedia = NSLocalizedString("safari_corona_social_media", tableName: "Localizable.links", comment: "")
 	}
 
 	enum LocalNotifications {
@@ -1148,14 +1158,16 @@ enum AppStrings {
 		static let generalDescription = NSLocalizedString("DeltaOnboarding_NewVersionFeatures_Description", comment: "")
 		static let aboutAppInformation = NSLocalizedString("NewVersionFeatures_Info_about_abb_information", comment: "")
 		
-		/* Version 2.16 */
+		/* Version 2.17 */
 		
-		static let feature2162GTitle = NSLocalizedString("NewVersionFeature_216_2g_title", comment: "")
-		static let feature2162GDescription = NSLocalizedString("NewVersionFeature_216_2g_description", comment: "")
-		static let feature216NegativeTestNoticeTitle = NSLocalizedString("NewVersionFeature_216_negativeTestNotice_title", comment: "")
-		static let feature216NegativeTestNoticeDescription = NSLocalizedString("NewVersionFeature_216_negativeTestNotice_description", comment: "")
-		static let feature216HighRiskNotificationTitle = NSLocalizedString("NewVersionFeature_216_highRiskNotification_title", comment: "")
-		static let feature216HighRiskNotificationDescription = NSLocalizedString("NewVersionFeature_216_highRiskNotification_description", comment: "")
+		static let feature217PositiveTestTitle = NSLocalizedString("NewVersionFeature_217_positiveTest_title", comment: "")
+		static let feature217PositiveTestDescription = NSLocalizedString("NewVersionFeature_217_positiveTest_description", comment: "")
+		static let feature217StatisticsBoosterVaccinationTitle = NSLocalizedString("NewVersionFeature_217_statisticsBoosterVaccination_title", comment: "")
+		static let feature217StatisticsBoosterVaccinationDescription = NSLocalizedString("NewVersionFeature_217_statisticsBoosterVaccination_description", comment: "")
+		static let feature217LinkSocialMediaTitle = NSLocalizedString("NewVersionFeature_217_linkSocialMedia_title", comment: "")
+		static let feature217LinkSocialMediaDescription = NSLocalizedString("NewVersionFeature_217_linkSocialMedia_description", comment: "")
+		static let feature217DeleteDateRecycleBinTitle = NSLocalizedString("NewVersionFeature_217_deleteDateRecycleBin_title", comment: "")
+		static let feature217DeleteDateRecycleBinDescription = NSLocalizedString("NewVersionFeature_217_deleteDateRecycleBin_description", comment: "")
 	}
 	
 	enum DeltaOnboarding {
@@ -1433,7 +1445,6 @@ enum AppStrings {
 				static let secondaryLabelTitle = NSLocalizedString("Statistics_Card_AtLeastOneVaccinated_SecondaryLabelTitle", comment: "")
 				static let primarySubtitle = NSLocalizedString("Statistics_Card_AtLeastOneVaccinated_SecondarySubtitleLabel", comment: "")
 				static let tertiaryLabelTitle = NSLocalizedString("Statistics_Card_AtLeastOneVaccinated_TertiaryLabelTitle", comment: "")
-
 			}
 			
 			enum FullyVaccinated {
@@ -1444,7 +1455,16 @@ enum AppStrings {
 				static let secondaryLabelTitle = NSLocalizedString("Statistics_Card_FullyVaccinated_SecondaryLabelTitle", comment: "")
 				static let tertiaryLabelTitle = NSLocalizedString("Statistics_Card_FullyVaccinated_TertiaryLabelTitle", comment: "")
 				static let primarySubtitle = NSLocalizedString("Statistics_Card_FullyVaccinated_SecondarySubtitleLabel", comment: "")
-				static let percent = NSLocalizedString("Statistics_Card_FullyVaccinated_Percent", comment: "")
+			}
+			
+			enum BoosterVaccination {
+				static let title = NSLocalizedString("Statistics_Card_BoosterVaccination_Title", comment: "")
+				static let today = NSLocalizedString("Statistics_Card_BoosterVaccination_Today", comment: "")
+				static let yesterday = NSLocalizedString("Statistics_Card_BoosterVaccination_Yesterday", comment: "")
+				static let date = NSLocalizedString("Statistics_Card_BoosterVaccination_Date", comment: "")
+				static let secondaryLabelTitle = NSLocalizedString("Statistics_Card_BoosterVaccination_SecondaryLabelTitle", comment: "")
+				static let tertiaryLabelTitle = NSLocalizedString("Statistics_Card_BoosterVaccination_TertiaryLabelTitle", comment: "")
+				static let primarySubtitle = NSLocalizedString("Statistics_Card_BoosterVaccination_SecondarySubtitleLabel", comment: "")
 			}
 			
 			enum DoseRates {
@@ -1507,6 +1527,8 @@ enum AppStrings {
 			static let vaccinatedAtLeastOnceText = NSLocalizedString("Statistics_Info_AtLeastOnce_Text", comment: "")
 			static let fullyVaccinatedTitle = NSLocalizedString("Statistics_Info_FullyVaccinated_Title", comment: "")
 			static let fullyVaccinatedText = NSLocalizedString("Statistics_Info_FullyVaccinated_Text", comment: "")
+			static let boosterVaccinationTitle = NSLocalizedString("Statistics_Info_BoosterVaccination_Title", comment: "")
+			static let boosterVaccinationText = NSLocalizedString("Statistics_Info_BoosterVaccination_Text", comment: "")
 			static let dosesAdministeredTitle = NSLocalizedString("Statistics_Info_DosesAdministered_Title", comment: "")
 			static let dosesAdministeredText = NSLocalizedString("Statistics_Info_DosesAdministered_Text", comment: "")
 			static let faqLinkText = NSLocalizedString("Statistics_Info_FAQLink_Text", comment: "")
