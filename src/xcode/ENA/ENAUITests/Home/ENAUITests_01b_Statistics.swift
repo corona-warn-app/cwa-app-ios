@@ -80,7 +80,8 @@ class ENAUITests_01b_Statistics: CWATestCase {
 		XCTAssertFalse(deleteButton.isHittable)
 		
 		// Management card(s) pt.2 - removal
-		XCTAssertTrue(statisticsCell.waitForExistence(timeout: .long))
+		XCTAssertTrue(statisticsCell.waitForExistence(timeout: .extraLong))
+		XCTAssertTrue(statisticsCell.isHittable)
 		statisticsCell.swipeRight() // because of ui reset
 		XCTAssertTrue(statisticsCell.buttons[addButton].isHittable)
 		XCTAssertTrue(statisticsCell.buttons[modifyButton].isHittable)
