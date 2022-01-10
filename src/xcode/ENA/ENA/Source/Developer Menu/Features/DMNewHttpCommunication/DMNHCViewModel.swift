@@ -57,7 +57,7 @@ final class DMNHCViewModel {
 					}
 				}
 			)
-		case .otpEdusAuthorization:
+		case .validationOnboardedCountries:
 			return DMButtonCellViewModel(
 				text: "validationOnboardedCountries",
 				textColor: .white,
@@ -65,8 +65,8 @@ final class DMNHCViewModel {
 				action: { [weak self] in
 					self?.restService.load(ValidationOnboardedCountriesResource()) { result in
 						switch result {
-						case .success:
-							Log.info("New HTTP Call for validationOnboardedCountries successful")
+						case let .success(countriesModel):
+							Log.info("New HTTP Call for validationOnboardedCountries successful. Countries: \(countriesModel.countries)")
 						case .failure:
 							Log.error("New HTTP Call for validationOnboardedCountries failed")
 						}
@@ -85,14 +85,13 @@ final class DMNHCViewModel {
 				}
 			)
 		}
-
 	}
 
 	// MARK: - Private
 
 	private enum TableViewSections: Int, CaseIterable {
 		case appConfig
-		case otpEdusAuthorization
+		case validationOnboardedCountries
 		case registerTeleTAN
 	}
 
