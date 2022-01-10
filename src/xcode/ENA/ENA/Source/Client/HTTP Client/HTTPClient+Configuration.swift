@@ -179,16 +179,6 @@ extension HTTPClient {
 			)
 		}
 
-		var testResultURL: URL {
-			endpoints
-				.verification
-				.appending(
-					"version",
-					apiVersion,
-					"testresult"
-			)
-		}
-
 		var otpEdusAuthorizationURL: URL {
 			endpoints
 				.dataDonation
