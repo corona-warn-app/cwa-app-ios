@@ -612,7 +612,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmission_PhoneDetailsForeign" = "Für Anrufe aus dem Ausland.\nEs fallen die Gebühren des jeweiligen Telefonanbieters an.";
 
-"ExposureSubmission_PhoneDetailDescription" = "Unser Kundenservice ist in den folgenden Sprachen für Sie da:\nDeutsch, Englisch, Türkisch\n\nErreichbarkeit:\nMo-So: Täglich 24 Stunden\n\nFür gesundheitliche Fragen wenden Sie sich bitte an Ihre Hausarztpraxis oder die Hotline des ärztlichen Bereitschaftsdienstes 116 117.";
+"ExposureSubmission_PhoneDetailDescription" = "Unser Kundenservice ist in den folgenden Sprachen für Sie da:\nDeutsch, Englisch, Türkisch\n\nErreichbarkeit:\nMo-So: 07:00 - 20:00 Uhr\n\nFür gesundheitliche Fragen wenden Sie sich bitte an Ihre Hausarztpraxis oder die Hotline des ärztlichen Bereitschaftsdienstes 116 117.";
 
 "ExposureSubmission_SectionDescription2" = "Geben Sie die TAN in der App ein, um Ihren PCR-Test zu registrieren.";
 
@@ -692,7 +692,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmissionSuccess_RAT_listItem2" = "Das Gesundheitsamt wird sich möglicherweise in den nächsten Tagen bei Ihnen melden.";
 
-"ExposureSubmissionSuccess_listItem2_1" = "Die Isolationszeit beträgt in der Regel 14 Tage. Bitte beobachten Sie genau, wie sich Ihre Symptome entwickeln.";
+"ExposureSubmissionSuccess_listItem2_1" = "Die Isolationszeit beträgt in der Regel 10 Tage. Bitte beobachten Sie genau, wie sich Ihre Symptome entwickeln.";
 
 "ExposureSubmissionSuccess_listItem2_2" = "Sie werden von Ihrem Gesundheitsamt gebeten, eine Liste Ihrer Kontaktpersonen zu erstellen. Erfassen Sie dabei alle Personen, zu denen Sie in den zwei Tagen vor Erkrankungsbeginn engen Kontakt (unter 2 Meter, direktes Gespräch) über insgesamt 10 Minuten hatten. Nutzen Sie hierfür Ihr Kontakt-Tagebuch. Sie können die Einträge einfach exportieren und ausdrucken oder als E-Mail verschicken.";
 
@@ -1765,7 +1765,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "TestResultPositive_KeysSubmitted_Title2" = "Weitere Infos:";
 
-"TestResultPositive_KeysSubmitted_FurtherInfo1" = "Die Isolationszeit beträgt in der Regel 14 Tage. Bitte beobachten Sie genau, wie sich Ihre Symptome entwickeln.";
+"TestResultPositive_KeysSubmitted_FurtherInfo1" = "Die Isolationszeit beträgt in der Regel 10 Tage. Bitte beobachten Sie genau, wie sich Ihre Symptome entwickeln.";
 
 "TestResultPositive_KeysSubmitted_FurtherInfo2" = "Sie werden von Ihrem Gesundheitsamt gebeten, eine Liste Ihrer Kontaktpersonen zu erstellen. Erfassen Sie dabei alle Personen, zu denen Sie in den zwei Tagen vor Erkrankungsbeginn engen Kontakt (unter 2 Meter, direktes Gespräch) über insgesamt 10 Minuten hatten. Nutzen Sie hierfür Ihr Kontakt-Tagebuch. Sie können die Einträge einfach exportieren und ausdrucken oder als E-Mail verschicken.";
 
