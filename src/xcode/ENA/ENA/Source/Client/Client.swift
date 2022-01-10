@@ -51,15 +51,6 @@ protocol Client {
 		completion: @escaping DayCompletionHandler
 	)
 
-	// MARK: Getting the Configuration
-
-	/// Gets the test result for the device
-	func getTestResult(
-		forDevice registrationToken: String,
-		isFake: Bool,
-		completion completeWith: @escaping TestResultHandler
-	)
-
 	// MARK: Submit keys
 
 	/// Submits exposure keys to the backend. This makes the local information available to the world so that the risk of others can be calculated on their local devices.
