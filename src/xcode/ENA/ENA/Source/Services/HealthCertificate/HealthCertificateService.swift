@@ -537,56 +537,60 @@ class HealthCertificateService {
 	func updateValidityStatesAndNotifications(shouldScheduleTimer: Bool = true) {
 		Log.info("Update validity state and notifications.")
 
-		let currentAppConfiguration = appConfiguration.currentAppConfig.value
-		healthCertifiedPersons.forEach { healthCertifiedPerson in
-			healthCertifiedPerson.healthCertificates.forEach { healthCertificate in
-				let expirationThresholdInDays = currentAppConfiguration.dgcParameters.expirationThresholdInDays
-				let expiringSoonDate = Calendar.current.date(
-					byAdding: .day,
-					value: -Int(expirationThresholdInDays),
-					to: healthCertificate.expirationDate
-				)
+		DispatchQueue.global(qos: .default).async { [weak self] in
+			guard let self = self else { return }
 
-				let previousValidityState = healthCertificate.validityState
-
-				let blockedIdentifierChunks = appConfiguration.currentAppConfig.value
-					.dgcParameters.blockListParameters.blockedUvciChunks
-				if healthCertificate.isBlocked(by: blockedIdentifierChunks) {
-					healthCertificate.validityState = .blocked
-				} else {
-					let signatureVerificationResult = self.dccSignatureVerifier.verify(
-						certificate: healthCertificate.base45,
-						with: self.dscListProvider.signingCertificates.value,
-						and: Date()
+			let currentAppConfiguration = self.appConfiguration.currentAppConfig.value
+			self.healthCertifiedPersons.forEach { healthCertifiedPerson in
+				healthCertifiedPerson.healthCertificates.forEach { healthCertificate in
+					let expirationThresholdInDays = currentAppConfiguration.dgcParameters.expirationThresholdInDays
+					let expiringSoonDate = Calendar.current.date(
+						byAdding: .day,
+						value: -Int(expirationThresholdInDays),
+						to: healthCertificate.expirationDate
 					)
 
-					switch signatureVerificationResult {
-					case .success:
-						if Date() >= healthCertificate.expirationDate {
-							healthCertificate.validityState = .expired
-						} else if let expiringSoonDate = expiringSoonDate, Date() >= expiringSoonDate {
-							healthCertificate.validityState = .expiringSoon
-						} else {
-							healthCertificate.validityState = .valid
+					let previousValidityState = healthCertificate.validityState
+
+					let blockedIdentifierChunks = self.appConfiguration.currentAppConfig.value
+						.dgcParameters.blockListParameters.blockedUvciChunks
+					if healthCertificate.isBlocked(by: blockedIdentifierChunks) {
+						healthCertificate.validityState = .blocked
+					} else {
+						let signatureVerificationResult = self.dccSignatureVerifier.verify(
+							certificate: healthCertificate.base45,
+							with: self.dscListProvider.signingCertificates.value,
+							and: Date()
+						)
+
+						switch signatureVerificationResult {
+						case .success:
+							if Date() >= healthCertificate.expirationDate {
+								healthCertificate.validityState = .expired
+							} else if let expiringSoonDate = expiringSoonDate, Date() >= expiringSoonDate {
+								healthCertificate.validityState = .expiringSoon
+							} else {
+								healthCertificate.validityState = .valid
+							}
+						case .failure:
+							healthCertificate.validityState = .invalid
 						}
-					case .failure:
-						healthCertificate.validityState = .invalid
 					}
-				}
 
-				if healthCertificate.validityState != previousValidityState {
-					/// Only validity states that are not shown as `.valid` should be marked as new for the user.
-					healthCertificate.isValidityStateNew = !healthCertificate.isConsideredValid
-				}
+					if healthCertificate.validityState != previousValidityState {
+						/// Only validity states that are not shown as `.valid` should be marked as new for the user.
+						healthCertificate.isValidityStateNew = !healthCertificate.isConsideredValid
+					}
 
-				healthCertifiedPerson.triggerMostRelevantCertificateUpdate()
+					healthCertifiedPerson.triggerMostRelevantCertificateUpdate()
+				}
 			}
+			if shouldScheduleTimer {
+				self.scheduleTimer()
+			}
+
+			self.updateNotifications()
 		}
-		if shouldScheduleTimer {
-			scheduleTimer()
-		}
-		
-		self.updateNotifications()
 	}
 
 	func validUntilDates(for healthCertificates: [HealthCertificate], signingCertificates: [DCCSigningCertificate]) -> [Date] {
