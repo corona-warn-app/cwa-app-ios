@@ -1445,7 +1445,6 @@ enum AppStrings {
 				static let secondaryLabelTitle = NSLocalizedString("Statistics_Card_AtLeastOneVaccinated_SecondaryLabelTitle", comment: "")
 				static let primarySubtitle = NSLocalizedString("Statistics_Card_AtLeastOneVaccinated_SecondarySubtitleLabel", comment: "")
 				static let tertiaryLabelTitle = NSLocalizedString("Statistics_Card_AtLeastOneVaccinated_TertiaryLabelTitle", comment: "")
-
 			}
 			
 			enum FullyVaccinated {
@@ -1456,7 +1455,16 @@ enum AppStrings {
 				static let secondaryLabelTitle = NSLocalizedString("Statistics_Card_FullyVaccinated_SecondaryLabelTitle", comment: "")
 				static let tertiaryLabelTitle = NSLocalizedString("Statistics_Card_FullyVaccinated_TertiaryLabelTitle", comment: "")
 				static let primarySubtitle = NSLocalizedString("Statistics_Card_FullyVaccinated_SecondarySubtitleLabel", comment: "")
-				static let percent = NSLocalizedString("Statistics_Card_FullyVaccinated_Percent", comment: "")
+			}
+			
+			enum BoosterVaccination {
+				static let title = NSLocalizedString("Statistics_Card_BoosterVaccination_Title", comment: "")
+				static let today = NSLocalizedString("Statistics_Card_BoosterVaccination_Today", comment: "")
+				static let yesterday = NSLocalizedString("Statistics_Card_BoosterVaccination_Yesterday", comment: "")
+				static let date = NSLocalizedString("Statistics_Card_BoosterVaccination_Date", comment: "")
+				static let secondaryLabelTitle = NSLocalizedString("Statistics_Card_BoosterVaccination_SecondaryLabelTitle", comment: "")
+				static let tertiaryLabelTitle = NSLocalizedString("Statistics_Card_BoosterVaccination_TertiaryLabelTitle", comment: "")
+				static let primarySubtitle = NSLocalizedString("Statistics_Card_BoosterVaccination_SecondarySubtitleLabel", comment: "")
 			}
 			
 			enum DoseRates {
@@ -1519,6 +1527,8 @@ enum AppStrings {
 			static let vaccinatedAtLeastOnceText = NSLocalizedString("Statistics_Info_AtLeastOnce_Text", comment: "")
 			static let fullyVaccinatedTitle = NSLocalizedString("Statistics_Info_FullyVaccinated_Title", comment: "")
 			static let fullyVaccinatedText = NSLocalizedString("Statistics_Info_FullyVaccinated_Text", comment: "")
+			static let boosterVaccinationTitle = NSLocalizedString("Statistics_Info_BoosterVaccination_Title", comment: "")
+			static let boosterVaccinationText = NSLocalizedString("Statistics_Info_BoosterVaccination_Text", comment: "")
 			static let dosesAdministeredTitle = NSLocalizedString("Statistics_Info_DosesAdministered_Title", comment: "")
 			static let dosesAdministeredText = NSLocalizedString("Statistics_Info_DosesAdministered_Text", comment: "")
 			static let faqLinkText = NSLocalizedString("Statistics_Info_FAQLink_Text", comment: "")
