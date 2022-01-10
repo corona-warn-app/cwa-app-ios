@@ -9,6 +9,7 @@ enum MoreInfoItem: Int, CaseIterable {
 	case recycleBin
 	case appInformation
 	case faq
+	case socialMedia
 	case share
 	
 	var title: String {
@@ -21,6 +22,8 @@ enum MoreInfoItem: Int, CaseIterable {
 			return AppStrings.Home.MoreInfoCard.appInformationTitle
 		case .faq:
 			return AppStrings.Home.MoreInfoCard.faqTitle
+		case .socialMedia:
+			return AppStrings.Home.MoreInfoCard.socialMediaTitle
 		case .share:
 			return AppStrings.Home.MoreInfoCard.shareTitle
 		}
@@ -36,6 +39,8 @@ enum MoreInfoItem: Int, CaseIterable {
 			return AccessibilityIdentifiers.Home.MoreInfoCell.appInformationLabel
 		case .faq:
 			return AccessibilityIdentifiers.Home.MoreInfoCell.faqLabel
+		case .socialMedia:
+			return AccessibilityIdentifiers.Home.MoreInfoCell.socialMediaLabel
 		case .share:
 			return AccessibilityIdentifiers.Home.MoreInfoCell.shareLabel
 		}
@@ -51,6 +56,8 @@ enum MoreInfoItem: Int, CaseIterable {
 			return UIImage(named: "more_info")
 		case .faq:
 			return UIImage(named: "more_faq")
+		case .socialMedia:
+			return UIImage(named: "more_social_media")
 		case .share:
 			return UIImage(named: "more_share")
 		}

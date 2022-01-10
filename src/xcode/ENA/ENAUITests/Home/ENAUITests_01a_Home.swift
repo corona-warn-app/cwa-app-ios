@@ -35,7 +35,10 @@ class ENAUITests_01a_Home: CWATestCase {
 
 		let faqLabel = moreCell.buttons[AccessibilityIdentifiers.Home.MoreInfoCell.faqLabel]
 		XCTAssertTrue(faqLabel.waitForExistence(timeout: .medium))
-	
+		
+		let socialMediaLabel = moreCell.buttons[AccessibilityIdentifiers.Home.MoreInfoCell.socialMediaLabel]
+		XCTAssertTrue(socialMediaLabel.waitForExistence(timeout: .medium))
+		
 		let infoLabel = moreCell.buttons[AccessibilityIdentifiers.Home.MoreInfoCell.appInformationLabel]
 		XCTAssertTrue(infoLabel.waitForExistence(timeout: .medium))
 	
@@ -59,7 +62,10 @@ class ENAUITests_01a_Home: CWATestCase {
 
 		let faqLabel = moreCell.buttons[AccessibilityIdentifiers.Home.MoreInfoCell.faqLabel]
 		XCTAssertTrue(faqLabel.waitForExistence(timeout: .medium))
-	
+		
+		let socialMediaLabel = moreCell.buttons[AccessibilityIdentifiers.Home.MoreInfoCell.socialMediaLabel]
+		XCTAssertTrue(socialMediaLabel.waitForExistence(timeout: .medium))
+
 		let infoLabel = moreCell.buttons[AccessibilityIdentifiers.Home.MoreInfoCell.appInformationLabel]
 		XCTAssertTrue(infoLabel.waitForExistence(timeout: .medium))
 	
@@ -85,6 +91,9 @@ class ENAUITests_01a_Home: CWATestCase {
 		let faqLabel = moreCell.buttons[AccessibilityIdentifiers.Home.MoreInfoCell.faqLabel]
 		XCTAssertTrue(faqLabel.waitForExistence(timeout: .medium))
 	
+		let socialMediaLabel = moreCell.buttons[AccessibilityIdentifiers.Home.MoreInfoCell.socialMediaLabel]
+		XCTAssertTrue(socialMediaLabel.waitForExistence(timeout: .medium))
+
 		let infoLabel = moreCell.buttons[AccessibilityIdentifiers.Home.MoreInfoCell.appInformationLabel]
 		XCTAssertTrue(infoLabel.waitForExistence(timeout: .medium))
 	
@@ -101,6 +110,8 @@ class ENAUITests_01a_Home: CWATestCase {
 		
 		// only run if home screen is present
 		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Home.ShownPositiveTestResultCell.removeTestButton].waitForExistence(timeout: .medium))
+
+		app.swipeUp(velocity: .slow)
 
 		// remove test
 		app.buttons[AccessibilityIdentifiers.Home.ShownPositiveTestResultCell.removeTestButton].waitAndTap()

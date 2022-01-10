@@ -109,6 +109,10 @@ class HomeCoordinator: RequiresAppDependencies {
 				guard let self = self else { return }
 				self.showWebPage(urlString: AppStrings.SafariView.targetURL)
 			},
+			onSocialMediaCellTap: { [weak self] in
+				guard let self = self else { return }
+				self.showWebPage(urlString: AppStrings.SafariView.socialMedia)
+			},
 			onAppInformationCellTap: { [weak self] in
 				self?.showAppInformation()
 			},

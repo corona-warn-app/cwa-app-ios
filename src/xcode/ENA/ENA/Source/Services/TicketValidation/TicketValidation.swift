@@ -239,7 +239,7 @@ final class TicketValidation: TicketValidating {
 			return
 		}
 		
-		Log.debug("Request document of validation decorator at URL: \(url)", log: .ticketValidation)
+		Log.debug("Request document of validation decorator at URL: \(private: url)", log: .ticketValidation)
 		
 		let resource = ServiceIdentityDocumentValidationDecoratorResource(url: url)
 		restServiceProvider.load(resource) { result in
@@ -272,7 +272,7 @@ final class TicketValidation: TicketValidating {
 			return
 		}
 
-		Log.debug("Request document of service identity at URL: \(url)", log: .ticketValidation)
+		Log.debug("Request document of service identity at URL: \(private: url)", log: .ticketValidation)
 
 		let resource = ServiceIdentityDocumentResource(endpointUrl: url)
 		restServiceProvider.update(
@@ -313,7 +313,7 @@ final class TicketValidation: TicketValidating {
             return
         }
 
-		Log.debug("Request access token at URL: \(url)", log: .ticketValidation)
+		Log.debug("Request access token at URL: \(private: url)", log: .ticketValidation)
 
         let resource = TicketValidationAccessTokenResource(
             accessTokenServiceURL: url,
@@ -372,7 +372,7 @@ final class TicketValidation: TicketValidating {
 			return
 		}
 
-		Log.debug("Request result token at URL: \(url)", log: .ticketValidation)
+		Log.debug("Request result token at URL: \(private: url)", log: .ticketValidation)
 
 		let resource = TicketValidationResultTokenResource(
 			resultTokenServiceURL: url,
