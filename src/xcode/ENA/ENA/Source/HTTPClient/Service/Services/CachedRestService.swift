@@ -52,13 +52,14 @@ class CachedRestService: Service {
 		case .success(let model):
 			guard let eTag = response?.value(forCaseInsensitiveHeaderField: "ETag"),
 				  let data = bodyData else {
-				Log.info("ETag not found - do not write to cache")
+				Log.info("ETag not found. Perhaps we have already the cached data - do not write to cache")
 				 completion(.success(model))
 				return
 			}
 			let serverDate = response?.dateHeader ?? Date()
 			let cachedModel = CacheData(data: data, eTag: eTag, date: serverDate)
 			cache[resource.locator.hashValue] = cachedModel
+			Log.info("ETag and data found and wrote to cache.")
 			completion(.success(model))
 
 		case .failure:
