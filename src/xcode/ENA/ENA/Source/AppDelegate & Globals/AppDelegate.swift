@@ -556,7 +556,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 			},
 			showTestResultFromNotification: { [weak self] test in
 				Log.debug("Will open test result from notification")
-				self?.coordinator.showTestResultFromNotification(with: test, visibleViewController: self?.window?.visibleViewController)
+				
+				self?.setupUI()
+				self?.showUI()
+				self?.coordinator.showTestResultFromNotification(with: test)
 			},
 			showHealthCertificate: { [weak self] route in
 				// We must NOT call self?.showHome(route) here because we do not target the home screen. Only set the route. The rest is done automatically by the startup process of the app.
