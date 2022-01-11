@@ -6,10 +6,12 @@ import Foundation
 
 final class CoronaTestResultOperation: AsyncOperation {
 	
+	typealias ResultHandler = (Result<TestResultResource.Receive.ReceiveModel, ServiceError<TestResultError>>) -> Void
+	
 	// MARK: - Init
 	
-	init(client: Client, registrationToken: String, completion: @escaping Client.TestResultHandler) {
-		self.client = client
+	init(restService: RestServiceProviding, registrationToken: String, completion: @escaping ResultHandler) {
+		self.restService = restService
 		self.registrationToken = registrationToken
 		self.completion = completion
 		super.init()
@@ -18,7 +20,10 @@ final class CoronaTestResultOperation: AsyncOperation {
 	// MARK: - Overrides
 	
 	override func main() {
-		client.getTestResult(forDevice: registrationToken, isFake: false) { [weak self] result in
+		let sendModel = RegistrationTokenSendModel(registrationToken: registrationToken)
+		let resource = TestResultResource(isFake: false, sendModel: sendModel)
+
+		restService.load(resource) { [weak self] result in
 			self?.completion(result)
 			self?.finish()
 		}
@@ -26,7 +31,7 @@ final class CoronaTestResultOperation: AsyncOperation {
 	
 	// MARK: - Private
 	
-	private let client: Client
+	private let restService: RestServiceProviding
 	private let registrationToken: String
-	private let completion: Client.TestResultHandler
+	private let completion: ResultHandler
 }

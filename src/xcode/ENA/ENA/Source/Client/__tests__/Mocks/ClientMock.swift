@@ -51,7 +51,6 @@ final class ClientMock {
 
 	// MARK: - Configurable Mock Callbacks.
 
-	var onGetTestResult: ((String, Bool, TestResultHandler) -> Void)?
 	var onSubmitCountries: ((_ payload: SubmissionPayload, _ isFake: Bool, _ completion: @escaping KeySubmissionResponse) -> Void) = { $2(.success(())) }
 	var onSubmitOnBehalf: ((_ payload: SubmissionPayload, _ isFake: Bool, _ completion: @escaping KeySubmissionResponse) -> Void) = { $2(.success(())) }
 	var onSupportedCountries: ((@escaping CountryFetchCompletion) -> Void)?
@@ -151,23 +150,6 @@ extension ClientMock: Client {
 	
 	func submitOnBehalf(payload: SubmissionPayload, isFake: Bool, completion: @escaping KeySubmissionResponse) {
 		onSubmitOnBehalf(payload, isFake, completion)
-	}
-
-	func getTestResult(forDevice device: String, isFake: Bool, completion completeWith: @escaping TestResultHandler) {
-		guard let onGetTestResult = self.onGetTestResult else {
-			completeWith(
-				.success(
-					FetchTestResultResponse(
-						testResult: TestResult.positive.rawValue,
-						sc: nil,
-						labId: "SomeLabId"
-					)
-				)
-			)
-			return
-		}
-
-		onGetTestResult(device, isFake, completeWith)
 	}
 
 	func authorize(

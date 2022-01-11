@@ -1565,7 +1565,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 				title: AppStrings.ExposureSubmissionError.qrNotExistTitle,
 				message: error.localizedDescription
 			)
-		case .serviceError(.receivedResourceError(let teleTanError)):
+		case .teleTanError(.receivedResourceError(let teleTanError)):
 			switch teleTanError {
 			case .qrAlreadyUsed:
 				alert = UIAlertController.errorAlert(
