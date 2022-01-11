@@ -96,36 +96,62 @@ class ExposureSubmissionSuccessViewController: DynamicTableViewController, ENANa
 			)
 		]
 
-		if coronaTestType == .antigen {
-			cells.append(
+		if coronaTestType == .pcr {
+			cells.append(contentsOf: [
 				ExposureSubmissionDynamicCell.stepCell(
 					style: .body,
-					title: AppStrings.ExposureSubmissionSuccess.listItem0,
+					title: AppStrings.ExposureSubmissionSuccess.listItemPCR0,
+					icon: UIImage(named: "Icons - Home"),
+					iconTint: .enaColor(for: .riskHigh),
+					hairline: .none,
+					bottomSpacing: .medium
+				),
+				ExposureSubmissionDynamicCell.stepCell(
+					style: .body,
+					title: AppStrings.ExposureSubmissionSuccess.listItemPCR1,
+					icon: UIImage(named: "Icons - Hotline"),
+					iconTint: .enaColor(for: .riskHigh),
+					hairline: .none,
+					bottomSpacing: .medium
+				),
+				ExposureSubmissionDynamicCell.stepCell(
+					style: .body,
+					title: AppStrings.ExposureSubmissionSuccess.listItemPCR2,
+					icon: UIImage(named: "Icons - Red Plus"),
+					hairline: .none,
+					bottomSpacing: .medium
+				)
+			])
+		} else if coronaTestType == .antigen {
+			cells.append(contentsOf: [
+				ExposureSubmissionDynamicCell.stepCell(
+					style: .body,
+					title: AppStrings.ExposureSubmissionSuccess.listItemRAT0,
+					icon: UIImage(named: "Icons - Home"),
+					iconTint: .enaColor(for: .riskHigh),
+					hairline: .none,
+					bottomSpacing: .medium
+				),
+				ExposureSubmissionDynamicCell.stepCell(
+					style: .body,
+					title: AppStrings.ExposureSubmissionSuccess.listItemRAT1,
 					icon: UIImage(named: "Icons - Test Tube"),
 					iconTint: .enaColor(for: .riskHigh),
 					hairline: .none,
-					bottomSpacing: .normal
+					bottomSpacing: .medium
+				),
+				ExposureSubmissionDynamicCell.stepCell(
+					style: .body,
+					title: AppStrings.ExposureSubmissionSuccess.listItemRAT2,
+					icon: UIImage(named: "Icons - Hotline"),
+					iconTint: .enaColor(for: .riskHigh),
+					hairline: .none,
+					bottomSpacing: .medium
 				)
-			)
+			])
 		}
 
 		cells.append(contentsOf: [
-			ExposureSubmissionDynamicCell.stepCell(
-				style: .body,
-				title: AppStrings.ExposureSubmissionSuccess.listItem1,
-				icon: UIImage(named: "Icons - Hotline"),
-				iconTint: .enaColor(for: .riskHigh),
-				hairline: .none,
-				bottomSpacing: .normal
-			),
-			ExposureSubmissionDynamicCell.stepCell(
-				style: .body,
-				title: AppStrings.ExposureSubmissionSuccess.listItem2,
-				icon: UIImage(named: "Icons - Home"),
-				iconTint: .enaColor(for: .riskHigh),
-				hairline: .none,
-				bottomSpacing: .large
-			),
 			.title2(
 				text: AppStrings.ExposureSubmissionSuccess.subTitle,
 				accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionSuccess.subTitle

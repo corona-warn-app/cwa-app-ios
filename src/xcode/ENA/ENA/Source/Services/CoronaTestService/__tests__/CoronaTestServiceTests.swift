@@ -555,16 +555,12 @@ class CoronaTestServiceTests: CWATestCase {
 		let restServiceProvider = RestServiceProviderStub(results: [
 			.success(
 				RegistrationTokenModel(registrationToken: "registrationToken")
-			)
+			),
+			.success(TestResultModel(testResult: TestResult.pending.rawValue, sc: nil, labId: "SomeLabId"))
+
 		])
 
 		let client = ClientMock()
-		client.onGetTestResult = { _, _, completion in
-			completion(.success(.fake(
-									testResult: TestResult.pending.rawValue,
-									labId: "SomeLabId"
-			)))
-		}
 
 		let appConfiguration = CachedAppConfigurationMock()
 
@@ -660,13 +656,12 @@ class CoronaTestServiceTests: CWATestCase {
 					}
 					XCTAssertEqual(sendModel.keyDob, "xfa760e171f000ef5a7f863ab180f6f6e8185c4890224550395281d839d85458")
 				}
-			)
+			),
+			LoadResource(
+				result: .success(TestResultModel(testResult: TestResult.negative.rawValue, sc: nil, labId: nil)), willLoadResource: nil)
 		])
 
 		let client = ClientMock()
-		client.onGetTestResult = { _, _, completion in
-			completion(.success(.fake(testResult: TestResult.negative.rawValue)))
-		}
 
 		let appConfiguration = CachedAppConfigurationMock()
 		let badgeWrapper = HomeBadgeWrapper.fake()
@@ -784,13 +779,12 @@ class CoronaTestServiceTests: CWATestCase {
 					}
 					XCTAssertEqual(sendModel.keyDob, "x4a7788ef394bc7d52112014b127fe2bf142c51fe1bbb385214280e9db670193")
 				}
-			)
+			),
+			LoadResource(
+				result: .success(TestResultModel(testResult: TestResult.negative.rawValue, sc: nil, labId: nil)), willLoadResource: nil)
 		])
 
 		let client = ClientMock()
-		client.onGetTestResult = { _, _, completion in
-			completion(.success(.fake(testResult: TestResult.negative.rawValue)))
-		}
 
 		let appConfiguration = CachedAppConfigurationMock()
 		let badgeWrapper = HomeBadgeWrapper.fake()
@@ -880,14 +874,12 @@ class CoronaTestServiceTests: CWATestCase {
 					}
 					XCTAssertNil(sendModel.keyDob)
 				}
-			)
+			),
+			LoadResource(
+				result: .success(TestResultModel(testResult: TestResult.negative.rawValue, sc: nil, labId: nil)), willLoadResource: nil)
 		])
 
 		let client = ClientMock()
-
-		client.onGetTestResult = { _, _, completion in
-			completion(.success(.fake(testResult: TestResult.negative.rawValue)))
-		}
 
 		let appConfiguration = CachedAppConfigurationMock()
 
@@ -993,7 +985,7 @@ class CoronaTestServiceTests: CWATestCase {
 			expectation.fulfill()
 			switch result {
 			case .failure(let error):
-				XCTAssertEqual(error, .serviceError(.receivedResourceError(.qrAlreadyUsed)))
+				XCTAssertEqual(error, .teleTanError(.receivedResourceError(.qrAlreadyUsed)))
 			case .success:
 				XCTFail("This test should always return a failure.")
 			}
@@ -1016,13 +1008,13 @@ class CoronaTestServiceTests: CWATestCase {
 			.success(
 				RegistrationTokenModel(registrationToken: "registrationToken")
 			),
+			.failure(
+				ServiceError<TestResultError>.unexpectedServerError(500)
+			),
 			.success(SubmissionTANModel(submissionTAN: "fake"))
 		])
 
 		let client = ClientMock()
-		client.onGetTestResult = { _, _, completion in
-			completion(.failure(.serverError(500)))
-		}
 
 		let appConfiguration = CachedAppConfigurationMock()
 
@@ -1060,7 +1052,7 @@ class CoronaTestServiceTests: CWATestCase {
 			expectation.fulfill()
 			switch result {
 			case .failure(let error):
-				XCTAssertEqual(error, .responseFailure(.serverError(500)))
+				XCTAssertEqual(error, .testResultError(.unexpectedServerError(500)))
 			case .success:
 				XCTFail("This test should always return a failure.")
 			}
@@ -1318,7 +1310,7 @@ class CoronaTestServiceTests: CWATestCase {
 			expectation.fulfill()
 			switch result {
 			case .failure(let error):
-				XCTAssertEqual(error, .serviceError(.receivedResourceError(.teleTanAlreadyUsed)))
+				XCTAssertEqual(error, .teleTanError(.receivedResourceError(.teleTanAlreadyUsed)))
 			case .success:
 				XCTFail("This test should always return a failure.")
 			}
@@ -1347,17 +1339,12 @@ class CoronaTestServiceTests: CWATestCase {
 					}
 					XCTAssertNil(sendModel.keyDob)
 				}
-			)
+			),
+			LoadResource(
+				result: .success(TestResultModel(testResult: TestResult.pending.rawValue, sc: 123456789, labId: "SomeLabId")), willLoadResource: nil)
 		])
 
 		let client = ClientMock()
-		client.onGetTestResult = { _, _, completion in
-			completion(.success(.fake(
-									testResult: TestResult.pending.rawValue,
-									sc: 123456789,
-									labId: "SomeLabId"
-			)))
-		}
 
 		let store = MockTestStore()
 		let appConfiguration = CachedAppConfigurationMock()
@@ -1439,13 +1426,11 @@ class CoronaTestServiceTests: CWATestCase {
 			.success(
 				RegistrationTokenModel(registrationToken: "registrationToken")
 			),
+			.success(TestResultModel(testResult: TestResult.pending.rawValue, sc: nil, labId: nil)),
 			.success(SubmissionTANModel(submissionTAN: "fake"))
 		])
 
 		let client = ClientMock()
-		client.onGetTestResult = { _, _, completion in
-			completion(.success(.fake(testResult: TestResult.pending.rawValue)))
-		}
 
 		let store = MockTestStore()
 		let appConfiguration = CachedAppConfigurationMock()
@@ -1560,14 +1545,13 @@ class CoronaTestServiceTests: CWATestCase {
 					}
 					XCTAssertNil(sendModel.keyDob)
 				}
+			),
+			LoadResource(
+				   result: .success(TestResultModel(testResult: TestResult.negative.rawValue, sc: nil, labId: nil)), willLoadResource: nil
 			)
 		])
 
 		let client = ClientMock()
-
-		client.onGetTestResult = { _, _, completion in
-			completion(.success(.fake(testResult: TestResult.negative.rawValue)))
-		}
 
 		let appConfiguration = CachedAppConfigurationMock()
 		let badgeWrapper = HomeBadgeWrapper.fake()
@@ -1692,7 +1676,7 @@ class CoronaTestServiceTests: CWATestCase {
 			expectation.fulfill()
 			switch result {
 			case .failure(let error):
-				XCTAssertEqual(error, .serviceError(ServiceError<TeleTanError>.receivedResourceError(.qrAlreadyUsed)))
+				XCTAssertEqual(error, .teleTanError(ServiceError<TeleTanError>.receivedResourceError(.qrAlreadyUsed)))
 			case .success:
 				XCTFail("This test should always return a failure.")
 			}
@@ -1708,13 +1692,10 @@ class CoronaTestServiceTests: CWATestCase {
 
 		let restServiceProvider = RestServiceProviderStub(results: [
 			.success(RegistrationTokenModel(registrationToken: "registrationToken")),
+			.failure(ServiceError<TestResultError>.unexpectedServerError(500)),
 			.success(SubmissionTANModel(submissionTAN: "fake"))
 		]
 		)
-
-		client.onGetTestResult = { _, _, completion in
-			completion(.failure(.serverError(500)))
-		}
 
 		let store = MockTestStore()
 		let appConfiguration = CachedAppConfigurationMock()
@@ -1790,13 +1771,11 @@ class CoronaTestServiceTests: CWATestCase {
 
 	func testUpdatePCRTestResult_success() {
 		let restServiceProvider = RestServiceProviderStub(results: [
+			.success(TestResultModel(testResult: TestResult.positive.rawValue, sc: nil, labId: nil)),
 			.success(SubmissionTANModel(submissionTAN: "fake"))
 		])
 
 		let client = ClientMock()
-		client.onGetTestResult = { _, _, completion in
-			completion(.success(.fake(testResult: TestResult.positive.rawValue)))
-		}
 
 		let store = MockTestStore()
 		let appConfiguration = CachedAppConfigurationMock()
@@ -1853,13 +1832,11 @@ class CoronaTestServiceTests: CWATestCase {
 
 	func testUpdateAntigenTestResult_success() {
 		let restServiceProvider = RestServiceProviderStub(results: [
+			.success(TestResultModel(testResult: TestResult.positive.rawValue, sc: nil, labId: nil)),
 			.success(SubmissionTANModel(submissionTAN: "fake"))
 		])
 		
 		let client = ClientMock()
-		client.onGetTestResult = { _, _, completion in
-			completion(.success(.fake(testResult: TestResult.positive.rawValue)))
-		}
 		
 		let store = MockTestStore()
 		let appConfiguration = CachedAppConfigurationMock()
@@ -2101,13 +2078,11 @@ class CoronaTestServiceTests: CWATestCase {
 	func test_When_UpdatePresentNotificationTrue_Then_NotificationShouldBePresented() {
 		let mockNotificationCenter = MockUserNotificationCenter()
 		let client = ClientMock()
-		client.onGetTestResult = { _, _, completion in
-			completion(.success(.fake(testResult: TestResult.positive.rawValue)))
-		}
-
+		
 		let store = MockTestStore()
 		let appConfiguration = CachedAppConfigurationMock()
 		let restServiceProvider = RestServiceProviderStub(results: [
+			.success(TestResultModel(testResult: TestResult.pending.rawValue, sc: nil, labId: "SomeLabId")),
 			.success(SubmissionTANModel(submissionTAN: "fake")),
 			.success(SubmissionTANModel(submissionTAN: "fake")),
 			.success(SubmissionTANModel(submissionTAN: "fake")),
@@ -2165,15 +2140,18 @@ class CoronaTestServiceTests: CWATestCase {
 	func test_When_UpdatePresentNotificationFalse_Then_NotificationShouldNOTBePresented() {
 		let mockNotificationCenter = MockUserNotificationCenter()
 		let client = ClientMock()
-		client.onGetTestResult = { _, _, completion in
-			completion(.success(.fake(testResult: TestResult.positive.rawValue)))
-		}
 
+		let restServiceProvider = RestServiceProviderStub(results: [
+			.success(TestResultModel(testResult: TestResult.positive.rawValue, sc: nil, labId: "SomeLabId")),
+			.success(RegistrationTokenModel(registrationToken: "token"))
+		])
+		
 		let store = MockTestStore()
 		let appConfiguration = CachedAppConfigurationMock()
 
 		let testService = CoronaTestService(
 			client: client,
+			restServiceProvider: restServiceProvider,
 			store: store,
 			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
@@ -2207,15 +2185,18 @@ class CoronaTestServiceTests: CWATestCase {
 
 	func test_When_UpdateTestResultsFails_Then_ErrorIsReturned() {
 		let client = ClientMock()
-		client.onGetTestResult = { _, _, completion in
-			completion(.failure(.invalidResponse))
-		}
+		
+		let restServiceProvider = RestServiceProviderStub(results: [
+			.failure(ServiceError<TestResultError>.invalidResponse),
+			.success(RegistrationTokenModel(registrationToken: "token"))
+		])
 
 		let store = MockTestStore()
 		let appConfiguration = CachedAppConfigurationMock()
 
 		let testService = CoronaTestService(
 			client: client,
+			restServiceProvider: restServiceProvider,
 			store: store,
 			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
@@ -2250,15 +2231,18 @@ class CoronaTestServiceTests: CWATestCase {
 	func test_When_UpdateTestResultsSuccessWithPending_Then_NoNotificationIsShown() {
 		let mockNotificationCenter = MockUserNotificationCenter()
 		let client = ClientMock()
-		client.onGetTestResult = { _, _, completion in
-			completion(.success(.fake(testResult: TestResult.pending.rawValue)))
-		}
+		
+		let restServiceProvider = RestServiceProviderStub(results: [
+			.success(TestResultModel(testResult: TestResult.pending.rawValue, sc: nil, labId: "SomeLabId")),
+			.success(TestResultModel(testResult: TestResult.pending.rawValue, sc: nil, labId: "SomeLabId"))
+		])
 
 		let store = MockTestStore()
 		let appConfiguration = CachedAppConfigurationMock()
 
 		let testService = CoronaTestService(
 			client: client,
+			restServiceProvider: restServiceProvider,
 			store: store,
 			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
@@ -2294,16 +2278,19 @@ class CoronaTestServiceTests: CWATestCase {
 		let mockNotificationCenter = MockUserNotificationCenter()
 		let client = ClientMock()
 		let sampleCollectionDate = Date()
-
-		client.onGetTestResult = { _, _, completion in
-			completion(.success(.fake(testResult: TestResult.positive.rawValue, sc: Int(sampleCollectionDate.timeIntervalSince1970))))
-		}
+		
+		let restServiceProvider = RestServiceProviderStub(results: [
+			.success(TestResultModel(testResult: TestResult.positive.rawValue, sc: Int(sampleCollectionDate.timeIntervalSince1970), labId: "SomeLabId")),
+			.success(TestResultModel(testResult: TestResult.positive.rawValue, sc: Int(sampleCollectionDate.timeIntervalSince1970), labId: "SomeLabId"))
+		])
+		
 
 		let diaryStore = MockDiaryStore()
 		let store = MockTestStore()
 		let appConfiguration = CachedAppConfigurationMock()
 		let testService = CoronaTestService(
 			client: client,
+			restServiceProvider: restServiceProvider,
 			store: store,
 			eventStore: MockEventStore(),
 			diaryStore: diaryStore,
@@ -2353,15 +2340,18 @@ class CoronaTestServiceTests: CWATestCase {
 	func test_When_UpdateTestResultSuccessWithPending_Then_ContactJournalHasNoEntry() throws {
 		let mockNotificationCenter = MockUserNotificationCenter()
 		let client = ClientMock()
-		client.onGetTestResult = { _, _, completion in
-			completion(.success(.fake(testResult: TestResult.pending.rawValue)))
-		}
+		
+		let restServiceProvider = RestServiceProviderStub(results: [
+			.success(TestResultModel(testResult: TestResult.pending.rawValue, sc: nil, labId: nil)),
+			.success(TestResultModel(testResult: TestResult.pending.rawValue, sc: nil, labId: nil))
+		])
 
 		let diaryStore = MockDiaryStore()
 		let store = MockTestStore()
 		let appConfiguration = CachedAppConfigurationMock()
 		let testService = CoronaTestService(
 			client: client,
+			restServiceProvider: restServiceProvider,
 			store: store,
 			eventStore: MockEventStore(),
 			diaryStore: diaryStore,
@@ -2399,15 +2389,18 @@ class CoronaTestServiceTests: CWATestCase {
 	func test_When_UpdateTestResultSuccessWithExpired_Then_ContactJournalHasNoEntry() throws {
 		let mockNotificationCenter = MockUserNotificationCenter()
 		let client = ClientMock()
-		client.onGetTestResult = { _, _, completion in
-			completion(.success(.fake(testResult: TestResult.expired.rawValue)))
-		}
+		
+		let restServiceProvider = RestServiceProviderStub(results: [
+			.success(TestResultModel(testResult: TestResult.expired.rawValue, sc: nil, labId: nil)),
+			.success(TestResultModel(testResult: TestResult.expired.rawValue, sc: nil, labId: nil))
+		])
 
 		let diaryStore = MockDiaryStore()
 		let store = MockTestStore()
 		let appConfiguration = CachedAppConfigurationMock()
 		let testService = CoronaTestService(
 			client: client,
+			restServiceProvider: restServiceProvider,
 			store: store,
 			eventStore: MockEventStore(),
 			diaryStore: diaryStore,
@@ -2445,16 +2438,19 @@ class CoronaTestServiceTests: CWATestCase {
 	func test_When_UpdateTestResultSuccessWithInvalid_Then_ContactJournalHasNoEntry() throws {
 		let mockNotificationCenter = MockUserNotificationCenter()
 		let client = ClientMock()
-		client.onGetTestResult = { _, _, completion in
-			completion(.success(.fake(testResult: TestResult.invalid.rawValue)))
-		}
 
+		let restServiceProvider = RestServiceProviderStub(results: [
+			.success(TestResultModel(testResult: TestResult.invalid.rawValue, sc: nil, labId: nil)),
+			.success(TestResultModel(testResult: TestResult.invalid.rawValue, sc: nil, labId: nil))
+		])
+		
 		let diaryStore = MockDiaryStore()
 		let store = MockTestStore()
 		let appConfiguration = CachedAppConfigurationMock()
 
 		let testService = CoronaTestService(
 			client: client,
+			restServiceProvider: restServiceProvider,
 			store: store,
 			eventStore: MockEventStore(),
 			diaryStore: diaryStore,
@@ -2492,9 +2488,11 @@ class CoronaTestServiceTests: CWATestCase {
 	func test_When_UpdateTestResultSuccessWithNegative_Then_ContactJournalHasAnEntry() throws {
 		let mockNotificationCenter = MockUserNotificationCenter()
 		let client = ClientMock()
-		client.onGetTestResult = { _, _, completion in
-			completion(.success(.fake(testResult: TestResult.negative.rawValue)))
-		}
+		
+		let restServiceProvider = RestServiceProviderStub(results: [
+			.success(TestResultModel(testResult: TestResult.negative.rawValue, sc: nil, labId: nil)),
+			.success(TestResultModel(testResult: TestResult.negative.rawValue, sc: nil, labId: nil))
+		])
 
 		let diaryStore = MockDiaryStore()
 		let store = MockTestStore()
@@ -2502,6 +2500,7 @@ class CoronaTestServiceTests: CWATestCase {
 
 		let testService = CoronaTestService(
 			client: client,
+			restServiceProvider: restServiceProvider,
 			store: store,
 			eventStore: MockEventStore(),
 			diaryStore: diaryStore,
@@ -2539,14 +2538,17 @@ class CoronaTestServiceTests: CWATestCase {
 	func test_When_UpdateTestResultsSuccessWithExpired_Then_NoNotificationIsShown() {
 		let mockNotificationCenter = MockUserNotificationCenter()
 		let client = ClientMock()
-		client.onGetTestResult = { _, _, completion in
-			completion(.success(.fake(testResult: TestResult.expired.rawValue)))
-		}
+		
+		let restServiceProvider = RestServiceProviderStub(results: [
+			.success(TestResultModel(testResult: TestResult.expired.rawValue, sc: nil, labId: nil)),
+			.success(TestResultModel(testResult: TestResult.expired.rawValue, sc: nil, labId: nil))
+		])
 
 		let store = MockTestStore()
 		let appConfiguration = CachedAppConfigurationMock()
 		let testService = CoronaTestService(
 			client: client,
+			restServiceProvider: restServiceProvider,
 			store: store,
 			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
@@ -2583,10 +2585,30 @@ class CoronaTestServiceTests: CWATestCase {
 		let client = ClientMock()
 		let store = MockTestStore()
 		let appConfiguration = CachedAppConfigurationMock()
-
+		
+		let getTestResultExpectation = expectation(description: "Get Test result should be called.")
+		getTestResultExpectation.expectedFulfillmentCount = 2
+		
+		let restServiceProvider = RestServiceProviderStub(loadResources: [
+			LoadResource(
+				result: .success(TestResultModel(testResult: TestResult.expired.rawValue, sc: nil, labId: "SomeLabId")),
+				willLoadResource: { res in
+					if let resource = res as? TestResultResource, !resource.locator.isFake {
+						getTestResultExpectation.fulfill()
+					}
+				}),
+			LoadResource(
+				result: .success(TestResultModel(testResult: TestResult.expired.rawValue, sc: nil, labId: "SomeLabId")),
+				willLoadResource: { res in
+					if let resource = res as? TestResultResource, !resource.locator.isFake {
+						getTestResultExpectation.fulfill()
+					}
+				})
+		])
 
 		let testService = CoronaTestService(
 			client: client,
+			restServiceProvider: restServiceProvider,
 			store: store,
 			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
@@ -2614,14 +2636,6 @@ class CoronaTestServiceTests: CWATestCase {
 			registrationToken: "regToken",
 			finalTestResultReceivedDate: Date()
 		)
-
-		let getTestResultExpectation = expectation(description: "Get Test result should be called.")
-		getTestResultExpectation.expectedFulfillmentCount = 2
-
-		client.onGetTestResult = { _, _, completion in
-			getTestResultExpectation.fulfill()
-			completion(.success(.fake(testResult: TestResult.expired.rawValue)))
-		}
 
 		testService.updateTestResults(force: true, presentNotification: false) { _ in }
 
@@ -2633,10 +2647,23 @@ class CoronaTestServiceTests: CWATestCase {
 		let client = ClientMock()
 		let store = MockTestStore()
 		let appConfiguration = CachedAppConfigurationMock()
-
+		
+		let getTestResultExpectation = expectation(description: "Get Test result should NOT be called.")
+		getTestResultExpectation.isInverted = true
+		
+		let restServiceProvider = RestServiceProviderStub(loadResources: [
+			LoadResource(
+				result: .success(TestResultModel(testResult: TestResult.expired.rawValue, sc: nil, labId: "SomeLabId")),
+				willLoadResource: { res in
+					if let resource = res as? TestResultResource, !resource.locator.isFake {
+						getTestResultExpectation.fulfill()
+					}
+				})
+		])
 
 		let testService = CoronaTestService(
 			client: client,
+			restServiceProvider: restServiceProvider,
 			store: store,
 			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
@@ -2664,13 +2691,6 @@ class CoronaTestServiceTests: CWATestCase {
 			registrationToken: "regToken",
 			finalTestResultReceivedDate: Date()
 		)
-
-		let getTestResultExpectation = expectation(description: "Get Test result should NOT be called.")
-		getTestResultExpectation.isInverted = true
-
-		client.onGetTestResult = { _, _, _ in
-			getTestResultExpectation.fulfill()
-		}
 
 		testService.updateTestResults(force: false, presentNotification: false) { _ in }
 
@@ -2683,9 +2703,29 @@ class CoronaTestServiceTests: CWATestCase {
 		let store = MockTestStore()
 		let appConfiguration = CachedAppConfigurationMock()
 
-
+		let getTestResultExpectation = expectation(description: "Get Test result should be called.")
+		getTestResultExpectation.expectedFulfillmentCount = 2
+		
+		let restServiceProvider = RestServiceProviderStub(loadResources: [
+			LoadResource(
+				result: .success(TestResultModel(testResult: TestResult.expired.rawValue, sc: nil, labId: "SomeLabId")),
+				willLoadResource: { res in
+					if let resource = res as? TestResultResource, !resource.locator.isFake {
+						getTestResultExpectation.fulfill()
+					}
+				}),
+			LoadResource(
+				result: .success(TestResultModel(testResult: TestResult.expired.rawValue, sc: nil, labId: "SomeLabId")),
+				willLoadResource: { res in
+					if let resource = res as? TestResultResource, !resource.locator.isFake {
+						getTestResultExpectation.fulfill()
+					}
+				})
+		])
+		
 		let testService = CoronaTestService(
 			client: client,
+			restServiceProvider: restServiceProvider,
 			store: store,
 			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
@@ -2713,14 +2753,6 @@ class CoronaTestServiceTests: CWATestCase {
 			registrationToken: "regToken",
 			finalTestResultReceivedDate: nil
 		)
-
-		let getTestResultExpectation = expectation(description: "Get Test result should be called.")
-		getTestResultExpectation.expectedFulfillmentCount = 2
-
-		client.onGetTestResult = { _, _, completion in
-			getTestResultExpectation.fulfill()
-			completion(.success(.fake(testResult: TestResult.expired.rawValue)))
-		}
 
 		testService.updateTestResults(force: false, presentNotification: false) { _ in }
 
@@ -2735,9 +2767,29 @@ class CoronaTestServiceTests: CWATestCase {
 
 		let registrationDate = try XCTUnwrap(Calendar.current.date(byAdding: .day, value: -21, to: Date()))
 
+		let getTestResultExpectation = expectation(description: "Get Test result should NOT be called.")
+		getTestResultExpectation.isInverted = true
+		
+		let restServiceProvider = RestServiceProviderStub(loadResources: [
+			LoadResource(
+				result: .success(TestResultModel(testResult: TestResult.expired.rawValue, sc: nil, labId: "SomeLabId")),
+				willLoadResource: { res in
+					if let resource = res as? TestResultResource, !resource.locator.isFake {
+						getTestResultExpectation.fulfill()
+					}
+				}),
+			LoadResource(
+				result: .success(TestResultModel(testResult: TestResult.expired.rawValue, sc: nil, labId: "SomeLabId")),
+				willLoadResource: { res in
+					if let resource = res as? TestResultResource, !resource.locator.isFake {
+						getTestResultExpectation.fulfill()
+					}
+				})
+		])
 
 		let testService = CoronaTestService(
 			client: client,
+			restServiceProvider: restServiceProvider,
 			store: store,
 			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
@@ -2768,13 +2820,6 @@ class CoronaTestServiceTests: CWATestCase {
 			testResult: .expired
 		)
 
-		let getTestResultExpectation = expectation(description: "Get Test result should NOT be called.")
-		getTestResultExpectation.isInverted = true
-
-		client.onGetTestResult = { _, _, _ in
-			getTestResultExpectation.fulfill()
-		}
-
 		testService.updateTestResults(force: false, presentNotification: false) { _ in }
 
 		waitForExpectations(timeout: .short)
@@ -2785,10 +2830,24 @@ class CoronaTestServiceTests: CWATestCase {
 		let client = ClientMock()
 		let store = MockTestStore()
 		let appConfiguration = CachedAppConfigurationMock()
+		
+		let getTestResultExpectation = expectation(description: "Get Test result should NOT be called.")
+		getTestResultExpectation.isInverted = true
+		
+		let restServiceProvider = RestServiceProviderStub(loadResources: [
+			LoadResource(
+				result: .success(TestResultModel(testResult: TestResult.expired.rawValue, sc: nil, labId: "SomeLabId")),
+				willLoadResource: { res in
+					if let resource = res as? TestResultResource, !resource.locator.isFake {
+						getTestResultExpectation.fulfill()
+					}
+				})
+		])
 
 		let pointOfCareConsentDate = try XCTUnwrap(Calendar.current.date(byAdding: .day, value: -21, to: Date()))
 		let testService = CoronaTestService(
 			client: client,
+			restServiceProvider: restServiceProvider,
 			store: store,
 			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
@@ -2815,13 +2874,6 @@ class CoronaTestServiceTests: CWATestCase {
 			testResult: .expired
 		)
 
-		let getTestResultExpectation = expectation(description: "Get Test result should NOT be called.")
-		getTestResultExpectation.isInverted = true
-
-		client.onGetTestResult = { _, _, _ in
-			getTestResultExpectation.fulfill()
-		}
-
 		testService.updateTestResults(force: false, presentNotification: false) { _ in }
 
 		waitForExpectations(timeout: .short)
@@ -2835,8 +2887,30 @@ class CoronaTestServiceTests: CWATestCase {
 
 		let dateComponents = DateComponents(day: -21, second: 10)
 		let registrationDate = try XCTUnwrap(Calendar.current.date(byAdding: dateComponents, to: Date()))
+		
+		let getTestResultExpectation = expectation(description: "Get Test result should be called.")
+		getTestResultExpectation.expectedFulfillmentCount = 2
+		
+		let restServiceProvider = RestServiceProviderStub(loadResources: [
+			LoadResource(
+				result: .success(TestResultModel(testResult: TestResult.expired.rawValue, sc: nil, labId: "SomeLabId")),
+				willLoadResource: { res in
+					if let resource = res as? TestResultResource, !resource.locator.isFake {
+						getTestResultExpectation.fulfill()
+					}
+				}),
+			LoadResource(
+				result: .success(TestResultModel(testResult: TestResult.expired.rawValue, sc: nil, labId: "SomeLabId")),
+				willLoadResource: { res in
+					if let resource = res as? TestResultResource, !resource.locator.isFake {
+						getTestResultExpectation.fulfill()
+					}
+				})
+		])
+		
 		let testService = CoronaTestService(
 			client: client,
+			restServiceProvider: restServiceProvider,
 			store: store,
 			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
@@ -2867,14 +2941,6 @@ class CoronaTestServiceTests: CWATestCase {
 			testResult: .expired
 		)
 
-		let getTestResultExpectation = expectation(description: "Get Test result should be called.")
-		getTestResultExpectation.expectedFulfillmentCount = 2
-
-		client.onGetTestResult = { _, _, completion in
-			getTestResultExpectation.fulfill()
-			completion(.success(.fake(testResult: TestResult.expired.rawValue)))
-		}
-
 		testService.updateTestResults(force: false, presentNotification: false) { _ in }
 
 		waitForExpectations(timeout: .short)
@@ -2888,9 +2954,22 @@ class CoronaTestServiceTests: CWATestCase {
 
 		let dateComponents = DateComponents(day: -21, second: 10)
 		let pointOfCareConsentDate = try XCTUnwrap(Calendar.current.date(byAdding: dateComponents, to: Date()))
-
+		
+		let getTestResultExpectation = expectation(description: "Get Test result should be called.")
+		
+		let restServiceProvider = RestServiceProviderStub(loadResources: [
+			LoadResource(
+				result: .success(TestResultModel(testResult: TestResult.expired.rawValue, sc: nil, labId: "SomeLabId")),
+				willLoadResource: { res in
+					if let resource = res as? TestResultResource, !resource.locator.isFake {
+						getTestResultExpectation.fulfill()
+					}
+				})
+		])
+		
 		let testService = CoronaTestService(
 			client: client,
+			restServiceProvider: restServiceProvider,
 			store: store,
 			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
@@ -2915,14 +2994,7 @@ class CoronaTestServiceTests: CWATestCase {
 			registrationDate: pointOfCareConsentDate,
 			testResult: .expired
 		)
-
-		let getTestResultExpectation = expectation(description: "Get Test result should be called.")
-
-		client.onGetTestResult = { _, _, completion in
-			getTestResultExpectation.fulfill()
-			completion(.success(.fake(testResult: TestResult.expired.rawValue)))
-		}
-
+		
 		testService.updateTestResults(force: false, presentNotification: false) { _ in }
 
 		waitForExpectations(timeout: .short)
@@ -2930,10 +3002,9 @@ class CoronaTestServiceTests: CWATestCase {
 
 	func test_When_UpdatingPCRTestResultWithErrorCode400_And_RegistrationDateOlderThan21Days_Then_ExpiredTestResultIsSetAndReturnedWithoutError() throws {
 		let client = ClientMock()
-		client.onGetTestResult = { _, _, completion in
-			completion(.failure(.qrDoesNotExist))
-		}
+		
 		let restServiceProvider = RestServiceProviderStub(results: [
+			.failure(ServiceError<TestResultError>.receivedResourceError(.qrDoesNotExist)),
 			.success(SubmissionTANModel(submissionTAN: "fake"))
 		])
 		let dateComponents = DateComponents(day: -21)
@@ -2983,10 +3054,9 @@ class CoronaTestServiceTests: CWATestCase {
 
 	func test_When_UpdatingPCRTestResultWithErrorCode400_And_RegistrationDateYoungerThan21Days_Then_ExpiredTestResultIsSetAndErrorReturned() throws {
 		let client = ClientMock()
-		client.onGetTestResult = { _, _, completion in
-			completion(.failure(.qrDoesNotExist))
-		}
+
 		let restServiceProvider = RestServiceProviderStub(results: [
+			.failure(ServiceError<TestResultError>.receivedResourceError(.qrDoesNotExist)),
 			.success(SubmissionTANModel(submissionTAN: "fake"))
 		])
 		let registrationDate = try XCTUnwrap(Calendar.current.date(byAdding: DateComponents(day: -21, second: 10), to: Date()))
@@ -3025,7 +3095,7 @@ class CoronaTestServiceTests: CWATestCase {
 		let completionExpectation = expectation(description: "Completion should be called.")
 
 		testService.updateTestResult(for: .pcr, force: true, presentNotification: false) {
-			XCTAssertEqual($0, .failure(.responseFailure(.qrDoesNotExist)))
+			XCTAssertEqual($0, .failure(.testResultError(.receivedResourceError(.qrDoesNotExist))))
 			XCTAssertEqual(testService.pcrTest?.testResult, .expired)
 			completionExpectation.fulfill()
 		}
@@ -3035,10 +3105,9 @@ class CoronaTestServiceTests: CWATestCase {
 
 	func test_When_UpdatingAntigenTestResultWithErrorCode400_And_RegistrationDateOlderThan21Days_Then_ExpiredTestResultIsSetAndReturnedWithoutError() throws {
 		let client = ClientMock()
-		client.onGetTestResult = { _, _, completion in
-			completion(.failure(.qrDoesNotExist))
-		}
+
 		let restServiceProvider = RestServiceProviderStub(results: [
+			.failure(ServiceError<TestResultError>.receivedResourceError(.qrDoesNotExist)),
 			.success(SubmissionTANModel(submissionTAN: "fake"))
 		])
 		let dateComponents = DateComponents(day: -21)
@@ -3091,10 +3160,9 @@ class CoronaTestServiceTests: CWATestCase {
 
 	func test_When_UpdatingAntigenTestResultWithErrorCode400_And_RegistrationDateYoungerThan21Days_Then_ExpiredTestResultIsSetAndErrorReturned() throws {
 		let client = ClientMock()
-		client.onGetTestResult = { _, _, completion in
-			completion(.failure(.qrDoesNotExist))
-		}
+
 		let restServiceProvider = RestServiceProviderStub(results: [
+			.failure(ServiceError<TestResultError>.receivedResourceError(.qrDoesNotExist)),
 			.success(SubmissionTANModel(submissionTAN: "fake"))
 		])
 		let registrationDate = try XCTUnwrap(Calendar.current.date(byAdding: DateComponents(day: -21, second: 10), to: Date()))
@@ -3136,7 +3204,7 @@ class CoronaTestServiceTests: CWATestCase {
 		let completionExpectation = expectation(description: "Completion should be called.")
 
 		testService.updateTestResult(for: .antigen, force: true, presentNotification: false) {
-			XCTAssertEqual($0, .failure(.responseFailure(.qrDoesNotExist)))
+			XCTAssertEqual($0, .failure(.testResultError(.receivedResourceError(.qrDoesNotExist))))
 			XCTAssertEqual(testService.antigenTest?.testResult, .expired)
 			completionExpectation.fulfill()
 		}
@@ -3146,10 +3214,10 @@ class CoronaTestServiceTests: CWATestCase {
 
 	func test_When_UpdatingAntigenTestResultWithErrorCode400_And_PointOfCareConsentDateOlderThan21Days_Then_ExpiredTestResultIsSetAndReturnedWithoutError() throws {
 		let client = ClientMock()
-		client.onGetTestResult = { _, _, completion in
-			completion(.failure(.qrDoesNotExist))
-		}
+		
+		
 		let restServiceProvider = RestServiceProviderStub(results: [
+			.failure(ServiceError<TestResultError>.receivedResourceError(.qrDoesNotExist)),
 			.success(SubmissionTANModel(submissionTAN: "fake"))
 		])
 		let dateComponents = DateComponents(day: -21)
@@ -3200,10 +3268,9 @@ class CoronaTestServiceTests: CWATestCase {
 
 	func test_When_UpdatingAntigenTestResultWithErrorCode400_And_PointOfCareConsentDateYoungerThan21Days_Then_ExpiredTestResultIsSetAndErrorReturned() throws {
 		let client = ClientMock()
-		client.onGetTestResult = { _, _, completion in
-			completion(.failure(.qrDoesNotExist))
-		}
+
 		let restServiceProvider = RestServiceProviderStub(results: [
+			.failure(ServiceError<TestResultError>.receivedResourceError(.qrDoesNotExist)),
 			.success(SubmissionTANModel(submissionTAN: "fake"))
 		])
 
@@ -3245,7 +3312,7 @@ class CoronaTestServiceTests: CWATestCase {
 		let completionExpectation = expectation(description: "Completion should be called.")
 
 		testService.updateTestResult(for: .antigen, force: true, presentNotification: false) {
-			XCTAssertEqual($0, .failure(.responseFailure(.qrDoesNotExist)))
+			XCTAssertEqual($0, .failure(.testResultError(.receivedResourceError(.qrDoesNotExist))))
 			XCTAssertEqual(testService.antigenTest?.testResult, .expired)
 			completionExpectation.fulfill()
 		}
@@ -3503,14 +3570,6 @@ class CoronaTestServiceTests: CWATestCase {
 
 		let client = ClientMock()
 
-		client.onGetTestResult = { _, isFake, completion in
-			expectation.fulfill()
-			XCTAssertFalse(isFake)
-			XCTAssertEqual(count, 0)
-			count += 1
-			completion(.success(.fake(testResult: testResult.rawValue)))
-		}
-
 		client.onSubmitCountries = { _, isFake, completion in
 			expectation.fulfill()
 			XCTAssertTrue(isFake)
@@ -3522,6 +3581,19 @@ class CoronaTestServiceTests: CWATestCase {
 		let store = MockTestStore()
 		let appConfiguration = CachedAppConfigurationMock()
 		let restServiceProvider = RestServiceProviderStub(loadResources: [
+			LoadResource(
+				result: .success(TestResultModel(testResult: testResult.rawValue, sc: nil, labId: nil)),
+				willLoadResource: { resource in
+					guard let resource = resource as? TestResultResource  else {
+						XCTFail("TestResultResource expected.")
+						return
+					}
+					expectation.fulfill()
+					XCTAssertFalse(resource.locator.isFake)
+					XCTAssertEqual(count, 0)
+					count += 1
+				}
+			),
 			LoadResource(
 				result: .success(
 					SubmissionTANModel(submissionTAN: "fake")

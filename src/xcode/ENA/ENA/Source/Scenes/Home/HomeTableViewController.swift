@@ -23,6 +23,7 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 		onTraceLocationsCellTap: @escaping () -> Void,
 		onInviteFriendsCellTap: @escaping () -> Void,
 		onFAQCellTap: @escaping () -> Void,
+		onSocialMediaCellTap: @escaping () -> Void,
 		onAppInformationCellTap: @escaping () -> Void,
 		onSettingsCellTap: @escaping (ENStateHandler.State) -> Void,
 		onRecycleBinCellTap: @escaping () -> Void,
@@ -44,6 +45,7 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 		self.onTraceLocationsCellTap = onTraceLocationsCellTap
 		self.onInviteFriendsCellTap = onInviteFriendsCellTap
 		self.onFAQCellTap = onFAQCellTap
+		self.onSocialMediaCellTap = onSocialMediaCellTap
 		self.onAppInformationCellTap = onAppInformationCellTap
 		self.onSettingsCellTap = onSettingsCellTap
 		self.onRecycleBinCellTap = onRecycleBinCellTap
@@ -301,6 +303,7 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 	private let onInviteFriendsCellTap: () -> Void
 	private let onFAQCellTap: () -> Void
 	private let onAppInformationCellTap: () -> Void
+	private let onSocialMediaCellTap: () -> Void
 	private let onSettingsCellTap: (ENStateHandler.State) -> Void
 	private let onRecycleBinCellTap: () -> Void
 	private let showTestInformationResult: (Result<CoronaTestRegistrationInformation, QRCodeError>) -> Void
@@ -650,6 +653,8 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 				self.onAppInformationCellTap()
 			case .faq:
 				self.onFAQCellTap()
+			case .socialMedia:
+				self.onSocialMediaCellTap()
 			case .share:
 				self.onInviteFriendsCellTap()
 			}
