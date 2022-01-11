@@ -21,12 +21,14 @@ class RulesDownloadService: RulesDownloadServiceProviding {
 		validationRulesAccess: ValidationRulesAccessing = ValidationRulesAccess(),
 		signatureVerifier: SignatureVerification = SignatureVerifier(),
 		store: Store,
-		client: Client
+		client: Client,  // client will be removed if no longer needed later
+		restServiceProvider: RestServiceProviding
 	) {
 		self.validationRulesAccess = validationRulesAccess
 		self.signatureVerifier = signatureVerifier
 		self.store = store
 		self.client = client
+		self.restServiceProvider = restServiceProvider
 	}
 	
 	// MARK: - Protocol RulesDownloadServiceProviding
@@ -54,6 +56,7 @@ class RulesDownloadService: RulesDownloadServiceProviding {
 
 	private let store: Store
 	private let client: Client
+	private let restServiceProvider: RestServiceProviding
 	private let validationRulesAccess: ValidationRulesAccessing
 	private let signatureVerifier: SignatureVerification
 		
@@ -102,7 +105,8 @@ class RulesDownloadService: RulesDownloadServiceProviding {
 		Log.info("Download booster rules.")
 
 		client.getBoosterNotificationRules(
-			eTag: eTag, isFake: false,
+			eTag: eTag,
+			isFake: false,
 			completion: { [weak self] result in
 				guard let self = self else {
 					Log.error("Could not create strong self", log: .vaccination)
