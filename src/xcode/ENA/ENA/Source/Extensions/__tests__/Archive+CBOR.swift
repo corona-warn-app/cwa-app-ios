@@ -7,7 +7,7 @@ import ZIPFoundation
 
 extension Archive {
 	
-	public static func createArchiveData(with accessMode: AccessMode, of cborData: Data) throws -> Data {
+	public static func createArchiveData(accessMode: AccessMode, cborData: Data) throws -> Data {
 		guard let archive = Archive(accessMode: accessMode) else {
 			throw ArchivingError.creationError
 		}
