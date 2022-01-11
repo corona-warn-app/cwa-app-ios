@@ -59,6 +59,9 @@ class ENAUITests_05_DataDonation: CWATestCase {
 		XCTAssertTrue(app.tables[AccessibilityIdentifiers.DataDonation.regionCell].waitForExistence(timeout: .short))
 		app.cells.element(boundBy: 2).waitAndTap()
 		XCTAssertTrue(app.switches[AccessibilityIdentifiers.DataDonation.consentSwitch].waitForExistence(timeout: .short))
+		
+		// For small iPhones like iPhone 13 mini the ageGroup Cell is under the tabBarButton somehow so we new to scroll or else it will hit the universal scanner button by mistake
+		app.swipeUp(velocity: .slow)
 
 		// Now we want to select a ageGroup. So tap onto the ageGroup cell, choose one and return to dataDonation.
 		app.cells[AccessibilityIdentifiers.DataDonation.ageGroup].waitAndTap()
