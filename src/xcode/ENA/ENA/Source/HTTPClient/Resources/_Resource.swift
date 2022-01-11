@@ -51,6 +51,7 @@ enum ResourceError: Error {
 	case signatureVerification
 	case notModified
 	case undefined
+	case missingEtag
 }
 
 #if !RELEASE

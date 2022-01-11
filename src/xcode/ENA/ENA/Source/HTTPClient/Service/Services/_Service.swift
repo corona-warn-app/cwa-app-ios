@@ -58,7 +58,8 @@ protocol Service {
 	func decodeModel<R>(
 		_ resource: R,
 		_ bodyData: Data?,
-		_ response: HTTPURLResponse?,
+		_ headers: [AnyHashable: Any],
+		_ isCachedData: Bool,
 		_ completion: @escaping (Result<R.Receive.ReceiveModel, ServiceError<R.CustomError>>) -> Void
 	) where R: Resource
 
