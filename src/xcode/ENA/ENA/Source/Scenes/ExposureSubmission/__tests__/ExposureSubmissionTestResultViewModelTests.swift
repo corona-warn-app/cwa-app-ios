@@ -25,9 +25,16 @@ class ExposureSubmissionTestResultViewModelTests: CWATestCase {
 		let store = MockTestStore()
 		let appConfiguration = CachedAppConfigurationMock()
 		
-		client.onGetTestResult = { _, _, _ in
-			getTestResultExpectation.fulfill()
-		}
+		
+		let restServiceProvider = RestServiceProviderStub(loadResources: [
+			LoadResource(
+				result: .success(TestResultModel(testResult: TestResult.expired.rawValue, sc: nil, labId: "SomeLabId")),
+				willLoadResource: { res in
+					if let resource = res as? TestResultResource, !resource.locator.isFake {
+						getTestResultExpectation.fulfill()
+					}
+				})
+		])
 		
 		let onContinueWithSymptomsFlowButtonTapExpectation = expectation(
 			description: "onContinueWithSymptomsFlowButtonTap closure is called"
@@ -35,6 +42,7 @@ class ExposureSubmissionTestResultViewModelTests: CWATestCase {
 		
 		let coronaTestService = CoronaTestService(
 			client: client,
+			restServiceProvider: restServiceProvider,
 			store: store,
 			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
@@ -87,9 +95,16 @@ class ExposureSubmissionTestResultViewModelTests: CWATestCase {
 			let store = MockTestStore()
 			let appConfiguration = CachedAppConfigurationMock()
 			
-			client.onGetTestResult = { _, _, _ in
-				getTestResultExpectation.fulfill()
-			}
+			let restServiceProvider = RestServiceProviderStub(loadResources: [
+				LoadResource(
+					result: .success(TestResultModel(testResult: TestResult.expired.rawValue, sc: nil, labId: "SomeLabId")),
+					willLoadResource: { res in
+						if let resource = res as? TestResultResource, !resource.locator.isFake {
+							getTestResultExpectation.fulfill()
+						}
+					})
+			])
+
 			
 			let onContinueWithSymptomsFlowButtonTapExpectation = expectation(
 				description: "onContinueWithSymptomsFlowButtonTap closure is called"
@@ -98,6 +113,7 @@ class ExposureSubmissionTestResultViewModelTests: CWATestCase {
 			
 			let coronaTestService = CoronaTestService(
 				client: client,
+				restServiceProvider: restServiceProvider,
 				store: store,
 				eventStore: MockEventStore(),
 				diaryStore: MockDiaryStore(),
@@ -148,9 +164,15 @@ class ExposureSubmissionTestResultViewModelTests: CWATestCase {
 		let store = MockTestStore()
 		let appConfiguration = CachedAppConfigurationMock()
 		
-		client.onGetTestResult = { _, _, _ in
-			getTestResultExpectation.fulfill()
-		}
+		let restServiceProvider = RestServiceProviderStub(loadResources: [
+			LoadResource(
+				result: .success(TestResultModel(testResult: TestResult.expired.rawValue, sc: nil, labId: "SomeLabId")),
+				willLoadResource: { res in
+					if let resource = res as? TestResultResource, !resource.locator.isFake {
+						getTestResultExpectation.fulfill()
+					}
+				})
+		])
 		
 		let onContinueWithSymptomsFlowButtonTapExpectation = expectation(
 			description: "onContinueWithSymptomsFlowButtonTap closure is called"
@@ -159,6 +181,7 @@ class ExposureSubmissionTestResultViewModelTests: CWATestCase {
 		
 		let coronaTestService = CoronaTestService(
 			client: client,
+			restServiceProvider: restServiceProvider,
 			store: store,
 			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
@@ -208,13 +231,22 @@ class ExposureSubmissionTestResultViewModelTests: CWATestCase {
 		let store = MockTestStore()
 		let appConfiguration = CachedAppConfigurationMock()
 		
-		client.onGetTestResult = { _, _, completion in
-			completion(.success(.fake(testResult: TestResult.negative.rawValue)))
-			getTestResultExpectation.fulfill()
-		}
+		let restServiceProvider = RestServiceProviderStub(loadResources: [
+			LoadResource(
+				result: .success(TestResultModel(testResult: TestResult.negative.rawValue, sc: nil, labId: "SomeLabId")),
+				willLoadResource: { res in
+					if let resource = res as? TestResultResource, !resource.locator.isFake {
+						// Since we currently don´t have a `didLoadResource` this will have to do 😇
+						DispatchQueue.main.asyncAfter(deadline: .now() + 0.1, execute: {
+							getTestResultExpectation.fulfill()
+						})
+					}
+				})
+		])
 		
 		let coronaTestService = CoronaTestService(
 			client: client,
+			restServiceProvider: restServiceProvider,
 			store: store,
 			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
@@ -284,13 +316,22 @@ class ExposureSubmissionTestResultViewModelTests: CWATestCase {
 		let store = MockTestStore()
 		let appConfiguration = CachedAppConfigurationMock()
 		
-		client.onGetTestResult = { _, _, completion in
-			completion(.failure(.invalidResponse))
-			getTestResultExpectation.fulfill()
-		}
+		let restServiceProvider = RestServiceProviderStub(loadResources: [
+			LoadResource(
+				result: .failure(ServiceError<TestResultError>.invalidResponse),
+				willLoadResource: { res in
+					if let resource = res as? TestResultResource, !resource.locator.isFake {
+						// Since we currently don´t have a `didLoadResource` this will have to do 😇
+						DispatchQueue.main.asyncAfter(deadline: .now() + 0.1, execute: {
+							getTestResultExpectation.fulfill()
+						})
+					}
+				})
+		])
 		
 		let coronaTestService = CoronaTestService(
 			client: client,
+			restServiceProvider: restServiceProvider,
 			store: store,
 			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
@@ -326,19 +367,29 @@ class ExposureSubmissionTestResultViewModelTests: CWATestCase {
 		
 		waitForExpectations(timeout: .short)
 		
-		XCTAssertEqual(model.error, .responseFailure(.invalidResponse))
+		XCTAssertEqual(model.error, .testResultError(.invalidResponse))
 	}
 	
 	func testDidTapPrimaryButtonOnPendingTestResultUpdatesButtonsLoadingState() {
 		let getTestResultExpectation = expectation(description: "getTestResult on client is called")
-		getTestResultExpectation.isInverted = true
 		
 		let client = ClientMock()
 		let store = MockTestStore()
 		let appConfiguration = CachedAppConfigurationMock()
 		
+		let restServiceProvider = RestServiceProviderStub(loadResources: [
+			LoadResource(
+				result: .success(TestResultModel(testResult: TestResult.pending.rawValue, sc: nil, labId: "SomeLabId")),
+				willLoadResource: { res in
+					if let resource = res as? TestResultResource, !resource.locator.isFake {
+						getTestResultExpectation.fulfill()
+					}
+				})
+		])
+		
 		let coronaTestService = CoronaTestService(
 			client: client,
+			restServiceProvider: restServiceProvider,
 			store: store,
 			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
@@ -357,7 +408,7 @@ class ExposureSubmissionTestResultViewModelTests: CWATestCase {
 			recycleBin: .fake(),
 			badgeWrapper: .fake()
 		)
-		coronaTestService.pcrTest = PCRTest.mock(testResult: .pending)
+		coronaTestService.pcrTest = PCRTest.mock(registrationToken: "asdf", testResult: .pending)
 		
 		let model = ExposureSubmissionTestResultViewModel(
 			coronaTestType: .pcr,
@@ -370,38 +421,37 @@ class ExposureSubmissionTestResultViewModelTests: CWATestCase {
 			onTestCertificateCellTap: { _, _ in }
 		)
 		
-		client.onGetTestResult = { _, _, completion in
-			do {
-				let footerViewModel = try XCTUnwrap(model.footerViewModel)
-				
-				// Buttons should be in loading state when getTestResult is called on the exposure submission service
-				XCTAssertFalse(footerViewModel.isPrimaryButtonEnabled)
-				XCTAssertTrue(footerViewModel.isPrimaryLoading)
-				XCTAssertFalse(footerViewModel.isSecondaryButtonEnabled)
-			} catch {
-				XCTFail(error.localizedDescription)
-			}
-			
-			completion(.success(.fake(testResult: TestResult.pending.rawValue)))
-			
-			getTestResultExpectation.fulfill()
-		}
-		
 		model.didTapPrimaryButton()
 		
 		waitForExpectations(timeout: .short)
-		
 		do {
 			let footerViewModel = try XCTUnwrap(model.footerViewModel)
-			
-			XCTAssertTrue(footerViewModel.isPrimaryButtonEnabled)
-			XCTAssertFalse(footerViewModel.isPrimaryLoading)
-			XCTAssertTrue(footerViewModel.isSecondaryButtonEnabled)
-			
+
+			// Buttons should be in loading state when getTestResult is called on the exposure submission service
+			XCTAssertFalse(footerViewModel.isPrimaryButtonEnabled)
+			XCTAssertTrue(footerViewModel.isPrimaryLoading)
+			XCTAssertFalse(footerViewModel.isSecondaryButtonEnabled)
 		} catch {
-			
 			XCTFail(error.localizedDescription)
 		}
+		
+		// Since we don't know when the request returns we just have to wait a little
+		let getTestResultDoneExpectation = expectation(description: "getTestResult on client is done")
+		
+		DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: {
+			do {
+				let footerViewModel = try XCTUnwrap(model.footerViewModel)
+				
+				XCTAssertTrue(footerViewModel.isPrimaryButtonEnabled)
+				XCTAssertFalse(footerViewModel.isPrimaryLoading)
+				XCTAssertTrue(footerViewModel.isSecondaryButtonEnabled)
+				getTestResultDoneExpectation.fulfill()
+			} catch {
+				XCTFail(error.localizedDescription)
+			}
+		})
+		waitForExpectations(timeout: .short)
+
 	}
 	
 	func testDidTapSecondaryButtonOnPendingTestResult() {
