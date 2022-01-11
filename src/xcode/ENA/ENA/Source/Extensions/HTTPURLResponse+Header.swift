@@ -4,6 +4,7 @@
 
 import UIKit
 
+// Shall be removed when every http call is ported to the new rest service.
 extension HTTPURLResponse {
 
 	var dateHeader: Date? {
