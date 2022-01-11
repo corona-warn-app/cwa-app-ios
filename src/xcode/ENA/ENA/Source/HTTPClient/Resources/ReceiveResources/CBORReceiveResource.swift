@@ -22,7 +22,7 @@ struct CBORReceiveResource<R>: ReceiveResource where R: CBORDecoding {
 	// MARK: - Init
 	
 	init(
-		signatureVerifier: SignatureVerifier = SignatureVerifier()
+		signatureVerifier: SignatureVerification = SignatureVerifier()
 	) {
 		self.signatureVerifier = signatureVerifier
 	}
@@ -52,6 +52,6 @@ struct CBORReceiveResource<R>: ReceiveResource where R: CBORDecoding {
 
 	// MARK: - Private
 
-	private let signatureVerifier: SignatureVerifier
+	private let signatureVerifier: SignatureVerification
 
 }

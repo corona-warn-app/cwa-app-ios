@@ -16,7 +16,7 @@ struct ProtobufReceiveResource<R>: ReceiveResource where R: SwiftProtobuf.Messag
 	// MARK: - Init
 	
 	init(
-		signatureVerifier: SignatureVerifier = SignatureVerifier()
+		signatureVerifier: SignatureVerification = SignatureVerifier()
 	) {
 		self.signatureVerifier = signatureVerifier
 	}
@@ -46,6 +46,6 @@ struct ProtobufReceiveResource<R>: ReceiveResource where R: SwiftProtobuf.Messag
 
 	// MARK: - Private
 
-	private let signatureVerifier: SignatureVerifier
+	private let signatureVerifier: SignatureVerification
 
 }
