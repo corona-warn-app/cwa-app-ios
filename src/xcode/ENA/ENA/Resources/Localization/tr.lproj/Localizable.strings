@@ -122,15 +122,15 @@
 
 "ExposureDetection_Guide_Vaccination_HighRisk" = "Henüz aşı olmadıysanız test yaptırdıktan sonra aile hekiminize danışın.";
 
-"ExposureDetection_Guide_Title" = "Hiçbir belirtiniz olmasa bile lütfen test yaptırın. Daha yüksek risk uyarısı (\"kırmızı kutucuk\") alırsanız ücretsiz test yaptırma hakkınız olur. Bunun illa bir PCR testi olması gerekmez.\n";
+"ExposureDetection_Guide_Title" = "Hiçbir belirtiniz olmasa bile lütfen test yaptırın. Daha yüksek risk uyarısı (\"kırmızı kutucuk\") alırsanız ücretsiz test yaptırma hakkınız olur. Ücretsiz hızlı antijen testi hakkınız yerel düzenlemelere bağlı olarak sınırlı olabilir. Özellikle ücretsiz olduğu durumlarda PCR testi yaptırmanızı tavsiye ederiz.";
 
-"ExposureDetection_Guide_Point1" = "Test olanaklarını burada bulabilir ya da aile hekiminize veya bir eczaneye danışabilirsiniz.";
+"ExposureDetection_Guide_Point1" = "Test olanaklarını burada bulabilirsiniz. Aile hekiminize veya bir eczaneye de danışabilirsiniz.";
 
-"ExposureDetection_Guide_Point1_LinkText" = "burada";
+"ExposureDetection_Guide_Point1_LinkText" = "Test olanaklarını burada bulabilirsiniz.";
 
 "ExposureDetection_Guide_Point2" = "SSS sayfamızda test prosedürü hakkında daha fazla bilgi bulunmaktadır.";
 
-"ExposureDetection_Guide_Point2_LinkText" = "SSS";
+"ExposureDetection_Guide_Point2_LinkText" = "SSS sayfamızda test prosedürü hakkında daha fazla bilgi bulunmaktadır.";
 
 "ExposureDetection_Explanation_Title" = "Enfeksiyon Riski";
 
@@ -150,7 +150,7 @@
 
 "ExposureDetection_Explanation_Text_High_DateOfLastExposure" = "Koronavirüs tanısı konan en az bir kişiyle daha uzun süreyle ve yakın mesafeden maruz kalma yaşadığınız için enfeksiyon riskiniz daha yüksektir.";
 
-"ExposureDetection_Explanation_Text_High" = "Bu nedenle enfeksiyon riskiniz artmış olarak derecelendirilmiştir. \nEnfeksiyon riskiniz, akıllı telefonunuzda yerel olarak bulunan maruz kalma günlüğü verileri (süre ve mesafe) kullanılarak hesaplanır. Enfeksiyon riskiniz başkaları tarafından görüntülenemez veya başkalarına aktarılmaz. \nEve gittiğinizde lütfen aile fertleriniz veya ev arkadaşlarınızla yakın temastan kaçının.";
+"ExposureDetection_Explanation_Text_High" = "Bu nedenle enfeksiyon riskiniz daha yüksek olarak sınıflandırılmıştır.\nEnfeksiyon riskiniz, cihazınızda yerel olarak bulunan maruz kalma günlüğü verileri (süre ve mesafe) kullanılarak hesaplanır. Enfeksiyon riskiniz başkaları tarafından görüntülenemez veya başkalarına aktarılmaz.";
 
 "ExposureDetection_LowRiskExposure_Title" = "Düşük riskli maruz kalmalar";
 
@@ -214,13 +214,13 @@
 
 "ExposureDetection_Info_Contagion_Point5" = "Seyahat: Uçak veya trenle seyahat etmeyin.";
 
-"ExposureDetection_Info_Contagion_Point6" = "Karantina önlemleri hakkında sorularınız varsa lütfen kamu sağlığı departmanınızla iletişime geçin.";
+"ExposureDetection_Info_Contagion_Point6" = "Karantina önlemleri hakkında sorularınız varsa lütfen kamu sağlığı departmanınızla iletişime geçin. Daha fazla bilgi için lütfen karantina önlemleri hakkında SSS sayfamıza bakın.";
 
-"ExposureDetection_Info_Contagion_Point6_LinkText" = "Karantina önlemleri hakkında";
+"ExposureDetection_Info_Contagion_Point6_LinkText" = "Daha fazla bilgi için lütfen karantina önlemleri hakkında SSS sayfamıza bakın.";
 
 "ExposureDetection_Info_Contagion_Footer" = "Gönüllü bireysel karantina hakkında SSS sayfamızda ek bilgiler bulunmaktadır:";
 
-"ExposureDetection_Info_Contagion_Footer_LinkText" = "Gönüllü bireysel karantina hakkında SSS";
+"ExposureDetection_Info_Contagion_Footer_LinkText" = "Gönüllü bireysel karantina hakkında SSS sayfamızda ek bilgiler bulunmaktadır:";
 
 /* Survey Errors */
 "SurveyConsent_Error_Title" = "Hata";
@@ -597,7 +597,7 @@
 
 "ExposureSubmission_PhoneDetailsForeign" = "Almanya dışından yapılan aramalar içindir.\nTelefon sağlayıcınız tarafından uygulanan ücretler geçerlidir.";
 
-"ExposureSubmission_PhoneDetailDescription" = "Müşteri hizmetlerimiz şu dillerde size yardımcı olmaya hazır: \nİngilizce, Almanca, Türkçe\n\nMesai saatleri:\n7 gün 24 saat\n\nSağlıkla ilgili tüm sorularınız için lütfen aile hekiminizle veya tıbbi acil servis yardım hattı ile iletişime geçin. Telefon: 116 117.";
+"ExposureSubmission_PhoneDetailDescription" = "Müşteri hizmetlerimiz şu dillerde size yardımcı olmaya hazır: \nİngilizce, Almanca, Türkçe\n\nMesai saatleri:\nGünlük (hafta sonları dahil): 7:00 - 22:00 (CET)\n\nSağlıkla ilgili tüm sorularınız için lütfen aile hekiminizle veya tıbbi acil servis yardım hattı ile iletişime geçin. Telefon: 116 117.";
 
 "ExposureSubmission_SectionDescription2" = "Uygulamaya TAN girerek PCR testinizi kaydedin.";
 
@@ -673,7 +673,7 @@
 
 "ExposureSubmissionSuccess_listItem2" = "Yüksek bir olasılıkla enfekte oldunuz. Kendinizi diğer insanlardan izole edin.";
 
-"ExposureSubmissionSuccess_listItem2_1" = "İzolasyon süreniz genellikle 14 gündür. Lütfen belirtilerinizin nasıl geliştiğini yakından izleyin.";
+"ExposureSubmissionSuccess_listItem2_1" = "İzolasyon süreniz genellikle 10 gündür. Lütfen belirtilerinizin nasıl geliştiğini yakından izleyin.";
 
 "ExposureSubmissionSuccess_listItem2_2" = "Kamu sağlığı yetkiliniz, temasa geçtiğiniz kişilerin bir listesini oluşturmanızı isteyecektir. Bu listeye, hasta olmadan önceki iki gün içinde 15 dakikadan uzun süreyle yakın temas halinde (2 metreden kısa mesafede, yüz yüze görüşme) olduğunuz herkesi dahil etmeniz gerekir. Bunun için temas güncenizi kullanabilirsiniz: Girişleri dışa aktarmanız ve ardından yazdırmanız ya da e-posta yoluyla göndermeniz yeterlidir.";
 
@@ -1381,7 +1381,7 @@
 
 "App_Information_Contact_Hotline_Details_Foreign" = "Almanya dışından yapılan aramalar içindir.\nTelefon sağlayıcınız tarafından uygulanan ücretler geçerlidir.";
 
-"App_Information_Contact_Hotline_Terms" = "Müşteri hizmetlerimiz şu dillerde size yardımcı olmaya hazır: \nİngilizce, Almanca, Türkçe\n\nMesai saatleri:\nPts-Cts: 7.00 - 22.00 (CET)\n(ulusal tatiller hariçtir)\n\nSağlıkla ilgili tüm sorularınız için lütfen aile hekiminizle veya tıbbi acil servis yardım hattı ile iletişime geçin. Telefon: 116 117.";
+"App_Information_Contact_Hotline_Terms" = "Müşteri hizmetlerimiz şu dillerde size yardımcı olmaya hazır: \nİngilizce, Almanca, Türkçe\n\nMesai saatleri:\nPts-Cts: 7:00 - 22:00 (CET)\n(ulusal tatiller hariçtir)\n\nSağlıkla ilgili tüm sorularınız için lütfen aile hekiminizle veya tıbbi acil servis yardım hattı ile iletişime geçin. Telefon: 116 117.";
 
 /* App Information - Imprint */
 "App_Information_New_Features_Navigation" = "Yeni Özellikler";
@@ -1701,7 +1701,7 @@
 
 "TestResultPositive_KeysSubmitted_Title2" = "Diğer bilgiler:";
 
-"TestResultPositive_KeysSubmitted_FurtherInfo1" = "İzolasyon süreniz genellikle 14 gündür. Lütfen belirtilerinizin nasıl geliştiğini yakından izleyin.";
+"TestResultPositive_KeysSubmitted_FurtherInfo1" = "İzolasyon süreniz genellikle 10 gündür. Lütfen belirtilerinizin nasıl geliştiğini yakından izleyin.";
 
 "TestResultPositive_KeysSubmitted_FurtherInfo2" = "Kamu sağlığı yetkiliniz, temasa geçtiğiniz kişilerin bir listesini oluşturmanızı isteyecektir. Bu listeye, hasta olmadan önceki iki gün içinde 15 dakikadan uzun süreyle yakın temas halinde (2 metreden kısa mesafede, yüz yüze görüşme) olduğunuz herkesi dahil etmeniz gerekir. Bunun için temas güncenizi kullanabilirsiniz: Girişleri dışa aktarmanız ve ardından yazdırmanız ya da e-posta yoluyla göndermeniz yeterlidir.";
 
@@ -2811,11 +2811,11 @@
 
 "HealthCertifiedPerson_AdmissionState_description2GPlusPCR" = "Sertifikalarınız 2G plus kuralına uygun. Güncel durumunuzu kanıtlamanız gerekiyorsa bu görünümünü kapatın ve sertifikaya genel bakış bölümündeki QR kodu gösterin.";
 
-"HealthCertifiedPerson_AdmissionState_description2GPlusAntigen" = "Sertifikalarınız 2G plus kuralına uygun. Güncel durumunuzu kanıtlamanız gerekiyorsa bu görünümünü kapatın ve sertifikaya genel bakış bölümündeki QR kodu gösterin.";
+"HealthCertifiedPerson_AdmissionState_description2GPlusAntigen" = "PCR testi gerekmiyorsa sertifikalarınız 2G plus kuralına uygun. Güncel durumunuzu kanıtlamanız gerekiyorsa bu görünümünü kapatın ve sertifikaya genel bakış bölümündeki QR kodu gösterin.";
 
 "HealthCertifiedPerson_AdmissionState_description3G" = "Sertifikalarınız 3G kuralına uygun. Güncel durumunuzu kanıtlamanız gerekiyorsa bu görünümünü kapatın ve sertifikaya genel bakış bölümündeki QR kodu gösterin.";
 
-"HealthCertifiedPerson_AdmissionState_description3GPlus" = "Sertifikalarınız 3G plus kuralına uygun. Güncel durumunuzu kanıtlamanız gerekiyorsa bu görünümünü kapatın ve sertifikaya genel bakış bölümündeki QR kodu gösterin.";
+"HealthCertifiedPerson_AdmissionState_description3GPlus" = "Sertifikalarınız 2G plus kuralına uygun. Güncel durumunuzu kanıtlamanız gerekiyorsa bu görünümünü kapatın ve sertifikaya genel bakış bölümündeki QR kodu gösterin.";
 
 "HealthCertifiedPerson_AdmissionStateFAQ" = "Daha fazla bilgi için lütfen %@ sayfamıza bakın.";
 
@@ -3166,9 +3166,9 @@
 
 "UniversalQRScanner_MaxPersonAmountAlert_errorTitle" = "Hata";
 
-"UniversalQRScanner_MaxPersonAmountAlert_warningMessage" = "Corona-Warn-App üçüncü taraf sertifika doğrulaması için kullanılamayabilir. Bunun için CovPassCheck uygulamasını kullanın.\n\nEn fazla %i kişi için sertifika ekleyebilirsiniz. Bu limite ulaşıldığında, başka kişiler için daha fazla yeni sertifika ekleyemezsiniz.\n\nSSS sayfamızda sertifika doğrulama hakkında daha fazla bilgi bulabilirsiniz.";
+"UniversalQRScanner_MaxPersonAmountAlert_warningMessage" = "Corona-Warn-App üçüncü taraf sertifikalarını doğrulamak için kullanılamaz. Bunun için CovPassCheck uygulamasını kullanın.\n\nEn fazla %i kişi için sertifika ekleyebilirsiniz. Bu limite ulaşıldığında, başka kişiler için daha fazla yeni sertifika ekleyemezsiniz.\n\nSSS sayfamızda sertifika doğrulama hakkında daha fazla bilgi bulabilirsiniz.";
 
-"UniversalQRScanner_MaxPersonAmountAlert_errorMessage" = "Corona-Warn-App üçüncü taraf sertifika doğrulaması için kullanılamayabilir. Bunun için CovPassCheck uygulamasını kullanın.\n\nEn fazla %i kişi için sertifika ekleyebilirsiniz. Başka kişiler için daha fazla yeni sertifika ekleyemezsiniz.\n\nSSS sayfamızda sertifika doğrulama hakkında daha fazla bilgi bulabilirsiniz.";
+"UniversalQRScanner_MaxPersonAmountAlert_errorMessage" = "Corona-Warn-App üçüncü taraf sertifikalarını doğrulamak için kullanılamayabilir. Bunun için CovPassCheck uygulamasını kullanın.\n\nEn fazla %i kişi için sertifika ekleyebilirsiniz. Başka kişiler için daha fazla yeni sertifika ekleyemezsiniz.\n\nSSS sayfamızda sertifika doğrulama hakkında daha fazla bilgi bulabilirsiniz.";
 
 "UniversalQRScanner_MaxPersonAmountAlert_covPassCheckButton" = "CovPassCheck App'i İndir";
 
