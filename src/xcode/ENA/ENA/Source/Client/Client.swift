@@ -188,6 +188,7 @@ protocol Client {
 	///   - isFake: Flag to indicate a fake request
 	///   - ruleType: Get the rules for the specified type (acceptance or invalidation)
 	///   - completion: The completion handler of the call, which contains a PackageDownloadResponse or a URLSession.Response.Failure
+	@available(*, deprecated, message: "old http client call please use new client")
 	func getDCCRules(
 		eTag: String?,
 		isFake: Bool,

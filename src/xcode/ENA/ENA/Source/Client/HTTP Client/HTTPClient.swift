@@ -532,7 +532,8 @@ final class HTTPClient: Client {
 			}
 		})
 	}
-	
+
+	@available(*, deprecated, message: "old http client call please use new client")
 	func getDCCRules(
 		eTag: String? = nil,
 		isFake: Bool = false,
