@@ -122,15 +122,15 @@
 
 "ExposureDetection_Guide_Vaccination_HighRisk" = "Dacă încă nu v-ați vaccinat, consultați telefonic medicul de familie după ce vă testați.";
 
-"ExposureDetection_Guide_Title" = "Vă rugăm să vă testați, chiar dacă nu aveți simptome. Dacă primiți o avertizare de risc crescut („un mozaic roșu”), aveți dreptul la un test gratuit. Nu este obligatoriu să fie un test PCR.\n";
+"ExposureDetection_Guide_Title" = "Vă rugăm să vă testați, chiar dacă nu aveți simptome. Dacă primiți o avertizare de risc crescut („un mozaic roșu”), aveți dreptul la un test gratuit. Dreptul dvs. la un test antigen rapid gratuit poate fi limitat, în funcție de reglementările locale. Vă recomandăm să efectuați un test PCR, în special atunci când este gratuit.";
 
-"ExposureDetection_Guide_Point1" = "Puteți găsi aici posibilitățile de testare sau puteți contacta medicul de familie sau o farmacie.";
+"ExposureDetection_Guide_Point1" = "Puteți găsi aici posibilitățile de testare. De asemenea, puteți contacta medicul de familie sau o farmacie.";
 
-"ExposureDetection_Guide_Point1_LinkText" = "aici";
+"ExposureDetection_Guide_Point1_LinkText" = "Puteți găsi aici posibilitățile de testare.";
 
 "ExposureDetection_Guide_Point2" = "Mai multe informații despre procedura de testare sunt disponibile pe pagina noastră de întrebări frecvente.";
 
-"ExposureDetection_Guide_Point2_LinkText" = "întrebări frecvente";
+"ExposureDetection_Guide_Point2_LinkText" = "Mai multe informații despre procedura de testare sunt disponibile pe pagina noastră de întrebări frecvente.";
 
 "ExposureDetection_Explanation_Title" = "Risc de infectare";
 
@@ -150,7 +150,7 @@
 
 "ExposureDetection_Explanation_Text_High_DateOfLastExposure" = "Aveți un risc crescut de infectare deoarece ați fost expus ultima dată pe o perioadă mai lungă de timp și în strânsă proximitate cu cel puțin o persoană diagnosticată cu coronavirus.";
 
-"ExposureDetection_Explanation_Text_High" = "Prin urmare, riscul dvs. de infectare a fost clasificat ca fiind crescut. \nRiscul dvs. de infectare este calculat pe baza datelor de înregistrare în jurnal a expunerilor (durata și proximitatea) la nivel local pe smartphone-ul dvs. Riscul dvs. de infectare nu poate fi văzut de o altă persoană sau transmis unei alte persoane. \nCând ajungeți acasă, evitați contactul strâns cu membrii familiei sau cu cei din gospodăria dvs.";
+"ExposureDetection_Explanation_Text_High" = "Prin urmare, riscul dvs. de infectare a fost clasificat drept crescut.\nRiscul dvs. de infectare este calculat pe baza datelor de înregistrare în jurnal a expunerilor (durata și proximitatea) la nivel local pe dispozitivul dvs. Riscul dvs. de infectare nu poate fi văzut de o altă persoană sau transmis unei alte persoane.";
 
 "ExposureDetection_LowRiskExposure_Title" = "Expuneri cu risc redus";
 
@@ -214,13 +214,13 @@
 
 "ExposureDetection_Info_Contagion_Point5" = "Deplasările: nu călătoriți cu avionul sau trenul.";
 
-"ExposureDetection_Info_Contagion_Point6" = "Dacă aveți întrebări despre măsurile de carantină, contactați departamentul aferent de sănătate publică.";
+"ExposureDetection_Info_Contagion_Point6" = "Dacă aveți întrebări despre măsurile de carantină, contactați departamentul aferent de sănătate publică. Pentru mai multe informații, consultați pagina noastră de întrebări frecvente privind măsurile de carantină.";
 
-"ExposureDetection_Info_Contagion_Point6_LinkText" = "întrebări despre măsurile de carantină";
+"ExposureDetection_Info_Contagion_Point6_LinkText" = "Pentru mai multe informații, consultați pagina noastră de întrebări frecvente privind măsurile de carantină.";
 
 "ExposureDetection_Info_Contagion_Footer" = "Informații suplimentare despre autocarantina voluntară sunt disponibile pe pagina noastră de întrebări frecvente.";
 
-"ExposureDetection_Info_Contagion_Footer_LinkText" = "pagina noastră de întrebări frecvente";
+"ExposureDetection_Info_Contagion_Footer_LinkText" = "Informații suplimentare despre autocarantina voluntară sunt disponibile pe pagina noastră de întrebări frecvente.";
 
 /* Survey Errors */
 "SurveyConsent_Error_Title" = "Eroare";
@@ -597,7 +597,7 @@
 
 "ExposureSubmission_PhoneDetailsForeign" = "Pentru apeluri din afara Germaniei.\nSe vor aplica tarifele furnizorului dvs. de servicii de telefonie.";
 
-"ExposureSubmission_PhoneDetailDescription" = "Serviciul clienți vă stă la dispoziție în următoarele limbi: \nengleză, germană, turcă\n\nProgram de lucru:\n24/7\n\nDacă aveți întrebări legate de starea de sănătate, vă rugăm să contactați medicul de familie sau hotline-ul pentru servicii medicale de urgență, la numărul de telefon: 116 117.";
+"ExposureSubmission_PhoneDetailDescription" = "Serviciul clienți vă stă la dispoziție în următoarele limbi: \nengleză, germană, turcă\n\nProgram de lucru:\nZilnic (inclusiv în weekend): 07:00 - 22:00 (CET)\n\nDacă aveți întrebări legate de starea de sănătate, vă rugăm să contactați medicul de familie sau hotline-ul pentru servicii medicale de urgență, la numărul de telefon: 116 117.";
 
 "ExposureSubmission_SectionDescription2" = "Înregistrați testul dvs. PCR introducând codul TAN în aplicație.";
 
@@ -673,7 +673,7 @@
 
 "ExposureSubmissionSuccess_listItem2" = "Există o probabilitate mare să fiți contagios. Izolați-vă de alte persoane.";
 
-"ExposureSubmissionSuccess_listItem2_1" = "Perioada de izolare este de obicei de 14 zile. Monitorizați cu atenție modul în care evoluează simptomele dvs.";
+"ExposureSubmissionSuccess_listItem2_1" = "Perioada de izolare este de obicei de 10 zile. Monitorizați cu atenție modul în care evoluează simptomele dvs.";
 
 "ExposureSubmissionSuccess_listItem2_2" = "Autoritatea dvs. de sănătate publică vă va solicita să întocmiți o listă a persoanelor cu care ați intrat în contact. Aceasta trebuie să cuprindă toate persoanele cu care ați avut contact strâns (mai puțin de 2 metri, conversații față în față) timp de peste 15 minute începând cu două zile înainte de a vă îmbolnăvi. Puteți utiliza jurnalul de contacte în acest scop: trebuie doar să exportați intrările și apoi să le tipăriți sau să le expediați pe e-mail.";
 
@@ -1701,7 +1701,7 @@
 
 "TestResultPositive_KeysSubmitted_Title2" = "Alte informații:";
 
-"TestResultPositive_KeysSubmitted_FurtherInfo1" = "Perioada de izolare este de obicei de 14 zile. Monitorizați cu atenție modul în care evoluează simptomele dvs.";
+"TestResultPositive_KeysSubmitted_FurtherInfo1" = "Perioada de izolare este de obicei de 10 zile. Monitorizați cu atenție modul în care evoluează simptomele dvs.";
 
 "TestResultPositive_KeysSubmitted_FurtherInfo2" = "Autoritatea dvs. de sănătate publică vă va solicita să întocmiți o listă a persoanelor cu care ați intrat în contact. Aceasta trebuie să cuprindă toate persoanele cu care ați avut contact strâns (mai puțin de 2 metri, conversații față în față) timp de peste 15 minute începând cu două zile înainte de a vă îmbolnăvi. Puteți utiliza jurnalul de contacte în acest scop: trebuie doar să exportați intrările și apoi să le tipăriți sau să le expediați pe e-mail.";
 
@@ -2811,11 +2811,11 @@
 
 "HealthCertifiedPerson_AdmissionState_description2GPlusPCR" = "Certificatele dvs. respectă regula 2G plus. Dacă trebuie să dovediți starea dvs. curentă, închideți această vizualizare și afișați codul QR în sumarul certificatului.";
 
-"HealthCertifiedPerson_AdmissionState_description2GPlusAntigen" = "Certificatele dvs. respectă regula 2G plus. Dacă trebuie să dovediți starea dvs. curentă, închideți această vizualizare și afișați codul QR în sumarul certificatului.";
+"HealthCertifiedPerson_AdmissionState_description2GPlusAntigen" = "Certificatele dvs. respectă regula 2G plus, cu excepția cazului în care este necesar un test PCR. Dacă trebuie să dovediți starea dvs. curentă, închideți această vizualizare și afișați codul QR în sumarul certificatului.";
 
 "HealthCertifiedPerson_AdmissionState_description3G" = "Certificatele dvs. respectă regula 3G. Dacă trebuie să dovediți starea dvs. curentă, închideți această vizualizare și afișați codul QR în sumarul certificatului.";
 
-"HealthCertifiedPerson_AdmissionState_description3GPlus" = "Certificatele dvs. respectă regula 3G plus. Dacă trebuie să dovediți starea dvs. curentă, închideți această vizualizare și afișați codul QR în sumarul certificatului.";
+"HealthCertifiedPerson_AdmissionState_description3GPlus" = "Certificatele dvs. respectă regula 2G plus. Dacă trebuie să dovediți starea dvs. curentă, închideți această vizualizare și afișați codul QR în sumarul certificatului.";
 
 "HealthCertifiedPerson_AdmissionStateFAQ" = "Pentru mai multe informații, consultați pagina noastră %@.";
 

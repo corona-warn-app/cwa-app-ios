@@ -11,12 +11,11 @@ extension Locator {
 	// type:	default
 	// comment:	Custom error handling required
 	static func testResult(
-		registrationToken: String,
 		isFake: Bool
 	) -> Locator {
 		let fake = String(isFake ? 1 : 0)
 		return Locator(
-			endpoint: .distribution,
+			endpoint: .verification,
 			paths: ["version", "v1", "testresult"],
 			method: .post,
 			defaultHeaders: [

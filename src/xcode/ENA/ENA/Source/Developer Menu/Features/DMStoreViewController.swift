@@ -29,6 +29,9 @@ final class DMStoreViewController: UITableViewController {
 			DMStoreItem(attribute: "antigenTest") { store in
 				String(describing: store.antigenTest)
 			},
+			DMStoreItem(attribute: "healthCertifiedPersons") { store in
+				"\(store.healthCertifiedPersons.count) person(s)"
+			},
 			DMStoreItem(attribute: "lastAppConfigETag") { store in
 				store.appConfigMetadata?.lastAppConfigETag.description ?? "<nil>"
 			},

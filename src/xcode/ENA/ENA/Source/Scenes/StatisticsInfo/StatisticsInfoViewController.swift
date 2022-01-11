@@ -183,11 +183,11 @@ class StatisticsInfoViewController: DynamicTableViewController {
 					),
 					// Auffrischimpfung
 					.title2(
-						text: AppStrings.Statistics.Info.boosterVaccinationText,
+						text: AppStrings.Statistics.Info.boosterVaccinationTitle,
 						accessibilityIdentifier: nil
 					) { _, cell, _ in cell.accessibilityTraits = .header },
 					.body(
-						text: AppStrings.Statistics.Info.boosterVaccinationTitle,
+						text: AppStrings.Statistics.Info.boosterVaccinationText,
 						accessibilityIdentifier: nil
 					),
 					// Verabreichte Impfdosen
