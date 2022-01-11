@@ -16,8 +16,8 @@ final class ValidationOnboardedCountriesResourceTests: CWATestCase {
 		let expectation = expectation(description: "Expect that we got a completion")
 		
 		let archiveData = try XCTUnwrap(Archive.createArchiveData(
-			with: .create,
-			of: HealthCertificateToolkit.onboardedCountriesCBORDataFake
+			accessMode: .create,
+			cborData: HealthCertificateToolkit.onboardedCountriesCBORDataFake
 		))
 		
 		// This list has to match the one in onboardedCountriesCBORDataFake
