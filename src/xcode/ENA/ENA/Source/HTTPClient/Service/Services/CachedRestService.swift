@@ -62,8 +62,8 @@ class CachedRestService: Service {
 			Log.info("ETag and data found and wrote to cache.")
 			completion(.success(model))
 
-		case .failure:
-			Log.error("Decoding for receive resource failed.", log: .client)
+		case .failure(let error):
+			Log.error("Decoding for receive resource failed with error: \(error).", log: .client, error: error)
 			failureOrDefaultValueHandling(resource, .resourceError(.decoding), completion)
 		}
 	}
