@@ -12,23 +12,23 @@ class HTTPClientPlausibleDeniabilityTests: CWATestCase {
 
 	func test_getTestResult_requestPadding() {
 
-		// Setup.
+		// GIVEN
+		let sendResource = PaddingJSONSendResource<RegistrationTokenSendModel>(
+			RegistrationTokenSendModel(
+				registrationToken: "123456789"
+			)
+		)
 
-		let expectation = self.expectation(description: "all callbacks called")
-		expectation.expectedFulfillmentCount = 4
-		let session = MockUrlSession(data: nil, nextResponse: nil, error: nil) { request in
-			expectation.fulfill()
-			XCTAssertEqual(request.httpBody?.count, 250)
+		// WHEN
+		let result = sendResource.encode()
+
+		// THEN
+		switch result {
+		case let .success(bodyData):
+			XCTAssertEqual(bodyData?.count, 250)
+		case .failure:
+			XCTFail("Padding size is wrong")
 		}
-
-		let stack = MockNetworkStack(mockSession: session)
-		let client = HTTPClient.makeWith(mock: stack)
-
-		// Test.
-
-		client.getTestResult(forDevice: "dummyDevice") { _ in expectation.fulfill() }
-		client.getTestResult(forDevice: "dummyDevice", isFake: true) { _ in expectation.fulfill() }
-		waitForExpectations(timeout: .short)
 	}
 
 	func test_getRegistrationToken_requestPadding() {
@@ -67,72 +67,6 @@ class HTTPClientPlausibleDeniabilityTests: CWATestCase {
 		} else {
 			XCTFail("Wrong padding body size")
 		}
-	}
-
-	// This test makes sure that all headers + urls have the same length.
-	// That test should check for all requests with padding later
-	func test_headerPadding() {
-
-		// Setup.
-		let expectation = self.expectation(description: "all callbacks called")
-		expectation.expectedFulfillmentCount = 6
-
-		var previousSize: Int?
-
-		let session = MockUrlSession(data: nil, nextResponse: nil, error: nil) { request in
-			expectation.fulfill()
-			guard
-				// Hack: We cannot directly access the HTTP headers here,
-				// we therefore compare their JSON encoded length.
-				let data = try? JSONEncoder().encode(request.allHTTPHeaderFields),
-				let url = request.url?.absoluteString
-			else {
-				XCTFail("Could not execute test")
-				return
-			}
-			let size = url.count + data.count
-			if previousSize == nil { previousSize = size }
-			XCTAssertEqual(size, previousSize)
-			previousSize = size
-		}
-
-		let stack = MockNetworkStack(mockSession: session)
-		let client = HTTPClient.makeWith(mock: stack)
-
-		// Test.
-		let restServiceProvider = RestServiceProviderStub(
-			results: [
-				.success(SubmissionTANModel(submissionTAN: "fake")),
-				.success(SubmissionTANModel(submissionTAN: "fake"))
-			]
-		)
-		let resource = RegistrationTokenResource(
-			sendModel: SendRegistrationTokenModel(
-				token: "dummyRegToken"
-			)
-		)
-		restServiceProvider.load(resource) { _ in
-			expectation.fulfill()
-		}
-		let fakeRequestResource = RegistrationTokenResource(
-			isFake: true,
-			sendModel: SendRegistrationTokenModel(
-				token: "dummyRegToken"
-			)
-		)
-
-		restServiceProvider.load(fakeRequestResource) { _ in
-			expectation.fulfill()
-		}
-		
-		client.getTestResult(forDevice: "dummyDevice") { _ in
-			expectation.fulfill()
-		}
-		client.getTestResult(forDevice: "dummyDevice", isFake: true) { _
-			in expectation.fulfill()
-		}
-
-		waitForExpectations(timeout: .short)
 	}
 
 	func test_submit_requestPaddingIdenticalForRealAndFake() {
