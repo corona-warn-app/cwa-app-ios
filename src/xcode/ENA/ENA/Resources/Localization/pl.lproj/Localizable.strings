@@ -122,15 +122,15 @@
 
 "ExposureDetection_Guide_Vaccination_HighRisk" = "Jeśli nie jesteś jeszcze zaszczepiony(-a), skonsultuj się z lekarzem rodzinnym po wykonaniu testu.";
 
-"ExposureDetection_Guide_Title" = "Przetestuj się, nawet jeśli nie masz żadnych objawów. Jeśli otrzymasz ostrzeżenie o zwiększonym ryzyku („czerwony kafelek”), będziesz mieć prawo do bezpłatnego testu. Nie musi to być test PCR.\n";
+"ExposureDetection_Guide_Title" = "Przetestuj się, nawet jeśli nie masz żadnych objawów. Jeśli otrzymasz ostrzeżenie o podwyższonym ryzyku („czerwony kafelek”), będziesz mieć prawo do bezpłatnego testu. Twoje prawo do bezpłatnego szybkiego testu antygenowego może być ograniczone, w zależności od lokalnych przepisów. Zalecamy wykonanie testu PCR, zwłaszcza gdy jest on bezpłatny.";
 
 "ExposureDetection_Guide_Point1" = "Możesz zapoznać się z możliwościami testowania w tym miejscu lub skontaktować się z lekarzem rodzinnym lub apteką.";
 
-"ExposureDetection_Guide_Point1_LinkText" = "w tym miejscu";
+"ExposureDetection_Guide_Point1_LinkText" = "Możesz zapoznać się z możliwościami testowania w tym miejscu.";
 
 "ExposureDetection_Guide_Point2" = "Więcej informacji na temat procedury testowania można znaleźć na naszej stronie „Często zadawane pytania”.";
 
-"ExposureDetection_Guide_Point2_LinkText" = "Często zadawane pytania";
+"ExposureDetection_Guide_Point2_LinkText" = "Więcej informacji na temat procedury testowania można znaleźć na naszej stronie „Często zadawane pytania”.";
 
 "ExposureDetection_Explanation_Title" = "Ryzyko zakażenia";
 
@@ -150,7 +150,7 @@
 
 "ExposureDetection_Explanation_Text_High_DateOfLastExposure" = "Masz podwyższone ryzyko zakażenia, ponieważ byłeś(-aś) narażony(-a) na dłuższy, bliski kontakt z co najmniej jedną osobą, u której zdiagnozowano koronawirusa.";
 
-"ExposureDetection_Explanation_Text_High" = "Dlatego Twoje ryzyko zakażenia zostało ocenione jako podwyższone. \nRyzyko zakażenia jest obliczane na podstawie danych rejestrowania narażenia (czas trwania i bliskość kontaktu) lokalnie na smartfonie. Twoje ryzyko zakażenia nie jest widoczne dla nikogo ani nikomu przekazywane. \nPo powrocie do domu unikaj również bliskiego kontaktu z członkami rodziny lub gospodarstwa domowego.";
+"ExposureDetection_Explanation_Text_High" = "Dlatego Twoje ryzyko zakażenia zostało ocenione jako podwyższone.\nRyzyko zakażenia jest obliczane na podstawie danych rejestrowania narażenia (czas trwania i bliskość kontaktu) lokalnie w urządzeniu. Twoje ryzyko zakażenia nie jest widoczne dla nikogo ani nikomu przekazywane.";
 
 "ExposureDetection_LowRiskExposure_Title" = "Narażenia z niskim ryzykiem";
 
@@ -214,13 +214,13 @@
 
 "ExposureDetection_Info_Contagion_Point5" = "Podróżowanie: Nie podróżuj samolotem ani pociągiem.";
 
-"ExposureDetection_Info_Contagion_Point6" = "W przypadku pytań dotyczących kwarantanny skontaktuj się z departamentem zdrowia publicznego.";
+"ExposureDetection_Info_Contagion_Point6" = "W przypadku pytań dotyczących kwarantanny skontaktuj się z departamentem zdrowia publicznego. Więcej informacji znajduje się na naszej stronie „Często zadawane pytania” dotyczącej kwarantanny.";
 
-"ExposureDetection_Info_Contagion_Point6_LinkText" = "pytań dotyczących kwarantanny";
+"ExposureDetection_Info_Contagion_Point6_LinkText" = "Więcej informacji znajduje się na naszej stronie „Często zadawane pytania” dotyczącej kwarantanny.";
 
 "ExposureDetection_Info_Contagion_Footer" = "Dodatkowe informacje są dostępne na stronie „Często zadawane pytania” dotyczącej dobrowolnej samoizolacji.";
 
-"ExposureDetection_Info_Contagion_Footer_LinkText" = "Często zadawane pytania";
+"ExposureDetection_Info_Contagion_Footer_LinkText" = "Dodatkowe informacje są dostępne na stronie „Często zadawane pytania” dotyczącej dobrowolnej samoizolacji.";
 
 /* Survey Errors */
 "SurveyConsent_Error_Title" = "Błąd";
@@ -597,7 +597,7 @@
 
 "ExposureSubmission_PhoneDetailsForeign" = "Dla połączeń spoza Niemiec.\nObowiązują opłaty podane przez operatora telefonicznego.";
 
-"ExposureSubmission_PhoneDetailDescription" = "Zapewniamy obsługę klienta w następujących językach: \nangielskim, niemieckim, tureckim\n\nGodziny pracy:\n24/7\n\nW razie jakichkolwiek pytań związanych ze zdrowiem skontaktuj się z lekarzem rodzinnym lub lekarzem dyżurnym pod numerem telefonu: 116 117.";
+"ExposureSubmission_PhoneDetailDescription" = "Zapewniamy obsługę klienta w następujących językach: \nangielskim, niemieckim, tureckim\n\nGodziny pracy:\nCodziennie (wraz z weekendami): 7:00 – 22:00 (CET)\n\nW razie jakichkolwiek pytań związanych ze zdrowiem skontaktuj się z lekarzem rodzinnym lub lekarzem dyżurnym pod numerem: 116 117.";
 
 "ExposureSubmission_SectionDescription2" = "Zarejestruj swój test PCR poprzez wpisanie numeru TAN w aplikacji.";
 
@@ -673,7 +673,7 @@
 
 "ExposureSubmissionSuccess_listItem2" = "Istnieje duże prawdopodobieństwo, że możesz zakażać. Odizoluj się od innych ludzi.";
 
-"ExposureSubmissionSuccess_listItem2_1" = "Okres izolacji wynosi zazwyczaj 14 dni. Obserwuj swoje objawy i monitoruj ich rozwój.";
+"ExposureSubmissionSuccess_listItem2_1" = "Okres izolacji wynosi zazwyczaj 10 dni. Obserwuj swoje objawy i monitoruj ich rozwój.";
 
 "ExposureSubmissionSuccess_listItem2_2" = "Zostaniesz poproszony(-a) przez organ ds. zdrowia publicznego o stworzenie listy osób, z którymi miałeś(-aś) kontakt. Powinna ona obejmować wszystkie osoby, z którymi miałeś(-aś) bliski kontakt (w odległości mniejszej niż 2 metry, rozmowa twarzą w twarz) przez ponad 15 minut w ciągu dwóch dni poprzedzających zachorowanie. Możesz do tego celu wykorzystać swój dziennik kontaktów: po prostu wyeksportuj wpisy, a następnie wydrukuj je lub wyślij pocztą e-mail.";
 
@@ -1381,7 +1381,7 @@
 
 "App_Information_Contact_Hotline_Details_Foreign" = "Dla połączeń spoza Niemiec.\nObowiązują opłaty podane przez operatora telefonicznego.";
 
-"App_Information_Contact_Hotline_Terms" = "Zapewniamy obsługę klienta w następujących językach: \nangielskim, niemieckim, tureckim\n\nGodziny pracy:\nod poniedziałku do soboty w godzinach 7:00 - 22:00 (CET)\n(z wyjątkiem świąt)\n\nW razie jakichkolwiek pytań związanych ze zdrowiem skontaktuj się z lekarzem rodzinnym lub lekarzem dyżurnym pod numerem telefonu: 116 117.";
+"App_Information_Contact_Hotline_Terms" = "Zapewniamy obsługę klienta w następujących językach: \nangielskim, niemieckim, tureckim\n\nGodziny pracy:\nPon.-Sob.: 7:00 - 22:00 (CET)\n(z wyjątkiem świąt)\n\nW razie jakichkolwiek pytań związanych ze zdrowiem skontaktuj się z lekarzem rodzinnym lub lekarzem dyżurnym pod numerem telefonu: 116 117.";
 
 /* App Information - Imprint */
 "App_Information_New_Features_Navigation" = "Nowe funkcje";
@@ -1701,7 +1701,7 @@
 
 "TestResultPositive_KeysSubmitted_Title2" = "Inne informacje:";
 
-"TestResultPositive_KeysSubmitted_FurtherInfo1" = "Okres izolacji wynosi zazwyczaj 14 dni. Obserwuj swoje objawy i monitoruj ich rozwój.";
+"TestResultPositive_KeysSubmitted_FurtherInfo1" = "Okres izolacji wynosi zazwyczaj 10 dni. Obserwuj swoje objawy i monitoruj ich rozwój.";
 
 "TestResultPositive_KeysSubmitted_FurtherInfo2" = "Zostaniesz poproszony(-a) przez organ ds. zdrowia publicznego o stworzenie listy osób, z którymi miałeś(-aś) kontakt. Powinna ona obejmować wszystkie osoby, z którymi miałeś(-aś) bliski kontakt (w odległości mniejszej niż 2 metry, rozmowa twarzą w twarz) przez ponad 15 minut w ciągu dwóch dni poprzedzających zachorowanie. Możesz do tego celu wykorzystać swój dziennik kontaktów: po prostu wyeksportuj wpisy, a następnie wydrukuj je lub wyślij pocztą e-mail.";
 
@@ -2811,11 +2811,11 @@
 
 "HealthCertifiedPerson_AdmissionState_description2GPlusPCR" = "Twoje certyfikaty są zgodne z zasadą 2G plus. Jeśli musisz udowodnić swój aktualny status, zamknij ten widok i wyświetl kod QR w przeglądzie certyfikatów.";
 
-"HealthCertifiedPerson_AdmissionState_description2GPlusAntigen" = "Twoje certyfikaty są zgodne z zasadą 2G plus. Jeśli musisz udowodnić swój aktualny status, zamknij ten widok i wyświetl kod QR w przeglądzie certyfikatów.";
+"HealthCertifiedPerson_AdmissionState_description2GPlusAntigen" = "Twoje certyfikaty są zgodne z zasadą 2G plus, o ile nie jest wymagany test PCR. Jeśli musisz udowodnić swój aktualny status, zamknij ten widok i wyświetl kod QR w przeglądzie certyfikatów.";
 
 "HealthCertifiedPerson_AdmissionState_description3G" = "Twoje certyfikaty są zgodne z zasadą 3G. Jeśli musisz udowodnić swój aktualny status, zamknij ten widok i pokaż kod QR w przeglądzie certyfikatów.";
 
-"HealthCertifiedPerson_AdmissionState_description3GPlus" = "Twoje certyfikaty są zgodne z zasadą 3G plus. Jeśli musisz udowodnić swój aktualny status, zamknij ten widok i pokaż kod QR w przeglądzie certyfikatów.";
+"HealthCertifiedPerson_AdmissionState_description3GPlus" = "Twoje certyfikaty są zgodne z zasadą 2G plus. Jeśli musisz udowodnić swój aktualny status, zamknij ten widok i wyświetl kod QR w przeglądzie certyfikatów.";
 
 "HealthCertifiedPerson_AdmissionStateFAQ" = "Więcej informacji znajduje się na naszej stronie %@.";
 
