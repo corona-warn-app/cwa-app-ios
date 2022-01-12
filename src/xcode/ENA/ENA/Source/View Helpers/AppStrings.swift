@@ -2489,7 +2489,8 @@ enum AppStrings {
 		static let title = NSLocalizedString("RecycleBin_title", comment: "")
 		static let description = NSLocalizedString("RecycleBin_description", comment: "")
 		static let deleteAllButtonTitle = NSLocalizedString("RecycleBin_deleteAllButtonTitle", comment: "")
-
+		static let expiryDateTime = NSLocalizedString("RecycleBin_expiryDateTime", comment: "")
+		
 		enum VaccinationCertificate {
 			static let headline = NSLocalizedString("RecycleBin_VaccinationCertificate_headline", comment: "")
 			static let vaccinationCount = NSLocalizedString("RecycleBin_VaccinationCertificate_vaccinationCount", comment: "")
