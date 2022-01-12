@@ -123,6 +123,18 @@ class RecycleBinItemCellModel {
 		}
 	}()
 
+	lazy var quaternaryInfo: String? = {
+		guard let expirationDate = Calendar.current.date(byAdding: .day, value: 30, to: recycleBinItem.recycledAt) else {
+			return nil
+		}
+		
+		return String(
+			format: AppStrings.RecycleBin.expiryDateTime,
+			DateFormatter.localizedString(from: expirationDate, dateStyle: .short, timeStyle: .none),
+			DateFormatter.localizedString(from: expirationDate, dateStyle: .none, timeStyle: .short)
+		)
+	}()
+
 	// MARK: - Private
 
 	private let recycleBinItem: RecycleBinItem
