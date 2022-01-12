@@ -12,7 +12,7 @@ struct DCCRulesResource: Resource {
 		isFake: Bool = false,
 		ruleType: HealthCertificateValidationRuleType
 	) {
-		self.locator = .DCCRules(rulePath: ruleType.urlPath, isFake: isFake)
+		self.locator = .DCCRules(ruleType: ruleType, isFake: isFake)
 		self.type = .caching()
 		self.sendResource = EmptySendResource()
 		self.receiveResource = CBORReceiveResource<ValidationRules>()
