@@ -3,6 +3,7 @@
 //
 
 import Foundation
+import HealthCertificateToolkit
 
 /**
 Protocol for a specific Model to decode from CBOR data. Should normally be implemented by the Model which shall be decoded, NOT the Resource.
@@ -46,7 +47,11 @@ struct CBORReceiveResource<R>: ReceiveResource where R: CBORDecoding {
 		do {
 			let model = try R(decodeCBOR: package.bin)
 			return Result.success(model)
-		} catch {
+		}
+		catch RuleValidationError.CBOR_DECODING_FAILED(let error) {
+			return Result.failure(.CBORDecoding)
+		}
+		catch {
 			return Result.failure(.decoding)
 		}
 	}

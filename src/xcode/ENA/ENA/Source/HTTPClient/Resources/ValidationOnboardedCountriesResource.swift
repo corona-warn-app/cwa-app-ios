@@ -28,27 +28,71 @@ struct ValidationOnboardedCountriesResource: Resource {
 	var type: ServiceType
 	var sendResource: EmptySendResource
 	var receiveResource: CBORReceiveResource<ValidationOnboardedCountriesModel>
-
-	// swiftlint:disable cyclomatic_complexity
+	
 	func customError(for error: ServiceError<ValidationOnboardedCountriesError>) -> ValidationOnboardedCountriesError? {
 		switch error {
-		case .resourceError:
-			return .VS_ID_PARSE_ERR
 		case .transportationError:
 			return .ONBOARDED_COUNTRIES_NO_NETWORK
-		case .unexpectedServerError(let statusCode):
-			switch statusCode {
-			case (400...499):
-				return .VS_ID_CLIENT_ERR
-			case (500...599):
-				return .VS_ID_SERVER_ERR
+		case .unexpectedServerError:
+			return .ONBOARDED_COUNTRIES_SERVER_ERROR
+		case let .resourceError(error):
+			
+			guard let resourceError = error else {
+				return nil
+			}
+			
+			switch resourceError {
+							
+			case .missingData:
+				return .ONBOARDED_COUNTRIES_JSON_ARCHIVE_FILE_MISSING
+			case .decoding:
+				break
+			case .encoding:
+				break
+			case .packageCreation:
+				break
+			case .signatureVerification:
+				return .ONBOARDED_COUNTRIES_JSON_ARCHIVE_SIGNATURE_INVALID
+			case .missingEtag:
+				return .ONBOARDED_COUNTRIES_JSON_ARCHIVE_ETAG_ERROR
 			default:
 				return nil
 			}
+		case .receivedResourceError(_):
+			break
+		case .invalidResponse:
+			break
+		case .invalidResponseType:
+			break
 		default:
 			return nil
 		}
 	}
+
+	// swiftlint:disable cyclomatic_complexity
+//	func customError(for error: ServiceError<ValidationOnboardedCountriesError>) -> ValidationOnboardedCountriesError? {
+//		switch error {
+//			
+//		/*
+//			
+//		case .resourceError:
+//			return .VS_ID_PARSE_ERR
+//		case .transportationError:
+//			return .ONBOARDED_COUNTRIES_NO_NETWORK
+//		case .unexpectedServerError(let statusCode):
+//			switch statusCode {
+//			case (400...499):
+//				return .VS_ID_CLIENT_ERR
+//			case (500...599):
+//				return .VS_ID_SERVER_ERR
+//			default:
+//				return nil
+//			}
+//		default:
+//			return nil
+//		}
+//		 */
+//	}
 }
 
 enum ValidationOnboardedCountriesError: LocalizedError {

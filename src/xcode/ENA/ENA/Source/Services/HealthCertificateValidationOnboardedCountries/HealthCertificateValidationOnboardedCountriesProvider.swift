@@ -122,12 +122,12 @@ final class HealthCertificateValidationOnboardedCountriesProvider: HealthCertifi
 				case let .success(countries):
 					Log.info("Successfully decoded country codes: \(private: countries). Returning now.", log: .vaccination)
 					// Save in success case for caching
-					let receivedOnboardedCountries = HealthCertificateValidationOnboardedCountriesCache(
-						onboardedCountries: countries,
-						lastOnboardedCountriesETag: eTag
-					)
-					store.validationOnboardedCountriesCache = receivedOnboardedCountries
-					completion(.success(countries))
+//					let receivedOnboardedCountries = HealthCertificateValidationOnboardedCountriesCache(
+//						onboardedCountries: countries,
+//						lastOnboardedCountriesETag: eTag
+//					)
+//					store.validationOnboardedCountriesCache = receivedOnboardedCountries
+//					completion(.success(countries))
 				case let .failure(error):
 					Log.error("Could not decode CBOR from package with error:", log: .vaccination, error: error)
 					completion(.failure(.ONBOARDED_COUNTRIES_DECODING_ERROR(error)))
@@ -144,13 +144,13 @@ final class HealthCertificateValidationOnboardedCountriesProvider: HealthCertifi
 		case .notModified:
 			// Normally we should have cached something before
 			Log.info("Download new onboarded countries aborted due to not modified content. Taking cached countries.", log: .vaccination)
-			if let cachedOnboardedCountries = store.validationOnboardedCountriesCache?.onboardedCountries {
-				completion(.success(cachedOnboardedCountries))
-			} else {
-				// If not, return edge case error
-				Log.error("Could not find cached countries but need some.", log: .vaccination)
-				completion(.failure(.ONBOARDED_COUNTRIES_MISSING_CACHE))
-			}
+//			if let cachedOnboardedCountries = store.validationOnboardedCountriesCache?.onboardedCountries {
+//				completion(.success(cachedOnboardedCountries))
+//			} else {
+//				// If not, return edge case error
+//				Log.error("Could not find cached countries but need some.", log: .vaccination)
+//				completion(.failure(.ONBOARDED_COUNTRIES_MISSING_CACHE))
+//			}
 		case .noNetworkConnection:
 			Log.error("Could not download onboarded countries due to no network.", log: .vaccination, error: error)
 			completion(.failure(.ONBOARDED_COUNTRIES_NO_NETWORK))
