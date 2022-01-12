@@ -6,9 +6,9 @@ import Foundation
 import HealthCertificateToolkit
 
 struct ValidationOnboardedCountriesResource: Resource {
-
+	
 	// MARK: - Init
-
+	
 	init(
 		isFake: Bool = false
 	) {
@@ -17,13 +17,13 @@ struct ValidationOnboardedCountriesResource: Resource {
 		self.sendResource = EmptySendResource()
 		self.receiveResource = CBORReceiveResource<ValidationOnboardedCountriesModel>()
 	}
-
+	
 	// MARK: - Protocol Resource
-
+	
 	typealias Send = EmptySendResource
 	typealias Receive = CBORReceiveResource<ValidationOnboardedCountriesModel>
 	typealias CustomError = Error
-
+	
 	var locator: Locator
 	var type: ServiceType
 	var sendResource: EmptySendResource
@@ -33,66 +33,48 @@ struct ValidationOnboardedCountriesResource: Resource {
 		switch error {
 		case .transportationError:
 			return .ONBOARDED_COUNTRIES_NO_NETWORK
-		case .unexpectedServerError:
-			return .ONBOARDED_COUNTRIES_SERVER_ERROR
-		case let .resourceError(error):
-			
-			guard let resourceError = error else {
-				return nil
-			}
-			
-			switch resourceError {
-							
-			case .missingData:
-				return .ONBOARDED_COUNTRIES_JSON_ARCHIVE_FILE_MISSING
-			case .decoding:
-				break
-			case .encoding:
-				break
-			case .packageCreation:
-				break
-			case .signatureVerification:
-				return .ONBOARDED_COUNTRIES_JSON_ARCHIVE_SIGNATURE_INVALID
-			case .missingEtag:
-				return .ONBOARDED_COUNTRIES_JSON_ARCHIVE_ETAG_ERROR
-			default:
-				return nil
-			}
-		case .receivedResourceError(_):
-			break
-		case .invalidResponse:
-			break
-		case .invalidResponseType:
-			break
+		case .unexpectedServerError(let statusCode):
+					switch statusCode {
+					case (400...409):
+						return .ONBOARDED_COUNTRIES_CLIENT_ERROR
+					default:
+						return .ONBOARDED_COUNTRIES_SERVER_ERROR
+					}
+		case let .resourceError(rError):
+			return handleResourceError(rError)
 		default:
 			return nil
 		}
 	}
-
-	// swiftlint:disable cyclomatic_complexity
-//	func customError(for error: ServiceError<ValidationOnboardedCountriesError>) -> ValidationOnboardedCountriesError? {
-//		switch error {
-//			
-//		/*
-//			
-//		case .resourceError:
-//			return .VS_ID_PARSE_ERR
-//		case .transportationError:
-//			return .ONBOARDED_COUNTRIES_NO_NETWORK
-//		case .unexpectedServerError(let statusCode):
-//			switch statusCode {
-//			case (400...499):
-//				return .VS_ID_CLIENT_ERR
-//			case (500...599):
-//				return .VS_ID_SERVER_ERR
-//			default:
-//				return nil
-//			}
-//		default:
-//			return nil
-//		}
-//		 */
-//	}
+	
+	// MARK: - Private
+	
+	private func handleResourceError(_ error: ResourceError?) -> ValidationOnboardedCountriesError? {
+		guard let resourceError = error else {
+			return nil
+		}
+		
+		switch resourceError {
+			
+		case .missingData:
+			return .ONBOARDED_COUNTRIES_MISSING_CACHE
+		case let .decoding(dError):
+			if let ruleValidationError = dError as? RuleValidationError {
+				return .ONBOARDED_COUNTRIES_DECODING_ERROR(ruleValidationError)
+			} else {
+				return .ONBOARDED_COUNTRIES_DECODING_ERROR(RuleValidationError.CBOR_DECODING_FAILED(error))
+			}
+		case .packageCreation:
+			return .ONBOARDED_COUNTRIES_JSON_ARCHIVE_FILE_MISSING
+		case .signatureVerification:
+			return .ONBOARDED_COUNTRIES_JSON_ARCHIVE_SIGNATURE_INVALID
+		case .missingEtag:
+			return .ONBOARDED_COUNTRIES_JSON_ARCHIVE_ETAG_ERROR
+		default:
+			return nil
+		}
+		
+	}
 }
 
 enum ValidationOnboardedCountriesError: LocalizedError {
