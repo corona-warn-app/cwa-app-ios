@@ -46,7 +46,7 @@ struct CBORReceiveResource<R>: ReceiveResource where R: CBORDecoding {
 			let model = try R(decodeCBOR: package.bin)
 			return Result.success(model)
 		} catch {
-			return Result.failure(.decoding)
+			return Result.failure(.decoding(error))
 		}
 	}
 
