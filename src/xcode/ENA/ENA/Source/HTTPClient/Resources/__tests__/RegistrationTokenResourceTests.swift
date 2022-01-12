@@ -88,7 +88,7 @@ final class RegistrationTokenResourceTests: CWATestCase {
 				XCTFail("Backend returned random bytes - the request should have failed!")
 			case .failure(let error):
 				guard case let .resourceError(resourceError) = error,
-					  resourceError == .decoding else {
+					  resourceError == .decoding(nil) else {
 					XCTFail("unexpected error case")
 					return
 				}
@@ -121,7 +121,7 @@ final class RegistrationTokenResourceTests: CWATestCase {
 				XCTFail("Backend returned random bytes - the request should have failed!")
 			case .failure(let error):
 				guard case let .resourceError(resourceError) = error,
-					  resourceError == .decoding else {
+					  resourceError == .decoding(nil) else {
 					XCTFail("unexpected error case")
 					return
 				}
