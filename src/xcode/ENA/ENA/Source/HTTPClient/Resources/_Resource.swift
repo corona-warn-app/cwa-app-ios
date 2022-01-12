@@ -3,13 +3,13 @@
 //
 
 /**
-A Resource is a composition of locator (where a resources can be found), service type to be used, data to send (sendResource) and data to receive (receiveResource).
-*/
+ A Resource is a composition of locator (where a resources can be found), service type to be used, data to send (sendResource) and data to receive (receiveResource).
+ */
 protocol Resource {
 	associatedtype Send: SendResource
 	associatedtype Receive: ReceiveResource
 	associatedtype CustomError: Error
-
+	
 	var locator: Locator { get }
 	var type: ServiceType { get }
 	var sendResource: Send { get }
@@ -17,7 +17,7 @@ protocol Resource {
 	
 	// Defines a default value for no network cases as the specific receive model (for resources like e.g. AppConfig, AllowList)
 	var defaultModel: Receive.ReceiveModel? { get }
-
+	
 	func customError(for error: ServiceError<CustomError>) -> CustomError?
 	
 #if !RELEASE
@@ -30,7 +30,7 @@ protocol Resource {
 // Custom error handling & caching support
 
 extension Resource {
-
+	
 	var defaultModel: Receive.ReceiveModel? {
 		nil
 	}
@@ -41,17 +41,64 @@ extension Resource {
 }
 
 /**
-The errors that can occur while handling resources
-*/
-enum ResourceError: Error {
+ The errors that can occur while handling resources
+ */
+enum ResourceError: Error, Equatable {
 	case missingData
-	case decoding
+	case decoding(Error?)
 	case encoding
 	case packageCreation
 	case signatureVerification
 	case notModified
 	case undefined
 	case missingEtag
+	
+	// MARK: - Protocol Equatable
+	
+	// swiftlint:disable cyclomatic_complexity
+	static func == (lhs: ResourceError, rhs: ResourceError) -> Bool {
+		switch (lhs, rhs) {
+		case (.missingData, .missingData):
+			return true
+		case (.missingData, _):
+			return false
+			
+		case let (.decoding(lError), .decoding(rError)):
+			return lError?.localizedDescription == rError?.localizedDescription
+		case (.decoding, _):
+			return false
+			
+		case (.encoding, .encoding):
+			return true
+		case (.encoding, _):
+			return false
+			
+		case (.packageCreation, .packageCreation):
+			return true
+		case (.packageCreation, _):
+			return false
+			
+		case (.signatureVerification, .signatureVerification):
+			return true
+		case (.signatureVerification, _):
+			return false
+			
+		case (.notModified, .notModified):
+			return true
+		case (.notModified, _):
+			return false
+			
+		case (.undefined, .undefined):
+			return true
+		case (.undefined, _):
+			return false
+			
+		case (.missingEtag, .missingEtag):
+			return true
+		case (.missingEtag, _):
+			return false
+		}
+	}
 }
 
 #if !RELEASE

@@ -14,7 +14,7 @@ struct StringReceiveResource: ReceiveResource {
 		}
 
 		guard let string = String(data: data, encoding: .utf8) else {
-			return .failure(.decoding)
+			return .failure(.decoding(nil))
 		}
 
 		return .success(string)

@@ -47,12 +47,9 @@ struct CBORReceiveResource<R>: ReceiveResource where R: CBORDecoding {
 		do {
 			let model = try R(decodeCBOR: package.bin)
 			return Result.success(model)
-		}
-		catch RuleValidationError.CBOR_DECODING_FAILED(let error) {
-			return Result.failure(.CBORDecoding)
-		}
-		catch {
-			return Result.failure(.decoding)
+		} catch {
+			return Result.failure(.decoding(error))
+
 		}
 	}
 

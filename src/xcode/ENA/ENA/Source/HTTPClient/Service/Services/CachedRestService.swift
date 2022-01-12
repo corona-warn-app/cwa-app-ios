@@ -70,7 +70,7 @@ class CachedRestService: Service {
 			
 		case .failure:
 			Log.error("Decoding for receive resource failed.", log: .client)
-			failureOrDefaultValueHandling(resource, .resourceError(.decoding), completion)
+			failureOrDefaultValueHandling(resource, .resourceError(.decoding(nil)), completion)
 		}
 	}
 
