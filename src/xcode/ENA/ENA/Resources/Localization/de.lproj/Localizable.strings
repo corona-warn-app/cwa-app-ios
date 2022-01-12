@@ -2995,6 +2995,8 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "HealthCertifiedPerson_TestCertificate_antigenTest" = "Schnelltest";
 
+"HealthCertifiedPerson_TestCertificate_sampleCollectionDate" = "Probenahme am %@";
+
 "HealthCertifiedPerson_RecoveryCertificate_headline" = "Genesenenzertifikat";
 
 "HealthCertifiedPerson_RecoveryCertificate_validityDate" = "gültig bis %@";
@@ -3433,7 +3435,7 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "RecycleBin_deleteAllButtonTitle" = "Alle endgültig löschen";
 
-"RecycleBin_expiryDateTime" = "wird am %@ um %@ endgültig gelöscht";
+"RecycleBin_expirationDateTime" = "wird am %@ um %@ endgültig gelöscht";
 
 /* - Vaccination Certificate */
 

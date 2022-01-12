@@ -63,7 +63,7 @@ class RecycleBinItemTableViewCell: UITableViewCell, ReuseIdentifierProviding {
 	@IBOutlet private weak var secondaryLabel: ENALabel!
 	@IBOutlet private weak var tertiaryLabel: ENALabel!
 	@IBOutlet private weak var quaternaryLabel: ENALabel!
-    @IBOutlet private weak var spacer: UIView!
+	@IBOutlet private weak var spacer: UIView!
     
 	private var cellBackgroundColor: UIColor = .enaColor(for: .cellBackground)
 

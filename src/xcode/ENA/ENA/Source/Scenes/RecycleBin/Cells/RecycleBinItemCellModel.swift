@@ -129,7 +129,7 @@ class RecycleBinItemCellModel {
 		}
 		
 		return String(
-			format: AppStrings.RecycleBin.expiryDateTime,
+			format: AppStrings.RecycleBin.expirationDateTime,
 			DateFormatter.localizedString(from: expirationDate, dateStyle: .short, timeStyle: .none),
 			DateFormatter.localizedString(from: expirationDate, dateStyle: .none, timeStyle: .short)
 		)
