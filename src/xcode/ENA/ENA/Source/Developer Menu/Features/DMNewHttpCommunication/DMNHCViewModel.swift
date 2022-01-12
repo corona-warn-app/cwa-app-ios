@@ -6,6 +6,7 @@
 
 import Foundation
 import UIKit
+import CertLogic
 
 final class DMNHCViewModel {
 
@@ -41,6 +42,16 @@ final class DMNHCViewModel {
 		}
 
 		switch section {
+		case .dccRules:
+			return DMButtonCellViewModel(
+				text: "dccRules",
+				textColor: .white,
+				backgroundColor: .enaColor(for: .buttonPrimary),
+				action: { [weak self] in
+					self?.showDCCRulesSheetAndSubmit()
+				}
+			)
+
 		case .appConfig:
 			return DMButtonCellViewModel(
 				text: "appConfig",
@@ -90,6 +101,7 @@ final class DMNHCViewModel {
 	// MARK: - Private
 
 	private enum TableViewSections: Int, CaseIterable {
+		case dccRules
 		case appConfig
 		case validationOnboardedCountries
 		case registerTeleTAN
@@ -97,6 +109,40 @@ final class DMNHCViewModel {
 
 	private let store: Store
 	private let restService: RestServiceProviding
+
+	private func showDCCRulesSheetAndSubmit() {
+		let sheet = UIAlertController(title: "Type", message: "select ruletype", preferredStyle: .actionSheet)
+		HealthCertificateValidationRuleType.allCases.forEach { ruleType in
+			sheet.addAction(
+				UIAlertAction(
+					title: ruleType.urlPath,
+					style: .default,
+					handler: { [weak self] _ in
+						Log.info("Did select \(ruleType.urlPath)")
+						self?.performDccRulesRequest(ruleType)
+					}
+				)
+			)
+		}
+		sheet.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+		DispatchQueue.main.async { [weak self] in
+			self?.viewController?.present(sheet, animated: true)
+		}
+
+	}
+
+	private func performDccRulesRequest(_ ruleType: HealthCertificateValidationRuleType) {
+		let resource = DCCRulesResource(isFake: false, ruleType: ruleType)
+		restService.load(resource) { result in
+			switch result {
+			case .success:
+				Log.info("New HTTP Call for dccRule \(ruleType.urlPath) successful")
+			case .failure:
+				Log.error("New HTTP Call for dccRule \(ruleType.urlPath) failed")
+			}
+		}
+
+	}
 
 	private func showAskTANAlertAndSubmit() {
 		let alert = UIAlertController(title: "TELETAN", message: "Please enter TeleTAN", preferredStyle: .alert)
