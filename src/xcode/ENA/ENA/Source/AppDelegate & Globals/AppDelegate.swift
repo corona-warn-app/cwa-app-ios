@@ -476,7 +476,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 	
 	private lazy var healthCertificateValidationOnboardedCountriesProvider: HealthCertificateValidationOnboardedCountriesProviding = HealthCertificateValidationOnboardedCountriesProvider(
 		store: store,
-		client: client
+		restService: restServiceProvider
 	)
 	
 	/// Reference to the ELS server handling error log recording & submission

@@ -7,7 +7,7 @@ import HealthCertificateToolkit
 
 protocol HealthCertificateValidationOnboardedCountriesProviding {
 	func onboardedCountries(
-		completion: @escaping (Result<[Country], HealthCertificateValidationOnboardedCountriesError>) -> Void
+		completion: @escaping (Result<[Country], ValidationOnboardedCountriesError>) -> Void
 	)
 }
 
@@ -17,20 +17,21 @@ final class HealthCertificateValidationOnboardedCountriesProvider: HealthCertifi
 	
 	init(
 		store: Store,
-		client: Client,
+		restService: RestServiceProviding,
 		signatureVerifier: SignatureVerification = SignatureVerifier()
 	) {
 		self.store = store
-		self.client = client
+		self.restService = restService
 		self.signatureVerifier = signatureVerifier
 	}
 	
 	// MARK: - Protocol HealthCertificateValidationOnboardedCountriesProviding
 	
 	func onboardedCountries(
-		completion: @escaping (Result<[Country], HealthCertificateValidationOnboardedCountriesError>) -> Void
+		completion: @escaping (Result<[Country], ValidationOnboardedCountriesError>) -> Void
 	) {
-		client.validationOnboardedCountries(
+		/*
+		restService.validationOnboardedCountries(
 			eTag: store.validationOnboardedCountriesCache?.lastOnboardedCountriesETag,
 			isFake: false,
 			completion: { [weak self] result in
@@ -54,17 +55,40 @@ final class HealthCertificateValidationOnboardedCountriesProvider: HealthCertifi
 				}
 			}
 		)
+		 */
+		let validationOnboardedCountriesResource = ValidationOnboardedCountriesResource()
+		
+		restService.load(validationOnboardedCountriesResource) { [weak self] result in
+			guard let self = self else {
+				Log.error("Could not create strong self", log: .vaccination)
+				completion(.failure(.ONBOARDED_COUNTRIES_CLIENT_ERROR))
+				return
+			}
+			
+//			switch result {
+//			case let .success(packageDownloadResponse):
+//				self.processOnboardedCountriesResponse(
+//					packageDownloadResponse: packageDownloadResponse,
+//					completion: completion
+//				)
+//			case let .failure(error):
+//				self.processOnboardedCountriesFailure(
+//					error: error,
+//					completion: completion
+//				)
+//			}
+		}
 	}
 	
 	// MARK: - Private
 	
 	private let store: Store
-	private let client: Client
+	private let restService: RestServiceProviding
 	private let signatureVerifier: SignatureVerification
-		
+	
 	private func processOnboardedCountriesResponse(
 		packageDownloadResponse: PackageDownloadResponse,
-		completion: @escaping (Result<[Country], HealthCertificateValidationOnboardedCountriesError>) -> Void
+		completion: @escaping (Result<[Country], ValidationOnboardedCountriesError>) -> Void
 	) {
 		Log.info("Successfully received onboarded countries package. Proceed with eTag verification...", log: .vaccination)
 
@@ -114,7 +138,7 @@ final class HealthCertificateValidationOnboardedCountriesProvider: HealthCertifi
 	
 	private func processOnboardedCountriesFailure(
 		error: URLSession.Response.Failure,
-		completion: @escaping (Result<[Country], HealthCertificateValidationOnboardedCountriesError>) -> Void
+		completion: @escaping (Result<[Country], ValidationOnboardedCountriesError>) -> Void
 	) {
 		switch error {
 		case .notModified:

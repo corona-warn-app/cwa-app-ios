@@ -38,6 +38,7 @@ struct CBORReceiveResource<R>: ReceiveResource where R: CBORDecoding {
 		guard let package = SAPDownloadedPackage(compressedData: data) else {
 			return .failure(.packageCreation)
 		}
+				
 		guard signatureVerifier.verify(package) else {
 			return .failure(.signatureVerification)
 		}

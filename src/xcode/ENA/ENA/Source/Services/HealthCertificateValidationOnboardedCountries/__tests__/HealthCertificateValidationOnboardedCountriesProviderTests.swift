@@ -110,7 +110,7 @@ class HealthCertificateValidationOnboardedCountriesProviderTests: XCTestCase {
 		)
 
 		let expectation = self.expectation(description: "Test should fail ONBOARDED_COUNTRIES_JSON_ARCHIVE_ETAG_ERROR")
-		var receivedError: HealthCertificateValidationOnboardedCountriesError?
+		var receivedError: ValidationOnboardedCountriesError?
 	
 		// WHEN
 		provider.onboardedCountries(completion: { result in
@@ -146,7 +146,7 @@ class HealthCertificateValidationOnboardedCountriesProviderTests: XCTestCase {
 			signatureVerifier: MockVerifier()
 		)
 		let expectation = self.expectation(description: "Test should fail ONBOARDED_COUNTRIES_JSON_ARCHIVE_FILE_MISSING")
-		var receivedError: HealthCertificateValidationOnboardedCountriesError?
+		var receivedError: ValidationOnboardedCountriesError?
 	
 		// WHEN
 		provider.onboardedCountries(completion: { result in
@@ -185,7 +185,7 @@ class HealthCertificateValidationOnboardedCountriesProviderTests: XCTestCase {
 			client: client
 		)
 		let expectation = self.expectation(description: "Test should fail ONBOARDED_COUNTRIES_JSON_ARCHIVE_SIGNATURE_INVALID")
-		var receivedError: HealthCertificateValidationOnboardedCountriesError?
+		var receivedError: ValidationOnboardedCountriesError?
 	
 		// WHEN
 		provider.onboardedCountries(completion: { result in
@@ -225,7 +225,7 @@ class HealthCertificateValidationOnboardedCountriesProviderTests: XCTestCase {
 			signatureVerifier: MockVerifier()
 		)
 		let expectation = self.expectation(description: "Test should fail ONBOARDED_COUNTRIES_JSON_DECODING_FAILED")
-		var receivedError: HealthCertificateValidationOnboardedCountriesError?
+		var receivedError: ValidationOnboardedCountriesError?
 	
 		// WHEN
 		provider.onboardedCountries(completion: { result in
@@ -256,7 +256,7 @@ class HealthCertificateValidationOnboardedCountriesProviderTests: XCTestCase {
 			signatureVerifier: MockVerifier()
 		)
 		let expectation = self.expectation(description: "Test should fail ONBOARDED_COUNTRIES_NO_NETWORK")
-		var receivedError: HealthCertificateValidationOnboardedCountriesError?
+		var receivedError: ValidationOnboardedCountriesError?
 	
 		// WHEN
 		provider.onboardedCountries(completion: { result in
@@ -288,7 +288,7 @@ class HealthCertificateValidationOnboardedCountriesProviderTests: XCTestCase {
 			signatureVerifier: MockVerifier()
 		)
 		let expectation = self.expectation(description: "Test should fail ONBOARDED_COUNTRIES_MISSING_CACHE")
-		var receivedError: HealthCertificateValidationOnboardedCountriesError?
+		var receivedError: ValidationOnboardedCountriesError?
 	
 		// WHEN
 		provider.onboardedCountries(completion: { result in
@@ -319,7 +319,7 @@ class HealthCertificateValidationOnboardedCountriesProviderTests: XCTestCase {
 			signatureVerifier: MockVerifier()
 		)
 		let expectation = self.expectation(description: "Test should fail ONBOARDED_COUNTRIES_CLIENT_ERROR")
-		var receivedError: HealthCertificateValidationOnboardedCountriesError?
+		var receivedError: ValidationOnboardedCountriesError?
 	
 		// WHEN
 		provider.onboardedCountries(completion: { result in
@@ -350,7 +350,7 @@ class HealthCertificateValidationOnboardedCountriesProviderTests: XCTestCase {
 			signatureVerifier: MockVerifier()
 		)
 		let expectation = self.expectation(description: "Test should fail ONBOARDED_COUNTRIES_SERVER_ERROR")
-		var receivedError: HealthCertificateValidationOnboardedCountriesError?
+		var receivedError: ValidationOnboardedCountriesError?
 	
 		// WHEN
 		provider.onboardedCountries(completion: { result in
@@ -381,7 +381,7 @@ class HealthCertificateValidationOnboardedCountriesProviderTests: XCTestCase {
 			signatureVerifier: MockVerifier()
 		)
 		let expectation = self.expectation(description: "Test should fail ONBOARDED_COUNTRIES_NO_NETWORK")
-		var receivedError: HealthCertificateValidationOnboardedCountriesError?
+		var receivedError: ValidationOnboardedCountriesError?
 
 		// WHEN
 		provider.onboardedCountries(completion: { result in
