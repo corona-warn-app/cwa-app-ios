@@ -704,6 +704,7 @@
 		5081EF0625FFB7E0004B8FDE /* CheckinsInfoScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5081EF0525FFB7E0004B8FDE /* CheckinsInfoScreenViewController.swift */; };
 		5081EF0E25FFDEC7004B8FDE /* ENAUITests_10_CheckIns.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5081EF0D25FFDEC7004B8FDE /* ENAUITests_10_CheckIns.swift */; };
 		508266DA278DA60000091991 /* Archive+CBOR.swift in Sources */ = {isa = PBXBuildFile; fileRef = 508266D8278DA5DE00091991 /* Archive+CBOR.swift */; };
+		508266DC278DE9D300091991 /* Dictionary+Headers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 508266DB278DE9D300091991 /* Dictionary+Headers.swift */; };
 		50842BEC274FB9150015E63F /* ServiceIdentityDocumentProcessorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABC506D2274F8F0600698A95 /* ServiceIdentityDocumentProcessorTests.swift */; };
 		50842BF0274FCFFB0015E63F /* TicketValidationServiceIdentityDocument+Fake.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50842BEF274FCFFB0015E63F /* TicketValidationServiceIdentityDocument+Fake.swift */; };
 		50842BF2275127940015E63F /* DisabledPinningRestService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50842BF1275127940015E63F /* DisabledPinningRestService.swift */; };
@@ -2337,6 +2338,7 @@
 		5081EF0525FFB7E0004B8FDE /* CheckinsInfoScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckinsInfoScreenViewController.swift; sourceTree = "<group>"; };
 		5081EF0D25FFDEC7004B8FDE /* ENAUITests_10_CheckIns.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ENAUITests_10_CheckIns.swift; sourceTree = "<group>"; };
 		508266D8278DA5DE00091991 /* Archive+CBOR.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Archive+CBOR.swift"; sourceTree = "<group>"; };
+		508266DB278DE9D300091991 /* Dictionary+Headers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Dictionary+Headers.swift"; sourceTree = "<group>"; };
 		50842BEF274FCFFB0015E63F /* TicketValidationServiceIdentityDocument+Fake.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TicketValidationServiceIdentityDocument+Fake.swift"; sourceTree = "<group>"; };
 		50842BF1275127940015E63F /* DisabledPinningRestService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisabledPinningRestService.swift; sourceTree = "<group>"; };
 		5084889F26822D91004299E6 /* DMErrorLogSharingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMErrorLogSharingViewModel.swift; sourceTree = "<group>"; };
@@ -5854,10 +5856,14 @@
 				A16714AE248CA1B70031B111 /* Bundle+ReadPlist.swift */,
 				AB6289CE251BA01400CF61D2 /* Bundle+Version.swift */,
 				01DB708425068167008F7244 /* Calendar+GregorianLocale.swift */,
+				0187F89F26E210C800F1436E /* CertLogicRule+LocalizedDescription.swift */,
+				EBCB271F25EBE3FC00B96123 /* CGPDFDocument+EmbedImage.swift */,
 				35BDAB2125F10094004DFE32 /* Data+Appending.swift */,
+				ABC506BE2747DF8B00698A95 /* Data+Random.swift */,
 				0190B224255C423600CF4244 /* Date+Age.swift */,
 				AB7E2A7F255ACC06005C90F6 /* Date+Utils.swift */,
 				BA4985E326385928009D395C /* Dateformatter+vCard.swift */,
+				508266DB278DE9D300091991 /* Dictionary+Headers.swift */,
 				51895EDB245E16CD0085DA38 /* ENAColor.swift */,
 				710021DB248E44A6001F0B63 /* ENAFont.swift */,
 				50AF8B4525E00D7200F65328 /* ENDiagnosisReportType+Protobuf.swift */,
@@ -5881,16 +5887,14 @@
 				5270E9B7256D20A900B08606 /* NSTextAttachment+ImageHeight.swift */,
 				019E2EFA269C8EA6000EC4AD /* SAP_Internal_Dgc_ValueSet+DisplayText.swift */,
 				019E2EF9269C8E8A000EC4AD /* SAP_Internal_Dgc_ValueSets+ValueSetType.swift */,
-				EBCB271F25EBE3FC00B96123 /* CGPDFDocument+EmbedImage.swift */,
-				0187F89F26E210C800F1436E /* CertLogicRule+LocalizedDescription.swift */,
 				BAF5371525E7CC1B00C835E2 /* Sequence+NSAttributedText.swift */,
 				AB6289D3251BA4EC00CF61D2 /* String+Compare.swift */,
+				015FC28127395DCF000BEDE2 /* String+DataWithHexString.swift */,
 				01C6ABF32527273D0052814D /* String+Insertion.swift */,
 				B111EE2B2465D9F7001AEBB4 /* String+Localization.swift */,
 				2FA968CD24D8560B008EE367 /* String+Random.swift */,
 				50D3493C274E85E400F00493 /* String+Regex.swift */,
 				B14D0CDA246E968C00D5BEBC /* String+Today.swift */,
-				015FC28127395DCF000BEDE2 /* String+DataWithHexString.swift */,
 				EB2FDF942639A75D00B2BBF0 /* StringInterpolation+Private.swift */,
 				013A5551260CEE330092B5B1 /* TimeInterval+Minutes.swift */,
 				34FE156926010A830002CB69 /* TraceLocation+GenerateQRCode.swift */,
@@ -5911,7 +5915,6 @@
 				948AFE792554377F0019579A /* UNUserNotificationCenter+WarnOthers.swift */,
 				B1EDFD8C248E74D000E7EAFF /* URL+StaticString.swift */,
 				B153096924706F1000A4A1BD /* URLSession+Default.swift */,
-				ABC506BE2747DF8B00698A95 /* Data+Random.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -10637,6 +10640,7 @@
 				01635EAE2758BF2200A479EB /* HealthCertificateArray+AdmissionState.swift in Sources */,
 				BA6CC737260CF63B00F191FB /* CheckInHeaderCell.swift in Sources */,
 				50293D55267A4191004B3EBE /* AddButtonAsTableViewCell.swift in Sources */,
+				508266DC278DE9D300091991 /* Dictionary+Headers.swift in Sources */,
 				710ABB292475353900948792 /* DynamicTableViewModel.swift in Sources */,
 				01E102682668D83B009ED803 /* DCCRSAKeyPair.swift in Sources */,
 				AB5F84C024FE2EB3000400D4 /* DownloadedPackagesStoreV0.swift in Sources */,

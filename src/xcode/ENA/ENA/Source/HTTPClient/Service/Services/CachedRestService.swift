@@ -45,22 +45,29 @@ class CachedRestService: Service {
 	func decodeModel<R>(
 		_ resource: R,
 		_ bodyData: Data?,
-		_ response: HTTPURLResponse?,
+		_ headers: [AnyHashable: Any],
+		_ isCachedData: Bool,
 		_ completion: @escaping (Result<R.Receive.ReceiveModel, ServiceError<R.CustomError>>) -> Void
 	) where R: Resource {
-		switch resource.receiveResource.decode(bodyData, headers: response?.allHeaderFields ?? [:]) {
+		switch resource.receiveResource.decode(bodyData, headers: headers) {
 		case .success(let model):
-			guard let eTag = response?.value(forCaseInsensitiveHeaderField: "ETag"),
+			guard let eTag = headers.value(caseInsensitiveKey: "ETag"),
 				  let data = bodyData else {
-				Log.info("ETag not found - do not write to cache")
-				 completion(.success(model))
-				return
+					  Log.error("Neither eTag nor some data found. Abort with missing eTag error.", log: .client)
+					  completion(.failure(customError(in: resource, for: .resourceError(.missingEtag))))
+					  return
+				  }
+			
+			// Update cache only if we fetched some fresh data.
+			if !isCachedData {
+				let serverDate = headers.dateHeader ?? Date()
+				let cachedModel = CacheData(data: data, eTag: eTag, date: serverDate)
+				cache[resource.locator.hashValue] = cachedModel
+				Log.info("Fetched new cached data and wrote them to the cache", log: .client)
 			}
-			let serverDate = response?.dateHeader ?? Date()
-			let cachedModel = CacheData(data: data, eTag: eTag, date: serverDate)
-			cache[resource.locator.hashValue] = cachedModel
+			
 			completion(.success(model))
-
+			
 		case .failure:
 			Log.error("Decoding for receive resource failed.", log: .client)
 			failureOrDefaultValueHandling(resource, .resourceError(.decoding), completion)
@@ -76,7 +83,7 @@ class CachedRestService: Service {
 			failureOrDefaultValueHandling(resource, .resourceError(.missingData), completion)
 			return
 		}
-		decodeModel(resource, cachedModel.data, nil, completion)
+		decodeModel(resource, cachedModel.data, ["ETag": cachedModel.eTag], true, completion)
 	}
 	
 	func hasCachedData<R>(
