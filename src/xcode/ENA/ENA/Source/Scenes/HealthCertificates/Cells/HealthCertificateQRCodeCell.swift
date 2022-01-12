@@ -14,7 +14,7 @@ class HealthCertificateQRCodeCell: UITableViewCell, ReuseIdentifierProviding {
 		isAccessibilityElement = false
 
 		qrCodeView.isAccessibilityElement = true
-		titleLabel.isAccessibilityElement = true
+		titleLabel.isAccessibilityElement = false // https://jira-ibs.wbs.net.sap/browse/EXPOSUREAPP-9976
 		subtitleLabel.isAccessibilityElement = true
 		validityStateTitleLabel.isAccessibilityElement = true
 		validityStateDescriptionLabel.isAccessibilityElement = true
@@ -44,9 +44,10 @@ class HealthCertificateQRCodeCell: UITableViewCell, ReuseIdentifierProviding {
 
 		titleLabel.text = cellViewModel.title
 		titleLabel.isHidden = cellViewModel.title == nil
-
+		
 		subtitleLabel.text = cellViewModel.subtitle
 		subtitleLabel.isHidden = cellViewModel.subtitle == nil
+		subtitleLabel.accessibilityLabel = cellViewModel.titleAccessibilityText
 
 		validityStateIconImageView.image = cellViewModel.validityStateIcon
 		validityStateTitleLabel.text = cellViewModel.validityStateTitle
