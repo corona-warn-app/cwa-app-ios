@@ -122,6 +122,10 @@ class RootCoordinator: NSObject, RequiresAppDependencies, UITabBarControllerDele
 			else if case let .healthCertifiedPersonFromNotification(healthCertifiedPerson) = route {
 				showHealthCertifiedPersonFromNotification(for: healthCertifiedPerson)
 			}
+			// route handling to show test result from notification
+			else if case let .testResultFromNotification(testResult) = route {
+				showTestResultFromNotification(with: testResult)
+			}
 		}
 
 		guard let delegate = delegate,
