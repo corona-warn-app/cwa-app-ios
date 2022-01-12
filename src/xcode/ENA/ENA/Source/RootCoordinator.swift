@@ -255,16 +255,7 @@ class RootCoordinator: NSObject, RequiresAppDependencies, UITabBarControllerDele
 	}
 
 	func showTestResultFromNotification(with testType: CoronaTestType) {
-		guard let homeCoordinator = homeCoordinator else {
-			showHome(enStateHandler: ENStateHandler(
-				initialExposureManagerState: exposureManager.exposureManagerState,
-				delegate: self
-			), route: nil
-			)
-			homeCoordinator?.showTestResultFromNotification(with: testType)
-			return
-		}
-		homeCoordinator.showTestResultFromNotification(with: testType)
+		homeCoordinator?.showTestResultFromNotification(with: testType)
 	}
 	
 	func showHealthCertificateFromNotification(
