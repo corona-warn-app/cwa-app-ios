@@ -4,7 +4,7 @@
 
 import Foundation
 
-enum Route {
+enum Route: Equatable {
 
 	// MARK: - Init
 
