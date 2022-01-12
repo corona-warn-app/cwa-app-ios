@@ -48,9 +48,9 @@ class RecycleBinItemTableViewCell: UITableViewCell, ReuseIdentifierProviding {
 		tertiaryLabel.text = cellModel.tertiaryInfo
 		tertiaryLabel.isHidden = cellModel.tertiaryInfo == nil
         
-        quaternaryLabel.text = cellModel.quaternaryInfo
-        quaternaryLabel.isHidden = cellModel.quaternaryInfo == nil
-        spacer.isHidden = cellModel.quaternaryInfo == nil
+		spacer.isHidden = cellModel.quaternaryInfo == nil
+		quaternaryLabel.text = cellModel.quaternaryInfo
+		quaternaryLabel.isHidden = cellModel.quaternaryInfo == nil
 	}
 
 	// MARK: - Private
