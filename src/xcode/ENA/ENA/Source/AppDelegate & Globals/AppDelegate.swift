@@ -570,7 +570,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 				// We must NOT call self?.showHome(route) here because we do not target the home screen. Only set the route. The rest is done automatically by the startup process of the app.
 				// Works only for notifications tapped when the app is closed. When inside the app, the notification will trigger nothing.
 				Log.debug("new route is set: \(route)")
-				self?.route = route
+				guard let self = self else { return }
+
+				if self.didSetupUI {
+					Log.debug("UI is already setup, will call showHome()")
+					self.showHome(route)
+				} else {
+					Log.debug("new route is set: \(route)")
+					self.route = route
+				}
 			}, showHealthCertifiedPerson: { [weak self] route in
 				guard let self = self else { return }
 				/*
