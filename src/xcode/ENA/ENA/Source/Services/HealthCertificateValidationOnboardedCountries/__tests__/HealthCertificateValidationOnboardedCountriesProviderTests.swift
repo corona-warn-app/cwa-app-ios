@@ -10,6 +10,8 @@ import CertLogic
 
 class HealthCertificateValidationOnboardedCountriesProviderTests: XCTestCase {
 	
+	/*
+	
 	// MARK: - Success
 	
 	func testGIVEN_ValidationService_GetOnboardedCountries_WHEN_HappyCase_THEN_CountriesAreReturned() {
@@ -421,4 +423,5 @@ class HealthCertificateValidationOnboardedCountriesProviderTests: XCTestCase {
 		}
 		return [countryDE, countryFR]
 	}
+	 */
 }
