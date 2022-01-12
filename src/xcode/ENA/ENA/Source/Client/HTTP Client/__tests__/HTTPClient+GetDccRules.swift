@@ -73,7 +73,7 @@ final class HTTPClientGetDccRulesTests: CWATestCase {
 		var failure: URLSession.Response.Failure?
 		
 		// WHEN
-		client.validationOnboardedCountries(completion: { result in
+		client.getDCCRules(ruleType: .invalidation, completion: { result in
 			switch result {
 			case .success:
 				XCTFail("This test should not succeed.")
