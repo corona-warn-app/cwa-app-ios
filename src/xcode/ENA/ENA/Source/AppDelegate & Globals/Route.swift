@@ -111,5 +111,6 @@ enum Route {
 	case rapidAntigen(Result<CoronaTestRegistrationInformation, QRCodeError>)
 	case healthCertificateFromNotification(HealthCertifiedPerson, HealthCertificate)
 	case healthCertifiedPersonFromNotification(HealthCertifiedPerson)
+	case testResultFromNotification(CoronaTestType)
 
 }
