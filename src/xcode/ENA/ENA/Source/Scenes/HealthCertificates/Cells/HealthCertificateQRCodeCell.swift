@@ -44,7 +44,7 @@ class HealthCertificateQRCodeCell: UITableViewCell, ReuseIdentifierProviding {
 
 		titleLabel.text = cellViewModel.title
 		titleLabel.isHidden = cellViewModel.title == nil
-		
+
 		subtitleLabel.text = cellViewModel.subtitle
 		subtitleLabel.isHidden = cellViewModel.subtitle == nil
 		subtitleLabel.accessibilityLabel = cellViewModel.titleAccessibilityText
