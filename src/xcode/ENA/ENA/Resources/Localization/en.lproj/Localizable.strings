@@ -116,21 +116,21 @@
 
 "ExposureDetection_Guide_Symptoms" = "Be alert for typical symptoms. Even vaccinated people and those who have recovered can develop symptoms. If you feel sick or develop any symptoms, please contact your family doctor.";
 
-"ExposureDetection_Guide_Home" = "If possible, please go home and stay at home and avoid any encounters outside of your own household..";
+"ExposureDetection_Guide_Home" = "If possible, please go home and stay at home and avoid any encounters outside of your own household.";
 
 "ExposureDetection_Guide_Hotline" = "If you have any other questions, please contact the general medical emergency service on telephone number 116 117.";
 
 "ExposureDetection_Guide_Vaccination_HighRisk" = "If you have not been vaccinated yet, consult with your family doctor after you get tested.";
 
-"ExposureDetection_Guide_Title" = "Please get tested, even if you don’t have any symptoms. If you get a warning of increased risk (“red tile”), you are entitled to a test free of charge. It does not necessarily have to be a PCR test.\n";
+"ExposureDetection_Guide_Title" = "Please get tested, even if you don’t have any symptoms. If you get a warning of increased risk (“red tile”), you are entitled to a test free of charge. Your entitlement to a free rapid antigen test may be limited, depending on the local regulations. We recommend taking a PCR test, especially when it is free of charge.";
 
-"ExposureDetection_Guide_Point1" = "You can find testing possibilities here or contact your family doctor or a pharmacy.";
+"ExposureDetection_Guide_Point1" = "You can find testing possibilities here. You can also contact your family doctor or a pharmacy.";
 
-"ExposureDetection_Guide_Point1_LinkText" = "here";
+"ExposureDetection_Guide_Point1_LinkText" = "You can find testing possibilities here.";
 
 "ExposureDetection_Guide_Point2" = "More information about the testing procedure is available on our FAQ page.";
 
-"ExposureDetection_Guide_Point2_LinkText" = "FAQ";
+"ExposureDetection_Guide_Point2_LinkText" = "More information about the testing procedure is available on our FAQ page.";
 
 "ExposureDetection_Explanation_Title" = "Risk of Infection";
 
@@ -150,7 +150,7 @@
 
 "ExposureDetection_Explanation_Text_High_DateOfLastExposure" = "You have an increased risk of infection because you were exposed over a longer period of time and at close proximity to at least one person diagnosed with coronavirus.";
 
-"ExposureDetection_Explanation_Text_High" = "Therefore, your risk of infection has been ranked as increased. \nYour risk of infection is calculated from the exposure logging data (duration and proximity) locally on your smartphone. Your risk of infection cannot be seen by, or passed on to, anyone else. \nWhen you get home, please also avoid close contact with members of your family or household.";
+"ExposureDetection_Explanation_Text_High" = "Therefore, your risk of infection has been classified as increased.\nYour risk of infection is calculated from the exposure logging data (duration and proximity) locally on your device. Your risk of infection cannot be seen by, or passed on to, anyone else.";
 
 "ExposureDetection_LowRiskExposure_Title" = "Exposures with low risk";
 
@@ -214,13 +214,13 @@
 
 "ExposureDetection_Info_Contagion_Point5" = "Travel: Do not travel by plane or train.";
 
-"ExposureDetection_Info_Contagion_Point6" = "If you have questions about quarantine measures, please contact your public health department.";
+"ExposureDetection_Info_Contagion_Point6" = "If you have questions about quarantine measures, please contact your public health department. For further information, please see our FAQ page on quarantine measures.";
 
-"ExposureDetection_Info_Contagion_Point6_LinkText" = "questions about quarantine";
+"ExposureDetection_Info_Contagion_Point6_LinkText" = "For further information, please see our FAQ page on quarantine measures.";
 
 "ExposureDetection_Info_Contagion_Footer" = "Additional information is available on our FAQ page on voluntary self-quarantine.";
 
-"ExposureDetection_Info_Contagion_Footer_LinkText" = "FAQ page on voluntary self-quarantine";
+"ExposureDetection_Info_Contagion_Footer_LinkText" = "Additional information is available on our FAQ page on voluntary self-quarantine.";
 
 /* Survey Errors */
 "SurveyConsent_Error_Title" = "Error";
@@ -597,7 +597,7 @@
 
 "ExposureSubmission_PhoneDetailsForeign" = "For calls from outside Germany.\nThe fees from your telephone provider will apply.";
 
-"ExposureSubmission_PhoneDetailDescription" = "Our customer service is available in the following languages: \nEnglish, German, Turkish\n\nBusiness hours:\n24/7\n\nIf you have any health-related questions, please contact your general practitioner or the medical emergency service hotline; telephone: 116 117.";
+"ExposureSubmission_PhoneDetailDescription" = "Our customer service is available in the following languages: \nEnglish, German, Turkish\n\nBusiness hours:\nDaily (including weekends): 7am – 10pm (CET)\n\nIf you have any health-related questions, please contact your general practitioner or the medical emergency service hotline; telephone: 116 117.";
 
 "ExposureSubmission_SectionDescription2" = "Register your PCR test by entering the TAN in the app.";
 
@@ -673,7 +673,7 @@
 
 "ExposureSubmissionSuccess_listItem2" = "There is a high probability that you are infectious. Isolate yourself from other people.";
 
-"ExposureSubmissionSuccess_listItem2_1" = "Your isolation period is usually 14 days. Please monitor how your symptoms develop closely.";
+"ExposureSubmissionSuccess_listItem2_1" = "Your isolation period is usually 10 days. Please monitor how your symptoms develop closely.";
 
 "ExposureSubmissionSuccess_listItem2_2" = "You will be asked by your public health authority to create a list of people you have had contact with. This should include all people with whom you have had close contact with (less than 2 meters, face-to-face conversation) for over 15 minutes in the two days before you became ill. You can use your contact journal for this: simply export the entries and then print them out or send them via e-mail.";
 
@@ -1381,7 +1381,7 @@
 
 "App_Information_Contact_Hotline_Details_Foreign" = "For calls from outside Germany.\nThe fees from your telephone provider will apply.";
 
-"App_Information_Contact_Hotline_Terms" = "Our customer service is available in the following languages: \nEnglish, German, Turkish\n\nBusiness hours:\nMo-Sa: 7:00 a.m. - 10:00 p.m. (CET)\n(except national holidays)\n\nIf you have any health-related questions, please contact your general practitioner or the medical emergency service hotline; telephone: 116 117.";
+"App_Information_Contact_Hotline_Terms" = "Our customer service is available in the following languages: \nEnglish, German, Turkish\n\nBusiness hours:\nMo-Sa: 7am - 10pm (CET)\n(except national holidays)\n\nIf you have any health-related questions, please contact your general practitioner or the medical emergency service hotline; telephone: 116 117.";
 
 /* App Information - Imprint */
 "App_Information_New_Features_Navigation" = "New Features";
@@ -1701,7 +1701,7 @@
 
 "TestResultPositive_KeysSubmitted_Title2" = "Other information:";
 
-"TestResultPositive_KeysSubmitted_FurtherInfo1" = "Your isolation period is usually 14 days. Please monitor how your symptoms develop closely.";
+"TestResultPositive_KeysSubmitted_FurtherInfo1" = "Your isolation period is usually 10 days. Please monitor how your symptoms develop closely.";
 
 "TestResultPositive_KeysSubmitted_FurtherInfo2" = "You will be asked by your public health authority to create a list of people you have had contact with. This should include all people with whom you have had close contact with (less than 2 meters, face-to-face conversation) for over 15 minutes in the two days before you became ill. You can use your contact journal for this: simply export the entries and then print them out or send them via e-mail.";
 
@@ -2811,11 +2811,11 @@
 
 "HealthCertifiedPerson_AdmissionState_description2GPlusPCR" = "Your certificates satisfy the 2G plus rule. If you need to prove your current status, close this view and show the QR code in the certificate overview.";
 
-"HealthCertifiedPerson_AdmissionState_description2GPlusAntigen" = "Your certificates satisfy the 2G plus rule. If you need to prove your current status, close this view and show the QR code in the certificate overview.";
+"HealthCertifiedPerson_AdmissionState_description2GPlusAntigen" = "Your certificates satisfy the 2G plus rule, unless a PCR test is required. If you need to prove your current status, close this view and show the QR code in the certificate overview.";
 
 "HealthCertifiedPerson_AdmissionState_description3G" = "Your certificates satisfy the 3G rule. If you need to prove your current status, close this view and show the QR code in the certificate overview.";
 
-"HealthCertifiedPerson_AdmissionState_description3GPlus" = "Your certificates satisfy the 3G plus rule. If you need to prove your current status, close this view and show the QR code in the certificate overview.";
+"HealthCertifiedPerson_AdmissionState_description3GPlus" = "Your certificates satisfy the 2G plus rule. If you need to prove your current status, close this view and show the QR code in the certificate overview.";
 
 "HealthCertifiedPerson_AdmissionStateFAQ" = "For further information, please see our %@ page.";
 
@@ -3166,9 +3166,9 @@
 
 "UniversalQRScanner_MaxPersonAmountAlert_errorTitle" = "Error";
 
-"UniversalQRScanner_MaxPersonAmountAlert_warningMessage" = "The Corona-Warn-App may not be used for third-party certificate verification. Use the CovPassCheck app for this purpose.\n\nYou can add certificates for up to %i people. Once this limit is reached, you cannot scan any more new certificates for additional people.\n\nYou’ll find more information about certificate verification on our FAQ page.";
+"UniversalQRScanner_MaxPersonAmountAlert_warningMessage" = "The Corona-Warn-App cannot be used to verify third-party certificates. Use the CovPassCheck app for this purpose.\n\nYou can add certificates for up to %i people. Once this limit is reached, you cannot scan any more new certificates for additional people.\n\nYou’ll find more information about certificate verification on our FAQ page.";
 
-"UniversalQRScanner_MaxPersonAmountAlert_errorMessage" = "The Corona-Warn-App may not be used for third-party certificate verification. Use the CovPassCheck app for this purpose.\n\nYou can add certificates for up to %i people. You cannot scan any more new certificates for additional people.\n\nYou’ll find more information about certificate verification on our FAQ page.";
+"UniversalQRScanner_MaxPersonAmountAlert_errorMessage" = "The Corona-Warn-App may not be used to verify third-party certificates. Use the CovPassCheck app for this purpose.\n\nYou can add certificates for up to %i people. You cannot scan any more new certificates for additional people.\n\nYou’ll find more information about certificate verification on our FAQ page.";
 
 "UniversalQRScanner_MaxPersonAmountAlert_covPassCheckButton" = "Download CovPassCheck App";
 
