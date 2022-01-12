@@ -19,6 +19,12 @@ protocol Resource {
 	var defaultModel: Receive.ReceiveModel? { get }
 
 	func customError(for error: ServiceError<CustomError>) -> CustomError?
+	
+#if !RELEASE
+	/// Used to define a default mock Resource to be returned by the resource if needed (e.g. UITests)
+	/// Will only be used by `RestServiceProviderStub` if not provided with a different LoadResource see`load` function in `RestServiceProviderStub`
+	var defaultMockLoadResource: LoadResource? { get }
+#endif
 }
 
 // Custom error handling & caching support
@@ -45,4 +51,11 @@ enum ResourceError: Error {
 	case signatureVerification
 	case notModified
 	case undefined
+	case missingEtag
 }
+
+#if !RELEASE
+extension Resource {
+	var defaultMockLoadResource: LoadResource? { nil }
+}
+#endif

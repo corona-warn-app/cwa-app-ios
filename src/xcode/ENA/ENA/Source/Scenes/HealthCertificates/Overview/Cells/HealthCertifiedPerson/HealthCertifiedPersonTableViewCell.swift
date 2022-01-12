@@ -238,7 +238,7 @@ class HealthCertifiedPersonTableViewCell: UITableViewCell, ReuseIdentifierProvid
 	}()
 
 	private lazy var captionStackView: UIStackView = {
-		let captionStackView = UIStackView(arrangedSubviews: [captionImageView, captionCountView, captionLabel, UIView()])
+		let captionStackView = UIStackView(arrangedSubviews: [captionImageView, captionCountView, captionLabel])
 		captionStackView.alignment = .center
 		captionStackView.axis = .horizontal
 		captionStackView.spacing = 8.0
@@ -261,6 +261,7 @@ class HealthCertifiedPersonTableViewCell: UITableViewCell, ReuseIdentifierProvid
 		captionCountLabel.textAlignment = .center
 		captionCountLabel.setContentCompressionResistancePriority(.required, for: .horizontal)
 		captionCountLabel.setContentCompressionResistancePriority(.required, for: .vertical)
+		captionCountLabel.setContentHuggingPriority(.required, for: .horizontal)
 
 		return captionCountLabel
 	}()
@@ -269,6 +270,7 @@ class HealthCertifiedPersonTableViewCell: UITableViewCell, ReuseIdentifierProvid
 		let captionCountView = UIView()
 		captionCountView.backgroundColor = .systemRed
 		captionCountView.layer.masksToBounds = true
+		captionCountView.setContentHuggingPriority(.required, for: .horizontal)
 
 		return captionCountView
 	}()
@@ -279,6 +281,7 @@ class HealthCertifiedPersonTableViewCell: UITableViewCell, ReuseIdentifierProvid
 		captionLabel.textColor = .enaColor(for: .textPrimary1)
 		captionLabel.numberOfLines = 0
 		captionLabel.setContentCompressionResistancePriority(.defaultHigh, for: .horizontal)
+		captionLabel.setContentHuggingPriority(.defaultLow, for: .horizontal)
 
 		return captionLabel
 	}()
