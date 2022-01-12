@@ -554,16 +554,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 				// We don't need the Route parameter in the NotificationManager
 				self?.showHome()
 			},
-			showTestResultFromNotification: { [weak self] test in
+			showTestResultFromNotification: { [weak self] route in
 				Log.debug("Will open test result from notification")
 				guard let self = self else { return }
-				
-				if !self.didSetupUI {
-					self.setupUI()
-					self.showUI()
-					self.didSetupUI = true
+
+				if self.didSetupUI {
+					Log.debug("UI is already setup, will call showHome()")
+					self.showHome(route)
+				} else {
+					Log.debug("new route is set: \(route)")
+					self.route = route
 				}
-				self.coordinator.showTestResultFromNotification(with: test)
 			},
 			showHealthCertificate: { [weak self] route in
 				// We must NOT call self?.showHome(route) here because we do not target the home screen. Only set the route. The rest is done automatically by the startup process of the app.
