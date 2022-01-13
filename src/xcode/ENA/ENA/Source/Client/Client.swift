@@ -183,28 +183,6 @@ protocol Client {
 		completion: @escaping DigitalCovid19CertificateCompletionHandler
 	)
 	
-	/// GET call to receive the rules of a specified type (acceptance or invalidation) as a PackageDownloadResponse. Must be extracted and verified afterwards.
-	/// - Parameters:
-	///   - isFake: Flag to indicate a fake request
-	///   - ruleType: Get the rules for the specified type (acceptance or invalidation)
-	///   - completion: The completion handler of the call, which contains a PackageDownloadResponse or a URLSession.Response.Failure
-	@available(*, deprecated, message: "old http client call please use new client")
-	func getDCCRules(
-		eTag: String?,
-		isFake: Bool,
-		ruleType: HealthCertificateValidationRuleType,
-		completion: @escaping DCCRulesCompletionHandler
-	)
-	
-	/// GET call to receive the Booster notifications rules as a PackageDownloadResponse. Must be extracted and verified afterwards.
-	/// - Parameters:
-	///   - isFake: Flag to indicate a fake request
-	///   - completion: The completion handler of the call, which contains a PackageDownloadResponse or a URLSession.Response.Failure
-	func getBoosterNotificationRules(
-		eTag: String?,
-		isFake: Bool,
-		completion: @escaping BoosterRulesCompletionHandler
-	)
 }
 
 enum SubmissionError: Error, Equatable {

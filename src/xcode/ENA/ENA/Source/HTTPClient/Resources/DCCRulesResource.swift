@@ -17,12 +17,15 @@ struct DCCRulesResource: Resource {
 		self.type = .caching()
 		self.sendResource = EmptySendResource()
 		self.receiveResource = CBORReceiveResource<ValidationRules>()
+		self.ruleType = ruleType
 	}
 
 	// MARK: - Overrides
 
 	// MARK: - Protocol Resource
 
+	typealias Send = EmptySendResource
+	typealias Receive = CBORReceiveResource<ValidationRules>
 	typealias CustomError = HealthCertificateValidationError
 
 	var locator: Locator
@@ -30,11 +33,56 @@ struct DCCRulesResource: Resource {
 	var sendResource: EmptySendResource
 	var receiveResource: CBORReceiveResource<ValidationRules>
 
+	func customError(for error: ServiceError<HealthCertificateValidationError>) -> HealthCertificateValidationError? {
+		switch error {
+		case .transportationError:
+			return .NO_NETWORK
+		case .unexpectedServerError(let statusCode):
+					switch statusCode {
+					case (400...499):
+						return .RULE_CLIENT_ERROR(ruleType)
+					default:
+						return .RULE_SERVER_ERROR(ruleType)
+					}
+		case let .resourceError(resourceError):
+			return handleResourceError(resourceError)
+		default:
+			return nil
+		}
+	}
+
 	// MARK: - Public
 
 	// MARK: - Internal
 
 	// MARK: - Private
+
+	private let ruleType: HealthCertificateValidationRuleType
+
+	private func handleResourceError(_ error: ResourceError?) -> HealthCertificateValidationError? {
+		guard let error = error else {
+			return nil
+		}
+		switch error {
+		case .missingCache:
+			return .RULE_MISSING_CACHE(ruleType)
+		case .missingData, .packageCreation:
+			return .RULE_JSON_ARCHIVE_FILE_MISSING(ruleType)
+		case .decoding(let dError):
+			if let ruleValidationError = dError as? RuleValidationError {
+				return .RULE_DECODING_ERROR(ruleType, ruleValidationError)
+			} else {
+				return .RULE_DECODING_ERROR(ruleType, RuleValidationError.CBOR_DECODING_FAILED(error))
+			}
+		case .signatureVerification:
+			return .RULE_JSON_ARCHIVE_SIGNATURE_INVALID(ruleType)
+		case .missingEtag:
+			return .RULE_JSON_ARCHIVE_ETAG_ERROR(ruleType)
+		default:
+			return nil
+		}
+	}
+
 }
 
 enum HealthCertificateValidationError: LocalizedError {

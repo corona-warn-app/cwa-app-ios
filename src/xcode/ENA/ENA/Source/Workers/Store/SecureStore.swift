@@ -6,8 +6,6 @@ import Foundation
 import ExposureNotification
 import OpenCombine
 
-// swiftlint:disable file_length
-
 /// The `SecureStore` class implements the `Store` protocol that defines all required storage attributes.
 /// It uses an SQLite Database that still needs to be encrypted
 final class SecureStore: SecureKeyValueStoring, Store, AntigenTestProfileStoring {
@@ -261,25 +259,6 @@ final class SecureStore: SecureKeyValueStoring, Store, AntigenTestProfileStoring
 	var vaccinationCertificateValueDataSets: VaccinationValueDataSets? {
 		get { kvStore["vaccinationCertificateValueDataSets"] as VaccinationValueDataSets? ?? nil }
 		set { kvStore["vaccinationCertificateValueDataSets"] = newValue }
-	}
-	
-	// MARK: - Protocol HealthCertificateValidationCaching
-	
-	var acceptanceRulesCache: ValidationRulesCache? {
-		get { kvStore["acceptanceRulesCache"] as ValidationRulesCache? ?? nil }
-		set { kvStore["acceptanceRulesCache"] = newValue }
-	}
-	
-	var invalidationRulesCache: ValidationRulesCache? {
-		get { kvStore["invalidationRulesCache"] as ValidationRulesCache? ?? nil }
-		set { kvStore["invalidationRulesCache"] = newValue }
-	}
-	
-	// MARK: - Protocol HealthCertificateBoosterNotificationCaching
-	
-	var boosterRulesCache: ValidationRulesCache? {
-		get { kvStore["boosterRulesCache"] as ValidationRulesCache? ?? nil }
-		set { kvStore["boosterRulesCache"] = newValue }
 	}
 
 	// MARK: - Protocol RecycleBinStoring

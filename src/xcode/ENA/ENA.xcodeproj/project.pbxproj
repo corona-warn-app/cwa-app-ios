@@ -770,7 +770,6 @@
 		50E8F1282626C735000056EE /* ExposureSubmissionSuccessViewControllerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 505936B42626C36B00D40216 /* ExposureSubmissionSuccessViewControllerTest.swift */; };
 		50EACA9B25E682AE004DDADB /* ENInfectiousness+Protobuf.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50EACA9A25E682AE004DDADB /* ENInfectiousness+Protobuf.swift */; };
 		50EACAA325E68672004DDADB /* PPAnalyticsData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50EACAA225E68672004DDADB /* PPAnalyticsData.swift */; };
-		50EB4FDA268DFC86009FB402 /* ValidationRulesCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50EB4FD9268DFC86009FB402 /* ValidationRulesCache.swift */; };
 		50EE76022743FC87003DE929 /* ENAUITests_19_TicketValidation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50EE75FF2743FBE5003DE929 /* ENAUITests_19_TicketValidation.swift */; };
 		50EE7606274685E0003DE929 /* SecondTicketValidationConsentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50EE760427467CD9003DE929 /* SecondTicketValidationConsentViewController.swift */; };
 		50EE7607274685E0003DE929 /* SecondTicketValidationConsentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50EE760527467CD9003DE929 /* SecondTicketValidationConsentViewModel.swift */; };
@@ -2405,7 +2404,6 @@
 		50E861FB27070EE6001E29B2 /* NotificationSettingsViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationSettingsViewModelTests.swift; sourceTree = "<group>"; };
 		50EACA9A25E682AE004DDADB /* ENInfectiousness+Protobuf.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ENInfectiousness+Protobuf.swift"; sourceTree = "<group>"; };
 		50EACAA225E68672004DDADB /* PPAnalyticsData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PPAnalyticsData.swift; sourceTree = "<group>"; };
-		50EB4FD9268DFC86009FB402 /* ValidationRulesCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidationRulesCache.swift; sourceTree = "<group>"; };
 		50EE75FF2743FBE5003DE929 /* ENAUITests_19_TicketValidation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ENAUITests_19_TicketValidation.swift; sourceTree = "<group>"; };
 		50EE76012743FC6F003DE929 /* TicketValidationUITests.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; name = TicketValidationUITests.xctestplan; path = TestPlans/TicketValidationUITests.xctestplan; sourceTree = "<group>"; };
 		50EE760427467CD9003DE929 /* SecondTicketValidationConsentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondTicketValidationConsentViewController.swift; sourceTree = "<group>"; };
@@ -5366,7 +5364,6 @@
 			isa = PBXGroup;
 			children = (
 				50690CB42696FA0A00127CB2 /* __tests__ */,
-				50690CB52696FA1500127CB2 /* Model */,
 				50690CB22696FA0300127CB2 /* HealthCertificateValidationOnboardedCountriesProvider.swift */,
 				019E2EFD269EF419000EC4AD /* MockHealthCertificateValidationOnboardedCountriesProvider.swift */,
 			);
@@ -5379,13 +5376,6 @@
 				50690CAD2695FDFC00127CB2 /* HealthCertificateValidationOnboardedCountriesProviderTests.swift */,
 			);
 			path = __tests__;
-			sourceTree = "<group>";
-		};
-		50690CB52696FA1500127CB2 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Model;
 			sourceTree = "<group>";
 		};
 		506AB7492658007A004AE743 /* DMPPAActualData */ = {
@@ -5440,7 +5430,6 @@
 			children = (
 				50412F2D2689B4DA00E4087C /* HealthCertificateValidationRuleType.swift */,
 				5078DCA32684B5FB00535917 /* HealthCertificateValidationReport.swift */,
-				50EB4FD9268DFC86009FB402 /* ValidationRulesCache.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -8257,11 +8246,11 @@
 			isa = PBXGroup;
 			children = (
 				BA981AFF278DC74E0057C343 /* __tests__ */,
-				AB0246E227230F5E002668A1 /* RegistrationTokenModel.swift */,
 				01899D43275113A4008DB734 /* ModelWithHeaders.swift */,
+				AB0246E227230F5E002668A1 /* RegistrationTokenModel.swift */,
 				8F80802D2731242900F8FA3F /* SubmissionTANModel.swift */,
-				5013522F2788399E00511ADF /* ValidationOnboardedCountriesModel.swift */,
 				EBE0F9642786F7D9001F20E8 /* TestResultModel.swift */,
+				5013522F2788399E00511ADF /* ValidationOnboardedCountriesModel.swift */,
 				BA981AFD278DBBAF0057C343 /* ValidationRules.swift */,
 			);
 			path = Receive;
@@ -10627,7 +10616,6 @@
 				BA0F6C5326317C220046BA48 /* AntigenTestProfileViewModel.swift in Sources */,
 				AB190EA925FB705500FBFF0D /* CreateTraceTimeIntervalMatchQuery.swift in Sources */,
 				5222AA70255ED8E000F338C7 /* ExposureSubmissionTestResultConsentViewModel.swift in Sources */,
-				50EB4FDA268DFC86009FB402 /* ValidationRulesCache.swift in Sources */,
 				AB7E2A80255ACC06005C90F6 /* Date+Utils.swift in Sources */,
 				B16457BD24DC3F4E002879EB /* DMKeysViewController.swift in Sources */,
 				AB182018275E20150054B873 /* HygieneRulesInfoViewModel.swift in Sources */,
