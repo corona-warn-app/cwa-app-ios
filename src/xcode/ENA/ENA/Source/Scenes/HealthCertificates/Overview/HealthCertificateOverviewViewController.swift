@@ -85,7 +85,9 @@ class HealthCertificateOverviewViewController: UITableViewController {
 
 	override func viewDidAppear(_ animated: Bool) {
 		super.viewDidAppear(animated)
+
 		updateEmptyState()
+		viewModel.attemptToRestoreDecodingFailedHealthCertificates()
 	}
 
 	// MARK: - Protocol UITableViewDataSource
