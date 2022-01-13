@@ -168,7 +168,7 @@ extension Service {
 	
 	// MARK: - Internal
 	
-	/// Before returning the originial error, we look up in the resource if there is some customized error cases.
+	/// Before returning the original error, we look up in the resource if there is some customized error cases.
 	///
 	/// - Parameters:
 	///   - resource: Generic ("R") object and normally of type ReceiveResource.
