@@ -9,48 +9,38 @@ import SwiftCBOR
 import CertLogic
 
 class HealthCertificateValidationOnboardedCountriesProviderTests: XCTestCase {
-	
-	/*
-	
+		
 	// MARK: - Success
 	
-	func testGIVEN_ValidationService_GetOnboardedCountries_WHEN_HappyCase_THEN_CountriesAreReturned() {
+	func testGIVEN_ValidationService_GetOnboardedCountries_WHEN_HappyCase_THEN_CountriesAreReturned() throws {
 		// GIVEN
-		let client = ClientMock()
-		client.onValidationOnboardedCountries = { [weak self] _, completion in
-			guard let self = self else {
-				XCTFail("Could not create strong self")
-				return
-			}
-			completion(.success(self.dummyOnboardedCountriesResponse))
-		}
-		let store = MockTestStore()
-		let provider = HealthCertificateValidationOnboardedCountriesProvider(
-			store: store,
-			client: client,
-			signatureVerifier: MockVerifier()
-		)
+		
 		let expectation = self.expectation(description: "Test should success with new countries")
-		var countries: [Country] = []
-				
-		// WHEN
-		provider.onboardedCountries(completion: { result in
+		let expectedCountries = try ValidationOnboardedCountriesModel(decodeCBOR: HealthCertificateToolkit.onboardedCountriesCBORDataFake)
+		let expectedResource = LoadResource(
+			result: .success(expectedCountries),
+			willLoadResource: { _ in }
+		)
+		
+		let restServiceProvider = RestServiceProviderStub(loadResources: [expectedResource])
+		
+		restServiceProvider.load(ValidationOnboardedCountriesResource()) { result in
 			switch result {
-			case let .success(countriesResponse):
-				countries = countriesResponse
-				expectation.fulfill()
-			case let .failure(error):
+				
+			case .success(let model):
+				let countries = model.countries
+				XCTAssertEqual(countries, expectedCountries.countries)
+			case .failure(let error):
 				XCTFail("Test should not fail with error: \(error)")
 			}
-		})
+			expectation.fulfill()
+		}
 		
 		// THEN
 		waitForExpectations(timeout: .short)
-		XCTAssertEqual(countries.count, 2)
-		XCTAssertTrue(countries.contains(onboardedCountriesFake[0]))
-		XCTAssertTrue(countries.contains(onboardedCountriesFake[1]))
 	}
 	
+	/*
 	func testGIVEN_ValidationService_GetOnboardedCountries_WHEN_HTTPNotModified_THEN_CachedCountriesAreReturned() {
 		// GIVEN
 		let client = ClientMock()
@@ -423,5 +413,6 @@ class HealthCertificateValidationOnboardedCountriesProviderTests: XCTestCase {
 		}
 		return [countryDE, countryFR]
 	}
+	 
 	 */
 }
