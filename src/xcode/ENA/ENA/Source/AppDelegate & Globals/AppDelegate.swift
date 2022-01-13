@@ -114,6 +114,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 
 		// Save and possibly log current app version number and the timestamp.
 		logCurrentAppVersion()
+		logCurrentCensoringState()
 		
 		#if DEBUG
 		setupOnboardingForTesting()
@@ -185,6 +186,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 	}
 
 	func applicationWillEnterForeground(_ application: UIApplication) {
+		logCurrentCensoringState()
 		let detectionMode = DetectionMode.fromBackgroundStatus()
 		riskProvider.riskProvidingConfiguration.detectionMode = detectionMode
 		riskProvider.requestRisk(userInitiated: false)
@@ -933,6 +935,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 			store.lastLoggedAppVersionNumber = clientMetadata.cwaVersion
 			store.lastLoggedAppVersionTimestamp = Date()
 		}
+	}
+	
+	private func logCurrentCensoringState() {
+		#if !RELEASE
+		let isCensoring = UserDefaults.standard.bool(forKey: ErrorLogSubmissionService.keyElsLoggingCensoring)
+		Log.info("Current ELS censoring state: \(isCensoring)")
+		#endif
 	}
 
 	// MARK: Privacy Protection
