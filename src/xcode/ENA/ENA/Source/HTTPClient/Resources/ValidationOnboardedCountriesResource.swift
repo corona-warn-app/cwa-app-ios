@@ -35,7 +35,7 @@ struct ValidationOnboardedCountriesResource: Resource {
 			return .ONBOARDED_COUNTRIES_NO_NETWORK
 		case .unexpectedServerError(let statusCode):
 					switch statusCode {
-					case (400...409):
+					case (400...499):
 						return .ONBOARDED_COUNTRIES_CLIENT_ERROR
 					default:
 						return .ONBOARDED_COUNTRIES_SERVER_ERROR
@@ -56,20 +56,20 @@ struct ValidationOnboardedCountriesResource: Resource {
 		
 		switch resourceError {
 			
-		case .missingData:
-			return .ONBOARDED_COUNTRIES_MISSING_CACHE
+		case .missingData, .packageCreation:
+			return .ONBOARDED_COUNTRIES_JSON_ARCHIVE_FILE_MISSING
 		case let .decoding(dError):
 			if let ruleValidationError = dError as? RuleValidationError {
 				return .ONBOARDED_COUNTRIES_DECODING_ERROR(ruleValidationError)
 			} else {
 				return .ONBOARDED_COUNTRIES_DECODING_ERROR(RuleValidationError.CBOR_DECODING_FAILED(error))
 			}
-		case .packageCreation:
-			return .ONBOARDED_COUNTRIES_JSON_ARCHIVE_FILE_MISSING
 		case .signatureVerification:
 			return .ONBOARDED_COUNTRIES_JSON_ARCHIVE_SIGNATURE_INVALID
 		case .missingEtag:
 			return .ONBOARDED_COUNTRIES_JSON_ARCHIVE_ETAG_ERROR
+		case .missingCache:
+			return .ONBOARDED_COUNTRIES_MISSING_CACHE
 		default:
 			return nil
 		}
