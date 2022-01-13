@@ -46,7 +46,7 @@
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="n1D-Dh-nM8" userLabel="Name Label" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="22" width="217" height="18"/>
                                                 <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
-                                                <color key="textColor" name="ENA Text Primary 1 Color"/>
+                                                <color key="textColor" name="ENA Text Primary 2 Color"/>
                                                 <nil key="highlightedColor"/>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="string" keyPath="ibEnaStyle" value="body"/>
@@ -79,7 +79,7 @@
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Quaternary" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dl9-yI-ToG" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="112" width="217" height="18"/>
                                                 <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
-                                                <color key="textColor" name="ENA Text Primary 2 Color"/>
+                                                <color key="textColor" name="ENA Text Primary 1 Color"/>
                                                 <nil key="highlightedColor"/>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="string" keyPath="ibEnaStyle" value="body"/>
