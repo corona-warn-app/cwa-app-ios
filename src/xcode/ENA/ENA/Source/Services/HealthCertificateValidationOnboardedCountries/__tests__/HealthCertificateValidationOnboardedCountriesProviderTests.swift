@@ -40,41 +40,6 @@ class HealthCertificateValidationOnboardedCountriesProviderTests: XCTestCase {
 		waitForExpectations(timeout: .short)
 	}
 	
-	func testGIVEN_ValidationService_GetOnboardedCountries_WHEN_HTTPNotModified_THEN_CachedCountriesAreReturned() {
-		// GIVEN
-		let client = ClientMock()
-		client.onValidationOnboardedCountries = { _, completion in
-			completion(.failure(.notModified))
-		}
-		let store = MockTestStore()
-		let cachedOnboardedCountries = HealthCertificateValidationOnboardedCountriesCache(
-			onboardedCountries: onboardedCountriesFake,
-			lastOnboardedCountriesETag: "FakeETagNotModified"
-		)
-		store.validationOnboardedCountriesCache = cachedOnboardedCountries
-		let provider = HealthCertificateValidationOnboardedCountriesProvider(
-			store: store,
-			client: client,
-			signatureVerifier: MockVerifier()
-		)
-		let expectation = self.expectation(description: "Test should success with new countries")
-		var countries: [Country] = []
-		
-		// WHEN
-		provider.onboardedCountries(completion: { result in
-			switch result {
-			case let .success(countriesResponse):
-				countries = countriesResponse
-				expectation.fulfill()
-			case let .failure(error):
-				XCTFail("Test should not fail with error: \(error)")
-			}
-		})
-		
-		// THEN
-		waitForExpectations(timeout: .short)
-		XCTAssertEqual(countries, store.validationOnboardedCountriesCache?.onboardedCountries)
-	}
 	
 	// MARK: - Failures
 	/*
