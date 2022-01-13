@@ -597,7 +597,7 @@
 
 "ExposureSubmission_PhoneDetailsForeign" = "Pentru apeluri din afara Germaniei.\nSe vor aplica tarifele furnizorului dvs. de servicii de telefonie.";
 
-"ExposureSubmission_PhoneDetailDescription" = "Serviciul clienți vă stă la dispoziție în următoarele limbi: \nengleză, germană, turcă\n\nProgram de lucru:\nZilnic (inclusiv în weekend): 07:00 - 22:00 (CET)\n\nDacă aveți întrebări legate de starea de sănătate, vă rugăm să contactați medicul de familie sau hotline-ul pentru servicii medicale de urgență, la numărul de telefon: 116 117.";
+"ExposureSubmission_PhoneDetailDescription" = "Serviciul clienți vă stă la dispoziție în următoarele limbi: \nengleză, germană, turcă\n\nProgram de lucru:\nZilnic (inclusiv în weekend): 07:00 - 20:00 (CET)\n\nDacă aveți întrebări legate de starea de sănătate, vă rugăm să contactați medicul de familie sau hotline-ul pentru servicii medicale de urgență, la numărul de telefon: 116 117.";
 
 "ExposureSubmission_SectionDescription2" = "Înregistrați testul dvs. PCR introducând codul TAN în aplicație.";
 
@@ -2815,7 +2815,7 @@
 
 "HealthCertifiedPerson_AdmissionState_description3G" = "Certificatele dvs. respectă regula 3G. Dacă trebuie să dovediți starea dvs. curentă, închideți această vizualizare și afișați codul QR în sumarul certificatului.";
 
-"HealthCertifiedPerson_AdmissionState_description3GPlus" = "Certificatele dvs. respectă regula 2G plus. Dacă trebuie să dovediți starea dvs. curentă, închideți această vizualizare și afișați codul QR în sumarul certificatului.";
+"HealthCertifiedPerson_AdmissionState_description3GPlus" = "Certificatele dvs. respectă regula 3G plus. Dacă trebuie să dovediți starea dvs. curentă, închideți această vizualizare și afișați codul QR în sumarul certificatului.";
 
 "HealthCertifiedPerson_AdmissionStateFAQ" = "Pentru mai multe informații, consultați pagina noastră %@.";
 
