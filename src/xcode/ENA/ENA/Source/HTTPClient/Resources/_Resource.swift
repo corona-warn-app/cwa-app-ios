@@ -43,7 +43,7 @@ extension Resource {
 /**
  The errors that can occur while handling resources
  */
-enum ResourceError: Error, Equatable {
+enum ResourceError: Error {
 	case missingData
 	case decoding(Error?)
 	case encoding
@@ -52,53 +52,6 @@ enum ResourceError: Error, Equatable {
 	case notModified
 	case undefined
 	case missingEtag
-	
-	// MARK: - Protocol Equatable
-	
-	// swiftlint:disable cyclomatic_complexity
-	static func == (lhs: ResourceError, rhs: ResourceError) -> Bool {
-		switch (lhs, rhs) {
-		case (.missingData, .missingData):
-			return true
-		case (.missingData, _):
-			return false
-			
-		case let (.decoding(lError), .decoding(rError)):
-			return lError?.localizedDescription == rError?.localizedDescription
-		case (.decoding, _):
-			return false
-			
-		case (.encoding, .encoding):
-			return true
-		case (.encoding, _):
-			return false
-			
-		case (.packageCreation, .packageCreation):
-			return true
-		case (.packageCreation, _):
-			return false
-			
-		case (.signatureVerification, .signatureVerification):
-			return true
-		case (.signatureVerification, _):
-			return false
-			
-		case (.notModified, .notModified):
-			return true
-		case (.notModified, _):
-			return false
-			
-		case (.undefined, .undefined):
-			return true
-		case (.undefined, _):
-			return false
-			
-		case (.missingEtag, .missingEtag):
-			return true
-		case (.missingEtag, _):
-			return false
-		}
-	}
 }
 
 #if !RELEASE
