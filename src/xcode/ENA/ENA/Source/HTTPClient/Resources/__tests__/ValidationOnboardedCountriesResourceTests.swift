@@ -10,6 +10,8 @@ import ZIPFoundation
 
 
 final class ValidationOnboardedCountriesResourceTests: CWATestCase {
+	
+	// MARK: - Success
 
 	func testGIVEN_Resource_WHEN_FetchWithoutCachedData_THEN_FreshDataReturned() throws {
 		// GIVEN
@@ -131,6 +133,47 @@ final class ValidationOnboardedCountriesResourceTests: CWATestCase {
 		waitForExpectations(timeout: .short)
 	}
 	
+	// MARK: - Failures
+	
+	func testGIVEN_Resource_WHEN_EtagIsMissing_THEN_ONBOARDED_COUNTRIES_JSON_ARCHIVE_ETAG_ERROR() throws {
+		// GIVEN
+		// http code 200
+		let expectation = expectation(description: "Expect that we got a completion")
+		
+		// Create cbor data and the archive, which is needed for the decode call of the CBORReceiveResource
+		let archiveData = try XCTUnwrap(Archive.createArchiveData(
+			accessMode: .create,
+			cborData: HealthCertificateToolkit.onboardedCountriesCBORDataFake
+		))
+		
+		let stack = MockNetworkStack(
+			httpStatus: 200,
+			responseData: archiveData
+		)
+		
+		var resource = ValidationOnboardedCountriesResource()
+		resource.receiveResource = CBORReceiveResource(
+			signatureVerifier: MockVerifier()
+		)
+				
+		let serviceProvider = RestServiceProvider(
+			session: stack.urlSession
+		)
+		
+		// WHEN
+		serviceProvider.load(resource) { result in
+			switch result {
+			case .success:
+				XCTFail("Load should fail but failed succeeded 😅")
+			case let .failure(error):
+				// THEN
+				XCTAssertEqual(error, .receivedResourceError(.ONBOARDED_COUNTRIES_JSON_ARCHIVE_ETAG_ERROR))
+			}
+			expectation.fulfill()
+		}
+		waitForExpectations(timeout: .short)
+	}
+			
 	func testGIVEN_Resource_WHEN_HttpError404_THEN_ErrorIsReturned() {
 		// GIVEN
 		// http code 404

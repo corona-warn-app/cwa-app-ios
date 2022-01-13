@@ -40,7 +40,6 @@ class HealthCertificateValidationOnboardedCountriesProviderTests: XCTestCase {
 		waitForExpectations(timeout: .short)
 	}
 	
-	/*
 	func testGIVEN_ValidationService_GetOnboardedCountries_WHEN_HTTPNotModified_THEN_CachedCountriesAreReturned() {
 		// GIVEN
 		let client = ClientMock()
@@ -78,47 +77,7 @@ class HealthCertificateValidationOnboardedCountriesProviderTests: XCTestCase {
 	}
 	
 	// MARK: - Failures
-	
-	func testGIVEN_ValidationService_GetOnboardedCountries_WHEN_MissingETag_THEN_ONBOARDED_COUNTRIES_JSON_ARCHIVE_ETAG_ERRORIsReturned() {
-		// GIVEN
-		let client = ClientMock()
-		client.onValidationOnboardedCountries = { _, completion in
-			let package = SAPDownloadedPackage(
-				keysBin: Data(),
-				signature: Data()
-			)
-			let response = PackageDownloadResponse(
-				package: package,
-				etag: nil
-			)
-			
-			completion(.success(response))
-		}
-		let store = MockTestStore()
-		let provider = HealthCertificateValidationOnboardedCountriesProvider(
-			store: store,
-			client: client,
-			signatureVerifier: MockVerifier()
-		)
-
-		let expectation = self.expectation(description: "Test should fail ONBOARDED_COUNTRIES_JSON_ARCHIVE_ETAG_ERROR")
-		var receivedError: ValidationOnboardedCountriesError?
-	
-		// WHEN
-		provider.onboardedCountries(completion: { result in
-			switch result {
-			case .success:
-				XCTFail("Test should not succeed.")
-			case let .failure(error):
-				receivedError = error
-				expectation.fulfill()
-			}
-		})
-	
-		// THEN
-		waitForExpectations(timeout: .short)
-		XCTAssertEqual(receivedError, .ONBOARDED_COUNTRIES_JSON_ARCHIVE_ETAG_ERROR)
-	}
+	/*
 	
 	func testGIVEN_ValidationService_GetOnboardedCountries_WHEN_EmptyPackage_THEN_ONBOARDED_COUNTRIES_JSON_ARCHIVE_FILE_MISSINGIsReturned() {
 		// GIVEN
@@ -413,6 +372,5 @@ class HealthCertificateValidationOnboardedCountriesProviderTests: XCTestCase {
 		}
 		return [countryDE, countryFR]
 	}
-	 
 	 */
 }
