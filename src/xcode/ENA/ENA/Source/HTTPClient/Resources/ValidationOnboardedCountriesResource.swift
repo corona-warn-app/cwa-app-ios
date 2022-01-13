@@ -22,7 +22,7 @@ struct ValidationOnboardedCountriesResource: Resource {
 	
 	typealias Send = EmptySendResource
 	typealias Receive = CBORReceiveResource<ValidationOnboardedCountriesModel>
-	typealias CustomError = Error
+	typealias CustomError = ValidationOnboardedCountriesError
 	
 	var locator: Locator
 	var type: ServiceType

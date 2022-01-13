@@ -7,7 +7,7 @@ import HealthCertificateToolkit
 
 protocol HealthCertificateValidationOnboardedCountriesProviding {
 	func onboardedCountries(
-		completion: @escaping (Result<[Country], ServiceError<ValidationOnboardedCountriesResource.CustomError>>) -> Void
+		completion: @escaping (Result<[Country], ServiceError<ValidationOnboardedCountriesError>>) -> Void
 	)
 }
 
@@ -28,7 +28,7 @@ final class HealthCertificateValidationOnboardedCountriesProvider: HealthCertifi
 	// MARK: - Protocol HealthCertificateValidationOnboardedCountriesProviding
 	
 	func onboardedCountries(
-		completion: @escaping (Result<[Country], ServiceError<ValidationOnboardedCountriesResource.CustomError>>) -> Void
+		completion: @escaping (Result<[Country], ServiceError<ValidationOnboardedCountriesError>>) -> Void
 	) {
 		let validationOnboardedCountriesResource = ValidationOnboardedCountriesResource()
 		
