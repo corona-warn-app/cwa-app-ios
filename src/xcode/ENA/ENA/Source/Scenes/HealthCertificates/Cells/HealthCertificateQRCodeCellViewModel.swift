@@ -108,6 +108,13 @@ struct HealthCertificateQRCodeCellViewModel {
 			return nil
 		}
 	}
+	
+	var titleAccessibilityText: String? {
+		guard let title = title, let subtitle = subtitle else {
+			return nil
+		}
+		return title + ", " + subtitle
+	}
 
 	var subtitle: String? {
 		if mode == .overview && (healthCertificate.validityState == .valid || healthCertificate.validityState == .expiringSoon || (healthCertificate.type == .test && healthCertificate.validityState == .expired)) {
