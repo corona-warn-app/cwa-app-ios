@@ -26,15 +26,18 @@ class RecycleBinItemCellModelTests: CWATestCase {
 			)
 		)
 
+		let deletionDate = Date()
 		let viewModel = RecycleBinItemCellModel(
-			recycleBinItem: RecycleBinItem(recycledAt: Date(), item: .certificate(healthCertificate))
+			recycleBinItem: RecycleBinItem(recycledAt: deletionDate, item: .certificate(healthCertificate))
 		)
-
+		let expirationDate = Calendar.current.date(byAdding: .day, value: 30, to: deletionDate)
+		
 		XCTAssertEqual(viewModel.iconImage, UIImage(imageLiteralResourceName: "Icons_RecycleBin_Certificate"))
 		XCTAssertEqual(viewModel.name, "Erika Dörte Schmidt-Mustermann")
 		XCTAssertEqual(viewModel.title, "Impfzertifikat")
 		XCTAssertEqual(viewModel.secondaryInfo, "Impfung 1 von 2")
 		XCTAssertEqual(viewModel.tertiaryInfo, "geimpft am 03.02.21")
+		XCTAssertEqual(viewModel.quaternaryInfo, "wird am \(DateFormatter.localizedString(from: expirationDate ?? Date(), dateStyle: .short, timeStyle: .none)) um \(DateFormatter.localizedString(from: expirationDate ?? Date(), dateStyle: .none, timeStyle: .short)) endgültig gelöscht")
 	}
 
 	func testViewModelWithPCRTestCertificate() throws {
