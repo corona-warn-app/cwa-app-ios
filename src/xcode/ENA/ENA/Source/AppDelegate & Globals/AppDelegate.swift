@@ -567,7 +567,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 				}
 			},
 			showHealthCertificate: { [weak self] route in
-				// Works only for notifications tapped when the app is closed. When inside the app, the notification will trigger nothing.
 				Log.debug("new route is set: \(route)")
 				guard let self = self else { return }
 
