@@ -95,9 +95,7 @@ class HealthCertificateOverviewViewModel {
 	}
 
 	func attemptToRestoreDecodingFailedHealthCertificates() {
-		healthCertificateService.healthCertifiedPersons.forEach {
-			$0.attemptToRestoreDecodingFailedHealthCertificates()
-		}
+		healthCertificateService.attemptToRestoreDecodingFailedHealthCertificates()
 	}
 
 	// MARK: - Private
