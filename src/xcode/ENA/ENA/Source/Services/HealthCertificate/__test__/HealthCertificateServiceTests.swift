@@ -166,6 +166,22 @@ class HealthCertificateServiceTests: CWATestCase {
 	// swiftlint:disable cyclomatic_complexity
 	// swiftlint:disable:next function_body_length
 	func testRegisteringCertificates() throws {
+		var thresholdFeature = SAP_Internal_V2_AppFeature()
+		thresholdFeature.label = "dcc-person-warn-threshold"
+		thresholdFeature.value = 2
+
+		var maxCountFeature = SAP_Internal_V2_AppFeature()
+		maxCountFeature.label = "dcc-person-count-max"
+		maxCountFeature.value = 3
+
+		var appFeatures = SAP_Internal_V2_AppFeatures()
+		appFeatures.appFeatures = [thresholdFeature, maxCountFeature]
+
+		var appConfig = SAP_Internal_V2_ApplicationConfigurationIOS()
+		appConfig.appFeatures = appFeatures
+
+		let appConfigProvider = CachedAppConfigurationMock(with: appConfig, store: MockTestStore())
+
 		let store = MockTestStore()
 		let client = ClientMock()
 
@@ -174,7 +190,7 @@ class HealthCertificateServiceTests: CWATestCase {
 			dccSignatureVerifier: DCCSignatureVerifyingStub(),
 			dscListProvider: MockDSCListProvider(),
 			client: client,
-			appConfiguration: CachedAppConfigurationMock(),
+			appConfiguration: appConfigProvider,
 			boosterNotificationsService: BoosterNotificationsService(
 				rulesDownloadService: RulesDownloadService(store: store, client: client)
 			),
@@ -202,6 +218,7 @@ class HealthCertificateServiceTests: CWATestCase {
 		switch registrationResult {
 		case let .success(certificateResult):
 			XCTAssertEqual(certificateResult.person.healthCertificates, [firstTestCertificate])
+			XCTAssertNil(certificateResult.registrationDetail)
 		case .failure:
 			XCTFail("Registration should succeed")
 		}
@@ -271,6 +288,7 @@ class HealthCertificateServiceTests: CWATestCase {
 		switch registrationResult {
 		case let .success(certificateResult):
 			XCTAssertEqual(certificateResult.person.healthCertificates, [firstTestCertificate, secondTestCertificate])
+			XCTAssertNil(certificateResult.registrationDetail)
 		case .failure(let error):
 			XCTFail("Registration should succeed, failed with error: \(error.localizedDescription)")
 		}
@@ -301,6 +319,7 @@ class HealthCertificateServiceTests: CWATestCase {
 		switch registrationResult {
 		case let .success(certificateResult):
 			XCTAssertEqual(certificateResult.person.healthCertificates, [firstVaccinationCertificate, firstTestCertificate, secondTestCertificate])
+			XCTAssertNil(certificateResult.registrationDetail)
 		case .failure(let error):
 			XCTFail("Registration should succeed, failed with error: \(error.localizedDescription)")
 		}
@@ -332,6 +351,7 @@ class HealthCertificateServiceTests: CWATestCase {
 		switch registrationResult {
 		case let .success(certificateResult):
 			XCTAssertEqual(certificateResult.person.healthCertificates, [secondVaccinationCertificate])
+			XCTAssertEqual(certificateResult.registrationDetail, .personWarnThresholdReached)
 		case .failure(let error):
 			XCTFail("Registration should succeed, failed with error: \(error.localizedDescription)")
 		}
@@ -394,6 +414,7 @@ class HealthCertificateServiceTests: CWATestCase {
 		switch registrationResult {
 		case let .success(certificateResult):
 			XCTAssertEqual(certificateResult.person.healthCertificates, [firstRecoveryCertificate])
+			XCTAssertEqual(certificateResult.registrationDetail, .personWarnThresholdReached)
 		case .failure(let error):
 			XCTFail("Registration should succeed, failed with error: \(error.localizedDescription)")
 		}
@@ -427,11 +448,34 @@ class HealthCertificateServiceTests: CWATestCase {
 		XCTAssertEqual(store.healthCertifiedPersons[safe: 2]?.healthCertificates, [firstRecoveryCertificate])
 		XCTAssertEqual(service.healthCertifiedPersons[safe: 2]?.gradientType, .solidGrey(withStars: true))
 
+		// Attempt to add a 4th person, max amount was set to 3
+
+		let secondRecoveryCertificateBase45 = try base45Fake(
+			from: DigitalCovidCertificate.fake(
+				name: .fake(standardizedFamilyName: "AHMED", standardizedGivenName: "OMAR"),
+				recoveryEntries: [.fake(
+					uniqueCertificateIdentifier: "6"
+				)]
+			),
+			and: .fake(expirationTime: .distantPast)
+		)
+
+		registrationResult = service.registerHealthCertificate(base45: secondRecoveryCertificateBase45)
+
+		switch registrationResult {
+		case .success:
+			XCTFail("Registration should fail")
+		case .failure(let error):
+			if case .tooManyPersonsRegistered = error {} else {
+				XCTFail("Expected .tooManyPersonsRegistered error")
+			}
+		}
+
 		// Remove all certificates of first person and check that person is removed and gradient is correct
 
-		service.removeHealthCertificate(firstVaccinationCertificate)
-		service.removeHealthCertificate(firstTestCertificate)
-		service.removeHealthCertificate(secondTestCertificate)
+		service.moveHealthCertificateToBin(firstVaccinationCertificate)
+		service.moveHealthCertificateToBin(firstTestCertificate)
+		service.moveHealthCertificateToBin(secondTestCertificate)
 
 		XCTAssertEqual(store.healthCertifiedPersons.count, 2)
 
@@ -515,7 +559,7 @@ class HealthCertificateServiceTests: CWATestCase {
 
 		// Removing one of multiple certificates
 
-		service.removeHealthCertificate(healthCertificate2)
+		service.moveHealthCertificateToBin(healthCertificate2)
 
 		XCTAssertEqual(service.healthCertifiedPersons, [
 			HealthCertifiedPerson(healthCertificates: [
@@ -529,7 +573,7 @@ class HealthCertificateServiceTests: CWATestCase {
 
 		// Removing last certificate of a person
 
-		service.removeHealthCertificate(healthCertificate1)
+		service.moveHealthCertificateToBin(healthCertificate1)
 
 		XCTAssertEqual(service.healthCertifiedPersons, [
 			HealthCertifiedPerson(healthCertificates: [
@@ -540,7 +584,7 @@ class HealthCertificateServiceTests: CWATestCase {
 
 		// Removing last certificate of last person
 
-		service.removeHealthCertificate(healthCertificate3)
+		service.moveHealthCertificateToBin(healthCertificate3)
 
 		XCTAssertTrue(service.healthCertifiedPersons.isEmpty)
 	}
@@ -588,7 +632,7 @@ class HealthCertificateServiceTests: CWATestCase {
 				  XCTFail("certificateResult expected.")
 				  return
 		}
-		XCTAssertTrue(certificateResult.restoredFromBin)
+		XCTAssertEqual(certificateResult.registrationDetail, .restoredFromBin)
 	}
 
 	func testValidityStateUpdate_Valid() throws {
@@ -644,7 +688,7 @@ class HealthCertificateServiceTests: CWATestCase {
 		XCTAssertEqual(healthCertificate.validityState, .valid)
 		XCTAssertEqual(store.healthCertifiedPersons.first?.healthCertificates.first?.validityState, .valid)
 
-		service.removeHealthCertificate(healthCertificate)
+		service.moveHealthCertificateToBin(healthCertificate)
 	}
 
 	func testValidityStateUpdate_InvalidSignature() throws {
@@ -695,7 +739,7 @@ class HealthCertificateServiceTests: CWATestCase {
 		XCTAssertEqual(service.healthCertifiedPersons.first?.healthCertificates.first?.validityState, .invalid)
 
 		subscription.cancel()
-		service.removeHealthCertificate(healthCertificate)
+		service.moveHealthCertificateToBin(healthCertificate)
 	}
 
 	func testValidityStateUpdate_JustExpired() throws {
@@ -747,7 +791,7 @@ class HealthCertificateServiceTests: CWATestCase {
 		XCTAssertEqual(service.healthCertifiedPersons.first?.healthCertificates.first?.validityState, .expired)
 
 		subscription.cancel()
-		service.removeHealthCertificate(healthCertificate)
+		service.moveHealthCertificateToBin(healthCertificate)
 	}
 
 	func testValidityStateUpdate_LongExpired() throws {
@@ -799,7 +843,7 @@ class HealthCertificateServiceTests: CWATestCase {
 		XCTAssertEqual(service.healthCertifiedPersons.first?.healthCertificates.first?.validityState, .expired)
 
 		subscription.cancel()
-		service.removeHealthCertificate(healthCertificate)
+		service.moveHealthCertificateToBin(healthCertificate)
 	}
 
 	func testValidityStateUpdate_ExpiresSoonStateBegins() throws {
@@ -864,7 +908,7 @@ class HealthCertificateServiceTests: CWATestCase {
 		XCTAssertEqual(store.healthCertifiedPersons.first?.healthCertificates.first?.validityState, .expiringSoon)
 
 		subscription.cancel()
-		service.removeHealthCertificate(healthCertificate)
+		service.moveHealthCertificateToBin(healthCertificate)
 	}
 
 	func testValidityStateUpdate_ExpiresSoonStateAlmostEnds() throws {
@@ -923,7 +967,7 @@ class HealthCertificateServiceTests: CWATestCase {
 		XCTAssertEqual(store.healthCertifiedPersons.first?.healthCertificates.first?.validityState, .expiringSoon)
 
 		subscription.cancel()
-		service.removeHealthCertificate(healthCertificate)
+		service.moveHealthCertificateToBin(healthCertificate)
 	}
 
 	func testTestCertificateRegistrationAndExecution_Success() throws {
@@ -1877,7 +1921,7 @@ class HealthCertificateServiceTests: CWATestCase {
 		XCTAssertEqual(notificationCenter.notificationRequests.count, 4)
 		
 		// WHEN
-		service.removeHealthCertificate(recoveryCertificate)
+		service.moveHealthCertificateToBin(recoveryCertificate)
 		
 		// THEN
 		// There should be now 1 notifications for expireSoon and 1 for expired. Test certificates are ignored. The recovery is now removed. Remains the two notifications for the vaccination certificate.

@@ -1,9 +1,9 @@
 version: 2.1
 
 configuration:
-  - cache_key: &cache_key v11-{{ checksum "src/xcode/Gemfile.lock" }}
-  - tools_cache_key: &tools_cache_key v5-{{ checksum "Brewfile.lock.json" }}
-  - xcode_version: &xcode_version 13.0.0
+  - cache_key: &cache_key v12-{{ checksum "src/xcode/Gemfile.lock" }}
+  - tools_cache_key: &tools_cache_key v6-{{ checksum "Brewfile.lock.json" }}
+  - xcode_version: &xcode_version 13.1.0
   - resource_class: &resource_class large
 
 ###
@@ -59,6 +59,7 @@ jobs:
           root: .
           paths:
             - .
+
   build-for-testing:
     macos:
       xcode: *xcode_version
@@ -69,22 +70,12 @@ jobs:
       - run:
           name: Build for testing
           command: |
-            cd src/xcode && \
-            xcodebuild \
-              -workspace "ENA.xcworkspace" \
-              -scheme ENA \
-              -destination "platform=iOS Simulator,OS=15.0,name=iPhone 11" \
-              -testPlan AllTests \
-              -only-test-configuration "DE" \
-              -derivedDataPath "./DerivedData" \
-              -jobs `sysctl -n hw.ncpu` \
-              -parallelizeTargets \
-              -quiet \
-              build-for-testing
+            cd src/xcode && bundle exec fastlane build_for_testing
       - persist_to_workspace:
           root: .
           paths:
             - "src/xcode/DerivedData/**/*"
+
   swiftlint:
     macos:
       xcode: *xcode_version
@@ -103,24 +94,30 @@ jobs:
             cd src/xcode && bundle exec fastlane lint
       - store_artifacts:
           path: src/xcode/swiftlint.html
-  analyze:
+
+  test:
     macos:
       xcode: *xcode_version
+    resource_class: *resource_class
+    parameters:
+      testplan:
+        default: "AllTests"
+        type: string
     steps:
       - attach_workspace:
           at: .
       - restore_cache:
-          key: *cache_key
-      - restore_cache:
           key: *tools_cache_key
       - run:
-          name: Analyze (experimental)
-          command: |
-            swiftlint --version
-            cd src/xcode && bundle exec fastlane analyze || true
+          name: Run Fastlane tests
+          command: cd src/xcode && bundle exec fastlane test_without_building testplan:<<parameters.testplan>>
+          no_output_timeout: 5m
+      - store_test_results:
+          path: src/xcode/fastlane/test_output/
       - store_artifacts:
-          path: src/xcode/swiftlint.analyze.html
-  test:
+          path: src/xcode/fastlane/test_output/ENA.xcresult.zip
+
+  sonar: # Runs AllTets in one Job to have one coverage file that can then be used to generate Sonar reports
     macos:
       xcode: *xcode_version
     resource_class: *resource_class
@@ -173,7 +170,8 @@ jobs:
           key: sonar-cloud-v2
           paths:
             - ~/sonar/
-  test-community:
+
+  build-community:
     macos:
       xcode: *xcode_version
     resource_class: *resource_class
@@ -183,13 +181,10 @@ jobs:
       - restore_cache:
           key: *tools_cache_key
       - run:
-          name: Run Fastlane smoke tests
-          command: cd src/xcode && bundle exec fastlane test_community
+          name: Build Community
+          command: cd src/xcode && bundle exec fastlane build_community
           no_output_timeout: 10m
-      - store_test_results:
-          path: src/xcode/fastlane/test_output/
-      - store_artifacts:
-          path: src/xcode/fastlane/test_output/ENACommunity.xcresult.zip
+
   snapshot:
     macos:
       xcode: *xcode_version
@@ -219,6 +214,28 @@ jobs:
           root: .
           paths:
             - src/xcode/screenshots/*
+  snapshot-test: # Creates one set of screenshots to see if screenshot test are still fine
+    macos:
+      xcode: *xcode_version
+    resource_class: *resource_class
+    steps:
+      - attach_workspace:
+          at: .
+      - restore_cache:
+          key: *tools_cache_key
+      - run:
+          name: Snapshot
+          command: cd src/xcode && bundle exec fastlane screenshot languages:de-DE mode:light
+          no_output_timeout: 1h
+      - store_test_results:
+          # Fastlane's snapshot only defines one output path which is intended forscreenshots
+          # test results also land here which is the reason of this weird path
+          path: src/xcode/fastlane/test_output/de-DE-light/
+      - persist_to_workspace:
+          root: .
+          paths:
+            - src/xcode/screenshots/*
+
   collect-snapshots:
     macos:
       xcode: *xcode_version
@@ -234,6 +251,7 @@ jobs:
       - run:
           name: Announce new screenshots to MS Teams
           command: ./scripts/announce_screenshots.sh https://${CIRCLE_BUILD_NUM}-268042230-gh.circle-artifacts.com/0/src/xcode/screenshots/screenshots.tar.gz
+
   testflight-release:
     macos:
       xcode: *xcode_version
@@ -251,6 +269,7 @@ jobs:
       - run:
           name: fastlane appcenter and Mobile Device Cloud
           command: cd src/xcode && bundle exec fastlane adHocDistribution
+
   update-docs:
     macos:
       xcode: *xcode_version
@@ -273,102 +292,135 @@ jobs:
 ###
 
 workflows:
-    build-and-test:
-      jobs:
-        - dependencies
-        - swiftlint:
-            requires:
-              - dependencies
-        - test:
-            matrix:
-              parameters:
-                testplan: ["UnitTests"]
-            requires:
-              - dependencies
-            filters:
-              branches:
-                ignore:
-                  - /release\/.*/
-        - test:
-            matrix:
-              parameters:
-                testplan: ["AllTests"]
-            requires:
-              - dependencies
-            filters:
-              branches:
-                only:
-                  - /release\/.*/
-                  - chore/fix-ui-tests
-        - test-community:
-            requires:
-              - dependencies
-        - snapshot:
-            matrix:
-              parameters:
-                language: ["de-DE", "en-EN"]
-                displaymode: ["dark", "light"]
-            requires:
-              - dependencies
-            filters:
-              branches:
-                only:
-                  - /release\/.*/
-        - collect-snapshots:
-            requires:
-              - snapshot
-        - update-docs:
-            requires:
-              - dependencies
-            filters:
-              branches:
-                only:
-                  - main
+  version: 2
+  build-and-test:
+    jobs:
+      - dependencies
+      - build-for-testing:
+          requires:
+            - dependencies
+      - swiftlint:
+          requires:
+            - dependencies
+      - test:
+          matrix:
+            parameters:
+              testplan: ["UnitTests", "AntigenTestProfileUITests", "AppInformationUITests", "CheckInsUITests", "ContactJournalUITests", "CreateHealthCertificateUITests", "DataDonationUITests", "DeltaOnboardingUITests", "ExposureDetectionUITests", "ExposureLoggingUITests", "ExposureSubmissionUITests", "FileScannerUITests", "HomeUITests", "OnBehalfCheckinSubmissionUITests", "OnboardingUITests", "QuickActionsUITests", "SettingsUITests", "StatisticsUITests", "TicketValidationUITests", "TraceLocationsUITests", "UniversalQRCodeScannerUITests", "UpdateOSUITests", "ValidateHealthCertificateUITests", "RecycleBinUITests"]
+          requires:
+            - build-for-testing
+          filters:
+            branches:
+              ignore:
+                - /release\/.*/
+      - test:
+          matrix:
+            parameters:
+              testplan: ["AllTests"]
+          requires:
+            - build-for-testing
+          filters:
+            branches:
+              only:
+                - /release\/.*/
+      - build-community:
+          requires:
+            - dependencies
+      - snapshot-test: # Create one set of screenshot on all branches
+          requires:
+            - dependencies
+          filters:
+            branches:
+              ignore:
+                - /release\/.*/
+      - snapshot:
+          matrix:
+            parameters:
+              language: ["de-DE", "en-EN"]
+              displaymode: ["dark", "light"]
+          requires:
+            - dependencies
+          filters:
+            branches:
+              only:
+                - /release\/.*/
+      - collect-snapshots:
+          requires:
+            - snapshot
+      - update-docs:
+          requires:
+            - dependencies
+          filters:
+            branches:
+              only:
+                - main
 
-    beta-release:
-      jobs:
-        - dependencies:
-            filters:
-              tags:
-                only:
-                  - /^v.*/
-              branches:
-                ignore: /.*/
-        - test:
-            requires:
-              - dependencies
-            filters:
-              tags:
-                only:
-                  - /^v.*/
-              branches:
-                ignore: /.*/
-        - snapshot:
-            matrix:
-              parameters:
-                language: ["de-DE", "en-EN"]
-                displaymode: ["dark", "light"]
-            requires:
-              - dependencies
-            filters:
-              branches:
-                only:
-                  - /release\/.*/
-        - collect-snapshots:
-            requires:
-              - snapshot
-            filters:
-              tags:
-                only:
-                  - /^v.*/
-              branches:
-                ignore: /.*/
-        - testflight-release:
-            requires:
-              - dependencies
-            filters:
-              tags:
-                only:
-                  - /^v.*/
-              branches:
-                ignore: /.*/
+  beta-release:
+    jobs:
+      - dependencies:
+          filters:
+            tags:
+              only:
+                - /^v.*/
+            branches:
+              ignore: /.*/
+      - build-for-testing:
+          requires:
+            - dependencies
+      - test:
+          requires:
+            - build-for-testing
+          filters:
+            tags:
+              only:
+                - /^v.*/
+            branches:
+              ignore: /.*/
+      - snapshot:
+          matrix:
+            parameters:
+              language: ["de-DE", "en-EN"]
+              displaymode: ["dark", "light"]
+          requires:
+            - dependencies
+          filters:
+            branches:
+              only:
+                - /release\/.*/
+      - collect-snapshots:
+          requires:
+            - snapshot
+          filters:
+            tags:
+              only:
+                - /^v.*/
+            branches:
+              ignore: /.*/
+      - testflight-release:
+          requires:
+            - dependencies
+          filters:
+            tags:
+              only:
+                - /^v.*/
+            branches:
+              ignore: /.*/
+
+  sonar-workflow:
+    triggers:
+      - schedule:
+          cron: "0 1 * * 1,2,3,4,5"
+          filters:
+            branches:
+              only: /release\/.*/
+    jobs:
+      - dependencies:
+          filters:
+            branches:
+              only: /release\/.*/
+      - sonar:
+          requires:
+            - dependencies
+          filters:
+            branches:
+              only:
+                - /release\/.*/

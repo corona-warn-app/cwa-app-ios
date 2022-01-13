@@ -37,6 +37,8 @@ protocol PPAnalyticsData: AnyObject {
 	var antigenTestResultMetadata: TestResultMetadata? { get set }
 	/// Analytics data.
 	var exposureWindowsMetadata: ExposureWindowsMetadata? { get set }
+	/// Stores the current exposure windows, should not be assigned to nil in deleteAnalyticsData! because we need the expsure windows until new risk calculation.
+	var currentExposureWindows: [SubmissionExposureWindow]? { get set }
 	/// Date when the ENF risk was changed to high
 	var dateOfConversionToENFHighRisk: Date? { get set }
 	/// Date when the event risk was changed to high
@@ -44,7 +46,6 @@ protocol PPAnalyticsData: AnyObject {
 }
 
 extension SecureStore: PPAnalyticsData {
-		
 	var lastSubmissionAnalytics: Date? {
 		get { kvStore["lastSubmissionAnalytics"] as Date? }
 		set { kvStore["lastSubmissionAnalytics"] = newValue }
@@ -132,6 +133,11 @@ extension SecureStore: PPAnalyticsData {
 		set { kvStore["exposureWindowsMetadata"] = newValue }
 	}
 	
+	var currentExposureWindows: [SubmissionExposureWindow]? {
+		get { kvStore["currentExposureWindows"] as [SubmissionExposureWindow]? ?? [] }
+		set { kvStore["currentExposureWindows"] = newValue }
+	}
+
 	var dateOfConversionToENFHighRisk: Date? {
 		// old named key matches not to property name to avoid migration
 		get { kvStore["dateOfConversionToHighRisk"] as Date? ?? nil }

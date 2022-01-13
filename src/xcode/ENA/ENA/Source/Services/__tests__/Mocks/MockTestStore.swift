@@ -90,6 +90,7 @@ final class MockTestStore: Store, PPAnalyticsData {
 	var pcrTestResultMetadata: TestResultMetadata?
 	var antigenTestResultMetadata: TestResultMetadata?
 	var exposureWindowsMetadata: ExposureWindowsMetadata?
+	var currentExposureWindows: [SubmissionExposureWindow]? = []
 	var dateOfConversionToENFHighRisk: Date?
 	var dateOfConversionToCheckinHighRisk: Date?
 
@@ -183,6 +184,9 @@ final class MockTestStore: Store, PPAnalyticsData {
 	// MARK: - Protocol AppFeaturesStoring
 	var dmKillDeviceTimeCheck = false
 	var unencryptedCheckinsEnabled = false
+
+	// MARK: - TicketValidationStoring
+	var skipAllowlistValidation: Bool = false
 
 	// MARK: - Protocol RecycleBinStoring
 

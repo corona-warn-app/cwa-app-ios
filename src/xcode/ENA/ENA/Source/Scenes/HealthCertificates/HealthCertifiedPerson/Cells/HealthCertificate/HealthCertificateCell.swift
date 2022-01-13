@@ -28,8 +28,11 @@ class HealthCertificateCell: UITableViewCell, ReuseIdentifierProviding {
 	}
 
 	// MARK: - Internal
-
-	func configure(_ cellViewModel: HealthCertificateCellViewModel) {
+	
+	func configure(
+		_ cellViewModel: HealthCertificateCellViewModel,
+		withDisclosureIndicator: Bool = true
+	) {
 		gradientBackground.type = cellViewModel.gradientType
 		iconImageView.image = cellViewModel.image
 
@@ -42,6 +45,8 @@ class HealthCertificateCell: UITableViewCell, ReuseIdentifierProviding {
 
 		currentlyUsedStackView.isHidden = !cellViewModel.isCurrentlyUsedCertificateHintVisible
 		unseenNewsIndicator.isHidden = !cellViewModel.isUnseenNewsIndicatorVisible
+	
+		disclosureImageView.isHidden = !withDisclosureIndicator
 
 		setupAccessibility()
 	}
@@ -115,6 +120,7 @@ class HealthCertificateCell: UITableViewCell, ReuseIdentifierProviding {
 		currentlyUsedImageView.image = UIImage(named: "CurrentlyUsedCertificate_Icon")
 		currentlyUsedImageView.contentMode = .scaleAspectFit
 		currentlyUsedImageView.setContentHuggingPriority(.required, for: .horizontal)
+		currentlyUsedImageView.setContentCompressionResistancePriority(.required, for: .horizontal)
 		currentlyUsedStackView.addArrangedSubview(currentlyUsedImageView)
 
 		currentlyUsedLabel.style = .body

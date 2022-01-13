@@ -92,9 +92,15 @@
 
 "ExposureDetection_Contact_Journal_Text" = "Temas güncenizde maruz kalmalarınız hakkında daha fazla bilgi bulabilirsiniz.";
 
+"ExposureDetection_Contact_Journal_Text_P2" = "Enfekte olmuş olma riskiniz daha yüksek. Enfekte olduysanız aşı olmuş ya da iyileşmiş olsanız bile ve hiçbir belirtiniz olmasa bile başka kişilerin enfekte olmasına neden olabilirsiniz.";
+
 "ExposureDetection_Behavior_Title" = "Talimatlar";
 
-"ExposureDetection_Behavior_Subtitle" = "Yapmanız gerekenler:";
+"ExposureDetection_Behavior_Subtitle" = "Aşı olduysanız veya iyileştiyseniz bile ve hiçbir belirtiniz yoksa bile yapmanız gerekenler:";
+
+"ExposureDetection_LowRisk_Behavior_Subtitle" = "Yapmanız gerekenler:";
+
+"ExposureDetection_Guide_Hygiene" = "Lütfen genel hijyen kurallarına özellikle dikkat edin.";
 
 "ExposureDetection_Guide_Vaccination" = "Henüz olmadıysanız SARS-CoV-2 virüsüne karşı aşı olun.";
 
@@ -108,25 +114,23 @@
 
 "ExposureDetection_Guide_Ventilation" = "Kapalı alanları günde birkaç kez havalandırın. Bunun için, pencereleri birkaç dakika süreyle sonuna dek açın (“şok havalandırma”).";
 
-"ExposureDetection_Guide_Symptoms" = "Tipik COVID-19 belirtilerine karşı dikkatli olun. Nadir durumlarda, aşı olmuş kişiler bile belirti gösterebilir. Herhangi bir şüpheli belirti fark ederseniz test yaptırın.";
+"ExposureDetection_Guide_Symptoms" = "Tipik belirtilere karşı dikkatli olun. Aşı olmuş ve daha önce hastalığı geçirmiş kişilerde bile belirtiler gelişebilir. Hasta hissederseniz ya da herhangi bir belirti gelişirse lütfen aile hekiminizle iletişime geçin.";
 
-"ExposureDetection_Guide_Home" = "Mümkünse lütfen eve gidin ve evde kalın.";
+"ExposureDetection_Guide_Home" = "Mümkünse lütfen eve gidin ve evde kalın ve beraber yaşadığınız kişiler haricinde başka insanlarla karşılaşmaktan kaçının.";
 
-"ExposureDetection_Guide_Hotline1" = "Belirtiler, test kullanılabilirliği veya karantina önlemleri hakkında sorularınız varsa lütfen aşağıdakilerden biri ile iletişime geçin:";
+"ExposureDetection_Guide_Hotline" = "Başka sorularınız varsa lütfen tıbbi acil servis yardım hattı ile 116 117 numaralı telefondan iletişime geçin.";
 
-"ExposureDetection_Guide_Hotline2" = "Aile hekiminiz";
+"ExposureDetection_Guide_Vaccination_HighRisk" = "Henüz aşı olmadıysanız test yaptırdıktan sonra aile hekiminize danışın.";
 
-"ExposureDetection_Guide_Hotline3" = "116 117 numaralı telefondan genel acil servis";
+"ExposureDetection_Guide_Title" = "Hiçbir belirtiniz olmasa bile lütfen test yaptırın. Daha yüksek risk uyarısı (\"kırmızı kutucuk\") alırsanız ücretsiz test yaptırma hakkınız olur. Bunun illa bir PCR testi olması gerekmez.\n";
 
-"ExposureDetection_Guide_Hotline4" = "Kamu sağlığı yetkiliniz";
+"ExposureDetection_Guide_Point1" = "Test olanaklarını burada bulabilir ya da aile hekiminize veya bir eczaneye danışabilirsiniz.";
 
-"ExposureDetection_Guide_Vaccination_HighRisk" = "Henüz aşı olmadıysanız bir test randevusu oluşturmak için aile hekiminize veya genel acil servis numarasına danışın. Testinizi yaptırdıktan sonra aile hekiminizle SARS-CoV-2 aşısı hakkında görüşün.";
+"ExposureDetection_Guide_Point1_LinkText" = "burada";
 
-/* Placeholder points to `ExposureDetection_LinkText` */
-"ExposureDetection_Guide_FAQ" = "Test yaptırırsanız %@ bölümünde test prosedürü hakkında ek bilgi bulabilirsiniz.";
+"ExposureDetection_Guide_Point2" = "SSS sayfamızda test prosedürü hakkında daha fazla bilgi bulunmaktadır.";
 
-/* The 'tapable' text containing the link to the faq */
-"ExposureDetection_Guide_FAQ_LinkText" = "Test prosedürü hakkında SSS";
+"ExposureDetection_Guide_Point2_LinkText" = "SSS";
 
 "ExposureDetection_Explanation_Title" = "Enfeksiyon Riski";
 
@@ -179,6 +183,44 @@
 "ExposureDetection_Survey_Card_Body" = "Birkaç basit soru yanıtlayarak uygulamayı iyileştirmemize yardımcı olun.";
 
 "ExposureDetection_Survey_Card_Button" = "Ankete Git";
+
+"ExposureDetection_Info_HygieneRules_Title" = "Hijyen Kuralları";
+
+"ExposureDetection_Info_HygieneRules_Point1" = "Başka kişilerle karşılaşmalarınız sırasında maske takın.";
+
+"ExposureDetection_Info_HygieneRules_Point2" = "Diğer insanlarla aranızda en az 1,5 metre mesafeyi koruyun.";
+
+"ExposureDetection_Info_HygieneRules_Point3" = "Öksürürken ya da hapşırırken dirseğinizin iç kısmına dönün veya bir mendil kullanın.";
+
+"ExposureDetection_Info_HygieneRules_Point4" = "Ellerinizi düzenli olarak en az 20 saniye sabunla yıkayın.";
+
+"ExposureDetection_Info_HygieneRules_Point5" = "Kapalı alanları günde birkaç kez havalandırın. Bunun için, pencereleri birkaç dakika süreyle sonuna dek açın (“şok havalandırma”).";
+
+"ExposureDetection_Info_HygieneRules_TitleImage_Description" = "Mesafelerini koruyan ve maske takan birkaç kişi.";
+
+"ExposureDetection_Info_Contagion_Title" = "Enfeksiyon Riskinizi En Aza İndirin";
+
+"ExposureDetection_Info_Contagion_Image_Title" = "Farkında olmadan enfekte olduysanız başkalarını enfekte etme riskini azaltabilirsiniz:";
+
+"ExposureDetection_Info_Contagion_TitleImage_Description" = "Koltukta oturan ve kitap okuyan bir kişi. Akıllı telefonuna bakan başka bir kişi.";
+
+"ExposureDetection_Info_Contagion_Point1" = "Toplantılar ve etkinlikler: Başka kişilerle bir araya gelmeyi gerektiren ziyaretlerden ve aktivitelerden kaçının (kulüpler, barlar, restoranlar, sinemalar, tiyatrolar, spor etkinlikleri).";
+
+"ExposureDetection_Info_Contagion_Point2" = "Evden çalışma: Yapabiliyorsanız evden çalışın.";
+
+"ExposureDetection_Info_Contagion_Point3" = "Alışveriş: Market alışverişlerinizi eve teslimat seçeneğiyle yapın veya bir başka kişiden sizin için alışveriş yapmasını isteyin.";
+
+"ExposureDetection_Info_Contagion_Point4" = "Toplu taşıma: Mümkün olduğunca, özellikle de yoğun saatlerde toplu taşıma kullanmaktan kaçının.";
+
+"ExposureDetection_Info_Contagion_Point5" = "Seyahat: Uçak veya trenle seyahat etmeyin.";
+
+"ExposureDetection_Info_Contagion_Point6" = "Karantina önlemleri hakkında sorularınız varsa lütfen kamu sağlığı departmanınızla iletişime geçin.";
+
+"ExposureDetection_Info_Contagion_Point6_LinkText" = "Karantina önlemleri hakkında";
+
+"ExposureDetection_Info_Contagion_Footer" = "Gönüllü bireysel karantina hakkında SSS sayfamızda ek bilgiler bulunmaktadır:";
+
+"ExposureDetection_Info_Contagion_Footer_LinkText" = "Gönüllü bireysel karantina hakkında SSS";
 
 /* Survey Errors */
 "SurveyConsent_Error_Title" = "Hata";
@@ -408,7 +450,7 @@
 
 "OnboardingInfo_togetherAgainstCoronaPage_boldText" = "Sizin için ve hepimiz için daha fazla koruma. Corona-Warn-App uygulamasını kullanarak enfeksiyon zincirlerini çok daha kısa süre içinde kırabiliriz.";
 
-"OnboardingInfo_togetherAgainstCoronaPage_normalText" = "Cihazınızı koronavirüs uyarı sistemine dönüştürün. Risk durumunuza ilişkin genel bir bakış elde edin ve son 14 gün içinde koronavirüs tanısı konan herhangi biri ile yakın temasa geçip geçmediğinizi öğrenin. \n\nUygulama kişilerin akıllı telefonları arasında şifrelenmiş rastgele kimlikleri paylaşarak karşılaşma günlüğü oluşturur ve bu sırada hiçbir kişisel veriye erişim sağlanmaz.\n\nDilerseniz uygulamayı kişisel enfeksiyon durumunuzu (örneğin, negatif sonuç veren bir hızlı test) kanıtlamak için kullanabilirsiniz. Ancak lütfen unutmayın; enfeksiyon durumunuzu kanıtlamak için uygulamayı kullanmak zorunda değilsiniz. Enfeksiyon durumunuzu, ikamet ettiğiniz bölgede geçerli olan yasal düzenlemeler uyarınca başka bir şekilde de kanıtlayabilirsiniz.\n\nKişisel aşı durumunuzu da doğrulayabilirsiniz.\n\nUygulama kişilerin akıllı telefonları arasında şifrelenmiş rastgele kimlikleri paylaşarak karşılaşma günlüğü oluşturur ve bu sırada hiçbir kişisel veriye erişim sağlanmaz.";
+"OnboardingInfo_togetherAgainstCoronaPage_normalText" = "Cihazınızı koronavirüs uyarı sistemine dönüştürün. Risk durumunuza ilişkin genel bir bakış elde edin ve son 14 gün içinde koronavirüs tanısı konan herhangi biri ile yakın temasa geçip geçmediğinizi öğrenin. \n\nUygulama kişilerin akıllı telefonları arasında şifrelenmiş rastgele kimlikleri paylaşarak karşılaşma günlüğü oluşturur ve bu sırada hiçbir kişisel veriye erişim sağlanmaz.\n\nDilerseniz uygulamayı kişisel enfeksiyon durumunuzu (örneğin, negatif sonuç veren bir hızlı test) kanıtlamak için kullanabilirsiniz. Ancak lütfen unutmayın; enfeksiyon durumunuzu kanıtlamak için uygulamayı kullanmak zorunda değilsiniz. Enfeksiyon durumunuzu, ikamet ettiğiniz bölgede geçerli olan yasal düzenlemeler uyarınca başka bir şekilde de kanıtlayabilirsiniz.\n\nKişisel aşı durumunuzu da kanıtlayabilirsiniz.\n\nUygulama kişilerin akıllı telefonları arasında şifrelenmiş rastgele kimlikleri paylaşarak karşılaşma günlüğü oluşturur ve bu sırada hiçbir kişisel veriye erişim sağlanmaz.";
 
 "OnboardingInfo_togetherAgainstCoronaPage_linkText" = "Basitleştirilmiş Dilde ve İşaret Dilinde Uygulama Bilgileri";
 
@@ -531,7 +573,7 @@
 
 "ExposureSubmissionDispatch_FindTestCentersTitle" = "Test Merkezi Bul";
 
-"ExposureSubmissionDispatch_FindTestCentersDescription" = "Yakınınızdaki test merkezlerini bulun. Bir harici RKI web sitesine yönlendirileceksiniz.";
+"ExposureSubmissionDispatch_FindTestCentersDescription" = "Yakınınızdaki test merkezlerini bulun. Herhangi bir sorun olursa bunu bildirebilirsiniz.\nBir harici RKI web sitesine yönlendirileceksiniz.";
 
 /* Exposure Submission Hotline */
 "ExposureSubmissionHotline_Title" = "PCR Testi için TAN talebinde bulunun";
@@ -753,7 +795,7 @@
 
 "ExposureSubmissionResult_WarnOthersConsentNotGiven" = "“Diğer kullanıcıları uyar” onayı verilmedi";
 
-"ExposureSubmissionResult_testRemove" = "Testi sil";
+"ExposureSubmissionResult_testRemove" = "Testi Sil";
 
 "ExposureSubmissionResult_testRemoveDesc" = "Yeni bir test kaydedebilmeniz için son testi kaldırmanız gerekir.";
 
@@ -761,7 +803,7 @@
 
 "ExposureSubmissionResult_secondaryButtonTitle" = "Belirtileri Girme";
 
-"ExposureSubmissionResult_deleteButton" = "Testi sil";
+"ExposureSubmissionResult_deleteButton" = "Testi Sil";
 
 "ExposureSubmissionResult_refreshButton" = "Güncelle";
 
@@ -850,9 +892,11 @@
 "ExposureSubmissionWarnOthers_continueButton" = "Kabul Et";
 
 /* Exposure Submission Result */
-"ExposureSubmissionResult_RemoveAlert_Title" = "Test yalnızca bir kez taranabilir.";
+"ExposureSubmissionResult_RemoveAlert_Title" = "Test sonucu silinsin mi?";
 
-"ExposureSubmissionResult_RemoveAlert_Text" = "Testi silerseniz test sonucunuzu alamazsınız. QR kod geçerli olsun veya olmasın test sonucunuzu test merkezinden veya laboratuvardan alacaksınız. Koronavirüs tanısı alırsanız kamu sağlığı yetkilisi yasal olarak belirlenen kanal üzerinden bilgilendirilecektir ve kamu sağlığı yetkilisi sizinle iletişime geçecektir.";
+"ExposureSubmissionResult_RemoveAlert_Text" = "Test sonucu geri dönüşüm kutusuna taşınacak. Geri dönüşüm kutusunu, durum sekmesinde yer alan \"Daha Fazla\" kutucuğunda bulabilirsiniz.\nBurada test sonucunu kalıcı olarak silebilir veya geri yükleyebilirsiniz. Test sonucu 30 gün sonra otomatik olarak silinir.";
+
+"ExposureSubmissionResult_RemoveAlert_ConfirmButtonTitle" = "Test Sonucunu Sil";
 
 "ExposureSubmissionResult_RegistrationDateUnknown" = "Kayıt tarihi bilinmiyor";
 
@@ -895,7 +939,7 @@
 
 "ExposureSubmissionError_NoResponse" = "Yanıtın içeriği yok.";
 
-"ExposureSubmissionError_QRAlreadyUsed" = "QR kod yanlış veya başka bir akıllı telefona zaten kaydedilmiş. QR kod geçerli olsun veya olmasın test sonucunuzu test merkezinden veya laboratuvardan alacaksınız. Koronavirüs tanısı alırsanız kamu sağlığı yetkilisi yasal olarak belirlenen kanal üzerinden bilgilendirilecektir ve kamu sağlığı yetkilisi sizinle iletişime geçecektir.";
+"ExposureSubmissionError_QRAlreadyUsed" = "QR kod yanlış veya akıllı telefonunuza zaten kaydedilmiş.\nQR kod geçerli olsun veya olmasın test sonucunuzu test merkezinden veya laboratuvardan alacaksınız. Koronavirüs tanısı alırsanız kamu sağlığı yetkilisi yasal olarak belirlenen kanal üzerinden bilgilendirilecektir ve kamu sağlığı yetkilisi sizinle iletişime geçecektir.\nTesti uygulamada sildiyseniz geri dönüşüm kutusundan geri yükleyebilirsiniz.";
 
 "ExposureSubmissionError_QRAlreadyUsed_Title" = "QR kod geçersiz";
 
@@ -930,11 +974,11 @@
 
 "ExposureSubmission_OverwriteNotice_Pcr_Headline" = "Zaten bir PCR testi kaydı oluşturdunuz.";
 
-"ExposureSubmission_OverwriteNotice_Pcr_Text" = "Zaten bir PCR testi kaydı oluşturdunuz. Uygulama tek seferde en fazla bir hızlı testi ve bir PCR testini yönetebilir. Başka bir PCR testi kaydı oluşturursanız ilk PCR testi uygulamadan silinir.";
+"ExposureSubmission_OverwriteNotice_Pcr_Text" = "Zaten bir PCR testi kaydı oluşturdunuz. Uygulama tek seferde en fazla bir hızlı testi ve bir PCR testini yönetebilir. Başka bir PCR testi kaydı oluşturursanız ilk PCR testi geri dönüşüm kutusuna taşınır. Geri dönüşüm kutusunda PCR testini geri yükleyebilir ya da kalıcı olarak silebilirsiniz.";
 
 "ExposureSubmission_OverwriteNotice_Antigen_Headline" = "Zaten bir hızlı test kaydı oluşturdunuz.";
 
-"ExposureSubmission_OverwriteNotice_Antigen_Text" = "Zaten bir hızlı test kaydı oluşturdunuz. Uygulama tek seferde en fazla bir hızlı testi ve bir PCR testini yönetebilir. Başka bir hızlı test kaydı oluşturursanız ilk hızlı test uygulamadan silinir.";
+"ExposureSubmission_OverwriteNotice_Antigen_Text" = "Zaten bir hızlı test kaydı oluşturdunuz. Uygulama tek seferde en fazla bir hızlı testi ve bir PCR testini yönetebilir. Başka bir hızlı test kaydı oluşturursanız ilk hızlı test geri dönüşüm kutusuna taşınır. Geri dönüşüm kutusunda hızlı testi geri yükleyebilir ya da kalıcı olarak silebilirsiniz.";
 
 /* ExposureSubmission AntigenTest Profile Information */
 "ExposureSubmission_Antigen_Profile_Information_Title" = "Hızlı Test Profili";
@@ -1257,13 +1301,7 @@
 
 "Home_Finding_Positive_Card_Button" = "Diğer Kullanıcıları Uyarın";
 
-"Home_Finding_Positive_Card_Button_Remove_Test" = "Testi Kaldır";
-
-"Home_Finding_Positive_Card_Remove_Test_Alert_Title" = "Testi kaldırmak istediğinizden emin misiniz?";
-
-"Home_Finding_Positive_Card_Remove_Test_Alert_Description" = "Bu işlemi gerçekleştirirseniz diğer kullanıcılar uyarılmaz.";
-
-"Home_Finding_Positive_Card_Remove_Test_Alert_Description_Delete_Button" = "Kaldır";
+"Home_Finding_Positive_Card_Button_Remove_Test" = "Testi Sil";
 
 /* Home Test Registration Card */
 "Home_TestRegistration_Title" = "Testlerinizi Yönetin";
@@ -1557,22 +1595,10 @@
 /* New Version Features */
 "NewVersionFeatures_Info_about_abb_information" = "Bu sürümdeki değişiklikleri uygulama bilgilerinde “Yeni Özellikler” bölümünde bulabilirsiniz.";
 
-/* Version 2.12 */
-"NewVersionFeature_213_hospitalizationRateTile_title" = "Yerel 7 Günlük Hastaneye Yatış Olayı";
+/* Version 2.15 */
+"NewVersionFeature_215_ticketValidation_title" = "Biletleme Sırasında Sertifika Doğrulaması";
 
-"NewVersionFeature_213_hospitalizationRateTile_description" = "7 günlük yeni enfeksiyon olayına ilişkin yerel kutucuklarında artık 7 günlük hastaneye yatış olayı da görüntülenmektedir. Bu önemli değer yalnızca eyalet düzeyinde kullanılabilir olduğu için bir bölge seçilirse ilgili eyalete ilişkin hastaneye yatış oranı görüntülenecektir.";
-
-"NewVersionFeature_213_changesFAQLinks_title" = "SSS Bağlantısında Değişiklik";
-
-"NewVersionFeature_213_changesFAQLinks_description" = "Uygulamada bir SSS'ye ulaşmak istediğinizde artık coronawarn.app adresindeki sayfalara yönlendiriliyorsunuz. Bu sayfalarda sorularınız hakkında daha ayrıntılı bilgi bulabileceksiniz.";
-
-"NewVersionFeature_213_certificateAssignment_title" = "Sertifika Ataması";
-
-"NewVersionFeature_213_certificateAssignment_description" = "Sertifikaların kişilere atanması konusunda daha fazla hata tolere edilebilir hale getirildi. Uygulama artık adlarda farklı sayıda boşluk olmasını göz ardı etmekte ve bu sayede bu tür farklılıklara rağmen sertifikalar aynı kişiye atanabilmektedir.";
-
-"NewVersionFeature_213_restoreCertificate_title" = "Sertifikaları Geri Yükleme";
-
-"NewVersionFeature_213_restoreCertificate_description" = "Kaldırılan sertifikalar geri dönüşüm kutusuna taşınır. Bu sertifikalar 30 gün içinde geri yüklenebilir.";
+"NewVersionFeature_215_ticketValidation_description" = "Bir bilet rezervasyonu yaptığınızda aşı olduğunuza, iyileştiğinize veya test sonucunuzun negatif olduğuna dair kanıt sunabilirsiniz. Bunun için, biletleme sisteminde görüntülenen QR kodu taratın ve ardından uygulamada doğru sertifikayı seçin. Sertifika doğrulama sonnucu, doğrulama ortağı tarafından biletleme sistemine gönderilir.";
 
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Uluslararası Maruz Kalma Günlüğü";
@@ -1781,19 +1807,19 @@
 /* Edit Entries */
 "ContactDiary_EditEntries_ContactPersons_Title" = "Kişileri Düzenle";
 
-"ContactDiary_EditEntries_ContactPersons_DeleteAllButtonTitle" = "Tümünü Kaldır";
+"ContactDiary_EditEntries_ContactPersons_DeleteAllButtonTitle" = "Tümünü Sil";
 
-"ContactDiary_EditEntries_ContactPersons_AlertTitle" = "Tüm kişileri gerçekten kaldırmak istiyor musunuz?";
+"ContactDiary_EditEntries_ContactPersons_AlertTitle" = "Tüm kişileri gerçekten silmek istiyor musunuz?";
 
-"ContactDiary_EditEntries_ContactPersons_AlertMessage" = "Tüm kişileri kaldırdığınızda tüm kişilere ilişkin tüm girişler güncenizden kaldırılacaktır.";
+"ContactDiary_EditEntries_ContactPersons_AlertMessage" = "Tüm kişileri sildiğinizde tüm kişilere ilişkin tüm girişler güncenizden silinecektir.";
 
 "ContactDiary_EditEntries_ContactPersons_AlertConfirmButtonTitle" = "Evet";
 
 "ContactDiary_EditEntries_ContactPersons_AlertCancelButtonTitle" = "Hayır";
 
-"ContactDiary_EditEntries_ContactPerson_AlertTitle" = "Bu kişiyi gerçekten kaldırmak istiyor musunuz?";
+"ContactDiary_EditEntries_ContactPerson_AlertTitle" = "Bu kişiyi gerçekten silmek istiyor musunuz?";
 
-"ContactDiary_EditEntries_ContactPerson_AlertMessage" = "Bir kişiyi kaldırdığınızda o kişiye ilişkin tüm girişler güncenizden kaldırılacaktır.";
+"ContactDiary_EditEntries_ContactPerson_AlertMessage" = "Bir kişiyi sildiğinizde o kişiye ilişkin tüm girişler güncenizden silinecektir.";
 
 "ContactDiary_EditEntries_ContactPerson_AlertConfirmButtonTitle" = "Evet";
 
@@ -1801,19 +1827,19 @@
 
 "ContactDiary_EditEntries_Locations_Title" = "Yerleri Düzenle";
 
-"ContactDiary_EditEntries_Locations_DeleteAllButtonTitle" = "Tümünü Kaldır";
+"ContactDiary_EditEntries_Locations_DeleteAllButtonTitle" = "Tümünü Sil";
 
-"ContactDiary_EditEntries_Locations_AlertTitle" = "Tüm yerleri gerçekten kaldırmak istiyor musunuz?";
+"ContactDiary_EditEntries_Locations_AlertTitle" = "Tüm yerleri gerçekten silmek istiyor musunuz?";
 
-"ContactDiary_EditEntries_Locations_AlertMessage" = "Tüm yerleri kaldırdığınızda tüm yerlere ilişkin tüm girişler güncenizden kaldırılacaktır.";
+"ContactDiary_EditEntries_Locations_AlertMessage" = "Tüm yerleri sildiğinizde tüm yerlere ilişkin tüm girişler güncenizden silinecektir.";
 
 "ContactDiary_EditEntries_Locations_AlertConfirmButtonTitle" = "Evet";
 
 "ContactDiary_EditEntries_Locations_AlertCancelButtonTitle" = "Hayır";
 
-"ContactDiary_EditEntries_Location_AlertTitle" = "Bu yeri gerçekten kaldırmak istiyor musunuz?";
+"ContactDiary_EditEntries_Location_AlertTitle" = "Bu yeri gerçekten silmek istiyor musunuz?";
 
-"ContactDiary_EditEntries_Location_AlertMessage" = "Bir yeri kaldırdığınızda o yere ilişkin tüm girişler güncenizden kaldırılacaktır.";
+"ContactDiary_EditEntries_Location_AlertMessage" = "Bir yeri sildiğinizde o yere ilişkin tüm girişler güncenizden silinecektir.";
 
 "ContactDiary_EditEntries_Location_AlertConfirmButtonTitle" = "Evet";
 
@@ -1834,7 +1860,7 @@
 
 "ContactDiary_Information_Item_Lock_Title" = "Günce girişlerinize yalnızca siz erişebilirsiniz. Girişleriniz yalnızca akıllı telefonunuza kaydedilecektir.";
 
-"ContactDiary_Information_Item_DeletedAutomatically_Title" = "Dilediğiniz zaman güncenizdeki kişi ve yer girişlerini kaldırabilirsiniz. Günce girişleri 16 günün ardından otomatik olarak silinecektir.";
+"ContactDiary_Information_Item_DeletedAutomatically_Title" = "Dilediğiniz zaman güncenizdeki kişi ve yer girişlerini silebilirsiniz. Günce girişleri 16 günün ardından otomatik olarak silinecektir.";
 
 "ContactDiary_Information_Item_ExportTextFormat_Title" = "Temas güncenizi düz metin biçiminde dışa aktarabilir ve ardından girişleri yazdırabilir, düzenleyebilir ya da gerekli olduğunda kamu sağlığı görevlinize sunabilirsiniz.";
 
@@ -1892,7 +1918,7 @@
 
 "Statistics_Add_DisabledAddTitle" = "Maksimum yerel 7 günlük olay sayısına ulaşıldı.";
 
-"Statistics_Add_LocalCardTitle" = "Yerel 7 günlük olay";
+"Statistics_Add_LocalCardTitle" = "Yerel 7 Günlük Olay";
 
 "Statistics_Add_fromTheWholeCountry" = "Tüm eyalet";
 
@@ -2091,7 +2117,7 @@
 
 "Statistics_Info_Trend_Text" = "Trend, (7 günlük olay, 7 günlük hastaneye yatış olayı, yoğun bakım ünitelerindeki COVID-19 hastaları, 7 günlük R değeri için) önceki güne ait değeri iki gün önceki değer ile karşılaştırır veya 7 günlük trendlerde, (onaylanan yeni enfeksiyon sayısına, uygulama kullanıcılarının uyarılarına, uygulanan aşı dozlarına ilişkin 7 günlük ortalama değer için) son 7 güne ait ortalama değeri ondan önceki 7 güne ait ortalama değer ile karşılaştırır. Verilerin ilk yayınlandığı versiyonu kullanılır; sonraki güncellemeler hesaba katılmaz.\n\nOk yönü trendin arttığını, azaldığını ya da sabit kaldığını belirtir. Sabit kalması, önceki güne göre %1’den az veya önceki haftaya göre %5’ten az sapma olduğu anlamına gelir (ondalık basamaklar hesaba katılır). Renk ise bu trendin pozitif (yeşil), negatif (kırmızı) ya da nötr (gri) olduğunu belirtir. ";
 
-"Statistics_Info_Trends_Title" = "Şu trendler gösterilebilir:";
+"Statistics_Info_Trends_Title" = "Görüntülenen trend örnekleri:";
 
 "Statistics_Info_Trends_Increasing" = "Trend: yukarı (negatif)";
 
@@ -2258,7 +2284,7 @@
 
 "Checkins_Overview_EmptyImageDescription" = "Arka planda QR kod sembolü bulunan bir bina";
 
-"Checkins_Overview_DeleteAllButtonTitle" = "Tümünü Kaldır";
+"Checkins_Overview_DeleteAllButtonTitle" = "Tümünü Sil";
 
 "Checkins_Overview_DurationTitle" = "Süre";
 
@@ -2268,19 +2294,19 @@
 
 "Checkins_Overview_CheckoutButtonTitle" = "Şimdi Check Out Yap";
 
-"Checkins_Overview_DeleteOne_AlertTitle" = "Bu girişi gerçekten kaldırmak istiyor musunuz?";
+"Checkins_Overview_DeleteOne_AlertTitle" = "Bu giriş silinsin mi?";
 
 "Checkins_Overview_DeleteOne_AlertMessage" = "Bundan sonra bu yere veya etkinliğe aynı anda check in yapan kişilere uyarı gönderemeyecek ya da bu kişilerden uyarı alamayacaksınız.";
 
-"Checkins_Overview_DeleteOne_AlertConfirmButtonTitle" = "Kaldır";
+"Checkins_Overview_DeleteOne_AlertConfirmButtonTitle" = "Sil";
 
 "Checkins_Overview_DeleteOne_AlertCancelButtonTitle" = "İptal Et";
 
-"Checkins_Overview_DeleteAll_AlertTitle" = "Tüm girişleri gerçekten kaldırmak istiyor musunuz?";
+"Checkins_Overview_DeleteAll_AlertTitle" = "Tüm girişleri gerçekten silmek istiyor musunuz?";
 
 "Checkins_Overview_DeleteAll_AlertMessage" = "Bundan sonra bu yerlere veya etkinliklere aynı anda check in yapan kişilere uyarı gönderemeyecek ya da bu kişilerden uyarı alamayacaksınız.";
 
-"Checkins_Overview_DeleteAll_AlertConfirmButtonTitle" = "Kaldır";
+"Checkins_Overview_DeleteAll_AlertConfirmButtonTitle" = "Sil";
 
 "Checkins_Overview_DeleteAll_AlertCancelButtonTitle" = "İptal Et";
 
@@ -2321,7 +2347,7 @@
 
 "TraceLocations_Overview_EmptyImageDescription" = "QR kod sembolü bulunan bir akıllı telefon";
 
-"TraceLocations_Overview_DeleteAllButtonTitle" = "Tümünü Kaldır";
+"TraceLocations_Overview_DeleteAllButtonTitle" = "Tümünü Sil";
 
 "TraceLocations_Overview_SelfCheckinButtonTitle" = "Check In";
 
@@ -2702,7 +2728,7 @@
 
 "TestCertificateRequest_tryAgainButtonTitle" = "Tekrar Dene";
 
-"TestCertificateRequest_removeButtonTitle" = "Test Sertifikasını Kaldır";
+"TestCertificateRequest_removeButtonTitle" = "Test Sertifikasını Sil";
 
 /* - Test Certificate Request Error Alert */
 "TestCertificateRequest_ErrorAlert_title" = "Yine de talebinizle ilgili problemler var.";
@@ -2710,7 +2736,7 @@
 "TestCertificateRequest_ErrorAlert_Button_title" = "Tamam";
 
 /* - Test Certificate Request Remove Alert */
-"TestCertificateRequest_RemoveAlert_title" = "Sertifikayı kaldırmak istiyor musunuz?";
+"TestCertificateRequest_RemoveAlert_title" = "Sertifikayı silmek istiyor musunuz?";
 
 "TestCertificateRequest_RemoveAlert_message" = "Sertifikayı kaldırırsanız tekrar talep edemezsiniz.";
 
@@ -2721,9 +2747,9 @@
 /* Test Certificate Request Errors */
 "TestCertificateRequest_Error_CLIENT_ERROR_CALL_HOTLINE" = "Bir hata oluştu. Lütfen daha sonra tekrar deneyin veya Uygulama Bilgileri -> Teknik Yardım Hattı üzerinden teknik yardım hattı ile iletişime geçin. (%@)";
 
-"TestCertificateRequest_Error_DCC_EXPIRED" = "Bu sertifika artık güncel değil. Sertifikayı Corona-Warn-App'ten kaldırabilirsiniz. (%@)";
+"TestCertificateRequest_Error_DCC_EXPIRED" = "Bu sertifika artık güncel değil. Sertifikayı Corona-Warn-App'ten silebilirsiniz. (%@)";
 
-"TestCertificateRequest_Error_DCC_NOT_SUPPORTED_BY_LAB" = "Bu test noktasında test sertifikalarının düzenlenmesi desteklenmediğinden bir test sertifikası talep edemezsiniz. Lütfen sertifikayı kaldırın veya Uygulama Bilgileri -> Teknik Yardım Hattı üzerinden teknik yardım hattı ile iletişime geçin. (%@)";
+"TestCertificateRequest_Error_DCC_NOT_SUPPORTED_BY_LAB" = "Bu test noktasında test sertifikalarının düzenlenmesi desteklenmediğinden bir test sertifikası talep edemezsiniz. Lütfen sertifikayı silin veya Uygulama Bilgileri -> Teknik Yardım Hattı üzerinden teknik yardım hattı ile iletişime geçin. (%@)";
 
 "TestCertificateRequest_Error_E2E_ERROR_CALL_HOTLINE" = "Bir hata oluştu. Lütfen daha sonra tekrar deneyin veya Uygulama Bilgileri -> Teknik Yardım Hattı üzerinden teknik yardım hattı ile iletişime geçin. (%@)";
 
@@ -2733,7 +2759,7 @@
 
 "TestCertificateRequest_Error_TRY_AGAIN_DCC_NOT_AVAILABLE_YET" = "Sertifikanız henüz çıkmadı. Lütfen tekrar deneyin. Hata devam ederse lütfen Uygulama Bilgileri -> Teknik Yardım Hattı üzerinden teknik yardım hattı ile iletişime geçin. (%@)";
 
-"TestCertificateRequest_Error_DGC_NOT_SUPPORTED_BY_LAB" = "Bu test noktasında test sertifikalarının düzenlenmesi desteklenmediğinden bir test sertifikası talep edemezsiniz. Lütfen sertifikayı kaldırın veya Uygulama Bilgileri -> Teknik Yardım Hattı üzerinden teknik yardım hattı ile iletişime geçin. (%@)";
+"TestCertificateRequest_Error_DGC_NOT_SUPPORTED_BY_LAB" = "Bu test noktasında test sertifikalarının düzenlenmesi desteklenmediğinden bir test sertifikası talep edemezsiniz. Lütfen sertifikayı silin veya Uygulama Bilgileri -> Teknik Yardım Hattı üzerinden teknik yardım hattı ile iletişime geçin. (%@)";
 
 /* Health Certificate Information */
 "HealthCertificate_Info_Title" = "Sertifikalar Ekle";
@@ -2755,15 +2781,15 @@
 /* CovPass Info Screen */
 "CovPass_Check_Info_Title" = "Üçüncü Taraflarca Sertifika Doğrulaması";
 
-"CovPass_Check_Info_body" = "Üçüncü taraflar aşı sertifikasının, iyileşme sertifikasının veya test sertifikasının geçerli olup olmadığını güvenilir şekilde doğrulamak için CovPassCheck uygulamasını kullanabilir.";
+"CovPass_Check_Info_body" = "Üçüncü taraflar aşı sertifikasının, iyileşme sertifikasının veya test sertifikasının geçerli olup olmadığını güvenilir şekilde belirlemek için CovPassCheck uygulamasını kullanabilir.";
 
 "CovPass_Check_Info_faq" = "Üçüncü Taraflarca Sertifika Doğrulaması için SSS";
 
-"CovPass_Check_Info_text01" = "Corona-Warn-App'te sertifikaların geçerliliğini kendiniz doğrulayabilirsiniz ve CovPassCheck uygulamasını kullanmanız gerekmez.";
+"CovPass_Check_Info_text01" = "Corona-Warn-App'te sertifikalarınızın geçerliliğini seyahat etmeden önce kendiniz doğrulayabilirsiniz ve CovPassCheck uygulamasını kullanmanız gerekmez.";
 
 "CovPass_Check_Info_text02" = "Ancak üçüncü tarafların sertifikaları görsel olarak doğrulaması yeterli değildir. Üçüncü tarafların Almanya'da CovPassCheck uygulamasını kullanması gerekir.";
 
-"CovPass_Check_Info_text03" = "Diğer ülkelerdeki üçüncü tarafların sertifika doğrulaması için başka uygulamaları kullanabileceğini lütfen unutmayın.";
+"CovPass_Check_Info_text03" = "Diğer ülkelerdeki üçüncü tarafların sertifika doğrulaması için farklı uygulamaları kullanabileceğini lütfen unutmayın.";
 
 /* Health Certified Person Screen */
 "HealthCertificate_unified_QR_code_notice" = "Bu QR kod, CovPassCheck uygulaması ile güvenilir şekilde doğrulanabilir.";
@@ -2786,7 +2812,7 @@
 
 "HealthCertifiedPerson_QRCode_Image_Description" = "Geçerli sertifikayı içeren bir QR kod";
 
-"HealthCertifiedPerson_validationButtonTitle" = "Geçerliliği Kontrol Et";
+"HealthCertifiedPerson_validationButtonTitle" = "Seyahat için Geçerliliği Kontrol Et";
 
 "HealthCertifiedPerson_VaccinationCertificate_headline" = "Aşı Sertifikası";
 
@@ -2839,7 +2865,7 @@
 
 "HealthCertificate_Details_identifier" = "Sertifika Numarası";
 
-"HealthCertificate_Details_validationButtonTitle" = "Geçerliliği Kontrol Et";
+"HealthCertificate_Details_validationButtonTitle" = "Seyahat için Geçerliliği Kontrol Et";
 
 "HealthCertificate_Details_deleteButtonTitle" = "Aşı Sertifikasını Sil";
 
@@ -2855,12 +2881,12 @@
 "VaccinationCertificate_Details_OneOfOneHint" = "Bu, yalnızca bir doz uygulanması gereken bir aşıdır ya da hastalığı geçirerek yalnızca bir doza ihtiyacı olan kişiye yönelik bir aşıdır.";
 
 /* Health Certificate Delete Alert */
-"HealthCertificate_Alert_deleteButton" = "Sertifikayı Kaldır";
+"HealthCertificate_Alert_deleteButton" = "Sertifikayı Sil";
 
 "HealthCertificate_Alert_cancelButton" = "İptal Et";
 
 /* Vaccination Certificate Delete Alert */
-"VaccinationCertificate_Alert_title" = "Aşı sertifikasını kaldırmak istiyor musunuz?";
+"VaccinationCertificate_Alert_title" = "Aşı sertifikasını silmek istiyor musunuz?";
 
 "VaccinationCertificate_Alert_message" = "Sertifika geri dönüşüm kutusuna taşınacak. Geri dönüşüm kutusunu, durum sekmesinde yer alan \"Daha Fazla\" kutucuğunda bulabilirsiniz. Burada sertifikayı kalıcı olarak silebilir veya geri yükleyebilirsiniz. Sertifika 30 gün sonra otomatik olarak silinir.";
 
@@ -2869,14 +2895,14 @@
 
 "TestCertificate_Details_subtitle" = "Negatif SARS-CoV-2 testi";
 
-"TestCertificate_Details_primaryButton" = "Test Sertifikasını Kaldır";
+"TestCertificate_Details_primaryButton" = "Test Sertifikasını Sil";
 
 "TestCertificate_Error_FAQ_Description" = "\n\nTest sertifikanızı nasıl alacağınız hakkında daha fazla bilgi için lütfen SSS sayfamıza bakın.";
 
 "TestCertificate_Error_FAQ_Button_Title" = "Test Sertifikaları için SSS";
 
 /* Test Certificate Delete Alert */
-"TestCertificate_Alert_title" = "Test sertifikasını kaldırmak istiyor musunuz?";
+"TestCertificate_Alert_title" = "Test sertifikasını silmek istiyor musunuz?";
 
 "TestCertificate_Alert_message" = "Sertifika geri dönüşüm kutusuna taşınacak. Geri dönüşüm kutusunu, durum sekmesinde yer alan \"Daha Fazla\" kutucuğunda bulabilirsiniz. Burada sertifikayı kalıcı olarak silebilir veya geri yükleyebilirsiniz. Sertifika 30 gün sonra otomatik olarak silinir.";
 
@@ -2885,10 +2911,10 @@
 
 "RecoveryCertificate_Details_subtitle" = "AB Dijital COVID Sertifikası";
 
-"RecoveryCertificate_Details_primaryButton" = "İyileşme Sertifikasını Kaldır";
+"RecoveryCertificate_Details_primaryButton" = "İyileşme Sertifikasını Sil";
 
 /* Recovery Certificate Delete Alert */
-"RecoveryCertificate_Alert_title" = "İyileşme sertifikasını kaldırmak istiyor musunuz?";
+"RecoveryCertificate_Alert_title" = "İyileşme sertifikasını silmek istiyor musunuz?";
 
 "RecoveryCertificate_Alert_message" = "Sertifika geri dönüşüm kutusuna taşınacak. Geri dönüşüm kutusunu, durum sekmesinde yer alan \"Daha Fazla\" kutucuğunda bulabilirsiniz. Burada sertifikayı kalıcı olarak silebilir veya geri yükleyebilirsiniz. Sertifika 30 gün sonra otomatik olarak silinir.";
 
@@ -2944,7 +2970,7 @@
 "HealthCertificate_Error_invalidSignature_FAQ_Button_Title" = "İmza Doğrulama için SSS";
 
 /* Health Certificate Validation Errors */
-"HealthCertificate_Validation_Error_Title" = "Doğrulama başarısız oldu";
+"HealthCertificate_Validation_Error_Title" = "Doğrulama Başarısız";
 
 "HealthCertificate_Validation_Error_TRY_AGAIN" = "Bir hata oluştu. Lütfen daha sonra tekrar deneyin veya Uygulama Bilgileri -> Teknik Yardım Hattı üzerinden teknik yardım hattı ile iletişime geçin.";
 
@@ -2970,8 +2996,6 @@
 "HealthCertificate_Validation_Bullet1" = "Giriş kurallarında değişiklik yapılabileceğini lütfen unutmayın. Bu nedenle, lütfen gideceğiniz ülkeye girmeden kısa bir süre (en fazla 48 saat) önce sertifikayı kontrol edin.";
 
 "HealthCertificate_Validation_Bullet2" = "Bölgeler özelinde ek kurallar ve sınırlamalar geçerli olabilir.";
-
-"HealthCertificate_Validation_Bullet3" = "Sertifikaların doğruluğundan emin olmak üzere her bir sertifika dijital imza ile düzenlenir. Doğrulama uygulaması, yalnızca bu imzayı doğrular.";
 
 "HealthCertificate_Validation_Bullet4" = "Corona-Warn-App, sertifikaya kaydedilen verilerin geçerli olup olmadığını kontrol etmez.";
 
@@ -3008,8 +3032,6 @@
 "HealthCertificate_Validation_Passed_hint1" = "Giriş kurallarında değişiklik yapılabileceğini lütfen unutmayın. Bu nedenle, lütfen gideceğiniz ülkeye girmeden kısa bir süre (en fazla 48 saat) önce sertifikayı kontrol edin.";
 
 "HealthCertificate_Validation_Passed_hint2" = "Bölgeler özelinde ek kurallar ve sınırlamalar geçerli olabilir.";
-
-"HealthCertificate_Validation_Passed_hint3" = "Sertifikaların doğruluğundan emin olmak üzere her bir sertifika dijital imza ile düzenlenir. Doğrulama uygulaması, yalnızca bu imzayı doğrular.";
 
 "HealthCertificate_Validation_Passed_hint4" = "Corona-Warn-App, sertifikaya kaydedilen verilerin geçerli olup olmadığını kontrol etmez.";
 
@@ -3076,7 +3098,7 @@
 
 "UniversalQRScanner_InstructionTitle" = "Hangi QR kodları tarayabilirsiniz?";
 
-"UniversalQRScanner_InstructionDescription" = "PCR testleri ve hızlı testler, test sertifikaları, aşı sertifikaları, iyileşme sertifikaları ve check-in'ler.";
+"UniversalQRScanner_InstructionDescription" = "Testler, Sertifikalarınız, Check-in'ler ve Biletleme Sırasında Doğrulama";
 
 "UniversalQRScanner_FileButtonTitle" = "Dosya Aç";
 
@@ -3101,6 +3123,38 @@
 "UniversalQRScanner_RestoredFromBinAlert_Title" = "Sertifikayı Geri Yükle";
 
 "UniversalQRScanner_RestoredFromBinAlert_Message" = "QR kod zaten akıllı telefonunuza kayıtlı. Sertifika geri dönüşüm kutusundan geri yüklenecektir.";
+
+"UniversalQRScanner_TestRestoredFromBinAlert_Title" = "Testi Geri Yükle";
+
+"UniversalQRScanner_TestRestoredFromBinAlert_Message" = "QR kod zaten akıllı telefonunuza kayıtlı. Test geri dönüşüm kutusundan geri yüklenecektir.";
+
+"UniversalQRScanner_MaxPersonAmountAlert_warningTitle" = "Uyarı";
+
+"UniversalQRScanner_MaxPersonAmountAlert_errorTitle" = "Hata";
+
+"UniversalQRScanner_MaxPersonAmountAlert_warningMessage" = "Corona-Warn-App üçüncü taraf sertifika doğrulaması için kullanılamayabilir. Bunun için CovPassCheck uygulamasını kullanın.\n\nEn fazla %i kişi için sertifika ekleyebilirsiniz. Bu limite ulaşıldığında, başka kişiler için daha fazla yeni sertifika ekleyemezsiniz.\n\nSSS sayfamızda aşı sertifikaları hakkında daha fazla bilgi bulabilirsiniz.";
+
+"UniversalQRScanner_MaxPersonAmountAlert_errorMessage" = "Corona-Warn-App üçüncü taraf sertifika doğrulaması için kullanılamayabilir. Bunun için CovPassCheck uygulamasını kullanın.\n\nEn fazla %i kişi için sertifika ekleyebilirsiniz. Başka kişiler için daha fazla yeni sertifika ekleyemezsiniz.\n\nSSS sayfamızda aşı sertifikaları hakkında daha fazla bilgi bulabilirsiniz.";
+
+"UniversalQRScanner_MaxPersonAmountAlert_covPassCheckButton" = "CovPassCheck App'i İndir";
+
+"UniversalQRScanner_MaxPersonAmountAlert_faqButton" = "Sertifika doğrulama hakkında SSS sayfası ";
+
+"UniversalQRScanner_Info_title" = "QR kodlar ile ilgili bilgi";
+
+"UniversalQRScanner_Info_bulletPoint1" = "Test sertifikalarınız, aşı sertifikalarınız, iyileşme sertifikalarınız ve aile üyelerinizin sertifikaları";
+
+"UniversalQRScanner_Info_bulletPoint2" = "Etkinlikler ve yerler için check-in'ler";
+
+"UniversalQRScanner_Info_bulletPoint3" = "PCR testleri ve hızlı testler";
+
+"UniversalQRScanner_Info_bulletPoint4" = "Biletleme sırasında sertifikalarınıza ilişkin doğrulama";
+
+"UniversalQRScanner_Info_body1" = "İlgili QR koddan alınan veriler okunur.";
+
+"UniversalQRScanner_Info_body2" = "Biletleme işlemi sırasında sertifika doğrulaması için QR kodları tarattığınızda rezervasyon sağlayıcı hakkında ek bilgiler alınır.";
+
+"UniversalQRScanner_Info_dataPrivacy" = "Veri işleme hakkında bilgi için lütfen gizlilik bildirimine başvurun.";
 
 /* File Scanner */
 "FileScanner_sheet_photos" = "Fotoğraf Kitaplığı";
@@ -3135,7 +3189,7 @@
 
 "FileScanner_InvalidQRCode_title" = "Uygun QR Kod Yok";
 
-"FileScanner_InvalidQRCode_message" = "Corona-Warn-App QR kodu desteklemiyor. Lütfen uygun bir QR kod tarayın.";
+"FileScanner_InvalidQRCode_message" = "Corona-Warn-App QR kodu desteklemiyor. Lütfen uygun bir QR kod seçin.";
 
 "FileScanner_FileNotReadable_title" = "Dosya Okunamıyor";
 
@@ -3187,7 +3241,7 @@
 
 "RecycleBin_description" = "Geri yüklemek için bir öğeye dokunun. Öğeler 30 gün sonra otomatik olarak silinir.";
 
-"RecycleBin_deleteAllButtonTitle" = "Tümünü Kaldır";
+"RecycleBin_deleteAllButtonTitle" = "Tümünü Kalıcı Olarak Sil";
 
 /* - Vaccination Certificate */
 "RecycleBin_VaccinationCertificate_headline" = "Aşı Sertifikası";
@@ -3224,7 +3278,7 @@
 /* - Empty State */
 "RecycleBin_EmptyState_title" = "Geri Dönüşüm Kutusu Boş";
 
-"RecycleBin_EmptyState_description" = "Sertifikaları kaldırdığınızda sertifikalar geri dönüşüm kutusuna taşınır ve burada görüntülenir.";
+"RecycleBin_EmptyState_description" = "Sertifikaları ve testleri sildiğinizde sertifikalar ve testler geri dönüşüm kutusuna taşınır ve burada görüntülenir.";
 
 "RecycleBin_EmptyState_imageDescription" = "Geri dönüşüm kutusu";
 
@@ -3254,4 +3308,137 @@
 "RecycleBin_DeleteAll_AlertConfirmButtonTitle" = "Sil";
 
 "RecycleBin_DeleteAll_AlertCancelButtonTitle" = "İptal Et";
+
+/* Ticket Validation */
+/* - Cancel Alert */
+"TicketValidation_CancelAlert_title" = "Doğrulamayı iptal etmek istiyor musunuz?";
+
+"TicketValidation_CancelAlert_message" = "Doğrulamayı iptal ederseniz sertifika doğrulanamaz.";
+
+"TicketValidation_CancelAlert_cancelButtonTitle" = "Doğrulamayı İptal Et";
+
+"TicketValidation_CancelAlert_continueButtonTitle" = "Doğrulamaya Devam Et";
+
+/* - Error */
+"TicketValidation_Error_title" = "Hata";
+
+"TicketValidation_Error_serviceProviderErrorNoName" = "Sağlayıcı ile bağlantı kurulurken bir hata oluştu. Problem devam ederse lütfen sağlayıcı ile iletişime geçin.";
+
+"TicketValidation_Error_serviceProviderError" = "Sağlayıcı \"%@\" ile bağlantı kurulurken bir hata oluştu. Problem devam ederse lütfen sağlayıcı ile iletişime geçin.";
+
+"TicketValidation_Error_tryAgain" = "Veri işleme sırasında bir hata oluştu. Lütfen daha sonra tekrar deneyin.";
+
+"TicketValidation_Error_OutdatedApp" = "Corona-Warn-App'in geçerli versiyonu artık bilet kontrolünü desteklemiyor. Lütfen uygulamayı güncelleyin ve bilet kontrolünü yeniden başlatın.";
+
+"TicketValidation_Error_UpdateAction" = "App Store'a Git";
+
+"TicketValidation_Error_serviceProviderErrorNoMatchTitle" = "Güvenlik Notu";
+
+"TicketValidation_Error_serviceProviderErrorNoMatch" = "Bu sağlayıcı hakkında bilgi sahibi değiliz. Güvenlik nedenleriyle biletleme sırasnda doğrulama işlemi yalnızca bilinen sağlayıcılar için yapılabilir. Lütfen size bu QR kodu veren sağlayıcı ile iletişime geçin be uygulamanızı son versiyona güncellemeyi deneyin.";
+
+/* - First Consent */
+"TicketValidation_FirstConsent_title" = "İzniniz";
+
+"TicketValidation_FirstConsent_imageDescription" = "Bilet satın alma için bir sertifika aktarılır";
+
+"TicketValidation_FirstConsent_subtitle" = "Biletleme sırasında sertifika doğrulaması";
+
+"TicketValidation_FirstConsent_serviceProvider" = "Sağlayıcı:";
+
+"TicketValidation_FirstConsent_subject" = "Rezervasyon:";
+
+"TicketValidation_FirstConsent_explination" = "Sağlayıcı, rezervasyonunuz için geçerli bir sertifikanın bulunduğundan emin olmak ister. Biletleme bilgilerinizin sağlayıcıdan alınması ve kaydedilen sertifikalarınızın serbest bırakılması için izniniz gereklidir.";
+
+"TicketValidation_FirstConsent_BulletPoint1" = "Corona-Warn-App ile sertifikanızın doğrulanmasına izin vermeniz gerekmez. Aşınıza, testinize veya iyileşme durumunuza ilişkin kanıtı farklı bir şekilde de sunabilirsiniz.";
+
+"TicketValidation_FirstConsent_BulletPoint2" = "Sertifika gereklilikleri sağlayıcı tarafından tanımlanır. RKI, bu süreçte herhangi bir etki sahibi değildir. Sertifika gereklilikleri hakkında daha fazla bilgi edinmek için lütfen sağlayıcı ile iletişime geçin.";
+
+"TicketValidation_FirstConsent_BulletPoint3" = "Uygun sertifikaların belirlenmesi işlemi akıllı telefonunuzda yerel olarak gerçekleştirilir. RKI veya başka bir sağlayıcıya veri gönderilmez.";
+
+"TicketValidation_FirstConsent_BulletPoint4" = "RKI, biletiniz veya kaydettiğiniz sertifikalar hakkında hiçbir veri almaz.";
+
+"TicketValidation_FirstConsent_DataPrivacyTitle" = "Veri işleme hakkında daha ayrıntılı bilgi için lütfen gizlilik bildirimine başvurun.";
+
+"TicketValidation_FirstConsent_primaryButtonTitle" = "Kabul Et";
+
+"TicketValidation_FirstConsent_secondaryButtonTitle" = "İptal";
+
+/* Certificate Selection */
+"TicketValidation_CertificateSelection_title" = "Sertifika Seç";
+
+"TicketValidation_CertificateSelection_serviceProviderRequirementsHeadline" = "Sağlayıcı gereklilikleri:";
+
+"TicketValidation_CertificateSelection_serviceProviderRelevantCertificatesHeadline" = "Aşağıdaki sertifikalar sağlayıcı gerekliliklerini karşılıyor ve kanıt olarak kullanılabilir:";
+
+"TicketValidation_CertificateSelection_serviceProviderRequiredCertificateHeadline" = "Şu sertifika gereklidir:";
+
+"TicketValidation_CertificateSelection_noSupportedCertificateHeadline" = "Uygun sertifika bulunmamaktadır.";
+
+"TicketValidation_CertificateSelection_noSupportedCertificateDescription" = "Biletleme sistemi gerekliliklerini karşılayan bir sertifikanız bulunmamaktadır. Lütfen biletleme sisteminde adınızın yazım biçiminin sertifikalarınızdaki ad ile eşleştiğinden emin olun. Henüz uygulamada bulunmayan ek sertifikalara ihtiyacınız olursa lütfen bunları şimdi ekleyin ve ardından doğrulamayı yeniden başlatın.";
+
+"TicketValidation_CertificateSelection_faqDescription" = "Daha fazla bilgi için lütfen %@ sayfamıza bakın.";
+
+"TicketValidation_CertificateSelection_faq" = "SSS";
+
+"TicketValidation_CertificateSelection_dateOfBirth" = "\nDoğum tarihi: %@";
+
+"TicketValidation_SupportedCertificateType_Vaccination_Certificate" = "Aşı Sertifikası";
+
+"TicketValidation_SupportedCertificateType_RecoveryCertificate" = "İyileşme Sertifikası";
+
+"TicketValidation_SupportedCertificateType_TestCertificate" = "Hızlı Test Sertifikası, PCR Testi Sertifikası";
+
+"TicketValidation_SupportedCertificateType_PCRTestCertificate" = "PCR Testi Sertifikası";
+
+"TicketValidation_SupportedCertificateType_RATTestCertificate" = "Hızlı Test Sertifikası";
+
+/* - Second Consent */
+"TicketValidation_SecondConsent_title" = "İzniniz";
+
+"TicketValidation_SecondConsent_subtitle" = "Sertifikanız doğrulama için gönderiliyor";
+
+"TicketValidation_SecondConsent_serviceIdentity" = "Doğrulama ortağı:";
+
+"TicketValidation_SecondConsent_serviceProvider" = "Sağlayıcı:";
+
+"TicketValidation_SecondConsent_explination" = "Seçilen sertifika ve rezervasyon bilgileriniz, sağlayıcının doğrulama ortağına gönderilecektir. Verilerinizin doğrulama ortağına gönderilmesi için izniniz gereklidir.";
+
+"TicketValidation_SecondConsent_BulletPoint1" = "Doğrulama ortağı, elektronik imzanın geçerli olup olmadığını ve sertifikanın teknik sona erme tarihinin geçip geçmediğini kontrol eder. Teknik sona erme tarihini ve aktarılan sertifika içeriğini, uygulamada sertifikanın ayrıntılı görünümünde görebilirsiniz.";
+
+"TicketValidation_SecondConsent_BulletPoint2" = "Sertifikalar hassas sağlık verileri içerir. Dolayısıyla yalnızca bildiğiniz ve güvendiğiniz sağlayıcıların sertifikalarınızı doğrulamasına izin vermelisiniz.";
+
+"TicketValidation_SecondConsent_BulletPoint3" = "RKI, sağlayıcı ve doğrulama ortağı tarafından gerçekleştirilen veri işleme işlemlerinden sorumlu değildir. Verilerinizin nasıl ve ne amaçla kullanıldığını öğrenmek için lütfen ilgili tarafların gizlilik bildirimlerini okuyun.";
+
+"TicketValidation_SecondConsent_BulletPoint4" = "Doğrulama ortağı sonucu hemen sağlayıcıya bildirir. Ortak doğrulamanın başarılı olup olmadığı konusunda çok nadir durumlar dışında iletişime geçmez.";
+
+"TicketValidation_SecondConsent_DataPrivacyTitle" = "Veri işleme hakkında daha ayrıntılı bilgi için lütfen gizlilik bildirimine başvurun.";
+
+"TicketValidation_SecondConsent_primaryButtonTitle" = "Kabul Et";
+
+"TicketValidation_SecondConsent_secondaryButtonTitle" = "İptal";
+
+/* - Result */
+"TicketValidation_Result_validationParameters" = "%@ tarihinde doğrulama ortağı tarafından kontrol edildi";
+
+"TicketValidation_Result_moreInformation" = "Daha fazla bilgi için lütfen %@ sayfamıza bakın.";
+
+"TicketValidation_Result_moreInformation_placeholder_FAQ" = "SSS";
+
+"TicketValidation_Result_Passed_title" = "Doğrulama Başarılı";
+
+"TicketValidation_Result_Passed_subtitle" = "Sertifikanız başarıyla doğrulandı";
+
+"TicketValidation_Result_Passed_description" = "Sağlayıcıya \"%@\", doğrulamanın başarılı olduğu bildirildi.";
+
+"TicketValidation_Result_Open_title" = "Sertifika Doğrulanamıyor";
+
+"TicketValidation_Result_Open_subtitle" = "Sertifikanız doğrulama ortağı tarafından doğrulanamadı";
+
+"TicketValidation_Result_Open_description" = "Sorularınız varsa lütfen sağlayıcı \"%@\" ile iletişime geçin.";
+
+"TicketValidation_Result_Failed_title" = "Sertifika tanınmıyor";
+
+"TicketValidation_Result_Failed_subtitle" = "Sertifikanız sağlayıcı gerekliliklerini karşılamıyor.";
+
+"TicketValidation_Result_Failed_description" = "Sorularınız varsa lütfen sağlayıcı \"%@\" ile iletişime geçin.";
 

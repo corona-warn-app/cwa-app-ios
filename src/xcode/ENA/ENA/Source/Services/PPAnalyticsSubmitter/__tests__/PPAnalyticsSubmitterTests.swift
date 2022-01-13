@@ -46,8 +46,9 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 						rulesDownloadService: RulesDownloadService(store: store, client: client)
 					),
 					recycleBin: .fake()
-				)
-			),
+                ),
+                recycleBin: .fake()
+            ),
 			ppacService: PPACService(store: store, deviceCheck: deviceCheck)
 		)
 
@@ -104,16 +105,18 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 		let someTimeAgo = Calendar.current.date(byAdding: .second, value: -20, to: Date())
 		let someTimeAgoTimeRange = try XCTUnwrap(someTimeAgo)...Date()
 		XCTAssertTrue(someTimeAgoTimeRange.contains(try XCTUnwrap(store.lastSubmissionAnalytics)))
-		
 	}
-
-	// MARK: - Failures
-
-	func testGIVEN_SubmissionIsTriggered_WHEN_UserConsentIsMissing_THEN_UserConsentErrorIsReturned() {
+	
+	// MARK: - KeySubmissionMetaData
+	
+	func testGIVEN_SubmissionIsTriggered_WHEN_TestPostiveANDSubmitted_THEN_KeySubmissionMetadataIsSubmitted() throws {
 		// GIVEN
 		let store = MockTestStore()
+		store.isPrivacyPreservingAnalyticsConsentGiven = true
 		let client = ClientMock()
-		let config = SAP_Internal_V2_ApplicationConfigurationIOS()
+		var config = SAP_Internal_V2_ApplicationConfigurationIOS()
+		// probability will always succeed
+		config.privacyPreservingAnalyticsParameters.common.probabilityToSubmit = 3
 		let appConfigurationProvider = CachedAppConfigurationMock(with: config)
 		#if targetEnvironment(simulator)
 		let deviceCheck = PPACDeviceCheckMock(true, deviceToken: "iPhone")
@@ -140,8 +143,229 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 						rulesDownloadService: RulesDownloadService(store: store, client: client)
 					),
 					recycleBin: .fake()
-				)
+				),
+				recycleBin: .fake()
 			),
+			ppacService: PPACService(store: store, deviceCheck: deviceCheck)
+		)
+
+		store.antigenTest = .mock(testResult: .positive, keysSubmitted: true)
+		store.antigenKeySubmissionMetadata = .mock(submitted: true)
+		
+		// WHEN
+		
+		let ppaProtobuf = analyticsSubmitter.getPPADataMessage()
+
+		// THEN
+		
+		XCTAssertFalse(ppaProtobuf.keySubmissionMetadataSet.isEmpty, "keySubmissionMetadataSet must not be empty")
+	}
+	
+	func testGIVEN_SubmissionIsTriggered_WHEN_TestPostiveANDTimeDifference_THEN_KeySubmissionMetadataIsSubmitted() throws {
+		// GIVEN
+		let store = MockTestStore()
+		store.isPrivacyPreservingAnalyticsConsentGiven = true
+		let client = ClientMock()
+		var config = SAP_Internal_V2_ApplicationConfigurationIOS()
+		// probability will always succeed
+		config.privacyPreservingAnalyticsParameters.common.probabilityToSubmit = 3
+		let appConfigurationProvider = CachedAppConfigurationMock(with: config)
+		#if targetEnvironment(simulator)
+		let deviceCheck = PPACDeviceCheckMock(true, deviceToken: "iPhone")
+		#else
+		let deviceCheck = PPACDeviceCheck()
+		#endif
+		
+		store.antigenTest = .mock(testResult: .positive, finalTestResultReceivedDate: Date(), keysSubmitted: true)
+		store.antigenKeySubmissionMetadata = .mock()
+		
+		let analyticsSubmitter = PPAnalyticsSubmitter(
+			store: store,
+			client: client,
+			appConfig: appConfigurationProvider,
+			coronaTestService: CoronaTestService(
+				client: client,
+				store: store,
+				eventStore: MockEventStore(),
+				diaryStore: MockDiaryStore(),
+				appConfiguration: appConfigurationProvider,
+				healthCertificateService: HealthCertificateService(
+					store: store,
+					dccSignatureVerifier: DCCSignatureVerifyingStub(),
+					dscListProvider: MockDSCListProvider(),
+					client: client,
+					appConfiguration: appConfigurationProvider,
+					boosterNotificationsService: BoosterNotificationsService(
+						rulesDownloadService: RulesDownloadService(store: store, client: client)
+					),
+					recycleBin: .fake()
+				),
+				recycleBin: .fake()
+			),
+			ppacService: PPACService(store: store, deviceCheck: deviceCheck)
+		)
+		
+		// WHEN
+		
+		let ppaProtobuf = analyticsSubmitter.getPPADataMessage()
+
+		// THEN
+		
+		XCTAssertFalse(ppaProtobuf.keySubmissionMetadataSet.isEmpty, "keySubmissionMetadataSet must not be empty")
+	}
+	
+	
+	func testGIVEN_SubmissionIsTriggered_WHEN_TestPostiveANDTimeDifferenceWrongANDNotSubmitted_THEN_KeySubmissionMetadataIsNotSubmitted() throws {
+		// GIVEN
+		let store = MockTestStore()
+		store.isPrivacyPreservingAnalyticsConsentGiven = true
+		let client = ClientMock()
+		var config = SAP_Internal_V2_ApplicationConfigurationIOS()
+		// probability will always succeed
+		config.privacyPreservingAnalyticsParameters.common.probabilityToSubmit = 3
+		let appConfigurationProvider = CachedAppConfigurationMock(with: config)
+		#if targetEnvironment(simulator)
+		let deviceCheck = PPACDeviceCheckMock(true, deviceToken: "iPhone")
+		#else
+		let deviceCheck = PPACDeviceCheck()
+		#endif
+		
+		store.antigenTest = .mock(
+			testResult: .positive,
+			finalTestResultReceivedDate: Calendar.current.date(byAdding: .day, value: 3, to: Date()),
+			keysSubmitted: false
+		)
+		store.antigenKeySubmissionMetadata = .mock()
+		
+		let analyticsSubmitter = PPAnalyticsSubmitter(
+			store: store,
+			client: client,
+			appConfig: appConfigurationProvider,
+			coronaTestService: CoronaTestService(
+				client: client,
+				store: store,
+				eventStore: MockEventStore(),
+				diaryStore: MockDiaryStore(),
+				appConfiguration: appConfigurationProvider,
+				healthCertificateService: HealthCertificateService(
+					store: store,
+					dccSignatureVerifier: DCCSignatureVerifyingStub(),
+					dscListProvider: MockDSCListProvider(),
+					client: client,
+					appConfiguration: appConfigurationProvider,
+					boosterNotificationsService: BoosterNotificationsService(
+						rulesDownloadService: RulesDownloadService(store: store, client: client)
+					),
+					recycleBin: .fake()
+				),
+				recycleBin: .fake()
+			),
+			ppacService: PPACService(store: store, deviceCheck: deviceCheck)
+		)
+		
+		// WHEN
+		
+		let ppaProtobuf = analyticsSubmitter.getPPADataMessage()
+
+		// THEN
+		
+		XCTAssertTrue(ppaProtobuf.keySubmissionMetadataSet.isEmpty, "keySubmissionMetadataSet must be empty")
+	}
+	
+	
+	func testGIVEN_SubmissionIsTriggered_WHEN_TestNegativeANDSubmitted_THEN_KeySubmissionMetadataIsNotSubmitted() throws {
+		// GIVEN
+		let store = MockTestStore()
+		store.isPrivacyPreservingAnalyticsConsentGiven = true
+		let client = ClientMock()
+		var config = SAP_Internal_V2_ApplicationConfigurationIOS()
+		// probability will always succeed
+		config.privacyPreservingAnalyticsParameters.common.probabilityToSubmit = 3
+		let appConfigurationProvider = CachedAppConfigurationMock(with: config)
+		#if targetEnvironment(simulator)
+		let deviceCheck = PPACDeviceCheckMock(true, deviceToken: "iPhone")
+		#else
+		let deviceCheck = PPACDeviceCheck()
+		#endif
+		
+		store.antigenTest = .mock(
+			testResult: .negative,
+			keysSubmitted: true
+		)
+		store.antigenKeySubmissionMetadata = .mock()
+		
+		let analyticsSubmitter = PPAnalyticsSubmitter(
+			store: store,
+			client: client,
+			appConfig: appConfigurationProvider,
+			coronaTestService: CoronaTestService(
+				client: client,
+				store: store,
+				eventStore: MockEventStore(),
+				diaryStore: MockDiaryStore(),
+				appConfiguration: appConfigurationProvider,
+				healthCertificateService: HealthCertificateService(
+					store: store,
+					dccSignatureVerifier: DCCSignatureVerifyingStub(),
+					dscListProvider: MockDSCListProvider(),
+					client: client,
+					appConfiguration: appConfigurationProvider,
+					boosterNotificationsService: BoosterNotificationsService(
+						rulesDownloadService: RulesDownloadService(store: store, client: client)
+					),
+					recycleBin: .fake()
+				),
+				recycleBin: .fake()
+			),
+			ppacService: PPACService(store: store, deviceCheck: deviceCheck)
+		)
+		
+		// WHEN
+		
+		let ppaProtobuf = analyticsSubmitter.getPPADataMessage()
+
+		// THEN
+		
+		XCTAssertTrue(ppaProtobuf.keySubmissionMetadataSet.isEmpty, "keySubmissionMetadataSet must be empty")
+	}
+	
+	// MARK: - Failures
+
+	func testGIVEN_SubmissionIsTriggered_WHEN_UserConsentIsMissing_THEN_UserConsentErrorIsReturned() {
+		// GIVEN
+		let store = MockTestStore()
+		let client = ClientMock()
+		let config = SAP_Internal_V2_ApplicationConfigurationIOS()
+		let appConfigurationProvider = CachedAppConfigurationMock(with: config)
+		#if targetEnvironment(simulator)
+		let deviceCheck = PPACDeviceCheckMock(true, deviceToken: "iPhone")
+		#else
+		let deviceCheck = PPACDeviceCheck()
+		#endif
+
+		let analyticsSubmitter = PPAnalyticsSubmitter(
+			store: store,
+			client: client,
+			appConfig: appConfigurationProvider,
+			coronaTestService: CoronaTestService(
+				client: client,
+				store: store,
+				eventStore: MockEventStore(),
+				diaryStore: MockDiaryStore(),
+				appConfiguration: appConfigurationProvider,
+				healthCertificateService: HealthCertificateService(
+					store: store,
+					dccSignatureVerifier: DCCSignatureVerifyingStub(),
+					dscListProvider: MockDSCListProvider(),
+					client: client,
+					appConfiguration: appConfigurationProvider,
+					boosterNotificationsService: BoosterNotificationsService(
+						rulesDownloadService: RulesDownloadService(store: store, client: client)
+					),
+					recycleBin: .fake()
+                ),
+                recycleBin: .fake()
+            ),
 			ppacService: PPACService(store: store, deviceCheck: deviceCheck)
 		)
 
@@ -198,8 +422,9 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 						rulesDownloadService: RulesDownloadService(store: store, client: client)
 					),
 					recycleBin: .fake()
-				)
-			),
+                ),
+                recycleBin: .fake()
+            ),
 			ppacService: PPACService(store: store, deviceCheck: deviceCheck)
 		)
 
@@ -256,8 +481,9 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 						rulesDownloadService: RulesDownloadService(store: store, client: client)
 					),
 					recycleBin: .fake()
-				)
-			),
+                ),
+                recycleBin: .fake()
+            ),
 			ppacService: PPACService(store: store, deviceCheck: deviceCheck)
 		)
 
@@ -313,8 +539,9 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 						rulesDownloadService: RulesDownloadService(store: store, client: client)
 					),
 					recycleBin: .fake()
-				)
-			),
+                ),
+                recycleBin: .fake()
+            ),
 			ppacService: PPACService(store: store, deviceCheck: deviceCheck)
 		)
 
@@ -371,8 +598,9 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 						rulesDownloadService: RulesDownloadService(store: store, client: client)
 					),
 					recycleBin: .fake()
-				)
-			),
+                ),
+                recycleBin: .fake()
+            ),
 			ppacService: PPACService(store: store, deviceCheck: deviceCheck)
 		)
 
@@ -432,8 +660,9 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 						rulesDownloadService: RulesDownloadService(store: store, client: client)
 					),
 					recycleBin: .fake()
-				)
-			),
+                ),
+                recycleBin: .fake()
+            ),
 			ppacService: PPACService(store: store, deviceCheck: deviceCheck)
 		)
 
@@ -495,8 +724,9 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 						rulesDownloadService: RulesDownloadService(store: store, client: client)
 					),
 					recycleBin: .fake()
-				)
-			),
+                ),
+                recycleBin: .fake()
+            ),
 			ppacService: PPACService(store: store, deviceCheck: deviceCheck)
 		)
 
@@ -555,8 +785,9 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 						rulesDownloadService: RulesDownloadService(store: store, client: client)
 					),
 					recycleBin: .fake()
-				)
-			),
+                ),
+                recycleBin: .fake()
+            ),
 			ppacService: PPACService(store: store, deviceCheck: deviceCheck)
 		)
 
@@ -613,8 +844,9 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 						rulesDownloadService: RulesDownloadService(store: store, client: client)
 					),
 					recycleBin: .fake()
-				)
-			),
+                ),
+                recycleBin: .fake()
+            ),
 			ppacService: PPACService(store: store, deviceCheck: deviceCheck)
 		)
 
@@ -688,8 +920,9 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 						rulesDownloadService: RulesDownloadService(store: store, client: client)
 					),
 					recycleBin: .fake()
-				)
-			),
+                ),
+                recycleBin: .fake()
+            ),
 			ppacService: PPACService(store: store, deviceCheck: deviceCheck)
 		)
 
@@ -742,7 +975,6 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 		let someTimeAgo = Calendar.current.date(byAdding: .second, value: -20, to: Date())
 		let someTimeAgoTimeRange = try XCTUnwrap(someTimeAgo)...Date()
 		XCTAssertFalse(someTimeAgoTimeRange.contains(try XCTUnwrap(store.lastSubmissionAnalytics)))
-		
 	}
 
 	// MARK: - Conversion to protobuf
@@ -838,6 +1070,20 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 		
 		Analytics.setupMock(store: store, submitter: analyticsSubmitter)
 		
+		// collect current exposure windows, it imitates the collection which will happen in risk provider
+		
+		Analytics.collect(.testResultMetadata(.collectCurrentExposureWindows(mappedExposureWindows)))
+		
+		let mappedSubmissionExposureWindowsAtTestRegistration: [SubmissionExposureWindow] = mappedExposureWindows.map {
+			SubmissionExposureWindow(
+				exposureWindow: $0.exposureWindow,
+				transmissionRiskLevel: $0.transmissionRiskLevel,
+				normalizedTime: $0.normalizedTime,
+				hash: generateSHA256($0.exposureWindow),
+				date: $0.date
+			)
+		}
+		
 		// collect testResultMetadata
 		
 		let today = Date()
@@ -893,10 +1139,26 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 		XCTAssertEqual(store.pcrTestResultMetadata?.checkinRiskLevelAtTestRegistration, riskLevel, "Wrong checkin Risk Level")
 		XCTAssertEqual(store.pcrTestResultMetadata?.daysSinceMostRecentDateAtCheckinRiskLevelAtTestRegistration, differenceBetweenMostRecentRiskDateAndRegistrationDate, "Wrong number of days with this checkin risk level")
 		XCTAssertEqual(store.pcrTestResultMetadata?.hoursSinceCheckinHighRiskWarningAtTestRegistration, differenceInHoursBetweenChangeToHighRiskAndRegistrationDate, "Wrong difference hoursSinceCheckinHighRiskWarningAtTestRegistration")
-
+		XCTAssertEqual(store.pcrTestResultMetadata?.exposureWindowsAtTestRegistration, mappedSubmissionExposureWindowsAtTestRegistration, "Wrong exposure windows")
+		
+		// update current exposure windows, it imitates the update which will happen in risk provider
+		
+		Analytics.collect(.testResultMetadata(.collectCurrentExposureWindows(updatedMappedExposureWindows)))
+		
+		let mappedSubmissionExposureWindowsUntilTestResult: [SubmissionExposureWindow] = mappedExposureWindowsUntilTestResult.map {
+			SubmissionExposureWindow(
+				exposureWindow: $0.exposureWindow,
+				transmissionRiskLevel: $0.transmissionRiskLevel,
+				normalizedTime: $0.normalizedTime,
+				hash: generateSHA256($0.exposureWindow),
+				date: $0.date
+			)
+		}
+		
 		Analytics.collect(.testResultMetadata(.updateTestResult(testResult, registrationToken, .pcr)))
 		XCTAssertEqual(store.pcrTestResultMetadata?.testResult, testResult, "Wrong TestResult")
 		XCTAssertEqual(store.pcrTestResultMetadata?.hoursSinceTestRegistration, differenceInHoursBetweenRegistrationDateAndTestResult, "Wrong difference hoursSinceTestRegistration")
+		XCTAssertEqual(store.pcrTestResultMetadata?.exposureWindowsUntilTestResult, mappedSubmissionExposureWindowsUntilTestResult, "Wrong exposure windows")
 
 		// Mapping to protobuf
 		let protobuf = analyticsSubmitter.gatherTestResultMetadata(for: .pcr)
@@ -986,7 +1248,7 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 		XCTAssertNotNil(store.currentENFRiskExposureMetadata, "riskMetadata should be allocated")
 		XCTAssertEqual(store.currentENFRiskExposureMetadata?.riskLevel, riskLevel, "Wrong riskLevel")
 		XCTAssertEqual(store.currentENFRiskExposureMetadata?.riskLevelChangedComparedToPreviousSubmission, false, "should be false as this is the first submission")
-		XCTAssertEqual(store.currentENFRiskExposureMetadata?.dateChangedComparedToPreviousSubmission, false, "should be false as this is the first submission")
+		XCTAssertEqual(store.currentENFRiskExposureMetadata?.dateChangedComparedToPreviousSubmission, true, "should be true as this is the first submission")
 		
 		XCTAssertEqual(store.currentCheckinRiskExposureMetadata?.riskLevel, riskLevel, "Wrong riskLevel")
 		XCTAssertEqual(store.currentCheckinRiskExposureMetadata?.riskLevelChangedComparedToPreviousSubmission, false, "should be false as this is the first submission")
@@ -1056,7 +1318,6 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 		
 		XCTAssertEqual(protobuf.first?.mostRecentDateAtRiskLevel, -1, "Wrong mostRecentDateAtRiskLevel")
 		XCTAssertEqual(protobuf.first?.ptMostRecentDateAtRiskLevel, -1, "Wrong mostRecentDateAtRiskLevel")
-
 	}
 	
 	func testGatherExposureWindowsMetadata() {
@@ -1106,6 +1367,12 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 	func testGatherKeySubmissionMetadata() {
 		let client = ClientMock()
 		let appConfiguration = CachedAppConfigurationMock()
+		let restServiceProvider = RestServiceProviderStub(
+			results: [
+				.success(RegistrationTokenModel(registrationToken: "fake")),
+				.success(SubmissionTANModel(submissionTAN: "fake"))
+			]
+		)
 
 		let store = MockTestStore()
 		store.isPrivacyPreservingAnalyticsConsentGiven = true
@@ -1113,6 +1380,7 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 
 		let coronaTestService = CoronaTestService(
 			client: client,
+			restServiceProvider: restServiceProvider,
 			store: store,
 			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
@@ -1127,7 +1395,8 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 					rulesDownloadService: RulesDownloadService(store: store, client: client)
 				),
 				recycleBin: .fake()
-			)
+			),
+			recycleBin: .fake()
 		)
 		coronaTestService.registerPCRTest(
 			teleTAN: "tele-tan",
@@ -1231,8 +1500,9 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 						rulesDownloadService: RulesDownloadService(store: store, client: client)
 					),
 					recycleBin: .fake()
-				)
-			),
+                ),
+                recycleBin: .fake()
+            ),
 			ppacService: PPACService(store: store, deviceCheck: deviceCheck)
 		)
 	}
@@ -1260,7 +1530,7 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 		RiskCalculationExposureWindow(
 			exposureWindow: ExposureWindow(
 				calibrationConfidence: .high,
-				date: Date(),
+				date: Date(timeIntervalSinceReferenceDate: -123456789.0),
 				reportType: .confirmedClinicalDiagnosis,
 				infectiousness: .high,
 				scanInstances: []
@@ -1271,7 +1541,7 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 		RiskCalculationExposureWindow(
 			exposureWindow: ExposureWindow(
 				calibrationConfidence: .low,
-				date: Date(),
+				date: Date(timeIntervalSinceReferenceDate: -123456789.0),
 				reportType: .confirmedClinicalDiagnosis,
 				infectiousness: .high,
 				scanInstances: []
@@ -1282,9 +1552,92 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 		RiskCalculationExposureWindow(
 			exposureWindow: ExposureWindow(
 				calibrationConfidence: .medium,
-				date: Date(),
+				date: Date(timeIntervalSinceReferenceDate: -123456789.0),
 				reportType: .confirmedClinicalDiagnosis,
 				infectiousness: .high,
+				scanInstances: []
+			),
+			configuration: RiskCalculationConfiguration(
+				from: SAP_Internal_V2_ApplicationConfigurationIOS().riskCalculationParameters)
+		)
+	]
+	
+	private var updatedMappedExposureWindows: [RiskCalculationExposureWindow] = [
+		RiskCalculationExposureWindow(
+			exposureWindow: ExposureWindow(
+				calibrationConfidence: .high,
+				date: Date(timeIntervalSinceReferenceDate: -123456789.0),
+				reportType: .confirmedClinicalDiagnosis,
+				infectiousness: .high,
+				scanInstances: []
+			),
+			configuration: RiskCalculationConfiguration(
+				from: SAP_Internal_V2_ApplicationConfigurationIOS().riskCalculationParameters)
+		),
+		RiskCalculationExposureWindow(
+			exposureWindow: ExposureWindow(
+				calibrationConfidence: .low,
+				date: Date(timeIntervalSinceReferenceDate: -123456789.0),
+				reportType: .confirmedClinicalDiagnosis,
+				infectiousness: .high,
+				scanInstances: []
+			),
+			configuration: RiskCalculationConfiguration(
+				from: SAP_Internal_V2_ApplicationConfigurationIOS().riskCalculationParameters)
+		),
+		RiskCalculationExposureWindow(
+			exposureWindow: ExposureWindow(
+				calibrationConfidence: .medium,
+				date: Date(timeIntervalSinceReferenceDate: -123456789.0),
+				reportType: .confirmedClinicalDiagnosis,
+				infectiousness: .high,
+				scanInstances: []
+			),
+			configuration: RiskCalculationConfiguration(
+				from: SAP_Internal_V2_ApplicationConfigurationIOS().riskCalculationParameters)
+		),
+		RiskCalculationExposureWindow(
+			exposureWindow: ExposureWindow(
+				calibrationConfidence: .low,
+				date: Date(timeIntervalSinceReferenceDate: -123456789.0),
+				reportType: .confirmedClinicalDiagnosis,
+				infectiousness: .standard,
+				scanInstances: []
+			),
+			configuration: RiskCalculationConfiguration(
+				from: SAP_Internal_V2_ApplicationConfigurationIOS().riskCalculationParameters)
+		),
+		RiskCalculationExposureWindow(
+			exposureWindow: ExposureWindow(
+				calibrationConfidence: .low,
+				date: Date(timeIntervalSinceReferenceDate: -123456789.0),
+				reportType: .confirmedClinicalDiagnosis,
+				infectiousness: .none,
+				scanInstances: []
+			),
+			configuration: RiskCalculationConfiguration(
+				from: SAP_Internal_V2_ApplicationConfigurationIOS().riskCalculationParameters)
+		)
+	]
+	
+	private var mappedExposureWindowsUntilTestResult: [RiskCalculationExposureWindow] = [
+		RiskCalculationExposureWindow(
+			exposureWindow: ExposureWindow(
+				calibrationConfidence: .low,
+				date: Date(timeIntervalSinceReferenceDate: -123456789.0),
+				reportType: .confirmedClinicalDiagnosis,
+				infectiousness: .standard,
+				scanInstances: []
+			),
+			configuration: RiskCalculationConfiguration(
+				from: SAP_Internal_V2_ApplicationConfigurationIOS().riskCalculationParameters)
+		),
+		RiskCalculationExposureWindow(
+			exposureWindow: ExposureWindow(
+				calibrationConfidence: .low,
+				date: Date(timeIntervalSinceReferenceDate: -123456789.0),
+				reportType: .confirmedClinicalDiagnosis,
+				infectiousness: .none,
 				scanInstances: []
 			),
 			configuration: RiskCalculationConfiguration(

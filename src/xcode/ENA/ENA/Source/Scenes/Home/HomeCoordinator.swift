@@ -21,7 +21,8 @@ class HomeCoordinator: RequiresAppDependencies {
 		elsService: ErrorLogSubmissionProviding,
 		exposureSubmissionService: ExposureSubmissionService,
 		qrScannerCoordinator: QRScannerCoordinator,
-		recycleBin: RecycleBin
+		recycleBin: RecycleBin,
+		restServiceProvider: RestServiceProviding
 	) {
 		self.delegate = delegate
 		self.otpService = otpService
@@ -34,6 +35,7 @@ class HomeCoordinator: RequiresAppDependencies {
 		self.exposureSubmissionService = exposureSubmissionService
 		self.qrScannerCoordinator = qrScannerCoordinator
 		self.recycleBin = recycleBin
+		self.restServiceProvider = restServiceProvider
 
 		setupHomeBadgeCount()
 	}
@@ -183,6 +185,7 @@ class HomeCoordinator: RequiresAppDependencies {
 	private let exposureSubmissionService: ExposureSubmissionService
 	private let qrScannerCoordinator: QRScannerCoordinator
 	private let recycleBin: RecycleBin
+	private let restServiceProvider: RestServiceProviding
 
 	private var homeController: HomeTableViewController?
 	private var homeState: HomeState?
@@ -354,6 +357,7 @@ class HomeCoordinator: RequiresAppDependencies {
 	private func showTraceLocations() {
 		traceLocationsCoordinator = TraceLocationsCoordinator(
 			store: store,
+			restServiceProvider: restServiceProvider,
 			appConfig: appConfigurationProvider,
 			qrCodePosterTemplateProvider: qrCodePosterTemplateProvider,
 			eventStore: eventStore,
@@ -410,7 +414,10 @@ class HomeCoordinator: RequiresAppDependencies {
 		let recycleBinViewController = RecycleBinViewController(
 			viewModel: RecycleBinViewModel(
 				store: store,
-				recycleBin: recycleBin
+				recycleBin: recycleBin,
+				onOverwrite: { [weak self] in
+					self?.showTestOverwriteNotice(recycleBinItem: $0)
+				}
 			)
 		)
 
@@ -431,6 +438,41 @@ class HomeCoordinator: RequiresAppDependencies {
 
 		rootViewController.pushViewController(
 			topBottomContainerViewController,
+			animated: true
+		)
+	}
+
+	private func showTestOverwriteNotice(
+		recycleBinItem: RecycleBinItem
+	) {
+		guard case let .coronaTest(coronaTest) = recycleBinItem.item else {
+			return
+		}
+
+		let footerViewModel = FooterViewModel(
+			primaryButtonName: AppStrings.ExposureSubmission.OverwriteNotice.primaryButton,
+			isSecondaryButtonHidden: true
+		)
+
+		let overwriteNoticeViewController = TestOverwriteNoticeViewController(
+			testType: coronaTest.type,
+			didTapPrimaryButton: { [weak self] in
+				self?.recycleBin.restore(recycleBinItem)
+				self?.rootViewController.dismiss(animated: true)
+			},
+			didTapCloseButton: { [weak self] in
+				self?.rootViewController.dismiss(animated: true)
+			}
+		)
+
+		let footerViewController = FooterViewController(footerViewModel)
+		let topBottomViewController = TopBottomContainerViewController(
+			topController: overwriteNoticeViewController,
+			bottomController: footerViewController
+		)
+
+		rootViewController.present(
+			NavigationControllerWithLargeTitle(rootViewController: topBottomViewController),
 			animated: true
 		)
 	}
@@ -459,6 +501,7 @@ class HomeCoordinator: RequiresAppDependencies {
 		developerMenu = DMDeveloperMenu(
 			presentingViewController: controller,
 			client: client,
+			restServiceProvider: restServiceProvider,
 			wifiClient: wifiClient,
 			store: store,
 			exposureManager: exposureManager,

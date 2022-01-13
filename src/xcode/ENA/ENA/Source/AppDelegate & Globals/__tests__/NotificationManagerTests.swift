@@ -170,7 +170,8 @@ class NotificationManagerTests: XCTestCase {
 			eventStore: eventStore,
 			diaryStore: diaryStore,
 			appConfiguration: cachedAppConfig,
-			healthCertificateService: healthCertificateService
+			healthCertificateService: healthCertificateService,
+			recycleBin: .fake()
 		)
 		
 		let eventCheckoutService = EventCheckoutService(

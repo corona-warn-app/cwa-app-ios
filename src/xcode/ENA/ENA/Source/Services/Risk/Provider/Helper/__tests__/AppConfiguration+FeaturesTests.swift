@@ -18,8 +18,8 @@ class AppConfiguration_FeaturesTests: XCTestCase {
 		let featureProvider = AppFeatureProvider(appConfigurationProvider: CachedAppConfigurationMock(with: config))
 
 		// WHEN
-		let disableDeviceTimeCheck = featureProvider.value(for: .disableDeviceTimeCheck)
-		let unencryptedCheckinsEnabled = featureProvider.value(for: .unencryptedCheckinsEnabled)
+		let disableDeviceTimeCheck = featureProvider.boolValue(for: .disableDeviceTimeCheck)
+		let unencryptedCheckinsEnabled = featureProvider.boolValue(for: .unencryptedCheckinsEnabled)
 
 		// THEN
 		XCTAssertFalse(disableDeviceTimeCheck)

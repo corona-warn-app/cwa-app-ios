@@ -178,7 +178,7 @@ final class HealthCertificateCoordinator {
 								title: AppStrings.HealthCertificate.Alert.deleteButton,
 								style: .destructive,
 								handler: { _ in
-									self.healthCertificateService.removeHealthCertificate(self.healthCertificate)
+									self.healthCertificateService.moveHealthCertificateToBin(self.healthCertificate)
 
 									switch self.parentingViewController {
 									case .push(let navigationController):

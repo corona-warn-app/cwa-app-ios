@@ -34,6 +34,20 @@ class DiaryDayViewController: UIViewController, UITableViewDataSource, UITableVi
 
 		view.backgroundColor = .enaColor(for: .darkBackground)
 
+		/*
+		    In iOS 15, the tab bar background automatically adjusts it self, when there is no content on the back it becomes transparent
+		    where as it has a background when there is content on the back. Unfortunately, in our case the tab bar remains transparent even
+		    through there is content on the back, so we fix this by overriding the appearance with a background.
+			Solution is inspired from: https://developer.apple.com/forums/thread/682420
+		*/
+		if #available(iOS 15, *) {
+			let appearance = UITabBarAppearance()
+			appearance.configureWithOpaqueBackground()
+			appearance.backgroundColor = .enaColor(for: .backgroundLightGray)
+			tabBarController?.tabBar.standardAppearance = appearance
+			tabBarController?.tabBar.scrollEdgeAppearance = tabBarController?.tabBar.standardAppearance
+		}
+		
 		tableView.keyboardDismissMode = .interactive
 
 		setupSegmentedControl()
@@ -117,6 +131,21 @@ class DiaryDayViewController: UIViewController, UITableViewDataSource, UITableVi
 				}, completion: nil)
 			}
 			.store(in: &subscriptions)
+	}
+	
+	override func viewWillDisappear(_ animated: Bool) {
+		super.viewWillDisappear(animated)
+		
+		// we need to reset to our default behaviour for tabbar's standardAppearance and scrollEdgeAppearance
+		if #available(iOS 15, *) {
+			let defaultAppearance = UITabBarAppearance()
+			defaultAppearance.configureWithDefaultBackground()
+			tabBarController?.tabBar.standardAppearance = defaultAppearance
+			
+			let transparentAppearance = UITabBarAppearance()
+			transparentAppearance.configureWithTransparentBackground()
+			tabBarController?.tabBar.scrollEdgeAppearance = transparentAppearance
+		}
 	}
 
 	// MARK: - Protocol UITableViewDataSource

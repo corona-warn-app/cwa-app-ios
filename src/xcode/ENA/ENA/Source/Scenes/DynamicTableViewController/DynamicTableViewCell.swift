@@ -25,6 +25,7 @@ extension DynamicCell {
 		case dynamicTypeLabel = "labelCell"
 		case dynamicTypeTextView = "textViewCell"
 		case icon = "iconCell"
+		case iconWithLinkText = "iconWithLinkText"
 		case space = "spaceCell"
 		case bulletPoint = "bulletPointCell"
 		case headlineWithImage = "headerWithImage"
@@ -194,6 +195,43 @@ extension DynamicCell {
 		)
 	}
 	
+	static func iconWithLinkText(
+			_ image: UIImage?,
+			imageAlignment: ImageAlignment = .left,
+			text: String,
+			links: [ENALinkedTextView.Link],
+			tintColor: UIColor? = .enaColor(for: .tint),
+			style: ENAFont = .body,
+			iconWidth: CGFloat = 32,
+			selectionStyle: UITableViewCell.SelectionStyle = .none,
+			action: DynamicAction = .none,
+			configure: CellConfigurator? = nil,
+			alignment: UIStackView.Alignment = .center
+	) -> Self {
+		.identifier(
+			CellReuseIdentifier.iconWithLinkText,
+			action: action,
+			accessoryAction: .none, configure: { viewController, cell, indexPath in
+				guard let cell = cell as? DynamicTableViewIconWithLinkTextCell else {
+					Log.error("no DynamicTableViewIconCell")
+					return
+				}
+				cell.configure(
+					image: image,
+					imageAlignment: imageAlignment,
+					text: text,
+					links: links,
+					customTintColor: tintColor,
+					style: style,
+					iconWidth: iconWidth,
+					selectionStyle: selectionStyle,
+					alignment: alignment
+				)
+				configure?(viewController, cell, indexPath)
+			}
+		)
+	}
+	
 	static func space(height: CGFloat, color: UIColor = .clear) -> Self {
 		.identifier(CellReuseIdentifier.space) { _, cell, _ in
 			guard let cell = cell as? DynamicTableViewSpaceCell else { return }
@@ -248,12 +286,18 @@ extension DynamicCell {
 		topInset: CGFloat = 64.0,
 		font: ENAFont = .title1,
 		image: UIImage,
-		accessibilityIdentifier: String? = nil,
-		accessibilityTraits: UIAccessibilityTraits = [.header, .image],
+		imageAccessibilityLabel: String? = nil,
+		imageAccessibilityIdentifier: String? = nil,
 		configure: CellConfigurator? = nil
 	) -> Self {
 		.identifier(CellReuseIdentifier.headlineWithImage, action: .none, accessoryAction: .none) { viewController, cell, indexPath in
-			(cell as? DynamicTableViewHeadlineWithImageCell)?.configure(headline: headerText, image: image, topInset: topInset)
+			(cell as? DynamicTableViewHeadlineWithImageCell)?.configure(
+				headline: headerText,
+				image: image,
+				topInset: topInset,
+				imageAccessibilityLabel: imageAccessibilityLabel,
+				imageAccessibilityIdentifier: imageAccessibilityIdentifier
+			)
 			configure?(viewController, cell, indexPath)
 		}
 	}

@@ -37,7 +37,8 @@ class RootCoordinator: NSObject, RequiresAppDependencies, UITabBarControllerDele
 		healthCertificateValidationOnboardedCountriesProvider: HealthCertificateValidationOnboardedCountriesProviding,
 		vaccinationValueSetsProvider: VaccinationValueSetsProviding,
 		elsService: ErrorLogSubmissionProviding,
-		recycleBin: RecycleBin
+		recycleBin: RecycleBin,
+		restServiceProvider: RestServiceProviding
 	) {
 		self.delegate = delegate
 		self.coronaTestService = coronaTestService
@@ -52,6 +53,7 @@ class RootCoordinator: NSObject, RequiresAppDependencies, UITabBarControllerDele
 		self.vaccinationValueSetsProvider = vaccinationValueSetsProvider
 		self.elsService = elsService
 		self.recycleBin = recycleBin
+		self.restServiceProvider = restServiceProvider
 	}
 
 	deinit {
@@ -100,7 +102,8 @@ class RootCoordinator: NSObject, RequiresAppDependencies, UITabBarControllerDele
 		viewController.view.backgroundColor = .enaColor(for: .background)
 		return viewController
 	}()
-	
+
+	// swiftlint:disable function_body_length
 	func showHome(enStateHandler: ENStateHandler, route: Route?) {
 		// only create and init the whole view stack if not done before
 		// there for we check if the homeCoordinator exists
@@ -131,6 +134,7 @@ class RootCoordinator: NSObject, RequiresAppDependencies, UITabBarControllerDele
 		let qrScannerCoordinator = QRScannerCoordinator(
 			store: store,
 			client: client,
+			restServiceProvider: restServiceProvider,
 			eventStore: eventStore,
 			appConfiguration: appConfigurationProvider,
 			eventCheckoutService: eventCheckoutService,
@@ -139,7 +143,8 @@ class RootCoordinator: NSObject, RequiresAppDependencies, UITabBarControllerDele
 			healthCertificateValidationOnboardedCountriesProvider: healthCertificateValidationOnboardedCountriesProvider,
 			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
 			exposureSubmissionService: exposureSubmissionService,
-			coronaTestService: coronaTestService
+			coronaTestService: coronaTestService,
+			recycleBin: recycleBin
 		)
 		self.qrScannerCoordinator = qrScannerCoordinator
 		
@@ -154,7 +159,8 @@ class RootCoordinator: NSObject, RequiresAppDependencies, UITabBarControllerDele
 			elsService: elsService,
 			exposureSubmissionService: exposureSubmissionService,
 			qrScannerCoordinator: qrScannerCoordinator,
-			recycleBin: recycleBin
+			recycleBin: recycleBin,
+			restServiceProvider: restServiceProvider
 		)
 		self.homeCoordinator = homeCoordinator
 		homeCoordinator.showHome(
@@ -280,7 +286,6 @@ class RootCoordinator: NSObject, RequiresAppDependencies, UITabBarControllerDele
 				
 		healthCertificatesTabCoordinator?.showCertifiedPersonFromNotification(for: healthCertifiedPerson)
 	}
-
 	
 	func showOnboarding() {
 		let onboardingVC = OnboardingInfoViewController(
@@ -340,6 +345,7 @@ class RootCoordinator: NSObject, RequiresAppDependencies, UITabBarControllerDele
 	private let healthCertificateValidationOnboardedCountriesProvider: HealthCertificateValidationOnboardedCountriesProviding
 	private let vaccinationValueSetsProvider: VaccinationValueSetsProviding
 	private let recycleBin: RecycleBin
+	private let restServiceProvider: RestServiceProviding
 
 	private let tabBarController = UITabBarController()
 
@@ -362,6 +368,7 @@ class RootCoordinator: NSObject, RequiresAppDependencies, UITabBarControllerDele
 				diagnosisKeysRetrieval: exposureManager,
 				appConfigurationProvider: CachedAppConfigurationMock(with: CachedAppConfigurationMock.screenshotConfiguration, store: store),
 				client: ClientMock(),
+				restServiceProvider: restServiceProvider,
 				store: store,
 				eventStore: eventStore,
 				coronaTestService: coronaTestService
@@ -373,6 +380,7 @@ class RootCoordinator: NSObject, RequiresAppDependencies, UITabBarControllerDele
 			diagnosisKeysRetrieval: exposureManager,
 			appConfigurationProvider: appConfigurationProvider,
 			client: client,
+			restServiceProvider: restServiceProvider,
 			store: store,
 			eventStore: eventStore,
 			coronaTestService: coronaTestService

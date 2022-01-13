@@ -14,6 +14,8 @@ class RecycleBin {
 		store: RecycleBinStoring
 	) {
 		self.store = store
+
+		setupFromLaunchArguments()
 	}
 
 	// MARK: - Internal
@@ -125,6 +127,31 @@ class RecycleBin {
 	// MARK: - Private
 
 	private let store: RecycleBinStoring
+
+	private func setupFromLaunchArguments() {
+		#if DEBUG
+		if isUITesting && LaunchArguments.recycleBin.pcrTest.boolValue {
+			store.recycleBinItems.insert(
+				RecycleBinItem(
+					recycledAt: Date(),
+					item: .coronaTest(.pcr(
+						PCRTest(
+							registrationDate: Date(),
+							testResult: .pending,
+							positiveTestResultWasShown: false,
+							isSubmissionConsentGiven: false,
+							keysSubmitted: false,
+							journalEntryCreated: false,
+							certificateConsentGiven: false,
+							certificateRequested: false
+						)
+					))
+				)
+			)
+		}
+		#endif
+	}
+
 }
 
 #if !RELEASE

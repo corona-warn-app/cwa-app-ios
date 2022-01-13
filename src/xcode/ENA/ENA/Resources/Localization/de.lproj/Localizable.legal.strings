@@ -30,7 +30,7 @@
 
 "ExposureSubmissionQRInfo_acknowledgement_legal_Bullet1_1" = "Die App ruft Ihr Testergebnis ab.";
 
-"ExposureSubmissionQRInfo_acknowledgement_legal_Bullet1_2" = "Wenn Sie es sich später anders überlegen, können Sie den Test in der App entfernen.";
+"ExposureSubmissionQRInfo_acknowledgement_legal_Bullet1_2" = "Wenn Sie es sich später anders überlegen, können Sie den Test in der App löschen.";
 
 "ExposureSubmissionQRInfo_acknowledgement_legal_Bullet2" = "Wenn Sie positiv auf Corona getestet wurden, teilt die App Ihr Testergebnis, um Nutzer, denen Sie begegnet sind, zu warnen. Dies betrifft Nutzer von Corona-Apps der oben genannten Länder und Nutzer, die zeitgleich am selben Event oder Ort wie Sie eingecheckt waren. Im Falle von Schnelltests werden nur Nutzer der Corona-Warn-App gewarnt.";
 
@@ -184,7 +184,7 @@
 
 "ExposureSubmission_Antigen_Profile_Legal_Text04" = "Auf Ihr persönliches Schnelltest-Profil haben zunächst nur Sie Zugriff. Nur wenn Sie den QR-Code des Schnelltest-Profils anderen Personen zeigen, können diese Zugriff auf die persönlichen Daten Ihres Schnelltest-Profils erhalten. Ein Zugriff auf andere Daten aus der App erfolgt dabei nicht (z.\U00A0B. Ihre Check-ins oder Angaben im Kontakt-Tagebuch).";
 
-"ExposureSubmission_Antigen_Profile_Legal_Text05" = "Sie haben jederzeit die Möglichkeit, Ihr Schnelltest-Profil wieder zu entfernen. Bis dahin bleibt es in der App auf Ihrem Smartphone gespeichert.";
+"ExposureSubmission_Antigen_Profile_Legal_Text05" = "Sie haben jederzeit die Möglichkeit, Ihr Schnelltest-Profil wieder zu löschen. Bis dahin bleibt es in der App auf Ihrem Smartphone gespeichert.";
 
 "ExposureSubmission_Antigen_Profile_Legal_Text06" = "Der QR-Code enthält Ihre persönlichen Angaben. Stellen Sie Ihren persönlichen QR-Code niemandem zur Verfügung, wenn Sie nicht wollen, dass die Daten ausgelesen werden. Wir empfehlen Ihren persönlichen QR-Code nicht zu veröffentlichen und nicht per E-Mail zu versenden.";
 
@@ -200,7 +200,7 @@
 
 "HealthCertificate_Info_Legal_section03" = "Wenn Sie den QR-Code eines Zertifikats in der App zur Prüfung vorzeigen, können andere Personen nachvollziehen, dass ein negatives Testergebnis, ein vollständiger Impfschutz oder ein Nachweis über eine überstandene Infektion vorliegt. Bei der Prüfung werden in der offiziellen Prüf-App auch der Name und das Geburtsdatum angezeigt. Bei Testzertifikaten wird zusätzlich auch das Datum der Probenahme angezeigt.";
 
-"HealthCertificate_Info_Legal_section04" = "Sie haben jederzeit die Möglichkeit, COVID-Zertifikate in der App wieder zu entfernen. Bis dahin bleiben die Zertifikate auf Ihrem Smartphone gespeichert.";
+"HealthCertificate_Info_Legal_section04" = "Sie haben jederzeit die Möglichkeit, COVID-Zertifikate in der App wieder zu löschen. Bis dahin bleiben die Zertifikate auf Ihrem Smartphone gespeichert.";
 
 "HealthCertificate_Info_disclaimer" = "Ausführliche Informationen zur Datenverarbeitung finden Sie in der Datenschutzerklärung.";
 
@@ -218,4 +218,32 @@
 
 "ExposureSubmission_TestCertificate_Information_Legal_Text_4" = "Wenn Sie den QR-Code des Testzertifikats in der App vorzeigen und dieser mit der Prüf-App gescannt wird, können andere Personen Ihr Testergebnis nachvollziehen. Bei der Prüfung werden in der offiziellen Prüf-App auch Ihr Name und Ihr Geburtsdatum angezeigt.";
 
-"ExposureSubmission_TestCertificate_Information_Legal_Text_5" = "Sie haben jederzeit die Möglichkeit, Testzertifikate in der App wieder zu entfernen. Bis dahin bleiben die Testzertifikate auf Ihrem Smartphone gespeichert.";
+"ExposureSubmission_TestCertificate_Information_Legal_Text_5" = "Sie haben jederzeit die Möglichkeit, Testzertifikate in der App wieder zu löschen. Bis dahin bleiben die Testzertifikate auf Ihrem Smartphone gespeichert.";
+
+/* Ticket Validation First Consent */
+
+"TicketValidation_FirstConsent_Legal_title" = "Ihr Einverständnis";
+
+"TicketValidation_FirstConsent_Legal_subtitle" = "Durch Antippen von „Einverstanden“ willigen Sie in folgende Schritte ein:";
+
+"TicketValidation_FirstConsent_Legal_bulletPoint1" = "Die App ruft vom Anbieter den Namen und das Geburtsdatum der bei Buchung angegebenen Person, die für die Prüfung relevanten Buchungsdetails (z. B. Zielland und Reisedatum) und die vom Anbieter zu Ihrer Buchung festgelegten Anforderungen an das Zertifikat ab.";
+
+"TicketValidation_FirstConsent_Legal_bulletPoint2" = "Die abgerufenen Daten werden von der App genutzt, um festzustellen, welche Ihrer gespeicherten Zertifikate verwendet werden können.";
+
+/* Ticket Validation Second Consent */
+
+"TicketValidation_SecondConsent_Legal_title" = "Ihr Einverständnis";
+
+"TicketValidation_SecondConsent_Legal_subtitle" = "Durch Antippen von „Einverstanden“ willigen Sie in die Übermittlung der folgenden Daten an den Prüfpartner ein:";
+
+"TicketValidation_SecondConsent_Legal_bulletPoint1" = "Zertifikatsinhalt und elektronische Signatur des ausgewählten Zertifikats (u. a. Name und Geburtsdatum des Zertifikatsinhabers, Gültigkeitsdauer, Aussteller und Ausstellungsdatum, Angaben zu Impfstoff/Test/Genesung).";
+
+"TicketValidation_SecondConsent_Legal_bulletPoint2" = "Die bei dem Anbieter abgerufenen Buchungsdaten:";
+
+"TicketValidation_SecondConsent_Legal_subBulletPoint1" = "Zeitraum, in dem das Zertifikat gültig sein muss (Reisedauer oder Veranstaltungsdatum)";
+
+"TicketValidation_SecondConsent_Legal_subBulletPoint2" = "bei Reisebuchungen: Ausgangsland und Zielland der Reise";
+
+"TicketValidation_SecondConsent_Legal_subBulletPoint3" = "bei grenzüberschreitenden Reisen: Anforderungen des Ziellandes an das Zertifikat";
+
+"TicketValidation_SecondConsent_Legal_subBulletPoint4" = "weitere Anforderungen des Anbieters an das Zertifikat (z. B. welche Impfstoffe oder Testverfahren akzeptiert werden)";

@@ -92,9 +92,15 @@
 
 "ExposureDetection_Contact_Journal_Text" = "Veți găsi mai multe informații despre expunerile dvs. în jurnalul dvs. de contacte.";
 
+"ExposureDetection_Contact_Journal_Text_P2" = "Există un risc crescut să fi fost infectat. Dacă ați fost infectat, puteți infecta alte persoane, chiar dacă sunteți vaccinat sau dacă v-ați recuperat după boală și chiar dacă nu aveți simptome.";
+
 "ExposureDetection_Behavior_Title" = "Instrucțiuni";
 
-"ExposureDetection_Behavior_Subtitle" = "Iată ce trebuie să faceți:";
+"ExposureDetection_Behavior_Subtitle" = "Iată ce trebuie să faceți, chiar dacă sunteți vaccinat sau dacă v-ați recuperat după boală și chiar dacă nu aveți simptome:";
+
+"ExposureDetection_LowRisk_Behavior_Subtitle" = "Iată ce trebuie să faceți:";
+
+"ExposureDetection_Guide_Hygiene" = "Acordați atenție specială regulilor de igienă obișnuite.";
 
 "ExposureDetection_Guide_Vaccination" = "Vaccinați-vă împotriva virusului SARS-CoV-2 dacă nu ați făcut deja acest lucru.";
 
@@ -108,25 +114,23 @@
 
 "ExposureDetection_Guide_Ventilation" = "Aerisiți spațiile interioare de mai multe ori pe zi. Astfel, deschideți ferestrele cât mai larg posibil timp de câteva minute („ventilație șoc”).";
 
-"ExposureDetection_Guide_Symptoms" = "Fiți vigilenți pentru depistarea simptomelor specifice pentru COVID-19. Chiar și persoanele vaccinate pot prezenta simptome în caz de infectare post-vaccinare. Dacă observați simptome suspecte, testați-vă.";
+"ExposureDetection_Guide_Symptoms" = "Fiți vigilent pentru depistarea simptomelor specifice. Chiar și persoanele vaccinate și cele care au trecut prin boală pot prezenta simptome. Dacă vă simțiți rău sau dacă apar simptome, contactați medicul de familie.";
 
-"ExposureDetection_Guide_Home" = "Dacă este posibil, mergeți acasă și rămâneți în casă.";
+"ExposureDetection_Guide_Home" = "Dacă este posibil, mergeți acasă și rămâneți în casă și, de asemenea, evitați întâlnirile cu persoane din afara gospodăriei dvs.";
 
-"ExposureDetection_Guide_Hotline1" = "Dacă aveți întrebări despre simptome, disponibilitatea testării sau măsurile de carantină, contactați fie:";
+"ExposureDetection_Guide_Hotline" = "Dacă aveți alte întrebări, vă rugăm să contactați serviciul medical de urgență la numărul de telefon: 116 117.";
 
-"ExposureDetection_Guide_Hotline2" = "Medicul de familie";
+"ExposureDetection_Guide_Vaccination_HighRisk" = "Dacă încă nu v-ați vaccinat, consultați telefonic medicul de familie după ce vă testați.";
 
-"ExposureDetection_Guide_Hotline3" = "Serviciul general de urgență la numărul de telefon 116 117";
+"ExposureDetection_Guide_Title" = "Vă rugăm să vă testați, chiar dacă nu aveți simptome. Dacă primiți o avertizare de risc crescut („un mozaic roșu”), aveți dreptul la un test gratuit. Nu este obligatoriu să fie un test PCR.\n";
 
-"ExposureDetection_Guide_Hotline4" = "Autoritatea de sănătate publică relevantă";
+"ExposureDetection_Guide_Point1" = "Puteți găsi aici posibilitățile de testare sau puteți contacta medicul de familie sau o farmacie.";
 
-"ExposureDetection_Guide_Vaccination_HighRisk" = "Dacă încă nu v-ați vaccinat, consultați telefonic medicul de familie sau serviciul medical de urgență pentru a stabili efectuarea unui test. După testare, discutați opțiunile de vaccinare împotriva SARS-CoV-2 cu medicul dvs. de familie.";
+"ExposureDetection_Guide_Point1_LinkText" = "aici";
 
-/* Placeholder points to `ExposureDetection_LinkText` */
-"ExposureDetection_Guide_FAQ" = "Dacă vă testați, veți găsi mai multe informații despre procedura de testare în %@.";
+"ExposureDetection_Guide_Point2" = "Mai multe informații despre procedura de testare sunt disponibile pe pagina noastră de întrebări frecvente.";
 
-/* The 'tapable' text containing the link to the faq */
-"ExposureDetection_Guide_FAQ_LinkText" = "Întrebări frecvente despre procedura de testare";
+"ExposureDetection_Guide_Point2_LinkText" = "întrebări frecvente";
 
 "ExposureDetection_Explanation_Title" = "Risc de infectare";
 
@@ -179,6 +183,44 @@
 "ExposureDetection_Survey_Card_Body" = "Ajutați-ne să îmbunătățim aplicația răspunzând la câteva întrebări simple.";
 
 "ExposureDetection_Survey_Card_Button" = "Accesați sondajul";
+
+"ExposureDetection_Info_HygieneRules_Title" = "Reguli de igienă";
+
+"ExposureDetection_Info_HygieneRules_Point1" = "Purtați o mască atunci când vă întâlniți cu alte persoane.";
+
+"ExposureDetection_Info_HygieneRules_Point2" = "Păstrați o distanță de cel puțin 1,5 metri față de alte persoane.";
+
+"ExposureDetection_Info_HygieneRules_Point3" = "Strănutați sau tușiți în pliul cotului sau într-un șervețel.";
+
+"ExposureDetection_Info_HygieneRules_Point4" = "Spălați-vă frecvent pe mâini cu săpun timp de cel puțin 20 de secunde.";
+
+"ExposureDetection_Info_HygieneRules_Point5" = "Aerisiți spațiile interioare de mai multe ori pe zi. Astfel, deschideți ferestrele cât mai larg posibil timp de câteva minute („ventilație șoc”).";
+
+"ExposureDetection_Info_HygieneRules_TitleImage_Description" = "Mai multe persoane care păstrează distanța și care poartă măști.";
+
+"ExposureDetection_Info_Contagion_Title" = "Minimizați riscul dvs. de infectare";
+
+"ExposureDetection_Info_Contagion_Image_Title" = "Dacă v-ați infectat fără să știți, iată cum puteți reduce riscul de infectare a altor persoane:";
+
+"ExposureDetection_Info_Contagion_TitleImage_Description" = "O persoană care stă pe canapea, citind o carte. O altă persoană care se uită pe smartphone.";
+
+"ExposureDetection_Info_Contagion_Point1" = "Întâlniri și evenimente: evitați vizitele și activitățile care presupun adunările de persoane (cluburi, baruri, restaurante, cinematografe, teatre, evenimente sportive).";
+
+"ExposureDetection_Info_Contagion_Point2" = "Lucratul de acasă: dacă puteți, lucrați de acasă.";
+
+"ExposureDetection_Info_Contagion_Point3" = "Cumpărăturile: comandați online produse sau rugați pe cineva să facă cumpărăturile pentru dvs.";
+
+"ExposureDetection_Info_Contagion_Point4" = "Transportul public: evitați transportul public pe cât posibil, în special în orele de vârf.";
+
+"ExposureDetection_Info_Contagion_Point5" = "Deplasările: nu călătoriți cu avionul sau trenul.";
+
+"ExposureDetection_Info_Contagion_Point6" = "Dacă aveți întrebări despre măsurile de carantină, contactați departamentul aferent de sănătate publică.";
+
+"ExposureDetection_Info_Contagion_Point6_LinkText" = "întrebări despre măsurile de carantină";
+
+"ExposureDetection_Info_Contagion_Footer" = "Informații suplimentare despre autocarantina voluntară sunt disponibile pe pagina noastră de întrebări frecvente.";
+
+"ExposureDetection_Info_Contagion_Footer_LinkText" = "pagina noastră de întrebări frecvente";
 
 /* Survey Errors */
 "SurveyConsent_Error_Title" = "Eroare";
@@ -408,7 +450,7 @@
 
 "OnboardingInfo_togetherAgainstCoronaPage_boldText" = "Mai multă protecție pentru dvs. și pentru noi toți. Utilizând Corona-Warn-App putem întrerupe mai ușor lanțurile de infectare.";
 
-"OnboardingInfo_togetherAgainstCoronaPage_normalText" = "Transformați-vă dispozitivul într-un sistem de avertizare împotriva coronavirusului. Obțineți un sumar al stării de risc și aflați dacă ați intrat în contact strâns cu persoane diagnosticate cu coronavirus în ultimele 14 zile. \n\nAplicația înregistrează în jurnal întâlnirile dintre persoane prin smartphone-urile acestora, care schimbă ID-uri aleatorii criptate, fără a accesa niciun fel de date personale.\n\nDacă doriți, puteți utiliza aplicația pentru a dovedi starea de infectare personală (de exemplu, un test rapid negativ). Rețineți, totuși, că nu aveți nicio obligație de a utiliza aplicația pentru a dovedi starea dvs. de infectare. De asemenea, puteți dovedi starea dvs. de infectare într-un alt mod care respectă reglementările legale din localitatea dvs. de domiciliu.\n\nDe asemenea, puteți verifica starea vaccinării personale.\n\nAplicația înregistrează în jurnal întâlnirile dintre persoane prin smartphone-urile acestora, care schimbă ID-uri aleatorii criptate, fără a accesa niciun fel de date personale.";
+"OnboardingInfo_togetherAgainstCoronaPage_normalText" = "Transformați-vă dispozitivul într-un sistem de avertizare împotriva coronavirusului. Obțineți un sumar al stării de risc și aflați dacă ați intrat în contact strâns cu persoane diagnosticate cu coronavirus în ultimele 14 zile. \n\nAplicația înregistrează în jurnal întâlnirile dintre persoane prin smartphone-urile acestora, care schimbă ID-uri aleatorii criptate, fără a accesa niciun fel de date personale.\n\nDacă doriți, puteți utiliza aplicația pentru a dovedi starea de infectare personală (de exemplu, un test rapid negativ). Rețineți, totuși, că nu aveți nicio obligație de a utiliza aplicația pentru a dovedi starea dvs. de infectare. De asemenea, puteți dovedi starea dvs. de infectare într-un alt mod care respectă reglementările legale din localitatea dvs. de domiciliu.\n\nDe asemenea, puteți consulta starea vaccinării personale.\n\nAplicația înregistrează în jurnal întâlnirile dintre persoane prin smartphone-urile acestora, care schimbă ID-uri aleatorii criptate, fără a accesa niciun fel de date personale.";
 
 "OnboardingInfo_togetherAgainstCoronaPage_linkText" = "Informații despre aplicație în limbaj simplificat și în limbajul semnelor";
 
@@ -531,7 +573,7 @@
 
 "ExposureSubmissionDispatch_FindTestCentersTitle" = "Găsire centru de testare";
 
-"ExposureSubmissionDispatch_FindTestCentersDescription" = "Găsiți centre de testare în aproprierea dvs. Veți fi redirecționat către un site web RKI extern.";
+"ExposureSubmissionDispatch_FindTestCentersDescription" = "Găsiți centre de testare în aproprierea dvs. Dacă apar probleme, le puteți raporta.\nVeți fi redirecționat către un site web RKI extern.";
 
 /* Exposure Submission Hotline */
 "ExposureSubmissionHotline_Title" = "Solicitare cod TAN pentru testul PCR";
@@ -850,9 +892,11 @@
 "ExposureSubmissionWarnOthers_continueButton" = "Accept";
 
 /* Exposure Submission Result */
-"ExposureSubmissionResult_RemoveAlert_Title" = "Testul poate fi scanat o singură dată.";
+"ExposureSubmissionResult_RemoveAlert_Title" = "Ștergeți rezultatul testului?";
 
-"ExposureSubmissionResult_RemoveAlert_Text" = "Dacă ștergeți testul, nu veți mai putea afla rezultatul testului. Veți primi rezultatul testului dvs. de la centrul sau laboratorul de testare, indiferent de valabilitatea codului QR. Dacă sunteți diagnosticat cu coronavirus, autoritatea de sănătate publică va fi notificată prin canalul de comunicare prevăzut în mod legal și vă va contacta.";
+"ExposureSubmissionResult_RemoveAlert_Text" = "Rezultatul testului va fi mutat în coșul de reciclare. Veți găsi coșul de reciclare pe mozaicul „Mai mult” al paginii de tab de stare.\nPuteți șterge definitiv sau restaura de acolo rezultatul testului. Rezultatul testului va fi șters automat după 30 de zile.";
+
+"ExposureSubmissionResult_RemoveAlert_ConfirmButtonTitle" = "Ștergere rezultat test";
 
 "ExposureSubmissionResult_RegistrationDateUnknown" = "Data înregistrării este necunoscută";
 
@@ -895,7 +939,7 @@
 
 "ExposureSubmissionError_NoResponse" = "Răspunsul nu are conținut.";
 
-"ExposureSubmissionError_QRAlreadyUsed" = "Codul QR este nevalabil sau a fost deja înregistrat pe un alt smartphone. Veți primi rezultatul testului dvs. de la centrul sau laboratorul de testare, indiferent de valabilitatea codului QR. Dacă sunteți diagnosticat cu coronavirus, autoritatea de sănătate publică va fi notificată prin canalul de comunicare prevăzut în mod legal și vă va contacta.";
+"ExposureSubmissionError_QRAlreadyUsed" = "Codul QR este nevalabil sau a fost deja înregistrat pe smartphone-ul dvs.\nVeți primi rezultatul testului dvs. de la centrul sau laboratorul de testare, indiferent de valabilitatea codului QR. Dacă sunteți diagnosticat cu coronavirus, autoritatea de sănătate publică va fi notificată prin canalul de comunicare prevăzut în mod legal și vă va contacta.\nDacă ați șters testul din aplicație, îl puteți restaura din coșul de reciclare.";
 
 "ExposureSubmissionError_QRAlreadyUsed_Title" = "Codul QR este nevalabil";
 
@@ -930,11 +974,11 @@
 
 "ExposureSubmission_OverwriteNotice_Pcr_Headline" = "Ați înregistrat deja un test PCR.";
 
-"ExposureSubmission_OverwriteNotice_Pcr_Text" = "Ați înregistrat deja un test PCR. Aplicația poate gestiona cel mult un test rapid și un test PCR în același timp. Dacă înregistrați un alt test PCR, primul test PCR va fi șters din aplicație.";
+"ExposureSubmission_OverwriteNotice_Pcr_Text" = "Ați înregistrat deja un test PCR. Aplicația poate gestiona cel mult un test rapid și un test PCR în același timp. Dacă înregistrați un alt test PCR, primul test PCR va fi mutat în coșul de reciclare, de unde îl puteți restaura sau șterge definitiv.";
 
 "ExposureSubmission_OverwriteNotice_Antigen_Headline" = "Ați înregistrat deja un test rapid.";
 
-"ExposureSubmission_OverwriteNotice_Antigen_Text" = "Ați înregistrat deja un test rapid. Aplicația poate gestiona cel mult un test rapid și un test PCR în același timp. Dacă înregistrați un alt test rapid, primul test rapid va fi șters din aplicație.";
+"ExposureSubmission_OverwriteNotice_Antigen_Text" = "Ați înregistrat deja un test rapid. Aplicația poate gestiona cel mult un test rapid și un test PCR în același timp. Dacă înregistrați un alt test rapid, primul test rapid va fi mutat în coșul de reciclare, de unde îl puteți restaura sau șterge definitiv.";
 
 /* ExposureSubmission AntigenTest Profile Information */
 "ExposureSubmission_Antigen_Profile_Information_Title" = "Profil de test rapid";
@@ -1257,13 +1301,7 @@
 
 "Home_Finding_Positive_Card_Button" = "Avertizați-i pe ceilalți";
 
-"Home_Finding_Positive_Card_Button_Remove_Test" = "Eliminare test";
-
-"Home_Finding_Positive_Card_Remove_Test_Alert_Title" = "Sigur doriți să eliminați testul dvs.?";
-
-"Home_Finding_Positive_Card_Remove_Test_Alert_Description" = "În caz afirmativ, alte persoane nu vor fi avertizate.";
-
-"Home_Finding_Positive_Card_Remove_Test_Alert_Description_Delete_Button" = "Eliminare";
+"Home_Finding_Positive_Card_Button_Remove_Test" = "Ștergere test";
 
 /* Home Test Registration Card */
 "Home_TestRegistration_Title" = "Gestionarea testelor dvs.";
@@ -1557,22 +1595,10 @@
 /* New Version Features */
 "NewVersionFeatures_Info_about_abb_information" = "Modificările din această versiune pot fi găsite în informațiile aplicației, la „Caracteristici noi”.";
 
-/* Version 2.12 */
-"NewVersionFeature_213_hospitalizationRateTile_title" = "Incidența locală a spitalizării pe 7 zile";
+/* Version 2.15 */
+"NewVersionFeature_215_ticketValidation_title" = "Verificarea certificatului la emiterea biletului";
 
-"NewVersionFeature_213_hospitalizationRateTile_description" = "Mozaicurile locale pentru incidența pe 7 zile a infectărilor noi arată acum și incidența spitalizării pe 7 zile. Deoarece acest indicator este disponibil doar la nivel de stat, dacă este selectat un district, va fi afișată rata spitalizării pentru statul respectiv.";
-
-"NewVersionFeature_213_changesFAQLinks_title" = "Modificarea legăturii la întrebările frecvente";
-
-"NewVersionFeature_213_changesFAQLinks_description" = "Când apelați întrebările frecvente în aplicație, acum sunteți redirecționat la paginile coronawarn.app. Acolo veți găsi mai multe detalii la întrebările dvs.";
-
-"NewVersionFeature_213_certificateAssignment_title" = "Atribuirea certificatului";
-
-"NewVersionFeature_213_certificateAssignment_description" = "Atribuirea de certificate persoanelor a fost îmbunătățită pentru fi mai tolerantă la erori. Acum aplicația ignoră numărul diferit de spații din numele persoanelor, permițând atribuirea certificatelor aceleiași persoane, în ciuda acestor diferențe.";
-
-"NewVersionFeature_213_restoreCertificate_title" = "Restaurare certificate";
-
-"NewVersionFeature_213_restoreCertificate_description" = "Certificatele eliminate sunt mutate în coșul de reciclare. Acestea pot fi restaurate în 30 de zile.";
+"NewVersionFeature_215_ticketValidation_description" = "Când rezervați un bilet, puteți prezenta dovada că sunteți vaccinat, că v-ați recuperat după boală sau că aveți un test negativ. Pentru aceasta, scanați codul QR afișat în sistemul de bilete și apoi selectați certificatul corect din aplicație. Rezultatul verificării certificatului este expediat la sistemul de bilete de către partenerul de verificare.";
 
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Înregistrare transnațională a expunerilor în jurnal";
@@ -1781,19 +1807,19 @@
 /* Edit Entries */
 "ContactDiary_EditEntries_ContactPersons_Title" = "Editare persoane";
 
-"ContactDiary_EditEntries_ContactPersons_DeleteAllButtonTitle" = "Eliminare toate";
+"ContactDiary_EditEntries_ContactPersons_DeleteAllButtonTitle" = "Ștergere tot";
 
-"ContactDiary_EditEntries_ContactPersons_AlertTitle" = "Sigur doriți să eliminați toate persoanele?";
+"ContactDiary_EditEntries_ContactPersons_AlertTitle" = "Sigur doriți să ștergeți toate persoanele?";
 
-"ContactDiary_EditEntries_ContactPersons_AlertMessage" = "Dacă eliminați toate persoanele, toate intrările pentru toate persoanele vor fi eliminate din jurnalul dvs.";
+"ContactDiary_EditEntries_ContactPersons_AlertMessage" = "Dacă ștergeți toate persoanele, toate intrările pentru toate persoanele vor fi șterse din jurnalul dvs.";
 
 "ContactDiary_EditEntries_ContactPersons_AlertConfirmButtonTitle" = "Da";
 
 "ContactDiary_EditEntries_ContactPersons_AlertCancelButtonTitle" = "Nu";
 
-"ContactDiary_EditEntries_ContactPerson_AlertTitle" = "Sigur doriți să eliminați această persoană?";
+"ContactDiary_EditEntries_ContactPerson_AlertTitle" = "Sigur doriți să ștergeți această persoană?";
 
-"ContactDiary_EditEntries_ContactPerson_AlertMessage" = "Dacă eliminați o persoană, toate intrările pentru respectiva persoană vor fi eliminate din jurnalul dvs.";
+"ContactDiary_EditEntries_ContactPerson_AlertMessage" = "Dacă ștergeți o persoană, toate intrările pentru respectiva persoană vor fi șterse din jurnalul dvs.";
 
 "ContactDiary_EditEntries_ContactPerson_AlertConfirmButtonTitle" = "Da";
 
@@ -1801,19 +1827,19 @@
 
 "ContactDiary_EditEntries_Locations_Title" = "Editare locuri";
 
-"ContactDiary_EditEntries_Locations_DeleteAllButtonTitle" = "Eliminare toate";
+"ContactDiary_EditEntries_Locations_DeleteAllButtonTitle" = "Ștergere tot";
 
-"ContactDiary_EditEntries_Locations_AlertTitle" = "Sigur doriți să eliminați toate locurile?";
+"ContactDiary_EditEntries_Locations_AlertTitle" = "Sigur doriți să ștergeți toate locurile?";
 
-"ContactDiary_EditEntries_Locations_AlertMessage" = "Dacă eliminați toate locurile, toate intrările pentru toate locurile vor fi eliminate din jurnalul dvs.";
+"ContactDiary_EditEntries_Locations_AlertMessage" = "Dacă ștergeți toate locurile, toate intrările pentru toate locurile vor fi șterse din jurnalul dvs.";
 
 "ContactDiary_EditEntries_Locations_AlertConfirmButtonTitle" = "Da";
 
 "ContactDiary_EditEntries_Locations_AlertCancelButtonTitle" = "Nu";
 
-"ContactDiary_EditEntries_Location_AlertTitle" = "Sigur doriți să eliminați acest loc?";
+"ContactDiary_EditEntries_Location_AlertTitle" = "Sigur doriți să ștergeți acest loc?";
 
-"ContactDiary_EditEntries_Location_AlertMessage" = "Dacă eliminați un loc, toate intrările pentru respectivul loc vor fi eliminate din jurnalul dvs.";
+"ContactDiary_EditEntries_Location_AlertMessage" = "Dacă ștergeți un loc, toate intrările pentru respectivul loc vor fi șterse din jurnalul dvs.";
 
 "ContactDiary_EditEntries_Location_AlertConfirmButtonTitle" = "Da";
 
@@ -1834,7 +1860,7 @@
 
 "ContactDiary_Information_Item_Lock_Title" = "Sunteți singura persoană care poate accesa intrările din jurnal. Intrările dvs. vor fi salvate doar pe smartphone.";
 
-"ContactDiary_Information_Item_DeletedAutomatically_Title" = "Puteți oricând elimina intrări de persoane și locuri din jurnal. Intrările din jurnal vor fi șterse automat după 16 zile.";
+"ContactDiary_Information_Item_DeletedAutomatically_Title" = "Puteți oricând șterge intrări de persoane și locuri din jurnal. Intrările din jurnal vor fi șterse automat după 16 zile.";
 
 "ContactDiary_Information_Item_ExportTextFormat_Title" = "Puteți exporta jurnalul de contacte în format de text simplu și apoi puteți tipări sau edita intrările, sau le puteți pune la dispoziția autorității de sănătate publică, după cum este necesar.";
 
@@ -2091,7 +2117,7 @@
 
 "Statistics_Info_Trend_Text" = "Tendința compară valoarea din ziua anterioară cu valoarea de acum două zile (pentru incidența pe 7 zile, incidența spitalizării pe 7 zile, pacienții COVID-19 din unitățile de terapie intensivă, valoarea R pe 7 zile) sau, pentru tendințele pe 7 zile, valoarea medie din ultimele 7 zile cu valoarea medie din cele 7 zile anterioare acestora (pentru valoarea medie pe 7 zile a infectărilor noi confirmate, avertizări de către utilizatorii aplicației, dozele de vaccin administrate). Este utilizată versiunea respectivă a datelor publicate inițial; actualizările ulterioare nu sunt luate în considerare.\n\nDirecția săgeții indică dacă tendința este în creștere, în scădere sau dacă rămâne constantă – mai exact, demonstrează o abatere de sub 1% în comparație cu ziua precedentă sau de 5% în comparație cu săptămâna precedentă (ținând cont de pozițiile zecimale). Culoarea indică faptul că tendința este pozitivă (verde), negativă (roșu) sau neutră (gri). ";
 
-"Statistics_Info_Trends_Title" = "Pot fi afișate următoarele tendințe:";
+"Statistics_Info_Trends_Title" = "Exemple de tendințe afișate:";
 
 "Statistics_Info_Trends_Increasing" = "Tendință: ascendentă (negativă)";
 
@@ -2258,7 +2284,7 @@
 
 "Checkins_Overview_EmptyImageDescription" = "O clădire cu un simbol de cod QR în fundal";
 
-"Checkins_Overview_DeleteAllButtonTitle" = "Eliminare toate";
+"Checkins_Overview_DeleteAllButtonTitle" = "Ștergere tot";
 
 "Checkins_Overview_DurationTitle" = "Durată";
 
@@ -2268,19 +2294,19 @@
 
 "Checkins_Overview_CheckoutButtonTitle" = "Check-out acum";
 
-"Checkins_Overview_DeleteOne_AlertTitle" = "Sigur doriți să eliminați această intrare?";
+"Checkins_Overview_DeleteOne_AlertTitle" = "Ștergeți această intrare?";
 
 "Checkins_Overview_DeleteOne_AlertMessage" = "Nu veți mai putea avertiza alte persoane care au făcut check-in în acest loc sau la acest eveniment în același timp cu dvs. și nici dvs. nu veți mai fi avertizat de către acestea.";
 
-"Checkins_Overview_DeleteOne_AlertConfirmButtonTitle" = "Eliminare";
+"Checkins_Overview_DeleteOne_AlertConfirmButtonTitle" = "Ștergere";
 
 "Checkins_Overview_DeleteOne_AlertCancelButtonTitle" = "Anulare";
 
-"Checkins_Overview_DeleteAll_AlertTitle" = "Sigur doriți să eliminați toate intrările?";
+"Checkins_Overview_DeleteAll_AlertTitle" = "Sigur doriți să ștergeți toate intrările?";
 
 "Checkins_Overview_DeleteAll_AlertMessage" = "Nu veți mai putea avertiza alte persoane care au făcut check-in în aceste locuri sau la aceste eveniment în același timp cu dvs. și nici dvs. nu veți mai fi avertizat de către acestea.";
 
-"Checkins_Overview_DeleteAll_AlertConfirmButtonTitle" = "Eliminare";
+"Checkins_Overview_DeleteAll_AlertConfirmButtonTitle" = "Ștergere";
 
 "Checkins_Overview_DeleteAll_AlertCancelButtonTitle" = "Anulare";
 
@@ -2321,7 +2347,7 @@
 
 "TraceLocations_Overview_EmptyImageDescription" = "Smartphone cu simbol de cod QR";
 
-"TraceLocations_Overview_DeleteAllButtonTitle" = "Eliminare toate";
+"TraceLocations_Overview_DeleteAllButtonTitle" = "Ștergere tot";
 
 "TraceLocations_Overview_SelfCheckinButtonTitle" = "Check-in";
 
@@ -2702,7 +2728,7 @@
 
 "TestCertificateRequest_tryAgainButtonTitle" = "Încercați din nou";
 
-"TestCertificateRequest_removeButtonTitle" = "Eliminare certificat de test";
+"TestCertificateRequest_removeButtonTitle" = "Ștergere certificat de test";
 
 /* - Test Certificate Request Error Alert */
 "TestCertificateRequest_ErrorAlert_title" = "Încă există probleme cu cererea dvs.";
@@ -2710,7 +2736,7 @@
 "TestCertificateRequest_ErrorAlert_Button_title" = "OK";
 
 /* - Test Certificate Request Remove Alert */
-"TestCertificateRequest_RemoveAlert_title" = "Doriți să eliminați certificatul?";
+"TestCertificateRequest_RemoveAlert_title" = "Doriți să ștergeți certificatul?";
 
 "TestCertificateRequest_RemoveAlert_message" = "Dacă eliminați certificatul, nu îl puteți solicita din nou.";
 
@@ -2721,9 +2747,9 @@
 /* Test Certificate Request Errors */
 "TestCertificateRequest_Error_CLIENT_ERROR_CALL_HOTLINE" = "A apărut o eroare. Încercați din nou mai târziu sau contactați hotline-ul tehnic prin Informații aplicație -> Hotline tehnic. (%@)";
 
-"TestCertificateRequest_Error_DCC_EXPIRED" = "Acest certificat nu mai este de actualitate. Îl puteți elimina din Corona-Warn-App. (%@)";
+"TestCertificateRequest_Error_DCC_EXPIRED" = "Acest certificat nu mai este de actualitate. Îl puteți șterge din Corona-Warn-App. (%@)";
 
-"TestCertificateRequest_Error_DCC_NOT_SUPPORTED_BY_LAB" = "Nu puteți solicita un certificat de test deoarece acest punct de testare nu suportă emiterea de certificate de test. Eliminați certificatul sau contactați hotline-ul tehnic prin Informații aplicație -> Hotline tehnic. (%@)";
+"TestCertificateRequest_Error_DCC_NOT_SUPPORTED_BY_LAB" = "Nu puteți solicita un certificat de test deoarece acest punct de testare nu suportă emiterea de certificate de test. Ștergeți certificatul sau contactați hotline-ul tehnic prin Informații aplicație -> Hotline tehnic. (%@)";
 
 "TestCertificateRequest_Error_E2E_ERROR_CALL_HOTLINE" = "A apărut o eroare. Încercați din nou mai târziu sau contactați hotline-ul tehnic prin Informații aplicație -> Hotline tehnic. (%@)";
 
@@ -2733,7 +2759,7 @@
 
 "TestCertificateRequest_Error_TRY_AGAIN_DCC_NOT_AVAILABLE_YET" = "Certificatul dvs. nu este disponibil încă. Încercați din nou. Dacă eroarea persistă, contactați hotline-ul tehnic prin Informații aplicație -> Hotline tehnic. (%@)";
 
-"TestCertificateRequest_Error_DGC_NOT_SUPPORTED_BY_LAB" = "Nu puteți solicita un certificat de test deoarece acest punct de testare nu suportă emiterea de certificate de test. Eliminați certificatul sau contactați hotline-ul tehnic prin Informații aplicație -> Hotline tehnic. (%@)";
+"TestCertificateRequest_Error_DGC_NOT_SUPPORTED_BY_LAB" = "Nu puteți solicita un certificat de test deoarece acest punct de testare nu suportă emiterea de certificate de test. Ștergeți certificatul sau contactați hotline-ul tehnic prin Informații aplicație -> Hotline tehnic. (%@)";
 
 /* Health Certificate Information */
 "HealthCertificate_Info_Title" = "Adăugarea certificatelor";
@@ -2755,11 +2781,11 @@
 /* CovPass Info Screen */
 "CovPass_Check_Info_Title" = "Verificare certificat de către parteneri (terți)";
 
-"CovPass_Check_Info_body" = "Terții pot utiliza aplicația CovPassCheck pentru a verifica, cu încredere, dacă certificatul de vaccinare, certificatul de recuperare sau certificatul de test este valabil.";
+"CovPass_Check_Info_body" = "Terții pot utiliza aplicația CovPassCheck pentru a determina, cu încredere, dacă certificatul de vaccinare, certificatul de recuperare sau certificatul de test este valabil.";
 
 "CovPass_Check_Info_faq" = "Întrebări frecvente pentru verificarea certificatului de către terți";
 
-"CovPass_Check_Info_text01" = "Puteți verifica chiar dvs. valabilitatea certificatelor în Corona-Warn-App și nu aveți nevoie de aplicația CovPassCheck.";
+"CovPass_Check_Info_text01" = "Puteți verifica chiar dvs. valabilitatea certificatelor dvs. în Corona-Warn-App înainte de deplasare și nu aveți nevoie de aplicația CovPassCheck.";
 
 "CovPass_Check_Info_text02" = "Totuși, o verificare vizuală a certificatelor nu este suficientă pentru terți. Aceștia trebuie să utilizeze aplicația CovPassCheck în Germania.";
 
@@ -2786,7 +2812,7 @@
 
 "HealthCertifiedPerson_QRCode_Image_Description" = "Un cod QR cu certificatul curent";
 
-"HealthCertifiedPerson_validationButtonTitle" = "Verificare valabilitate";
+"HealthCertifiedPerson_validationButtonTitle" = "Verificare valabilitate pentru deplasare";
 
 "HealthCertifiedPerson_VaccinationCertificate_headline" = "Certificat de vaccinare";
 
@@ -2839,7 +2865,7 @@
 
 "HealthCertificate_Details_identifier" = "Număr de certificare";
 
-"HealthCertificate_Details_validationButtonTitle" = "Verificare valabilitate";
+"HealthCertificate_Details_validationButtonTitle" = "Verificare valabilitate pentru deplasare";
 
 "HealthCertificate_Details_deleteButtonTitle" = "Ștergere certificat de vaccinare";
 
@@ -2855,12 +2881,12 @@
 "VaccinationCertificate_Details_OneOfOneHint" = "Acesta este un vaccin care necesită o singură doză sau un vaccin pentru o persoană care s-a recuperat după boală și care are nevoie de o singură doză.";
 
 /* Health Certificate Delete Alert */
-"HealthCertificate_Alert_deleteButton" = "Eliminare certificat";
+"HealthCertificate_Alert_deleteButton" = "Ștergere certificat";
 
 "HealthCertificate_Alert_cancelButton" = "Anulare";
 
 /* Vaccination Certificate Delete Alert */
-"VaccinationCertificate_Alert_title" = "Doriți să eliminați certificatul de vaccinare?";
+"VaccinationCertificate_Alert_title" = "Doriți să ștergeți certificatul de vaccinare?";
 
 "VaccinationCertificate_Alert_message" = "Certificatul va fi mutat în coșul de reciclare. Veți găsi coșul de reciclare pe mozaicul „Mai mult” al paginii de tab de stare, unde puteți șterge definitiv sau restaura certificatul. Certificatul va fi șters automat după 30 de zile.";
 
@@ -2869,14 +2895,14 @@
 
 "TestCertificate_Details_subtitle" = "Test SARS-CoV-2 negativ";
 
-"TestCertificate_Details_primaryButton" = "Eliminare certificat de test";
+"TestCertificate_Details_primaryButton" = "Ștergere certificat de test";
 
 "TestCertificate_Error_FAQ_Description" = "\n\nPentru mai multe informații despre modul în care puteți primi certificatul dvs. de test, consultați pagina noastră de întrebări frecvente.";
 
 "TestCertificate_Error_FAQ_Button_Title" = "Întrebări frecvente privind certificatele de test";
 
 /* Test Certificate Delete Alert */
-"TestCertificate_Alert_title" = "Doriți să eliminați certificatul de test?";
+"TestCertificate_Alert_title" = "Doriți să ștergeți certificatul de test?";
 
 "TestCertificate_Alert_message" = "Certificatul va fi mutat în coșul de reciclare. Veți găsi coșul de reciclare pe mozaicul „Mai mult” al paginii de tab de stare, unde puteți șterge definitiv sau restaura certificatul. Certificatul va fi șters automat după 30 de zile.";
 
@@ -2885,10 +2911,10 @@
 
 "RecoveryCertificate_Details_subtitle" = "Certificat COVID digital UE";
 
-"RecoveryCertificate_Details_primaryButton" = "Eliminare certificat de recuperare";
+"RecoveryCertificate_Details_primaryButton" = "Ștergere certificat de recuperare";
 
 /* Recovery Certificate Delete Alert */
-"RecoveryCertificate_Alert_title" = "Doriți să eliminați certificatul de recuperare?";
+"RecoveryCertificate_Alert_title" = "Doriți să ștergeți certificatul de recuperare?";
 
 "RecoveryCertificate_Alert_message" = "Certificatul va fi mutat în coșul de reciclare. Veți găsi coșul de reciclare pe mozaicul „Mai mult” al paginii de tab de stare, unde puteți șterge definitiv sau restaura certificatul. Certificatul va fi șters automat după 30 de zile.";
 
@@ -2941,10 +2967,10 @@
 
 "HealthCertificate_Error_invalidSignature_msg" = "Semnătura de pe certificat este nevalabilă. Certificatul nu poate fi utilizat ca dovadă și de aceea nu poate fi importat.";
 
-"HealthCertificate_Error_invalidSignature_FAQ_Button_Title" = "Întrebări frecvente privind validarea semnăturii";
+"HealthCertificate_Error_invalidSignature_FAQ_Button_Title" = "Întrebări frecvente privind verificarea semnăturii";
 
 /* Health Certificate Validation Errors */
-"HealthCertificate_Validation_Error_Title" = "Validare nereușită";
+"HealthCertificate_Validation_Error_Title" = "Verificare nereușită";
 
 "HealthCertificate_Validation_Error_TRY_AGAIN" = "A apărut o eroare. Încercați din nou mai târziu sau contactați hotline-ul tehnic prin Informații aplicație -> Hotline tehnic.";
 
@@ -2971,8 +2997,6 @@
 
 "HealthCertificate_Validation_Bullet2" = "În regiuni individuale se pot aplica reguli și restricții suplimentare.";
 
-"HealthCertificate_Validation_Bullet3" = "Pentru a asigura autenticitatea certificatelor, fiecare certificat este emis cu o semnătură digitală. O aplicație de validare doar validează această semnătură.";
-
 "HealthCertificate_Validation_Bullet4" = "Aplicația Corona-Warn nu verifică dacă datele înregistrate în acest certificat sunt valabile.";
 
 "HealthCertificate_Validation_Legal_Title" = "Confidențialitate și securitatea datelor";
@@ -2984,7 +3008,7 @@
 "HealthCertificate_Validation_ButtonTitle" = "Verificare";
 
 /* Health Certificate Validation Result */
-"HealthCertificate_Validation_Result_validationParameters" = "Intrare în %@ pe %@\nValidat pe %@";
+"HealthCertificate_Validation_Result_validationParameters" = "Intrare în %@ pe %@\nVerificat pe %@";
 
 "HealthCertificate_Validation_Result_acceptanceRule" = "Aceasta este o regulă pentru țara dvs. de destinație, %@.";
 
@@ -2997,11 +3021,11 @@
 /* - Passed */
 "HealthCertificate_Validation_Passed_title" = "Certificatul este valabil";
 
-"HealthCertificate_Validation_Passed_unknownTitle" = "Certificatul nu poate fi validat";
+"HealthCertificate_Validation_Passed_unknownTitle" = "Certificatul nu poate fi verificat";
 
 "HealthCertificate_Validation_Passed_subtitle" = "Certificatul dvs. este valabil în țara selectată";
 
-"HealthCertificate_Validation_Passed_unknownSubtitle" = "Certificatul dvs. nu a putut fi validat";
+"HealthCertificate_Validation_Passed_unknownSubtitle" = "Certificatul dvs. nu a putut fi verificat";
 
 "HealthCertificate_Validation_Passed_hintsTitle" = "Note";
 
@@ -3009,16 +3033,14 @@
 
 "HealthCertificate_Validation_Passed_hint2" = "În regiuni individuale se pot aplica reguli și restricții suplimentare.";
 
-"HealthCertificate_Validation_Passed_hint3" = "Pentru a asigura autenticitatea certificatelor, fiecare certificat este emis cu o semnătură digitală. O aplicație de validare doar validează această semnătură.";
-
 "HealthCertificate_Validation_Passed_hint4" = "Aplicația Corona-Warn nu verifică dacă datele înregistrate în acest certificat sunt valabile.";
 
 "HealthCertificate_Validation_Passed_primaryButtonTitle" = "Verificare pentru o altă țară";
 
 /* - Open */
-"HealthCertificate_Validation_Open_title" = "Certificatul nu poate fi validat";
+"HealthCertificate_Validation_Open_title" = "Certificatul nu poate fi verificat";
 
-"HealthCertificate_Validation_Open_subtitle" = "Certificatul dvs. nu a putut fi validat complet";
+"HealthCertificate_Validation_Open_subtitle" = "Certificatul dvs. nu a putut fi verificat complet";
 
 "HealthCertificate_Validation_Open_openSectionTitle" = "Note";
 
@@ -3029,11 +3051,11 @@
 
 "HealthCertificate_Validation_Failed_subtitle" = "Certificatul dvs. nu este valabil în țara selectată";
 
-"HealthCertificate_Validation_Failed_failedSectionTitle" = "Validare completă";
+"HealthCertificate_Validation_Failed_failedSectionTitle" = "Verificare completă";
 
 "HealthCertificate_Validation_Failed_failedSectionDescription" = "Următoarele reguli nu sunt îndeplinite:";
 
-"HealthCertificate_Validation_Failed_openSectionTitle" = "Validarea nu este posibilă";
+"HealthCertificate_Validation_Failed_openSectionTitle" = "Verificarea nu este posibilă";
 
 "HealthCertificate_Validation_Failed_openSectionDescription" = "Următoarele reguli nu au putut fi verificate. Asigurați-vă că certificatul îndeplinește regulile țării de destinație.";
 
@@ -3076,7 +3098,7 @@
 
 "UniversalQRScanner_InstructionTitle" = "Ce coduri QR puteți scana?";
 
-"UniversalQRScanner_InstructionDescription" = "Teste PCR și teste rapide, certificate de test, certificate de vaccinare, certificate de recuperare și check-inuri.";
+"UniversalQRScanner_InstructionDescription" = "Testele, certificatele dvs., check-inurile și verificarea la emiterea biletului";
 
 "UniversalQRScanner_FileButtonTitle" = "Deschidere fișier";
 
@@ -3101,6 +3123,38 @@
 "UniversalQRScanner_RestoredFromBinAlert_Title" = "Restaurare certificat";
 
 "UniversalQRScanner_RestoredFromBinAlert_Message" = "Codul QR a fost deja înregistrat pe smartphone-ul dvs. Certificatul va fi restaurat din coșul de reciclare.";
+
+"UniversalQRScanner_TestRestoredFromBinAlert_Title" = "Restaurare test";
+
+"UniversalQRScanner_TestRestoredFromBinAlert_Message" = "Codul QR a fost deja înregistrat pe smartphone-ul dvs. Testul va fi restaurat din coșul de reciclare.";
+
+"UniversalQRScanner_MaxPersonAmountAlert_warningTitle" = "Avertizare";
+
+"UniversalQRScanner_MaxPersonAmountAlert_errorTitle" = "Eroare";
+
+"UniversalQRScanner_MaxPersonAmountAlert_warningMessage" = "Corona-Warn-App nu poate fi utilizată pentru verificarea certificatelor de la terți. În acest scop, utilizați aplicația CovPassCheck.\n\nPuteți adăuga certificate pentru maximum %i persoane. După ce este atinsă această limită, nu mai puteți scana alte certificate noi pentru alte persoane.\n\nVeți găsi mai multe informații despre certificatele de vaccinare pe pagina noastră de întrebări frecvente.";
+
+"UniversalQRScanner_MaxPersonAmountAlert_errorMessage" = "Corona-Warn-App nu poate fi utilizată pentru verificarea certificatelor de la terți. În acest scop, utilizați aplicația CovPassCheck.\n\nPuteți adăuga certificate pentru maximum %i persoane. Nu mai puteți scana alte certificate noi pentru alte persoane.\n\nVeți găsi mai multe informații despre certificatele de vaccinare pe pagina noastră de întrebări frecvente.";
+
+"UniversalQRScanner_MaxPersonAmountAlert_covPassCheckButton" = "Descărcați aplicația CovPassCheck";
+
+"UniversalQRScanner_MaxPersonAmountAlert_faqButton" = "Pagina de întrebări frecvente despre verificarea certificatului ";
+
+"UniversalQRScanner_Info_title" = "Informații despre codurile QR";
+
+"UniversalQRScanner_Info_bulletPoint1" = "Certificatele dvs. de test, certificatele de vaccinare, certificatele de recuperare după boală și certificatele pentru membrii familiei dvs.";
+
+"UniversalQRScanner_Info_bulletPoint2" = "Check-inuri pentru evenimente și locuri";
+
+"UniversalQRScanner_Info_bulletPoint3" = "Teste PCR și teste rapide";
+
+"UniversalQRScanner_Info_bulletPoint4" = "Verificarea certificatelor dvs. la emiterea biletelor";
+
+"UniversalQRScanner_Info_body1" = "Sunt citite datele de la codul QR respectiv.";
+
+"UniversalQRScanner_Info_body2" = "Când scanați coduri QR pentru verificarea certificatului în procesul de emitere a biletului, sunt obținute informații suplimentare despre furnizorul rezervării.";
+
+"UniversalQRScanner_Info_dataPrivacy" = "Pentru mai multe informații despre prelucrarea datelor, consultați înștiințarea de confidențialitate.";
 
 /* File Scanner */
 "FileScanner_sheet_photos" = "Bibliotecă de fotografii";
@@ -3135,7 +3189,7 @@
 
 "FileScanner_InvalidQRCode_title" = "Niciun cod QR potrivit";
 
-"FileScanner_InvalidQRCode_message" = "Codul QR nu este acceptat de Corona-Warn-App. Scanați un cod QR potrivit.";
+"FileScanner_InvalidQRCode_message" = "Codul QR nu este acceptat de Corona-Warn-App. Selectați un cod QR potrivit.";
 
 "FileScanner_FileNotReadable_title" = "Fișier imposibil de citit";
 
@@ -3187,7 +3241,7 @@
 
 "RecycleBin_description" = "Atingeți un element pentru a-l restaura. Elementele vor fi șterse automat după 30 de zile.";
 
-"RecycleBin_deleteAllButtonTitle" = "Eliminare toate";
+"RecycleBin_deleteAllButtonTitle" = "Ștergere definitivă tot";
 
 /* - Vaccination Certificate */
 "RecycleBin_VaccinationCertificate_headline" = "Certificat de vaccinare";
@@ -3224,7 +3278,7 @@
 /* - Empty State */
 "RecycleBin_EmptyState_title" = "Coșul de reciclare este gol";
 
-"RecycleBin_EmptyState_description" = "Când eliminați certificatele, acestea sunt mutate în coșul de reciclare și sunt afișate acolo.";
+"RecycleBin_EmptyState_description" = "Când ștergeți certificatele și testele, acestea sunt mutate în coșul de reciclare și sunt afișate acolo.";
 
 "RecycleBin_EmptyState_imageDescription" = "Un coș de reciclare";
 
@@ -3254,4 +3308,137 @@
 "RecycleBin_DeleteAll_AlertConfirmButtonTitle" = "Ștergere";
 
 "RecycleBin_DeleteAll_AlertCancelButtonTitle" = "Anulare";
+
+/* Ticket Validation */
+/* - Cancel Alert */
+"TicketValidation_CancelAlert_title" = "Doriți să anulați verificarea?";
+
+"TicketValidation_CancelAlert_message" = "Dacă anulați verificarea, certificatul nu poate fi verificat.";
+
+"TicketValidation_CancelAlert_cancelButtonTitle" = "Anulare verificare";
+
+"TicketValidation_CancelAlert_continueButtonTitle" = "Reluare verificare";
+
+/* - Error */
+"TicketValidation_Error_title" = "Eroare";
+
+"TicketValidation_Error_serviceProviderErrorNoName" = "A apărut o eroare la conectarea la furnizor. Contactați furnizorul dacă problema persistă.";
+
+"TicketValidation_Error_serviceProviderError" = "A apărut o eroare la conectarea la furnizorul „%@”. Contactați furnizorul dacă problema persistă.";
+
+"TicketValidation_Error_tryAgain" = "A apărut o eroare la prelucrarea datelor. Încercați din nou mai târziu.";
+
+"TicketValidation_Error_OutdatedApp" = "Versiunea curentă a aplicației Corona-Warn nu mai acceptă verificarea biletelor. Actualizați aplicația și porniți din nou verificarea biletelor.";
+
+"TicketValidation_Error_UpdateAction" = "Accesați App Store";
+
+"TicketValidation_Error_serviceProviderErrorNoMatchTitle" = "Notă de securitate";
+
+"TicketValidation_Error_serviceProviderErrorNoMatch" = "Acest furnizor este necunoscut pentru noi. Din motive de securitate, verificarea la emiterea biletului este posibilă doar pentru furnizorii cunoscuți. Contactați furnizorul care v-a transmis acest cod QR și încercați să actualizați aplicația la ultima versiune.";
+
+/* - First Consent */
+"TicketValidation_FirstConsent_title" = "Consimțământul dvs.";
+
+"TicketValidation_FirstConsent_imageDescription" = "Este transferat un certificat pentru o achiziție de bilete";
+
+"TicketValidation_FirstConsent_subtitle" = "Verificarea certificatului la emiterea biletului";
+
+"TicketValidation_FirstConsent_serviceProvider" = "Furnizor:";
+
+"TicketValidation_FirstConsent_subject" = "Rezervare:";
+
+"TicketValidation_FirstConsent_explination" = "Furnizorul dorește să se asigure că este disponibil un certificat valabil pentru rezervarea dvs. Consimțământul dvs. este necesar pentru a obține detaliile de emitere a biletului de la furnizor și pentru elibera certificatele dvs. salvate.";
+
+"TicketValidation_FirstConsent_BulletPoint1" = "Nu aveți obligația să permiteți verificarea certificatului dvs. cu aplicația Corona-Warn. De asemenea, puteți prezenta dovada vaccinării dvs., a testării sau starea recuperării după boală într-un mod diferit.";
+
+"TicketValidation_FirstConsent_BulletPoint2" = "Cerințele certificatului sunt definite de către furnizor. RKI nu are nicio influență asupra acestui proces. Contactați furnizorul pentru a obține mai multe informații despre cerințele certificatului.";
+
+"TicketValidation_FirstConsent_BulletPoint3" = "Identificarea certificatelor corespunzătoare se efectuează local pe smartphone-ul dvs. Nu sunt expediate niciun fel de date la RKI sau la furnizor.";
+
+"TicketValidation_FirstConsent_BulletPoint4" = "RKI nu primește date privind emiterea biletelor dvs. sau privind certificatele pe care le-ați salvat.";
+
+"TicketValidation_FirstConsent_DataPrivacyTitle" = "Pentru mai multe informații despre prelucrarea datelor, consultați înștiințarea de confidențialitate.";
+
+"TicketValidation_FirstConsent_primaryButtonTitle" = "Accept";
+
+"TicketValidation_FirstConsent_secondaryButtonTitle" = "Anulare";
+
+/* Certificate Selection */
+"TicketValidation_CertificateSelection_title" = "Selectare certificat";
+
+"TicketValidation_CertificateSelection_serviceProviderRequirementsHeadline" = "Cerințe furnizor:";
+
+"TicketValidation_CertificateSelection_serviceProviderRelevantCertificatesHeadline" = "Următoarele certificate îndeplinesc cerințele furnizorului și pot fi utilizate ca dovadă:";
+
+"TicketValidation_CertificateSelection_serviceProviderRequiredCertificateHeadline" = "Următorul certificat este necesar:";
+
+"TicketValidation_CertificateSelection_noSupportedCertificateHeadline" = "Niciun certificat corespunzător nu este disponibil.";
+
+"TicketValidation_CertificateSelection_noSupportedCertificateDescription" = "Nu aveți un certificat care îndeplinește cerințele sistemului de bilete. Asigurați-vă că numele dvs. din sistemul de bilete corespunde cu numele de pe certificatele dvs. Dacă aveți nevoie de certificate suplimentare care nu sunt încă disponibile în aplicație, adăugați-le acum și apoi începeți din nou verificarea.";
+
+"TicketValidation_CertificateSelection_faqDescription" = "Pentru mai multe informații, consultați pagina noastră %@.";
+
+"TicketValidation_CertificateSelection_faq" = "Întrebări frecvente";
+
+"TicketValidation_CertificateSelection_dateOfBirth" = "\nData nașterii: %@";
+
+"TicketValidation_SupportedCertificateType_Vaccination_Certificate" = "Certificat de vaccinare";
+
+"TicketValidation_SupportedCertificateType_RecoveryCertificate" = "Certificat de recuperare";
+
+"TicketValidation_SupportedCertificateType_TestCertificate" = "Certificat de test rapid, certificat de test PCR";
+
+"TicketValidation_SupportedCertificateType_PCRTestCertificate" = "Certificat de test PCR";
+
+"TicketValidation_SupportedCertificateType_RATTestCertificate" = "Certificat de test rapid";
+
+/* - Second Consent */
+"TicketValidation_SecondConsent_title" = "Consimțământul dvs.";
+
+"TicketValidation_SecondConsent_subtitle" = "Se transmite certificatul dvs. pentru verificare";
+
+"TicketValidation_SecondConsent_serviceIdentity" = "Partener de verificare:";
+
+"TicketValidation_SecondConsent_serviceProvider" = "Furnizor:";
+
+"TicketValidation_SecondConsent_explination" = "Certificatul selectat și informațiile dvs. de rezervare vor fi expediate acum la partenerul de verificare al furnizorului. Consimțământul dvs. este necesar pentru a expedia datele dvs. la partenerul de verificare.";
+
+"TicketValidation_SecondConsent_BulletPoint1" = "Partenerul de verificare verifică dacă semnătura electronică este valabilă și dacă data de expirare tehnică a certificatului a fost atinsă. Puteți vedea data de expirare tehnică și conținutul certificatului transmis în imaginea detaliată a certificatului din aplicație.";
+
+"TicketValidation_SecondConsent_BulletPoint2" = "Certificatele conțin date de sănătate sensibile. În consecință, trebuie să permiteți doar furnizorii pe care îi cunoașteți și în care aveți încredere pentru a verifica certificatele dvs.";
+
+"TicketValidation_SecondConsent_BulletPoint3" = "RKI nu răspunde de prelucrarea datelor de către furnizor și de către partenerul de verificare. Citiți înștiințările de confidențialitate ale acestora pentru a descoperi cum sunt utilizate datele dvs. și în ce scopuri.";
+
+"TicketValidation_SecondConsent_BulletPoint4" = "Partenerul de verificare notifică imediat furnizorul în legătură cu rezultatul. Partenerul doar comunică dacă verificarea a fost reușită sau nu.";
+
+"TicketValidation_SecondConsent_DataPrivacyTitle" = "Pentru mai multe informații despre prelucrarea datelor, consultați înștiințarea de confidențialitate.";
+
+"TicketValidation_SecondConsent_primaryButtonTitle" = "Accept";
+
+"TicketValidation_SecondConsent_secondaryButtonTitle" = "Anulare";
+
+/* - Result */
+"TicketValidation_Result_validationParameters" = "Verificat de către partenerul de verificare pe %@";
+
+"TicketValidation_Result_moreInformation" = "Pentru mai multe informații, consultați pagina noastră %@.";
+
+"TicketValidation_Result_moreInformation_placeholder_FAQ" = "Întrebări frecvente";
+
+"TicketValidation_Result_Passed_title" = "Verificare reușită";
+
+"TicketValidation_Result_Passed_subtitle" = "Certificatul dvs. a fost verificat cu succes";
+
+"TicketValidation_Result_Passed_description" = "Furnizorul „%@” a fost notificat că verificarea a fost reușită.";
+
+"TicketValidation_Result_Open_title" = "Certificatul nu poate fi verificat";
+
+"TicketValidation_Result_Open_subtitle" = "Certificatul dvs. nu a putut fi verificat de către partenerul de verificare";
+
+"TicketValidation_Result_Open_description" = "Dacă aveți întrebări, contactați furnizorul „%@”.";
+
+"TicketValidation_Result_Failed_title" = "Certificat nerecunoscut";
+
+"TicketValidation_Result_Failed_subtitle" = "Certificatul dvs. nu îndeplinește cerințele furnizorului.";
+
+"TicketValidation_Result_Failed_description" = "Dacă aveți întrebări, contactați furnizorul „%@”.";
 

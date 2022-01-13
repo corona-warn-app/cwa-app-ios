@@ -4,23 +4,31 @@
 
 import Foundation
 
-/// The result of a qrScan is a TraceLocation for checkins or warnings on behalf, a corona test or a healthCertificate (as a tuple of person and certificate)
 enum QRCodeResult {
 	case traceLocation(TraceLocation)
 	case coronaTest(CoronaTestRegistrationInformation)
 	case certificate(CertificateResult)
+	case ticketValidation(TicketValidationInitializationData)
 }
 
 struct CertificateResult {
-	let restoredFromBin: Bool
+
+	enum RegistrationDetail {
+		case restoredFromBin
+		case personWarnThresholdReached
+	}
+
+	let registrationDetail: RegistrationDetail?
 	let person: HealthCertifiedPerson
 	let certificate: HealthCertificate
+
 }
 
 enum QRCodeParserError: Error, Equatable {
 	case scanningError(QRScannerError)
 	case checkinQrError(CheckinQRScannerError)
 	case certificateQrError(HealthCertificateServiceError.RegistrationError)
+	case ticketValidation(TicketValidationQRScannerError)
 	
 	// MARK: - Protocol Equatable
 	// swiftlint:disable pattern_matching_keywords
@@ -32,6 +40,8 @@ enum QRCodeParserError: Error, Equatable {
 			return checkinQrErrorLhs == checkinQrErrorRhs
 		case (.certificateQrError(let certificateQrErrorLhs), .certificateQrError(let certificateQrErrorRhs)):
 			return certificateQrErrorLhs.localizedDescription == certificateQrErrorRhs.localizedDescription
+		case (.ticketValidation(let ticketValidationLhs), .ticketValidation(let ticketValidationRhs)):
+			return ticketValidationLhs == ticketValidationRhs
 		default:
 			return false
 		}

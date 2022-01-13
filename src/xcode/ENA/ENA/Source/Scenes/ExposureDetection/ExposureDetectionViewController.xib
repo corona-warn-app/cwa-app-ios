@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -27,7 +27,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" delaysContentTouches="NO" dataMode="prototypes" style="grouped" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="Ecz-FJ-Tex">
-                    <rect key="frame" x="0.0" y="117.5" width="414" height="778.5"/>
+                    <rect key="frame" x="0.0" y="115.5" width="414" height="780.5"/>
                     <color key="backgroundColor" name="ENA Background Color"/>
                     <connections>
                         <outlet property="dataSource" destination="-1" id="EVY-yH-9Yy"/>
@@ -60,13 +60,13 @@
                     <blurEffect style="regular"/>
                 </visualEffectView>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="o5N-fQ-iws">
-                    <rect key="frame" x="0.0" y="0.0" width="414" height="117.5"/>
+                    <rect key="frame" x="0.0" y="0.0" width="414" height="115.5"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SXO-Mq-nXl" userLabel="Title View">
-                            <rect key="frame" x="0.0" y="0.0" width="374" height="117.5"/>
+                            <rect key="frame" x="0.0" y="0.0" width="374" height="115.5"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Current Risk Level" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QHc-xv-Mv6" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
-                                    <rect key="frame" x="16" y="68" width="342" height="33.5"/>
+                                    <rect key="frame" x="16" y="68" width="342" height="31.5"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
@@ -124,10 +124,10 @@
     </objects>
     <designables>
         <designable name="QHc-xv-Mv6">
-            <size key="intrinsicContentSize" width="236.5" height="33.5"/>
+            <size key="intrinsicContentSize" width="219.5" height="31.5"/>
         </designable>
         <designable name="xd3-NS-88w">
-            <size key="intrinsicContentSize" width="107" height="50"/>
+            <size key="intrinsicContentSize" width="97" height="50"/>
         </designable>
     </designables>
     <resources>

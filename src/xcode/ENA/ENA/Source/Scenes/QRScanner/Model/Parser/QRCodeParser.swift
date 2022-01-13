@@ -71,6 +71,8 @@ class QRCodeParser: QRCodeParsable {
 				healthCertificateService: healthCertificateService,
 				markAsNew: markCertificateAsNew
 			)
+		} else if qrCode.trimmingCharacters(in: .whitespacesAndNewlines).hasPrefix("{") {
+			parser = TicketValidationQRCodeParser()
 		}
 
 		guard parser != nil else {

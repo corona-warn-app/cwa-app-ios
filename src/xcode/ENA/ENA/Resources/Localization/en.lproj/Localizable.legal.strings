@@ -219,3 +219,32 @@
 "ExposureSubmission_TestCertificate_Information_Legal_Text_4" = "If you present the QR code of the test certificate in the app and it is scanned using the verification app, others will be able to find out your test result. During verification, the official verification app will also display your name and date of birth.";
 
 "ExposureSubmission_TestCertificate_Information_Legal_Text_5" = "You have the possibility to delete test certificates in the app at any time. Until then, the test certificates will be stored on your smartphone.";
+
+/* Ticket Validation First Consent */
+
+"TicketValidation_FirstConsent_Legal_title" = "Your consent";
+
+"TicketValidation_FirstConsent_Legal_subtitle" = "By tapping on “Accept”, you consent to the following steps:";
+
+"TicketValidation_FirstConsent_Legal_bulletPoint1" = "The app will retrieve from the provider the name and date of birth of the person specified at the time of booking, the booking details relevant to the verification (e.g. destination country and date of travel) and the certificate requirements specified by the provider for your booking.";
+
+"TicketValidation_FirstConsent_Legal_bulletPoint2" = "Once retrieved, the app will use this data to determine which of your stored certificates can be used.";
+
+/* Ticket Validation Second Consent */
+
+"TicketValidation_SecondConsent_Legal_title" = "Your consent";
+
+"TicketValidation_SecondConsent_Legal_subtitle" = "By tapping on “Accept”, you consent to the transfer of the following data to the verification partner:";
+
+"TicketValidation_SecondConsent_Legal_bulletPoint1" = "Content and electronic signature of the selected certificate (including name and date of birth of the certificate holder, validity period, issuer and date of issue, vaccine/test/recovery details).";
+
+"TicketValidation_SecondConsent_Legal_bulletPoint2" = "The booking details retrieved from the provider:";
+
+"TicketValidation_SecondConsent_Legal_subBulletPoint1" = "Period during which the certificate must be valid (travel duration or event date)";
+
+"TicketValidation_SecondConsent_Legal_subBulletPoint2" = "For travel bookings: Country of origin and country of destination or journey";
+
+"TicketValidation_SecondConsent_Legal_subBulletPoint3" = "For cross-border travel: Certificate requirements imposed by the destination country";
+
+"TicketValidation_SecondConsent_Legal_subBulletPoint4" = "Further certificate requirements on the part of the provider (e.g. which vaccines or test procedures are accepted)";
+

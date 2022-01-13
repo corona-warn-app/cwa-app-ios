@@ -87,7 +87,6 @@ class HomeTableViewModel {
 	}
 
 	func heightForRow(at indexPath: IndexPath) -> CGFloat {
-		
 		let isStatisticsCell = HomeTableViewModel.Section(rawValue: indexPath.section) == .statistics
 		let isGlobalStatisticsNotLoaded = state.statistics.supportedCardIDSequence.isEmpty
 		let isLocalStatisticsNotCached = state.store.selectedLocalStatisticsRegions.isEmpty
@@ -110,12 +109,19 @@ class HomeTableViewModel {
 	}
 
 	func didTapTestResultButton(coronaTestType: CoronaTestType) {
-		if coronaTestService.coronaTest(ofType: coronaTestType)?.testResult == .expired ||
-			(coronaTestType == .antigen && coronaTestService.antigenTestIsOutdated) {
+		if coronaTestType == .antigen && coronaTestService.antigenTestIsOutdated {
 			coronaTestService.removeTest(coronaTestType)
 		} else {
 			onTestResultCellTap(coronaTestType)
 		}
+	}
+
+	func shouldShowDeletionConfirmationAlert(for coronaTestType: CoronaTestType) -> Bool {
+		coronaTestService.coronaTest(ofType: coronaTestType)?.testResult == .expired
+	}
+
+	func moveTestToBin(type coronaTestType: CoronaTestType) {
+		coronaTestService.moveTestToBin(coronaTestType)
 	}
 
 	func updateTestResult() {
@@ -128,7 +134,7 @@ class HomeTableViewModel {
 				case .noCoronaTestOfRequestedType, .noRegistrationToken, .testExpired:
 					// Errors because of no registered corona tests or expired tests are ignored
 					break
-				case .responseFailure, .unknownTestResult:
+				case .responseFailure, .serviceError, .registrationTokenError, .unknownTestResult, .malformedDateOfBirthKey:
 					// Only show errors for corona tests that are still expecting their final test result
 					if self.coronaTestService.pcrTest != nil && self.coronaTestService.pcrTest?.finalTestResultReceivedDate == nil {
 						self.testResultLoadingError = error
@@ -145,7 +151,7 @@ class HomeTableViewModel {
 				case .noCoronaTestOfRequestedType, .noRegistrationToken, .testExpired:
 					// Errors because of no registered corona tests or expired tests are ignored
 					break
-				case .responseFailure, .unknownTestResult:
+				case .responseFailure, .serviceError, .registrationTokenError, .unknownTestResult, .malformedDateOfBirthKey:
 					// Only show errors for corona tests that are still expecting their final test result
 					if self.coronaTestService.antigenTest != nil && self.coronaTestService.antigenTest?.finalTestResultReceivedDate == nil {
 						self.testResultLoadingError = error

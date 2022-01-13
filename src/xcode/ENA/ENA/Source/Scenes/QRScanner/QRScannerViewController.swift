@@ -16,10 +16,12 @@ class QRScannerViewController: UIViewController {
 		markCertificateAsNew: Bool,
 		didScan: @escaping (QRCodeResult) -> Void,
 		dismiss: @escaping () -> Void,
-		presentFileScanner: @escaping () -> Void
+		presentFileScanner: @escaping () -> Void,
+		onInfoButtonTap: @escaping () -> Void
 	) {
 		self.dismiss = dismiss
 		self.presentFileScanner = presentFileScanner
+		self.onInfoButtonTap = onInfoButtonTap
 
 		super.init(nibName: nil, bundle: nil)
 
@@ -88,16 +90,33 @@ class QRScannerViewController: UIViewController {
 		viewModel?.deactivateScanning()
 	}
 
+	// MARK: - Internal
+
+	func activateScanning() {
+		viewModel?.activateScanning()
+	}
+
 	// MARK: - Private
 
 	private let focusView = QRScannerFocusView()
 	private let dismiss: () -> Void
 	private let presentFileScanner: () -> Void
+	private let onInfoButtonTap: () -> Void
 	private let contentView = UIView()
 	private let flashButton = UIButton(type: .custom)
 	private let fileButton = UIButton(type: .custom)
 	private var previewLayer: AVCaptureVideoPreviewLayer! { didSet { updatePreviewMask() } }
 	private var viewModel: QRScannerViewModel?
+
+	private lazy var infoButton: UIButton = {
+		let button = UIButton()
+		button.setImage(UIImage(imageLiteralResourceName: "infoBigger"), for: .normal)
+		button.addTarget(self, action: #selector(didHitInfoButton), for: .touchUpInside)
+		button.accessibilityLabel = AppStrings.UniversalQRScanner.Info.title
+		button.accessibilityIdentifier = AccessibilityIdentifiers.UniversalQRScanner.info
+
+		return button
+	}()
 
 	private func setupView() {
 		view.backgroundColor = .enaColor(for: .background)
@@ -120,7 +139,7 @@ class QRScannerViewController: UIViewController {
 		instructionDescription.style = .subheadline
 		instructionDescription.numberOfLines = 0
 		instructionDescription.textAlignment = .center
-		instructionDescription.textColor = .enaColor(for: .textPrimary1)
+		instructionDescription.textColor = .enaColor(for: .iconWithText)
 		instructionDescription.font = .enaFont(for: .body)
 		instructionDescription.text = AppStrings.UniversalQRScanner.instructionDescription
 		instructionDescription.translatesAutoresizingMaskIntoConstraints = false
@@ -149,6 +168,9 @@ class QRScannerViewController: UIViewController {
 		contentView.addSubview(instructionTitle)
 		contentView.addSubview(instructionDescription)
 
+		infoButton.translatesAutoresizingMaskIntoConstraints = false
+		contentView.addSubview(infoButton)
+
 		let scrollView = UIScrollView()
 		scrollView.translatesAutoresizingMaskIntoConstraints = false
 		scrollView.addSubview(contentView)
@@ -171,9 +193,14 @@ class QRScannerViewController: UIViewController {
 				instructionTitle.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 0),
 				
 				instructionDescription.centerXAnchor.constraint(equalTo: contentView.centerXAnchor, constant: 0),
-				instructionDescription.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.75, constant: 0),
+				instructionDescription.widthAnchor.constraint(lessThanOrEqualTo: contentView.widthAnchor, multiplier: 0.75, constant: 0),
 				instructionDescription.topAnchor.constraint(equalTo: instructionTitle.bottomAnchor, constant: 15),
 				instructionDescription.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: 0),
+
+				infoButton.topAnchor.constraint(equalTo: instructionDescription.topAnchor, constant: -4),
+				infoButton.leadingAnchor.constraint(equalTo: instructionDescription.trailingAnchor, constant: 4),
+				infoButton.widthAnchor.constraint(equalToConstant: 30.0),
+				infoButton.heightAnchor.constraint(equalToConstant: 30.0),
 				
 				contentView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
 				contentView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
@@ -268,8 +295,13 @@ class QRScannerViewController: UIViewController {
 		view.layer.insertSublayer(previewLayer, at: 0)
 	}
 
+	// swiftlint:disable cyclomatic_complexity
 	private func showErrorAlert(error: QRCodeParserError) {
-		viewModel?.deactivateScanning()
+		guard let viewModel = viewModel else {
+			return
+		}
+
+		viewModel.deactivateScanning()
 
 		let unwrappedError: Error
 		switch error {
@@ -279,37 +311,70 @@ class QRScannerViewController: UIViewController {
 			unwrappedError = checkinQRScannerError
 		case .certificateQrError(let healthCertificateServiceError):
 			unwrappedError = healthCertificateServiceError
+		case .ticketValidation(let ticketValidationError):
+			unwrappedError = ticketValidationError
 		}
 
 		var alertTitle = AppStrings.HealthCertificate.Error.title
 		var errorMessage = unwrappedError.localizedDescription
-		var faqAlertAction: UIAlertAction?
+		var additionalActions = [UIAlertAction]()
 
 		if case .certificateQrError(.invalidSignature) = error {
 			// invalid signature error on certificates needs a specific title, errorMessage and FAQ action
 			alertTitle = AppStrings.HealthCertificate.Error.invalidSignatureTitle
 			errorMessage = unwrappedError.localizedDescription
-			faqAlertAction = UIAlertAction(
-				title: AppStrings.HealthCertificate.Error.invalidSignatureFAQButtonTitle,
-				style: .default,
-				handler: { [weak self] _ in
-					if LinkHelper.open(urlString: AppStrings.Links.invalidSignatureFAQ) {
-						self?.viewModel?.activateScanning()
+			additionalActions.append(
+				UIAlertAction(
+					title: AppStrings.HealthCertificate.Error.invalidSignatureFAQButtonTitle,
+					style: .default,
+					handler: { [weak self] _ in
+						if LinkHelper.open(urlString: AppStrings.Links.invalidSignatureFAQ) {
+							self?.viewModel?.activateScanning()
+						}
 					}
-				}
+				)
 			)
+		} else if case .certificateQrError(.tooManyPersonsRegistered) = error {
+			// invalid signature error on certificates needs a specific title, errorMessage and FAQ action
+			alertTitle = AppStrings.UniversalQRScanner.MaxPersonAmountAlert.errorTitle
+			errorMessage = String(
+				format: unwrappedError.localizedDescription,
+				viewModel.dccPersonCountMax
+			)
+			additionalActions.append(contentsOf: [
+				UIAlertAction(
+					title: AppStrings.UniversalQRScanner.MaxPersonAmountAlert.covPassCheckButton,
+					style: .default,
+					handler: { [weak self] _ in
+						if LinkHelper.open(urlString: AppStrings.UniversalQRScanner.MaxPersonAmountAlert.covPassCheckLink) {
+							self?.viewModel?.activateScanning()
+						}
+					}
+				),
+				UIAlertAction(
+					title: AppStrings.UniversalQRScanner.MaxPersonAmountAlert.faqButton,
+					style: .default,
+					handler: { [weak self] _ in
+						if LinkHelper.open(urlString: AppStrings.UniversalQRScanner.MaxPersonAmountAlert.faqLink) {
+							self?.viewModel?.activateScanning()
+						}
+					}
+				)
+			])
 		} else if case .certificateQrError = error {
 			// Show FAQ section for other certificate errors
 			errorMessage += AppStrings.HealthCertificate.Error.faqDescription
 
-			faqAlertAction = UIAlertAction(
-				title: AppStrings.HealthCertificate.Error.faqButtonTitle,
-				style: .default,
-				handler: { [weak self] _ in
-					if LinkHelper.open(urlString: AppStrings.Links.healthCertificateErrorFAQ) {
-						self?.viewModel?.activateScanning()
+			additionalActions.append(
+				UIAlertAction(
+					title: AppStrings.HealthCertificate.Error.faqButtonTitle,
+					style: .default,
+					handler: { [weak self] _ in
+						if LinkHelper.open(urlString: AppStrings.Links.healthCertificateErrorFAQ) {
+							self?.viewModel?.activateScanning()
+						}
 					}
-				}
+				)
 			)
 		}
 
@@ -319,8 +384,8 @@ class QRScannerViewController: UIViewController {
 			preferredStyle: .alert
 		)
 
-		if let faqAlertAction = faqAlertAction {
-			alert.addAction(faqAlertAction)
+		additionalActions.forEach {
+			alert.addAction($0)
 		}
 		alert.addAction(
 			UIAlertAction(
@@ -397,6 +462,11 @@ class QRScannerViewController: UIViewController {
 		previewLayer.mask?.addSublayer(throughHoleLayer)
 		previewLayer.mask?.addSublayer(backdropLayer)
 	}
+
+	@objc
+	private func didHitInfoButton() {
+		onInfoButtonTap()
+	}
 	
 	#if targetEnvironment(simulator)
 	private func showCodeSelection() {
@@ -431,13 +501,15 @@ class QRScannerViewController: UIViewController {
 		event.accessibilityIdentifier = AccessibilityIdentifiers.UniversalQRScanner.fakeEvent
 		alertVC.addAction(event)
 
-		let other = UIAlertAction(title: "Other", style: .destructive, handler: nil)
+		let ticketValidation = UIAlertAction(title: "Ticket Validation", style: .default, handler: { [weak self] _ in
+			self?.viewModel?.fakeTicketValidation()
+		})
+		ticketValidation.accessibilityIdentifier = AccessibilityIdentifiers.UniversalQRScanner.fakeTicketValidation
+		alertVC.addAction(ticketValidation)
+
+		let other = UIAlertAction(title: "Other", style: .cancel)
 		other.accessibilityIdentifier = AccessibilityIdentifiers.UniversalQRScanner.other
 		alertVC.addAction(other)
-
-		let cancel = UIAlertAction(title: "Cancel", style: .cancel)
-		cancel.accessibilityIdentifier = AccessibilityIdentifiers.UniversalQRScanner.cancel
-		alertVC.addAction(cancel)
 		
 		present(alertVC, animated: false, completion: nil)
 		

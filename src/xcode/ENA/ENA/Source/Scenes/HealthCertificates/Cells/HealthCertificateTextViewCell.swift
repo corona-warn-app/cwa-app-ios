@@ -47,6 +47,10 @@ class HealthCertificateTextViewCell: UITableViewCell, UITextViewDelegate, ReuseI
 		textView.selectedTextRange = nil
 	}
 
+	func textView(_ textView: UITextView, shouldInteractWith url: URL, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
+		LinkHelper.open(url: url, interaction: interaction) == .allow
+	}
+
 	// MARK: - Internal
 
 	func configure(with cellViewModel: HealthCertificateSimpleTextCellViewModel) {

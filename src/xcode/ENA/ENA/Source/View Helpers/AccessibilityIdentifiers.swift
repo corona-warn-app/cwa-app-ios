@@ -246,11 +246,15 @@ enum AccessibilityIdentifiers {
 		static let lowRiskExposureSection = "AppStrings.ExposureDetection.lowRiskExposureSection"
 		static let infectionRiskExplanationSection = "AppStrings.ExposureDetection.infectionRiskExplanationSection"
 		
-		static let guideFAQ = "AppStrings.ExposureDetection.guideFAQ"
-		
 		static let surveyCardCell = "AppStrings.ExposureDetection.surveyCardCell"
 		static let surveyCardButton = "AppStrings.ExposureDetection.surveyCardButton"
 		static let surveyStartButton = "AppStrings.ExposureDetection.surveyStartButton"
+
+		static let closeButtonSuffix = "HygieneRulesCloseButton"
+		static let hygieneRulesTitle = "AppStrings.ExposureDetection.hygieneRulesTitle"
+		static let contagionTitle = "AppStrings.ExposureDetection.contagionTitle"
+		static let detailsGuideHygiene = "AppStrings.ExposureDetection.guideHygiene"
+		static let detailsGuideHome = "AppStrings.ExposureDetection.guideHome"
 	}
 	
 	enum SurveyConsent {
@@ -263,11 +267,19 @@ enum AccessibilityIdentifiers {
 	enum UniversalQRScanner {
 		static let flash = "ExposureSubmissionQRScanner_flash"
 		static let file = "QRScanner_file"
+		static let info = "QRScanner_info"
+
+		enum Info {
+			static let title = "QRScanner_Info_title"
+			static let dataPrivacy = "QRScanner_Info_dataPrivacy"
+		}
+
 		static let fakeHC1 = "QRScanner_FAKE_HC1"
 		static let fakeHC2 = "QRScanner_FAKE_HC2"
 		static let fakePCR = "QRScanner_FAKE_PCR"
 		static let fakePCR2 = "QRScanner_FAKE_PCR2"
 		static let fakeEvent = "QRScanner_FAKE_EVENT"
+		static let fakeTicketValidation = "QRScanner_FAKE_TICKET_VALIDATION"
 		static let other = "QRScanner_OTHER"
 		static let cancel = "QRScanner_CANCEL"
 	}
@@ -750,6 +762,39 @@ enum AccessibilityIdentifiers {
 		}
 
 		static let qrCodeCell = "HealthCertificate.qrCodeCell"
+	}
+	
+	enum TicketValidation {
+		
+		enum FirstConsent {
+			static let image = "TicketValidation.FirstConsent.image"
+			static let legalBox = "TicketValidation.FirstConsent.legalBox"
+			static let dataPrivacy = "TicketValidation.FirstConsent.dataPrivacy"
+			static let primaryButton = "TicketValidation.FirstConsent.primaryButton"
+			static let secondaryButton = "TicketValidation.FirstConsent.secondaryButton"
+		}
+		
+		enum SecondConsent {
+			static let legalBox = "TicketValidation.SecondConsent.legalBox"
+			static let dataPrivacy = "TicketValidation.SecondConsent.dataPrivacy"
+			static let primaryButton = "TicketValidation.SecondConsent.primaryButton"
+			static let secondaryButton = "TicketValidation.SecondConsent.secondaryButton"
+		}
+		
+		enum ValidationResult {
+			enum Passed {
+				static let headerImageWithTitle = "TicketValidation.ValidationResult.Passed.headerImageWithTitle"
+				static let subtitle = "TicketValidation.ValidationResult.Passed.subtitle"
+			}
+			enum Failed {
+				static let headerImageWithTitle = "TicketValidation.ValidationResult.Failed.headerImageWithTitle"
+				static let subtitle = "TicketValidation.ValidationResult.Failed.subtitle"
+			}
+			enum Open {
+				static let headerImageWithTitle = "TicketValidation.ValidationResult.Open.headerImageWithTitle"
+				static let subtitle = "TicketValidation.ValidationResult.Open.subtitle"
+			}
+		}
 	}
 
 }

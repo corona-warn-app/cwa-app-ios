@@ -38,8 +38,9 @@ class TestResultAvailableViewModelTest: CWATestCase {
 						rulesDownloadService: RulesDownloadService(store: store, client: client)
 					),
 					recycleBin: .fake()
-				)
-			),
+                ),
+                recycleBin: .fake()
+            ),
 			onSubmissionConsentCellTap: { _ in
 				expectationNotFulFill.fulfill()
 			},
@@ -85,8 +86,9 @@ class TestResultAvailableViewModelTest: CWATestCase {
 						rulesDownloadService: RulesDownloadService(store: store, client: client)
 					),
 					recycleBin: .fake()
-				)
-			),
+                ),
+                recycleBin: .fake()
+            ),
 			onSubmissionConsentCellTap: { _ in
 				expectationNotFulFill.fulfill()
 			},
@@ -141,8 +143,9 @@ class TestResultAvailableViewModelTest: CWATestCase {
 						rulesDownloadService: RulesDownloadService(store: store, client: client)
 					),
 					recycleBin: .fake()
-				)
-			),
+                ),
+                recycleBin: .fake()
+            ),
 			onSubmissionConsentCellTap: { _ in
 				expectationFulFill.fulfill()
 			},

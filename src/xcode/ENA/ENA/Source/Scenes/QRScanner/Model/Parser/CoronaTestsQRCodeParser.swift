@@ -19,7 +19,7 @@ class CoronaTestsQRCodeParser: QRCodeParsable {
 	) {
 		#if DEBUG
 		if isUITesting {
-			completion(.success(.coronaTest(CoronaTestRegistrationInformation.pcr(guid: "guid"))))
+			completion(.success(.coronaTest(CoronaTestRegistrationInformation.pcr(guid: "guid", qrCodeHash: "qrCodeHash"))))
 		}
 		#endif
 		
@@ -77,7 +77,7 @@ class CoronaTestsQRCodeParser: QRCodeParsable {
 			  ) else {
 			return nil
 		}
-		return matchings.isEmpty ? nil : .pcr(guid: candidate)
+		return matchings.isEmpty ? nil : .pcr(guid: candidate, qrCodeHash: ENAHasher.sha256(guidURL))
 	}
 	
 }

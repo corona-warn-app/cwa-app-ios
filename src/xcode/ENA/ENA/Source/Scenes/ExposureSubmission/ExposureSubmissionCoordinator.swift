@@ -731,7 +731,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 										Log.error("Could not create strong self")
 										return
 									}
-									self.healthCertificateService.removeHealthCertificate(healthCertificate)
+									self.healthCertificateService.moveHealthCertificateToBin(healthCertificate)
 									self.navigationController?.popViewController(animated: true)
 								}
 							)
@@ -1159,7 +1159,9 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 			didTapContinue: { [weak self] in
 				self?.showAntigenTestProfileInput(editMode: false)
 			},
-			dismiss: { [weak self] in self?.dismiss() }
+			dismiss: { [weak self] in
+				self?.dismiss()
+			}
 		)
 
 		let footerViewModel = FooterViewModel(
@@ -1551,12 +1553,83 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 
 	// MARK: Test Result Helper
 
+	private func alert(
+		_ error: CoronaTestServiceError,
+		testQRCodeInformation: CoronaTestRegistrationInformation,
+		isLoading: @escaping (Bool) -> Void
+	) -> UIAlertController? {
+		var alert: UIAlertController?
+		switch error {
+		case .responseFailure(.qrDoesNotExist):
+			alert = UIAlertController.errorAlert(
+				title: AppStrings.ExposureSubmissionError.qrNotExistTitle,
+				message: error.localizedDescription
+			)
+		case .serviceError(.receivedResourceError(let teleTanError)):
+			switch teleTanError {
+			case .qrAlreadyUsed:
+				alert = UIAlertController.errorAlert(
+					title: AppStrings.ExposureSubmissionError.qrAlreadyUsedTitle,
+					message: error.localizedDescription,
+					okTitle: AppStrings.Common.alertActionCancel,
+					secondaryActionTitle: AppStrings.Common.alertActionRetry,
+					completion: { [weak self] in
+						self?.dismiss()
+					},
+					secondaryActionCompletion: { [weak self] in
+						self?.showQRScreen(testRegistrationInformation: nil, isLoading: isLoading)
+					}
+				)
+			default:
+				// .teleTanAlreadyUsed, .invalidResponse
+				break
+			}
+		case .testExpired:
+			alert = UIAlertController.errorAlert(
+				title: AppStrings.ExposureSubmission.qrCodeExpiredTitle,
+				message: error.localizedDescription,
+				completion: { [weak self] in
+					self?.dismiss()
+				}
+			)
+
+			// don't save expired tests after registering them
+			switch testQRCodeInformation.testType {
+			case .antigen:
+				model.coronaTestService.antigenTest = nil
+			case .pcr:
+				model.coronaTestService.pcrTest = nil
+			}
+
+		default:
+			break
+		}
+
+		return alert
+	}
+
 	private func registerTestAndGetResult(
 		with testQRCodeInformation: CoronaTestRegistrationInformation,
 		submissionConsentGiven: Bool,
 		certificateConsent: TestCertificateConsent,
 		isLoading: @escaping (Bool) -> Void
 	) {
+
+		func defaultAlert(_ error: Error) -> UIAlertController {
+			UIAlertController.errorAlert(
+				message: error.localizedDescription,
+				secondaryActionTitle: AppStrings.Common.alertActionRetry,
+				secondaryActionCompletion: { [weak self] in
+					self?.registerTestAndGetResult(
+						with: testQRCodeInformation,
+						submissionConsentGiven: submissionConsentGiven,
+						certificateConsent: certificateConsent,
+						isLoading: isLoading
+					)
+				}
+			)
+		}
+
 		model.registerTestAndGetResult(
 			for: testQRCodeInformation,
 			isSubmissionConsentGiven: submissionConsentGiven,
@@ -1579,61 +1652,8 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 				}
 			},
 			onError: { [weak self] error in
-				let alert: UIAlertController
-
-				switch error {
-				case .responseFailure(.qrDoesNotExist):
-					alert = UIAlertController.errorAlert(
-						title: AppStrings.ExposureSubmissionError.qrNotExistTitle,
-						message: error.localizedDescription
-					)
-				case .responseFailure(.qrAlreadyUsed):
-					alert = UIAlertController.errorAlert(
-						title: AppStrings.ExposureSubmissionError.qrAlreadyUsedTitle,
-						message: error.localizedDescription,
-						okTitle: AppStrings.Common.alertActionCancel,
-						secondaryActionTitle: AppStrings.Common.alertActionRetry,
-						completion: { [weak self] in
-							self?.dismiss()
-						},
-						secondaryActionCompletion: { [weak self] in
-							self?.showQRScreen(testRegistrationInformation: nil, isLoading: isLoading)
-						}
-					)
-				case .testExpired:
-					alert = UIAlertController.errorAlert(
-						title: AppStrings.ExposureSubmission.qrCodeExpiredTitle,
-						message: error.localizedDescription,
-						completion: { [weak self] in
-							self?.dismiss()
-						}
-					)
-					
-					// dont save expired tests after registering them
-					switch testQRCodeInformation.testType {
-					case .antigen:
-						self?.model.coronaTestService.antigenTest = nil
-					case .pcr:
-						self?.model.coronaTestService.pcrTest = nil
-					}
-					
-				default:
-					alert = UIAlertController.errorAlert(
-						message: error.localizedDescription,
-						secondaryActionTitle: AppStrings.Common.alertActionRetry,
-						secondaryActionCompletion: {
-							self?.registerTestAndGetResult(
-								with: testQRCodeInformation,
-								submissionConsentGiven: submissionConsentGiven,
-								certificateConsent: certificateConsent,
-								isLoading: isLoading
-							)
-						}
-					)
-				}
-
+				let alert = self?.alert(error, testQRCodeInformation: testQRCodeInformation, isLoading: isLoading) ?? defaultAlert(error)
 				self?.navigationController?.present(alert, animated: true, completion: nil)
-
 				Log.error("An error occurred during result fetching: \(error)", log: .ui)
 			}
 		)

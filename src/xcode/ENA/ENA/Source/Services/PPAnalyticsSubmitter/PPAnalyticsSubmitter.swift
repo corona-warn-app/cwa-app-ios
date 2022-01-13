@@ -255,18 +255,23 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 		submitted is true
 		OR
 		- differenceBetweenTestResultAndCurrentDateInHours >= hoursSinceTestResultToSubmitKeySubmissionMetadata
+		AND
+		Test result is positive
 		*/
 
 		let isSubmitted: Bool
 		let _testResultReceivedDate: Date?
+		let isTestResultPositive: Bool
 
 		switch type {
 		case .pcr:
 			isSubmitted = store.pcrKeySubmissionMetadata?.submitted ?? false
 			_testResultReceivedDate = coronaTestService.pcrTest?.finalTestResultReceivedDate
+			isTestResultPositive = coronaTestService.pcrTest?.testResult == .positive
 		case .antigen:
 			isSubmitted = store.antigenKeySubmissionMetadata?.submitted ?? false
 			_testResultReceivedDate = coronaTestService.antigenTest?.finalTestResultReceivedDate
+			isTestResultPositive = coronaTestService.antigenTest?.testResult == .positive
 		}
 
 		// if there is no test result time stamp
@@ -281,7 +286,7 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 		   differenceBetweenTestResultAndCurrentDateInHours >= hoursSinceTestResultToSubmitKeySubmissionMetadata {
 			timeDifferenceFulfillsCriteria = true
 		}
-		return isSubmitted || timeDifferenceFulfillsCriteria
+		return (isSubmitted || timeDifferenceFulfillsCriteria) && isTestResultPositive
 	}
 
 	private func shouldIncludeTestResultMetadata(for type: CoronaTestType) -> Bool {
@@ -496,7 +501,6 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 			if let checkinDateChangedComparedToPreviousSubmission = store.currentCheckinRiskExposureMetadata?.dateChangedComparedToPreviousSubmission {
 				$0.ptDateChangedComparedToPreviousSubmission = checkinDateChangedComparedToPreviousSubmission
 			}
-			
 		}]
 	}
 	
@@ -533,7 +537,7 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 	}
 	
 	func gatherUserMetadata() -> SAP_Internal_Ppdd_PPAUserMetadata {
-		// According to the tech spec, grap the user metadata right before the submission. We do not use "Analytics.collect()" here because we are probably already inside this call. So if we would use the call here, we could produce a infinite loop.
+		// According to the tech spec, grab the user metadata right before the submission. We do not use "Analytics.collect()" here because we are probably already inside this call. So if we would use the call here, we could produce a infinite loop.
 		store.userMetadata = store.userData
 		guard let storedUserData = store.userMetadata else {
 			return SAP_Internal_Ppdd_PPAUserMetadata.with { _ in }
@@ -553,7 +557,7 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 	}
 	
 	func gatherClientMetadata() -> SAP_Internal_Ppdd_PPAClientMetadataIOS {
-		// According to the tech spec, grap the client metadata right before the submission. We do not use "Analytics.collect()" here because we are probably already inside this call. So if we would use the call here, we could produce a infinite loop.
+		// According to the tech spec, grab the client metadata right before the submission. We do not use "Analytics.collect()" here because we are probably already inside this call. So if we would use the call here, we could produce a infinite loop.
 		let eTag = store.appConfigMetadata?.lastAppConfigETag
 		store.clientMetadata = ClientMetadata(etag: eTag)
 		
@@ -638,6 +642,7 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 		}
 	}
 	
+	// swiftlint:disable:next cyclomatic_complexity
 	func gatherTestResultMetadata(for type: CoronaTestType) -> SAP_Internal_Ppdd_PPATestResultMetadata {
 		let metadata: TestResultMetadata?
 
@@ -674,6 +679,58 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 			if let hoursSinceCheckinHighRiskWarningAtTestRegistration = metadata?.hoursSinceCheckinHighRiskWarningAtTestRegistration {
 				$0.ptHoursSinceHighRiskWarningAtTestRegistration = Int32(hoursSinceCheckinHighRiskWarningAtTestRegistration)
 			}
+			if let exposureWindowsAtTestRegistration = metadata?.exposureWindowsAtTestRegistration {
+				$0.exposureWindowsAtTestRegistration = exposureWindowsAtTestRegistration.map { exposureWindow in
+                    SAP_Internal_Ppdd_PPANewExposureWindow.with {
+                        $0.normalizedTime = exposureWindow.normalizedTime
+                        $0.transmissionRiskLevel = Int32(exposureWindow.transmissionRiskLevel)
+                        $0.exposureWindow = SAP_Internal_Ppdd_PPAExposureWindow.with({ protobufWindow in
+                            if let infectiousness = exposureWindow.exposureWindow.infectiousness.protobuf {
+                                protobufWindow.infectiousness = infectiousness
+                            }
+                            if let reportType = exposureWindow.exposureWindow.reportType.protobuf {
+                                protobufWindow.reportType = reportType
+                            }
+                            protobufWindow.calibrationConfidence = Int32(exposureWindow.exposureWindow.calibrationConfidence.rawValue)
+                            protobufWindow.date = Int64(exposureWindow.date.timeIntervalSince1970)
+                            
+                            protobufWindow.scanInstances = exposureWindow.exposureWindow.scanInstances.map({ scanInstance in
+                                SAP_Internal_Ppdd_PPAExposureWindowScanInstance.with { protobufScanInstance in
+                                    protobufScanInstance.secondsSinceLastScan = Int32(scanInstance.secondsSinceLastScan)
+                                    protobufScanInstance.typicalAttenuation = Int32(scanInstance.typicalAttenuation)
+                                    protobufScanInstance.minAttenuation = Int32(scanInstance.minAttenuation)
+                                }
+                            })
+                        })
+                    }
+				}
+			}
+            if let exposureWindowsUntilTestResult = metadata?.exposureWindowsUntilTestResult {
+                $0.exposureWindowsUntilTestResult = exposureWindowsUntilTestResult.map { exposureWindow in
+                    SAP_Internal_Ppdd_PPANewExposureWindow.with {
+                        $0.normalizedTime = exposureWindow.normalizedTime
+                        $0.transmissionRiskLevel = Int32(exposureWindow.transmissionRiskLevel)
+                        $0.exposureWindow = SAP_Internal_Ppdd_PPAExposureWindow.with({ protobufWindow in
+                            if let infectiousness = exposureWindow.exposureWindow.infectiousness.protobuf {
+                                protobufWindow.infectiousness = infectiousness
+                            }
+                            if let reportType = exposureWindow.exposureWindow.reportType.protobuf {
+                                protobufWindow.reportType = reportType
+                            }
+                            protobufWindow.calibrationConfidence = Int32(exposureWindow.exposureWindow.calibrationConfidence.rawValue)
+                            protobufWindow.date = Int64(exposureWindow.date.timeIntervalSince1970)
+                            
+                            protobufWindow.scanInstances = exposureWindow.exposureWindow.scanInstances.map({ scanInstance in
+                                SAP_Internal_Ppdd_PPAExposureWindowScanInstance.with { protobufScanInstance in
+                                    protobufScanInstance.secondsSinceLastScan = Int32(scanInstance.secondsSinceLastScan)
+                                    protobufScanInstance.typicalAttenuation = Int32(scanInstance.typicalAttenuation)
+                                    protobufScanInstance.minAttenuation = Int32(scanInstance.minAttenuation)
+                                }
+                            })
+                        })
+                    }
+                }
+            }
 		}
 		return resultProtobuf
 	}

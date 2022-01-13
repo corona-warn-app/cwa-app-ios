@@ -14,6 +14,14 @@ class HomeStatisticsCardViewModelTests: CWATestCase {
 		checkFormattedValue(value: 0.1798, decimals: 0, expectedString: "0", expectedStringWithPercent: "18%")
 	}
 
+	func testFormattedSpecialRoundedValueWithDecimals() {
+		checkFormattedValue(value: 4.65, decimals: 1, expectedString: "4,7", expectedStringWithPercent: "465%")
+	}
+
+	func testFormattedSpecialSmallRoundedValueWithDecimals() {
+		checkFormattedValue(value: 4.649, decimals: 1, expectedString: "4,6", expectedStringWithPercent: "464,9%")
+	}
+
 	func testFormattedSmallValueWithNegativeDecimalsIsHandledAsZeroDecimals() {
 		checkFormattedValue(value: 0.1798, decimals: -1, expectedString: "0", expectedStringWithPercent: "18%")
 	}
@@ -674,7 +682,7 @@ class HomeStatisticsCardViewModelTests: CWATestCase {
 
 		XCTAssertEqual(viewModel.title, AppStrings.Statistics.AddCard.localCardTitle)
 		XCTAssertEqual(viewModel.subtitle, regionStatisticsLocalTrend.region.name)
-		XCTAssertEqual(viewModel.illustrationImage, UIImage(named: "LocalIncidence"))
+		XCTAssertEqual(viewModel.illustrationImage, UIImage(named: "Illu_7-Tage-Lokal-Inzidenz"))
 		XCTAssertEqual(viewModel.primaryValue, "43,1")
 		XCTAssertEqual(viewModel.primaryTrendImage, UIImage(named: "Pfeil_steigend_plain"))
 		XCTAssertEqual(viewModel.primaryTrendImageTintColor, .enaColor(for: .riskHigh))

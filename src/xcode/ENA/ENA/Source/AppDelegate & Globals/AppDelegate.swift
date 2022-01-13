@@ -41,10 +41,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		if isUITesting {
 			self.store = MockTestStore()
 		} else {
-			self.store = SecureStore(subDirectory: "database", environmentProvider: environmentProvider)
+			self.store = SecureStore(subDirectory: "database")
 		}
 		#else
-		self.store = SecureStore(subDirectory: "database", environmentProvider: environmentProvider)
+		self.store = SecureStore(subDirectory: "database")
 		#endif
 
 		if store.appInstallationDate == nil {
@@ -52,6 +52,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 			Log.debug("App installation date: \(String(describing: store.appInstallationDate))")
 		}
 
+		self.restServiceCache = SecureKeyValueCache(subDirectory: "RestServiceCache")
+		self.restServiceProvider = RestServiceProvider(cache: restServiceCache)
 		self.client = HTTPClient(environmentProvider: environmentProvider)
 		self.wifiClient = WifiOnlyHTTPClient(environmentProvider: environmentProvider)
 		self.recycleBin = RecycleBin(store: store)
@@ -60,7 +62,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 
 		super.init()
 
-		recycleBin.testRestorationHandler = TestRestorationHandlerFake()
+		recycleBin.testRestorationHandler = CoronaTestRestorationHandler(service: coronaTestService)
 		recycleBin.certificateRestorationHandler = HealthCertificateRestorationHandler(service: healthCertificateService)
 
 		// Make the analytics working. Should not be called later than at this moment of app initialization.
@@ -275,15 +277,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 	}()
     let environmentProvider: EnvironmentProviding
 	var store: Store
+	let restServiceCache: KeyValueCaching
 
 	lazy var coronaTestService: CoronaTestService = {
 		return CoronaTestService(
 			client: client,
+			restServiceProvider: restServiceProvider,
 			store: store,
 			eventStore: eventStore,
 			diaryStore: contactDiaryStore,
 			appConfiguration: appConfigurationProvider,
-			healthCertificateService: healthCertificateService
+			healthCertificateService: healthCertificateService,
+			recycleBin: recycleBin
 		)
 	}()
 
@@ -295,6 +300,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 	lazy var plausibleDeniabilityService: PlausibleDeniabilityService = {
 		PlausibleDeniabilityService(
 			client: self.client,
+			restServiceProvider: self.restServiceProvider,
 			store: self.store,
 			coronaTestService: coronaTestService
 		)
@@ -471,6 +477,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 
 	private let recycleBin: RecycleBin
 
+	private let restServiceProvider: RestServiceProviding
+
 	#if COMMUNITY
 	// Enable third party contributors that do not have the required
 	// entitlements to also use the app
@@ -495,6 +503,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 			exposureManager: self.exposureManager,
 			appConfigurationProvider: self.appConfigurationProvider,
 			client: self.client,
+			restServiceProvider: self.restServiceProvider,
 			store: self.store,
 			eventStore: self.eventStore,
 			coronaTestService: coronaTestService)
@@ -512,6 +521,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		// will be released in `deinit`
 		TaskExecutionHandler(
 			riskProvider: self.riskProvider,
+			restServiceProvider: restServiceProvider,
 			exposureManager: exposureManager,
 			plausibleDeniabilityService: self.plausibleDeniabilityService,
 			contactDiaryStore: self.contactDiaryStore,
@@ -589,7 +599,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 			let ppacEdusApiToken = store.ppacApiTokenEdus
 			let installationDate = store.appInstallationDate
 
-			let newKey = try KeychainHelper().generateDatabaseKey()
+			let newKey = try KeychainHelper().generateDatabaseKey(persistForKeychainKey: SecureStore.encryptionKeyKeychainKey)
 			store.wipeAll(key: newKey)
 
 			/// write excluded values back to the 'new' store
@@ -705,10 +715,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		switch riskProviderError {
 		case .failedRiskDetection(let didEndPrematurelyReason):
 			switch didEndPrematurelyReason {
-			case let .noExposureWindows(error):
+			case let .noExposureWindows(error, date):
 				return makeAlertController(
 					noExposureWindowsError: error,
 					localizedDescription: didEndPrematurelyReason.localizedDescription,
+					date: date,
 					rootController: rootController
 				)
 			case .wrongDeviceTime:
@@ -734,7 +745,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		}
 	}
 
-	private func makeAlertController(noExposureWindowsError: Error?, localizedDescription: String, rootController: UIViewController) -> UIAlertController? {
+	private func makeAlertController(noExposureWindowsError: Error?, localizedDescription: String, date: Date, rootController: UIViewController) -> UIAlertController? {
 
 		if let enError = noExposureWindowsError as? ENError {
 			switch enError.code {
@@ -748,7 +759,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 					}
 				}()
 				return rootController.setupErrorAlert(
-					message: localizedDescription,
+					message: localizedDescription + "\n\(date)",
 					secondaryActionTitle: AppStrings.Common.errorAlertActionMoreInfo,
 					secondaryActionCompletion: openFAQ
 				)
@@ -778,7 +789,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		healthCertificateValidationOnboardedCountriesProvider: healthCertificateValidationOnboardedCountriesProvider,
 		vaccinationValueSetsProvider: vaccinationValueSetsProvider,
 		elsService: elsService,
-		recycleBin: recycleBin
+		recycleBin: recycleBin,
+		restServiceProvider: restServiceProvider
 	)
 
 	private lazy var appUpdateChecker = AppUpdateCheckHelper(appConfigurationProvider: self.appConfigurationProvider, store: self.store)

@@ -58,7 +58,7 @@ class ExposureSubmissionCoordinatorModel {
 		switch testRegistrationInformation {
 		case .pcr:
 			return true
-		case .antigen(qrCodeInformation: let qrCodeInformation):
+		case .antigen(qrCodeInformation: let qrCodeInformation, qrCodeHash: _):
 			return qrCodeInformation.certificateSupportedByPointOfCare ?? false
 		case .teleTAN:
 			return false
@@ -138,7 +138,7 @@ class ExposureSubmissionCoordinatorModel {
 	}
 
 	func registerTestAndGetResult(
-		for testType: CoronaTestRegistrationInformation,
+		for registrationInformation: CoronaTestRegistrationInformation,
 		isSubmissionConsentGiven: Bool,
 		certificateConsent: TestCertificateConsent,
 		isLoading: @escaping (Bool) -> Void,
@@ -147,10 +147,11 @@ class ExposureSubmissionCoordinatorModel {
 	) {
 		isLoading(true)
 		// QR code test fetch
-		switch testType {
-		case let .pcr(guid: guid):
+		switch registrationInformation {
+		case let .pcr(guid: guid, qrCodeHash: qrCodeHash):
 			coronaTestService.registerPCRTestAndGetResult(
 				guid: guid,
+				qrCodeHash: qrCodeHash,
 				isSubmissionConsentGiven: isSubmissionConsentGiven,
 				markAsUnseen: markNewlyAddedCoronaTestAsUnseen,
 				certificateConsent: certificateConsent,
@@ -165,16 +166,17 @@ class ExposureSubmissionCoordinatorModel {
 					}
 				}
 			)
-		case .antigen(let antigenTest):
+		case let .antigen(qrCodeInformation: qrCodeInformation, qrCodeHash: qrCodeHash):
 			coronaTestService.registerAntigenTestAndGetResult(
-				with: antigenTest.hash,
-				pointOfCareConsentDate: antigenTest.pointOfCareConsentDate,
-				firstName: antigenTest.firstName,
-				lastName: antigenTest.lastName,
-				dateOfBirth: antigenTest.dateOfBirthString,
+				with: qrCodeInformation.hash,
+				qrCodeHash: qrCodeHash,
+				pointOfCareConsentDate: qrCodeInformation.pointOfCareConsentDate,
+				firstName: qrCodeInformation.firstName,
+				lastName: qrCodeInformation.lastName,
+				dateOfBirth: qrCodeInformation.dateOfBirthString,
 				isSubmissionConsentGiven: isSubmissionConsentGiven,
 				markAsUnseen: markNewlyAddedCoronaTestAsUnseen,
-				certificateSupportedByPointOfCare: antigenTest.certificateSupportedByPointOfCare ?? false,
+				certificateSupportedByPointOfCare: qrCodeInformation.certificateSupportedByPointOfCare ?? false,
 				certificateConsent: certificateConsent,
 				completion: { result in
 					isLoading(false)
