@@ -197,8 +197,10 @@ final class TeleTanResourceTests: CWATestCase {
 			case .success:
 				XCTFail("Backend returned random bytes - the request should have failed!")
 			case .failure(let error):
+				// Successful test if we can extract the resourceError to an decoding error, regardless what JSON decoding error exactly it is.
 				guard case let .resourceError(resourceError) = error,
-					  resourceError == .decoding(nil) else {
+					  case _ = ResourceError.decoding(resourceError) else {
+						 
 					XCTFail("unexpected error case")
 					return
 				}
@@ -232,8 +234,10 @@ final class TeleTanResourceTests: CWATestCase {
 			case .success:
 				XCTFail("Backend returned random bytes - the request should have failed!")
 			case .failure(let error):
+				// Successful test if we can extract the resourceError to an decoding error, regardless what JSON decoding error exactly it is.
 				guard case let .resourceError(resourceError) = error,
-					  resourceError == .decoding(nil) else {
+					  case _ = ResourceError.decoding(resourceError) else {
+						 
 					XCTFail("unexpected error case")
 					return
 				}
