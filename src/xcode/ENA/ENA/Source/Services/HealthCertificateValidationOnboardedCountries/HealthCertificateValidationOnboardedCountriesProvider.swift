@@ -16,13 +16,9 @@ final class HealthCertificateValidationOnboardedCountriesProvider: HealthCertifi
 	// MARK: - Init
 	
 	init(
-		store: Store,
-		restService: RestServiceProviding,
-		signatureVerifier: SignatureVerification = SignatureVerifier()
+		restService: RestServiceProviding
 	) {
-		self.store = store
 		self.restService = restService
-		self.signatureVerifier = signatureVerifier
 	}
 	
 	// MARK: - Protocol HealthCertificateValidationOnboardedCountriesProviding
@@ -48,7 +44,5 @@ final class HealthCertificateValidationOnboardedCountriesProvider: HealthCertifi
 	
 	// MARK: - Private
 	
-	private let store: Store
 	private let restService: RestServiceProviding
-	private let signatureVerifier: SignatureVerification
 }
