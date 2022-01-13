@@ -20,6 +20,8 @@ class RecycleBin {
 
 	// MARK: - Internal
 
+	static let expirationDays = 30
+	
 	var testRestorationHandler: TestRestorationHandling!
 	var certificateRestorationHandler: CertificateRestorationHandling!
 
@@ -111,7 +113,7 @@ class RecycleBin {
 		Log.info("Cleanup items...", log: .recycleBin)
 		Log.info("Number of items before cleanup: \(store.recycleBinItems.count)", log: .recycleBin)
 
-		guard let thresholdDate = Calendar.current.date(byAdding: .day, value: -30, to: now) else {
+		guard let thresholdDate = Calendar.current.date(byAdding: .day, value: -RecycleBin.expirationDays, to: now) else {
 			fatalError("Could not create date.")
 		}
 

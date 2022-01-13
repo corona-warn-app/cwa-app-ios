@@ -124,7 +124,7 @@ class RecycleBinItemCellModel {
 	}()
 
 	lazy var quaternaryInfo: String? = {
-		guard let expirationDate = Calendar.current.date(byAdding: .day, value: 30, to: recycleBinItem.recycledAt) else {
+		guard let expirationDate = Calendar.current.date(byAdding: .day, value: RecycleBin.expirationDays, to: recycleBinItem.recycledAt) else {
 			return nil
 		}
 		
@@ -138,5 +138,4 @@ class RecycleBinItemCellModel {
 	// MARK: - Private
 
 	private let recycleBinItem: RecycleBinItem
-    
 }
