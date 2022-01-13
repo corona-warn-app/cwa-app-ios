@@ -70,6 +70,7 @@ class QRScannerViewController: UIViewController {
 		setupView()
 		setupViewModel()
 		setupNavigationBar()
+		updateToggleFlashAccessibility()
 		#if targetEnvironment(simulator)
 		// Show Debug to select QRCode that got scanned
 		showCodeSelection()
