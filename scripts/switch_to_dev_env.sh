@@ -11,7 +11,7 @@ curl \
   --header "Accept: application/vnd.github.v3.raw" \
   --silent \
   --fail \
-  --location "${ENVIRONMENTS_CFMOCK_FILE_URL}" > ${ENV_PATH}
+  --location "${ENVIRONMENTS_WRU_FILE_URL}" > ${ENV_PATH}
 
 if [ ! -f ${ENV_PATH} ]; then
   echo "No environment file present. Aborting."
