@@ -32,7 +32,7 @@
                                         </constraints>
                                     </imageView>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="mJj-D6-Uzf">
-                                        <rect key="frame" x="47" y="0.0" width="217" height="130"/>
+                                        <rect key="frame" x="47" y="0.0" width="217" height="126"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LlW-QB-tlo" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="0.0" width="217" height="18"/>
@@ -71,13 +71,13 @@
                                                 </userDefinedRuntimeAttributes>
                                             </label>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9Oc-j7-S2f" userLabel="Spacer">
-                                                <rect key="frame" x="0.0" y="88" width="217" height="20"/>
+                                                <rect key="frame" x="0.0" y="88" width="217" height="16"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="height" constant="20" id="NTf-lZ-I1R"/>
+                                                    <constraint firstAttribute="height" constant="16" id="NTf-lZ-I1R"/>
                                                 </constraints>
                                             </view>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Quaternary" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dl9-yI-ToG" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="112" width="217" height="18"/>
+                                                <rect key="frame" x="0.0" y="108" width="217" height="18"/>
                                                 <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                                 <color key="textColor" name="ENA Text Primary 1 Color"/>
                                                 <nil key="highlightedColor"/>
