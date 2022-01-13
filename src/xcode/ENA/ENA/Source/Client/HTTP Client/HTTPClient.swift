@@ -1253,7 +1253,8 @@ private extension URLRequest {
 	
 		return request
 	}
-	
+
+	@available(*, deprecated, message: "old client stuff")
 	static func dccRulesRequest(
 		ruleType: HealthCertificateValidationRuleType,
 		configuration: HTTPClient.Configuration,

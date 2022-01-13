@@ -318,7 +318,8 @@ extension HTTPClient {
 					"dcc"
 				)
 		}
-				
+
+		@available(*, deprecated, message: "old client stuff")
 		func dccRulesURL(rulePath: String) -> URL {
 			endpoints
 				.distribution
