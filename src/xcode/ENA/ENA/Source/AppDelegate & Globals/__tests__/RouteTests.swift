@@ -24,6 +24,7 @@ class RouteTests: CWATestCase {
 			return
 		}
 
+		XCTAssertEqual(route?.routeInformation, .rapidAntigenTest)
 		XCTAssertEqual(antigenTestQRCodeInformation.hash, "1ea4c222ff0c0e4ed7373f274caa7f75d10fccbdac56c632771cd9592102a555")
 		XCTAssertEqual(antigenTestQRCodeInformation.timestamp, 1619617269)
 		XCTAssertEqual(antigenTestQRCodeInformation.firstName, "Henry")
@@ -46,6 +47,7 @@ class RouteTests: CWATestCase {
 		}
 
 		// THEN
+		XCTAssertEqual(route?.routeInformation, .rapidAntigenTest)
 		switch result {
 		case .success:
 			XCTFail("Route parse success wasn't expected")
@@ -86,6 +88,7 @@ class RouteTests: CWATestCase {
 		let route = Route(url: url)
 
 		// THEN
+		XCTAssertEqual(route?.routeInformation, .rapidAntigenTest)
 		XCTAssertEqual(route, .rapidAntigen(.failure(.invalidTestCode(.invalidHash))))
 	}
 
@@ -110,6 +113,7 @@ class RouteTests: CWATestCase {
 		let route = Route(url: url)
 
 		// THEN
+		XCTAssertEqual(route?.routeInformation, .rapidAntigenTest)
 		XCTAssertEqual(route, .rapidAntigen(.failure(.invalidTestCode(.invalidTimeStamp))))
 	}
 
@@ -158,6 +162,7 @@ class RouteTests: CWATestCase {
 		let route = Route(url: url)
 
 		// THEN
+		XCTAssertEqual(route?.routeInformation, .rapidAntigenTest)
 		XCTAssertEqual(route, .rapidAntigen(.failure(.invalidTestCode(.invalidTestedPersonInformation))))
 	}
 
@@ -179,6 +184,7 @@ class RouteTests: CWATestCase {
 		let route = try XCTUnwrap(Route(url))
 
 		// THEN
+		XCTAssertEqual(route.routeInformation, .rapidAntigenTest)
 		switch route {
 		case .rapidAntigen(.success(let test)):
 			switch test {
@@ -200,6 +206,7 @@ class RouteTests: CWATestCase {
 		let route = try XCTUnwrap(Route(url))
 
 		// THEN
+		XCTAssertEqual(route.routeInformation, .rapidAntigenTest)
 		switch route {
 		case .rapidAntigen(.failure(.invalidTestCode(let error))):
 			XCTAssertEqual(error, .hashMismatch)
@@ -221,9 +228,46 @@ class RouteTests: CWATestCase {
 		)
 		
 		// THEN
+		XCTAssertEqual(route.routeInformation, .healthCertificate)
 		if case let .healthCertificateFromNotification(person, certificate) = route {
 			XCTAssertEqual(person, healthCertifiedPerson)
 			XCTAssertEqual(certificate, healthCertificate)
+		} else {
+			XCTFail("Test should not fail")
+		}
+	}
+	
+	func testGIVEN_HealthCertifiedPerson_WHEN_RouteIsCreated_THEN_PropertiesAreSetCorrect() {
+		
+		// GIVEN
+		let healthCertifiedPerson = HealthCertifiedPerson(healthCertificates: [])
+		
+		// WHEN
+		let route = Route(
+			healthCertifiedPerson: healthCertifiedPerson
+		)
+		
+		// THEN
+		XCTAssertEqual(route.routeInformation, .healthCertifiedPerson)
+		if case let .healthCertifiedPersonFromNotification(person) = route {
+			XCTAssertEqual(person, healthCertifiedPerson)
+		} else {
+			XCTFail("Test should not fail")
+		}
+	}
+	
+	func testGIVEN_Checkin_WHEN_RouteIsCreated_THEN_PropertiesAreSetCorrect() throws {
+		
+		// GIVEN
+		let checkinURL = try XCTUnwrap(URL(string: "https://e.coronawarn.app"))
+		
+		// WHEN
+		let route = Route(url: checkinURL)
+		
+		// THEN
+		XCTAssertEqual(route?.routeInformation, .checkIn)
+		if case let .checkIn(checkin) = route {
+			XCTAssertEqual(checkin, checkinURL.absoluteString)
 		} else {
 			XCTFail("Test should not fail")
 		}
