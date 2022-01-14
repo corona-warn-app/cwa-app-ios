@@ -312,6 +312,35 @@ final class ValidationOnboardedCountriesResourceTests: CWATestCase {
 		}
 		waitForExpectations(timeout: .short)
 	}
+	
+	func testGIVEN_Resource_WHEN_NoCache_THEN_ONBOARDED_COUNTRIES_MISSING_CACHE() {
+		// GIVEN
+		let expectation = expectation(description: "Expect that we got a failure")
+				
+		let stack = MockNetworkStack(
+			httpStatus: 304,
+			responseData: nil
+		)
+		
+		let resource = ValidationOnboardedCountriesResource()
+		
+		let serviceProvider = RestServiceProvider(
+			session: stack.urlSession
+		)
+				
+		// WHEN
+		serviceProvider.load(resource) { result in
+			switch result {
+			case .success:
+				XCTFail("Load should fail but failed succeeded 😅")
+			case let .failure(error):
+				// THEN
+				XCTAssertEqual(error, .receivedResourceError(.ONBOARDED_COUNTRIES_MISSING_CACHE))
+			}
+			expectation.fulfill()
+		}
+		waitForExpectations(timeout: .short)
+	}
 			
 	func testGIVEN_Resource_WHEN_HttpError404_THEN_ErrorIsReturned() {
 		// GIVEN

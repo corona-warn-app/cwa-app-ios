@@ -43,39 +43,7 @@ class HealthCertificateValidationOnboardedCountriesProviderTests: XCTestCase {
 	
 	// MARK: - Failures
 	/*
-			
-	func testGIVEN_ValidationService_GetOnboardedCountries_WHEN_NotModified_THEN_ONBOARDED_COUNTRIES_MISSING_CACHEIsReturned() {
-		// GIVEN
-		let client = ClientMock()
-		client.onValidationOnboardedCountries = { _, completion in
-			completion(.failure(.notModified))
-		}
-		let store = MockTestStore()
-		// And now we do not save something cached in the store.
-		let provider = HealthCertificateValidationOnboardedCountriesProvider(
-			store: store,
-			client: client,
-			signatureVerifier: MockVerifier()
-		)
-		let expectation = self.expectation(description: "Test should fail ONBOARDED_COUNTRIES_MISSING_CACHE")
-		var receivedError: ValidationOnboardedCountriesError?
-	
-		// WHEN
-		provider.onboardedCountries(completion: { result in
-			switch result {
-			case .success:
-				XCTFail("Test should not succeed.")
-			case let .failure(error):
-				receivedError = error
-				expectation.fulfill()
-			}
-		})
-	
-		// THEN
-		waitForExpectations(timeout: .short)
-		XCTAssertEqual(receivedError, .ONBOARDED_COUNTRIES_MISSING_CACHE)
-	}
-	
+				
 	func testGIVEN_ValidationService_GetOnboardedCountries_WHEN_HTTP40x_THEN_ONBOARDED_COUNTRIES_CLIENT_ERRORIsReturned() {
 		// GIVEN
 		let client = ClientMock()
