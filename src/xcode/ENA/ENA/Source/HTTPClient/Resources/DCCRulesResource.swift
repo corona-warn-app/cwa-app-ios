@@ -51,10 +51,6 @@ struct DCCRulesResource: Resource {
 		}
 	}
 
-	// MARK: - Public
-
-	// MARK: - Internal
-
 	// MARK: - Private
 
 	private let ruleType: HealthCertificateValidationRuleType
@@ -85,7 +81,7 @@ struct DCCRulesResource: Resource {
 
 }
 
-enum HealthCertificateValidationError: LocalizedError {
+enum HealthCertificateValidationError: LocalizedError, Equatable {
 
 	// MARK: - Protocol Equatable
 

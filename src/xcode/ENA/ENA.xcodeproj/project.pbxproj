@@ -650,7 +650,6 @@
 		503DB1A7255D822E00576E57 /* ExposureSubmissionIntroViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 503DB1A6255D822E00576E57 /* ExposureSubmissionIntroViewController.swift */; };
 		503DB1AC255D826900576E57 /* ExposureSubmissionIntroViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 503DB1AB255D826900576E57 /* ExposureSubmissionIntroViewModel.swift */; };
 		50412F2E2689B4DA00E4087C /* HealthCertificateValidationRuleType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50412F2D2689B4DA00E4087C /* HealthCertificateValidationRuleType.swift */; };
-		50412F312689D2F300E4087C /* HTTPClient+GetDccRules.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50412F302689D2F300E4087C /* HTTPClient+GetDccRules.swift */; };
 		50412F32268AFA3500E4087C /* api-response-rule in Resources */ = {isa = PBXBuildFile; fileRef = 50412F2F2689D2D700E4087C /* api-response-rule */; };
 		504A46582702FD3E007AA09D /* DeltaOnboardingNotificationRework.swift in Sources */ = {isa = PBXBuildFile; fileRef = 504A46572702FD30007AA09D /* DeltaOnboardingNotificationRework.swift */; };
 		504A465A2702FDF3007AA09D /* DeltaOnboardingNotificationReworkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 504A46592702FDF3007AA09D /* DeltaOnboardingNotificationReworkViewController.swift */; };
@@ -1260,6 +1259,7 @@
 		BA01BA65264423CF00D906B6 /* HealthCertificateInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA01BA62264423CF00D906B6 /* HealthCertificateInfoViewController.swift */; };
 		BA01BA66264423CF00D906B6 /* HealthCertificateInfoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA01BA63264423CF00D906B6 /* HealthCertificateInfoViewModel.swift */; };
 		BA01BA6B2644284100D906B6 /* HealthCertificateConsentViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA01BA6A2644284100D906B6 /* HealthCertificateConsentViewModelTests.swift */; };
+		BA01BEB22791B58D0087B364 /* DCCRulesResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50412F302689D2F300E4087C /* DCCRulesResource.swift */; };
 		BA02641325E6A0800019CD55 /* FooterViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA02641225E6A0800019CD55 /* FooterViewModelTests.swift */; };
 		BA0562A9276236F30072501E /* HomeBadgeWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA0562A8276236F30072501E /* HomeBadgeWrapper.swift */; };
 		BA0562AB27623FA00072501E /* HomeBadgeWrapperTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA0562AA27623FA00072501E /* HomeBadgeWrapperTests.swift */; };
@@ -2277,7 +2277,7 @@
 		503DB1AB255D826900576E57 /* ExposureSubmissionIntroViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureSubmissionIntroViewModel.swift; sourceTree = "<group>"; };
 		50412F2D2689B4DA00E4087C /* HealthCertificateValidationRuleType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthCertificateValidationRuleType.swift; sourceTree = "<group>"; };
 		50412F2F2689D2D700E4087C /* api-response-rule */ = {isa = PBXFileReference; lastKnownFileType = file; path = "api-response-rule"; sourceTree = "<group>"; };
-		50412F302689D2F300E4087C /* HTTPClient+GetDccRules.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HTTPClient+GetDccRules.swift"; sourceTree = "<group>"; };
+		50412F302689D2F300E4087C /* DCCRulesResource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DCCRulesResource.swift; sourceTree = "<group>"; };
 		504A46572702FD30007AA09D /* DeltaOnboardingNotificationRework.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeltaOnboardingNotificationRework.swift; sourceTree = "<group>"; };
 		504A46592702FDF3007AA09D /* DeltaOnboardingNotificationReworkViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeltaOnboardingNotificationReworkViewController.swift; sourceTree = "<group>"; };
 		504A465B2702FE03007AA09D /* DeltaOnboardingNotificationReworkViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeltaOnboardingNotificationReworkViewModel.swift; sourceTree = "<group>"; };
@@ -7751,7 +7751,6 @@
 				50AA526725FBA0CC000C77BB /* HTTPClient+TraceWarningPackageDiscoveryTests.swift */,
 				50373EC825FBD08A000109AE /* HTTPClient+TraceWarningPackageDownloadTests.swift */,
 				5058DF862667666400858446 /* HTTPClient+GetDigitalCovid19CertificateTests.swift */,
-				50412F302689D2F300E4087C /* HTTPClient+GetDccRules.swift */,
 				A1877CA9248F247D006FEFC0 /* SAPDownloadedPackageTests.swift */,
 				B1EAEC8D247118CB003BE9A2 /* URLSession+ConvenienceTests.swift */,
 				BA8BBA07255A90690034D4BC /* WifiHTTPClientTests.swift */,
@@ -8447,6 +8446,7 @@
 		BA7B4C30272AD14300D0ED6A /* __tests__ */ = {
 			isa = PBXGroup;
 			children = (
+				50412F302689D2F300E4087C /* DCCRulesResource.swift */,
 				8FCC60DA273923C900531BE6 /* RegistrationTokenResourceTests.swift */,
 				506BEF01276A454B0062D5D6 /* Resource+Fake.swift */,
 				50D3493E274FB66C00F00493 /* ServiceIdentityDocumentResourceTests.swift */,
@@ -10968,7 +10968,6 @@
 				BA6C8B24254D76ED008344F5 /* ExposureWindowTestCase.swift in Sources */,
 				01A97DD32506769F00C07C37 /* DatePickerDayViewModelTests.swift in Sources */,
 				BA11D5BA2588D590005DCD6B /* DiaryAddAndEditEntryViewModelTest.swift in Sources */,
-				50412F312689D2F300E4087C /* HTTPClient+GetDccRules.swift in Sources */,
 				507685D325E8EA040039B7B6 /* UserMetadataTests.swift in Sources */,
 				F2DC809224898B1800EDC40A /* DynamicTableViewControllerHeaderTests.swift in Sources */,
 				01F52FFC2552E6F600997A26 /* ENARangeTest.swift in Sources */,
@@ -11113,6 +11112,7 @@
 				01E107F4276B426200E0595B /* AdmissionStateCellModelTests.swift in Sources */,
 				01F3323D27174583005CE21E /* PCRTest+Mock.swift in Sources */,
 				BAB6C82325C4666900E042FB /* PPACServiceTest.swift in Sources */,
+				BA01BEB22791B58D0087B364 /* DCCRulesResource.swift in Sources */,
 				50842BF0274FCFFB0015E63F /* TicketValidationServiceIdentityDocument+Fake.swift in Sources */,
 				BA7D177925D547D4006B9EBF /* DataDonationModelTests.swift in Sources */,
 				01B605E7258A4A980093DB8E /* DiaryContactPersonTest.swift in Sources */,
