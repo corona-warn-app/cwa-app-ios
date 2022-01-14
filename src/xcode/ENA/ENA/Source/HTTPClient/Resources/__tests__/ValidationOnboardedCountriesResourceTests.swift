@@ -372,6 +372,33 @@ final class ValidationOnboardedCountriesResourceTests: CWATestCase {
 		waitForExpectations(timeout: .short)
 	}
 	
-
-	
+	func testGIVEN_Resource_WHEN_HttpError500_THEN_ONBOARDED_COUNTRIES_SERVER_ERROR() {
+		// GIVEN
+		// http code 500
+		let expectation = expectation(description: "Expect that we got a failure")
+		
+		let stack = MockNetworkStack(
+			httpStatus: 500,
+			responseData: nil
+		)
+		
+		let resource = ValidationOnboardedCountriesResource()
+		
+		let serviceProvider = RestServiceProvider(
+			session: stack.urlSession
+		)
+				
+		// WHEN
+		serviceProvider.load(resource) { result in
+			switch result {
+			case .success:
+				XCTFail("Load should fail but failed succeeded 😅")
+			case let .failure(error):
+				// THEN
+				XCTAssertEqual(error, .receivedResourceError(.ONBOARDED_COUNTRIES_SERVER_ERROR))
+			}
+			expectation.fulfill()
+		}
+		waitForExpectations(timeout: .short)
+	}
 }

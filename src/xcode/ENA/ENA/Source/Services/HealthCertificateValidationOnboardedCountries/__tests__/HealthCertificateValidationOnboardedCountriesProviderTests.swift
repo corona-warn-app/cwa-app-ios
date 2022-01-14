@@ -43,37 +43,6 @@ class HealthCertificateValidationOnboardedCountriesProviderTests: XCTestCase {
 	
 	// MARK: - Failures
 	/*
-					
-	func testGIVEN_ValidationService_GetOnboardedCountries_WHEN_HTTP50x_THEN_ONBOARDED_COUNTRIES_SERVER_ERRORIsReturned() {
-		// GIVEN
-		let client = ClientMock()
-		client.onValidationOnboardedCountries = { _, completion in
-			completion(.failure(.serverError(500)))
-		}
-		let store = MockTestStore()
-		let provider = HealthCertificateValidationOnboardedCountriesProvider(
-			store: store,
-			client: client,
-			signatureVerifier: MockVerifier()
-		)
-		let expectation = self.expectation(description: "Test should fail ONBOARDED_COUNTRIES_SERVER_ERROR")
-		var receivedError: ValidationOnboardedCountriesError?
-	
-		// WHEN
-		provider.onboardedCountries(completion: { result in
-			switch result {
-			case .success:
-				XCTFail("Test should not succeed.")
-			case let .failure(error):
-				receivedError = error
-				expectation.fulfill()
-			}
-		})
-	
-		// THEN
-		waitForExpectations(timeout: .short)
-		XCTAssertEqual(receivedError, .ONBOARDED_COUNTRIES_SERVER_ERROR)
-	}
 
 	func testGIVEN_ValidationService_GetOnboardedCountries_WHEN_NoResponse_THEN_ONBOARDED_COUNTRIES_NO_NETWORKIsReturned() {
 		// GIVEN
