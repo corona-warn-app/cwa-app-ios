@@ -100,7 +100,7 @@ extension ExposureSubmissionError: LocalizedError {
 			return AppStrings.ExposureSubmission.qrCodeExpiredAlertText
 		default:
 			Log.error("\(self)", log: .api)
-			return AppStrings.ExposureSubmissionError.defaultError
+			return AppStrings.ExposureSubmissionError.defaultError + "\n(\(String(describing: self)))"
 		}
 	}
 }

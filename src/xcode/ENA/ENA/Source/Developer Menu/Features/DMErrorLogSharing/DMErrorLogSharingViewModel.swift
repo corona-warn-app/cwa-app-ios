@@ -48,6 +48,7 @@ final class DMErrorLogSharingViewModel {
 				toggle: {
 					let elsLoggingCensoring = UserDefaults.standard.bool(forKey: ErrorLogSubmissionService.keyElsLoggingCensoring)
 					UserDefaults.standard.setValue(!elsLoggingCensoring, forKey: ErrorLogSubmissionService.keyElsLoggingCensoring)
+					Log.info("ELS Log will be censored: \(!elsLoggingCensoring)")
 				})
 			
 		case .toggleActiveStartState:

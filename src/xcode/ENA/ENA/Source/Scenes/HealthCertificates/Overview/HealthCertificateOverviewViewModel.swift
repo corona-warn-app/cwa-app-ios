@@ -94,6 +94,10 @@ class HealthCertificateOverviewViewModel {
 		healthCertificateService.remove(testCertificateRequest: testCertificateRequest)
 	}
 
+	func attemptToRestoreDecodingFailedHealthCertificates() {
+		healthCertificateService.attemptToRestoreDecodingFailedHealthCertificates()
+	}
+
 	// MARK: - Private
 
 	private let healthCertificateService: HealthCertificateService
