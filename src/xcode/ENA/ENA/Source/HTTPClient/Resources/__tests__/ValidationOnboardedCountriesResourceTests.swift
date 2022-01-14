@@ -21,12 +21,12 @@ final class ValidationOnboardedCountriesResourceTests: CWATestCase {
 		// Create cbor data and the archive, which is needed for the decode call of the CBORReceiveResource
 		let archiveData = try XCTUnwrap(Archive.createArchiveData(
 			accessMode: .create,
-			cborData: HealthCertificateToolkit.onboardedCountriesCBORDataFake
+			cborData: HealthCertificateToolkit.onboardedCountriesCBORDataFake_DE_FR
 		))
 		
 		let archiveDataCache = try XCTUnwrap(Archive.createArchiveData(
 			accessMode: .create,
-			cborData: HealthCertificateToolkit.onboardedCountriesCBORDataFake2
+			cborData: HealthCertificateToolkit.onboardedCountriesCBORDataFake_IT_UK
 		))
 		
 		// This list has to match the one in onboardedCountriesCBORDataFake
@@ -81,12 +81,12 @@ final class ValidationOnboardedCountriesResourceTests: CWATestCase {
 		// Create the archives, which is needed for the decode call of the CBORReceiveResource
 		let archiveData = try XCTUnwrap(Archive.createArchiveData(
 			accessMode: .create,
-			cborData: HealthCertificateToolkit.onboardedCountriesCBORDataFake
+			cborData: HealthCertificateToolkit.onboardedCountriesCBORDataFake_DE_FR
 		))
 		
 		let archiveDataCache = try XCTUnwrap(Archive.createArchiveData(
 			accessMode: .create,
-			cborData: HealthCertificateToolkit.onboardedCountriesCBORDataFake2
+			cborData: HealthCertificateToolkit.onboardedCountriesCBORDataFake_IT_UK
 		))
 		
 		// This list has to match the one in onboardedCountriesCBORDataFake
@@ -142,7 +142,7 @@ final class ValidationOnboardedCountriesResourceTests: CWATestCase {
 		// Create cbor data and the archive, which is needed for the decode call of the CBORReceiveResource
 		let archiveData = try XCTUnwrap(Archive.createArchiveData(
 			accessMode: .create,
-			cborData: HealthCertificateToolkit.onboardedCountriesCBORDataFake
+			cborData: HealthCertificateToolkit.onboardedCountriesCBORDataFake_DE_FR
 		))
 		
 		let stack = MockNetworkStack(
@@ -212,7 +212,7 @@ final class ValidationOnboardedCountriesResourceTests: CWATestCase {
 		// Create cbor data and the archive, which is needed for the decode call of the CBORReceiveResource
 		let archiveData = try XCTUnwrap(Archive.createArchiveData(
 			accessMode: .create,
-			cborData: HealthCertificateToolkit.onboardedCountriesCBORDataFake
+			cborData: HealthCertificateToolkit.onboardedCountriesCBORDataFake_DE_FR
 		))
 		
 		let stack = MockNetworkStack(
@@ -247,7 +247,7 @@ final class ValidationOnboardedCountriesResourceTests: CWATestCase {
 		// Create cbor data and the archive, which is needed for the decode call of the CBORReceiveResource
 		let archiveData = try XCTUnwrap(Archive.createArchiveData(
 			accessMode: .create,
-			cborData: HealthCertificateToolkit.onboardedCountriesCorruptCBORDataFake
+			cborData: HealthCertificateToolkit.onboardedCountriesCBORDataFake_Corrupt
 		))
 		
 		let stack = MockNetworkStack(

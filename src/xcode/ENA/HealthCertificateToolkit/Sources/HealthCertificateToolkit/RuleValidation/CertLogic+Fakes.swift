@@ -77,7 +77,7 @@ public extension ValidationResult {
     }
 }
 
-public var onboardedCountriesCBORDataFake: Data {
+public var onboardedCountriesCBORDataFake_DE_FR: Data {
     let cborCountries = CBOR.array(
         [
             CBOR.utf8String("DE"),
@@ -87,7 +87,7 @@ public var onboardedCountriesCBORDataFake: Data {
     return Data(cborCountries.encode())
 }
 
-public var onboardedCountriesCBORDataFake2: Data {
+public var onboardedCountriesCBORDataFake_IT_UK: Data {
     let cborCountries = CBOR.array(
         [
             CBOR.utf8String("IT"),
@@ -97,7 +97,7 @@ public var onboardedCountriesCBORDataFake2: Data {
     return Data(cborCountries.encode())
 }
 
-public var onboardedCountriesCorruptCBORDataFake: Data {
+public var onboardedCountriesCBORDataFake_Corrupt: Data {
     let cborCountries = CBOR.array(
         [
             CBOR.null,
