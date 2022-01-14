@@ -51,6 +51,12 @@ class HealthCertifiedPersonViewController: UIViewController, UITableViewDataSour
 		setupViewModel()
 	}
 
+	override func viewDidAppear(_ animated: Bool) {
+		super.viewDidAppear(animated)
+
+		viewModel.attemptToRestoreDecodingFailedHealthCertificates()
+	}
+
 	override func viewDidDisappear(_ animated: Bool) {
 		super.viewDidDisappear(animated)
 

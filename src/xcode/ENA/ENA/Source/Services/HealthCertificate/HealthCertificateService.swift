@@ -123,6 +123,8 @@ class HealthCertificateService {
 	func checkIfBoosterRulesShouldBeFetched(completion: @escaping(String?) -> Void) {
 		Log.debug("Check if booster rules should be fetched.")
 
+		attemptToRestoreDecodingFailedHealthCertificates()
+
 		if let lastExecutionDate = store.lastBoosterNotificationsExecutionDate,
 		   Calendar.utcCalendar.isDateInToday(lastExecutionDate) {
 			let errorMessage = "general: Booster Notifications rules was already Download today, will be skipped..."
@@ -537,6 +539,8 @@ class HealthCertificateService {
 	func updateValidityStatesAndNotifications(shouldScheduleTimer: Bool = true) {
 		Log.info("Update validity state and notifications.")
 
+		attemptToRestoreDecodingFailedHealthCertificates()
+
 		DispatchQueue.global(qos: .default).async { [weak self] in
 			guard let self = self else { return }
 
@@ -639,6 +643,12 @@ class HealthCertificateService {
 		// schedule timer updates
 		NotificationCenter.default.addObserver(self, selector: #selector(invalidateTimer), name: UIApplication.didEnterBackgroundNotification, object: nil)
 		NotificationCenter.default.addObserver(self, selector: #selector(scheduleTimer), name: UIApplication.didBecomeActiveNotification, object: nil)
+	}
+
+	func attemptToRestoreDecodingFailedHealthCertificates() {
+		healthCertifiedPersons.forEach {
+			$0.attemptToRestoreDecodingFailedHealthCertificates()
+		}
 	}
 
 	// MARK: - Private

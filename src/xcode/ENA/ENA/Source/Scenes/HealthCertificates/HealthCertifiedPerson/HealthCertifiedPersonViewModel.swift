@@ -202,6 +202,10 @@ final class HealthCertifiedPersonViewModel {
 		healthCertifiedPerson.isNewBoosterRule = false
 	}
 
+	func attemptToRestoreDecodingFailedHealthCertificates() {
+		healthCertifiedPerson.attemptToRestoreDecodingFailedHealthCertificates()
+	}
+
 	// MARK: - Private
 
 	private let healthCertifiedPerson: HealthCertifiedPerson
