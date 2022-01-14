@@ -207,19 +207,20 @@ final class HealthCertificatesTabCoordinator {
 				setLoadingState(true)
 
 				self?.healthCertificateValidationOnboardedCountriesProvider.onboardedCountries { result in
-					setLoadingState(false)
-
-					switch result {
-					case .success(let countries):
-						self?.showValidationFlow(
-							healthCertificate: healthCertificate,
-							countries: countries
-						)
-					case .failure(let error):
-						self?.showErrorAlert(
-							title: AppStrings.HealthCertificate.Validation.Error.title,
-							error: error
-						)
+					DispatchQueue.main.async {
+						setLoadingState(false)
+						switch result {
+						case .success(let countries):
+							self?.showValidationFlow(
+								healthCertificate: healthCertificate,
+								countries: countries
+							)
+						case .failure(let error):
+							self?.showErrorAlert(
+								title: AppStrings.HealthCertificate.Validation.Error.title,
+								error: error
+							)
+						}
 					}
 				}
 			},
