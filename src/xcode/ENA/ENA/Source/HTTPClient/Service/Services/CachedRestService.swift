@@ -68,9 +68,9 @@ class CachedRestService: Service {
 			
 			completion(.success(model))
 			
-		case .failure:
-			Log.error("Decoding for receive resource failed.", log: .client)
-			failureOrDefaultValueHandling(resource, .resourceError(.decoding(nil)), completion)
+		case .failure(let error):
+			Log.error("Decoding for receive resource failed.", log: .client, error: error)
+			failureOrDefaultValueHandling(resource, .resourceError(error), completion)
 		}
 	}
 
