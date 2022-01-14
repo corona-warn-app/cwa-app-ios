@@ -44,45 +44,6 @@ class HealthCertificateValidationOnboardedCountriesProviderTests: XCTestCase {
 	// MARK: - Failures
 	/*
 			
-	func testGIVEN_ValidationService_GetOnboardedCountries_WHEN_CorruptCBOR_THEN_ONBOARDED_COUNTRIES_JSON_DECODING_FAILEDIsReturned() {
-		// GIVEN
-		let client = ClientMock()
-		client.onValidationOnboardedCountries = { _, completion in
-			let package = SAPDownloadedPackage(
-				keysBin: onboardedCountriesCorruptCBORDataFake,
-				signature: Data()
-			)
-			let response = PackageDownloadResponse(
-				package: package,
-				etag: "someETag"
-			)
-			
-			completion(.success(response))
-		}
-		let store = MockTestStore()
-		let provider = HealthCertificateValidationOnboardedCountriesProvider(
-			store: store,
-			client: client,
-			signatureVerifier: MockVerifier()
-		)
-		let expectation = self.expectation(description: "Test should fail ONBOARDED_COUNTRIES_JSON_DECODING_FAILED")
-		var receivedError: ValidationOnboardedCountriesError?
-	
-		// WHEN
-		provider.onboardedCountries(completion: { result in
-			switch result {
-			case .success:
-				XCTFail("Test should not succeed.")
-			case let .failure(error):
-				receivedError = error
-				expectation.fulfill()
-			}
-		})
-	
-		// THEN
-		waitForExpectations(timeout: .short)
-		XCTAssertEqual(receivedError, .ONBOARDED_COUNTRIES_DECODING_ERROR(.CBOR_DECODING_FAILED(nil)))
-	}
 	
 	func testGIVEN_ValidationService_GetOnboardedCountries_WHEN_BadNetworkConnection_THEN_ONBOARDED_COUNTRIES_NO_NETWORKIsReturned() {
 		// GIVEN

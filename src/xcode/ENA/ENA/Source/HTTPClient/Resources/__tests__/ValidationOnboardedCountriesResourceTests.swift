@@ -247,7 +247,7 @@ final class ValidationOnboardedCountriesResourceTests: CWATestCase {
 		// Create cbor data and the archive, which is needed for the decode call of the CBORReceiveResource
 		let archiveData = try XCTUnwrap(Archive.createArchiveData(
 			accessMode: .create,
-			cborData: HealthCertificateToolkit.onboardedCountriesCBORDataFake
+			cborData: HealthCertificateToolkit.onboardedCountriesCorruptCBORDataFake
 		))
 		
 		let stack = MockNetworkStack(
@@ -259,7 +259,10 @@ final class ValidationOnboardedCountriesResourceTests: CWATestCase {
 			session: stack.urlSession
 		)
 		
-		let resource = ValidationOnboardedCountriesResource()
+		var resource = ValidationOnboardedCountriesResource()
+		resource.receiveResource = CBORReceiveResource(
+			signatureVerifier: MockVerifier()
+		)
 		
 		// WHEN
 		serviceProvider.load(resource) { result in
@@ -268,7 +271,13 @@ final class ValidationOnboardedCountriesResourceTests: CWATestCase {
 				XCTFail("Load should fail but failed succeeded 😅")
 			case let .failure(error):
 				// THEN
-				XCTAssertEqual(error, .receivedResourceError(.JSON))
+				// Successful test if we can unpack the error to an .ONBOARDED_COUNTRIES_DECODING_ERROR containing a .CBOR_DECODING_FAILED error.
+				guard case let .receivedResourceError(customError) = error,
+					  case let .ONBOARDED_COUNTRIES_DECODING_ERROR(decodingError) = customError,
+					  case .CBOR_DECODING_FAILED = decodingError else {
+						  XCTFail("Received wrong error type")
+						  return
+				}
 			}
 			expectation.fulfill()
 		}
