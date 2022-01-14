@@ -619,7 +619,6 @@
 		5001DE9826E2137D004242FA /* DigitalCovid19Certificate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5001DE9726E2137D004242FA /* DigitalCovid19Certificate.swift */; };
 		5001DE9A26E2146E004242FA /* ValidationOnboardedCountries.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5001DE9926E2146E004242FA /* ValidationOnboardedCountries.swift */; };
 		5001DE9C26E2155C004242FA /* DCCRules.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5001DE9B26E2155C004242FA /* DCCRules.swift */; };
-		500396ED268D95970006D448 /* HealthCertificateValidationOnboardedCountriesCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 500396EC268D95970006D448 /* HealthCertificateValidationOnboardedCountriesCache.swift */; };
 		500396EF268DA1A90006D448 /* HealthCertificateValidationServiceValidationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 500396EE268DA1A80006D448 /* HealthCertificateValidationServiceValidationTests.swift */; };
 		5006C275260E2A4900533CAA /* CheckinWithRisk.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5006C274260E2A4900533CAA /* CheckinWithRisk.swift */; };
 		5006C283260E4ABA00533CAA /* Checkin+Mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0109DB8E26037E1F00624BB3 /* Checkin+Mock.swift */; };
@@ -628,7 +627,8 @@
 		500DB4D425CDE5C20038DFED /* PPASError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 500DB4D325CDE5C20038DFED /* PPASError.swift */; };
 		50101D75270739FA006F8B0F /* NotificationSettingsViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50E861FB27070EE6001E29B2 /* NotificationSettingsViewModelTests.swift */; };
 		50101D7927073DD5006F8B0F /* DeltaOnboardingNotificationReworkViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50101D7827073D83006F8B0F /* DeltaOnboardingNotificationReworkViewModelTests.swift */; };
-		5013523227884C0E00511ADF /* CBORReceiveResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5013523127884C0D00511ADF /* CBORReceiveResource.swift */; };
+		501352302788399E00511ADF /* ValidationOnboardedCountriesModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5013522F2788399E00511ADF /* ValidationOnboardedCountriesModel.swift */; };
+		501352332788638A00511ADF /* CBORReceiveResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5013523127884C0D00511ADF /* CBORReceiveResource.swift */; };
 		5013B18526EBA3A500A2DD54 /* QRScannerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5013B18426EBA3A500A2DD54 /* QRScannerViewModel.swift */; };
 		5013B18726EBA3FE00A2DD54 /* QRScannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5013B18626EBA3FE00A2DD54 /* QRScannerViewController.swift */; };
 		5017F64D25FFAD11003A812E /* PPASubmissionState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5017F64C25FFAD11003A812E /* PPASubmissionState.swift */; };
@@ -663,7 +663,6 @@
 		504E8B1425D400DF00CAFBDF /* DMPPAnalyticsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 504E8B1325D400DF00CAFBDF /* DMPPAnalyticsViewModel.swift */; };
 		504E8B2C25D41CBD00CAFBDF /* DMPPAMostRecentData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 504E8B2B25D41CBD00CAFBDF /* DMPPAMostRecentData.swift */; };
 		5051CBB6260BCF6D003FC7C1 /* Int+DateFromUnixTimestampInHours.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5051CBAE260BCE70003FC7C1 /* Int+DateFromUnixTimestampInHours.swift */; };
-		5054BF98268C561E00B0BDF4 /* HealthCertificateValidationOnboardedCountriesError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5054BF97268C561E00B0BDF4 /* HealthCertificateValidationOnboardedCountriesError.swift */; };
 		5055EC01267239690062C15E /* HealthCertificateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5055EC00267239690062C15E /* HealthCertificateTests.swift */; };
 		5058DF7C2666CC7700858446 /* DCCResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5058DF7B2666CC7700858446 /* DCCResponse.swift */; };
 		5058DF8B2667666900858446 /* HTTPClient+GetDigitalCovid19CertificateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5058DF862667666400858446 /* HTTPClient+GetDigitalCovid19CertificateTests.swift */; };
@@ -679,7 +678,6 @@
 		50680B9A26164439002EA256 /* DMDMMostRecentTraceLocationCheckedIntoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50680B9926164439002EA256 /* DMDMMostRecentTraceLocationCheckedIntoViewController.swift */; };
 		50680B9F26164442002EA256 /* DMDMMostRecentTraceLocationCheckedIntoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50680B9E26164442002EA256 /* DMDMMostRecentTraceLocationCheckedIntoViewModel.swift */; };
 		506861E026A0347F0069B78C /* HealthCertificateValidationResultTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 506861DF26A0347F0069B78C /* HealthCertificateValidationResultTests.swift */; };
-		50690CAE2695FDFC00127CB2 /* HealthCertificateValidationOnboardedCountriesProviderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50690CAD2695FDFC00127CB2 /* HealthCertificateValidationOnboardedCountriesProviderTests.swift */; };
 		50690CB32696FA0300127CB2 /* HealthCertificateValidationOnboardedCountriesProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50690CB22696FA0300127CB2 /* HealthCertificateValidationOnboardedCountriesProvider.swift */; };
 		506A2F1B25D2A06D00B7DDFB /* DataDonationDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 506A2F1A25D2A06D00B7DDFB /* DataDonationDetailsViewModel.swift */; };
 		506A2F2025D2A08900B7DDFB /* DataDonationDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 506A2F1F25D2A08900B7DDFB /* DataDonationDetailsViewController.swift */; };
@@ -697,12 +695,12 @@
 		5078DCA12684B3ED00535917 /* HealthCertificateValidationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5078DCA02684B3ED00535917 /* HealthCertificateValidationService.swift */; };
 		5078DCA42684B5FB00535917 /* HealthCertificateValidationReport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5078DCA32684B5FB00535917 /* HealthCertificateValidationReport.swift */; };
 		5078DCA62684B60400535917 /* HealthCertificateValidationError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5078DCA52684B60400535917 /* HealthCertificateValidationError.swift */; };
-		5078DCA92686085C00535917 /* HTTPClient+ValidationOnboardedCountries.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5078DCA72686085700535917 /* HTTPClient+ValidationOnboardedCountries.swift */; };
 		5078DCAB2686122200535917 /* api-response-onboardedCountries in Resources */ = {isa = PBXBuildFile; fileRef = 5078DCAA2686112C00535917 /* api-response-onboardedCountries */; };
 		5081EEF125FF739B004B8FDE /* CheckinsInfoScreenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5081EEF025FF739B004B8FDE /* CheckinsInfoScreenViewModel.swift */; };
 		5081EEFE25FF9C5E004B8FDE /* CheckinsInfoScreenViewModelTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5081EEFD25FF9C5E004B8FDE /* CheckinsInfoScreenViewModelTest.swift */; };
 		5081EF0625FFB7E0004B8FDE /* CheckinsInfoScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5081EF0525FFB7E0004B8FDE /* CheckinsInfoScreenViewController.swift */; };
 		5081EF0E25FFDEC7004B8FDE /* ENAUITests_10_CheckIns.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5081EF0D25FFDEC7004B8FDE /* ENAUITests_10_CheckIns.swift */; };
+		508266D5278C77AD00091991 /* ValidationOnboardedCountriesResourceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 508266D3278C778E00091991 /* ValidationOnboardedCountriesResourceTests.swift */; };
 		508266DA278DA60000091991 /* Archive+CBOR.swift in Sources */ = {isa = PBXBuildFile; fileRef = 508266D8278DA5DE00091991 /* Archive+CBOR.swift */; };
 		508266DC278DE9D300091991 /* Dictionary+Headers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 508266DB278DE9D300091991 /* Dictionary+Headers.swift */; };
 		50842BEC274FB9150015E63F /* ServiceIdentityDocumentProcessorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABC506D2274F8F0600698A95 /* ServiceIdentityDocumentProcessorTests.swift */; };
@@ -2249,13 +2247,13 @@
 		5001DE9726E2137D004242FA /* DigitalCovid19Certificate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DigitalCovid19Certificate.swift; sourceTree = "<group>"; };
 		5001DE9926E2146E004242FA /* ValidationOnboardedCountries.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidationOnboardedCountries.swift; sourceTree = "<group>"; };
 		5001DE9B26E2155C004242FA /* DCCRules.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DCCRules.swift; sourceTree = "<group>"; };
-		500396EC268D95970006D448 /* HealthCertificateValidationOnboardedCountriesCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HealthCertificateValidationOnboardedCountriesCache.swift; sourceTree = "<group>"; };
 		500396EE268DA1A80006D448 /* HealthCertificateValidationServiceValidationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthCertificateValidationServiceValidationTests.swift; sourceTree = "<group>"; };
 		5006C274260E2A4900533CAA /* CheckinWithRisk.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckinWithRisk.swift; sourceTree = "<group>"; };
 		5008F60225DC0237008B516F /* PPAnalyticsCollector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PPAnalyticsCollector.swift; sourceTree = "<group>"; };
 		500DB4CB25CDDECF0038DFED /* PPASResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PPASResponse.swift; sourceTree = "<group>"; };
 		500DB4D325CDE5C20038DFED /* PPASError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PPASError.swift; sourceTree = "<group>"; };
 		50101D7827073D83006F8B0F /* DeltaOnboardingNotificationReworkViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeltaOnboardingNotificationReworkViewModelTests.swift; sourceTree = "<group>"; };
+		5013522F2788399E00511ADF /* ValidationOnboardedCountriesModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidationOnboardedCountriesModel.swift; sourceTree = "<group>"; };
 		5013523127884C0D00511ADF /* CBORReceiveResource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CBORReceiveResource.swift; sourceTree = "<group>"; };
 		5013B18426EBA3A500A2DD54 /* QRScannerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRScannerViewModel.swift; sourceTree = "<group>"; };
 		5013B18626EBA3FE00A2DD54 /* QRScannerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRScannerViewController.swift; sourceTree = "<group>"; };
@@ -2291,7 +2289,6 @@
 		504E8B1325D400DF00CAFBDF /* DMPPAnalyticsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMPPAnalyticsViewModel.swift; sourceTree = "<group>"; };
 		504E8B2B25D41CBD00CAFBDF /* DMPPAMostRecentData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMPPAMostRecentData.swift; sourceTree = "<group>"; };
 		5051CBAE260BCE70003FC7C1 /* Int+DateFromUnixTimestampInHours.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+DateFromUnixTimestampInHours.swift"; sourceTree = "<group>"; };
-		5054BF97268C561E00B0BDF4 /* HealthCertificateValidationOnboardedCountriesError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthCertificateValidationOnboardedCountriesError.swift; sourceTree = "<group>"; };
 		5055EC00267239690062C15E /* HealthCertificateTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthCertificateTests.swift; sourceTree = "<group>"; };
 		5058DF7B2666CC7700858446 /* DCCResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DCCResponse.swift; sourceTree = "<group>"; };
 		5058DF862667666400858446 /* HTTPClient+GetDigitalCovid19CertificateTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HTTPClient+GetDigitalCovid19CertificateTests.swift"; sourceTree = "<group>"; };
@@ -2308,7 +2305,6 @@
 		50680B9926164439002EA256 /* DMDMMostRecentTraceLocationCheckedIntoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMDMMostRecentTraceLocationCheckedIntoViewController.swift; sourceTree = "<group>"; };
 		50680B9E26164442002EA256 /* DMDMMostRecentTraceLocationCheckedIntoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMDMMostRecentTraceLocationCheckedIntoViewModel.swift; sourceTree = "<group>"; };
 		506861DF26A0347F0069B78C /* HealthCertificateValidationResultTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthCertificateValidationResultTests.swift; sourceTree = "<group>"; };
-		50690CAD2695FDFC00127CB2 /* HealthCertificateValidationOnboardedCountriesProviderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthCertificateValidationOnboardedCountriesProviderTests.swift; sourceTree = "<group>"; };
 		50690CB22696FA0300127CB2 /* HealthCertificateValidationOnboardedCountriesProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthCertificateValidationOnboardedCountriesProvider.swift; sourceTree = "<group>"; };
 		506A2F1A25D2A06D00B7DDFB /* DataDonationDetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataDonationDetailsViewModel.swift; sourceTree = "<group>"; };
 		506A2F1F25D2A08900B7DDFB /* DataDonationDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataDonationDetailsViewController.swift; sourceTree = "<group>"; };
@@ -2330,12 +2326,12 @@
 		5078DCA02684B3ED00535917 /* HealthCertificateValidationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthCertificateValidationService.swift; sourceTree = "<group>"; };
 		5078DCA32684B5FB00535917 /* HealthCertificateValidationReport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthCertificateValidationReport.swift; sourceTree = "<group>"; };
 		5078DCA52684B60400535917 /* HealthCertificateValidationError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthCertificateValidationError.swift; sourceTree = "<group>"; };
-		5078DCA72686085700535917 /* HTTPClient+ValidationOnboardedCountries.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HTTPClient+ValidationOnboardedCountries.swift"; sourceTree = "<group>"; };
 		5078DCAA2686112C00535917 /* api-response-onboardedCountries */ = {isa = PBXFileReference; lastKnownFileType = file; path = "api-response-onboardedCountries"; sourceTree = "<group>"; };
 		5081EEF025FF739B004B8FDE /* CheckinsInfoScreenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckinsInfoScreenViewModel.swift; sourceTree = "<group>"; };
 		5081EEFD25FF9C5E004B8FDE /* CheckinsInfoScreenViewModelTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckinsInfoScreenViewModelTest.swift; sourceTree = "<group>"; };
 		5081EF0525FFB7E0004B8FDE /* CheckinsInfoScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckinsInfoScreenViewController.swift; sourceTree = "<group>"; };
 		5081EF0D25FFDEC7004B8FDE /* ENAUITests_10_CheckIns.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ENAUITests_10_CheckIns.swift; sourceTree = "<group>"; };
+		508266D3278C778E00091991 /* ValidationOnboardedCountriesResourceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidationOnboardedCountriesResourceTests.swift; sourceTree = "<group>"; };
 		508266D8278DA5DE00091991 /* Archive+CBOR.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Archive+CBOR.swift"; sourceTree = "<group>"; };
 		508266DB278DE9D300091991 /* Dictionary+Headers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Dictionary+Headers.swift"; sourceTree = "<group>"; };
 		50842BEF274FCFFB0015E63F /* TicketValidationServiceIdentityDocument+Fake.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TicketValidationServiceIdentityDocument+Fake.swift"; sourceTree = "<group>"; };
@@ -5363,9 +5359,7 @@
 			isa = PBXGroup;
 			children = (
 				50690CB42696FA0A00127CB2 /* __tests__ */,
-				50690CB52696FA1500127CB2 /* Model */,
 				50690CB22696FA0300127CB2 /* HealthCertificateValidationOnboardedCountriesProvider.swift */,
-				019E2EFD269EF419000EC4AD /* MockHealthCertificateValidationOnboardedCountriesProvider.swift */,
 			);
 			path = HealthCertificateValidationOnboardedCountries;
 			sourceTree = "<group>";
@@ -5373,18 +5367,9 @@
 		50690CB42696FA0A00127CB2 /* __tests__ */ = {
 			isa = PBXGroup;
 			children = (
-				50690CAD2695FDFC00127CB2 /* HealthCertificateValidationOnboardedCountriesProviderTests.swift */,
+				019E2EFD269EF419000EC4AD /* MockHealthCertificateValidationOnboardedCountriesProvider.swift */,
 			);
 			path = __tests__;
-			sourceTree = "<group>";
-		};
-		50690CB52696FA1500127CB2 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-				5054BF97268C561E00B0BDF4 /* HealthCertificateValidationOnboardedCountriesError.swift */,
-				500396EC268D95970006D448 /* HealthCertificateValidationOnboardedCountriesCache.swift */,
-			);
-			path = Model;
 			sourceTree = "<group>";
 		};
 		506AB7492658007A004AE743 /* DMPPAActualData */ = {
@@ -7768,7 +7753,6 @@
 				50AA526725FBA0CC000C77BB /* HTTPClient+TraceWarningPackageDiscoveryTests.swift */,
 				50373EC825FBD08A000109AE /* HTTPClient+TraceWarningPackageDownloadTests.swift */,
 				5058DF862667666400858446 /* HTTPClient+GetDigitalCovid19CertificateTests.swift */,
-				5078DCA72686085700535917 /* HTTPClient+ValidationOnboardedCountries.swift */,
 				50412F302689D2F300E4087C /* HTTPClient+GetDccRules.swift */,
 				A1877CA9248F247D006FEFC0 /* SAPDownloadedPackageTests.swift */,
 				B1EAEC8D247118CB003BE9A2 /* URLSession+ConvenienceTests.swift */,
@@ -8260,6 +8244,7 @@
 				AB0246E227230F5E002668A1 /* RegistrationTokenModel.swift */,
 				01899D43275113A4008DB734 /* ModelWithHeaders.swift */,
 				8F80802D2731242900F8FA3F /* SubmissionTANModel.swift */,
+				5013522F2788399E00511ADF /* ValidationOnboardedCountriesModel.swift */,
 				EBE0F9642786F7D9001F20E8 /* TestResultModel.swift */,
 				EB9E8738278C5D8600DEE292 /* TestResultModel+Fake.swift */,
 			);
@@ -8470,6 +8455,7 @@
 				EBE0F96627870D30001F20E8 /* TestResultsResourceTests.swift */,
 				01AD1D77274FC82E00BCE687 /* TicketValidationAccessTokenResourceTests.swift */,
 				01BCBFAE27552A5900E4B6F1 /* TicketValidationResultTokenResourceTests.swift */,
+				508266D3278C778E00091991 /* ValidationOnboardedCountriesResourceTests.swift */,
 			);
 			path = __tests__;
 			sourceTree = "<group>";
@@ -9976,7 +9962,6 @@
 				01164CE426C57438007F9C3E /* TraceLocationSelectionCellModel.swift in Sources */,
 				BA6C8A9E254D634E008344F5 /* RiskCalculationConfiguration.swift in Sources */,
 				7154EB4A247D21E200A467FF /* ExposureDetectionLongGuideCell.swift in Sources */,
-				500396ED268D95970006D448 /* HealthCertificateValidationOnboardedCountriesCache.swift in Sources */,
 				505F507225C833AA004920EB /* ppac_ios.pb.swift in Sources */,
 				8F56B26F27638962007D4E29 /* AdmissionStateTableViewCell.swift in Sources */,
 				50EACA9B25E682AE004DDADB /* ENInfectiousness+Protobuf.swift in Sources */,
@@ -10000,7 +9985,6 @@
 				BA52A69C26EA1A4F00AA0732 /* ProtobufReceiveResource.swift in Sources */,
 				8F3167E826A5D929008F35AA /* RegionType.swift in Sources */,
 				016E25F325AF13EA0077C64C /* HomeStatisticsTableViewCell.swift in Sources */,
-				5013523227884C0E00511ADF /* CBORReceiveResource.swift in Sources */,
 				0130F68125B186DB00B6BDA3 /* SAP_Internal_Stats_Statistics+SupportedIDs.swift in Sources */,
 				5013B18526EBA3A500A2DD54 /* QRScannerViewModel.swift in Sources */,
 				0138F55325ECD44300A9B075 /* event_registration_parameters.pb.swift in Sources */,
@@ -10334,6 +10318,7 @@
 				BA6F0073265FD31B0020721B /* ExposureSubmissionTestCertificateViewModel.swift in Sources */,
 				01A6C3032626DE2500B6E95A /* HomeTestResultTableViewCell.swift in Sources */,
 				BA5B7FD026458EF400502087 /* HealthCertificateKeyValueTextCell.swift in Sources */,
+				501352302788399E00511ADF /* ValidationOnboardedCountriesModel.swift in Sources */,
 				8FB7C92B2750EF6E0071C98C /* TicketValidationServiceIdentityDocumentValidationDecorator.swift in Sources */,
 				BAB953D625B86015007B80C7 /* HistoryExposure.swift in Sources */,
 				BA5B7FD226458EF400502087 /* HealthCertificateTopCornerCell.swift in Sources */,
@@ -10591,6 +10576,7 @@
 				BA6C8AEC254D65C4008344F5 /* ExposureWindow.swift in Sources */,
 				AB6289D9251C833100CF61D2 /* DMDeltaOnboardingViewController.swift in Sources */,
 				501ABC50267B4B04008F37CA /* HealthCertificateOverviewEmptyStateViewModel.swift in Sources */,
+				501352332788638A00511ADF /* CBORReceiveResource.swift in Sources */,
 				8FB776F926F27E1D005255BB /* CoronaTestsQRCodeParser.swift in Sources */,
 				01CBD880261B3C6800158B3E /* MockTestStore.swift in Sources */,
 				EBD2D09825A86C1A006E4220 /* RiskProviding.swift in Sources */,
@@ -10642,7 +10628,6 @@
 				AB5F84C024FE2EB3000400D4 /* DownloadedPackagesStoreV0.swift in Sources */,
 				518A69FB24687D5800444E66 /* RiskLevel.swift in Sources */,
 				019789322746920600AAC31C /* TicketValidationFailedViewModel.swift in Sources */,
-				5054BF98268C561E00B0BDF4 /* HealthCertificateValidationOnboardedCountriesError.swift in Sources */,
 				EBCD2412250790F400E5574C /* ExposureSubmissionSymptomsViewController.swift in Sources */,
 				AB7420B7251B69E2006666AC /* DeltaOnboardingCoordinator.swift in Sources */,
 				ABE961E225F29A5000D0F699 /* EventStoreSchemaV1.swift in Sources */,
@@ -10834,7 +10819,6 @@
 				BA573D5E2608CBD3006ED1A6 /* TraceLocationTypeSelectionViewModelTests.swift in Sources */,
 				01635EB2275A614500A479EB /* HealthCertificateArray+AdmissionStateTests.swift in Sources */,
 				017AD13625A3238300FA2B3F /* iOS13TestCase.swift in Sources */,
-				5078DCA92686085C00535917 /* HTTPClient+ValidationOnboardedCountries.swift in Sources */,
 				BA3FA3E22667BDF700F11C06 /* HTTPClient+DccRegisterPublicKeyTests.swift in Sources */,
 				BABFBE70270DDBD100106313 /* QRCodeDetectorFake.swift in Sources */,
 				01D16C5E24ED69CA007DB387 /* BackgroundAppRefreshViewModelTests.swift in Sources */,
@@ -10857,7 +10841,6 @@
 				AB3560A02547194C00C3F8E0 /* DeviceTimeCheckTests.swift in Sources */,
 				35C701F82556C01F008AEA91 /* Migration1To2Tests.swift in Sources */,
 				ABD08257260C7FE9007C4B24 /* CheckinRiskCalculationTests.swift in Sources */,
-				50690CAE2695FDFC00127CB2 /* HealthCertificateValidationOnboardedCountriesProviderTests.swift in Sources */,
 				01F3323C27174575005CE21E /* AntigenTest+Mock.swift in Sources */,
 				507685CB25E80E600039B7B6 /* TestDummyPPAnalyticsDataImplementation.swift in Sources */,
 				50842BEC274FB9150015E63F /* ServiceIdentityDocumentProcessorTests.swift in Sources */,
@@ -11087,6 +11070,7 @@
 				341DC33726849D1F0003E6BA /* LocalStatisticsProviderTests.swift in Sources */,
 				AB190EED25FF6C3700FBFF0D /* ContactDiaryMigration3To4Tests.swift in Sources */,
 				B17A44A22464906A00CB195E /* KeyTests.swift in Sources */,
+				508266D5278C77AD00091991 /* ValidationOnboardedCountriesResourceTests.swift in Sources */,
 				3427F8DB274E87E90062E679 /* ValidationConditions+CertificateSelectionTests.swift in Sources */,
 				017D8D9A263AF3730009E91C /* HealthCertificateServiceTests.swift in Sources */,
 				B19FD7152491A4A300A9D56A /* SAP_SemanticVersionTests.swift in Sources */,

@@ -77,9 +77,7 @@ class ExposureSubmissionCoordinatorTests: CWATestCase {
 		)
 		
 		healthCertificateValidationOnboardedCountriesProvider = HealthCertificateValidationOnboardedCountriesProvider(
-			store: store,
-			client: client,
-			signatureVerifier: MockVerifier()
+			restService: RestServiceProviderStub(loadResources: [])
 		)
 		
 		let dscListProvider = DSCListProvider(

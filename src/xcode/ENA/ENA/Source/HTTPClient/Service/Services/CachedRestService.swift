@@ -68,9 +68,9 @@ class CachedRestService: Service {
 			
 			completion(.success(model))
 			
-		case .failure:
-			Log.error("Decoding for receive resource failed.", log: .client)
-			failureOrDefaultValueHandling(resource, .resourceError(.decoding(nil)), completion)
+		case .failure(let error):
+			Log.error("Decoding for receive resource failed.", log: .client, error: error)
+			failureOrDefaultValueHandling(resource, .resourceError(error), completion)
 		}
 	}
 
@@ -80,7 +80,7 @@ class CachedRestService: Service {
 	) where R: Resource {
 		guard let cachedModel = cache[resource.locator.hashValue] else {
 			Log.error("No data found in cache", log: .client)
-			failureOrDefaultValueHandling(resource, .resourceError(.missingData), completion)
+			failureOrDefaultValueHandling(resource, .resourceError(.missingCache), completion)
 			return
 		}
 		decodeModel(resource, cachedModel.data, ["ETag": cachedModel.eTag], true, completion)

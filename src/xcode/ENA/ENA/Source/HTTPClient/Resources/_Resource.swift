@@ -52,6 +52,7 @@ enum ResourceError: Error {
 	case notModified
 	case undefined
 	case missingEtag
+	case missingCache
 }
 
 #if !RELEASE

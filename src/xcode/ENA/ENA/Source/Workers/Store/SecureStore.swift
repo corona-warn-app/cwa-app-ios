@@ -265,20 +265,6 @@ final class SecureStore: SecureKeyValueStoring, Store, AntigenTestProfileStoring
 	
 	// MARK: - Protocol HealthCertificateValidationCaching
 	
-	var validationOnboardedCountriesCache: HealthCertificateValidationOnboardedCountriesCache? {
-		get {
-			let countriesCache = kvStore["validationOnboardedCountriesCache"] as HealthCertificateValidationOnboardedCountriesCache? ?? nil
-			guard let countries = countriesCache?.onboardedCountries,
-				  let eTag = countriesCache?.lastOnboardedCountriesETag
-			else {
-				return nil
-			}
-			let mappedCountries = countries.map({ Country(withCountryCodeFallback: $0.id) })
-			return HealthCertificateValidationOnboardedCountriesCache(onboardedCountries: mappedCountries, lastOnboardedCountriesETag: eTag)
-		}
-		set { kvStore["validationOnboardedCountriesCache"] = newValue }
-	}
-	
 	var acceptanceRulesCache: ValidationRulesCache? {
 		get { kvStore["acceptanceRulesCache"] as ValidationRulesCache? ?? nil }
 		set { kvStore["acceptanceRulesCache"] = newValue }

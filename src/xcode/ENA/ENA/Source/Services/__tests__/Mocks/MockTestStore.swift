@@ -154,7 +154,6 @@ final class MockTestStore: Store, PPAnalyticsData {
 
 	// MARK: - Protocol HealthCertificateValidationCaching
 
-	var validationOnboardedCountriesCache: HealthCertificateValidationOnboardedCountriesCache?
 	var acceptanceRulesCache: ValidationRulesCache?
 	var invalidationRulesCache: ValidationRulesCache?
 

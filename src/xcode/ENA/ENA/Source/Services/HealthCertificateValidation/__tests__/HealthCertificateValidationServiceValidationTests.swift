@@ -1971,8 +1971,8 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 }
 
 /// ONLY for testing purposes because it ignores underlining errors for comparisons.
-extension HealthCertificateValidationOnboardedCountriesError: Equatable {
-	public static func == (lhs: HealthCertificateValidationOnboardedCountriesError, rhs: HealthCertificateValidationOnboardedCountriesError) -> Bool {
+extension ValidationOnboardedCountriesError: Equatable {
+	public static func == (lhs: ValidationOnboardedCountriesError, rhs: ValidationOnboardedCountriesError) -> Bool {
 		switch (lhs, rhs) {
 		case let (.ONBOARDED_COUNTRIES_DECODING_ERROR(lhsRuleValidationError), .ONBOARDED_COUNTRIES_DECODING_ERROR(rhsRuleValidationError)):
 			return lhsRuleValidationError == rhsRuleValidationError
