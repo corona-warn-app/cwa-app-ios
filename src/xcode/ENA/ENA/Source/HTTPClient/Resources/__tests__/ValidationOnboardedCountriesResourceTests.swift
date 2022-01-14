@@ -342,7 +342,7 @@ final class ValidationOnboardedCountriesResourceTests: CWATestCase {
 		waitForExpectations(timeout: .short)
 	}
 			
-	func testGIVEN_Resource_WHEN_HttpError404_THEN_ErrorIsReturned() {
+	func testGIVEN_Resource_WHEN_HttpError404_THEN_ONBOARDED_COUNTRIES_CLIENT_ERROR() {
 		// GIVEN
 		// http code 404
 		let expectation = expectation(description: "Expect that we got a failure")
@@ -365,12 +365,13 @@ final class ValidationOnboardedCountriesResourceTests: CWATestCase {
 				XCTFail("Load should fail but failed succeeded 😅")
 			case let .failure(error):
 				// THEN
-				XCTAssertEqual(error, ServiceError.unexpectedServerError(404))
+				XCTAssertEqual(error, .receivedResourceError(.ONBOARDED_COUNTRIES_CLIENT_ERROR))
 			}
 			expectation.fulfill()
 		}
 		waitForExpectations(timeout: .short)
 	}
+	
 
 	
 }
