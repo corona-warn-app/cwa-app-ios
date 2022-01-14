@@ -137,7 +137,6 @@ final class ValidationOnboardedCountriesResourceTests: CWATestCase {
 	
 	func testGIVEN_Resource_WHEN_EtagIsMissing_THEN_ONBOARDED_COUNTRIES_JSON_ARCHIVE_ETAG_ERROR() throws {
 		// GIVEN
-		// http code 200
 		let expectation = expectation(description: "Expect that we got a completion")
 		
 		// Create cbor data and the archive, which is needed for the decode call of the CBORReceiveResource
@@ -168,6 +167,108 @@ final class ValidationOnboardedCountriesResourceTests: CWATestCase {
 			case let .failure(error):
 				// THEN
 				XCTAssertEqual(error, .receivedResourceError(.ONBOARDED_COUNTRIES_JSON_ARCHIVE_ETAG_ERROR))
+			}
+			expectation.fulfill()
+		}
+		waitForExpectations(timeout: .short)
+	}
+	
+	func testGIVEN_Resource_WHEN_EmptyPackage_THEN_ONBOARDED_COUNTRIES_JSON_ARCHIVE_FILE_MISSING() throws {
+		// GIVEN
+		let expectation = expectation(description: "Expect that we got a completion")
+		
+		let stack = MockNetworkStack(
+			httpStatus: 200,
+			responseData: nil
+		)
+		
+		var resource = ValidationOnboardedCountriesResource()
+		resource.receiveResource = CBORReceiveResource(
+			signatureVerifier: MockVerifier()
+		)
+				
+		let serviceProvider = RestServiceProvider(
+			session: stack.urlSession
+		)
+		
+		// WHEN
+		serviceProvider.load(resource) { result in
+			switch result {
+			case .success:
+				XCTFail("Load should fail but failed succeeded 😅")
+			case let .failure(error):
+				// THEN
+				XCTAssertEqual(error, .receivedResourceError(.ONBOARDED_COUNTRIES_JSON_ARCHIVE_FILE_MISSING))
+			}
+			expectation.fulfill()
+		}
+		waitForExpectations(timeout: .short)
+	}
+	
+	func testGIVEN_Resource_WHEN_WrongSignature_THEN_ONBOARDED_COUNTRIES_JSON_ARCHIVE_SIGNATURE() throws {
+		// GIVEN
+		let expectation = expectation(description: "Expect that we got a completion")
+		
+		// Create cbor data and the archive, which is needed for the decode call of the CBORReceiveResource
+		let archiveData = try XCTUnwrap(Archive.createArchiveData(
+			accessMode: .create,
+			cborData: HealthCertificateToolkit.onboardedCountriesCBORDataFake
+		))
+		
+		let stack = MockNetworkStack(
+			httpStatus: 200,
+			responseData: archiveData
+		)
+		
+		let serviceProvider = RestServiceProvider(
+			session: stack.urlSession
+		)
+		
+		let resource = ValidationOnboardedCountriesResource()
+		
+		// WHEN
+		serviceProvider.load(resource) { result in
+			switch result {
+			case .success:
+				XCTFail("Load should fail but failed succeeded 😅")
+			case let .failure(error):
+				// THEN
+				XCTAssertEqual(error, .receivedResourceError(.ONBOARDED_COUNTRIES_JSON_ARCHIVE_SIGNATURE_INVALID))
+			}
+			expectation.fulfill()
+		}
+		waitForExpectations(timeout: .short)
+	}
+	
+	func testGIVEN_Resource_WHEN_EmptyPackage_THEN_ONBOARDED_COUNTRIES_JSON_DECODING_FAILED() throws {
+		// GIVEN
+		let expectation = expectation(description: "Expect that we got a completion")
+		
+		// Create cbor data and the archive, which is needed for the decode call of the CBORReceiveResource
+		let archiveData = try XCTUnwrap(Archive.createArchiveData(
+			accessMode: .create,
+			cborData: HealthCertificateToolkit.onboardedCountriesCBORDataFake
+		))
+		
+		let stack = MockNetworkStack(
+			httpStatus: 200,
+			responseData: archiveData
+		)
+		
+		let serviceProvider = RestServiceProvider(
+			session: stack.urlSession
+		)
+		
+		let resource = ValidationOnboardedCountriesResource()
+		
+		// WHEN
+		serviceProvider.load(resource) { result in
+			switch result {
+			case .success:
+				XCTFail("Load should fail but failed succeeded 😅")
+			case let .failure(error):
+				// THEN
+				XCTAssertEqual(error, .receivedResourceError(.JSON))
 			}
 			expectation.fulfill()
 		}
