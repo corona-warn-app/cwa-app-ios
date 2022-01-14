@@ -26,7 +26,7 @@ final class SettingsDataDonationViewModel: BaseDataDonationViewModel {
 			$0.add(
 				.section(
 					header: .image(
-						UIImage(named: "Illustration_Datenspendedatenspende"),
+						UIImage(named: "Illustration_Datenspendedatenspende_heart"),
 						accessibilityLabel: AppStrings.NotificationSettings.imageDescriptionOn,
 						accessibilityIdentifier: AccessibilityIdentifiers.NotificationSettings.DeltaOnboarding.imageOn,
 						height: 250

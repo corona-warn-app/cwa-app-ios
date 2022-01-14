@@ -3,7 +3,6 @@
 //
 
 import Foundation
-import HealthCertificateToolkit
 
 /**
 Protocol for a specific Model to decode from CBOR data. Should normally be implemented by the Model which shall be decoded, NOT the Resource.
@@ -36,6 +35,7 @@ struct CBORReceiveResource<R>: ReceiveResource where R: CBORDecoding {
 		guard let data = data else {
 			return .failure(.missingData)
 		}
+		
 		guard let package = SAPDownloadedPackage(compressedData: data) else {
 			return .failure(.packageCreation)
 		}
@@ -49,7 +49,6 @@ struct CBORReceiveResource<R>: ReceiveResource where R: CBORDecoding {
 			return Result.success(model)
 		} catch {
 			return Result.failure(.decoding(error))
-
 		}
 	}
 

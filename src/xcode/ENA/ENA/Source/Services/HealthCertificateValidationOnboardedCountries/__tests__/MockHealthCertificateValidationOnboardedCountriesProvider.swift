@@ -11,14 +11,14 @@ struct MockHealthCertificateValidationOnboardedCountriesProvider: HealthCertific
 	// MARK: - Protocol HealthCertificateValidationOnboardedCountriesProviding
 
 	func onboardedCountries(
-		completion: @escaping (Result<[Country], ServiceError<ValidationOnboardedCountriesResource.CustomError>>) -> Void
+		completion: @escaping (Result<[Country], ValidationOnboardedCountriesError>) -> Void
 	) {
 		completion(onboardedCountriesResult)
 	}
 
 	// MARK: - Internal
 
-	var onboardedCountriesResult: Result<[Country], ServiceError<ValidationOnboardedCountriesResource.CustomError>> = .success(
+	var onboardedCountriesResult: Result<[Country], ValidationOnboardedCountriesError> = .success(
 		[
 			Country(countryCode: "DE"),
 			Country(countryCode: "IT"),

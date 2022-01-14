@@ -678,7 +678,6 @@
 		50680B9A26164439002EA256 /* DMDMMostRecentTraceLocationCheckedIntoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50680B9926164439002EA256 /* DMDMMostRecentTraceLocationCheckedIntoViewController.swift */; };
 		50680B9F26164442002EA256 /* DMDMMostRecentTraceLocationCheckedIntoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50680B9E26164442002EA256 /* DMDMMostRecentTraceLocationCheckedIntoViewModel.swift */; };
 		506861E026A0347F0069B78C /* HealthCertificateValidationResultTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 506861DF26A0347F0069B78C /* HealthCertificateValidationResultTests.swift */; };
-		50690CAE2695FDFC00127CB2 /* HealthCertificateValidationOnboardedCountriesProviderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50690CAD2695FDFC00127CB2 /* HealthCertificateValidationOnboardedCountriesProviderTests.swift */; };
 		50690CB32696FA0300127CB2 /* HealthCertificateValidationOnboardedCountriesProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50690CB22696FA0300127CB2 /* HealthCertificateValidationOnboardedCountriesProvider.swift */; };
 		506A2F1B25D2A06D00B7DDFB /* DataDonationDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 506A2F1A25D2A06D00B7DDFB /* DataDonationDetailsViewModel.swift */; };
 		506A2F2025D2A08900B7DDFB /* DataDonationDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 506A2F1F25D2A08900B7DDFB /* DataDonationDetailsViewController.swift */; };
@@ -892,7 +891,6 @@
 		8F5B5C0E26456B1F00456381 /* HealthCertifiedPersonTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F5B5C0C26456B1F00456381 /* HealthCertifiedPersonTableViewCell.swift */; };
 		8F5B5C172648CD3800456381 /* HealthCertifiedPersonCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F5B5C162648CD3800456381 /* HealthCertifiedPersonCellModel.swift */; };
 		8F63407C262D8F4400077240 /* AntigenTestInformation+Mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F634077262D8EAA00077240 /* AntigenTestInformation+Mock.swift */; };
-		8F634084262DBB6900077240 /* Route+Equatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F634083262DBB6900077240 /* Route+Equatable.swift */; };
 		8F64BD8F2767947600E48299 /* RoundedLabeledView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8F64BD8E2767947600E48299 /* RoundedLabeledView.xib */; };
 		8F64BD91276796A400E48299 /* RoundedLabeledView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F64BD90276796A400E48299 /* RoundedLabeledView.swift */; };
 		8F6635F02713A7B500384B63 /* stats.bin in Resources */ = {isa = PBXBuildFile; fileRef = 8F6635EF2713A7B400384B63 /* stats.bin */; };
@@ -2307,7 +2305,6 @@
 		50680B9926164439002EA256 /* DMDMMostRecentTraceLocationCheckedIntoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMDMMostRecentTraceLocationCheckedIntoViewController.swift; sourceTree = "<group>"; };
 		50680B9E26164442002EA256 /* DMDMMostRecentTraceLocationCheckedIntoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMDMMostRecentTraceLocationCheckedIntoViewModel.swift; sourceTree = "<group>"; };
 		506861DF26A0347F0069B78C /* HealthCertificateValidationResultTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthCertificateValidationResultTests.swift; sourceTree = "<group>"; };
-		50690CAD2695FDFC00127CB2 /* HealthCertificateValidationOnboardedCountriesProviderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthCertificateValidationOnboardedCountriesProviderTests.swift; sourceTree = "<group>"; };
 		50690CB22696FA0300127CB2 /* HealthCertificateValidationOnboardedCountriesProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthCertificateValidationOnboardedCountriesProvider.swift; sourceTree = "<group>"; };
 		506A2F1A25D2A06D00B7DDFB /* DataDonationDetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataDonationDetailsViewModel.swift; sourceTree = "<group>"; };
 		506A2F1F25D2A08900B7DDFB /* DataDonationDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataDonationDetailsViewController.swift; sourceTree = "<group>"; };
@@ -2545,7 +2542,6 @@
 		8F5B5C0C26456B1F00456381 /* HealthCertifiedPersonTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthCertifiedPersonTableViewCell.swift; sourceTree = "<group>"; };
 		8F5B5C162648CD3800456381 /* HealthCertifiedPersonCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthCertifiedPersonCellModel.swift; sourceTree = "<group>"; };
 		8F634077262D8EAA00077240 /* AntigenTestInformation+Mock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AntigenTestInformation+Mock.swift"; sourceTree = "<group>"; };
-		8F634083262DBB6900077240 /* Route+Equatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Route+Equatable.swift"; sourceTree = "<group>"; };
 		8F64BD8E2767947600E48299 /* RoundedLabeledView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RoundedLabeledView.xib; sourceTree = "<group>"; };
 		8F64BD90276796A400E48299 /* RoundedLabeledView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedLabeledView.swift; sourceTree = "<group>"; };
 		8F6635EF2713A7B400384B63 /* stats.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = stats.bin; sourceTree = "<group>"; };
@@ -5055,7 +5051,6 @@
 				35BF067425DB1BA900D3868B /* AppDelegate+QuickActions.swift */,
 				341FE0B22721BA2000A4D28F /* AppDelegate+UITestingMethods.swift */,
 				BA6898CC25ED49E00037A3EE /* Route.swift */,
-				8F634083262DBB6900077240 /* Route+Equatable.swift */,
 				35B2FAA925B9CE8F009ABC8E /* main.swift */,
 				353412CB2525EE4A0086D15C /* Globals.swift */,
 				35B2FAB925B9D3F3009ABC8E /* ENATaskExecutionDelegate.swift */,
@@ -5365,7 +5360,6 @@
 			children = (
 				50690CB42696FA0A00127CB2 /* __tests__ */,
 				50690CB22696FA0300127CB2 /* HealthCertificateValidationOnboardedCountriesProvider.swift */,
-				019E2EFD269EF419000EC4AD /* MockHealthCertificateValidationOnboardedCountriesProvider.swift */,
 			);
 			path = HealthCertificateValidationOnboardedCountries;
 			sourceTree = "<group>";
@@ -5373,7 +5367,7 @@
 		50690CB42696FA0A00127CB2 /* __tests__ */ = {
 			isa = PBXGroup;
 			children = (
-				50690CAD2695FDFC00127CB2 /* HealthCertificateValidationOnboardedCountriesProviderTests.swift */,
+				019E2EFD269EF419000EC4AD /* MockHealthCertificateValidationOnboardedCountriesProvider.swift */,
 			);
 			path = __tests__;
 			sourceTree = "<group>";
@@ -9729,7 +9723,6 @@
 				01635EB1275A154D00A479EB /* HealthCertifiedPersonAdmissionState.swift in Sources */,
 				BA41016426F8D8F60073F28D /* CovPassCheckInformationViewModel.swift in Sources */,
 				B1A89F3B24819CE800DA1CEC /* SettingsLabelCell.swift in Sources */,
-				8F634084262DBB6900077240 /* Route+Equatable.swift in Sources */,
 				01164CE226C573A2007F9C3E /* TraceLocationCheckinSelectionCellModel.swift in Sources */,
 				EB855EFD25EED0C900FEE17C /* CGPDFDocument+EmbedImage.swift in Sources */,
 				8F39D066263C41990096F4E2 /* VaccinationValueSetsProviding.swift in Sources */,
@@ -10856,7 +10849,6 @@
 				AB3560A02547194C00C3F8E0 /* DeviceTimeCheckTests.swift in Sources */,
 				35C701F82556C01F008AEA91 /* Migration1To2Tests.swift in Sources */,
 				ABD08257260C7FE9007C4B24 /* CheckinRiskCalculationTests.swift in Sources */,
-				50690CAE2695FDFC00127CB2 /* HealthCertificateValidationOnboardedCountriesProviderTests.swift in Sources */,
 				01F3323C27174575005CE21E /* AntigenTest+Mock.swift in Sources */,
 				507685CB25E80E600039B7B6 /* TestDummyPPAnalyticsDataImplementation.swift in Sources */,
 				50842BEC274FB9150015E63F /* ServiceIdentityDocumentProcessorTests.swift in Sources */,

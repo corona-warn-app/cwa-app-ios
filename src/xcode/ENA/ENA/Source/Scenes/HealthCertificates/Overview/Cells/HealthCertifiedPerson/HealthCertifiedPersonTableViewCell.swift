@@ -106,6 +106,7 @@ class HealthCertifiedPersonTableViewCell: UITableViewCell, ReuseIdentifierProvid
 		let titleLabel = ENALabel(style: .body)
 		titleLabel.numberOfLines = 0
 		titleLabel.textColor = .enaColor(for: .textContrast)
+		titleLabel.accessibilityTraits = [.button]
 
 		return titleLabel
 	}()
@@ -114,6 +115,8 @@ class HealthCertifiedPersonTableViewCell: UITableViewCell, ReuseIdentifierProvid
 		let nameLabel = ENALabel(style: .title2)
 		nameLabel.numberOfLines = 0
 		nameLabel.textColor = .enaColor(for: .textContrast)
+		nameLabel.accessibilityTraits = [.button]
+
 		return nameLabel
 	}()
 

@@ -7,7 +7,7 @@ import HealthCertificateToolkit
 
 protocol HealthCertificateValidationOnboardedCountriesProviding {
 	func onboardedCountries(
-		completion: @escaping (Result<[Country], ServiceError<ValidationOnboardedCountriesError>>) -> Void
+		completion: @escaping (Result<[Country], ValidationOnboardedCountriesError>) -> Void
 	)
 }
 
@@ -16,35 +16,33 @@ final class HealthCertificateValidationOnboardedCountriesProvider: HealthCertifi
 	// MARK: - Init
 	
 	init(
-		store: Store,
-		restService: RestServiceProviding,
-		signatureVerifier: SignatureVerification = SignatureVerifier()
+		restService: RestServiceProviding
 	) {
-		self.store = store
 		self.restService = restService
-		self.signatureVerifier = signatureVerifier
 	}
 	
 	// MARK: - Protocol HealthCertificateValidationOnboardedCountriesProviding
 	
 	func onboardedCountries(
-		completion: @escaping (Result<[Country], ServiceError<ValidationOnboardedCountriesError>>) -> Void
+		completion: @escaping (Result<[Country], ValidationOnboardedCountriesError>) -> Void
 	) {
-		let validationOnboardedCountriesResource = ValidationOnboardedCountriesResource()
+		let resource = ValidationOnboardedCountriesResource()
 		
-		restService.load(validationOnboardedCountriesResource) { result in
+		restService.load(resource) { result in
 			switch result {
 			case let .success(validationOnboardedCountriesModel):
 				completion(.success(validationOnboardedCountriesModel.countries))
-			case .failure(let error):
-				completion(.failure(error))
+			case let .failure(error):
+				guard let customError = resource.customError(for: error) else {
+					Log.error("Unhandled error \(error.localizedDescription)", log: .vaccination)
+					return
+				}
+				completion(.failure(customError))
 			}
 		}
 	}
 	
 	// MARK: - Private
 	
-	private let store: Store
 	private let restService: RestServiceProviding
-	private let signatureVerifier: SignatureVerification
 }

@@ -36,7 +36,7 @@ enum CoronaTestServiceError: LocalizedError, Equatable {
 			case .resourceError, .invalidResponse:
 				return AppStrings.ExposureSubmissionError.invalidResponse
 			case .invalidRequestError, .trustEvaluationError, .fakeResponse:
-				return AppStrings.ExposureSubmissionError.defaultError
+				return AppStrings.ExposureSubmissionError.defaultError + "\n(\(String(describing: self)))"
 			}
 		case .registrationTokenError(let registrationTokenError):
 			switch registrationTokenError {
@@ -51,11 +51,11 @@ enum CoronaTestServiceError: LocalizedError, Equatable {
 			case .resourceError, .invalidResponse:
 				return AppStrings.ExposureSubmissionError.invalidResponse
 			case .invalidRequestError, .trustEvaluationError, .fakeResponse:
-				return AppStrings.ExposureSubmissionError.defaultError
+				return AppStrings.ExposureSubmissionError.defaultError + "\n(\(String(describing: self)))"
 			}
 		case .unknownTestResult, .noCoronaTestOfRequestedType, .malformedDateOfBirthKey, .testResultError:
 			Log.error("\(self)", log: .api)
-			return AppStrings.ExposureSubmissionError.defaultError
+			return AppStrings.ExposureSubmissionError.defaultError + "\n(\(String(describing: self)))"
 		}
 	}
 }

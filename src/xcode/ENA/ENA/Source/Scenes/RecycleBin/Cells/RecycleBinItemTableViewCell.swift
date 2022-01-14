@@ -47,19 +47,24 @@ class RecycleBinItemTableViewCell: UITableViewCell, ReuseIdentifierProviding {
 
 		tertiaryLabel.text = cellModel.tertiaryInfo
 		tertiaryLabel.isHidden = cellModel.tertiaryInfo == nil
+        
+		spacer.isHidden = cellModel.quaternaryInfo == nil
+		quaternaryLabel.text = cellModel.quaternaryInfo
+		quaternaryLabel.isHidden = cellModel.quaternaryInfo == nil
 	}
 
 	// MARK: - Private
 
 	@IBOutlet private weak var containerView: UIView!
-
 	@IBOutlet private weak var iconImageView: UIImageView!
 
 	@IBOutlet private weak var titleLabel: ENALabel!
 	@IBOutlet private weak var nameLabel: ENALabel!
 	@IBOutlet private weak var secondaryLabel: ENALabel!
 	@IBOutlet private weak var tertiaryLabel: ENALabel!
-
+	@IBOutlet private weak var quaternaryLabel: ENALabel!
+	@IBOutlet private weak var spacer: UIView!
+    
 	private var cellBackgroundColor: UIColor = .enaColor(for: .cellBackground)
 
 	private func setCellBackgroundColor() {

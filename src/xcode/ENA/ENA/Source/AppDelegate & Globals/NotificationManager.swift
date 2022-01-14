@@ -14,7 +14,7 @@ final class NotificationManager: NSObject, UNUserNotificationCenterDelegate {
 		eventCheckoutService: EventCheckoutService,
 		healthCertificateService: HealthCertificateService,
 		showHome: @escaping () -> Void,
-		showTestResultFromNotification: @escaping (CoronaTestType) -> Void,
+		showTestResultFromNotification: @escaping (Route) -> Void,
 		showHealthCertificate: @escaping (Route) -> Void,
 		showHealthCertifiedPerson: @escaping (Route) -> Void
 	) {
@@ -71,7 +71,7 @@ final class NotificationManager: NSObject, UNUserNotificationCenterDelegate {
 
 			switch testResult {
 			case .positive, .negative:
-				showTestResultFromNotification(testResultType)
+				showTestResultFromNotification(.testResultFromNotification(testResultType))
 			case .invalid:
 				showHome()
 			case .expired, .pending:
@@ -106,21 +106,21 @@ final class NotificationManager: NSObject, UNUserNotificationCenterDelegate {
 	private let eventCheckoutService: EventCheckoutService
 	private let healthCertificateService: HealthCertificateService
 	private let showHome: () -> Void
-	private let showTestResultFromNotification: (CoronaTestType) -> Void
+	private let showTestResultFromNotification: (Route) -> Void
 	private let showHealthCertificate: (Route) -> Void
 	private let showHealthCertifiedPerson: (Route) -> Void
 
 	private func showPositivePCRTestResultIfNeeded() {
 		if let pcrTest = coronaTestService.pcrTest,
 		   pcrTest.positiveTestResultWasShown {
-			showTestResultFromNotification(.pcr)
+			showTestResultFromNotification(.testResultFromNotification(.pcr))
 		}
 	}
 
 	private func showPositiveAntigenTestResultIfNeeded() {
 		if let antigenTest = coronaTestService.antigenTest,
 		   antigenTest.positiveTestResultWasShown {
-			showTestResultFromNotification(.antigen)
+			showTestResultFromNotification(.testResultFromNotification(.antigen))
 		}
 	}
 

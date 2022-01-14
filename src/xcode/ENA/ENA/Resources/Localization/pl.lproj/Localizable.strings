@@ -597,7 +597,7 @@
 
 "ExposureSubmission_PhoneDetailsForeign" = "Dla połączeń spoza Niemiec.\nObowiązują opłaty podane przez operatora telefonicznego.";
 
-"ExposureSubmission_PhoneDetailDescription" = "Zapewniamy obsługę klienta w następujących językach: \nangielskim, niemieckim, tureckim\n\nGodziny pracy:\nCodziennie (wraz z weekendami): 7:00 – 22:00 (CET)\n\nW razie jakichkolwiek pytań związanych ze zdrowiem skontaktuj się z lekarzem rodzinnym lub lekarzem dyżurnym pod numerem: 116 117.";
+"ExposureSubmission_PhoneDetailDescription" = "Zapewniamy obsługę klienta w następujących językach: \nangielskim, niemieckim, tureckim\n\nGodziny pracy:\nCodziennie (wraz z weekendami): 7:00 – 20:00 (CET)\n\nW razie jakichkolwiek pytań związanych ze zdrowiem skontaktuj się z lekarzem rodzinnym lub lekarzem dyżurnym pod numerem: 116 117.";
 
 "ExposureSubmission_SectionDescription2" = "Zarejestruj swój test PCR poprzez wpisanie numeru TAN w aplikacji.";
 
@@ -2815,7 +2815,7 @@
 
 "HealthCertifiedPerson_AdmissionState_description3G" = "Twoje certyfikaty są zgodne z zasadą 3G. Jeśli musisz udowodnić swój aktualny status, zamknij ten widok i pokaż kod QR w przeglądzie certyfikatów.";
 
-"HealthCertifiedPerson_AdmissionState_description3GPlus" = "Twoje certyfikaty są zgodne z zasadą 2G plus. Jeśli musisz udowodnić swój aktualny status, zamknij ten widok i wyświetl kod QR w przeglądzie certyfikatów.";
+"HealthCertifiedPerson_AdmissionState_description3GPlus" = "Twoje certyfikaty są zgodne z zasadą 3G plus. Jeśli musisz udowodnić swój aktualny status, zamknij ten widok i pokaż kod QR w przeglądzie certyfikatów.";
 
 "HealthCertifiedPerson_AdmissionStateFAQ" = "Więcej informacji znajduje się na naszej stronie %@.";
 
