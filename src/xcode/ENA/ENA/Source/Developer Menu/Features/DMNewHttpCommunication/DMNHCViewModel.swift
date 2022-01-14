@@ -67,8 +67,8 @@ final class DMNHCViewModel {
 						switch result {
 						case let .success(countriesModel):
 							Log.info("New HTTP Call for validationOnboardedCountries successful. Countries: \(countriesModel.countries)")
-						case .failure:
-							Log.error("New HTTP Call for validationOnboardedCountries failed")
+						case let .failure(error):
+							Log.error("New HTTP Call for validationOnboardedCountries failed with error: \(error)")
 						}
 					}
 				}
