@@ -79,11 +79,6 @@ final class ValidationOnboardedCountriesResourceTests: CWATestCase {
 		let expectation = expectation(description: "Expect that we got a completion")
 		
 		// Create the archives, which is needed for the decode call of the CBORReceiveResource
-		let archiveData = try XCTUnwrap(Archive.createArchiveData(
-			accessMode: .create,
-			cborData: HealthCertificateToolkit.onboardedCountriesCBORDataFake_DE_FR
-		))
-		
 		let archiveDataCache = try XCTUnwrap(Archive.createArchiveData(
 			accessMode: .create,
 			cborData: HealthCertificateToolkit.onboardedCountriesCBORDataFake_IT_UK
@@ -100,7 +95,7 @@ final class ValidationOnboardedCountriesResourceTests: CWATestCase {
 			headerFields: [
 				"ETag": eTag
 			],
-			responseData: archiveData
+			responseData: nil
 		)
 		
 		var resource = ValidationOnboardedCountriesResource()
