@@ -104,7 +104,7 @@ class HealthCertifiedPersonCellModel {
 
 		self.caption = .validityState(
 			image: UIImage(named: "Icon_ExpiredInvalid"),
-			description: "\(decodingFailedHealthCertificate.error)"
+			description: "\(String(describing: decodingFailedHealthCertificate.error))"
 		)
 
 		isStatusTitleVisible = false

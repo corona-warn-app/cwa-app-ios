@@ -597,7 +597,7 @@
 
 "ExposureSubmission_PhoneDetailsForeign" = "For calls from outside Germany.\nThe fees from your telephone provider will apply.";
 
-"ExposureSubmission_PhoneDetailDescription" = "Our customer service is available in the following languages: \nEnglish, German, Turkish\n\nBusiness hours:\nDaily (including weekends): 7am – 10pm (CET)\n\nIf you have any health-related questions, please contact your general practitioner or the medical emergency service hotline; telephone: 116 117.";
+"ExposureSubmission_PhoneDetailDescription" = "Our customer service is available in the following languages: \nEnglish, German, Turkish\n\nBusiness hours:\nDaily (including weekends): 7am – 8pm (CET)\n\nIf you have any health-related questions, please contact your general practitioner or the medical emergency service hotline; telephone: 116 117.";
 
 "ExposureSubmission_SectionDescription2" = "Register your PCR test by entering the TAN in the app.";
 
@@ -2815,7 +2815,7 @@
 
 "HealthCertifiedPerson_AdmissionState_description3G" = "Your certificates satisfy the 3G rule. If you need to prove your current status, close this view and show the QR code in the certificate overview.";
 
-"HealthCertifiedPerson_AdmissionState_description3GPlus" = "Your certificates satisfy the 2G plus rule. If you need to prove your current status, close this view and show the QR code in the certificate overview.";
+"HealthCertifiedPerson_AdmissionState_description3GPlus" = "Your certificates satisfy the 3G plus rule. If you need to prove your current status, close this view and show the QR code in the certificate overview.";
 
 "HealthCertifiedPerson_AdmissionStateFAQ" = "For further information, please see our %@ page.";
 

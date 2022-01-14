@@ -29,6 +29,7 @@ class HealthCertifiedPerson: Codable, Equatable, Comparable {
 
 	enum CodingKeys: String, CodingKey {
 		case healthCertificates
+		case decodingFailedHealthCertificates
 		case isPreferredPerson
 		case boosterRule
 		case isNewBoosterRule
@@ -38,6 +39,7 @@ class HealthCertifiedPerson: Codable, Equatable, Comparable {
 		let container = try decoder.container(keyedBy: CodingKeys.self)
 
 		healthCertificates = []
+		decodingFailedHealthCertificates = try container.decodeIfPresent([DecodingFailedHealthCertificate].self, forKey: .decodingFailedHealthCertificates) ?? []
 		isPreferredPerson = try container.decodeIfPresent(Bool.self, forKey: .isPreferredPerson) ?? false
 		boosterRule = try container.decodeIfPresent(Rule.self, forKey: .boosterRule)
 		isNewBoosterRule = try container.decodeIfPresent(Bool.self, forKey: .isNewBoosterRule) ?? false
@@ -57,8 +59,15 @@ class HealthCertifiedPerson: Codable, Equatable, Comparable {
 
 				healthCertificates.append(healthCertificate)
 			} catch {
+				Log.error("Decoding certificate failed on first attempt \(private: $0.base45)", error: error)
+
 				let decodingFailedHealthCertificate = DecodingFailedHealthCertificate(
 					base45: $0.base45,
+					validityState: $0.validityState ?? .valid,
+					didShowInvalidNotification: $0.didShowInvalidNotification ?? false,
+					didShowBlockedNotification: $0.didShowBlockedNotification ?? false,
+					isNew: $0.isNew ?? false,
+					isValidityStateNew: $0.isValidityStateNew ?? false,
 					error: error
 				)
 
@@ -66,6 +75,7 @@ class HealthCertifiedPerson: Codable, Equatable, Comparable {
 			}
 		}
 
+		attemptToRestoreDecodingFailedHealthCertificates()
 		setup()
 	}
 
@@ -73,6 +83,7 @@ class HealthCertifiedPerson: Codable, Equatable, Comparable {
 		var container = encoder.container(keyedBy: CodingKeys.self)
 
 		try container.encode(healthCertificates, forKey: .healthCertificates)
+		try container.encode(decodingFailedHealthCertificates, forKey: .decodingFailedHealthCertificates)
 		try container.encode(isPreferredPerson, forKey: .isPreferredPerson)
 		try container.encode(boosterRule, forKey: .boosterRule)
 		try container.encode(isNewBoosterRule, forKey: .isNewBoosterRule)
@@ -125,7 +136,13 @@ class HealthCertifiedPerson: Codable, Equatable, Comparable {
 		}
 	}
 
-	var decodingFailedHealthCertificates: [DecodingFailedHealthCertificate] = []
+	var decodingFailedHealthCertificates: [DecodingFailedHealthCertificate] = [] {
+		didSet {
+			if decodingFailedHealthCertificates != oldValue {
+				objectDidChange.send(self)
+			}
+		}
+	}
 
 	@DidSetPublished var isPreferredPerson: Bool {
 		didSet {
@@ -200,12 +217,6 @@ class HealthCertifiedPerson: Codable, Equatable, Comparable {
 		return certificatesWithNews.count + (boosterRule != nil && isNewBoosterRule ? 1 : 0)
 	}
 
-	@objc
-	func triggerMostRelevantCertificateUpdate() {
-		updateMostRelevantHealthCertificate()
-		scheduleMostRelevantCertificateTimer()
-	}
-
 	var recoveredVaccinationCertificate: HealthCertificate? {
 		return vaccinationCertificates.first { $0.vaccinationEntry?.isRecoveredVaccination ?? false }
 	}
@@ -215,6 +226,40 @@ class HealthCertifiedPerson: Codable, Equatable, Comparable {
 			.filter { $0.vaccinationEntry?.isBoosterVaccination ?? false }
 			.compactMap { $0.vaccinationEntry?.localVaccinationDate }
 			.max()
+	}
+
+	@objc
+	func triggerMostRelevantCertificateUpdate() {
+		updateMostRelevantHealthCertificate()
+		scheduleMostRelevantCertificateTimer()
+	}
+
+	func attemptToRestoreDecodingFailedHealthCertificates() {
+		decodingFailedHealthCertificates.forEach { certificate in
+			// In case the certificate was added manually by the user again
+			if healthCertificates.contains(where: { $0.base45 == certificate.base45 }) {
+				decodingFailedHealthCertificates.removeAll { $0.base45 == certificate.base45 }
+				return
+			}
+
+			do {
+				let healthCertificate = try HealthCertificate(
+					base45: certificate.base45,
+					validityState: certificate.validityState,
+					didShowInvalidNotification: certificate.didShowInvalidNotification,
+					didShowBlockedNotification: certificate.didShowBlockedNotification,
+					isNew: certificate.isNew,
+					isValidityStateNew: certificate.isValidityStateNew
+				)
+
+				healthCertificates.append(healthCertificate)
+				decodingFailedHealthCertificates.removeAll { $0.base45 == certificate.base45 }
+			} catch {
+				certificate.error = error
+
+				Log.error("Decoding certificate failed repeatedly for \(private: certificate.base45)", error: error)
+			}
+		}
 	}
 
 	// MARK: - Private
