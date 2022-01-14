@@ -43,7 +43,7 @@ class QRScannerViewModelTests: XCTestCase {
 		let dscListProvider = MockDSCListProvider()
 		let dccSignatureVerifier = DCCSignatureVerifyingStub()
 		let boosterNotificationsService = BoosterNotificationsService(
-			rulesDownloadService: RulesDownloadService(store: store, client: client)
+			rulesDownloadService: RulesDownloadService(restServiceProvider: RestServiceProviderStub.fake())
 		)
 		let healthCertificateService = HealthCertificateService(
 			store: store,
@@ -101,7 +101,7 @@ class QRScannerViewModelTests: XCTestCase {
 		let dscListProvider = MockDSCListProvider()
 		let dccSignatureVerifier = DCCSignatureVerifyingStub()
 		let boosterNotificationsService = BoosterNotificationsService(
-			rulesDownloadService: RulesDownloadService(store: store, client: client)
+			rulesDownloadService: RulesDownloadService(restServiceProvider: RestServiceProviderStub.fake())
 		)
 		let healthCertificateService = HealthCertificateService(
 			store: store,
@@ -154,7 +154,7 @@ class QRScannerViewModelTests: XCTestCase {
 		let dscListProvider = MockDSCListProvider()
 		let dccSignatureVerifier = DCCSignatureVerifyingStub()
 		let boosterNotificationsService = BoosterNotificationsService(
-			rulesDownloadService: RulesDownloadService(store: store, client: client)
+			rulesDownloadService: RulesDownloadService(restServiceProvider: RestServiceProviderStub.fake())
 		)
 		let healthCertificateService = HealthCertificateService(
 			store: store,
@@ -208,7 +208,7 @@ class QRScannerViewModelTests: XCTestCase {
 		let dscListProvider = MockDSCListProvider()
 		let dccSignatureVerifier = DCCSignatureVerifyingStub()
 		let boosterNotificationsService = BoosterNotificationsService(
-			rulesDownloadService: RulesDownloadService(store: store, client: client)
+			rulesDownloadService: RulesDownloadService(restServiceProvider: RestServiceProviderStub.fake())
 		)
 		let healthCertificateService = HealthCertificateService(
 			store: store,
@@ -263,7 +263,7 @@ class QRScannerViewModelTests: XCTestCase {
 		let dscListProvider = MockDSCListProvider()
 		let dccSignatureVerifier = DCCSignatureVerifyingStub()
 		let boosterNotificationsService = BoosterNotificationsService(
-			rulesDownloadService: RulesDownloadService(store: store, client: client)
+			rulesDownloadService: RulesDownloadService(restServiceProvider: RestServiceProviderStub.fake())
 		)
 		let healthCertificateService = HealthCertificateService(
 			store: store,
@@ -317,7 +317,7 @@ class QRScannerViewModelTests: XCTestCase {
 		let dscListProvider = MockDSCListProvider()
 		let dccSignatureVerifier = DCCSignatureVerifyingStub()
 		let boosterNotificationsService = BoosterNotificationsService(
-			rulesDownloadService: RulesDownloadService(store: store, client: client)
+			rulesDownloadService: RulesDownloadService(restServiceProvider: RestServiceProviderStub.fake())
 		)
 		let healthCertificateService = HealthCertificateService(
 			store: store,

@@ -51,6 +51,15 @@ struct DCCRulesResource: Resource {
 		}
 	}
 
+#if !RELEASE
+	var defaultMockLoadResource: LoadResource? = {
+		guard let validationRules = try? ValidationRules(decodeCBOR: HealthCertificateToolkit.rulesCBORDataFake()) else {
+			fatalError("broken cbor test data")
+		}
+		return LoadResource(result: .success(validationRules), willLoadResource: nil)
+	}()
+#endif
+
 	// MARK: - Private
 
 	private let ruleType: HealthCertificateValidationRuleType

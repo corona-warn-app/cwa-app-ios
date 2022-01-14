@@ -34,7 +34,7 @@ class KeySubmissionMetadataTests: CWATestCase {
 				client: client,
 				appConfiguration: appConfiguration,
 				boosterNotificationsService: BoosterNotificationsService(
-					rulesDownloadService: RulesDownloadService(store: store, client: client)
+					rulesDownloadService: RulesDownloadService(restServiceProvider: RestServiceProviderStub.fake())
 				),
 				recycleBin: .fake()
 			),

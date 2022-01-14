@@ -51,7 +51,7 @@ class ExposureSubmissionCoordinatorTests: CWATestCase {
 				client: client,
 				appConfiguration: appConfiguration,
 				boosterNotificationsService: BoosterNotificationsService(
-					rulesDownloadService: RulesDownloadService(store: store, client: client)
+					rulesDownloadService: RulesDownloadService(restServiceProvider: RestServiceProviderStub.fake())
 				),
 				recycleBin: recycleBin
 			),
@@ -66,7 +66,7 @@ class ExposureSubmissionCoordinatorTests: CWATestCase {
 			client: client,
 			appConfiguration: appConfiguration,
 			boosterNotificationsService: BoosterNotificationsService(
-				rulesDownloadService: RulesDownloadService(store: store, client: client)
+				rulesDownloadService: RulesDownloadService(restServiceProvider: RestServiceProviderStub.fake())
 			),
 			recycleBin: recycleBin
 		)
@@ -95,7 +95,7 @@ class ExposureSubmissionCoordinatorTests: CWATestCase {
 		validationRulesAccess.expectedAcceptanceExtractionResult = .success([])
 		validationRulesAccess.expectedInvalidationExtractionResult = .success([])
 		validationRulesAccess.expectedValidationResult = .success(validationResults)
-		let rulesDownloadService = RulesDownloadService(validationRulesAccess: validationRulesAccess, signatureVerifier: MockVerifier(), store: store, client: client)
+		let rulesDownloadService = RulesDownloadService(restServiceProvider: RestServiceProviderStub.fake())
 
 		healthCertificateValidationService = HealthCertificateValidationService(
 			store: store,

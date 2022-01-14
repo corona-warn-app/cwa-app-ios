@@ -24,7 +24,7 @@ class TestHealthCertificateService: HealthCertificateService {
 			client: client,
 			appConfiguration: appConfiguration,
 			boosterNotificationsService: BoosterNotificationsService(
-				rulesDownloadService: RulesDownloadService(store: MockTestStore(), client: client)
+				rulesDownloadService: RulesDownloadService(restServiceProvider: RestServiceProviderStub.fake())
 			),
 			recycleBin: .fake()
 		)
@@ -69,7 +69,7 @@ class ValidationStateServiceTests: XCTestCase {
 			client: client,
 			appConfiguration: appConfiguration,
 			boosterNotificationsService: BoosterNotificationsService(
-				rulesDownloadService: RulesDownloadService(store: store, client: client)
+				rulesDownloadService: RulesDownloadService(restServiceProvider: RestServiceProviderStub.fake())
 			),
 			recycleBin: .fake()
 		)
@@ -92,7 +92,6 @@ class ValidationStateServiceTests: XCTestCase {
 	func test_DSCListChanges_THEN_UpdateGetsCalled() {
 		// GIVEN
 		let validationStateServiceExpectation = expectation(description: "ValidationStateService updated")
-		let client = ClientMock()
 		let dscListProvider = MockDSCListProvider()
 		let store = MockTestStore()
 		let service = TestHealthCertificateService(
@@ -102,7 +101,7 @@ class ValidationStateServiceTests: XCTestCase {
 			client: ClientMock(),
 			appConfiguration: CachedAppConfigurationMock(),
 			boosterNotificationsService: BoosterNotificationsService(
-				rulesDownloadService: RulesDownloadService(store: store, client: client)
+				rulesDownloadService: RulesDownloadService(restServiceProvider: RestServiceProviderStub.fake())
 			),
 			recycleBin: .fake()
 		)

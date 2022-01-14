@@ -22,7 +22,7 @@ class HealthCertificateServiceTests: CWATestCase {
 			client: client,
 			appConfiguration: CachedAppConfigurationMock(),
 			boosterNotificationsService: BoosterNotificationsService(
-				rulesDownloadService: RulesDownloadService(store: store, client: client)
+				rulesDownloadService: RulesDownloadService(restServiceProvider: RestServiceProviderStub.fake())
 			),
 			recycleBin: .fake()
 		)
@@ -105,7 +105,7 @@ class HealthCertificateServiceTests: CWATestCase {
 			client: client,
 			appConfiguration: CachedAppConfigurationMock(),
 			boosterNotificationsService: BoosterNotificationsService(
-				rulesDownloadService: RulesDownloadService(store: store, client: client)
+				rulesDownloadService: RulesDownloadService(restServiceProvider: RestServiceProviderStub.fake())
 			),
 			recycleBin: .fake()
 		)
@@ -135,7 +135,7 @@ class HealthCertificateServiceTests: CWATestCase {
 			client: client,
 			appConfiguration: CachedAppConfigurationMock(),
 			boosterNotificationsService: BoosterNotificationsService(
-				rulesDownloadService: RulesDownloadService(store: store, client: client)
+				rulesDownloadService: RulesDownloadService(restServiceProvider: RestServiceProviderStub.fake())
 			),
 			recycleBin: .fake()
 		)
@@ -192,7 +192,7 @@ class HealthCertificateServiceTests: CWATestCase {
 			client: client,
 			appConfiguration: appConfigProvider,
 			boosterNotificationsService: BoosterNotificationsService(
-				rulesDownloadService: RulesDownloadService(store: store, client: client)
+				rulesDownloadService: RulesDownloadService(restServiceProvider: RestServiceProviderStub.fake())
 			),
 			recycleBin: .fake()
 		)
@@ -517,7 +517,7 @@ class HealthCertificateServiceTests: CWATestCase {
 			client: client,
 			appConfiguration: CachedAppConfigurationMock(),
 			boosterNotificationsService: BoosterNotificationsService(
-				rulesDownloadService: RulesDownloadService(store: store, client: client)
+				rulesDownloadService: RulesDownloadService(restServiceProvider: RestServiceProviderStub.fake())
 			),
 			recycleBin: .fake()
 		)
@@ -621,7 +621,7 @@ class HealthCertificateServiceTests: CWATestCase {
 			client: client,
 			appConfiguration: CachedAppConfigurationMock(),
 			boosterNotificationsService: BoosterNotificationsService(
-				rulesDownloadService: RulesDownloadService(store: store, client: client)
+				rulesDownloadService: RulesDownloadService(restServiceProvider: RestServiceProviderStub.fake())
 			),
 			recycleBin: recycleBin
 		)
@@ -700,7 +700,7 @@ class HealthCertificateServiceTests: CWATestCase {
 			client: client,
 			appConfiguration: cachedAppConfig,
 			boosterNotificationsService: BoosterNotificationsService(
-				rulesDownloadService: RulesDownloadService(store: store, client: client)
+				rulesDownloadService: RulesDownloadService(restServiceProvider: RestServiceProviderStub.fake())
 			),
 			recycleBin: .fake()
 		)
@@ -748,7 +748,7 @@ class HealthCertificateServiceTests: CWATestCase {
 			client: client,
 			appConfiguration: CachedAppConfigurationMock(),
 			boosterNotificationsService: BoosterNotificationsService(
-				rulesDownloadService: RulesDownloadService(store: store, client: client)
+				rulesDownloadService: RulesDownloadService(restServiceProvider: RestServiceProviderStub.fake())
 			),
 			recycleBin: .fake()
 		)
@@ -800,7 +800,7 @@ class HealthCertificateServiceTests: CWATestCase {
 			client: client,
 			appConfiguration: CachedAppConfigurationMock(),
 			boosterNotificationsService: BoosterNotificationsService(
-				rulesDownloadService: RulesDownloadService(store: store, client: client)
+				rulesDownloadService: RulesDownloadService(restServiceProvider: RestServiceProviderStub.fake())
 			),
 			recycleBin: .fake()
 		)
@@ -852,7 +852,7 @@ class HealthCertificateServiceTests: CWATestCase {
 			client: client,
 			appConfiguration: CachedAppConfigurationMock(),
 			boosterNotificationsService: BoosterNotificationsService(
-				rulesDownloadService: RulesDownloadService(store: store, client: client)
+				rulesDownloadService: RulesDownloadService(restServiceProvider: RestServiceProviderStub.fake())
 			),
 			recycleBin: .fake()
 		)
@@ -917,7 +917,7 @@ class HealthCertificateServiceTests: CWATestCase {
 			client: client,
 			appConfiguration: cachedAppConfig,
 			boosterNotificationsService: BoosterNotificationsService(
-				rulesDownloadService: RulesDownloadService(store: store, client: client)
+				rulesDownloadService: RulesDownloadService(restServiceProvider: RestServiceProviderStub.fake())
 			),
 			recycleBin: .fake()
 		)
@@ -976,7 +976,7 @@ class HealthCertificateServiceTests: CWATestCase {
 			client: client,
 			appConfiguration: cachedAppConfig,
 			boosterNotificationsService: BoosterNotificationsService(
-				rulesDownloadService: RulesDownloadService(store: store, client: client)
+				rulesDownloadService: RulesDownloadService(restServiceProvider: RestServiceProviderStub.fake())
 			),
 			recycleBin: .fake()
 		)
@@ -1031,7 +1031,7 @@ class HealthCertificateServiceTests: CWATestCase {
 			appConfiguration: appConfig,
 			digitalCovidCertificateAccess: digitalCovidCertificateAccess,
 			boosterNotificationsService: BoosterNotificationsService(
-				rulesDownloadService: RulesDownloadService(store: store, client: client)
+				rulesDownloadService: RulesDownloadService(restServiceProvider: RestServiceProviderStub.fake())
 			),
 			recycleBin: .fake()
 		)
@@ -1140,7 +1140,7 @@ class HealthCertificateServiceTests: CWATestCase {
 			appConfiguration: appConfig,
 			digitalCovidCertificateAccess: digitalCovidCertificateAccess,
 			boosterNotificationsService: BoosterNotificationsService(
-				rulesDownloadService: RulesDownloadService(store: store, client: client)
+				rulesDownloadService: RulesDownloadService(restServiceProvider: RestServiceProviderStub.fake())
 			),
 			recycleBin: .fake()
 		)
@@ -1230,7 +1230,7 @@ class HealthCertificateServiceTests: CWATestCase {
 			appConfiguration: appConfig,
 			digitalCovidCertificateAccess: digitalCovidCertificateAccess,
 			boosterNotificationsService: BoosterNotificationsService(
-				rulesDownloadService: RulesDownloadService(store: store, client: client)
+				rulesDownloadService: RulesDownloadService(restServiceProvider: RestServiceProviderStub.fake())
 			),
 			recycleBin: .fake()
 		)
@@ -1322,7 +1322,7 @@ class HealthCertificateServiceTests: CWATestCase {
 			appConfiguration: appConfig,
 			digitalCovidCertificateAccess: digitalCovidCertificateAccess,
 			boosterNotificationsService: BoosterNotificationsService(
-				rulesDownloadService: RulesDownloadService(store: store, client: client)
+				rulesDownloadService: RulesDownloadService(restServiceProvider: RestServiceProviderStub.fake())
 			),
 			recycleBin: .fake()
 		)
@@ -1399,7 +1399,7 @@ class HealthCertificateServiceTests: CWATestCase {
 			appConfiguration: CachedAppConfigurationMock(),
 			digitalCovidCertificateAccess: MockDigitalCovidCertificateAccess(),
 			boosterNotificationsService: BoosterNotificationsService(
-				rulesDownloadService: RulesDownloadService(store: store, client: client)
+				rulesDownloadService: RulesDownloadService(restServiceProvider: RestServiceProviderStub.fake())
 			),
 			recycleBin: .fake()
 		)
@@ -1480,7 +1480,7 @@ class HealthCertificateServiceTests: CWATestCase {
 			appConfiguration: appConfig,
 			digitalCovidCertificateAccess: digitalCovidCertificateAccess,
 			boosterNotificationsService: BoosterNotificationsService(
-				rulesDownloadService: RulesDownloadService(store: store, client: client)
+				rulesDownloadService: RulesDownloadService(restServiceProvider: RestServiceProviderStub.fake())
 			),
 			recycleBin: .fake()
 		)
@@ -1555,7 +1555,7 @@ class HealthCertificateServiceTests: CWATestCase {
 			client: client,
 			appConfiguration: appConfig,
 			boosterNotificationsService: BoosterNotificationsService(
-				rulesDownloadService: RulesDownloadService(store: store, client: client)
+				rulesDownloadService: RulesDownloadService(restServiceProvider: RestServiceProviderStub.fake())
 			),
 			recycleBin: .fake()
 		)
@@ -1615,7 +1615,7 @@ class HealthCertificateServiceTests: CWATestCase {
 			client: client,
 			appConfiguration: CachedAppConfigurationMock(),
 			boosterNotificationsService: BoosterNotificationsService(
-				rulesDownloadService: RulesDownloadService(store: store, client: client)
+				rulesDownloadService: RulesDownloadService(restServiceProvider: RestServiceProviderStub.fake())
 			),
 			recycleBin: .fake()
 		)
@@ -1674,7 +1674,7 @@ class HealthCertificateServiceTests: CWATestCase {
 			client: client,
 			appConfiguration: CachedAppConfigurationMock(),
 			boosterNotificationsService: BoosterNotificationsService(
-				rulesDownloadService: RulesDownloadService(store: store, client: client)
+				rulesDownloadService: RulesDownloadService(restServiceProvider: RestServiceProviderStub.fake())
 			),
 			recycleBin: .fake()
 		)
@@ -1737,7 +1737,7 @@ class HealthCertificateServiceTests: CWATestCase {
 			appConfiguration: CachedAppConfigurationMock(),
 			digitalCovidCertificateAccess: digitalCovidCertificateAccess,
 			boosterNotificationsService: BoosterNotificationsService(
-				rulesDownloadService: RulesDownloadService(store: store, client: client)
+				rulesDownloadService: RulesDownloadService(restServiceProvider: RestServiceProviderStub.fake())
 			),
 			recycleBin: .fake()
 		)
@@ -1779,7 +1779,7 @@ class HealthCertificateServiceTests: CWATestCase {
 			appConfiguration: CachedAppConfigurationMock(),
 			digitalCovidCertificateAccess: MockDigitalCovidCertificateAccess(),
 			boosterNotificationsService: BoosterNotificationsService(
-				rulesDownloadService: RulesDownloadService(store: store, client: client)
+				rulesDownloadService: RulesDownloadService(restServiceProvider: RestServiceProviderStub.fake())
 			),
 			recycleBin: .fake()
 		)
@@ -1843,7 +1843,7 @@ class HealthCertificateServiceTests: CWATestCase {
 			appConfiguration: appConfig,
 			digitalCovidCertificateAccess: digitalCovidCertificateAccess,
 			boosterNotificationsService: BoosterNotificationsService(
-				rulesDownloadService: RulesDownloadService(store: store, client: client)
+				rulesDownloadService: RulesDownloadService(restServiceProvider: RestServiceProviderStub.fake())
 			),
 			recycleBin: .fake()
 		)
@@ -1933,7 +1933,7 @@ class HealthCertificateServiceTests: CWATestCase {
 			appConfiguration: appConfig,
 			digitalCovidCertificateAccess: digitalCovidCertificateAccess,
 			boosterNotificationsService: BoosterNotificationsService(
-				rulesDownloadService: RulesDownloadService(store: store, client: client)
+				rulesDownloadService: RulesDownloadService(restServiceProvider: RestServiceProviderStub.fake())
 			),
 			recycleBin: .fake()
 		)
@@ -1982,7 +1982,7 @@ class HealthCertificateServiceTests: CWATestCase {
 			digitalCovidCertificateAccess: MockDigitalCovidCertificateAccess(),
 			notificationCenter: notificationCenter,
 			boosterNotificationsService: BoosterNotificationsService(
-				rulesDownloadService: RulesDownloadService(store: store, client: client)
+				rulesDownloadService: RulesDownloadService(restServiceProvider: RestServiceProviderStub.fake())
 			),
 			recycleBin: .fake()
 		)
@@ -2078,7 +2078,7 @@ class HealthCertificateServiceTests: CWATestCase {
 			digitalCovidCertificateAccess: MockDigitalCovidCertificateAccess(),
 			notificationCenter: notificationCenter,
 			boosterNotificationsService: BoosterNotificationsService(
-				rulesDownloadService: RulesDownloadService(store: store, client: client)
+				rulesDownloadService: RulesDownloadService(restServiceProvider: RestServiceProviderStub.fake())
 			),
 			recycleBin: .fake()
 		)
@@ -2101,7 +2101,7 @@ class HealthCertificateServiceTests: CWATestCase {
 			client: client,
 			appConfiguration: CachedAppConfigurationMock(),
 			boosterNotificationsService: BoosterNotificationsService(
-				rulesDownloadService: RulesDownloadService(store: store, client: client)
+				rulesDownloadService: RulesDownloadService(restServiceProvider: RestServiceProviderStub.fake())
 			),
 			recycleBin: .fake()
 		)
