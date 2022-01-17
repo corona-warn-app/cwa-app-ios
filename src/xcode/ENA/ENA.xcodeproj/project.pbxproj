@@ -1403,7 +1403,7 @@
 		BA94BBC2260DFD42005CF38F /* CheckInTopCornerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA94BBC1260DFD42005CF38F /* CheckInTopCornerCell.swift */; };
 		BA94BBCA260DFF4C005CF38F /* CheckInBottomCornerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA94BBC9260DFF4C005CF38F /* CheckInBottomCornerCell.swift */; };
 		BA981AFC278DBA250057C343 /* DCCRulesResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA981AFB278DBA250057C343 /* DCCRulesResource.swift */; };
-		BA981AFE278DBBAF0057C343 /* ValidationRules.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA981AFD278DBBAF0057C343 /* ValidationRules.swift */; };
+		BA981AFE278DBBAF0057C343 /* ValidationRulesModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA981AFD278DBBAF0057C343 /* ValidationRulesModel.swift */; };
 		BA9BCF6225B0875100DD7974 /* DiaryOverviewDayCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA9BCF6125B0875100DD7974 /* DiaryOverviewDayCellModel.swift */; };
 		BA9BCF7725B09B5500DD7974 /* DiaryOverviewDayCellModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA9BCF7625B09B5500DD7974 /* DiaryOverviewDayCellModelTests.swift */; };
 		BA9CD38426FC84C200CB1C51 /* FileScannerCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA9CD38326FC84C200CB1C51 /* FileScannerCoordinator.swift */; };
@@ -3054,7 +3054,7 @@
 		BA94BBC1260DFD42005CF38F /* CheckInTopCornerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckInTopCornerCell.swift; sourceTree = "<group>"; };
 		BA94BBC9260DFF4C005CF38F /* CheckInBottomCornerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckInBottomCornerCell.swift; sourceTree = "<group>"; };
 		BA981AFB278DBA250057C343 /* DCCRulesResource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DCCRulesResource.swift; sourceTree = "<group>"; };
-		BA981AFD278DBBAF0057C343 /* ValidationRules.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidationRules.swift; sourceTree = "<group>"; };
+		BA981AFD278DBBAF0057C343 /* ValidationRulesModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidationRulesModel.swift; sourceTree = "<group>"; };
 		BA9BCF6125B0875100DD7974 /* DiaryOverviewDayCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryOverviewDayCellModel.swift; sourceTree = "<group>"; };
 		BA9BCF7625B09B5500DD7974 /* DiaryOverviewDayCellModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryOverviewDayCellModelTests.swift; sourceTree = "<group>"; };
 		BA9CD38326FC84C200CB1C51 /* FileScannerCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileScannerCoordinator.swift; sourceTree = "<group>"; };
@@ -8247,7 +8247,7 @@
 				8F80802D2731242900F8FA3F /* SubmissionTANModel.swift */,
 				EBE0F9642786F7D9001F20E8 /* TestResultModel.swift */,
 				5013522F2788399E00511ADF /* ValidationOnboardedCountriesModel.swift */,
-				BA981AFD278DBBAF0057C343 /* ValidationRules.swift */,
+				BA981AFD278DBBAF0057C343 /* ValidationRulesModel.swift */,
 			);
 			path = Receive;
 			sourceTree = "<group>";
@@ -10151,7 +10151,7 @@
 				0138F68F25F21C8000A9B075 /* EventTableViewCell.swift in Sources */,
 				0104CBD1273EAC7A009A543D /* TicketValidationResultToken+Fake.swift in Sources */,
 				018FD48726973A99000088F8 /* TechnicalValidationFailedRulesTableViewCell.swift in Sources */,
-				BA981AFE278DBBAF0057C343 /* ValidationRules.swift in Sources */,
+				BA981AFE278DBBAF0057C343 /* ValidationRulesModel.swift in Sources */,
 				01F3323627146EF5005CE21E /* RecycleBinViewController.swift in Sources */,
 				BA7FDD09272C2C49009829AB /* WifiOnlyRestService.swift in Sources */,
 				50FEB18B26580B1E005C3322 /* DMPPAActualDataViewModel.swift in Sources */,

@@ -16,7 +16,7 @@ struct DCCRulesResource: Resource {
 		self.locator = .DCCRules(ruleType: ruleType, isFake: isFake)
 		self.type = .caching()
 		self.sendResource = EmptySendResource()
-		self.receiveResource = CBORReceiveResource<ValidationRules>()
+		self.receiveResource = CBORReceiveResource<ValidationRulesModel>()
 		self.ruleType = ruleType
 	}
 
@@ -25,13 +25,13 @@ struct DCCRulesResource: Resource {
 	// MARK: - Protocol Resource
 
 	typealias Send = EmptySendResource
-	typealias Receive = CBORReceiveResource<ValidationRules>
+	typealias Receive = CBORReceiveResource<ValidationRulesModel>
 	typealias CustomError = HealthCertificateValidationError
 
 	var locator: Locator
 	var type: ServiceType
 	var sendResource: EmptySendResource
-	var receiveResource: CBORReceiveResource<ValidationRules>
+	var receiveResource: CBORReceiveResource<ValidationRulesModel>
 
 	func customError(for error: ServiceError<HealthCertificateValidationError>) -> HealthCertificateValidationError? {
 		switch error {
@@ -53,7 +53,7 @@ struct DCCRulesResource: Resource {
 
 #if !RELEASE
 	var defaultMockLoadResource: LoadResource? = {
-		guard let validationRules = try? ValidationRules(decodeCBOR: HealthCertificateToolkit.rulesCBORDataFake()) else {
+		guard let validationRules = try? ValidationRulesModel(decodeCBOR: HealthCertificateToolkit.rulesCBORDataFake()) else {
 			fatalError("broken cbor test data")
 		}
 		return LoadResource(result: .success(validationRules), willLoadResource: nil)

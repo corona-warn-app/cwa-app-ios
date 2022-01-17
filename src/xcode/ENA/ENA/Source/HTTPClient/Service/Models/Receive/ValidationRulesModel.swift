@@ -7,7 +7,7 @@ import Foundation
 import HealthCertificateToolkit
 import class CertLogic.Rule
 
-struct ValidationRules: CBORDecoding {
+struct ValidationRulesModel: CBORDecoding {
 
 	init(decodeCBOR: Data) throws {
 		switch ValidationRulesAccess().extractValidationRules(from: decodeCBOR) {
