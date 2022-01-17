@@ -24,8 +24,6 @@ protocol Client {
 	typealias TraceWarningPackageDownloadCompletionHandler = (Result<PackageDownloadResponse, TraceWarningError>) -> Void
 	typealias DigitalCovid19CertificateCompletionHandler = (Result<DCCResponse, DCCErrors.DigitalCovid19CertificateError>) -> Void
 	typealias DCCRegistrationCompletionHandler = (Result<Void, DCCErrors.RegistrationError>) -> Void
-	typealias DCCRulesCompletionHandler = (Result<PackageDownloadResponse, Failure>) -> Void
-	typealias BoosterRulesCompletionHandler = (Result<PackageDownloadResponse, Failure>) -> Void
 
 	// MARK: Interacting with a Client
 

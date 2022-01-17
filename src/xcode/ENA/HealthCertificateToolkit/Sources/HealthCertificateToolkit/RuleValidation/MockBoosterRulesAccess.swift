@@ -8,8 +8,12 @@ import CertLogic
 public struct MockBoosterRulesAccess: BoosterRulesAccessing {
     
     // MARK: - Init
-    
-    public init() {}
+
+    public init(
+        expectedBoosterResult: (Swift.Result<ValidationResult, BoosterNotificationRuleValidationError>)? = nil
+    ) {
+        self.expectedBoosterResult = expectedBoosterResult
+    }
         
     // MARK: - Public
     

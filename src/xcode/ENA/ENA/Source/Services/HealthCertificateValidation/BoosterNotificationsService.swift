@@ -67,7 +67,7 @@ class BoosterNotificationsService: BoosterNotificationsServiceProviding {
 	// MARK: - Private
 	
 	private func downloadBoosterNotificationRules(completion: @escaping (Result<[Rule], HealthCertificateValidationError>) -> Void) {
-		self.rulesDownloadService.downloadRules(
+		rulesDownloadService.downloadRules(
 			ruleType: .boosterNotification,
 			completion: { result in
 				completion(result)
