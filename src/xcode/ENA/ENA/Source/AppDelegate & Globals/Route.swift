@@ -112,5 +112,27 @@ enum Route: Equatable {
 	case healthCertificateFromNotification(HealthCertifiedPerson, HealthCertificate)
 	case healthCertifiedPersonFromNotification(HealthCertifiedPerson)
 	case testResultFromNotification(CoronaTestType)
+	
+	var routeInformation: RouteInformation {
+		switch self {
+		case .checkIn:
+			return .checkIn
+		case .rapidAntigen:
+			return .rapidAntigenTest
+		case .healthCertificateFromNotification:
+			return .healthCertificate
+		case .healthCertifiedPersonFromNotification:
+			return .healthCertifiedPerson
+		case .testResultFromNotification:
+			return .testResult
+		}
+	}
+}
 
+enum RouteInformation: String {
+	case checkIn = "Checkin"
+	case rapidAntigenTest = "RAT"
+	case healthCertificate = "HealthCertificate from notification"
+	case healthCertifiedPerson = "HealthCertifiedPerson from notification"
+	case testResult = "Testresult from notification"
 }

@@ -597,7 +597,7 @@
 
 "ExposureSubmission_PhoneDetailsForeign" = "Almanya dışından yapılan aramalar içindir.\nTelefon sağlayıcınız tarafından uygulanan ücretler geçerlidir.";
 
-"ExposureSubmission_PhoneDetailDescription" = "Müşteri hizmetlerimiz şu dillerde size yardımcı olmaya hazır: \nİngilizce, Almanca, Türkçe\n\nMesai saatleri:\nGünlük (hafta sonları dahil): 7:00 - 22:00 (CET)\n\nSağlıkla ilgili tüm sorularınız için lütfen aile hekiminizle veya tıbbi acil servis yardım hattı ile iletişime geçin. Telefon: 116 117.";
+"ExposureSubmission_PhoneDetailDescription" = "Müşteri hizmetlerimiz şu dillerde size yardımcı olmaya hazır: \nİngilizce, Almanca, Türkçe\n\nMesai saatleri:\nGünlük (hafta sonları dahil): 7:00 - 20:00 (CET)\n\nSağlıkla ilgili tüm sorularınız için lütfen aile hekiminizle veya tıbbi acil servis yardım hattı ile iletişime geçin. Telefon: 116 117.";
 
 "ExposureSubmission_SectionDescription2" = "Uygulamaya TAN girerek PCR testinizi kaydedin.";
 
@@ -2815,7 +2815,7 @@
 
 "HealthCertifiedPerson_AdmissionState_description3G" = "Sertifikalarınız 3G kuralına uygun. Güncel durumunuzu kanıtlamanız gerekiyorsa bu görünümünü kapatın ve sertifikaya genel bakış bölümündeki QR kodu gösterin.";
 
-"HealthCertifiedPerson_AdmissionState_description3GPlus" = "Sertifikalarınız 2G plus kuralına uygun. Güncel durumunuzu kanıtlamanız gerekiyorsa bu görünümünü kapatın ve sertifikaya genel bakış bölümündeki QR kodu gösterin.";
+"HealthCertifiedPerson_AdmissionState_description3GPlus" = "Sertifikalarınız 3G plus kuralına uygun. Güncel durumunuzu kanıtlamanız gerekiyorsa bu görünümünü kapatın ve sertifikaya genel bakış bölümündeki QR kodu gösterin.";
 
 "HealthCertifiedPerson_AdmissionStateFAQ" = "Daha fazla bilgi için lütfen %@ sayfamıza bakın.";
 
