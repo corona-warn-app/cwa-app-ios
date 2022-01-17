@@ -67,7 +67,7 @@ extension Array where Element == HealthCertificate {
 		// 3- return the certificate with the latest issuedAt date
 		return completeVaccinationCertificatesWithTheSameAgeInDays.sorted(by: {
 			$0.cborWebTokenHeader.issuedAt < $1.cborWebTokenHeader.issuedAt
-		}).last
+		}).max()
 	}
 	
 	var lastValidRecoveryCertificate: HealthCertificate? {
