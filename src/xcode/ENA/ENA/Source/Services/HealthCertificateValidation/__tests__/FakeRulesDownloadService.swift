@@ -9,6 +9,14 @@ struct FakeRulesDownloadService: RulesDownloadServiceProviding {
 
 	// MARK: - Init
 
+	static func dummyRulesResponse() -> [Rule] {
+		[
+			Rule.fake(),
+			Rule.fake(),
+			Rule.fake()
+		]
+	}
+
 	init(
 		_ result: Result<[Rule], HealthCertificateValidationError>?
 	) {
