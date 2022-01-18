@@ -662,6 +662,66 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 		}
 		XCTAssertEqual(error, .RULES_VALIDATION_ERROR(.CBOR_DECODING_FAILED(nil)))
 	}
+	
+	func testGIVEN_ValidationService_WHEN_DownloadingRuleFails_THEN_downloadingRulesError_IsReturned() throws {
+		// GIVEN
+		let client = ClientMock()
+		let store = MockTestStore()
+		
+		let dscListProvider = DSCListProvider(
+			client: CachingHTTPClientMock(),
+			store: MockTestStore()
+		)
+		let vaccinationValueSetsProvider = VaccinationValueSetsProvider(
+			client: CachingHTTPClientMock(),
+			store: store
+		)
+		
+		let rulesDownloadService = FakeRulesDownloadService(.failure(.RULE_DECODING_ERROR(.acceptance, .JSON_VALIDATION_RULE_SCHEMA_NOTFOUND)))
+
+		let validationRulesAccess = MockValidationRulesAccess()
+		
+		let validationService = HealthCertificateValidationService(
+			store: store,
+			client: client,
+			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
+			validationRulesAccess: validationRulesAccess,
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
+			dscListProvider: dscListProvider,
+			rulesDownloadService: rulesDownloadService
+		)
+		
+		let validationClock = Date(timeIntervalSince1970: TimeInterval(0))
+		
+		let healthCertificate = HealthCertificate.mock()
+		
+		let expectation = self.expectation(description: "Test should fail with .RULES_VALIDATION_ERROR")
+		var responseError: HealthCertificateValidationError?
+		
+		// WHEN
+		validationService.validate(
+			healthCertificate: healthCertificate,
+			arrivalCountry: try country(),
+			validationClock: validationClock,
+			completion: { result in
+				switch result {
+				case .success:
+					XCTFail("Test should not succeed.")
+				case let .failure(error):
+					responseError = error
+					expectation.fulfill()
+				}
+			}
+		)
+		
+		// THEN
+		waitForExpectations(timeout: .short)
+		guard let error = responseError else {
+			XCTFail("report must not be nil")
+			return
+		}
+		XCTAssertEqual(error, .rulesDownloadError(.RULE_DECODING_ERROR(.acceptance, .JSON_VALIDATION_RULE_SCHEMA_NOTFOUND)))
+	}
 
 	func testGIVEN_ValidationService_WHEN_UsingAllCountryCodes_THEN_ValueIsCorrect() {
 		// GIVEN
