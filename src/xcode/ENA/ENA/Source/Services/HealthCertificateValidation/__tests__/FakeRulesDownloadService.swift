@@ -29,7 +29,7 @@ struct FakeRulesDownloadService: RulesDownloadServiceProviding {
 		ruleType: HealthCertificateValidationRuleType,
 		completion: @escaping (Result<[Rule], DCCDownloadRulesError>) -> Void
 	) {
-		completion(result ?? .failure(.RULES_VALIDATION_ERROR(.JSON_VALIDATION_RULE_SCHEMA_NOTFOUND)))
+		completion(result ?? .failure(.NO_NETWORK))
 	}
 
 	// MARK: - Internal
