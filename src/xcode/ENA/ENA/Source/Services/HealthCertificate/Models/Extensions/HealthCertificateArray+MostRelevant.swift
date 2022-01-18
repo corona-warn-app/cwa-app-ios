@@ -42,34 +42,18 @@ extension Array where Element == HealthCertificate {
 	}
 
 	var lastCompleteVaccinationCertificate: HealthCertificate? {
-		// 1- we filter all the certificates to get an array with only complete Vaccination Certificates
-		let completeVaccinationCertificates = filter {
+		last {
 			guard let vaccinationEntry = $0.vaccinationEntry else {
 				return false
 			}
-			
+
 			return vaccinationEntry.doseNumber >= vaccinationEntry.totalSeriesOfDoses && (
 				$0.ageInDays ?? 0 > 14 ||
 				vaccinationEntry.isBoosterVaccination ||
-				vaccinationEntry.isRecoveredVaccination ||
-				vaccinationEntry.doseNumber > vaccinationEntry.totalSeriesOfDoses
-			)
+				vaccinationEntry.isRecoveredVaccination)
 		}
-		guard let latestCompleteVaccinationCertificateAgeInDays = completeVaccinationCertificates.last?.ageInDays else {
-			return nil
-		}
-		
-		// 2- check if there is multiple complete vaccination certificates that have the same ageInDays
-		let completeVaccinationCertificatesWithTheSameAgeInDays = completeVaccinationCertificates.filter {
-			$0.ageInDays == latestCompleteVaccinationCertificateAgeInDays
-		}
-		
-		// 3- return the certificate with the latest issuedAt date
-		return completeVaccinationCertificatesWithTheSameAgeInDays.sorted(by: {
-			$0.cborWebTokenHeader.issuedAt < $1.cborWebTokenHeader.issuedAt
-		}).max()
 	}
-	
+
 	var lastValidRecoveryCertificate: HealthCertificate? {
 		last {
 			guard let ageInDays = $0.ageInDays else {
