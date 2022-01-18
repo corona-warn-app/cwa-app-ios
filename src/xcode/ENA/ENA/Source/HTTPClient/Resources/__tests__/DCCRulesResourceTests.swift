@@ -329,11 +329,4 @@ final class DCCRulesResourceTests: CWATestCase {
 		// THEN
 		waitForExpectations(timeout: .short)
 	}
-
-	// ToDO Missing cases:
-	// TECHNICAL_VALIDATION_FAILED
-	// VALUE_SET_SERVER_ERROR
-	// VALUE_SET_CLIENT_ERROR
-	// RULES_VALIDATION_ERROR
-
 }
