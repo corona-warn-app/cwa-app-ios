@@ -77,7 +77,8 @@ extension CWATestCase {
 	func vaccinationCertificate(
 		type: VaccinationCertificateType,
 		ageInDays: Int,
-		validityState: HealthCertificateValidityState = .valid
+		validityState: HealthCertificateValidityState = .valid,
+		cborWebTokenHeader: CBORWebTokenHeader = .fake()
 	) throws -> HealthCertificate {
 		var vaccinations = [(vaccinationProductType: VaccinationProductType, doseNumber: Int, totalSeriesOfDoses: Int)]()
 
@@ -129,7 +130,8 @@ extension CWATestCase {
 						dateOfVaccination: formattedVaccinationDate
 					)
 				]
-			)
+			),
+			and: cborWebTokenHeader
 		)
 
 		return try HealthCertificate(base45: base45, validityState: validityState)
