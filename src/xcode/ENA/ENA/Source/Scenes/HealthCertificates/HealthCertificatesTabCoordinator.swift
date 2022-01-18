@@ -134,6 +134,7 @@ final class HealthCertificatesTabCoordinator {
 	private func infoScreen(
 		hidesCloseButton: Bool = false,
 		dismissAction: @escaping (_ animated: Bool) -> Void,
+		onDemand: Bool = false,
 		showDetail: @escaping ((UIViewController) -> Void)
 	) -> TopBottomContainerViewController<HealthCertificateInfoViewController, FooterViewController> {
 		let consentScreen = HealthCertificateInfoViewController(
@@ -152,6 +153,7 @@ final class HealthCertificatesTabCoordinator {
 				}
 			),
 			store: store,
+			onDemand: onDemand,
 			dismiss: dismissAction
 		)
 
@@ -180,6 +182,7 @@ final class HealthCertificatesTabCoordinator {
 			dismissAction: { animated in
 				navigationController.dismiss(animated: animated)
 			},
+			onDemand: true,
 			showDetail: { detailViewController in
 				navigationController.pushViewController(detailViewController, animated: true)
 			}

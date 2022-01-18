@@ -103,6 +103,7 @@ final class TraceLocationCheckinCoordinator {
 	private func infoScreen(
 		hidesCloseButton: Bool = false,
 		dismissAction: @escaping (_ animated: Bool) -> Void,
+		onDemand: Bool = false,
 		showDetail: @escaping ((UIViewController) -> Void)
 	) -> UIViewController {
 		
@@ -120,6 +121,7 @@ final class TraceLocationCheckinCoordinator {
 				hidesCloseButton: hidesCloseButton
 			),
 			store: store,
+			onDemand: onDemand,
 			onDismiss: { animated in
 				dismissAction(animated)
 			}

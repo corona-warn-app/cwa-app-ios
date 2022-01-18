@@ -213,6 +213,7 @@ final class CheckinTabCoordinator {
 	private func infoScreen(
 		hidesCloseButton: Bool = false,
 		dismissAction: @escaping (_ animated: Bool) -> Void,
+		onDemand: Bool = false,
 		showDetail: @escaping ((UIViewController) -> Void)
 	) -> UIViewController {
 		
@@ -230,6 +231,7 @@ final class CheckinTabCoordinator {
 				hidesCloseButton: hidesCloseButton
 			),
 			store: store,
+			onDemand: onDemand,
 			onDismiss: { animated in
 				dismissAction(animated)
 			}
@@ -261,6 +263,7 @@ final class CheckinTabCoordinator {
 			dismissAction: { animated in
 				navigationController.dismiss(animated: animated)
 			},
+			onDemand: true,
 			showDetail: { detailViewController in
 				navigationController.pushViewController(detailViewController, animated: true)
 			}

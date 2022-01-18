@@ -222,6 +222,7 @@ final class HealthCertificateCoordinator {
 	private func infoScreen(
 		hidesCloseButton: Bool = false,
 		dismissAction: @escaping (_ animated: Bool) -> Void,
+		onDemand: Bool = false,
 		showDetail: @escaping ((UIViewController) -> Void)
 	) -> TopBottomContainerViewController<HealthCertificateInfoViewController, FooterViewController> {
 		let consentScreen = HealthCertificateInfoViewController(
@@ -240,6 +241,7 @@ final class HealthCertificateCoordinator {
 				}
 			),
 			store: store,
+			onDemand: onDemand,
 			dismiss: dismissAction
 		)
 

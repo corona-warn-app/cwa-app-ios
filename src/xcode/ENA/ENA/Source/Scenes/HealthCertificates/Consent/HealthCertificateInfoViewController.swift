@@ -11,10 +11,12 @@ class HealthCertificateInfoViewController: DynamicTableViewController, FooterVie
 	init(
 		viewModel: HealthCertificateInfoViewModel,
 		store: HealthCertificateStoring,
+		onDemand: Bool,
 		dismiss: @escaping (_ animated: Bool) -> Void
 	) {
 		self.dismiss = dismiss
 		self.store = store
+		self.onDemand = onDemand
 		self.viewModel = viewModel
 
 		super.init(nibName: nil, bundle: nil)
@@ -40,7 +42,7 @@ class HealthCertificateInfoViewController: DynamicTableViewController, FooterVie
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
 
-		if store.healthCertificateInfoScreenShown {
+		if store.healthCertificateInfoScreenShown && !onDemand {
 			dismiss(false)
 		}
 	}
@@ -65,6 +67,7 @@ class HealthCertificateInfoViewController: DynamicTableViewController, FooterVie
 
 	private let viewModel: HealthCertificateInfoViewModel
 	private let store: HealthCertificateStoring
+	private let onDemand: Bool
 	private let dismiss: (_ animated: Bool) -> Void
 
 	private func setupView() {
