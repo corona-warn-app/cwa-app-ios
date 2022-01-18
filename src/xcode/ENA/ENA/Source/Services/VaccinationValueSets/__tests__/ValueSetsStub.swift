@@ -2,9 +2,10 @@
 // 🦠 Corona-Warn-App
 //
 
+@testable import ENA
 import Foundation
+import OpenCombine
 import HealthCertificateToolkit
-import ENA
 
 struct ValueSetsStub: VaccinationValueSetsProviding {
 
