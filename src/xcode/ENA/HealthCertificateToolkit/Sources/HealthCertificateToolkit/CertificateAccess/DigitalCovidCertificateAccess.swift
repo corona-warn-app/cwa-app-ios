@@ -179,15 +179,18 @@ public struct DigitalCovidCertificateAccess: DigitalCovidCertificateAccessProtoc
         }
 
         // 4: Expiration time (UNIX timestamp in seconds)
-        guard let expirationTimeElement = cosePayload[4],
-              let expirationTime = date(from: expirationTimeElement) else {
+        guard let expirationTimeElement = cosePayload[4] else {
             return .failure(.HC_CBORWEBTOKEN_NO_EXPIRATIONTIME)
         }
 
+        guard let expirationTime = dateFromTimestamp(in: expirationTimeElement) else {
+            return .failure(.HC_CBOR_DECODING_FAILED(nil))
+        }
+
         // 6: Issued at (UNIX timestamp in seconds)
-        // 'iat' (issuedAt) should not be nil, so we assign it a default 0 here to avoid optionality.
-        // We are not returning an error here, because of backwards compatibility, due to a change from optional to non-optional.
-        let issuedAt = cosePayload[6].flatMap { date(from: $0) } ?? Date(timeIntervalSince1970: 0)
+        guard let issuedAt = cosePayload[6].flatMap({ dateFromTimestamp(in: $0) }) else {
+            return .failure(.HC_CBOR_DECODING_FAILED(nil))
+        }
 
         return .success(CBORWebTokenHeader(
             issuer: issuer,
@@ -196,7 +199,7 @@ public struct DigitalCovidCertificateAccess: DigitalCovidCertificateAccessProtoc
         ))
     }
 
-    private func date(from element: CBOR) -> Date? {
+    private func dateFromTimestamp(in element: CBOR) -> Date? {
         var date: Date?
         switch element {
         case let .unsignedInt(_date):
@@ -207,9 +210,7 @@ public struct DigitalCovidCertificateAccess: DigitalCovidCertificateAccessProtoc
             date = Date(timeIntervalSince1970: TimeInterval(_date))
         case let .double(_date):
             date = Date(timeIntervalSince1970: TimeInterval(_date))
-        case let .date(_date):
-            date = _date
-        case .byteString, .utf8String, .array, .map, .tagged, .simple, .boolean, .null, .undefined, .half, .break:
+        case .date, .byteString, .utf8String, .array, .map, .tagged, .simple, .boolean, .null, .undefined, .half, .break:
             return nil
         }
 
