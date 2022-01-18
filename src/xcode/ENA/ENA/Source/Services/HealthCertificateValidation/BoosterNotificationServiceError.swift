@@ -26,32 +26,35 @@ enum BoosterNotificationServiceError: LocalizedError {
 			case .NO_PASSED_RESULT:
 				return "NO_PASSED_RESULT"
 			}
-		case .CERTIFICATE_VALIDATION_ERROR(let certificateError):
-			switch certificateError {
-			case .NO_NETWORK:
-				return "NO_NETWORK"
+		case .CERTIFICATE_VALIDATION_ERROR(let validationError):
+			switch validationError {
 			case .TECHNICAL_VALIDATION_FAILED(expirationDate: _, signatureInvalid: let signatureInvalid):
 				return "TECHNICAL_VALIDATION_FAILED, signatureInvalid: \(signatureInvalid)"
-			case .RULE_DECODING_ERROR:
-				return "RULE_DECODING_ERROR"
-			case .RULE_CLIENT_ERROR:
-				return "RULE_CLIENT_ERROR"
-			case .RULE_JSON_ARCHIVE_ETAG_ERROR:
-				return "RULE_JSON_ARCHIVE_ETAG_ERROR"
-			case .RULE_JSON_ARCHIVE_FILE_MISSING:
-				return "RULE_JSON_ARCHIVE_FILE_MISSING"
-			case .RULE_JSON_ARCHIVE_SIGNATURE_INVALID:
-				return "RULE_JSON_ARCHIVE_SIGNATURE_INVALID"
-			case .RULE_MISSING_CACHE:
-				return "RULE_MISSING_CACHE"
-			case .RULE_SERVER_ERROR:
-				return "RULE_SERVER_ERROR"
 			case .VALUE_SET_SERVER_ERROR:
 				return "VALUE_SET_SERVER_ERROR"
 			case .VALUE_SET_CLIENT_ERROR:
 				return "VALUE_SET_CLIENT_ERROR"
 			case .RULES_VALIDATION_ERROR:
 				return "RULES_VALIDATION_ERROR"
+			case let .rulesDownloadError(downloadError):
+				switch downloadError {
+				case .NO_NETWORK:
+					return "NO_NETWORK"
+				case .RULE_DECODING_ERROR:
+					return "RULE_DECODING_ERROR"
+				case .RULE_CLIENT_ERROR:
+					return "RULE_CLIENT_ERROR"
+				case .RULE_JSON_ARCHIVE_ETAG_ERROR:
+					return "RULE_JSON_ARCHIVE_ETAG_ERROR"
+				case .RULE_JSON_ARCHIVE_FILE_MISSING:
+					return "RULE_JSON_ARCHIVE_FILE_MISSING"
+				case .RULE_JSON_ARCHIVE_SIGNATURE_INVALID:
+					return "RULE_JSON_ARCHIVE_SIGNATURE_INVALID"
+				case .RULE_MISSING_CACHE:
+					return "RULE_MISSING_CACHE"
+				case .RULE_SERVER_ERROR:
+					return "RULE_SERVER_ERROR"
+				}
 			}
 		}
 	}

@@ -9,7 +9,7 @@ import class CertLogic.Rule
 protocol RulesDownloadServiceProviding {
 	func downloadRules(
 		ruleType: HealthCertificateValidationRuleType,
-		completion: @escaping (Result<[Rule], HealthCertificateValidationError>) -> Void
+		completion: @escaping (Result<[Rule], DCCDownloadRulesError>) -> Void
 	)
 }
 
@@ -27,7 +27,7 @@ class RulesDownloadService: RulesDownloadServiceProviding {
 	
 	func downloadRules(
 		ruleType: HealthCertificateValidationRuleType,
-		completion: @escaping (Result<[Rule], HealthCertificateValidationError>) -> Void
+		completion: @escaping (Result<[Rule], DCCDownloadRulesError>) -> Void
 	) {
 		let resource = DCCRulesResource(ruleType: ruleType)
 		restServiceProvider.load(resource) { result in

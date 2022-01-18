@@ -18,7 +18,7 @@ struct FakeRulesDownloadService: RulesDownloadServiceProviding {
 	}
 
 	init(
-		_ result: Result<[Rule], HealthCertificateValidationError>?
+		_ result: Result<[Rule], DCCDownloadRulesError>?
 	) {
 		self.result = result
 	}
@@ -27,13 +27,13 @@ struct FakeRulesDownloadService: RulesDownloadServiceProviding {
 
 	func downloadRules(
 		ruleType: HealthCertificateValidationRuleType,
-		completion: @escaping (Result<[Rule], HealthCertificateValidationError>) -> Void
+		completion: @escaping (Result<[Rule], DCCDownloadRulesError>) -> Void
 	) {
 		completion(result ?? .failure(.RULES_VALIDATION_ERROR(.JSON_VALIDATION_RULE_SCHEMA_NOTFOUND)))
 	}
 
 	// MARK: - Internal
 
-	var result: Result<[Rule], HealthCertificateValidationError>?
+	var result: Result<[Rule], DCCDownloadRulesError>?
 
 }
