@@ -1768,9 +1768,6 @@ class HealthCertificateServiceTests: CWATestCase {
 	}
 
 	func testTestCertificateExecution_PCRAndNoLabId_dgcNotSupportedByLabErrorReturned() {
-		let store = MockTestStore()
-		let client = ClientMock()
-		
 		let service = HealthCertificateService(
 			store: MockTestStore(),
 			dccSignatureVerifier: DCCSignatureVerifyingStub(),
