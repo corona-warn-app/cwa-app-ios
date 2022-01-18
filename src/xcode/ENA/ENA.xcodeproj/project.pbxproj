@@ -626,6 +626,7 @@
 		500DB4CC25CDDECF0038DFED /* PPASResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 500DB4CB25CDDECF0038DFED /* PPASResponse.swift */; };
 		500DB4D425CDE5C20038DFED /* PPASError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 500DB4D325CDE5C20038DFED /* PPASError.swift */; };
 		501014582796D3C600DFEE9F /* HealthCertificateValidationError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 501014572796D3C600DFEE9F /* HealthCertificateValidationError.swift */; };
+		5010145D2796E85D00DFEE9F /* MockHealthCertificateValidationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01E0D3A6268DC7A200E32CF9 /* MockHealthCertificateValidationService.swift */; };
 		50101D75270739FA006F8B0F /* NotificationSettingsViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50E861FB27070EE6001E29B2 /* NotificationSettingsViewModelTests.swift */; };
 		50101D7927073DD5006F8B0F /* DeltaOnboardingNotificationReworkViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50101D7827073D83006F8B0F /* DeltaOnboardingNotificationReworkViewModelTests.swift */; };
 		501352302788399E00511ADF /* ValidationOnboardedCountriesModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5013522F2788399E00511ADF /* ValidationOnboardedCountriesModel.swift */; };
@@ -1271,7 +1272,6 @@
 		BA07735C25C2FCB800EAF6B8 /* PPACService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA07735B25C2FCB800EAF6B8 /* PPACService.swift */; };
 		BA0887A6269F43930007B3F3 /* NSMutableAttributedString+Link.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA0887A5269F43930007B3F3 /* NSMutableAttributedString+Link.swift */; };
 		BA0A1E3F26A5CC090045E712 /* dsc_list.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA0A1E3E26A5CC090045E712 /* dsc_list.pb.swift */; };
-		BA0DF1282795AE2900DEF08C /* MockHealthCertificateValidationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01E0D3A6268DC7A200E32CF9 /* MockHealthCertificateValidationService.swift */; };
 		BA0DF12B2795AFAE00DEF08C /* FakeRulesDownloadService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA0DF1292795AFAB00DEF08C /* FakeRulesDownloadService.swift */; };
 		BA0E47DD266FC6850037F552 /* HealthCertificateQRCodeCellViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA0E47DC266FC6850037F552 /* HealthCertificateQRCodeCellViewModelTests.swift */; };
 		BA0F6C4E26317BA40046BA48 /* AntigenTestProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA0F6C4D26317BA40046BA48 /* AntigenTestProfileViewController.swift */; };
@@ -5413,11 +5413,10 @@
 			children = (
 				5078DCA22684B3F400535917 /* __tests__ */,
 				5078DC9F2684B3DD00535917 /* Model */,
-				5078DCA02684B3ED00535917 /* HealthCertificateValidationService.swift */,
 				8F0B0A9C26EA180500ED6F71 /* BoosterNotificationServiceError.swift */,
-				8F1E6EEA26DD93BD00483660 /* RulesDownloadService.swift */,
 				8F1E6EEC26DE13B800483660 /* BoosterNotificationsService.swift */,
-				01E0D3A6268DC7A200E32CF9 /* MockHealthCertificateValidationService.swift */,
+				5078DCA02684B3ED00535917 /* HealthCertificateValidationService.swift */,
+				8F1E6EEA26DD93BD00483660 /* RulesDownloadService.swift */,
 			);
 			path = HealthCertificateValidation;
 			sourceTree = "<group>";
@@ -5435,11 +5434,12 @@
 		5078DCA22684B3F400535917 /* __tests__ */ = {
 			isa = PBXGroup;
 			children = (
+				AB88AAFD2698899E00BC1731 /* TestData */,
+				8F1E6EEE26DFC22600483660 /* BoosterNotificationsServiceTests.swift */,
 				01865C5827354192001BBCE9 /* FakeBoosterNotificationsService.swift */,
 				BA0DF1292795AFAB00DEF08C /* FakeRulesDownloadService.swift */,
-				AB88AAFD2698899E00BC1731 /* TestData */,
 				500396EE268DA1A80006D448 /* HealthCertificateValidationServiceValidationTests.swift */,
-				8F1E6EEE26DFC22600483660 /* BoosterNotificationsServiceTests.swift */,
+				01E0D3A6268DC7A200E32CF9 /* MockHealthCertificateValidationService.swift */,
 			);
 			path = __tests__;
 			sourceTree = "<group>";
@@ -9766,6 +9766,7 @@
 				BA75BF53263607C1001B1FC0 /* UIImage+QRCode.swift in Sources */,
 				3413205A2742CE42003E3906 /* TicketValidationCertificateSelectionViewController.swift in Sources */,
 				0144BDED250A3E5300B0857C /* ExposureSubmissionCoordinatorModel.swift in Sources */,
+				5010145D2796E85D00DFEE9F /* MockHealthCertificateValidationService.swift in Sources */,
 				8FB776F126EA532C005255BB /* DMBoosterChoosePersonViewController.swift in Sources */,
 				B11E619B246EE4B0004A056A /* DynamicTypeLabel.swift in Sources */,
 				523D5E7A256FE04000EF67EA /* ExposureSubmissionThankYouViewModel.swift in Sources */,
@@ -10059,7 +10060,6 @@
 				BAD3CCD8271EF973004C06AD /* TeleTANResource.swift in Sources */,
 				019C9F2D258951B700B26392 /* ContactPersonEncounter.swift in Sources */,
 				35E121DC25B273280098D754 /* key_figure_card.pb.swift in Sources */,
-				BA0DF1282795AE2900DEF08C /* MockHealthCertificateValidationService.swift in Sources */,
 				711EFCC72492EE31005FEF21 /* ENAFooterView.swift in Sources */,
 				AB7DE73925C8528700C52B3F /* ExposureDetectionSurveyCellModel.swift in Sources */,
 				016E264C25B0327B0077C64C /* HomeStatisticsCardViewModel.swift in Sources */,
