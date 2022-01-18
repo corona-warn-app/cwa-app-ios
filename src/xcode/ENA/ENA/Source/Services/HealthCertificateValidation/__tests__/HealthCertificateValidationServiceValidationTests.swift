@@ -518,72 +518,7 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 		}
 		XCTAssertEqual(error, .VALUE_SET_CLIENT_ERROR)
 	}
-	
-	func testGIVEN_ValidationService_WHEN_ValueSetsNoNetwork_THEN_NO_NETWORK_IsReturned() throws {
-		// GIVEN
-		let cachingClient = CachingHTTPClientMock()
-		let expectedError = URLSessionError.noNetworkConnection
-		cachingClient.onFetchVaccinationValueSets = { _, completeWith in
-			// fake a broken backend
-			completeWith(.failure(expectedError))
-		}
-		let client = ClientMock()
-		let store = MockTestStore()
-		let validationClock = Date(timeIntervalSince1970: TimeInterval(0))
 		
-		let dscListProvider = DSCListProvider(
-			client: CachingHTTPClientMock(),
-			store: MockTestStore()
-		)
-		let vaccinationValueSetsProvider = VaccinationValueSetsProvider(
-			client: cachingClient,
-			store: store
-		)
-		let mockValidationRulesAccess = MockValidationRulesAccess()
-			let rulesDownloadService = RulesDownloadService(
-				restServiceProvider: RestServiceProviderStub.fake()
-			)
-
-		let validationService = HealthCertificateValidationService(
-			store: store,
-			client: client,
-			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
-			validationRulesAccess: mockValidationRulesAccess,
-			dccSignatureVerifier: DCCSignatureVerifyingStub(),
-			dscListProvider: dscListProvider,
-			rulesDownloadService: rulesDownloadService
-		)
-		
-		let healthCertificate = HealthCertificate.mock()
-		
-		let expectation = self.expectation(description: "Test should fail with .NO_NETWORK")
-		var responseError: HealthCertificateValidationError?
-		
-		// WHEN
-		validationService.validate(
-			healthCertificate: healthCertificate,
-			arrivalCountry: try country(),
-			validationClock: validationClock,
-			completion: { result in
-				switch result {
-				case .success:
-					XCTFail("Test should not succeed.")
-				case let .failure(error):
-					responseError = error
-					expectation.fulfill()
-				}
-			}
-		)
-		
-		// THEN
-		waitForExpectations(timeout: .short)
-		guard let error = responseError else {
-			XCTFail("report must not be nil")
-			return
-		}
-		XCTAssertEqual(error, .NO_NETWORK)
-	}
-	
 	func testGIVEN_ValidationService_WHEN_ValueSetsUnkownError_THEN_VALUE_SET_CLIENT_ERROR_IsReturned() throws {
 		// GIVEN
 		let cachingClient = CachingHTTPClientMock()
