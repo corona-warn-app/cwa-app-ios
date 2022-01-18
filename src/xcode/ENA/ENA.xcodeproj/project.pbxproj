@@ -626,6 +626,7 @@
 		500DB4CC25CDDECF0038DFED /* PPASResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 500DB4CB25CDDECF0038DFED /* PPASResponse.swift */; };
 		500DB4D425CDE5C20038DFED /* PPASError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 500DB4D325CDE5C20038DFED /* PPASError.swift */; };
 		501014582796D3C600DFEE9F /* HealthCertificateValidationError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 501014572796D3C600DFEE9F /* HealthCertificateValidationError.swift */; };
+		5010145C2796E47D00DFEE9F /* ValueSetsStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5010145A2796E46D00DFEE9F /* ValueSetsStub.swift */; };
 		5010145D2796E85D00DFEE9F /* MockHealthCertificateValidationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01E0D3A6268DC7A200E32CF9 /* MockHealthCertificateValidationService.swift */; };
 		50101D75270739FA006F8B0F /* NotificationSettingsViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50E861FB27070EE6001E29B2 /* NotificationSettingsViewModelTests.swift */; };
 		50101D7927073DD5006F8B0F /* DeltaOnboardingNotificationReworkViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50101D7827073D83006F8B0F /* DeltaOnboardingNotificationReworkViewModelTests.swift */; };
@@ -2255,6 +2256,7 @@
 		500DB4CB25CDDECF0038DFED /* PPASResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PPASResponse.swift; sourceTree = "<group>"; };
 		500DB4D325CDE5C20038DFED /* PPASError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PPASError.swift; sourceTree = "<group>"; };
 		501014572796D3C600DFEE9F /* HealthCertificateValidationError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthCertificateValidationError.swift; sourceTree = "<group>"; };
+		5010145A2796E46D00DFEE9F /* ValueSetsStub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValueSetsStub.swift; sourceTree = "<group>"; };
 		50101D7827073D83006F8B0F /* DeltaOnboardingNotificationReworkViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeltaOnboardingNotificationReworkViewModelTests.swift; sourceTree = "<group>"; };
 		5013522F2788399E00511ADF /* ValidationOnboardedCountriesModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidationOnboardedCountriesModel.swift; sourceTree = "<group>"; };
 		5013523127884C0D00511ADF /* CBORReceiveResource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CBORReceiveResource.swift; sourceTree = "<group>"; };
@@ -6358,6 +6360,7 @@
 			isa = PBXGroup;
 			children = (
 				8F39D09C26401E3E0096F4E2 /* VaccinationValueSetsProvidingTests.swift */,
+				5010145A2796E46D00DFEE9F /* ValueSetsStub.swift */,
 			);
 			path = __tests__;
 			sourceTree = "<group>";
@@ -10964,6 +10967,7 @@
 				5006C283260E4ABA00533CAA /* Checkin+Mock.swift in Sources */,
 				BA83C195271707A40039D504 /* HealthCertificateServiceMigrationTests.swift in Sources */,
 				355519E42683557F00352497 /* HTMLViewTests.swift in Sources */,
+				5010145C2796E47D00DFEE9F /* ValueSetsStub.swift in Sources */,
 				35AA4AF4259B40FC00D32306 /* CryptoFallbackTests.swift in Sources */,
 				01B72BC02583875600A3E3BC /* DiaryDayViewModelTest.swift in Sources */,
 				01B605C9258A32F00093DB8E /* DiaryDayTest.swift in Sources */,
