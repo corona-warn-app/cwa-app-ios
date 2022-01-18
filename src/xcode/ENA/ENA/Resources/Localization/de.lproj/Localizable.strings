@@ -2811,7 +2811,7 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "HealthCertificate_Validation_Info_title" = "Informationen";
 
-"HealthCertificate_Validation_Info_byCar" = "Geben Sie die geplante lokale Ankunftszeit an der Grenze zu Ihrem Einreiseland aus.";
+"HealthCertificate_Validation_Info_byCar" = "Geben Sie die geplante lokale Ankunftszeit an der Grenze zu Ihrem Einreiseland ein.";
 
 "HealthCertificate_Validation_Info_byPlane" = "Wenn Sie auf dem Luftweg einreisen, wählen Sie die geplante Uhrzeit Ihres Abflugs aus.";
 
