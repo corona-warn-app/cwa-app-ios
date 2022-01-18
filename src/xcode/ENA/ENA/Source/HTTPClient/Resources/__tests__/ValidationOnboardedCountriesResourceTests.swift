@@ -235,7 +235,7 @@ final class ValidationOnboardedCountriesResourceTests: CWATestCase {
 		waitForExpectations(timeout: .short)
 	}
 	
-	func testGIVEN_Resource_WHEN_EmptyPackage_THEN_ONBOARDED_COUNTRIES_JSON_DECODING_FAILED() throws {
+	func testGIVEN_Resource_WHEN_DataIsCorrupt_THEN_ONBOARDED_COUNTRIES_JSON_DECODING_FAILED() throws {
 		// GIVEN
 		let expectation = expectation(description: "Expect that we got a completion")
 		
