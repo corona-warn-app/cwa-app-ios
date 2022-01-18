@@ -269,7 +269,7 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 		XCTAssertEqual(report, .validationFailed(validationResults))
 	}
 	
-	// MARK: - Errors (ValueSets)
+	// MARK: - Errors
 	
 	func testGIVEN_ValidationService_WHEN_expirationDateHasReached_THEN_TECHNICAL_VALIDATION_FAILED_IsReturned() throws {
 		// GIVEN
@@ -582,28 +582,10 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 		}
 		XCTAssertEqual(error, .VALUE_SET_CLIENT_ERROR)
 	}
-
-	// ToDo - port to DCCRulesResourceTests
-	// MARK: - Others
 	
 	func testGIVEN_ValidationService_WHEN_RuleValidationFails_THEN_RULES_VALIDATION_ERROR_IsReturned() throws {
 		// GIVEN
 		let client = ClientMock()
-		
-		let fakeData = try rulesCBORDataFake()
-		let package = SAPDownloadedPackage(
-			keysBin: fakeData,
-			signature: Data()
-		)
-		let response = PackageDownloadResponse(
-			package: package,
-			etag: "FakeETag"
-		)
-		
-//		client.onGetDCCRules = { _, _, completion in
-//			completion(.success(response))
-//		}
-		
 		let store = MockTestStore()
 		
 		let dscListProvider = DSCListProvider(
@@ -614,13 +596,14 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 			client: CachingHTTPClientMock(),
 			store: store
 		)
+		
+		let rulesDownloadService = FakeRulesDownloadService(.success(FakeRulesDownloadService.dummyRulesResponse()))
 
 		var validationRulesAccess = MockValidationRulesAccess()
 		validationRulesAccess.expectedAcceptanceExtractionResult = .success([])
 		validationRulesAccess.expectedInvalidationExtractionResult = .success([])
 		validationRulesAccess.expectedValidationResult = .failure(.CBOR_DECODING_FAILED(nil))
 		
-		let rulesDownloadService = RulesDownloadService(restServiceProvider: RestServiceProviderStub.fake())
 		let validationService = HealthCertificateValidationService(
 			store: store,
 			client: client,
@@ -723,6 +706,8 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 		XCTAssertEqual(error, .rulesDownloadError(.RULE_DECODING_ERROR(.acceptance, .JSON_VALIDATION_RULE_SCHEMA_NOTFOUND)))
 	}
 
+	// MARK: - Helper function tests
+	
 	func testGIVEN_ValidationService_WHEN_UsingAllCountryCodes_THEN_ValueIsCorrect() {
 		// GIVEN
 		let store = MockTestStore()
@@ -935,23 +920,10 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 				client: CachingHTTPClientMock(),
 				store: MockTestStore()
 			)
-			
-			guard let package = try? makeSAPDownloadedPackage(with: testCase.rules) else {
-				XCTFail("Could not create package.")
-				return
-			}
 
-//			mockClient.onGetDCCRules = { _, _, completion in
-//				let package = PackageDownloadResponse(
-//					package: package,
-//					etag: ""
-//				)
-//				completion(.success(package))
-//			}
 			let validationRulesAccess = ValidationRulesAccess()
-			let rulesDownloadService = RulesDownloadService(
-				restServiceProvider: RestServiceProviderStub.fake()
-			)
+			let rulesDownloadService = FakeRulesDownloadService(.success(testCase.rules))
+			
 			let validationService = HealthCertificateValidationService(
 				store: mockStore,
 				client: mockClient,
@@ -998,18 +970,6 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 	
 	// MARK: - Private
 	
-	private func validHealthCertificate() throws -> HealthCertificate {
-		let healthCertificateBase45 = DigitalCovidCertificateFake.makeBase45Fake(
-			from: DigitalCovidCertificate.fake(),
-			and: CBORWebTokenHeader.fake()
-		)
-		
-		guard case let .success(base45) = healthCertificateBase45 else {
-			fatalError("Could not create fake health certificate. Abort test.")
-		}
-		return try HealthCertificate(base45: base45)
-	}
-
 	private func valueSet(key: String) -> SAP_Internal_Dgc_ValueSet {
 		return SAP_Internal_Dgc_ValueSet.with {
 			$0.items.append(
@@ -1019,25 +979,9 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 			)
 		}
 	}
-	
 	private func country() throws -> Country {
 		 return try XCTUnwrap(Country(countryCode: "FR"))
 	}
-
-	private func makeSAPDownloadedPackage(with rules: [Rule]) throws -> SAPDownloadedPackage? {
-		let cborRulesData = try CodableCBOREncoder().encode(rules)
-
-		let archive = try XCTUnwrap(Archive(accessMode: .create))
-		try archive.addEntry(with: "export.bin", type: .file, uncompressedSize: UInt32(cborRulesData.count), bufferSize: 4, provider: { position, size -> Data in
-			return cborRulesData.subdata(in: position..<position + size)
-		})
-		try archive.addEntry(with: "export.sig", type: .file, uncompressedSize: 12, bufferSize: 4, provider: { position, size -> Data in
-			return Data().subdata(in: position..<position + size)
-		})
-		let archiveData = archive.data ?? Data()
-		return SAPDownloadedPackage(compressedData: archiveData)
-	}
-
 	private var certLogicTestData: Data? {
 		let bundle = Bundle(for: HealthCertificateValidationServiceValidationTests.self)
 		guard let url = bundle.url(forResource: "dcc-validation-rules-common-test-cases", withExtension: "json"),
@@ -1073,24 +1017,5 @@ extension RuleValidationError: Equatable {
 		default:
 			return false
 		}
-	}
-}
-
-private struct ValueSetsStub: VaccinationValueSetsProviding {
-
-	var valueSets: SAP_Internal_Dgc_ValueSets
-
-	func latestVaccinationCertificateValueSets() -> AnyPublisher<SAP_Internal_Dgc_ValueSets, Error> {
-		// return stubbed value sets; no error
-		return Just(valueSets)
-			.setFailureType(to: Error.self)
-			.eraseToAnyPublisher()
-	}
-
-	func fetchVaccinationCertificateValueSets() -> AnyPublisher<SAP_Internal_Dgc_ValueSets, Error> {
-		// return stubbed value sets; no error
-		return Just(valueSets)
-			.setFailureType(to: Error.self)
-			.eraseToAnyPublisher()
 	}
 }
