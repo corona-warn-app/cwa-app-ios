@@ -934,6 +934,7 @@
 		8FEC122F27564D1B00C5DADC /* AllowListError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FEC122E27564D1B00C5DADC /* AllowListError.swift */; };
 		8FEC1231275656AC00C5DADC /* TicketValidationAllowList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FEC1230275656AC00C5DADC /* TicketValidationAllowList.swift */; };
 		8FEC12332756736700C5DADC /* SAP_Internal_Dgc_ValidationServiceAllowlist+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FEC12322756736700C5DADC /* SAP_Internal_Dgc_ValidationServiceAllowlist+Extension.swift */; };
+		8FEC7DB52795CFC800D5558C /* HealthCertificateArray+MostRelevantTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01635EB3275E044800A479EB /* HealthCertificateArray+MostRelevantTests.swift */; };
 		8FF58515275EF9FC00103F3D /* AllowListServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FF58514275EF9FC00103F3D /* AllowListServiceTests.swift */; };
 		940109F225DFB5EF0017355C /* DiaryDayNotesInfoViewModelTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 940109ED25DFB40E0017355C /* DiaryDayNotesInfoViewModelTest.swift */; };
 		94092541254BFE6800FE61A2 /* DMWarnOthersNotificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94092540254BFE6800FE61A2 /* DMWarnOthersNotificationViewController.swift */; };
@@ -10936,6 +10937,7 @@
 				50BD1425260B74C20013983A /* VerificationMock.swift in Sources */,
 				BA02641325E6A0800019CD55 /* FooterViewModelTests.swift in Sources */,
 				0123D5992501385200A91838 /* ExposureSubmissionErrorTests.swift in Sources */,
+				8FEC7DB52795CFC800D5558C /* HealthCertificateArray+MostRelevantTests.swift in Sources */,
 				509B1E4426D62BB2007B97E0 /* HealthCertificatePDFGenerationInfoViewModelTests.swift in Sources */,
 				358D780C2632FA7C00070BED /* HTTPClient+SubmitErrorLogFileTests.swift in Sources */,
 				BA7D178E25D55EB1006B9EBF /* DefaultDataDonationViewModelTests.swift in Sources */,
