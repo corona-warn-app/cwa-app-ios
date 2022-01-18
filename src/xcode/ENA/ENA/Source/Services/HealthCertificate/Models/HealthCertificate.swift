@@ -90,11 +90,7 @@ final class HealthCertificate: Codable, Equatable, Comparable, RecycleBinIdentif
 
 	static func < (lhs: HealthCertificate, rhs: HealthCertificate) -> Bool {
 		if let lhsDate = lhs.sortDate, let rhsDate = rhs.sortDate {
-			if lhsDate == rhsDate {
-				return lhs.cborWebTokenHeader.issuedAt < rhs.cborWebTokenHeader.issuedAt
-			} else {
-				return lhsDate < rhsDate
-			}
+			return (lhsDate, lhs.cborWebTokenHeader.issuedAt) < (rhsDate, rhs.cborWebTokenHeader.issuedAt)
 		}
 		return false
 	}
