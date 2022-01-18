@@ -942,7 +942,9 @@ class ContactDiaryStoreTests: CWATestCase {
 
 		addLocationVisit(locationId: amsterdamLocationId, date: today, store: store)
 		addLocationVisit(locationId: berlinId, date: today, store: store)
+		addCoronaTest(testDate: today, testType: 1, testResult: 1, to: store)
 		addPersonEncounter(personId: emmaHicksId, date: today, store: store)
+		
 		addPersonEncounter(
 			personId: adamSandaleId,
 			date: today,
@@ -952,7 +954,6 @@ class ContactDiaryStoreTests: CWATestCase {
 			circumstances: "Some circumstances.",
 			store: store
 		)
-
 		addLocationVisit(
 			locationId: amsterdamLocationId,
 			date: tenDaysAgo,
@@ -961,7 +962,8 @@ class ContactDiaryStoreTests: CWATestCase {
 			store: store
 		)
 		addPersonEncounter(personId: emmaHicksId, date: tenDaysAgo, store: store)
-
+		addCoronaTest(testDate: tenDaysAgo, testType: 0, testResult: 2, to: store)
+		
 		addLocationVisit(locationId: amsterdamLocationId, date: daysVisibleAgo, store: store)
 		addLocationVisit(locationId: berlinId, date: daysVisibleAgo, store: store)
 		addPersonEncounter(personId: emmaHicksId, date: daysVisibleAgo, store: store)
@@ -981,8 +983,10 @@ class ContactDiaryStoreTests: CWATestCase {
 			15.12.2020 Emma Hicks
 			15.12.2020 Amsterdam; Tel. 12345678; eMail mail@amster.dam
 			15.12.2020 Berlin
+			15.12.2020 Schnelltest durchgeführt; Befund negativ
 			05.12.2020 Emma Hicks
 			05.12.2020 Amsterdam; Tel. 12345678; eMail mail@amster.dam; Dauer 01:02 h; Some circumstances
+			05.12.2020 PCR-Test registriert; Befund positiv
 			01.12.2020 Adam Sandale; Tel. 123456; eMail some@mail.de
 			01.12.2020 Emma Hicks
 			01.12.2020 Amsterdam; Tel. 12345678; eMail mail@amster.dam
