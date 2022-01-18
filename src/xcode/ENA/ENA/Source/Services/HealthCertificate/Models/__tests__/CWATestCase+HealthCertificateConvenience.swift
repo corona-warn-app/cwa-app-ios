@@ -87,10 +87,10 @@ extension CWATestCase {
 			let doseNumberGreater1 = Int.random(in: 2...9)
 			let doseNumberGreater2 = Int.random(in: 3...9)
 			vaccinations = [
-				(vaccinationProductType: .astraZeneca, doseNumber: doseNumberGreater2, totalSeriesOfDoses: doseNumberGreater2),
-				(vaccinationProductType: .biontech, doseNumber: doseNumberGreater2, totalSeriesOfDoses: doseNumberGreater2),
-				(vaccinationProductType: .moderna, doseNumber: doseNumberGreater2, totalSeriesOfDoses: doseNumberGreater2),
-				(vaccinationProductType: .johnsonAndJohnson, doseNumber: doseNumberGreater1, totalSeriesOfDoses: doseNumberGreater1)
+				(vaccinationProductType: .astraZeneca, doseNumber: doseNumberGreater2, totalSeriesOfDoses: 2),
+				(vaccinationProductType: .biontech, doseNumber: doseNumberGreater2, totalSeriesOfDoses: 2),
+				(vaccinationProductType: .moderna, doseNumber: doseNumberGreater2, totalSeriesOfDoses: 2),
+				(vaccinationProductType: .johnsonAndJohnson, doseNumber: doseNumberGreater1, totalSeriesOfDoses: 1)
 			]
 		case .seriesCompleting:
 			vaccinations = [
