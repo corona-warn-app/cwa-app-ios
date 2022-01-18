@@ -41,14 +41,17 @@ final class HealthCertificatesTabCoordinator {
 			return UINavigationController(
 				rootViewController: infoScreen(
 					hidesCloseButton: true,
-					dismissAction: { [weak self] in
+					dismissAction: { [weak self] animated in
 						guard let self = self else { return }
 
+						self.infoScreenShown = true
+						self.viewController.dismiss(animated: animated)
+						
+						/*
 						self.viewController.pushViewController(self.overviewScreen, animated: true)
 						// Set Overview as the only Controller on the navigation stack to avoid back gesture etc.
 						self.viewController.setViewControllers([self.overviewScreen], animated: false)
-
-						self.infoScreenShown = true
+						 */
 					},
 					showDetail: { detailViewController in
 						self.viewController.pushViewController(detailViewController, animated: true)
@@ -130,7 +133,7 @@ final class HealthCertificatesTabCoordinator {
 
 	private func infoScreen(
 		hidesCloseButton: Bool = false,
-		dismissAction: @escaping (() -> Void),
+		dismissAction: @escaping (_ animated: Bool) -> Void,
 		showDetail: @escaping ((UIViewController) -> Void)
 	) -> TopBottomContainerViewController<HealthCertificateInfoViewController, FooterViewController> {
 		let consentScreen = HealthCertificateInfoViewController(
@@ -148,6 +151,7 @@ final class HealthCertificatesTabCoordinator {
 					showDetail(detailViewController)
 				}
 			),
+			store: store,
 			dismiss: dismissAction
 		)
 
@@ -173,8 +177,8 @@ final class HealthCertificatesTabCoordinator {
 		// this is needed to resolve an inset issue with large titles
 		var navigationController: UINavigationController!
 		let infoVC = infoScreen(
-			dismissAction: {
-				navigationController.dismiss(animated: true)
+			dismissAction: { animated in
+				navigationController.dismiss(animated: animated)
 			},
 			showDetail: { detailViewController in
 				navigationController.pushViewController(detailViewController, animated: true)

@@ -53,7 +53,7 @@ final class HealthCertificateCoordinator {
 			return UINavigationController(
 				rootViewController: infoScreen(
 					hidesCloseButton: true,
-					dismissAction: { [weak self] in
+					dismissAction: { [weak self] animated in
 						guard let self = self else {
 							Log.error("Could not create self reference")
 							return
@@ -221,7 +221,7 @@ final class HealthCertificateCoordinator {
 
 	private func infoScreen(
 		hidesCloseButton: Bool = false,
-		dismissAction: @escaping (() -> Void),
+		dismissAction: @escaping (_ animated: Bool) -> Void,
 		showDetail: @escaping ((UIViewController) -> Void)
 	) -> TopBottomContainerViewController<HealthCertificateInfoViewController, FooterViewController> {
 		let consentScreen = HealthCertificateInfoViewController(
@@ -239,6 +239,7 @@ final class HealthCertificateCoordinator {
 					showDetail(detailViewController)
 				}
 			),
+			store: store,
 			dismiss: dismissAction
 		)
 
