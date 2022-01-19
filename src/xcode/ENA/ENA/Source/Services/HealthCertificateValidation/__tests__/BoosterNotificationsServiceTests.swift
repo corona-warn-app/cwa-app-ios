@@ -128,7 +128,7 @@ class BoosterNotificationsServiceTests: XCTestCase {
 		
 		// THEN
 		waitForExpectations(timeout: .short)
-		XCTAssertEqual(responseError, .CERTIFICATE_VALIDATION_ERROR(.rulesDownloadError(.RULE_DECODING_ERROR(.boosterNotification, .JSON_VALIDATION_RULE_SCHEMA_NOTFOUND))))
+		XCTAssertEqual(responseError, .CERTIFICATE_VALIDATION_ERROR(.downloadRulesError(.RULE_DECODING_ERROR(.boosterNotification, .JSON_VALIDATION_RULE_SCHEMA_NOTFOUND))))
 	}
 
 }

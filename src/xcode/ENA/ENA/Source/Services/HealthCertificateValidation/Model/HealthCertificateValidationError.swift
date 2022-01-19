@@ -25,7 +25,7 @@ enum HealthCertificateValidationError: LocalizedError, Equatable {
 	case VALUE_SET_SERVER_ERROR
 	case VALUE_SET_CLIENT_ERROR
 	case RULES_VALIDATION_ERROR(RuleValidationError)
-	case rulesDownloadError(DCCDownloadRulesError)
+	case downloadRulesError(DCCDownloadRulesError)
 
 	var errorDescription: String? {
 		switch self {
@@ -37,7 +37,7 @@ enum HealthCertificateValidationError: LocalizedError, Equatable {
 			return "\(AppStrings.HealthCertificate.Validation.Error.tryAgain) (VALUE_SET_CLIENT_ERROR)"
 		case let .RULES_VALIDATION_ERROR(error):
 			return "\(AppStrings.HealthCertificate.Validation.Error.tryAgain) (RULES_VALIDATION_ERROR - \(error)"
-		case let .rulesDownloadError(downloadError):
+		case let .downloadRulesError(downloadError):
 			return downloadError.errorDescription
 		}
 	}

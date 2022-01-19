@@ -36,7 +36,7 @@ enum BoosterNotificationServiceError: LocalizedError {
 				return "VALUE_SET_CLIENT_ERROR"
 			case .RULES_VALIDATION_ERROR:
 				return "RULES_VALIDATION_ERROR"
-			case let .rulesDownloadError(downloadError):
+			case let .downloadRulesError(downloadError):
 				switch downloadError {
 				case .NO_NETWORK:
 					return "NO_NETWORK"

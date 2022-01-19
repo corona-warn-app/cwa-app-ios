@@ -145,7 +145,7 @@ final class HealthCertificateValidationService: HealthCertificateValidationProvi
 							
 						} else if case URLSession.Response.Failure.noNetworkConnection = error {
 							Log.error("Failed to update value sets. No network error", log: .vaccination, error: error)
-							completion(.failure(.rulesDownloadError(.NO_NETWORK)))
+							completion(.failure(.downloadRulesError(.NO_NETWORK)))
 						} else {
 							Log.error("Casting error for http error failed", log: .vaccination, error: error)
 							completion(.failure(.VALUE_SET_CLIENT_ERROR))
@@ -182,7 +182,7 @@ final class HealthCertificateValidationService: HealthCertificateValidationProvi
 			completion: { [weak self] result in
 				switch result {
 				case let .failure(error):
-					completion(.failure(.rulesDownloadError(error)))
+					completion(.failure(.downloadRulesError(error)))
 				case let .success(acceptanceRules):
 					Log.info("Successfully downloaded/restored acceptance rules. Proceed with downloading invalidation rules...", log: .vaccination)
 					self?.downloadInvalidationRules(
@@ -212,7 +212,7 @@ final class HealthCertificateValidationService: HealthCertificateValidationProvi
 			completion: { [weak self] result in
 				switch result {
 				case let .failure(error):
-					completion(.failure(.rulesDownloadError(error)))
+					completion(.failure(.downloadRulesError(error)))
 				case let .success(invalidationRules):
 					Log.info("Successfully downloaded/restored invalidation rules. Proceed with assembling FilterParameter...", log: .vaccination)
 					self?.assembleCommonRules(

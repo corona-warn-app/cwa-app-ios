@@ -2236,7 +2236,7 @@ class HealthCertificateServiceTests: CWATestCase {
 			)
 		]
 
-		let boosterNotificationsService = FakeBoosterNotificationsService(result: .failure(.CERTIFICATE_VALIDATION_ERROR(.rulesDownloadError(.RULE_SERVER_ERROR(.boosterNotification)))))
+		let boosterNotificationsService = FakeBoosterNotificationsService(result: .failure(.CERTIFICATE_VALIDATION_ERROR(.downloadRulesError(.RULE_SERVER_ERROR(.boosterNotification)))))
 
 		let service = HealthCertificateService(
 			store: store,
@@ -2267,7 +2267,7 @@ class HealthCertificateServiceTests: CWATestCase {
 			)
 		]
 
-		let boosterNotificationsService = FakeBoosterNotificationsService(result: .failure(.CERTIFICATE_VALIDATION_ERROR(.rulesDownloadError(.NO_NETWORK))))
+		let boosterNotificationsService = FakeBoosterNotificationsService(result: .failure(.CERTIFICATE_VALIDATION_ERROR(.downloadRulesError(.NO_NETWORK))))
 
 		let service = HealthCertificateService(
 			store: store,

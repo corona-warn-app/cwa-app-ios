@@ -59,7 +59,7 @@ class BoosterNotificationsService: BoosterNotificationsServiceProviding {
 				}
 			case .failure(let error):
 				Log.error("Error downloading the booster notifications", log: .api, error: error)
-				completion(.failure(.CERTIFICATE_VALIDATION_ERROR(.rulesDownloadError(error))))
+				completion(.failure(.CERTIFICATE_VALIDATION_ERROR(.downloadRulesError(error))))
 			}
 		}
 	}

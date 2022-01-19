@@ -703,7 +703,7 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 			XCTFail("report must not be nil")
 			return
 		}
-		XCTAssertEqual(error, .rulesDownloadError(.RULE_DECODING_ERROR(.acceptance, .JSON_VALIDATION_RULE_SCHEMA_NOTFOUND)))
+		XCTAssertEqual(error, .downloadRulesError(.RULE_DECODING_ERROR(.acceptance, .JSON_VALIDATION_RULE_SCHEMA_NOTFOUND)))
 	}
 
 	// MARK: - Helper function tests
