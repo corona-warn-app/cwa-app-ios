@@ -114,6 +114,44 @@ class HealthCertificateCellViewModelTests: XCTestCase {
 		XCTAssertTrue(viewModel.isCurrentlyUsedCertificateHintVisible)
 	}
 
+	func testViewModelWithJust3of3BoosterVaccinationCertificateWithCompleteProtection() throws {
+		let healthCertificate = try vaccinationCertificate(daysOffset: 0, doseNumber: 3, totalSeriesOfDoses: 3)
+
+		let healthCertifiedPerson = HealthCertifiedPerson(healthCertificates: [healthCertificate])
+		healthCertifiedPerson.gradientType = .darkBlue
+
+		let viewModel = HealthCertificateCellViewModel(
+			healthCertificate: healthCertificate,
+			healthCertifiedPerson: healthCertifiedPerson
+		)
+
+		XCTAssertEqual(viewModel.gradientType, .darkBlue)
+		XCTAssertEqual(viewModel.headline, "Impfzertifikat")
+		XCTAssertEqual(viewModel.subheadline, "Impfung 3 von 3")
+		XCTAssertEqual(viewModel.image, UIImage(imageLiteralResourceName: "VaccinationCertificate_CompletelyProtected_Icon"))
+		XCTAssertEqual(viewModel.currentlyUsedImage, UIImage(named: "Icon_CurrentlyUsedCertificate_dark"))
+		XCTAssertTrue(viewModel.isCurrentlyUsedCertificateHintVisible)
+	}
+
+	func testViewModelWithJust2of1BoosterVaccinationCertificateWithCompleteProtection() throws {
+		let healthCertificate = try vaccinationCertificate(daysOffset: 0, doseNumber: 2, totalSeriesOfDoses: 1)
+
+		let healthCertifiedPerson = HealthCertifiedPerson(healthCertificates: [healthCertificate])
+		healthCertifiedPerson.gradientType = .darkBlue
+
+		let viewModel = HealthCertificateCellViewModel(
+			healthCertificate: healthCertificate,
+			healthCertifiedPerson: healthCertifiedPerson
+		)
+
+		XCTAssertEqual(viewModel.gradientType, .darkBlue)
+		XCTAssertEqual(viewModel.headline, "Impfzertifikat")
+		XCTAssertEqual(viewModel.subheadline, "Impfung 2 von 1")
+		XCTAssertEqual(viewModel.image, UIImage(imageLiteralResourceName: "VaccinationCertificate_CompletelyProtected_Icon"))
+		XCTAssertEqual(viewModel.currentlyUsedImage, UIImage(named: "Icon_CurrentlyUsedCertificate_dark"))
+		XCTAssertTrue(viewModel.isCurrentlyUsedCertificateHintVisible)
+	}
+
 	func testViewModelWithSeriesCompletingVaccinationCertificateWithCompleteProtection() throws {
 		let healthCertificate = try vaccinationCertificate(daysOffset: -15, doseNumber: 2, totalSeriesOfDoses: 2)
 		let healthCertifiedPerson = HealthCertifiedPerson(healthCertificates: [healthCertificate])
