@@ -616,15 +616,9 @@
 
 "ExposureSubmissionQRInfo_header_section_1" = "Aflarea rezultatului testului";
 
-"ExposureSubmissionQRInfo_instruction1" = "Acum scanați codul QR de pe testul dvs. și aflați rezultatul testului.";
+"ExposureSubmissionQRInfo_instruction1" = "Fiecare test poate fi scanat o singură dată. Aplicația poate gestiona cel mult un test rapid și un test PCR în același timp.";
 
-"ExposureSubmissionQRInfo_instruction2" = "Fiecare test poate fi scanat o singură dată. Aplicația poate gestiona cel mult un test rapid și un test PCR în același timp.";
-
-"ExposureSubmissionQRInfo_instruction2a" = "Dacă rezultatul testului dvs. este negativ, puteți confirma acest lucru cu un certificat de test COVID oficial. Pentru aceasta, solicitați certificatul de test în următoarele etape.";
-
-"ExposureSubmissionQRInfo_instruction3" = "Aplicația %@ poate gestiona mai multe teste simultan.";
-
-"ExposureSubmissionQRInfo_instruction3_highlightedPhrase" = "nu";
+"ExposureSubmissionQRInfo_instruction2" = "Dacă rezultatul testului dvs. este negativ, puteți confirma acest lucru cu un certificat de test COVID oficial. Pentru aceasta, solicitați certificatul de test în următoarele etape.";
 
 "ExposureSubmissionQRInfo_header_section_2" = "Vă rugăm să îi ajutați pe ceilalți cu care v-ați întâlnit, avertizându-i!";
 
@@ -667,15 +661,21 @@
 
 "ExposureSubmissionSuccess_listTitle" = "Rețineți:";
 
-"ExposureSubmissionSuccess_listItem0" = "Efectuați un test PCR pentru a verifica rezultatul acestui test. ";
+"ExposureSubmissionSuccess_PCR_listItem0" = "Există o probabilitate mare să fiți contagios. Izolați-vă de alte persoane.";
 
-"ExposureSubmissionSuccess_listItem1" = "Autoritatea de sănătate publică vă poate contacta în următoarele zile.";
+"ExposureSubmissionSuccess_PCR_listItem1" = "Autoritatea de sănătate publică vă poate contacta în următoarele zile.";
 
-"ExposureSubmissionSuccess_listItem2" = "Există o probabilitate mare să fiți contagios. Izolați-vă de alte persoane.";
+"ExposureSubmissionSuccess_PCR_listItem2" = "Dacă aveți risc crescut de boală gravă în urma infectării cu COVID-19, adresați-vă medicului pentru un consult. Factorii de risc cunoscuți includ vârsta de peste 60 de ani, imunodepresia, diabetul și obezitatea.";
+
+"ExposureSubmissionSuccess_RAT_listItem0" = "Există o probabilitate mare să fiți contagios. Izolați-vă de alte persoane.";
+
+"ExposureSubmissionSuccess_RAT_listItem1" = "Efectuați un test PCR pentru a verifica rezultatul acestui test.";
+
+"ExposureSubmissionSuccess_RAT_listItem2" = "Autoritatea de sănătate publică vă poate contacta în următoarele zile.";
 
 "ExposureSubmissionSuccess_listItem2_1" = "Perioada de izolare este de obicei de 10 zile. Monitorizați cu atenție modul în care evoluează simptomele dvs.";
 
-"ExposureSubmissionSuccess_listItem2_2" = "Autoritatea dvs. de sănătate publică vă va solicita să întocmiți o listă a persoanelor cu care ați intrat în contact. Aceasta trebuie să cuprindă toate persoanele cu care ați avut contact strâns (mai puțin de 2 metri, conversații față în față) timp de peste 15 minute începând cu două zile înainte de a vă îmbolnăvi. Puteți utiliza jurnalul de contacte în acest scop: trebuie doar să exportați intrările și apoi să le tipăriți sau să le expediați pe e-mail.";
+"ExposureSubmissionSuccess_listItem2_2" = "Autoritatea dvs. de sănătate publică vă va solicita să întocmiți o listă a persoanelor cu care ați intrat în contact. Aceasta trebuie să cuprindă toate persoanele cu care ați avut contact strâns (mai puțin de 2 metri, conversații față în față) timp de peste 10 minute începând cu două zile înainte de a vă îmbolnăvi. Puteți utiliza jurnalul de contacte în acest scop: trebuie doar să exportați intrările și apoi să le tipăriți sau să le expediați pe e-mail.";
 
 "ExposureSubmissionSuccess_listItem2_3" = "Luați în considerare în special persoanele care nu vor fi notificate direct de aplicație dacă nu au un smartphone sau dacă nu și-au instalat aplicația.";
 
@@ -1291,13 +1291,17 @@
 
 "Home_Finding_Positive_Card_Note_Title" = "Rețineți:";
 
-"Home_Finding_Positive_Card_Verify_Item_Title" = "Efectuați un test PCR pentru a verifica rezultatul acestui test.";
+"Home_Finding_Positive_Card_PCR_Item0" = "Există o probabilitate mare să fiți contagios. Izolați-vă de alte persoane.";
 
-"Home_Finding_Positive_Card_Phone_Item_Title" = "Autoritatea de sănătate publică vă poate contacta în următoarele zile.";
+"Home_Finding_Positive_Card_PCR_Item1" = "Autoritatea de sănătate publică vă poate contacta în următoarele zile.";
 
-"Home_Finding_Positive_Card_Home_Item_Title" = "Există o probabilitate mare să fiți contagios. Izolați-vă de alte persoane.";
+"Home_Finding_Positive_Card_PCR_Item2" = "Dacă aveți risc crescut de boală gravă în urma infectării cu COVID-19, adresați-vă medicului pentru un consult. Factorii de risc cunoscuți includ vârsta de peste 60 de ani, imunodepresia, diabetul și obezitatea.";
 
-"Home_Finding_Positive_Card_Share_Item_Title" = "Trimiteți ID-ul dvs. aleatoriu pentru a-i avertiza și pe alții.";
+"Home_Finding_Positive_Card_RAT_Item0" = "Există o probabilitate mare să fiți contagios. Izolați-vă de alte persoane.";
+
+"Home_Finding_Positive_Card_RAT_Item1" = "Efectuați un test PCR pentru a verifica rezultatul acestui test.";
+
+"Home_Finding_Positive_Card_RAT_Item2" = "Autoritatea de sănătate publică vă poate contacta în următoarele zile.";
 
 "Home_Finding_Positive_Card_Button" = "Avertizați-i pe ceilalți";
 
@@ -1327,6 +1331,8 @@
 "Home_MoreCard_AppInformationTitle" = "Info aplicație";
 
 "Home_MoreCard_FAQTitle" = "Întrebări frecvente";
+
+"Home_MoreCard_SocialMedia" = "Social media";
 
 "Home_MoreCard_ShareTitle" = "Partajare";
 
@@ -1595,18 +1601,22 @@
 /* New Version Features */
 "NewVersionFeatures_Info_about_abb_information" = "Modificările din această versiune pot fi găsite în informațiile aplicației, la „Caracteristici noi”.";
 
-/* Version 2.16 */
-"NewVersionFeature_216_2g_title" = "Dovada stării 2G+";
+/* Version 2.17 */
+"NewVersionFeature_217_positiveTest_title" = "Note în cazul unui rezultat de test pozitiv";
 
-"NewVersionFeature_216_2g_description" = "Dacă aveți un certificat de vaccinare valabil sau un certificat de recuperare valabil și adăugați un certificat de test în aplicație, acestea sunt afișate într-un afișaj combinat în sumarul certificatului. Puteți schimba între codurile QR al certificatului de vaccinare sau al certificatului de recuperare și cel al certificatul de test utilizând controlul corespunzător. Ambele coduri QR trebuie verificate cu aplicația CovPassCheck dacă este nevoie de dovada 2G+.";
+"NewVersionFeature_217_positiveTest_description" = "Notele și procedura recomandată în cazul unui rezultat de test pozitiv au fost revizuite.";
 
-"NewVersionFeature_216_negativeTestNotice_title" = "Informații în caz de rezultat de test negativ";
+"NewVersionFeature_217_statisticsBoosterVaccination_title" = "Statistica pentru vaccinările cu doza booster";
 
-"NewVersionFeature_216_negativeTestNotice_description" = "Dacă primiți un rezultat de test negativ, nu veți primi recomandări suplimentare dacă aveți în continuare simptome acute.";
+"NewVersionFeature_217_statisticsBoosterVaccination_description" = "Pe lângă statistica pentru persoanele care au primit cel puțin o doză de vaccin și persoanele care s-au vaccinat complet, acum veți găsi și numărul de persoane care au primit doza booster.";
 
-"NewVersionFeature_216_highRiskNotification_title" = "Notificare de risc crescut";
+"NewVersionFeature_217_linkSocialMedia_title" = "Legătură către rețeaua de social media";
 
-"NewVersionFeature_216_highRiskNotification_description" = "Acum veți primi o notificare dacă aveți risc crescut de infectare, chiar dacă aplicația este deschisă. Scopul acesteia este de a vă împiedica să ignorați o avertizare de risc de pe tabul de stare dacă, în mod curent, utilizați un tab diferit. În plus, va apărea un punct roșu pe tabul de stare, până când deschideți din nou acest tab.";
+"NewVersionFeature_217_linkSocialMedia_description" = "Dacă doriți să rămâneți la curent cu cele mai noi funcții ale aplicației Corona-Warn și să le discutați cu alte persoane, puteți urmări canalele noastre de social media. Acum veți găsi legătura către canalul de social media pe ecranul inițial, în secțiunea „Mai mult”.";
+
+"NewVersionFeature_217_deleteDateRecycleBin_title" = "Data de ștergere pentru conținutul coșului de reciclare";
+
+"NewVersionFeature_217_deleteDateRecycleBin_description" = "Fiecare element mutat în coșul de reciclare este șters definitiv după 30 de zile. Această dată de ștergere este afișată acum pentru fiecare element.";
 
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Înregistrare transnațională a expunerilor în jurnal";
@@ -1693,17 +1703,23 @@
 
 "TestResultPositive_KeysSubmitted_Title1" = "Rețineți:";
 
-"TestResultPositive_KeysSubmitted_Info1" = "Efectuați un test PCR pentru a verifica rezultatul acestui test.";
+"TestResultPositive_KeysSubmitted_PCR_Info1" = "Există o probabilitate mare să fiți contagios. Izolați-vă de alte persoane.";
 
-"TestResultPositive_KeysSubmitted_Info2" = "Autoritatea de sănătate publică vă poate contacta în următoarele zile.";
+"TestResultPositive_KeysSubmitted_PCR_Info2" = "Autoritatea de sănătate publică vă poate contacta în următoarele zile.";
 
-"TestResultPositive_KeysSubmitted_Info3" = "Există o probabilitate mare să fiți contagios. Izolați-vă de alte persoane.";
+"TestResultPositive_KeysSubmitted_PCR_Info3" = "Dacă aveți risc crescut de boală gravă în urma infectării cu COVID-19, adresați-vă medicului pentru un consult. Factorii de risc cunoscuți includ vârsta de peste 60 de ani, imunodepresia, diabetul și obezitatea.";
+
+"TestResultPositive_KeysSubmitted_RAT_Info1" = "Există o probabilitate mare să fiți contagios. Izolați-vă de alte persoane.";
+
+"TestResultPositive_KeysSubmitted_RAT_Info2" = "Efectuați un test PCR pentru a verifica rezultatul acestui test.";
+
+"TestResultPositive_KeysSubmitted_RAT_Info3" = "Autoritatea de sănătate publică vă poate contacta în următoarele zile.";
 
 "TestResultPositive_KeysSubmitted_Title2" = "Alte informații:";
 
 "TestResultPositive_KeysSubmitted_FurtherInfo1" = "Perioada de izolare este de obicei de 10 zile. Monitorizați cu atenție modul în care evoluează simptomele dvs.";
 
-"TestResultPositive_KeysSubmitted_FurtherInfo2" = "Autoritatea dvs. de sănătate publică vă va solicita să întocmiți o listă a persoanelor cu care ați intrat în contact. Aceasta trebuie să cuprindă toate persoanele cu care ați avut contact strâns (mai puțin de 2 metri, conversații față în față) timp de peste 15 minute începând cu două zile înainte de a vă îmbolnăvi. Puteți utiliza jurnalul de contacte în acest scop: trebuie doar să exportați intrările și apoi să le tipăriți sau să le expediați pe e-mail.";
+"TestResultPositive_KeysSubmitted_FurtherInfo2" = "Autoritatea dvs. de sănătate publică vă va solicita să întocmiți o listă a persoanelor cu care ați intrat în contact. Aceasta trebuie să cuprindă toate persoanele cu care ați avut contact strâns (mai puțin de 2 metri, conversații față în față) timp de peste 10 minute începând cu două zile înainte de a vă îmbolnăvi. Puteți utiliza jurnalul de contacte în acest scop: trebuie doar să exportați intrările și apoi să le tipăriți sau să le expediați pe e-mail.";
 
 "TestResultPositive_KeysSubmitted_FurtherInfo3" = "Luați în considerare în special persoanele care nu vor fi notificate direct de aplicație dacă nu au un smartphone sau dacă nu și-au instalat aplicația.";
 
@@ -2027,6 +2043,21 @@
 
 "Statistics_Card_FullyVaccinated_SecondarySubtitleLabel" = "din numărul total al populației";
 
+/* - Booster vaccination card */
+"Statistics_Card_BoosterVaccination_Title" = "Persoane care au primit doza booster";
+
+"Statistics_Card_BoosterVaccination_Today" = "Până astăzi";
+
+"Statistics_Card_BoosterVaccination_Yesterday" = "Până ieri";
+
+"Statistics_Card_BoosterVaccination_Date" = "Până la %@";
+
+"Statistics_Card_BoosterVaccination_SecondaryLabelTitle" = "din numărul total al populației";
+
+"Statistics_Card_BoosterVaccination_TertiaryLabelTitle" = "Total";
+
+"Statistics_Card_BoosterVaccination_SecondarySubtitleLabel" = "din numărul total al populației";
+
 /* - Applied vaccination dose rates card */
 "Statistics_Card_AppliedDoseRates_Title" = "Doze de vaccin administrate";
 
@@ -2095,7 +2126,11 @@
 
 "Statistics_Info_FullyVaccinated_Title" = "Persoane care sunt complet vaccinate";
 
-"Statistics_Info_FullyVaccinated_Text" = "Numărul de persoane raportat la RKI care au primit toate dozele de vaccin necesare.";
+"Statistics_Info_FullyVaccinated_Text" = "Numărul de persoane raportat la RKI care au primit toate dozele de vaccin necesare pentru imunizarea de bază.";
+
+"Statistics_Info_BoosterVaccination_Title" = "Persoane care au primit doza booster";
+
+"Statistics_Info_BoosterVaccination_Text" = "Numărul de persoane raportat la RKI care au primit o doză booster.";
 
 "Statistics_Info_DosesAdministered_Title" = "Doze de vaccin administrate";
 
@@ -3276,6 +3311,8 @@
 "RecycleBin_description" = "Atingeți un element pentru a-l restaura. Elementele vor fi șterse automat după 30 de zile.";
 
 "RecycleBin_deleteAllButtonTitle" = "Ștergere definitivă tot";
+
+"RecycleBin_expirationDateTime" = "se va șterge definitiv pe %@ la %@";
 
 /* - Vaccination Certificate */
 "RecycleBin_VaccinationCertificate_headline" = "Certificat de vaccinare";

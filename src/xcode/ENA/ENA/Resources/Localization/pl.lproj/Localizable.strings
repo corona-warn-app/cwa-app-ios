@@ -616,15 +616,9 @@
 
 "ExposureSubmissionQRInfo_header_section_1" = "Pobierz wynik testu";
 
-"ExposureSubmissionQRInfo_instruction1" = "Zeskanuj teraz kod QR dla swojego testu i pobierz wynik testu.";
+"ExposureSubmissionQRInfo_instruction1" = "Test można zeskanować tylko raz. Aplikacja może zarządzać maksymalnie jednym szybkim testem i jednym testem PCR jednocześnie.";
 
-"ExposureSubmissionQRInfo_instruction2" = "Test można zeskanować tylko raz. Aplikacja może zarządzać maksymalnie jednym szybkim testem i jednym testem PCR jednocześnie.";
-
-"ExposureSubmissionQRInfo_instruction2a" = "Jeśli wynik Twojego testu jest negatywny, możesz to potwierdzić oficjalnym certyfikatem testu na COVID. W tym celu poproś o certyfikat testu, wykonując następujące kroki.";
-
-"ExposureSubmissionQRInfo_instruction3" = "Aplikacja może%@ zarządzać wieloma testami w tym samym czasie.";
-
-"ExposureSubmissionQRInfo_instruction3_highlightedPhrase" = "nie";
+"ExposureSubmissionQRInfo_instruction2" = "Jeśli wynik Twojego testu jest negatywny, możesz to potwierdzić oficjalnym certyfikatem testu na COVID. W tym celu poproś o certyfikat testu, wykonując następujące kroki.";
 
 "ExposureSubmissionQRInfo_header_section_2" = "Pomóż osobom, z którymi miałeś(-aś) kontakt, ostrzegając ich!";
 
@@ -667,15 +661,21 @@
 
 "ExposureSubmissionSuccess_listTitle" = "Uwaga:";
 
-"ExposureSubmissionSuccess_listItem0" = "Wykonaj test PCR, aby zweryfikować wynik tego testu. ";
+"ExposureSubmissionSuccess_PCR_listItem0" = "Istnieje duże prawdopodobieństwo, że możesz zakażać. Odizoluj się od innych ludzi.";
 
-"ExposureSubmissionSuccess_listItem1" = "Organ ds. zdrowia publicznego może skontaktować się z Tobą w ciągu kilku najbliższych dni.";
+"ExposureSubmissionSuccess_PCR_listItem1" = "Organ ds. zdrowia publicznego może skontaktować się z Tobą w ciągu kilku najbliższych dni.";
 
-"ExposureSubmissionSuccess_listItem2" = "Istnieje duże prawdopodobieństwo, że możesz zakażać. Odizoluj się od innych ludzi.";
+"ExposureSubmissionSuccess_PCR_listItem2" = "Jeśli masz podwyższone ryzyko wystąpienia ciężkiej choroby spowodowanej COVID-19, zasięgnij porady lekarza. Znane czynniki ryzyka obejmują wiek powyżej 60 lat, immunosupresję, cukrzycę i otyłość.";
+
+"ExposureSubmissionSuccess_RAT_listItem0" = "Istnieje duże prawdopodobieństwo, że możesz zakażać. Odizoluj się od innych ludzi.";
+
+"ExposureSubmissionSuccess_RAT_listItem1" = "Wykonaj test PCR, aby zweryfikować wynik tego testu.";
+
+"ExposureSubmissionSuccess_RAT_listItem2" = "Organ ds. zdrowia publicznego może skontaktować się z Tobą w ciągu kilku najbliższych dni.";
 
 "ExposureSubmissionSuccess_listItem2_1" = "Okres izolacji wynosi zazwyczaj 10 dni. Obserwuj swoje objawy i monitoruj ich rozwój.";
 
-"ExposureSubmissionSuccess_listItem2_2" = "Zostaniesz poproszony(-a) przez organ ds. zdrowia publicznego o stworzenie listy osób, z którymi miałeś(-aś) kontakt. Powinna ona obejmować wszystkie osoby, z którymi miałeś(-aś) bliski kontakt (w odległości mniejszej niż 2 metry, rozmowa twarzą w twarz) przez ponad 15 minut w ciągu dwóch dni poprzedzających zachorowanie. Możesz do tego celu wykorzystać swój dziennik kontaktów: po prostu wyeksportuj wpisy, a następnie wydrukuj je lub wyślij pocztą e-mail.";
+"ExposureSubmissionSuccess_listItem2_2" = "Zostaniesz poproszony(-a) przez organ ds. zdrowia publicznego o stworzenie listy osób, z którymi miałeś(-aś) kontakt. Powinna ona obejmować wszystkie osoby, z którymi miałeś(-aś) bliski kontakt (w odległości mniejszej niż 2 metry, rozmowa twarzą w twarz) przez ponad 10 minut w ciągu dwóch dni poprzedzających zachorowanie. Możesz do tego celu wykorzystać swój dziennik kontaktów: po prostu wyeksportuj wpisy, a następnie wydrukuj je lub wyślij pocztą e-mail.";
 
 "ExposureSubmissionSuccess_listItem2_3" = "Zwróć szczególną uwagę na osoby, które nie zostaną powiadomione bezpośrednio przez aplikację, ponieważ nie posiadają smartfonów lub nie zainstalowały aplikacji.";
 
@@ -1291,13 +1291,17 @@
 
 "Home_Finding_Positive_Card_Note_Title" = "Uwaga:";
 
-"Home_Finding_Positive_Card_Verify_Item_Title" = "Wykonaj test PCR, aby zweryfikować wynik tego testu.";
+"Home_Finding_Positive_Card_PCR_Item0" = "Istnieje duże prawdopodobieństwo, że możesz zakażać. Odizoluj się od innych ludzi.";
 
-"Home_Finding_Positive_Card_Phone_Item_Title" = "Organ ds. zdrowia publicznego może skontaktować się z Tobą w ciągu kilku najbliższych dni.";
+"Home_Finding_Positive_Card_PCR_Item1" = "Organ ds. zdrowia publicznego może skontaktować się z Tobą w ciągu kilku najbliższych dni.";
 
-"Home_Finding_Positive_Card_Home_Item_Title" = "Istnieje duże prawdopodobieństwo, że możesz zakażać. Odizoluj się od innych ludzi.";
+"Home_Finding_Positive_Card_PCR_Item2" = "Jeśli masz podwyższone ryzyko wystąpienia ciężkiej choroby spowodowanej COVID-19, zasięgnij porady lekarza. Znane czynniki ryzyka obejmują wiek powyżej 60 lat, immunosupresję, cukrzycę i otyłość.";
 
-"Home_Finding_Positive_Card_Share_Item_Title" = "Udostępnij swoje losowe identyfikatory, aby umożliwić ostrzeganie innych osób.";
+"Home_Finding_Positive_Card_RAT_Item0" = "Istnieje duże prawdopodobieństwo, że możesz zakażać. Odizoluj się od innych ludzi.";
+
+"Home_Finding_Positive_Card_RAT_Item1" = "Wykonaj test PCR, aby zweryfikować wynik tego testu.";
+
+"Home_Finding_Positive_Card_RAT_Item2" = "Organ ds. zdrowia publicznego może skontaktować się z Tobą w ciągu kilku najbliższych dni.";
 
 "Home_Finding_Positive_Card_Button" = "Ostrzegaj innych";
 
@@ -1327,6 +1331,8 @@
 "Home_MoreCard_AppInformationTitle" = "Informacje o aplikacji";
 
 "Home_MoreCard_FAQTitle" = "Często zadawane pytania";
+
+"Home_MoreCard_SocialMedia" = "Media społecznościowe";
 
 "Home_MoreCard_ShareTitle" = "Udostępnij";
 
@@ -1595,18 +1601,22 @@
 /* New Version Features */
 "NewVersionFeatures_Info_about_abb_information" = "Dane o zmianach w tej wersji można znaleźć w informacjach o aplikacji w sekcji „Nowe funkcje”.";
 
-/* Version 2.16 */
-"NewVersionFeature_216_2g_title" = "Dowód 2G+ status";
+/* Version 2.17 */
+"NewVersionFeature_217_positiveTest_title" = "Uwagi w przypadku pozytywnego wyniku testu";
 
-"NewVersionFeature_216_2g_description" = "Jeśli posiadasz ważny certyfikat szczepienia lub certyfikat statusu ozdrowieńca i dodasz w aplikacji certyfikat testu, zostaną one wyświetlone razem w przeglądzie certyfikatów. Możesz przełączać się między kodem QR certyfikatu szczepienia lub certyfikatem statusu ozdrowieńca a certyfikatem testu za pomocą odpowiedniego elementu sterującego. Oba kody QR muszą być zweryfikowane przez aplikację CovPassCheck, jeśli wymagany jest dowód 2G+.";
+"NewVersionFeature_217_positiveTest_description" = "Zmieniono uwagi i zalecane postępowanie w przypadku pozytywnego wyniku testu.";
 
-"NewVersionFeature_216_negativeTestNotice_title" = "Informacje w przypadku negatywnego wyniku testu";
+"NewVersionFeature_217_statisticsBoosterVaccination_title" = "Statystyka szczepień przypominających";
 
-"NewVersionFeature_216_negativeTestNotice_description" = "Jeśli wynik testu będzie negatywny, otrzymasz teraz dodatkowe zalecenia w przypadku nieustąpienia ostrych objawów.";
+"NewVersionFeature_217_statisticsBoosterVaccination_description" = "Oprócz danych statystycznych dotyczących osób, które otrzymały jedną dawkę szczepionki i osób w pełni zaszczepionych, znajdziesz teraz również informacje o liczbie osób, które otrzymały szczepienie przypominające.";
 
-"NewVersionFeature_216_highRiskNotification_title" = "Powiadomienie o zwiększonym ryzyku";
+"NewVersionFeature_217_linkSocialMedia_title" = "Link do mediów społecznościowych";
 
-"NewVersionFeature_216_highRiskNotification_description" = "Teraz otrzymasz powiadomienie, jeśli będziesz mieć zwiększone ryzyko zakażenia, nawet jeśli aplikacja będzie otwarta. Ma to na celu zapobieżenie przeoczeniu ostrzeżenia o ryzyku na karcie statusu, jeśli w danej chwili korzystasz z innej karty. Ponadto na karcie statusu będzie wyświetlać się czerwona kropka, dopóki nie otworzysz tej karty ponownie.";
+"NewVersionFeature_217_linkSocialMedia_description" = "Jeśli chcesz na bieżąco zapoznawać się ze zmianami w aplikacji Corona-Warn-App i omawiać je z innymi, możesz śledzić nasze kanały w mediach społecznościowych. Na ekranie głównym w sekcji „Więcej” znajdziesz teraz link do mediów społecznościowych.";
+
+"NewVersionFeature_217_deleteDateRecycleBin_title" = "Data usunięcia zawartości kosza";
+
+"NewVersionFeature_217_deleteDateRecycleBin_description" = "Każdy element przeniesiony do kosza jest trwale usuwany po 30 dniach. Taki termin usunięcia jest teraz wyświetlany dla każdego elementu.";
 
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Rejestrowanie narażenia w różnych krajach";
@@ -1693,17 +1703,23 @@
 
 "TestResultPositive_KeysSubmitted_Title1" = "Uwaga:";
 
-"TestResultPositive_KeysSubmitted_Info1" = "Wykonaj test PCR, aby zweryfikować wynik tego testu.";
+"TestResultPositive_KeysSubmitted_PCR_Info1" = "Istnieje duże prawdopodobieństwo, że możesz zakażać. Odizoluj się od innych ludzi.";
 
-"TestResultPositive_KeysSubmitted_Info2" = "Organ ds. zdrowia publicznego może skontaktować się z Tobą w ciągu kilku najbliższych dni.";
+"TestResultPositive_KeysSubmitted_PCR_Info2" = "Organ ds. zdrowia publicznego może skontaktować się z Tobą w ciągu kilku najbliższych dni.";
 
-"TestResultPositive_KeysSubmitted_Info3" = "Istnieje duże prawdopodobieństwo, że możesz zakażać. Odizoluj się od innych ludzi.";
+"TestResultPositive_KeysSubmitted_PCR_Info3" = "Jeśli masz podwyższone ryzyko wystąpienia ciężkiej choroby spowodowanej COVID-19, zasięgnij porady lekarza. Znane czynniki ryzyka obejmują wiek powyżej 60 lat, immunosupresję, cukrzycę i otyłość.";
+
+"TestResultPositive_KeysSubmitted_RAT_Info1" = "Istnieje duże prawdopodobieństwo, że możesz zakażać. Odizoluj się od innych ludzi.";
+
+"TestResultPositive_KeysSubmitted_RAT_Info2" = "Wykonaj test PCR, aby zweryfikować wynik tego testu.";
+
+"TestResultPositive_KeysSubmitted_RAT_Info3" = "Organ ds. zdrowia publicznego może skontaktować się z Tobą w ciągu kilku najbliższych dni.";
 
 "TestResultPositive_KeysSubmitted_Title2" = "Inne informacje:";
 
 "TestResultPositive_KeysSubmitted_FurtherInfo1" = "Okres izolacji wynosi zazwyczaj 10 dni. Obserwuj swoje objawy i monitoruj ich rozwój.";
 
-"TestResultPositive_KeysSubmitted_FurtherInfo2" = "Zostaniesz poproszony(-a) przez organ ds. zdrowia publicznego o stworzenie listy osób, z którymi miałeś(-aś) kontakt. Powinna ona obejmować wszystkie osoby, z którymi miałeś(-aś) bliski kontakt (w odległości mniejszej niż 2 metry, rozmowa twarzą w twarz) przez ponad 15 minut w ciągu dwóch dni poprzedzających zachorowanie. Możesz do tego celu wykorzystać swój dziennik kontaktów: po prostu wyeksportuj wpisy, a następnie wydrukuj je lub wyślij pocztą e-mail.";
+"TestResultPositive_KeysSubmitted_FurtherInfo2" = "Zostaniesz poproszony(-a) przez organ ds. zdrowia publicznego o stworzenie listy osób, z którymi miałeś(-aś) kontakt. Powinna ona obejmować wszystkie osoby, z którymi miałeś(-aś) bliski kontakt (w odległości mniejszej niż 2 metry, rozmowa twarzą w twarz) przez ponad 10 minut w ciągu dwóch dni poprzedzających zachorowanie. Możesz do tego celu wykorzystać swój dziennik kontaktów: po prostu wyeksportuj wpisy, a następnie wydrukuj je lub wyślij pocztą e-mail.";
 
 "TestResultPositive_KeysSubmitted_FurtherInfo3" = "Zwróć szczególną uwagę na osoby, które nie zostaną powiadomione bezpośrednio przez aplikację, ponieważ nie posiadają smartfonów lub nie zainstalowały aplikacji.";
 
@@ -2027,6 +2043,21 @@
 
 "Statistics_Card_FullyVaccinated_SecondarySubtitleLabel" = "ogółu populacji";
 
+/* - Booster vaccination card */
+"Statistics_Card_BoosterVaccination_Title" = "Osoby, które otrzymały szczepienie przypominające";
+
+"Statistics_Card_BoosterVaccination_Today" = "Do dzisiaj";
+
+"Statistics_Card_BoosterVaccination_Yesterday" = "Do wczoraj";
+
+"Statistics_Card_BoosterVaccination_Date" = "Do %@";
+
+"Statistics_Card_BoosterVaccination_SecondaryLabelTitle" = "ogółu populacji";
+
+"Statistics_Card_BoosterVaccination_TertiaryLabelTitle" = "Suma";
+
+"Statistics_Card_BoosterVaccination_SecondarySubtitleLabel" = "ogółu populacji";
+
 /* - Applied vaccination dose rates card */
 "Statistics_Card_AppliedDoseRates_Title" = "Podane dawki szczepionki";
 
@@ -2095,7 +2126,11 @@
 
 "Statistics_Info_FullyVaccinated_Title" = "Osoby w pełni zaszczepione";
 
-"Statistics_Info_FullyVaccinated_Text" = "Liczba osób zgłoszonych w RKI, które otrzymały wszystkie niezbędne dawki szczepionki.";
+"Statistics_Info_FullyVaccinated_Text" = "Liczba osób zgłoszonych w RKI, które otrzymały wszystkie dawki szczepionki niezbędne do podstawowego uodpornienia.";
+
+"Statistics_Info_BoosterVaccination_Title" = "Osoby, które otrzymały szczepienie przypominające";
+
+"Statistics_Info_BoosterVaccination_Text" = "Liczba osób zgłoszonych w RKI, które otrzymały szczepienie przypominające.";
 
 "Statistics_Info_DosesAdministered_Title" = "Podane dawki szczepionki";
 
@@ -3276,6 +3311,8 @@
 "RecycleBin_description" = "Dotknij element, aby go odzyskać. Elementy zostaną automatycznie usunięte po 30 dniach.";
 
 "RecycleBin_deleteAllButtonTitle" = "Usuń trwale wszystko";
+
+"RecycleBin_expirationDateTime" = "zostanie trwale usunięty dnia %@ o %@";
 
 /* - Vaccination Certificate */
 "RecycleBin_VaccinationCertificate_headline" = "Certyfikat szczepienia";
