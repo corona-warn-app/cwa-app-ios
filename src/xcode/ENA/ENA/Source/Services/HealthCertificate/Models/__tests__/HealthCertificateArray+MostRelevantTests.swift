@@ -294,4 +294,27 @@ class HealthCertificateArrayMostRelevantTests: CWATestCase {
 		XCTAssertTrue(healthCertificates.isEmpty)
 	}
 
+	func testMostRelevantHealthCertificateWithSameDate() throws {
+		let today = Date()
+		
+		let issueDate1 = try XCTUnwrap(Calendar.current.date(byAdding: .day, value: 2, to: today))
+		let firstHeader = CBORWebTokenHeader.fake(issuer: "test1", issuedAt: issueDate1, expirationTime: Date())
+
+		let issueDate2 = try XCTUnwrap(Calendar.current.date(byAdding: .day, value: 5, to: today))
+		let secondHeader = CBORWebTokenHeader.fake(issuer: "test2", issuedAt: issueDate2, expirationTime: Date())
+
+		let mostRecentSeriesCompletingVaccinationCertificate1 = try vaccinationCertificate(type: .booster, ageInDays: 3, cborWebTokenHeader: firstHeader)
+		let mostRecentSeriesCompletingVaccinationCertificate2 = try vaccinationCertificate(type: .booster, ageInDays: 3, cborWebTokenHeader: secondHeader)
+		let mostRecentSeriesCompletingVaccinationCertificate3 = try vaccinationCertificate(type: .seriesCompleting, ageInDays: 8)
+		let mostRecentSeriesCompletingVaccinationCertificate4 = try vaccinationCertificate(type: .seriesCompleting, ageInDays: 21)
+		
+		let healthCertificates = [
+			mostRecentSeriesCompletingVaccinationCertificate1,
+			mostRecentSeriesCompletingVaccinationCertificate2,
+			mostRecentSeriesCompletingVaccinationCertificate3,
+			mostRecentSeriesCompletingVaccinationCertificate4
+			].shuffled()
+		
+		XCTAssertEqual(healthCertificates.mostRelevant, mostRecentSeriesCompletingVaccinationCertificate2)
+	}
 }

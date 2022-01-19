@@ -31,13 +31,17 @@ extension VaccinationEntry {
 
 	// is booster if -> AstraZeneca, Moderna and BioNTech, dose is 3 or more, Johnson & Johnson if dose is 2 or more
 	var isBoosterVaccination: Bool {
-		switch VaccinationProductType(value: vaccineMedicinalProduct) {
-		case .biontech, .astraZeneca, .moderna:
-			return doseNumber > 2
-		case .johnsonAndJohnson:
-			return doseNumber > 1
-		case .other:
-			return false
+		if doseNumber > totalSeriesOfDoses {
+			return true
+		} else {
+			switch VaccinationProductType(value: vaccineMedicinalProduct) {
+			case .biontech, .astraZeneca, .moderna:
+				return doseNumber > 2
+			case .johnsonAndJohnson:
+				return doseNumber > 1
+			case .other:
+				return false
+			}
 		}
 	}
 	

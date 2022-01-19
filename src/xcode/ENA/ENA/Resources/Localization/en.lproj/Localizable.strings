@@ -616,15 +616,9 @@
 
 "ExposureSubmissionQRInfo_header_section_1" = "Retrieve Test Result";
 
-"ExposureSubmissionQRInfo_instruction1" = "Now scan the QR code for your test and retrieve your test result.";
+"ExposureSubmissionQRInfo_instruction1" = "Each test can only be scanned once. The app can manage a maximum of one rapid test and one PCR test at the same time.";
 
-"ExposureSubmissionQRInfo_instruction2" = "Each test can only be scanned once. The app can manage a maximum of one rapid test and one PCR test at the same time.";
-
-"ExposureSubmissionQRInfo_instruction2a" = "If your test result is negative, you can confirm this with an official COVID test certificate. To do so, request the test certificate in the following steps.";
-
-"ExposureSubmissionQRInfo_instruction3" = "The app can%@ manage multiple tests at the same time.";
-
-"ExposureSubmissionQRInfo_instruction3_highlightedPhrase" = "not";
+"ExposureSubmissionQRInfo_instruction2" = "If your test result is negative, you can confirm this with an official COVID test certificate. To do so, request the test certificate in the following steps.";
 
 "ExposureSubmissionQRInfo_header_section_2" = "Please help others you have encountered by warning them!";
 
@@ -667,15 +661,21 @@
 
 "ExposureSubmissionSuccess_listTitle" = "Please note:";
 
-"ExposureSubmissionSuccess_listItem0" = "Take a PCR test to verify this test result. ";
+"ExposureSubmissionSuccess_PCR_listItem0" = "There is a high probability that you are infectious. Isolate yourself from other people.";
 
-"ExposureSubmissionSuccess_listItem1" = "The public health authority may contact you within the next few days.";
+"ExposureSubmissionSuccess_PCR_listItem1" = "The public health authority may contact you within the next few days.";
 
-"ExposureSubmissionSuccess_listItem2" = "There is a high probability that you are infectious. Isolate yourself from other people.";
+"ExposureSubmissionSuccess_PCR_listItem2" = "If you have an increased risk for severe illness from COVID-19, obtain medical advice. Known risk factors include being over 60 years of age, immunosuppression, diabetes, and obesity.";
+
+"ExposureSubmissionSuccess_RAT_listItem0" = "There is a high probability that you are infectious. Isolate yourself from other people.";
+
+"ExposureSubmissionSuccess_RAT_listItem1" = "Take a PCR test to verify this test result.";
+
+"ExposureSubmissionSuccess_RAT_listItem2" = "The public health authority may contact you within the next few days.";
 
 "ExposureSubmissionSuccess_listItem2_1" = "Your isolation period is usually 10 days. Please monitor how your symptoms develop closely.";
 
-"ExposureSubmissionSuccess_listItem2_2" = "You will be asked by your public health authority to create a list of people you have had contact with. This should include all people with whom you have had close contact with (less than 2 meters, face-to-face conversation) for over 15 minutes in the two days before you became ill. You can use your contact journal for this: simply export the entries and then print them out or send them via e-mail.";
+"ExposureSubmissionSuccess_listItem2_2" = "You will be asked by your public health authority to create a list of people you have had contact with. This should include all people with whom you have had close contact with (less than 2 meters, face-to-face conversation) for over 10 minutes in the two days before you became ill. You can use your contact journal for this: simply export the entries and then print them out or send them via e-mail.";
 
 "ExposureSubmissionSuccess_listItem2_3" = "Please particularly consider people who will not be notified directly by the app since they don’t own a smartphone, or haven’t installed the app.";
 
@@ -1291,13 +1291,17 @@
 
 "Home_Finding_Positive_Card_Note_Title" = "Please note:";
 
-"Home_Finding_Positive_Card_Verify_Item_Title" = "Take a PCR test to verify this test result.";
+"Home_Finding_Positive_Card_PCR_Item0" = "There is a high probability that you are infectious. Isolate yourself from other people.";
 
-"Home_Finding_Positive_Card_Phone_Item_Title" = "The public health authority may contact you within the next few days.";
+"Home_Finding_Positive_Card_PCR_Item1" = "The public health authority may contact you within the next few days.";
 
-"Home_Finding_Positive_Card_Home_Item_Title" = "There is a high probability that you are infectious. Isolate yourself from other people.";
+"Home_Finding_Positive_Card_PCR_Item2" = "If you have an increased risk for severe illness from COVID-19, obtain medical advice. Known risk factors include being over 60 years of age, immunosuppression, diabetes, and obesity.";
 
-"Home_Finding_Positive_Card_Share_Item_Title" = "Share your random IDs so that others can be warned.";
+"Home_Finding_Positive_Card_RAT_Item0" = "There is a high probability that you are infectious. Isolate yourself from other people.";
+
+"Home_Finding_Positive_Card_RAT_Item1" = "Take a PCR test to verify this test result.";
+
+"Home_Finding_Positive_Card_RAT_Item2" = "The public health authority may contact you within the next few days.";
 
 "Home_Finding_Positive_Card_Button" = "Warn Others";
 
@@ -1327,6 +1331,8 @@
 "Home_MoreCard_AppInformationTitle" = "App Information";
 
 "Home_MoreCard_FAQTitle" = "FAQ";
+
+"Home_MoreCard_SocialMedia" = "Social Media";
 
 "Home_MoreCard_ShareTitle" = "Share";
 
@@ -1595,18 +1601,22 @@
 /* New Version Features */
 "NewVersionFeatures_Info_about_abb_information" = "Changes in this release can be found in the app information, under “New Features”.";
 
-/* Version 2.16 */
-"NewVersionFeature_216_2g_title" = "Proof of 2G+ Status";
+/* Version 2.17 */
+"NewVersionFeature_217_positiveTest_title" = "Notes in Case of a Positive Test Result";
 
-"NewVersionFeature_216_2g_description" = "If you have a valid vaccination certificate or certificate of recovery and add a test certificate in the app, they are shown in a combined display in the certificate overview. You can switch between the QR code of the vaccination certificate or certificate of recovery and the test certificate by using the appropriate control. Both QR codes must be verified by the CovPassCheck app if proof of 2G+ is required.";
+"NewVersionFeature_217_positiveTest_description" = "The notes and recommended procedure in the case of a positive test result have been revised.";
 
-"NewVersionFeature_216_negativeTestNotice_title" = "Information in Case of a Negative Test Result";
+"NewVersionFeature_217_statisticsBoosterVaccination_title" = "Statistics for Booster Vaccinations";
 
-"NewVersionFeature_216_negativeTestNotice_description" = "If you receive a negative test result, you will now receive additional recommendations if you still have acute symptoms.";
+"NewVersionFeature_217_statisticsBoosterVaccination_description" = "In addition to the statistics for persons who have received one vaccination dose and persons who have been fully vaccinated, you will now also find the number of persons who have received a booster vaccination.";
 
-"NewVersionFeature_216_highRiskNotification_title" = "Notification of Increased Risk";
+"NewVersionFeature_217_linkSocialMedia_title" = "Link to Social Media";
 
-"NewVersionFeature_216_highRiskNotification_description" = "You will now receive a notification if you have an increased risk of infection even if the app is open. This is intended to prevent you from overlooking a risk warning on the status tab if you are currently using a different tab. In addition, a red dot will appear on the status tab until you open this tab again.";
+"NewVersionFeature_217_linkSocialMedia_description" = "If you want to keep up with the latest developments in the Corona-Warn-App and discuss them with others, you can follow our social media channels. You will now find a social media link on the home screen, under “More”.";
+
+"NewVersionFeature_217_deleteDateRecycleBin_title" = "Deletion Date for Recycle Bin Contents";
+
+"NewVersionFeature_217_deleteDateRecycleBin_description" = "Every element that is moved to the recycle bin is permanently deleted after 30 days. This deletion date is now displayed for every element.";
 
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Transnational Exposure Logging";
@@ -1693,17 +1703,23 @@
 
 "TestResultPositive_KeysSubmitted_Title1" = "Please note:";
 
-"TestResultPositive_KeysSubmitted_Info1" = "Take a PCR test to verify this test result.";
+"TestResultPositive_KeysSubmitted_PCR_Info1" = "There is a high probability that you are infectious. Isolate yourself from other people.";
 
-"TestResultPositive_KeysSubmitted_Info2" = "The public health authority may contact you within the next few days.";
+"TestResultPositive_KeysSubmitted_PCR_Info2" = "The public health authority may contact you within the next few days.";
 
-"TestResultPositive_KeysSubmitted_Info3" = "There is a high probability that you are infectious. Isolate yourself from other people.";
+"TestResultPositive_KeysSubmitted_PCR_Info3" = "If you have an increased risk for severe illness from COVID-19, obtain medical advice. Known risk factors include being over 60 years of age, immunosuppression, diabetes, and obesity.";
+
+"TestResultPositive_KeysSubmitted_RAT_Info1" = "There is a high probability that you are infectious. Isolate yourself from other people.";
+
+"TestResultPositive_KeysSubmitted_RAT_Info2" = "Take a PCR test to verify this test result.";
+
+"TestResultPositive_KeysSubmitted_RAT_Info3" = "The public health authority may contact you within the next few days.";
 
 "TestResultPositive_KeysSubmitted_Title2" = "Other information:";
 
 "TestResultPositive_KeysSubmitted_FurtherInfo1" = "Your isolation period is usually 10 days. Please monitor how your symptoms develop closely.";
 
-"TestResultPositive_KeysSubmitted_FurtherInfo2" = "You will be asked by your public health authority to create a list of people you have had contact with. This should include all people with whom you have had close contact with (less than 2 meters, face-to-face conversation) for over 15 minutes in the two days before you became ill. You can use your contact journal for this: simply export the entries and then print them out or send them via e-mail.";
+"TestResultPositive_KeysSubmitted_FurtherInfo2" = "You will be asked by your public health authority to create a list of people you have had contact with. This should include all people with whom you have had close contact with (less than 2 meters, face-to-face conversation) for over 10 minutes in the two days before you became ill. You can use your contact journal for this: simply export the entries and then print them out or send them via e-mail.";
 
 "TestResultPositive_KeysSubmitted_FurtherInfo3" = "Please particularly consider people who will not be notified directly by the app since they don’t own a smartphone, or haven’t installed the app.";
 
@@ -2027,6 +2043,21 @@
 
 "Statistics_Card_FullyVaccinated_SecondarySubtitleLabel" = "of the population";
 
+/* - Booster vaccination card */
+"Statistics_Card_BoosterVaccination_Title" = "People Who Have Received a Booster Vaccination";
+
+"Statistics_Card_BoosterVaccination_Today" = "Up to today";
+
+"Statistics_Card_BoosterVaccination_Yesterday" = "Up to yesterday";
+
+"Statistics_Card_BoosterVaccination_Date" = "Up to %@";
+
+"Statistics_Card_BoosterVaccination_SecondaryLabelTitle" = "of the population";
+
+"Statistics_Card_BoosterVaccination_TertiaryLabelTitle" = "Total";
+
+"Statistics_Card_BoosterVaccination_SecondarySubtitleLabel" = "of the population";
+
 /* - Applied vaccination dose rates card */
 "Statistics_Card_AppliedDoseRates_Title" = "Vaccine Doses Administered";
 
@@ -2095,7 +2126,11 @@
 
 "Statistics_Info_FullyVaccinated_Title" = "People who are fully vaccinated";
 
-"Statistics_Info_FullyVaccinated_Text" = "Number of persons reported to the RKI who have received all the necessary vaccine doses.";
+"Statistics_Info_FullyVaccinated_Text" = "Number of persons reported to the RKI who have received all the vaccine doses necessary for basic immunization.";
+
+"Statistics_Info_BoosterVaccination_Title" = "People Who Have Received a Booster Vaccination";
+
+"Statistics_Info_BoosterVaccination_Text" = "Number of persons reported to the RKI who have received a booster vaccination.";
 
 "Statistics_Info_DosesAdministered_Title" = "Vaccine doses administered";
 
@@ -3276,6 +3311,8 @@
 "RecycleBin_description" = "Tap an element to restore it. Elements will be deleted automatically after 30 days.";
 
 "RecycleBin_deleteAllButtonTitle" = "Delete All Permanently";
+
+"RecycleBin_expirationDateTime" = "will be permanently deleted on %@ at %@";
 
 /* - Vaccination Certificate */
 "RecycleBin_VaccinationCertificate_headline" = "Vaccination Certificate";
