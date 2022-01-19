@@ -289,8 +289,8 @@ class HealthCertifiedPerson: Codable, Equatable, Comparable {
 		}
 	}
 
-	private var vaccinationExpirationDate: Date? {
-		guard let lastVaccination = vaccinationCertificates.last(where: { $0.vaccinationEntry?.isLastDoseInASeries ?? false }) else {
+	private var protectionExpirationDate: Date? {
+		guard let lastVaccination = vaccinationCertificates.last(where: { $0.vaccinationEntry?.isLastDoseInASeries ?? false || $0.vaccinationEntry?.isBoosterVaccination ?? false }) else {
 			return nil
 		}
 
@@ -327,7 +327,7 @@ class HealthCertifiedPerson: Codable, Equatable, Comparable {
 
 	private func updateVaccinationState() {
 		if let completeVaccinationProtectionDate = completeVaccinationProtectionDate,
-		   let vaccinationExpirationDate = vaccinationExpirationDate {
+		   let protectionExpirationDate = protectionExpirationDate {
 			if completeVaccinationProtectionDate > Date() {
 				let startOfToday = Calendar.autoupdatingCurrent.startOfDay(for: Date())
 				guard let daysUntilCompleteProtection = Calendar.autoupdatingCurrent.dateComponents([.day], from: startOfToday, to: completeVaccinationProtectionDate).day else {
@@ -336,7 +336,7 @@ class HealthCertifiedPerson: Codable, Equatable, Comparable {
 
 				vaccinationState = .fullyVaccinated(daysUntilCompleteProtection: daysUntilCompleteProtection)
 			} else {
-				vaccinationState = .completelyProtected(expirationDate: vaccinationExpirationDate)
+				vaccinationState = .completelyProtected(expirationDate: protectionExpirationDate)
 			}
 		} else if !vaccinationCertificates.isEmpty {
 			vaccinationState = .partiallyVaccinated
