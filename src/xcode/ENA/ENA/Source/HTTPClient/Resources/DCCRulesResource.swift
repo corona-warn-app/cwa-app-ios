@@ -73,8 +73,8 @@ struct DCCRulesResource: Resource {
 			return .RULE_MISSING_CACHE(ruleType)
 		case .missingData, .packageCreation:
 			return .RULE_JSON_ARCHIVE_FILE_MISSING(ruleType)
-		case .decoding(let dError):
-			if let ruleValidationError = dError as? RuleValidationError {
+		case .decoding(let decodingError):
+			if let ruleValidationError = decodingError as? RuleValidationError {
 				return .RULE_DECODING_ERROR(ruleType, ruleValidationError)
 			} else {
 				return .RULE_DECODING_ERROR(ruleType, RuleValidationError.CBOR_DECODING_FAILED(error))
