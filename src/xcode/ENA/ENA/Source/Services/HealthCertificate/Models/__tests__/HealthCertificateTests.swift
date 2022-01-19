@@ -194,6 +194,61 @@ class HealthCertificateTests: XCTestCase {
 		XCTAssertTrue(compared)
 	}
 
+	func testGIVEN_TwoCertificates_WHEN_SameAgeInDays_THEN_CompareIsCorrect() throws {
+		// GIVEN
+		let dateOfVaccination = "2020-01-01"
+		
+		let dgcCertificate1 = DigitalCovidCertificate.fake(
+			vaccinationEntries: [VaccinationEntry.fake(
+				dateOfVaccination: dateOfVaccination
+			)]
+		)
+		
+		let issueDate1 = try XCTUnwrap(Calendar.current.date(byAdding: .day, value: 5, to: Date()))
+		let firstHeader = CBORWebTokenHeader.fake(issuer: "test1", issuedAt: issueDate1, expirationTime: Date())
+
+		let result1 = DigitalCovidCertificateFake.makeBase45Fake(
+			from: dgcCertificate1,
+			and: firstHeader
+		)
+		
+		guard case let .success(base451) = result1 else {
+			XCTFail("base45 should be created from a mock. Test fails now.")
+			return
+		}
+		let issueDate2 = try XCTUnwrap(Calendar.current.date(byAdding: .day, value: 2, to: Date()))
+		let secondHeader = CBORWebTokenHeader.fake(issuer: "test2", issuedAt: issueDate2, expirationTime: Date())
+
+		let dgcCertificate2 = DigitalCovidCertificate.fake(
+			vaccinationEntries: [VaccinationEntry.fake(
+				dateOfVaccination: dateOfVaccination
+			)]
+		)
+		
+		let result2 = DigitalCovidCertificateFake.makeBase45Fake(
+			from: dgcCertificate2,
+			and: secondHeader
+		)
+		
+		guard case let .success(base452) = result2 else {
+			XCTFail("base45 should be created from a mock. Test fails now.")
+			return
+		}
+		
+		let certificate1 = try HealthCertificate(base45: base451)
+		let certificate2 = try HealthCertificate(base45: base452)
+
+		var compared = false
+		
+		// WHEN
+		if certificate2 < certificate1 {
+			compared = true
+		}
+
+		// THEN
+		XCTAssertTrue(compared)
+	}
+
 	func testGIVEN_MultipleCertificates_WHEN_Sorting_THEN_OrderIsCorrect() throws {
 		// GIVEN
 		let vaccinationCertificateBase45 = try base45Fake(from: DigitalCovidCertificate.fake(

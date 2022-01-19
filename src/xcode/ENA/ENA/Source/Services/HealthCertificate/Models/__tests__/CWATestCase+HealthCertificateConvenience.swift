@@ -77,7 +77,8 @@ extension CWATestCase {
 	func vaccinationCertificate(
 		type: VaccinationCertificateType,
 		ageInDays: Int,
-		validityState: HealthCertificateValidityState = .valid
+		validityState: HealthCertificateValidityState = .valid,
+		cborWebTokenHeader: CBORWebTokenHeader = .fake()
 	) throws -> HealthCertificate {
 		var vaccinations = [(vaccinationProductType: VaccinationProductType, doseNumber: Int, totalSeriesOfDoses: Int)]()
 
@@ -86,10 +87,10 @@ extension CWATestCase {
 			let doseNumberGreater1 = Int.random(in: 2...9)
 			let doseNumberGreater2 = Int.random(in: 3...9)
 			vaccinations = [
-				(vaccinationProductType: .astraZeneca, doseNumber: doseNumberGreater2, totalSeriesOfDoses: doseNumberGreater2),
-				(vaccinationProductType: .biontech, doseNumber: doseNumberGreater2, totalSeriesOfDoses: doseNumberGreater2),
-				(vaccinationProductType: .moderna, doseNumber: doseNumberGreater2, totalSeriesOfDoses: doseNumberGreater2),
-				(vaccinationProductType: .johnsonAndJohnson, doseNumber: doseNumberGreater1, totalSeriesOfDoses: doseNumberGreater1)
+				(vaccinationProductType: .astraZeneca, doseNumber: doseNumberGreater2, totalSeriesOfDoses: 2),
+				(vaccinationProductType: .biontech, doseNumber: doseNumberGreater2, totalSeriesOfDoses: 2),
+				(vaccinationProductType: .moderna, doseNumber: doseNumberGreater2, totalSeriesOfDoses: 2),
+				(vaccinationProductType: .johnsonAndJohnson, doseNumber: doseNumberGreater1, totalSeriesOfDoses: 1)
 			]
 		case .seriesCompleting:
 			vaccinations = [
@@ -129,7 +130,8 @@ extension CWATestCase {
 						dateOfVaccination: formattedVaccinationDate
 					)
 				]
-			)
+			),
+			and: cborWebTokenHeader
 		)
 
 		return try HealthCertificate(base45: base45, validityState: validityState)
