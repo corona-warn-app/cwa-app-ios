@@ -37,6 +37,7 @@ class RulesDownloadService: RulesDownloadServiceProviding {
 			case let .failure(error):
 				guard let customError = resource.customError(for: error) else {
 					Log.error("Unhandled error \(error.localizedDescription)", log: .vaccination)
+					completion(.failure(.RULE_CLIENT_ERROR(ruleType)))
 					return
 				}
 				completion(.failure(customError))
