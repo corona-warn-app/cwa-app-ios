@@ -2,8 +2,6 @@
 // 🦠 Corona-Warn-App
 //
 
-import Darwin
-
 // swiftlint:disable file_length
 // swiftlint:disable:next type_body_length
 enum AccessibilityIdentifiers {

@@ -2,8 +2,6 @@
 // 🦠 Corona-Warn-App
 //
 
-import Darwin
-
 #if !RELEASE
 
 struct LoadResource {
