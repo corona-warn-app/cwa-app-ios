@@ -408,7 +408,7 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 		)
 		let mockValidationRulesAccess = MockValidationRulesAccess()
 			let rulesDownloadService = RulesDownloadService(
-				restServiceProvider: RestServiceProviderStub.fake()
+				restServiceProvider: .fake()
 			)
 		let validationService = HealthCertificateValidationService(
 			store: store,
@@ -476,7 +476,7 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 		)
 		let mockValidationRulesAccess = MockValidationRulesAccess()
 			let rulesDownloadService = RulesDownloadService(
-				restServiceProvider: RestServiceProviderStub.fake()
+				restServiceProvider: .fake()
 			)
 
 		let validationService = HealthCertificateValidationService(
@@ -541,7 +541,7 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 		)
 		let mockValidationRulesAccess = MockValidationRulesAccess()
 			let rulesDownloadService = RulesDownloadService(
-				restServiceProvider: RestServiceProviderStub.fake()
+				restServiceProvider: .fake()
 			)
 		let validationService = HealthCertificateValidationService(
 			store: store,
@@ -722,7 +722,7 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 		let client = ClientMock()
 		let mockValidationRulesAccess = MockValidationRulesAccess()
 			let rulesDownloadService = RulesDownloadService(
-				restServiceProvider: RestServiceProviderStub.fake()
+				restServiceProvider: .fake()
 			)
 		let validationService = HealthCertificateValidationService(
 			store: store,
@@ -764,7 +764,7 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 		)
 		let mockValidationRulesAccess = MockValidationRulesAccess()
 			let rulesDownloadService = RulesDownloadService(
-				restServiceProvider: RestServiceProviderStub.fake()
+				restServiceProvider: .fake()
 			)
 		let validationService = HealthCertificateValidationService(
 			store: store,
@@ -801,7 +801,7 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 		let client = ClientMock()
 		let mockValidationRulesAccess = MockValidationRulesAccess()
 			let rulesDownloadService = RulesDownloadService(
-				restServiceProvider: RestServiceProviderStub.fake()
+				restServiceProvider: .fake()
 			)
 		let validationService = HealthCertificateValidationService(
 			store: store,
@@ -860,7 +860,7 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 		let client = ClientMock()
 		let mockValidationRulesAccess = MockValidationRulesAccess()
 			let rulesDownloadService = RulesDownloadService(
-				restServiceProvider: RestServiceProviderStub.fake()
+				restServiceProvider: .fake()
 			)
 		let validationService = HealthCertificateValidationService(
 			store: store,

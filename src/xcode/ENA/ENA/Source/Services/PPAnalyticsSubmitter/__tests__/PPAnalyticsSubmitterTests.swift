@@ -43,7 +43,7 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 					client: client,
 					appConfiguration: appConfigurationProvider,
 					boosterNotificationsService: BoosterNotificationsService(
-						rulesDownloadService: RulesDownloadService(restServiceProvider: RestServiceProviderStub.fake())
+						rulesDownloadService: RulesDownloadService(restServiceProvider: .fake())
 					),
 					recycleBin: .fake()
 				),
@@ -141,7 +141,7 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 					client: client,
 					appConfiguration: appConfigurationProvider,
 					boosterNotificationsService: BoosterNotificationsService(
-						rulesDownloadService: RulesDownloadService(restServiceProvider: RestServiceProviderStub.fake())
+						rulesDownloadService: RulesDownloadService(restServiceProvider: .fake())
 					),
 					recycleBin: .fake()
 				),
@@ -198,7 +198,7 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 					client: client,
 					appConfiguration: appConfigurationProvider,
 					boosterNotificationsService: BoosterNotificationsService(
-						rulesDownloadService: RulesDownloadService(restServiceProvider: RestServiceProviderStub.fake())
+						rulesDownloadService: RulesDownloadService(restServiceProvider: .fake())
 					),
 					recycleBin: .fake()
 				),
@@ -257,7 +257,7 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 					client: client,
 					appConfiguration: appConfigurationProvider,
 					boosterNotificationsService: BoosterNotificationsService(
-						rulesDownloadService: RulesDownloadService(restServiceProvider: RestServiceProviderStub.fake())
+						rulesDownloadService: RulesDownloadService(restServiceProvider: .fake())
 					),
 					recycleBin: .fake()
 				),
@@ -315,7 +315,7 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 					client: client,
 					appConfiguration: appConfigurationProvider,
 					boosterNotificationsService: BoosterNotificationsService(
-						rulesDownloadService: RulesDownloadService(restServiceProvider: RestServiceProviderStub.fake())
+						rulesDownloadService: RulesDownloadService(restServiceProvider: .fake())
 					),
 					recycleBin: .fake()
 				),
@@ -365,7 +365,7 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 					client: client,
 					appConfiguration: appConfigurationProvider,
 					boosterNotificationsService: BoosterNotificationsService(
-						rulesDownloadService: RulesDownloadService(restServiceProvider: RestServiceProviderStub.fake())
+						rulesDownloadService: RulesDownloadService(restServiceProvider: .fake())
 					),
 					recycleBin: .fake()
 				),
@@ -425,7 +425,7 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 					client: client,
 					appConfiguration: appConfigurationProvider,
 					boosterNotificationsService: BoosterNotificationsService(
-						rulesDownloadService: RulesDownloadService(restServiceProvider: RestServiceProviderStub.fake())
+						rulesDownloadService: RulesDownloadService(restServiceProvider: .fake())
 					),
 					recycleBin: .fake()
 				),
@@ -485,7 +485,7 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 					client: client,
 					appConfiguration: appConfigurationProvider,
 					boosterNotificationsService: BoosterNotificationsService(
-						rulesDownloadService: RulesDownloadService(restServiceProvider: RestServiceProviderStub.fake())
+						rulesDownloadService: RulesDownloadService(restServiceProvider: .fake())
 					),
 					recycleBin: .fake()
 				),
@@ -544,7 +544,7 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 					client: client,
 					appConfiguration: appConfigurationProvider,
 					boosterNotificationsService: BoosterNotificationsService(
-						rulesDownloadService: RulesDownloadService(restServiceProvider: RestServiceProviderStub.fake())
+						rulesDownloadService: RulesDownloadService(restServiceProvider: .fake())
 					),
 					recycleBin: .fake()
 				),
@@ -604,7 +604,7 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 					client: client,
 					appConfiguration: appConfigurationProvider,
 					boosterNotificationsService: BoosterNotificationsService(
-						rulesDownloadService: RulesDownloadService(restServiceProvider: RestServiceProviderStub.fake())
+						rulesDownloadService: RulesDownloadService(restServiceProvider: .fake())
 					),
 					recycleBin: .fake()
 				),
@@ -667,7 +667,7 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 					client: client,
 					appConfiguration: appConfigurationProvider,
 					boosterNotificationsService: BoosterNotificationsService(
-						rulesDownloadService: RulesDownloadService(restServiceProvider: RestServiceProviderStub.fake())
+						rulesDownloadService: RulesDownloadService(restServiceProvider: .fake())
 					),
 					recycleBin: .fake()
 				),
@@ -732,7 +732,7 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 					client: client,
 					appConfiguration: appConfigurationProvider,
 					boosterNotificationsService: BoosterNotificationsService(
-						rulesDownloadService: RulesDownloadService(restServiceProvider: RestServiceProviderStub.fake())
+						rulesDownloadService: RulesDownloadService(restServiceProvider: .fake())
 					),
 					recycleBin: .fake()
 				),
@@ -794,7 +794,7 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 					client: client,
 					appConfiguration: appConfigurationProvider,
 					boosterNotificationsService: BoosterNotificationsService(
-						rulesDownloadService: RulesDownloadService(restServiceProvider: RestServiceProviderStub.fake())
+						rulesDownloadService: RulesDownloadService(restServiceProvider: .fake())
 					),
 					recycleBin: .fake()
 				),
@@ -854,7 +854,7 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 					client: client,
 					appConfiguration: appConfigurationProvider,
 					boosterNotificationsService: BoosterNotificationsService(
-						rulesDownloadService: RulesDownloadService(restServiceProvider: RestServiceProviderStub.fake())
+						rulesDownloadService: RulesDownloadService(restServiceProvider: .fake())
 					),
 					recycleBin: .fake()
 				),
@@ -931,7 +931,7 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 					client: client,
 					appConfiguration: appConfigurationProvider,
 					boosterNotificationsService: BoosterNotificationsService(
-						rulesDownloadService: RulesDownloadService(restServiceProvider: RestServiceProviderStub.fake())
+						rulesDownloadService: RulesDownloadService(restServiceProvider: .fake())
 					),
 					recycleBin: .fake()
 				),
@@ -1407,7 +1407,7 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 				client: client,
 				appConfiguration: appConfiguration,
 				boosterNotificationsService: BoosterNotificationsService(
-					rulesDownloadService: RulesDownloadService(restServiceProvider: RestServiceProviderStub.fake())
+					rulesDownloadService: RulesDownloadService(restServiceProvider: .fake())
 				),
 				recycleBin: .fake()
 			),
@@ -1513,7 +1513,7 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 					client: client,
 					appConfiguration: appConfigurationProvider,
 					boosterNotificationsService: BoosterNotificationsService(
-						rulesDownloadService: RulesDownloadService(restServiceProvider: RestServiceProviderStub.fake())
+						rulesDownloadService: RulesDownloadService(restServiceProvider: .fake())
 					),
 					recycleBin: .fake()
 				),

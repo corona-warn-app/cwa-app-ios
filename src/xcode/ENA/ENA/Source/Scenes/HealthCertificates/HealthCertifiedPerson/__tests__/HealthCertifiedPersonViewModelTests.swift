@@ -19,7 +19,7 @@ class HealthCertifiedPersonViewModelTests: XCTestCase {
 			client: client,
 			appConfiguration: CachedAppConfigurationMock(),
 			boosterNotificationsService: BoosterNotificationsService(
-				rulesDownloadService: RulesDownloadService(restServiceProvider: RestServiceProviderStub.fake())
+				rulesDownloadService: RulesDownloadService(restServiceProvider: .fake())
 			),
 			recycleBin: .fake()
 		)
@@ -67,7 +67,7 @@ class HealthCertifiedPersonViewModelTests: XCTestCase {
 			client: client,
 			appConfiguration: CachedAppConfigurationMock(),
 			boosterNotificationsService: BoosterNotificationsService(
-				rulesDownloadService: RulesDownloadService(restServiceProvider: RestServiceProviderStub.fake())
+				rulesDownloadService: RulesDownloadService(restServiceProvider: .fake())
 			),
 			recycleBin: .fake()
 		)
@@ -108,7 +108,7 @@ class HealthCertifiedPersonViewModelTests: XCTestCase {
 			client: client,
 			appConfiguration: CachedAppConfigurationMock(),
 			boosterNotificationsService: BoosterNotificationsService(
-				rulesDownloadService: RulesDownloadService(restServiceProvider: RestServiceProviderStub.fake())
+				rulesDownloadService: RulesDownloadService(restServiceProvider: .fake())
 			),
 			recycleBin: .fake()
 		)
@@ -151,7 +151,7 @@ class HealthCertifiedPersonViewModelTests: XCTestCase {
 			client: client,
 			appConfiguration: CachedAppConfigurationMock(),
 			boosterNotificationsService: BoosterNotificationsService(
-				rulesDownloadService: RulesDownloadService(restServiceProvider: RestServiceProviderStub.fake())
+				rulesDownloadService: RulesDownloadService(restServiceProvider: .fake())
 			),
 			recycleBin: .fake()
 		)
@@ -199,7 +199,7 @@ class HealthCertifiedPersonViewModelTests: XCTestCase {
 			client: client,
 			appConfiguration: CachedAppConfigurationMock(),
 			boosterNotificationsService: BoosterNotificationsService(
-				rulesDownloadService: RulesDownloadService(restServiceProvider: RestServiceProviderStub.fake())
+				rulesDownloadService: RulesDownloadService(restServiceProvider: .fake())
 			),
 			recycleBin: .fake()
 		)
@@ -241,7 +241,7 @@ class HealthCertifiedPersonViewModelTests: XCTestCase {
 			client: client,
 			appConfiguration: CachedAppConfigurationMock(),
 			boosterNotificationsService: BoosterNotificationsService(
-				rulesDownloadService: RulesDownloadService(restServiceProvider: RestServiceProviderStub.fake())
+				rulesDownloadService: RulesDownloadService(restServiceProvider: .fake())
 			),
 			recycleBin: .fake()
 		)
@@ -278,7 +278,7 @@ class HealthCertifiedPersonViewModelTests: XCTestCase {
 			client: client,
 			appConfiguration: CachedAppConfigurationMock(),
 			boosterNotificationsService: BoosterNotificationsService(
-				rulesDownloadService: RulesDownloadService(restServiceProvider: RestServiceProviderStub.fake())
+				rulesDownloadService: RulesDownloadService(restServiceProvider: .fake())
 			),
 			recycleBin: .fake()
 		)
@@ -317,7 +317,7 @@ class HealthCertifiedPersonViewModelTests: XCTestCase {
 			client: client,
 			appConfiguration: CachedAppConfigurationMock(),
 			boosterNotificationsService: BoosterNotificationsService(
-				rulesDownloadService: RulesDownloadService(restServiceProvider: RestServiceProviderStub.fake())
+				rulesDownloadService: RulesDownloadService(restServiceProvider: .fake())
 			),
 			recycleBin: .fake()
 		)

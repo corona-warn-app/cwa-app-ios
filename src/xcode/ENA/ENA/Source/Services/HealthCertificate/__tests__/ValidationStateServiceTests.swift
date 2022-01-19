@@ -24,7 +24,7 @@ class TestHealthCertificateService: HealthCertificateService {
 			client: client,
 			appConfiguration: appConfiguration,
 			boosterNotificationsService: BoosterNotificationsService(
-				rulesDownloadService: RulesDownloadService(restServiceProvider: RestServiceProviderStub.fake())
+				rulesDownloadService: RulesDownloadService(restServiceProvider: .fake())
 			),
 			recycleBin: .fake()
 		)
@@ -69,7 +69,7 @@ class ValidationStateServiceTests: XCTestCase {
 			client: client,
 			appConfiguration: appConfiguration,
 			boosterNotificationsService: BoosterNotificationsService(
-				rulesDownloadService: RulesDownloadService(restServiceProvider: RestServiceProviderStub.fake())
+				rulesDownloadService: RulesDownloadService(restServiceProvider: .fake())
 			),
 			recycleBin: .fake()
 		)
@@ -101,7 +101,7 @@ class ValidationStateServiceTests: XCTestCase {
 			client: ClientMock(),
 			appConfiguration: CachedAppConfigurationMock(),
 			boosterNotificationsService: BoosterNotificationsService(
-				rulesDownloadService: RulesDownloadService(restServiceProvider: RestServiceProviderStub.fake())
+				rulesDownloadService: RulesDownloadService(restServiceProvider: .fake())
 			),
 			recycleBin: .fake()
 		)

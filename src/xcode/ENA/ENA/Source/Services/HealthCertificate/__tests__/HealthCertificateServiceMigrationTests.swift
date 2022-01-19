@@ -178,7 +178,7 @@ class HealthCertificateServiceMigrationTests: XCTestCase {
 				with: SAP_Internal_V2_ApplicationConfigurationIOS()
 			),
 			boosterNotificationsService: BoosterNotificationsService(
-				rulesDownloadService: RulesDownloadService(restServiceProvider: RestServiceProviderStub.fake())
+				rulesDownloadService: RulesDownloadService(restServiceProvider: .fake())
 			),
 			recycleBin: RecycleBin(
 				store: store
