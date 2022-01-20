@@ -46,7 +46,7 @@ class AllowListServiceTests: XCTestCase {
 	func test_ServiceIdentityAllowList_MatchFound() {
 		let testString = "www.testServiceIdentity.com"
 		let allowListMatchObject = Data(hex: testString.sha256())
-		let allowListService = AllowListService(restServiceProvider: RestServiceProviderStub.fake(), store: MockTestStore())
+		let allowListService = AllowListService(restServiceProvider: .fake(), store: MockTestStore())
 		let result = allowListService.checkServiceIdentityAgainstServiceProviderAllowlist(
 			serviceProviderAllowlist: [allowListMatchObject],
 			serviceIdentity: testString
@@ -63,7 +63,7 @@ class AllowListServiceTests: XCTestCase {
 	func test_ServiceIdentityAllowList_NoMatch_then_SP_ALLOWLIST_NO_MATCH() {
 		let testString = "www.testServiceIdentity.com"
 		let allowListMatchObject = Data(hex: "wrongString".sha256())
-		let allowListService = AllowListService(restServiceProvider: RestServiceProviderStub.fake(), store: MockTestStore())
+		let allowListService = AllowListService(restServiceProvider: .fake(), store: MockTestStore())
 		let result = allowListService.checkServiceIdentityAgainstServiceProviderAllowlist(
 			serviceProviderAllowlist: [allowListMatchObject],
 			serviceIdentity: testString
@@ -83,7 +83,7 @@ class AllowListServiceTests: XCTestCase {
 		let store = MockTestStore()
 		store.skipAllowlistValidation = true
 		
-		let allowListService = AllowListService(restServiceProvider: RestServiceProviderStub.fake(), store: store)
+		let allowListService = AllowListService(restServiceProvider: .fake(), store: store)
 		let result = allowListService.checkServiceIdentityAgainstServiceProviderAllowlist(
 			serviceProviderAllowlist: [allowListMatchObject],
 			serviceIdentity: testString
@@ -109,7 +109,7 @@ class AllowListServiceTests: XCTestCase {
 		let allowList = [ValidationServiceAllowlistEntry(serviceProvider: "", hostname: "", fingerprint256: expectedFingerPRint)]
 		let store = MockTestStore()
 		
-		let allowListService = AllowListService(restServiceProvider: RestServiceProviderStub.fake(), store: store)
+		let allowListService = AllowListService(restServiceProvider: .fake(), store: store)
 		let result = allowListService.filterJWKsAgainstAllowList(allowList: allowList, jwkSet: jwkSet)
 		
 		switch result {
@@ -130,7 +130,7 @@ class AllowListServiceTests: XCTestCase {
 		let allowList = [ValidationServiceAllowlistEntry(serviceProvider: "", hostname: "", fingerprint256: expectedFingerPrint)]
 		let store = MockTestStore()
 		
-		let allowListService = AllowListService(restServiceProvider: RestServiceProviderStub.fake(), store: store)
+		let allowListService = AllowListService(restServiceProvider: .fake(), store: store)
 		let result = allowListService.filterJWKsAgainstAllowList(allowList: allowList, jwkSet: jwkSet)
 		
 		switch result {
