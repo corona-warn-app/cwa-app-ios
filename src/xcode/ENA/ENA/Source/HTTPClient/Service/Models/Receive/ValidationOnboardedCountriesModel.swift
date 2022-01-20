@@ -16,7 +16,7 @@ struct ValidationOnboardedCountriesModel: CBORDecoding {
 			}
 			return Result.success(ValidationOnboardedCountriesModel(countries: countries))
 		case .failure(let error):
-			return Result.failure(.CBOR_DECODING_VALIDATION_RULES(error))
+			return Result.failure(.CBOR_DECODING_ONBOARDED_COUNTRIES(error))
 		}
 	}
 

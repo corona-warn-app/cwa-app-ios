@@ -102,7 +102,7 @@ class BoosterNotificationsServiceTests: XCTestCase {
 
 	func testGIVEN_BoosterService_WHEN_signatureIsInvalid_THEN_TECHNICAL_VALIDATION_FAILED_IsReturned() throws {
 		// GIVEN
-		let rulesDownloadService = FakeRulesDownloadService(.failure(.RULE_DECODING_ERROR(.boosterNotification, .JSON_VALIDATION_RULE_SCHEMA_NOTFOUND)))
+		let rulesDownloadService = FakeRulesDownloadService(.failure(.RULE_DECODING_ERROR(.boosterNotification, (.CBOR_DECODING_VALIDATION_RULES(.JSON_VALIDATION_RULE_SCHEMA_NOTFOUND)))))
 
 		let boosterService = BoosterNotificationsService(
 			rulesDownloadService: rulesDownloadService,
@@ -128,7 +128,7 @@ class BoosterNotificationsServiceTests: XCTestCase {
 		
 		// THEN
 		waitForExpectations(timeout: .short)
-		XCTAssertEqual(responseError, .CERTIFICATE_VALIDATION_ERROR(.downloadRulesError(.RULE_DECODING_ERROR(.boosterNotification, .JSON_VALIDATION_RULE_SCHEMA_NOTFOUND))))
+		XCTAssertEqual(responseError, .CERTIFICATE_VALIDATION_ERROR(.downloadRulesError(.RULE_DECODING_ERROR(.boosterNotification, .CBOR_DECODING_VALIDATION_RULES(.JSON_VALIDATION_RULE_SCHEMA_NOTFOUND)))))
 	}
 
 }

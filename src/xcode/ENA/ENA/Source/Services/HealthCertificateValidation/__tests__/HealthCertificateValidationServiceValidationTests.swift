@@ -660,7 +660,7 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 			store: store
 		)
 		
-		let rulesDownloadService = FakeRulesDownloadService(.failure(.RULE_DECODING_ERROR(.acceptance, .JSON_VALIDATION_RULE_SCHEMA_NOTFOUND)))
+		let rulesDownloadService = FakeRulesDownloadService(.failure(.RULE_DECODING_ERROR(.acceptance, .CBOR_DECODING_VALIDATION_RULES(.JSON_VALIDATION_RULE_SCHEMA_NOTFOUND))))
 
 		let validationRulesAccess = MockValidationRulesAccess()
 		
@@ -703,7 +703,7 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 			XCTFail("report must not be nil")
 			return
 		}
-		XCTAssertEqual(error, .downloadRulesError(.RULE_DECODING_ERROR(.acceptance, .JSON_VALIDATION_RULE_SCHEMA_NOTFOUND)))
+		XCTAssertEqual(error, .downloadRulesError(.RULE_DECODING_ERROR(.acceptance, .CBOR_DECODING_VALIDATION_RULES(.JSON_VALIDATION_RULE_SCHEMA_NOTFOUND))))
 	}
 
 	// MARK: - Helper function tests
@@ -1016,6 +1016,20 @@ extension RuleValidationError: Equatable {
 			return true
 		default:
 			return false
+		}
+	}
+}
+
+/// ONLY for testing purposes because it ignores underlining errors for comparisons.
+extension ModelDecodingError: Equatable {
+	public static func == (lhs: ModelDecodingError, rhs: ModelDecodingError) -> Bool {
+		switch (lhs, rhs) {
+		case let (.CBOR_DECODING_VALIDATION_RULES(lhsRuleValidationError), .CBOR_DECODING_VALIDATION_RULES(rhsRuleValidationError)):
+			return lhsRuleValidationError == rhsRuleValidationError
+		case let (.CBOR_DECODING_ONBOARDED_COUNTRIES(lhsRuleValidationError), .CBOR_DECODING_ONBOARDED_COUNTRIES(rhsRuleValidationError)):
+			return lhsRuleValidationError == rhsRuleValidationError
+		default:
+			return lhs.localizedDescription == rhs.localizedDescription
 		}
 	}
 }
