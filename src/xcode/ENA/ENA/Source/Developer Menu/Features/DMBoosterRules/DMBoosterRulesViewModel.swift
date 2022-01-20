@@ -36,7 +36,6 @@ final class DMBoosterRulesViewModel {
 		return 1
 	}
 	
-	// swiftlint:disable cyclomatic_complexity
 	func cellViewModel(by indexPath: IndexPath) -> Any {
 		guard let section = TableViewSections(rawValue: indexPath.section) else {
 			fatalError("Unknown cell requested - stop")
@@ -81,25 +80,6 @@ final class DMBoosterRulesViewModel {
 					self.refreshTableView([TableViewSections.cachedPassedBoosterRule.rawValue])
 				}
 			)
-		case .cachedDownloadedRules:
-			let value: String
-			if let cachedRules = self.store.boosterRulesCache?.validationRules {
-				value = cachedRules.compactMap({ $0.description.first?.desc }).description
-			} else {
-				value = "no downloaded booster rules"
-			}
-			return DMKeyValueCellViewModel(key: "Cached Downloaded booster Rules", value: value)
-			
-		case .clearCachedDownloadedRules:
-			return DMButtonCellViewModel(
-				text: "clear downloaded rules",
-				textColor: .enaColor(for: .textContrast),
-				backgroundColor: .enaColor(for: .buttonPrimary),
-				action: {
-					self.store.boosterRulesCache = nil
-					self.refreshTableView([TableViewSections.cachedDownloadedRules.rawValue])
-				}
-			)
 		case .downloadOfBoosterRules:
 			return DMButtonCellViewModel(
 				text: "download Booster Rules",
@@ -122,8 +102,7 @@ final class DMBoosterRulesViewModel {
 							self.refreshTableView(
 								[
 									TableViewSections.lastDownloadDate.rawValue ,
-									TableViewSections.cachedPassedBoosterRule.rawValue,
-									TableViewSections.cachedDownloadedRules.rawValue
+									TableViewSections.cachedPassedBoosterRule.rawValue
 								]
 							)
 						}
@@ -149,11 +128,9 @@ final class DMBoosterRulesViewModel {
 	enum TableViewSections: Int, CaseIterable {
 		case lastDownloadDate
 		case cachedPassedBoosterRule
-		case cachedDownloadedRules
 		case downloadOfBoosterRules
 		case clearLastDownloadDate
 		case clearCurrentPersonBoosterRule
-		case clearCachedDownloadedRules
 	}
 	
 	// MARK: - Private

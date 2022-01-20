@@ -59,15 +59,15 @@ class BoosterNotificationsService: BoosterNotificationsServiceProviding {
 				}
 			case .failure(let error):
 				Log.error("Error downloading the booster notifications", log: .api, error: error)
-				completion(.failure(.CERTIFICATE_VALIDATION_ERROR(error)))
+				completion(.failure(.CERTIFICATE_VALIDATION_ERROR(.downloadRulesError(error))))
 			}
 		}
 	}
 
 	// MARK: - Private
 	
-	private func downloadBoosterNotificationRules(completion: @escaping (Result<[Rule], HealthCertificateValidationError>) -> Void) {
-		self.rulesDownloadService.downloadRules(
+	private func downloadBoosterNotificationRules(completion: @escaping (Result<[Rule], DCCDownloadRulesError>) -> Void) {
+		rulesDownloadService.downloadRules(
 			ruleType: .boosterNotification,
 			completion: { result in
 				completion(result)

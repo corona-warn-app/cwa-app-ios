@@ -10,7 +10,7 @@ class OnboardedCountriesAccessTests: XCTestCase {
 
     func test_AccessOnboardedCountries() throws {
        
-        let cborData = onboardedCountriesCBORDataFake
+        let cborData = onboardedCountriesCBORDataFake_DE_FR
         let result = OnboardedCountriesAccess().extractCountryCodes(from: cborData)
 
         guard case let .success(onboardedCountries) = result else {
