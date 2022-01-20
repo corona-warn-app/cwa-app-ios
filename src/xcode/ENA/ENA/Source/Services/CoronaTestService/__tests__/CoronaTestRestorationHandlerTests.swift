@@ -28,7 +28,7 @@ class CoronaTestRestorationHandlerTests: CWATestCase {
 				client: client,
 				appConfiguration: appConfiguration,
 				boosterNotificationsService: BoosterNotificationsService(
-					rulesDownloadService: RulesDownloadService(restServiceProvider: .fake())
+					rulesDownloadService: FakeRulesDownloadService()
 				),
 				recycleBin: recycleBin
 			),
@@ -96,7 +96,7 @@ class CoronaTestRestorationHandlerTests: CWATestCase {
 				client: client,
 				appConfiguration: appConfiguration,
 				boosterNotificationsService: BoosterNotificationsService(
-					rulesDownloadService: RulesDownloadService(restServiceProvider: .fake())
+					rulesDownloadService: FakeRulesDownloadService()
 				),
 				recycleBin: recycleBin
 			),
@@ -143,7 +143,7 @@ class CoronaTestRestorationHandlerTests: CWATestCase {
 				client: client,
 				appConfiguration: appConfiguration,
 				boosterNotificationsService: BoosterNotificationsService(
-					rulesDownloadService: RulesDownloadService(restServiceProvider: .fake())
+					rulesDownloadService: FakeRulesDownloadService()
 				),
 				recycleBin: recycleBin
 			),

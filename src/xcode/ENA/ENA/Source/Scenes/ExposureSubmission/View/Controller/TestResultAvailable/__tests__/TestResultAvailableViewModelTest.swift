@@ -35,7 +35,7 @@ class TestResultAvailableViewModelTest: CWATestCase {
 					client: client,
 					appConfiguration: appConfiguration,
 					boosterNotificationsService: BoosterNotificationsService(
-						rulesDownloadService: RulesDownloadService(restServiceProvider: .fake())
+						rulesDownloadService: FakeRulesDownloadService()
 					),
 					recycleBin: .fake()
 				),
@@ -84,7 +84,7 @@ class TestResultAvailableViewModelTest: CWATestCase {
 					client: client,
 					appConfiguration: appConfiguration,
 					boosterNotificationsService: BoosterNotificationsService(
-						rulesDownloadService: RulesDownloadService(restServiceProvider: .fake())
+						rulesDownloadService: FakeRulesDownloadService()
 					),
 					recycleBin: .fake()
 				),
@@ -142,7 +142,7 @@ class TestResultAvailableViewModelTest: CWATestCase {
 					client: client,
 					appConfiguration: appConfiguration,
 					boosterNotificationsService: BoosterNotificationsService(
-						rulesDownloadService: RulesDownloadService(restServiceProvider: .fake())
+						rulesDownloadService: FakeRulesDownloadService()
 					),
 					recycleBin: .fake()
 				),

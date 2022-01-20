@@ -49,7 +49,7 @@ class HealthCertificateOverviewViewModelTests: XCTestCase {
 			client: client,
 			appConfiguration: CachedAppConfigurationMock(),
 			boosterNotificationsService: BoosterNotificationsService(
-				rulesDownloadService: RulesDownloadService(restServiceProvider: .fake())
+				rulesDownloadService: FakeRulesDownloadService()
 			),
 			recycleBin: .fake()
 		)

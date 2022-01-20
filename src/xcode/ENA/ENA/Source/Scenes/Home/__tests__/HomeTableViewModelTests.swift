@@ -42,7 +42,7 @@ class HomeTableViewModelTests: CWATestCase {
 					dscListProvider: MockDSCListProvider(),
 					client: client,
 					appConfiguration: appConfiguration,
-					boosterNotificationsService: BoosterNotificationsService(rulesDownloadService: RulesDownloadService(restServiceProvider: .fake())),
+					boosterNotificationsService: BoosterNotificationsService(rulesDownloadService: FakeRulesDownloadService()),
 					recycleBin: .fake()
 				),
 				recycleBin: .fake(),
@@ -109,7 +109,7 @@ class HomeTableViewModelTests: CWATestCase {
 					client: client,
 					appConfiguration: appConfiguration,
 					boosterNotificationsService: BoosterNotificationsService(
-						rulesDownloadService: RulesDownloadService(restServiceProvider: .fake())
+						rulesDownloadService: FakeRulesDownloadService()
 					),
 					recycleBin: .fake()
 				),
@@ -165,7 +165,7 @@ class HomeTableViewModelTests: CWATestCase {
 					client: client,
 					appConfiguration: appConfiguration,
 					boosterNotificationsService: BoosterNotificationsService(
-						rulesDownloadService: RulesDownloadService(restServiceProvider: .fake())
+						rulesDownloadService: FakeRulesDownloadService()
 					),
 					recycleBin: .fake()
 				),
@@ -214,7 +214,7 @@ class HomeTableViewModelTests: CWATestCase {
 					client: client,
 					appConfiguration: appConfiguration,
 					boosterNotificationsService: BoosterNotificationsService(
-						rulesDownloadService: RulesDownloadService(restServiceProvider: .fake())
+						rulesDownloadService: FakeRulesDownloadService()
 					),
 					recycleBin: .fake()
 				),
@@ -271,7 +271,7 @@ class HomeTableViewModelTests: CWATestCase {
 					client: client,
 					appConfiguration: appConfiguration,
 					boosterNotificationsService: BoosterNotificationsService(
-						rulesDownloadService: RulesDownloadService(restServiceProvider: .fake())
+						rulesDownloadService: FakeRulesDownloadService()
 					),
 					recycleBin: .fake()
 				),
@@ -312,7 +312,7 @@ class HomeTableViewModelTests: CWATestCase {
 				client: client,
 				appConfiguration: appConfiguration,
 				boosterNotificationsService: BoosterNotificationsService(
-					rulesDownloadService: RulesDownloadService(restServiceProvider: .fake())
+					rulesDownloadService: FakeRulesDownloadService()
 				),
 				recycleBin: .fake()
 			),

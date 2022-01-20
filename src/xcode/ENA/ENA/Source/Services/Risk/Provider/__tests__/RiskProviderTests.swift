@@ -61,7 +61,7 @@ final class RiskProviderTests: CWATestCase {
 					client: client,
 					appConfiguration: cachedAppConfig,
 					boosterNotificationsService: BoosterNotificationsService(
-						rulesDownloadService: RulesDownloadService(restServiceProvider: .fake())
+						rulesDownloadService: FakeRulesDownloadService()
 					),
 					recycleBin: .fake()
 				),
@@ -156,7 +156,7 @@ final class RiskProviderTests: CWATestCase {
 					client: client,
 					appConfiguration: cachedAppConfig,
 					boosterNotificationsService: BoosterNotificationsService(
-						rulesDownloadService: RulesDownloadService(restServiceProvider: .fake())
+						rulesDownloadService: FakeRulesDownloadService()
 					),
 					recycleBin: .fake()
 				),
@@ -251,7 +251,7 @@ final class RiskProviderTests: CWATestCase {
 					client: client,
 					appConfiguration: cachedAppConfig,
 					boosterNotificationsService: BoosterNotificationsService(
-						rulesDownloadService: RulesDownloadService(restServiceProvider: .fake())
+						rulesDownloadService: FakeRulesDownloadService()
 					),
 					recycleBin: .fake()
 				),
@@ -334,7 +334,7 @@ final class RiskProviderTests: CWATestCase {
 					client: client,
 					appConfiguration: appConfig,
 					boosterNotificationsService: BoosterNotificationsService(
-						rulesDownloadService: RulesDownloadService(restServiceProvider: .fake())
+						rulesDownloadService: FakeRulesDownloadService()
 					),
 					recycleBin: .fake()
 				),
@@ -404,7 +404,7 @@ final class RiskProviderTests: CWATestCase {
 					client: client,
 					appConfiguration: cachedAppConfig,
 					boosterNotificationsService: BoosterNotificationsService(
-						rulesDownloadService: RulesDownloadService(restServiceProvider: .fake())
+						rulesDownloadService: FakeRulesDownloadService()
 					),
 					recycleBin: .fake()
 				),
@@ -500,7 +500,7 @@ final class RiskProviderTests: CWATestCase {
 					client: client,
 					appConfiguration: cachedAppConfig,
 					boosterNotificationsService: BoosterNotificationsService(
-						rulesDownloadService: RulesDownloadService(restServiceProvider: .fake())
+						rulesDownloadService: FakeRulesDownloadService()
 					),
 					recycleBin: .fake()
 				),
@@ -563,7 +563,7 @@ final class RiskProviderTests: CWATestCase {
 					client: client,
 					appConfiguration: appConfig,
 					boosterNotificationsService: BoosterNotificationsService(
-						rulesDownloadService: RulesDownloadService(restServiceProvider: .fake())
+						rulesDownloadService: FakeRulesDownloadService()
 					),
 					recycleBin: .fake()
 				),
@@ -638,7 +638,7 @@ final class RiskProviderTests: CWATestCase {
 					client: client,
 					appConfiguration: appConfig,
 					boosterNotificationsService: BoosterNotificationsService(
-						rulesDownloadService: RulesDownloadService(restServiceProvider: .fake())
+						rulesDownloadService: FakeRulesDownloadService()
 					),
 					recycleBin: .fake()
 				),
@@ -720,7 +720,7 @@ final class RiskProviderTests: CWATestCase {
 					client: client,
 					appConfiguration: appConfig,
 					boosterNotificationsService: BoosterNotificationsService(
-						rulesDownloadService: RulesDownloadService(restServiceProvider: .fake())
+						rulesDownloadService: FakeRulesDownloadService()
 					),
 					recycleBin: .fake()
 				),
@@ -802,7 +802,7 @@ final class RiskProviderTests: CWATestCase {
 					client: client,
 					appConfiguration: appConfig,
 					boosterNotificationsService: BoosterNotificationsService(
-						rulesDownloadService: RulesDownloadService(restServiceProvider: .fake())
+						rulesDownloadService: FakeRulesDownloadService()
 					),
 					recycleBin: .fake()
 				),
@@ -891,7 +891,7 @@ final class RiskProviderTests: CWATestCase {
 					client: client,
 					appConfiguration: appConfig,
 					boosterNotificationsService: BoosterNotificationsService(
-						rulesDownloadService: RulesDownloadService(restServiceProvider: .fake())
+						rulesDownloadService: FakeRulesDownloadService()
 					),
 					recycleBin: .fake()
 				),
@@ -1195,7 +1195,7 @@ final class RiskProviderTests: CWATestCase {
 					client: client,
 					appConfiguration: appConfig,
 					boosterNotificationsService: BoosterNotificationsService(
-						rulesDownloadService: RulesDownloadService(restServiceProvider: .fake())
+						rulesDownloadService: FakeRulesDownloadService()
 					),
 					recycleBin: .fake()
 				),
@@ -1303,7 +1303,7 @@ final class RiskProviderTests: CWATestCase {
 					client: client,
 					appConfiguration: appConfigurationProvider,
 					boosterNotificationsService: BoosterNotificationsService(
-						rulesDownloadService: RulesDownloadService(restServiceProvider: .fake())
+						rulesDownloadService: FakeRulesDownloadService()
 					),
 					recycleBin: .fake()
 				),
@@ -1398,7 +1398,7 @@ final class RiskProviderTests: CWATestCase {
 					client: client,
 					appConfiguration: cachedAppConfig,
 					boosterNotificationsService: BoosterNotificationsService(
-						rulesDownloadService: RulesDownloadService(restServiceProvider: .fake())
+						rulesDownloadService: FakeRulesDownloadService()
 					),
 					recycleBin: .fake()
 				),
@@ -1503,7 +1503,7 @@ final class RiskProviderTests: CWATestCase {
 					client: client,
 					appConfiguration: cachedAppConfig,
 					boosterNotificationsService: BoosterNotificationsService(
-						rulesDownloadService: RulesDownloadService(restServiceProvider: .fake())
+						rulesDownloadService: FakeRulesDownloadService()
 					),
 					recycleBin: .fake()
 				),
@@ -1610,7 +1610,7 @@ final class RiskProviderTests: CWATestCase {
 					client: client,
 					appConfiguration: cachedAppConfig,
 					boosterNotificationsService: BoosterNotificationsService(
-						rulesDownloadService: RulesDownloadService(restServiceProvider: .fake())
+						rulesDownloadService: FakeRulesDownloadService()
 					),
 					recycleBin: .fake()
 				),
@@ -1715,7 +1715,7 @@ final class RiskProviderTests: CWATestCase {
 					client: client,
 					appConfiguration: cachedAppConfig,
 					boosterNotificationsService: BoosterNotificationsService(
-						rulesDownloadService: RulesDownloadService(restServiceProvider: .fake())
+						rulesDownloadService: FakeRulesDownloadService()
 					),
 					recycleBin: .fake()
 				),

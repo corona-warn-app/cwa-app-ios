@@ -45,7 +45,7 @@ class ExposureSubmissionViewControllerTests: CWATestCase {
 						client: client,
 						appConfiguration: appConfiguration,
 						boosterNotificationsService: BoosterNotificationsService(
-							rulesDownloadService: RulesDownloadService(restServiceProvider: .fake())
+							rulesDownloadService: FakeRulesDownloadService()
 						),
 						recycleBin: .fake()
 					),
