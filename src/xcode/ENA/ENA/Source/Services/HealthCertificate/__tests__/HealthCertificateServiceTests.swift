@@ -1472,6 +1472,8 @@ class HealthCertificateServiceTests: CWATestCase {
 		var digitalCovidCertificateAccess = MockDigitalCovidCertificateAccess()
 		digitalCovidCertificateAccess.convertedToBase45 = .success(base45TestCertificate)
 
+		let restServiceFake = FakeRulesDownloadService()
+		
 		let service = HealthCertificateService(
 			store: store,
 			dccSignatureVerifier: DCCSignatureVerifyingStub(),
@@ -1480,7 +1482,7 @@ class HealthCertificateServiceTests: CWATestCase {
 			appConfiguration: appConfig,
 			digitalCovidCertificateAccess: digitalCovidCertificateAccess,
 			boosterNotificationsService: BoosterNotificationsService(
-				rulesDownloadService: RulesDownloadService(restServiceProvider: .fake())
+				rulesDownloadService: restServiceFake
 			),
 			recycleBin: .fake()
 		)

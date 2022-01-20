@@ -39,7 +39,7 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 		validationRulesAccess.expectedAcceptanceExtractionResult = .success([])
 		validationRulesAccess.expectedInvalidationExtractionResult = .success([])
 		validationRulesAccess.expectedValidationResult = .success(validationResults)
-		let rulesDownloadService = FakeRulesDownloadService(.success(FakeRulesDownloadService.dummyRulesResponse()))
+		let rulesDownloadService = FakeRulesDownloadService()
 
 		let validationService = HealthCertificateValidationService(
 			store: store,
@@ -125,7 +125,7 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 		validationRulesAccess.expectedInvalidationExtractionResult = .success([])
 		validationRulesAccess.expectedValidationResult = .success(validationResults)
 		
-		let rulesDownloadService = FakeRulesDownloadService(.success(FakeRulesDownloadService.dummyRulesResponse()))
+		let rulesDownloadService = FakeRulesDownloadService()
 
 		let validationService = HealthCertificateValidationService(
 			store: store,
@@ -211,7 +211,7 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 		validationRulesAccess.expectedInvalidationExtractionResult = .success([])
 		validationRulesAccess.expectedValidationResult = .success(validationResults)
 		
-		let rulesDownloadService = FakeRulesDownloadService(.success(FakeRulesDownloadService.dummyRulesResponse()))
+		let rulesDownloadService = FakeRulesDownloadService()
 
 		let validationService = HealthCertificateValidationService(
 			store: store,
@@ -285,7 +285,7 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 			store: store
 		)
 
-		let rulesDownloadService = FakeRulesDownloadService(.success(FakeRulesDownloadService.dummyRulesResponse()))
+		let rulesDownloadService = FakeRulesDownloadService()
 
 		let validationService = HealthCertificateValidationService(
 			store: store,
@@ -340,7 +340,7 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 			store: store
 		)
 		let mockValidationRulesAccess = MockValidationRulesAccess()
-		let rulesDownloadService = FakeRulesDownloadService(.success(FakeRulesDownloadService.dummyRulesResponse()))
+		let rulesDownloadService = FakeRulesDownloadService()
 
 		let validationService = HealthCertificateValidationService(
 			store: store,
@@ -597,7 +597,7 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 			store: store
 		)
 		
-		let rulesDownloadService = FakeRulesDownloadService(.success(FakeRulesDownloadService.dummyRulesResponse()))
+		let rulesDownloadService = FakeRulesDownloadService()
 
 		var validationRulesAccess = MockValidationRulesAccess()
 		validationRulesAccess.expectedAcceptanceExtractionResult = .success([])

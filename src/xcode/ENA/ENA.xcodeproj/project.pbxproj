@@ -1124,7 +1124,6 @@
 		ABC506BA2747DC9600698A95 /* EncryptionScheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABC506B72747DC9600698A95 /* EncryptionScheme.swift */; };
 		ABC506BB2747DC9600698A95 /* EncryptAndSignResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABC506B82747DC9600698A95 /* EncryptAndSignResult.swift */; };
 		ABC506BC2747DC9600698A95 /* EncryptAndSignError.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABC506B92747DC9600698A95 /* EncryptAndSignError.swift */; };
-		ABC506BD2747DC9C00698A95 /* TicketValidationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABC506B42747DC8700698A95 /* TicketValidationTests.swift */; };
 		ABC506BF2747DF8B00698A95 /* Data+Random.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABC506BE2747DF8B00698A95 /* Data+Random.swift */; };
 		ABC506C6274BA87A00698A95 /* TicketValidationInitializationData+Fake.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABC506C4274BA87700698A95 /* TicketValidationInitializationData+Fake.swift */; };
 		ABC506C8274BA9E500698A95 /* DCCEncryption.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABC506C7274BA9E500698A95 /* DCCEncryption.swift */; };
@@ -2777,7 +2776,6 @@
 		ABBF429526209952002A9A2B /* Checkin+Update.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Checkin+Update.swift"; sourceTree = "<group>"; };
 		ABC1C271267B854500223625 /* DCCDateStringFormatterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DCCDateStringFormatterTests.swift; sourceTree = "<group>"; };
 		ABC1C274267B874F00223625 /* DCCDateStringFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DCCDateStringFormatter.swift; sourceTree = "<group>"; };
-		ABC506B42747DC8700698A95 /* TicketValidationTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TicketValidationTests.swift; sourceTree = "<group>"; };
 		ABC506B72747DC9600698A95 /* EncryptionScheme.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EncryptionScheme.swift; sourceTree = "<group>"; };
 		ABC506B82747DC9600698A95 /* EncryptAndSignResult.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EncryptAndSignResult.swift; sourceTree = "<group>"; };
 		ABC506B92747DC9600698A95 /* EncryptAndSignError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EncryptAndSignError.swift; sourceTree = "<group>"; };
@@ -7152,7 +7150,6 @@
 				010A474B27512760000AA80E /* TicketValidationAccessTokenProcessorTests.swift */,
 				01BCBFAC2755281100E4B6F1 /* TicketValidationResultTokenProcessorTests.swift */,
 				010A474D27512A05000AA80E /* MockJWTVerification.swift */,
-				ABC506B42747DC8700698A95 /* TicketValidationTests.swift */,
 				ABC506C9274BAA2E00698A95 /* DCCEncryptionTests.swift */,
 				ABC506D2274F8F0600698A95 /* ServiceIdentityDocumentProcessorTests.swift */,
 			);
@@ -10910,7 +10907,6 @@
 				B10F9B8C249961CE00C418F4 /* UIFont+DynamicTypeTests.swift in Sources */,
 				010B3DA225ADEBFF00EB44AB /* HomeRiskCellModelTests.swift in Sources */,
 				BAA4D71D25E94D6000821B5C /* UIImage+resizeTests.swift in Sources */,
-				ABC506BD2747DC9C00698A95 /* TicketValidationTests.swift in Sources */,
 				01C2D4432501260D00FB23BF /* OptionGroupViewModelTests.swift in Sources */,
 				01BA06F2261F536100237DD8 /* FakeRequestServiceTests.swift in Sources */,
 				BADE38092608D9EC00E07890 /* TraceLocationTypeTest.swift in Sources */,

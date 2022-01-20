@@ -9,16 +9,8 @@ struct FakeRulesDownloadService: RulesDownloadServiceProviding {
 
 	// MARK: - Init
 
-	static func dummyRulesResponse() -> [Rule] {
-		[
-			Rule.fake(),
-			Rule.fake(),
-			Rule.fake()
-		]
-	}
-
 	init(
-		_ result: Result<[Rule], DCCDownloadRulesError>?
+		_ result: Result<[Rule], DCCDownloadRulesError>? = .success([Rule.fake(), Rule.fake(), Rule.fake()])
 	) {
 		self.result = result
 	}
@@ -35,5 +27,4 @@ struct FakeRulesDownloadService: RulesDownloadServiceProviding {
 	// MARK: - Internal
 
 	var result: Result<[Rule], DCCDownloadRulesError>?
-
 }

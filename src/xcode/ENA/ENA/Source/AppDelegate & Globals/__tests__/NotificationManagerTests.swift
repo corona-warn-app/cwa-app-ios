@@ -159,7 +159,7 @@ class NotificationManagerTests: XCTestCase {
 			client: client,
 			appConfiguration: cachedAppConfig,
 			boosterNotificationsService: BoosterNotificationsService(
-				rulesDownloadService: RulesDownloadService(restServiceProvider: .fake())
+				rulesDownloadService: FakeRulesDownloadService()
 			),
 			recycleBin: .fake()
 		)
