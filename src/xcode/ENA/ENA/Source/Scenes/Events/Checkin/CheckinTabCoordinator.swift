@@ -59,13 +59,19 @@ final class CheckinTabCoordinator {
 		
 		// show the info screen only once
 		if !infoScreenShown {
-			return UINavigationController(rootViewController: infoScreen(hidesCloseButton: true, dismissAction: { [weak self] in
+			return UINavigationController(rootViewController: infoScreen(hidesCloseButton: true, dismissAction: { [weak self]  animated in
 				guard let self = self else { return }
-				// Push Checkin Table View Controller
-				self.viewController.pushViewController(topBottomContainerViewController, animated: true)
+				
+				if animated {
+					// Push Checkin Table View Controller
+					self.viewController.pushViewController(topBottomContainerViewController, animated: true)
+				}
+				
 				// Set as the only controller on the navigation stack to avoid back gesture etc.
 				self.viewController.setViewControllers([topBottomContainerViewController], animated: false)
+				
 				self.infoScreenShown = true // remember and don't show it again
+				
 				// open trace location details screen if necessary
 				if let qrCode = self.qrCodeAfterInfoScreen {
 					self.qrCodeAfterInfoScreen = nil
@@ -206,7 +212,8 @@ final class CheckinTabCoordinator {
 	
 	private func infoScreen(
 		hidesCloseButton: Bool = false,
-		dismissAction: @escaping (() -> Void),
+		dismissAction: @escaping (_ animated: Bool) -> Void,
+		onDemand: Bool = false,
 		showDetail: @escaping ((UIViewController) -> Void)
 	) -> UIViewController {
 		
@@ -223,8 +230,10 @@ final class CheckinTabCoordinator {
 				},
 				hidesCloseButton: hidesCloseButton
 			),
-			onDismiss: {
-				dismissAction()
+			store: store,
+			onDemand: onDemand,
+			onDismiss: { animated in
+				dismissAction(animated)
 			}
 		)
 		
@@ -251,9 +260,10 @@ final class CheckinTabCoordinator {
 		// this is needed to resolve an inset issue with large titles
 		var navigationController: UINavigationController!
 		let infoVC = infoScreen(
-			dismissAction: {
-				navigationController.dismiss(animated: true)
+			dismissAction: { animated in
+				navigationController.dismiss(animated: animated)
 			},
+			onDemand: true,
 			showDetail: { detailViewController in
 				navigationController.pushViewController(detailViewController, animated: true)
 			}

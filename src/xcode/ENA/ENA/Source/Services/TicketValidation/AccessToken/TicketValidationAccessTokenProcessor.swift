@@ -47,7 +47,7 @@ struct TicketValidationAccessTokenProcessor {
 			/// 5. Validate `accessTokenPayload`
 
 			guard accessTokenPayload.t == 1 || accessTokenPayload.t == 2 else {
-				Log.error("Ticket Validation: Access token payload t is \(accessTokenPayload.t)", log: .ticketValidation)
+				Log.error("Ticket Validation: Access token payload t is \(private: accessTokenPayload.t)", log: .ticketValidation)
 
 				completion(.failure(.ATR_TYPE_INVALID))
 				return

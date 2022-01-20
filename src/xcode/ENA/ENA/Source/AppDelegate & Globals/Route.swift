@@ -4,7 +4,7 @@
 
 import Foundation
 
-enum Route {
+enum Route: Equatable {
 
 	// MARK: - Init
 
@@ -111,6 +111,7 @@ enum Route {
 	case rapidAntigen(Result<CoronaTestRegistrationInformation, QRCodeError>)
 	case healthCertificateFromNotification(HealthCertifiedPerson, HealthCertificate)
 	case healthCertifiedPersonFromNotification(HealthCertifiedPerson)
+	case testResultFromNotification(CoronaTestType)
 	
 	var routeInformation: RouteInformation {
 		switch self {
@@ -122,6 +123,8 @@ enum Route {
 			return .healthCertificate
 		case .healthCertifiedPersonFromNotification:
 			return .healthCertifiedPerson
+		case .testResultFromNotification:
+			return .testResult
 		}
 	}
 }
@@ -131,4 +134,5 @@ enum RouteInformation: String {
 	case rapidAntigenTest = "RAT"
 	case healthCertificate = "HealthCertificate from notification"
 	case healthCertifiedPerson = "HealthCertifiedPerson from notification"
+	case testResult = "Testresult from notification"
 }

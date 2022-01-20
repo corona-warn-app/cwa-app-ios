@@ -616,15 +616,9 @@
 
 "ExposureSubmissionQRInfo_header_section_1" = "Test Sonucunu Al";
 
-"ExposureSubmissionQRInfo_instruction1" = "Şimdi, testinizin QR kodunu tarayın ve test sonucunuzu alın.";
+"ExposureSubmissionQRInfo_instruction1" = "Her bir test yalnızca bir kez taranabilir. Uygulama tek seferde en fazla bir hızlı testi ve bir PCR testini yönetebilir.";
 
-"ExposureSubmissionQRInfo_instruction2" = "Her bir test yalnızca bir kez taranabilir. Uygulama tek seferde en fazla bir hızlı testi ve bir PCR testini yönetebilir.";
-
-"ExposureSubmissionQRInfo_instruction2a" = "Testinizin sonucu negatifse bunu resmi bir COVID test sertifikası ile onaylayabilirsiniz. Bu işlemi gerçekleştirmek için, aşağıda belirtilen adımları uygulayarak test sertifikası talebinde bulunun.";
-
-"ExposureSubmissionQRInfo_instruction3" = "Uygulama aynı anda birden çok testi %@.";
-
-"ExposureSubmissionQRInfo_instruction3_highlightedPhrase" = "yönetemez";
+"ExposureSubmissionQRInfo_instruction2" = "Testinizin sonucu negatifse bunu resmi bir COVID test sertifikası ile onaylayabilirsiniz. Bu işlemi gerçekleştirmek için, aşağıda belirtilen adımları uygulayarak test sertifikası talebinde bulunun.";
 
 "ExposureSubmissionQRInfo_header_section_2" = "Lütfen karşılaştığınız diğer kullanıcıları uyararak onlara yardımcı olun!";
 
@@ -667,15 +661,21 @@
 
 "ExposureSubmissionSuccess_listTitle" = "Lütfen unutmayın:";
 
-"ExposureSubmissionSuccess_listItem0" = "Bu test sonucunu doğrulamak için PCR testi yapın. ";
+"ExposureSubmissionSuccess_PCR_listItem0" = "Yüksek bir olasılıkla enfekte oldunuz. Kendinizi diğer insanlardan izole edin.";
 
-"ExposureSubmissionSuccess_listItem1" = "Kamu sağlığı yetkiliniz önümüzdeki birkaç gün içinde size ulaşabilir.";
+"ExposureSubmissionSuccess_PCR_listItem1" = "Kamu sağlığı yetkiliniz önümüzdeki birkaç gün içinde size ulaşabilir.";
 
-"ExposureSubmissionSuccess_listItem2" = "Yüksek bir olasılıkla enfekte oldunuz. Kendinizi diğer insanlardan izole edin.";
+"ExposureSubmissionSuccess_PCR_listItem2" = "COVID-19 kaynaklı daha yüksek ciddi hastalık riskiniz varsa doktora başvurun. Bilinen risk faktörleri arasında 60 yaşın üzerinde olmak, immünsupresyon, diyabet ve obezite bulunmaktadır.";
+
+"ExposureSubmissionSuccess_RAT_listItem0" = "Yüksek bir olasılıkla enfekte oldunuz. Kendinizi diğer insanlardan izole edin.";
+
+"ExposureSubmissionSuccess_RAT_listItem1" = "Bu test sonucunu doğrulamak için PCR testi yapın.";
+
+"ExposureSubmissionSuccess_RAT_listItem2" = "Kamu sağlığı yetkiliniz önümüzdeki birkaç gün içinde size ulaşabilir.";
 
 "ExposureSubmissionSuccess_listItem2_1" = "İzolasyon süreniz genellikle 10 gündür. Lütfen belirtilerinizin nasıl geliştiğini yakından izleyin.";
 
-"ExposureSubmissionSuccess_listItem2_2" = "Kamu sağlığı yetkiliniz, temasa geçtiğiniz kişilerin bir listesini oluşturmanızı isteyecektir. Bu listeye, hasta olmadan önceki iki gün içinde 15 dakikadan uzun süreyle yakın temas halinde (2 metreden kısa mesafede, yüz yüze görüşme) olduğunuz herkesi dahil etmeniz gerekir. Bunun için temas güncenizi kullanabilirsiniz: Girişleri dışa aktarmanız ve ardından yazdırmanız ya da e-posta yoluyla göndermeniz yeterlidir.";
+"ExposureSubmissionSuccess_listItem2_2" = "Kamu sağlığı yetkiliniz, temasa geçtiğiniz kişilerin bir listesini oluşturmanızı isteyecektir. Bu listeye, hasta olmadan önceki iki gün içinde 10 dakikadan uzun süreyle yakın temas halinde (2 metreden kısa mesafede, yüz yüze görüşme) olduğunuz herkesi dahil etmeniz gerekir. Bunun için temas güncenizi kullanabilirsiniz: Girişleri dışa aktarmanız ve ardından yazdırmanız ya da e-posta yoluyla göndermeniz yeterlidir.";
 
 "ExposureSubmissionSuccess_listItem2_3" = "Lütfen özellikle akıllı telefonu olmadığı veya uygulamayı yüklemediği için doğrudan uygulamanın uyarmayacağı kişileri göz önünde bulundurun.";
 
@@ -1291,13 +1291,17 @@
 
 "Home_Finding_Positive_Card_Note_Title" = "Lütfen unutmayın:";
 
-"Home_Finding_Positive_Card_Verify_Item_Title" = "Bu test sonucunu doğrulamak için PCR testi yapın.";
+"Home_Finding_Positive_Card_PCR_Item0" = "Yüksek bir olasılıkla enfekte oldunuz. Kendinizi diğer insanlardan izole edin.";
 
-"Home_Finding_Positive_Card_Phone_Item_Title" = "Kamu sağlığı yetkiliniz önümüzdeki birkaç gün içinde size ulaşabilir.";
+"Home_Finding_Positive_Card_PCR_Item1" = "Kamu sağlığı yetkiliniz önümüzdeki birkaç gün içinde size ulaşabilir.";
 
-"Home_Finding_Positive_Card_Home_Item_Title" = "Yüksek bir olasılıkla enfekte oldunuz. Kendinizi diğer insanlardan izole edin.";
+"Home_Finding_Positive_Card_PCR_Item2" = "COVID-19 kaynaklı daha yüksek ciddi hastalık riskiniz varsa doktora başvurun. Bilinen risk faktörleri arasında 60 yaşın üzerinde olmak, immünsupresyon, diyabet ve obezite bulunmaktadır.";
 
-"Home_Finding_Positive_Card_Share_Item_Title" = "Diğer kullanıcıların uyarılabilmesi için rastgele kimliklerinizi paylaşın.";
+"Home_Finding_Positive_Card_RAT_Item0" = "Yüksek bir olasılıkla enfekte oldunuz. Kendinizi diğer insanlardan izole edin.";
+
+"Home_Finding_Positive_Card_RAT_Item1" = "Bu test sonucunu doğrulamak için PCR testi yapın.";
+
+"Home_Finding_Positive_Card_RAT_Item2" = "Kamu sağlığı yetkiliniz önümüzdeki birkaç gün içinde size ulaşabilir.";
 
 "Home_Finding_Positive_Card_Button" = "Diğer Kullanıcıları Uyarın";
 
@@ -1327,6 +1331,8 @@
 "Home_MoreCard_AppInformationTitle" = "Uygulama Bilgileri";
 
 "Home_MoreCard_FAQTitle" = "SSS";
+
+"Home_MoreCard_SocialMedia" = "Sosyal Medya";
 
 "Home_MoreCard_ShareTitle" = "Paylaş";
 
@@ -1595,18 +1601,22 @@
 /* New Version Features */
 "NewVersionFeatures_Info_about_abb_information" = "Bu sürümdeki değişiklikleri uygulama bilgilerinde “Yeni Özellikler” bölümünde bulabilirsiniz.";
 
-/* Version 2.16 */
-"NewVersionFeature_216_2g_title" = "2G+ Durumu Kanıtı";
+/* Version 2.17 */
+"NewVersionFeature_217_positiveTest_title" = "Pozitif Test Sonucu Durumunda Notlar";
 
-"NewVersionFeature_216_2g_description" = "Geçerli bir aşı sertifikanız ya da iyileşme sertifikanız varsa ve uygulamaya bir test sertifikası eklerseniz bunların tümü sertifikaya genel bakış bölümünde birleşik şekilde gösterilir. İlgili kontrolü kullanarak aşı sertifikasının veya iyileşme sertifikasının ve test sertifikasının QR kodu arasında geçiş yapabilirsiniz. 2G+ kanıtı gerekiyorsa her iki QR kodun CovPassCheck uygulaması ile doğrulanması gerekir.";
+"NewVersionFeature_217_positiveTest_description" = "Pozitif test sonucunun gözden geçirilmesi durumuna ilişkin notlar ve önerilen prosedür.";
 
-"NewVersionFeature_216_negativeTestNotice_title" = "Negatif Test Sonucu Durumunda Bilgi";
+"NewVersionFeature_217_statisticsBoosterVaccination_title" = "Hatırlatma Aşılarına İlişkin İstatistikler";
 
-"NewVersionFeature_216_negativeTestNotice_description" = "Negatif test sonucu alırsanız yine de akut belirtilerinizin olması durumunda ilave tavsiyeler sunulacaktır.";
+"NewVersionFeature_217_statisticsBoosterVaccination_description" = "Bir doz aşı olmuş ve tam aşılı kişilere ilişkin istatistiklerin yanı sıra artık hatırlatma aşısı olan kişi sayısına da ulaşacaksınız.";
 
-"NewVersionFeature_216_highRiskNotification_title" = "Daha Yüksek Risk Bildirimi";
+"NewVersionFeature_217_linkSocialMedia_title" = "Sosyal Medya Bağlantısı";
 
-"NewVersionFeature_216_highRiskNotification_description" = "Artık uygulama açık olsa da daha yüksek enfeksiyon riskiniz varsa bir bildirim alırsınız. Bunun amacı, farklı bir sekme kullanıyorsanız durum sekmesindeki risk uyarısının gözden kaçırılmasının önüne geçmektir. Ek olarak, siz durum sekmesini yeniden açana dek bu sekmede kırmızı bir nokta görüntülenir.";
+"NewVersionFeature_217_linkSocialMedia_description" = "Corona-Warn-App'teki en son geliştirmeleri takip etmek ve bunları başkalarıyla tartışmak istiyorsanız sosyal medya kanallarımızı takip edebilirsiniz. Artık, ana ekranda \"Diğer\" kısmında bir sosyal medya bağlantısına da erişeceksiniz.";
+
+"NewVersionFeature_217_deleteDateRecycleBin_title" = "Geri Dönüşüm Kutusu için Silme Tarihi";
+
+"NewVersionFeature_217_deleteDateRecycleBin_description" = "Geri dönüşüm kutusuna taşınan her öğe, 30 gün sonra kalıcı olarak silinir. Bu silme tarihi artık her öğe için görüntülenmektedir.";
 
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Uluslararası Maruz Kalma Günlüğü";
@@ -1693,17 +1703,23 @@
 
 "TestResultPositive_KeysSubmitted_Title1" = "Lütfen unutmayın:";
 
-"TestResultPositive_KeysSubmitted_Info1" = "Bu test sonucunu doğrulamak için PCR testi yapın.";
+"TestResultPositive_KeysSubmitted_PCR_Info1" = "Yüksek bir olasılıkla enfekte oldunuz. Kendinizi diğer insanlardan izole edin.";
 
-"TestResultPositive_KeysSubmitted_Info2" = "Kamu sağlığı yetkiliniz önümüzdeki birkaç gün içinde size ulaşabilir.";
+"TestResultPositive_KeysSubmitted_PCR_Info2" = "Kamu sağlığı yetkiliniz önümüzdeki birkaç gün içinde size ulaşabilir.";
 
-"TestResultPositive_KeysSubmitted_Info3" = "Yüksek bir olasılıkla enfekte oldunuz. Kendinizi diğer insanlardan izole edin.";
+"TestResultPositive_KeysSubmitted_PCR_Info3" = "COVID-19 kaynaklı daha yüksek ciddi hastalık riskiniz varsa doktora başvurun. Bilinen risk faktörleri arasında 60 yaşın üzerinde olmak, immünsupresyon, diyabet ve obezite bulunmaktadır.";
+
+"TestResultPositive_KeysSubmitted_RAT_Info1" = "Yüksek bir olasılıkla enfekte oldunuz. Kendinizi diğer insanlardan izole edin.";
+
+"TestResultPositive_KeysSubmitted_RAT_Info2" = "Bu test sonucunu doğrulamak için PCR testi yapın.";
+
+"TestResultPositive_KeysSubmitted_RAT_Info3" = "Kamu sağlığı yetkiliniz önümüzdeki birkaç gün içinde size ulaşabilir.";
 
 "TestResultPositive_KeysSubmitted_Title2" = "Diğer bilgiler:";
 
 "TestResultPositive_KeysSubmitted_FurtherInfo1" = "İzolasyon süreniz genellikle 10 gündür. Lütfen belirtilerinizin nasıl geliştiğini yakından izleyin.";
 
-"TestResultPositive_KeysSubmitted_FurtherInfo2" = "Kamu sağlığı yetkiliniz, temasa geçtiğiniz kişilerin bir listesini oluşturmanızı isteyecektir. Bu listeye, hasta olmadan önceki iki gün içinde 15 dakikadan uzun süreyle yakın temas halinde (2 metreden kısa mesafede, yüz yüze görüşme) olduğunuz herkesi dahil etmeniz gerekir. Bunun için temas güncenizi kullanabilirsiniz: Girişleri dışa aktarmanız ve ardından yazdırmanız ya da e-posta yoluyla göndermeniz yeterlidir.";
+"TestResultPositive_KeysSubmitted_FurtherInfo2" = "Kamu sağlığı yetkiliniz, temasa geçtiğiniz kişilerin bir listesini oluşturmanızı isteyecektir. Bu listeye, hasta olmadan önceki iki gün içinde 10 dakikadan uzun süreyle yakın temas halinde (2 metreden kısa mesafede, yüz yüze görüşme) olduğunuz herkesi dahil etmeniz gerekir. Bunun için temas güncenizi kullanabilirsiniz: Girişleri dışa aktarmanız ve ardından yazdırmanız ya da e-posta yoluyla göndermeniz yeterlidir.";
 
 "TestResultPositive_KeysSubmitted_FurtherInfo3" = "Lütfen özellikle akıllı telefonu olmadığı veya uygulamayı yüklemediği için doğrudan uygulamanın uyarmayacağı kişileri göz önünde bulundurun.";
 
@@ -2027,6 +2043,21 @@
 
 "Statistics_Card_FullyVaccinated_SecondarySubtitleLabel" = "(popülasyona göre)";
 
+/* - Booster vaccination card */
+"Statistics_Card_BoosterVaccination_Title" = "Hatırlatma Aşısı Olan Kişiler";
+
+"Statistics_Card_BoosterVaccination_Today" = "Bugüne kadar";
+
+"Statistics_Card_BoosterVaccination_Yesterday" = "Düne kadar";
+
+"Statistics_Card_BoosterVaccination_Date" = "%@ tarihine kadar";
+
+"Statistics_Card_BoosterVaccination_SecondaryLabelTitle" = "(popülasyona göre)";
+
+"Statistics_Card_BoosterVaccination_TertiaryLabelTitle" = "Toplam";
+
+"Statistics_Card_BoosterVaccination_SecondarySubtitleLabel" = "(popülasyona göre)";
+
 /* - Applied vaccination dose rates card */
 "Statistics_Card_AppliedDoseRates_Title" = "Uygulanan Aşı Dozları";
 
@@ -2095,7 +2126,11 @@
 
 "Statistics_Info_FullyVaccinated_Title" = "Tüm aşıları olan kişiler";
 
-"Statistics_Info_FullyVaccinated_Text" = "RKI'ye gereken tüm aşı dozlarını aldıkları bildirilen kişilerin sayısı.";
+"Statistics_Info_FullyVaccinated_Text" = "RKI'ye temel bağışıklık için gereken tüm aşı dozlarını aldıkları bildirilen kişilerin sayısı.";
+
+"Statistics_Info_BoosterVaccination_Title" = "Hatırlatma Aşısı Olan Kişiler";
+
+"Statistics_Info_BoosterVaccination_Text" = "RKI'ye hatırlatma aşısı oldukları bildirilen kişilerin sayısı.";
 
 "Statistics_Info_DosesAdministered_Title" = "Uygulanan aşı dozları";
 
@@ -3276,6 +3311,8 @@
 "RecycleBin_description" = "Geri yüklemek için bir öğeye dokunun. Öğeler 30 gün sonra otomatik olarak silinir.";
 
 "RecycleBin_deleteAllButtonTitle" = "Tümünü Kalıcı Olarak Sil";
+
+"RecycleBin_expirationDateTime" = "şu zamanda kalıcı olarak silinecek: %@, %@";
 
 /* - Vaccination Certificate */
 "RecycleBin_VaccinationCertificate_headline" = "Aşı Sertifikası";

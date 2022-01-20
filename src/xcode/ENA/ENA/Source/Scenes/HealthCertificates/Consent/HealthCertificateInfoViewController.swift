@@ -10,9 +10,13 @@ class HealthCertificateInfoViewController: DynamicTableViewController, FooterVie
 
 	init(
 		viewModel: HealthCertificateInfoViewModel,
-		dismiss: @escaping () -> Void
+		store: HealthCertificateStoring,
+		onDemand: Bool,
+		dismiss: @escaping (_ animated: Bool) -> Void
 	) {
 		self.dismiss = dismiss
+		self.store = store
+		self.onDemand = onDemand
 		self.viewModel = viewModel
 
 		super.init(nibName: nil, bundle: nil)
@@ -34,11 +38,19 @@ class HealthCertificateInfoViewController: DynamicTableViewController, FooterVie
 		navigationItem.title = viewModel.title
 		setupView()
 	}
+	
+	override func viewWillAppear(_ animated: Bool) {
+		super.viewWillAppear(animated)
+
+		if store.healthCertificateInfoScreenShown && !onDemand {
+			dismiss(false)
+		}
+	}
 
 	// MARK: - Protocol DismissHandling
 
 	func wasAttemptedToBeDismissed() {
-		dismiss()
+		dismiss(true)
 	}
 
 	// MARK: - Protocol FooterViewHandling
@@ -48,13 +60,15 @@ class HealthCertificateInfoViewController: DynamicTableViewController, FooterVie
 			return
 		}
 
-		dismiss()
+		dismiss(true)
 	}
 
 	// MARK: - Private
 
 	private let viewModel: HealthCertificateInfoViewModel
-	private let dismiss: () -> Void
+	private let store: HealthCertificateStoring
+	private let onDemand: Bool
+	private let dismiss: (_ animated: Bool) -> Void
 
 	private func setupView() {
 		view.backgroundColor = .enaColor(for: .background)

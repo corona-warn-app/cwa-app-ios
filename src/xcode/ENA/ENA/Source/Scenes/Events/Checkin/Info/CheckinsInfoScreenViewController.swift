@@ -5,15 +5,19 @@
 import Foundation
 import UIKit
 
-class CheckinsInfoScreenViewController: DynamicTableViewController, FooterViewHandling {
+class CheckinsInfoScreenViewController: DynamicTableViewController, FooterViewHandling, DismissHandling {
 
 	// MARK: - Init
 	
 	init(
 		viewModel: CheckInsInfoScreenViewModel,
-		onDismiss: @escaping () -> Void
+		store: Store,
+		onDemand: Bool,
+		onDismiss: @escaping (_ animated: Bool) -> Void
 	) {
 		self.viewModel = viewModel
+		self.store = store
+		self.onDemand = onDemand
 		self.onDismiss = onDismiss
 
 		super.init(nibName: nil, bundle: nil)
@@ -31,17 +35,32 @@ class CheckinsInfoScreenViewController: DynamicTableViewController, FooterViewHa
 		setupView()
 
 		if !viewModel.hidesCloseButton {
-			navigationItem.rightBarButtonItem = CloseBarButtonItem(onTap: onDismiss)
+			navigationItem.rightBarButtonItem = dismissHandlingCloseBarButton
 		}
+
 		navigationItem.title = AppStrings.Checkins.Information.title
 		navigationController?.navigationBar.prefersLargeTitles = true
+	}
+
+	override func viewWillAppear(_ animated: Bool) {
+		super.viewWillAppear(animated)
+
+		if store.checkinInfoScreenShown && !onDemand {
+			onDismiss(false)
+		}
+	}
+
+	// MARK: - Protocol DismissHandling
+
+	func wasAttemptedToBeDismissed() {
+		onDismiss(true)
 	}
 
 	// MARK: - Protocol FooterViewHandling
 
 	func didTapFooterViewButton(_ type: FooterViewModel.ButtonType) {
 		if type == .primary {
-			onDismiss()
+			onDismiss(true)
 		}
 	}
 
@@ -54,7 +73,9 @@ class CheckinsInfoScreenViewController: DynamicTableViewController, FooterViewHa
 	// MARK: - Private
 
 	private let viewModel: CheckInsInfoScreenViewModel
-	private let onDismiss: () -> Void
+	private let store: Store
+	private let onDemand: Bool
+	private let onDismiss: (_ animated: Bool) -> Void
 
 	private func setupView() {
 		view.backgroundColor = .enaColor(for: .background)

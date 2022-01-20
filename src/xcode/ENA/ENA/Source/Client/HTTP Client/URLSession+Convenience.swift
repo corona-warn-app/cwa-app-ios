@@ -155,7 +155,7 @@ extension URLSession.Response.Failure: LocalizedError {
 			return AppStrings.ExposureSubmissionError.qrNotExist
 		default:
 			Log.error("\(self)", log: .api)
-			return AppStrings.ExposureSubmissionError.defaultError
+			return AppStrings.ExposureSubmissionError.defaultError + "\n(\(String(describing: self)))"
 		}
 	}
 }
