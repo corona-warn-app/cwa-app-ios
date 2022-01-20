@@ -318,26 +318,6 @@ extension HTTPClient {
 					"dcc"
 				)
 		}
-				
-		func dccRulesURL(rulePath: String) -> URL {
-			endpoints
-				.distribution
-				.appending(
-					"version",
-					apiVersion,
-					"ehn-dgc",
-					rulePath
-				)
-		}
-		var boosterRulesURL: URL {
-			endpoints
-				.distribution
-				.appending(
-					"version",
-					apiVersion,
-					"booster-notification-rules"
-				)
-		}
 		
 		var DSCListURL: URL {
 			endpoints

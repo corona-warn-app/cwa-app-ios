@@ -40,7 +40,7 @@ struct ProtobufReceiveResource<R>: ReceiveResource where R: SwiftProtobuf.Messag
 			let model = try R(serializedData: package.bin)
 			return Result.success(model)
 		} catch {
-			return Result.failure(.decoding(error))
+			return Result.failure(.decoding(.PROTOBUF_DECODING(error)))
 		}
 	}
 

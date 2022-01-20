@@ -107,9 +107,45 @@ public var onboardedCountriesCBORDataFake_Corrupt: Data {
     return Data(cborCountries.encode())
 }
 
+public func rulesCBORDataFake_corrupt() throws -> Data {
+    let rules = CBOR.array(
+        [
+            CBOR.null,
+            CBOR.unsignedInt(42)
+        ]
+    )
+    return Data(rules.encode())
+}
+
 public func rulesCBORDataFake() throws -> Data {
     let rules = [
         Rule.fake(),
+        Rule.fake(),
+        Rule.fake()
+    ]
+
+    return try CodableCBOREncoder().encode(rules)
+}
+
+public func rulesCBORDataFake2() throws -> Data {
+    let rules = [
+        Rule.fake(
+            identifier: "GR-CZ-0002",
+            type: "Acceptance",
+            version: "1.0.0",
+            schemaVersion: "1.0.0",
+            engine: "CERTLOGIC",
+            engineVersion: "1.0.0",
+            certificateType: "Test",
+            description: [.fake()],
+            validFrom: "2021-05-27T07:46:40Z",
+            validTo: "2021-06-01T07:46:40Z",
+            affectedString: ["v.0.dn", "v.0.sd"],
+            logic: JSON(""),
+            countryCode: "DE",
+            region: nil,
+            hash: nil
+        ),
         Rule.fake(),
         Rule.fake()
     ]

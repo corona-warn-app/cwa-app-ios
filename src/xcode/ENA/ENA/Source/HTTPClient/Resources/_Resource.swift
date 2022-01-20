@@ -45,7 +45,7 @@ extension Resource {
  */
 enum ResourceError: Error {
 	case missingData
-	case decoding(Error?)
+	case decoding(ModelDecodingError)
 	case encoding
 	case packageCreation
 	case signatureVerification

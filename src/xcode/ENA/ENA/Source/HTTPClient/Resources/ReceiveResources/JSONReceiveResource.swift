@@ -25,21 +25,21 @@ struct JSONReceiveResource<R>: ReceiveResource where R: Decodable {
 		} catch let DecodingError.keyNotFound(key, context) {
 			Log.debug("missing key: \(key.stringValue)", log: .client)
 			Log.debug("Debug Description: \(context.debugDescription)", log: .client)
-			return .failure(.decoding(DecodingError.keyNotFound(key, context)))
+			return .failure(.decoding(.JSON_DECODING(DecodingError.keyNotFound(key, context))))
 		} catch let DecodingError.valueNotFound(type, context) {
 			Log.debug("Type not found \(type)", log: .client)
 			Log.debug("Debug Description: \(context.debugDescription)", log: .client)
-			return .failure(.decoding(DecodingError.valueNotFound(type, context)))
+			return .failure(.decoding(.JSON_DECODING(DecodingError.valueNotFound(type, context))))
 		} catch let DecodingError.typeMismatch(type, context) {
 			Log.debug("Type mismatch found \(type)", log: .client)
 			Log.debug("Debug Description: \(context.debugDescription)", log: .client)
-			return .failure(.decoding(DecodingError.typeMismatch(type, context)))
+			return .failure(.decoding(.JSON_DECODING(DecodingError.typeMismatch(type, context))))
 		} catch let DecodingError.dataCorrupted(context) {
 			Log.debug("Debug Description: \(context.debugDescription)", log: .client)
-			return .failure(.decoding(DecodingError.dataCorrupted(context)))
+			return .failure(.decoding(.JSON_DECODING(DecodingError.dataCorrupted(context))))
 		} catch {
 			Log.debug("Failed to parse JSON answer - unhandled error", log: .client)
-			return .failure(.decoding(nil))
+			return .failure(.decoding(.JSON_DECODING(error)))
 		}
 	}
 	

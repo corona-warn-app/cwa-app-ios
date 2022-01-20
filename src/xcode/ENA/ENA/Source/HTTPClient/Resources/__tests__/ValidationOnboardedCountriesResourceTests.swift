@@ -235,7 +235,7 @@ final class ValidationOnboardedCountriesResourceTests: CWATestCase {
 		waitForExpectations(timeout: .short)
 	}
 	
-	func testGIVEN_Resource_WHEN_EmptyPackage_THEN_ONBOARDED_COUNTRIES_JSON_DECODING_FAILED() throws {
+	func testGIVEN_Resource_WHEN_DataIsCorrupt_THEN_ONBOARDED_COUNTRIES_JSON_DECODING_FAILED() throws {
 		// GIVEN
 		let expectation = expectation(description: "Expect that we got a completion")
 		
@@ -266,10 +266,11 @@ final class ValidationOnboardedCountriesResourceTests: CWATestCase {
 				XCTFail("Load should fail but failed succeeded 😅")
 			case let .failure(error):
 				// THEN
-				// Successful test if we can unpack the error to an .ONBOARDED_COUNTRIES_DECODING_ERROR containing a .CBOR_DECODING_FAILED error.
+				// Successful test if we can unpack the error to an RuleValidationError.CBOR_DECODING_FAILED containing a some error we are not interested in.
 				guard case let .receivedResourceError(customError) = error,
 					  case let .ONBOARDED_COUNTRIES_DECODING_ERROR(decodingError) = customError,
-					  case .CBOR_DECODING_FAILED = decodingError else {
+					  case let .CBOR_DECODING_ONBOARDED_COUNTRIES(ruleValidationError) = decodingError,
+					  case RuleValidationError.CBOR_DECODING_FAILED = ruleValidationError else {
 						  XCTFail("Received wrong error type")
 						  return
 				}

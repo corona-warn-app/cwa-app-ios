@@ -58,12 +58,8 @@ struct ValidationOnboardedCountriesResource: Resource {
 			
 		case .missingData, .packageCreation:
 			return .ONBOARDED_COUNTRIES_JSON_ARCHIVE_FILE_MISSING
-		case let .decoding(dError):
-			if let ruleValidationError = dError as? RuleValidationError {
-				return .ONBOARDED_COUNTRIES_DECODING_ERROR(ruleValidationError)
-			} else {
-				return .ONBOARDED_COUNTRIES_DECODING_ERROR(RuleValidationError.CBOR_DECODING_FAILED(error))
-			}
+		case let .decoding(decodingError):
+			return .ONBOARDED_COUNTRIES_DECODING_ERROR(decodingError)
 		case .signatureVerification:
 			return .ONBOARDED_COUNTRIES_JSON_ARCHIVE_SIGNATURE_INVALID
 		case .missingEtag:
@@ -80,7 +76,7 @@ struct ValidationOnboardedCountriesResource: Resource {
 enum ValidationOnboardedCountriesError: LocalizedError {
 	
 	case ONBOARDED_COUNTRIES_CLIENT_ERROR
-	case ONBOARDED_COUNTRIES_DECODING_ERROR(RuleValidationError)
+	case ONBOARDED_COUNTRIES_DECODING_ERROR(ModelDecodingError)
 	case ONBOARDED_COUNTRIES_JSON_ARCHIVE_ETAG_ERROR
 	case ONBOARDED_COUNTRIES_JSON_ARCHIVE_FILE_MISSING
 	case ONBOARDED_COUNTRIES_JSON_ARCHIVE_SIGNATURE_INVALID

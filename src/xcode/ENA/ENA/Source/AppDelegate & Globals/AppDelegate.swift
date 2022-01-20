@@ -392,8 +392,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		appConfiguration: appConfigurationProvider,
 		boosterNotificationsService: BoosterNotificationsService(
 			rulesDownloadService: RulesDownloadService(
-				store: store,
-				client: client
+				restServiceProvider: restServiceProvider
 			)
 		),
 		recycleBin: recycleBin
@@ -465,7 +464,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 			return mock
 		}
 		#endif
-		let rulesDownloadService = RulesDownloadService(store: store, client: client)
+		let rulesDownloadService = RulesDownloadService(restServiceProvider: restServiceProvider)
 		return HealthCertificateValidationService(
 			store: store,
 			client: client,

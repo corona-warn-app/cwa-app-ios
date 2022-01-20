@@ -85,7 +85,9 @@ final class TestResultsResourceTests: CWATestCase {
 			case .failure(let error):
 				// Successful test if we can extract the resourceError to an decoding error, regardless what JSON decoding error exactly it is.
 				guard case let .resourceError(resourceError) = error,
-					  case _ = ResourceError.decoding(resourceError) else {
+					  case let .decoding(decodingError) = resourceError,
+					  case let .JSON_DECODING(someError) = decodingError,
+					  case _ = someError else {
 						 
 					XCTFail("unexpected error case")
 					return
@@ -120,7 +122,9 @@ final class TestResultsResourceTests: CWATestCase {
 			case .failure(let error):
 				// Successful test if we can extract the resourceError to an decoding error, regardless what JSON decoding error exactly it is.
 				guard case let .resourceError(resourceError) = error,
-					  case _ = ResourceError.decoding(resourceError) else {
+					  case let .decoding(decodingError) = resourceError,
+					  case let .JSON_DECODING(someError) = decodingError,
+					  case _ = someError else {
 						 
 					XCTFail("unexpected error case")
 					return

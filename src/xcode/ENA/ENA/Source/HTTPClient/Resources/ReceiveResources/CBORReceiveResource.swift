@@ -8,7 +8,8 @@ import Foundation
 Protocol for a specific Model to decode from CBOR data. Should normally be implemented by the Model which shall be decoded, NOT the Resource.
 */
 protocol CBORDecoding {
-	init(decodeCBOR: Data) throws
+	associatedtype Model
+	static func decode(_ data: Data) -> Result<Model, ModelDecodingError>
 }
 
 /**
@@ -44,10 +45,16 @@ struct CBORReceiveResource<R>: ReceiveResource where R: CBORDecoding {
 			return .failure(.signatureVerification)
 		}
 
-		do {
-			let model = try R(decodeCBOR: package.bin)
-			return Result.success(model)
-		} catch {
+		switch R.decode(package.bin) {
+
+		case let .success(model):
+			if let model = model as? R {
+				return Result.success(model)
+			} else {
+				return Result.failure(.decoding(ModelDecodingError.CBOR_DECODING))
+			}
+
+		case let .failure(error):
 			return Result.failure(.decoding(error))
 		}
 	}
