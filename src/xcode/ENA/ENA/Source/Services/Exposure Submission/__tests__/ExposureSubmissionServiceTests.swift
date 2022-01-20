@@ -43,7 +43,7 @@ class ExposureSubmissionServiceTests: CWATestCase {
 				client: client,
 				appConfiguration: appConfiguration,
 				boosterNotificationsService: BoosterNotificationsService(
-					rulesDownloadService: RulesDownloadService(store: store, client: client)
+					rulesDownloadService: FakeRulesDownloadService()
 				),
 				recycleBin: .fake()
 			),
@@ -133,7 +133,7 @@ class ExposureSubmissionServiceTests: CWATestCase {
 				client: client,
 				appConfiguration: appConfiguration,
 				boosterNotificationsService: BoosterNotificationsService(
-					rulesDownloadService: RulesDownloadService(store: mockStore, client: client)
+					rulesDownloadService: FakeRulesDownloadService()
 				),
 				recycleBin: .fake()
 			),
@@ -198,7 +198,7 @@ class ExposureSubmissionServiceTests: CWATestCase {
 				client: client,
 				appConfiguration: appConfigurationProvider,
 				boosterNotificationsService: BoosterNotificationsService(
-					rulesDownloadService: RulesDownloadService(store: store, client: client)
+					rulesDownloadService: FakeRulesDownloadService()
 				),
 				recycleBin: .fake()
 			),
@@ -270,7 +270,7 @@ class ExposureSubmissionServiceTests: CWATestCase {
 				client: client,
 				appConfiguration: appConfiguration,
 				boosterNotificationsService: BoosterNotificationsService(
-					rulesDownloadService: RulesDownloadService(store: store, client: client)
+					rulesDownloadService: FakeRulesDownloadService()
 				),
 				recycleBin: .fake()
 			),
@@ -329,7 +329,7 @@ class ExposureSubmissionServiceTests: CWATestCase {
 				client: client,
 				appConfiguration: appConfiguration,
 				boosterNotificationsService: BoosterNotificationsService(
-					rulesDownloadService: RulesDownloadService(store: store, client: client)
+					rulesDownloadService: FakeRulesDownloadService()
 				),
 				recycleBin: .fake()
 			),
@@ -388,7 +388,7 @@ class ExposureSubmissionServiceTests: CWATestCase {
 				client: client,
 				appConfiguration: appConfigurationProvider,
 				boosterNotificationsService: BoosterNotificationsService(
-					rulesDownloadService: RulesDownloadService(store: store, client: client)
+					rulesDownloadService: FakeRulesDownloadService()
 				),
 				recycleBin: .fake()
 			),
@@ -449,7 +449,7 @@ class ExposureSubmissionServiceTests: CWATestCase {
 				client: client,
 				appConfiguration: appConfigurationProvider,
 				boosterNotificationsService: BoosterNotificationsService(
-					rulesDownloadService: RulesDownloadService(store: store, client: client)
+					rulesDownloadService: FakeRulesDownloadService()
 				),
 				recycleBin: .fake()
 			),
@@ -507,7 +507,7 @@ class ExposureSubmissionServiceTests: CWATestCase {
 				client: client,
 				appConfiguration: appConfigurationProvider,
 				boosterNotificationsService: BoosterNotificationsService(
-					rulesDownloadService: RulesDownloadService(store: store, client: client)
+					rulesDownloadService: FakeRulesDownloadService()
 				),
 				recycleBin: .fake()
 			),
@@ -572,7 +572,7 @@ class ExposureSubmissionServiceTests: CWATestCase {
 				client: client,
 				appConfiguration: appConfigurationProvider,
 				boosterNotificationsService: BoosterNotificationsService(
-					rulesDownloadService: RulesDownloadService(store: store, client: client)
+					rulesDownloadService: FakeRulesDownloadService()
 				),
 				recycleBin: .fake()
 			),
@@ -637,7 +637,7 @@ class ExposureSubmissionServiceTests: CWATestCase {
 				client: client,
 				appConfiguration: appConfigurationProvider,
 				boosterNotificationsService: BoosterNotificationsService(
-					rulesDownloadService: RulesDownloadService(store: store, client: client)
+					rulesDownloadService: FakeRulesDownloadService()
 				),
 				recycleBin: .fake()
 			),
@@ -698,7 +698,7 @@ class ExposureSubmissionServiceTests: CWATestCase {
 				client: client,
 				appConfiguration: appConfigurationProvider,
 				boosterNotificationsService: BoosterNotificationsService(
-					rulesDownloadService: RulesDownloadService(store: store, client: client)
+					rulesDownloadService: FakeRulesDownloadService()
 				),
 				recycleBin: .fake()
 			),
@@ -761,7 +761,7 @@ class ExposureSubmissionServiceTests: CWATestCase {
 				client: client,
 				appConfiguration: appConfigurationProvider,
 				boosterNotificationsService: BoosterNotificationsService(
-					rulesDownloadService: RulesDownloadService(store: store, client: client)
+					rulesDownloadService: FakeRulesDownloadService()
 				),
 				recycleBin: .fake()
 			),
@@ -852,7 +852,7 @@ class ExposureSubmissionServiceTests: CWATestCase {
 				client: client,
 				appConfiguration: appConfigurationProvider,
 				boosterNotificationsService: BoosterNotificationsService(
-					rulesDownloadService: RulesDownloadService(store: store, client: client)
+					rulesDownloadService: FakeRulesDownloadService()
 				),
 				recycleBin: .fake()
 			),
@@ -928,7 +928,7 @@ class ExposureSubmissionServiceTests: CWATestCase {
 					client: client,
 					appConfiguration: appConfiguration,
 					boosterNotificationsService: BoosterNotificationsService(
-						rulesDownloadService: RulesDownloadService(store: store, client: client)
+						rulesDownloadService: FakeRulesDownloadService()
 					),
 					recycleBin: .fake()
 				),
@@ -989,7 +989,7 @@ class ExposureSubmissionServiceTests: CWATestCase {
 					client: client,
 					appConfiguration: appConfiguration,
 					boosterNotificationsService: BoosterNotificationsService(
-						rulesDownloadService: RulesDownloadService(store: store, client: client)
+						rulesDownloadService: FakeRulesDownloadService()
 					),
 					recycleBin: .fake()
 				),
@@ -1054,7 +1054,7 @@ class ExposureSubmissionServiceTests: CWATestCase {
 					client: client,
 					appConfiguration: appConfiguration,
 					boosterNotificationsService: BoosterNotificationsService(
-						rulesDownloadService: RulesDownloadService(store: store, client: client)
+						rulesDownloadService: FakeRulesDownloadService()
 					),
 					recycleBin: .fake()
 				),
@@ -1128,7 +1128,7 @@ class ExposureSubmissionServiceTests: CWATestCase {
 				client: client,
 				appConfiguration: appConfigurationProvider,
 				boosterNotificationsService: BoosterNotificationsService(
-					rulesDownloadService: RulesDownloadService(store: store, client: client)
+					rulesDownloadService: FakeRulesDownloadService()
 				),
 				recycleBin: .fake()
 			),
