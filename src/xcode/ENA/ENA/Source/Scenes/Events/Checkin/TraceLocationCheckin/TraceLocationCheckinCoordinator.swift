@@ -59,12 +59,16 @@ final class TraceLocationCheckinCoordinator {
 			return DismissHandlingNavigationController(
 				rootViewController: infoScreen(
 					hidesCloseButton: true,
-					dismissAction: { [weak self] in
+					dismissAction: { [weak self] animated in
 						guard let self = self else {
 							Log.error("Could not create self reference")
 							return
 						}
-						self.navigationController.pushViewController(self.traceLocationCheckin, animated: true)
+						
+						if animated {
+							self.navigationController.pushViewController(self.traceLocationCheckin, animated: true)
+						}
+
 						// Set CertificateViewController as the only controller on the navigation stack to avoid back gesture etc.
 						self.navigationController.setViewControllers([self.traceLocationCheckin], animated: false)
 						
@@ -98,7 +102,8 @@ final class TraceLocationCheckinCoordinator {
 	
 	private func infoScreen(
 		hidesCloseButton: Bool = false,
-		dismissAction: @escaping (() -> Void),
+		dismissAction: @escaping (_ animated: Bool) -> Void,
+		onDemand: Bool = false,
 		showDetail: @escaping ((UIViewController) -> Void)
 	) -> UIViewController {
 		
@@ -115,8 +120,10 @@ final class TraceLocationCheckinCoordinator {
 				},
 				hidesCloseButton: hidesCloseButton
 			),
-			onDismiss: {
-				dismissAction()
+			store: store,
+			onDemand: onDemand,
+			onDismiss: { animated in
+				dismissAction(animated)
 			}
 		)
 		
