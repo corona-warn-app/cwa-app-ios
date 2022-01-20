@@ -65,11 +65,7 @@ struct DCCRulesResource: Resource {
 		case .missingData, .packageCreation:
 			return .RULE_JSON_ARCHIVE_FILE_MISSING(ruleType)
 		case .decoding(let decodingError):
-			if let ruleValidationError = decodingError as? RuleValidationError {
-				return .RULE_DECODING_ERROR(ruleType, ruleValidationError)
-			} else {
-				return .RULE_DECODING_ERROR(ruleType, RuleValidationError.CBOR_DECODING_FAILED(error))
-			}
+			return .RULE_DECODING_ERROR(ruleType, decodingError)
 		case .signatureVerification:
 			return .RULE_JSON_ARCHIVE_SIGNATURE_INVALID(ruleType)
 		case .missingEtag:
@@ -91,7 +87,7 @@ enum DCCDownloadRulesError: LocalizedError, Equatable {
 
 	// MARK: - Internal
 
-	case RULE_DECODING_ERROR(HealthCertificateValidationRuleType, RuleValidationError)
+	case RULE_DECODING_ERROR(HealthCertificateValidationRuleType, ModelDecodingError)
 	case RULE_CLIENT_ERROR(HealthCertificateValidationRuleType)
 	case RULE_JSON_ARCHIVE_ETAG_ERROR(HealthCertificateValidationRuleType)
 	case RULE_JSON_ARCHIVE_FILE_MISSING(HealthCertificateValidationRuleType)
