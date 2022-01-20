@@ -14,6 +14,10 @@ enum LinkHelper {
 		case allow
 	}
 	
+	enum LinkType {
+		case faq
+	}
+
 	@discardableResult
 	static func open(urlString: String) -> Success {
 		if let url = URL(string: urlString) {
@@ -42,6 +46,13 @@ enum LinkHelper {
 		}
 		UIApplication.shared.open(url, options: [:], completionHandler: nil)
 		return .done
+	}
+	
+	static func urlString(suffix: String, type: LinkType) -> String {
+		switch type {
+		case .faq:
+			return AppStrings.Links.appFaqAnchor + suffix
+		}
 	}
 	
 	#if DEBUG
