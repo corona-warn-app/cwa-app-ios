@@ -616,15 +616,9 @@
 
 "ExposureSubmissionQRInfo_header_section_1" = "Извличане на резултат от тест";
 
-"ExposureSubmissionQRInfo_instruction1" = "Сега сканирайте QR кода от Вашия тест, за да получите резултата.";
+"ExposureSubmissionQRInfo_instruction1" = "Можете да сканирате Вашия тест само веднъж. Приложението може да обработва едновременно само един бърз тест и един PCR тест.";
 
-"ExposureSubmissionQRInfo_instruction2" = "Можете да сканирате Вашия тест само веднъж. Приложението може да обработва едновременно само един бърз тест и един PCR тест.";
-
-"ExposureSubmissionQRInfo_instruction2a" = "Ако резултатът от теста Ви е отрицателен, може да го потвърдите с официален COVID сертификат. За целта заявете такъв като следвате стъпките.";
-
-"ExposureSubmissionQRInfo_instruction3" = "В приложението %@ може да се обработват няколко теста едновременно.";
-
-"ExposureSubmissionQRInfo_instruction3_highlightedPhrase" = "не";
+"ExposureSubmissionQRInfo_instruction2" = "Ако резултатът от Вашия тест е отрицателен, може да го потвърдите с официален сертификат за тест за COVID. За да направите това, заявете сертификата като следвате стъпките.";
 
 "ExposureSubmissionQRInfo_header_section_2" = "Моля, помогнете на хората, с които сте имали контакт, като ги предупредите!";
 
@@ -667,15 +661,21 @@
 
 "ExposureSubmissionSuccess_listTitle" = "Моля, не забравяйте:";
 
-"ExposureSubmissionSuccess_listItem0" = "Направете PCR тест, за да потвърдите този резултат от тестa. ";
+"ExposureSubmissionSuccess_PCR_listItem0" = "Има голяма вероятност да сте носител на заразата. Изолирайте се от другите хора.";
 
-"ExposureSubmissionSuccess_listItem1" = "От службата за обществено здравеопазване (Gesundheitsamt) може да се свържат с Вас през следващите няколко дни.";
+"ExposureSubmissionSuccess_PCR_listItem1" = "От службата за обществено здравеопазване (Gesundheitsamt) може да се свържат с Вас през следващите няколко дни.";
 
-"ExposureSubmissionSuccess_listItem2" = "Има голяма вероятност да сте носител на заразата. Изолирайте се от другите хора.";
+"ExposureSubmissionSuccess_PCR_listItem2" = "Ако имате повишен риск от тежко боледуване от COVID-19 потърсете лекарски съвет. Фактори за повишен риск са възраст над 60 години, потисната имунна система, диабет и затлъстяване.";
+
+"ExposureSubmissionSuccess_RAT_listItem0" = "Има голяма вероятност да сте носител на заразата. Изолирайте се от другите хора.";
+
+"ExposureSubmissionSuccess_RAT_listItem1" = "Направете PCR тест, за да потвърдите този резултат от тест.";
+
+"ExposureSubmissionSuccess_RAT_listItem2" = "От службата за обществено здравеопазване (Gesundheitsamt) може да се свържат с Вас през следващите няколко дни.";
 
 "ExposureSubmissionSuccess_listItem2_1" = "Периодът, в който трябва да сте под карантина, обикновено е 10 дни. Наблюдавайте внимателно развитието на Вашите симптоми.";
 
-"ExposureSubmissionSuccess_listItem2_2" = "Службата за обществено здравеопазване ще изиска от Вас да съставите списък на хората, с които сте били в близък контакт (на разстояние под 2 метра или при разговор лице в лице) в продължение на повече от 15 минути през последните два дни, преди да се разболеете. Може да използвате Вашия дневник на контактите – просто експортирайте записите и след това ги разпечатайте или ги изпратете по имейл.";
+"ExposureSubmissionSuccess_listItem2_2" = "Службата за обществено здравеопазване ще изиска от Вас да съставите списък на хората, с които сте били в близък контакт (на разстояние под 2 метра или при разговор лице в лице) в продължение на повече от 10 минути през последните два дни, преди да се разболеете. Може да използвате Вашия дневник на контактите – просто експортирайте записите и след това ги разпечатайте или ги изпратете по имейл.";
 
 "ExposureSubmissionSuccess_listItem2_3" = "Моля, обърнете особено внимание на хората, които няма да бъдат уведомени директно чрез приложението, тъй като нямат смартфон или не са инсталирали приложението.";
 
@@ -1291,13 +1291,17 @@
 
 "Home_Finding_Positive_Card_Note_Title" = "Моля, не забравяйте:";
 
-"Home_Finding_Positive_Card_Verify_Item_Title" = "Направете PCR тест, за да потвърдите този резултат от тест.";
+"Home_Finding_Positive_Card_PCR_Item0" = "Има голяма вероятност да сте носител на заразата. Изолирайте се от другите хора.";
 
-"Home_Finding_Positive_Card_Phone_Item_Title" = "От службата за обществено здравеопазване (Gesundheitsamt) може да се свържат с Вас през следващите няколко дни.";
+"Home_Finding_Positive_Card_PCR_Item1" = "От службата за обществено здравеопазване (Gesundheitsamt) може да се свържат с Вас през следващите няколко дни.";
 
-"Home_Finding_Positive_Card_Home_Item_Title" = "Има голяма вероятност да сте носител на заразата. Изолирайте се от другите хора.";
+"Home_Finding_Positive_Card_PCR_Item2" = "Ако имате повишен риск от тежко боледуване от COVID-19 потърсете лекарски съвет. Фактори за повишен риск са възраст над 60 години, потисната имунна система, диабет и затлъстяване.";
 
-"Home_Finding_Positive_Card_Share_Item_Title" = "Споделете своите случайни ИД кодове, за да предупредите останалите потребители.";
+"Home_Finding_Positive_Card_RAT_Item0" = "Има голяма вероятност да сте носител на заразата. Изолирайте се от другите хора.";
+
+"Home_Finding_Positive_Card_RAT_Item1" = "Направете PCR тест, за да потвърдите този резултат от тест.";
+
+"Home_Finding_Positive_Card_RAT_Item2" = "От службата за обществено здравеопазване (Gesundheitsamt) може да се свържат с Вас през следващите няколко дни.";
 
 "Home_Finding_Positive_Card_Button" = "Предупредете другите";
 
@@ -1327,6 +1331,8 @@
 "Home_MoreCard_AppInformationTitle" = "За приложението";
 
 "Home_MoreCard_FAQTitle" = "ЧЗВ";
+
+"Home_MoreCard_SocialMedia" = "Социална медия";
 
 "Home_MoreCard_ShareTitle" = "Споделяне";
 
@@ -1595,18 +1601,22 @@
 /* New Version Features */
 "NewVersionFeatures_Info_about_abb_information" = "Може да видите промените в тази версия в подраздела „Нови функции“ на информацията за приложението.";
 
-/* Version 2.16 */
-"NewVersionFeature_216_2g_title" = "Доказателство за статус 2G+";
+/* Version 2.17 */
+"NewVersionFeature_217_positiveTest_title" = "Бележки в случай на положителен резултат от тест";
 
-"NewVersionFeature_216_2g_description" = "Ако имате валиден сертификат за ваксинация или сертификат за възстановяване и добавите сертификат за тест в приложението, те всички ще се покажат в комбиниран екран в “Преглед на сертификати”. Може да сменяте QR кодовете на различните сертификати чрез съответните бутони. Всичко QR кодове трябва да се валидират от приложението CovPassCheck, ако се изисква доказателство за статус 2G+.";
+"NewVersionFeature_217_positiveTest_description" = "Бележките и препоръчаните процедури в случай на положителен резултат от тест са ревизирани. ";
 
-"NewVersionFeature_216_negativeTestNotice_title" = "Информация в случай на отрицателен резултат от тест";
+"NewVersionFeature_217_statisticsBoosterVaccination_title" = "Статистики за бустерни дози";
 
-"NewVersionFeature_216_negativeTestNotice_description" = "Ако имате отрицателен резултат от тест сега ще получите допълнителни препоръки в случай, че още проявявате остри симптоми.";
+"NewVersionFeature_217_statisticsBoosterVaccination_description" = "В допълнение към статистиката за хора, които са получили една доза ваксина и хора, които са напълно ваксинирани ще намерите и броя хора, които са получили бустерна доза.";
 
-"NewVersionFeature_216_highRiskNotification_title" = "Известие за повишено ниво на риск";
+"NewVersionFeature_217_linkSocialMedia_title" = "Възка към социалните медии";
 
-"NewVersionFeature_216_highRiskNotification_description" = "Сега ще получите известие, ако сте с повишено ниво на риск от заразяване, дори и приложението да е отворено. Това се прави с цел да предотврати това да не забележите предупреждението в таба \"Статус”, ако в този момент сте отворили друг таб. В допълнение, червена точка ще се появи и ще седи в таб “Статус”, докато не го отоврите отново.";
+"NewVersionFeature_217_linkSocialMedia_description" = "Ако желаете да сте информирани за най-новите развития във връзка с приложението Corona-Warn-App и да ги обсъждате с други, може да ни последвате в социалните медии. Ще намерите връзка към социалните ни медии в началния екран под \"Още\".";
+
+"NewVersionFeature_217_deleteDateRecycleBin_title" = "Дата на изтриване за съдържанието на кошчето";
+
+"NewVersionFeature_217_deleteDateRecycleBin_description" = "Всеки елемент преместен в кошчето се изтрива окончателно след 30 дни. Тази дата на изтриване се показва за всеки елемент.";
 
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Международно регистриране на излаганията";
@@ -1693,17 +1703,23 @@
 
 "TestResultPositive_KeysSubmitted_Title1" = "Моля, не забравяйте:";
 
-"TestResultPositive_KeysSubmitted_Info1" = "Направете PCR тест, за да потвърдите този резултат от тест.";
+"TestResultPositive_KeysSubmitted_PCR_Info1" = "Има голяма вероятност да сте носител на заразата. Изолирайте се от другите хора.";
 
-"TestResultPositive_KeysSubmitted_Info2" = "От службата за обществено здравеопазване (Gesundheitsamt) може да се свържат с Вас през следващите няколко дни.";
+"TestResultPositive_KeysSubmitted_PCR_Info2" = "От службата за обществено здравеопазване (Gesundheitsamt) може да се свържат с Вас през следващите няколко дни.";
 
-"TestResultPositive_KeysSubmitted_Info3" = "Има голяма вероятност да сте носител на заразата. Изолирайте се от другите хора.";
+"TestResultPositive_KeysSubmitted_PCR_Info3" = "Ако имате повишен риск от тежко боледуване от COVID-19 потърсете лекарски съвет. Фактори за повишен риск са възраст над 60 години, потисната имунна система, диабет и затлъстяване.";
+
+"TestResultPositive_KeysSubmitted_RAT_Info1" = "Има голяма вероятност да сте носител на заразата. Изолирайте се от другите хора.";
+
+"TestResultPositive_KeysSubmitted_RAT_Info2" = "Направете PCR тест, за да потвърдите този резултат от тест.";
+
+"TestResultPositive_KeysSubmitted_RAT_Info3" = "От службата за обществено здравеопазване (Gesundheitsamt) може да се свържат с Вас през следващите няколко дни.";
 
 "TestResultPositive_KeysSubmitted_Title2" = "Още информация:";
 
 "TestResultPositive_KeysSubmitted_FurtherInfo1" = "Периодът, в който трябва да сте под карантина, обикновено е 10 дни. Наблюдавайте внимателно развитието на Вашите симптоми.";
 
-"TestResultPositive_KeysSubmitted_FurtherInfo2" = "Службата за обществено здравеопазване ще изиска от Вас да съставите списък на хората, с които сте били в близък контакт (на разстояние под 2 метра или при разговор лице в лице) в продължение на повече от 15 минути през последните два дни, преди да се разболеете. Може да използвате Вашия дневник на контактите – просто експортирайте записите и след това ги разпечатайте или ги изпратете по имейл.";
+"TestResultPositive_KeysSubmitted_FurtherInfo2" = "Службата за обществено здравеопазване ще изиска от Вас да съставите списък на хората, с които сте били в близък контакт (на разстояние под 2 метра или при разговор лице в лице) в продължение на повече от 10 минути през последните два дни, преди да се разболеете. Може да използвате Вашия дневник на контактите – просто експортирайте записите и след това ги разпечатайте или ги изпратете по имейл.";
 
 "TestResultPositive_KeysSubmitted_FurtherInfo3" = "Моля, обърнете особено внимание на хората, които няма да бъдат уведомени директно чрез приложението, тъй като нямат смартфон или не са инсталирали приложението.";
 
@@ -2027,6 +2043,21 @@
 
 "Statistics_Card_FullyVaccinated_SecondarySubtitleLabel" = "от населението";
 
+/* - Booster vaccination card */
+"Statistics_Card_BoosterVaccination_Title" = "Хора, получили бустерни дози";
+
+"Statistics_Card_BoosterVaccination_Today" = "До днес";
+
+"Statistics_Card_BoosterVaccination_Yesterday" = "До вчера";
+
+"Statistics_Card_BoosterVaccination_Date" = "До %@";
+
+"Statistics_Card_BoosterVaccination_SecondaryLabelTitle" = "от населението";
+
+"Statistics_Card_BoosterVaccination_TertiaryLabelTitle" = "Общо";
+
+"Statistics_Card_BoosterVaccination_SecondarySubtitleLabel" = "от населението";
+
 /* - Applied vaccination dose rates card */
 "Statistics_Card_AppliedDoseRates_Title" = "Поставени дози ваксини";
 
@@ -2095,7 +2126,11 @@
 
 "Statistics_Info_FullyVaccinated_Title" = "Напълно ваксинирани лица";
 
-"Statistics_Info_FullyVaccinated_Text" = "Брой на лицата, за които има предадени данни в института „Роберт Кох“, че са получили всички необходими дози ваксини.";
+"Statistics_Info_FullyVaccinated_Text" = "Брой на лицата, за които има предадени данни в института „Роберт Кох“, че са получили всички необходими дози ваксини за основна имунизация.";
+
+"Statistics_Info_BoosterVaccination_Title" = "Хора, получили бустерни дози";
+
+"Statistics_Info_BoosterVaccination_Text" = "Брой на лицата, за които има предадени данни в института „Роберт Кох“, че са получили бустерни дози ваксини.";
 
 "Statistics_Info_DosesAdministered_Title" = "Поставени дози ваксини";
 
@@ -3276,6 +3311,8 @@
 "RecycleBin_description" = "Докоснете елемент, за да го възстановите. Елементите се изтриват автоматично след 30 дни.";
 
 "RecycleBin_deleteAllButtonTitle" = "Изтриване на всички за постоянно";
+
+"RecycleBin_expirationDateTime" = "Ще бъде окончателно изтрито%@ на %@";
 
 /* - Vaccination Certificate */
 "RecycleBin_VaccinationCertificate_headline" = "Сертификат за ваксинация";
