@@ -15,12 +15,14 @@ class HealthCertifiedPerson: Codable, Equatable, Comparable {
 		healthCertificates: [HealthCertificate],
 		isPreferredPerson: Bool = false,
 		boosterRule: Rule? = nil,
-		isNewBoosterRule: Bool = false
+		isNewBoosterRule: Bool = false,
+		dccWalletInfo: DCCWalletInfo? = nil
 	) {
 		self.healthCertificates = healthCertificates
 		self.isPreferredPerson = isPreferredPerson
 		self.boosterRule = boosterRule
 		self.isNewBoosterRule = isNewBoosterRule
+		self.dccWalletInfo = dccWalletInfo
 
 		setup()
 	}
@@ -33,6 +35,7 @@ class HealthCertifiedPerson: Codable, Equatable, Comparable {
 		case isPreferredPerson
 		case boosterRule
 		case isNewBoosterRule
+		case dccWalletInfo
 	}
 
 	required init(from decoder: Decoder) throws {
@@ -43,6 +46,7 @@ class HealthCertifiedPerson: Codable, Equatable, Comparable {
 		isPreferredPerson = try container.decodeIfPresent(Bool.self, forKey: .isPreferredPerson) ?? false
 		boosterRule = try container.decodeIfPresent(Rule.self, forKey: .boosterRule)
 		isNewBoosterRule = try container.decodeIfPresent(Bool.self, forKey: .isNewBoosterRule) ?? false
+		dccWalletInfo = try container.decodeIfPresent(DCCWalletInfo.self, forKey: .dccWalletInfo)
 
 		let decodingContainers = try container.decode([HealthCertificateDecodingContainer].self, forKey: .healthCertificates)
 
@@ -87,6 +91,7 @@ class HealthCertifiedPerson: Codable, Equatable, Comparable {
 		try container.encode(isPreferredPerson, forKey: .isPreferredPerson)
 		try container.encode(boosterRule, forKey: .boosterRule)
 		try container.encode(isNewBoosterRule, forKey: .isNewBoosterRule)
+		try container.encode(dccWalletInfo, forKey: .dccWalletInfo)
 	}
 
 	// MARK: - Protocol Equatable
@@ -95,7 +100,8 @@ class HealthCertifiedPerson: Codable, Equatable, Comparable {
 		lhs.healthCertificates == rhs.healthCertificates &&
 		lhs.isPreferredPerson == rhs.isPreferredPerson &&
 		lhs.boosterRule == rhs.boosterRule &&
-		lhs.isNewBoosterRule == rhs.isNewBoosterRule
+		lhs.isNewBoosterRule == rhs.isNewBoosterRule &&
+		lhs.dccWalletInfo == rhs.dccWalletInfo
 	}
 
 	// MARK: - Protocol Comparable
@@ -177,6 +183,18 @@ class HealthCertifiedPerson: Codable, Equatable, Comparable {
 	}
 
 	@DidSetPublished var gradientType: GradientView.GradientType = .lightBlue
+
+	@DidSetPublished var dccWalletInfo: DCCWalletInfo? {
+		didSet {
+			if dccWalletInfo?.boosterNotification.identifier != oldValue?.boosterNotification.identifier {
+				isNewBoosterRule = boosterRule != nil
+			}
+
+			if dccWalletInfo != oldValue {
+				objectDidChange.send(self)
+			}
+		}
+	}
 
 	@DidSetPublished var boosterRule: Rule? {
 		didSet {
