@@ -78,6 +78,41 @@ class ResrServiceProviderTests: XCTestCase {
 		}
 	}
 
+	func testGIVEN_CacheWithoutResourceData_WHEN_getCachedModelButServiceTypeIsWrong_THEN_MissingCache() throws {
+		// GIVEN
+		let eTag = "DummyDataETag"
+		let locator: Locator = .fake()
+		let resource = ResourceFake(locator: locator)
+
+		// Cache with cachedDummyData
+		let cache = KeyValueCacheFake()
+
+		// response with dummyData
+		let stack = MockNetworkStack(
+			httpStatus: 200,
+			headerFields: [
+				"ETag": eTag
+			]
+		)
+
+		// create a cache with cachedDummyData
+		let serviceProvider = RestServiceProvider(
+			session: stack.urlSession,
+			cache: cache
+		)
+
+		// WHEN missingCache error is given
+		serviceProvider.cached(resource) { result in
+			guard case let .failure(serviceError) = result,
+				  case let .resourceError(resourceError) = serviceError,
+				  case .missingCache = resourceError else {
+					  XCTFail("failure expected")
+					  return
+				  }
+		}
+	}
+
+
 
 	// MARK: - Helpers
 
