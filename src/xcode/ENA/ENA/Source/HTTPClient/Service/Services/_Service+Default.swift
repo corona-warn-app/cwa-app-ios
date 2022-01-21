@@ -105,14 +105,14 @@ extension Service {
 				// The codes here are in sync with the one in hasStatusCodeCachePolicy in the CachedRestService - do always sync them!
 				switch response.statusCode {
 				case 200, 201:
-					decodeModel(resource, bodyData, response, completion)
+					decodeModel(resource, bodyData, response.allHeaderFields, false, completion)
 				case 204:
 					guard resource.receiveResource is EmptyReceiveResource else {
 						Log.error("This is not an EmptyReceiveResource", log: .client)
 						failureOrDefaultValueHandling(resource, .invalidResponse, completion)
 						return
 					}
-					decodeModel(resource, bodyData, response, completion)
+					decodeModel(resource, bodyData, response.allHeaderFields, false, completion)
 				case 304:
 					cached(resource, completion)
 				default:
@@ -125,10 +125,11 @@ extension Service {
 	func decodeModel<R>(
 		_ resource: R,
 		_ bodyData: Data?,
-		_ response: HTTPURLResponse?,
+		_ headers: [AnyHashable: Any],
+		_ isCachedData: Bool,
 		_ completion: @escaping (Result<R.Receive.ReceiveModel, ServiceError<R.CustomError>>) -> Void
 	) where R: Resource {
-		switch resource.receiveResource.decode(bodyData, headers: response?.allHeaderFields ?? [:]) {
+		switch resource.receiveResource.decode(bodyData, headers: headers) {
 		case .success(let model):
 			completion(.success(model))
 		case .failure(let resourceError):
@@ -167,7 +168,7 @@ extension Service {
 	
 	// MARK: - Internal
 	
-	/// Before returning the originial error, we look up in the resource if there is some customized error cases.
+	/// Before returning the original error, we look up in the resource if there is some customized error cases.
 	///
 	/// - Parameters:
 	///   - resource: Generic ("R") object and normally of type ReceiveResource.

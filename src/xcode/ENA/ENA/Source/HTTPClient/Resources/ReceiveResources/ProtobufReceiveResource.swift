@@ -16,7 +16,7 @@ struct ProtobufReceiveResource<R>: ReceiveResource where R: SwiftProtobuf.Messag
 	// MARK: - Init
 	
 	init(
-		signatureVerifier: SignatureVerifier = SignatureVerifier()
+		signatureVerifier: SignatureVerification = SignatureVerifier()
 	) {
 		self.signatureVerifier = signatureVerifier
 	}
@@ -40,12 +40,12 @@ struct ProtobufReceiveResource<R>: ReceiveResource where R: SwiftProtobuf.Messag
 			let model = try R(serializedData: package.bin)
 			return Result.success(model)
 		} catch {
-			return Result.failure(.decoding)
+			return Result.failure(.decoding(.PROTOBUF_DECODING(error)))
 		}
 	}
 
 	// MARK: - Private
 
-	private let signatureVerifier: SignatureVerifier
+	private let signatureVerifier: SignatureVerification
 
 }
