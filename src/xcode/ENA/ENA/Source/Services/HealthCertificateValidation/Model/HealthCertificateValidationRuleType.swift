@@ -1,10 +1,10 @@
-////
+///
 // 🦠 Corona-Warn-App
 //
 
 import Foundation
 
-enum HealthCertificateValidationRuleType {
+enum HealthCertificateValidationRuleType: CaseIterable {
 	case acceptance
 	case invalidation
 	case boosterNotification

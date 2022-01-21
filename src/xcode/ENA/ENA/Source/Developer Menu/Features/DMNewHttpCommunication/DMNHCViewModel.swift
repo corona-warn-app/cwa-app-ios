@@ -6,6 +6,7 @@
 
 import Foundation
 import UIKit
+import CertLogic
 
 final class DMNHCViewModel {
 
@@ -41,6 +42,16 @@ final class DMNHCViewModel {
 		}
 
 		switch section {
+		case .dccRules:
+			return DMButtonCellViewModel(
+				text: "dccRules",
+				textColor: .white,
+				backgroundColor: .enaColor(for: .buttonPrimary),
+				action: { [weak self] in
+					self?.showDCCRulesSheetAndSubmit()
+				}
+			)
+
 		case .appConfig:
 			return DMButtonCellViewModel(
 				text: "appConfig",
@@ -57,7 +68,7 @@ final class DMNHCViewModel {
 					}
 				}
 			)
-		case .otpEdusAuthorization:
+		case .validationOnboardedCountries:
 			return DMButtonCellViewModel(
 				text: "validationOnboardedCountries",
 				textColor: .white,
@@ -65,10 +76,10 @@ final class DMNHCViewModel {
 				action: { [weak self] in
 					self?.restService.load(ValidationOnboardedCountriesResource()) { result in
 						switch result {
-						case .success:
-							Log.info("New HTTP Call for validationOnboardedCountries successful")
-						case .failure:
-							Log.error("New HTTP Call for validationOnboardedCountries failed")
+						case let .success(countriesModel):
+							Log.info("New HTTP Call for validationOnboardedCountries successful. Countries: \(countriesModel.countries)")
+						case let .failure(error):
+							Log.error("New HTTP Call for validationOnboardedCountries failed with error: \(error)")
 						}
 					}
 				}
@@ -85,19 +96,53 @@ final class DMNHCViewModel {
 				}
 			)
 		}
-
 	}
 
 	// MARK: - Private
 
 	private enum TableViewSections: Int, CaseIterable {
+		case dccRules
 		case appConfig
-		case otpEdusAuthorization
+		case validationOnboardedCountries
 		case registerTeleTAN
 	}
 
 	private let store: Store
 	private let restService: RestServiceProviding
+
+	private func showDCCRulesSheetAndSubmit() {
+		let sheet = UIAlertController(title: "Type", message: "select ruletype", preferredStyle: .actionSheet)
+		HealthCertificateValidationRuleType.allCases.forEach { ruleType in
+			sheet.addAction(
+				UIAlertAction(
+					title: ruleType.urlPath,
+					style: .default,
+					handler: { [weak self] _ in
+						Log.info("Did select \(ruleType.urlPath)")
+						self?.performDccRulesRequest(ruleType)
+					}
+				)
+			)
+		}
+		sheet.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+		DispatchQueue.main.async { [weak self] in
+			self?.viewController?.present(sheet, animated: true)
+		}
+
+	}
+
+	private func performDccRulesRequest(_ ruleType: HealthCertificateValidationRuleType) {
+		let resource = DCCRulesResource(isFake: false, ruleType: ruleType)
+		restService.load(resource) { result in
+			switch result {
+			case .success:
+				Log.info("New HTTP Call for dccRule \(ruleType.urlPath) successful")
+			case .failure:
+				Log.error("New HTTP Call for dccRule \(ruleType.urlPath) failed")
+			}
+		}
+
+	}
 
 	private func showAskTANAlertAndSubmit() {
 		let alert = UIAlertController(title: "TELETAN", message: "Please enter TeleTAN", preferredStyle: .alert)

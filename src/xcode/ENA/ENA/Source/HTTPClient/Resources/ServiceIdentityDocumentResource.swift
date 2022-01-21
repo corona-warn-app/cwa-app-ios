@@ -4,15 +4,6 @@
 
 import Foundation
 
-enum ServiceIdentityDocumentResourceError: Error {
-	case VS_ID_PARSE_ERR
-	case VS_ID_NO_NETWORK
-	case VS_ID_CLIENT_ERR
-	case VS_ID_SERVER_ERR
-	case VS_ID_CERT_PIN_MISMATCH
-	case VS_ID_CERT_PIN_HOST_MISMATCH
-}
-
 struct ServiceIdentityDocumentResource: Resource {
 
 	// MARK: - Init
@@ -66,4 +57,13 @@ struct ServiceIdentityDocumentResource: Resource {
 			return nil
 		}
 	}
+}
+
+enum ServiceIdentityDocumentResourceError: Error {
+	case VS_ID_PARSE_ERR
+	case VS_ID_NO_NETWORK
+	case VS_ID_CLIENT_ERR
+	case VS_ID_SERVER_ERR
+	case VS_ID_CERT_PIN_MISMATCH
+	case VS_ID_CERT_PIN_HOST_MISMATCH
 }

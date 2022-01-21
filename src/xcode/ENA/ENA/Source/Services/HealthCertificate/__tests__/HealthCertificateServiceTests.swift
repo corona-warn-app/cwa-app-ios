@@ -22,7 +22,7 @@ class HealthCertificateServiceTests: CWATestCase {
 			client: client,
 			appConfiguration: CachedAppConfigurationMock(),
 			boosterNotificationsService: BoosterNotificationsService(
-				rulesDownloadService: RulesDownloadService(store: store, client: client)
+				rulesDownloadService: FakeRulesDownloadService()
 			),
 			recycleBin: .fake()
 		)
@@ -105,7 +105,7 @@ class HealthCertificateServiceTests: CWATestCase {
 			client: client,
 			appConfiguration: CachedAppConfigurationMock(),
 			boosterNotificationsService: BoosterNotificationsService(
-				rulesDownloadService: RulesDownloadService(store: store, client: client)
+				rulesDownloadService: FakeRulesDownloadService()
 			),
 			recycleBin: .fake()
 		)
@@ -135,7 +135,7 @@ class HealthCertificateServiceTests: CWATestCase {
 			client: client,
 			appConfiguration: CachedAppConfigurationMock(),
 			boosterNotificationsService: BoosterNotificationsService(
-				rulesDownloadService: RulesDownloadService(store: store, client: client)
+				rulesDownloadService: FakeRulesDownloadService()
 			),
 			recycleBin: .fake()
 		)
@@ -192,7 +192,7 @@ class HealthCertificateServiceTests: CWATestCase {
 			client: client,
 			appConfiguration: appConfigProvider,
 			boosterNotificationsService: BoosterNotificationsService(
-				rulesDownloadService: RulesDownloadService(store: store, client: client)
+				rulesDownloadService: FakeRulesDownloadService()
 			),
 			recycleBin: .fake()
 		)
@@ -517,7 +517,7 @@ class HealthCertificateServiceTests: CWATestCase {
 			client: client,
 			appConfiguration: CachedAppConfigurationMock(),
 			boosterNotificationsService: BoosterNotificationsService(
-				rulesDownloadService: RulesDownloadService(store: store, client: client)
+				rulesDownloadService: FakeRulesDownloadService()
 			),
 			recycleBin: .fake()
 		)
@@ -621,7 +621,7 @@ class HealthCertificateServiceTests: CWATestCase {
 			client: client,
 			appConfiguration: CachedAppConfigurationMock(),
 			boosterNotificationsService: BoosterNotificationsService(
-				rulesDownloadService: RulesDownloadService(store: store, client: client)
+				rulesDownloadService: FakeRulesDownloadService()
 			),
 			recycleBin: recycleBin
 		)
@@ -700,7 +700,7 @@ class HealthCertificateServiceTests: CWATestCase {
 			client: client,
 			appConfiguration: cachedAppConfig,
 			boosterNotificationsService: BoosterNotificationsService(
-				rulesDownloadService: RulesDownloadService(store: store, client: client)
+				rulesDownloadService: FakeRulesDownloadService()
 			),
 			recycleBin: .fake()
 		)
@@ -748,7 +748,7 @@ class HealthCertificateServiceTests: CWATestCase {
 			client: client,
 			appConfiguration: CachedAppConfigurationMock(),
 			boosterNotificationsService: BoosterNotificationsService(
-				rulesDownloadService: RulesDownloadService(store: store, client: client)
+				rulesDownloadService: FakeRulesDownloadService()
 			),
 			recycleBin: .fake()
 		)
@@ -800,7 +800,7 @@ class HealthCertificateServiceTests: CWATestCase {
 			client: client,
 			appConfiguration: CachedAppConfigurationMock(),
 			boosterNotificationsService: BoosterNotificationsService(
-				rulesDownloadService: RulesDownloadService(store: store, client: client)
+				rulesDownloadService: FakeRulesDownloadService()
 			),
 			recycleBin: .fake()
 		)
@@ -852,7 +852,7 @@ class HealthCertificateServiceTests: CWATestCase {
 			client: client,
 			appConfiguration: CachedAppConfigurationMock(),
 			boosterNotificationsService: BoosterNotificationsService(
-				rulesDownloadService: RulesDownloadService(store: store, client: client)
+				rulesDownloadService: FakeRulesDownloadService()
 			),
 			recycleBin: .fake()
 		)
@@ -917,7 +917,7 @@ class HealthCertificateServiceTests: CWATestCase {
 			client: client,
 			appConfiguration: cachedAppConfig,
 			boosterNotificationsService: BoosterNotificationsService(
-				rulesDownloadService: RulesDownloadService(store: store, client: client)
+				rulesDownloadService: FakeRulesDownloadService()
 			),
 			recycleBin: .fake()
 		)
@@ -976,7 +976,7 @@ class HealthCertificateServiceTests: CWATestCase {
 			client: client,
 			appConfiguration: cachedAppConfig,
 			boosterNotificationsService: BoosterNotificationsService(
-				rulesDownloadService: RulesDownloadService(store: store, client: client)
+				rulesDownloadService: FakeRulesDownloadService()
 			),
 			recycleBin: .fake()
 		)
@@ -1031,7 +1031,7 @@ class HealthCertificateServiceTests: CWATestCase {
 			appConfiguration: appConfig,
 			digitalCovidCertificateAccess: digitalCovidCertificateAccess,
 			boosterNotificationsService: BoosterNotificationsService(
-				rulesDownloadService: RulesDownloadService(store: store, client: client)
+				rulesDownloadService: FakeRulesDownloadService()
 			),
 			recycleBin: .fake()
 		)
@@ -1140,7 +1140,7 @@ class HealthCertificateServiceTests: CWATestCase {
 			appConfiguration: appConfig,
 			digitalCovidCertificateAccess: digitalCovidCertificateAccess,
 			boosterNotificationsService: BoosterNotificationsService(
-				rulesDownloadService: RulesDownloadService(store: store, client: client)
+				rulesDownloadService: FakeRulesDownloadService()
 			),
 			recycleBin: .fake()
 		)
@@ -1230,7 +1230,7 @@ class HealthCertificateServiceTests: CWATestCase {
 			appConfiguration: appConfig,
 			digitalCovidCertificateAccess: digitalCovidCertificateAccess,
 			boosterNotificationsService: BoosterNotificationsService(
-				rulesDownloadService: RulesDownloadService(store: store, client: client)
+				rulesDownloadService: FakeRulesDownloadService()
 			),
 			recycleBin: .fake()
 		)
@@ -1322,7 +1322,7 @@ class HealthCertificateServiceTests: CWATestCase {
 			appConfiguration: appConfig,
 			digitalCovidCertificateAccess: digitalCovidCertificateAccess,
 			boosterNotificationsService: BoosterNotificationsService(
-				rulesDownloadService: RulesDownloadService(store: store, client: client)
+				rulesDownloadService: FakeRulesDownloadService()
 			),
 			recycleBin: .fake()
 		)
@@ -1399,7 +1399,7 @@ class HealthCertificateServiceTests: CWATestCase {
 			appConfiguration: CachedAppConfigurationMock(),
 			digitalCovidCertificateAccess: MockDigitalCovidCertificateAccess(),
 			boosterNotificationsService: BoosterNotificationsService(
-				rulesDownloadService: RulesDownloadService(store: store, client: client)
+				rulesDownloadService: FakeRulesDownloadService()
 			),
 			recycleBin: .fake()
 		)
@@ -1472,6 +1472,8 @@ class HealthCertificateServiceTests: CWATestCase {
 		var digitalCovidCertificateAccess = MockDigitalCovidCertificateAccess()
 		digitalCovidCertificateAccess.convertedToBase45 = .success(base45TestCertificate)
 
+		let restServiceFake = FakeRulesDownloadService()
+		
 		let service = HealthCertificateService(
 			store: store,
 			dccSignatureVerifier: DCCSignatureVerifyingStub(),
@@ -1480,7 +1482,7 @@ class HealthCertificateServiceTests: CWATestCase {
 			appConfiguration: appConfig,
 			digitalCovidCertificateAccess: digitalCovidCertificateAccess,
 			boosterNotificationsService: BoosterNotificationsService(
-				rulesDownloadService: RulesDownloadService(store: store, client: client)
+				rulesDownloadService: restServiceFake
 			),
 			recycleBin: .fake()
 		)
@@ -1555,7 +1557,7 @@ class HealthCertificateServiceTests: CWATestCase {
 			client: client,
 			appConfiguration: appConfig,
 			boosterNotificationsService: BoosterNotificationsService(
-				rulesDownloadService: RulesDownloadService(store: store, client: client)
+				rulesDownloadService: FakeRulesDownloadService()
 			),
 			recycleBin: .fake()
 		)
@@ -1615,7 +1617,7 @@ class HealthCertificateServiceTests: CWATestCase {
 			client: client,
 			appConfiguration: CachedAppConfigurationMock(),
 			boosterNotificationsService: BoosterNotificationsService(
-				rulesDownloadService: RulesDownloadService(store: store, client: client)
+				rulesDownloadService: FakeRulesDownloadService()
 			),
 			recycleBin: .fake()
 		)
@@ -1674,7 +1676,7 @@ class HealthCertificateServiceTests: CWATestCase {
 			client: client,
 			appConfiguration: CachedAppConfigurationMock(),
 			boosterNotificationsService: BoosterNotificationsService(
-				rulesDownloadService: RulesDownloadService(store: store, client: client)
+				rulesDownloadService: FakeRulesDownloadService()
 			),
 			recycleBin: .fake()
 		)
@@ -1737,7 +1739,7 @@ class HealthCertificateServiceTests: CWATestCase {
 			appConfiguration: CachedAppConfigurationMock(),
 			digitalCovidCertificateAccess: digitalCovidCertificateAccess,
 			boosterNotificationsService: BoosterNotificationsService(
-				rulesDownloadService: RulesDownloadService(store: store, client: client)
+				rulesDownloadService: FakeRulesDownloadService()
 			),
 			recycleBin: .fake()
 		)
@@ -1768,9 +1770,6 @@ class HealthCertificateServiceTests: CWATestCase {
 	}
 
 	func testTestCertificateExecution_PCRAndNoLabId_dgcNotSupportedByLabErrorReturned() {
-		let store = MockTestStore()
-		let client = ClientMock()
-		
 		let service = HealthCertificateService(
 			store: MockTestStore(),
 			dccSignatureVerifier: DCCSignatureVerifyingStub(),
@@ -1779,7 +1778,7 @@ class HealthCertificateServiceTests: CWATestCase {
 			appConfiguration: CachedAppConfigurationMock(),
 			digitalCovidCertificateAccess: MockDigitalCovidCertificateAccess(),
 			boosterNotificationsService: BoosterNotificationsService(
-				rulesDownloadService: RulesDownloadService(store: store, client: client)
+				rulesDownloadService: FakeRulesDownloadService()
 			),
 			recycleBin: .fake()
 		)
@@ -1843,7 +1842,7 @@ class HealthCertificateServiceTests: CWATestCase {
 			appConfiguration: appConfig,
 			digitalCovidCertificateAccess: digitalCovidCertificateAccess,
 			boosterNotificationsService: BoosterNotificationsService(
-				rulesDownloadService: RulesDownloadService(store: store, client: client)
+				rulesDownloadService: FakeRulesDownloadService()
 			),
 			recycleBin: .fake()
 		)
@@ -1933,7 +1932,7 @@ class HealthCertificateServiceTests: CWATestCase {
 			appConfiguration: appConfig,
 			digitalCovidCertificateAccess: digitalCovidCertificateAccess,
 			boosterNotificationsService: BoosterNotificationsService(
-				rulesDownloadService: RulesDownloadService(store: store, client: client)
+				rulesDownloadService: FakeRulesDownloadService()
 			),
 			recycleBin: .fake()
 		)
@@ -1982,7 +1981,7 @@ class HealthCertificateServiceTests: CWATestCase {
 			digitalCovidCertificateAccess: MockDigitalCovidCertificateAccess(),
 			notificationCenter: notificationCenter,
 			boosterNotificationsService: BoosterNotificationsService(
-				rulesDownloadService: RulesDownloadService(store: store, client: client)
+				rulesDownloadService: FakeRulesDownloadService()
 			),
 			recycleBin: .fake()
 		)
@@ -2078,7 +2077,7 @@ class HealthCertificateServiceTests: CWATestCase {
 			digitalCovidCertificateAccess: MockDigitalCovidCertificateAccess(),
 			notificationCenter: notificationCenter,
 			boosterNotificationsService: BoosterNotificationsService(
-				rulesDownloadService: RulesDownloadService(store: store, client: client)
+				rulesDownloadService: FakeRulesDownloadService()
 			),
 			recycleBin: .fake()
 		)
@@ -2101,7 +2100,7 @@ class HealthCertificateServiceTests: CWATestCase {
 			client: client,
 			appConfiguration: CachedAppConfigurationMock(),
 			boosterNotificationsService: BoosterNotificationsService(
-				rulesDownloadService: RulesDownloadService(store: store, client: client)
+				rulesDownloadService: FakeRulesDownloadService()
 			),
 			recycleBin: .fake()
 		)
@@ -2239,7 +2238,7 @@ class HealthCertificateServiceTests: CWATestCase {
 			)
 		]
 
-		let boosterNotificationsService = FakeBoosterNotificationsService(result: .failure(.CERTIFICATE_VALIDATION_ERROR(.RULE_SERVER_ERROR(.boosterNotification))))
+		let boosterNotificationsService = FakeBoosterNotificationsService(result: .failure(.CERTIFICATE_VALIDATION_ERROR(.downloadRulesError(.RULE_SERVER_ERROR(.boosterNotification)))))
 
 		let service = HealthCertificateService(
 			store: store,
@@ -2270,7 +2269,7 @@ class HealthCertificateServiceTests: CWATestCase {
 			)
 		]
 
-		let boosterNotificationsService = FakeBoosterNotificationsService(result: .failure(.CERTIFICATE_VALIDATION_ERROR(.NO_NETWORK)))
+		let boosterNotificationsService = FakeBoosterNotificationsService(result: .failure(.CERTIFICATE_VALIDATION_ERROR(.downloadRulesError(.NO_NETWORK))))
 
 		let service = HealthCertificateService(
 			store: store,

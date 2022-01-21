@@ -254,8 +254,7 @@ class HomeCoordinator: RequiresAppDependencies {
 
 	private lazy var healthCertificateValidationOnboardedCountriesProvider: HealthCertificateValidationOnboardedCountriesProvider = {
 		return HealthCertificateValidationOnboardedCountriesProvider(
-			store: store,
-			client: client
+			restService: restServiceProvider
 		)
 	}()
 
