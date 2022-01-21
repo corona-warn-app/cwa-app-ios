@@ -31,7 +31,7 @@ final class TicketValidationDecoratorIdentityDocumentProcessor {
 			completion(.failure(.VD_ID_NO_ATS))
 			return
 		}
-		Log.debug("accessTokenService: \(accessTokenService)", log: .ticketValidationDecorator)
+		Log.debug("accessTokenService: \(private: accessTokenService)", log: .ticketValidationDecorator)
 		
 		// 4 - Find accessTokenSignJwkSet
 		let matchedAccessSignMethods = serviceIdentityDocument.verificationMethod.filter({
@@ -73,7 +73,7 @@ final class TicketValidationDecoratorIdentityDocumentProcessor {
 			completion(.failure(.VD_ID_NO_VS))
 			return
 		}
-		Log.debug("\(validationService)", log: .ticketValidationDecorator)
+		Log.debug("validationService: \(private: validationService)", log: .ticketValidationDecorator)
 		
 		// 7 - Find validationServiceJwkSet
 		let matchedValidationServiceMethods = serviceIdentityDocument.verificationMethod.filter({
