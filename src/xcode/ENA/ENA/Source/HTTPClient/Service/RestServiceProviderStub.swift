@@ -62,7 +62,14 @@ class RestServiceProviderStub: RestServiceProviding {
 		} else {
 			fallBackToDefaultMockLoadResource(resource: resource, completion: completion)
 		}
+	}
 
+	func cached<R>(
+		_ resource: R,
+		_ completion: @escaping (Result<R.Receive.ReceiveModel, ServiceError<R.CustomError>>) -> Void
+	) where R: Resource {
+		Log.info("Stub doesn't support cached model access at the moment")
+		completion(.failure(.resourceError(.missingCache)))
 	}
 
 	func update(_ evaluateTrust: EvaluateTrust) {
