@@ -5,7 +5,7 @@
 import XCTest
 @testable import ENA
 
-class ResrServiceProviderTests: XCTestCase {
+class RestServiceProviderTests: XCTestCase {
 
 	func testGIVEN_CacheWithResourceData_WHEN_getCachedModel_THEN_ModelGetsReturned() throws {
 		// GIVEN
