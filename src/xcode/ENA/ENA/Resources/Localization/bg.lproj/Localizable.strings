@@ -1,6 +1,9 @@
-/* Hints */
-/* Use a non-breaking space (OPTION + SPACE) to avoid line breaks. */
-/* Write \"z. B.\" always with a non-breaking space (OPTION + SPACE). */
+/*
+  Hints
+  Use a non-breaking space (OPTION + SPACE) to avoid line breaks.
+  Write \"z. B.\" always with a non-breaking space (OPTION + SPACE).
+*/
+
 /* General */
 "Alert_TitleGeneral" = "Възникна грешка.";
 
