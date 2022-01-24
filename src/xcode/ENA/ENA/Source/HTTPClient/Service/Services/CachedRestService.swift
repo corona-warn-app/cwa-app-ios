@@ -64,7 +64,18 @@ class CachedRestService: Service {
 				Log.info("Fetched new cached data and wrote them to the cache", log: .client)
 			}
 			
-			return .success(model)
+			if isCachedData,
+			   var modelWithCache = model as? ModelWithCaching {
+				modelWithCache.isCached = true
+				// We need that cast back for the compiler.
+				if let originalModelTypeWithCache = modelWithCache as? R.Receive.ReceiveModel {
+					return .success(originalModelTypeWithCache)
+				} else {
+					return .success(model)
+				}
+			} else {
+				return .success(model)
+			}
 			
 		case .failure(let error):
 			Log.error("Decoding for receive resource failed.", log: .client, error: error)
