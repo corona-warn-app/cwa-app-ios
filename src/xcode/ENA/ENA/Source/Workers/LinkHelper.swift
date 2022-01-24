@@ -14,6 +14,16 @@ enum LinkHelper {
 		case allow
 	}
 	
+	enum LinkType {
+		case faq
+	}
+
+	enum Links {
+		// hard coded in order to make them testable with unit tests
+		static let appFaqAnchorDE = "https://www.coronawarn.app/de/faq/#"
+		static let appFaqAnchorEN = "https://www.coronawarn.app/en/faq/#"
+	}
+
 	@discardableResult
 	static func open(urlString: String) -> Success {
 		if let url = URL(string: urlString) {
@@ -42,6 +52,13 @@ enum LinkHelper {
 		}
 		UIApplication.shared.open(url, options: [:], completionHandler: nil)
 		return .done
+	}
+	
+	static func urlString(suffix: String, type: LinkType, languageCode: String? = Locale.current.languageCode) -> String {
+		switch type {
+		case .faq:
+			return languageCode == "de" ? Links.appFaqAnchorDE + suffix : Links.appFaqAnchorEN + suffix
+		}
 	}
 	
 	#if DEBUG
