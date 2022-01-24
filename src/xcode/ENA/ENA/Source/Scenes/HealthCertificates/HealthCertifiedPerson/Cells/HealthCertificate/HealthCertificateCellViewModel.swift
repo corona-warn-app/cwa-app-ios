@@ -11,7 +11,7 @@ final class HealthCertificateCellViewModel {
 	init(
 		healthCertificate: HealthCertificate,
 		healthCertifiedPerson: HealthCertifiedPerson,
-		details: HealthCertificeCellDetails = .allDetails
+		details: HealthCertificateCellDetails = .allDetails
 	) {
 		self.healthCertificate = healthCertificate
 		self.healthCertifiedPerson = healthCertifiedPerson
@@ -20,7 +20,7 @@ final class HealthCertificateCellViewModel {
 
 	// MARK: - Internal
 	
-	enum HealthCertificeCellDetails {
+	enum HealthCertificateCellDetails {
 		case allDetails
 		case overview
 	}
@@ -183,5 +183,5 @@ final class HealthCertificateCellViewModel {
 	// MARK: - Private
 
 	private let healthCertifiedPerson: HealthCertifiedPerson
-	private let details: HealthCertificeCellDetails
+	private let details: HealthCertificateCellDetails
 }
