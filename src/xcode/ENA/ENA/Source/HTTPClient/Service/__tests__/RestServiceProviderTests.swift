@@ -33,12 +33,11 @@ class RestServiceProviderTests: XCTestCase {
 		)
 
 		// WHEN
-		serviceProvider.cached(resource) { result in
-			guard case let .success(responseModel) = result else {
-				XCTFail("Success expected")
-				return
-			}
+		switch serviceProvider.cached(resource) {
+		case let .success(responseModel):
 			XCTAssertEqual(responseModel.dummyValue, "Goofy")
+		case .failure:
+			XCTFail("Reading from cache failed")
 		}
 	}
 
@@ -68,9 +67,12 @@ class RestServiceProviderTests: XCTestCase {
 		)
 
 		// WHEN missingCache error is given
-		serviceProvider.cached(resource) { result in
-			guard case let .failure(serviceError) = result,
-				  case let .resourceError(resourceError) = serviceError,
+		switch serviceProvider.cached(resource) {
+		case let .success(responseModel):
+			XCTFail("Reading from cache succeeded")
+			XCTAssertEqual(responseModel.dummyValue, "Goofy")
+		case let .failure(serviceError):
+			guard case let .resourceError(resourceError) = serviceError,
 				  case .missingCache = resourceError else {
 					  XCTFail("failure expected")
 					  return
@@ -102,9 +104,12 @@ class RestServiceProviderTests: XCTestCase {
 		)
 
 		// WHEN missingCache error is given
-		serviceProvider.cached(resource) { result in
-			guard case let .failure(serviceError) = result,
-				  case let .resourceError(resourceError) = serviceError,
+		switch serviceProvider.cached(resource) {
+		case let .success(responseModel):
+			XCTFail("Reading from cache succeeded")
+			XCTAssertEqual(responseModel.dummyValue, "Goofy")
+		case let .failure(serviceError):
+			guard case let .resourceError(resourceError) = serviceError,
 				  case .missingCache = resourceError else {
 					  XCTFail("failure expected")
 					  return
@@ -137,10 +142,12 @@ class RestServiceProviderTests: XCTestCase {
 			cache: cache
 		)
 
-		// WHEN missingCache error is given
-		serviceProvider.cached(resource) { result in
-			guard case let .failure(serviceError) = result,
-				  case let .resourceError(resourceError) = serviceError,
+		switch serviceProvider.cached(resource) {
+		case let .success(responseModel):
+			XCTFail("Reading from cache succeeded")
+			XCTAssertEqual(responseModel.dummyValue, "Goofy")
+		case let .failure(serviceError):
+			guard case let .resourceError(resourceError) = serviceError,
 				  case .missingCache = resourceError else {
 					  XCTFail("failure expected")
 					  return

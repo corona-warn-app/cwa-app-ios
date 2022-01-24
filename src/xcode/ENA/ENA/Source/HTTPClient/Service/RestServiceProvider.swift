@@ -70,15 +70,14 @@ class RestServiceProvider: RestServiceProviding {
 	}
 
 	func cached<R>(
-		_ resource: R,
-		_ completion: @escaping (Result<R.Receive.ReceiveModel, ServiceError<R.CustomError>>) -> Void
-	) where R: Resource {
+		_ resource: R
+	) -> Result<R.Receive.ReceiveModel, ServiceError<R.CustomError>> where R: Resource {
 		switch resource.type {
 		case .caching:
-			cachedRestService.cached(resource, completion)
+			return cachedRestService.cached(resource)
 		default:
 			Log.error("Cache is not supported by that type of restService")
-			completion(.failure(.resourceError(.missingCache)))
+			return .failure(.resourceError(.missingCache))
 		}
 	}
 
