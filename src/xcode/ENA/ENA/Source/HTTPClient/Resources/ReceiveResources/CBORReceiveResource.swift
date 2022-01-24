@@ -47,9 +47,10 @@ struct CBORReceiveResource<R>: ReceiveResource where R: CBORDecoding {
 
 		switch R.decode(package.bin) {
 
-		case let .success(model):
-			if let model = model as? R {
-				return Result.success(model)
+		case let .success(someModel):
+			// We need that cast for the compiler.
+			if let modelWithCache = someModel as? R {
+				return Result.success(modelWithCache)
 			} else {
 				return Result.failure(.decoding(ModelDecodingError.CBOR_DECODING))
 			}
