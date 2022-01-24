@@ -8,26 +8,20 @@ import XCTest
 final class LinkHelperTests: CWATestCase {
 	
 	func testFAQAnchorDE() throws {
-		let url = LinkHelper.urlString(suffix: "test", type: .faq)
+		let url = LinkHelper.urlString(suffix: "test", type: .faq, languageCode: "de")
 
-		XCTAssertEqual(NSLocale.current.languageCode, "de")
 		XCTAssertEqual(url, "https://www.coronawarn.app/de/faq/#test")
 	}
 	
 	func testFAQAnchorEN() throws {
-		if NSLocale.current.languageCode == "en" {
-			let url = LinkHelper.urlString(suffix: "test", type: .faq)
+		let url = LinkHelper.urlString(suffix: "test", type: .faq, languageCode: "en")
 
-			XCTAssertEqual(url, "https://www.coronawarn.app/en/faq/#test")
-		}
+		XCTAssertEqual(url, "https://www.coronawarn.app/en/faq/#test")
 	}
 	
-	func testFAQAnchorOtherLanguages() throws {
-		let supportedLocale = ["tr", "ro", "pl"]
-		if supportedLocale.contains(NSLocale.current.languageCode ?? "") {
-			let url = LinkHelper.urlString(suffix: "test", type: .faq)
+	func testFAQAnchorOtherLanguage() throws {
+		let url = LinkHelper.urlString(suffix: "test", type: .faq, languageCode: "tr")
 
-			XCTAssertEqual(url, "https://www.coronawarn.app/en/faq/#test")
-		}
+		XCTAssertEqual(url, "https://www.coronawarn.app/en/faq/#test")
 	}
 }

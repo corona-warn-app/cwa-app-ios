@@ -18,6 +18,12 @@ enum LinkHelper {
 		case faq
 	}
 
+	enum Links {
+		// hard cooded in order to make them testable
+		static let appFaqAnchorDE = "https://www.coronawarn.app/de/faq/#"
+		static let appFaqAnchorEN = "https://www.coronawarn.app/en/faq/#"
+	}
+
 	@discardableResult
 	static func open(urlString: String) -> Success {
 		if let url = URL(string: urlString) {
@@ -48,10 +54,10 @@ enum LinkHelper {
 		return .done
 	}
 	
-	static func urlString(suffix: String, type: LinkType) -> String {
+	static func urlString(suffix: String, type: LinkType, languageCode: String? = Locale.current.languageCode) -> String {
 		switch type {
 		case .faq:
-			return AppStrings.Links.appFaqAnchor + suffix
+			return languageCode == "de" ? Links.appFaqAnchorDE + suffix : Links.appFaqAnchorEN + suffix
 		}
 	}
 	
