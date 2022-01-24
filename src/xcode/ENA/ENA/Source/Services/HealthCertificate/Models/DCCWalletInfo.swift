@@ -18,10 +18,10 @@ struct DCCWalletInfo: Codable, Equatable {
 struct DCCAdmissionState: Codable, Equatable {
 
 	let visible: Bool
-	let badgeText: LocalizedText?
-	let titleText: LocalizedText?
-	let subtitleText: LocalizedText?
-	let longText: LocalizedText?
+	let badgeText: DCCUIText?
+	let titleText: DCCUIText?
+	let subtitleText: DCCUIText?
+	let longText: DCCUIText?
 	let faqAnchor: String?
 
 }
@@ -29,9 +29,9 @@ struct DCCAdmissionState: Codable, Equatable {
 struct DCCVaccinationState: Codable, Equatable {
 
 	let visible: Bool
-	let titleText: LocalizedText?
-	let subtitleText: LocalizedText?
-	let longText: LocalizedText?
+	let titleText: DCCUIText?
+	let subtitleText: DCCUIText?
+	let longText: DCCUIText?
 	let faqAnchor: String?
 
 }
@@ -40,14 +40,27 @@ struct DCCBoosterNotification: Codable, Equatable {
 
 	let visible: Bool
 	let identifier: String?
-	let titleText: LocalizedText?
-	let subtitleText: LocalizedText?
-	let longText: LocalizedText?
+	let titleText: DCCUIText?
+	let subtitleText: DCCUIText?
+	let longText: DCCUIText?
 	let faqAnchor: String?
 
 }
 
-struct LocalizedText: Codable, Equatable {
+struct DCCUIText: Codable, Equatable {
+
+	let type: String
+	let quantity: Double?
+	let quantityParameterIndex: Int?
+	let functionName: String?
+	// TODO: AnyDecodable values
+	let localizedText: [String: String]?
+	// TODO: AnyDecodable values
+	let parameters: [String: String]
+
+	func localized(languageCode: String? = Locale.current.languageCode) -> String? {
+		return localizedText?[languageCode ?? "de"]
+	}
 
 }
 
@@ -65,7 +78,7 @@ struct DCCVerification: Codable, Equatable {
 
 struct DCCVerificationCertificate: Codable, Equatable {
 
-	let buttonText: LocalizedText
+	let buttonText: DCCUIText
 	let certificateRef: DCCCertificateReference
 
 }
@@ -75,4 +88,3 @@ struct DCCCertificateReference: Codable, Equatable {
 	let barcodeData: String
 
 }
-

@@ -143,11 +143,11 @@ final class HealthCertifiedPersonViewModel {
 	}
 
 	var vaccinationHintIsVisible: Bool {
-		return !healthCertifiedPerson.vaccinationCertificates.isEmpty
+		healthCertifiedPerson.dccWalletInfo?.vaccinationState.visible ?? false
 	}
 	
 	var admissionStateIsVisible: Bool {
-		return healthCertifiedPerson.admissionState != .other
+		healthCertifiedPerson.dccWalletInfo?.admissionState.visible ?? false
 	}
 
 	var preferredPersonCellModel: PreferredPersonCellModel {

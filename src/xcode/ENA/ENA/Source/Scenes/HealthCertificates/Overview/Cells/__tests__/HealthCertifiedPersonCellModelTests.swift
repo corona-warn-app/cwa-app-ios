@@ -588,11 +588,14 @@ class HealthCertifiedPersonCellModelTests: XCTestCase {
 		XCTAssertNil(viewModel.caption)
 	}
 
-	func testAdmissionStateThreeGWithAntigen() throws {
+	func testAdmissionStateWithBadgeAndOneCertificateToShow() throws {
 		let healthCertifiedPerson = HealthCertifiedPerson(
 			healthCertificates: [try testCertificate(type: .antigen)]
 		)
-		healthCertifiedPerson.admissionState = .threeGWithAntigen
+		healthCertifiedPerson.dccWalletInfo = .fake(
+			admissionState: .fake(badgeText: .fake(string: "1G+Z")),
+			verification: .fake(certificates: [])
+		)
 
 		let cellModel = try XCTUnwrap(
 			HealthCertifiedPersonCellModel(
@@ -604,53 +607,29 @@ class HealthCertifiedPersonCellModelTests: XCTestCase {
 		XCTAssertEqual(cellModel.qrCodeViewModel.covPassCheckInfoPosition, .bottom)
 		XCTAssertTrue(cellModel.isStatusTitleVisible)
 		XCTAssertTrue(cellModel.switchableHealthCertificates.isEmpty)
-		XCTAssertEqual(cellModel.shortStatus, "3G")
+		XCTAssertEqual(cellModel.shortStatus, "1G+Z")
 	}
 
-	func testAdmissionStateThreeGWithPCR() throws {
-		let healthCertifiedPerson = HealthCertifiedPerson(
-			healthCertificates: [try testCertificate(type: .pcr)]
-		)
-		healthCertifiedPerson.admissionState = .threeGWithPCR
-
-		let cellModel = try XCTUnwrap(
-			HealthCertifiedPersonCellModel(
-				healthCertifiedPerson: healthCertifiedPerson,
-				onCovPassCheckInfoButtonTap: { }
-			)
-		)
-
-		XCTAssertEqual(cellModel.qrCodeViewModel.covPassCheckInfoPosition, .bottom)
-		XCTAssertTrue(cellModel.isStatusTitleVisible)
-		XCTAssertTrue(cellModel.switchableHealthCertificates.isEmpty)
-		XCTAssertEqual(cellModel.shortStatus, "3G+")
-	}
-
-	func testAdmissionStateTwoG() throws {
-		let healthCertifiedPerson = HealthCertifiedPerson(
-			healthCertificates: [try vaccinationCertificate()]
-		)
-		healthCertifiedPerson.admissionState = .twoG
-
-		let cellModel = try XCTUnwrap(
-			HealthCertifiedPersonCellModel(
-				healthCertifiedPerson: healthCertifiedPerson,
-				onCovPassCheckInfoButtonTap: { }
-			)
-		)
-
-		XCTAssertEqual(cellModel.qrCodeViewModel.covPassCheckInfoPosition, .bottom)
-		XCTAssertTrue(cellModel.isStatusTitleVisible)
-		XCTAssertTrue(cellModel.switchableHealthCertificates.isEmpty)
-		XCTAssertEqual(cellModel.shortStatus, "2G")
-	}
-
-	func testAdmissionStateTwoGPlusAntigen() throws {
+	func testAdmissionStateWithBadgeAndTwoCertificatesToShow() throws {
 		let twoGCertificate = try vaccinationCertificate(daysOffset: -1, doseNumber: 2, totalSeriesOfDoses: 2)
 		let testCertificate = try testCertificate(daysOffset: -1, type: .antigen)
 
 		let healthCertifiedPerson = HealthCertifiedPerson(healthCertificates: [twoGCertificate, testCertificate])
-		healthCertifiedPerson.admissionState = .twoGPlusAntigen(twoG: twoGCertificate, antigenTest: testCertificate)
+		healthCertifiedPerson.dccWalletInfo = .fake(
+			admissionState: .fake(badgeText: .fake(string: "2G+Y")),
+			verification: .fake(
+				certificates: [
+					.fake(
+						buttonText: .fake(string: "2G-Zertifikat"),
+						certificateRef: .fake(barcodeData: twoGCertificate.base45)
+					),
+					.fake(
+						buttonText: .fake(string: "Testzertifikat"),
+						certificateRef: .fake(barcodeData: testCertificate.base45)
+					)
+				]
+			)
+		)
 
 		let cellModel = try XCTUnwrap(
 			HealthCertifiedPersonCellModel(
@@ -665,37 +644,17 @@ class HealthCertifiedPersonCellModelTests: XCTestCase {
 			cellModel.switchableHealthCertificates,
 			["2G-Zertifikat": twoGCertificate, "Testzertifikat": testCertificate]
 		)
-		XCTAssertEqual(cellModel.shortStatus, "2G+")
-	}
-
-	func testAdmissionStateTwoGPlusPCR() throws {
-		let twoGCertificate = try vaccinationCertificate(daysOffset: -1, doseNumber: 2, totalSeriesOfDoses: 2)
-		let testCertificate = try testCertificate(daysOffset: -1, type: .pcr)
-
-		let healthCertifiedPerson = HealthCertifiedPerson(healthCertificates: [twoGCertificate, testCertificate])
-		healthCertifiedPerson.admissionState = .twoGPlusPCR(twoG: twoGCertificate, pcrTest: testCertificate)
-
-		let cellModel = try XCTUnwrap(
-			HealthCertifiedPersonCellModel(
-				healthCertifiedPerson: healthCertifiedPerson,
-				onCovPassCheckInfoButtonTap: { }
-			)
-		)
-
-		XCTAssertEqual(cellModel.qrCodeViewModel.covPassCheckInfoPosition, .bottom)
-		XCTAssertTrue(cellModel.isStatusTitleVisible)
-		XCTAssertEqual(
-			cellModel.switchableHealthCertificates,
-			["2G-Zertifikat": twoGCertificate, "Testzertifikat": testCertificate]
-		)
-		XCTAssertEqual(cellModel.shortStatus, "2G+")
+		XCTAssertEqual(cellModel.shortStatus, "2G+Y")
 	}
 
 	func testAdmissionStateOther() throws {
 		let healthCertifiedPerson = HealthCertifiedPerson(
 			healthCertificates: [try vaccinationCertificate()]
 		)
-		healthCertifiedPerson.admissionState = .other
+		healthCertifiedPerson.dccWalletInfo = .fake(
+			admissionState: .fake(visible: false),
+			verification: .fake(certificates: [])
+		)
 
 		let cellModel = try XCTUnwrap(
 			HealthCertifiedPersonCellModel(
