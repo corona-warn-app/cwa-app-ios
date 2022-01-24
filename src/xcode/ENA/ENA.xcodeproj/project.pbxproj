@@ -1329,6 +1329,8 @@
 		BA5B7FDA26458EF400502087 /* HealthCertificateQRCodeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA5B7FC826458EF400502087 /* HealthCertificateQRCodeCell.swift */; };
 		BA5B7FDB26458EF400502087 /* HealthCertifiedPersonViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA5B7FC926458EF400502087 /* HealthCertifiedPersonViewModel.swift */; };
 		BA5B7FDC26458EF400502087 /* HealthCertifiedPersonViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA5B7FCA26458EF400502087 /* HealthCertifiedPersonViewController.swift */; };
+		BA5EF92E279EFA3800D9AB08 /* CacheData.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA5EF92D279EFA3800D9AB08 /* CacheData.swift */; };
+		BA5EF931279EFA8700D9AB08 /* CacheData+Fake.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA5EF92F279EFA5F00D9AB08 /* CacheData+Fake.swift */; };
 		BA64FA8226D79C2300DD4705 /* StandardRestService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA64FA8126D79C2300DD4705 /* StandardRestService.swift */; };
 		BA64FA8426D7A12400DD4705 /* _Resource.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA64FA8326D7A12400DD4705 /* _Resource.swift */; };
 		BA6898CD25ED49E00037A3EE /* Route.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6898CC25ED49E00037A3EE /* Route.swift */; };
@@ -2984,6 +2986,8 @@
 		BA5B7FC826458EF400502087 /* HealthCertificateQRCodeCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HealthCertificateQRCodeCell.swift; sourceTree = "<group>"; };
 		BA5B7FC926458EF400502087 /* HealthCertifiedPersonViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HealthCertifiedPersonViewModel.swift; sourceTree = "<group>"; };
 		BA5B7FCA26458EF400502087 /* HealthCertifiedPersonViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HealthCertifiedPersonViewController.swift; sourceTree = "<group>"; };
+		BA5EF92D279EFA3800D9AB08 /* CacheData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheData.swift; sourceTree = "<group>"; };
+		BA5EF92F279EFA5F00D9AB08 /* CacheData+Fake.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CacheData+Fake.swift"; sourceTree = "<group>"; };
 		BA64FA8126D79C2300DD4705 /* StandardRestService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StandardRestService.swift; sourceTree = "<group>"; };
 		BA64FA8326D7A12400DD4705 /* _Resource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = _Resource.swift; sourceTree = "<group>"; };
 		BA6898CC25ED49E00037A3EE /* Route.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Route.swift; sourceTree = "<group>"; };
@@ -7473,6 +7477,7 @@
 			children = (
 				01678E9A249A521F003B048B /* testStore.sqlite */,
 				01D3ECFF2490230400551E65 /* StoreTests.swift */,
+				BA5EF92F279EFA5F00D9AB08 /* CacheData+Fake.swift */,
 			);
 			path = __tests__;
 			sourceTree = "<group>";
@@ -7661,6 +7666,7 @@
 				B184A37F248FFCBE007180F6 /* SecureStore.swift */,
 				B184A382248FFCE2007180F6 /* CodableExposureDetectionSummary.swift */,
 				ABB078EF273034AC0037B30F /* SecureCache.swift */,
+				BA5EF92D279EFA3800D9AB08 /* CacheData.swift */,
 				ABB078F1273035340037B30F /* SecureStoring.swift */,
 			);
 			path = Store;
@@ -9724,6 +9730,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BA5EF92E279EFA3800D9AB08 /* CacheData.swift in Sources */,
 				504BB0AC25EE204A006B0E54 /* ErrorReportDetailInformationViewController.swift in Sources */,
 				504A465C2702FE03007AA09D /* DeltaOnboardingNotificationReworkViewModel.swift in Sources */,
 				AB18807826540F6500A5FF1D /* PPAAnalyticsTestResultCollector.swift in Sources */,
@@ -10901,6 +10908,7 @@
 				F2DC808E248989CE00EDC40A /* DynamicTableViewControllerRegisterCellsTests.swift in Sources */,
 				EE22DB91247FB479001B0A71 /* MockStateHandlerObserverDelegate.swift in Sources */,
 				B1C7EE4624938EB700F1F284 /* ExposureDetection_FAQ_URL_Tests.swift in Sources */,
+				BA5EF931279EFA8700D9AB08 /* CacheData+Fake.swift in Sources */,
 				EBD1D7B4275E4BA60046A1C3 /* KeySubmissionMetadata+Mock.swift in Sources */,
 				018B852826CE99A70037DD54 /* OnBehalfCheckinSubmissionServiceTests.swift in Sources */,
 				50101D75270739FA006F8B0F /* NotificationSettingsViewModelTests.swift in Sources */,
