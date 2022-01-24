@@ -46,16 +46,14 @@ class CachedRestService: Service {
 		_ resource: R,
 		_ bodyData: Data?,
 		_ headers: [AnyHashable: Any],
-		_ isCachedData: Bool,
-		_ completion: @escaping (Result<R.Receive.ReceiveModel, ServiceError<R.CustomError>>) -> Void
-	) where R: Resource {
+		_ isCachedData: Bool
+	) -> Result<R.Receive.ReceiveModel, ServiceError<R.CustomError>> where R: Resource {
 		switch resource.receiveResource.decode(bodyData, headers: headers) {
 		case .success(let model):
 			guard let eTag = headers.value(caseInsensitiveKey: "ETag"),
 				  let data = bodyData else {
 					  Log.error("Neither eTag nor some data found. Abort with missing eTag error.", log: .client)
-					  completion(.failure(customError(in: resource, for: .resourceError(.missingEtag))))
-					  return
+					  return .failure(customError(in: resource, for: .resourceError(.missingEtag)))
 				  }
 			
 			// Update cache only if we fetched some fresh data.
@@ -66,24 +64,22 @@ class CachedRestService: Service {
 				Log.info("Fetched new cached data and wrote them to the cache", log: .client)
 			}
 			
-			completion(.success(model))
+			return .success(model)
 			
 		case .failure(let error):
 			Log.error("Decoding for receive resource failed.", log: .client, error: error)
-			failureOrDefaultValueHandling(resource, .resourceError(error), completion)
+			return failureOrDefaultValueHandling(resource, .resourceError(error))
 		}
 	}
 
 	func cached<R>(
-		_ resource: R,
-		_ completion: @escaping (Result<R.Receive.ReceiveModel, ServiceError<R.CustomError>>) -> Void
-	) where R: Resource {
+		_ resource: R
+	) -> Result<R.Receive.ReceiveModel, ServiceError<R.CustomError>> where R: Resource {
 		guard let cachedModel = cache[resource.locator.hashValue] else {
 			Log.error("No data found in cache", log: .client)
-			failureOrDefaultValueHandling(resource, .resourceError(.missingCache), completion)
-			return
+			return failureOrDefaultValueHandling(resource, .resourceError(.missingCache))
 		}
-		decodeModel(resource, cachedModel.data, ["ETag": cachedModel.eTag], true, completion)
+		return decodeModel(resource, cachedModel.data, ["ETag": cachedModel.eTag], true)
 	}
 	
 	func hasCachedData<R>(

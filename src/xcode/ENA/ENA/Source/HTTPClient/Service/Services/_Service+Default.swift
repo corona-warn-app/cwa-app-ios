@@ -50,7 +50,7 @@ extension Service {
 		switch urlRequest(resource.locator, resource.sendResource, resource.receiveResource) {
 		case let .failure(resourceError):
 			Log.error("Creating url request failed.", log: .client)
-			failureOrDefaultValueHandling(resource, .invalidRequestError(resourceError), completion)
+			completion(failureOrDefaultValueHandling(resource, .invalidRequestError(resourceError)))
 		case let .success(request):
 			session.dataTask(with: request) { bodyData, response, error in
 				
@@ -60,7 +60,7 @@ extension Service {
 				   let error = coronaSessionDelegate.evaluateTrust.trustEvaluationError,
 				   let trustEvaluationError = error as? TrustEvaluationError {
 					Log.error("TrustEvaluation failed.", log: .client)
-					failureOrDefaultValueHandling(resource, .trustEvaluationError(trustEvaluationError), completion)
+					completion(failureOrDefaultValueHandling(resource, .trustEvaluationError(trustEvaluationError)))
 					
 					// Reset the error to not block future requests.
 					// I know, this error state is not a nice solution.
@@ -71,21 +71,21 @@ extension Service {
 				
 				// case we have no network.
 				if let error = error {
-					handleNoNetworkCachePolicy(error, resource, completion)
+					completion(handleNoNetworkCachePolicy(error, resource))
 					return
 				}
 								
 				// case we have a fake.
 				guard !resource.locator.isFake else {
 					Log.info("Fake detected no response given", log: .client)
-					failureOrDefaultValueHandling(resource, .fakeResponse, completion)
+					completion(failureOrDefaultValueHandling(resource, .fakeResponse))
 					return
 				}
 
 				// case we have an invalid response.
 				guard let response = response as? HTTPURLResponse else {
 					Log.error("Invalid response.", log: .client, error: error)
-					failureOrDefaultValueHandling(resource, .invalidResponseType, completion)
+					completion(failureOrDefaultValueHandling(resource, .invalidResponseType))
 					return
 				}
 				
@@ -97,7 +97,7 @@ extension Service {
 
 				// override status code by cache policy and handle it on other way.
 				if hasStatusCodeCachePolicy(resource, response.statusCode) {
-					handleStatusCodeCachePolicy(response.statusCode, resource, completion)
+					completion(handleStatusCodeCachePolicy(response.statusCode, resource))
 					return
 				}
 				
@@ -105,18 +105,18 @@ extension Service {
 				// The codes here are in sync with the one in hasStatusCodeCachePolicy in the CachedRestService - do always sync them!
 				switch response.statusCode {
 				case 200, 201:
-					decodeModel(resource, bodyData, response.allHeaderFields, false, completion)
+					completion(decodeModel(resource, bodyData, response.allHeaderFields, false))
 				case 204:
 					guard resource.receiveResource is EmptyReceiveResource else {
 						Log.error("This is not an EmptyReceiveResource", log: .client)
-						failureOrDefaultValueHandling(resource, .invalidResponse, completion)
+						completion(failureOrDefaultValueHandling(resource, .invalidResponse))
 						return
 					}
-					decodeModel(resource, bodyData, response.allHeaderFields, false, completion)
+					completion(decodeModel(resource, bodyData, response.allHeaderFields, false))
 				case 304:
-					cached(resource, completion)
+					completion(cached(resource))
 				default:
-					failureOrDefaultValueHandling(resource, .unexpectedServerError(response.statusCode), completion)
+					completion(failureOrDefaultValueHandling(resource, .unexpectedServerError(response.statusCode)))
 				}
 			}.resume()
 		}
@@ -126,26 +126,24 @@ extension Service {
 		_ resource: R,
 		_ bodyData: Data?,
 		_ headers: [AnyHashable: Any],
-		_ isCachedData: Bool,
-		_ completion: @escaping (Result<R.Receive.ReceiveModel, ServiceError<R.CustomError>>) -> Void
-	) where R: Resource {
+		_ isCachedData: Bool
+	) -> Result<R.Receive.ReceiveModel, ServiceError<R.CustomError>>where R: Resource {
 		switch resource.receiveResource.decode(bodyData, headers: headers) {
 		case .success(let model):
-			completion(.success(model))
+			return .success(model)
 		case .failure(let resourceError):
 			Log.error("Decoding for receive resource failed.", log: .client)
-			failureOrDefaultValueHandling(resource, .resourceError(resourceError), completion)
+			return failureOrDefaultValueHandling(resource, .resourceError(resourceError))
 		}
 	}
 
 	func cached<R>(
-		_ resource: R,
-		_ completion: @escaping (Result<R.Receive.ReceiveModel, ServiceError<R.CustomError>>) -> Void
-	) where R: Resource {
+		_ resource: R
+	) -> Result<R.Receive.ReceiveModel, ServiceError<R.CustomError>> where R: Resource {
 		Log.info("No caching allowed for current service.", log: .client)
-		failureOrDefaultValueHandling(resource, .resourceError(.notModified), completion)
+		return failureOrDefaultValueHandling(resource, .resourceError(.notModified))
 	}
-	
+
 	func hasCachedData<R>(
 		_ resource: R
 	) -> Bool where R: Resource {
@@ -192,17 +190,16 @@ extension Service {
 	///   - completion: Swift-Result of loading. If successful, it contains the concrete object of our call.
 	func failureOrDefaultValueHandling<R>(
 		_ resource: R,
-		_ error: ServiceError<R.CustomError>,
-		_ completion: @escaping (Result<R.Receive.ReceiveModel, ServiceError<R.CustomError>>) -> Void
-	) where R: Resource {
+		_ error: ServiceError<R.CustomError>
+	) -> Result<R.Receive.ReceiveModel, ServiceError<R.CustomError>> where R: Resource {
 		// Check if we have default value. If so, return it independent wich error we had
 		if let defaultModel = resource.defaultModel {
 			Log.info("Found some default value", log: .client)
-			completion(.success(defaultModel))
+			return .success(defaultModel)
 		} else {
 			// We don't have a default value. And now check if we want to override the error by a custom error defined in the resource
 			Log.error("Found no default value. Will fail now.", log: .client, error: error)
-			completion(.failure(customError(in: resource, for: error)))
+			return .failure(customError(in: resource, for: error))
 		}
 	}
 	
@@ -216,30 +213,26 @@ extension Service {
 	///   - completion: Swift-Result of loading. If successful, it contains the concrete object of our call.
 	private func handleNoNetworkCachePolicy<R>(
 		_ error: Error,
-		_ resource: R,
-		_ completion: @escaping (Result<R.Receive.ReceiveModel, ServiceError<R.CustomError>>) -> Void
-	) where R: Resource {
+		_ resource: R
+	) -> Result<R.Receive.ReceiveModel, ServiceError<R.CustomError>> where R: Resource {
 		
 		// Check if we can handle caching policy noNetwork
 		guard case let .caching(policies) = resource.type,
 			  policies.contains(.noNetwork) else {
 				  // Otherwise, fall back to the default
 				  Log.info("No cache policy .noNetwork found.", log: .client)
-				  failureOrDefaultValueHandling(resource, .transportationError(error), completion)
-				  return
+				  return failureOrDefaultValueHandling(resource, .transportationError(error))
 		}
 		
 		// If so, first we check if we have something cached
 		if hasCachedData(resource) {
 			Log.info("Found some cached data.", log: .client)
-			cached(resource, completion)
-			return
+			return cached(resource)
 		}
 		// If not, we will fail with the original error
 		else {
 			Log.info("Found nothing cached.")
-			failureOrDefaultValueHandling(resource, .transportationError(error), completion)
-			return
+			return failureOrDefaultValueHandling(resource, .transportationError(error))
 		}
 	}
 	
@@ -253,22 +246,20 @@ extension Service {
 	///   - completion: Swift-Result of loading. If successful, it contains the concrete object of our call.
 	private func handleStatusCodeCachePolicy<R>(
 		_ statusCode: Int,
-		_ resource: R,
-		_ completion: @escaping (Result<R.Receive.ReceiveModel, ServiceError<R.CustomError>>) -> Void
-	) where R: Resource {
+		_ resource: R
+	) -> Result<R.Receive.ReceiveModel, ServiceError<R.CustomError>> where R: Resource {
 		
 		// We do not need to check here if the policy is supported, because we do it already right before the call if this function (see hasStatusCodeCachePolicy).
 		
 		// First we check if have something cached
 		if hasCachedData(resource) {
 			Log.info("Found some cached data", log: .client)
-			cached(resource, completion)
-			return
+			return cached(resource)
 		}
 		// If not, we will fail with the original error
 		else {
 			Log.info("Found nothing cached.")
-			failureOrDefaultValueHandling(resource, .unexpectedServerError(statusCode), completion)
+			return failureOrDefaultValueHandling(resource, .unexpectedServerError(statusCode))
 		}
 	}
 }

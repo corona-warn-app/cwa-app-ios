@@ -58,7 +58,7 @@ class CachedRestServiceTests: XCTestCase {
 		let cache = KeyValueCacheFake()
 		cache[locator.hashValue] = CacheData(data: dummyData, eTag: eTag, date: Date())
 
-		// Return nil and http code 304. In this case the service should load the reault from the cache.
+		// Return nil and http code 304. In this case the service should load the result from the cache.
 		let stack = MockNetworkStack(
 			httpStatus: 304,
 			headerFields: [
