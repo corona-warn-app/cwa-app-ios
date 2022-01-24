@@ -69,6 +69,18 @@ class RestServiceProvider: RestServiceProviding {
 		}
 	}
 
+	func cached<R>(
+		_ resource: R
+	) -> Result<R.Receive.ReceiveModel, ServiceError<R.CustomError>> where R: Resource {
+		switch resource.type {
+		case .caching:
+			return cachedRestService.cached(resource)
+		default:
+			Log.error("Cache is not supported by that type of restService")
+			return .failure(.resourceError(.missingCache))
+		}
+	}
+
 	// update evaluation trust - only possible for dynamic pinning at the moment
 	func update(_ evaluateTrust: EvaluateTrust) {
 		guard let delegate = dynamicPinningRestService.urlSessionDelegate as? CoronaWarnURLSessionDelegate else {
