@@ -51,7 +51,7 @@ class ExposureSubmissionCoordinatorTests: CWATestCase {
 				client: client,
 				appConfiguration: appConfiguration,
 				boosterNotificationsService: BoosterNotificationsService(
-					rulesDownloadService: RulesDownloadService(store: store, client: client)
+					rulesDownloadService: FakeRulesDownloadService()
 				),
 				recycleBin: recycleBin
 			),
@@ -66,7 +66,7 @@ class ExposureSubmissionCoordinatorTests: CWATestCase {
 			client: client,
 			appConfiguration: appConfiguration,
 			boosterNotificationsService: BoosterNotificationsService(
-				rulesDownloadService: RulesDownloadService(store: store, client: client)
+				rulesDownloadService: FakeRulesDownloadService()
 			),
 			recycleBin: recycleBin
 		)
@@ -77,9 +77,7 @@ class ExposureSubmissionCoordinatorTests: CWATestCase {
 		)
 		
 		healthCertificateValidationOnboardedCountriesProvider = HealthCertificateValidationOnboardedCountriesProvider(
-			store: store,
-			client: client,
-			signatureVerifier: MockVerifier()
+			restService: RestServiceProviderStub(loadResources: [])
 		)
 		
 		let dscListProvider = DSCListProvider(
@@ -97,7 +95,7 @@ class ExposureSubmissionCoordinatorTests: CWATestCase {
 		validationRulesAccess.expectedAcceptanceExtractionResult = .success([])
 		validationRulesAccess.expectedInvalidationExtractionResult = .success([])
 		validationRulesAccess.expectedValidationResult = .success(validationResults)
-		let rulesDownloadService = RulesDownloadService(validationRulesAccess: validationRulesAccess, signatureVerifier: MockVerifier(), store: store, client: client)
+		let rulesDownloadService = FakeRulesDownloadService()
 
 		healthCertificateValidationService = HealthCertificateValidationService(
 			store: store,

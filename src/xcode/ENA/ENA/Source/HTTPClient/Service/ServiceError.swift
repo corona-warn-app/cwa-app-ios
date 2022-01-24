@@ -49,7 +49,7 @@ enum ServiceError<RE>: Error, CustomStringConvertible, Equatable where RE: Error
 	static func == (lhs: ServiceError, rhs: ServiceError) -> Bool {
 		switch (lhs, rhs) {
 		case let (.invalidRequestError(lResourceError), .invalidRequestError(rResourceError)):
-			return lResourceError == rResourceError
+			return lResourceError.localizedDescription == rResourceError.localizedDescription
 		case (.invalidRequestError, _):
 			return false
 		case let (.transportationError(lError), .transportationError(rError)):
@@ -63,7 +63,7 @@ enum ServiceError<RE>: Error, CustomStringConvertible, Equatable where RE: Error
 			return false
 
 		case let (.resourceError(lResourceError), .resourceError(rResourceError)):
-			return lResourceError == rResourceError
+			return lResourceError?.localizedDescription == rResourceError?.localizedDescription
 		case (.resourceError, _):
 			return false
 
