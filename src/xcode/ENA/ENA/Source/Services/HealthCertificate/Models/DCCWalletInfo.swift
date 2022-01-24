@@ -3,6 +3,7 @@
 //
 
 import Foundation
+import AnyCodable
 
 struct DCCWalletInfo: Codable, Equatable {
 
@@ -53,13 +54,11 @@ struct DCCUIText: Codable, Equatable {
 	let quantity: Double?
 	let quantityParameterIndex: Int?
 	let functionName: String?
-	// TODO: AnyDecodable values
-	let localizedText: [String: String]?
-	// TODO: AnyDecodable values
-	let parameters: [String: String]
+	let localizedText: [String: AnyCodable]?
+	let parameters: [String: AnyCodable]
 
 	func localized(languageCode: String? = Locale.current.languageCode) -> String? {
-		return localizedText?[languageCode ?? "de"]
+		return localizedText?[languageCode ?? "de"]?.value as? String
 	}
 
 }

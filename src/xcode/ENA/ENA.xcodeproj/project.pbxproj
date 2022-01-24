@@ -316,6 +316,7 @@
 		01C2D4432501260D00FB23BF /* OptionGroupViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01C2D440250124E600FB23BF /* OptionGroupViewModelTests.swift */; };
 		01C5F301279EA4A500F60047 /* DCCWalletInfo+Fake.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01C5F300279EA48600F60047 /* DCCWalletInfo+Fake.swift */; };
 		01C5F302279EB20100F60047 /* DCCWalletInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01C5F2FE2799859D00F60047 /* DCCWalletInfo.swift */; };
+		01C5F305279EF52C00F60047 /* AnyCodable in Frameworks */ = {isa = PBXBuildFile; productRef = 01C5F304279EF52C00F60047 /* AnyCodable */; };
 		01C6ABF42527273E0052814D /* String+Insertion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01C6ABF32527273D0052814D /* String+Insertion.swift */; };
 		01C6AC26252B23D70052814D /* QRScannerFocusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01C6AC25252B23D70052814D /* QRScannerFocusView.swift */; };
 		01C6AC32252B29C00052814D /* QRScannerError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01C6AC31252B29C00052814D /* QRScannerError.swift */; };
@@ -3317,6 +3318,7 @@
 				015E8C0824C997D200C0A4B3 /* CWASQLite.framework in Frameworks */,
 				EB7AF62A2587E98C00D94CA8 /* OpenCombineFoundation in Frameworks */,
 				EB7AF62E2587E98C00D94CA8 /* OpenCombineDispatch in Frameworks */,
+				01C5F305279EF52C00F60047 /* AnyCodable in Frameworks */,
 				B1B5A76024924B3D0029D5D7 /* FMDB in Frameworks */,
 				AB42A193263C284200892536 /* HealthCertificateToolkit in Frameworks */,
 				858F6F6E245A103C009FFD33 /* ExposureNotification.framework in Frameworks */,
@@ -9387,6 +9389,7 @@
 				AB42A192263C284200892536 /* HealthCertificateToolkit */,
 				ABBBC055273AD2C3009A4B56 /* ENASecurity */,
 				01C1AC33276783DC00D45BFA /* OrderedCollections */,
+				01C5F304279EF52C00F60047 /* AnyCodable */,
 			);
 			productName = ENA;
 			productReference = 85D7593B2457048F008175F0 /* ENA.app */;
@@ -9494,6 +9497,7 @@
 				B1B5A75E24924B3D0029D5D7 /* XCRemoteSwiftPackageReference "fmdb" */,
 				EB7AF6282587E98C00D94CA8 /* XCRemoteSwiftPackageReference "OpenCombine" */,
 				01C1AC32276783DC00D45BFA /* XCRemoteSwiftPackageReference "swift-collections" */,
+				01C5F303279EF52C00F60047 /* XCRemoteSwiftPackageReference "AnyCodable" */,
 			);
 			productRefGroup = 85D7593C2457048F008175F0 /* Products */;
 			projectDirPath = "";
@@ -12357,6 +12361,14 @@
 				minimumVersion = 1.0.0;
 			};
 		};
+		01C5F303279EF52C00F60047 /* XCRemoteSwiftPackageReference "AnyCodable" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Flight-School/AnyCodable";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.6.2;
+			};
+		};
 		B10FB02E246036F3004CA11E /* XCRemoteSwiftPackageReference "swift-protobuf" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/apple/swift-protobuf.git";
@@ -12396,6 +12408,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 01C1AC32276783DC00D45BFA /* XCRemoteSwiftPackageReference "swift-collections" */;
 			productName = OrderedCollections;
+		};
+		01C5F304279EF52C00F60047 /* AnyCodable */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 01C5F303279EF52C00F60047 /* XCRemoteSwiftPackageReference "AnyCodable" */;
+			productName = AnyCodable;
 		};
 		AB42A192263C284200892536 /* HealthCertificateToolkit */ = {
 			isa = XCSwiftPackageProductDependency;

@@ -3,6 +3,8 @@
 //
 
 import Foundation
+import AnyCodable
+
 @testable import ENA
 
 extension DCCWalletInfo {
@@ -98,8 +100,8 @@ extension DCCUIText {
 		quantity: Double? = nil,
 		quantityParameterIndex: Int? = nil,
 		functionName: String? = nil,
-		localizedText: [String: String]? = nil,
-		parameters: [String: String] = [:]
+		localizedText: [String: AnyCodable]? = nil,
+		parameters: [String: AnyCodable] = [:]
 	) -> DCCUIText {
 		DCCUIText(
 			type: type,
@@ -112,7 +114,7 @@ extension DCCUIText {
 	}
 
 	static func fake(string: String) -> DCCUIText {
-		.fake(type: "string", localizedText: ["de": string])
+		.fake(type: "string", localizedText: ["de": AnyCodable(string)])
 	}
 
 }
