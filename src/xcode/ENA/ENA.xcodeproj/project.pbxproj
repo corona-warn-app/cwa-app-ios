@@ -1257,6 +1257,7 @@
 		BA00FED526BC2FC7009DA07F /* AppFeatureMocks.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA00FED326BC2FC2009DA07F /* AppFeatureMocks.swift */; };
 		BA00FED926BC357F009DA07F /* DMAppFeaturesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA00FED826BC356D009DA07F /* DMAppFeaturesViewController.swift */; };
 		BA00FEDB26BC3587009DA07F /* DMAppFeaturesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA00FEDA26BC3586009DA07F /* DMAppFeaturesViewModel.swift */; };
+		BA015159279B11A900C93B02 /* RestServiceProviderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA015158279B11A900C93B02 /* RestServiceProviderTests.swift */; };
 		BA01BA64264423CF00D906B6 /* HealthCertificateAttributedTextCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA01BA61264423CF00D906B6 /* HealthCertificateAttributedTextCell.swift */; };
 		BA01BA65264423CF00D906B6 /* HealthCertificateInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA01BA62264423CF00D906B6 /* HealthCertificateInfoViewController.swift */; };
 		BA01BA66264423CF00D906B6 /* HealthCertificateInfoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA01BA63264423CF00D906B6 /* HealthCertificateInfoViewModel.swift */; };
@@ -2908,6 +2909,7 @@
 		BA00FED326BC2FC2009DA07F /* AppFeatureMocks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppFeatureMocks.swift; sourceTree = "<group>"; };
 		BA00FED826BC356D009DA07F /* DMAppFeaturesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMAppFeaturesViewController.swift; sourceTree = "<group>"; };
 		BA00FEDA26BC3586009DA07F /* DMAppFeaturesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMAppFeaturesViewModel.swift; sourceTree = "<group>"; };
+		BA015158279B11A900C93B02 /* RestServiceProviderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestServiceProviderTests.swift; sourceTree = "<group>"; };
 		BA01BA61264423CF00D906B6 /* HealthCertificateAttributedTextCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HealthCertificateAttributedTextCell.swift; sourceTree = "<group>"; };
 		BA01BA62264423CF00D906B6 /* HealthCertificateInfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HealthCertificateInfoViewController.swift; sourceTree = "<group>"; };
 		BA01BA63264423CF00D906B6 /* HealthCertificateInfoViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HealthCertificateInfoViewModel.swift; sourceTree = "<group>"; };
@@ -8446,6 +8448,7 @@
 				ABB078F327316EB60037B30F /* CachedRestServiceTests.swift */,
 				506BEF04276A465A0062D5D6 /* StandardRestServiceTests.swift */,
 				502B60FA276CB7640049CC60 /* Error+Fake.swift */,
+				BA015158279B11A900C93B02 /* RestServiceProviderTests.swift */,
 			);
 			path = __tests__;
 			sourceTree = "<group>";
@@ -10924,6 +10927,7 @@
 				010A474C27512760000AA80E /* TicketValidationAccessTokenProcessorTests.swift in Sources */,
 				AB34787C269C93C20016A8AB /* CertLogicEngineTestData.swift in Sources */,
 				010A57A427185E4D001F5A09 /* RecycleBinItemCellModelTests.swift in Sources */,
+				BA015159279B11A900C93B02 /* RestServiceProviderTests.swift in Sources */,
 				35BDAB2E25F1148E004DFE32 /* ELSServiceTests.swift in Sources */,
 				B1E23B8624FE4DD3006BCDA6 /* PublicKeyProviderTests.swift in Sources */,
 				01B605D9258A49E70093DB8E /* DiaryLocationTest.swift in Sources */,
