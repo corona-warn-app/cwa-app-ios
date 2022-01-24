@@ -19,7 +19,7 @@ enum LinkHelper {
 	}
 
 	enum Links {
-		// hard cooded in order to make them testable
+		// hard coded in order to make them testable with unit tests
 		static let appFaqAnchorDE = "https://www.coronawarn.app/de/faq/#"
 		static let appFaqAnchorEN = "https://www.coronawarn.app/en/faq/#"
 	}
