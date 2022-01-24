@@ -26,8 +26,8 @@ extension Array where Element == HealthCertificate {
 			return .twoGPlusPCR(twoG: twoG, pcrTest: pcrTest)
 		case let (.some(twoG), .none, .some(antigenTest)):
 			return .twoGPlusAntigen(twoG: twoG, antigenTest: antigenTest)
-		case (.some, .none, .none):
-			return .twoG
+		case let (.some(twoG), .none, .none):
+			return .twoG(twoG: twoG)
 		case (.none, .some, _):
 			return .threeGWithPCR
 		case (.none, .none, .some):

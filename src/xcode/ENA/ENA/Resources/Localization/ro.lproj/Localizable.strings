@@ -2834,6 +2834,8 @@
 
 "HealthCertifiedPerson_AdmissionState_subtitle2G" = "2G";
 
+"HealthCertifiedPerson_AdmissionState_subtitle2GPlus" = "2G+";
+
 "HealthCertifiedPerson_AdmissionState_subtitle2GPlusPCR" = "2G+ test PCR";
 
 "HealthCertifiedPerson_AdmissionState_subtitle2GPlusAntigen" = "2G+ test rapid";
@@ -2843,6 +2845,8 @@
 "HealthCertifiedPerson_AdmissionState_subtitle3GPlus" = "3G+";
 
 "HealthCertifiedPerson_AdmissionState_description2G" = "Certificatele dvs. respectă regula 2G. Dacă trebuie să dovediți starea dvs. curentă, închideți această vizualizare și afișați codul QR în sumarul certificatului.";
+
+"HealthCertifiedPerson_AdmissionState_description2GPlus" = "Certificatele dvs. respectă regula 2G plus. Dacă trebuie să dovediți starea dvs. curentă, închideți această vizualizare și afișați codul QR în sumarul certificatului.";
 
 "HealthCertifiedPerson_AdmissionState_description2GPlusPCR" = "Certificatele dvs. respectă regula 2G plus. Dacă trebuie să dovediți starea dvs. curentă, închideți această vizualizare și afișați codul QR în sumarul certificatului.";
 

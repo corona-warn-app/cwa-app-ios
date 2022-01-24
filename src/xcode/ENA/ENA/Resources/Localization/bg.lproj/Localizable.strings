@@ -2834,6 +2834,8 @@
 
 "HealthCertifiedPerson_AdmissionState_subtitle2G" = "2G";
 
+"HealthCertifiedPerson_AdmissionState_subtitle2GPlus" = "2G+";
+
 "HealthCertifiedPerson_AdmissionState_subtitle2GPlusPCR" = "2G+ PCR тест";
 
 "HealthCertifiedPerson_AdmissionState_subtitle2GPlusAntigen" = "2G+ бърз тест";
@@ -2843,6 +2845,8 @@
 "HealthCertifiedPerson_AdmissionState_subtitle3GPlus" = "3G+";
 
 "HealthCertifiedPerson_AdmissionState_description2G" = "Вашите сертификати отговарят на 2G правилото. Ако Ви се налага да доказвате своя текущ статус затворете този изглед и покажете QR кода в “Преглед на сертификати”.";
+
+"HealthCertifiedPerson_AdmissionState_description2GPlus" = "Вашите сертификати отговарят на 2G plus правилото. Ако Ви се налага да доказвате своя текущ статус затворете този изглед и покажете QR кода в “Преглед на сертификати”.";
 
 "HealthCertifiedPerson_AdmissionState_description2GPlusPCR" = "Вашите сертификати отговарят на 2G plus правилото. Ако Ви се налага да доказвате своя текущ статус затворете този изглед и покажете QR кода в “Преглед на сертификати”.";
 

@@ -2834,6 +2834,8 @@
 
 "HealthCertifiedPerson_AdmissionState_subtitle2G" = "2G";
 
+"HealthCertifiedPerson_AdmissionState_subtitle2GPlus" = "2G+";
+
 "HealthCertifiedPerson_AdmissionState_subtitle2GPlusPCR" = "2G+ PCR test";
 
 "HealthCertifiedPerson_AdmissionState_subtitle2GPlusAntigen" = "2G+ rapid test";
@@ -2843,6 +2845,8 @@
 "HealthCertifiedPerson_AdmissionState_subtitle3GPlus" = "3G+";
 
 "HealthCertifiedPerson_AdmissionState_description2G" = "Your certificates satisfy the 2G rule. If you need to prove your current status, close this view and show the QR code in the certificate overview.";
+
+"HealthCertifiedPerson_AdmissionState_description2GPlus" = "Your certificates satisfy the 2G plus rule. If you need to prove your current status, close this view and show the QR code in the certificate overview.";
 
 "HealthCertifiedPerson_AdmissionState_description2GPlusPCR" = "Your certificates satisfy the 2G plus rule. If you need to prove your current status, close this view and show the QR code in the certificate overview.";
 
