@@ -18,12 +18,13 @@ struct ValidationRulesModel: CBORDecoding {
 		}
 	}
 
-	private init(rules: [Rule] ) {
-		self.rules = rules
-	}
-
 	// MARK: - Internal
 
 	let rules: [Rule]
-
+	
+	// MARK: - Private
+	
+	private init(rules: [Rule] ) {
+		self.rules = rules
+	}
 }
