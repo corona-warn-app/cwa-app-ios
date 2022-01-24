@@ -58,8 +58,12 @@ class CachedRestService: Service {
 			
 			// Update cache only if we fetched some fresh data.
 			if !isCachedData {
-				let serverDate = headers.dateHeader ?? Date()
-				let cachedModel = CacheData(data: data, eTag: eTag, date: serverDate)
+				let cachedModel = CacheData(
+					data: data,
+					eTag: eTag,
+					serverDate: headers.dateHeader,
+					clientDate: Date()
+				)
 				cache[resource.locator.hashValue] = cachedModel
 				Log.info("Fetched new cached data and wrote them to the cache", log: .client)
 			}
