@@ -3,19 +3,40 @@
 //
 
 import XCTest
+import HealthCertificateToolkit
+import ZIPFoundation
 @testable import ENA
 
 class ModelWithCacheTests: CWATestCase {
 	
-	func test_GIVEN_ModelWithCache_WHEN_RealModelIsFetchedFreshly_THEN_IsCachedIsFalse() {
+	func test_GIVEN_ModelWithCache_WHEN_RealModelIsFetchedFreshly_THEN_IsCachedIsFalse() throws {
 		// GIVEN
 		let expectation = expectation(description: "Expect that we got a completion")
-		let cache = KeyValueCacheFake()
-		let cachedRestService = CachedRestService(cache: cache)
+		
+		let archiveData = try createSomeCBORArchive()
+		
+		let stack = MockNetworkStack(
+			httpStatus: 200,
+			headerFields: [
+				"ETag": "Some eTag"
+			],
+			responseData: archiveData
+		)
+		
 		let resource = ResourceCachingCBORFake()
+		resource.receiveResource = CBORReceiveResource(
+			signatureVerifier: MockVerifier()
+		)
+		
+		let cache = KeyValueCacheFake()
+		
+		let serviceProvider = RestServiceProvider(
+			session: stack.urlSession,
+			cache: cache
+		)
 		
 		// WHEN
-		cachedRestService.load(resource) { result in
+		serviceProvider.load(resource) { result in
 			switch result {
 				
 			case let .success(cachingModel):
@@ -29,15 +50,46 @@ class ModelWithCacheTests: CWATestCase {
 		waitForExpectations(timeout: .short)
 	}
 
-	func test_GIVEN_ModelWithCache_WHEN_RealModelIsCached_THEN_IsCachedIsTrue() {
-	
+	func test_GIVEN_ModelWithCache_WHEN_RealModelIsCached_THEN_IsCachedIsTrue() throws {
 		// GIVEN
+		let expectation = expectation(description: "Expect that we got a completion")
+		
+		let archiveData = try createSomeCBORArchive()
+		
+		let stack = MockNetworkStack(
+			httpStatus: 304,
+			headerFields: [
+				"ETag": "Some eTag"
+			],
+			responseData: archiveData
+		)
+		
+		let resource = ResourceCachingCBORFake()
+		resource.receiveResource = CBORReceiveResource(
+			signatureVerifier: MockVerifier()
+		)
+		
+		let cache = KeyValueCacheFake()
+		cache[resource.locator.hashValue] = CacheData(data: archiveData, eTag: "Some eTag", date: Date())
+		
+		let serviceProvider = RestServiceProvider(
+			session: stack.urlSession,
+			cache: cache
+		)
 		
 		// WHEN
-		
-		// THEN
-		
-		
+		serviceProvider.load(resource) { result in
+			switch result {
+				
+			case let .success(cachingModel):
+				// THEN
+				XCTAssertFalse(cachingModel.isCached)
+			case let .failure(error):
+				XCTFail("Test should success but failed with error: \(error)")
+			}
+			expectation.fulfill()
+		}
+		waitForExpectations(timeout: .short)
 	}
 	
 	func test_GIVEN_ModelWithCache_WHEN_NonCachingRestServiceIsUsed_THEN_IsCachedIsFalse() {
@@ -49,6 +101,13 @@ class ModelWithCacheTests: CWATestCase {
 		// THEN
 		
 		
+	}
+	
+	private func createSomeCBORArchive() throws -> Data {
+		return try XCTUnwrap(Archive.createArchiveData(
+			accessMode: .create,
+			cborData: HealthCertificateToolkit.someCBORData
+		))
 	}
 	
 }
@@ -85,5 +144,5 @@ private class ResourceCachingCBORFake: Resource {
 	let locator: Locator
 	let type: ServiceType
 	let sendResource: EmptySendResource
-	let receiveResource: CBORReceiveResource<ModelWithCache<TestCachingModel>>
+	var receiveResource: CBORReceiveResource<ModelWithCache<TestCachingModel>>
 }
