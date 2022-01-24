@@ -2,19 +2,25 @@
 // 🦠 Corona-Warn-App
 //
 
+protocol ModelWithCaching {
+	var isCached: Bool { get set }
+}
+
 /**
  Generel model to encapsulate the real model, which has to fullfill CBORDecoding. The main purpose of this model is to store a property if the real model returned from the service is from the cache or freshly fetched. Normally you cannot differentiate here.
  */
-struct ModelWithCache<M>: CBORDecoding where M: CBORDecoding {
+struct ModelWithCache<WrappedModel>: CBORDecoding, ModelWithCaching where WrappedModel: CBORDecoding {
 		
+	// MARK: - CBORDecoding
+	
 	static func decode(_ data: Data) -> Result<ModelWithCache, ModelDecodingError> {
-		let result = M.decode(data)
+		let result = WrappedModel.decode(data)
 		switch result {
 			
 		case let .success(someModel):
 			// We need that cast for the compiler.
-			if let wrappedModel = someModel as? M {
-				return Result.success(ModelWithCache(model: wrappedModel, isCached: false))
+			if let wrappedModel = someModel as? WrappedModel {
+				return .success(ModelWithCache(model: wrappedModel, isCached: false))
 			} else {
 				return .failure(.CBOR_DECODING)
 			}
@@ -24,15 +30,18 @@ struct ModelWithCache<M>: CBORDecoding where M: CBORDecoding {
 		}
 	}
 	
+	// MARK: - ModelWithCaching
+
+	var isCached: Bool
+
 	// MARK: - Internal
 	
-	let model: M
-	var isCached: Bool
+	let model: WrappedModel
 	
 	// MARK: - Private
 	
 	private init(
-		model: M,
+		model: WrappedModel,
 		isCached: Bool
 	) {
 		self.model = model
