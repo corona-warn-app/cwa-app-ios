@@ -22,14 +22,15 @@ let package = Package(
         .package(url: "https://github.com/tsolomko/SWCompression.git", .upToNextMajor(from: "4.5.0")),
         .package(name: "CertLogic", url: "https://github.com/eu-digital-green-certificates/dgc-certlogic-ios", .revision("b2c60391396b3f0e3c4bf0b6b9685cbae4a34c7a")),
         .package(url: "https://github.com/corona-warn-app/ASN1Decoder", .upToNextMajor(from: "1.8.1")),
-        .package(name: "ENASecurity", path: "ENA/ENASecurity")
+        .package(name: "ENASecurity", path: "ENA/ENASecurity"),
+        .package(url: "https://github.com/corona-warn-app/json-functions-swift", .branch("main"))
     ],
     targets: [
         // Targets are the basic building blocks of a package. A target can define a module or a test suite.
         // Targets can depend on other targets in this package, and on products in packages this package depends on.
         .target(
             name: "HealthCertificateToolkit",
-            dependencies: ["SwiftCBOR", "base45-swift", "JSONSchema", "SWCompression", "CertLogic", "ASN1Decoder", "ENASecurity"],
+            dependencies: ["SwiftCBOR", "base45-swift", "JSONSchema", "SWCompression", "CertLogic", "ASN1Decoder", "ENASecurity", .product(name: "jsonfunctions", package: "json-functions-swift")],
             resources: [
                 .process("CertificateAccess/Ressources/CertificateSchema.json"),
                 .process("RuleValidation/Ressources/dcc-validation-rule.json")
