@@ -14,7 +14,7 @@ final class TestResultsResourceTests: CWATestCase {
 		let stack = MockNetworkStack(
 			httpStatus: 200,
 			responseData: try JSONEncoder().encode(
-				TestResultSendModel.fake()
+				TestResultReceiveModel.fake()
 			)
 		)
 		let serviceProvider = RestServiceProvider(session: stack.urlSession)
@@ -40,7 +40,7 @@ final class TestResultsResourceTests: CWATestCase {
 		let stack = MockNetworkStack(
 			httpStatus: 500,
 			responseData: try JSONEncoder().encode(
-				TestResultSendModel.fake()
+				TestResultReceiveModel.fake()
 			)
 		)
 		let serviceProvider = RestServiceProvider(session: stack.urlSession)
