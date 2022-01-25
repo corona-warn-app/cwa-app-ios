@@ -1081,6 +1081,7 @@
 		AB76C4BA2695EEFB009ADEB0 /* AntigenTestProfileInputCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB76C4B82695EEFA009ADEB0 /* AntigenTestProfileInputCell.swift */; };
 		AB76C4BB2695EEFB009ADEB0 /* AntigenTestProfileInputDescriptionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB76C4B92695EEFB009ADEB0 /* AntigenTestProfileInputDescriptionCell.swift */; };
 		AB76C4BE269735F7009ADEB0 /* ENAUITests_14_ValidateHealthCertificate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB76C4BD269735F7009ADEB0 /* ENAUITests_14_ValidateHealthCertificate.swift */; };
+		AB77384F27A05F0C00B9EA95 /* AnyCodable in Frameworks */ = {isa = PBXBuildFile; productRef = AB77384E27A05F0C00B9EA95 /* AnyCodable */; };
 		AB7A9FB127035B1E003142AE /* QRCodeParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB7A9FB027035B1E003142AE /* QRCodeParser.swift */; };
 		AB7BDF8325CC079B00E70744 /* SurveyConsentViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB7BDF8225CC079B00E70744 /* SurveyConsentViewModelTests.swift */; };
 		AB7DE73725C8528700C52B3F /* ExposureDetectionSurveyTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB7DE73125C8528600C52B3F /* ExposureDetectionSurveyTableViewCell.swift */; };
@@ -3325,6 +3326,7 @@
 				015E8C0824C997D200C0A4B3 /* CWASQLite.framework in Frameworks */,
 				EB7AF62A2587E98C00D94CA8 /* OpenCombineFoundation in Frameworks */,
 				EB7AF62E2587E98C00D94CA8 /* OpenCombineDispatch in Frameworks */,
+				AB77384F27A05F0C00B9EA95 /* AnyCodable in Frameworks */,
 				B1B5A76024924B3D0029D5D7 /* FMDB in Frameworks */,
 				AB42A193263C284200892536 /* HealthCertificateToolkit in Frameworks */,
 				858F6F6E245A103C009FFD33 /* ExposureNotification.framework in Frameworks */,
@@ -9407,6 +9409,7 @@
 				AB42A192263C284200892536 /* HealthCertificateToolkit */,
 				ABBBC055273AD2C3009A4B56 /* ENASecurity */,
 				01C1AC33276783DC00D45BFA /* OrderedCollections */,
+				AB77384E27A05F0C00B9EA95 /* AnyCodable */,
 			);
 			productName = ENA;
 			productReference = 85D7593B2457048F008175F0 /* ENA.app */;
@@ -9514,6 +9517,7 @@
 				B1B5A75E24924B3D0029D5D7 /* XCRemoteSwiftPackageReference "fmdb" */,
 				EB7AF6282587E98C00D94CA8 /* XCRemoteSwiftPackageReference "OpenCombine" */,
 				01C1AC32276783DC00D45BFA /* XCRemoteSwiftPackageReference "swift-collections" */,
+				AB77384D27A05F0C00B9EA95 /* XCRemoteSwiftPackageReference "AnyCodable" */,
 			);
 			productRefGroup = 85D7593C2457048F008175F0 /* Products */;
 			projectDirPath = "";
@@ -12381,6 +12385,14 @@
 				minimumVersion = 1.0.0;
 			};
 		};
+		AB77384D27A05F0C00B9EA95 /* XCRemoteSwiftPackageReference "AnyCodable" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Flight-School/AnyCodable";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.6.2;
+			};
+		};
 		B10FB02E246036F3004CA11E /* XCRemoteSwiftPackageReference "swift-protobuf" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/apple/swift-protobuf.git";
@@ -12424,6 +12436,11 @@
 		AB42A192263C284200892536 /* HealthCertificateToolkit */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = HealthCertificateToolkit;
+		};
+		AB77384E27A05F0C00B9EA95 /* AnyCodable */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = AB77384D27A05F0C00B9EA95 /* XCRemoteSwiftPackageReference "AnyCodable" */;
+			productName = AnyCodable;
 		};
 		ABBBC055273AD2C3009A4B56 /* ENASecurity */ = {
 			isa = XCSwiftPackageProductDependency;
