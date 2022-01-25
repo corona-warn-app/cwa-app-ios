@@ -15,19 +15,19 @@ struct ValidationOnboardedCountriesResource: Resource {
 		self.locator = .validationOnboardedCountries(isFake: isFake)
 		self.type = .caching()
 		self.sendResource = EmptySendResource()
-		self.receiveResource = CBORReceiveResource<ValidationOnboardedCountriesModel>()
+		self.receiveResource = CBORReceiveResource<ValidationOnboardedCountriesReceiveModel>()
 	}
 	
 	// MARK: - Protocol Resource
 	
 	typealias Send = EmptySendResource
-	typealias Receive = CBORReceiveResource<ValidationOnboardedCountriesModel>
+	typealias Receive = CBORReceiveResource<ValidationOnboardedCountriesReceiveModel>
 	typealias CustomError = ValidationOnboardedCountriesError
 	
 	var locator: Locator
 	var type: ServiceType
 	var sendResource: EmptySendResource
-	var receiveResource: CBORReceiveResource<ValidationOnboardedCountriesModel>
+	var receiveResource: CBORReceiveResource<ValidationOnboardedCountriesReceiveModel>
 	
 	func customError(for error: ServiceError<ValidationOnboardedCountriesError>) -> ValidationOnboardedCountriesError? {
 		switch error {

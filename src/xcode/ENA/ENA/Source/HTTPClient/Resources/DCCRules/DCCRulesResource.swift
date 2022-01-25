@@ -16,7 +16,7 @@ struct DCCRulesResource: Resource {
 		self.locator = .DCCRules(ruleType: ruleType, isFake: isFake)
 		self.type = .caching()
 		self.sendResource = EmptySendResource()
-		self.receiveResource = CBORReceiveResource<ValidationRulesModel>()
+		self.receiveResource = CBORReceiveResource<DCCRulesReceiveModel>()
 		self.ruleType = ruleType
 	}
 
@@ -25,13 +25,13 @@ struct DCCRulesResource: Resource {
 	// MARK: - Protocol Resource
 
 	typealias Send = EmptySendResource
-	typealias Receive = CBORReceiveResource<ValidationRulesModel>
+	typealias Receive = CBORReceiveResource<DCCRulesReceiveModel>
 	typealias CustomError = DCCDownloadRulesError
 
 	var locator: Locator
 	var type: ServiceType
 	var sendResource: EmptySendResource
-	var receiveResource: CBORReceiveResource<ValidationRulesModel>
+	var receiveResource: CBORReceiveResource<DCCRulesReceiveModel>
 
 	func customError(for error: ServiceError<DCCDownloadRulesError>) -> DCCDownloadRulesError? {
 		switch error {
