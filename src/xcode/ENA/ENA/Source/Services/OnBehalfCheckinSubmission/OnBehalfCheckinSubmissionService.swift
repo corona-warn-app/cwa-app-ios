@@ -91,7 +91,7 @@ class OnBehalfCheckinSubmissionService {
 		completion: @escaping (Result<String, ServiceError<TeleTanError>>) -> Void
 	) {
 		let resource = TeleTanResource(
-			sendModel: KeyModel(
+			sendModel: TeleTanSendModel(
 				key: tan,
 				keyType: .teleTan,
 				keyDob: nil

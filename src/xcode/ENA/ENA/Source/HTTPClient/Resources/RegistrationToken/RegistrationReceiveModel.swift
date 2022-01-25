@@ -2,7 +2,7 @@
 // 🦠 Corona-Warn-App
 //
 
-struct SubmissionTANModel: Codable {
+struct RegistrationReceiveModel: Codable {
 	let submissionTAN: String
 	
 	enum CodingKeys: String, CodingKey {

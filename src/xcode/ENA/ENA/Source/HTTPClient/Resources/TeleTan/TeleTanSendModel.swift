@@ -4,7 +4,7 @@
 
 import Foundation
 
-struct KeyModel: PaddingResource {
+struct TeleTanSendModel: PaddingResource {
 
 	// MARK: - Init
 

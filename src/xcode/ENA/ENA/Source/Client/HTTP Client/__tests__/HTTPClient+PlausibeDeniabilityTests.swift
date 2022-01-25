@@ -33,8 +33,8 @@ class HTTPClientPlausibleDeniabilityTests: CWATestCase {
 
 	func test_getRegistrationToken_requestPadding() {
 		// GIVE
-		let sendResource = PaddingJSONSendResource<KeyModel>(
-			KeyModel(
+		let sendResource = PaddingJSONSendResource<TeleTanSendModel>(
+			TeleTanSendModel(
 				key: "123456789",
 				keyType: .teleTan
 			)

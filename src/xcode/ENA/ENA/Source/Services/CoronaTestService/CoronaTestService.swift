@@ -655,7 +655,7 @@ class CoronaTestService {
 		}
 
 		let resource = TeleTanResource(
-			sendModel: KeyModel(
+			sendModel: TeleTanSendModel(
 				key: key,
 				keyType: type,
 				keyDob: dateOfBirthKey

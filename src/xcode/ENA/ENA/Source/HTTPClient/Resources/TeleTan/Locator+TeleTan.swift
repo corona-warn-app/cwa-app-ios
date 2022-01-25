@@ -10,7 +10,7 @@ extension Locator {
 	// receive:	JSON
 	// type:	default
 	// comment:
-	static func registrationToken(
+	static func teleTan(
 		isFake: Bool
 	) -> Locator {
 		let fake = String(isFake ? 1 : 0)

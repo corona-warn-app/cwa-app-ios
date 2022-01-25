@@ -166,7 +166,7 @@ final class DMNHCViewModel {
 							  return
 						  }
 					let resource = TeleTanResource(
-						sendModel: KeyModel(
+						sendModel: TeleTanSendModel(
 							key: teleTan,
 							keyType: .teleTan,
 							keyDob: nil
