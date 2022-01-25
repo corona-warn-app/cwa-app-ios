@@ -15,7 +15,7 @@ final class TeleTanResourceTests: CWATestCase {
 		let stack = MockNetworkStack(
 			httpStatus: 200,
 			responseData: try JSONEncoder().encode(
-				RegistrationTokenModel(
+				TeleTanReceiveModel(
 					registrationToken: fakeToken
 				)
 			)
@@ -24,7 +24,7 @@ final class TeleTanResourceTests: CWATestCase {
 		let serviceProvider = RestServiceProvider(session: stack.urlSession)
 		let teleTanResource = TeleTanResource(
 			isFake: false,
-			sendModel: KeyModel(
+			sendModel: TeleTanSendModel(
 				key: fakeToken,
 				keyType: .teleTan
 			)
@@ -49,7 +49,7 @@ final class TeleTanResourceTests: CWATestCase {
 		let stack = MockNetworkStack(
 			httpStatus: 200,
 			responseData: try JSONEncoder().encode(
-				RegistrationTokenModel(
+				TeleTanReceiveModel(
 					registrationToken: fakeToken
 				)
 			)
@@ -58,7 +58,7 @@ final class TeleTanResourceTests: CWATestCase {
 		let serviceProvider = RestServiceProvider(session: stack.urlSession)
 		let teleTanResource = TeleTanResource(
 			isFake: false,
-			sendModel: KeyModel(
+			sendModel: TeleTanSendModel(
 				key: fakeToken,
 				keyType: .guid
 			)
@@ -82,7 +82,7 @@ final class TeleTanResourceTests: CWATestCase {
 		let stack = MockNetworkStack(
 			httpStatus: 200,
 			responseData: try JSONEncoder().encode(
-				RegistrationTokenModel(
+				TeleTanReceiveModel(
 					registrationToken: fakeToken
 				)
 			)
@@ -91,7 +91,7 @@ final class TeleTanResourceTests: CWATestCase {
 		let serviceProvider = RestServiceProvider(session: stack.urlSession)
 		let teleTanResource = TeleTanResource(
 			isFake: false,
-			sendModel: KeyModel(
+			sendModel: TeleTanSendModel(
 				key: fakeToken,
 				keyType: .guid,
 				keyDob: "x987654321"
@@ -120,7 +120,7 @@ final class TeleTanResourceTests: CWATestCase {
 		let serviceProvider = RestServiceProvider(session: stack.urlSession)
 		let teleTanResource = TeleTanResource(
 			isFake: false,
-			sendModel: KeyModel(
+			sendModel: TeleTanSendModel(
 				key: "some value",
 				keyType: .teleTan
 			)
@@ -153,7 +153,7 @@ final class TeleTanResourceTests: CWATestCase {
 		let serviceProvider = RestServiceProvider(session: stack.urlSession)
 		let teleTanResource = TeleTanResource(
 			isFake: false,
-			sendModel: KeyModel(
+			sendModel: TeleTanSendModel(
 				key: "some value",
 				keyType: .guid
 			)
@@ -186,7 +186,7 @@ final class TeleTanResourceTests: CWATestCase {
 		let serviceProvider = RestServiceProvider(session: stack.urlSession)
 		let teleTanResource = TeleTanResource(
 			isFake: false,
-			sendModel: KeyModel(
+			sendModel: TeleTanSendModel(
 				key: "1234567890",
 				keyType: .guid
 			)
@@ -224,7 +224,7 @@ final class TeleTanResourceTests: CWATestCase {
 		let serviceProvider = RestServiceProvider(session: stack.urlSession)
 		let teleTanResource = TeleTanResource(
 			isFake: false,
-			sendModel: KeyModel(
+			sendModel: TeleTanSendModel(
 				key: "1234567890",
 				keyType: .guid
 			)
@@ -277,7 +277,7 @@ final class TeleTanResourceTests: CWATestCase {
 		let stack = MockNetworkStack(
 			httpStatus: 200,
 			responseData: try JSONEncoder().encode(
-				RegistrationTokenModel(
+				TeleTanReceiveModel(
 					registrationToken: "SomeToken"
 				)
 			),
@@ -287,7 +287,7 @@ final class TeleTanResourceTests: CWATestCase {
 		let serviceProvider = RestServiceProvider(session: stack.urlSession)
 		let teleTanResource = TeleTanResource(
 			isFake: false,
-			sendModel: KeyModel(
+			sendModel: TeleTanSendModel(
 				key: testKey,
 				keyType: .guid
 			)
