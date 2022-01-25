@@ -9,7 +9,7 @@ import class CertLogic.Rule
 
 struct ValidationRulesModel: CBORDecoding {
 
-	//MARK: - Protocol CBORDecoding
+	// MARK: - Protocol CBORDecoding
 	
 	static func decode(_ data: Data) -> Result<ValidationRulesModel, ModelDecodingError> {
 		switch ValidationRulesAccess().extractValidationRules(from: data) {
