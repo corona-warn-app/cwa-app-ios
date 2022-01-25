@@ -2721,7 +2721,7 @@
 
 "HealthCertificate_Validation_Info_title" = "Informații";
 
-"HealthCertificate_Validation_Info_byCar" = "Selectați ora de sosire locală planificată la granița țării de destinație.";
+"HealthCertificate_Validation_Info_byCar" = "Introduceți ora de sosire locală planificată la granița țării de destinație.";
 
 "HealthCertificate_Validation_Info_byPlane" = "În cazul în care călătoriți cu avionul, selectați ora de plecare programată a zborului.";
 
