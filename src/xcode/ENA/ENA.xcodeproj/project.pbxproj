@@ -1118,6 +1118,7 @@
 		ABB078F0273034AC0037B30F /* SecureCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABB078EF273034AC0037B30F /* SecureCache.swift */; };
 		ABB078F2273035340037B30F /* SecureStoring.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABB078F1273035340037B30F /* SecureStoring.swift */; };
 		ABB078F527316EC70037B30F /* CachedRestServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABB078F327316EB60037B30F /* CachedRestServiceTests.swift */; };
+		ABB8DF602799BEC300DD99E4 /* CCLService.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABB8DF5F2799BEC300DD99E4 /* CCLService.swift */; };
 		ABBBC056273AD2C3009A4B56 /* ENASecurity in Frameworks */ = {isa = PBXBuildFile; productRef = ABBBC055273AD2C3009A4B56 /* ENASecurity */; };
 		ABBF425D261DD7B5002A9A2B /* CheckinTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABBF425C261DD7B5002A9A2B /* CheckinTests.swift */; };
 		ABBF429626209952002A9A2B /* Checkin+Update.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABBF429526209952002A9A2B /* Checkin+Update.swift */; };
@@ -2775,6 +2776,7 @@
 		ABB078EF273034AC0037B30F /* SecureCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecureCache.swift; sourceTree = "<group>"; };
 		ABB078F1273035340037B30F /* SecureStoring.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecureStoring.swift; sourceTree = "<group>"; };
 		ABB078F327316EB60037B30F /* CachedRestServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CachedRestServiceTests.swift; sourceTree = "<group>"; };
+		ABB8DF5F2799BEC300DD99E4 /* CCLService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CCLService.swift; sourceTree = "<group>"; };
 		ABBA6BB8272AA1E200EEF2E4 /* RestServiceProviderFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestServiceProviderFactory.swift; sourceTree = "<group>"; };
 		ABBF425C261DD7B5002A9A2B /* CheckinTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckinTests.swift; sourceTree = "<group>"; };
 		ABBF429526209952002A9A2B /* Checkin+Update.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Checkin+Update.swift"; sourceTree = "<group>"; };
@@ -6281,6 +6283,7 @@
 		85D759802459A82D008175F0 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				ABB8DF5E2799BE9700DD99E4 /* CCLService */,
 				B15382DC248270220010F007 /* __tests__ */,
 				011216F22617360800320745 /* CoronaTestService */,
 				01FD3ED625D2F0D00049497A /* DeadmanNotification */,
@@ -7122,6 +7125,14 @@
 				BAEFB3582656B05A00497F79 /* StoreV5 */,
 			);
 			path = __tests__;
+			sourceTree = "<group>";
+		};
+		ABB8DF5E2799BE9700DD99E4 /* CCLService */ = {
+			isa = PBXGroup;
+			children = (
+				ABB8DF5F2799BEC300DD99E4 /* CCLService.swift */,
+			);
+			path = CCLService;
 			sourceTree = "<group>";
 		};
 		ABBF42942620993E002A9A2B /* Extensions */ = {
@@ -9734,6 +9745,7 @@
 				ABE9612D25EFEB4E00D0F699 /* DMInstallationDateViewController.swift in Sources */,
 				50BD2E6224FE1E8700932566 /* AppInformationModel.swift in Sources */,
 				01635EB1275A154D00A479EB /* HealthCertifiedPersonAdmissionState.swift in Sources */,
+				ABB8DF602799BEC300DD99E4 /* CCLService.swift in Sources */,
 				BA41016426F8D8F60073F28D /* CovPassCheckInformationViewModel.swift in Sources */,
 				B1A89F3B24819CE800DA1CEC /* SettingsLabelCell.swift in Sources */,
 				01164CE226C573A2007F9C3E /* TraceLocationCheckinSelectionCellModel.swift in Sources */,
