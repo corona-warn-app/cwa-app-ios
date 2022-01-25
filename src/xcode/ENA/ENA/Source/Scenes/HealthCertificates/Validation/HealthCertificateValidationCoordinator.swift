@@ -69,44 +69,50 @@ final class HealthCertificateValidationCoordinator {
 					arrivalCountry: arrivalCountry,
 					validationClock: arrivalDate
 				) { result in
-					footerViewModel.setLoadingIndicator(false, disable: false, button: .primary)
-
-					switch result {
-					case .success(let validationReport):
-						switch validationReport {
-						case .validationPassed(let validationResults):
-							self.showValidationPassedScreen(
-								arrivalCountry: arrivalCountry,
-								arrivalDate: arrivalDate,
-								validationResults: validationResults
-							)
-						case .validationOpen(let validationResults):
-							self.showValidationOpenScreen(
-								arrivalCountry: arrivalCountry,
-								arrivalDate: arrivalDate,
-								validationResults: validationResults
-							)
-						case .validationFailed(let validationResults):
-							self.showValidationFailedScreen(
-								arrivalCountry: arrivalCountry,
-								arrivalDate: arrivalDate,
-								validationResults: validationResults
-							)
+					DispatchQueue.main.async { [weak self] in
+						guard let self = self else {
+							Log.error("Could not create strong self.")
+							return
 						}
-					case .failure(let error):
-						switch error {
-						case let .TECHNICAL_VALIDATION_FAILED(expirationDate, signatureInvalid):
-							self.showTechnicalValidationFailedScreen(
-								arrivalCountry: arrivalCountry,
-								arrivalDate: arrivalDate,
-								expirationDate: expirationDate,
-								signatureInvalid: signatureInvalid
-							)
-						default:
-							self.showErrorAlert(
-								title: AppStrings.HealthCertificate.Validation.Error.title,
-								error: error
-							)
+						footerViewModel.setLoadingIndicator(false, disable: false, button: .primary)
+
+						switch result {
+						case .success(let validationReport):
+							switch validationReport {
+							case .validationPassed(let validationResults):
+								self.showValidationPassedScreen(
+									arrivalCountry: arrivalCountry,
+									arrivalDate: arrivalDate,
+									validationResults: validationResults
+								)
+							case .validationOpen(let validationResults):
+								self.showValidationOpenScreen(
+									arrivalCountry: arrivalCountry,
+									arrivalDate: arrivalDate,
+									validationResults: validationResults
+								)
+							case .validationFailed(let validationResults):
+								self.showValidationFailedScreen(
+									arrivalCountry: arrivalCountry,
+									arrivalDate: arrivalDate,
+									validationResults: validationResults
+								)
+							}
+						case .failure(let error):
+							switch error {
+							case let .TECHNICAL_VALIDATION_FAILED(expirationDate, signatureInvalid):
+								self.showTechnicalValidationFailedScreen(
+									arrivalCountry: arrivalCountry,
+									arrivalDate: arrivalDate,
+									expirationDate: expirationDate,
+									signatureInvalid: signatureInvalid
+								)
+							default:
+								self.showErrorAlert(
+									title: AppStrings.HealthCertificate.Validation.Error.title,
+									error: error
+								)
+							}
 						}
 					}
 				}
