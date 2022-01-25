@@ -2721,7 +2721,7 @@
 
 "HealthCertificate_Validation_Info_title" = "Bilgi";
 
-"HealthCertificate_Validation_Info_byCar" = "Gideceğiniz ülkenin sınırına planlanan yerel varış saatini seçin.";
+"HealthCertificate_Validation_Info_byCar" = "Gideceğiniz ülkenin sınırına planlanan yerel varış saatini girin.";
 
 "HealthCertificate_Validation_Info_byPlane" = "Hava yoluyla seyahat ediyorsanız uçuşunuzun planlanan kalkış saatini seçin.";
 
