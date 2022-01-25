@@ -20,7 +20,7 @@ extension RestServiceProviding where Self == RestServiceProviderStub {
 	static var coronaTestServiceProvider: RestServiceProviderStub {
 		RestServiceProviderStub(results: [
 			.success(
-				TeleTanReceiveModel(teleTan: "registrationToken")
+				TeleTanReceiveModel(registrationToken: "registrationToken")
 			),
 			.success(
 				RegistrationReceiveModel(submissionTAN: "registrationToken")
@@ -31,7 +31,7 @@ extension RestServiceProviding where Self == RestServiceProviderStub {
 	static var onBehalfCheckinSubmissionServiceProviderStub: RestServiceProviderStub {
 		RestServiceProviderStub(results: [
 			.success(
-				TeleTanReceiveModel(teleTan: "registrationToken")
+				TeleTanReceiveModel(registrationToken: "registrationToken")
 			),
 			.success(
 				RegistrationReceiveModel(submissionTAN: "registrationToken")
