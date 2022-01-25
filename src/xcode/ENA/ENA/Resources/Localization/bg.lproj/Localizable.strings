@@ -2721,7 +2721,7 @@
 
 "HealthCertificate_Validation_Info_title" = "Информация";
 
-"HealthCertificate_Validation_Info_byCar" = "Изберете планирания час на пристигане на границата на държавата на местоназначение по местно време.";
+"HealthCertificate_Validation_Info_byCar" = "Въведете планирания час на пристигане на границата на държавата на местоназначение по местно време.";
 
 "HealthCertificate_Validation_Info_byPlane" = "Ако пътувате със самолет, въведете планирания час на заминаване на полета ви.";
 
