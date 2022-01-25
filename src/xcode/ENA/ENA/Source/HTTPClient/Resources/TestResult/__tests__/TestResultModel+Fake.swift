@@ -5,13 +5,13 @@
 import Foundation
 @testable import ENA
 
-extension TestResultModel {
+extension TestResultReceiveModel {
 	static func fake(
 		testResult: Int = 0,
 		sc: Int? = nil,
 		labId: String? = nil
-	) -> TestResultModel {
-		TestResultModel(
+	) -> TestResultReceiveModel {
+		TestResultReceiveModel(
 			testResult: testResult,
 			sc: sc,
 			labId: labId

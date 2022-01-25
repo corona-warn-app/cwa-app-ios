@@ -14,13 +14,13 @@ final class TestResultsResourceTests: CWATestCase {
 		let stack = MockNetworkStack(
 			httpStatus: 200,
 			responseData: try JSONEncoder().encode(
-				TestResultModel.fake()
+				TestResultSendModel.fake()
 			)
 		)
 		let serviceProvider = RestServiceProvider(session: stack.urlSession)
 		let resource = TestResultResource(
 			isFake: false,
-			sendModel: RegistrationTokenSendModel(registrationToken: "12345")
+			sendModel: TestResultSendModel(registrationToken: "12345")
 		)
 
 		serviceProvider.load(resource) { result in
@@ -40,13 +40,13 @@ final class TestResultsResourceTests: CWATestCase {
 		let stack = MockNetworkStack(
 			httpStatus: 500,
 			responseData: try JSONEncoder().encode(
-				TestResultModel.fake()
+				TestResultSendModel.fake()
 			)
 		)
 		let serviceProvider = RestServiceProvider(session: stack.urlSession)
 		let resource = TestResultResource(
 			isFake: false,
-			sendModel: RegistrationTokenSendModel(registrationToken: "12345")
+			sendModel: TestResultSendModel(registrationToken: "12345")
 		)
 
 		serviceProvider.load(resource) { result in
@@ -75,7 +75,7 @@ final class TestResultsResourceTests: CWATestCase {
 		let serviceProvider = RestServiceProvider(session: stack.urlSession)
 		let resource = TestResultResource(
 			isFake: false,
-			sendModel: RegistrationTokenSendModel(registrationToken: "12345")
+			sendModel: TestResultSendModel(registrationToken: "12345")
 		)
 
 		serviceProvider.load(resource) { result in
@@ -112,7 +112,7 @@ final class TestResultsResourceTests: CWATestCase {
 		let serviceProvider = RestServiceProvider(session: stack.urlSession)
 		let resource = TestResultResource(
 			isFake: false,
-			sendModel: RegistrationTokenSendModel(registrationToken: "12345")
+			sendModel: TestResultSendModel(registrationToken: "12345")
 		)
 
 		serviceProvider.load(resource) { result in
@@ -162,7 +162,7 @@ final class TestResultsResourceTests: CWATestCase {
 		let serviceProvider = RestServiceProvider(session: stack.urlSession)
 		let resource = TestResultResource(
 			isFake: false,
-			sendModel: RegistrationTokenSendModel(registrationToken: expectedToken)
+			sendModel: TestResultSendModel(registrationToken: expectedToken)
 		)
 
 		serviceProvider.load(resource) { _ in }
