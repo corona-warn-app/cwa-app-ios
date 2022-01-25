@@ -43,13 +43,25 @@ class AdmissionStateCellModelTests: XCTestCase {
 
 	func testTwoG() throws {
 		let healthCertifiedPerson = HealthCertifiedPerson(healthCertificates: [])
-		healthCertifiedPerson.admissionState = .twoG
+		healthCertifiedPerson.admissionState = .twoG(twoG: try vaccinationCertificate())
 
 		let cellModel = AdmissionStateCellModel(healthCertifiedPerson: healthCertifiedPerson)
 
 		XCTAssertEqual(cellModel.subtitle, "2G")
 		XCTAssertEqual(cellModel.description, "Ihre Zertifikate erfüllen die 2G-Regel. Wenn Sie Ihren aktuellen Status vorweisen müssen, schließen Sie diese Ansicht und zeigen Sie den QR-Code auf der Zertifikatsübersicht.")
 		XCTAssertEqual(cellModel.shortTitle, "2G")
+		XCTAssertEqual(cellModel.faqLink?.string, "Mehr Informationen finden Sie in den FAQ.")
+	}
+	
+	func testTwoGPlus() throws {
+		let healthCertifiedPerson = HealthCertifiedPerson(healthCertificates: [])
+		healthCertifiedPerson.admissionState = .twoG(twoG: try vaccinationCertificate(daysOffset: -1, doseNumber: 3, totalSeriesOfDoses: 3))
+
+		let cellModel = AdmissionStateCellModel(healthCertifiedPerson: healthCertifiedPerson)
+
+		XCTAssertEqual(cellModel.subtitle, "2G+")
+		XCTAssertEqual(cellModel.description, "Ihre Zertifikate erfüllen die 2G-Plus-Regel. Wenn Sie Ihren aktuellen Status vorweisen müssen, schließen Sie diese Ansicht und zeigen Sie den QR-Code auf der Zertifikatsübersicht.")
+		XCTAssertEqual(cellModel.shortTitle, "2G+")
 		XCTAssertEqual(cellModel.faqLink?.string, "Mehr Informationen finden Sie in den FAQ.")
 	}
 

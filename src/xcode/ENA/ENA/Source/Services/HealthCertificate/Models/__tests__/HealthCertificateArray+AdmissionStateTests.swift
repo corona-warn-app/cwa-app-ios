@@ -45,14 +45,14 @@ class HealthCertificateArrayAdmissionStateTests: CWATestCase {
 		let validProtectingVaccinationCertificate = try vaccinationCertificate(type: .seriesCompleting, ageInDays: 16)
 		let certificates = try nonValidCertificates() + [validProtectingVaccinationCertificate]
 
-		XCTAssertEqual(certificates.admissionState, .twoG)
+		XCTAssertEqual(certificates.admissionState, .twoG(twoG: validProtectingVaccinationCertificate))
 	}
 
 	func testTwoGWithRecovery() throws {
 		let validRecoveryCertificate = try recoveryCertificate(ageInDays: 10)
 		let certificates = try nonValidCertificates() + [validRecoveryCertificate]
 
-		XCTAssertEqual(certificates.admissionState, .twoG)
+		XCTAssertEqual(certificates.admissionState, .twoG(twoG: validRecoveryCertificate))
 	}
 
 	func testThreeGWithPCR() throws {
