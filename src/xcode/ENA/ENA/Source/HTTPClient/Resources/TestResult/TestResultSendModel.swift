@@ -4,7 +4,7 @@
 import Foundation
 
 /// You might wonder why there is an extra RegistrationToken model for sending, its needed since while sending we have to pad the Resource
-struct RegistrationTokenSendModel: PaddingResource {
+struct TestResultSendModel: PaddingResource {
 
 	// MARK: - Init
 	init(

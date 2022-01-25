@@ -2,7 +2,7 @@
 // 🦠 Corona-Warn-App
 //
 
-struct SendRegistrationTokenModel: PaddingResource {
+struct RegistrationTokenSendModel: PaddingResource {
 
 	// MARK: - Init
 

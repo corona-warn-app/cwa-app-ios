@@ -8,24 +8,24 @@ struct TestResultResource: Resource {
 	// MARK: - Init
 	init(
 		isFake: Bool = false,
-		sendModel: RegistrationTokenSendModel
+		sendModel: TestResultSendModel
 	) {
 		self.locator = .testResult(isFake: isFake)
 		self.type = .default
-		self.sendResource = JSONSendResource<RegistrationTokenSendModel>(sendModel)
-		self.receiveResource = JSONReceiveResource<TestResultModel>()
+		self.sendResource = JSONSendResource<TestResultSendModel>(sendModel)
+		self.receiveResource = JSONReceiveResource<TestResultReceiveModel>()
 		self.regTokenModel = sendModel
 	}
 
 	// MARK: - Protocol Resource
-	typealias Send = JSONSendResource<RegistrationTokenSendModel>
-	typealias Receive = JSONReceiveResource<TestResultModel>
+	typealias Send = JSONSendResource<TestResultSendModel>
+	typealias Receive = JSONReceiveResource<TestResultReceiveModel>
 	typealias CustomError = TestResultError
 
 	var locator: Locator
 	var type: ServiceType
-	var sendResource: JSONSendResource<RegistrationTokenSendModel>
-	var receiveResource: JSONReceiveResource<TestResultModel>
+	var sendResource: JSONSendResource<TestResultSendModel>
+	var receiveResource: JSONReceiveResource<TestResultReceiveModel>
 
 	func customStatusCodeError(statusCode: Int) -> TestResultError? {
 		switch statusCode {
@@ -38,14 +38,14 @@ struct TestResultResource: Resource {
 	
 #if !RELEASE
 	var defaultMockLoadResource: LoadResource? = LoadResource(
-		result: .success(TestResultModel(testResult: TestResult.negative.rawValue, sc: nil, labId: nil)),
+		result: .success(TestResultReceiveModel(testResult: TestResult.negative.rawValue, sc: nil, labId: nil)),
 		willLoadResource: nil
 	)
 #endif
 	
 
 	// MARK: - Private
-	private let regTokenModel: RegistrationTokenSendModel
+	private let regTokenModel: TestResultSendModel
 }
 
 enum TestResultError: Error {

@@ -112,7 +112,7 @@ class OnBehalfCheckinSubmissionService {
 		completion: @escaping (Result<String, ServiceError<RegistrationTokenError>>) -> Void
 	) {
 		let resource = RegistrationTokenResource(
-			sendModel: SendRegistrationTokenModel(
+			sendModel: RegistrationTokenSendModel(
 				token: registrationToken
 			)
 		)

@@ -43,7 +43,7 @@ class FakeRequestService {
 	func fakeVerificationServerRequest(completion: (() -> Void)? = nil) {
 		let resource = RegistrationTokenResource(
 			isFake: true,
-			sendModel: SendRegistrationTokenModel(
+			sendModel: RegistrationTokenSendModel(
 				token: Self.fakeRegistrationToken
 			)
 		)

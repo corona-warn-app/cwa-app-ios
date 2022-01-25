@@ -1,7 +1,7 @@
 //
 // 🦠 Corona-Warn-App
 //
-struct TestResultModel: Codable {
+struct TestResultReceiveModel: Codable {
 	let testResult: Int
 	let sc: Int?
 	let labId: String?

@@ -439,7 +439,7 @@ class CoronaTestService {
 			return
 		}
 			let resource = RegistrationTokenResource(
-				sendModel: SendRegistrationTokenModel(
+				sendModel: RegistrationTokenSendModel(
 					token: registrationToken
 				)
 			)

@@ -1034,7 +1034,7 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 		let restServiceProvider = RestServiceProviderStub(
 			results: [
 				.success(RegistrationTokenModel(registrationToken: "fake")),
-				.success(TestResultModel(testResult: expectedTestResult.rawValue, sc: nil, labId: nil))
+				.success(TestResultReceiveModel(testResult: expectedTestResult.rawValue, sc: nil, labId: nil))
 			]
 		)
 

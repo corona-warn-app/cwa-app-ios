@@ -556,7 +556,7 @@ class CoronaTestServiceTests: CWATestCase {
 			.success(
 				RegistrationTokenModel(registrationToken: "registrationToken")
 			),
-			.success(TestResultModel(testResult: TestResult.pending.rawValue, sc: nil, labId: "SomeLabId"))
+			.success(TestResultReceiveModel(testResult: TestResult.pending.rawValue, sc: nil, labId: "SomeLabId"))
 
 		])
 
@@ -658,7 +658,7 @@ class CoronaTestServiceTests: CWATestCase {
 				}
 			),
 			LoadResource(
-				result: .success(TestResultModel(testResult: TestResult.negative.rawValue, sc: nil, labId: nil)), willLoadResource: nil)
+				result: .success(TestResultReceiveModel(testResult: TestResult.negative.rawValue, sc: nil, labId: nil)), willLoadResource: nil)
 		])
 
 		let client = ClientMock()
@@ -781,7 +781,7 @@ class CoronaTestServiceTests: CWATestCase {
 				}
 			),
 			LoadResource(
-				result: .success(TestResultModel(testResult: TestResult.negative.rawValue, sc: nil, labId: nil)), willLoadResource: nil)
+				result: .success(TestResultReceiveModel(testResult: TestResult.negative.rawValue, sc: nil, labId: nil)), willLoadResource: nil)
 		])
 
 		let client = ClientMock()
@@ -876,7 +876,7 @@ class CoronaTestServiceTests: CWATestCase {
 				}
 			),
 			LoadResource(
-				result: .success(TestResultModel(testResult: TestResult.negative.rawValue, sc: nil, labId: nil)), willLoadResource: nil)
+				result: .success(TestResultReceiveModel(testResult: TestResult.negative.rawValue, sc: nil, labId: nil)), willLoadResource: nil)
 		])
 
 		let client = ClientMock()
@@ -1341,7 +1341,7 @@ class CoronaTestServiceTests: CWATestCase {
 				}
 			),
 			LoadResource(
-				result: .success(TestResultModel(testResult: TestResult.pending.rawValue, sc: 123456789, labId: "SomeLabId")), willLoadResource: nil)
+				result: .success(TestResultReceiveModel(testResult: TestResult.pending.rawValue, sc: 123456789, labId: "SomeLabId")), willLoadResource: nil)
 		])
 
 		let client = ClientMock()
@@ -1426,7 +1426,7 @@ class CoronaTestServiceTests: CWATestCase {
 			.success(
 				RegistrationTokenModel(registrationToken: "registrationToken")
 			),
-			.success(TestResultModel(testResult: TestResult.pending.rawValue, sc: nil, labId: nil)),
+			.success(TestResultReceiveModel(testResult: TestResult.pending.rawValue, sc: nil, labId: nil)),
 			.success(SubmissionTANModel(submissionTAN: "fake"))
 		])
 
@@ -1547,7 +1547,7 @@ class CoronaTestServiceTests: CWATestCase {
 				}
 			),
 			LoadResource(
-				   result: .success(TestResultModel(testResult: TestResult.negative.rawValue, sc: nil, labId: nil)), willLoadResource: nil
+				   result: .success(TestResultReceiveModel(testResult: TestResult.negative.rawValue, sc: nil, labId: nil)), willLoadResource: nil
 			)
 		])
 
@@ -1771,7 +1771,7 @@ class CoronaTestServiceTests: CWATestCase {
 
 	func testUpdatePCRTestResult_success() {
 		let restServiceProvider = RestServiceProviderStub(results: [
-			.success(TestResultModel(testResult: TestResult.positive.rawValue, sc: nil, labId: nil)),
+			.success(TestResultReceiveModel(testResult: TestResult.positive.rawValue, sc: nil, labId: nil)),
 			.success(SubmissionTANModel(submissionTAN: "fake"))
 		])
 
@@ -1832,7 +1832,7 @@ class CoronaTestServiceTests: CWATestCase {
 
 	func testUpdateAntigenTestResult_success() {
 		let restServiceProvider = RestServiceProviderStub(results: [
-			.success(TestResultModel(testResult: TestResult.positive.rawValue, sc: nil, labId: nil)),
+			.success(TestResultReceiveModel(testResult: TestResult.positive.rawValue, sc: nil, labId: nil)),
 			.success(SubmissionTANModel(submissionTAN: "fake"))
 		])
 		
@@ -2082,7 +2082,7 @@ class CoronaTestServiceTests: CWATestCase {
 		let store = MockTestStore()
 		let appConfiguration = CachedAppConfigurationMock()
 		let restServiceProvider = RestServiceProviderStub(results: [
-			.success(TestResultModel(testResult: TestResult.pending.rawValue, sc: nil, labId: "SomeLabId")),
+			.success(TestResultReceiveModel(testResult: TestResult.pending.rawValue, sc: nil, labId: "SomeLabId")),
 			.success(SubmissionTANModel(submissionTAN: "fake")),
 			.success(SubmissionTANModel(submissionTAN: "fake")),
 			.success(SubmissionTANModel(submissionTAN: "fake")),
@@ -2142,7 +2142,7 @@ class CoronaTestServiceTests: CWATestCase {
 		let client = ClientMock()
 
 		let restServiceProvider = RestServiceProviderStub(results: [
-			.success(TestResultModel(testResult: TestResult.positive.rawValue, sc: nil, labId: "SomeLabId")),
+			.success(TestResultReceiveModel(testResult: TestResult.positive.rawValue, sc: nil, labId: "SomeLabId")),
 			.success(RegistrationTokenModel(registrationToken: "token"))
 		])
 		
@@ -2233,8 +2233,8 @@ class CoronaTestServiceTests: CWATestCase {
 		let client = ClientMock()
 		
 		let restServiceProvider = RestServiceProviderStub(results: [
-			.success(TestResultModel(testResult: TestResult.pending.rawValue, sc: nil, labId: "SomeLabId")),
-			.success(TestResultModel(testResult: TestResult.pending.rawValue, sc: nil, labId: "SomeLabId"))
+			.success(TestResultReceiveModel(testResult: TestResult.pending.rawValue, sc: nil, labId: "SomeLabId")),
+			.success(TestResultReceiveModel(testResult: TestResult.pending.rawValue, sc: nil, labId: "SomeLabId"))
 		])
 
 		let store = MockTestStore()
@@ -2280,8 +2280,8 @@ class CoronaTestServiceTests: CWATestCase {
 		let sampleCollectionDate = Date()
 		
 		let restServiceProvider = RestServiceProviderStub(results: [
-			.success(TestResultModel(testResult: TestResult.positive.rawValue, sc: Int(sampleCollectionDate.timeIntervalSince1970), labId: "SomeLabId")),
-			.success(TestResultModel(testResult: TestResult.positive.rawValue, sc: Int(sampleCollectionDate.timeIntervalSince1970), labId: "SomeLabId"))
+			.success(TestResultReceiveModel(testResult: TestResult.positive.rawValue, sc: Int(sampleCollectionDate.timeIntervalSince1970), labId: "SomeLabId")),
+			.success(TestResultReceiveModel(testResult: TestResult.positive.rawValue, sc: Int(sampleCollectionDate.timeIntervalSince1970), labId: "SomeLabId"))
 		])
 		
 
@@ -2342,8 +2342,8 @@ class CoronaTestServiceTests: CWATestCase {
 		let client = ClientMock()
 		
 		let restServiceProvider = RestServiceProviderStub(results: [
-			.success(TestResultModel(testResult: TestResult.pending.rawValue, sc: nil, labId: nil)),
-			.success(TestResultModel(testResult: TestResult.pending.rawValue, sc: nil, labId: nil))
+			.success(TestResultReceiveModel(testResult: TestResult.pending.rawValue, sc: nil, labId: nil)),
+			.success(TestResultReceiveModel(testResult: TestResult.pending.rawValue, sc: nil, labId: nil))
 		])
 
 		let diaryStore = MockDiaryStore()
@@ -2391,8 +2391,8 @@ class CoronaTestServiceTests: CWATestCase {
 		let client = ClientMock()
 		
 		let restServiceProvider = RestServiceProviderStub(results: [
-			.success(TestResultModel(testResult: TestResult.expired.rawValue, sc: nil, labId: nil)),
-			.success(TestResultModel(testResult: TestResult.expired.rawValue, sc: nil, labId: nil))
+			.success(TestResultReceiveModel(testResult: TestResult.expired.rawValue, sc: nil, labId: nil)),
+			.success(TestResultReceiveModel(testResult: TestResult.expired.rawValue, sc: nil, labId: nil))
 		])
 
 		let diaryStore = MockDiaryStore()
@@ -2440,8 +2440,8 @@ class CoronaTestServiceTests: CWATestCase {
 		let client = ClientMock()
 
 		let restServiceProvider = RestServiceProviderStub(results: [
-			.success(TestResultModel(testResult: TestResult.invalid.rawValue, sc: nil, labId: nil)),
-			.success(TestResultModel(testResult: TestResult.invalid.rawValue, sc: nil, labId: nil))
+			.success(TestResultReceiveModel(testResult: TestResult.invalid.rawValue, sc: nil, labId: nil)),
+			.success(TestResultReceiveModel(testResult: TestResult.invalid.rawValue, sc: nil, labId: nil))
 		])
 		
 		let diaryStore = MockDiaryStore()
@@ -2490,8 +2490,8 @@ class CoronaTestServiceTests: CWATestCase {
 		let client = ClientMock()
 		
 		let restServiceProvider = RestServiceProviderStub(results: [
-			.success(TestResultModel(testResult: TestResult.negative.rawValue, sc: nil, labId: nil)),
-			.success(TestResultModel(testResult: TestResult.negative.rawValue, sc: nil, labId: nil))
+			.success(TestResultReceiveModel(testResult: TestResult.negative.rawValue, sc: nil, labId: nil)),
+			.success(TestResultReceiveModel(testResult: TestResult.negative.rawValue, sc: nil, labId: nil))
 		])
 
 		let diaryStore = MockDiaryStore()
@@ -2540,8 +2540,8 @@ class CoronaTestServiceTests: CWATestCase {
 		let client = ClientMock()
 		
 		let restServiceProvider = RestServiceProviderStub(results: [
-			.success(TestResultModel(testResult: TestResult.expired.rawValue, sc: nil, labId: nil)),
-			.success(TestResultModel(testResult: TestResult.expired.rawValue, sc: nil, labId: nil))
+			.success(TestResultReceiveModel(testResult: TestResult.expired.rawValue, sc: nil, labId: nil)),
+			.success(TestResultReceiveModel(testResult: TestResult.expired.rawValue, sc: nil, labId: nil))
 		])
 
 		let store = MockTestStore()
@@ -2591,14 +2591,14 @@ class CoronaTestServiceTests: CWATestCase {
 		
 		let restServiceProvider = RestServiceProviderStub(loadResources: [
 			LoadResource(
-				result: .success(TestResultModel(testResult: TestResult.expired.rawValue, sc: nil, labId: "SomeLabId")),
+				result: .success(TestResultReceiveModel(testResult: TestResult.expired.rawValue, sc: nil, labId: "SomeLabId")),
 				willLoadResource: { res in
 					if let resource = res as? TestResultResource, !resource.locator.isFake {
 						getTestResultExpectation.fulfill()
 					}
 				}),
 			LoadResource(
-				result: .success(TestResultModel(testResult: TestResult.expired.rawValue, sc: nil, labId: "SomeLabId")),
+				result: .success(TestResultReceiveModel(testResult: TestResult.expired.rawValue, sc: nil, labId: "SomeLabId")),
 				willLoadResource: { res in
 					if let resource = res as? TestResultResource, !resource.locator.isFake {
 						getTestResultExpectation.fulfill()
@@ -2653,7 +2653,7 @@ class CoronaTestServiceTests: CWATestCase {
 		
 		let restServiceProvider = RestServiceProviderStub(loadResources: [
 			LoadResource(
-				result: .success(TestResultModel(testResult: TestResult.expired.rawValue, sc: nil, labId: "SomeLabId")),
+				result: .success(TestResultReceiveModel(testResult: TestResult.expired.rawValue, sc: nil, labId: "SomeLabId")),
 				willLoadResource: { res in
 					if let resource = res as? TestResultResource, !resource.locator.isFake {
 						getTestResultExpectation.fulfill()
@@ -2708,14 +2708,14 @@ class CoronaTestServiceTests: CWATestCase {
 		
 		let restServiceProvider = RestServiceProviderStub(loadResources: [
 			LoadResource(
-				result: .success(TestResultModel(testResult: TestResult.expired.rawValue, sc: nil, labId: "SomeLabId")),
+				result: .success(TestResultReceiveModel(testResult: TestResult.expired.rawValue, sc: nil, labId: "SomeLabId")),
 				willLoadResource: { res in
 					if let resource = res as? TestResultResource, !resource.locator.isFake {
 						getTestResultExpectation.fulfill()
 					}
 				}),
 			LoadResource(
-				result: .success(TestResultModel(testResult: TestResult.expired.rawValue, sc: nil, labId: "SomeLabId")),
+				result: .success(TestResultReceiveModel(testResult: TestResult.expired.rawValue, sc: nil, labId: "SomeLabId")),
 				willLoadResource: { res in
 					if let resource = res as? TestResultResource, !resource.locator.isFake {
 						getTestResultExpectation.fulfill()
@@ -2772,14 +2772,14 @@ class CoronaTestServiceTests: CWATestCase {
 		
 		let restServiceProvider = RestServiceProviderStub(loadResources: [
 			LoadResource(
-				result: .success(TestResultModel(testResult: TestResult.expired.rawValue, sc: nil, labId: "SomeLabId")),
+				result: .success(TestResultReceiveModel(testResult: TestResult.expired.rawValue, sc: nil, labId: "SomeLabId")),
 				willLoadResource: { res in
 					if let resource = res as? TestResultResource, !resource.locator.isFake {
 						getTestResultExpectation.fulfill()
 					}
 				}),
 			LoadResource(
-				result: .success(TestResultModel(testResult: TestResult.expired.rawValue, sc: nil, labId: "SomeLabId")),
+				result: .success(TestResultReceiveModel(testResult: TestResult.expired.rawValue, sc: nil, labId: "SomeLabId")),
 				willLoadResource: { res in
 					if let resource = res as? TestResultResource, !resource.locator.isFake {
 						getTestResultExpectation.fulfill()
@@ -2836,7 +2836,7 @@ class CoronaTestServiceTests: CWATestCase {
 		
 		let restServiceProvider = RestServiceProviderStub(loadResources: [
 			LoadResource(
-				result: .success(TestResultModel(testResult: TestResult.expired.rawValue, sc: nil, labId: "SomeLabId")),
+				result: .success(TestResultReceiveModel(testResult: TestResult.expired.rawValue, sc: nil, labId: "SomeLabId")),
 				willLoadResource: { res in
 					if let resource = res as? TestResultResource, !resource.locator.isFake {
 						getTestResultExpectation.fulfill()
@@ -2893,14 +2893,14 @@ class CoronaTestServiceTests: CWATestCase {
 		
 		let restServiceProvider = RestServiceProviderStub(loadResources: [
 			LoadResource(
-				result: .success(TestResultModel(testResult: TestResult.expired.rawValue, sc: nil, labId: "SomeLabId")),
+				result: .success(TestResultReceiveModel(testResult: TestResult.expired.rawValue, sc: nil, labId: "SomeLabId")),
 				willLoadResource: { res in
 					if let resource = res as? TestResultResource, !resource.locator.isFake {
 						getTestResultExpectation.fulfill()
 					}
 				}),
 			LoadResource(
-				result: .success(TestResultModel(testResult: TestResult.expired.rawValue, sc: nil, labId: "SomeLabId")),
+				result: .success(TestResultReceiveModel(testResult: TestResult.expired.rawValue, sc: nil, labId: "SomeLabId")),
 				willLoadResource: { res in
 					if let resource = res as? TestResultResource, !resource.locator.isFake {
 						getTestResultExpectation.fulfill()
@@ -2959,7 +2959,7 @@ class CoronaTestServiceTests: CWATestCase {
 		
 		let restServiceProvider = RestServiceProviderStub(loadResources: [
 			LoadResource(
-				result: .success(TestResultModel(testResult: TestResult.expired.rawValue, sc: nil, labId: "SomeLabId")),
+				result: .success(TestResultReceiveModel(testResult: TestResult.expired.rawValue, sc: nil, labId: "SomeLabId")),
 				willLoadResource: { res in
 					if let resource = res as? TestResultResource, !resource.locator.isFake {
 						getTestResultExpectation.fulfill()
@@ -3582,7 +3582,7 @@ class CoronaTestServiceTests: CWATestCase {
 		let appConfiguration = CachedAppConfigurationMock()
 		let restServiceProvider = RestServiceProviderStub(loadResources: [
 			LoadResource(
-				result: .success(TestResultModel(testResult: testResult.rawValue, sc: nil, labId: nil)),
+				result: .success(TestResultReceiveModel(testResult: testResult.rawValue, sc: nil, labId: nil)),
 				willLoadResource: { resource in
 					guard let resource = resource as? TestResultResource  else {
 						XCTFail("TestResultResource expected.")

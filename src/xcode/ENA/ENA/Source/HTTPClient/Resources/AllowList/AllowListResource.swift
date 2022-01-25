@@ -9,7 +9,7 @@ struct AllowListResource: Resource {
 	// MARK: - Init
 
 	init() {
-		self.locator = .validationServiceAllowlist()
+		self.locator = .allowList()
 		self.type = .caching(
 			// define special cache policies to handle from the cache
 			Set<CacheUsePolicy>([.noNetwork])
