@@ -95,9 +95,9 @@
         "package": "jsonfunctions",
         "repositoryURL": "https://github.com/corona-warn-app/json-functions-swift",
         "state": {
-          "branch": "main",
-          "revision": "c7e764f670212cda736dccdb8c22463baf95428b",
-          "version": null
+          "branch": null,
+          "revision": "3ab48ef79dc50b13aedfd8e5a062dd85bf87a63f",
+          "version": "2.0.0"
         }
       },
       {
