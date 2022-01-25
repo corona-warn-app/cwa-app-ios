@@ -147,7 +147,7 @@ class ModelWithCacheTests: CWATestCase {
 
 private struct CBORDecodingTestModel: CBORDecoding {
 	
-	//MARK: - Protocol CBORDecoding
+	// MARK: - Protocol CBORDecoding
 	
 	static func decode(_ data: Data) -> Result<CBORDecodingTestModel, ModelDecodingError> {
 		return Result.success(CBORDecodingTestModel(property: "Decoded Value"))
