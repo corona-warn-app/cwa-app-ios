@@ -68,7 +68,8 @@ final class DCCRulesResourceTests: CWATestCase {
 		cache[resource.locator.hashValue] = CacheData(
 			data: archiveDataCache,
 			eTag: eTag,
-			date: Date()
+			serverDate: nil,
+			clientDate: Date()
 		)
 
 		let restServiceProvider = RestServiceProvider(
