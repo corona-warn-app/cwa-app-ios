@@ -27,17 +27,19 @@ final class HealthCertificateValidationOnboardedCountriesProvider: HealthCertifi
 		completion: @escaping (Result<[Country], ValidationOnboardedCountriesError>) -> Void
 	) {
 		let resource = ValidationOnboardedCountriesResource()
-		
+	
 		restService.load(resource) { result in
-			switch result {
-			case let .success(validationOnboardedCountriesModel):
-				completion(.success(validationOnboardedCountriesModel.countries))
-			case let .failure(error):
-				guard let customError = resource.customError(for: error) else {
-					Log.error("Unhandled error \(error.localizedDescription)", log: .vaccination)
-					return
+			DispatchQueue.main.async {
+				switch result {
+				case let .success(validationOnboardedCountriesModel):
+					completion(.success(validationOnboardedCountriesModel.countries))
+				case let .failure(error):
+					guard let customError = resource.customError(for: error) else {
+						Log.error("Unhandled error \(error.localizedDescription)", log: .vaccination)
+						return
+					}
+					completion(.failure(customError))
 				}
-				completion(.failure(customError))
 			}
 		}
 	}
