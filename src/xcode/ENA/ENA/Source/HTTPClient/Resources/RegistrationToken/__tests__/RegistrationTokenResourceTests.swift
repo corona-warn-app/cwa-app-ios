@@ -15,14 +15,14 @@ final class RegistrationTokenResourceTests: CWATestCase {
 		let stack = MockNetworkStack(
 			httpStatus: 200,
 			responseData: try JSONEncoder().encode(
-				SubmissionTANModel(submissionTAN: fakeTan)
+				RegistrationReceiveModel(submissionTAN: fakeTan)
 			)
 		)
 
 		let serviceProvider = RestServiceProvider(session: stack.urlSession)
 		let registrationTokenResource = RegistrationTokenResource(
 			isFake: false,
-			sendModel: SendRegistrationTokenModel(token: "Fake")
+			sendModel: RegistrationTokenSendModel(token: "Fake")
 		)
 
 		serviceProvider.load(registrationTokenResource) { result in
@@ -48,7 +48,7 @@ final class RegistrationTokenResourceTests: CWATestCase {
 		let serviceProvider = RestServiceProvider(session: stack.urlSession)
 		let registrationTokenResource = RegistrationTokenResource(
 			isFake: false,
-			sendModel: SendRegistrationTokenModel(token: "Fake")
+			sendModel: RegistrationTokenSendModel(token: "Fake")
 		)
 		
 		serviceProvider.load(registrationTokenResource) { result in
@@ -79,7 +79,7 @@ final class RegistrationTokenResourceTests: CWATestCase {
 		let serviceProvider = RestServiceProvider(session: stack.urlSession)
 		let registrationTokenResource = RegistrationTokenResource(
 			isFake: false,
-			sendModel: SendRegistrationTokenModel(token: "Fake")
+			sendModel: RegistrationTokenSendModel(token: "Fake")
 		)
 
 		serviceProvider.load(registrationTokenResource) { result in
@@ -115,7 +115,7 @@ final class RegistrationTokenResourceTests: CWATestCase {
 		let serviceProvider = RestServiceProvider(session: stack.urlSession)
 		let registrationTokenResource = RegistrationTokenResource(
 			isFake: false,
-			sendModel: SendRegistrationTokenModel(token: "Fake")
+			sendModel: RegistrationTokenSendModel(token: "Fake")
 		)
 
 
@@ -162,7 +162,7 @@ final class RegistrationTokenResourceTests: CWATestCase {
 		let stack = MockNetworkStack(
 			httpStatus: 200,
 			responseData: try JSONEncoder().encode(
-				SubmissionTANModel(submissionTAN: "fakeTan")
+				RegistrationReceiveModel(submissionTAN: "fakeTan")
 			),
 			requestObserver: verifyPostBodyContent
 		)
@@ -170,7 +170,7 @@ final class RegistrationTokenResourceTests: CWATestCase {
 		let serviceProvider = RestServiceProvider(session: stack.urlSession)
 		let registrationTokenResource = RegistrationTokenResource(
 			isFake: false,
-			sendModel: SendRegistrationTokenModel(token: fakeToken)
+			sendModel: RegistrationTokenSendModel(token: fakeToken)
 		)
 		serviceProvider.load(registrationTokenResource) { _ in }
 
