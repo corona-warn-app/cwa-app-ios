@@ -117,6 +117,18 @@
 			<string>%02u</string>
 		</dict>
 	</dict>
+	<key>StringKey</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string></string>
+		<key>Variable</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>other</key>
+			<string></string>
+		</dict>
+	</dict>
 	<key>ExposureDetection_ActiveTracingSection_Text_Paragraph1a</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>

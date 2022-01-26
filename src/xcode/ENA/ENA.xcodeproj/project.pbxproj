@@ -492,6 +492,8 @@
 		341320562742B951003E3906 /* TicketValidationCertificateSelectionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 341320552742B951003E3906 /* TicketValidationCertificateSelectionViewModel.swift */; };
 		3413205A2742CE42003E3906 /* TicketValidationCertificateSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 341320592742CE3E003E3906 /* TicketValidationCertificateSelectionViewController.swift */; };
 		3419B33627999B8200A420B4 /* LinkHelperTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3419B33427999AC100A420B4 /* LinkHelperTests.swift */; };
+		3419B338279F04A800A420B4 /* DCCWalletInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3419B337279F04A800A420B4 /* DCCWalletInfo.swift */; };
+		3419B33B27A1601A00A420B4 /* DCCUIText.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = 3419B33D27A1601A00A420B4 /* DCCUIText.stringsdict */; };
 		341DC32F26823F100003E6BA /* LocalStatisticsProviding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 341DC32E26823F100003E6BA /* LocalStatisticsProviding.swift */; };
 		341DC3312682401D0003E6BA /* LocalStatisticsProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 341DC3302682401D0003E6BA /* LocalStatisticsProvider.swift */; };
 		341DC333268243470003E6BA /* LocalStatisticsMetadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = 341DC332268243470003E6BA /* LocalStatisticsMetadata.swift */; };
@@ -2127,6 +2129,13 @@
 		341320552742B951003E3906 /* TicketValidationCertificateSelectionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketValidationCertificateSelectionViewModel.swift; sourceTree = "<group>"; };
 		341320592742CE3E003E3906 /* TicketValidationCertificateSelectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TicketValidationCertificateSelectionViewController.swift; sourceTree = "<group>"; };
 		3419B33427999AC100A420B4 /* LinkHelperTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkHelperTests.swift; sourceTree = "<group>"; };
+		3419B337279F04A800A420B4 /* DCCWalletInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DCCWalletInfo.swift; sourceTree = "<group>"; };
+		3419B33C27A1601A00A420B4 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = en; path = en.lproj/DCCUIText.stringsdict; sourceTree = "<group>"; };
+		3419B33E27A1601D00A420B4 /* bg */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = bg; path = bg.lproj/DCCUIText.stringsdict; sourceTree = "<group>"; };
+		3419B33F27A1601E00A420B4 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = de; path = de.lproj/DCCUIText.stringsdict; sourceTree = "<group>"; };
+		3419B34027A1601F00A420B4 /* pl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = pl; path = pl.lproj/DCCUIText.stringsdict; sourceTree = "<group>"; };
+		3419B34127A1602000A420B4 /* ro */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = ro; path = ro.lproj/DCCUIText.stringsdict; sourceTree = "<group>"; };
+		3419B34227A1602100A420B4 /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = tr; path = tr.lproj/DCCUIText.stringsdict; sourceTree = "<group>"; };
 		341DC32E26823F100003E6BA /* LocalStatisticsProviding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalStatisticsProviding.swift; sourceTree = "<group>"; };
 		341DC3302682401D0003E6BA /* LocalStatisticsProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalStatisticsProvider.swift; sourceTree = "<group>"; };
 		341DC332268243470003E6BA /* LocalStatisticsMetadata.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalStatisticsMetadata.swift; sourceTree = "<group>"; };
@@ -3868,6 +3877,7 @@
 				01635EB0275A154C00A479EB /* HealthCertifiedPersonAdmissionState.swift */,
 				01E102652668D40E009ED803 /* TestCertificateRequest.swift */,
 				BAAC573126CBEF7C0049B55C /* VaccinationProductType.swift */,
+				3419B337279F04A800A420B4 /* DCCWalletInfo.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -9308,6 +9318,7 @@
 				EE26950A248FCB0300BAE234 /* InfoPlist.strings */,
 				AB8B0D3425305384009C067B /* Localizable.links.strings */,
 				35F929AF2682176B006115BB /* style.css */,
+				3419B33D27A1601A00A420B4 /* DCCUIText.stringsdict */,
 			);
 			path = Localization;
 			sourceTree = "<group>";
@@ -9537,6 +9548,7 @@
 				50C5C1B525891CC800C4817A /* DynamicLegalExtendedCell.xib in Resources */,
 				3456D96125EFE08E00A62F5D /* ErrorReportHistoryCell.xib in Resources */,
 				AB9B991126D522B700F2506D /* OpenSans-SemiBold.ttf in Resources */,
+				3419B33B27A1601A00A420B4 /* DCCUIText.stringsdict in Resources */,
 				BA8824D725D2A88800AD9B11 /* ppdd-ppa-administrative-unit-set-ua-approved.json in Resources */,
 				ABEA875F26D3811100A8E950 /* VaccinationCertificateTemplate_v4.1.pdf in Resources */,
 				AB9B991526D522B700F2506D /* OpenSans-ExtraBold.ttf in Resources */,
@@ -9765,6 +9777,7 @@
 				BA7F7343271F09F600E3CE14 /* AppConfigurationResource.swift in Sources */,
 				35B2FAAA25B9CE8F009ABC8E /* main.swift in Sources */,
 				0138F54F25ECD44300A9B075 /* ppdd_els_parameters.pb.swift in Sources */,
+				3419B338279F04A800A420B4 /* DCCWalletInfo.swift in Sources */,
 				BAC939CD261F5359008BECED /* TestOverwriteNoticeViewController.swift in Sources */,
 				71330E43248109FD00EB10F6 /* DynamicTableViewCell.swift in Sources */,
 				AB190E9425FB63BC00FBFF0D /* CreateCheckinQuery.swift in Sources */,
@@ -11264,6 +11277,19 @@
 				EECF5E5F24BDCC5900332B8F /* bg */,
 			);
 			name = usage.html;
+			sourceTree = "<group>";
+		};
+		3419B33D27A1601A00A420B4 /* DCCUIText.stringsdict */ = {
+			isa = PBXVariantGroup;
+			children = (
+				3419B33C27A1601A00A420B4 /* en */,
+				3419B33E27A1601D00A420B4 /* bg */,
+				3419B33F27A1601E00A420B4 /* de */,
+				3419B34027A1601F00A420B4 /* pl */,
+				3419B34127A1602000A420B4 /* ro */,
+				3419B34227A1602100A420B4 /* tr */,
+			);
+			name = DCCUIText.stringsdict;
 			sourceTree = "<group>";
 		};
 		71F5418A248BEDBE006DB793 /* privacy-policy.html */ = {
