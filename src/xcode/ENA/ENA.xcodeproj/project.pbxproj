@@ -636,6 +636,7 @@
 		5013B18526EBA3A500A2DD54 /* QRScannerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5013B18426EBA3A500A2DD54 /* QRScannerViewModel.swift */; };
 		5013B18726EBA3FE00A2DD54 /* QRScannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5013B18626EBA3FE00A2DD54 /* QRScannerViewController.swift */; };
 		5015D2D427A17391007D8763 /* Locator+CCLConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5015D2D327A17391007D8763 /* Locator+CCLConfiguration.swift */; };
+		5015D2D827A17951007D8763 /* CCLConfigurationReceiveModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5015D2D727A17951007D8763 /* CCLConfigurationReceiveModel.swift */; };
 		5017F64D25FFAD11003A812E /* PPASubmissionState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5017F64C25FFAD11003A812E /* PPASubmissionState.swift */; };
 		5017F65F25FFC1E8003A812E /* ClientMetadataTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5017F65E25FFC1E8003A812E /* ClientMetadataTests.swift */; };
 		501ABC50267B4B04008F37CA /* HealthCertificateOverviewEmptyStateViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 501ABC4F267B4B04008F37CA /* HealthCertificateOverviewEmptyStateViewModel.swift */; };
@@ -2276,6 +2277,7 @@
 		5013B18426EBA3A500A2DD54 /* QRScannerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRScannerViewModel.swift; sourceTree = "<group>"; };
 		5013B18626EBA3FE00A2DD54 /* QRScannerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRScannerViewController.swift; sourceTree = "<group>"; };
 		5015D2D327A17391007D8763 /* Locator+CCLConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Locator+CCLConfiguration.swift"; sourceTree = "<group>"; };
+		5015D2D727A17951007D8763 /* CCLConfigurationReceiveModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CCLConfigurationReceiveModel.swift; sourceTree = "<group>"; };
 		5017F64C25FFAD11003A812E /* PPASubmissionState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PPASubmissionState.swift; sourceTree = "<group>"; };
 		5017F65E25FFC1E8003A812E /* ClientMetadataTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientMetadataTests.swift; sourceTree = "<group>"; };
 		501ABC4F267B4B04008F37CA /* HealthCertificateOverviewEmptyStateViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthCertificateOverviewEmptyStateViewModel.swift; sourceTree = "<group>"; };
@@ -5229,6 +5231,7 @@
 			isa = PBXGroup;
 			children = (
 				5015D2D327A17391007D8763 /* Locator+CCLConfiguration.swift */,
+				5015D2D727A17951007D8763 /* CCLConfigurationReceiveModel.swift */,
 			);
 			path = CCLConfiguration;
 			sourceTree = "<group>";
@@ -10291,6 +10294,7 @@
 				2F80CFDB247EDDB3000F06AF /* ExposureSubmissionHotlineViewController.swift in Sources */,
 				BA6D163A255AD35900ED3492 /* DMSwitchTableViewCell.swift in Sources */,
 				941ADDB02518C2B200E421D9 /* EuTracingTableViewCell.swift in Sources */,
+				5015D2D827A17951007D8763 /* CCLConfigurationReceiveModel.swift in Sources */,
 				019789352746920600AAC31C /* TicketValidationOpenViewModel.swift in Sources */,
 				BA0F6C61263186E50046BA48 /* AntigenTestProfileInputViewModel.swift in Sources */,
 				A3C4F96024812CD20047F23E /* ExposureSubmissionWarnOthersViewController.swift in Sources */,
