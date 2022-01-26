@@ -1518,6 +1518,7 @@
 		BAF640E826DF85A600B3A18E /* _Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF640E726DF85A600B3A18E /* _Service.swift */; };
 		BAF640EC26DF868B00B3A18E /* Locator+AppConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF640EB26DF868B00B3A18E /* Locator+AppConfiguration.swift */; };
 		BAF640EE26DF86BF00B3A18E /* Endpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF640ED26DF86BF00B3A18E /* Endpoint.swift */; };
+		BAF6A46E27A15DDC008DFAF5 /* CachePolicyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF6A46D27A15DDC008DFAF5 /* CachePolicyTests.swift */; };
 		BAFAED5726A8489700AC1DD6 /* DSCListProviderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAFAED5626A8489700AC1DD6 /* DSCListProviderTests.swift */; };
 		BAFC6ABC26A716CC00F18BBE /* default_dsc_list.bin in Resources */ = {isa = PBXBuildFile; fileRef = BAFC6ABB26A716CC00F18BBE /* default_dsc_list.bin */; };
 		BAFC6ABE26A7183000F18BBE /* DSCListProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAFC6ABD26A7183000F18BBE /* DSCListProvider.swift */; };
@@ -3174,6 +3175,7 @@
 		BAF640E726DF85A600B3A18E /* _Service.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = _Service.swift; sourceTree = "<group>"; };
 		BAF640EB26DF868B00B3A18E /* Locator+AppConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Locator+AppConfiguration.swift"; sourceTree = "<group>"; };
 		BAF640ED26DF86BF00B3A18E /* Endpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Endpoint.swift; sourceTree = "<group>"; };
+		BAF6A46D27A15DDC008DFAF5 /* CachePolicyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CachePolicyTests.swift; sourceTree = "<group>"; };
 		BAFAED5626A8489700AC1DD6 /* DSCListProviderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DSCListProviderTests.swift; sourceTree = "<group>"; };
 		BAFC6ABB26A716CC00F18BBE /* default_dsc_list.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = default_dsc_list.bin; sourceTree = "<group>"; };
 		BAFC6ABD26A7183000F18BBE /* DSCListProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DSCListProvider.swift; sourceTree = "<group>"; };
@@ -8646,6 +8648,7 @@
 			isa = PBXGroup;
 			children = (
 				ABB078F327316EB60037B30F /* CachedRestServiceTests.swift */,
+				BAF6A46D27A15DDC008DFAF5 /* CachePolicyTests.swift */,
 				502B60FA276CB7640049CC60 /* Error+Fake.swift */,
 				A1E419442495476C0016E52A /* MockNetworkStack.swift */,
 				CD678F6E246C43FC00B6A0F8 /* MockURLSession.swift */,
@@ -11259,6 +11262,7 @@
 				ABC506CB274BAA5F00698A95 /* DCCEncryptionTests.swift in Sources */,
 				015178C22507D2E50074F095 /* ExposureSubmissionSymptomsOnsetViewControllerTests.swift in Sources */,
 				A32842612490E2AC006B1F09 /* ExposureSubmissionWarnOthersViewControllerTests.swift in Sources */,
+				BAF6A46E27A15DDC008DFAF5 /* CachePolicyTests.swift in Sources */,
 				50FA07882609ECB3003C1E46 /* TraceWarningPackageDownloadTests.swift in Sources */,
 				AB5F84B424F8FA26000400D4 /* SerialMigratorTests.swift in Sources */,
 				01A1FA3826F0E91C0047B4CC /* CertLogicRule+LocalizedDescriptionTests.swift in Sources */,
