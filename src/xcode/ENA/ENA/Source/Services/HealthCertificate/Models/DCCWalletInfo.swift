@@ -92,12 +92,13 @@ struct DCCUIText {
 			} else {
 				// quantity shall be set to the value of textDescriptor.quantity
 				if let textDescriptorQuantity = quantity {
-					
+					// text shall be determined by passing formatTexts and formatParameters to a quantity-depending printf-compatible format function by using quantity
 					return formattedTextWithParameters(formatText: quantityBasedFormatText(formatText: formatText, quantity: textDescriptorQuantity) ?? "", parameters: parameters)
 				} else {
 					// Otherwise quantity shall be set to the element of formatParameters at the index described by textDescriptor.quantityParameterIndex.
 					if let parameterIndex = quantityParameterIndex {
 						if let quantityValue = parameters[parameterIndex].value as? Int {
+							// text shall be determined by passing formatTexts and formatParameters to a quantity-depending printf-compatible format function by using quantity
 							return formattedTextWithParameters(formatText: quantityBasedFormatText(formatText: formatText, quantity: quantityValue) ?? "", parameters: parameters)
 						}
 					}
