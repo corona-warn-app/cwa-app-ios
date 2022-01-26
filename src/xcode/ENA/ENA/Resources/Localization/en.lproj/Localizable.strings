@@ -2721,7 +2721,7 @@
 
 "HealthCertificate_Validation_Info_title" = "Information";
 
-"HealthCertificate_Validation_Info_byCar" = "Select the planned local arrival time at the border of your destination country.";
+"HealthCertificate_Validation_Info_byCar" = "Enter the planned local arrival time at the border of your destination country.";
 
 "HealthCertificate_Validation_Info_byPlane" = "If you are traveling by air, select the scheduled departure time of your flight.";
 
