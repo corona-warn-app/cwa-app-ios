@@ -20,11 +20,6 @@ struct CacheData: Codable {
 		self.clientDate = clientDate
 	}
 
-	let data: Data
-	let eTag: String
-	let serverDate: Date?
-	let clientDate: Date
-
 	// MARK: - Protocol Codable
 
 	enum CodingKeys: String, CodingKey {
@@ -44,5 +39,12 @@ struct CacheData: Codable {
 		let cDate = try container.decodeIfPresent(Date.self, forKey: .clientDate)
 		clientDate = cDate ?? oldDate
 	}
+
+	// MARK: - Internal
+
+	let data: Data
+	let eTag: String
+	let serverDate: Date?
+	let clientDate: Date
 
 }
