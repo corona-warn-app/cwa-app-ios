@@ -1081,6 +1081,7 @@
 		AB76C4BA2695EEFB009ADEB0 /* AntigenTestProfileInputCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB76C4B82695EEFA009ADEB0 /* AntigenTestProfileInputCell.swift */; };
 		AB76C4BB2695EEFB009ADEB0 /* AntigenTestProfileInputDescriptionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB76C4B92695EEFB009ADEB0 /* AntigenTestProfileInputDescriptionCell.swift */; };
 		AB76C4BE269735F7009ADEB0 /* ENAUITests_14_ValidateHealthCertificate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB76C4BD269735F7009ADEB0 /* ENAUITests_14_ValidateHealthCertificate.swift */; };
+		AB77384F27A05F0C00B9EA95 /* AnyCodable in Frameworks */ = {isa = PBXBuildFile; productRef = AB77384E27A05F0C00B9EA95 /* AnyCodable */; };
 		AB7A9FB127035B1E003142AE /* QRCodeParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB7A9FB027035B1E003142AE /* QRCodeParser.swift */; };
 		AB7BDF8325CC079B00E70744 /* SurveyConsentViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB7BDF8225CC079B00E70744 /* SurveyConsentViewModelTests.swift */; };
 		AB7DE73725C8528700C52B3F /* ExposureDetectionSurveyTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB7DE73125C8528600C52B3F /* ExposureDetectionSurveyTableViewCell.swift */; };
@@ -1118,6 +1119,7 @@
 		ABB078F0273034AC0037B30F /* SecureCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABB078EF273034AC0037B30F /* SecureCache.swift */; };
 		ABB078F2273035340037B30F /* SecureStoring.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABB078F1273035340037B30F /* SecureStoring.swift */; };
 		ABB078F527316EC70037B30F /* CachedRestServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABB078F327316EB60037B30F /* CachedRestServiceTests.swift */; };
+		ABB8DF602799BEC300DD99E4 /* CCLService.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABB8DF5F2799BEC300DD99E4 /* CCLService.swift */; };
 		ABBBC056273AD2C3009A4B56 /* ENASecurity in Frameworks */ = {isa = PBXBuildFile; productRef = ABBBC055273AD2C3009A4B56 /* ENASecurity */; };
 		ABBF425D261DD7B5002A9A2B /* CheckinTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABBF425C261DD7B5002A9A2B /* CheckinTests.swift */; };
 		ABBF429626209952002A9A2B /* Checkin+Update.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABBF429526209952002A9A2B /* Checkin+Update.swift */; };
@@ -2778,6 +2780,7 @@
 		ABB078EF273034AC0037B30F /* SecureCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecureCache.swift; sourceTree = "<group>"; };
 		ABB078F1273035340037B30F /* SecureStoring.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecureStoring.swift; sourceTree = "<group>"; };
 		ABB078F327316EB60037B30F /* CachedRestServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CachedRestServiceTests.swift; sourceTree = "<group>"; };
+		ABB8DF5F2799BEC300DD99E4 /* CCLService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CCLService.swift; sourceTree = "<group>"; };
 		ABBA6BB8272AA1E200EEF2E4 /* RestServiceProviderFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestServiceProviderFactory.swift; sourceTree = "<group>"; };
 		ABBF425C261DD7B5002A9A2B /* CheckinTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckinTests.swift; sourceTree = "<group>"; };
 		ABBF429526209952002A9A2B /* Checkin+Update.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Checkin+Update.swift"; sourceTree = "<group>"; };
@@ -3329,6 +3332,7 @@
 				015E8C0824C997D200C0A4B3 /* CWASQLite.framework in Frameworks */,
 				EB7AF62A2587E98C00D94CA8 /* OpenCombineFoundation in Frameworks */,
 				EB7AF62E2587E98C00D94CA8 /* OpenCombineDispatch in Frameworks */,
+				AB77384F27A05F0C00B9EA95 /* AnyCodable in Frameworks */,
 				B1B5A76024924B3D0029D5D7 /* FMDB in Frameworks */,
 				AB42A193263C284200892536 /* HealthCertificateToolkit in Frameworks */,
 				858F6F6E245A103C009FFD33 /* ExposureNotification.framework in Frameworks */,
@@ -6287,6 +6291,7 @@
 		85D759802459A82D008175F0 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				ABB8DF5E2799BE9700DD99E4 /* CCLService */,
 				B15382DC248270220010F007 /* __tests__ */,
 				011216F22617360800320745 /* CoronaTestService */,
 				01FD3ED625D2F0D00049497A /* DeadmanNotification */,
@@ -7128,6 +7133,14 @@
 				BAEFB3582656B05A00497F79 /* StoreV5 */,
 			);
 			path = __tests__;
+			sourceTree = "<group>";
+		};
+		ABB8DF5E2799BE9700DD99E4 /* CCLService */ = {
+			isa = PBXGroup;
+			children = (
+				ABB8DF5F2799BEC300DD99E4 /* CCLService.swift */,
+			);
+			path = CCLService;
 			sourceTree = "<group>";
 		};
 		ABBF42942620993E002A9A2B /* Extensions */ = {
@@ -9405,6 +9418,7 @@
 				AB42A192263C284200892536 /* HealthCertificateToolkit */,
 				ABBBC055273AD2C3009A4B56 /* ENASecurity */,
 				01C1AC33276783DC00D45BFA /* OrderedCollections */,
+				AB77384E27A05F0C00B9EA95 /* AnyCodable */,
 			);
 			productName = ENA;
 			productReference = 85D7593B2457048F008175F0 /* ENA.app */;
@@ -9512,6 +9526,7 @@
 				B1B5A75E24924B3D0029D5D7 /* XCRemoteSwiftPackageReference "fmdb" */,
 				EB7AF6282587E98C00D94CA8 /* XCRemoteSwiftPackageReference "OpenCombine" */,
 				01C1AC32276783DC00D45BFA /* XCRemoteSwiftPackageReference "swift-collections" */,
+				AB77384D27A05F0C00B9EA95 /* XCRemoteSwiftPackageReference "AnyCodable" */,
 			);
 			productRefGroup = 85D7593C2457048F008175F0 /* Products */;
 			projectDirPath = "";
@@ -9744,6 +9759,7 @@
 				ABE9612D25EFEB4E00D0F699 /* DMInstallationDateViewController.swift in Sources */,
 				50BD2E6224FE1E8700932566 /* AppInformationModel.swift in Sources */,
 				01635EB1275A154D00A479EB /* HealthCertifiedPersonAdmissionState.swift in Sources */,
+				ABB8DF602799BEC300DD99E4 /* CCLService.swift in Sources */,
 				BA41016426F8D8F60073F28D /* CovPassCheckInformationViewModel.swift in Sources */,
 				B1A89F3B24819CE800DA1CEC /* SettingsLabelCell.swift in Sources */,
 				01164CE226C573A2007F9C3E /* TraceLocationCheckinSelectionCellModel.swift in Sources */,
@@ -12381,6 +12397,14 @@
 				minimumVersion = 1.0.0;
 			};
 		};
+		AB77384D27A05F0C00B9EA95 /* XCRemoteSwiftPackageReference "AnyCodable" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Flight-School/AnyCodable";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.6.2;
+			};
+		};
 		B10FB02E246036F3004CA11E /* XCRemoteSwiftPackageReference "swift-protobuf" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/apple/swift-protobuf.git";
@@ -12424,6 +12448,11 @@
 		AB42A192263C284200892536 /* HealthCertificateToolkit */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = HealthCertificateToolkit;
+		};
+		AB77384E27A05F0C00B9EA95 /* AnyCodable */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = AB77384D27A05F0C00B9EA95 /* XCRemoteSwiftPackageReference "AnyCodable" */;
+			productName = AnyCodable;
 		};
 		ABBBC055273AD2C3009A4B56 /* ENASecurity */ = {
 			isa = XCSwiftPackageProductDependency;
