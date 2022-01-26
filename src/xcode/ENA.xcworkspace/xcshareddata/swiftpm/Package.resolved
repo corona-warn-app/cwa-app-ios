@@ -2,6 +2,15 @@
   "object": {
     "pins": [
       {
+        "package": "AnyCodable",
+        "repositoryURL": "https://github.com/Flight-School/AnyCodable",
+        "state": {
+          "branch": null,
+          "revision": "b1a7a8a6186f2fcb28f7bda67cfc545de48b3c80",
+          "version": "0.6.2"
+        }
+      },
+      {
         "package": "ASN1Decoder",
         "repositoryURL": "https://github.com/corona-warn-app/ASN1Decoder",
         "state": {
@@ -80,6 +89,15 @@
           "branch": null,
           "revision": "61e51fde7f7aab6554f30ab061cc588b28a97d04",
           "version": "2.7.7"
+        }
+      },
+      {
+        "package": "jsonfunctions",
+        "repositoryURL": "https://github.com/corona-warn-app/json-functions-swift",
+        "state": {
+          "branch": null,
+          "revision": "3ab48ef79dc50b13aedfd8e5a062dd85bf87a63f",
+          "version": "2.0.0"
         }
       },
       {

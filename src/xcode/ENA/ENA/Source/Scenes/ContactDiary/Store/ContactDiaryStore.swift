@@ -133,14 +133,26 @@ class ContactDiaryStore: DiaryStoring, DiaryProviding, SecureSQLStore {
 					WHERE LocationVisit.date > date('\(todayDateString)','-\(userVisiblePeriodInDays) days')
 					ORDER BY date DESC, entryName COLLATE NOCASE ASC, entryId ASC
 				"""
+			
+			let coronaTestsSQL = """
+					SELECT CoronaTest.id AS entryID,
+						CoronaTest.date AS date,
+						CoronaTest.testType AS testType,
+						CoronaTest.testResult AS testResult
+					FROM CoronaTest
+					WHERE CoronaTest.date > date('\(todayDateString)','-\(userVisiblePeriodInDays) days')
+					ORDER BY date DESC, testType COLLATE NOCASE ASC, entryId ASC
+				"""
 
 			do {
 				let personEncounterResult = try database.executeQuery(personEncounterSQL, values: [])
 				let locationVisitResult = try database.executeQuery(locationVisitSQL, values: [])
+				let coronaTestsResult = try database.executeQuery(coronaTestsSQL, values: [])
 
 				defer {
 					personEncounterResult.close()
 					locationVisitResult.close()
+					coronaTestsResult.close()
 				}
 
 				let personEncounterEntries = extractPersonEncounterEntries(from: personEncounterResult)
@@ -148,6 +160,9 @@ class ContactDiaryStore: DiaryStoring, DiaryProviding, SecureSQLStore {
 
 				let locationVisitEntries = extractLocationVisitEntries(from: locationVisitResult)
 				exportEntries.append(contentsOf: locationVisitEntries)
+				
+				let coronaTestEntries = extractCoronaTestEntries(from: coronaTestsResult)
+				exportEntries.append(contentsOf: coronaTestEntries)
 			} catch {
 				Log.error("[ContactDiaryStore] (\(database.lastErrorCode())) \(database.lastErrorMessage())", log: .localData)
 				result = .failure(SQLiteErrorCode(rawValue: database.lastErrorCode()) ?? SQLiteErrorCode.unknown)
@@ -1307,6 +1322,44 @@ class ContactDiaryStore: DiaryStoring, DiaryProviding, SecureSQLStore {
 				emailAddressDescription,
 				durationDescription,
 				circumstances
+			]
+
+			entryComponents = entryComponents.filter { $0 != "" }
+
+			exportEntries.append(
+				ExportEntry(
+					date: date,
+					description: entryComponents.joined(separator: "; ")
+				)
+			)
+		}
+
+		return exportEntries
+	}
+	
+	private func extractCoronaTestEntries(from coronaTestsResult: FMResultSet) -> [ExportEntry] {
+		var exportEntries = [ExportEntry]()
+
+		while coronaTestsResult.next() {
+			let dateString = coronaTestsResult.string(forColumn: "date") ?? ""
+			guard let date = dateFormatter.date(from: dateString) else {
+				fatalError("Failed to read date from string.")
+			}
+			let germanDateString = germanDateFormatter.string(from: date)
+			
+			let testType = coronaTestsResult.string(forColumn: "testType") ?? ""
+			let testResult = coronaTestsResult.string(forColumn: "testResult") ?? ""
+			
+			let testTypeName = testType == String(CoronaTestType.pcr.rawValue) ? AppStrings.ContactDiary.Overview.Tests.pcrRegistered : AppStrings.ContactDiary.Overview.Tests.antigenDone
+			
+			let testResultName = testResult == String(TestResult.negative.rawValue) ? AppStrings.ContactDiary.Overview.Tests.negativeResult : AppStrings.ContactDiary.Overview.Tests.positiveResult
+			
+			let testTypeDescription = testTypeName == "" ? "" : "\(testTypeName)"
+			let testResultDescription = testResultName == "" ? "" : "\(testResultName)"
+
+			var entryComponents = [
+				"\(germanDateString) \(testTypeDescription)",
+				testResultDescription
 			]
 
 			entryComponents = entryComponents.filter { $0 != "" }
