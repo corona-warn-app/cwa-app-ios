@@ -65,8 +65,8 @@ class CachedRestService: Service {
 			}
 			
 			// If we have a modelWithCache, we add the information if the model is returned from the cache or not.
-			if var modelWithCache = model as? ModelWithCaching {
-				modelWithCache.isCached = isCachedData
+			if var modelWithCache = model as? ModelWithMetadata {
+				modelWithCache.loadedFromCache = isCachedData
 				// We need that cast back for the compiler.
 				if let originalModelTypeWithCache = modelWithCache as? R.Receive.ReceiveModel {
 					return .success(originalModelTypeWithCache)
