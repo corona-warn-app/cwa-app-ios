@@ -7,6 +7,8 @@ import HealthCertificateToolkit
 
 struct DCCWalletCertificate: Codable {
 
+	// MARK: - Internal
+
 	struct DCCWalletCertificateCose: Codable {
 		let kid: String
 	}

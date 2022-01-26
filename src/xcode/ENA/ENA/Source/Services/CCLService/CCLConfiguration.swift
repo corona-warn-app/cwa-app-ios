@@ -6,6 +6,8 @@ import jsonfunctions
 
 struct CCLConfiguration: Decodable {
 	
+	// MARK: - Protocol Decodable
+	
 	enum CodingKeys: String, CodingKey {
 		case identifier = "Identifier"
 		case type = "Type"
@@ -19,6 +21,8 @@ struct CCLConfiguration: Decodable {
 		case logic = "Logic"
 	}
 	
+	// MARK: - Internal
+
 	struct Logic: Decodable {
 		enum CodingKeys: String, CodingKey {
 			case jfnDescriptors = "JfnDescriptors"

@@ -54,8 +54,12 @@ protocol CCLServable {
 
 class CLLService: CCLServable {
 	
+	// MARK: - Init
+	
 	init() { }
 	
+	// MARK: - Protocol CCLServable
+
 	func updateConfiguration(completion: (Swift.Result<Void, CLLServiceError>) -> Void) {
 		completion(.success(()))
 	}
