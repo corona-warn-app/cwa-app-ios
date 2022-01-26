@@ -117,5 +117,12 @@
     "website": "https://github.com/apple/swift-collections",
     "license": "Apache 2.0 License",
     "licenseUrl": "https://raw.githubusercontent.com/apple/swift-collections/main/LICENSE.txt"
+  },
+  {
+    "component": "AnyCodable",
+    "licensor": "Read Evaluate Press",
+    "website": "https://github.com/Flight-School/AnyCodable",
+    "license": "MIT License",
+    "licenseUrl": "https://raw.githubusercontent.com/Flight-School/AnyCodable/master/LICENSE.md"
   }
 ]
