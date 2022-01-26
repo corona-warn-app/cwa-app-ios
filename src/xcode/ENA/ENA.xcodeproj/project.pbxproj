@@ -1082,6 +1082,8 @@
 		AB76C4BB2695EEFB009ADEB0 /* AntigenTestProfileInputDescriptionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB76C4B92695EEFB009ADEB0 /* AntigenTestProfileInputDescriptionCell.swift */; };
 		AB76C4BE269735F7009ADEB0 /* ENAUITests_14_ValidateHealthCertificate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB76C4BD269735F7009ADEB0 /* ENAUITests_14_ValidateHealthCertificate.swift */; };
 		AB77384F27A05F0C00B9EA95 /* AnyCodable in Frameworks */ = {isa = PBXBuildFile; productRef = AB77384E27A05F0C00B9EA95 /* AnyCodable */; };
+		AB77385127A1605000B9EA95 /* CCLConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB77385027A1605000B9EA95 /* CCLConfiguration.swift */; };
+		AB77385327A160A000B9EA95 /* DCCWalletCertificate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB77385227A160A000B9EA95 /* DCCWalletCertificate.swift */; };
 		AB7A9FB127035B1E003142AE /* QRCodeParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB7A9FB027035B1E003142AE /* QRCodeParser.swift */; };
 		AB7BDF8325CC079B00E70744 /* SurveyConsentViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB7BDF8225CC079B00E70744 /* SurveyConsentViewModelTests.swift */; };
 		AB7DE73725C8528700C52B3F /* ExposureDetectionSurveyTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB7DE73125C8528600C52B3F /* ExposureDetectionSurveyTableViewCell.swift */; };
@@ -2737,6 +2739,8 @@
 		AB76C4B82695EEFA009ADEB0 /* AntigenTestProfileInputCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AntigenTestProfileInputCell.swift; sourceTree = "<group>"; };
 		AB76C4B92695EEFB009ADEB0 /* AntigenTestProfileInputDescriptionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AntigenTestProfileInputDescriptionCell.swift; sourceTree = "<group>"; };
 		AB76C4BD269735F7009ADEB0 /* ENAUITests_14_ValidateHealthCertificate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ENAUITests_14_ValidateHealthCertificate.swift; sourceTree = "<group>"; };
+		AB77385027A1605000B9EA95 /* CCLConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CCLConfiguration.swift; sourceTree = "<group>"; };
+		AB77385227A160A000B9EA95 /* DCCWalletCertificate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DCCWalletCertificate.swift; sourceTree = "<group>"; };
 		AB7A9FB027035B1E003142AE /* QRCodeParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRCodeParser.swift; sourceTree = "<group>"; };
 		AB7BDF8225CC079B00E70744 /* SurveyConsentViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SurveyConsentViewModelTests.swift; sourceTree = "<group>"; };
 		AB7DE70125C4547600C52B3F /* ENAUITests_04b_ExposureDetection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ENAUITests_04b_ExposureDetection.swift; sourceTree = "<group>"; };
@@ -7133,6 +7137,8 @@
 			isa = PBXGroup;
 			children = (
 				ABB8DF5F2799BEC300DD99E4 /* CCLService.swift */,
+				AB77385027A1605000B9EA95 /* CCLConfiguration.swift */,
+				AB77385227A160A000B9EA95 /* DCCWalletCertificate.swift */,
 			);
 			path = CCLService;
 			sourceTree = "<group>";
@@ -10201,6 +10207,7 @@
 				5001DE9626E21272004242FA /* SubmitELS.swift in Sources */,
 				01B7232D24F8E0260064C0EB /* MultipleChoiceChoiceView.swift in Sources */,
 				BAF5371625E7CC1B00C835E2 /* Sequence+NSAttributedText.swift in Sources */,
+				AB77385127A1605000B9EA95 /* CCLConfiguration.swift in Sources */,
 				50C0299125E4067400460FA4 /* LastSubmissionFlowScreen.swift in Sources */,
 				010A476F27551B18000AA80E /* TicketValidationResultTokenResult.swift in Sources */,
 				8F3167E626A5D906008F35AA /* RegionStatisticsData.swift in Sources */,
@@ -10387,6 +10394,7 @@
 				01A4DD0825926A6E007D5794 /* HomeListItemViewModel.swift in Sources */,
 				5001DE9826E2137D004242FA /* DigitalCovid19Certificate.swift in Sources */,
 				ABE9617625F1224400D0F699 /* MockEventStore.swift in Sources */,
+				AB77385327A160A000B9EA95 /* DCCWalletCertificate.swift in Sources */,
 				AB5F84BE24FE2DC9000400D4 /* DownloadedPackagesSQLLiteStoreV0.swift in Sources */,
 				5001DE8C26E20C4B004242FA /* AuthorizeOtpEls.swift in Sources */,
 				01909876257E64BD0065D050 /* DiaryAddAndEditEntryViewModel.swift in Sources */,
