@@ -31,6 +31,19 @@ class CachedRestService: Service {
 		self.cache = cache
 	}
 
+	#if !RELEASE
+	/// for testing we can inject a date timestamp used when write data to the cache
+	convenience init(
+		environment: EnvironmentProviding = Environments(),
+		session: URLSession? = nil,
+		cache: KeyValueCaching,
+		fakeClientCacheDate: Date
+	) {
+		self.init(environment: environment, session: session, cache: cache)
+		self.fakeClientCacheDate = fakeClientCacheDate
+	}
+	#endif
+
 	// MARK: - Protocol Service
 
 	let environment: EnvironmentProviding
@@ -77,7 +90,7 @@ class CachedRestService: Service {
 					data: data,
 					eTag: eTag,
 					serverDate: headers.dateHeader,
-					clientDate: Date()
+					clientDate: fakeClientCacheDate ?? Date()
 				)
 				cache[resource.locator.hashValue] = cachedModel
 				Log.info("Fetched new cached data and wrote them to the cache", log: .client)
@@ -150,4 +163,6 @@ class CachedRestService: Service {
 
 	private let optionalSession: URLSession?
 	private var cache: KeyValueCaching
+	private var fakeClientCacheDate: Date?
+
 }
