@@ -56,6 +56,8 @@ struct DCCUIText: Codable {
 			formatText = localizedFormatText
 		} else if let fallbackLocalizedFormatText = localizedText?["de"]?.value as? String { // if en is not available, de shall be used
 			formatText = fallbackLocalizedFormatText
+		} else {
+			return nil
 		}
 		
 		// replacing %s with %@, %1$s with %1$@ and so on
@@ -83,6 +85,8 @@ struct DCCUIText: Codable {
 			formatText = localizedFormatText
 		} else if let fallbackLocalizedFormatText = localizedText?["de"]?.value as? [String: String] { // if en is not available, de shall be used
 			formatText = fallbackLocalizedFormatText
+		} else {
+			return nil
 		}
 		
 		if let parameters = parameters.value as? [DCCUITextParameter] {
@@ -133,8 +137,10 @@ struct DCCUIText: Codable {
 	}
 	
 	func quantityBasedFormatText(formatText: [String: String], quantity: Int) -> String? {
+		// work around for stringsdict, return key for format text
 		let keyFormatText = String(format: NSLocalizedString("DCC_UIText_plural", tableName: "DCCUIText", comment: ""), quantity)
 		let quantitySpecificFormatText = formatText[keyFormatText]
+		// replacing %s with %@, %1$s with %1$@ and so on
 		return quantitySpecificFormatText?.replacingOccurrences(of: "%(\\d\\$)?s", with: "%$1@", options: NSString.CompareOptions.regularExpression, range: nil)
 	}
 	
