@@ -118,10 +118,11 @@ struct DCCUIText: Codable {
 		}
 		
 		do {
+			// newTextDescriptor shall be determined by calling Calling a CCL API with JsonFunctions.
 			let newDCCUIText: DCCUIText = try service.evaluateFunction(name: functionName, parameters: parameters)
 			return newDCCUIText.localized(languageCode: languageCode)
 		} catch {
-			Log.error("Unable to create new DCCUIText", error: error)
+			Log.error("Unable to create newTextDescriptor - DCCUIText", error: error)
 			return nil
 		}
 	}
