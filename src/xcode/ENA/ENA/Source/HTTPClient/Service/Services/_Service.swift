@@ -23,10 +23,10 @@ protocol Service {
 	var session: URLSession { get }
 	var environment: EnvironmentProviding { get }
 
-	/// a hook to provide a result receive model just before loading will start.
-	/// This can be helpful to implement special behavior
+	/// a hook to provide a result receive model before loading will start.
+	/// This can be used to implement special behavior
 	/// default this method will return nil - means it will do nothing
-	func optionalModleProvider<R>(_ resource: R) -> R.Receive.ReceiveModel? where R: Resource
+	func modelOtherwiseWillLoad<R>(_ resource: R) -> R.Receive.ReceiveModel? where R: Resource
 
 	/// loads a ReceiveModel from an external endpoint via http call.
 	///

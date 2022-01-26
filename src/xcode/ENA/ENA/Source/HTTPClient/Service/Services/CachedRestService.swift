@@ -45,7 +45,7 @@ class CachedRestService: Service {
 	// check if policies are set and contain .loadOnlyOnceADay
 	// if check if data is in cache and if it was written today
 	// if return last cached receiveModel
-	func optionalModleProvider<R>(_ resource: R) -> R.Receive.ReceiveModel? where R: Resource {
+	func modelOtherwiseWillLoad<R>(_ resource: R) -> R.Receive.ReceiveModel? where R: Resource {
 		if case let .caching(policies) = resource.type,
 		   policies.contains(.loadOnlyOnceADay),
 		   let cachedData = cache[resource.locator.hashValue],

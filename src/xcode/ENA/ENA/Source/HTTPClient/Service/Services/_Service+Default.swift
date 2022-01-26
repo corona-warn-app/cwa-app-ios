@@ -42,8 +42,7 @@ extension Service {
 		return .success(urlRequest)
 	}
 
-	/// Default implementation will return nil - this means the loading won't interrupt and continue
-	func optionalModleProvider<R>(_ resource: R) -> R.Receive.ReceiveModel? where R: Resource {
+	func modelOtherwiseWillLoad<R>(_ resource: R) -> R.Receive.ReceiveModel? where R: Resource {
 		nil
 	}
 
@@ -53,7 +52,7 @@ extension Service {
 		_ completion: @escaping (Result<R.Receive.ReceiveModel, ServiceError<R.CustomError>>) -> Void
 	) where R: Resource {
 		// if an optional model is given we will return that one and stop loading
-		if let providedModel = optionalModleProvider(resource) {
+		if let providedModel = modelOtherwiseWillLoad(resource) {
 			completion(.success(providedModel))
 			return
 		}
