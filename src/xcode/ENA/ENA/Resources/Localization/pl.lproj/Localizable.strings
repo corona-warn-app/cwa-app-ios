@@ -122,7 +122,7 @@
 
 "ExposureDetection_Guide_Vaccination_HighRisk" = "Jeśli nie jesteś jeszcze zaszczepiony(-a), skonsultuj się z lekarzem rodzinnym po wykonaniu testu.";
 
-"ExposureDetection_Guide_Title" = "Przetestuj się, nawet jeśli nie masz żadnych objawów. Jeśli otrzymasz ostrzeżenie o podwyższonym ryzyku („czerwony kafelek”), będziesz mieć prawo do bezpłatnego testu. Twoje prawo do bezpłatnego szybkiego testu antygenowego może być ograniczone, w zależności od lokalnych przepisów. Zalecamy wykonanie testu PCR, zwłaszcza gdy jest on bezpłatny.";
+"ExposureDetection_Guide_Title" = "Przetestuj się, nawet jeśli nie masz żadnych objawów. Jeśli otrzymasz ostrzeżenie o zwiększonym ryzyku („czerwony kafelek”), będziesz mieć prawo do bezpłatnego testu. Nie musi to być test PCR.";
 
 "ExposureDetection_Guide_Point1" = "Możesz zapoznać się z możliwościami testowania w tym miejscu lub skontaktować się z lekarzem rodzinnym lub apteką.";
 
@@ -1876,7 +1876,7 @@
 
 "ContactDiary_Information_DescriptionTitle" = "Rejestruj swoje kontakty.";
 
-"ContactDiary_Information_DescriptionSubHeadline" = "Utwórz przegląd swoich kontaktów z ostatnich 14 dni, aby w razie potrzeby mieć szybki dostęp do kompletnej listy.";
+"ContactDiary_Information_DescriptionSubHeadline" = "Utwórz przegląd swoich kontaktów z ostatnich 15 dni, aby w razie potrzeby mieć szybki dostęp do kompletnej listy.";
 
 "ContactDiary_Information_Item_Person_Title" = "Wpisz dane spotkanych osób.";
 
