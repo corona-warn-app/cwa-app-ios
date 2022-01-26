@@ -59,11 +59,13 @@ final class DMNHCViewModel {
 				backgroundColor: .enaColor(for: .buttonPrimary),
 				action: { [weak self] in
 					self?.restService.load(AppConfigurationResource()) { result in
-						switch result {
-						case .success:
-							Log.info("New HTTP Call for AppConfig successful")
-						case .failure:
-							Log.error("New HTTP Call for AppConfig failed")
+						DispatchQueue.main.async {
+							switch result {
+							case .success:
+								Log.info("New HTTP Call for AppConfig successful")
+							case .failure:
+								Log.error("New HTTP Call for AppConfig failed")
+							}
 						}
 					}
 				}
@@ -75,11 +77,13 @@ final class DMNHCViewModel {
 				backgroundColor: .enaColor(for: .buttonPrimary),
 				action: { [weak self] in
 					self?.restService.load(ValidationOnboardedCountriesResource()) { result in
-						switch result {
-						case let .success(countriesModel):
-							Log.info("New HTTP Call for validationOnboardedCountries successful. Countries: \(countriesModel.countries)")
-						case let .failure(error):
-							Log.error("New HTTP Call for validationOnboardedCountries failed with error: \(error)")
+						DispatchQueue.main.async {
+							switch result {
+							case let .success(countriesModel):
+								Log.info("New HTTP Call for validationOnboardedCountries successful. Countries: \(countriesModel.countries)")
+							case let .failure(error):
+								Log.error("New HTTP Call for validationOnboardedCountries failed with error: \(error)")
+							}
 						}
 					}
 				}
@@ -134,11 +138,13 @@ final class DMNHCViewModel {
 	private func performDccRulesRequest(_ ruleType: HealthCertificateValidationRuleType) {
 		let resource = DCCRulesResource(isFake: false, ruleType: ruleType)
 		restService.load(resource) { result in
-			switch result {
-			case .success:
-				Log.info("New HTTP Call for dccRule \(ruleType.urlPath) successful")
-			case .failure:
-				Log.error("New HTTP Call for dccRule \(ruleType.urlPath) failed")
+			DispatchQueue.main.async {
+				switch result {
+				case .success:
+					Log.info("New HTTP Call for dccRule \(ruleType.urlPath) successful")
+				case .failure:
+					Log.error("New HTTP Call for dccRule \(ruleType.urlPath) failed")
+				}
 			}
 		}
 
