@@ -40,7 +40,7 @@ struct DCCUIText {
 		case UITextType.plural:
 			return localizedPluralFormatText(languageCode: languageCode)
 		case UITextType.systemTimeDependent:
-			return nil
+			return localizedSystemTimeDependentFormatText(languageCode: languageCode)
 		default:
 			return nil
 		}
@@ -60,8 +60,8 @@ struct DCCUIText {
 		formatText = formatText.replacingOccurrences(of: "%(\\d\\$)?s", with: "%$1@", options: NSString.CompareOptions.regularExpression, range: nil)
 		
 		if let parameters = parameters as? [DCCUITextParameter] {
-			// regular text without placeholders
 			if parameters.isEmpty {
+				// regular text without placeholders
 				return formatText
 			} else { // regular text with placeholder
 				// text shall be determined by passing formatText and formatParameters to a printf-compatible format function
@@ -92,6 +92,7 @@ struct DCCUIText {
 			} else {
 				// quantity shall be set to the value of textDescriptor.quantity
 				if let textDescriptorQuantity = quantity {
+					
 					return formattedTextWithParameters(formatText: quantityBasedFormatText(formatText: formatText, quantity: textDescriptorQuantity) ?? "", parameters: parameters)
 				} else {
 					// Otherwise quantity shall be set to the element of formatParameters at the index described by textDescriptor.quantityParameterIndex.
@@ -104,6 +105,10 @@ struct DCCUIText {
 			}
 		}
 		
+		return nil
+	}
+
+	func localizedSystemTimeDependentFormatText(languageCode: String?) -> String? {
 		return nil
 	}
 
