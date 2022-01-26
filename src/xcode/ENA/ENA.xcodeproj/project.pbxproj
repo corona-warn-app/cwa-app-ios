@@ -636,6 +636,7 @@
 		5013B18526EBA3A500A2DD54 /* QRScannerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5013B18426EBA3A500A2DD54 /* QRScannerViewModel.swift */; };
 		5013B18726EBA3FE00A2DD54 /* QRScannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5013B18626EBA3FE00A2DD54 /* QRScannerViewController.swift */; };
 		5015D2D427A17391007D8763 /* Locator+CCLConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5015D2D327A17391007D8763 /* Locator+CCLConfiguration.swift */; };
+		5015D2D627A1774B007D8763 /* CCLConfigurationResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5015D2D527A1774B007D8763 /* CCLConfigurationResource.swift */; };
 		5015D2D827A17951007D8763 /* CCLConfigurationReceiveModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5015D2D727A17951007D8763 /* CCLConfigurationReceiveModel.swift */; };
 		5017F64D25FFAD11003A812E /* PPASubmissionState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5017F64C25FFAD11003A812E /* PPASubmissionState.swift */; };
 		5017F65F25FFC1E8003A812E /* ClientMetadataTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5017F65E25FFC1E8003A812E /* ClientMetadataTests.swift */; };
@@ -2277,6 +2278,7 @@
 		5013B18426EBA3A500A2DD54 /* QRScannerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRScannerViewModel.swift; sourceTree = "<group>"; };
 		5013B18626EBA3FE00A2DD54 /* QRScannerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRScannerViewController.swift; sourceTree = "<group>"; };
 		5015D2D327A17391007D8763 /* Locator+CCLConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Locator+CCLConfiguration.swift"; sourceTree = "<group>"; };
+		5015D2D527A1774B007D8763 /* CCLConfigurationResource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CCLConfigurationResource.swift; sourceTree = "<group>"; };
 		5015D2D727A17951007D8763 /* CCLConfigurationReceiveModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CCLConfigurationReceiveModel.swift; sourceTree = "<group>"; };
 		5017F64C25FFAD11003A812E /* PPASubmissionState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PPASubmissionState.swift; sourceTree = "<group>"; };
 		5017F65E25FFC1E8003A812E /* ClientMetadataTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientMetadataTests.swift; sourceTree = "<group>"; };
@@ -5231,6 +5233,7 @@
 			isa = PBXGroup;
 			children = (
 				5015D2D327A17391007D8763 /* Locator+CCLConfiguration.swift */,
+				5015D2D527A1774B007D8763 /* CCLConfigurationResource.swift */,
 				5015D2D727A17951007D8763 /* CCLConfigurationReceiveModel.swift */,
 			);
 			path = CCLConfiguration;
@@ -10107,6 +10110,7 @@
 				01CBB82C2660F3690094CF8B /* CardView.swift in Sources */,
 				50EE7606274685E0003DE929 /* SecondTicketValidationConsentViewController.swift in Sources */,
 				AB0246DB2716D732002668A1 /* RecycleBinRestorationHandling.swift in Sources */,
+				5015D2D627A1774B007D8763 /* CCLConfigurationResource.swift in Sources */,
 				01DE60752744EF3F00E12FA4 /* TicketValidationInitializationData.swift in Sources */,
 				013C413D255463A400826C9F /* DMDebugRiskCalculationViewController.swift in Sources */,
 				01BB00D0274FDAD70065D1D1 /* TicketValidationConditions.swift in Sources */,
