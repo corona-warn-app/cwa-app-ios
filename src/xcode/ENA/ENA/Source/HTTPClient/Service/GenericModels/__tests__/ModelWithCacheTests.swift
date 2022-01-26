@@ -41,7 +41,7 @@ class ModelWithCacheTests: CWATestCase {
 				
 			case let .success(cachingModel):
 				// THEN
-				XCTAssertFalse(cachingModel.isCached)
+				XCTAssertFalse(cachingModel.loadedFromCache)
 			case let .failure(error):
 				XCTFail("Test should success but failed with error: \(error)")
 			}
@@ -83,7 +83,7 @@ class ModelWithCacheTests: CWATestCase {
 				
 			case let .success(cachingModel):
 				// THEN
-				XCTAssertTrue(cachingModel.isCached)
+				XCTAssertTrue(cachingModel.loadedFromCache)
 			case let .failure(error):
 				XCTFail("Test should success but failed with error: \(error)")
 			}
@@ -127,7 +127,7 @@ class ModelWithCacheTests: CWATestCase {
 				
 			case let .success(cachingModel):
 				// THEN
-				XCTAssertFalse(cachingModel.isCached)
+				XCTAssertFalse(cachingModel.loadedFromCache)
 			case let .failure(error):
 				XCTFail("Test should success but failed with error: \(error)")
 			}
@@ -145,11 +145,11 @@ class ModelWithCacheTests: CWATestCase {
 	
 }
 
-private struct CBORDecodingTestModel: CBORDecoding {
+private struct CBORDecodingTestModel: CBORDecodable {
 	
 	// MARK: - Protocol CBORDecoding
 	
-	static func decode(_ data: Data) -> Result<CBORDecodingTestModel, ModelDecodingError> {
+	static func make(with data: Data) -> Result<CBORDecodingTestModel, ModelDecodingError> {
 		return Result.success(CBORDecodingTestModel(property: "Decoded Value"))
 	}
 	
