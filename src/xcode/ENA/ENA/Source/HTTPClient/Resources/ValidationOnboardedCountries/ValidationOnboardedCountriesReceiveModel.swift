@@ -6,7 +6,8 @@ import Foundation
 import HealthCertificateToolkit
 
 struct ValidationOnboardedCountriesReceiveModel: CBORDecoding {
-
+	
+	// MARK: - Protocol CBORDecoding
 
 	static func decode(_ data: Data) -> Result<ValidationOnboardedCountriesReceiveModel, ModelDecodingError> {
 		switch OnboardedCountriesAccess().extractCountryCodes(from: data) {
@@ -19,13 +20,14 @@ struct ValidationOnboardedCountriesReceiveModel: CBORDecoding {
 			return Result.failure(.CBOR_DECODING_ONBOARDED_COUNTRIES(error))
 		}
 	}
-
-	private init(countries: [Country] ) {
-		self.countries = countries
-	}
-
+	
 	// MARK: - Internal
 
 	let countries: [Country]
 	
+	// MARK: - Private
+
+	private init(countries: [Country] ) {
+		self.countries = countries
+	}
 }
