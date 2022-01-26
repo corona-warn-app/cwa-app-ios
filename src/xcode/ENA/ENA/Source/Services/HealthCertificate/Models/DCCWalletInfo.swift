@@ -4,6 +4,8 @@
 
 import Foundation
 import AudioToolbox
+import AnyCodable
+import jsonlogic
 
 enum ParameterType {
 	static let number = "number"
@@ -25,13 +27,13 @@ struct DCCUITextParameter {
 	let value: Any
 }
 
-struct DCCUIText {
+struct DCCUIText: Codable {
 	let type: String
 	let quantity: Int?
 	let quantityParameterIndex: Int?
 	let functionName: String?
-	let localizedText: [String: Any]?
-	let parameters: Any
+	let localizedText: [String: AnyCodable]?
+	let parameters: AnyCodable
 
 	func localized(languageCode: String? = Locale.current.languageCode) -> String? {
 		switch type {
@@ -50,16 +52,16 @@ struct DCCUIText {
 		var formatText = ""
 		
 		// use language code, if there is no property for the language code, en shall be used
-		if let localizedFormatText = localizedText?[languageCode ?? "en"] as? String {
+		if let localizedFormatText = localizedText?[languageCode ?? "en"]?.value as? String {
 			formatText = localizedFormatText
-		} else if let fallbackLocalizedFormatText = localizedText?["de"] as? String { // if en is not available, de shall be used
+		} else if let fallbackLocalizedFormatText = localizedText?["de"]?.value as? String { // if en is not available, de shall be used
 			formatText = fallbackLocalizedFormatText
 		}
 		
 		// replacing %s with %@, %1$s with %1$@ and so on
 		formatText = formatText.replacingOccurrences(of: "%(\\d\\$)?s", with: "%$1@", options: NSString.CompareOptions.regularExpression, range: nil)
 		
-		if let parameters = parameters as? [DCCUITextParameter] {
+		if let parameters = parameters.value as? [DCCUITextParameter] {
 			if parameters.isEmpty {
 				// regular text without placeholders
 				return formatText
@@ -77,13 +79,13 @@ struct DCCUIText {
 		var formatText: [String: String] = [:]
 		
 		// use language code, if there is no property for the language code, en shall be used
-		if let localizedFormatText = localizedText?[languageCode ?? "en"] as? [String: String] {
+		if let localizedFormatText = localizedText?[languageCode ?? "en"]?.value as? [String: String] {
 			formatText = localizedFormatText
-		} else if let fallbackLocalizedFormatText = localizedText?["de"] as? [String: String] { // if en is not available, de shall be used
+		} else if let fallbackLocalizedFormatText = localizedText?["de"]?.value as? [String: String] { // if en is not available, de shall be used
 			formatText = fallbackLocalizedFormatText
 		}
 		
-		if let parameters = parameters as? [DCCUITextParameter] {
+		if let parameters = parameters.value as? [DCCUITextParameter] {
 			if parameters.isEmpty {
 				// text without parameters
 				if let textDescriptorQuantity = quantity {
@@ -110,7 +112,18 @@ struct DCCUIText {
 	}
 
 	func localizedSystemTimeDependentFormatText(languageCode: String?) -> String? {
-		return nil
+		let service = CCLService()
+		guard let parameters = parameters.value as? [String: AnyDecodable], let functionName = functionName else {
+			return nil
+		}
+		
+		do {
+			let newDCCUIText: DCCUIText = try service.evaluateFunction(name: functionName, parameters: parameters)
+			return newDCCUIText.localized(languageCode: languageCode)
+		} catch {
+			Log.error("Unable to create new DCCUIText", error: error)
+			return nil
+		}
 	}
 
 	func formattedTextWithParameters(formatText: String, parameters: [DCCUITextParameter]) -> String {
