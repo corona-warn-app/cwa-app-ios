@@ -36,8 +36,8 @@ class HealthCertifiedPersonViewModelTests: XCTestCase {
 		// THEN
 		XCTAssertEqual(viewModel.numberOfItems(in: .header), 1)
 		XCTAssertEqual(viewModel.numberOfItems(in: .qrCode), 1)
-		XCTAssertEqual(viewModel.numberOfItems(in: .vaccinationHint), 1)
-		XCTAssertEqual(viewModel.numberOfItems(in: .admissionState), 1)
+		XCTAssertEqual(viewModel.numberOfItems(in: .vaccinationHint), 0)
+		XCTAssertEqual(viewModel.numberOfItems(in: .admissionState), 0)
 		XCTAssertEqual(viewModel.numberOfItems(in: .person), 1)
 		XCTAssertEqual(viewModel.numberOfItems(in: .certificates), 1)
 
@@ -91,101 +91,10 @@ class HealthCertifiedPersonViewModelTests: XCTestCase {
 		let healthCertificate = try XCTUnwrap(viewModel.healthCertificate(for: IndexPath(row: 0, section: HealthCertifiedPersonViewModel.TableViewSection.certificates.rawValue)))
 
 		// THEN
-		XCTAssertTrue(viewModel.vaccinationHintIsVisible)
+		XCTAssertFalse(viewModel.vaccinationHintIsVisible)
 		XCTAssertEqual(qrCodeCellViewModel.qrCodeViewModel.accessibilityLabel, AppStrings.HealthCertificate.Person.QRCodeImageDescription)
 		XCTAssertEqual(healthCertificateCellViewModel.gradientType, .lightBlue)
 		XCTAssertEqual(healthCertificate.name.fullName, "Erika Dörte Schmitt Mustermann")
-	}
-
-	func testGIVEN_PartiallyVaccinatedHealthCertifiedPersonViewModel_THEN_isSetupCorrect() throws {
-		// GIVEN
-		let client = ClientMock()
-		let store = MockTestStore()
-		let service = HealthCertificateService(
-			store: store,
-			dccSignatureVerifier: DCCSignatureVerifyingStub(),
-			dscListProvider: MockDSCListProvider(),
-			client: client,
-			appConfiguration: CachedAppConfigurationMock(),
-			boosterNotificationsService: BoosterNotificationsService(
-				rulesDownloadService: FakeRulesDownloadService()
-			),
-			recycleBin: .fake()
-		)
-
-		let healthCertificate = try vaccinationCertificate(daysOffset: -24, doseNumber: 1, identifier: "01DE/84503/1119349007/DXSGWLWL40SU8ZFKIYIBK39A3#S", dateOfBirth: "1988-06-07")
-
-		let healthCertifiedPerson = HealthCertifiedPerson(
-			healthCertificates: [
-				healthCertificate
-			]
-		)
-
-		let viewModel = HealthCertifiedPersonViewModel(
-			healthCertificateService: service,
-			healthCertifiedPerson: healthCertifiedPerson,
-			healthCertificateValueSetsProvider: VaccinationValueSetsProvider(client: CachingHTTPClientMock(), store: MockTestStore()),
-			dismiss: {},
-			didTapValidationButton: { _, _ in },
-			showInfoHit: { }
-		)
-
-		let vaccinationHintCellViewModel = viewModel.vaccinationHintCellViewModel
-		guard case .partiallyVaccinated = healthCertifiedPerson.vaccinationState else {
-			fatalError("Expected vaccination state .partiallyVaccinated")
-		}
-
-		// THEN
-		XCTAssertEqual(viewModel.numberOfItems(in: .vaccinationHint), 1)
-		XCTAssertEqual(vaccinationHintCellViewModel.description, AppStrings.HealthCertificate.Person.VaccinationHint.partiallyVaccinated)
-	}
-
-	func testGIVEN_FullyVaccinatedHealthCertifiedPersonViewModel_THEN_isSetupCorrect() throws {
-		// GIVEN
-		let client = ClientMock()
-		let store = MockTestStore()
-		let service = HealthCertificateService(
-			store: store,
-			dccSignatureVerifier: DCCSignatureVerifyingStub(),
-			dscListProvider: MockDSCListProvider(),
-			client: client,
-			appConfiguration: CachedAppConfigurationMock(),
-			boosterNotificationsService: BoosterNotificationsService(
-				rulesDownloadService: FakeRulesDownloadService()
-			),
-			recycleBin: .fake()
-		)
-
-		let healthCertificate1 = try vaccinationCertificate(daysOffset: -24, doseNumber: 1, identifier: "01DE/84503/1119349007/DXSGWLWL40SU8ZFKIYIBK39A3#S", dateOfBirth: "1988-06-07")
-		let healthCertificate2 = try vaccinationCertificate(daysOffset: -12, doseNumber: 2, identifier: "01DE/84503/1119349007/DXSGWWLW40SU8ZFKIYIBK39A3#S", dateOfBirth: "1988-06-07")
-
-		let healthCertifiedPerson = HealthCertifiedPerson(
-			healthCertificates: [
-				healthCertificate1,
-				healthCertificate2
-			]
-		)
-
-		let viewModel = HealthCertifiedPersonViewModel(
-			healthCertificateService: service,
-			healthCertifiedPerson: healthCertifiedPerson,
-			healthCertificateValueSetsProvider: VaccinationValueSetsProvider(client: CachingHTTPClientMock(), store: MockTestStore()),
-			dismiss: {},
-			didTapValidationButton: { _, _ in },
-			showInfoHit: { }
-		)
-
-		let vaccinationHintCellViewModel = viewModel.vaccinationHintCellViewModel
-		guard case .fullyVaccinated(daysUntilCompleteProtection: let daysUntilCompleteProtection) = healthCertifiedPerson.vaccinationState else {
-			fatalError("Expected vaccination state .fullyVaccinated")
-		}
-
-		// THEN
-		XCTAssertEqual(viewModel.numberOfItems(in: .vaccinationHint), 1)
-		XCTAssertEqual(vaccinationHintCellViewModel.description, String(
-			format: AppStrings.HealthCertificate.Person.VaccinationHint.daysUntilCompleteProtection,
-			daysUntilCompleteProtection
-		))
 	}
 
 	func testHeightForFooter() throws {

@@ -18,48 +18,19 @@ final class VaccinationHintCellModel {
 
 	// MARK: - Internal
 
-	let title = AppStrings.HealthCertificate.Person.VaccinationHint.title
-
-	var subtitle: String? {
-		guard let lastVaccinationDate = healthCertifiedPerson.vaccinationCertificates.last?.vaccinationEntry?.localVaccinationDate,
-			  let daysSinceLastVaccination = Calendar.autoupdatingCurrent.dateComponents([.day], from: lastVaccinationDate, to: Date()).day else {
-				  // Returning nil if the days since last vaccination can't be determined, e.g. in case of an invalid date, like 2021-19-29
-				  Log.info("Cannot retrieve days since last vaccination for vaccination date \(private: String(describing: healthCertifiedPerson.vaccinationCertificates.last?.vaccinationEntry?.dateOfVaccination))", log: .vaccination)
-
-				  return nil
-		}
-
-		return String(
-			format: AppStrings.HealthCertificate.Person.VaccinationHint.daysSinceLastVaccination,
-			daysSinceLastVaccination
-		)
+	var title: String? {
+		healthCertifiedPerson.dccWalletInfo?.vaccinationState.titleText?.localized()
 	}
 
-	var description: String {
-		if let boosterRule = healthCertifiedPerson.boosterRule {
-			return "\(boosterRule.localizedDescription()) (\(boosterRule.identifier))"
-		}
+	var subtitle: String? {
+		healthCertifiedPerson.dccWalletInfo?.vaccinationState.subtitleText?.localized()
+	}
 
-		switch healthCertifiedPerson.vaccinationState {
-		case .partiallyVaccinated:
-			return AppStrings.HealthCertificate.Person.VaccinationHint.partiallyVaccinated
-		case .fullyVaccinated(daysUntilCompleteProtection: let daysUntilCompleteProtection):
-			return String(
-				format: AppStrings.HealthCertificate.Person.VaccinationHint.daysUntilCompleteProtection,
-				daysUntilCompleteProtection
-			)
-		case .completelyProtected:
-			return AppStrings.HealthCertificate.Person.VaccinationHint.completelyProtected
-		case .notVaccinated:
-			fatalError("Cell cannot be shown if person is not vaccinated")
-		}
+	var description: String? {
+		healthCertifiedPerson.dccWalletInfo?.vaccinationState.longText?.localized()
 	}
 
 	var faqLink: NSAttributedString? {
-		guard healthCertifiedPerson.boosterRule != nil else {
-			return nil
-		}
-
 		let text = String(
 			format: AppStrings.HealthCertificate.Person.VaccinationHint.boosterRuleFAQ,
 			AppStrings.HealthCertificate.Person.VaccinationHint.boosterRuleFAQPlaceholder

@@ -14,7 +14,7 @@ class HealthCertifiedPersonCellModel {
 		healthCertifiedPerson: HealthCertifiedPerson,
 		onCovPassCheckInfoButtonTap: @escaping () -> Void
 	) {
-		guard let mostRelevantCertificate = healthCertifiedPerson.healthCertificates.mostRelevant else {
+		guard let mostRelevantCertificate = healthCertifiedPerson.mostRelevantHealthCertificate else {
 			Log.error("failed to get mostRelevant health certificate")
 			return nil
 		}
