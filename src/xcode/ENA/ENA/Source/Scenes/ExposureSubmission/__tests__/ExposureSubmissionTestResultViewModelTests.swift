@@ -28,7 +28,7 @@ class ExposureSubmissionTestResultViewModelTests: CWATestCase {
 		
 		let restServiceProvider = RestServiceProviderStub(loadResources: [
 			LoadResource(
-				result: .success(TestResultModel(testResult: TestResult.expired.rawValue, sc: nil, labId: "SomeLabId")),
+				result: .success(TestResultReceiveModel(testResult: TestResult.expired.rawValue, sc: nil, labId: "SomeLabId")),
 				willLoadResource: { res in
 					if let resource = res as? TestResultResource, !resource.locator.isFake {
 						getTestResultExpectation.fulfill()
@@ -97,7 +97,7 @@ class ExposureSubmissionTestResultViewModelTests: CWATestCase {
 			
 			let restServiceProvider = RestServiceProviderStub(loadResources: [
 				LoadResource(
-					result: .success(TestResultModel(testResult: TestResult.expired.rawValue, sc: nil, labId: "SomeLabId")),
+					result: .success(TestResultReceiveModel(testResult: TestResult.expired.rawValue, sc: nil, labId: "SomeLabId")),
 					willLoadResource: { res in
 						if let resource = res as? TestResultResource, !resource.locator.isFake {
 							getTestResultExpectation.fulfill()
@@ -166,7 +166,7 @@ class ExposureSubmissionTestResultViewModelTests: CWATestCase {
 		
 		let restServiceProvider = RestServiceProviderStub(loadResources: [
 			LoadResource(
-				result: .success(TestResultModel(testResult: TestResult.expired.rawValue, sc: nil, labId: "SomeLabId")),
+				result: .success(TestResultReceiveModel(testResult: TestResult.expired.rawValue, sc: nil, labId: "SomeLabId")),
 				willLoadResource: { res in
 					if let resource = res as? TestResultResource, !resource.locator.isFake {
 						getTestResultExpectation.fulfill()
@@ -233,7 +233,7 @@ class ExposureSubmissionTestResultViewModelTests: CWATestCase {
 		
 		let restServiceProvider = RestServiceProviderStub(loadResources: [
 			LoadResource(
-				result: .success(TestResultModel(testResult: TestResult.negative.rawValue, sc: nil, labId: "SomeLabId")),
+				result: .success(TestResultReceiveModel(testResult: TestResult.negative.rawValue, sc: nil, labId: "SomeLabId")),
 				willLoadResource: { res in
 					if let resource = res as? TestResultResource, !resource.locator.isFake {
 						// Since we currently don´t have a `didLoadResource` this will have to do 😇
@@ -379,7 +379,7 @@ class ExposureSubmissionTestResultViewModelTests: CWATestCase {
 		
 		let restServiceProvider = RestServiceProviderStub(loadResources: [
 			LoadResource(
-				result: .success(TestResultModel(testResult: TestResult.pending.rawValue, sc: nil, labId: "SomeLabId")),
+				result: .success(TestResultReceiveModel(testResult: TestResult.pending.rawValue, sc: nil, labId: "SomeLabId")),
 				willLoadResource: { res in
 					if let resource = res as? TestResultResource, !resource.locator.isFake {
 						getTestResultExpectation.fulfill()
