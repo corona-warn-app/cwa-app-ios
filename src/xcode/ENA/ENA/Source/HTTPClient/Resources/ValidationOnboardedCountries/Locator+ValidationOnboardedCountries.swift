@@ -9,9 +9,7 @@ extension Locator {
 	// send:	Empty
 	// receive:	SAPDownloadedPackage
 	// type:	caching
-	// comment: we need to look how we will handle PackageDownloadResponse
-	//			original eTag gets stored inside the secure store but not the last know model
-	//			this might have some problems. Better replace it with caching
+	// comment:
 	static func validationOnboardedCountries(
 		isFake: Bool
 	) -> Locator {
