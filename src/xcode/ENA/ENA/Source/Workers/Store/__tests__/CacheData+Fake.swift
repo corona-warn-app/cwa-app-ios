@@ -15,8 +15,7 @@ extension CacheData {
 		return CacheData(
 			data: data,
 			eTag: eTag,
-			serverDate: nil,
-			clientDate: date
+			date: date
 		)
 	}
 
