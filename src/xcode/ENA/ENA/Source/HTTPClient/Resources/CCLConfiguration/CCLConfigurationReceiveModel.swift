@@ -9,17 +9,14 @@ struct CCLConfigurationReceiveModel: CBORDecodable, MetaDataProviding {
 	
 	// MARK: - Protocol CBORDecoding
 	
-	static func make(with data: Data) -> Result<Data, ModelDecodingError> {
+	static func make(with data: Data) -> Result<CCLConfigurationReceiveModel, ModelDecodingError> {
 		
-	
-//		switch CCLConfigurationAccess().extractCCLConfiguration(from: data) {
-//		 case .success(let configurationData):
-//			return .success(CCLConfigurationReceiveModel(with: configurationData)
-//		 case .failure(let error):
-//			return .failure(.CBOR_DECODING_CLLCONFIGURATION(error))
-//
-		// TODO call decode from HealthCertifiedToolkit
-		return .failure(.CBOR_DECODING)
+		switch CCLConfigurationAccess().extractCCLConfiguration(from: data) {
+		case .success(let cclConfigurations):
+			return .success(CCLConfigurationReceiveModel(cclConfigurations))
+		case .failure(let error):
+			return .failure(.CBOR_DECODING_CLLCONFIGURATION(error))
+		}
 	}
 	
 	// MARK: - Protocol MetaDataProviding
@@ -29,10 +26,11 @@ struct CCLConfigurationReceiveModel: CBORDecodable, MetaDataProviding {
 	// MARK: - Internal
 	
 	// Call only for init with fallback data or when decoding was successfull. Otherwise never call this explicit.
-	init(someVar: Data ) {
-		self.someVar = someVar
+	init(
+		_ cclConfigurations: [CCLConfiguration]
+	) {
+		self.cclConfigurations = cclConfigurations
 	}
 
-	// TODO take real model
-	let someVar: Data
+	let cclConfigurations: [CCLConfiguration]
 }
