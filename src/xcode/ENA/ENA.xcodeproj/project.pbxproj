@@ -631,8 +631,6 @@
 		501352332788638A00511ADF /* CBORReceiveResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5013523127884C0D00511ADF /* CBORReceiveResource.swift */; };
 		5013B18526EBA3A500A2DD54 /* QRScannerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5013B18426EBA3A500A2DD54 /* QRScannerViewModel.swift */; };
 		5013B18726EBA3FE00A2DD54 /* QRScannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5013B18626EBA3FE00A2DD54 /* QRScannerViewController.swift */; };
-		5015D2DA27A2BF10007D8763 /* TicketValidationAccessTokenReceiveModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5015D2D927A2BF10007D8763 /* TicketValidationAccessTokenReceiveModel.swift */; };
-		5015D2DC27A2C853007D8763 /* ModelWithMetadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5015D2DB27A2C853007D8763 /* ModelWithMetadata.swift */; };
 		5017F64D25FFAD11003A812E /* PPASubmissionState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5017F64C25FFAD11003A812E /* PPASubmissionState.swift */; };
 		5017F65F25FFC1E8003A812E /* ClientMetadataTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5017F65E25FFC1E8003A812E /* ClientMetadataTests.swift */; };
 		501ABC50267B4B04008F37CA /* HealthCertificateOverviewEmptyStateViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 501ABC4F267B4B04008F37CA /* HealthCertificateOverviewEmptyStateViewModel.swift */; };
@@ -2270,8 +2268,6 @@
 		5013523127884C0D00511ADF /* CBORReceiveResource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CBORReceiveResource.swift; sourceTree = "<group>"; };
 		5013B18426EBA3A500A2DD54 /* QRScannerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRScannerViewModel.swift; sourceTree = "<group>"; };
 		5013B18626EBA3FE00A2DD54 /* QRScannerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRScannerViewController.swift; sourceTree = "<group>"; };
-		5015D2D927A2BF10007D8763 /* TicketValidationAccessTokenReceiveModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketValidationAccessTokenReceiveModel.swift; sourceTree = "<group>"; };
-		5015D2DB27A2C853007D8763 /* ModelWithMetadata.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelWithMetadata.swift; sourceTree = "<group>"; };
 		5017F64C25FFAD11003A812E /* PPASubmissionState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PPASubmissionState.swift; sourceTree = "<group>"; };
 		5017F65E25FFC1E8003A812E /* ClientMetadataTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientMetadataTests.swift; sourceTree = "<group>"; };
 		501ABC4F267B4B04008F37CA /* HealthCertificateOverviewEmptyStateViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthCertificateOverviewEmptyStateViewModel.swift; sourceTree = "<group>"; };
@@ -6357,7 +6353,6 @@
 				5107E3D72459B2D60042FC9B /* Frameworks */,
 				0DFCC2692484D7A700E2811D /* ENA-Bridging-Header.h */,
 				0DFCC26F2484DC8200E2811D /* ENATests-Bridging-Header.h */,
-				8FB7C9202750ED3C0071C98C /* Recovered References */,
 			);
 			sourceTree = "<group>";
 			usesTabs = 1;
@@ -6691,15 +6686,6 @@
 				8FB776F226EA5338005255BB /* DMBoosterChoosePersonViewModel.swift */,
 			);
 			path = DMBoosterRules;
-			sourceTree = "<group>";
-		};
-		8FB7C9202750ED3C0071C98C /* Recovered References */ = {
-			isa = PBXGroup;
-			children = (
-				5015D2DB27A2C853007D8763 /* ModelWithMetadata.swift */,
-				5015D2D927A2BF10007D8763 /* TicketValidationAccessTokenReceiveModel.swift */,
-			);
-			name = "Recovered References";
 			sourceTree = "<group>";
 		};
 		8FB7C9212750EF2D0071C98C /* ValidationDecorator */ = {
@@ -10134,7 +10120,6 @@
 				50D3493D274E85E400F00493 /* String+Regex.swift in Sources */,
 				01D319D426C18B9B008698D8 /* HealthCertificateDecodingContainer.swift in Sources */,
 				BA1FC82D26E2520000CCCC17 /* DMNotificationsViewModel.swift in Sources */,
-				5015D2DC27A2C853007D8763 /* ModelWithMetadata.swift in Sources */,
 				BAB8F2EF2695C4A500AF68A3 /* ValidationInformationViewController.swift in Sources */,
 				BADD36EB260B4FBA00DD282A /* EditCheckinDetailViewController.swift in Sources */,
 				019789342746920600AAC31C /* TicketValidationResultViewModel.swift in Sources */,
@@ -10294,7 +10279,6 @@
 				4026C2E424854C8D00926FB4 /* AppInformationLegalCell.swift in Sources */,
 				BA83C19727171AFD0039D504 /* URLSessionConfiguration+Default.swift in Sources */,
 				51C737BF245B3B5D00286105 /* OnboardingInfo.swift in Sources */,
-				5015D2DA27A2BF10007D8763 /* TicketValidationAccessTokenReceiveModel.swift in Sources */,
 				BADD36E8260B4FBA00DD282A /* EditCheckinDetailViewModel.swift in Sources */,
 				B1FE13EB24891CFA00D012E5 /* RiskProvider.swift in Sources */,
 				EB513DFE25FA34E60020C0B9 /* trace_warning.pb.swift in Sources */,
