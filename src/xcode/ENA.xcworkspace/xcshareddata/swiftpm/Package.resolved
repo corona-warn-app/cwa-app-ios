@@ -92,6 +92,15 @@
         }
       },
       {
+        "package": "jsonfunctions",
+        "repositoryURL": "https://github.com/corona-warn-app/json-functions-swift",
+        "state": {
+          "branch": null,
+          "revision": "3ab48ef79dc50b13aedfd8e5a062dd85bf87a63f",
+          "version": "2.0.0"
+        }
+      },
+      {
         "package": "jsonlogic",
         "repositoryURL": "https://github.com/eu-digital-green-certificates/json-logic-swift.git",
         "state": {

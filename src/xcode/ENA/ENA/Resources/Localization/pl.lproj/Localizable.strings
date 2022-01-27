@@ -2721,7 +2721,7 @@
 
 "HealthCertificate_Validation_Info_title" = "Informacje";
 
-"HealthCertificate_Validation_Info_byCar" = "Wybierz planowany lokalny czas przybycia na granicę kraju docelowego.";
+"HealthCertificate_Validation_Info_byCar" = "Wprowadź planowany lokalny czas przybycia na granicę kraju docelowego.";
 
 "HealthCertificate_Validation_Info_byPlane" = "Jeśli podróżujesz samolotem, wybierz planowany czas odlotu.";
 
