@@ -5,18 +5,18 @@
 import Foundation
 import HealthCertificateToolkit
 
-struct CCLConfigurationReceiveModel: CBORDecodable, MetaDataProviding {
+struct CCLConfigurationReceiveModel: CBORDecodable & MetaDataProviding {
 	
 	// MARK: - Protocol CBORDecoding
 	
-	static func decode(_ data: Data) -> Result<Data, ModelDecodingError> {
-		/*
-		 switch CCLConfigurationAccess().extractConfiguration(from: data) {
-		 case .success(let configurationData):
-			return .success(CCLConfigurationReceiveModel(with: configurationData)
-		 case .failure(let error):
-			return .failure(.CBOR_DECODING_CLLCONFIGURATION(error))
-		 */
+	static func make(with data: Data) -> Result<Data, ModelDecodingError> {
+	
+//		switch HealthCertificateToolkit.DCCWalletCertificate ().extractConfiguration(from: data) {
+//		 case .success(let configurationData):
+//			return .success(CCLConfigurationReceiveModel(with: configurationData)
+//		 case .failure(let error):
+//			return .failure(.CBOR_DECODING_CLLCONFIGURATION(error))
+//		 
 		
 		// TODO call decode from HealthCertifiedToolkit
 		return .failure(.CBOR_DECODING)
@@ -24,7 +24,7 @@ struct CCLConfigurationReceiveModel: CBORDecodable, MetaDataProviding {
 	
 	// MARK: - Protocol CBORDecoding
 	
-	var metaData: MetaData
+	var metaData: MetaData = MetaData()
 
 	// MARK: - Internal
 	
