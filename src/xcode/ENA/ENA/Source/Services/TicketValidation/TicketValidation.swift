@@ -335,12 +335,12 @@ final class TicketValidation: TicketValidating {
 
         restServiceProvider.load(resource) { result in
             switch result {
-            case .success(let jwtWithHeadersModel):
+            case .success(let model):
                 TicketValidationAccessTokenProcessor(jwtVerification: JWTVerification())
                     .process(
-                        jwtWithHeadersModel: jwtWithHeadersModel,
-                        accessTokenSignJwkSet: accessTokenSignJwkSet,
-                        completion: completion
+						ticketValidationModel: model,
+						accessTokenSignJwkSet: accessTokenSignJwkSet,
+						completion: completion
                     )
             case .failure(let error):
                 Log.error("Ticket Validation: Requesting access token failed", log: .ticketValidation, error: error)
@@ -398,10 +398,10 @@ final class TicketValidation: TicketValidating {
 
 		restServiceProvider.load(resource) { result in
 			switch result {
-			case .success(let resultToken):
+			case .success(let model):
 				TicketValidationResultTokenProcessor(jwtVerification: JWTVerification())
 					.process(
-						resultToken: resultToken,
+						resultToken: model.token,
 						validationServiceSignJwkSet: validationServiceSignJwkSet,
 						completion: completion
 					)

@@ -5,11 +5,11 @@
 import Foundation
 
 /**
-Protocol for a specific Model to decode from CBOR data. Should normally be implemented by the Model which shall be decoded, NOT the Resource.
+Protocol for a specific Model to make the Model from CBOR data. Should normally be implemented by the Model which shall be decoded, NOT the Resource.
 */
-protocol CBORDecoding {
+protocol CBORDecodable {
 	associatedtype Model
-	static func decode(_ data: Data) -> Result<Model, ModelDecodingError>
+	static func make(with data: Data) -> Result<Model, ModelDecodingError>
 }
 
 /**
@@ -18,7 +18,7 @@ Because CBOR objects are always packed into a signed package, we need the Signat
 When a service receives a http response with body, containing some data, we just decode the cbor data to make a specific model.
 Returns different RessourceErrors when decoding fails.
 */
-struct CBORReceiveResource<R>: ReceiveResource where R: CBORDecoding {
+struct CBORReceiveResource<R>: ReceiveResource where R: CBORDecodable {
 
 	// MARK: - Init
 	
@@ -45,17 +45,18 @@ struct CBORReceiveResource<R>: ReceiveResource where R: CBORDecoding {
 			return .failure(.signatureVerification)
 		}
 
-		switch R.decode(package.bin) {
+		switch R.make(with: package.bin) {
 
-		case let .success(model):
-			if let model = model as? R {
-				return Result.success(model)
+		case let .success(someModel):
+			// We need that cast for the compiler.
+			if let modelWithCache = someModel as? R {
+				return .success(modelWithCache)
 			} else {
-				return Result.failure(.decoding(ModelDecodingError.CBOR_DECODING))
+				return .failure(.decoding(ModelDecodingError.CBOR_DECODING))
 			}
 
 		case let .failure(error):
-			return Result.failure(.decoding(error))
+			return .failure(.decoding(error))
 		}
 	}
 
