@@ -7,7 +7,183 @@ import XCTest
 
 class CachePolicyTests: XCTestCase {
 
-	// MARK: - Cache Policy tests
+	// MARK: Helpers
+
+	let today = Date()
+
+	func date(day delta: Int) -> Date? {
+		var component = DateComponents()
+		component.day = delta
+		return Calendar.current.date(byAdding: component, to: today)
+	}
+
+	func date(hours delta: Int, fromDate: Date? = nil) -> Date? {
+		var component = DateComponents()
+		component.hour = delta
+
+		let date = fromDate ?? today
+		return Calendar.current.date(byAdding: component, to: date)
+	}
+
+	var midnight: Date? {
+		return Calendar.current.date(bySettingHour: 0, minute: 0, second: 0, of: today, matchingPolicy: .nextTime, repeatedTimePolicy: .first, direction: .backward)
+	}
+
+	// MARK: Caching policy loadOnlyOnceADay
+
+	func testGIVEN_policyLoadOnlyOnceADay_WHEN_cacheDateIsWithinSameDay_THEN_ResultIsCachedModel() throws {
+		// GIVEN
+		let cachedDummyModel = DummyResourceModel(
+			dummyValue: "old data"
+		)
+		let cachedDummyData = try JSONEncoder().encode( cachedDummyModel )
+		let eTag = "DummyDataETag"
+		let locator: Locator = .fake()
+
+		// midnight is oldest possible date within the same day
+		let midnightDate = try XCTUnwrap(midnight)
+		let cache = KeyValueCacheFake()
+		cache[locator.hashValue] = CacheData(data: cachedDummyData, eTag: eTag, serverDate: nil, clientDate: midnightDate)
+
+		let newResponseData = try JSONEncoder().encode(
+			DummyResourceModel(
+				dummyValue: "new data"
+			)
+		)
+
+		let stack = MockNetworkStack(
+			httpStatus: 200,
+			headerFields: [
+				"ETag": eTag
+			],
+			responseData: newResponseData
+		)
+
+		let cachedService = CachedRestService(
+			session: stack.urlSession,
+			cache: cache
+		)
+
+		let resource = ResourceFake(
+			type: .caching([.loadOnlyOnceADay])
+		)
+
+		let loadExpectation = expectation(description: "Load completion should be called.")
+
+		// WHEN
+		cachedService.load(resource) { result in
+			guard case let .success(responseModel) = result else {
+				XCTFail("Success expected")
+				return
+			}
+
+			XCTAssertEqual(responseModel.dummyValue, "old data")
+			loadExpectation.fulfill()
+		}
+		waitForExpectations(timeout: .short)
+	}
+
+	func testGIVEN_policyLoadOnlyOnceADay_WHEN_cacheDateIsOlderThenSameDay_THEN_ResultIsReceivedModel() throws {
+		// GIVEN
+		let cachedDummyModel = DummyResourceModel(
+			dummyValue: "old data"
+		)
+		let cachedDummyData = try JSONEncoder().encode( cachedDummyModel )
+		let eTag = "DummyDataETag"
+		let locator: Locator = .fake()
+
+		let beforeMidnightDate = try XCTUnwrap(date(hours: -4, fromDate: midnight))
+		let cache = KeyValueCacheFake()
+		cache[locator.hashValue] = CacheData(data: cachedDummyData, eTag: eTag, serverDate: nil, clientDate: beforeMidnightDate)
+
+		let newResponseData = try JSONEncoder().encode(
+			DummyResourceModel(
+				dummyValue: "new data"
+			)
+		)
+
+		let stack = MockNetworkStack(
+			httpStatus: 200,
+			headerFields: [
+				"ETag": eTag
+			],
+			responseData: newResponseData
+		)
+
+		let cachedService = CachedRestService(
+			session: stack.urlSession,
+			cache: cache,
+			fakeClientCacheDate: today
+		)
+
+		let resource = ResourceFake(
+			type: .caching([.loadOnlyOnceADay])
+		)
+
+		let loadExpectation = expectation(description: "Load completion should be called.")
+
+		// WHEN
+		cachedService.load(resource) { result in
+			guard case let .success(responseModel) = result else {
+				XCTFail("Success expected")
+				return
+			}
+
+			XCTAssertEqual(responseModel.dummyValue, "new data")
+			loadExpectation.fulfill()
+		}
+		waitForExpectations(timeout: .short)
+
+		let cachedData = try XCTUnwrap(cache[locator.hashValue])
+		XCTAssertEqual(cachedData.clientDate, today)
+	}
+
+	func testGIVEN_policyLoadOnlyOnceADay_WHEN_cacheDateIsOlderThenSameDay_THEN_NotModifiedResultIsCachedModel() throws {
+		// GIVEN
+		let cachedDummyModel = DummyResourceModel(
+			dummyValue: "old data"
+		)
+		let cachedDummyData = try JSONEncoder().encode( cachedDummyModel )
+		let eTag = "DummyDataETag"
+		let locator: Locator = .fake()
+
+		let beforeMidnightDate = try XCTUnwrap(date(hours: -4, fromDate: midnight))
+		let cache = KeyValueCacheFake()
+		cache[locator.hashValue] = CacheData(data: cachedDummyData, eTag: eTag, serverDate: nil, clientDate: beforeMidnightDate)
+
+		let stack = MockNetworkStack(
+			httpStatus: 304,
+			headerFields: [
+				"ETag": eTag
+			],
+			responseData: nil
+		)
+
+		let cachedService = CachedRestService(
+			session: stack.urlSession,
+			cache: cache
+		)
+
+		let resource = ResourceFake(
+			type: .caching([.loadOnlyOnceADay])
+		)
+
+		let loadExpectation = expectation(description: "Load completion should be called.")
+		// WHEN
+
+		cachedService.load(resource) { result in
+			guard case let .success(responseModel) = result else {
+				XCTFail("Success expected")
+				return
+			}
+
+			XCTAssertEqual(responseModel.dummyValue, "old data")
+			loadExpectation.fulfill()
+		}
+		waitForExpectations(timeout: .short)
+	}
+
+	// MARK: - previous existing tests
 
 	func test_GIVEN_CachePolicyNoNetwork_WHEN_DefaultValueNoCacheIsSet_THEN_DefaultValueIsReturned() {
 		let cache = KeyValueCacheFake()

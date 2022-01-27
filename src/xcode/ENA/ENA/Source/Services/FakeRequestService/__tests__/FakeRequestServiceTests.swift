@@ -31,7 +31,7 @@ class FakeRequestServiceTests: CWATestCase {
 		let restServiceProvider = RestServiceProviderStub(loadResources: [
 			LoadResource(
 				result: .success(
-					RegistrationReceiveModel(submissionTAN: "fake")
+					TeleTanReceiveModel(submissionTAN: "fake")
 				),
 				willLoadResource: { resource in
 					guard let resource = resource as? RegistrationTokenResource  else {
@@ -45,7 +45,7 @@ class FakeRequestServiceTests: CWATestCase {
 				}),
 			LoadResource(
 				result: .success(
-					RegistrationReceiveModel(submissionTAN: "fake")
+					TeleTanReceiveModel(submissionTAN: "fake")
 				),
 				willLoadResource: { resource in
 					guard let resource = resource as? RegistrationTokenResource  else {
@@ -85,7 +85,7 @@ class FakeRequestServiceTests: CWATestCase {
 		let restServiceProvider = RestServiceProviderStub(loadResources: [
 			LoadResource(
 				result: .success(
-					RegistrationReceiveModel(submissionTAN: "fake")
+					TeleTanReceiveModel(submissionTAN: "fake")
 				),
 				willLoadResource: { resource in
 					guard let resource = resource as? RegistrationTokenResource  else {
@@ -98,7 +98,7 @@ class FakeRequestServiceTests: CWATestCase {
 				}),
 			LoadResource(
 				result: .success(
-					RegistrationReceiveModel(submissionTAN: "fake")
+					TeleTanReceiveModel(submissionTAN: "fake")
 				),
 				willLoadResource: { resource in
 					guard let resource = resource as? RegistrationTokenResource  else {
@@ -153,7 +153,7 @@ class FakeRequestServiceTests: CWATestCase {
 		let restServiceProvider = RestServiceProviderStub(loadResources: [
 			LoadResource(
 				result: .success(
-					RegistrationReceiveModel(submissionTAN: "fake")
+					TeleTanReceiveModel(submissionTAN: "fake")
 				),
 				willLoadResource: { resource in
 					guard let resource = resource as? RegistrationTokenResource  else {

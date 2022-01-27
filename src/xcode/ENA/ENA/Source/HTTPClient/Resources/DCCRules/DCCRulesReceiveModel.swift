@@ -7,11 +7,11 @@ import Foundation
 import HealthCertificateToolkit
 import class CertLogic.Rule
 
-struct DCCRulesReceiveModel: CBORDecoding {
+struct DCCRulesReceiveModel: CBORDecodable {
 
 	// MARK: - Protocol CBORDecoding
 	
-	static func decode(_ data: Data) -> Result<DCCRulesReceiveModel, ModelDecodingError> {
+	static func make(with data: Data) -> Result<DCCRulesReceiveModel, ModelDecodingError> {
 		switch ValidationRulesAccess().extractValidationRules(from: data) {
 		case .success(let rules):
 			return .success(DCCRulesReceiveModel(rules: rules))

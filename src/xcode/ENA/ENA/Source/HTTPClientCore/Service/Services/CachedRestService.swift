@@ -31,6 +31,19 @@ class CachedRestService: Service {
 		self.cache = cache
 	}
 
+	#if !RELEASE
+	/// for testing we can inject a date timestamp used when write data to the cache
+	convenience init(
+		environment: EnvironmentProviding = Environments(),
+		session: URLSession? = nil,
+		cache: KeyValueCaching,
+		fakeClientCacheDate: Date
+	) {
+		self.init(environment: environment, session: session, cache: cache)
+		self.fakeClientCacheDate = fakeClientCacheDate
+	}
+	#endif
+
 	// MARK: - Protocol Service
 
 	let environment: EnvironmentProviding
@@ -45,7 +58,7 @@ class CachedRestService: Service {
 	// check if policies are set and contain .loadOnlyOnceADay
 	// if check if data is in cache and if it was written today
 	// if return last cached receiveModel
-	func modelOtherwiseWillLoad<R>(_ resource: R) -> R.Receive.ReceiveModel? where R: Resource {
+	func receiveModelToInterruptLoading<R>(_ resource: R) -> R.Receive.ReceiveModel? where R: Resource {
 		if case let .caching(policies) = resource.type,
 		   policies.contains(.loadOnlyOnceADay),
 		   let cachedData = cache[resource.locator.hashValue],
@@ -77,25 +90,28 @@ class CachedRestService: Service {
 					data: data,
 					eTag: eTag,
 					serverDate: headers.dateHeader,
-					clientDate: Date()
+					clientDate: fakeClientCacheDate ?? Date()
 				)
 				cache[resource.locator.hashValue] = cachedModel
 				Log.info("Fetched new cached data and wrote them to the cache", log: .client)
 			}
-			
-			// If we have a modelWithCache, we add the information if the model is returned from the cache or not.
-			if var modelWithCache = model as? ModelWithCaching {
-				modelWithCache.isCached = isCachedData
-				// We need that cast back for the compiler.
-				if let originalModelTypeWithCache = modelWithCache as? R.Receive.ReceiveModel {
-					return .success(originalModelTypeWithCache)
+
+			// Proofs if we can add the metadata to our model.
+			if var modelWithMetadata = model as? MetaDataProviding {
+				Log.info("Found a model wich conforms to MetaDataProviding. Adding metadata now.", log: .client)
+				modelWithMetadata.metaData.headers = headers
+				modelWithMetadata.metaData.loadedFromCache = isCachedData
+				if let originalModelWithMetadata = modelWithMetadata as? R.Receive.ReceiveModel {
+					Log.debug("Returning now the original model with metadata", log: .client)
+					return .success(originalModelWithMetadata)
 				} else {
+					Log.warning("Cast back to R.Receive.ReceiveModel failed. Returning the model without metadata.", log: .client)
 					return .success(model)
 				}
 			} else {
+				Log.debug("This model does not conforms to MetaDataProviding. Returning plain model.", log: .client)
 				return .success(model)
 			}
-			
 		case .failure(let error):
 			Log.error("Decoding for receive resource failed.", log: .client, error: error)
 			return failureOrDefaultValueHandling(resource, .resourceError(error))
@@ -150,4 +166,6 @@ class CachedRestService: Service {
 
 	private let optionalSession: URLSession?
 	private var cache: KeyValueCaching
+	private var fakeClientCacheDate: Date?
+
 }

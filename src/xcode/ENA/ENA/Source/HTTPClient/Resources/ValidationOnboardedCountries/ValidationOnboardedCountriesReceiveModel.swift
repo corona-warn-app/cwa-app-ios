@@ -5,11 +5,12 @@
 import Foundation
 import HealthCertificateToolkit
 
-struct ValidationOnboardedCountriesReceiveModel: CBORDecoding {
-	
-	// MARK: - Protocol CBORDecoding
+struct ValidationOnboardedCountriesReceiveModel: CBORDecodable {
 
-	static func decode(_ data: Data) -> Result<ValidationOnboardedCountriesReceiveModel, ModelDecodingError> {
+	// MARK: - Protocol CBORDecoding
+	
+	static func make(with data: Data) -> Result<ValidationOnboardedCountriesReceiveModel, ModelDecodingError> {
+
 		switch OnboardedCountriesAccess().extractCountryCodes(from: data) {
 		case .success(let countryCodes):
 			let countries = countryCodes.compactMap {
