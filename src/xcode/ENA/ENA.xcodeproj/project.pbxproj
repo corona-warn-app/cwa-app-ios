@@ -603,7 +603,6 @@
 		5001DE7C26E201FE004242FA /* AvailableDays.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5001DE7B26E201FE004242FA /* AvailableDays.swift */; };
 		5001DE7E26E20257004242FA /* DiagnosisKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5001DE7D26E20257004242FA /* DiagnosisKeys.swift */; };
 		5001DE8226E2057C004242FA /* Locator+TestResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5001DE8126E2057C004242FA /* Locator+TestResult.swift */; };
-		5001DE8426E206AB004242FA /* Locator+RegistrationToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5001DE8326E206AB004242FA /* Locator+RegistrationToken.swift */; };
 		5001DE8626E20791004242FA /* KeySubmission.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5001DE8526E20791004242FA /* KeySubmission.swift */; };
 		5001DE8826E20903004242FA /* SubmitOnBehalf.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5001DE8726E20903004242FA /* SubmitOnBehalf.swift */; };
 		5001DE8A26E20AC6004242FA /* AuthorizeOtpEdus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5001DE8926E20AC6004242FA /* AuthorizeOtpEdus.swift */; };
@@ -732,6 +731,7 @@
 		50AA522725FA5AAD000C77BB /* TraceWarningError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50AA522625FA5AAD000C77BB /* TraceWarningError.swift */; };
 		50AA525425FB9ACA000C77BB /* TraceWarningDiscovery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50AA525325FB9ACA000C77BB /* TraceWarningDiscovery.swift */; };
 		50AA526825FBA0CC000C77BB /* HTTPClient+TraceWarningPackageDiscoveryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50AA526725FBA0CC000C77BB /* HTTPClient+TraceWarningPackageDiscoveryTests.swift */; };
+		50AF181F27A2E85B00BAA9DB /* Locator+TeleTan.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5001DE8326E206AB004242FA /* Locator+TeleTan.swift */; };
 		50AF8B4625E00D7200F65328 /* ENDiagnosisReportType+Protobuf.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50AF8B4525E00D7200F65328 /* ENDiagnosisReportType+Protobuf.swift */; };
 		50B1D6E72551621C00684C3C /* DayKeyPackageDownloadTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50B1D6E62551621C00684C3C /* DayKeyPackageDownloadTests.swift */; };
 		50B5057D25CAEF5C00EEA380 /* OTPToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50B5057C25CAEF5C00EEA380 /* OTPToken.swift */; };
@@ -739,7 +739,7 @@
 		50B5058E25CAF3FC00EEA380 /* DMOTPServiceViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50B5058D25CAF3FC00EEA380 /* DMOTPServiceViewModel.swift */; };
 		50B9133A26B2DDC00005C8D8 /* MockUserNotificationCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB87353F253704D100325C6C /* MockUserNotificationCenter.swift */; };
 		50BC9035279EEBE00000C930 /* TestResultSendModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBE0F9622786F783001F20E8 /* TestResultSendModel.swift */; };
-		50BC9039279EEC4D0000C930 /* Locator+TeleTan.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5001DE7F26E202B3004242FA /* Locator+TeleTan.swift */; };
+		50BC9039279EEC4D0000C930 /* Locator+RegistrationToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5001DE7F26E202B3004242FA /* Locator+RegistrationToken.swift */; };
 		50BC903F279EECCA0000C930 /* Locator+TicketValidationResultToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = 010A47692754D5F6000AA80E /* Locator+TicketValidationResultToken.swift */; };
 		50BC9048279EF0B40000C930 /* RestServiceProviderStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA7DB3A32743F1A80028683F /* RestServiceProviderStub.swift */; };
 		50BD1406260A1E840013983A /* TraceWarningSuccess.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50BD1405260A1E840013983A /* TraceWarningSuccess.swift */; };
@@ -910,7 +910,7 @@
 		8F7FD71425E3F65E006CDE01 /* HTMLViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8F7FD71325E3F65E006CDE01 /* HTMLViewController.xib */; };
 		8F80802A2730AF7800F8FA3F /* RegistrationTokenResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F8080292730AF7800F8FA3F /* RegistrationTokenResource.swift */; };
 		8F80802C2730B48F00F8FA3F /* RegistrationTokenSendModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F80802B2730B48F00F8FA3F /* RegistrationTokenSendModel.swift */; };
-		8F80802E2731242900F8FA3F /* RegistrationReceiveModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F80802D2731242900F8FA3F /* RegistrationReceiveModel.swift */; };
+		8F80802E2731242900F8FA3F /* TeleTanReceiveModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F80802D2731242900F8FA3F /* TeleTanReceiveModel.swift */; };
 		8F87214E274DBCAE00A263D5 /* Locator+ServiceIdentityDocumentValidationDecorator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F87214D274DBCAE00A263D5 /* Locator+ServiceIdentityDocumentValidationDecorator.swift */; };
 		8F872150274DBD7B00A263D5 /* ServiceIdentityDocumentValidationDecoratorResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F87214F274DBD7B00A263D5 /* ServiceIdentityDocumentValidationDecoratorResource.swift */; };
 		8F95A1B225EFC5BE00506CF2 /* SendErrorLogsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F95A1B125EFC5BE00506CF2 /* SendErrorLogsViewController.swift */; };
@@ -1002,7 +1002,7 @@
 		AB0246D92716D704002668A1 /* RecycleBinItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB0246D82716D704002668A1 /* RecycleBinItem.swift */; };
 		AB0246DB2716D732002668A1 /* RecycleBinRestorationHandling.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB0246DA2716D732002668A1 /* RecycleBinRestorationHandling.swift */; };
 		AB0246DF2718222C002668A1 /* HealthCertificateRestorationHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB0246DE2718222C002668A1 /* HealthCertificateRestorationHandler.swift */; };
-		AB0246E327230F5F002668A1 /* TeleTanReceiveModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB0246E227230F5E002668A1 /* TeleTanReceiveModel.swift */; };
+		AB0246E327230F5F002668A1 /* RegistrationTockenReceiveModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB0246E227230F5E002668A1 /* RegistrationTockenReceiveModel.swift */; };
 		AB124E202604EC34009004B3 /* DeleteAllTraceWarningPackageMetadataQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB124E1F2604EC34009004B3 /* DeleteAllTraceWarningPackageMetadataQuery.swift */; };
 		AB126873254C05A7006E9194 /* ENAFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB126872254C05A7006E9194 /* ENAFormatter.swift */; };
 		AB182012275A2F0A0054B873 /* ENALinkedTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB182011275A2F0A0054B873 /* ENALinkedTextView.swift */; };
@@ -2241,9 +2241,9 @@
 		5001DE7926E2019A004242FA /* LocalStatistics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalStatistics.swift; sourceTree = "<group>"; };
 		5001DE7B26E201FE004242FA /* AvailableDays.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvailableDays.swift; sourceTree = "<group>"; };
 		5001DE7D26E20257004242FA /* DiagnosisKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiagnosisKeys.swift; sourceTree = "<group>"; };
-		5001DE7F26E202B3004242FA /* Locator+TeleTan.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Locator+TeleTan.swift"; sourceTree = "<group>"; };
+		5001DE7F26E202B3004242FA /* Locator+RegistrationToken.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Locator+RegistrationToken.swift"; sourceTree = "<group>"; };
 		5001DE8126E2057C004242FA /* Locator+TestResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Locator+TestResult.swift"; sourceTree = "<group>"; };
-		5001DE8326E206AB004242FA /* Locator+RegistrationToken.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Locator+RegistrationToken.swift"; sourceTree = "<group>"; };
+		5001DE8326E206AB004242FA /* Locator+TeleTan.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Locator+TeleTan.swift"; sourceTree = "<group>"; };
 		5001DE8526E20791004242FA /* KeySubmission.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeySubmission.swift; sourceTree = "<group>"; };
 		5001DE8726E20903004242FA /* SubmitOnBehalf.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubmitOnBehalf.swift; sourceTree = "<group>"; };
 		5001DE8926E20AC6004242FA /* AuthorizeOtpEdus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizeOtpEdus.swift; sourceTree = "<group>"; };
@@ -2569,7 +2569,7 @@
 		8F7FD71325E3F65E006CDE01 /* HTMLViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HTMLViewController.xib; sourceTree = "<group>"; };
 		8F8080292730AF7800F8FA3F /* RegistrationTokenResource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationTokenResource.swift; sourceTree = "<group>"; };
 		8F80802B2730B48F00F8FA3F /* RegistrationTokenSendModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationTokenSendModel.swift; sourceTree = "<group>"; };
-		8F80802D2731242900F8FA3F /* RegistrationReceiveModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationReceiveModel.swift; sourceTree = "<group>"; };
+		8F80802D2731242900F8FA3F /* TeleTanReceiveModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeleTanReceiveModel.swift; sourceTree = "<group>"; };
 		8F87214D274DBCAE00A263D5 /* Locator+ServiceIdentityDocumentValidationDecorator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Locator+ServiceIdentityDocumentValidationDecorator.swift"; sourceTree = "<group>"; };
 		8F87214F274DBD7B00A263D5 /* ServiceIdentityDocumentValidationDecoratorResource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceIdentityDocumentValidationDecoratorResource.swift; sourceTree = "<group>"; };
 		8F95A1B125EFC5BE00506CF2 /* SendErrorLogsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendErrorLogsViewController.swift; sourceTree = "<group>"; };
@@ -2663,7 +2663,7 @@
 		AB0246D82716D704002668A1 /* RecycleBinItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecycleBinItem.swift; sourceTree = "<group>"; };
 		AB0246DA2716D732002668A1 /* RecycleBinRestorationHandling.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecycleBinRestorationHandling.swift; sourceTree = "<group>"; };
 		AB0246DE2718222C002668A1 /* HealthCertificateRestorationHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthCertificateRestorationHandler.swift; sourceTree = "<group>"; };
-		AB0246E227230F5E002668A1 /* TeleTanReceiveModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TeleTanReceiveModel.swift; sourceTree = "<group>"; };
+		AB0246E227230F5E002668A1 /* RegistrationTockenReceiveModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegistrationTockenReceiveModel.swift; sourceTree = "<group>"; };
 		AB124E1F2604EC34009004B3 /* DeleteAllTraceWarningPackageMetadataQuery.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeleteAllTraceWarningPackageMetadataQuery.swift; sourceTree = "<group>"; };
 		AB126872254C05A7006E9194 /* ENAFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ENAFormatter.swift; sourceTree = "<group>"; };
 		AB182011275A2F0A0054B873 /* ENALinkedTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ENALinkedTextView.swift; sourceTree = "<group>"; };
@@ -5550,6 +5550,15 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		50AF181D27A2E5E000BAA9DB /* HTTPClient */ = {
+			isa = PBXGroup;
+			children = (
+				BAF640EF26DFA08E00B3A18E /* LocatorsNotYetUsed */,
+				50BC9046279EEE530000C930 /* Resources */,
+			);
+			path = HTTPClient;
+			sourceTree = "<group>";
+		};
 		50B5058725CAF3C500EEA380 /* DMOTPService */ = {
 			isa = PBXGroup;
 			children = (
@@ -5619,8 +5628,8 @@
 			isa = PBXGroup;
 			children = (
 				50BC9033279EEBCF0000C930 /* __tests__ */,
-				5001DE8326E206AB004242FA /* Locator+RegistrationToken.swift */,
-				8F80802D2731242900F8FA3F /* RegistrationReceiveModel.swift */,
+				5001DE7F26E202B3004242FA /* Locator+RegistrationToken.swift */,
+				AB0246E227230F5E002668A1 /* RegistrationTockenReceiveModel.swift */,
 				8F8080292730AF7800F8FA3F /* RegistrationTokenResource.swift */,
 				8F80802B2730B48F00F8FA3F /* RegistrationTokenSendModel.swift */,
 			);
@@ -5639,8 +5648,8 @@
 			isa = PBXGroup;
 			children = (
 				50BC9037279EEC190000C930 /* __tests__ */,
-				5001DE7F26E202B3004242FA /* Locator+TeleTan.swift */,
-				AB0246E227230F5E002668A1 /* TeleTanReceiveModel.swift */,
+				5001DE8326E206AB004242FA /* Locator+TeleTan.swift */,
+				8F80802D2731242900F8FA3F /* TeleTanReceiveModel.swift */,
 				BAD3CCD7271EF973004C06AD /* TeleTanResource.swift */,
 				BAD3CCD2271EEB2C004C06AD /* TeleTanSendModel.swift */,
 			);
@@ -6145,7 +6154,8 @@
 		51D420D524598AC200AD70CA /* Source */ = {
 			isa = PBXGroup;
 			children = (
-				BA64FA7F26D79BCB00DD4705 /* HTTPClient */,
+				BA64FA7F26D79BCB00DD4705 /* HTTPClientCore */,
+				50AF181D27A2E5E000BAA9DB /* HTTPClient */,
 				35B2FAAE25B9D362009ABC8E /* AppDelegate & Globals */,
 				AB126871254C0598006E9194 /* Utils */,
 				AB1FCBCA2521FC21005930BA /* Environment */,
@@ -8475,17 +8485,16 @@
 			path = FooterViewController;
 			sourceTree = "<group>";
 		};
-		BA64FA7F26D79BCB00DD4705 /* HTTPClient */ = {
+		BA64FA7F26D79BCB00DD4705 /* HTTPClientCore */ = {
 			isa = PBXGroup;
 			children = (
 				BAF640ED26DF86BF00B3A18E /* Endpoint.swift */,
 				5071A87F26EB808A00B09B40 /* HTTP+Method.swift */,
 				BA83C19627171AFD0039D504 /* URLSessionConfiguration+Default.swift */,
 				B1CD333F2486AA5F00B06E9B /* Security */,
-				50BC9046279EEE530000C930 /* Resources */,
 				BAF640E926DF862800B3A18E /* Service */,
 			);
-			path = HTTPClient;
+			path = HTTPClientCore;
 			sourceTree = "<group>";
 		};
 		BA64FA8026D79BFD00DD4705 /* Resource */ = {
@@ -8498,7 +8507,6 @@
 				50D7BD6F26DE405100494FB7 /* Locator.swift */,
 				BA52A69A26EA1A2400AA0732 /* ReceiveResources */,
 				BA52A69926EA1A1700AA0732 /* SendResources */,
-				BAF640EF26DFA08E00B3A18E /* LocatorsNotYetUsed */,
 			);
 			path = Resource;
 			sourceTree = "<group>";
@@ -9887,6 +9895,7 @@
 				50BD2E6224FE1E8700932566 /* AppInformationModel.swift in Sources */,
 				01635EB1275A154D00A479EB /* HealthCertifiedPersonAdmissionState.swift in Sources */,
 				ABB8DF602799BEC300DD99E4 /* CCLService.swift in Sources */,
+				50AF181F27A2E85B00BAA9DB /* Locator+TeleTan.swift in Sources */,
 				BA41016426F8D8F60073F28D /* CovPassCheckInformationViewModel.swift in Sources */,
 				B1A89F3B24819CE800DA1CEC /* SettingsLabelCell.swift in Sources */,
 				01164CE226C573A2007F9C3E /* TraceLocationCheckinSelectionCellModel.swift in Sources */,
@@ -10023,7 +10032,7 @@
 				BA5B7FD926458EF400502087 /* HealthCertificateQRCodeCellViewModel.swift in Sources */,
 				BA887F962608B5C800623FF6 /* SelectTraceLocationTypeFooterView.swift in Sources */,
 				EB1BB10D25CC3FD50076CB67 /* AppDelegate.swift in Sources */,
-				50BC9039279EEC4D0000C930 /* Locator+TeleTan.swift in Sources */,
+				50BC9039279EEC4D0000C930 /* Locator+RegistrationToken.swift in Sources */,
 				01F33234270F3E4E005CE21E /* RecycleBinEmptyStateViewModel.swift in Sources */,
 				AB190EBC25FB741000FBFF0D /* DeleteTraceWarningPackageMetadataQuery.swift in Sources */,
 				01BB00CF274FDAD70065D1D1 /* TicketValidationConditions+Fake.swift in Sources */,
@@ -10145,7 +10154,7 @@
 				50DC527924FEB2AE00F6D8EB /* AppInformationDynamicCell.swift in Sources */,
 				013A5552260CEE340092B5B1 /* TimeInterval+Minutes.swift in Sources */,
 				BAF640E826DF85A600B3A18E /* _Service.swift in Sources */,
-				AB0246E327230F5F002668A1 /* TeleTanReceiveModel.swift in Sources */,
+				AB0246E327230F5F002668A1 /* RegistrationTockenReceiveModel.swift in Sources */,
 				EB3BCA8C2507C3B0003F27C7 /* DynamicTableViewBulletPointCell.swift in Sources */,
 				2F3D95372518BCD1002B2C81 /* EUSettingsViewController.swift in Sources */,
 				ABC506D1274F8D2300698A95 /* TicketValidationServiceIdentityDocumentProcessor.swift in Sources */,
@@ -10298,7 +10307,7 @@
 				34FE156A26010A840002CB69 /* TraceLocation+GenerateQRCode.swift in Sources */,
 				B1EAEC8B24711884003BE9A2 /* URLSession+Convenience.swift in Sources */,
 				AB190E9E25FB684F00FBFF0D /* DeleteAllCheckins.swift in Sources */,
-				8F80802E2731242900F8FA3F /* RegistrationReceiveModel.swift in Sources */,
+				8F80802E2731242900F8FA3F /* TeleTanReceiveModel.swift in Sources */,
 				ABE9613A25EFEBE800D0F699 /* DaysSinceInstallTableViewCell.swift in Sources */,
 				ABC506CD274BE0A600698A95 /* ServiceIdentityDocumentResource.swift in Sources */,
 				AB190E7825FB5CE800FBFF0D /* CreateTraceLocationQuery.swift in Sources */,
@@ -10911,7 +10920,6 @@
 				01F6701225FF79830069C4F9 /* EventCellModel.swift in Sources */,
 				BA9BCF6225B0875100DD7974 /* DiaryOverviewDayCellModel.swift in Sources */,
 				8FEC12242754B6C000C5DADC /* Locator+AllowList.swift in Sources */,
-				5001DE8426E206AB004242FA /* Locator+RegistrationToken.swift in Sources */,
 				BA0887A6269F43930007B3F3 /* NSMutableAttributedString+Link.swift in Sources */,
 				5078DCA42684B5FB00535917 /* HealthCertificateValidationReport.swift in Sources */,
 				01EA17622590EAAF00E98E02 /* HomeTableViewController.swift in Sources */,
