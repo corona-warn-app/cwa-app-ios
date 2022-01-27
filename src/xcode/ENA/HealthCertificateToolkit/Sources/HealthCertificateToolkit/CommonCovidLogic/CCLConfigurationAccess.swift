@@ -5,7 +5,7 @@
 import Foundation
 import SwiftCBOR
 
-enum CCLConfigurationAccessError: Error {
+public enum CCLConfigurationAccessError: Error {
     case CBOR_DECODING_FAILED(Error?)
     case JSON_ENCODING_FAILED(Error?)
 }
@@ -14,7 +14,7 @@ public struct CCLConfigurationAccess {
     
     public init() {}
 
-    func extractCCLConfiguration(from cborData: CBORData) -> Result<[CCLConfiguration], CCLConfigurationAccessError> {
+    public func extractCCLConfiguration(from cborData: CBORData) -> Result<[CCLConfiguration], CCLConfigurationAccessError> {
         do {
             let cborDecoder = CBORDecoder(input: [UInt8](cborData))
             guard let cbor = try cborDecoder.decodeItem(),
