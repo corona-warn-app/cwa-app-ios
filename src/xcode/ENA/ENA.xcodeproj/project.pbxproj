@@ -1036,6 +1036,7 @@
 		AB1BA92D25C30406002EA97F /* SurveyConsentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB1BA92C25C30406002EA97F /* SurveyConsentViewController.swift */; };
 		AB1EEC1026382BC20001D1DB /* ExposureSubmissionIntroViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB1EEC0F26382BC20001D1DB /* ExposureSubmissionIntroViewModelTests.swift */; };
 		AB1FCBD42521FC47005930BA /* EnvironmentTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB1FCBCC2521FC44005930BA /* EnvironmentTests.swift */; };
+		AB2628DA27A2E348003D39A6 /* GetWalletInfoInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB2628D927A2E348003D39A6 /* GetWalletInfoInput.swift */; };
 		AB2F094A25D1687300C16309 /* SurveyURLProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB2F094925D1687300C16309 /* SurveyURLProvider.swift */; };
 		AB2F094F25D169DC00C16309 /* SurveyURLServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB2F094E25D169DC00C16309 /* SurveyURLServiceTests.swift */; };
 		AB347879269C8D770016A8AB /* dcc-validation-rules-common-test-cases.json in Resources */ = {isa = PBXBuildFile; fileRef = AB347878269C8D770016A8AB /* dcc-validation-rules-common-test-cases.json */; };
@@ -2696,6 +2697,7 @@
 		AB1EEC0F26382BC20001D1DB /* ExposureSubmissionIntroViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureSubmissionIntroViewModelTests.swift; sourceTree = "<group>"; };
 		AB1FCBCC2521FC44005930BA /* EnvironmentTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnvironmentTests.swift; sourceTree = "<group>"; };
 		AB1FCBDB2521FCD5005930BA /* TestEnvironments.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = TestEnvironments.json; sourceTree = "<group>"; };
+		AB2628D927A2E348003D39A6 /* GetWalletInfoInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetWalletInfoInput.swift; sourceTree = "<group>"; };
 		AB2F094925D1687300C16309 /* SurveyURLProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SurveyURLProvider.swift; sourceTree = "<group>"; };
 		AB2F094E25D169DC00C16309 /* SurveyURLServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SurveyURLServiceTests.swift; sourceTree = "<group>"; };
 		AB347878269C8D770016A8AB /* dcc-validation-rules-common-test-cases.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "dcc-validation-rules-common-test-cases.json"; sourceTree = "<group>"; };
@@ -7136,6 +7138,7 @@
 			children = (
 				ABB8DF5F2799BEC300DD99E4 /* CCLService.swift */,
 				AB77385227A160A000B9EA95 /* DCCWalletCertificate.swift */,
+				AB2628D927A2E348003D39A6 /* GetWalletInfoInput.swift */,
 			);
 			path = CCLService;
 			sourceTree = "<group>";
@@ -9824,6 +9827,7 @@
 				50F9130D253F1D7800DFE683 /* OnboardingPageType.swift in Sources */,
 				4B2D873B26ED4ED3006F5E93 /* NavigationControllerWithLargeTitle.swift in Sources */,
 				BA0073BE25D18A5B0036DFDD /* DataDonationViewController.swift in Sources */,
+				AB2628DA27A2E348003D39A6 /* GetWalletInfoInput.swift in Sources */,
 				BA6898CD25ED49E00037A3EE /* Route.swift in Sources */,
 				5071A87326EA662400B09B40 /* JSONReceiveResource.swift in Sources */,
 				A372DA3B24BDA075003248BB /* ExposureSubmissionCoordinator.swift in Sources */,
