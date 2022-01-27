@@ -7,9 +7,11 @@ import Foundation
 import HealthCertificateToolkit
 import class CertLogic.Rule
 
-struct ValidationRulesModel: CBORDecoding {
+struct ValidationRulesModel: CBORDecodable {
 
-	static func decode(_ data: Data) -> Result<ValidationRulesModel, ModelDecodingError> {
+	// MARK: - Protocol CBORDecoding
+	
+	static func make(with data: Data) -> Result<ValidationRulesModel, ModelDecodingError> {
 		switch ValidationRulesAccess().extractValidationRules(from: data) {
 		case .success(let rules):
 			return Result.success(ValidationRulesModel(rules: rules))
@@ -18,12 +20,13 @@ struct ValidationRulesModel: CBORDecoding {
 		}
 	}
 
-	private init(rules: [Rule] ) {
-		self.rules = rules
-	}
-
 	// MARK: - Internal
 
 	let rules: [Rule]
-
+	
+	// MARK: - Private
+	
+	private init(rules: [Rule] ) {
+		self.rules = rules
+	}
 }

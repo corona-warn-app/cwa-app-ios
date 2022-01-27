@@ -63,9 +63,23 @@ class CachedRestService: Service {
 				cache[resource.locator.hashValue] = cachedModel
 				Log.info("Fetched new cached data and wrote them to the cache", log: .client)
 			}
-			
-			return .success(model)
-			
+
+			// Proofs if we can add the metadata to our model.
+			if var modelWithMetadata = model as? MetaDataProviding {
+				Log.info("Found a model wich conforms to MetaDataProviding. Adding metadata now.", log: .client)
+				modelWithMetadata.metaData.headers = headers
+				modelWithMetadata.metaData.loadedFromCache = isCachedData
+				if let originalModelWithMetadata = modelWithMetadata as? R.Receive.ReceiveModel {
+					Log.debug("Returning now the original model with metadata", log: .client)
+					return .success(originalModelWithMetadata)
+				} else {
+					Log.warning("Cast back to R.Receive.ReceiveModel failed. Returning the model without metadata.", log: .client)
+					return .success(model)
+				}
+			} else {
+				Log.debug("This model does not conforms to MetaDataProviding. Returning plain model.", log: .client)
+				return .success(model)
+			}
 		case .failure(let error):
 			Log.error("Decoding for receive resource failed.", log: .client, error: error)
 			return failureOrDefaultValueHandling(resource, .resourceError(error))

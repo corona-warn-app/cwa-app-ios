@@ -27,8 +27,8 @@ final class TicketValidationAccessTokenResourceTests: CWATestCase {
 		serviceProvider.load(ticketValidationAccessTokenResource) { result in
 			switch result {
 			case .success(let result):
-				XCTAssertEqual(result.model, "accessJWT")
-				XCTAssertEqual(result.headers["x-nonce"] as? String, "Nonce")
+				XCTAssertEqual(result.token, "accessJWT")
+				XCTAssertEqual(result.metaData.headers["x-nonce"] as? String, "Nonce")
 			case .failure(let error):
 				XCTFail("Encountered Error when receiving access token! \(error)")
 			}

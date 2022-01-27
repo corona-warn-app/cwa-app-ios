@@ -152,3 +152,13 @@ public func rulesCBORDataFake2() throws -> Data {
 
     return try CodableCBOREncoder().encode(rules)
 }
+
+public var someCBORData: Data {
+    let array = CBOR.array(
+        [
+            CBOR.utf8String("Pascal Brause"),
+            CBOR.unsignedInt(42)
+        ]
+    )
+    return Data(array.encode())
+}
