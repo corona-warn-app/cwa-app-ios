@@ -17,13 +17,13 @@ struct TicketValidationAccessTokenProcessor {
 	// MARK: - Internal
 	
 	func process(
-		jwtWithHeadersModel: ModelWithHeaders<String>,
+		ticketValidationModel: TicketValidationAccessTokenReceiveModel,
 		accessTokenSignJwkSet: [JSONWebKey],
 		completion: @escaping (Result<TicketValidationAccessTokenResult, TicketValidationAccessTokenProcessingError>) -> Void
 	) {
 		/// 2. Find `accessToken`
 
-		let accessToken = jwtWithHeadersModel.model
+		let accessToken = ticketValidationModel.token
 
 		/// 3. Verify signature
 
@@ -62,7 +62,7 @@ struct TicketValidationAccessTokenProcessor {
 
 			/// 6. Determine `nonceBase64`
 
-			guard let nonceBase64 = jwtWithHeadersModel.headers["x-nonce"] as? String else {
+			guard let nonceBase64 = ticketValidationModel.metaData.headers["x-nonce"] as? String else {
 				Log.error("Ticket Validation: Missing header field x-nonce", log: .ticketValidation)
 
 				completion(.failure(.UNKNOWN))

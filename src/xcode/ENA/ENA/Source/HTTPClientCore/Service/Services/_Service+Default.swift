@@ -140,7 +140,22 @@ extension Service {
 	) -> Result<R.Receive.ReceiveModel, ServiceError<R.CustomError>>where R: Resource {
 		switch resource.receiveResource.decode(bodyData, headers: headers) {
 		case .success(let model):
-			return .success(model)
+			// Proofs if we can add the metadata to our model.
+			if var modelWithMetadata = model as? MetaDataProviding {
+				Log.info("Found a model wich conforms to MetaDataProviding. Adding metadata now.", log: .client)
+				modelWithMetadata.metaData.headers = headers
+				modelWithMetadata.metaData.loadedFromCache = isCachedData
+				if let originalModelWithMetadata = modelWithMetadata as? R.Receive.ReceiveModel {
+					Log.debug("Returning now the original model with metadata", log: .client)
+					return .success(originalModelWithMetadata)
+				} else {
+					Log.warning("Cast back to R.Receive.ReceiveModel failed. Returning the model without metadata.", log: .client)
+					return .success(model)
+				}
+			} else {
+				Log.debug("This model does not conforms to MetaDataProviding. Returning plain model.", log: .client)
+				return .success(model)
+			}
 		case .failure(let resourceError):
 			Log.error("Decoding for receive resource failed.", log: .client)
 			return failureOrDefaultValueHandling(resource, .resourceError(resourceError))
