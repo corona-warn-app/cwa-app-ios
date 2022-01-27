@@ -5,7 +5,7 @@
 import Foundation
 import HealthCertificateToolkit
 
-struct CCLConfigurationReceiveModel: CBORDecoding {
+struct CCLConfigurationReceiveModel: CBORDecodable, MetaDataProviding {
 	
 	// MARK: - Protocol CBORDecoding
 	
@@ -21,6 +21,10 @@ struct CCLConfigurationReceiveModel: CBORDecoding {
 		// TODO call decode from HealthCertifiedToolkit
 		return .failure(.CBOR_DECODING)
 	}
+	
+	// MARK: - Protocol CBORDecoding
+	
+	var metaData: MetaData
 
 	// MARK: - Internal
 	
