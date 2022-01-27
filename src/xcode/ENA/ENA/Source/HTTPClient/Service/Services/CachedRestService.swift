@@ -63,11 +63,9 @@ class CachedRestService: Service {
 				cache[resource.locator.hashValue] = cachedModel
 				Log.info("Fetched new cached data and wrote them to the cache", log: .client)
 			}
-			
-			// If we have a modelWithCache, we add the information if the model is returned from the cache or not.
-			if var modelWithCache = model as? ModelWithMetadata {
-				modelWithCache.loadedFromCache = isCachedData
-				// We need that cast back for the compiler.
+
+			if var modelWithCache = model as? MetaDataProviding {
+				modelWithCache.metaData.loadedFromCache = isCachedData
 				if let originalModelTypeWithCache = modelWithCache as? R.Receive.ReceiveModel {
 					return .success(originalModelTypeWithCache)
 				} else {
@@ -76,7 +74,7 @@ class CachedRestService: Service {
 			} else {
 				return .success(model)
 			}
-			
+
 		case .failure(let error):
 			Log.error("Decoding for receive resource failed.", log: .client, error: error)
 			return failureOrDefaultValueHandling(resource, .resourceError(error))

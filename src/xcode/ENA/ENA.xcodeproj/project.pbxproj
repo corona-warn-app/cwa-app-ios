@@ -629,7 +629,6 @@
 		501014582796D3C600DFEE9F /* HealthCertificateValidationError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 501014572796D3C600DFEE9F /* HealthCertificateValidationError.swift */; };
 		5010145C2796E47D00DFEE9F /* ValueSetsStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5010145A2796E46D00DFEE9F /* ValueSetsStub.swift */; };
 		5010145D2796E85D00DFEE9F /* MockHealthCertificateValidationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01E0D3A6268DC7A200E32CF9 /* MockHealthCertificateValidationService.swift */; };
-		5010145F279AB0B000DFEE9F /* ModelWithCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5010145E279AB0B000DFEE9F /* ModelWithCache.swift */; };
 		50101462279AEF1D00DFEE9F /* ModelWithCacheTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50101460279AEF1000DFEE9F /* ModelWithCacheTests.swift */; };
 		50101D75270739FA006F8B0F /* NotificationSettingsViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50E861FB27070EE6001E29B2 /* NotificationSettingsViewModelTests.swift */; };
 		50101D7927073DD5006F8B0F /* DeltaOnboardingNotificationReworkViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50101D7827073D83006F8B0F /* DeltaOnboardingNotificationReworkViewModelTests.swift */; };
@@ -10406,7 +10405,6 @@
 				01909876257E64BD0065D050 /* DiaryAddAndEditEntryViewModel.swift in Sources */,
 				017D8DA8263B02F70009E91C /* Name+Extension.swift in Sources */,
 				506A2F1B25D2A06D00B7DDFB /* DataDonationDetailsViewModel.swift in Sources */,
-				5010145F279AB0B000DFEE9F /* ModelWithCache.swift in Sources */,
 				BA6C8ACC254D6537008344F5 /* TrlEncoding.swift in Sources */,
 				8F5336782758FE440046D8BF /* AllowListEvaluationTrust.swift in Sources */,
 				01164CD226C559A5007F9C3E /* OnBehalfInfoViewController.swift in Sources */,

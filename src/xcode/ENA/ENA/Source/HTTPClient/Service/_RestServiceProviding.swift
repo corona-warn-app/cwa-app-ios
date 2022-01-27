@@ -4,6 +4,15 @@
 
 import Foundation
 
+protocol MetaDataProviding {
+	var metaData: MetaData { get set }
+}
+
+struct MetaData {
+	var loadedFromCache: Bool = false
+	var headers: [AnyHashable: Any] = [:]
+}
+
 /**
 Protocol to define a public interface
 */
@@ -25,15 +34,4 @@ protocol RestServiceProviding {
 	) -> Result<R.Receive.ReceiveModel, ServiceError<R.CustomError>> where R: Resource
 
 	func update(_ evaluateTrust: EvaluateTrust)
-}
-
-struct MetaData {
-	
-	init() {
-		self.loadedFromCache = false
-		self.headers = [:]
-	}
-	
-	var loadedFromCache: Bool
-	var headers: [AnyHashable: Any]
 }

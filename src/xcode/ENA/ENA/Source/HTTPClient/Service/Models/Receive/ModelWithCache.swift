@@ -2,14 +2,10 @@
 // 🦠 Corona-Warn-App
 //
 
-protocol ModelWithMetadata {
-	var loadedFromCache: Bool { get set }
-}
-
 /**
  Generel model to encapsulate the real model, which has to fullfill CBORDecoding. The main purpose of this model is to store a property if the real model returned from the service is from the cache or freshly fetched. Normally you cannot differentiate here.
  */
-struct ModelWithCache<WrappedModel>: CBORDecodable, ModelWithMetadata where WrappedModel: CBORDecodable {
+struct ModelWithCache<WrappedModel>: CBORDecodable, MetaDataProviding where WrappedModel: CBORDecodable {
 
 		
 	// MARK: - CBORDecoding
@@ -37,6 +33,8 @@ struct ModelWithCache<WrappedModel>: CBORDecodable, ModelWithMetadata where Wrap
 	}
 	
 	// MARK: - ModelWithCaching
+
+	var metaData: MetaData = MetaData()
 
 	var loadedFromCache: Bool
 
