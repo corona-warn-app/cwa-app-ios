@@ -22,6 +22,8 @@ struct CacheData: Codable {
 
 	// MARK: - Protocol Codable
 
+	/// in previous versions the server date got stored in the property 'date'
+	/// to make old data readable we reuse that key and map it to serverdate
 	enum CodingKeys: String, CodingKey {
 		case data
 		case eTag
