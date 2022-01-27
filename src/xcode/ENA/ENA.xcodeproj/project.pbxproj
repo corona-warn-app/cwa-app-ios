@@ -627,7 +627,7 @@
 		501014582796D3C600DFEE9F /* HealthCertificateValidationError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 501014572796D3C600DFEE9F /* HealthCertificateValidationError.swift */; };
 		5010145C2796E47D00DFEE9F /* ValueSetsStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5010145A2796E46D00DFEE9F /* ValueSetsStub.swift */; };
 		5010145D2796E85D00DFEE9F /* MockHealthCertificateValidationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01E0D3A6268DC7A200E32CF9 /* MockHealthCertificateValidationService.swift */; };
-		50101462279AEF1D00DFEE9F /* ModelWithCacheTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50101460279AEF1000DFEE9F /* ModelWithCacheTests.swift */; };
+		50101462279AEF1D00DFEE9F /* MetadataTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50101460279AEF1000DFEE9F /* MetadataTests.swift */; };
 		50101D75270739FA006F8B0F /* NotificationSettingsViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50E861FB27070EE6001E29B2 /* NotificationSettingsViewModelTests.swift */; };
 		50101D7927073DD5006F8B0F /* DeltaOnboardingNotificationReworkViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50101D7827073D83006F8B0F /* DeltaOnboardingNotificationReworkViewModelTests.swift */; };
 		501352302788399E00511ADF /* ValidationOnboardedCountriesModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5013522F2788399E00511ADF /* ValidationOnboardedCountriesModel.swift */; };
@@ -2263,7 +2263,7 @@
 		500DB4D325CDE5C20038DFED /* PPASError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PPASError.swift; sourceTree = "<group>"; };
 		501014572796D3C600DFEE9F /* HealthCertificateValidationError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthCertificateValidationError.swift; sourceTree = "<group>"; };
 		5010145A2796E46D00DFEE9F /* ValueSetsStub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValueSetsStub.swift; sourceTree = "<group>"; };
-		50101460279AEF1000DFEE9F /* ModelWithCacheTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelWithCacheTests.swift; sourceTree = "<group>"; };
+		50101460279AEF1000DFEE9F /* MetadataTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetadataTests.swift; sourceTree = "<group>"; };
 		50101D7827073D83006F8B0F /* DeltaOnboardingNotificationReworkViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeltaOnboardingNotificationReworkViewModelTests.swift; sourceTree = "<group>"; };
 		5013522F2788399E00511ADF /* ValidationOnboardedCountriesModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidationOnboardedCountriesModel.swift; sourceTree = "<group>"; };
 		5013523127884C0D00511ADF /* CBORReceiveResource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CBORReceiveResource.swift; sourceTree = "<group>"; };
@@ -8479,6 +8479,7 @@
 		BA7B4C30272AD14300D0ED6A /* __tests__ */ = {
 			isa = PBXGroup;
 			children = (
+				50101460279AEF1000DFEE9F /* MetadataTests.swift */,
 				50412F302689D2F300E4087C /* DCCRulesResourceTests.swift */,
 				8FCC60DA273923C900531BE6 /* RegistrationTokenResourceTests.swift */,
 				506BEF01276A454B0062D5D6 /* Resource+Fake.swift */,
@@ -8602,7 +8603,6 @@
 			isa = PBXGroup;
 			children = (
 				EB9E8738278C5D8600DEE292 /* TestResultModel+Fake.swift */,
-				50101460279AEF1000DFEE9F /* ModelWithCacheTests.swift */,
 			);
 			path = __tests__;
 			sourceTree = "<group>";
@@ -11091,7 +11091,7 @@
 				4B46EB6A26E6561300A667AA /* NavigationControllerViewScrollingTest.swift in Sources */,
 				BA2D4F0D2637037C0080FD77 /* QRCodeCellViewModelTests.swift in Sources */,
 				01AD1D78274FC82E00BCE687 /* TicketValidationAccessTokenResourceTests.swift in Sources */,
-				50101462279AEF1D00DFEE9F /* ModelWithCacheTests.swift in Sources */,
+				50101462279AEF1D00DFEE9F /* MetadataTests.swift in Sources */,
 				A1BABD0E24A57CFC000ED515 /* ENTemporaryExposureKey+ProcessingTests.swift in Sources */,
 				012A067E262DE814008614CF /* CoronaTestServiceTests.swift in Sources */,
 				EE22DB8F247FB46C001B0A71 /* ENStateTests.swift in Sources */,

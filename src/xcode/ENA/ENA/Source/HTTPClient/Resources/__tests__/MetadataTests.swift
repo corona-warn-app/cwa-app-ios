@@ -7,7 +7,7 @@ import HealthCertificateToolkit
 import ZIPFoundation
 @testable import ENA
 
-class ModelWithCacheTests: CWATestCase {
+class MetadataTests: CWATestCase {
 	
 	func test_GIVEN_ModelWithCache_WHEN_RealModelIsFetchedFreshly_THEN_IsCachedIsFalse() throws {
 		// GIVEN
