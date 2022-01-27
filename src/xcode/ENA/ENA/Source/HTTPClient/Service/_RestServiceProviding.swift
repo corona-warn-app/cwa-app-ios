@@ -4,15 +4,6 @@
 
 import Foundation
 
-protocol MetaDataProviding {
-	var metaData: MetaData { get set }
-}
-
-struct MetaData {
-	var loadedFromCache: Bool = false
-	var headers: [AnyHashable: Any] = [:]
-}
-
 /**
 Protocol to define a public interface
 */

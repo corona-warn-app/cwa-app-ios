@@ -153,8 +153,12 @@ private struct CBORDecodingTestModel: CBORDecodable & MetaDataProviding {
 		return Result.success(CBORDecodingTestModel(property: "Decoded Value"))
 	}
 	
-	// MARK: - Internal
+	// MARK: - Protocol MetaDataProviding
+
 	var metaData: MetaData = MetaData()
+	
+	// MARK: - Internal
+	
 	let property: String
 	
 	// MARK: - Private

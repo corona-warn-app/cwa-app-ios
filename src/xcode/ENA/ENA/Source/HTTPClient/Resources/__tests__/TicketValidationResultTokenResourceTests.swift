@@ -26,7 +26,7 @@ final class TicketValidationResultTokenResourceTests: CWATestCase {
 		serviceProvider.load(ticketValidationResultTokenResource) { result in
 			switch result {
 			case .success(let result):
-				XCTAssertEqual(result, "resultJWT")
+				XCTAssertEqual(result.token, "resultJWT")
 			case .failure(let error):
 				XCTFail("Encountered Error when receiving result token! \(error)")
 			}

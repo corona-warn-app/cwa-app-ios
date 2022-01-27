@@ -64,10 +64,11 @@ class CachedRestService: Service {
 				Log.info("Fetched new cached data and wrote them to the cache", log: .client)
 			}
 
-			if var modelWithCache = model as? MetaDataProviding {
-				modelWithCache.metaData.loadedFromCache = isCachedData
-				if let originalModelTypeWithCache = modelWithCache as? R.Receive.ReceiveModel {
-					return .success(originalModelTypeWithCache)
+			if var modelWithMetadata = model as? MetaDataProviding {
+				modelWithMetadata.metaData.headers = headers
+				modelWithMetadata.metaData.loadedFromCache = isCachedData
+				if let originalModelWithMetadata = modelWithMetadata as? R.Receive.ReceiveModel {
+					return .success(originalModelWithMetadata)
 				} else {
 					return .success(model)
 				}
