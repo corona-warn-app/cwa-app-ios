@@ -7,7 +7,7 @@ import HealthCertificateToolkit
 import ZIPFoundation
 @testable import ENA
 
-class ModelWithCacheTests: CWATestCase {
+class MetadataTests: CWATestCase {
 	
 	func test_GIVEN_ModelWithCache_WHEN_RealModelIsFetchedFreshly_THEN_IsCachedIsFalse() throws {
 		// GIVEN
@@ -41,7 +41,7 @@ class ModelWithCacheTests: CWATestCase {
 				
 			case let .success(cachingModel):
 				// THEN
-				XCTAssertFalse(cachingModel.loadedFromCache)
+				XCTAssertFalse(cachingModel.metaData.loadedFromCache)
 			case let .failure(error):
 				XCTFail("Test should success but failed with error: \(error)")
 			}
@@ -83,7 +83,7 @@ class ModelWithCacheTests: CWATestCase {
 				
 			case let .success(cachingModel):
 				// THEN
-				XCTAssertTrue(cachingModel.loadedFromCache)
+				XCTAssertTrue(cachingModel.metaData.loadedFromCache)
 			case let .failure(error):
 				XCTFail("Test should success but failed with error: \(error)")
 			}
@@ -127,7 +127,7 @@ class ModelWithCacheTests: CWATestCase {
 				
 			case let .success(cachingModel):
 				// THEN
-				XCTAssertFalse(cachingModel.loadedFromCache)
+				XCTAssertFalse(cachingModel.metaData.loadedFromCache)
 			case let .failure(error):
 				XCTFail("Test should success but failed with error: \(error)")
 			}
@@ -145,7 +145,7 @@ class ModelWithCacheTests: CWATestCase {
 	
 }
 
-private struct CBORDecodingTestModel: CBORDecodable {
+private struct CBORDecodingTestModel: CBORDecodable & MetaDataProviding {
 	
 	// MARK: - Protocol CBORDecoding
 	
@@ -153,8 +153,12 @@ private struct CBORDecodingTestModel: CBORDecodable {
 		return Result.success(CBORDecodingTestModel(property: "Decoded Value"))
 	}
 	
-	// MARK: - Internal
+	// MARK: - Protocol MetaDataProviding
 
+	var metaData: MetaData = MetaData()
+	
+	// MARK: - Internal
+	
 	let property: String
 	
 	// MARK: - Private
@@ -169,7 +173,7 @@ private class CBORReceiveTestResource: Resource {
 	init(
 		locator: Locator = .fake(),
 		type: ServiceType = .caching(),
-		receiveResource: CBORReceiveResource<ModelWithCache<CBORDecodingTestModel>> = CBORReceiveResource<ModelWithCache<CBORDecodingTestModel>>()
+		receiveResource: CBORReceiveResource<CBORDecodingTestModel> = CBORReceiveResource<CBORDecodingTestModel>()
 	) {
 		self.locator = locator
 		self.type = type
@@ -178,11 +182,11 @@ private class CBORReceiveTestResource: Resource {
 	}
 	
 	typealias Send = EmptySendResource
-	typealias Receive = CBORReceiveResource<ModelWithCache<CBORDecodingTestModel>>
+	typealias Receive = CBORReceiveResource<CBORDecodingTestModel>
 	typealias CustomError = Error
 	
 	let locator: Locator
 	let type: ServiceType
 	let sendResource: EmptySendResource
-	var receiveResource: CBORReceiveResource<ModelWithCache<CBORDecodingTestModel>>
+	var receiveResource: CBORReceiveResource<CBORDecodingTestModel>
 }
