@@ -6,6 +6,7 @@ import Foundation
 import HealthCertificateToolkit
 import class CertLogic.Rule
 
+@available(*, deprecated, message: "gets replaced by CCLService")
 protocol RulesDownloadServiceProviding {
 	func downloadRules(
 		ruleType: HealthCertificateValidationRuleType,
@@ -24,7 +25,7 @@ class RulesDownloadService: RulesDownloadServiceProviding {
 	}
 	
 	// MARK: - Protocol RulesDownloadServiceProviding
-	
+
 	func downloadRules(
 		ruleType: HealthCertificateValidationRuleType,
 		completion: @escaping (Result<[Rule], DCCDownloadRulesError>) -> Void

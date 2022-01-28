@@ -7,9 +7,11 @@ import jsonfunctions
 import OpenCombine
 import AnyCodable
 import CertLogic
+import HealthCertificateToolkit
 
 enum CLLServiceError: Error {
 	case MissingConfiguration
+	case BoosterRulesUpdateFailure
 }
 
 enum DCCWalletInfoAccessError: Error {
@@ -33,11 +35,9 @@ class CLLService: CCLServable {
 	// MARK: - Init
 	
 	init(
-		_ restServiceProvider: RestServiceProviding,
-		rulesDownloadService: RulesDownloadServiceProviding
+		_ restServiceProvider: RestServiceProviding
 	) {
 		self.restServiceProvider = restServiceProvider
-		self.rulesDownloadService = rulesDownloadService
 	}
 	
 	// MARK: - Protocol CCLServable
@@ -75,7 +75,6 @@ class CLLService: CCLServable {
 	// MARK: - Private
 
 	private let restServiceProvider: RestServiceProviding
-	private let rulesDownloadService: RulesDownloadServiceProviding
 
 	private let jsonFunctions: JsonFunctions = JsonFunctions()
 
@@ -97,6 +96,35 @@ class CLLService: CCLServable {
 					completion(.failure(.MissingConfiguration))
 				}
 			}
+		}
+	}
+
+	private func updateBoosterNotificationRules(
+		ruleType: HealthCertificateValidationRuleType = .boosterNotification,
+		completion: @escaping (Swift.Result<Void, DCCDownloadRulesError>) -> Void
+	) {
+		let resource = DCCRulesResource(ruleType: ruleType)
+		restServiceProvider.load(resource) { [weak self] result in
+			DispatchQueue.main.async {
+				switch result {
+				case let .success(validationRulesModel):
+					self?.boosterNotificationRules = validationRulesModel.rules
+					completion(.success(()))
+				case let .failure(error):
+					if case let .receivedResourceError(customError) = error {
+						completion(.failure(customError))
+					} else {
+						Log.error("Unhandled error \(error.localizedDescription)", log: .vaccination)
+						completion(.failure(.RULE_CLIENT_ERROR(ruleType)))
+					}
+				}
+			}
+		}
+	}
+
+	private func updateJsonFunctions(_ configuration: CCLConfiguration) {
+		configuration.functionDescriptor.forEach { [weak self] jsonFunctionDescriptor in
+			self?.jsonFunctions.registerFunction(jsonFunctionDescriptor: jsonFunctionDescriptor)
 		}
 	}
 
