@@ -36,12 +36,12 @@ class RulesDownloadService: RulesDownloadServiceProviding {
 				case let .success(validationRulesModel):
 					completion(.success(validationRulesModel.rules))
 				case let .failure(error):
-					guard let customError = resource.customError(for: error) else {
+					if case let .receivedResourceError(customError) = error {
+						completion(.failure(customError))
+					} else {
 						Log.error("Unhandled error \(error.localizedDescription)", log: .vaccination)
 						completion(.failure(.RULE_CLIENT_ERROR(ruleType)))
-						return
 					}
-					completion(.failure(customError))
 				}
 			}
 		}

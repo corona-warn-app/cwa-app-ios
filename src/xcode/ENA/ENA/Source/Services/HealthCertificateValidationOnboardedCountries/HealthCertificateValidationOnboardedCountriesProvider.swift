@@ -34,11 +34,12 @@ final class HealthCertificateValidationOnboardedCountriesProvider: HealthCertifi
 				case let .success(validationOnboardedCountriesModel):
 					completion(.success(validationOnboardedCountriesModel.countries))
 				case let .failure(error):
-					guard let customError = resource.customError(for: error) else {
+					if case let .receivedResourceError(customError) = error {
+						completion(.failure(customError))
+					} else {
 						Log.error("Unhandled error \(error.localizedDescription)", log: .vaccination)
-						return
+						completion(.failure(.ONBOARDED_COUNTRIES_CLIENT_ERROR))
 					}
-					completion(.failure(customError))
 				}
 			}
 		}

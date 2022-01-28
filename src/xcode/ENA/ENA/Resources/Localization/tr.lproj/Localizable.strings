@@ -122,7 +122,7 @@
 
 "ExposureDetection_Guide_Vaccination_HighRisk" = "Henüz aşı olmadıysanız test yaptırdıktan sonra aile hekiminize danışın.";
 
-"ExposureDetection_Guide_Title" = "Hiçbir belirtiniz olmasa bile lütfen test yaptırın. Daha yüksek risk uyarısı (\"kırmızı kutucuk\") alırsanız ücretsiz test yaptırma hakkınız olur. Ücretsiz hızlı antijen testi hakkınız yerel düzenlemelere bağlı olarak sınırlı olabilir. Özellikle ücretsiz olduğu durumlarda PCR testi yaptırmanızı tavsiye ederiz.";
+"ExposureDetection_Guide_Title" = "Hiçbir belirtiniz olmasa bile lütfen test yaptırın. Daha yüksek risk uyarısı (\"kırmızı kutucuk\") alırsanız ücretsiz test yaptırma hakkınız olur. Bunun illa bir PCR testi olması gerekmez.";
 
 "ExposureDetection_Guide_Point1" = "Test olanaklarını burada bulabilirsiniz. Aile hekiminize veya bir eczaneye de danışabilirsiniz.";
 
@@ -1876,7 +1876,7 @@
 
 "ContactDiary_Information_DescriptionTitle" = "Temas kaydınızı tutun.";
 
-"ContactDiary_Information_DescriptionSubHeadline" = "İhtiyaç duyduğunuzda elinizin altında eksiksiz bir liste olması için son 14 güne ait temaslarınıza ilişkin bir genel bakış oluşturun. Maruz kalma bilgileriniz de burada görüntülenir.";
+"ContactDiary_Information_DescriptionSubHeadline" = "İhtiyaç duyduğunuzda elinizin altında eksiksiz bir liste olması için son 15 güne ait temaslarınıza ilişkin bir genel bakış oluşturun. Maruz kalma bilgileriniz de burada görüntülenir.";
 
 "ContactDiary_Information_Item_Person_Title" = "Karşılaştığınız kişileri girin.";
 
@@ -2116,7 +2116,7 @@
 
 "Statistics_Info_KeySubmissions_Text" = "PCR testi ile koronavirüs tanısı alan ve uygulama üzerinden diğer kullanıcıları uyaran uygulama kullanıcılarının sayısı.";
 
-"Statistics_Info_ReproductionNumber_Title" = "7 Günlük R Değeri";
+"Statistics_Info_ReproductionNumber_Title" = "7 günlük R değeri";
 
 "Statistics_Info_ReproductionNumber_Text" = "Reprodüksiyon değeri R, enfekte olan bir kişinin ortalama olarak kaç kişiyi enfekte ettiğini belirtir. Geçerli değerde, en fazla son 5 günün verileri dikkate alınır.";
 
@@ -2128,7 +2128,7 @@
 
 "Statistics_Info_FullyVaccinated_Text" = "RKI'ye temel bağışıklık için gereken tüm aşı dozlarını aldıkları bildirilen kişilerin sayısı.";
 
-"Statistics_Info_BoosterVaccination_Title" = "Hatırlatma Aşısı Olan Kişiler";
+"Statistics_Info_BoosterVaccination_Title" = "Hatırlatma aşısı olan kişiler";
 
 "Statistics_Info_BoosterVaccination_Text" = "RKI'ye hatırlatma aşısı oldukları bildirilen kişilerin sayısı.";
 
@@ -2723,7 +2723,7 @@
 
 "HealthCertificate_Validation_Info_byCar" = "Gideceğiniz ülkenin sınırına planlanan yerel varış saatini girin.";
 
-"HealthCertificate_Validation_Info_byPlane" = "Hava yoluyla seyahat ediyorsanız uçuşunuzun planlanan kalkış saatini seçin.";
+"HealthCertificate_Validation_Info_byPlane" = "Hava yoluyla seyahat ediyorsanız uçuşunuzun planlanan kalkış saatini girin.";
 
 /* Health Certificate Overview */
 "HealthCertificate_Overview_title" = "Sertifikalar";

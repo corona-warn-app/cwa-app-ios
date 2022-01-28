@@ -13,14 +13,17 @@ final class TicketValidationAccessTokenProcessorTests: XCTestCase {
 		let accessToken = try accessToken(aud: "aud", t: 1)
 		let completionExpectation = expectation(description: "completion called")
 
+		let metaData = MetaData(headers: ["x-nonce": "Nonce"])
+		var ticketValidationModel = TicketValidationAccessTokenReceiveModel(
+			token: accessToken.string
+		)
+		ticketValidationModel.metaData = metaData
+		
 		TicketValidationAccessTokenProcessor(
 			jwtVerification: MockJWTVerification(result: .success(()))
 		)
 			.process(
-				jwtWithHeadersModel: ModelWithHeaders(
-					model: accessToken.string,
-					headers: ["x-nonce": "Nonce"]
-				),
+				ticketValidationModel: ticketValidationModel,
 				accessTokenSignJwkSet: [],
 				completion: { result in
 					switch result {
@@ -47,9 +50,8 @@ final class TicketValidationAccessTokenProcessorTests: XCTestCase {
 			jwtVerification: MockJWTVerification(result: .success(()))
 		)
 			.process(
-				jwtWithHeadersModel: ModelWithHeaders(
-					model: accessToken.string,
-					headers: [:]
+				ticketValidationModel: TicketValidationAccessTokenReceiveModel(
+					token: accessToken.string
 				),
 				accessTokenSignJwkSet: [],
 				completion: { result in
@@ -70,14 +72,17 @@ final class TicketValidationAccessTokenProcessorTests: XCTestCase {
 	func testParseError() throws {
 		let completionExpectation = expectation(description: "completion called")
 
+		let metaData = MetaData(headers: ["x-nonce": "Nonce"])
+		var ticketValidationModel = TicketValidationAccessTokenReceiveModel(
+			token: "notAJWT"
+		)
+		ticketValidationModel.metaData = metaData
+		
 		TicketValidationAccessTokenProcessor(
 			jwtVerification: MockJWTVerification(result: .success(()))
 		)
 			.process(
-				jwtWithHeadersModel: ModelWithHeaders(
-					model: "notAJWT",
-					headers: ["x-nonce": "Nonce"]
-				),
+				ticketValidationModel: ticketValidationModel,
 				accessTokenSignJwkSet: [],
 				completion: { result in
 					switch result {
@@ -98,14 +103,17 @@ final class TicketValidationAccessTokenProcessorTests: XCTestCase {
 		let accessToken = try accessToken(aud: "aud", t: 0)
 		let completionExpectation = expectation(description: "completion called")
 
+		let metaData = MetaData(headers: ["x-nonce": "Nonce"])
+		var ticketValidationModel = TicketValidationAccessTokenReceiveModel(
+			token: accessToken.string
+		)
+		ticketValidationModel.metaData = metaData
+		
 		TicketValidationAccessTokenProcessor(
 			jwtVerification: MockJWTVerification(result: .success(()))
 		)
 			.process(
-				jwtWithHeadersModel: ModelWithHeaders(
-					model: accessToken.string,
-					headers: ["x-nonce": "Nonce"]
-				),
+				ticketValidationModel: ticketValidationModel,
 				accessTokenSignJwkSet: [],
 				completion: { result in
 					switch result {
@@ -126,14 +134,17 @@ final class TicketValidationAccessTokenProcessorTests: XCTestCase {
 		let accessToken = try accessToken(aud: "", t: 2)
 		let completionExpectation = expectation(description: "completion called")
 
+		let metaData = MetaData(headers: ["x-nonce": "Nonce"])
+		var ticketValidationModel = TicketValidationAccessTokenReceiveModel(
+			token: accessToken.string
+		)
+		ticketValidationModel.metaData = metaData
+		
 		TicketValidationAccessTokenProcessor(
 			jwtVerification: MockJWTVerification(result: .success(()))
 		)
 			.process(
-				jwtWithHeadersModel: ModelWithHeaders(
-					model: accessToken.string,
-					headers: ["x-nonce": "Nonce"]
-				),
+				ticketValidationModel: ticketValidationModel,
 				accessTokenSignJwkSet: [],
 				completion: { result in
 					switch result {
@@ -154,14 +165,17 @@ final class TicketValidationAccessTokenProcessorTests: XCTestCase {
 		let accessToken = try accessToken(aud: "", t: 0)
 		let completionExpectation = expectation(description: "completion called")
 
+		let metaData = MetaData(headers: ["x-nonce": "Nonce"])
+		var ticketValidationModel = TicketValidationAccessTokenReceiveModel(
+			token: accessToken.string
+		)
+		ticketValidationModel.metaData = metaData
+		
 		TicketValidationAccessTokenProcessor(
 			jwtVerification: MockJWTVerification(result: .failure(.JWT_VER_ALG_NOT_SUPPORTED))
 		)
 			.process(
-				jwtWithHeadersModel: ModelWithHeaders(
-					model: accessToken.string,
-					headers: ["x-nonce": "Nonce"]
-				),
+				ticketValidationModel: ticketValidationModel,
 				accessTokenSignJwkSet: [],
 				completion: { result in
 					switch result {
@@ -182,14 +196,17 @@ final class TicketValidationAccessTokenProcessorTests: XCTestCase {
 		let accessToken = try accessToken(aud: "", t: 0)
 		let completionExpectation = expectation(description: "completion called")
 
+		let metaData = MetaData(headers: ["x-nonce": "Nonce"])
+		var ticketValidationModel = TicketValidationAccessTokenReceiveModel(
+			token: accessToken.string
+		)
+		ticketValidationModel.metaData = metaData
+		
 		TicketValidationAccessTokenProcessor(
 			jwtVerification: MockJWTVerification(result: .failure(.JWT_VER_EMPTY_JWKS))
 		)
 			.process(
-				jwtWithHeadersModel: ModelWithHeaders(
-					model: accessToken.string,
-					headers: ["x-nonce": "Nonce"]
-				),
+				ticketValidationModel: ticketValidationModel,
 				accessTokenSignJwkSet: [],
 				completion: { result in
 					switch result {
@@ -210,14 +227,17 @@ final class TicketValidationAccessTokenProcessorTests: XCTestCase {
 		let accessToken = try accessToken(aud: "", t: 0)
 		let completionExpectation = expectation(description: "completion called")
 
+		let metaData = MetaData(headers: ["x-nonce": "Nonce"])
+		var ticketValidationModel = TicketValidationAccessTokenReceiveModel(
+			token: accessToken.string
+		)
+		ticketValidationModel.metaData = metaData
+		
 		TicketValidationAccessTokenProcessor(
 			jwtVerification: MockJWTVerification(result: .failure(.JWT_VER_NO_JWK_FOR_KID))
 		)
 			.process(
-				jwtWithHeadersModel: ModelWithHeaders(
-					model: accessToken.string,
-					headers: ["x-nonce": "Nonce"]
-				),
+				ticketValidationModel: ticketValidationModel,
 				accessTokenSignJwkSet: [],
 				completion: { result in
 					switch result {
@@ -238,14 +258,17 @@ final class TicketValidationAccessTokenProcessorTests: XCTestCase {
 		let accessToken = try accessToken(aud: "", t: 0)
 		let completionExpectation = expectation(description: "completion called")
 
+		let metaData = MetaData(headers: ["x-nonce": "Nonce"])
+		var ticketValidationModel = TicketValidationAccessTokenReceiveModel(
+			token: accessToken.string
+		)
+		ticketValidationModel.metaData = metaData
+		
 		TicketValidationAccessTokenProcessor(
 			jwtVerification: MockJWTVerification(result: .failure(.JWT_VER_NO_KID))
 		)
 			.process(
-				jwtWithHeadersModel: ModelWithHeaders(
-					model: accessToken.string,
-					headers: ["x-nonce": "Nonce"]
-				),
+				ticketValidationModel: ticketValidationModel,
 				accessTokenSignJwkSet: [],
 				completion: { result in
 					switch result {
@@ -266,14 +289,17 @@ final class TicketValidationAccessTokenProcessorTests: XCTestCase {
 		let accessToken = try accessToken(aud: "", t: 0)
 		let completionExpectation = expectation(description: "completion called")
 
+		let metaData = MetaData(headers: ["x-nonce": "Nonce"])
+		var ticketValidationModel = TicketValidationAccessTokenReceiveModel(
+			token: accessToken.string
+		)
+		ticketValidationModel.metaData = metaData
+		
 		TicketValidationAccessTokenProcessor(
 			jwtVerification: MockJWTVerification(result: .failure(.JWT_VER_SIG_INVALID))
 		)
 			.process(
-				jwtWithHeadersModel: ModelWithHeaders(
-					model: accessToken.string,
-					headers: ["x-nonce": "Nonce"]
-				),
+				ticketValidationModel: ticketValidationModel,
 				accessTokenSignJwkSet: [],
 				completion: { result in
 					switch result {
