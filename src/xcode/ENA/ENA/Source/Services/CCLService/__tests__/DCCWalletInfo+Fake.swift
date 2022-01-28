@@ -99,7 +99,7 @@ extension DCCUIText {
 		quantityParameterIndex: Int? = nil,
 		functionName: String? = nil,
 		localizedText: [String: AnyCodable]? = nil,
-		parameters: AnyCodable
+		parameters: AnyCodable = []
 	) -> DCCUIText {
 		DCCUIText(
 			type: type,
@@ -144,7 +144,7 @@ extension DCCVerification {
 extension DCCVerificationCertificate {
 
 	static func fake(
-		buttonText: DCCUIText = .fake(),
+		buttonText: DCCUIText = .fake(parameters: []),
 		certificateRef: DCCCertificateReference = .fake()
 	) -> DCCVerificationCertificate {
 		DCCVerificationCertificate(
