@@ -61,7 +61,7 @@ class CLLService: CCLServable {
 	}
 	
 	func evaluateFunction<T>(name: String, parameters: [String: AnyDecodable]) throws -> T where T: Decodable {
-		return try JsonFunctions().evaluateFunction(name: name, parameters: parameters)
+		return try jsonFunctions.evaluateFunction(name: name, parameters: parameters)
 	}
 	
 	var configurationDidChange = PassthroughSubject<Bool, Never>()
