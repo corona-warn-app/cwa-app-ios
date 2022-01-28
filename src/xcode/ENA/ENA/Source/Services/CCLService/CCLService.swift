@@ -13,7 +13,6 @@ enum CLLServiceError: Error {
 }
 
 enum DCCWalletInfoAccessError: Error {
-	case unsuppportedLanguage
 	case failedFunctionsEvaluation(Error)
 }
 
@@ -46,9 +45,8 @@ class CLLService: CCLServable {
 	}
 	
 	func dccWalletInfo(for certificates: [DCCWalletCertificate]) -> Swift.Result<DCCWalletInfo, DCCWalletInfoAccessError> {
-		guard let language = Locale.current.languageCodeIfSupported else {
-			return .failure(.unsuppportedLanguage)
-		}
+		let language = Locale.current.languageCodeWithDefault
+		
 		let getWalletInfoInput = GetWalletInfoInput.make(
 			language: language,
 			certificates: certificates,

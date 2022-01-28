@@ -17,4 +17,14 @@ extension Locale {
 		return languageCode
 	}
 
+	var languageCodeWithDefault: String {
+		if let languageCode = languageCode,
+		   Bundle.main.localizations.contains(languageCode) {
+			return languageCode
+		} else if Bundle.main.localizations.contains("en") {
+			return "en"
+		} else {
+			return "de"
+		}
+	}
 }
