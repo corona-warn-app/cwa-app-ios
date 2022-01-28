@@ -23,10 +23,9 @@ struct CCLConfigurationReceiveModel: CBORDecodable, MetaDataProviding {
 	
 	var metaData: MetaData = MetaData()
 
-	// MARK: - Internal
+	// MARK: - Private
 	
-	// Call only for init with fallback data or when decoding was successfull. Otherwise never call this explicit.
-	init(
+	private init(
 		_ cclConfigurations: [CCLConfiguration]
 	) {
 		self.cclConfigurations = cclConfigurations

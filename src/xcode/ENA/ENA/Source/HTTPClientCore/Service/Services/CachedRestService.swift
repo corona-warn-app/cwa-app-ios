@@ -139,7 +139,7 @@ class CachedRestService: Service {
 		_ locator: Locator
 	) -> [String: String]? where R: ReceiveResource {
 		guard let cachedModel = cache[locator.hashValue] else {
-			Log.debug("ResponseResource not found in cache", log: .client)
+			Log.debug("No model found in cache to take its headers", log: .client)
 			return nil
 		}
 		return ["If-None-Match": cachedModel.eTag]
