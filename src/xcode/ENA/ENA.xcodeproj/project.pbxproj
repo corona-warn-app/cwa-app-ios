@@ -6555,8 +6555,8 @@
 		85D759802459A82D008175F0 /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				ABB8DF5E2799BE9700DD99E4 /* CCLService */,
 				B15382DC248270220010F007 /* __tests__ */,
+				ABB8DF5E2799BE9700DD99E4 /* CCLService */,
 				011216F22617360800320745 /* CoronaTestService */,
 				01FD3ED625D2F0D00049497A /* DeadmanNotification */,
 				BAC2F58326667A42008A6C7B /* DGCRegistration */,
