@@ -31,7 +31,6 @@ struct CCLConfigurationResource: Resource {
 	var receiveResource: CBORReceiveResource<CCLConfigurationReceiveModel>
 	var defaultModel: CCLConfigurationReceiveModel? {
 			
-		
 		guard let url = Bundle.main.url(forResource: "ccl-configuration", withExtension: "bin"),
 			  let fallbackBin = try? Data(contentsOf: url) else {
 			Log.error("Creating the default model failed due to loading default bin from disc", log: .client)
