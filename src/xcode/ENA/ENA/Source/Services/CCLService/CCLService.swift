@@ -16,10 +16,6 @@ enum DCCWalletInfoAccessError: Error {
 	
 }
 
-struct DCCWalletInfo {
-
-}
-
 private struct SystemTime: Codable {
 	
 	let timestamp: Int
@@ -65,7 +61,7 @@ class CLLService: CCLServable {
 	}
 	
 	func dccWalletInfo(for certificates: [DCCWalletCertificate]) -> Swift.Result<DCCWalletInfo, DCCWalletInfoAccessError> {
-		return .success(DCCWalletInfo())
+		return .success(.fake())
 	}
 	
 	func evaluateFunction<T>(name: String, parameters: [String: AnyDecodable]) throws -> T where T: Decodable {
