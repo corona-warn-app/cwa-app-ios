@@ -22,7 +22,7 @@ protocol CCLServable {
 	
 	func dccWalletInfo(for certificates: [DCCWalletCertificate]) -> Swift.Result<DCCWalletInfo, DCCWalletInfoAccessError>
 	
-	func evaluateFunction<T: Decodable>(name: String, parameters: [String: AnyDecodable]) throws -> T
+	func evaluateFunctionWithDefaultValues<T: Decodable>(name: String, parameters: [String: AnyDecodable]) throws -> T
 	
 	var configurationDidChange: PassthroughSubject<Bool, Never> { get }
 
@@ -60,8 +60,10 @@ class CLLService: CCLServable {
 		}
 	}
 	
-	func evaluateFunction<T>(name: String, parameters: [String: AnyDecodable]) throws -> T where T: Decodable {
-		return try jsonFunctions.evaluateFunction(name: name, parameters: parameters)
+	func evaluateFunctionWithDefaultValues<T>(name: String, parameters: [String: AnyDecodable]) throws -> T where T: Decodable {
+		let language = Locale.current.languageCode ?? "en"
+		let parametersWithDefaults = CCLDefaultInput.addingTo(parameters: parameters, language: language)
+		return try jsonFunctions.evaluateFunction(name: name, parameters: parametersWithDefaults)
 	}
 	
 	var configurationDidChange = PassthroughSubject<Bool, Never>()
