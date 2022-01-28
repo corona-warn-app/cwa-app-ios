@@ -6,8 +6,8 @@ import jsonfunctions
 
 extension CCLConfiguration.Logic {
     
-    static func fake(
-        jfnDescriptors: [JsonFunctionDefinition] = []
+    public static func fake(
+        jfnDescriptors: [JsonFunctionDescriptor] = []
     ) -> CCLConfiguration.Logic {
        return CCLConfiguration.Logic(jfnDescriptors: jfnDescriptors)
     }
@@ -15,7 +15,7 @@ extension CCLConfiguration.Logic {
 
 extension CCLConfiguration {
     
-    static func fake(
+    public static func fake(
         identifier: String = "identifier",
         type: String = "type",
         country: String = "country",

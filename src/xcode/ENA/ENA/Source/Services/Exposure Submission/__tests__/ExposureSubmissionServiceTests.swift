@@ -24,8 +24,8 @@ class ExposureSubmissionServiceTests: CWATestCase {
 		let appConfiguration = CachedAppConfigurationMock()
 		let restServiceProvider = RestServiceProviderStub(
 			results: [
-				.success(SubmissionTANModel(submissionTAN: "fake")),
-				.success(SubmissionTANModel(submissionTAN: "fake"))
+				.success(TeleTanReceiveModel(submissionTAN: "fake")),
+				.success(TeleTanReceiveModel(submissionTAN: "fake"))
 			]
 		)
 		
@@ -114,8 +114,8 @@ class ExposureSubmissionServiceTests: CWATestCase {
 		eventStore.createCheckin(Checkin.mock())
 		let restServiceProvider = RestServiceProviderStub(
 			results: [
-				.success(SubmissionTANModel(submissionTAN: "fake")),
-				.success(SubmissionTANModel(submissionTAN: "fake"))
+				.success(TeleTanReceiveModel(submissionTAN: "fake")),
+				.success(TeleTanReceiveModel(submissionTAN: "fake"))
 			]
 		)
 		
@@ -179,8 +179,8 @@ class ExposureSubmissionServiceTests: CWATestCase {
 		let appConfigurationProvider = CachedAppConfigurationMock()
 		let restServiceProvider = RestServiceProviderStub(
 			results: [
-				.success(SubmissionTANModel(submissionTAN: "fake")),
-				.success(SubmissionTANModel(submissionTAN: "fake"))
+				.success(TeleTanReceiveModel(submissionTAN: "fake")),
+				.success(TeleTanReceiveModel(submissionTAN: "fake"))
 			]
 		)
 		
@@ -251,8 +251,8 @@ class ExposureSubmissionServiceTests: CWATestCase {
 		let appConfiguration = CachedAppConfigurationMock()
 		let restServiceProvider = RestServiceProviderStub(
 			results: [
-				.success(SubmissionTANModel(submissionTAN: "fake")),
-				.success(SubmissionTANModel(submissionTAN: "fake"))
+				.success(TeleTanReceiveModel(submissionTAN: "fake")),
+				.success(TeleTanReceiveModel(submissionTAN: "fake"))
 			]
 		)
 		
@@ -553,8 +553,8 @@ class ExposureSubmissionServiceTests: CWATestCase {
 		let appConfigurationProvider = CachedAppConfigurationMock()
 		let restServiceProvider = RestServiceProviderStub(
 			results: [
-				.success(SubmissionTANModel(submissionTAN: "fake")),
-				.success(SubmissionTANModel(submissionTAN: "fake"))
+				.success(TeleTanReceiveModel(submissionTAN: "fake")),
+				.success(TeleTanReceiveModel(submissionTAN: "fake"))
 			]
 		)
 		
@@ -618,8 +618,8 @@ class ExposureSubmissionServiceTests: CWATestCase {
 		let appConfigurationProvider = CachedAppConfigurationMock()
 		let restServiceProvider = RestServiceProviderStub(
 			results: [
-				.success(SubmissionTANModel(submissionTAN: "fake")),
-				.success(SubmissionTANModel(submissionTAN: "fake"))
+				.success(TeleTanReceiveModel(submissionTAN: "fake")),
+				.success(TeleTanReceiveModel(submissionTAN: "fake"))
 			]
 		)
 		
@@ -679,8 +679,8 @@ class ExposureSubmissionServiceTests: CWATestCase {
 		let store = MockTestStore()
 		let restServiceProvider = RestServiceProviderStub(
 			results: [
-				.success(SubmissionTANModel(submissionTAN: "fake")),
-				.success(SubmissionTANModel(submissionTAN: "fake"))
+				.success(TeleTanReceiveModel(submissionTAN: "fake")),
+				.success(TeleTanReceiveModel(submissionTAN: "fake"))
 			]
 		)
 		
@@ -742,8 +742,8 @@ class ExposureSubmissionServiceTests: CWATestCase {
 		let store = MockTestStore()
 		let restServiceProvider = RestServiceProviderStub(
 			results: [
-				.success(SubmissionTANModel(submissionTAN: "fake")),
-				.success(SubmissionTANModel(submissionTAN: "fake"))
+				.success(TeleTanReceiveModel(submissionTAN: "fake")),
+				.success(TeleTanReceiveModel(submissionTAN: "fake"))
 			]
 		)
 		
@@ -814,7 +814,7 @@ class ExposureSubmissionServiceTests: CWATestCase {
 		let restServiceProvider = RestServiceProviderStub(loadResources: [
 			LoadResource(
 				result: .success(
-					SubmissionTANModel(submissionTAN: "fake")
+					TeleTanReceiveModel(submissionTAN: "fake")
 				),
 				willLoadResource: { resource in
 					guard let resource = resource as? RegistrationTokenResource else {
@@ -1085,7 +1085,7 @@ class ExposureSubmissionServiceTests: CWATestCase {
 		let restServiceProvider = RestServiceProviderStub(loadResources: [
 			LoadResource(
 				result: .success(
-					SubmissionTANModel(submissionTAN: "fake")
+					TeleTanReceiveModel(submissionTAN: "fake")
 				),
 				willLoadResource: { resource in
 					expectation.fulfill()
