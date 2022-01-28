@@ -27,7 +27,7 @@ struct DCCUITextParameter {
 	let value: Any
 }
 
-struct DCCUIText: Codable {
+public struct DCCUIText: Codable {
 	let type: String
 	let quantity: Int?
 	let quantityParameterIndex: Int?
@@ -48,7 +48,7 @@ struct DCCUIText: Codable {
 		}
 	}
 	
-	func localizedSingleFormatText(languageCode: String?) -> String? {
+	private func localizedSingleFormatText(languageCode: String?) -> String? {
 		var formatText = ""
 		
 		// use language code, if there is no property for the language code, en shall be used
@@ -63,13 +63,22 @@ struct DCCUIText: Codable {
 		// replacing %s with %@, %1$s with %1$@ and so on
 		formatText = formatText.replacingOccurrences(of: "%(\\d\\$)?s", with: "%$1@", options: NSString.CompareOptions.regularExpression, range: nil)
 		
-		if let parameters = parameters.value as? [DCCUITextParameter] {
+		if let parameters = parameters.value as? [[String: Any]] {
 			if parameters.isEmpty {
 				// regular text without placeholders
 				return formatText
 			} else { // regular text with placeholder
+				var mappedParameters: [DCCUITextParameter] = []
+				
+				// we could get multiple parameters
+				for parameter in parameters {
+					guard let type = parameter["type"] as? String, let value = parameter["value"] else {
+						return nil
+					}
+					mappedParameters.append(DCCUITextParameter(type: type, value: value))
+				}
 				// text shall be determined by passing formatText and formatParameters to a printf-compatible format function
-				return formattedTextWithParameters(formatText: formatText, parameters: parameters)
+				return formattedTextWithParameters(formatText: formatText, parameters: mappedParameters)
 			}
 		} else {
 			// regular text without placeholders
@@ -77,7 +86,7 @@ struct DCCUIText: Codable {
 		}
 	}
 	
-	func localizedPluralFormatText(languageCode: String?) -> String? {
+	private func localizedPluralFormatText(languageCode: String?) -> String? {
 		var formatText: [String: String] = [:]
 		
 		// use language code, if there is no property for the language code, en shall be used
@@ -89,23 +98,33 @@ struct DCCUIText: Codable {
 			return nil
 		}
 		
-		if let parameters = parameters.value as? [DCCUITextParameter] {
+		if let parameters = parameters.value as? [[String: Any]] {
 			if parameters.isEmpty {
 				// text without parameters
 				if let textDescriptorQuantity = quantity {
 					return quantityBasedFormatText(formatText: formatText, quantity: textDescriptorQuantity)
 				}
 			} else {
+				var mappedParameters: [DCCUITextParameter] = []
+				
+				// we could get multiple parameters
+				for parameter in parameters {
+					guard let type = parameter["type"] as? String, let value = parameter["value"] else {
+						return nil
+					}
+					mappedParameters.append(DCCUITextParameter(type: type, value: value))
+				}
+				
 				// quantity shall be set to the value of textDescriptor.quantity
 				if let textDescriptorQuantity = quantity {
 					// text shall be determined by passing formatTexts and formatParameters to a quantity-depending printf-compatible format function by using quantity
-					return formattedTextWithParameters(formatText: quantityBasedFormatText(formatText: formatText, quantity: textDescriptorQuantity) ?? "", parameters: parameters)
+					return formattedTextWithParameters(formatText: quantityBasedFormatText(formatText: formatText, quantity: textDescriptorQuantity) ?? "", parameters: mappedParameters)
 				} else {
 					// Otherwise quantity shall be set to the element of formatParameters at the index described by textDescriptor.quantityParameterIndex.
 					if let parameterIndex = quantityParameterIndex {
-						if let quantityValue = parameters[parameterIndex].value as? Int {
+						if let quantityValue = mappedParameters[parameterIndex].value as? Int {
 							// text shall be determined by passing formatTexts and formatParameters to a quantity-depending printf-compatible format function by using quantity
-							return formattedTextWithParameters(formatText: quantityBasedFormatText(formatText: formatText, quantity: quantityValue) ?? "", parameters: parameters)
+							return formattedTextWithParameters(formatText: quantityBasedFormatText(formatText: formatText, quantity: quantityValue) ?? "", parameters: mappedParameters)
 						}
 					}
 				}
@@ -115,7 +134,7 @@ struct DCCUIText: Codable {
 		return nil
 	}
 
-	func localizedSystemTimeDependentFormatText(languageCode: String?) -> String? {
+	private func localizedSystemTimeDependentFormatText(languageCode: String?) -> String? {
 		let service = CCLService()
 		guard let parameters = parameters.value as? [String: AnyDecodable], let functionName = functionName else {
 			return nil
@@ -131,20 +150,25 @@ struct DCCUIText: Codable {
 		}
 	}
 
-	func formattedTextWithParameters(formatText: String, parameters: [DCCUITextParameter]) -> String {
-		let parsedParameters = parameters.map { parseFormatParameter(parameter: $0) }
-		return String(format: formatText, parsedParameters)
+	private func formattedTextWithParameters(formatText: String, parameters: [DCCUITextParameter]) -> String? {
+		let parsedParameters = parameters.compactMap { parseFormatParameter(parameter: $0) }
+		
+		// ensuring if all parameters are parsed
+		if parsedParameters.count != parameters.count {
+			return nil
+		}
+		return String(format: formatText, arguments: parsedParameters)
 	}
 	
-	func quantityBasedFormatText(formatText: [String: String], quantity: Int) -> String? {
-		// work around for stringsdict, return key for format text
+	private func quantityBasedFormatText(formatText: [String: String], quantity: Int) -> String? {
+		// work around for stringsdict, returns key for formatText
 		let keyFormatText = String(format: NSLocalizedString("DCC_UIText_plural", tableName: "DCCUIText", comment: ""), quantity)
 		let quantitySpecificFormatText = formatText[keyFormatText]
 		// replacing %s with %@, %1$s with %1$@ and so on
 		return quantitySpecificFormatText?.replacingOccurrences(of: "%(\\d\\$)?s", with: "%$1@", options: NSString.CompareOptions.regularExpression, range: nil)
 	}
 	
-	func parseNumber(value: Any) -> Any? {
+	private func parseNumber(value: Any) -> CVarArg? {
 		if let intValue = value as? Int {
 			return intValue
 		} else if let doubleValue = value as? Double {
@@ -154,8 +178,10 @@ struct DCCUIText: Codable {
 		}
 	}
 	
-	func parseFormatParameter(parameter: DCCUITextParameter) -> Any? {
+	private func parseFormatParameter(parameter: DCCUITextParameter) -> CVarArg? {
 		let dateFormatter = ISO8601DateFormatter()
+		dateFormatter.formatOptions = [.withInternetDateTime, .withFractionalSeconds]
+		// dateFormatter.timeZone = TimeZone.autoupdatingCurrent
 		let outputDateFormatter = DateFormatter()
 		outputDateFormatter.timeZone = .utcTimeZone
 
@@ -203,5 +229,23 @@ struct DCCUIText: Codable {
 			// otherwise, entry.value shall be treated as a string
 			return stringValue
 		}
+	}
+
+	public static func fake(
+		type: String = "string",
+		quantity: Int? = nil,
+		quantityParameterIndex: Int? = nil,
+		functionName: String? = nil,
+		localizedText: [String: AnyCodable]? = nil,
+		parameters: AnyCodable
+	) -> DCCUIText {
+		DCCUIText(
+			type: type,
+			quantity: quantity,
+			quantityParameterIndex: quantityParameterIndex,
+			functionName: functionName,
+			localizedText: localizedText,
+			parameters: parameters
+		)
 	}
 }
