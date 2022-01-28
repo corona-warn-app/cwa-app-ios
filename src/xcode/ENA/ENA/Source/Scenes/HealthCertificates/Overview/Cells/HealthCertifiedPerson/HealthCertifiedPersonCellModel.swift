@@ -77,7 +77,14 @@ class HealthCertifiedPersonCellModel {
 			self.caption = nil
 		}
 
-		isStatusTitleVisible = !(healthCertifiedPerson.dccWalletInfo?.admissionState.badgeText?.localized() ?? "").isEmpty
+		if let admissionState = healthCertifiedPerson.dccWalletInfo?.admissionState,
+		   admissionState.visible && !(admissionState.badgeText?.localized() ?? "").isEmpty {
+			isStatusTitleVisible = true
+			shortStatus = admissionState.badgeText?.localized()
+		} else {
+			isStatusTitleVisible = false
+			shortStatus = nil
+		}
 
 		if let certificates = healthCertifiedPerson.dccWalletInfo?.verification.certificates, certificates.count >= 2 {
 			switchableHealthCertificates = certificates.reduce(into: OrderedDictionary<String, HealthCertificate>()) {
@@ -88,8 +95,6 @@ class HealthCertifiedPersonCellModel {
 		} else {
 			switchableHealthCertificates = [:]
 		}
-
-		shortStatus = healthCertifiedPerson.dccWalletInfo?.admissionState.badgeText?.localized()
 	}
 
 	init?(
