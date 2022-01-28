@@ -1384,8 +1384,8 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 		let appConfiguration = CachedAppConfigurationMock()
 		let restServiceProvider = RestServiceProviderStub(
 			results: [
-				.success(RegistrationTokenModel(registrationToken: "fake")),
-				.success(SubmissionTANModel(submissionTAN: "fake"))
+				.success(RegistrationTockenReceiveModel(registrationToken: "fake")),
+				.success(TeleTanReceiveModel(submissionTAN: "fake"))
 			]
 		)
 		

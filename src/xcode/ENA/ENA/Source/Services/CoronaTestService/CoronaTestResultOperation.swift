@@ -20,7 +20,7 @@ final class CoronaTestResultOperation: AsyncOperation {
 	// MARK: - Overrides
 	
 	override func main() {
-		let sendModel = RegistrationTokenSendModel(registrationToken: registrationToken)
+		let sendModel = TestResultSendModel(registrationToken: registrationToken)
 		let resource = TestResultResource(isFake: false, sendModel: sendModel)
 
 		restService.load(resource) { [weak self] result in
