@@ -122,7 +122,7 @@
 
 "ExposureDetection_Guide_Vaccination_HighRisk" = "Dacă încă nu v-ați vaccinat, consultați telefonic medicul de familie după ce vă testați.";
 
-"ExposureDetection_Guide_Title" = "Vă rugăm să vă testați, chiar dacă nu aveți simptome. Dacă primiți o avertizare de risc crescut („un mozaic roșu”), aveți dreptul la un test gratuit. Dreptul dvs. la un test antigen rapid gratuit poate fi limitat, în funcție de reglementările locale. Vă recomandăm să efectuați un test PCR, în special atunci când este gratuit.";
+"ExposureDetection_Guide_Title" = "Vă rugăm să vă testați, chiar dacă nu aveți simptome. Dacă primiți o avertizare de risc crescut („un mozaic roșu”), aveți dreptul la un test gratuit. Nu este obligatoriu să fie un test PCR.";
 
 "ExposureDetection_Guide_Point1" = "Puteți găsi aici posibilitățile de testare. De asemenea, puteți contacta medicul de familie sau o farmacie.";
 
@@ -1876,7 +1876,7 @@
 
 "ContactDiary_Information_DescriptionTitle" = "Păstrați evidența contactelor dvs.";
 
-"ContactDiary_Information_DescriptionSubHeadline" = "Creați un sumar al contactelor din ultimele 14 zile pentru a avea rapid la îndemână o listă completă, dacă este necesar. Expunerile dvs. sunt, de asemenea, afișate aici.";
+"ContactDiary_Information_DescriptionSubHeadline" = "Creați un sumar al contactelor din ultimele 15 zile pentru a avea rapid la îndemână o listă completă, dacă este necesar. Expunerile dvs. sunt, de asemenea, afișate aici.";
 
 "ContactDiary_Information_Item_Person_Title" = "Introduceți persoanele pe care le-ați întâlnit.";
 
@@ -2128,7 +2128,7 @@
 
 "Statistics_Info_FullyVaccinated_Text" = "Numărul de persoane raportat la RKI care au primit toate dozele de vaccin necesare pentru imunizarea de bază.";
 
-"Statistics_Info_BoosterVaccination_Title" = "Persoane care au primit doza booster";
+"Statistics_Info_BoosterVaccination_Title" = "Persoane care au primit o doză booster";
 
 "Statistics_Info_BoosterVaccination_Text" = "Numărul de persoane raportat la RKI care au primit o doză booster.";
 
@@ -2723,7 +2723,7 @@
 
 "HealthCertificate_Validation_Info_byCar" = "Introduceți ora de sosire locală planificată la granița țării de destinație.";
 
-"HealthCertificate_Validation_Info_byPlane" = "În cazul în care călătoriți cu avionul, selectați ora de plecare programată a zborului.";
+"HealthCertificate_Validation_Info_byPlane" = "În cazul în care călătoriți cu avionul, introduceți ora de plecare programată a zborului.";
 
 /* Health Certificate Overview */
 "HealthCertificate_Overview_title" = "Certificate";

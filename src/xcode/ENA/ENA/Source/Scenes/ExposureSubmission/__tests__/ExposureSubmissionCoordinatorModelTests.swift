@@ -1033,8 +1033,8 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 		
 		let restServiceProvider = RestServiceProviderStub(
 			results: [
-				.success(RegistrationTokenModel(registrationToken: "fake")),
-				.success(TestResultModel(testResult: expectedTestResult.rawValue, sc: nil, labId: nil))
+				.success(RegistrationTockenReceiveModel(registrationToken: "fake")),
+				.success(TestResultReceiveModel(testResult: expectedTestResult.rawValue, sc: nil, labId: nil))
 			]
 		)
 
@@ -1106,9 +1106,9 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 		let exposureSubmissionService = MockExposureSubmissionService()
 		let restServiceProvider = RestServiceProviderStub(
 			results: [
-				.success(RegistrationTokenModel(registrationToken: "fake")),
+				.success(RegistrationTockenReceiveModel(registrationToken: "fake")),
 				.failure(ServiceError<TestResultError>.invalidResponse),
-				.success(SubmissionTANModel(submissionTAN: "fake"))
+				.success(TeleTanReceiveModel(submissionTAN: "fake"))
 			]
 		)
 

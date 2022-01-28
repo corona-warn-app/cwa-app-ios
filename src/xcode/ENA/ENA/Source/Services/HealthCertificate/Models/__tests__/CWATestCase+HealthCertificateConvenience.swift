@@ -14,9 +14,7 @@ extension CWATestCase {
 	}
 
 	enum VaccinationCertificateType {
-		case booster
-		case seriesCompleting
-		case recovery
+		case seriesCompletingOrBooster
 		case incomplete
 	}
 
@@ -80,36 +78,23 @@ extension CWATestCase {
 		validityState: HealthCertificateValidityState = .valid,
 		cborWebTokenHeader: CBORWebTokenHeader = .fake()
 	) throws -> HealthCertificate {
-		var vaccinations = [(vaccinationProductType: VaccinationProductType, doseNumber: Int, totalSeriesOfDoses: Int)]()
+		var vaccinations = [(doseNumber: Int, totalSeriesOfDoses: Int)]()
 
 		switch type {
-		case .booster:
-			let doseNumberGreater1 = Int.random(in: 2...9)
-			let doseNumberGreater2 = Int.random(in: 3...9)
+		case .seriesCompletingOrBooster:
 			vaccinations = [
-				(vaccinationProductType: .astraZeneca, doseNumber: doseNumberGreater2, totalSeriesOfDoses: 2),
-				(vaccinationProductType: .biontech, doseNumber: doseNumberGreater2, totalSeriesOfDoses: 2),
-				(vaccinationProductType: .moderna, doseNumber: doseNumberGreater2, totalSeriesOfDoses: 2),
-				(vaccinationProductType: .johnsonAndJohnson, doseNumber: doseNumberGreater1, totalSeriesOfDoses: 1)
-			]
-		case .seriesCompleting:
-			vaccinations = [
-				(vaccinationProductType: .astraZeneca, doseNumber: 2, totalSeriesOfDoses: 2),
-				(vaccinationProductType: .biontech, doseNumber: 2, totalSeriesOfDoses: 2),
-				(vaccinationProductType: .moderna, doseNumber: 2, totalSeriesOfDoses: 2),
-				(vaccinationProductType: .johnsonAndJohnson, doseNumber: 1, totalSeriesOfDoses: 1)
-			]
-		case .recovery:
-			vaccinations = [
-				(vaccinationProductType: .astraZeneca, doseNumber: 1, totalSeriesOfDoses: 1),
-				(vaccinationProductType: .biontech, doseNumber: 1, totalSeriesOfDoses: 1),
-				(vaccinationProductType: .moderna, doseNumber: 1, totalSeriesOfDoses: 1)
+				(doseNumber: Int.random(in: 1...9), totalSeriesOfDoses: 1),
+				(doseNumber: Int.random(in: 2...9), totalSeriesOfDoses: 2),
+				(doseNumber: Int.random(in: 3...9), totalSeriesOfDoses: 3)
 			]
 		case .incomplete:
 			vaccinations = [
-				(vaccinationProductType: .astraZeneca, doseNumber: 1, totalSeriesOfDoses: 2),
-				(vaccinationProductType: .biontech, doseNumber: 1, totalSeriesOfDoses: 2),
-				(vaccinationProductType: .moderna, doseNumber: 1, totalSeriesOfDoses: 2)
+				(doseNumber: 1, totalSeriesOfDoses: 2),
+				(doseNumber: 1, totalSeriesOfDoses: 3),
+				(doseNumber: 2, totalSeriesOfDoses: 3),
+				(doseNumber: 1, totalSeriesOfDoses: 4),
+				(doseNumber: 2, totalSeriesOfDoses: 4),
+				(doseNumber: 3, totalSeriesOfDoses: 4)
 			]
 		}
 
@@ -124,7 +109,6 @@ extension CWATestCase {
 			from: DigitalCovidCertificate.fake(
 				vaccinationEntries: [
 					VaccinationEntry.fake(
-						vaccineMedicinalProduct: vaccination.vaccinationProductType.value ?? "",
 						doseNumber: vaccination.doseNumber,
 						totalSeriesOfDoses: vaccination.totalSeriesOfDoses,
 						dateOfVaccination: formattedVaccinationDate

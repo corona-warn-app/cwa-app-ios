@@ -16,14 +16,16 @@ final class AdmissionStateCellModel {
 
 	// MARK: - Internal
 
-	let title = AppStrings.HealthCertificate.Person.AdmissionState.title
+	var title: String? {
+		healthCertifiedPerson.dccWalletInfo?.admissionState.titleText?.localized()
+	}
 
 	var subtitle: String? {
-		return healthCertifiedPerson.admissionState.subtitle
+		healthCertifiedPerson.dccWalletInfo?.admissionState.subtitleText?.localized()
 	}
 
 	var description: String? {
-		return healthCertifiedPerson.admissionState.description
+		healthCertifiedPerson.dccWalletInfo?.admissionState.longText?.localized()
 	}
 
 	var faqLink: NSAttributedString? {
@@ -54,7 +56,7 @@ final class AdmissionStateCellModel {
 	}
 	
 	var shortTitle: String? {
-		return healthCertifiedPerson.admissionState.shortTitle
+		healthCertifiedPerson.dccWalletInfo?.admissionState.badgeText?.localized()
 	}
 
 	var gradientType: GradientView.GradientType {

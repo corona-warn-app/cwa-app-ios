@@ -585,8 +585,6 @@ class HealthCertificateService {
 						/// Only validity states that are not shown as `.valid` should be marked as new for the user.
 						healthCertificate.isValidityStateNew = !healthCertificate.isConsideredValid
 					}
-
-					healthCertifiedPerson.triggerMostRelevantCertificateUpdate()
 				}
 			}
 			if shouldScheduleTimer {

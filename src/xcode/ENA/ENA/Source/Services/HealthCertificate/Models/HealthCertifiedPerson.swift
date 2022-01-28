@@ -15,12 +15,14 @@ class HealthCertifiedPerson: Codable, Equatable, Comparable {
 		healthCertificates: [HealthCertificate],
 		isPreferredPerson: Bool = false,
 		boosterRule: Rule? = nil,
-		isNewBoosterRule: Bool = false
+		isNewBoosterRule: Bool = false,
+		dccWalletInfo: DCCWalletInfo? = nil
 	) {
 		self.healthCertificates = healthCertificates
 		self.isPreferredPerson = isPreferredPerson
 		self.boosterRule = boosterRule
 		self.isNewBoosterRule = isNewBoosterRule
+		self.dccWalletInfo = dccWalletInfo
 
 		setup()
 	}
@@ -33,6 +35,7 @@ class HealthCertifiedPerson: Codable, Equatable, Comparable {
 		case isPreferredPerson
 		case boosterRule
 		case isNewBoosterRule
+		case dccWalletInfo
 	}
 
 	required init(from decoder: Decoder) throws {
@@ -43,6 +46,7 @@ class HealthCertifiedPerson: Codable, Equatable, Comparable {
 		isPreferredPerson = try container.decodeIfPresent(Bool.self, forKey: .isPreferredPerson) ?? false
 		boosterRule = try container.decodeIfPresent(Rule.self, forKey: .boosterRule)
 		isNewBoosterRule = try container.decodeIfPresent(Bool.self, forKey: .isNewBoosterRule) ?? false
+		dccWalletInfo = try container.decodeIfPresent(DCCWalletInfo.self, forKey: .dccWalletInfo)
 
 		let decodingContainers = try container.decode([HealthCertificateDecodingContainer].self, forKey: .healthCertificates)
 
@@ -87,6 +91,7 @@ class HealthCertifiedPerson: Codable, Equatable, Comparable {
 		try container.encode(isPreferredPerson, forKey: .isPreferredPerson)
 		try container.encode(boosterRule, forKey: .boosterRule)
 		try container.encode(isNewBoosterRule, forKey: .isNewBoosterRule)
+		try container.encode(dccWalletInfo, forKey: .dccWalletInfo)
 	}
 
 	// MARK: - Protocol Equatable
@@ -95,7 +100,8 @@ class HealthCertifiedPerson: Codable, Equatable, Comparable {
 		lhs.healthCertificates == rhs.healthCertificates &&
 		lhs.isPreferredPerson == rhs.isPreferredPerson &&
 		lhs.boosterRule == rhs.boosterRule &&
-		lhs.isNewBoosterRule == rhs.isNewBoosterRule
+		lhs.isNewBoosterRule == rhs.isNewBoosterRule &&
+		lhs.dccWalletInfo == rhs.dccWalletInfo
 	}
 
 	// MARK: - Protocol Comparable
@@ -110,22 +116,13 @@ class HealthCertifiedPerson: Codable, Equatable, Comparable {
 
 	// MARK: - Internal
 
-	enum VaccinationState: Equatable {
-		case notVaccinated
-		case partiallyVaccinated
-		case fullyVaccinated(daysUntilCompleteProtection: Int)
-		case completelyProtected(expirationDate: Date)
-	}
-
 	let objectDidChange = OpenCombine.PassthroughSubject<HealthCertifiedPerson, Never>()
 
 	@DidSetPublished var healthCertificates: [HealthCertificate] {
 		didSet {
 			// States and subscriptions only need to be updated if certificates were added or removed
 			if healthCertificates.map({ $0.uniqueCertificateIdentifier }) != oldValue.map({ $0.uniqueCertificateIdentifier }) {
-				updateVaccinationState()
-				updateAdmissionState()
-				updateMostRelevantHealthCertificate()
+				updateDCCWalletInfo()
 				updateHealthCertificateSubscriptions(for: healthCertificates)
 			}
 
@@ -152,31 +149,19 @@ class HealthCertifiedPerson: Codable, Equatable, Comparable {
 		}
 	}
 
-	@DidSetPublished var vaccinationState: VaccinationState = .notVaccinated {
-		didSet {
-			if vaccinationState != oldValue {
-				objectDidChange.send(self)
-			}
-		}
-	}
-
-	@DidSetPublished var admissionState: HealthCertifiedPersonAdmissionState = .other {
-		didSet {
-			if admissionState != oldValue {
-				objectDidChange.send(self)
-			}
-		}
-	}
-
-	@DidSetPublished var mostRelevantHealthCertificate: HealthCertificate? {
-		didSet {
-			if mostRelevantHealthCertificate != oldValue {
-				objectDidChange.send(self)
-			}
-		}
-	}
-
 	@DidSetPublished var gradientType: GradientView.GradientType = .lightBlue
+
+	@DidSetPublished var dccWalletInfo: DCCWalletInfo? {
+		didSet {
+			if dccWalletInfo?.boosterNotification.identifier != oldValue?.boosterNotification.identifier {
+				isNewBoosterRule = boosterRule != nil
+			}
+
+			if dccWalletInfo != oldValue {
+				objectDidChange.send(self)
+			}
+		}
+	}
 
 	@DidSetPublished var boosterRule: Rule? {
 		didSet {
@@ -217,21 +202,12 @@ class HealthCertifiedPerson: Codable, Equatable, Comparable {
 		return certificatesWithNews.count + (boosterRule != nil && isNewBoosterRule ? 1 : 0)
 	}
 
-	var recoveredVaccinationCertificate: HealthCertificate? {
-		return vaccinationCertificates.first { $0.vaccinationEntry?.isRecoveredVaccination ?? false }
+	func healthCertificate(for reference: DCCCertificateReference) -> HealthCertificate? {
+		healthCertificates.first { $0.base45 == reference.barcodeData }
 	}
 
-	var completeBoosterVaccinationProtectionDate: Date? {
-		healthCertificates
-			.filter { $0.vaccinationEntry?.isBoosterVaccination ?? false }
-			.compactMap { $0.vaccinationEntry?.localVaccinationDate }
-			.max()
-	}
-
-	@objc
-	func triggerMostRelevantCertificateUpdate() {
-		updateMostRelevantHealthCertificate()
-		scheduleMostRelevantCertificateTimer()
+	var mostRelevantHealthCertificate: HealthCertificate? {
+		(dccWalletInfo?.mostRelevantCertificate).flatMap { self.healthCertificate(for: $0.certificateRef) } ?? healthCertificates.fallback
 	}
 
 	func attemptToRestoreDecodingFailedHealthCertificates() {
@@ -266,45 +242,15 @@ class HealthCertifiedPerson: Codable, Equatable, Comparable {
 
 	private var subscriptions = Set<AnyCancellable>()
 	private var healthCertificateSubscriptions = Set<AnyCancellable>()
-	private var mostRelevantCertificateTimer: Timer?
-
-	private var completeVaccinationProtectionDate: Date? {
-		if let recoveredVaccinatedCertificate = recoveredVaccinationCertificate,
-		   let vaccinationDateString = recoveredVaccinatedCertificate.vaccinationEntry?.dateOfVaccination {
-			// if recovery vaccination date found
-			return ISO8601DateFormatter.justLocalDateFormatter.date(from: vaccinationDateString)
-		} else if let completeBoosterVaccinationProtectionDate = self.completeBoosterVaccinationProtectionDate {
-			// if booster vaccination date found
-			return completeBoosterVaccinationProtectionDate
-		} else if let lastVaccination = vaccinationCertificates.filter({ $0.vaccinationEntry?.isLastDoseInASeries ?? false &&
-			$0.ageInDays ?? 0 > 14 }).max(), let vaccinationDate = lastVaccination.vaccinationEntry?.localVaccinationDate {
-			// if series completion vaccination date found with > 14 days
-			return Calendar.autoupdatingCurrent.date(byAdding: .day, value: 15, to: vaccinationDate)
-		} else if let lastVaccination = vaccinationCertificates.filter({ $0.vaccinationEntry?.isLastDoseInASeries ?? false && $0.ageInDays ?? 0 <= 14 }).max(), let vaccinationDate = lastVaccination.vaccinationEntry?.localVaccinationDate {
-			// if series completion vaccination date found <= 14 days
-			return Calendar.autoupdatingCurrent.date(byAdding: .day, value: 15, to: vaccinationDate)
-		} else {
-			// no date -> completeVaccinationProtectionDate is nil
-			return nil
-		}
-	}
-
-	private var protectionExpirationDate: Date? {
-		guard let lastVaccination = vaccinationCertificates.last(where: { $0.vaccinationEntry?.isLastDoseInASeries ?? false || $0.vaccinationEntry?.isBoosterVaccination ?? false }) else {
-			return nil
-		}
-
-		return lastVaccination.expirationDate
-	}
+	private var dccWalletInfoUpdateTimer: Timer?
 
 	private func setup() {
-		updateVaccinationState()
-		updateAdmissionState()
-		updateMostRelevantHealthCertificate()
-		updateHealthCertificateSubscriptions(for: healthCertificates)
+		if dccWalletInfo == nil {
+			updateDCCWalletInfo()
+		}
 
-		subscribeToNotifications()
-		scheduleMostRelevantCertificateTimer()
+		updateHealthCertificateSubscriptions(for: healthCertificates)
+		scheduleDCCWalletInfoUpdateTimer()
 	}
 
 	private func updateHealthCertificateSubscriptions(for healthCertificates: [HealthCertificate]) {
@@ -315,85 +261,40 @@ class HealthCertifiedPerson: Codable, Equatable, Comparable {
 				.sink { [weak self] _ in
 					guard let self = self else { return }
 
-					self.updateVaccinationState()
-					self.updateAdmissionState()
-					self.updateMostRelevantHealthCertificate()
-
 					self.objectDidChange.send(self)
 				}
 				.store(in: &healthCertificateSubscriptions)
 		}
 	}
 
-	private func updateVaccinationState() {
-		if let completeVaccinationProtectionDate = completeVaccinationProtectionDate,
-		   let protectionExpirationDate = protectionExpirationDate {
-			if completeVaccinationProtectionDate > Date() {
-				let startOfToday = Calendar.autoupdatingCurrent.startOfDay(for: Date())
-				guard let daysUntilCompleteProtection = Calendar.autoupdatingCurrent.dateComponents([.day], from: startOfToday, to: completeVaccinationProtectionDate).day else {
-					fatalError("Could not get days until complete protection")
-				}
-
-				vaccinationState = .fullyVaccinated(daysUntilCompleteProtection: daysUntilCompleteProtection)
-			} else {
-				vaccinationState = .completelyProtected(expirationDate: protectionExpirationDate)
-			}
-		} else if !vaccinationCertificates.isEmpty {
-			vaccinationState = .partiallyVaccinated
-		} else {
-			vaccinationState = .notVaccinated
-		}
-	}
-
-	private func updateAdmissionState() {
-		admissionState = healthCertificates.admissionState
-	}
-
-	private func subscribeToNotifications() {
-		NotificationCenter.default.ocombine
-			.publisher(for: UIApplication.didBecomeActiveNotification)
-			.sink { [weak self] _ in
-				self?.updateVaccinationState()
-				self?.updateAdmissionState()
-			}
-			.store(in: &subscriptions)
-
-		NotificationCenter.default.ocombine
-			.publisher(for: UIApplication.significantTimeChangeNotification)
-			.sink { [weak self] _ in
-				self?.updateVaccinationState()
-				self?.updateAdmissionState()
-				self?.scheduleMostRelevantCertificateTimer()
-			}
-			.store(in: &subscriptions)
-	}
-
-	private func scheduleMostRelevantCertificateTimer() {
-		mostRelevantCertificateTimer?.invalidate()
+	@objc
+	private func scheduleDCCWalletInfoUpdateTimer() {
+		dccWalletInfoUpdateTimer?.invalidate()
 		NotificationCenter.default.removeObserver(self, name: UIApplication.didEnterBackgroundNotification, object: nil)
 		NotificationCenter.default.removeObserver(self, name: UIApplication.didBecomeActiveNotification, object: nil)
 
-		guard let nextMostRelevantCertificateChangeDate = healthCertificates.nextMostRelevantChangeDate else {
+		guard let nextMostRelevantCertificateChangeDate = dccWalletInfo?.validUntil else {
 			return
 		}
 
 		// Schedule new timer.
 		NotificationCenter.default.addObserver(self, selector: #selector(invalidateTimer), name: UIApplication.didEnterBackgroundNotification, object: nil)
-		NotificationCenter.default.addObserver(self, selector: #selector(triggerMostRelevantCertificateUpdate), name: UIApplication.didBecomeActiveNotification, object: nil)
+		NotificationCenter.default.addObserver(self, selector: #selector(scheduleDCCWalletInfoUpdateTimer), name: UIApplication.didBecomeActiveNotification, object: nil)
 
-		mostRelevantCertificateTimer = Timer(fireAt: nextMostRelevantCertificateChangeDate, interval: 0, target: self, selector: #selector(updateMostRelevantHealthCertificate), userInfo: nil, repeats: false)
+		dccWalletInfoUpdateTimer = Timer(fireAt: nextMostRelevantCertificateChangeDate, interval: 0, target: self, selector: #selector(updateDCCWalletInfo), userInfo: nil, repeats: false)
 
-		guard let mostRelevantCertificateTimer = mostRelevantCertificateTimer else { return }
+		guard let mostRelevantCertificateTimer = dccWalletInfoUpdateTimer else { return }
 		RunLoop.current.add(mostRelevantCertificateTimer, forMode: .common)
 	}
 
 	@objc
 	private func invalidateTimer() {
-		mostRelevantCertificateTimer?.invalidate()
+		dccWalletInfoUpdateTimer?.invalidate()
 	}
 
 	@objc
-	private func updateMostRelevantHealthCertificate() {
-		mostRelevantHealthCertificate = healthCertificates.mostRelevant
+	private func updateDCCWalletInfo() {
+		// To be implemented in EXPOSUREAPP-11475
 	}
+
 }
