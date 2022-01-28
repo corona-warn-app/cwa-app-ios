@@ -9,7 +9,7 @@ import class CertLogic.Description
 
 class VaccinationHintCellModelTests: XCTestCase {
 
-	func testAdmissionStateFromWalletInfo() throws {
+	func testVaccinationStateFromWalletInfo() throws {
 		let healthCertifiedPerson = HealthCertifiedPerson(healthCertificates: [])
 		healthCertifiedPerson.dccWalletInfo = .fake(
 			vaccinationState: .fake(

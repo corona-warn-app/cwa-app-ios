@@ -52,7 +52,7 @@ class HealthCertificateServiceTests: CWATestCase {
 
 		switch result {
 		case let .success(certificateResult):
-			XCTAssertEqual(certificateResult.person.healthCertificates, [vaccinationCertificate])
+			XCTAssertEqual(certificateResult.person.healthCertificates.first?.base45, vaccinationCertificate.base45)
 		case .failure:
 			XCTFail("Registration should succeed")
 		}
@@ -2058,7 +2058,7 @@ class HealthCertificateServiceTests: CWATestCase {
 		store.healthCertifiedPersons = [healthCertifiedPerson]
 
 		let expectation = expectation(description: "notificationRequests changed")
-		expectation.expectedFulfillmentCount = 3
+		expectation.expectedFulfillmentCount = 5
 
 		notificationCenter.onAdding = { _ in
 			expectation.fulfill()
