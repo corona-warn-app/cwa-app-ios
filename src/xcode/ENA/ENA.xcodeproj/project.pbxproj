@@ -5236,6 +5236,7 @@
 		5015D2D227A1737E007D8763 /* CCLConfiguration */ = {
 			isa = PBXGroup;
 			children = (
+				50AF182227A3E22E00BAA9DB /* __tests__ */,
 				50AF182027A2F5DF00BAA9DB /* ccl-configuration.bin */,
 				5015D2D327A17391007D8763 /* Locator+CCLConfiguration.swift */,
 				5015D2D527A1774B007D8763 /* CCLConfigurationResource.swift */,
@@ -5582,6 +5583,13 @@
 				50BC9046279EEE530000C930 /* Resources */,
 			);
 			path = HTTPClient;
+			sourceTree = "<group>";
+		};
+		50AF182227A3E22E00BAA9DB /* __tests__ */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = __tests__;
 			sourceTree = "<group>";
 		};
 		50B5058725CAF3C500EEA380 /* DMOTPService */ = {
