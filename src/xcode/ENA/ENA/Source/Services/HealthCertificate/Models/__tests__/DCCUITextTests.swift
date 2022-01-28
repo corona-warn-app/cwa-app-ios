@@ -3,30 +3,53 @@
 //
 
 import XCTest
+import AnyCodable
+@testable import ENA
 
 class DCCUITextTests: XCTestCase {
 
-    override func setUpWithError() throws {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
-    }
+	func testWHEN_LoadingJsonTestFile_THEN_AllTestCasesWithConfigurationAreReturned() {
+		// WHEN
+		let testCases = testCasesWithCCLConfiguration.testCases
 
-    override func tearDownWithError() throws {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
-    }
+		// THEN
+		XCTAssertEqual(testCases.count, 17)
+	}
+	
+	func testGIVEN_TestCases_WHEN_LocalizeStringForEachTestCase_THEN_ResultIsCorrect() {
+		// GIVEN
+		let testCases = testCasesWithCCLConfiguration.testCases
 
-    func testExample() throws {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-        // Any test you write for XCTest can be annotated as throws and async.
-        // Mark your test throws to produce an unexpected failure when your test encounters an uncaught error.
-        // Mark your test async to allow awaiting for asynchronous code to complete. Check the results with assertions afterwards.
-    }
+		for testCase in testCases {
+			let dccUIText = testCase.textDescriptor
+			
+			XCTAssertEqual(dccUIText.localized(), testCase.assertions[0].text)
+			
+			// DCCUIText.fake(type: testCase.textDescriptor.type, quantity: testCase.textDescriptor.quantity, quantityParameterIndex: testCase.textDescriptor.quantityParameterIndex, functionName: testCase.textDescriptor.functionName, localizedText: testCase.textDescriptor.localizedText, parameters: testCase.textDescriptor.parameters)
+		}
+	}
+	
+	// MARK: - Private
 
-    func testPerformanceExample() throws {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
-        }
-    }
+	private lazy var testCasesWithCCLConfiguration: TestCasesWithCCLConfiguration = {
+		let testBundle = Bundle(for: DCCUITextTests.self)
+		guard let urlJsonFile = testBundle.url(forResource: "ccl-text-descriptor-test-cases", withExtension: "json"),
+			  let data = try? Data(contentsOf: urlJsonFile) else {
+			fatalError("Failed init json file for tests - stop here")
+		}
 
+		do {
+			return try JSONDecoder().decode(TestCasesWithCCLConfiguration.self, from: data)
+		} catch let DecodingError.keyNotFound(jsonKey, context) {
+			fatalError("missing key: \(jsonKey)\nDebug Description: \(context.debugDescription)")
+		} catch let DecodingError.valueNotFound(type, context) {
+			fatalError("Type not found \(type)\nDebug Description: \(context.debugDescription)")
+		} catch let DecodingError.typeMismatch(type, context) {
+			fatalError("Type mismatch found \(type)\nDebug Description: \(context.debugDescription)")
+		} catch DecodingError.dataCorrupted(let context) {
+			fatalError("Debug Description: \(context.debugDescription)")
+		} catch {
+			fatalError("Failed to parse JSON answer")
+		}
+	}()
 }
