@@ -35,6 +35,8 @@ public struct DCCUIText: Codable {
 	let localizedText: [String: AnyCodable]?
 	let parameters: AnyCodable
 
+	// MARK: - Internal
+
 	func localized(languageCode: String? = Locale.current.languageCode) -> String? {
 		switch type {
 		case UITextType.string:
@@ -47,6 +49,8 @@ public struct DCCUIText: Codable {
 			return nil
 		}
 	}
+	
+	// MARK: - Private
 	
 	private func localizedSingleFormatText(languageCode: String?) -> String? {
 		var formatText = ""
@@ -229,23 +233,5 @@ public struct DCCUIText: Codable {
 			// otherwise, entry.value shall be treated as a string
 			return stringValue
 		}
-	}
-
-	public static func fake(
-		type: String = "string",
-		quantity: Int? = nil,
-		quantityParameterIndex: Int? = nil,
-		functionName: String? = nil,
-		localizedText: [String: AnyCodable]? = nil,
-		parameters: AnyCodable
-	) -> DCCUIText {
-		DCCUIText(
-			type: type,
-			quantity: quantity,
-			quantityParameterIndex: quantityParameterIndex,
-			functionName: functionName,
-			localizedText: localizedText,
-			parameters: parameters
-		)
 	}
 }

@@ -95,11 +95,11 @@ extension DCCUIText {
 
 	static func fake(
 		type: String = "string",
-		quantity: Double? = nil,
+		quantity: Int? = nil,
 		quantityParameterIndex: Int? = nil,
 		functionName: String? = nil,
 		localizedText: [String: AnyCodable]? = nil,
-		parameters: [String: AnyCodable] = [:]
+		parameters: AnyCodable
 	) -> DCCUIText {
 		DCCUIText(
 			type: type,
