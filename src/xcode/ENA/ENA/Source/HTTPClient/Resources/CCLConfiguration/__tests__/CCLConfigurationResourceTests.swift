@@ -70,8 +70,7 @@ final class CCLConfigurationResourceTests: CWATestCase {
 		cache[cclConfigurationResource.locator.hashValue] = CacheData(
 			data: archiveDataCache,
 			eTag: eTag,
-			serverDate: nil,
-			clientDate: Date()
+			date: Date()
 		)
 		
 		let restServiceProvider = RestServiceProvider(
