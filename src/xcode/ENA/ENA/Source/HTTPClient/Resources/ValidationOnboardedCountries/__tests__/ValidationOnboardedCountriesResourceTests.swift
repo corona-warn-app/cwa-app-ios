@@ -102,6 +102,7 @@ final class ValidationOnboardedCountriesResourceTests: CWATestCase {
 		resource.receiveResource = CBORReceiveResource(
 			signatureVerifier: MockVerifier()
 		)
+
 		
 		// Fake some cached data
 		let cache = KeyValueCacheFake()

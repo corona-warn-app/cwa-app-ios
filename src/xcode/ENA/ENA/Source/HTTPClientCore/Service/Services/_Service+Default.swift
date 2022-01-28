@@ -42,11 +42,21 @@ extension Service {
 		return .success(urlRequest)
 	}
 
+	func receiveModelToInterruptLoading<R>(_ resource: R) -> R.Receive.ReceiveModel? where R: Resource {
+		nil
+	}
+
     // swiftlint:disable cyclomatic_complexity
 	func load<R>(
 		_ resource: R,
 		_ completion: @escaping (Result<R.Receive.ReceiveModel, ServiceError<R.CustomError>>) -> Void
 	) where R: Resource {
+		// if an optional model is given we will return that one and stop loading
+		if let receiveModel = receiveModelToInterruptLoading(resource) {
+			completion(.success(receiveModel))
+			return
+		}
+		// load data from the server
 		switch urlRequest(resource.locator, resource.sendResource, resource.receiveResource) {
 		case let .failure(resourceError):
 			Log.error("Creating url request failed.", log: .client)

@@ -65,7 +65,6 @@ class RestServiceProvider: RestServiceProviding {
 			updateLock.unlock()
 		case .disabledPinning:
 			disabledPinningRestService.load(resource, completion)
-			
 		}
 	}
 

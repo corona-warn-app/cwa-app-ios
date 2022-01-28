@@ -22,7 +22,12 @@ protocol Service {
 
 	var session: URLSession { get }
 	var environment: EnvironmentProviding { get }
-	
+
+	/// hook to provide a receive model this will interrupt loading
+	/// can be used to implement special caching behaviors
+	/// by default it will return nil - no interruption
+	func receiveModelToInterruptLoading<R>(_ resource: R) -> R.Receive.ReceiveModel? where R: Resource
+
 	/// loads a ReceiveModel from an external endpoint via http call.
 	///
 	/// - Parameters:
