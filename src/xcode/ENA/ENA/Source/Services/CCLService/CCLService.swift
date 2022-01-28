@@ -9,7 +9,7 @@ import AnyCodable
 import CertLogic
 
 enum CLLServiceError: Error {
-	
+	case MissingConfiguration
 }
 
 enum DCCWalletInfoAccessError: Error {
@@ -84,4 +84,24 @@ class CLLService: CCLServable {
 	private let jsonFunctions: JsonFunctions = JsonFunctions()
 
 	private var boosterNotificationRules: [Rule] = [Rule]()
+
+	private func getLatestConfiguration(completion: @escaping (Swift.Result<Void, CLLServiceError>) -> Void) {
+		let resource = CCLConfigurationResource()
+		restServiceProvider.load(resource) { [weak self] result in
+			switch result {
+			case let .success(configuration):
+				if !configuration.metaData.loadedFromCache {
+					self?.configurationDidChange.send(true)
+				}
+			case let .failure(error):
+				switch error {
+				case .fakeResponse:
+					completion(.success(()))
+				default:
+					completion(.failure(.MissingConfiguration))
+				}
+			}
+		}
+	}
+
 }
