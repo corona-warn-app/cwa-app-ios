@@ -55,7 +55,6 @@ final class DMNHCViewModel {
 							switch result {
 							case let .success(model):
 								Log.info("CCL Config successfull called.")
-								Log.info("CCL Configs: \(model.cclConfigurations)")
 								Log.info("CCL Config isLoadedFromCache: \(model.metaData.loadedFromCache)")
 								Log.info("CCL Config headers: \(model.metaData.headers)")
 							case let .failure(error):
