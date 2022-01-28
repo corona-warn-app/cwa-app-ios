@@ -36,14 +36,14 @@ class HealthCertifiedPersonViewModelTests: XCTestCase {
 		// THEN
 		XCTAssertEqual(viewModel.numberOfItems(in: .header), 1)
 		XCTAssertEqual(viewModel.numberOfItems(in: .qrCode), 1)
-		XCTAssertEqual(viewModel.numberOfItems(in: .vaccinationHint), 0)
+		XCTAssertEqual(viewModel.numberOfItems(in: .vaccinationState), 0)
 		XCTAssertEqual(viewModel.numberOfItems(in: .admissionState), 0)
 		XCTAssertEqual(viewModel.numberOfItems(in: .person), 1)
 		XCTAssertEqual(viewModel.numberOfItems(in: .certificates), 1)
 
 		XCTAssertFalse(viewModel.canEditRow(at: IndexPath(row: 0, section: HealthCertifiedPersonViewModel.TableViewSection.header.rawValue)))
 		XCTAssertFalse(viewModel.canEditRow(at: IndexPath(row: 0, section: HealthCertifiedPersonViewModel.TableViewSection.qrCode.rawValue)))
-		XCTAssertFalse(viewModel.canEditRow(at: IndexPath(row: 0, section: HealthCertifiedPersonViewModel.TableViewSection.vaccinationHint.rawValue)))
+		XCTAssertFalse(viewModel.canEditRow(at: IndexPath(row: 0, section: HealthCertifiedPersonViewModel.TableViewSection.vaccinationState.rawValue)))
 		XCTAssertFalse(viewModel.canEditRow(at: IndexPath(row: 0, section: HealthCertifiedPersonViewModel.TableViewSection.person.rawValue)))
 		XCTAssertTrue(viewModel.canEditRow(at: IndexPath(row: 0, section: HealthCertifiedPersonViewModel.TableViewSection.certificates.rawValue)))
 
@@ -51,7 +51,7 @@ class HealthCertifiedPersonViewModelTests: XCTestCase {
 		XCTAssertEqual(HealthCertifiedPersonViewModel.TableViewSection.map(0), .header)
 		XCTAssertEqual(HealthCertifiedPersonViewModel.TableViewSection.map(1), .qrCode)
 		XCTAssertEqual(HealthCertifiedPersonViewModel.TableViewSection.map(2), .admissionState)
-		XCTAssertEqual(HealthCertifiedPersonViewModel.TableViewSection.map(3), .vaccinationHint)
+		XCTAssertEqual(HealthCertifiedPersonViewModel.TableViewSection.map(3), .vaccinationState)
 		XCTAssertEqual(HealthCertifiedPersonViewModel.TableViewSection.map(4), .person)
 		XCTAssertEqual(HealthCertifiedPersonViewModel.TableViewSection.map(5), .certificates)
 	}
@@ -91,7 +91,7 @@ class HealthCertifiedPersonViewModelTests: XCTestCase {
 		let healthCertificate = try XCTUnwrap(viewModel.healthCertificate(for: IndexPath(row: 0, section: HealthCertifiedPersonViewModel.TableViewSection.certificates.rawValue)))
 
 		// THEN
-		XCTAssertFalse(viewModel.vaccinationHintIsVisible)
+		XCTAssertFalse(viewModel.vaccinationStateIsVisible)
 		XCTAssertEqual(qrCodeCellViewModel.qrCodeViewModel.accessibilityLabel, AppStrings.HealthCertificate.Person.QRCodeImageDescription)
 		XCTAssertEqual(healthCertificateCellViewModel.gradientType, .lightBlue)
 		XCTAssertEqual(healthCertificate.name.fullName, "Erika Dörte Schmitt Mustermann")
@@ -133,13 +133,13 @@ class HealthCertifiedPersonViewModelTests: XCTestCase {
 		// THEN
 		XCTAssertEqual(viewModel.heightForFooter(in: .header), 0)
 		XCTAssertEqual(viewModel.heightForFooter(in: .qrCode), 0)
-		XCTAssertEqual(viewModel.heightForFooter(in: .vaccinationHint), 0)
+		XCTAssertEqual(viewModel.heightForFooter(in: .vaccinationState), 0)
 		XCTAssertEqual(viewModel.heightForFooter(in: .person), 0)
 		XCTAssertEqual(viewModel.heightForFooter(in: .certificates), 12)
 	}
 
 
-	func testVaccinationHintBooster() throws {
+	func testVaccinationStateBooster() throws {
 		// GIVEN
 		let client = ClientMock()
 		let store = MockTestStore()
@@ -173,10 +173,10 @@ class HealthCertifiedPersonViewModelTests: XCTestCase {
 		)
 
 		// THEN
-		XCTAssertEqual(viewModel.heightForFooter(in: .vaccinationHint), 0)
+		XCTAssertEqual(viewModel.heightForFooter(in: .vaccinationState), 0)
 	}
 
-	func testVaccinationHintIncompleteBooster() throws {
+	func testVaccinationStateIncompleteBooster() throws {
 		// GIVEN
 		let store = MockTestStore()
 		let client = ClientMock()
@@ -212,7 +212,7 @@ class HealthCertifiedPersonViewModelTests: XCTestCase {
 		)
 
 		// THEN
-		XCTAssertEqual(viewModel.heightForFooter(in: .vaccinationHint), 0)
+		XCTAssertEqual(viewModel.heightForFooter(in: .vaccinationState), 0)
 	}
 
 

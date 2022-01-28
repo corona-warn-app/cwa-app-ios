@@ -25,7 +25,7 @@ final class HealthCertifiedPersonViewModel {
 		self.didTapValidationButton = didTapValidationButton
 		self.showInfo = showInfoHit
 
-		self.vaccinationHintCellViewModel = VaccinationHintCellModel(healthCertifiedPerson: healthCertifiedPerson)
+		self.vaccinationStateCellViewModel = VaccinationStateCellModel(healthCertifiedPerson: healthCertifiedPerson)
 		self.vaccinationAdmissionStateViewModel = AdmissionStateCellModel(healthCertifiedPerson: healthCertifiedPerson)
 		
 		constructHealthCertificateCellViewModels(for: healthCertifiedPerson)
@@ -66,7 +66,7 @@ final class HealthCertifiedPersonViewModel {
 		case header
 		case qrCode
 		case admissionState
-		case vaccinationHint
+		case vaccinationState
 		case person
 		case certificates
 
@@ -116,7 +116,7 @@ final class HealthCertifiedPersonViewModel {
 		)
 	}
 
-	let vaccinationHintCellViewModel: VaccinationHintCellModel
+	let vaccinationStateCellViewModel: VaccinationStateCellModel
 	let vaccinationAdmissionStateViewModel: AdmissionStateCellModel
 
 	@OpenCombine.Published private(set) var gradientType: GradientView.GradientType = .lightBlue
@@ -142,7 +142,7 @@ final class HealthCertifiedPersonViewModel {
 		)
 	}
 
-	var vaccinationHintIsVisible: Bool {
+	var vaccinationStateIsVisible: Bool {
 		healthCertifiedPerson.dccWalletInfo?.vaccinationState.visible ?? false
 	}
 	
@@ -164,8 +164,8 @@ final class HealthCertifiedPersonViewModel {
 			return 1
 		case .admissionState:
 			return admissionStateIsVisible ? 1 : 0
-		case .vaccinationHint:
-			return vaccinationHintIsVisible ? 1 : 0
+		case .vaccinationState:
+			return vaccinationStateIsVisible ? 1 : 0
 		case .person:
 			return 1
 		case .certificates:

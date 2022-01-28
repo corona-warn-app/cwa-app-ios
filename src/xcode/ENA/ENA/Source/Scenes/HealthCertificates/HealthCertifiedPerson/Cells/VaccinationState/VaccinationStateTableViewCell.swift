@@ -5,7 +5,7 @@
 import UIKit
 import OpenCombine
 
-class VaccinationHintTableViewCell: UITableViewCell, UITextViewDelegate, ReuseIdentifierProviding {
+class VaccinationStateTableViewCell: UITableViewCell, UITextViewDelegate, ReuseIdentifierProviding {
 
 	// MARK: - Init
 
@@ -36,7 +36,7 @@ class VaccinationHintTableViewCell: UITableViewCell, UITextViewDelegate, ReuseId
 
 	// MARK: - Internal
 
-	func configure(with cellModel: VaccinationHintCellModel) {
+	func configure(with cellModel: VaccinationStateCellModel) {
 		titleLabel.text = cellModel.title
 		subtitleLabel.text = cellModel.subtitle
 		descriptionLabel.text = cellModel.description
