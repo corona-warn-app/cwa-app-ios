@@ -10,6 +10,7 @@ class HealthCertifiedPersonCellModel {
 
 	// MARK: - Init
 
+	// swiftlint:disable cyclomatic_complexity
 	init?(
 		healthCertifiedPerson: HealthCertifiedPerson,
 		onCovPassCheckInfoButtonTap: @escaping () -> Void
