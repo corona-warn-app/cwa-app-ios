@@ -36,7 +36,13 @@ class CLLService: CCLServable {
 	
 	// MARK: - Init
 	
-	init() { }
+	init(
+		_ restServiceProvider: RestServiceProviding,
+		rulesDownloadService: RulesDownloadServiceProviding
+	) {
+		self.restServiceProvider = restServiceProvider
+		self.rulesDownloadService = rulesDownloadService
+	}
 	
 	// MARK: - Protocol CCLServable
 
@@ -71,7 +77,11 @@ class CLLService: CCLServable {
 	var configurationDidChange = PassthroughSubject<Bool, Never>()
 
 	// MARK: - Private
-	
-	let jsonFunctions: JsonFunctions = JsonFunctions()
-	var boosterNotificationRules: [Rule] = [Rule]()
+
+	private let restServiceProvider: RestServiceProviding
+	private let rulesDownloadService: RulesDownloadServiceProviding
+
+	private let jsonFunctions: JsonFunctions = JsonFunctions()
+
+	private var boosterNotificationRules: [Rule] = [Rule]()
 }
