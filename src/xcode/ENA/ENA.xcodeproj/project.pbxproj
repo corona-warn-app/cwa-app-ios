@@ -314,9 +314,7 @@
 		01C1AC34276783DC00D45BFA /* OrderedCollections in Frameworks */ = {isa = PBXBuildFile; productRef = 01C1AC33276783DC00D45BFA /* OrderedCollections */; };
 		01C2D43E2501225100FB23BF /* MockExposureSubmissionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3284256248E7431006B1F09 /* MockExposureSubmissionService.swift */; };
 		01C2D4432501260D00FB23BF /* OptionGroupViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01C2D440250124E600FB23BF /* OptionGroupViewModelTests.swift */; };
-		01C5F301279EA4A500F60047 /* DCCWalletInfo+Fake.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01C5F300279EA48600F60047 /* DCCWalletInfo+Fake.swift */; };
 		01C5F302279EB20100F60047 /* DCCWalletInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01C5F2FE2799859D00F60047 /* DCCWalletInfo.swift */; };
-		01C5F305279EF52C00F60047 /* AnyCodable in Frameworks */ = {isa = PBXBuildFile; productRef = 01C5F304279EF52C00F60047 /* AnyCodable */; };
 		01C6ABF42527273E0052814D /* String+Insertion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01C6ABF32527273D0052814D /* String+Insertion.swift */; };
 		01C6AC26252B23D70052814D /* QRScannerFocusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01C6AC25252B23D70052814D /* QRScannerFocusView.swift */; };
 		01C6AC32252B29C00052814D /* QRScannerError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01C6AC31252B29C00052814D /* QRScannerError.swift */; };
@@ -364,6 +362,7 @@
 		01DE60772744EFB200E12FA4 /* TicketValidationQRCodeParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01DE60762744EFB200E12FA4 /* TicketValidationQRCodeParser.swift */; };
 		01DE60792744EFF000E12FA4 /* TicketValidationQRScannerError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01DE60782744EFF000E12FA4 /* TicketValidationQRScannerError.swift */; };
 		01DE607B274517B300E12FA4 /* TicketValidationQRCodeParserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01DE607A274517B200E12FA4 /* TicketValidationQRCodeParserTests.swift */; };
+		01DED64827A2E712006A958C /* DCCWalletInfo+Fake.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01C5F300279EA48600F60047 /* DCCWalletInfo+Fake.swift */; };
 		01DF186E2603B28200A002E4 /* TraceLocationsOverviewViewModelTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01DF186A2603B17000A002E4 /* TraceLocationsOverviewViewModelTest.swift */; };
 		01DF188E2608D3BB00A002E4 /* TraceLocationConfigurationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01DF188D2608D3BB00A002E4 /* TraceLocationConfigurationViewController.xib */; };
 		01E0C93C26C6879B00110941 /* OnBehalfTraceLocationCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01E0C93B26C6879B00110941 /* OnBehalfTraceLocationCellModel.swift */; };
@@ -3864,7 +3863,6 @@
 				01D319D326C18B9B008698D8 /* HealthCertificateDecodingContainer.swift */,
 				019E2F0626A05196000EC4AD /* HealthCertificateValidityState.swift */,
 				017D8DA3263B02F30009E91C /* HealthCertifiedPerson.swift */,
-				01C5F2FE2799859D00F60047 /* DCCWalletInfo.swift */,
 				01E102652668D40E009ED803 /* TestCertificateRequest.swift */,
 			);
 			path = Models;
@@ -7125,6 +7123,7 @@
 				ABB8DF5F2799BEC300DD99E4 /* CCLService.swift */,
 				AB77385027A1605000B9EA95 /* CCLConfiguration.swift */,
 				AB77385227A160A000B9EA95 /* DCCWalletCertificate.swift */,
+				01C5F2FE2799859D00F60047 /* DCCWalletInfo.swift */,
 			);
 			path = CCLService;
 			sourceTree = "<group>";
@@ -9745,6 +9744,7 @@
 				B1A89F3B24819CE800DA1CEC /* SettingsLabelCell.swift in Sources */,
 				01164CE226C573A2007F9C3E /* TraceLocationCheckinSelectionCellModel.swift in Sources */,
 				EB855EFD25EED0C900FEE17C /* CGPDFDocument+EmbedImage.swift in Sources */,
+				01DED64827A2E712006A958C /* DCCWalletInfo+Fake.swift in Sources */,
 				8F39D066263C41990096F4E2 /* VaccinationValueSetsProviding.swift in Sources */,
 				50B5057D25CAEF5C00EEA380 /* OTPToken.swift in Sources */,
 				01CBD884261B3CF700158B3E /* ClientMock.swift in Sources */,
@@ -10858,7 +10858,6 @@
 				01131E46261611A3001DB2CD /* TraceLocationsConfigurationViewModelTest.swift in Sources */,
 				3557CF2E26A05AEF00EDD923 /* ManageStatisticsCellTests.swift in Sources */,
 				0120ECF32587607600F78944 /* DiaryDayEntryCellModelTest.swift in Sources */,
-				01C5F301279EA4A500F60047 /* DCCWalletInfo+Fake.swift in Sources */,
 				3456D96725F0EBB400A62F5D /* ErrorReportHistoryViewModelTests.swift in Sources */,
 				B1C7EE482493D97000F1F284 /* RiskProvidingConfigurationManualTriggerTests.swift in Sources */,
 				01E1026E2669658E009ED803 /* DCCRSAKeyPairTests.swift in Sources */,
@@ -12421,11 +12420,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 01C1AC32276783DC00D45BFA /* XCRemoteSwiftPackageReference "swift-collections" */;
 			productName = OrderedCollections;
-		};
-		01C5F304279EF52C00F60047 /* AnyCodable */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 01C5F303279EF52C00F60047 /* XCRemoteSwiftPackageReference "AnyCodable" */;
-			productName = AnyCodable;
 		};
 		AB42A192263C284200892536 /* HealthCertificateToolkit */ = {
 			isa = XCSwiftPackageProductDependency;
