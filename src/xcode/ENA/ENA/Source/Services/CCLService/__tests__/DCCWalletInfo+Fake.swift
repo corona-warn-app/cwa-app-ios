@@ -112,7 +112,7 @@ extension DCCUIText {
 	}
 
 	static func fake(string: String) -> DCCUIText {
-		.fake(type: "string", localizedText: ["de": AnyCodable(string)])
+		.fake(type: "string", localizedText: ["de": AnyCodable(string)], parameters: [])
 	}
 
 }
