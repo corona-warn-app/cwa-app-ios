@@ -42,6 +42,21 @@ class CachedRestService: Service {
 		)
 	}()
 
+	// check if policies are set and contain .loadOnlyOnceADay
+	// if check if data is in cache and if it was written today
+	// if return last cached receiveModel
+	func receiveModelToInterruptLoading<R>(_ resource: R) -> R.Receive.ReceiveModel? where R: Resource {
+		if case let .caching(policies) = resource.type,
+		   policies.contains(.loadOnlyOnceADay),
+		   let cachedData = cache[resource.locator.hashValue],
+		   Calendar.current.isDateInToday(cachedData.date) {
+			if case let .success(receiveModel) = cached(resource) {
+				return receiveModel
+			}
+		}
+		return nil
+	}
+
 	func decodeModel<R>(
 		_ resource: R,
 		_ bodyData: Data?,
@@ -58,8 +73,11 @@ class CachedRestService: Service {
 			
 			// Update cache only if we fetched some fresh data.
 			if !isCachedData {
-				let serverDate = headers.dateHeader ?? Date()
-				let cachedModel = CacheData(data: data, eTag: eTag, date: serverDate)
+				let cachedModel = CacheData(
+					data: data,
+					eTag: eTag,
+					date: Date()
+				)
 				cache[resource.locator.hashValue] = cachedModel
 				Log.info("Fetched new cached data and wrote them to the cache", log: .client)
 			}
@@ -107,7 +125,7 @@ class CachedRestService: Service {
 		_ locator: Locator
 	) -> [String: String]? where R: ReceiveResource {
 		guard let cachedModel = cache[locator.hashValue] else {
-			Log.debug("ResponseResource not found in cache", log: .client)
+			Log.debug("No model found in cache to take its headers", log: .client)
 			return nil
 		}
 		return ["If-None-Match": cachedModel.eTag]
@@ -134,4 +152,5 @@ class CachedRestService: Service {
 
 	private let optionalSession: URLSession?
 	private var cache: KeyValueCaching
+
 }

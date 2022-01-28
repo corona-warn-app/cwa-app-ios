@@ -3,7 +3,7 @@
 //
 
 import HealthCertificateToolkit
-
+import Foundation
 /**
  Errors for decoding cases when we get a specialized error from the decoding
  */
@@ -14,6 +14,7 @@ enum ModelDecodingError: Error {
 	case CBOR_DECODING
 	case CBOR_DECODING_VALIDATION_RULES(RuleValidationError)
 	case CBOR_DECODING_ONBOARDED_COUNTRIES(RuleValidationError)
+	case CBOR_DECODING_CLLCONFIGURATION(CCLConfigurationAccessError)
 }
 
 /**

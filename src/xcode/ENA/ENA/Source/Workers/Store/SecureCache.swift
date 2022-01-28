@@ -4,24 +4,6 @@
 
 import Foundation
 
-struct CacheData: Codable {
-	let data: Data
-	let eTag: String
-	let date: Date
-
-	static func fake(
-		data: Data = Data(),
-		eTag: String = "",
-		date: Date = Date()
-	) -> CacheData {
-		return CacheData(
-			data: data,
-			eTag: eTag,
-			date: date
-		)
-	}
-}
-
 protocol KeyValueCaching {
 	subscript(cacheEntryKey: Int) -> CacheData? { get set }
 }
