@@ -51,11 +51,24 @@ extension Service {
 		_ resource: R,
 		_ completion: @escaping (Result<R.Receive.ReceiveModel, ServiceError<R.CustomError>>) -> Void
 	) where R: Resource {
+		
+		// To force update ignoring the interruption of loading from the developer menu, we check the flag.
+		#if !RELEASE
+		// if an optional model is given we will return that one and stop loading
+		let forceUpdate = UserDefaults.standard.bool(forKey: CCLConfigurationResource.keyForceUpdate)
+		if forceUpdate,
+		   let receiveModel = receiveModelToInterruptLoading(resource) {
+			completion(.success(receiveModel))
+			return
+		}
+		#else
 		// if an optional model is given we will return that one and stop loading
 		if let receiveModel = receiveModelToInterruptLoading(resource) {
 			completion(.success(receiveModel))
 			return
 		}
+		
+		#endif
 		// load data from the server
 		switch urlRequest(resource.locator, resource.sendResource, resource.receiveResource) {
 		case let .failure(resourceError):

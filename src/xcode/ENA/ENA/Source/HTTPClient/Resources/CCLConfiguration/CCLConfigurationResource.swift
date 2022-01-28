@@ -45,4 +45,12 @@ struct CCLConfigurationResource: Resource {
 			return nil
 		}
 	}
+	
+	// MARK: - Internal
+	
+	#if !RELEASE
+	// Need for dev menu force updates
+	static let keyForceUpdate = "cclForceUpdate"
+	
+	#endif
 }
