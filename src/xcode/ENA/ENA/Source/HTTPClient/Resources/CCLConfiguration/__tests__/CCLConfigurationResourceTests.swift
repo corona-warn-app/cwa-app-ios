@@ -97,5 +97,40 @@ final class CCLConfigurationResourceTests: CWATestCase {
 		waitForExpectations(timeout: .medium)
 	}
 	
+	func testGIVEN_Resource_WHEN_Response_404_THEN_CCLConfigIsReturned() throws {
+		// GIVEN
+		let expectation = self.expectation(description: "completion handler succeeds")
+		
+		let eTag = "DummyDataETag"
+		let stack = MockNetworkStack(
+			httpStatus: 404,
+			headerFields: ["eTag": eTag]
+		)
+		var cclConfigurationResource = CCLConfigurationResource()
+		cclConfigurationResource.receiveResource = CBORReceiveResource(signatureVerifier: MockVerifier())
+		
+		let restServiceProvider = RestServiceProvider(
+			session: stack.urlSession
+		)
+		
+		// We should load default configuration
+		// WHEN
+		restServiceProvider.load(cclConfigurationResource) { result in
+			switch result {
+			case let .success(model):
+				// CBOR default model contains one cclConfiguration
+				XCTAssertEqual(model.cclConfigurations.count, 1)
+				XCTAssertFalse(model.metaData.loadedFromCache)
+			case let .failure(error):
+				XCTFail("Test should not fail with error: \(error)")
+			}
+			expectation.fulfill()
+			
+		}
+
+		// THEN
+		waitForExpectations(timeout: .medium)
+	}
+	
 	
 }
