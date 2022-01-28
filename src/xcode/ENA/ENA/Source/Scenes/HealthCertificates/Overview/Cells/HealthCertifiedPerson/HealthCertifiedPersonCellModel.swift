@@ -14,7 +14,7 @@ class HealthCertifiedPersonCellModel {
 		healthCertifiedPerson: HealthCertifiedPerson,
 		onCovPassCheckInfoButtonTap: @escaping () -> Void
 	) {
-		guard let mostRelevantCertificate = healthCertifiedPerson.healthCertificates.mostRelevant else {
+		guard let mostRelevantCertificate = healthCertifiedPerson.mostRelevantHealthCertificate else {
 			Log.error("failed to get mostRelevant health certificate")
 			return nil
 		}
@@ -69,20 +69,19 @@ class HealthCertifiedPersonCellModel {
 			self.caption = nil
 		}
 
-		isStatusTitleVisible = healthCertifiedPerson.admissionState != .other
+		isStatusTitleVisible = !(healthCertifiedPerson.dccWalletInfo?.admissionState.badgeText?.localized() ?? "").isEmpty
 
-		switch healthCertifiedPerson.admissionState {
-		case let .twoGPlusPCR(twoG: twoGCertificate, pcrTest: testCertificate),
-			 let .twoGPlusAntigen(twoG: twoGCertificate, antigenTest: testCertificate):
-			switchableHealthCertificates = [
-				AppStrings.HealthCertificate.Overview.twoGCertificate: twoGCertificate,
-				AppStrings.HealthCertificate.Overview.testCertificate: testCertificate
-			]
-		case .threeGWithPCR, .threeGWithAntigen, .twoG, .other:
+		if let certificates = healthCertifiedPerson.dccWalletInfo?.verification.certificates, certificates.count >= 2 {
+			switchableHealthCertificates = certificates.reduce(into: OrderedDictionary<String, HealthCertificate>()) {
+				if let certificate = healthCertifiedPerson.healthCertificate(for: $1.certificateRef), let buttonText = $1.buttonText.localized() {
+					$0[buttonText] = certificate
+				}
+			}
+		} else {
 			switchableHealthCertificates = [:]
 		}
 
-		shortStatus = healthCertifiedPerson.admissionState.shortTitle
+		shortStatus = healthCertifiedPerson.dccWalletInfo?.admissionState.badgeText?.localized()
 	}
 
 	init?(
