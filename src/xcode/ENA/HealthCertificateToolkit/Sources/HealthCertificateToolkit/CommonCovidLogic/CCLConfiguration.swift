@@ -4,7 +4,7 @@
 
 import jsonfunctions
 
-struct CCLConfiguration: Decodable {
+public struct CCLConfiguration: Codable {
 	
 	// MARK: - Protocol Decodable
 	
@@ -21,9 +21,9 @@ struct CCLConfiguration: Decodable {
 		case logic = "Logic"
 	}
 	
-	// MARK: - Internal
+	// MARK: - Public
 
-	struct Logic: Decodable {
+    public struct Logic: Codable {
 		enum CodingKeys: String, CodingKey {
 			case jfnDescriptors = "JfnDescriptors"
 		}
@@ -31,14 +31,14 @@ struct CCLConfiguration: Decodable {
 		let jfnDescriptors: [JsonFunctionDefinition]
 	}
 	
-	let identifier: String
-	let type: String
-	let country: String
-	let version: String
-	let schemaVersion: String
-	let engine: String
-	let engineVersion: String
-	let validFrom: String
-	let validTo: String
-	let logic: Logic
+    public let identifier: String
+    public let type: String
+    public let country: String
+    public let version: String
+    public let schemaVersion: String
+    public let engine: String
+    public let engineVersion: String
+    public let validFrom: String
+    public let validTo: String
+    public let logic: Logic
 }
