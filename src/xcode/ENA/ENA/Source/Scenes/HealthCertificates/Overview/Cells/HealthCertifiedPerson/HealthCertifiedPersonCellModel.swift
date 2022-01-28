@@ -24,8 +24,16 @@ class HealthCertifiedPersonCellModel {
 		title = AppStrings.HealthCertificate.Overview.covidTitle
 		name = healthCertifiedPerson.name?.fullName
 
+		let initialCertificate: HealthCertificate
+		if let firstVerificationCertificate = healthCertifiedPerson.dccWalletInfo?.verification.certificates.first,
+		   let certificate = healthCertifiedPerson.healthCertificate(for: firstVerificationCertificate.certificateRef) {
+			initialCertificate = certificate
+		} else {
+			initialCertificate = mostRelevantCertificate
+		}
+
 		qrCodeViewModel = HealthCertificateQRCodeViewModel(
-			healthCertificate: mostRelevantCertificate,
+			healthCertificate: initialCertificate,
 			showRealQRCodeIfValidityStateBlocked: false,
 			accessibilityLabel: AppStrings.HealthCertificate.Overview.covidDescription,
 			covPassCheckInfoPosition: .bottom,
@@ -34,15 +42,15 @@ class HealthCertifiedPersonCellModel {
 
 		if healthCertifiedPerson.unseenNewsCount > 0 {
 			self.caption = .unseenNews(count: healthCertifiedPerson.unseenNewsCount)
-		} else if !mostRelevantCertificate.isConsideredValid {
-			switch mostRelevantCertificate.validityState {
+		} else if !initialCertificate.isConsideredValid {
+			switch initialCertificate.validityState {
 			case .valid:
 				self.caption = nil
 			case .expiringSoon:
 				let validityStateTitle = String(
 					format: AppStrings.HealthCertificate.ValidityState.expiringSoon,
-					DateFormatter.localizedString(from: mostRelevantCertificate.expirationDate, dateStyle: .short, timeStyle: .none),
-					DateFormatter.localizedString(from: mostRelevantCertificate.expirationDate, dateStyle: .none, timeStyle: .short)
+					DateFormatter.localizedString(from: initialCertificate.expirationDate, dateStyle: .short, timeStyle: .none),
+					DateFormatter.localizedString(from: initialCertificate.expirationDate, dateStyle: .none, timeStyle: .short)
 				)
 
 				self.caption = .validityState(
