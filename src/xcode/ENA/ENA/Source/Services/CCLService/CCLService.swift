@@ -16,10 +16,6 @@ enum DCCWalletInfoAccessError: Error {
 	case failedFunctionsEvaluation(Error)
 }
 
-struct DCCWalletInfo {
-
-}
-
 protocol CCLServable {
 	
 	func updateConfiguration(completion: (Swift.Result<Void, CLLServiceError>) -> Void)
@@ -51,7 +47,7 @@ class CLLService: CCLServable {
 	}
 	
 	func dccWalletInfo(for certificates: [DCCWalletCertificate]) -> Swift.Result<DCCWalletInfo, DCCWalletInfoAccessError> {
-		let language = Locale.current.languageCodeWithDefault
+		let language = Locale.current.languageCode ?? "en"
 		
 		let getWalletInfoInput = GetWalletInfoInput.make(
 			language: language,
