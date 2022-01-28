@@ -79,7 +79,7 @@ class DMNHCViewController: UITableViewController {
 	}
 
 	private func setupNavigationBar() {
-		title = "New HTTP Communication Calls"
+		title = "New Rest Service - Only for DEVs"
 	}
 }
 #endif

@@ -35,7 +35,6 @@ final class DMCCLConfigurationViewModel {
 		return 1
 	}
 	
-	// swiftlint:disable cyclomatic_complexity
 	func cellViewModel(by indexPath: IndexPath) -> Any {
 		guard let section = TableViewSections(rawValue: indexPath.section) else {
 			fatalError("Unknown cell requested - stop")
@@ -50,15 +49,17 @@ final class DMCCLConfigurationViewModel {
 				backgroundColor: .enaColor(for: .buttonPrimary),
 				action: { [weak self] in
 					self?.restService.load(CCLConfigurationResource()) { result in
-						DispatchQueue.main.async {
+						DispatchQueue.main.async { [weak self] in
 							switch result {
 							case let .success(model):
 								Log.info("CCL Config successfull called.")
 								Log.info("CCL Config isLoadedFromCache: \(model.metaData.loadedFromCache)")
+								self?.loadedFromCache = model.metaData.loadedFromCache
 								Log.info("CCL Config headers: \(model.metaData.headers)")
 							case let .failure(error):
 								Log.error("CCL Config call failure with: \(error)", error: error)
 							}
+							self?.refreshTableView([TableViewSections.forceUpdate.rawValue, TableViewSections.statusCached.rawValue])
 						}
 					}
 				}
@@ -78,23 +79,11 @@ final class DMCCLConfigurationViewModel {
 				})
 
 		case .statusCached:
-			return DMButtonCellViewModel(
-				text: "Was CCL Config loaded from cache:",
-				textColor: .white,
-				backgroundColor: .enaColor(for: .buttonPrimary),
-				action: { [weak self] in
-					self?.restService.load(AppConfigurationResource()) { result in
-						DispatchQueue.main.async {
-							switch result {
-							case .success:
-								Log.info("New HTTP Call for AppConfig successful")
-							case .failure:
-								Log.error("New HTTP Call for AppConfig failed")
-							}
-						}
-					}
-				}
-			)
+			if let loadedFromCache = loadedFromCache {
+				return DMKeyValueCellViewModel(key: "Is cclConfig loaded previously from cache?", value: "\(loadedFromCache)")
+			} else {
+				return DMKeyValueCellViewModel(key: "Is cclConfig loaded previously from cache?", value: "please tap GET call")
+			}
 		}
 	}
 
@@ -108,6 +97,6 @@ final class DMCCLConfigurationViewModel {
 
 	private let restService: RestServiceProviding
 	
-	private var loadedFromCache: Bool
+	private var loadedFromCache: Bool?
 }
 #endif

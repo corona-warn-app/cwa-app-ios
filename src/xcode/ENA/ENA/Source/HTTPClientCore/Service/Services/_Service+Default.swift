@@ -55,8 +55,8 @@ extension Service {
 		// To force update ignoring the interruption of loading from the developer menu, we check the flag.
 		#if !RELEASE
 		// if an optional model is given we will return that one and stop loading
-		let forceUpdate = UserDefaults.standard.bool(forKey: CCLConfigurationResource.keyForceUpdate)
-		if forceUpdate,
+		let cclConfigForceUpdate = UserDefaults.standard.bool(forKey: CCLConfigurationResource.keyForceUpdate)
+		if !cclConfigForceUpdate,
 		   let receiveModel = receiveModelToInterruptLoading(resource) {
 			completion(.success(receiveModel))
 			return
