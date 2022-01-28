@@ -10,17 +10,16 @@ extension Locator {
 	// receive:	SAPDownloadedPackage
 	// type:	caching
 	// comment:
-	static func validationOnboardedCountries(
+	static func CCLConfiguration(
 		isFake: Bool
 	) -> Locator {
 		let fake = String(isFake ? 1 : 0)
 		return Locator(
 			endpoint: .distribution,
-			paths: ["version", "v1", "ehn-dgc", "onboarded-countries"],
+			paths: ["version", "v1", "ccl", "config-v1"],
 			method: .get,
 			defaultHeaders: [
-				"cwa-fake": fake,
-				"cwa-header-padding": String.getRandomString(of: 14)
+				"cwa-fake": fake
 			]
 		)
 	}

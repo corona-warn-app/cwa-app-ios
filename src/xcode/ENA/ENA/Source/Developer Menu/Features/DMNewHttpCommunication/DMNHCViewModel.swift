@@ -35,13 +35,36 @@ final class DMNHCViewModel {
 		// at the moment we assume one cell per section only
 		return 1
 	}
-
+	
+	// swiftlint:disable cyclomatic_complexity
 	func cellViewModel(by indexPath: IndexPath) -> Any {
 		guard let section = TableViewSections(rawValue: indexPath.section) else {
 			fatalError("Unknown cell requested - stop")
 		}
 
 		switch section {
+			
+		case .cclConfiguration:
+			return DMButtonCellViewModel(
+				text: "cclConfiguration",
+				textColor: .white,
+				backgroundColor: .enaColor(for: .buttonPrimary),
+				action: { [weak self] in
+					self?.restService.load(CCLConfigurationResource()) { result in
+						DispatchQueue.main.async {
+							switch result {
+							case let .success(model):
+								Log.info("CCL Config successfull called.")
+								Log.info("CCL Config isLoadedFromCache: \(model.metaData.loadedFromCache)")
+								Log.info("CCL Config headers: \(model.metaData.headers)")
+							case let .failure(error):
+								Log.error("CCL Config call failure with: \(error)", error: error)
+							}
+						}
+					}
+				}
+			)
+			
 		case .dccRules:
 			return DMButtonCellViewModel(
 				text: "dccRules",
@@ -105,6 +128,7 @@ final class DMNHCViewModel {
 	// MARK: - Private
 
 	private enum TableViewSections: Int, CaseIterable {
+		case cclConfiguration
 		case dccRules
 		case appConfig
 		case validationOnboardedCountries
