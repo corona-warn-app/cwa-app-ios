@@ -13,7 +13,7 @@ class DCCUITextTests: XCTestCase {
 		let testCases = testCasesWithCCLConfiguration.testCases
 
 		// THEN
-		XCTAssertEqual(testCases.count, 17)
+		XCTAssertEqual(testCases.count, 22)
 	}
 	
 	func testGIVEN_TestCases_WHEN_LocalizeStringForEachTestCase_THEN_ResultIsCorrect() {
