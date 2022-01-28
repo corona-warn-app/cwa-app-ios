@@ -6,6 +6,7 @@
 enum CacheUsePolicy: Equatable, Hashable {
 	case noNetwork
 	case statusCode(Int)
+	case loadOnlyOnceADay
 }
 
 extension Set where Element == CacheUsePolicy {

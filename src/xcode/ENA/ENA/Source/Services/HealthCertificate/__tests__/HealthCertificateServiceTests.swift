@@ -52,7 +52,7 @@ class HealthCertificateServiceTests: CWATestCase {
 
 		switch result {
 		case let .success(certificateResult):
-			XCTAssertEqual(certificateResult.person.healthCertificates, [vaccinationCertificate])
+			XCTAssertEqual(certificateResult.person.healthCertificates.first?.base45, vaccinationCertificate.base45)
 		case .failure:
 			XCTFail("Registration should succeed")
 		}
@@ -2035,11 +2035,10 @@ class HealthCertificateServiceTests: CWATestCase {
 	}
 	
 	func testGIVEN_HealthCertificate_WHEN_CertificatesIsInvalid_THEN_NotificationForInvalidShouldBeCreated() throws {
-		
 		// GIVEN
 		let notificationCenter = MockUserNotificationCenter()
 		let store = MockTestStore()
-				
+
 		let vaccinationCertificateBase45 = try base45Fake(
 			from: DigitalCovidCertificate.fake(
 				name: .fake(standardizedFamilyName: "BRAUSE", standardizedGivenName: "PASCAL"),
@@ -2050,7 +2049,7 @@ class HealthCertificateServiceTests: CWATestCase {
 			)
 		)
 		let healthCertificate = HealthCertificate.mock(base45: vaccinationCertificateBase45, validityState: .invalid)
-		
+
 		let healthCertifiedPerson = HealthCertifiedPerson(
 			healthCertificates: [
 				   healthCertificate
@@ -2059,12 +2058,12 @@ class HealthCertificateServiceTests: CWATestCase {
 		store.healthCertifiedPersons = [healthCertifiedPerson]
 
 		let expectation = expectation(description: "notificationRequests changed")
-		expectation.expectedFulfillmentCount = 3
+		expectation.expectedFulfillmentCount = 5
 
 		notificationCenter.onAdding = { _ in
 			expectation.fulfill()
 		}
-		
+
 		// WHEN
 		// When creating the service with the store, all certificates are checked for their validityStatus and thus their notifications are created.
 		let client = ClientMock()

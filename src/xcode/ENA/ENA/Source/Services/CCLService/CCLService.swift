@@ -16,10 +16,6 @@ enum DCCWalletInfoAccessError: Error {
 	case failedFunctionsEvaluation(Error)
 }
 
-struct DCCWalletInfo {
-
-}
-
 protocol CCLServable {
 	
 	func updateConfiguration(completion: (Swift.Result<Void, CLLServiceError>) -> Void)

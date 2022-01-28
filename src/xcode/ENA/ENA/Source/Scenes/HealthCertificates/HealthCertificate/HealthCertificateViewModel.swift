@@ -54,7 +54,7 @@ final class HealthCertificateViewModel {
 			}
 			.store(in: &subscriptions)
 
-		healthCertifiedPerson.$mostRelevantHealthCertificate
+		healthCertifiedPerson.$dccWalletInfo
 			.dropFirst()
 			.sink { [weak self] _ in
 				self?.updateGradient()
