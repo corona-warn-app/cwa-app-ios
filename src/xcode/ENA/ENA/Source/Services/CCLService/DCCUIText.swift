@@ -27,7 +27,7 @@ struct DCCUITextParameter {
 	let value: Any
 }
 
-public struct DCCUIText: Codable {
+public struct DCCUIText: Codable, Equatable {
 	let type: String
 	let quantity: Int?
 	let quantityParameterIndex: Int?
