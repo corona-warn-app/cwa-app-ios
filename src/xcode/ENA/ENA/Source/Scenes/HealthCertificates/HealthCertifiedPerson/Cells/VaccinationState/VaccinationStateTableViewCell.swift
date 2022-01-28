@@ -38,13 +38,16 @@ class VaccinationStateTableViewCell: UITableViewCell, UITextViewDelegate, ReuseI
 
 	func configure(with cellModel: VaccinationStateCellModel) {
 		titleLabel.text = cellModel.title
+		titleLabel.isHidden = (cellModel.title ?? "").isEmpty
+
 		subtitleLabel.text = cellModel.subtitle
+		subtitleLabel.isHidden = (cellModel.subtitle ?? "").isEmpty
+
 		descriptionLabel.text = cellModel.description
+		descriptionLabel.isHidden = (cellModel.description ?? "").isEmpty
 
 		faqLinkTextView.attributedText = cellModel.faqLink
-		faqLinkTextView.isHidden = cellModel.faqLink == nil
-
-		unseenNewsIndicator.isHidden = !cellModel.isUnseenNewsIndicatorVisible
+		faqLinkTextView.isHidden = (cellModel.faqLink?.string ?? "").isEmpty
 	}
 
 	// MARK: - Private
@@ -71,16 +74,6 @@ class VaccinationStateTableViewCell: UITableViewCell, UITextViewDelegate, ReuseI
 		return contentStackView
 	}()
 
-	private let titleStackView: UIStackView = {
-		let titleStackView = UIStackView()
-		titleStackView.axis = .horizontal
-		titleStackView.distribution = .fill
-		titleStackView.alignment = .center
-		titleStackView.spacing = 6
-
-		return titleStackView
-	}()
-
 	private let titleLabel: ENALabel = {
 		let titleLabel = ENALabel(style: .headline)
 		titleLabel.numberOfLines = 0
@@ -88,14 +81,6 @@ class VaccinationStateTableViewCell: UITableViewCell, UITextViewDelegate, ReuseI
 		titleLabel.setContentCompressionResistancePriority(.required, for: .horizontal)
 
 		return titleLabel
-	}()
-
-	private let unseenNewsIndicator: UIView = {
-		let unseenNewsIndicator = UIView()
-		unseenNewsIndicator.backgroundColor = .systemRed
-		unseenNewsIndicator.layer.cornerRadius = 5.5
-
-		return unseenNewsIndicator
 	}()
 
 	private let subtitleLabel: ENALabel = {
@@ -145,11 +130,8 @@ class VaccinationStateTableViewCell: UITableViewCell, UITextViewDelegate, ReuseI
 		contentStackView.translatesAutoresizingMaskIntoConstraints = false
 		backgroundContainerView.addSubview(contentStackView)
 
-		titleStackView.addArrangedSubview(titleLabel)
-		titleStackView.addArrangedSubview(unseenNewsIndicator)
-
-		contentStackView.addArrangedSubview(titleStackView)
-		contentStackView.setCustomSpacing(0, after: titleStackView)
+		contentStackView.addArrangedSubview(titleLabel)
+		contentStackView.setCustomSpacing(0, after: titleLabel)
 		contentStackView.addArrangedSubview(subtitleLabel)
 		contentStackView.addArrangedSubview(descriptionLabel)
 		contentStackView.setCustomSpacing(16, after: descriptionLabel)
@@ -165,10 +147,7 @@ class VaccinationStateTableViewCell: UITableViewCell, UITextViewDelegate, ReuseI
 				contentStackView.topAnchor.constraint(equalTo: backgroundContainerView.topAnchor, constant: 16.0),
 				contentStackView.bottomAnchor.constraint(equalTo: backgroundContainerView.bottomAnchor, constant: -16.0),
 				contentStackView.leadingAnchor.constraint(equalTo: backgroundContainerView.leadingAnchor, constant: 16.0),
-				contentStackView.trailingAnchor.constraint(equalTo: backgroundContainerView.trailingAnchor, constant: -16.0),
-
-				unseenNewsIndicator.widthAnchor.constraint(equalToConstant: 11),
-				unseenNewsIndicator.heightAnchor.constraint(equalToConstant: 11)
+				contentStackView.trailingAnchor.constraint(equalTo: backgroundContainerView.trailingAnchor, constant: -16.0)
 			]
 		)
 	}

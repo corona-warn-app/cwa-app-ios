@@ -2109,42 +2109,13 @@ enum AppStrings {
 
 			static let QRCodeImageDescription = NSLocalizedString("HealthCertifiedPerson_QRCode_Image_Description", comment: "")
 			static let validationButtonTitle = NSLocalizedString("HealthCertifiedPerson_validationButtonTitle", comment: "")
+
+			static let faq = NSLocalizedString("HealthCertifiedPerson_faq", comment: "")
+
 			static let currentlyUsedCertificate = NSLocalizedString("HealthCertifiedPerson_currentlyUsedCertificate", comment: "")
 			static let newlyAddedCertificate = NSLocalizedString("HealthCertifiedPerson_newlyAddedCertificate", comment: "")
 
-			enum VaccinationHint {
-				static let title = NSLocalizedString("HealthCertifiedPerson_VaccinationHint_title", comment: "")
-				static let daysSinceLastVaccination = NSLocalizedString("HealthCertifiedPerson_daysSinceLastVaccination", comment: "")
-				static let partiallyVaccinated = NSLocalizedString("HealthCertifiedPerson_partiallyVaccinated", comment: "")
-				static let daysUntilCompleteProtection = NSLocalizedString("HealthCertifiedPerson_daysUntilCompleteProtection", comment: "")
-				static let completelyProtected = NSLocalizedString("HealthCertifiedPerson_completelyProtected", comment: "")
-				static let boosterRuleFAQ = NSLocalizedString("HealthCertifiedPerson_boosterRuleFAQ", comment: "")
-				static let boosterRuleFAQPlaceholder = NSLocalizedString("HealthCertifiedPerson_boosterRuleFAQ_placeholder_FAQ", comment: "")
-			}
-			enum AdmissionState {
-				static let title = NSLocalizedString("HealthCertifiedPerson_AdmissionState_title", comment: "")
-				static let faq = NSLocalizedString("HealthCertifiedPerson_AdmissionStateFAQ", comment: "")
-				static let faqPlaceHolder = NSLocalizedString("HealthCertifiedPerson_AdmissionState_FAQ_Placeholder", comment: "")
-				static let subtitle2G = NSLocalizedString("HealthCertifiedPerson_AdmissionState_subtitle2G", comment: "")
-				static let subtitle2GPlusPCR = NSLocalizedString("HealthCertifiedPerson_AdmissionState_subtitle2GPlusPCR", comment: "")
-				static let subtitle2GPlusAntigen = NSLocalizedString("HealthCertifiedPerson_AdmissionState_subtitle2GPlusAntigen", comment: "")
-				static let subtitle3G = NSLocalizedString("HealthCertifiedPerson_AdmissionState_subtitle3G", comment: "")
-				static let subtitle3GPlus = NSLocalizedString("HealthCertifiedPerson_AdmissionState_subtitle3GPlus", comment: "")
-				
-				static let description2G = NSLocalizedString("HealthCertifiedPerson_AdmissionState_description2G", comment: "")
-				static let description2GPlusPCR = NSLocalizedString("HealthCertifiedPerson_AdmissionState_description2GPlusPCR", comment: "")
-				static let description2GPlusAntigen = NSLocalizedString("HealthCertifiedPerson_AdmissionState_description2GPlusAntigen", comment: "")
-				static let description3G = NSLocalizedString("HealthCertifiedPerson_AdmissionState_description3G", comment: "")
-				static let description3GPlus = NSLocalizedString("HealthCertifiedPerson_AdmissionState_description3GPlus", comment: "")
-			
-				enum ShortTitle {
-					static let title2G = NSLocalizedString("HealthCertifiedPerson_AdmissionState_shortTitle_title2G", comment: "")
-					static let title2GPlus = NSLocalizedString("HealthCertifiedPerson_AdmissionState_shortTitle_title2GPlus", comment: "")
-					static let title3G = NSLocalizedString("HealthCertifiedPerson_AdmissionState_shortTitle_title3G", comment: "")
-					static let title3GPlus = NSLocalizedString("HealthCertifiedPerson_AdmissionState_shortTitle_title3GPlus", comment: "")
 
-				}
-			}
 			enum PreferredPerson {
 				static let dateOfBirth = NSLocalizedString("HealthCertifiedPerson_dateOfBirth", comment: "")
 				static let description = NSLocalizedString("HealthCertifiedPerson_preferredPersonDescription", comment: "")
