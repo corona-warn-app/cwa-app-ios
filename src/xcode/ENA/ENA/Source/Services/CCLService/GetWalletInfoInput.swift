@@ -8,6 +8,20 @@ import CertLogic
 
 struct SystemTime: Codable {
 	
+	// MARK: - Init
+
+	init(_ date: Date) {
+		self.timestamp = Int(date.timeIntervalSince1970)
+		self.localDate = DateFormatter.localDateFormatter.string(from: date)
+		self.localDateTime = DateFormatter.localDateTimeFormatter.string(from: date)
+		self.localDateTimeMidnight = DateFormatter.localDateMidnightTimeFormatter.string(from: date)
+		self.utcDate = DateFormatter.utcDateFormatter.string(from: date)
+		self.utcDateTime = DateFormatter.utcDateTimeFormatter.string(from: date)
+		self.utcDateTimeMidnight = DateFormatter.utcDateTimeMidnightFormatter.string(from: date)
+	}
+	
+	// MARK: - Internal
+
 	let timestamp: Int
 	let localDate: String
 	let localDateTime: String
@@ -25,15 +39,7 @@ enum GetWalletInfoInput {
 		certificates: [DCCWalletCertificate],
 		boosterNotificationRules: [Rule]
 	) -> [String: AnyDecodable] {
-		let systemTime = SystemTime(
-			timestamp: Int(Date().timeIntervalSince1970),
-			localDate: DateFormatter.localDateFormatter.string(from: date),
-			localDateTime: DateFormatter.localDateTimeFormatter.string(from: date),
-			localDateTimeMidnight: DateFormatter.localDateMidnightTimeFormatter.string(from: date),
-			utcDate: DateFormatter.utcDateFormatter.string(from: date),
-			utcDateTime: DateFormatter.utcDateTimeFormatter.string(from: date),
-			utcDateTimeMidnight: DateFormatter.utcDateTimeMidnightFormatter.string(from: date)
-		)
+		let systemTime = SystemTime(date)
 		return [
 			"os": AnyDecodable("ios"),
 			"language": AnyDecodable(language),
