@@ -1039,6 +1039,7 @@
 		AB2628DA27A2E348003D39A6 /* GetWalletInfoInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB2628D927A2E348003D39A6 /* GetWalletInfoInput.swift */; };
 		AB2628DD27A2FACF003D39A6 /* GetWalletInfoInputTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB2628DC27A2FACF003D39A6 /* GetWalletInfoInputTests.swift */; };
 		AB2628DF27A3E1B6003D39A6 /* DateFormatters.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB2628DE27A3E1B6003D39A6 /* DateFormatters.swift */; };
+		AB2628E127A3F220003D39A6 /* HealthCertificateMapping.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB2628E027A3F220003D39A6 /* HealthCertificateMapping.swift */; };
 		AB2F094A25D1687300C16309 /* SurveyURLProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB2F094925D1687300C16309 /* SurveyURLProvider.swift */; };
 		AB2F094F25D169DC00C16309 /* SurveyURLServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB2F094E25D169DC00C16309 /* SurveyURLServiceTests.swift */; };
 		AB347879269C8D770016A8AB /* dcc-validation-rules-common-test-cases.json in Resources */ = {isa = PBXBuildFile; fileRef = AB347878269C8D770016A8AB /* dcc-validation-rules-common-test-cases.json */; };
@@ -2702,6 +2703,7 @@
 		AB2628D927A2E348003D39A6 /* GetWalletInfoInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetWalletInfoInput.swift; sourceTree = "<group>"; };
 		AB2628DC27A2FACF003D39A6 /* GetWalletInfoInputTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetWalletInfoInputTests.swift; sourceTree = "<group>"; };
 		AB2628DE27A3E1B6003D39A6 /* DateFormatters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatters.swift; sourceTree = "<group>"; };
+		AB2628E027A3F220003D39A6 /* HealthCertificateMapping.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthCertificateMapping.swift; sourceTree = "<group>"; };
 		AB2F094925D1687300C16309 /* SurveyURLProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SurveyURLProvider.swift; sourceTree = "<group>"; };
 		AB2F094E25D169DC00C16309 /* SurveyURLServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SurveyURLServiceTests.swift; sourceTree = "<group>"; };
 		AB347878269C8D770016A8AB /* dcc-validation-rules-common-test-cases.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "dcc-validation-rules-common-test-cases.json"; sourceTree = "<group>"; };
@@ -3880,6 +3882,7 @@
 				01635EB0275A154C00A479EB /* HealthCertifiedPersonAdmissionState.swift */,
 				01E102652668D40E009ED803 /* TestCertificateRequest.swift */,
 				BAAC573126CBEF7C0049B55C /* VaccinationProductType.swift */,
+				AB2628E027A3F220003D39A6 /* HealthCertificateMapping.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -10509,6 +10512,7 @@
 				01CBB824265E74FF0094CF8B /* HealthCertificateOverviewViewController.swift in Sources */,
 				EB17144625716EA80088D7A9 /* FileManager+KeyPackageStorage.swift in Sources */,
 				01E102642667B031009ED803 /* TestedPerson.swift in Sources */,
+				AB2628E127A3F220003D39A6 /* HealthCertificateMapping.swift in Sources */,
 				5006C275260E2A4900533CAA /* CheckinWithRisk.swift in Sources */,
 				AB124E202604EC34009004B3 /* DeleteAllTraceWarningPackageMetadataQuery.swift in Sources */,
 				ABE9613F25EFEC3700D0F699 /* InstallationDate.swift in Sources */,
