@@ -28,7 +28,7 @@ public struct CCLConfiguration: Codable {
 			case jfnDescriptors = "JfnDescriptors"
 		}
 		
-		let jfnDescriptors: [JsonFunctionDescriptor]
+		let jfnDescriptors: [CCLFunctionDescriptor]
 	}
 	
     public let identifier: String
@@ -43,7 +43,7 @@ public struct CCLConfiguration: Codable {
     public let logic: Logic
 }
 
-public struct JsonFunctionDescriptor: Codable {
+public struct CCLFunctionDescriptor: Codable {
     let name: String
     let definition: JsonFunctionDefinition
 }
