@@ -3,7 +3,6 @@
 //
 
 import jsonfunctions
-import AnyCodable
 
 public struct CCLConfiguration: Codable {
 	
