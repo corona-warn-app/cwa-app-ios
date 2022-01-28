@@ -122,7 +122,7 @@
 
 "ExposureDetection_Guide_Vaccination_HighRisk" = "If you have not been vaccinated yet, consult with your family doctor after you get tested.";
 
-"ExposureDetection_Guide_Title" = "Please get tested, even if you don’t have any symptoms. If you get a warning of increased risk (“red tile”), you are entitled to a test free of charge. Your entitlement to a free rapid antigen test may be limited, depending on the local regulations. We recommend taking a PCR test, especially when it is free of charge.";
+"ExposureDetection_Guide_Title" = "Please get tested, even if you don’t have any symptoms. If you get a warning of increased risk (“red tile”), you are entitled to a test free of charge. It does not necessarily have to be a PCR test.";
 
 "ExposureDetection_Guide_Point1" = "You can find testing possibilities here. You can also contact your family doctor or a pharmacy.";
 
@@ -1876,7 +1876,7 @@
 
 "ContactDiary_Information_DescriptionTitle" = "Keep track of your contacts.";
 
-"ContactDiary_Information_DescriptionSubHeadline" = "Create an overview of your contacts in the last 14 days, so you’ll have a complete list at hand quickly if needed. Your exposures are also displayed here.";
+"ContactDiary_Information_DescriptionSubHeadline" = "Create an overview of your contacts in the last 15 days, so you’ll have a complete list at hand quickly if needed. Your exposures are also displayed here.";
 
 "ContactDiary_Information_Item_Person_Title" = "Enter the people you have met.";
 
@@ -2116,7 +2116,7 @@
 
 "Statistics_Info_KeySubmissions_Text" = "Number of app users who have been diagnosed with coronavirus via PCR test and have warned others through the app.";
 
-"Statistics_Info_ReproductionNumber_Title" = "7-Day R Value";
+"Statistics_Info_ReproductionNumber_Title" = "7-day R value";
 
 "Statistics_Info_ReproductionNumber_Text" = "The reproduction figure, R, indicates how many people an average infected person has infected further. The current value takes data up to the last 5 days into account.";
 
@@ -2128,7 +2128,7 @@
 
 "Statistics_Info_FullyVaccinated_Text" = "Number of persons reported to the RKI who have received all the vaccine doses necessary for basic immunization.";
 
-"Statistics_Info_BoosterVaccination_Title" = "People Who Have Received a Booster Vaccination";
+"Statistics_Info_BoosterVaccination_Title" = "People who have received a booster vaccination";
 
 "Statistics_Info_BoosterVaccination_Text" = "Number of persons reported to the RKI who have received a booster vaccination.";
 
@@ -2723,7 +2723,7 @@
 
 "HealthCertificate_Validation_Info_byCar" = "Enter the planned local arrival time at the border of your destination country.";
 
-"HealthCertificate_Validation_Info_byPlane" = "If you are traveling by air, select the scheduled departure time of your flight.";
+"HealthCertificate_Validation_Info_byPlane" = "If you are traveling by air, enter the scheduled departure time of your flight.";
 
 /* Health Certificate Overview */
 "HealthCertificate_Overview_title" = "Certificates";
