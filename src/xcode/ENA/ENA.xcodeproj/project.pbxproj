@@ -1037,6 +1037,8 @@
 		AB1EEC1026382BC20001D1DB /* ExposureSubmissionIntroViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB1EEC0F26382BC20001D1DB /* ExposureSubmissionIntroViewModelTests.swift */; };
 		AB1FCBD42521FC47005930BA /* EnvironmentTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB1FCBCC2521FC44005930BA /* EnvironmentTests.swift */; };
 		AB2628DA27A2E348003D39A6 /* GetWalletInfoInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB2628D927A2E348003D39A6 /* GetWalletInfoInput.swift */; };
+		AB2628DD27A2FACF003D39A6 /* GetWalletInfoInputTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB2628DC27A2FACF003D39A6 /* GetWalletInfoInputTests.swift */; };
+		AB2628DF27A3E1B6003D39A6 /* DateFormatters.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB2628DE27A3E1B6003D39A6 /* DateFormatters.swift */; };
 		AB2F094A25D1687300C16309 /* SurveyURLProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB2F094925D1687300C16309 /* SurveyURLProvider.swift */; };
 		AB2F094F25D169DC00C16309 /* SurveyURLServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB2F094E25D169DC00C16309 /* SurveyURLServiceTests.swift */; };
 		AB347879269C8D770016A8AB /* dcc-validation-rules-common-test-cases.json in Resources */ = {isa = PBXBuildFile; fileRef = AB347878269C8D770016A8AB /* dcc-validation-rules-common-test-cases.json */; };
@@ -2698,6 +2700,8 @@
 		AB1FCBCC2521FC44005930BA /* EnvironmentTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnvironmentTests.swift; sourceTree = "<group>"; };
 		AB1FCBDB2521FCD5005930BA /* TestEnvironments.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = TestEnvironments.json; sourceTree = "<group>"; };
 		AB2628D927A2E348003D39A6 /* GetWalletInfoInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetWalletInfoInput.swift; sourceTree = "<group>"; };
+		AB2628DC27A2FACF003D39A6 /* GetWalletInfoInputTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetWalletInfoInputTests.swift; sourceTree = "<group>"; };
+		AB2628DE27A3E1B6003D39A6 /* DateFormatters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatters.swift; sourceTree = "<group>"; };
 		AB2F094925D1687300C16309 /* SurveyURLProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SurveyURLProvider.swift; sourceTree = "<group>"; };
 		AB2F094E25D169DC00C16309 /* SurveyURLServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SurveyURLServiceTests.swift; sourceTree = "<group>"; };
 		AB347878269C8D770016A8AB /* dcc-validation-rules-common-test-cases.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "dcc-validation-rules-common-test-cases.json"; sourceTree = "<group>"; };
@@ -6863,6 +6867,14 @@
 			path = __tests__;
 			sourceTree = "<group>";
 		};
+		AB2628DB27A2FABC003D39A6 /* __tests__ */ = {
+			isa = PBXGroup;
+			children = (
+				AB2628DC27A2FACF003D39A6 /* GetWalletInfoInputTests.swift */,
+			);
+			path = __tests__;
+			sourceTree = "<group>";
+		};
 		AB51905F26CEA72400E2E4EE /* PDFGeneration */ = {
 			isa = PBXGroup;
 			children = (
@@ -7136,9 +7148,11 @@
 		ABB8DF5E2799BE9700DD99E4 /* CCLService */ = {
 			isa = PBXGroup;
 			children = (
+				AB2628DB27A2FABC003D39A6 /* __tests__ */,
 				ABB8DF5F2799BEC300DD99E4 /* CCLService.swift */,
 				AB77385227A160A000B9EA95 /* DCCWalletCertificate.swift */,
 				AB2628D927A2E348003D39A6 /* GetWalletInfoInput.swift */,
+				AB2628DE27A3E1B6003D39A6 /* DateFormatters.swift */,
 			);
 			path = CCLService;
 			sourceTree = "<group>";
@@ -10549,6 +10563,7 @@
 				8FDB9403261FBA3800BA8CB1 /* AntigenTestQRCodeInformation.swift in Sources */,
 				5071A88226EB80D900B09B40 /* ServiceError.swift in Sources */,
 				013069522705D4A900D945E3 /* QRScannerTooltipViewController.swift in Sources */,
+				AB2628DF27A3E1B6003D39A6 /* DateFormatters.swift in Sources */,
 				8FEC1231275656AC00C5DADC /* TicketValidationAllowList.swift in Sources */,
 				017D8DAC263BEF920009E91C /* HealthCertificateServiceError.swift in Sources */,
 				503ACBFB26F36D1700C31352 /* HealthCertificateCoordinator.swift in Sources */,
@@ -11074,6 +11089,7 @@
 				AB5F84BB24F92876000400D4 /* Migration0To1Tests.swift in Sources */,
 				3583490C264AAE5600C4888D /* StreamReaderTests.swift in Sources */,
 				504E8AD125D2CE0600CAFBDF /* PPAnalyticsSubmitterTests.swift in Sources */,
+				AB2628DD27A2FACF003D39A6 /* GetWalletInfoInputTests.swift in Sources */,
 				50DC527B24FEB5CA00F6D8EB /* AppInformationModelTest.swift in Sources */,
 				010A47512751415E000AA80E /* TicketValidationAccessToken+Fake.swift in Sources */,
 				BA8BBA08255A90690034D4BC /* WifiHTTPClientTests.swift in Sources */,
