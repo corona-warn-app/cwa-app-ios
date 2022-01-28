@@ -18,14 +18,6 @@ struct CacheData: Codable {
 		self.date = date
 	}
 
-	// MARK: - Protocol Codable
-
-	enum CodingKeys: String, CodingKey {
-		case data
-		case eTag
-		case date
-	}
-
 	// MARK: - Internal
 
 	let data: Data
