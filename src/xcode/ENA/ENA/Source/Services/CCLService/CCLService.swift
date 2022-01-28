@@ -13,8 +13,8 @@ enum CLLServiceError: Error {
 }
 
 enum DCCWalletInfoAccessError: Error {
-	case unsuppportedLocale
-	case unknown(Error)
+	case unsuppportedLanguage
+	case failedFunctionsEvaluation(Error)
 }
 
 struct DCCWalletInfo {
@@ -46,25 +46,23 @@ class CLLService: CCLServable {
 	}
 	
 	func dccWalletInfo(for certificates: [DCCWalletCertificate]) -> Swift.Result<DCCWalletInfo, DCCWalletInfoAccessError> {
-		
 		guard let language = Locale.current.languageCodeIfSupported else {
-			return .failure(.unsuppportedLocale)
+			return .failure(.unsuppportedLanguage)
 		}
+		let getWalletInfoInput = GetWalletInfoInput.make(
+			language: language,
+			certificates: certificates,
+			boosterNotificationRules: boosterNotificationRules
+		)
 		
 		do {
-			let getWalletInfoInput = GetWalletInfoInput.make(
-				language: language,
-				certificates: certificates,
-				boosterNotificationRules: boosterNotificationRules
-			)
 			let walletInfo: DCCWalletInfo = try jsonFunctions.evaluateFunction(
 				name: "getDCCWalletInfo",
 				parameters: getWalletInfoInput
 			)
-			
 			return .success(walletInfo)
 		} catch {
-			return .failure(.unknown(error))
+			return .failure(.failedFunctionsEvaluation(error))
 		}
 	}
 	
