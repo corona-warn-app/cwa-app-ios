@@ -132,5 +132,58 @@ final class CCLConfigurationResourceTests: CWATestCase {
 		waitForExpectations(timeout: .medium)
 	}
 	
+	// We ensure with this test that the default model file is working. This code is duplicated from the CCLConfigurationResource because there is no other way to test it.
+	func testGIVEN_DefaultModel_WHEN_Decoding_THEN_CCLConfigIsReturned() throws {
+		// GIVEN
+		let expectation = self.expectation(description: "completion handler succeeds")
+
+		guard let url = Bundle.main.url(forResource: "ccl-configuration", withExtension: "bin"),
+			  let fallbackBin = try? Data(contentsOf: url) else {
+				  XCTFail("Creating the default model failed due to loading default bin from disc")
+				  return
+			  }
+		
+		// WHEN
+		switch CCLConfigurationReceiveModel.make(with: fallbackBin) {
+		case .success(let model):
+			XCTAssertEqual(model.cclConfigurations.count, 1)
+		case .failure(let error):
+			XCTFail("Test should not fail with error: \(error)")
+		}
+		expectation.fulfill()
+		
+		// THEN
+		waitForExpectations(timeout: .medium)
+	}
 	
+	// MARK: - Failures
+		
+	func testGIVEN_DefaultModel_WHEN_Decoding_THEN_CCLConfigurationAccessErrorCBOR_DECODING_FAILED() throws {
+		// GIVEN
+		let expectation = self.expectation(description: "completion handler fails")
+
+		let corruptData = try XCTUnwrap(Archive.createArchiveData(
+			accessMode: .create,
+			cborData: HealthCertificateToolkit.CCLConfigurationCBORDataFake_corrupt()
+		))
+		
+		// WHEN
+		switch CCLConfigurationReceiveModel.make(with: corruptData) {
+		case .success:
+			XCTFail("Test should not succeed.")
+		case let .failure(error):
+			// Successful test if we can unpack the error to an CCLConfigurationAccessError.CBOR_DECODING_FAILED containing some error we are not interested in.
+			guard case let .CBOR_DECODING_CLLCONFIGURATION(accessError) = error,
+				  case CCLConfigurationAccessError.CBOR_DECODING_FAILED = accessError else {
+					  XCTFail("Received wrong error type")
+					  return
+				  }
+		}
+		expectation.fulfill()
+		
+		// THEN
+		waitForExpectations(timeout: .medium)
+	}
+	
+	// Any other error cases do not exist because we always return a config - either the cached one or the default one. If CBOR Decoding will fail for the fresh one, we will return the default one.
 }
