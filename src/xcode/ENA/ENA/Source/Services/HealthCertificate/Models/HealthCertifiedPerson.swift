@@ -294,7 +294,7 @@ class HealthCertifiedPerson: Codable, Equatable, Comparable {
 
 	@objc
 	private func updateDCCWalletInfo() {
-
+		// To be implemented in EXPOSUREAPP-11475
 	}
 
 }

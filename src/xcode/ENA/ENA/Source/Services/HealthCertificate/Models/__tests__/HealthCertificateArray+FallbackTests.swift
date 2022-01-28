@@ -9,4 +9,6 @@ import HealthCertificateToolkit
 
 class HealthCertificateArrayFallbackTests: CWATestCase {
 
+	// To be implemented in EXPOSUREAPP-11604
+
 }
