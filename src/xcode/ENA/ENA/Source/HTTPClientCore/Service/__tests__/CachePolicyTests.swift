@@ -43,7 +43,7 @@ class CachePolicyTests: XCTestCase {
 		// midnight is oldest possible date within the same day
 		let midnightDate = try XCTUnwrap(midnight)
 		let cache = KeyValueCacheFake()
-		cache[locator.hashValue] = CacheData(data: cachedDummyData, eTag: eTag, serverDate: nil, clientDate: midnightDate)
+		cache[locator.hashValue] = CacheData(data: cachedDummyData, eTag: eTag, date: midnightDate)
 
 		let newResponseData = try JSONEncoder().encode(
 			DummyResourceModel(
@@ -94,7 +94,7 @@ class CachePolicyTests: XCTestCase {
 
 		let beforeMidnightDate = try XCTUnwrap(date(hours: -4, fromDate: midnight))
 		let cache = KeyValueCacheFake()
-		cache[locator.hashValue] = CacheData(data: cachedDummyData, eTag: eTag, serverDate: nil, clientDate: beforeMidnightDate)
+		cache[locator.hashValue] = CacheData(data: cachedDummyData, eTag: eTag, date: beforeMidnightDate)
 
 		let newResponseData = try JSONEncoder().encode(
 			DummyResourceModel(
@@ -105,15 +105,15 @@ class CachePolicyTests: XCTestCase {
 		let stack = MockNetworkStack(
 			httpStatus: 200,
 			headerFields: [
-				"ETag": eTag
+				"ETag": eTag,
+				"Date": ENAFormatter.httpDateHeaderFormatter.string(from: today)
 			],
 			responseData: newResponseData
 		)
 
 		let cachedService = CachedRestService(
 			session: stack.urlSession,
-			cache: cache,
-			fakeClientCacheDate: today
+			cache: cache
 		)
 
 		let resource = ResourceFake(
@@ -134,8 +134,10 @@ class CachePolicyTests: XCTestCase {
 		}
 		waitForExpectations(timeout: .short)
 
+		// check if cache got updated too
 		let cachedData = try XCTUnwrap(cache[locator.hashValue])
-		XCTAssertEqual(cachedData.clientDate, today)
+		let cachedModel = try JSONDecoder().decode(DummyResourceModel.self, from: cachedData.data)
+		XCTAssertEqual(cachedModel.dummyValue, "new data")
 	}
 
 	func testGIVEN_policyLoadOnlyOnceADay_WHEN_cacheDateIsOlderThenSameDay_THEN_NotModifiedResultIsCachedModel() throws {
@@ -149,7 +151,7 @@ class CachePolicyTests: XCTestCase {
 
 		let beforeMidnightDate = try XCTUnwrap(date(hours: -4, fromDate: midnight))
 		let cache = KeyValueCacheFake()
-		cache[locator.hashValue] = CacheData(data: cachedDummyData, eTag: eTag, serverDate: nil, clientDate: beforeMidnightDate)
+		cache[locator.hashValue] = CacheData(data: cachedDummyData, eTag: eTag, date: beforeMidnightDate)
 
 		let stack = MockNetworkStack(
 			httpStatus: 304,
@@ -232,7 +234,7 @@ class CachePolicyTests: XCTestCase {
 		let locator: Locator = .fake()
 
 		let cache = KeyValueCacheFake()
-		cache[locator.hashValue] = CacheData(data: cachedDummyData, eTag: eTag, serverDate: nil, clientDate: Date())
+		cache[locator.hashValue] = CacheData(data: cachedDummyData, eTag: eTag, date: Date())
 
 		let stack = MockNetworkStack(
 			httpStatus: 500,
@@ -380,7 +382,7 @@ class CachePolicyTests: XCTestCase {
 		let locator: Locator = .fake()
 
 		let cache = KeyValueCacheFake()
-		cache[locator.hashValue] = CacheData(data: cachedDummyData, eTag: eTag, serverDate: nil, clientDate: Date())
+		cache[locator.hashValue] = CacheData(data: cachedDummyData, eTag: eTag, date: Date())
 
 		let stack = MockNetworkStack(
 			httpStatus: 404,

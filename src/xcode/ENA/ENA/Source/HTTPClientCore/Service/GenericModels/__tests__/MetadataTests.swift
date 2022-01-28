@@ -70,8 +70,8 @@ class MetadataTests: CWATestCase {
 		)
 		
 		let cache = KeyValueCacheFake()
-		cache[resource.locator.hashValue] = CacheData(data: archiveData, eTag: "Some eTag", serverDate: nil, clientDate: Date())
-		
+		cache[resource.locator.hashValue] = CacheData(data: archiveData, eTag: "Some eTag", date: Date())
+
 		let serviceProvider = RestServiceProvider(
 			session: stack.urlSession,
 			cache: cache
@@ -114,7 +114,7 @@ class MetadataTests: CWATestCase {
 		)
 		
 		let cache = KeyValueCacheFake()
-		cache[resource.locator.hashValue] = CacheData(data: archiveData, eTag: "Some eTag", serverDate: nil, clientDate: Date())
+		cache[resource.locator.hashValue] = CacheData(data: archiveData, eTag: "Some eTag", date: Date())
 		
 		let serviceProvider = RestServiceProvider(
 			session: stack.urlSession,
