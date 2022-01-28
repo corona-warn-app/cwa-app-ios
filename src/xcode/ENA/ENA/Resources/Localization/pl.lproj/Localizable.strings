@@ -2723,7 +2723,7 @@
 
 "HealthCertificate_Validation_Info_byCar" = "Wprowadź planowany lokalny czas przybycia na granicę kraju docelowego.";
 
-"HealthCertificate_Validation_Info_byPlane" = "Jeśli podróżujesz samolotem, wybierz planowany czas odlotu.";
+"HealthCertificate_Validation_Info_byPlane" = "Jeśli podróżujesz samolotem, wpisz planowany czas odlotu.";
 
 /* Health Certificate Overview */
 "HealthCertificate_Overview_title" = "Certyfikaty";

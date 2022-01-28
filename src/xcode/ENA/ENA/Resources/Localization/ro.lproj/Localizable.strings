@@ -2723,7 +2723,7 @@
 
 "HealthCertificate_Validation_Info_byCar" = "Introduceți ora de sosire locală planificată la granița țării de destinație.";
 
-"HealthCertificate_Validation_Info_byPlane" = "În cazul în care călătoriți cu avionul, selectați ora de plecare programată a zborului.";
+"HealthCertificate_Validation_Info_byPlane" = "În cazul în care călătoriți cu avionul, introduceți ora de plecare programată a zborului.";
 
 /* Health Certificate Overview */
 "HealthCertificate_Overview_title" = "Certificate";
