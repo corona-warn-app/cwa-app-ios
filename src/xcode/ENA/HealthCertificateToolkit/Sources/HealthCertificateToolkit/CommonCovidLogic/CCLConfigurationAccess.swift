@@ -7,7 +7,6 @@ import SwiftCBOR
 
 public enum CCLConfigurationAccessError: Error {
     case CBOR_DECODING_FAILED(Error?)
-    case JSON_ENCODING_FAILED(Error?)
 }
 
 public struct CCLConfigurationAccess {
