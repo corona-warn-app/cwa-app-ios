@@ -25,8 +25,9 @@ final class HealthCertifiedPersonViewModel {
 		self.didTapValidationButton = didTapValidationButton
 		self.showInfo = showInfoHit
 
-		self.vaccinationStateCellViewModel = VaccinationStateCellModel(healthCertifiedPerson: healthCertifiedPerson)
-		self.vaccinationAdmissionStateViewModel = AdmissionStateCellModel(healthCertifiedPerson: healthCertifiedPerson)
+		self.boosterNotificationCellModel = BoosterNotificationCellModel(healthCertifiedPerson: healthCertifiedPerson)
+		self.admissionStateCellModel = AdmissionStateCellModel(healthCertifiedPerson: healthCertifiedPerson)
+		self.vaccinationStateCellModel = VaccinationStateCellModel(healthCertifiedPerson: healthCertifiedPerson)
 		
 		constructHealthCertificateCellViewModels(for: healthCertifiedPerson)
 
@@ -65,6 +66,7 @@ final class HealthCertifiedPersonViewModel {
 	enum TableViewSection: Int, CaseIterable {
 		case header
 		case qrCode
+		case boosterNotification
 		case admissionState
 		case vaccinationState
 		case person
@@ -116,8 +118,9 @@ final class HealthCertifiedPersonViewModel {
 		)
 	}
 
-	let vaccinationStateCellViewModel: VaccinationStateCellModel
-	let vaccinationAdmissionStateViewModel: AdmissionStateCellModel
+	let boosterNotificationCellModel: BoosterNotificationCellModel
+	let admissionStateCellModel: AdmissionStateCellModel
+	let vaccinationStateCellModel: VaccinationStateCellModel
 
 	@OpenCombine.Published private(set) var gradientType: GradientView.GradientType = .lightBlue
 	@OpenCombine.Published private(set) var triggerReload: Bool = false
@@ -142,6 +145,10 @@ final class HealthCertifiedPersonViewModel {
 		)
 	}
 
+	var boosterNotificationIsVisible: Bool {
+		healthCertifiedPerson.dccWalletInfo?.boosterNotification.visible ?? false
+	}
+
 	var vaccinationStateIsVisible: Bool {
 		healthCertifiedPerson.dccWalletInfo?.vaccinationState.visible ?? false
 	}
@@ -162,6 +169,8 @@ final class HealthCertifiedPersonViewModel {
 			return 1
 		case .qrCode:
 			return 1
+		case .boosterNotification:
+			return boosterNotificationIsVisible ? 1 : 0
 		case .admissionState:
 			return admissionStateIsVisible ? 1 : 0
 		case .vaccinationState:

@@ -360,6 +360,8 @@
 		01DE60792744EFF000E12FA4 /* TicketValidationQRScannerError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01DE60782744EFF000E12FA4 /* TicketValidationQRScannerError.swift */; };
 		01DE607B274517B300E12FA4 /* TicketValidationQRCodeParserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01DE607A274517B200E12FA4 /* TicketValidationQRCodeParserTests.swift */; };
 		01DED64827A2E712006A958C /* DCCWalletInfo+Fake.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01C5F300279EA48600F60047 /* DCCWalletInfo+Fake.swift */; };
+		01DED65027A45704006A958C /* BoosterNotificationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01DED64D27A44E97006A958C /* BoosterNotificationTableViewCell.swift */; };
+		01DED65127A45704006A958C /* BoosterNotificationCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01DED64C27A44E97006A958C /* BoosterNotificationCellModel.swift */; };
 		01DF186E2603B28200A002E4 /* TraceLocationsOverviewViewModelTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01DF186A2603B17000A002E4 /* TraceLocationsOverviewViewModelTest.swift */; };
 		01DF188E2608D3BB00A002E4 /* TraceLocationConfigurationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01DF188D2608D3BB00A002E4 /* TraceLocationConfigurationViewController.xib */; };
 		01E0C93C26C6879B00110941 /* OnBehalfTraceLocationCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01E0C93B26C6879B00110941 /* OnBehalfTraceLocationCellModel.swift */; };
@@ -1995,6 +1997,8 @@
 		01DE60762744EFB200E12FA4 /* TicketValidationQRCodeParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketValidationQRCodeParser.swift; sourceTree = "<group>"; };
 		01DE60782744EFF000E12FA4 /* TicketValidationQRScannerError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketValidationQRScannerError.swift; sourceTree = "<group>"; };
 		01DE607A274517B200E12FA4 /* TicketValidationQRCodeParserTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketValidationQRCodeParserTests.swift; sourceTree = "<group>"; };
+		01DED64C27A44E97006A958C /* BoosterNotificationCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoosterNotificationCellModel.swift; sourceTree = "<group>"; };
+		01DED64D27A44E97006A958C /* BoosterNotificationTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoosterNotificationTableViewCell.swift; sourceTree = "<group>"; };
 		01DF186A2603B17000A002E4 /* TraceLocationsOverviewViewModelTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraceLocationsOverviewViewModelTest.swift; sourceTree = "<group>"; };
 		01DF188D2608D3BB00A002E4 /* TraceLocationConfigurationViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TraceLocationConfigurationViewController.xib; sourceTree = "<group>"; };
 		01E0C93B26C6879B00110941 /* OnBehalfTraceLocationCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnBehalfTraceLocationCellModel.swift; sourceTree = "<group>"; };
@@ -4177,8 +4181,8 @@
 		01B5DFDA26E0FFDB00043955 /* VaccinationState */ = {
 			isa = PBXGroup;
 			children = (
-				01B5DFD726E0FD9500043955 /* VaccinationStateTableViewCell.swift */,
 				01B5DFD626E0FD9400043955 /* VaccinationStateCellModel.swift */,
+				01B5DFD726E0FD9500043955 /* VaccinationStateTableViewCell.swift */,
 			);
 			path = VaccinationState;
 			sourceTree = "<group>";
@@ -4429,6 +4433,15 @@
 				34039DD7274E6C7B000AF3C4 /* TicketValidationConditions+CertificateSelection.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		01DED64927A44E97006A958C /* BoosterNotification */ = {
+			isa = PBXGroup;
+			children = (
+				01DED64C27A44E97006A958C /* BoosterNotificationCellModel.swift */,
+				01DED64D27A44E97006A958C /* BoosterNotificationTableViewCell.swift */,
+			);
+			path = BoosterNotification;
 			sourceTree = "<group>";
 		};
 		01DF18692603B16800A002E4 /* __tests__ */ = {
@@ -8453,6 +8466,7 @@
 				0191556E2680DACD00D49C88 /* HealthCertificate */,
 				019155682680DAB400D49C88 /* PreferredPerson */,
 				01B5DFDA26E0FFDB00043955 /* VaccinationState */,
+				01DED64927A44E97006A958C /* BoosterNotification */,
 				8F56B26B276370F8007D4E29 /* AdmissionState */,
 			);
 			path = Cells;
@@ -10348,6 +10362,7 @@
 				BAF5371625E7CC1B00C835E2 /* Sequence+NSAttributedText.swift in Sources */,
 				50C0299125E4067400460FA4 /* LastSubmissionFlowScreen.swift in Sources */,
 				010A476F27551B18000AA80E /* TicketValidationResultTokenResult.swift in Sources */,
+				01DED65127A45704006A958C /* BoosterNotificationCellModel.swift in Sources */,
 				8F3167E626A5D906008F35AA /* RegionStatisticsData.swift in Sources */,
 				01164CD926C569A5007F9C3E /* OnBehalfThankYouViewController.swift in Sources */,
 				01E102662668D40F009ED803 /* TestCertificateRequest.swift in Sources */,
@@ -10683,6 +10698,7 @@
 				01C2D43E2501225100FB23BF /* MockExposureSubmissionService.swift in Sources */,
 				01B72B6D25821D2800A3E3BC /* DiaryDayEmptyStateViewModel.swift in Sources */,
 				505F508325C897B3004920EB /* OTPError.swift in Sources */,
+				01DED65027A45704006A958C /* BoosterNotificationTableViewCell.swift in Sources */,
 				8FDB9403261FBA3800BA8CB1 /* AntigenTestQRCodeInformation.swift in Sources */,
 				5071A88226EB80D900B09B40 /* ServiceError.swift in Sources */,
 				013069522705D4A900D945E3 /* QRScannerTooltipViewController.swift in Sources */,

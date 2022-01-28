@@ -98,14 +98,19 @@ class HealthCertifiedPersonViewController: UIViewController, UITableViewDataSour
 			cell.configure(with: viewModel.qrCodeCellViewModel)
 			return cell
 
+		case .boosterNotification:
+			let cell = tableView.dequeueReusableCell(cellType: BoosterNotificationTableViewCell.self, for: indexPath)
+			cell.configure(with: viewModel.boosterNotificationCellModel)
+			return cell
+
 		case .admissionState:
 			let cell = tableView.dequeueReusableCell(cellType: AdmissionStateTableViewCell.self, for: indexPath)
-			cell.configure(with: viewModel.vaccinationAdmissionStateViewModel)
+			cell.configure(with: viewModel.admissionStateCellModel)
 			return cell
 
 		case .vaccinationState:
 			let cell = tableView.dequeueReusableCell(cellType: VaccinationStateTableViewCell.self, for: indexPath)
-			cell.configure(with: viewModel.vaccinationStateCellViewModel)
+			cell.configure(with: viewModel.vaccinationStateCellModel)
 			return cell
 
 		case .person:
@@ -289,25 +294,28 @@ class HealthCertifiedPersonViewController: UIViewController, UITableViewDataSour
 			forCellReuseIdentifier: HealthCertificateSimpleTextCell.reuseIdentifier
 		)
 		tableView.register(
-			AdmissionStateTableViewCell.self,
-			forCellReuseIdentifier: AdmissionStateTableViewCell.reuseIdentifier
-		)
-
-		tableView.register(
 			HealthCertificateQRCodeCell.self,
 			forCellReuseIdentifier: HealthCertificateQRCodeCell.reuseIdentifier
 		)
 		tableView.register(
-			HealthCertificateCell.self,
-			forCellReuseIdentifier: HealthCertificateCell.reuseIdentifier
+			BoosterNotificationTableViewCell.self,
+			forCellReuseIdentifier: BoosterNotificationTableViewCell.reuseIdentifier
+		)
+		tableView.register(
+			AdmissionStateTableViewCell.self,
+			forCellReuseIdentifier: AdmissionStateTableViewCell.reuseIdentifier
+		)
+		tableView.register(
+			VaccinationStateTableViewCell.self,
+			forCellReuseIdentifier: VaccinationStateTableViewCell.reuseIdentifier
 		)
 		tableView.register(
 			PreferredPersonTableViewCell.self,
 			forCellReuseIdentifier: PreferredPersonTableViewCell.reuseIdentifier
 		)
 		tableView.register(
-			VaccinationStateTableViewCell.self,
-			forCellReuseIdentifier: VaccinationStateTableViewCell.reuseIdentifier
+			HealthCertificateCell.self,
+			forCellReuseIdentifier: HealthCertificateCell.reuseIdentifier
 		)
 	}
 
