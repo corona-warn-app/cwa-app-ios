@@ -20,10 +20,10 @@ class DCCUITextTests: XCTestCase {
 	func testGIVEN_TestCases_WHEN_LocalizeStringForEachTestCase_THEN_ResultIsCorrect() {
 		// GIVEN
 		let testCases = dccUITextTestCases.testCases
-
-		DCCUIText.outputDateFormatter.timeZone = .utcTimeZone
-		DCCUIText.outputDateTimeFormatter.timeZone = .utcTimeZone
-
+		
+		DCCUIText.localDateFormatter.timeZone = TimeZone(abbreviation: "GMT+1")
+		DCCUIText.localDateTimeFormatter.timeZone = TimeZone(abbreviation: "GMT+1")
+		
 		for testCase in testCases {
 			// WHEN
 			let dccUIText = testCase.textDescriptor

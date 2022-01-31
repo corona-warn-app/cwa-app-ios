@@ -36,6 +36,8 @@ public struct DCCUIText: Codable, Equatable {
 	let parameters: AnyCodable
 
 	static let dateFormatter: ISO8601DateFormatter = .iso8601DateFormatter()
+	static let localDateFormatter: DateFormatter = .localDateFormatter()
+	static let localDateTimeFormatter: DateFormatter = .localDateTimeFormatter()
 	static let outputDateFormatter: DateFormatter = .outputDateFormatter()
 	static let outputDateTimeFormatter: DateFormatter = .outputDateTimeFormatter()
 	
@@ -191,9 +193,9 @@ public struct DCCUIText: Codable, Equatable {
 			// only date related types will be handled here
 			switch dateType {
 			case ParameterType.localDate:
-				return DateFormatter.localizedString(from: formattedDate, dateStyle: .short, timeStyle: .none)
+				return DCCUIText.localDateFormatter.string(from: formattedDate)
 			case ParameterType.localDateTime:
-				return DateFormatter.localizedString(from: formattedDate, dateStyle: .short, timeStyle: .short)
+				return DCCUIText.localDateTimeFormatter.string(from: formattedDate)
 			case ParameterType.utcDate:
 				return DCCUIText.outputDateFormatter.string(from: formattedDate)
 			case ParameterType.utcDateTime:
@@ -239,6 +241,16 @@ private extension ISO8601DateFormatter {
 }
 
 private extension DateFormatter {
+	static var referenceTestTimeZone: TimeZone = TimeZone.current
+	
+	class func outputDateFormatter() -> DateFormatter {
+		let formatter = DateFormatter()
+		formatter.dateStyle = .short
+		formatter.timeStyle = .none
+		formatter.timeZone = .utcTimeZone
+		return formatter
+	}
+	
 	class func outputDateTimeFormatter() -> DateFormatter {
 		let formatter = DateFormatter()
 		formatter.dateStyle = .short
@@ -246,12 +258,18 @@ private extension DateFormatter {
 		formatter.timeZone = .utcTimeZone
 		return formatter
 	}
-	
-	class func outputDateFormatter() -> DateFormatter {
+
+	class func localDateFormatter() -> DateFormatter {
 		let formatter = DateFormatter()
 		formatter.dateStyle = .short
 		formatter.timeStyle = .none
-		formatter.timeZone = .utcTimeZone
+		return formatter
+	}
+	
+	class func localDateTimeFormatter() -> DateFormatter {
+		let formatter = DateFormatter()
+		formatter.dateStyle = .short
+		formatter.timeStyle = .short
 		return formatter
 	}
 }
