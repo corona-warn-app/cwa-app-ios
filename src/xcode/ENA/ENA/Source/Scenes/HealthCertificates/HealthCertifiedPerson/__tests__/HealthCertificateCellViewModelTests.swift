@@ -75,24 +75,6 @@ class HealthCertificateCellViewModelTests: XCTestCase {
 		XCTAssertTrue(viewModel.isCurrentlyUsedCertificateHintVisible)
 	}
 
-	func testViewModelWithSeriesCompletingVaccinationCertificateWithoutCompleteProtection() throws {
-		let healthCertificate = try vaccinationCertificate(daysOffset: -14, doseNumber: 2, totalSeriesOfDoses: 2)
-		let healthCertifiedPerson = HealthCertifiedPerson(healthCertificates: [healthCertificate])
-		healthCertifiedPerson.gradientType = .mediumBlue
-
-		let viewModel = HealthCertificateCellViewModel(
-			healthCertificate: healthCertificate,
-			healthCertifiedPerson: healthCertifiedPerson
-		)
-
-		XCTAssertEqual(viewModel.gradientType, .mediumBlue)
-		XCTAssertEqual(viewModel.headline, "Impfzertifikat")
-		XCTAssertEqual(viewModel.subheadline, "Impfung 2 von 2")
-		XCTAssertEqual(viewModel.image, UIImage(imageLiteralResourceName: "VaccinationCertificate_FullyVaccinated_Icon"))
-		XCTAssertEqual(viewModel.currentlyUsedImage, UIImage(named: "Icon_CurrentlyUsedCertificate_medium"))
-		XCTAssertTrue(viewModel.isCurrentlyUsedCertificateHintVisible)
-	}
-
 	func testViewModelWithBoosterVaccinationCertificateWithCompleteProtection() throws {
 		let healthCertificate1 = try vaccinationCertificate(daysOffset: -150, doseNumber: 1, totalSeriesOfDoses: 2)
 		let healthCertificate2 = try vaccinationCertificate(daysOffset: -120, doseNumber: 2, totalSeriesOfDoses: 2)

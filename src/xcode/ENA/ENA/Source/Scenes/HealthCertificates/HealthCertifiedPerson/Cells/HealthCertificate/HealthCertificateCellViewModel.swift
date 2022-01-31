@@ -11,7 +11,7 @@ final class HealthCertificateCellViewModel {
 	init(
 		healthCertificate: HealthCertificate,
 		healthCertifiedPerson: HealthCertifiedPerson,
-		details: HealthCertificeCellDetails = .allDetails
+		details: HealthCertificateCellDetails = .allDetails
 	) {
 		self.healthCertificate = healthCertificate
 		self.healthCertifiedPerson = healthCertifiedPerson
@@ -20,7 +20,7 @@ final class HealthCertificateCellViewModel {
 
 	// MARK: - Internal
 	
-	enum HealthCertificeCellDetails {
+	enum HealthCertificateCellDetails {
 		case allDetails
 		case overview
 	}
@@ -134,12 +134,8 @@ final class HealthCertificateCellViewModel {
 		}
 
 		switch healthCertificate.entry {
-		case .vaccination(let vaccinationEntry) where vaccinationEntry.isLastDoseInASeries || vaccinationEntry.isBoosterVaccination:
-			if case .completelyProtected = healthCertifiedPerson.vaccinationState {
-				return UIImage(imageLiteralResourceName: "VaccinationCertificate_CompletelyProtected_Icon")
-			} else {
-				return UIImage(imageLiteralResourceName: "VaccinationCertificate_FullyVaccinated_Icon")
-			}
+		case .vaccination(let vaccinationEntry) where vaccinationEntry.isLastDoseInASeriesOrBooster:
+			return UIImage(imageLiteralResourceName: "VaccinationCertificate_CompletelyProtected_Icon")
 		case .vaccination:
 			return UIImage(imageLiteralResourceName: "VaccinationCertificate_PartiallyVaccinated_Icon")
 		case .test:
@@ -183,5 +179,5 @@ final class HealthCertificateCellViewModel {
 	// MARK: - Private
 
 	private let healthCertifiedPerson: HealthCertifiedPerson
-	private let details: HealthCertificeCellDetails
+	private let details: HealthCertificateCellDetails
 }
