@@ -36,7 +36,7 @@ enum CCLDefaultInput {
 	static func addingTo(
 		parameters: [String: AnyDecodable],
 		date: Date = Date(),
-		language: String
+		language: String = Locale.current.languageCode ?? "en"
 	) -> [String: AnyDecodable] {
 		var parametersWithDefaults = parameters
 		parametersWithDefaults["os"] = AnyDecodable("ios")
@@ -50,7 +50,7 @@ enum GetWalletInfoInput {
 	
 	static func make(
 		with date: Date = Date(),
-		language: String,
+		language: String = Locale.current.languageCode ?? "en",
 		certificates: [DCCWalletCertificate],
 		boosterNotificationRules: [Rule]
 	) -> [String: AnyDecodable] {
