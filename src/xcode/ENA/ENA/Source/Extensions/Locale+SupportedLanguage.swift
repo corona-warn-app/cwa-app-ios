@@ -16,5 +16,4 @@ extension Locale {
 
 		return languageCode
 	}
-
 }
