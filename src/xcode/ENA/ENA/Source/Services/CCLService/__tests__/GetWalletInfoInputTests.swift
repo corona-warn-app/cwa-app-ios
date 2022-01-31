@@ -10,8 +10,10 @@ import AnyCodable
 class GetWalletInfoInputTests: XCTestCase {
 	
 	func test_TimeStrings_WithoutDayChangeDueTimezone() throws {
+		SystemTime.referenceTestTimeZone = TimeZone(abbreviation: "MEZ") ?? TimeZone.current
+		
 		let dateString = "2022-01-28T15:30:00+01:00"
-		let date = try XCTUnwrap( DateFormatter.localDateTimeFormatter.date(from: dateString))
+		let date = try XCTUnwrap(SystemTime.localDateTimeFormatter.date(from: dateString))
 		
 		let input = GetWalletInfoInput.make(with: date, language: "de", certificates: [], boosterNotificationRules: [])
 		guard let systemTime: SystemTime = input["now"]?.value as? SystemTime else {
@@ -28,8 +30,10 @@ class GetWalletInfoInputTests: XCTestCase {
 	}
 	
 	func test_TimeStrings_WithDayChangeDueTimezone() throws {
+		SystemTime.referenceTestTimeZone = TimeZone(abbreviation: "MEZ") ?? TimeZone.current
+
 		let dateString = "2022-01-28T00:30:00+01:00"
-		let date = try XCTUnwrap( DateFormatter.localDateTimeFormatter.date(from: dateString))
+		let date = try XCTUnwrap( SystemTime.localDateTimeFormatter.date(from: dateString))
 		
 		let input = GetWalletInfoInput.make(with: date, language: "de", certificates: [], boosterNotificationRules: [])
 		guard let systemTime: SystemTime = input["now"]?.value as? SystemTime else {
