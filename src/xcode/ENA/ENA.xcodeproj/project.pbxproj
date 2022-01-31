@@ -4974,6 +4974,7 @@
 				34C40E3127A2FCB30098C6ED /* ccl-text-descriptor-test-cases.json */,
 				34C40E2F27A2D2590098C6ED /* DCCUITextTests.swift */,
 				01C5F300279EA48600F60047 /* DCCWalletInfo+Fake.swift */,
+				AB2628DC27A2FACF003D39A6 /* GetWalletInfoInputTests.swift */,
 			);
 			path = __tests__;
 			sourceTree = "<group>";
@@ -7137,14 +7138,6 @@
 			path = __tests__;
 			sourceTree = "<group>";
 		};
-		AB2628DB27A2FABC003D39A6 /* __tests__ */ = {
-			isa = PBXGroup;
-			children = (
-				AB2628DC27A2FACF003D39A6 /* GetWalletInfoInputTests.swift */,
-			);
-			path = __tests__;
-			sourceTree = "<group>";
-		};
 		AB51905F26CEA72400E2E4EE /* PDFGeneration */ = {
 			isa = PBXGroup;
 			children = (
@@ -7419,7 +7412,6 @@
 			isa = PBXGroup;
 			children = (
 				34C40E3727A45C780098C6ED /* __tests__ */,
-				AB2628DB27A2FABC003D39A6 /* __tests__ */,
 				ABB8DF5F2799BEC300DD99E4 /* CCLService.swift */,
 				AB77385227A160A000B9EA95 /* DCCWalletCertificate.swift */,
 				AB2628D927A2E348003D39A6 /* GetWalletInfoInput.swift */,
