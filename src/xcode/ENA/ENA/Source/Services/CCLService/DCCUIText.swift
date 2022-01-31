@@ -182,46 +182,49 @@ public struct DCCUIText: Codable, Equatable {
 		return quantitySpecificFormatText?.replacingOccurrences(of: "%(\\d\\$)?s", with: "%$1@", options: .regularExpression, range: nil)
 	}
 	
-	private func parseFormatParameter(parameter: DCCUITextParameter) -> CVarArg? {
-		var date = Date()
-		var stringValue: String = ""
-		
-		// if entry.type is not a number
-		if parameter.type != ParameterType.number, let value = parameter.value as? String {
-			stringValue = value
-		}
-
-		// if entry.type is a date
-		if parameter.type == ParameterType.localDate ||
-			parameter.type == ParameterType.localDateTime ||
-			parameter.type == ParameterType.utcDate ||
-			parameter.type == ParameterType.utcDateTime {
-			if let formattedDate = DCCUIText.dateFormatter.date(from: stringValue) {
-				date = formattedDate
-			} else {
+	private func parseDate(value: Any, dateType: String) -> String? {
+		if let stringDate = value as? String {
+			guard let formattedDate = DCCUIText.dateFormatter.date(from: stringDate) else {
 				return nil
 			}
+			
+			switch dateType {
+			case ParameterType.localDate:
+				return DateFormatter.localizedString(from: formattedDate, dateStyle: .short, timeStyle: .none)
+			case ParameterType.localDateTime:
+				return DateFormatter.localizedString(from: formattedDate, dateStyle: .short, timeStyle: .short)
+			case ParameterType.utcDate:
+				return DCCUIText.outputDateFormatter.string(from: formattedDate)
+			case ParameterType.utcDateTime:
+				return DCCUIText.outputDateTimeFormatter.string(from: formattedDate)
+			default:
+				return nil
+			}
+		} else {
+			return nil
 		}
-		
+	}
+
+	private func parseFormatParameter(parameter: DCCUITextParameter) -> CVarArg? {
 		switch parameter.type {
 		case ParameterType.number:
 			// entry.value shall be treated as a numeric value
 			return parameter.value as? Int ?? parameter.value as? Double
 		case ParameterType.localDate:
 			// entry.value shall be treated as a ISO 8106 date string and formatted as date (without time information) in local time zone
-			return DateFormatter.localizedString(from: date, dateStyle: .short, timeStyle: .none)
+			return parseDate(value: parameter.value, dateType: ParameterType.localDate)
 		case ParameterType.localDateTime:
 			// entry.value shall be treated as a ISO 8106 date string and formatted as date (with time information) in local time zone
-			return DateFormatter.localizedString(from: date, dateStyle: .short, timeStyle: .short)
+			return parseDate(value: parameter.value, dateType: ParameterType.localDateTime)
 		case ParameterType.utcDate:
 			// entry.value shall be treated as a ISO 8106 date string and formatted as date (without time information) in UTC
-			return DCCUIText.outputDateFormatter.string(from: date)
+			return parseDate(value: parameter.value, dateType: ParameterType.utcDate)
 		case ParameterType.utcDateTime:
 			// entry.value shall be treated as a ISO 8106 date string and formatted as date (with time information) in UTC
-			return DCCUIText.outputDateTimeFormatter.string(from: date)
+			return parseDate(value: parameter.value, dateType: ParameterType.utcDateTime)
 		default:
 			// otherwise, entry.value shall be treated as a string
-			return stringValue
+			return parameter.value as? String
 		}
 	}
 }
