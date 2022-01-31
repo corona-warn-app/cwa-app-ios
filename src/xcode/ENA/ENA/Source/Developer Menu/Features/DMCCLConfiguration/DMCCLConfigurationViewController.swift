@@ -42,18 +42,14 @@ class DMCCLConfigurationViewController: UITableViewController {
 	override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		// by help of a protocol for cellViewModel we might simplyfiy this even more
 		let cellViewModel = viewModel.cellViewModel(by: indexPath)
-		if cellViewModel is DMButtonCellViewModel {
-			let cell = tableView.dequeueReusableCell(cellType: DMButtonTableViewCell.self, for: indexPath)
+		if cellViewModel is DMStaticTextCellViewModel {
+			let cell = tableView.dequeueReusableCell(cellType: DMStaticTextTableViewCell.self, for: indexPath)
 			cell.configure(cellViewModel: cellViewModel)
 			return cell
 		} else if cellViewModel is DMSwitchCellViewModel {
 			guard let cell = tableView.dequeueReusableCell(withIdentifier: DMSwitchTableViewCell.reuseIdentifier) as? DMSwitchTableViewCell else {
 				fatalError("unsupported cellViewModel - can't find a matching cell")
 			}
-			cell.configure(cellViewModel: cellViewModel)
-			return cell
-		} else if cellViewModel is DMKeyValueCellViewModel {
-			let cell = tableView.dequeueReusableCell(cellType: DMKeyValueTableViewCell.self, for: indexPath)
 			cell.configure(cellViewModel: cellViewModel)
 			return cell
 		} else {
@@ -77,8 +73,7 @@ class DMCCLConfigurationViewController: UITableViewController {
 		tableView.estimatedRowHeight = 45.0
 		tableView.rowHeight = UITableView.automaticDimension
 
-		tableView.register(DMButtonTableViewCell.self, forCellReuseIdentifier: DMButtonTableViewCell.reuseIdentifier)
-		tableView.register(DMKeyValueTableViewCell.self, forCellReuseIdentifier: DMKeyValueTableViewCell.reuseIdentifier)
+		tableView.register(DMStaticTextTableViewCell.self, forCellReuseIdentifier: DMStaticTextTableViewCell.reuseIdentifier)
 		tableView.register(DMSwitchTableViewCell.self, forCellReuseIdentifier: DMSwitchTableViewCell.reuseIdentifier)
 		
 		// wire up tableview with the viewModel

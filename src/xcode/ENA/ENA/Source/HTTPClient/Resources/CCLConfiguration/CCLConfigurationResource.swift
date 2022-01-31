@@ -11,10 +11,19 @@ struct CCLConfigurationResource: Resource {
 	init(
 		isFake: Bool = false
 	) {
-		self.locator = .CCLConfiguration(isFake: isFake)
 		self.type = .caching(
 			Set<CacheUsePolicy>([.loadOnlyOnceADay])
 		)
+		
+		#if !RELEASE
+		// Debug menu: Force update of CCLConfiguration and Booster Notification Rules.
+		if UserDefaults.standard.bool(forKey: CCLConfigurationResource.keyForceUpdateCCLConfiguration) {
+			self.type = .default
+		}
+		#endif
+		
+		self.locator = .CCLConfiguration(isFake: isFake)
+
 		self.sendResource = EmptySendResource()
 		self.receiveResource = CBORReceiveResource<CCLConfigurationReceiveModel>()
 	}
@@ -48,8 +57,8 @@ struct CCLConfigurationResource: Resource {
 	// MARK: - Internal
 	
 	#if !RELEASE
-	// Need for dev menu force updates
-	static let keyForceUpdate = "cclForceUpdate"
-	
+	// Needed for dev menu force updates.
+	static let keyForceUpdateCCLConfiguration = "keyForceUpdateCCLConfiguration"
+
 	#endif
 }

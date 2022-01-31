@@ -41,58 +41,32 @@ final class DMCCLConfigurationViewModel {
 		}
 
 		switch section {
-			
-		case .getCall:
-			return DMButtonCellViewModel(
-				text: "Call GET CLL Configuration",
-				textColor: .white,
-				backgroundColor: .enaColor(for: .buttonPrimary),
-				action: { [weak self] in
-					self?.restService.load(CCLConfigurationResource()) { result in
-						DispatchQueue.main.async { [weak self] in
-							switch result {
-							case let .success(model):
-								Log.info("CCL Config successfull called.")
-								Log.info("CCL Config isLoadedFromCache: \(model.metaData.loadedFromCache)")
-								self?.loadedFromCache = model.metaData.loadedFromCache
-								Log.info("CCL Config headers: \(model.metaData.headers)")
-							case let .failure(error):
-								Log.error("CCL Config call failure with: \(error)", error: error)
-							}
-							self?.refreshTableView([TableViewSections.forceUpdate.rawValue, TableViewSections.statusCached.rawValue])
-						}
-					}
-				}
+		case .forceUpdateDescription:
+			return DMStaticTextCellViewModel(
+				staticText: "If this toggle is activated, the CCL Configuration and Booster Notification rules are upated independently from other constraints (update once a day etc.). After setting this toggle, please move the app from background into foreground to trigger the update. ",
+				font: .enaFont(for: .subheadline),
+				textColor: .enaColor(for: .textPrimary1),
+				alignment: .center
 			)
-			
-		case .forceUpdate:
+		case .forceUpdateCCLConfiguration:
 			return DMSwitchCellViewModel(
-				labelText: "Ignore Once a day (Force update)",
+				labelText: "Force-update CCL Configuration",
 				isOn: {
-					return UserDefaults.standard.bool(forKey: CCLConfigurationResource.keyForceUpdate)
-					
+					return UserDefaults.standard.bool(forKey: CCLConfigurationResource.keyForceUpdateCCLConfiguration)
 				},
 				toggle: {
-					let forceUpdate = UserDefaults.standard.bool(forKey: CCLConfigurationResource.keyForceUpdate)
-					UserDefaults.standard.setValue(!forceUpdate, forKey: CCLConfigurationResource.keyForceUpdate)
-					Log.info("Ignore Once a day fetch for cllConfig: \(!forceUpdate)")
+					let forceUpdate = !UserDefaults.standard.bool(forKey: CCLConfigurationResource.keyForceUpdateCCLConfiguration)
+					UserDefaults.standard.setValue(forceUpdate, forKey: CCLConfigurationResource.keyForceUpdateCCLConfiguration)
+					Log.info("Force-update CCL Configuration: \(forceUpdate)")
 				})
-
-		case .statusCached:
-			if let loadedFromCache = loadedFromCache {
-				return DMKeyValueCellViewModel(key: "Is cclConfig loaded previously from cache?", value: "\(loadedFromCache)")
-			} else {
-				return DMKeyValueCellViewModel(key: "Is cclConfig loaded previously from cache?", value: "please tap GET call")
-			}
 		}
 	}
 
 	// MARK: - Private
 
 	private enum TableViewSections: Int, CaseIterable {
-		case getCall
-		case forceUpdate
-		case statusCached
+		case forceUpdateDescription
+		case forceUpdateCCLConfiguration
 	}
 
 	private let restService: RestServiceProviding
