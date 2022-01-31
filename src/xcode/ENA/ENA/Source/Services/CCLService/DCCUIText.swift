@@ -122,14 +122,15 @@ public struct DCCUIText: Codable, Equatable {
 				// quantity shall be set to the value of textDescriptor.quantity
 				if let textDescriptorQuantity = quantity {
 					// text shall be determined by passing formatTexts and formatParameters to a quantity-depending printf-compatible format function by using quantity
-					return formattedTextWithParameters(formatText: quantityBasedFormatText(formatText: formatText, quantity: textDescriptorQuantity) ?? "", parameters: mappedParameters)
-				} else {
+					guard let quantityBasedFormatText = quantityBasedFormatText(formatText: formatText, quantity: textDescriptorQuantity) else {
+						return nil
+					}
+					return formattedTextWithParameters(formatText: quantityBasedFormatText, parameters: mappedParameters)
+				} else if let parameterIndex = quantityParameterIndex {
 					// Otherwise quantity shall be set to the element of formatParameters at the index described by textDescriptor.quantityParameterIndex.
-					if let parameterIndex = quantityParameterIndex {
-						if let quantityValue = mappedParameters[parameterIndex].value as? Int {
-							// text shall be determined by passing formatTexts and formatParameters to a quantity-depending printf-compatible format function by using quantity
-							return formattedTextWithParameters(formatText: quantityBasedFormatText(formatText: formatText, quantity: quantityValue) ?? "", parameters: mappedParameters)
-						}
+					if let quantityValue = mappedParameters[parameterIndex].value as? Int {
+						// text shall be determined by passing formatTexts and formatParameters to a quantity-depending printf-compatible format function by using quantity
+						return formattedTextWithParameters(formatText: quantityBasedFormatText(formatText: formatText, quantity: quantityValue) ?? "", parameters: mappedParameters)
 					}
 				}
 			}
@@ -172,20 +173,10 @@ public struct DCCUIText: Codable, Equatable {
 		return quantitySpecificFormatText?.replacingOccurrences(of: "%(\\d\\$)?s", with: "%$1@", options: .regularExpression, range: nil)
 	}
 	
-	private func parseNumber(value: Any) -> CVarArg? {
-		if let intValue = value as? Int {
-			return intValue
-		} else if let doubleValue = value as? Double {
-			return doubleValue
-		} else {
-			return nil
-		}
-	}
-	
 	private func parseFormatParameter(parameter: DCCUITextParameter) -> CVarArg? {
 		let dateFormatter = ISO8601DateFormatter()
 		dateFormatter.formatOptions = [.withInternetDateTime, .withFractionalSeconds]
-		// dateFormatter.timeZone = TimeZone.autoupdatingCurrent
+
 		let outputDateFormatter = DateFormatter()
 		outputDateFormatter.timeZone = .utcTimeZone
 
@@ -212,7 +203,7 @@ public struct DCCUIText: Codable, Equatable {
 		switch parameter.type {
 		case ParameterType.number:
 			// entry.value shall be treated as a numeric value
-			return parseNumber(value: parameter.value)
+			return parameter.value as? Int ?? parameter.value as? Double
 		case ParameterType.localDate:
 			// entry.value shall be treated as a ISO 8106 date string and formatted as date (without time information) in local time zone
 			return DateFormatter.localizedString(from: date, dateStyle: .short, timeStyle: .none)

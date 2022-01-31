@@ -10,7 +10,7 @@ class DCCUITextTests: XCTestCase {
 
 	func testWHEN_LoadingJsonTestFile_THEN_AllTestCasesWithConfigurationAreReturned() {
 		// WHEN
-		let testCases = testCasesWithCCLConfiguration.testCases
+		let testCases = dccUITextTestCases.testCases
 
 		// THEN
 		XCTAssertEqual(testCases.count, 22)
@@ -19,7 +19,7 @@ class DCCUITextTests: XCTestCase {
 	
 	func testGIVEN_TestCases_WHEN_LocalizeStringForEachTestCase_THEN_ResultIsCorrect() {
 		// GIVEN
-		let testCases = testCasesWithCCLConfiguration.testCases
+		let testCases = dccUITextTestCases.testCases
 
 		for testCase in testCases {
 			let dccUIText = testCase.textDescriptor
@@ -30,19 +30,15 @@ class DCCUITextTests: XCTestCase {
 	
 	// MARK: - Private
 
-	private lazy var testCasesWithCCLConfiguration: DCCUITextTestCases = {
+	private lazy var dccUITextTestCases: DCCUITextTestCases = {
 		let testBundle = Bundle(for: DCCUITextTests.self)
 		guard let urlJsonFile = testBundle.url(forResource: "ccl-text-descriptor-test-cases", withExtension: "json"),
 			  let data = try? Data(contentsOf: urlJsonFile) else {
 			fatalError("Failed init json file for tests - stop here")
 		}
 
-		let dateFormatter = DateFormatter()
-		dateFormatter.locale = Locale(identifier: "en_US_POSIX")
-		dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mmXXXXX"
-
 		let decoder = JSONDecoder()
-		decoder.dateDecodingStrategy = .formatted(dateFormatter)
+		decoder.dateDecodingStrategy = .iso8601
 		
 		do {
 			return try JSONDecoder().decode(DCCUITextTestCases.self, from: data)
