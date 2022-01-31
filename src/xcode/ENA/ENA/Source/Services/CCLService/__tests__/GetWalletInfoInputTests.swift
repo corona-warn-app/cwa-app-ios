@@ -10,7 +10,7 @@ import AnyCodable
 class GetWalletInfoInputTests: XCTestCase {
 	
 	func test_TimeStrings_WithoutDayChangeDueTimezone() throws {
-		SystemTime.referenceTestTimeZone =  try XCTUnwrap(TimeZone(abbreviation: "CET"))
+		SystemTime.referenceTestTimeZone = try XCTUnwrap(TimeZone(abbreviation: "CET"))
 		
 		let dateString = "2022-01-28T15:30:00+01:00"
 		let date = try XCTUnwrap(SystemTime.localDateTimeFormatter.date(from: dateString))
