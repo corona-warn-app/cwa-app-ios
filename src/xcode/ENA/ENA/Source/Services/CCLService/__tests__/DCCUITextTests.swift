@@ -21,9 +21,15 @@ class DCCUITextTests: XCTestCase {
 		// GIVEN
 		let testCases = dccUITextTestCases.testCases
 
+		DCCUIText.outputDateFormatter.timeZone = .utcTimeZone
+		DCCUIText.outputDateTimeFormatter.timeZone = .utcTimeZone
+
 		for testCase in testCases {
+			// WHEN
 			let dccUIText = testCase.textDescriptor
 			let expectationText = testCase.assertions[0].text
+			
+			// THEN
 			XCTAssertEqual(dccUIText.localized(), expectationText, "Failing Test: \(testCase.description)")
 		}
 	}
