@@ -3,6 +3,8 @@
 //
 
 import jsonfunctions
+import Foundation
+import SwiftCBOR
 
 extension CCLConfiguration.Logic {
     
@@ -41,4 +43,22 @@ extension CCLConfiguration {
             logic: logic
         )
     }
+}
+
+public func CCLConfigurationCBORDataFake() throws -> Data {
+    let configs = [
+            CCLConfiguration.fake(),
+            CCLConfiguration.fake(),
+            CCLConfiguration.fake(),
+            CCLConfiguration.fake()
+        ]
+    return try CodableCBOREncoder().encode(configs)
+}
+
+public func CCLConfigurationCBORDataFake_corrupt() throws -> Data {
+    let configs = [
+        CBOR.null,
+        CBOR.unsignedInt(42)
+        ]
+    return Data(configs.encode())
 }
