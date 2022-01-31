@@ -1157,7 +1157,7 @@ enum AppStrings {
 		
 		/* Version 2.18 */
 		
-		static let feature218CentralManagementOfRulesTitle = NSLocalizedString("NewVersionFeature_218_CentralManagementOfRules_title", comment: "")
+		static let feature218CentralManagementOfRulesTitle = NSLocalizedString("NewVersionFeature_218_centralManagementOfRules_title", comment: "")
 		static let feature218CentralManagementOfRulesDescription = NSLocalizedString("NewVersionFeature_218_centralManagementOfRules_description", comment: "")
 	}
 	
