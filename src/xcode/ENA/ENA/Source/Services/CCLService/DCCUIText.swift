@@ -65,7 +65,7 @@ public struct DCCUIText: Codable, Equatable {
 		}
 		
 		// replacing %s with %@, %1$s with %1$@ and so on
-		formatText = formatText.replacingOccurrences(of: "%(\\d\\$)?s", with: "%$1@", options: NSString.CompareOptions.regularExpression, range: nil)
+		formatText = formatText.replacingOccurrences(of: "%(\\d\\$)?s", with: "%$1@", options: .regularExpression, range: nil)
 		
 		if let parameters = parameters.value as? [[String: Any]] {
 			if parameters.isEmpty {
@@ -169,7 +169,7 @@ public struct DCCUIText: Codable, Equatable {
 		let keyFormatText = String(format: NSLocalizedString("DCC_UIText_plural", tableName: "DCCUIText", comment: ""), quantity)
 		let quantitySpecificFormatText = formatText[keyFormatText]
 		// replacing %s with %@, %1$s with %1$@ and so on
-		return quantitySpecificFormatText?.replacingOccurrences(of: "%(\\d\\$)?s", with: "%$1@", options: NSString.CompareOptions.regularExpression, range: nil)
+		return quantitySpecificFormatText?.replacingOccurrences(of: "%(\\d\\$)?s", with: "%$1@", options: .regularExpression, range: nil)
 	}
 	
 	private func parseNumber(value: Any) -> CVarArg? {

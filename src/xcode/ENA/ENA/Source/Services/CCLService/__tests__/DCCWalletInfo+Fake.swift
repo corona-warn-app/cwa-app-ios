@@ -112,7 +112,7 @@ extension DCCUIText {
 	}
 
 	static func fake(string: String) -> DCCUIText {
-		.fake(type: "string", localizedText: ["de": AnyCodable(string)], parameters: [])
+		.fake(type: "string", localizedText: ["de": AnyCodable(string)])
 	}
 
 }
@@ -144,7 +144,7 @@ extension DCCVerification {
 extension DCCVerificationCertificate {
 
 	static func fake(
-		buttonText: DCCUIText = .fake(parameters: []),
+		buttonText: DCCUIText = .fake(),
 		certificateRef: DCCCertificateReference = .fake()
 	) -> DCCVerificationCertificate {
 		DCCVerificationCertificate(

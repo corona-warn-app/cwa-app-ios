@@ -30,7 +30,7 @@ class DCCUITextTests: XCTestCase {
 	
 	// MARK: - Private
 
-	private lazy var testCasesWithCCLConfiguration: TestCasesWithCCLConfiguration = {
+	private lazy var testCasesWithCCLConfiguration: DCCUITextTestCases = {
 		let testBundle = Bundle(for: DCCUITextTests.self)
 		guard let urlJsonFile = testBundle.url(forResource: "ccl-text-descriptor-test-cases", withExtension: "json"),
 			  let data = try? Data(contentsOf: urlJsonFile) else {
@@ -45,7 +45,7 @@ class DCCUITextTests: XCTestCase {
 		decoder.dateDecodingStrategy = .formatted(dateFormatter)
 		
 		do {
-			return try JSONDecoder().decode(TestCasesWithCCLConfiguration.self, from: data)
+			return try JSONDecoder().decode(DCCUITextTestCases.self, from: data)
 		} catch let DecodingError.keyNotFound(jsonKey, context) {
 			fatalError("missing key: \(jsonKey)\nDebug Description: \(context.debugDescription)")
 		} catch let DecodingError.valueNotFound(type, context) {

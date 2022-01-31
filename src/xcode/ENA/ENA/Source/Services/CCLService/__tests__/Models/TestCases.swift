@@ -5,14 +5,14 @@
 import Foundation
 @testable import ENA
 
-struct TestCasesWithCCLConfiguration: Decodable {
+struct DCCUITextTestCases: Decodable {
 	
 	// MARK: - Internal
 
-	let testCases: [CCLTestCase]
+	let testCases: [DCCUITextTestCase]
 }
 
-struct Assertion: Decodable {
+struct DCCUITextAssertion: Decodable {
 	
 	// MARK: - Internal
 
@@ -21,12 +21,12 @@ struct Assertion: Decodable {
 }
 
 
-struct CCLTestCase: Decodable {
+struct DCCUITextTestCase: Decodable {
 
 	// MARK: - Internal
 
 	let description: String
 	let textDescriptor: DCCUIText
-	let assertions: [Assertion]
+	let assertions: [DCCUITextAssertion]
 	
 }
