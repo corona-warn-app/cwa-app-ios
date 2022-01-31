@@ -241,8 +241,6 @@ private extension ISO8601DateFormatter {
 }
 
 private extension DateFormatter {
-	static var referenceTestTimeZone: TimeZone = TimeZone.current
-	
 	class func outputDateFormatter() -> DateFormatter {
 		let formatter = DateFormatter()
 		formatter.dateStyle = .short
