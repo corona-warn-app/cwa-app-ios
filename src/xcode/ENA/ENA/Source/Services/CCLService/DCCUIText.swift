@@ -182,12 +182,13 @@ public struct DCCUIText: Codable, Equatable {
 		return quantitySpecificFormatText?.replacingOccurrences(of: "%(\\d\\$)?s", with: "%$1@", options: .regularExpression, range: nil)
 	}
 	
-	private func parseDate(value: Any, dateType: String) -> String? {
+	private func formattedDate(value: Any, dateType: String) -> String? {
 		if let stringDate = value as? String {
 			guard let formattedDate = DCCUIText.dateFormatter.date(from: stringDate) else {
 				return nil
 			}
 			
+			// only date related types will be handled here
 			switch dateType {
 			case ParameterType.localDate:
 				return DateFormatter.localizedString(from: formattedDate, dateStyle: .short, timeStyle: .none)
@@ -212,16 +213,16 @@ public struct DCCUIText: Codable, Equatable {
 			return parameter.value as? Int ?? parameter.value as? Double
 		case ParameterType.localDate:
 			// entry.value shall be treated as a ISO 8106 date string and formatted as date (without time information) in local time zone
-			return parseDate(value: parameter.value, dateType: ParameterType.localDate)
+			return formattedDate(value: parameter.value, dateType: ParameterType.localDate)
 		case ParameterType.localDateTime:
 			// entry.value shall be treated as a ISO 8106 date string and formatted as date (with time information) in local time zone
-			return parseDate(value: parameter.value, dateType: ParameterType.localDateTime)
+			return formattedDate(value: parameter.value, dateType: ParameterType.localDateTime)
 		case ParameterType.utcDate:
 			// entry.value shall be treated as a ISO 8106 date string and formatted as date (without time information) in UTC
-			return parseDate(value: parameter.value, dateType: ParameterType.utcDate)
+			return formattedDate(value: parameter.value, dateType: ParameterType.utcDate)
 		case ParameterType.utcDateTime:
 			// entry.value shall be treated as a ISO 8106 date string and formatted as date (with time information) in UTC
-			return parseDate(value: parameter.value, dateType: ParameterType.utcDateTime)
+			return formattedDate(value: parameter.value, dateType: ParameterType.utcDateTime)
 		default:
 			// otherwise, entry.value shall be treated as a string
 			return parameter.value as? String
