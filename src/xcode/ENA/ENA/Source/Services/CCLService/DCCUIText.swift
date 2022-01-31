@@ -91,14 +91,7 @@ public struct DCCUIText: Codable, Equatable {
 	}
 	
 	private func localizedPluralFormatText(languageCode: String?) -> String? {
-		var formatText: [String: String] = [:]
-		
-		// use language code, if there is no property for the language code, en shall be used
-		if let localizedFormatText = localizedText?[languageCode ?? "en"]?.value as? [String: String] {
-			formatText = localizedFormatText
-		} else if let fallbackLocalizedFormatText = localizedText?["de"]?.value as? [String: String] { // if en is not available, de shall be used
-			formatText = fallbackLocalizedFormatText
-		} else {
+		guard let formatText = localizedFormatText(languageCode: languageCode) else {
 			return nil
 		}
 		
@@ -155,6 +148,18 @@ public struct DCCUIText: Codable, Equatable {
 		}
 	}
 
+	private func localizedFormatText(languageCode: String?) -> [String: String]? {
+		// use language code, if there is no property for the language code, en shall be used
+		if let localizedFormatText = localizedText?[languageCode ?? "en"]?.value as? [String: String] {
+			return localizedFormatText
+		} else if let fallbackLocalizedFormatText = localizedText?["de"]?.value as? [String: String] {
+			// if en is not available, de shall be used
+			return fallbackLocalizedFormatText
+		} else {
+			return nil
+		}
+	}
+	
 	private func formattedTextWithParameters(formatText: String, parameters: [DCCUITextParameter]) -> String? {
 		let parsedParameters = parameters.compactMap { parseFormatParameter(parameter: $0) }
 		
