@@ -1046,7 +1046,6 @@
 		AB1FCBD42521FC47005930BA /* EnvironmentTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB1FCBCC2521FC44005930BA /* EnvironmentTests.swift */; };
 		AB2628DA27A2E348003D39A6 /* GetWalletInfoInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB2628D927A2E348003D39A6 /* GetWalletInfoInput.swift */; };
 		AB2628DD27A2FACF003D39A6 /* GetWalletInfoInputTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB2628DC27A2FACF003D39A6 /* GetWalletInfoInputTests.swift */; };
-		AB2628DF27A3E1B6003D39A6 /* DateFormatters.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB2628DE27A3E1B6003D39A6 /* DateFormatters.swift */; };
 		AB2628E127A3F220003D39A6 /* HealthCertificateMapping.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB2628E027A3F220003D39A6 /* HealthCertificateMapping.swift */; };
 		AB2F094A25D1687300C16309 /* SurveyURLProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB2F094925D1687300C16309 /* SurveyURLProvider.swift */; };
 		AB2F094F25D169DC00C16309 /* SurveyURLServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB2F094E25D169DC00C16309 /* SurveyURLServiceTests.swift */; };
@@ -2711,7 +2710,6 @@
 		AB1FCBDB2521FCD5005930BA /* TestEnvironments.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = TestEnvironments.json; sourceTree = "<group>"; };
 		AB2628D927A2E348003D39A6 /* GetWalletInfoInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetWalletInfoInput.swift; sourceTree = "<group>"; };
 		AB2628DC27A2FACF003D39A6 /* GetWalletInfoInputTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetWalletInfoInputTests.swift; sourceTree = "<group>"; };
-		AB2628DE27A3E1B6003D39A6 /* DateFormatters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatters.swift; sourceTree = "<group>"; };
 		AB2628E027A3F220003D39A6 /* HealthCertificateMapping.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthCertificateMapping.swift; sourceTree = "<group>"; };
 		AB2F094925D1687300C16309 /* SurveyURLProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SurveyURLProvider.swift; sourceTree = "<group>"; };
 		AB2F094E25D169DC00C16309 /* SurveyURLServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SurveyURLServiceTests.swift; sourceTree = "<group>"; };
@@ -7388,7 +7386,6 @@
 				ABB8DF5F2799BEC300DD99E4 /* CCLService.swift */,
 				AB77385227A160A000B9EA95 /* DCCWalletCertificate.swift */,
 				AB2628D927A2E348003D39A6 /* GetWalletInfoInput.swift */,
-				AB2628DE27A3E1B6003D39A6 /* DateFormatters.swift */,
 				01C5F2FE2799859D00F60047 /* DCCWalletInfo.swift */,
 			);
 			path = CCLService;
@@ -10740,7 +10737,6 @@
 				8FDB9403261FBA3800BA8CB1 /* AntigenTestQRCodeInformation.swift in Sources */,
 				5071A88226EB80D900B09B40 /* ServiceError.swift in Sources */,
 				013069522705D4A900D945E3 /* QRScannerTooltipViewController.swift in Sources */,
-				AB2628DF27A3E1B6003D39A6 /* DateFormatters.swift in Sources */,
 				8FEC1231275656AC00C5DADC /* TicketValidationAllowList.swift in Sources */,
 				017D8DAC263BEF920009E91C /* HealthCertificateServiceError.swift in Sources */,
 				503ACBFB26F36D1700C31352 /* HealthCertificateCoordinator.swift in Sources */,
