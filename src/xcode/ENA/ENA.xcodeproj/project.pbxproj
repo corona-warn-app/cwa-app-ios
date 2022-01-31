@@ -629,6 +629,9 @@
 		501352332788638A00511ADF /* CBORReceiveResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5013523127884C0D00511ADF /* CBORReceiveResource.swift */; };
 		5013B18526EBA3A500A2DD54 /* QRScannerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5013B18426EBA3A500A2DD54 /* QRScannerViewModel.swift */; };
 		5013B18726EBA3FE00A2DD54 /* QRScannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5013B18626EBA3FE00A2DD54 /* QRScannerViewController.swift */; };
+		5015D2D427A17391007D8763 /* Locator+CCLConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5015D2D327A17391007D8763 /* Locator+CCLConfiguration.swift */; };
+		5015D2D627A1774B007D8763 /* CCLConfigurationResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5015D2D527A1774B007D8763 /* CCLConfigurationResource.swift */; };
+		5015D2D827A17951007D8763 /* CCLConfigurationReceiveModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5015D2D727A17951007D8763 /* CCLConfigurationReceiveModel.swift */; };
 		5017F64D25FFAD11003A812E /* PPASubmissionState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5017F64C25FFAD11003A812E /* PPASubmissionState.swift */; };
 		5017F65F25FFC1E8003A812E /* ClientMetadataTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5017F65E25FFC1E8003A812E /* ClientMetadataTests.swift */; };
 		501ABC50267B4B04008F37CA /* HealthCertificateOverviewEmptyStateViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 501ABC4F267B4B04008F37CA /* HealthCertificateOverviewEmptyStateViewModel.swift */; };
@@ -731,6 +734,8 @@
 		50AA525425FB9ACA000C77BB /* TraceWarningDiscovery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50AA525325FB9ACA000C77BB /* TraceWarningDiscovery.swift */; };
 		50AA526825FBA0CC000C77BB /* HTTPClient+TraceWarningPackageDiscoveryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50AA526725FBA0CC000C77BB /* HTTPClient+TraceWarningPackageDiscoveryTests.swift */; };
 		50AF181F27A2E85B00BAA9DB /* Locator+TeleTan.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5001DE8326E206AB004242FA /* Locator+TeleTan.swift */; };
+		50AF182127A2F5DF00BAA9DB /* ccl-configuration.bin in Resources */ = {isa = PBXBuildFile; fileRef = 50AF182027A2F5DF00BAA9DB /* ccl-configuration.bin */; };
+		50AF182427A3F20500BAA9DB /* CCLConfigurationResourceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50AF182327A3F20500BAA9DB /* CCLConfigurationResourceTests.swift */; };
 		50AF8B4625E00D7200F65328 /* ENDiagnosisReportType+Protobuf.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50AF8B4525E00D7200F65328 /* ENDiagnosisReportType+Protobuf.swift */; };
 		50B1D6E72551621C00684C3C /* DayKeyPackageDownloadTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50B1D6E62551621C00684C3C /* DayKeyPackageDownloadTests.swift */; };
 		50B5057D25CAEF5C00EEA380 /* OTPToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50B5057C25CAEF5C00EEA380 /* OTPToken.swift */; };
@@ -1042,7 +1047,6 @@
 		AB1FCBD42521FC47005930BA /* EnvironmentTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB1FCBCC2521FC44005930BA /* EnvironmentTests.swift */; };
 		AB2628DA27A2E348003D39A6 /* GetWalletInfoInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB2628D927A2E348003D39A6 /* GetWalletInfoInput.swift */; };
 		AB2628DD27A2FACF003D39A6 /* GetWalletInfoInputTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB2628DC27A2FACF003D39A6 /* GetWalletInfoInputTests.swift */; };
-		AB2628DF27A3E1B6003D39A6 /* DateFormatters.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB2628DE27A3E1B6003D39A6 /* DateFormatters.swift */; };
 		AB2628E127A3F220003D39A6 /* HealthCertificateMapping.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB2628E027A3F220003D39A6 /* HealthCertificateMapping.swift */; };
 		AB2F094A25D1687300C16309 /* SurveyURLProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB2F094925D1687300C16309 /* SurveyURLProvider.swift */; };
 		AB2F094F25D169DC00C16309 /* SurveyURLServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB2F094E25D169DC00C16309 /* SurveyURLServiceTests.swift */; };
@@ -2269,6 +2273,9 @@
 		5013523127884C0D00511ADF /* CBORReceiveResource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CBORReceiveResource.swift; sourceTree = "<group>"; };
 		5013B18426EBA3A500A2DD54 /* QRScannerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRScannerViewModel.swift; sourceTree = "<group>"; };
 		5013B18626EBA3FE00A2DD54 /* QRScannerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRScannerViewController.swift; sourceTree = "<group>"; };
+		5015D2D327A17391007D8763 /* Locator+CCLConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Locator+CCLConfiguration.swift"; sourceTree = "<group>"; };
+		5015D2D527A1774B007D8763 /* CCLConfigurationResource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CCLConfigurationResource.swift; sourceTree = "<group>"; };
+		5015D2D727A17951007D8763 /* CCLConfigurationReceiveModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CCLConfigurationReceiveModel.swift; sourceTree = "<group>"; };
 		5017F64C25FFAD11003A812E /* PPASubmissionState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PPASubmissionState.swift; sourceTree = "<group>"; };
 		5017F65E25FFC1E8003A812E /* ClientMetadataTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientMetadataTests.swift; sourceTree = "<group>"; };
 		501ABC4F267B4B04008F37CA /* HealthCertificateOverviewEmptyStateViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthCertificateOverviewEmptyStateViewModel.swift; sourceTree = "<group>"; };
@@ -2376,6 +2383,8 @@
 		50AA522625FA5AAD000C77BB /* TraceWarningError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraceWarningError.swift; sourceTree = "<group>"; };
 		50AA525325FB9ACA000C77BB /* TraceWarningDiscovery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraceWarningDiscovery.swift; sourceTree = "<group>"; };
 		50AA526725FBA0CC000C77BB /* HTTPClient+TraceWarningPackageDiscoveryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HTTPClient+TraceWarningPackageDiscoveryTests.swift"; sourceTree = "<group>"; };
+		50AF182027A2F5DF00BAA9DB /* ccl-configuration.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = "ccl-configuration.bin"; sourceTree = "<group>"; };
+		50AF182327A3F20500BAA9DB /* CCLConfigurationResourceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CCLConfigurationResourceTests.swift; sourceTree = "<group>"; };
 		50AF8B4525E00D7200F65328 /* ENDiagnosisReportType+Protobuf.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ENDiagnosisReportType+Protobuf.swift"; sourceTree = "<group>"; };
 		50B1D6E62551621C00684C3C /* DayKeyPackageDownloadTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayKeyPackageDownloadTests.swift; sourceTree = "<group>"; };
 		50B5057C25CAEF5C00EEA380 /* OTPToken.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OTPToken.swift; sourceTree = "<group>"; };
@@ -2703,7 +2712,6 @@
 		AB1FCBDB2521FCD5005930BA /* TestEnvironments.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = TestEnvironments.json; sourceTree = "<group>"; };
 		AB2628D927A2E348003D39A6 /* GetWalletInfoInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetWalletInfoInput.swift; sourceTree = "<group>"; };
 		AB2628DC27A2FACF003D39A6 /* GetWalletInfoInputTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetWalletInfoInputTests.swift; sourceTree = "<group>"; };
-		AB2628DE27A3E1B6003D39A6 /* DateFormatters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatters.swift; sourceTree = "<group>"; };
 		AB2628E027A3F220003D39A6 /* HealthCertificateMapping.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthCertificateMapping.swift; sourceTree = "<group>"; };
 		AB2F094925D1687300C16309 /* SurveyURLProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SurveyURLProvider.swift; sourceTree = "<group>"; };
 		AB2F094E25D169DC00C16309 /* SurveyURLServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SurveyURLServiceTests.swift; sourceTree = "<group>"; };
@@ -3880,7 +3888,6 @@
 				019E2F0626A05196000EC4AD /* HealthCertificateValidityState.swift */,
 				017D8DA3263B02F30009E91C /* HealthCertifiedPerson.swift */,
 				01E102652668D40E009ED803 /* TestCertificateRequest.swift */,
-				BAAC573126CBEF7C0049B55C /* VaccinationProductType.swift */,
 				AB2628E027A3F220003D39A6 /* HealthCertificateMapping.swift */,
 			);
 			path = Models;
@@ -5219,6 +5226,18 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		5015D2D227A1737E007D8763 /* CCLConfiguration */ = {
+			isa = PBXGroup;
+			children = (
+				50AF182227A3E22E00BAA9DB /* __tests__ */,
+				50AF182027A2F5DF00BAA9DB /* ccl-configuration.bin */,
+				5015D2D327A17391007D8763 /* Locator+CCLConfiguration.swift */,
+				5015D2D527A1774B007D8763 /* CCLConfigurationResource.swift */,
+				5015D2D727A17951007D8763 /* CCLConfigurationReceiveModel.swift */,
+			);
+			path = CCLConfiguration;
+			sourceTree = "<group>";
+		};
 		5017F65D25FFC1CF003A812E /* __tests__ */ = {
 			isa = PBXGroup;
 			children = (
@@ -5559,6 +5578,14 @@
 			path = HTTPClient;
 			sourceTree = "<group>";
 		};
+		50AF182227A3E22E00BAA9DB /* __tests__ */ = {
+			isa = PBXGroup;
+			children = (
+				50AF182327A3F20500BAA9DB /* CCLConfigurationResourceTests.swift */,
+			);
+			path = __tests__;
+			sourceTree = "<group>";
+		};
 		50B5058725CAF3C500EEA380 /* DMOTPService */ = {
 			isa = PBXGroup;
 			children = (
@@ -5765,6 +5792,7 @@
 			children = (
 				50BC9030279EEB4A0000C930 /* AllowList */,
 				50BC9031279EEB840000C930 /* AppConfiguration */,
+				5015D2D227A1737E007D8763 /* CCLConfiguration */,
 				50BC902C279EEA670000C930 /* DCCRules */,
 				50BC9032279EEBC20000C930 /* RegistrationToken */,
 				50BC9040279EECEB0000C930 /* ServiceIdentityDocument */,
@@ -6154,22 +6182,22 @@
 		51D420D524598AC200AD70CA /* Source */ = {
 			isa = PBXGroup;
 			children = (
-				BA64FA7F26D79BCB00DD4705 /* HTTPClientCore */,
-				50AF181D27A2E5E000BAA9DB /* HTTPClient */,
-				35B2FAAE25B9D362009ABC8E /* AppDelegate & Globals */,
-				AB126871254C0598006E9194 /* Utils */,
-				AB1FCBCA2521FC21005930BA /* Environment */,
-				B111EDEC2465B1F4001AEBB4 /* Client */,
-				CD99A3C82461A44B00BF12AF /* View Helpers */,
-				51CE1BBB2460B1BA002CF42A /* Protocols */,
-				8595BF5D246032C40056EA27 /* Views */,
-				B1569DD5245D6C790079FCD7 /* Developer Menu */,
-				51EE9A6A245C0F7900F2544F /* Models */,
-				85D759802459A82D008175F0 /* Services */,
-				85D759712457059A008175F0 /* Scenes */,
-				51D420B224583AA400AD70CA /* Workers */,
-				51D420B524583B5100AD70CA /* Extensions */,
 				EBA3BE3B25C2FAA800F1C2AC /* RootCoordinator.swift */,
+				35B2FAAE25B9D362009ABC8E /* AppDelegate & Globals */,
+				B111EDEC2465B1F4001AEBB4 /* Client */,
+				B1569DD5245D6C790079FCD7 /* Developer Menu */,
+				AB1FCBCA2521FC21005930BA /* Environment */,
+				51D420B524583B5100AD70CA /* Extensions */,
+				50AF181D27A2E5E000BAA9DB /* HTTPClient */,
+				BA64FA7F26D79BCB00DD4705 /* HTTPClientCore */,
+				51EE9A6A245C0F7900F2544F /* Models */,
+				51CE1BBB2460B1BA002CF42A /* Protocols */,
+				85D759712457059A008175F0 /* Scenes */,
+				85D759802459A82D008175F0 /* Services */,
+				AB126871254C0598006E9194 /* Utils */,
+				CD99A3C82461A44B00BF12AF /* View Helpers */,
+				8595BF5D246032C40056EA27 /* Views */,
+				51D420B224583AA400AD70CA /* Workers */,
 			);
 			path = Source;
 			sourceTree = "<group>";
@@ -7361,7 +7389,6 @@
 				ABB8DF5F2799BEC300DD99E4 /* CCLService.swift */,
 				AB77385227A160A000B9EA95 /* DCCWalletCertificate.swift */,
 				AB2628D927A2E348003D39A6 /* GetWalletInfoInput.swift */,
-				AB2628DE27A3E1B6003D39A6 /* DateFormatters.swift */,
 				01C5F2FE2799859D00F60047 /* DCCWalletInfo.swift */,
 			);
 			path = CCLService;
@@ -9727,6 +9754,7 @@
 				01D026BF258BACCE00B6389A /* ExposureDetectionGuideCell.xib in Resources */,
 				01A4DCE225926931007D5794 /* HomeLoadingItemView.xib in Resources */,
 				01D0275D258BD56F00B6389A /* SettingsLabelCell.xib in Resources */,
+				50AF182127A2F5DF00BAA9DB /* ccl-configuration.bin in Resources */,
 				351E630D256C5B9C00D89B29 /* LabeledCountriesCell.xib in Resources */,
 				EE92A33E245D96DA006B97B0 /* Localizable.stringsdict in Resources */,
 				01D0268D258B9CF800B6389A /* ExposureDetectionRiskCell.xib in Resources */,
@@ -10105,6 +10133,7 @@
 				01CBB82C2660F3690094CF8B /* CardView.swift in Sources */,
 				50EE7606274685E0003DE929 /* SecondTicketValidationConsentViewController.swift in Sources */,
 				AB0246DB2716D732002668A1 /* RecycleBinRestorationHandling.swift in Sources */,
+				5015D2D627A1774B007D8763 /* CCLConfigurationResource.swift in Sources */,
 				01DE60752744EF3F00E12FA4 /* TicketValidationInitializationData.swift in Sources */,
 				013C413D255463A400826C9F /* DMDebugRiskCalculationViewController.swift in Sources */,
 				01BB00D0274FDAD70065D1D1 /* TicketValidationConditions.swift in Sources */,
@@ -10292,6 +10321,7 @@
 				2F80CFDB247EDDB3000F06AF /* ExposureSubmissionHotlineViewController.swift in Sources */,
 				BA6D163A255AD35900ED3492 /* DMSwitchTableViewCell.swift in Sources */,
 				941ADDB02518C2B200E421D9 /* EuTracingTableViewCell.swift in Sources */,
+				5015D2D827A17951007D8763 /* CCLConfigurationReceiveModel.swift in Sources */,
 				019789352746920600AAC31C /* TicketValidationOpenViewModel.swift in Sources */,
 				BA0F6C61263186E50046BA48 /* AntigenTestProfileInputViewModel.swift in Sources */,
 				A3C4F96024812CD20047F23E /* ExposureSubmissionWarnOthersViewController.swift in Sources */,
@@ -10633,6 +10663,7 @@
 				BA94BBC2260DFD42005CF38F /* CheckInTopCornerCell.swift in Sources */,
 				BAB9FC5B2630557900EB4E76 /* AntigenTestProfile.swift in Sources */,
 				EB7D205624E6A5930089264C /* InfoBoxViewModel.swift in Sources */,
+				5015D2D427A17391007D8763 /* Locator+CCLConfiguration.swift in Sources */,
 				8FB7C92D2750EF6E0071C98C /* TicketValidationDecoratorIdentityDocumentProcessor.swift in Sources */,
 				859DD512248549790073D59F /* MockDiagnosisKeysRetrieval.swift in Sources */,
 				01653FA726CD3AD000E21FB7 /* Checkin+SubmissionPreparation.swift in Sources */,
@@ -10709,7 +10740,6 @@
 				8FDB9403261FBA3800BA8CB1 /* AntigenTestQRCodeInformation.swift in Sources */,
 				5071A88226EB80D900B09B40 /* ServiceError.swift in Sources */,
 				013069522705D4A900D945E3 /* QRScannerTooltipViewController.swift in Sources */,
-				AB2628DF27A3E1B6003D39A6 /* DateFormatters.swift in Sources */,
 				8FEC1231275656AC00C5DADC /* TicketValidationAllowList.swift in Sources */,
 				017D8DAC263BEF920009E91C /* HealthCertificateServiceError.swift in Sources */,
 				503ACBFB26F36D1700C31352 /* HealthCertificateCoordinator.swift in Sources */,
@@ -11118,6 +11148,7 @@
 				500120F625E3FA1C00EDF3A5 /* PPAnalyticsCollectorTests.swift in Sources */,
 				BADBC86725D6C7FD00488DB7 /* SettingsDataDonationViewModelTests.swift in Sources */,
 				F2DC809424898CE600EDC40A /* DynamicTableViewControllerFooterTests.swift in Sources */,
+				50AF182427A3F20500BAA9DB /* CCLConfigurationResourceTests.swift in Sources */,
 				35358DD425A23169004FD0CB /* HTTPClientCertificatePinningTests.swift in Sources */,
 				01B72BA6258360FF00A3E3BC /* DiaryDayEmptyViewModelTest.swift in Sources */,
 				50C0299A25E4067B00460FA4 /* UserdataTests.swift in Sources */,
