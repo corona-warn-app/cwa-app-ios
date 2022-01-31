@@ -61,10 +61,26 @@ class BoosterNotificationTableViewCell: UITableViewCell, UITextViewDelegate, Reu
 		return backgroundContainerView
 	}()
 
+	private let disclosureContainerView: UIView = {
+		let disclosureContainerView = UIView()
+		disclosureContainerView.setContentHuggingPriority(.defaultHigh, for: .horizontal)
+
+		return disclosureContainerView
+	}()
+
+	private let disclosureImageView: UIImageView = {
+		let disclosureImageView = UIImageView()
+		disclosureImageView.image = UIImage(named: "Icons_Chevron_plain")
+		disclosureImageView.contentMode = .scaleAspectFit
+		disclosureImageView.translatesAutoresizingMaskIntoConstraints = false
+
+		return disclosureImageView
+	}()
+
 	private let contentStackView: UIStackView = {
 		let contentStackView = UIStackView()
 		contentStackView.axis = .vertical
-		contentStackView.alignment = .leading
+		contentStackView.alignment = .fill
 		contentStackView.spacing = 6
 
 		return contentStackView
@@ -118,8 +134,12 @@ class BoosterNotificationTableViewCell: UITableViewCell, UITextViewDelegate, Reu
 		contentStackView.translatesAutoresizingMaskIntoConstraints = false
 		backgroundContainerView.addSubview(contentStackView)
 
+		disclosureContainerView.addSubview(disclosureImageView)
+
 		titleStackView.addArrangedSubview(titleLabel)
 		titleStackView.addArrangedSubview(unseenNewsIndicator)
+		titleStackView.addArrangedSubview(UIView())
+		titleStackView.addArrangedSubview(disclosureContainerView)
 
 		contentStackView.addArrangedSubview(titleStackView)
 		contentStackView.setCustomSpacing(0, after: titleStackView)
@@ -138,7 +158,13 @@ class BoosterNotificationTableViewCell: UITableViewCell, UITextViewDelegate, Reu
 				contentStackView.trailingAnchor.constraint(equalTo: backgroundContainerView.trailingAnchor, constant: -16.0),
 
 				unseenNewsIndicator.widthAnchor.constraint(equalToConstant: 11),
-				unseenNewsIndicator.heightAnchor.constraint(equalToConstant: 11)
+				unseenNewsIndicator.heightAnchor.constraint(equalToConstant: 11),
+
+				disclosureContainerView.leadingAnchor.constraint(equalTo: disclosureImageView.leadingAnchor),
+				disclosureContainerView.trailingAnchor.constraint(equalTo: disclosureImageView.trailingAnchor),
+
+				disclosureImageView.bottomAnchor.constraint(equalTo: titleLabel.firstBaselineAnchor),
+				disclosureImageView.widthAnchor.constraint(equalToConstant: 7)
 			]
 		)
 	}
