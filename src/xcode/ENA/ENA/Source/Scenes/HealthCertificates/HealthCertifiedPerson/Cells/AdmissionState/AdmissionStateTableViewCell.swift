@@ -78,8 +78,7 @@ class AdmissionStateTableViewCell: UITableViewCell, UITextViewDelegate, ReuseIde
 	}()
 
 	private let topStackView: UIStackView = {
-		let titleStackView = UIStackView()
-		titleStackView.axis = .horizontal
+		let titleStackView = AccessibleStackView()
 		titleStackView.distribution = .fill
 		titleStackView.alignment = .top
 		titleStackView.spacing = 6

@@ -175,12 +175,11 @@ class HealthCertifiedPersonTableViewCell: UITableViewCell, ReuseIdentifierProvid
 	}()
 
 	private lazy var admissionStateStackView: UIStackView = {
-		let stackView = UIStackView(
+		let stackView = AccessibleStackView(
 			arrangedSubviews: [
 				admissionStateTitleLabel, admissionStateView
 			].compactMap { $0 }
 		)
-		stackView.axis = .horizontal
 		stackView.spacing = 8.0
 		stackView.alignment = .center
 
@@ -192,6 +191,7 @@ class HealthCertifiedPersonTableViewCell: UITableViewCell, ReuseIdentifierProvid
 		admissionStateTitleLabel.numberOfLines = 0
 		admissionStateTitleLabel.textColor = .enaColor(for: .textPrimary1)
 		admissionStateTitleLabel.text = AppStrings.HealthCertificate.Overview.admissionStateTitle
+		admissionStateTitleLabel.setContentCompressionResistancePriority(.required, for: .horizontal)
 
 		return admissionStateTitleLabel
 	}()
