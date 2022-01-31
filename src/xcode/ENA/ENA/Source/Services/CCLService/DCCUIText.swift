@@ -35,6 +35,10 @@ public struct DCCUIText: Codable, Equatable {
 	let localizedText: [String: AnyCodable]?
 	let parameters: AnyCodable
 
+	static let dateFormatter: ISO8601DateFormatter = .iso8601DateFormatter()
+	static let outputDateFormatter: DateFormatter = .outputDateFormatter()
+	static let outputDateTimeFormatter: DateFormatter = .outputDateTimeFormatter()
+	
 	// MARK: - Internal
 
 	func localized(languageCode: String? = Locale.current.languageCode) -> String? {
@@ -179,12 +183,6 @@ public struct DCCUIText: Codable, Equatable {
 	}
 	
 	private func parseFormatParameter(parameter: DCCUITextParameter) -> CVarArg? {
-		let dateFormatter = ISO8601DateFormatter()
-		dateFormatter.formatOptions = [.withInternetDateTime, .withFractionalSeconds]
-
-		let outputDateFormatter = DateFormatter()
-		outputDateFormatter.timeZone = .utcTimeZone
-
 		var date = Date()
 		var stringValue: String = ""
 		
@@ -198,7 +196,7 @@ public struct DCCUIText: Codable, Equatable {
 			parameter.type == ParameterType.localDateTime ||
 			parameter.type == ParameterType.utcDate ||
 			parameter.type == ParameterType.utcDateTime {
-			if let formattedDate = dateFormatter.date(from: stringValue) {
+			if let formattedDate = DCCUIText.dateFormatter.date(from: stringValue) {
 				date = formattedDate
 			} else {
 				return nil
@@ -217,17 +215,39 @@ public struct DCCUIText: Codable, Equatable {
 			return DateFormatter.localizedString(from: date, dateStyle: .short, timeStyle: .short)
 		case ParameterType.utcDate:
 			// entry.value shall be treated as a ISO 8106 date string and formatted as date (without time information) in UTC
-			outputDateFormatter.dateStyle = .short
-			outputDateFormatter.timeStyle = .none
-			return outputDateFormatter.string(from: date)
+			return DCCUIText.outputDateFormatter.string(from: date)
 		case ParameterType.utcDateTime:
 			// entry.value shall be treated as a ISO 8106 date string and formatted as date (with time information) in UTC
-			outputDateFormatter.dateStyle = .short
-			outputDateFormatter.timeStyle = .short
-			return outputDateFormatter.string(from: date)
+			return DCCUIText.outputDateTimeFormatter.string(from: date)
 		default:
 			// otherwise, entry.value shall be treated as a string
 			return stringValue
 		}
+	}
+}
+
+private extension ISO8601DateFormatter {
+	class func iso8601DateFormatter() -> ISO8601DateFormatter {
+		let formatter = ISO8601DateFormatter()
+		formatter.formatOptions = [.withInternetDateTime, .withFractionalSeconds]
+		return formatter
+	}
+}
+
+private extension DateFormatter {
+	class func outputDateTimeFormatter() -> DateFormatter {
+		let formatter = DateFormatter()
+		formatter.dateStyle = .short
+		formatter.timeStyle = .short
+		formatter.timeZone = .utcTimeZone
+		return formatter
+	}
+	
+	class func outputDateFormatter() -> DateFormatter {
+		let formatter = DateFormatter()
+		formatter.dateStyle = .short
+		formatter.timeStyle = .none
+		formatter.timeZone = .utcTimeZone
+		return formatter
 	}
 }
