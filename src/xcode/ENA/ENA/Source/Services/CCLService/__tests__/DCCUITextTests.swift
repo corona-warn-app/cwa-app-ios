@@ -16,16 +16,15 @@ class DCCUITextTests: XCTestCase {
 		XCTAssertEqual(testCases.count, 22)
 	}
 	
+	
 	func testGIVEN_TestCases_WHEN_LocalizeStringForEachTestCase_THEN_ResultIsCorrect() {
 		// GIVEN
 		let testCases = testCasesWithCCLConfiguration.testCases
 
 		for testCase in testCases {
 			let dccUIText = testCase.textDescriptor
-			
-			XCTAssertEqual(dccUIText.localized(), testCase.assertions[0].text)
-			
-			// DCCUIText.fake(type: testCase.textDescriptor.type, quantity: testCase.textDescriptor.quantity, quantityParameterIndex: testCase.textDescriptor.quantityParameterIndex, functionName: testCase.textDescriptor.functionName, localizedText: testCase.textDescriptor.localizedText, parameters: testCase.textDescriptor.parameters)
+			let expectationText = testCase.assertions[0].text
+			XCTAssertEqual(dccUIText.localized(), expectationText, "Failing Test: \(testCase.description)")
 		}
 	}
 	
@@ -38,6 +37,13 @@ class DCCUITextTests: XCTestCase {
 			fatalError("Failed init json file for tests - stop here")
 		}
 
+		let dateFormatter = DateFormatter()
+		dateFormatter.locale = Locale(identifier: "en_US_POSIX")
+		dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mmXXXXX"
+
+		let decoder = JSONDecoder()
+		decoder.dateDecodingStrategy = .formatted(dateFormatter)
+		
 		do {
 			return try JSONDecoder().decode(TestCasesWithCCLConfiguration.self, from: data)
 		} catch let DecodingError.keyNotFound(jsonKey, context) {
