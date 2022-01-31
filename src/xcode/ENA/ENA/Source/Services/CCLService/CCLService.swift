@@ -13,27 +13,7 @@ enum CLLServiceError: Error {
 }
 
 enum DCCWalletInfoAccessError: Error {
-	
-}
-
-private struct SystemTime: Codable {
-	
-	let timestamp: Int
-	let localDate: String
-	let localDateTime: String
-	let localDateTimeMidnight: String
-	let utcDate: String
-	let utcDateTime: String
-	let utcDateTimeMidnight: String
-}
-
-private struct GetDCCWalletInfoInput: Codable {
-
-	let os: String
-	let language: String
-	let now: SystemTime
-	let certificates: [DCCWalletCertificate]
-	let boosterNotificationRules: [Rule]
+	case failedFunctionsEvaluation(Error)
 }
 
 protocol CCLServable {
@@ -61,7 +41,23 @@ class CLLService: CCLServable {
 	}
 	
 	func dccWalletInfo(for certificates: [DCCWalletCertificate]) -> Swift.Result<DCCWalletInfo, DCCWalletInfoAccessError> {
-		return .success(.fake())
+		let language = Locale.current.languageCode ?? "en"
+		
+		let getWalletInfoInput = GetWalletInfoInput.make(
+			language: language,
+			certificates: certificates,
+			boosterNotificationRules: boosterNotificationRules
+		)
+		
+		do {
+			let walletInfo: DCCWalletInfo = try jsonFunctions.evaluateFunction(
+				name: "getDCCWalletInfo",
+				parameters: getWalletInfoInput
+			)
+			return .success(walletInfo)
+		} catch {
+			return .failure(.failedFunctionsEvaluation(error))
+		}
 	}
 	
 	func evaluateFunction<T>(name: String, parameters: [String: AnyDecodable]) throws -> T where T: Decodable {
@@ -70,4 +66,8 @@ class CLLService: CCLServable {
 	
 	var configurationDidChange = PassthroughSubject<Bool, Never>()
 
+	// MARK: - Private
+	
+	let jsonFunctions: JsonFunctions = JsonFunctions()
+	var boosterNotificationRules: [Rule] = [Rule]()
 }
