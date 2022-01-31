@@ -6,7 +6,6 @@ import Foundation
 import HealthCertificateToolkit
 import class CertLogic.Rule
 
-@available(*, deprecated, message: "gets replaced by CCLService")
 protocol RulesDownloadServiceProviding {
 	func downloadRules(
 		ruleType: HealthCertificateValidationRuleType,
@@ -30,6 +29,11 @@ class RulesDownloadService: RulesDownloadServiceProviding {
 		ruleType: HealthCertificateValidationRuleType,
 		completion: @escaping (Result<[Rule], DCCDownloadRulesError>) -> Void
 	) {
+		guard ruleType != .boosterNotification else {
+			Log.error("invalid use for booster rules download")
+			fatalError("invalid use for booster rules download")
+		}
+
 		let resource = DCCRulesResource(ruleType: ruleType)
 		restServiceProvider.load(resource) { result in
 			DispatchQueue.main.async {

@@ -9,9 +9,10 @@ import AnyCodable
 import CertLogic
 import HealthCertificateToolkit
 
-enum CLLServiceError: Error {
-	case MissingConfiguration
-	case BoosterRulesUpdateFailure
+enum CLLDownloadError<T>: Error {
+	case cached(T)
+	case missing
+	case custom(Error)
 }
 
 enum DCCWalletInfoAccessError: Error {
@@ -20,13 +21,11 @@ enum DCCWalletInfoAccessError: Error {
 
 protocol CCLServable {
 	
-	func updateConfiguration(completion: (Swift.Result<Void, CLLServiceError>) -> Void)
+	func updateConfiguration(completion: (_ didChange: Bool) -> Void)
 	
 	func dccWalletInfo(for certificates: [DCCWalletCertificate]) -> Swift.Result<DCCWalletInfo, DCCWalletInfoAccessError>
 	
 	func evaluateFunction<T: Decodable>(name: String, parameters: [String: AnyDecodable]) throws -> T
-	
-	var configurationDidChange: PassthroughSubject<Bool, Never> { get }
 
 }
 
@@ -42,8 +41,58 @@ class CLLService: CCLServable {
 	
 	// MARK: - Protocol CCLServable
 
-	func updateConfiguration(completion: (Swift.Result<Void, CLLServiceError>) -> Void) {
-		completion(.success(()))
+	func updateConfiguration(completion: (_ didChange: Bool) -> Void) {
+		// trigger both downloads, if one was updated notify caller in result
+
+		let dispatchGroup = DispatchGroup()
+
+		var configurationDidUpdate: Bool = false
+		var boosterRulesDidUpdate: Bool = false
+
+		// lookup configuration updates
+		dispatchGroup.enter()
+		getConfigurations { [weak self] result in
+			defer {
+				dispatchGroup.leave()
+			}
+
+			switch result {
+			case let .success(configurations):
+				// we got a new configuration - let update json functions
+				configurations.forEach { configuration in
+					self?.updateJsonFunctions(configuration)
+				}
+				self?.cclConfigurations = configurations
+				configurationDidUpdate = true
+			case let .failure(error):
+				if case let .cached(configurations) = error {
+					self?.cclConfigurations = configurations
+					configurationDidUpdate = false
+				}
+			}
+		}
+
+		// lookup booster notification rules updates
+		dispatchGroup.enter()
+		getBoosterNotificationRules { [weak self] result in
+			defer {
+				dispatchGroup.leave()
+			}
+
+			switch result {
+			case let .success(rules):
+				self?.boosterNotificationRules = rules
+				boosterRulesDidUpdate = true
+			case let .failure(error):
+				if case let .cached(rules) = error {
+					self?.boosterNotificationRules = rules
+					boosterRulesDidUpdate = false
+				}
+			}
+		}
+		dispatchGroup.wait()
+
+		return completion( configurationDidUpdate || boosterRulesDidUpdate )
 	}
 	
 	func dccWalletInfo(for certificates: [DCCWalletCertificate]) -> Swift.Result<DCCWalletInfo, DCCWalletInfoAccessError> {
@@ -78,44 +127,52 @@ class CLLService: CCLServable {
 
 	private let jsonFunctions: JsonFunctions = JsonFunctions()
 
-	private var boosterNotificationRules: [Rule] = [Rule]()
+	private var boosterNotificationRules: [Rule] = []
+	private var cclConfigurations: [CCLConfiguration] = []
 
-	private func getLatestConfiguration(completion: @escaping (Swift.Result<Void, CLLServiceError>) -> Void) {
+	private func getConfigurations(
+		completion: @escaping (Swift.Result<[CCLConfiguration], CLLDownloadError<[CCLConfiguration]>>) -> Void
+	) {
 		let resource = CCLConfigurationResource()
-		restServiceProvider.load(resource) { [weak self] result in
+		restServiceProvider.load(resource) { result in
 			switch result {
-			case let .success(configuration):
-				if !configuration.metaData.loadedFromCache {
-					self?.configurationDidChange.send(true)
+			case let .success(receiveModel):
+				let configurations = receiveModel.cclConfigurations
+				if receiveModel.metaData.loadedFromCache {
+					completion(.failure(.cached(configurations)))
+				} else {
+					completion(.success(configurations))
 				}
 			case let .failure(error):
 				switch error {
 				case .fakeResponse:
-					completion(.success(()))
+					completion(.success([]))
 				default:
-					completion(.failure(.MissingConfiguration))
+					completion(.failure(.missing))
 				}
 			}
 		}
 	}
 
-	private func updateBoosterNotificationRules(
-		ruleType: HealthCertificateValidationRuleType = .boosterNotification,
-		completion: @escaping (Swift.Result<Void, DCCDownloadRulesError>) -> Void
+	private func getBoosterNotificationRules(
+		completion: @escaping (Swift.Result<[Rule], CLLDownloadError<[Rule]>>) -> Void
 	) {
-		let resource = DCCRulesResource(ruleType: ruleType)
-		restServiceProvider.load(resource) { [weak self] result in
+		let resource = DCCRulesResource(ruleType: .boosterNotification)
+		restServiceProvider.load(resource) { result in
 			DispatchQueue.main.async {
 				switch result {
-				case let .success(validationRulesModel):
-					self?.boosterNotificationRules = validationRulesModel.rules
-					completion(.success(()))
+				case let .success(receiveModel):
+					if receiveModel.metaData.loadedFromCache {
+						completion(.failure(.cached(receiveModel.rules)))
+					} else {
+						completion(.success(receiveModel.rules))
+					}
 				case let .failure(error):
 					if case let .receivedResourceError(customError) = error {
-						completion(.failure(customError))
+						completion(.failure(.custom(customError)))
 					} else {
 						Log.error("Unhandled error \(error.localizedDescription)", log: .vaccination)
-						completion(.failure(.RULE_CLIENT_ERROR(ruleType)))
+						completion(.failure(.custom(DCCDownloadRulesError.RULE_CLIENT_ERROR(.boosterNotification))))
 					}
 				}
 			}

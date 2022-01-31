@@ -865,7 +865,6 @@
 		8F070CE925E58B9400D29344 /* HtmlInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F070CE825E58B9400D29344 /* HtmlInfoModel.swift */; };
 		8F0B0A9D26EA180500ED6F71 /* BoosterNotificationServiceError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F0B0A9C26EA180500ED6F71 /* BoosterNotificationServiceError.swift */; };
 		8F1E6EEB26DD93BD00483660 /* RulesDownloadService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F1E6EEA26DD93BD00483660 /* RulesDownloadService.swift */; };
-		8F1E6EED26DE13B800483660 /* BoosterNotificationsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F1E6EEC26DE13B800483660 /* BoosterNotificationsService.swift */; };
 		8F1E6EEF26DFC22600483660 /* BoosterNotificationsServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F1E6EEE26DFC22600483660 /* BoosterNotificationsServiceTests.swift */; };
 		8F270194259B5BA700E48CFE /* ContactDiaryMigration1To2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F270193259B5BA700E48CFE /* ContactDiaryMigration1To2.swift */; };
 		8F3167E626A5D906008F35AA /* RegionStatisticsData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F3167E526A5D906008F35AA /* RegionStatisticsData.swift */; };
@@ -2530,7 +2529,6 @@
 		8F09523227508642002B7049 /* ServiceIdentityDocumentValidationDecoratorResourceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceIdentityDocumentValidationDecoratorResourceTests.swift; sourceTree = "<group>"; };
 		8F0B0A9C26EA180500ED6F71 /* BoosterNotificationServiceError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoosterNotificationServiceError.swift; sourceTree = "<group>"; };
 		8F1E6EEA26DD93BD00483660 /* RulesDownloadService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RulesDownloadService.swift; sourceTree = "<group>"; };
-		8F1E6EEC26DE13B800483660 /* BoosterNotificationsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoosterNotificationsService.swift; sourceTree = "<group>"; };
 		8F1E6EEE26DFC22600483660 /* BoosterNotificationsServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoosterNotificationsServiceTests.swift; sourceTree = "<group>"; };
 		8F27018E259B593700E48CFE /* ContactDiaryStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactDiaryStore.swift; sourceTree = "<group>"; };
 		8F270193259B5BA700E48CFE /* ContactDiaryMigration1To2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactDiaryMigration1To2.swift; sourceTree = "<group>"; };
@@ -3890,7 +3888,6 @@
 				019E2F0626A05196000EC4AD /* HealthCertificateValidityState.swift */,
 				017D8DA3263B02F30009E91C /* HealthCertifiedPerson.swift */,
 				01E102652668D40E009ED803 /* TestCertificateRequest.swift */,
-				BAAC573126CBEF7C0049B55C /* VaccinationProductType.swift */,
 				AB2628E027A3F220003D39A6 /* HealthCertificateMapping.swift */,
 			);
 			path = Models;
@@ -5450,7 +5447,6 @@
 				5078DCA22684B3F400535917 /* __tests__ */,
 				5078DC9F2684B3DD00535917 /* Model */,
 				8F0B0A9C26EA180500ED6F71 /* BoosterNotificationServiceError.swift */,
-				8F1E6EEC26DE13B800483660 /* BoosterNotificationsService.swift */,
 				5078DCA02684B3ED00535917 /* HealthCertificateValidationService.swift */,
 				8F1E6EEA26DD93BD00483660 /* RulesDownloadService.swift */,
 			);
@@ -10983,7 +10979,6 @@
 				8F3202442600C7BB00D6A224 /* TorchMode.swift in Sources */,
 				01D02626258A769200B6389A /* HTTPURLResponse+Header.swift in Sources */,
 				EB3BCA882507B6C1003F27C7 /* ExposureSubmissionSymptomsOnsetViewController.swift in Sources */,
-				8F1E6EED26DE13B800483660 /* BoosterNotificationsService.swift in Sources */,
 				8F39D07D263F62A80096F4E2 /* els_otp_request_ios.pb.swift in Sources */,
 				5001DE7A26E2019A004242FA /* LocalStatistics.swift in Sources */,
 				FEDCE29E414945F14E7CE576 /* ENStateHandler+State.swift in Sources */,
