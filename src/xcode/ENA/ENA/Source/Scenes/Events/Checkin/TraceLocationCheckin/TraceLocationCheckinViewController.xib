@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19162" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19144"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -43,10 +43,10 @@
                     <rect key="frame" x="0.0" y="44" width="414" height="743"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WkR-AT-WXT" userLabel="contentView">
-                            <rect key="frame" x="0.0" y="0.0" width="414" height="669.5"/>
+                            <rect key="frame" x="0.0" y="0.0" width="414" height="672"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Einchecken für:" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qe2-Cr-Hsf" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
-                                    <rect key="frame" x="16" y="24" width="382" height="18"/>
+                                    <rect key="frame" x="16" y="24" width="382" height="20.5"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                     <color key="textColor" name="ENA Text Contrast Color"/>
                                     <nil key="highlightedColor"/>
@@ -55,7 +55,7 @@
                                     </userDefinedRuntimeAttributes>
                                 </label>
                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="oNa-7R-1wU">
-                                    <rect key="frame" x="16" y="54" width="382" height="615.5"/>
+                                    <rect key="frame" x="16" y="56.5" width="382" height="615.5"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="16U-OV-LaG" userLabel="Description Card View">
                                             <rect key="frame" x="0.0" y="0.0" width="382" height="221.5"/>
@@ -73,7 +73,7 @@
                                                     <rect key="frame" x="16" y="30" width="350" height="161.5"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Vereinsaktivität " textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jzq-Fo-8cl" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
-                                                            <rect key="frame" x="0.0" y="0.0" width="350" height="30"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="350" height="80"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <color key="textColor" name="ENA Text Primary 2 Color"/>
                                                             <nil key="highlightedColor"/>
@@ -82,7 +82,7 @@
                                                             </userDefinedRuntimeAttributes>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qEg-yG-yRz" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
-                                                            <rect key="frame" x="0.0" y="40" width="350" height="93.5"/>
+                                                            <rect key="frame" x="0.0" y="90" width="350" height="41"/>
                                                             <string key="text">Jahrestreffen der 
 deutschen SAP Anwendergruppe</string>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -93,7 +93,7 @@ deutschen SAP Anwendergruppe</string>
                                                             </userDefinedRuntimeAttributes>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hauptstr 3, 69115 Heidelberg" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HOb-g7-FlT" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
-                                                            <rect key="frame" x="0.0" y="143.5" width="350" height="18"/>
+                                                            <rect key="frame" x="0.0" y="141" width="350" height="20.5"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <color key="textColor" name="ENA Text Primary 2 Color"/>
                                                             <nil key="highlightedColor"/>
@@ -231,7 +231,7 @@ deutschen SAP Anwendergruppe</string>
                                                                     <rect key="frame" x="0.0" y="0.0" width="350" height="72"/>
                                                                     <subviews>
                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Automatisch auschecken nach" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UBN-wb-TKy" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
-                                                                            <rect key="frame" x="0.0" y="0.0" width="249" height="72"/>
+                                                                            <rect key="frame" x="0.0" y="0.0" width="269" height="72"/>
                                                                             <accessibility key="accessibilityConfiguration">
                                                                                 <bool key="isElement" value="NO"/>
                                                                             </accessibility>
@@ -243,7 +243,7 @@ deutschen SAP Anwendergruppe</string>
                                                                             </userDefinedRuntimeAttributes>
                                                                         </label>
                                                                         <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KL2-pg-6XN" customClass="ENAButton" customModule="ENA" customModuleProvider="target">
-                                                                            <rect key="frame" x="257" y="0.0" width="93" height="72"/>
+                                                                            <rect key="frame" x="277" y="0.0" width="73" height="72"/>
                                                                             <accessibility key="accessibilityConfiguration">
                                                                                 <bool key="isElement" value="NO"/>
                                                                             </accessibility>
@@ -380,31 +380,31 @@ deutschen SAP Anwendergruppe</string>
             <size key="intrinsicContentSize" width="49" height="31"/>
         </designable>
         <designable name="HOb-g7-FlT">
-            <size key="intrinsicContentSize" width="201" height="18"/>
+            <size key="intrinsicContentSize" width="223" height="20.5"/>
         </designable>
         <designable name="Jzq-Fo-8cl">
-            <size key="intrinsicContentSize" width="109.5" height="18"/>
+            <size key="intrinsicContentSize" width="121" height="20.5"/>
         </designable>
         <designable name="KL2-pg-6XN">
-            <size key="intrinsicContentSize" width="93" height="50"/>
+            <size key="intrinsicContentSize" width="73" height="30"/>
         </designable>
         <designable name="LzL-ri-WCR">
-            <size key="intrinsicContentSize" width="98" height="50"/>
+            <size key="intrinsicContentSize" width="79" height="30"/>
         </designable>
         <designable name="M1z-st-0w7">
-            <size key="intrinsicContentSize" width="298.5" height="14.5"/>
+            <size key="intrinsicContentSize" width="402" height="20.5"/>
         </designable>
         <designable name="UBN-wb-TKy">
-            <size key="intrinsicContentSize" width="172.5" height="14.5"/>
+            <size key="intrinsicContentSize" width="209" height="18"/>
         </designable>
         <designable name="b0x-6m-KuJ">
             <size key="intrinsicContentSize" width="614.5" height="20.5"/>
         </designable>
         <designable name="qEg-yG-yRz">
-            <size key="intrinsicContentSize" width="403" height="62.5"/>
+            <size key="intrinsicContentSize" width="252" height="41"/>
         </designable>
         <designable name="qe2-Cr-Hsf">
-            <size key="intrinsicContentSize" width="111" height="18"/>
+            <size key="intrinsicContentSize" width="117.5" height="20.5"/>
         </designable>
     </designables>
     <resources>

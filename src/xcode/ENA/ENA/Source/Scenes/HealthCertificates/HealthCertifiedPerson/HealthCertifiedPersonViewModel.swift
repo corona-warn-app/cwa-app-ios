@@ -11,6 +11,7 @@ final class HealthCertifiedPersonViewModel {
 	// MARK: - Init
 
 	init(
+		cclService: CCLService,
 		healthCertificateService: HealthCertificateService,
 		healthCertifiedPerson: HealthCertifiedPerson,
 		healthCertificateValueSetsProvider: VaccinationValueSetsProviding,
@@ -18,6 +19,7 @@ final class HealthCertifiedPersonViewModel {
 		didTapValidationButton: @escaping (HealthCertificate, @escaping (Bool) -> Void) -> Void,
 		showInfoHit: @escaping () -> Void
 	) {
+		self.cclService = cclService
 		self.healthCertificateService = healthCertificateService
 		self.healthCertifiedPerson = healthCertifiedPerson
 		self.healthCertificateValueSetsProvider = healthCertificateValueSetsProvider
@@ -25,8 +27,8 @@ final class HealthCertifiedPersonViewModel {
 		self.didTapValidationButton = didTapValidationButton
 		self.showInfo = showInfoHit
 
-		self.vaccinationHintCellViewModel = VaccinationHintCellModel(healthCertifiedPerson: healthCertifiedPerson)
-		self.vaccinationAdmissionStateViewModel = AdmissionStateCellModel(healthCertifiedPerson: healthCertifiedPerson)
+		self.vaccinationHintCellViewModel = VaccinationHintCellModel(healthCertifiedPerson: healthCertifiedPerson, cclService: cclService)
+		self.vaccinationAdmissionStateViewModel = AdmissionStateCellModel(healthCertifiedPerson: healthCertifiedPerson, cclService: cclService)
 		
 		constructHealthCertificateCellViewModels(for: healthCertifiedPerson)
 
@@ -208,6 +210,7 @@ final class HealthCertifiedPersonViewModel {
 
 	// MARK: - Private
 
+	private let cclService: CCLService
 	private let healthCertifiedPerson: HealthCertifiedPerson
 	private let healthCertificateService: HealthCertificateService
 	private let healthCertificateValueSetsProvider: VaccinationValueSetsProviding

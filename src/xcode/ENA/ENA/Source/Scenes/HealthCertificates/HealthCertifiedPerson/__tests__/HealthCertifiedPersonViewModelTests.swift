@@ -23,8 +23,10 @@ class HealthCertifiedPersonViewModelTests: XCTestCase {
 			),
 			recycleBin: .fake()
 		)
+		let cclService = CCLService()
 
 		let viewModel = HealthCertifiedPersonViewModel(
+			cclService: cclService,
 			healthCertificateService: service,
 			healthCertifiedPerson: HealthCertifiedPerson(healthCertificates: [HealthCertificate.mock()]),
 			healthCertificateValueSetsProvider: VaccinationValueSetsProvider(client: CachingHTTPClientMock(), store: MockTestStore()),
@@ -71,9 +73,10 @@ class HealthCertifiedPersonViewModelTests: XCTestCase {
 			),
 			recycleBin: .fake()
 		)
+		let cclService = CCLService()
 
 		let viewModel = HealthCertifiedPersonViewModel(
-			healthCertificateService: service,
+			cclService: cclService, healthCertificateService: service,
 			healthCertifiedPerson: HealthCertifiedPerson(
 				healthCertificates: [
 					HealthCertificate.mock()
@@ -112,6 +115,7 @@ class HealthCertifiedPersonViewModelTests: XCTestCase {
 			),
 			recycleBin: .fake()
 		)
+		let cclService = CCLService()
 
 		let healthCertificate = try vaccinationCertificate(daysOffset: -24, doseNumber: 1, identifier: "01DE/84503/1119349007/DXSGWLWL40SU8ZFKIYIBK39A3#S", dateOfBirth: "1988-06-07")
 
@@ -120,8 +124,9 @@ class HealthCertifiedPersonViewModelTests: XCTestCase {
 				healthCertificate
 			]
 		)
-
+		
 		let viewModel = HealthCertifiedPersonViewModel(
+			cclService: cclService,
 			healthCertificateService: service,
 			healthCertifiedPerson: healthCertifiedPerson,
 			healthCertificateValueSetsProvider: VaccinationValueSetsProvider(client: CachingHTTPClientMock(), store: MockTestStore()),
@@ -154,6 +159,7 @@ class HealthCertifiedPersonViewModelTests: XCTestCase {
 			),
 			recycleBin: .fake()
 		)
+		let cclService = CCLService()
 
 		let healthCertificate = try vaccinationCertificate(daysOffset: -24, doseNumber: 3, totalSeriesOfDoses: 2, identifier: "01DE/84503/1119349007/DXSGWLWL40SU8ZFKIYIBK39A3#S", dateOfBirth: "1988-06-07")
 
@@ -162,8 +168,9 @@ class HealthCertifiedPersonViewModelTests: XCTestCase {
 				healthCertificate
 			]
 		)
-
+		
 		let viewModel = HealthCertifiedPersonViewModel(
+			cclService: cclService,
 			healthCertificateService: service,
 			healthCertifiedPerson: healthCertifiedPerson,
 			healthCertificateValueSetsProvider: VaccinationValueSetsProvider(client: CachingHTTPClientMock(), store: MockTestStore()),
@@ -191,6 +198,7 @@ class HealthCertifiedPersonViewModelTests: XCTestCase {
 			),
 			recycleBin: .fake()
 		)
+		let cclService = CCLService()
 
 		let healthCertificate1 = try vaccinationCertificate(daysOffset: -24, doseNumber: 3, totalSeriesOfDoses: 2, identifier: "01DE/84503/1119349007/DXSGWLWL40SU8ZFKIYIBK39A3#S", dateOfBirth: "1988-06-07")
 		let healthCertificate2 = try vaccinationCertificate(daysOffset: -24, doseNumber: 1, totalSeriesOfDoses: 2, identifier: "01DE/84503/1119349007/DXSGWLWL40SU8ZFKIYIBK39A3#S", dateOfBirth: "1988-06-07")
@@ -203,6 +211,7 @@ class HealthCertifiedPersonViewModelTests: XCTestCase {
 		)
 
 		let viewModel = HealthCertifiedPersonViewModel(
+			cclService: cclService,
 			healthCertificateService: service,
 			healthCertifiedPerson: healthCertifiedPerson,
 			healthCertificateValueSetsProvider: VaccinationValueSetsProvider(client: CachingHTTPClientMock(), store: MockTestStore()),
@@ -230,6 +239,7 @@ class HealthCertifiedPersonViewModelTests: XCTestCase {
 			),
 			recycleBin: .fake()
 		)
+		let cclService = CCLService()
 
 		let healthCertificate = try vaccinationCertificate()
 
@@ -242,6 +252,7 @@ class HealthCertifiedPersonViewModelTests: XCTestCase {
 		)
 
 		let viewModel = HealthCertifiedPersonViewModel(
+			cclService: cclService,
 			healthCertificateService: service,
 			healthCertifiedPerson: healthCertifiedPerson,
 			healthCertificateValueSetsProvider: VaccinationValueSetsProvider(client: CachingHTTPClientMock(), store: MockTestStore()),

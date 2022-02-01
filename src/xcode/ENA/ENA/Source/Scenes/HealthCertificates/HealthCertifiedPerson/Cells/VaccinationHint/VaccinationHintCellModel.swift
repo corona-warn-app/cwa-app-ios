@@ -11,23 +11,25 @@ final class VaccinationHintCellModel {
 	// MARK: - Init
 
 	init(
-		healthCertifiedPerson: HealthCertifiedPerson
+		healthCertifiedPerson: HealthCertifiedPerson,
+		cclService: CCLService
 	) {
 		self.healthCertifiedPerson = healthCertifiedPerson
+		self.cclService = cclService
 	}
 
 	// MARK: - Internal
 
 	var title: String? {
-		healthCertifiedPerson.dccWalletInfo?.vaccinationState.titleText?.localized()
+		healthCertifiedPerson.dccWalletInfo?.vaccinationState.titleText?.localized(cclService: cclService)
 	}
 
 	var subtitle: String? {
-		healthCertifiedPerson.dccWalletInfo?.vaccinationState.subtitleText?.localized()
+		healthCertifiedPerson.dccWalletInfo?.vaccinationState.subtitleText?.localized(cclService: cclService)
 	}
 
 	var description: String? {
-		healthCertifiedPerson.dccWalletInfo?.vaccinationState.longText?.localized()
+		healthCertifiedPerson.dccWalletInfo?.vaccinationState.longText?.localized(cclService: cclService)
 	}
 
 	var faqLink: NSAttributedString? {
@@ -64,5 +66,5 @@ final class VaccinationHintCellModel {
 	// MARK: - Private
 
 	let healthCertifiedPerson: HealthCertifiedPerson
-
+	let cclService: CCLService
 }

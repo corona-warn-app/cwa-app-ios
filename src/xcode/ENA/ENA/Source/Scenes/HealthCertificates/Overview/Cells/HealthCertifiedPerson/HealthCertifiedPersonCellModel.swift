@@ -12,6 +12,7 @@ class HealthCertifiedPersonCellModel {
 
 	init?(
 		healthCertifiedPerson: HealthCertifiedPerson,
+		cclService: CCLService,
 		onCovPassCheckInfoButtonTap: @escaping () -> Void
 	) {
 		guard let mostRelevantCertificate = healthCertifiedPerson.mostRelevantHealthCertificate else {
@@ -69,11 +70,11 @@ class HealthCertifiedPersonCellModel {
 			self.caption = nil
 		}
 
-		isStatusTitleVisible = !(healthCertifiedPerson.dccWalletInfo?.admissionState.badgeText?.localized() ?? "").isEmpty
+		isStatusTitleVisible = !(healthCertifiedPerson.dccWalletInfo?.admissionState.badgeText?.localized(cclService: cclService) ?? "").isEmpty
 
 		if let certificates = healthCertifiedPerson.dccWalletInfo?.verification.certificates, certificates.count >= 2 {
 			switchableHealthCertificates = certificates.reduce(into: OrderedDictionary<String, HealthCertificate>()) {
-				if let certificate = healthCertifiedPerson.healthCertificate(for: $1.certificateRef), let buttonText = $1.buttonText.localized() {
+				if let certificate = healthCertifiedPerson.healthCertificate(for: $1.certificateRef), let buttonText = $1.buttonText.localized(cclService: cclService) {
 					$0[buttonText] = certificate
 				}
 			}
@@ -81,7 +82,7 @@ class HealthCertifiedPersonCellModel {
 			switchableHealthCertificates = [:]
 		}
 
-		shortStatus = healthCertifiedPerson.dccWalletInfo?.admissionState.badgeText?.localized()
+		shortStatus = healthCertifiedPerson.dccWalletInfo?.admissionState.badgeText?.localized(cclService: cclService)
 	}
 
 	init?(

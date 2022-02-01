@@ -10,6 +10,7 @@ class HealthCertifiedPersonViewController: UIViewController, UITableViewDataSour
 	// MARK: - Init
 
 	init(
+		cclService: CCLService,
 		healthCertificateService: HealthCertificateService,
 		healthCertifiedPerson: HealthCertifiedPerson,
 		vaccinationValueSetsProvider: VaccinationValueSetsProviding,
@@ -24,6 +25,7 @@ class HealthCertifiedPersonViewController: UIViewController, UITableViewDataSour
 		self.didSwipeToDelete = didSwipeToDelete
 
 		self.viewModel = HealthCertifiedPersonViewModel(
+			cclService: cclService,
 			healthCertificateService: healthCertificateService,
 			healthCertifiedPerson: healthCertifiedPerson,
 			healthCertificateValueSetsProvider: vaccinationValueSetsProvider,

@@ -20,6 +20,7 @@ class DCCUITextTests: XCTestCase {
 	func testGIVEN_TestCases_WHEN_LocalizeStringForEachTestCase_THEN_ResultIsCorrect() {
 		// GIVEN
 		let testCases = dccUITextTestCases.testCases
+		let cclService = CCLService()
 		
 		DCCUIText.localDateFormatter.timeZone = TimeZone(abbreviation: "GMT+1")
 		DCCUIText.localDateTimeFormatter.timeZone = TimeZone(abbreviation: "GMT+1")
@@ -30,7 +31,7 @@ class DCCUITextTests: XCTestCase {
 			let expectationText = testCase.assertions[0].text
 			
 			// THEN
-			XCTAssertEqual(dccUIText.localized(), expectationText, "Failing Test: \(testCase.description)")
+			XCTAssertEqual(dccUIText.localized(cclService: cclService), expectationText, "Failing Test: \(testCase.description)")
 		}
 	}
 	

@@ -3,7 +3,6 @@
 //
 
 import Foundation
-import AudioToolbox
 import AnyCodable
 import jsonlogic
 
@@ -28,6 +27,9 @@ struct DCCUITextParameter {
 }
 
 public struct DCCUIText: Codable, Equatable {
+	
+	// MARK: - Internal
+	
 	let type: String
 	let quantity: Int?
 	let quantityParameterIndex: Int?
@@ -40,17 +42,15 @@ public struct DCCUIText: Codable, Equatable {
 	static let localDateTimeFormatter: DateFormatter = .localDateTimeFormatter()
 	static let outputDateFormatter: DateFormatter = .outputDateFormatter()
 	static let outputDateTimeFormatter: DateFormatter = .outputDateTimeFormatter()
-	
-	// MARK: - Internal
 
-	func localized(languageCode: String? = Locale.current.languageCode) -> String? {
+	func localized(languageCode: String? = Locale.current.languageCode, cclService: CCLService) -> String? {
 		switch type {
 		case UITextType.string:
 			return localizedSingleFormatText(languageCode: languageCode)
 		case UITextType.plural:
 			return localizedPluralFormatText(languageCode: languageCode)
 		case UITextType.systemTimeDependent:
-			return localizedSystemTimeDependentFormatText(languageCode: languageCode)
+			return localizedSystemTimeDependentFormatText(languageCode: languageCode, service: cclService)
 		default:
 			return nil
 		}
@@ -78,17 +78,12 @@ public struct DCCUIText: Codable, Equatable {
 				// regular text without placeholders
 				return formatText
 			} else { // regular text with placeholder
-				var mappedParameters: [DCCUITextParameter] = []
-				
-				// we could get multiple parameters
-				for parameter in parameters {
-					guard let type = parameter["type"] as? String, let value = parameter["value"] else {
-						return nil
-					}
-					mappedParameters.append(DCCUITextParameter(type: type, value: value))
+				guard let formatParameters = mappedParameters(parameters: parameters) else {
+					return nil
 				}
+
 				// text shall be determined by passing formatText and formatParameters to a printf-compatible format function
-				return formattedTextWithParameters(formatText: formatText, parameters: mappedParameters)
+				return formattedTextWithParameters(formatText: formatText, parameters: formatParameters)
 			}
 		} else {
 			// regular text without placeholders
@@ -108,28 +103,22 @@ public struct DCCUIText: Codable, Equatable {
 					return quantityBasedFormatText(formatText: formatText, quantity: textDescriptorQuantity)
 				}
 			} else {
-				var mappedParameters: [DCCUITextParameter] = []
-				
-				// we could get multiple parameters
-				for parameter in parameters {
-					guard let type = parameter["type"] as? String, let value = parameter["value"] else {
-						return nil
-					}
-					mappedParameters.append(DCCUITextParameter(type: type, value: value))
+				guard let formatParameters = mappedParameters(parameters: parameters) else {
+					return nil
 				}
 				
 				// quantity shall be set to the value of textDescriptor.quantity
 				if let textDescriptorQuantity = quantity {
-					// text shall be determined by passing formatTexts and formatParameters to a quantity-depending printf-compatible format function by using quantity
 					guard let quantityBasedFormatText = quantityBasedFormatText(formatText: formatText, quantity: textDescriptorQuantity) else {
 						return nil
 					}
-					return formattedTextWithParameters(formatText: quantityBasedFormatText, parameters: mappedParameters)
+					// text shall be determined by passing formatTexts and formatParameters to a quantity-depending printf-compatible format function by using quantity
+					return formattedTextWithParameters(formatText: quantityBasedFormatText, parameters: formatParameters)
 				} else if let parameterIndex = quantityParameterIndex {
 					// Otherwise quantity shall be set to the element of formatParameters at the index described by textDescriptor.quantityParameterIndex.
-					if let quantityValue = mappedParameters[parameterIndex].value as? Int {
+					if let quantityValue = formatParameters[parameterIndex].value as? Int {
 						// text shall be determined by passing formatTexts and formatParameters to a quantity-depending printf-compatible format function by using quantity
-						return formattedTextWithParameters(formatText: quantityBasedFormatText(formatText: formatText, quantity: quantityValue) ?? "", parameters: mappedParameters)
+						return formattedTextWithParameters(formatText: quantityBasedFormatText(formatText: formatText, quantity: quantityValue) ?? "", parameters: formatParameters)
 					}
 				}
 			}
@@ -138,16 +127,15 @@ public struct DCCUIText: Codable, Equatable {
 		return nil
 	}
 
-	private func localizedSystemTimeDependentFormatText(languageCode: String?) -> String? {
-		let service = CCLService()
+	private func localizedSystemTimeDependentFormatText(languageCode: String?, service: CCLService) -> String? {
 		guard let parameters = parameters.value as? [String: AnyDecodable], let functionName = functionName else {
 			return nil
 		}
 		
 		do {
 			// newTextDescriptor shall be determined by calling Calling a CCL API with JsonFunctions.
-			let newDCCUIText: DCCUIText = try service.evaluateFunction(name: functionName, parameters: parameters)
-			return newDCCUIText.localized(languageCode: languageCode)
+			let newDCCUIText: DCCUIText = try service.evaluateFunctionWithDefaultValues(name: functionName, parameters: parameters)
+			return newDCCUIText.localized(languageCode: languageCode, cclService: service)
 		} catch {
 			Log.error("Unable to create newTextDescriptor - DCCUIText", error: error)
 			return nil
@@ -166,6 +154,19 @@ public struct DCCUIText: Codable, Equatable {
 		}
 	}
 	
+	private func mappedParameters(parameters: [[String: Any]]) -> [DCCUITextParameter]? {
+		var mappedParameters: [DCCUITextParameter] = []
+		
+		// we could get multiple parameters
+		for parameter in parameters {
+			guard let type = parameter["type"] as? String, let value = parameter["value"] else {
+				return nil
+			}
+			mappedParameters.append(DCCUITextParameter(type: type, value: value))
+		}
+		return mappedParameters
+	}
+
 	private func formattedTextWithParameters(formatText: String, parameters: [DCCUITextParameter]) -> String? {
 		let parsedParameters = parameters.compactMap { parseFormatParameter(parameter: $0) }
 		
