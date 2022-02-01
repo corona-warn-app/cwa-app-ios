@@ -384,6 +384,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		#endif
 	}()
 	
+	private lazy var cclService: CCLService = CCLService()
+	
 	private lazy var healthCertificateService: HealthCertificateService = HealthCertificateService(
 		store: store,
 		dccSignatureVerifier: dccSignatureVerificationService,
@@ -807,6 +809,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		eventCheckoutService: eventCheckoutService,
 		otpService: otpService,
 		ppacService: ppacService,
+		cclService: cclService,
 		healthCertificateService: healthCertificateService,
 		healthCertificateValidationService: healthCertificateValidationService,
 		healthCertificateValidationOnboardedCountriesProvider: healthCertificateValidationOnboardedCountriesProvider,

@@ -6,6 +6,7 @@ import XCTest
 import HealthCertificateToolkit
 @testable import ENA
 
+// swiftlint:disable type_body_length
 class HealthCertifiedPersonViewModelTests: XCTestCase {
 
 	func testGIVEN_HealthCertifiedPersonViewModel_WHEN_Init_THEN_isAsExpected() {
@@ -23,8 +24,10 @@ class HealthCertifiedPersonViewModelTests: XCTestCase {
 			),
 			recycleBin: .fake()
 		)
+		let cclService = CCLService()
 
 		let viewModel = HealthCertifiedPersonViewModel(
+			cclService: cclService,
 			healthCertificateService: service,
 			healthCertifiedPerson: HealthCertifiedPerson(healthCertificates: [HealthCertificate.mock()]),
 			healthCertificateValueSetsProvider: VaccinationValueSetsProvider(client: CachingHTTPClientMock(), store: MockTestStore()),
@@ -76,9 +79,10 @@ class HealthCertifiedPersonViewModelTests: XCTestCase {
 			),
 			recycleBin: .fake()
 		)
+		let cclService = CCLService()
 
 		let viewModel = HealthCertifiedPersonViewModel(
-			healthCertificateService: service,
+			cclService: cclService, healthCertificateService: service,
 			healthCertifiedPerson: HealthCertifiedPerson(
 				healthCertificates: [
 					HealthCertificate.mock()
@@ -118,6 +122,7 @@ class HealthCertifiedPersonViewModelTests: XCTestCase {
 			),
 			recycleBin: .fake()
 		)
+		let cclService = CCLService()
 
 		let healthCertificate = try vaccinationCertificate(daysOffset: -24, doseNumber: 1, identifier: "01DE/84503/1119349007/DXSGWLWL40SU8ZFKIYIBK39A3#S", dateOfBirth: "1988-06-07")
 
@@ -126,8 +131,9 @@ class HealthCertifiedPersonViewModelTests: XCTestCase {
 				healthCertificate
 			]
 		)
-
+		
 		let viewModel = HealthCertifiedPersonViewModel(
+			cclService: cclService,
 			healthCertificateService: service,
 			healthCertifiedPerson: healthCertifiedPerson,
 			healthCertificateValueSetsProvider: VaccinationValueSetsProvider(client: CachingHTTPClientMock(), store: MockTestStore()),
@@ -158,8 +164,10 @@ class HealthCertifiedPersonViewModelTests: XCTestCase {
 			),
 			recycleBin: .fake()
 		)
-
+		let cclService = CCLService()
+		
 		let viewModel = HealthCertifiedPersonViewModel(
+			cclService: cclService,
 			healthCertificateService: service,
 			healthCertifiedPerson: HealthCertifiedPerson(
 				healthCertificates: [HealthCertificate.mock()],
@@ -191,8 +199,10 @@ class HealthCertifiedPersonViewModelTests: XCTestCase {
 			),
 			recycleBin: .fake()
 		)
+		let cclService = CCLService()
 
 		let viewModel = HealthCertifiedPersonViewModel(
+			cclService: cclService,
 			healthCertificateService: service,
 			healthCertifiedPerson: HealthCertifiedPerson(
 				healthCertificates: [HealthCertificate.mock()],
@@ -224,8 +234,10 @@ class HealthCertifiedPersonViewModelTests: XCTestCase {
 			),
 			recycleBin: .fake()
 		)
-
+		let cclService = CCLService()
+		
 		let viewModel = HealthCertifiedPersonViewModel(
+			cclService: cclService,
 			healthCertificateService: service,
 			healthCertifiedPerson: HealthCertifiedPerson(
 				healthCertificates: [HealthCertificate.mock()],
@@ -257,8 +269,10 @@ class HealthCertifiedPersonViewModelTests: XCTestCase {
 			),
 			recycleBin: .fake()
 		)
+		let cclService = CCLService()
 
 		let viewModel = HealthCertifiedPersonViewModel(
+			cclService: cclService,
 			healthCertificateService: service,
 			healthCertifiedPerson: HealthCertifiedPerson(
 				healthCertificates: [HealthCertificate.mock()],
@@ -290,8 +304,10 @@ class HealthCertifiedPersonViewModelTests: XCTestCase {
 			),
 			recycleBin: .fake()
 		)
+		let cclService = CCLService()
 
 		let viewModel = HealthCertifiedPersonViewModel(
+			cclService: cclService,
 			healthCertificateService: service,
 			healthCertifiedPerson: HealthCertifiedPerson(
 				healthCertificates: [HealthCertificate.mock()],
@@ -323,8 +339,10 @@ class HealthCertifiedPersonViewModelTests: XCTestCase {
 			),
 			recycleBin: .fake()
 		)
-
+		let cclService = CCLService()
+		
 		let viewModel = HealthCertifiedPersonViewModel(
+			cclService: cclService,
 			healthCertificateService: service,
 			healthCertifiedPerson: HealthCertifiedPerson(
 				healthCertificates: [HealthCertificate.mock()],
@@ -357,6 +375,7 @@ class HealthCertifiedPersonViewModelTests: XCTestCase {
 			),
 			recycleBin: .fake()
 		)
+		let cclService = CCLService()
 
 		let healthCertificate = try vaccinationCertificate()
 
@@ -369,6 +388,7 @@ class HealthCertifiedPersonViewModelTests: XCTestCase {
 		)
 
 		let viewModel = HealthCertifiedPersonViewModel(
+			cclService: cclService,
 			healthCertificateService: service,
 			healthCertifiedPerson: healthCertifiedPerson,
 			healthCertificateValueSetsProvider: VaccinationValueSetsProvider(client: CachingHTTPClientMock(), store: MockTestStore()),
@@ -399,6 +419,7 @@ class HealthCertifiedPersonViewModelTests: XCTestCase {
 			),
 			recycleBin: .fake()
 		)
+		let cclService = CCLService()
 
 		let healthCertificate = try vaccinationCertificate()
 
@@ -413,6 +434,7 @@ class HealthCertifiedPersonViewModelTests: XCTestCase {
 		let expectation = expectation(description: "didTapBoosterNotification is called")
 
 		let viewModel = HealthCertifiedPersonViewModel(
+			cclService: cclService,
 			healthCertificateService: service,
 			healthCertifiedPerson: healthCertifiedPerson,
 			healthCertificateValueSetsProvider: VaccinationValueSetsProvider(client: CachingHTTPClientMock(), store: MockTestStore()),
