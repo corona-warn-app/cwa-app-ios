@@ -74,8 +74,8 @@ class HealthCertifiedPersonCellModel {
 
 		if let certificates = healthCertifiedPerson.dccWalletInfo?.verification.certificates, certificates.count >= 2 {
 			switchableHealthCertificates = certificates.reduce(into: OrderedDictionary<String, HealthCertificate>()) {
-				if let certificate = healthCertifiedPerson.healthCertificate(for: $1.certificateRef), let buttonText = $1.buttonText.localized(cclService: cclService) {
-					$0[buttonText] = certificate
+				if let certificate = healthCertifiedPerson.healthCertificate(for: $1.certificateRef) {
+					$0[$1.buttonText.localized(cclService: cclService)] = certificate
 				}
 			}
 		} else {

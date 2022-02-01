@@ -43,31 +43,24 @@ public struct DCCUIText: Codable, Equatable {
 	static let outputDateFormatter: DateFormatter = .outputDateFormatter()
 	static let outputDateTimeFormatter: DateFormatter = .outputDateTimeFormatter()
 
-	func localized(languageCode: String? = Locale.current.languageCode, cclService: CCLService) -> String? {
+	func localized(languageCode: String? = Locale.current.languageCode, cclService: CCLService) -> String {
 		switch type {
 		case UITextType.string:
-			return localizedSingleFormatText(languageCode: languageCode)
+			return localizedSingleFormattedText(languageCode: languageCode)
 		case UITextType.plural:
-			return localizedPluralFormatText(languageCode: languageCode)
+			return localizedPluralFormattedText(languageCode: languageCode)
 		case UITextType.systemTimeDependent:
-			return localizedSystemTimeDependentFormatText(languageCode: languageCode, service: cclService)
+			return localizedSystemTimeDependentFormattedText(languageCode: languageCode, service: cclService)
 		default:
-			return nil
+			return ""
 		}
 	}
 	
 	// MARK: - Private
 	
-	private func localizedSingleFormatText(languageCode: String?) -> String? {
-		var formatText = ""
-		
-		// use language code, if there is no property for the language code, en shall be used
-		if let localizedFormatText = localizedText?[languageCode ?? "en"]?.value as? String {
-			formatText = localizedFormatText
-		} else if let fallbackLocalizedFormatText = localizedText?["de"]?.value as? String { // if en is not available, de shall be used
-			formatText = fallbackLocalizedFormatText
-		} else {
-			return nil
+	private func localizedSingleFormattedText(languageCode: String?) -> String {
+		guard var formatText = localizedSingleTemplateText(languageCode: languageCode) else {
+			return ""
 		}
 		
 		// replacing %s with %@, %1$s with %1$@ and so on
@@ -79,11 +72,11 @@ public struct DCCUIText: Codable, Equatable {
 				return formatText
 			} else { // regular text with placeholder
 				guard let formatParameters = mappedParameters(parameters: parameters) else {
-					return nil
+					return ""
 				}
 
 				// text shall be determined by passing formatText and formatParameters to a printf-compatible format function
-				return formattedTextWithParameters(formatText: formatText, parameters: formatParameters)
+				return formattedTextWithParameters(formatText: formatText, parameters: formatParameters) ?? ""
 			}
 		} else {
 			// regular text without placeholders
@@ -91,45 +84,45 @@ public struct DCCUIText: Codable, Equatable {
 		}
 	}
 	
-	private func localizedPluralFormatText(languageCode: String?) -> String? {
-		guard let formatText = localizedFormatText(languageCode: languageCode) else {
-			return nil
+	private func localizedPluralFormattedText(languageCode: String?) -> String {
+		guard let formatText = localizedPluralTemplateText(languageCode: languageCode) else {
+			return ""
 		}
 		
 		if let parameters = parameters.value as? [[String: Any]] {
 			if parameters.isEmpty {
 				// text without parameters
 				if let textDescriptorQuantity = quantity {
-					return quantityBasedFormatText(formatText: formatText, quantity: textDescriptorQuantity)
+					return quantityBasedFormatText(formatText: formatText, quantity: textDescriptorQuantity) ?? ""
 				}
 			} else {
 				guard let formatParameters = mappedParameters(parameters: parameters) else {
-					return nil
+					return ""
 				}
 				
 				// quantity shall be set to the value of textDescriptor.quantity
 				if let textDescriptorQuantity = quantity {
 					guard let quantityBasedFormatText = quantityBasedFormatText(formatText: formatText, quantity: textDescriptorQuantity) else {
-						return nil
+						return ""
 					}
 					// text shall be determined by passing formatTexts and formatParameters to a quantity-depending printf-compatible format function by using quantity
-					return formattedTextWithParameters(formatText: quantityBasedFormatText, parameters: formatParameters)
+					return formattedTextWithParameters(formatText: quantityBasedFormatText, parameters: formatParameters) ?? ""
 				} else if let parameterIndex = quantityParameterIndex {
 					// Otherwise quantity shall be set to the element of formatParameters at the index described by textDescriptor.quantityParameterIndex.
 					if let quantityValue = formatParameters[parameterIndex].value as? Int {
 						// text shall be determined by passing formatTexts and formatParameters to a quantity-depending printf-compatible format function by using quantity
-						return formattedTextWithParameters(formatText: quantityBasedFormatText(formatText: formatText, quantity: quantityValue) ?? "", parameters: formatParameters)
+						return formattedTextWithParameters(formatText: quantityBasedFormatText(formatText: formatText, quantity: quantityValue) ?? "", parameters: formatParameters) ?? ""
 					}
 				}
 			}
 		}
 		
-		return nil
+		return ""
 	}
 
-	private func localizedSystemTimeDependentFormatText(languageCode: String?, service: CCLService) -> String? {
+	private func localizedSystemTimeDependentFormattedText(languageCode: String?, service: CCLService) -> String {
 		guard let parameters = parameters.value as? [String: AnyDecodable], let functionName = functionName else {
-			return nil
+			return ""
 		}
 		
 		do {
@@ -138,11 +131,22 @@ public struct DCCUIText: Codable, Equatable {
 			return newDCCUIText.localized(languageCode: languageCode, cclService: service)
 		} catch {
 			Log.error("Unable to create newTextDescriptor - DCCUIText", error: error)
-			return nil
+			return ""
 		}
 	}
 
-	private func localizedFormatText(languageCode: String?) -> [String: String]? {
+	private func localizedSingleTemplateText(languageCode: String?) -> String? {
+		// use language code, if there is no property for the language code, en shall be used
+		if let localizedFormatText = localizedText?[languageCode ?? "en"]?.value as? String {
+			return localizedFormatText
+		} else if let fallbackLocalizedFormatText = localizedText?["de"]?.value as? String { // if en is not available, de shall be used
+			return fallbackLocalizedFormatText
+		} else {
+			return nil
+		}
+	}
+	
+	private func localizedPluralTemplateText(languageCode: String?) -> [String: String]? {
 		// use language code, if there is no property for the language code, en shall be used
 		if let localizedFormatText = localizedText?[languageCode ?? "en"]?.value as? [String: String] {
 			return localizedFormatText
