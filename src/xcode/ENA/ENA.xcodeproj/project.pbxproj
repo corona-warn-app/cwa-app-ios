@@ -225,7 +225,7 @@
 		019C9F39258951BD00B26392 /* DiaryEntryType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 019C9F38258951BC00B26392 /* DiaryEntryType.swift */; };
 		019C9F3B258951BE00B26392 /* DiaryEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 019C9F3A258951BE00B26392 /* DiaryEntry.swift */; };
 		019C9F40258951C000B26392 /* DiaryLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 019C9F3F258951C000B26392 /* DiaryLocation.swift */; };
-		019DDEDF26F1E48C00390509 /* VaccinationHintCellModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 019DDEDE26F1E48B00390509 /* VaccinationHintCellModelTests.swift */; };
+		019DDEDF26F1E48C00390509 /* VaccinationStateCellModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 019DDEDE26F1E48B00390509 /* VaccinationStateCellModelTests.swift */; };
 		019DDEE126FC70EC00390509 /* CheckinQRCodeParserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F7C39CB261B430700AEC979 /* CheckinQRCodeParserTests.swift */; };
 		019DDEE326FC95F500390509 /* CoronaTestsQRCodeParserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 019DDEE226FC95F400390509 /* CoronaTestsQRCodeParserTests.swift */; };
 		019E2EFB269C8EEB000EC4AD /* SAP_Internal_Dgc_ValueSets+ValueSetType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 019E2EF9269C8E8A000EC4AD /* SAP_Internal_Dgc_ValueSets+ValueSetType.swift */; };
@@ -269,8 +269,8 @@
 		01A97DD32506769F00C07C37 /* DatePickerDayViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A97DD22506769F00C07C37 /* DatePickerDayViewModelTests.swift */; };
 		01AD1D76274FBEFD00BCE687 /* JSONSendResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01AD1D75274FBEFD00BCE687 /* JSONSendResource.swift */; };
 		01AD1D78274FC82E00BCE687 /* TicketValidationAccessTokenResourceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01AD1D77274FC82E00BCE687 /* TicketValidationAccessTokenResourceTests.swift */; };
-		01B5DFD826E0FD9500043955 /* VaccinationHintCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B5DFD626E0FD9400043955 /* VaccinationHintCellModel.swift */; };
-		01B5DFD926E0FD9500043955 /* VaccinationHintTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B5DFD726E0FD9500043955 /* VaccinationHintTableViewCell.swift */; };
+		01B5DFD826E0FD9500043955 /* VaccinationStateCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B5DFD626E0FD9400043955 /* VaccinationStateCellModel.swift */; };
+		01B5DFD926E0FD9500043955 /* VaccinationStateTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B5DFD726E0FD9500043955 /* VaccinationStateTableViewCell.swift */; };
 		01B605C4258A30C70093DB8E /* DiaryOverviewViewModelTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B605C3258A181C0093DB8E /* DiaryOverviewViewModelTest.swift */; };
 		01B605C9258A32F00093DB8E /* DiaryDayTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B605C8258A32930093DB8E /* DiaryDayTest.swift */; };
 		01B605CE258A38330093DB8E /* DiaryEntryTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B605CD258A38330093DB8E /* DiaryEntryTest.swift */; };
@@ -360,6 +360,8 @@
 		01DE60792744EFF000E12FA4 /* TicketValidationQRScannerError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01DE60782744EFF000E12FA4 /* TicketValidationQRScannerError.swift */; };
 		01DE607B274517B300E12FA4 /* TicketValidationQRCodeParserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01DE607A274517B200E12FA4 /* TicketValidationQRCodeParserTests.swift */; };
 		01DED64827A2E712006A958C /* DCCWalletInfo+Fake.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01C5F300279EA48600F60047 /* DCCWalletInfo+Fake.swift */; };
+		01DED65027A45704006A958C /* BoosterNotificationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01DED64D27A44E97006A958C /* BoosterNotificationTableViewCell.swift */; };
+		01DED65127A45704006A958C /* BoosterNotificationCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01DED64C27A44E97006A958C /* BoosterNotificationCellModel.swift */; };
 		01DF186E2603B28200A002E4 /* TraceLocationsOverviewViewModelTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01DF186A2603B17000A002E4 /* TraceLocationsOverviewViewModelTest.swift */; };
 		01DF188E2608D3BB00A002E4 /* TraceLocationConfigurationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01DF188D2608D3BB00A002E4 /* TraceLocationConfigurationViewController.xib */; };
 		01E0C93C26C6879B00110941 /* OnBehalfTraceLocationCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01E0C93B26C6879B00110941 /* OnBehalfTraceLocationCellModel.swift */; };
@@ -1873,7 +1875,7 @@
 		019C9F38258951BC00B26392 /* DiaryEntryType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryEntryType.swift; sourceTree = "<group>"; };
 		019C9F3A258951BE00B26392 /* DiaryEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryEntry.swift; sourceTree = "<group>"; };
 		019C9F3F258951C000B26392 /* DiaryLocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryLocation.swift; sourceTree = "<group>"; };
-		019DDEDE26F1E48B00390509 /* VaccinationHintCellModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaccinationHintCellModelTests.swift; sourceTree = "<group>"; };
+		019DDEDE26F1E48B00390509 /* VaccinationStateCellModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaccinationStateCellModelTests.swift; sourceTree = "<group>"; };
 		019DDEE226FC95F400390509 /* CoronaTestsQRCodeParserTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoronaTestsQRCodeParserTests.swift; sourceTree = "<group>"; };
 		019E2EF9269C8E8A000EC4AD /* SAP_Internal_Dgc_ValueSets+ValueSetType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SAP_Internal_Dgc_ValueSets+ValueSetType.swift"; sourceTree = "<group>"; };
 		019E2EFA269C8EA6000EC4AD /* SAP_Internal_Dgc_ValueSet+DisplayText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SAP_Internal_Dgc_ValueSet+DisplayText.swift"; sourceTree = "<group>"; };
@@ -1917,8 +1919,8 @@
 		01A97DD22506769F00C07C37 /* DatePickerDayViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerDayViewModelTests.swift; sourceTree = "<group>"; };
 		01AD1D75274FBEFD00BCE687 /* JSONSendResource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONSendResource.swift; sourceTree = "<group>"; };
 		01AD1D77274FC82E00BCE687 /* TicketValidationAccessTokenResourceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketValidationAccessTokenResourceTests.swift; sourceTree = "<group>"; };
-		01B5DFD626E0FD9400043955 /* VaccinationHintCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaccinationHintCellModel.swift; sourceTree = "<group>"; };
-		01B5DFD726E0FD9500043955 /* VaccinationHintTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaccinationHintTableViewCell.swift; sourceTree = "<group>"; };
+		01B5DFD626E0FD9400043955 /* VaccinationStateCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaccinationStateCellModel.swift; sourceTree = "<group>"; };
+		01B5DFD726E0FD9500043955 /* VaccinationStateTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaccinationStateTableViewCell.swift; sourceTree = "<group>"; };
 		01B605C3258A181C0093DB8E /* DiaryOverviewViewModelTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryOverviewViewModelTest.swift; sourceTree = "<group>"; };
 		01B605C8258A32930093DB8E /* DiaryDayTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryDayTest.swift; sourceTree = "<group>"; };
 		01B605CD258A38330093DB8E /* DiaryEntryTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryEntryTest.swift; sourceTree = "<group>"; };
@@ -2005,6 +2007,8 @@
 		01DE60762744EFB200E12FA4 /* TicketValidationQRCodeParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketValidationQRCodeParser.swift; sourceTree = "<group>"; };
 		01DE60782744EFF000E12FA4 /* TicketValidationQRScannerError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketValidationQRScannerError.swift; sourceTree = "<group>"; };
 		01DE607A274517B200E12FA4 /* TicketValidationQRCodeParserTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketValidationQRCodeParserTests.swift; sourceTree = "<group>"; };
+		01DED64C27A44E97006A958C /* BoosterNotificationCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoosterNotificationCellModel.swift; sourceTree = "<group>"; };
+		01DED64D27A44E97006A958C /* BoosterNotificationTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoosterNotificationTableViewCell.swift; sourceTree = "<group>"; };
 		01DF186A2603B17000A002E4 /* TraceLocationsOverviewViewModelTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraceLocationsOverviewViewModelTest.swift; sourceTree = "<group>"; };
 		01DF188D2608D3BB00A002E4 /* TraceLocationConfigurationViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TraceLocationConfigurationViewController.xib; sourceTree = "<group>"; };
 		01E0C93B26C6879B00110941 /* OnBehalfTraceLocationCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnBehalfTraceLocationCellModel.swift; sourceTree = "<group>"; };
@@ -4195,13 +4199,13 @@
 			path = __tests__;
 			sourceTree = "<group>";
 		};
-		01B5DFDA26E0FFDB00043955 /* VaccinationHint */ = {
+		01B5DFDA26E0FFDB00043955 /* VaccinationState */ = {
 			isa = PBXGroup;
 			children = (
-				01B5DFD726E0FD9500043955 /* VaccinationHintTableViewCell.swift */,
-				01B5DFD626E0FD9400043955 /* VaccinationHintCellModel.swift */,
+				01B5DFD626E0FD9400043955 /* VaccinationStateCellModel.swift */,
+				01B5DFD726E0FD9500043955 /* VaccinationStateTableViewCell.swift */,
 			);
-			path = VaccinationHint;
+			path = VaccinationState;
 			sourceTree = "<group>";
 		};
 		01B7232524F8128B0064C0EB /* OptionGroup */ = {
@@ -4450,6 +4454,15 @@
 				34039DD7274E6C7B000AF3C4 /* TicketValidationConditions+CertificateSelection.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		01DED64927A44E97006A958C /* BoosterNotification */ = {
+			isa = PBXGroup;
+			children = (
+				01DED64C27A44E97006A958C /* BoosterNotificationCellModel.swift */,
+				01DED64D27A44E97006A958C /* BoosterNotificationTableViewCell.swift */,
+			);
+			path = BoosterNotification;
 			sourceTree = "<group>";
 		};
 		01DF18692603B16800A002E4 /* __tests__ */ = {
@@ -8514,7 +8527,8 @@
 			children = (
 				0191556E2680DACD00D49C88 /* HealthCertificate */,
 				019155682680DAB400D49C88 /* PreferredPerson */,
-				01B5DFDA26E0FFDB00043955 /* VaccinationHint */,
+				01B5DFDA26E0FFDB00043955 /* VaccinationState */,
+				01DED64927A44E97006A958C /* BoosterNotification */,
 				8F56B26B276370F8007D4E29 /* AdmissionState */,
 			);
 			path = Cells;
@@ -9221,7 +9235,7 @@
 			isa = PBXGroup;
 			children = (
 				BAE106E326710E19002D91FB /* HealthCertifiedPersonViewModelTests.swift */,
-				019DDEDE26F1E48B00390509 /* VaccinationHintCellModelTests.swift */,
+				019DDEDE26F1E48B00390509 /* VaccinationStateCellModelTests.swift */,
 				01915573268475EB00D49C88 /* HealthCertificateCellViewModelTests.swift */,
 				01E107F3276B426200E0595B /* AdmissionStateCellModelTests.swift */,
 			);
@@ -10267,7 +10281,7 @@
 				50680B9A26164439002EA256 /* DMDMMostRecentTraceLocationCheckedIntoViewController.swift in Sources */,
 				BA6C8AAE254D6476008344F5 /* ENARange.swift in Sources */,
 				8FB331B6268BD8EE00804747 /* LocalStatisticsRegion.swift in Sources */,
-				01B5DFD826E0FD9500043955 /* VaccinationHintCellModel.swift in Sources */,
+				01B5DFD826E0FD9500043955 /* VaccinationStateCellModel.swift in Sources */,
 				BA01BA65264423CF00D906B6 /* HealthCertificateInfoViewController.swift in Sources */,
 				50BD2E6424FE232E00932566 /* AppInformationImprintViewModel.swift in Sources */,
 				71330E4724810A0C00EB10F6 /* DynamicTableViewFooter.swift in Sources */,
@@ -10415,6 +10429,7 @@
 				BAF5371625E7CC1B00C835E2 /* Sequence+NSAttributedText.swift in Sources */,
 				50C0299125E4067400460FA4 /* LastSubmissionFlowScreen.swift in Sources */,
 				010A476F27551B18000AA80E /* TicketValidationResultTokenResult.swift in Sources */,
+				01DED65127A45704006A958C /* BoosterNotificationCellModel.swift in Sources */,
 				8F3167E626A5D906008F35AA /* RegionStatisticsData.swift in Sources */,
 				01164CD926C569A5007F9C3E /* OnBehalfThankYouViewController.swift in Sources */,
 				01E102662668D40F009ED803 /* TestCertificateRequest.swift in Sources */,
@@ -10752,6 +10767,7 @@
 				01C2D43E2501225100FB23BF /* MockExposureSubmissionService.swift in Sources */,
 				01B72B6D25821D2800A3E3BC /* DiaryDayEmptyStateViewModel.swift in Sources */,
 				505F508325C897B3004920EB /* OTPError.swift in Sources */,
+				01DED65027A45704006A958C /* BoosterNotificationTableViewCell.swift in Sources */,
 				8FDB9403261FBA3800BA8CB1 /* AntigenTestQRCodeInformation.swift in Sources */,
 				5071A88226EB80D900B09B40 /* ServiceError.swift in Sources */,
 				013069522705D4A900D945E3 /* QRScannerTooltipViewController.swift in Sources */,
@@ -10915,7 +10931,7 @@
 				50AF182827A4236A00BAA9DB /* DMNHCViewModel.swift in Sources */,
 				B103193224E18A0A00DD02EF /* DMMenuItem.swift in Sources */,
 				8F3BB9382684A3F0000B9A95 /* LocalStatisticsModel.swift in Sources */,
-				01B5DFD926E0FD9500043955 /* VaccinationHintTableViewCell.swift in Sources */,
+				01B5DFD926E0FD9500043955 /* VaccinationStateTableViewCell.swift in Sources */,
 				013A551F260B48250092B5B1 /* TraceLocationType.swift in Sources */,
 				94BACE6A25D27DC2007B2A99 /* DeltaOnboardingDataDonation.swift in Sources */,
 				347FBB41260E405000672770 /* TraceLocationDetailsHeaderCell.swift in Sources */,
@@ -11055,7 +11071,7 @@
 				AB1820222760EEF40054B873 /* ContagionInfoViewModelTests.swift in Sources */,
 				BADBC82925D6BB6400488DB7 /* DistrictTests.swift in Sources */,
 				2EF6906E26A07FBB006DE99F /* FooterViewControllerTests.swift in Sources */,
-				019DDEDF26F1E48C00390509 /* VaccinationHintCellModelTests.swift in Sources */,
+				019DDEDF26F1E48C00390509 /* VaccinationStateCellModelTests.swift in Sources */,
 				0156F05C25D2DA2300543640 /* DeadmanNotificationManagerTests.swift in Sources */,
 				2E4C3FE4263A91FD00E9FAFF /* CreateAntigenTestProfileViewModelTests.swift in Sources */,
 				506D881227A2D3F3006297FE /* DCCRulesResourceTests.swift in Sources */,
