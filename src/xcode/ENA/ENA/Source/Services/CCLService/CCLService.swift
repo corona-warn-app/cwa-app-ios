@@ -38,9 +38,23 @@ class CLLService: CCLServable {
 	) {
 		self.restServiceProvider = restServiceProvider
 
-		self.boosterNotificationRules =
+		// boosterNotificationRules
+		switch restServiceProvider.cached(boosterNotificationRulesResource) {
+		case let .success(rules):
+			self.boosterNotificationRules = rules.rules
+		case let .failure(error):
+			Log.error("Fialed to load boosterNotification rules from cache - init them empty", error: error)
+			self.boosterNotificationRules = []
+		}
 
-
+		// cclConfigurations
+		switch restServiceProvider.cached(cclConfigurationResource) {
+		case let .success(configurations):
+			self.cclConfigurations = configurations.cclConfigurations
+		case let .failure(error):
+			Log.error("Failed to read ccl configurations from cache - init empty", error: error)
+			self.cclConfigurations = []
+		}
 	}
 	
 	// MARK: - Protocol CCLServable
@@ -133,15 +147,16 @@ class CLLService: CCLServable {
 
 	private let restServiceProvider: RestServiceProviding
 	private let jsonFunctions: JsonFunctions = JsonFunctions()
+	private let cclConfigurationResource = CCLConfigurationResource()
+	private let boosterNotificationRulesResource = DCCRulesResource(ruleType: .boosterNotification)
 
-	private var boosterNotificationRules: [Rule] = []
-	private var cclConfigurations: [CCLConfiguration] = []
+	private var boosterNotificationRules: [Rule]
+	private var cclConfigurations: [CCLConfiguration]
 
 	private func getConfigurations(
 		completion: @escaping (Swift.Result<[CCLConfiguration], CLLDownloadError<[CCLConfiguration]>>) -> Void
 	) {
-		let resource = CCLConfigurationResource()
-		restServiceProvider.load(resource) { result in
+		restServiceProvider.load(cclConfigurationResource) { result in
 			switch result {
 			case let .success(receiveModel):
 				let configurations = receiveModel.cclConfigurations
@@ -164,8 +179,7 @@ class CLLService: CCLServable {
 	private func getBoosterNotificationRules(
 		completion: @escaping (Swift.Result<[Rule], CLLDownloadError<[Rule]>>) -> Void
 	) {
-		let resource = DCCRulesResource(ruleType: .boosterNotification)
-		restServiceProvider.load(resource) { result in
+		restServiceProvider.load(boosterNotificationRulesResource) { result in
 			switch result {
 			case let .success(receiveModel):
 				if receiveModel.metaData.loadedFromCache {
