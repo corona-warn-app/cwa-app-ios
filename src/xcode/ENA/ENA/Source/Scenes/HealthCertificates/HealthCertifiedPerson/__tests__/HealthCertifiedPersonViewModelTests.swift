@@ -266,4 +266,49 @@ class HealthCertifiedPersonViewModelTests: XCTestCase {
 		XCTAssertFalse(healthCertifiedPerson.isNewBoosterRule)
 	}
 
+	func testBoosterNotificationCellTap() throws {
+		let client = ClientMock()
+		let store = MockTestStore()
+		let service = HealthCertificateService(
+			store: store,
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
+			dscListProvider: MockDSCListProvider(),
+			client: client,
+			appConfiguration: CachedAppConfigurationMock(),
+			boosterNotificationsService: BoosterNotificationsService(
+				rulesDownloadService: FakeRulesDownloadService()
+			),
+			recycleBin: .fake()
+		)
+
+		let healthCertificate = try vaccinationCertificate()
+
+		let healthCertifiedPerson = HealthCertifiedPerson(
+			healthCertificates: [
+				healthCertificate
+			],
+			boosterRule: .fake(),
+			isNewBoosterRule: true
+		)
+
+		let expectation = expectation(description: "didTapBoosterNotification is called")
+
+		let viewModel = HealthCertifiedPersonViewModel(
+			healthCertificateService: service,
+			healthCertifiedPerson: healthCertifiedPerson,
+			healthCertificateValueSetsProvider: VaccinationValueSetsProvider(client: CachingHTTPClientMock(), store: MockTestStore()),
+			dismiss: {},
+			didTapBoosterNotification: { person in
+				XCTAssertEqual(person, healthCertifiedPerson)
+				expectation.fulfill()
+			},
+			didTapValidationButton: { _, _ in },
+			showInfoHit: { }
+		)
+
+		viewModel.didTapBoosterNotificationCell()
+
+		waitForExpectations(timeout: .short)
+	}
+
 }
