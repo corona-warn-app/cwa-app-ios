@@ -156,7 +156,6 @@ final class DMNHCViewModel {
 		DispatchQueue.main.async { [weak self] in
 			self?.viewController?.present(sheet, animated: true)
 		}
-
 	}
 
 	private func performDccRulesRequest(_ ruleType: HealthCertificateValidationRuleType) {
