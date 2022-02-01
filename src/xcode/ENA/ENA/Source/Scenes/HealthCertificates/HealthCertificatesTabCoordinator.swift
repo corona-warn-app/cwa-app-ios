@@ -231,6 +231,9 @@ final class HealthCertificatesTabCoordinator {
 					}
 				}
 			},
+			didTapBoosterNotification: { healthCertifiedPerson in
+				Log.info("Tapped on booster notification for \(private: String(describing: healthCertifiedPerson.name?.fullName))")
+			},
 			didTapHealthCertificate: { [weak self] healthCertificate in
 				self?.showHealthCertificateFlow(
 					healthCertifiedPerson: healthCertifiedPerson,
