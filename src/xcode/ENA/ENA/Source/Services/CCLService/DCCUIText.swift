@@ -186,10 +186,9 @@ public struct DCCUIText: Codable, Equatable {
 	}
 	
 	private func formattedDate(value: Any, dateType: String) -> String? {
-		if let stringDate = value as? String {
-			guard let formattedDate = DCCUIText.dateFormatter.date(from: stringDate) else {
-				return nil
-			}
+		guard let stringDate = value as? String, let formattedDate = DCCUIText.dateFormatter.date(from: stringDate) else {
+			return nil
+		}
 			
 			// only date related types will be handled here
 			switch dateType {
