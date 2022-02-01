@@ -10,9 +10,7 @@ class DMCCLConfigurationViewController: UITableViewController {
 
 	// MARK: - Init
 
-	init(
-		restServiceProvider: RestServiceProviding
-	) {
+	init() {
 		self.viewModel = DMCCLConfigurationViewModel()
 
 		if #available(iOS 13.0, *) {

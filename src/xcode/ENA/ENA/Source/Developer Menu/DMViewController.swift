@@ -84,9 +84,7 @@ final class DMViewController: UITableViewController, RequiresAppDependencies {
 
 		switch menuItem {
 		case .cclConfig:
-			vc = DMCCLConfigurationViewController(
-				restServiceProvider: restServiceProvider
-			)
+			vc = DMCCLConfigurationViewController()
 		case .newHttp:
 			vc = DMNHCViewController(
 				store: store
