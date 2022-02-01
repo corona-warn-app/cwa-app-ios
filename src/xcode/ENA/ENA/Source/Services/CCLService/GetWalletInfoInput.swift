@@ -31,22 +31,37 @@ struct SystemTime: Codable {
 	let utcDateTimeMidnight: String
 }
 
+enum CCLDefaultInput {
+	
+	static func addingTo(
+		parameters: [String: AnyDecodable],
+		date: Date = Date(),
+		language: String = Locale.current.languageCode ?? "en"
+	) -> [String: AnyDecodable] {
+		var parametersWithDefaults = parameters
+		parametersWithDefaults["os"] = AnyDecodable("ios")
+		parametersWithDefaults["language"] = AnyDecodable(language)
+		parametersWithDefaults["now"] = AnyDecodable(SystemTime(date))
+		return parametersWithDefaults
+	}
+}
+
 enum GetWalletInfoInput {
 	
 	static func make(
 		with date: Date = Date(),
-		language: String,
+		language: String = Locale.current.languageCode ?? "en",
 		certificates: [DCCWalletCertificate],
 		boosterNotificationRules: [Rule]
 	) -> [String: AnyDecodable] {
-		let systemTime = SystemTime(date)
-		return [
-			"os": AnyDecodable("ios"),
-			"language": AnyDecodable(language),
-			"now": AnyDecodable(systemTime),
-			"certificates": AnyDecodable(certificates),
-			"boosterNotificationRules": AnyDecodable(boosterNotificationRules)
-		]
+		return CCLDefaultInput.addingTo(
+			parameters: [
+				"certificates": AnyDecodable(certificates),
+				"boosterNotificationRules": AnyDecodable(boosterNotificationRules)
+			],
+			date: date,
+			language: language
+		)
 	}
 }
 
