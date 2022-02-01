@@ -13,9 +13,7 @@ class DMCCLConfigurationViewController: UITableViewController {
 	init(
 		restServiceProvider: RestServiceProviding
 	) {
-		self.viewModel = DMCCLConfigurationViewModel(
-			restServiceProvider: restServiceProvider
-		)
+		self.viewModel = DMCCLConfigurationViewModel()
 
 		if #available(iOS 13.0, *) {
 			super.init(style: .insetGrouped)

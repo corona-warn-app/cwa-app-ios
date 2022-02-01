@@ -10,14 +10,6 @@ import CertLogic
 
 final class DMCCLConfigurationViewModel {
 
-	// MARK: - Init
-
-	init(
-		restServiceProvider: RestServiceProviding
-	) {
-		self.restService = restServiceProvider
-	}
-
 	// MARK: - Internal
 
 	var viewController: UIViewController?
@@ -68,8 +60,6 @@ final class DMCCLConfigurationViewModel {
 		case forceUpdateDescription
 		case forceUpdateCCLConfiguration
 	}
-
-	private let restService: RestServiceProviding
 	
 	private var loadedFromCache: Bool?
 }
