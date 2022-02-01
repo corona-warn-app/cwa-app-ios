@@ -7,7 +7,8 @@
 import Foundation
 
 enum DMMenuItem: Int, CaseIterable {
-	case newHttp = 0
+	case cclConfig = 0
+	case newHttp
 	case ticketValidation
 	case keys
 	case wifiClient
@@ -41,6 +42,7 @@ enum DMMenuItem: Int, CaseIterable {
 	case dscLists
 	case notifications
 	case boosterRules
+	
 }
 
 extension DMMenuItem {
@@ -57,7 +59,8 @@ extension DMMenuItem {
 	
 	var title: String {
 		switch self {
-		case .newHttp: return "New HTTP"
+		case .cclConfig: return "CCL Configuration"
+		case .newHttp: return "New RestService - Only for DEVs"
 		case .ticketValidation: return "Ticket validation service"
 		case .keys: return "Keys"
 		case .wifiClient: return "Hourly packages over Wifi only"
@@ -95,7 +98,8 @@ extension DMMenuItem {
 	}
 	var subtitle: String {
 		switch self {
-		case .newHttp: return "New HTTP"
+		case .cclConfig: return "Download forced or not the ccl configuration"
+		case .newHttp: return "New RestService - Only for DEVs"
 		case .ticketValidation: return "Configure ticket validation service"
 		case .keys: return "View local Keys & generate test Keys"
 		case .wifiClient: return "Change hourly packages network connection type"

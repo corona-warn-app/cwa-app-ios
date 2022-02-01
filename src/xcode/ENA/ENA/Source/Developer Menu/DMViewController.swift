@@ -83,11 +83,12 @@ final class DMViewController: UITableViewController, RequiresAppDependencies {
 		let vc: UIViewController?
 
 		switch menuItem {
+		case .cclConfig:
+			vc = DMCCLConfigurationViewController()
 		case .newHttp:
 			vc = DMNHCViewController(
 				store: store
 			)
-
 		case .ticketValidation:
 			vc = DMTicketValidationViewController(store: store)
 
