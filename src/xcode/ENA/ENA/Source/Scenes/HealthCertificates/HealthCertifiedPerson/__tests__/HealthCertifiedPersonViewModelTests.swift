@@ -29,6 +29,7 @@ class HealthCertifiedPersonViewModelTests: XCTestCase {
 			healthCertifiedPerson: HealthCertifiedPerson(healthCertificates: [HealthCertificate.mock()]),
 			healthCertificateValueSetsProvider: VaccinationValueSetsProvider(client: CachingHTTPClientMock(), store: MockTestStore()),
 			dismiss: {},
+			didTapBoosterNotification: { _ in },
 			didTapValidationButton: { _, _ in },
 			showInfoHit: { }
 		)
@@ -85,6 +86,7 @@ class HealthCertifiedPersonViewModelTests: XCTestCase {
 			),
 			healthCertificateValueSetsProvider: VaccinationValueSetsProvider(client: CachingHTTPClientMock(), store: MockTestStore()),
 			dismiss: {},
+			didTapBoosterNotification: { _ in },
 			didTapValidationButton: { _, _ in },
 			showInfoHit: { }
 		)
@@ -130,6 +132,7 @@ class HealthCertifiedPersonViewModelTests: XCTestCase {
 			healthCertifiedPerson: healthCertifiedPerson,
 			healthCertificateValueSetsProvider: VaccinationValueSetsProvider(client: CachingHTTPClientMock(), store: MockTestStore()),
 			dismiss: {},
+			didTapBoosterNotification: { _ in },
 			didTapValidationButton: { _, _ in },
 			showInfoHit: { }
 		)
@@ -172,6 +175,7 @@ class HealthCertifiedPersonViewModelTests: XCTestCase {
 			healthCertifiedPerson: healthCertifiedPerson,
 			healthCertificateValueSetsProvider: VaccinationValueSetsProvider(client: CachingHTTPClientMock(), store: MockTestStore()),
 			dismiss: {},
+			didTapBoosterNotification: { _ in },
 			didTapValidationButton: { _, _ in },
 			showInfoHit: { }
 		)
@@ -211,6 +215,7 @@ class HealthCertifiedPersonViewModelTests: XCTestCase {
 			healthCertifiedPerson: healthCertifiedPerson,
 			healthCertificateValueSetsProvider: VaccinationValueSetsProvider(client: CachingHTTPClientMock(), store: MockTestStore()),
 			dismiss: {},
+			didTapBoosterNotification: { _ in },
 			didTapValidationButton: { _, _ in },
 			showInfoHit: { }
 		)
@@ -218,7 +223,6 @@ class HealthCertifiedPersonViewModelTests: XCTestCase {
 		// THEN
 		XCTAssertEqual(viewModel.heightForFooter(in: .vaccinationState), 0)
 	}
-
 
 	func testMarkBoosterRuleAsSeen() throws {
 		let client = ClientMock()
@@ -250,6 +254,7 @@ class HealthCertifiedPersonViewModelTests: XCTestCase {
 			healthCertifiedPerson: healthCertifiedPerson,
 			healthCertificateValueSetsProvider: VaccinationValueSetsProvider(client: CachingHTTPClientMock(), store: MockTestStore()),
 			dismiss: {},
+			didTapBoosterNotification: { _ in },
 			didTapValidationButton: { _, _ in },
 			showInfoHit: { }
 		)
