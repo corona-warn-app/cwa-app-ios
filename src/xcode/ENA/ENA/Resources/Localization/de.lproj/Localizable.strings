@@ -3435,7 +3435,7 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "RecycleBin_deleteAllButtonTitle" = "Alle endgültig löschen";
 
-"RecycleBin_expirationDateTime" = "wird am %@ um %@ endgültig gelöscht";
+"RecycleBin_expirationDateTime" = "wird am %@ um %@ Uhr endgültig gelöscht";
 
 /* - Vaccination Certificate */
 
