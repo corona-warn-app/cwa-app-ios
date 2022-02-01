@@ -1645,23 +1645,11 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "NewVersionFeatures_Info_about_abb_information" = "Änderungen zum Release finden Sie in den App-Informationen unter dem Menüpunkt „Neue Funktionen”.";
 
-/* Version 2.17 */
+/* Version 2.18 */
 
-"NewVersionFeature_217_positiveTest_title" = "Hinweise bei positivem Test";
+"NewVersionFeature_218_centralManagementOfRules_title" = "Zentrale Verwaltung von Regeln";
 
-"NewVersionFeature_217_positiveTest_description" = "Die Hinweise und Vorgehensweise bei einem positiven Testergebnis wurden überarbeitet.";
-
-"NewVersionFeature_217_statisticsBoosterVaccination_title" = "Statistik zu Auffrischimpfungen";
-
-"NewVersionFeature_217_statisticsBoosterVaccination_description" = "Neben den Statistiken für mindestens einmal geimpfte und vollständig geimpfte Personen, finden Sie jetzt auch die Anzahl der Personen, die eine Auffrischimpfung erhalten haben.";
-
-"NewVersionFeature_217_linkSocialMedia_title" = "Link zu Social Media";
-
-"NewVersionFeature_217_linkSocialMedia_description" = "Wenn Sie über die Corona-Warn-App auf dem Laufenden bleiben und sich mit anderen austauschen wollen, können Sie unseren Social-Media-Kanälen folgen. Sie finden jetzt auf der Startseite unter \"Mehr\" einen Social-Media-Link.";
-
-"NewVersionFeature_217_deleteDateRecycleBin_title" = "Löschdatum für Papierkorbinhalte";
-
-"NewVersionFeature_217_deleteDateRecycleBin_description" = "Jedes Element, dass in den Papierkorb verschoben wird, wird nach 30 Tagen endgültig gelöscht. Dieses Löschdatum wird jetzt für jedes Element angezeigt.";
+"NewVersionFeature_218_centralManagementOfRules_description" = "Die Regeln für Zertifikate (z.B. hinsichtlich ihrer Gültigkeit, oder Priorisierung, wenn mehrere Zertifikate vorhanden sind) und für die Ermittlung des G-Status wurden aus der Corona-Warn-App herausgelöst. Diese Regeln sind jetzt zentral abgelegt und können daher unabhängig von den App-Releases angepasst werden. Damit kann schneller auf Regeländerungen reagiert werden. Nach einer Änderung werden die aktualisierten Regeln an die App übertragen. Für Sie ändert sich an der Benutzung der Corona-Warn-App nichts durch diese zentrale Verwaltung der Regeln.";
 
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Länderübergreifende Risiko-Ermittlung";
@@ -2087,7 +2075,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 /* - Fully vaccinated people card */
 
-"Statistics_Card_FullyVaccinated_Title" = "Vollständig geimpfte Personen";
+"Statistics_Card_FullyVaccinated_Title" = "Grundimmunisiert";
 
 "Statistics_Card_FullyVaccinated_Today" = "Bis heute";
 
@@ -2187,7 +2175,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "Statistics_Info_AtLeastOnce_Text" = "Anzahl der an das RKI übermittelten Personen, die die erste Impfdosis erhalten haben.";
 
-"Statistics_Info_FullyVaccinated_Title" = "Vollständig geimpfte Personen";
+"Statistics_Info_FullyVaccinated_Title" = "Grundimmunisiert";
 
 "Statistics_Info_FullyVaccinated_Text" = "Anzahl der an das RKI übermittelten Personen, die alle notwendigen Impfdosen der Grundimmunisierung erhalten haben.";
 

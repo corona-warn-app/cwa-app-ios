@@ -20,8 +20,6 @@ struct DCCRulesResource: Resource {
 		self.ruleType = ruleType
 	}
 
-	// MARK: - Overrides
-
 	// MARK: - Protocol Resource
 
 	typealias Send = EmptySendResource

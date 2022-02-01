@@ -1155,16 +1155,10 @@ enum AppStrings {
 		static let generalDescription = NSLocalizedString("DeltaOnboarding_NewVersionFeatures_Description", comment: "")
 		static let aboutAppInformation = NSLocalizedString("NewVersionFeatures_Info_about_abb_information", comment: "")
 		
-		/* Version 2.17 */
+		/* Version 2.18 */
 		
-		static let feature217PositiveTestTitle = NSLocalizedString("NewVersionFeature_217_positiveTest_title", comment: "")
-		static let feature217PositiveTestDescription = NSLocalizedString("NewVersionFeature_217_positiveTest_description", comment: "")
-		static let feature217StatisticsBoosterVaccinationTitle = NSLocalizedString("NewVersionFeature_217_statisticsBoosterVaccination_title", comment: "")
-		static let feature217StatisticsBoosterVaccinationDescription = NSLocalizedString("NewVersionFeature_217_statisticsBoosterVaccination_description", comment: "")
-		static let feature217LinkSocialMediaTitle = NSLocalizedString("NewVersionFeature_217_linkSocialMedia_title", comment: "")
-		static let feature217LinkSocialMediaDescription = NSLocalizedString("NewVersionFeature_217_linkSocialMedia_description", comment: "")
-		static let feature217DeleteDateRecycleBinTitle = NSLocalizedString("NewVersionFeature_217_deleteDateRecycleBin_title", comment: "")
-		static let feature217DeleteDateRecycleBinDescription = NSLocalizedString("NewVersionFeature_217_deleteDateRecycleBin_description", comment: "")
+		static let feature218CentralManagementOfRulesTitle = NSLocalizedString("NewVersionFeature_218_centralManagementOfRules_title", comment: "")
+		static let feature218CentralManagementOfRulesDescription = NSLocalizedString("NewVersionFeature_218_centralManagementOfRules_description", comment: "")
 	}
 	
 	enum DeltaOnboarding {
