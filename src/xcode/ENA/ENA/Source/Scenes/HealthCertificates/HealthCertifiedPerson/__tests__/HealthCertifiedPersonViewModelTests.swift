@@ -18,9 +18,7 @@ class HealthCertifiedPersonViewModelTests: XCTestCase {
 			dscListProvider: MockDSCListProvider(),
 			client: client,
 			appConfiguration: CachedAppConfigurationMock(),
-			boosterNotificationsService: BoosterNotificationsService(
-				rulesDownloadService: FakeRulesDownloadService()
-			),
+			cclService: FakeCCLService(),
 			recycleBin: .fake()
 		)
 
@@ -66,9 +64,7 @@ class HealthCertifiedPersonViewModelTests: XCTestCase {
 			dscListProvider: MockDSCListProvider(),
 			client: client,
 			appConfiguration: CachedAppConfigurationMock(),
-			boosterNotificationsService: BoosterNotificationsService(
-				rulesDownloadService: FakeRulesDownloadService()
-			),
+			cclService: FakeCCLService(),
 			recycleBin: .fake()
 		)
 
@@ -107,9 +103,7 @@ class HealthCertifiedPersonViewModelTests: XCTestCase {
 			dscListProvider: MockDSCListProvider(),
 			client: client,
 			appConfiguration: CachedAppConfigurationMock(),
-			boosterNotificationsService: BoosterNotificationsService(
-				rulesDownloadService: FakeRulesDownloadService()
-			),
+			cclService: FakeCCLService(),
 			recycleBin: .fake()
 		)
 
@@ -149,9 +143,7 @@ class HealthCertifiedPersonViewModelTests: XCTestCase {
 			dscListProvider: MockDSCListProvider(),
 			client: client,
 			appConfiguration: CachedAppConfigurationMock(),
-			boosterNotificationsService: BoosterNotificationsService(
-				rulesDownloadService: FakeRulesDownloadService()
-			),
+			cclService: FakeCCLService(),
 			recycleBin: .fake()
 		)
 
@@ -186,9 +178,7 @@ class HealthCertifiedPersonViewModelTests: XCTestCase {
 			dscListProvider: MockDSCListProvider(),
 			client: client,
 			appConfiguration: CachedAppConfigurationMock(),
-			boosterNotificationsService: BoosterNotificationsService(
-				rulesDownloadService: FakeRulesDownloadService()
-			),
+			cclService: FakeCCLService(),
 			recycleBin: .fake()
 		)
 
@@ -225,9 +215,7 @@ class HealthCertifiedPersonViewModelTests: XCTestCase {
 			dscListProvider: MockDSCListProvider(),
 			client: client,
 			appConfiguration: CachedAppConfigurationMock(),
-			boosterNotificationsService: BoosterNotificationsService(
-				rulesDownloadService: FakeRulesDownloadService()
-			),
+			cclService: FakeCCLService(),
 			recycleBin: .fake()
 		)
 

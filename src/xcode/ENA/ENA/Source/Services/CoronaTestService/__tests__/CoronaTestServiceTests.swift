@@ -29,9 +29,8 @@ class CoronaTestServiceTests: CWATestCase {
 				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration,
-				boosterNotificationsService: BoosterNotificationsService(
-					rulesDownloadService: FakeRulesDownloadService()
-				),
+				cclService: FakeCCLService(),
+
 				recycleBin: .fake()
 			),
 			recycleBin: .fake(),
@@ -67,9 +66,8 @@ class CoronaTestServiceTests: CWATestCase {
 				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration,
-				boosterNotificationsService: BoosterNotificationsService(
-					rulesDownloadService: FakeRulesDownloadService()
-				),
+				cclService: FakeCCLService(),
+
 				recycleBin: .fake()
 			),
 			recycleBin: .fake(),
@@ -123,9 +121,8 @@ class CoronaTestServiceTests: CWATestCase {
 				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration,
-				boosterNotificationsService: BoosterNotificationsService(
-					rulesDownloadService: FakeRulesDownloadService()
-				),
+				cclService: FakeCCLService(),
+
 				recycleBin: .fake()
 			),
 			recycleBin: .fake(),
@@ -177,9 +174,8 @@ class CoronaTestServiceTests: CWATestCase {
 				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration,
-				boosterNotificationsService: BoosterNotificationsService(
-					rulesDownloadService: FakeRulesDownloadService()
-				),
+				cclService: FakeCCLService(),
+
 				recycleBin: .fake()
 			),
 			recycleBin: .fake(),
@@ -233,9 +229,8 @@ class CoronaTestServiceTests: CWATestCase {
 				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration,
-				boosterNotificationsService: BoosterNotificationsService(
-					rulesDownloadService: FakeRulesDownloadService()
-				),
+				cclService: FakeCCLService(),
+
 				recycleBin: .fake()
 			),
 			recycleBin: .fake(),
@@ -287,9 +282,8 @@ class CoronaTestServiceTests: CWATestCase {
 				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration,
-				boosterNotificationsService: BoosterNotificationsService(
-					rulesDownloadService: FakeRulesDownloadService()
-				),
+				cclService: FakeCCLService(),
+
 				recycleBin: .fake()
 			),
 			recycleBin: .fake(),
@@ -345,9 +339,8 @@ class CoronaTestServiceTests: CWATestCase {
 				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration,
-				boosterNotificationsService: BoosterNotificationsService(
-					rulesDownloadService: FakeRulesDownloadService()
-				),
+				cclService: FakeCCLService(),
+
 				recycleBin: .fake()
 			),
 			recycleBin: .fake(),
@@ -408,9 +401,8 @@ class CoronaTestServiceTests: CWATestCase {
 				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfig,
-				boosterNotificationsService: BoosterNotificationsService(
-					rulesDownloadService: FakeRulesDownloadService()
-				),
+				cclService: FakeCCLService(),
+
 				recycleBin: .fake()
 			),
 			recycleBin: .fake(),
@@ -473,9 +465,8 @@ class CoronaTestServiceTests: CWATestCase {
 					dscListProvider: MockDSCListProvider(),
 					client: client,
 					appConfiguration: appConfig,
-					boosterNotificationsService: BoosterNotificationsService(
-						rulesDownloadService: FakeRulesDownloadService()
-					),
+					cclService: FakeCCLService(),
+
 					recycleBin: .fake()
 				),
 				recycleBin: .fake(),
@@ -524,9 +515,8 @@ class CoronaTestServiceTests: CWATestCase {
 				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration,
-				boosterNotificationsService: BoosterNotificationsService(
-					rulesDownloadService: FakeRulesDownloadService()
-				),
+				cclService: FakeCCLService(),
+
 				recycleBin: .fake()
 			),
 			recycleBin: .fake(),
@@ -577,9 +567,8 @@ class CoronaTestServiceTests: CWATestCase {
 				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration,
-				boosterNotificationsService: BoosterNotificationsService(
-					rulesDownloadService: FakeRulesDownloadService()
-				),
+				cclService: FakeCCLService(),
+
 				recycleBin: .fake()
 			),
 			recycleBin: .fake(),
@@ -678,9 +667,8 @@ class CoronaTestServiceTests: CWATestCase {
 				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration,
-				boosterNotificationsService: BoosterNotificationsService(
-					rulesDownloadService: FakeRulesDownloadService()
-				),
+				cclService: FakeCCLService(),
+
 				recycleBin: .fake()
 			),
 			recycleBin: .fake(),
@@ -801,9 +789,8 @@ class CoronaTestServiceTests: CWATestCase {
 				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration,
-				boosterNotificationsService: BoosterNotificationsService(
-					rulesDownloadService: FakeRulesDownloadService()
-				),
+				cclService: FakeCCLService(),
+
 				recycleBin: .fake()
 			),
 			recycleBin: .fake(),
@@ -896,9 +883,8 @@ class CoronaTestServiceTests: CWATestCase {
 				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration,
-				boosterNotificationsService: BoosterNotificationsService(
-					rulesDownloadService: FakeRulesDownloadService()
-				),
+				cclService: FakeCCLService(),
+
 				recycleBin: .fake()
 			),
 			recycleBin: .fake(),
@@ -964,9 +950,8 @@ class CoronaTestServiceTests: CWATestCase {
 				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration,
-				boosterNotificationsService: BoosterNotificationsService(
-					rulesDownloadService: FakeRulesDownloadService()
-				),
+				cclService: FakeCCLService(),
+
 				recycleBin: .fake()
 			),
 			recycleBin: .fake(),
@@ -1031,9 +1016,8 @@ class CoronaTestServiceTests: CWATestCase {
 				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration,
-				boosterNotificationsService: BoosterNotificationsService(
-					rulesDownloadService: FakeRulesDownloadService()
-				),
+				cclService: FakeCCLService(),
+
 				recycleBin: .fake()
 			),
 			recycleBin: .fake(),
@@ -1119,9 +1103,8 @@ class CoronaTestServiceTests: CWATestCase {
 				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration,
-				boosterNotificationsService: BoosterNotificationsService(
-					rulesDownloadService: FakeRulesDownloadService()
-				),
+				cclService: FakeCCLService(),
+
 				recycleBin: .fake()
 			),
 			recycleBin: .fake(),
@@ -1210,9 +1193,8 @@ class CoronaTestServiceTests: CWATestCase {
 				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration,
-				boosterNotificationsService: BoosterNotificationsService(
-					rulesDownloadService: FakeRulesDownloadService()
-				),
+				cclService: FakeCCLService(),
+
 				recycleBin: .fake()
 			),
 			recycleBin: .fake(),
@@ -1291,9 +1273,8 @@ class CoronaTestServiceTests: CWATestCase {
 				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration,
-				boosterNotificationsService: BoosterNotificationsService(
-					rulesDownloadService: FakeRulesDownloadService()
-				),
+				cclService: FakeCCLService(),
+
 				recycleBin: .fake()
 			),
 			recycleBin: .fake(),
@@ -1362,9 +1343,8 @@ class CoronaTestServiceTests: CWATestCase {
 				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration,
-				boosterNotificationsService: BoosterNotificationsService(
-					rulesDownloadService: FakeRulesDownloadService()
-				),
+				cclService: FakeCCLService(),
+
 				recycleBin: .fake()
 			),
 			recycleBin: .fake(),
@@ -1448,9 +1428,8 @@ class CoronaTestServiceTests: CWATestCase {
 				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration,
-				boosterNotificationsService: BoosterNotificationsService(
-					rulesDownloadService: FakeRulesDownloadService()
-				),
+				cclService: FakeCCLService(),
+
 				recycleBin: .fake()
 			),
 			recycleBin: .fake(),
@@ -1568,9 +1547,8 @@ class CoronaTestServiceTests: CWATestCase {
 				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration,
-				boosterNotificationsService: BoosterNotificationsService(
-					rulesDownloadService: FakeRulesDownloadService()
-				),
+				cclService: FakeCCLService(),
+
 				recycleBin: .fake()
 			),
 			recycleBin: .fake(),
@@ -1650,9 +1628,8 @@ class CoronaTestServiceTests: CWATestCase {
 				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration,
-				boosterNotificationsService: BoosterNotificationsService(
-					rulesDownloadService: FakeRulesDownloadService()
-				),
+				cclService: FakeCCLService(),
+
 				recycleBin: .fake()
 			),
 			recycleBin: .fake(),
@@ -1713,9 +1690,8 @@ class CoronaTestServiceTests: CWATestCase {
 				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration,
-				boosterNotificationsService: BoosterNotificationsService(
-					rulesDownloadService: FakeRulesDownloadService()
-				),
+				cclService: FakeCCLService(),
+
 				recycleBin: .fake()
 			),
 			recycleBin: .fake(),
@@ -1793,9 +1769,7 @@ class CoronaTestServiceTests: CWATestCase {
 				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration,
-				boosterNotificationsService: BoosterNotificationsService(
-					rulesDownloadService: FakeRulesDownloadService()
-				),
+				cclService: FakeCCLService(),
 				recycleBin: .fake()
 			),
 			recycleBin: .fake(),
@@ -1854,9 +1828,7 @@ class CoronaTestServiceTests: CWATestCase {
 				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration,
-				boosterNotificationsService: BoosterNotificationsService(
-					rulesDownloadService: FakeRulesDownloadService()
-				),
+				cclService: FakeCCLService(),
 				recycleBin: .fake()
 			),
 			recycleBin: .fake(),
@@ -1908,9 +1880,7 @@ class CoronaTestServiceTests: CWATestCase {
 				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration,
-				boosterNotificationsService: BoosterNotificationsService(
-					rulesDownloadService: FakeRulesDownloadService()
-				),
+				cclService: FakeCCLService(),
 				recycleBin: .fake()
 			),
 			recycleBin: .fake(),
@@ -1950,9 +1920,7 @@ class CoronaTestServiceTests: CWATestCase {
 				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration,
-				boosterNotificationsService: BoosterNotificationsService(
-					rulesDownloadService: FakeRulesDownloadService()
-				),
+				cclService: FakeCCLService(),
 				recycleBin: .fake()
 			),
 			recycleBin: .fake(),
@@ -1992,9 +1960,7 @@ class CoronaTestServiceTests: CWATestCase {
 				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration,
-				boosterNotificationsService: BoosterNotificationsService(
-					rulesDownloadService: FakeRulesDownloadService()
-				),
+				cclService: FakeCCLService(),
 				recycleBin: .fake()
 			),
 			recycleBin: .fake(),
@@ -2042,9 +2008,7 @@ class CoronaTestServiceTests: CWATestCase {
 				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration,
-				boosterNotificationsService: BoosterNotificationsService(
-					rulesDownloadService: FakeRulesDownloadService()
-				),
+				cclService: FakeCCLService(),
 				recycleBin: .fake()
 			),
 			recycleBin: .fake(),
@@ -2105,9 +2069,7 @@ class CoronaTestServiceTests: CWATestCase {
 				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration,
-				boosterNotificationsService: BoosterNotificationsService(
-					rulesDownloadService: FakeRulesDownloadService()
-				),
+				cclService: FakeCCLService(),
 				recycleBin: .fake()
 			),
 			notificationCenter: mockNotificationCenter,
@@ -2162,9 +2124,7 @@ class CoronaTestServiceTests: CWATestCase {
 				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration,
-				boosterNotificationsService: BoosterNotificationsService(
-					rulesDownloadService: FakeRulesDownloadService()
-				),
+				cclService: FakeCCLService(),
 				recycleBin: .fake()
 			),
 			notificationCenter: mockNotificationCenter,
@@ -2207,9 +2167,7 @@ class CoronaTestServiceTests: CWATestCase {
 				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration,
-				boosterNotificationsService: BoosterNotificationsService(
-					rulesDownloadService: FakeRulesDownloadService()
-				),
+				cclService: FakeCCLService(),
 				recycleBin: .fake()
 			),
 			recycleBin: .fake(),
@@ -2253,9 +2211,7 @@ class CoronaTestServiceTests: CWATestCase {
 				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration,
-				boosterNotificationsService: BoosterNotificationsService(
-					rulesDownloadService: FakeRulesDownloadService()
-				),
+				cclService: FakeCCLService(),
 				recycleBin: .fake()
 			),
 			notificationCenter: mockNotificationCenter,
@@ -2301,9 +2257,7 @@ class CoronaTestServiceTests: CWATestCase {
 				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration,
-				boosterNotificationsService: BoosterNotificationsService(
-					rulesDownloadService: FakeRulesDownloadService()
-				),
+				cclService: FakeCCLService(),
 				recycleBin: .fake()
 			),
 			notificationCenter: mockNotificationCenter,
@@ -2362,9 +2316,7 @@ class CoronaTestServiceTests: CWATestCase {
 				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration,
-				boosterNotificationsService: BoosterNotificationsService(
-					rulesDownloadService: FakeRulesDownloadService()
-				),
+				cclService: FakeCCLService(),
 				recycleBin: .fake()
 			),
 			notificationCenter: mockNotificationCenter,
@@ -2411,9 +2363,7 @@ class CoronaTestServiceTests: CWATestCase {
 				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration,
-				boosterNotificationsService: BoosterNotificationsService(
-					rulesDownloadService: FakeRulesDownloadService()
-				),
+				cclService: FakeCCLService(),
 				recycleBin: .fake()
 			),
 			notificationCenter: mockNotificationCenter,
@@ -2461,9 +2411,7 @@ class CoronaTestServiceTests: CWATestCase {
 				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration,
-				boosterNotificationsService: BoosterNotificationsService(
-					rulesDownloadService: FakeRulesDownloadService()
-				),
+				cclService: FakeCCLService(),
 				recycleBin: .fake()
 			),
 			notificationCenter: mockNotificationCenter,
@@ -2511,9 +2459,7 @@ class CoronaTestServiceTests: CWATestCase {
 				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration,
-				boosterNotificationsService: BoosterNotificationsService(
-					rulesDownloadService: FakeRulesDownloadService()
-				),
+				cclService: FakeCCLService(),
 				recycleBin: .fake()
 			),
 			notificationCenter: mockNotificationCenter,
@@ -2559,9 +2505,7 @@ class CoronaTestServiceTests: CWATestCase {
 				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration,
-				boosterNotificationsService: BoosterNotificationsService(
-					rulesDownloadService: FakeRulesDownloadService()
-				),
+				cclService: FakeCCLService(),
 				recycleBin: .fake()
 			),
 			notificationCenter: mockNotificationCenter,
@@ -2619,9 +2563,7 @@ class CoronaTestServiceTests: CWATestCase {
 				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration,
-				boosterNotificationsService: BoosterNotificationsService(
-					rulesDownloadService: FakeRulesDownloadService()
-				),
+				cclService: FakeCCLService(),
 				recycleBin: .fake()
 			),
 			notificationCenter: mockNotificationCenter,
@@ -2674,9 +2616,7 @@ class CoronaTestServiceTests: CWATestCase {
 				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration,
-				boosterNotificationsService: BoosterNotificationsService(
-					rulesDownloadService: FakeRulesDownloadService()
-				),
+				cclService: FakeCCLService(),
 				recycleBin: .fake()
 			),
 			notificationCenter: mockNotificationCenter,
@@ -2736,9 +2676,7 @@ class CoronaTestServiceTests: CWATestCase {
 				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration,
-				boosterNotificationsService: BoosterNotificationsService(
-					rulesDownloadService: FakeRulesDownloadService()
-				),
+				cclService: FakeCCLService(),
 				recycleBin: .fake()
 			),
 			notificationCenter: mockNotificationCenter,
@@ -2800,9 +2738,7 @@ class CoronaTestServiceTests: CWATestCase {
 				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration,
-				boosterNotificationsService: BoosterNotificationsService(
-					rulesDownloadService: FakeRulesDownloadService()
-				),
+				cclService: FakeCCLService(),
 				recycleBin: .fake()
 			),
 			notificationCenter: mockNotificationCenter,
@@ -2858,9 +2794,7 @@ class CoronaTestServiceTests: CWATestCase {
 				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration,
-				boosterNotificationsService: BoosterNotificationsService(
-					rulesDownloadService: FakeRulesDownloadService()
-				),
+				cclService: FakeCCLService(),
 				recycleBin: .fake()
 			),
 			notificationCenter: mockNotificationCenter,
@@ -2921,9 +2855,7 @@ class CoronaTestServiceTests: CWATestCase {
 				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration,
-				boosterNotificationsService: BoosterNotificationsService(
-					rulesDownloadService: FakeRulesDownloadService()
-				),
+				cclService: FakeCCLService(),
 				recycleBin: .fake()
 			),
 			notificationCenter: mockNotificationCenter,
@@ -2980,9 +2912,7 @@ class CoronaTestServiceTests: CWATestCase {
 				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration,
-				boosterNotificationsService: BoosterNotificationsService(
-					rulesDownloadService: FakeRulesDownloadService()
-				),
+				cclService: FakeCCLService(),
 				recycleBin: .fake()
 			),
 			notificationCenter: mockNotificationCenter,
@@ -3026,9 +2956,7 @@ class CoronaTestServiceTests: CWATestCase {
 				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration,
-				boosterNotificationsService: BoosterNotificationsService(
-					rulesDownloadService: FakeRulesDownloadService()
-				),
+				cclService: FakeCCLService(),
 				recycleBin: .fake()
 			),
 			notificationCenter: MockUserNotificationCenter(),
@@ -3077,9 +3005,7 @@ class CoronaTestServiceTests: CWATestCase {
 				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration,
-				boosterNotificationsService: BoosterNotificationsService(
-					rulesDownloadService: FakeRulesDownloadService()
-				),
+				cclService: FakeCCLService(),
 				recycleBin: .fake()
 			),
 			notificationCenter: MockUserNotificationCenter(),
@@ -3131,9 +3057,7 @@ class CoronaTestServiceTests: CWATestCase {
 				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration,
-				boosterNotificationsService: BoosterNotificationsService(
-					rulesDownloadService: FakeRulesDownloadService()
-				),
+				cclService: FakeCCLService(),
 				recycleBin: .fake()
 			),
 			notificationCenter: MockUserNotificationCenter(),
@@ -3185,9 +3109,7 @@ class CoronaTestServiceTests: CWATestCase {
 				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration,
-				boosterNotificationsService: BoosterNotificationsService(
-					rulesDownloadService: FakeRulesDownloadService()
-				),
+				cclService: FakeCCLService(),
 				recycleBin: .fake()
 			),
 			notificationCenter: MockUserNotificationCenter(),
@@ -3239,9 +3161,7 @@ class CoronaTestServiceTests: CWATestCase {
 				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration,
-				boosterNotificationsService: BoosterNotificationsService(
-					rulesDownloadService: FakeRulesDownloadService()
-				),
+				cclService: FakeCCLService(),
 				recycleBin: .fake()
 			),
 			notificationCenter: MockUserNotificationCenter(),
@@ -3293,9 +3213,7 @@ class CoronaTestServiceTests: CWATestCase {
 				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration,
-				boosterNotificationsService: BoosterNotificationsService(
-					rulesDownloadService: FakeRulesDownloadService()
-				),
+				cclService: FakeCCLService(),
 				recycleBin: .fake()
 			),
 			notificationCenter: MockUserNotificationCenter(),
@@ -3340,9 +3258,7 @@ class CoronaTestServiceTests: CWATestCase {
 				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration,
-				boosterNotificationsService: BoosterNotificationsService(
-					rulesDownloadService: FakeRulesDownloadService()
-				),
+				cclService: FakeCCLService(),
 				recycleBin: recycleBin
 			),
 			recycleBin: recycleBin,
@@ -3401,9 +3317,7 @@ class CoronaTestServiceTests: CWATestCase {
 				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration,
-				boosterNotificationsService: BoosterNotificationsService(
-					rulesDownloadService: FakeRulesDownloadService()
-				),
+				cclService: FakeCCLService(),
 				recycleBin: .fake()
 			),
 			recycleBin: .fake(),
@@ -3505,9 +3419,7 @@ class CoronaTestServiceTests: CWATestCase {
 				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration,
-				boosterNotificationsService: BoosterNotificationsService(
-					rulesDownloadService: FakeRulesDownloadService()
-				),
+				cclService: FakeCCLService(),
 				recycleBin: .fake()
 			),
 			recycleBin: .fake(),
@@ -3623,9 +3535,7 @@ class CoronaTestServiceTests: CWATestCase {
 				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration,
-				boosterNotificationsService: BoosterNotificationsService(
-					rulesDownloadService: FakeRulesDownloadService()
-				),
+				cclService: FakeCCLService(),
 				recycleBin: .fake()
 			),
 			recycleBin: .fake(),

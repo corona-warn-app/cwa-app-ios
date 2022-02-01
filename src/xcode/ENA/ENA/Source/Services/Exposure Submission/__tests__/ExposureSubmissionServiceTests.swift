@@ -42,9 +42,8 @@ class ExposureSubmissionServiceTests: CWATestCase {
 				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration,
-				boosterNotificationsService: BoosterNotificationsService(
-					rulesDownloadService: FakeRulesDownloadService()
-				),
+				cclService: FakeCCLService(),
+
 				recycleBin: .fake()
 			),
 			recycleBin: .fake(),
@@ -132,9 +131,8 @@ class ExposureSubmissionServiceTests: CWATestCase {
 				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration,
-				boosterNotificationsService: BoosterNotificationsService(
-					rulesDownloadService: FakeRulesDownloadService()
-				),
+				cclService: FakeCCLService(),
+
 				recycleBin: .fake()
 			),
 			recycleBin: .fake(),
@@ -197,9 +195,8 @@ class ExposureSubmissionServiceTests: CWATestCase {
 				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfigurationProvider,
-				boosterNotificationsService: BoosterNotificationsService(
-					rulesDownloadService: FakeRulesDownloadService()
-				),
+				cclService: FakeCCLService(),
+
 				recycleBin: .fake()
 			),
 			recycleBin: .fake(),
@@ -269,9 +266,8 @@ class ExposureSubmissionServiceTests: CWATestCase {
 				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration,
-				boosterNotificationsService: BoosterNotificationsService(
-					rulesDownloadService: FakeRulesDownloadService()
-				),
+				cclService: FakeCCLService(),
+
 				recycleBin: .fake()
 			),
 			recycleBin: .fake(),
@@ -328,9 +324,8 @@ class ExposureSubmissionServiceTests: CWATestCase {
 				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration,
-				boosterNotificationsService: BoosterNotificationsService(
-					rulesDownloadService: FakeRulesDownloadService()
-				),
+				cclService: FakeCCLService(),
+
 				recycleBin: .fake()
 			),
 			recycleBin: .fake(),
@@ -387,9 +382,8 @@ class ExposureSubmissionServiceTests: CWATestCase {
 				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfigurationProvider,
-				boosterNotificationsService: BoosterNotificationsService(
-					rulesDownloadService: FakeRulesDownloadService()
-				),
+				cclService: FakeCCLService(),
+
 				recycleBin: .fake()
 			),
 			recycleBin: .fake(),
@@ -448,9 +442,8 @@ class ExposureSubmissionServiceTests: CWATestCase {
 				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfigurationProvider,
-				boosterNotificationsService: BoosterNotificationsService(
-					rulesDownloadService: FakeRulesDownloadService()
-				),
+				cclService: FakeCCLService(),
+
 				recycleBin: .fake()
 			),
 			recycleBin: .fake(),
@@ -506,9 +499,8 @@ class ExposureSubmissionServiceTests: CWATestCase {
 				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfigurationProvider,
-				boosterNotificationsService: BoosterNotificationsService(
-					rulesDownloadService: FakeRulesDownloadService()
-				),
+				cclService: FakeCCLService(),
+
 				recycleBin: .fake()
 			),
 			recycleBin: .fake(),
@@ -571,9 +563,8 @@ class ExposureSubmissionServiceTests: CWATestCase {
 				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfigurationProvider,
-				boosterNotificationsService: BoosterNotificationsService(
-					rulesDownloadService: FakeRulesDownloadService()
-				),
+				cclService: FakeCCLService(),
+
 				recycleBin: .fake()
 			),
 			recycleBin: .fake(),
@@ -636,9 +627,8 @@ class ExposureSubmissionServiceTests: CWATestCase {
 				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfigurationProvider,
-				boosterNotificationsService: BoosterNotificationsService(
-					rulesDownloadService: FakeRulesDownloadService()
-				),
+				cclService: FakeCCLService(),
+
 				recycleBin: .fake()
 			),
 			recycleBin: .fake(),
@@ -697,9 +687,8 @@ class ExposureSubmissionServiceTests: CWATestCase {
 				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfigurationProvider,
-				boosterNotificationsService: BoosterNotificationsService(
-					rulesDownloadService: FakeRulesDownloadService()
-				),
+				cclService: FakeCCLService(),
+
 				recycleBin: .fake()
 			),
 			recycleBin: .fake(),
@@ -760,9 +749,8 @@ class ExposureSubmissionServiceTests: CWATestCase {
 				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfigurationProvider,
-				boosterNotificationsService: BoosterNotificationsService(
-					rulesDownloadService: FakeRulesDownloadService()
-				),
+				cclService: FakeCCLService(),
+
 				recycleBin: .fake()
 			),
 			recycleBin: .fake(),
@@ -851,9 +839,8 @@ class ExposureSubmissionServiceTests: CWATestCase {
 				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfigurationProvider,
-				boosterNotificationsService: BoosterNotificationsService(
-					rulesDownloadService: FakeRulesDownloadService()
-				),
+				cclService: FakeCCLService(),
+
 				recycleBin: .fake()
 			),
 			recycleBin: .fake(),
@@ -927,9 +914,7 @@ class ExposureSubmissionServiceTests: CWATestCase {
 					dscListProvider: MockDSCListProvider(),
 					client: client,
 					appConfiguration: appConfiguration,
-					boosterNotificationsService: BoosterNotificationsService(
-						rulesDownloadService: FakeRulesDownloadService()
-					),
+					cclService: FakeCCLService(),
 					recycleBin: .fake()
 				),
 				recycleBin: .fake(),
@@ -988,9 +973,7 @@ class ExposureSubmissionServiceTests: CWATestCase {
 					dscListProvider: MockDSCListProvider(),
 					client: client,
 					appConfiguration: appConfiguration,
-					boosterNotificationsService: BoosterNotificationsService(
-						rulesDownloadService: FakeRulesDownloadService()
-					),
+					cclService: FakeCCLService(),
 					recycleBin: .fake()
 				),
 				recycleBin: .fake(),
@@ -1053,9 +1036,7 @@ class ExposureSubmissionServiceTests: CWATestCase {
 					dscListProvider: MockDSCListProvider(),
 					client: client,
 					appConfiguration: appConfiguration,
-					boosterNotificationsService: BoosterNotificationsService(
-						rulesDownloadService: FakeRulesDownloadService()
-					),
+					cclService: FakeCCLService(),
 					recycleBin: .fake()
 				),
 				recycleBin: .fake(),
@@ -1127,9 +1108,7 @@ class ExposureSubmissionServiceTests: CWATestCase {
 				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfigurationProvider,
-				boosterNotificationsService: BoosterNotificationsService(
-					rulesDownloadService: FakeRulesDownloadService()
-				),
+				cclService: FakeCCLService(),
 				recycleBin: .fake()
 			),
 			recycleBin: .fake(),
