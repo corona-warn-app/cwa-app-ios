@@ -15,6 +15,15 @@ struct DCCRulesResource: Resource {
 	) {
 		self.locator = .DCCRules(ruleType: ruleType, isFake: isFake)
 		self.type = .caching()
+
+		#if !RELEASE
+		// Debug menu: Force update of CCLConfiguration and Booster Notification Rules.
+		if ruleType == .boosterNotification &&
+			UserDefaults.standard.bool(forKey: CCLConfigurationResource.keyForceUpdateCCLConfiguration) {
+			self.type = .default
+		}
+		#endif
+		
 		self.sendResource = EmptySendResource()
 		self.receiveResource = CBORReceiveResource<DCCRulesReceiveModel>()
 		self.ruleType = ruleType
