@@ -5,13 +5,16 @@
 import Foundation
 import HealthCertificateToolkit
 
+struct DCCWalletCertificateCose: Codable {
+	
+	// MARK: - Internal
+
+	let kid: String
+}
+
 struct DCCWalletCertificate: Codable {
 
 	// MARK: - Internal
-
-	struct DCCWalletCertificateCose: Codable {
-		let kid: String
-	}
 	
 	let barcodeData: String
 	let cose: DCCWalletCertificateCose
