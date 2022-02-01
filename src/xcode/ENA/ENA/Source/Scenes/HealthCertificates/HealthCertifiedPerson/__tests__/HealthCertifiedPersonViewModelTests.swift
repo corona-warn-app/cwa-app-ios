@@ -145,16 +145,13 @@ class HealthCertifiedPersonViewModelTests: XCTestCase {
 		XCTAssertEqual(viewModel.heightForFooter(in: .certificates), 12)
 	}
 
-
-	func testVaccinationStateBooster() throws {
+	func testGIVEN_HealthCertifiedPersonViewModel_WHEN_BoosterNotificationIsSetToVisible_THEN_CellIsVisible() {
 		// GIVEN
-		let client = ClientMock()
-		let store = MockTestStore()
 		let service = HealthCertificateService(
-			store: store,
+			store: MockTestStore(),
 			dccSignatureVerifier: DCCSignatureVerifyingStub(),
 			dscListProvider: MockDSCListProvider(),
-			client: client,
+			client: ClientMock(),
 			appConfiguration: CachedAppConfigurationMock(),
 			boosterNotificationsService: BoosterNotificationsService(
 				rulesDownloadService: FakeRulesDownloadService()
@@ -162,17 +159,14 @@ class HealthCertifiedPersonViewModelTests: XCTestCase {
 			recycleBin: .fake()
 		)
 
-		let healthCertificate = try vaccinationCertificate(daysOffset: -24, doseNumber: 3, totalSeriesOfDoses: 2, identifier: "01DE/84503/1119349007/DXSGWLWL40SU8ZFKIYIBK39A3#S", dateOfBirth: "1988-06-07")
-
-		let healthCertifiedPerson = HealthCertifiedPerson(
-			healthCertificates: [
-				healthCertificate
-			]
-		)
-
 		let viewModel = HealthCertifiedPersonViewModel(
 			healthCertificateService: service,
-			healthCertifiedPerson: healthCertifiedPerson,
+			healthCertifiedPerson: HealthCertifiedPerson(
+				healthCertificates: [HealthCertificate.mock()],
+				dccWalletInfo: .fake(
+					boosterNotification: .fake(visible: true)
+				)
+			),
 			healthCertificateValueSetsProvider: VaccinationValueSetsProvider(client: CachingHTTPClientMock(), store: MockTestStore()),
 			dismiss: {},
 			didTapBoosterNotification: { _ in },
@@ -181,18 +175,16 @@ class HealthCertifiedPersonViewModelTests: XCTestCase {
 		)
 
 		// THEN
-		XCTAssertEqual(viewModel.heightForFooter(in: .vaccinationState), 0)
+		XCTAssertEqual(viewModel.numberOfItems(in: .boosterNotification), 1)
 	}
 
-	func testVaccinationStateIncompleteBooster() throws {
+	func testGIVEN_HealthCertifiedPersonViewModel_WHEN_BoosterNotificationIsSetToNotVisible_THEN_CellIsNotVisible() {
 		// GIVEN
-		let store = MockTestStore()
-		let client = ClientMock()
 		let service = HealthCertificateService(
-			store: store,
+			store: MockTestStore(),
 			dccSignatureVerifier: DCCSignatureVerifyingStub(),
 			dscListProvider: MockDSCListProvider(),
-			client: client,
+			client: ClientMock(),
 			appConfiguration: CachedAppConfigurationMock(),
 			boosterNotificationsService: BoosterNotificationsService(
 				rulesDownloadService: FakeRulesDownloadService()
@@ -200,19 +192,14 @@ class HealthCertifiedPersonViewModelTests: XCTestCase {
 			recycleBin: .fake()
 		)
 
-		let healthCertificate1 = try vaccinationCertificate(daysOffset: -24, doseNumber: 3, totalSeriesOfDoses: 2, identifier: "01DE/84503/1119349007/DXSGWLWL40SU8ZFKIYIBK39A3#S", dateOfBirth: "1988-06-07")
-		let healthCertificate2 = try vaccinationCertificate(daysOffset: -24, doseNumber: 1, totalSeriesOfDoses: 2, identifier: "01DE/84503/1119349007/DXSGWLWL40SU8ZFKIYIBK39A3#S", dateOfBirth: "1988-06-07")
-
-		let healthCertifiedPerson = HealthCertifiedPerson(
-			healthCertificates: [
-				healthCertificate1,
-				healthCertificate2
-			]
-		)
-
 		let viewModel = HealthCertifiedPersonViewModel(
 			healthCertificateService: service,
-			healthCertifiedPerson: healthCertifiedPerson,
+			healthCertifiedPerson: HealthCertifiedPerson(
+				healthCertificates: [HealthCertificate.mock()],
+				dccWalletInfo: .fake(
+					boosterNotification: .fake(visible: false)
+				)
+			),
 			healthCertificateValueSetsProvider: VaccinationValueSetsProvider(client: CachingHTTPClientMock(), store: MockTestStore()),
 			dismiss: {},
 			didTapBoosterNotification: { _ in },
@@ -221,7 +208,139 @@ class HealthCertifiedPersonViewModelTests: XCTestCase {
 		)
 
 		// THEN
-		XCTAssertEqual(viewModel.heightForFooter(in: .vaccinationState), 0)
+		XCTAssertEqual(viewModel.numberOfItems(in: .boosterNotification), 0)
+	}
+
+	func testGIVEN_HealthCertifiedPersonViewModel_WHEN_AdmissionStateIsSetToVisible_THEN_CellIsVisible() {
+		// GIVEN
+		let service = HealthCertificateService(
+			store: MockTestStore(),
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
+			dscListProvider: MockDSCListProvider(),
+			client: ClientMock(),
+			appConfiguration: CachedAppConfigurationMock(),
+			boosterNotificationsService: BoosterNotificationsService(
+				rulesDownloadService: FakeRulesDownloadService()
+			),
+			recycleBin: .fake()
+		)
+
+		let viewModel = HealthCertifiedPersonViewModel(
+			healthCertificateService: service,
+			healthCertifiedPerson: HealthCertifiedPerson(
+				healthCertificates: [HealthCertificate.mock()],
+				dccWalletInfo: .fake(
+					admissionState: .fake(visible: true)
+				)
+			),
+			healthCertificateValueSetsProvider: VaccinationValueSetsProvider(client: CachingHTTPClientMock(), store: MockTestStore()),
+			dismiss: {},
+			didTapBoosterNotification: { _ in },
+			didTapValidationButton: { _, _ in },
+			showInfoHit: { }
+		)
+
+		// THEN
+		XCTAssertEqual(viewModel.numberOfItems(in: .admissionState), 1)
+	}
+
+	func testGIVEN_HealthCertifiedPersonViewModel_WHEN_AdmissionStateIsSetToNotVisible_THEN_CellIsNotVisible() {
+		// GIVEN
+		let service = HealthCertificateService(
+			store: MockTestStore(),
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
+			dscListProvider: MockDSCListProvider(),
+			client: ClientMock(),
+			appConfiguration: CachedAppConfigurationMock(),
+			boosterNotificationsService: BoosterNotificationsService(
+				rulesDownloadService: FakeRulesDownloadService()
+			),
+			recycleBin: .fake()
+		)
+
+		let viewModel = HealthCertifiedPersonViewModel(
+			healthCertificateService: service,
+			healthCertifiedPerson: HealthCertifiedPerson(
+				healthCertificates: [HealthCertificate.mock()],
+				dccWalletInfo: .fake(
+					admissionState: .fake(visible: false)
+				)
+			),
+			healthCertificateValueSetsProvider: VaccinationValueSetsProvider(client: CachingHTTPClientMock(), store: MockTestStore()),
+			dismiss: {},
+			didTapBoosterNotification: { _ in },
+			didTapValidationButton: { _, _ in },
+			showInfoHit: { }
+		)
+
+		// THEN
+		XCTAssertEqual(viewModel.numberOfItems(in: .admissionState), 0)
+	}
+
+	func testGIVEN_HealthCertifiedPersonViewModel_WHEN_VaccinationStateIsSetToVisible_THEN_CellIsVisible() {
+		// GIVEN
+		let service = HealthCertificateService(
+			store: MockTestStore(),
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
+			dscListProvider: MockDSCListProvider(),
+			client: ClientMock(),
+			appConfiguration: CachedAppConfigurationMock(),
+			boosterNotificationsService: BoosterNotificationsService(
+				rulesDownloadService: FakeRulesDownloadService()
+			),
+			recycleBin: .fake()
+		)
+
+		let viewModel = HealthCertifiedPersonViewModel(
+			healthCertificateService: service,
+			healthCertifiedPerson: HealthCertifiedPerson(
+				healthCertificates: [HealthCertificate.mock()],
+				dccWalletInfo: .fake(
+					vaccinationState: .fake(visible: true)
+				)
+			),
+			healthCertificateValueSetsProvider: VaccinationValueSetsProvider(client: CachingHTTPClientMock(), store: MockTestStore()),
+			dismiss: {},
+			didTapBoosterNotification: { _ in },
+			didTapValidationButton: { _, _ in },
+			showInfoHit: { }
+		)
+
+		// THEN
+		XCTAssertEqual(viewModel.numberOfItems(in: .vaccinationState), 1)
+	}
+
+	func testGIVEN_HealthCertifiedPersonViewModel_WHEN_VaccinationStateIsSetToNotVisible_THEN_CellIsNotVisible() {
+		// GIVEN
+		let service = HealthCertificateService(
+			store: MockTestStore(),
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
+			dscListProvider: MockDSCListProvider(),
+			client: ClientMock(),
+			appConfiguration: CachedAppConfigurationMock(),
+			boosterNotificationsService: BoosterNotificationsService(
+				rulesDownloadService: FakeRulesDownloadService()
+			),
+			recycleBin: .fake()
+		)
+
+		let viewModel = HealthCertifiedPersonViewModel(
+			healthCertificateService: service,
+			healthCertifiedPerson: HealthCertifiedPerson(
+				healthCertificates: [HealthCertificate.mock()],
+				dccWalletInfo: .fake(
+					vaccinationState: .fake(visible: false)
+				)
+			),
+			healthCertificateValueSetsProvider: VaccinationValueSetsProvider(client: CachingHTTPClientMock(), store: MockTestStore()),
+			dismiss: {},
+			didTapBoosterNotification: { _ in },
+			didTapValidationButton: { _, _ in },
+			showInfoHit: { }
+		)
+
+		// THEN
+		XCTAssertEqual(viewModel.numberOfItems(in: .vaccinationState), 0)
 	}
 
 	func testMarkBoosterRuleAsSeen() throws {
