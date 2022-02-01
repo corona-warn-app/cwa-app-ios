@@ -232,6 +232,8 @@ final class HealthCertificatesTabCoordinator {
 				}
 			},
 			didTapBoosterNotification: { healthCertifiedPerson in
+				let boosterDetailsViewController = BoosterDetailsViewController(viewModel: BoosterDetailsViewModel())
+				self.modalNavigationController.pushViewController(boosterDetailsViewController, animated: true)
 				Log.info("Tapped on booster notification for \(private: String(describing: healthCertifiedPerson.name?.fullName))")
 			},
 			didTapHealthCertificate: { [weak self] healthCertificate in
