@@ -42,7 +42,7 @@ class CCLService: CCLServable {
 		case let .success(rules):
 			self.boosterNotificationRules = rules.rules
 		case let .failure(error):
-			Log.error("Fialed to load boosterNotification rules from cache - init them empty", error: error)
+			Log.error("Failed to load boosterNotification rules from cache - init them empty", error: error)
 			self.boosterNotificationRules = []
 		}
 
@@ -115,7 +115,7 @@ class CCLService: CCLServable {
 		
 		do {
 			let walletInfo: DCCWalletInfo = try jsonFunctions.evaluateFunction(
-				name: "getDCCWalletInfo",
+				name: "getDccWalletInfo",
 				parameters: getWalletInfoInput
 			)
 			return .success(walletInfo)

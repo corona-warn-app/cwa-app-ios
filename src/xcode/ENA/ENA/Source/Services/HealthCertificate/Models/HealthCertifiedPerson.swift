@@ -117,6 +117,7 @@ class HealthCertifiedPerson: Codable, Equatable, Comparable {
 	// MARK: - Internal
 
 	let objectDidChange = OpenCombine.PassthroughSubject<HealthCertifiedPerson, Never>()
+	let needsWalletInfoUpdate = OpenCombine.PassthroughSubject<HealthCertifiedPerson, Never>()
 
 	@DidSetPublished var healthCertificates: [HealthCertificate] {
 		didSet {
@@ -294,7 +295,7 @@ class HealthCertifiedPerson: Codable, Equatable, Comparable {
 
 	@objc
 	private func updateDCCWalletInfo() {
-		// To be implemented in EXPOSUREAPP-11475
+		needsWalletInfoUpdate.send(self)
 	}
 
 }

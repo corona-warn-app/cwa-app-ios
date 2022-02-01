@@ -113,30 +113,6 @@ class HealthCertificateService {
 			}
 		return allDatesToExam.min()
 	}
-	
-	/*
-	Trigger this on:
-		- when the app comes into foreground
-		- when the regular background execution runs (e.g. Key Download)
-	*/
-
-	func checkForCCLConfigurationAndRulesUpdates(completion: @escaping (String?) -> Void) {
-		cclService.updateConfiguration { didChange in
-			if didChange {
-				// trigger new calculation here
-			} else {
-				completion(nil)
-			}
-		}
-	}
-
-	private func applyBoosterRulesForHealthCertificates(completion: @escaping(String?) -> Void) {
-		Log.info("Apply booster rules for health certificates")
-
-		healthCertifiedPersons.forEach { healthCertifiedPerson in
-			applyBoosterRulesForHealthCertificatesOfAPerson(healthCertifiedPerson: healthCertifiedPerson, completion: completion)
-		}
-	}
 
 	@discardableResult
 	// swiftlint:disable:next cyclomatic_complexity
@@ -266,11 +242,6 @@ class HealthCertificateService {
 			Log.info("[HealthCertificateService] Successfully registered health certificate for a person with other existing certificates", log: .api)
 		}
 
-		applyBoosterRulesForHealthCertificatesOfAPerson(healthCertifiedPerson: healthCertifiedPerson) { errorMessage in
-			guard let errorMessage = errorMessage else { return }
-			Log.error(errorMessage, log: .vaccination, error: nil)
-		}
-
 		if healthCertificate.type != .test {
 			createNotifications(for: healthCertificate)
 		}
@@ -300,6 +271,28 @@ class HealthCertificateService {
 
 		// Move HealthCertificate to the recycle-bin
 		recycleBin.moveToBin(.certificate(healthCertificate))
+	}
+
+	func checkForCCLConfigurationAndRulesUpdates(completion: (() -> Void)? = nil) {
+		cclService.updateConfiguration { [weak self] didChange in
+			guard let self = self else { return }
+
+			if didChange {
+				let dispatchGroup = DispatchGroup()
+				for person in self.healthCertifiedPersons {
+					dispatchGroup.enter()
+					self.updateDCCWalletInfo(for: person) {
+						dispatchGroup.leave()
+					}
+				}
+
+				dispatchGroup.notify(queue: .global()) {
+					completion?()
+				}
+			} else {
+				completion?()
+			}
+		}
 	}
 
 	func registerAndExecuteTestCertificateRequest(
@@ -674,6 +667,7 @@ class HealthCertificateService {
 		subscribeDSCListChanges()
 
 		updateValidityStatesAndNotifications()
+		checkForCCLConfigurationAndRulesUpdates()
 	}
 
 	private func subscribeAppConfigUpdates() {
@@ -710,6 +704,7 @@ class HealthCertificateService {
 
 		healthCertifiedPersons.forEach { healthCertifiedPerson in
 			healthCertifiedPerson.objectDidChange
+				.debounce(for: .seconds(1), scheduler: DispatchQueue.global().ocombine)
 				.sink { [weak self] healthCertifiedPerson in
 					guard let self = self else { return }
 
@@ -726,6 +721,13 @@ class HealthCertificateService {
 					self.healthCertifiedPersons = self.healthCertifiedPersons.sorted()
 					self.updateGradients()
 					self.updateValidityStatesAndNotifications()
+				}
+				.store(in: &healthCertifiedPersonSubscriptions)
+
+			healthCertifiedPerson.needsWalletInfoUpdate
+				.debounce(for: .seconds(1), scheduler: DispatchQueue.global().ocombine)
+				.sink { [weak self] healthCertifiedPerson in
+					self?.updateDCCWalletInfo(for: healthCertifiedPerson)
 				}
 				.store(in: &healthCertifiedPersonSubscriptions)
 		}
@@ -746,6 +748,31 @@ class HealthCertificateService {
 					person.gradientType = .solidGrey
 				}
 			}
+	}
+
+	private func updateDCCWalletInfo(for person: HealthCertifiedPerson, completion: (() -> Void)? = nil) {
+		// Maybe on a serial queue to avoid conflicts?
+		DispatchQueue.global().async {
+			let result = self.cclService.dccWalletInfo(
+				for: person.healthCertificates.map { $0.dccWalletCertificate }
+			)
+
+			switch result {
+			case .success(let dccWalletInfo):
+				let previousBoosterNotificationIdentifier = person.dccWalletInfo?.boosterNotification.identifier
+				person.dccWalletInfo = dccWalletInfo
+
+				self.scheduleBoosterNotificationIfNeeded(
+					for: person,
+					previousBoosterNotificationIdentifier: previousBoosterNotificationIdentifier,
+					completion: completion
+				)
+			case .failure(let error):
+				Log.error("Wallet info update failed", error: error)
+			}
+
+			completion?()
+		}
 	}
 	
 	/// This method should be called: At startup, at creation, at removal and at update validity states of HealthCertificates.
@@ -984,7 +1011,6 @@ class HealthCertificateService {
 		)
 
 		addNotification(request: request)
-		
 	}
 	
 	private func scheduleNotificationForExpired(
@@ -1052,13 +1078,15 @@ class HealthCertificateService {
 		addNotification(request: request)
 	}
 	
-	private func addNotification(request: UNNotificationRequest) {
+	private func addNotification(request: UNNotificationRequest, completion: (() -> Void)? = nil) {
 		_ = notificationCenter.getPendingNotificationRequests { [weak self] requests in
 			guard !requests.contains(request) else {
 				Log.info(
 					"Did not schedule notification: \(private: request.identifier) because it is already scheduled.",
 					log: .vaccination
 				)
+				completion?()
+
 				return
 			}
 			self?.notificationCenter.add(request) { error in
@@ -1069,19 +1097,45 @@ class HealthCertificateService {
 						error: error
 					)
 				}
+
+				completion?()
 			}
 		}
 	}
 	
-	private func applyBoosterRulesForHealthCertificatesOfAPerson(healthCertifiedPerson: HealthCertifiedPerson, completion: @escaping(String?) -> Void) {
-		Log.info("Applying booster rules for person", log: .vaccination)
-		let healthCertificatesWithHeader: [DigitalCovidCertificateWithHeader] = healthCertifiedPerson.healthCertificates.map {
-			return DigitalCovidCertificateWithHeader(header: $0.cborWebTokenHeader, certificate: $0.digitalCovidCertificate)
+	private func scheduleBoosterNotificationIfNeeded(
+		for person: HealthCertifiedPerson,
+		previousBoosterNotificationIdentifier: String?,
+		completion: (() -> Void)? = nil
+	) {
+		let name = person.name?.standardizedName
+		guard let newBoosterNotificationIdentifier = person.dccWalletInfo?.boosterNotification.identifier else {
+			Log.info("No booster notification identifier found for person \(private: String(describing: name))", log: .vaccination)
+			completion?()
+
+			return
 		}
-		// this needs to be done by wallet & ccl configurations later
+
+		if newBoosterNotificationIdentifier != previousBoosterNotificationIdentifier {
+			// we need to have an ID for the notification and since the certified person doesn't have this property "unlike the certificates" we will compute it as the hash of the string of the standardizedName + dateOfBirth
+			guard let name = name, let dateOfBirth = person.dateOfBirth else {
+				Log.error("standardizedName or dateOfBirth is nil, will not trigger booster notification", log: .vaccination)
+				completion?()
+
+				return
+			}
+
+			Log.info("Scheduling booster notification for \(private: String(describing: name))", log: .vaccination)
+
+			let id = ENAHasher.sha256(name + dateOfBirth)
+			self.scheduleBoosterNotification(id: id, completion: completion)
+		} else {
+			Log.debug("Booster notification identifier \(private: newBoosterNotificationIdentifier) unchanged, no booster notification scheduled", log: .vaccination)
+			completion?()
+		}
 	}
 	
-	private func scheduleBoosterNotification(id: String) {
+	private func scheduleBoosterNotification(id: String, completion: (() -> Void)? = nil) {
 		Log.info("Schedule booster notification for certificate with id: \(private: id) with trigger date: \(Date())", log: .vaccination)
 
 		let content = UNMutableNotificationContent()
@@ -1095,7 +1149,7 @@ class HealthCertificateService {
 			trigger: nil
 		)
 
-		addNotification(request: request)
+		addNotification(request: request, completion: completion)
 	}
 
 	// swiftlint:disable:next file_length
