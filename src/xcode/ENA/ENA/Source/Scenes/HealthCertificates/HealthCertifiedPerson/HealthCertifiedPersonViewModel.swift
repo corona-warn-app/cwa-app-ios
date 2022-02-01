@@ -15,6 +15,7 @@ final class HealthCertifiedPersonViewModel {
 		healthCertifiedPerson: HealthCertifiedPerson,
 		healthCertificateValueSetsProvider: VaccinationValueSetsProviding,
 		dismiss: @escaping () -> Void,
+		didTapBoosterNotification: @escaping (HealthCertifiedPerson) -> Void,
 		didTapValidationButton: @escaping (HealthCertificate, @escaping (Bool) -> Void) -> Void,
 		showInfoHit: @escaping () -> Void
 	) {
@@ -22,6 +23,7 @@ final class HealthCertifiedPersonViewModel {
 		self.healthCertifiedPerson = healthCertifiedPerson
 		self.healthCertificateValueSetsProvider = healthCertificateValueSetsProvider
 
+		self.didTapBoosterNotification = didTapBoosterNotification
 		self.didTapValidationButton = didTapValidationButton
 		self.showInfo = showInfoHit
 
@@ -118,6 +120,8 @@ final class HealthCertifiedPersonViewModel {
 		)
 	}
 
+	let healthCertifiedPerson: HealthCertifiedPerson
+
 	let boosterNotificationCellModel: BoosterNotificationCellModel
 	let admissionStateCellModel: AdmissionStateCellModel
 	let vaccinationStateCellModel: VaccinationStateCellModel
@@ -211,16 +215,20 @@ final class HealthCertifiedPersonViewModel {
 		healthCertifiedPerson.isNewBoosterRule = false
 	}
 
+	func didTapBoosterNotificationCell() {
+		didTapBoosterNotification(healthCertifiedPerson)
+	}
+
 	func attemptToRestoreDecodingFailedHealthCertificates() {
 		healthCertifiedPerson.attemptToRestoreDecodingFailedHealthCertificates()
 	}
 
 	// MARK: - Private
 
-	private let healthCertifiedPerson: HealthCertifiedPerson
 	private let healthCertificateService: HealthCertificateService
 	private let healthCertificateValueSetsProvider: VaccinationValueSetsProviding
 
+	private let didTapBoosterNotification: (HealthCertifiedPerson) -> Void
 	private let didTapValidationButton: (HealthCertificate, @escaping (Bool) -> Void) -> Void
 	private let showInfo: () -> Void
 	private var subscriptions = Set<AnyCancellable>()
