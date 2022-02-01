@@ -2925,6 +2925,8 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "HealthCertificate_unified_QR_code_notice" = "Dieser QR-Code lässt sich verlässlich mit der CovPassCheck-App überprüfen.";
 
+"HealthCertificate_unified_QR_code_infoButton" = "Info";
+
 "HealthCertifiedPerson_title" = "Digitales COVID-Zertifikat der EU";
 
 /* Health Certified Person */

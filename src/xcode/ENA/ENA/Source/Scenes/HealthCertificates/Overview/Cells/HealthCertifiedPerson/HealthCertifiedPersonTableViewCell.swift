@@ -90,7 +90,11 @@ class HealthCertifiedPersonTableViewCell: UITableViewCell, ReuseIdentifierProvid
 			segmentedControl.selectedSegmentIndex = 0
 		}
 
-		setupAccessibility(validityStateTitleIsVisible: cellModel.caption != nil)
+		setupAccessibility(
+			admissionStateIsVisible: cellModel.isStatusTitleVisible,
+			segmentedControlIsVisible: !cellModel.switchableHealthCertificates.isEmpty,
+			validityStateTitleIsVisible: cellModel.caption != nil
+		)
 	}
 	
 	// MARK: - Private
@@ -291,15 +295,27 @@ class HealthCertifiedPersonTableViewCell: UITableViewCell, ReuseIdentifierProvid
 
 	private var cellModel: HealthCertifiedPersonCellModel?
 
-	private func setupAccessibility(validityStateTitleIsVisible: Bool) {
-		cardView.accessibilityElements = [titleLabel, nameLabel, qrCodeView]
+	private func setupAccessibility(
+		admissionStateIsVisible: Bool,
+		segmentedControlIsVisible: Bool,
+		validityStateTitleIsVisible: Bool
+	) {
+		cardView.accessibilityElements = [titleLabel, nameLabel]
+
+		if admissionStateIsVisible {
+			cardView.accessibilityElements?.append(admissionStateStackView)
+		}
+
+		cardView.accessibilityElements?.append(qrCodeView)
+
+		if segmentedControlIsVisible {
+			cardView.accessibilityElements?.append(segmentedControl)
+		}
 
 		if validityStateTitleIsVisible {
 			cardView.accessibilityElements?.append(captionLabel)
 		}
 
-		qrCodeView.accessibilityTraits = [.image, .button]
-		qrCodeView.isAccessibilityElement = true
 		accessibilityIdentifier = AccessibilityIdentifiers.HealthCertificate.Overview.healthCertifiedPersonCell
 	}
 

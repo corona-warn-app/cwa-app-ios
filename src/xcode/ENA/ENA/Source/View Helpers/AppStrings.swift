@@ -2032,6 +2032,7 @@ enum AppStrings {
 
 		enum UnifiedQRCode {
 			static let notice = NSLocalizedString("HealthCertificate_unified_QR_code_notice", comment: "")
+			static let infoButton = NSLocalizedString("HealthCertificate_unified_QR_code_infoButton", comment: "")
 		}
 
 		enum Overview {
