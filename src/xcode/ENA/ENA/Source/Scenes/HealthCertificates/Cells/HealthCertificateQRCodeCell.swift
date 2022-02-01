@@ -10,16 +10,8 @@ class HealthCertificateQRCodeCell: UITableViewCell, ReuseIdentifierProviding {
 
 	override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
 		super.init(style: style, reuseIdentifier: reuseIdentifier)
+
 		setupView()
-		isAccessibilityElement = false
-
-		qrCodeView.isAccessibilityElement = true
-		titleLabel.isAccessibilityElement = false // https://jira-ibs.wbs.net.sap/browse/EXPOSUREAPP-9976
-		subtitleLabel.isAccessibilityElement = true
-		validityStateTitleLabel.isAccessibilityElement = true
-		validityStateDescriptionLabel.isAccessibilityElement = true
-
-		accessibilityIdentifier = AccessibilityIdentifiers.HealthCertificate.qrCodeCell
 	}
 
 	@available(*, unavailable)
@@ -60,6 +52,14 @@ class HealthCertificateQRCodeCell: UITableViewCell, ReuseIdentifierProviding {
 
 		validationButton.isEnabled = cellViewModel.isValidationButtonEnabled
 		validationButton.isHidden = !cellViewModel.isValidationButtonVisible
+
+		setupAccessibility(
+			titleLabelIsVisible: cellViewModel.title != nil,
+			subtitleLabelIsVisible: cellViewModel.subtitle != nil,
+			validityStateTitleIsVisible: cellViewModel.validityStateTitle != nil,
+			validityStateDescriptionIsVisible: cellViewModel.validityStateDescription != nil,
+			validationButtonIsVisible: cellViewModel.isValidationButtonVisible
+		)
 	}
 
 	// MARK: - Private
@@ -224,7 +224,38 @@ class HealthCertificateQRCodeCell: UITableViewCell, ReuseIdentifierProviding {
 				unseenNewsIndicator.heightAnchor.constraint(equalToConstant: 11)
 			]
 		)
+	}
 
+	private func setupAccessibility(
+		titleLabelIsVisible: Bool,
+		subtitleLabelIsVisible: Bool,
+		validityStateTitleIsVisible: Bool,
+		validityStateDescriptionIsVisible: Bool,
+		validationButtonIsVisible: Bool
+	) {
+		isAccessibilityElement = false
+		accessibilityElements = [qrCodeView]
+
+		if subtitleLabelIsVisible {
+			// Subtitle label reads combined title and subtitle
+			accessibilityElements?.append(subtitleLabel)
+		} else if titleLabelIsVisible {
+			accessibilityElements?.append(titleLabel)
+		}
+
+		if validityStateTitleIsVisible {
+			accessibilityElements?.append(validityStateTitleLabel)
+		}
+
+		if validityStateDescriptionIsVisible {
+			accessibilityElements?.append(validityStateDescriptionLabel)
+		}
+
+		if validationButtonIsVisible {
+			accessibilityElements?.append(validationButton)
+		}
+
+		accessibilityIdentifier = AccessibilityIdentifiers.HealthCertificate.qrCodeCell
 	}
 
 	private func updateBorderWidth() {

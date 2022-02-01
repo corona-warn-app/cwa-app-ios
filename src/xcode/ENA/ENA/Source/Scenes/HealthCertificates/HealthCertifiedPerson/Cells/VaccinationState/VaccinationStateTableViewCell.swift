@@ -1,7 +1,11 @@
+////
+// 🦠 Corona-Warn-App
+//
+
 import UIKit
 import OpenCombine
 
-class AdmissionStateTableViewCell: UITableViewCell, UITextViewDelegate, ReuseIdentifierProviding {
+class VaccinationStateTableViewCell: UITableViewCell, UITextViewDelegate, ReuseIdentifierProviding {
 
 	// MARK: - Init
 
@@ -32,29 +36,22 @@ class AdmissionStateTableViewCell: UITableViewCell, UITextViewDelegate, ReuseIde
 
 	// MARK: - Internal
 
-	func configure(with cellModel: AdmissionStateCellModel) {
+	func configure(with cellModel: VaccinationStateCellModel) {
 		titleLabel.text = cellModel.title
 		titleLabel.isHidden = (cellModel.title ?? "").isEmpty
-		titleLabel.accessibilityIdentifier = AccessibilityIdentifiers.HealthCertificate.AdmissionState.title
-		
+
 		subtitleLabel.text = cellModel.subtitle
 		subtitleLabel.isHidden = (cellModel.subtitle ?? "").isEmpty
-		subtitleLabel.accessibilityIdentifier = AccessibilityIdentifiers.HealthCertificate.AdmissionState.subtitle
 
 		descriptionLabel.text = cellModel.description
 		descriptionLabel.isHidden = (cellModel.description ?? "").isEmpty
-		descriptionLabel.accessibilityIdentifier = AccessibilityIdentifiers.HealthCertificate.AdmissionState.description
 
 		faqLinkTextView.attributedText = cellModel.faqLink
 		faqLinkTextView.isHidden = (cellModel.faqLink?.string ?? "").isEmpty
-		faqLinkTextView.accessibilityIdentifier = AccessibilityIdentifiers.HealthCertificate.AdmissionState.faq
-
-		roundedLabeledView?.configure(title: cellModel.shortTitle, gradientType: cellModel.gradientType)
-		roundedLabeledView?.isHidden = (cellModel.shortTitle ?? "").isEmpty
 	}
 
 	// MARK: - Private
-	
+
 	private let backgroundContainerView: UIView = {
 		let backgroundContainerView = UIView()
 		backgroundContainerView.backgroundColor = .enaColor(for: .cellBackground2)
@@ -71,29 +68,10 @@ class AdmissionStateTableViewCell: UITableViewCell, UITextViewDelegate, ReuseIde
 	private let contentStackView: UIStackView = {
 		let contentStackView = UIStackView()
 		contentStackView.axis = .vertical
-		contentStackView.alignment = .fill
+		contentStackView.alignment = .leading
 		contentStackView.spacing = 6
 
 		return contentStackView
-	}()
-
-	private let topStackView: UIStackView = {
-		let titleStackView = AccessibleStackView()
-		titleStackView.distribution = .fill
-		titleStackView.alignment = .top
-		titleStackView.spacing = 6
-
-		return titleStackView
-	}()
-	
-	private let titleStackView: UIStackView = {
-		let topStackView = UIStackView()
-		topStackView.axis = .vertical
-		topStackView.distribution = .fill
-		topStackView.alignment = .fill
-		topStackView.spacing = 0
-
-		return topStackView
 	}()
 
 	private let titleLabel: ENALabel = {
@@ -111,13 +89,6 @@ class AdmissionStateTableViewCell: UITableViewCell, UITextViewDelegate, ReuseIde
 		subtitleLabel.textColor = .enaColor(for: .textPrimary2)
 
 		return subtitleLabel
-	}()
-
-	private lazy var roundedLabeledView: RoundedLabeledView? = {
-		let nibName = String(describing: RoundedLabeledView.self)
-		let nib = UINib(nibName: nibName, bundle: .main)
-
-		return nib.instantiate(withOwner: self, options: nil).first as? RoundedLabeledView
 	}()
 
 	private let descriptionLabel: ENALabel = {
@@ -158,17 +129,10 @@ class AdmissionStateTableViewCell: UITableViewCell, UITextViewDelegate, ReuseIde
 
 		contentStackView.translatesAutoresizingMaskIntoConstraints = false
 		backgroundContainerView.addSubview(contentStackView)
-		
-		titleStackView.addArrangedSubview(titleLabel)
-		titleStackView.addArrangedSubview(subtitleLabel)
 
-		topStackView.addArrangedSubview(titleStackView)
-
-		if let roundedLabeledView = roundedLabeledView {
-			topStackView.addArrangedSubview(roundedLabeledView)
-		}
-
-		contentStackView.addArrangedSubview(topStackView)
+		contentStackView.addArrangedSubview(titleLabel)
+		contentStackView.setCustomSpacing(0, after: titleLabel)
+		contentStackView.addArrangedSubview(subtitleLabel)
 		contentStackView.addArrangedSubview(descriptionLabel)
 		contentStackView.setCustomSpacing(16, after: descriptionLabel)
 		contentStackView.addArrangedSubview(faqLinkTextView)
