@@ -13,26 +13,11 @@ struct DeltaOnboardingNewVersionFeaturesViewModel {
 		
 		// ADD NEW FEATURES HERE
 		
-		self.featureVersion = "2.17"
+		self.featureVersion = "2.18"
 		
-		// Advice for positive test result
 		self.newVersionFeatures.append(
-			NewVersionFeature(title: AppStrings.NewVersionFeatures.feature217PositiveTestTitle, description: AppStrings.NewVersionFeatures.feature217PositiveTestDescription)
-		)
-		
-		// New statistics tile for booster vaccination
-		self.newVersionFeatures.append(
-			NewVersionFeature(title: AppStrings.NewVersionFeatures.feature217StatisticsBoosterVaccinationTitle, description: AppStrings.NewVersionFeatures.feature217StatisticsBoosterVaccinationDescription)
-		)
-		
-		// Link to Social Media
-		self.newVersionFeatures.append(
-			NewVersionFeature(title: AppStrings.NewVersionFeatures.feature217LinkSocialMediaTitle, description: AppStrings.NewVersionFeatures.feature217LinkSocialMediaDescription)
-		)
-		
-		// Delete date recycle bin
-		self.newVersionFeatures.append(
-			NewVersionFeature(title: AppStrings.NewVersionFeatures.feature217DeleteDateRecycleBinTitle, description: AppStrings.NewVersionFeatures.feature217DeleteDateRecycleBinDescription)
+			// Central Management Of Rules
+			NewVersionFeature(title: AppStrings.NewVersionFeatures.feature218CentralManagementOfRulesTitle, description: AppStrings.NewVersionFeatures.feature218CentralManagementOfRulesDescription)
 		)
 	}
 
