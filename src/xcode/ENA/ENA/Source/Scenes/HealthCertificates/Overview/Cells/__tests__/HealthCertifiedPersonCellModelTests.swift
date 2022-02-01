@@ -22,7 +22,7 @@ class HealthCertifiedPersonCellModelTests: XCTestCase {
 		)
 
 		let healthCertifiedPerson = HealthCertifiedPerson(healthCertificates: [healthCertificate])
-    healthCertifiedPerson.dccWalletInfo = .fake(
+		healthCertifiedPerson.dccWalletInfo = .fake(
 			verification: .fake(
 				certificates: [.fake(certificateRef: .fake(barcodeData: healthCertificate.base45))]
 			)
@@ -819,9 +819,12 @@ class HealthCertifiedPersonCellModelTests: XCTestCase {
 			)
 		)
 
+		let cclService = CCLService()
+
 		let cellModel = try XCTUnwrap(
 			HealthCertifiedPersonCellModel(
 				healthCertifiedPerson: healthCertifiedPerson,
+				cclService: cclService,
 				onCovPassCheckInfoButtonTap: { }
 			)
 		)
@@ -914,9 +917,12 @@ class HealthCertifiedPersonCellModelTests: XCTestCase {
 			verification: .fake(certificates: [])
 		)
 
+		let cclService = CCLService()
+		
 		let cellModel = try XCTUnwrap(
 			HealthCertifiedPersonCellModel(
 				healthCertifiedPerson: healthCertifiedPerson,
+				cclService: cclService,
 				onCovPassCheckInfoButtonTap: { }
 			)
 		)
