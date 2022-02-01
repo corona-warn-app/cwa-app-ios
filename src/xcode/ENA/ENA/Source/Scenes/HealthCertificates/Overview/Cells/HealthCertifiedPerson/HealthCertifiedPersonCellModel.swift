@@ -10,13 +10,12 @@ class HealthCertifiedPersonCellModel {
 
 	// MARK: - Init
 
-	// swiftlint:disable cyclomatic_complexity
 	init?(
 		healthCertifiedPerson: HealthCertifiedPerson,
 		onCovPassCheckInfoButtonTap: @escaping () -> Void
 	) {
-		guard let mostRelevantCertificate = healthCertifiedPerson.mostRelevantHealthCertificate else {
-			Log.error("failed to get mostRelevant health certificate")
+		guard let initialCertificate = Self.initialCertificate(for: healthCertifiedPerson) else {
+			Log.error("failed to get initial health certificate")
 			return nil
 		}
 
@@ -24,14 +23,6 @@ class HealthCertifiedPersonCellModel {
 
 		title = AppStrings.HealthCertificate.Overview.covidTitle
 		name = healthCertifiedPerson.name?.fullName
-
-		let initialCertificate: HealthCertificate
-		if let firstVerificationCertificate = healthCertifiedPerson.dccWalletInfo?.verification.certificates.first,
-		   let certificate = healthCertifiedPerson.healthCertificate(for: firstVerificationCertificate.certificateRef) {
-			initialCertificate = certificate
-		} else {
-			initialCertificate = mostRelevantCertificate
-		}
 
 		qrCodeViewModel = HealthCertificateQRCodeViewModel(
 			healthCertificate: initialCertificate,
@@ -44,36 +35,7 @@ class HealthCertifiedPersonCellModel {
 		if healthCertifiedPerson.unseenNewsCount > 0 {
 			self.caption = .unseenNews(count: healthCertifiedPerson.unseenNewsCount)
 		} else if !initialCertificate.isConsideredValid {
-			switch initialCertificate.validityState {
-			case .valid:
-				self.caption = nil
-			case .expiringSoon:
-				let validityStateTitle = String(
-					format: AppStrings.HealthCertificate.ValidityState.expiringSoon,
-					DateFormatter.localizedString(from: initialCertificate.expirationDate, dateStyle: .short, timeStyle: .none),
-					DateFormatter.localizedString(from: initialCertificate.expirationDate, dateStyle: .none, timeStyle: .short)
-				)
-
-				self.caption = .validityState(
-					image: UIImage(named: "Icon_ExpiringSoon"),
-					description: validityStateTitle
-				)
-			case .expired:
-				self.caption = .validityState(
-					image: UIImage(named: "Icon_ExpiredInvalid"),
-					description: AppStrings.HealthCertificate.ValidityState.expired
-				)
-			case .invalid:
-				self.caption = .validityState(
-					image: UIImage(named: "Icon_ExpiredInvalid"),
-					description: AppStrings.HealthCertificate.ValidityState.invalid
-				)
-			case .blocked:
-				self.caption = .validityState(
-					image: UIImage(named: "Icon_ExpiredInvalid"),
-					description: AppStrings.HealthCertificate.ValidityState.blocked
-				)
-			}
+			self.caption = Self.caption(for: initialCertificate)
 		} else {
 			self.caption = nil
 		}
@@ -149,6 +111,50 @@ class HealthCertifiedPersonCellModel {
 
 	func showHealthCertificate(at index: Int) {
 		qrCodeViewModel.updateImage(with: switchableHealthCertificates.elements[index].value)
+	}
+
+	// MARK: - Private
+
+	private static func initialCertificate(for person: HealthCertifiedPerson) -> HealthCertificate? {
+		if let firstVerificationCertificate = person.dccWalletInfo?.verification.certificates.first,
+		   let certificate = person.healthCertificate(for: firstVerificationCertificate.certificateRef) {
+			return certificate
+		} else {
+			return person.mostRelevantHealthCertificate
+		}
+	}
+
+	private static func caption(for certificate: HealthCertificate) -> Caption? {
+		switch certificate.validityState {
+		case .valid:
+			return nil
+		case .expiringSoon:
+			let validityStateTitle = String(
+				format: AppStrings.HealthCertificate.ValidityState.expiringSoon,
+				DateFormatter.localizedString(from: certificate.expirationDate, dateStyle: .short, timeStyle: .none),
+				DateFormatter.localizedString(from: certificate.expirationDate, dateStyle: .none, timeStyle: .short)
+			)
+
+			return .validityState(
+				image: UIImage(named: "Icon_ExpiringSoon"),
+				description: validityStateTitle
+			)
+		case .expired:
+			return .validityState(
+				image: UIImage(named: "Icon_ExpiredInvalid"),
+				description: AppStrings.HealthCertificate.ValidityState.expired
+			)
+		case .invalid:
+			return .validityState(
+				image: UIImage(named: "Icon_ExpiredInvalid"),
+				description: AppStrings.HealthCertificate.ValidityState.invalid
+			)
+		case .blocked:
+			return .validityState(
+				image: UIImage(named: "Icon_ExpiredInvalid"),
+				description: AppStrings.HealthCertificate.ValidityState.blocked
+			)
+		}
 	}
 
 }
