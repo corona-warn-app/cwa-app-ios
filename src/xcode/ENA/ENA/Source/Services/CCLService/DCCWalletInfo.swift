@@ -48,21 +48,6 @@ struct DCCBoosterNotification: Codable, Equatable {
 
 }
 
-struct DCCUIText: Codable, Equatable {
-
-	let type: String
-	let quantity: Double?
-	let quantityParameterIndex: Int?
-	let functionName: String?
-	let localizedText: [String: AnyCodable]?
-	let parameters: [String: AnyCodable]
-
-	func localized(languageCode: String? = Locale.current.languageCode) -> String? {
-		return localizedText?[languageCode ?? "de"]?.value as? String
-	}
-
-}
-
 struct DCCMostRelevantCertificate: Codable, Equatable {
 
 	let certificateRef: DCCCertificateReference

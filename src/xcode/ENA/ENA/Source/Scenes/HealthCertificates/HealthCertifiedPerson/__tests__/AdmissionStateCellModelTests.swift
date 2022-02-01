@@ -21,8 +21,9 @@ class AdmissionStateCellModelTests: XCTestCase {
 				faqAnchor: "admission"
 			)
 		)
+		let cclService = CCLService()
 
-		let cellModel = AdmissionStateCellModel(healthCertifiedPerson: healthCertifiedPerson)
+		let cellModel = AdmissionStateCellModel(healthCertifiedPerson: healthCertifiedPerson, cclService: cclService)
 
 		XCTAssertEqual(cellModel.title, "Status-Nachweis")
 		XCTAssertEqual(cellModel.subtitle, "2G+ Schnelltest")
@@ -35,7 +36,8 @@ class AdmissionStateCellModelTests: XCTestCase {
 		let healthCertifiedPerson = HealthCertifiedPerson(healthCertificates: [])
 		healthCertifiedPerson.gradientType = .solidGrey
 
-		let cellModel = AdmissionStateCellModel(healthCertifiedPerson: healthCertifiedPerson)
+		let cclService = CCLService()
+		let cellModel = AdmissionStateCellModel(healthCertifiedPerson: healthCertifiedPerson, cclService: cclService)
 
 		XCTAssertEqual(cellModel.gradientType, .solidGrey)
 	}
@@ -44,7 +46,8 @@ class AdmissionStateCellModelTests: XCTestCase {
 		let healthCertifiedPerson = HealthCertifiedPerson(healthCertificates: [])
 		healthCertifiedPerson.gradientType = .lightBlue
 
-		let cellModel = AdmissionStateCellModel(healthCertifiedPerson: healthCertifiedPerson)
+		let cclService = CCLService()
+		let cellModel = AdmissionStateCellModel(healthCertifiedPerson: healthCertifiedPerson, cclService: cclService)
 
 		XCTAssertEqual(cellModel.gradientType, .lightBlue)
 	}
@@ -52,8 +55,9 @@ class AdmissionStateCellModelTests: XCTestCase {
 	func testMediumBlueGradient() throws {
 		let healthCertifiedPerson = HealthCertifiedPerson(healthCertificates: [])
 		healthCertifiedPerson.gradientType = .mediumBlue
-
-		let cellModel = AdmissionStateCellModel(healthCertifiedPerson: healthCertifiedPerson)
+		
+		let cclService = CCLService()
+		let cellModel = AdmissionStateCellModel(healthCertifiedPerson: healthCertifiedPerson, cclService: cclService)
 
 		XCTAssertEqual(cellModel.gradientType, .mediumBlue)
 	}
@@ -62,7 +66,8 @@ class AdmissionStateCellModelTests: XCTestCase {
 		let healthCertifiedPerson = HealthCertifiedPerson(healthCertificates: [])
 		healthCertifiedPerson.gradientType = .darkBlue
 
-		let cellModel = AdmissionStateCellModel(healthCertifiedPerson: healthCertifiedPerson)
+		let cclService = CCLService()
+		let cellModel = AdmissionStateCellModel(healthCertifiedPerson: healthCertifiedPerson, cclService: cclService)
 
 		XCTAssertEqual(cellModel.gradientType, .darkBlue)
 	}
