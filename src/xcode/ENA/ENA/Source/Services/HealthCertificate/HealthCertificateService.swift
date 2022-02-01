@@ -120,7 +120,7 @@ class HealthCertificateService {
 		- when the regular background execution runs (e.g. Key Download)
 	*/
 
-	func checkForConfigurationAndRulesUpdates(completion: @escaping (String?) -> Void) {
+	func checkForCCLConfigurationAndRulesUpdates(completion: @escaping (String?) -> Void) {
 		cclService.updateConfiguration { didChange in
 			if didChange {
 				// trigger new calculation here

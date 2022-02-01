@@ -140,7 +140,7 @@ class TaskExecutionHandler: ENATaskExecutionDelegate {
 				group.enter()
 				DispatchQueue.global().async {
 					Log.info("Check if Booster Notifications need to be downloaded.", log: .background)
-					self.executeBoosterNotificationsCreation {
+					self.executeCCLConfigurationUpdateAndBoosterNotificationsCreation {
 						group.leave()
 						Log.info("Done Checking if Booster Notifications should download …", log: .background)
 					}
@@ -323,9 +323,9 @@ class TaskExecutionHandler: ENATaskExecutionDelegate {
 		})
 	}
 
-	private func executeBoosterNotificationsCreation(completion: @escaping () -> Void) {
+	private func executeCCLConfigurationUpdateAndBoosterNotificationsCreation(completion: @escaping () -> Void) {
 		Log.info("Checking if Booster rules need to be downloaded...", log: .vaccination)
-		healthCertificateService.checkForConfigurationAndRulesUpdates { errorMessage in
+		healthCertificateService.checkForCCLConfigurationAndRulesUpdates { errorMessage in
 			guard let errorMessage = errorMessage else {
 				return
 			}

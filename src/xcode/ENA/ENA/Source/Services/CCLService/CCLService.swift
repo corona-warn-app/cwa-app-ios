@@ -21,7 +21,7 @@ enum DCCWalletInfoAccessError: Error {
 
 protocol CCLServable {
 	
-	func updateConfiguration(completion: (_ didChange: Bool) -> Void)
+	func updateConfiguration(completion: @escaping (_ didChange: Bool) -> Void)
 	
 	func dccWalletInfo(for certificates: [DCCWalletCertificate]) -> Swift.Result<DCCWalletInfo, DCCWalletInfoAccessError>
 	
@@ -37,11 +37,17 @@ class CLLService: CCLServable {
 		_ restServiceProvider: RestServiceProviding
 	) {
 		self.restServiceProvider = restServiceProvider
+
+		self.boosterNotificationRules =
+
+
 	}
 	
 	// MARK: - Protocol CCLServable
 
-	func updateConfiguration(completion: (_ didChange: Bool) -> Void) {
+	func updateConfiguration(
+		completion: @escaping (_ didChange: Bool) -> Void
+	) {
 		// trigger both downloads, if one was updated notify caller in result
 
 		let dispatchGroup = DispatchGroup()
@@ -91,12 +97,14 @@ class CLLService: CCLServable {
 			}
 		}
 
-		dispatchGroup.wait()
-
-		return completion( configurationDidUpdate || boosterRulesDidUpdate )
+		dispatchGroup.notify(queue: DispatchQueue.global(qos: .default)) {
+			completion( configurationDidUpdate || boosterRulesDidUpdate )
+		}
 	}
 	
-	func dccWalletInfo(for certificates: [DCCWalletCertificate]) -> Swift.Result<DCCWalletInfo, DCCWalletInfoAccessError> {
+	func dccWalletInfo(
+		for certificates: [DCCWalletCertificate]
+	) -> Swift.Result<DCCWalletInfo, DCCWalletInfoAccessError> {
 		let getWalletInfoInput = GetWalletInfoInput.make(
 			certificates: certificates,
 			boosterNotificationRules: boosterNotificationRules
@@ -113,17 +121,17 @@ class CLLService: CCLServable {
 		}
 	}
 	
-	func evaluateFunctionWithDefaultValues<T>(name: String, parameters: [String: AnyDecodable]) throws -> T where T: Decodable {
+	func evaluateFunctionWithDefaultValues<T>(
+		name: String,
+		parameters: [String: AnyDecodable]
+	) throws -> T where T: Decodable {
 		let parametersWithDefaults = CCLDefaultInput.addingTo(parameters: parameters)
 		return try jsonFunctions.evaluateFunction(name: name, parameters: parametersWithDefaults)
 	}
-	
-	var configurationDidChange = PassthroughSubject<Bool, Never>()
 
 	// MARK: - Private
 
 	private let restServiceProvider: RestServiceProviding
-
 	private let jsonFunctions: JsonFunctions = JsonFunctions()
 
 	private var boosterNotificationRules: [Rule] = []
@@ -176,7 +184,9 @@ class CLLService: CCLServable {
 		}
 	}
 
-	private func updateJsonFunctions(_ configuration: CCLConfiguration) {
+	private func updateJsonFunctions(
+		_ configuration: CCLConfiguration
+	) {
 		configuration.functionDescriptor.forEach { [weak self] jsonFunctionDescriptor in
 			self?.jsonFunctions.registerFunction(jsonFunctionDescriptor: jsonFunctionDescriptor)
 		}

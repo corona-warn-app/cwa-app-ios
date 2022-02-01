@@ -194,7 +194,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		updateExposureState(state)
 		Analytics.triggerAnalyticsSubmission()
 		appUpdateChecker.checkAppVersionDialog(for: window?.rootViewController)
-		healthCertificateService.checkForConfigurationAndRulesUpdates(
+		healthCertificateService.checkForCCLConfigurationAndRulesUpdates(
 			completion: { errorMessage in
 				guard let errorMessage = errorMessage else {
 					return
