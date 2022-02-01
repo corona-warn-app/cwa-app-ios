@@ -6,16 +6,12 @@
 
 import UIKit
 
-class DMNHCViewController: UITableViewController {
+class DMCCLConfigurationViewController: UITableViewController {
 
 	// MARK: - Init
 
-	init(
-		store: Store
-	) {
-		self.viewModel = DMNHCViewModel(
-			store: store
-		)
+	init() {
+		self.viewModel = DMCCLConfigurationViewModel()
 
 		if #available(iOS 13.0, *) {
 			super.init(style: .insetGrouped)
@@ -42,15 +38,21 @@ class DMNHCViewController: UITableViewController {
 	override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		// by help of a protocol for cellViewModel we might simplyfiy this even more
 		let cellViewModel = viewModel.cellViewModel(by: indexPath)
-		if cellViewModel is DMButtonCellViewModel {
-			let cell = tableView.dequeueReusableCell(cellType: DMButtonTableViewCell.self, for: indexPath)
+		if cellViewModel is DMStaticTextCellViewModel {
+			let cell = tableView.dequeueReusableCell(cellType: DMStaticTextTableViewCell.self, for: indexPath)
+			cell.configure(cellViewModel: cellViewModel)
+			return cell
+		} else if cellViewModel is DMSwitchCellViewModel {
+			guard let cell = tableView.dequeueReusableCell(withIdentifier: DMSwitchTableViewCell.reuseIdentifier) as? DMSwitchTableViewCell else {
+				fatalError("unsupported cellViewModel - can't find a matching cell")
+			}
 			cell.configure(cellViewModel: cellViewModel)
 			return cell
 		} else {
 			fatalError("unsopported cellViewModel - can't find a matching cell")
 		}
 	}
-
+	
 	override func numberOfSections(in tableView: UITableView) -> Int {
 		viewModel.numberOfSections
 	}
@@ -61,14 +63,15 @@ class DMNHCViewController: UITableViewController {
 
 	// MARK: - Private
 
-	private let viewModel: DMNHCViewModel
+	private let viewModel: DMCCLConfigurationViewModel
 
 	private func setupTableView() {
 		tableView.estimatedRowHeight = 45.0
 		tableView.rowHeight = UITableView.automaticDimension
 
-		tableView.register(DMButtonTableViewCell.self, forCellReuseIdentifier: DMButtonTableViewCell.reuseIdentifier)
-
+		tableView.register(DMStaticTextTableViewCell.self, forCellReuseIdentifier: DMStaticTextTableViewCell.reuseIdentifier)
+		tableView.register(DMSwitchTableViewCell.self, forCellReuseIdentifier: DMSwitchTableViewCell.reuseIdentifier)
+		
 		// wire up tableview with the viewModel
 		viewModel.refreshTableView = { indexSet in
 			DispatchQueue.main.async { [weak self] in
@@ -79,7 +82,7 @@ class DMNHCViewController: UITableViewController {
 	}
 
 	private func setupNavigationBar() {
-		title = "New Rest Service - Only for DEVs"
+		title = "CLLConfiguration"
 	}
 }
 #endif
