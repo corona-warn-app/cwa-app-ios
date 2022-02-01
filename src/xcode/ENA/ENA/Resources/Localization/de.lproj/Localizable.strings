@@ -2075,7 +2075,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 /* - Fully vaccinated people card */
 
-"Statistics_Card_FullyVaccinated_Title" = "Vollständig geimpfte Personen";
+"Statistics_Card_FullyVaccinated_Title" = "Grundimmunisiert";
 
 "Statistics_Card_FullyVaccinated_Today" = "Bis heute";
 
@@ -2175,7 +2175,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "Statistics_Info_AtLeastOnce_Text" = "Anzahl der an das RKI übermittelten Personen, die die erste Impfdosis erhalten haben.";
 
-"Statistics_Info_FullyVaccinated_Title" = "Vollständig geimpfte Personen";
+"Statistics_Info_FullyVaccinated_Title" = "Grundimmunisiert";
 
 "Statistics_Info_FullyVaccinated_Text" = "Anzahl der an das RKI übermittelten Personen, die alle notwendigen Impfdosen der Grundimmunisierung erhalten haben.";
 
