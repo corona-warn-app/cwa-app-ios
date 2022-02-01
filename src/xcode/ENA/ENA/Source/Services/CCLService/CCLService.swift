@@ -28,7 +28,7 @@ protocol CCLServable {
 
 }
 
-class CLLService: CCLServable {
+class CCLService: CCLServable {
 	
 	// MARK: - Init
 	
