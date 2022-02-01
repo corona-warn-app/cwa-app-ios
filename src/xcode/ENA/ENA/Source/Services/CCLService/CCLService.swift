@@ -90,6 +90,7 @@ class CLLService: CCLServable {
 				}
 			}
 		}
+
 		dispatchGroup.wait()
 
 		return completion( configurationDidUpdate || boosterRulesDidUpdate )
@@ -157,21 +158,19 @@ class CLLService: CCLServable {
 	) {
 		let resource = DCCRulesResource(ruleType: .boosterNotification)
 		restServiceProvider.load(resource) { result in
-			DispatchQueue.main.async {
-				switch result {
-				case let .success(receiveModel):
-					if receiveModel.metaData.loadedFromCache {
-						completion(.failure(.cached(receiveModel.rules)))
-					} else {
-						completion(.success(receiveModel.rules))
-					}
-				case let .failure(error):
-					if case let .receivedResourceError(customError) = error {
-						completion(.failure(.custom(customError)))
-					} else {
-						Log.error("Unhandled error \(error.localizedDescription)", log: .vaccination)
-						completion(.failure(.custom(DCCDownloadRulesError.RULE_CLIENT_ERROR(.boosterNotification))))
-					}
+			switch result {
+			case let .success(receiveModel):
+				if receiveModel.metaData.loadedFromCache {
+					completion(.failure(.cached(receiveModel.rules)))
+				} else {
+					completion(.success(receiveModel.rules))
+				}
+			case let .failure(error):
+				if case let .receivedResourceError(customError) = error {
+					completion(.failure(.custom(customError)))
+				} else {
+					Log.error("Unhandled error \(error.localizedDescription)", log: .vaccination)
+					completion(.failure(.custom(DCCDownloadRulesError.RULE_CLIENT_ERROR(.boosterNotification))))
 				}
 			}
 		}
