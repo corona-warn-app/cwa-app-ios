@@ -51,7 +51,7 @@ class HealthCertifiedPersonViewModelTests: XCTestCase {
 		XCTAssertFalse(viewModel.canEditRow(at: IndexPath(row: 0, section: HealthCertifiedPersonViewModel.TableViewSection.person.rawValue)))
 		XCTAssertTrue(viewModel.canEditRow(at: IndexPath(row: 0, section: HealthCertifiedPersonViewModel.TableViewSection.certificates.rawValue)))
 
-		XCTAssertEqual(HealthCertifiedPersonViewModel.TableViewSection.numberOfSections, 6)
+		XCTAssertEqual(HealthCertifiedPersonViewModel.TableViewSection.numberOfSections, 7)
 		XCTAssertEqual(HealthCertifiedPersonViewModel.TableViewSection.map(0), .header)
 		XCTAssertEqual(HealthCertifiedPersonViewModel.TableViewSection.map(1), .qrCode)
 		XCTAssertEqual(HealthCertifiedPersonViewModel.TableViewSection.map(2), .boosterNotification)
