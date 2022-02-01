@@ -9,8 +9,7 @@ import AnyCodable
 import CertLogic
 import HealthCertificateToolkit
 
-enum CLLDownloadError<T>: Error {
-	case cached(T)
+enum CCLDownloadError: Error {
 	case missing
 	case custom(Error)
 }
@@ -50,10 +49,10 @@ class CCLService: CCLServable {
 		// cclConfigurations
 		switch restServiceProvider.cached(cclConfigurationResource) {
 		case let .success(configurations):
-			self.cclConfigurations = configurations.cclConfigurations
+			self.updateJsonFunctions(configurations.cclConfigurations)
 		case let .failure(error):
 			Log.error("Failed to read ccl configurations from cache - init empty", error: error)
-			self.cclConfigurations = []
+			self.updateJsonFunctions([])
 		}
 	}
 	
@@ -78,17 +77,10 @@ class CCLService: CCLServable {
 
 			switch result {
 			case let .success(configurations):
-				// we got a new configuration - let update json functions
-				configurations.forEach { configuration in
-					self?.updateJsonFunctions(configuration)
-				}
-				self?.cclConfigurations = configurations
+				self?.updateJsonFunctions(configurations)
 				configurationDidUpdate = true
-			case let .failure(error):
-				if case let .cached(configurations) = error {
-					self?.cclConfigurations = configurations
-					configurationDidUpdate = false
-				}
+			case .failure:
+				Log.error("CCLConfiguration might be loaded from the cache - skip this error")
 			}
 		}
 
@@ -103,11 +95,8 @@ class CCLService: CCLServable {
 			case let .success(rules):
 				self?.boosterNotificationRules = rules
 				boosterRulesDidUpdate = true
-			case let .failure(error):
-				if case let .cached(rules) = error {
-					self?.boosterNotificationRules = rules
-					boosterRulesDidUpdate = false
-				}
+			case .failure:
+				Log.error("BoosterNotificationRules might be loaded from the cache - skip this error")
 			}
 		}
 
@@ -149,22 +138,15 @@ class CCLService: CCLServable {
 	private let jsonFunctions: JsonFunctions = JsonFunctions()
 	private let cclConfigurationResource = CCLConfigurationResource()
 	private let boosterNotificationRulesResource = DCCRulesResource(ruleType: .boosterNotification)
-
 	private var boosterNotificationRules: [Rule]
-	private var cclConfigurations: [CCLConfiguration]
 
 	private func getConfigurations(
-		completion: @escaping (Swift.Result<[CCLConfiguration], CLLDownloadError<[CCLConfiguration]>>) -> Void
+		completion: @escaping (Swift.Result<[CCLConfiguration], CCLDownloadError>) -> Void
 	) {
 		restServiceProvider.load(cclConfigurationResource) { result in
 			switch result {
 			case let .success(receiveModel):
-				let configurations = receiveModel.cclConfigurations
-				if receiveModel.metaData.loadedFromCache {
-					completion(.failure(.cached(configurations)))
-				} else {
-					completion(.success(configurations))
-				}
+				completion(.success(receiveModel.cclConfigurations))
 			case let .failure(error):
 				switch error {
 				case .fakeResponse:
@@ -177,16 +159,12 @@ class CCLService: CCLServable {
 	}
 
 	private func getBoosterNotificationRules(
-		completion: @escaping (Swift.Result<[Rule], CLLDownloadError<[Rule]>>) -> Void
+		completion: @escaping (Swift.Result<[Rule], CCLDownloadError>) -> Void
 	) {
 		restServiceProvider.load(boosterNotificationRulesResource) { result in
 			switch result {
 			case let .success(receiveModel):
-				if receiveModel.metaData.loadedFromCache {
-					completion(.failure(.cached(receiveModel.rules)))
-				} else {
-					completion(.success(receiveModel.rules))
-				}
+				completion(.success(receiveModel.rules))
 			case let .failure(error):
 				if case let .receivedResourceError(customError) = error {
 					completion(.failure(.custom(customError)))
@@ -199,10 +177,12 @@ class CCLService: CCLServable {
 	}
 
 	private func updateJsonFunctions(
-		_ configuration: CCLConfiguration
+		_ configurations: [CCLConfiguration]
 	) {
-		configuration.functionDescriptors.forEach { [weak self] jsonFunctionDescriptor in
-			self?.jsonFunctions.registerFunction(jsonFunctionDescriptor: jsonFunctionDescriptor)
+		configurations.forEach { [weak self] configuration in
+			configuration.functionDescriptors.forEach { jsonFunctionDescriptor in
+				self?.jsonFunctions.registerFunction(jsonFunctionDescriptor: jsonFunctionDescriptor)
+			}
 		}
 	}
 
