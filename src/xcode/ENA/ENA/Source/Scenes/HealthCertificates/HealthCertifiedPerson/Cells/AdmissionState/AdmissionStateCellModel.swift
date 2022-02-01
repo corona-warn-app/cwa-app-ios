@@ -33,10 +33,11 @@ final class AdmissionStateCellModel {
 	}
 
 	var faqLink: NSAttributedString? {
-		let text = String(
-			format: AppStrings.HealthCertificate.Person.AdmissionState.faq,
-			AppStrings.HealthCertificate.Person.AdmissionState.faqPlaceHolder
-		)
+		guard let faqAnchor = healthCertifiedPerson.dccWalletInfo?.admissionState.faqAnchor else {
+			return nil
+		}
+
+		let linkText = AppStrings.HealthCertificate.Person.faq
 
 		let textAttributes: [NSAttributedString.Key: Any] = [
 			.font: UIFont.preferredFont(forTextStyle: ENAFont.body.textStyle)
@@ -47,13 +48,13 @@ final class AdmissionStateCellModel {
 			.foregroundColor: UIColor.enaColor(for: .textPrimary1)
 		]
 		let attributedString = NSMutableAttributedString(
-			string: text,
+			string: linkText,
 			attributes: textAttributes
 		)
 
 		attributedString.mark(
-			AppStrings.HealthCertificate.Person.AdmissionState.faqPlaceHolder,
-			with: AppStrings.Links.healthCertificateAdmissionPolicyFAQ
+			linkText,
+			with: LinkHelper.urlString(suffix: faqAnchor, type: .faq)
 		)
 
 		return attributedString

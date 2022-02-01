@@ -16,6 +16,7 @@ final class HealthCertifiedPersonViewModel {
 		healthCertifiedPerson: HealthCertifiedPerson,
 		healthCertificateValueSetsProvider: VaccinationValueSetsProviding,
 		dismiss: @escaping () -> Void,
+		didTapBoosterNotification: @escaping (HealthCertifiedPerson) -> Void,
 		didTapValidationButton: @escaping (HealthCertificate, @escaping (Bool) -> Void) -> Void,
 		showInfoHit: @escaping () -> Void
 	) {
@@ -24,11 +25,13 @@ final class HealthCertifiedPersonViewModel {
 		self.healthCertifiedPerson = healthCertifiedPerson
 		self.healthCertificateValueSetsProvider = healthCertificateValueSetsProvider
 
+		self.didTapBoosterNotification = didTapBoosterNotification
 		self.didTapValidationButton = didTapValidationButton
 		self.showInfo = showInfoHit
 
-		self.vaccinationHintCellViewModel = VaccinationHintCellModel(healthCertifiedPerson: healthCertifiedPerson, cclService: cclService)
-		self.vaccinationAdmissionStateViewModel = AdmissionStateCellModel(healthCertifiedPerson: healthCertifiedPerson, cclService: cclService)
+		self.boosterNotificationCellModel = BoosterNotificationCellModel(healthCertifiedPerson: healthCertifiedPerson, cclService: cclService)
+		self.admissionStateCellModel = AdmissionStateCellModel(healthCertifiedPerson: healthCertifiedPerson, cclService: cclService)
+		self.vaccinationStateCellModel = VaccinationStateCellModel(healthCertifiedPerson: healthCertifiedPerson, cclService: cclService)
 		
 		constructHealthCertificateCellViewModels(for: healthCertifiedPerson)
 
@@ -67,8 +70,9 @@ final class HealthCertifiedPersonViewModel {
 	enum TableViewSection: Int, CaseIterable {
 		case header
 		case qrCode
+		case boosterNotification
 		case admissionState
-		case vaccinationHint
+		case vaccinationState
 		case person
 		case certificates
 
@@ -118,8 +122,11 @@ final class HealthCertifiedPersonViewModel {
 		)
 	}
 
-	let vaccinationHintCellViewModel: VaccinationHintCellModel
-	let vaccinationAdmissionStateViewModel: AdmissionStateCellModel
+	let healthCertifiedPerson: HealthCertifiedPerson
+
+	let boosterNotificationCellModel: BoosterNotificationCellModel
+	let admissionStateCellModel: AdmissionStateCellModel
+	let vaccinationStateCellModel: VaccinationStateCellModel
 
 	@OpenCombine.Published private(set) var gradientType: GradientView.GradientType = .lightBlue
 	@OpenCombine.Published private(set) var triggerReload: Bool = false
@@ -144,7 +151,11 @@ final class HealthCertifiedPersonViewModel {
 		)
 	}
 
-	var vaccinationHintIsVisible: Bool {
+	var boosterNotificationIsVisible: Bool {
+		healthCertifiedPerson.dccWalletInfo?.boosterNotification.visible ?? false
+	}
+
+	var vaccinationStateIsVisible: Bool {
 		healthCertifiedPerson.dccWalletInfo?.vaccinationState.visible ?? false
 	}
 	
@@ -164,10 +175,12 @@ final class HealthCertifiedPersonViewModel {
 			return 1
 		case .qrCode:
 			return 1
+		case .boosterNotification:
+			return boosterNotificationIsVisible ? 1 : 0
 		case .admissionState:
 			return admissionStateIsVisible ? 1 : 0
-		case .vaccinationHint:
-			return vaccinationHintIsVisible ? 1 : 0
+		case .vaccinationState:
+			return vaccinationStateIsVisible ? 1 : 0
 		case .person:
 			return 1
 		case .certificates:
@@ -204,6 +217,10 @@ final class HealthCertifiedPersonViewModel {
 		healthCertifiedPerson.isNewBoosterRule = false
 	}
 
+	func didTapBoosterNotificationCell() {
+		didTapBoosterNotification(healthCertifiedPerson)
+	}
+
 	func attemptToRestoreDecodingFailedHealthCertificates() {
 		healthCertifiedPerson.attemptToRestoreDecodingFailedHealthCertificates()
 	}
@@ -211,10 +228,10 @@ final class HealthCertifiedPersonViewModel {
 	// MARK: - Private
 
 	private let cclService: CCLService
-	private let healthCertifiedPerson: HealthCertifiedPerson
 	private let healthCertificateService: HealthCertificateService
 	private let healthCertificateValueSetsProvider: VaccinationValueSetsProviding
 
+	private let didTapBoosterNotification: (HealthCertifiedPerson) -> Void
 	private let didTapValidationButton: (HealthCertificate, @escaping (Bool) -> Void) -> Void
 	private let showInfo: () -> Void
 	private var subscriptions = Set<AnyCancellable>()

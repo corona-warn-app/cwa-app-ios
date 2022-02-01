@@ -28,6 +28,7 @@ class HealthCertifiedPersonCellModel {
 		qrCodeViewModel = HealthCertificateQRCodeViewModel(
 			healthCertificate: mostRelevantCertificate,
 			showRealQRCodeIfValidityStateBlocked: false,
+			imageAccessibilityTraits: [.image, .button],
 			accessibilityLabel: AppStrings.HealthCertificate.Overview.covidDescription,
 			covPassCheckInfoPosition: .bottom,
 			onCovPassCheckInfoButtonTap: onCovPassCheckInfoButtonTap
@@ -97,6 +98,7 @@ class HealthCertifiedPersonCellModel {
 		qrCodeViewModel = HealthCertificateQRCodeViewModel(
 			base45: decodingFailedHealthCertificate.base45,
 			shouldBlockCertificateCode: false,
+			imageAccessibilityTraits: .image,
 			accessibilityLabel: AppStrings.HealthCertificate.Overview.covidDescription,
 			covPassCheckInfoPosition: .bottom,
 			onCovPassCheckInfoButtonTap: onCovPassCheckInfoButtonTap
