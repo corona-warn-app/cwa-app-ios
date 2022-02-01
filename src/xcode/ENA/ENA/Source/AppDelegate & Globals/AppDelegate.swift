@@ -397,7 +397,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 	)
 
 	private lazy var cclService: CCLServable = {
-		CLLService(restServiceProvider)
+		CCLService(restServiceProvider)
 	}()
 
 	private lazy var analyticsSubmitter: PPAnalyticsSubmitting = {
