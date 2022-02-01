@@ -18,11 +18,11 @@ struct FakeCCLService: CCLServable {
 	}
 
 	func dccWalletInfo(for certificates: [DCCWalletCertificate]) -> Result<DCCWalletInfo, DCCWalletInfoAccessError> {
-		return dccWaltInfoResult
+		return dccWalletInfoResult
 	}
 
 	func evaluateFunctionWithDefaultValues<T: Decodable>(name: String, parameters: [String: AnyDecodable]) throws -> T {
-		guard let castedType = evaluationType as? T else {
+		guard let castedType = functionEvaluationResult as? T else {
 			Log.info("Cast to T type failed")
 			throw  jsonfunctions.ParseError.GenericError("Test failed to cast to type T")
 		}
@@ -32,7 +32,7 @@ struct FakeCCLService: CCLServable {
 	// MARK: - Internal
 
 	var didChange: Bool = false
-	var dccWaltInfoResult: Result<DCCWalletInfo, DCCWalletInfoAccessError> = .success(DCCWalletInfo.fake())
-	var evaluationType: Any?
+	var dccWalletInfoResult: Result<DCCWalletInfo, DCCWalletInfoAccessError> = .success(DCCWalletInfo.fake())
+	var functionEvaluationResult: Any?
 
 }

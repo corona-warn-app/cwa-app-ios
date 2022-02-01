@@ -201,7 +201,7 @@ class CCLService: CCLServable {
 	private func updateJsonFunctions(
 		_ configuration: CCLConfiguration
 	) {
-		configuration.functionDescriptor.forEach { [weak self] jsonFunctionDescriptor in
+		configuration.functionDescriptors.forEach { [weak self] jsonFunctionDescriptor in
 			self?.jsonFunctions.registerFunction(jsonFunctionDescriptor: jsonFunctionDescriptor)
 		}
 	}
