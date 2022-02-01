@@ -190,20 +190,17 @@ public struct DCCUIText: Codable, Equatable {
 			return nil
 		}
 			
-			// only date related types will be handled here
-			switch dateType {
-			case ParameterType.localDate:
-				return DCCUIText.localDateFormatter.string(from: formattedDate)
-			case ParameterType.localDateTime:
-				return DCCUIText.localDateTimeFormatter.string(from: formattedDate)
-			case ParameterType.utcDate:
-				return DCCUIText.outputDateFormatter.string(from: formattedDate)
-			case ParameterType.utcDateTime:
-				return DCCUIText.outputDateTimeFormatter.string(from: formattedDate)
-			default:
-				return nil
-			}
-		} else {
+		// only date related types will be handled here
+		switch dateType {
+		case ParameterType.localDate:
+			return DCCUIText.localDateFormatter.string(from: formattedDate)
+		case ParameterType.localDateTime:
+			return DCCUIText.localDateTimeFormatter.string(from: formattedDate)
+		case ParameterType.utcDate:
+			return DCCUIText.outputDateFormatter.string(from: formattedDate)
+		case ParameterType.utcDateTime:
+			return DCCUIText.outputDateTimeFormatter.string(from: formattedDate)
+		default:
 			return nil
 		}
 	}
