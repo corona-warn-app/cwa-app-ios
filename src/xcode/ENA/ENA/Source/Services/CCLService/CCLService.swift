@@ -26,8 +26,6 @@ protocol CCLServable {
 	func dccWalletInfo(for certificates: [DCCWalletCertificate]) -> Swift.Result<DCCWalletInfo, DCCWalletInfoAccessError>
 	
 	func evaluateFunctionWithDefaultValues<T: Decodable>(name: String, parameters: [String: AnyDecodable]) throws -> T
-	
-	var configurationDidChange: PassthroughSubject<Bool, Never> { get }
 
 }
 

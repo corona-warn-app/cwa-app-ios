@@ -21,7 +21,7 @@ struct FakeCCLService: CCLServable {
 		return dccWaltInfoResult
 	}
 
-	func evaluateFunction<T>(name: String, parameters: [String: AnyDecodable]) throws -> T where T: Decodable {
+	func evaluateFunctionWithDefaultValues<T: Decodable>(name: String, parameters: [String: AnyDecodable]) throws -> T {
 		guard let castedType = evaluationType as? T else {
 			Log.info("Cast to T type failed")
 			throw  jsonfunctions.ParseError.GenericError("Test failed to cast to type T")
