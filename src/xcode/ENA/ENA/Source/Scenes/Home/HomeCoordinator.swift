@@ -508,7 +508,7 @@ class HomeCoordinator: RequiresAppDependencies {
 					Log.info("home screen tab is active - skipped to set tab bar badge")
 					return
 				}
-				self?.badgeWrapper.update(.riskStateIncreased, value: 1)
+				self?.badgeWrapper.update(.riskStateChanged, value: 1)
 			}
 			.store(in: &subscriptions)
 
