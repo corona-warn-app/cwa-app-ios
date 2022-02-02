@@ -417,6 +417,7 @@ enum AccessibilityIdentifiers {
 		static let selectDistrict = "AppStrings.LocalStatistics.selectDistrict"
 		static let manageStatisticsCard = "AppStrings.LocalStatistics.manageStatisticsCard"
 		static let localStatisticsCard = "AppStrings.LocalStatistics.localStatisticsCard"
+		static let localStatisticsCardTitle = "AppStrings.LocalStatistics.localStatisticsCardTitle"
 		static let addLocalIncidencesButton = "AppStrings.LocalStatistics.addLocalIncidencesButton"
 		static let addLocalIncidenceLabel = "AppStrings.LocalStatistics.addLocalIncidenceLabel"
 		static let modifyLocalIncidencesButton = "AppStrings.LocalStatistics.modifyLocalIncidencesButton"
