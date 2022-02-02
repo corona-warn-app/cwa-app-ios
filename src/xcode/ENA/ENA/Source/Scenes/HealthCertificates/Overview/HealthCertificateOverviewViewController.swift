@@ -11,7 +11,7 @@ class HealthCertificateOverviewViewController: UITableViewController {
 
 	init(
 		viewModel: HealthCertificateOverviewViewModel,
-		cclService: CCLService,
+		cclService: CCLServable,
 		onInfoBarButtonItemTap: @escaping () -> Void,
 		onCreateHealthCertificateTap: @escaping () -> Void,
 		onCertifiedPersonTap: @escaping (HealthCertifiedPerson) -> Void,
@@ -137,7 +137,7 @@ class HealthCertificateOverviewViewController: UITableViewController {
 	// MARK: - Private
 
 	private let viewModel: HealthCertificateOverviewViewModel
-	private let cclService: CCLService
+	private let cclService: CCLServable
 	
 	private let onInfoBarButtonItemTap: () -> Void
 	private let onCreateHealthCertificateTap: () -> Void
