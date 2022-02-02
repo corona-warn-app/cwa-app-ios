@@ -24,11 +24,16 @@ class RulesDownloadService: RulesDownloadServiceProviding {
 	}
 	
 	// MARK: - Protocol RulesDownloadServiceProviding
-	
+
 	func downloadRules(
 		ruleType: HealthCertificateValidationRuleType,
 		completion: @escaping (Result<[Rule], DCCDownloadRulesError>) -> Void
 	) {
+		guard ruleType != .boosterNotification else {
+			Log.error("invalid use for booster rules download")
+			fatalError("invalid use for booster rules download")
+		}
+
 		let resource = DCCRulesResource(ruleType: ruleType)
 		restServiceProvider.load(resource) { result in
 			DispatchQueue.main.async {

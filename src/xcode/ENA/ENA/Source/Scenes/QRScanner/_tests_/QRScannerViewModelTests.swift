@@ -42,16 +42,13 @@ class QRScannerViewModelTests: XCTestCase {
 		let appConfigurationProvider = CachedAppConfigurationMock()
 		let dscListProvider = MockDSCListProvider()
 		let dccSignatureVerifier = DCCSignatureVerifyingStub()
-		let boosterNotificationsService = BoosterNotificationsService(
-			rulesDownloadService: FakeRulesDownloadService()
-		)
 		let healthCertificateService = HealthCertificateService(
 			store: store,
 			dccSignatureVerifier: dccSignatureVerifier,
 			dscListProvider: dscListProvider,
 			client: client,
 			appConfiguration: appConfigurationProvider,
-			boosterNotificationsService: boosterNotificationsService,
+			cclService: FakeCCLService(),
 			recycleBin: .fake()
 		)
 		let onSuccessExpectation = expectation(description: "onSuccess called")
@@ -100,16 +97,13 @@ class QRScannerViewModelTests: XCTestCase {
 		let appConfigurationProvider = CachedAppConfigurationMock()
 		let dscListProvider = MockDSCListProvider()
 		let dccSignatureVerifier = DCCSignatureVerifyingStub()
-		let boosterNotificationsService = BoosterNotificationsService(
-			rulesDownloadService: FakeRulesDownloadService()
-		)
 		let healthCertificateService = HealthCertificateService(
 			store: store,
 			dccSignatureVerifier: dccSignatureVerifier,
 			dscListProvider: dscListProvider,
 			client: client,
 			appConfiguration: appConfigurationProvider,
-			boosterNotificationsService: boosterNotificationsService,
+			cclService: FakeCCLService(),
 			recycleBin: .fake()
 		)
 		let onSuccessExpectation = expectation(description: "onSuccess called")
@@ -153,16 +147,13 @@ class QRScannerViewModelTests: XCTestCase {
 		let appConfigurationProvider = CachedAppConfigurationMock()
 		let dscListProvider = MockDSCListProvider()
 		let dccSignatureVerifier = DCCSignatureVerifyingStub()
-		let boosterNotificationsService = BoosterNotificationsService(
-			rulesDownloadService: FakeRulesDownloadService()
-		)
 		let healthCertificateService = HealthCertificateService(
 			store: store,
 			dccSignatureVerifier: dccSignatureVerifier,
 			dscListProvider: dscListProvider,
 			client: client,
 			appConfiguration: appConfigurationProvider,
-			boosterNotificationsService: boosterNotificationsService,
+			cclService: FakeCCLService(),
 			recycleBin: .fake()
 		)
 		let onSuccessExpectation = expectation(description: "onSuccess called")
@@ -207,16 +198,13 @@ class QRScannerViewModelTests: XCTestCase {
 		let appConfigurationProvider = CachedAppConfigurationMock()
 		let dscListProvider = MockDSCListProvider()
 		let dccSignatureVerifier = DCCSignatureVerifyingStub()
-		let boosterNotificationsService = BoosterNotificationsService(
-			rulesDownloadService: FakeRulesDownloadService()
-		)
 		let healthCertificateService = HealthCertificateService(
 			store: store,
 			dccSignatureVerifier: dccSignatureVerifier,
 			dscListProvider: dscListProvider,
 			client: client,
 			appConfiguration: appConfigurationProvider,
-			boosterNotificationsService: boosterNotificationsService,
+			cclService: FakeCCLService(),
 			recycleBin: .fake()
 		)
 		let onSuccessExpectation = expectation(description: "onSuccess called")
@@ -262,16 +250,13 @@ class QRScannerViewModelTests: XCTestCase {
 		let appConfigurationProvider = CachedAppConfigurationMock()
 		let dscListProvider = MockDSCListProvider()
 		let dccSignatureVerifier = DCCSignatureVerifyingStub()
-		let boosterNotificationsService = BoosterNotificationsService(
-			rulesDownloadService: FakeRulesDownloadService()
-		)
 		let healthCertificateService = HealthCertificateService(
 			store: store,
 			dccSignatureVerifier: dccSignatureVerifier,
 			dscListProvider: dscListProvider,
 			client: client,
 			appConfiguration: appConfigurationProvider,
-			boosterNotificationsService: boosterNotificationsService,
+			cclService: FakeCCLService(),
 			recycleBin: .fake()
 		)
 		let onFailureExpectation = expectation(description: "onFailure called")
@@ -316,16 +301,13 @@ class QRScannerViewModelTests: XCTestCase {
 		let appConfigurationProvider = CachedAppConfigurationMock()
 		let dscListProvider = MockDSCListProvider()
 		let dccSignatureVerifier = DCCSignatureVerifyingStub()
-		let boosterNotificationsService = BoosterNotificationsService(
-			rulesDownloadService: FakeRulesDownloadService()
-		)
 		let healthCertificateService = HealthCertificateService(
 			store: store,
 			dccSignatureVerifier: dccSignatureVerifier,
 			dscListProvider: dscListProvider,
 			client: client,
 			appConfiguration: appConfigurationProvider,
-			boosterNotificationsService: boosterNotificationsService,
+			cclService: FakeCCLService(),
 			recycleBin: .fake()
 		)
 

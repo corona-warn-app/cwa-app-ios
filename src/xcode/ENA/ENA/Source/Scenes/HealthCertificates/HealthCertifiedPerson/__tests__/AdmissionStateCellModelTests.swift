@@ -21,7 +21,7 @@ class AdmissionStateCellModelTests: XCTestCase {
 				faqAnchor: "admission"
 			)
 		)
-		let cclService = CCLService()
+		let cclService = FakeCCLService()
 
 		let cellModel = AdmissionStateCellModel(healthCertifiedPerson: healthCertifiedPerson, cclService: cclService)
 
@@ -36,7 +36,7 @@ class AdmissionStateCellModelTests: XCTestCase {
 		let healthCertifiedPerson = HealthCertifiedPerson(healthCertificates: [])
 		healthCertifiedPerson.gradientType = .solidGrey
 
-		let cclService = CCLService()
+		let cclService = FakeCCLService()
 		let cellModel = AdmissionStateCellModel(healthCertifiedPerson: healthCertifiedPerson, cclService: cclService)
 
 		XCTAssertEqual(cellModel.gradientType, .solidGrey)
@@ -46,7 +46,7 @@ class AdmissionStateCellModelTests: XCTestCase {
 		let healthCertifiedPerson = HealthCertifiedPerson(healthCertificates: [])
 		healthCertifiedPerson.gradientType = .lightBlue
 
-		let cclService = CCLService()
+		let cclService = FakeCCLService()
 		let cellModel = AdmissionStateCellModel(healthCertifiedPerson: healthCertifiedPerson, cclService: cclService)
 
 		XCTAssertEqual(cellModel.gradientType, .lightBlue)
@@ -56,7 +56,7 @@ class AdmissionStateCellModelTests: XCTestCase {
 		let healthCertifiedPerson = HealthCertifiedPerson(healthCertificates: [])
 		healthCertifiedPerson.gradientType = .mediumBlue
 		
-		let cclService = CCLService()
+		let cclService = FakeCCLService()
 		let cellModel = AdmissionStateCellModel(healthCertifiedPerson: healthCertifiedPerson, cclService: cclService)
 
 		XCTAssertEqual(cellModel.gradientType, .mediumBlue)
@@ -66,7 +66,7 @@ class AdmissionStateCellModelTests: XCTestCase {
 		let healthCertifiedPerson = HealthCertifiedPerson(healthCertificates: [])
 		healthCertifiedPerson.gradientType = .darkBlue
 
-		let cclService = CCLService()
+		let cclService = FakeCCLService()
 		let cellModel = AdmissionStateCellModel(healthCertifiedPerson: healthCertifiedPerson, cclService: cclService)
 
 		XCTAssertEqual(cellModel.gradientType, .darkBlue)

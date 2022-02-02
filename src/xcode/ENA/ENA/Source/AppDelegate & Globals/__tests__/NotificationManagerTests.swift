@@ -158,9 +158,7 @@ class NotificationManagerTests: XCTestCase {
 			dscListProvider: MockDSCListProvider(),
 			client: client,
 			appConfiguration: cachedAppConfig,
-			boosterNotificationsService: BoosterNotificationsService(
-				rulesDownloadService: FakeRulesDownloadService()
-			),
+			cclService: FakeCCLService(),
 			recycleBin: .fake()
 		)
 		
