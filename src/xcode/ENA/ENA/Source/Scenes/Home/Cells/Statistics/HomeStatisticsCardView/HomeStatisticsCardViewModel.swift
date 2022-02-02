@@ -57,7 +57,7 @@ class HomeStatisticsCardViewModel {
 	
 	init(regionStatisticsData: RegionStatisticsData) {
 		title = AppStrings.Statistics.AddCard.localCardTitle
-		titleAccessibilityIdentifier = AccessibilityIdentifiers.LocalStatistics.localStatisticsCard
+		titleAccessibilityIdentifier = AccessibilityIdentifiers.LocalStatistics.localStatisticsCardTitle
 		subtitle = regionStatisticsData.region.localizedName
 		illustrationImage = UIImage(named: "Illu_7-Tage-Lokal-Inzidenz")
 
