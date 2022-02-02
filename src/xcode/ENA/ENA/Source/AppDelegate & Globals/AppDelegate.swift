@@ -379,8 +379,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		#endif
 	}()
 	
-	private lazy var cclService: CCLService = CCLService()
-	
 	private lazy var healthCertificateService: HealthCertificateService = HealthCertificateService(
 		store: store,
 		dccSignatureVerifier: dccSignatureVerificationService,

@@ -12,7 +12,7 @@ class HealthCertifiedPersonCellModel {
 
 	init?(
 		healthCertifiedPerson: HealthCertifiedPerson,
-		cclService: CCLService,
+		cclService: CCLServable,
 		onCovPassCheckInfoButtonTap: @escaping () -> Void
 	) {
 		guard let initialCertificate = Self.initialCertificate(for: healthCertifiedPerson) else {

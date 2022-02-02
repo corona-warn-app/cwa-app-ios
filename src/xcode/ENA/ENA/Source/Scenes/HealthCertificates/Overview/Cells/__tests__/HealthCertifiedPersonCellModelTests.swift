@@ -28,7 +28,7 @@ class HealthCertifiedPersonCellModelTests: XCTestCase {
 			)
 		)
 
-		let cclService = CCLService()
+		let cclService = FakeCCLService()
 
 		let viewModel = try XCTUnwrap(
 			HealthCertifiedPersonCellModel(
@@ -64,7 +64,7 @@ class HealthCertifiedPersonCellModelTests: XCTestCase {
 			validityState: .expiringSoon
 		)
 
-		let cclService = CCLService()
+		let cclService = FakeCCLService()
 		let healthCertifiedPerson = HealthCertifiedPerson(healthCertificates: [healthCertificate])
 		healthCertifiedPerson.dccWalletInfo = .fake(
 			verification: .fake(
@@ -116,7 +116,7 @@ class HealthCertifiedPersonCellModelTests: XCTestCase {
 			validityState: .expired
 		)
 
-		let cclService = CCLService()
+		let cclService = FakeCCLService()
 		let healthCertifiedPerson = HealthCertifiedPerson(healthCertificates: [healthCertificate])
 		healthCertifiedPerson.dccWalletInfo = .fake(
 			verification: .fake(
@@ -161,7 +161,7 @@ class HealthCertifiedPersonCellModelTests: XCTestCase {
 			validityState: .invalid
 		)
 
-		let cclService = CCLService()
+		let cclService = FakeCCLService()
 		let healthCertifiedPerson = HealthCertifiedPerson(healthCertificates: [healthCertificate])
 		// Not setting dccWalletInfo.verification here to check that the fallback certificate is used if it's not set
 
@@ -202,7 +202,7 @@ class HealthCertifiedPersonCellModelTests: XCTestCase {
 			validityState: .blocked
 		)
 
-		let cclService = CCLService()
+		let cclService = FakeCCLService()
 		let healthCertifiedPerson = HealthCertifiedPerson(healthCertificates: [healthCertificate])
 		healthCertifiedPerson.dccWalletInfo = .fake(
 			verification: .fake(
@@ -247,7 +247,7 @@ class HealthCertifiedPersonCellModelTests: XCTestCase {
 			validityState: .valid
 		)
 
-		let cclService = CCLService()
+		let cclService = FakeCCLService()
 		let healthCertifiedPerson = HealthCertifiedPerson(healthCertificates: [healthCertificate])
 		// Not setting dccWalletInfo.verification here to check that the fallback certificate is used if it's not set
 
@@ -283,7 +283,7 @@ class HealthCertifiedPersonCellModelTests: XCTestCase {
 			validityState: .expiringSoon
 		)
 
-		let cclService = CCLService()
+		let cclService = FakeCCLService()
 		let healthCertifiedPerson = HealthCertifiedPerson(healthCertificates: [healthCertificate])
 		// Not setting dccWalletInfo.verification here to check that the fallback certificate is used if it's not set
 
@@ -318,7 +318,7 @@ class HealthCertifiedPersonCellModelTests: XCTestCase {
 			validityState: .expired
 		)
 
-		let cclService = CCLService()
+		let cclService = FakeCCLService()
 		let healthCertifiedPerson = HealthCertifiedPerson(healthCertificates: [healthCertificate])
 		healthCertifiedPerson.dccWalletInfo = .fake(
 			verification: .fake(
@@ -358,7 +358,7 @@ class HealthCertifiedPersonCellModelTests: XCTestCase {
 			validityState: .invalid
 		)
 
-		let cclService = CCLService()
+		let cclService = FakeCCLService()
 		let healthCertifiedPerson = HealthCertifiedPerson(healthCertificates: [healthCertificate])
 		healthCertifiedPerson.dccWalletInfo = .fake(
 			verification: .fake(
@@ -403,7 +403,7 @@ class HealthCertifiedPersonCellModelTests: XCTestCase {
 			validityState: .blocked
 		)
 
-		let cclService = CCLService()
+		let cclService = FakeCCLService()
 		let healthCertifiedPerson = HealthCertifiedPerson(healthCertificates: [healthCertificate])
 		healthCertifiedPerson.dccWalletInfo = .fake(
 			verification: .fake(
@@ -448,7 +448,7 @@ class HealthCertifiedPersonCellModelTests: XCTestCase {
 			validityState: .valid
 		)
 
-		let cclService = CCLService()
+		let cclService = FakeCCLService()
 		let healthCertifiedPerson = HealthCertifiedPerson(healthCertificates: [healthCertificate])
 		healthCertifiedPerson.dccWalletInfo = .fake(
 			verification: .fake(
@@ -490,7 +490,7 @@ class HealthCertifiedPersonCellModelTests: XCTestCase {
 			validityState: .expiringSoon
 		)
 
-		let cclService = CCLService()
+		let cclService = FakeCCLService()
 		let healthCertifiedPerson = HealthCertifiedPerson(healthCertificates: [healthCertificate])
 		healthCertifiedPerson.dccWalletInfo = .fake(
 			verification: .fake(
@@ -542,7 +542,7 @@ class HealthCertifiedPersonCellModelTests: XCTestCase {
 			validityState: .expired
 		)
 
-		let cclService = CCLService()
+		let cclService = FakeCCLService()
 		let healthCertifiedPerson = HealthCertifiedPerson(healthCertificates: [healthCertificate])
 		// Not setting dccWalletInfo.verification here to check that the fallback certificate is used if it's not set
 
@@ -583,7 +583,7 @@ class HealthCertifiedPersonCellModelTests: XCTestCase {
 			validityState: .invalid
 		)
 
-		let cclService = CCLService()
+		let cclService = FakeCCLService()
 		let healthCertifiedPerson = HealthCertifiedPerson(healthCertificates: [healthCertificate])
 		healthCertifiedPerson.dccWalletInfo = .fake(
 			verification: .fake(
@@ -628,7 +628,7 @@ class HealthCertifiedPersonCellModelTests: XCTestCase {
 			validityState: .blocked
 		)
 
-		let cclService = CCLService()
+		let cclService = FakeCCLService()
 		let healthCertifiedPerson = HealthCertifiedPerson(healthCertificates: [healthCertificate])
 		// Not setting dccWalletInfo.verification here to check that the fallback certificate is used if it's not set
 
@@ -711,8 +711,8 @@ class HealthCertifiedPersonCellModelTests: XCTestCase {
 			isNewBoosterRule: true
 		)
 
-		let cclService = CCLService()
-		
+		let cclService = FakeCCLService()
+
 		let viewModel = try XCTUnwrap(
 			HealthCertifiedPersonCellModel(
 				healthCertifiedPerson: healthCertifiedPerson,
@@ -737,8 +737,8 @@ class HealthCertifiedPersonCellModelTests: XCTestCase {
 			isNewBoosterRule: true
 		)
 
-		let cclService = CCLService()
-		
+		let cclService = FakeCCLService()
+
 		let viewModel = try XCTUnwrap(
 			HealthCertifiedPersonCellModel(
 				healthCertifiedPerson: healthCertifiedPerson,
@@ -759,8 +759,8 @@ class HealthCertifiedPersonCellModelTests: XCTestCase {
 			isNewBoosterRule: false
 		)
 
-		let cclService = CCLService()
-		
+		let cclService = FakeCCLService()
+
 		let viewModel = try XCTUnwrap(
 			HealthCertifiedPersonCellModel(
 				healthCertifiedPerson: healthCertifiedPerson,
@@ -782,8 +782,8 @@ class HealthCertifiedPersonCellModelTests: XCTestCase {
 			verification: .fake(certificates: [])
 		)
 
-		let cclService = CCLService()
-		
+		let cclService = FakeCCLService()
+
 		let cellModel = try XCTUnwrap(
 			HealthCertifiedPersonCellModel(
 				healthCertifiedPerson: healthCertifiedPerson,
@@ -819,9 +819,12 @@ class HealthCertifiedPersonCellModelTests: XCTestCase {
 			)
 		)
 
+		let cclService = FakeCCLService()
+
 		let cellModel = try XCTUnwrap(
 			HealthCertifiedPersonCellModel(
 				healthCertifiedPerson: healthCertifiedPerson,
+				cclService: cclService,
 				onCovPassCheckInfoButtonTap: { }
 			)
 		)
@@ -861,8 +864,8 @@ class HealthCertifiedPersonCellModelTests: XCTestCase {
 			)
 		)
 
-		let cclService = CCLService()
-		
+		let cclService = FakeCCLService()
+
 		let cellModel = try XCTUnwrap(
 			HealthCertifiedPersonCellModel(
 				healthCertifiedPerson: healthCertifiedPerson,
@@ -889,8 +892,8 @@ class HealthCertifiedPersonCellModelTests: XCTestCase {
 			verification: .fake(certificates: [])
 		)
 
-		let cclService = CCLService()
-		
+		let cclService = FakeCCLService()
+
 		let cellModel = try XCTUnwrap(
 			HealthCertifiedPersonCellModel(
 				healthCertifiedPerson: healthCertifiedPerson,
@@ -914,9 +917,12 @@ class HealthCertifiedPersonCellModelTests: XCTestCase {
 			verification: .fake(certificates: [])
 		)
 
+		let cclService = FakeCCLService()
+
 		let cellModel = try XCTUnwrap(
 			HealthCertifiedPersonCellModel(
 				healthCertifiedPerson: healthCertifiedPerson,
+				cclService: cclService,
 				onCovPassCheckInfoButtonTap: { }
 			)
 		)
@@ -933,8 +939,8 @@ class HealthCertifiedPersonCellModelTests: XCTestCase {
 		)
 		healthCertifiedPerson.gradientType = .solidGrey
 
-		let cclService = CCLService()
-	
+		let cclService = FakeCCLService()
+
 		let cellModel = try XCTUnwrap(
 			HealthCertifiedPersonCellModel(
 				healthCertifiedPerson: healthCertifiedPerson,
@@ -952,8 +958,8 @@ class HealthCertifiedPersonCellModelTests: XCTestCase {
 		)
 		healthCertifiedPerson.gradientType = .lightBlue
 
-		let cclService = CCLService()
-		
+		let cclService = FakeCCLService()
+
 		let cellModel = try XCTUnwrap(
 			HealthCertifiedPersonCellModel(
 				healthCertifiedPerson: healthCertifiedPerson,
@@ -971,8 +977,8 @@ class HealthCertifiedPersonCellModelTests: XCTestCase {
 		)
 		healthCertifiedPerson.gradientType = .mediumBlue
 
-		let cclService = CCLService()
-		
+		let cclService = FakeCCLService()
+
 		let cellModel = try XCTUnwrap(
 			HealthCertifiedPersonCellModel(
 				healthCertifiedPerson: healthCertifiedPerson,
@@ -990,8 +996,8 @@ class HealthCertifiedPersonCellModelTests: XCTestCase {
 		)
 		healthCertifiedPerson.gradientType = .darkBlue
 
-		let cclService = CCLService()
-		
+		let cclService = FakeCCLService()
+
 		let cellModel = try XCTUnwrap(
 			HealthCertifiedPersonCellModel(
 				healthCertifiedPerson: healthCertifiedPerson,

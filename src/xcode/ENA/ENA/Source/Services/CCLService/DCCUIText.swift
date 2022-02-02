@@ -43,7 +43,7 @@ public struct DCCUIText: Codable, Equatable {
 	static let outputDateFormatter: DateFormatter = .outputDateFormatter()
 	static let outputDateTimeFormatter: DateFormatter = .outputDateTimeFormatter()
 
-	func localized(languageCode: String? = Locale.current.languageCode, cclService: CCLService) -> String {
+	func localized(languageCode: String? = Locale.current.languageCode, cclService: CCLServable) -> String {
 		switch type {
 		case UITextType.string:
 			return localizedSingleFormattedText(languageCode: languageCode)
@@ -120,7 +120,7 @@ public struct DCCUIText: Codable, Equatable {
 		return ""
 	}
 
-	private func localizedSystemTimeDependentFormattedText(languageCode: String?, service: CCLService) -> String {
+	private func localizedSystemTimeDependentFormattedText(languageCode: String?, service: CCLServable) -> String {
 		guard let parameters = parameters.value as? [String: AnyDecodable], let functionName = functionName else {
 			return ""
 		}
