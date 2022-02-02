@@ -13,16 +13,16 @@ class HealthCertifiedPersonViewModelTests: XCTestCase {
 		// GIVEN
 		let client = ClientMock()
 		let store = MockTestStore()
+		let cclService = FakeCCLService()
 		let service = HealthCertificateService(
 			store: store,
 			dccSignatureVerifier: DCCSignatureVerifyingStub(),
 			dscListProvider: MockDSCListProvider(),
 			client: client,
 			appConfiguration: CachedAppConfigurationMock(),
-			cclService: FakeCCLService(),
+			cclService: cclService,
 			recycleBin: .fake()
 		)
-		let cclService = CCLService()
 
 		let viewModel = HealthCertifiedPersonViewModel(
 			cclService: cclService,
@@ -66,16 +66,16 @@ class HealthCertifiedPersonViewModelTests: XCTestCase {
 		// GIVEN
 		let store = MockTestStore()
 		let client = ClientMock()
+		let cclService = FakeCCLService()
 		let service = HealthCertificateService(
 			store: store,
 			dccSignatureVerifier: DCCSignatureVerifyingStub(),
 			dscListProvider: MockDSCListProvider(),
 			client: client,
 			appConfiguration: CachedAppConfigurationMock(),
-			cclService: FakeCCLService(),
+			cclService: cclService,
 			recycleBin: .fake()
 		)
-		let cclService = CCLService()
 
 		let viewModel = HealthCertifiedPersonViewModel(
 			cclService: cclService, healthCertificateService: service,
@@ -107,16 +107,16 @@ class HealthCertifiedPersonViewModelTests: XCTestCase {
 		// GIVEN
 		let client = ClientMock()
 		let store = MockTestStore()
+		let cclService = FakeCCLService()
 		let service = HealthCertificateService(
 			store: store,
 			dccSignatureVerifier: DCCSignatureVerifyingStub(),
 			dscListProvider: MockDSCListProvider(),
 			client: client,
 			appConfiguration: CachedAppConfigurationMock(),
-			cclService: FakeCCLService(),
+			cclService: cclService,
 			recycleBin: .fake()
 		)
-		let cclService = CCLService()
 
 		let healthCertificate = try vaccinationCertificate(daysOffset: -24, doseNumber: 1, identifier: "01DE/84503/1119349007/DXSGWLWL40SU8ZFKIYIBK39A3#S", dateOfBirth: "1988-06-07")
 
@@ -147,17 +147,17 @@ class HealthCertifiedPersonViewModelTests: XCTestCase {
 
 	func testGIVEN_HealthCertifiedPersonViewModel_WHEN_BoosterNotificationIsSetToVisible_THEN_CellIsVisible() {
 		// GIVEN
+		let cclService = FakeCCLService()
 		let service = HealthCertificateService(
 			store: MockTestStore(),
 			dccSignatureVerifier: DCCSignatureVerifyingStub(),
 			dscListProvider: MockDSCListProvider(),
 			client: ClientMock(),
 			appConfiguration: CachedAppConfigurationMock(),
-			cclService: FakeCCLService(),
+			cclService: cclService,
 			recycleBin: .fake()
 		)
-		let cclService = CCLService()
-		
+
 		let viewModel = HealthCertifiedPersonViewModel(
 			cclService: cclService,
 			healthCertificateService: service,
@@ -180,16 +180,16 @@ class HealthCertifiedPersonViewModelTests: XCTestCase {
 
 	func testGIVEN_HealthCertifiedPersonViewModel_WHEN_BoosterNotificationIsSetToNotVisible_THEN_CellIsNotVisible() {
 		// GIVEN
+		let cclService = FakeCCLService()
 		let service = HealthCertificateService(
 			store: MockTestStore(),
 			dccSignatureVerifier: DCCSignatureVerifyingStub(),
 			dscListProvider: MockDSCListProvider(),
 			client: ClientMock(),
 			appConfiguration: CachedAppConfigurationMock(),
-			cclService: FakeCCLService(),
+			cclService: cclService,
 			recycleBin: .fake()
 		)
-		let cclService = CCLService()
 
 		let viewModel = HealthCertifiedPersonViewModel(
 			cclService: cclService,
@@ -213,17 +213,17 @@ class HealthCertifiedPersonViewModelTests: XCTestCase {
 
 	func testGIVEN_HealthCertifiedPersonViewModel_WHEN_AdmissionStateIsSetToVisible_THEN_CellIsVisible() {
 		// GIVEN
+		let cclService = FakeCCLService()
 		let service = HealthCertificateService(
 			store: MockTestStore(),
 			dccSignatureVerifier: DCCSignatureVerifyingStub(),
 			dscListProvider: MockDSCListProvider(),
 			client: ClientMock(),
 			appConfiguration: CachedAppConfigurationMock(),
-			cclService: FakeCCLService(),
+			cclService: cclService,
 			recycleBin: .fake()
 		)
-		let cclService = CCLService()
-		
+
 		let viewModel = HealthCertifiedPersonViewModel(
 			cclService: cclService,
 			healthCertificateService: service,
@@ -246,16 +246,16 @@ class HealthCertifiedPersonViewModelTests: XCTestCase {
 
 	func testGIVEN_HealthCertifiedPersonViewModel_WHEN_AdmissionStateIsSetToNotVisible_THEN_CellIsNotVisible() {
 		// GIVEN
+		let cclService = FakeCCLService()
 		let service = HealthCertificateService(
 			store: MockTestStore(),
 			dccSignatureVerifier: DCCSignatureVerifyingStub(),
 			dscListProvider: MockDSCListProvider(),
 			client: ClientMock(),
 			appConfiguration: CachedAppConfigurationMock(),
-			cclService: FakeCCLService(),
+			cclService: cclService,
 			recycleBin: .fake()
 		)
-		let cclService = CCLService()
 
 		let viewModel = HealthCertifiedPersonViewModel(
 			cclService: cclService,
@@ -279,16 +279,16 @@ class HealthCertifiedPersonViewModelTests: XCTestCase {
 
 	func testGIVEN_HealthCertifiedPersonViewModel_WHEN_VaccinationStateIsSetToVisible_THEN_CellIsVisible() {
 		// GIVEN
+		let cclService = FakeCCLService()
 		let service = HealthCertificateService(
 			store: MockTestStore(),
 			dccSignatureVerifier: DCCSignatureVerifyingStub(),
 			dscListProvider: MockDSCListProvider(),
 			client: ClientMock(),
 			appConfiguration: CachedAppConfigurationMock(),
-			cclService: FakeCCLService(),
+			cclService: cclService,
 			recycleBin: .fake()
 		)
-		let cclService = CCLService()
 
 		let viewModel = HealthCertifiedPersonViewModel(
 			cclService: cclService,
@@ -312,17 +312,17 @@ class HealthCertifiedPersonViewModelTests: XCTestCase {
 
 	func testGIVEN_HealthCertifiedPersonViewModel_WHEN_VaccinationStateIsSetToNotVisible_THEN_CellIsNotVisible() {
 		// GIVEN
+		let cclService = FakeCCLService()
 		let service = HealthCertificateService(
 			store: MockTestStore(),
 			dccSignatureVerifier: DCCSignatureVerifyingStub(),
 			dscListProvider: MockDSCListProvider(),
 			client: ClientMock(),
 			appConfiguration: CachedAppConfigurationMock(),
-			cclService: FakeCCLService(),
+			cclService: cclService,
 			recycleBin: .fake()
 		)
-		let cclService = CCLService()
-		
+
 		let viewModel = HealthCertifiedPersonViewModel(
 			cclService: cclService,
 			healthCertificateService: service,
@@ -346,16 +346,16 @@ class HealthCertifiedPersonViewModelTests: XCTestCase {
 	func testMarkBoosterRuleAsSeen() throws {
 		let client = ClientMock()
 		let store = MockTestStore()
+		let cclService = FakeCCLService()
 		let service = HealthCertificateService(
 			store: store,
 			dccSignatureVerifier: DCCSignatureVerifyingStub(),
 			dscListProvider: MockDSCListProvider(),
 			client: client,
 			appConfiguration: CachedAppConfigurationMock(),
-			cclService: FakeCCLService(),
+			cclService: cclService,
 			recycleBin: .fake()
 		)
-		let cclService = CCLService()
 
 		let healthCertificate = try vaccinationCertificate()
 
@@ -388,16 +388,16 @@ class HealthCertifiedPersonViewModelTests: XCTestCase {
 	func testBoosterNotificationCellTap() throws {
 		let client = ClientMock()
 		let store = MockTestStore()
+		let cclService = FakeCCLService()
 		let service = HealthCertificateService(
 			store: store,
 			dccSignatureVerifier: DCCSignatureVerifyingStub(),
 			dscListProvider: MockDSCListProvider(),
 			client: client,
 			appConfiguration: CachedAppConfigurationMock(),
-			cclService: FakeCCLService(),
+			cclService: cclService,
 			recycleBin: .fake()
 		)
-		let cclService = CCLService()
 
 		let healthCertificate = try vaccinationCertificate()
 

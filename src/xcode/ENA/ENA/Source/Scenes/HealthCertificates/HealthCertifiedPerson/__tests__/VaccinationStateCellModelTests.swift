@@ -21,7 +21,7 @@ class VaccinationStateCellModelTests: XCTestCase {
 			)
 		)
 
-		let cclService = CCLService()
+		let cclService = FakeCCLService()
 		
 		let cellModel = VaccinationStateCellModel(healthCertifiedPerson: healthCertifiedPerson, cclService: cclService)
 
