@@ -50,9 +50,7 @@ class ExposureSubmissionCoordinatorTests: CWATestCase {
 				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration,
-				boosterNotificationsService: BoosterNotificationsService(
-					rulesDownloadService: FakeRulesDownloadService()
-				),
+				cclService: FakeCCLService(),
 				recycleBin: recycleBin
 			),
 			recycleBin: recycleBin,
@@ -65,9 +63,7 @@ class ExposureSubmissionCoordinatorTests: CWATestCase {
 			dscListProvider: MockDSCListProvider(),
 			client: client,
 			appConfiguration: appConfiguration,
-			boosterNotificationsService: BoosterNotificationsService(
-				rulesDownloadService: FakeRulesDownloadService()
-			),
+			cclService: FakeCCLService(),
 			recycleBin: recycleBin
 		)
 		

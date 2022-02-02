@@ -21,9 +21,7 @@ class HealthCertificateServiceTests: CWATestCase {
 			dscListProvider: MockDSCListProvider(),
 			client: client,
 			appConfiguration: CachedAppConfigurationMock(),
-			boosterNotificationsService: BoosterNotificationsService(
-				rulesDownloadService: FakeRulesDownloadService()
-			),
+			cclService: FakeCCLService(),
 			recycleBin: .fake()
 		)
 
@@ -104,9 +102,7 @@ class HealthCertificateServiceTests: CWATestCase {
 			dscListProvider: MockDSCListProvider(),
 			client: client,
 			appConfiguration: CachedAppConfigurationMock(),
-			boosterNotificationsService: BoosterNotificationsService(
-				rulesDownloadService: FakeRulesDownloadService()
-			),
+			cclService: FakeCCLService(),
 			recycleBin: .fake()
 		)
 
@@ -134,9 +130,7 @@ class HealthCertificateServiceTests: CWATestCase {
 			dscListProvider: MockDSCListProvider(),
 			client: client,
 			appConfiguration: CachedAppConfigurationMock(),
-			boosterNotificationsService: BoosterNotificationsService(
-				rulesDownloadService: FakeRulesDownloadService()
-			),
+			cclService: FakeCCLService(),
 			recycleBin: .fake()
 		)
 
@@ -191,9 +185,7 @@ class HealthCertificateServiceTests: CWATestCase {
 			dscListProvider: MockDSCListProvider(),
 			client: client,
 			appConfiguration: appConfigProvider,
-			boosterNotificationsService: BoosterNotificationsService(
-				rulesDownloadService: FakeRulesDownloadService()
-			),
+			cclService: FakeCCLService(),
 			recycleBin: .fake()
 		)
 
@@ -516,9 +508,7 @@ class HealthCertificateServiceTests: CWATestCase {
 			dscListProvider: MockDSCListProvider(),
 			client: client,
 			appConfiguration: CachedAppConfigurationMock(),
-			boosterNotificationsService: BoosterNotificationsService(
-				rulesDownloadService: FakeRulesDownloadService()
-			),
+			cclService: FakeCCLService(),
 			recycleBin: .fake()
 		)
 
@@ -620,9 +610,7 @@ class HealthCertificateServiceTests: CWATestCase {
 			dscListProvider: MockDSCListProvider(),
 			client: client,
 			appConfiguration: CachedAppConfigurationMock(),
-			boosterNotificationsService: BoosterNotificationsService(
-				rulesDownloadService: FakeRulesDownloadService()
-			),
+			cclService: FakeCCLService(),
 			recycleBin: recycleBin
 		)
 
@@ -649,8 +637,8 @@ class HealthCertificateServiceTests: CWATestCase {
 		let registrationResult = service.registerHealthCertificate(base45: firstTestCertificateBase45)
 
 		guard case let .success(certificateResult) = registrationResult else {
-				  XCTFail("certificateResult expected.")
-				  return
+			XCTFail("certificateResult expected.")
+			return
 		}
 		XCTAssertEqual(certificateResult.registrationDetail, .restoredFromBin)
 	}
@@ -680,9 +668,9 @@ class HealthCertificateServiceTests: CWATestCase {
 
 		let healthCertifiedPerson = HealthCertifiedPerson(
 			healthCertificates: [
-				   healthCertificate
-			   ]
-		   )
+				healthCertificate
+			]
+		)
 
 		let store = MockTestStore()
 		store.healthCertifiedPersons = [healthCertifiedPerson]
@@ -699,9 +687,7 @@ class HealthCertificateServiceTests: CWATestCase {
 			dscListProvider: MockDSCListProvider(),
 			client: client,
 			appConfiguration: cachedAppConfig,
-			boosterNotificationsService: BoosterNotificationsService(
-				rulesDownloadService: FakeRulesDownloadService()
-			),
+			cclService: FakeCCLService(),
 			recycleBin: .fake()
 		)
 
@@ -723,9 +709,9 @@ class HealthCertificateServiceTests: CWATestCase {
 
 		let healthCertifiedPerson = HealthCertifiedPerson(
 			healthCertificates: [
-				   healthCertificate
-			   ]
-		   )
+				healthCertificate
+			]
+		)
 
 		let store = MockTestStore()
 		store.healthCertifiedPersons = [healthCertifiedPerson]
@@ -747,9 +733,7 @@ class HealthCertificateServiceTests: CWATestCase {
 			dscListProvider: MockDSCListProvider(),
 			client: client,
 			appConfiguration: CachedAppConfigurationMock(),
-			boosterNotificationsService: BoosterNotificationsService(
-				rulesDownloadService: FakeRulesDownloadService()
-			),
+			cclService: FakeCCLService(),
 			recycleBin: .fake()
 		)
 
@@ -774,9 +758,9 @@ class HealthCertificateServiceTests: CWATestCase {
 
 		let healthCertifiedPerson = HealthCertifiedPerson(
 			healthCertificates: [
-				   healthCertificate
-			   ]
-		   )
+				healthCertificate
+			]
+		)
 
 		let store = MockTestStore()
 		store.healthCertifiedPersons = [healthCertifiedPerson]
@@ -799,9 +783,7 @@ class HealthCertificateServiceTests: CWATestCase {
 			dscListProvider: MockDSCListProvider(),
 			client: client,
 			appConfiguration: CachedAppConfigurationMock(),
-			boosterNotificationsService: BoosterNotificationsService(
-				rulesDownloadService: FakeRulesDownloadService()
-			),
+			cclService: FakeCCLService(),
 			recycleBin: .fake()
 		)
 
@@ -826,9 +808,9 @@ class HealthCertificateServiceTests: CWATestCase {
 
 		let healthCertifiedPerson = HealthCertifiedPerson(
 			healthCertificates: [
-				   healthCertificate
-			   ]
-		   )
+				healthCertificate
+			]
+		)
 
 		let store = MockTestStore()
 		store.healthCertifiedPersons = [healthCertifiedPerson]
@@ -851,9 +833,7 @@ class HealthCertificateServiceTests: CWATestCase {
 			dscListProvider: MockDSCListProvider(),
 			client: client,
 			appConfiguration: CachedAppConfigurationMock(),
-			boosterNotificationsService: BoosterNotificationsService(
-				rulesDownloadService: FakeRulesDownloadService()
-			),
+			cclService: FakeCCLService(),
 			recycleBin: .fake()
 		)
 
@@ -885,9 +865,9 @@ class HealthCertificateServiceTests: CWATestCase {
 
 		let healthCertifiedPerson = HealthCertifiedPerson(
 			healthCertificates: [
-				   healthCertificate
-			   ]
-		   )
+				healthCertificate
+			]
+		)
 
 		let store = MockTestStore()
 		store.healthCertifiedPersons = [healthCertifiedPerson]
@@ -916,9 +896,7 @@ class HealthCertificateServiceTests: CWATestCase {
 			dscListProvider: MockDSCListProvider(),
 			client: client,
 			appConfiguration: cachedAppConfig,
-			boosterNotificationsService: BoosterNotificationsService(
-				rulesDownloadService: FakeRulesDownloadService()
-			),
+			cclService: FakeCCLService(),
 			recycleBin: .fake()
 		)
 
@@ -945,9 +923,9 @@ class HealthCertificateServiceTests: CWATestCase {
 
 		let healthCertifiedPerson = HealthCertifiedPerson(
 			healthCertificates: [
-				   healthCertificate
-			   ]
-		   )
+				healthCertificate
+			]
+		)
 
 		let store = MockTestStore()
 		store.healthCertifiedPersons = [healthCertifiedPerson]
@@ -975,9 +953,7 @@ class HealthCertificateServiceTests: CWATestCase {
 			dscListProvider: MockDSCListProvider(),
 			client: client,
 			appConfiguration: cachedAppConfig,
-			boosterNotificationsService: BoosterNotificationsService(
-				rulesDownloadService: FakeRulesDownloadService()
-			),
+			cclService: FakeCCLService(),
 			recycleBin: .fake()
 		)
 
@@ -1030,9 +1006,7 @@ class HealthCertificateServiceTests: CWATestCase {
 			client: client,
 			appConfiguration: appConfig,
 			digitalCovidCertificateAccess: digitalCovidCertificateAccess,
-			boosterNotificationsService: BoosterNotificationsService(
-				rulesDownloadService: FakeRulesDownloadService()
-			),
+			cclService: FakeCCLService(),
 			recycleBin: .fake()
 		)
 
@@ -1139,9 +1113,7 @@ class HealthCertificateServiceTests: CWATestCase {
 			client: client,
 			appConfiguration: appConfig,
 			digitalCovidCertificateAccess: digitalCovidCertificateAccess,
-			boosterNotificationsService: BoosterNotificationsService(
-				rulesDownloadService: FakeRulesDownloadService()
-			),
+			cclService: FakeCCLService(),
 			recycleBin: .fake()
 		)
 
@@ -1229,9 +1201,7 @@ class HealthCertificateServiceTests: CWATestCase {
 			client: client,
 			appConfiguration: appConfig,
 			digitalCovidCertificateAccess: digitalCovidCertificateAccess,
-			boosterNotificationsService: BoosterNotificationsService(
-				rulesDownloadService: FakeRulesDownloadService()
-			),
+			cclService: FakeCCLService(),
 			recycleBin: .fake()
 		)
 
@@ -1321,9 +1291,7 @@ class HealthCertificateServiceTests: CWATestCase {
 			client: client,
 			appConfiguration: appConfig,
 			digitalCovidCertificateAccess: digitalCovidCertificateAccess,
-			boosterNotificationsService: BoosterNotificationsService(
-				rulesDownloadService: FakeRulesDownloadService()
-			),
+			cclService: FakeCCLService(),
 			recycleBin: .fake()
 		)
 
@@ -1398,9 +1366,7 @@ class HealthCertificateServiceTests: CWATestCase {
 			client: client,
 			appConfiguration: CachedAppConfigurationMock(),
 			digitalCovidCertificateAccess: MockDigitalCovidCertificateAccess(),
-			boosterNotificationsService: BoosterNotificationsService(
-				rulesDownloadService: FakeRulesDownloadService()
-			),
+			cclService: FakeCCLService(),
 			recycleBin: .fake()
 		)
 
@@ -1415,8 +1381,8 @@ class HealthCertificateServiceTests: CWATestCase {
 				case .failure(let error):
 					if case .publicKeyRegistrationFailed(let publicKeyError) = error,
 					   case .noNetworkConnection = publicKeyError {} else {
-						XCTFail("No network error on public key registration expected")
-					}
+						   XCTFail("No network error on public key registration expected")
+					   }
 				}
 				completionExpectation.fulfill()
 			}
@@ -1481,9 +1447,7 @@ class HealthCertificateServiceTests: CWATestCase {
 			client: client,
 			appConfiguration: appConfig,
 			digitalCovidCertificateAccess: digitalCovidCertificateAccess,
-			boosterNotificationsService: BoosterNotificationsService(
-				rulesDownloadService: restServiceFake
-			),
+			cclService: FakeCCLService(),
 			recycleBin: .fake()
 		)
 
@@ -1556,9 +1520,7 @@ class HealthCertificateServiceTests: CWATestCase {
 			dscListProvider: MockDSCListProvider(),
 			client: client,
 			appConfiguration: appConfig,
-			boosterNotificationsService: BoosterNotificationsService(
-				rulesDownloadService: FakeRulesDownloadService()
-			),
+			cclService: FakeCCLService(),
 			recycleBin: .fake()
 		)
 
@@ -1573,8 +1535,8 @@ class HealthCertificateServiceTests: CWATestCase {
 				case .failure(let error):
 					if case .certificateRequestFailed(let certificateRequestError) = error,
 					   case .dccPending = certificateRequestError {} else {
-						XCTFail("DCC pending error on certificate request expected")
-					}
+						   XCTFail("DCC pending error on certificate request expected")
+					   }
 				}
 				completionExpectation.fulfill()
 			}
@@ -1616,9 +1578,7 @@ class HealthCertificateServiceTests: CWATestCase {
 			dscListProvider: MockDSCListProvider(),
 			client: client,
 			appConfiguration: CachedAppConfigurationMock(),
-			boosterNotificationsService: BoosterNotificationsService(
-				rulesDownloadService: FakeRulesDownloadService()
-			),
+			cclService: FakeCCLService(),
 			recycleBin: .fake()
 		)
 
@@ -1675,9 +1635,7 @@ class HealthCertificateServiceTests: CWATestCase {
 			dscListProvider: MockDSCListProvider(),
 			client: client,
 			appConfiguration: CachedAppConfigurationMock(),
-			boosterNotificationsService: BoosterNotificationsService(
-				rulesDownloadService: FakeRulesDownloadService()
-			),
+			cclService: FakeCCLService(),
 			recycleBin: .fake()
 		)
 
@@ -1738,9 +1696,7 @@ class HealthCertificateServiceTests: CWATestCase {
 			client: client,
 			appConfiguration: CachedAppConfigurationMock(),
 			digitalCovidCertificateAccess: digitalCovidCertificateAccess,
-			boosterNotificationsService: BoosterNotificationsService(
-				rulesDownloadService: FakeRulesDownloadService()
-			),
+			cclService: FakeCCLService(),
 			recycleBin: .fake()
 		)
 
@@ -1755,8 +1711,8 @@ class HealthCertificateServiceTests: CWATestCase {
 				case .failure(let error):
 					if case .assemblyFailed(let assemblyError) = error,
 					   case .AES_DECRYPTION_FAILED = assemblyError {} else {
-						XCTFail("Assembly failed with AES decryption failed error expected")
-					}
+						   XCTFail("Assembly failed with AES decryption failed error expected")
+					   }
 				}
 				completionExpectation.fulfill()
 			}
@@ -1777,9 +1733,7 @@ class HealthCertificateServiceTests: CWATestCase {
 			client: ClientMock(),
 			appConfiguration: CachedAppConfigurationMock(),
 			digitalCovidCertificateAccess: MockDigitalCovidCertificateAccess(),
-			boosterNotificationsService: BoosterNotificationsService(
-				rulesDownloadService: FakeRulesDownloadService()
-			),
+			cclService: FakeCCLService(),
 			recycleBin: .fake()
 		)
 
@@ -1793,10 +1747,10 @@ class HealthCertificateServiceTests: CWATestCase {
 		) { result in
 			guard case let .failure(error) = result,
 				  case .dgcNotSupportedByLab = error else {
-				XCTFail("Error dgcNotSupportedByLab was expected.")
-				completionExpectation.fulfill()
-				return
-			}
+					  XCTFail("Error dgcNotSupportedByLab was expected.")
+					  completionExpectation.fulfill()
+					  return
+				  }
 			completionExpectation.fulfill()
 		}
 
@@ -1841,9 +1795,7 @@ class HealthCertificateServiceTests: CWATestCase {
 			client: client,
 			appConfiguration: appConfig,
 			digitalCovidCertificateAccess: digitalCovidCertificateAccess,
-			boosterNotificationsService: BoosterNotificationsService(
-				rulesDownloadService: FakeRulesDownloadService()
-			),
+			cclService: FakeCCLService(),
 			recycleBin: .fake()
 		)
 
@@ -1931,9 +1883,7 @@ class HealthCertificateServiceTests: CWATestCase {
 			client: client,
 			appConfiguration: appConfig,
 			digitalCovidCertificateAccess: digitalCovidCertificateAccess,
-			boosterNotificationsService: BoosterNotificationsService(
-				rulesDownloadService: FakeRulesDownloadService()
-			),
+			cclService: FakeCCLService(),
 			recycleBin: .fake()
 		)
 
@@ -1980,9 +1930,7 @@ class HealthCertificateServiceTests: CWATestCase {
 			appConfiguration: CachedAppConfigurationMock(),
 			digitalCovidCertificateAccess: MockDigitalCovidCertificateAccess(),
 			notificationCenter: notificationCenter,
-			boosterNotificationsService: BoosterNotificationsService(
-				rulesDownloadService: FakeRulesDownloadService()
-			),
+			cclService: FakeCCLService(),
 			recycleBin: .fake()
 		)
 		
@@ -2052,9 +2000,9 @@ class HealthCertificateServiceTests: CWATestCase {
 
 		let healthCertifiedPerson = HealthCertifiedPerson(
 			healthCertificates: [
-				   healthCertificate
-			   ]
-		   )
+				healthCertificate
+			]
+		)
 		store.healthCertifiedPersons = [healthCertifiedPerson]
 
 		let expectation = expectation(description: "notificationRequests changed")
@@ -2075,9 +2023,7 @@ class HealthCertificateServiceTests: CWATestCase {
 			appConfiguration: CachedAppConfigurationMock(),
 			digitalCovidCertificateAccess: MockDigitalCovidCertificateAccess(),
 			notificationCenter: notificationCenter,
-			boosterNotificationsService: BoosterNotificationsService(
-				rulesDownloadService: FakeRulesDownloadService()
-			),
+			cclService: FakeCCLService(),
 			recycleBin: .fake()
 		)
 
@@ -2098,9 +2044,7 @@ class HealthCertificateServiceTests: CWATestCase {
 			dscListProvider: MockDSCListProvider(),
 			client: client,
 			appConfiguration: CachedAppConfigurationMock(),
-			boosterNotificationsService: BoosterNotificationsService(
-				rulesDownloadService: FakeRulesDownloadService()
-			),
+			cclService: FakeCCLService(),
 			recycleBin: .fake()
 		)
 
@@ -2165,7 +2109,7 @@ class HealthCertificateServiceTests: CWATestCase {
 		XCTAssertEqual(store.healthCertifiedPersons.first?.unseenNewsCount, 0)
 		XCTAssertEqual(service.unseenNewsCount.value, 0)
 	}
-
+/*
 	func testBoosterRuleIsResetOnNoPassedResultError() throws {
 		let store = MockTestStore()
 		store.healthCertifiedPersons = [
@@ -2183,7 +2127,7 @@ class HealthCertificateServiceTests: CWATestCase {
 			dscListProvider: MockDSCListProvider(),
 			client: ClientMock(),
 			appConfiguration: CachedAppConfigurationMock(),
-			boosterNotificationsService: boosterNotificationsService,
+			cclService: FakeCCLService(),
 			recycleBin: .fake()
 		)
 
@@ -2214,7 +2158,7 @@ class HealthCertificateServiceTests: CWATestCase {
 			dscListProvider: MockDSCListProvider(),
 			client: ClientMock(),
 			appConfiguration: CachedAppConfigurationMock(),
-			boosterNotificationsService: boosterNotificationsService,
+			cclService: FakeCCLService(),
 			recycleBin: .fake()
 		)
 
@@ -2245,7 +2189,8 @@ class HealthCertificateServiceTests: CWATestCase {
 			dscListProvider: MockDSCListProvider(),
 			client: ClientMock(),
 			appConfiguration: CachedAppConfigurationMock(),
-			boosterNotificationsService: boosterNotificationsService,
+			cclService: FakeCCLService(),
+
 			recycleBin: .fake()
 		)
 
@@ -2276,7 +2221,8 @@ class HealthCertificateServiceTests: CWATestCase {
 			dscListProvider: MockDSCListProvider(),
 			client: ClientMock(),
 			appConfiguration: CachedAppConfigurationMock(),
-			boosterNotificationsService: boosterNotificationsService,
+			cclService: FakeCCLService(),
+
 			recycleBin: .fake()
 		)
 
@@ -2289,5 +2235,5 @@ class HealthCertificateServiceTests: CWATestCase {
 			XCTFail("Registration should succeed, failed with error: \(error.localizedDescription)")
 		}
 	}
-
+*/
 }

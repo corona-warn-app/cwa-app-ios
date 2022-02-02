@@ -34,19 +34,23 @@ class AdmissionStateTableViewCell: UITableViewCell, UITextViewDelegate, ReuseIde
 
 	func configure(with cellModel: AdmissionStateCellModel) {
 		titleLabel.text = cellModel.title
+		titleLabel.isHidden = (cellModel.title ?? "").isEmpty
 		titleLabel.accessibilityIdentifier = AccessibilityIdentifiers.HealthCertificate.AdmissionState.title
 		
 		subtitleLabel.text = cellModel.subtitle
+		subtitleLabel.isHidden = (cellModel.subtitle ?? "").isEmpty
 		subtitleLabel.accessibilityIdentifier = AccessibilityIdentifiers.HealthCertificate.AdmissionState.subtitle
 
 		descriptionLabel.text = cellModel.description
+		descriptionLabel.isHidden = (cellModel.description ?? "").isEmpty
 		descriptionLabel.accessibilityIdentifier = AccessibilityIdentifiers.HealthCertificate.AdmissionState.description
 
 		faqLinkTextView.attributedText = cellModel.faqLink
-		faqLinkTextView.isHidden = cellModel.faqLink == nil
+		faqLinkTextView.isHidden = (cellModel.faqLink?.string ?? "").isEmpty
 		faqLinkTextView.accessibilityIdentifier = AccessibilityIdentifiers.HealthCertificate.AdmissionState.faq
 
 		roundedLabeledView?.configure(title: cellModel.shortTitle, gradientType: cellModel.gradientType)
+		roundedLabeledView?.isHidden = (cellModel.shortTitle ?? "").isEmpty
 	}
 
 	// MARK: - Private
@@ -74,8 +78,7 @@ class AdmissionStateTableViewCell: UITableViewCell, UITextViewDelegate, ReuseIde
 	}()
 
 	private let topStackView: UIStackView = {
-		let titleStackView = UIStackView()
-		titleStackView.axis = .horizontal
+		let titleStackView = AccessibleStackView()
 		titleStackView.distribution = .fill
 		titleStackView.alignment = .top
 		titleStackView.spacing = 6

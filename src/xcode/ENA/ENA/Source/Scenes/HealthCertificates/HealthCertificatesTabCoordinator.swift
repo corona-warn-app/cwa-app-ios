@@ -12,6 +12,7 @@ final class HealthCertificatesTabCoordinator {
 	
 	init(
 		store: HealthCertificateStoring,
+		cclService: CCLServable,
 		healthCertificateService: HealthCertificateService,
 		healthCertificateValidationService: HealthCertificateValidationProviding,
 		healthCertificateValidationOnboardedCountriesProvider: HealthCertificateValidationOnboardedCountriesProviding,
@@ -19,6 +20,7 @@ final class HealthCertificatesTabCoordinator {
 		qrScannerCoordinator: QRScannerCoordinator
 	) {
 		self.store = store
+		self.cclService = cclService
 		self.healthCertificateService = healthCertificateService
 		self.healthCertificateValidationService = healthCertificateValidationService
 		self.healthCertificateValidationOnboardedCountriesProvider = healthCertificateValidationOnboardedCountriesProvider
@@ -80,6 +82,7 @@ final class HealthCertificatesTabCoordinator {
 	// MARK: - Private
 	
 	private let store: HealthCertificateStoring
+	private let cclService: CCLServable
 	private let healthCertificateService: HealthCertificateService
 	private let healthCertificateValidationService: HealthCertificateValidationProviding
 	private let healthCertificateValidationOnboardedCountriesProvider: HealthCertificateValidationOnboardedCountriesProviding
@@ -103,6 +106,7 @@ final class HealthCertificatesTabCoordinator {
 			viewModel: HealthCertificateOverviewViewModel(
 				healthCertificateService: healthCertificateService
 			),
+			cclService: cclService,
 			onInfoBarButtonItemTap: { [weak self] in
 				self?.presentInfoScreen()
 			},
@@ -204,6 +208,7 @@ final class HealthCertificatesTabCoordinator {
 		_ healthCertifiedPerson: HealthCertifiedPerson
 	) {
 		let healthCertificatePersonViewController = HealthCertifiedPersonViewController(
+			cclService: cclService,
 			healthCertificateService: healthCertificateService,
 			healthCertifiedPerson: healthCertifiedPerson,
 			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
@@ -230,6 +235,9 @@ final class HealthCertificatesTabCoordinator {
 						}
 					}
 				}
+			},
+			didTapBoosterNotification: { healthCertifiedPerson in
+				Log.info("Tapped on booster notification for \(private: String(describing: healthCertifiedPerson.name?.fullName))")
 			},
 			didTapHealthCertificate: { [weak self] healthCertificate in
 				self?.showHealthCertificateFlow(

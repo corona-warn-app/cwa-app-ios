@@ -6,35 +6,38 @@ import Foundation
 import OpenCombine
 import UIKit.UIFont
 
-final class VaccinationHintCellModel {
+final class VaccinationStateCellModel {
 
 	// MARK: - Init
 
 	init(
-		healthCertifiedPerson: HealthCertifiedPerson
+		healthCertifiedPerson: HealthCertifiedPerson,
+		cclService: CCLServable
 	) {
 		self.healthCertifiedPerson = healthCertifiedPerson
+		self.cclService = cclService
 	}
 
 	// MARK: - Internal
 
 	var title: String? {
-		healthCertifiedPerson.dccWalletInfo?.vaccinationState.titleText?.localized()
+		healthCertifiedPerson.dccWalletInfo?.vaccinationState.titleText?.localized(cclService: cclService)
 	}
 
 	var subtitle: String? {
-		healthCertifiedPerson.dccWalletInfo?.vaccinationState.subtitleText?.localized()
+		healthCertifiedPerson.dccWalletInfo?.vaccinationState.subtitleText?.localized(cclService: cclService)
 	}
 
 	var description: String? {
-		healthCertifiedPerson.dccWalletInfo?.vaccinationState.longText?.localized()
+		healthCertifiedPerson.dccWalletInfo?.vaccinationState.longText?.localized(cclService: cclService)
 	}
 
 	var faqLink: NSAttributedString? {
-		let text = String(
-			format: AppStrings.HealthCertificate.Person.VaccinationHint.boosterRuleFAQ,
-			AppStrings.HealthCertificate.Person.VaccinationHint.boosterRuleFAQPlaceholder
-		)
+		guard let faqAnchor = healthCertifiedPerson.dccWalletInfo?.vaccinationState.faqAnchor else {
+			return nil
+		}
+
+		let linkText = AppStrings.HealthCertificate.Person.faq
 
 		let textAttributes: [NSAttributedString.Key: Any] = [
 			.font: UIFont.preferredFont(forTextStyle: ENAFont.body.textStyle)
@@ -45,24 +48,20 @@ final class VaccinationHintCellModel {
 			.foregroundColor: UIColor.enaColor(for: .textPrimary1)
 		]
 		let attributedString = NSMutableAttributedString(
-			string: text,
+			string: linkText,
 			attributes: textAttributes
 		)
 
 		attributedString.mark(
-			AppStrings.HealthCertificate.Person.VaccinationHint.boosterRuleFAQPlaceholder,
-			with: AppStrings.Links.healthCertificateBoosterFAQ
+			linkText,
+			with: LinkHelper.urlString(suffix: faqAnchor, type: .faq)
 		)
 
 		return attributedString
 	}
 
-	var isUnseenNewsIndicatorVisible: Bool {
-		healthCertifiedPerson.isNewBoosterRule
-	}
-
 	// MARK: - Private
 
 	let healthCertifiedPerson: HealthCertifiedPerson
-
+	let cclService: CCLServable
 }

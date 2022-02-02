@@ -34,9 +34,7 @@ class TestResultAvailableViewModelTest: CWATestCase {
 					dscListProvider: MockDSCListProvider(),
 					client: client,
 					appConfiguration: appConfiguration,
-					boosterNotificationsService: BoosterNotificationsService(
-						rulesDownloadService: FakeRulesDownloadService()
-					),
+					cclService: FakeCCLService(),
 					recycleBin: .fake()
 				),
 				recycleBin: .fake(),
@@ -83,9 +81,7 @@ class TestResultAvailableViewModelTest: CWATestCase {
 					dscListProvider: MockDSCListProvider(),
 					client: client,
 					appConfiguration: appConfiguration,
-					boosterNotificationsService: BoosterNotificationsService(
-						rulesDownloadService: FakeRulesDownloadService()
-					),
+					cclService: FakeCCLService(),
 					recycleBin: .fake()
 				),
 				recycleBin: .fake(),
@@ -141,9 +137,7 @@ class TestResultAvailableViewModelTest: CWATestCase {
 					dscListProvider: MockDSCListProvider(),
 					client: client,
 					appConfiguration: appConfiguration,
-					boosterNotificationsService: BoosterNotificationsService(
-						rulesDownloadService: FakeRulesDownloadService()
-					),
+					cclService: FakeCCLService(),
 					recycleBin: .fake()
 				),
 				recycleBin: .fake(),

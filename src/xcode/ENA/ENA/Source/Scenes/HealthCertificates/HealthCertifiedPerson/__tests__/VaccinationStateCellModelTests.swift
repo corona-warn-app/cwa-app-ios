@@ -7,7 +7,7 @@ import XCTest
 import HealthCertificateToolkit
 import class CertLogic.Description
 
-class VaccinationHintCellModelTests: XCTestCase {
+class VaccinationStateCellModelTests: XCTestCase {
 
 	func testVaccinationStateFromWalletInfo() throws {
 		let healthCertifiedPerson = HealthCertifiedPerson(healthCertificates: [])
@@ -21,7 +21,9 @@ class VaccinationHintCellModelTests: XCTestCase {
 			)
 		)
 
-		let cellModel = VaccinationHintCellModel(healthCertifiedPerson: healthCertifiedPerson)
+		let cclService = FakeCCLService()
+		
+		let cellModel = VaccinationStateCellModel(healthCertifiedPerson: healthCertifiedPerson, cclService: cclService)
 
 		XCTAssertEqual(cellModel.title, "Impfstatus")
 		XCTAssertEqual(cellModel.subtitle, "Letzte Impfung vor 1 Tag")

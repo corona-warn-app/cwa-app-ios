@@ -42,7 +42,8 @@ class HealthCertificateQRCodeView: UIView {
 			stackView.addArrangedSubview(covPassCheckInfoStackView)
 		}
 
-		accessibilityLabel = viewModel.accessibilityLabel
+		qrCodeImageView.accessibilityTraits = viewModel.imageAccessibilityTraits
+		qrCodeImageView.accessibilityLabel = viewModel.accessibilityLabel
 		blockingView.isHidden = !viewModel.shouldBlockCertificateCode
 		covPassCheckInfoStackView.isHidden = viewModel.shouldBlockCertificateCode
 		onCovPassCheckInfoButtonTap = viewModel.onCovPassCheckInfoButtonTap
@@ -92,6 +93,7 @@ class HealthCertificateQRCodeView: UIView {
 		let button = UIButton()
 		button.setImage(UIImage(imageLiteralResourceName: "infoBigger"), for: .normal)
 		button.addTarget(self, action: #selector(didTapCovPassCheckInfoButton), for: .touchUpInside)
+		button.accessibilityLabel = AppStrings.HealthCertificate.UnifiedQRCode.infoButton
 
 		return button
 	}()
@@ -101,6 +103,7 @@ class HealthCertificateQRCodeView: UIView {
 	private let qrCodeImageView: UIImageView = {
 		let qrCodeImageView = UIImageView()
 		qrCodeImageView.contentMode = .scaleAspectFit
+		qrCodeImageView.isAccessibilityElement = true
 
 		return qrCodeImageView
 	}()
@@ -124,7 +127,6 @@ class HealthCertificateQRCodeView: UIView {
 
 	private func setUp() {
 		backgroundColor = .clear
-		accessibilityTraits = .image
 
 		stackView.translatesAutoresizingMaskIntoConstraints = false
 		addSubview(stackView)

@@ -5,7 +5,7 @@
 import UIKit
 import OpenCombine
 
-class VaccinationHintTableViewCell: UITableViewCell, UITextViewDelegate, ReuseIdentifierProviding {
+class BoosterNotificationTableViewCell: UITableViewCell, UITextViewDelegate, ReuseIdentifierProviding {
 
 	// MARK: - Init
 
@@ -36,13 +36,12 @@ class VaccinationHintTableViewCell: UITableViewCell, UITextViewDelegate, ReuseId
 
 	// MARK: - Internal
 
-	func configure(with cellModel: VaccinationHintCellModel) {
+	func configure(with cellModel: BoosterNotificationCellModel) {
 		titleLabel.text = cellModel.title
-		subtitleLabel.text = cellModel.subtitle
-		descriptionLabel.text = cellModel.description
+		titleLabel.isHidden = (cellModel.title ?? "").isEmpty
 
-		faqLinkTextView.attributedText = cellModel.faqLink
-		faqLinkTextView.isHidden = cellModel.faqLink == nil
+		subtitleLabel.text = cellModel.subtitle
+		subtitleLabel.isHidden = (cellModel.subtitle ?? "").isEmpty
 
 		unseenNewsIndicator.isHidden = !cellModel.isUnseenNewsIndicatorVisible
 	}
@@ -62,10 +61,26 @@ class VaccinationHintTableViewCell: UITableViewCell, UITextViewDelegate, ReuseId
 		return backgroundContainerView
 	}()
 
+	private let disclosureContainerView: UIView = {
+		let disclosureContainerView = UIView()
+		disclosureContainerView.setContentHuggingPriority(.defaultHigh, for: .horizontal)
+
+		return disclosureContainerView
+	}()
+
+	private let disclosureImageView: UIImageView = {
+		let disclosureImageView = UIImageView()
+		disclosureImageView.image = UIImage(named: "Icons_Chevron_plain")
+		disclosureImageView.contentMode = .scaleAspectFit
+		disclosureImageView.translatesAutoresizingMaskIntoConstraints = false
+
+		return disclosureImageView
+	}()
+
 	private let contentStackView: UIStackView = {
 		let contentStackView = UIStackView()
 		contentStackView.axis = .vertical
-		contentStackView.alignment = .leading
+		contentStackView.alignment = .fill
 		contentStackView.spacing = 6
 
 		return contentStackView
@@ -106,30 +121,6 @@ class VaccinationHintTableViewCell: UITableViewCell, UITextViewDelegate, ReuseId
 		return subtitleLabel
 	}()
 
-	private let descriptionLabel: ENALabel = {
-		let descriptionLabel = ENALabel(style: .body)
-		descriptionLabel.numberOfLines = 0
-
-		return descriptionLabel
-	}()
-
-	private let faqLinkTextView: UITextView = {
-		let faqLinkTextView = UITextView()
-		faqLinkTextView.backgroundColor = .enaColor(for: .cellBackground2)
-		faqLinkTextView.isScrollEnabled = false
-		faqLinkTextView.isEditable = false
-		faqLinkTextView.textContainerInset = .zero
-		faqLinkTextView.textContainer.lineFragmentPadding = .zero
-		faqLinkTextView.textColor = .enaColor(for: .textPrimary1)
-		faqLinkTextView.tintColor = .enaColor(for: .textTint)
-		faqLinkTextView.linkTextAttributes = [
-			.foregroundColor: UIColor.enaColor(for: .textTint),
-			.underlineColor: UIColor.clear
-		]
-
-		return faqLinkTextView
-	}()
-
 	private func setupView() {
 		backgroundColor = .clear
 		contentView.backgroundColor = .clear
@@ -137,23 +128,22 @@ class VaccinationHintTableViewCell: UITableViewCell, UITextViewDelegate, ReuseId
 
 		updateBorderWidth()
 
-		faqLinkTextView.delegate = self
-
 		backgroundContainerView.translatesAutoresizingMaskIntoConstraints = false
 		contentView.addSubview(backgroundContainerView)
 
 		contentStackView.translatesAutoresizingMaskIntoConstraints = false
 		backgroundContainerView.addSubview(contentStackView)
 
+		disclosureContainerView.addSubview(disclosureImageView)
+
 		titleStackView.addArrangedSubview(titleLabel)
 		titleStackView.addArrangedSubview(unseenNewsIndicator)
+		titleStackView.addArrangedSubview(UIView())
+		titleStackView.addArrangedSubview(disclosureContainerView)
 
 		contentStackView.addArrangedSubview(titleStackView)
 		contentStackView.setCustomSpacing(0, after: titleStackView)
 		contentStackView.addArrangedSubview(subtitleLabel)
-		contentStackView.addArrangedSubview(descriptionLabel)
-		contentStackView.setCustomSpacing(16, after: descriptionLabel)
-		contentStackView.addArrangedSubview(faqLinkTextView)
 
 		NSLayoutConstraint.activate(
 			[
@@ -168,7 +158,13 @@ class VaccinationHintTableViewCell: UITableViewCell, UITextViewDelegate, ReuseId
 				contentStackView.trailingAnchor.constraint(equalTo: backgroundContainerView.trailingAnchor, constant: -16.0),
 
 				unseenNewsIndicator.widthAnchor.constraint(equalToConstant: 11),
-				unseenNewsIndicator.heightAnchor.constraint(equalToConstant: 11)
+				unseenNewsIndicator.heightAnchor.constraint(equalToConstant: 11),
+
+				disclosureContainerView.leadingAnchor.constraint(equalTo: disclosureImageView.leadingAnchor),
+				disclosureContainerView.trailingAnchor.constraint(equalTo: disclosureImageView.trailingAnchor),
+
+				disclosureImageView.bottomAnchor.constraint(equalTo: titleLabel.firstBaselineAnchor),
+				disclosureImageView.widthAnchor.constraint(equalToConstant: 7)
 			]
 		)
 	}

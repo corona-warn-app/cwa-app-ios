@@ -60,9 +60,7 @@ final class RiskProviderTests: CWATestCase {
 					dscListProvider: MockDSCListProvider(),
 					client: client,
 					appConfiguration: cachedAppConfig,
-					boosterNotificationsService: BoosterNotificationsService(
-						rulesDownloadService: FakeRulesDownloadService()
-					),
+					cclService: FakeCCLService(),
 					recycleBin: .fake()
 				),
 				recycleBin: .fake(),
@@ -155,9 +153,7 @@ final class RiskProviderTests: CWATestCase {
 					dscListProvider: MockDSCListProvider(),
 					client: client,
 					appConfiguration: cachedAppConfig,
-					boosterNotificationsService: BoosterNotificationsService(
-						rulesDownloadService: FakeRulesDownloadService()
-					),
+					cclService: FakeCCLService(),
 					recycleBin: .fake()
 				),
 				recycleBin: .fake(),
@@ -250,9 +246,7 @@ final class RiskProviderTests: CWATestCase {
 					dscListProvider: MockDSCListProvider(),
 					client: client,
 					appConfiguration: cachedAppConfig,
-					boosterNotificationsService: BoosterNotificationsService(
-						rulesDownloadService: FakeRulesDownloadService()
-					),
+					cclService: FakeCCLService(),
 					recycleBin: .fake()
 				),
 				recycleBin: .fake(),
@@ -333,9 +327,7 @@ final class RiskProviderTests: CWATestCase {
 					dscListProvider: MockDSCListProvider(),
 					client: client,
 					appConfiguration: appConfig,
-					boosterNotificationsService: BoosterNotificationsService(
-						rulesDownloadService: FakeRulesDownloadService()
-					),
+					cclService: FakeCCLService(),
 					recycleBin: .fake()
 				),
 				recycleBin: .fake(),
@@ -403,9 +395,7 @@ final class RiskProviderTests: CWATestCase {
 					dscListProvider: MockDSCListProvider(),
 					client: client,
 					appConfiguration: cachedAppConfig,
-					boosterNotificationsService: BoosterNotificationsService(
-						rulesDownloadService: FakeRulesDownloadService()
-					),
+					cclService: FakeCCLService(),
 					recycleBin: .fake()
 				),
 				recycleBin: .fake(),
@@ -499,9 +489,7 @@ final class RiskProviderTests: CWATestCase {
 					dscListProvider: MockDSCListProvider(),
 					client: client,
 					appConfiguration: cachedAppConfig,
-					boosterNotificationsService: BoosterNotificationsService(
-						rulesDownloadService: FakeRulesDownloadService()
-					),
+					cclService: FakeCCLService(),
 					recycleBin: .fake()
 				),
 				recycleBin: .fake(),
@@ -562,9 +550,7 @@ final class RiskProviderTests: CWATestCase {
 					dscListProvider: MockDSCListProvider(),
 					client: client,
 					appConfiguration: appConfig,
-					boosterNotificationsService: BoosterNotificationsService(
-						rulesDownloadService: FakeRulesDownloadService()
-					),
+					cclService: FakeCCLService(),
 					recycleBin: .fake()
 				),
 				recycleBin: .fake(),
@@ -637,9 +623,7 @@ final class RiskProviderTests: CWATestCase {
 					dscListProvider: MockDSCListProvider(),
 					client: client,
 					appConfiguration: appConfig,
-					boosterNotificationsService: BoosterNotificationsService(
-						rulesDownloadService: FakeRulesDownloadService()
-					),
+					cclService: FakeCCLService(),
 					recycleBin: .fake()
 				),
 				recycleBin: .fake(),
@@ -719,9 +703,7 @@ final class RiskProviderTests: CWATestCase {
 					dscListProvider: MockDSCListProvider(),
 					client: client,
 					appConfiguration: appConfig,
-					boosterNotificationsService: BoosterNotificationsService(
-						rulesDownloadService: FakeRulesDownloadService()
-					),
+					cclService: FakeCCLService(),
 					recycleBin: .fake()
 				),
 				recycleBin: .fake(),
@@ -801,9 +783,7 @@ final class RiskProviderTests: CWATestCase {
 					dscListProvider: MockDSCListProvider(),
 					client: client,
 					appConfiguration: appConfig,
-					boosterNotificationsService: BoosterNotificationsService(
-						rulesDownloadService: FakeRulesDownloadService()
-					),
+					cclService: FakeCCLService(),
 					recycleBin: .fake()
 				),
 				recycleBin: .fake(),
@@ -890,9 +870,7 @@ final class RiskProviderTests: CWATestCase {
 					dscListProvider: MockDSCListProvider(),
 					client: client,
 					appConfiguration: appConfig,
-					boosterNotificationsService: BoosterNotificationsService(
-						rulesDownloadService: FakeRulesDownloadService()
-					),
+					cclService: FakeCCLService(),
 					recycleBin: .fake()
 				),
 				recycleBin: .fake(),
@@ -1194,9 +1172,7 @@ final class RiskProviderTests: CWATestCase {
 					dscListProvider: MockDSCListProvider(),
 					client: client,
 					appConfiguration: appConfig,
-					boosterNotificationsService: BoosterNotificationsService(
-						rulesDownloadService: FakeRulesDownloadService()
-					),
+					cclService: FakeCCLService(),
 					recycleBin: .fake()
 				),
 				recycleBin: .fake(),
@@ -1302,9 +1278,7 @@ final class RiskProviderTests: CWATestCase {
 					dscListProvider: MockDSCListProvider(),
 					client: client,
 					appConfiguration: appConfigurationProvider,
-					boosterNotificationsService: BoosterNotificationsService(
-						rulesDownloadService: FakeRulesDownloadService()
-					),
+					cclService: FakeCCLService(),
 					recycleBin: .fake()
 				),
 				recycleBin: .fake(),
@@ -1397,9 +1371,7 @@ final class RiskProviderTests: CWATestCase {
 					dscListProvider: MockDSCListProvider(),
 					client: client,
 					appConfiguration: cachedAppConfig,
-					boosterNotificationsService: BoosterNotificationsService(
-						rulesDownloadService: FakeRulesDownloadService()
-					),
+					cclService: FakeCCLService(),
 					recycleBin: .fake()
 				),
 				recycleBin: .fake(),
@@ -1502,9 +1474,7 @@ final class RiskProviderTests: CWATestCase {
 					dscListProvider: MockDSCListProvider(),
 					client: client,
 					appConfiguration: cachedAppConfig,
-					boosterNotificationsService: BoosterNotificationsService(
-						rulesDownloadService: FakeRulesDownloadService()
-					),
+					cclService: FakeCCLService(),
 					recycleBin: .fake()
 				),
 				recycleBin: .fake(),
@@ -1609,9 +1579,7 @@ final class RiskProviderTests: CWATestCase {
 					dscListProvider: MockDSCListProvider(),
 					client: client,
 					appConfiguration: cachedAppConfig,
-					boosterNotificationsService: BoosterNotificationsService(
-						rulesDownloadService: FakeRulesDownloadService()
-					),
+					cclService: FakeCCLService(),
 					recycleBin: .fake()
 				),
 				recycleBin: .fake(),
@@ -1714,9 +1682,7 @@ final class RiskProviderTests: CWATestCase {
 					dscListProvider: MockDSCListProvider(),
 					client: client,
 					appConfiguration: cachedAppConfig,
-					boosterNotificationsService: BoosterNotificationsService(
-						rulesDownloadService: FakeRulesDownloadService()
-					),
+					cclService: FakeCCLService(),
 					recycleBin: .fake()
 				),
 				recycleBin: .fake(),
