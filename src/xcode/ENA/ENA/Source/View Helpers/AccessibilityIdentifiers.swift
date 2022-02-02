@@ -312,9 +312,8 @@ enum AccessibilityIdentifiers {
 		static let furtherInfos_Title = "AppStrings.ExposureSubmissionResult.furtherInfos_Title"
 		static let warnOthersConsentGivenCell = "AppStrings.ExposureSubmissionResult.warnOthersConsentGiven"
 		static let warnOthersConsentNotGivenCell = "AppStrings.ExposureSubmissionResult.warnOthersConsentNotGiven"
-		
+
 		enum Antigen {
-			static let proofTitle = "AppStrings.ExposureSubmissionResult.Antigen.proofTitle"
 			static let proofDesc = "AppStrings.ExposureSubmissionResult.Antigen.proofDesc"
 		}
 	}
