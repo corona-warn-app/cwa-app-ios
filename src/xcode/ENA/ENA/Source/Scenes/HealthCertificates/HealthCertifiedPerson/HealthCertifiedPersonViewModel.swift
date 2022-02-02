@@ -11,6 +11,7 @@ final class HealthCertifiedPersonViewModel {
 	// MARK: - Init
 
 	init(
+		cclService: CCLServable,
 		healthCertificateService: HealthCertificateService,
 		healthCertifiedPerson: HealthCertifiedPerson,
 		healthCertificateValueSetsProvider: VaccinationValueSetsProviding,
@@ -19,6 +20,7 @@ final class HealthCertifiedPersonViewModel {
 		didTapValidationButton: @escaping (HealthCertificate, @escaping (Bool) -> Void) -> Void,
 		showInfoHit: @escaping () -> Void
 	) {
+		self.cclService = cclService
 		self.healthCertificateService = healthCertificateService
 		self.healthCertifiedPerson = healthCertifiedPerson
 		self.healthCertificateValueSetsProvider = healthCertificateValueSetsProvider
@@ -27,9 +29,9 @@ final class HealthCertifiedPersonViewModel {
 		self.didTapValidationButton = didTapValidationButton
 		self.showInfo = showInfoHit
 
-		self.boosterNotificationCellModel = BoosterNotificationCellModel(healthCertifiedPerson: healthCertifiedPerson)
-		self.admissionStateCellModel = AdmissionStateCellModel(healthCertifiedPerson: healthCertifiedPerson)
-		self.vaccinationStateCellModel = VaccinationStateCellModel(healthCertifiedPerson: healthCertifiedPerson)
+		self.boosterNotificationCellModel = BoosterNotificationCellModel(healthCertifiedPerson: healthCertifiedPerson, cclService: cclService)
+		self.admissionStateCellModel = AdmissionStateCellModel(healthCertifiedPerson: healthCertifiedPerson, cclService: cclService)
+		self.vaccinationStateCellModel = VaccinationStateCellModel(healthCertifiedPerson: healthCertifiedPerson, cclService: cclService)
 		
 		constructHealthCertificateCellViewModels(for: healthCertifiedPerson)
 
@@ -225,6 +227,7 @@ final class HealthCertifiedPersonViewModel {
 
 	// MARK: - Private
 
+	private let cclService: CCLServable
 	private let healthCertificateService: HealthCertificateService
 	private let healthCertificateValueSetsProvider: VaccinationValueSetsProviding
 

@@ -194,12 +194,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		updateExposureState(state)
 		Analytics.triggerAnalyticsSubmission()
 		appUpdateChecker.checkAppVersionDialog(for: window?.rootViewController)
-		healthCertificateService.checkIfBoosterRulesShouldBeFetched(completion: { errorMessage in
-			guard let errorMessage = errorMessage else {
-				return
+		healthCertificateService.checkForCCLConfigurationAndRulesUpdates(
+			completion: { errorMessage in
+				guard let errorMessage = errorMessage else {
+					return
+				}
+				Log.error(errorMessage, log: .vaccination, error: nil)
 			}
-			Log.error(errorMessage, log: .vaccination, error: nil)
-		})
+		)
 	}
 	
 	func applicationWillTerminate(_ application: UIApplication) {
@@ -390,13 +392,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		dscListProvider: dscListProvider,
 		client: client,
 		appConfiguration: appConfigurationProvider,
-		boosterNotificationsService: BoosterNotificationsService(
-			rulesDownloadService: RulesDownloadService(
-				restServiceProvider: restServiceProvider
-			)
-		),
+		cclService: cclService,
 		recycleBin: recycleBin
 	)
+
+	private lazy var cclService: CCLServable = {
+		CCLService(restServiceProvider)
+	}()
 
 	private lazy var analyticsSubmitter: PPAnalyticsSubmitting = {
 		return PPAnalyticsSubmitter(
@@ -807,6 +809,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		eventCheckoutService: eventCheckoutService,
 		otpService: otpService,
 		ppacService: ppacService,
+		cclService: cclService,
 		healthCertificateService: healthCertificateService,
 		healthCertificateValidationService: healthCertificateValidationService,
 		healthCertificateValidationOnboardedCountriesProvider: healthCertificateValidationOnboardedCountriesProvider,

@@ -75,10 +75,6 @@ class DMBoosterRulesViewController: UITableViewController {
 			cell.configure(cellViewModel: cellViewModel)
 			return cell
 			
-		case .downloadOfBoosterRules:
-			let cell = tableView.dequeueReusableCell(cellType: DMButtonTableViewCell.self, for: indexPath)
-			cell.configure(cellViewModel: cellViewModel)
-			return cell
 		}
 	}
 

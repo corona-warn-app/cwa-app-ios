@@ -24,7 +24,7 @@ class HealthCertificateService {
 		appConfiguration: AppConfigurationProviding,
 		digitalCovidCertificateAccess: DigitalCovidCertificateAccessProtocol = DigitalCovidCertificateAccess(),
 		notificationCenter: UserNotificationCenter = UNUserNotificationCenter.current(),
-		boosterNotificationsService: BoosterNotificationsServiceProviding,
+		cclService: CCLServable,
 		recycleBin: RecycleBin
 	) {
 		#if DEBUG
@@ -38,7 +38,7 @@ class HealthCertificateService {
 			self.appConfiguration = CachedAppConfigurationMock(store: store)
 			self.digitalCovidCertificateAccess = digitalCovidCertificateAccess
 			self.notificationCenter = notificationCenter
-			self.boosterNotificationsService = boosterNotificationsService
+			self.cclService = cclService
 			self.recycleBin = recycleBin
 			setup()
 			configureForTesting()
@@ -54,7 +54,7 @@ class HealthCertificateService {
 		self.appConfiguration = appConfiguration
 		self.digitalCovidCertificateAccess = digitalCovidCertificateAccess
 		self.notificationCenter = notificationCenter
-		self.boosterNotificationsService = boosterNotificationsService
+		self.cclService = cclService
 		self.recycleBin = recycleBin
 
 		setup()
@@ -99,7 +99,7 @@ class HealthCertificateService {
 	var didRegisterTestCertificate: ((String, TestCertificateRequest) -> Void)?
 	
 	var nextValidityTimer: Timer?
-	var boosterNotificationsService: BoosterNotificationsServiceProviding
+
 	var nextFireDate: Date? {
 		let healthCertificates = healthCertifiedPersons
 			.flatMap { $0.healthCertificates }
@@ -119,23 +119,17 @@ class HealthCertificateService {
 		- when the app comes into foreground
 		- when the regular background execution runs (e.g. Key Download)
 	*/
-	
-	func checkIfBoosterRulesShouldBeFetched(completion: @escaping(String?) -> Void) {
-		Log.debug("Check if booster rules should be fetched.")
 
-		attemptToRestoreDecodingFailedHealthCertificates()
-
-		if let lastExecutionDate = store.lastBoosterNotificationsExecutionDate,
-		   Calendar.utcCalendar.isDateInToday(lastExecutionDate) {
-			let errorMessage = "general: Booster Notifications rules was already Download today, will be skipped..."
-			Log.info(errorMessage, log: .vaccination)
-			completion(errorMessage)
-		} else {
-			Log.info("Booster Notifications rules Will Download...", log: .vaccination)
-			applyBoosterRulesForHealthCertificates(completion: completion)
+	func checkForCCLConfigurationAndRulesUpdates(completion: @escaping (String?) -> Void) {
+		cclService.updateConfiguration { didChange in
+			if didChange {
+				// trigger new calculation here
+			} else {
+				completion(nil)
+			}
 		}
 	}
-	
+
 	private func applyBoosterRulesForHealthCertificates(completion: @escaping(String?) -> Void) {
 		Log.info("Apply booster rules for health certificates")
 
@@ -659,6 +653,7 @@ class HealthCertificateService {
 	private let digitalCovidCertificateAccess: DigitalCovidCertificateAccessProtocol
 	private let notificationCenter: UserNotificationCenter
 	private let recycleBin: RecycleBin
+	private let cclService: CCLServable
 
 	private var initialHealthCertifiedPersonsReadFromStore = false
 	private var initialTestCertificateRequestsReadFromStore = false
@@ -1080,49 +1075,10 @@ class HealthCertificateService {
 	
 	private func applyBoosterRulesForHealthCertificatesOfAPerson(healthCertifiedPerson: HealthCertifiedPerson, completion: @escaping(String?) -> Void) {
 		Log.info("Applying booster rules for person", log: .vaccination)
-		let healthCertificatesWithHeader: [DigitalCovidCertificateWithHeader] = healthCertifiedPerson.healthCertificates.map {
-			return DigitalCovidCertificateWithHeader(header: $0.cborWebTokenHeader, certificate: $0.digitalCovidCertificate)
-		}
-		boosterNotificationsService.applyRulesForCertificates(certificates: healthCertificatesWithHeader, completion: { result in
-			switch result {
-			case .success(let validationResult):
-				
-				let previousSavedBoosterRule = healthCertifiedPerson.boosterRule
-				healthCertifiedPerson.boosterRule = validationResult.rule
-				
-				if let currentRule = healthCertifiedPerson.boosterRule, currentRule.identifier != previousSavedBoosterRule?.identifier {
-					
-					// we need to have an ID for the notification and since the certified person doesn't have this property "unlike the certificates" we will compute it as the hash of the string of the standardizedName + dateOfBirth
-					guard let name = healthCertifiedPerson.name?.standardizedName,
-						  let dateOfBirth = healthCertifiedPerson.dateOfBirth else {
-						let errorMessage = "general: standardizedName or dateOfBirth is nil, will not trigger notification"
-						Log.error(errorMessage, log: .vaccination, error: nil)
-						completion(errorMessage)
-						return
-					}
-					let id = ENAHasher.sha256(name + dateOfBirth)
-					self.scheduleBoosterNotification(id: id)
-					
-					Log.info("Successfuly applied rules for certificate.", log: .vaccination)
-
-					completion(nil)
-				} else {
-					let errorMessage = "The New passed booster rule has the same identifier as the old one saved for this person, so we will not trigger the notification"
-					Log.debug(errorMessage, log: .vaccination)
-					let name = healthCertifiedPerson.name?.standardizedName ?? ""
-					completion("for \(private: name): \(errorMessage)")
-				}
-				
-			case .failure(let validationError):
-				if validationError == .BOOSTER_VALIDATION_ERROR(.NO_VACCINATION_CERTIFICATE) || validationError == .BOOSTER_VALIDATION_ERROR(.NO_PASSED_RESULT) {
-					healthCertifiedPerson.boosterRule = nil
-				}
-
-				Log.error(validationError.localizedDescription, log: .vaccination, error: validationError)
-				let name = healthCertifiedPerson.name?.standardizedName ?? ""
-				completion("for \(private: name): \(validationError.localizedDescription)")
-			}
-		})
+//		let healthCertificatesWithHeader: [DigitalCovidCertificateWithHeader] = healthCertifiedPerson.healthCertificates.map {
+//			return DigitalCovidCertificateWithHeader(header: $0.cborWebTokenHeader, certificate: $0.digitalCovidCertificate)
+//		}
+		// this needs to be done by wallet & ccl configurations later
 	}
 	
 	private func scheduleBoosterNotification(id: String) {

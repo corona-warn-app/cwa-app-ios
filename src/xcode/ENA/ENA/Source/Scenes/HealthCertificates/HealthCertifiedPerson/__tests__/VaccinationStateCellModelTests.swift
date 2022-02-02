@@ -21,7 +21,9 @@ class VaccinationStateCellModelTests: XCTestCase {
 			)
 		)
 
-		let cellModel = VaccinationStateCellModel(healthCertifiedPerson: healthCertifiedPerson)
+		let cclService = FakeCCLService()
+		
+		let cellModel = VaccinationStateCellModel(healthCertifiedPerson: healthCertifiedPerson, cclService: cclService)
 
 		XCTAssertEqual(cellModel.title, "Impfstatus")
 		XCTAssertEqual(cellModel.subtitle, "Letzte Impfung vor 1 Tag")
