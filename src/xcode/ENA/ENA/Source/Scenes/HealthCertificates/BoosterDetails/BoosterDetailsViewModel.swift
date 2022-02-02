@@ -18,7 +18,40 @@ class BoosterDetailsViewModel {
 	// MARK: - Internal
 	
 	var dynamicTableViewModel: DynamicTableViewModel {
-		DynamicTableViewModel.with {
+		var cells: [DynamicCell] = []
+		
+		if let titleText = boosterNotification.titleText?.localized(cclService: cclService), !titleText.isEmpty {
+			cells.append(
+				.title1(text: titleText)
+			)
+		}
+		
+		if let subtitleText = boosterNotification.subtitleText?.localized(cclService: cclService), !subtitleText.isEmpty {
+			cells.append(
+				.subheadline(text: subtitleText, color: .enaColor(for: .textPrimary2)) { _, cell, _ in
+					cell.contentView.preservesSuperviewLayoutMargins = false
+					cell.contentView.layoutMargins.left += 5
+					cell.contentView.layoutMargins.top = 0
+				}
+			)
+		}
+
+		if let longText = boosterNotification.longText?.localized(cclService: cclService), !longText.isEmpty {
+			cells.append(
+				.body(text: longText)
+			)
+		}
+		
+		if let faqAnchor = boosterNotification.faqAnchor, !faqAnchor.isEmpty {
+			cells.append(
+				.link(
+					text: AppStrings.HealthCertificate.Person.faq,
+					url: URL(string: LinkHelper.urlString(suffix: faqAnchor, type: .faq))
+				)
+			)
+		}
+		
+		return DynamicTableViewModel.with {
 			$0.add(
 				.section(
 					header: .image(
@@ -26,25 +59,7 @@ class BoosterDetailsViewModel {
 						accessibilityLabel: AppStrings.NotificationSettings.imageDescriptionOn,
 						accessibilityIdentifier: AccessibilityIdentifiers.NotificationSettings.DeltaOnboarding.imageOn
 					),
-					cells: [
-						.title1(text: boosterNotification.titleText?.localized(cclService: cclService) ?? ""),
-						.subheadline(text: boosterNotification.subtitleText?.localized(cclService: cclService) ?? "", color: .enaColor(for: .textPrimary2)) { _, cell, _ in
-							cell.contentView.preservesSuperviewLayoutMargins = false
-							cell.contentView.layoutMargins.left += 5
-							cell.contentView.layoutMargins.top = 0
-						}
-					]
-				)
-			)
-			$0.add(
-				.section(
-					cells: [
-						.body(text: boosterNotification.longText?.localized(cclService: cclService) ?? ""),
-						.link(
-							text: AppStrings.HealthCertificate.Person.faq,
-							url: URL(string: LinkHelper.urlString(suffix: boosterNotification.faqAnchor ?? "", type: .faq))
-						)
-					]
+					cells: cells
 				)
 			)
 		}
