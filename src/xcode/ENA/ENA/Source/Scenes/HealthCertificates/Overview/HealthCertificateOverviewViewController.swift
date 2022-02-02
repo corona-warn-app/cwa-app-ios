@@ -11,12 +11,14 @@ class HealthCertificateOverviewViewController: UITableViewController {
 
 	init(
 		viewModel: HealthCertificateOverviewViewModel,
+		cclService: CCLServable,
 		onInfoBarButtonItemTap: @escaping () -> Void,
 		onCreateHealthCertificateTap: @escaping () -> Void,
 		onCertifiedPersonTap: @escaping (HealthCertifiedPerson) -> Void,
 		onCovPassCheckInfoButtonTap: @escaping () -> Void
 	) {
 		self.viewModel = viewModel
+		self.cclService = cclService
 		self.onInfoBarButtonItemTap = onInfoBarButtonItemTap
 		self.onCreateHealthCertificateTap = onCreateHealthCertificateTap
 		self.onCertifiedPersonTap = onCertifiedPersonTap
@@ -135,7 +137,8 @@ class HealthCertificateOverviewViewController: UITableViewController {
 	// MARK: - Private
 
 	private let viewModel: HealthCertificateOverviewViewModel
-
+	private let cclService: CCLServable
+	
 	private let onInfoBarButtonItemTap: () -> Void
 	private let onCreateHealthCertificateTap: () -> Void
 	private let onCertifiedPersonTap: (HealthCertifiedPerson) -> Void
@@ -218,6 +221,7 @@ class HealthCertificateOverviewViewController: UITableViewController {
 		guard let healthCertifiedPerson = viewModel.healthCertifiedPersons[safe: indexPath.row],
 			  let cellModel = HealthCertifiedPersonCellModel(
 				healthCertifiedPerson: healthCertifiedPerson,
+				cclService: cclService,
 				onCovPassCheckInfoButtonTap: { [weak self] in
 					self?.onCovPassCheckInfoButtonTap()
 				}
