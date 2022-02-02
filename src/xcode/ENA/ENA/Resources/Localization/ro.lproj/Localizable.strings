@@ -1601,22 +1601,10 @@
 /* New Version Features */
 "NewVersionFeatures_Info_about_abb_information" = "Modificările din această versiune pot fi găsite în informațiile aplicației, la „Caracteristici noi”.";
 
-/* Version 2.17 */
-"NewVersionFeature_217_positiveTest_title" = "Note în cazul unui rezultat de test pozitiv";
+/* Version 2.18 */
+"NewVersionFeature_218_centralManagementOfRules_title" = "Administrarea centrală a regulilor";
 
-"NewVersionFeature_217_positiveTest_description" = "Notele și procedura recomandată în cazul unui rezultat de test pozitiv au fost revizuite.";
-
-"NewVersionFeature_217_statisticsBoosterVaccination_title" = "Statistica pentru vaccinările cu doza booster";
-
-"NewVersionFeature_217_statisticsBoosterVaccination_description" = "Pe lângă statistica pentru persoanele care au primit cel puțin o doză de vaccin și persoanele care s-au vaccinat complet, acum veți găsi și numărul de persoane care au primit doza booster.";
-
-"NewVersionFeature_217_linkSocialMedia_title" = "Legătură către rețeaua de social media";
-
-"NewVersionFeature_217_linkSocialMedia_description" = "Dacă doriți să rămâneți la curent cu cele mai noi funcții ale aplicației Corona-Warn și să le discutați cu alte persoane, puteți urmări canalele noastre de social media. Acum veți găsi legătura către canalul de social media pe ecranul inițial, în secțiunea „Mai mult”.";
-
-"NewVersionFeature_217_deleteDateRecycleBin_title" = "Data de ștergere pentru conținutul coșului de reciclare";
-
-"NewVersionFeature_217_deleteDateRecycleBin_description" = "Fiecare element mutat în coșul de reciclare este șters definitiv după 30 de zile. Această dată de ștergere este afișată acum pentru fiecare element.";
+"NewVersionFeature_218_centralManagementOfRules_description" = "Regulile pentru certificate (de exemplu, cu privire la valabilitate sau la prioritizare, atunci când sunt disponibile mai multe certificate) și pentru determinarea stării „G” (vaccinat, trecut prin boală, testat) au fost scoase din aplicația Corona-Warn. Acum, aceste reguli sunt stocate central și, astfel, pot fi ajustate independent de versiunile aplicației, ceea ce face posibilă reacționarea mai rapidă la schimbările de reguli. După o schimbare, regulile actualizate vor fi transferate automat la aplicație. Această administrare centrală a regulilor nu schimbă modul în care utilizați aplicația Corona-Warn.";
 
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Înregistrare transnațională a expunerilor în jurnal";
@@ -2029,7 +2017,7 @@
 "Statistics_Card_AtLeastOneVaccinated_SecondarySubtitleLabel" = "din numărul total al populației";
 
 /* - Fully vaccinated people card */
-"Statistics_Card_FullyVaccinated_Title" = "Persoane care sunt complet vaccinate";
+"Statistics_Card_FullyVaccinated_Title" = "Persoane care au imunizarea de bază";
 
 "Statistics_Card_FullyVaccinated_Today" = "Până astăzi";
 
@@ -2124,7 +2112,7 @@
 
 "Statistics_Info_AtLeastOnce_Text" = "Numărul de persoane raportat la RKI care au primit prima doză de vaccin.";
 
-"Statistics_Info_FullyVaccinated_Title" = "Persoane care sunt complet vaccinate";
+"Statistics_Info_FullyVaccinated_Title" = "Persoane care au imunizarea de bază";
 
 "Statistics_Info_FullyVaccinated_Text" = "Numărul de persoane raportat la RKI care au primit toate dozele de vaccin necesare pentru imunizarea de bază.";
 
@@ -2827,53 +2815,12 @@
 /* Health Certified Person Screen */
 "HealthCertificate_unified_QR_code_notice" = "Acest cod QR poate fi verificat cu încredere cu aplicația CovPassCheck.";
 
+"HealthCertificate_unified_QR_code_infoButton" = "Informații";
+
 "HealthCertifiedPerson_title" = "Certificat COVID digital UE";
 
-/* Health Certified Person Admission State */
-"HealthCertifiedPerson_AdmissionState_title" = "Dovada stării";
-
-"HealthCertifiedPerson_AdmissionState_subtitle2G" = "2G";
-
-"HealthCertifiedPerson_AdmissionState_subtitle2GPlusPCR" = "2G+ test PCR";
-
-"HealthCertifiedPerson_AdmissionState_subtitle2GPlusAntigen" = "2G+ test rapid";
-
-"HealthCertifiedPerson_AdmissionState_subtitle3G" = "3G";
-
-"HealthCertifiedPerson_AdmissionState_subtitle3GPlus" = "3G+";
-
-"HealthCertifiedPerson_AdmissionState_description2G" = "Certificatele dvs. respectă regula 2G. Dacă trebuie să dovediți starea dvs. curentă, închideți această vizualizare și afișați codul QR în sumarul certificatului.";
-
-"HealthCertifiedPerson_AdmissionState_description2GPlusPCR" = "Certificatele dvs. respectă regula 2G plus. Dacă trebuie să dovediți starea dvs. curentă, închideți această vizualizare și afișați codul QR în sumarul certificatului.";
-
-"HealthCertifiedPerson_AdmissionState_description2GPlusAntigen" = "Certificatele dvs. respectă regula 2G plus, cu excepția cazului în care este necesar un test PCR. Dacă trebuie să dovediți starea dvs. curentă, închideți această vizualizare și afișați codul QR în sumarul certificatului.";
-
-"HealthCertifiedPerson_AdmissionState_description3G" = "Certificatele dvs. respectă regula 3G. Dacă trebuie să dovediți starea dvs. curentă, închideți această vizualizare și afișați codul QR în sumarul certificatului.";
-
-"HealthCertifiedPerson_AdmissionState_description3GPlus" = "Certificatele dvs. respectă regula 3G plus. Dacă trebuie să dovediți starea dvs. curentă, închideți această vizualizare și afișați codul QR în sumarul certificatului.";
-
-"HealthCertifiedPerson_AdmissionStateFAQ" = "Pentru mai multe informații, consultați pagina noastră %@.";
-
-"HealthCertifiedPerson_AdmissionState_FAQ_Placeholder" = "Întrebări frecvente";
-
-"HealthCertifiedPerson_AdmissionState_shortTitle_title2G" = "2G";
-
-"HealthCertifiedPerson_AdmissionState_shortTitle_title2GPlus" = "2G+";
-
-"HealthCertifiedPerson_AdmissionState_shortTitle_title3G" = "3G";
-
-"HealthCertifiedPerson_AdmissionState_shortTitle_title3GPlus" = "3G+";
-
-/* Health Certified Person Hint */
-"HealthCertifiedPerson_VaccinationHint_title" = "Starea vaccinării";
-
-"HealthCertifiedPerson_partiallyVaccinated" = "Nu ați primit încă toate vaccinările planificate curente. Astfel, protecția dvs. prin vaccinare nu este completă încă.";
-
-"HealthCertifiedPerson_completelyProtected" = "Ați primit toate vaccinările planificate în acest moment. Protecția prin vaccinare este completă.";
-
-"HealthCertifiedPerson_boosterRuleFAQ" = "Pentru mai multe informații, consultați pagina noastră %@.";
-
-"HealthCertifiedPerson_boosterRuleFAQ_placeholder_FAQ" = "Întrebări frecvente";
+/* Health Certified Person */
+"HealthCertifiedPerson_faq" = "Pentru mai multe informații, consultați pagina noastră de întrebări frecvente.";
 
 "HealthCertifiedPerson_dateOfBirth" = "Născut(ă) pe %@";
 
