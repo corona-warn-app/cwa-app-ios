@@ -700,6 +700,7 @@ enum AppStrings {
 		}
 	}
 
+	
 	enum BackgroundAppRefreshSettings {
 		static let title = NSLocalizedString("BackgroundAppRefreshSettings_Title", comment: "")
 		static let subtitle = NSLocalizedString("BackgroundAppRefreshSettings_Subtitle", comment: "")

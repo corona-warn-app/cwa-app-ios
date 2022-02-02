@@ -56,8 +56,7 @@ class BoosterDetailsViewModel {
 				.section(
 					header: .image(
 						UIImage(named: "Illustration_booster_details"),
-						accessibilityLabel: AppStrings.NotificationSettings.imageDescriptionOn,
-						accessibilityIdentifier: AccessibilityIdentifiers.NotificationSettings.DeltaOnboarding.imageOn
+						accessibilityIdentifier: AccessibilityIdentifiers.BoosterNotification.Details.image
 					),
 					cells: cells
 				)
