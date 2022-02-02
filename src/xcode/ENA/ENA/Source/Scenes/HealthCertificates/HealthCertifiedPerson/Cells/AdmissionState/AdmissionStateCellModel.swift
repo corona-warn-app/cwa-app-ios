@@ -10,22 +10,26 @@ final class AdmissionStateCellModel {
 
 	// MARK: - Init
 
-	init(healthCertifiedPerson: HealthCertifiedPerson) {
+	init(
+		healthCertifiedPerson: HealthCertifiedPerson,
+		cclService: CCLService
+	) {
 		self.healthCertifiedPerson = healthCertifiedPerson
+		self.cclService = cclService
 	}
 
 	// MARK: - Internal
 
 	var title: String? {
-		healthCertifiedPerson.dccWalletInfo?.admissionState.titleText?.localized()
+		healthCertifiedPerson.dccWalletInfo?.admissionState.titleText?.localized(cclService: cclService)
 	}
 
 	var subtitle: String? {
-		healthCertifiedPerson.dccWalletInfo?.admissionState.subtitleText?.localized()
+		healthCertifiedPerson.dccWalletInfo?.admissionState.subtitleText?.localized(cclService: cclService)
 	}
 
 	var description: String? {
-		healthCertifiedPerson.dccWalletInfo?.admissionState.longText?.localized()
+		healthCertifiedPerson.dccWalletInfo?.admissionState.longText?.localized(cclService: cclService)
 	}
 
 	var faqLink: NSAttributedString? {
@@ -57,7 +61,7 @@ final class AdmissionStateCellModel {
 	}
 	
 	var shortTitle: String? {
-		healthCertifiedPerson.dccWalletInfo?.admissionState.badgeText?.localized()
+		healthCertifiedPerson.dccWalletInfo?.admissionState.badgeText?.localized(cclService: cclService)
 	}
 
 	var gradientType: GradientView.GradientType {
@@ -67,5 +71,5 @@ final class AdmissionStateCellModel {
 	// MARK: - Private
 
 	private let healthCertifiedPerson: HealthCertifiedPerson
-
+	private let cclService: CCLService
 }
