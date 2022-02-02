@@ -279,7 +279,7 @@ class HealthCertificateService {
 
 			if didChange {
 				let dispatchGroup = DispatchGroup()
-				for person in self.healthCertifiedPersons {
+				for person in self.healthCertifiedPersons where !person.healthCertificates.isEmpty {
 					dispatchGroup.enter()
 					self.updateDCCWalletInfo(for: person) {
 						dispatchGroup.leave()
@@ -769,9 +769,8 @@ class HealthCertificateService {
 				)
 			case .failure(let error):
 				Log.error("Wallet info update failed", error: error)
+				completion?()
 			}
-
-			completion?()
 		}
 	}
 	
