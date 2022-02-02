@@ -10,7 +10,7 @@ class HealthCertifiedPersonViewController: UIViewController, UITableViewDataSour
 	// MARK: - Init
 
 	init(
-		cclService: CCLService,
+		cclService: CCLServable,
 		healthCertificateService: HealthCertificateService,
 		healthCertifiedPerson: HealthCertifiedPerson,
 		vaccinationValueSetsProvider: VaccinationValueSetsProviding,

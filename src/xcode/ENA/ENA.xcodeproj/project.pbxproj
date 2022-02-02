@@ -174,7 +174,6 @@
 		017EE865267B302F00CD18F6 /* HealthCertificateArray+Fallback.swift in Sources */ = {isa = PBXBuildFile; fileRef = 017EE864267B302F00CD18F6 /* HealthCertificateArray+Fallback.swift */; };
 		017EE867267B4F2600CD18F6 /* CWATestCase+HealthCertificateConvenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = 017EE866267B3F0A00CD18F6 /* CWATestCase+HealthCertificateConvenience.swift */; };
 		0185DDDE25B77786001FBEA7 /* HomeStatisticsCellModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0185DDDD25B77786001FBEA7 /* HomeStatisticsCellModelTests.swift */; };
-		01865C5A273541D6001BBCE9 /* FakeBoosterNotificationsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01865C5827354192001BBCE9 /* FakeBoosterNotificationsService.swift */; };
 		0186FB60268F35B900872D45 /* HealthCertificateValidationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0186FB5F268F35B900872D45 /* HealthCertificateValidationViewController.swift */; };
 		0186FB62268F362200872D45 /* HealthCertificateValidationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0186FB61268F362100872D45 /* HealthCertificateValidationViewModel.swift */; };
 		0187F8A026E2111900F1436E /* CertLogicRule+LocalizedDescription.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0187F89F26E210C800F1436E /* CertLogicRule+LocalizedDescription.swift */; };
@@ -875,8 +874,6 @@
 		8F070CE925E58B9400D29344 /* HtmlInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F070CE825E58B9400D29344 /* HtmlInfoModel.swift */; };
 		8F0B0A9D26EA180500ED6F71 /* BoosterNotificationServiceError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F0B0A9C26EA180500ED6F71 /* BoosterNotificationServiceError.swift */; };
 		8F1E6EEB26DD93BD00483660 /* RulesDownloadService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F1E6EEA26DD93BD00483660 /* RulesDownloadService.swift */; };
-		8F1E6EED26DE13B800483660 /* BoosterNotificationsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F1E6EEC26DE13B800483660 /* BoosterNotificationsService.swift */; };
-		8F1E6EEF26DFC22600483660 /* BoosterNotificationsServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F1E6EEE26DFC22600483660 /* BoosterNotificationsServiceTests.swift */; };
 		8F270194259B5BA700E48CFE /* ContactDiaryMigration1To2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F270193259B5BA700E48CFE /* ContactDiaryMigration1To2.swift */; };
 		8F3167E626A5D906008F35AA /* RegionStatisticsData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F3167E526A5D906008F35AA /* RegionStatisticsData.swift */; };
 		8F3167E826A5D929008F35AA /* RegionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F3167E726A5D929008F35AA /* RegionType.swift */; };
@@ -1454,6 +1451,7 @@
 		BAB0701A266E2ECA0085FD63 /* HealthCertificateTextViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAB07019266E2ECA0085FD63 /* HealthCertificateTextViewCell.swift */; };
 		BAB1239C2572A06D00A179FB /* TanInputViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAB1239B2572A06D00A179FB /* TanInputViewModel.swift */; };
 		BAB123A22572A0B700A179FB /* TanInputViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAB123A02572A0B700A179FB /* TanInputViewController.swift */; };
+		BAB2583827A94CA300DF347B /* FakeCCLService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAB2583627A94C5F00DF347B /* FakeCCLService.swift */; };
 		BAB6C7EF25C4626100E042FB /* TimestampedToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAB6C7EE25C4626100E042FB /* TimestampedToken.swift */; };
 		BAB6C7F925C462E600E042FB /* PPACToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAB6C7F825C462E600E042FB /* PPACToken.swift */; };
 		BAB6C7FE25C4630800E042FB /* PPACError.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAB6C7FD25C4630800E042FB /* PPACError.swift */; };
@@ -1830,7 +1828,6 @@
 		017EE864267B302F00CD18F6 /* HealthCertificateArray+Fallback.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HealthCertificateArray+Fallback.swift"; sourceTree = "<group>"; };
 		017EE866267B3F0A00CD18F6 /* CWATestCase+HealthCertificateConvenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CWATestCase+HealthCertificateConvenience.swift"; sourceTree = "<group>"; };
 		0185DDDD25B77786001FBEA7 /* HomeStatisticsCellModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeStatisticsCellModelTests.swift; sourceTree = "<group>"; };
-		01865C5827354192001BBCE9 /* FakeBoosterNotificationsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FakeBoosterNotificationsService.swift; sourceTree = "<group>"; };
 		0186FB5F268F35B900872D45 /* HealthCertificateValidationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthCertificateValidationViewController.swift; sourceTree = "<group>"; };
 		0186FB61268F362100872D45 /* HealthCertificateValidationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthCertificateValidationViewModel.swift; sourceTree = "<group>"; };
 		0187F89F26E210C800F1436E /* CertLogicRule+LocalizedDescription.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CertLogicRule+LocalizedDescription.swift"; sourceTree = "<group>"; };
@@ -2553,8 +2550,6 @@
 		8F09523227508642002B7049 /* ServiceIdentityDocumentValidationDecoratorResourceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceIdentityDocumentValidationDecoratorResourceTests.swift; sourceTree = "<group>"; };
 		8F0B0A9C26EA180500ED6F71 /* BoosterNotificationServiceError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoosterNotificationServiceError.swift; sourceTree = "<group>"; };
 		8F1E6EEA26DD93BD00483660 /* RulesDownloadService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RulesDownloadService.swift; sourceTree = "<group>"; };
-		8F1E6EEC26DE13B800483660 /* BoosterNotificationsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoosterNotificationsService.swift; sourceTree = "<group>"; };
-		8F1E6EEE26DFC22600483660 /* BoosterNotificationsServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoosterNotificationsServiceTests.swift; sourceTree = "<group>"; };
 		8F27018E259B593700E48CFE /* ContactDiaryStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactDiaryStore.swift; sourceTree = "<group>"; };
 		8F270193259B5BA700E48CFE /* ContactDiaryMigration1To2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactDiaryMigration1To2.swift; sourceTree = "<group>"; };
 		8F3167E526A5D906008F35AA /* RegionStatisticsData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegionStatisticsData.swift; sourceTree = "<group>"; };
@@ -3130,6 +3125,7 @@
 		BAB07019266E2ECA0085FD63 /* HealthCertificateTextViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HealthCertificateTextViewCell.swift; sourceTree = "<group>"; };
 		BAB1239B2572A06D00A179FB /* TanInputViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TanInputViewModel.swift; sourceTree = "<group>"; };
 		BAB123A02572A0B700A179FB /* TanInputViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TanInputViewController.swift; sourceTree = "<group>"; };
+		BAB2583627A94C5F00DF347B /* FakeCCLService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FakeCCLService.swift; sourceTree = "<group>"; };
 		BAB6C7EE25C4626100E042FB /* TimestampedToken.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimestampedToken.swift; sourceTree = "<group>"; };
 		BAB6C7F825C462E600E042FB /* PPACToken.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PPACToken.swift; sourceTree = "<group>"; };
 		BAB6C7FD25C4630800E042FB /* PPACError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PPACError.swift; sourceTree = "<group>"; };
@@ -5499,7 +5495,6 @@
 				5078DCA22684B3F400535917 /* __tests__ */,
 				5078DC9F2684B3DD00535917 /* Model */,
 				8F0B0A9C26EA180500ED6F71 /* BoosterNotificationServiceError.swift */,
-				8F1E6EEC26DE13B800483660 /* BoosterNotificationsService.swift */,
 				5078DCA02684B3ED00535917 /* HealthCertificateValidationService.swift */,
 				8F1E6EEA26DD93BD00483660 /* RulesDownloadService.swift */,
 			);
@@ -5520,11 +5515,10 @@
 			isa = PBXGroup;
 			children = (
 				AB88AAFD2698899E00BC1731 /* TestData */,
-				8F1E6EEE26DFC22600483660 /* BoosterNotificationsServiceTests.swift */,
-				01865C5827354192001BBCE9 /* FakeBoosterNotificationsService.swift */,
 				BA0DF1292795AFAB00DEF08C /* FakeRulesDownloadService.swift */,
 				500396EE268DA1A80006D448 /* HealthCertificateValidationServiceValidationTests.swift */,
 				01E0D3A6268DC7A200E32CF9 /* MockHealthCertificateValidationService.swift */,
+				BAB2583627A94C5F00DF347B /* FakeCCLService.swift */,
 			);
 			path = __tests__;
 			sourceTree = "<group>";
@@ -6598,8 +6592,8 @@
 		85D759802459A82D008175F0 /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				ABB8DF5E2799BE9700DD99E4 /* CCLService */,
 				B15382DC248270220010F007 /* __tests__ */,
+				ABB8DF5E2799BE9700DD99E4 /* CCLService */,
 				011216F22617360800320745 /* CoronaTestService */,
 				01FD3ED625D2F0D00049497A /* DeadmanNotification */,
 				BAC2F58326667A42008A6C7B /* DGCRegistration */,
@@ -11042,7 +11036,6 @@
 				8F3202442600C7BB00D6A224 /* TorchMode.swift in Sources */,
 				01D02626258A769200B6389A /* HTTPURLResponse+Header.swift in Sources */,
 				EB3BCA882507B6C1003F27C7 /* ExposureSubmissionSymptomsOnsetViewController.swift in Sources */,
-				8F1E6EED26DE13B800483660 /* BoosterNotificationsService.swift in Sources */,
 				8F39D07D263F62A80096F4E2 /* els_otp_request_ios.pb.swift in Sources */,
 				5001DE7A26E2019A004242FA /* LocalStatistics.swift in Sources */,
 				FEDCE29E414945F14E7CE576 /* ENStateHandler+State.swift in Sources */,
@@ -11141,7 +11134,6 @@
 				507685CB25E80E600039B7B6 /* TestDummyPPAnalyticsDataImplementation.swift in Sources */,
 				BAA7F60027A044D90050E072 /* CacheDataTests.swift in Sources */,
 				50842BEC274FB9150015E63F /* ServiceIdentityDocumentProcessorTests.swift in Sources */,
-				01865C5A273541D6001BBCE9 /* FakeBoosterNotificationsService.swift in Sources */,
 				AB6887FE25D6AAEF00907465 /* ContactDiaryStoreSchemaV3Tests.swift in Sources */,
 				5081EEFE25FF9C5E004B8FDE /* CheckinsInfoScreenViewModelTest.swift in Sources */,
 				AB1885D825238DD100D39BBE /* OnboardingInfoViewControllerTests.swift in Sources */,
@@ -11228,6 +11220,7 @@
 				50373EC925FBD08A000109AE /* HTTPClient+TraceWarningPackageDownloadTests.swift in Sources */,
 				AB1FCBD42521FC47005930BA /* EnvironmentTests.swift in Sources */,
 				50BD1425260B74C20013983A /* VerificationMock.swift in Sources */,
+				BAB2583827A94CA300DF347B /* FakeCCLService.swift in Sources */,
 				BA02641325E6A0800019CD55 /* FooterViewModelTests.swift in Sources */,
 				0123D5992501385200A91838 /* ExposureSubmissionErrorTests.swift in Sources */,
 				8FEC7DB52795CFC800D5558C /* HealthCertificateArray+FallbackTests.swift in Sources */,
@@ -11319,7 +11312,6 @@
 				AB7BDF8325CC079B00E70744 /* SurveyConsentViewModelTests.swift in Sources */,
 				B1FE13ED24891D0400D012E5 /* RiskProviderTests.swift in Sources */,
 				4BAB490426C9B70A00CC4C11 /* RateLimitLoggerTests.swift in Sources */,
-				8F1E6EEF26DFC22600483660 /* BoosterNotificationsServiceTests.swift in Sources */,
 				AB7420DD251B8101006666AC /* DeltaOnboardingCoordinatorTests.swift in Sources */,
 				ABD0828F260E08D6007C4B24 /* TraceWarningMatcherTests.swift in Sources */,
 				01DF186E2603B28200A002E4 /* TraceLocationsOverviewViewModelTest.swift in Sources */,

@@ -41,4 +41,8 @@ public struct CCLConfiguration: Codable {
     public let validFrom: String
     public let validTo: String
     public let logic: Logic
+
+    public var functionDescriptors: [JsonFunctionDescriptor] {
+        logic.jfnDescriptors
+    }
 }

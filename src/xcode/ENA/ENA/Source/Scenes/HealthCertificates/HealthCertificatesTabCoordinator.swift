@@ -12,7 +12,7 @@ final class HealthCertificatesTabCoordinator {
 	
 	init(
 		store: HealthCertificateStoring,
-		cclService: CCLService,
+		cclService: CCLServable,
 		healthCertificateService: HealthCertificateService,
 		healthCertificateValidationService: HealthCertificateValidationProviding,
 		healthCertificateValidationOnboardedCountriesProvider: HealthCertificateValidationOnboardedCountriesProviding,
@@ -82,7 +82,7 @@ final class HealthCertificatesTabCoordinator {
 	// MARK: - Private
 	
 	private let store: HealthCertificateStoring
-	private let cclService: CCLService
+	private let cclService: CCLServable
 	private let healthCertificateService: HealthCertificateService
 	private let healthCertificateValidationService: HealthCertificateValidationProviding
 	private let healthCertificateValidationOnboardedCountriesProvider: HealthCertificateValidationOnboardedCountriesProviding

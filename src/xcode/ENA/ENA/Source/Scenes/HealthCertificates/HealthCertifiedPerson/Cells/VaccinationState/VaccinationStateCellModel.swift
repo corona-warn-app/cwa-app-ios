@@ -12,7 +12,7 @@ final class VaccinationStateCellModel {
 
 	init(
 		healthCertifiedPerson: HealthCertifiedPerson,
-		cclService: CCLService
+		cclService: CCLServable
 	) {
 		self.healthCertifiedPerson = healthCertifiedPerson
 		self.cclService = cclService
@@ -63,5 +63,5 @@ final class VaccinationStateCellModel {
 	// MARK: - Private
 
 	let healthCertifiedPerson: HealthCertifiedPerson
-	let cclService: CCLService
+	let cclService: CCLServable
 }
