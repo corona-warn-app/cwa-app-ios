@@ -10,6 +10,7 @@ class HealthCertifiedPersonViewController: UIViewController, UITableViewDataSour
 	// MARK: - Init
 
 	init(
+		cclService: CCLService,
 		healthCertificateService: HealthCertificateService,
 		healthCertifiedPerson: HealthCertifiedPerson,
 		vaccinationValueSetsProvider: VaccinationValueSetsProviding,
@@ -25,6 +26,7 @@ class HealthCertifiedPersonViewController: UIViewController, UITableViewDataSour
 		self.didSwipeToDelete = didSwipeToDelete
 
 		self.viewModel = HealthCertifiedPersonViewModel(
+			cclService: cclService,
 			healthCertificateService: healthCertificateService,
 			healthCertifiedPerson: healthCertifiedPerson,
 			healthCertificateValueSetsProvider: vaccinationValueSetsProvider,
@@ -242,16 +244,9 @@ class HealthCertifiedPersonViewController: UIViewController, UITableViewDataSour
 		navigationItem.rightBarButtonItem = dismissHandlingCloseBarButton(.contrast)
 		navigationItem.hidesBackButton = true
 
-		// create a transparent navigation bar
-		let emptyImage = UIImage()
-		navigationController?.navigationBar.setBackgroundImage(emptyImage, for: .default)
-		navigationController?.navigationBar.shadowImage = emptyImage
-		navigationController?.navigationBar.isTranslucent = true
-		navigationController?.view.backgroundColor = .clear
-
-		navigationController?.navigationBar.prefersLargeTitles = false
-		navigationController?.navigationBar.sizeToFit()
-		navigationItem.largeTitleDisplayMode = .never
+		if let dismissHandlingNC = navigationController as? DismissHandlingNavigationController {
+			dismissHandlingNC.setupTransparentNavigationBar()
+		}
 	}
 
 	private func setupBackground() {

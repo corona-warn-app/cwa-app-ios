@@ -8,8 +8,8 @@ import UIKit
 class BoosterDetailsViewModel {
 	
 	init (
-		boosterNotification: DCCBoosterNotification,
-		cclService: CLLService
+		cclService: CCLService,
+		boosterNotification: DCCBoosterNotification
 	) {
 		self.boosterNotification = boosterNotification
 		self.cclService = cclService
@@ -24,12 +24,11 @@ class BoosterDetailsViewModel {
 					header: .image(
 						UIImage(named: "Illustration_booster_details"),
 						accessibilityLabel: AppStrings.NotificationSettings.imageDescriptionOn,
-						accessibilityIdentifier: AccessibilityIdentifiers.NotificationSettings.DeltaOnboarding.imageOn,
-						height: 200
+						accessibilityIdentifier: AccessibilityIdentifiers.NotificationSettings.DeltaOnboarding.imageOn
 					),
 					cells: [
-						.title1(text: boosterNotification.titleText?.localized(cclService: cclService)),
-						.subheadline(text: boosterNotification.subtitleText?.localized(cclService: cclService), color: .enaColor(for: .textPrimary2)) { _, cell, _ in
+						.title1(text: boosterNotification.titleText?.localized(cclService: cclService) ?? ""),
+						.subheadline(text: boosterNotification.subtitleText?.localized(cclService: cclService) ?? "", color: .enaColor(for: .textPrimary2)) { _, cell, _ in
 							cell.contentView.preservesSuperviewLayoutMargins = false
 							cell.contentView.layoutMargins.left += 5
 							cell.contentView.layoutMargins.top = 0
@@ -40,8 +39,11 @@ class BoosterDetailsViewModel {
 			$0.add(
 				.section(
 					cells: [
-						.body(text: boosterNotification.longText?.localized(cclService: cclService)),
-						.body(text: "Mehr Informationen finden Sie in den FAQ.")
+						.body(text: boosterNotification.longText?.localized(cclService: cclService) ?? ""),
+						.link(
+							text: AppStrings.HealthCertificate.Person.faq,
+							url: URL(string: LinkHelper.urlString(suffix: boosterNotification.faqAnchor ?? "", type: .faq))
+						)
 					]
 				)
 			)
@@ -50,6 +52,6 @@ class BoosterDetailsViewModel {
 	
 	// MARK: - Private
 	
-	private let cclService: CCLServable
+	private let cclService: CCLService
 	private let boosterNotification: DCCBoosterNotification
 }
