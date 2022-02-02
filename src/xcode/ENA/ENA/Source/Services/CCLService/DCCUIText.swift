@@ -30,7 +30,7 @@ public struct DCCUIText: Codable, Equatable {
 	
 	// MARK: - Internal
 	
-	let type: String
+	let type: String?
 	let quantity: Int?
 	let quantityParameterIndex: Int?
 	let functionName: String?

@@ -12,7 +12,7 @@ struct DCCWalletInfo: Codable, Equatable {
 	let boosterNotification: DCCBoosterNotification
 	let mostRelevantCertificate: DCCMostRelevantCertificate
 	let verification: DCCVerification
-	let validUntil: Date
+	let validUntil: Date?
 
 }
 
@@ -69,6 +69,6 @@ struct DCCVerificationCertificate: Codable, Equatable {
 
 struct DCCCertificateReference: Codable, Equatable {
 
-	let barcodeData: String
+	let barcodeData: String?
 
 }
