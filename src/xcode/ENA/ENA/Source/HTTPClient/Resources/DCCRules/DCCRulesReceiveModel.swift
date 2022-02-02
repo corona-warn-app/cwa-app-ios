@@ -7,7 +7,7 @@ import Foundation
 import HealthCertificateToolkit
 import class CertLogic.Rule
 
-struct DCCRulesReceiveModel: CBORDecodable {
+struct DCCRulesReceiveModel: CBORDecodable, MetaDataProviding {
 
 	// MARK: - Protocol CBORDecoding
 	
@@ -21,6 +21,8 @@ struct DCCRulesReceiveModel: CBORDecodable {
 	}
 
 	// MARK: - Internal
+
+	var metaData: MetaData = MetaData()
 
 	let rules: [Rule]
 	

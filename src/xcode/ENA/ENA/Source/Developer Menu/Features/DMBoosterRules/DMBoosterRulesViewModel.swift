@@ -80,35 +80,6 @@ final class DMBoosterRulesViewModel {
 					self.refreshTableView([TableViewSections.cachedPassedBoosterRule.rawValue])
 				}
 			)
-		case .downloadOfBoosterRules:
-			return DMButtonCellViewModel(
-				text: "download Booster Rules",
-				textColor: .enaColor(for: .textContrast),
-				backgroundColor: .enaColor(for: .buttonPrimary),
-				action: {
-					self.healthCertificateService.checkIfBoosterRulesShouldBeFetched(completion: { errorMessage in
-						if let message = errorMessage, let currentPersonName = self.healthCertifiedPerson.name?.standardizedName {
-							/*
-							we get error messages for all persons who didn't pass a rule so we check and show
-							an alert only if:
-							- an error occurred to the person that we selected in the previous screen
-							- a an error that has the word "general" in the message, for example if the rules were already
-							downloaded today, this is a general error for all persons
-							*/
-							if message.contains(currentPersonName) || message.contains("general") {
-								self.createAlert(message: message)
-							}
-						} else {
-							self.refreshTableView(
-								[
-									TableViewSections.lastDownloadDate.rawValue ,
-									TableViewSections.cachedPassedBoosterRule.rawValue
-								]
-							)
-						}
-					})
-				}
-			)
 		}
 	}
 	
@@ -128,7 +99,6 @@ final class DMBoosterRulesViewModel {
 	enum TableViewSections: Int, CaseIterable {
 		case lastDownloadDate
 		case cachedPassedBoosterRule
-		case downloadOfBoosterRules
 		case clearLastDownloadDate
 		case clearCurrentPersonBoosterRule
 	}

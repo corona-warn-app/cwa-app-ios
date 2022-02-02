@@ -11,7 +11,7 @@ final class HealthCertifiedPersonViewModel {
 	// MARK: - Init
 
 	init(
-		cclService: CCLService,
+		cclService: CCLServable,
 		healthCertificateService: HealthCertificateService,
 		healthCertifiedPerson: HealthCertifiedPerson,
 		healthCertificateValueSetsProvider: VaccinationValueSetsProviding,
@@ -227,7 +227,7 @@ final class HealthCertifiedPersonViewModel {
 
 	// MARK: - Private
 
-	private let cclService: CCLService
+	private let cclService: CCLServable
 	private let healthCertificateService: HealthCertificateService
 	private let healthCertificateValueSetsProvider: VaccinationValueSetsProviding
 

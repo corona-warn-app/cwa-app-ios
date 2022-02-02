@@ -12,7 +12,7 @@ final class BoosterNotificationCellModel {
 
 	init(
 		healthCertifiedPerson: HealthCertifiedPerson,
-		cclService: CCLService
+		cclService: CCLServable
 	) {
 		self.healthCertifiedPerson = healthCertifiedPerson
 		self.cclService = cclService
@@ -35,6 +35,6 @@ final class BoosterNotificationCellModel {
 	// MARK: - Private
 
 	let healthCertifiedPerson: HealthCertifiedPerson
-	let cclService: CCLService
+	let cclService: CCLServable
 
 }

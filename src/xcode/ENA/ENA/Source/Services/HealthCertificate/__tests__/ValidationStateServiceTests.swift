@@ -23,9 +23,7 @@ class TestHealthCertificateService: HealthCertificateService {
 			dscListProvider: dscListProvider,
 			client: client,
 			appConfiguration: appConfiguration,
-			boosterNotificationsService: BoosterNotificationsService(
-				rulesDownloadService: FakeRulesDownloadService()
-			),
+			cclService: FakeCCLService(),
 			recycleBin: .fake()
 		)
 		self.validUntilDates = validUntilDates
@@ -68,9 +66,7 @@ class ValidationStateServiceTests: XCTestCase {
 			dscListProvider: MockDSCListProvider(),
 			client: client,
 			appConfiguration: appConfiguration,
-			boosterNotificationsService: BoosterNotificationsService(
-				rulesDownloadService: FakeRulesDownloadService()
-			),
+			cclService: FakeCCLService(),
 			recycleBin: .fake()
 		)
 		service.validationUpdatedHook = {
@@ -100,9 +96,7 @@ class ValidationStateServiceTests: XCTestCase {
 			dscListProvider: dscListProvider,
 			client: ClientMock(),
 			appConfiguration: CachedAppConfigurationMock(),
-			boosterNotificationsService: BoosterNotificationsService(
-				rulesDownloadService: FakeRulesDownloadService()
-			),
+			cclService: FakeCCLService(),
 			recycleBin: .fake()
 		)
 		service.validationUpdatedHook = {
