@@ -12,6 +12,7 @@ final class HealthCertificatesTabCoordinator {
 	
 	init(
 		store: HealthCertificateStoring,
+		cclService: CCLServable,
 		healthCertificateService: HealthCertificateService,
 		healthCertificateValidationService: HealthCertificateValidationProviding,
 		healthCertificateValidationOnboardedCountriesProvider: HealthCertificateValidationOnboardedCountriesProviding,
@@ -232,9 +233,11 @@ final class HealthCertificatesTabCoordinator {
 				}
 			},
 			didTapBoosterNotification: { healthCertifiedPerson in
-				let boosterDetailsViewController = BoosterDetailsViewController(viewModel: BoosterDetailsViewModel())
+				guard let boosterNotification = healthCertifiedPerson.dccWalletInfo?.boosterNotification else {
+					return
+				}
+				let boosterDetailsViewController = BoosterDetailsViewController(viewModel: BoosterDetailsViewModel(boosterNotification: boosterNotification))
 				self.modalNavigationController.pushViewController(boosterDetailsViewController, animated: true)
-				Log.info("Tapped on booster notification for \(private: String(describing: healthCertifiedPerson.name?.fullName))")
 			},
 			didTapHealthCertificate: { [weak self] healthCertificate in
 				self?.showHealthCertificateFlow(
