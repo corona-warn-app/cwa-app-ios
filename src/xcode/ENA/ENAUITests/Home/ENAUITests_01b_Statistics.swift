@@ -21,7 +21,7 @@ class ENAUITests_01b_Statistics: CWATestCase {
 	func test_AddStatisticsButton_maximumNumberOfCards() {
 		app.setLaunchArgument(LaunchArguments.statistics.maximumRegionsSelected, to: true)
 		let addButtonIdentifier = AccessibilityIdentifiers.LocalStatistics.addLocalIncidencesButton
-		let localStatisticsViewTitle = AccessibilityIdentifiers.LocalStatistics.localStatisticsCard
+		let localStatisticsViewTitle = AccessibilityIdentifiers.LocalStatistics.localStatisticsCardTitle
 		
 		app.setPreferredContentSizeCategory(accessibility: .normal, size: .S)
 		app.launch()
@@ -245,7 +245,7 @@ class ENAUITests_01b_Statistics: CWATestCase {
 		// GIVEN
 		let incidenceTitle = AccessibilityIdentifiers.Statistics.Combined7DayIncidence.title
 		let addStatisticsButtonTitle = AccessibilityIdentifiers.LocalStatistics.addLocalIncidencesButton
-		let localStatisticsTitle = AccessibilityIdentifiers.LocalStatistics.localStatisticsCard
+		let localStatisticsTitle = AccessibilityIdentifiers.LocalStatistics.localStatisticsCardTitle
 
 		// WHEN
 		app.setPreferredContentSizeCategory(accessibility: .normal, size: .S)
