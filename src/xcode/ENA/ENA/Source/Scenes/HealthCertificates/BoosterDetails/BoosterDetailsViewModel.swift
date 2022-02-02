@@ -8,7 +8,7 @@ import UIKit
 class BoosterDetailsViewModel {
 	
 	init (
-		cclService: CCLService,
+		cclService: CCLServable,
 		boosterNotification: DCCBoosterNotification
 	) {
 		self.boosterNotification = boosterNotification
@@ -66,6 +66,6 @@ class BoosterDetailsViewModel {
 	
 	// MARK: - Private
 	
-	private let cclService: CCLService
+	private let cclService: CCLServable
 	private let boosterNotification: DCCBoosterNotification
 }
