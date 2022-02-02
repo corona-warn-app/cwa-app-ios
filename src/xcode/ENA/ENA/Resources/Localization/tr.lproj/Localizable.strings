@@ -1599,22 +1599,10 @@
 /* New Version Features */
 "NewVersionFeatures_Info_about_abb_information" = "Bu sürümdeki değişiklikleri uygulama bilgilerinde “Yeni Özellikler” bölümünde bulabilirsiniz.";
 
-/* Version 2.17 */
-"NewVersionFeature_217_positiveTest_title" = "Pozitif Test Sonucu Durumunda Notlar";
+/* Version 2.18 */
+"NewVersionFeature_218_centralManagementOfRules_title" = "Merkezi Kural Yönetimi";
 
-"NewVersionFeature_217_positiveTest_description" = "Pozitif test sonucunun gözden geçirilmesi durumuna ilişkin notlar ve önerilen prosedür.";
-
-"NewVersionFeature_217_statisticsBoosterVaccination_title" = "Hatırlatma Aşılarına İlişkin İstatistikler";
-
-"NewVersionFeature_217_statisticsBoosterVaccination_description" = "Bir doz aşı olmuş ve tam aşılı kişilere ilişkin istatistiklerin yanı sıra artık hatırlatma aşısı olan kişi sayısına da ulaşacaksınız.";
-
-"NewVersionFeature_217_linkSocialMedia_title" = "Sosyal Medya Bağlantısı";
-
-"NewVersionFeature_217_linkSocialMedia_description" = "Corona-Warn-App'teki en son geliştirmeleri takip etmek ve bunları başkalarıyla tartışmak istiyorsanız sosyal medya kanallarımızı takip edebilirsiniz. Artık, ana ekranda \"Diğer\" kısmında bir sosyal medya bağlantısına da erişeceksiniz.";
-
-"NewVersionFeature_217_deleteDateRecycleBin_title" = "Geri Dönüşüm Kutusu için Silme Tarihi";
-
-"NewVersionFeature_217_deleteDateRecycleBin_description" = "Geri dönüşüm kutusuna taşınan her öğe, 30 gün sonra kalıcı olarak silinir. Bu silme tarihi artık her öğe için görüntülenmektedir.";
+"NewVersionFeature_218_centralManagementOfRules_description" = "Sertifikalara ilişkin kurallar (örneğin geçerlilikleriyle ilgili olarak veya birden fazla sertifika mevcut olduğunda bunların önceliğinin belirlenmesi ile ilgili olarak) ve “G” durumunuzu (aşılanmış, iyileşmiş, test yaptırmış) belirleme kuralları Corona-Warn-App'ten ayrılmıştır. Bu kurallar artık merkezi olarak depolanır ve bu nedenle uygulama sürümlerinden bağımsız olarak ayarlanabilir, bu da kural değişikliklerine daha hızlı tepki vermeyi mümkün kılar. Herhangi bir değişiklik yapıldıktan sonra, güncellenen kurallar uygulamaya otomatik olarak aktarılacaktır. Merkezi kural yönetimi, Corona-Warn-App'i kullanma şeklinizi değiştirmez.";
 
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Uluslararası Maruz Kalma Günlüğü";
@@ -2027,7 +2015,7 @@
 "Statistics_Card_AtLeastOneVaccinated_SecondarySubtitleLabel" = "(popülasyona göre)";
 
 /* - Fully vaccinated people card */
-"Statistics_Card_FullyVaccinated_Title" = "Tüm Aşıları Olan Kişiler";
+"Statistics_Card_FullyVaccinated_Title" = "Temel Bağışıklığı Olan Kişiler";
 
 "Statistics_Card_FullyVaccinated_Today" = "Bugüne kadar";
 
@@ -2122,7 +2110,7 @@
 
 "Statistics_Info_AtLeastOnce_Text" = "RKI'ye aşının ilk dozunu aldıkları bildirilen kişilerin sayısı.";
 
-"Statistics_Info_FullyVaccinated_Title" = "Tüm aşıları olan kişiler";
+"Statistics_Info_FullyVaccinated_Title" = "Temel bağışıklığı olan kişiler";
 
 "Statistics_Info_FullyVaccinated_Text" = "RKI'ye temel bağışıklık için gereken tüm aşı dozlarını aldıkları bildirilen kişilerin sayısı.";
 
@@ -2825,53 +2813,12 @@
 /* Health Certified Person Screen */
 "HealthCertificate_unified_QR_code_notice" = "Bu QR kod, CovPassCheck uygulaması ile güvenilir şekilde doğrulanabilir.";
 
+"HealthCertificate_unified_QR_code_infoButton" = "Bilgi";
+
 "HealthCertifiedPerson_title" = "AB Dijital COVID Sertifikası";
 
-/* Health Certified Person Admission State */
-"HealthCertifiedPerson_AdmissionState_title" = "Durum Kanıtı";
-
-"HealthCertifiedPerson_AdmissionState_subtitle2G" = "2G";
-
-"HealthCertifiedPerson_AdmissionState_subtitle2GPlusPCR" = "2G+ PCR testi";
-
-"HealthCertifiedPerson_AdmissionState_subtitle2GPlusAntigen" = "2G+ hızlı testi";
-
-"HealthCertifiedPerson_AdmissionState_subtitle3G" = "3G";
-
-"HealthCertifiedPerson_AdmissionState_subtitle3GPlus" = "3G+";
-
-"HealthCertifiedPerson_AdmissionState_description2G" = "Sertifikalarınız 2G kuralına uygun. Güncel durumunuzu kanıtlamanız gerekiyorsa bu görünümünü kapatın ve sertifikaya genel bakış bölümündeki QR kodu gösterin.";
-
-"HealthCertifiedPerson_AdmissionState_description2GPlusPCR" = "Sertifikalarınız 2G plus kuralına uygun. Güncel durumunuzu kanıtlamanız gerekiyorsa bu görünümünü kapatın ve sertifikaya genel bakış bölümündeki QR kodu gösterin.";
-
-"HealthCertifiedPerson_AdmissionState_description2GPlusAntigen" = "PCR testi gerekmiyorsa sertifikalarınız 2G plus kuralına uygun. Güncel durumunuzu kanıtlamanız gerekiyorsa bu görünümünü kapatın ve sertifikaya genel bakış bölümündeki QR kodu gösterin.";
-
-"HealthCertifiedPerson_AdmissionState_description3G" = "Sertifikalarınız 3G kuralına uygun. Güncel durumunuzu kanıtlamanız gerekiyorsa bu görünümünü kapatın ve sertifikaya genel bakış bölümündeki QR kodu gösterin.";
-
-"HealthCertifiedPerson_AdmissionState_description3GPlus" = "Sertifikalarınız 3G plus kuralına uygun. Güncel durumunuzu kanıtlamanız gerekiyorsa bu görünümünü kapatın ve sertifikaya genel bakış bölümündeki QR kodu gösterin.";
-
-"HealthCertifiedPerson_AdmissionStateFAQ" = "Daha fazla bilgi için lütfen %@ sayfamıza bakın.";
-
-"HealthCertifiedPerson_AdmissionState_FAQ_Placeholder" = "SSS";
-
-"HealthCertifiedPerson_AdmissionState_shortTitle_title2G" = "2G";
-
-"HealthCertifiedPerson_AdmissionState_shortTitle_title2GPlus" = "2G+";
-
-"HealthCertifiedPerson_AdmissionState_shortTitle_title3G" = "3G";
-
-"HealthCertifiedPerson_AdmissionState_shortTitle_title3GPlus" = "3G+";
-
-/* Health Certified Person Hint */
-"HealthCertifiedPerson_VaccinationHint_title" = "Aşı Durumu";
-
-"HealthCertifiedPerson_partiallyVaccinated" = "Henüz şu anda tüm planlanan aşıları olmadınız. Dolayısıyla aşı korumanız henüz tamamlanmadı.";
-
-"HealthCertifiedPerson_completelyProtected" = "Geçerli olarak planlanan tüm aşıları yaptırdınız. Aşı korumanız tamamlandı.";
-
-"HealthCertifiedPerson_boosterRuleFAQ" = "Daha fazla bilgi için lütfen %@ sayfamıza bakın.";
-
-"HealthCertifiedPerson_boosterRuleFAQ_placeholder_FAQ" = "SSS";
+/* Health Certified Person */
+"HealthCertifiedPerson_faq" = "Daha fazla bilgi için lütfen SSS sayfamıza bakın.";
 
 "HealthCertifiedPerson_dateOfBirth" = "Doğum tarihi: %@";
 

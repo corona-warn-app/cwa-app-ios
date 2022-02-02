@@ -1599,22 +1599,10 @@
 /* New Version Features */
 "NewVersionFeatures_Info_about_abb_information" = "Changes in this release can be found in the app information, under “New Features”.";
 
-/* Version 2.17 */
-"NewVersionFeature_217_positiveTest_title" = "Notes in Case of a Positive Test Result";
+/* Version 2.18 */
+"NewVersionFeature_218_centralManagementOfRules_title" = "Central Administration of Rules";
 
-"NewVersionFeature_217_positiveTest_description" = "The notes and recommended procedure in the case of a positive test result have been revised.";
-
-"NewVersionFeature_217_statisticsBoosterVaccination_title" = "Statistics for Booster Vaccinations";
-
-"NewVersionFeature_217_statisticsBoosterVaccination_description" = "In addition to the statistics for persons who have received one vaccination dose and persons who have been fully vaccinated, you will now also find the number of persons who have received a booster vaccination.";
-
-"NewVersionFeature_217_linkSocialMedia_title" = "Link to Social Media";
-
-"NewVersionFeature_217_linkSocialMedia_description" = "If you want to keep up with the latest developments in the Corona-Warn-App and discuss them with others, you can follow our social media channels. You will now find a social media link on the home screen, under “More”.";
-
-"NewVersionFeature_217_deleteDateRecycleBin_title" = "Deletion Date for Recycle Bin Contents";
-
-"NewVersionFeature_217_deleteDateRecycleBin_description" = "Every element that is moved to the recycle bin is permanently deleted after 30 days. This deletion date is now displayed for every element.";
+"NewVersionFeature_218_centralManagementOfRules_description" = "The rules for certificates (with regard to their validity, for example, or their prioritization when several certificates are available) and for determining your “G” status (vaccinated, recovered, tested) have been separated from the Corona-Warn-App. These rules are now stored centrally and can therefore be adjusted independently of app releases, which will make it possible to react to rule changes more quickly. After a change, the updated rules will be transferred to the app automatically. This central administration of rules does not change how you use the Corona-Warn-App.";
 
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Transnational Exposure Logging";
@@ -2027,7 +2015,7 @@
 "Statistics_Card_AtLeastOneVaccinated_SecondarySubtitleLabel" = "of the population";
 
 /* - Fully vaccinated people card */
-"Statistics_Card_FullyVaccinated_Title" = "People Who Are Fully Vaccinated";
+"Statistics_Card_FullyVaccinated_Title" = "People Who Have Basic Immunization";
 
 "Statistics_Card_FullyVaccinated_Today" = "Up to today";
 
@@ -2122,7 +2110,7 @@
 
 "Statistics_Info_AtLeastOnce_Text" = "Number of persons reported to the RKI who have received the first dose of the vaccine.";
 
-"Statistics_Info_FullyVaccinated_Title" = "People who are fully vaccinated";
+"Statistics_Info_FullyVaccinated_Title" = "People who have basic immunization";
 
 "Statistics_Info_FullyVaccinated_Text" = "Number of persons reported to the RKI who have received all the vaccine doses necessary for basic immunization.";
 
@@ -2825,53 +2813,12 @@
 /* Health Certified Person Screen */
 "HealthCertificate_unified_QR_code_notice" = "This QR code can be verified reliably with the CovPassCheck app.";
 
+"HealthCertificate_unified_QR_code_infoButton" = "Information";
+
 "HealthCertifiedPerson_title" = "EU Digital COVID Certificate";
 
-/* Health Certified Person Admission State */
-"HealthCertifiedPerson_AdmissionState_title" = "Proof of Status";
-
-"HealthCertifiedPerson_AdmissionState_subtitle2G" = "2G";
-
-"HealthCertifiedPerson_AdmissionState_subtitle2GPlusPCR" = "2G+ PCR test";
-
-"HealthCertifiedPerson_AdmissionState_subtitle2GPlusAntigen" = "2G+ rapid test";
-
-"HealthCertifiedPerson_AdmissionState_subtitle3G" = "3G";
-
-"HealthCertifiedPerson_AdmissionState_subtitle3GPlus" = "3G+";
-
-"HealthCertifiedPerson_AdmissionState_description2G" = "Your certificates satisfy the 2G rule. If you need to prove your current status, close this view and show the QR code in the certificate overview.";
-
-"HealthCertifiedPerson_AdmissionState_description2GPlusPCR" = "Your certificates satisfy the 2G plus rule. If you need to prove your current status, close this view and show the QR code in the certificate overview.";
-
-"HealthCertifiedPerson_AdmissionState_description2GPlusAntigen" = "Your certificates satisfy the 2G plus rule, unless a PCR test is required. If you need to prove your current status, close this view and show the QR code in the certificate overview.";
-
-"HealthCertifiedPerson_AdmissionState_description3G" = "Your certificates satisfy the 3G rule. If you need to prove your current status, close this view and show the QR code in the certificate overview.";
-
-"HealthCertifiedPerson_AdmissionState_description3GPlus" = "Your certificates satisfy the 3G plus rule. If you need to prove your current status, close this view and show the QR code in the certificate overview.";
-
-"HealthCertifiedPerson_AdmissionStateFAQ" = "For further information, please see our %@ page.";
-
-"HealthCertifiedPerson_AdmissionState_FAQ_Placeholder" = "FAQ";
-
-"HealthCertifiedPerson_AdmissionState_shortTitle_title2G" = "2G";
-
-"HealthCertifiedPerson_AdmissionState_shortTitle_title2GPlus" = "2G+";
-
-"HealthCertifiedPerson_AdmissionState_shortTitle_title3G" = "3G";
-
-"HealthCertifiedPerson_AdmissionState_shortTitle_title3GPlus" = "3G+";
-
-/* Health Certified Person Hint */
-"HealthCertifiedPerson_VaccinationHint_title" = "Vaccination Status";
-
-"HealthCertifiedPerson_partiallyVaccinated" = "You have not yet received all the currently planned vaccinations. As such, your vaccination protection is not complete yet.";
-
-"HealthCertifiedPerson_completelyProtected" = "You have received all currently planned vaccinations. Your vaccination protection is complete.";
-
-"HealthCertifiedPerson_boosterRuleFAQ" = "For further information, please see our %@ page.";
-
-"HealthCertifiedPerson_boosterRuleFAQ_placeholder_FAQ" = "FAQ";
+/* Health Certified Person */
+"HealthCertifiedPerson_faq" = "For further information, please see our FAQ page.";
 
 "HealthCertifiedPerson_dateOfBirth" = "Born %@";
 

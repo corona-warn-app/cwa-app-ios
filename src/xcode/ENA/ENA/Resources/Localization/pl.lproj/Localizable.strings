@@ -1599,22 +1599,10 @@
 /* New Version Features */
 "NewVersionFeatures_Info_about_abb_information" = "Dane o zmianach w tej wersji można znaleźć w informacjach o aplikacji w sekcji „Nowe funkcje”.";
 
-/* Version 2.17 */
-"NewVersionFeature_217_positiveTest_title" = "Uwagi w przypadku pozytywnego wyniku testu";
+/* Version 2.18 */
+"NewVersionFeature_218_centralManagementOfRules_title" = "Centralna administracja reguł";
 
-"NewVersionFeature_217_positiveTest_description" = "Zmieniono uwagi i zalecane postępowanie w przypadku pozytywnego wyniku testu.";
-
-"NewVersionFeature_217_statisticsBoosterVaccination_title" = "Statystyka szczepień przypominających";
-
-"NewVersionFeature_217_statisticsBoosterVaccination_description" = "Oprócz danych statystycznych dotyczących osób, które otrzymały jedną dawkę szczepionki i osób w pełni zaszczepionych, znajdziesz teraz również informacje o liczbie osób, które otrzymały szczepienie przypominające.";
-
-"NewVersionFeature_217_linkSocialMedia_title" = "Link do mediów społecznościowych";
-
-"NewVersionFeature_217_linkSocialMedia_description" = "Jeśli chcesz na bieżąco zapoznawać się ze zmianami w aplikacji Corona-Warn-App i omawiać je z innymi, możesz śledzić nasze kanały w mediach społecznościowych. Na ekranie głównym w sekcji „Więcej” znajdziesz teraz link do mediów społecznościowych.";
-
-"NewVersionFeature_217_deleteDateRecycleBin_title" = "Data usunięcia zawartości kosza";
-
-"NewVersionFeature_217_deleteDateRecycleBin_description" = "Każdy element przeniesiony do kosza jest trwale usuwany po 30 dniach. Taki termin usunięcia jest teraz wyświetlany dla każdego elementu.";
+"NewVersionFeature_218_centralManagementOfRules_description" = "Reguły certyfikatów (odnoszące się na przykład do ich ważności lub priorytetów w przypadku dostępności kilku certyfikatów) i ustalania statusu „G” (zaszczepiony, ozdrowieniec, przetestowany) zostały oddzielone od aplikacji Corona-Warn-App. Te reguły są teraz przechowywane centralnie i dlatego można je dostosowywać niezależnie od wersji aplikacji, co umożliwia szybszą reakcję na zmiany reguł. Po zmianie zaktualizowane reguły zostaną przeniesione do aplikacji automatycznie. Ta centralna administracja reguł nie zmienia sposobu korzystania z aplikacji Corona-Warn-App.";
 
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Rejestrowanie narażenia w różnych krajach";
@@ -2027,7 +2015,7 @@
 "Statistics_Card_AtLeastOneVaccinated_SecondarySubtitleLabel" = "ogółu populacji";
 
 /* - Fully vaccinated people card */
-"Statistics_Card_FullyVaccinated_Title" = "Osoby w pełni zaszczepione";
+"Statistics_Card_FullyVaccinated_Title" = "Osoby posiadające podstawowe szczepienia";
 
 "Statistics_Card_FullyVaccinated_Today" = "Do dzisiaj";
 
@@ -2122,7 +2110,7 @@
 
 "Statistics_Info_AtLeastOnce_Text" = "Liczba osób zgłoszonych w RKI, które otrzymały pierwszą dawkę szczepionki.";
 
-"Statistics_Info_FullyVaccinated_Title" = "Osoby w pełni zaszczepione";
+"Statistics_Info_FullyVaccinated_Title" = "Osoby posiadające podstawowe szczepienia";
 
 "Statistics_Info_FullyVaccinated_Text" = "Liczba osób zgłoszonych w RKI, które otrzymały wszystkie dawki szczepionki niezbędne do podstawowego uodpornienia.";
 
@@ -2825,53 +2813,12 @@
 /* Health Certified Person Screen */
 "HealthCertificate_unified_QR_code_notice" = "Ten kod QR można wiarygodnie zweryfikować za pomocą aplikacji CovPassCheck.";
 
+"HealthCertificate_unified_QR_code_infoButton" = "Informacje";
+
 "HealthCertifiedPerson_title" = "Unijny cyfrowy certyfikat COVID";
 
-/* Health Certified Person Admission State */
-"HealthCertifiedPerson_AdmissionState_title" = "Dowód status";
-
-"HealthCertifiedPerson_AdmissionState_subtitle2G" = "2G";
-
-"HealthCertifiedPerson_AdmissionState_subtitle2GPlusPCR" = "2G+ test PCR";
-
-"HealthCertifiedPerson_AdmissionState_subtitle2GPlusAntigen" = "2G+ szybki test";
-
-"HealthCertifiedPerson_AdmissionState_subtitle3G" = "3G";
-
-"HealthCertifiedPerson_AdmissionState_subtitle3GPlus" = "3G+";
-
-"HealthCertifiedPerson_AdmissionState_description2G" = "Twoje certyfikaty są zgodne z zasadą 2G. Jeśli musisz udowodnić swój aktualny status, zamknij ten widok i wyświetl kod QR w przeglądzie certyfikatów.";
-
-"HealthCertifiedPerson_AdmissionState_description2GPlusPCR" = "Twoje certyfikaty są zgodne z zasadą 2G plus. Jeśli musisz udowodnić swój aktualny status, zamknij ten widok i wyświetl kod QR w przeglądzie certyfikatów.";
-
-"HealthCertifiedPerson_AdmissionState_description2GPlusAntigen" = "Twoje certyfikaty są zgodne z zasadą 2G plus, o ile nie jest wymagany test PCR. Jeśli musisz udowodnić swój aktualny status, zamknij ten widok i wyświetl kod QR w przeglądzie certyfikatów.";
-
-"HealthCertifiedPerson_AdmissionState_description3G" = "Twoje certyfikaty są zgodne z zasadą 3G. Jeśli musisz udowodnić swój aktualny status, zamknij ten widok i pokaż kod QR w przeglądzie certyfikatów.";
-
-"HealthCertifiedPerson_AdmissionState_description3GPlus" = "Twoje certyfikaty są zgodne z zasadą 3G plus. Jeśli musisz udowodnić swój aktualny status, zamknij ten widok i pokaż kod QR w przeglądzie certyfikatów.";
-
-"HealthCertifiedPerson_AdmissionStateFAQ" = "Więcej informacji znajduje się na naszej stronie %@.";
-
-"HealthCertifiedPerson_AdmissionState_FAQ_Placeholder" = "Często zadawane pytania";
-
-"HealthCertifiedPerson_AdmissionState_shortTitle_title2G" = "2G";
-
-"HealthCertifiedPerson_AdmissionState_shortTitle_title2GPlus" = "2G+";
-
-"HealthCertifiedPerson_AdmissionState_shortTitle_title3G" = "3G";
-
-"HealthCertifiedPerson_AdmissionState_shortTitle_title3GPlus" = "3G+";
-
-/* Health Certified Person Hint */
-"HealthCertifiedPerson_VaccinationHint_title" = "Status zaszczepienia";
-
-"HealthCertifiedPerson_partiallyVaccinated" = "Nie otrzymałeś(-aś jeszcze wszystkich zaplanowanych szczepień. W związku z tym Twoja ochrona poszczepienna nie jest jeszcze pełna.";
-
-"HealthCertifiedPerson_completelyProtected" = "Otrzymałeś(-aś) wszystkie aktualnie zaplanowane szczepienia. Masz pełną ochronę poszczepienną.";
-
-"HealthCertifiedPerson_boosterRuleFAQ" = "Więcej informacji znajduje się na naszej stronie %@.";
-
-"HealthCertifiedPerson_boosterRuleFAQ_placeholder_FAQ" = "Często zadawane pytania";
+/* Health Certified Person */
+"HealthCertifiedPerson_faq" = "Więcej informacji znajduje się na naszej stronie „Często zadawane pytania”.";
 
 "HealthCertifiedPerson_dateOfBirth" = "Data urodzenia %@";
 
