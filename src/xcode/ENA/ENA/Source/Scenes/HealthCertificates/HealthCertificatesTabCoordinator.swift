@@ -237,16 +237,10 @@ final class HealthCertificatesTabCoordinator {
 				}
 			},
 			didTapBoosterNotification: { [weak self] healthCertifiedPerson in
-//				guard let boosterNotification = healthCertifiedPerson.dccWalletInfo?.boosterNotification, let cclService = self?.cclService else {
-//					return
-//				}
-				
-				guard let cclService = self?.cclService else { return }
-				
-				let titleText = DCCUIText(type: "string", quantity: nil, quantityParameterIndex: nil, functionName: nil, localizedText: ["de": "Hinweis zur Auffrischimpfung"], parameters: [])
-				let subtitleText = DCCUIText(type: "string", quantity: nil, quantityParameterIndex: nil, functionName: nil, localizedText: ["de": "auf Grundlage Ihrer gespeicherten Zertifikate"], parameters: [])
-				let testLongText = DCCUIText(type: "string", quantity: nil, quantityParameterIndex: nil, functionName: nil, localizedText: ["de": "Die Ständige Impfkommission (STIKO) empfiehlt allen Personen eine weitere Impfstoffdosis zur Optimierung der Grundimmunisierung, die mit einer Dosis des Janssen-Impfstoffs (Johnson & Johnson) grundimmunisiert wurden, bei denen keine Infektion mit dem Coronavirus SARS-CoV-2 nachgewiesen wurde und wenn ihre Janssen-Impfung über 4 Wochen her ist.\nDa Sie laut Ihrer gespeicherten Zertifikate bald dieser Personengruppe angehören und noch keine weitere Impfung erhalten haben, möchten wir Sie auf diese Empfehlung hinweisen. (Regel BNR-DE-0200)\nDieser Hinweis basiert ausschließlich auf den auf Ihrem Smartphone gespeicherten Zertifikaten. Die Verarbeitung der Daten erfolgte auf Ihrem Smartphone. Es wurden hierbei keine Daten an das RKI oder Dritte übermittelt."], parameters: [])
-				let boosterDetailsViewController = BoosterDetailsViewController(viewModel: BoosterDetailsViewModel(cclService: cclService, boosterNotification: DCCBoosterNotification(visible: true, identifier: "hello", titleText: titleText, subtitleText: subtitleText, longText: testLongText, faqAnchor: "test")))
+				guard let boosterNotification = healthCertifiedPerson.dccWalletInfo?.boosterNotification, let cclService = self?.cclService else {
+					return
+				}
+				let boosterDetailsViewController = BoosterDetailsViewController(viewModel: BoosterDetailsViewModel(cclService: cclService, boosterNotification: boosterNotification))
 				self?.modalNavigationController.pushViewController(boosterDetailsViewController, animated: true)
 			},
 			didTapHealthCertificate: { [weak self] healthCertificate in
