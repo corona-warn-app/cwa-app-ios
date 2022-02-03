@@ -916,8 +916,6 @@
 
 "ExposureSubmissionResult_Timer_Title" = "Wynik dostępny od";
 
-"ExposureSubmissionResult_Negative_Antigen_Proof_Title" = " ";
-
 "ExposureSubmissionResult_Negative_Antigen_Proof_Desc" = "Do rzetelnej weryfikacji wyświetlanego tutaj wyniku wymagany jest unijny cyfrowy certyfikat Covid. Jeśli podczas rejestracji testu zażądałeś(-aś) cyfrowego certyfikatu testu, a punkt testowy wydaje cyfrowe certyfikaty, możesz znaleźć swój cyfrowy certyfikat testu, korzystając z linku podanego powyżej. Znajdziesz go również na karcie „Certyfikaty”.\nProsimy również o zapoznanie się z kryteriami uznawania i ważności certyfikatów testów w kontekście celu, dla którego potrzebujesz dowodu.";
 
 "ExposureSubmissionResult_Negative_Antigen_NoProof_Title" = "Brak funkcji weryfikacji";

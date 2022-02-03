@@ -602,10 +602,6 @@ extension ExposureSubmissionTestResultViewModel {
 
 		// Evidence / Proof
 		cells.append(contentsOf: [
-			.title2(
-				text: AppStrings.ExposureSubmissionResult.Antigen.proofTitle,
-				accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionResult.Antigen.proofTitle
-			),
 			.body(
 				text: AppStrings.ExposureSubmissionResult.Antigen.proofDesc,
 				accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionResult.Antigen.proofDesc
@@ -711,10 +707,6 @@ extension ExposureSubmissionTestResultViewModel {
 
 		// Evidence / Proof
 		cells.append(contentsOf: [
-			.title2(
-				text: AppStrings.ExposureSubmissionResult.Antigen.proofTitle,
-				accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionResult.Antigen.proofTitle
-			),
 			.body(
 				text: AppStrings.ExposureSubmissionResult.Antigen.proofDesc,
 				accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionResult.Antigen.proofDesc

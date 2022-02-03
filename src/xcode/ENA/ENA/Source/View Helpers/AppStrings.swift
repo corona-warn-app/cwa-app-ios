@@ -243,7 +243,6 @@ enum AppStrings {
 			static let minutesAbbreviation = NSLocalizedString("ExposureSubmissionResult_Abbreviation_Minutes", comment: "")
 			static let secondsAbbreviation = NSLocalizedString("ExposureSubmissionResult_Abbreviation_Seconds", comment: "")
 			static let timerTitle = NSLocalizedString("ExposureSubmissionResult_Timer_Title", comment: "")
-			static let proofTitle = NSLocalizedString("ExposureSubmissionResult_Negative_Antigen_Proof_Title", comment: "")
 			static let proofDesc = NSLocalizedString("ExposureSubmissionResult_Negative_Antigen_Proof_Desc", comment: "")
 			static let noProofTitle = NSLocalizedString("ExposureSubmissionResult_Negative_Antigen_NoProof_Title", comment: "")
 			static let noProofDesc = NSLocalizedString("ExposureSubmissionResult_Negative_Antigen_NoProof_Desc", comment: "")
