@@ -6,7 +6,6 @@ import XCTest
 import HealthCertificateToolkit
 @testable import ENA
 
-// swiftlint:disable type_body_length
 class HealthCertifiedPersonViewModelTests: XCTestCase {
 
 	func testGIVEN_HealthCertifiedPersonViewModel_WHEN_Init_THEN_isAsExpected() {
@@ -341,48 +340,6 @@ class HealthCertifiedPersonViewModelTests: XCTestCase {
 
 		// THEN
 		XCTAssertEqual(viewModel.numberOfItems(in: .vaccinationState), 0)
-	}
-
-	func testMarkBoosterRuleAsSeen() throws {
-		let client = ClientMock()
-		let store = MockTestStore()
-		let cclService = FakeCCLService()
-		let service = HealthCertificateService(
-			store: store,
-			dccSignatureVerifier: DCCSignatureVerifyingStub(),
-			dscListProvider: MockDSCListProvider(),
-			client: client,
-			appConfiguration: CachedAppConfigurationMock(),
-			cclService: cclService,
-			recycleBin: .fake()
-		)
-
-		let healthCertificate = try vaccinationCertificate()
-
-		let healthCertifiedPerson = HealthCertifiedPerson(
-			healthCertificates: [
-				healthCertificate
-			],
-			boosterRule: .fake(),
-			isNewBoosterRule: true
-		)
-
-		let viewModel = HealthCertifiedPersonViewModel(
-			cclService: cclService,
-			healthCertificateService: service,
-			healthCertifiedPerson: healthCertifiedPerson,
-			healthCertificateValueSetsProvider: VaccinationValueSetsProvider(client: CachingHTTPClientMock(), store: MockTestStore()),
-			dismiss: {},
-			didTapBoosterNotification: { _ in },
-			didTapValidationButton: { _, _ in },
-			showInfoHit: { }
-		)
-
-		XCTAssertTrue(healthCertifiedPerson.isNewBoosterRule)
-
-		viewModel.markBoosterRuleAsSeen()
-
-		XCTAssertFalse(healthCertifiedPerson.isNewBoosterRule)
 	}
 
 	func testBoosterNotificationCellTap() throws {

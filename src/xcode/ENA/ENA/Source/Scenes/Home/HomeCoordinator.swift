@@ -500,16 +500,15 @@ class HomeCoordinator: RequiresAppDependencies {
 		state.$riskState
 			.receive(on: DispatchQueue.main.ocombine)
 			.sink { [weak self] riskState in
-				// check if risk level raised and if home screen tab is not selected
+				// check if risk level changed and if home screen tab is not selected
 				guard case let .risk(risk) = riskState,
 					  risk.riskLevelHasChanged,
-					  risk.level == .high,
 					  self?.rootViewController.tabBarController?.selectedViewController != self?.rootViewController
 				else {
-					Log.info("wrong risk level or home screen tab is active - skipped to set tab bar badge")
+					Log.info("home screen tab is active - skipped to set tab bar badge")
 					return
 				}
-				self?.badgeWrapper.update(.riskStateIncreased, value: 1)
+				self?.badgeWrapper.update(.riskStateChanged, value: 1)
 			}
 			.store(in: &subscriptions)
 

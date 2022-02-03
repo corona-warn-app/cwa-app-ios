@@ -61,12 +61,6 @@ class HealthCertifiedPersonViewController: UIViewController, UITableViewDataSour
 		viewModel.attemptToRestoreDecodingFailedHealthCertificates()
 	}
 
-	override func viewDidDisappear(_ animated: Bool) {
-		super.viewDidDisappear(animated)
-
-		viewModel.markBoosterRuleAsSeen()
-	}
-
 	override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
 		super.traitCollectionDidChange(previousTraitCollection)
 		didCalculateGradientHeight = false
@@ -244,16 +238,9 @@ class HealthCertifiedPersonViewController: UIViewController, UITableViewDataSour
 		navigationItem.rightBarButtonItem = dismissHandlingCloseBarButton(.contrast)
 		navigationItem.hidesBackButton = true
 
-		// create a transparent navigation bar
-		let emptyImage = UIImage()
-		navigationController?.navigationBar.setBackgroundImage(emptyImage, for: .default)
-		navigationController?.navigationBar.shadowImage = emptyImage
-		navigationController?.navigationBar.isTranslucent = true
-		navigationController?.view.backgroundColor = .clear
-
-		navigationController?.navigationBar.prefersLargeTitles = false
-		navigationController?.navigationBar.sizeToFit()
-		navigationItem.largeTitleDisplayMode = .never
+		if let dismissHandlingNC = navigationController as? DismissHandlingNavigationController {
+			dismissHandlingNC.setupTransparentNavigationBar()
+		}
 	}
 
 	private func setupBackground() {
