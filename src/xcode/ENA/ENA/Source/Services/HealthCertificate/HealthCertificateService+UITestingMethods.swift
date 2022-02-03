@@ -155,6 +155,7 @@ extension HealthCertificateService {
 					name: .fake(familyName: "Schneider", givenName: "Andrea", standardizedFamilyName: "SCHNEIDER", standardizedGivenName: "ANDREA"),
 					recoveryEntries: [
 						.fake(
+							dateOfFirstPositiveNAAResult: ISO8601DateFormatter.string(from: Date(timeIntervalSinceNow: -150 * 24 * 60 * 60), timeZone: .utcTimeZone, formatOptions: [.withFullDate]),
 							certificateValidFrom: ISO8601DateFormatter.string(from: Date(timeIntervalSinceNow: -120 * 24 * 60 * 60), timeZone: .utcTimeZone, formatOptions: [.withFullDate]),
 							certificateValidUntil: ISO8601DateFormatter.string(from: Date(timeIntervalSinceNow: 30 * 24 * 60 * 60), timeZone: .utcTimeZone, formatOptions: [.withFullDate])
 						)
