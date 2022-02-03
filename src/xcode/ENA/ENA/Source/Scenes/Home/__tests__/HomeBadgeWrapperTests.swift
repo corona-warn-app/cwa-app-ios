@@ -21,7 +21,7 @@ class HomeBadgeWrapperTests: XCTestCase {
 
 		// WHEN
 		homeBadgesWrapper.update(.unseenTests, value: nil)
-		homeBadgesWrapper.reset(.riskStateIncreased)
+		homeBadgesWrapper.reset(.riskStateChanged)
 		subscription.cancel()
 
 		// THEN
@@ -64,7 +64,7 @@ class HomeBadgeWrapperTests: XCTestCase {
 			}
 
 		// WHEN
-		homeBadgesWrapper.update(.riskStateIncreased, value: 1)
+		homeBadgesWrapper.update(.riskStateChanged, value: 1)
 		subscription.cancel()
 
 		// THEN
@@ -86,7 +86,7 @@ class HomeBadgeWrapperTests: XCTestCase {
 			}
 
 		// WHEN
-		homeBadgesWrapper.update(.riskStateIncreased, value: 1)
+		homeBadgesWrapper.update(.riskStateChanged, value: 1)
 		homeBadgesWrapper.update(.unseenTests, value: 4)
 		subscription.cancel()
 
@@ -101,7 +101,7 @@ class HomeBadgeWrapperTests: XCTestCase {
 		expectation.expectedFulfillmentCount = 2
 
 		var value: String?
-		let homeBadgesWrapper = HomeBadgeWrapper.fake(badgesCount: [.unseenTests: 3, .riskStateIncreased: 1])
+		let homeBadgesWrapper = HomeBadgeWrapper.fake(badgesCount: [.unseenTests: 3, .riskStateChanged: 1])
 		let subscription = homeBadgesWrapper.$stringValue
 			.sink { newStringValue in
 				value = newStringValue
@@ -109,7 +109,7 @@ class HomeBadgeWrapperTests: XCTestCase {
 			}
 
 		// WHEN
-		homeBadgesWrapper.reset(.riskStateIncreased)
+		homeBadgesWrapper.reset(.riskStateChanged)
 		subscription.cancel()
 
 		// THEN
@@ -123,7 +123,7 @@ class HomeBadgeWrapperTests: XCTestCase {
 		expectation.expectedFulfillmentCount = 2
 
 		var value: String?
-		let homeBadgesWrapper = HomeBadgeWrapper.fake(badgesCount: [.unseenTests: 3, .riskStateIncreased: 1])
+		let homeBadgesWrapper = HomeBadgeWrapper.fake(badgesCount: [.unseenTests: 3, .riskStateChanged: 1])
 		let subscription = homeBadgesWrapper.$stringValue
 			.sink { newStringValue in
 				value = newStringValue
@@ -145,7 +145,7 @@ class HomeBadgeWrapperTests: XCTestCase {
 		expectation.expectedFulfillmentCount = 2
 
 		var value: String?
-		let homeBadgesWrapper = HomeBadgeWrapper.fake(badgesCount: [.unseenTests: 3, .riskStateIncreased: 1])
+		let homeBadgesWrapper = HomeBadgeWrapper.fake(badgesCount: [.unseenTests: 3, .riskStateChanged: 1])
 		let subscription = homeBadgesWrapper.$stringValue
 			.sink { newStringValue in
 				value = newStringValue

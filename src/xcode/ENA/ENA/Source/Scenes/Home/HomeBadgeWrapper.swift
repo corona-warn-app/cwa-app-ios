@@ -28,7 +28,7 @@ class HomeBadgeWrapper {
 
 	enum BadgeType: Int, CaseIterable, Codable {
 		case unseenTests = 0
-		case riskStateIncreased
+		case riskStateChanged
 	}
 
 	@OpenCombine.Published private(set) var stringValue: String?
