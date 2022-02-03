@@ -19,9 +19,32 @@ class BoosterDetailsViewModelTests: CWATestCase {
 			isNewBoosterRule: true
 		)
 		
-		let titleText = DCCUIText(type: "string", quantity: nil, quantityParameterIndex: nil, functionName: nil, localizedText: ["de": "Hinweis zur Auffrischimpfung"], parameters: [])
-		let subtitleText = DCCUIText(type: "string", quantity: nil, quantityParameterIndex: nil, functionName: nil, localizedText: ["de": "auf Grundlage Ihrer gespeicherten Zertifikate"], parameters: [])
-		let testLongText = DCCUIText(type: "string", quantity: nil, quantityParameterIndex: nil, functionName: nil, localizedText: ["de": "Die Ständige Impfkommission (STIKO) empfiehlt allen Personen eine weitere Impfstoffdosis zur Optimierung der Grundimmunisierung, die mit einer Dosis des Janssen-Impfstoffs (Johnson & Johnson) grundimmunisiert wurden, bei denen keine Infektion mit dem Coronavirus SARS-CoV-2 nachgewiesen wurde und wenn ihre Janssen-Impfung über 4 Wochen her ist."], parameters: [])
+		let titleText = DCCUIText(
+			type: "string",
+			quantity: nil,
+			quantityParameterIndex: nil,
+			functionName: nil,
+			localizedText: ["de": "Hinweis zur Auffrischimpfung"],
+			parameters: []
+		)
+
+		let subtitleText = DCCUIText(
+			type: "string",
+			quantity: nil,
+			quantityParameterIndex: nil,
+			functionName: nil,
+			localizedText: ["de": "auf Grundlage Ihrer gespeicherten Zertifikate"],
+			parameters: []
+		)
+		
+		let testLongText = DCCUIText(
+			type: "string",
+			quantity: nil,
+			quantityParameterIndex: nil,
+			functionName: nil,
+			localizedText: ["de": "Die Ständige Impfkommission (STIKO) empfiehlt allen Personen eine weitere Impfstoffdosis zur Optimierung der Grundimmunisierung, die mit einer Dosis des Janssen-Impfstoffs (Johnson & Johnson) grundimmunisiert wurden, bei denen keine Infektion mit dem Coronavirus SARS-CoV-2 nachgewiesen wurde und wenn ihre Janssen-Impfung über 4 Wochen her ist."],
+			parameters: []
+		)
 		
 		let viewModel = BoosterDetailsViewModel(cclService: cclService, healthCertifiedPerson: healthCertifiedPerson, boosterNotification: DCCBoosterNotification(visible: true, identifier: "hello", titleText: titleText, subtitleText: subtitleText, longText: testLongText, faqAnchor: "test"))
 
@@ -45,9 +68,32 @@ class BoosterDetailsViewModelTests: CWATestCase {
 			isNewBoosterRule: true
 		)
 		
-		let titleText = DCCUIText(type: "string", quantity: nil, quantityParameterIndex: nil, functionName: nil, localizedText: ["de": "Hinweis zur Auffrischimpfung"], parameters: [])
-		let subtitleText = DCCUIText(type: "string", quantity: nil, quantityParameterIndex: nil, functionName: nil, localizedText: ["de": "auf Grundlage Ihrer gespeicherten Zertifikate"], parameters: [])
-		let testLongText = DCCUIText(type: "string", quantity: nil, quantityParameterIndex: nil, functionName: nil, localizedText: ["de": "Die Ständige Impfkommission (STIKO) empfiehlt allen Personen eine weitere Impfstoffdosis zur Optimierung der Grundimmunisierung, die mit einer Dosis des Janssen-Impfstoffs (Johnson & Johnson) grundimmunisiert wurden, bei denen keine Infektion mit dem Coronavirus SARS-CoV-2 nachgewiesen wurde und wenn ihre Janssen-Impfung über 4 Wochen her ist."], parameters: [])
+		let titleText = DCCUIText(
+			type: "string",
+			quantity: nil,
+			quantityParameterIndex: nil,
+			functionName: nil,
+			localizedText: ["de": "Hinweis zur Auffrischimpfung"],
+			parameters: []
+		)
+		
+		let subtitleText = DCCUIText(
+			type: "string",
+			quantity: nil,
+			quantityParameterIndex: nil,
+			functionName: nil,
+			localizedText: ["de": "auf Grundlage Ihrer gespeicherten Zertifikate"],
+			parameters: []
+		)
+		
+		let testLongText = DCCUIText(
+			type: "string",
+			quantity: nil,
+			quantityParameterIndex: nil,
+			functionName: nil,
+			localizedText: ["de": "Die Ständige Impfkommission (STIKO) empfiehlt allen Personen eine weitere Impfstoffdosis zur Optimierung der Grundimmunisierung, die mit einer Dosis des Janssen-Impfstoffs (Johnson & Johnson) grundimmunisiert wurden, bei denen keine Infektion mit dem Coronavirus SARS-CoV-2 nachgewiesen wurde und wenn ihre Janssen-Impfung über 4 Wochen her ist."],
+			parameters: []
+		)
 		
 		let viewModel = BoosterDetailsViewModel(cclService: cclService, healthCertifiedPerson: healthCertifiedPerson, boosterNotification: DCCBoosterNotification(visible: true, identifier: "hello", titleText: titleText, subtitleText: subtitleText, longText: testLongText, faqAnchor: "test"))
 
