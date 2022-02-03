@@ -159,8 +159,6 @@ extension HealthCertificateService {
 	}
 	
 	func updateDccWalletInfoForMockBoosterNotification(dccWalletInfo: DCCWalletInfo) -> DCCWalletInfo {
-		var updatedDCCWalletInfo = dccWalletInfo
-		
 		let titleText = DCCUIText(
 			type: "string",
 			quantity: nil,
@@ -188,7 +186,7 @@ extension HealthCertificateService {
 			parameters: []
 		)
 
-		updatedDCCWalletInfo = DCCWalletInfo(
+		return DCCWalletInfo(
 			admissionState: dccWalletInfo.admissionState,
 			vaccinationState: dccWalletInfo.vaccinationState,
 			boosterNotification: DCCBoosterNotification(visible: true, identifier: "hello", titleText: titleText, subtitleText: subtitleText, longText: testLongText, faqAnchor: "test"),
@@ -196,8 +194,6 @@ extension HealthCertificateService {
 			verification: dccWalletInfo.verification,
 			validUntil: dccWalletInfo.validUntil
 		)
-		
-		return updatedDCCWalletInfo
 	}
 	#endif
 }
