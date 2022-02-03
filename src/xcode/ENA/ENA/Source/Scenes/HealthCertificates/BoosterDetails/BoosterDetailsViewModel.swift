@@ -9,14 +9,20 @@ class BoosterDetailsViewModel {
 	
 	init (
 		cclService: CCLServable,
+		healthCertifiedPerson: HealthCertifiedPerson,
 		boosterNotification: DCCBoosterNotification
 	) {
+		self.healthCertifiedPerson = healthCertifiedPerson
 		self.boosterNotification = boosterNotification
 		self.cclService = cclService
 	}
 
 	// MARK: - Internal
 	
+	func markBoosterRuleAsSeen() {
+		healthCertifiedPerson.isNewBoosterRule = false
+	}
+
 	var dynamicTableViewModel: DynamicTableViewModel {
 		var cells: [DynamicCell] = []
 		
@@ -67,5 +73,6 @@ class BoosterDetailsViewModel {
 	// MARK: - Private
 	
 	private let cclService: CCLServable
+	private let healthCertifiedPerson: HealthCertifiedPerson
 	private let boosterNotification: DCCBoosterNotification
 }

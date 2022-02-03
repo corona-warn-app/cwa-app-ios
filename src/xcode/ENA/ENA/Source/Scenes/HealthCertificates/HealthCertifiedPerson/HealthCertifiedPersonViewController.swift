@@ -61,12 +61,6 @@ class HealthCertifiedPersonViewController: UIViewController, UITableViewDataSour
 		viewModel.attemptToRestoreDecodingFailedHealthCertificates()
 	}
 
-	override func viewDidDisappear(_ animated: Bool) {
-		super.viewDidDisappear(animated)
-
-		viewModel.markBoosterRuleAsSeen()
-	}
-
 	override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
 		super.traitCollectionDidChange(previousTraitCollection)
 		didCalculateGradientHeight = false
