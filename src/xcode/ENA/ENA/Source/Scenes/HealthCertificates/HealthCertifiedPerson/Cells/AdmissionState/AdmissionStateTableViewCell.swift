@@ -35,7 +35,6 @@ class AdmissionStateTableViewCell: UITableViewCell, UITextViewDelegate, ReuseIde
 	func configure(with cellModel: AdmissionStateCellModel) {
 		titleLabel.text = cellModel.title
 		titleLabel.isHidden = (cellModel.title ?? "").isEmpty
-		titleLabel.accessibilityIdentifier = AccessibilityIdentifiers.HealthCertificate.AdmissionState.title
 		
 		subtitleLabel.text = cellModel.subtitle
 		subtitleLabel.isHidden = (cellModel.subtitle ?? "").isEmpty
