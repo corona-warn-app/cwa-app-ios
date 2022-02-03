@@ -808,5 +808,11 @@ enum AccessibilityIdentifiers {
 			}
 		}
 	}
+	
+	enum BoosterNotification {
+		enum Details {
+			static let image = "BoosterNotification.Details.image"
+		}
+	}
 
 }

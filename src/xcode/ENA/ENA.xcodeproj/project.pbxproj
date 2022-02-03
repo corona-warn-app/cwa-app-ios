@@ -504,6 +504,9 @@
 		3456D95C25EFE02E00A62F5D /* ErrorReportHistoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3456D95B25EFE02E00A62F5D /* ErrorReportHistoryCell.swift */; };
 		3456D96125EFE08E00A62F5D /* ErrorReportHistoryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3456D96025EFE08E00A62F5D /* ErrorReportHistoryCell.xib */; };
 		3456D96725F0EBB400A62F5D /* ErrorReportHistoryViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3456D96625F0EBB400A62F5D /* ErrorReportHistoryViewModelTests.swift */; };
+		347E3CAC27A99FD700895277 /* BoosterDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 347E3CAB27A99FD700895277 /* BoosterDetailsViewController.swift */; };
+		347E3CAE27A9A20D00895277 /* BoosterDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 347E3CAD27A9A20D00895277 /* BoosterDetailsViewModel.swift */; };
+		347E3CB227AAD56E00895277 /* BoosterDetailsViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 347E3CB027AAD4AA00895277 /* BoosterDetailsViewModelTests.swift */; };
 		347FBB08260B8FE000672770 /* TraceLocationDetailsViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 347FBB07260B8FE000672770 /* TraceLocationDetailsViewModelTests.swift */; };
 		347FBB18260C9C4600672770 /* ENAUITests_09_TraceLocations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 347FBB17260C9C4600672770 /* ENAUITests_09_TraceLocations.swift */; };
 		347FBB41260E405000672770 /* TraceLocationDetailsHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 347FBB40260E405000672770 /* TraceLocationDetailsHeaderCell.swift */; };
@@ -2164,6 +2167,9 @@
 		3456D95B25EFE02E00A62F5D /* ErrorReportHistoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorReportHistoryCell.swift; sourceTree = "<group>"; };
 		3456D96025EFE08E00A62F5D /* ErrorReportHistoryCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ErrorReportHistoryCell.xib; sourceTree = "<group>"; };
 		3456D96625F0EBB400A62F5D /* ErrorReportHistoryViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorReportHistoryViewModelTests.swift; sourceTree = "<group>"; };
+		347E3CAB27A99FD700895277 /* BoosterDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoosterDetailsViewController.swift; sourceTree = "<group>"; };
+		347E3CAD27A9A20D00895277 /* BoosterDetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoosterDetailsViewModel.swift; sourceTree = "<group>"; };
+		347E3CB027AAD4AA00895277 /* BoosterDetailsViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoosterDetailsViewModelTests.swift; sourceTree = "<group>"; };
 		347FBB07260B8FE000672770 /* TraceLocationDetailsViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraceLocationDetailsViewModelTests.swift; sourceTree = "<group>"; };
 		347FBB17260C9C4600672770 /* ENAUITests_09_TraceLocations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ENAUITests_09_TraceLocations.swift; sourceTree = "<group>"; };
 		347FBB40260E405000672770 /* TraceLocationDetailsHeaderCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TraceLocationDetailsHeaderCell.swift; sourceTree = "<group>"; };
@@ -4913,6 +4919,24 @@
 			isa = PBXGroup;
 			children = (
 				3456D96625F0EBB400A62F5D /* ErrorReportHistoryViewModelTests.swift */,
+			);
+			path = __tests__;
+			sourceTree = "<group>";
+		};
+		347E3CAA27A99F1A00895277 /* BoosterDetails */ = {
+			isa = PBXGroup;
+			children = (
+				347E3CAF27AAD49700895277 /* __tests__ */,
+				347E3CAB27A99FD700895277 /* BoosterDetailsViewController.swift */,
+				347E3CAD27A9A20D00895277 /* BoosterDetailsViewModel.swift */,
+			);
+			path = BoosterDetails;
+			sourceTree = "<group>";
+		};
+		347E3CAF27AAD49700895277 /* __tests__ */ = {
+			isa = PBXGroup;
+			children = (
+				347E3CB027AAD4AA00895277 /* BoosterDetailsViewModelTests.swift */,
 			);
 			path = __tests__;
 			sourceTree = "<group>";
@@ -8228,6 +8252,7 @@
 				BA41016026F8D3580073F28D /* CovPassCheckInformation */,
 				BA5B7FB726458EF400502087 /* HealthCertificate */,
 				BA5B7FC326458EF400502087 /* HealthCertifiedPerson */,
+				347E3CAA27A99F1A00895277 /* BoosterDetails */,
 				01CBB820265E73000094CF8B /* Overview */,
 				AB51905F26CEA72400E2E4EE /* PDFGeneration */,
 				ABC1C26D267B7FCB00223625 /* Utils */,
@@ -10416,6 +10441,7 @@
 				ABE9613A25EFEBE800D0F699 /* DaysSinceInstallTableViewCell.swift in Sources */,
 				ABC506CD274BE0A600698A95 /* ServiceIdentityDocumentResource.swift in Sources */,
 				AB190E7825FB5CE800FBFF0D /* CreateTraceLocationQuery.swift in Sources */,
+				347E3CAC27A99FD700895277 /* BoosterDetailsViewController.swift in Sources */,
 				3518DD6525BA2D060090A26B /* NotificationManager.swift in Sources */,
 				ABE9613525EFEB5C00D0F699 /* DMDatePickerCellViewModel.swift in Sources */,
 				ABC506D8274F9DF400698A95 /* TicketValidationAccessToken.swift in Sources */,
@@ -10936,6 +10962,7 @@
 				EB67B5E7262AD6A100218EC7 /* TraceLocationCheckinSelectionTableViewCell.swift in Sources */,
 				B1741B492462C207006275D9 /* Client.swift in Sources */,
 				BAA8BAE225CAD8B000E29CFE /* DMStaticTextCellViewModel.swift in Sources */,
+				347E3CAE27A9A20D00895277 /* BoosterDetailsViewModel.swift in Sources */,
 				BA5B7FDA26458EF400502087 /* HealthCertificateQRCodeCell.swift in Sources */,
 				BA0F6C59263186830046BA48 /* AntigenTestProfileInputViewController.swift in Sources */,
 				BAFC6AC026A71F7900F18BBE /* DSCListMetaData.swift in Sources */,
@@ -11351,6 +11378,7 @@
 				AB68531E25F9235200380F5A /* FMDB+Access.swift in Sources */,
 				AB68880625D6AC7300907465 /* ContactDiaryMigration2To3Tests.swift in Sources */,
 				2FD881CE249115E700BEC8FC /* ExposureSubmissionNavigationControllerTest.swift in Sources */,
+				347E3CB227AAD56E00895277 /* BoosterDetailsViewModelTests.swift in Sources */,
 				010172CC26CBD8D900CD1510 /* OnBehalfDateTimeSelectionViewModelTests.swift in Sources */,
 				BAE106E426710E19002D91FB /* HealthCertifiedPersonViewModelTests.swift in Sources */,
 				50C029B225E4069400460FA4 /* KeySubmissionMetadataTests.swift in Sources */,

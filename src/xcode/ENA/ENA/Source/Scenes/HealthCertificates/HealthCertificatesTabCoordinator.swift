@@ -89,7 +89,7 @@ final class HealthCertificatesTabCoordinator {
 	private let vaccinationValueSetsProvider: VaccinationValueSetsProviding
 	private let qrScannerCoordinator: QRScannerCoordinator
 
-	private var modalNavigationController: UINavigationController!
+	private var modalNavigationController: DismissHandlingNavigationController!
 	private var validationCoordinator: HealthCertificateValidationCoordinator?
 	private var certificateCoordinator: HealthCertificateCoordinator?
 	private var subscriptions = Set<AnyCancellable>()
@@ -236,8 +236,17 @@ final class HealthCertificatesTabCoordinator {
 					}
 				}
 			},
-			didTapBoosterNotification: { healthCertifiedPerson in
-				Log.info("Tapped on booster notification for \(private: String(describing: healthCertifiedPerson.name?.fullName))")
+			didTapBoosterNotification: { [weak self] healthCertifiedPerson in
+				guard let boosterNotification = healthCertifiedPerson.dccWalletInfo?.boosterNotification, let cclService = self?.cclService else {
+					return
+				}
+				let boosterDetailsViewController = BoosterDetailsViewController(
+					viewModel: BoosterDetailsViewModel(cclService: cclService, healthCertifiedPerson: healthCertifiedPerson, boosterNotification: boosterNotification),
+					dismiss: { [weak self] in
+						self?.viewController.dismiss(animated: true)
+					}
+				)
+				self?.modalNavigationController.pushViewController(boosterDetailsViewController, animated: true)
 			},
 			didTapHealthCertificate: { [weak self] healthCertificate in
 				self?.showHealthCertificateFlow(
@@ -276,7 +285,7 @@ final class HealthCertificatesTabCoordinator {
 				self.presentCovPassInfoScreen(rootViewController: self.modalNavigationController)
 			}
 		)
-		modalNavigationController = UINavigationController(rootViewController: healthCertificatePersonViewController)
+		modalNavigationController = DismissHandlingNavigationController(rootViewController: healthCertificatePersonViewController)
 		viewController.present(modalNavigationController, animated: true)
 	}
 	
