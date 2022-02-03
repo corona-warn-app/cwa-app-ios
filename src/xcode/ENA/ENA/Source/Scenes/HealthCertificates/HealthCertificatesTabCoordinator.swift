@@ -240,7 +240,12 @@ final class HealthCertificatesTabCoordinator {
 				guard let boosterNotification = healthCertifiedPerson.dccWalletInfo?.boosterNotification, let cclService = self?.cclService else {
 					return
 				}
-				let boosterDetailsViewController = BoosterDetailsViewController(viewModel: BoosterDetailsViewModel(cclService: cclService, healthCertifiedPerson: healthCertifiedPerson, boosterNotification: boosterNotification))
+				let boosterDetailsViewController = BoosterDetailsViewController(
+					viewModel: BoosterDetailsViewModel(cclService: cclService, healthCertifiedPerson: healthCertifiedPerson, boosterNotification: boosterNotification),
+					dismiss: { [weak self] in
+						self?.viewController.dismiss(animated: true)
+					}
+				)
 				self?.modalNavigationController.pushViewController(boosterDetailsViewController, animated: true)
 			},
 			didTapHealthCertificate: { [weak self] healthCertificate in

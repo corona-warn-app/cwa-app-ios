@@ -6,7 +6,6 @@ import XCTest
 import HealthCertificateToolkit
 @testable import ENA
 
-// swiftlint:disable type_body_length
 class HealthCertifiedPersonViewModelTests: XCTestCase {
 
 	func testGIVEN_HealthCertifiedPersonViewModel_WHEN_Init_THEN_isAsExpected() {

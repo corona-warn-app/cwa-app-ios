@@ -5,15 +5,17 @@
 import Foundation
 import UIKit
 
-class BoosterDetailsViewController: DynamicTableViewController {
+class BoosterDetailsViewController: DynamicTableViewController, DismissHandling {
 
 	// MARK: - Init
 
 	init(
-		viewModel: BoosterDetailsViewModel
+		viewModel: BoosterDetailsViewModel,
+		dismiss: @escaping () -> Void
 	) {
 		self.viewModel = viewModel
-		
+		self.dismiss = dismiss
+
 		super.init(nibName: nil, bundle: nil)
 	}
 
@@ -27,6 +29,8 @@ class BoosterDetailsViewController: DynamicTableViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		
+		navigationItem.rightBarButtonItem = dismissHandlingCloseBarButton
+
 		setupTableView()
 	}
 	
@@ -54,8 +58,15 @@ class BoosterDetailsViewController: DynamicTableViewController {
 		navigationController?.navigationBar.tintColor = .white
 	}
 	
-	// MARK: - Overrides
+	// MARK: - Protocol DismissHandling
 
+	func wasAttemptedToBeDismissed() {
+		dismiss()
+	}
+	
+	// MARK: - Private
+
+	private let dismiss: () -> Void
 	private let viewModel: BoosterDetailsViewModel
 
 	private func setupTableView() {
