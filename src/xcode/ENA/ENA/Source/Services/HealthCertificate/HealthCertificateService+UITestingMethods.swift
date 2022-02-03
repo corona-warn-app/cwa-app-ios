@@ -6,7 +6,8 @@ import HealthCertificateToolkit
 
 extension HealthCertificateService {
 	#if DEBUG
-	// swiftlint:disable:next cyclomatic_complexity
+	// swiftlint:disable cyclomatic_complexity
+	// swiftlint:disable function_body_length
 	func configureForTesting() {
 		var shouldCheckSignatureUpfront = true
 		var expirationTime: Date = Calendar.current.date(byAdding: .day, value: 90, to: Date()) ?? Date()
