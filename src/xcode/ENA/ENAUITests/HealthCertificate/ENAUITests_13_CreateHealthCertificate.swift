@@ -56,8 +56,12 @@ class ENAUITests_13_CreateHealthCertificate: CWATestCase {
 
 		certificateTitle.waitAndTap()
 
-		let qrCodeCell = app.cells[AccessibilityIdentifiers.HealthCertificate.qrCodeCell]
-		XCTAssertTrue(qrCodeCell.waitForExistence(timeout: .short))
+		let boosterNotificationCell = try XCTUnwrap(app.cells[AccessibilityIdentifiers.BoosterNotification.Details.boosterNotificationCell])
+		
+		boosterNotificationCell.waitAndTap()
+
+		let boosterNotificationDetailsImage = app.cells[AccessibilityIdentifiers.BoosterNotification.Details.image]
+		XCTAssertTrue(boosterNotificationDetailsImage.waitForExistence(timeout: .medium))
 	}
 	
 	func test_HealthCertificate_printPDF_NotAllowed() throws {
