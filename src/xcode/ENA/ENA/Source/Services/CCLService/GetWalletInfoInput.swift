@@ -69,15 +69,11 @@ extension SystemTime {
 	
 	// MARK: - DateFormatters
 
-	#if !RELEASE
-	static var referenceTestTimeZone: TimeZone = TimeZone.current
-	#endif
+	static var timeZone: TimeZone = TimeZone.autoupdatingCurrent
 
 	static var localDateFormatter: DateFormatter = {
 		let formatter = DateFormatter()
-		#if !RELEASE
-		formatter.timeZone = referenceTestTimeZone
-		#endif
+		formatter.timeZone = timeZone
 		formatter.dateFormat = "yyyy-MM-dd"
 		formatter.calendar = Calendar(identifier: .gregorian)
 		return formatter
@@ -86,10 +82,8 @@ extension SystemTime {
 	// 2021-12-30T10:00:00+01:00
 	static var localDateTimeFormatter: DateFormatter = {
 		let formatter = DateFormatter()
-		#if !RELEASE
-		formatter.timeZone = referenceTestTimeZone
-		#endif
-		formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZZZZZ"
+		formatter.timeZone = timeZone
+		formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssxxx"
 		formatter.calendar = Calendar(identifier: .gregorian)
 		return formatter
 	}()
@@ -97,10 +91,8 @@ extension SystemTime {
 	// 2021-12-30T00:00:00+01:00
 	static var localDateMidnightTimeFormatter: DateFormatter = {
 		let formatter = DateFormatter()
-		#if !RELEASE
-		formatter.timeZone = referenceTestTimeZone
-		#endif
-		formatter.dateFormat = "yyyy-MM-dd'T00:00:00'ZZZZZ"
+		formatter.timeZone = timeZone
+		formatter.dateFormat = "yyyy-MM-dd'T00:00:00'xxx"
 		formatter.calendar = Calendar(identifier: .gregorian)
 		return formatter
 	}()

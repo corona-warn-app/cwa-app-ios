@@ -916,8 +916,6 @@
 
 "ExposureSubmissionResult_Timer_Title" = "Result available since";
 
-"ExposureSubmissionResult_Negative_Antigen_Proof_Title" = " ";
-
 "ExposureSubmissionResult_Negative_Antigen_Proof_Desc" = "To verifiably prove the result displayed here, an EU Digital Covid Certificate is required. If you requested a digital test certificate when you registered your test and the testing point supports the issuing of digital certificates, you can find your digital test certificate using the link specified above. You will also find the certificate on the “Certificates” tab.\nPlease also find out about the criteria for recognition and validity of test certificates in the context of the purpose for which you need proof.";
 
 "ExposureSubmissionResult_Negative_Antigen_NoProof_Title" = "No Verification Feature";

@@ -213,10 +213,6 @@ final class HealthCertifiedPersonViewModel {
 		return TableViewSection.map(indexPath.section) == .certificates
 	}
 
-	func markBoosterRuleAsSeen() {
-		healthCertifiedPerson.isNewBoosterRule = false
-	}
-
 	func didTapBoosterNotificationCell() {
 		didTapBoosterNotification(healthCertifiedPerson)
 	}

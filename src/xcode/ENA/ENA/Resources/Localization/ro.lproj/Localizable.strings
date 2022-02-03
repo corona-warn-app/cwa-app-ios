@@ -916,8 +916,6 @@
 
 "ExposureSubmissionResult_Timer_Title" = "Rezultat disponibil de la";
 
-"ExposureSubmissionResult_Negative_Antigen_Proof_Title" = " ";
-
 "ExposureSubmissionResult_Negative_Antigen_Proof_Desc" = "Pentru a dovedi într-un mod verificabil rezultatul afișat aici, este nevoie de un Certificat covid digital UE. Dacă ați solicitat un certificat de test digital când v-ați înregistrat testul și dacă punctul de testare suportă emiterea certificatelor digitale, puteți găsi certificatul dvs. de test digital utilizând legătura specificată mai sus. De asemenea, veți găsi certificatul dvs. pe tabul „Certificate”.\nVă rugăm să consultați și criteriile pentru recunoașterea și valabilitatea certificatelor de test în funcție de scopul pentru care vă este necesară dovada.";
 
 "ExposureSubmissionResult_Negative_Antigen_NoProof_Title" = "Caracteristica fără verificare";
