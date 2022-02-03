@@ -53,14 +53,12 @@ class ENAUITests_13_CreateHealthCertificate: CWATestCase {
 		app.buttons[AccessibilityIdentifiers.TabBar.certificates].waitAndTap()
 
 		let certificateTitle = try XCTUnwrap(app.cells[AccessibilityIdentifiers.HealthCertificate.Overview.healthCertifiedPersonCell])
-
 		certificateTitle.waitAndTap()
 
 		let boosterNotificationCell = try XCTUnwrap(app.cells[AccessibilityIdentifiers.BoosterNotification.Details.boosterNotificationCell])
-		
 		boosterNotificationCell.waitAndTap()
 
-		let boosterNotificationDetailsImage = app.cells[AccessibilityIdentifiers.BoosterNotification.Details.image]
+		let boosterNotificationDetailsImage = app.images[AccessibilityIdentifiers.BoosterNotification.Details.image]
 		XCTAssertTrue(boosterNotificationDetailsImage.waitForExistence(timeout: .medium))
 	}
 	
