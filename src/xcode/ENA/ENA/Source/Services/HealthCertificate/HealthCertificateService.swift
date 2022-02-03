@@ -765,7 +765,7 @@ class HealthCertificateService {
 				if LaunchArguments.healthCertificate.hasBoosterNotification.boolValue {
 					person.dccWalletInfo = self.updateDccWalletInfoForMockBoosterNotification(dccWalletInfo: dccWalletInfo)
 				}
-				
+
 				self.scheduleBoosterNotificationIfNeeded(
 					for: person,
 					previousBoosterNotificationIdentifier: previousBoosterNotificationIdentifier,
