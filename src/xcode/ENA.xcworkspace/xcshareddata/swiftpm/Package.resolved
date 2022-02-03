@@ -96,7 +96,7 @@
         "repositoryURL": "https://github.com/corona-warn-app/json-functions-swift",
         "state": {
           "branch": "fix/date-and-decodable-support",
-          "revision": "55cdc52eab71e9ee2630b88505ef83d2d5fd5345",
+          "revision": "79020fd1f39d06b472e74559890daefdf7ec4cf7",
           "version": null
         }
       },

@@ -41,7 +41,7 @@ enum CCLDefaultInput {
 		var parametersWithDefaults = parameters
 		parametersWithDefaults["os"] = AnyDecodable("ios")
 		parametersWithDefaults["language"] = AnyDecodable(language)
-		parametersWithDefaults["now"] = AnyDecodable(SystemTime(date).dict)
+		parametersWithDefaults["now"] = AnyDecodable(SystemTime(date))
 		return parametersWithDefaults
 	}
 }
@@ -56,8 +56,8 @@ enum GetWalletInfoInput {
 	) -> [String: AnyDecodable] {
 		return CCLDefaultInput.addingTo(
 			parameters: [
-				"certificates": AnyDecodable(certificates.map { $0.dict }),
-				"boosterNotificationRules": AnyDecodable(boosterNotificationRules.map { $0.dict })
+				"certificates": AnyDecodable(certificates),
+				"boosterNotificationRules": AnyDecodable(boosterNotificationRules)
 			],
 			date: date,
 			language: language
