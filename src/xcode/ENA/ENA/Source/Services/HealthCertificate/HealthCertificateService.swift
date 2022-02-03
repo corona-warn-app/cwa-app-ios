@@ -767,7 +767,7 @@ class HealthCertificateService {
 					person.dccWalletInfo = self.updateDccWalletInfoForMockBoosterNotification(dccWalletInfo: dccWalletInfo)
 				}
 				#endif
-				
+
 				self.scheduleBoosterNotificationIfNeeded(
 					for: person,
 					previousBoosterNotificationIdentifier: previousBoosterNotificationIdentifier,
