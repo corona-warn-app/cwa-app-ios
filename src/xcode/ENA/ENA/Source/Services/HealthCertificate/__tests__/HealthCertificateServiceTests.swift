@@ -1437,8 +1437,6 @@ class HealthCertificateServiceTests: CWATestCase {
 
 		var digitalCovidCertificateAccess = MockDigitalCovidCertificateAccess()
 		digitalCovidCertificateAccess.convertedToBase45 = .success(base45TestCertificate)
-
-		let restServiceFake = FakeRulesDownloadService()
 		
 		let service = HealthCertificateService(
 			store: store,
