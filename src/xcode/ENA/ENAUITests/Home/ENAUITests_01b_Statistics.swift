@@ -83,7 +83,9 @@ class ENAUITests_01b_Statistics: CWATestCase {
 		XCTAssertTrue(statisticsCell.waitForExistence(timeout: .extraLong))
 		XCTAssertTrue(statisticsCell.isHittable)
 		statisticsCell.swipeRight() // because of ui reset
-		XCTAssertTrue(statisticsCell.buttons[addButtonIdentifier].isHittable)
+		let addButton = app.buttons[addButtonIdentifier]
+		XCTAssertTrue(addButton.waitForElementToBecomeHittable(timeout: .long))
+		XCTAssertTrue(addButton.isHittable)
 		XCTAssertTrue(statisticsCell.buttons[modifyButtonIdentifier].isHittable)
 		statisticsCell.buttons[modifyButtonIdentifier].waitAndTap()
 		
