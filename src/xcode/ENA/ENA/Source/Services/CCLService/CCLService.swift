@@ -12,7 +12,7 @@ import HealthCertificateToolkit
 enum CCLDownloadError: Error {
 	case missing
 	case custom(Error)
-	case cached
+	case cachedOrDefault
 }
 
 enum DCCWalletInfoAccessError: Error {
@@ -42,26 +42,42 @@ class CCLService: CCLServable {
 	
 	init(
 		_ restServiceProvider: RestServiceProviding,
-		cclServiceMode: [CCLServiceMode] = [.configuration, .boosterRules]
+		cclServiceMode: [CCLServiceMode] = [.configuration, .boosterRules],
+		signatureVerifier: SignatureVerification = SignatureVerifier()
 	) {
 		self.restServiceProvider = restServiceProvider
 		self.cclServiceMode = cclServiceMode
+
+		var cclConfigurationResource = CCLConfigurationResource()
+		cclConfigurationResource.receiveResource = CBORReceiveResource(signatureVerifier: signatureVerifier)
+		self.cclConfigurationResource = cclConfigurationResource
+
+
+		var boosterNotificationRulesResource = DCCRulesResource(ruleType: .boosterNotification)
+		boosterNotificationRulesResource.receiveResource = CBORReceiveResource(signatureVerifier: signatureVerifier)
+		self.boosterNotificationRulesResource = boosterNotificationRulesResource
+
 		// boosterNotificationRules
-		switch restServiceProvider.cached(boosterNotificationRulesResource) {
-		case let .success(rules):
-			self.boosterNotificationRules = rules.rules
-		case let .failure(error):
-			Log.error("Failed to load boosterNotification rules from cache - init them empty", error: error)
-			self.boosterNotificationRules = []
+		self.boosterNotificationRules = []
+		if cclServiceMode.contains(.boosterRules) {
+			switch restServiceProvider.cached(boosterNotificationRulesResource) {
+			case let .success(rules):
+				self.boosterNotificationRules = rules.rules
+			case let .failure(error):
+				Log.error("Failed to load boosterNotification rules from cache - init them empty", error: error)
+				self.boosterNotificationRules = []
+			}
 		}
 
 		// cclConfigurations
-		switch restServiceProvider.cached(cclConfigurationResource) {
-		case let .success(configurations):
-			self.updateJsonFunctions(configurations.cclConfigurations)
-		case let .failure(error):
-			Log.error("Failed to read ccl configurations from cache - init empty", error: error)
-			self.updateJsonFunctions([])
+		if cclServiceMode.contains(.configuration) {
+			switch restServiceProvider.cached(cclConfigurationResource) {
+			case let .success(configurations):
+				self.updateJsonFunctions(configurations.cclConfigurations)
+			case let .failure(error):
+				Log.error("Failed to read ccl configurations from cache - init empty", error: error)
+				self.updateJsonFunctions([])
+			}
 		}
 	}
 	
@@ -102,7 +118,7 @@ class CCLService: CCLServable {
 				defer {
 					dispatchGroup.leave()
 				}
-				
+
 				switch result {
 				case let .success(rules):
 					self?.boosterNotificationRules = rules
@@ -149,8 +165,8 @@ class CCLService: CCLServable {
 
 	private let restServiceProvider: RestServiceProviding
 	private let jsonFunctions: JsonFunctions = JsonFunctions()
-	private let cclConfigurationResource = CCLConfigurationResource()
-	private let boosterNotificationRulesResource = DCCRulesResource(ruleType: .boosterNotification)
+	private let cclConfigurationResource: CCLConfigurationResource
+	private let boosterNotificationRulesResource: DCCRulesResource
 	private let cclServiceMode: [CCLServiceMode]
 	private var boosterNotificationRules: [Rule]
 
@@ -160,8 +176,9 @@ class CCLService: CCLServable {
 		restServiceProvider.load(cclConfigurationResource) { result in
 			switch result {
 			case let .success(receiveModel):
-				guard !receiveModel.metaData.loadedFromCache else {
-					completion(.failure(.cached))
+				guard !receiveModel.metaData.loadedFromCache,
+					  !receiveModel.metaData.loadedFromDefault else {
+					completion(.failure(.cachedOrDefault))
 					return
 				}
 				completion(.success(receiveModel.cclConfigurations))
@@ -182,8 +199,9 @@ class CCLService: CCLServable {
 		restServiceProvider.load(boosterNotificationRulesResource) { result in
 			switch result {
 			case let .success(receiveModel):
-				guard !receiveModel.metaData.loadedFromCache else {
-					completion(.failure(.cached))
+				guard !receiveModel.metaData.loadedFromCache,
+					  !receiveModel.metaData.loadedFromDefault  else {
+					completion(.failure(.cachedOrDefault))
 					return
 				}
 				completion(.success(receiveModel.rules))
