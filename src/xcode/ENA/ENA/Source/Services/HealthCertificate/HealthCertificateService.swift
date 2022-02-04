@@ -758,7 +758,7 @@ class HealthCertificateService {
 
 			switch result {
 			case .success(let dccWalletInfo):
-				let previousBoosterNotificationIdentifier = person.dccWalletInfo?.boosterNotification.identifier
+				let previousBoosterNotificationIdentifier = person.boosterRule?.identifier ?? person.dccWalletInfo?.boosterNotification.identifier
 				person.dccWalletInfo = dccWalletInfo
 
 				self.scheduleBoosterNotificationIfNeeded(

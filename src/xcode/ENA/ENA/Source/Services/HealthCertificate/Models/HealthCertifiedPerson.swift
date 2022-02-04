@@ -156,20 +156,18 @@ class HealthCertifiedPerson: Codable, Equatable, Comparable {
 
 	@DidSetPublished var dccWalletInfo: DCCWalletInfo? {
 		didSet {
-			if dccWalletInfo?.boosterNotification.identifier != oldValue?.boosterNotification.identifier {
-				isNewBoosterRule = boosterRule != nil
+			/// Check if booster rule was set before transition to DCCWalletInfo to not send out a second notification
+			let oldIdentifier = boosterRule?.identifier ?? oldValue?.boosterNotification.identifier
+			if dccWalletInfo?.boosterNotification.identifier != oldIdentifier {
+				isNewBoosterRule = dccWalletInfo?.boosterNotification.identifier != nil
+			}
+
+			if dccWalletInfo != nil {
+				/// Once initial dccWalletInfo was calculated, legacy boosterRule property can be set to nil
+				boosterRule = nil
 			}
 
 			if dccWalletInfo != oldValue {
-				objectDidChange.send(self)
-			}
-		}
-	}
-
-	@DidSetPublished var boosterRule: Rule? {
-		didSet {
-			if boosterRule != oldValue {
-				isNewBoosterRule = boosterRule != nil
 				objectDidChange.send(self)
 			}
 		}
@@ -205,12 +203,15 @@ class HealthCertifiedPerson: Codable, Equatable, Comparable {
 		return certificatesWithNews.count + (boosterRule != nil && isNewBoosterRule ? 1 : 0)
 	}
 
-	func healthCertificate(for reference: DCCCertificateReference) -> HealthCertificate? {
-		healthCertificates.first { $0.base45 == reference.barcodeData }
-	}
-
 	var mostRelevantHealthCertificate: HealthCertificate? {
 		(dccWalletInfo?.mostRelevantCertificate).flatMap { self.healthCertificate(for: $0.certificateRef) } ?? healthCertificates.fallback
+	}
+
+	/// Only kept around for migration purposes so people that already have a booster rule set don't get a second notification for the same rule
+	var boosterRule: Rule?
+
+	func healthCertificate(for reference: DCCCertificateReference) -> HealthCertificate? {
+		healthCertificates.first { $0.base45 == reference.barcodeData }
 	}
 
 	func attemptToRestoreDecodingFailedHealthCertificates() {
