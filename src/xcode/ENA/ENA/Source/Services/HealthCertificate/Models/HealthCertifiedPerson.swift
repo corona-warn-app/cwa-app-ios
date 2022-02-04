@@ -200,7 +200,7 @@ class HealthCertifiedPerson: Codable, Equatable, Comparable {
 	var unseenNewsCount: Int {
 		let certificatesWithNews = healthCertificates.filter { $0.isNew || $0.isValidityStateNew }
 
-		return certificatesWithNews.count + (boosterRule != nil && isNewBoosterRule ? 1 : 0)
+		return certificatesWithNews.count + (dccWalletInfo?.boosterNotification.identifier != nil && isNewBoosterRule ? 1 : 0)
 	}
 
 	var mostRelevantHealthCertificate: HealthCertificate? {
