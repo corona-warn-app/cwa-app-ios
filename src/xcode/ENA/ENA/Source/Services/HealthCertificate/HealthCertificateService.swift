@@ -233,7 +233,7 @@ class HealthCertificateService {
 		healthCertifiedPerson.healthCertificates.append(healthCertificate)
 		healthCertifiedPerson.healthCertificates.sort(by: <)
 
-		if !healthCertifiedPersons.contains(healthCertifiedPerson) {
+		if !healthCertifiedPersons.contains(where: { $0 === healthCertifiedPerson }) {
 			Log.info("[HealthCertificateService] Successfully registered health certificate for a new person", log: .api)
 			healthCertifiedPersons = (healthCertifiedPersons + [healthCertifiedPerson]).sorted()
 			updateValidityStateAndNotifications(for: healthCertificate)
