@@ -41,8 +41,8 @@ class HealthCertifiedPerson: Codable, Equatable, Comparable {
 	required init(from decoder: Decoder) throws {
 		let container = try decoder.container(keyedBy: CodingKeys.self)
 
-		healthCertificates = []
-		decodingFailedHealthCertificates = try container.decodeIfPresent([DecodingFailedHealthCertificate].self, forKey: .decodingFailedHealthCertificates) ?? []
+		var healthCertificates = [HealthCertificate]()
+		var decodingFailedHealthCertificates = try container.decodeIfPresent([DecodingFailedHealthCertificate].self, forKey: .decodingFailedHealthCertificates) ?? []
 		isPreferredPerson = try container.decodeIfPresent(Bool.self, forKey: .isPreferredPerson) ?? false
 		dccWalletInfo = try container.decodeIfPresent(DCCWalletInfo.self, forKey: .dccWalletInfo)
 		boosterRule = try container.decodeIfPresent(Rule.self, forKey: .boosterRule)
@@ -50,34 +50,37 @@ class HealthCertifiedPerson: Codable, Equatable, Comparable {
 
 		let decodingContainers = try container.decode([HealthCertificateDecodingContainer].self, forKey: .healthCertificates)
 
-		decodingContainers.forEach {
+		for decodingContainer in decodingContainers {
 			do {
 				let healthCertificate = try HealthCertificate(
-					base45: $0.base45,
-					validityState: $0.validityState ?? .valid,
-					didShowInvalidNotification: $0.didShowInvalidNotification ?? false,
-					didShowBlockedNotification: $0.didShowBlockedNotification ?? false,
-					isNew: $0.isNew ?? false,
-					isValidityStateNew: $0.isValidityStateNew ?? false
+					base45: decodingContainer.base45,
+					validityState: decodingContainer.validityState ?? .valid,
+					didShowInvalidNotification: decodingContainer.didShowInvalidNotification ?? false,
+					didShowBlockedNotification: decodingContainer.didShowBlockedNotification ?? false,
+					isNew: decodingContainer.isNew ?? false,
+					isValidityStateNew: decodingContainer.isValidityStateNew ?? false
 				)
 
 				healthCertificates.append(healthCertificate)
 			} catch {
-				Log.error("Decoding certificate failed on first attempt \(private: $0.base45)", error: error)
+				Log.error("Decoding certificate failed on first attempt \(private: decodingContainer.base45)", error: error)
 
 				let decodingFailedHealthCertificate = DecodingFailedHealthCertificate(
-					base45: $0.base45,
-					validityState: $0.validityState ?? .valid,
-					didShowInvalidNotification: $0.didShowInvalidNotification ?? false,
-					didShowBlockedNotification: $0.didShowBlockedNotification ?? false,
-					isNew: $0.isNew ?? false,
-					isValidityStateNew: $0.isValidityStateNew ?? false,
+					base45: decodingContainer.base45,
+					validityState: decodingContainer.validityState ?? .valid,
+					didShowInvalidNotification: decodingContainer.didShowInvalidNotification ?? false,
+					didShowBlockedNotification: decodingContainer.didShowBlockedNotification ?? false,
+					isNew: decodingContainer.isNew ?? false,
+					isValidityStateNew: decodingContainer.isValidityStateNew ?? false,
 					error: error
 				)
 
 				decodingFailedHealthCertificates.append(decodingFailedHealthCertificate)
 			}
 		}
+
+		self.healthCertificates = healthCertificates
+		self.decodingFailedHealthCertificates = decodingFailedHealthCertificates
 
 		attemptToRestoreDecodingFailedHealthCertificates()
 		setup()
