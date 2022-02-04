@@ -58,11 +58,6 @@ class CachedRestService: Service {
 		return nil
 	}
 
-	// -8797619977795749432
-	// 5961911308093208526
-	// 8715013173690293650
-
-
 	func decodeModel<R>(
 		_ resource: R,
 		_ bodyData: Data?,

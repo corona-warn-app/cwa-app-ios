@@ -39,7 +39,10 @@ struct CCLServiceMode: OptionSet {
 class CCLService: CCLServable {
 
 	// MARK: - Init
-	
+
+	/// for testing we need to inject:
+	/// - cclServiceMode: to select updated operating mode
+	/// - signatureVerifier: for fake CBOR Receive Resources to work
 	init(
 		_ restServiceProvider: RestServiceProviding,
 		cclServiceMode: [CCLServiceMode] = [.configuration, .boosterRules],
@@ -51,7 +54,6 @@ class CCLService: CCLServable {
 		var cclConfigurationResource = CCLConfigurationResource()
 		cclConfigurationResource.receiveResource = CBORReceiveResource(signatureVerifier: signatureVerifier)
 		self.cclConfigurationResource = cclConfigurationResource
-
 
 		var boosterNotificationRulesResource = DCCRulesResource(ruleType: .boosterNotification)
 		boosterNotificationRulesResource.receiveResource = CBORReceiveResource(signatureVerifier: signatureVerifier)
