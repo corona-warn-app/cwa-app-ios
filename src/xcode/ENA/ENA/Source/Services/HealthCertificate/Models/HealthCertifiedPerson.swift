@@ -119,6 +119,8 @@ class HealthCertifiedPerson: Codable, Equatable, Comparable {
 	let objectDidChange = OpenCombine.PassthroughSubject<HealthCertifiedPerson, Never>()
 	let needsWalletInfoUpdate = OpenCombine.PassthroughSubject<HealthCertifiedPerson, Never>()
 
+	let queue = DispatchQueue(label: "com.sap.HealthCertifiedPerson.\(NSUUID().uuidString)")
+
 	@DidSetPublished var healthCertificates: [HealthCertificate] {
 		didSet {
 			// States and subscriptions only need to be updated if certificates were added or removed

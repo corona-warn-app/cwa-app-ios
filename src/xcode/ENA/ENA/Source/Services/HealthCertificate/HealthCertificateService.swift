@@ -751,8 +751,7 @@ class HealthCertificateService {
 	}
 
 	private func updateDCCWalletInfo(for person: HealthCertifiedPerson, completion: (() -> Void)? = nil) {
-		// Maybe on a serial queue to avoid conflicts?
-		DispatchQueue.global().async {
+		person.queue.async {
 			let result = self.cclService.dccWalletInfo(
 				for: person.healthCertificates.map { $0.dccWalletCertificate }
 			)
