@@ -20,9 +20,9 @@ class HealthCertifiedPerson: Codable, Equatable, Comparable {
 	) {
 		self.healthCertificates = healthCertificates
 		self.isPreferredPerson = isPreferredPerson
+		self.dccWalletInfo = dccWalletInfo
 		self.boosterRule = boosterRule
 		self.isNewBoosterRule = isNewBoosterRule
-		self.dccWalletInfo = dccWalletInfo
 
 		setup()
 	}
@@ -33,51 +33,54 @@ class HealthCertifiedPerson: Codable, Equatable, Comparable {
 		case healthCertificates
 		case decodingFailedHealthCertificates
 		case isPreferredPerson
+		case dccWalletInfo
 		case boosterRule
 		case isNewBoosterRule
-		case dccWalletInfo
 	}
 
 	required init(from decoder: Decoder) throws {
 		let container = try decoder.container(keyedBy: CodingKeys.self)
 
-		healthCertificates = []
-		decodingFailedHealthCertificates = try container.decodeIfPresent([DecodingFailedHealthCertificate].self, forKey: .decodingFailedHealthCertificates) ?? []
+		var healthCertificates = [HealthCertificate]()
+		var decodingFailedHealthCertificates = try container.decodeIfPresent([DecodingFailedHealthCertificate].self, forKey: .decodingFailedHealthCertificates) ?? []
 		isPreferredPerson = try container.decodeIfPresent(Bool.self, forKey: .isPreferredPerson) ?? false
+		dccWalletInfo = try container.decodeIfPresent(DCCWalletInfo.self, forKey: .dccWalletInfo)
 		boosterRule = try container.decodeIfPresent(Rule.self, forKey: .boosterRule)
 		isNewBoosterRule = try container.decodeIfPresent(Bool.self, forKey: .isNewBoosterRule) ?? false
-		dccWalletInfo = try container.decodeIfPresent(DCCWalletInfo.self, forKey: .dccWalletInfo)
 
 		let decodingContainers = try container.decode([HealthCertificateDecodingContainer].self, forKey: .healthCertificates)
 
-		decodingContainers.forEach {
+		for decodingContainer in decodingContainers {
 			do {
 				let healthCertificate = try HealthCertificate(
-					base45: $0.base45,
-					validityState: $0.validityState ?? .valid,
-					didShowInvalidNotification: $0.didShowInvalidNotification ?? false,
-					didShowBlockedNotification: $0.didShowBlockedNotification ?? false,
-					isNew: $0.isNew ?? false,
-					isValidityStateNew: $0.isValidityStateNew ?? false
+					base45: decodingContainer.base45,
+					validityState: decodingContainer.validityState ?? .valid,
+					didShowInvalidNotification: decodingContainer.didShowInvalidNotification ?? false,
+					didShowBlockedNotification: decodingContainer.didShowBlockedNotification ?? false,
+					isNew: decodingContainer.isNew ?? false,
+					isValidityStateNew: decodingContainer.isValidityStateNew ?? false
 				)
 
 				healthCertificates.append(healthCertificate)
 			} catch {
-				Log.error("Decoding certificate failed on first attempt \(private: $0.base45)", error: error)
+				Log.error("Decoding certificate failed on first attempt \(private: decodingContainer.base45)", error: error)
 
 				let decodingFailedHealthCertificate = DecodingFailedHealthCertificate(
-					base45: $0.base45,
-					validityState: $0.validityState ?? .valid,
-					didShowInvalidNotification: $0.didShowInvalidNotification ?? false,
-					didShowBlockedNotification: $0.didShowBlockedNotification ?? false,
-					isNew: $0.isNew ?? false,
-					isValidityStateNew: $0.isValidityStateNew ?? false,
+					base45: decodingContainer.base45,
+					validityState: decodingContainer.validityState ?? .valid,
+					didShowInvalidNotification: decodingContainer.didShowInvalidNotification ?? false,
+					didShowBlockedNotification: decodingContainer.didShowBlockedNotification ?? false,
+					isNew: decodingContainer.isNew ?? false,
+					isValidityStateNew: decodingContainer.isValidityStateNew ?? false,
 					error: error
 				)
 
 				decodingFailedHealthCertificates.append(decodingFailedHealthCertificate)
 			}
 		}
+
+		self.healthCertificates = healthCertificates
+		self.decodingFailedHealthCertificates = decodingFailedHealthCertificates
 
 		attemptToRestoreDecodingFailedHealthCertificates()
 		setup()
@@ -119,6 +122,8 @@ class HealthCertifiedPerson: Codable, Equatable, Comparable {
 	let objectDidChange = OpenCombine.PassthroughSubject<HealthCertifiedPerson, Never>()
 	let needsWalletInfoUpdate = OpenCombine.PassthroughSubject<HealthCertifiedPerson, Never>()
 
+	let queue = DispatchQueue(label: "com.sap.HealthCertifiedPerson.\(NSUUID().uuidString)")
+
 	@DidSetPublished var healthCertificates: [HealthCertificate] {
 		didSet {
 			// States and subscriptions only need to be updated if certificates were added or removed
@@ -154,20 +159,18 @@ class HealthCertifiedPerson: Codable, Equatable, Comparable {
 
 	@DidSetPublished var dccWalletInfo: DCCWalletInfo? {
 		didSet {
-			if dccWalletInfo?.boosterNotification.identifier != oldValue?.boosterNotification.identifier {
-				isNewBoosterRule = boosterRule != nil
+			/// Check if booster rule was set before transition to DCCWalletInfo to not send out a second notification
+			let oldIdentifier = boosterRule?.identifier ?? oldValue?.boosterNotification.identifier
+			if dccWalletInfo?.boosterNotification.identifier != oldIdentifier {
+				isNewBoosterRule = dccWalletInfo?.boosterNotification.identifier != nil
+			}
+
+			if dccWalletInfo != nil {
+				/// Once initial dccWalletInfo was calculated, legacy boosterRule property can be set to nil
+				boosterRule = nil
 			}
 
 			if dccWalletInfo != oldValue {
-				objectDidChange.send(self)
-			}
-		}
-	}
-
-	@DidSetPublished var boosterRule: Rule? {
-		didSet {
-			if boosterRule != oldValue {
-				isNewBoosterRule = boosterRule != nil
 				objectDidChange.send(self)
 			}
 		}
@@ -200,15 +203,18 @@ class HealthCertifiedPerson: Codable, Equatable, Comparable {
 	var unseenNewsCount: Int {
 		let certificatesWithNews = healthCertificates.filter { $0.isNew || $0.isValidityStateNew }
 
-		return certificatesWithNews.count + (boosterRule != nil && isNewBoosterRule ? 1 : 0)
-	}
-
-	func healthCertificate(for reference: DCCCertificateReference) -> HealthCertificate? {
-		healthCertificates.first { $0.base45 == reference.barcodeData }
+		return certificatesWithNews.count + (dccWalletInfo?.boosterNotification.identifier != nil && isNewBoosterRule ? 1 : 0)
 	}
 
 	var mostRelevantHealthCertificate: HealthCertificate? {
 		(dccWalletInfo?.mostRelevantCertificate).flatMap { self.healthCertificate(for: $0.certificateRef) } ?? healthCertificates.fallback
+	}
+
+	/// Only kept around for migration purposes so people that already have a booster rule set don't get a second notification for the same rule
+	var boosterRule: Rule?
+
+	func healthCertificate(for reference: DCCCertificateReference) -> HealthCertificate? {
+		healthCertificates.first { $0.base45 == reference.barcodeData }
 	}
 
 	func attemptToRestoreDecodingFailedHealthCertificates() {

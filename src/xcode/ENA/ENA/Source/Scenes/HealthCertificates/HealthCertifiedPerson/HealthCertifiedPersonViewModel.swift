@@ -42,7 +42,9 @@ final class HealthCertifiedPersonViewModel {
 				guard !person.healthCertificates.isEmpty else {
 					// Prevent trigger reload if we the person was removed before because we removed their last certificate.
 					self?.triggerReload = false
-					dismiss()
+					DispatchQueue.main.async {
+						dismiss()
+					}
 					return
 				}
 
