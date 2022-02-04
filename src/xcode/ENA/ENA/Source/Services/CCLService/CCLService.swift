@@ -12,6 +12,7 @@ import HealthCertificateToolkit
 enum CCLDownloadError: Error {
 	case missing
 	case custom(Error)
+	case cached
 }
 
 enum DCCWalletInfoAccessError: Error {
@@ -146,6 +147,10 @@ class CCLService: CCLServable {
 		restServiceProvider.load(cclConfigurationResource) { result in
 			switch result {
 			case let .success(receiveModel):
+				guard !receiveModel.metaData.loadedFromCache else {
+					completion(.failure(.cached))
+					return
+				}
 				completion(.success(receiveModel.cclConfigurations))
 			case let .failure(error):
 				switch error {
@@ -164,6 +169,10 @@ class CCLService: CCLServable {
 		restServiceProvider.load(boosterNotificationRulesResource) { result in
 			switch result {
 			case let .success(receiveModel):
+				guard !receiveModel.metaData.loadedFromCache else {
+					completion(.failure(.cached))
+					return
+				}
 				completion(.success(receiveModel.rules))
 			case let .failure(error):
 				if case let .receivedResourceError(customError) = error {
