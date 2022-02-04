@@ -1171,6 +1171,7 @@
 		ABDBE3632710825F007C8DA8 /* RecycleBinTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABDBE36127107E73007C8DA8 /* RecycleBinTests.swift */; };
 		ABE06E99261D958A00D98E1B /* TraceLocationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABE06E98261D958A00D98E1B /* TraceLocationTests.swift */; };
 		ABE17DE327AC0FE800E9EA2D /* XCUIElement+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABE17DE127AC0EB400E9EA2D /* XCUIElement+Utils.swift */; };
+		ABE17DE527AC30A600E9EA2D /* HealthCertificate+BelongsToSamePersonTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABE17DE427AC30A600E9EA2D /* HealthCertificate+BelongsToSamePersonTests.swift */; };
 		ABE5E0BA269363B900D50C2B /* CountrySelectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABE5E0B9269363B900D50C2B /* CountrySelectionCell.swift */; };
 		ABE5E0BD2694590900D50C2B /* ValidationDateSelectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABE5E0BC2694590900D50C2B /* ValidationDateSelectionCell.swift */; };
 		ABE63CF126010EFF0024F856 /* ContactDiaryStore+Creation.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABE63CF026010EFF0024F856 /* ContactDiaryStore+Creation.swift */; };
@@ -2852,6 +2853,7 @@
 		ABDBE36127107E73007C8DA8 /* RecycleBinTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecycleBinTests.swift; sourceTree = "<group>"; };
 		ABE06E98261D958A00D98E1B /* TraceLocationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraceLocationTests.swift; sourceTree = "<group>"; };
 		ABE17DE127AC0EB400E9EA2D /* XCUIElement+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCUIElement+Utils.swift"; sourceTree = "<group>"; };
+		ABE17DE427AC30A600E9EA2D /* HealthCertificate+BelongsToSamePersonTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HealthCertificate+BelongsToSamePersonTests.swift"; sourceTree = "<group>"; };
 		ABE5E0B9269363B900D50C2B /* CountrySelectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountrySelectionCell.swift; sourceTree = "<group>"; };
 		ABE5E0BC2694590900D50C2B /* ValidationDateSelectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidationDateSelectionCell.swift; sourceTree = "<group>"; };
 		ABE63CF026010EFF0024F856 /* ContactDiaryStore+Creation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ContactDiaryStore+Creation.swift"; sourceTree = "<group>"; };
@@ -4686,6 +4688,7 @@
 				01635EB3275E044800A479EB /* HealthCertificateArray+FallbackTests.swift */,
 				01FE5E552648511100155906 /* HealthCertifiedPersonTests.swift */,
 				AB9B991B26D5389100F2506D /* HealthCertificate+PDFTests.swift */,
+				ABE17DE427AC30A600E9EA2D /* HealthCertificate+BelongsToSamePersonTests.swift */,
 			);
 			path = __tests__;
 			sourceTree = "<group>";
@@ -11444,6 +11447,7 @@
 				BAD3199D26FA2102006E82E7 /* HealthCertificateQRCodeViewTests.swift in Sources */,
 				B1AC51D624CED8820087C35B /* DetectionModeTests.swift in Sources */,
 				8FA88FE02616692000FD36DA /* TraceLocationCheckinViewModelTests.swift in Sources */,
+				ABE17DE527AC30A600E9EA2D /* HealthCertificate+BelongsToSamePersonTests.swift in Sources */,
 				0109DB9A26037E6A00624BB3 /* TraceLocation+Mock.swift in Sources */,
 				0144DD9725D40CC600CFB1D1 /* MockDeadmanNotificationManager.swift in Sources */,
 				BAEFB35A2656B07A00497F79 /* ContactDiaryStoreSchemaV5Tests.swift in Sources */,

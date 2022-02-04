@@ -280,6 +280,11 @@ final class HealthCertificate: Codable, Equatable, Comparable, RecycleBinIdentif
 			return hashData == $0.hash
 		}
 	}
+	
+	func belongsToSamePerson(_ other: HealthCertificate) -> Bool {
+		
+		return false
+	}
 
 	// MARK: - Private
 
