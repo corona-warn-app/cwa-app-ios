@@ -620,6 +620,7 @@ class HealthCertificateService {
 	private func setup() {
 		migration()
 		updatePublishersFromStore()
+		updateTimeBasedValidityStates()
 
 		subscribeToNotifications()
 		updateGradients()
@@ -746,14 +747,6 @@ class HealthCertificateService {
 	}
 
 	private func updateValidityState(for healthCertificate: HealthCertificate) {
-		let currentAppConfiguration = appConfiguration.currentAppConfig.value
-		let expirationThresholdInDays = currentAppConfiguration.dgcParameters.expirationThresholdInDays
-		let expiringSoonDate = Calendar.current.date(
-			byAdding: .day,
-			value: -Int(expirationThresholdInDays),
-			to: healthCertificate.expirationDate
-		)
-
 		let previousValidityState = healthCertificate.validityState
 
 		let blockedIdentifierChunks = appConfiguration.currentAppConfig.value
@@ -769,13 +762,7 @@ class HealthCertificateService {
 
 			switch signatureVerificationResult {
 			case .success:
-				if Date() >= healthCertificate.expirationDate {
-					healthCertificate.validityState = .expired
-				} else if let expiringSoonDate = expiringSoonDate, Date() >= expiringSoonDate {
-					healthCertificate.validityState = .expiringSoon
-				} else {
-					healthCertificate.validityState = .valid
-				}
+				updateTimeBasedValidityState(for: healthCertificate)
 			case .failure:
 				healthCertificate.validityState = .invalid
 			}
@@ -784,6 +771,36 @@ class HealthCertificateService {
 		if healthCertificate.validityState != previousValidityState {
 			/// Only validity states that are not shown as `.valid` should be marked as new for the user.
 			healthCertificate.isValidityStateNew = !healthCertificate.isConsideredValid
+		}
+	}
+
+	private func updateTimeBasedValidityStates() {
+		healthCertifiedPersons.forEach { healthCertifiedPerson in
+			healthCertifiedPerson.healthCertificates.forEach { healthCertificate in
+				updateTimeBasedValidityState(for: healthCertificate)
+			}
+		}
+	}
+
+	private func updateTimeBasedValidityState(for healthCertificate: HealthCertificate) {
+		guard healthCertificate.validityState != .invalid && healthCertificate.validityState != .blocked else {
+			return
+		}
+
+		let currentAppConfiguration = appConfiguration.currentAppConfig.value
+		let expirationThresholdInDays = currentAppConfiguration.dgcParameters.expirationThresholdInDays
+		let expiringSoonDate = Calendar.current.date(
+			byAdding: .day,
+			value: -Int(expirationThresholdInDays),
+			to: healthCertificate.expirationDate
+		)
+
+		if Date() >= healthCertificate.expirationDate {
+			healthCertificate.validityState = .expired
+		} else if let expiringSoonDate = expiringSoonDate, Date() >= expiringSoonDate {
+			healthCertificate.validityState = .expiringSoon
+		} else {
+			healthCertificate.validityState = .valid
 		}
 	}
 	
