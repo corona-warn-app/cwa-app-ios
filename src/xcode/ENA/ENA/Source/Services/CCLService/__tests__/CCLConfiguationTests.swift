@@ -7,7 +7,7 @@ import HealthCertificateToolkit
 import ZIPFoundation
 @testable import ENA
 
-class CCLConfigurationTests: CCLServiceTests {
+class CCLServiceConfigurationTests: CCLServiceBaseTests {
 
 	func cclConfigurationData() throws -> Data {
 		// GIVEN

@@ -1309,8 +1309,8 @@
 		BA112E0A25559CDD007F5712 /* ClientWifiOnly.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA112E0925559CDD007F5712 /* ClientWifiOnly.swift */; };
 		BA11D5BA2588D590005DCD6B /* DiaryAddAndEditEntryViewModelTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA11D5B92588D590005DCD6B /* DiaryAddAndEditEntryViewModelTest.swift */; };
 		BA18127327AD5D54000E5EDD /* CCLConfiguationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA18127227AD5D54000E5EDD /* CCLConfiguationTests.swift */; };
-		BA18127527AD82C5000E5EDD /* BoosterNotificationRulesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA18127427AD82C5000E5EDD /* BoosterNotificationRulesTests.swift */; };
-		BA18127727AD82DA000E5EDD /* CCLServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA18127627AD82DA000E5EDD /* CCLServiceTests.swift */; };
+		BA18127527AD82C5000E5EDD /* CCLServiceBoosterNotificationRulesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA18127427AD82C5000E5EDD /* CCLServiceBoosterNotificationRulesTests.swift */; };
+		BA18127727AD82DA000E5EDD /* CCLServiceBaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA18127627AD82DA000E5EDD /* CCLServiceBaseTests.swift */; };
 		BA19978B2715B006009FEC00 /* Name+ExtensionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA19978A2715B006009FEC00 /* Name+ExtensionTests.swift */; };
 		BA1FC82C26E251FD00CCCC17 /* DMLocalNotificationsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA1FC82A26E250E800CCCC17 /* DMLocalNotificationsViewController.swift */; };
 		BA1FC82D26E2520000CCCC17 /* DMNotificationsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA1FC82B26E250E800CCCC17 /* DMNotificationsViewModel.swift */; };
@@ -2988,8 +2988,8 @@
 		BA112E0925559CDD007F5712 /* ClientWifiOnly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientWifiOnly.swift; sourceTree = "<group>"; };
 		BA11D5B92588D590005DCD6B /* DiaryAddAndEditEntryViewModelTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryAddAndEditEntryViewModelTest.swift; sourceTree = "<group>"; };
 		BA18127227AD5D54000E5EDD /* CCLConfiguationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CCLConfiguationTests.swift; sourceTree = "<group>"; };
-		BA18127427AD82C5000E5EDD /* BoosterNotificationRulesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoosterNotificationRulesTests.swift; sourceTree = "<group>"; };
-		BA18127627AD82DA000E5EDD /* CCLServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CCLServiceTests.swift; sourceTree = "<group>"; };
+		BA18127427AD82C5000E5EDD /* CCLServiceBoosterNotificationRulesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CCLServiceBoosterNotificationRulesTests.swift; sourceTree = "<group>"; };
+		BA18127627AD82DA000E5EDD /* CCLServiceBaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CCLServiceBaseTests.swift; sourceTree = "<group>"; };
 		BA19978A2715B006009FEC00 /* Name+ExtensionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Name+ExtensionTests.swift"; sourceTree = "<group>"; };
 		BA1FC82A26E250E800CCCC17 /* DMLocalNotificationsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMLocalNotificationsViewController.swift; sourceTree = "<group>"; };
 		BA1FC82B26E250E800CCCC17 /* DMNotificationsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMNotificationsViewModel.swift; sourceTree = "<group>"; };
@@ -5020,8 +5020,8 @@
 				34C40E2F27A2D2590098C6ED /* DCCUITextTests.swift */,
 				01C5F300279EA48600F60047 /* DCCWalletInfo+Fake.swift */,
 				AB2628DC27A2FACF003D39A6 /* GetWalletInfoInputTests.swift */,
-				BA18127627AD82DA000E5EDD /* CCLServiceTests.swift */,
-				BA18127427AD82C5000E5EDD /* BoosterNotificationRulesTests.swift */,
+				BA18127627AD82DA000E5EDD /* CCLServiceBaseTests.swift */,
+				BA18127427AD82C5000E5EDD /* CCLServiceBoosterNotificationRulesTests.swift */,
 				BA18127227AD5D54000E5EDD /* CCLConfiguationTests.swift */,
 			);
 			path = __tests__;
@@ -11351,7 +11351,7 @@
 				4BAB490426C9B70A00CC4C11 /* RateLimitLoggerTests.swift in Sources */,
 				AB7420DD251B8101006666AC /* DeltaOnboardingCoordinatorTests.swift in Sources */,
 				ABD0828F260E08D6007C4B24 /* TraceWarningMatcherTests.swift in Sources */,
-				BA18127727AD82DA000E5EDD /* CCLServiceTests.swift in Sources */,
+				BA18127727AD82DA000E5EDD /* CCLServiceBaseTests.swift in Sources */,
 				01DF186E2603B28200A002E4 /* TraceLocationsOverviewViewModelTest.swift in Sources */,
 				AB5F84BB24F92876000400D4 /* Migration0To1Tests.swift in Sources */,
 				3583490C264AAE5600C4888D /* StreamReaderTests.swift in Sources */,
@@ -11360,7 +11360,7 @@
 				50DC527B24FEB5CA00F6D8EB /* AppInformationModelTest.swift in Sources */,
 				010A47512751415E000AA80E /* TicketValidationAccessToken+Fake.swift in Sources */,
 				BA8BBA08255A90690034D4BC /* WifiHTTPClientTests.swift in Sources */,
-				BA18127527AD82C5000E5EDD /* BoosterNotificationRulesTests.swift in Sources */,
+				BA18127527AD82C5000E5EDD /* CCLServiceBoosterNotificationRulesTests.swift in Sources */,
 				BA2D4F05263701950080FD77 /* SimpleTextCellViewModelTests.swift in Sources */,
 				AB86B2AF26026AC3007C77B3 /* EventCheckoutServiceTests.swift in Sources */,
 				506BEF05276A465A0062D5D6 /* StandardRestServiceTests.swift in Sources */,

@@ -7,7 +7,7 @@ import HealthCertificateToolkit
 import ZIPFoundation
 @testable import ENA
 
-class CCLServiceTests: XCTestCase {
+class CCLServiceBaseTests: XCTestCase {
 
 	// MARK: Helpers
 
