@@ -20,9 +20,9 @@ class HealthCertifiedPerson: Codable, Equatable, Comparable {
 	) {
 		self.healthCertificates = healthCertificates
 		self.isPreferredPerson = isPreferredPerson
+		self.dccWalletInfo = dccWalletInfo
 		self.boosterRule = boosterRule
 		self.isNewBoosterRule = isNewBoosterRule
-		self.dccWalletInfo = dccWalletInfo
 
 		setup()
 	}
@@ -33,9 +33,9 @@ class HealthCertifiedPerson: Codable, Equatable, Comparable {
 		case healthCertificates
 		case decodingFailedHealthCertificates
 		case isPreferredPerson
+		case dccWalletInfo
 		case boosterRule
 		case isNewBoosterRule
-		case dccWalletInfo
 	}
 
 	required init(from decoder: Decoder) throws {
@@ -44,9 +44,9 @@ class HealthCertifiedPerson: Codable, Equatable, Comparable {
 		healthCertificates = []
 		decodingFailedHealthCertificates = try container.decodeIfPresent([DecodingFailedHealthCertificate].self, forKey: .decodingFailedHealthCertificates) ?? []
 		isPreferredPerson = try container.decodeIfPresent(Bool.self, forKey: .isPreferredPerson) ?? false
+		dccWalletInfo = try container.decodeIfPresent(DCCWalletInfo.self, forKey: .dccWalletInfo)
 		boosterRule = try container.decodeIfPresent(Rule.self, forKey: .boosterRule)
 		isNewBoosterRule = try container.decodeIfPresent(Bool.self, forKey: .isNewBoosterRule) ?? false
-		dccWalletInfo = try container.decodeIfPresent(DCCWalletInfo.self, forKey: .dccWalletInfo)
 
 		let decodingContainers = try container.decode([HealthCertificateDecodingContainer].self, forKey: .healthCertificates)
 
