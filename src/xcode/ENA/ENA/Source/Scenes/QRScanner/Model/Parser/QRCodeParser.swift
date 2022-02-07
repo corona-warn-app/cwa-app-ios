@@ -59,13 +59,14 @@ class QRCodeParser: QRCodeParsable {
 				return false
 			}
 		}
-
+		
 		if traceLocationMatch != nil, traceLocationDescriptor != nil {
 			// it is a trace Locations QRCode
 			parser = CheckinQRCodeParser(
 				appConfigurationProvider: appConfigurationProvider
 			)
-		} else if String(qrCode.prefix(antigenTestPrefix.count)).lowercased() == antigenTestPrefix || String(qrCode.prefix(pcrTestPrefix.count)).lowercased() == pcrTestPrefix {
+		} else if String(qrCode.prefix(antigenTestPrefix.count)).lowercased() == antigenTestPrefix || String(qrCode.prefix(pcrTestPrefix.count)).lowercased() == pcrTestPrefix ||
+					String(qrCode.prefix(rapidPCRTestPrefix.count)).lowercased() == rapidPCRTestPrefix {
 			// it is a test
 			parser = CoronaTestsQRCodeParser()
 		} else if qrCode.prefix(healthCertificatePrefix.count) == healthCertificatePrefix {
@@ -77,16 +78,16 @@ class QRCodeParser: QRCodeParsable {
 		} else if qrCode.trimmingCharacters(in: .whitespacesAndNewlines).hasPrefix("{") {
 			parser = TicketValidationQRCodeParser()
 		}
-
+		
 		guard parser != nil else {
 			Log.error("QRCode parser not initialized, Scanned code prefix doesn't match any of the scannable structs", log: .qrCode, error: nil)
 			completion(.failure(.scanningError(.codeNotFound)))
 			return
 		}
-
+		
 		parser?.parse(qrCode: qrCode) { result in
 			completion(result)
-
+			
 			/// Setting to nil keeps the parser in memory up until this point. Using a property to keep it in memory is not advisable as it led to a bug:
 			/// The QRCodeParser instance is shared and concurrently used, but a separate parser is actually needed per call. Storing the parser in a property can lead to the wrong parser being used.
 			parser = nil
