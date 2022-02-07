@@ -44,8 +44,9 @@ class QRCodeParser: QRCodeParsable {
 
 		let antigenTestPrefix = "https://s.coronawarn.app"
 		let pcrTestPrefix = "https://localhost"
+		let rapidPCRTestPrefix = "https://p.coronawarn.app"
 		let healthCertificatePrefix = "HC1:"
-
+		
 		// Trace location QR codes need to be matched with a regex provided by the app configuration
 		var traceLocationMatch: NSTextCheckingResult?
 		let traceLocationDescriptor = appConfigurationProvider.currentAppConfig.value.presenceTracingParameters.qrCodeDescriptors.first {
