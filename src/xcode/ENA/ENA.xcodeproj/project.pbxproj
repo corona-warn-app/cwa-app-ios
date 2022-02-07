@@ -1137,6 +1137,8 @@
 		AB9B991F26D5417200F2506D /* VaccinationCertificateTemplate_v4.1.pdf in Resources */ = {isa = PBXBuildFile; fileRef = ABEA875926D3811100A8E950 /* VaccinationCertificateTemplate_v4.1.pdf */; };
 		AB9E9E7A261308C000515408 /* RiskTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB9E9E79261308C000515408 /* RiskTests.swift */; };
 		ABAC9D2E2624938100EB183F /* TestResultTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABAC9D2D2624938100EB183F /* TestResultTests.swift */; };
+		ABADDDE627B16C8E0036049C /* dcc-holder-name-components.json in Resources */ = {isa = PBXBuildFile; fileRef = ABADDDE427B16C8E0036049C /* dcc-holder-name-components.json */; };
+		ABADDDE727B16C8E0036049C /* dcc-holder-comparison.json in Resources */ = {isa = PBXBuildFile; fileRef = ABADDDE527B16C8E0036049C /* dcc-holder-comparison.json */; };
 		ABB078EE272C260B0037B30F /* RestServiceProviderFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABBA6BB8272AA1E200EEF2E4 /* RestServiceProviderFactory.swift */; };
 		ABB078F0273034AC0037B30F /* SecureCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABB078EF273034AC0037B30F /* SecureCache.swift */; };
 		ABB078F2273035340037B30F /* SecureStoring.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABB078F1273035340037B30F /* SecureStoring.swift */; };
@@ -2817,6 +2819,8 @@
 		AB9B991B26D5389100F2506D /* HealthCertificate+PDFTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HealthCertificate+PDFTests.swift"; sourceTree = "<group>"; };
 		AB9E9E79261308C000515408 /* RiskTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RiskTests.swift; sourceTree = "<group>"; };
 		ABAC9D2D2624938100EB183F /* TestResultTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestResultTests.swift; sourceTree = "<group>"; };
+		ABADDDE427B16C8E0036049C /* dcc-holder-name-components.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = "dcc-holder-name-components.json"; path = "../../../../../../../../../../../../../../Downloads/dcc-holder-name-components.json"; sourceTree = "<group>"; };
+		ABADDDE527B16C8E0036049C /* dcc-holder-comparison.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = "dcc-holder-comparison.json"; path = "../../../../../../../../../../../../../../Downloads/dcc-holder-comparison.json"; sourceTree = "<group>"; };
 		ABAE0A1B257F77D90030ED47 /* ContactDiaryStoreSchemaV1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactDiaryStoreSchemaV1.swift; sourceTree = "<group>"; };
 		ABAE0A36257FA88D0030ED47 /* ContactDiaryStoreSchemaV1Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactDiaryStoreSchemaV1Tests.swift; sourceTree = "<group>"; };
 		ABAE0A3E257FAC970030ED47 /* ContactDiaryStoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactDiaryStoreTests.swift; sourceTree = "<group>"; };
@@ -4683,6 +4687,7 @@
 		01FE5E532648511100155906 /* __tests__ */ = {
 			isa = PBXGroup;
 			children = (
+				ABADDDE327B16C830036049C /* Resources */,
 				BA19978A2715B006009FEC00 /* Name+ExtensionTests.swift */,
 				01FE5E592648546800155906 /* HealthCertificate+Mock.swift */,
 				5055EC00267239690062C15E /* HealthCertificateTests.swift */,
@@ -7428,6 +7433,15 @@
 			path = Doubles;
 			sourceTree = "<group>";
 		};
+		ABADDDE327B16C830036049C /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				ABADDDE527B16C8E0036049C /* dcc-holder-comparison.json */,
+				ABADDDE427B16C8E0036049C /* dcc-holder-name-components.json */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
 		ABAE0A12257F77A20030ED47 /* Store */ = {
 			isa = PBXGroup;
 			children = (
@@ -9922,6 +9936,8 @@
 				F252472F2483955B00C5556B /* DynamicTableViewControllerFake.storyboard in Resources */,
 				AB9B991E26D5416F00F2506D /* RecoveryCertificateTemplate_v4.1.pdf in Resources */,
 				AB347879269C8D770016A8AB /* dcc-validation-rules-common-test-cases.json in Resources */,
+				ABADDDE727B16C8E0036049C /* dcc-holder-comparison.json in Resources */,
+				ABADDDE627B16C8E0036049C /* dcc-holder-name-components.json in Resources */,
 				34C40E3227A2FCC00098C6ED /* ccl-text-descriptor-test-cases.json in Resources */,
 				50FA071126021180003C1E46 /* api-response-traceWarning in Resources */,
 				01571B7A255E9A6F00E4E891 /* config-wru-2020-11-13 in Resources */,
