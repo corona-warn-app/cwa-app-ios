@@ -2,10 +2,16 @@
 // 🦠 Corona-Warn-App
 //
 
+import SWCompression
+
+protocol UniqueHash {
+	var uniqueIdentifier: String { get }
+}
+
 /**
-The locator describes where (endpoint and path) a resource should be send or received. I can also add some headers, like the fake request header.
-*/
-struct Locator: Hashable {
+ The locator describes where (endpoint and path) a resource should be send or received. I can also add some headers, like the fake request header.
+ */
+struct Locator: UniqueHash {
 
 	// MARK: - Init
 
@@ -19,15 +25,24 @@ struct Locator: Hashable {
 		self.paths = paths
 		self.method = method
 		self.headers = defaultHeaders
+
+		// we need a unique identifier to persist data inside the cache
+		guard let uniqueData = [
+			endpoint.description,
+			paths.joined(separator: "/"),
+			method.rawValue
+		]
+				.joined(separator: "/")
+				.data(using: .utf8) else {
+					Log.error("Failed to create locator \(endpoint) \(paths) \(method)")
+					fatalError()
+				}
+		self.uniqueIdentifier = uniqueData.sha256String()
 	}
 
-	// MARK: Protocol Hashable
+	// MARK: - Protocol UniqueHash
 
-	func hash(into hasher: inout Hasher) {
-		hasher.combine(endpoint)
-		hasher.combine(paths)
-		hasher.combine(method)
-	}
+	let uniqueIdentifier: String
 
 	// MARK: - Internal
 
@@ -43,7 +58,7 @@ struct Locator: Hashable {
 		return isFakeValue == "1"
 	}
 
-	#if DEBUG
+#if DEBUG
 
 	static func fake(
 		endpoint: Endpoint = .distribution,
@@ -59,5 +74,5 @@ struct Locator: Hashable {
 		)
 	}
 
-	#endif
+#endif
 }

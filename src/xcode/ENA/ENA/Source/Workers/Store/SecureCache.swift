@@ -5,7 +5,7 @@
 import Foundation
 
 protocol KeyValueCaching {
-	subscript(cacheEntryKey: Int) -> CacheData? { get set }
+	subscript(cacheEntryKey: String) -> CacheData? { get set }
 }
 
 final class SecureKeyValueCache: SecureKeyValueStoring, KeyValueCaching {
@@ -30,14 +30,14 @@ final class SecureKeyValueCache: SecureKeyValueStoring, KeyValueCaching {
 
 	// MARK: - Private
 
-	private var cache: [Int: CacheData] {
-		get { kvStore["cache"] as [Int: CacheData]? ?? [Int: CacheData]() }
+	private var cache: [String: CacheData] {
+		get { kvStore["cache"] as [String: CacheData]? ?? [String: CacheData]() }
 		set { kvStore["cache"] = newValue }
 	}
 
 	// MARK: - KeyValueCaching
 
-	subscript(cacheEntryKey: Int) -> CacheData? {
+	subscript(cacheEntryKey: String) -> CacheData? {
 		get {
 			return cache[cacheEntryKey]
 		}
@@ -53,11 +53,11 @@ final class KeyValueCacheFake: KeyValueCaching {
 
 	// MARK: - Private
 
-	private var cache = [Int: CacheData]()
+	private var cache = [String: CacheData]()
 
 	// MARK: - KeyValueCaching
 
-	subscript(cacheEntryKey: Int) -> CacheData? {
+	subscript(cacheEntryKey: String) -> CacheData? {
 		get {
 			return cache[cacheEntryKey]
 		}
