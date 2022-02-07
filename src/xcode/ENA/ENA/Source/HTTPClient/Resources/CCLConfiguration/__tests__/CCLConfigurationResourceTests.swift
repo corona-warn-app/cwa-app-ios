@@ -67,7 +67,7 @@ final class CCLConfigurationResourceTests: CWATestCase {
 		cclConfigurationResource.receiveResource = CBORReceiveResource(signatureVerifier: MockVerifier())
 
 		let cache = KeyValueCacheFake()
-		cache[cclConfigurationResource.locator.hashValue] = CacheData(
+		cache[cclConfigurationResource.locator.uniqueIdentifier] = CacheData(
 			data: archiveDataCache,
 			eTag: eTag,
 			date: Date()

@@ -16,7 +16,7 @@ class RestServiceProviderTests: XCTestCase {
 
 		// Cache with cachedDummyData
 		let cache = KeyValueCacheFake()
-		cache[locator.hashValue] = CacheData(data: cachedDummyData, eTag: eTag, date: Date())
+		cache[locator.uniqueIdentifier] = CacheData(data: cachedDummyData, eTag: eTag, date: Date())
 
 		// response with dummyData
 		let stack = MockNetworkStack(
@@ -50,7 +50,7 @@ class RestServiceProviderTests: XCTestCase {
 
 		// Cache with cachedDummyData
 		let cache = KeyValueCacheFake()
-		cache[locator.hashValue] = CacheData(data: cachedDummyData, eTag: eTag, date: Date())
+		cache[locator.uniqueIdentifier] = CacheData(data: cachedDummyData, eTag: eTag, date: Date())
 
 		// response with dummyData
 		let stack = MockNetworkStack(
@@ -126,7 +126,7 @@ class RestServiceProviderTests: XCTestCase {
 
 		// Cache with cachedDummyData
 		let cache = KeyValueCacheFake()
-		cache[locator.hashValue] = CacheData(data: cachedDummyData, eTag: eTag, date: Date())
+		cache[locator.uniqueIdentifier] = CacheData(data: cachedDummyData, eTag: eTag, date: Date())
 
 		// response with dummyData
 		let stack = MockNetworkStack(

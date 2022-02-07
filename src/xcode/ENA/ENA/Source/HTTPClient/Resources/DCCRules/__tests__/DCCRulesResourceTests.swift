@@ -65,7 +65,7 @@ final class DCCRulesResourceTests: CWATestCase {
 		resource.receiveResource = CBORReceiveResource(signatureVerifier: MockVerifier())
 
 		let cache = KeyValueCacheFake()
-		cache[resource.locator.hashValue] = CacheData(
+		cache[resource.locator.uniqueIdentifier] = CacheData(
 			data: archiveDataCache,
 			eTag: eTag,
 			date: Date()

@@ -50,7 +50,7 @@ final class ValidationOnboardedCountriesResourceTests: CWATestCase {
 		
 		// Fake some cached data
 		let cache = KeyValueCacheFake()
-		cache[resource.locator.hashValue] = CacheData(data: archiveDataCache, eTag: eTag, date: Date())
+		cache[resource.locator.uniqueIdentifier] = CacheData(data: archiveDataCache, eTag: eTag, date: Date())
 		
 		let serviceProvider = RestServiceProvider(
 			session: stack.urlSession,
@@ -106,7 +106,7 @@ final class ValidationOnboardedCountriesResourceTests: CWATestCase {
 		
 		// Fake some cached data
 		let cache = KeyValueCacheFake()
-		cache[resource.locator.hashValue] = CacheData(data: archiveDataCache, eTag: eTag, date: Date())
+		cache[resource.locator.uniqueIdentifier] = CacheData(data: archiveDataCache, eTag: eTag, date: Date())
 		
 		let serviceProvider = RestServiceProvider(
 			session: stack.urlSession,
