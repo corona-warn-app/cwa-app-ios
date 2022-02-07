@@ -89,9 +89,10 @@ class CCLService: CCLServable {
 		completion: @escaping (_ didChange: Bool) -> Void
 	) {
 		// trigger both downloads, if one was updated notify caller in result
+		// to make things thread safe we use a lock
+		loadingLock.lock()
 
 		let dispatchGroup = DispatchGroup()
-
 		var configurationDidUpdate: Bool = false
 		var boosterRulesDidUpdate: Bool = false
 
@@ -131,8 +132,9 @@ class CCLService: CCLServable {
 			}
 		}
 
-		dispatchGroup.notify(queue: DispatchQueue.global(qos: .default)) {
+		dispatchGroup.notify(queue: DispatchQueue.global(qos: .default)) { [weak self] in
 			completion( configurationDidUpdate || boosterRulesDidUpdate )
+			self?.loadingLock.unlock()
 		}
 	}
 	
@@ -170,6 +172,7 @@ class CCLService: CCLServable {
 	private let cclConfigurationResource: CCLConfigurationResource
 	private let boosterNotificationRulesResource: DCCRulesResource
 	private let cclServiceMode: [CCLServiceMode]
+	private let loadingLock: NSLock = NSLock()
 	private var boosterNotificationRules: [Rule]
 
 	private func getConfigurations(
