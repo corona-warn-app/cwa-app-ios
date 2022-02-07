@@ -44,8 +44,6 @@ class BoosterNotificationTableViewCell: UITableViewCell, UITextViewDelegate, Reu
 		subtitleLabel.isHidden = (cellModel.subtitle ?? "").isEmpty
 
 		unseenNewsIndicator.isHidden = !cellModel.isUnseenNewsIndicatorVisible
-		
-		accessibilityIdentifier = AccessibilityIdentifiers.BoosterNotification.Details.boosterNotificationCell
 	}
 
 	// MARK: - Private
@@ -127,6 +125,8 @@ class BoosterNotificationTableViewCell: UITableViewCell, UITextViewDelegate, Reu
 		backgroundColor = .clear
 		contentView.backgroundColor = .clear
 		selectionStyle = .none
+
+		accessibilityIdentifier = AccessibilityIdentifiers.BoosterNotification.Details.boosterNotificationCell
 
 		updateBorderWidth()
 
