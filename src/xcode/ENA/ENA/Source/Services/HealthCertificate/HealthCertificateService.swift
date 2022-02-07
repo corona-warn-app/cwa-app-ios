@@ -276,7 +276,10 @@ class HealthCertificateService {
 
 	func checkForCCLConfigurationAndRulesUpdates(completion: (() -> Void)? = nil) {
 		cclService.updateConfiguration { [weak self] didChange in
-			guard let self = self else { return }
+			guard let self = self else { 
+				completion?()
+				return 
+			}
 
 			if didChange {
 				let dispatchGroup = DispatchGroup()
