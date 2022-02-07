@@ -77,22 +77,25 @@ extension Name {
 fileprivate extension String {
 	
 	func groupingComponents() -> [String] {
-		// the string shall be trimmed for leading and training whitespace
 		let components: [String] =
+		// the string shall be trimmed for leading and trailing whitespace
 		self.trimmingCharacters(in: .whitespaces)
 		// the string shall be trimmed for leading and trailing `<`
 			.trimmingCharacters(in: CharacterSet(charactersIn: "<"))
 		// any whitespace in the string shall be replaced by `<`
 			.replacingOccurrences(of: "\\s+", with: "<", options: .regularExpression)
-		// any occurence of more than one `<` shall be replaced by a single `<`
-			.replacingOccurrences(of: "<+", with: "<", options: .regularExpression)
+		// dots `.` and dashes `-` shall be replaced by `<`
 			.replacingOccurrences(of: "-", with: "<")
 			.replacingOccurrences(of: ".", with: "<")
+		// any occurence of more than one `<` shall be replaced by a single `<`
+			.replacingOccurrences(of: "<+", with: "<", options: .regularExpression)
 		// the string shall be converted to upper-case
 			.uppercased()
+		// German umlauts `Ä/ä`, `Ö/ö`, `Ü/ü` shall be replaced by `AE`, `OE`, `UE`
 			.replacingOccurrences(of: "Ä", with: "AE")
 			.replacingOccurrences(of: "Ö", with: "OE")
 			.replacingOccurrences(of: "Ü", with: "UE")
+		// German `ß` shall be replaced by `SS`
 			.replacingOccurrences(of: "ß", with: "SS")
 		// the string shall be split by `<` to dermine the components
 			.split(separator: "<")
