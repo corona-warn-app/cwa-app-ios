@@ -18,7 +18,7 @@ class CCLServiceConfigurationTests: CCLServiceBaseTests {
 		)
 	}
 
-	// MARk: - Configuration logic on CCLService Layer
+	// MARK: - Configuration logic on CCLService Layer
 
 	func testGIVEN_emptyCache_WHEN_404_THEN_didChangeIsFalse() throws {
 		// GIVEN
