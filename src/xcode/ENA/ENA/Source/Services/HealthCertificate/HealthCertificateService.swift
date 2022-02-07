@@ -258,7 +258,7 @@ class HealthCertificateService {
 
 				if healthCertifiedPerson.healthCertificates.isEmpty {
 					healthCertifiedPersons = healthCertifiedPersons
-						.filter { $0 != healthCertifiedPerson }
+						.filter { $0 !== healthCertifiedPerson }
 						.sorted()
 					updateGradients()
 

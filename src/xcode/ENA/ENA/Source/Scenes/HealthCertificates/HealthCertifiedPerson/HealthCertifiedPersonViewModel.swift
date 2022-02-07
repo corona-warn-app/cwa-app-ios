@@ -36,15 +36,14 @@ final class HealthCertifiedPersonViewModel {
 		constructHealthCertificateCellViewModels(for: healthCertifiedPerson)
 
 		healthCertifiedPerson.objectDidChange
+			.receive(on: DispatchQueue.main.ocombine)
 			.sink { [weak self] person in
 				self?.constructHealthCertificateCellViewModels(for: person)
 				
 				guard !person.healthCertificates.isEmpty else {
 					// Prevent trigger reload if we the person was removed before because we removed their last certificate.
 					self?.triggerReload = false
-					DispatchQueue.main.async {
-						dismiss()
-					}
+					dismiss()
 					return
 				}
 
