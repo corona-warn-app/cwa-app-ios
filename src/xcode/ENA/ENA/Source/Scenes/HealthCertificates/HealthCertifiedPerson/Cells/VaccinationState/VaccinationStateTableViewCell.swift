@@ -107,6 +107,7 @@ class VaccinationStateTableViewCell: UITableViewCell, UITextViewDelegate, ReuseI
 		faqLinkTextView.textContainer.lineFragmentPadding = .zero
 		faqLinkTextView.textColor = .enaColor(for: .textPrimary1)
 		faqLinkTextView.tintColor = .enaColor(for: .textTint)
+		faqLinkTextView.accessibilityTraits = .button
 		faqLinkTextView.linkTextAttributes = [
 			.foregroundColor: UIColor.enaColor(for: .textTint),
 			.underlineColor: UIColor.clear
