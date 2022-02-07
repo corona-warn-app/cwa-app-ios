@@ -721,6 +721,12 @@ class HealthCertificateService {
 			case .success(let dccWalletInfo):
 				let previousBoosterNotificationIdentifier = person.boosterRule?.identifier ?? person.dccWalletInfo?.boosterNotification.identifier
 				person.dccWalletInfo = dccWalletInfo
+				
+				#if DEBUG
+				if isUITesting, LaunchArguments.healthCertificate.hasBoosterNotification.boolValue {
+					person.dccWalletInfo = self.updateDccWalletInfoForMockBoosterNotification(dccWalletInfo: dccWalletInfo)
+				}
+				#endif
 
 				self.scheduleBoosterNotificationIfNeeded(
 					for: person,
