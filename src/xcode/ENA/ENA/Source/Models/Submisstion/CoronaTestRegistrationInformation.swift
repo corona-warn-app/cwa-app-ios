@@ -32,4 +32,13 @@ enum CoronaTestRegistrationInformation: Equatable {
 			return .antigen
 		}
 	}
+	
+	var isRapidTest: Bool {
+		switch self {
+		case .pcr, .teleTAN:
+			return false
+		case .rapidPCR, .antigen:
+			return true
+		}
+	}
 }
