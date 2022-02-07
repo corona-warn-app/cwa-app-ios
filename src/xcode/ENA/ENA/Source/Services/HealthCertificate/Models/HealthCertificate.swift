@@ -282,8 +282,8 @@ final class HealthCertificate: Codable, Equatable, Comparable, RecycleBinIdentif
 	}
 	
 	func belongsToSamePerson(_ other: HealthCertificate) -> Bool {
-		
-		return false
+		!Set<String>(self.name.givenNameGroupingComponents ?? []).intersection(other.name.givenNameGroupingComponents ?? []).isEmpty &&
+		!Set<String>(self.name.familyNameGroupingComponents).intersection(other.name.familyNameGroupingComponents).isEmpty
 	}
 
 	// MARK: - Private
