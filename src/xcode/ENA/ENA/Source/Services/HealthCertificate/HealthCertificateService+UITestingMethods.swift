@@ -6,7 +6,8 @@ import HealthCertificateToolkit
 
 extension HealthCertificateService {
 	#if DEBUG
-	// swiftlint:disable:next cyclomatic_complexity
+	// swiftlint:disable cyclomatic_complexity
+	// swiftlint:disable function_body_length
 	func configureForTesting() {
 		var shouldCheckSignatureUpfront = true
 		var expirationTime: Date = Calendar.current.date(byAdding: .day, value: 90, to: Date()) ?? Date()
@@ -155,6 +156,7 @@ extension HealthCertificateService {
 					name: .fake(familyName: "Schneider", givenName: "Andrea", standardizedFamilyName: "SCHNEIDER", standardizedGivenName: "ANDREA"),
 					recoveryEntries: [
 						.fake(
+							dateOfFirstPositiveNAAResult: ISO8601DateFormatter.string(from: Date(timeIntervalSinceNow: -150 * 24 * 60 * 60), timeZone: .utcTimeZone, formatOptions: [.withFullDate]),
 							certificateValidFrom: ISO8601DateFormatter.string(from: Date(timeIntervalSinceNow: -120 * 24 * 60 * 60), timeZone: .utcTimeZone, formatOptions: [.withFullDate]),
 							certificateValidUntil: ISO8601DateFormatter.string(from: Date(timeIntervalSinceNow: 30 * 24 * 60 * 60), timeZone: .utcTimeZone, formatOptions: [.withFullDate])
 						)

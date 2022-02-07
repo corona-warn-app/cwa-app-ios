@@ -237,11 +237,11 @@ class ENAUITests_13_CreateHealthCertificate: CWATestCase {
 		app.cells[AccessibilityIdentifiers.HealthCertificate.Overview.healthCertifiedPersonCell].waitAndTap()
 
 		app.swipeUp(velocity: .slow)
-		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.HealthCertificate.AdmissionState.roundedView].waitForExistence(timeout: .short))
+		XCTAssertTrue(app.otherElements[AccessibilityIdentifiers.HealthCertificate.AdmissionState.roundedView].waitForExistence(timeout: .short))
 		XCTAssertTrue(app.staticTexts[AccessibilityIdentifiers.HealthCertificate.AdmissionState.title].waitForExistence(timeout: .short))
 		XCTAssertTrue(app.staticTexts[AccessibilityIdentifiers.HealthCertificate.AdmissionState.subtitle].waitForExistence(timeout: .short))
 		XCTAssertTrue(app.staticTexts[AccessibilityIdentifiers.HealthCertificate.AdmissionState.description].waitForExistence(timeout: .short))
-		XCTAssertTrue(app.textViews[AccessibilityIdentifiers.HealthCertificate.AdmissionState.faq].waitForExistence(timeout: .short))
+		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.HealthCertificate.AdmissionState.faq].waitForExistence(timeout: .short))
 	}
 
 	func test_CheckinFromCertificatesTabWithInfoScreen() throws {

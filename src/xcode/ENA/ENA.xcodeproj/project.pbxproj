@@ -360,6 +360,7 @@
 		01DE607B274517B300E12FA4 /* TicketValidationQRCodeParserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01DE607A274517B200E12FA4 /* TicketValidationQRCodeParserTests.swift */; };
 		01DED65027A45704006A958C /* BoosterNotificationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01DED64D27A44E97006A958C /* BoosterNotificationTableViewCell.swift */; };
 		01DED65127A45704006A958C /* BoosterNotificationCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01DED64C27A44E97006A958C /* BoosterNotificationCellModel.swift */; };
+		01DED65427ABC0EA006A958C /* DCCWalletInfo+Fake.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01C5F300279EA48600F60047 /* DCCWalletInfo+Fake.swift */; };
 		01DF186E2603B28200A002E4 /* TraceLocationsOverviewViewModelTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01DF186A2603B17000A002E4 /* TraceLocationsOverviewViewModelTest.swift */; };
 		01DF188E2608D3BB00A002E4 /* TraceLocationConfigurationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01DF188D2608D3BB00A002E4 /* TraceLocationConfigurationViewController.xib */; };
 		01E0C93C26C6879B00110941 /* OnBehalfTraceLocationCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01E0C93B26C6879B00110941 /* OnBehalfTraceLocationCellModel.swift */; };
@@ -522,7 +523,6 @@
 		34C40E3027A2D2590098C6ED /* DCCUITextTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34C40E2F27A2D2590098C6ED /* DCCUITextTests.swift */; };
 		34C40E3227A2FCC00098C6ED /* ccl-text-descriptor-test-cases.json in Resources */ = {isa = PBXBuildFile; fileRef = 34C40E3127A2FCB30098C6ED /* ccl-text-descriptor-test-cases.json */; };
 		34C40E3627A2FE3A0098C6ED /* TestCases.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34C40E3427A2FE150098C6ED /* TestCases.swift */; };
-		34C40E3927A464810098C6ED /* DCCWalletInfo+Fake.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01C5F300279EA48600F60047 /* DCCWalletInfo+Fake.swift */; };
 		34CF3B1F2615C1D1004A9435 /* QRCodeErrorCorrectionLevelType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34CF3B1E2615C1D1004A9435 /* QRCodeErrorCorrectionLevelType.swift */; };
 		34FE156A26010A840002CB69 /* TraceLocation+GenerateQRCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34FE156926010A830002CB69 /* TraceLocation+GenerateQRCode.swift */; };
 		34FE15A02604B1880002CB69 /* QRCodePosterTemplateProviderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34FE159B2604B1800002CB69 /* QRCodePosterTemplateProviderTests.swift */; };
@@ -10007,7 +10007,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				34C40E3927A464810098C6ED /* DCCWalletInfo+Fake.swift in Sources */,
 				BA5EF92E279EFA3800D9AB08 /* CacheData.swift in Sources */,
 				504BB0AC25EE204A006B0E54 /* ErrorReportDetailInformationViewController.swift in Sources */,
 				504A465C2702FE03007AA09D /* DeltaOnboardingNotificationReworkViewModel.swift in Sources */,
@@ -11403,6 +11402,7 @@
 				941F5ED02518E82800785F06 /* ENSettingEuTracingViewModelTests.swift in Sources */,
 				01D16C6224ED6DB3007DB387 /* MockLowPowerModeStatusProvider.swift in Sources */,
 				BA00FECB26BC1980009DA07F /* AppConfiguration+FeaturesTests.swift in Sources */,
+				01DED65427ABC0EA006A958C /* DCCWalletInfo+Fake.swift in Sources */,
 				A1654EFF24B41FF600C0E115 /* DynamicCellTests.swift in Sources */,
 				BADDD82E2603922000337223 /* AddTraceLocationCellModelTests.swift in Sources */,
 				500396EF268DA1A90006D448 /* HealthCertificateValidationServiceValidationTests.swift in Sources */,

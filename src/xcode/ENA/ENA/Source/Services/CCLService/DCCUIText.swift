@@ -30,7 +30,7 @@ public struct DCCUIText: Codable, Equatable {
 	
 	// MARK: - Internal
 	
-	let type: String
+	let type: String?
 	let quantity: Int?
 	let quantityParameterIndex: Int?
 	let functionName: String?
@@ -121,13 +121,20 @@ public struct DCCUIText: Codable, Equatable {
 	}
 
 	private func localizedSystemTimeDependentFormattedText(languageCode: String?, service: CCLServable) -> String {
-		guard let parameters = parameters.value as? [String: AnyDecodable], let functionName = functionName else {
+		guard let parameters = parameters.value as? [String: Any], let functionName = functionName else {
 			return ""
+		}
+
+		let anyDecodableParameters = parameters.reduce(into: [String: AnyDecodable]()) {
+			$0[$1.key] = AnyDecodable($1.value)
 		}
 		
 		do {
 			// newTextDescriptor shall be determined by calling Calling a CCL API with JsonFunctions.
-			let newDCCUIText: DCCUIText = try service.evaluateFunctionWithDefaultValues(name: functionName, parameters: parameters)
+			let newDCCUIText: DCCUIText = try service.evaluateFunctionWithDefaultValues(
+				name: functionName,
+				parameters: anyDecodableParameters
+			)
 			return newDCCUIText.localized(languageCode: languageCode, cclService: service)
 		} catch {
 			Log.error("Unable to create newTextDescriptor - DCCUIText", error: error)
