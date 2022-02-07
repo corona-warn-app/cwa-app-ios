@@ -35,7 +35,7 @@ struct Locator: UniqueHash {
 				.joined(separator: "/")
 				.data(using: .utf8) else {
 					Log.error("Failed to create locator \(endpoint) \(paths) \(method)")
-					fatalError()
+					fatalError("Failed to create locator \(endpoint) \(paths) \(method)")
 				}
 		self.uniqueIdentifier = uniqueData.sha256String()
 	}

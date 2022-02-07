@@ -1533,6 +1533,13 @@
 		BAF5371625E7CC1B00C835E2 /* Sequence+NSAttributedText.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF5371525E7CC1B00C835E2 /* Sequence+NSAttributedText.swift */; };
 		BAF5371B25E7D1A300C835E2 /* UIImage+Resize.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF5371A25E7D1A300C835E2 /* UIImage+Resize.swift */; };
 		BAF5B3CD2604E1D700DF8149 /* SelectTraceLocationTypeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF5B3CC2604E1D700DF8149 /* SelectTraceLocationTypeCell.swift */; };
+		BAF5E40D27B165A5001DF172 /* Locator+AllowListTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF5E40C27B165A5001DF172 /* Locator+AllowListTest.swift */; };
+		BAF5E41027B166F9001DF172 /* Locator+AppConfigurationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF5E40F27B166F9001DF172 /* Locator+AppConfigurationTests.swift */; };
+		BAF5E41227B167A7001DF172 /* Locator+CCLConfigurationTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF5E41127B167A7001DF172 /* Locator+CCLConfigurationTest.swift */; };
+		BAF5E41427B16902001DF172 /* Locator+DCCRulesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF5E41327B16902001DF172 /* Locator+DCCRulesTests.swift */; };
+		BAF5E41627B16A35001DF172 /* Locator+RegistrationTokenTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF5E41527B16A35001DF172 /* Locator+RegistrationTokenTests.swift */; };
+		BAF5E41827B16ABC001DF172 /* Locator+ServiceIdentityDocumentTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF5E41727B16ABC001DF172 /* Locator+ServiceIdentityDocumentTests.swift */; };
+		BAF5E41A27B16D1C001DF172 /* Locator+ServiceIdentityDocumentValidationDecoratorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF5E41927B16D1C001DF172 /* Locator+ServiceIdentityDocumentValidationDecoratorTests.swift */; };
 		BAF640E826DF85A600B3A18E /* _Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF640E726DF85A600B3A18E /* _Service.swift */; };
 		BAF640EC26DF868B00B3A18E /* Locator+AppConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF640EB26DF868B00B3A18E /* Locator+AppConfiguration.swift */; };
 		BAF640EE26DF86BF00B3A18E /* Endpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF640ED26DF86BF00B3A18E /* Endpoint.swift */; };
@@ -3212,6 +3219,13 @@
 		BAF5371525E7CC1B00C835E2 /* Sequence+NSAttributedText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Sequence+NSAttributedText.swift"; sourceTree = "<group>"; };
 		BAF5371A25E7D1A300C835E2 /* UIImage+Resize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Resize.swift"; sourceTree = "<group>"; };
 		BAF5B3CC2604E1D700DF8149 /* SelectTraceLocationTypeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectTraceLocationTypeCell.swift; sourceTree = "<group>"; };
+		BAF5E40C27B165A5001DF172 /* Locator+AllowListTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Locator+AllowListTest.swift"; sourceTree = "<group>"; };
+		BAF5E40F27B166F9001DF172 /* Locator+AppConfigurationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Locator+AppConfigurationTests.swift"; sourceTree = "<group>"; };
+		BAF5E41127B167A7001DF172 /* Locator+CCLConfigurationTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Locator+CCLConfigurationTest.swift"; sourceTree = "<group>"; };
+		BAF5E41327B16902001DF172 /* Locator+DCCRulesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Locator+DCCRulesTests.swift"; sourceTree = "<group>"; };
+		BAF5E41527B16A35001DF172 /* Locator+RegistrationTokenTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Locator+RegistrationTokenTests.swift"; sourceTree = "<group>"; };
+		BAF5E41727B16ABC001DF172 /* Locator+ServiceIdentityDocumentTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Locator+ServiceIdentityDocumentTests.swift"; sourceTree = "<group>"; };
+		BAF5E41927B16D1C001DF172 /* Locator+ServiceIdentityDocumentValidationDecoratorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Locator+ServiceIdentityDocumentValidationDecoratorTests.swift"; sourceTree = "<group>"; };
 		BAF640E726DF85A600B3A18E /* _Service.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = _Service.swift; sourceTree = "<group>"; };
 		BAF640EB26DF868B00B3A18E /* Locator+AppConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Locator+AppConfiguration.swift"; sourceTree = "<group>"; };
 		BAF640ED26DF86BF00B3A18E /* Endpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Endpoint.swift; sourceTree = "<group>"; };
@@ -5662,6 +5676,7 @@
 			isa = PBXGroup;
 			children = (
 				50AF182327A3F20500BAA9DB /* CCLConfigurationResourceTests.swift */,
+				BAF5E41127B167A7001DF172 /* Locator+CCLConfigurationTest.swift */,
 			);
 			path = __tests__;
 			sourceTree = "<group>";
@@ -5699,6 +5714,7 @@
 			isa = PBXGroup;
 			children = (
 				506D881027A2D3F1006297FE /* DCCRulesResourceTests.swift */,
+				BAF5E41327B16902001DF172 /* Locator+DCCRulesTests.swift */,
 			);
 			path = __tests__;
 			sourceTree = "<group>";
@@ -5725,6 +5741,7 @@
 		50BC9030279EEB4A0000C930 /* AllowList */ = {
 			isa = PBXGroup;
 			children = (
+				BAF5E40B27B16583001DF172 /* __tests__ */,
 				8FEC1227275521E500C5DADC /* AllowListResource.swift */,
 				8FEC12232754B6C000C5DADC /* Locator+AllowList.swift */,
 			);
@@ -5734,6 +5751,7 @@
 		50BC9031279EEB840000C930 /* AppConfiguration */ = {
 			isa = PBXGroup;
 			children = (
+				BAF5E40E27B166E4001DF172 /* __test__ */,
 				BAF640EB26DF868B00B3A18E /* Locator+AppConfiguration.swift */,
 				BA7F7342271F09F600E3CE14 /* AppConfigurationResource.swift */,
 			);
@@ -5756,6 +5774,7 @@
 			isa = PBXGroup;
 			children = (
 				506D881327A2D40D006297FE /* RegistrationTokenResourceTests.swift */,
+				BAF5E41527B16A35001DF172 /* Locator+RegistrationTokenTests.swift */,
 			);
 			path = __tests__;
 			sourceTree = "<group>";
@@ -5833,6 +5852,7 @@
 			isa = PBXGroup;
 			children = (
 				50D3493E274FB66C00F00493 /* ServiceIdentityDocumentResourceTests.swift */,
+				BAF5E41727B16ABC001DF172 /* Locator+ServiceIdentityDocumentTests.swift */,
 			);
 			path = __tests__;
 			sourceTree = "<group>";
@@ -5872,6 +5892,7 @@
 			isa = PBXGroup;
 			children = (
 				8F09523227508642002B7049 /* ServiceIdentityDocumentValidationDecoratorResourceTests.swift */,
+				BAF5E41927B16D1C001DF172 /* Locator+ServiceIdentityDocumentValidationDecoratorTests.swift */,
 			);
 			path = __tests__;
 			sourceTree = "<group>";
@@ -9356,6 +9377,22 @@
 			path = Cells;
 			sourceTree = "<group>";
 		};
+		BAF5E40B27B16583001DF172 /* __tests__ */ = {
+			isa = PBXGroup;
+			children = (
+				BAF5E40C27B165A5001DF172 /* Locator+AllowListTest.swift */,
+			);
+			path = __tests__;
+			sourceTree = "<group>";
+		};
+		BAF5E40E27B166E4001DF172 /* __test__ */ = {
+			isa = PBXGroup;
+			children = (
+				BAF5E40F27B166F9001DF172 /* Locator+AppConfigurationTests.swift */,
+			);
+			path = __test__;
+			sourceTree = "<group>";
+		};
 		BAF640E926DF862800B3A18E /* Service */ = {
 			isa = PBXGroup;
 			children = (
@@ -11122,6 +11159,7 @@
 				015692E424B48C3F0033F35E /* TimeInterval+Convenience.swift in Sources */,
 				50E8F1282626C735000056EE /* ExposureSubmissionSuccessViewControllerTest.swift in Sources */,
 				01A1B467252E19D000841B63 /* ExposureSubmissionCoordinatorModelTests.swift in Sources */,
+				BAF5E40D27B165A5001DF172 /* Locator+AllowListTest.swift in Sources */,
 				BAEFB35C2656B20A00497F79 /* ContactDiaryMigration4To5Tests.swift in Sources */,
 				010172C326CBA02D00CD1510 /* OnBehalfTraceLocationSelectionViewModelTests.swift in Sources */,
 				506D880D27A2D39F006297FE /* MetadataTests.swift in Sources */,
@@ -11130,6 +11168,7 @@
 				010172C726CBB48200CD1510 /* OnBehalfTraceLocationCellModelTests.swift in Sources */,
 				B1EAEC8F247118D1003BE9A2 /* URLSession+ConvenienceTests.swift in Sources */,
 				A32C046524D96348005BEA61 /* HTTPClient+PlausibeDeniabilityTests.swift in Sources */,
+				BAF5E41627B16A35001DF172 /* Locator+RegistrationTokenTests.swift in Sources */,
 				AB1820222760EEF40054B873 /* ContagionInfoViewModelTests.swift in Sources */,
 				BADBC82925D6BB6400488DB7 /* DistrictTests.swift in Sources */,
 				2EF6906E26A07FBB006DE99F /* FooterViewControllerTests.swift in Sources */,
@@ -11208,6 +11247,7 @@
 				EBD1D7B4275E4BA60046A1C3 /* KeySubmissionMetadata+Mock.swift in Sources */,
 				018B852826CE99A70037DD54 /* OnBehalfCheckinSubmissionServiceTests.swift in Sources */,
 				50101D75270739FA006F8B0F /* NotificationSettingsViewModelTests.swift in Sources */,
+				BAF5E41027B166F9001DF172 /* Locator+AppConfigurationTests.swift in Sources */,
 				BAA4D72225E9501E00821B5C /* EUSettingsViewModelTests.swift in Sources */,
 				010172C926CBB63000CD1510 /* OnBehalfScanQRCodeCellModelTests.swift in Sources */,
 				5055EC01267239690062C15E /* HealthCertificateTests.swift in Sources */,
@@ -11286,6 +11326,7 @@
 				01B605C9258A32F00093DB8E /* DiaryDayTest.swift in Sources */,
 				9412FAFE252349EA0086E139 /* DeltaOnboardingViewControllerTests.swift in Sources */,
 				01B605C4258A30C70093DB8E /* DiaryOverviewViewModelTest.swift in Sources */,
+				BAF5E41227B167A7001DF172 /* Locator+CCLConfigurationTest.swift in Sources */,
 				AB68531425F8F9D500380F5A /* EventStoreTests.swift in Sources */,
 				B11655932491437600316087 /* RiskProvidingConfigurationTests.swift in Sources */,
 				BA53FD34270B5C7F00CF8475 /* QRCodeParsableMock.swift in Sources */,
@@ -11310,6 +11351,7 @@
 				01DE607B274517B300E12FA4 /* TicketValidationQRCodeParserTests.swift in Sources */,
 				BAAAF13426739FBA00F9666B /* HealthCertificateOverviewViewModelTests.swift in Sources */,
 				2FD473BF251E0ECE000DCA40 /* EUSettingsViewControllerTests.swift in Sources */,
+				BAF5E41A27B16D1C001DF172 /* Locator+ServiceIdentityDocumentValidationDecoratorTests.swift in Sources */,
 				AB68881625DA6F2200907465 /* ContactDiaryMigration1To2Tests.swift in Sources */,
 				0138F5FC25EFDBCD00A9B075 /* HomeTraceLocationsCellModelTests.swift in Sources */,
 				BA19978B2715B006009FEC00 /* Name+ExtensionTests.swift in Sources */,
@@ -11420,6 +11462,7 @@
 				AB9E9E7A261308C000515408 /* RiskTests.swift in Sources */,
 				0144BDE32509288B00B0857C /* SymptomsOnsetTests.swift in Sources */,
 				BACD671725B7002F00BAF5D0 /* RiskCalculationResultTests.swift in Sources */,
+				BAF5E41427B16902001DF172 /* Locator+DCCRulesTests.swift in Sources */,
 				A124E64C249C4C9000E95F72 /* SAPDownloadedPackagesStore+Helpers.swift in Sources */,
 				8F4B8C5526F8A5FF007620D0 /* QRScannerViewModelTests.swift in Sources */,
 				A36FACC424C5EA1500DED947 /* ExposureDetectionViewControllerTests.swift in Sources */,
@@ -11472,6 +11515,7 @@
 				ABDBE3632710825F007C8DA8 /* RecycleBinTests.swift in Sources */,
 				AB8BC3472551B97700F3B5A7 /* DownloadedPackagesStoreErrorStub.swift in Sources */,
 				50B1D6E72551621C00684C3C /* DayKeyPackageDownloadTests.swift in Sources */,
+				BAF5E41827B16ABC001DF172 /* Locator+ServiceIdentityDocumentTests.swift in Sources */,
 				AB190EEC25FF6C3700FBFF0D /* ContactDiaryStoreSchemaV4Tests.swift in Sources */,
 				3583F428260CBE46000B51D3 /* ContactDiaryStoreSchemaV1Tests.swift in Sources */,
 				A1E419602498243E0016E52A /* String+TodayTests.swift in Sources */,
