@@ -169,16 +169,6 @@ extension HTTPClient {
 			)
 		}
 
-		var registrationURL: URL {
-			endpoints
-				.verification
-				.appending(
-					"version",
-					apiVersion,
-					"registrationToken"
-			)
-		}
-
 		var otpEdusAuthorizationURL: URL {
 			endpoints
 				.dataDonation

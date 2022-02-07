@@ -544,7 +544,7 @@ class CoronaTestServiceTests: CWATestCase {
 
 		let restServiceProvider = RestServiceProviderStub(results: [
 			.success(
-				RegistrationTockenReceiveModel(registrationToken: "registrationToken")
+				RegistrationTokenReceiveModel(registrationToken: "registrationToken")
 			),
 			.success(TestResultReceiveModel(testResult: TestResult.pending.rawValue, sc: nil, labId: "SomeLabId"))
 
@@ -635,7 +635,7 @@ class CoronaTestServiceTests: CWATestCase {
 		let restServiceProvider = RestServiceProviderStub(loadResources: [
 			LoadResource(
 				result: .success(
-					RegistrationTockenReceiveModel(registrationToken: "registrationToken2")
+					RegistrationTokenReceiveModel(registrationToken: "registrationToken2")
 				),
 				willLoadResource: { resource in
 					guard let resource = resource as? TeleTanResource,
@@ -757,7 +757,7 @@ class CoronaTestServiceTests: CWATestCase {
 		let restServiceProvider = RestServiceProviderStub(loadResources: [
 			LoadResource(
 				result: .success(
-					RegistrationTockenReceiveModel(registrationToken: "registrationToken2")
+					RegistrationTokenReceiveModel(registrationToken: "registrationToken2")
 				),
 				willLoadResource: { resource in
 					guard let resource = resource as? TeleTanResource,
@@ -851,7 +851,7 @@ class CoronaTestServiceTests: CWATestCase {
 		let restServiceProvider = RestServiceProviderStub(loadResources: [
 			LoadResource(
 				result: .success(
-					RegistrationTockenReceiveModel(registrationToken: "registrationToken2")
+					RegistrationTokenReceiveModel(registrationToken: "registrationToken2")
 				),
 				willLoadResource: { resource in
 					guard let resource = resource as? TeleTanResource,
@@ -991,7 +991,7 @@ class CoronaTestServiceTests: CWATestCase {
 
 		let restServiceProvider = RestServiceProviderStub(results: [
 			.success(
-				RegistrationTockenReceiveModel(registrationToken: "registrationToken")
+				RegistrationTokenReceiveModel(registrationToken: "registrationToken")
 			),
 			.failure(
 				ServiceError<TestResultError>.unexpectedServerError(500)
@@ -1081,7 +1081,7 @@ class CoronaTestServiceTests: CWATestCase {
 
 		let restServiceProvider = RestServiceProviderStub(results: [
 			.success(
-				RegistrationTockenReceiveModel(registrationToken: "registrationToken")
+				RegistrationTokenReceiveModel(registrationToken: "registrationToken")
 			),
 			.success(TeleTanReceiveModel(submissionTAN: "fake"))
 		])
@@ -1170,7 +1170,7 @@ class CoronaTestServiceTests: CWATestCase {
 
 		let restServiceProvider = RestServiceProviderStub(results: [
 			.success(
-				RegistrationTockenReceiveModel(registrationToken: "registrationToken2")
+				RegistrationTokenReceiveModel(registrationToken: "registrationToken2")
 			),
 			.success(TeleTanReceiveModel(submissionTAN: "fake"))
 		])
@@ -1308,7 +1308,7 @@ class CoronaTestServiceTests: CWATestCase {
 		let restServiceProvider = RestServiceProviderStub(loadResources: [
 			LoadResource(
 				result: .success(
-					RegistrationTockenReceiveModel(registrationToken: "registrationToken")
+					RegistrationTokenReceiveModel(registrationToken: "registrationToken")
 				),
 				willLoadResource: { resource in
 					// Ensure that the date of birth is not passed to the client for antigen tests if it is given accidentally
@@ -1404,7 +1404,7 @@ class CoronaTestServiceTests: CWATestCase {
 	func testRegisterAntigenTestAndGetResult_successWithSubmissionConsentGiven() {
 		let restServiceProvider = RestServiceProviderStub(results: [
 			.success(
-				RegistrationTockenReceiveModel(registrationToken: "registrationToken")
+				RegistrationTokenReceiveModel(registrationToken: "registrationToken")
 			),
 			.success(TestResultReceiveModel(testResult: TestResult.pending.rawValue, sc: nil, labId: nil)),
 			.success(TeleTanReceiveModel(submissionTAN: "fake"))
@@ -1514,7 +1514,7 @@ class CoronaTestServiceTests: CWATestCase {
 		let restServiceProvider = RestServiceProviderStub(loadResources: [
 			LoadResource(
 				result: .success(
-					RegistrationTockenReceiveModel(registrationToken: "registrationToken")
+					RegistrationTokenReceiveModel(registrationToken: "registrationToken")
 				),
 				willLoadResource: { resource in
 					guard let resource = resource as? TeleTanResource,
@@ -1668,7 +1668,7 @@ class CoronaTestServiceTests: CWATestCase {
 		let client = ClientMock()
 
 		let restServiceProvider = RestServiceProviderStub(results: [
-			.success(RegistrationTockenReceiveModel(registrationToken: "registrationToken")),
+			.success(RegistrationTokenReceiveModel(registrationToken: "registrationToken")),
 			.failure(ServiceError<TestResultError>.unexpectedServerError(500)),
 			.success(TeleTanReceiveModel(submissionTAN: "fake"))
 		]
@@ -2105,7 +2105,7 @@ class CoronaTestServiceTests: CWATestCase {
 
 		let restServiceProvider = RestServiceProviderStub(results: [
 			.success(TestResultReceiveModel(testResult: TestResult.positive.rawValue, sc: nil, labId: "SomeLabId")),
-			.success(RegistrationTockenReceiveModel(registrationToken: "token"))
+			.success(RegistrationTokenReceiveModel(registrationToken: "token"))
 		])
 		
 		let store = MockTestStore()
@@ -2148,7 +2148,7 @@ class CoronaTestServiceTests: CWATestCase {
 		
 		let restServiceProvider = RestServiceProviderStub(results: [
 			.failure(ServiceError<TestResultError>.invalidResponse),
-			.success(RegistrationTockenReceiveModel(registrationToken: "token"))
+			.success(RegistrationTokenReceiveModel(registrationToken: "token"))
 		])
 
 		let store = MockTestStore()
@@ -3365,7 +3365,7 @@ class CoronaTestServiceTests: CWATestCase {
 		let restServiceProvider = RestServiceProviderStub(loadResources: [
 			LoadResource(
 				result: .success(
-					RegistrationTockenReceiveModel(registrationToken: "dummyRegToken")
+					RegistrationTokenReceiveModel(registrationToken: "dummyRegToken")
 				),
 				willLoadResource: { resource in
 					guard let resource = resource as? TeleTanResource  else {

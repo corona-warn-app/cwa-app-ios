@@ -23,7 +23,7 @@ struct RegistrationTokenResource: Resource {
 		isFake: Bool = false,
 		sendModel: RegistrationTokenSendModel
 	) {
-		self.locator = .registrationToken(isFake: isFake)
+		self.locator = .teleTan(isFake: isFake)
 		self.type = .default
 		self.sendResource = PaddingJSONSendResource<RegistrationTokenSendModel>(sendModel)
 		self.receiveResource = JSONReceiveResource<TeleTanReceiveModel>()
