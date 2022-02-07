@@ -18,6 +18,7 @@ enum RatError {
 
 enum CoronaTestRegistrationInformation: Equatable {
 	case pcr(guid: String, qrCodeHash: String)
+	case rapidPCR(qrCodeInformation: AntigenTestQRCodeInformation, qrCodeHash: String)
 	case antigen(qrCodeInformation: AntigenTestQRCodeInformation, qrCodeHash: String)
 	case teleTAN(tan: String)
 	
@@ -25,7 +26,7 @@ enum CoronaTestRegistrationInformation: Equatable {
 	
 	var testType: CoronaTestType {
 		switch self {
-		case .pcr, .teleTAN:
+		case .pcr, .rapidPCR, .teleTAN:
 			return .pcr
 		case .antigen:
 			return .antigen
