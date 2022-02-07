@@ -34,8 +34,8 @@ extension Name {
 			.trimmingCharacters(in: .whitespaces)
 	}
 	
-	var givenNameGroupingComponents: [String]? {
-		return standardizedGivenName?.groupingComponents()
+	var givenNameGroupingComponents: [String] {
+		return standardizedGivenName?.groupingComponents() ?? []
 	}
 	
 	var familyNameGroupingComponents: [String] {

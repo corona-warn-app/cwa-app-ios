@@ -167,10 +167,6 @@ final class HealthCertificate: Codable, Equatable, Comparable, RecycleBinIdentif
 	var dateOfBirth: String {
 		digitalCovidCertificate.dateOfBirth
 	}
-
-	var trimmedDateOfBirth: String {
-		digitalCovidCertificate.dateOfBirth.trimmingCharacters(in: .whitespaces)
-	}
 	
 	var dateOfBirthDate: Date? {
 		return ISO8601DateFormatter.justLocalDateFormatter.date(from: digitalCovidCertificate.dateOfBirth)
@@ -286,20 +282,26 @@ final class HealthCertificate: Codable, Equatable, Comparable, RecycleBinIdentif
 	}
 	
 	func belongsToSamePerson(_ other: HealthCertificate) -> Bool {
-		let hasSameDateOfBirth = self.trimmedDateOfBirth == other.trimmedDateOfBirth
+		guard self.trimmedDateOfBirth == other.trimmedDateOfBirth else {
+			return false
+		}
 		
-		let givenNameCompontents = Set<String>(self.name.givenNameGroupingComponents ?? [])
-		let otherGivenNameCompontents = other.name.givenNameGroupingComponents ?? []
+		let givenNameCompontents = Set<String>(self.name.givenNameGroupingComponents)
+		let otherGivenNameCompontents = other.name.givenNameGroupingComponents
 		let hasGivenNameIntersection = givenNameCompontents.intersection(otherGivenNameCompontents).isNotEmpty
 		
 		let familyNameComponents = Set<String>(self.name.familyNameGroupingComponents)
-		let hastFamilyNameIntersection = familyNameComponents.intersection(other.name.familyNameGroupingComponents).isNotEmpty
+		let hasFamilyNameIntersection = familyNameComponents.intersection(other.name.familyNameGroupingComponents).isNotEmpty
 		
-		return hasSameDateOfBirth && hasGivenNameIntersection && hastFamilyNameIntersection
+		return hasGivenNameIntersection && hasFamilyNameIntersection
 	}
 
 	// MARK: - Private
 
+	private var trimmedDateOfBirth: String {
+		digitalCovidCertificate.dateOfBirth.trimmingCharacters(in: .whitespaces)
+	}
+	
 	private var sortDate: Date? {
 		switch entry {
 		case .vaccination(let vaccinationEntry):
