@@ -225,7 +225,7 @@ extension Service {
 			guard var modelWithMetadata = defaultModel as? MetaDataProviding else {
 				return .success(defaultModel)
 			}
-			Log.info("Found a defaultModel wich conforms to MetaDataProviding. Adding metadata now.", log: .client)
+			Log.info("Found a defaultModel which conforms to MetaDataProviding. Adding metadata now.", log: .client)
 			modelWithMetadata.metaData.loadedFromDefault = true
 			guard let originalModelWithMetadata = modelWithMetadata as? R.Receive.ReceiveModel else {
 				Log.warning("Cast back to R.Receive.ReceiveModel failed. Returning the model without metadata.", log: .client)
