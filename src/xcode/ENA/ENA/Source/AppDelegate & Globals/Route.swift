@@ -23,14 +23,13 @@ enum Route: Equatable {
 		}
 
 		switch host {
-		case "s.coronawarn.app":
+		case "s.coronawarn.app", "p.coronawarn.app":
 			guard let payloadUrl = components?.fragment,
 				  let candidate = components?.query,
 				  candidate.count == 3 else {
 				Log.error("Antigen test QRCode URL is invalid", log: .qrCode)
 				return nil
 			}
-
 			// extract payload
 			guard let testInformation = AntigenTestQRCodeInformation(payload: payloadUrl) else {
 				self = .rapidAntigen( .failure(.invalidTestCode(.invalidPayload)))
@@ -84,11 +83,14 @@ enum Route: Equatable {
 				return
 			}
 			
-			self = .rapidAntigen(.success(.antigen(qrCodeInformation: testInformation, qrCodeHash: ENAHasher.sha256(url.absoluteString))))
+			if host == "s.coronawarn.app" {
+				self = .rapidAntigen(.success(.antigen(qrCodeInformation: testInformation, qrCodeHash: ENAHasher.sha256(url.absoluteString))))
+			} else {
+				self = .rapidPCR(.success(.rapidPCR(qrCodeInformation: testInformation, qrCodeHash: ENAHasher.sha256(url.absoluteString))))
+			}
 
 		case "e.coronawarn.app":
 			self = .checkIn(url.absoluteString)
-
 		default:
 			return nil
 		}
@@ -109,6 +111,7 @@ enum Route: Equatable {
 
 	case checkIn(String)
 	case rapidAntigen(Result<CoronaTestRegistrationInformation, QRCodeError>)
+	case rapidPCR(Result<CoronaTestRegistrationInformation, QRCodeError>)
 	case healthCertificateFromNotification(HealthCertifiedPerson, HealthCertificate)
 	case healthCertifiedPersonFromNotification(HealthCertifiedPerson)
 	case testResultFromNotification(CoronaTestType)
@@ -119,6 +122,8 @@ enum Route: Equatable {
 			return .checkIn
 		case .rapidAntigen:
 			return .rapidAntigenTest
+		case .rapidPCR:
+			return .rapidPCRTest
 		case .healthCertificateFromNotification:
 			return .healthCertificate
 		case .healthCertifiedPersonFromNotification:
@@ -132,6 +137,7 @@ enum Route: Equatable {
 enum RouteInformation: String {
 	case checkIn = "Checkin"
 	case rapidAntigenTest = "RAT"
+	case rapidPCRTest = "RPCR"
 	case healthCertificate = "HealthCertificate from notification"
 	case healthCertifiedPerson = "HealthCertifiedPerson from notification"
 	case testResult = "Testresult from notification"
