@@ -268,7 +268,7 @@ final class HealthCertificatesTabCoordinator {
 							}
 							self.healthCertificateService.moveHealthCertificateToBin(healthCertificate)
 							// Do not confirm deletion if we removed the last certificate of the person (this removes the person, too) because it would trigger a new reload of the table where no person can be shown. Instead, we dismiss the view controller.
-							if self.healthCertificateService.healthCertifiedPersons.contains(healthCertifiedPerson) {
+							if self.healthCertificateService.healthCertifiedPersons.contains(where: { $0 === healthCertifiedPerson }) {
 								confirmDeletion()
 							} else {
 								self.viewController.dismiss(animated: true)
