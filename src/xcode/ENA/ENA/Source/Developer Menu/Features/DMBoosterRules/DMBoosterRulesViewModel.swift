@@ -42,25 +42,6 @@ final class DMBoosterRulesViewModel {
 		}
 		
 		switch section {
-		case .lastDownloadDate:
-			let value: String
-			if let unwrappedDate = store.lastBoosterNotificationsExecutionDate {
-				value = DateFormatter.localizedString(from: unwrappedDate, dateStyle: .medium, timeStyle: .medium)
-			} else {
-				value = "No successful download so far"
-			}
-			return DMKeyValueCellViewModel(key: "Last Download Date", value: value)
-			
-		case .clearLastDownloadDate:
-			return DMButtonCellViewModel(
-				text: "clear last download date",
-				textColor: .enaColor(for: .textContrast),
-				backgroundColor: .enaColor(for: .buttonPrimary),
-				action: {
-					self.store.lastBoosterNotificationsExecutionDate = nil
-					self.refreshTableView([TableViewSections.lastDownloadDate.rawValue])
-				}
-			)
 		case .cachedPassedBoosterRule:
 			let value: String
 			if let boosterRule = healthCertifiedPerson.boosterRule {
@@ -97,9 +78,7 @@ final class DMBoosterRulesViewModel {
 	}
 
 	enum TableViewSections: Int, CaseIterable {
-		case lastDownloadDate
 		case cachedPassedBoosterRule
-		case clearLastDownloadDate
 		case clearCurrentPersonBoosterRule
 	}
 	
