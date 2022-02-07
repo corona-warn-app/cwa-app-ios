@@ -35,7 +35,7 @@ final class DMCCLConfigurationViewModel {
 		switch section {
 		case .forceUpdateDescription:
 			return DMStaticTextCellViewModel(
-				staticText: "If this toggle is activated, the CCL Configuration and Booster Notification rules are upated independently from other constraints (update once a day etc.). After setting this toggle, please move the app from background into foreground to trigger the update. ",
+				staticText: "If this toggle is activated, the CCL Configuration and Booster Notification rules are updated independently from other constraints (update once a day etc.). This happens e.g. every time the app is moved from background into foreground. The app is killed when the switch is toggled.",
 				font: .enaFont(for: .subheadline),
 				textColor: .enaColor(for: .textPrimary1),
 				alignment: .center
@@ -50,6 +50,9 @@ final class DMCCLConfigurationViewModel {
 					let forceUpdate = !UserDefaults.standard.bool(forKey: CCLConfigurationResource.keyForceUpdateCCLConfiguration)
 					UserDefaults.standard.setValue(forceUpdate, forKey: CCLConfigurationResource.keyForceUpdateCCLConfiguration)
 					Log.info("Force-update CCL Configuration: \(forceUpdate)")
+					DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+						exit(0)
+					}
 				})
 		}
 	}
