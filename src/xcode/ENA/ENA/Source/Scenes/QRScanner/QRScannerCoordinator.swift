@@ -888,7 +888,8 @@ class QRScannerCoordinator {
 	) -> RecycleBinItem? {
 		switch testRegistrationInformation {
 		case .pcr(guid: _, qrCodeHash: let qrCodeHash),
-			.antigen(qrCodeInformation: _, qrCodeHash: let qrCodeHash):
+			.antigen(qrCodeInformation: _, qrCodeHash: let qrCodeHash),
+			.rapidPCR(qrCodeInformation: _, qrCodeHash: let qrCodeHash):
 			return store.recycleBinItems.first {
 				guard case .coronaTest(let coronaTest) = $0.item else {
 					return false
