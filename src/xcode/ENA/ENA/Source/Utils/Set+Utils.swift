@@ -4,7 +4,7 @@
 
 import Foundation
 
-extension Array {
+extension Set {
 	
 	var isNotEmpty: Bool {
 		return !isEmpty
