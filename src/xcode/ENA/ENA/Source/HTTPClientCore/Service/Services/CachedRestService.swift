@@ -46,6 +46,7 @@ class CachedRestService: Service {
 	// if check if data is in cache and if it was written today
 	// if return last cached receiveModel
 	func receiveModelToInterruptLoading<R>(_ resource: R) -> R.Receive.ReceiveModel? where R: Resource {
+		Log.info("Lookup \(resource.receiveResource) in cache with hash \(resource.locator.hashValue)", log: .client)
 		if case let .caching(policies) = resource.type,
 		   policies.contains(.loadOnlyOnceADay),
 		   let cachedData = cache[resource.locator.hashValue],

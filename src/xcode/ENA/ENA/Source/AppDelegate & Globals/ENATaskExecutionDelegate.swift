@@ -325,13 +325,7 @@ class TaskExecutionHandler: ENATaskExecutionDelegate {
 
 	private func executeCCLConfigurationUpdateAndBoosterNotificationsCreation(completion: @escaping () -> Void) {
 		Log.info("Checking if Booster rules need to be downloaded...", log: .vaccination)
-		healthCertificateService.checkForCCLConfigurationAndRulesUpdates { errorMessage in
-			guard let errorMessage = errorMessage else {
-				return
-			}
-			Log.error(errorMessage, log: .vaccination, error: nil)
-		}
-		completion()
+		healthCertificateService.checkForCCLConfigurationAndRulesUpdates(completion: completion)
 	}
 
 	private func checkCertificateValidityStates(completion: @escaping () -> Void) {
