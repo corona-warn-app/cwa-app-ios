@@ -2,6 +2,6 @@
 // 🦠 Corona-Warn-App
 //
 
-struct RegistrationTockenReceiveModel: Codable {
+struct RegistrationTokenReceiveModel: Codable {
 	let registrationToken: String
 }
