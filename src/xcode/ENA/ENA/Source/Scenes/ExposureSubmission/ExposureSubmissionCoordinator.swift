@@ -1283,7 +1283,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 
 		let testCertificateViewController = ExposureSubmissionTestCertificateViewController(
 			ExposureSubmissionTestCertificateViewModel(
-				testType: testRegistrationInformation.testType,
+				isRapidTest: testRegistrationInformation.isRapidTest,
 				presentDisclaimer: { [weak self] in
 					self?.showDataPrivacy()
 				}
