@@ -12,7 +12,7 @@ class OnBehalfCheckinSubmissionServiceTests: CWATestCase {
 		let client = ClientMock()
 		let restServiceProvider = RestServiceProviderStub(
 			results: [
-				.success(RegistrationTockenReceiveModel(registrationToken: "fake")),
+				.success(RegistrationTokenReceiveModel(registrationToken: "fake")),
 				.success(TeleTanReceiveModel(submissionTAN: "fake"))
 			]
 		)
@@ -206,7 +206,7 @@ class OnBehalfCheckinSubmissionServiceTests: CWATestCase {
 		let client = ClientMock()
 		let restServiceProvider = RestServiceProviderStub(
 			results: [
-				.success(RegistrationTockenReceiveModel(registrationToken: "fake")),
+				.success(RegistrationTokenReceiveModel(registrationToken: "fake")),
 				.failure(ServiceError<RegistrationTokenError>.unexpectedServerError(400))
 			]
 		)
@@ -239,7 +239,7 @@ class OnBehalfCheckinSubmissionServiceTests: CWATestCase {
 		let client = ClientMock()
 		let restServiceProvider = RestServiceProviderStub(
 			results: [
-				.success(RegistrationTockenReceiveModel(registrationToken: "fake")),
+				.success(RegistrationTokenReceiveModel(registrationToken: "fake")),
 				.failure(ServiceError<RegistrationTokenError>.unexpectedServerError(500))
 			]
 		)
@@ -273,7 +273,7 @@ class OnBehalfCheckinSubmissionServiceTests: CWATestCase {
 		let errorFake = NSError(domain: NSURLErrorDomain, code: NSURLErrorNotConnectedToInternet, userInfo: nil)
 		let restServiceProvider = RestServiceProviderStub(
 			results: [
-				.success(RegistrationTockenReceiveModel(registrationToken: "fake")),
+				.success(RegistrationTokenReceiveModel(registrationToken: "fake")),
 				.failure(ServiceError<RegistrationTokenError>.transportationError(errorFake))
 			]
 		)
@@ -306,7 +306,7 @@ class OnBehalfCheckinSubmissionServiceTests: CWATestCase {
 		let client = ClientMock()
 		let restServiceProvider = RestServiceProviderStub(
 			results: [
-				.success(RegistrationTockenReceiveModel(registrationToken: "fake")),
+				.success(RegistrationTokenReceiveModel(registrationToken: "fake")),
 				.success(TeleTanReceiveModel(submissionTAN: "fake"))
 			]
 		)
@@ -345,7 +345,7 @@ class OnBehalfCheckinSubmissionServiceTests: CWATestCase {
 		let client = ClientMock()
 		let restServiceProvider = RestServiceProviderStub(
 			results: [
-				.success(RegistrationTockenReceiveModel(registrationToken: "fake")),
+				.success(RegistrationTokenReceiveModel(registrationToken: "fake")),
 				.success(TeleTanReceiveModel(submissionTAN: "fake"))
 			]
 		)
@@ -384,7 +384,7 @@ class OnBehalfCheckinSubmissionServiceTests: CWATestCase {
 		let client = ClientMock()
 		let restServiceProvider = RestServiceProviderStub(
 			results: [
-				.success(RegistrationTockenReceiveModel(registrationToken: "fake")),
+				.success(RegistrationTokenReceiveModel(registrationToken: "fake")),
 				.success(TeleTanReceiveModel(submissionTAN: "fake"))
 			]
 		)
@@ -423,7 +423,7 @@ class OnBehalfCheckinSubmissionServiceTests: CWATestCase {
 		let client = ClientMock()
 		let restServiceProvider = RestServiceProviderStub(
 			results: [
-				.success(RegistrationTockenReceiveModel(registrationToken: "fake")),
+				.success(RegistrationTokenReceiveModel(registrationToken: "fake")),
 				.success(TeleTanReceiveModel(submissionTAN: "fake"))
 			]
 		)
@@ -462,7 +462,7 @@ class OnBehalfCheckinSubmissionServiceTests: CWATestCase {
 		let client = ClientMock()
 		let restServiceProvider = RestServiceProviderStub(
 			results: [
-				.success(RegistrationTockenReceiveModel(registrationToken: "fake")),
+				.success(RegistrationTokenReceiveModel(registrationToken: "fake")),
 				.success(TeleTanReceiveModel(submissionTAN: "fake"))
 			]
 		)

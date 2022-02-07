@@ -178,6 +178,7 @@ class HealthCertifiedPersonViewController: UIViewController, UITableViewDataSour
 
 		let vaccinationStateWasVisible = viewModel.vaccinationStateIsVisible
 		let admissionStateWasVisible = viewModel.admissionStateIsVisible
+		let boosterNotificationWasVisible = viewModel.boosterNotificationIsVisible
 
 		self.didSwipeToDelete(healthCertificate) { [weak self] in
 			guard let self = self else { return }
@@ -194,10 +195,16 @@ class HealthCertifiedPersonViewController: UIViewController, UITableViewDataSour
 					insertIndexPaths.append(IndexPath(row: 0, section: HealthCertifiedPersonViewModel.TableViewSection.vaccinationState.rawValue))
 				}
 				
-				if !self.viewModel.admissionStateIsVisible && admissionStateWasVisible {
+				if admissionStateWasVisible && !self.viewModel.admissionStateIsVisible {
 					deleteIndexPaths.append(IndexPath(row: 0, section: HealthCertifiedPersonViewModel.TableViewSection.admissionState.rawValue))
-				} else if self.viewModel.admissionStateIsVisible && !admissionStateWasVisible {
+				} else if !admissionStateWasVisible && self.viewModel.admissionStateIsVisible {
 					insertIndexPaths.append(IndexPath(row: 0, section: HealthCertifiedPersonViewModel.TableViewSection.admissionState.rawValue))
+				}
+
+				if boosterNotificationWasVisible && !self.viewModel.boosterNotificationIsVisible {
+					deleteIndexPaths.append(IndexPath(row: 0, section: HealthCertifiedPersonViewModel.TableViewSection.boosterNotification.rawValue))
+				} else if !boosterNotificationWasVisible && self.viewModel.boosterNotificationIsVisible {
+					insertIndexPaths.append(IndexPath(row: 0, section: HealthCertifiedPersonViewModel.TableViewSection.boosterNotification.rawValue))
 				}
 				
 				tableView.deleteRows(at: deleteIndexPaths, with: .automatic)

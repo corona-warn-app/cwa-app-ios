@@ -9,7 +9,7 @@
             "*.strings","*.stringsdict"
           ],
           "excludedSourceFilters":[
-            "*.legal.*", "*.links.*"
+            "*.legal.*", "*.links.*", "DCCUIText.stringsdict"
           ],
            "targetFolderPath":"../[langCode].lproj/"
         }

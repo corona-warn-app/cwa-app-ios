@@ -233,10 +233,11 @@ class HealthCertificateService {
 		healthCertifiedPerson.healthCertificates.append(healthCertificate)
 		healthCertifiedPerson.healthCertificates.sort(by: <)
 
-		if !healthCertifiedPersons.contains(healthCertifiedPerson) {
+		if !healthCertifiedPersons.contains(where: { $0 === healthCertifiedPerson }) {
 			Log.info("[HealthCertificateService] Successfully registered health certificate for a new person", log: .api)
 			healthCertifiedPersons = (healthCertifiedPersons + [healthCertifiedPerson]).sorted()
-			updateValidityStatesAndNotifications()
+			updateValidityStateAndNotifications(for: healthCertificate)
+			updateDCCWalletInfo(for: healthCertifiedPerson)
 			updateGradients()
 		} else {
 			Log.info("[HealthCertificateService] Successfully registered health certificate for a person with other existing certificates", log: .api)
@@ -523,63 +524,24 @@ class HealthCertificateService {
 			.store(in: &subscriptions)
 	}
 
-	func updateValidityStatesAndNotifications(shouldScheduleTimer: Bool = true) {
-		Log.info("Update validity state and notifications.")
+	func updateValidityStatesAndNotifications(
+		shouldScheduleTimer: Bool = true
+	) {
+		Log.info("Update validity states and notifications.")
 
 		attemptToRestoreDecodingFailedHealthCertificates()
 
-		DispatchQueue.global(qos: .default).async { [weak self] in
-			guard let self = self else { return }
-
-			let currentAppConfiguration = self.appConfiguration.currentAppConfig.value
-			self.healthCertifiedPersons.forEach { healthCertifiedPerson in
-				healthCertifiedPerson.healthCertificates.forEach { healthCertificate in
-					let expirationThresholdInDays = currentAppConfiguration.dgcParameters.expirationThresholdInDays
-					let expiringSoonDate = Calendar.current.date(
-						byAdding: .day,
-						value: -Int(expirationThresholdInDays),
-						to: healthCertificate.expirationDate
-					)
-
-					let previousValidityState = healthCertificate.validityState
-
-					let blockedIdentifierChunks = self.appConfiguration.currentAppConfig.value
-						.dgcParameters.blockListParameters.blockedUvciChunks
-					if healthCertificate.isBlocked(by: blockedIdentifierChunks) {
-						healthCertificate.validityState = .blocked
-					} else {
-						let signatureVerificationResult = self.dccSignatureVerifier.verify(
-							certificate: healthCertificate.base45,
-							with: self.dscListProvider.signingCertificates.value,
-							and: Date()
-						)
-
-						switch signatureVerificationResult {
-						case .success:
-							if Date() >= healthCertificate.expirationDate {
-								healthCertificate.validityState = .expired
-							} else if let expiringSoonDate = expiringSoonDate, Date() >= expiringSoonDate {
-								healthCertificate.validityState = .expiringSoon
-							} else {
-								healthCertificate.validityState = .valid
-							}
-						case .failure:
-							healthCertificate.validityState = .invalid
-						}
-					}
-
-					if healthCertificate.validityState != previousValidityState {
-						/// Only validity states that are not shown as `.valid` should be marked as new for the user.
-						healthCertificate.isValidityStateNew = !healthCertificate.isConsideredValid
-					}
-				}
+		self.healthCertifiedPersons.forEach { healthCertifiedPerson in
+			healthCertifiedPerson.healthCertificates.forEach { healthCertificate in
+				updateValidityState(for: healthCertificate)
 			}
-			if shouldScheduleTimer {
-				self.scheduleTimer()
-			}
-
-			self.updateNotifications()
 		}
+
+		if shouldScheduleTimer {
+			scheduleTimer()
+		}
+
+		updateNotifications()
 	}
 
 	func validUntilDates(for healthCertificates: [HealthCertificate], signingCertificates: [DCCSigningCertificate]) -> [Date] {
@@ -658,6 +620,7 @@ class HealthCertificateService {
 	private func setup() {
 		migration()
 		updatePublishersFromStore()
+		updateTimeBasedValidityStates()
 
 		subscribeToNotifications()
 		updateGradients()
@@ -665,8 +628,6 @@ class HealthCertificateService {
 		// Validation Service
 		subscribeAppConfigUpdates()
 		subscribeDSCListChanges()
-
-		updateValidityStatesAndNotifications()
 		checkForCCLConfigurationAndRulesUpdates()
 	}
 
@@ -704,7 +665,6 @@ class HealthCertificateService {
 
 		healthCertifiedPersons.forEach { healthCertifiedPerson in
 			healthCertifiedPerson.objectDidChange
-				.debounce(for: .seconds(1), scheduler: DispatchQueue.global().ocombine)
 				.sink { [weak self] healthCertifiedPerson in
 					guard let self = self else { return }
 
@@ -720,12 +680,10 @@ class HealthCertificateService {
 					// Always trigger the publisher to inform subscribers and update store
 					self.healthCertifiedPersons = self.healthCertifiedPersons.sorted()
 					self.updateGradients()
-					self.updateValidityStatesAndNotifications()
 				}
 				.store(in: &healthCertifiedPersonSubscriptions)
 
 			healthCertifiedPerson.needsWalletInfoUpdate
-				.debounce(for: .seconds(1), scheduler: DispatchQueue.global().ocombine)
 				.sink { [weak self] healthCertifiedPerson in
 					self?.updateDCCWalletInfo(for: healthCertifiedPerson)
 				}
@@ -751,15 +709,14 @@ class HealthCertificateService {
 	}
 
 	private func updateDCCWalletInfo(for person: HealthCertifiedPerson, completion: (() -> Void)? = nil) {
-		// Maybe on a serial queue to avoid conflicts?
-		DispatchQueue.global().async {
+		person.queue.async {
 			let result = self.cclService.dccWalletInfo(
 				for: person.healthCertificates.map { $0.dccWalletCertificate }
 			)
 
 			switch result {
 			case .success(let dccWalletInfo):
-				let previousBoosterNotificationIdentifier = person.dccWalletInfo?.boosterNotification.identifier
+				let previousBoosterNotificationIdentifier = person.boosterRule?.identifier ?? person.dccWalletInfo?.boosterNotification.identifier
 				person.dccWalletInfo = dccWalletInfo
 				
 				#if DEBUG
@@ -779,6 +736,79 @@ class HealthCertificateService {
 			}
 		}
 	}
+
+	private func updateValidityStateAndNotifications(
+		for healthCertificate: HealthCertificate,
+		shouldScheduleTimer: Bool = true
+	) {
+		Log.info("Update validity state and notifications for healthCertificate \(private: healthCertificate.base45).")
+
+		updateValidityState(for: healthCertificate)
+
+		if shouldScheduleTimer {
+			scheduleTimer()
+		}
+
+		updateNotifications(for: healthCertificate)
+	}
+
+	private func updateValidityState(for healthCertificate: HealthCertificate) {
+		let previousValidityState = healthCertificate.validityState
+
+		let blockedIdentifierChunks = appConfiguration.currentAppConfig.value
+			.dgcParameters.blockListParameters.blockedUvciChunks
+		if healthCertificate.isBlocked(by: blockedIdentifierChunks) {
+			healthCertificate.validityState = .blocked
+		} else {
+			let signatureVerificationResult = dccSignatureVerifier.verify(
+				certificate: healthCertificate.base45,
+				with: dscListProvider.signingCertificates.value,
+				and: Date()
+			)
+
+			switch signatureVerificationResult {
+			case .success:
+				updateTimeBasedValidityState(for: healthCertificate)
+			case .failure:
+				healthCertificate.validityState = .invalid
+			}
+		}
+
+		if healthCertificate.validityState != previousValidityState {
+			/// Only validity states that are not shown as `.valid` should be marked as new for the user.
+			healthCertificate.isValidityStateNew = !healthCertificate.isConsideredValid
+		}
+	}
+
+	private func updateTimeBasedValidityStates() {
+		healthCertifiedPersons.forEach { healthCertifiedPerson in
+			healthCertifiedPerson.healthCertificates.forEach { healthCertificate in
+				updateTimeBasedValidityState(for: healthCertificate)
+			}
+		}
+	}
+
+	private func updateTimeBasedValidityState(for healthCertificate: HealthCertificate) {
+		guard healthCertificate.validityState != .invalid && healthCertificate.validityState != .blocked else {
+			return
+		}
+
+		let currentAppConfiguration = appConfiguration.currentAppConfig.value
+		let expirationThresholdInDays = currentAppConfiguration.dgcParameters.expirationThresholdInDays
+		let expiringSoonDate = Calendar.current.date(
+			byAdding: .day,
+			value: -Int(expirationThresholdInDays),
+			to: healthCertificate.expirationDate
+		)
+
+		if Date() >= healthCertificate.expirationDate {
+			healthCertificate.validityState = .expired
+		} else if let expiringSoonDate = expiringSoonDate, Date() >= expiringSoonDate {
+			healthCertificate.validityState = .expiringSoon
+		} else {
+			healthCertificate.validityState = .valid
+		}
+	}
 	
 	/// This method should be called: At startup, at creation, at removal and at update validity states of HealthCertificates.
 	/// First, removes all local notifications and then re-adds all updates or new notifications to the notification center.
@@ -787,13 +817,17 @@ class HealthCertificateService {
 
 		healthCertifiedPersons.forEach { healthCertifiedPerson in
 			healthCertifiedPerson.healthCertificates.forEach { healthCertificate in
-				// No notifications for test certificates
-				if healthCertificate.type == .recovery || healthCertificate.type == .vaccination {
-					removeAllNotifications(for: healthCertificate, completion: { [weak self] in
-						self?.createNotifications(for: healthCertificate)
-					})
-				}
+				updateNotifications(for: healthCertificate)
 			}
+		}
+	}
+
+	private func updateNotifications(for healthCertificate: HealthCertificate) {
+		// No notifications for test certificates
+		if healthCertificate.type == .recovery || healthCertificate.type == .vaccination {
+			removeAllNotifications(for: healthCertificate, completion: { [weak self] in
+				self?.createNotifications(for: healthCertificate)
+			})
 		}
 	}
 
@@ -820,7 +854,6 @@ class HealthCertificateService {
 				self?.testCertificateRequests.forEach {
 					self?.executeTestCertificateRequest($0, retryIfCertificateIsPending: false)
 				}
-				self?.updateValidityStatesAndNotifications()
 			}
 			.store(in: &subscriptions)
 	}
