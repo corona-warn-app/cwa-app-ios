@@ -1137,6 +1137,8 @@
 		AB9B991F26D5417200F2506D /* VaccinationCertificateTemplate_v4.1.pdf in Resources */ = {isa = PBXBuildFile; fileRef = ABEA875926D3811100A8E950 /* VaccinationCertificateTemplate_v4.1.pdf */; };
 		AB9E9E7A261308C000515408 /* RiskTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB9E9E79261308C000515408 /* RiskTests.swift */; };
 		ABAC9D2E2624938100EB183F /* TestResultTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABAC9D2D2624938100EB183F /* TestResultTests.swift */; };
+		ABADDDEA27B2643C0036049C /* dcc-holder-comparison.json in Resources */ = {isa = PBXBuildFile; fileRef = ABADDDE827B2643C0036049C /* dcc-holder-comparison.json */; };
+		ABADDDEB27B2643C0036049C /* dcc-holder-name-components.json in Resources */ = {isa = PBXBuildFile; fileRef = ABADDDE927B2643C0036049C /* dcc-holder-name-components.json */; };
 		ABB078EE272C260B0037B30F /* RestServiceProviderFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABBA6BB8272AA1E200EEF2E4 /* RestServiceProviderFactory.swift */; };
 		ABB078F0273034AC0037B30F /* SecureCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABB078EF273034AC0037B30F /* SecureCache.swift */; };
 		ABB078F2273035340037B30F /* SecureStoring.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABB078F1273035340037B30F /* SecureStoring.swift */; };
@@ -1171,6 +1173,8 @@
 		ABDBE3632710825F007C8DA8 /* RecycleBinTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABDBE36127107E73007C8DA8 /* RecycleBinTests.swift */; };
 		ABE06E99261D958A00D98E1B /* TraceLocationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABE06E98261D958A00D98E1B /* TraceLocationTests.swift */; };
 		ABE17DE327AC0FE800E9EA2D /* XCUIElement+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABE17DE127AC0EB400E9EA2D /* XCUIElement+Utils.swift */; };
+		ABE17DE527AC30A600E9EA2D /* HealthCertificate+BelongsToSamePersonTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABE17DE427AC30A600E9EA2D /* HealthCertificate+BelongsToSamePersonTests.swift */; };
+		ABE17DE727B14A4200E9EA2D /* Set+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABE17DE627B14A4200E9EA2D /* Set+Utils.swift */; };
 		ABE5E0BA269363B900D50C2B /* CountrySelectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABE5E0B9269363B900D50C2B /* CountrySelectionCell.swift */; };
 		ABE5E0BD2694590900D50C2B /* ValidationDateSelectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABE5E0BC2694590900D50C2B /* ValidationDateSelectionCell.swift */; };
 		ABE63CF126010EFF0024F856 /* ContactDiaryStore+Creation.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABE63CF026010EFF0024F856 /* ContactDiaryStore+Creation.swift */; };
@@ -2818,6 +2822,8 @@
 		AB9B991B26D5389100F2506D /* HealthCertificate+PDFTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HealthCertificate+PDFTests.swift"; sourceTree = "<group>"; };
 		AB9E9E79261308C000515408 /* RiskTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RiskTests.swift; sourceTree = "<group>"; };
 		ABAC9D2D2624938100EB183F /* TestResultTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestResultTests.swift; sourceTree = "<group>"; };
+		ABADDDE827B2643C0036049C /* dcc-holder-comparison.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "dcc-holder-comparison.json"; sourceTree = "<group>"; };
+		ABADDDE927B2643C0036049C /* dcc-holder-name-components.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "dcc-holder-name-components.json"; sourceTree = "<group>"; };
 		ABAE0A1B257F77D90030ED47 /* ContactDiaryStoreSchemaV1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactDiaryStoreSchemaV1.swift; sourceTree = "<group>"; };
 		ABAE0A36257FA88D0030ED47 /* ContactDiaryStoreSchemaV1Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactDiaryStoreSchemaV1Tests.swift; sourceTree = "<group>"; };
 		ABAE0A3E257FAC970030ED47 /* ContactDiaryStoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactDiaryStoreTests.swift; sourceTree = "<group>"; };
@@ -2855,6 +2861,8 @@
 		ABDBE36127107E73007C8DA8 /* RecycleBinTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecycleBinTests.swift; sourceTree = "<group>"; };
 		ABE06E98261D958A00D98E1B /* TraceLocationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraceLocationTests.swift; sourceTree = "<group>"; };
 		ABE17DE127AC0EB400E9EA2D /* XCUIElement+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCUIElement+Utils.swift"; sourceTree = "<group>"; };
+		ABE17DE427AC30A600E9EA2D /* HealthCertificate+BelongsToSamePersonTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HealthCertificate+BelongsToSamePersonTests.swift"; sourceTree = "<group>"; };
+		ABE17DE627B14A4200E9EA2D /* Set+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Set+Utils.swift"; sourceTree = "<group>"; };
 		ABE5E0B9269363B900D50C2B /* CountrySelectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountrySelectionCell.swift; sourceTree = "<group>"; };
 		ABE5E0BC2694590900D50C2B /* ValidationDateSelectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidationDateSelectionCell.swift; sourceTree = "<group>"; };
 		ABE63CF026010EFF0024F856 /* ContactDiaryStore+Creation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ContactDiaryStore+Creation.swift"; sourceTree = "<group>"; };
@@ -4685,6 +4693,7 @@
 		01FE5E532648511100155906 /* __tests__ */ = {
 			isa = PBXGroup;
 			children = (
+				ABADDDE327B16C830036049C /* Resources */,
 				BA19978A2715B006009FEC00 /* Name+ExtensionTests.swift */,
 				01FE5E592648546800155906 /* HealthCertificate+Mock.swift */,
 				5055EC00267239690062C15E /* HealthCertificateTests.swift */,
@@ -4692,6 +4701,7 @@
 				01635EB3275E044800A479EB /* HealthCertificateArray+FallbackTests.swift */,
 				01FE5E552648511100155906 /* HealthCertifiedPersonTests.swift */,
 				AB9B991B26D5389100F2506D /* HealthCertificate+PDFTests.swift */,
+				ABE17DE427AC30A600E9EA2D /* HealthCertificate+BelongsToSamePersonTests.swift */,
 			);
 			path = __tests__;
 			sourceTree = "<group>";
@@ -7048,6 +7058,7 @@
 				AB126872254C05A7006E9194 /* ENAFormatter.swift */,
 				ABE9613E25EFEC3700D0F699 /* InstallationDate.swift */,
 				01DDF44326541CEC0043B4E1 /* DidSetPublished.swift */,
+				ABE17DE627B14A4200E9EA2D /* Set+Utils.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -7429,6 +7440,15 @@
 				AB68884125DACD8C00907465 /* MigrationStub.swift */,
 			);
 			path = Doubles;
+			sourceTree = "<group>";
+		};
+		ABADDDE327B16C830036049C /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				ABADDDE827B2643C0036049C /* dcc-holder-comparison.json */,
+				ABADDDE927B2643C0036049C /* dcc-holder-name-components.json */,
+			);
+			path = Resources;
 			sourceTree = "<group>";
 		};
 		ABAE0A12257F77A20030ED47 /* Store */ = {
@@ -9915,6 +9935,7 @@
 				3535CD2A262C4E4E00A3CE38 /* TestEnvironments.json in Resources */,
 				BA6C8B17254D729A008344F5 /* exposure-windows-risk-calculation.json in Resources */,
 				BA7D178925D5590C006B9EBF /* testDataInvalid.json in Resources */,
+				ABADDDEB27B2643C0036049C /* dcc-holder-name-components.json in Resources */,
 				EB54938525F7CFB300A3C459 /* qr-code-to-embed.png in Resources */,
 				EB54937E25F7CE3700A3C459 /* qr-code-print-template.pdf in Resources */,
 				5078DCAB2686122200535917 /* api-response-onboardedCountries in Resources */,
@@ -9931,6 +9952,7 @@
 				50412F32268AFA3500E4087C /* api-response-rule in Resources */,
 				AB9B991D26D53C7300F2506D /* TestCertificateTemplate_v4.1.pdf in Resources */,
 				BA7D178125D549B3006B9EBF /* testData.json in Resources */,
+				ABADDDEA27B2643C0036049C /* dcc-holder-comparison.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -10281,6 +10303,7 @@
 				B1FC2D2024D9C8DF00083C81 /* SAP_TemporaryExposureKey+DeveloperMenu.swift in Sources */,
 				717D21E9248C022E00D9717E /* DynamicTableViewHtmlCell.swift in Sources */,
 				01BA0755262094D700237DD8 /* AerosoleDecayFunctionLinear.swift in Sources */,
+				ABE17DE727B14A4200E9EA2D /* Set+Utils.swift in Sources */,
 				019E2EFC269C8EF0000EC4AD /* SAP_Internal_Dgc_ValueSet+DisplayText.swift in Sources */,
 				01164CE426C57438007F9C3E /* TraceLocationSelectionCellModel.swift in Sources */,
 				BA6C8A9E254D634E008344F5 /* RiskCalculationConfiguration.swift in Sources */,
@@ -11455,6 +11478,7 @@
 				BAD3199D26FA2102006E82E7 /* HealthCertificateQRCodeViewTests.swift in Sources */,
 				B1AC51D624CED8820087C35B /* DetectionModeTests.swift in Sources */,
 				8FA88FE02616692000FD36DA /* TraceLocationCheckinViewModelTests.swift in Sources */,
+				ABE17DE527AC30A600E9EA2D /* HealthCertificate+BelongsToSamePersonTests.swift in Sources */,
 				0109DB9A26037E6A00624BB3 /* TraceLocation+Mock.swift in Sources */,
 				0144DD9725D40CC600CFB1D1 /* MockDeadmanNotificationManager.swift in Sources */,
 				BAEFB35A2656B07A00497F79 /* ContactDiaryStoreSchemaV5Tests.swift in Sources */,
