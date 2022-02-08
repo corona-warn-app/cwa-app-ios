@@ -1053,7 +1053,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmission_TestCertificate_Information_BirthdayPlaceholder" = "Geburtsdatum";
 
-"ExposureSubmission_TestCertificate_Information_BirthdayText" = "Zur Sicherheit wird Ihr Testergebnis mit Ihrem Geburtsdatum geschützt. Das Testergebnis kann nur bei korrekt angegebenem Geburtsdatum zugestellt werden.";
+"ExposureSubmission_TestCertificate_Information_BirthdayText" = "Zur Sicherheit wird Ihr Testzertifikat mit Ihrem Geburtsdatum geschützt. Das Testzertifikat kann nur bei korrekt angegebenem Geburtsdatum zugestellt werden.";
 
 "ExposureSubmission_TestCertificate_Information_Dataprivacy_Title" = "Ausführliche Hinweise zur Datenverarbeitung finden Sie in der Datenschutzerklärung";
 
