@@ -10,6 +10,8 @@
 		<string>applinks:coronawarn.app?mode=developer</string>
 		<string>applinks:s.coronawarn.app</string>
 		<string>applinks:s.coronawarn.app?mode=developer</string>
+		<string>applinks:p.coronawarn.app</string>
+		<string>applinks:p.coronawarn.app?mode=developer</string>
 	</array>
 	<key>com.apple.developer.exposure-notification</key>
 	<true/>
