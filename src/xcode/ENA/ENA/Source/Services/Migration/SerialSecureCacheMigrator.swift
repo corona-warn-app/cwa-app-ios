@@ -53,7 +53,7 @@ final class SecureKeyValueCacheMigrationTo1: Migration {
 	func execute() throws {
 		do {
 			let keychain = try KeychainHelper()
-			let key = try keychain.generateDatabaseKey(persistForKeychainKey: SecureStore.encryptionKeyKeychainKey)
+			let key = try keychain.generateDatabaseKey(persistForKeychainKey: SecureKeyValueCache.encryptionKeyKeychainKey)
 			try kvStore.wipeAll(key: key)
 		} catch {
 			Log.error("Failed SerialSecureCachingMigrationTo1", error: error)
