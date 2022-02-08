@@ -15,7 +15,7 @@ final class TeleTanResourceTests: CWATestCase {
 		let stack = MockNetworkStack(
 			httpStatus: 200,
 			responseData: try JSONEncoder().encode(
-				RegistrationTokenReceiveModel(
+				TeleTanReceiveModel(
 					registrationToken: fakeToken
 				)
 			)
@@ -49,7 +49,7 @@ final class TeleTanResourceTests: CWATestCase {
 		let stack = MockNetworkStack(
 			httpStatus: 200,
 			responseData: try JSONEncoder().encode(
-				RegistrationTokenReceiveModel(
+				TeleTanReceiveModel(
 					registrationToken: fakeToken
 				)
 			)
@@ -82,7 +82,7 @@ final class TeleTanResourceTests: CWATestCase {
 		let stack = MockNetworkStack(
 			httpStatus: 200,
 			responseData: try JSONEncoder().encode(
-				RegistrationTokenReceiveModel(
+				TeleTanReceiveModel(
 					registrationToken: fakeToken
 				)
 			)
@@ -277,7 +277,7 @@ final class TeleTanResourceTests: CWATestCase {
 		let stack = MockNetworkStack(
 			httpStatus: 200,
 			responseData: try JSONEncoder().encode(
-				RegistrationTokenReceiveModel(
+				TeleTanReceiveModel(
 					registrationToken: "SomeToken"
 				)
 			),
