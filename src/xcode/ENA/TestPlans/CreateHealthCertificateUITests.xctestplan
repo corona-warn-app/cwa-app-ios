@@ -91,6 +91,7 @@
         "ENAUITests_13_CreateHealthCertificate\/test_CheckinFromCertificatesTabWithInfoScreen()",
         "ENAUITests_13_CreateHealthCertificate\/test_CheckinFromCertificatesTabWithoutInfoScreen()",
         "ENAUITests_13_CreateHealthCertificate\/test_CompleteVaccinationProtectionWithTestCertificate()",
+        "ENAUITests_13_CreateHealthCertificate\/test_CompleteVaccination_AdmissionState()",
         "ENAUITests_13_CreateHealthCertificate\/test_CreateAntigenTestProfileWithFirstCertificate()",
         "ENAUITests_13_CreateHealthCertificate\/test_HealthCertificateExpired()",
         "ENAUITests_13_CreateHealthCertificate\/test_HealthCertificateExpiring()",

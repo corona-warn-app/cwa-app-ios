@@ -5,6 +5,8 @@
 import Foundation
 import AnyCodable
 
+@testable import ENA
+
 extension DCCWalletInfo {
 
 	static func fake(

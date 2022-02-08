@@ -36,6 +36,7 @@ final class HealthCertifiedPersonViewModel {
 		constructHealthCertificateCellViewModels(for: healthCertifiedPerson)
 
 		healthCertifiedPerson.objectDidChange
+			.receive(on: DispatchQueue.main.ocombine)
 			.sink { [weak self] person in
 				self?.constructHealthCertificateCellViewModels(for: person)
 				

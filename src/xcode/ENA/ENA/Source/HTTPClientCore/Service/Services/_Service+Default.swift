@@ -222,7 +222,17 @@ extension Service {
 		// Check if we have default value. If so, return it independent wich error we had
 		if let defaultModel = resource.defaultModel {
 			Log.info("Found some default value", log: .client)
-			return .success(defaultModel)
+			guard var modelWithMetadata = defaultModel as? MetaDataProviding else {
+				return .success(defaultModel)
+			}
+			Log.info("Found a defaultModel which conforms to MetaDataProviding. Adding metadata now.", log: .client)
+			modelWithMetadata.metaData.loadedFromDefault = true
+			guard let originalModelWithMetadata = modelWithMetadata as? R.Receive.ReceiveModel else {
+				Log.warning("Cast back to R.Receive.ReceiveModel failed. Returning the model without metadata.", log: .client)
+				return .success(defaultModel)
+			}
+			Log.debug("Returning now the original model with metadata", log: .client)
+			return .success(originalModelWithMetadata)
 		} else {
 			// We don't have a default value. And now check if we want to override the error by a custom error defined in the resource
 			Log.error("Found no default value. Will fail now.", log: .client, error: error)

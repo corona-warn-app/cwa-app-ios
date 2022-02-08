@@ -35,19 +35,15 @@ class AdmissionStateTableViewCell: UITableViewCell, UITextViewDelegate, ReuseIde
 	func configure(with cellModel: AdmissionStateCellModel) {
 		titleLabel.text = cellModel.title
 		titleLabel.isHidden = (cellModel.title ?? "").isEmpty
-		titleLabel.accessibilityIdentifier = AccessibilityIdentifiers.HealthCertificate.AdmissionState.title
 		
 		subtitleLabel.text = cellModel.subtitle
 		subtitleLabel.isHidden = (cellModel.subtitle ?? "").isEmpty
-		subtitleLabel.accessibilityIdentifier = AccessibilityIdentifiers.HealthCertificate.AdmissionState.subtitle
 
 		descriptionLabel.text = cellModel.description
 		descriptionLabel.isHidden = (cellModel.description ?? "").isEmpty
-		descriptionLabel.accessibilityIdentifier = AccessibilityIdentifiers.HealthCertificate.AdmissionState.description
 
 		faqLinkTextView.attributedText = cellModel.faqLink
 		faqLinkTextView.isHidden = (cellModel.faqLink?.string ?? "").isEmpty
-		faqLinkTextView.accessibilityIdentifier = AccessibilityIdentifiers.HealthCertificate.AdmissionState.faq
 
 		roundedLabeledView?.configure(title: cellModel.shortTitle, gradientType: cellModel.gradientType)
 		roundedLabeledView?.isHidden = (cellModel.shortTitle ?? "").isEmpty
@@ -101,6 +97,7 @@ class AdmissionStateTableViewCell: UITableViewCell, UITextViewDelegate, ReuseIde
 		titleLabel.numberOfLines = 0
 		titleLabel.textColor = .enaColor(for: .textPrimary1)
 		titleLabel.setContentCompressionResistancePriority(.required, for: .horizontal)
+		titleLabel.accessibilityIdentifier = AccessibilityIdentifiers.HealthCertificate.AdmissionState.title
 
 		return titleLabel
 	}()
@@ -109,6 +106,7 @@ class AdmissionStateTableViewCell: UITableViewCell, UITextViewDelegate, ReuseIde
 		let subtitleLabel = ENALabel(style: .body)
 		subtitleLabel.numberOfLines = 0
 		subtitleLabel.textColor = .enaColor(for: .textPrimary2)
+		subtitleLabel.accessibilityIdentifier = AccessibilityIdentifiers.HealthCertificate.AdmissionState.subtitle
 
 		return subtitleLabel
 	}()
@@ -123,6 +121,7 @@ class AdmissionStateTableViewCell: UITableViewCell, UITextViewDelegate, ReuseIde
 	private let descriptionLabel: ENALabel = {
 		let descriptionLabel = ENALabel(style: .body)
 		descriptionLabel.numberOfLines = 0
+		descriptionLabel.accessibilityIdentifier = AccessibilityIdentifiers.HealthCertificate.AdmissionState.description
 
 		return descriptionLabel
 	}()
@@ -136,6 +135,8 @@ class AdmissionStateTableViewCell: UITableViewCell, UITextViewDelegate, ReuseIde
 		faqLinkTextView.textContainer.lineFragmentPadding = .zero
 		faqLinkTextView.textColor = .enaColor(for: .textPrimary1)
 		faqLinkTextView.tintColor = .enaColor(for: .textTint)
+		faqLinkTextView.accessibilityTraits = .button
+		faqLinkTextView.accessibilityIdentifier = AccessibilityIdentifiers.HealthCertificate.AdmissionState.faq
 		faqLinkTextView.linkTextAttributes = [
 			.foregroundColor: UIColor.enaColor(for: .textTint),
 			.underlineColor: UIColor.clear
