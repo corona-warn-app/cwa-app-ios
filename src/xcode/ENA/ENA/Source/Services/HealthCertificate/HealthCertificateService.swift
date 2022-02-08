@@ -534,17 +534,16 @@ class HealthCertificateService {
 
 		attemptToRestoreDecodingFailedHealthCertificates()
 
-		self.healthCertifiedPersons.forEach { healthCertifiedPerson in
+		healthCertifiedPersons.forEach { healthCertifiedPerson in
 			healthCertifiedPerson.healthCertificates.forEach { healthCertificate in
 				updateValidityState(for: healthCertificate)
+				updateNotifications(for: healthCertificate)
 			}
 		}
 
 		if shouldScheduleTimer {
 			scheduleTimer()
 		}
-
-		updateNotifications()
 	}
 
 	func validUntilDates(for healthCertificates: [HealthCertificate], signingCertificates: [DCCSigningCertificate]) -> [Date] {
@@ -810,18 +809,6 @@ class HealthCertificateService {
 			healthCertificate.validityState = .expiringSoon
 		} else {
 			healthCertificate.validityState = .valid
-		}
-	}
-	
-	/// This method should be called: At startup, at creation, at removal and at update validity states of HealthCertificates.
-	/// First, removes all local notifications and then re-adds all updates or new notifications to the notification center.
-	private func updateNotifications() {
-		Log.debug("Update notifications.")
-
-		healthCertifiedPersons.forEach { healthCertifiedPerson in
-			healthCertifiedPerson.healthCertificates.forEach { healthCertificate in
-				updateNotifications(for: healthCertificate)
-			}
 		}
 	}
 
