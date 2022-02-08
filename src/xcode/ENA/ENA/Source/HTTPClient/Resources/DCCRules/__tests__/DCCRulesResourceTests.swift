@@ -27,7 +27,7 @@ final class DCCRulesResourceTests: CWATestCase {
 
 		let expectation = self.expectation(description: "completion handler succeeds")
 
-		let restServiceProvider = RestServiceProvider(session: stack.urlSession)
+		let restServiceProvider = RestServiceProvider(session: stack.urlSession, cache: KeyValueCacheFake())
 		var dccRulesResource = DCCRulesResource(ruleType: .acceptance)
 		dccRulesResource.receiveResource = CBORReceiveResource(signatureVerifier: MockVerifier())
 
@@ -112,7 +112,7 @@ final class DCCRulesResourceTests: CWATestCase {
 
 		let expectation = self.expectation(description: "completion handler successful")
 
-		let restServiceProvider = RestServiceProvider(session: stack.urlSession)
+		let restServiceProvider = RestServiceProvider(session: stack.urlSession, cache: KeyValueCacheFake())
 		var dccRulesResource = DCCRulesResource(ruleType: .acceptance)
 		dccRulesResource.receiveResource = CBORReceiveResource(signatureVerifier: MockVerifier())
 
@@ -146,7 +146,7 @@ final class DCCRulesResourceTests: CWATestCase {
 		)
 		let expectation = self.expectation(description: "completion handler fails")
 
-		let restServiceProvider = RestServiceProvider(session: stack.urlSession)
+		let restServiceProvider = RestServiceProvider(session: stack.urlSession, cache: KeyValueCacheFake())
 		let resource = DCCRulesResource(isFake: false, ruleType: .acceptance)
 
 		// WHEN
@@ -178,7 +178,7 @@ final class DCCRulesResourceTests: CWATestCase {
 
 		let expectation = self.expectation(description: "completion handler fails")
 
-		let restServiceProvider = RestServiceProvider(session: stack.urlSession)
+		let restServiceProvider = RestServiceProvider(session: stack.urlSession, cache: KeyValueCacheFake())
 		var dccRulesResource = DCCRulesResource(ruleType: .acceptance)
 		dccRulesResource.receiveResource = CBORReceiveResource(signatureVerifier: MockVerifier())
 
@@ -204,7 +204,7 @@ final class DCCRulesResourceTests: CWATestCase {
 		)
 		let expectation = self.expectation(description: "completion handler fails")
 
-		let restServiceProvider = RestServiceProvider(session: stack.urlSession)
+		let restServiceProvider = RestServiceProvider(session: stack.urlSession, cache: KeyValueCacheFake())
 		let resource = DCCRulesResource(isFake: false, ruleType: .acceptance)
 
 		// WHEN
@@ -237,7 +237,7 @@ final class DCCRulesResourceTests: CWATestCase {
 
 		let expectation = self.expectation(description: "completion handler fails")
 
-		let restServiceProvider = RestServiceProvider(session: stack.urlSession)
+		let restServiceProvider = RestServiceProvider(session: stack.urlSession, cache: KeyValueCacheFake())
 		let dccRulesResource = DCCRulesResource(ruleType: .acceptance)
 
 		// WHEN
@@ -262,7 +262,7 @@ final class DCCRulesResourceTests: CWATestCase {
 		)
 		let expectation = self.expectation(description: "completion handler fails")
 
-		let restServiceProvider = RestServiceProvider(session: stack.urlSession)
+		let restServiceProvider = RestServiceProvider(session: stack.urlSession, cache: KeyValueCacheFake())
 		let resource = DCCRulesResource(isFake: false, ruleType: .acceptance)
 
 		// WHEN
@@ -287,7 +287,7 @@ final class DCCRulesResourceTests: CWATestCase {
 		)
 		let expectation = self.expectation(description: "completion handler fails")
 
-		let restServiceProvider = RestServiceProvider(session: stack.urlSession)
+		let restServiceProvider = RestServiceProvider(session: stack.urlSession, cache: KeyValueCacheFake())
 		let resource = DCCRulesResource(isFake: false, ruleType: .acceptance)
 
 		// WHEN
@@ -313,7 +313,7 @@ final class DCCRulesResourceTests: CWATestCase {
 		)
 		let expectation = self.expectation(description: "completion handler fails")
 
-		let restServiceProvider = RestServiceProvider(session: stack.urlSession)
+		let restServiceProvider = RestServiceProvider(session: stack.urlSession, cache: KeyValueCacheFake())
 		let resource = DCCRulesResource(isFake: false, ruleType: .acceptance)
 
 		// WHEN

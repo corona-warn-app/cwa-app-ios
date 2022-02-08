@@ -17,7 +17,7 @@ final class TestResultsResourceTests: CWATestCase {
 				TestResultReceiveModel.fake()
 			)
 		)
-		let serviceProvider = RestServiceProvider(session: stack.urlSession)
+		let serviceProvider = RestServiceProvider(session: stack.urlSession, cache: KeyValueCacheFake())
 		let resource = TestResultResource(
 			isFake: false,
 			sendModel: TestResultSendModel(registrationToken: "12345")
@@ -43,7 +43,7 @@ final class TestResultsResourceTests: CWATestCase {
 				TestResultReceiveModel.fake()
 			)
 		)
-		let serviceProvider = RestServiceProvider(session: stack.urlSession)
+		let serviceProvider = RestServiceProvider(session: stack.urlSession, cache: KeyValueCacheFake())
 		let resource = TestResultResource(
 			isFake: false,
 			sendModel: TestResultSendModel(registrationToken: "12345")
@@ -72,7 +72,7 @@ final class TestResultsResourceTests: CWATestCase {
 			httpStatus: 200,
 			responseData: Data(bytes: [0xA, 0xB] as [UInt8], count: 2)
 		)
-		let serviceProvider = RestServiceProvider(session: stack.urlSession)
+		let serviceProvider = RestServiceProvider(session: stack.urlSession, cache: KeyValueCacheFake())
 		let resource = TestResultResource(
 			isFake: false,
 			sendModel: TestResultSendModel(registrationToken: "12345")
@@ -109,7 +109,7 @@ final class TestResultsResourceTests: CWATestCase {
 			{ "notAValidKey":"1234" }
 			""".data(using: .utf8)
 		)
-		let serviceProvider = RestServiceProvider(session: stack.urlSession)
+		let serviceProvider = RestServiceProvider(session: stack.urlSession, cache: KeyValueCacheFake())
 		let resource = TestResultResource(
 			isFake: false,
 			sendModel: TestResultSendModel(registrationToken: "12345")
@@ -159,7 +159,7 @@ final class TestResultsResourceTests: CWATestCase {
 			requestObserver: verifyPostBodyContent
 		)
 
-		let serviceProvider = RestServiceProvider(session: stack.urlSession)
+		let serviceProvider = RestServiceProvider(session: stack.urlSession, cache: KeyValueCacheFake())
 		let resource = TestResultResource(
 			isFake: false,
 			sendModel: TestResultSendModel(registrationToken: expectedToken)

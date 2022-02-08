@@ -27,7 +27,7 @@ final class CCLConfigurationResourceTests: CWATestCase {
 
 		let expectation = self.expectation(description: "completion handler succeeds")
 
-		let restServiceProvider = RestServiceProvider(session: stack.urlSession)
+		let restServiceProvider = RestServiceProvider(session: stack.urlSession, cache: KeyValueCacheFake())
 		var cclConfigurationResource = CCLConfigurationResource()
 		cclConfigurationResource.receiveResource = CBORReceiveResource(signatureVerifier: MockVerifier())
 
@@ -109,7 +109,8 @@ final class CCLConfigurationResourceTests: CWATestCase {
 		cclConfigurationResource.receiveResource = CBORReceiveResource(signatureVerifier: MockVerifier())
 		
 		let restServiceProvider = RestServiceProvider(
-			session: stack.urlSession
+			session: stack.urlSession,
+			cache: KeyValueCacheFake()
 		)
 		
 		// We should load default configuration

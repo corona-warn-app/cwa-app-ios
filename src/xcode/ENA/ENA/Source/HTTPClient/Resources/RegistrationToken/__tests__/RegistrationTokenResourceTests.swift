@@ -19,7 +19,7 @@ final class RegistrationTokenResourceTests: CWATestCase {
 			)
 		)
 
-		let serviceProvider = RestServiceProvider(session: stack.urlSession)
+		let serviceProvider = RestServiceProvider(session: stack.urlSession, cache: KeyValueCacheFake())
 		let registrationTokenResource = RegistrationTokenResource(
 			isFake: false,
 			sendModel: RegistrationTokenSendModel(token: "Fake")
@@ -45,7 +45,7 @@ final class RegistrationTokenResourceTests: CWATestCase {
 			responseData: Data()
 		)
 
-		let serviceProvider = RestServiceProvider(session: stack.urlSession)
+		let serviceProvider = RestServiceProvider(session: stack.urlSession, cache: KeyValueCacheFake())
 		let registrationTokenResource = RegistrationTokenResource(
 			isFake: false,
 			sendModel: RegistrationTokenSendModel(token: "Fake")
@@ -76,7 +76,7 @@ final class RegistrationTokenResourceTests: CWATestCase {
 			responseData: Data(bytes: [0xA, 0xB] as [UInt8], count: 2)
 		)
 
-		let serviceProvider = RestServiceProvider(session: stack.urlSession)
+		let serviceProvider = RestServiceProvider(session: stack.urlSession, cache: KeyValueCacheFake())
 		let registrationTokenResource = RegistrationTokenResource(
 			isFake: false,
 			sendModel: RegistrationTokenSendModel(token: "Fake")
@@ -112,7 +112,7 @@ final class RegistrationTokenResourceTests: CWATestCase {
 			""".data(using: .utf8)
 		)
 
-		let serviceProvider = RestServiceProvider(session: stack.urlSession)
+		let serviceProvider = RestServiceProvider(session: stack.urlSession, cache: KeyValueCacheFake())
 		let registrationTokenResource = RegistrationTokenResource(
 			isFake: false,
 			sendModel: RegistrationTokenSendModel(token: "Fake")
@@ -167,7 +167,7 @@ final class RegistrationTokenResourceTests: CWATestCase {
 			requestObserver: verifyPostBodyContent
 		)
 
-		let serviceProvider = RestServiceProvider(session: stack.urlSession)
+		let serviceProvider = RestServiceProvider(session: stack.urlSession, cache: KeyValueCacheFake())
 		let registrationTokenResource = RegistrationTokenResource(
 			isFake: false,
 			sendModel: RegistrationTokenSendModel(token: fakeToken)

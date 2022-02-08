@@ -129,6 +129,7 @@ class CachedRestService: Service {
 			Log.debug("No model found in cache to take its headers", log: .client)
 			return nil
 		}
+		Log.info("Found cached model with key: \(locator.uniqueIdentifier)", log: .client)
 		return ["If-None-Match": cachedModel.eTag]
 	}
 

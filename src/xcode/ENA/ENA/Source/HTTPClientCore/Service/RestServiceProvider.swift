@@ -27,23 +27,6 @@ class RestServiceProvider: RestServiceProviding {
 		self.disabledPinningRestService = DisabledPinningRestService(environment: environment, session: session)
 	}
 
-	#if DEBUG
-
-	init(
-		environment: EnvironmentProviding = Environments(),
-		session: URLSession? = nil
-	) {
-		self.environment = environment
-		self.optionalSession = session
-		self.standardRestService = StandardRestService(environment: environment, session: session)
-		self.cachedRestService = CachedRestService(environment: environment, session: session, cache: KeyValueCacheFake())
-		self.wifiOnlyRestService = WifiOnlyRestService(environment: environment, session: session)
-		self.dynamicPinningRestService = DynamicPinningRestService(environment: environment, session: session)
-		self.disabledPinningRestService = DisabledPinningRestService(environment: environment, session: session)
-	}
-
-	#endif
-
 	func load<R>(
 		_ resource: R,
 		_ completion: @escaping (Result<R.Receive.ReceiveModel, ServiceError<R.CustomError>>) -> Void
