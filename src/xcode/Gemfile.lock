@@ -154,8 +154,6 @@ GEM
       xcodeproj (>= 1.13.0, < 2.0.0)
       xcpretty (~> 0.3.0)
       xcpretty-travis-formatter (>= 0.0.3)
-    fastlane-plugin-trainer (0.4.1)
-      trainer (>= 0.7.0)
     ffi (1.15.3)
     fourflusher (2.3.1)
     fuzzy_match (2.0.4)
@@ -264,9 +262,6 @@ GEM
       unicode-display_width (~> 1.1, >= 1.1.1)
     thread_safe (0.3.6)
     trailblazer-option (0.1.2)
-    trainer (0.9.1)
-      fastlane (>= 2.25.0)
-      plist (>= 3.1.0, < 4.0.0)
     tty-cursor (0.7.1)
     tty-screen (0.8.1)
     tty-spinner (0.9.3)
@@ -312,7 +307,6 @@ PLATFORMS
 
 DEPENDENCIES
   fastlane
-  fastlane-plugin-trainer
   jazzy
   xcode-install
   xcov
