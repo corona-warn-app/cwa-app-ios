@@ -43,7 +43,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 			self.restServiceCache = KeyValueCacheFake()
 		} else {
 			self.store = SecureStore(subDirectory: "database")
-			self.restServiceCache = SecureKeyValueCache(subDirectory: "RestServiceCache")
+			self.restServiceCache = SecureKeyValueCache(subDirectory: "RestServiceCache", store: store)
 		}
 		#else
 		self.store = SecureStore(subDirectory: "database")

@@ -12,12 +12,17 @@ final class SecureStore: SecureKeyValueStoring, Store, AntigenTestProfileStoring
 
 	// MARK: - Init
 
-	init(
-		at directoryURL: URL,
-		key: String
-	) throws {
+	init(at directoryURL: URL, key: String) throws {
 		self.directoryURL = directoryURL
 		self.kvStore = try SQLiteKeyValueStore(with: directoryURL, key: key)
+	}
+
+	convenience init(
+		at directoryURL: URL,
+		key: String,
+		store: KeyValueCacheStoring? = nil
+	) throws {
+		try self.init(at: directoryURL, key: key)
 	}
 
 	// MARK: - Protocol Store
@@ -590,4 +595,13 @@ extension SecureStore: HomeBadgeStoring {
 		get { kvStore["badgesData"] as [HomeBadgeWrapper.BadgeType: Int?]? ?? [:] }
 		set { kvStore["badgesData"] = newValue }
 	}
+}
+
+
+extension SecureStore: KeyValueCacheStoring {
+	var keyValueCacheVersion: Int {
+		get { kvStore["keyValueCacheVersion"] as Int? ?? 0 }
+		set { kvStore["keyValueCacheVersion"] = newValue }
+	}
+
 }

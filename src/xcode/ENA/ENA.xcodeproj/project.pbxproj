@@ -1308,6 +1308,7 @@
 		BA112DF7255586E9007F5712 /* WifiOnlyHTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA112DF6255586E9007F5712 /* WifiOnlyHTTPClient.swift */; };
 		BA112E0A25559CDD007F5712 /* ClientWifiOnly.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA112E0925559CDD007F5712 /* ClientWifiOnly.swift */; };
 		BA11D5BA2588D590005DCD6B /* DiaryAddAndEditEntryViewModelTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA11D5B92588D590005DCD6B /* DiaryAddAndEditEntryViewModelTest.swift */; };
+		BA16BBF327B2BFD700C21B87 /* SerialSecureCacheMigrator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA16BBF227B2BFD700C21B87 /* SerialSecureCacheMigrator.swift */; };
 		BA18127327AD5D54000E5EDD /* CCLConfiguationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA18127227AD5D54000E5EDD /* CCLConfiguationTests.swift */; };
 		BA18127527AD82C5000E5EDD /* CCLServiceBoosterNotificationRulesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA18127427AD82C5000E5EDD /* CCLServiceBoosterNotificationRulesTests.swift */; };
 		BA18127727AD82DA000E5EDD /* CCLServiceBaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA18127627AD82DA000E5EDD /* CCLServiceBaseTests.swift */; };
@@ -2999,6 +3000,7 @@
 		BA112DF6255586E9007F5712 /* WifiOnlyHTTPClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WifiOnlyHTTPClient.swift; sourceTree = "<group>"; };
 		BA112E0925559CDD007F5712 /* ClientWifiOnly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientWifiOnly.swift; sourceTree = "<group>"; };
 		BA11D5B92588D590005DCD6B /* DiaryAddAndEditEntryViewModelTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryAddAndEditEntryViewModelTest.swift; sourceTree = "<group>"; };
+		BA16BBF227B2BFD700C21B87 /* SerialSecureCacheMigrator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SerialSecureCacheMigrator.swift; sourceTree = "<group>"; };
 		BA18127227AD5D54000E5EDD /* CCLConfiguationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CCLConfiguationTests.swift; sourceTree = "<group>"; };
 		BA18127427AD82C5000E5EDD /* CCLServiceBoosterNotificationRulesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CCLServiceBoosterNotificationRulesTests.swift; sourceTree = "<group>"; };
 		BA18127627AD82DA000E5EDD /* CCLServiceBaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CCLServiceBaseTests.swift; sourceTree = "<group>"; };
@@ -7256,6 +7258,7 @@
 				AB5F84AC24F8F7A1000400D4 /* SerialMigrator.swift */,
 				AB5F84AF24F8F7C3000400D4 /* Migration.swift */,
 				AB68883425DACD0B00907465 /* SerialDatabaseQueueMigrator.swift */,
+				BA16BBF227B2BFD700C21B87 /* SerialSecureCacheMigrator.swift */,
 			);
 			path = Migration;
 			sourceTree = "<group>";
@@ -10403,6 +10406,7 @@
 				B1D431CB246C84A400E728AD /* DownloadedPackagesStoreV1.swift in Sources */,
 				714194EA247A65C60072A090 /* DynamicTableViewHeaderSeparatorView.swift in Sources */,
 				50FA072B26023784003C1E46 /* TraceWarningPackageDownload.swift in Sources */,
+				BA16BBF327B2BFD700C21B87 /* SerialSecureCacheMigrator.swift in Sources */,
 				50690CB32696FA0300127CB2 /* HealthCertificateValidationOnboardedCountriesProvider.swift in Sources */,
 				50C0298825E4067400460FA4 /* AgeGroup.swift in Sources */,
 				35EA684A25553B5C00335F73 /* DownloadedPackagesStoreV2.swift in Sources */,
