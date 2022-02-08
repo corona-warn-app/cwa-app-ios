@@ -674,7 +674,7 @@ class HealthCertificateService {
 					if healthCertifiedPerson.isPreferredPerson {
 						// Set isPreferredPerson = false on all other persons to only have one preferred person
 						self.healthCertifiedPersons
-							.filter { $0 != healthCertifiedPerson }
+							.filter { $0 !== healthCertifiedPerson }
 							.forEach {
 								$0.isPreferredPerson = false
 							}
