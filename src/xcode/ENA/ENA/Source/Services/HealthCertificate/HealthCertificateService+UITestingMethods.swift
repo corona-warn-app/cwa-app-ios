@@ -6,7 +6,7 @@ import HealthCertificateToolkit
 
 extension HealthCertificateService {
 	#if DEBUG
-	// swiftlint:disable:next cyclomatic_complexity
+	// swiftlint:disable cyclomatic_complexity
 	func configureForTesting() {
 		var shouldCheckSignatureUpfront = true
 		var expirationTime: Date = Calendar.current.date(byAdding: .day, value: 90, to: Date()) ?? Date()
@@ -49,19 +49,7 @@ extension HealthCertificateService {
 				and: CBORWebTokenHeader.fake(issuer: issuer, expirationTime: expirationTime)
 			)
 			if case let .success(base45) = firstDose {
-				let result = registerHealthCertificate(base45: base45, checkSignatureUpfront: shouldCheckSignatureUpfront)
-
-				if case let .success(certificateResult) = result,
-					LaunchArguments.healthCertificate.hasBoosterNotification.boolValue {
-					certificateResult.person.boosterRule = .fake(
-						identifier: "EX-ID-005",
-						description: [
-							.fake(lang: "en", desc: "You may be eligible for a booster because your vaccination with Astra Zeneca was more than 5 months ago."),
-							.fake(lang: "de", desc: "Sie könnten für eine Auffrischungsimpfung berechtigt sein, da Ihre Impfung mit Astra Zeneca vor mehr als 5 Monaten war.")
-						]
-					)
-					certificateResult.person.isNewBoosterRule = true
-				}
+				registerHealthCertificate(base45: base45, checkSignatureUpfront: shouldCheckSignatureUpfront)
 			}
 			
 			let secondDose = DigitalCovidCertificateFake.makeBase45Fake(
@@ -155,6 +143,7 @@ extension HealthCertificateService {
 					name: .fake(familyName: "Schneider", givenName: "Andrea", standardizedFamilyName: "SCHNEIDER", standardizedGivenName: "ANDREA"),
 					recoveryEntries: [
 						.fake(
+							dateOfFirstPositiveNAAResult: ISO8601DateFormatter.string(from: Date(timeIntervalSinceNow: -150 * 24 * 60 * 60), timeZone: .utcTimeZone, formatOptions: [.withFullDate]),
 							certificateValidFrom: ISO8601DateFormatter.string(from: Date(timeIntervalSinceNow: -120 * 24 * 60 * 60), timeZone: .utcTimeZone, formatOptions: [.withFullDate]),
 							certificateValidUntil: ISO8601DateFormatter.string(from: Date(timeIntervalSinceNow: 30 * 24 * 60 * 60), timeZone: .utcTimeZone, formatOptions: [.withFullDate])
 						)
@@ -167,6 +156,44 @@ extension HealthCertificateService {
 				registerHealthCertificate(base45: base45, checkSignatureUpfront: shouldCheckSignatureUpfront)
 			}
 		}
+	}
+	
+	func updateDccWalletInfoForMockBoosterNotification(dccWalletInfo: DCCWalletInfo) -> DCCWalletInfo {
+		let titleText = DCCUIText(
+			type: "string",
+			quantity: nil,
+			quantityParameterIndex: nil,
+			functionName: nil,
+			localizedText: ["de": "Hinweis zur Auffrischimpfung"],
+			parameters: []
+		)
+
+		let subtitleText = DCCUIText(
+			type: "string",
+			quantity: nil,
+			quantityParameterIndex: nil,
+			functionName: nil,
+			localizedText: ["de": "auf Grundlage Ihrer gespeicherten Zertifikate"],
+			parameters: []
+		)
+
+		let testLongText = DCCUIText(
+			type: "string",
+			quantity: nil,
+			quantityParameterIndex: nil,
+			functionName: nil,
+			localizedText: ["de": "Die Ständige Impfkommission (STIKO) empfiehlt allen Personen eine weitere Impfstoffdosis zur Optimierung der Grundimmunisierung, die mit einer Dosis des Janssen-Impfstoffs (Johnson & Johnson) grundimmunisiert wurden, bei denen keine Infektion mit dem Coronavirus SARS-CoV-2 nachgewiesen wurde und wenn ihre Janssen-Impfung über 4 Wochen her ist."],
+			parameters: []
+		)
+
+		return DCCWalletInfo(
+			admissionState: dccWalletInfo.admissionState,
+			vaccinationState: dccWalletInfo.vaccinationState,
+			boosterNotification: DCCBoosterNotification(visible: true, identifier: "hello", titleText: titleText, subtitleText: subtitleText, longText: testLongText, faqAnchor: "test"),
+			mostRelevantCertificate: dccWalletInfo.mostRelevantCertificate,
+			verification: dccWalletInfo.verification,
+			validUntil: dccWalletInfo.validUntil
+		)
 	}
 	#endif
 }

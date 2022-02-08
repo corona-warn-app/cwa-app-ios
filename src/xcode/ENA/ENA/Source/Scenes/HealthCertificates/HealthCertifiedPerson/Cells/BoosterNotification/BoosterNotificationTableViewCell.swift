@@ -126,6 +126,8 @@ class BoosterNotificationTableViewCell: UITableViewCell, UITextViewDelegate, Reu
 		contentView.backgroundColor = .clear
 		selectionStyle = .none
 
+		accessibilityIdentifier = AccessibilityIdentifiers.BoosterNotification.Details.boosterNotificationCell
+
 		updateBorderWidth()
 
 		backgroundContainerView.translatesAutoresizingMaskIntoConstraints = false

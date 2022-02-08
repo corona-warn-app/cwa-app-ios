@@ -78,7 +78,6 @@
       "skippedTests" : [
         "HTTPClientCertificatePinningTests\/testAllProductionEndpoints()",
         "HealthCertificateQRCodeViewModelTests",
-        "HealthCertificateServiceTests\/testGIVEN_HealthCertificate_WHEN_CertificatesAreAddedAndRemoved_THEN_NotificationsShouldBeCreatedAndRemoved()",
         "StatisticsProviderTests\/testFetchLiveStats()"
       ],
       "target" : {
