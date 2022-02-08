@@ -233,18 +233,26 @@ class HealthCertificateService {
 		healthCertifiedPerson.healthCertificates.append(healthCertificate)
 		healthCertifiedPerson.healthCertificates.sort(by: <)
 
+		var isNewPerson = false
 		if !healthCertifiedPersons.contains(where: { $0 === healthCertifiedPerson }) {
 			Log.info("[HealthCertificateService] Successfully registered health certificate for a new person", log: .api)
 			healthCertifiedPersons = (healthCertifiedPersons + [healthCertifiedPerson]).sorted()
-			updateValidityStateAndNotifications(for: healthCertificate)
-			updateDCCWalletInfo(for: healthCertifiedPerson)
-			updateGradients()
+			isNewPerson = true
 		} else {
 			Log.info("[HealthCertificateService] Successfully registered health certificate for a person with other existing certificates", log: .api)
 		}
 
+		updateValidityState(for: healthCertificate)
+		scheduleTimer()
+
 		if healthCertificate.type != .test {
 			createNotifications(for: healthCertificate)
+		}
+
+		if isNewPerson {
+			// Manual update needed as the person subscriptions were not set up when the certificate was added
+			updateDCCWalletInfo(for: healthCertifiedPerson)
+			updateGradients()
 		}
 		
 		Log.info("Finished adding health certificate to person.")
@@ -737,21 +745,6 @@ class HealthCertificateService {
 				completion?()
 			}
 		}
-	}
-
-	private func updateValidityStateAndNotifications(
-		for healthCertificate: HealthCertificate,
-		shouldScheduleTimer: Bool = true
-	) {
-		Log.info("Update validity state and notifications for healthCertificate \(private: healthCertificate.base45).")
-
-		updateValidityState(for: healthCertificate)
-
-		if shouldScheduleTimer {
-			scheduleTimer()
-		}
-
-		updateNotifications(for: healthCertificate)
 	}
 
 	private func updateValidityState(for healthCertificate: HealthCertificate) {
