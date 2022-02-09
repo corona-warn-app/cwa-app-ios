@@ -118,7 +118,7 @@
 
 "ExposureDetection_Guide_Home" = "If possible, please go home and stay at home and avoid any encounters outside of your own household.";
 
-"ExposureDetection_Guide_Hotline" = "If you have any other questions, please contact the general medical emergency service on telephone number 116 117.";
+"ExposureDetection_Guide_Hotline" = "If you have any questions, please call 116 117 (in Germany). Then, during the automated message, press 2 (for the Ministry of Health service point). Only press 1 (the general medical emergency service) if you have symptoms.";
 
 "ExposureDetection_Guide_Vaccination_HighRisk" = "If you have not been vaccinated yet, consult with your family doctor after you get tested.";
 
@@ -597,7 +597,7 @@
 
 "ExposureSubmission_PhoneDetailsForeign" = "For calls from outside Germany.\nThe fees from your telephone provider will apply.";
 
-"ExposureSubmission_PhoneDetailDescription" = "Our customer service is available in the following languages: \nEnglish, German, Turkish\n\nBusiness hours:\nDaily (including weekends): 7am – 8pm (CET)\n\nIf you have any health-related questions, please contact your general practitioner or the medical emergency service hotline; telephone: 116 117.";
+"ExposureSubmission_PhoneDetailDescription" = "Our customer service is available in the following languages: \nEnglish, German, Turkish\n\nBusiness hours:\nDaily (including weekends): 7am – 8pm (CET)\n\nIf you have any questions, please call 116 117 (in Germany). Then, during the automated message, press 2 (for the Ministry of Health service point). Only press 1 (the general medical emergency service) if you have symptoms.";
 
 "ExposureSubmission_SectionDescription2" = "Register your PCR test by entering the TAN in the app.";
 
@@ -1030,7 +1030,7 @@
 
 "ExposureSubmission_TestCertificate_Information_BirthdayPlaceholder" = "Date of Birth";
 
-"ExposureSubmission_TestCertificate_Information_BirthdayText" = "For security purposes, your test result is protected with your date of birth. The test result can only be issued if you specify the correct date of birth.";
+"ExposureSubmission_TestCertificate_Information_BirthdayText" = "For security purposes, your test certificate is protected with your date of birth. The test certificate can only be issued if you specify the correct date of birth.";
 
 "ExposureSubmission_TestCertificate_Information_Dataprivacy_Title" = "For more detailed information about data processing, please refer to the privacy notice.";
 
@@ -1385,7 +1385,7 @@
 
 "App_Information_Contact_Hotline_Details_Foreign" = "For calls from outside Germany.\nThe fees from your telephone provider will apply.";
 
-"App_Information_Contact_Hotline_Terms" = "Our customer service is available in the following languages: \nEnglish, German, Turkish\n\nBusiness hours:\nMo-Sa: 7am - 10pm (CET)\n(except national holidays)\n\nIf you have any health-related questions, please contact your general practitioner or the medical emergency service hotline; telephone: 116 117.";
+"App_Information_Contact_Hotline_Terms" = "Our customer service is available in the following languages: \nEnglish, German, Turkish\n\nBusiness hours:\nMo-Sa: 7am – 10pm (CET)\n(except national holidays)\n\nIf you have any questions, please call 116 117 (in Germany). Then, during the automated message, press 2 (for the Ministry of Health service point). Only press 1 (the general medical emergency service) if you have symptoms.";
 
 /* App Information - Imprint */
 "App_Information_New_Features_Navigation" = "New Features";

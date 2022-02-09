@@ -118,7 +118,7 @@
 
 "ExposureDetection_Guide_Home" = "Mümkünse lütfen eve gidin ve evde kalın ve beraber yaşadığınız kişiler haricinde başka insanlarla karşılaşmaktan kaçının.";
 
-"ExposureDetection_Guide_Hotline" = "Başka sorularınız varsa lütfen tıbbi acil servis yardım hattı ile 116 117 numaralı telefondan iletişime geçin.";
+"ExposureDetection_Guide_Hotline" = "Herhangi bir sorunuz varsa, lütfen 116 117'yi (Almanya'da) arayın. Ardından otomatik mesaj sırasında 2'ye basın (Sağlık Bakanlığı hizmet noktası için). Belirtileriniz varsa sadece 1'e (genel tıbbi acil servis) basın.";
 
 "ExposureDetection_Guide_Vaccination_HighRisk" = "Henüz aşı olmadıysanız test yaptırdıktan sonra aile hekiminize danışın.";
 
@@ -597,7 +597,7 @@
 
 "ExposureSubmission_PhoneDetailsForeign" = "Almanya dışından yapılan aramalar içindir.\nTelefon sağlayıcınız tarafından uygulanan ücretler geçerlidir.";
 
-"ExposureSubmission_PhoneDetailDescription" = "Müşteri hizmetlerimiz şu dillerde size yardımcı olmaya hazır: \nİngilizce, Almanca, Türkçe\n\nMesai saatleri:\nGünlük (hafta sonları dahil): 7:00 - 20:00 (CET)\n\nSağlıkla ilgili tüm sorularınız için lütfen aile hekiminizle veya tıbbi acil servis yardım hattı ile iletişime geçin. Telefon: 116 117.";
+"ExposureSubmission_PhoneDetailDescription" = "Müşteri hizmetlerimiz şu dillerde size yardımcı olmaya hazır: \nİngilizce, Almanca, Türkçe\n\nMesai saatleri:\nGünlük (hafta sonları dahil): 7:00 - 20:00 (CET)\n\nHerhangi bir sorunuz varsa, lütfen 116 117'yi (Almanya'da) arayın. Ardından otomatik mesaj sırasında 2'ye basın (Sağlık Bakanlığı hizmet noktası için). Belirtileriniz varsa sadece 1'e (genel tıbbi acil servis) basın.";
 
 "ExposureSubmission_SectionDescription2" = "Uygulamaya TAN girerek PCR testinizi kaydedin.";
 
@@ -1030,7 +1030,7 @@
 
 "ExposureSubmission_TestCertificate_Information_BirthdayPlaceholder" = "Doğum Tarihi";
 
-"ExposureSubmission_TestCertificate_Information_BirthdayText" = "Güvenlik amaçları nedeniyle test sonucunuz doğum tarihinizle korunmaktadır. Test sonucu yalnızca doğru doğum tarihini belirtirseniz düzenlenebilir.";
+"ExposureSubmission_TestCertificate_Information_BirthdayText" = "Güvenlik amaçları nedeniyle test sertifikanız doğum tarihinizle korunmaktadır. Test sertifikası yalnızca doğru doğum tarihini belirtirseniz düzenlenebilir.";
 
 "ExposureSubmission_TestCertificate_Information_Dataprivacy_Title" = "Veri işleme hakkında daha ayrıntılı bilgi için lütfen gizlilik bildirimine başvurun.";
 
@@ -1385,7 +1385,7 @@
 
 "App_Information_Contact_Hotline_Details_Foreign" = "Almanya dışından yapılan aramalar içindir.\nTelefon sağlayıcınız tarafından uygulanan ücretler geçerlidir.";
 
-"App_Information_Contact_Hotline_Terms" = "Müşteri hizmetlerimiz şu dillerde size yardımcı olmaya hazır: \nİngilizce, Almanca, Türkçe\n\nMesai saatleri:\nPts-Cts: 7:00 - 22:00 (CET)\n(ulusal tatiller hariçtir)\n\nSağlıkla ilgili tüm sorularınız için lütfen aile hekiminizle veya tıbbi acil servis yardım hattı ile iletişime geçin. Telefon: 116 117.";
+"App_Information_Contact_Hotline_Terms" = "Müşteri hizmetlerimiz şu dillerde size yardımcı olmaya hazır: \nİngilizce, Almanca, Türkçe\n\nMesai saatleri:\nPt-Ct: 7:00 – 20:00 (CET)\n(resmi tatiller hariç)\n\nHerhangi bir sorunuz varsa, lütfen 116 117'yi (Almanya'da) arayın. Ardından otomatik mesaj sırasında 2'ye basın (Sağlık Bakanlığı hizmet noktası için). Belirtileriniz varsa sadece 1'e (genel tıbbi acil servis) basın.";
 
 /* App Information - Imprint */
 "App_Information_New_Features_Navigation" = "Yeni Özellikler";
