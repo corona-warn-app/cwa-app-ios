@@ -14,7 +14,14 @@ struct DCCRulesResource: Resource {
 		ruleType: HealthCertificateValidationRuleType
 	) {
 		self.locator = .DCCRules(ruleType: ruleType, isFake: isFake)
-		self.type = .caching()
+
+		if ruleType == .boosterNotification {
+			self.type = .caching(
+				Set<CacheUsePolicy>([.loadOnlyOnceADay])
+			)
+		} else {
+			self.type = .caching()
+		}
 
 		#if !RELEASE
 		// Debug menu: Force update of CCLConfiguration and Booster Notification Rules.

@@ -18,6 +18,7 @@ protocol MetaDataProviding {
  
  */
 struct MetaData {
+	var loadedFromDefault: Bool = false
 	var loadedFromCache: Bool = false
 	var headers: [AnyHashable: Any] = [:]
 }
