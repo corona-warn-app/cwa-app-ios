@@ -1627,6 +1627,13 @@
 		EE70C23D245B09EA00AC9B2F /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = EE70C23A245B09E900AC9B2F /* Localizable.strings */; };
 		EE92A33E245D96DA006B97B0 /* Localizable.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = EE92A340245D96DA006B97B0 /* Localizable.stringsdict */; };
 		EEF1067A246EBF8B009DFB4E /* ResetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEF10679246EBF8B009DFB4E /* ResetViewController.swift */; };
+		F07C421627B2DD8800879395 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F07C421527B2DD8800879395 /* WidgetKit.framework */; };
+		F07C421827B2DD8800879395 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F07C421727B2DD8800879395 /* SwiftUI.framework */; };
+		F07C421B27B2DD8800879395 /* ENA_Widget.swift in Sources */ = {isa = PBXBuildFile; fileRef = F07C421A27B2DD8800879395 /* ENA_Widget.swift */; };
+		F07C421E27B2DD8800879395 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F07C421D27B2DD8800879395 /* Assets.xcassets */; };
+		F07C422027B2DD8800879395 /* ENA_Widget.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = F07C421C27B2DD8800879395 /* ENA_Widget.intentdefinition */; };
+		F07C422127B2DD8800879395 /* ENA_Widget.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = F07C421C27B2DD8800879395 /* ENA_Widget.intentdefinition */; };
+		F07C422427B2DD8800879395 /* ENA-WidgetExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = F07C421427B2DD8800879395 /* ENA-WidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		F22C6E2324917E3200712A6B /* DynamicTableViewControllerRowsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F247572A24838AC8003E1FC5 /* DynamicTableViewControllerRowsTests.swift */; };
 		F22C6E252492082B00712A6B /* DynamicTableViewSpaceCellTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F22C6E242492082B00712A6B /* DynamicTableViewSpaceCellTests.swift */; };
 		F252472F2483955B00C5556B /* DynamicTableViewControllerFake.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F252472E2483955B00C5556B /* DynamicTableViewControllerFake.storyboard */; };
@@ -1656,6 +1663,13 @@
 			remoteGlobalIDString = 85D7593A2457048F008175F0;
 			remoteInfo = ENA;
 		};
+		F07C422227B2DD8800879395 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 85D759332457048F008175F0 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F07C421327B2DD8800879395;
+			remoteInfo = "ENA-WidgetExtension";
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -1668,6 +1682,17 @@
 				015E8C0924C9983600C0A4B3 /* CWASQLite.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F07C422527B2DD8900879395 /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				F07C422427B2DD8800879395 /* ENA-WidgetExtension.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
@@ -3354,6 +3379,14 @@
 		EEDD6DF924A488A500BC30D0 /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = tr.lproj/Localizable.strings; sourceTree = "<group>"; };
 		EEDD6DFA24A488AD00BC30D0 /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = tr; path = tr.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
 		EEF10679246EBF8B009DFB4E /* ResetViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResetViewController.swift; sourceTree = "<group>"; };
+		F07C421427B2DD8800879395 /* ENA-WidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "ENA-WidgetExtension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
+		F07C421527B2DD8800879395 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
+		F07C421727B2DD8800879395 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
+		F07C421A27B2DD8800879395 /* ENA_Widget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ENA_Widget.swift; sourceTree = "<group>"; };
+		F07C421C27B2DD8800879395 /* ENA_Widget.intentdefinition */ = {isa = PBXFileReference; lastKnownFileType = file.intentdefinition; path = ENA_Widget.intentdefinition; sourceTree = "<group>"; };
+		F07C421D27B2DD8800879395 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		F07C421F27B2DD8800879395 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F07C422C27B2E16000879395 /* ENA-WidgetExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "ENA-WidgetExtension.entitlements"; sourceTree = "<group>"; };
 		F22C6E242492082B00712A6B /* DynamicTableViewSpaceCellTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicTableViewSpaceCellTests.swift; sourceTree = "<group>"; };
 		F247572A24838AC8003E1FC5 /* DynamicTableViewControllerRowsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicTableViewControllerRowsTests.swift; sourceTree = "<group>"; };
 		F252472E2483955B00C5556B /* DynamicTableViewControllerFake.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = DynamicTableViewControllerFake.storyboard; sourceTree = "<group>"; };
@@ -3406,6 +3439,15 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F07C421127B2DD8800879395 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F07C421827B2DD8800879395 /* SwiftUI.framework in Frameworks */,
+				F07C421627B2DD8800879395 /* WidgetKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -6079,6 +6121,8 @@
 			isa = PBXGroup;
 			children = (
 				858F6F6D245A103C009FFD33 /* ExposureNotification.framework */,
+				F07C421527B2DD8800879395 /* WidgetKit.framework */,
+				F07C421727B2DD8800879395 /* SwiftUI.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -6469,6 +6513,7 @@
 		85D759322457048F008175F0 = {
 			isa = PBXGroup;
 			children = (
+				F07C422C27B2E16000879395 /* ENA-WidgetExtension.entitlements */,
 				71B8044424828A6C00D53506 /* .swiftformat */,
 				71AFBD922464251000F91006 /* .swiftlint.yml */,
 				85D7593D2457048F008175F0 /* ENA */,
@@ -6476,6 +6521,7 @@
 				85D7596224570491008175F0 /* ENAUITests */,
 				35075C002526367700DE92F7 /* TestPlans */,
 				B1FF6B6B2497D0B40041CF02 /* CWASQLite */,
+				F07C421927B2DD8800879395 /* ENA-Widget */,
 				85D7593C2457048F008175F0 /* Products */,
 				5107E3D72459B2D60042FC9B /* Frameworks */,
 				0DFCC2692484D7A700E2811D /* ENA-Bridging-Header.h */,
@@ -6491,6 +6537,7 @@
 				85D7595424570491008175F0 /* ENATests.xctest */,
 				85D7595F24570491008175F0 /* ENAUITests.xctest */,
 				B1FF6B6A2497D0B40041CF02 /* CWASQLite.framework */,
+				F07C421427B2DD8800879395 /* ENA-WidgetExtension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -9624,6 +9671,17 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
+		F07C421927B2DD8800879395 /* ENA-Widget */ = {
+			isa = PBXGroup;
+			children = (
+				F07C421A27B2DD8800879395 /* ENA_Widget.swift */,
+				F07C421C27B2DD8800879395 /* ENA_Widget.intentdefinition */,
+				F07C421D27B2DD8800879395 /* Assets.xcassets */,
+				F07C421F27B2DD8800879395 /* Info.plist */,
+			);
+			path = "ENA-Widget";
+			sourceTree = "<group>";
+		};
 		F247572E2483934B003E1FC5 /* __tests__ */ = {
 			isa = PBXGroup;
 			children = (
@@ -9667,10 +9725,12 @@
 				85D759392457048F008175F0 /* Resources */,
 				B102BDB924603FD600CD55A2 /* Embed Frameworks */,
 				0105D8B925B882E3007E288B /* Copy Sample Stats for Tests */,
+				F07C422527B2DD8900879395 /* Embed App Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				F07C422327B2DD8800879395 /* PBXTargetDependency */,
 			);
 			name = ENA;
 			packageProductDependencies = (
@@ -9743,13 +9803,30 @@
 			productReference = B1FF6B6A2497D0B40041CF02 /* CWASQLite.framework */;
 			productType = "com.apple.product-type.framework";
 		};
+		F07C421327B2DD8800879395 /* ENA-WidgetExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F07C422B27B2DD8900879395 /* Build configuration list for PBXNativeTarget "ENA-WidgetExtension" */;
+			buildPhases = (
+				F07C421027B2DD8800879395 /* Sources */,
+				F07C421127B2DD8800879395 /* Frameworks */,
+				F07C421227B2DD8800879395 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "ENA-WidgetExtension";
+			productName = "ENA-WidgetExtension";
+			productReference = F07C421427B2DD8800879395 /* ENA-WidgetExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
 		85D759332457048F008175F0 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1150;
+				LastSwiftUpdateCheck = 1320;
 				LastUpgradeCheck = 1240;
 				ORGANIZATIONNAME = "SAP SE";
 				TargetAttributes = {
@@ -9768,6 +9845,9 @@
 					};
 					B1FF6B692497D0B40041CF02 = {
 						CreatedOnToolsVersion = 11.6;
+					};
+					F07C421327B2DD8800879395 = {
+						CreatedOnToolsVersion = 13.2.1;
 					};
 				};
 			};
@@ -9801,6 +9881,7 @@
 				85D7595324570491008175F0 /* ENATests */,
 				85D7595E24570491008175F0 /* ENAUITests */,
 				B1FF6B692497D0B40041CF02 /* CWASQLite */,
+				F07C421327B2DD8800879395 /* ENA-WidgetExtension */,
 			);
 		};
 /* End PBXProject section */
@@ -9948,6 +10029,14 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F07C421227B2DD8800879395 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F07C421E27B2DD8800879395 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -10427,6 +10516,7 @@
 				BA83C19727171AFD0039D504 /* URLSessionConfiguration+Default.swift in Sources */,
 				51C737BF245B3B5D00286105 /* OnboardingInfo.swift in Sources */,
 				BADD36E8260B4FBA00DD282A /* EditCheckinDetailViewModel.swift in Sources */,
+				F07C422127B2DD8800879395 /* ENA_Widget.intentdefinition in Sources */,
 				B1FE13EB24891CFA00D012E5 /* RiskProvider.swift in Sources */,
 				EB513DFE25FA34E60020C0B9 /* trace_warning.pb.swift in Sources */,
 				B143DBDF2477F292000A29E8 /* ExposureNotificationSettingViewController.swift in Sources */,
@@ -11540,6 +11630,15 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		F07C421027B2DD8800879395 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F07C421B27B2DD8800879395 /* ENA_Widget.swift in Sources */,
+				F07C422027B2DD8800879395 /* ENA_Widget.intentdefinition in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -11552,6 +11651,11 @@
 			isa = PBXTargetDependency;
 			target = 85D7593A2457048F008175F0 /* ENA */;
 			targetProxy = 85D7596024570491008175F0 /* PBXContainerItemProxy */;
+		};
+		F07C422327B2DD8800879395 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = F07C421327B2DD8800879395 /* ENA-WidgetExtension */;
+			targetProxy = F07C422227B2DD8800879395 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -11733,13 +11837,14 @@
 		011E4AFD2483A269002E6412 /* Community */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = "${PROJECT}/Resources/ENACommunity.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = $IPHONE_APP_DEV_TEAM;
+				DEVELOPMENT_TEAM = 79QFG4L2E9;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -11888,6 +11993,7 @@
 		0140535824A0E077000A5121 /* TestFlight */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = "${PROJECT}/Resources/ENA.entitlements";
@@ -12067,6 +12173,7 @@
 		01D1BEB224F7F41200D11B9A /* AdHoc */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = "${PROJECT}/Resources/ENA.entitlements";
@@ -12309,13 +12416,14 @@
 		85D7596924570491008175F0 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = "${PROJECT}/Resources/ENATest.entitlements";
-				CODE_SIGN_IDENTITY = $IPHONE_APP_CODE_SIGN_IDENTITY;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 523TP53AQF;
+				DEVELOPMENT_TEAM = "";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -12338,7 +12446,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "de.rki.coronawarnapp-dev";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = $IPHONE_APP_DIST_PROF_SPECIFIER;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) USE_DEV_PK_FOR_SIG_VERIFICATION DISABLE_CERTIFICATE_PINNING";
 				SWIFT_OBJC_BRIDGING_HEADER = "ENA-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
@@ -12349,6 +12457,7 @@
 		85D7596A24570491008175F0 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = "${PROJECT}/Resources/ENA.entitlements";
@@ -12621,6 +12730,165 @@
 			};
 			name = Release;
 		};
+		F07C422627B2DD8900879395 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CODE_SIGN_ENTITLEMENTS = "ENA-WidgetExtension.entitlements";
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 79QFG4L2E9;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "ENA-Widget/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "ENA-Widget";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2022 SAP SE. All rights reserved.";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "de.rki.coronawarnapp-dev.ENA-Widget";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		F07C422727B2DD8900879395 /* Community */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CODE_SIGN_ENTITLEMENTS = "ENA-WidgetExtension.entitlements";
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 79QFG4L2E9;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "ENA-Widget/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "ENA-Widget";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2022 SAP SE. All rights reserved.";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "de.rki.coronawarnapp-dev.ENA-Widget";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Community;
+		};
+		F07C422827B2DD8900879395 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CODE_SIGN_ENTITLEMENTS = "ENA-WidgetExtension.entitlements";
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 79QFG4L2E9;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "ENA-Widget/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "ENA-Widget";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2022 SAP SE. All rights reserved.";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "de.rki.coronawarnapp-dev.ENA-Widget";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		F07C422927B2DD8900879395 /* TestFlight */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CODE_SIGN_ENTITLEMENTS = "ENA-WidgetExtension.entitlements";
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 79QFG4L2E9;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "ENA-Widget/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "ENA-Widget";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2022 SAP SE. All rights reserved.";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "de.rki.coronawarnapp-dev.ENA-Widget";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = TestFlight;
+		};
+		F07C422A27B2DD8900879395 /* AdHoc */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CODE_SIGN_ENTITLEMENTS = "ENA-WidgetExtension.entitlements";
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 79QFG4L2E9;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "ENA-Widget/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "ENA-Widget";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2022 SAP SE. All rights reserved.";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "de.rki.coronawarnapp-dev.ENA-Widget";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = AdHoc;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -12680,6 +12948,18 @@
 				B1FF6B722497D0B50041CF02 /* Release */,
 				019BFC6324C988F90053973D /* TestFlight */,
 				01D1BEB524F7F41200D11B9A /* AdHoc */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		F07C422B27B2DD8900879395 /* Build configuration list for PBXNativeTarget "ENA-WidgetExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F07C422627B2DD8900879395 /* Debug */,
+				F07C422727B2DD8900879395 /* Community */,
+				F07C422827B2DD8900879395 /* Release */,
+				F07C422927B2DD8900879395 /* TestFlight */,
+				F07C422A27B2DD8900879395 /* AdHoc */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;

@@ -52,6 +52,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 			Log.debug("App installation date: \(String(describing: store.appInstallationDate))")
 		}
 
+		let preferredPerson = store.healthCertifiedPersons.first { $0.isPreferredPerson }
+		let lastVaccinationCertificate = preferredPerson?.vaccinationCertificates.last
+		UserDefaults(suiteName: "group.de.rki.coronawarnapp")?.set(lastVaccinationCertificate?.base45, forKey: "vaccinationCertificateData")
+
 		self.restServiceCache = SecureKeyValueCache(subDirectory: "RestServiceCache")
 		self.restServiceProvider = RestServiceProvider(cache: restServiceCache)
 		self.client = HTTPClient(environmentProvider: environmentProvider)
