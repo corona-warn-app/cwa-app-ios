@@ -55,16 +55,6 @@ class DMBoosterRulesViewController: UITableViewController {
 		}
 		let cellViewModel = viewModel.cellViewModel(by: indexPath)
 		switch section {
-		case .lastDownloadDate:
-			let cell = tableView.dequeueReusableCell(cellType: DMKeyValueTableViewCell.self, for: indexPath)
-			cell.configure(cellViewModel: cellViewModel)
-			return cell
-			
-		case .clearLastDownloadDate:
-			let cell = tableView.dequeueReusableCell(cellType: DMButtonTableViewCell.self, for: indexPath)
-			cell.configure(cellViewModel: cellViewModel)
-			return cell
-
 		case .cachedPassedBoosterRule:
 			let cell = tableView.dequeueReusableCell(cellType: DMKeyValueTableViewCell.self, for: indexPath)
 			cell.configure(cellViewModel: cellViewModel)
@@ -74,7 +64,6 @@ class DMBoosterRulesViewController: UITableViewController {
 			let cell = tableView.dequeueReusableCell(cellType: DMButtonTableViewCell.self, for: indexPath)
 			cell.configure(cellViewModel: cellViewModel)
 			return cell
-			
 		}
 	}
 
