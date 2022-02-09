@@ -206,7 +206,6 @@ final class SecureStore: SecureKeyValueStoring, Store, AntigenTestProfileStoring
 		set { kvStore["lastBoosterNotificationsExecutionDate"] = newValue }
 	}
 
-
     // MARK: - Protocol AntigenTestProfileStoring
 
 	private(set) lazy var antigenTestProfileSubject = CurrentValueSubject<AntigenTestProfile?, Never>(antigenTestProfile)
@@ -281,9 +280,7 @@ final class SecureStore: SecureKeyValueStoring, Store, AntigenTestProfileStoring
 	// MARK: - Non-Release Stuff
 	
 	#if !RELEASE
-
 	// Settings from the debug menu.
-
 	var fakeSQLiteError: Int32? {
 		get { kvStore["fakeSQLiteError"] as Int32? }
 		set { kvStore["fakeSQLiteError"] = newValue }
@@ -308,7 +305,6 @@ final class SecureStore: SecureKeyValueStoring, Store, AntigenTestProfileStoring
 		get { kvStore["recentTraceLocationCheckedInto"] as DMRecentTraceLocationCheckedInto? ?? nil }
 		set { kvStore["recentTraceLocationCheckedInto"] = newValue }
 	}
-
 	#endif
 
 	// MARK: - Internal
@@ -316,7 +312,6 @@ final class SecureStore: SecureKeyValueStoring, Store, AntigenTestProfileStoring
 	static let encryptionKeyKeychainKey = "secureStoreDatabaseKey"
 	let kvStore: SQLiteKeyValueStore
 	let directoryURL: URL
-
 }
 
 extension SecureStore: EventRegistrationCaching {
@@ -583,7 +578,6 @@ extension SecureStore: CoronaTestStoringLegacy {
 }
 
 extension SecureStore: DSCListCaching {
-
 	var dscList: DSCListMetaData? {
 		get { kvStore["DSCList"] as DSCListMetaData? }
 		set { kvStore["DSCList"] = newValue }
@@ -597,11 +591,9 @@ extension SecureStore: HomeBadgeStoring {
 	}
 }
 
-
 extension SecureStore: KeyValueCacheStoring {
 	var keyValueCacheVersion: Int {
 		get { kvStore["keyValueCacheVersion"] as Int? ?? 0 }
 		set { kvStore["keyValueCacheVersion"] = newValue }
 	}
-
 }
