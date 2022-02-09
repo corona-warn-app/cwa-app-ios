@@ -16,12 +16,12 @@ extension Locator {
 		let fake = String(isFake ? 1 : 0)
 		return Locator(
 			endpoint: .verification,
-			paths: ["version", "v1", "tan"],
+			paths: ["version", "v1", "registrationToken"],
 			method: .post,
 			defaultHeaders: [
 				"Content-Type": "application/json",
 				"cwa-fake": fake,
-				"cwa-header-padding": String.getRandomString(of: 14)
+				"cwa-header-padding": ""
 			]
 		)
 	}
