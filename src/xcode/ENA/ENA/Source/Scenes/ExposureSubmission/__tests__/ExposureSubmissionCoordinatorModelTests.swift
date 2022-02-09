@@ -253,7 +253,7 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 			eventProvider: MockEventStore()
 		)
 
-		let antigenTestQRCodeInformation = AntigenTestQRCodeInformation(
+		let antigenTestQRCodeInformation = RapidTestQRCodeInformation(
 			hash: "",
 			timestamp: 0,
 			firstName: nil,
@@ -295,7 +295,7 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 			eventProvider: MockEventStore()
 		)
 
-		let antigenTestQRCodeInformation = AntigenTestQRCodeInformation(
+		let antigenTestQRCodeInformation = RapidTestQRCodeInformation(
 			hash: "",
 			timestamp: 0,
 			firstName: nil,
@@ -337,7 +337,7 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 			eventProvider: MockEventStore()
 		)
 
-		let antigenTestQRCodeInformation = AntigenTestQRCodeInformation(
+		let antigenTestQRCodeInformation = RapidTestQRCodeInformation(
 			hash: "",
 			timestamp: 0,
 			firstName: nil,

@@ -69,7 +69,7 @@ class RouteTests: CWATestCase {
 
 	func testGIVEN_InvalidTestInformation_WHEN_Route_THEN_FailureInvalidHash() throws {
 		// GIVEN
-		let antigenTest = AntigenTestQRCodeInformation.mock(
+		let antigenTest = RapidTestQRCodeInformation.mock(
 			hash: "1ea4c222ff0c0e4ed7373f274caa7f75d10fccbdac56c632771cd9592102a55",
 			timestamp: 1619617269,
 			firstName: "Henry",
@@ -94,7 +94,7 @@ class RouteTests: CWATestCase {
 
 	func testGIVEN_InvalidTestInformation_WHEN_Route_THEN_FailureInvalidTimeStamp() throws {
 		// GIVEN
-		let antigenTest = AntigenTestQRCodeInformation.mock(
+		let antigenTest = RapidTestQRCodeInformation.mock(
 			hash: "1ea4c222ff0c0e4ed7373f274caa7f75d10fccbdac56c632771cd9592102a555",
 			timestamp: -5,
 			firstName: "Henry",
@@ -119,7 +119,7 @@ class RouteTests: CWATestCase {
 
 	func testGIVEN_InvalidTestInformation_WHEN_URLWithMissingV1_THEN_RouteIsNil() throws {
 		// GIVEN
-		let antigenTest = AntigenTestQRCodeInformation.mock(
+		let antigenTest = RapidTestQRCodeInformation.mock(
 			hash: "1ea4c222ff0c0e4ed7373f274caa7f75d10fccbdac56c632771cd9592102a555",
 			timestamp: 1619617269,
 			firstName: "Henry",
@@ -143,7 +143,7 @@ class RouteTests: CWATestCase {
 
 	func testGIVEN_InvalidTestInformation_WHEN_FirstNameLastNameMiggingButDateOfBirthIsGiven_THEN_FailureInvalidTestedPersonInformation() throws {
 		// GIVEN
-		let antigenTest = AntigenTestQRCodeInformation.mock(
+		let antigenTest = RapidTestQRCodeInformation.mock(
 			hash: "1ea4c222ff0c0e4ed7373f274caa7f75d10fccbdac56c632771cd9592102a555",
 			timestamp: 1619617269,
 			firstName: nil,
@@ -171,7 +171,7 @@ class RouteTests: CWATestCase {
 		let url = "https://s.coronawarn.app?v=1#eyJ0aW1lc3RhbXAiOjE2Mjc0MDM4MDEsInNhbHQiOiJEQkFDOUU5ODNGQkVDRDc5RDRERkIzMzI3MTUyN0M2NyIsInRlc3RpZCI6ImE5NjIyMjlmLTg3M2EtNDAyNy05NjUxLWJlNWJhZTZkNzVjNSIsImhhc2giOiI1ZGI3ZGI5OGZhMGM2NDYxMWJhZDdhMmQxYzk4MGE1MDc4MzZiM2ZiZWIzNzNiMWNlMGMwNGNmNmUxNjYzNDExIn0"
 		
 		// WHEN
-		let testInformation = try XCTUnwrap(AntigenTestQRCodeInformation(
+		let testInformation = try XCTUnwrap(RapidTestQRCodeInformation(
 												hash: "5db7db98fa0c64611bad7a2d1c980a507836b3fbeb373b1ce0c04cf6e1663411",
 												timestamp: 1627403801,
 												firstName: nil,

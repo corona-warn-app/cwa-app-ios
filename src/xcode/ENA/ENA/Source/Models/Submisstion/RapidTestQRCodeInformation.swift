@@ -4,7 +4,9 @@
 
 import Foundation
 
-struct AntigenTestQRCodeInformation: Codable, Equatable {
+// The Struct is used to store QRCode information for Rapid antigen tests and Rapid PCR Tests
+
+struct RapidTestQRCodeInformation: Codable, Equatable {
 	
 	// MARK: - Init
 	
@@ -49,7 +51,7 @@ struct AntigenTestQRCodeInformation: Codable, Equatable {
 			jsonData = parsedData
 		}
 		do {
-			let decodedObject = try JSONDecoder().decode(AntigenTestQRCodeInformation.self, from: jsonData)
+			let decodedObject = try JSONDecoder().decode(RapidTestQRCodeInformation.self, from: jsonData)
 			
 			self.hash = decodedObject.hash
 			self.timestamp = decodedObject.timestamp

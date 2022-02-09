@@ -12,7 +12,7 @@ class AntigenTestInformationTests: CWATestCase {
 		let date = ISO8601DateFormatter.justUTCDateFormatter.date(from: dateString)
 
 		// GIVEN
-		let antigenTestInformation = AntigenTestQRCodeInformation(
+		let antigenTestInformation = RapidTestQRCodeInformation(
 			hash: "asbf3242",
 			timestamp: 123456789,
 			firstName: "Thomase",
@@ -27,7 +27,7 @@ class AntigenTestInformationTests: CWATestCase {
 		let payload = try XCTUnwrap(String(data: payloadData, encoding: .utf8))
 
 		// WHEN
-		let checkTestInformation = try XCTUnwrap(AntigenTestQRCodeInformation(payload: payload))
+		let checkTestInformation = try XCTUnwrap(RapidTestQRCodeInformation(payload: payload))
 
 		// THEN
 		XCTAssertEqual(checkTestInformation, antigenTestInformation)

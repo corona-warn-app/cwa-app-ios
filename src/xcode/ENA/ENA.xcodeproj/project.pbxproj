@@ -945,7 +945,7 @@
 		8FB7C9282750EF6E0071C98C /* ServiceIdentityDocumentValidationDecoratorError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FB7C9222750EF6D0071C98C /* ServiceIdentityDocumentValidationDecoratorError.swift */; };
 		8FB7C92B2750EF6E0071C98C /* TicketValidationServiceIdentityDocumentValidationDecorator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FB7C9252750EF6E0071C98C /* TicketValidationServiceIdentityDocumentValidationDecorator.swift */; };
 		8FB7C92D2750EF6E0071C98C /* TicketValidationDecoratorIdentityDocumentProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FB7C9272750EF6E0071C98C /* TicketValidationDecoratorIdentityDocumentProcessor.swift */; };
-		8FDB9403261FBA3800BA8CB1 /* AntigenTestQRCodeInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FDB9402261FBA3800BA8CB1 /* AntigenTestQRCodeInformation.swift */; };
+		8FDB9403261FBA3800BA8CB1 /* RapidTestQRCodeInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FDB9402261FBA3800BA8CB1 /* RapidTestQRCodeInformation.swift */; };
 		8FDB940B261FBAAA00BA8CB1 /* CoronaTestRegistrationInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FDB940A261FBAAA00BA8CB1 /* CoronaTestRegistrationInformation.swift */; };
 		8FEC12242754B6C000C5DADC /* Locator+AllowList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FEC12232754B6C000C5DADC /* Locator+AllowList.swift */; };
 		8FEC122627551F6700C5DADC /* validation_service_allowlist.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FEC122527551F6700C5DADC /* validation_service_allowlist.pb.swift */; };
@@ -2625,7 +2625,7 @@
 		8FB7C9222750EF6D0071C98C /* ServiceIdentityDocumentValidationDecoratorError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServiceIdentityDocumentValidationDecoratorError.swift; sourceTree = "<group>"; };
 		8FB7C9252750EF6E0071C98C /* TicketValidationServiceIdentityDocumentValidationDecorator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TicketValidationServiceIdentityDocumentValidationDecorator.swift; sourceTree = "<group>"; };
 		8FB7C9272750EF6E0071C98C /* TicketValidationDecoratorIdentityDocumentProcessor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TicketValidationDecoratorIdentityDocumentProcessor.swift; sourceTree = "<group>"; };
-		8FDB9402261FBA3800BA8CB1 /* AntigenTestQRCodeInformation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AntigenTestQRCodeInformation.swift; sourceTree = "<group>"; };
+		8FDB9402261FBA3800BA8CB1 /* RapidTestQRCodeInformation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RapidTestQRCodeInformation.swift; sourceTree = "<group>"; };
 		8FDB940A261FBAAA00BA8CB1 /* CoronaTestRegistrationInformation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoronaTestRegistrationInformation.swift; sourceTree = "<group>"; };
 		8FEC12232754B6C000C5DADC /* Locator+AllowList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Locator+AllowList.swift"; sourceTree = "<group>"; };
 		8FEC122527551F6700C5DADC /* validation_service_allowlist.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = validation_service_allowlist.pb.swift; sourceTree = "<group>"; };
@@ -6820,7 +6820,7 @@
 			isa = PBXGroup;
 			children = (
 				BA7F15AB2629D9FA00CA4783 /* __tests_ */,
-				8FDB9402261FBA3800BA8CB1 /* AntigenTestQRCodeInformation.swift */,
+				8FDB9402261FBA3800BA8CB1 /* RapidTestQRCodeInformation.swift */,
 				8FDB940A261FBAAA00BA8CB1 /* CoronaTestRegistrationInformation.swift */,
 			);
 			path = Submisstion;
@@ -10822,7 +10822,7 @@
 				01B72B6D25821D2800A3E3BC /* DiaryDayEmptyStateViewModel.swift in Sources */,
 				505F508325C897B3004920EB /* OTPError.swift in Sources */,
 				01DED65027A45704006A958C /* BoosterNotificationTableViewCell.swift in Sources */,
-				8FDB9403261FBA3800BA8CB1 /* AntigenTestQRCodeInformation.swift in Sources */,
+				8FDB9403261FBA3800BA8CB1 /* RapidTestQRCodeInformation.swift in Sources */,
 				5071A88226EB80D900B09B40 /* ServiceError.swift in Sources */,
 				013069522705D4A900D945E3 /* QRScannerTooltipViewController.swift in Sources */,
 				8FEC1231275656AC00C5DADC /* TicketValidationAllowList.swift in Sources */,

@@ -18,8 +18,8 @@ enum RatError {
 
 enum CoronaTestRegistrationInformation: Equatable {
 	case pcr(guid: String, qrCodeHash: String)
-	case rapidPCR(qrCodeInformation: AntigenTestQRCodeInformation, qrCodeHash: String)
-	case antigen(qrCodeInformation: AntigenTestQRCodeInformation, qrCodeHash: String)
+	case rapidPCR(qrCodeInformation: RapidTestQRCodeInformation, qrCodeHash: String)
+	case antigen(qrCodeInformation: RapidTestQRCodeInformation, qrCodeHash: String)
 	case teleTAN(tan: String)
 	
 	// we cant declare the enum type to Int because we have properties inside the cases
