@@ -118,7 +118,7 @@
 
 "ExposureDetection_Guide_Home" = "Jeśli to możliwe, idź do domu i w nim pozostań. Unikaj wszelkich spotkań poza domem.";
 
-"ExposureDetection_Guide_Hotline" = "W razie jakichkolwiek innych pytań związanych ze zdrowiem skontaktuj się z pogotowiem ratunkowym pod numerem: 116 117.";
+"ExposureDetection_Guide_Hotline" = "W razie jakichkolwiek innych pytań zadzwoń na numer 116 117 (w Niemczech). Następnie w trakcie automatycznego komunikatu naciśnij 2 (dla punktu Ministerstwa Zdrowia). Naciśnij 1 (pogotowie ratunkowe) tylko, jeśli masz objawy.";
 
 "ExposureDetection_Guide_Vaccination_HighRisk" = "Jeśli nie jesteś jeszcze zaszczepiony(-a), skonsultuj się z lekarzem rodzinnym po wykonaniu testu.";
 
@@ -597,7 +597,7 @@
 
 "ExposureSubmission_PhoneDetailsForeign" = "Dla połączeń spoza Niemiec.\nObowiązują opłaty podane przez operatora telefonicznego.";
 
-"ExposureSubmission_PhoneDetailDescription" = "Zapewniamy obsługę klienta w następujących językach: \nangielskim, niemieckim, tureckim\n\nGodziny pracy:\nCodziennie (wraz z weekendami): 7:00 – 20:00 (CET)\n\nW razie jakichkolwiek pytań związanych ze zdrowiem skontaktuj się z lekarzem rodzinnym lub lekarzem dyżurnym pod numerem: 116 117.";
+"ExposureSubmission_PhoneDetailDescription" = "Zapewniamy obsługę klienta w następujących językach: \nangielskim, niemieckim, tureckim\n\nGodziny pracy:\nCodziennie (wraz z weekendami): 7:00 – 20:00 (CET)\n\nW razie jakichkolwiek innych pytań zadzwoń na numer 116 117 (w Niemczech). Następnie w trakcie automatycznego komunikatu naciśnij 2 (dla punktu Ministerstwa Zdrowia). Naciśnij 1 (pogotowie ratunkowe) tylko, jeśli masz objawy.";
 
 "ExposureSubmission_SectionDescription2" = "Zarejestruj swój test PCR poprzez wpisanie numeru TAN w aplikacji.";
 
@@ -1030,7 +1030,7 @@
 
 "ExposureSubmission_TestCertificate_Information_BirthdayPlaceholder" = "Data urodzenia";
 
-"ExposureSubmission_TestCertificate_Information_BirthdayText" = "Ze względów bezpieczeństwa wynik testu jest zabezpieczony za pomocą daty urodzenia. Wynik testu może zostać wydany tylko po podaniu prawidłowej daty urodzenia.";
+"ExposureSubmission_TestCertificate_Information_BirthdayText" = "Ze względów bezpieczeństwa certyfikat testu jest zabezpieczony za pomocą daty urodzenia. Certyfikat testu może zostać wydany tylko po podaniu prawidłowej daty urodzenia.";
 
 "ExposureSubmission_TestCertificate_Information_Dataprivacy_Title" = "Więcej informacji na temat przetwarzania danych znajduje się w oświadczeniu o ochronie prywatności.";
 
@@ -1385,7 +1385,7 @@
 
 "App_Information_Contact_Hotline_Details_Foreign" = "Dla połączeń spoza Niemiec.\nObowiązują opłaty podane przez operatora telefonicznego.";
 
-"App_Information_Contact_Hotline_Terms" = "Zapewniamy obsługę klienta w następujących językach: \nangielskim, niemieckim, tureckim\n\nGodziny pracy:\nPon.-Sob.: 7:00 - 22:00 (CET)\n(z wyjątkiem świąt)\n\nW razie jakichkolwiek pytań związanych ze zdrowiem skontaktuj się z lekarzem rodzinnym lub lekarzem dyżurnym pod numerem telefonu: 116 117.";
+"App_Information_Contact_Hotline_Terms" = "Zapewniamy obsługę klienta w następujących językach: \nangielskim, niemieckim, tureckim\n\nGodziny pracy:\nPon.-Sob.: 7:00 – 22:00 (CET)\n(z wyjątkiem świąt)\nW razie jakichkolwiek innych pytań zadzwoń na numer 116 117 (w Niemczech). Następnie w trakcie automatycznego komunikatu naciśnij 2 (dla punktu Ministerstwa Zdrowia). Naciśnij 1 (pogotowie ratunkowe) tylko, jeśli masz objawy.";
 
 /* App Information - Imprint */
 "App_Information_New_Features_Navigation" = "Nowe funkcje";

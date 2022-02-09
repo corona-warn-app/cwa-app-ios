@@ -3,5 +3,9 @@
 //
 
 struct RegistrationTokenReceiveModel: Codable {
-	let registrationToken: String
+	let submissionTAN: String
+	
+	enum CodingKeys: String, CodingKey {
+		case submissionTAN = "tan"
+	}
 }
