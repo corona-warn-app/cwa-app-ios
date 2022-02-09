@@ -30,10 +30,9 @@ final class SecureKeyValueCache: SecureKeyValueStoring, KeyValueCaching {
 		}
 
 		// Migration
-		let latestVersion = 1
 
 		let migrator = SerialSecureCacheMigrator(
-			latestVersion: latestVersion,
+			latestVersion: Self.latestVersion,
 			migrations: [
 				SecureKeyValueCacheMigrationTo1(kvStore: kvStore)
 			],
@@ -48,6 +47,8 @@ final class SecureKeyValueCache: SecureKeyValueStoring, KeyValueCaching {
 	}
 
 	// MARK: - Internal
+
+	static let latestVersion = 1
 
 	// MARK: - SecureKeyValueStoring
 
