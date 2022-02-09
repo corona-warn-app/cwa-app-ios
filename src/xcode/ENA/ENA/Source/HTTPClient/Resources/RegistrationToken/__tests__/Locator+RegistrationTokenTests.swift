@@ -9,7 +9,7 @@ class Locator_RegistrationTokenTests: XCTestCase {
 
 	func testGIVEN_Locator_WHEN_getUniqueIdentifier_THEN_IsSameAsKnowUniqueIdentifier() {
 		// GIVEN
-		let knownUniqueIdentifier = "fc722406a9d4cea83c885e8c7d04112718e00873854248840ee6ad32a3b137de"
+		let knownUniqueIdentifier = "63f353d7970ae09782ddd387ab51659e623e0f1c66f21ef3317c67e42c852eef"
 		let locator = Locator.registrationToken(isFake: false)
 
 		// WHEN
