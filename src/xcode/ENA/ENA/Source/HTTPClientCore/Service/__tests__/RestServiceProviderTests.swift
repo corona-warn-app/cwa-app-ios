@@ -73,7 +73,7 @@ class RestServiceProviderTests: XCTestCase {
 			XCTAssertEqual(responseModel.dummyValue, "Goofy")
 		case let .failure(serviceError):
 			guard case let .resourceError(resourceError) = serviceError,
-				  case .missingCache = resourceError else {
+				  case .notModified = resourceError else {
 					  XCTFail("failure expected")
 					  return
 				  }

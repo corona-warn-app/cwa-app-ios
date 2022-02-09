@@ -50,13 +50,21 @@ class RestServiceProvider: RestServiceProviding {
 			disabledPinningRestService.load(resource, completion)
 		}
 	}
-
+	
 	func cached<R>(
 		_ resource: R
 	) -> Result<R.Receive.ReceiveModel, ServiceError<R.CustomError>> where R: Resource {
 		switch resource.type {
+		case .default:
+			return standardRestService.cached(resource)
 		case .caching:
 			return cachedRestService.cached(resource)
+		case .wifiOnly:
+			return wifiOnlyRestService.cached(resource)
+		case .dynamicPinning:
+			return dynamicPinningRestService.cached(resource)
+		case .disabledPinning:
+			return disabledPinningRestService.cached(resource)
 		default:
 			Log.error("Cache is not supported by that type of restService")
 			return .failure(.resourceError(.missingCache))
