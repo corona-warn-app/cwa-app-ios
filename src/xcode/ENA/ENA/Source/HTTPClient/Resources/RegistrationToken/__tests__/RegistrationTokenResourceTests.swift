@@ -15,7 +15,7 @@ final class RegistrationTokenResourceTests: CWATestCase {
 		let stack = MockNetworkStack(
 			httpStatus: 200,
 			responseData: try JSONEncoder().encode(
-				TeleTanReceiveModel(submissionTAN: fakeTan)
+				RegistrationTokenReceiveModel(submissionTAN: fakeTan)
 			)
 		)
 
@@ -162,7 +162,7 @@ final class RegistrationTokenResourceTests: CWATestCase {
 		let stack = MockNetworkStack(
 			httpStatus: 200,
 			responseData: try JSONEncoder().encode(
-				TeleTanReceiveModel(submissionTAN: "fakeTan")
+				RegistrationTokenReceiveModel(submissionTAN: "fakeTan")
 			),
 			requestObserver: verifyPostBodyContent
 		)
