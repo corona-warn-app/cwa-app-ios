@@ -530,8 +530,8 @@ final class RiskProvider: RiskProviding {
 			/// if previous risk is 48h old it's a valid fallback
 			let calculationDate = previousRisk.details.calculationDate,
 			let validityDate = Calendar.current.date(byAdding: riskProvidingConfiguration.exposureDetectionValidityDuration, to: calculationDate),
-			validityDate >= Date()
-		{
+			validityDate >= Date() {
+			
 			Log.error("ENError reached Code: \(enError.code.rawValue) - skip error and use previous risk", log: .riskDetection)
 			for consumer in consumers {
 				_provideRiskResult(.success(previousRisk), to: consumer)
