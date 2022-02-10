@@ -44,10 +44,21 @@ final class DMNotificationsViewController: UITableViewController {
 		let notificationRequest = localNotificationRequests[indexPath.row]
 		
 		cell.textLabel?.text = notificationRequest.identifier
-		
-		// Dear future developer that thinks it would be nice to display the nextTriggerDate of the notificationRequest
-		// https://stackoverflow.com/questions/51618620/nexttriggerdate-doesnt-return-the-expected-value-is-there-another-way-to-o
-		// Please check first if Apple was so kind to fix the nextTriggerDate ✌️
+		cell.textLabel?.numberOfLines = 0
+
+		/// Dear future developer that thinks it would be nice to display the nextTriggerDate of the notificationRequest for `UNTimeIntervalNotificationTrigger`
+		/// https://stackoverflow.com/questions/51618620/nexttriggerdate-doesnt-return-the-expected-value-is-there-another-way-to-o
+		/// Please check first if Apple was so kind to fix the nextTriggerDate ✌️
+		/// For `UNCalendarNotificationTrigger` the nextTriggerDate works as expected 🥳
+		guard let trigger = notificationRequest.trigger as? UNCalendarNotificationTrigger, let triggerDate = trigger.nextTriggerDate() else {
+			cell.detailTextLabel?.text = nil
+			return cell
+		}
+
+		let df = DateFormatter()
+		df.dateFormat = "yyyy-MM-dd hh:mm:ss"
+
+		cell.detailTextLabel?.text = df.string(from: triggerDate)
 		return cell
 	}
 	
