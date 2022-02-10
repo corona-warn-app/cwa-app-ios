@@ -159,7 +159,7 @@ public struct DCCUIText: Codable, Equatable {
 		// use language code, if there is no property for the language code, en shall be used
 		if let localizedFormatText = localizedText?[languageCode ?? "en"]?.value as? [String: String] {
 			return localizedFormatText
-		} else if let fallbackLocalizedFormatText = localizedText?["de"]?.value as? [String: String] { // if language code is available, localized text is not there, en shall be used
+		} else if let fallbackLocalizedFormatText = localizedText?["en"]?.value as? [String: String] { // if language code is available, localized text is not there, en shall be used
 			return fallbackLocalizedFormatText
 		} else if let fallbackLocalizedFormatText = localizedText?["de"]?.value as? [String: String] { // if en is not available, de shall be used
 			return fallbackLocalizedFormatText
