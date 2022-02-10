@@ -689,7 +689,7 @@ class HealthCertificateService {
 				}
 				.store(in: &healthCertifiedPersonSubscriptions)
 
-			healthCertifiedPerson.needsWalletInfoUpdate
+			healthCertifiedPerson.dccWalletInfoUpdateRequest
 				.sink { [weak self] healthCertifiedPerson in
 					self?.updateDCCWalletInfo(for: healthCertifiedPerson)
 				}

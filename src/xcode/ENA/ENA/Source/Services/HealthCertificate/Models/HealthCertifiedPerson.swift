@@ -124,7 +124,7 @@ class HealthCertifiedPerson: Codable, Equatable, Comparable {
 	// MARK: - Internal
 
 	let objectDidChange = OpenCombine.PassthroughSubject<HealthCertifiedPerson, Never>()
-	let needsWalletInfoUpdate = OpenCombine.PassthroughSubject<HealthCertifiedPerson, Never>()
+	let dccWalletInfoUpdateRequest = OpenCombine.PassthroughSubject<HealthCertifiedPerson, Never>()
 
 	let queue = DispatchQueue(label: "com.sap.HealthCertifiedPerson.\(NSUUID().uuidString)")
 
@@ -310,7 +310,7 @@ class HealthCertifiedPerson: Codable, Equatable, Comparable {
 
 	@objc
 	private func updateDCCWalletInfo() {
-		needsWalletInfoUpdate.send(self)
+		dccWalletInfoUpdateRequest.send(self)
 	}
 
 }
