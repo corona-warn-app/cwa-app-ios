@@ -79,11 +79,24 @@ class ENAUITests_01b_Statistics: CWATestCase {
 		
 		let deleteButtonNotHittable = statisticsCell.buttons[AccessibilityIdentifiers.General.deleteButton].firstMatch
 		XCTAssertFalse(deleteButtonNotHittable.isHittable)
+	}
+
+	func test_RemoveStatisticsButton_flow() {
+		let localStatisticsViewTitle = AccessibilityIdentifiers.LocalStatistics.localStatisticsCardTitle
+		let addButtonIdentifier = AccessibilityIdentifiers.LocalStatistics.addLocalIncidencesButton
+		let modifyButtonIdentifier = AccessibilityIdentifiers.LocalStatistics.modifyLocalIncidencesButton
 		
-		// Management card(s) pt.2 - removal
-		XCTAssertTrue(statisticsCell.waitForExistence(timeout: .extraLong))
-		XCTAssertTrue(statisticsCell.isHittable)
-		statisticsCell.swipeRight() // because of ui reset
+		app.setLaunchArgument(LaunchArguments.statistics.maximumRegionsSelected, to: true)
+		app.setPreferredContentSizeCategory(accessibility: .normal, size: .S)
+		app.launch()
+		app.swipeUp(velocity: .slow)
+		let statisticsCell = app.cells[AccessibilityIdentifiers.Statistics.General.tableViewCell]
+		XCTAssertTrue(statisticsCell.waitForExistence(timeout: .medium))
+		
+		let localStatisticCell = statisticsCell.staticTexts[localStatisticsViewTitle]
+		XCTAssertTrue(localStatisticCell.waitForExistence(timeout: .long))
+		statisticsCell.swipeRight()
+		
 		let addButton = app.buttons[addButtonIdentifier]
 		XCTAssertTrue(addButton.waitForElementToBecomeHittable(timeout: .long))
 		XCTAssertTrue(addButton.isHittable)
@@ -91,10 +104,9 @@ class ENAUITests_01b_Statistics: CWATestCase {
 		statisticsCell.buttons[modifyButtonIdentifier].waitAndTap()
 		
 		let deleteButton = statisticsCell.buttons[AccessibilityIdentifiers.General.deleteButton].firstMatch
-		XCTAssertTrue(deleteButton.waitForExistence(timeout: .long))
+		XCTAssertTrue(deleteButton.waitForElementToBecomeHittable(timeout: .long))
 		XCTAssertTrue(deleteButton.isHittable)
 		deleteButton.waitAndTap()
-		XCTAssertFalse(localStatisticCard.isHittable)
 		XCTAssertFalse(statisticsCell.buttons[modifyButtonIdentifier].isHittable)
 	}
 
