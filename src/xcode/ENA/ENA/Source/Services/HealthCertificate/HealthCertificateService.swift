@@ -255,7 +255,9 @@ class HealthCertificateService {
 			if let index = healthCertifiedPerson.healthCertificates.firstIndex(of: healthCertificate) {
 				healthCertifiedPerson.healthCertificates.remove(at: index)
 				Log.info("[HealthCertificateService] Removed health certificate at index \(index)", log: .api)
-
+				
+				regroupAfterDeletion(for: healthCertifiedPerson, with: healthCertificate)
+							
 				if healthCertifiedPerson.healthCertificates.isEmpty {
 					healthCertifiedPersons = healthCertifiedPersons
 						.filter { $0 !== healthCertifiedPerson }
@@ -966,6 +968,19 @@ class HealthCertificateService {
 			testCertificateRequest.requestExecutionFailed = true
 			testCertificateRequest.isLoading = false
 			completion?(.failure(.decryptionFailed(error)))
+		}
+	}
+	
+	private func regroupAfterDeletion(
+		for healthCertifiedPerson: HealthCertifiedPerson,
+		with healthCertificate: HealthCertificate
+	) {
+		// 2.Collect all certificates of this person but not the certificate which will be deleted.
+		let certficates: [HealthCertificate] = healthCertifiedPerson.healthCertificates.filter { $0 != healthCertificate }
+		
+		// 3.Re-register all these certificates to the service. By this, belongsToSamePerson will be passed for every certificate and if we need to create a new person, this will automatically done in the register function.
+		certficates.forEach {
+			self.registerHealthCertificate(base45: $0.base45)
 		}
 	}
 	
