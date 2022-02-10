@@ -23,23 +23,23 @@ struct RegistrationTokenResource: Resource {
 		isFake: Bool = false,
 		sendModel: RegistrationTokenSendModel
 	) {
-		self.locator = .teleTan(isFake: isFake)
+		self.locator = .registrationToken(isFake: isFake)
 		self.type = .default
 		self.sendResource = PaddingJSONSendResource<RegistrationTokenSendModel>(sendModel)
-		self.receiveResource = JSONReceiveResource<TeleTanReceiveModel>()
+		self.receiveResource = JSONReceiveResource<RegistrationTokenReceiveModel>()
 		self.registrationTokenModel = sendModel
 	}
 
 	// MARK: - Protocol Resource
 
 	typealias Send = PaddingJSONSendResource<RegistrationTokenSendModel>
-	typealias Receive = JSONReceiveResource<TeleTanReceiveModel>
+	typealias Receive = JSONReceiveResource<RegistrationTokenReceiveModel>
 	typealias CustomError = RegistrationTokenError
 
 	var locator: Locator
 	var type: ServiceType
 	var sendResource: PaddingJSONSendResource<RegistrationTokenSendModel>
-	var receiveResource: JSONReceiveResource<TeleTanReceiveModel>
+	var receiveResource: JSONReceiveResource<RegistrationTokenReceiveModel>
 	
 	func customError(for error: ServiceError<RegistrationTokenError>) -> RegistrationTokenError? {
 		switch error {

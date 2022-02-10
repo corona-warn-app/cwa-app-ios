@@ -50,7 +50,7 @@ final class ValidationOnboardedCountriesResourceTests: CWATestCase {
 		
 		// Fake some cached data
 		let cache = KeyValueCacheFake()
-		cache[resource.locator.hashValue] = CacheData(data: archiveDataCache, eTag: eTag, date: Date())
+		cache[resource.locator.uniqueIdentifier] = CacheData(data: archiveDataCache, eTag: eTag, date: Date())
 		
 		let serviceProvider = RestServiceProvider(
 			session: stack.urlSession,
@@ -106,7 +106,7 @@ final class ValidationOnboardedCountriesResourceTests: CWATestCase {
 		
 		// Fake some cached data
 		let cache = KeyValueCacheFake()
-		cache[resource.locator.hashValue] = CacheData(data: archiveDataCache, eTag: eTag, date: Date())
+		cache[resource.locator.uniqueIdentifier] = CacheData(data: archiveDataCache, eTag: eTag, date: Date())
 		
 		let serviceProvider = RestServiceProvider(
 			session: stack.urlSession,
@@ -152,7 +152,8 @@ final class ValidationOnboardedCountriesResourceTests: CWATestCase {
 		)
 				
 		let serviceProvider = RestServiceProvider(
-			session: stack.urlSession
+			session: stack.urlSession,
+			cache: KeyValueCacheFake()
 		)
 		
 		// WHEN
@@ -184,7 +185,8 @@ final class ValidationOnboardedCountriesResourceTests: CWATestCase {
 		)
 				
 		let serviceProvider = RestServiceProvider(
-			session: stack.urlSession
+			session: stack.urlSession,
+			cache: KeyValueCacheFake()
 		)
 		
 		// WHEN
@@ -217,7 +219,8 @@ final class ValidationOnboardedCountriesResourceTests: CWATestCase {
 		)
 		
 		let serviceProvider = RestServiceProvider(
-			session: stack.urlSession
+			session: stack.urlSession,
+			cache: KeyValueCacheFake()
 		)
 		
 		let resource = ValidationOnboardedCountriesResource()
@@ -252,7 +255,8 @@ final class ValidationOnboardedCountriesResourceTests: CWATestCase {
 		)
 		
 		let serviceProvider = RestServiceProvider(
-			session: stack.urlSession
+			session: stack.urlSession,
+			cache: KeyValueCacheFake()
 		)
 		
 		var resource = ValidationOnboardedCountriesResource()
@@ -293,7 +297,8 @@ final class ValidationOnboardedCountriesResourceTests: CWATestCase {
 		let resource = ValidationOnboardedCountriesResource()
 		
 		let serviceProvider = RestServiceProvider(
-			session: stack.urlSession
+			session: stack.urlSession,
+			cache: KeyValueCacheFake()
 		)
 				
 		// WHEN
@@ -322,7 +327,8 @@ final class ValidationOnboardedCountriesResourceTests: CWATestCase {
 		let resource = ValidationOnboardedCountriesResource()
 		
 		let serviceProvider = RestServiceProvider(
-			session: stack.urlSession
+			session: stack.urlSession,
+			cache: KeyValueCacheFake()
 		)
 				
 		// WHEN
@@ -352,7 +358,8 @@ final class ValidationOnboardedCountriesResourceTests: CWATestCase {
 		let resource = ValidationOnboardedCountriesResource()
 		
 		let serviceProvider = RestServiceProvider(
-			session: stack.urlSession
+			session: stack.urlSession,
+			cache: KeyValueCacheFake()
 		)
 				
 		// WHEN
@@ -382,7 +389,8 @@ final class ValidationOnboardedCountriesResourceTests: CWATestCase {
 		let resource = ValidationOnboardedCountriesResource()
 		
 		let serviceProvider = RestServiceProvider(
-			session: stack.urlSession
+			session: stack.urlSession,
+			cache: KeyValueCacheFake()
 		)
 				
 		// WHEN
