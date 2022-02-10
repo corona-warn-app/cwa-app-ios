@@ -768,7 +768,7 @@ class HealthCertificateService {
 		}
 
 		if healthCertificate.validityState != previousValidityState {
-			/// Only validity states that are not shown as `.valid` should be marked as new for the user.
+			// Only validity states that are not shown as `.valid` should be marked as new for the user.
 			healthCertificate.isValidityStateNew = !healthCertificate.isConsideredValid
 		}
 	}
