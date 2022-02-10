@@ -519,12 +519,20 @@ final class RiskProvider: RiskProviding {
 		/// special handling for error 13
 		/// https://jira-ibs.wbs.net.sap/browse/EXPOSUREAPP-11706
 		///
-		if case let .failedRiskDetection(didEndPrematurelyReason) = error,
-		   case let .noExposureWindows(reason, _) = didEndPrematurelyReason,
-		   let enErorr = reason as? ENError,
-		   enErorr.code == .rateLimited || enErorr.code == .dataInaccessible,
-		   let previousRisk = previousRisk {
-			Log.error("ENError reached Code: \(enErorr.code.rawValue) - skip error and use previous risk", log: .riskDetection)
+
+		if  /// check if error 13 or 16 occurs
+			case let .failedRiskDetection(didEndPrematurelyReason) = error,
+			case let .noExposureWindows(reason, _) = didEndPrematurelyReason,
+			let enError = reason as? ENError,
+			enError.code == .rateLimited || enError.code == .dataInaccessible,
+			/// only if a previous risk exists we can try to give a fallback
+			let previousRisk = previousRisk,
+			/// if previous risk is 48h old it's a valid fallback
+			let calculationDate = previousRisk.details.calculationDate,
+			let validityDate = Calendar.current.date(byAdding: riskProvidingConfiguration.exposureDetectionValidityDuration, to: calculationDate),
+			validityDate >= Date()
+		{
+			Log.error("ENError reached Code: \(enError.code.rawValue) - skip error and use previous risk", log: .riskDetection)
 			for consumer in consumers {
 				_provideRiskResult(.success(previousRisk), to: consumer)
 			}
