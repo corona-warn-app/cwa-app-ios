@@ -120,7 +120,7 @@ enum Route: Equatable {
 				recomputedHashString = ENAHasher.sha256(timestamp + "#" + salt)
 			} else {
 				guard !firstName.isEmpty && !lastName.isEmpty && !dateOfBirthString.isEmpty else {
-					self = .rapidPCR( .failure(.invalidTestCode(.invalidTestedPersonInformation)))
+					self = .rapidPCR(.failure(.invalidTestCode(.invalidTestedPersonInformation)))
 					Log.error("RapidPCR test data for personalized code is not valid: firstName \(private: firstName), lastName \(private: lastName), dateOfBirthString: \(private: dateOfBirthString)", log: .qrCode)
 					return
 				}
