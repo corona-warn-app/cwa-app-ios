@@ -211,6 +211,12 @@ class HealthCertifiedPerson: Codable, Equatable, Comparable {
 		(dccWalletInfo?.mostRelevantCertificate).flatMap { self.healthCertificate(for: $0.certificateRef) } ?? healthCertificates.fallback
 	}
 
+	var needsDCCWalletInfoUpdate: Bool {
+		let now = Date()
+
+		return dccWalletInfo == nil || (dccWalletInfo?.validUntil ?? now) < now
+	}
+
 	/// Only kept around for migration purposes so people that already have a booster rule set don't get a second notification for the same rule
 	var boosterRule: Rule?
 
@@ -253,10 +259,6 @@ class HealthCertifiedPerson: Codable, Equatable, Comparable {
 	private var dccWalletInfoUpdateTimer: Timer?
 
 	private func setup() {
-		if dccWalletInfo == nil {
-			updateDCCWalletInfo()
-		}
-
 		updateHealthCertificateSubscriptions(for: healthCertificates)
 		scheduleDCCWalletInfoUpdateTimer()
 	}

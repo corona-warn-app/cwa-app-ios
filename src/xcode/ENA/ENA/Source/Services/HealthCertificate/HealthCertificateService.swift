@@ -282,26 +282,22 @@ class HealthCertificateService {
 		recycleBin.moveToBin(.certificate(healthCertificate))
 	}
 
-	func checkForCCLConfigurationAndRulesUpdates(completion: (() -> Void)? = nil) {
-		cclService.updateConfiguration { [weak self] didChange in
+	func updateDCCWalletInfosIfNeeded(completion: (() -> Void)? = nil) {
+		cclService.updateConfiguration { [weak self] configurationDidChange in
 			guard let self = self else {
 				completion?()
 				return
 			}
 
-			if didChange {
-				let dispatchGroup = DispatchGroup()
-				for person in self.healthCertifiedPersons where !person.healthCertificates.isEmpty {
-					dispatchGroup.enter()
-					self.updateDCCWalletInfo(for: person) {
-						dispatchGroup.leave()
-					}
+			let dispatchGroup = DispatchGroup()
+			for person in self.healthCertifiedPersons where configurationDidChange || person.needsDCCWalletInfoUpdate {
+				dispatchGroup.enter()
+				self.updateDCCWalletInfo(for: person) {
+					dispatchGroup.leave()
 				}
+			}
 
-				dispatchGroup.notify(queue: .global()) {
-					completion?()
-				}
-			} else {
+			dispatchGroup.notify(queue: .global()) {
 				completion?()
 			}
 		}
@@ -638,7 +634,7 @@ class HealthCertificateService {
 		// Validation Service
 		subscribeAppConfigUpdates()
 		subscribeDSCListChanges()
-		checkForCCLConfigurationAndRulesUpdates()
+		updateDCCWalletInfosIfNeeded()
 	}
 
 	private func subscribeAppConfigUpdates() {
