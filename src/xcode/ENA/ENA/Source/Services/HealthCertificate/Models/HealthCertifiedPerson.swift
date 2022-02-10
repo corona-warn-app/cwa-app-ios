@@ -16,13 +16,15 @@ class HealthCertifiedPerson: Codable, Equatable, Comparable {
 		isPreferredPerson: Bool = false,
 		boosterRule: Rule? = nil,
 		isNewBoosterRule: Bool = false,
-		dccWalletInfo: DCCWalletInfo? = nil
+		dccWalletInfo: DCCWalletInfo? = nil,
+		mostRecentWalletInfoUpdateFailed: Bool
 	) {
 		self.healthCertificates = healthCertificates
 		self.isPreferredPerson = isPreferredPerson
 		self.dccWalletInfo = dccWalletInfo
 		self.boosterRule = boosterRule
 		self.isNewBoosterRule = isNewBoosterRule
+		self.mostRecentWalletInfoUpdateFailed = mostRecentWalletInfoUpdateFailed
 
 		setup()
 	}
@@ -34,6 +36,7 @@ class HealthCertifiedPerson: Codable, Equatable, Comparable {
 		case decodingFailedHealthCertificates
 		case isPreferredPerson
 		case dccWalletInfo
+		case mostRecentWalletInfoUpdateFailed
 		case boosterRule
 		case isNewBoosterRule
 	}
@@ -45,6 +48,7 @@ class HealthCertifiedPerson: Codable, Equatable, Comparable {
 		var decodingFailedHealthCertificates = try container.decodeIfPresent([DecodingFailedHealthCertificate].self, forKey: .decodingFailedHealthCertificates) ?? []
 		isPreferredPerson = try container.decodeIfPresent(Bool.self, forKey: .isPreferredPerson) ?? false
 		dccWalletInfo = try container.decodeIfPresent(DCCWalletInfo.self, forKey: .dccWalletInfo)
+		mostRecentWalletInfoUpdateFailed = try container.decodeIfPresent(Bool.self, forKey: .mostRecentWalletInfoUpdateFailed) ?? false
 		boosterRule = try container.decodeIfPresent(Rule.self, forKey: .boosterRule)
 		isNewBoosterRule = try container.decodeIfPresent(Bool.self, forKey: .isNewBoosterRule) ?? false
 
@@ -214,8 +218,10 @@ class HealthCertifiedPerson: Codable, Equatable, Comparable {
 	var needsDCCWalletInfoUpdate: Bool {
 		let now = Date()
 
-		return dccWalletInfo == nil || (dccWalletInfo?.validUntil ?? now) < now
+		return dccWalletInfo == nil || mostRecentWalletInfoUpdateFailed || (dccWalletInfo?.validUntil ?? now) < now
 	}
+
+	var mostRecentWalletInfoUpdateFailed: Bool
 
 	/// Only kept around for migration purposes so people that already have a booster rule set don't get a second notification for the same rule
 	var boosterRule: Rule?

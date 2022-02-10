@@ -724,6 +724,7 @@ class HealthCertificateService {
 			case .success(let dccWalletInfo):
 				let previousBoosterNotificationIdentifier = person.boosterRule?.identifier ?? person.dccWalletInfo?.boosterNotification.identifier
 				person.dccWalletInfo = dccWalletInfo
+				person.mostRecentWalletInfoUpdateFailed = false
 				
 				#if DEBUG
 				if isUITesting, LaunchArguments.healthCertificate.hasBoosterNotification.boolValue {
@@ -738,6 +739,7 @@ class HealthCertificateService {
 				)
 			case .failure(let error):
 				Log.error("Wallet info update failed", error: error)
+				person.mostRecentWalletInfoUpdateFailed = true
 				completion?()
 			}
 		}
