@@ -171,6 +171,7 @@ class HealthCertifiedPerson: Codable, Equatable, Comparable {
 			}
 
 			if dccWalletInfo != oldValue {
+				scheduleDCCWalletInfoUpdateTimer()
 				objectDidChange.send(self)
 			}
 		}
