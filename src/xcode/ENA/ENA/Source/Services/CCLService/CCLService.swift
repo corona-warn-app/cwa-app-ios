@@ -107,8 +107,8 @@ class CCLService: CCLServable {
 				case let .success(configurations):
 					self?.updateJsonFunctions(configurations)
 					configurationDidUpdate = true
-				case .failure:
-					Log.error("CCLConfiguration might be loaded from the cache - skip this error")
+				case .failure(let error):
+					Log.error("CCLConfiguration might be loaded from the cache - skip this error", error: error)
 				}
 			}
 		}
