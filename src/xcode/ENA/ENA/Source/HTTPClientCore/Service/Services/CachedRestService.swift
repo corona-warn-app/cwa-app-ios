@@ -46,10 +46,10 @@ class CachedRestService: Service {
 	// if check if data is in cache and if it was written today
 	// if return last cached receiveModel
 	func receiveModelToInterruptLoading<R>(_ resource: R) -> R.Receive.ReceiveModel? where R: Resource {
-		Log.info("Lookup \(resource.receiveResource) in cache with hash \(resource.locator.hashValue)", log: .client)
+		Log.info("Lookup \(resource.receiveResource) in cache with hash \(resource.locator.uniqueIdentifier)", log: .client)
 		if case let .caching(policies) = resource.type,
 		   policies.contains(.loadOnlyOnceADay),
-		   let cachedData = cache[resource.locator.hashValue],
+		   let cachedData = cache[resource.locator.uniqueIdentifier],
 		   Calendar.current.isDateInToday(cachedData.date) {
 			if case let .success(receiveModel) = cached(resource) {
 				return receiveModel
@@ -79,7 +79,7 @@ class CachedRestService: Service {
 					eTag: eTag,
 					date: Date()
 				)
-				cache[resource.locator.hashValue] = cachedModel
+				cache[resource.locator.uniqueIdentifier] = cachedModel
 				Log.info("Fetched new cached data and wrote them to the cache", log: .client)
 			}
 
@@ -108,7 +108,7 @@ class CachedRestService: Service {
 	func cached<R>(
 		_ resource: R
 	) -> Result<R.Receive.ReceiveModel, ServiceError<R.CustomError>> where R: Resource {
-		guard let cachedModel = cache[resource.locator.hashValue] else {
+		guard let cachedModel = cache[resource.locator.uniqueIdentifier] else {
 			Log.error("No data found in cache", log: .client)
 			return failureOrDefaultValueHandling(resource, .resourceError(.missingCache))
 		}
@@ -118,17 +118,18 @@ class CachedRestService: Service {
 	func hasCachedData<R>(
 		_ resource: R
 	) -> Bool where R: Resource {
-		return cache[resource.locator.hashValue] != nil
+		return cache[resource.locator.uniqueIdentifier] != nil
 	}
 
 	func customHeaders<R>(
 		_ receiveResource: R,
 		_ locator: Locator
 	) -> [String: String]? where R: ReceiveResource {
-		guard let cachedModel = cache[locator.hashValue] else {
+		guard let cachedModel = cache[locator.uniqueIdentifier] else {
 			Log.debug("No model found in cache to take its headers", log: .client)
 			return nil
 		}
+		Log.info("Found cached model with key: \(locator.uniqueIdentifier)", log: .client)
 		return ["If-None-Match": cachedModel.eTag]
 	}
 

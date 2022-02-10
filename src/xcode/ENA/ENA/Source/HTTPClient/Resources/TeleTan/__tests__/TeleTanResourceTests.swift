@@ -15,13 +15,13 @@ final class TeleTanResourceTests: CWATestCase {
 		let stack = MockNetworkStack(
 			httpStatus: 200,
 			responseData: try JSONEncoder().encode(
-				RegistrationTokenReceiveModel(
+				TeleTanReceiveModel(
 					registrationToken: fakeToken
 				)
 			)
 		)
 
-		let serviceProvider = RestServiceProvider(session: stack.urlSession)
+		let serviceProvider = RestServiceProvider(session: stack.urlSession, cache: KeyValueCacheFake())
 		let teleTanResource = TeleTanResource(
 			isFake: false,
 			sendModel: TeleTanSendModel(
@@ -49,13 +49,13 @@ final class TeleTanResourceTests: CWATestCase {
 		let stack = MockNetworkStack(
 			httpStatus: 200,
 			responseData: try JSONEncoder().encode(
-				RegistrationTokenReceiveModel(
+				TeleTanReceiveModel(
 					registrationToken: fakeToken
 				)
 			)
 		)
 
-		let serviceProvider = RestServiceProvider(session: stack.urlSession)
+		let serviceProvider = RestServiceProvider(session: stack.urlSession, cache: KeyValueCacheFake())
 		let teleTanResource = TeleTanResource(
 			isFake: false,
 			sendModel: TeleTanSendModel(
@@ -82,13 +82,13 @@ final class TeleTanResourceTests: CWATestCase {
 		let stack = MockNetworkStack(
 			httpStatus: 200,
 			responseData: try JSONEncoder().encode(
-				RegistrationTokenReceiveModel(
+				TeleTanReceiveModel(
 					registrationToken: fakeToken
 				)
 			)
 		)
 
-		let serviceProvider = RestServiceProvider(session: stack.urlSession)
+		let serviceProvider = RestServiceProvider(session: stack.urlSession, cache: KeyValueCacheFake())
 		let teleTanResource = TeleTanResource(
 			isFake: false,
 			sendModel: TeleTanSendModel(
@@ -117,7 +117,7 @@ final class TeleTanResourceTests: CWATestCase {
 			responseData: Data()
 		)
 
-		let serviceProvider = RestServiceProvider(session: stack.urlSession)
+		let serviceProvider = RestServiceProvider(session: stack.urlSession, cache: KeyValueCacheFake())
 		let teleTanResource = TeleTanResource(
 			isFake: false,
 			sendModel: TeleTanSendModel(
@@ -150,7 +150,7 @@ final class TeleTanResourceTests: CWATestCase {
 			responseData: Data()
 		)
 
-		let serviceProvider = RestServiceProvider(session: stack.urlSession)
+		let serviceProvider = RestServiceProvider(session: stack.urlSession, cache: KeyValueCacheFake())
 		let teleTanResource = TeleTanResource(
 			isFake: false,
 			sendModel: TeleTanSendModel(
@@ -183,7 +183,7 @@ final class TeleTanResourceTests: CWATestCase {
 			responseData: Data(bytes: [0xA, 0xB] as [UInt8], count: 2)
 		)
 
-		let serviceProvider = RestServiceProvider(session: stack.urlSession)
+		let serviceProvider = RestServiceProvider(session: stack.urlSession, cache: KeyValueCacheFake())
 		let teleTanResource = TeleTanResource(
 			isFake: false,
 			sendModel: TeleTanSendModel(
@@ -221,7 +221,7 @@ final class TeleTanResourceTests: CWATestCase {
 			""".data(using: .utf8)
 		)
 
-		let serviceProvider = RestServiceProvider(session: stack.urlSession)
+		let serviceProvider = RestServiceProvider(session: stack.urlSession, cache: KeyValueCacheFake())
 		let teleTanResource = TeleTanResource(
 			isFake: false,
 			sendModel: TeleTanSendModel(
@@ -277,14 +277,14 @@ final class TeleTanResourceTests: CWATestCase {
 		let stack = MockNetworkStack(
 			httpStatus: 200,
 			responseData: try JSONEncoder().encode(
-				RegistrationTokenReceiveModel(
+				TeleTanReceiveModel(
 					registrationToken: "SomeToken"
 				)
 			),
 			requestObserver: verifyPostBodyContent
 		)
 
-		let serviceProvider = RestServiceProvider(session: stack.urlSession)
+		let serviceProvider = RestServiceProvider(session: stack.urlSession, cache: KeyValueCacheFake())
 		let teleTanResource = TeleTanResource(
 			isFake: false,
 			sendModel: TeleTanSendModel(

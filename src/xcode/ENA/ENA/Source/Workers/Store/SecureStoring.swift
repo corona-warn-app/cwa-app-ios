@@ -10,17 +10,19 @@ protocol SecureKeyValueStoring {
 
 	init(
 		at directoryURL: URL,
-		key: String
+		key: String,
+		store: KeyValueCacheStoring?
 	) throws
+
 }
 
 extension SecureKeyValueStoring {
 
-	init(subDirectory: String) {
-		self.init(subDirectory: subDirectory, isRetry: false)
+	init(subDirectory: String, store: KeyValueCacheStoring? = nil) {
+		self.init(subDirectory: subDirectory, isRetry: false, store: store)
 	}
 
-	private init(subDirectory: String, isRetry: Bool) {
+	private init(subDirectory: String, isRetry: Bool, store: KeyValueCacheStoring?) {
 		do {
 			let keychain = try KeychainHelper()
 			let directoryURL = try Self.databaseDirectory(at: subDirectory)
@@ -33,7 +35,7 @@ extension SecureKeyValueStoring {
 					if isUITesting, ProcessInfo.processInfo.arguments.contains(UITestingParameters.SecureStoreHandling.simulateMismatchingKey.rawValue) {
 						// injecting a wrong key to simulate a mismatch, e.g. because of backup restoration or other reasons
 						key = "wrong 🔑"
-						try self.init(at: directoryURL, key: key)
+						try self.init(at: directoryURL, key: key, store: store)
 						return
 					}
 					#endif
@@ -42,15 +44,15 @@ extension SecureKeyValueStoring {
 				} else {
 					key = try keychain.generateDatabaseKey(persistForKeychainKey: Self.encryptionKeyKeychainKey)
 				}
-				try self.init(at: directoryURL, key: key)
+				try self.init(at: directoryURL, key: key, store: store)
 			} else {
 				try fileManager.createDirectory(atPath: directoryURL.path, withIntermediateDirectories: true, attributes: nil)
 				let key = try keychain.generateDatabaseKey(persistForKeychainKey: Self.encryptionKeyKeychainKey)
-				try self.init(at: directoryURL, key: key)
+				try self.init(at: directoryURL, key: key, store: store)
 			}
 		} catch is SQLiteStoreError where isRetry == false {
 			Self.performHardDatabaseReset(at: subDirectory)
-			self.init(subDirectory: subDirectory, isRetry: true)
+			self.init(subDirectory: subDirectory, isRetry: true, store: store)
 		} catch {
 			fatalError("Creating the Database failed (\(error)")
 		}
