@@ -17,7 +17,7 @@ class HealthCertifiedPerson: Codable, Equatable, Comparable {
 		boosterRule: Rule? = nil,
 		isNewBoosterRule: Bool = false,
 		dccWalletInfo: DCCWalletInfo? = nil,
-		mostRecentWalletInfoUpdateFailed: Bool
+		mostRecentWalletInfoUpdateFailed: Bool = false
 	) {
 		self.healthCertificates = healthCertificates
 		self.isPreferredPerson = isPreferredPerson
