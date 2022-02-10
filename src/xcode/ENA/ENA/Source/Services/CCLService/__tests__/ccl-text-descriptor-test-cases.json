@@ -533,6 +533,39 @@
 		  "text": "vor 2 Minuten"
 		}
 	  ]
+	},
+	{
+	  "description": "fallback - EN is used as fallback if there is no text for the given languageCode",
+	  "textDescriptor": {
+		"type": "string",
+		"localizedText": {
+		  "de": "Hallo Welt",
+		  "en": "Hello World"
+		},
+		"parameters": []
+	  },
+	  "assertions": [
+		{
+		  "languageCode": "tr",
+		  "text": "Hello World"
+		}
+	  ]
+	},
+	{
+	  "description": "fallback - DE is used as fallback if there is no text for the given languageCode and for EN",
+	  "textDescriptor": {
+		"type": "string",
+		"localizedText": {
+		  "de": "Hallo Welt"
+		},
+		"parameters": []
+	  },
+	  "assertions": [
+		{
+		  "languageCode": "tr",
+		  "text": "Hallo Welt"
+		}
+	  ]
 	}
   ]
 }

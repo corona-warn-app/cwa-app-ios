@@ -520,7 +520,6 @@
 		3494D927261DD49100EC532C /* DMPosterGenerationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3494D926261DD49100EC532C /* DMPosterGenerationViewModel.swift */; };
 		3494D92C261EF8AD00EC532C /* UITextField+CGFloat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3494D92B261EF8AC00EC532C /* UITextField+CGFloat.swift */; };
 		34A407512655254E00F9307D /* LaunchArguments.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34A407502655254E00F9307D /* LaunchArguments.swift */; };
-		34BD723D27B562E700FE4E99 /* ccl-text-descriptor-fallback-test-cases.json in Resources */ = {isa = PBXBuildFile; fileRef = 34BD723B27B562E000FE4E99 /* ccl-text-descriptor-fallback-test-cases.json */; };
 		34C40E3027A2D2590098C6ED /* DCCUITextTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34C40E2F27A2D2590098C6ED /* DCCUITextTests.swift */; };
 		34C40E3227A2FCC00098C6ED /* ccl-text-descriptor-test-cases.json in Resources */ = {isa = PBXBuildFile; fileRef = 34C40E3127A2FCB30098C6ED /* ccl-text-descriptor-test-cases.json */; };
 		34C40E3627A2FE3A0098C6ED /* TestCases.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34C40E3427A2FE150098C6ED /* TestCases.swift */; };
@@ -2200,7 +2199,6 @@
 		3494D926261DD49100EC532C /* DMPosterGenerationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMPosterGenerationViewModel.swift; sourceTree = "<group>"; };
 		3494D92B261EF8AC00EC532C /* UITextField+CGFloat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+CGFloat.swift"; sourceTree = "<group>"; };
 		34A407502655254E00F9307D /* LaunchArguments.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchArguments.swift; sourceTree = "<group>"; };
-		34BD723B27B562E000FE4E99 /* ccl-text-descriptor-fallback-test-cases.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = "ccl-text-descriptor-fallback-test-cases.json"; path = "ENA/Source/Services/CCLService/__tests__/ccl-text-descriptor-fallback-test-cases.json"; sourceTree = SOURCE_ROOT; };
 		34C40E2F27A2D2590098C6ED /* DCCUITextTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DCCUITextTests.swift; sourceTree = "<group>"; };
 		34C40E3127A2FCB30098C6ED /* ccl-text-descriptor-test-cases.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "ccl-text-descriptor-test-cases.json"; sourceTree = "<group>"; };
 		34C40E3427A2FE150098C6ED /* TestCases.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestCases.swift; sourceTree = "<group>"; };
@@ -5047,7 +5045,6 @@
 			children = (
 				34C40E3327A2FDA00098C6ED /* Models */,
 				34C40E3127A2FCB30098C6ED /* ccl-text-descriptor-test-cases.json */,
-				34BD723B27B562E000FE4E99 /* ccl-text-descriptor-fallback-test-cases.json */,
 				34C40E2F27A2D2590098C6ED /* DCCUITextTests.swift */,
 				01C5F300279EA48600F60047 /* DCCWalletInfo+Fake.swift */,
 				AB2628DC27A2FACF003D39A6 /* GetWalletInfoInputTests.swift */,
@@ -9975,7 +9972,6 @@
 			files = (
 				3535CD2A262C4E4E00A3CE38 /* TestEnvironments.json in Resources */,
 				BA6C8B17254D729A008344F5 /* exposure-windows-risk-calculation.json in Resources */,
-				34BD723D27B562E700FE4E99 /* ccl-text-descriptor-fallback-test-cases.json in Resources */,
 				BA7D178925D5590C006B9EBF /* testDataInvalid.json in Resources */,
 				EB54938525F7CFB300A3C459 /* qr-code-to-embed.png in Resources */,
 				EB54937E25F7CE3700A3C459 /* qr-code-print-template.pdf in Resources */,
