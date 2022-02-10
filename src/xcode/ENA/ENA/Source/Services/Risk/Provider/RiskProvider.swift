@@ -520,11 +520,11 @@ final class RiskProvider: RiskProviding {
 		/// https://jira-ibs.wbs.net.sap/browse/EXPOSUREAPP-11706
 		///
 		if case let .failedRiskDetection(didEndPrematurelyReason) = error,
-		   case let .noExposureWindows(reason, date) = didEndPrematurelyReason,
+		   case let .noExposureWindows(reason, _) = didEndPrematurelyReason,
 		   let enErorr = reason as? ENError,
-		   enErorr.code == .rateLimited,
+		   enErorr.code == .rateLimited || enErorr.code == .dataInaccessible,
 		   let previousRisk = previousRisk {
-			Log.error("\(date) EN Rate limit reached (Error 13) - skipped error and fake risk", log: .riskDetection)
+			Log.error("ENError reached Code: \(enErorr.code.rawValue) - skip error and use previous risk", log: .riskDetection)
 			for consumer in consumers {
 				_provideRiskResult(.success(previousRisk), to: consumer)
 			}

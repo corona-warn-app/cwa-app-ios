@@ -36,19 +36,6 @@ enum RiskProviderError: Error {
 		return false
 	}
 
-	var shouldBeDisplayedToUser: Bool {
-		!isENError16DataInaccessible
-	}
-
-	private var isENError16DataInaccessible: Bool {
-		guard case let .failedRiskDetection(didEndPrematuralyReason) = self,
-			  case let .noExposureWindows(noExposureWindowsError, _) = didEndPrematuralyReason,
-			  let enError = noExposureWindowsError as? ENError else {
-			return false
-		}
-
-		return enError.code == .dataInaccessible
-	}
 }
 
 enum RiskProviderActivityState: Int {
