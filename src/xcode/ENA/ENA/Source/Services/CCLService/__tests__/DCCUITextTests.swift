@@ -35,6 +35,21 @@ class DCCUITextTests: XCTestCase {
 		}
 	}
 	
+	func testGIVEN_TestCases_WHEN_LocalizeStringFallbackForEachTestCase_THEN_ResultIsCorrect_TR() {
+		// GIVEN
+		let testCases = dccUITextFallbackTestCases.testCases
+		let cclService = FakeCCLService()
+		
+		for testCase in testCases {
+			// WHEN
+			let dccUIText = testCase.textDescriptor
+			let expectationText = testCase.assertions[0].text
+			
+			// THEN
+			XCTAssertEqual(dccUIText.localized(languageCode: "tr", cclService: cclService), expectationText, "Failing Test: \(testCase.description)")
+		}
+	}
+
 	// MARK: - Private
 
 	private lazy var dccUITextTestCases: DCCUITextTestCases = {
@@ -46,6 +61,28 @@ class DCCUITextTests: XCTestCase {
 
 		let decoder = JSONDecoder()
 		decoder.dateDecodingStrategy = .iso8601
+		
+		do {
+			return try JSONDecoder().decode(DCCUITextTestCases.self, from: data)
+		} catch let DecodingError.keyNotFound(jsonKey, context) {
+			fatalError("missing key: \(jsonKey)\nDebug Description: \(context.debugDescription)")
+		} catch let DecodingError.valueNotFound(type, context) {
+			fatalError("Type not found \(type)\nDebug Description: \(context.debugDescription)")
+		} catch let DecodingError.typeMismatch(type, context) {
+			fatalError("Type mismatch found \(type)\nDebug Description: \(context.debugDescription)")
+		} catch DecodingError.dataCorrupted(let context) {
+			fatalError("Debug Description: \(context.debugDescription)")
+		} catch {
+			fatalError("Failed to parse JSON answer")
+		}
+	}()
+	
+	private lazy var dccUITextFallbackTestCases: DCCUITextTestCases = {
+		let testBundle = Bundle(for: DCCUITextTests.self)
+		guard let urlJsonFile = testBundle.url(forResource: "ccl-text-descriptor-fallback-test-cases", withExtension: "json"),
+			  let data = try? Data(contentsOf: urlJsonFile) else {
+			fatalError("Failed init json file for fallback tests - stop here")
+		}
 		
 		do {
 			return try JSONDecoder().decode(DCCUITextTestCases.self, from: data)
