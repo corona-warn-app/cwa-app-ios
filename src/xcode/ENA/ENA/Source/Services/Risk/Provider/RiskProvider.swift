@@ -177,6 +177,17 @@ final class RiskProvider: RiskProviding {
 		set { consumersQueue.sync { _consumers = newValue } }
 	}
 
+	private var previousRisk: Risk? {
+		guard let enfRiskCalculationResult = store.enfRiskCalculationResult,
+			  let checkinRiskCalculationResult = store.checkinRiskCalculationResult else {
+				  return nil
+			  }
+		 return Risk(
+			 enfRiskCalculationResult: enfRiskCalculationResult,
+			 checkinCalculationResult: checkinRiskCalculationResult
+		 )
+	}
+
 	private var riskCalculationDate: Date? {
 		if let enfRiskCalculationResult = store.enfRiskCalculationResult,
 		   let checkinRiskCalculationResult = store.checkinRiskCalculationResult {
@@ -355,14 +366,9 @@ final class RiskProvider: RiskProviding {
 		Log.info("RiskProvider: Precondition fulfilled for fresh risk detection: shouldDetectExposureBecauseOfNewPackagesConsideringDetectionMode = \(shouldDetectExposureBecauseOfNewPackagesConsideringDetectionMode)", log: .riskDetection)
 		
 		if !enoughTimeHasPassed || !shouldDetectExposures || !shouldDetectExposureBecauseOfNewPackagesConsideringDetectionMode,
-		   let enfRiskCalculationResult = store.enfRiskCalculationResult,
-		   let checkinRiskCalculationResult = store.checkinRiskCalculationResult {
-
+		   let previousRisk = previousRisk {
 			Log.info("RiskProvider: Not calculating new risk, using result of most recent risk calculation", log: .riskDetection)
-			return Risk(
-				enfRiskCalculationResult: enfRiskCalculationResult,
-				checkinCalculationResult: checkinRiskCalculationResult
-			)
+			return previousRisk
 		}
 
 		return nil
@@ -505,9 +511,24 @@ final class RiskProvider: RiskProviding {
 
 	private func failOnTargetQueue(error: RiskProviderError, updateState: Bool = true) {
 		Log.info("RiskProvider: Failed with error: \(error)", log: .riskDetection)
-		
+
 		if updateState {
 			updateActivityState(.idle)
+		}
+
+		/// special handling for error 13
+		/// https://jira-ibs.wbs.net.sap/browse/EXPOSUREAPP-11706
+		///
+		if case let .failedRiskDetection(didEndPrematurelyReason) = error,
+		   case let .noExposureWindows(reason, date) = didEndPrematurelyReason,
+		   let enErorr = reason as? ENError,
+		   enErorr.code == .rateLimited,
+		   let previousRisk = previousRisk {
+			Log.error("\(date) EN Rate limit reached (Error 13) - skipped error and fake risk", log: .riskDetection)
+			for consumer in consumers {
+				_provideRiskResult(.success(previousRisk), to: consumer)
+			}
+			return
 		}
 
 		for consumer in consumers {
