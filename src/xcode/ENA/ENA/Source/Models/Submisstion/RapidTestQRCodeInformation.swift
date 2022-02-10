@@ -5,7 +5,6 @@
 import Foundation
 
 // The Struct is used to store QRCode information for Rapid antigen tests and Rapid PCR Tests
-
 struct RapidTestQRCodeInformation: Codable, Equatable {
 	
 	// MARK: - Init
