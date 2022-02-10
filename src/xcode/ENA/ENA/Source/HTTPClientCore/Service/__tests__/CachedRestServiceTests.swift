@@ -35,7 +35,7 @@ class CachedRestServiceTests: XCTestCase {
 		cachedService.load(resource) { _ in
 			// Check if the value stored in the cache is the same like the one returned from the http session.
 			do {
-				let cachedData = try XCTUnwrap(cache[locator.hashValue])
+				let cachedData = try XCTUnwrap(cache[locator.uniqueIdentifier])
 				XCTAssertEqual(cachedData.data, dummyData)
 				loadExpectation.fulfill()
 			} catch {
@@ -56,7 +56,7 @@ class CachedRestServiceTests: XCTestCase {
 
 		// Store the dummy data in the cache.
 		let cache = KeyValueCacheFake()
-		cache[locator.hashValue] = CacheData(data: dummyData, eTag: eTag, date: Date())
+		cache[locator.uniqueIdentifier] = CacheData(data: dummyData, eTag: eTag, date: Date())
 
 		// Return nil and http code 304. In this case the service should load the result from the cache.
 		let stack = MockNetworkStack(
@@ -139,7 +139,7 @@ class CachedRestServiceTests: XCTestCase {
 
 		// Store the dummy data in the cache.
 		let cache = KeyValueCacheFake()
-		cache[locator.hashValue] = CacheData(data: cachedDummyData, eTag: eTag, date: Date())
+		cache[locator.uniqueIdentifier] = CacheData(data: cachedDummyData, eTag: eTag, date: Date())
 
 		// Return nil and http code 304. In this case the service should load the caching value from the cache.
 		let stack = MockNetworkStack(
@@ -189,7 +189,7 @@ class CachedRestServiceTests: XCTestCase {
 
 		// Store the dummy data in the cache.
 		let cache = KeyValueCacheFake()
-		cache[locator.hashValue] = CacheData(data: cachedDummyData, eTag: eTag, date: Date())
+		cache[locator.uniqueIdentifier] = CacheData(data: cachedDummyData, eTag: eTag, date: Date())
 
 		// Return nil and http code 500. In this case the service would ignore caching behavior and look up for default values.
 		let stack = MockNetworkStack(
