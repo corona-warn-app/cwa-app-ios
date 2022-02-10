@@ -80,22 +80,8 @@ class ENAUITests_01b_Statistics: CWATestCase {
 		let deleteButtonNotHittable = statisticsCell.buttons[AccessibilityIdentifiers.General.deleteButton].firstMatch
 		XCTAssertFalse(deleteButtonNotHittable.isHittable)
 		
-		// Management card(s) pt.2 - removal
 		XCTAssertTrue(statisticsCell.waitForExistence(timeout: .extraLong))
 		XCTAssertTrue(statisticsCell.isHittable)
-		statisticsCell.swipeRight() // because of ui reset
-		let addButton = app.buttons[addButtonIdentifier]
-		XCTAssertTrue(addButton.waitForElementToBecomeHittable(timeout: .long))
-		XCTAssertTrue(addButton.isHittable)
-		XCTAssertTrue(statisticsCell.buttons[modifyButtonIdentifier].isHittable)
-		statisticsCell.buttons[modifyButtonIdentifier].waitAndTap()
-		
-		let deleteButton = statisticsCell.buttons[AccessibilityIdentifiers.General.deleteButton].firstMatch
-		XCTAssertTrue(deleteButton.waitForExistence(timeout: .long))
-		XCTAssertTrue(deleteButton.isHittable)
-		deleteButton.waitAndTap()
-		XCTAssertFalse(localStatisticCard.isHittable)
-		XCTAssertFalse(statisticsCell.buttons[modifyButtonIdentifier].isHittable)
 	}
 
 	func test_StatisticsCardTitles() throws {
