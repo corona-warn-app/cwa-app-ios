@@ -1847,6 +1847,116 @@ class CoronaTestServiceTests: CWATestCase {
 			accuracy: 10
 		)
 	}
+
+	func testRegisterRapidPCRTestAndGetResult_successWithSubmissionConsentGiven() {
+		let restServiceProvider = RestServiceProviderStub(results: [
+			.success(
+				TeleTanReceiveModel(registrationToken: "registrationToken")
+			),
+			.success(TestResultReceiveModel(testResult: TestResult.pending.rawValue, sc: nil, labId: nil)),
+			.success(RegistrationTokenReceiveModel(submissionTAN: "fake"))
+		])
+
+		let client = ClientMock()
+
+		let store = MockTestStore()
+		store.enfRiskCalculationResult = mockRiskCalculationResult()
+		Analytics.setupMock(store: store)
+		store.isPrivacyPreservingAnalyticsConsentGiven = true
+
+		let appConfiguration = CachedAppConfigurationMock()
+		let badgeWrapper = HomeBadgeWrapper.fake()
+		let service = CoronaTestService(
+			client: client,
+			restServiceProvider: restServiceProvider,
+			store: store,
+			eventStore: MockEventStore(),
+			diaryStore: MockDiaryStore(),
+			appConfiguration: appConfiguration,
+			healthCertificateService: HealthCertificateService(
+				store: store,
+				dccSignatureVerifier: DCCSignatureVerifyingStub(),
+				dscListProvider: MockDSCListProvider(),
+				client: client,
+				appConfiguration: appConfiguration,
+				cclService: FakeCCLService(),
+
+				recycleBin: .fake()
+			),
+			recycleBin: .fake(),
+			badgeWrapper: badgeWrapper
+		)
+
+		let expectedCounts = [nil, "1", nil]
+		let countExpectation = expectation(description: "Count updated")
+		countExpectation.expectedFulfillmentCount = 3
+		var receivedCounts = [String?]()
+		let countSubscription = badgeWrapper.$stringValue
+			.sink {
+				receivedCounts.append($0)
+				countExpectation.fulfill()
+			}
+
+		service.pcrTest = nil
+
+		let expectation = self.expectation(description: "Expect to receive a result.")
+		service.registerRapidPCRTestAndGetResult(
+			with: "hash",
+			qrCodeHash: "qrCodeHash",
+			pointOfCareConsentDate: Date(timeIntervalSince1970: 2222),
+			firstName: nil,
+			lastName: nil,
+			dateOfBirth: nil,
+			isSubmissionConsentGiven: true,
+			markAsUnseen: true,
+			certificateSupportedByPointOfCare: false,
+			certificateConsent: .notGiven
+		) { result in
+			expectation.fulfill()
+			switch result {
+			case .failure:
+				XCTFail("This test should always return a successful result.")
+			case .success(let testResult):
+				XCTAssertEqual(testResult, TestResult.pending)
+			}
+		}
+
+		badgeWrapper.reset(.unseenTests)
+
+		waitForExpectations(timeout: .short)
+
+		guard let rapidPCRTest = service.pcrTest else {
+			XCTFail("rapidPCRTest should not be nil")
+			return
+		}
+
+		countSubscription.cancel()
+
+		XCTAssertEqual(receivedCounts, expectedCounts)
+		XCTAssertEqual(rapidPCRTest.registrationToken, "registrationToken")
+		XCTAssertEqual(rapidPCRTest.qrCodeHash, "qrCodeHash")
+		XCTAssertEqual(rapidPCRTest.testResult, .pending)
+		XCTAssertNil(rapidPCRTest.finalTestResultReceivedDate)
+		XCTAssertFalse(rapidPCRTest.positiveTestResultWasShown)
+		XCTAssertTrue(rapidPCRTest.isSubmissionConsentGiven)
+		XCTAssertNil(rapidPCRTest.submissionTAN)
+		XCTAssertFalse(rapidPCRTest.keysSubmitted)
+		XCTAssertFalse(rapidPCRTest.journalEntryCreated)
+		XCTAssertFalse(rapidPCRTest.certificateConsentGiven)
+		XCTAssertFalse(rapidPCRTest.certificateRequested)
+		
+		XCTAssertEqual(
+			try XCTUnwrap(rapidPCRTest.registrationDate).timeIntervalSince1970,
+			Date().timeIntervalSince1970,
+			accuracy: 10
+		)
+		XCTAssertEqual(store.pcrTestResultMetadata?.testResult, .pending)
+		XCTAssertEqual(
+			try XCTUnwrap(store.pcrTestResultMetadata?.testRegistrationDate).timeIntervalSince1970,
+			Date().timeIntervalSince1970,
+			accuracy: 10
+		)
+	}
 	// MARK: - Test Result Update
 
 	func testUpdatePCRTestResult_success() {
