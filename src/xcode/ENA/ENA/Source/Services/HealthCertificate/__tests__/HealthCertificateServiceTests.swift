@@ -2175,6 +2175,211 @@ class HealthCertificateServiceTests: CWATestCase {
 		XCTAssertEqual(notificationCenter.notificationRequests.count, 3)
 	}
 
+	func testBoosterNotificationTriggeredFromDCCWalletInfo() throws {
+		let healthCertificate: HealthCertificate = try vaccinationCertificate(type: .incomplete, ageInDays: 180)
+
+		let newDCCWalletInfo: DCCWalletInfo = .fake(
+			boosterNotification: .fake(visible: true, identifier: "Booster-Rule-Identifier")
+		)
+
+		let notificationCenter = MockUserNotificationCenter()
+
+		var cclService = FakeCCLService()
+		cclService.dccWalletInfoResult = .success(newDCCWalletInfo)
+		cclService.didChange = false
+
+		let expectation = expectation(description: "notificationRequests changed")
+		expectation.expectedFulfillmentCount = 3
+
+		notificationCenter.onAdding = { _ in
+			expectation.fulfill()
+		}
+
+		let service = HealthCertificateService(
+			store: MockTestStore(),
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
+			dscListProvider: MockDSCListProvider(),
+			client: ClientMock(),
+			appConfiguration: CachedAppConfigurationMock(),
+			notificationCenter: notificationCenter,
+			cclService: cclService,
+			recycleBin: .fake()
+		)
+
+		service.addHealthCertificate(healthCertificate)
+
+		XCTAssertEqual(service.healthCertifiedPersons.count, 1)
+
+		waitForExpectations(timeout: .medium)
+
+		// There should be now 1 notification for booster, 1 for expireSoon and 1 for expired.
+		XCTAssertEqual(notificationCenter.notificationRequests.count, 3)
+		XCTAssertTrue(notificationCenter.notificationRequests.contains { $0.identifier.hasPrefix("HealthCertificateNotificationExpireSoon") })
+		XCTAssertTrue(notificationCenter.notificationRequests.contains { $0.identifier.hasPrefix("HealthCertificateNotificationExpired") })
+		XCTAssertTrue(notificationCenter.notificationRequests.contains { $0.identifier.hasPrefix("BoosterVaccinationNotification") })
+	}
+
+	func testNoBoosterNotificationTriggeredFromDCCWalletInfoWithoutBoosterNotification() throws {
+		let healthCertificate: HealthCertificate = try vaccinationCertificate(type: .incomplete, ageInDays: 180)
+
+		let newDCCWalletInfo: DCCWalletInfo = .fake(
+			boosterNotification: .fake(visible: false, identifier: nil)
+		)
+
+		let notificationCenter = MockUserNotificationCenter()
+
+		var cclService = FakeCCLService()
+		cclService.dccWalletInfoResult = .success(newDCCWalletInfo)
+		cclService.didChange = false
+
+		let expectation = expectation(description: "notificationRequests changed")
+		expectation.expectedFulfillmentCount = 2
+
+		notificationCenter.onAdding = { _ in
+			expectation.fulfill()
+		}
+
+		let service = HealthCertificateService(
+			store: MockTestStore(),
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
+			dscListProvider: MockDSCListProvider(),
+			client: ClientMock(),
+			appConfiguration: CachedAppConfigurationMock(),
+			notificationCenter: notificationCenter,
+			cclService: cclService,
+			recycleBin: .fake()
+		)
+
+		service.addHealthCertificate(healthCertificate)
+
+		XCTAssertEqual(service.healthCertifiedPersons.count, 1)
+
+		waitForExpectations(timeout: .medium)
+
+		// There should be now 1 notification for expireSoon and 1 for expired.
+		XCTAssertEqual(notificationCenter.notificationRequests.count, 2)
+		XCTAssertTrue(notificationCenter.notificationRequests.contains { $0.identifier.hasPrefix("HealthCertificateNotificationExpireSoon") })
+		XCTAssertTrue(notificationCenter.notificationRequests.contains { $0.identifier.hasPrefix("HealthCertificateNotificationExpired") })
+		XCTAssertFalse(notificationCenter.notificationRequests.contains { $0.identifier.hasPrefix("BoosterVaccinationNotification") })
+	}
+
+	func testNoDuplicateBoosterNotificationTriggeredFromDCCWalletInfo() throws {
+		let dccWalletInfo: DCCWalletInfo = .fake(
+			boosterNotification: .fake(visible: true, identifier: "Booster-Rule-Identifier"),
+			validUntil: Date(timeIntervalSinceNow: 100)
+		)
+
+		let healthCertificate: HealthCertificate = try vaccinationCertificate(type: .incomplete, ageInDays: 180)
+		let healthCertifiedPerson = HealthCertifiedPerson(
+			healthCertificates: [healthCertificate],
+			dccWalletInfo: dccWalletInfo
+		)
+
+		let store = MockTestStore()
+		store.healthCertifiedPersons = [healthCertifiedPerson]
+
+		let notificationCenter = MockUserNotificationCenter()
+
+		var cclService = FakeCCLService()
+		cclService.dccWalletInfoResult = .success(dccWalletInfo)
+		cclService.didChange = true
+
+		let walletExpectation = expectation(description: "dccWalletInfo updated with same booster rule")
+
+		let subscription = healthCertifiedPerson.$dccWalletInfo
+			.dropFirst()
+			.sink {
+				XCTAssertEqual($0, dccWalletInfo)
+				walletExpectation.fulfill()
+			}
+
+		let notificationExpectation = expectation(description: "notificationRequests changed")
+		notificationExpectation.isInverted = true
+
+		notificationCenter.onAdding = { _ in
+			notificationExpectation.fulfill()
+		}
+
+		let service = HealthCertificateService(
+			store: store,
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
+			dscListProvider: MockDSCListProvider(),
+			client: ClientMock(),
+			appConfiguration: CachedAppConfigurationMock(),
+			notificationCenter: notificationCenter,
+			cclService: cclService,
+			recycleBin: .fake()
+		)
+
+		XCTAssertEqual(service.healthCertifiedPersons.count, 1)
+
+		waitForExpectations(timeout: .short)
+
+		// There should be no new notifications scheduled from the DCCWalletInfo update
+		XCTAssertEqual(notificationCenter.notificationRequests.count, 0)
+
+		subscription.cancel()
+	}
+
+	func testNoDuplicateBoosterNotificationTriggeredWhenMigratingFromOldBoosterRuleToDCCWalletInfo() throws {
+		let dccWalletInfo: DCCWalletInfo = .fake(
+			boosterNotification: .fake(visible: true, identifier: "Booster-Rule-Identifier"),
+			validUntil: Date(timeIntervalSinceNow: 100)
+		)
+
+		let healthCertificate: HealthCertificate = try vaccinationCertificate(type: .incomplete, ageInDays: 180)
+		let healthCertifiedPerson = HealthCertifiedPerson(
+			healthCertificates: [healthCertificate],
+			dccWalletInfo: nil,
+			boosterRule: .fake(identifier: "Booster-Rule-Identifier")
+		)
+
+		let store = MockTestStore()
+		store.healthCertifiedPersons = [healthCertifiedPerson]
+
+		let notificationCenter = MockUserNotificationCenter()
+
+		var cclService = FakeCCLService()
+		cclService.dccWalletInfoResult = .success(dccWalletInfo)
+		cclService.didChange = true
+
+		let walletExpectation = expectation(description: "dccWalletInfo updated with same booster rule")
+
+		let subscription = healthCertifiedPerson.$dccWalletInfo
+			.dropFirst()
+			.sink {
+				XCTAssertEqual($0, dccWalletInfo)
+				walletExpectation.fulfill()
+			}
+
+		let notificationExpectation = expectation(description: "notificationRequests changed")
+		notificationExpectation.isInverted = true
+
+		notificationCenter.onAdding = { _ in
+			notificationExpectation.fulfill()
+		}
+
+		let service = HealthCertificateService(
+			store: store,
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
+			dscListProvider: MockDSCListProvider(),
+			client: ClientMock(),
+			appConfiguration: CachedAppConfigurationMock(),
+			notificationCenter: notificationCenter,
+			cclService: cclService,
+			recycleBin: .fake()
+		)
+
+		XCTAssertEqual(service.healthCertifiedPersons.count, 1)
+
+		waitForExpectations(timeout: .short)
+
+		// There should be no new notifications scheduled from the DCCWalletInfo update
+		XCTAssertEqual(notificationCenter.notificationRequests.count, 0)
+
+		subscription.cancel()
+	}
+
 	func testBoosterRuleIncreasesUnseenNewsCount() throws {
 		let store = MockTestStore()
 		let client = ClientMock()
