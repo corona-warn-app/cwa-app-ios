@@ -134,8 +134,8 @@ class QRScannerViewModelTests: XCTestCase {
 			}
 		}
 		
-		let validNegativePcrTest = "https://s.coronawarn.app?v=1#eyJ0aW1lc3RhbXAiOjE2MzIxMzk0MzMsInNhbHQiOiJGODE4RTZFMjdDRkU0QkE2MDI1OTg3N0ZGRTZFREE4OCIsInRlc3RpZCI6IjUyOTA2NGVhLWVhZDItNGYwMC1iNzlmLTBjYjM4NDBiODkzYiIsImhhc2giOiIzNDgyMzU1NGUwNjhiODFhM2FkYWQ3Yzc5YWMzMGE4ZThkNmM4NzM3NjNkMGE1MmZiMGJjMjE3ZDUzNTI4YzgzIiwiZm4iOiJXaWxsaWUiLCJsbiI6IlVlZGEiLCJkb2IiOiIxOTkzLTA5LTI2In0"
-		let metaDataObject = FakeMetadataMachineReadableCodeObject(stringValue: validNegativePcrTest)
+		let validNegativeAntigenTest = "https://s.coronawarn.app?v=1#eyJ0aW1lc3RhbXAiOjE2MzIxMzk0MzMsInNhbHQiOiJGODE4RTZFMjdDRkU0QkE2MDI1OTg3N0ZGRTZFREE4OCIsInRlc3RpZCI6IjUyOTA2NGVhLWVhZDItNGYwMC1iNzlmLTBjYjM4NDBiODkzYiIsImhhc2giOiIzNDgyMzU1NGUwNjhiODFhM2FkYWQ3Yzc5YWMzMGE4ZThkNmM4NzM3NjNkMGE1MmZiMGJjMjE3ZDUzNTI4YzgzIiwiZm4iOiJXaWxsaWUiLCJsbiI6IlVlZGEiLCJkb2IiOiIxOTkzLTA5LTI2In0"
+		let metaDataObject = FakeMetadataMachineReadableCodeObject(stringValue: validNegativeAntigenTest)
 		viewModel.activateScanning()
 		viewModel.didScan(metadataObjects: [metaDataObject])
 		waitForExpectations(timeout: .short)
