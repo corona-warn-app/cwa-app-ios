@@ -266,6 +266,10 @@ protocol HomeBadgeStoring: AnyObject {
 	var badgesData: [HomeBadgeWrapper.BadgeType: Int?] { get set }
 }
 
+protocol KeyValueCacheStoring: AnyObject {
+	var keyValueCacheVersion: Int { get set }
+}
+
 // swiftlint:disable all
 /// Wrapper protocol
 protocol Store:
@@ -288,6 +292,7 @@ protocol Store:
 	AppFeaturesStoring,
 	RecycleBinStoring,
 	TicketValidationStoring,
-	HomeBadgeStoring
+	HomeBadgeStoring,
+	KeyValueCacheStoring
 {}
 // swiftlint:enable all
