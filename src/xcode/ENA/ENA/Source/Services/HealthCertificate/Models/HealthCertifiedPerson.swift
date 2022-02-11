@@ -14,13 +14,15 @@ class HealthCertifiedPerson: Codable, Equatable, Comparable {
 	init(
 		healthCertificates: [HealthCertificate],
 		isPreferredPerson: Bool = false,
+		dccWalletInfo: DCCWalletInfo? = nil,
+		mostRecentWalletInfoUpdateFailed: Bool = false,
 		boosterRule: Rule? = nil,
-		isNewBoosterRule: Bool = false,
-		dccWalletInfo: DCCWalletInfo? = nil
+		isNewBoosterRule: Bool = false
 	) {
 		self.healthCertificates = healthCertificates
 		self.isPreferredPerson = isPreferredPerson
 		self.dccWalletInfo = dccWalletInfo
+		self.mostRecentWalletInfoUpdateFailed = mostRecentWalletInfoUpdateFailed
 		self.boosterRule = boosterRule
 		self.isNewBoosterRule = isNewBoosterRule
 
@@ -34,6 +36,7 @@ class HealthCertifiedPerson: Codable, Equatable, Comparable {
 		case decodingFailedHealthCertificates
 		case isPreferredPerson
 		case dccWalletInfo
+		case mostRecentWalletInfoUpdateFailed
 		case boosterRule
 		case isNewBoosterRule
 	}
@@ -45,6 +48,7 @@ class HealthCertifiedPerson: Codable, Equatable, Comparable {
 		var decodingFailedHealthCertificates = try container.decodeIfPresent([DecodingFailedHealthCertificate].self, forKey: .decodingFailedHealthCertificates) ?? []
 		isPreferredPerson = try container.decodeIfPresent(Bool.self, forKey: .isPreferredPerson) ?? false
 		dccWalletInfo = try container.decodeIfPresent(DCCWalletInfo.self, forKey: .dccWalletInfo)
+		mostRecentWalletInfoUpdateFailed = try container.decodeIfPresent(Bool.self, forKey: .mostRecentWalletInfoUpdateFailed) ?? false
 		boosterRule = try container.decodeIfPresent(Rule.self, forKey: .boosterRule)
 		isNewBoosterRule = try container.decodeIfPresent(Bool.self, forKey: .isNewBoosterRule) ?? false
 
@@ -120,7 +124,7 @@ class HealthCertifiedPerson: Codable, Equatable, Comparable {
 	// MARK: - Internal
 
 	let objectDidChange = OpenCombine.PassthroughSubject<HealthCertifiedPerson, Never>()
-	let needsWalletInfoUpdate = OpenCombine.PassthroughSubject<HealthCertifiedPerson, Never>()
+	let dccWalletInfoUpdateRequest = OpenCombine.PassthroughSubject<HealthCertifiedPerson, Never>()
 
 	let queue = DispatchQueue(label: "com.sap.HealthCertifiedPerson.\(NSUUID().uuidString)")
 
@@ -171,6 +175,15 @@ class HealthCertifiedPerson: Codable, Equatable, Comparable {
 			}
 
 			if dccWalletInfo != oldValue {
+				scheduleDCCWalletInfoUpdateTimer()
+				objectDidChange.send(self)
+			}
+		}
+	}
+
+	@DidSetPublished var mostRecentWalletInfoUpdateFailed: Bool {
+		didSet {
+			if mostRecentWalletInfoUpdateFailed != oldValue {
 				objectDidChange.send(self)
 			}
 		}
@@ -179,6 +192,15 @@ class HealthCertifiedPerson: Codable, Equatable, Comparable {
 	@DidSetPublished var isNewBoosterRule: Bool {
 		didSet {
 			if isNewBoosterRule != oldValue {
+				objectDidChange.send(self)
+			}
+		}
+	}
+
+	/// Only kept around for migration purposes so people that already have a booster rule set don't get a second notification for the same rule
+	var boosterRule: Rule? {
+		didSet {
+			if boosterRule != oldValue {
 				objectDidChange.send(self)
 			}
 		}
@@ -210,8 +232,11 @@ class HealthCertifiedPerson: Codable, Equatable, Comparable {
 		(dccWalletInfo?.mostRelevantCertificate).flatMap { self.healthCertificate(for: $0.certificateRef) } ?? healthCertificates.fallback
 	}
 
-	/// Only kept around for migration purposes so people that already have a booster rule set don't get a second notification for the same rule
-	var boosterRule: Rule?
+	var needsDCCWalletInfoUpdate: Bool {
+		let now = Date()
+
+		return dccWalletInfo == nil || mostRecentWalletInfoUpdateFailed || (dccWalletInfo?.validUntil ?? now) < now
+	}
 
 	func healthCertificate(for reference: DCCCertificateReference) -> HealthCertificate? {
 		healthCertificates.first { $0.base45 == reference.barcodeData }
@@ -252,10 +277,6 @@ class HealthCertifiedPerson: Codable, Equatable, Comparable {
 	private var dccWalletInfoUpdateTimer: Timer?
 
 	private func setup() {
-		if dccWalletInfo == nil {
-			updateDCCWalletInfo()
-		}
-
 		updateHealthCertificateSubscriptions(for: healthCertificates)
 		scheduleDCCWalletInfoUpdateTimer()
 	}
@@ -301,7 +322,7 @@ class HealthCertifiedPerson: Codable, Equatable, Comparable {
 
 	@objc
 	private func updateDCCWalletInfo() {
-		needsWalletInfoUpdate.send(self)
+		dccWalletInfoUpdateRequest.send(self)
 	}
 
 }

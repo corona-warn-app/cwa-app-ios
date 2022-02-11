@@ -74,29 +74,28 @@ class AdmissionStateTableViewCell: UITableViewCell, UITextViewDelegate, ReuseIde
 	}()
 
 	private let topStackView: UIStackView = {
-		let titleStackView = AccessibleStackView()
-		titleStackView.distribution = .fill
-		titleStackView.alignment = .top
-		titleStackView.spacing = 6
+		let topStackView = AccessibleStackView()
+		topStackView.distribution = .fill
+		topStackView.alignment = .top
+		topStackView.spacing = 6
 
-		return titleStackView
+		return topStackView
 	}()
 	
 	private let titleStackView: UIStackView = {
-		let topStackView = UIStackView()
-		topStackView.axis = .vertical
-		topStackView.distribution = .fill
-		topStackView.alignment = .fill
-		topStackView.spacing = 0
+		let titleStackView = UIStackView()
+		titleStackView.axis = .vertical
+		titleStackView.distribution = .fill
+		titleStackView.alignment = .fill
+		titleStackView.spacing = 0
 
-		return topStackView
+		return titleStackView
 	}()
 
 	private let titleLabel: ENALabel = {
 		let titleLabel = ENALabel(style: .headline)
 		titleLabel.numberOfLines = 0
 		titleLabel.textColor = .enaColor(for: .textPrimary1)
-		titleLabel.setContentCompressionResistancePriority(.required, for: .horizontal)
 		titleLabel.accessibilityIdentifier = AccessibilityIdentifiers.HealthCertificate.AdmissionState.title
 
 		return titleLabel
