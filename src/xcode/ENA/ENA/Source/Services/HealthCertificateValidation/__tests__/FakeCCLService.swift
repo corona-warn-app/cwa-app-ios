@@ -13,6 +13,8 @@ struct FakeCCLService: CCLServable {
 
 	// MARK: - Protocol CCLServable
 
+	var configurationVersion: String = "configurationVersion"
+
 	func updateConfiguration(completion: (Bool) -> Void) {
 		completion(didChange)
 	}
