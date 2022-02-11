@@ -162,7 +162,10 @@ class AppInformationViewController: DynamicTableViewController, NavigationBarOpa
 
 		let bundleVersion = Bundle.main.appVersion
 		let bundleBuild = Bundle.main.appBuildNumber
-		versionLabel.text = String(format: AppStrings.AppInformation.appInformationAppVersion, "\(bundleVersion) (\(bundleBuild))") + "\n" + String(format: AppStrings.AppInformation.appInformationCCLVersion, "\(cclService.configurationVersion)")
+		versionLabel.text = [
+			String(format: AppStrings.AppInformation.appInformationAppVersion, "\(bundleVersion) (\(bundleBuild))"),
+			String(format: AppStrings.AppInformation.appInformationCCLVersion, "\(cclService.configurationVersion)")
+		].joined(separator: "\n")
 
 		let footerView = UIView()
 		footerView.addSubview(versionLabel)
