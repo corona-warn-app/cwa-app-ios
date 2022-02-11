@@ -181,9 +181,26 @@ class HealthCertifiedPerson: Codable, Equatable, Comparable {
 		}
 	}
 
+	@DidSetPublished var mostRecentWalletInfoUpdateFailed: Bool {
+		didSet {
+			if mostRecentWalletInfoUpdateFailed != oldValue {
+				objectDidChange.send(self)
+			}
+		}
+	}
+
 	@DidSetPublished var isNewBoosterRule: Bool {
 		didSet {
 			if isNewBoosterRule != oldValue {
+				objectDidChange.send(self)
+			}
+		}
+	}
+
+	/// Only kept around for migration purposes so people that already have a booster rule set don't get a second notification for the same rule
+	var boosterRule: Rule? {
+		didSet {
+			if boosterRule != oldValue {
 				objectDidChange.send(self)
 			}
 		}
@@ -220,11 +237,6 @@ class HealthCertifiedPerson: Codable, Equatable, Comparable {
 
 		return dccWalletInfo == nil || mostRecentWalletInfoUpdateFailed || (dccWalletInfo?.validUntil ?? now) < now
 	}
-
-	var mostRecentWalletInfoUpdateFailed: Bool
-
-	/// Only kept around for migration purposes so people that already have a booster rule set don't get a second notification for the same rule
-	var boosterRule: Rule?
 
 	func healthCertificate(for reference: DCCCertificateReference) -> HealthCertificate? {
 		healthCertificates.first { $0.base45 == reference.barcodeData }
