@@ -2056,6 +2056,67 @@ class CoronaTestServiceTests: CWATestCase {
 		XCTAssertTrue(rapidPCR.certificateConsentGiven)
 		XCTAssertTrue(rapidPCR.certificateRequested)
 	}
+
+	func testRegisterRapidPCRTestAndGetResult_RegistrationFails() {
+		let client = ClientMock()
+
+		let restServiceProvider = RestServiceProviderStub(results: [
+			.failure(ServiceError<TeleTanError>.receivedResourceError(.qrAlreadyUsed)),
+			.success(RegistrationTokenReceiveModel(submissionTAN: "fake"))
+		])
+
+		let store = MockTestStore()
+		let appConfiguration = CachedAppConfigurationMock()
+
+		let service = CoronaTestService(
+			client: client,
+			restServiceProvider: restServiceProvider,
+			store: store,
+			eventStore: MockEventStore(),
+			diaryStore: MockDiaryStore(),
+			appConfiguration: appConfiguration,
+			healthCertificateService: HealthCertificateService(
+				store: store,
+				dccSignatureVerifier: DCCSignatureVerifyingStub(),
+				dscListProvider: MockDSCListProvider(),
+				client: client,
+				appConfiguration: appConfiguration,
+				cclService: FakeCCLService(),
+
+				recycleBin: .fake()
+			),
+			recycleBin: .fake(),
+			badgeWrapper: .fake()
+		)
+		service.pcrTest = nil
+
+		let expectation = self.expectation(description: "Expect to receive a result.")
+
+		service.registerRapidPCRTestAndGetResult(
+			with: "hash",
+			qrCodeHash: "",
+			pointOfCareConsentDate: Date(timeIntervalSince1970: 2222),
+			firstName: nil,
+			lastName: nil,
+			dateOfBirth: nil,
+			isSubmissionConsentGiven: true,
+			certificateSupportedByPointOfCare: false,
+			certificateConsent: .notGiven
+		) { result in
+			expectation.fulfill()
+			switch result {
+			case .failure(let error):
+				XCTAssertEqual(error, .teleTanError(ServiceError<TeleTanError>.receivedResourceError(.qrAlreadyUsed)))
+			case .success:
+				XCTFail("This test should always return a failure.")
+			}
+		}
+
+		waitForExpectations(timeout: .short)
+
+		XCTAssertNil(service.pcrTest)
+	}
+
 	// MARK: - Test Result Update
 
 	func testUpdatePCRTestResult_success() {
