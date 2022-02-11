@@ -14,17 +14,17 @@ class HealthCertifiedPerson: Codable, Equatable, Comparable {
 	init(
 		healthCertificates: [HealthCertificate],
 		isPreferredPerson: Bool = false,
-		boosterRule: Rule? = nil,
-		isNewBoosterRule: Bool = false,
 		dccWalletInfo: DCCWalletInfo? = nil,
-		mostRecentWalletInfoUpdateFailed: Bool = false
+		mostRecentWalletInfoUpdateFailed: Bool = false,
+		boosterRule: Rule? = nil,
+		isNewBoosterRule: Bool = false
 	) {
 		self.healthCertificates = healthCertificates
 		self.isPreferredPerson = isPreferredPerson
 		self.dccWalletInfo = dccWalletInfo
+		self.mostRecentWalletInfoUpdateFailed = mostRecentWalletInfoUpdateFailed
 		self.boosterRule = boosterRule
 		self.isNewBoosterRule = isNewBoosterRule
-		self.mostRecentWalletInfoUpdateFailed = mostRecentWalletInfoUpdateFailed
 
 		setup()
 	}
