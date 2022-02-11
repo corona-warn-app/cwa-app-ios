@@ -98,11 +98,9 @@ class CoronaTestsQRCodeParserTests: CWATestCase {
 		}
 
 		switch  result {
-		case .antigen:
-			XCTFail("Expected PCR test")
 		case .pcr(let result, _):
 			XCTAssertEqual(result, validPcrGuid)
-		case .teleTAN:
+		case .teleTAN, .antigen, .rapidPCR:
 			XCTFail("Expected PCR test")
 		}
 	}
@@ -115,11 +113,9 @@ class CoronaTestsQRCodeParserTests: CWATestCase {
 			return
 		}
 		switch  result {
-		case .antigen:
-			XCTFail("Expected PCR test")
 		case .pcr(let result, _):
 			XCTAssertEqual(result, validPcrGuid.lowercased())
-		case .teleTAN:
+		case .teleTAN, .antigen, .rapidPCR:
 			XCTFail("Expected PCR test")
 		}
 	}
@@ -134,11 +130,9 @@ class CoronaTestsQRCodeParserTests: CWATestCase {
 			return
 		}
 		switch  result {
-		case .antigen:
-			XCTFail("Expected PCR test")
 		case .pcr(let result, _):
 			XCTAssertEqual(result, mixedCaseGuid)
-		case .teleTAN:
+		case .antigen, .teleTAN, .rapidPCR:
 			XCTFail("Expected PCR test")
 		}
 	}
@@ -179,9 +173,7 @@ class CoronaTestsQRCodeParserTests: CWATestCase {
 		switch result {
 		case .pcr(let guid, _):
 			XCTAssertEqual("123456-12345678-1234-4DA7-B166-B86D85475064", guid)
-		case .antigen:
-			XCTFail("expected PCR test")
-		case .teleTAN:
+		case .antigen, .teleTAN, .rapidPCR:
 			XCTFail("expected PCR test")
 		}
 	}
@@ -200,9 +192,7 @@ class CoronaTestsQRCodeParserTests: CWATestCase {
 		switch result {
 		case .pcr(let guid, _):
 			XCTAssertEqual("123456-12345678-1234-4DA7-B166-B86D85475064", guid)
-		case .antigen:
-			XCTFail("expected PCR test")
-		case .teleTAN:
+		case .antigen, .teleTAN, .rapidPCR:
 			XCTFail("expected PCR test")
 		}
 	}
@@ -254,9 +244,7 @@ class CoronaTestsQRCodeParserTests: CWATestCase {
 		switch result {
 		case .pcr(let guid, _):
 			XCTAssertEqual("123456-12345678-1234-4DA7-B166-B86D85475ABC", guid)
-		case .antigen:
-			XCTFail("expected PCR test")
-		case .teleTAN:
+		case .antigen, .teleTAN, .rapidPCR:
 			XCTFail("expected PCR test")
 		}
 	}
@@ -275,9 +263,7 @@ class CoronaTestsQRCodeParserTests: CWATestCase {
 		switch result {
 		case .pcr(let guid, _):
 			XCTAssertEqual("123456-12345678-1234-4DA7-B166-B86D85475abc", guid)
-		case .antigen:
-			XCTFail("expected PCR test")
-		case .teleTAN:
+		case .antigen, .teleTAN, .rapidPCR:
 			XCTFail("expected PCR test")
 		}
 	}
@@ -296,9 +282,7 @@ class CoronaTestsQRCodeParserTests: CWATestCase {
 		switch result {
 		case .pcr(let guid, _):
 			XCTAssertEqual("123456-12345678-1234-4DA7-B166-B86D85475ABC", guid)
-		case .antigen:
-			XCTFail("expected PCR test")
-		case .teleTAN:
+		case .antigen, .teleTAN, .rapidPCR:
 			XCTFail("expected PCR test")
 		}
 	}
@@ -317,9 +301,7 @@ class CoronaTestsQRCodeParserTests: CWATestCase {
 		switch result {
 		case .pcr(let guid, _):
 			XCTAssertEqual("123456-12345678-1234-4DA7-B166-B86D85475abc", guid)
-		case .antigen:
-			XCTFail("expected PCR test")
-		case .teleTAN:
+		case .antigen, .teleTAN, .rapidPCR:
 			XCTFail("expected PCR test")
 		}
 	}
@@ -401,20 +383,26 @@ class CoronaTestsQRCodeParserTests: CWATestCase {
 		XCTAssertNil(guid)
 	}
 
-	func testGIVEN_invalidPath_WHEN_extractAntigenPayload_THEN_isInvalid() {
+	func testGIVEN_invalidPath_WHEN_extractRapidPayload_THEN_isInvalid() {
 		// GIVEN
 		let parser = CoronaTestsQRCodeParser()
 
 		// WHEN
-		let result = parser.coronaTestQRCodeInformation(from: "https://s.coronawarn.app/?v=1#//?eyJ0aW1lc3RhbXAiOjE2MTgyMzM5NzksImd1aWQiOiIwQzg5MjItMEM4OTIyNjMtQTM0Qy00RjM1LTg5QUMtMTcyMzlBMzQ2QUZEIiwiZm4iOiJDYW1lcm9uIiwibG4iOiJIdWRzb24iLCJkb2IiOiIxOTkyLTA4LTA3In0")
+		let resultRAT = parser.coronaTestQRCodeInformation(from: "https://s.coronawarn.app/?v=1#//?eyJ0aW1lc3RhbXAiOjE2MTgyMzM5NzksImd1aWQiOiIwQzg5MjItMEM4OTIyNjMtQTM0Qy00RjM1LTg5QUMtMTcyMzlBMzQ2QUZEIiwiZm4iOiJDYW1lcm9uIiwibG4iOiJIdWRzb24iLCJkb2IiOiIxOTkyLTA4LTA3In0")
 
 		// THEN
-		XCTAssertNil(result)
+		XCTAssertNil(resultRAT)
+		
+		let resultRapidPCR = parser.coronaTestQRCodeInformation(from: "https://p.coronawarn.app/?v=1#//?eyJ0aW1lc3RhbXAiOjE2MTgyMzM5NzksImd1aWQiOiIwQzg5MjItMEM4OTIyNjMtQTM0Qy00RjM1LTg5QUMtMTcyMzlBMzQ2QUZEIiwiZm4iOiJDYW1lcm9uIiwibG4iOiJIdWRzb24iLCJkb2IiOiIxOTkyLTA4LTA3In0")
+
+		// THEN
+		XCTAssertNil(resultRapidPCR)
+
 	}
 
-	func testAntigen_hashIsTooShort() {
+	func testRapid_hashIsTooShort() {
 		let invalidHash = "f1200d9650f1fd673d58f52811f98f1427fab40b4996e9c2d0da8b741446408"
-		let antigenTestInformation = AntigenTestQRCodeInformation.mock(hash: invalidHash)
+		let antigenTestInformation = RapidTestQRCodeInformation.mock(hash: invalidHash)
 
 		do {
 			let payloadData = try XCTUnwrap(JSONEncoder().encode(antigenTestInformation))
@@ -429,7 +417,7 @@ class CoronaTestsQRCodeParserTests: CWATestCase {
 
 	func testAntigen_hashIsNotHex() {
 		let invalidHash = "f1200d9650f1fd673d58f52811f98f1427fab40b4996e9c2d0da8b741446408G"
-		let antigenTestInformation = AntigenTestQRCodeInformation.mock(hash: invalidHash)
+		let antigenTestInformation = RapidTestQRCodeInformation.mock(hash: invalidHash)
 
 		do {
 			let payloadData = try XCTUnwrap(JSONEncoder().encode(antigenTestInformation))
@@ -443,7 +431,7 @@ class CoronaTestsQRCodeParserTests: CWATestCase {
 	}
 
 	func testAntigen_InvalidTestedPersonInformation() {
-		let antigenTestInformation = AntigenTestQRCodeInformation.mock(
+		let antigenTestInformation = RapidTestQRCodeInformation.mock(
 			hash: "584b5177c687f2a007778b2f1d2365770ca318b0a8cda0593f691c0d17d18d01",
 			timestamp: 5,
 			firstName: "Jon",
@@ -464,7 +452,7 @@ class CoronaTestsQRCodeParserTests: CWATestCase {
 	}
 
 	func testAntigen_InvalidTimeStamp() {
-		let antigenTestInformation = AntigenTestQRCodeInformation.mock(
+		let antigenTestInformation = RapidTestQRCodeInformation.mock(
 			hash: "584b5177c687f2a007778b2f1d2365770ca318b0a8cda0593f691c0d17d18d01",
 			timestamp: -5,
 			firstName: "Jon",
@@ -485,7 +473,7 @@ class CoronaTestsQRCodeParserTests: CWATestCase {
 	}
 
 	func testAntigen_HashMismatch() {
-		let antigenTestInformation = AntigenTestQRCodeInformation.mock(
+		let antigenTestInformation = RapidTestQRCodeInformation.mock(
 			hash: "584b5177c687f2a007778b2f1d2365770ca318b0a8cda0593f691c0d17d18d01",
 			timestamp: 5,
 			firstName: "Jon",
@@ -533,7 +521,7 @@ class CoronaTestsQRCodeParserTests: CWATestCase {
 				return date
 			})
 
-			let testInformation = try jsonDecoder.decode(AntigenTestQRCodeInformation.self, from: jsonData)
+			let testInformation = try jsonDecoder.decode(RapidTestQRCodeInformation.self, from: jsonData)
 			return testInformation.hash
 		} catch {
 			Log.debug("Failed to read / parse district json", log: .ppac)

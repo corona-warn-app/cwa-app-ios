@@ -190,7 +190,7 @@ class RouteTests: CWATestCase {
 			switch test {
 			case .antigen(qrCodeInformation: let qrCodeInformation, qrCodeHash: _):
 				XCTAssertEqual(testInformation, qrCodeInformation)
-			case .pcr, .teleTAN:
+			case .pcr, .teleTAN, .rapidPCR:
 				XCTFail("Wrong test. Expected Antigen")
 			}
 		default:
