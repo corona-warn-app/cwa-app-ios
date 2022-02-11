@@ -16,7 +16,7 @@ final class TicketValidationResultTokenResourceTests: CWATestCase {
 			responseData: "resultJWT".data(using: .utf8)
 		)
 
-		let serviceProvider = RestServiceProvider(session: stack.urlSession)
+		let serviceProvider = RestServiceProvider(session: stack.urlSession, cache: KeyValueCacheFake())
 		let ticketValidationResultTokenResource = TicketValidationResultTokenResource(
 			resultTokenServiceURL: URL(staticString: "http://www.coronawarn.app"),
 			jwt: "headerJWT",
@@ -44,7 +44,7 @@ final class TicketValidationResultTokenResourceTests: CWATestCase {
 			responseData: "🦠".data(using: .ascii)
 		)
 
-		let serviceProvider = RestServiceProvider(session: stack.urlSession)
+		let serviceProvider = RestServiceProvider(session: stack.urlSession, cache: KeyValueCacheFake())
 		let ticketValidationResultTokenResource = TicketValidationResultTokenResource(
 			resultTokenServiceURL: URL(staticString: "http://www.coronawarn.app"),
 			jwt: "headerJWT",

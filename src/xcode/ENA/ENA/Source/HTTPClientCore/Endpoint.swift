@@ -7,7 +7,7 @@ import Foundation
 Wraps the different endpoints for the different resources
 */
 
-enum Endpoint: Equatable, Hashable {
+enum Endpoint: Equatable, CustomStringConvertible {
 	case distribution
 	case submission
 	case verification
@@ -15,6 +15,26 @@ enum Endpoint: Equatable, Hashable {
 	case errorLogSubmission
 	case dcc
 	case dynamic(URL)
+
+	// MARK: - CustomStringConvertible
+	var description: String {
+		switch self {
+		case .distribution:
+			return "distribution"
+		case .submission:
+			return "submission"
+		case .verification:
+			return "verification"
+		case .dataDonation:
+			return "dataDonation"
+		case .errorLogSubmission:
+			return "errorLogSubmission"
+		case .dcc:
+			return "dcc"
+		case let .dynamic(url):
+			return "dynamic" + url.absoluteString
+		}
+	}
 
 	// MARK: - Internal
 

@@ -19,7 +19,7 @@ class URLSessionDelegate_UpdateEvaluateTrust: CWATestCase {
 			responseData: Data(),
 			sessionDelegate: CoronaWarnURLSessionDelegate(evaluateTrust: originalEvaluateTrust)
 		)
-		let restServiceProvider = RestServiceProvider(session: stack.urlSession)
+		let restServiceProvider = RestServiceProvider(session: stack.urlSession, cache: KeyValueCacheFake())
 
 		// THEN
 		try XCTUnwrap(restServiceProvider.evaluateTrust as? FakeEvaluateTrust).fakeCompletion()
@@ -44,7 +44,7 @@ class URLSessionDelegate_UpdateEvaluateTrust: CWATestCase {
 			responseData: Data(),
 			sessionDelegate: CoronaWarnURLSessionDelegate(evaluateTrust: originalEvaluateTrust)
 		)
-		let restServiceProvider = RestServiceProvider(session: stack.urlSession)
+		let restServiceProvider = RestServiceProvider(session: stack.urlSession, cache: KeyValueCacheFake())
 
 		// WHEN
 		restServiceProvider.update(updatedEvaluateTrust)

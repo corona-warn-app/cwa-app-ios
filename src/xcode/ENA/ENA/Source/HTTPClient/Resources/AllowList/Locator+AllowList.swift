@@ -10,7 +10,7 @@ extension Locator {
 	// receive:	JSON
 	// type:	default
 	// comment:	Custom error handling required
-	static func allowList() -> Locator {
+	static var allowList: Locator {
 		return Locator(
 			endpoint: .distribution,
 			paths: ["version", "v1", "ehn-dgc", "validation-services"],

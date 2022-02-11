@@ -15,7 +15,7 @@ class ServiceIdentityDocumentValidationDecoratorResourceTests: XCTestCase {
 			responseData: Data()
 		)
 		
-		let serviceProvider = RestServiceProvider(session: stack.urlSession)
+		let serviceProvider = RestServiceProvider(session: stack.urlSession, cache: KeyValueCacheFake())
 		guard let url = URL(string: "https://www.test.com") else {
 			XCTFail("Failed to create URL")
 			return
@@ -45,7 +45,7 @@ class ServiceIdentityDocumentValidationDecoratorResourceTests: XCTestCase {
 			responseData: Data()
 		)
 		
-		let serviceProvider = RestServiceProvider(session: stack.urlSession)
+		let serviceProvider = RestServiceProvider(session: stack.urlSession, cache: KeyValueCacheFake())
 		guard let url = URL(string: "https://www.test.com") else {
 			XCTFail("Failed to create URL")
 			return
@@ -76,7 +76,7 @@ class ServiceIdentityDocumentValidationDecoratorResourceTests: XCTestCase {
 				{ "Wrongexample":"Hello" }
 				""".data(using: .utf8)
 		)
-		let serviceProvider = RestServiceProvider(session: stack.urlSession)
+		let serviceProvider = RestServiceProvider(session: stack.urlSession, cache: KeyValueCacheFake())
 		guard let url = URL(string: "https://www.test.com") else {
 			XCTFail("Failed to create URL")
 			return
@@ -114,7 +114,7 @@ class ServiceIdentityDocumentValidationDecoratorResourceTests: XCTestCase {
 			),
 			error: errorFake
 		)
-		let serviceProvider = RestServiceProvider(session: stack.urlSession)
+		let serviceProvider = RestServiceProvider(session: stack.urlSession, cache: KeyValueCacheFake())
 		guard let url = URL(string: "https://www.test.com") else {
 			XCTFail("Failed to create URL")
 			return
