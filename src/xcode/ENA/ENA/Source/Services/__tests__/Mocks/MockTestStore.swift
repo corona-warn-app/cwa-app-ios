@@ -192,6 +192,9 @@ final class MockTestStore: Store, PPAnalyticsData {
 	// MARK: - HomeBadgeStoring
 	var badgesData: [HomeBadgeWrapper.BadgeType: Int?] = [:]
 
+	// MARK: - KeyValueCacheStoring
+	var keyValueCacheVersion: Int = 0
+
 }
 
 #endif

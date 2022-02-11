@@ -13,10 +13,11 @@ final class DMNHCViewModel {
 	// MARK: - Init
 
 	init(
-		store: Store
+		store: Store,
+		cache: KeyValueCaching
 	) {
 		self.store = store
-		self.restService = RestServiceProvider(cache: KeyValueCacheFake())
+		self.restService = RestServiceProvider(cache: cache)
 	}
 
 	// MARK: - Internal

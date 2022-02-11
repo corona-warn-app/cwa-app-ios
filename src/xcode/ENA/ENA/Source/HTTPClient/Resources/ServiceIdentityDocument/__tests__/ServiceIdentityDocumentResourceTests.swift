@@ -18,7 +18,7 @@ final class ServiceIdentityDocumentResourceTests: CWATestCase {
 			)
 		)
 		
-		let restServiceProvider = RestServiceProvider(session: stack.urlSession)
+		let restServiceProvider = RestServiceProvider(session: stack.urlSession, cache: KeyValueCacheFake())
 
 		let fakeURL = try XCTUnwrap(URL(string: "some"))
 		let resource = ServiceIdentityDocumentResource(endpointUrl: fakeURL)
@@ -45,7 +45,7 @@ final class ServiceIdentityDocumentResourceTests: CWATestCase {
 			)
 		)
 		
-		let restServiceProvider = RestServiceProvider(session: stack.urlSession)
+		let restServiceProvider = RestServiceProvider(session: stack.urlSession, cache: KeyValueCacheFake())
 
 		let fakeURL = try XCTUnwrap(URL(string: "some"))
 		let resource = ServiceIdentityDocumentResource(endpointUrl: fakeURL)
@@ -72,7 +72,7 @@ final class ServiceIdentityDocumentResourceTests: CWATestCase {
 			error: NSError(domain: NSURLErrorDomain, code: NSURLErrorNotConnectedToInternet, userInfo: nil)
 		)
 		
-		let restServiceProvider = RestServiceProvider(session: stack.urlSession)
+		let restServiceProvider = RestServiceProvider(session: stack.urlSession, cache: KeyValueCacheFake())
 
 		let fakeURL = try XCTUnwrap(URL(string: "some"))
 		let resource = ServiceIdentityDocumentResource(endpointUrl: fakeURL)
@@ -99,7 +99,7 @@ final class ServiceIdentityDocumentResourceTests: CWATestCase {
 			httpStatus: 403
 		)
 		
-		let restServiceProvider = RestServiceProvider(session: stack.urlSession)
+		let restServiceProvider = RestServiceProvider(session: stack.urlSession, cache: KeyValueCacheFake())
 
 		let fakeURL = try XCTUnwrap(URL(string: "some"))
 		let resource = ServiceIdentityDocumentResource(endpointUrl: fakeURL)
@@ -126,7 +126,7 @@ final class ServiceIdentityDocumentResourceTests: CWATestCase {
 			httpStatus: 503
 		)
 		
-		let restServiceProvider = RestServiceProvider(session: stack.urlSession)
+		let restServiceProvider = RestServiceProvider(session: stack.urlSession, cache: KeyValueCacheFake())
 
 		let fakeURL = try XCTUnwrap(URL(string: "some"))
 		let resource = ServiceIdentityDocumentResource(endpointUrl: fakeURL)
@@ -159,7 +159,7 @@ final class ServiceIdentityDocumentResourceTests: CWATestCase {
 			error: NSError(domain: NSURLErrorDomain, code: NSURLErrorNotConnectedToInternet, userInfo: nil)
 		)
 
-		let restServiceProvider = RestServiceProvider(session: stack.urlSession)
+		let restServiceProvider = RestServiceProvider(session: stack.urlSession, cache: KeyValueCacheFake())
 
 		let fakeURL = try XCTUnwrap(URL(string: "some"))
 		let resource = ServiceIdentityDocumentResource(endpointUrl: fakeURL)
@@ -192,7 +192,7 @@ final class ServiceIdentityDocumentResourceTests: CWATestCase {
 			error: NSError(domain: NSURLErrorDomain, code: NSURLErrorNotConnectedToInternet, userInfo: nil)
 		)
 		
-		let restServiceProvider = RestServiceProvider(session: stack.urlSession)
+		let restServiceProvider = RestServiceProvider(session: stack.urlSession, cache: KeyValueCacheFake())
 
 		let fakeURL = try XCTUnwrap(URL(string: "some"))
 		let resource = ServiceIdentityDocumentResource(endpointUrl: fakeURL)
