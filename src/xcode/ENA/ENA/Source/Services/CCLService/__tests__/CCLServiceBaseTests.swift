@@ -47,7 +47,7 @@ class CCLServiceBaseTests: XCTestCase {
 	) throws -> KeyValueCacheFake {
 		let cache = KeyValueCacheFake()
 		if let responseData = responseData {
-			cache[locator.hashValue] = CacheData(data: responseData, eTag: eTag, date: date)
+			cache[locator.uniqueIdentifier] = CacheData(data: responseData, eTag: eTag, date: date)
 		}
 		return cache
 	}

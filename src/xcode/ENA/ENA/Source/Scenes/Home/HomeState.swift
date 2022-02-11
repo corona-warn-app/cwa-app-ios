@@ -185,11 +185,6 @@ class HomeState: ENStateHandlerUpdating {
 				return
 			}
 
-			guard error.shouldBeDisplayedToUser else {
-				Log.info("[HomeTableViewModel.State] Don't show error to user: \(error).", log: .riskDetection)
-				return
-			}
-
 			switch error {
 			case .inactive:
 				self.riskState = .inactive
