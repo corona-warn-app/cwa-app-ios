@@ -5,31 +5,42 @@
 import Foundation
 
 protocol HealthCertificateMigration {
-	func migrate(persons: [HealthCertifiedPerson]) -> [HealthCertifiedPerson]
+	func migrate(store: HealthCertificateStoring)
 }
 
 class HealthCertificateMigrator: HealthCertificateMigration {
 	
-	func migrate(persons: [HealthCertifiedPerson]) -> [HealthCertifiedPerson] {
-		var newHealthCertifiedPersons = regroup(persons: persons, runNumber: 0)
+	func migrate(store: HealthCertificateStoring) {
+		
+		let lastVersion = store.healthCertifiedPersonsVersion ?? 0
+		guard lastVersion < kCurrentHealthCertifiedPersonsVersion else {
+			Log.debug("Migration was done already - stop here")
+			return
+		}
+		defer {
+			// after leaving mark migration as done
+			store.healthCertifiedPersonsVersion = kCurrentHealthCertifiedPersonsVersion
+		}
+		
+		var newHealthCertifiedPersons = regroup(store.healthCertifiedPersons, iteration: 0)
 		newHealthCertifiedPersons.sort()
 		for person in newHealthCertifiedPersons {
 			person.healthCertificates = person.healthCertificates.sorted(by: <)
 		}
-		return newHealthCertifiedPersons
+		store.healthCertifiedPersons = newHealthCertifiedPersons
 	}
 	
-	private func regroup(persons: [HealthCertifiedPerson], runNumber: Int) -> [HealthCertifiedPerson] {
-		var mutablePersons = persons
-		guard let referencePerson = mutablePersons.first else {
+	private func regroup(_ originalPersons: [HealthCertifiedPerson], iteration: Int) -> [HealthCertifiedPerson] {
+		var persons = originalPersons
+		guard let firstPerson = persons.first else {
 			return []
 		}
-		mutablePersons.removeFirst()
+		persons.removeFirst()
 		var matchingPersons = [HealthCertifiedPerson]()
 		
-		for person in mutablePersons {
+		for person in persons {
 			for certificate in person.healthCertificates {
-				for referenceCertificate in referencePerson.healthCertificates {
+				for referenceCertificate in firstPerson.healthCertificates {
 					if referenceCertificate.belongsToSamePerson(certificate) {
 						matchingPersons.append(person)
 					}
@@ -37,22 +48,25 @@ class HealthCertificateMigrator: HealthCertificateMigration {
 			}
 		}
 		
-		if runNumber == persons.count {
-			mutablePersons.append(referencePerson)
-			return mutablePersons
+		if iteration == originalPersons.count {
+			persons.append(firstPerson)
+			return persons
 		}
 
 		if matchingPersons.isEmpty {
-			mutablePersons.append(referencePerson)
-			return regroup(persons: mutablePersons, runNumber: runNumber + 1)
+			persons.append(firstPerson)
+			return regroup(persons, iteration: iteration + 1)
 		} else {
 			for matchingPerson in matchingPersons {
-				referencePerson.healthCertificates += matchingPerson.healthCertificates
-				mutablePersons.remove(matchingPerson)
+				firstPerson.healthCertificates += matchingPerson.healthCertificates
+				if matchingPerson.isPreferredPerson {
+					firstPerson.isPreferredPerson = true
+				}
+				persons.remove(matchingPerson)
 			}
-			mutablePersons.append(referencePerson)
+			persons.append(firstPerson)
 			
-			return regroup(persons: mutablePersons, runNumber: 0)
+			return regroup(persons, iteration: 0)
 		}
 	}
 	
