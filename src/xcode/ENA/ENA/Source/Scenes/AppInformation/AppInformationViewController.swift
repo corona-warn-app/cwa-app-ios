@@ -10,9 +10,11 @@ class AppInformationViewController: DynamicTableViewController, NavigationBarOpa
 	// MARK: - Init
 	
 	init(
-		elsService: ErrorLogSubmissionProviding
+		elsService: ErrorLogSubmissionProviding,
+		cclService: CCLServable
 	) {
-		
+		self.cclService = cclService
+
 		self.model = [
 			.about: AppInformationCellModel(
 				text: AppStrings.AppInformation.aboutNavigation,
@@ -147,23 +149,27 @@ class AppInformationViewController: DynamicTableViewController, NavigationBarOpa
 	var model: [Category: AppInformationCellModel]
 	
 	// MARK: - Private
+
+	private var cclService: CCLServable
 	
 	private func footerView() -> UIView {
 		let versionLabel = ENALabel()
 		versionLabel.translatesAutoresizingMaskIntoConstraints = false
+		versionLabel.numberOfLines = 0
 		versionLabel.textColor = .enaColor(for: .textPrimary2)
 		versionLabel.style = .footnote
+		versionLabel.textAlignment = .center
 
 		let bundleVersion = Bundle.main.appVersion
 		let bundleBuild = Bundle.main.appBuildNumber
-		versionLabel.text = "\(AppStrings.AppInformation.appInformationVersion) \(bundleVersion) (\(bundleBuild))"
+		versionLabel.text = String(format: AppStrings.AppInformation.appInformationAppVersion, "\(bundleVersion) (\(bundleBuild))") + "\n" + String(format: AppStrings.AppInformation.appInformationCCLVersion, "\(cclService.configurationVersion)")
 
 		let footerView = UIView()
 		footerView.addSubview(versionLabel)
 
 		versionLabel.centerXAnchor.constraint(equalTo: footerView.centerXAnchor).isActive = true
 		versionLabel.topAnchor.constraint(equalTo: footerView.topAnchor, constant: 16).isActive = true
-		versionLabel.bottomAnchor.constraint(equalTo: footerView.bottomAnchor, constant: 16).isActive = true
+		versionLabel.bottomAnchor.constraint(equalTo: footerView.bottomAnchor, constant: -16).isActive = true
 
 		return footerView
 	}
