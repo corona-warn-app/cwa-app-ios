@@ -1075,6 +1075,9 @@
 		AB5F84BD24F92E92000400D4 /* SerialMigratorFake.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB5F84BC24F92E92000400D4 /* SerialMigratorFake.swift */; };
 		AB5F84BE24FE2DC9000400D4 /* DownloadedPackagesSQLLiteStoreV0.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB5F84B824F92855000400D4 /* DownloadedPackagesSQLLiteStoreV0.swift */; };
 		AB5F84C024FE2EB3000400D4 /* DownloadedPackagesStoreV0.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB5F84BF24FE2EB3000400D4 /* DownloadedPackagesStoreV0.swift */; };
+		AB61206A27B3FDE900CC8C08 /* Array+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB61206927B3FDE900CC8C08 /* Array+Utils.swift */; };
+		AB61206C27B65DF800CC8C08 /* HealthCertificateMigrator.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB61206B27B65DF800CC8C08 /* HealthCertificateMigrator.swift */; };
+		AB61207027B6604700CC8C08 /* HealthCertificateMigratorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB61206F27B6604700CC8C08 /* HealthCertificateMigratorTests.swift */; };
 		AB6289CF251BA01400CF61D2 /* Bundle+Version.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB6289CE251BA01400CF61D2 /* Bundle+Version.swift */; };
 		AB6289D4251BA4EC00CF61D2 /* String+Compare.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB6289D3251BA4EC00CF61D2 /* String+Compare.swift */; };
 		AB6289D9251C833100CF61D2 /* DMDeltaOnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB6289D8251C833100CF61D2 /* DMDeltaOnboardingViewController.swift */; };
@@ -2761,6 +2764,9 @@
 		AB5F84BA24F92876000400D4 /* Migration0To1Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Migration0To1Tests.swift; sourceTree = "<group>"; };
 		AB5F84BC24F92E92000400D4 /* SerialMigratorFake.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SerialMigratorFake.swift; sourceTree = "<group>"; };
 		AB5F84BF24FE2EB3000400D4 /* DownloadedPackagesStoreV0.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownloadedPackagesStoreV0.swift; sourceTree = "<group>"; };
+		AB61206927B3FDE900CC8C08 /* Array+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Utils.swift"; sourceTree = "<group>"; };
+		AB61206B27B65DF800CC8C08 /* HealthCertificateMigrator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthCertificateMigrator.swift; sourceTree = "<group>"; };
+		AB61206F27B6604700CC8C08 /* HealthCertificateMigratorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthCertificateMigratorTests.swift; sourceTree = "<group>"; };
 		AB6289CE251BA01400CF61D2 /* Bundle+Version.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bundle+Version.swift"; sourceTree = "<group>"; };
 		AB6289D3251BA4EC00CF61D2 /* String+Compare.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Compare.swift"; sourceTree = "<group>"; };
 		AB6289D8251C833100CF61D2 /* DMDeltaOnboardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMDeltaOnboardingViewController.swift; sourceTree = "<group>"; };
@@ -3899,6 +3905,7 @@
 		017D8D96263ACD760009E91C /* HealthCertificate */ = {
 			isa = PBXGroup;
 			children = (
+				AB61206D27B6602900CC8C08 /* Migration */,
 				017D8D9B263B02520009E91C /* __tests__ */,
 				017D8D9C263B02860009E91C /* HealthCertificateService.swift */,
 				34079850274D3D40007E6071 /* HealthCertificateService+UITestingMethods.swift */,
@@ -7059,6 +7066,7 @@
 				ABE9613E25EFEC3700D0F699 /* InstallationDate.swift */,
 				01DDF44326541CEC0043B4E1 /* DidSetPublished.swift */,
 				ABE17DE627B14A4200E9EA2D /* Set+Utils.swift */,
+				AB61206927B3FDE900CC8C08 /* Array+Utils.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -7260,6 +7268,23 @@
 				B161782424804AC3006E435A /* DownloadedPackagesSQLLiteStoreV1.swift */,
 			);
 			path = V1;
+			sourceTree = "<group>";
+		};
+		AB61206D27B6602900CC8C08 /* Migration */ = {
+			isa = PBXGroup;
+			children = (
+				AB61206E27B6603100CC8C08 /* __tests__ */,
+				AB61206B27B65DF800CC8C08 /* HealthCertificateMigrator.swift */,
+			);
+			path = Migration;
+			sourceTree = "<group>";
+		};
+		AB61206E27B6603100CC8C08 /* __tests__ */ = {
+			isa = PBXGroup;
+			children = (
+				AB61206F27B6604700CC8C08 /* HealthCertificateMigratorTests.swift */,
+			);
+			path = __tests__;
 			sourceTree = "<group>";
 		};
 		AB628A1D251CDAA700CF61D2 /* Environment */ = {
@@ -10304,6 +10329,7 @@
 				717D21E9248C022E00D9717E /* DynamicTableViewHtmlCell.swift in Sources */,
 				01BA0755262094D700237DD8 /* AerosoleDecayFunctionLinear.swift in Sources */,
 				ABE17DE727B14A4200E9EA2D /* Set+Utils.swift in Sources */,
+				AB61206A27B3FDE900CC8C08 /* Array+Utils.swift in Sources */,
 				019E2EFC269C8EF0000EC4AD /* SAP_Internal_Dgc_ValueSet+DisplayText.swift in Sources */,
 				01164CE426C57438007F9C3E /* TraceLocationSelectionCellModel.swift in Sources */,
 				BA6C8A9E254D634E008344F5 /* RiskCalculationConfiguration.swift in Sources */,
@@ -11011,6 +11037,7 @@
 				01F2A543257FB90200DA96A6 /* CloseBarButtonItem.swift in Sources */,
 				017D8DA7263B02F70009E91C /* HealthCertifiedPerson.swift in Sources */,
 				AB190F1525FFAF3100FBFF0D /* ContactDiaryStoreSchemaV3.swift in Sources */,
+				AB61206C27B65DF800CC8C08 /* HealthCertificateMigrator.swift in Sources */,
 				B14D0CDB246E968C00D5BEBC /* String+Today.swift in Sources */,
 				85142501245DA0B3009D2791 /* UIViewController+Alert.swift in Sources */,
 				BA1FC82C26E251FD00CCCC17 /* DMLocalNotificationsViewController.swift in Sources */,
@@ -11177,6 +11204,7 @@
 				34FE15A02604B1880002CB69 /* QRCodePosterTemplateProviderTests.swift in Sources */,
 				5089F95C2632D3B000E722D2 /* HTTPClient+AuthorizationOTPElsTests.swift in Sources */,
 				01131E46261611A3001DB2CD /* TraceLocationsConfigurationViewModelTest.swift in Sources */,
+				AB61207027B6604700CC8C08 /* HealthCertificateMigratorTests.swift in Sources */,
 				3557CF2E26A05AEF00EDD923 /* ManageStatisticsCellTests.swift in Sources */,
 				0120ECF32587607600F78944 /* DiaryDayEntryCellModelTest.swift in Sources */,
 				3456D96725F0EBB400A62F5D /* ErrorReportHistoryViewModelTests.swift in Sources */,

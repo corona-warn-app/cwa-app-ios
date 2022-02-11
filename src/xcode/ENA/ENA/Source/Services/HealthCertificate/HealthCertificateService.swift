@@ -9,7 +9,7 @@ import UserNotifications
 
 // global to access in unit tests
 // version will be used for migration logic
-public let kCurrentHealthCertifiedPersonsVersion = 2
+public let kCurrentHealthCertifiedPersonsVersion = 3
 
 // swiftlint:disable:next type_body_length
 class HealthCertificateService {
@@ -115,7 +115,6 @@ class HealthCertificateService {
 	}
 
 	@discardableResult
-	// swiftlint:disable:next cyclomatic_complexity
 	func registerHealthCertificate(
 		base45: Base45,
 		checkSignatureUpfront: Bool = true,
@@ -123,11 +122,10 @@ class HealthCertificateService {
 		markAsNew: Bool = false
 	) -> Result<CertificateResult, HealthCertificateServiceError.RegistrationError> {
 		Log.info("[HealthCertificateService] Registering health certificate from payload: \(private: base45)", log: .api)
-
+		
 		// If the certificate is in the recycle bin, restore it and skip registration process.
 		if let recycleBinItem = recycleBin.item(for: base45), case let .certificate(healthCertificate) = recycleBinItem.item {
-			let healthCertifiedPerson = registeredHealthCertifiedPerson(for: healthCertificate) ?? HealthCertifiedPerson(healthCertificates: [])
-			addHealthCertificate(healthCertificate, to: healthCertifiedPerson)
+			let healthCertifiedPerson = addHealthCertificate(healthCertificate)
 			recycleBin.remove(recycleBinItem)
 
 			return .success(
@@ -141,7 +139,7 @@ class HealthCertificateService {
 
 		do {
 			let healthCertificate = try HealthCertificate(base45: base45, isNew: markAsNew)
-
+			
 			// check signature
 			if checkSignatureUpfront {
 				Log.debug("Check signature of certificate upfront.")
@@ -161,40 +159,29 @@ class HealthCertificateService {
 				return .failure(.certificateHasTooManyEntries)
 			}
 
-			var healthCertifiedPerson: HealthCertifiedPerson
 			var personWarnThresholdReached = false
+			
+			if checkMaxPersonCount {
+				Log.debug("Check against max person count.")
 
-			if let registeredHealthCertifiedPerson = registeredHealthCertifiedPerson(for: healthCertificate) {
-				healthCertifiedPerson = registeredHealthCertifiedPerson
-			} else {
-				if checkMaxPersonCount {
-					Log.debug("Check against max person count.")
-
-					if healthCertifiedPersons.count >= appConfiguration.featureProvider.intValue(for: .dccPersonCountMax) {
-						Log.debug("Abort registering certificate due to too many persons registered.")
-						return .failure(.tooManyPersonsRegistered)
-					}
-
-					if healthCertifiedPersons.count + 1 >= appConfiguration.featureProvider.intValue(for: .dccPersonWarnThreshold) {
-						Log.debug("Person warn threshold is reached.")
-						personWarnThresholdReached = true
-					}
+				if healthCertifiedPersons.count >= appConfiguration.featureProvider.intValue(for: .dccPersonCountMax) {
+					Log.debug("Abort registering certificate due to too many persons registered.")
+					return .failure(.tooManyPersonsRegistered)
 				}
 
-				healthCertifiedPerson = HealthCertifiedPerson(healthCertificates: [])
+				if healthCertifiedPersons.count + 1 >= appConfiguration.featureProvider.intValue(for: .dccPersonWarnThreshold) {
+					Log.debug("Person warn threshold is reached.")
+					personWarnThresholdReached = true
+				}
 			}
-
-			let isDuplicate = healthCertifiedPerson.healthCertificates
-				.contains(where: {
-					$0.uniqueCertificateIdentifier == healthCertificate.uniqueCertificateIdentifier
-				})
-			if isDuplicate {
+			
+			if isDuplicate(healthCertificate) {
 				Log.error("[HealthCertificateService] Registering health certificate failed: certificate already registered", log: .api)
 				return .failure(.certificateAlreadyRegistered(healthCertificate.type))
 			}
 
-			addHealthCertificate(healthCertificate, to: healthCertifiedPerson)
-
+			let healthCertifiedPerson = addHealthCertificate(healthCertificate)
+	
 			Log.info("Successfuly registered health certificate.")
 			return .success(
 				CertificateResult(
@@ -212,42 +199,43 @@ class HealthCertificateService {
 		}
 	}
 
-	func registeredHealthCertifiedPerson(for healthCertificate: HealthCertificate) -> HealthCertifiedPerson? {
-		healthCertifiedPersons
-			.first(where: {
-				$0.healthCertificates.first?.name.groupingStandardizedName == healthCertificate.name.groupingStandardizedName &&
-				$0.healthCertificates.first?.dateOfBirthDate == healthCertificate.dateOfBirthDate
-			})
-	}
-
-	func addHealthCertificate(_ healthCertificate: HealthCertificate) {
-		addHealthCertificate(
-			healthCertificate,
-			to: registeredHealthCertifiedPerson(for: healthCertificate) ?? HealthCertifiedPerson(healthCertificates: [])
-		)
-	}
-
-	func addHealthCertificate(_ healthCertificate: HealthCertificate, to healthCertifiedPerson: HealthCertifiedPerson) {
+	@discardableResult
+	func addHealthCertificate(_ healthCertificate: HealthCertificate) -> HealthCertifiedPerson {
 		Log.info("Add health certificate to person.")
+		
+		let newlyGroupedPersons = groupingPersons(appending: healthCertificate)
+		
+		guard let healthCertifiedPerson = findFirstPerson(
+			for: healthCertificate, from: newlyGroupedPersons
+		) else {
+			Log.error("HealthCertificate was not found immediately after adding it.")
+			fatalError("HealthCertificate was not found immediately after adding it. This case is not possible. The healthCertificate was added to newlyGroupedPersons before.")
+		}
+		
+		let isNewPersonAdded = newlyGroupedPersons.count > healthCertifiedPersons.count
+		healthCertifiedPersons = newlyGroupedPersons
+		updateValidityStateAndNotifications(for: healthCertificate)
 
-		healthCertifiedPerson.healthCertificates.append(healthCertificate)
-		healthCertifiedPerson.healthCertificates.sort(by: <)
-
-		if !healthCertifiedPersons.contains(where: { $0 === healthCertifiedPerson }) {
+		if isNewPersonAdded {
 			Log.info("[HealthCertificateService] Successfully registered health certificate for a new person", log: .api)
-			healthCertifiedPersons = (healthCertifiedPersons + [healthCertifiedPerson]).sorted()
-			updateValidityStateAndNotifications(for: healthCertificate)
 			updateDCCWalletInfo(for: healthCertifiedPerson)
-			updateGradients()
 		} else {
 			Log.info("[HealthCertificateService] Successfully registered health certificate for a person with other existing certificates", log: .api)
 		}
-
-		if healthCertificate.type != .test {
-			createNotifications(for: healthCertificate)
-		}
 		
+		updateGradients()
+
 		Log.info("Finished adding health certificate to person.")
+		
+		return healthCertifiedPerson
+	}
+	
+	func isDuplicate(_ healthCertificate: HealthCertificate) -> Bool {
+		healthCertifiedPersons.flatMap {
+			$0.healthCertificates
+		}.contains(where: {
+			$0.uniqueCertificateIdentifier == healthCertificate.uniqueCertificateIdentifier
+		})
 	}
 
 	func moveHealthCertificateToBin(_ healthCertificate: HealthCertificate) {
@@ -468,7 +456,220 @@ class HealthCertificateService {
 		updateHealthCertifiedPersonSubscriptions(for: healthCertifiedPersons)
 	}
 
+	func migration2() {
+		Log.info("Migrate certificates.")
+
+		// at the moment we only have 1 migration step
+		// if more is needed we should add a migration serial queue
+		let lastVersion = store.healthCertifiedPersonsVersion ?? 0
+		guard lastVersion < kCurrentHealthCertifiedPersonsVersion else {
+			Log.debug("Migration was done already - stop here")
+			return
+		}
+		defer {
+			// after leaving mark migration as done
+			store.healthCertifiedPersonsVersion = kCurrentHealthCertifiedPersonsVersion
+		}
+		
+		var certificateGroups = [String: [HealthCertificate]]()
+		let allCertificates = store.healthCertifiedPersons.flatMap { $0.healthCertificates }
+
+		for certificate in allCertificates {
+			var foundMatchingGroup = false
+			for certificateGroup in certificateGroups {
+				for groupedCertificate in certificateGroup.value {
+					if certificate.belongsToSamePerson(groupedCertificate) {
+						certificateGroups[certificateGroup.key]?.append(certificate)
+						foundMatchingGroup = true
+						break
+					}
+				}
+			}
+			
+			if !foundMatchingGroup {
+				certificateGroups[UUID().uuidString] = [certificate]
+			}
+		}
+		
+		print(certificateGroups)
+		print("***")
+		
+//		var exitCondition = true
+//		var persons = store.healthCertifiedPersons
+//		var newGroupedPersons = [HealthCertifiedPerson]()
+//
+//		while exitCondition {
+//			guard let referencePerson = persons[safe: 0] else {
+//				break
+//			}
+//			persons.removeFirst()
+//
+//			var matchingPersons = [HealthCertifiedPerson]()
+//			for certificate in referencePerson.healthCertificates {
+//				for person in persons {
+//					for personCertificate in person.healthCertificates {
+//						if certificate.belongsToSamePerson(personCertificate) {
+//							matchingPersons.append(person)
+//						}
+//					}
+//				}
+//
+//				for person in newGroupedPersons {
+//					for personCertificate in person.healthCertificates {
+//						if certificate.belongsToSamePerson(personCertificate) {
+//							matchingPersons.append(person)
+//						}
+//					}
+//				}
+//			}
+//
+//			persons.remove(elements: matchingPersons)
+//			newGroupedPersons.remove(elements: matchingPersons)
+//
+//			if !matchingPersons.isEmpty {
+//				matchingPersons.insert(referencePerson, at: 0)
+//				let allCertificates = matchingPersons.flatMap { $0.healthCertificates }
+//				let firstPerson = matchingPersons[0]
+//				firstPerson.healthCertificates = allCertificates
+//				firstPerson.isPreferredPerson = matchingPersons.contains { $0.isPreferredPerson }
+//				newGroupedPersons.append(firstPerson)
+//			} else {
+//				newGroupedPersons.append(referencePerson)
+//				exitCondition = persons.isEmpty ? false : true
+//			}
+//		}
+//
+//		if store.healthCertifiedPersons != newGroupedPersons {
+//			Log.debug("Migration did update grouping of certificates")
+//			store.healthCertifiedPersons = newGroupedPersons
+//		}
+
+// ******
+		
+//		let currentCertificates = store.healthCertifiedPersons.flatMap {
+//			$0.healthCertificates
+//		}
+//
+//		var newHealthCertifiedPersons = [HealthCertifiedPerson]()
+//
+//		for certificate in currentCertificates {
+//			if let foundPerson = findPerson(for: certificate, from: newHealthCertifiedPersons) {
+//				foundPerson.healthCertificates.append(certificate)
+//				foundPerson.healthCertificates.sort(by: <)
+//			} else {
+//				newHealthCertifiedPersons.append(
+//					HealthCertifiedPerson(
+//						healthCertificates: [certificate]
+//					)
+//				)
+//			}
+//		}
+//
+//		newHealthCertifiedPersons.sort()
+//
+//		if store.healthCertifiedPersons != newHealthCertifiedPersons {
+//			Log.debug("Migration did update grouping of certificates")
+//			store.healthCertifiedPersons = newHealthCertifiedPersons
+//		}
+	}
+	
 	func migration() {
+		let allCertificates = store.healthCertifiedPersons.flatMap { $0.healthCertificates }
+		var startGrouping = allCertificates.reduce(into: [String: [HealthCertificate]]()) {
+			$0[UUID().uuidString] = [$1]
+		}
+		
+		var regroupFinished = false
+		while !regroupFinished {
+			if let newGrouping = regroup(groups: startGrouping) {
+				startGrouping = newGrouping
+			} else {
+				regroupFinished = true
+			}
+		}
+		
+		var newHealthCertifiedPersons = startGrouping.map {
+			HealthCertifiedPerson(healthCertificates: $1.sorted(by: <))
+		}
+		
+		newHealthCertifiedPersons.sort()
+		
+		if store.healthCertifiedPersons != newHealthCertifiedPersons {
+			Log.debug("Migration did update grouping of certificates")
+			store.healthCertifiedPersons = newHealthCertifiedPersons
+		}
+	}
+	
+	func regroup(groups: [String: [HealthCertificate]]) -> [String: [HealthCertificate]]? {
+		var oldGroups = groups
+		guard var referenceGroup = oldGroups.first else {
+			return nil
+		}
+		oldGroups[referenceGroup.key] = nil
+
+		for group in oldGroups {
+			for certificate in group.value {
+				for referenceCertificate in referenceGroup.value {
+					if referenceCertificate.belongsToSamePerson(certificate) {
+						let allCertificates = referenceGroup.value + group.value
+						oldGroups[group.key] = nil
+						oldGroups[UUID().uuidString] = allCertificates
+						return oldGroups
+					}
+				}
+			}
+		}
+		
+		return nil
+	}
+	
+	func groupingPersons(appending newHealthCertificate: HealthCertificate) -> [HealthCertifiedPerson] {
+		// Please note: A new certificate can combine several persons to one.
+
+		// Search for matching persons.
+		var newGroupedPersons = healthCertifiedPersons
+		var matchingPersons = [HealthCertifiedPerson]()
+		for person in newGroupedPersons {
+			for certificate in person.healthCertificates {
+				if certificate.belongsToSamePerson(newHealthCertificate) {
+					matchingPersons.append(person)
+				}
+			}
+		}
+		
+		// If more than one person was found, reduce persons to one person and add the certificate to the reduced person.
+		// This is the scenario where the new certificate has combined several persons to one.
+		if matchingPersons.count > 1 {
+			var allCertificates = matchingPersons.flatMap { $0.healthCertificates }
+			allCertificates.append(newHealthCertificate)
+			
+			// Use the first person to reduce all others into it.
+			let firstPerson = matchingPersons[0]
+			firstPerson.healthCertificates = allCertificates
+			firstPerson.isPreferredPerson = matchingPersons.contains { $0.isPreferredPerson }
+			newGroupedPersons.remove(elements: matchingPersons)
+			newGroupedPersons.append(firstPerson)
+		}
+		// If there is exact 1 person found, add the new certificate to that person.
+		else if matchingPersons.count == 1 {
+			matchingPersons[0].healthCertificates.append(newHealthCertificate)
+		}
+		// If no person was found, create a new person with the new certificate.
+		else {
+			newGroupedPersons.append(
+				HealthCertifiedPerson(
+					healthCertificates: [newHealthCertificate]
+				)
+			)
+		}
+		
+		newGroupedPersons.sort()
+		
+		return newGroupedPersons
+	}
+	
+	
+	func oldMigration() {
 		Log.info("Migrate certificates.")
 
 		// at the moment we only have 1 migration step
@@ -510,6 +711,18 @@ class HealthCertificateService {
 			Log.debug("Did update grouping name of certificates")
 			store.healthCertifiedPersons = newHealthCertifiedPersons
 		}
+	}
+
+	func findFirstPerson(for certificate: HealthCertificate, from persons: [HealthCertifiedPerson]) -> HealthCertifiedPerson? {
+		for person in persons {
+			for personCertificate in person.healthCertificates {
+				if certificate.belongsToSamePerson(personCertificate) {
+					return person
+				}
+			}
+		}
+		
+		return nil
 	}
 
 	func updateValidityStatesAndNotificationsWithFreshDSCList(shouldScheduleTimer: Bool = true, completion: () -> Void) {
