@@ -2117,6 +2117,96 @@ class CoronaTestServiceTests: CWATestCase {
 		XCTAssertNil(service.pcrTest)
 	}
 
+	func testRegisterRapidPCRTestAndGetResult_RegistrationSucceedsGettingTestResultFails() {
+		let client = ClientMock()
+
+		let restServiceProvider = RestServiceProviderStub(results: [
+			.success(TeleTanReceiveModel(registrationToken: "registrationToken")),
+			.failure(ServiceError<TestResultError>.unexpectedServerError(500)),
+			.success(RegistrationTokenReceiveModel(submissionTAN: "fake"))
+		]
+		)
+
+		let store = MockTestStore()
+		store.enfRiskCalculationResult = mockRiskCalculationResult()
+		Analytics.setupMock(store: store)
+		store.isPrivacyPreservingAnalyticsConsentGiven = true
+
+		let appConfiguration = CachedAppConfigurationMock()
+
+		let service = CoronaTestService(
+			client: client,
+			restServiceProvider: restServiceProvider,
+			store: store,
+			eventStore: MockEventStore(),
+			diaryStore: MockDiaryStore(),
+			appConfiguration: appConfiguration,
+			healthCertificateService: HealthCertificateService(
+				store: store,
+				dccSignatureVerifier: DCCSignatureVerifyingStub(),
+				dscListProvider: MockDSCListProvider(),
+				client: client,
+				appConfiguration: appConfiguration,
+				cclService: FakeCCLService(),
+
+				recycleBin: .fake()
+			),
+			recycleBin: .fake(),
+			badgeWrapper: .fake()
+		)
+		service.pcrTest = nil
+
+		let expectation = self.expectation(description: "Expect to receive a result.")
+
+		service.registerRapidPCRTestAndGetResult(
+			with: "hash",
+			qrCodeHash: "qrCodeHash",
+			pointOfCareConsentDate: Date(timeIntervalSince1970: 2222),
+			firstName: nil,
+			lastName: nil,
+			dateOfBirth: nil,
+			isSubmissionConsentGiven: false,
+			certificateSupportedByPointOfCare: false,
+			certificateConsent: .notGiven
+		) { result in
+			expectation.fulfill()
+			switch result {
+			case .failure(let error):
+				XCTAssertEqual(error, .testResultError(.unexpectedServerError(500)))
+			case .success:
+				XCTFail("This test should always return a failure.")
+			}
+		}
+
+		waitForExpectations(timeout: .short)
+
+		guard let rapidPCRTest = service.pcrTest else {
+			XCTFail("rapidPCRTest should not be nil")
+			return
+		}
+		
+		XCTAssertEqual(rapidPCRTest.registrationToken, "registrationToken")
+		XCTAssertEqual(rapidPCRTest.qrCodeHash, "qrCodeHash")
+		XCTAssertEqual(
+			try XCTUnwrap(rapidPCRTest.registrationDate).timeIntervalSince1970,
+			Date().timeIntervalSince1970,
+			accuracy: 10
+		)
+		XCTAssertEqual(rapidPCRTest.testResult, .pending)
+		XCTAssertNil(rapidPCRTest.finalTestResultReceivedDate)
+		XCTAssertFalse(rapidPCRTest.positiveTestResultWasShown)
+		XCTAssertFalse(rapidPCRTest.isSubmissionConsentGiven)
+		XCTAssertNil(rapidPCRTest.submissionTAN)
+		XCTAssertFalse(rapidPCRTest.keysSubmitted)
+		XCTAssertFalse(rapidPCRTest.journalEntryCreated)
+		XCTAssertNil(store.pcrTestResultMetadata?.testResult)
+		XCTAssertEqual(
+			try XCTUnwrap(store.pcrTestResultMetadata?.testRegistrationDate).timeIntervalSince1970,
+			Date().timeIntervalSince1970,
+			accuracy: 10
+		)
+	}
+
 	// MARK: - Test Result Update
 
 	func testUpdatePCRTestResult_success() {
