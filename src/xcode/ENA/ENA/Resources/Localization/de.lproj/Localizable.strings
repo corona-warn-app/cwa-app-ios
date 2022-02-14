@@ -1385,7 +1385,9 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "App_Information_Title" = "App-Informationen";
 
-"App_Information_Version" = "Version";
+"App_Information_AppVersion" = "App-Version: %@";
+
+"App_Information_CCLVersion" = "CCL-Version: %@";
 
 /* App Information - About */
 

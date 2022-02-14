@@ -45,13 +45,9 @@ extension CCLConfiguration {
     }
 }
 
-public func CCLConfigurationCBORDataFake() throws -> Data {
-    let configs = [
-            CCLConfiguration.fake(),
-            CCLConfiguration.fake(),
-            CCLConfiguration.fake(),
-            CCLConfiguration.fake()
-        ]
+public func CCLConfigurationCBORDataFake(
+    configs: [CCLConfiguration] = [.fake(), .fake(), .fake(), .fake()]
+) throws -> Data {
     return try CodableCBOREncoder().encode(configs)
 }
 

@@ -195,7 +195,7 @@ class HealthCertifiedPersonTableViewCell: UITableViewCell, ReuseIdentifierProvid
 		admissionStateTitleLabel.numberOfLines = 0
 		admissionStateTitleLabel.textColor = .enaColor(for: .textPrimary1)
 		admissionStateTitleLabel.text = AppStrings.HealthCertificate.Overview.admissionStateTitle
-		admissionStateTitleLabel.setContentCompressionResistancePriority(.required, for: .horizontal)
+		admissionStateTitleLabel.setContentCompressionResistancePriority(.init(rawValue: 998), for: .horizontal)
 
 		return admissionStateTitleLabel
 	}()
