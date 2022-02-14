@@ -161,20 +161,24 @@ class HealthCertificateService {
 
 			var personWarnThresholdReached = false
 			
-			if checkMaxPersonCount {
-				Log.debug("Check against max person count.")
-
-				if healthCertifiedPersons.count >= appConfiguration.featureProvider.intValue(for: .dccPersonCountMax) {
-					Log.debug("Abort registering certificate due to too many persons registered.")
-					return .failure(.tooManyPersonsRegistered)
-				}
-
-				if healthCertifiedPersons.count + 1 >= appConfiguration.featureProvider.intValue(for: .dccPersonWarnThreshold) {
-					Log.debug("Person warn threshold is reached.")
-					personWarnThresholdReached = true
+			// If we already have the person, we can skip the checkMaxPersonCount
+			if findFirstPerson(for: healthCertificate, from: healthCertifiedPersons) == nil {
+				if checkMaxPersonCount {
+					Log.debug("Check against max person count.")
+					
+					if healthCertifiedPersons.count >= appConfiguration.featureProvider.intValue(for: .dccPersonCountMax) {
+						Log.debug("Abort registering certificate due to too many persons registered.")
+						return .failure(.tooManyPersonsRegistered)
+					}
+					
+					if healthCertifiedPersons.count + 1 >= appConfiguration.featureProvider.intValue(for: .dccPersonWarnThreshold) {
+						Log.debug("Person warn threshold is reached.")
+						personWarnThresholdReached = true
+					}
 				}
 			}
 			
+			// TODO: Nick fragen ob nicht früher gecallt werden kann.
 			if isDuplicate(healthCertificate) {
 				Log.error("[HealthCertificateService] Registering health certificate failed: certificate already registered", log: .api)
 				return .failure(.certificateAlreadyRegistered(healthCertificate.type))
