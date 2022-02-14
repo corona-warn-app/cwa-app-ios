@@ -104,12 +104,16 @@ class HealthCertificateOverviewViewController: UITableViewController {
 
 	override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		switch HealthCertificateOverviewViewModel.Section(rawValue: indexPath.section) {
+		case .changeAdmissionScenarioStatusLabel:
+			return changeAdmissionScenarioStatusLabelCell(forRowAt: indexPath)
 		case .changeAdmissionScenario:
 			return changeAdmissionScenarioCell(forRowAt: indexPath)
 		case .testCertificateRequest:
 			return testCertificateRequestCell(forRowAt: indexPath)
 		case .healthCertificate:
 			return healthCertifiedPersonCell(forRowAt: indexPath)
+		case .healthCertificateScanningInfo:
+			return healthCertificateScanningInfoCell(forRowAt: indexPath)
 		case .decodingFailedHealthCertificates:
 			return decodingFailedHealthCertificateCell(forRowAt: indexPath)
 		case .none:
@@ -121,12 +125,16 @@ class HealthCertificateOverviewViewController: UITableViewController {
 	
 	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 		switch HealthCertificateOverviewViewModel.Section(rawValue: indexPath.section) {
+		case .changeAdmissionScenarioStatusLabel:
+			break
 		case .changeAdmissionScenario:
 			onChangeAdmissionScenarioTap()
 		case .testCertificateRequest:
 			break
 		case .healthCertificate:
 			onCertifiedPersonTap(viewModel.healthCertifiedPersons[indexPath.row])
+		case .healthCertificateScanningInfo:
+			break
 		case .decodingFailedHealthCertificates:
 			break
 		case .none:
@@ -160,11 +168,13 @@ class HealthCertificateOverviewViewController: UITableViewController {
 			UINib(nibName: String(describing: AddButtonAsTableViewCell.self), bundle: nil),
 			forCellReuseIdentifier: AddButtonAsTableViewCell.reuseIdentifier
 		)
-		
+
 		tableView.register(
 			UINib(nibName: String(describing: TestCertificateRequestTableViewCell.self), bundle: nil),
 			forCellReuseIdentifier: TestCertificateRequestTableViewCell.reuseIdentifier
 		)
+
+		tableView.register(OverviewLabelTableCell.self, forCellReuseIdentifier: OverviewLabelTableCell.reuseIdentifier)
 
 		tableView.register(HealthCertifiedPersonTableViewCell.self, forCellReuseIdentifier: HealthCertifiedPersonTableViewCell.reuseIdentifier)
 
@@ -178,6 +188,16 @@ class HealthCertificateOverviewViewController: UITableViewController {
 		tableView.estimatedRowHeight = 500
 	}
 	
+	private func changeAdmissionScenarioStatusLabelCell(forRowAt indexPath: IndexPath) -> UITableViewCell {
+		guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: OverviewLabelTableCell.self), for: indexPath) as? OverviewLabelTableCell else {
+			fatalError("Could not dequeue OverviewLabelTableCell")
+		}
+
+		// to.do should be dynamic
+		cell.configure(text: "Status für folgendes Bundesland", noBottomInset: true, textAlignment: .left)
+		return cell
+	}
+	
 	private func changeAdmissionScenarioCell(forRowAt indexPath: IndexPath) -> UITableViewCell {
 		guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: AddButtonAsTableViewCell.self), for: indexPath) as? AddButtonAsTableViewCell else {
 			fatalError("Could not dequeue ChangeAdmissionScenarionCell")
@@ -185,6 +205,15 @@ class HealthCertificateOverviewViewController: UITableViewController {
 
 		cell.configure(cellModel: ChangeAdmissionScenarionCellModel())
 		cell.accessibilityIdentifier = AccessibilityIdentifiers.HealthCertificate.Overview.changeAdmissionScenarioCell
+		return cell
+	}
+	
+	private func healthCertificateScanningInfoCell(forRowAt indexPath: IndexPath) -> UITableViewCell {
+		guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: OverviewLabelTableCell.self), for: indexPath) as? OverviewLabelTableCell else {
+			fatalError("Could not dequeue OverviewLabelTableCell")
+		}
+
+		cell.configure(text: AppStrings.HealthCertificate.Overview.scanningInfo, textAlignment: .center)
 		return cell
 	}
 	
