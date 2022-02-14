@@ -36,10 +36,6 @@ class HealthCertificateMigratorTests: XCTestCase {
 					base45: try thomasCert03()
 				)],
 			isPreferredPerson: true,
-			dccWalletInfo: .fake(
-				boosterNotification: .fake(visible: true, identifier: "BoosterRuleIdentifier"),
-				validUntil: Date(timeIntervalSinceNow: 100)
-			),
 			mostRecentWalletInfoUpdateFailed: true,
 			boosterRule: .fake(),
 			isNewBoosterRule: true
@@ -78,7 +74,6 @@ class HealthCertificateMigratorTests: XCTestCase {
 		XCTAssertEqual(ulrike.healthCertificates.count, 1)
 		// Test migrated properties
 		XCTAssertTrue(thomas.isPreferredPerson)
-		XCTAssertNotNil(thomas.dccWalletInfo)
 		XCTAssertTrue(thomas.mostRecentWalletInfoUpdateFailed)
 		XCTAssertNotNil(thomas.boosterRule)
 		XCTAssertTrue(thomas.isNewBoosterRule)
@@ -152,9 +147,17 @@ class HealthCertificateMigratorTests: XCTestCase {
 		let thomas02 = HealthCertifiedPerson(healthCertificates: [
 			try HealthCertificate(base45: try thomasCert02())
 		])
-		let thomas03 = HealthCertifiedPerson(healthCertificates: [
-			try HealthCertificate(base45: try thomasCert03())
-		])
+		let thomas03 = HealthCertifiedPerson(
+			healthCertificates: [
+				try HealthCertificate(
+					base45: try thomasCert03()
+				)
+			],
+			dccWalletInfo: .fake(
+				boosterNotification: .fake(visible: true, identifier: "BoosterRuleIdentifier"),
+				validUntil: Date(timeIntervalSinceNow: 100)
+			)
+		)
 		let ulrike01 = HealthCertifiedPerson(healthCertificates: [
 			try HealthCertificate(base45: try ulrikeCert01())
 		])
@@ -176,6 +179,7 @@ class HealthCertificateMigratorTests: XCTestCase {
 		XCTAssertEqual(migratedPersons.count, 2)
 		XCTAssertEqual(migratedPersons[0].name, thomas01.name)
 		XCTAssertEqual(migratedPersons[0].healthCertificates.count, 3)
+		XCTAssertNotNil(migratedPersons[0].dccWalletInfo)
 		XCTAssertEqual(migratedPersons[1].name, ulrike01.name)
 		XCTAssertEqual(migratedPersons[1].healthCertificates.count, 1)
 	}
