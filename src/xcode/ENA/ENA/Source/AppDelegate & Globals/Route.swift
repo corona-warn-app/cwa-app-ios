@@ -93,12 +93,12 @@ enum Route: Equatable {
 			}
 			// extract payload
 			guard let testInformation = RapidTestQRCodeInformation(payload: payloadUrl) else {
-				self = .rapidPCR( .failure(.invalidTestCode(.invalidPayload)))
+				self = .rapidPCR(.failure(.invalidTestCode(.invalidPayload)))
 				Log.error("RapidPCR test data is nil, either timeStamp is -ve or the hash is invalid", log: .qrCode)
 				return
 			}
 			guard testInformation.hash.range(of: #"^[0-9A-Fa-f]{64}$"#, options: .regularExpression) != nil  else {
-				self = .rapidPCR( .failure(.invalidTestCode(.invalidHash)))
+				self = .rapidPCR(.failure(.invalidTestCode(.invalidHash)))
 				Log.error("RapidPCR test data is nil, either timeStamp is -ve or the hash is invalid", log: .qrCode)
 				return
 			}

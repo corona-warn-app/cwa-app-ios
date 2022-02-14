@@ -13,7 +13,7 @@ class DCCUITextTests: XCTestCase {
 		let testCases = dccUITextTestCases.testCases
 
 		// THEN
-		XCTAssertEqual(testCases.count, 22)
+		XCTAssertEqual(testCases.count, 24)
 	}
 	
 	
@@ -29,12 +29,13 @@ class DCCUITextTests: XCTestCase {
 			// WHEN
 			let dccUIText = testCase.textDescriptor
 			let expectationText = testCase.assertions[0].text
+			let languageCode = testCase.assertions[0].languageCode
 			
 			// THEN
-			XCTAssertEqual(dccUIText.localized(cclService: cclService), expectationText, "Failing Test: \(testCase.description)")
+			XCTAssertEqual(dccUIText.localized(languageCode: languageCode, cclService: cclService), expectationText, "Failing Test: \(testCase.description)")
 		}
 	}
-	
+
 	// MARK: - Private
 
 	private lazy var dccUITextTestCases: DCCUITextTestCases = {
