@@ -110,10 +110,10 @@ final class HealthCertificatesTabCoordinator {
 			onInfoBarButtonItemTap: { [weak self] in
 				self?.presentInfoScreen()
 			},
-			onCreateHealthCertificateTap: { [weak self] in
+			onChangeAdmissionScenarioTap: { [weak self] in
 				guard let self = self else { return }
 
-				self.showQRCodeScanner()
+				self.showAdmissionScenarios()
 			},
 			onCertifiedPersonTap: { [weak self] healthCertifiedPerson in
 				self?.showHealthCertifiedPerson(healthCertifiedPerson)
@@ -197,11 +197,8 @@ final class HealthCertificatesTabCoordinator {
 		viewController.present(navigationController, animated: true)
 	}
 	
-	private func showQRCodeScanner() {
-		qrScannerCoordinator.start(
-			parentViewController: viewController,
-			presenter: .certificateTab
-		)
+	private func showAdmissionScenarios() {
+		// to.do show admission scenarios list
 	}
 	
 	private func showHealthCertifiedPerson(
