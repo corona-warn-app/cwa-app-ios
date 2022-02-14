@@ -470,7 +470,9 @@ class HealthCertificateService {
 		for person in newGroupedPersons {
 			for certificate in person.healthCertificates {
 				if certificate.belongsToSamePerson(newHealthCertificate) {
-					matchingPersons.append(person)
+					if !matchingPersons.contains(where: { $0 == person }) {
+						matchingPersons.append(person)
+					}
 				}
 			}
 		}
@@ -485,6 +487,7 @@ class HealthCertificateService {
 			let firstPerson = matchingPersons[0]
 			firstPerson.healthCertificates = allCertificates
 			firstPerson.isPreferredPerson = matchingPersons.contains { $0.isPreferredPerson }
+			
 			newGroupedPersons.remove(elements: matchingPersons)
 			newGroupedPersons.append(firstPerson)
 		}
