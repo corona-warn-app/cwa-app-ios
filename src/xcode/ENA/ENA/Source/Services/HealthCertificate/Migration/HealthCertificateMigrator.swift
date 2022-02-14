@@ -29,8 +29,10 @@ class HealthCertificateMigrator: HealthCertificateMigration {
 		}
 		store.healthCertifiedPersons = newHealthCertifiedPersons
 	}
-	
-	private func regroup(originalPersons: [HealthCertifiedPerson]) -> [HealthCertifiedPerson] {
+		
+	private func regroup(
+		originalPersons: [HealthCertifiedPerson]
+	) -> [HealthCertifiedPerson] {
 		var regroupedPersons = [HealthCertifiedPerson]()
 		let allCertificates = originalPersons.flatMap {
 			$0.healthCertificates
@@ -55,9 +57,7 @@ class HealthCertificateMigrator: HealthCertificateMigration {
 						firstPerson.healthCertificates.append(certificate)
 					}
 				}
-				if matchingPerson.isPreferredPerson {
-					firstPerson.isPreferredPerson = true
-				}
+				applyPropertiesToPerson(matchingPerson, firstPerson)
 			}
 			
 			regroupedPersons.append(firstPerson)
@@ -66,7 +66,10 @@ class HealthCertificateMigrator: HealthCertificateMigration {
 		return regroupedPersons
 	}
 	
-	private func findPersons(for certificate: HealthCertificate, from persons: [HealthCertifiedPerson]) -> [HealthCertifiedPerson] {
+	private func findPersons(
+		for certificate: HealthCertificate,
+		from persons: [HealthCertifiedPerson]
+	) -> [HealthCertifiedPerson] {
 		var foundPersons = [HealthCertifiedPerson]()
 
 		for person in persons {
@@ -79,5 +82,22 @@ class HealthCertificateMigrator: HealthCertificateMigration {
 		
 		return foundPersons
 	}
-
+	
+	private func applyPropertiesToPerson(
+		_ matchingPerson: HealthCertifiedPerson,
+		_ firstPerson: HealthCertifiedPerson
+	) {
+		if matchingPerson.isPreferredPerson {
+			firstPerson.isPreferredPerson = true
+		}
+		if matchingPerson.boosterRule != nil {
+			firstPerson.boosterRule = matchingPerson.boosterRule
+		}
+		if matchingPerson.isNewBoosterRule {
+			firstPerson.isNewBoosterRule = true
+		}
+		if matchingPerson.mostRecentWalletInfoUpdateFailed {
+			firstPerson.mostRecentWalletInfoUpdateFailed = true
+		}
+	}
 }
