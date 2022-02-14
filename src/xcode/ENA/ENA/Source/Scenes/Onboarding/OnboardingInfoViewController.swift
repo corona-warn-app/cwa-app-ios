@@ -361,7 +361,7 @@ final class OnboardingInfoViewController: UIViewController {
 		// we need to disable back navigation until we have an
 		// response for activation. Otherwise we can navigate back,
 		// kill the closure and never receive a result. When next
-		// activation request gets triggered an alter will appear
+		// activation request gets triggered an alert will appear
 		//
 		store.exposureActivationOnboardingState = .pending
 		navigationItem.hidesBackButton = true
