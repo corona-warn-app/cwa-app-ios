@@ -74,9 +74,9 @@ class HealthCertificateMigratorTests: XCTestCase {
 		XCTAssertEqual(ulrike.healthCertificates.count, 1)
 		// Test migrated properties
 		XCTAssertTrue(thomas.isPreferredPerson)
-		XCTAssertTrue(thomas.mostRecentWalletInfoUpdateFailed)
-		XCTAssertNotNil(thomas.boosterRule)
-		XCTAssertTrue(thomas.isNewBoosterRule)
+		XCTAssertFalse(thomas.mostRecentWalletInfoUpdateFailed)
+		XCTAssertNil(thomas.boosterRule)
+		XCTAssertFalse(thomas.isNewBoosterRule)
 		XCTAssertEqual(thomas.healthCertificates[0].validityState, .expired)
 		XCTAssertTrue(thomas.healthCertificates[0].didShowInvalidNotification)
 		XCTAssertTrue(thomas.healthCertificates[1].isNew)
@@ -136,7 +136,7 @@ class HealthCertificateMigratorTests: XCTestCase {
 		XCTAssertEqual(migratedPersons[1].name, thomas01.name)
 		XCTAssertEqual(migratedPersons[1].healthCertificates.count, 3)
 		XCTAssertFalse(migratedPersons[1].isPreferredPerson)
-		XCTAssertNotNil(migratedPersons[1].boosterRule)
+		XCTAssertNil(migratedPersons[1].boosterRule)
 	}
 	
 	func testGIVEN_4_Persons_Order_3_WHEN_Migration_THEN_Grouped_to_2_Persons() throws {
@@ -179,7 +179,7 @@ class HealthCertificateMigratorTests: XCTestCase {
 		XCTAssertEqual(migratedPersons.count, 2)
 		XCTAssertEqual(migratedPersons[0].name, thomas01.name)
 		XCTAssertEqual(migratedPersons[0].healthCertificates.count, 3)
-		XCTAssertNotNil(migratedPersons[0].dccWalletInfo)
+		XCTAssertNil(migratedPersons[0].dccWalletInfo)
 		XCTAssertEqual(migratedPersons[1].name, ulrike01.name)
 		XCTAssertEqual(migratedPersons[1].healthCertificates.count, 1)
 	}

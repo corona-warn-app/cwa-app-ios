@@ -57,7 +57,10 @@ class HealthCertificateMigrator: HealthCertificateMigration {
 						firstPerson.healthCertificates.append(certificate)
 					}
 				}
-				applyPropertiesToPerson(matchingPerson, firstPerson)
+				
+				if matchingPerson.isPreferredPerson {
+					firstPerson.isPreferredPerson = true
+				}
 			}
 			
 			regroupedPersons.append(firstPerson)
@@ -81,26 +84,5 @@ class HealthCertificateMigrator: HealthCertificateMigration {
 		}
 		
 		return foundPersons
-	}
-	
-	private func applyPropertiesToPerson(
-		_ matchingPerson: HealthCertifiedPerson,
-		_ firstPerson: HealthCertifiedPerson
-	) {
-		if matchingPerson.isPreferredPerson {
-			firstPerson.isPreferredPerson = true
-		}
-		if matchingPerson.boosterRule != nil {
-			firstPerson.boosterRule = matchingPerson.boosterRule
-		}
-		if matchingPerson.isNewBoosterRule {
-			firstPerson.isNewBoosterRule = true
-		}
-		if matchingPerson.mostRecentWalletInfoUpdateFailed {
-			firstPerson.mostRecentWalletInfoUpdateFailed = true
-		}
-		if matchingPerson.dccWalletInfo != nil {
-			firstPerson.dccWalletInfo = matchingPerson.dccWalletInfo
-		}
 	}
 }
