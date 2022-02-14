@@ -14,6 +14,7 @@ class OnBehalfScanQRCodeCellModel: AddButtonAsTableViewCelling {
 	var iconImagePublisher = CurrentValueSubject<UIImage?, Never>(UIImage(named: "Icons_qrScan"))
 	var textColorPublisher = CurrentValueSubject<UIColor, Never>(.enaColor(for: .textPrimary1))
 	var accessibilityTraitsPublisher = CurrentValueSubject<UIAccessibilityTraits, Never>([.button])
+	var isCustomAccessoryViewHiddenPublisher = CurrentValueSubject<Bool, Never>(true)
 
 	func setEnabled(_ enabled: Bool) {
 		iconImagePublisher.value = enabled ? UIImage(named: "Icons_qrScan") : UIImage(named: "Icons_qrScan_Grey")

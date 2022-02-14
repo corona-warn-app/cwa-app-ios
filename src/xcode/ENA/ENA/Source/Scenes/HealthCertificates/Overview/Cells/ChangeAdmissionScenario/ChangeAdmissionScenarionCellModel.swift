@@ -15,5 +15,6 @@ class ChangeAdmissionScenarionCellModel: AddButtonAsTableViewCelling {
 	var iconImagePublisher = CurrentValueSubject<UIImage?, Never>(UIImage(named: "Icons_Admission_State"))
 	var textColorPublisher = CurrentValueSubject<UIColor, Never>(.enaColor(for: .textPrimary1))
 	var accessibilityTraitsPublisher = CurrentValueSubject<UIAccessibilityTraits, Never>([.button])
+	var isCustomAccessoryViewHiddenPublisher = CurrentValueSubject<Bool, Never>(false)
 
 }
