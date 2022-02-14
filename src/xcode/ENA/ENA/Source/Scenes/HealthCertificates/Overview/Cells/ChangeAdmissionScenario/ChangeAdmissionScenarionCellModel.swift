@@ -5,7 +5,7 @@
 import UIKit
 import OpenCombine
 
-class changeAdmissionScenarionCellModel: AddButtonAsTableViewCelling {
+class ChangeAdmissionScenarionCellModel: AddButtonAsTableViewCelling {
 	
 	// MARK: - Internal
 
