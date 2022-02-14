@@ -36,6 +36,10 @@ class HealthCertificateMigratorTests: XCTestCase {
 					base45: try thomasCert03()
 				)],
 			isPreferredPerson: true,
+			dccWalletInfo: .fake(
+				boosterNotification: .fake(visible: true, identifier: "BoosterRuleIdentifier"),
+				validUntil: Date(timeIntervalSinceNow: 100)
+			),
 			mostRecentWalletInfoUpdateFailed: true,
 			boosterRule: .fake(),
 			isNewBoosterRule: true
@@ -74,6 +78,7 @@ class HealthCertificateMigratorTests: XCTestCase {
 		XCTAssertEqual(ulrike.healthCertificates.count, 1)
 		// Test migrated properties
 		XCTAssertTrue(thomas.isPreferredPerson)
+		XCTAssertNotNil(thomas.dccWalletInfo)
 		XCTAssertTrue(thomas.mostRecentWalletInfoUpdateFailed)
 		XCTAssertNotNil(thomas.boosterRule)
 		XCTAssertTrue(thomas.isNewBoosterRule)
@@ -81,6 +86,11 @@ class HealthCertificateMigratorTests: XCTestCase {
 		XCTAssertTrue(thomas.healthCertificates[0].didShowInvalidNotification)
 		XCTAssertTrue(thomas.healthCertificates[1].isNew)
 		XCTAssertTrue(ulrike.healthCertificates[0].isValidityStateNew)
+		XCTAssertFalse(ulrike.isPreferredPerson)
+		XCTAssertNil(ulrike.dccWalletInfo)
+		XCTAssertFalse(ulrike.mostRecentWalletInfoUpdateFailed)
+		XCTAssertNil(ulrike.boosterRule)
+		XCTAssertFalse(ulrike.isNewBoosterRule)
 	}
 	
 	func testGIVEN_4_Persons_Order_2_WHEN_Migration_THEN_Grouped_to_2_Persons() throws {

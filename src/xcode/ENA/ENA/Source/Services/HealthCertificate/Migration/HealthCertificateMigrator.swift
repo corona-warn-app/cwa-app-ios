@@ -99,5 +99,8 @@ class HealthCertificateMigrator: HealthCertificateMigration {
 		if matchingPerson.mostRecentWalletInfoUpdateFailed {
 			firstPerson.mostRecentWalletInfoUpdateFailed = true
 		}
+		if matchingPerson.dccWalletInfo != nil {
+			firstPerson.dccWalletInfo = matchingPerson.dccWalletInfo
+		}
 	}
 }
