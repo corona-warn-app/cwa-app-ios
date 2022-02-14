@@ -13,14 +13,14 @@ class HealthCertificateOverviewViewController: UITableViewController {
 		viewModel: HealthCertificateOverviewViewModel,
 		cclService: CCLServable,
 		onInfoBarButtonItemTap: @escaping () -> Void,
-		onCreateHealthCertificateTap: @escaping () -> Void,
+		onChangeAdmissionScenarioTap: @escaping () -> Void,
 		onCertifiedPersonTap: @escaping (HealthCertifiedPerson) -> Void,
 		onCovPassCheckInfoButtonTap: @escaping () -> Void
 	) {
 		self.viewModel = viewModel
 		self.cclService = cclService
 		self.onInfoBarButtonItemTap = onInfoBarButtonItemTap
-		self.onCreateHealthCertificateTap = onCreateHealthCertificateTap
+		self.onChangeAdmissionScenarioTap = onChangeAdmissionScenarioTap
 		self.onCertifiedPersonTap = onCertifiedPersonTap
 		self.onCovPassCheckInfoButtonTap = onCovPassCheckInfoButtonTap
 
@@ -104,8 +104,8 @@ class HealthCertificateOverviewViewController: UITableViewController {
 
 	override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		switch HealthCertificateOverviewViewModel.Section(rawValue: indexPath.section) {
-		case .createCertificate:
-			return addCertificateCell(forRowAt: indexPath)
+		case .changeAdmissionScenario:
+			return changeAdmissionScenarioCell(forRowAt: indexPath)
 		case .testCertificateRequest:
 			return testCertificateRequestCell(forRowAt: indexPath)
 		case .healthCertificate:
@@ -121,8 +121,8 @@ class HealthCertificateOverviewViewController: UITableViewController {
 	
 	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 		switch HealthCertificateOverviewViewModel.Section(rawValue: indexPath.section) {
-		case .createCertificate:
-			onCreateHealthCertificateTap()
+		case .changeAdmissionScenario:
+			onChangeAdmissionScenarioTap()
 		case .testCertificateRequest:
 			break
 		case .healthCertificate:
@@ -140,7 +140,7 @@ class HealthCertificateOverviewViewController: UITableViewController {
 	private let cclService: CCLServable
 	
 	private let onInfoBarButtonItemTap: () -> Void
-	private let onCreateHealthCertificateTap: () -> Void
+	private let onChangeAdmissionScenarioTap: () -> Void
 	private let onCertifiedPersonTap: (HealthCertifiedPerson) -> Void
 	private let onCovPassCheckInfoButtonTap: () -> Void
 
@@ -178,13 +178,13 @@ class HealthCertificateOverviewViewController: UITableViewController {
 		tableView.estimatedRowHeight = 500
 	}
 	
-	private func addCertificateCell(forRowAt indexPath: IndexPath) -> UITableViewCell {
+	private func changeAdmissionScenarioCell(forRowAt indexPath: IndexPath) -> UITableViewCell {
 		guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: AddButtonAsTableViewCell.self), for: indexPath) as? AddButtonAsTableViewCell else {
-			fatalError("Could not dequeue CreateCertificateTableViewCell")
+			fatalError("Could not dequeue ChangeAdmissionScenarionCell")
 		}
 
-		cell.configure(cellModel: AddCertificateCellModel())
-		cell.accessibilityIdentifier = AccessibilityIdentifiers.HealthCertificate.Overview.addCertificateCell
+		cell.configure(cellModel: ChangeAdmissionScenarionCellModel())
+		cell.accessibilityIdentifier = AccessibilityIdentifiers.HealthCertificate.Overview.changeAdmissionScenarioCell
 		return cell
 	}
 	
