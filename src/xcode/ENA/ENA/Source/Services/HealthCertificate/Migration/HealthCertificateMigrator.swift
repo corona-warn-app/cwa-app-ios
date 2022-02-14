@@ -42,9 +42,7 @@ class HealthCertificateMigrator: HealthCertificateMigration {
 			let matchingOriginalPersons = findPersons(for: certificate, from: originalPersons)
 			let matchingRegroupedPersons = findPersons(for: certificate, from: regroupedPersons)
 			
-			for matchingRegroupedPerson in matchingRegroupedPersons {
-				regroupedPersons.remove(matchingRegroupedPerson)
-			}
+			regroupedPersons.remove(elements: matchingRegroupedPersons)
 			
 			let allPersons = matchingOriginalPersons + matchingRegroupedPersons
 			guard let firstPerson = allPersons.first else {
