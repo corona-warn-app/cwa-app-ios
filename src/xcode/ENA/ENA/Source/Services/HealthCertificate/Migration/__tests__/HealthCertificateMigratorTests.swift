@@ -7,13 +7,14 @@ import XCTest
 import HealthCertificateToolkit
 @testable import ENA
 
+// swiftlint:disable type_body_length
 class HealthCertificateMigratorTests: XCTestCase {
 	
 	func testGIVEN_4_Persons_Order_1_WHEN_Migration_THEN_Grouped_to_2_Persons() throws {
 		
 		// GIVEN
 		
-		let thomasCert01 = HealthCertifiedPerson(
+		let thomas01 = HealthCertifiedPerson(
 			healthCertificates: [
 				try HealthCertificate(
 					base45: try thomasCert01(),
@@ -22,23 +23,24 @@ class HealthCertificateMigratorTests: XCTestCase {
 				)
 			]
 		)
-		let thomasCert02 = HealthCertifiedPerson(
+		let thomas02 = HealthCertifiedPerson(
 			healthCertificates: [
 				try HealthCertificate(
 					base45: try thomasCert02(),
 					isNew: true
 				)]
 		)
-		let thomasCert03 = HealthCertifiedPerson(
+		let thomas03 = HealthCertifiedPerson(
 			healthCertificates: [
 				try HealthCertificate(
 					base45: try thomasCert03()
 				)],
 			isPreferredPerson: true,
+			mostRecentWalletInfoUpdateFailed: true,
 			boosterRule: .fake(),
 			isNewBoosterRule: true
 		)
-		let ulrikeCert01 = HealthCertifiedPerson(
+		let ulrike01 = HealthCertifiedPerson(
 			healthCertificates: [
 				try HealthCertificate(
 					base45: try ulrikeCert01(),
@@ -48,10 +50,10 @@ class HealthCertificateMigratorTests: XCTestCase {
 		)
 		let store = MockTestStore(healthCertifiedPersonsVersion: 2)
 		store.healthCertifiedPersons = [
-			thomasCert01,
-			thomasCert02,
-			thomasCert03,
-			ulrikeCert01
+			thomas01,
+			thomas02,
+			thomas03,
+			ulrike01
 		]
 		
 		// WHEN
@@ -66,14 +68,15 @@ class HealthCertificateMigratorTests: XCTestCase {
 		let thomas = migratedPersons[0]
 		let ulrike = migratedPersons[1]
 		
-		XCTAssertEqual(thomas.name, thomasCert01.name)
+		XCTAssertEqual(thomas.name, thomas01.name)
 		XCTAssertEqual(thomas.healthCertificates.count, 3)
-		XCTAssertEqual(ulrike.name, ulrikeCert01.name)
+		XCTAssertEqual(ulrike.name, ulrike01.name)
 		XCTAssertEqual(ulrike.healthCertificates.count, 1)
 		// Test migrated properties
 		XCTAssertTrue(thomas.isPreferredPerson)
+		XCTAssertTrue(thomas.mostRecentWalletInfoUpdateFailed)
 		XCTAssertNotNil(thomas.boosterRule)
-		XCTAssertFalse(thomas.isNewBoosterRule)
+		XCTAssertTrue(thomas.isNewBoosterRule)
 		XCTAssertEqual(thomas.healthCertificates[0].validityState, .expired)
 		XCTAssertTrue(thomas.healthCertificates[0].didShowInvalidNotification)
 		XCTAssertTrue(thomas.healthCertificates[1].isNew)
@@ -83,20 +86,20 @@ class HealthCertificateMigratorTests: XCTestCase {
 	func testGIVEN_4_Persons_Order_2_WHEN_Migration_THEN_Grouped_to_2_Persons() throws {
 		// GIVEN
 		
-		let thomasCert01 = HealthCertifiedPerson(healthCertificates: [
+		let thomas01 = HealthCertifiedPerson(healthCertificates: [
 			try HealthCertificate(base45: try thomasCert01())
 		])
-		let thomasCert02 = HealthCertifiedPerson(
+		let thomas02 = HealthCertifiedPerson(
 			healthCertificates: [
 				try HealthCertificate(
 					base45: try thomasCert02()
 				)],
 			boosterRule: .fake()
 		)
-		let thomasCert03 = HealthCertifiedPerson(healthCertificates: [
+		let thomas03 = HealthCertifiedPerson(healthCertificates: [
 			try HealthCertificate(base45: try thomasCert03())
 		])
-		let ulrikeCert01 = HealthCertifiedPerson(
+		let ulrike01 = HealthCertifiedPerson(
 			healthCertificates: [
 				try HealthCertificate(
 					base45: try ulrikeCert01()
@@ -107,10 +110,10 @@ class HealthCertificateMigratorTests: XCTestCase {
 		
 		let store = MockTestStore(healthCertifiedPersonsVersion: 2)
 		store.healthCertifiedPersons = [
-			thomasCert01,
-			thomasCert02,
-			thomasCert03,
-			ulrikeCert01
+			thomas01,
+			thomas02,
+			thomas03,
+			ulrike01
 		]
 		
 		// WHEN
@@ -121,11 +124,11 @@ class HealthCertificateMigratorTests: XCTestCase {
 		// THEN
 		// By setting isPrefered to ulrike, we expect her to be first in the list
 		XCTAssertEqual(migratedPersons.count, 2)
-		XCTAssertEqual(migratedPersons[0].name, ulrikeCert01.name)
+		XCTAssertEqual(migratedPersons[0].name, ulrike01.name)
 		XCTAssertEqual(migratedPersons[0].healthCertificates.count, 1)
 		XCTAssertTrue(migratedPersons[0].isPreferredPerson)
 		XCTAssertNil(migratedPersons[0].boosterRule)
-		XCTAssertEqual(migratedPersons[1].name, thomasCert01.name)
+		XCTAssertEqual(migratedPersons[1].name, thomas01.name)
 		XCTAssertEqual(migratedPersons[1].healthCertificates.count, 3)
 		XCTAssertFalse(migratedPersons[1].isPreferredPerson)
 		XCTAssertNotNil(migratedPersons[1].boosterRule)
@@ -133,25 +136,25 @@ class HealthCertificateMigratorTests: XCTestCase {
 	
 	func testGIVEN_4_Persons_Order_3_WHEN_Migration_THEN_Grouped_to_2_Persons() throws {
 		// GIVEN
-		let thomasCert01 = HealthCertifiedPerson(healthCertificates: [
+		let thomas01 = HealthCertifiedPerson(healthCertificates: [
 			try HealthCertificate(base45: try thomasCert01())
 		])
-		let thomasCert02 = HealthCertifiedPerson(healthCertificates: [
+		let thomas02 = HealthCertifiedPerson(healthCertificates: [
 			try HealthCertificate(base45: try thomasCert02())
 		])
-		let thomasCert03 = HealthCertifiedPerson(healthCertificates: [
+		let thomas03 = HealthCertifiedPerson(healthCertificates: [
 			try HealthCertificate(base45: try thomasCert03())
 		])
-		let ulrikeCert01 = HealthCertifiedPerson(healthCertificates: [
+		let ulrike01 = HealthCertifiedPerson(healthCertificates: [
 			try HealthCertificate(base45: try ulrikeCert01())
 		])
 		
 		let store = MockTestStore(healthCertifiedPersonsVersion: 2)
 		store.healthCertifiedPersons = [
-			thomasCert02,
-			thomasCert03,
-			thomasCert01,
-			ulrikeCert01
+			thomas02,
+			thomas03,
+			thomas01,
+			ulrike01
 		]
 		
 		// WHEN
@@ -161,33 +164,33 @@ class HealthCertificateMigratorTests: XCTestCase {
 		
 		// THEN
 		XCTAssertEqual(migratedPersons.count, 2)
-		XCTAssertEqual(migratedPersons[0].name, thomasCert01.name)
+		XCTAssertEqual(migratedPersons[0].name, thomas01.name)
 		XCTAssertEqual(migratedPersons[0].healthCertificates.count, 3)
-		XCTAssertEqual(migratedPersons[1].name, ulrikeCert01.name)
+		XCTAssertEqual(migratedPersons[1].name, ulrike01.name)
 		XCTAssertEqual(migratedPersons[1].healthCertificates.count, 1)
 	}
 	
 	func testGIVEN_4_Persons_Order_4_WHEN_Migration_THEN_Grouped_to_2_Persons() throws {
 		// GIVEN
-		let thomasCert01 = HealthCertifiedPerson(healthCertificates: [
+		let thomas01 = HealthCertifiedPerson(healthCertificates: [
 			try HealthCertificate(base45: try thomasCert01())
 		])
-		let thomasCert02 = HealthCertifiedPerson(healthCertificates: [
+		let thomas02 = HealthCertifiedPerson(healthCertificates: [
 			try HealthCertificate(base45: try thomasCert02())
 		])
-		let thomasCert03 = HealthCertifiedPerson(healthCertificates: [
+		let thomas03 = HealthCertifiedPerson(healthCertificates: [
 			try HealthCertificate(base45: try thomasCert03())
 		])
-		let ulrikeCert01 = HealthCertifiedPerson(healthCertificates: [
+		let ulrike01 = HealthCertifiedPerson(healthCertificates: [
 			try HealthCertificate(base45: try ulrikeCert01())
 		])
 		
 		let store = MockTestStore(healthCertifiedPersonsVersion: 2)
 		store.healthCertifiedPersons = [
-			ulrikeCert01,
-			thomasCert02,
-			thomasCert03,
-			thomasCert01
+			ulrike01,
+			thomas02,
+			thomas03,
+			thomas01
 		]
 		
 		// WHEN
@@ -197,27 +200,27 @@ class HealthCertificateMigratorTests: XCTestCase {
 		
 		// THEN
 		XCTAssertEqual(migratedPersons.count, 2)
-		XCTAssertEqual(migratedPersons[0].name, thomasCert01.name)
+		XCTAssertEqual(migratedPersons[0].name, thomas01.name)
 		XCTAssertEqual(migratedPersons[0].healthCertificates.count, 3)
-		XCTAssertEqual(migratedPersons[1].name, ulrikeCert01.name)
+		XCTAssertEqual(migratedPersons[1].name, ulrike01.name)
 		XCTAssertEqual(migratedPersons[1].healthCertificates.count, 1)
 	}
 	
 	func testGIVEN_5_Persons_WHEN_Migration_THEN_Grouped_to_3_Persons() throws {
 		// GIVEN
-		let thomasCert01 = HealthCertifiedPerson(healthCertificates: [
+		let thomas01 = HealthCertifiedPerson(healthCertificates: [
 			try HealthCertificate(base45: try thomasCert01())
 		])
-		let thomasCert02 = HealthCertifiedPerson(healthCertificates: [
+		let thomas02 = HealthCertifiedPerson(healthCertificates: [
 			try HealthCertificate(base45: try thomasCert02())
 		])
-		let thomasCert03 = HealthCertifiedPerson(healthCertificates: [
+		let thomas03 = HealthCertifiedPerson(healthCertificates: [
 			try HealthCertificate(base45: try thomasCert03())
 		])
-		let ulrikeCert01 = HealthCertifiedPerson(healthCertificates: [
+		let ulrike01 = HealthCertifiedPerson(healthCertificates: [
 			try HealthCertificate(base45: try ulrikeCert01())
 		])
-		let andreasCert01 = HealthCertifiedPerson(
+		let andreas01 = HealthCertifiedPerson(
 			healthCertificates: [
 			try HealthCertificate(
 				base45: try andreasCert01()
@@ -229,11 +232,11 @@ class HealthCertificateMigratorTests: XCTestCase {
 		
 		let store = MockTestStore(healthCertifiedPersonsVersion: 2)
 		store.healthCertifiedPersons = [
-			ulrikeCert01,
-			thomasCert02,
-			thomasCert03,
-			thomasCert01,
-			andreasCert01
+			ulrike01,
+			thomas02,
+			thomas03,
+			thomas01,
+			andreas01
 		]
 		
 		// WHEN
@@ -243,43 +246,43 @@ class HealthCertificateMigratorTests: XCTestCase {
 		
 		// THEN
 		XCTAssertEqual(migratedPersons.count, 3)
-		XCTAssertEqual(migratedPersons[0].name, andreasCert01.name)
+		XCTAssertEqual(migratedPersons[0].name, andreas01.name)
 		XCTAssertEqual(migratedPersons[0].healthCertificates.count, 1)
 		XCTAssertNotNil(migratedPersons[0].dccWalletInfo)
-		XCTAssertEqual(migratedPersons[1].name, thomasCert01.name)
+		XCTAssertEqual(migratedPersons[1].name, thomas01.name)
 		XCTAssertEqual(migratedPersons[1].healthCertificates.count, 3)
-		XCTAssertEqual(migratedPersons[2].name, ulrikeCert01.name)
+		XCTAssertEqual(migratedPersons[2].name, ulrike01.name)
 		XCTAssertEqual(migratedPersons[2].healthCertificates.count, 1)
 	}
 	
 	func testGIVEN_5_Persons_With_Prefered_WHEN_Migration_THEN_Grouped_to_3_Persons_prefered_on_top() throws {
 		// GIVEN
-		let thomasCert01 = HealthCertifiedPerson(healthCertificates: [
+		let thomas01 = HealthCertifiedPerson(healthCertificates: [
 			try HealthCertificate(base45: try thomasCert01())
 		])
-		let thomasCert02 = HealthCertifiedPerson(
+		let thomas02 = HealthCertifiedPerson(
 			healthCertificates: [
 				try HealthCertificate(base45: try thomasCert02())
 			],
 			isPreferredPerson: true
 		)
-		let thomasCert03 = HealthCertifiedPerson(healthCertificates: [
+		let thomas03 = HealthCertifiedPerson(healthCertificates: [
 			try HealthCertificate(base45: try thomasCert03())
 		])
-		let ulrikeCert01 = HealthCertifiedPerson(healthCertificates: [
+		let ulrike01 = HealthCertifiedPerson(healthCertificates: [
 			try HealthCertificate(base45: try ulrikeCert01())
 		])
-		let andreasCert01 = HealthCertifiedPerson(healthCertificates: [
+		let andreas01 = HealthCertifiedPerson(healthCertificates: [
 			try HealthCertificate(base45: try andreasCert01())
 		])
 		
 		let store = MockTestStore(healthCertifiedPersonsVersion: 2)
 		store.healthCertifiedPersons = [
-			ulrikeCert01,
-			thomasCert02,
-			thomasCert03,
-			thomasCert01,
-			andreasCert01
+			ulrike01,
+			thomas02,
+			thomas03,
+			thomas01,
+			andreas01
 		]
 		
 		// WHEN
@@ -289,43 +292,43 @@ class HealthCertificateMigratorTests: XCTestCase {
 		
 		// THEN
 		XCTAssertEqual(migratedPersons.count, 3)
-		XCTAssertEqual(migratedPersons[0].name, thomasCert01.name)
+		XCTAssertEqual(migratedPersons[0].name, thomas01.name)
 		XCTAssertEqual(migratedPersons[0].healthCertificates.count, 3)
-		XCTAssertEqual(migratedPersons[1].name, andreasCert01.name)
+		XCTAssertEqual(migratedPersons[1].name, andreas01.name)
 		XCTAssertEqual(migratedPersons[1].healthCertificates.count, 1)
-		XCTAssertEqual(migratedPersons[2].name, ulrikeCert01.name)
+		XCTAssertEqual(migratedPersons[2].name, ulrike01.name)
 		XCTAssertEqual(migratedPersons[2].healthCertificates.count, 1)
 	}
 	
 	func testGIVEN_6_Persons_WHEN_Migration_THEN_Grouped_to_3_Persons() throws {
 		// GIVEN
-		let thomasCert01 = HealthCertifiedPerson(healthCertificates: [
+		let thomas01 = HealthCertifiedPerson(healthCertificates: [
 			try HealthCertificate(base45: try thomasCert01())
 		])
-		let thomasCert02 = HealthCertifiedPerson(healthCertificates: [
+		let thomas02 = HealthCertifiedPerson(healthCertificates: [
 			try HealthCertificate(base45: try thomasCert02())
 		])
-		let thomasCert03 = HealthCertifiedPerson(healthCertificates: [
+		let thomas03 = HealthCertifiedPerson(healthCertificates: [
 			try HealthCertificate(base45: try thomasCert03())
 		])
-		let ulrikeCert01 = HealthCertifiedPerson(healthCertificates: [
+		let ulrike01 = HealthCertifiedPerson(healthCertificates: [
 			try HealthCertificate(base45: try ulrikeCert01())
 		])
-		let ulrikeCert02 = HealthCertifiedPerson(healthCertificates: [
+		let ulrike02 = HealthCertifiedPerson(healthCertificates: [
 			try HealthCertificate(base45: try ulrikeCert02())
 		])
-		let andreasCert01 = HealthCertifiedPerson(healthCertificates: [
+		let andreas01 = HealthCertifiedPerson(healthCertificates: [
 			try HealthCertificate(base45: try andreasCert01())
 		])
 		
 		let store = MockTestStore(healthCertifiedPersonsVersion: 2)
 		store.healthCertifiedPersons = [
-			ulrikeCert01,
-			thomasCert02,
-			thomasCert03,
-			ulrikeCert02,
-			thomasCert01,
-			andreasCert01
+			ulrike01,
+			thomas02,
+			thomas03,
+			ulrike02,
+			thomas01,
+			andreas01
 		]
 		
 		// WHEN
@@ -335,11 +338,11 @@ class HealthCertificateMigratorTests: XCTestCase {
 		
 		// THEN
 		XCTAssertEqual(migratedPersons.count, 3)
-		XCTAssertEqual(migratedPersons[0].name, andreasCert01.name)
+		XCTAssertEqual(migratedPersons[0].name, andreas01.name)
 		XCTAssertEqual(migratedPersons[0].healthCertificates.count, 1)
-		XCTAssertEqual(migratedPersons[1].name, thomasCert01.name)
+		XCTAssertEqual(migratedPersons[1].name, thomas01.name)
 		XCTAssertEqual(migratedPersons[1].healthCertificates.count, 3)
-		XCTAssertEqual(migratedPersons[2].name, ulrikeCert01.name)
+		XCTAssertEqual(migratedPersons[2].name, ulrike01.name)
 		XCTAssertEqual(migratedPersons[2].healthCertificates.count, 2)
 	}
 	
@@ -348,33 +351,33 @@ class HealthCertificateMigratorTests: XCTestCase {
 		for _ in 0..<20 {
 		
 			// GIVEN
-			let thomasCert01 = HealthCertifiedPerson(healthCertificates: [
+			let thomas01 = HealthCertifiedPerson(healthCertificates: [
 				try HealthCertificate(base45: try thomasCert01())
 			])
-			let thomasCert02 = HealthCertifiedPerson(healthCertificates: [
+			let thomas02 = HealthCertifiedPerson(healthCertificates: [
 				try HealthCertificate(base45: try thomasCert02())
 			])
-			let thomasCert03 = HealthCertifiedPerson(healthCertificates: [
+			let thomas03 = HealthCertifiedPerson(healthCertificates: [
 				try HealthCertificate(base45: try thomasCert03())
 			])
-			let ulrikeCert01 = HealthCertifiedPerson(healthCertificates: [
+			let ulrike01 = HealthCertifiedPerson(healthCertificates: [
 				try HealthCertificate(base45: try ulrikeCert01())
 			])
-			let ulrikeCert02 = HealthCertifiedPerson(healthCertificates: [
+			let ulrike02 = HealthCertifiedPerson(healthCertificates: [
 				try HealthCertificate(base45: try ulrikeCert02())
 			])
-			let andreasCert01 = HealthCertifiedPerson(healthCertificates: [
+			let andreas01 = HealthCertifiedPerson(healthCertificates: [
 				try HealthCertificate(base45: try andreasCert01())
 			])
 			
 			let store = MockTestStore(healthCertifiedPersonsVersion: 2)
 			store.healthCertifiedPersons = [
-				ulrikeCert01,
-				thomasCert02,
-				thomasCert03,
-				ulrikeCert02,
-				thomasCert01,
-				andreasCert01
+				ulrike01,
+				thomas02,
+				thomas03,
+				ulrike02,
+				thomas01,
+				andreas01
 			]
 			
 			store.healthCertifiedPersons.shuffle()
@@ -386,11 +389,11 @@ class HealthCertificateMigratorTests: XCTestCase {
 			
 			// THEN
 			XCTAssertEqual(migratedPersons.count, 3)
-			XCTAssertEqual(migratedPersons[0].name, andreasCert01.name)
+			XCTAssertEqual(migratedPersons[0].name, andreas01.name)
 			XCTAssertEqual(migratedPersons[0].healthCertificates.count, 1)
-			XCTAssertEqual(migratedPersons[1].name, thomasCert01.name)
+			XCTAssertEqual(migratedPersons[1].name, thomas01.name)
 			XCTAssertEqual(migratedPersons[1].healthCertificates.count, 3)
-			XCTAssertEqual(migratedPersons[2].name, ulrikeCert01.name)
+			XCTAssertEqual(migratedPersons[2].name, ulrike01.name)
 			XCTAssertEqual(migratedPersons[2].healthCertificates.count, 2)
 		}
 	}
