@@ -22,7 +22,7 @@ class HealthCertificateMigrator: HealthCertificateMigration {
 			store.healthCertifiedPersonsVersion = kCurrentHealthCertifiedPersonsVersion
 		}
 		
-		var newHealthCertifiedPersons = regroup(store.healthCertifiedPersons, iteration: 0)
+		var newHealthCertifiedPersons = regroup(originalPersons: store.healthCertifiedPersons)
 		newHealthCertifiedPersons.sort()
 		for person in newHealthCertifiedPersons {
 			person.healthCertificates = person.healthCertificates.sorted(by: <)
@@ -30,44 +30,54 @@ class HealthCertificateMigrator: HealthCertificateMigration {
 		store.healthCertifiedPersons = newHealthCertifiedPersons
 	}
 	
-	private func regroup(_ originalPersons: [HealthCertifiedPerson], iteration: Int) -> [HealthCertifiedPerson] {
-		var persons = originalPersons
-		guard let firstPerson = persons.first else {
-			return []
+	private func regroup(originalPersons: [HealthCertifiedPerson]) -> [HealthCertifiedPerson] {
+		var regroupedPersons = [HealthCertifiedPerson]()
+		let allCertificates = originalPersons.flatMap {
+			$0.healthCertificates
 		}
-		persons.removeFirst()
-		var matchingPersons = [HealthCertifiedPerson]()
 		
-		for person in persons {
-			for certificate in person.healthCertificates {
-				for referenceCertificate in firstPerson.healthCertificates {
-					if referenceCertificate.belongsToSamePerson(certificate) {
-						matchingPersons.append(person)
+		for certificate in allCertificates {
+			let matchingOriginalPersons = findPersons(for: certificate, from: originalPersons)
+			let matchingRegroupedPersons = findPersons(for: certificate, from: regroupedPersons)
+			
+			for matchingRegroupedPerson in matchingRegroupedPersons {
+				regroupedPersons.remove(matchingRegroupedPerson)
+			}
+			
+			let allPersons = matchingOriginalPersons + matchingRegroupedPersons
+			guard let firstPerson = allPersons.first else {
+				continue
+			}
+			
+			for matchingPerson in allPersons {
+				for certificate in matchingPerson.healthCertificates {
+					if !firstPerson.healthCertificates.contains(certificate) {
+						firstPerson.healthCertificates.append(certificate)
 					}
 				}
-			}
-		}
-		
-		if iteration == originalPersons.count {
-			persons.append(firstPerson)
-			return persons
-		}
-
-		if matchingPersons.isEmpty {
-			persons.append(firstPerson)
-			return regroup(persons, iteration: iteration + 1)
-		} else {
-			for matchingPerson in matchingPersons {
-				firstPerson.healthCertificates += matchingPerson.healthCertificates
 				if matchingPerson.isPreferredPerson {
 					firstPerson.isPreferredPerson = true
 				}
-				persons.remove(matchingPerson)
 			}
-			persons.append(firstPerson)
 			
-			return regroup(persons, iteration: 0)
+			regroupedPersons.append(firstPerson)
 		}
+		
+		return regroupedPersons
 	}
 	
+	private func findPersons(for certificate: HealthCertificate, from persons: [HealthCertifiedPerson]) -> [HealthCertifiedPerson] {
+		var foundPersons = [HealthCertifiedPerson]()
+
+		for person in persons {
+			for personCertificate in person.healthCertificates {
+				if certificate.belongsToSamePerson(personCertificate) {
+					foundPersons.append(person)
+				}
+			}
+		}
+		
+		return foundPersons
+	}
+
 }
