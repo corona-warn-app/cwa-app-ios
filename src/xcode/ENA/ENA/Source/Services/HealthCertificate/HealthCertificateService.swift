@@ -218,7 +218,9 @@ class HealthCertificateService {
 		let isNewPersonAdded = newlyGroupedPersons.count > healthCertifiedPersons.count
 		healthCertifiedPersons = newlyGroupedPersons
 		
+		// can skip
 		updateValidityState(for: healthCertificate)
+		// can skip
 		scheduleTimer()
 
 		if healthCertificate.type != .test {
@@ -227,6 +229,7 @@ class HealthCertificateService {
 		
 		if isNewPersonAdded {
 			Log.info("[HealthCertificateService] Successfully registered health certificate for a new person", log: .api)
+			// Manual update needed as the person subscriptions were not set up when the certificate was added
 			updateDCCWalletInfo(for: healthCertifiedPerson)
 			updateGradients()
 		} else {
@@ -252,8 +255,6 @@ class HealthCertificateService {
 				healthCertifiedPerson.healthCertificates.remove(at: index)
 				Log.info("[HealthCertificateService] Removed health certificate at index \(index)", log: .api)
 				
-				regroupAfterDeletion(for: healthCertifiedPerson, with: healthCertificate)
-							
 				if healthCertifiedPerson.healthCertificates.isEmpty {
 					healthCertifiedPersons = healthCertifiedPersons
 						.filter { $0 !== healthCertifiedPerson }
@@ -261,6 +262,8 @@ class HealthCertificateService {
 					updateGradients()
 
 					Log.info("[HealthCertificateService] Removed health certified person", log: .api)
+				} else {
+					regroupAfterDeletion(for: healthCertifiedPerson, with: healthCertificate)
 				}
 				break
 			}
@@ -962,13 +965,19 @@ class HealthCertificateService {
 		for healthCertifiedPerson: HealthCertifiedPerson,
 		with healthCertificate: HealthCertificate
 	) {
-		// 2.Collect all certificates of this person but not the certificate which will be deleted.
-		let certficates: [HealthCertificate] = healthCertifiedPerson.healthCertificates.filter { $0 != healthCertificate }
+//		// 2.Collect all certificates of this person but not the certificate which will be deleted.
+//		let certficates: [HealthCertificate] = healthCertifiedPerson.healthCertificates.filter { $0 != healthCertificate }
+//
+//		// 3.Re-register all these certificates to the service. By this, belongsToSamePerson will be passed for every certificate and if we need to create a new person, this will automatically done in the register function.
+//		certficates.forEach {
+//			self.registerHealthCertificate(base45: $0.base45)
+//		}
+		// TODO:
+		// kein register , add reicht aus
+		// zweites addCertificate()
+		// groupingPersons anpassen damit personengruppe reingegeben werden kann. Hier dann nur eine
+
 		
-		// 3.Re-register all these certificates to the service. By this, belongsToSamePerson will be passed for every certificate and if we need to create a new person, this will automatically done in the register function.
-		certficates.forEach {
-			self.registerHealthCertificate(base45: $0.base45)
-		}
 	}
 	
 	private func removeAllNotifications(
