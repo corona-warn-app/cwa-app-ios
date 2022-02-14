@@ -178,7 +178,6 @@ class HealthCertificateService {
 				}
 			}
 			
-			// TODO: Nick fragen ob nicht früher gecallt werden kann.
 			if isDuplicate(healthCertificate) {
 				Log.error("[HealthCertificateService] Registering health certificate failed: certificate already registered", log: .api)
 				return .failure(.certificateAlreadyRegistered(healthCertificate.type))
