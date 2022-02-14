@@ -318,12 +318,12 @@ final class ExposureNotificationSettingViewController: UITableViewController, Ac
 	}
 
 	private func daysSinceInstallationCell(for indexPath: IndexPath, in tableView: UITableView) -> UITableViewCell {
-		guard let daysSinceInstallationCell = tableView.dequeueReusableCell(withIdentifier: ReusableCellIdentifier.daysSinceInstallationCell.rawValue, for: indexPath) as? DaysSinceInstallTableViewCell,
-			  let appInstallationDate = store.appInstallationDate else {
+		guard let daysSinceInstallationCell = tableView.dequeueReusableCell(withIdentifier: ReusableCellIdentifier.daysSinceInstallationCell.rawValue, for: indexPath) as? DaysSinceInstallTableViewCell else {
 			fatalError("Cell is not registered")
 		}
 
-		daysSinceInstallationCell.configure(daysSinceInstall: max(Calendar.autoupdatingCurrent.startOfDay(for: appInstallationDate).ageInDays ?? 0, 0))
+		let appInstallationDate = store.appInstallationDate.map { Calendar.autoupdatingCurrent.startOfDay(for: $0).ageInDays ?? 0 }
+		daysSinceInstallationCell.configure(daysSinceInstall: max(appInstallationDate ?? 0, 0))
 		return daysSinceInstallationCell
 	}
 
