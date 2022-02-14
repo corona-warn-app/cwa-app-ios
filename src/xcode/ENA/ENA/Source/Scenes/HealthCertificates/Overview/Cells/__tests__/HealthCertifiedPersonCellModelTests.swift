@@ -707,12 +707,12 @@ class HealthCertifiedPersonCellModelTests: XCTestCase {
 				thirdHealthCertificate,
 				fourthHealthCertificate
 			],
-			isNewBoosterRule: true,
 			dccWalletInfo: .fake(
 				boosterNotification: .fake(
 					identifier: "BoosterRule"
 				)
-			)
+			),
+			isNewBoosterRule: true
 		)
 
 		let cclService = FakeCCLService()

@@ -172,7 +172,8 @@ class RootCoordinator: NSObject, RequiresAppDependencies, UITabBarControllerDele
 			recycleBin: recycleBin,
 			restServiceProvider: restServiceProvider,
 			badgeWrapper: badgeWrapper,
-			cache: cache
+			cache: cache,
+			cclService: cclService
 		)
 		self.homeCoordinator = homeCoordinator
 		homeCoordinator.showHome(
