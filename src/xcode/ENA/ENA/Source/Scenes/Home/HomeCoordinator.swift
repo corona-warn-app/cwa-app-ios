@@ -23,7 +23,9 @@ class HomeCoordinator: RequiresAppDependencies {
 		qrScannerCoordinator: QRScannerCoordinator,
 		recycleBin: RecycleBin,
 		restServiceProvider: RestServiceProviding,
-		badgeWrapper: HomeBadgeWrapper
+		badgeWrapper: HomeBadgeWrapper,
+		cache: KeyValueCaching,
+		cclService: CCLServable
 	) {
 		self.delegate = delegate
 		self.otpService = otpService
@@ -38,6 +40,8 @@ class HomeCoordinator: RequiresAppDependencies {
 		self.recycleBin = recycleBin
 		self.restServiceProvider = restServiceProvider
 		self.badgeWrapper = badgeWrapper
+		self.cache = cache
+		self.cclService = cclService
 	}
 
 	deinit {
@@ -193,6 +197,8 @@ class HomeCoordinator: RequiresAppDependencies {
 	private let recycleBin: RecycleBin
 	private let restServiceProvider: RestServiceProviding
 	private let badgeWrapper: HomeBadgeWrapper
+	private let cache: KeyValueCaching
+	private let cclService: CCLServable
 
 	private var homeController: HomeTableViewController?
 	private var homeState: HomeState?
@@ -389,7 +395,8 @@ class HomeCoordinator: RequiresAppDependencies {
 	private func showAppInformation() {
 		rootViewController.pushViewController(
 			AppInformationViewController(
-				elsService: elsService
+				elsService: elsService,
+				cclService: cclService
 			),
 			animated: true
 		)
@@ -541,7 +548,8 @@ class HomeCoordinator: RequiresAppDependencies {
 			eventStore: eventStore,
 			qrCodePosterTemplateProvider: qrCodePosterTemplateProvider,
 			ppacService: ppacService,
-			healthCertificateService: healthCertificateService
+			healthCertificateService: healthCertificateService,
+			cache: cache
 		)
 		developerMenu?.enableIfAllowed()
 	}

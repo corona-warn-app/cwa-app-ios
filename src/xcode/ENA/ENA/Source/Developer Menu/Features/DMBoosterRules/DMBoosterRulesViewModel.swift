@@ -42,41 +42,29 @@ final class DMBoosterRulesViewModel {
 		}
 		
 		switch section {
-		case .lastDownloadDate:
-			let value: String
-			if let unwrappedDate = store.lastBoosterNotificationsExecutionDate {
-				value = DateFormatter.localizedString(from: unwrappedDate, dateStyle: .medium, timeStyle: .medium)
-			} else {
-				value = "No successful download so far"
-			}
-			return DMKeyValueCellViewModel(key: "Last Download Date", value: value)
-			
-		case .clearLastDownloadDate:
-			return DMButtonCellViewModel(
-				text: "clear last download date",
-				textColor: .enaColor(for: .textContrast),
-				backgroundColor: .enaColor(for: .buttonPrimary),
-				action: {
-					self.store.lastBoosterNotificationsExecutionDate = nil
-					self.refreshTableView([TableViewSections.lastDownloadDate.rawValue])
-				}
-			)
 		case .cachedPassedBoosterRule:
-			let value: String
-			if let boosterRule = healthCertifiedPerson.boosterRule {
-				value = boosterRule.description.first?.desc ?? "no booster rules description"
-			} else {
-				value = "no booster rule passed for this person"
-			}
-			return DMKeyValueCellViewModel(key: "Cached Passed Booster Rule", value: value)
-			
+			return DMKeyValueCellViewModel(
+				key: "Cached Passed Booster Rule",
+				value: healthCertifiedPerson.dccWalletInfo?.boosterNotification.identifier ?? "no booster rule passed for this person"
+			)
 		case .clearCurrentPersonBoosterRule:
 			return DMButtonCellViewModel(
 				text: "clear current person booster rule",
 				textColor: .enaColor(for: .textContrast),
 				backgroundColor: .enaColor(for: .buttonPrimary),
 				action: {
-					self.healthCertifiedPerson.boosterRule = nil
+					guard let dccWalletInfo = self.healthCertifiedPerson.dccWalletInfo else {
+						return
+					}
+
+					self.healthCertifiedPerson.dccWalletInfo = DCCWalletInfo(
+						admissionState: dccWalletInfo.admissionState,
+						vaccinationState: dccWalletInfo.vaccinationState,
+						boosterNotification: DCCBoosterNotification(visible: false, identifier: nil, titleText: nil, subtitleText: nil, longText: nil, faqAnchor: nil),
+						mostRelevantCertificate: dccWalletInfo.mostRelevantCertificate,
+						verification: dccWalletInfo.verification,
+						validUntil: dccWalletInfo.validUntil
+					)
 					self.refreshTableView([TableViewSections.cachedPassedBoosterRule.rawValue])
 				}
 			)
@@ -97,9 +85,7 @@ final class DMBoosterRulesViewModel {
 	}
 
 	enum TableViewSections: Int, CaseIterable {
-		case lastDownloadDate
 		case cachedPassedBoosterRule
-		case clearLastDownloadDate
 		case clearCurrentPersonBoosterRule
 	}
 	

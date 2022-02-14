@@ -214,17 +214,22 @@ class HealthCertificateService {
 		
 		let isNewPersonAdded = newlyGroupedPersons.count > healthCertifiedPersons.count
 		healthCertifiedPersons = newlyGroupedPersons
-		updateValidityStateAndNotifications(for: healthCertificate)
+		
+		updateValidityState(for: healthCertificate)
+		scheduleTimer()
 
+		if healthCertificate.type != .test {
+			createNotifications(for: healthCertificate)
+		}
+		
 		if isNewPersonAdded {
 			Log.info("[HealthCertificateService] Successfully registered health certificate for a new person", log: .api)
 			updateDCCWalletInfo(for: healthCertifiedPerson)
+			updateGradients()
 		} else {
 			Log.info("[HealthCertificateService] Successfully registered health certificate for a person with other existing certificates", log: .api)
 		}
 		
-		updateGradients()
-
 		Log.info("Finished adding health certificate to person.")
 		
 		return healthCertifiedPerson
@@ -262,26 +267,22 @@ class HealthCertificateService {
 		recycleBin.moveToBin(.certificate(healthCertificate))
 	}
 
-	func checkForCCLConfigurationAndRulesUpdates(completion: (() -> Void)? = nil) {
-		cclService.updateConfiguration { [weak self] didChange in
+	func updateDCCWalletInfosIfNeeded(completion: (() -> Void)? = nil) {
+		cclService.updateConfiguration { [weak self] configurationDidChange in
 			guard let self = self else {
 				completion?()
 				return
 			}
 
-			if didChange {
-				let dispatchGroup = DispatchGroup()
-				for person in self.healthCertifiedPersons where !person.healthCertificates.isEmpty {
-					dispatchGroup.enter()
-					self.updateDCCWalletInfo(for: person) {
-						dispatchGroup.leave()
-					}
+			let dispatchGroup = DispatchGroup()
+			for person in self.healthCertifiedPersons where configurationDidChange || person.needsDCCWalletInfoUpdate {
+				dispatchGroup.enter()
+				self.updateDCCWalletInfo(for: person) {
+					dispatchGroup.leave()
 				}
+			}
 
-				dispatchGroup.notify(queue: .global()) {
-					completion?()
-				}
-			} else {
+			dispatchGroup.notify(queue: .global()) {
 				completion?()
 			}
 		}
@@ -496,8 +497,12 @@ class HealthCertificateService {
 			)
 		}
 		
+		// Apply sorting.
+		for person in newGroupedPersons {
+			person.healthCertificates.sort(by: <)
+		}
 		newGroupedPersons.sort()
-		
+
 		return newGroupedPersons
 	}
 	
@@ -535,17 +540,16 @@ class HealthCertificateService {
 
 		attemptToRestoreDecodingFailedHealthCertificates()
 
-		self.healthCertifiedPersons.forEach { healthCertifiedPerson in
+		healthCertifiedPersons.forEach { healthCertifiedPerson in
 			healthCertifiedPerson.healthCertificates.forEach { healthCertificate in
 				updateValidityState(for: healthCertificate)
+				updateNotifications(for: healthCertificate)
 			}
 		}
 
 		if shouldScheduleTimer {
 			scheduleTimer()
 		}
-
-		updateNotifications()
 	}
 
 	func validUntilDates(for healthCertificates: [HealthCertificate], signingCertificates: [DCCSigningCertificate]) -> [Date] {
@@ -633,7 +637,7 @@ class HealthCertificateService {
 		// Validation Service
 		subscribeAppConfigUpdates()
 		subscribeDSCListChanges()
-		checkForCCLConfigurationAndRulesUpdates()
+		updateDCCWalletInfosIfNeeded()
 	}
 
 	private func subscribeAppConfigUpdates() {
@@ -676,7 +680,7 @@ class HealthCertificateService {
 					if healthCertifiedPerson.isPreferredPerson {
 						// Set isPreferredPerson = false on all other persons to only have one preferred person
 						self.healthCertifiedPersons
-							.filter { $0 != healthCertifiedPerson }
+							.filter { $0 !== healthCertifiedPerson }
 							.forEach {
 								$0.isPreferredPerson = false
 							}
@@ -688,7 +692,7 @@ class HealthCertificateService {
 				}
 				.store(in: &healthCertifiedPersonSubscriptions)
 
-			healthCertifiedPerson.needsWalletInfoUpdate
+			healthCertifiedPerson.dccWalletInfoUpdateRequest
 				.sink { [weak self] healthCertifiedPerson in
 					self?.updateDCCWalletInfo(for: healthCertifiedPerson)
 				}
@@ -723,6 +727,7 @@ class HealthCertificateService {
 			case .success(let dccWalletInfo):
 				let previousBoosterNotificationIdentifier = person.boosterRule?.identifier ?? person.dccWalletInfo?.boosterNotification.identifier
 				person.dccWalletInfo = dccWalletInfo
+				person.mostRecentWalletInfoUpdateFailed = false
 				
 				#if DEBUG
 				if isUITesting, LaunchArguments.healthCertificate.hasBoosterNotification.boolValue {
@@ -737,24 +742,10 @@ class HealthCertificateService {
 				)
 			case .failure(let error):
 				Log.error("Wallet info update failed", error: error)
+				person.mostRecentWalletInfoUpdateFailed = true
 				completion?()
 			}
 		}
-	}
-
-	private func updateValidityStateAndNotifications(
-		for healthCertificate: HealthCertificate,
-		shouldScheduleTimer: Bool = true
-	) {
-		Log.info("Update validity state and notifications for healthCertificate \(private: healthCertificate.base45).")
-
-		updateValidityState(for: healthCertificate)
-
-		if shouldScheduleTimer {
-			scheduleTimer()
-		}
-
-		updateNotifications(for: healthCertificate)
 	}
 
 	private func updateValidityState(for healthCertificate: HealthCertificate) {
@@ -780,7 +771,7 @@ class HealthCertificateService {
 		}
 
 		if healthCertificate.validityState != previousValidityState {
-			/// Only validity states that are not shown as `.valid` should be marked as new for the user.
+			// Only validity states that are not shown as `.valid` should be marked as new for the user.
 			healthCertificate.isValidityStateNew = !healthCertificate.isConsideredValid
 		}
 	}
@@ -812,18 +803,6 @@ class HealthCertificateService {
 			healthCertificate.validityState = .expiringSoon
 		} else {
 			healthCertificate.validityState = .valid
-		}
-	}
-	
-	/// This method should be called: At startup, at creation, at removal and at update validity states of HealthCertificates.
-	/// First, removes all local notifications and then re-adds all updates or new notifications to the notification center.
-	private func updateNotifications() {
-		Log.debug("Update notifications.")
-
-		healthCertifiedPersons.forEach { healthCertifiedPerson in
-			healthCertifiedPerson.healthCertificates.forEach { healthCertificate in
-				updateNotifications(for: healthCertificate)
-			}
 		}
 	}
 

@@ -212,7 +212,7 @@
 
 "ExposureSubmission_TestCertificate_Information_Legal_Text_2" = "Zur Erstellung Ihres Testzertifikats werden Daten einmalig verschlüsselt an das RKI übermittelt. Das RKI signiert die Daten elektronisch, um die Gültigkeit zu bestätigen. Die Daten werden beim RKI nicht gespeichert.";
 
-"ExposureSubmission_TestCertificate_Information_Legal_Text_2a_PCR" = "Um sicherzustellen, dass niemand mit Ihrem QR-Code Ihr Testergebnis abrufen kann, wird es mit Ihrem Geburtsdatum geschützt. Ihr Geburtsdatum wird verschlüsselt an das Labor übermittelt, um das Testergebnis abzurufen.";
+"ExposureSubmission_TestCertificate_Information_Legal_Text_2a_PCR" = "Um sicherzustellen, dass niemand mit Ihrem QR-Code Ihr Testzertifikat abrufen kann, wird es mit Ihrem Geburtsdatum geschützt. Ihr Geburtsdatum wird verschlüsselt an das Labor übermittelt, um das Testzertifikat abzurufen.";
 
 "ExposureSubmission_TestCertificate_Information_Legal_Text_3" = "Das COVID-Testzertifikat enthält die Daten über Ihren Corona-Test. Zum Nachweis des negativen Testergebnisses in den gesetzlich vorgesehenen Fällen genügt das Vorzeigen des QR-Codes in der App. Stellen Sie das Testzertifikat niemandem zur Verfügung, wenn Sie nicht wollen, dass die Daten ausgelesen werden.";
 

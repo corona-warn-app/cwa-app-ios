@@ -40,11 +40,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		#if DEBUG
 		if isUITesting {
 			self.store = MockTestStore()
+			self.restServiceCache = KeyValueCacheFake()
 		} else {
 			self.store = SecureStore(subDirectory: "database")
+			self.restServiceCache = SecureKeyValueCache(subDirectory: "RestServiceCache", store: store)
 		}
 		#else
 		self.store = SecureStore(subDirectory: "database")
+		self.restServiceCache = SecureKeyValueCache(subDirectory: "RestServiceCache")
 		#endif
 
 		if store.appInstallationDate == nil {
@@ -52,7 +55,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 			Log.debug("App installation date: \(String(describing: store.appInstallationDate))")
 		}
 
-		self.restServiceCache = SecureKeyValueCache(subDirectory: "RestServiceCache")
 		self.restServiceProvider = RestServiceProvider(cache: restServiceCache)
 		self.client = HTTPClient(environmentProvider: environmentProvider)
 		self.wifiClient = WifiOnlyHTTPClient(environmentProvider: environmentProvider)
@@ -194,7 +196,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		updateExposureState(state)
 		Analytics.triggerAnalyticsSubmission()
 		appUpdateChecker.checkAppVersionDialog(for: window?.rootViewController)
-		healthCertificateService.checkForCCLConfigurationAndRulesUpdates()
+		healthCertificateService.updateDCCWalletInfosIfNeeded()
 	}
 	
 	func applicationWillTerminate(_ application: UIApplication) {
@@ -810,7 +812,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		elsService: elsService,
 		recycleBin: recycleBin,
 		restServiceProvider: restServiceProvider,
-		badgeWrapper: badgeWrapper
+		badgeWrapper: badgeWrapper,
+		cache: restServiceCache
 	)
 
 	private lazy var appUpdateChecker = AppUpdateCheckHelper(appConfigurationProvider: self.appConfigurationProvider, store: self.store)

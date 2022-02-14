@@ -4,6 +4,7 @@
 
 import Foundation
 
+
 struct TeleTanResource: Resource {
 
 	// MARK: - Init
@@ -12,23 +13,23 @@ struct TeleTanResource: Resource {
 		isFake: Bool = false,
 		sendModel: TeleTanSendModel
 	) {
-		self.locator = .registrationToken(isFake: isFake)
+		self.locator = .teleTan(isFake: isFake)
 		self.type = .default
 		self.sendResource = PaddingJSONSendResource<TeleTanSendModel>(sendModel)
-		self.receiveResource = JSONReceiveResource<RegistrationTokenReceiveModel>()
+		self.receiveResource = JSONReceiveResource<TeleTanReceiveModel>()
 		self.keyModel = sendModel
 	}
 
 	// MARK: - Protocol Resource
 
 	typealias Send = PaddingJSONSendResource<TeleTanSendModel>
-	typealias Receive = JSONReceiveResource<RegistrationTokenReceiveModel>
+	typealias Receive = JSONReceiveResource<TeleTanReceiveModel>
 	typealias CustomError = TeleTanError
 
 	var locator: Locator
 	var type: ServiceType
 	var sendResource: PaddingJSONSendResource<TeleTanSendModel>
-	var receiveResource: JSONReceiveResource<RegistrationTokenReceiveModel>
+	var receiveResource: JSONReceiveResource<TeleTanReceiveModel>
 
 	func customError(for error: ServiceError<TeleTanError>) -> TeleTanError? {
 		switch error {

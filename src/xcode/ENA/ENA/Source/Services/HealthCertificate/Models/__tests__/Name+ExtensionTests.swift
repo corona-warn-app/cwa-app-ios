@@ -70,7 +70,7 @@ class Name_ExtensionTests: XCTestCase {
 		}
 	}
 	
-	struct TestCases: Decodable {
+	private struct TestCases: Decodable {
 		struct TestCase: Decodable {
 			let description: String
 			let actName: String

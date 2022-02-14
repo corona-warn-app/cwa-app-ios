@@ -15,11 +15,11 @@ final class RegistrationTokenResourceTests: CWATestCase {
 		let stack = MockNetworkStack(
 			httpStatus: 200,
 			responseData: try JSONEncoder().encode(
-				TeleTanReceiveModel(submissionTAN: fakeTan)
+				RegistrationTokenReceiveModel(submissionTAN: fakeTan)
 			)
 		)
 
-		let serviceProvider = RestServiceProvider(session: stack.urlSession)
+		let serviceProvider = RestServiceProvider(session: stack.urlSession, cache: KeyValueCacheFake())
 		let registrationTokenResource = RegistrationTokenResource(
 			isFake: false,
 			sendModel: RegistrationTokenSendModel(token: "Fake")
@@ -45,7 +45,7 @@ final class RegistrationTokenResourceTests: CWATestCase {
 			responseData: Data()
 		)
 
-		let serviceProvider = RestServiceProvider(session: stack.urlSession)
+		let serviceProvider = RestServiceProvider(session: stack.urlSession, cache: KeyValueCacheFake())
 		let registrationTokenResource = RegistrationTokenResource(
 			isFake: false,
 			sendModel: RegistrationTokenSendModel(token: "Fake")
@@ -76,7 +76,7 @@ final class RegistrationTokenResourceTests: CWATestCase {
 			responseData: Data(bytes: [0xA, 0xB] as [UInt8], count: 2)
 		)
 
-		let serviceProvider = RestServiceProvider(session: stack.urlSession)
+		let serviceProvider = RestServiceProvider(session: stack.urlSession, cache: KeyValueCacheFake())
 		let registrationTokenResource = RegistrationTokenResource(
 			isFake: false,
 			sendModel: RegistrationTokenSendModel(token: "Fake")
@@ -112,7 +112,7 @@ final class RegistrationTokenResourceTests: CWATestCase {
 			""".data(using: .utf8)
 		)
 
-		let serviceProvider = RestServiceProvider(session: stack.urlSession)
+		let serviceProvider = RestServiceProvider(session: stack.urlSession, cache: KeyValueCacheFake())
 		let registrationTokenResource = RegistrationTokenResource(
 			isFake: false,
 			sendModel: RegistrationTokenSendModel(token: "Fake")
@@ -162,12 +162,12 @@ final class RegistrationTokenResourceTests: CWATestCase {
 		let stack = MockNetworkStack(
 			httpStatus: 200,
 			responseData: try JSONEncoder().encode(
-				TeleTanReceiveModel(submissionTAN: "fakeTan")
+				RegistrationTokenReceiveModel(submissionTAN: "fakeTan")
 			),
 			requestObserver: verifyPostBodyContent
 		)
 
-		let serviceProvider = RestServiceProvider(session: stack.urlSession)
+		let serviceProvider = RestServiceProvider(session: stack.urlSession, cache: KeyValueCacheFake())
 		let registrationTokenResource = RegistrationTokenResource(
 			isFake: false,
 			sendModel: RegistrationTokenSendModel(token: fakeToken)
