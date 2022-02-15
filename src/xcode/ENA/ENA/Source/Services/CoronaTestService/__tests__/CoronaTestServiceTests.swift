@@ -1750,7 +1750,7 @@ class CoronaTestServiceTests: CWATestCase {
 					TeleTanReceiveModel(registrationToken: "registrationToken")
 				),
 				willLoadResource: { resource in
-					// Ensure that the date of birth is not passed to the client for antigen tests if it is given accidentally
+					// Ensure that the date of birth is not passed to the client for rapid PCR tests if it is given accidentally
 
 					guard let resource = resource as? TeleTanResource,
 						let sendModel = resource.sendResource.sendModel else {
