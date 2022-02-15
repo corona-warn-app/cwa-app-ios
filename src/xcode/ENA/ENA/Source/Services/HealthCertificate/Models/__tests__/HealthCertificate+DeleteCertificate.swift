@@ -24,12 +24,20 @@ class HealthCertificate_DeleteCertificateTests: XCTestCase {
 			recycleBin: .fake()
 		)
 		let single1 = try certificateSingle1()
-		service.registerHealthCertificate(base45: single1)
-		service.registerHealthCertificate(base45: try certificateSingle2())
-		service.registerHealthCertificate(base45: try certificateCombiner())
+		var listOfCertificates = [
+			single1,
+			try certificateSingle2(),
+			try certificateSingle3(),
+			try certificateSingle4(),
+			try certificateSingleA(),
+			try certificateCombiner()
+		]
+		listOfCertificates.shuffle()
+		listOfCertificates.forEach { service.registerHealthCertificate(base45: $0) }
 		
-		// We should have now 1 person with three different certificate attributes.
-		XCTAssertEqual(service.healthCertifiedPersons.count, 1)
+		
+		// We should have now 2 persons. Person1 with four certificates and Person2 with one certificate.
+		XCTAssertEqual(service.healthCertifiedPersons.count, 2)
 		
 		// WHEN
 		
@@ -39,12 +47,13 @@ class HealthCertificate_DeleteCertificateTests: XCTestCase {
 				  return
 			  }
 		
+		// Remove a single-stand-alone certifcate from Person1.
 		service.moveHealthCertificateToBin(certificateToRemove)
 		
 		// THEN
 		
-		// After deleting certificate2, 1 and 3 should still match as one person so the result is still 1  person.
-		XCTAssertEqual(service.healthCertifiedPersons.count, 1)
+		// We should have now still 2 persons. Person1 with three certificates and Person2 with one certificate.
+		XCTAssertEqual(service.healthCertifiedPersons.count, 2)
 	}
 	
 	func testGIVEN_PersonWith3Certificates_WHEN_CertificateIsDeleted_THEN_RemainingSplitsUpInto2Persons() throws {
@@ -74,7 +83,7 @@ class HealthCertificate_DeleteCertificateTests: XCTestCase {
 		listOfCertificates.shuffle()
 		listOfCertificates.forEach { service.registerHealthCertificate(base45: $0) }
 		
-		// We should have now 1 person with three different certificate attributes.
+		// We should have now 2 persons. Person1 with four certificates and Person2 with one certificate.
 		XCTAssertEqual(service.healthCertifiedPersons.count, 2)
 		
 		// WHEN
@@ -85,12 +94,12 @@ class HealthCertificate_DeleteCertificateTests: XCTestCase {
 				  return
 			  }
 		
-		// We remove now the second certificate because it acts like glue between 2 and 3.
+		// Remove the combining certifcate from Person1.
 		service.moveHealthCertificateToBin(certificateToRemove)
 		
 		// THEN
 		
-		// TODO
+		// We should have now 3 persons. Person1 with three certificates, and Person2 and Person3 with each one certificate.
 		XCTAssertEqual(service.healthCertifiedPersons.count, 3)
 		XCTAssertTrue(service.healthCertifiedPersons.contains(where: { $0 === originalPerson }))
 	}
@@ -106,7 +115,7 @@ class HealthCertificate_DeleteCertificateTests: XCTestCase {
 				),
 				dateOfBirth: dob,
 				testEntries: [TestEntry.fake(
-					uniqueCertificateIdentifier: "1"
+					uniqueCertificateIdentifier: "0"
 				)]
 			)
 		)
@@ -120,7 +129,7 @@ class HealthCertificate_DeleteCertificateTests: XCTestCase {
 				),
 				dateOfBirth: dob,
 				testEntries: [TestEntry.fake(
-					uniqueCertificateIdentifier: "2"
+					uniqueCertificateIdentifier: "1"
 				)]
 			)
 		)
@@ -134,7 +143,7 @@ class HealthCertificate_DeleteCertificateTests: XCTestCase {
 				),
 				dateOfBirth: dob,
 				testEntries: [TestEntry.fake(
-					uniqueCertificateIdentifier: "3"
+					uniqueCertificateIdentifier: "2"
 				)]
 			)
 		)
