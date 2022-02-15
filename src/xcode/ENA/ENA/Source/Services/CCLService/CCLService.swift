@@ -156,13 +156,23 @@ class CCLService: CCLServable {
 			boosterNotificationRules: boosterNotificationRules
 		)
 		
+		let getAdmissionCheckScenariosInput = GetAdmissionCheckScenariosInput.make()
+		
+		
 		do {
 			let walletInfo: DCCWalletInfo = try jsonFunctions.evaluateFunction(
 				name: "getDccWalletInfo",
 				parameters: getWalletInfoInput
 			)
+			
+			let admissionCheckScenarios: DCCAdmissionCheckScenarios = try jsonFunctions.evaluateFunction(
+				name: "getDccAdmissionCheckScenarios",
+				parameters: getAdmissionCheckScenariosInput
+			)
+			
 			return .success(walletInfo)
 		} catch {
+			Log.info("here: \(error.localizedDescription)")
 			return .failure(.failedFunctionsEvaluation(error))
 		}
 	}
