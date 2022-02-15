@@ -147,7 +147,7 @@ final class MockTestStore: Store, PPAnalyticsData {
 	var testCertificateRequests: [TestCertificateRequest] = []
 	var lastSelectedValidationCountry: Country = .defaultCountry()
 	var lastSelectedValidationDate: Date = Date()
-	var lastSelectedScenarioIdentifier: String = ""
+	var lastSelectedScenarioIdentifier: String? = ""
 
 	// MARK: - Protocol VaccinationCaching
 
