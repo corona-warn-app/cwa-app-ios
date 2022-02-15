@@ -13,7 +13,7 @@ class ChangeAdmissionScenarionCellModelTests: XCTestCase {
 
 		// THEN
 		XCTAssertEqual(cellViewModel.textColorPublisher.value, UIColor.enaColor(for: .textPrimary1))
-		XCTAssertEqual(cellViewModel.iconImagePublisher.value, UIImage(named: "Icons_Admission_State"))
+		XCTAssertEqual(cellViewModel.iconImagePublisher.value, UIImage(named: "Icons_admission_state"))
 		XCTAssertFalse(cellViewModel.isCustomAccessoryViewHiddenPublisher.value)
 	}
 

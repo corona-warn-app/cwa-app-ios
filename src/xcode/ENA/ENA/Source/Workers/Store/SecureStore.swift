@@ -258,6 +258,11 @@ final class SecureStore: SecureKeyValueStoring, Store, AntigenTestProfileStoring
 		set { kvStore["lastSelectedValidationDate"] = newValue }
 	}
 	
+	var lastSelectedScenarioIdentifier: String? {
+		get { kvStore["lastSelectedScenarioIdentifier"] as String? ?? nil }
+		set { kvStore["lastSelectedScenarioIdentifier"] = newValue }
+	}
+		
 	// MARK: - Protocol VaccinationCaching
 
 	var vaccinationCertificateValueDataSets: VaccinationValueDataSets? {

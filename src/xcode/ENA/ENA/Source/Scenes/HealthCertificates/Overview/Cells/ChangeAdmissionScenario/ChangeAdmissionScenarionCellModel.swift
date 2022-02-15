@@ -12,7 +12,7 @@ class ChangeAdmissionScenarionCellModel: AddButtonAsTableViewCelling {
 	// to.do should be dynamic
 	let text: String = "Regeln des Bundes"
 
-	var iconImagePublisher = CurrentValueSubject<UIImage?, Never>(UIImage(named: "Icons_Admission_State"))
+	var iconImagePublisher = CurrentValueSubject<UIImage?, Never>(UIImage(named: "Icons_admission_state"))
 	var textColorPublisher = CurrentValueSubject<UIColor, Never>(.enaColor(for: .textPrimary1))
 	var accessibilityTraitsPublisher = CurrentValueSubject<UIAccessibilityTraits, Never>([.button])
 	var isCustomAccessoryViewHiddenPublisher = CurrentValueSubject<Bool, Never>(false)
