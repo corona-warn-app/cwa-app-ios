@@ -6,7 +6,7 @@
 import XCTest
 import HealthCertificateToolkit
 
-class HealthCertificate_DeleteCertificateTests: XCTestCase {
+class HealthCertificateService_GroupingAfterDeletionTests: XCTestCase {
 	
 	func testGIVEN_PersonWith3Certificates_WHEN_CertificateIsDeleted_THEN_RemainingStaysAtSamePersons() throws {
 		

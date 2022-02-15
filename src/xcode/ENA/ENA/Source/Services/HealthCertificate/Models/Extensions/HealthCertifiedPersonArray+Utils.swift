@@ -22,4 +22,12 @@ extension Array where Element == HealthCertifiedPerson {
 		
 		return foundPersons
 	}
+	
+	func contains(_ healthCertificate: HealthCertificate) -> Bool {
+		self.flatMap {
+			$0.healthCertificates
+		}.contains(where: {
+			$0.uniqueCertificateIdentifier == healthCertificate.uniqueCertificateIdentifier
+		})
+	}
 }

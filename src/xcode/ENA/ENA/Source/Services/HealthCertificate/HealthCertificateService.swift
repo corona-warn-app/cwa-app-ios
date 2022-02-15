@@ -179,7 +179,7 @@ class HealthCertificateService {
 				}
 			}
 			
-			if isDuplicate(healthCertificate) {
+			if healthCertifiedPersons.contains(healthCertificate) {
 				Log.error("[HealthCertificateService] Registering health certificate failed: certificate already registered", log: .api)
 				return .failure(.certificateAlreadyRegistered(healthCertificate.type))
 			}
@@ -238,14 +238,6 @@ class HealthCertificateService {
 		Log.info("Finished adding health certificate to person.")
 		
 		return healthCertifiedPerson
-	}
-	
-	func isDuplicate(_ healthCertificate: HealthCertificate) -> Bool {
-		healthCertifiedPersons.flatMap {
-			$0.healthCertificates
-		}.contains(where: {
-			$0.uniqueCertificateIdentifier == healthCertificate.uniqueCertificateIdentifier
-		})
 	}
 
 	func moveHealthCertificateToBin(_ healthCertificate: HealthCertificate) {
@@ -466,13 +458,12 @@ class HealthCertificateService {
 	}
 	
 	func groupingPersons(
-		appending newHealthCertificate: HealthCertificate,
-		for personsToGroup: [HealthCertifiedPerson]? = nil
+		appending newHealthCertificate: HealthCertificate
 	) -> [HealthCertifiedPerson] {
 		// Please note: A new certificate can combine several persons to one.
 
 		// Search for matching persons.
-		var newGroupedPersons = personsToGroup ?? healthCertifiedPersons
+		var newGroupedPersons = healthCertifiedPersons
 		var matchingPersons = [HealthCertifiedPerson]()
 		for person in newGroupedPersons {
 			for certificate in person.healthCertificates {
@@ -967,11 +958,38 @@ class HealthCertificateService {
 	private func regroupAfterDeletion(
 		for healthCertifiedPerson: HealthCertifiedPerson
 	) {
+		let regroupedPersons = regroup(
+			healthCertifiedPerson: healthCertifiedPerson
+		)
+		
+		// Find person and replace it by our regroupedPersons
+		// Use a copy of healthCertifiedPersons to avoid multiple changes to healthCertifiedPersons.
+		var mutatedHealthCertifiedPersons = healthCertifiedPersons
+		mutatedHealthCertifiedPersons.remove(healthCertifiedPerson)
+		mutatedHealthCertifiedPersons.append(contentsOf: regroupedPersons)
+		healthCertifiedPersons = mutatedHealthCertifiedPersons
+		
+		// We only want to call updateDCCWalletInfo for new created persons.
+		// For the existing person it is called when the certificates changed.
+		let newlyPersons = healthCertifiedPersons.filter { $0 != healthCertifiedPerson }
+		newlyPersons.forEach { updateDCCWalletInfo(for: $0) }
+		
+		healthCertifiedPersons.sort()
+		updateGradients()
+	}
+	
+	// This regroup preserves the reference to healthCertifiedPerson during regrouping.
+	// This is needed because there might be a combine registration to that person reference.
+	private func regroup(
+		healthCertifiedPerson: HealthCertifiedPerson
+	) -> [HealthCertifiedPerson] {
+		
 		// Save the reference of the person and the first certificate of it. We need to preserve the reference of the person because there might be some combine registrations on this person.
+		let allCertificates = healthCertifiedPerson.healthCertificates
 		var certificates = healthCertifiedPerson.healthCertificates
 		guard let first = certificates.first else {
 			Log.error("Should not happen because we proof before if we have at least one certificate in the person", log: .api)
-			return
+			return []
 		}
 		certificates.removeFirst()
 		// Create now from every remaining certificate of the person a new person
@@ -980,43 +998,18 @@ class HealthCertificateService {
 		// Append the original person to the newly created persons
 		splittedPersons.append(healthCertifiedPerson)
 		
-		// And now regroup this persons.
-		let regroupedPersons = regroup(
-			persons: splittedPersons,
-			preserving: healthCertifiedPerson
-		)
-		
-		// Find person and replace it by our regroupedPersons
-		healthCertifiedPersons.remove(healthCertifiedPerson)
-		healthCertifiedPersons.append(contentsOf: regroupedPersons)
-		
-		let newlyPersons = healthCertifiedPersons.filter { $0 != healthCertifiedPerson }
-		
-		newlyPersons.forEach { updateDCCWalletInfo(for: $0) }
-		
-		healthCertifiedPersons.sort()
-		updateGradients()
-	}
-	
-	private func regroup(
-		persons: [HealthCertifiedPerson],
-		preserving originalPerson: HealthCertifiedPerson
-	) -> [HealthCertifiedPerson] {
 		var regroupedPersons = [HealthCertifiedPerson]()
-		let allCertificates = persons.flatMap {
-			$0.healthCertificates
-		}
-		
+
 		for certificate in allCertificates {
-			let matchingOriginalPersons = persons.findPersons(for: certificate)
+			let matchingPersons = splittedPersons.findPersons(for: certificate)
 			let matchingRegroupedPersons = regroupedPersons.findPersons(for: certificate)
 			
 			regroupedPersons.remove(elements: matchingRegroupedPersons)
 			
-			let allPersons = matchingOriginalPersons + matchingRegroupedPersons
+			let allPersons = matchingPersons + matchingRegroupedPersons
 			var mergedPerson: HealthCertifiedPerson
-			if allPersons.contains(where: { $0 === originalPerson }) {
-				mergedPerson = originalPerson
+			if allPersons.contains(where: { $0 === healthCertifiedPerson }) {
+				mergedPerson = healthCertifiedPerson
 			} else {
 				guard let person = allPersons.first else {
 					continue
