@@ -114,6 +114,7 @@ class HealthCertificateService {
 		return allDatesToExam.min()
 	}
 
+	// swiftlint:disable cyclomatic_complexity
 	@discardableResult
 	func registerHealthCertificate(
 		base45: Base45,
