@@ -827,6 +827,8 @@ class QRScannerCoordinator {
 			unwrappedError = healthCertificateServiceError
 		case .ticketValidation(let ticketValidationError):
 			unwrappedError = ticketValidationError
+		case let .invalidError(qrCodeError):
+			return qrCodeError.localizedDescription
 		}
 		
 		return unwrappedError.localizedDescription

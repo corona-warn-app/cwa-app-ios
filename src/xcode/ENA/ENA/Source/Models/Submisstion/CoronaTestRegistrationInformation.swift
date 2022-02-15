@@ -6,6 +6,24 @@ import Foundation
 
 enum QRCodeError: Error, Equatable {
 	case invalidTestCode(RatError)
+
+	var localizedDescription: String {
+		switch self {
+		case .invalidTestCode(let ratError):
+			switch ratError {
+			case .invalidPayload:
+				return "Unsupported encoding. Supported encodings are base64 and base64url"
+			case .invalidHash:
+				return "Hash is invalid"
+			case .invalidTimeStamp:
+				return "Timestamp is invalid"
+			case .invalidTestedPersonInformation:
+				return "QRCode contains incomplete personal data"
+			case .hashMismatch:
+				return "enerated hash doesn't match QRCode hash"
+			}
+		}
+	}
 }
 
 enum RatError {

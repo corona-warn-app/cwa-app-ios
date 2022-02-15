@@ -24,14 +24,16 @@ class CoronaTestsQRCodeParser: QRCodeParsable {
 			completion(.success(.coronaTest(CoronaTestRegistrationInformation.pcr(guid: "guid", qrCodeHash: "qrCodeHash"))))
 		}
 		#endif
-		
-		guard let coronaTestQRCodeInformation = coronaTestQRCodeInformation(from: qrCode) else {
-			Log.info("Failed parsing corona test with error codeNotFound")
-			completion(.failure(.scanningError(.codeNotFound)))
-			return
-		}
 
-		completion(.success(.coronaTest(coronaTestQRCodeInformation)))
+		let result = coronaTestQRCodeInformation(from: qrCode)
+		switch result {
+
+		case let .success(coronaTestQRCodeInformation):
+			completion(.success(.coronaTest(coronaTestQRCodeInformation)))
+		case let .failure(qrCodeParserError):
+			Log.info("Failed parsing corona test with error codeNotFound")
+			completion(.failure(qrCodeParserError))
+		}
 	}
 
 	// MARK: - Internal
@@ -44,24 +46,27 @@ class CoronaTestsQRCodeParser: QRCodeParsable {
 	///   (6 chars encode a random number, 32 chars for the uuid, 5 chars are separators)
 	func coronaTestQRCodeInformation(
 		from input: String
-	) -> CoronaTestRegistrationInformation? {
+	) -> Result<CoronaTestRegistrationInformation, QRCodeParserError> {
 		// general checks for both PCR and Rapid tests
 		guard !input.isEmpty,
 			  let urlComponents = URLComponents(string: input),
 			  !urlComponents.path.contains(" "),
 			  urlComponents.scheme?.lowercased() == "https" else {
-			return nil
-		}
+				  return .failure(.scanningError(.codeNotFound))
+			  }
 		// specific checks based on test type
 		if urlComponents.host?.lowercased() == "localhost" {
 			return pcrTestInformation(from: input, urlComponents: urlComponents)
 		} else if let route = Route(input),
-				  case .rapidAntigen(let testInformationResult) = route,
-				  case let .success(testInformation) = testInformationResult {
-			return testInformation
-		} else {
-			return nil
+				  case .rapidAntigen(let testInformationResult) = route {
+			if case let .success(testInformation) = testInformationResult {
+				return .success(testInformation)
+			}
+			if case let .failure(qrCodeError) = testInformationResult {
+				return .failure(.invalidError(qrCodeError))
+			}
 		}
+		return .failure(.scanningError(.codeNotFound))
 	}
 
 	// MARK: - Private
@@ -69,7 +74,7 @@ class CoronaTestsQRCodeParser: QRCodeParsable {
 	private func pcrTestInformation(
 		from guidURL: String,
 		urlComponents: URLComponents
-	) -> CoronaTestRegistrationInformation? {
+	) -> Result<CoronaTestRegistrationInformation, QRCodeParserError> {
 		guard guidURL.count <= 150,
 			  urlComponents.path.components(separatedBy: "/").count == 2,	// one / will separate into two components
 			  let candidate = urlComponents.query,
@@ -77,10 +82,13 @@ class CoronaTestsQRCodeParser: QRCodeParsable {
 			  let matchings = candidate.range(
 				of: #"^[0-9A-Fa-f]{6}-[0-9A-Fa-f]{8}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{12}$"#,
 				options: .regularExpression
-			  ) else {
-			return nil
+			  ),
+			  matchings.isEmpty
+		else {
+			return .failure(.scanningError(.codeNotFound))
 		}
-		return matchings.isEmpty ? nil : .pcr(guid: candidate, qrCodeHash: ENAHasher.sha256(guidURL))
+
+		return .success(.pcr(guid: candidate, qrCodeHash: ENAHasher.sha256(guidURL)))
 	}
 	
 }

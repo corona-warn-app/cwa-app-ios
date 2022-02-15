@@ -25,6 +25,7 @@ struct CertificateResult {
 }
 
 enum QRCodeParserError: Error, Equatable {
+	case invalidError(QRCodeError)
 	case scanningError(QRScannerError)
 	case checkinQrError(CheckinQRScannerError)
 	case certificateQrError(HealthCertificateServiceError.RegistrationError)
