@@ -631,10 +631,10 @@ class HealthCertificateService {
 		subscribeToNotifications()
 		updateGradients()
 		
-		// Validation Service
 		subscribeAppConfigUpdates()
 		subscribeDSCListChanges()
 		updateDCCWalletInfosIfNeeded()
+		scheduleTimer()
 	}
 
 	private func subscribeAppConfigUpdates() {
