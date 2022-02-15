@@ -63,17 +63,24 @@ class HealthCertificate_DeleteCertificateTests: XCTestCase {
 			recycleBin: .fake()
 		)
 		let combiner = try certificateCombiner()
-		service.registerHealthCertificate(base45: try certificateSingle1())
-		service.registerHealthCertificate(base45: try certificateSingle2())
-		service.registerHealthCertificate(base45: combiner)
+		var listOfCertificates = [
+			try certificateSingle1(),
+			try certificateSingle2(),
+			try certificateSingle3(),
+			try certificateSingle4(),
+			try certificateSingleA(),
+			combiner
+		]
+		listOfCertificates.shuffle()
+		listOfCertificates.forEach { service.registerHealthCertificate(base45: $0) }
 		
 		// We should have now 1 person with three different certificate attributes.
-		XCTAssertEqual(service.healthCertifiedPersons.count, 1)
+		XCTAssertEqual(service.healthCertifiedPersons.count, 2)
 		
 		// WHEN
 		
-		guard let person = service.healthCertifiedPersons.first,
-			  let certificateToRemove = person.healthCertificates.first(where: { $0.base45 == combiner }) else {
+		guard let originalPerson = service.healthCertifiedPersons.first,
+			  let certificateToRemove = originalPerson.healthCertificates.first(where: { $0.base45 == combiner }) else {
 				  XCTFail("Person should not be empty")
 				  return
 			  }
@@ -83,8 +90,9 @@ class HealthCertificate_DeleteCertificateTests: XCTestCase {
 		
 		// THEN
 		
-		// After delering certificate2, 1 and 3 should not match as one person so the result is 2 different persons.
-		XCTAssertEqual(service.healthCertifiedPersons.count, 2)
+		// TODO
+		XCTAssertEqual(service.healthCertifiedPersons.count, 3)
+		XCTAssertTrue(service.healthCertifiedPersons.contains(where: { $0 === originalPerson }))
 	}
 	
 	private let dob = "1986-01-01"
@@ -127,6 +135,48 @@ class HealthCertificate_DeleteCertificateTests: XCTestCase {
 				dateOfBirth: dob,
 				testEntries: [TestEntry.fake(
 					uniqueCertificateIdentifier: "3"
+				)]
+			)
+		)
+	}
+	private func certificateSingle3() throws -> Base45 {
+		try base45Fake(
+			from: DigitalCovidCertificate.fake(
+				name: Name.fake(
+					standardizedFamilyName: "DUCK",
+					standardizedGivenName: "DONALD<MANFRED"
+				),
+				dateOfBirth: dob,
+				testEntries: [TestEntry.fake(
+					uniqueCertificateIdentifier: "3"
+				)]
+			)
+		)
+	}
+	private func certificateSingle4() throws -> Base45 {
+		try base45Fake(
+			from: DigitalCovidCertificate.fake(
+				name: Name.fake(
+					standardizedFamilyName: "DUCK",
+					standardizedGivenName: "DONALD<SID"
+				),
+				dateOfBirth: dob,
+				testEntries: [TestEntry.fake(
+					uniqueCertificateIdentifier: "4"
+				)]
+			)
+		)
+	}
+	private func certificateSingleA() throws -> Base45 {
+		try base45Fake(
+			from: DigitalCovidCertificate.fake(
+				name: Name.fake(
+					standardizedFamilyName: "GANS",
+					standardizedGivenName: "GUSTAV"
+				),
+				dateOfBirth: "1986-02-02",
+				testEntries: [TestEntry.fake(
+					uniqueCertificateIdentifier: "5"
 				)]
 			)
 		)
