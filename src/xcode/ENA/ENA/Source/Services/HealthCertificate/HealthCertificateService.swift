@@ -219,9 +219,7 @@ class HealthCertificateService {
 		let isNewPersonAdded = newlyGroupedPersons.count > healthCertifiedPersons.count
 		healthCertifiedPersons = newlyGroupedPersons
 		
-		// can skip
 		updateValidityState(for: healthCertificate)
-		// can skip
 		scheduleTimer()
 
 		if healthCertificate.type != .test {
@@ -263,9 +261,9 @@ class HealthCertificateService {
 					updateGradients()
 
 					Log.info("[HealthCertificateService] Removed health certified person", log: .api)
-				} else {
+				} else if healthCertifiedPerson.healthCertificates.count > 1 {
 					Log.info("[HealthCertificateService] Need to check if we have to regroup after deletion a certificate.", log: .api)
-					regroupAfterDeletion(for: healthCertifiedPerson, with: healthCertificate)
+					regroupAfterDeletion(for: healthCertifiedPerson)
 				}
 				break
 			}
@@ -467,11 +465,14 @@ class HealthCertificateService {
 		updateHealthCertifiedPersonSubscriptions(for: healthCertifiedPersons)
 	}
 	
-	func groupingPersons(appending newHealthCertificate: HealthCertificate) -> [HealthCertifiedPerson] {
+	func groupingPersons(
+		appending newHealthCertificate: HealthCertificate,
+		for personsToGroup: [HealthCertifiedPerson]? = nil
+	) -> [HealthCertifiedPerson] {
 		// Please note: A new certificate can combine several persons to one.
 
 		// Search for matching persons.
-		var newGroupedPersons = healthCertifiedPersons
+		var newGroupedPersons = personsToGroup ?? healthCertifiedPersons
 		var matchingPersons = [HealthCertifiedPerson]()
 		for person in newGroupedPersons {
 			for certificate in person.healthCertificates {
@@ -964,20 +965,74 @@ class HealthCertificateService {
 	}
 	
 	private func regroupAfterDeletion(
-		for healthCertifiedPerson: HealthCertifiedPerson,
-		with healthCertificate: HealthCertificate
+		for healthCertifiedPerson: HealthCertifiedPerson
 	) {
+		let regroupedPersons = regroup(originalPersons: [healthCertifiedPerson])
 		
-		// 2.Collect all certificates of this person but not the certificate which will be deleted.
-		let leftCertficates: [HealthCertificate] = healthCertifiedPerson.healthCertificates.filter { $0 != healthCertificate }
+		// find person and replace it by our regroupedPersons
+		healthCertifiedPersons.remove(healthCertifiedPerson)
+		healthCertifiedPersons.append(contentsOf: regroupedPersons)
+		
+		let newlyPersons = healthCertifiedPersons.filter { $0 != healthCertifiedPerson }
+		
+		newlyPersons.forEach { updateDCCWalletInfo(for: $0) }
+		
+		healthCertifiedPersons.sort()
+		updateGradients()
+	}
+	
+	private func regroup(
+		originalPersons: [HealthCertifiedPerson]
+	) -> [HealthCertifiedPerson] {
+		var regroupedPersons = [HealthCertifiedPerson]()
+		let allCertificates = originalPersons.flatMap {
+			$0.healthCertificates
+		}
+		
+		for certificate in allCertificates {
+			let matchingOriginalPersons = findPersons(for: certificate, from: originalPersons)
+			let matchingRegroupedPersons = findPersons(for: certificate, from: regroupedPersons)
+			
+			regroupedPersons.remove(elements: matchingRegroupedPersons)
+			
+			let allPersons = matchingOriginalPersons + matchingRegroupedPersons
+			guard let firstPerson = allPersons.first else {
+				continue
+			}
+			
+			for matchingPerson in allPersons {
+				for certificate in matchingPerson.healthCertificates {
+					if !firstPerson.healthCertificates.contains(certificate) {
+						firstPerson.healthCertificates.append(certificate)
+					}
+				}
+				
+				if matchingPerson.isPreferredPerson {
+					firstPerson.isPreferredPerson = true
+				}
+			}
+			
+			regroupedPersons.append(firstPerson)
+		}
+		
+		return regroupedPersons
+	}
+	
+	private func findPersons(
+		for certificate: HealthCertificate,
+		from persons: [HealthCertifiedPerson]
+	) -> [HealthCertifiedPerson] {
+		var foundPersons = [HealthCertifiedPerson]()
 
+		for person in persons {
+			for personCertificate in person.healthCertificates {
+				if certificate.belongsToSamePerson(personCertificate) {
+					foundPersons.append(person)
+				}
+			}
+		}
 		
-		// TODO:
-		// kein register , add reicht aus
-		// zweites addCertificate()
-		// groupingPersons anpassen damit personengruppe reingegeben werden kann. Hier dann nur eine
-
-		
+		return foundPersons
 	}
 	
 	private func removeAllNotifications(
