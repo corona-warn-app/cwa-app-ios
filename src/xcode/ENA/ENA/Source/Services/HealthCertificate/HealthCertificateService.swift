@@ -967,9 +967,26 @@ class HealthCertificateService {
 	private func regroupAfterDeletion(
 		for healthCertifiedPerson: HealthCertifiedPerson
 	) {
-		let regroupedPersons = regroup(originalPersons: [healthCertifiedPerson])
+		// Save the reference of the person and the first certificate of it. We need to preserve the reference of the person because there might be some combine registrations on this person.
+		var certificates = healthCertifiedPerson.healthCertificates
+		guard let first = certificates.first else {
+			Log.error("Should not happen because we proof before if we have at least one certificate in the person", log: .api)
+			return
+		}
+		certificates.removeFirst()
+		// Create now from every remaining certificate of the person a new person
+		var splittedPersons = certificates.map { HealthCertifiedPerson(healthCertificates: [$0]) }
+		healthCertifiedPerson.healthCertificates = [first]
+		// Append the original person to the newly created persons
+		splittedPersons.append(healthCertifiedPerson)
 		
-		// find person and replace it by our regroupedPersons
+		// And now regroup this persons.
+		let regroupedPersons = regroup(
+			persons: splittedPersons,
+			preserving: healthCertifiedPerson
+		)
+		
+		// Find person and replace it by our regroupedPersons
 		healthCertifiedPersons.remove(healthCertifiedPerson)
 		healthCertifiedPersons.append(contentsOf: regroupedPersons)
 		
@@ -982,57 +999,47 @@ class HealthCertificateService {
 	}
 	
 	private func regroup(
-		originalPersons: [HealthCertifiedPerson]
+		persons: [HealthCertifiedPerson],
+		preserving originalPerson: HealthCertifiedPerson
 	) -> [HealthCertifiedPerson] {
 		var regroupedPersons = [HealthCertifiedPerson]()
-		let allCertificates = originalPersons.flatMap {
+		let allCertificates = persons.flatMap {
 			$0.healthCertificates
 		}
 		
 		for certificate in allCertificates {
-			let matchingOriginalPersons = findPersons(for: certificate, from: originalPersons)
-			let matchingRegroupedPersons = findPersons(for: certificate, from: regroupedPersons)
+			let matchingOriginalPersons = persons.findPersons(for: certificate)
+			let matchingRegroupedPersons = regroupedPersons.findPersons(for: certificate)
 			
 			regroupedPersons.remove(elements: matchingRegroupedPersons)
 			
 			let allPersons = matchingOriginalPersons + matchingRegroupedPersons
-			guard let firstPerson = allPersons.first else {
-				continue
+			var mergedPerson: HealthCertifiedPerson
+			if allPersons.contains(where: { $0 === originalPerson }) {
+				mergedPerson = originalPerson
+			} else {
+				guard let person = allPersons.first else {
+					continue
+				}
+				mergedPerson = person
 			}
 			
 			for matchingPerson in allPersons {
 				for certificate in matchingPerson.healthCertificates {
-					if !firstPerson.healthCertificates.contains(certificate) {
-						firstPerson.healthCertificates.append(certificate)
+					if !mergedPerson.healthCertificates.contains(certificate) {
+						mergedPerson.healthCertificates.append(certificate)
 					}
 				}
 				
 				if matchingPerson.isPreferredPerson {
-					firstPerson.isPreferredPerson = true
+					mergedPerson.isPreferredPerson = true
 				}
 			}
 			
-			regroupedPersons.append(firstPerson)
+			regroupedPersons.append(mergedPerson)
 		}
 		
 		return regroupedPersons
-	}
-	
-	private func findPersons(
-		for certificate: HealthCertificate,
-		from persons: [HealthCertifiedPerson]
-	) -> [HealthCertifiedPerson] {
-		var foundPersons = [HealthCertifiedPerson]()
-
-		for person in persons {
-			for personCertificate in person.healthCertificates {
-				if certificate.belongsToSamePerson(personCertificate) {
-					foundPersons.append(person)
-				}
-			}
-		}
-		
-		return foundPersons
 	}
 	
 	private func removeAllNotifications(

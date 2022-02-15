@@ -39,8 +39,8 @@ class HealthCertificateMigrator: HealthCertificateMigration {
 		}
 		
 		for certificate in allCertificates {
-			let matchingOriginalPersons = findPersons(for: certificate, from: originalPersons)
-			let matchingRegroupedPersons = findPersons(for: certificate, from: regroupedPersons)
+			let matchingOriginalPersons = originalPersons.findPersons(for: certificate)
+			let matchingRegroupedPersons = regroupedPersons.findPersons(for: certificate)
 			
 			regroupedPersons.remove(elements: matchingRegroupedPersons)
 			
@@ -65,22 +65,5 @@ class HealthCertificateMigrator: HealthCertificateMigration {
 		}
 		
 		return regroupedPersons
-	}
-	
-	private func findPersons(
-		for certificate: HealthCertificate,
-		from persons: [HealthCertifiedPerson]
-	) -> [HealthCertifiedPerson] {
-		var foundPersons = [HealthCertifiedPerson]()
-
-		for person in persons {
-			for personCertificate in person.healthCertificates {
-				if certificate.belongsToSamePerson(personCertificate) {
-					foundPersons.append(person)
-				}
-			}
-		}
-		
-		return foundPersons
 	}
 }
