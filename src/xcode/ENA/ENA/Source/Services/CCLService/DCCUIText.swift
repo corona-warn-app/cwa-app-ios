@@ -37,7 +37,8 @@ public struct DCCUIText: Codable, Equatable {
 	let localizedText: [String: AnyCodable]?
 	let parameters: AnyCodable
 
-	static let dateFormatter: ISO8601DateFormatter = .iso8601DateFormatter()
+	static let inputDateFormatterWithFractionalSeconds: ISO8601DateFormatter = .iso8601DateFormatterWithFractionalSeconds()
+	static let inputDateFormatterWithoutFractionalSeconds: ISO8601DateFormatter = ISO8601DateFormatter()
 	static let localDateFormatter: DateFormatter = .localDateFormatter()
 	static let localDateTimeFormatter: DateFormatter = .localDateTimeFormatter()
 	static let outputDateFormatter: DateFormatter = .outputDateFormatter()
@@ -200,7 +201,7 @@ public struct DCCUIText: Codable, Equatable {
 	}
 	
 	private func formattedDate(value: Any, dateType: String) -> String? {
-		guard let stringDate = value as? String, let formattedDate = DCCUIText.dateFormatter.date(from: stringDate) else {
+		guard let stringDate = value as? String, let formattedDate = date(from: stringDate) else {
 			return nil
 		}
 			
@@ -217,6 +218,10 @@ public struct DCCUIText: Codable, Equatable {
 		default:
 			return nil
 		}
+	}
+
+	private func date(from string: String) -> Date? {
+		DCCUIText.inputDateFormatterWithFractionalSeconds.date(from: string) ?? DCCUIText.inputDateFormatterWithoutFractionalSeconds.date(from: string)
 	}
 
 	private func parseFormatParameter(parameter: DCCUITextParameter) -> CVarArg? {
@@ -244,7 +249,7 @@ public struct DCCUIText: Codable, Equatable {
 }
 
 private extension ISO8601DateFormatter {
-	class func iso8601DateFormatter() -> ISO8601DateFormatter {
+	class func iso8601DateFormatterWithFractionalSeconds() -> ISO8601DateFormatter {
 		let formatter = ISO8601DateFormatter()
 		formatter.formatOptions = [.withInternetDateTime, .withFractionalSeconds]
 		return formatter
