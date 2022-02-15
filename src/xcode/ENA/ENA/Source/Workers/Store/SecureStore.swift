@@ -58,12 +58,6 @@ final class SecureStore: SecureKeyValueStoring, Store, AntigenTestProfileStoring
 		}
 	}
 
-	var exposureActivationOnboardingState: OnboardingActivationState {
-		// Old named key matches not to property name to avoid migration.
-		get { kvStore["exposureActivationOnboardingState"] as OnboardingActivationState? ?? .notActivated }
-		set { kvStore["exposureActivationOnboardingState"] = newValue }
-	}
-
 	var exposureActivationConsentAcceptTimestamp: Int64? {
 		get { kvStore["exposureActivationConsentAcceptTimestamp"] as Int64? ?? 0 }
 		set { kvStore["exposureActivationConsentAcceptTimestamp"] = newValue }

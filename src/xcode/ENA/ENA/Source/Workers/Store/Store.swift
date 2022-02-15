@@ -21,9 +21,6 @@ protocol StoreProtocol: AnyObject {
 	/// A boolean flag that indicates whether the user has seen the background fetch disabled alert.
 	var hasSeenBackgroundFetchAlert: Bool { get set }
 
-	/// store ENF activation state while onboarding
-	var exposureActivationOnboardingState: OnboardingActivationState { get set }
-
 	/// An integer value representing the timestamp when the user
 	/// accepted to submit his diagnosisKeys with the CWA submission service.
 	var exposureActivationConsentAcceptTimestamp: Int64? { get set }

@@ -15,7 +15,6 @@ final class MockTestStore: Store, PPAnalyticsData {
 	var enfRiskCalculationResult: ENFRiskCalculationResult?
 	var checkinRiskCalculationResult: CheckinRiskCalculationResult?
 	var shouldShowRiskStatusLoweredAlert: Bool = false
-	var exposureActivationOnboardingState: OnboardingActivationState = .notActivated
 	var exposureActivationConsentAcceptTimestamp: Int64?
 	var exposureActivationConsentAccept: Bool = false
 	var isOnboarded: Bool = false

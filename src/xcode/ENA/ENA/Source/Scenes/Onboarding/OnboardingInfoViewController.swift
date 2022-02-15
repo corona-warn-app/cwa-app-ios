@@ -8,13 +8,6 @@ import UserNotifications
 import ExposureNotification
 import WebKit
 
-enum OnboardingActivationState: Codable {
-	case notActivated
-	case pending
-	case failed
-	case activated
-}
-
 // swiftlint:disable:next type_body_length
 final class OnboardingInfoViewController: UIViewController {
 
@@ -97,6 +90,7 @@ final class OnboardingInfoViewController: UIViewController {
 	private var client: Client
 	private var pageSetupDone = false
 	private var onboardingInfos = OnboardingInfo.testData()
+	private var exposureManagerActivated = false
 	private var subscriptions = [AnyCancellable]()
 
 	@IBAction private func didTapNextButton(_: Any) {
@@ -352,27 +346,13 @@ final class OnboardingInfoViewController: UIViewController {
 			return true
 		}
 
-		guard store.exposureActivationOnboardingState == .notActivated else {
+		guard !exposureManagerActivated else {
 			completion?()
 			return
 		}
 
-		// we need to disable back navigation until we have an
-		// response for activation. Otherwise we can navigate back,
-		// kill the closure and never receive a result. When next
-		// activation request gets triggered an alert will appear
-		//
-		store.exposureActivationOnboardingState = .pending
-		navigationItem.hidesBackButton = true
 		exposureManager.activate { error in
-			defer {
-				DispatchQueue.main.async {
-					self.navigationItem.hidesBackButton = false
-				}
-			}
-
 			if let error = error {
-				self.store.exposureActivationOnboardingState = .failed
 				guard shouldHandleError(error) else {
 					completion?()
 					return
@@ -381,7 +361,7 @@ final class OnboardingInfoViewController: UIViewController {
 				persistForDPP(accepted: false)
 				completion?()
 			} else {
-				self.store.exposureActivationOnboardingState = .activated
+				self.exposureManagerActivated = true
 				self.exposureManager.enable { enableError in
 					if let enableError = enableError {
 						guard shouldHandleError(enableError) else {
