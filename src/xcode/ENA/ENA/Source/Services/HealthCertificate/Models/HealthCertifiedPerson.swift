@@ -312,7 +312,7 @@ class HealthCertifiedPerson: Codable, Equatable, Comparable {
 		dccWalletInfoUpdateTimer = Timer(fireAt: nextMostRelevantCertificateChangeDate, interval: 0, target: self, selector: #selector(updateDCCWalletInfo), userInfo: nil, repeats: false)
 
 		guard let mostRelevantCertificateTimer = dccWalletInfoUpdateTimer else { return }
-		RunLoop.current.add(mostRelevantCertificateTimer, forMode: .common)
+		RunLoop.main.add(mostRelevantCertificateTimer, forMode: .common)
 	}
 
 	@objc
