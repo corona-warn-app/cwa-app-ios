@@ -59,7 +59,11 @@ class HomeCoordinator: RequiresAppDependencies {
 				// only select tab if route is .rapidAntigen or .rapidPCR
 				selectHomeTabSection(route: route)
 				return
-			default:
+			case .testResultFromNotification,
+				 .checkIn,
+				 .healthCertificateFromNotification,
+				 .healthCertifiedPersonFromNotification,
+				 .none:
 				rootViewController.dismiss(animated: false)
 				rootViewController.popToRootViewController(animated: false)
 				homeController?.scrollToTop(animated: false)

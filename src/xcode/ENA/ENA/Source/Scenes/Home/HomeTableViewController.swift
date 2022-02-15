@@ -673,11 +673,13 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 
 		// handle error -> show alert & trigger the chain
 		switch route {
-		case .rapidAntigen(let testResult):
+		case .rapidAntigen(let testResult), .rapidPCR(let testResult):
 			showTestInformationResult(testResult)
-		case .rapidPCR(let testResult) :
-			showTestInformationResult(testResult)
-		default:
+		case .testResultFromNotification,
+			 .checkIn,
+			 .healthCertificateFromNotification,
+			 .healthCertifiedPersonFromNotification,
+			 .none:
 			break
 		}
 		completion()
