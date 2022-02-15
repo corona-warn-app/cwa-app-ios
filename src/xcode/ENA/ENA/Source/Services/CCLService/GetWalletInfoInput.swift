@@ -65,6 +65,21 @@ enum GetWalletInfoInput {
 	}
 }
 
+enum GetAdmissionCheckScenariosInput {
+	
+	static func make(
+		with date: Date = Date(),
+		language: String = Locale.current.languageCode ?? "en"
+	) -> [String: AnyDecodable] {
+		return CCLDefaultInput.addingTo(
+			parameters: [:],
+			date: date,
+			language: language
+		)
+	}
+
+}
+
 extension SystemTime {
 	
 	// MARK: - DateFormatters
