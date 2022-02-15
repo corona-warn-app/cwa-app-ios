@@ -329,6 +329,6 @@ class TaskExecutionHandler: ENATaskExecutionDelegate {
 	}
 
 	private func checkCertificateValidityStates(completion: @escaping () -> Void) {
-		healthCertificateService.updateValidityStatesAndNotificationsWithFreshDSCList(shouldScheduleTimer: false, completion: completion)
+		healthCertificateService.updateValidityStatesAndNotificationsWithFreshDSCList(completion: completion)
 	}
 }
