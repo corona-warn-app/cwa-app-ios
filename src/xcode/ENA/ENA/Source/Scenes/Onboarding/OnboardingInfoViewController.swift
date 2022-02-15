@@ -97,7 +97,6 @@ final class OnboardingInfoViewController: UIViewController {
 	private var client: Client
 	private var pageSetupDone = false
 	private var onboardingInfos = OnboardingInfo.testData()
-//	private var exposureManagerActivated = false
 	private var subscriptions = [AnyCancellable]()
 
 	@IBAction private func didTapNextButton(_: Any) {
