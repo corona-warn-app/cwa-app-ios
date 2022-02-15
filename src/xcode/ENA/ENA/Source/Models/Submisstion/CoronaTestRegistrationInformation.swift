@@ -20,7 +20,7 @@ enum QRCodeError: Error, Equatable {
 			case .invalidTestedPersonInformation:
 				return "QRCode contains incomplete personal data"
 			case .hashMismatch:
-				return "Enerated hash doesn't match QRCode hash"
+				return "Generated hash doesn't match QRCode hash"
 			}
 		}
 	}
