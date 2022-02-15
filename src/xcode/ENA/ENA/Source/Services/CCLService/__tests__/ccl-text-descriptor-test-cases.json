@@ -1,6 +1,6 @@
 {
-  "$comment": "Generated at Fri Feb 11 2022 06:26:13 GMT+0000 (Coordinated Universal Time)",
-  "sourceTreeish": "2c45a69",
+  "$comment": "Generated at Tue Feb 15 2022 09:52:07 GMT+0000 (Coordinated Universal Time)",
+  "sourceTreeish": "81d9b76",
   "testCases": [
     {
       "description": "simple hello world",
@@ -57,27 +57,6 @@
         {
           "languageCode": "de",
           "text": "Hallo 3"
-        }
-      ]
-    },
-    {
-      "description": "placeholder %f",
-      "textDescriptor": {
-        "type": "string",
-        "localizedText": {
-          "de": "Hallo %.4f"
-        },
-        "parameters": [
-          {
-            "type": "number",
-            "value": 3.1415
-          }
-        ]
-      },
-      "assertions": [
-        {
-          "languageCode": "de",
-          "text": "Hallo 3.1415"
         }
       ]
     },
@@ -182,7 +161,7 @@
       ]
     },
     {
-      "description": "placeholder of type localDate",
+      "description": "placeholder of type localDate (without milliseconds)",
       "textDescriptor": {
         "type": "string",
         "localizedText": {
@@ -191,7 +170,28 @@
         "parameters": [
           {
             "type": "localDate",
-            "value": "2022-01-01T23:30:00.000Z"
+            "value": "2022-01-02T00:30:00+01:00"
+          }
+        ]
+      },
+      "assertions": [
+        {
+          "languageCode": "de",
+          "text": "Gültig ab 02.01.22"
+        }
+      ]
+    },
+    {
+      "description": "placeholder of type localDate (with milliseconds)",
+      "textDescriptor": {
+        "type": "string",
+        "localizedText": {
+          "de": "Gültig ab %s"
+        },
+        "parameters": [
+          {
+            "type": "localDate",
+            "value": "2022-01-02T00:30:00.000+01:00"
           }
         ]
       },
@@ -212,7 +212,7 @@
         "parameters": [
           {
             "type": "localDateTime",
-            "value": "2022-01-01T23:30:00.000Z"
+            "value": "2022-01-02T00:30:00+01:00"
           }
         ]
       },
@@ -233,7 +233,7 @@
         "parameters": [
           {
             "type": "utcDate",
-            "value": "2022-01-01T23:30:00.000Z"
+            "value": "2022-01-02T00:30:00+01:00"
           }
         ]
       },
@@ -254,7 +254,7 @@
         "parameters": [
           {
             "type": "utcDateTime",
-            "value": "2022-01-01T23:30:00.000Z"
+            "value": "2022-01-02T00:30:00+01:00"
           }
         ]
       },
