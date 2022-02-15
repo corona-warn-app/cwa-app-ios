@@ -322,8 +322,8 @@ final class ExposureNotificationSettingViewController: UITableViewController, Ac
 			fatalError("Cell is not registered")
 		}
 
-		daysSinceInstallationCell.configure(daysSinceInstall: store.appInstallationDate?.ageInDays ?? 0)
-
+		let daysSinceInstallation = store.appInstallationDate.map { Calendar.autoupdatingCurrent.startOfDay(for: $0).ageInDays ?? 0 } ?? 0
+		daysSinceInstallationCell.configure(daysSinceInstall: max(daysSinceInstallation, 0))
 		return daysSinceInstallationCell
 	}
 
