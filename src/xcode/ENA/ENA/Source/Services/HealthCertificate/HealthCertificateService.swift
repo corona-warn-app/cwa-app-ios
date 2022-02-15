@@ -264,6 +264,7 @@ class HealthCertificateService {
 
 					Log.info("[HealthCertificateService] Removed health certified person", log: .api)
 				} else {
+					Log.info("[HealthCertificateService] Need to check if we have to regroup after deletion a certificate.", log: .api)
 					regroupAfterDeletion(for: healthCertifiedPerson, with: healthCertificate)
 				}
 				break
@@ -966,13 +967,11 @@ class HealthCertificateService {
 		for healthCertifiedPerson: HealthCertifiedPerson,
 		with healthCertificate: HealthCertificate
 	) {
-//		// 2.Collect all certificates of this person but not the certificate which will be deleted.
-//		let certficates: [HealthCertificate] = healthCertifiedPerson.healthCertificates.filter { $0 != healthCertificate }
-//
-//		// 3.Re-register all these certificates to the service. By this, belongsToSamePerson will be passed for every certificate and if we need to create a new person, this will automatically done in the register function.
-//		certficates.forEach {
-//			self.registerHealthCertificate(base45: $0.base45)
-//		}
+		
+		// 2.Collect all certificates of this person but not the certificate which will be deleted.
+		let leftCertficates: [HealthCertificate] = healthCertifiedPerson.healthCertificates.filter { $0 != healthCertificate }
+
+		
 		// TODO:
 		// kein register , add reicht aus
 		// zweites addCertificate()
