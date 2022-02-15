@@ -19,14 +19,20 @@ enum DCCWalletInfoAccessError: Error {
 	case failedFunctionsEvaluation(Error)
 }
 
+enum DCCAdmissionCheckScenariosAccessError: Error {
+	case failedFunctionsEvaluation(Error)
+}
+
 protocol CCLServable {
 
 	var configurationVersion: String { get }
 	
 	func updateConfiguration(completion: @escaping (_ didChange: Bool) -> Void)
 	
-	func dccWalletInfo(for certificates: [DCCWalletCertificate]) -> Swift.Result<DCCWalletInfo, DCCWalletInfoAccessError>
+	func dccWalletInfo(for certificates: [DCCWalletCertificate], with identifier: String?) -> Swift.Result<DCCWalletInfo, DCCWalletInfoAccessError>
 	
+	func dccAdmissionCheckScenarios() -> Swift.Result<DCCAdmissionCheckScenarios, DCCAdmissionCheckScenariosAccessError>
+
 	func evaluateFunctionWithDefaultValues<T: Decodable>(name: String, parameters: [String: AnyDecodable]) throws -> T
 
 }
@@ -148,16 +154,30 @@ class CCLService: CCLServable {
 		}
 	}
 	
+	func dccAdmissionCheckScenarios() -> Swift.Result<DCCAdmissionCheckScenarios, DCCAdmissionCheckScenariosAccessError> {
+		let getAdmissionCheckScenariosInput = GetAdmissionCheckScenariosInput.make()
+		
+		do {
+			let admissionCheckScenarios: DCCAdmissionCheckScenarios = try jsonFunctions.evaluateFunction(
+				name: "getDccAdmissionCheckScenarios",
+				parameters: getAdmissionCheckScenariosInput
+			)
+			
+			return .success(admissionCheckScenarios)
+		} catch {
+			return .failure(.failedFunctionsEvaluation(error))
+		}
+	}
+	
 	func dccWalletInfo(
-		for certificates: [DCCWalletCertificate]
+		for certificates: [DCCWalletCertificate],
+		with identifer: String? = ""
 	) -> Swift.Result<DCCWalletInfo, DCCWalletInfoAccessError> {
 		let getWalletInfoInput = GetWalletInfoInput.make(
 			certificates: certificates,
-			boosterNotificationRules: boosterNotificationRules
+			boosterNotificationRules: boosterNotificationRules,
+			identifier: identifer
 		)
-		
-		let getAdmissionCheckScenariosInput = GetAdmissionCheckScenariosInput.make()
-		
 		
 		do {
 			let walletInfo: DCCWalletInfo = try jsonFunctions.evaluateFunction(
@@ -165,14 +185,8 @@ class CCLService: CCLServable {
 				parameters: getWalletInfoInput
 			)
 			
-			let admissionCheckScenarios: DCCAdmissionCheckScenarios = try jsonFunctions.evaluateFunction(
-				name: "getDccAdmissionCheckScenarios",
-				parameters: getAdmissionCheckScenariosInput
-			)
-			
 			return .success(walletInfo)
 		} catch {
-			Log.info("here: \(error.localizedDescription)")
 			return .failure(.failedFunctionsEvaluation(error))
 		}
 	}
