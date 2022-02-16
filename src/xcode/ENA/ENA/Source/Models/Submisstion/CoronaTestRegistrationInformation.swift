@@ -18,17 +18,27 @@ enum RatError {
 
 enum CoronaTestRegistrationInformation: Equatable {
 	case pcr(guid: String, qrCodeHash: String)
-	case antigen(qrCodeInformation: AntigenTestQRCodeInformation, qrCodeHash: String)
+	case rapidPCR(qrCodeInformation: RapidTestQRCodeInformation, qrCodeHash: String)
+	case antigen(qrCodeInformation: RapidTestQRCodeInformation, qrCodeHash: String)
 	case teleTAN(tan: String)
 	
 	// we cant declare the enum type to Int because we have properties inside the cases
 	
 	var testType: CoronaTestType {
 		switch self {
-		case .pcr, .teleTAN:
+		case .pcr, .rapidPCR, .teleTAN:
 			return .pcr
 		case .antigen:
 			return .antigen
+		}
+	}
+	
+	var isRapidTest: Bool {
+		switch self {
+		case .pcr, .teleTAN:
+			return false
+		case .rapidPCR, .antigen:
+			return true
 		}
 	}
 }

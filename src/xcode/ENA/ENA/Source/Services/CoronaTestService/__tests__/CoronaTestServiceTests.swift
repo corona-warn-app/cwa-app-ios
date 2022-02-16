@@ -1743,6 +1743,470 @@ class CoronaTestServiceTests: CWATestCase {
 		XCTAssertFalse(antigenTest.journalEntryCreated)
 	}
 
+	func testRegisterRapidPCRTestAndGetResult_successWithoutSubmissionConsentGivenWithTestedPerson() {
+		let restServiceProvider = RestServiceProviderStub(loadResources: [
+			LoadResource(
+				result: .success(
+					TeleTanReceiveModel(registrationToken: "registrationToken")
+				),
+				willLoadResource: { resource in
+					// Ensure that the date of birth is not passed to the client for rapid PCR tests if it is given accidentally
+
+					guard let resource = resource as? TeleTanResource,
+						let sendModel = resource.sendResource.sendModel else {
+						XCTFail("TeleTanResource expected.")
+						return
+					}
+					XCTAssertNil(sendModel.keyDob)
+				}
+			),
+			LoadResource(
+				result: .success(TestResultReceiveModel(testResult: TestResult.pending.rawValue, sc: 123456789, labId: "SomeLabId")), willLoadResource: nil)
+		])
+
+		let client = ClientMock()
+
+		let store = MockTestStore()
+		store.enfRiskCalculationResult = mockRiskCalculationResult()
+		Analytics.setupMock(store: store)
+		store.isPrivacyPreservingAnalyticsConsentGiven = true
+
+		let appConfiguration = CachedAppConfigurationMock()
+
+		let service = CoronaTestService(
+			client: client,
+			restServiceProvider: restServiceProvider,
+			store: store,
+			eventStore: MockEventStore(),
+			diaryStore: MockDiaryStore(),
+			appConfiguration: appConfiguration,
+			healthCertificateService: HealthCertificateService(
+				store: store,
+				dccSignatureVerifier: DCCSignatureVerifyingStub(),
+				dscListProvider: MockDSCListProvider(),
+				client: client,
+				appConfiguration: appConfiguration,
+				cclService: FakeCCLService(),
+
+				recycleBin: .fake()
+			),
+			recycleBin: .fake(),
+			badgeWrapper: .fake()
+		)
+		service.pcrTest = nil
+
+		let expectation = self.expectation(description: "Expect to receive a result.")
+
+		service.registerRapidPCRTestAndGetResult(
+			with: "hash",
+			qrCodeHash: "qrCodeHash",
+			pointOfCareConsentDate: Date(timeIntervalSince1970: 2222),
+			firstName: "Erika",
+			lastName: "Mustermann",
+			dateOfBirth: "1964-08-12",
+			isSubmissionConsentGiven: false,
+			certificateSupportedByPointOfCare: true,
+			certificateConsent: .notGiven
+		) { result in
+			expectation.fulfill()
+			switch result {
+			case .failure:
+				XCTFail("This test should always return a successful result.")
+			case .success(let testResult):
+				XCTAssertEqual(testResult, TestResult.pending)
+			}
+		}
+
+		waitForExpectations(timeout: .short)
+
+		guard let rapidPCRTest = service.pcrTest else {
+			XCTFail("rapidPCRTest should not be nil")
+			return
+		}
+		
+		XCTAssertEqual(rapidPCRTest.registrationToken, "registrationToken")
+		XCTAssertEqual(rapidPCRTest.qrCodeHash, "qrCodeHash")
+		XCTAssertEqual(
+			try XCTUnwrap(rapidPCRTest.registrationDate).timeIntervalSince1970,
+			Date().timeIntervalSince1970,
+			accuracy: 10
+		)
+		XCTAssertEqual(rapidPCRTest.testResult, .pending)
+		XCTAssertNil(rapidPCRTest.finalTestResultReceivedDate)
+		XCTAssertFalse(rapidPCRTest.positiveTestResultWasShown)
+		XCTAssertFalse(rapidPCRTest.isSubmissionConsentGiven)
+		XCTAssertNil(rapidPCRTest.submissionTAN)
+		XCTAssertFalse(rapidPCRTest.keysSubmitted)
+		XCTAssertFalse(rapidPCRTest.journalEntryCreated)
+		XCTAssertFalse(rapidPCRTest.certificateConsentGiven)
+		XCTAssertFalse(rapidPCRTest.certificateRequested)
+		XCTAssertEqual(store.pcrTestResultMetadata?.testResult, .pending)
+		XCTAssertEqual(
+			try XCTUnwrap(store.pcrTestResultMetadata?.testRegistrationDate).timeIntervalSince1970,
+			Date().timeIntervalSince1970,
+			accuracy: 10
+		)
+	}
+
+	func testRegisterRapidPCRTestAndGetResult_successWithSubmissionConsentGiven() {
+		let restServiceProvider = RestServiceProviderStub(results: [
+			.success(
+				TeleTanReceiveModel(registrationToken: "registrationToken")
+			),
+			.success(TestResultReceiveModel(testResult: TestResult.pending.rawValue, sc: nil, labId: nil)),
+			.success(RegistrationTokenReceiveModel(submissionTAN: "fake"))
+		])
+
+		let client = ClientMock()
+
+		let store = MockTestStore()
+		store.enfRiskCalculationResult = mockRiskCalculationResult()
+		Analytics.setupMock(store: store)
+		store.isPrivacyPreservingAnalyticsConsentGiven = true
+
+		let appConfiguration = CachedAppConfigurationMock()
+		let badgeWrapper = HomeBadgeWrapper.fake()
+		let service = CoronaTestService(
+			client: client,
+			restServiceProvider: restServiceProvider,
+			store: store,
+			eventStore: MockEventStore(),
+			diaryStore: MockDiaryStore(),
+			appConfiguration: appConfiguration,
+			healthCertificateService: HealthCertificateService(
+				store: store,
+				dccSignatureVerifier: DCCSignatureVerifyingStub(),
+				dscListProvider: MockDSCListProvider(),
+				client: client,
+				appConfiguration: appConfiguration,
+				cclService: FakeCCLService(),
+
+				recycleBin: .fake()
+			),
+			recycleBin: .fake(),
+			badgeWrapper: badgeWrapper
+		)
+
+		let expectedCounts = [nil, "1", nil]
+		let countExpectation = expectation(description: "Count updated")
+		countExpectation.expectedFulfillmentCount = 3
+		var receivedCounts = [String?]()
+		let countSubscription = badgeWrapper.$stringValue
+			.sink {
+				receivedCounts.append($0)
+				countExpectation.fulfill()
+			}
+
+		service.pcrTest = nil
+
+		let expectation = self.expectation(description: "Expect to receive a result.")
+		service.registerRapidPCRTestAndGetResult(
+			with: "hash",
+			qrCodeHash: "qrCodeHash",
+			pointOfCareConsentDate: Date(timeIntervalSince1970: 2222),
+			firstName: nil,
+			lastName: nil,
+			dateOfBirth: nil,
+			isSubmissionConsentGiven: true,
+			markAsUnseen: true,
+			certificateSupportedByPointOfCare: false,
+			certificateConsent: .notGiven
+		) { result in
+			expectation.fulfill()
+			switch result {
+			case .failure:
+				XCTFail("This test should always return a successful result.")
+			case .success(let testResult):
+				XCTAssertEqual(testResult, TestResult.pending)
+			}
+		}
+
+		badgeWrapper.reset(.unseenTests)
+
+		waitForExpectations(timeout: .short)
+
+		guard let rapidPCRTest = service.pcrTest else {
+			XCTFail("rapidPCRTest should not be nil")
+			return
+		}
+
+		countSubscription.cancel()
+
+		XCTAssertEqual(receivedCounts, expectedCounts)
+		XCTAssertEqual(rapidPCRTest.registrationToken, "registrationToken")
+		XCTAssertEqual(rapidPCRTest.qrCodeHash, "qrCodeHash")
+		XCTAssertEqual(rapidPCRTest.testResult, .pending)
+		XCTAssertNil(rapidPCRTest.finalTestResultReceivedDate)
+		XCTAssertFalse(rapidPCRTest.positiveTestResultWasShown)
+		XCTAssertTrue(rapidPCRTest.isSubmissionConsentGiven)
+		XCTAssertNil(rapidPCRTest.submissionTAN)
+		XCTAssertFalse(rapidPCRTest.keysSubmitted)
+		XCTAssertFalse(rapidPCRTest.journalEntryCreated)
+		XCTAssertFalse(rapidPCRTest.certificateConsentGiven)
+		XCTAssertFalse(rapidPCRTest.certificateRequested)
+		
+		XCTAssertEqual(
+			try XCTUnwrap(rapidPCRTest.registrationDate).timeIntervalSince1970,
+			Date().timeIntervalSince1970,
+			accuracy: 10
+		)
+		XCTAssertEqual(store.pcrTestResultMetadata?.testResult, .pending)
+		XCTAssertEqual(
+			try XCTUnwrap(store.pcrTestResultMetadata?.testRegistrationDate).timeIntervalSince1970,
+			Date().timeIntervalSince1970,
+			accuracy: 10
+		)
+	}
+
+	func testRegisterRapidPCRTestAndGetResult_CertificateConsentGivenWithoutDateOfBirth() {
+		let store = MockTestStore()
+		store.enfRiskCalculationResult = mockRiskCalculationResult()
+
+		Analytics.setupMock(store: store)
+		store.isPrivacyPreservingAnalyticsConsentGiven = true
+
+		let restServiceProvider = RestServiceProviderStub(loadResources: [
+			LoadResource(
+				result: .success(
+					TeleTanReceiveModel(registrationToken: "registrationToken")
+				),
+				willLoadResource: { resource in
+					guard let resource = resource as? TeleTanResource,
+						let sendModel = resource.sendResource.sendModel else {
+						XCTFail("TeleTanResource expected.")
+						return
+					}
+					XCTAssertNil(sendModel.keyDob)
+				}
+			),
+			LoadResource(
+				   result: .success(TestResultReceiveModel(testResult: TestResult.negative.rawValue, sc: nil, labId: nil)), willLoadResource: nil
+			)
+		])
+
+		let client = ClientMock()
+
+		let appConfiguration = CachedAppConfigurationMock()
+		let badgeWrapper = HomeBadgeWrapper.fake()
+		let service = CoronaTestService(
+			client: client,
+			restServiceProvider: restServiceProvider,
+			store: store,
+			eventStore: MockEventStore(),
+			diaryStore: MockDiaryStore(),
+			appConfiguration: appConfiguration,
+			healthCertificateService: HealthCertificateService(
+				store: store,
+				dccSignatureVerifier: DCCSignatureVerifyingStub(),
+				dscListProvider: MockDSCListProvider(),
+				client: client,
+				appConfiguration: appConfiguration,
+				cclService: FakeCCLService(),
+
+				recycleBin: .fake()
+			),
+			recycleBin: .fake(),
+			badgeWrapper: .fake()
+		)
+
+		let expectedCounts: [String?] = [nil]
+		let countExpectation = expectation(description: "Count updated")
+		countExpectation.expectedFulfillmentCount = 1
+		var receivedCounts = [String?]()
+		let countSubscription = badgeWrapper.$stringValue
+			.sink {
+				receivedCounts.append($0)
+				countExpectation.fulfill()
+			}
+
+		service.pcrTest = nil
+
+		let expectation = self.expectation(description: "Expect to receive a result.")
+
+		service.registerRapidPCRTestAndGetResult(
+			with: "hash",
+			qrCodeHash: "",
+			pointOfCareConsentDate: Date(timeIntervalSince1970: 2222),
+			firstName: "Erika",
+			lastName: "Mustermann",
+			dateOfBirth: "1964-08-12",
+			isSubmissionConsentGiven: false,
+			certificateSupportedByPointOfCare: true,
+			certificateConsent: .given(dateOfBirth: nil)
+		) { result in
+			expectation.fulfill()
+			switch result {
+			case .failure:
+				XCTFail("This test should always return a successful result.")
+			case .success(let testResult):
+				XCTAssertEqual(testResult, TestResult.negative)
+			}
+		}
+
+		waitForExpectations(timeout: .short)
+
+		guard let rapidPCR = service.pcrTest else {
+			XCTFail("rapidPCR should not be nil")
+			return
+		}
+
+		countSubscription.cancel()
+
+		XCTAssertEqual(receivedCounts, expectedCounts)
+		XCTAssertTrue(rapidPCR.certificateConsentGiven)
+		XCTAssertTrue(rapidPCR.certificateRequested)
+	}
+
+	func testRegisterRapidPCRTestAndGetResult_RegistrationFails() {
+		let client = ClientMock()
+
+		let restServiceProvider = RestServiceProviderStub(results: [
+			.failure(ServiceError<TeleTanError>.receivedResourceError(.qrAlreadyUsed)),
+			.success(RegistrationTokenReceiveModel(submissionTAN: "fake"))
+		])
+
+		let store = MockTestStore()
+		let appConfiguration = CachedAppConfigurationMock()
+
+		let service = CoronaTestService(
+			client: client,
+			restServiceProvider: restServiceProvider,
+			store: store,
+			eventStore: MockEventStore(),
+			diaryStore: MockDiaryStore(),
+			appConfiguration: appConfiguration,
+			healthCertificateService: HealthCertificateService(
+				store: store,
+				dccSignatureVerifier: DCCSignatureVerifyingStub(),
+				dscListProvider: MockDSCListProvider(),
+				client: client,
+				appConfiguration: appConfiguration,
+				cclService: FakeCCLService(),
+
+				recycleBin: .fake()
+			),
+			recycleBin: .fake(),
+			badgeWrapper: .fake()
+		)
+		service.pcrTest = nil
+
+		let expectation = self.expectation(description: "Expect to receive a result.")
+
+		service.registerRapidPCRTestAndGetResult(
+			with: "hash",
+			qrCodeHash: "",
+			pointOfCareConsentDate: Date(timeIntervalSince1970: 2222),
+			firstName: nil,
+			lastName: nil,
+			dateOfBirth: nil,
+			isSubmissionConsentGiven: true,
+			certificateSupportedByPointOfCare: false,
+			certificateConsent: .notGiven
+		) { result in
+			expectation.fulfill()
+			switch result {
+			case .failure(let error):
+				XCTAssertEqual(error, .teleTanError(ServiceError<TeleTanError>.receivedResourceError(.qrAlreadyUsed)))
+			case .success:
+				XCTFail("This test should always return a failure.")
+			}
+		}
+
+		waitForExpectations(timeout: .short)
+
+		XCTAssertNil(service.pcrTest)
+	}
+
+	func testRegisterRapidPCRTestAndGetResult_RegistrationSucceedsGettingTestResultFails() {
+		let client = ClientMock()
+
+		let restServiceProvider = RestServiceProviderStub(results: [
+			.success(TeleTanReceiveModel(registrationToken: "registrationToken")),
+			.failure(ServiceError<TestResultError>.unexpectedServerError(500)),
+			.success(RegistrationTokenReceiveModel(submissionTAN: "fake"))
+		]
+		)
+
+		let store = MockTestStore()
+		store.enfRiskCalculationResult = mockRiskCalculationResult()
+		Analytics.setupMock(store: store)
+		store.isPrivacyPreservingAnalyticsConsentGiven = true
+
+		let appConfiguration = CachedAppConfigurationMock()
+
+		let service = CoronaTestService(
+			client: client,
+			restServiceProvider: restServiceProvider,
+			store: store,
+			eventStore: MockEventStore(),
+			diaryStore: MockDiaryStore(),
+			appConfiguration: appConfiguration,
+			healthCertificateService: HealthCertificateService(
+				store: store,
+				dccSignatureVerifier: DCCSignatureVerifyingStub(),
+				dscListProvider: MockDSCListProvider(),
+				client: client,
+				appConfiguration: appConfiguration,
+				cclService: FakeCCLService(),
+
+				recycleBin: .fake()
+			),
+			recycleBin: .fake(),
+			badgeWrapper: .fake()
+		)
+		service.pcrTest = nil
+
+		let expectation = self.expectation(description: "Expect to receive a result.")
+
+		service.registerRapidPCRTestAndGetResult(
+			with: "hash",
+			qrCodeHash: "qrCodeHash",
+			pointOfCareConsentDate: Date(timeIntervalSince1970: 2222),
+			firstName: nil,
+			lastName: nil,
+			dateOfBirth: nil,
+			isSubmissionConsentGiven: false,
+			certificateSupportedByPointOfCare: false,
+			certificateConsent: .notGiven
+		) { result in
+			expectation.fulfill()
+			switch result {
+			case .failure(let error):
+				XCTAssertEqual(error, .testResultError(.unexpectedServerError(500)))
+			case .success:
+				XCTFail("This test should always return a failure.")
+			}
+		}
+
+		waitForExpectations(timeout: .short)
+
+		guard let rapidPCRTest = service.pcrTest else {
+			XCTFail("rapidPCRTest should not be nil")
+			return
+		}
+		
+		XCTAssertEqual(rapidPCRTest.registrationToken, "registrationToken")
+		XCTAssertEqual(rapidPCRTest.qrCodeHash, "qrCodeHash")
+		XCTAssertEqual(
+			try XCTUnwrap(rapidPCRTest.registrationDate).timeIntervalSince1970,
+			Date().timeIntervalSince1970,
+			accuracy: 10
+		)
+		XCTAssertEqual(rapidPCRTest.testResult, .pending)
+		XCTAssertNil(rapidPCRTest.finalTestResultReceivedDate)
+		XCTAssertFalse(rapidPCRTest.positiveTestResultWasShown)
+		XCTAssertFalse(rapidPCRTest.isSubmissionConsentGiven)
+		XCTAssertNil(rapidPCRTest.submissionTAN)
+		XCTAssertFalse(rapidPCRTest.keysSubmitted)
+		XCTAssertFalse(rapidPCRTest.journalEntryCreated)
+		XCTAssertNil(store.pcrTestResultMetadata?.testResult)
+		XCTAssertEqual(
+			try XCTUnwrap(store.pcrTestResultMetadata?.testRegistrationDate).timeIntervalSince1970,
+			Date().timeIntervalSince1970,
+			accuracy: 10
+		)
+	}
+
 	// MARK: - Test Result Update
 
 	func testUpdatePCRTestResult_success() {

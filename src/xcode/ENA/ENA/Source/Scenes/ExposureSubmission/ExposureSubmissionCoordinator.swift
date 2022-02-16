@@ -1283,7 +1283,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 
 		let testCertificateViewController = ExposureSubmissionTestCertificateViewController(
 			ExposureSubmissionTestCertificateViewModel(
-				testType: testRegistrationInformation.testType,
+				isRapidTest: testRegistrationInformation.isRapidTest,
 				presentDisclaimer: { [weak self] in
 					self?.showDataPrivacy()
 				}
@@ -1642,7 +1642,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 				switch testQRCodeInformation {
 				case .teleTAN:
 					self?.showTestResultScreen()
-				case .antigen, .pcr:
+				case .antigen, .pcr, .rapidPCR:
 					switch testResult {
 					case .positive:
 						self?.showTestResultAvailableScreen()

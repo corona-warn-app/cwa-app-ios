@@ -523,7 +523,7 @@ class HealthCertificateService {
 		return nil
 	}
 
-	func updateValidityStatesAndNotificationsWithFreshDSCList(shouldScheduleTimer: Bool = true, completion: () -> Void) {
+	func updateValidityStatesAndNotificationsWithFreshDSCList(completion: () -> Void) {
 		Log.info("Update validity state and notifications with fresh dsc list.")
 
 		// .dropFirst: drops the first callback, which is called with default signing certificates.
@@ -533,7 +533,7 @@ class HealthCertificateService {
 			.dropFirst()
 			.first()
 			.sink { [weak self] _ in
-				self?.updateValidityStatesAndNotifications(shouldScheduleTimer: shouldScheduleTimer)
+				self?.updateValidityStatesAndNotifications()
 			}
 			.store(in: &subscriptions)
 	}
@@ -592,7 +592,7 @@ class HealthCertificateService {
 
 		Log.info("Schedule validity timer in \(fireDate.timeIntervalSinceNow) seconds")
 		nextValidityTimer = Timer.scheduledTimer(withTimeInterval: fireDate.timeIntervalSinceNow, repeats: false) { [weak self] _ in
-			self?.updateValidityStatesAndNotifications(shouldScheduleTimer: false)
+			self?.updateValidityStatesAndNotifications()
 			self?.nextValidityTimer = nil
 		}
 
@@ -639,10 +639,10 @@ class HealthCertificateService {
 		subscribeToNotifications()
 		updateGradients()
 		
-		// Validation Service
 		subscribeAppConfigUpdates()
 		subscribeDSCListChanges()
 		updateDCCWalletInfosIfNeeded()
+		scheduleTimer()
 	}
 
 	private func subscribeAppConfigUpdates() {
