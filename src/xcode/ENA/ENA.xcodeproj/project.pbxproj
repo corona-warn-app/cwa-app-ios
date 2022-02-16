@@ -506,6 +506,7 @@
 		3456D96125EFE08E00A62F5D /* ErrorReportHistoryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3456D96025EFE08E00A62F5D /* ErrorReportHistoryCell.xib */; };
 		3456D96725F0EBB400A62F5D /* ErrorReportHistoryViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3456D96625F0EBB400A62F5D /* ErrorReportHistoryViewModelTests.swift */; };
 		345D1E6627BA90CE00F79EFD /* OverviewLabelTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 345D1E6527BA90CE00F79EFD /* OverviewLabelTableViewCell.swift */; };
+		345D1E6927BD8A7B00F79EFD /* GetAdmissionCheckScenariosInputTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 345D1E6727BD8A7600F79EFD /* GetAdmissionCheckScenariosInputTests.swift */; };
 		347E3CAC27A99FD700895277 /* BoosterDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 347E3CAB27A99FD700895277 /* BoosterDetailsViewController.swift */; };
 		347E3CAE27A9A20D00895277 /* BoosterDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 347E3CAD27A9A20D00895277 /* BoosterDetailsViewModel.swift */; };
 		347E3CB227AAD56E00895277 /* BoosterDetailsViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 347E3CB027AAD4AA00895277 /* BoosterDetailsViewModelTests.swift */; };
@@ -2187,6 +2188,7 @@
 		3456D96025EFE08E00A62F5D /* ErrorReportHistoryCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ErrorReportHistoryCell.xib; sourceTree = "<group>"; };
 		3456D96625F0EBB400A62F5D /* ErrorReportHistoryViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorReportHistoryViewModelTests.swift; sourceTree = "<group>"; };
 		345D1E6527BA90CE00F79EFD /* OverviewLabelTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverviewLabelTableViewCell.swift; sourceTree = "<group>"; };
+		345D1E6727BD8A7600F79EFD /* GetAdmissionCheckScenariosInputTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetAdmissionCheckScenariosInputTests.swift; sourceTree = "<group>"; };
 		347E3CAB27A99FD700895277 /* BoosterDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoosterDetailsViewController.swift; sourceTree = "<group>"; };
 		347E3CAD27A9A20D00895277 /* BoosterDetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoosterDetailsViewModel.swift; sourceTree = "<group>"; };
 		347E3CB027AAD4AA00895277 /* BoosterDetailsViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoosterDetailsViewModelTests.swift; sourceTree = "<group>"; };
@@ -5056,6 +5058,7 @@
 				BA18127627AD82DA000E5EDD /* CCLServiceBaseTests.swift */,
 				BA18127427AD82C5000E5EDD /* CCLServiceBoosterNotificationRulesTests.swift */,
 				BA18127227AD5D54000E5EDD /* CCLConfiguationTests.swift */,
+				345D1E6727BD8A7600F79EFD /* GetAdmissionCheckScenariosInputTests.swift */,
 			);
 			path = __tests__;
 			sourceTree = "<group>";
@@ -11268,6 +11271,7 @@
 				50B9133A26B2DDC00005C8D8 /* MockUserNotificationCenter.swift in Sources */,
 				2E442AB52681E0AB00A78532 /* TopBottomContainerViewControllerTests.swift in Sources */,
 				BAB6C81225C4652D00E042FB /* PPACTokenTests.swift in Sources */,
+				345D1E6927BD8A7B00F79EFD /* GetAdmissionCheckScenariosInputTests.swift in Sources */,
 				2EDE67FB266E63A600864D53 /* StackViewLabelTests.swift in Sources */,
 				ABBF425D261DD7B5002A9A2B /* CheckinTests.swift in Sources */,
 				01BA071E2620921400237DD8 /* CheckinTestCasesWithConfiguration.swift in Sources */,
