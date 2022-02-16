@@ -54,15 +54,21 @@ class HomeCoordinator: RequiresAppDependencies {
 
 	func showHome(enStateHandler: ENStateHandler, route: Route?) {
 		guard homeController == nil else {
-			guard case .rapidAntigen = route else {
+			switch route {
+			case .rapidAntigen, .rapidPCR:
+				// only select tab if route is .rapidAntigen or .rapidPCR
+				selectHomeTabSection(route: route)
+				return
+			case .testResultFromNotification,
+				 .checkIn,
+				 .healthCertificateFromNotification,
+				 .healthCertifiedPersonFromNotification,
+				 .none:
 				rootViewController.dismiss(animated: false)
 				rootViewController.popToRootViewController(animated: false)
 				homeController?.scrollToTop(animated: false)
 				return
 			}
-			// only select tab if route is .rapidAntigen
-			selectHomeTabSection(route: route)
-			return
 		}
 		let homeState = HomeState(
 			store: store,

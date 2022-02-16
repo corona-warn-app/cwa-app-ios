@@ -353,7 +353,79 @@ class CoronaTestService {
 			}
 		)
 	}
+	
+	// swiftlint:disable:next function_parameter_count
+	func registerRapidPCRTestAndGetResult(
+		with hash: String,
+		qrCodeHash: String,
+		pointOfCareConsentDate: Date,
+		firstName: String?,
+		lastName: String?,
+		dateOfBirth: String?,
+		isSubmissionConsentGiven: Bool,
+		markAsUnseen: Bool = false,
+		certificateSupportedByPointOfCare: Bool,
+		certificateConsent: TestCertificateConsent,
+		completion: @escaping TestResultHandler
+	) {
+		Log.info("[CoronaTestService] Registering RapidPCR test (hash: \(private: hash), pointOfCareConsentDate: \(private: pointOfCareConsentDate), firstName: \(private: String(describing: firstName)), lastName: \(private: String(describing: lastName)), dateOfBirth: \(private: String(describing: dateOfBirth)), isSubmissionConsentGiven: \(isSubmissionConsentGiven))", log: .api)
 
+		getRegistrationToken(
+			forKey: ENAHasher.sha256(hash),
+			withType: .guid,
+			dateOfBirthKey: nil,
+			completion: { [weak self] result in
+				switch result {
+				case .success(let registrationToken):
+					if self?.pcrTest != nil {
+						self?.moveTestToBin(.pcr)
+					}
+
+					var certificateConsentGiven = false
+					if case .given = certificateConsent {
+						certificateConsentGiven = true
+					}
+
+					self?.pcrTest = PCRTest(
+						registrationDate: Date(),
+						registrationToken: registrationToken,
+						qrCodeHash: qrCodeHash,
+						testResult: .pending,
+						finalTestResultReceivedDate: nil,
+						positiveTestResultWasShown: false,
+						isSubmissionConsentGiven: isSubmissionConsentGiven,
+						submissionTAN: nil,
+						keysSubmitted: false,
+						journalEntryCreated: false,
+						certificateConsentGiven: certificateConsentGiven,
+						certificateRequested: false
+					)
+
+					Log.info("[CoronaTestService] RapidPCR test registered: \(private: String(describing: self?.pcrTest), public: "RapidPCR test result")", log: .api)
+
+					Analytics.collect(.testResultMetadata(.registerNewTestMetadata(Date(), registrationToken, .pcr)))
+
+					// updating badge count for home tab
+					if markAsUnseen {
+						self?.badgeWrapper.increase(.unseenTests, by: 1)
+					}
+
+					self?.getTestResult(for: .pcr, duringRegistration: true) { result in
+						completion(result)
+					}
+
+					self?.fakeRequestService.fakeSubmissionServerRequest()
+				case .failure(let error):
+					Log.error("[CoronaTestService] RapidPCR test registration failed: \(error.localizedDescription)", log: .api)
+
+					completion(.failure(error))
+
+					self?.fakeRequestService.fakeVerificationAndSubmissionServerRequest()
+				}
+			}
+		)
+	}
+	
 	func reregister(coronaTest: CoronaTest) {
 		switch coronaTest {
 		case .pcr(let pcrTest):

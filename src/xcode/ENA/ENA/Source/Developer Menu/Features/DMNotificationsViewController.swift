@@ -56,7 +56,8 @@ final class DMNotificationsViewController: UITableViewController {
 		}
 
 		let df = DateFormatter()
-		df.dateFormat = "yyyy-MM-dd hh:mm:ss"
+		df.dateStyle = .short
+		df.timeStyle = .short
 
 		cell.detailTextLabel?.text = df.string(from: triggerDate)
 		return cell
