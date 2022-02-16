@@ -39,9 +39,11 @@ class HealthCertificateOverviewViewModel {
 	// MARK: - Internal
 
 	enum Section: Int, CaseIterable {
-		case createCertificate
+		case changeAdmissionScenarioStatusLabel
+		case changeAdmissionScenario
 		case testCertificateRequest
 		case healthCertificate
+		case healthCertificateScanningInfo
 		case decodingFailedHealthCertificates
 	}
 
@@ -62,12 +64,19 @@ class HealthCertificateOverviewViewModel {
 
 	func numberOfRows(in section: Int) -> Int {
 		switch Section(rawValue: section) {
-		case .createCertificate:
-			return 1
+		case .changeAdmissionScenarioStatusLabel:
+			// to.do this logic will be replaced - EXPOSUREAPP-11811
+			return healthCertifiedPersons.isEmpty ? 0 : 1
+		case .changeAdmissionScenario:
+			// to.do this logic will be replaced - EXPOSUREAPP-11811
+			return healthCertifiedPersons.isEmpty ? 0 : 1
 		case .testCertificateRequest:
 			return testCertificateRequests.count
 		case .healthCertificate:
 			return healthCertifiedPersons.count
+		case .healthCertificateScanningInfo:
+			// to.do this logic will be replaced - EXPOSUREAPP-11811
+			return healthCertifiedPersons.isEmpty ? 0 : 1
 		case .decodingFailedHealthCertificates:
 			return decodingFailedHealthCertificates.count
 		case .none:

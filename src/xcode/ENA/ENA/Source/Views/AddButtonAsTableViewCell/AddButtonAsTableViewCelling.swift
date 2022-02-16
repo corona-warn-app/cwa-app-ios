@@ -12,5 +12,6 @@ protocol AddButtonAsTableViewCelling {
 	var iconImagePublisher: OpenCombine.CurrentValueSubject<UIImage?, Never> { get }
 	var textColorPublisher: OpenCombine.CurrentValueSubject<UIColor, Never> { get }
 	var accessibilityTraitsPublisher: OpenCombine.CurrentValueSubject<UIAccessibilityTraits, Never> { get }
+	var isCustomAccessoryViewHiddenPublisher: CurrentValueSubject<Bool, Never> { get }
 
 }
