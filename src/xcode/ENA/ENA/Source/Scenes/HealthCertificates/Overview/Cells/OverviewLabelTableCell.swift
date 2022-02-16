@@ -70,7 +70,6 @@ class OverviewLabelTableCell: UITableViewCell, ReuseIdentifierProviding {
 
 	private func setup() {
 		selectionStyle = .none
-
 		backgroundColor = .enaColor(for: .background)
 
 		contentTextLabel.translatesAutoresizingMaskIntoConstraints = false
