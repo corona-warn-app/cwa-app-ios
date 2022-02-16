@@ -120,6 +120,17 @@ final class HealthCertificatesTabCoordinator {
 			},
 			onCovPassCheckInfoButtonTap: { [weak self] in
 				self?.presentCovPassInfoScreen()
+			},
+			onTapToDelete: { [weak self] decodingFailedHealthCertificate in
+				self?.showDecodingFailedDeleteAlert(
+					submitAction: UIAlertAction(
+						title: AppStrings.HealthCertificate.Alert.DecodingFailedCertificate.deleteButton,
+						style: .destructive,
+						handler: { _ in
+							self?.healthCertificateService.remove(decodingFailedHealthCertificate: decodingFailedHealthCertificate)
+						}
+					)
+				)
 			}
 		)
 	}()
