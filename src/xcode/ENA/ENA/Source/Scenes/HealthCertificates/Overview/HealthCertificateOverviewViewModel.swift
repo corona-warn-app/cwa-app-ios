@@ -68,12 +68,14 @@ class HealthCertificateOverviewViewModel {
 			// to.do this logic will be replaced - EXPOSUREAPP-11811 
 			return healthCertifiedPersons.isEmpty ? 0 : 1
 		case .changeAdmissionScenario:
+			// to.do this logic will be replaced - EXPOSUREAPP-11811
 			return healthCertifiedPersons.isEmpty ? 0 : 1
 		case .testCertificateRequest:
 			return testCertificateRequests.count
 		case .healthCertificate:
 			return healthCertifiedPersons.count
 		case .healthCertificateScanningInfo:
+			// to.do this logic will be replaced - EXPOSUREAPP-11811
 			return healthCertifiedPersons.isEmpty ? 0 : 1
 		case .decodingFailedHealthCertificates:
 			return decodingFailedHealthCertificates.count

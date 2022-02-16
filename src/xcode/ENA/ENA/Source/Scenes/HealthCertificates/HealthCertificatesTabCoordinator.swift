@@ -198,7 +198,7 @@ final class HealthCertificatesTabCoordinator {
 	}
 	
 	private func showAdmissionScenarios() {
-		// to.do show admission scenarios list - EXPOSUREAPP-11811
+		// to.do show admission scenarios list - EXPOSUREAPP-11876
 	}
 	
 	private func showHealthCertifiedPerson(

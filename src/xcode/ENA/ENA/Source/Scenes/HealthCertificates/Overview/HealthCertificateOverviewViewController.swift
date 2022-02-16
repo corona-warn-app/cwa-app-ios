@@ -192,7 +192,7 @@ class HealthCertificateOverviewViewController: UITableViewController {
 			fatalError("Could not dequeue OverviewLabelTableCell")
 		}
 
-		// to.do should be dynamic - EXPOSUREAPP-11811
+		// to.do should be dynamic - EXPOSUREAPP-11876
 		cell.configure(text: "Status für folgendes Bundesland", noBottomInset: true, textAlignment: .left)
 		return cell
 	}
