@@ -6,6 +6,7 @@ import XCTest
 @testable import ENA
 
 // IMPORTANT: THESE TESTS ARE BASED ON THE CURRENT EXPECTED REGEX, WE NEED TO UPDATE THEM IF THE REGEX IS UPDATED
+// swiftlint:disable:next type_body_length
 class CoronaTestsQRCodeParserTests: CWATestCase {
 	func testQRCodeExtraction_EmptyString() {
 		let parser = CoronaTestsQRCodeParser()
