@@ -75,7 +75,6 @@ class OverviewLabelTableCell: UITableViewCell, ReuseIdentifierProviding {
 		contentTextLabel.translatesAutoresizingMaskIntoConstraints = false
 
 		contentView.addSubview(contentTextLabel)
-
 		NSLayoutConstraint.activate([
 			contentView.layoutMarginsGuide.topAnchor.constraint(equalTo: contentTextLabel.topAnchor),
 			contentView.layoutMarginsGuide.bottomAnchor.constraint(equalTo: contentTextLabel.bottomAnchor),
