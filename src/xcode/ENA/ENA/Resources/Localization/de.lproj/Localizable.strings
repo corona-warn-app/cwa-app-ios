@@ -3045,7 +3045,7 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "DecodingFailedHealthCertificate_Alert_title" = "Wollen Sie das Zertifikat endgültig löschen?";
 
-"DecodingFailedHealthCertificate_Alert_message" = "Das Zertifikat konnte nicht dekodiert werden. Wenn Sie es löschen, können Sie es nicht mehr als Nachweis verwenden.";
+"DecodingFailedHealthCertificate_Alert_message" = "Das Zertifikat konnte nicht dekodiert werden, daher können keine Informationen dazu angezeigt werden. Wenn Sie es löschen, können Sie es nicht mehr als Nachweis verwenden.";
 
 "DecodingFailedHealthCertificate_Alert_deleteButton" = "Zertifikat endgültig löschen";
 
