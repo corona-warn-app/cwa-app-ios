@@ -43,7 +43,7 @@ final class SelectValueTableViewCell: UITableViewCell {
 		selectableValueLabel.translatesAutoresizingMaskIntoConstraints = false
 		selectableValueLabel.font = .enaFont(for: .body)
 		selectableValueLabel.textAlignment = .left
-		
+
 		contentView.addSubview(selectableValueLabel)
 
 		NSLayoutConstraint.activate([
