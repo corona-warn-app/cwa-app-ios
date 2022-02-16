@@ -113,7 +113,6 @@ class HealthCertificateService_GroupingAfterDeletionTests: XCTestCase {
 			recycleBin: .fake()
 		)
 		
-		
 		let certificateSingle1 = try certificateSingle1()
 		let certificateSingle2 = try certificateSingle2()
 		let certificateSingle3 = try certificateSingle3()

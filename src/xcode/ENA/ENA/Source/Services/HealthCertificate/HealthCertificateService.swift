@@ -965,13 +965,13 @@ class HealthCertificateService {
 		// Find person and replace it by our regroupedPersons
 		// Use a copy of healthCertifiedPersons to avoid multiple changes to healthCertifiedPersons.
 		var mutatedHealthCertifiedPersons = healthCertifiedPersons
-		mutatedHealthCertifiedPersons.remove(healthCertifiedPerson)
+		mutatedHealthCertifiedPersons.removeAll { $0 === healthCertifiedPerson }
 		mutatedHealthCertifiedPersons.append(contentsOf: regroupedPersons)
 		healthCertifiedPersons = mutatedHealthCertifiedPersons
 		
 		// We only want to call updateDCCWalletInfo for new created persons.
 		// For the existing person it is called when the certificates changed.
-		let newlyPersons = healthCertifiedPersons.filter { $0 != healthCertifiedPerson }
+		let newlyPersons = healthCertifiedPersons.filter { $0 !== healthCertifiedPerson }
 		newlyPersons.forEach { updateDCCWalletInfo(for: $0) }
 		
 		healthCertifiedPersons.sort()
