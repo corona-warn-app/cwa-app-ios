@@ -301,7 +301,7 @@ class HealthCertifiedPerson: Codable, Equatable, Comparable {
 		NotificationCenter.default.removeObserver(self, name: UIApplication.didEnterBackgroundNotification, object: nil)
 		NotificationCenter.default.removeObserver(self, name: UIApplication.didBecomeActiveNotification, object: nil)
 
-		guard let nextMostRelevantCertificateChangeDate = dccWalletInfo?.validUntil else {
+		guard let dccWalletInfoExpirationDate = dccWalletInfo?.validUntil else {
 			return
 		}
 
@@ -309,10 +309,10 @@ class HealthCertifiedPerson: Codable, Equatable, Comparable {
 		NotificationCenter.default.addObserver(self, selector: #selector(invalidateTimer), name: UIApplication.didEnterBackgroundNotification, object: nil)
 		NotificationCenter.default.addObserver(self, selector: #selector(scheduleDCCWalletInfoUpdateTimer), name: UIApplication.didBecomeActiveNotification, object: nil)
 
-		dccWalletInfoUpdateTimer = Timer(fireAt: nextMostRelevantCertificateChangeDate, interval: 0, target: self, selector: #selector(updateDCCWalletInfo), userInfo: nil, repeats: false)
+		dccWalletInfoUpdateTimer = Timer(fireAt: dccWalletInfoExpirationDate, interval: 0, target: self, selector: #selector(updateDCCWalletInfo), userInfo: nil, repeats: false)
 
-		guard let mostRelevantCertificateTimer = dccWalletInfoUpdateTimer else { return }
-		RunLoop.current.add(mostRelevantCertificateTimer, forMode: .common)
+		guard let dccWalletInfoUpdateTimer = dccWalletInfoUpdateTimer else { return }
+		RunLoop.main.add(dccWalletInfoUpdateTimer, forMode: .common)
 	}
 
 	@objc
