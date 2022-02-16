@@ -10,7 +10,8 @@ class HealthCertificateOverviewViewModelTests: XCTestCase {
 
 	func testGIVEN_HealthCertificateOverviewViewModel_THEN_SetupIsCorrect() {
 		// GIVEN
-		let viewModel = HealthCertificateOverviewViewModel(healthCertificateService: service)
+		let cclService = FakeCCLService()
+		let viewModel = HealthCertificateOverviewViewModel(healthCertificateService: service, cclService: cclService)
 
 		// THEN
 		XCTAssertEqual(viewModel.numberOfSections, 6)
@@ -22,7 +23,8 @@ class HealthCertificateOverviewViewModelTests: XCTestCase {
 
 	func testGIVEN_requestTestCertificate_THEN_noErrorIsSet() {
 		// GIVEN
-		let viewModel = HealthCertificateOverviewViewModel(healthCertificateService: service)
+		let cclService = FakeCCLService()
+		let viewModel = HealthCertificateOverviewViewModel(healthCertificateService: service, cclService: cclService)
 		service.registerAndExecuteTestCertificateRequest(
 			coronaTestType: .pcr,
 			registrationToken: "registrationToken",

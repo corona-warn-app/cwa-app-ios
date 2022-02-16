@@ -15,7 +15,7 @@ class GetWalletInfoInputTests: XCTestCase {
 		let dateString = "2022-01-28T15:30:00+01:00"
 		let date = try XCTUnwrap(SystemTime.localDateTimeFormatter.date(from: dateString))
 		
-		let input = GetWalletInfoInput.make(with: date, language: "de", certificates: [], boosterNotificationRules: [])
+		let input = GetWalletInfoInput.make(with: date, language: "de", certificates: [], boosterNotificationRules: [], identifier: "")
 		guard let systemTime: SystemTime = input["now"]?.value as? SystemTime else {
 			XCTFail("Systemtime expected")
 			return
@@ -35,7 +35,7 @@ class GetWalletInfoInputTests: XCTestCase {
 		let dateString = "2022-01-28T00:30:00+01:00"
 		let date = try XCTUnwrap(SystemTime.localDateTimeFormatter.date(from: dateString))
 		
-		let input = GetWalletInfoInput.make(with: date, language: "de", certificates: [], boosterNotificationRules: [])
+		let input = GetWalletInfoInput.make(with: date, language: "de", certificates: [], boosterNotificationRules: [], identifier: "")
 		guard let systemTime: SystemTime = input["now"]?.value as? SystemTime else {
 			XCTFail("Systemtime expected")
 			return
@@ -52,7 +52,7 @@ class GetWalletInfoInputTests: XCTestCase {
 	func test_OtherData() throws {
 		SystemTime.timeZone = try XCTUnwrap(TimeZone(abbreviation: "CET"))
 
-		let input = GetWalletInfoInput.make(with: Date(), language: "de", certificates: [], boosterNotificationRules: [])
+		let input = GetWalletInfoInput.make(with: Date(), language: "de", certificates: [], boosterNotificationRules: [], identifier: "")
 		
 		XCTAssertEqual(input["os"], AnyDecodable("ios"))
 		XCTAssertEqual(input["language"], AnyDecodable("de"))
