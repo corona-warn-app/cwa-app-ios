@@ -717,7 +717,7 @@ class HealthCertificateService {
 	private func updateDCCWalletInfo(for person: HealthCertifiedPerson, completion: (() -> Void)? = nil) {
 		person.queue.async {
 			let result = self.cclService.dccWalletInfo(
-				// to.do update identifier based on selection
+				// to.do update identifier based on selection - EXPOSUREAPP-11876
 				for: person.healthCertificates.map { $0.dccWalletCertificate }, with: ""
 			)
 

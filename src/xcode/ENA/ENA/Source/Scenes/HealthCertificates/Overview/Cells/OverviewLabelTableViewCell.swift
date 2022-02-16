@@ -5,7 +5,7 @@
 import Foundation
 import UIKit
 
-class OverviewLabelTableCell: UITableViewCell, ReuseIdentifierProviding {
+class OverviewLabelTableViewCell: UITableViewCell, ReuseIdentifierProviding {
 
 	// MARK: - Init
 

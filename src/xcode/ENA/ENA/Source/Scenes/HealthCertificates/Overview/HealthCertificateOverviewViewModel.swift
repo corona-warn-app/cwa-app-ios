@@ -67,15 +67,15 @@ class HealthCertificateOverviewViewModel {
 	func numberOfRows(in section: Int) -> Int {
 		switch Section(rawValue: section) {
 		case .changeAdmissionScenarioStatusLabel:
-			return showAdmissionCheckScenarios()
+			return rowsForAdmissionCheckScenarios()
 		case .changeAdmissionScenario:
-			return showAdmissionCheckScenarios()
+			return rowsForAdmissionCheckScenarios()
 		case .testCertificateRequest:
 			return testCertificateRequests.count
 		case .healthCertificate:
 			return healthCertifiedPersons.count
 		case .healthCertificateScanningInfo:
-			return showAdmissionCheckScenarios()
+			return rowsForAdmissionCheckScenarios()
 		case .decodingFailedHealthCertificates:
 			return decodingFailedHealthCertificates.count
 		case .none:
@@ -105,13 +105,6 @@ class HealthCertificateOverviewViewModel {
 	func attemptToRestoreDecodingFailedHealthCertificates() {
 		healthCertificateService.attemptToRestoreDecodingFailedHealthCertificates()
 	}
-
-	func showAdmissionCheckScenarios() -> Int {
-		if !healthCertifiedPersons.isEmpty && !cclService.cclAdmissionCheckScenariosDisabled {
-			return 1
-		}
-		return 0
-	}
 	
 	// MARK: - Private
 
@@ -119,4 +112,10 @@ class HealthCertificateOverviewViewModel {
 	private let cclService: CCLServable
 	private var subscriptions = Set<AnyCancellable>()
 
+	private func rowsForAdmissionCheckScenarios() -> Int {
+		if !healthCertifiedPersons.isEmpty && !cclService.cclAdmissionCheckScenariosDisabled {
+			return 1
+		}
+		return 0
+	}
 }

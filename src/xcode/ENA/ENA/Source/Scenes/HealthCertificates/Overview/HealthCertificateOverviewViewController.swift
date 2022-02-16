@@ -174,7 +174,7 @@ class HealthCertificateOverviewViewController: UITableViewController {
 			forCellReuseIdentifier: TestCertificateRequestTableViewCell.reuseIdentifier
 		)
 
-		tableView.register(OverviewLabelTableCell.self, forCellReuseIdentifier: OverviewLabelTableCell.reuseIdentifier)
+		tableView.register(OverviewLabelTableViewCell.self, forCellReuseIdentifier: OverviewLabelTableViewCell.reuseIdentifier)
 		tableView.register(HealthCertifiedPersonTableViewCell.self, forCellReuseIdentifier: HealthCertifiedPersonTableViewCell.reuseIdentifier)
 
 		tableView.separatorStyle = .none
@@ -188,7 +188,7 @@ class HealthCertificateOverviewViewController: UITableViewController {
 	}
 	
 	private func changeAdmissionScenarioStatusLabelCell(forRowAt indexPath: IndexPath) -> UITableViewCell {
-		guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: OverviewLabelTableCell.self), for: indexPath) as? OverviewLabelTableCell else {
+		guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: OverviewLabelTableViewCell.self), for: indexPath) as? OverviewLabelTableViewCell else {
 			fatalError("Could not dequeue OverviewLabelTableCell")
 		}
 
@@ -208,7 +208,7 @@ class HealthCertificateOverviewViewController: UITableViewController {
 	}
 	
 	private func healthCertificateScanningInfoCell(forRowAt indexPath: IndexPath) -> UITableViewCell {
-		guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: OverviewLabelTableCell.self), for: indexPath) as? OverviewLabelTableCell else {
+		guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: OverviewLabelTableViewCell.self), for: indexPath) as? OverviewLabelTableViewCell else {
 			fatalError("Could not dequeue OverviewLabelTableCell")
 		}
 

@@ -9,7 +9,7 @@ class ChangeAdmissionScenarionCellModel: AddButtonAsTableViewCelling {
 	
 	// MARK: - Internal
 
-	// to.do should be dynamic
+	// to.do should be dynamic - EXPOSUREAPP-11876
 	let text: String = "Regeln des Bundes"
 
 	var iconImagePublisher = CurrentValueSubject<UIImage?, Never>(UIImage(named: "Icons_admission_state"))
