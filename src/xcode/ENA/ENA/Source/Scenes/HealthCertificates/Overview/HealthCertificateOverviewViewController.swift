@@ -175,7 +175,6 @@ class HealthCertificateOverviewViewController: UITableViewController {
 		)
 
 		tableView.register(OverviewLabelTableCell.self, forCellReuseIdentifier: OverviewLabelTableCell.reuseIdentifier)
-
 		tableView.register(HealthCertifiedPersonTableViewCell.self, forCellReuseIdentifier: HealthCertifiedPersonTableViewCell.reuseIdentifier)
 
 		tableView.separatorStyle = .none
