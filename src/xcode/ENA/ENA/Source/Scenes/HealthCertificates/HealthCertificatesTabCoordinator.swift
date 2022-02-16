@@ -199,7 +199,7 @@ final class HealthCertificatesTabCoordinator {
 	}
 	
 	private func showAdmissionScenarios() {
-		// to.do show admission scenarios list
+		// to.do show admission scenarios list - EXPOSUREAPP-11876
 	}
 	
 	private func showHealthCertifiedPerson(
