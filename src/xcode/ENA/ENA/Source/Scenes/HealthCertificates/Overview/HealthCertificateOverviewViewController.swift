@@ -175,7 +175,6 @@ class HealthCertificateOverviewViewController: UITableViewController {
 		)
 
 		tableView.register(OverviewLabelTableCell.self, forCellReuseIdentifier: OverviewLabelTableCell.reuseIdentifier)
-
 		tableView.register(HealthCertifiedPersonTableViewCell.self, forCellReuseIdentifier: HealthCertifiedPersonTableViewCell.reuseIdentifier)
 
 		tableView.separatorStyle = .none
@@ -193,7 +192,7 @@ class HealthCertificateOverviewViewController: UITableViewController {
 			fatalError("Could not dequeue OverviewLabelTableCell")
 		}
 
-		// to.do should be dynamic
+		// to.do should be dynamic - EXPOSUREAPP-11876
 		cell.configure(text: "Status für folgendes Bundesland", noBottomInset: true, textAlignment: .left)
 		return cell
 	}
