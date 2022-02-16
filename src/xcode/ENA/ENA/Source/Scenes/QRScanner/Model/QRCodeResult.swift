@@ -43,6 +43,8 @@ enum QRCodeParserError: Error, Equatable {
 			return certificateQrErrorLhs.localizedDescription == certificateQrErrorRhs.localizedDescription
 		case (.ticketValidation(let ticketValidationLhs), .ticketValidation(let ticketValidationRhs)):
 			return ticketValidationLhs == ticketValidationRhs
+		case (.invalidError(let lhsQrCodeError), .invalidError(let rhsQrCodeError)):
+			return lhsQrCodeError.localizedDescription == rhsQrCodeError.localizedDescription
 		default:
 			return false
 		}

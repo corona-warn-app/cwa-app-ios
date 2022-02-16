@@ -7,13 +7,11 @@ import XCTest
 
 // IMPORTANT: THESE TESTS ARE BASED ON THE CURRENT EXPECTED REGEX, WE NEED TO UPDATE THEM IF THE REGEX IS UPDATED
 class CoronaTestsQRCodeParserTests: CWATestCase {
-
 	func testQRCodeExtraction_EmptyString() {
 		let parser = CoronaTestsQRCodeParser()
 
 		let result = parser.coronaTestQRCodeInformation(from: "")
-
-		XCTAssertNil(result)
+		XCTAssertEqual(result, .failure(.scanningError(.codeNotFound)))
 	}
 
 	func testQRCodeExtraction_InputLengthExceeded() {
@@ -21,7 +19,7 @@ class CoronaTestsQRCodeParserTests: CWATestCase {
 
 		let result = parser.coronaTestQRCodeInformation(from: String(repeating: "x", count: 150))
 
-		XCTAssertNil(result)
+		XCTAssertEqual(result, .failure(.scanningError(.codeNotFound)))
 	}
 
 	func testQRCodeExtraction_WrongURL() {
@@ -29,7 +27,7 @@ class CoronaTestsQRCodeParserTests: CWATestCase {
 
 		let result = parser.coronaTestQRCodeInformation(from: "https://wrong.app/?\(validPcrGuid)")
 
-		XCTAssertNil(result)
+		XCTAssertEqual(result, .failure(.scanningError(.codeNotFound)))
 	}
 
 	func testQRCodeExtraction_someUTF8Text() {
@@ -37,7 +35,7 @@ class CoronaTestsQRCodeParserTests: CWATestCase {
 
 		let result = parser.coronaTestQRCodeInformation(from: "This is a Test ん鞠")
 
-		XCTAssertNil(result)
+		XCTAssertEqual(result, .failure(.scanningError(.codeNotFound)))
 	}
 
 	func testQRCodeExtraction_MissingURL() {
@@ -45,7 +43,7 @@ class CoronaTestsQRCodeParserTests: CWATestCase {
 
 		let result = parser.coronaTestQRCodeInformation(from: "?\(validPcrGuid)")
 
-		XCTAssertNil(result)
+		XCTAssertEqual(result, .failure(.scanningError(.codeNotFound)))
 	}
 
 	func testQRCodeExtraction_MissingQuestionMark() {
@@ -53,7 +51,7 @@ class CoronaTestsQRCodeParserTests: CWATestCase {
 
 		let result = parser.coronaTestQRCodeInformation(from: "https://localhost/\(validPcrGuid)")
 
-		XCTAssertNil(result)
+		XCTAssertEqual(result, .failure(.scanningError(.codeNotFound)))
 	}
 
 	func testPcrQRCodeExtraction_AdditionalSpaceAfterQuestionMark() {
@@ -61,7 +59,7 @@ class CoronaTestsQRCodeParserTests: CWATestCase {
 
 		let result = parser.coronaTestQRCodeInformation(from: "? \(validPcrGuid)")
 
-		XCTAssertNil(result)
+		XCTAssertEqual(result, .failure(.scanningError(.codeNotFound)))
 	}
 
 	func testPcrQRCodeExtraction_GUIDLengthExceeded() {
@@ -69,7 +67,7 @@ class CoronaTestsQRCodeParserTests: CWATestCase {
 
 		let result = parser.coronaTestQRCodeInformation(from: "https://localhost/?\(validPcrGuid)-BEEF")
 
-		XCTAssertNil(result)
+		XCTAssertEqual(result, .failure(.scanningError(.codeNotFound)))
 	}
 
 	func testPcrQRCodeExtraction_GUIDTooShort() {
@@ -77,7 +75,7 @@ class CoronaTestsQRCodeParserTests: CWATestCase {
 
 		let result = parser.coronaTestQRCodeInformation(from: "https://localhost/?\(validPcrGuid.dropLast(4))")
 
-		XCTAssertNil(result)
+		XCTAssertEqual(result, .failure(.scanningError(.codeNotFound)))
 	}
 
 	func testPcrQRCodeExtraction_GUIDStructureWrong() {
@@ -86,41 +84,44 @@ class CoronaTestsQRCodeParserTests: CWATestCase {
 		let wrongGuid = "3D6D-083567F3F2-4DCF-43A3-8737-4CD1F87D6FDA"
 		let result = parser.coronaTestQRCodeInformation(from: "https://localhost/?\(wrongGuid)")
 
-		XCTAssertNil(result)
+		XCTAssertEqual(result, .failure(.scanningError(.codeNotFound)))
 	}
 
 	func testPcrQRCodeExtraction_ValidWithUppercaseString() {
 		let parser = CoronaTestsQRCodeParser()
 
-		guard let result = parser.coronaTestQRCodeInformation(from: "https://localhost/?\(validPcrGuid.uppercased())") else {
-			XCTFail("Result is nil")
-			return
-		}
+		switch parser.coronaTestQRCodeInformation(from: "https://localhost/?\(validPcrGuid.uppercased())") {
+		case let .success(testResult):
+			switch  testResult {
+			case .antigen:
+				XCTFail("Expected PCR test")
+			case .pcr(let result, _):
+				XCTAssertEqual(result, validPcrGuid)
+			case .teleTAN:
+				XCTFail("Expected PCR test")
+			}
 
-		switch  result {
-		case .antigen:
-			XCTFail("Expected PCR test")
-		case .pcr(let result, _):
-			XCTAssertEqual(result, validPcrGuid)
-		case .teleTAN:
-			XCTFail("Expected PCR test")
+		case .failure:
+			XCTFail("Result is nil")
 		}
 	}
 
 	func testPcrQRCodeExtraction_ValidWithLowercaseString() {
 		let parser = CoronaTestsQRCodeParser()
 
-		guard let result = parser.coronaTestQRCodeInformation(from: "https://localhost/?\(validPcrGuid.lowercased())") else {
+		switch parser.coronaTestQRCodeInformation(from: "https://localhost/?\(validPcrGuid.lowercased())") {
+		case let .success(testResult):
+			switch testResult {
+			case .antigen:
+				XCTFail("Expected PCR test")
+			case .pcr(let result, _):
+				XCTAssertEqual(result, validPcrGuid.lowercased())
+			case .teleTAN:
+				XCTFail("Expected PCR test")
+			}
+
+		case .failure:
 			XCTFail("Result is nil")
-			return
-		}
-		switch  result {
-		case .antigen:
-			XCTFail("Expected PCR test")
-		case .pcr(let result, _):
-			XCTAssertEqual(result, validPcrGuid.lowercased())
-		case .teleTAN:
-			XCTFail("Expected PCR test")
 		}
 	}
 
@@ -129,17 +130,18 @@ class CoronaTestsQRCodeParserTests: CWATestCase {
 
 		let mixedCaseGuid = "3D6d08-3567F3f2-4DcF-43A3-8737-4CD1F87d6FDa"
 
-		guard let result = parser.coronaTestQRCodeInformation(from: "https://localhost/?\(mixedCaseGuid)") else {
+		switch parser.coronaTestQRCodeInformation(from: "https://localhost/?\(mixedCaseGuid)") {
+		case let .success(testResult):
+			switch testResult {
+			case .antigen:
+				XCTFail("Expected PCR test")
+			case .pcr(let result, _):
+				XCTAssertEqual(result, mixedCaseGuid)
+			case .teleTAN:
+				XCTFail("Expected PCR test")
+			}
+		case .failure:
 			XCTFail("Result is nil")
-			return
-		}
-		switch  result {
-		case .antigen:
-			XCTFail("Expected PCR test")
-		case .pcr(let result, _):
-			XCTAssertEqual(result, mixedCaseGuid)
-		case .teleTAN:
-			XCTFail("Expected PCR test")
 		}
 	}
 
@@ -148,7 +150,13 @@ class CoronaTestsQRCodeParserTests: CWATestCase {
 		let parser = CoronaTestsQRCodeParser()
 
 		// WHEN
-		let result = parser.coronaTestQRCodeInformation(from: "HTTPS://LOCALHOST/?\(validPcrGuid)")
+		var result: CoronaTestRegistrationInformation!
+		switch parser.coronaTestQRCodeInformation(from: "HTTPS://LOCALHOST/?\(validPcrGuid)") {
+		case let .success(testResult):
+			result = testResult
+		case .failure:
+			XCTFail("Result is nil")
+		}
 
 		// THEN
 		XCTAssertNotNil(result)
@@ -159,10 +167,13 @@ class CoronaTestsQRCodeParserTests: CWATestCase {
 		let parser = CoronaTestsQRCodeParser()
 
 		// WHEN
-		let result = parser.coronaTestQRCodeInformation(from: "https://localhost//?A9652E-3BE0486D-0678-40A8-BEFD-07846B41993C")
-
-		// THEN
-		XCTAssertNil(result)
+		switch parser.coronaTestQRCodeInformation(from: "https://localhost//?A9652E-3BE0486D-0678-40A8-BEFD-07846B41993C") {
+		case .success:
+			XCTFail("Not expected to succeed")
+		case let .failure(error):
+			// THEN
+			XCTAssertEqual(error, .scanningError(.codeNotFound))
+		}
 	}
 
 	func testGIVEN_lowercasedURL_WHEN_extractGUID_THEN_isValidAndGuidMatch() {
@@ -170,19 +181,19 @@ class CoronaTestsQRCodeParserTests: CWATestCase {
 		let parser = CoronaTestsQRCodeParser()
 
 		// WHEN
-		guard let result = parser.coronaTestQRCodeInformation(from: "https://localhost/?123456-12345678-1234-4DA7-B166-B86D85475064") else {
-			XCTFail("result cant be nil")
-			return
-		}
-
-		// THEN
-		switch result {
-		case .pcr(let guid, _):
-			XCTAssertEqual("123456-12345678-1234-4DA7-B166-B86D85475064", guid)
-		case .antigen:
-			XCTFail("expected PCR test")
-		case .teleTAN:
-			XCTFail("expected PCR test")
+		switch parser.coronaTestQRCodeInformation(from: "https://localhost/?123456-12345678-1234-4DA7-B166-B86D85475064") {
+		case let .success(result):
+			// THEN
+			switch result {
+			case .pcr(let guid, _):
+				XCTAssertEqual("123456-12345678-1234-4DA7-B166-B86D85475064", guid)
+			case .antigen:
+				XCTFail("expected PCR test")
+			case .teleTAN:
+				XCTFail("expected PCR test")
+			}
+		case .failure:
+			XCTFail("Result is nil")
 		}
 	}
 
@@ -191,19 +202,19 @@ class CoronaTestsQRCodeParserTests: CWATestCase {
 		let parser = CoronaTestsQRCodeParser()
 
 		// WHEN
-		guard let result = parser.coronaTestQRCodeInformation(from: "HTTPS://LOCALHOST/?123456-12345678-1234-4DA7-B166-B86D85475064") else {
-			XCTFail("result cant be nil")
-			return
-		}
-
-		// THEN
-		switch result {
-		case .pcr(let guid, _):
-			XCTAssertEqual("123456-12345678-1234-4DA7-B166-B86D85475064", guid)
-		case .antigen:
-			XCTFail("expected PCR test")
-		case .teleTAN:
-			XCTFail("expected PCR test")
+		switch parser.coronaTestQRCodeInformation(from: "HTTPS://LOCALHOST/?123456-12345678-1234-4DA7-B166-B86D85475064") {
+		case let .success(result):
+			// THEN
+			switch result {
+			case .pcr(let guid, _):
+				XCTAssertEqual("123456-12345678-1234-4DA7-B166-B86D85475064", guid)
+			case .antigen:
+				XCTFail("expected PCR test")
+			case .teleTAN:
+				XCTFail("expected PCR test")
+			}
+		case .failure:
+			XCTFail("Result is nil")
 		}
 	}
 
@@ -215,7 +226,7 @@ class CoronaTestsQRCodeParserTests: CWATestCase {
 		let guid = parser.coronaTestQRCodeInformation(from: "https://localhost//?123456-12345678-1234-4DA7-B166-B86D85475064")
 
 		// THEN
-		XCTAssertNil(guid)
+		XCTAssertEqual(guid, .failure(.scanningError(.codeNotFound)))
 	}
 
 	func testGIVEN_lowercasedURLWithTripplePathSlashes_WHEN_extractGUID_THEN_isInvalid() {
@@ -226,7 +237,7 @@ class CoronaTestsQRCodeParserTests: CWATestCase {
 		let guid = parser.coronaTestQRCodeInformation(from: "https://localhost///?123456-12345678-1234-4DA7-B166-B86D85475064")
 
 		// THEN
-		XCTAssertNil(guid)
+		XCTAssertEqual(guid, .failure(.scanningError(.codeNotFound)))
 	}
 
 	func testGIVEN_uppercasedURLWithDoublePathSlashes_WHEN_extractGUID_THEN_isInvalid() {
@@ -237,7 +248,7 @@ class CoronaTestsQRCodeParserTests: CWATestCase {
 		let guid = parser.coronaTestQRCodeInformation(from: "HTTPS://LOCALHOST///?123456-12345678-1234-4DA7-B166-B86D85475064")
 
 		// THEN
-		XCTAssertNil(guid)
+		XCTAssertEqual(guid, .failure(.scanningError(.codeNotFound)))
 	}
 
 	func testGIVEN_lowercasedURLUppercaseGuid_WHEN_extractGUID_THEN_isValidAndGuidMatch() {
@@ -245,20 +256,21 @@ class CoronaTestsQRCodeParserTests: CWATestCase {
 		let parser = CoronaTestsQRCodeParser()
 
 		// WHEN
-		guard let result = parser.coronaTestQRCodeInformation(from: "https://localhost/?123456-12345678-1234-4DA7-B166-B86D85475ABC") else {
-			XCTFail("result cant be nil")
-			return
+		switch parser.coronaTestQRCodeInformation(from: "https://localhost/?123456-12345678-1234-4DA7-B166-B86D85475ABC") {
+		case let .success(result):
+			// THEN
+			switch result {
+			case .pcr(let guid, _):
+				XCTAssertEqual("123456-12345678-1234-4DA7-B166-B86D85475ABC", guid)
+			case .antigen:
+				XCTFail("expected PCR test")
+			case .teleTAN:
+				XCTFail("expected PCR test")
+			}
+		case .failure:
+			XCTFail("Result is nil")
 		}
 
-		// THEN
-		switch result {
-		case .pcr(let guid, _):
-			XCTAssertEqual("123456-12345678-1234-4DA7-B166-B86D85475ABC", guid)
-		case .antigen:
-			XCTFail("expected PCR test")
-		case .teleTAN:
-			XCTFail("expected PCR test")
-		}
 	}
 
 	func testGIVEN_lowercasedURLMixedGuid_WHEN_extractGUID_THEN_isValidAndGuidMatch() {
@@ -266,20 +278,21 @@ class CoronaTestsQRCodeParserTests: CWATestCase {
 		let parser = CoronaTestsQRCodeParser()
 
 		// WHEN
-		guard let result = parser.coronaTestQRCodeInformation(from: "https://localhost/?123456-12345678-1234-4DA7-B166-B86D85475abc") else {
-			XCTFail("result cant be nil")
-			return
+		switch parser.coronaTestQRCodeInformation(from: "https://localhost/?123456-12345678-1234-4DA7-B166-B86D85475abc") {
+		case let .success(result):
+			// THEN
+			switch result {
+			case .pcr(let guid, _):
+				XCTAssertEqual("123456-12345678-1234-4DA7-B166-B86D85475abc", guid)
+			case .antigen:
+				XCTFail("expected PCR test")
+			case .teleTAN:
+				XCTFail("expected PCR test")
+			}
+		case .failure:
+			XCTFail("Result is nil")
 		}
 
-		// THEN
-		switch result {
-		case .pcr(let guid, _):
-			XCTAssertEqual("123456-12345678-1234-4DA7-B166-B86D85475abc", guid)
-		case .antigen:
-			XCTFail("expected PCR test")
-		case .teleTAN:
-			XCTFail("expected PCR test")
-		}
 	}
 
 	func testGIVEN_uppercasedUrlUppercasedGuid_WHEN_extractGUID_THEN_isValidAndGuidMatch() {
@@ -287,20 +300,21 @@ class CoronaTestsQRCodeParserTests: CWATestCase {
 		let parser = CoronaTestsQRCodeParser()
 
 		// WHEN
-		guard let result = parser.coronaTestQRCodeInformation(from: "HTTPS://LOCALHOST/?123456-12345678-1234-4DA7-B166-B86D85475ABC") else {
-			XCTFail("result cant be nil")
-			return
+		switch parser.coronaTestQRCodeInformation(from: "HTTPS://LOCALHOST/?123456-12345678-1234-4DA7-B166-B86D85475ABC") {
+		case let .success(result):
+			// THEN
+			switch result {
+			case .pcr(let guid, _):
+				XCTAssertEqual("123456-12345678-1234-4DA7-B166-B86D85475ABC", guid)
+			case .antigen:
+				XCTFail("expected PCR test")
+			case .teleTAN:
+				XCTFail("expected PCR test")
+			}
+		case .failure:
+			XCTFail("Result is nil")
 		}
 
-		// THEN
-		switch result {
-		case .pcr(let guid, _):
-			XCTAssertEqual("123456-12345678-1234-4DA7-B166-B86D85475ABC", guid)
-		case .antigen:
-			XCTFail("expected PCR test")
-		case .teleTAN:
-			XCTFail("expected PCR test")
-		}
 	}
 
 	func testGIVEN_uppercasedUrlMixedcaseGuid_WHEN_extractGUID_THEN_isValidAndGuidMatch() {
@@ -308,19 +322,19 @@ class CoronaTestsQRCodeParserTests: CWATestCase {
 		let parser = CoronaTestsQRCodeParser()
 
 		// WHEN
-		guard let result = parser.coronaTestQRCodeInformation(from: "HTTPS://LOCALHOST/?123456-12345678-1234-4DA7-B166-B86D85475abc") else {
-			XCTFail("result cant be nil")
-			return
-		}
-
-		// THEN
-		switch result {
-		case .pcr(let guid, _):
-			XCTAssertEqual("123456-12345678-1234-4DA7-B166-B86D85475abc", guid)
-		case .antigen:
-			XCTFail("expected PCR test")
-		case .teleTAN:
-			XCTFail("expected PCR test")
+		switch parser.coronaTestQRCodeInformation(from: "HTTPS://LOCALHOST/?123456-12345678-1234-4DA7-B166-B86D85475abc") {
+		case let .success(result):
+			// THEN
+			switch result {
+			case .pcr(let guid, _):
+				XCTAssertEqual("123456-12345678-1234-4DA7-B166-B86D85475abc", guid)
+			case .antigen:
+				XCTFail("expected PCR test")
+			case .teleTAN:
+				XCTFail("expected PCR test")
+			}
+		case .failure:
+			XCTFail("Result is nil")
 		}
 	}
 
@@ -332,7 +346,7 @@ class CoronaTestsQRCodeParserTests: CWATestCase {
 		let guid = parser.coronaTestQRCodeInformation(from: "https://localhost/?")
 
 		// THEN
-		XCTAssertNil(guid)
+		XCTAssertEqual(guid, .failure(.scanningError(.codeNotFound)))
 	}
 
 	func testGIVEN_percentescapedSpaceinURL_WHEN_extractGUID_THEN_isValidGUIDMatches() {
@@ -343,7 +357,7 @@ class CoronaTestsQRCodeParserTests: CWATestCase {
 		let guid = parser.coronaTestQRCodeInformation(from: "https://localhost/%20?3D6D08-3567F3F2-4DCF-43A3-8737-4CD1F87D6FDA")
 
 		// THEN
-		XCTAssertNil(guid)
+		XCTAssertEqual(guid, .failure(.scanningError(.codeNotFound)))
 	}
 
 	func testGIVEN_otherHost_WHEN_extractGUID_THEN_isINvalid() {
@@ -354,7 +368,7 @@ class CoronaTestsQRCodeParserTests: CWATestCase {
 		let guid = parser.coronaTestQRCodeInformation(from: "https://some-host.com/?3D6D08-3567F3F2-4DCF-43A3-8737-4CD1F87D6FDA")
 
 		// THEN
-		XCTAssertNil(guid)
+		XCTAssertEqual(guid, .failure(.scanningError(.codeNotFound)))
 	}
 
 	func testGIVEN_httpSchemeURL_WHEN_extractGUID_THEN_isInvalid() {
@@ -365,7 +379,7 @@ class CoronaTestsQRCodeParserTests: CWATestCase {
 		let guid = parser.coronaTestQRCodeInformation(from: "http://localhost/?123456-12345678-1234-4DA7-B166-B86D85475064")
 
 		// THEN
-		XCTAssertNil(guid)
+		XCTAssertEqual(guid, .failure(.scanningError(.codeNotFound)))
 	}
 
 	func testGIVEN_urlWithWrongFormattedGuid_WHEN_extractGUID_THEN_isInvalid() {
@@ -376,7 +390,7 @@ class CoronaTestsQRCodeParserTests: CWATestCase {
 		let guid = parser.coronaTestQRCodeInformation(from: "https://localhost/?3567F3F2-4DCF-43A3-8737-4CD1F87D6FDA")
 
 		// THEN
-		XCTAssertNil(guid)
+		XCTAssertEqual(guid, .failure(.scanningError(.codeNotFound)))
 	}
 
 	func testGIVEN_urlWithToShortInvalidGUID_WHEN_extractGUID_THEN_isInvalid() {
@@ -387,7 +401,7 @@ class CoronaTestsQRCodeParserTests: CWATestCase {
 		let guid = parser.coronaTestQRCodeInformation(from: "https://localhost/?https://localhost/?4CD1F87D6FDA")
 
 		// THEN
-		XCTAssertNil(guid)
+		XCTAssertEqual(guid, .failure(.scanningError(.codeNotFound)))
 	}
 
 	func testGIVEN_wwwLocalhostURL_WHEN_extractGUID_THEN_isInvalid() {
@@ -398,7 +412,7 @@ class CoronaTestsQRCodeParserTests: CWATestCase {
 		let guid = parser.coronaTestQRCodeInformation(from: "https://www.localhost/%20?3D6D08-3567F3F2-4DCF-43A3-8737-4CD1F87D6FDA")
 
 		// THEN
-		XCTAssertNil(guid)
+		XCTAssertEqual(guid, .failure(.scanningError(.codeNotFound)))
 	}
 
 	func testGIVEN_invalidPath_WHEN_extractAntigenPayload_THEN_isInvalid() {
@@ -409,7 +423,7 @@ class CoronaTestsQRCodeParserTests: CWATestCase {
 		let result = parser.coronaTestQRCodeInformation(from: "https://s.coronawarn.app/?v=1#//?eyJ0aW1lc3RhbXAiOjE2MTgyMzM5NzksImd1aWQiOiIwQzg5MjItMEM4OTIyNjMtQTM0Qy00RjM1LTg5QUMtMTcyMzlBMzQ2QUZEIiwiZm4iOiJDYW1lcm9uIiwibG4iOiJIdWRzb24iLCJkb2IiOiIxOTkyLTA4LTA3In0")
 
 		// THEN
-		XCTAssertNil(result)
+		XCTAssertEqual(result, .failure(.invalidError(.invalidTestCode(.invalidPayload))))
 	}
 
 	func testAntigen_hashIsTooShort() {

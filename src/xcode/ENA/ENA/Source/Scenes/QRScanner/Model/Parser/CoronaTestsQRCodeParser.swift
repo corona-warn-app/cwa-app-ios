@@ -83,7 +83,7 @@ class CoronaTestsQRCodeParser: QRCodeParsable {
 				of: #"^[0-9A-Fa-f]{6}-[0-9A-Fa-f]{8}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{12}$"#,
 				options: .regularExpression
 			  ),
-			  matchings.isEmpty
+			  !matchings.isEmpty
 		else {
 			return .failure(.scanningError(.codeNotFound))
 		}
