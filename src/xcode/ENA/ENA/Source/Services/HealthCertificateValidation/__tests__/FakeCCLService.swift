@@ -21,7 +21,7 @@ struct FakeCCLService: CCLServable {
 		completion(didChange)
 	}
 
-	func dccWalletInfo(for certificates: [DCCWalletCertificate]) -> Result<DCCWalletInfo, DCCWalletInfoAccessError> {
+	func dccWalletInfo(for certificates: [DCCWalletCertificate], with identifier: String?) -> Result<DCCWalletInfo, DCCWalletInfoAccessError> {
 		return dccWalletInfoResult
 	}
 
