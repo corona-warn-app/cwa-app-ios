@@ -45,18 +45,22 @@ class CoronaTestsQRCodeParser: QRCodeParsable {
 	func coronaTestQRCodeInformation(
 		from input: String
 	) -> CoronaTestRegistrationInformation? {
-		// general checks for both PCR and Rapid tests
+		// general checks for both PCR, Rapid antigen and Rapid PCR tests
 		guard !input.isEmpty,
 			  let urlComponents = URLComponents(string: input),
 			  !urlComponents.path.contains(" "),
 			  urlComponents.scheme?.lowercased() == "https" else {
-			return nil
-		}
+				  return nil
+			  }
 		// specific checks based on test type
 		if urlComponents.host?.lowercased() == "localhost" {
 			return pcrTestInformation(from: input, urlComponents: urlComponents)
 		} else if let route = Route(input),
 				  case .rapidAntigen(let testInformationResult) = route,
+				  case let .success(testInformation) = testInformationResult {
+			return testInformation
+		} else if let route = Route(input),
+				  case .rapidPCR(let testInformationResult) = route,
 				  case let .success(testInformation) = testInformationResult {
 			return testInformation
 		} else {
