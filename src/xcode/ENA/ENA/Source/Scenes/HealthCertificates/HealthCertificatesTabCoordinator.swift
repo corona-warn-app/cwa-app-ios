@@ -361,6 +361,27 @@ final class HealthCertificatesTabCoordinator {
 		alert.addAction(submitAction)
 		modalNavigationController.present(alert, animated: true)
 	}
+
+	private func showDecodingFailedDeleteAlert(
+		submitAction: UIAlertAction
+	) {
+		let alert = UIAlertController(
+			title: AppStrings.HealthCertificate.Alert.DecodingFailedCertificate.title,
+			message: AppStrings.HealthCertificate.Alert.DecodingFailedCertificate.message,
+			preferredStyle: .alert
+		)
+
+		alert.addAction(
+			UIAlertAction(
+				title: AppStrings.HealthCertificate.Alert.DecodingFailedCertificate.cancelButton,
+				style: .cancel,
+				handler: nil
+			)
+		)
+		alert.addAction(submitAction)
+
+		viewController.present(alert, animated: true)
+	}
 	
 	private func showHealthCertificateFlow(
 		healthCertifiedPerson: HealthCertifiedPerson,
