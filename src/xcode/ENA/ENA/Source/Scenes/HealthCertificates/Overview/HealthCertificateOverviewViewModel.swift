@@ -65,6 +65,7 @@ class HealthCertificateOverviewViewModel {
 	func numberOfRows(in section: Int) -> Int {
 		switch Section(rawValue: section) {
 		case .changeAdmissionScenarioStatusLabel:
+			// to.do this logic will be replaced - EXPOSUREAPP-11811 
 			return healthCertifiedPersons.isEmpty ? 0 : 1
 		case .changeAdmissionScenario:
 			return healthCertifiedPersons.isEmpty ? 0 : 1
