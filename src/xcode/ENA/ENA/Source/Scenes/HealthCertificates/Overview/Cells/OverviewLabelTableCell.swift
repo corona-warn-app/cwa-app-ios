@@ -73,7 +73,6 @@ class OverviewLabelTableCell: UITableViewCell, ReuseIdentifierProviding {
 		backgroundColor = .enaColor(for: .background)
 
 		contentTextLabel.translatesAutoresizingMaskIntoConstraints = false
-
 		contentView.addSubview(contentTextLabel)
 		NSLayoutConstraint.activate([
 			contentView.layoutMarginsGuide.topAnchor.constraint(equalTo: contentTextLabel.topAnchor),
