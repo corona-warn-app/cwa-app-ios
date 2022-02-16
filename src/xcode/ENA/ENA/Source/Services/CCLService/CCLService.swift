@@ -27,6 +27,8 @@ protocol CCLServable {
 
 	var configurationVersion: String { get }
 	
+	var cclAdmissionCheckScenariosDisabled: Bool { get }
+	
 	func updateConfiguration(completion: @escaping (_ didChange: Bool) -> Void)
 	
 	func dccWalletInfo(for certificates: [DCCWalletCertificate], with identifier: String?) -> Swift.Result<DCCWalletInfo, DCCWalletInfoAccessError>
@@ -53,10 +55,12 @@ class CCLService: CCLServable {
 	/// - signatureVerifier: for fake CBOR Receive Resources to work
 	init(
 		_ restServiceProvider: RestServiceProviding,
+		appConfiguration: AppConfigurationProviding,
 		cclServiceMode: [CCLServiceMode] = [.configuration, .boosterRules],
 		signatureVerifier: SignatureVerification = SignatureVerifier()
 	) {
 		self.restServiceProvider = restServiceProvider
+		self.appConfiguration = appConfiguration
 		self.cclServiceMode = cclServiceMode
 
 		var cclConfigurationResource = CCLConfigurationResource()
@@ -102,6 +106,10 @@ class CCLService: CCLServable {
 			.joined(separator: ", ")
 	}
 
+	var cclAdmissionCheckScenariosDisabled: Bool {
+		return self.appConfiguration.featureProvider.boolValue(for: .cclAdmissionCheckScenariosDisabled)
+	}
+	
 	func updateConfiguration(
 		completion: @escaping (_ didChange: Bool) -> Void
 	) {
@@ -202,6 +210,8 @@ class CCLService: CCLServable {
 	// MARK: - Private
 
 	private let restServiceProvider: RestServiceProviding
+	private let appConfiguration: AppConfigurationProviding
+
 	private let jsonFunctions: JsonFunctions = JsonFunctions()
 
 	private let cclConfigurationResource: CCLConfigurationResource
