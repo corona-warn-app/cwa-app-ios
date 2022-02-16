@@ -118,7 +118,7 @@
 
 "ExposureDetection_Guide_Home" = "If possible, please go home and stay at home and avoid any encounters outside of your own household.";
 
-"ExposureDetection_Guide_Hotline" = "If you have any questions, please call 116 117 (in Germany). Then, during the automated message, press 2 (for the Ministry of Health service point). Only press 1 (the general medical emergency service) if you have symptoms.";
+"ExposureDetection_Guide_Hotline" = "If you have any questions, please call 116 117 (in Germany). Then, during the automated message, press 2 for the Federal Ministry of Health service point. Only press 1 (the general medical emergency service) if you have symptoms.";
 
 "ExposureDetection_Guide_Vaccination_HighRisk" = "If you have not been vaccinated yet, consult with your family doctor after you get tested.";
 
@@ -597,7 +597,7 @@
 
 "ExposureSubmission_PhoneDetailsForeign" = "For calls from outside Germany.\nThe fees from your telephone provider will apply.";
 
-"ExposureSubmission_PhoneDetailDescription" = "Our customer service is available in the following languages: \nEnglish, German, Turkish\n\nBusiness hours:\nDaily (including weekends): 7am – 8pm (CET)\n\nIf you have any questions, please call 116 117 (in Germany). Then, during the automated message, press 2 (for the Ministry of Health service point). Only press 1 (the general medical emergency service) if you have symptoms.";
+"ExposureSubmission_PhoneDetailDescription" = "Our customer service is available in the following languages: \nEnglish, German, Turkish\n\nBusiness hours:\nDaily (including weekends): 7am – 8pm (CET)\n\nIf you have any questions, please call 116 117 (in Germany). Then, during the automated message, press 2 for the Federal Ministry of Health service point. Only press 1 (the general medical emergency service) if you have symptoms.";
 
 "ExposureSubmission_SectionDescription2" = "Register your PCR test by entering the TAN in the app.";
 
@@ -1344,7 +1344,9 @@
 /* App Information */
 "App_Information_Title" = "App Information";
 
-"App_Information_Version" = "Version";
+"App_Information_AppVersion" = "App version: %@";
+
+"App_Information_CCLVersion" = "CCL version: %@";
 
 /* App Information - About */
 "App_Information_About_Navigation" = "About the App";
@@ -1385,7 +1387,7 @@
 
 "App_Information_Contact_Hotline_Details_Foreign" = "For calls from outside Germany.\nThe fees from your telephone provider will apply.";
 
-"App_Information_Contact_Hotline_Terms" = "Our customer service is available in the following languages: \nEnglish, German, Turkish\n\nBusiness hours:\nMo-Sa: 7am – 10pm (CET)\n(except national holidays)\n\nIf you have any questions, please call 116 117 (in Germany). Then, during the automated message, press 2 (for the Ministry of Health service point). Only press 1 (the general medical emergency service) if you have symptoms.";
+"App_Information_Contact_Hotline_Terms" = "Our customer service is available in the following languages: \nEnglish, German, Turkish\n\nBusiness hours:\nMo-Sa: 7am – 10pm (CET)\n(except national holidays)\n\nIf you have any questions, please call 116 117 (in Germany). Then, during the automated message, press 2 for the Federal Ministry of Health service point. Only press 1 (the general medical emergency service) if you have symptoms.";
 
 /* App Information - Imprint */
 "App_Information_New_Features_Navigation" = "New Features";
