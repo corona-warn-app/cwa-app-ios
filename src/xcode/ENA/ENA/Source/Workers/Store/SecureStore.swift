@@ -263,6 +263,11 @@ final class SecureStore: SecureKeyValueStoring, Store, AntigenTestProfileStoring
 		get { kvStore["lastSelectedScenarioIdentifier"] as String? ?? nil }
 		set { kvStore["lastSelectedScenarioIdentifier"] = newValue }
 	}
+	
+	var dccAdmissionCheckScenarios: DCCAdmissionCheckScenarios? {
+		get { kvStore["dccAdmissionCheckScenarios"] as DCCAdmissionCheckScenarios? ?? nil }
+		set { kvStore["dccAdmissionCheckScenarios"] = newValue }
+	}
 		
 	// MARK: - Protocol VaccinationCaching
 
