@@ -89,7 +89,6 @@ final class HealthCertificatesTabCoordinator {
 	private let vaccinationValueSetsProvider: VaccinationValueSetsProviding
 	private let qrScannerCoordinator: QRScannerCoordinator
 
-	private var modalNavigationController: DismissHandlingNavigationController!
 	private var certificateCoordinator: HealthCertificateCoordinator?
 	private var healthCertifiedPersonCoordinator: HealthCertifiedPersonCoordinator?
 
