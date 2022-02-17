@@ -3041,6 +3041,16 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "RecoveryCertificate_Alert_message" = "Das Zertifikat wird in den Papierkorb verschoben. Den Papierkorb finden Sie auf der „Mehr“-Kachel der Status-Registerkarte. Dort können Sie es endgültig löschen oder wiederherstellen. Nach 30 Tagen wird das Zertifikat automatisch gelöscht.";
 
+/* Decoding Failed Health Certificate Delete Alert */
+
+"DecodingFailedHealthCertificate_Alert_title" = "Wollen Sie das Zertifikat endgültig löschen?";
+
+"DecodingFailedHealthCertificate_Alert_message" = "Das Zertifikat konnte nicht dekodiert werden, daher können keine Informationen dazu angezeigt werden. Wenn Sie es löschen, können Sie es nicht mehr als Nachweis verwenden.";
+
+"DecodingFailedHealthCertificate_Alert_deleteButton" = "Zertifikat endgültig löschen";
+
+"DecodingFailedHealthCertificate_Alert_cancelButton" = "Abbrechen";
+
 /* Health Certificate Print PDF */
 
 "HealthCertificate_PrintPdf_showPrintableVersion" = "Druckversion anzeigen";

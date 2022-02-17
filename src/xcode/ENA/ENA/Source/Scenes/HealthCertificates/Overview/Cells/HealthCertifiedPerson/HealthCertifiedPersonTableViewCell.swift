@@ -293,6 +293,13 @@ class HealthCertifiedPersonTableViewCell: UITableViewCell, ReuseIdentifierProvid
 		return captionLabel
 	}()
 
+	private lazy var tapGestureRecognizer: UITapGestureRecognizer = {
+		let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(handleTapGesture))
+		gestureRecognizer.numberOfTapsRequired = 7
+
+		return gestureRecognizer
+	}()
+
 	private var cellModel: HealthCertifiedPersonCellModel?
 
 	private func setupAccessibility(
@@ -404,6 +411,8 @@ class HealthCertifiedPersonTableViewCell: UITableViewCell, ReuseIdentifierProvid
 				captionCountLabel.bottomAnchor.constraint(equalTo: captionCountView.bottomAnchor, constant: -2.0)
 			]
 		)
+
+		addGestureRecognizer(tapGestureRecognizer)
 	}
 
 	private func updateBorderColors() {
@@ -414,6 +423,11 @@ class HealthCertifiedPersonTableViewCell: UITableViewCell, ReuseIdentifierProvid
 	@objc
 	func segmentedControlValueChanged(_ sender: UISegmentedControl) {
 		cellModel?.showHealthCertificate(at: sender.selectedSegmentIndex)
+	}
+
+	@objc
+	func handleTapGesture() {
+		cellModel?.onTapToDelete?()
 	}
 
 }

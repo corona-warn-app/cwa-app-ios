@@ -604,6 +604,17 @@ class HealthCertificateService {
 		}
 	}
 
+	func remove(decodingFailedHealthCertificate: DecodingFailedHealthCertificate) {
+		healthCertifiedPersons
+			.first {
+				$0.decodingFailedHealthCertificates.contains(decodingFailedHealthCertificate)
+			}?
+			.decodingFailedHealthCertificates
+			.removeAll {
+				$0 == decodingFailedHealthCertificate
+			}
+	}
+
 	// MARK: - Private
 
 	private let store: HealthCertificateStoring
