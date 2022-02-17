@@ -11,10 +11,12 @@ class HealthCertificateOverviewViewModel {
 	// MARK: - Init
 
 	init(
-		healthCertificateService: HealthCertificateService
+		healthCertificateService: HealthCertificateService,
+		cclService: CCLServable
 	) {
 		self.healthCertificateService = healthCertificateService
-
+		self.cclService = cclService
+		
 		healthCertificateService.$healthCertifiedPersons
 			.sink {
 				self.healthCertifiedPersons = $0
@@ -65,18 +67,15 @@ class HealthCertificateOverviewViewModel {
 	func numberOfRows(in section: Int) -> Int {
 		switch Section(rawValue: section) {
 		case .changeAdmissionScenarioStatusLabel:
-			// to.do this logic will be replaced - EXPOSUREAPP-11811
-			return healthCertifiedPersons.isEmpty ? 0 : 1
+			return rowsForAdmissionCheckScenarios()
 		case .changeAdmissionScenario:
-			// to.do this logic will be replaced - EXPOSUREAPP-11811
-			return healthCertifiedPersons.isEmpty ? 0 : 1
+			return rowsForAdmissionCheckScenarios()
 		case .testCertificateRequest:
 			return testCertificateRequests.count
 		case .healthCertificate:
 			return healthCertifiedPersons.count
 		case .healthCertificateScanningInfo:
-			// to.do this logic will be replaced - EXPOSUREAPP-11811
-			return healthCertifiedPersons.isEmpty ? 0 : 1
+			return rowsForAdmissionCheckScenarios()
 		case .decodingFailedHealthCertificates:
 			return decodingFailedHealthCertificates.count
 		case .none:
@@ -106,10 +105,17 @@ class HealthCertificateOverviewViewModel {
 	func attemptToRestoreDecodingFailedHealthCertificates() {
 		healthCertificateService.attemptToRestoreDecodingFailedHealthCertificates()
 	}
-
+	
 	// MARK: - Private
 
 	private let healthCertificateService: HealthCertificateService
+	private let cclService: CCLServable
 	private var subscriptions = Set<AnyCancellable>()
 
+	private var rowsForAdmissionCheckScenarios: Int {
+		if !healthCertifiedPersons.isEmpty && !cclService.cclAdmissionCheckScenariosDisabled {
+			return 1
+		}
+		return 0
+	}
 }

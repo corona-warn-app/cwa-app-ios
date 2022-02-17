@@ -8,6 +8,7 @@ import OpenCombine
 
 /// The `SecureStore` class implements the `Store` protocol that defines all required storage attributes.
 /// It uses an SQLite Database that still needs to be encrypted
+// swiftlint:disable file_length
 final class SecureStore: SecureKeyValueStoring, Store, AntigenTestProfileStoring {
 
 	// MARK: - Init
@@ -258,6 +259,11 @@ final class SecureStore: SecureKeyValueStoring, Store, AntigenTestProfileStoring
 		set { kvStore["lastSelectedValidationDate"] = newValue }
 	}
 	
+	var lastSelectedScenarioIdentifier: String? {
+		get { kvStore["lastSelectedScenarioIdentifier"] as String? ?? nil }
+		set { kvStore["lastSelectedScenarioIdentifier"] = newValue }
+	}
+		
 	// MARK: - Protocol VaccinationCaching
 
 	var vaccinationCertificateValueDataSets: VaccinationValueDataSets? {

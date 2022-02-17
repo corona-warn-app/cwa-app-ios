@@ -52,17 +52,34 @@ enum GetWalletInfoInput {
 		with date: Date = Date(),
 		language: String = Locale.current.languageCode ?? "en",
 		certificates: [DCCWalletCertificate],
-		boosterNotificationRules: [Rule]
+		boosterNotificationRules: [Rule],
+		identifier: String?
 	) -> [String: AnyDecodable] {
 		return CCLDefaultInput.addingTo(
 			parameters: [
 				"certificates": AnyDecodable(certificates),
-				"boosterNotificationRules": AnyDecodable(boosterNotificationRules)
+				"boosterNotificationRules": AnyDecodable(boosterNotificationRules),
+				"scenarioIdentifier": AnyDecodable(identifier)
 			],
 			date: date,
 			language: language
 		)
 	}
+}
+
+enum GetAdmissionCheckScenariosInput {
+	
+	static func make(
+		with date: Date = Date(),
+		language: String = Locale.current.languageCode ?? "en"
+	) -> [String: AnyDecodable] {
+		return CCLDefaultInput.addingTo(
+			parameters: [:],
+			date: date,
+			language: language
+		)
+	}
+
 }
 
 extension SystemTime {

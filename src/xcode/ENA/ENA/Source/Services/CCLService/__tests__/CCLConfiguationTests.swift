@@ -14,15 +14,16 @@ class CCLServiceConfigurationTests: CCLServiceBaseTests {
 	func testGIVEN_emptyCache_WHEN_404_THEN_didChangeIsFalse() throws {
 		// GIVEN
 		let eTag = "DummyDataETag"
+		let appConfiguration = CachedAppConfigurationMock()
 		let stack = MockNetworkStack(
 			httpStatus: 404,
 			headerFields: [
 				"ETag": eTag
 			]
 		)
-
+		
 		let restServiceProvider = RestServiceProvider(session: stack.urlSession, cache: KeyValueCacheFake())
-		let cclService = CCLService(restServiceProvider, cclServiceMode: [.configuration], signatureVerifier: MockVerifier())
+		let cclService = CCLService(restServiceProvider, appConfiguration: appConfiguration, cclServiceMode: [.configuration], signatureVerifier: MockVerifier())
 		let expectation = expectation(description: "update finished")
 
 		// WHEN
@@ -41,6 +42,7 @@ class CCLServiceConfigurationTests: CCLServiceBaseTests {
 		// GIVEN
 		let eTag = "DummyDataETag"
 		let cclConfigurationData = try cclConfigurationData()
+		let appConfiguration = CachedAppConfigurationMock()
 
 		let stack = MockNetworkStack(
 			httpStatus: 200,
@@ -51,7 +53,7 @@ class CCLServiceConfigurationTests: CCLServiceBaseTests {
 		)
 		let cache = try cache(with: Locator.CCLConfiguration(isFake: false), eTag: eTag, date: yesterday, responseData: cclConfigurationData)
 		let restServiceProvider = RestServiceProvider(session: stack.urlSession, cache: cache)
-		let cclService = CCLService(restServiceProvider, cclServiceMode: [.configuration], signatureVerifier: MockVerifier())
+		let cclService = CCLService(restServiceProvider, appConfiguration: appConfiguration, cclServiceMode: [.configuration], signatureVerifier: MockVerifier())
 		let expectation = expectation(description: "update finished")
 
 		// WHEN
@@ -70,6 +72,7 @@ class CCLServiceConfigurationTests: CCLServiceBaseTests {
 		// GIVEN
 		let eTag = "DummyDataETag"
 		let cclConfigurationData = try cclConfigurationData()
+		let appConfiguration = CachedAppConfigurationMock()
 
 		let stack = MockNetworkStack(
 			httpStatus: 200,
@@ -80,7 +83,7 @@ class CCLServiceConfigurationTests: CCLServiceBaseTests {
 		)
 		let cache = try cache(with: Locator.CCLConfiguration(isFake: false), eTag: eTag, date: today, responseData: cclConfigurationData)
 		let restServiceProvider = RestServiceProvider(session: stack.urlSession, cache: cache)
-		let cclService = CCLService(restServiceProvider, cclServiceMode: [.configuration], signatureVerifier: MockVerifier())
+		let cclService = CCLService(restServiceProvider, appConfiguration: appConfiguration, cclServiceMode: [.configuration], signatureVerifier: MockVerifier())
 		let expectation = expectation(description: "update finished")
 
 		// WHEN
@@ -105,10 +108,11 @@ class CCLServiceConfigurationTests: CCLServiceBaseTests {
 				"CCL-DE-0001": "1.0.0"
 			]
 		)
+		let appConfiguration = CachedAppConfigurationMock()
 
 		let cache = try cache(with: Locator.CCLConfiguration(isFake: false), eTag: eTag, date: today, responseData: cclConfigurationData)
 		let restServiceProvider = RestServiceProvider(session: MockNetworkStack().urlSession, cache: cache)
-		let cclService = CCLService(restServiceProvider, cclServiceMode: [.configuration], signatureVerifier: MockVerifier())
+		let cclService = CCLService(restServiceProvider, appConfiguration: appConfiguration, cclServiceMode: [.configuration], signatureVerifier: MockVerifier())
 
 		// WHEN
 		let version = cclService.configurationVersion
@@ -128,10 +132,11 @@ class CCLServiceConfigurationTests: CCLServiceBaseTests {
 				"CCL-DE-0001": "1.0.0"
 			]
 		)
+		let appConfiguration = CachedAppConfigurationMock()
 
 		let cache = try cache(with: Locator.CCLConfiguration(isFake: false), eTag: eTag, date: today, responseData: cclConfigurationData)
 		let restServiceProvider = RestServiceProvider(session: MockNetworkStack().urlSession, cache: cache)
-		let cclService = CCLService(restServiceProvider, cclServiceMode: [.configuration], signatureVerifier: MockVerifier())
+		let cclService = CCLService(restServiceProvider, appConfiguration: appConfiguration, cclServiceMode: [.configuration], signatureVerifier: MockVerifier())
 
 		// WHEN
 		let version = cclService.configurationVersion
@@ -143,6 +148,7 @@ class CCLServiceConfigurationTests: CCLServiceBaseTests {
 	func testGIVEN_newCCLConfiguration_WHEN_updatingConfiguration_THEN_versionIsUpdated() throws {
 		// GIVEN
 		let eTag = "DummyDataETag"
+		let appConfiguration = CachedAppConfigurationMock()
 		let oldCCLConfigurationData = try cclConfigurationData(
 			identifiersAndVersions: [
 				"CCL-DE-0001": "1.0.0"
@@ -165,7 +171,7 @@ class CCLServiceConfigurationTests: CCLServiceBaseTests {
 		)
 		let cache = try cache(with: Locator.CCLConfiguration(isFake: false), eTag: eTag, date: yesterday, responseData: oldCCLConfigurationData)
 		let restServiceProvider = RestServiceProvider(session: stack.urlSession, cache: cache)
-		let cclService = CCLService(restServiceProvider, cclServiceMode: [.configuration], signatureVerifier: MockVerifier())
+		let cclService = CCLService(restServiceProvider, appConfiguration: appConfiguration, cclServiceMode: [.configuration], signatureVerifier: MockVerifier())
 		let expectation = expectation(description: "update finished")
 
 		// WHEN

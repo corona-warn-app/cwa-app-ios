@@ -104,7 +104,8 @@ final class HealthCertificatesTabCoordinator {
 	private lazy var overviewScreen: HealthCertificateOverviewViewController = {
 		return HealthCertificateOverviewViewController(
 			viewModel: HealthCertificateOverviewViewModel(
-				healthCertificateService: healthCertificateService
+				healthCertificateService: healthCertificateService,
+				cclService: cclService
 			),
 			cclService: cclService,
 			onInfoBarButtonItemTap: { [weak self] in

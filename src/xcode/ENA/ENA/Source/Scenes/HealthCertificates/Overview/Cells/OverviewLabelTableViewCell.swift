@@ -5,7 +5,7 @@
 import Foundation
 import UIKit
 
-class OverviewLabelTableCell: UITableViewCell, ReuseIdentifierProviding {
+class OverviewLabelTableViewCell: UITableViewCell, ReuseIdentifierProviding {
 
 	// MARK: - Init
 
@@ -73,6 +73,7 @@ class OverviewLabelTableCell: UITableViewCell, ReuseIdentifierProviding {
 		backgroundColor = .enaColor(for: .background)
 		contentTextLabel.translatesAutoresizingMaskIntoConstraints = false
 		contentView.addSubview(contentTextLabel)
+
 		NSLayoutConstraint.activate([
 			contentView.layoutMarginsGuide.topAnchor.constraint(equalTo: contentTextLabel.topAnchor),
 			contentView.layoutMarginsGuide.bottomAnchor.constraint(equalTo: contentTextLabel.bottomAnchor),

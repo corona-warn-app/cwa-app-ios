@@ -19,14 +19,22 @@ enum DCCWalletInfoAccessError: Error {
 	case failedFunctionsEvaluation(Error)
 }
 
+enum DCCAdmissionCheckScenariosAccessError: Error {
+	case failedFunctionsEvaluation(Error)
+}
+
 protocol CCLServable {
 
 	var configurationVersion: String { get }
 	
+	var cclAdmissionCheckScenariosDisabled: Bool { get }
+	
 	func updateConfiguration(completion: @escaping (_ didChange: Bool) -> Void)
 	
-	func dccWalletInfo(for certificates: [DCCWalletCertificate]) -> Swift.Result<DCCWalletInfo, DCCWalletInfoAccessError>
+	func dccWalletInfo(for certificates: [DCCWalletCertificate], with identifier: String?) -> Swift.Result<DCCWalletInfo, DCCWalletInfoAccessError>
 	
+	func dccAdmissionCheckScenarios() -> Swift.Result<DCCAdmissionCheckScenarios, DCCAdmissionCheckScenariosAccessError>
+
 	func evaluateFunctionWithDefaultValues<T: Decodable>(name: String, parameters: [String: AnyDecodable]) throws -> T
 
 }
@@ -47,10 +55,12 @@ class CCLService: CCLServable {
 	/// - signatureVerifier: for fake CBOR Receive Resources to work
 	init(
 		_ restServiceProvider: RestServiceProviding,
+		appConfiguration: AppConfigurationProviding,
 		cclServiceMode: [CCLServiceMode] = [.configuration, .boosterRules],
 		signatureVerifier: SignatureVerification = SignatureVerifier()
 	) {
 		self.restServiceProvider = restServiceProvider
+		self.appConfiguration = appConfiguration
 		self.cclServiceMode = cclServiceMode
 
 		var cclConfigurationResource = CCLConfigurationResource()
@@ -96,6 +106,10 @@ class CCLService: CCLServable {
 			.joined(separator: ", ")
 	}
 
+	var cclAdmissionCheckScenariosDisabled: Bool {
+		return self.appConfiguration.featureProvider.boolValue(for: .cclAdmissionCheckScenariosDisabled)
+	}
+	
 	func updateConfiguration(
 		completion: @escaping (_ didChange: Bool) -> Void
 	) {
@@ -148,12 +162,29 @@ class CCLService: CCLServable {
 		}
 	}
 	
+	func dccAdmissionCheckScenarios() -> Swift.Result<DCCAdmissionCheckScenarios, DCCAdmissionCheckScenariosAccessError> {
+		let getAdmissionCheckScenariosInput = GetAdmissionCheckScenariosInput.make()
+		
+		do {
+			let admissionCheckScenarios: DCCAdmissionCheckScenarios = try jsonFunctions.evaluateFunction(
+				name: "getDccAdmissionCheckScenarios",
+				parameters: getAdmissionCheckScenariosInput
+			)
+			
+			return .success(admissionCheckScenarios)
+		} catch {
+			return .failure(.failedFunctionsEvaluation(error))
+		}
+	}
+	
 	func dccWalletInfo(
-		for certificates: [DCCWalletCertificate]
+		for certificates: [DCCWalletCertificate],
+		with identifer: String? = ""
 	) -> Swift.Result<DCCWalletInfo, DCCWalletInfoAccessError> {
 		let getWalletInfoInput = GetWalletInfoInput.make(
 			certificates: certificates,
-			boosterNotificationRules: boosterNotificationRules
+			boosterNotificationRules: boosterNotificationRules,
+			identifier: identifer
 		)
 		
 		do {
@@ -161,6 +192,7 @@ class CCLService: CCLServable {
 				name: "getDccWalletInfo",
 				parameters: getWalletInfoInput
 			)
+			
 			return .success(walletInfo)
 		} catch {
 			return .failure(.failedFunctionsEvaluation(error))
@@ -178,6 +210,8 @@ class CCLService: CCLServable {
 	// MARK: - Private
 
 	private let restServiceProvider: RestServiceProviding
+	private let appConfiguration: AppConfigurationProviding
+
 	private let jsonFunctions: JsonFunctions = JsonFunctions()
 
 	private let cclConfigurationResource: CCLConfigurationResource

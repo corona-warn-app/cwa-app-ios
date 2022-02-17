@@ -213,6 +213,8 @@ protocol HealthCertificateStoring: AnyObject {
 	var lastBoosterNotificationsExecutionDate: Date? { get set }
 
 	var healthCertifiedPersonsVersion: Int? { get set }
+	
+	var lastSelectedScenarioIdentifier: String? { get set }
 
 }
 
