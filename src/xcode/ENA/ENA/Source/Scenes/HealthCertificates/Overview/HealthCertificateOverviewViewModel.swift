@@ -112,7 +112,7 @@ class HealthCertificateOverviewViewModel {
 	private let cclService: CCLServable
 	private var subscriptions = Set<AnyCancellable>()
 
-	private func rowsForAdmissionCheckScenarios() -> Int {
+	private var rowsForAdmissionCheckScenarios: Int {
 		if !healthCertifiedPersons.isEmpty && !cclService.cclAdmissionCheckScenariosDisabled {
 			return 1
 		}
