@@ -135,9 +135,43 @@ final class HealthCertifiedPersonCoordinator {
 				self.presentCovPassInfoScreen(self.navigationController)
 			},
 			didTapUpdateNotification: { [weak self] in
-//				self?.presentUpdateConsent()
+				self?.showUpdateConsent()
 			}
 		)
+	}
+
+	private func showUpdateConsent() {
+		let updateConsentViewController = HealthCertifiedPersonUpdateConsentViewController(
+			presentAlert: { [weak self] okAction, retryAction in
+				let alert = UIAlertController(title: "Fehler", message: "Möglicherweise wurde Ihre Internet-Verbindung unterbrochen. Bitte stellen Sie sicher, dass Sie mit dem Internet verbunden sind.", preferredStyle: .alert)
+				alert.addAction(okAction)
+				alert.addAction(retryAction)
+				self?.navigationController.present(alert, animated: true)
+			},
+			presentUpdateSuccess: {
+				Log.info("NYD")
+			},
+			dismiss: { [weak self] in
+				self?.navigationController.dismiss(animated: true)
+			}
+		)
+		updateConsentViewController.navigationItem.hidesBackButton = true
+
+		let footerViewModel = FooterViewModel(
+			primaryButtonName: "Einverstanden",
+			secondaryButtonName: "Abbrechen",
+			isPrimaryButtonEnabled: false,
+			isSecondaryButtonEnabled: true,
+			primaryCustomDisableBackgroundColor: .enaColor(for: .backgroundLightGray),
+			secondaryCustomDisableBackgroundColor: .enaColor(for: .backgroundLightGray)
+		)
+		let footerViewController = FooterViewController(footerViewModel)
+
+		let containerViewController = TopBottomContainerViewController(
+			topController: updateConsentViewController,
+			bottomController: footerViewController
+		)
+		navigationController.pushViewController(containerViewController, animated: true)
 	}
 
 	private func showDeleteAlert(
