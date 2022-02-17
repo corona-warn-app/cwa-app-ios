@@ -6063,8 +6063,16 @@
 		50CDFB2527BE82C700FE0793 /* DCCReissuance */ = {
 			isa = PBXGroup;
 			children = (
+				50CDFB2627BE82DA00FE0793 /* __tests__ */,
 			);
 			path = DCCReissuance;
+			sourceTree = "<group>";
+		};
+		50CDFB2627BE82DA00FE0793 /* __tests__ */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = __tests__;
 			sourceTree = "<group>";
 		};
 		50D50A5E25D6CC760092BC2A /* DataDonation */ = {
