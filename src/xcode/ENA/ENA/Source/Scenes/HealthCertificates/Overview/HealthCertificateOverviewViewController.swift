@@ -53,6 +53,13 @@ class HealthCertificateOverviewViewController: UITableViewController {
 				self.showErrorAlert(error: error)
 			}
 			.store(in: &subscriptions)
+		
+		viewModel.$changeAdmissionScenarioStatusLabel
+			.receive(on: DispatchQueue.OCombine(.main))
+			.sink { [weak self] _ in
+				self?.tableView.reloadData()
+			}
+			.store(in: &subscriptions)
 	}
 
 	@available(*, unavailable)
@@ -192,8 +199,7 @@ class HealthCertificateOverviewViewController: UITableViewController {
 			fatalError("Could not dequeue OverviewLabelTableCell")
 		}
 
-		// to.do should be dynamic - EXPOSUREAPP-11876
-		cell.configure(text: "Status für folgendes Bundesland", noBottomInset: true, textAlignment: .left)
+		cell.configure(text: viewModel.changeAdmissionScenarioStatusLabel?.localized(cclService: cclService) ?? AppStrings.HealthCertificate.Overview.admissionScenarioStatusLabel, noBottomInset: true, textAlignment: .left)
 		return cell
 	}
 	
@@ -202,7 +208,7 @@ class HealthCertificateOverviewViewController: UITableViewController {
 			fatalError("Could not dequeue ChangeAdmissionScenarionCell")
 		}
 
-		cell.configure(cellModel: ChangeAdmissionScenarionCellModel())
+		cell.configure(cellModel: ChangeAdmissionScenarionCellModel(changeAdmissionScenarioButtonLabel: viewModel.changeAdmissionScenarioButtonLabel?.localized(cclService: cclService) ?? AppStrings.HealthCertificate.Overview.admissionScenarioButtonLabel))
 		cell.accessibilityIdentifier = AccessibilityIdentifiers.HealthCertificate.Overview.changeAdmissionScenarioCell
 		return cell
 	}

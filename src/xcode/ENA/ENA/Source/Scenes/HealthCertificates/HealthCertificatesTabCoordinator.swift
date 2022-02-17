@@ -104,6 +104,7 @@ final class HealthCertificatesTabCoordinator {
 	private lazy var overviewScreen: HealthCertificateOverviewViewController = {
 		return HealthCertificateOverviewViewController(
 			viewModel: HealthCertificateOverviewViewModel(
+				store: store,
 				healthCertificateService: healthCertificateService,
 				cclService: cclService
 			),

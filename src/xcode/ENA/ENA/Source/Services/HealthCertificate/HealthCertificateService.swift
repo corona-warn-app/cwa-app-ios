@@ -94,7 +94,15 @@ class HealthCertificateService {
 			updateTestCertificateRequestSubscriptions(for: testCertificateRequests)
 		}
 	}
-
+	
+	@DidSetPublished var lastSelectedScenarioIdentifier: String? {
+		didSet {
+			if lastSelectedScenarioIdentifier != oldValue {
+				updateDCCWalletInfoForAllPersons()
+			}
+		}
+	}
+	
 	private(set) var unseenNewsCount = CurrentValueSubject<Int, Never>(0)
 	var didRegisterTestCertificate: ((String, TestCertificateRequest) -> Void)?
 	
@@ -717,8 +725,7 @@ class HealthCertificateService {
 	private func updateDCCWalletInfo(for person: HealthCertifiedPerson, completion: (() -> Void)? = nil) {
 		person.queue.async {
 			let result = self.cclService.dccWalletInfo(
-				// to.do update identifier based on selection - EXPOSUREAPP-11876
-				for: person.healthCertificates.map { $0.dccWalletCertificate }, with: ""
+				for: person.healthCertificates.map { $0.dccWalletCertificate }, with: self.lastSelectedScenarioIdentifier ?? ""
 			)
 
 			switch result {
@@ -1170,6 +1177,12 @@ class HealthCertificateService {
 		)
 
 		addNotification(request: request, completion: completion)
+	}
+	
+	private func updateDCCWalletInfoForAllPersons() {
+		for person in self.healthCertifiedPersons {
+			self.updateDCCWalletInfo(for: person)
+		}
 	}
 
 	// swiftlint:disable:next file_length

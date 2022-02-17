@@ -7,10 +7,17 @@ import OpenCombine
 
 class ChangeAdmissionScenarionCellModel: AddButtonAsTableViewCelling {
 	
+	// MARK: - Init
+
+	init(
+		changeAdmissionScenarioButtonLabel: String
+	) {
+		self.text = changeAdmissionScenarioButtonLabel
+	}
+	
 	// MARK: - Internal
 
-	// to.do should be dynamic - EXPOSUREAPP-11876
-	let text: String = "Regeln des Bundes"
+	let text: String
 
 	var iconImagePublisher = CurrentValueSubject<UIImage?, Never>(UIImage(named: "Icons_admission_state"))
 	var textColorPublisher = CurrentValueSubject<UIColor, Never>(.enaColor(for: .textPrimary1))
