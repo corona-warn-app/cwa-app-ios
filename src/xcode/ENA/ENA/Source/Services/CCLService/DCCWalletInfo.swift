@@ -10,9 +10,10 @@ struct DCCWalletInfo: Codable, Equatable {
 	let admissionState: DCCAdmissionState
 	let vaccinationState: DCCVaccinationState
 	let boosterNotification: DCCBoosterNotification
-	let mostRelevantCertificate: DCCMostRelevantCertificate
+	let mostRelevantCertificate: DCCCertificateContainer
 	let verification: DCCVerification
 	let validUntil: Date?
+	let certificateReissuance: DCCCertificateReissuance?
 
 }
 
@@ -48,7 +49,7 @@ struct DCCBoosterNotification: Codable, Equatable {
 
 }
 
-struct DCCMostRelevantCertificate: Codable, Equatable {
+struct DCCCertificateContainer: Codable, Equatable {
 
 	let certificateRef: DCCCertificateReference
 
@@ -70,5 +71,23 @@ struct DCCVerificationCertificate: Codable, Equatable {
 struct DCCCertificateReference: Codable, Equatable {
 
 	let barcodeData: String?
+
+}
+
+struct DCCCertificateReissuance: Codable, Equatable {
+
+	let reissuanceDivision: DCCCertificateReissuanceDivision
+	let certificateToReissue: DCCCertificateContainer
+	let accompanyingCertificates: [DCCCertificateContainer]
+
+}
+
+struct DCCCertificateReissuanceDivision: Codable, Equatable {
+
+	let visible: Bool
+	let titleText: DCCUIText?
+	let subtitleText: DCCUIText?
+	let longText: DCCUIText?
+	let faqAnchor: String?
 
 }

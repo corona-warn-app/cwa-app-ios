@@ -192,7 +192,8 @@ extension HealthCertificateService {
 			boosterNotification: DCCBoosterNotification(visible: true, identifier: "hello", titleText: titleText, subtitleText: subtitleText, longText: testLongText, faqAnchor: "test"),
 			mostRelevantCertificate: dccWalletInfo.mostRelevantCertificate,
 			verification: dccWalletInfo.verification,
-			validUntil: dccWalletInfo.validUntil
+			validUntil: dccWalletInfo.validUntil,
+			certificateReissuance: dccWalletInfo.certificateReissuance
 		)
 	}
 	#endif
