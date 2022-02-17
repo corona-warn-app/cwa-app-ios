@@ -133,9 +133,6 @@ final class HealthCertifiedPersonCoordinator {
 					return
 				}
 				self.presentCovPassInfoScreen(self.navigationController)
-			},
-			didTapUpdateNotification: { [weak self] in
-//				self?.presentUpdateConsent()
 			}
 		)
 	}
