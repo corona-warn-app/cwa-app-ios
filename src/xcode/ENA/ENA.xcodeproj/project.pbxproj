@@ -781,6 +781,7 @@
 		50C5204025ADACBB008DF2F4 /* HomeShownPositiveTestResultCellModelTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50C5203F25ADACBB008DF2F4 /* HomeShownPositiveTestResultCellModelTest.swift */; };
 		50C5C1B525891CC800C4817A /* DynamicLegalExtendedCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 50C5C1B425891CC800C4817A /* DynamicLegalExtendedCell.xib */; };
 		50C5C1BA258920AD00C4817A /* DynamicLegalExtendedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50C5C1B9258920AD00C4817A /* DynamicLegalExtendedCell.swift */; };
+		50CDFB2C27BE82FB00FE0793 /* DCCReissuanceSendModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50CDFB2B27BE82FB00FE0793 /* DCCReissuanceSendModel.swift */; };
 		50CDFB2E27BE84E800FE0793 /* Locator+DCCReissuance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50CDFB2D27BE84E800FE0793 /* Locator+DCCReissuance.swift */; };
 		50D3493D274E85E400F00493 /* String+Regex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50D3493C274E85E400F00493 /* String+Regex.swift */; };
 		50D3493F274FB66C00F00493 /* ServiceIdentityDocumentResourceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50D3493E274FB66C00F00493 /* ServiceIdentityDocumentResourceTests.swift */; };
@@ -2460,6 +2461,7 @@
 		50C5203F25ADACBB008DF2F4 /* HomeShownPositiveTestResultCellModelTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeShownPositiveTestResultCellModelTest.swift; sourceTree = "<group>"; };
 		50C5C1B425891CC800C4817A /* DynamicLegalExtendedCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DynamicLegalExtendedCell.xib; sourceTree = "<group>"; };
 		50C5C1B9258920AD00C4817A /* DynamicLegalExtendedCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicLegalExtendedCell.swift; sourceTree = "<group>"; };
+		50CDFB2B27BE82FB00FE0793 /* DCCReissuanceSendModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DCCReissuanceSendModel.swift; sourceTree = "<group>"; };
 		50CDFB2D27BE84E800FE0793 /* Locator+DCCReissuance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Locator+DCCReissuance.swift"; sourceTree = "<group>"; };
 		50D3493C274E85E400F00493 /* String+Regex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Regex.swift"; sourceTree = "<group>"; };
 		50D3493E274FB66C00F00493 /* ServiceIdentityDocumentResourceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceIdentityDocumentResourceTests.swift; sourceTree = "<group>"; };
@@ -6065,6 +6067,7 @@
 			children = (
 				50CDFB2627BE82DA00FE0793 /* __tests__ */,
 				50CDFB2D27BE84E800FE0793 /* Locator+DCCReissuance.swift */,
+				50CDFB2B27BE82FB00FE0793 /* DCCReissuanceSendModel.swift */,
 			);
 			path = DCCReissuance;
 			sourceTree = "<group>";
@@ -10513,6 +10516,7 @@
 				EB513DFE25FA34E60020C0B9 /* trace_warning.pb.swift in Sources */,
 				B143DBDF2477F292000A29E8 /* ExposureNotificationSettingViewController.swift in Sources */,
 				BAF640EE26DF86BF00B3A18E /* Endpoint.swift in Sources */,
+				50CDFB2C27BE82FB00FE0793 /* DCCReissuanceSendModel.swift in Sources */,
 				016146912487A43E00660992 /* LinkHelper.swift in Sources */,
 				50C0299425E4067400460FA4 /* TestResultMetadata.swift in Sources */,
 				ABE961EE25F61E0F00D0F699 /* EventStore+Creation.swift in Sources */,
