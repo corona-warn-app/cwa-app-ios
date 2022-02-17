@@ -781,6 +781,7 @@
 		50C5204025ADACBB008DF2F4 /* HomeShownPositiveTestResultCellModelTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50C5203F25ADACBB008DF2F4 /* HomeShownPositiveTestResultCellModelTest.swift */; };
 		50C5C1B525891CC800C4817A /* DynamicLegalExtendedCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 50C5C1B425891CC800C4817A /* DynamicLegalExtendedCell.xib */; };
 		50C5C1BA258920AD00C4817A /* DynamicLegalExtendedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50C5C1B9258920AD00C4817A /* DynamicLegalExtendedCell.swift */; };
+		50CDFB2827BE82E900FE0793 /* DCCReissuanceResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50CDFB2727BE82E900FE0793 /* DCCReissuanceResource.swift */; };
 		50CDFB2A27BE82F300FE0793 /* DCCReissuanceReceiveModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50CDFB2927BE82F300FE0793 /* DCCReissuanceReceiveModel.swift */; };
 		50CDFB2C27BE82FB00FE0793 /* DCCReissuanceSendModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50CDFB2B27BE82FB00FE0793 /* DCCReissuanceSendModel.swift */; };
 		50CDFB2E27BE84E800FE0793 /* Locator+DCCReissuance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50CDFB2D27BE84E800FE0793 /* Locator+DCCReissuance.swift */; };
@@ -2462,6 +2463,7 @@
 		50C5203F25ADACBB008DF2F4 /* HomeShownPositiveTestResultCellModelTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeShownPositiveTestResultCellModelTest.swift; sourceTree = "<group>"; };
 		50C5C1B425891CC800C4817A /* DynamicLegalExtendedCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DynamicLegalExtendedCell.xib; sourceTree = "<group>"; };
 		50C5C1B9258920AD00C4817A /* DynamicLegalExtendedCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicLegalExtendedCell.swift; sourceTree = "<group>"; };
+		50CDFB2727BE82E900FE0793 /* DCCReissuanceResource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DCCReissuanceResource.swift; sourceTree = "<group>"; };
 		50CDFB2927BE82F300FE0793 /* DCCReissuanceReceiveModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DCCReissuanceReceiveModel.swift; sourceTree = "<group>"; };
 		50CDFB2B27BE82FB00FE0793 /* DCCReissuanceSendModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DCCReissuanceSendModel.swift; sourceTree = "<group>"; };
 		50CDFB2D27BE84E800FE0793 /* Locator+DCCReissuance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Locator+DCCReissuance.swift"; sourceTree = "<group>"; };
@@ -6069,6 +6071,7 @@
 			children = (
 				50CDFB2627BE82DA00FE0793 /* __tests__ */,
 				50CDFB2D27BE84E800FE0793 /* Locator+DCCReissuance.swift */,
+				50CDFB2727BE82E900FE0793 /* DCCReissuanceResource.swift */,
 				50CDFB2927BE82F300FE0793 /* DCCReissuanceReceiveModel.swift */,
 				50CDFB2B27BE82FB00FE0793 /* DCCReissuanceSendModel.swift */,
 			);
@@ -10422,6 +10425,7 @@
 				ABC506CF274BE30700698A95 /* Locator+ServiceIdentityDocument.swift in Sources */,
 				013C412825545C2D00826C9F /* DebugRiskCalculation.swift in Sources */,
 				51D420B724583B7200AD70CA /* NSObject+Identifier.swift in Sources */,
+				50CDFB2827BE82E900FE0793 /* DCCReissuanceResource.swift in Sources */,
 				BA69A7F825CD87C200023265 /* SelectValueCellViewModel.swift in Sources */,
 				CDCE11D6247D644100F30825 /* NotificationSettingsViewModel.swift in Sources */,
 				BA0073EA25D196900036DFDD /* DefaultDataDonationViewModel.swift in Sources */,
