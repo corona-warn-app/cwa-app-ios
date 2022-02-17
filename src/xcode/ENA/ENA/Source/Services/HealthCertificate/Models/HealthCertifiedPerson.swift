@@ -96,19 +96,22 @@ class HealthCertifiedPerson: Codable, Equatable, Comparable {
 		try container.encode(healthCertificates, forKey: .healthCertificates)
 		try container.encode(decodingFailedHealthCertificates, forKey: .decodingFailedHealthCertificates)
 		try container.encode(isPreferredPerson, forKey: .isPreferredPerson)
+		try container.encode(dccWalletInfo, forKey: .dccWalletInfo)
+		try container.encode(mostRecentWalletInfoUpdateFailed, forKey: .mostRecentWalletInfoUpdateFailed)
 		try container.encode(boosterRule, forKey: .boosterRule)
 		try container.encode(isNewBoosterRule, forKey: .isNewBoosterRule)
-		try container.encode(dccWalletInfo, forKey: .dccWalletInfo)
 	}
 
 	// MARK: - Protocol Equatable
 
 	static func == (lhs: HealthCertifiedPerson, rhs: HealthCertifiedPerson) -> Bool {
 		lhs.healthCertificates == rhs.healthCertificates &&
+		lhs.decodingFailedHealthCertificates == rhs.decodingFailedHealthCertificates &&
 		lhs.isPreferredPerson == rhs.isPreferredPerson &&
+		lhs.dccWalletInfo == rhs.dccWalletInfo &&
+		lhs.mostRecentWalletInfoUpdateFailed == rhs.mostRecentWalletInfoUpdateFailed &&
 		lhs.boosterRule == rhs.boosterRule &&
-		lhs.isNewBoosterRule == rhs.isNewBoosterRule &&
-		lhs.dccWalletInfo == rhs.dccWalletInfo
+		lhs.isNewBoosterRule == rhs.isNewBoosterRule
 	}
 
 	// MARK: - Protocol Comparable
@@ -118,7 +121,6 @@ class HealthCertifiedPerson: Codable, Equatable, Comparable {
 		let haveSamePreferredStateAndAreInAlphabeticalOrder = lhs.isPreferredPerson == rhs.isPreferredPerson && lhs.name?.fullName ?? "" < rhs.name?.fullName ?? ""
 
 		return preferredPersonPrecedesNonPreferred || haveSamePreferredStateAndAreInAlphabeticalOrder
-
 	}
 
 	// MARK: - Internal
