@@ -6064,6 +6064,7 @@
 			isa = PBXGroup;
 			children = (
 				50CDFB2627BE82DA00FE0793 /* __tests__ */,
+				50CDFB2D27BE84E800FE0793 /* Locator+DCCReissuance.swift */,
 			);
 			path = DCCReissuance;
 			sourceTree = "<group>";
