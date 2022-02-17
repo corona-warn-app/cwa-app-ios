@@ -734,6 +734,7 @@
 		509B1E4126D3F832007B97E0 /* HealthCertificatePDFVersionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 509B1E3E26D3F832007B97E0 /* HealthCertificatePDFVersionViewController.swift */; };
 		509B1E4426D62BB2007B97E0 /* HealthCertificatePDFGenerationInfoViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 509B1E4326D62BB2007B97E0 /* HealthCertificatePDFGenerationInfoViewModelTests.swift */; };
 		509C69FE25B5D920000F2A4C /* ENAUITests_01b_Statistics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 509C69FD25B5D920000F2A4C /* ENAUITests_01b_Statistics.swift */; };
+		50A24A1327B29CAB005DDB9B /* HealthCertificateService+GroupingAfterDeletionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50A24A1127B29C8C005DDB9B /* HealthCertificateService+GroupingAfterDeletionTests.swift */; };
 		50A345E3270B8D8500CD9DB6 /* UITableViewCell+ViewTags.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50A345E2270B8D8500CD9DB6 /* UITableViewCell+ViewTags.swift */; };
 		50A7168826CFC74100D5EDFC /* HealthCertificatePDFGenerationInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50A7168726CFC74100D5EDFC /* HealthCertificatePDFGenerationInfoViewController.swift */; };
 		50A7168A26CFC97300D5EDFC /* HealthCertificatePDFGenerationInfoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50A7168926CFC97300D5EDFC /* HealthCertificatePDFGenerationInfoViewModel.swift */; };
@@ -781,6 +782,7 @@
 		50C5204025ADACBB008DF2F4 /* HomeShownPositiveTestResultCellModelTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50C5203F25ADACBB008DF2F4 /* HomeShownPositiveTestResultCellModelTest.swift */; };
 		50C5C1B525891CC800C4817A /* DynamicLegalExtendedCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 50C5C1B425891CC800C4817A /* DynamicLegalExtendedCell.xib */; };
 		50C5C1BA258920AD00C4817A /* DynamicLegalExtendedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50C5C1B9258920AD00C4817A /* DynamicLegalExtendedCell.swift */; };
+		50CDFB2027BBEADC00FE0793 /* HealthCertifiedPersonArray+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50CDFB1F27BBEADC00FE0793 /* HealthCertifiedPersonArray+Utils.swift */; };
 		50D3493D274E85E400F00493 /* String+Regex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50D3493C274E85E400F00493 /* String+Regex.swift */; };
 		50D3493F274FB66C00F00493 /* ServiceIdentityDocumentResourceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50D3493E274FB66C00F00493 /* ServiceIdentityDocumentResourceTests.swift */; };
 		50D7BD7026DE405100494FB7 /* Locator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50D7BD6F26DE405100494FB7 /* Locator.swift */; };
@@ -2424,6 +2426,7 @@
 		509B1E3F26D3F832007B97E0 /* HealthCertificatePDFVersionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthCertificatePDFVersionViewModel.swift; sourceTree = "<group>"; };
 		509B1E4326D62BB2007B97E0 /* HealthCertificatePDFGenerationInfoViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = HealthCertificatePDFGenerationInfoViewModelTests.swift; path = ENA/Source/Scenes/HealthCertificates/PdfGeneration/__tests__/HealthCertificatePDFGenerationInfoViewModelTests.swift; sourceTree = SOURCE_ROOT; };
 		509C69FD25B5D920000F2A4C /* ENAUITests_01b_Statistics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ENAUITests_01b_Statistics.swift; sourceTree = "<group>"; };
+		50A24A1127B29C8C005DDB9B /* HealthCertificateService+GroupingAfterDeletionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HealthCertificateService+GroupingAfterDeletionTests.swift"; sourceTree = "<group>"; };
 		50A345E2270B8D8500CD9DB6 /* UITableViewCell+ViewTags.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableViewCell+ViewTags.swift"; sourceTree = "<group>"; };
 		50A7168726CFC74100D5EDFC /* HealthCertificatePDFGenerationInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = HealthCertificatePDFGenerationInfoViewController.swift; path = ENA/Source/Scenes/HealthCertificates/PdfGeneration/HealthCertificatePDFGenerationInfoViewController.swift; sourceTree = SOURCE_ROOT; };
 		50A7168926CFC97300D5EDFC /* HealthCertificatePDFGenerationInfoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = HealthCertificatePDFGenerationInfoViewModel.swift; path = ENA/Source/Scenes/HealthCertificates/PdfGeneration/HealthCertificatePDFGenerationInfoViewModel.swift; sourceTree = SOURCE_ROOT; };
@@ -2465,6 +2468,7 @@
 		50C5203F25ADACBB008DF2F4 /* HomeShownPositiveTestResultCellModelTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeShownPositiveTestResultCellModelTest.swift; sourceTree = "<group>"; };
 		50C5C1B425891CC800C4817A /* DynamicLegalExtendedCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DynamicLegalExtendedCell.xib; sourceTree = "<group>"; };
 		50C5C1B9258920AD00C4817A /* DynamicLegalExtendedCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicLegalExtendedCell.swift; sourceTree = "<group>"; };
+		50CDFB1F27BBEADC00FE0793 /* HealthCertifiedPersonArray+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HealthCertifiedPersonArray+Utils.swift"; sourceTree = "<group>"; };
 		50D3493C274E85E400F00493 /* String+Regex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Regex.swift"; sourceTree = "<group>"; };
 		50D3493E274FB66C00F00493 /* ServiceIdentityDocumentResourceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceIdentityDocumentResourceTests.swift; sourceTree = "<group>"; };
 		50D50A5F25D6CCA70092BC2A /* ENAUITests_05_DataDonation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ENAUITests_05_DataDonation.swift; sourceTree = "<group>"; };
@@ -3947,6 +3951,7 @@
 		017D8D9B263B02520009E91C /* __tests__ */ = {
 			isa = PBXGroup;
 			children = (
+				50A24A1127B29C8C005DDB9B /* HealthCertificateService+GroupingAfterDeletionTests.swift */,
 				017D8D99263AF3730009E91C /* HealthCertificateServiceTests.swift */,
 				BA821E9226B41F81008DA362 /* ValidationStateServiceTests.swift */,
 			);
@@ -4549,6 +4554,7 @@
 				017EE86226779E1A00CD18F6 /* RecoveryEntry+Extension.swift */,
 				017D8DA9263B03BD0009E91C /* VaccinationEntry+Extension.swift */,
 				017EE864267B302F00CD18F6 /* HealthCertificateArray+Fallback.swift */,
+				50CDFB1F27BBEADC00FE0793 /* HealthCertifiedPersonArray+Utils.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -10229,6 +10235,7 @@
 				017AD10F259DC46E00FA2B3F /* HomeShownPositiveTestResultTableViewCell.swift in Sources */,
 				AB7420AC251B67A8006666AC /* DeltaOnboardingCrossCountrySupport.swift in Sources */,
 				01CBB823265E73B90094CF8B /* HealthCertificateOverviewViewModel.swift in Sources */,
+				50CDFB2027BBEADC00FE0793 /* HealthCertifiedPersonArray+Utils.swift in Sources */,
 				01DDF44426541CEC0043B4E1 /* DidSetPublished.swift in Sources */,
 				BA5B7FCF26458EF400502087 /* HealthCertificateViewController.swift in Sources */,
 				ABF0F605260B347600E50B0F /* CheckinRiskCalculation.swift in Sources */,
@@ -11465,6 +11472,7 @@
 				019DDEE326FC95F500390509 /* CoronaTestsQRCodeParserTests.swift in Sources */,
 				8F39D09D26401E3E0096F4E2 /* VaccinationValueSetsProvidingTests.swift in Sources */,
 				ABB078F527316EC70037B30F /* CachedRestServiceTests.swift in Sources */,
+				50A24A1327B29CAB005DDB9B /* HealthCertificateService+GroupingAfterDeletionTests.swift in Sources */,
 				AB7BDF8325CC079B00E70744 /* SurveyConsentViewModelTests.swift in Sources */,
 				B1FE13ED24891D0400D012E5 /* RiskProviderTests.swift in Sources */,
 				4BAB490426C9B70A00CC4C11 /* RateLimitLoggerTests.swift in Sources */,
