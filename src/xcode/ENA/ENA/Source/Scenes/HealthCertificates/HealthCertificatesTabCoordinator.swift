@@ -199,8 +199,50 @@ final class HealthCertificatesTabCoordinator {
 		viewController.present(navigationController, animated: true)
 	}
 	
+	
 	private func showAdmissionScenarios() {
-		// to.do show admission scenarios list - EXPOSUREAPP-11764
+		let result = self.cclService.dccAdmissionCheckScenarios()
+		switch result {
+		case .success(let scenarios):
+			let listItems: [SelectableValue] = scenarios.scenarioSelection.items.map({
+				SelectableValue(
+					title: $0.titleText.localized(cclService: cclService),
+					subtitle: $0.subtitleText?.localized(cclService: cclService),
+					isEnabled: $0.enabled
+				)
+			})
+			let selectValueViewModel = SelectValueViewModel(
+				listItems,
+				presorted: true,
+				title: scenarios.scenarioSelection.titleText.localized(cclService: cclService),
+				preselected: nil,
+				initialValue: nil,
+				accessibilityIdentifier: AccessibilityIdentifiers.LocalStatistics.selectState,
+				selectionCellIconType: .none
+			)
+			selectValueViewModel.$selectedValue.sink { [weak self] federalState in
+				guard let self = self, let state = federalState else {
+					return
+				}
+				self.store.lastSelectedScenarioIdentifier = scenarios.scenarioSelection.items.first(where: {
+					$0.titleText.localized(cclService: self.cclService) == state.title
+				})?.identifier
+				
+			}.store(in: &subscriptions)
+			
+			let selectValueViewController = SelectValueTableViewController(
+				selectValueViewModel,
+				closeOnSelection: true,
+				dismiss: { [weak self] in
+					self?.viewController.presentedViewController?.dismiss(animated: true, completion: nil)
+				})
+			self.viewController.present(
+				UINavigationController(rootViewController: selectValueViewController),
+				animated: true
+			)
+		case .failure(let error):
+			Log.error(error.localizedDescription)
+		}
 	}
 	
 	private func showHealthCertifiedPerson(
