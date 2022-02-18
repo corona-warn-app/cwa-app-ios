@@ -180,6 +180,8 @@ class HealthCertifiedPersonViewController: UIViewController, UITableViewDataSour
 		let admissionStateWasVisible = viewModel.admissionStateIsVisible
 		let boosterNotificationWasVisible = viewModel.boosterNotificationIsVisible
 
+		let previousCertificates = viewModel.healthCertifiedPerson.healthCertificates
+
 		self.didSwipeToDelete(healthCertificate) { [weak self] in
 			guard let self = self else { return }
 
@@ -206,7 +208,14 @@ class HealthCertifiedPersonViewController: UIViewController, UITableViewDataSour
 				} else if !boosterNotificationWasVisible && self.viewModel.boosterNotificationIsVisible {
 					insertIndexPaths.append(IndexPath(row: 0, section: HealthCertifiedPersonViewModel.TableViewSection.boosterNotification.rawValue))
 				}
-				
+
+				// For the case that a person splits after deleting a certificate, there could be some more certificates to be removed (because they are moved into a new person).
+				for (index, certificate) in previousCertificates.enumerated() where certificate != healthCertificate {
+					if !self.viewModel.healthCertifiedPerson.healthCertificates.contains(certificate) {
+						deleteIndexPaths.append(IndexPath(row: index, section: HealthCertifiedPersonViewModel.TableViewSection.certificates.rawValue))
+					}
+				}
+
 				tableView.deleteRows(at: deleteIndexPaths, with: .automatic)
 				tableView.insertRows(at: insertIndexPaths, with: .automatic)
 			}, completion: { _ in
