@@ -99,8 +99,6 @@ final class HealthCertifiedPersonViewModel {
 	@OpenCombine.Published private(set) var triggerReload: Bool = false
 	@OpenCombine.Published private(set) var updateError: Error?
 
-	private(set) var healthCertificateCellViewModels = [HealthCertificateCellViewModel]()
-
 	var headerCellViewModel: HealthCertificateSimpleTextCellViewModel {
 		let centerParagraphStyle = NSMutableParagraphStyle()
 		centerParagraphStyle.alignment = .center
@@ -233,7 +231,9 @@ final class HealthCertifiedPersonViewModel {
 	private let didTapBoosterNotification: (HealthCertifiedPerson) -> Void
 	private let didTapValidationButton: (HealthCertificate, @escaping (Bool) -> Void) -> Void
 	private let showInfo: () -> Void
+
 	private var subscriptions = Set<AnyCancellable>()
+	private var healthCertificateCellViewModels = [HealthCertificateCellViewModel]()
 
 	private func constructHealthCertificateCellViewModels(for person: HealthCertifiedPerson) {
 		let sortedHealthCertificates = person.healthCertificates.sorted(by: >)
