@@ -181,6 +181,15 @@ final class HealthCertifiedPersonCoordinator {
 		navigationController.pushViewController(containerViewController, animated: true)
 	}
 
+	private func presentUpdateSucceeded() {
+		let updateSucceededViewController = HealthCertifiedPersonUpdateSucceededViewController(
+			didTapEnd: { [weak self] in
+				self?.navigationController.popToRootViewController(animated: true)
+			}
+		)
+		navigationController.pushViewController(updateSucceededViewController, animated: true)
+	}
+
 	private func showDeleteAlert(
 		certificateType: HealthCertificate.CertificateType,
 		submitAction: UIAlertAction

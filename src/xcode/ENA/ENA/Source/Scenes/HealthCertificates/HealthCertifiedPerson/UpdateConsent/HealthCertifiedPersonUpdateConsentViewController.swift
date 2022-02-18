@@ -48,7 +48,21 @@ class HealthCertifiedPersonUpdateConsentViewController: UIViewController, Dismis
 	func didTapFooterViewButton(_ type: FooterViewModel.ButtonType) {
 		switch type {
 		case .primary:
-			presentUpdateSuccess()
+			footerView?.setLoadingIndicator(true, disable: true, button: .primary)
+			viewModel.submit(
+				completion: { [weak self] result in
+					switch result {
+					case .success:
+						DispatchQueue.main.async {
+							self?.presentUpdateSuccess()
+						}
+					case .failure:
+						DispatchQueue.main.async {
+							self?.showAlert()
+						}
+					}
+				}
+			)
 		case .secondary:
 			dismiss()
 		}
@@ -67,6 +81,8 @@ class HealthCertifiedPersonUpdateConsentViewController: UIViewController, Dismis
 	private let viewModel: HealthCertifiedPersonUpdateConsentViewModel
 
 	private func showAlert() {
+		footerView?.setLoadingIndicator(false, disable: false, button: .primary)
+		
 		let okAction = UIAlertAction(
 			title: AppStrings.HealthCertificate.Person.UpdateConsent.defaultAlertOKButton,
 			style: .default, handler: { _ in
