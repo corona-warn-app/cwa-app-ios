@@ -40,9 +40,27 @@ class HealthCertifiedPersonUpdateConsentViewController: UIViewController {
 	// MARK: - Internal
 
 	// MARK: - Private
+	
 	private let presentAlert: (_ ok: UIAlertAction, _ retry: UIAlertAction) -> Void
 	private let presentUpdateSuccess: () -> Void
 	private let dismiss: () -> Void
 	private let viewModel: HealthCertifiedPersonUpdateConsentViewModel
+
+	private func showAlert() {
+		let okAction = UIAlertAction(
+			title: AppStrings.HealthCertificate.Person.UpdateConsent.defaultAlertOKButton,
+			style: .default, handler: { _ in
+				Log.info("OK Alert action needed here")
+			}
+		)
+
+		let retryAction = UIAlertAction(
+			title: AppStrings.HealthCertificate.Person.UpdateConsent.defaultAlertRetryButton,
+			style: .default, handler: { _ in
+				Log.info("Retry Alert action needed here")
+			}
+		)
+		presentAlert(okAction, retryAction)
+	}
 
 }

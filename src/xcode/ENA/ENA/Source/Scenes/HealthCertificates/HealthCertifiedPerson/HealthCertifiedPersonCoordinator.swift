@@ -143,7 +143,11 @@ final class HealthCertifiedPersonCoordinator {
 	private func showUpdateConsent() {
 		let updateConsentViewController = HealthCertifiedPersonUpdateConsentViewController(
 			presentAlert: { [weak self] okAction, retryAction in
-				let alert = UIAlertController(title: "Fehler", message: "Möglicherweise wurde Ihre Internet-Verbindung unterbrochen. Bitte stellen Sie sicher, dass Sie mit dem Internet verbunden sind.", preferredStyle: .alert)
+				let alert = UIAlertController(
+					title: AppStrings.HealthCertificate.Person.UpdateConsent.defaultAlertTitle,
+					message: AppStrings.HealthCertificate.Person.UpdateConsent.defaultAlertMessage,
+					preferredStyle: .alert
+				)
 				alert.addAction(okAction)
 				alert.addAction(retryAction)
 				self?.navigationController.present(alert, animated: true)
@@ -158,8 +162,8 @@ final class HealthCertifiedPersonCoordinator {
 		updateConsentViewController.navigationItem.hidesBackButton = true
 
 		let footerViewModel = FooterViewModel(
-			primaryButtonName: "Einverstanden",
-			secondaryButtonName: "Abbrechen",
+			primaryButtonName: AppStrings.HealthCertificate.Person.UpdateConsent.primaryButtonTitle,
+			secondaryButtonName: AppStrings.HealthCertificate.Person.UpdateConsent.secondaryButtonTitle,
 			isPrimaryButtonEnabled: false,
 			isSecondaryButtonEnabled: true,
 			primaryCustomDisableBackgroundColor: .enaColor(for: .backgroundLightGray),

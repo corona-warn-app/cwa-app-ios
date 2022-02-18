@@ -8623,6 +8623,7 @@
 		BA5B7FC326458EF400502087 /* HealthCertifiedPerson */ = {
 			isa = PBXGroup;
 			children = (
+				BA8A9FC427BFF788001DBB4B /* UpdateScceeded */,
 				BAE106E226710DEE002D91FB /* __tests__ */,
 				BA5B7FC426458EF400502087 /* Cells */,
 				BAC5CC0A27BE84DA00094C32 /* HealthCertifiedPersonCoordinator.swift */,
@@ -8943,6 +8944,13 @@
 				BA8848C5264AD91500EEA542 /* HealthCertificateKeyValueCellViewModelTests.swift */,
 			);
 			path = __tests__;
+			sourceTree = "<group>";
+		};
+		BA8A9FC427BFF788001DBB4B /* UpdateScceeded */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = UpdateScceeded;
 			sourceTree = "<group>";
 		};
 		BA981AFF278DC74E0057C343 /* __tests__ */ = {
