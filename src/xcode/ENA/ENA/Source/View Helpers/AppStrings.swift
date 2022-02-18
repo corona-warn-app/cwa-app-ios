@@ -2119,9 +2119,13 @@ enum AppStrings {
 				static let defaultAlertOKButton = NSLocalizedString("HealthCertifiedPerson_DefaultAlert_OKButton", comment: "")
 				static let defaultAlertRetryButton = NSLocalizedString("HealthCertifiedPerson_DefaultAlert_RetryButton", comment: "")
 
-				static let title = NSLocalizedString("HealthCertifiedPerson_Title", comment: "")
-
+				static let title = NSLocalizedString("HealthCertifiedPerson_UpdateConsent_Title", comment: "")
 			}
+
+			enum UpdateSucceeded {
+				static let title = NSLocalizedString("HealthCertifiedPerson_UpdateSucceeded_Title", comment: "")
+			}
+
 
 			enum PreferredPerson {
 				static let dateOfBirth = NSLocalizedString("HealthCertifiedPerson_dateOfBirth", comment: "")

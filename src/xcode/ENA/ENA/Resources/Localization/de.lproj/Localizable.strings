@@ -2965,7 +2965,11 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "HealthCertifiedPerson_DefaultAlert_RetryButton" = "Wiederholen";
 
-"HealthCertifiedPerson_Title" = "Ihr Einverständnis";
+"HealthCertifiedPerson_UpdateConsent_Title" = "Ihr Einverständnis";
+
+/* HealthCertifiedPerson UpdateSucceeded */
+
+"HealthCertifiedPerson_UpdateSucceeded_Title" = "";
 
 /* Vaccination Certificate Details */
 
