@@ -25,7 +25,6 @@ enum ServiceError<RE>: Error, CustomStringConvertible, Equatable where RE: Error
 		case .invalidRequestError(let resourceError):
 			return "invalidRequestError(\(resourceError))"
 		case .trustEvaluationError(let trustEvaluationError):
-			// TODO
 			return "trustEvaluationError(\(trustEvaluationError))"
 		case .transportationError:
 			return AppStrings.ExposureSubmissionError.noNetworkConnection
