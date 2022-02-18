@@ -2951,6 +2951,22 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "HealthCertifiedPerson_newlyAddedCertificate" = "Neu";
 
+/* HealthCertifiedPerson UpdateConsent */
+
+"HealthCertifiedPerson_UpdateConsent_primaryButtonTitle" = "Einverstanden";
+
+"HealthCertifiedPerson_UpdateConsent_secondaryButtonTitle" = "Abbrechen";
+
+"HealthCertifiedPerson_DefaultAlert_Title" = "Fehler";
+
+"HealthCertifiedPerson_DefaultAlert_Message" = "Möglicherweise wurde Ihre Internet-Verbindung unterbrochen. Bitte stellen Sie sicher, dass Sie mit dem Internet verbunden sind.";
+
+"HealthCertifiedPerson_DefaultAlert_OKButton" = "OK";
+
+"HealthCertifiedPerson_DefaultAlert_RetryButton" = "Wiederholen";
+
+"HealthCertifiedPerson_Title" = "Ihr Einverständnis";
+
 /* Vaccination Certificate Details */
 
 "HealthCertificate_Details_vaccinationCount" = "Impfung %i von %i";
