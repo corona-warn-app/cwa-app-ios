@@ -173,6 +173,7 @@ class HealthCertifiedPersonViewController: UIViewController, UITableViewDataSour
 		viewModel.canEditRow(at: indexPath)
 	}
 
+	// swiftlint:disable cyclomatic_complexity
 	func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
 		guard editingStyle == .delete, let healthCertificate = viewModel.healthCertificate(for: indexPath) else { return }
 
