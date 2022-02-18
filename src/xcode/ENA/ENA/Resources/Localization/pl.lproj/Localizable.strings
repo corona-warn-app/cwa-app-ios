@@ -2934,6 +2934,15 @@
 
 "RecoveryCertificate_Alert_message" = "Certyfikat zostanie przeniesiony do kosza. Kosz znajduje się na kafelku „Więcej” na stronie karty statusu, gdzie możesz trwale usunąć certyfikat lub go odzyskać. Certyfikat zostanie automatycznie usunięty po 30 dniach.";
 
+/* Decoding Failed Health Certificate Delete Alert */
+"DecodingFailedHealthCertificate_Alert_title" = "Czy chcesz trwale usunąć certyfikat?";
+
+"DecodingFailedHealthCertificate_Alert_message" = "Nie można było rozszyfrować certyfikatu, dlatego nie można wyświetlić żadnych związanych z nim informacji. Jeśli go usuniesz, nie będziesz mógł go już używać jako dowodu.";
+
+"DecodingFailedHealthCertificate_Alert_deleteButton" = "Usuń trwale certyfikat";
+
+"DecodingFailedHealthCertificate_Alert_cancelButton" = "Anuluj";
+
 /* Health Certificate Print PDF */
 "HealthCertificate_PrintPdf_showPrintableVersion" = "Wyświetl wersję do druku";
 

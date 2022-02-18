@@ -2993,10 +2993,6 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "HealthCertificate_Details_moreButtonTitle" = "Mehr";
 
-/* Vaccination Certificate Details */
-
-"VaccinationCertificate_Details_OneOfOneHint" = "Es handelt sich hier um einen Impfstoff, bei dem nur eine Impfdosis erforderlich ist oder um eine Impfung für Genesene, die nur eine Impfdosis benötigt.";
-
 /* Health Certificate Delete Alert */
 
 "HealthCertificate_Alert_deleteButton" = "Zertifikat löschen";
@@ -3040,6 +3036,16 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 "RecoveryCertificate_Alert_title" = "Wollen Sie das Genesenenzertifikat löschen?";
 
 "RecoveryCertificate_Alert_message" = "Das Zertifikat wird in den Papierkorb verschoben. Den Papierkorb finden Sie auf der „Mehr“-Kachel der Status-Registerkarte. Dort können Sie es endgültig löschen oder wiederherstellen. Nach 30 Tagen wird das Zertifikat automatisch gelöscht.";
+
+/* Decoding Failed Health Certificate Delete Alert */
+
+"DecodingFailedHealthCertificate_Alert_title" = "Wollen Sie das Zertifikat endgültig löschen?";
+
+"DecodingFailedHealthCertificate_Alert_message" = "Das Zertifikat konnte nicht dekodiert werden, daher können keine Informationen dazu angezeigt werden. Wenn Sie es löschen, können Sie es nicht mehr als Nachweis verwenden.";
+
+"DecodingFailedHealthCertificate_Alert_deleteButton" = "Zertifikat endgültig löschen";
+
+"DecodingFailedHealthCertificate_Alert_cancelButton" = "Abbrechen";
 
 /* Health Certificate Print PDF */
 
