@@ -2298,9 +2298,14 @@
 "Contact_Journal_Notes_Description" = "You can enter notes here that will help you to better estimate your risk of infection.\n\nWrite down additional circumstances of your encounter or stay here that could have an effect on your risk of infection, for example, how close you were to other people and what you did (examples: “sat close together”, “played sports”, “little space”, “we sang”).\n\nThese notes can help you refresh your memory later. If necessary, they will also let you warn the people you have been with at an early stage, as well as help the public health authorities trace potential chains of infection.";
 
 /* Quick Actions a.k.a. shortcuts */
-"QuickAction_newContactDiaryEntry" = "Add Journal Entry for Today";
+
+"QuickAction_qrCodeScanner" = "Scan QR code";
+
+"QuickAction_showCertificates" = "Show certificates";
 
 "QuickAction_eventCheckin" = "Check In";
+
+"QuickAction_newContactDiaryEntry" = "Add Journal Entry for Today";
 
 /* Checkins */
 "Checkins_Overview_Title" = "My Check-Ins";

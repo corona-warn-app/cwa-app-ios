@@ -60,8 +60,10 @@ enum AppStrings {
 	}
 
 	enum QuickActions {
-		static let contactDiaryNewEntry = NSLocalizedString("QuickAction_newContactDiaryEntry", comment: "")
+		static let qrCodeScanner = NSLocalizedString("QuickAction_qrCodeScanner", comment: "")
+		static let showCertificates = NSLocalizedString("QuickAction_showCertificates", comment: "")
 		static let eventCheckin = NSLocalizedString("QuickAction_eventCheckin", comment: "")
+		static let contactDiaryNewEntry = NSLocalizedString("QuickAction_newContactDiaryEntry", comment: "")
 	}
 
 	enum AccessibilityLabel {

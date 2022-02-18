@@ -2368,9 +2368,13 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 /* Quick Actions a.k.a. shortcuts */
 
-"QuickAction_newContactDiaryEntry" = "Tagebuch-Eintrag für heute hinzufügen";
+"QuickAction_qrCodeScanner" = "QR-Code scannen";
 
-"QuickAction_eventCheckin" = "Einchecken";
+"QuickAction_showCertificates" = "Zertifikate anzeigen";
+
+"QuickAction_eventCheckin" = "Check-ins anzeigen";
+
+"QuickAction_newContactDiaryEntry" = "Eintrag hinzufügen";
 
 /* Checkins */
 
