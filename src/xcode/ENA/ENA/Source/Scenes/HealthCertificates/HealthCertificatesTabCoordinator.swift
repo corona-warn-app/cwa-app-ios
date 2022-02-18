@@ -120,6 +120,17 @@ final class HealthCertificatesTabCoordinator {
 			},
 			onCovPassCheckInfoButtonTap: { [weak self] in
 				self?.presentCovPassInfoScreen()
+			},
+			onTapToDelete: { [weak self] decodingFailedHealthCertificate in
+				self?.showDecodingFailedDeleteAlert(
+					submitAction: UIAlertAction(
+						title: AppStrings.HealthCertificate.Alert.DecodingFailedCertificate.deleteButton,
+						style: .destructive,
+						handler: { _ in
+							self?.healthCertificateService.remove(decodingFailedHealthCertificate: decodingFailedHealthCertificate)
+						}
+					)
+				)
 			}
 		)
 	}()
@@ -235,6 +246,27 @@ final class HealthCertificatesTabCoordinator {
 		healthCertifiedPersonCoordinator?.showHealthCertifiedPerson(healthCertifiedPerson)
 	}
 
+	private func showDecodingFailedDeleteAlert(
+		submitAction: UIAlertAction
+	) {
+		let alert = UIAlertController(
+			title: AppStrings.HealthCertificate.Alert.DecodingFailedCertificate.title,
+			message: AppStrings.HealthCertificate.Alert.DecodingFailedCertificate.message,
+			preferredStyle: .alert
+		)
+
+		alert.addAction(
+			UIAlertAction(
+				title: AppStrings.HealthCertificate.Alert.DecodingFailedCertificate.cancelButton,
+				style: .cancel,
+				handler: nil
+			)
+		)
+		alert.addAction(submitAction)
+
+		viewController.present(alert, animated: true)
+	}
+	
 	private func showHealthCertificateFlow(
 		healthCertifiedPerson: HealthCertifiedPerson,
 		healthCertificate: HealthCertificate,
