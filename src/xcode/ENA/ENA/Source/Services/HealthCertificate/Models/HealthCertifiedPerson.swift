@@ -96,9 +96,10 @@ class HealthCertifiedPerson: Codable, Equatable, Comparable {
 		try container.encode(healthCertificates, forKey: .healthCertificates)
 		try container.encode(decodingFailedHealthCertificates, forKey: .decodingFailedHealthCertificates)
 		try container.encode(isPreferredPerson, forKey: .isPreferredPerson)
+		try container.encode(dccWalletInfo, forKey: .dccWalletInfo)
+		try container.encode(mostRecentWalletInfoUpdateFailed, forKey: .mostRecentWalletInfoUpdateFailed)
 		try container.encode(boosterRule, forKey: .boosterRule)
 		try container.encode(isNewBoosterRule, forKey: .isNewBoosterRule)
-		try container.encode(dccWalletInfo, forKey: .dccWalletInfo)
 	}
 
 	// MARK: - Protocol Equatable
@@ -114,7 +115,6 @@ class HealthCertifiedPerson: Codable, Equatable, Comparable {
 		let haveSamePreferredStateAndAreInAlphabeticalOrder = lhs.isPreferredPerson == rhs.isPreferredPerson && lhs.name?.fullName ?? "" < rhs.name?.fullName ?? ""
 
 		return preferredPersonPrecedesNonPreferred || haveSamePreferredStateAndAreInAlphabeticalOrder
-
 	}
 
 	// MARK: - Internal

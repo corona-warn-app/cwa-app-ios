@@ -60,11 +60,14 @@ class HealthCertifiedPersonCellModel {
 		} else {
 			switchableHealthCertificates = [:]
 		}
+
+		self.onTapToDelete = nil
 	}
 
 	init?(
 		decodingFailedHealthCertificate: DecodingFailedHealthCertificate,
-		onCovPassCheckInfoButtonTap: @escaping () -> Void
+		onCovPassCheckInfoButtonTap: @escaping () -> Void,
+		onTapToDelete: @escaping (DecodingFailedHealthCertificate) -> Void
 	) {
 		backgroundGradientType = .solidGrey
 
@@ -89,6 +92,10 @@ class HealthCertifiedPersonCellModel {
 		shortStatus = nil
 
 		switchableHealthCertificates = [:]
+
+		self.onTapToDelete = {
+			onTapToDelete(decodingFailedHealthCertificate)
+		}
 	}
 
 	// MARK: - Internal
@@ -111,6 +118,8 @@ class HealthCertifiedPersonCellModel {
 	let shortStatus: String?
 
 	let switchableHealthCertificates: OrderedDictionary<String, HealthCertificate>
+
+	let onTapToDelete: (() -> Void)?
 
 	func showHealthCertificate(at index: Int) {
 		qrCodeViewModel.updateImage(with: switchableHealthCertificates.elements[index].value)
