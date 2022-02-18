@@ -2165,7 +2165,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "Statistics_Info_KeySubmissions_Title" = "Warnende Personen";
 
-"Statistics_Info_KeySubmissions_Text" = "Anzahl der über einen PCR-Test Corona-positiv getesteten Personen, die mithilfe der App ihre Mitmenschen gewarnt haben.";
+"Statistics_Info_KeySubmissions_Text" = "Anzahl der Corona-positiv getesteten Personen, die mithilfe der App ihre Mitmenschen gewarnt haben.";
 
 "Statistics_Info_ReproductionNumber_Title" = "7-Tage-R-Wert";
 
