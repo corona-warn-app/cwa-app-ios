@@ -150,7 +150,7 @@ class HealthCertificateService_GroupingAfterDeletionTests: XCTestCase {
 		
 		// We should have now 3 persons. Person1 with three certificates, and Person2 and Person3 with each one certificate.
 		XCTAssertEqual(service.healthCertifiedPersons.count, 3)
-		XCTAssertTrue(service.healthCertifiedPersons.contains(where: { $0 === originalPerson }))
+		XCTAssertTrue(service.healthCertifiedPersons.contains(originalPerson))
 		
 		let donald = service.healthCertifiedPersons[0]
 		let quack = service.healthCertifiedPersons[1]
