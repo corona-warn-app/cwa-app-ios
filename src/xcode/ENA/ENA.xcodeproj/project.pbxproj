@@ -6074,10 +6074,10 @@
 			isa = PBXGroup;
 			children = (
 				50CDFB2627BE82DA00FE0793 /* __tests__ */,
-				50CDFB2D27BE84E800FE0793 /* Locator+DCCReissuance.swift */,
-				50CDFB2727BE82E900FE0793 /* DCCReissuanceResource.swift */,
 				50CDFB2927BE82F300FE0793 /* DCCReissuanceReceiveModel.swift */,
+				50CDFB2727BE82E900FE0793 /* DCCReissuanceResource.swift */,
 				50CDFB2B27BE82FB00FE0793 /* DCCReissuanceSendModel.swift */,
+				50CDFB2D27BE84E800FE0793 /* Locator+DCCReissuance.swift */,
 			);
 			path = DCCReissuance;
 			sourceTree = "<group>";
@@ -6085,8 +6085,8 @@
 		50CDFB2627BE82DA00FE0793 /* __tests__ */ = {
 			isa = PBXGroup;
 			children = (
-				50CDFB2F27BEA2C900FE0793 /* Locator+DCCReissuanceTests.swift */,
 				50CDFB3127BEA42300FE0793 /* DCCReissuanceResourceTests.swift */,
+				50CDFB2F27BEA2C900FE0793 /* Locator+DCCReissuanceTests.swift */,
 			);
 			path = __tests__;
 			sourceTree = "<group>";

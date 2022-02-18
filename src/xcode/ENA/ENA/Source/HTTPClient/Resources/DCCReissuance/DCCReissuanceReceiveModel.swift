@@ -6,7 +6,10 @@ import Foundation
 
 struct DCCReissuanceReceiveModel: Codable {
 
-	// MARK: - Internal
+	let certificates: [DCCReissuanceCertificates]
+}
+
+struct DCCReissuanceCertificates: Codable {
 
 	let certificate: String
 	let relations: [DCCReissuanceRelations]

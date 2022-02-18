@@ -11,6 +11,40 @@ final class DCCReissuanceResourceTests: CWATestCase {
 	// MARK: - Success
 
 	func testGIVEN_Resource_WHEN_Response_200_THEN_ModelIsReturned() throws {
+		// GIVEN
+
+		let sendModel = DCCReissuanceSendModel(
+			certificates: [
+				"one"
+			]
+		)
+
+		let relations = DCCReissuanceRelations(index: 0, action: "yes")
+		let certficate = DCCReissuanceCertificates(certificate: "one", relations: [relations])
+		let model = DCCReissuanceReceiveModel(certificates: [certficate])
+
+		let stack = MockNetworkStack(
+			httpStatus: 200,
+			responseData: try JSONEncoder().encode(model)
+		)
+
+		let expectation = self.expectation(description: "completion handler succeeds")
+
+		let restServiceProvider = RestServiceProvider(session: stack.urlSession, cache: KeyValueCacheFake())
+		let dccReissuanceResource = DCCReissuanceResource(sendModel: sendModel)
+		restServiceProvider.load(dccReissuanceResource) { result in
+			switch result {
+			case let .success(model):
+				XCTAssertEqual(model.certificates.first?.certificate, "one")
+				XCTAssertEqual(model.certificates.first?.relations.first?.index, 0)
+				XCTAssertEqual(model.certificates.first?.relations.first?.action, "yes")
+			case let .failure(error):
+				XCTFail("Test should succeed but failed with error: \(error)")
+			}
+			expectation.fulfill()
+		}
+
+		waitForExpectations(timeout: .short)
 
 	}
 

@@ -54,7 +54,7 @@ struct DCCReissuanceResource: Resource {
 		self.locator = .dccReissuance
 		self.type = .dynamicPinning
 		self.sendResource = JSONSendResource<DCCReissuanceSendModel>(sendModel)
-		self.receiveResource = JSONReceiveResource<[DCCReissuanceReceiveModel]>()
+		self.receiveResource = JSONReceiveResource<DCCReissuanceReceiveModel>()
 	}
 
 	// MARK: - Protocol Resource
@@ -62,7 +62,7 @@ struct DCCReissuanceResource: Resource {
 	var locator: Locator
 	var type: ServiceType
 	var sendResource: JSONSendResource<DCCReissuanceSendModel>
-	var receiveResource: JSONReceiveResource<[DCCReissuanceReceiveModel]>
+	var receiveResource: JSONReceiveResource<DCCReissuanceReceiveModel>
 
 	func customError(for error: ServiceError<DCCReissuanceResourceError>) -> DCCReissuanceResourceError? {
 		switch error {
