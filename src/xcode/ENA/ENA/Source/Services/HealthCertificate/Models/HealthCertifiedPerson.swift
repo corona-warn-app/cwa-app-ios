@@ -106,12 +106,10 @@ class HealthCertifiedPerson: Codable, Equatable, Comparable {
 
 	static func == (lhs: HealthCertifiedPerson, rhs: HealthCertifiedPerson) -> Bool {
 		lhs.healthCertificates == rhs.healthCertificates &&
-		lhs.decodingFailedHealthCertificates == rhs.decodingFailedHealthCertificates &&
 		lhs.isPreferredPerson == rhs.isPreferredPerson &&
-		lhs.dccWalletInfo == rhs.dccWalletInfo &&
-		lhs.mostRecentWalletInfoUpdateFailed == rhs.mostRecentWalletInfoUpdateFailed &&
 		lhs.boosterRule == rhs.boosterRule &&
-		lhs.isNewBoosterRule == rhs.isNewBoosterRule
+		lhs.isNewBoosterRule == rhs.isNewBoosterRule &&
+		lhs.dccWalletInfo == rhs.dccWalletInfo
 	}
 
 	// MARK: - Protocol Comparable
