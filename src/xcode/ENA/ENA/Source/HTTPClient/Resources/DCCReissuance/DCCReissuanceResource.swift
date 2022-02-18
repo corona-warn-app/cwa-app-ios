@@ -19,7 +19,7 @@ enum DCCReissuanceResourceError: LocalizedError {
 
 	var errorDescription: String? {
 		switch self {
-			// TODO add correct error strings
+			// texts to be added in https://jira-ibs.wbs.net.sap/browse/EXPOSUREAPP-11930
 		case .DCC_RI_PIN_MISMATCH:
 			return "someError"
 		case .DCC_RI_PARSE_ERR:
