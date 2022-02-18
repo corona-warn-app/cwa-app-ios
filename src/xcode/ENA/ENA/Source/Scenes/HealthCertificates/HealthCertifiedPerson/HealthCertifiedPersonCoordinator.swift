@@ -152,8 +152,8 @@ final class HealthCertifiedPersonCoordinator {
 				alert.addAction(retryAction)
 				self?.navigationController.present(alert, animated: true)
 			},
-			presentUpdateSuccess: {
-				Log.info("NYD")
+			presentUpdateSuccess: { [weak self] in
+				self?.presentUpdateSucceeded()
 			},
 			didCancel: { [weak self] in
 				self?.navigationController.popToRootViewController(animated: true)

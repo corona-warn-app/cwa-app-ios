@@ -4,7 +4,7 @@
 
 import UIKit
 
-class HealthCertifiedPersonUpdateConsentViewController: UIViewController, DismissHandling {
+class HealthCertifiedPersonUpdateConsentViewController: UIViewController, DismissHandling, FooterViewHandling {
 
 	// MARK: - Init
 
@@ -43,6 +43,17 @@ class HealthCertifiedPersonUpdateConsentViewController: UIViewController, Dismis
 		dismiss()
 	}
 
+	// MARK: - Protocol FooterViewHandling
+
+	func didTapFooterViewButton(_ type: FooterViewModel.ButtonType) {
+		switch type {
+		case .primary:
+			presentUpdateSuccess()
+		case .secondary:
+			dismiss()
+		}
+	}
+
 	// MARK: - Public
 
 	// MARK: - Internal
@@ -70,6 +81,9 @@ class HealthCertifiedPersonUpdateConsentViewController: UIViewController, Dismis
 			}
 		)
 		presentAlert(okAction, retryAction)
+	}
+
+	private func setupStickyButtons() {
 	}
 
 }

@@ -9,9 +9,9 @@ class HealthCertifiedPersonUpdateSucceededViewController: UIViewController, Dism
 	// MARK: - Init
 
 	init(
-		dismiss: @escaping () -> Void
+		didTapEnd: @escaping () -> Void
 	) {
-		self.dismiss = dismiss
+		self.didTapEnd = didTapEnd
 		super.init(nibName: nil, bundle: nil)
 	}
 
@@ -25,13 +25,15 @@ class HealthCertifiedPersonUpdateSucceededViewController: UIViewController, Dism
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		// setup navigation bar
+		title = AppStrings.HealthCertificate.Person.UpdateSucceeded.title
+		navigationItem.hidesBackButton = true
 		navigationItem.rightBarButtonItem = dismissHandlingCloseBarButton
 	}
 
 	// MARK: - Protocol DismissHandling
 
 	func wasAttemptedToBeDismissed() {
-		dismiss()
+		didTapEnd()
 	}
 
 	// MARK: - Public
@@ -40,17 +42,6 @@ class HealthCertifiedPersonUpdateSucceededViewController: UIViewController, Dism
 
 	// MARK: - Private
 
-	private let dismiss: () -> Void
-
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
+	private let didTapEnd: () -> Void
 
 }

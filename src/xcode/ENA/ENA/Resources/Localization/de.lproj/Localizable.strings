@@ -2969,7 +2969,7 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 /* HealthCertifiedPerson UpdateSucceeded */
 
-"HealthCertifiedPerson_UpdateSucceeded_Title" = "";
+"HealthCertifiedPerson_UpdateSucceeded_Title" = "Zertifikat aktualisiert";
 
 /* Vaccination Certificate Details */
 
