@@ -180,7 +180,7 @@ class HealthCertifiedPersonViewController: UIViewController, UITableViewDataSour
 		let admissionStateWasVisible = viewModel.admissionStateIsVisible
 		let boosterNotificationWasVisible = viewModel.boosterNotificationIsVisible
 
-		let previousCertificates = viewModel.healthCertifiedPerson.healthCertificates
+		let previousCertificates = viewModel.healthCertifiedPerson.healthCertificates.sorted(by: >)
 
 		self.didSwipeToDelete(healthCertificate) { [weak self] in
 			guard let self = self else { return }
