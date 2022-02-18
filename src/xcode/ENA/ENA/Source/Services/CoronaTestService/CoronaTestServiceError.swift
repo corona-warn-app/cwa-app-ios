@@ -54,7 +54,7 @@ enum CoronaTestServiceError: LocalizedError, Equatable {
 				return AppStrings.ExposureSubmissionError.defaultError + "\n(\(String(describing: self)))"
 			}
 		case .testResultError(let testResultError):
-			return testResultError.description
+			return testResultError.errorDescription
 		case .unknownTestResult, .noCoronaTestOfRequestedType, .malformedDateOfBirthKey:
 			Log.error("\(self)", log: .api)
 			return AppStrings.ExposureSubmissionError.defaultError + "\n(\(String(describing: self)))"
