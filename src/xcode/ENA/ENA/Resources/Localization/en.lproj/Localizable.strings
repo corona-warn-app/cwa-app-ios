@@ -2934,6 +2934,15 @@
 
 "RecoveryCertificate_Alert_message" = "The certificate will be moved to the recycle bin. You’ll find the recycle bin on the “More” tile of the status tab page, where you can permanently delete the certificate or restore it. The certificate will be deleted automatically after 30 days.";
 
+/* Decoding Failed Health Certificate Delete Alert */
+"DecodingFailedHealthCertificate_Alert_title" = "Do you want to delete the certificate permanently?";
+
+"DecodingFailedHealthCertificate_Alert_message" = "The certificate could not be decoded, so no information can be displayed for it. If you delete it, you can no longer use it as proof.";
+
+"DecodingFailedHealthCertificate_Alert_deleteButton" = "Delete Certificate Permanently";
+
+"DecodingFailedHealthCertificate_Alert_cancelButton" = "Cancel";
+
 /* Health Certificate Print PDF */
 "HealthCertificate_PrintPdf_showPrintableVersion" = "Display Print Version";
 

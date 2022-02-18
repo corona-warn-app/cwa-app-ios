@@ -2934,6 +2934,15 @@
 
 "RecoveryCertificate_Alert_message" = "Certificatul va fi mutat în coșul de reciclare. Veți găsi coșul de reciclare pe mozaicul „Mai mult” al paginii de tab de stare, unde puteți șterge definitiv sau restaura certificatul. Certificatul va fi șters automat după 30 de zile.";
 
+/* Decoding Failed Health Certificate Delete Alert */
+"DecodingFailedHealthCertificate_Alert_title" = "Doriți să ștergeți definitiv certificatul?";
+
+"DecodingFailedHealthCertificate_Alert_message" = "Certificatul nu a putut fi decodificat, astfel nu pot fi afișate informații despre acesta. Dacă îl ștergeți, nu îl mai puteți utiliza ca dovadă.";
+
+"DecodingFailedHealthCertificate_Alert_deleteButton" = "Ștergere definitivă certificat";
+
+"DecodingFailedHealthCertificate_Alert_cancelButton" = "Anulare";
+
 /* Health Certificate Print PDF */
 "HealthCertificate_PrintPdf_showPrintableVersion" = "Afișare versiune de tipărire";
 
