@@ -2934,6 +2934,15 @@
 
 "RecoveryCertificate_Alert_message" = "Сертификатът ще бъде преместен в кошчето, което се намира на плочка \"Още\" от страницата на таб \"Статус\". Там можете да го изтриете за постоянно или да го възстановите. Сертификатът ще бъде изтрит автоматично след 30 дни.";
 
+/* Decoding Failed Health Certificate Delete Alert */
+"DecodingFailedHealthCertificate_Alert_title" = "Желаете ли да изтриете окончателно сертификата?";
+
+"DecodingFailedHealthCertificate_Alert_message" = "Този сертификат не може да бъде разчетен и информацията не може да се визуализира. Ако го изтриете вече няма да може да го използвате за доказателство.";
+
+"DecodingFailedHealthCertificate_Alert_deleteButton" = "Окончателно изтриване на сертификат";
+
+"DecodingFailedHealthCertificate_Alert_cancelButton" = "Отказ";
+
 /* Health Certificate Print PDF */
 "HealthCertificate_PrintPdf_showPrintableVersion" = "Показване на версия за печат";
 
