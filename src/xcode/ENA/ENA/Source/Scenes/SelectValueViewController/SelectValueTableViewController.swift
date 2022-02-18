@@ -48,6 +48,9 @@ final class SelectValueTableViewController: UITableViewController {
 		return cell
 	}
 
+	override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+		viewModel.cellViewModel(for: indexPath).rowHeight
+	}
 	// MARK: - Protocol UITableViewDelegate
 
 	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
