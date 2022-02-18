@@ -896,6 +896,7 @@
 		8F3A0A722666490200D390E3 /* ENAUITests_04a_ExposureSubmission.swift in Sources */ = {isa = PBXBuildFile; fileRef = A32842642491136E006B1F09 /* ENAUITests_04a_ExposureSubmission.swift */; };
 		8F3BB9382684A3F0000B9A95 /* LocalStatisticsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F3BB9372684A3F0000B9A95 /* LocalStatisticsModel.swift */; };
 		8F3BB93A2684A890000B9A95 /* LocalStatisticsFederalState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F3BB9392684A890000B9A95 /* LocalStatisticsFederalState.swift */; };
+		8F3D50F127BFE0F4003AC420 /* SelectableValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F3D50F027BFE0F4003AC420 /* SelectableValue.swift */; };
 		8F3D71AA25A86AD300D52CCD /* HomeExposureLoggingCellModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F3D71A925A86AD300D52CCD /* HomeExposureLoggingCellModelTests.swift */; };
 		8F43A3CB25D55A3E008FD630 /* ppa_data.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F43A3C925D55A3D008FD630 /* ppa_data.pb.swift */; };
 		8F43A3CC25D55A3E008FD630 /* ppa_data_request_ios.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F43A3CA25D55A3E008FD630 /* ppa_data_request_ios.pb.swift */; };
@@ -2596,6 +2597,7 @@
 		8F39D09C26401E3E0096F4E2 /* VaccinationValueSetsProvidingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaccinationValueSetsProvidingTests.swift; sourceTree = "<group>"; };
 		8F3BB9372684A3F0000B9A95 /* LocalStatisticsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalStatisticsModel.swift; sourceTree = "<group>"; };
 		8F3BB9392684A890000B9A95 /* LocalStatisticsFederalState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalStatisticsFederalState.swift; sourceTree = "<group>"; };
+		8F3D50F027BFE0F4003AC420 /* SelectableValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectableValue.swift; sourceTree = "<group>"; };
 		8F3D71A925A86AD300D52CCD /* HomeExposureLoggingCellModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeExposureLoggingCellModelTests.swift; sourceTree = "<group>"; };
 		8F43A3C925D55A3D008FD630 /* ppa_data.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ppa_data.pb.swift; sourceTree = "<group>"; };
 		8F43A3CA25D55A3E008FD630 /* ppa_data_request_ios.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ppa_data_request_ios.pb.swift; sourceTree = "<group>"; };
@@ -8696,6 +8698,7 @@
 				BA69A7E125CD796600023265 /* Cell */,
 				BA69A7D725CD787D00023265 /* SelectValueTableViewController.swift */,
 				BA69A7DC25CD788F00023265 /* SelectValueViewModel.swift */,
+				8F3D50F027BFE0F4003AC420 /* SelectableValue.swift */,
 			);
 			path = SelectValueViewController;
 			sourceTree = "<group>";
@@ -10238,6 +10241,7 @@
 				01F33234270F3E4E005CE21E /* RecycleBinEmptyStateViewModel.swift in Sources */,
 				AB190EBC25FB741000FBFF0D /* DeleteTraceWarningPackageMetadataQuery.swift in Sources */,
 				01BB00CF274FDAD70065D1D1 /* TicketValidationConditions+Fake.swift in Sources */,
+				8F3D50F127BFE0F4003AC420 /* SelectableValue.swift in Sources */,
 				BA9CD38626FCA0C700CB1C51 /* FileScannerCoordinatorViewModel.swift in Sources */,
 				01A4DC6D25922EB4007D5794 /* HomeLoadingItemView.swift in Sources */,
 				50BD1406260A1E840013983A /* TraceWarningSuccess.swift in Sources */,
