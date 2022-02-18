@@ -38,24 +38,41 @@ final class SelectValueTableViewCell: UITableViewCell {
 	// MARK: - Private
 
 	private let selectableValueLabel = ENALabel()
-
+	private let selectableSubtitleLabel = ENALabel()
+	
 	private func layoutViews() {
 		backgroundColor = .enaColor(for: .background)
-
+		
+		// configure the stackView
+		let stackView = UIStackView()
+		stackView.translatesAutoresizingMaskIntoConstraints = false
+		stackView.axis = .vertical
+		stackView.distribution = .fillEqually
+		
+		// configure the selectableValueLabel
 		selectableValueLabel.translatesAutoresizingMaskIntoConstraints = false
 		selectableValueLabel.font = .enaFont(for: .body)
 		selectableValueLabel.textAlignment = .left
-
-		contentView.addSubview(selectableValueLabel)
-
+		stackView.addArrangedSubview(selectableValueLabel)
+		
+		// configure the selectableSubtitleLabel
+		selectableSubtitleLabel.translatesAutoresizingMaskIntoConstraints = false
+		selectableSubtitleLabel.font = .enaFont(for: .footnote)
+		selectableSubtitleLabel.numberOfLines = 0
+		selectableSubtitleLabel.textColor = .enaColor(for: .textSemanticGray)
+		selectableSubtitleLabel.textAlignment = .left
+		selectableSubtitleLabel.isHidden = true
+		stackView.addArrangedSubview(selectableSubtitleLabel)
+		
+		contentView.addSubview(stackView)
+		
 		NSLayoutConstraint.activate([
-			selectableValueLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20.0),
-			selectableValueLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20.0),
-			selectableValueLabel.topAnchor.constraint(equalTo: contentView.topAnchor),
-			selectableValueLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
-			contentView.heightAnchor.constraint(greaterThanOrEqualToConstant: 44.0)
+			stackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20.0),
+			stackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20.0),
+			stackView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 12.0),
+			stackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -12.0)
 		])
-
+		
 	}
 
 }
