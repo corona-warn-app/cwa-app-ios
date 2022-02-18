@@ -25,19 +25,20 @@ enum ServiceError<RE>: Error, CustomStringConvertible, Equatable where RE: Error
 		case .invalidRequestError(let resourceError):
 			return "invalidRequestError(\(resourceError))"
 		case .trustEvaluationError(let trustEvaluationError):
+			// TODO
 			return "trustEvaluationError(\(trustEvaluationError))"
-		case .transportationError(let error):
-			return "transportationError(\(error))"
+		case .transportationError:
+			return AppStrings.ExposureSubmissionError.noNetworkConnection
 		case .unexpectedServerError(let errorCode):
-			return "unexpectedServerError(\(errorCode))"
+			return "\(AppStrings.ExposureSubmissionError.other)\(errorCode)\(AppStrings.ExposureSubmissionError.otherend)"
 		case .resourceError(let resourceError):
 			return "resourceError(\(String(describing: resourceError)))"
 		case .receivedResourceError(let resourceError):
 			return "\(resourceError)"
 		case .invalidResponse:
-			return "invalidResponse"
+			return AppStrings.ExposureSubmissionError.invalidResponse
 		case .invalidResponseType:
-			return "invalidResponseType"
+			return AppStrings.ExposureSubmissionError.noResponse
 		case .fakeResponse:
 			return "fakeResponse"
 		}
