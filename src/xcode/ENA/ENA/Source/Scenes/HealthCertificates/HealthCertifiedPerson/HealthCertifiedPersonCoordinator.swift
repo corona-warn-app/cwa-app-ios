@@ -155,6 +155,9 @@ final class HealthCertifiedPersonCoordinator {
 			presentUpdateSuccess: {
 				Log.info("NYD")
 			},
+			didCancel: { [weak self] in
+				self?.navigationController.popToRootViewController(animated: true)
+			},
 			dismiss: { [weak self] in
 				self?.navigationController.dismiss(animated: true)
 			}

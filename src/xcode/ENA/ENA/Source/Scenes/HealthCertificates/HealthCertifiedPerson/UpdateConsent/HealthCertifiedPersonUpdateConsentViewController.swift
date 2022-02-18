@@ -4,18 +4,20 @@
 
 import UIKit
 
-class HealthCertifiedPersonUpdateConsentViewController: UIViewController {
+class HealthCertifiedPersonUpdateConsentViewController: UIViewController, DismissHandling {
 
 	// MARK: - Init
 
 	init(
 		presentAlert: @escaping (_ ok: UIAlertAction, _ retry: UIAlertAction) -> Void,
 		presentUpdateSuccess: @escaping () -> Void,
+		didCancel: @escaping () -> Void,
 		dismiss: @escaping () -> Void
 	) {
 		self.presentAlert = presentAlert
 		self.viewModel = HealthCertifiedPersonUpdateConsentViewModel()
 		self.presentUpdateSuccess = presentUpdateSuccess
+		self.didCancel = didCancel
 		self.dismiss = dismiss
 		super.init(nibName: nil, bundle: nil)
 	}
@@ -30,19 +32,26 @@ class HealthCertifiedPersonUpdateConsentViewController: UIViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		// Do any additional setup after loading the view.
-		title = "Update Consent"
+		navigationItem.hidesBackButton = true
+		navigationItem.rightBarButtonItem = dismissHandlingCloseBarButton
+		title = AppStrings.HealthCertificate.Person.UpdateConsent.title
 	}
 
-	// MARK: - Protocol <#Name#>
+	// MARK: - Protocol DismissHandling
+
+	func wasAttemptedToBeDismissed() {
+		dismiss()
+	}
 
 	// MARK: - Public
 
 	// MARK: - Internal
 
 	// MARK: - Private
-	
+
 	private let presentAlert: (_ ok: UIAlertAction, _ retry: UIAlertAction) -> Void
 	private let presentUpdateSuccess: () -> Void
+	private let didCancel: () -> Void
 	private let dismiss: () -> Void
 	private let viewModel: HealthCertifiedPersonUpdateConsentViewModel
 
