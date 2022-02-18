@@ -30,6 +30,10 @@ final class SelectValueCellViewModel {
 	let subtitle: String?
 	let image: UIImage?
 	let isEnabled: Bool
+	
+	var rowHeight: CGFloat {
+		subtitle == nil ? 44.0 : 62.0
+	}
 }
 
 enum SelectionCellIcon {
