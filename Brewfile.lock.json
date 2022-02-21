@@ -39,35 +39,6 @@
             }
           }
         }
-      },
-      "swiftlint": {
-        "version": "0.46.2",
-        "bottle": {
-          "rebuild": 0,
-          "root_url": "https://ghcr.io/v2/homebrew/core",
-          "files": {
-            "arm64_monterey": {
-              "cellar": ":any_skip_relocation",
-              "url": "https://ghcr.io/v2/homebrew/core/swiftlint/blobs/sha256:86c2506b06992ab37d01194d5dbb2e42d5069ca8b9cb2017dda0506fd4f3c40a",
-              "sha256": "86c2506b06992ab37d01194d5dbb2e42d5069ca8b9cb2017dda0506fd4f3c40a"
-            },
-            "arm64_big_sur": {
-              "cellar": ":any_skip_relocation",
-              "url": "https://ghcr.io/v2/homebrew/core/swiftlint/blobs/sha256:c7ed00957250eb23210def831825dbff90efc52087506a46acbf932d3c239680",
-              "sha256": "c7ed00957250eb23210def831825dbff90efc52087506a46acbf932d3c239680"
-            },
-            "monterey": {
-              "cellar": ":any_skip_relocation",
-              "url": "https://ghcr.io/v2/homebrew/core/swiftlint/blobs/sha256:7a8b3400d2a858edf98e7611f581fd5ed2f0c7850635907e234869aef3f5c18e",
-              "sha256": "7a8b3400d2a858edf98e7611f581fd5ed2f0c7850635907e234869aef3f5c18e"
-            },
-            "big_sur": {
-              "cellar": ":any_skip_relocation",
-              "url": "https://ghcr.io/v2/homebrew/core/swiftlint/blobs/sha256:dedfed91cd2430412ed0654b6af74afcdd2663e016f0c8acaf044c5b5351f6cd",
-              "sha256": "dedfed91cd2430412ed0654b6af74afcdd2663e016f0c8acaf044c5b5351f6cd"
-            }
-          }
-        }
       }
     }
   },
@@ -84,7 +55,7 @@
       "monterey": {
         "HOMEBREW_VERSION": "3.3.15",
         "HOMEBREW_PREFIX": "/opt/homebrew",
-        "Homebrew/homebrew-core": "a0885e2756dadadb0ab223b69cc435fd6513f8f9",
+        "Homebrew/homebrew-core": "6d456b141400e1fad3cb30b8a62b1ca6fe05baa5",
         "CLT": "",
         "Xcode": "13.3",
         "macOS": "12.2.1"
