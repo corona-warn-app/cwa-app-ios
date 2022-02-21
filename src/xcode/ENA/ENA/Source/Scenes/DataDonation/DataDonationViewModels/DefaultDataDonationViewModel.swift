@@ -125,7 +125,7 @@ final class DefaultDataDonationViewModel: BaseDataDonationViewModel {
 			guard self?.dataDonationModel.federalStateName != federalState?.title else {
 				return
 			}
-			// if a new fedaral state got selected reset region as well
+			// if a new federal state got selected reset region as well
 			self?.dataDonationModel.federalStateName = federalState?.title
 			self?.dataDonationModel.region = nil
 		}.store(in: &subscriptions)
