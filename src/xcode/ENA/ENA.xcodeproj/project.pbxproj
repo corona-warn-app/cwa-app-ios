@@ -12783,32 +12783,32 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/apple/swift-protobuf.git";
 			requirement = {
-				kind = exactVersion;
-				version = 1.12.0;
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.12.0;
 			};
 		};
 		B1B5A75E24924B3D0029D5D7 /* XCRemoteSwiftPackageReference "fmdb" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/ccgus/fmdb.git";
 			requirement = {
-				kind = exactVersion;
-				version = 2.7.7;
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.7.7;
 			};
 		};
 		B1E8C9A3247AB869006DC678 /* XCRemoteSwiftPackageReference "ZIPFoundation" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/weichsel/ZIPFoundation.git";
 			requirement = {
-				kind = exactVersion;
-				version = 0.9.11;
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.9.11;
 			};
 		};
 		EB7AF6282587E98C00D94CA8 /* XCRemoteSwiftPackageReference "OpenCombine" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/OpenCombine/OpenCombine.git";
 			requirement = {
-				kind = exactVersion;
-				version = 0.12.0;
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.12.0;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
