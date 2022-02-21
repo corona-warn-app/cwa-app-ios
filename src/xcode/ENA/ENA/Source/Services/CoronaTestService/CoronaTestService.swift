@@ -9,12 +9,6 @@ import UIKit
 // swiftlint:disable:next type_body_length
 class CoronaTestService: CoronaTestServiceProviding {
 
-	typealias VoidResultHandler = (Result<Void, CoronaTestServiceError>) -> Void
-	typealias RegistrationResultHandler = (Result<String, CoronaTestServiceError>) -> Void
-	typealias TestResultHandler = (Result<TestResult, CoronaTestServiceError>) -> Void
-	typealias CoronaTestHandler = (Result<CoronaTest, CoronaTestServiceError>) -> Void
-	typealias SubmissionTANResultHandler = (Result<String, CoronaTestServiceError>) -> Void
-
 	// MARK: - Init
 
 	init(
