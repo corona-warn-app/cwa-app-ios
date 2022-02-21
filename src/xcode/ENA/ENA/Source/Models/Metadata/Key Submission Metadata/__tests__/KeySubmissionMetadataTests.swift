@@ -16,34 +16,10 @@ import XCTest
 
 // swiftlint:disable:next type_body_length
 class KeySubmissionMetadataTests: CWATestCase {
-
-	private func makeCoronaTestService(store: Store) -> CoronaTestService {
-		let client = ClientMock()
-		let appConfiguration = CachedAppConfigurationMock()
-
-		return CoronaTestService(
-			client: client,
-			store: store,
-			eventStore: MockEventStore(),
-			diaryStore: MockDiaryStore(),
-			appConfiguration: appConfiguration,
-			healthCertificateService: HealthCertificateService(
-				store: store,
-				dccSignatureVerifier: DCCSignatureVerifyingStub(),
-				dscListProvider: MockDSCListProvider(),
-				client: client,
-				appConfiguration: appConfiguration,
-				cclService: FakeCCLService(),
-				recycleBin: .fake()
-			),
-			recycleBin: .fake(),
-			badgeWrapper: .fake()
-		)
-	}
 		
 	func testKeySubmissionMetadataValues_ENFHighRisk() {
 		let secureStore = MockTestStore()
-		let coronaTestService = makeCoronaTestService(store: secureStore)
+		let coronaTestService = MockCoronaTestService()
 
 		Analytics.setupMock(store: secureStore, coronaTestService: coronaTestService)
 
@@ -92,7 +68,7 @@ class KeySubmissionMetadataTests: CWATestCase {
 	
 	func testKeySubmissionMetadataValues_CheckinHighRisk() {
 		let secureStore = MockTestStore()
-		let coronaTestService = makeCoronaTestService(store: secureStore)
+		let coronaTestService = MockCoronaTestService()
 
 		Analytics.setupMock(store: secureStore, coronaTestService: coronaTestService)
 
@@ -131,7 +107,7 @@ class KeySubmissionMetadataTests: CWATestCase {
 	
 	func testKeySubmissionMetadataValues_BothHighRisk() {
 		let secureStore = MockTestStore()
-		let coronaTestService = makeCoronaTestService(store: secureStore)
+		let coronaTestService = MockCoronaTestService()
 
 		Analytics.setupMock(store: secureStore, coronaTestService: coronaTestService)
 		let yesterday = Calendar.current.date(byAdding: .day, value: -1, to: Date())
@@ -178,7 +154,7 @@ class KeySubmissionMetadataTests: CWATestCase {
 		let secureStore = MockTestStore()
 		secureStore.isPrivacyPreservingAnalyticsConsentGiven = true
 
-		let coronaTestService = makeCoronaTestService(store: secureStore)
+		let coronaTestService = MockCoronaTestService()
 
 		Analytics.setupMock(store: secureStore, coronaTestService: coronaTestService)
 
@@ -207,7 +183,7 @@ class KeySubmissionMetadataTests: CWATestCase {
 	func testKeySubmissionMetadataValues_CheckinLowRisk() {
 		let secureStore = MockTestStore()
 		secureStore.isPrivacyPreservingAnalyticsConsentGiven = true
-		let coronaTestService = makeCoronaTestService(store: secureStore)
+		let coronaTestService = MockCoronaTestService()
 
 		Analytics.setupMock(store: secureStore, coronaTestService: coronaTestService)
 
@@ -245,7 +221,7 @@ class KeySubmissionMetadataTests: CWATestCase {
 	func testKeySubmissionMetadataValues_BothLowRisk() {
 		let secureStore = MockTestStore()
 		secureStore.isPrivacyPreservingAnalyticsConsentGiven = true
-		let coronaTestService = makeCoronaTestService(store: secureStore)
+		let coronaTestService = MockCoronaTestService()
 
 		Analytics.setupMock(store: secureStore, coronaTestService: coronaTestService)
 		let yesterday = Calendar.current.date(byAdding: .day, value: -1, to: Date())
@@ -289,7 +265,7 @@ class KeySubmissionMetadataTests: CWATestCase {
 	func testKeySubmissionMetadataValues_HighRisk_testHours() {
 		let secureStore = MockTestStore()
 		secureStore.isPrivacyPreservingAnalyticsConsentGiven = true
-		let coronaTestService = makeCoronaTestService(store: secureStore)
+		let coronaTestService = MockCoronaTestService()
 
 		Analytics.setupMock(store: secureStore, coronaTestService: coronaTestService)
 		
@@ -326,7 +302,7 @@ class KeySubmissionMetadataTests: CWATestCase {
 
 	func testKeySubmissionMetadataValues_HighRisk_submittedInBackground() {
 		let secureStore = MockTestStore()
-		let coronaTestService = makeCoronaTestService(store: secureStore)
+		let coronaTestService = MockCoronaTestService()
 
 		Analytics.setupMock(
 			store: secureStore,
@@ -360,7 +336,7 @@ class KeySubmissionMetadataTests: CWATestCase {
 
 	func testKeySubmissionMetadataValues_HighRisk_testSubmitted() {
 		let secureStore = MockTestStore()
-		let coronaTestService = makeCoronaTestService(store: secureStore)
+		let coronaTestService = MockCoronaTestService()
 
 		Analytics.setupMock(
 			store: secureStore,

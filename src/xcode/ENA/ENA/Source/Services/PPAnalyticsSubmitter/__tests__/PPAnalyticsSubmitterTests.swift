@@ -30,25 +30,7 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 			store: store,
 			client: client,
 			appConfig: appConfigurationProvider,
-			coronaTestService: CoronaTestService(
-				client: client,
-				store: store,
-				eventStore: MockEventStore(),
-				diaryStore: MockDiaryStore(),
-				appConfiguration: appConfigurationProvider,
-				healthCertificateService: HealthCertificateService(
-					store: store,
-					dccSignatureVerifier: DCCSignatureVerifyingStub(),
-					dscListProvider: MockDSCListProvider(),
-					client: client,
-					appConfiguration: appConfigurationProvider,
-					cclService: FakeCCLService(),
-
-					recycleBin: .fake()
-				),
-				recycleBin: .fake(),
-				badgeWrapper: .fake()
-			),
+			coronaTestService: MockCoronaTestService(),
 			ppacService: PPACService(store: store, deviceCheck: deviceCheck)
 		)
 		
@@ -127,24 +109,7 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 			store: store,
 			client: client,
 			appConfig: appConfigurationProvider,
-			coronaTestService: CoronaTestService(
-				client: client,
-				store: store,
-				eventStore: MockEventStore(),
-				diaryStore: MockDiaryStore(),
-				appConfiguration: appConfigurationProvider,
-				healthCertificateService: HealthCertificateService(
-					store: store,
-					dccSignatureVerifier: DCCSignatureVerifyingStub(),
-					dscListProvider: MockDSCListProvider(),
-					client: client,
-					appConfiguration: appConfigurationProvider,
-					cclService: FakeCCLService(),
-					recycleBin: .fake()
-				),
-				recycleBin: .fake(),
-				badgeWrapper: .fake()
-			),
+			coronaTestService: MockCoronaTestService(),
 			ppacService: PPACService(store: store, deviceCheck: deviceCheck)
 		)
 		
@@ -164,6 +129,7 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 		// GIVEN
 		let store = MockTestStore()
 		store.isPrivacyPreservingAnalyticsConsentGiven = true
+
 		let client = ClientMock()
 		var config = SAP_Internal_V2_ApplicationConfigurationIOS()
 		// probability will always succeed
@@ -174,32 +140,17 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 #else
 		let deviceCheck = PPACDeviceCheck()
 #endif
-		
-		store.antigenTest = .mock(testResult: .positive, finalTestResultReceivedDate: Date(), keysSubmitted: true)
+
+		let coronaTestService = MockCoronaTestService()
+		coronaTestService.antigenTest.value = .mock(testResult: .positive, finalTestResultReceivedDate: Date(), keysSubmitted: true)
+
 		store.antigenKeySubmissionMetadata = .mock()
 		
 		let analyticsSubmitter = PPAnalyticsSubmitter(
 			store: store,
 			client: client,
 			appConfig: appConfigurationProvider,
-			coronaTestService: CoronaTestService(
-				client: client,
-				store: store,
-				eventStore: MockEventStore(),
-				diaryStore: MockDiaryStore(),
-				appConfiguration: appConfigurationProvider,
-				healthCertificateService: HealthCertificateService(
-					store: store,
-					dccSignatureVerifier: DCCSignatureVerifyingStub(),
-					dscListProvider: MockDSCListProvider(),
-					client: client,
-					appConfiguration: appConfigurationProvider,
-					cclService: FakeCCLService(),
-					recycleBin: .fake()
-				),
-				recycleBin: .fake(),
-				badgeWrapper: .fake()
-			),
+			coronaTestService: coronaTestService,
 			ppacService: PPACService(store: store, deviceCheck: deviceCheck)
 		)
 		
@@ -239,24 +190,7 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 			store: store,
 			client: client,
 			appConfig: appConfigurationProvider,
-			coronaTestService: CoronaTestService(
-				client: client,
-				store: store,
-				eventStore: MockEventStore(),
-				diaryStore: MockDiaryStore(),
-				appConfiguration: appConfigurationProvider,
-				healthCertificateService: HealthCertificateService(
-					store: store,
-					dccSignatureVerifier: DCCSignatureVerifyingStub(),
-					dscListProvider: MockDSCListProvider(),
-					client: client,
-					appConfiguration: appConfigurationProvider,
-					cclService: FakeCCLService(),
-					recycleBin: .fake()
-				),
-				recycleBin: .fake(),
-				badgeWrapper: .fake()
-			),
+			coronaTestService: MockCoronaTestService(),
 			ppacService: PPACService(store: store, deviceCheck: deviceCheck)
 		)
 		
@@ -295,24 +229,7 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 			store: store,
 			client: client,
 			appConfig: appConfigurationProvider,
-			coronaTestService: CoronaTestService(
-				client: client,
-				store: store,
-				eventStore: MockEventStore(),
-				diaryStore: MockDiaryStore(),
-				appConfiguration: appConfigurationProvider,
-				healthCertificateService: HealthCertificateService(
-					store: store,
-					dccSignatureVerifier: DCCSignatureVerifyingStub(),
-					dscListProvider: MockDSCListProvider(),
-					client: client,
-					appConfiguration: appConfigurationProvider,
-					cclService: FakeCCLService(),
-					recycleBin: .fake()
-				),
-				recycleBin: .fake(),
-				badgeWrapper: .fake()
-			),
+			coronaTestService: MockCoronaTestService(),
 			ppacService: PPACService(store: store, deviceCheck: deviceCheck)
 		)
 		
@@ -343,24 +260,7 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 			store: store,
 			client: client,
 			appConfig: appConfigurationProvider,
-			coronaTestService: CoronaTestService(
-				client: client,
-				store: store,
-				eventStore: MockEventStore(),
-				diaryStore: MockDiaryStore(),
-				appConfiguration: appConfigurationProvider,
-				healthCertificateService: HealthCertificateService(
-					store: store,
-					dccSignatureVerifier: DCCSignatureVerifyingStub(),
-					dscListProvider: MockDSCListProvider(),
-					client: client,
-					appConfiguration: appConfigurationProvider,
-					cclService: FakeCCLService(),
-					recycleBin: .fake()
-				),
-				recycleBin: .fake(),
-				badgeWrapper: .fake()
-			),
+			coronaTestService: MockCoronaTestService(),
 			ppacService: PPACService(store: store, deviceCheck: deviceCheck)
 		)
 		
@@ -401,24 +301,7 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 			store: store,
 			client: client,
 			appConfig: appConfigurationProvider,
-			coronaTestService: CoronaTestService(
-				client: client,
-				store: store,
-				eventStore: MockEventStore(),
-				diaryStore: MockDiaryStore(),
-				appConfiguration: appConfigurationProvider,
-				healthCertificateService: HealthCertificateService(
-					store: store,
-					dccSignatureVerifier: DCCSignatureVerifyingStub(),
-					dscListProvider: MockDSCListProvider(),
-					client: client,
-					appConfiguration: appConfigurationProvider,
-					cclService: FakeCCLService(),
-					recycleBin: .fake()
-				),
-				recycleBin: .fake(),
-				badgeWrapper: .fake()
-			),
+			coronaTestService: MockCoronaTestService(),
 			ppacService: PPACService(store: store, deviceCheck: deviceCheck)
 		)
 		
@@ -459,24 +342,7 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 			store: store,
 			client: client,
 			appConfig: appConfigurationProvider,
-			coronaTestService: CoronaTestService(
-				client: client,
-				store: store,
-				eventStore: MockEventStore(),
-				diaryStore: MockDiaryStore(),
-				appConfiguration: appConfigurationProvider,
-				healthCertificateService: HealthCertificateService(
-					store: store,
-					dccSignatureVerifier: DCCSignatureVerifyingStub(),
-					dscListProvider: MockDSCListProvider(),
-					client: client,
-					appConfiguration: appConfigurationProvider,
-					cclService: FakeCCLService(),
-					recycleBin: .fake()
-				),
-				recycleBin: .fake(),
-				badgeWrapper: .fake()
-			),
+			coronaTestService: MockCoronaTestService(),
 			ppacService: PPACService(store: store, deviceCheck: deviceCheck)
 		)
 		
@@ -516,24 +382,7 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 			store: store,
 			client: client,
 			appConfig: appConfigurationProvider,
-			coronaTestService: CoronaTestService(
-				client: client,
-				store: store,
-				eventStore: MockEventStore(),
-				diaryStore: MockDiaryStore(),
-				appConfiguration: appConfigurationProvider,
-				healthCertificateService: HealthCertificateService(
-					store: store,
-					dccSignatureVerifier: DCCSignatureVerifyingStub(),
-					dscListProvider: MockDSCListProvider(),
-					client: client,
-					appConfiguration: appConfigurationProvider,
-					cclService: FakeCCLService(),
-					recycleBin: .fake()
-				),
-				recycleBin: .fake(),
-				badgeWrapper: .fake()
-			),
+			coronaTestService: MockCoronaTestService(),
 			ppacService: PPACService(store: store, deviceCheck: deviceCheck)
 		)
 		
@@ -574,24 +423,7 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 			store: store,
 			client: client,
 			appConfig: appConfigurationProvider,
-			coronaTestService: CoronaTestService(
-				client: client,
-				store: store,
-				eventStore: MockEventStore(),
-				diaryStore: MockDiaryStore(),
-				appConfiguration: appConfigurationProvider,
-				healthCertificateService: HealthCertificateService(
-					store: store,
-					dccSignatureVerifier: DCCSignatureVerifyingStub(),
-					dscListProvider: MockDSCListProvider(),
-					client: client,
-					appConfiguration: appConfigurationProvider,
-					cclService: FakeCCLService(),
-					recycleBin: .fake()
-				),
-				recycleBin: .fake(),
-				badgeWrapper: .fake()
-			),
+			coronaTestService: MockCoronaTestService(),
 			ppacService: PPACService(store: store, deviceCheck: deviceCheck)
 		)
 		
@@ -635,24 +467,7 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 			store: store,
 			client: client,
 			appConfig: appConfigurationProvider,
-			coronaTestService: CoronaTestService(
-				client: client,
-				store: store,
-				eventStore: MockEventStore(),
-				diaryStore: MockDiaryStore(),
-				appConfiguration: appConfigurationProvider,
-				healthCertificateService: HealthCertificateService(
-					store: store,
-					dccSignatureVerifier: DCCSignatureVerifyingStub(),
-					dscListProvider: MockDSCListProvider(),
-					client: client,
-					appConfiguration: appConfigurationProvider,
-					cclService: FakeCCLService(),
-					recycleBin: .fake()
-				),
-				recycleBin: .fake(),
-				badgeWrapper: .fake()
-			),
+			coronaTestService: MockCoronaTestService(),
 			ppacService: PPACService(store: store, deviceCheck: deviceCheck)
 		)
 		
@@ -698,24 +513,7 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 			store: store,
 			client: client,
 			appConfig: appConfigurationProvider,
-			coronaTestService: CoronaTestService(
-				client: client,
-				store: store,
-				eventStore: MockEventStore(),
-				diaryStore: MockDiaryStore(),
-				appConfiguration: appConfigurationProvider,
-				healthCertificateService: HealthCertificateService(
-					store: store,
-					dccSignatureVerifier: DCCSignatureVerifyingStub(),
-					dscListProvider: MockDSCListProvider(),
-					client: client,
-					appConfiguration: appConfigurationProvider,
-					cclService: FakeCCLService(),
-					recycleBin: .fake()
-				),
-				recycleBin: .fake(),
-				badgeWrapper: .fake()
-			),
+			coronaTestService: MockCoronaTestService(),
 			ppacService: PPACService(store: store, deviceCheck: deviceCheck)
 		)
 		
@@ -758,24 +556,7 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 			store: store,
 			client: client,
 			appConfig: appConfigurationProvider,
-			coronaTestService: CoronaTestService(
-				client: client,
-				store: store,
-				eventStore: MockEventStore(),
-				diaryStore: MockDiaryStore(),
-				appConfiguration: appConfigurationProvider,
-				healthCertificateService: HealthCertificateService(
-					store: store,
-					dccSignatureVerifier: DCCSignatureVerifyingStub(),
-					dscListProvider: MockDSCListProvider(),
-					client: client,
-					appConfiguration: appConfigurationProvider,
-					cclService: FakeCCLService(),
-					recycleBin: .fake()
-				),
-				recycleBin: .fake(),
-				badgeWrapper: .fake()
-			),
+			coronaTestService: MockCoronaTestService(),
 			ppacService: PPACService(store: store, deviceCheck: deviceCheck)
 		)
 		
@@ -816,24 +597,7 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 			store: store,
 			client: client,
 			appConfig: appConfigurationProvider,
-			coronaTestService: CoronaTestService(
-				client: client,
-				store: store,
-				eventStore: MockEventStore(),
-				diaryStore: MockDiaryStore(),
-				appConfiguration: appConfigurationProvider,
-				healthCertificateService: HealthCertificateService(
-					store: store,
-					dccSignatureVerifier: DCCSignatureVerifyingStub(),
-					dscListProvider: MockDSCListProvider(),
-					client: client,
-					appConfiguration: appConfigurationProvider,
-					cclService: FakeCCLService(),
-					recycleBin: .fake()
-				),
-				recycleBin: .fake(),
-				badgeWrapper: .fake()
-			),
+			coronaTestService: MockCoronaTestService(),
 			ppacService: PPACService(store: store, deviceCheck: deviceCheck)
 		)
 		
@@ -891,24 +655,7 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 			store: store,
 			client: client,
 			appConfig: appConfigurationProvider,
-			coronaTestService: CoronaTestService(
-				client: client,
-				store: store,
-				eventStore: MockEventStore(),
-				diaryStore: MockDiaryStore(),
-				appConfiguration: appConfigurationProvider,
-				healthCertificateService: HealthCertificateService(
-					store: store,
-					dccSignatureVerifier: DCCSignatureVerifyingStub(),
-					dscListProvider: MockDSCListProvider(),
-					client: client,
-					appConfiguration: appConfigurationProvider,
-					cclService: FakeCCLService(),
-					recycleBin: .fake()
-				),
-				recycleBin: .fake(),
-				badgeWrapper: .fake()
-			),
+			coronaTestService: MockCoronaTestService(),
 			ppacService: PPACService(store: store, deviceCheck: deviceCheck)
 		)
 		
@@ -1469,24 +1216,7 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 			store: store,
 			client: client,
 			appConfig: appConfigurationProvider,
-			coronaTestService: CoronaTestService(
-				client: client,
-				store: store,
-				eventStore: MockEventStore(),
-				diaryStore: MockDiaryStore(),
-				appConfiguration: appConfigurationProvider,
-				healthCertificateService: HealthCertificateService(
-					store: store,
-					dccSignatureVerifier: DCCSignatureVerifyingStub(),
-					dscListProvider: MockDSCListProvider(),
-					client: client,
-					appConfiguration: appConfigurationProvider,
-					cclService: FakeCCLService(),
-					recycleBin: .fake()
-				),
-				recycleBin: .fake(),
-				badgeWrapper: .fake()
-			),
+			coronaTestService: MockCoronaTestService(),
 			ppacService: PPACService(store: store, deviceCheck: deviceCheck)
 		)
 	}
