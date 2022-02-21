@@ -27,7 +27,7 @@ struct HealthCertifiedPersonUpdateConsentViewModel {
 
 	let title: String = AppStrings.HealthCertificate.Person.UpdateConsent.title
 
-	let dynamicTableViewModel: DynamicTableViewModel = {
+	var dynamicTableViewModel: DynamicTableViewModel {
 		DynamicTableViewModel(
 			[
 				.section(
@@ -57,21 +57,21 @@ struct HealthCertifiedPersonUpdateConsentViewModel {
 						[
 							.legalExtended(
 								title: NSAttributedString(string: AppStrings.HealthCertificate.Person.UpdateConsent.legalTitle),
-								subheadline1: NSAttributedString(string: AppStrings.HealthCertificate.Person.UpdateConsent.legalSubtitle),
+								subheadline1: attributedStringWithRegularText(text: AppStrings.HealthCertificate.Person.UpdateConsent.legalSubtitle),
 								bulletPoints1: [
-									NSAttributedString(string: AppStrings.HealthCertificate.Person.UpdateConsent.legalBullet1),
-									NSAttributedString(string: AppStrings.HealthCertificate.Person.UpdateConsent.legalBullet2)
+									attributedStringWithBoldText(text: AppStrings.HealthCertificate.Person.UpdateConsent.legalBullet1),
+									attributedStringWithBoldText(text: AppStrings.HealthCertificate.Person.UpdateConsent.legalBullet2)
 								],
 								subheadline2: nil
 							),
 							.bulletPoint(text: AppStrings.HealthCertificate.Person.UpdateConsent.bulletPoint_1),
-							.bulletPoint(text: AppStrings.HealthCertificate.Person.UpdateConsent.bulletPoint_2),
+							.bulletPoint(text: AppStrings.HealthCertificate.Person.UpdateConsent.bulletPoint_2)
 						]
 				)
 
 			]
 		)
-	}()
+	}
 
 	func submit(completion: @escaping (Result<Void, HealthCertifiedPersonUpdateError>) -> Void) {
 		DispatchQueue.global(qos: .background).asyncAfter(deadline: .now() + 0.5) {
@@ -86,5 +86,20 @@ struct HealthCertifiedPersonUpdateConsentViewModel {
 	}
 
 	// MARK: - Private
+
+	private let normalTextAttribute: [NSAttributedString.Key: Any] = [
+		NSAttributedString.Key.font: UIFont.enaFont(for: .body)
+	]
+	private let boldTextAttribute: [NSAttributedString.Key: Any] = [
+		NSAttributedString.Key.font: UIFont.enaFont(for: .body, weight: .bold)
+	]
+
+	private func attributedStringWithRegularText(text: String) -> NSMutableAttributedString {
+		return NSMutableAttributedString(string: "\(text)", attributes: normalTextAttribute)
+	}
+
+	private func attributedStringWithBoldText(text: String) -> NSMutableAttributedString {
+		return NSMutableAttributedString(string: "\(text)", attributes: boldTextAttribute)
+	}
 
 }
