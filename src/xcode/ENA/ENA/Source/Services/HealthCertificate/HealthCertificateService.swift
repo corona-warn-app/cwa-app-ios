@@ -734,6 +734,7 @@ class HealthCertificateService {
 			switch result {
 			case .success(let dccWalletInfo):
 				let previousBoosterNotificationIdentifier = person.boosterRule?.identifier ?? person.dccWalletInfo?.boosterNotification.identifier
+				let previousCertificateReissuance = person.dccWalletInfo?.certificateReissuance
 				person.dccWalletInfo = dccWalletInfo
 				person.mostRecentWalletInfoUpdateFailed = false
 				
