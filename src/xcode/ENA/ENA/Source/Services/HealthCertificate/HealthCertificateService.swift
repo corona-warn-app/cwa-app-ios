@@ -1178,11 +1178,5 @@ class HealthCertificateService {
 		addNotification(request: request, completion: completion)
 	}
 	
-	private func updateDCCWalletInfoForAllPersons() {
-		for person in self.healthCertifiedPersons {
-			self.updateDCCWalletInfo(for: person)
-		}
-	}
-
 	// swiftlint:disable:next file_length
 }
