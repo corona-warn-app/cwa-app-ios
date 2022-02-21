@@ -216,6 +216,8 @@ protocol HealthCertificateStoring: AnyObject {
 	
 	var lastSelectedScenarioIdentifier: String? { get set }
 
+	var dccAdmissionCheckScenarios: DCCAdmissionCheckScenarios? { get set }
+
 }
 
 /// this section contains only deprecated stuff, please do not add new things here

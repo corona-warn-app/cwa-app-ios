@@ -104,6 +104,7 @@ final class HealthCertificatesTabCoordinator {
 	private lazy var overviewScreen: HealthCertificateOverviewViewController = {
 		return HealthCertificateOverviewViewController(
 			viewModel: HealthCertificateOverviewViewModel(
+				store: store,
 				healthCertificateService: healthCertificateService,
 				cclService: cclService
 			),
@@ -199,7 +200,7 @@ final class HealthCertificatesTabCoordinator {
 	}
 	
 	private func showAdmissionScenarios() {
-		// to.do show admission scenarios list - EXPOSUREAPP-11876
+		// to.do show admission scenarios list - EXPOSUREAPP-11764
 	}
 	
 	private func showHealthCertifiedPerson(

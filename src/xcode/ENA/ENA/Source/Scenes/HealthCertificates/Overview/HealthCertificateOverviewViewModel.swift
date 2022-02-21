@@ -11,9 +11,11 @@ class HealthCertificateOverviewViewModel {
 	// MARK: - Init
 
 	init(
+		store: HealthCertificateStoring,
 		healthCertificateService: HealthCertificateService,
 		cclService: CCLServable
 	) {
+		self.store = store
 		self.healthCertificateService = healthCertificateService
 		self.cclService = cclService
 		
@@ -36,6 +38,17 @@ class HealthCertificateOverviewViewModel {
 				}
 			}
 			.store(in: &subscriptions)
+		
+		healthCertificateService.$lastSelectedScenarioIdentifier
+			.sink { [weak self] _ in
+				guard let dccAdmissionCheckScenarios = self?.store.dccAdmissionCheckScenarios else {
+					return
+				}
+				
+				self?.changeAdmissionScenarioStatusText = dccAdmissionCheckScenarios.labelText
+				self?.changeAdmissionScenarioButtonText = dccAdmissionCheckScenarios.scenarioSelection.titleText
+			}
+			.store(in: &subscriptions)
 	}
 
 	// MARK: - Internal
@@ -53,6 +66,8 @@ class HealthCertificateOverviewViewModel {
 	@DidSetPublished var decodingFailedHealthCertificates: [DecodingFailedHealthCertificate] = []
 	@DidSetPublished var testCertificateRequests: [TestCertificateRequest] = []
 	@DidSetPublished var testCertificateRequestError: HealthCertificateServiceError.TestCertificateRequestError?
+	@DidSetPublished var changeAdmissionScenarioStatusText: DCCUIText?
+	@DidSetPublished var changeAdmissionScenarioButtonText: DCCUIText?
 
 	var isEmpty: Bool {
 		numberOfRows(in: Section.testCertificateRequest.rawValue) == 0 &&
@@ -67,15 +82,15 @@ class HealthCertificateOverviewViewModel {
 	func numberOfRows(in section: Int) -> Int {
 		switch Section(rawValue: section) {
 		case .changeAdmissionScenarioStatusLabel:
-			return rowsForAdmissionCheckScenarios()
+			return rowsForAdmissionCheckScenarios
 		case .changeAdmissionScenario:
-			return rowsForAdmissionCheckScenarios()
+			return rowsForAdmissionCheckScenarios
 		case .testCertificateRequest:
 			return testCertificateRequests.count
 		case .healthCertificate:
 			return healthCertifiedPersons.count
 		case .healthCertificateScanningInfo:
-			return rowsForAdmissionCheckScenarios()
+			return rowsForAdmissionCheckScenarios
 		case .decodingFailedHealthCertificates:
 			return decodingFailedHealthCertificates.count
 		case .none:
@@ -109,6 +124,7 @@ class HealthCertificateOverviewViewModel {
 	// MARK: - Private
 
 	private let healthCertificateService: HealthCertificateService
+	private let store: HealthCertificateStoring
 	private let cclService: CCLServable
 	private var subscriptions = Set<AnyCancellable>()
 
