@@ -159,9 +159,9 @@ final class SettingsDataDonationViewModel: BaseDataDonationViewModel {
 	///  user tapped select state
 	func didTapSelectStateButton() {
 		let initialValue = SelectableValue(title: AppStrings.DataDonation.ValueSelection.noValue, isEnabled: true)
-		let selectableStates: [SelectableValue] = dataDonationModel.allFederalStateNames.map({
+		let selectableStates = dataDonationModel.allFederalStateNames.map {
 			SelectableValue(title: $0)
-		})
+		}
 		let selectValueViewModel = SelectValueViewModel(
 			selectableStates,
 			title: AppStrings.DataDonation.ValueSelection.Title.FederalState,
@@ -189,9 +189,9 @@ final class SettingsDataDonationViewModel: BaseDataDonationViewModel {
 			return
 		}
 		let initialValue = SelectableValue(title: AppStrings.DataDonation.ValueSelection.noValue, isEnabled: true)
-		let selectableRegions: [SelectableValue] = dataDonationModel.allRegions(by: federalStateName).map({
+		let selectableRegions = dataDonationModel.allRegions(by: federalStateName).map {
 			SelectableValue(title: $0)
-		})
+		}
 		let selectValueViewModel = SelectValueViewModel(
 			selectableRegions,
 			title: AppStrings.DataDonation.ValueSelection.Title.Region,
@@ -214,9 +214,9 @@ final class SettingsDataDonationViewModel: BaseDataDonationViewModel {
 	///  user tapped select age
 	func didTapAgeButton() {
 		let initialValue = SelectableValue(title: AppStrings.DataDonation.ValueSelection.noValue, isEnabled: true)
-		let selectableAgeGroups: [SelectableValue] = AgeGroup.allCases.map({ $0.text }).map({
+		let selectableAgeGroups = AgeGroup.allCases.map({ $0.text }).map {
 			SelectableValue(title: $0)
-		})
+		}
 		let selectValueViewModel = SelectValueViewModel(
 			selectableAgeGroups,
 			presorted: true,

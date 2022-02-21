@@ -25,7 +25,9 @@ class ManageStatisticsCardsViewModel {
 	
 	func presentStateSelection() {
 		let initialValue = SelectableValue(title: AppStrings.Statistics.Card.fromNationWide, isEnabled: false)
-		let selectableStates: [SelectableValue] = localStatisticsModel.allFederalStateNames.map({ SelectableValue(title: $0) })
+		let selectableStates = localStatisticsModel.allFederalStateNames.map {
+			SelectableValue(title: $0)
+		}
 		let selectValueViewModel = SelectValueViewModel(
 			selectableStates,
 			title: AppStrings.DataDonation.ValueSelection.Title.FederalState,
@@ -48,8 +50,9 @@ class ManageStatisticsCardsViewModel {
 
 	private func showSelectDistrictList(for federalStateName: String) {
 		let initialValue = SelectableValue(title: AppStrings.Statistics.AddCard.stateWide, isEnabled: true)
-		let selectableRegions: [SelectableValue] = localStatisticsModel.allRegions(by: federalStateName).map({ SelectableValue(title: $0) })
-
+		let selectableRegions = localStatisticsModel.allRegions(by: federalStateName).map {
+			SelectableValue(title: $0)
+		}
 		let selectValueViewModel = SelectValueViewModel(
 			selectableRegions,
 			title: AppStrings.DataDonation.ValueSelection.Title.Region,

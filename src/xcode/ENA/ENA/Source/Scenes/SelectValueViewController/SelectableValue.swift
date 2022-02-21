@@ -6,11 +6,13 @@ struct SelectableValue: Comparable {
 	
 	let title: String
 	let subtitle: String?
+	let identifier: String?
 	let isEnabled: Bool
 	
-	init(title: String, subtitle: String? = nil, isEnabled: Bool = true) {
+	init(title: String, subtitle: String? = nil, identifier: String? = nil, isEnabled: Bool = true) {
 		self.title = title
 		self.subtitle = subtitle
+		self.identifier = identifier
 		self.isEnabled = isEnabled
 	}
 	

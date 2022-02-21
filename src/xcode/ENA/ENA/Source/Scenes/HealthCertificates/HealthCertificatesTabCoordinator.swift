@@ -204,10 +204,11 @@ final class HealthCertificatesTabCoordinator {
 		let result = self.cclService.dccAdmissionCheckScenarios()
 		switch result {
 		case .success(let scenarios):
-			let listItems: [SelectableValue] = scenarios.scenarioSelection.items.map({
+			let listItems = scenarios.scenarioSelection.items.map({
 				SelectableValue(
 					title: $0.titleText.localized(cclService: cclService),
 					subtitle: $0.subtitleText?.localized(cclService: cclService),
+					identifier: $0.identifier,
 					isEnabled: $0.enabled
 				)
 			})
@@ -224,9 +225,7 @@ final class HealthCertificatesTabCoordinator {
 				guard let self = self, let state = federalState else {
 					return
 				}
-				self.store.lastSelectedScenarioIdentifier = scenarios.scenarioSelection.items.first(where: {
-					$0.titleText.localized(cclService: self.cclService) == state.title
-				})?.identifier
+				self.store.lastSelectedScenarioIdentifier = state.identifier
 				
 			}.store(in: &subscriptions)
 			
@@ -241,6 +240,7 @@ final class HealthCertificatesTabCoordinator {
 				animated: true
 			)
 		case .failure(let error):
+			showErrorAlert(title: AppStrings.HealthCertificate.Error.title, error: error)
 			Log.error(error.localizedDescription)
 		}
 	}
