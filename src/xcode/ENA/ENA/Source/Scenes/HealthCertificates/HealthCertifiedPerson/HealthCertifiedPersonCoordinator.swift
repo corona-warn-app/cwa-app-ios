@@ -133,8 +133,61 @@ final class HealthCertifiedPersonCoordinator {
 					return
 				}
 				self.presentCovPassInfoScreen(self.navigationController)
+			},
+			didTapUpdateNotification: { [weak self] in
+				self?.showUpdateConsent()
 			}
 		)
+	}
+
+	private func showUpdateConsent() {
+		let updateConsentViewController = HealthCertifiedPersonUpdateConsentViewController(
+			presentAlert: { [weak self] okAction, retryAction in
+				let alert = UIAlertController(
+					title: AppStrings.HealthCertificate.Person.UpdateConsent.defaultAlertTitle,
+					message: AppStrings.HealthCertificate.Person.UpdateConsent.defaultAlertMessage,
+					preferredStyle: .alert
+				)
+				alert.addAction(okAction)
+				alert.addAction(retryAction)
+				self?.navigationController.present(alert, animated: true)
+			},
+			presentUpdateSuccess: { [weak self] in
+				self?.presentUpdateSucceeded()
+			},
+			didCancel: { [weak self] in
+				self?.navigationController.popToRootViewController(animated: true)
+			},
+			dismiss: { [weak self] in
+				self?.navigationController.dismiss(animated: true)
+			}
+		)
+		updateConsentViewController.navigationItem.hidesBackButton = true
+
+		let footerViewModel = FooterViewModel(
+			primaryButtonName: AppStrings.HealthCertificate.Person.UpdateConsent.primaryButtonTitle,
+			secondaryButtonName: AppStrings.HealthCertificate.Person.UpdateConsent.secondaryButtonTitle,
+			isPrimaryButtonEnabled: false,
+			isSecondaryButtonEnabled: true,
+			primaryCustomDisableBackgroundColor: .enaColor(for: .backgroundLightGray),
+			secondaryCustomDisableBackgroundColor: .enaColor(for: .backgroundLightGray)
+		)
+		let footerViewController = FooterViewController(footerViewModel)
+
+		let containerViewController = TopBottomContainerViewController(
+			topController: updateConsentViewController,
+			bottomController: footerViewController
+		)
+		navigationController.pushViewController(containerViewController, animated: true)
+	}
+
+	private func presentUpdateSucceeded() {
+		let updateSucceededViewController = HealthCertifiedPersonUpdateSucceededViewController(
+			didTapEnd: { [weak self] in
+				self?.navigationController.popToRootViewController(animated: true)
+			}
+		)
+		navigationController.pushViewController(updateSucceededViewController, animated: true)
 	}
 
 	private func showDeleteAlert(
