@@ -2,7 +2,7 @@
 // 🦠 Corona-Warn-App
 //
 
-struct DefaultEvaluateTrust: TrustEvaluating {
+struct DefaultTrustEvaluation: TrustEvaluating {
 	
 	init(
 		publicKeyHash: String

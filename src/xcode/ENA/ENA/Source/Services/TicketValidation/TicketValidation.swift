@@ -278,7 +278,7 @@ final class TicketValidation: TicketValidating {
 		restServiceProvider.update(
 			AllowListEvaluationTrust(
 				allowList: allowList.validationServiceAllowList,
-				trustEvaluation: TrustEvaluation()
+				trustEvaluation: JSONWebKeyTrustEvaluation()
 			)
 		)
 		restServiceProvider.load(resource) { [weak self] result in
@@ -325,9 +325,9 @@ final class TicketValidation: TicketValidating {
         )
 
         restServiceProvider.update(
-            DynamicEvaluateTrust(
+            JSONWebKeyTrustEvaluation(
                 jwkSet: accessTokenServiceJwkSet,
-                trustEvaluation: TrustEvaluation()
+                trustEvaluation: JSONWebKeyTrustEvaluation()
             )
         )
 
@@ -390,7 +390,7 @@ final class TicketValidation: TicketValidating {
 		restServiceProvider.update(
 			AllowListEvaluationTrust(
 				allowList: allowList.validationServiceAllowList,
-				trustEvaluation: TrustEvaluation()
+				trustEvaluation: JSONWebKeyTrustEvaluation()
 			)
 		)
 

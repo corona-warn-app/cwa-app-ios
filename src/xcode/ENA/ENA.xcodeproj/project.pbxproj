@@ -795,6 +795,7 @@
 		50DC527924FEB2AE00F6D8EB /* AppInformationDynamicCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50DC527824FEB2AE00F6D8EB /* AppInformationDynamicCell.swift */; };
 		50DC527B24FEB5CA00F6D8EB /* AppInformationModelTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50DC527A24FEB5CA00F6D8EB /* AppInformationModelTest.swift */; };
 		50E3BE5A250127DF0033E2C7 /* AppInformationDynamicAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50E3BE59250127DF0033E2C7 /* AppInformationDynamicAction.swift */; };
+		50E7F08D27C3EEE700FE8E72 /* DisabledTrustEvaluation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50E7F08C27C3EEE700FE8E72 /* DisabledTrustEvaluation.swift */; };
 		50E861F92705D7E1001E29B2 /* DynamicTableViewDoubleLabelViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50E861F82705D7E1001E29B2 /* DynamicTableViewDoubleLabelViewCell.swift */; };
 		50E8F1282626C735000056EE /* ExposureSubmissionSuccessViewControllerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 505936B42626C36B00D40216 /* ExposureSubmissionSuccessViewControllerTest.swift */; };
 		50EACA9B25E682AE004DDADB /* ENInfectiousness+Protobuf.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50EACA9A25E682AE004DDADB /* ENInfectiousness+Protobuf.swift */; };
@@ -1411,8 +1412,8 @@
 		BA7D17B725D59373006B9EBF /* SettingsDataDonationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA7D17B625D59373006B9EBF /* SettingsDataDonationViewModel.swift */; };
 		BA7DB3A22743EED90028683F /* DynamicPinningRestService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA7DB3A12743EED90028683F /* DynamicPinningRestService.swift */; };
 		BA7DCA152747D923009E4557 /* _EvaluateTrust.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA7DCA142747D923009E4557 /* _EvaluateTrust.swift */; };
-		BA7DCA172747D944009E4557 /* DefaultEvaluateTrust.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA7DCA162747D944009E4557 /* DefaultEvaluateTrust.swift */; };
-		BA7DCA1A2747DA96009E4557 /* DynamicEvaluateTrust.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA7DCA192747DA96009E4557 /* DynamicEvaluateTrust.swift */; };
+		BA7DCA172747D944009E4557 /* DefaultTrustEvaluation.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA7DCA162747D944009E4557 /* DefaultTrustEvaluation.swift */; };
+		BA7DCA1A2747DA96009E4557 /* JSONWebKeyTrustEvaluation.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA7DCA192747DA96009E4557 /* JSONWebKeyTrustEvaluation.swift */; };
 		BA7DCA1D2747E74F009E4557 /* URLSessionDelegate+UpdateEvaluateTrust.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA7DCA1C2747E74F009E4557 /* URLSessionDelegate+UpdateEvaluateTrust.swift */; };
 		BA7DCA202747E80E009E4557 /* FakeEvaluateTrust.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA7DCA1E2747E7F6009E4557 /* FakeEvaluateTrust.swift */; };
 		BA7EABAD25C973FE001AA5FE /* DMKeyValueCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA7EABAC25C973FE001AA5FE /* DMKeyValueCellViewModel.swift */; };
@@ -2482,6 +2483,7 @@
 		50DC527824FEB2AE00F6D8EB /* AppInformationDynamicCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppInformationDynamicCell.swift; sourceTree = "<group>"; };
 		50DC527A24FEB5CA00F6D8EB /* AppInformationModelTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppInformationModelTest.swift; sourceTree = "<group>"; };
 		50E3BE59250127DF0033E2C7 /* AppInformationDynamicAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppInformationDynamicAction.swift; sourceTree = "<group>"; };
+		50E7F08C27C3EEE700FE8E72 /* DisabledTrustEvaluation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisabledTrustEvaluation.swift; sourceTree = "<group>"; };
 		50E861F82705D7E1001E29B2 /* DynamicTableViewDoubleLabelViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicTableViewDoubleLabelViewCell.swift; sourceTree = "<group>"; };
 		50E861FB27070EE6001E29B2 /* NotificationSettingsViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationSettingsViewModelTests.swift; sourceTree = "<group>"; };
 		50EACA9A25E682AE004DDADB /* ENInfectiousness+Protobuf.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ENInfectiousness+Protobuf.swift"; sourceTree = "<group>"; };
@@ -3117,8 +3119,8 @@
 		BA7DB3A12743EED90028683F /* DynamicPinningRestService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicPinningRestService.swift; sourceTree = "<group>"; };
 		BA7DB3A32743F1A80028683F /* RestServiceProviderStub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestServiceProviderStub.swift; sourceTree = "<group>"; };
 		BA7DCA142747D923009E4557 /* _EvaluateTrust.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = _EvaluateTrust.swift; sourceTree = "<group>"; };
-		BA7DCA162747D944009E4557 /* DefaultEvaluateTrust.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultEvaluateTrust.swift; sourceTree = "<group>"; };
-		BA7DCA192747DA96009E4557 /* DynamicEvaluateTrust.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicEvaluateTrust.swift; sourceTree = "<group>"; };
+		BA7DCA162747D944009E4557 /* DefaultTrustEvaluation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultTrustEvaluation.swift; sourceTree = "<group>"; };
+		BA7DCA192747DA96009E4557 /* JSONWebKeyTrustEvaluation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONWebKeyTrustEvaluation.swift; sourceTree = "<group>"; };
 		BA7DCA1C2747E74F009E4557 /* URLSessionDelegate+UpdateEvaluateTrust.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URLSessionDelegate+UpdateEvaluateTrust.swift"; sourceTree = "<group>"; };
 		BA7DCA1E2747E7F6009E4557 /* FakeEvaluateTrust.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FakeEvaluateTrust.swift; sourceTree = "<group>"; };
 		BA7EABAC25C973FE001AA5FE /* DMKeyValueCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMKeyValueCellViewModel.swift; sourceTree = "<group>"; };
@@ -8918,9 +8920,10 @@
 			isa = PBXGroup;
 			children = (
 				BA7DCA142747D923009E4557 /* _EvaluateTrust.swift */,
-				BA7DCA162747D944009E4557 /* DefaultEvaluateTrust.swift */,
-				BA7DCA192747DA96009E4557 /* DynamicEvaluateTrust.swift */,
+				BA7DCA162747D944009E4557 /* DefaultTrustEvaluation.swift */,
+				BA7DCA192747DA96009E4557 /* JSONWebKeyTrustEvaluation.swift */,
 				8F5336772758FE440046D8BF /* AllowListEvaluationTrust.swift */,
+				50E7F08C27C3EEE700FE8E72 /* DisabledTrustEvaluation.swift */,
 			);
 			path = EvaluateTrust;
 			sourceTree = "<group>";
@@ -10867,7 +10870,7 @@
 				8FB7C92D2750EF6E0071C98C /* TicketValidationDecoratorIdentityDocumentProcessor.swift in Sources */,
 				859DD512248549790073D59F /* MockDiagnosisKeysRetrieval.swift in Sources */,
 				01653FA726CD3AD000E21FB7 /* Checkin+SubmissionPreparation.swift in Sources */,
-				BA7DCA172747D944009E4557 /* DefaultEvaluateTrust.swift in Sources */,
+				BA7DCA172747D944009E4557 /* DefaultTrustEvaluation.swift in Sources */,
 				EB6B5D8D2539B36100B0ED57 /* DMNotificationCell.swift in Sources */,
 				5001DE8826E20903004242FA /* SubmitOnBehalf.swift in Sources */,
 				BADD36EE260B4FBA00DD282A /* GradientNavigationView.swift in Sources */,
@@ -10996,7 +10999,7 @@
 				0138F5F425EFDBC300A9B075 /* HomeTraceLocationsCellModel.swift in Sources */,
 				BA7F7346271F124D00E3CE14 /* _RestServiceProviding.swift in Sources */,
 				50BD1420260B73CC0013983A /* Verification.swift in Sources */,
-				BA7DCA1A2747DA96009E4557 /* DynamicEvaluateTrust.swift in Sources */,
+				BA7DCA1A2747DA96009E4557 /* JSONWebKeyTrustEvaluation.swift in Sources */,
 				3484AC7C26A060E900CB0500 /* LocalStatisticsState.swift in Sources */,
 				01B7232724F812BC0064C0EB /* OptionGroupView.swift in Sources */,
 				EBE0F9612786F71D001F20E8 /* TestResultResource.swift in Sources */,
@@ -11096,6 +11099,7 @@
 				01F2A543257FB90200DA96A6 /* CloseBarButtonItem.swift in Sources */,
 				017D8DA7263B02F70009E91C /* HealthCertifiedPerson.swift in Sources */,
 				AB190F1525FFAF3100FBFF0D /* ContactDiaryStoreSchemaV3.swift in Sources */,
+				50E7F08D27C3EEE700FE8E72 /* DisabledTrustEvaluation.swift in Sources */,
 				B14D0CDB246E968C00D5BEBC /* String+Today.swift in Sources */,
 				85142501245DA0B3009D2791 /* UIViewController+Alert.swift in Sources */,
 				BA1FC82C26E251FD00CCCC17 /* DMLocalNotificationsViewController.swift in Sources */,

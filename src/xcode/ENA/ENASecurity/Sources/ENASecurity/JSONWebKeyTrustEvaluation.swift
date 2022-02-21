@@ -11,7 +11,7 @@ public enum TrustEvaluationError: Error {
     case CERT_PIN_HOST_MISMATCH
 }
 
-public class TrustEvaluation {
+public class JSONWebKeyTrustEvaluation {
 
     // MARK: - Init
 

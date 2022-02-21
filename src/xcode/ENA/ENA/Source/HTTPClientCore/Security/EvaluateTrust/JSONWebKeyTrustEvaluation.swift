@@ -5,13 +5,13 @@
 import Foundation
 import ENASecurity
 
-class DynamicEvaluateTrust: TrustEvaluating {
+class JSONWebKeyTrustEvaluation: TrustEvaluating {
 
 	// MARK: - Init
 
 	init(
 		jwkSet: [JSONWebKey],
-		trustEvaluation: TrustEvaluation
+		trustEvaluation: ENASecurity.JSONWebKeyTrustEvaluation
 	) {
 		self.jwkSet = jwkSet
 		self.trustEvaluation = trustEvaluation
@@ -55,7 +55,7 @@ class DynamicEvaluateTrust: TrustEvaluating {
 
 	// MARK: - Private
 
-	private let trustEvaluation: TrustEvaluation
+	private let trustEvaluation: ENASecurity.JSONWebKeyTrustEvaluation
 	private var jwkSet: [JSONWebKey]
 
 }

@@ -22,7 +22,7 @@ final class CoronaWarnURLSessionDelegate: NSObject, URLSessionDelegate {
 		publicKeyHash: String
 	) {
 		self.init(
-			evaluateTrust: DefaultEvaluateTrust(
+			evaluateTrust: DefaultTrustEvaluation(
 				publicKeyHash: publicKeyHash
 			)
 		)
@@ -30,10 +30,10 @@ final class CoronaWarnURLSessionDelegate: NSObject, URLSessionDelegate {
 
 	convenience init(
 		jwkSet: [JSONWebKey],
-		trustEvaluation: TrustEvaluation = TrustEvaluation()
+		trustEvaluation: JSONWebKeyTrustEvaluation = JSONWebKeyTrustEvaluation()
 	) {
 		self.init(
-			evaluateTrust: DynamicEvaluateTrust(
+			evaluateTrust: JSONWebKeyTrustEvaluation(
 				jwkSet: jwkSet,
 				trustEvaluation: trustEvaluation
 			)

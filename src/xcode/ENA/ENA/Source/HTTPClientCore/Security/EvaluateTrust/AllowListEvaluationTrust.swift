@@ -11,7 +11,7 @@ class AllowListEvaluationTrust: TrustEvaluating {
 
 	init(
 		allowList: [ValidationServiceAllowlistEntry],
-		trustEvaluation: TrustEvaluation
+		trustEvaluation: JSONWebKeyTrustEvaluation
 	) {
 		self.allowList = allowList
 		self.trustEvaluation = trustEvaluation
@@ -56,7 +56,7 @@ class AllowListEvaluationTrust: TrustEvaluating {
 
 	// MARK: - Private
 
-	private let trustEvaluation: TrustEvaluation
+	private let trustEvaluation: JSONWebKeyTrustEvaluation
 	private var allowList: [ValidationServiceAllowlistEntry]
 
 }

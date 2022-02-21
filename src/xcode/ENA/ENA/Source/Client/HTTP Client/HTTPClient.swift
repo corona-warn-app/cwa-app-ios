@@ -12,7 +12,7 @@ final class HTTPClient: Client {
 
 	init(
 		environmentProvider: EnvironmentProviding = Environments(),
-		session: URLSession = .coronaWarnSession(
+		session: URLSession = .legacyCoronaWarnSession(
 			configuration: .coronaWarnSessionConfiguration(),
 			delegateQueue: .main
 		)
