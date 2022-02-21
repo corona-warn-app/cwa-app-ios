@@ -204,6 +204,7 @@ final class HealthCertificatesTabCoordinator {
 		let result = self.cclService.dccAdmissionCheckScenarios()
 		switch result {
 		case .success(let scenarios):
+			self.store.dccAdmissionCheckScenarios = scenarios
 			let listItems = scenarios.scenarioSelection.items.map({
 				SelectableValue(
 					title: $0.titleText.localized(cclService: cclService),
@@ -225,13 +226,21 @@ final class HealthCertificatesTabCoordinator {
 				guard let self = self, let state = federalState else {
 					return
 				}
-				self.store.lastSelectedScenarioIdentifier = state.identifier
-				
+				self.healthCertificateService.lastSelectedScenarioIdentifier = state.identifier
+				self.showActivityIndicator(from: self.viewController.view)
+				self.healthCertificateService.updateDCCWalletInfosIfNeeded(
+					isForced: true
+				) { [weak self] in
+					self?.hideActivityIndicator()
+					DispatchQueue.main.async {
+						self?.viewController.presentedViewController?.dismiss(animated: true, completion: nil)
+					}
+				}
 			}.store(in: &subscriptions)
 			
 			let selectValueViewController = SelectValueTableViewController(
 				selectValueViewModel,
-				closeOnSelection: true,
+				closeOnSelection: false,
 				dismiss: { [weak self] in
 					self?.viewController.presentedViewController?.dismiss(animated: true, completion: nil)
 				})
@@ -243,6 +252,36 @@ final class HealthCertificatesTabCoordinator {
 			showErrorAlert(title: AppStrings.HealthCertificate.Error.title, error: error)
 			Log.error(error.localizedDescription)
 		}
+	}
+	private let activityIndicatorView = QRScannerActivityIndicatorView(frame: .zero, title: AppStrings.HealthCertificate.Overview.loadingIndicatorLabel)
+
+	private func showActivityIndicator(from view: UIView) {
+		activityIndicatorView.alpha = 0.0
+		activityIndicatorView.translatesAutoresizingMaskIntoConstraints = false
+		view.addSubview(activityIndicatorView)
+		NSLayoutConstraint.activate(
+			[
+				activityIndicatorView.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor),
+				activityIndicatorView.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor),
+				activityIndicatorView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+				activityIndicatorView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+			]
+		)
+
+		let animator = UIViewPropertyAnimator(duration: 0.45, curve: .easeIn) { [weak self] in
+			self?.activityIndicatorView.alpha = 1.0
+		}
+		animator.startAnimation()
+	}
+
+	private func hideActivityIndicator() {
+		let animator = UIViewPropertyAnimator(duration: 0.45, curve: .easeIn) { [weak self] in
+			self?.activityIndicatorView.alpha = 0.0
+		}
+		animator.addCompletion { [weak self] _ in
+			self?.activityIndicatorView.removeFromSuperview()
+		}
+		animator.startAnimation()
 	}
 	
 	private func showHealthCertifiedPerson(

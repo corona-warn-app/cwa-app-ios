@@ -7,8 +7,10 @@ import UIKit
 class QRScannerActivityIndicatorView: UIView {
 
 	// MARK: - Init
-
-	override init(frame: CGRect) {
+	
+	init(frame: CGRect, title: String) {
+		self.title = title
+		
 		super.init(frame: frame)
 		setupView()
 	}
@@ -17,8 +19,10 @@ class QRScannerActivityIndicatorView: UIView {
 		super.init(coder: coder)
 		setupView()
 	}
-
+	
 	// MARK: - Private
+
+	private var title: String?
 
 	private func setupView() {
 		let overlayView = UIView()
@@ -44,7 +48,7 @@ class QRScannerActivityIndicatorView: UIView {
 		hudTextLabel.translatesAutoresizingMaskIntoConstraints = false
 		hudTextLabel.numberOfLines = 0
 		hudTextLabel.textColor = .enaColor(for: .textPrimary1Contrast)
-		hudTextLabel.text = AppStrings.FileScanner.hudText
+		hudTextLabel.text = title
 
 		let stackView = UIStackView(arrangedSubviews: [activityIndicator, hudTextLabel])
 		stackView.translatesAutoresizingMaskIntoConstraints = false
