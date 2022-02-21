@@ -12,10 +12,17 @@ enum HealthCertifiedPersonUpdateError: Error {
 	case UpdateFailedError
 }
 
-
-struct HealthCertifiedPersonUpdateConsentViewModel {
+final class HealthCertifiedPersonUpdateConsentViewModel {
 
 	// MARK: - Init
+
+	init(
+		faqAnker: String,
+		onDisclaimerButtonTap: @escaping () -> Void
+	) {
+		self.faqAnker = faqAnker
+		self.onDisclaimerButtonTap = onDisclaimerButtonTap
+	}
 
 	// MARK: - Overrides
 
@@ -65,10 +72,33 @@ struct HealthCertifiedPersonUpdateConsentViewModel {
 								subheadline2: nil
 							),
 							.bulletPoint(text: AppStrings.HealthCertificate.Person.UpdateConsent.bulletPoint_1),
-							.bulletPoint(text: AppStrings.HealthCertificate.Person.UpdateConsent.bulletPoint_2)
+							.bulletPoint(text: AppStrings.HealthCertificate.Person.UpdateConsent.bulletPoint_2),
+							.space(height: 8.0),
+							.link(
+								text: AppStrings.HealthCertificate.Person.faq,
+								url: URL(string: LinkHelper.urlString(suffix: faqAnker, type: .faq))
+							),
+							.space(height: 8.0)
 						]
+				),
+				.section(
+					separators: .all,
+					cells: [
+						.body(
+							text: AppStrings.HealthCertificate.Validation.body4,
+							style: DynamicCell.TextCellStyle.label,
+							accessibilityIdentifier: AccessibilityIdentifiers.TraceLocation.dataPrivacyTitle,
+							accessibilityTraits: UIAccessibilityTraits.link,
+							action: .execute { [weak self] _, _ in
+								self?.onDisclaimerButtonTap()
+							},
+							configure: { _, cell, _ in
+								cell.accessoryType = .disclosureIndicator
+								cell.selectionStyle = .default
+							}
+						)
+					]
 				)
-
 			]
 		)
 	}
@@ -86,6 +116,9 @@ struct HealthCertifiedPersonUpdateConsentViewModel {
 	}
 
 	// MARK: - Private
+
+	private let faqAnker: String
+	private let onDisclaimerButtonTap: () -> Void
 
 	private let normalTextAttribute: [NSAttributedString.Key: Any] = [
 		NSAttributedString.Key.font: UIFont.enaFont(for: .body)
