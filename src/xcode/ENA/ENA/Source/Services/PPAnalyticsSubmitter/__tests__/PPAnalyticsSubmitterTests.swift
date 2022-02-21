@@ -1390,7 +1390,7 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 		)
 		
 		let fiveHoursBefore = Calendar.current.date(byAdding: .hour, value: -5, to: Date())
-		coronaTestService.pcrTest?.finalTestResultReceivedDate = fiveHoursBefore ?? Date()
+		coronaTestService.pcrTest.value?.finalTestResultReceivedDate = fiveHoursBefore ?? Date()
 		
 		Analytics.setupMock(
 			store: store,

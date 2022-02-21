@@ -37,8 +37,8 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 			badgeWrapper: .fake()
 		)
 
-		coronaTestService.pcrTest = nil
-		coronaTestService.antigenTest = nil
+		coronaTestService.pcrTest.value = nil
+		coronaTestService.antigenTest.value = nil
 
 		let model = ExposureSubmissionCoordinatorModel(
 			exposureSubmissionService: MockExposureSubmissionService(),
@@ -75,8 +75,8 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 			badgeWrapper: .fake()
 		)
 
-		coronaTestService.pcrTest = PCRTest.mock(testResult: .pending)
-		coronaTestService.antigenTest = nil
+		coronaTestService.pcrTest.value = PCRTest.mock(testResult: .pending)
+		coronaTestService.antigenTest.value = nil
 
 		let model = ExposureSubmissionCoordinatorModel(
 			exposureSubmissionService: MockExposureSubmissionService(),
@@ -87,17 +87,17 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 		XCTAssertTrue(model.shouldShowOverrideTestNotice(for: .pcr))
 		XCTAssertFalse(model.shouldShowOverrideTestNotice(for: .antigen))
 
-		coronaTestService.pcrTest?.testResult = .positive
+		coronaTestService.pcrTest.value?.testResult = .positive
 		XCTAssertTrue(model.shouldShowOverrideTestNotice(for: .pcr))
 
-		coronaTestService.pcrTest?.testResult = .negative
+		coronaTestService.pcrTest.value?.testResult = .negative
 		XCTAssertTrue(model.shouldShowOverrideTestNotice(for: .pcr))
 
-		coronaTestService.pcrTest?.testResult = .invalid
+		coronaTestService.pcrTest.value?.testResult = .invalid
 		XCTAssertTrue(model.shouldShowOverrideTestNotice(for: .pcr))
 
 		// Should not be shown for expired tests
-		coronaTestService.pcrTest?.testResult = .expired
+		coronaTestService.pcrTest.value?.testResult = .expired
 		XCTAssertFalse(model.shouldShowOverrideTestNotice(for: .pcr))
 	}
 
@@ -125,8 +125,8 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 			badgeWrapper: .fake()
 		)
 
-		coronaTestService.pcrTest = nil
-		coronaTestService.antigenTest = AntigenTest.mock(testResult: .pending)
+		coronaTestService.pcrTest.value = nil
+		coronaTestService.antigenTest.value = AntigenTest.mock(testResult: .pending)
 
 		let model = ExposureSubmissionCoordinatorModel(
 			exposureSubmissionService: MockExposureSubmissionService(),
@@ -137,21 +137,21 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 		XCTAssertFalse(model.shouldShowOverrideTestNotice(for: .pcr))
 		XCTAssertTrue(model.shouldShowOverrideTestNotice(for: .antigen))
 
-		coronaTestService.antigenTest?.testResult = .positive
+		coronaTestService.antigenTest.value?.testResult = .positive
 		XCTAssertTrue(model.shouldShowOverrideTestNotice(for: .antigen))
 
-		coronaTestService.antigenTest?.testResult = .invalid
+		coronaTestService.antigenTest.value?.testResult = .invalid
 		XCTAssertTrue(model.shouldShowOverrideTestNotice(for: .antigen))
 
 		// Should not be shown for expired tests
-		coronaTestService.antigenTest?.testResult = .expired
+		coronaTestService.antigenTest.value?.testResult = .expired
 		XCTAssertFalse(model.shouldShowOverrideTestNotice(for: .antigen))
 
-		coronaTestService.antigenTest?.testResult = .negative
+		coronaTestService.antigenTest.value?.testResult = .negative
 		XCTAssertTrue(model.shouldShowOverrideTestNotice(for: .antigen))
 
 		// Should not be shown for outdated antigen tests
-		coronaTestService.antigenTestIsOutdated = true
+		coronaTestService.antigenTestIsOutdated.value = true
 		XCTAssertFalse(model.shouldShowOverrideTestNotice(for: .antigen))
 	}
 
@@ -179,8 +179,8 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 			badgeWrapper: .fake()
 		)
 
-		coronaTestService.pcrTest = PCRTest.mock(testResult: .pending)
-		coronaTestService.antigenTest = AntigenTest.mock(testResult: .pending)
+		coronaTestService.pcrTest.value = PCRTest.mock(testResult: .pending)
+		coronaTestService.antigenTest.value = AntigenTest.mock(testResult: .pending)
 
 		let model = ExposureSubmissionCoordinatorModel(
 			exposureSubmissionService: MockExposureSubmissionService(),

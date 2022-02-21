@@ -59,7 +59,7 @@ class ExposureSubmissionTestResultViewModelTests: CWATestCase {
 			recycleBin: .fake(),
 			badgeWrapper: .fake()
 		)
-		coronaTestService.pcrTest = PCRTest.mock(testResult: .positive, isSubmissionConsentGiven: true)
+		coronaTestService.pcrTest.value = PCRTest.mock(testResult: .positive, isSubmissionConsentGiven: true)
 		
 		let model = ExposureSubmissionTestResultViewModel(
 			coronaTestType: .pcr,
@@ -128,7 +128,7 @@ class ExposureSubmissionTestResultViewModelTests: CWATestCase {
 				recycleBin: .fake(),
 				badgeWrapper: .fake()
 			)
-			coronaTestService.pcrTest = PCRTest.mock(testResult: testResult)
+			coronaTestService.pcrTest.value = PCRTest.mock(testResult: testResult)
 			
 			let model = ExposureSubmissionTestResultViewModel(
 				coronaTestType: .pcr,
@@ -194,7 +194,7 @@ class ExposureSubmissionTestResultViewModelTests: CWATestCase {
 			recycleBin: .fake(),
 			badgeWrapper: .fake()
 		)
-		coronaTestService.pcrTest = PCRTest.mock(registrationToken: "asdf", testResult: .pending)
+		coronaTestService.pcrTest.value = PCRTest.mock(registrationToken: "asdf", testResult: .pending)
 		
 		let model = ExposureSubmissionTestResultViewModel(
 			coronaTestType: .pcr,
@@ -257,7 +257,7 @@ class ExposureSubmissionTestResultViewModelTests: CWATestCase {
 			recycleBin: .fake(),
 			badgeWrapper: .fake()
 		)
-		coronaTestService.pcrTest = PCRTest.mock(registrationToken: "asdf", testResult: .pending)
+		coronaTestService.pcrTest.value = PCRTest.mock(registrationToken: "asdf", testResult: .pending)
 		
 		let model = ExposureSubmissionTestResultViewModel(
 			coronaTestType: .pcr,
@@ -340,7 +340,7 @@ class ExposureSubmissionTestResultViewModelTests: CWATestCase {
 			recycleBin: .fake(),
 			badgeWrapper: .fake()
 		)
-		coronaTestService.pcrTest = PCRTest.mock(registrationToken: "asdf", testResult: .pending)
+		coronaTestService.pcrTest.value = PCRTest.mock(registrationToken: "asdf", testResult: .pending)
 		
 		let model = ExposureSubmissionTestResultViewModel(
 			coronaTestType: .pcr,
@@ -396,7 +396,7 @@ class ExposureSubmissionTestResultViewModelTests: CWATestCase {
 			recycleBin: .fake(),
 			badgeWrapper: .fake()
 		)
-		coronaTestService.pcrTest = PCRTest.mock(registrationToken: "asdf", testResult: .pending)
+		coronaTestService.pcrTest.value = PCRTest.mock(registrationToken: "asdf", testResult: .pending)
 		
 		let model = ExposureSubmissionTestResultViewModel(
 			coronaTestType: .pcr,
@@ -465,7 +465,7 @@ class ExposureSubmissionTestResultViewModelTests: CWATestCase {
 			recycleBin: .fake(),
 			badgeWrapper: .fake()
 		)
-		coronaTestService.pcrTest = PCRTest.mock(testResult: .pending)
+		coronaTestService.pcrTest.value = PCRTest.mock(testResult: .pending)
 		
 		let model = ExposureSubmissionTestResultViewModel(
 			coronaTestType: .pcr,
@@ -512,7 +512,7 @@ class ExposureSubmissionTestResultViewModelTests: CWATestCase {
 				recycleBin: .fake(),
 				badgeWrapper: .fake()
 			)
-			coronaTestService.pcrTest = PCRTest.mock(testResult: testResult)
+			coronaTestService.pcrTest.value = PCRTest.mock(testResult: testResult)
 			
 			let model = ExposureSubmissionTestResultViewModel(
 				coronaTestType: .pcr,
@@ -560,7 +560,7 @@ class ExposureSubmissionTestResultViewModelTests: CWATestCase {
 			recycleBin: .fake(),
 			badgeWrapper: .fake()
 		)
-		coronaTestService.pcrTest = PCRTest.mock(testResult: .expired)
+		coronaTestService.pcrTest.value = PCRTest.mock(testResult: .expired)
 		
 		let model = ExposureSubmissionTestResultViewModel(
 			coronaTestType: .pcr,
@@ -606,7 +606,7 @@ class ExposureSubmissionTestResultViewModelTests: CWATestCase {
 				recycleBin: .fake(),
 				badgeWrapper: .fake()
 			)
-			coronaTestService.pcrTest = PCRTest.mock(testResult: .pending)
+			coronaTestService.pcrTest.value = PCRTest.mock(testResult: .pending)
 			
 			let model = ExposureSubmissionTestResultViewModel(
 				coronaTestType: .pcr,
@@ -659,7 +659,7 @@ class ExposureSubmissionTestResultViewModelTests: CWATestCase {
 				recycleBin: .fake(),
 				badgeWrapper: .fake()
 			)
-			coronaTestService.pcrTest = PCRTest.mock(testResult: .positive)
+			coronaTestService.pcrTest.value = PCRTest.mock(testResult: .positive)
 			
 			let model = ExposureSubmissionTestResultViewModel(
 				coronaTestType: .pcr,
@@ -714,7 +714,7 @@ class ExposureSubmissionTestResultViewModelTests: CWATestCase {
 					recycleBin: .fake(),
 					badgeWrapper: .fake()
 				)
-				coronaTestService.pcrTest = PCRTest.mock(testResult: testResult)
+				coronaTestService.pcrTest.value = PCRTest.mock(testResult: testResult)
 				
 				let model = ExposureSubmissionTestResultViewModel(
 					coronaTestType: .pcr,
@@ -768,7 +768,7 @@ class ExposureSubmissionTestResultViewModelTests: CWATestCase {
 			recycleBin: .fake(),
 			badgeWrapper: .fake()
 		)
-		coronaTestService.pcrTest = PCRTest.mock(testResult: .positive)
+		coronaTestService.pcrTest.value = PCRTest.mock(testResult: .positive)
 		
 		let model = ExposureSubmissionTestResultViewModel(
 			coronaTestType: .pcr,
@@ -828,7 +828,7 @@ class ExposureSubmissionTestResultViewModelTests: CWATestCase {
 			recycleBin: .fake(),
 			badgeWrapper: .fake()
 		)
-		coronaTestService.pcrTest = PCRTest.mock(testResult: .negative)
+		coronaTestService.pcrTest.value = PCRTest.mock(testResult: .negative)
 		
 		let model = ExposureSubmissionTestResultViewModel(
 			coronaTestType: .pcr,
@@ -912,7 +912,7 @@ class ExposureSubmissionTestResultViewModelTests: CWATestCase {
 			recycleBin: .fake(),
 			badgeWrapper: .fake()
 		)
-		coronaTestService.pcrTest = PCRTest.mock(testResult: .invalid)
+		coronaTestService.pcrTest.value = PCRTest.mock(testResult: .invalid)
 		
 		let model = ExposureSubmissionTestResultViewModel(
 			coronaTestType: .pcr,
@@ -972,7 +972,7 @@ class ExposureSubmissionTestResultViewModelTests: CWATestCase {
 			recycleBin: .fake(),
 			badgeWrapper: .fake()
 		)
-		coronaTestService.pcrTest = PCRTest.mock(testResult: .pending)
+		coronaTestService.pcrTest.value = PCRTest.mock(testResult: .pending)
 		
 		let model = ExposureSubmissionTestResultViewModel(
 			coronaTestType: .pcr,
@@ -1036,7 +1036,7 @@ class ExposureSubmissionTestResultViewModelTests: CWATestCase {
 			recycleBin: .fake(),
 			badgeWrapper: .fake()
 		)
-		coronaTestService.pcrTest = PCRTest.mock(testResult: .expired)
+		coronaTestService.pcrTest.value = PCRTest.mock(testResult: .expired)
 		
 		let model = ExposureSubmissionTestResultViewModel(
 			coronaTestType: .pcr,

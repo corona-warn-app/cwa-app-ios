@@ -31,7 +31,7 @@ class HomeShownPositiveTestResultCellModelTest: CWATestCase {
 			badgeWrapper: .fake()
 		)
 
-		coronaTestService.pcrTest = PCRTest.mock(
+		coronaTestService.pcrTest.value = PCRTest.mock(
 			registrationDate: Date(timeIntervalSinceReferenceDate: 0),
 			testResult: .positive,
 			positiveTestResultWasShown: true,
@@ -80,7 +80,7 @@ class HomeShownPositiveTestResultCellModelTest: CWATestCase {
 		XCTAssertEqual(homeItemViewModels[2].separatorColor, .clear)
 		XCTAssertEqual(homeItemViewModels[2].containerInsets, .init(top: 10.0, left: 0.0, bottom: 10.0, right: 0))
 
-		coronaTestService.pcrTest?.keysSubmitted = true
+		coronaTestService.pcrTest.value?.keysSubmitted = true
 
 		XCTAssertTrue(cellModel.isWarnOthersButtonHidden)
 		XCTAssertTrue(cellModel.isRemoveTestButtonHidden)
@@ -137,7 +137,7 @@ class HomeShownPositiveTestResultCellModelTest: CWATestCase {
 			badgeWrapper: .fake()
 		)
 
-		coronaTestService.antigenTest = AntigenTest.mock(
+		coronaTestService.antigenTest.value = AntigenTest.mock(
 			pointOfCareConsentDate: Date(timeIntervalSinceReferenceDate: 0),
 			testResult: .positive,
 			positiveTestResultWasShown: true,
@@ -186,7 +186,7 @@ class HomeShownPositiveTestResultCellModelTest: CWATestCase {
 		XCTAssertEqual(homeItemViewModels[2].separatorColor, .clear)
 		XCTAssertEqual(homeItemViewModels[2].containerInsets, .init(top: 10.0, left: 0.0, bottom: 10.0, right: 0))
 
-		coronaTestService.antigenTest?.keysSubmitted = true
+		coronaTestService.antigenTest.value?.keysSubmitted = true
 
 		XCTAssertTrue(cellModel.isWarnOthersButtonHidden)
 		XCTAssertTrue(cellModel.isRemoveTestButtonHidden)

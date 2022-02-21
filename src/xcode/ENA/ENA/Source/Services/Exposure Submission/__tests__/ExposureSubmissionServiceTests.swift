@@ -49,7 +49,7 @@ class ExposureSubmissionServiceTests: CWATestCase {
 			recycleBin: .fake(),
 			badgeWrapper: .fake()
 		)
-		coronaTestService.pcrTest = PCRTest.mock(
+		coronaTestService.pcrTest.value = PCRTest.mock(
 			registrationToken: "dummyRegistrationToken",
 			finalTestResultReceivedDate: Date(timeIntervalSince1970: 12345678),
 			positiveTestResultWasShown: true,
@@ -91,12 +91,12 @@ class ExposureSubmissionServiceTests: CWATestCase {
 		
 		waitForExpectations(timeout: expectationsTimeout)
 		
-		XCTAssertNil(coronaTestService.pcrTest?.registrationToken)
-		XCTAssertNil(coronaTestService.pcrTest?.submissionTAN)
-		XCTAssertTrue(coronaTestService.pcrTest?.keysSubmitted == true)
+		XCTAssertNil(coronaTestService.pcrTest.value?.registrationToken)
+		XCTAssertNil(coronaTestService.pcrTest.value?.submissionTAN)
+		XCTAssertTrue(coronaTestService.pcrTest.value?.keysSubmitted == true)
 		
 		/// The date of the test result is still needed because it is shown on the home screen after the submission
-		XCTAssertNotNil(coronaTestService.pcrTest?.finalTestResultReceivedDate)
+		XCTAssertNotNil(coronaTestService.pcrTest.value?.finalTestResultReceivedDate)
 		
 		XCTAssertNil(store.submissionKeys)
 		XCTAssertTrue(store.submissionCountries.isEmpty)
@@ -138,7 +138,7 @@ class ExposureSubmissionServiceTests: CWATestCase {
 			recycleBin: .fake(),
 			badgeWrapper: .fake()
 		)
-		coronaTestService.pcrTest = PCRTest.mock(
+		coronaTestService.pcrTest.value = PCRTest.mock(
 			registrationToken: "regToken",
 			positiveTestResultWasShown: true,
 			isSubmissionConsentGiven: true
@@ -202,7 +202,7 @@ class ExposureSubmissionServiceTests: CWATestCase {
 			recycleBin: .fake(),
 			badgeWrapper: .fake()
 		)
-		coronaTestService.pcrTest = PCRTest.mock(
+		coronaTestService.pcrTest.value = PCRTest.mock(
 			isSubmissionConsentGiven: false
 		)
 		
@@ -228,11 +228,11 @@ class ExposureSubmissionServiceTests: CWATestCase {
 		
 		waitForExpectations(timeout: expectationsTimeout)
 		
-		XCTAssertNil(coronaTestService.pcrTest?.registrationToken)
-		XCTAssertNil(coronaTestService.pcrTest?.submissionTAN)
+		XCTAssertNil(coronaTestService.pcrTest.value?.registrationToken)
+		XCTAssertNil(coronaTestService.pcrTest.value?.submissionTAN)
 		
-		XCTAssertTrue(coronaTestService.pcrTest?.isSubmissionConsentGiven == false)
-		XCTAssertTrue(coronaTestService.pcrTest?.keysSubmitted == false)
+		XCTAssertTrue(coronaTestService.pcrTest.value?.isSubmissionConsentGiven == false)
+		XCTAssertTrue(coronaTestService.pcrTest.value?.keysSubmitted == false)
 		
 		XCTAssertEqual(store.submissionKeys, [])
 		XCTAssertEqual(store.submissionCheckins, [])
@@ -273,7 +273,7 @@ class ExposureSubmissionServiceTests: CWATestCase {
 			recycleBin: .fake(),
 			badgeWrapper: .fake()
 		)
-		coronaTestService.pcrTest = PCRTest.mock(
+		coronaTestService.pcrTest.value = PCRTest.mock(
 			positiveTestResultWasShown: true,
 			isSubmissionConsentGiven: true
 		)
@@ -300,8 +300,8 @@ class ExposureSubmissionServiceTests: CWATestCase {
 		
 		waitForExpectations(timeout: expectationsTimeout)
 		
-		XCTAssertTrue(coronaTestService.pcrTest?.isSubmissionConsentGiven == true)
-		XCTAssertTrue(coronaTestService.pcrTest?.keysSubmitted == false)
+		XCTAssertTrue(coronaTestService.pcrTest.value?.isSubmissionConsentGiven == true)
+		XCTAssertTrue(coronaTestService.pcrTest.value?.keysSubmitted == false)
 	}
 	
 	
@@ -331,7 +331,7 @@ class ExposureSubmissionServiceTests: CWATestCase {
 			recycleBin: .fake(),
 			badgeWrapper: .fake()
 		)
-		coronaTestService.pcrTest = PCRTest.mock(
+		coronaTestService.pcrTest.value = PCRTest.mock(
 			positiveTestResultWasShown: false,
 			isSubmissionConsentGiven: true
 		)
@@ -358,8 +358,8 @@ class ExposureSubmissionServiceTests: CWATestCase {
 		
 		waitForExpectations(timeout: expectationsTimeout)
 		
-		XCTAssertTrue(coronaTestService.pcrTest?.isSubmissionConsentGiven == true)
-		XCTAssertTrue(coronaTestService.pcrTest?.keysSubmitted == false)
+		XCTAssertTrue(coronaTestService.pcrTest.value?.isSubmissionConsentGiven == true)
+		XCTAssertTrue(coronaTestService.pcrTest.value?.keysSubmitted == false)
 	}
 	
 	func testSubmitExposure_KeysNotSharedDueToNotAuthorizedError() {
@@ -389,7 +389,7 @@ class ExposureSubmissionServiceTests: CWATestCase {
 			recycleBin: .fake(),
 			badgeWrapper: .fake()
 		)
-		coronaTestService.pcrTest = PCRTest.mock(
+		coronaTestService.pcrTest.value = PCRTest.mock(
 			positiveTestResultWasShown: true,
 			isSubmissionConsentGiven: true
 		)
@@ -418,8 +418,8 @@ class ExposureSubmissionServiceTests: CWATestCase {
 		
 		waitForExpectations(timeout: expectationsTimeout)
 		
-		XCTAssertTrue(coronaTestService.pcrTest?.isSubmissionConsentGiven == true)
-		XCTAssertTrue(coronaTestService.pcrTest?.keysSubmitted == false)
+		XCTAssertTrue(coronaTestService.pcrTest.value?.isSubmissionConsentGiven == true)
+		XCTAssertTrue(coronaTestService.pcrTest.value?.keysSubmitted == false)
 	}
 	
 	func testSubmitExposure_NoKeys() {
@@ -449,7 +449,7 @@ class ExposureSubmissionServiceTests: CWATestCase {
 			recycleBin: .fake(),
 			badgeWrapper: .fake()
 		)
-		coronaTestService.pcrTest = PCRTest.mock(
+		coronaTestService.pcrTest.value = PCRTest.mock(
 			positiveTestResultWasShown: true,
 			isSubmissionConsentGiven: true
 		)
@@ -476,7 +476,7 @@ class ExposureSubmissionServiceTests: CWATestCase {
 		
 		waitForExpectations(timeout: expectationsTimeout)
 		
-		XCTAssertTrue(coronaTestService.pcrTest?.keysSubmitted == true)
+		XCTAssertTrue(coronaTestService.pcrTest.value?.keysSubmitted == true)
 	}
 	
 	func testSubmitExposure_EmptyKeys() {
@@ -506,7 +506,7 @@ class ExposureSubmissionServiceTests: CWATestCase {
 			recycleBin: .fake(),
 			badgeWrapper: .fake()
 		)
-		coronaTestService.pcrTest = PCRTest.mock(
+		coronaTestService.pcrTest.value = PCRTest.mock(
 			positiveTestResultWasShown: true,
 			isSubmissionConsentGiven: true
 		)
@@ -533,7 +533,7 @@ class ExposureSubmissionServiceTests: CWATestCase {
 		
 		waitForExpectations(timeout: expectationsTimeout)
 		
-		XCTAssertTrue(coronaTestService.pcrTest?.keysSubmitted == true)
+		XCTAssertTrue(coronaTestService.pcrTest.value?.keysSubmitted == true)
 	}
 	
 	func testExposureSubmission_InvalidPayloadOrHeaders() {
@@ -570,7 +570,7 @@ class ExposureSubmissionServiceTests: CWATestCase {
 			recycleBin: .fake(),
 			badgeWrapper: .fake()
 		)
-		coronaTestService.pcrTest = PCRTest.mock(
+		coronaTestService.pcrTest.value = PCRTest.mock(
 			registrationToken: "asdf",
 			positiveTestResultWasShown: true,
 			isSubmissionConsentGiven: true
@@ -598,7 +598,7 @@ class ExposureSubmissionServiceTests: CWATestCase {
 		
 		waitForExpectations(timeout: expectationsTimeout)
 		
-		XCTAssertTrue(coronaTestService.pcrTest?.isSubmissionConsentGiven == true)
+		XCTAssertTrue(coronaTestService.pcrTest.value?.isSubmissionConsentGiven == true)
 	}
 	
 	func testSubmitExposure_NoRegToken() {
@@ -634,7 +634,7 @@ class ExposureSubmissionServiceTests: CWATestCase {
 			recycleBin: .fake(),
 			badgeWrapper: .fake()
 		)
-		coronaTestService.pcrTest = PCRTest.mock(
+		coronaTestService.pcrTest.value = PCRTest.mock(
 			registrationToken: nil,
 			positiveTestResultWasShown: true,
 			isSubmissionConsentGiven: true
@@ -694,7 +694,7 @@ class ExposureSubmissionServiceTests: CWATestCase {
 			recycleBin: .fake(),
 			badgeWrapper: .fake()
 		)
-		coronaTestService.pcrTest = PCRTest.mock(
+		coronaTestService.pcrTest.value = PCRTest.mock(
 			registrationToken: "dummyRegistrationToken",
 			positiveTestResultWasShown: true,
 			isSubmissionConsentGiven: true
@@ -756,7 +756,7 @@ class ExposureSubmissionServiceTests: CWATestCase {
 			recycleBin: .fake(),
 			badgeWrapper: .fake()
 		)
-		coronaTestService.pcrTest = PCRTest.mock(
+		coronaTestService.pcrTest.value = PCRTest.mock(
 			registrationToken: "dummyRegistrationToken",
 			positiveTestResultWasShown: true,
 			isSubmissionConsentGiven: true
@@ -846,7 +846,7 @@ class ExposureSubmissionServiceTests: CWATestCase {
 			recycleBin: .fake(),
 			badgeWrapper: .fake()
 		)
-		coronaTestService.pcrTest = PCRTest.mock(
+		coronaTestService.pcrTest.value = PCRTest.mock(
 			registrationToken: "dummyRegistrationToken",
 			positiveTestResultWasShown: true,
 			isSubmissionConsentGiven: true
@@ -1114,7 +1114,7 @@ class ExposureSubmissionServiceTests: CWATestCase {
 			recycleBin: .fake(),
 			badgeWrapper: .fake()
 		)
-		coronaTestService.pcrTest = PCRTest.mock(
+		coronaTestService.pcrTest.value = PCRTest.mock(
 			registrationToken: "dummyRegToken",
 			positiveTestResultWasShown: true,
 			isSubmissionConsentGiven: true

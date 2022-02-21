@@ -108,7 +108,7 @@ class HomeTestResultCellModelTests: CWATestCase {
 			recycleBin: .fake(),
 			badgeWrapper: .fake()
 		)
-		coronaTestService.pcrTest = PCRTest.mock()
+		coronaTestService.pcrTest.value = PCRTest.mock()
 
 		let cellModel = HomeTestResultCellModel(
 			coronaTestType: .pcr,
@@ -176,11 +176,11 @@ class HomeTestResultCellModelTests: CWATestCase {
 			}
 			.store(in: &subscriptions)
 
-		coronaTestService.pcrTest?.testResult = .negative
-		coronaTestService.pcrTest?.testResult = .invalid
-		coronaTestService.pcrTest?.testResult = .positive
-		coronaTestService.pcrTest?.testResult = .expired
-		coronaTestService.pcrTestResultIsLoading = true
+		coronaTestService.pcrTest.value?.testResult = .negative
+		coronaTestService.pcrTest.value?.testResult = .invalid
+		coronaTestService.pcrTest.value?.testResult = .positive
+		coronaTestService.pcrTest.value?.testResult = .expired
+		coronaTestService.pcrTestResultIsLoading.value = true
 
 		waitForExpectations(timeout: .short, handler: nil)
 
