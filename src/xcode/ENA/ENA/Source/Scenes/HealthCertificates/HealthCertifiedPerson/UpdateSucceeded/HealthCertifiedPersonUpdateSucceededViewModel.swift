@@ -3,19 +3,23 @@
 //
 
 import Foundation
+import UIKit
+
+/// ViewModel is a dummy for the moment to construct the flow for the moment
+/// needed to get replaced in later tasks
+///
 
 struct HealthCertifiedPersonUpdateSucceededViewModel {
 
 	// MARK: - Init
-
-	// MARK: - Overrides
-
-	// MARK: - Protocol <#Name#>
-
-	// MARK: - Public
-
-	// MARK: - Internal
+	init() {
+		self.image = UIImage()
+		self.text = "This is a dummy for the moment"
+	}
 
 	// MARK: - Private
+
+	private let image: UIImage
+	private let text: String
 
 }

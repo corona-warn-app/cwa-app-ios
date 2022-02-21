@@ -4,6 +4,9 @@
 
 import Foundation
 
+/// Error and ViewModel are dummies for the moment to construct the flow for the moment
+/// needed to get replaced in later tasks
+///
 enum HealthCertifiedPersonUpdateError: Error {
 	case UpdateFailedError
 }
