@@ -1484,6 +1484,7 @@
 		BAC0A4DE25768039002B5361 /* TanInputViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAC0A4DD25768039002B5361 /* TanInputViewModelTests.swift */; };
 		BAC2F58626667A84008A6C7B /* DCCErrors.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAC2F58526667A84008A6C7B /* DCCErrors.swift */; };
 		BAC42DC42583AF9D001A94C0 /* ENATextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAC42DC32583AF9D001A94C0 /* ENATextField.swift */; };
+		BAC5CC0B27BE84DA00094C32 /* HealthCertifiedPersonCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAC5CC0A27BE84DA00094C32 /* HealthCertifiedPersonCoordinator.swift */; };
 		BAC7292026037D61006D83C7 /* AddCheckinCellModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAC7291F26037D61006D83C7 /* AddCheckinCellModelTests.swift */; };
 		BAC729312603863E006D83C7 /* CheckinCellModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAC729302603863E006D83C7 /* CheckinCellModelTests.swift */; };
 		BAC7419E26414D4700955311 /* SimpleTextCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA5B0BED26341A6A0020C977 /* SimpleTextCell.swift */; };
@@ -3187,6 +3188,7 @@
 		BAC291492652BEA600CFA8A5 /* ENAUITests_13_CreateHealthCertificate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ENAUITests_13_CreateHealthCertificate.swift; sourceTree = "<group>"; };
 		BAC2F58526667A84008A6C7B /* DCCErrors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DCCErrors.swift; sourceTree = "<group>"; };
 		BAC42DC32583AF9D001A94C0 /* ENATextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ENATextField.swift; sourceTree = "<group>"; };
+		BAC5CC0A27BE84DA00094C32 /* HealthCertifiedPersonCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthCertifiedPersonCoordinator.swift; sourceTree = "<group>"; };
 		BAC7291F26037D61006D83C7 /* AddCheckinCellModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCheckinCellModelTests.swift; sourceTree = "<group>"; };
 		BAC729302603863E006D83C7 /* CheckinCellModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckinCellModelTests.swift; sourceTree = "<group>"; };
 		BAC939CC261F5359008BECED /* TestOverwriteNoticeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestOverwriteNoticeViewController.swift; sourceTree = "<group>"; };
@@ -8653,6 +8655,7 @@
 			children = (
 				BAE106E226710DEE002D91FB /* __tests__ */,
 				BA5B7FC426458EF400502087 /* Cells */,
+				BAC5CC0A27BE84DA00094C32 /* HealthCertifiedPersonCoordinator.swift */,
 				BA5B7FCA26458EF400502087 /* HealthCertifiedPersonViewController.swift */,
 				BA5B7FC926458EF400502087 /* HealthCertifiedPersonViewModel.swift */,
 			);
@@ -10516,6 +10519,7 @@
 				AB182012275A2F0A0054B873 /* ENALinkedTextView.swift in Sources */,
 				01D6948F2502729000B45BEA /* DatePickerDay.swift in Sources */,
 				018FD4772695EAAB000088F8 /* HealthCertificateValidationResultViewModel.swift in Sources */,
+				BAC5CC0B27BE84DA00094C32 /* HealthCertifiedPersonCoordinator.swift in Sources */,
 				BA7DCA152747D923009E4557 /* _EvaluateTrust.swift in Sources */,
 				019C9F40258951C000B26392 /* DiaryLocation.swift in Sources */,
 				945CD04D25DE592E007ADB4F /* DiaryDayNotesInfoViewController.swift in Sources */,

@@ -2934,6 +2934,15 @@
 
 "RecoveryCertificate_Alert_message" = "Sertifika geri dönüşüm kutusuna taşınacak. Geri dönüşüm kutusunu, durum sekmesinde yer alan \"Daha Fazla\" kutucuğunda bulabilirsiniz. Burada sertifikayı kalıcı olarak silebilir veya geri yükleyebilirsiniz. Sertifika 30 gün sonra otomatik olarak silinir.";
 
+/* Decoding Failed Health Certificate Delete Alert */
+"DecodingFailedHealthCertificate_Alert_title" = "Sertifikayı kalıcı olarak silmek istiyor musunuz?";
+
+"DecodingFailedHealthCertificate_Alert_message" = "Sertifikanın kodu çözülemedi, bu nedenle sertifika için hiçbir bilgi görüntülenemiyor. Silerseniz, sertifikayı artık kanıt olarak kullanamazsınız.";
+
+"DecodingFailedHealthCertificate_Alert_deleteButton" = "Sertifikayı Kalıcı Olarak Sil";
+
+"DecodingFailedHealthCertificate_Alert_cancelButton" = "İptal";
+
 /* Health Certificate Print PDF */
 "HealthCertificate_PrintPdf_showPrintableVersion" = "Basılı Versiyonu Görüntüle";
 
