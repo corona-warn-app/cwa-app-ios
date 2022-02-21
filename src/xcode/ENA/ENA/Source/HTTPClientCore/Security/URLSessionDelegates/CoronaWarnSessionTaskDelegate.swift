@@ -6,7 +6,8 @@ import Foundation
 
 class CoronaWarnSessionTaskDelegate: NSObject, URLSessionTaskDelegate {
 	
-	// Todo: Write a nice comment
+	// Map the trust evaluations to the tasks.
+	// This way every task has its own trust evaluation.
 	var trustEvaluations = [Int: TrustEvaluating]()
 	
 	func urlSession(
@@ -15,8 +16,9 @@ class CoronaWarnSessionTaskDelegate: NSObject, URLSessionTaskDelegate {
 		didReceive challenge: URLAuthenticationChallenge,
 		completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Void
 	) {
+		
+		// Reject all requests that we do not have a TrustEvaluation for.
 		guard let trustEvaluation = trustEvaluations[task.taskIdentifier] else {
-			// Reject all requests that we do not have a TrustEvaluation for.
 			completionHandler(.cancelAuthenticationChallenge, /* credential */ nil)
 			return
 		}
@@ -39,7 +41,7 @@ class CoronaWarnSessionTaskDelegate: NSObject, URLSessionTaskDelegate {
 		if #available(iOS 13.0, *) {
 			let dispatchQueue = session.delegateQueue.underlyingQueue ?? DispatchQueue.global()
 			dispatchQueue.async {
-				SecTrustEvaluateAsyncWithError(trust, dispatchQueue) { [weak self] trust, isValid, error in
+				SecTrustEvaluateAsyncWithError(trust, dispatchQueue) { trust, isValid, error in
 					guard isValid else {
 						Log.error("Evaluation failed with error: \(error?.localizedDescription ?? "<nil>")", log: .api, error: error)
 						completionHandler(.cancelAuthenticationChallenge, /* credential */ nil)

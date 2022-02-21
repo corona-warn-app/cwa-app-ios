@@ -65,20 +65,18 @@ extension Service {
 			completion(failureOrDefaultValueHandling(resource, .invalidRequestError(resourceError)))
 		case let .success(request):
 
-			let task = session.dataTask(with: request) { bodyData, response, error in
+			var task: URLSessionDataTask?
+			task = session.dataTask(with: request) { bodyData, response, error in
 				
 				// If there is a transportation error, check if the underlying error is a trust evaluation error and possibly return it.
 				if error != nil,
-				   let coronaSessionDelegate = session.delegate as? CoronaWarnURLSessionDelegate,
-				   let error = coronaSessionDelegate.evaluateTrust.trustEvaluationError,
+				   let coronaSessionDelegate = session.delegate as? CoronaWarnSessionTaskDelegate,
+				   let task = task,
+				   let error = coronaSessionDelegate.trustEvaluations[task.taskIdentifier]?.trustEvaluationError,
 				   let trustEvaluationError = error as? TrustEvaluationError {
 					Log.error("TrustEvaluation failed.", log: .client)
 					completion(failureOrDefaultValueHandling(resource, .trustEvaluationError(trustEvaluationError)))
 					
-					// Reset the error to not block future requests.
-					// I know, this error state is not a nice solution.
-					// If you have an idea how to solve the problem of having a detailed trust evaluation error at this point, without holding the state, feel free to refactor :)
-					coronaSessionDelegate.evaluateTrust.trustEvaluationError = nil
 					return
 				}
 				
@@ -133,27 +131,15 @@ extension Service {
 				}
 			}
 			
-
+			guard let task = task else {
+				fatalError("Task cannot be nil at this point.")
+			}
 			
-
-			
-//			if let trustEvaluation = resource.trustEvaluation {
-////				task.delegate = CoronaWarnSessionTaskDelegate(
-////					trustEvaluation: trustEvaluation
-////				)
-//				
-//				let delegate = CoronaWarnSessionTaskDelegate(
-//					trustEvaluation: trustEvaluation
-//				   )
-//				
-//				let dummy = URLSession(
-//					configuration: URLSessionConfiguration.coronaWarnSessionConfiguration(),
-//					delegate: delegate,
-//					delegateQueue: .main
-//				)
-//				
-//				delegate.trustEvaluations[task.taskIdentifier] = trustEvaluation
-//			}
+			// Set the trust evaluation which is executed during the request on the CoronaWarnSessionTaskDelegate.
+			if let coronaSessionDelegate = session.delegate as? CoronaWarnSessionTaskDelegate {
+				
+				coronaSessionDelegate.trustEvaluations[task.taskIdentifier] = resource.trustEvaluation
+			}
 						
 			task.resume()
 		}
