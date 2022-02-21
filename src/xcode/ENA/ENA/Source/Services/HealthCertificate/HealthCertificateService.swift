@@ -738,8 +738,13 @@ class HealthCertificateService {
 				person.mostRecentWalletInfoUpdateFailed = false
 				
 				#if DEBUG
-				if isUITesting, LaunchArguments.healthCertificate.hasBoosterNotification.boolValue {
-					person.dccWalletInfo = self.updateDccWalletInfoForMockBoosterNotification(dccWalletInfo: dccWalletInfo)
+				if isUITesting {
+					if LaunchArguments.healthCertificate.hasBoosterNotification.boolValue {
+						person.dccWalletInfo = self.updateDccWalletInfoForMockBoosterNotification(dccWalletInfo: dccWalletInfo)
+					}
+					if LaunchArguments.healthCertificate.hasCertificateReissuance.boolValue {
+						person.dccWalletInfo = self.updateDccWalletInfoForMockCertificateReissuance(dccWalletInfo: dccWalletInfo)
+					}
 				}
 				#endif
 

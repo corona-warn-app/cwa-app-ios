@@ -196,5 +196,56 @@ extension HealthCertificateService {
 			certificateReissuance: dccWalletInfo.certificateReissuance
 		)
 	}
+
+	func updateDccWalletInfoForMockCertificateReissuance(dccWalletInfo: DCCWalletInfo) -> DCCWalletInfo {
+		let titleText = DCCUIText(
+			type: "string",
+			quantity: nil,
+			quantityParameterIndex: nil,
+			functionName: nil,
+			localizedText: ["de": "Zertifikat aktualisieren"],
+			parameters: []
+		)
+
+		let subtitleText = DCCUIText(
+			type: "string",
+			quantity: nil,
+			quantityParameterIndex: nil,
+			functionName: nil,
+			localizedText: ["de": "Neuausstellung direkt über die App vornehmen"],
+			parameters: []
+		)
+
+		let testLongText = DCCUIText(
+			type: "string",
+			quantity: nil,
+			quantityParameterIndex: nil,
+			functionName: nil,
+			localizedText: ["de": "Die Spezifikationen der EU für Booster-Impfzertifikate wurden geändert. Dieses Zertifikat entspricht nicht den aktuellen Spezifikationen. Das Impfzertifikat ist zwar weiterhin gültig, es kann jedoch sein, dass bei einer Prüfung die Booster-Impfung nicht erkannt wird. Bitte lassen Sie sich daher ein neues Impfzertifikat ausstellen.\n\nSie können ein neues Impfzertifikat direkt kostenlos über die App anfordern. Hierfür ist Ihr Einverständnis erforderlich."],
+			parameters: []
+		)
+
+		return DCCWalletInfo(
+			admissionState: dccWalletInfo.admissionState,
+			vaccinationState: dccWalletInfo.vaccinationState,
+			boosterNotification: dccWalletInfo.boosterNotification,
+			mostRelevantCertificate: dccWalletInfo.mostRelevantCertificate,
+			verification: dccWalletInfo.verification,
+			validUntil: dccWalletInfo.validUntil,
+			certificateReissuance: DCCCertificateReissuance(
+				reissuanceDivision: DCCCertificateReissuanceDivision(
+					visible: true,
+					titleText: titleText,
+					subtitleText: subtitleText,
+					longText: testLongText,
+					faqAnchor: "certificateReissuance"
+				),
+				certificateToReissue: DCCCertificateContainer(
+					certificateRef: DCCCertificateReference(barcodeData: "")
+				),
+				accompanyingCertificates: []
+			)
+		)
+	}
 	#endif
 }
