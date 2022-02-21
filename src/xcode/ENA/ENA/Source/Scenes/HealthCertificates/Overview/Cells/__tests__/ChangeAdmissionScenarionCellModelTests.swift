@@ -9,7 +9,7 @@ class ChangeAdmissionScenarionCellModelTests: XCTestCase {
 
 	func testGIVEN_CellModel_THEN_InitialStateIsAsExpected() {
 		// GIVEN
-		let cellViewModel = ChangeAdmissionScenarionCellModel(changeAdmissionScenarioButtonLabel: "Test")
+		let cellViewModel = ChangeAdmissionScenarionCellModel(changeAdmissionScenarioButtonText: "Test")
 
 		// THEN
 		XCTAssertEqual(cellViewModel.textColorPublisher.value, UIColor.enaColor(for: .textPrimary1))

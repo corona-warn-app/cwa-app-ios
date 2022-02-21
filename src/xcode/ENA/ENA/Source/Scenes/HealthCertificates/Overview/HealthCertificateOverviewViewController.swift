@@ -54,7 +54,7 @@ class HealthCertificateOverviewViewController: UITableViewController {
 			}
 			.store(in: &subscriptions)
 		
-		viewModel.$changeAdmissionScenarioStatusLabel
+		viewModel.$changeAdmissionScenarioStatusText
 			.receive(on: DispatchQueue.OCombine(.main))
 			.sink { [weak self] _ in
 				self?.tableView.reloadData()
@@ -199,7 +199,7 @@ class HealthCertificateOverviewViewController: UITableViewController {
 			fatalError("Could not dequeue OverviewLabelTableCell")
 		}
 
-		cell.configure(text: viewModel.changeAdmissionScenarioStatusLabel?.localized(cclService: cclService) ?? AppStrings.HealthCertificate.Overview.admissionScenarioStatusLabel, noBottomInset: true, textAlignment: .left)
+		cell.configure(text: viewModel.changeAdmissionScenarioStatusText?.localized(cclService: cclService) ?? AppStrings.HealthCertificate.Overview.admissionScenarioStatusLabel, noBottomInset: true, textAlignment: .left)
 		return cell
 	}
 	
@@ -208,7 +208,7 @@ class HealthCertificateOverviewViewController: UITableViewController {
 			fatalError("Could not dequeue ChangeAdmissionScenarionCell")
 		}
 
-		cell.configure(cellModel: ChangeAdmissionScenarionCellModel(changeAdmissionScenarioButtonLabel: viewModel.changeAdmissionScenarioButtonLabel?.localized(cclService: cclService) ?? AppStrings.HealthCertificate.Overview.admissionScenarioButtonLabel))
+		cell.configure(cellModel: ChangeAdmissionScenarionCellModel(changeAdmissionScenarioButtonText: viewModel.changeAdmissionScenarioButtonText?.localized(cclService: cclService) ?? AppStrings.HealthCertificate.Overview.admissionScenarioButtonLabel))
 		cell.accessibilityIdentifier = AccessibilityIdentifiers.HealthCertificate.Overview.changeAdmissionScenarioCell
 		return cell
 	}
