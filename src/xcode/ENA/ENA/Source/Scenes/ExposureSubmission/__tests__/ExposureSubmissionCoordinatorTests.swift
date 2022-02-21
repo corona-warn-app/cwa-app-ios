@@ -15,7 +15,7 @@ class ExposureSubmissionCoordinatorTests: CWATestCase {
 	private var parentNavigationController: UINavigationController!
 	private var exposureSubmissionService: MockExposureSubmissionService!
 	private var store: Store!
-	private var coronaTestService: CoronaTestService!
+	private var coronaTestService: CoronaTestServiceProviding!
 	private var healthCertificateService: HealthCertificateService!
 	private var healthCertificateValidationService: HealthCertificateValidationService!
 	private var vaccinationValueSetsProvider: VaccinationValueSetsProvider!
