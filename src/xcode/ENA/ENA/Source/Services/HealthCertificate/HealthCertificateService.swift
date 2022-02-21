@@ -248,7 +248,7 @@ class HealthCertificateService {
 				
 				if healthCertifiedPerson.healthCertificates.isEmpty {
 					healthCertifiedPersons = healthCertifiedPersons
-						.filter { $0 !== healthCertifiedPerson }
+						.filter { $0 != healthCertifiedPerson }
 						.sorted()
 					updateGradients()
 
@@ -468,7 +468,7 @@ class HealthCertificateService {
 		for person in newGroupedPersons {
 			for certificate in person.healthCertificates {
 				if certificate.belongsToSamePerson(newHealthCertificate) {
-					if !matchingPersons.contains(where: { $0 == person }) {
+					if !matchingPersons.contains(person) {
 						matchingPersons.append(person)
 					}
 				}
@@ -696,7 +696,7 @@ class HealthCertificateService {
 					if healthCertifiedPerson.isPreferredPerson {
 						// Set isPreferredPerson = false on all other persons to only have one preferred person
 						self.healthCertifiedPersons
-							.filter { $0 !== healthCertifiedPerson }
+							.filter { $0 != healthCertifiedPerson }
 							.forEach {
 								$0.isPreferredPerson = false
 							}
@@ -976,13 +976,13 @@ class HealthCertificateService {
 		// Find person and replace it by our regroupedPersons
 		// Use a copy of healthCertifiedPersons to avoid multiple changes to healthCertifiedPersons.
 		var mutatedHealthCertifiedPersons = healthCertifiedPersons
-		mutatedHealthCertifiedPersons.removeAll { $0 === healthCertifiedPerson }
+		mutatedHealthCertifiedPersons.remove(healthCertifiedPerson)
 		mutatedHealthCertifiedPersons.append(contentsOf: regroupedPersons)
 		healthCertifiedPersons = mutatedHealthCertifiedPersons
 		
 		// We only want to call updateDCCWalletInfo for new created persons.
 		// For the existing person it is called when the certificates changed.
-		let newlyPersons = healthCertifiedPersons.filter { $0 !== healthCertifiedPerson }
+		let newlyPersons = healthCertifiedPersons.filter { $0 != healthCertifiedPerson }
 		newlyPersons.forEach { updateDCCWalletInfo(for: $0) }
 		
 		healthCertifiedPersons.sort()
@@ -1019,7 +1019,7 @@ class HealthCertificateService {
 			
 			let allPersons = matchingPersons + matchingRegroupedPersons
 			var mergedPerson: HealthCertifiedPerson
-			if allPersons.contains(where: { $0 === healthCertifiedPerson }) {
+			if allPersons.contains(healthCertifiedPerson) {
 				mergedPerson = healthCertifiedPerson
 			} else {
 				guard let person = allPersons.first else {
