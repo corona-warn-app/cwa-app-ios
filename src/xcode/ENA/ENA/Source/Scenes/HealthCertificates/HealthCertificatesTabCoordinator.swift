@@ -64,7 +64,7 @@ final class HealthCertificatesTabCoordinator {
 			return UINavigationController(rootViewController: overviewScreen)
 		}
 	}()
-	
+
 	func showCertifiedPersonWithCertificateFromNotification(
 		for healthCertifiedPerson: HealthCertifiedPerson,
 		with healthCertificate: HealthCertificate
@@ -76,7 +76,7 @@ final class HealthCertificatesTabCoordinator {
 	}
 	
 	func showCertifiedPersonFromNotification(for healthCertifiedPerson: HealthCertifiedPerson) {
-		showHealthCertifiedPerson(healthCertifiedPerson)
+		showHealthCertifiedPersonFlow(healthCertifiedPerson)
 	}
 
 	// MARK: - Private
@@ -89,9 +89,9 @@ final class HealthCertificatesTabCoordinator {
 	private let vaccinationValueSetsProvider: VaccinationValueSetsProviding
 	private let qrScannerCoordinator: QRScannerCoordinator
 
-	private var modalNavigationController: DismissHandlingNavigationController!
-	private var validationCoordinator: HealthCertificateValidationCoordinator?
 	private var certificateCoordinator: HealthCertificateCoordinator?
+	private var healthCertifiedPersonCoordinator: HealthCertifiedPersonCoordinator?
+
 	private var subscriptions = Set<AnyCancellable>()
 
 	private var infoScreenShown: Bool {
@@ -116,7 +116,7 @@ final class HealthCertificatesTabCoordinator {
 				self.showQRCodeScanner()
 			},
 			onCertifiedPersonTap: { [weak self] healthCertifiedPerson in
-				self?.showHealthCertifiedPerson(healthCertifiedPerson)
+				self?.showHealthCertifiedPersonFlow(healthCertifiedPerson)
 			},
 			onCovPassCheckInfoButtonTap: { [weak self] in
 				self?.presentCovPassInfoScreen()
@@ -214,121 +214,7 @@ final class HealthCertificatesTabCoordinator {
 			presenter: .certificateTab
 		)
 	}
-	
-	private func showHealthCertifiedPerson(
-		_ healthCertifiedPerson: HealthCertifiedPerson
-	) {
-		let healthCertificatePersonViewController = HealthCertifiedPersonViewController(
-			cclService: cclService,
-			healthCertificateService: healthCertificateService,
-			healthCertifiedPerson: healthCertifiedPerson,
-			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
-			dismiss: { [weak self] in
-				self?.viewController.dismiss(animated: true)
-			},
-			didTapValidationButton: { [weak self] healthCertificate, setLoadingState in
-				setLoadingState(true)
 
-				self?.healthCertificateValidationOnboardedCountriesProvider.onboardedCountries { result in
-					DispatchQueue.main.async {
-						setLoadingState(false)
-						switch result {
-						case .success(let countries):
-							self?.showValidationFlow(
-								healthCertificate: healthCertificate,
-								countries: countries
-							)
-						case .failure(let error):
-							self?.showErrorAlert(
-								title: AppStrings.HealthCertificate.Validation.Error.title,
-								error: error
-							)
-						}
-					}
-				}
-			},
-			didTapBoosterNotification: { [weak self] healthCertifiedPerson in
-				guard let boosterNotification = healthCertifiedPerson.dccWalletInfo?.boosterNotification, let cclService = self?.cclService else {
-					return
-				}
-				let boosterDetailsViewController = BoosterDetailsViewController(
-					viewModel: BoosterDetailsViewModel(cclService: cclService, healthCertifiedPerson: healthCertifiedPerson, boosterNotification: boosterNotification),
-					dismiss: { [weak self] in
-						self?.viewController.dismiss(animated: true)
-					}
-				)
-				self?.modalNavigationController.pushViewController(boosterDetailsViewController, animated: true)
-			},
-			didTapHealthCertificate: { [weak self] healthCertificate in
-				self?.showHealthCertificateFlow(
-					healthCertifiedPerson: healthCertifiedPerson,
-					healthCertificate: healthCertificate,
-					isPushed: true
-				)
-			},
-			didSwipeToDelete: { [weak self] healthCertificate, confirmDeletion in
-				self?.showDeleteAlert(
-					certificateType: healthCertificate.type,
-					submitAction: UIAlertAction(
-						title: AppStrings.HealthCertificate.Alert.deleteButton,
-						style: .destructive,
-						handler: { _ in
-							guard let self = self else {
-								Log.error("Could not create strong self")
-								return
-							}
-							self.healthCertificateService.moveHealthCertificateToBin(healthCertificate)
-							// Do not confirm deletion if we removed the last certificate of the person (this removes the person, too) because it would trigger a new reload of the table where no person can be shown. Instead, we dismiss the view controller.
-							if self.healthCertificateService.healthCertifiedPersons.contains(healthCertifiedPerson) {
-								confirmDeletion()
-							} else {
-								self.viewController.dismiss(animated: true)
-							}
-						}
-					)
-				)
-			},
-			showInfoHit: { [weak self] in
-				guard let self = self else {
-					Log.error("Failed to stronger self")
-					return
-				}
-				self.presentCovPassInfoScreen(rootViewController: self.modalNavigationController)
-			}
-		)
-		modalNavigationController = DismissHandlingNavigationController(rootViewController: healthCertificatePersonViewController)
-		viewController.present(modalNavigationController, animated: true)
-	}
-	
-		
-	private func showErrorAlert(
-		title: String,
-		error: Error
-	) {
-		let alert = UIAlertController(
-			title: title,
-			message: error.localizedDescription,
-			preferredStyle: .alert
-		)
-
-
-		let okayAction = UIAlertAction(
-			title: AppStrings.Common.alertActionOk,
-			style: .cancel,
-			handler: { _ in
-				alert.dismiss(animated: true)
-			}
-		)
-		alert.addAction(okayAction)
-		DispatchQueue.main.async { [weak self] in
-			guard let self = self else {
-				fatalError("Could not create strong self")
-			}
-			
-			self.modalNavigationController.present(alert, animated: true, completion: nil)
-		}
-	}
-	
 	private func setupCertificateBadgeCount() {
 		healthCertificateService.unseenNewsCount
 			.receive(on: DispatchQueue.main.ocombine)
@@ -337,40 +223,27 @@ final class HealthCertificatesTabCoordinator {
 			}
 			.store(in: &subscriptions)
 	}
-	
-	private func showDeleteAlert(
-		certificateType: HealthCertificate.CertificateType,
-		submitAction: UIAlertAction
-	) {
-		let title: String
-		let message: String
 
-		switch certificateType {
-		case .vaccination:
-			title = AppStrings.HealthCertificate.Alert.VaccinationCertificate.title
-			message = AppStrings.HealthCertificate.Alert.VaccinationCertificate.message
-		case .test:
-			title = AppStrings.HealthCertificate.Alert.TestCertificate.title
-			message = AppStrings.HealthCertificate.Alert.TestCertificate.message
-		case .recovery:
-			title = AppStrings.HealthCertificate.Alert.RecoveryCertificate.title
-			message = AppStrings.HealthCertificate.Alert.RecoveryCertificate.message
-		}
-
-		let alert = UIAlertController(
-			title: title,
-			message: message,
-			preferredStyle: .alert
+	private func showHealthCertifiedPersonFlow(_ healthCertifiedPerson: HealthCertifiedPerson) {
+		healthCertifiedPersonCoordinator = HealthCertifiedPersonCoordinator(
+			store: store,
+			parentViewController: viewController,
+			cclService: cclService,
+			healthCertificateService: healthCertificateService,
+			healthCertificateValidationService: healthCertificateValidationService,
+			healthCertificateValidationOnboardedCountriesProvider: healthCertificateValidationOnboardedCountriesProvider,
+			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
+			showHealthCertificateFlow: { [weak self] healthCertifiedPerson, healthCertificate, isPushed in
+				self?.showHealthCertificateFlow(
+					healthCertifiedPerson: healthCertifiedPerson,
+					healthCertificate: healthCertificate,
+					isPushed: isPushed
+				)
+			}, presentCovPassInfoScreen: { [weak self] viewController in
+				self?.presentCovPassInfoScreen(rootViewController: viewController)
+			}
 		)
-		alert.addAction(
-			UIAlertAction(
-				title: AppStrings.HealthCertificate.Alert.cancelButton,
-				style: .cancel,
-				handler: nil
-			)
-		)
-		alert.addAction(submitAction)
-		modalNavigationController.present(alert, animated: true)
+		healthCertifiedPersonCoordinator?.showHealthCertifiedPerson(healthCertifiedPerson)
 	}
 
 	private func showDecodingFailedDeleteAlert(
@@ -399,7 +272,17 @@ final class HealthCertificatesTabCoordinator {
 		healthCertificate: HealthCertificate,
 		isPushed: Bool = false
 	) {
-		let parentingViewController = isPushed ? ParentingViewController.push(modalNavigationController) : ParentingViewController.present(viewController)
+		var parentingViewController: ParentingViewController
+		if isPushed {
+			guard let navigationController = healthCertifiedPersonCoordinator?.navigationController else {
+				Log.error("Tried to push without a matching modal controller")
+				return
+			}
+			parentingViewController = ParentingViewController.push(navigationController)
+		} else {
+			parentingViewController = ParentingViewController.present(viewController)
+		}
+
 		certificateCoordinator = HealthCertificateCoordinator(
 			parentingViewController: parentingViewController,
 			healthCertifiedPerson: healthCertifiedPerson,
@@ -411,23 +294,7 @@ final class HealthCertificatesTabCoordinator {
 			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
 			markAsSeenOnDisappearance: true
 		)
-		
 		certificateCoordinator?.start()
 	}
-	
-	private func showValidationFlow(
-		healthCertificate: HealthCertificate,
-		countries: [Country]
-	) {
-		validationCoordinator = HealthCertificateValidationCoordinator(
-			parentViewController: modalNavigationController,
-			healthCertificate: healthCertificate,
-			countries: countries,
-			store: store,
-			healthCertificateValidationService: healthCertificateValidationService,
-			vaccinationValueSetsProvider: vaccinationValueSetsProvider
-		)
 
-		validationCoordinator?.start()
-	}
 }
