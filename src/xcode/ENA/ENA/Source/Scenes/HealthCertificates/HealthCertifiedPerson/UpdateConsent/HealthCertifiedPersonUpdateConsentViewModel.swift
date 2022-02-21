@@ -51,7 +51,24 @@ struct HealthCertifiedPersonUpdateConsentViewModel {
 							alignment: .top
 						)
 					]
+				),
+				.section(
+					cells:
+						[
+							.legalExtended(
+								title: NSAttributedString(string: AppStrings.HealthCertificate.Person.UpdateConsent.legalTitle),
+								subheadline1: NSAttributedString(string: AppStrings.HealthCertificate.Person.UpdateConsent.legalSubtitle),
+								bulletPoints1: [
+									NSAttributedString(string: AppStrings.HealthCertificate.Person.UpdateConsent.legalBullet1),
+									NSAttributedString(string: AppStrings.HealthCertificate.Person.UpdateConsent.legalBullet2)
+								],
+								subheadline2: nil
+							),
+							.bulletPoint(text: AppStrings.HealthCertificate.Person.UpdateConsent.bulletPoint_1),
+							.bulletPoint(text: AppStrings.HealthCertificate.Person.UpdateConsent.bulletPoint_2),
+						]
 				)
+
 			]
 		)
 	}()

@@ -2129,9 +2129,13 @@ enum AppStrings {
 				static let deleteNotice = NSLocalizedString("HealthCertifiedPerson_UpdateConsent_Delete_Notice", comment: "")
 				static let cancelNotice = NSLocalizedString("HealthCertifiedPerson_UpdateConsent_Cancel_Notice", comment: "")
 
+				static let legalTitle = NSLocalizedString("HealthCertifiedPerson_UpdateConsent_Legal_Title", comment: "")
+				static let legalSubtitle = NSLocalizedString("HealthCertifiedPerson_UpdateConsent_Legal_Subtitle", comment: "")
+				static let legalBullet1 = NSLocalizedString("HealthCertifiedPerson_UpdateConsent_Legal_Bullet_1", comment: "")
+				static let legalBullet2 = NSLocalizedString("HealthCertifiedPerson_UpdateConsent_Legal_Bullet_2", comment: "")
 
-
-
+				static let bulletPoint_1 = NSLocalizedString("HealthCertifiedPerson_UpdateConsent_Bullet_Point_1", comment: "")
+				static let bulletPoint_2 = NSLocalizedString("HealthCertifiedPerson_UpdateConsent_Bullet_Point_2", comment: "")
 			}
 
 			enum UpdateSucceeded {

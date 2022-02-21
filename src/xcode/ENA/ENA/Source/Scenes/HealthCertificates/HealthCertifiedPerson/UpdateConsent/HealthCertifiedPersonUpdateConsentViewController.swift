@@ -106,12 +106,10 @@ class HealthCertifiedPersonUpdateConsentViewController: DynamicTableViewControll
 	private func setupView() {
 		view.backgroundColor = .enaColor(for: .background)
 
-
 		tableView.register(
-			UINib(nibName: String(describing: ExposureDetectionHeaderCell.self), bundle: nil),
-			forCellReuseIdentifier: "headerCell"
+			UINib(nibName: String(describing: DynamicLegalExtendedCell.self), bundle: nil),
+			forCellReuseIdentifier: DynamicLegalExtendedCell.reuseIdentifier
 		)
-
 
 		tableView.contentInsetAdjustmentBehavior = .automatic
 		tableView.separatorStyle = .none
