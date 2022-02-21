@@ -8633,7 +8633,7 @@
 				BA5B7FCA26458EF400502087 /* HealthCertifiedPersonViewController.swift */,
 				BA5B7FC926458EF400502087 /* HealthCertifiedPersonViewModel.swift */,
 				BAC5CC0C27BEB56600094C32 /* UpdateConsent */,
-				BA8A9FC427BFF788001DBB4B /* UpdateScceeded */,
+				BA8A9FC427BFF788001DBB4B /* UpdateSucceeded */,
 			);
 			path = HealthCertifiedPerson;
 			sourceTree = "<group>";
@@ -8950,13 +8950,13 @@
 			path = __tests__;
 			sourceTree = "<group>";
 		};
-		BA8A9FC427BFF788001DBB4B /* UpdateScceeded */ = {
+		BA8A9FC427BFF788001DBB4B /* UpdateSucceeded */ = {
 			isa = PBXGroup;
 			children = (
 				BA8A9FC527BFFC9C001DBB4B /* HealthCertifiedPersonUpdateSucceededViewController.swift */,
 				BA8A9FC727BFFCAD001DBB4B /* HealthCertifiedPersonUpdateSucceededViewModel.swift */,
 			);
-			path = UpdateScceeded;
+			path = UpdateSucceeded;
 			sourceTree = "<group>";
 		};
 		BA981AFF278DC74E0057C343 /* __tests__ */ = {
