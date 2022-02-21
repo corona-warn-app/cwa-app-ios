@@ -10,9 +10,9 @@ class ChangeAdmissionScenarionCellModel: AddButtonAsTableViewCelling {
 	// MARK: - Init
 
 	init(
-		changeAdmissionScenarioButtonLabel: String
+		changeAdmissionScenarioButtonText: String
 	) {
-		self.text = changeAdmissionScenarioButtonLabel
+		self.text = changeAdmissionScenarioButtonText
 	}
 	
 	// MARK: - Internal

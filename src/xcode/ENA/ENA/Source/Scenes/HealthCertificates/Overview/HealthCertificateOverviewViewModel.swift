@@ -72,8 +72,8 @@ class HealthCertificateOverviewViewModel {
 	@DidSetPublished var decodingFailedHealthCertificates: [DecodingFailedHealthCertificate] = []
 	@DidSetPublished var testCertificateRequests: [TestCertificateRequest] = []
 	@DidSetPublished var testCertificateRequestError: HealthCertificateServiceError.TestCertificateRequestError?
-	@DidSetPublished var changeAdmissionScenarioStatusLabel: DCCUIText?
-	@DidSetPublished var changeAdmissionScenarioButtonLabel: DCCUIText?
+	@DidSetPublished var changeAdmissionScenarioStatusText: DCCUIText?
+	@DidSetPublished var changeAdmissionScenarioButtonText: DCCUIText?
 
 	var isEmpty: Bool {
 		numberOfRows(in: Section.testCertificateRequest.rawValue) == 0 &&
