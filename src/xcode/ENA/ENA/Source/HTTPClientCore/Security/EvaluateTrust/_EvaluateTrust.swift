@@ -2,7 +2,7 @@
 // 🦠 Corona-Warn-App
 //
 
-protocol EvaluateTrust {
+protocol TrustEvaluating {
 	func evaluate(
 		challenge: URLAuthenticationChallenge,
 		trust: SecTrust,

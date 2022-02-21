@@ -3,50 +3,24 @@
 //
 
 import Foundation
-import ENASecurity
 
-final class CoronaWarnURLSessionDelegate: NSObject, URLSessionDelegate {
-
-	// MARK: - Init
-
-	/// Initializes a CWA Session delegate
-	/// - Parameter publicKeyHash: the SHA256 of the certificate to pin
-
-	init(
-		evaluateTrust: TrustEvaluating
-	) {
-		self.evaluateTrust = evaluateTrust
-	}
-
-	convenience init(
-		publicKeyHash: String
-	) {
-		self.init(
-			evaluateTrust: DefaultEvaluateTrust(
-				publicKeyHash: publicKeyHash
-			)
-		)
-	}
-
-	convenience init(
-		jwkSet: [JSONWebKey],
-		trustEvaluation: TrustEvaluation = TrustEvaluation()
-	) {
-		self.init(
-			evaluateTrust: DynamicEvaluateTrust(
-				jwkSet: jwkSet,
-				trustEvaluation: trustEvaluation
-			)
-		)
-	}
-
-	// MARK: - Protocol URLSessionDelegate
-
+class CoronaWarnSessionTaskDelegate: NSObject, URLSessionTaskDelegate {
+	
+	// Todo: Write a nice comment
+	var trustEvaluations = [Int: TrustEvaluating]()
+	
 	func urlSession(
 		_ session: URLSession,
+		task: URLSessionTask,
 		didReceive challenge: URLAuthenticationChallenge,
 		completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Void
 	) {
+		guard let trustEvaluation = trustEvaluations[task.taskIdentifier] else {
+			// Reject all requests that we do not have a TrustEvaluation for.
+			completionHandler(.cancelAuthenticationChallenge, /* credential */ nil)
+			return
+		}
+		
 		// `serverTrust` not nil implies that authenticationMethod == NSURLAuthenticationMethodServerTrust
 		guard let trust = challenge.protectionSpace.serverTrust else {
 			// Reject all requests that we do not have a public key to pin for
@@ -71,7 +45,7 @@ final class CoronaWarnURLSessionDelegate: NSObject, URLSessionDelegate {
 						completionHandler(.cancelAuthenticationChallenge, /* credential */ nil)
 						return
 					}
-					self?.evaluateTrust.evaluate(
+					trustEvaluation.evaluate(
 						challenge: challenge,
 						trust: trust,
 						completionHandler: completionHandler
@@ -83,7 +57,7 @@ final class CoronaWarnURLSessionDelegate: NSObject, URLSessionDelegate {
 			let status = SecTrustEvaluate(trust, &secresult)
 			
 			if status == errSecSuccess {
-				self.evaluateTrust.evaluate(
+				trustEvaluation.evaluate(
 					challenge: challenge,
 					trust: trust,
 					completionHandler: completionHandler
@@ -93,9 +67,7 @@ final class CoronaWarnURLSessionDelegate: NSObject, URLSessionDelegate {
 				completionHandler(.cancelAuthenticationChallenge, /* credential */ nil)
 			}
 		}
+		
+		trustEvaluations[task.taskIdentifier] = nil
 	}
-
-	// MARK: - Internal
-
-	var evaluateTrust: TrustEvaluating
 }

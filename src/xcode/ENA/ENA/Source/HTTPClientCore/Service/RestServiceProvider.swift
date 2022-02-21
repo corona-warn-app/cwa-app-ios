@@ -72,7 +72,7 @@ class RestServiceProvider: RestServiceProviding {
 	}
 
 	// update evaluation trust - only possible for dynamic pinning at the moment
-	func update(_ evaluateTrust: EvaluateTrust) {
+	func update(_ evaluateTrust: TrustEvaluating) {
 		guard let delegate = dynamicPinningRestService.urlSessionDelegate as? CoronaWarnURLSessionDelegate else {
 			return
 		}
@@ -98,7 +98,7 @@ class RestServiceProvider: RestServiceProviding {
 #if !RELEASE
 extension RestServiceProvider {
 
-	var evaluateTrust: EvaluateTrust? {
+	var evaluateTrust: TrustEvaluating? {
 		guard let delegate = dynamicPinningRestService.urlSessionDelegate as? CoronaWarnURLSessionDelegate else {
 			return nil
 		}

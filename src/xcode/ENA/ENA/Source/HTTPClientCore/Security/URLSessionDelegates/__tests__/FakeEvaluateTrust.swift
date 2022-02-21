@@ -5,7 +5,7 @@
 import Foundation
 @testable import ENA
 
-class FakeEvaluateTrust: EvaluateTrust {
+class FakeEvaluateTrust: TrustEvaluating {
 
 	// MARK: - Init
 
@@ -15,7 +15,7 @@ class FakeEvaluateTrust: EvaluateTrust {
 		self.fakeCompletion = fakeCompletion
 	}
 
-	// MARK: - Protocol EvaluateTrust
+	// MARK: - Protocol TrustEvaluating
 
 	func evaluate(challenge: URLAuthenticationChallenge, trust: SecTrust, completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Void) {
 		fakeCompletion()

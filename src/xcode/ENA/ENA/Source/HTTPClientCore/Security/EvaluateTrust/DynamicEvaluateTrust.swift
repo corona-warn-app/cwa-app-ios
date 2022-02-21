@@ -5,7 +5,7 @@
 import Foundation
 import ENASecurity
 
-class DynamicEvaluateTrust: EvaluateTrust {
+class DynamicEvaluateTrust: TrustEvaluating {
 
 	// MARK: - Init
 
@@ -17,7 +17,7 @@ class DynamicEvaluateTrust: EvaluateTrust {
 		self.trustEvaluation = trustEvaluation
 	}
 
-	// MARK: - Protocol EvaluateTrust
+	// MARK: - Protocol TrustEvaluating
 
 	func evaluate(
 		challenge: URLAuthenticationChallenge,

@@ -64,7 +64,8 @@ extension Service {
 			Log.error("Creating url request failed.", log: .client)
 			completion(failureOrDefaultValueHandling(resource, .invalidRequestError(resourceError)))
 		case let .success(request):
-			session.dataTask(with: request) { bodyData, response, error in
+
+			let task = session.dataTask(with: request) { bodyData, response, error in
 				
 				// If there is a transportation error, check if the underlying error is a trust evaluation error and possibly return it.
 				if error != nil,
@@ -130,7 +131,31 @@ extension Service {
 				default:
 					completion(failureOrDefaultValueHandling(resource, .unexpectedServerError(response.statusCode)))
 				}
-			}.resume()
+			}
+			
+
+			
+
+			
+//			if let trustEvaluation = resource.trustEvaluation {
+////				task.delegate = CoronaWarnSessionTaskDelegate(
+////					trustEvaluation: trustEvaluation
+////				)
+//				
+//				let delegate = CoronaWarnSessionTaskDelegate(
+//					trustEvaluation: trustEvaluation
+//				   )
+//				
+//				let dummy = URLSession(
+//					configuration: URLSessionConfiguration.coronaWarnSessionConfiguration(),
+//					delegate: delegate,
+//					delegateQueue: .main
+//				)
+//				
+//				delegate.trustEvaluations[task.taskIdentifier] = trustEvaluation
+//			}
+						
+			task.resume()
 		}
 	}
 

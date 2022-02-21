@@ -2,7 +2,7 @@
 // 🦠 Corona-Warn-App
 //
 
-struct DefaultEvaluateTrust: EvaluateTrust {
+struct DefaultEvaluateTrust: TrustEvaluating {
 	
 	init(
 		publicKeyHash: String
@@ -10,7 +10,7 @@ struct DefaultEvaluateTrust: EvaluateTrust {
 		self.publicKeyHash = publicKeyHash
 	}
 	
-	// MARK: - Protocol EvaluateTrust
+	// MARK: - Protocol TrustEvaluating
 	
 	/// Common evaluation, covering iOS versions 12.5 or 13.x
 	/// - Parameters:
