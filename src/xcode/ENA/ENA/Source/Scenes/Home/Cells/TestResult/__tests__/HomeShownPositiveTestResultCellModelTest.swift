@@ -9,28 +9,7 @@ import HealthCertificateToolkit
 class HomeShownPositiveTestResultCellModelTest: CWATestCase {
 
     func testShownPositivePCRTest() throws {
-		let client = ClientMock()
-		let store = MockTestStore()
-		let appConfiguration = CachedAppConfigurationMock()
-		let coronaTestService = CoronaTestService(
-			client: client,
-			store: store,
-			eventStore: MockEventStore(),
-			diaryStore: MockDiaryStore(),
-			appConfiguration: appConfiguration,
-			healthCertificateService: HealthCertificateService(
-				store: store,
-				dccSignatureVerifier: DCCSignatureVerifyingStub(),
-				dscListProvider: MockDSCListProvider(),
-				client: client,
-				appConfiguration: appConfiguration,
-				cclService: FakeCCLService(),
-				recycleBin: .fake()
-			),
-			recycleBin: .fake(),
-			badgeWrapper: .fake()
-		)
-
+		let coronaTestService = MockCoronaTestService()
 		coronaTestService.pcrTest.value = PCRTest.mock(
 			registrationDate: Date(timeIntervalSinceReferenceDate: 0),
 			testResult: .positive,
@@ -114,29 +93,7 @@ class HomeShownPositiveTestResultCellModelTest: CWATestCase {
     }
 
 	func testShownPositiveAntigenTest() throws {
-		let client = ClientMock()
-		let store = MockTestStore()
-		let appConfiguration = CachedAppConfigurationMock()
-
-		let coronaTestService = CoronaTestService(
-			client: client,
-			store: store,
-			eventStore: MockEventStore(),
-			diaryStore: MockDiaryStore(),
-			appConfiguration: appConfiguration,
-			healthCertificateService: HealthCertificateService(
-				store: store,
-				dccSignatureVerifier: DCCSignatureVerifyingStub(),
-				dscListProvider: MockDSCListProvider(),
-				client: client,
-				appConfiguration: appConfiguration,
-				cclService: FakeCCLService(),
-				recycleBin: .fake()
-			),
-			recycleBin: .fake(),
-			badgeWrapper: .fake()
-		)
-
+		let coronaTestService = MockCoronaTestService()
 		coronaTestService.antigenTest.value = AntigenTest.mock(
 			pointOfCareConsentDate: Date(timeIntervalSinceReferenceDate: 0),
 			testResult: .positive,

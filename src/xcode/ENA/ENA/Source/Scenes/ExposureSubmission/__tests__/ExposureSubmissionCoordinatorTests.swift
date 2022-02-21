@@ -38,24 +38,7 @@ class ExposureSubmissionCoordinatorTests: CWATestCase {
 
 		eventStore = MockEventStore()
 
-		coronaTestService = CoronaTestService(
-			client: client,
-			store: store,
-			eventStore: eventStore,
-			diaryStore: diaryStore,
-			appConfiguration: appConfiguration,
-			healthCertificateService: HealthCertificateService(
-				store: store,
-				dccSignatureVerifier: DCCSignatureVerifyingStub(),
-				dscListProvider: MockDSCListProvider(),
-				client: client,
-				appConfiguration: appConfiguration,
-				cclService: FakeCCLService(),
-				recycleBin: recycleBin
-			),
-			recycleBin: recycleBin,
-			badgeWrapper: .fake()
-		)
+		coronaTestService = MockCoronaTestService()
 		
 		healthCertificateService = HealthCertificateService(
 			store: store,

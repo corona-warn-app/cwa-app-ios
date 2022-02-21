@@ -13,29 +13,7 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 	// MARK: - Should Show Override Test Notice
 
 	func testShouldShowOverrideTestNotice_WithoutRegisteredTests() {
-		let client = ClientMock()
-		let store = MockTestStore()
-		let appConfiguration = CachedAppConfigurationMock()
-
-		let coronaTestService = CoronaTestService(
-			client: client,
-			store: store,
-			eventStore: MockEventStore(),
-			diaryStore: MockDiaryStore(),
-			appConfiguration: appConfiguration,
-			healthCertificateService: HealthCertificateService(
-				store: store,
-				dccSignatureVerifier: DCCSignatureVerifyingStub(),
-				dscListProvider: MockDSCListProvider(),
-				client: client,
-				appConfiguration: appConfiguration,
-				cclService: FakeCCLService(),
-
-				recycleBin: .fake()
-			),
-			recycleBin: .fake(),
-			badgeWrapper: .fake()
-		)
+		let coronaTestService = MockCoronaTestService()
 
 		coronaTestService.pcrTest.value = nil
 		coronaTestService.antigenTest.value = nil
@@ -51,29 +29,7 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 	}
 
 	func testShouldShowOverrideTestNotice_WithRegisteredPCRTest() {
-		let client = ClientMock()
-		let store = MockTestStore()
-		let appConfiguration = CachedAppConfigurationMock()
-
-		let coronaTestService = CoronaTestService(
-			client: client,
-			store: store,
-			eventStore: MockEventStore(),
-			diaryStore: MockDiaryStore(),
-			appConfiguration: appConfiguration,
-			healthCertificateService: HealthCertificateService(
-				store: store,
-				dccSignatureVerifier: DCCSignatureVerifyingStub(),
-				dscListProvider: MockDSCListProvider(),
-				client: client,
-				appConfiguration: appConfiguration,
-				cclService: FakeCCLService(),
-
-				recycleBin: .fake()
-			),
-			recycleBin: .fake(),
-			badgeWrapper: .fake()
-		)
+		let coronaTestService = MockCoronaTestService()
 
 		coronaTestService.pcrTest.value = PCRTest.mock(testResult: .pending)
 		coronaTestService.antigenTest.value = nil
@@ -102,28 +58,7 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 	}
 
 	func testShouldShowOverrideTestNotice_WithRegisteredAntigenTest() {
-		let client = ClientMock()
-		let store = MockTestStore()
-		let appConfiguration = CachedAppConfigurationMock()
-
-		let coronaTestService = CoronaTestService(
-			client: client,
-			store: store,
-			eventStore: MockEventStore(),
-			diaryStore: MockDiaryStore(),
-			appConfiguration: appConfiguration,
-			healthCertificateService: HealthCertificateService(
-				store: store,
-				dccSignatureVerifier: DCCSignatureVerifyingStub(),
-				dscListProvider: MockDSCListProvider(),
-				client: client,
-				appConfiguration: appConfiguration,
-				cclService: FakeCCLService(),
-				recycleBin: .fake()
-			),
-			recycleBin: .fake(),
-			badgeWrapper: .fake()
-		)
+		let coronaTestService = MockCoronaTestService()
 
 		coronaTestService.pcrTest.value = nil
 		coronaTestService.antigenTest.value = AntigenTest.mock(testResult: .pending)
@@ -156,28 +91,7 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 	}
 
 	func testShouldShowOverrideTestNotice_WithRegisteredTests() {
-		let client = ClientMock()
-		let store = MockTestStore()
-		let appConfiguration = CachedAppConfigurationMock()
-
-		let coronaTestService = CoronaTestService(
-			client: client,
-			store: store,
-			eventStore: MockEventStore(),
-			diaryStore: MockDiaryStore(),
-			appConfiguration: appConfiguration,
-			healthCertificateService: HealthCertificateService(
-				store: store,
-				dccSignatureVerifier: DCCSignatureVerifyingStub(),
-				dscListProvider: MockDSCListProvider(),
-				client: client,
-				appConfiguration: appConfiguration,
-				cclService: FakeCCLService(),
-				recycleBin: .fake()
-			),
-			recycleBin: .fake(),
-			badgeWrapper: .fake()
-		)
+		let coronaTestService = MockCoronaTestService()
 
 		coronaTestService.pcrTest.value = PCRTest.mock(testResult: .pending)
 		coronaTestService.antigenTest.value = AntigenTest.mock(testResult: .pending)
@@ -195,30 +109,9 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 	// MARK: - Should Show TestCertificateScreen
 
 	func testShouldShowTestCertificateScreen_WithPCRTest() {
-		let client = ClientMock()
-		let store = MockTestStore()
-		let appConfiguration = CachedAppConfigurationMock()
-
 		let model = ExposureSubmissionCoordinatorModel(
 			exposureSubmissionService: MockExposureSubmissionService(),
-			coronaTestService: CoronaTestService(
-				client: client,
-				store: store,
-				eventStore: MockEventStore(),
-				diaryStore: MockDiaryStore(),
-				appConfiguration: appConfiguration,
-				healthCertificateService: HealthCertificateService(
-					store: store,
-					dccSignatureVerifier: DCCSignatureVerifyingStub(),
-					dscListProvider: MockDSCListProvider(),
-					client: client,
-					appConfiguration: appConfiguration,
-					cclService: FakeCCLService(),
-					recycleBin: .fake()
-				),
-				recycleBin: .fake(),
-				badgeWrapper: .fake()
-			),
+			coronaTestService: MockCoronaTestService(),
 			eventProvider: MockEventStore()
 		)
 
@@ -226,30 +119,9 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 	}
 
 	func testShouldShowTestCertificateScreen_WithAntigenTestThatHasCertificateSupport() {
-		let client = ClientMock()
-		let store = MockTestStore()
-		let appConfiguration = CachedAppConfigurationMock()
-
 		let model = ExposureSubmissionCoordinatorModel(
 			exposureSubmissionService: MockExposureSubmissionService(),
-			coronaTestService: CoronaTestService(
-				client: client,
-				store: store,
-				eventStore: MockEventStore(),
-				diaryStore: MockDiaryStore(),
-				appConfiguration: appConfiguration,
-				healthCertificateService: HealthCertificateService(
-					store: store,
-					dccSignatureVerifier: DCCSignatureVerifyingStub(),
-					dscListProvider: MockDSCListProvider(),
-					client: client,
-					appConfiguration: appConfiguration,
-					cclService: FakeCCLService(),
-					recycleBin: .fake()
-				),
-				recycleBin: .fake(),
-				badgeWrapper: .fake()
-			),
+			coronaTestService: MockCoronaTestService(),
 			eventProvider: MockEventStore()
 		)
 
@@ -268,30 +140,9 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 	}
 
 	func testShouldShowTestCertificateScreen_WithAntigenTestThatHasNoCertificateSupport() {
-		let client = ClientMock()
-		let store = MockTestStore()
-		let appConfiguration = CachedAppConfigurationMock()
-
 		let model = ExposureSubmissionCoordinatorModel(
 			exposureSubmissionService: MockExposureSubmissionService(),
-			coronaTestService: CoronaTestService(
-				client: client,
-				store: store,
-				eventStore: MockEventStore(),
-				diaryStore: MockDiaryStore(),
-				appConfiguration: appConfiguration,
-				healthCertificateService: HealthCertificateService(
-					store: store,
-					dccSignatureVerifier: DCCSignatureVerifyingStub(),
-					dscListProvider: MockDSCListProvider(),
-					client: client,
-					appConfiguration: appConfiguration,
-					cclService: FakeCCLService(),
-					recycleBin: .fake()
-				),
-				recycleBin: .fake(),
-				badgeWrapper: .fake()
-			),
+			coronaTestService: MockCoronaTestService(),
 			eventProvider: MockEventStore()
 		)
 
@@ -310,30 +161,9 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 	}
 
 	func testShouldShowTestCertificateScreen_WithAntigenTestThatHasNoCertificateSupportSpecified() {
-		let client = ClientMock()
-		let store = MockTestStore()
-		let appConfiguration = CachedAppConfigurationMock()
-
 		let model = ExposureSubmissionCoordinatorModel(
 			exposureSubmissionService: MockExposureSubmissionService(),
-			coronaTestService: CoronaTestService(
-				client: client,
-				store: store,
-				eventStore: MockEventStore(),
-				diaryStore: MockDiaryStore(),
-				appConfiguration: appConfiguration,
-				healthCertificateService: HealthCertificateService(
-					store: store,
-					dccSignatureVerifier: DCCSignatureVerifyingStub(),
-					dscListProvider: MockDSCListProvider(),
-					client: client,
-					appConfiguration: appConfiguration,
-					cclService: FakeCCLService(),
-					recycleBin: .fake()
-				),
-				recycleBin: .fake(),
-				badgeWrapper: .fake()
-			),
+			coronaTestService: MockCoronaTestService(),
 			eventProvider: MockEventStore()
 		)
 
@@ -352,30 +182,9 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 	}
 
 	func testShouldShowTestCertificateScreen_FromTeleTAN() {
-		let client = ClientMock()
-		let store = MockTestStore()
-		let appConfiguration = CachedAppConfigurationMock()
-
 		let model = ExposureSubmissionCoordinatorModel(
 			exposureSubmissionService: MockExposureSubmissionService(),
-			coronaTestService: CoronaTestService(
-				client: client,
-				store: store,
-				eventStore: MockEventStore(),
-				diaryStore: MockDiaryStore(),
-				appConfiguration: appConfiguration,
-				healthCertificateService: HealthCertificateService(
-					store: store,
-					dccSignatureVerifier: DCCSignatureVerifyingStub(),
-					dscListProvider: MockDSCListProvider(),
-					client: client,
-					appConfiguration: appConfiguration,
-					cclService: FakeCCLService(),
-					recycleBin: .fake()
-				),
-				recycleBin: .fake(),
-				badgeWrapper: .fake()
-			),
+			coronaTestService: MockCoronaTestService(),
 			eventProvider: MockEventStore()
 		)
 
@@ -385,30 +194,9 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 	// MARK: - Symptoms Option Selected
 
 	func testSymptomsOptionYesSelected() {
-		let client = ClientMock()
-		let store = MockTestStore()
-		let appConfiguration = CachedAppConfigurationMock()
-
 		let model = ExposureSubmissionCoordinatorModel(
 			exposureSubmissionService: MockExposureSubmissionService(),
-			coronaTestService: CoronaTestService(
-				client: client,
-				store: store,
-				eventStore: MockEventStore(),
-				diaryStore: MockDiaryStore(),
-				appConfiguration: appConfiguration,
-				healthCertificateService: HealthCertificateService(
-					store: store,
-					dccSignatureVerifier: DCCSignatureVerifyingStub(),
-					dscListProvider: MockDSCListProvider(),
-					client: client,
-					appConfiguration: appConfiguration,
-					cclService: FakeCCLService(),
-					recycleBin: .fake()
-				),
-				recycleBin: .fake(),
-				badgeWrapper: .fake()
-			),
+			coronaTestService: MockCoronaTestService(),
 			eventProvider: MockEventStore()
 		)
 
@@ -425,30 +213,9 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 			submissionExpectation.fulfill()
 		}
 
-		let client = ClientMock()
-		let store = MockTestStore()
-		let appConfiguration = CachedAppConfigurationMock()
-
 		let model = ExposureSubmissionCoordinatorModel(
 			exposureSubmissionService: exposureSubmissionService,
-			coronaTestService: CoronaTestService(
-				client: client,
-				store: store,
-				eventStore: MockEventStore(),
-				diaryStore: MockDiaryStore(),
-				appConfiguration: appConfiguration,
-				healthCertificateService: HealthCertificateService(
-					store: store,
-					dccSignatureVerifier: DCCSignatureVerifyingStub(),
-					dscListProvider: MockDSCListProvider(),
-					client: client,
-					appConfiguration: appConfiguration,
-					cclService: FakeCCLService(),
-					recycleBin: .fake()
-				),
-				recycleBin: .fake(),
-				badgeWrapper: .fake()
-			),
+			coronaTestService: MockCoronaTestService(),
 			eventProvider: MockEventStore()
 		)
 
@@ -472,30 +239,9 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 			submissionExpectation.fulfill()
 		}
 
-		let client = ClientMock()
-		let store = MockTestStore()
-		let appConfiguration = CachedAppConfigurationMock()
-
 		let model = ExposureSubmissionCoordinatorModel(
 			exposureSubmissionService: exposureSubmissionService,
-			coronaTestService: CoronaTestService(
-				client: client,
-				store: store,
-				eventStore: MockEventStore(),
-				diaryStore: MockDiaryStore(),
-				appConfiguration: appConfiguration,
-				healthCertificateService: HealthCertificateService(
-					store: store,
-					dccSignatureVerifier: DCCSignatureVerifyingStub(),
-					dscListProvider: MockDSCListProvider(),
-					client: client,
-					appConfiguration: appConfiguration,
-					cclService: FakeCCLService(),
-					recycleBin: .fake()
-				),
-				recycleBin: .fake(),
-				badgeWrapper: .fake()
-			),
+			coronaTestService: MockCoronaTestService(),
 			eventProvider: MockEventStore()
 		)
 
@@ -521,30 +267,9 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 			submissionExpectation.fulfill()
 		}
 
-		let client = ClientMock()
-		let store = MockTestStore()
-		let appConfiguration = CachedAppConfigurationMock()
-
 		let model = ExposureSubmissionCoordinatorModel(
 			exposureSubmissionService: exposureSubmissionService,
-			coronaTestService: CoronaTestService(
-				client: client,
-				store: store,
-				eventStore: MockEventStore(),
-				diaryStore: MockDiaryStore(),
-				appConfiguration: appConfiguration,
-				healthCertificateService: HealthCertificateService(
-					store: store,
-					dccSignatureVerifier: DCCSignatureVerifyingStub(),
-					dscListProvider: MockDSCListProvider(),
-					client: client,
-					appConfiguration: appConfiguration,
-					cclService: FakeCCLService(),
-					recycleBin: .fake()
-				),
-				recycleBin: .fake(),
-				badgeWrapper: .fake()
-			),
+			coronaTestService: MockCoronaTestService(),
 			eventProvider: MockEventStore()
 		)
 
@@ -570,30 +295,9 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 			submissionExpectation.fulfill()
 		}
 
-		let client = ClientMock()
-		let store = MockTestStore()
-		let appConfiguration = CachedAppConfigurationMock()
-
 		let model = ExposureSubmissionCoordinatorModel(
 			exposureSubmissionService: exposureSubmissionService,
-			coronaTestService: CoronaTestService(
-				client: client,
-				store: store,
-				eventStore: MockEventStore(),
-				diaryStore: MockDiaryStore(),
-				appConfiguration: appConfiguration,
-				healthCertificateService: HealthCertificateService(
-					store: store,
-					dccSignatureVerifier: DCCSignatureVerifyingStub(),
-					dscListProvider: MockDSCListProvider(),
-					client: client,
-					appConfiguration: appConfiguration,
-					cclService: FakeCCLService(),
-					recycleBin: .fake()
-				),
-				recycleBin: .fake(),
-				badgeWrapper: .fake()
-			),
+			coronaTestService: MockCoronaTestService(),
 			eventProvider: MockEventStore()
 		)
 
@@ -616,30 +320,9 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 			submissionExpectation.fulfill()
 		}
 
-		let client = ClientMock()
-		let store = MockTestStore()
-		let appConfiguration = CachedAppConfigurationMock()
-
 		let model = ExposureSubmissionCoordinatorModel(
 			exposureSubmissionService: exposureSubmissionService,
-			coronaTestService: CoronaTestService(
-				client: client,
-				store: store,
-				eventStore: MockEventStore(),
-				diaryStore: MockDiaryStore(),
-				appConfiguration: appConfiguration,
-				healthCertificateService: HealthCertificateService(
-					store: store,
-					dccSignatureVerifier: DCCSignatureVerifyingStub(),
-					dscListProvider: MockDSCListProvider(),
-					client: client,
-					appConfiguration: appConfiguration,
-					cclService: FakeCCLService(),
-					recycleBin: .fake()
-				),
-				recycleBin: .fake(),
-				badgeWrapper: .fake()
-			),
+			coronaTestService: MockCoronaTestService(),
 			eventProvider: MockEventStore()
 		)
 
@@ -663,30 +346,9 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 			submissionExpectation.fulfill()
 		}
 
-		let client = ClientMock()
-		let store = MockTestStore()
-		let appConfiguration = CachedAppConfigurationMock()
-
 		let model = ExposureSubmissionCoordinatorModel(
 			exposureSubmissionService: exposureSubmissionService,
-			coronaTestService: CoronaTestService(
-				client: client,
-				store: store,
-				eventStore: MockEventStore(),
-				diaryStore: MockDiaryStore(),
-				appConfiguration: appConfiguration,
-				healthCertificateService: HealthCertificateService(
-					store: store,
-					dccSignatureVerifier: DCCSignatureVerifyingStub(),
-					dscListProvider: MockDSCListProvider(),
-					client: client,
-					appConfiguration: appConfiguration,
-					cclService: FakeCCLService(),
-					recycleBin: .fake()
-				),
-				recycleBin: .fake(),
-				badgeWrapper: .fake()
-			),
+			coronaTestService: MockCoronaTestService(),
 			eventProvider: MockEventStore()
 		)
 
@@ -709,30 +371,9 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 			submissionExpectation.fulfill()
 		}
 
-		let client = ClientMock()
-		let store = MockTestStore()
-		let appConfiguration = CachedAppConfigurationMock()
-
 		let model = ExposureSubmissionCoordinatorModel(
 			exposureSubmissionService: exposureSubmissionService,
-			coronaTestService: CoronaTestService(
-				client: client,
-				store: store,
-				eventStore: MockEventStore(),
-				diaryStore: MockDiaryStore(),
-				appConfiguration: appConfiguration,
-				healthCertificateService: HealthCertificateService(
-					store: store,
-					dccSignatureVerifier: DCCSignatureVerifyingStub(),
-					dscListProvider: MockDSCListProvider(),
-					client: client,
-					appConfiguration: appConfiguration,
-					cclService: FakeCCLService(),
-					recycleBin: .fake()
-				),
-				recycleBin: .fake(),
-				badgeWrapper: .fake()
-			),
+			coronaTestService: MockCoronaTestService(),
 			eventProvider: MockEventStore()
 		)
 
@@ -755,30 +396,9 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 			completion(nil)
 		}
 
-		let client = ClientMock()
-		let store = MockTestStore()
-		let appConfiguration = CachedAppConfigurationMock()
-
 		let model = ExposureSubmissionCoordinatorModel(
 			exposureSubmissionService: exposureSubmissionService,
-			coronaTestService: CoronaTestService(
-				client: client,
-				store: store,
-				eventStore: MockEventStore(),
-				diaryStore: MockDiaryStore(),
-				appConfiguration: appConfiguration,
-				healthCertificateService: HealthCertificateService(
-					store: store,
-					dccSignatureVerifier: DCCSignatureVerifyingStub(),
-					dscListProvider: MockDSCListProvider(),
-					client: client,
-					appConfiguration: appConfiguration,
-					cclService: FakeCCLService(),
-					recycleBin: .fake()
-				),
-				recycleBin: .fake(),
-				badgeWrapper: .fake()
-			),
+			coronaTestService: MockCoronaTestService(),
 			eventProvider: MockEventStore()
 		)
 
@@ -814,30 +434,9 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 			completion(.noKeysCollected)
 		}
 
-		let client = ClientMock()
-		let store = MockTestStore()
-		let appConfiguration = CachedAppConfigurationMock()
-
 		let model = ExposureSubmissionCoordinatorModel(
 			exposureSubmissionService: exposureSubmissionService,
-			coronaTestService: CoronaTestService(
-				client: client,
-				store: store,
-				eventStore: MockEventStore(),
-				diaryStore: MockDiaryStore(),
-				appConfiguration: appConfiguration,
-				healthCertificateService: HealthCertificateService(
-					store: store,
-					dccSignatureVerifier: DCCSignatureVerifyingStub(),
-					dscListProvider: MockDSCListProvider(),
-					client: client,
-					appConfiguration: appConfiguration,
-					cclService: FakeCCLService(),
-					recycleBin: .fake()
-				),
-				recycleBin: .fake(),
-				badgeWrapper: .fake()
-			),
+			coronaTestService: MockCoronaTestService(),
 			eventProvider: MockEventStore()
 		)
 
@@ -873,30 +472,9 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 			completion(.notAuthorized)
 		}
 
-		let client = ClientMock()
-		let store = MockTestStore()
-		let appConfiguration = CachedAppConfigurationMock()
-
 		let model = ExposureSubmissionCoordinatorModel(
 			exposureSubmissionService: exposureSubmissionService,
-			coronaTestService: CoronaTestService(
-				client: client,
-				store: store,
-				eventStore: MockEventStore(),
-				diaryStore: MockDiaryStore(),
-				appConfiguration: appConfiguration,
-				healthCertificateService: HealthCertificateService(
-					store: store,
-					dccSignatureVerifier: DCCSignatureVerifyingStub(),
-					dscListProvider: MockDSCListProvider(),
-					client: client,
-					appConfiguration: appConfiguration,
-					cclService: FakeCCLService(),
-					recycleBin: .fake()
-				),
-				recycleBin: .fake(),
-				badgeWrapper: .fake()
-			),
+			coronaTestService: MockCoronaTestService(),
 			eventProvider: MockEventStore()
 		)
 
@@ -934,30 +512,9 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 			completion(.internal)
 		}
 
-		let client = ClientMock()
-		let store = MockTestStore()
-		let appConfiguration = CachedAppConfigurationMock()
-
 		let model = ExposureSubmissionCoordinatorModel(
 			exposureSubmissionService: exposureSubmissionService,
-			coronaTestService: CoronaTestService(
-				client: client,
-				store: store,
-				eventStore: MockEventStore(),
-				diaryStore: MockDiaryStore(),
-				appConfiguration: appConfiguration,
-				healthCertificateService: HealthCertificateService(
-					store: store,
-					dccSignatureVerifier: DCCSignatureVerifyingStub(),
-					dscListProvider: MockDSCListProvider(),
-					client: client,
-					appConfiguration: appConfiguration,
-					cclService: FakeCCLService(),
-					recycleBin: .fake()
-				),
-				recycleBin: .fake(),
-				badgeWrapper: .fake()
-			),
+			coronaTestService: MockCoronaTestService(),
 			eventProvider: MockEventStore()
 		)
 
@@ -990,40 +547,12 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 	func testGetTestResultSucceeds() {
 		let expectedTestResult: TestResult = .positive
 
-		
-		let restServiceProvider = RestServiceProviderStub(
-			results: [
-				.success(TeleTanReceiveModel(registrationToken: "fake")),
-				.success(TestResultReceiveModel(testResult: expectedTestResult.rawValue, sc: nil, labId: nil))
-			]
-		)
-
-		let client = ClientMock()
-
-		let store = MockTestStore()
-		let appConfiguration = CachedAppConfigurationMock()
+		let coronaTestService = MockCoronaTestService()
+		coronaTestService.updateTestResultResult = .success(expectedTestResult)
 
 		let model = ExposureSubmissionCoordinatorModel(
 			exposureSubmissionService: MockExposureSubmissionService(),
-			coronaTestService: CoronaTestService(
-				client: client,
-				restServiceProvider: restServiceProvider,
-				store: store,
-				eventStore: MockEventStore(),
-				diaryStore: MockDiaryStore(),
-				appConfiguration: appConfiguration,
-				healthCertificateService: HealthCertificateService(
-					store: store,
-					dccSignatureVerifier: DCCSignatureVerifyingStub(),
-					dscListProvider: MockDSCListProvider(),
-					client: client,
-					appConfiguration: appConfiguration,
-					cclService: FakeCCLService(),
-					recycleBin: .fake()
-				),
-				recycleBin: .fake(),
-				badgeWrapper: .fake()
-			),
+			coronaTestService: coronaTestService,
 			eventProvider: MockEventStore()
 		)
 
@@ -1061,41 +590,12 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 	func testGetTestResultFails() {
 		let expectedError: CoronaTestServiceError = .testResultError(.invalidResponse)
 
-		let exposureSubmissionService = MockExposureSubmissionService()
-		let restServiceProvider = RestServiceProviderStub(
-			results: [
-				.success(TeleTanReceiveModel(registrationToken: "fake")),
-				.failure(ServiceError<TestResultError>.invalidResponse),
-				.success(RegistrationTokenReceiveModel(submissionTAN: "fake"))
-			]
-		)
-
-		let client = ClientMock()
-
-		let store = MockTestStore()
-		let appConfiguration = CachedAppConfigurationMock()
+		let coronaTestService = MockCoronaTestService()
+		coronaTestService.updateTestResultResult = .failure(expectedError)
 
 		let model = ExposureSubmissionCoordinatorModel(
-			exposureSubmissionService: exposureSubmissionService,
-			coronaTestService: CoronaTestService(
-				client: client,
-				restServiceProvider: restServiceProvider,
-				store: store,
-				eventStore: MockEventStore(),
-				diaryStore: MockDiaryStore(),
-				appConfiguration: appConfiguration,
-				healthCertificateService: HealthCertificateService(
-					store: store,
-					dccSignatureVerifier: DCCSignatureVerifyingStub(),
-					dscListProvider: MockDSCListProvider(),
-					client: client,
-					appConfiguration: appConfiguration,
-					cclService: FakeCCLService(),
-					recycleBin: .fake()
-				),
-				recycleBin: .fake(),
-				badgeWrapper: .fake()
-			),
+			exposureSubmissionService: MockExposureSubmissionService(),
+			coronaTestService: coronaTestService,
 			eventProvider: MockEventStore()
 		)
 

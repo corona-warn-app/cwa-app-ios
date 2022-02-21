@@ -9,30 +9,10 @@ import HealthCertificateToolkit
 class DeadmanNotificationManagerTests: CWATestCase {
 
 	func testSchedulingDeadmanNotification() {
-		let client = ClientMock()
-		let store = MockTestStore()
-		let appConfiguration = CachedAppConfigurationMock()
 		let notificationCenter = MockUserNotificationCenter()
 
 		let manager = DeadmanNotificationManager(
-			coronaTestService: CoronaTestService(
-				client: client,
-				store: store,
-				eventStore: MockEventStore(),
-				diaryStore: MockDiaryStore(),
-				appConfiguration: appConfiguration,
-				healthCertificateService: HealthCertificateService(
-					store: store,
-					dccSignatureVerifier: DCCSignatureVerifyingStub(),
-					dscListProvider: MockDSCListProvider(),
-					client: client,
-					appConfiguration: appConfiguration,
-					cclService: FakeCCLService(),
-					recycleBin: .fake()
-				),
-				recycleBin: .fake(),
-				badgeWrapper: .fake()
-			),
+			coronaTestService: MockCoronaTestService(),
 			userNotificationCenter: notificationCenter
 		)
 
@@ -61,31 +41,11 @@ class DeadmanNotificationManagerTests: CWATestCase {
 	}
 
 	func testDeadmanNotificationReschedulingOnReset() {
-		let client = ClientMock()
-		let store = MockTestStore()
-		let appConfiguration = CachedAppConfigurationMock()
 		let notificationCenter = MockUserNotificationCenter()
 		notificationCenter.notificationRequests = [deadmanNotificationRequest]
 
 		let manager = DeadmanNotificationManager(
-			coronaTestService: CoronaTestService(
-				client: client,
-				store: store,
-				eventStore: MockEventStore(),
-				diaryStore: MockDiaryStore(),
-				appConfiguration: appConfiguration,
-				healthCertificateService: HealthCertificateService(
-					store: store,
-					dccSignatureVerifier: DCCSignatureVerifyingStub(),
-					dscListProvider: MockDSCListProvider(),
-					client: client,
-					appConfiguration: appConfiguration,
-					cclService: FakeCCLService(),
-					recycleBin: .fake()
-				),
-				recycleBin: .fake(),
-				badgeWrapper: .fake()
-			),
+			coronaTestService: MockCoronaTestService(),
 			userNotificationCenter: notificationCenter
 		)
 
@@ -97,31 +57,11 @@ class DeadmanNotificationManagerTests: CWATestCase {
 	}
 
 	func testDeadmanNotificationIsNotScheduledTwice() {
-		let client = ClientMock()
-		let store = MockTestStore()
-		let appConfiguration = CachedAppConfigurationMock()
 		let notificationCenter = MockUserNotificationCenter()
 		notificationCenter.notificationRequests = [deadmanNotificationRequest]
 
 		let manager = DeadmanNotificationManager(
-			coronaTestService: CoronaTestService(
-				client: client,
-				store: store,
-				eventStore: MockEventStore(),
-				diaryStore: MockDiaryStore(),
-				appConfiguration: appConfiguration,
-				healthCertificateService: HealthCertificateService(
-					store: store,
-					dccSignatureVerifier: DCCSignatureVerifyingStub(),
-					dscListProvider: MockDSCListProvider(),
-					client: client,
-					appConfiguration: appConfiguration,
-					cclService: FakeCCLService(),
-					recycleBin: .fake()
-				),
-				recycleBin: .fake(),
-				badgeWrapper: .fake()
-			),
+			coronaTestService: MockCoronaTestService(),
 			userNotificationCenter: notificationCenter
 		)
 
@@ -132,34 +72,14 @@ class DeadmanNotificationManagerTests: CWATestCase {
 		XCTAssertEqual(notificationCenter.notificationRequests.count, 1)
 	}
 
-	func testDeadmanNotificationIsNotScheduledIfPositiveTestResultWasShown() {
-		let client = ClientMock()
-		let store = MockTestStore()
-		let appConfiguration = CachedAppConfigurationMock()
-
-		store.pcrTest = PCRTest.mock(positiveTestResultWasShown: true)
+	func testDeadmanNotificationIsNotScheduledIfPositiveTestResultWasShownOrKeysWereSubmitted() {
+		let coronaTestService = MockCoronaTestService()
+		coronaTestService.hasAtLeastOneShownPositiveOrSubmittedTest = true
 
 		let notificationCenter = MockUserNotificationCenter()
 
 		let manager = DeadmanNotificationManager(
-			coronaTestService: CoronaTestService(
-				client: client,
-				store: store,
-				eventStore: MockEventStore(),
-				diaryStore: MockDiaryStore(),
-				appConfiguration: appConfiguration,
-				healthCertificateService: HealthCertificateService(
-					store: store,
-					dccSignatureVerifier: DCCSignatureVerifyingStub(),
-					dscListProvider: MockDSCListProvider(),
-					client: client,
-					appConfiguration: appConfiguration,
-					cclService: FakeCCLService(),
-					recycleBin: .fake()
-				),
-				recycleBin: .fake(),
-				badgeWrapper: .fake()
-			),
+			coronaTestService: coronaTestService,
 			userNotificationCenter: notificationCenter
 		)
 
@@ -170,112 +90,15 @@ class DeadmanNotificationManagerTests: CWATestCase {
 		XCTAssertTrue(notificationCenter.notificationRequests.isEmpty)
 	}
 
-	func testDeadmanNotificationIsNotRescheduledIfPositiveTestResultWasShown() {
-		let client = ClientMock()
-		let store = MockTestStore()
-		let appConfiguration = CachedAppConfigurationMock()
-
-		store.pcrTest = PCRTest.mock(positiveTestResultWasShown: true)
+	func testDeadmanNotificationIsNotRescheduledIfPositiveTestResultWasShownOrKeysWereSubmitted() {
+		let coronaTestService = MockCoronaTestService()
+		coronaTestService.hasAtLeastOneShownPositiveOrSubmittedTest = true
 
 		let notificationCenter = MockUserNotificationCenter()
 		notificationCenter.notificationRequests = [deadmanNotificationRequest]
 
 		let manager = DeadmanNotificationManager(
-			coronaTestService: CoronaTestService(
-				client: client,
-				store: store,
-				eventStore: MockEventStore(),
-				diaryStore: MockDiaryStore(),
-				appConfiguration: appConfiguration,
-				healthCertificateService: HealthCertificateService(
-					store: store,
-					dccSignatureVerifier: DCCSignatureVerifyingStub(),
-					dscListProvider: MockDSCListProvider(),
-					client: client,
-					appConfiguration: appConfiguration,
-					cclService: FakeCCLService(),
-					recycleBin: .fake()
-				),
-				recycleBin: .fake(),
-				badgeWrapper: .fake()
-			),
-			userNotificationCenter: notificationCenter
-		)
-
-		XCTAssertFalse(notificationCenter.notificationRequests.isEmpty)
-
-		manager.resetDeadmanNotification()
-
-		XCTAssertTrue(notificationCenter.notificationRequests.isEmpty)
-	}
-
-	func testDeadmanNotificationIsNotScheduledIfKeysWereSubmitted() {
-		let client = ClientMock()
-		let store = MockTestStore()
-		let appConfiguration = CachedAppConfigurationMock()
-
-		store.pcrTest = PCRTest.mock(keysSubmitted: true)
-
-		let notificationCenter = MockUserNotificationCenter()
-
-		let manager = DeadmanNotificationManager(
-			coronaTestService: CoronaTestService(
-				client: client,
-				store: store,
-				eventStore: MockEventStore(),
-				diaryStore: MockDiaryStore(),
-				appConfiguration: appConfiguration,
-				healthCertificateService: HealthCertificateService(
-					store: store,
-					dccSignatureVerifier: DCCSignatureVerifyingStub(),
-					dscListProvider: MockDSCListProvider(),
-					client: client,
-					appConfiguration: appConfiguration,
-					cclService: FakeCCLService(),
-					recycleBin: .fake()
-				),
-				recycleBin: .fake(),
-				badgeWrapper: .fake()
-			),
-			userNotificationCenter: notificationCenter
-		)
-
-		XCTAssertTrue(notificationCenter.notificationRequests.isEmpty)
-
-		manager.scheduleDeadmanNotificationIfNeeded()
-
-		XCTAssertTrue(notificationCenter.notificationRequests.isEmpty)
-	}
-
-	func testDeadmanNotificationIsNotRescheduledIfKeysWereSubmitted() {
-		let client = ClientMock()
-		let store = MockTestStore()
-		let appConfiguration = CachedAppConfigurationMock()
-
-		store.pcrTest = PCRTest.mock(keysSubmitted: true)
-
-		let notificationCenter = MockUserNotificationCenter()
-		notificationCenter.notificationRequests = [deadmanNotificationRequest]
-
-		let manager = DeadmanNotificationManager(
-			coronaTestService: CoronaTestService(
-				client: client,
-				store: store,
-				eventStore: MockEventStore(),
-				diaryStore: MockDiaryStore(),
-				appConfiguration: appConfiguration,
-				healthCertificateService: HealthCertificateService(
-					store: store,
-					dccSignatureVerifier: DCCSignatureVerifyingStub(),
-					dscListProvider: MockDSCListProvider(),
-					client: client,
-					appConfiguration: appConfiguration,
-					cclService: FakeCCLService(),
-					recycleBin: .fake()
-				),
-				recycleBin: .fake(),
-				badgeWrapper: .fake()
-			),
+			coronaTestService: coronaTestService,
 			userNotificationCenter: notificationCenter
 		)
 
