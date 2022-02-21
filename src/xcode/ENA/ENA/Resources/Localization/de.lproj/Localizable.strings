@@ -2967,6 +2967,18 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "HealthCertifiedPerson_UpdateConsent_Title" = "Ihr Einverständnis";
 
+"HealthCertifiedPerson_UpdateConsent_Headline" = "Zertifikat aktualisieren";
+
+"HealthCertifiedPerson_UpdateConsent_SubHeadline" = "Neuausstellung direkt über die App vornehmen";
+
+"HealthCertifiedPerson_UpdateConsent_Body_1" = "Die Spezifikationen der EU für Booster-Impfzertifikate wurden geändert. Dieses Zertifikat entspricht nicht den aktuellen Spezifikationen. Das Impfzertifikat ist zwar weiterhin gültig, es kann jedoch sein, dass bei einer Prüfung die Booster-Impfung nicht erkannt wird. Bitte lassen Sie sich daher ein neues Impfzertifikat ausstellen.";
+
+"HealthCertifiedPerson_UpdateConsent_Body_2" = "Sie können ein neues Impfzertifikat direkt kostenlos über die App anfordern. Hierfür ist Ihr Einverständnis erforderlich.";
+
+"HealthCertifiedPerson_UpdateConsent_Delete_Notice" = "Das alte Zertifikat wird automatisch in den Papierkorb geschoben und nach 30 Tagen gelöscht. Das Zertifikat kann innerhalb der 30 Tage jederzeit wiederhergestellt werden.";
+
+"HealthCertifiedPerson_UpdateConsent_Cancel_Notice" = "Falls Sie hier abbrechen, können Sie die Aktualisierung jederzeit in Ihrer Zertifikatsübersicht anfordern.";
+
 /* HealthCertifiedPerson UpdateSucceeded */
 
 "HealthCertifiedPerson_UpdateSucceeded_Title" = "Zertifikat aktualisiert";

@@ -2120,6 +2120,18 @@ enum AppStrings {
 				static let defaultAlertRetryButton = NSLocalizedString("HealthCertifiedPerson_DefaultAlert_RetryButton", comment: "")
 
 				static let title = NSLocalizedString("HealthCertifiedPerson_UpdateConsent_Title", comment: "")
+
+				static let headline = NSLocalizedString("HealthCertifiedPerson_UpdateConsent_Headline", comment: "")
+				static let subHeadline = NSLocalizedString("HealthCertifiedPerson_UpdateConsent_SubHeadline", comment: "")
+				static let body_1 = NSLocalizedString("HealthCertifiedPerson_UpdateConsent_Body_1", comment: "")
+				static let body_2 = NSLocalizedString("HealthCertifiedPerson_UpdateConsent_Body_2", comment: "")
+
+				static let deleteNotice = NSLocalizedString("HealthCertifiedPerson_UpdateConsent_Delete_Notice", comment: "")
+				static let cancelNotice = NSLocalizedString("HealthCertifiedPerson_UpdateConsent_Cancel_Notice", comment: "")
+
+
+
+
 			}
 
 			enum UpdateSucceeded {

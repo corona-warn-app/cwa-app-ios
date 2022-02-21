@@ -4,7 +4,7 @@
 
 import UIKit
 
-class HealthCertifiedPersonUpdateConsentViewController: UIViewController, DismissHandling, FooterViewHandling {
+class HealthCertifiedPersonUpdateConsentViewController: DynamicTableViewController, DismissHandling, FooterViewHandling {
 
 	// MARK: - Init
 
@@ -31,10 +31,14 @@ class HealthCertifiedPersonUpdateConsentViewController: UIViewController, Dismis
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		// Do any additional setup after loading the view.
+
+		(navigationController as? DismissHandlingNavigationController)?.restoreOriginalNavigationBar()
+
 		navigationItem.hidesBackButton = true
 		navigationItem.rightBarButtonItem = dismissHandlingCloseBarButton
-		title = AppStrings.HealthCertificate.Person.UpdateConsent.title
+		title = viewModel.title
+
+		setupView()
 	}
 
 	// MARK: - Protocol DismissHandling
@@ -99,7 +103,20 @@ class HealthCertifiedPersonUpdateConsentViewController: UIViewController, Dismis
 		presentAlert(okAction, retryAction)
 	}
 
-	private func setupStickyButtons() {
+	private func setupView() {
+		view.backgroundColor = .enaColor(for: .background)
+
+
+		tableView.register(
+			UINib(nibName: String(describing: ExposureDetectionHeaderCell.self), bundle: nil),
+			forCellReuseIdentifier: "headerCell"
+		)
+
+
+		tableView.contentInsetAdjustmentBehavior = .automatic
+		tableView.separatorStyle = .none
+		tableView.allowsSelection = false
+		dynamicTableViewModel = viewModel.dynamicTableViewModel
 	}
 
 }
