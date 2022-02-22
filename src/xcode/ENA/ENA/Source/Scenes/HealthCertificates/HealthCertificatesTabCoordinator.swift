@@ -6,6 +6,7 @@ import UIKit
 import OpenCombine
 import PDFKit
 
+// swiftlint:disable type_body_length
 final class HealthCertificatesTabCoordinator {
 	
 	// MARK: - Init
