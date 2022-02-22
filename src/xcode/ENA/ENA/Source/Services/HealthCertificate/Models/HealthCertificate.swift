@@ -167,7 +167,7 @@ final class HealthCertificate: Codable, Equatable, Comparable, RecycleBinIdentif
 	var dateOfBirth: String {
 		digitalCovidCertificate.dateOfBirth
 	}
-
+	
 	var dateOfBirthDate: Date? {
 		return ISO8601DateFormatter.justLocalDateFormatter.date(from: digitalCovidCertificate.dateOfBirth)
 	}
@@ -280,9 +280,46 @@ final class HealthCertificate: Codable, Equatable, Comparable, RecycleBinIdentif
 			return hashData == $0.hash
 		}
 	}
+	
+	func belongsToSamePerson(_ other: HealthCertificate) -> Bool {
+		// The sanitized dateOfBirth attributes are the same strings
+		guard self.trimmedDateOfBirth == other.trimmedDateOfBirth else {
+			return false
+		}
+		
+		let givenNameCompontents = Set<String>(self.name.givenNameGroupingComponents)
+		let otherGivenNameCompontents = other.name.givenNameGroupingComponents
+		let familyNameComponents = Set<String>(self.name.familyNameGroupingComponents)
+		let otherFamilyNameComponents = other.name.familyNameGroupingComponents
+		
+		// The intersection/overlap of the name components of sanitized familyNameComponents and otherFamilyNameComponents has at least one element, and
+		// the intersection/overlap of the name components of sanitized givenNameCompontents and otherGivenNameCompontents has at least one element
+		// or both are empty sets (givenName is an optional field)
+		let hasGivenNameIntersection: Bool
+		if givenNameCompontents.isEmpty && otherGivenNameCompontents.isEmpty {
+			hasGivenNameIntersection = true
+		} else {
+			hasGivenNameIntersection = givenNameCompontents.intersection(otherGivenNameCompontents).isNotEmpty
+		}
+		let hasFamilyNameIntersection = familyNameComponents.intersection(otherFamilyNameComponents).isNotEmpty
+		let hasNameIntersections = hasGivenNameIntersection && hasFamilyNameIntersection
+		
+		// The intersection/overlap of the name components of sanitized familyNameComponents and otherGivenNameCompontents has at least one element, and
+		// the intersection/overlap of the name components of sanitized givenNameCompontents and otherFamilyNameComponents has at least one element
+		// This covers scenarios where familyName and givenName were swapped.
+		let hasCrossIntersection_FamilyName_GivenName = familyNameComponents.intersection(otherGivenNameCompontents).isNotEmpty
+		let hasCrossIntersection_GivenName_FamilyName = givenNameCompontents.intersection(otherFamilyNameComponents).isNotEmpty
+		let hasCrossNameIntersections = hasCrossIntersection_FamilyName_GivenName && hasCrossIntersection_GivenName_FamilyName
+		
+		return hasNameIntersections || hasCrossNameIntersections
+	}
 
 	// MARK: - Private
 
+	private var trimmedDateOfBirth: String {
+		digitalCovidCertificate.dateOfBirth.trimmingCharacters(in: .whitespaces)
+	}
+	
 	private var sortDate: Date? {
 		switch entry {
 		case .vaccination(let vaccinationEntry):

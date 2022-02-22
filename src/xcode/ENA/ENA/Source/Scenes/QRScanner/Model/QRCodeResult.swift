@@ -25,6 +25,7 @@ struct CertificateResult {
 }
 
 enum QRCodeParserError: Error, Equatable {
+	case invalidError(QRCodeError)
 	case scanningError(QRScannerError)
 	case checkinQrError(CheckinQRScannerError)
 	case certificateQrError(HealthCertificateServiceError.RegistrationError)
@@ -42,6 +43,8 @@ enum QRCodeParserError: Error, Equatable {
 			return certificateQrErrorLhs.localizedDescription == certificateQrErrorRhs.localizedDescription
 		case (.ticketValidation(let ticketValidationLhs), .ticketValidation(let ticketValidationRhs)):
 			return ticketValidationLhs == ticketValidationRhs
+		case (.invalidError(let lhsQrCodeError), .invalidError(let rhsQrCodeError)):
+			return lhsQrCodeError.localizedDescription == rhsQrCodeError.localizedDescription
 		default:
 			return false
 		}
