@@ -45,7 +45,8 @@ class MockCoronaTestService: CoronaTestServiceProviding {
 		certificateConsent: TestCertificateConsent,
 		completion: @escaping TestResultHandler
 	) {
-
+		onRegisterPCRTestAndGetResult()
+		completion(registerPCRTestAndGetResultResult ?? .failure(.noCoronaTestOfRequestedType))
 	}
 
 	// This function is responsible to register a PCR test from TeleTAN
@@ -54,7 +55,8 @@ class MockCoronaTestService: CoronaTestServiceProviding {
 		isSubmissionConsentGiven: Bool,
 		completion: @escaping (Result<Void, CoronaTestServiceError>) -> Void
 	) {
-
+		onRegisterPCRTestFromTeleTan()
+		completion(registerPCRTestFromTeleTanResult ?? .failure(.noCoronaTestOfRequestedType))
 	}
 	
 	func registerPCRTestAndGetResult(
@@ -62,7 +64,8 @@ class MockCoronaTestService: CoronaTestServiceProviding {
 		isSubmissionConsentGiven: Bool,
 		completion: @escaping TestResultHandler
 	) {
-
+		onRegisterPCRTestFromTeleTanAndGetResult()
+		completion(registerPCRTestFromTeleTanAndGetResultResult ?? .failure(.noCoronaTestOfRequestedType))
 	}
 
 	// swiftlint:disable:next function_parameter_count
@@ -79,7 +82,8 @@ class MockCoronaTestService: CoronaTestServiceProviding {
 		certificateConsent: TestCertificateConsent,
 		completion: @escaping TestResultHandler
 	) {
-
+		onRegisterAntigenTestAndGetResult()
+		completion(registerAntigenTestAndGetResultResult ?? .failure(.noCoronaTestOfRequestedType))
 	}
 
 	// swiftlint:disable:next function_parameter_count
@@ -96,7 +100,8 @@ class MockCoronaTestService: CoronaTestServiceProviding {
 		certificateConsent: TestCertificateConsent,
 		completion: @escaping TestResultHandler
 	) {
-
+		onRegisterRapidPCRTestAndGetResult()
+		completion(registerRapidPCRTestAndGetResultResult ?? .failure(.noCoronaTestOfRequestedType))
 	}
 	
 	func reregister(coronaTest: CoronaTest) {
@@ -155,18 +160,33 @@ class MockCoronaTestService: CoronaTestServiceProviding {
 
 	// MARK: - Internal
 
+	var registerPCRTestAndGetResultResult: Result<TestResult, CoronaTestServiceError>?
+	var onRegisterPCRTestAndGetResult: () -> Void = { }
+
+	var registerPCRTestFromTeleTanResult: Result<Void, CoronaTestServiceError>?
+	var onRegisterPCRTestFromTeleTan: () -> Void = { }
+
+	var registerPCRTestFromTeleTanAndGetResultResult: Result<TestResult, CoronaTestServiceError>?
+	var onRegisterPCRTestFromTeleTanAndGetResult: () -> Void = { }
+
+	var registerAntigenTestAndGetResultResult: Result<TestResult, CoronaTestServiceError>?
+	var onRegisterAntigenTestAndGetResult: () -> Void = { }
+
+	var registerRapidPCRTestAndGetResultResult: Result<TestResult, CoronaTestServiceError>?
+	var onRegisterRapidPCRTestAndGetResult: () -> Void = { }
+
+	var updateTestResultResult: Result<TestResult, CoronaTestServiceError>?
 	var onUpdateTestResult: (
 		_ coronaTestType: CoronaTestType,
 		_ force: Bool,
 		_ presentNotification: Bool
 	) -> Void = { _, _, _ in }
 
+	var getSubmissionTANResult: Result<String, CoronaTestServiceError>?
+
 	var onMoveTestToBin: (
 		_ coronaTestType: CoronaTestType
 	) -> Void = { _ in }
-
-	var updateTestResultResult: Result<TestResult, CoronaTestServiceError>?
-	var getSubmissionTANResult: Result<String, CoronaTestServiceError>?
 
 }
 
