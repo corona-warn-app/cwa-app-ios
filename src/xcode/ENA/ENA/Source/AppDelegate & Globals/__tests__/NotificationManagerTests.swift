@@ -148,7 +148,6 @@ class NotificationManagerTests: XCTestCase {
 		let notificationService = MockUserNotificationCenter()
 				
 		let store = MockTestStore()
-		let client = ClientMock()
 		let cachedAppConfig = CachedAppConfigurationMock(with: SAP_Internal_V2_ApplicationConfigurationIOS())
 		let diaryStore = MockDiaryStore()
 		let eventStore = MockEventStore()
@@ -156,7 +155,6 @@ class NotificationManagerTests: XCTestCase {
 			store: store,
 			dccSignatureVerifier: DCCSignatureVerifyingStub(),
 			dscListProvider: MockDSCListProvider(),
-			client: client,
 			appConfiguration: cachedAppConfig,
 			cclService: FakeCCLService(),
 			recycleBin: .fake()

@@ -1110,6 +1110,15 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 		let store = MockTestStore()
 		store.isPrivacyPreservingAnalyticsConsentGiven = true
 		let analyticsSubmitter = createMockSubmitter(with: store)
+
+		let healthCertificateService = HealthCertificateService(
+			store: store,
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
+			dscListProvider: MockDSCListProvider(),
+			appConfiguration: appConfiguration,
+			cclService: FakeCCLService(),
+			recycleBin: .fake()
+		)
 		
 		let coronaTestService = CoronaTestService(
 			client: client,
@@ -1118,14 +1127,12 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
 			appConfiguration: appConfiguration,
-			healthCertificateService: HealthCertificateService(
+			healthCertificateService: healthCertificateService,
+			healthCertificateRequestService: HealthCertificateRequestService(
 				store: store,
-				dccSignatureVerifier: DCCSignatureVerifyingStub(),
-				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration,
-				cclService: FakeCCLService(),
-				recycleBin: .fake()
+				healthCertificateService: healthCertificateService
 			),
 			recycleBin: .fake(),
 			badgeWrapper: .fake()

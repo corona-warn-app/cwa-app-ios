@@ -10,14 +10,12 @@ class HealthCertifiedPersonViewModelTests: XCTestCase {
 
 	func testGIVEN_HealthCertifiedPersonViewModel_WHEN_Init_THEN_isAsExpected() {
 		// GIVEN
-		let client = ClientMock()
 		let store = MockTestStore()
 		let cclService = FakeCCLService()
 		let service = HealthCertificateService(
 			store: store,
 			dccSignatureVerifier: DCCSignatureVerifyingStub(),
 			dscListProvider: MockDSCListProvider(),
-			client: client,
 			appConfiguration: CachedAppConfigurationMock(),
 			cclService: cclService,
 			recycleBin: .fake()
@@ -64,13 +62,11 @@ class HealthCertifiedPersonViewModelTests: XCTestCase {
 	func testGIVEN_HealthCertifiedPersonViewModel_WHEN_qrCodeCellViewModel_THEN_noFatalError() throws {
 		// GIVEN
 		let store = MockTestStore()
-		let client = ClientMock()
 		let cclService = FakeCCLService()
 		let service = HealthCertificateService(
 			store: store,
 			dccSignatureVerifier: DCCSignatureVerifyingStub(),
 			dscListProvider: MockDSCListProvider(),
-			client: client,
 			appConfiguration: CachedAppConfigurationMock(),
 			cclService: cclService,
 			recycleBin: .fake()
@@ -104,14 +100,12 @@ class HealthCertifiedPersonViewModelTests: XCTestCase {
 
 	func testHeightForFooter() throws {
 		// GIVEN
-		let client = ClientMock()
 		let store = MockTestStore()
 		let cclService = FakeCCLService()
 		let service = HealthCertificateService(
 			store: store,
 			dccSignatureVerifier: DCCSignatureVerifyingStub(),
 			dscListProvider: MockDSCListProvider(),
-			client: client,
 			appConfiguration: CachedAppConfigurationMock(),
 			cclService: cclService,
 			recycleBin: .fake()
@@ -151,7 +145,6 @@ class HealthCertifiedPersonViewModelTests: XCTestCase {
 			store: MockTestStore(),
 			dccSignatureVerifier: DCCSignatureVerifyingStub(),
 			dscListProvider: MockDSCListProvider(),
-			client: ClientMock(),
 			appConfiguration: CachedAppConfigurationMock(),
 			cclService: cclService,
 			recycleBin: .fake()
@@ -184,7 +177,6 @@ class HealthCertifiedPersonViewModelTests: XCTestCase {
 			store: MockTestStore(),
 			dccSignatureVerifier: DCCSignatureVerifyingStub(),
 			dscListProvider: MockDSCListProvider(),
-			client: ClientMock(),
 			appConfiguration: CachedAppConfigurationMock(),
 			cclService: cclService,
 			recycleBin: .fake()
@@ -217,7 +209,6 @@ class HealthCertifiedPersonViewModelTests: XCTestCase {
 			store: MockTestStore(),
 			dccSignatureVerifier: DCCSignatureVerifyingStub(),
 			dscListProvider: MockDSCListProvider(),
-			client: ClientMock(),
 			appConfiguration: CachedAppConfigurationMock(),
 			cclService: cclService,
 			recycleBin: .fake()
@@ -250,7 +241,6 @@ class HealthCertifiedPersonViewModelTests: XCTestCase {
 			store: MockTestStore(),
 			dccSignatureVerifier: DCCSignatureVerifyingStub(),
 			dscListProvider: MockDSCListProvider(),
-			client: ClientMock(),
 			appConfiguration: CachedAppConfigurationMock(),
 			cclService: cclService,
 			recycleBin: .fake()
@@ -283,7 +273,6 @@ class HealthCertifiedPersonViewModelTests: XCTestCase {
 			store: MockTestStore(),
 			dccSignatureVerifier: DCCSignatureVerifyingStub(),
 			dscListProvider: MockDSCListProvider(),
-			client: ClientMock(),
 			appConfiguration: CachedAppConfigurationMock(),
 			cclService: cclService,
 			recycleBin: .fake()
@@ -316,7 +305,6 @@ class HealthCertifiedPersonViewModelTests: XCTestCase {
 			store: MockTestStore(),
 			dccSignatureVerifier: DCCSignatureVerifyingStub(),
 			dscListProvider: MockDSCListProvider(),
-			client: ClientMock(),
 			appConfiguration: CachedAppConfigurationMock(),
 			cclService: cclService,
 			recycleBin: .fake()
@@ -343,14 +331,12 @@ class HealthCertifiedPersonViewModelTests: XCTestCase {
 	}
 
 	func testBoosterNotificationCellTap() throws {
-		let client = ClientMock()
 		let store = MockTestStore()
 		let cclService = FakeCCLService()
 		let service = HealthCertificateService(
 			store: store,
 			dccSignatureVerifier: DCCSignatureVerifyingStub(),
 			dscListProvider: MockDSCListProvider(),
-			client: client,
 			appConfiguration: CachedAppConfigurationMock(),
 			cclService: cclService,
 			recycleBin: .fake()

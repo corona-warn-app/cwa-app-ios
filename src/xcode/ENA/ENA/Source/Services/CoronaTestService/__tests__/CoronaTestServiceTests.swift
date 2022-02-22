@@ -27,7 +27,6 @@ class CoronaTestServiceTests: CWATestCase {
 				store: store,
 				dccSignatureVerifier: DCCSignatureVerifyingStub(),
 				dscListProvider: MockDSCListProvider(),
-				client: client,
 				appConfiguration: appConfiguration,
 				cclService: FakeCCLService(),
 
@@ -64,7 +63,6 @@ class CoronaTestServiceTests: CWATestCase {
 				store: store,
 				dccSignatureVerifier: DCCSignatureVerifyingStub(),
 				dscListProvider: MockDSCListProvider(),
-				client: client,
 				appConfiguration: appConfiguration,
 				cclService: FakeCCLService(),
 
@@ -119,7 +117,6 @@ class CoronaTestServiceTests: CWATestCase {
 				store: store,
 				dccSignatureVerifier: DCCSignatureVerifyingStub(),
 				dscListProvider: MockDSCListProvider(),
-				client: client,
 				appConfiguration: appConfiguration,
 				cclService: FakeCCLService(),
 
@@ -172,7 +169,6 @@ class CoronaTestServiceTests: CWATestCase {
 				store: store,
 				dccSignatureVerifier: DCCSignatureVerifyingStub(),
 				dscListProvider: MockDSCListProvider(),
-				client: client,
 				appConfiguration: appConfiguration,
 				cclService: FakeCCLService(),
 
@@ -227,7 +223,6 @@ class CoronaTestServiceTests: CWATestCase {
 				store: store,
 				dccSignatureVerifier: DCCSignatureVerifyingStub(),
 				dscListProvider: MockDSCListProvider(),
-				client: client,
 				appConfiguration: appConfiguration,
 				cclService: FakeCCLService(),
 
@@ -280,7 +275,6 @@ class CoronaTestServiceTests: CWATestCase {
 				store: store,
 				dccSignatureVerifier: DCCSignatureVerifyingStub(),
 				dscListProvider: MockDSCListProvider(),
-				client: client,
 				appConfiguration: appConfiguration,
 				cclService: FakeCCLService(),
 
@@ -337,7 +331,6 @@ class CoronaTestServiceTests: CWATestCase {
 				store: store,
 				dccSignatureVerifier: DCCSignatureVerifyingStub(),
 				dscListProvider: MockDSCListProvider(),
-				client: client,
 				appConfiguration: appConfiguration,
 				cclService: FakeCCLService(),
 
@@ -399,7 +392,6 @@ class CoronaTestServiceTests: CWATestCase {
 				store: store,
 				dccSignatureVerifier: DCCSignatureVerifyingStub(),
 				dscListProvider: MockDSCListProvider(),
-				client: client,
 				appConfiguration: appConfig,
 				cclService: FakeCCLService(),
 
@@ -513,7 +505,6 @@ class CoronaTestServiceTests: CWATestCase {
 				store: store,
 				dccSignatureVerifier: DCCSignatureVerifyingStub(),
 				dscListProvider: MockDSCListProvider(),
-				client: client,
 				appConfiguration: appConfiguration,
 				cclService: FakeCCLService(),
 
@@ -565,7 +556,6 @@ class CoronaTestServiceTests: CWATestCase {
 				store: store,
 				dccSignatureVerifier: DCCSignatureVerifyingStub(),
 				dscListProvider: MockDSCListProvider(),
-				client: client,
 				appConfiguration: appConfiguration,
 				cclService: FakeCCLService(),
 
@@ -666,7 +656,6 @@ class CoronaTestServiceTests: CWATestCase {
 				store: store,
 				dccSignatureVerifier: DCCSignatureVerifyingStub(),
 				dscListProvider: MockDSCListProvider(),
-				client: client,
 				appConfiguration: appConfiguration,
 				cclService: FakeCCLService(),
 
@@ -788,7 +777,6 @@ class CoronaTestServiceTests: CWATestCase {
 				store: store,
 				dccSignatureVerifier: DCCSignatureVerifyingStub(),
 				dscListProvider: MockDSCListProvider(),
-				client: client,
 				appConfiguration: appConfiguration,
 				cclService: FakeCCLService(),
 
@@ -883,7 +871,6 @@ class CoronaTestServiceTests: CWATestCase {
 				store: store,
 				dccSignatureVerifier: DCCSignatureVerifyingStub(),
 				dscListProvider: MockDSCListProvider(),
-				client: client,
 				appConfiguration: appConfiguration,
 				cclService: FakeCCLService(),
 
@@ -951,7 +938,6 @@ class CoronaTestServiceTests: CWATestCase {
 				store: store,
 				dccSignatureVerifier: DCCSignatureVerifyingStub(),
 				dscListProvider: MockDSCListProvider(),
-				client: client,
 				appConfiguration: appConfiguration,
 				cclService: FakeCCLService(),
 
@@ -1018,7 +1004,6 @@ class CoronaTestServiceTests: CWATestCase {
 				store: store,
 				dccSignatureVerifier: DCCSignatureVerifyingStub(),
 				dscListProvider: MockDSCListProvider(),
-				client: client,
 				appConfiguration: appConfiguration,
 				cclService: FakeCCLService(),
 
@@ -1106,7 +1091,6 @@ class CoronaTestServiceTests: CWATestCase {
 				store: store,
 				dccSignatureVerifier: DCCSignatureVerifyingStub(),
 				dscListProvider: MockDSCListProvider(),
-				client: client,
 				appConfiguration: appConfiguration,
 				cclService: FakeCCLService(),
 
@@ -1196,7 +1180,6 @@ class CoronaTestServiceTests: CWATestCase {
 				store: store,
 				dccSignatureVerifier: DCCSignatureVerifyingStub(),
 				dscListProvider: MockDSCListProvider(),
-				client: client,
 				appConfiguration: appConfiguration,
 				cclService: FakeCCLService(),
 
@@ -1276,7 +1259,6 @@ class CoronaTestServiceTests: CWATestCase {
 				store: store,
 				dccSignatureVerifier: DCCSignatureVerifyingStub(),
 				dscListProvider: MockDSCListProvider(),
-				client: client,
 				appConfiguration: appConfiguration,
 				cclService: FakeCCLService(),
 
@@ -1346,7 +1328,6 @@ class CoronaTestServiceTests: CWATestCase {
 				store: store,
 				dccSignatureVerifier: DCCSignatureVerifyingStub(),
 				dscListProvider: MockDSCListProvider(),
-				client: client,
 				appConfiguration: appConfiguration,
 				cclService: FakeCCLService(),
 
@@ -1432,7 +1413,6 @@ class CoronaTestServiceTests: CWATestCase {
 				store: store,
 				dccSignatureVerifier: DCCSignatureVerifyingStub(),
 				dscListProvider: MockDSCListProvider(),
-				client: client,
 				appConfiguration: appConfiguration,
 				cclService: FakeCCLService(),
 
@@ -1549,7 +1529,6 @@ class CoronaTestServiceTests: CWATestCase {
 				store: store,
 				dccSignatureVerifier: DCCSignatureVerifyingStub(),
 				dscListProvider: MockDSCListProvider(),
-				client: client,
 				appConfiguration: appConfiguration,
 				cclService: FakeCCLService(),
 
@@ -1631,7 +1610,6 @@ class CoronaTestServiceTests: CWATestCase {
 				store: store,
 				dccSignatureVerifier: DCCSignatureVerifyingStub(),
 				dscListProvider: MockDSCListProvider(),
-				client: client,
 				appConfiguration: appConfiguration,
 				cclService: FakeCCLService(),
 
@@ -1694,7 +1672,6 @@ class CoronaTestServiceTests: CWATestCase {
 				store: store,
 				dccSignatureVerifier: DCCSignatureVerifyingStub(),
 				dscListProvider: MockDSCListProvider(),
-				client: client,
 				appConfiguration: appConfiguration,
 				cclService: FakeCCLService(),
 
@@ -1791,7 +1768,6 @@ class CoronaTestServiceTests: CWATestCase {
 				store: store,
 				dccSignatureVerifier: DCCSignatureVerifyingStub(),
 				dscListProvider: MockDSCListProvider(),
-				client: client,
 				appConfiguration: appConfiguration,
 				cclService: FakeCCLService(),
 
@@ -1885,7 +1861,6 @@ class CoronaTestServiceTests: CWATestCase {
 				store: store,
 				dccSignatureVerifier: DCCSignatureVerifyingStub(),
 				dscListProvider: MockDSCListProvider(),
-				client: client,
 				appConfiguration: appConfiguration,
 				cclService: FakeCCLService(),
 
@@ -2007,7 +1982,6 @@ class CoronaTestServiceTests: CWATestCase {
 				store: store,
 				dccSignatureVerifier: DCCSignatureVerifyingStub(),
 				dscListProvider: MockDSCListProvider(),
-				client: client,
 				appConfiguration: appConfiguration,
 				cclService: FakeCCLService(),
 
@@ -2088,7 +2062,6 @@ class CoronaTestServiceTests: CWATestCase {
 				store: store,
 				dccSignatureVerifier: DCCSignatureVerifyingStub(),
 				dscListProvider: MockDSCListProvider(),
-				client: client,
 				appConfiguration: appConfiguration,
 				cclService: FakeCCLService(),
 
@@ -2155,7 +2128,6 @@ class CoronaTestServiceTests: CWATestCase {
 				store: store,
 				dccSignatureVerifier: DCCSignatureVerifyingStub(),
 				dscListProvider: MockDSCListProvider(),
-				client: client,
 				appConfiguration: appConfiguration,
 				cclService: FakeCCLService(),
 
@@ -2242,7 +2214,6 @@ class CoronaTestServiceTests: CWATestCase {
 				store: store,
 				dccSignatureVerifier: DCCSignatureVerifyingStub(),
 				dscListProvider: MockDSCListProvider(),
-				client: client,
 				appConfiguration: appConfiguration,
 				cclService: FakeCCLService(),
 				recycleBin: .fake()
@@ -2301,7 +2272,6 @@ class CoronaTestServiceTests: CWATestCase {
 				store: store,
 				dccSignatureVerifier: DCCSignatureVerifyingStub(),
 				dscListProvider: MockDSCListProvider(),
-				client: client,
 				appConfiguration: appConfiguration,
 				cclService: FakeCCLService(),
 				recycleBin: .fake()
@@ -2353,7 +2323,6 @@ class CoronaTestServiceTests: CWATestCase {
 				store: store,
 				dccSignatureVerifier: DCCSignatureVerifyingStub(),
 				dscListProvider: MockDSCListProvider(),
-				client: client,
 				appConfiguration: appConfiguration,
 				cclService: FakeCCLService(),
 				recycleBin: .fake()
@@ -2393,7 +2362,6 @@ class CoronaTestServiceTests: CWATestCase {
 				store: store,
 				dccSignatureVerifier: DCCSignatureVerifyingStub(),
 				dscListProvider: MockDSCListProvider(),
-				client: client,
 				appConfiguration: appConfiguration,
 				cclService: FakeCCLService(),
 				recycleBin: .fake()
@@ -2433,7 +2401,6 @@ class CoronaTestServiceTests: CWATestCase {
 				store: store,
 				dccSignatureVerifier: DCCSignatureVerifyingStub(),
 				dscListProvider: MockDSCListProvider(),
-				client: client,
 				appConfiguration: appConfiguration,
 				cclService: FakeCCLService(),
 				recycleBin: .fake()
@@ -2481,7 +2448,6 @@ class CoronaTestServiceTests: CWATestCase {
 				store: store,
 				dccSignatureVerifier: DCCSignatureVerifyingStub(),
 				dscListProvider: MockDSCListProvider(),
-				client: client,
 				appConfiguration: appConfiguration,
 				cclService: FakeCCLService(),
 				recycleBin: .fake()
@@ -2542,7 +2508,6 @@ class CoronaTestServiceTests: CWATestCase {
 				store: store,
 				dccSignatureVerifier: DCCSignatureVerifyingStub(),
 				dscListProvider: MockDSCListProvider(),
-				client: client,
 				appConfiguration: appConfiguration,
 				cclService: FakeCCLService(),
 				recycleBin: .fake()
@@ -2597,7 +2562,6 @@ class CoronaTestServiceTests: CWATestCase {
 				store: store,
 				dccSignatureVerifier: DCCSignatureVerifyingStub(),
 				dscListProvider: MockDSCListProvider(),
-				client: client,
 				appConfiguration: appConfiguration,
 				cclService: FakeCCLService(),
 				recycleBin: .fake()
@@ -2640,7 +2604,6 @@ class CoronaTestServiceTests: CWATestCase {
 				store: store,
 				dccSignatureVerifier: DCCSignatureVerifyingStub(),
 				dscListProvider: MockDSCListProvider(),
-				client: client,
 				appConfiguration: appConfiguration,
 				cclService: FakeCCLService(),
 				recycleBin: .fake()
@@ -2684,7 +2647,6 @@ class CoronaTestServiceTests: CWATestCase {
 				store: store,
 				dccSignatureVerifier: DCCSignatureVerifyingStub(),
 				dscListProvider: MockDSCListProvider(),
-				client: client,
 				appConfiguration: appConfiguration,
 				cclService: FakeCCLService(),
 				recycleBin: .fake()
@@ -2730,7 +2692,6 @@ class CoronaTestServiceTests: CWATestCase {
 				store: store,
 				dccSignatureVerifier: DCCSignatureVerifyingStub(),
 				dscListProvider: MockDSCListProvider(),
-				client: client,
 				appConfiguration: appConfiguration,
 				cclService: FakeCCLService(),
 				recycleBin: .fake()
@@ -2789,7 +2750,6 @@ class CoronaTestServiceTests: CWATestCase {
 				store: store,
 				dccSignatureVerifier: DCCSignatureVerifyingStub(),
 				dscListProvider: MockDSCListProvider(),
-				client: client,
 				appConfiguration: appConfiguration,
 				cclService: FakeCCLService(),
 				recycleBin: .fake()
@@ -2836,7 +2796,6 @@ class CoronaTestServiceTests: CWATestCase {
 				store: store,
 				dccSignatureVerifier: DCCSignatureVerifyingStub(),
 				dscListProvider: MockDSCListProvider(),
-				client: client,
 				appConfiguration: appConfiguration,
 				cclService: FakeCCLService(),
 				recycleBin: .fake()
@@ -2884,7 +2843,6 @@ class CoronaTestServiceTests: CWATestCase {
 				store: store,
 				dccSignatureVerifier: DCCSignatureVerifyingStub(),
 				dscListProvider: MockDSCListProvider(),
-				client: client,
 				appConfiguration: appConfiguration,
 				cclService: FakeCCLService(),
 				recycleBin: .fake()
@@ -2932,7 +2890,6 @@ class CoronaTestServiceTests: CWATestCase {
 				store: store,
 				dccSignatureVerifier: DCCSignatureVerifyingStub(),
 				dscListProvider: MockDSCListProvider(),
-				client: client,
 				appConfiguration: appConfiguration,
 				cclService: FakeCCLService(),
 				recycleBin: .fake()
@@ -2978,7 +2935,6 @@ class CoronaTestServiceTests: CWATestCase {
 				store: store,
 				dccSignatureVerifier: DCCSignatureVerifyingStub(),
 				dscListProvider: MockDSCListProvider(),
-				client: client,
 				appConfiguration: appConfiguration,
 				cclService: FakeCCLService(),
 				recycleBin: .fake()
@@ -3036,7 +2992,6 @@ class CoronaTestServiceTests: CWATestCase {
 				store: store,
 				dccSignatureVerifier: DCCSignatureVerifyingStub(),
 				dscListProvider: MockDSCListProvider(),
-				client: client,
 				appConfiguration: appConfiguration,
 				cclService: FakeCCLService(),
 				recycleBin: .fake()
@@ -3089,7 +3044,6 @@ class CoronaTestServiceTests: CWATestCase {
 				store: store,
 				dccSignatureVerifier: DCCSignatureVerifyingStub(),
 				dscListProvider: MockDSCListProvider(),
-				client: client,
 				appConfiguration: appConfiguration,
 				cclService: FakeCCLService(),
 				recycleBin: .fake()
@@ -3149,7 +3103,6 @@ class CoronaTestServiceTests: CWATestCase {
 				store: store,
 				dccSignatureVerifier: DCCSignatureVerifyingStub(),
 				dscListProvider: MockDSCListProvider(),
-				client: client,
 				appConfiguration: appConfiguration,
 				cclService: FakeCCLService(),
 				recycleBin: .fake()
@@ -3211,7 +3164,6 @@ class CoronaTestServiceTests: CWATestCase {
 				store: store,
 				dccSignatureVerifier: DCCSignatureVerifyingStub(),
 				dscListProvider: MockDSCListProvider(),
-				client: client,
 				appConfiguration: appConfiguration,
 				cclService: FakeCCLService(),
 				recycleBin: .fake()
@@ -3267,7 +3219,6 @@ class CoronaTestServiceTests: CWATestCase {
 				store: store,
 				dccSignatureVerifier: DCCSignatureVerifyingStub(),
 				dscListProvider: MockDSCListProvider(),
-				client: client,
 				appConfiguration: appConfiguration,
 				cclService: FakeCCLService(),
 				recycleBin: .fake()
@@ -3328,7 +3279,6 @@ class CoronaTestServiceTests: CWATestCase {
 				store: store,
 				dccSignatureVerifier: DCCSignatureVerifyingStub(),
 				dscListProvider: MockDSCListProvider(),
-				client: client,
 				appConfiguration: appConfiguration,
 				cclService: FakeCCLService(),
 				recycleBin: .fake()
@@ -3385,7 +3335,6 @@ class CoronaTestServiceTests: CWATestCase {
 				store: store,
 				dccSignatureVerifier: DCCSignatureVerifyingStub(),
 				dscListProvider: MockDSCListProvider(),
-				client: client,
 				appConfiguration: appConfiguration,
 				cclService: FakeCCLService(),
 				recycleBin: .fake()
@@ -3429,7 +3378,6 @@ class CoronaTestServiceTests: CWATestCase {
 				store: store,
 				dccSignatureVerifier: DCCSignatureVerifyingStub(),
 				dscListProvider: MockDSCListProvider(),
-				client: client,
 				appConfiguration: appConfiguration,
 				cclService: FakeCCLService(),
 				recycleBin: .fake()
@@ -3478,7 +3426,6 @@ class CoronaTestServiceTests: CWATestCase {
 				store: store,
 				dccSignatureVerifier: DCCSignatureVerifyingStub(),
 				dscListProvider: MockDSCListProvider(),
-				client: client,
 				appConfiguration: appConfiguration,
 				cclService: FakeCCLService(),
 				recycleBin: .fake()
@@ -3530,7 +3477,6 @@ class CoronaTestServiceTests: CWATestCase {
 				store: store,
 				dccSignatureVerifier: DCCSignatureVerifyingStub(),
 				dscListProvider: MockDSCListProvider(),
-				client: client,
 				appConfiguration: appConfiguration,
 				cclService: FakeCCLService(),
 				recycleBin: .fake()
@@ -3582,7 +3528,6 @@ class CoronaTestServiceTests: CWATestCase {
 				store: store,
 				dccSignatureVerifier: DCCSignatureVerifyingStub(),
 				dscListProvider: MockDSCListProvider(),
-				client: client,
 				appConfiguration: appConfiguration,
 				cclService: FakeCCLService(),
 				recycleBin: .fake()
@@ -3634,7 +3579,6 @@ class CoronaTestServiceTests: CWATestCase {
 				store: store,
 				dccSignatureVerifier: DCCSignatureVerifyingStub(),
 				dscListProvider: MockDSCListProvider(),
-				client: client,
 				appConfiguration: appConfiguration,
 				cclService: FakeCCLService(),
 				recycleBin: .fake()
@@ -3686,7 +3630,6 @@ class CoronaTestServiceTests: CWATestCase {
 				store: store,
 				dccSignatureVerifier: DCCSignatureVerifyingStub(),
 				dscListProvider: MockDSCListProvider(),
-				client: client,
 				appConfiguration: appConfiguration,
 				cclService: FakeCCLService(),
 				recycleBin: .fake()
@@ -3731,7 +3674,6 @@ class CoronaTestServiceTests: CWATestCase {
 				store: store,
 				dccSignatureVerifier: DCCSignatureVerifyingStub(),
 				dscListProvider: MockDSCListProvider(),
-				client: client,
 				appConfiguration: appConfiguration,
 				cclService: FakeCCLService(),
 				recycleBin: recycleBin
@@ -3790,7 +3732,6 @@ class CoronaTestServiceTests: CWATestCase {
 				store: store,
 				dccSignatureVerifier: DCCSignatureVerifyingStub(),
 				dscListProvider: MockDSCListProvider(),
-				client: client,
 				appConfiguration: appConfiguration,
 				cclService: FakeCCLService(),
 				recycleBin: .fake()
@@ -3892,7 +3833,6 @@ class CoronaTestServiceTests: CWATestCase {
 				store: store,
 				dccSignatureVerifier: DCCSignatureVerifyingStub(),
 				dscListProvider: MockDSCListProvider(),
-				client: client,
 				appConfiguration: appConfiguration,
 				cclService: FakeCCLService(),
 				recycleBin: .fake()
@@ -4008,7 +3948,6 @@ class CoronaTestServiceTests: CWATestCase {
 				store: store,
 				dccSignatureVerifier: DCCSignatureVerifyingStub(),
 				dscListProvider: MockDSCListProvider(),
-				client: client,
 				appConfiguration: appConfiguration,
 				cclService: FakeCCLService(),
 				recycleBin: .fake()
