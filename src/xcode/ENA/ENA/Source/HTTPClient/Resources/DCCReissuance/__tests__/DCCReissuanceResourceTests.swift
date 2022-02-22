@@ -5,6 +5,7 @@
 @testable import ENA
 import Foundation
 import XCTest
+import ENASecurity
 
 final class DCCReissuanceResourceTests: CWATestCase {
 
@@ -54,46 +55,388 @@ final class DCCReissuanceResourceTests: CWATestCase {
 	// MARK: - Failures
 
 	func testGIVEN_Resource_WHEN_PinMismatch_THEN_DCC_RI_PIN_MISMATCH() throws {
+		let expectation = expectation(description: "Expect that we got an error")
 
+		let stack = MockNetworkStack(
+			sessionDelegate: CoronaWarnSessionTaskDelegate(),
+			error: NSError(domain: NSURLErrorDomain, code: NSURLErrorUnknown, userInfo: nil)
+		)
+
+		let restServiceProvider = RestServiceProvider(
+			session: stack.urlSession,
+			cache: KeyValueCacheFake()
+		)
+
+		let trustErrorStub = TrustEvaluationErrorStub(
+			error: TrustEvaluationError.jsonWebKey(.CERT_PIN_MISMATCH)
+		)
+
+		let sendModel = DCCReissuanceSendModel(
+			certificates: [
+				"one"
+			]
+		)
+
+		let resource = DCCReissuanceResource(
+			sendModel: sendModel,
+			trustEvaluation: trustErrorStub
+		)
+
+		restServiceProvider.load(resource) { result in
+			switch result {
+			case .success:
+				XCTFail("Failure expected.")
+			case .failure(let error):
+				guard case .receivedResourceError(.DCC_RI_PIN_MISMATCH) = error else {
+					XCTFail("DCC_RI_PIN_MISMATCH error expected. Instead error received: \(error)")
+					return
+				}
+			}
+			expectation.fulfill()
+		}
+		waitForExpectations(timeout: .short)
 	}
 
 	func testGIVEN_Resource_WHEN_Response_Body_Is_Malformed_THEN_DCC_RI_PARSE_ERR() throws {
+		let expectation = expectation(description: "Expect that we got an error")
 
+		let stack = MockNetworkStack(
+			httpStatus: 200,
+			responseData: try JSONEncoder().encode("Hello")
+		)
+
+		let restServiceProvider = RestServiceProvider(
+			session: stack.urlSession,
+			cache: KeyValueCacheFake()
+		)
+
+		let sendModel = DCCReissuanceSendModel(
+			certificates: [
+				"one"
+			]
+		)
+
+		let resource = DCCReissuanceResource(
+			sendModel: sendModel,
+			trustEvaluation: .fake()
+		)
+
+		restServiceProvider.load(resource) { result in
+			switch result {
+			case .success:
+				XCTFail("Failure expected.")
+			case .failure(let error):
+				guard case .receivedResourceError(.DCC_RI_PARSE_ERR) = error else {
+					XCTFail("DCC_RI_PARSE_ERR error expected. Instead error received: \(error)")
+					return
+				}
+			}
+			expectation.fulfill()
+		}
+		waitForExpectations(timeout: .short)
 	}
 
 	func testGIVEN_Resource_WHEN_TransportationError_THEN_DCC_RI_NO_NETWORK() throws {
+		let expectation = expectation(description: "Expect that we got an error")
 
-	}
+		let stack = MockNetworkStack(
+			error: NSError(domain: NSURLErrorDomain, code: NSURLErrorNotConnectedToInternet, userInfo: nil)
+		)
 
-	func testGIVEN_Resource_WHEN_Response_PinMismatch_THEN_DCC_RI_PIN_MISMATCH() throws {
+		let restServiceProvider = RestServiceProvider(
+			session: stack.urlSession,
+			cache: KeyValueCacheFake()
+		)
 
+		let sendModel = DCCReissuanceSendModel(
+			certificates: [
+				"one"
+			]
+		)
+
+		let resource = DCCReissuanceResource(
+			sendModel: sendModel,
+			trustEvaluation: .fake()
+		)
+
+		restServiceProvider.load(resource) { result in
+			switch result {
+			case .success:
+				XCTFail("Failure expected.")
+			case .failure(let error):
+				guard case .receivedResourceError(.DCC_RI_NO_NETWORK) = error else {
+					XCTFail("DCC_RI_NO_NETWORK error expected. Instead error received: \(error)")
+					return
+				}
+			}
+			expectation.fulfill()
+		}
+		waitForExpectations(timeout: .short)
 	}
 
 	func testGIVEN_Resource_WHEN_Response_400_THEN_DCC_RI_400() throws {
+		let expectation = expectation(description: "Expect that we got an error")
 
+		let stack = MockNetworkStack(
+			httpStatus: 400
+		)
+
+		let restServiceProvider = RestServiceProvider(
+			session: stack.urlSession,
+			cache: KeyValueCacheFake()
+		)
+
+		let sendModel = DCCReissuanceSendModel(
+			certificates: [
+				"one"
+			]
+		)
+
+		let resource = DCCReissuanceResource(
+			sendModel: sendModel,
+			trustEvaluation: .fake()
+		)
+
+		restServiceProvider.load(resource) { result in
+			switch result {
+			case .success:
+				XCTFail("Failure expected.")
+			case .failure(let error):
+				guard case .receivedResourceError(.DCC_RI_400) = error else {
+					XCTFail("DCC_RI_400 error expected. Instead error received: \(error)")
+					return
+				}
+			}
+			expectation.fulfill()
+		}
+		waitForExpectations(timeout: .short)
 	}
 
 	func testGIVEN_Resource_WHEN_Response_401_THEN_DCC_RI_401() throws {
+		let expectation = expectation(description: "Expect that we got an error")
 
+		let stack = MockNetworkStack(
+			httpStatus: 401
+		)
+
+		let restServiceProvider = RestServiceProvider(
+			session: stack.urlSession,
+			cache: KeyValueCacheFake()
+		)
+
+		let sendModel = DCCReissuanceSendModel(
+			certificates: [
+				"one"
+			]
+		)
+
+		let resource = DCCReissuanceResource(
+			sendModel: sendModel,
+			trustEvaluation: .fake()
+		)
+
+		restServiceProvider.load(resource) { result in
+			switch result {
+			case .success:
+				XCTFail("Failure expected.")
+			case .failure(let error):
+				guard case .receivedResourceError(.DCC_RI_401) = error else {
+					XCTFail("DCC_RI_401 error expected. Instead error received: \(error)")
+					return
+				}
+			}
+			expectation.fulfill()
+		}
+		waitForExpectations(timeout: .short)
 	}
 
 	func testGIVEN_Resource_WHEN_Response_403_THEN_DCC_RI_403() throws {
+		let expectation = expectation(description: "Expect that we got an error")
 
+		let stack = MockNetworkStack(
+			httpStatus: 403
+		)
+
+		let restServiceProvider = RestServiceProvider(
+			session: stack.urlSession,
+			cache: KeyValueCacheFake()
+		)
+
+		let sendModel = DCCReissuanceSendModel(
+			certificates: [
+				"one"
+			]
+		)
+
+		let resource = DCCReissuanceResource(
+			sendModel: sendModel,
+			trustEvaluation: .fake()
+		)
+
+		restServiceProvider.load(resource) { result in
+			switch result {
+			case .success:
+				XCTFail("Failure expected.")
+			case .failure(let error):
+				guard case .receivedResourceError(.DCC_RI_403) = error else {
+					XCTFail("DCC_RI_403 error expected. Instead error received: \(error)")
+					return
+				}
+			}
+			expectation.fulfill()
+		}
+		waitForExpectations(timeout: .short)
 	}
 
 	func testGIVEN_Resource_WHEN_Response_406_THEN_DCC_RI_406() throws {
+		let expectation = expectation(description: "Expect that we got an error")
 
+		let stack = MockNetworkStack(
+			httpStatus: 406
+		)
+
+		let restServiceProvider = RestServiceProvider(
+			session: stack.urlSession,
+			cache: KeyValueCacheFake()
+		)
+
+		let sendModel = DCCReissuanceSendModel(
+			certificates: [
+				"one"
+			]
+		)
+
+		let resource = DCCReissuanceResource(
+			sendModel: sendModel,
+			trustEvaluation: .fake()
+		)
+
+		restServiceProvider.load(resource) { result in
+			switch result {
+			case .success:
+				XCTFail("Failure expected.")
+			case .failure(let error):
+				guard case .receivedResourceError(.DCC_RI_406) = error else {
+					XCTFail("DCC_RI_406 error expected. Instead error received: \(error)")
+					return
+				}
+			}
+			expectation.fulfill()
+		}
+		waitForExpectations(timeout: .short)
 	}
 
 	func testGIVEN_Resource_WHEN_Response_500_THEN_DCC_RI_500() throws {
+		let expectation = expectation(description: "Expect that we got an error")
 
+		let stack = MockNetworkStack(
+			httpStatus: 500
+		)
+
+		let restServiceProvider = RestServiceProvider(
+			session: stack.urlSession,
+			cache: KeyValueCacheFake()
+		)
+
+		let sendModel = DCCReissuanceSendModel(
+			certificates: [
+				"one"
+			]
+		)
+
+		let resource = DCCReissuanceResource(
+			sendModel: sendModel,
+			trustEvaluation: .fake()
+		)
+
+		restServiceProvider.load(resource) { result in
+			switch result {
+			case .success:
+				XCTFail("Failure expected.")
+			case .failure(let error):
+				guard case .receivedResourceError(.DCC_RI_500) = error else {
+					XCTFail("DCC_RI_500 error expected. Instead error received: \(error)")
+					return
+				}
+			}
+			expectation.fulfill()
+		}
+		waitForExpectations(timeout: .short)
 	}
 
 	func testGIVEN_Resource_WHEN_Response_456_THEN_DCC_RI_CLIENT_ERR() throws {
+		let expectation = expectation(description: "Expect that we got an error")
 
+		let stack = MockNetworkStack(
+			httpStatus: 456
+		)
+
+		let restServiceProvider = RestServiceProvider(
+			session: stack.urlSession,
+			cache: KeyValueCacheFake()
+		)
+
+		let sendModel = DCCReissuanceSendModel(
+			certificates: [
+				"one"
+			]
+		)
+
+		let resource = DCCReissuanceResource(
+			sendModel: sendModel,
+			trustEvaluation: .fake()
+		)
+
+		restServiceProvider.load(resource) { result in
+			switch result {
+			case .success:
+				XCTFail("Failure expected.")
+			case .failure(let error):
+				guard case .receivedResourceError(.DCC_RI_CLIENT_ERR) = error else {
+					XCTFail("DCC_RI_CLIENT_ERR error expected. Instead error received: \(error)")
+					return
+				}
+			}
+			expectation.fulfill()
+		}
+		waitForExpectations(timeout: .short)
 	}
 
 	func testGIVEN_Resource_WHEN_Response_505_THEN_DCC_RI_SERVER_ERR() throws {
+		let expectation = expectation(description: "Expect that we got an error")
 
+		let stack = MockNetworkStack(
+			httpStatus: 505
+		)
+
+		let restServiceProvider = RestServiceProvider(
+			session: stack.urlSession,
+			cache: KeyValueCacheFake()
+		)
+
+		let sendModel = DCCReissuanceSendModel(
+			certificates: [
+				"one"
+			]
+		)
+
+		let resource = DCCReissuanceResource(
+			sendModel: sendModel,
+			trustEvaluation: .fake()
+		)
+
+		restServiceProvider.load(resource) { result in
+			switch result {
+			case .success:
+				XCTFail("Failure expected.")
+			case .failure(let error):
+				guard case .receivedResourceError(.DCC_RI_SERVER_ERR) = error else {
+					XCTFail("DCC_RI_SERVER_ERR error expected. Instead error received: \(error)")
+					return
+				}
+			}
+			expectation.fulfill()
+		}
+		waitForExpectations(timeout: .short)
 	}
 }

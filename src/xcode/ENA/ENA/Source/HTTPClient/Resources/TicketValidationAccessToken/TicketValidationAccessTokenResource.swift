@@ -34,28 +34,33 @@ struct TicketValidationAccessTokenResource: Resource {
 	var sendResource: JSONSendResource<TicketValidationAccessTokenSendModel>
 	var receiveResource: StringReceiveResource<TicketValidationAccessTokenReceiveModel>
 
-	// swiftlint:disable cyclomatic_complexity
 	func customError(for error: ServiceError<TicketValidationAccessTokenError>) -> TicketValidationAccessTokenError? {
 		switch error {
 		case .trustEvaluationError(let trustEvaluationError):
-			switch trustEvaluationError {
-			case .CERT_PIN_MISMATCH:
-				return .ATR_CERT_PIN_MISMATCH
-			case .CERT_PIN_NO_JWK_FOR_KID:
-				return .ATR_CERT_PIN_NO_JWK_FOR_KID
-			default:
-				return nil
-			}
+			return trustEvaluationErrorHandling(trustEvaluationError)
 		case .resourceError:
 			return .ATR_PARSE_ERR
 		case .transportationError:
 			return .ATR_NO_NETWORK
 		case .unexpectedServerError(let statusCode):
-			switch statusCode {
-			case (400...499):
-				return .ATR_CLIENT_ERR
-			case (500...599):
-				return .ATR_SERVER_ERR
+			return unexpetedServerErrorHandling(statusCode)
+		default:
+			return nil
+		}
+	}
+
+	// MARK: - Private
+
+	private func trustEvaluationErrorHandling(
+		_ trustEvaluationError: (TrustEvaluationError)
+	) -> TicketValidationAccessTokenError? {
+		switch trustEvaluationError {
+		case .jsonWebKey(let jsonWebKeyTrustEvaluationError):
+			switch jsonWebKeyTrustEvaluationError {
+			case .CERT_PIN_MISMATCH:
+				return .ATR_CERT_PIN_MISMATCH
+			case .CERT_PIN_NO_JWK_FOR_KID:
+				return .ATR_CERT_PIN_NO_JWK_FOR_KID
 			default:
 				return nil
 			}
@@ -64,6 +69,16 @@ struct TicketValidationAccessTokenResource: Resource {
 		}
 	}
 
+	private func unexpetedServerErrorHandling(_ statusCode: (Int)) -> TicketValidationAccessTokenError? {
+		switch statusCode {
+		case (400...499):
+			return .ATR_CLIENT_ERR
+		case (500...599):
+			return .ATR_SERVER_ERR
+		default:
+			return nil
+		}
+	}
 }
 
 enum TicketValidationAccessTokenError: LocalizedError {

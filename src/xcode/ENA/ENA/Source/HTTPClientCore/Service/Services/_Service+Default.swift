@@ -72,11 +72,9 @@ extension Service {
 				if error != nil,
 				   let coronaSessionDelegate = session.delegate as? CoronaWarnSessionTaskDelegate,
 				   let task = task,
-				   let error = coronaSessionDelegate.trustEvaluations[task.taskIdentifier]?.trustEvaluationError,
-				   let trustEvaluationError = error as? TrustEvaluationError {
+				   let trustEvaluationError = coronaSessionDelegate.trustEvaluations[task.taskIdentifier]?.trustEvaluationError {
 					Log.error("TrustEvaluation failed.", log: .client)
 					completion(failureOrDefaultValueHandling(resource, .trustEvaluationError(trustEvaluationError)))
-					
 					return
 				}
 				

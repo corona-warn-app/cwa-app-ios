@@ -14,7 +14,7 @@ class TrustEvaluationFake: TrustEvaluating {
 		completionHandler(.useCredential, URLCredential(trust: trust))
 	}
 	
-	var trustEvaluationError: Error?
+	var trustEvaluationError: TrustEvaluationError?
 }
 
 extension TrustEvaluating where Self == TrustEvaluationFake {

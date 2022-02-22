@@ -2,7 +2,11 @@
 // 🦠 Corona-Warn-App
 //
 
-struct DefaultTrustEvaluation: TrustEvaluating {
+public enum DefaultTrustEvaluationError {
+	case CERT_MISMATCH
+}
+
+class DefaultTrustEvaluation: TrustEvaluating {
 	
 	init(
 		publicKeyHash: String
@@ -38,6 +42,7 @@ struct DefaultTrustEvaluation: TrustEvaluating {
 			  let serverPublicKeyData = SecKeyCopyExternalRepresentation(serverPublicKey, nil ) as Data?,
 			  publicKeyHash == serverPublicKeyData.sha256String()
 		else {
+			trustEvaluationError = .default(.CERT_MISMATCH)
 			completionHandler(.cancelAuthenticationChallenge, /* credential */ nil)
 			return
 		}
@@ -48,7 +53,7 @@ struct DefaultTrustEvaluation: TrustEvaluating {
 	
 	// MARK: - Internal
 
-	var trustEvaluationError: Error?
+	var trustEvaluationError: TrustEvaluationError?
 
 	// MARK: - Private
 	

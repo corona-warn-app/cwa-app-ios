@@ -24,7 +24,7 @@ struct DisabledTrustEvaluation: TrustEvaluating {
 
 	// MARK: - Internal
 
-	var trustEvaluationError: Error?
+	var trustEvaluationError: TrustEvaluationError?
 
 
 }

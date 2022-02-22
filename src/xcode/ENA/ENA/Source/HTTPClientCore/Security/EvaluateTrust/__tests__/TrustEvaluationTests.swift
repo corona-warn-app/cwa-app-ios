@@ -24,7 +24,7 @@ final class TrustEvaluationTests: CWATestCase {
 		)
 
 		let trustErrorStub = TrustEvaluationErrorStub(
-			error: TrustEvaluationError.CERT_CHAIN_EMTPY
+			error: TrustEvaluationError.jsonWebKey(.CERT_CHAIN_EMTPY)
 		)
 
 		let someResource = ResourceFake(
@@ -36,8 +36,8 @@ final class TrustEvaluationTests: CWATestCase {
 			case .success:
 				XCTFail("Failure expected.")
 			case .failure(let error):
-				guard case .trustEvaluationError(.CERT_CHAIN_EMTPY) = error else {
-					XCTFail("VS_ID_CERT_PIN_MISMATCH error expected. Instead error received: \(error)")
+				guard case .trustEvaluationError(.jsonWebKey(.CERT_CHAIN_EMTPY)) = error else {
+					XCTFail("CERT_CHAIN_EMTPY error expected. Instead error received: \(error)")
 					return
 				}
 			}

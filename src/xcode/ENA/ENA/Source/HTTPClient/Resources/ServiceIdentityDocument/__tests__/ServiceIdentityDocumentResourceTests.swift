@@ -173,7 +173,7 @@ final class ServiceIdentityDocumentResourceTests: CWATestCase {
 		let restServiceProvider = RestServiceProvider(session: stack.urlSession, cache: KeyValueCacheFake())
 
 		let trustErrorStub = TrustEvaluationErrorStub(
-			error: TrustEvaluationError.CERT_PIN_HOST_MISMATCH
+			error: TrustEvaluationError.jsonWebKey(.CERT_PIN_HOST_MISMATCH)
 		)
 		let fakeURL = try XCTUnwrap(URL(string: "some"))
 		let resource = ServiceIdentityDocumentResource(
@@ -208,7 +208,7 @@ final class ServiceIdentityDocumentResourceTests: CWATestCase {
 		let restServiceProvider = RestServiceProvider(session: stack.urlSession, cache: KeyValueCacheFake())
 
 		let trustErrorStub = TrustEvaluationErrorStub(
-			error: TrustEvaluationError.CERT_PIN_MISMATCH
+			error: TrustEvaluationError.jsonWebKey(.CERT_PIN_MISMATCH)
 		)
 		let fakeURL = try XCTUnwrap(URL(string: "some"))
 		let resource = ServiceIdentityDocumentResource(

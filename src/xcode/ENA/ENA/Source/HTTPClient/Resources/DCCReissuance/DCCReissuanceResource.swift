@@ -70,9 +70,8 @@ struct DCCReissuanceResource: Resource {
 
 	func customError(for error: ServiceError<DCCReissuanceResourceError>) -> DCCReissuanceResourceError? {
 		switch error {
-			// TODO check for correct error
-		case .trustEvaluationError:
-			return .DCC_RI_PIN_MISMATCH
+		case .trustEvaluationError(let trustError):
+			return trustEvaluationErrorHandling(trustError)
 		case .resourceError:
 			return .DCC_RI_PARSE_ERR
 		case .transportationError:
@@ -86,6 +85,20 @@ struct DCCReissuanceResource: Resource {
 
 	// MARK: - Private
 
+	private func trustEvaluationErrorHandling(
+		_ trustEvaluationError: (TrustEvaluationError)
+	) -> DCCReissuanceResourceError? {
+		switch trustEvaluationError {
+		case let .default(defaultTrustEvaluationError):
+			switch defaultTrustEvaluationError {
+			case .CERT_MISMATCH:
+				return .DCC_RI_PIN_MISMATCH
+			}
+		default:
+			return nil
+		}
+	}
+
 	private func unexpectedServerError(_ statusCode: Int) -> DCCReissuanceResourceError? {
 		switch statusCode {
 		case 400:
@@ -98,7 +111,9 @@ struct DCCReissuanceResource: Resource {
 			return .DCC_RI_406
 		case 402, 405, 407...499:
 			return .DCC_RI_CLIENT_ERR
-		case (500...599):
+		case 500:
+			return .DCC_RI_500
+		case (501...599):
 			return .DCC_RI_SERVER_ERR
 		default:
 			return nil

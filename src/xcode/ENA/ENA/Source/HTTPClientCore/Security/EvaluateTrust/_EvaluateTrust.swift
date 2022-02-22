@@ -2,6 +2,14 @@
 // 🦠 Corona-Warn-App
 //
 
+import ENASecurity
+
+public enum TrustEvaluationError: Error {
+	case `default` (DefaultTrustEvaluationError)
+	case jsonWebKey (JSONWebKeyTrustEvaluationError)
+	case allowList (JSONWebKeyTrustEvaluationError)
+}
+
 protocol TrustEvaluating {
 	func evaluate(
 		challenge: URLAuthenticationChallenge,
@@ -9,5 +17,5 @@ protocol TrustEvaluating {
 		completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Void
 	)
 
-	var trustEvaluationError: Error? { get set }
+	var trustEvaluationError: TrustEvaluationError? { get set }
 }

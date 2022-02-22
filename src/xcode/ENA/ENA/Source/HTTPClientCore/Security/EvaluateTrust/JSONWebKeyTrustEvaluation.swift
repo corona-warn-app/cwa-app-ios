@@ -44,14 +44,14 @@ class JSONWebKeyTrustEvaluation: TrustEvaluating {
 			completionHandler(.useCredential, URLCredential(trust: trust))
 		case .failure(let error):
 			Log.debug("AuthenticationChallenge failed with error \(error.localizedDescription)", log: .client)
-			trustEvaluationError = error
+			trustEvaluationError = .jsonWebKey(error)
 			completionHandler(.cancelAuthenticationChallenge, nil)
 		}
 	}
 	
 	// MARK: - Internal
 
-	var trustEvaluationError: Error?
+	var trustEvaluationError: TrustEvaluationError?
 
 	// MARK: - Private
 

@@ -135,7 +135,7 @@ final class TicketValidationAccessTokenResourceTests: CWATestCase {
 		)
 
 		let customError = try XCTUnwrap(
-			ticketValidationAccessTokenResource.customError(for: .trustEvaluationError(.CERT_PIN_MISMATCH))
+			ticketValidationAccessTokenResource.customError(for: .trustEvaluationError(.jsonWebKey(.CERT_PIN_MISMATCH)))
 		)
 
 		XCTAssertEqual(customError, .ATR_CERT_PIN_MISMATCH)
@@ -150,7 +150,7 @@ final class TicketValidationAccessTokenResourceTests: CWATestCase {
 		)
 
 		let customError = try XCTUnwrap(
-			ticketValidationAccessTokenResource.customError(for: .trustEvaluationError(.CERT_PIN_NO_JWK_FOR_KID))
+			ticketValidationAccessTokenResource.customError(for: .trustEvaluationError(.jsonWebKey(.CERT_PIN_NO_JWK_FOR_KID)))
 		)
 
 		XCTAssertEqual(customError, .ATR_CERT_PIN_NO_JWK_FOR_KID)

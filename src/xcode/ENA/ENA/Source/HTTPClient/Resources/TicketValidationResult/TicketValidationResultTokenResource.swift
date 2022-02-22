@@ -31,18 +31,10 @@ struct TicketValidationResultTokenResource: Resource {
 	var sendResource: JSONSendResource<TicketValidationResultTokenSendModel>
 	var receiveResource: StringReceiveResource<TicketValidationAccessTokenReceiveModel>
 
-	// swiftlint:disable cyclomatic_complexity
 	func customError(for error: ServiceError<TicketValidationResultTokenError>) -> TicketValidationResultTokenError? {
 		switch error {
 		case .trustEvaluationError(let trustEvaluationError):
-			switch trustEvaluationError {
-			case .CERT_PIN_MISMATCH:
-				return .RTR_CERT_PIN_MISMATCH
-			case .CERT_PIN_HOST_MISMATCH:
-				return .RTR_CERT_PIN_HOST_MISMATCH
-			default:
-				return nil
-			}
+			return trustEvaluationErrorHandling(trustEvaluationError)
 		case .resourceError:
 			return .RTR_PARSE_ERR
 		case .transportationError:
@@ -61,6 +53,25 @@ struct TicketValidationResultTokenResource: Resource {
 		}
 	}
 
+	// MARK: - Private
+
+	private func trustEvaluationErrorHandling(
+		_ trustEvaluationError: (TrustEvaluationError)
+	) -> TicketValidationResultTokenError? {
+		switch trustEvaluationError {
+		case .jsonWebKey(let jsonWebKeyTrustEvaluationError):
+			switch jsonWebKeyTrustEvaluationError {
+			case .CERT_PIN_MISMATCH:
+				return .RTR_CERT_PIN_MISMATCH
+			case .CERT_PIN_HOST_MISMATCH:
+				return .RTR_CERT_PIN_HOST_MISMATCH
+			default:
+				return nil
+			}
+		default:
+			return nil
+		}
+	}
 }
 
 enum TicketValidationResultTokenError: LocalizedError {
