@@ -719,7 +719,6 @@
 		508266DC278DE9D300091991 /* Dictionary+Headers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 508266DB278DE9D300091991 /* Dictionary+Headers.swift */; };
 		50842BEC274FB9150015E63F /* ServiceIdentityDocumentProcessorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABC506D2274F8F0600698A95 /* ServiceIdentityDocumentProcessorTests.swift */; };
 		50842BF0274FCFFB0015E63F /* TicketValidationServiceIdentityDocument+Fake.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50842BEF274FCFFB0015E63F /* TicketValidationServiceIdentityDocument+Fake.swift */; };
-		50842BF2275127940015E63F /* DisabledPinningRestService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50842BF1275127940015E63F /* DisabledPinningRestService.swift */; };
 		508488A126822FA5004299E6 /* DMErrorLogSharingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5084889F26822D91004299E6 /* DMErrorLogSharingViewModel.swift */; };
 		508488A226822FA5004299E6 /* DMErrorLogSharingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 508488A026822D91004299E6 /* DMErrorLogSharingViewController.swift */; };
 		5089F95C2632D3B000E722D2 /* HTTPClient+AuthorizationOTPElsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5089F9572632D3AB00E722D2 /* HTTPClient+AuthorizationOTPElsTests.swift */; };
@@ -1410,7 +1409,6 @@
 		BA7D178925D5590C006B9EBF /* testDataInvalid.json in Resources */ = {isa = PBXBuildFile; fileRef = BA7D178825D558FD006B9EBF /* testDataInvalid.json */; };
 		BA7D178E25D55EB1006B9EBF /* DefaultDataDonationViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA7D178D25D55EB1006B9EBF /* DefaultDataDonationViewModelTests.swift */; };
 		BA7D17B725D59373006B9EBF /* SettingsDataDonationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA7D17B625D59373006B9EBF /* SettingsDataDonationViewModel.swift */; };
-		BA7DB3A22743EED90028683F /* DynamicPinningRestService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA7DB3A12743EED90028683F /* DynamicPinningRestService.swift */; };
 		BA7DCA152747D923009E4557 /* _EvaluateTrust.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA7DCA142747D923009E4557 /* _EvaluateTrust.swift */; };
 		BA7DCA172747D944009E4557 /* DefaultTrustEvaluation.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA7DCA162747D944009E4557 /* DefaultTrustEvaluation.swift */; };
 		BA7DCA1A2747DA96009E4557 /* JSONWebKeyTrustEvaluation.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA7DCA192747DA96009E4557 /* JSONWebKeyTrustEvaluation.swift */; };
@@ -2410,7 +2408,6 @@
 		508266D8278DA5DE00091991 /* Archive+CBOR.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Archive+CBOR.swift"; sourceTree = "<group>"; };
 		508266DB278DE9D300091991 /* Dictionary+Headers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Dictionary+Headers.swift"; sourceTree = "<group>"; };
 		50842BEF274FCFFB0015E63F /* TicketValidationServiceIdentityDocument+Fake.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TicketValidationServiceIdentityDocument+Fake.swift"; sourceTree = "<group>"; };
-		50842BF1275127940015E63F /* DisabledPinningRestService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisabledPinningRestService.swift; sourceTree = "<group>"; };
 		5084889F26822D91004299E6 /* DMErrorLogSharingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMErrorLogSharingViewModel.swift; sourceTree = "<group>"; };
 		508488A026822D91004299E6 /* DMErrorLogSharingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMErrorLogSharingViewController.swift; sourceTree = "<group>"; };
 		5089F9572632D3AB00E722D2 /* HTTPClient+AuthorizationOTPElsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HTTPClient+AuthorizationOTPElsTests.swift"; sourceTree = "<group>"; };
@@ -3116,7 +3113,6 @@
 		BA7D178825D558FD006B9EBF /* testDataInvalid.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = testDataInvalid.json; sourceTree = "<group>"; };
 		BA7D178D25D55EB1006B9EBF /* DefaultDataDonationViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultDataDonationViewModelTests.swift; sourceTree = "<group>"; };
 		BA7D17B625D59373006B9EBF /* SettingsDataDonationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsDataDonationViewModel.swift; sourceTree = "<group>"; };
-		BA7DB3A12743EED90028683F /* DynamicPinningRestService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicPinningRestService.swift; sourceTree = "<group>"; };
 		BA7DB3A32743F1A80028683F /* RestServiceProviderStub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestServiceProviderStub.swift; sourceTree = "<group>"; };
 		BA7DCA142747D923009E4557 /* _EvaluateTrust.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = _EvaluateTrust.swift; sourceTree = "<group>"; };
 		BA7DCA162747D944009E4557 /* DefaultTrustEvaluation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultTrustEvaluation.swift; sourceTree = "<group>"; };
@@ -5555,8 +5551,6 @@
 				BAF640E726DF85A600B3A18E /* _Service.swift */,
 				5071A88326EB810D00B09B40 /* _Service+Default.swift */,
 				BADE51ED272B058000CBAA63 /* CachedRestService.swift */,
-				50842BF1275127940015E63F /* DisabledPinningRestService.swift */,
-				BA7DB3A12743EED90028683F /* DynamicPinningRestService.swift */,
 				BA64FA8126D79C2300DD4705 /* StandardRestService.swift */,
 				BA7FDD08272C2C49009829AB /* WifiOnlyRestService.swift */,
 			);
@@ -10513,7 +10507,6 @@
 				BA69A7E625CD7D1E00023265 /* SelectValueTableViewCell.swift in Sources */,
 				01E0C93C26C6879B00110941 /* OnBehalfTraceLocationCellModel.swift in Sources */,
 				A16714AF248CA1B70031B111 /* Bundle+ReadPlist.swift in Sources */,
-				50842BF2275127940015E63F /* DisabledPinningRestService.swift in Sources */,
 				EBE0F9652786F7D9001F20E8 /* TestResultReceiveModel.swift in Sources */,
 				2F80CFDB247EDDB3000F06AF /* ExposureSubmissionHotlineViewController.swift in Sources */,
 				BA6D163A255AD35900ED3492 /* DMSwitchTableViewCell.swift in Sources */,
@@ -10747,7 +10740,6 @@
 				EB08F17F2541CE3300D11FA9 /* risk_score_parameters.pb.swift in Sources */,
 				01A6C2FA2626DE1800B6E95A /* HomeTestRegistrationTableViewCell.swift in Sources */,
 				010F27DE26370AB7004CBE35 /* CoronaTestServiceError.swift in Sources */,
-				BA7DB3A22743EED90028683F /* DynamicPinningRestService.swift in Sources */,
 				BAC939D2261F5389008BECED /* TestOverwriteNoticeViewModel.swift in Sources */,
 				BA64FA8226D79C2300DD4705 /* StandardRestService.swift in Sources */,
 				BA00FECE26BC2D14009DA07F /* AppFeatureProvider.swift in Sources */,
