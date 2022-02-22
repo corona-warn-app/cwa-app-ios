@@ -13,6 +13,7 @@ struct ServiceIdentityDocumentValidationDecoratorResource: Resource {
 		self.type = .disabledPinning
 		self.sendResource = EmptySendResource()
 		self.receiveResource = JSONReceiveResource<TicketValidationServiceIdentityDocument>()
+		self.trustEvaluation = DisabledTrustEvaluation()
 	}
 
 	// MARK: - Protocol Resource
@@ -20,6 +21,8 @@ struct ServiceIdentityDocumentValidationDecoratorResource: Resource {
 	typealias Send = EmptySendResource
 	typealias Receive = JSONReceiveResource<TicketValidationServiceIdentityDocument>
 	typealias CustomError = ServiceIdentityResourceDecoratorError
+
+	let trustEvaluation: TrustEvaluating
 
 	var locator: Locator
 	var type: ServiceType

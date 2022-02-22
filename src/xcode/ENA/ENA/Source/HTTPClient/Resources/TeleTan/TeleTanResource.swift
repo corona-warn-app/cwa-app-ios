@@ -18,6 +18,9 @@ struct TeleTanResource: Resource {
 		self.sendResource = PaddingJSONSendResource<TeleTanSendModel>(sendModel)
 		self.receiveResource = JSONReceiveResource<TeleTanReceiveModel>()
 		self.keyModel = sendModel
+		self.trustEvaluation = DefaultTrustEvaluation(
+			publicKeyHash: Environments().currentEnvironment().pinningKeyHash
+		)
 	}
 
 	// MARK: - Protocol Resource
@@ -25,6 +28,8 @@ struct TeleTanResource: Resource {
 	typealias Send = PaddingJSONSendResource<TeleTanSendModel>
 	typealias Receive = JSONReceiveResource<TeleTanReceiveModel>
 	typealias CustomError = TeleTanError
+
+	let trustEvaluation: TrustEvaluating
 
 	var locator: Locator
 	var type: ServiceType

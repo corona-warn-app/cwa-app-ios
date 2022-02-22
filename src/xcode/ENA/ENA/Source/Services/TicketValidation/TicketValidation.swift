@@ -274,13 +274,11 @@ final class TicketValidation: TicketValidating {
 
 		Log.debug("Request document of service identity at URL: \(private: url)", log: .ticketValidation)
 
-		let resource = ServiceIdentityDocumentResource(endpointUrl: url)
-		restServiceProvider.update(
-			AllowListEvaluationTrust(
-				allowList: allowList.validationServiceAllowList,
-				trustEvaluation: JSONWebKeyTrustEvaluation()
-			)
+		let resource = ServiceIdentityDocumentResource(
+			endpointUrl: url,
+			validationServiceAllowlistEntry: allowList.validationServiceAllowList
 		)
+
 		restServiceProvider.load(resource) { [weak self] result in
 			switch result {
 			case .success(let serviceIdentityDocument):
@@ -321,14 +319,8 @@ final class TicketValidation: TicketValidating {
             sendModel: TicketValidationAccessTokenSendModel(
                 service: validationService.id,
                 pubKey: publicKeyBase64
-            )
-        )
-
-        restServiceProvider.update(
-            JSONWebKeyTrustEvaluation(
-                jwkSet: accessTokenServiceJwkSet,
-                trustEvaluation: JSONWebKeyTrustEvaluation()
-            )
+            ),
+			jsonWebKeys: accessTokenServiceJwkSet
         )
 
         Log.info("Ticket Validation: Requesting access token", log: .ticketValidation)
@@ -384,14 +376,8 @@ final class TicketValidation: TicketValidating {
 				encKey: encryptionKeyBase64,
 				encScheme: encryptionScheme.rawValue,
 				sigAlg: signatureAlgorithm
-			)
-		)
-
-		restServiceProvider.update(
-			AllowListEvaluationTrust(
-				allowList: allowList.validationServiceAllowList,
-				trustEvaluation: JSONWebKeyTrustEvaluation()
-			)
+			),
+			validationServiceAllowlistEntry: allowList.validationServiceAllowList
 		)
 
 		Log.info("Ticket Validation: Requesting result token", log: .ticketValidation)

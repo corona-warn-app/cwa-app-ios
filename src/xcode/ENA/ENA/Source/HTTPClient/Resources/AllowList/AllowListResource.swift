@@ -18,6 +18,9 @@ struct AllowListResource: Resource {
 		)
 		self.sendResource = EmptySendResource()
 		self.receiveResource = ProtobufReceiveResource<SAP_Internal_Dgc_ValidationServiceAllowlist>()
+		self.trustEvaluation = DefaultTrustEvaluation(
+			publicKeyHash: Environments().currentEnvironment().pinningKeyHash
+		)
 	}
 
 	// MARK: - Protocol Resource
@@ -25,6 +28,8 @@ struct AllowListResource: Resource {
 	typealias Send = EmptySendResource
 	typealias Receive = ProtobufReceiveResource<SAP_Internal_Dgc_ValidationServiceAllowlist>
 	typealias CustomError = Error // no custom error here at the moment
+
+	let trustEvaluation: TrustEvaluating
 	
 	var locator: Locator
 	var type: ServiceType

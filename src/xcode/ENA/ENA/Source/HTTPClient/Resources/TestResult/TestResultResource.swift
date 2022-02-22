@@ -15,12 +15,16 @@ struct TestResultResource: Resource {
 		self.sendResource = JSONSendResource<TestResultSendModel>(sendModel)
 		self.receiveResource = JSONReceiveResource<TestResultReceiveModel>()
 		self.regTokenModel = sendModel
+		self.trustEvaluation = DefaultTrustEvaluation(publicKeyHash: Environments().currentEnvironment().pinningKeyHash)
 	}
 
 	// MARK: - Protocol Resource
+
 	typealias Send = JSONSendResource<TestResultSendModel>
 	typealias Receive = JSONReceiveResource<TestResultReceiveModel>
 	typealias CustomError = TestResultError
+
+	let trustEvaluation: TrustEvaluating
 
 	var locator: Locator
 	var type: ServiceType

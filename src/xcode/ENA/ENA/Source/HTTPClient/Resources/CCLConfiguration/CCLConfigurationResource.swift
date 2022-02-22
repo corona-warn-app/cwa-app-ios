@@ -26,6 +26,9 @@ struct CCLConfigurationResource: Resource {
 
 		self.sendResource = EmptySendResource()
 		self.receiveResource = CBORReceiveResource<CCLConfigurationReceiveModel>()
+		self.trustEvaluation = DefaultTrustEvaluation(
+			publicKeyHash: Environments().currentEnvironment().pinningKeyHash
+		)
 	}
 	
 	// MARK: - Protocol Resource
@@ -33,6 +36,8 @@ struct CCLConfigurationResource: Resource {
 	typealias Send = EmptySendResource
 	typealias Receive = CBORReceiveResource<CCLConfigurationReceiveModel>
 	typealias CustomError = Error
+
+	let trustEvaluation: TrustEvaluating
 	
 	var locator: Locator
 	var type: ServiceType

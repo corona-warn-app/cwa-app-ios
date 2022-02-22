@@ -28,6 +28,9 @@ struct RegistrationTokenResource: Resource {
 		self.sendResource = PaddingJSONSendResource<RegistrationTokenSendModel>(sendModel)
 		self.receiveResource = JSONReceiveResource<RegistrationTokenReceiveModel>()
 		self.registrationTokenModel = sendModel
+		self.trustEvaluation = DefaultTrustEvaluation(
+			publicKeyHash: Environments().currentEnvironment().pinningKeyHash
+		)
 	}
 
 	// MARK: - Protocol Resource
@@ -35,6 +38,8 @@ struct RegistrationTokenResource: Resource {
 	typealias Send = PaddingJSONSendResource<RegistrationTokenSendModel>
 	typealias Receive = JSONReceiveResource<RegistrationTokenReceiveModel>
 	typealias CustomError = RegistrationTokenError
+
+	let trustEvaluation: TrustEvaluating
 
 	var locator: Locator
 	var type: ServiceType

@@ -3,6 +3,7 @@
 //
 
 import Foundation
+import ENASecurity
 
 struct TicketValidationAccessTokenResource: Resource {
 
@@ -11,15 +12,22 @@ struct TicketValidationAccessTokenResource: Resource {
 	init(
 		accessTokenServiceURL: URL,
 		jwt: String,
-		sendModel: TicketValidationAccessTokenSendModel
+		sendModel: TicketValidationAccessTokenSendModel,
+		jsonWebKeys: [JSONWebKey]
 	) {
 		self.locator = .ticketValidationAccessToken(accessTokenServiceURL: accessTokenServiceURL, jwt: jwt)
 		self.type = .dynamicPinning
 		self.sendResource = JSONSendResource<TicketValidationAccessTokenSendModel>(sendModel)
 		self.receiveResource = StringReceiveResource<TicketValidationAccessTokenReceiveModel>()
+		self.trustEvaluation = JSONWebKeyTrustEvaluation(
+			jwkSet: jsonWebKeys,
+			trustEvaluation: ENASecurity.JSONWebKeyTrustEvaluation()
+		)
 	}
 
 	// MARK: - Protocol Resource
+
+	let trustEvaluation: TrustEvaluating
 
 	var locator: Locator
 	var type: ServiceType

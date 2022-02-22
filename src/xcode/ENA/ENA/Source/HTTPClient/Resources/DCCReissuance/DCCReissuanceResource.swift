@@ -49,15 +49,21 @@ struct DCCReissuanceResource: Resource {
 	// MARK: - Init
 
 	init(
-		sendModel: DCCReissuanceSendModel
+		sendModel: DCCReissuanceSendModel,
+		publicKeyHash: String
 	) {
 		self.locator = .dccReissuance
 		self.type = .dynamicPinning
 		self.sendResource = JSONSendResource<DCCReissuanceSendModel>(sendModel)
 		self.receiveResource = JSONReceiveResource<DCCReissuanceReceiveModel>()
+		self.trustEvaluation = DefaultTrustEvaluation(
+			publicKeyHash: publicKeyHash
+		)
 	}
 
 	// MARK: - Protocol Resource
+
+	let trustEvaluation: TrustEvaluating
 
 	var locator: Locator
 	var type: ServiceType

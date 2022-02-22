@@ -34,6 +34,9 @@ struct DCCRulesResource: Resource {
 		self.sendResource = EmptySendResource()
 		self.receiveResource = CBORReceiveResource<DCCRulesReceiveModel>()
 		self.ruleType = ruleType
+		self.trustEvaluation = DefaultTrustEvaluation(
+			publicKeyHash: Environments().currentEnvironment().pinningKeyHash
+		)
 	}
 
 	// MARK: - Protocol Resource
@@ -41,6 +44,8 @@ struct DCCRulesResource: Resource {
 	typealias Send = EmptySendResource
 	typealias Receive = CBORReceiveResource<DCCRulesReceiveModel>
 	typealias CustomError = DCCDownloadRulesError
+
+	let trustEvaluation: TrustEvaluating
 
 	var locator: Locator
 	var type: ServiceType
