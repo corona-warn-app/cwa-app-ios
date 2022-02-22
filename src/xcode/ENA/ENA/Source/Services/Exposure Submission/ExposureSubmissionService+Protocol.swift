@@ -31,5 +31,5 @@ struct ExposureSubmissionServiceDependencies {
 	let restServiceProvider: RestServiceProviding
 	let store: Store
 	let eventStore: EventStoringProviding
-	let coronaTestService: CoronaTestService
+	let coronaTestService: CoronaTestServiceProviding
 }

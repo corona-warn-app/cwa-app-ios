@@ -38,7 +38,7 @@ class QRScannerCoordinator {
 		healthCertificateValidationOnboardedCountriesProvider: HealthCertificateValidationOnboardedCountriesProviding,
 		vaccinationValueSetsProvider: VaccinationValueSetsProviding,
 		exposureSubmissionService: ExposureSubmissionService,
-		coronaTestService: CoronaTestService,
+		coronaTestService: CoronaTestServiceProviding,
 		recycleBin: RecycleBin
 	) {
 		self.store = store
@@ -92,7 +92,7 @@ class QRScannerCoordinator {
 	private let healthCertificateValidationOnboardedCountriesProvider: HealthCertificateValidationOnboardedCountriesProviding
 	private let vaccinationValueSetsProvider: VaccinationValueSetsProviding
 	private let exposureSubmissionService: ExposureSubmissionService
-	private let coronaTestService: CoronaTestService
+	private let coronaTestService: CoronaTestServiceProviding
 	private let recycleBin: RecycleBin
 
 	private let activityIndicatorView = QRScannerActivityIndicatorView()

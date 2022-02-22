@@ -10,8 +10,7 @@ import HealthCertificateToolkit
 // swiftlint:disable file_length
 // swiftlint:disable:next type_body_length
 class ExposureSubmissionServiceTests: CWATestCase {
-	
-	let expectationsTimeout: TimeInterval = 4
+
 	let keys = [ENTemporaryExposureKey()]
 	
 	// MARK: - Exposure Submission
@@ -19,9 +18,7 @@ class ExposureSubmissionServiceTests: CWATestCase {
 	func testSubmitExposure_Success() {
 		// Arrange
 		let keyRetrieval = MockDiagnosisKeysRetrieval(diagnosisKeysResult: (keys, nil))
-		let client = ClientMock()
 		let store = MockTestStore()
-		let appConfiguration = CachedAppConfigurationMock()
 		let restServiceProvider = RestServiceProviderStub(
 			results: [
 				.success(RegistrationTokenReceiveModel(submissionTAN: "fake")),
@@ -29,27 +26,8 @@ class ExposureSubmissionServiceTests: CWATestCase {
 			]
 		)
 		
-		let coronaTestService = CoronaTestService(
-			client: client,
-			restServiceProvider: restServiceProvider,
-			store: store,
-			eventStore: MockEventStore(),
-			diaryStore: MockDiaryStore(),
-			appConfiguration: appConfiguration,
-			healthCertificateService: HealthCertificateService(
-				store: store,
-				dccSignatureVerifier: DCCSignatureVerifyingStub(),
-				dscListProvider: MockDSCListProvider(),
-				client: client,
-				appConfiguration: appConfiguration,
-				cclService: FakeCCLService(),
-
-				recycleBin: .fake()
-			),
-			recycleBin: .fake(),
-			badgeWrapper: .fake()
-		)
-		coronaTestService.pcrTest = PCRTest.mock(
+		let coronaTestService = MockCoronaTestService()
+		coronaTestService.pcrTest.value = PCRTest.mock(
 			registrationToken: "dummyRegistrationToken",
 			finalTestResultReceivedDate: Date(timeIntervalSince1970: 12345678),
 			positiveTestResultWasShown: true,
@@ -68,7 +46,7 @@ class ExposureSubmissionServiceTests: CWATestCase {
 		let service = ENAExposureSubmissionService(
 			diagnosisKeysRetrieval: keyRetrieval,
 			appConfigurationProvider: appConfigurationProvider,
-			client: client,
+			client: ClientMock(),
 			restServiceProvider: restServiceProvider,
 			store: store,
 			eventStore: MockEventStore(),
@@ -89,14 +67,13 @@ class ExposureSubmissionServiceTests: CWATestCase {
 			}
 		}
 		
-		waitForExpectations(timeout: expectationsTimeout)
+		waitForExpectations(timeout: .short)
 		
-		XCTAssertNil(coronaTestService.pcrTest?.registrationToken)
-		XCTAssertNil(coronaTestService.pcrTest?.submissionTAN)
-		XCTAssertTrue(coronaTestService.pcrTest?.keysSubmitted == true)
+		XCTAssertNil(coronaTestService.pcrTest.value?.submissionTAN)
+		XCTAssertTrue(coronaTestService.pcrTest.value?.keysSubmitted == true)
 		
 		/// The date of the test result is still needed because it is shown on the home screen after the submission
-		XCTAssertNotNil(coronaTestService.pcrTest?.finalTestResultReceivedDate)
+		XCTAssertNotNil(coronaTestService.pcrTest.value?.finalTestResultReceivedDate)
 		
 		XCTAssertNil(store.submissionKeys)
 		XCTAssertTrue(store.submissionCountries.isEmpty)
@@ -104,10 +81,8 @@ class ExposureSubmissionServiceTests: CWATestCase {
 	}
 	
 	func test_When_SubmissionWasSuccessful_Then_CheckinSubmittedIsTrue() {
-		let keysRetrievalMock = MockDiagnosisKeysRetrieval(diagnosisKeysResult: (nil, nil) )
-		let mockStore = MockTestStore()
-		let client = ClientMock()
-		let appConfiguration = CachedAppConfigurationMock()
+		let keysRetrievalMock = MockDiagnosisKeysRetrieval(diagnosisKeysResult: (nil, nil))
+		let store = MockTestStore()
 		
 		let eventStore = MockEventStore()
 		eventStore.createCheckin(Checkin.mock())
@@ -118,41 +93,22 @@ class ExposureSubmissionServiceTests: CWATestCase {
 			]
 		)
 		
-		let coronaTestService = CoronaTestService(
-			client: client,
-			restServiceProvider: restServiceProvider,
-			store: mockStore,
-			eventStore: eventStore,
-			diaryStore: MockDiaryStore(),
-			appConfiguration: appConfiguration,
-			healthCertificateService: HealthCertificateService(
-				store: mockStore,
-				dccSignatureVerifier: DCCSignatureVerifyingStub(),
-				dscListProvider: MockDSCListProvider(),
-				client: client,
-				appConfiguration: appConfiguration,
-				cclService: FakeCCLService(),
-
-				recycleBin: .fake()
-			),
-			recycleBin: .fake(),
-			badgeWrapper: .fake()
-		)
-		coronaTestService.pcrTest = PCRTest.mock(
+		let coronaTestService = MockCoronaTestService()
+		coronaTestService.pcrTest.value = PCRTest.mock(
 			registrationToken: "regToken",
 			positiveTestResultWasShown: true,
 			isSubmissionConsentGiven: true
 		)
 		
-		mockStore.submissionKeys = [SAP_External_Exposurenotification_TemporaryExposureKey()]
-		mockStore.submissionCheckins = [eventStore.checkinsPublisher.value[0]]
+		store.submissionKeys = [SAP_External_Exposurenotification_TemporaryExposureKey()]
+		store.submissionCheckins = [eventStore.checkinsPublisher.value[0]]
 		
 		let checkinSubmissionService = ENAExposureSubmissionService(
 			diagnosisKeysRetrieval: keysRetrievalMock,
 			appConfigurationProvider: CachedAppConfigurationMock(),
 			client: ClientMock(),
 			restServiceProvider: restServiceProvider,
-			store: mockStore,
+			store: store,
 			eventStore: eventStore,
 			coronaTestService: coronaTestService
 		)
@@ -171,10 +127,7 @@ class ExposureSubmissionServiceTests: CWATestCase {
 	func testSubmitExposure_NoSubmissionConsent() {
 		// Arrange
 		let keyRetrieval = MockDiagnosisKeysRetrieval(diagnosisKeysResult: (nil, nil))
-		let client = ClientMock()
 		let store = MockTestStore()
-		let eventStore = MockEventStore()
-		let appConfigurationProvider = CachedAppConfigurationMock()
 		let restServiceProvider = RestServiceProviderStub(
 			results: [
 				.success(RegistrationTokenReceiveModel(submissionTAN: "fake")),
@@ -182,37 +135,18 @@ class ExposureSubmissionServiceTests: CWATestCase {
 			]
 		)
 		
-		let coronaTestService = CoronaTestService(
-			client: client,
-			restServiceProvider: restServiceProvider,
-			store: store,
-			eventStore: eventStore,
-			diaryStore: MockDiaryStore(),
-			appConfiguration: appConfigurationProvider,
-			healthCertificateService: HealthCertificateService(
-				store: store,
-				dccSignatureVerifier: DCCSignatureVerifyingStub(),
-				dscListProvider: MockDSCListProvider(),
-				client: client,
-				appConfiguration: appConfigurationProvider,
-				cclService: FakeCCLService(),
-
-				recycleBin: .fake()
-			),
-			recycleBin: .fake(),
-			badgeWrapper: .fake()
-		)
-		coronaTestService.pcrTest = PCRTest.mock(
+		let coronaTestService = MockCoronaTestService()
+		coronaTestService.pcrTest.value = PCRTest.mock(
 			isSubmissionConsentGiven: false
 		)
 		
 		let service = ENAExposureSubmissionService(
 			diagnosisKeysRetrieval: keyRetrieval,
-			appConfigurationProvider: appConfigurationProvider,
-			client: client,
+			appConfigurationProvider: CachedAppConfigurationMock(),
+			client: ClientMock(),
 			restServiceProvider: restServiceProvider,
 			store: store,
-			eventStore: eventStore,
+			eventStore: MockEventStore(),
 			coronaTestService: coronaTestService
 		)
 		
@@ -226,13 +160,13 @@ class ExposureSubmissionServiceTests: CWATestCase {
 			}
 		}
 		
-		waitForExpectations(timeout: expectationsTimeout)
+		waitForExpectations(timeout: .short)
 		
-		XCTAssertNil(coronaTestService.pcrTest?.registrationToken)
-		XCTAssertNil(coronaTestService.pcrTest?.submissionTAN)
+		XCTAssertNil(coronaTestService.pcrTest.value?.registrationToken)
+		XCTAssertNil(coronaTestService.pcrTest.value?.submissionTAN)
 		
-		XCTAssertTrue(coronaTestService.pcrTest?.isSubmissionConsentGiven == false)
-		XCTAssertTrue(coronaTestService.pcrTest?.keysSubmitted == false)
+		XCTAssertTrue(coronaTestService.pcrTest.value?.isSubmissionConsentGiven == false)
+		XCTAssertTrue(coronaTestService.pcrTest.value?.keysSubmitted == false)
 		
 		XCTAssertEqual(store.submissionKeys, [])
 		XCTAssertEqual(store.submissionCheckins, [])
@@ -243,9 +177,6 @@ class ExposureSubmissionServiceTests: CWATestCase {
 	func testSubmitExposure_KeysNotShared() {
 		// Arrange
 		let keyRetrieval = MockDiagnosisKeysRetrieval(diagnosisKeysResult: (nil, nil))
-		let client = ClientMock()
-		let store = MockTestStore()
-		let appConfiguration = CachedAppConfigurationMock()
 		let restServiceProvider = RestServiceProviderStub(
 			results: [
 				.success(RegistrationTokenReceiveModel(submissionTAN: "fake")),
@@ -253,39 +184,18 @@ class ExposureSubmissionServiceTests: CWATestCase {
 			]
 		)
 		
-		let coronaTestService = CoronaTestService(
-			client: client,
-			restServiceProvider: restServiceProvider,
-			store: store,
-			eventStore: MockEventStore(),
-			diaryStore: MockDiaryStore(),
-			appConfiguration: appConfiguration,
-			healthCertificateService: HealthCertificateService(
-				store: store,
-				dccSignatureVerifier: DCCSignatureVerifyingStub(),
-				dscListProvider: MockDSCListProvider(),
-				client: client,
-				appConfiguration: appConfiguration,
-				cclService: FakeCCLService(),
-
-				recycleBin: .fake()
-			),
-			recycleBin: .fake(),
-			badgeWrapper: .fake()
-		)
-		coronaTestService.pcrTest = PCRTest.mock(
+		let coronaTestService = MockCoronaTestService()
+		coronaTestService.pcrTest.value = PCRTest.mock(
 			positiveTestResultWasShown: true,
 			isSubmissionConsentGiven: true
 		)
 		
-		let appConfigurationProvider = CachedAppConfigurationMock()
-		
 		let service = ENAExposureSubmissionService(
 			diagnosisKeysRetrieval: keyRetrieval,
-			appConfigurationProvider: appConfigurationProvider,
-			client: client,
+			appConfigurationProvider: CachedAppConfigurationMock(),
+			client: ClientMock(),
 			restServiceProvider: restServiceProvider,
-			store: store,
+			store: MockTestStore(),
 			eventStore: MockEventStore(),
 			coronaTestService: coronaTestService
 		)
@@ -298,52 +208,29 @@ class ExposureSubmissionServiceTests: CWATestCase {
 			expectation.fulfill()
 		}
 		
-		waitForExpectations(timeout: expectationsTimeout)
+		waitForExpectations(timeout: .short)
 		
-		XCTAssertTrue(coronaTestService.pcrTest?.isSubmissionConsentGiven == true)
-		XCTAssertTrue(coronaTestService.pcrTest?.keysSubmitted == false)
+		XCTAssertTrue(coronaTestService.pcrTest.value?.isSubmissionConsentGiven == true)
+		XCTAssertTrue(coronaTestService.pcrTest.value?.keysSubmitted == false)
 	}
 	
 	
 	func testSubmitExposure_PositiveTestResultNotShown() {
 		// Arrange
 		let keyRetrieval = MockDiagnosisKeysRetrieval(diagnosisKeysResult: (nil, nil))
-		let client = ClientMock()
-		let store = MockTestStore()
-		let appConfiguration = CachedAppConfigurationMock()
-		
-		let coronaTestService = CoronaTestService(
-			client: client,
-			store: store,
-			eventStore: MockEventStore(),
-			diaryStore: MockDiaryStore(),
-			appConfiguration: appConfiguration,
-			healthCertificateService: HealthCertificateService(
-				store: store,
-				dccSignatureVerifier: DCCSignatureVerifyingStub(),
-				dscListProvider: MockDSCListProvider(),
-				client: client,
-				appConfiguration: appConfiguration,
-				cclService: FakeCCLService(),
 
-				recycleBin: .fake()
-			),
-			recycleBin: .fake(),
-			badgeWrapper: .fake()
-		)
-		coronaTestService.pcrTest = PCRTest.mock(
+		let coronaTestService = MockCoronaTestService()
+		coronaTestService.pcrTest.value = PCRTest.mock(
 			positiveTestResultWasShown: false,
 			isSubmissionConsentGiven: true
 		)
 		
-		let appConfigurationProvider = CachedAppConfigurationMock()
-		
 		let service = ENAExposureSubmissionService(
 			diagnosisKeysRetrieval: keyRetrieval,
-			appConfigurationProvider: appConfigurationProvider,
-			client: client,
+			appConfigurationProvider: CachedAppConfigurationMock(),
+			client: ClientMock(),
 			restServiceProvider: .fake(),
-			store: store,
+			store: MockTestStore(),
 			eventStore: MockEventStore(),
 			coronaTestService: coronaTestService
 		)
@@ -356,51 +243,29 @@ class ExposureSubmissionServiceTests: CWATestCase {
 			expectation.fulfill()
 		}
 		
-		waitForExpectations(timeout: expectationsTimeout)
+		waitForExpectations(timeout: .short)
 		
-		XCTAssertTrue(coronaTestService.pcrTest?.isSubmissionConsentGiven == true)
-		XCTAssertTrue(coronaTestService.pcrTest?.keysSubmitted == false)
+		XCTAssertTrue(coronaTestService.pcrTest.value?.isSubmissionConsentGiven == true)
+		XCTAssertTrue(coronaTestService.pcrTest.value?.keysSubmitted == false)
 	}
 	
 	func testSubmitExposure_KeysNotSharedDueToNotAuthorizedError() {
 		// Arrange
 		let keyRetrieval = MockDiagnosisKeysRetrieval(diagnosisKeysResult: (nil, ENError(.notAuthorized)))
-		let client = ClientMock()
-		let store = MockTestStore()
-		let eventStore = MockEventStore()
-		let appConfigurationProvider = CachedAppConfigurationMock()
 		
-		let coronaTestService = CoronaTestService(
-			client: client,
-			store: store,
-			eventStore: eventStore,
-			diaryStore: MockDiaryStore(),
-			appConfiguration: appConfigurationProvider,
-			healthCertificateService: HealthCertificateService(
-				store: store,
-				dccSignatureVerifier: DCCSignatureVerifyingStub(),
-				dscListProvider: MockDSCListProvider(),
-				client: client,
-				appConfiguration: appConfigurationProvider,
-				cclService: FakeCCLService(),
-
-				recycleBin: .fake()
-			),
-			recycleBin: .fake(),
-			badgeWrapper: .fake()
-		)
-		coronaTestService.pcrTest = PCRTest.mock(
+		let coronaTestService = MockCoronaTestService()
+		coronaTestService.pcrTest.value = PCRTest.mock(
 			positiveTestResultWasShown: true,
 			isSubmissionConsentGiven: true
 		)
 		
 		let service = ENAExposureSubmissionService(
 			diagnosisKeysRetrieval: keyRetrieval,
-			appConfigurationProvider: appConfigurationProvider,
-			client: client,
+			appConfigurationProvider: CachedAppConfigurationMock(),
+			client: ClientMock(),
 			restServiceProvider: .fake(),
-			store: store,
-			eventStore: eventStore,
+			store: MockTestStore(),
+			eventStore: MockEventStore(),
 			coronaTestService: coronaTestService
 		)
 		
@@ -416,51 +281,29 @@ class ExposureSubmissionServiceTests: CWATestCase {
 			}
 		}
 		
-		waitForExpectations(timeout: expectationsTimeout)
+		waitForExpectations(timeout: .short)
 		
-		XCTAssertTrue(coronaTestService.pcrTest?.isSubmissionConsentGiven == true)
-		XCTAssertTrue(coronaTestService.pcrTest?.keysSubmitted == false)
+		XCTAssertTrue(coronaTestService.pcrTest.value?.isSubmissionConsentGiven == true)
+		XCTAssertTrue(coronaTestService.pcrTest.value?.keysSubmitted == false)
 	}
 	
 	func testSubmitExposure_NoKeys() {
 		// Arrange
 		let keyRetrieval = MockDiagnosisKeysRetrieval(diagnosisKeysResult: (nil, nil))
-		let client = ClientMock()
-		let store = MockTestStore()
-		let eventStore = MockEventStore()
-		let appConfigurationProvider = CachedAppConfigurationMock()
 		
-		let coronaTestService = CoronaTestService(
-			client: client,
-			store: store,
-			eventStore: eventStore,
-			diaryStore: MockDiaryStore(),
-			appConfiguration: appConfigurationProvider,
-			healthCertificateService: HealthCertificateService(
-				store: store,
-				dccSignatureVerifier: DCCSignatureVerifyingStub(),
-				dscListProvider: MockDSCListProvider(),
-				client: client,
-				appConfiguration: appConfigurationProvider,
-				cclService: FakeCCLService(),
-
-				recycleBin: .fake()
-			),
-			recycleBin: .fake(),
-			badgeWrapper: .fake()
-		)
-		coronaTestService.pcrTest = PCRTest.mock(
+		let coronaTestService = MockCoronaTestService()
+		coronaTestService.pcrTest.value = PCRTest.mock(
 			positiveTestResultWasShown: true,
 			isSubmissionConsentGiven: true
 		)
 		
 		let service = ENAExposureSubmissionService(
 			diagnosisKeysRetrieval: keyRetrieval,
-			appConfigurationProvider: appConfigurationProvider,
-			client: client,
+			appConfigurationProvider: CachedAppConfigurationMock(),
+			client: ClientMock(),
 			restServiceProvider: .fake(),
-			store: store,
-			eventStore: eventStore,
+			store: MockTestStore(),
+			eventStore: MockEventStore(),
 			coronaTestService: coronaTestService
 		)
 		
@@ -474,50 +317,28 @@ class ExposureSubmissionServiceTests: CWATestCase {
 			}
 		}
 		
-		waitForExpectations(timeout: expectationsTimeout)
+		waitForExpectations(timeout: .short)
 		
-		XCTAssertTrue(coronaTestService.pcrTest?.keysSubmitted == true)
+		XCTAssertTrue(coronaTestService.pcrTest.value?.keysSubmitted == true)
 	}
 	
 	func testSubmitExposure_EmptyKeys() {
 		// Arrange
 		let keyRetrieval = MockDiagnosisKeysRetrieval(diagnosisKeysResult: ([], nil))
-		let client = ClientMock()
-		let store = MockTestStore()
-		let eventStore = MockEventStore()
-		let appConfigurationProvider = CachedAppConfigurationMock()
 		
-		let coronaTestService = CoronaTestService(
-			client: client,
-			store: store,
-			eventStore: eventStore,
-			diaryStore: MockDiaryStore(),
-			appConfiguration: appConfigurationProvider,
-			healthCertificateService: HealthCertificateService(
-				store: store,
-				dccSignatureVerifier: DCCSignatureVerifyingStub(),
-				dscListProvider: MockDSCListProvider(),
-				client: client,
-				appConfiguration: appConfigurationProvider,
-				cclService: FakeCCLService(),
-
-				recycleBin: .fake()
-			),
-			recycleBin: .fake(),
-			badgeWrapper: .fake()
-		)
-		coronaTestService.pcrTest = PCRTest.mock(
+		let coronaTestService = MockCoronaTestService()
+		coronaTestService.pcrTest.value = PCRTest.mock(
 			positiveTestResultWasShown: true,
 			isSubmissionConsentGiven: true
 		)
 		
 		let service = ENAExposureSubmissionService(
 			diagnosisKeysRetrieval: keyRetrieval,
-			appConfigurationProvider: appConfigurationProvider,
-			client: client,
+			appConfigurationProvider: CachedAppConfigurationMock(),
+			client: ClientMock(),
 			restServiceProvider: .fake(),
-			store: store,
-			eventStore: eventStore,
+			store: MockTestStore(),
+			eventStore: MockEventStore(),
 			coronaTestService: coronaTestService
 		)
 		
@@ -531,18 +352,15 @@ class ExposureSubmissionServiceTests: CWATestCase {
 			}
 		}
 		
-		waitForExpectations(timeout: expectationsTimeout)
+		waitForExpectations(timeout: .short)
 		
-		XCTAssertTrue(coronaTestService.pcrTest?.keysSubmitted == true)
+		XCTAssertTrue(coronaTestService.pcrTest.value?.keysSubmitted == true)
 	}
 	
 	func testExposureSubmission_InvalidPayloadOrHeaders() {
 		// Arrange
 		let keyRetrieval = MockDiagnosisKeysRetrieval(diagnosisKeysResult: (keys, nil))
 		let client = ClientMock(submissionError: .invalidPayloadOrHeaders)
-		let store = MockTestStore()
-		let eventStore = MockEventStore()
-		let appConfigurationProvider = CachedAppConfigurationMock()
 		let restServiceProvider = RestServiceProviderStub(
 			results: [
 				.success(RegistrationTokenReceiveModel(submissionTAN: "fake")),
@@ -550,27 +368,8 @@ class ExposureSubmissionServiceTests: CWATestCase {
 			]
 		)
 		
-		let coronaTestService = CoronaTestService(
-			client: client,
-			restServiceProvider: restServiceProvider,
-			store: store,
-			eventStore: eventStore,
-			diaryStore: MockDiaryStore(),
-			appConfiguration: appConfigurationProvider,
-			healthCertificateService: HealthCertificateService(
-				store: store,
-				dccSignatureVerifier: DCCSignatureVerifyingStub(),
-				dscListProvider: MockDSCListProvider(),
-				client: client,
-				appConfiguration: appConfigurationProvider,
-				cclService: FakeCCLService(),
-
-				recycleBin: .fake()
-			),
-			recycleBin: .fake(),
-			badgeWrapper: .fake()
-		)
-		coronaTestService.pcrTest = PCRTest.mock(
+		let coronaTestService = MockCoronaTestService()
+		coronaTestService.pcrTest.value = PCRTest.mock(
 			registrationToken: "asdf",
 			positiveTestResultWasShown: true,
 			isSubmissionConsentGiven: true
@@ -578,11 +377,11 @@ class ExposureSubmissionServiceTests: CWATestCase {
 		
 		let service = ENAExposureSubmissionService(
 			diagnosisKeysRetrieval: keyRetrieval,
-			appConfigurationProvider: appConfigurationProvider,
+			appConfigurationProvider: CachedAppConfigurationMock(),
 			client: client,
 			restServiceProvider: restServiceProvider,
-			store: store,
-			eventStore: eventStore,
+			store: MockTestStore(),
+			eventStore: MockEventStore(),
 			coronaTestService: coronaTestService
 		)
 		
@@ -596,17 +395,13 @@ class ExposureSubmissionServiceTests: CWATestCase {
 			}
 		}
 		
-		waitForExpectations(timeout: expectationsTimeout)
+		waitForExpectations(timeout: .short)
 		
-		XCTAssertTrue(coronaTestService.pcrTest?.isSubmissionConsentGiven == true)
+		XCTAssertTrue(coronaTestService.pcrTest.value?.isSubmissionConsentGiven == true)
 	}
 	
 	func testSubmitExposure_NoRegToken() {
 		let keyRetrieval = MockDiagnosisKeysRetrieval(diagnosisKeysResult: (keys, nil))
-		let client = ClientMock()
-		let store = MockTestStore()
-		let eventStore = MockEventStore()
-		let appConfigurationProvider = CachedAppConfigurationMock()
 		let restServiceProvider = RestServiceProviderStub(
 			results: [
 				.success(RegistrationTokenReceiveModel(submissionTAN: "fake")),
@@ -614,39 +409,21 @@ class ExposureSubmissionServiceTests: CWATestCase {
 			]
 		)
 		
-		let coronaTestService = CoronaTestService(
-			client: client,
-			restServiceProvider: restServiceProvider,
-			store: store,
-			eventStore: eventStore,
-			diaryStore: MockDiaryStore(),
-			appConfiguration: appConfigurationProvider,
-			healthCertificateService: HealthCertificateService(
-				store: store,
-				dccSignatureVerifier: DCCSignatureVerifyingStub(),
-				dscListProvider: MockDSCListProvider(),
-				client: client,
-				appConfiguration: appConfigurationProvider,
-				cclService: FakeCCLService(),
-
-				recycleBin: .fake()
-			),
-			recycleBin: .fake(),
-			badgeWrapper: .fake()
-		)
-		coronaTestService.pcrTest = PCRTest.mock(
+		let coronaTestService = MockCoronaTestService()
+		coronaTestService.pcrTest.value = PCRTest.mock(
 			registrationToken: nil,
 			positiveTestResultWasShown: true,
 			isSubmissionConsentGiven: true
 		)
+		coronaTestService.getSubmissionTANResult = .failure(.noRegistrationToken)
 		
 		let service = ENAExposureSubmissionService(
 			diagnosisKeysRetrieval: keyRetrieval,
-			appConfigurationProvider: appConfigurationProvider,
-			client: client,
+			appConfigurationProvider: CachedAppConfigurationMock(),
+			client: ClientMock(),
 			restServiceProvider: restServiceProvider,
-			store: store,
-			eventStore: eventStore,
+			store: MockTestStore(),
+			eventStore: MockEventStore(),
 			coronaTestService: coronaTestService
 		)
 		
@@ -659,14 +436,12 @@ class ExposureSubmissionServiceTests: CWATestCase {
 			}
 		}
 		
-		waitForExpectations(timeout: expectationsTimeout)
+		waitForExpectations(timeout: .short)
 	}
 	
 	func testCorrectErrorForRequestCouldNotBeBuilt() {
 		let keyRetrieval = MockDiagnosisKeysRetrieval(diagnosisKeysResult: (keys, nil))
-		let appConfigurationProvider = CachedAppConfigurationMock()
 		let client = ClientMock(submissionError: .requestCouldNotBeBuilt)
-		let store = MockTestStore()
 		let restServiceProvider = RestServiceProviderStub(
 			results: [
 				.success(RegistrationTokenReceiveModel(submissionTAN: "fake")),
@@ -674,27 +449,8 @@ class ExposureSubmissionServiceTests: CWATestCase {
 			]
 		)
 		
-		let coronaTestService = CoronaTestService(
-			client: client,
-			restServiceProvider: restServiceProvider,
-			store: store,
-			eventStore: MockEventStore(),
-			diaryStore: MockDiaryStore(),
-			appConfiguration: appConfigurationProvider,
-			healthCertificateService: HealthCertificateService(
-				store: store,
-				dccSignatureVerifier: DCCSignatureVerifyingStub(),
-				dscListProvider: MockDSCListProvider(),
-				client: client,
-				appConfiguration: appConfigurationProvider,
-				cclService: FakeCCLService(),
-
-				recycleBin: .fake()
-			),
-			recycleBin: .fake(),
-			badgeWrapper: .fake()
-		)
-		coronaTestService.pcrTest = PCRTest.mock(
+		let coronaTestService = MockCoronaTestService()
+		coronaTestService.pcrTest.value = PCRTest.mock(
 			registrationToken: "dummyRegistrationToken",
 			positiveTestResultWasShown: true,
 			isSubmissionConsentGiven: true
@@ -703,10 +459,10 @@ class ExposureSubmissionServiceTests: CWATestCase {
 		let expectation = self.expectation(description: "Correct error description received.")
 		let service = ENAExposureSubmissionService(
 			diagnosisKeysRetrieval: keyRetrieval,
-			appConfigurationProvider: appConfigurationProvider,
+			appConfigurationProvider: CachedAppConfigurationMock(),
 			client: client,
 			restServiceProvider: restServiceProvider,
-			store: store,
+			store: MockTestStore(),
 			eventStore: MockEventStore(),
 			coronaTestService: coronaTestService
 		)
@@ -726,9 +482,7 @@ class ExposureSubmissionServiceTests: CWATestCase {
 	func testCorrectErrorForInvalidPayloadOrHeaders() {
 		// Initialize.
 		let keyRetrieval = MockDiagnosisKeysRetrieval(diagnosisKeysResult: (keys, nil))
-		let appConfigurationProvider = CachedAppConfigurationMock()
 		let client = ClientMock(submissionError: .invalidPayloadOrHeaders)
-		let store = MockTestStore()
 		let restServiceProvider = RestServiceProviderStub(
 			results: [
 				.success(RegistrationTokenReceiveModel(submissionTAN: "fake")),
@@ -736,27 +490,8 @@ class ExposureSubmissionServiceTests: CWATestCase {
 			]
 		)
 		
-		let coronaTestService = CoronaTestService(
-			client: client,
-			restServiceProvider: restServiceProvider,
-			store: store,
-			eventStore: MockEventStore(),
-			diaryStore: MockDiaryStore(),
-			appConfiguration: appConfigurationProvider,
-			healthCertificateService: HealthCertificateService(
-				store: store,
-				dccSignatureVerifier: DCCSignatureVerifyingStub(),
-				dscListProvider: MockDSCListProvider(),
-				client: client,
-				appConfiguration: appConfigurationProvider,
-				cclService: FakeCCLService(),
-
-				recycleBin: .fake()
-			),
-			recycleBin: .fake(),
-			badgeWrapper: .fake()
-		)
-		coronaTestService.pcrTest = PCRTest.mock(
+		let coronaTestService = MockCoronaTestService()
+		coronaTestService.pcrTest.value = PCRTest.mock(
 			registrationToken: "dummyRegistrationToken",
 			positiveTestResultWasShown: true,
 			isSubmissionConsentGiven: true
@@ -765,10 +500,10 @@ class ExposureSubmissionServiceTests: CWATestCase {
 		let expectation = self.expectation(description: "Correct error description received.")
 		let service = ENAExposureSubmissionService(
 			diagnosisKeysRetrieval: keyRetrieval,
-			appConfigurationProvider: appConfigurationProvider,
+			appConfigurationProvider: CachedAppConfigurationMock(),
 			client: client,
 			restServiceProvider: restServiceProvider,
-			store: store,
+			store: MockTestStore(),
 			eventStore: MockEventStore(),
 			coronaTestService: coronaTestService
 		)
@@ -791,9 +526,7 @@ class ExposureSubmissionServiceTests: CWATestCase {
 	/// In this test, we make the 2. step fail and retry the full submission. The test makes sure that we do not burn the tan when the second step fails.
 	func test_partialSubmissionFailure() {
 		let keyRetrieval = MockDiagnosisKeysRetrieval(diagnosisKeysResult: (keys, nil))
-		let appConfigurationProvider = CachedAppConfigurationMock()
-		let store = MockTestStore()
-		
+
 		// Force submission error. (Which should result in a 4xx, not a 5xx!)
 		let client = ClientMock(submissionError: .serverError(500))
 		var count = 0
@@ -826,27 +559,8 @@ class ExposureSubmissionServiceTests: CWATestCase {
 			)
 		])
 		
-		let coronaTestService = CoronaTestService(
-			client: client,
-			restServiceProvider: restServiceProvider,
-			store: store,
-			eventStore: MockEventStore(),
-			diaryStore: MockDiaryStore(),
-			appConfiguration: appConfigurationProvider,
-			healthCertificateService: HealthCertificateService(
-				store: store,
-				dccSignatureVerifier: DCCSignatureVerifyingStub(),
-				dscListProvider: MockDSCListProvider(),
-				client: client,
-				appConfiguration: appConfigurationProvider,
-				cclService: FakeCCLService(),
-
-				recycleBin: .fake()
-			),
-			recycleBin: .fake(),
-			badgeWrapper: .fake()
-		)
-		coronaTestService.pcrTest = PCRTest.mock(
+		let coronaTestService = MockCoronaTestService()
+		coronaTestService.pcrTest.value = PCRTest.mock(
 			registrationToken: "dummyRegistrationToken",
 			positiveTestResultWasShown: true,
 			isSubmissionConsentGiven: true
@@ -854,10 +568,10 @@ class ExposureSubmissionServiceTests: CWATestCase {
 		
 		let service = ENAExposureSubmissionService(
 			diagnosisKeysRetrieval: keyRetrieval,
-			appConfigurationProvider: appConfigurationProvider,
+			appConfigurationProvider: CachedAppConfigurationMock(),
 			client: client,
 			restServiceProvider: restServiceProvider,
-			store: store,
+			store: MockTestStore(),
 			eventStore: MockEventStore(),
 			coronaTestService: coronaTestService
 		)
@@ -890,36 +604,15 @@ class ExposureSubmissionServiceTests: CWATestCase {
 		var config = SAP_Internal_V2_ApplicationConfigurationIOS()
 		config.supportedCountries = ["DE", "IT", "ES"]
 		let appConfiguration = CachedAppConfigurationMock(with: config)
-		
-		let client = ClientMock()
-		
-		let store = MockTestStore()
-		let eventStore = MockEventStore()
+
 		let service = ENAExposureSubmissionService(
 			diagnosisKeysRetrieval: MockDiagnosisKeysRetrieval(diagnosisKeysResult: ([], nil)),
 			appConfigurationProvider: appConfiguration,
-			client: client,
+			client: ClientMock(),
 			restServiceProvider: .fake(),
-			store: store,
-			eventStore: eventStore,
-			coronaTestService: CoronaTestService(
-				client: client,
-				store: store,
-				eventStore: eventStore,
-				diaryStore: MockDiaryStore(),
-				appConfiguration: appConfiguration,
-				healthCertificateService: HealthCertificateService(
-					store: store,
-					dccSignatureVerifier: DCCSignatureVerifyingStub(),
-					dscListProvider: MockDSCListProvider(),
-					client: client,
-					appConfiguration: appConfiguration,
-					cclService: FakeCCLService(),
-					recycleBin: .fake()
-				),
-				recycleBin: .fake(),
-				badgeWrapper: .fake()
-			)
+			store: MockTestStore(),
+			eventStore: MockEventStore(),
+			coronaTestService: MockCoronaTestService()
 		)
 		
 		let expectedIsLoadingValues = [true, false]
@@ -949,36 +642,15 @@ class ExposureSubmissionServiceTests: CWATestCase {
 		var config = SAP_Internal_V2_ApplicationConfigurationIOS()
 		config.supportedCountries = []
 		let appConfiguration = CachedAppConfigurationMock(with: config)
-		
-		let client = ClientMock()
-		
-		let store = MockTestStore()
-		let eventStore = MockEventStore()
+
 		let service = ENAExposureSubmissionService(
 			diagnosisKeysRetrieval: MockDiagnosisKeysRetrieval(diagnosisKeysResult: ([], nil)),
 			appConfigurationProvider: appConfiguration,
-			client: client,
+			client: ClientMock(),
 			restServiceProvider: .fake(),
-			store: store,
-			eventStore: eventStore,
-			coronaTestService: CoronaTestService(
-				client: client,
-				store: store,
-				eventStore: eventStore,
-				diaryStore: MockDiaryStore(),
-				appConfiguration: appConfiguration,
-				healthCertificateService: HealthCertificateService(
-					store: store,
-					dccSignatureVerifier: DCCSignatureVerifyingStub(),
-					dscListProvider: MockDSCListProvider(),
-					client: client,
-					appConfiguration: appConfiguration,
-					cclService: FakeCCLService(),
-					recycleBin: .fake()
-				),
-				recycleBin: .fake(),
-				badgeWrapper: .fake()
-			)
+			store: MockTestStore(),
+			eventStore: MockEventStore(),
+			coronaTestService: MockCoronaTestService()
 		)
 		
 		let expectedIsLoadingValues = [true, false]
@@ -1008,40 +680,18 @@ class ExposureSubmissionServiceTests: CWATestCase {
 	
 	func testExposureManagerState() {
 		let exposureManagerState = ExposureManagerState(authorized: false, enabled: true, status: .unknown)
-		
-		let client = ClientMock()
-		let appConfiguration = CachedAppConfigurationMock()
-		
-		let store = MockTestStore()
-		let eventStore = MockEventStore()
+
 		let service = ENAExposureSubmissionService(
 			diagnosisKeysRetrieval: MockDiagnosisKeysRetrieval(
 				diagnosisKeysResult: ([], nil),
 				exposureManagerState: exposureManagerState
 			),
-			appConfigurationProvider: appConfiguration,
-			client: client,
+			appConfigurationProvider: CachedAppConfigurationMock(),
+			client: ClientMock(),
 			restServiceProvider: .fake(),
-			store: store,
-			eventStore: eventStore,
-			coronaTestService: CoronaTestService(
-				client: client,
-				store: store,
-				eventStore: eventStore,
-				diaryStore: MockDiaryStore(),
-				appConfiguration: appConfiguration,
-				healthCertificateService: HealthCertificateService(
-					store: store,
-					dccSignatureVerifier: DCCSignatureVerifyingStub(),
-					dscListProvider: MockDSCListProvider(),
-					client: client,
-					appConfiguration: appConfiguration,
-					cclService: FakeCCLService(),
-					recycleBin: .fake()
-				),
-				recycleBin: .fake(),
-				badgeWrapper: .fake()
-			)
+			store: MockTestStore(),
+			eventStore: MockEventStore(),
+			coronaTestService: MockCoronaTestService()
 		)
 		
 		XCTAssertEqual(service.exposureManagerState, exposureManagerState)
@@ -1114,20 +764,20 @@ class ExposureSubmissionServiceTests: CWATestCase {
 			recycleBin: .fake(),
 			badgeWrapper: .fake()
 		)
-		coronaTestService.pcrTest = PCRTest.mock(
+		coronaTestService.pcrTest.value = PCRTest.mock(
 			registrationToken: "dummyRegToken",
 			positiveTestResultWasShown: true,
 			isSubmissionConsentGiven: true
 		)
-		
+
 		// Run test.
 		
 		let service = ENAExposureSubmissionService(
 			diagnosisKeysRetrieval: keyRetrieval,
-			appConfigurationProvider: appConfigurationProvider,
+			appConfigurationProvider: CachedAppConfigurationMock(),
 			client: client,
 			restServiceProvider: restServiceProvider,
-			store: store,
+			store: MockTestStore(),
 			eventStore: MockEventStore(),
 			coronaTestService: coronaTestService
 		)

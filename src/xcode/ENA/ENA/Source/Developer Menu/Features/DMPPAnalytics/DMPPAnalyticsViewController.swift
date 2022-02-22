@@ -14,7 +14,7 @@ class DMPPAnalyticsViewController: UITableViewController {
 		store: Store,
 		client: Client,
 		appConfig: AppConfigurationProviding,
-		coronaTestService: CoronaTestService,
+		coronaTestService: CoronaTestServiceProviding,
 		ppacService: PrivacyPreservingAccessControl
 	) {
 		self.viewModel = DMPPAnalyticsViewModel(

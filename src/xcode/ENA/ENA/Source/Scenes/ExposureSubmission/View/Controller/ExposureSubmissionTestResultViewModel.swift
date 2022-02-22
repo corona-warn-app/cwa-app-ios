@@ -11,7 +11,7 @@ class ExposureSubmissionTestResultViewModel {
 	
 	init(
 		coronaTestType: CoronaTestType,
-		coronaTestService: CoronaTestService,
+		coronaTestService: CoronaTestServiceProviding,
 		onSubmissionConsentCellTap: @escaping (@escaping (Bool) -> Void) -> Void,
 		onContinueWithSymptomsFlowButtonTap: @escaping () -> Void,
 		onContinueWarnOthersButtonTap: @escaping (@escaping (Bool) -> Void) -> Void,
@@ -113,7 +113,7 @@ class ExposureSubmissionTestResultViewModel {
 	
 	// MARK: - Private
 	
-	private var coronaTestService: CoronaTestService
+	private var coronaTestService: CoronaTestServiceProviding
 
 	private let coronaTestType: CoronaTestType
 
@@ -140,7 +140,7 @@ class ExposureSubmissionTestResultViewModel {
 	private func bindToCoronaTestUpdates() {
 		switch coronaTestType {
 		case .pcr:
-			coronaTestService.$pcrTest
+			coronaTestService.pcrTest
 				.sink { [weak self] pcrTest in
 					guard let pcrTest = pcrTest else {
 						return
@@ -150,7 +150,7 @@ class ExposureSubmissionTestResultViewModel {
 				}
 				.store(in: &subscriptions)
 		case .antigen:
-			coronaTestService.$antigenTest
+			coronaTestService.antigenTest
 				.sink { [weak self] antigenTest in
 					guard let antigenTest = antigenTest else {
 						return
