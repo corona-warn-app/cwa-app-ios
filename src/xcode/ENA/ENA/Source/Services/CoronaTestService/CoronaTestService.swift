@@ -152,7 +152,7 @@ class CoronaTestService: CoronaTestServiceProviding {
 			completion: { [weak self] result in
 				switch result {
 				case .success(let registrationToken):
-					if self?.pcrTest != nil {
+					if self?.pcrTest.value != nil {
 						self?.moveTestToBin(.pcr)
 					}
 
@@ -171,7 +171,7 @@ class CoronaTestService: CoronaTestServiceProviding {
 						certificateRequested: false
 					)
 
-					Log.info("[CoronaTestService] PCR test registered: \(private: String(describing: self?.pcrTest), public: "PCR Test result")", log: .api)
+					Log.info("[CoronaTestService] PCR test registered: \(private: String(describing: self?.pcrTest.value), public: "PCR Test result")", log: .api)
 
 					Analytics.collect(.testResultMetadata(.registerNewTestMetadata(Date(), registrationToken, .pcr)))
 					// updating badge count for home tab
@@ -210,7 +210,7 @@ class CoronaTestService: CoronaTestServiceProviding {
 
 				switch result {
 				case .success(let registrationToken):
-					if self?.pcrTest != nil {
+					if self?.pcrTest.value != nil {
 						self?.moveTestToBin(.pcr)
 					}
 
@@ -229,7 +229,7 @@ class CoronaTestService: CoronaTestServiceProviding {
 					)
 					self?.pcrTest.value = _pcrTest
 
-					Log.info("[CoronaTestService] PCR test registered: \(private: String(describing: self?.pcrTest), public: "PCR Test result")", log: .api)
+					Log.info("[CoronaTestService] PCR test registered: \(private: String(describing: self?.pcrTest.value), public: "PCR Test result")", log: .api)
 
 					self?.createKeySubmissionMetadataDefaultValues(for: .pcr(_pcrTest))
 					Analytics.collect(.testResultMetadata(.registerNewTestMetadata(Date(), registrationToken, .pcr)))
@@ -297,7 +297,7 @@ class CoronaTestService: CoronaTestServiceProviding {
 			completion: { [weak self] result in
 				switch result {
 				case .success(let registrationToken):
-					if self?.antigenTest != nil {
+					if self?.antigenTest.value != nil {
 						self?.moveTestToBin(.antigen)
 					}
 
@@ -323,7 +323,7 @@ class CoronaTestService: CoronaTestServiceProviding {
 						certificateConsentGiven: certificateConsentGiven,
 						certificateRequested: false
 					)
-					Log.info("[CoronaTestService] Antigen test registered: \(private: String(describing: self?.antigenTest), public: "Antigen test result")", log: .api)
+					Log.info("[CoronaTestService] Antigen test registered: \(private: String(describing: self?.antigenTest.value), public: "Antigen test result")", log: .api)
 
 					Analytics.collect(.testResultMetadata(.registerNewTestMetadata(Date(), registrationToken, .antigen)))
 
@@ -371,7 +371,7 @@ class CoronaTestService: CoronaTestServiceProviding {
 			completion: { [weak self] result in
 				switch result {
 				case .success(let registrationToken):
-					if self?.pcrTest != nil {
+					if self?.pcrTest.value != nil {
 						self?.moveTestToBin(.pcr)
 					}
 
@@ -395,7 +395,7 @@ class CoronaTestService: CoronaTestServiceProviding {
 						certificateRequested: false
 					)
 
-					Log.info("[CoronaTestService] RapidPCR test registered: \(private: String(describing: self?.pcrTest), public: "RapidPCR test result")", log: .api)
+					Log.info("[CoronaTestService] RapidPCR test registered: \(private: String(describing: self?.pcrTest.value), public: "RapidPCR test result")", log: .api)
 
 					Analytics.collect(.testResultMetadata(.registerNewTestMetadata(Date(), registrationToken, .pcr)))
 
@@ -518,12 +518,12 @@ class CoronaTestService: CoronaTestServiceProviding {
 						self.pcrTest.value?.submissionTAN = submissionTAN
 						self.pcrTest.value?.registrationToken = nil
 
-						Log.info("Received submission tan for PCR test: \(private: String(describing: self.pcrTest), public: "PCR Test result")", log: .api)
+						Log.info("Received submission tan for PCR test: \(private: String(describing: self.pcrTest.value), public: "PCR Test result")", log: .api)
 					case .antigen:
 						self.antigenTest.value?.submissionTAN = submissionTAN
 						self.antigenTest.value?.registrationToken = nil
 
-						Log.info("Received submission tan for antigen test: \(private: String(describing: self.antigenTest), public: "TAN for antigen test")", log: .api)
+						Log.info("Received submission tan for antigen test: \(private: String(describing: self.antigenTest.value), public: "TAN for antigen test")", log: .api)
 					}
 
 					completion(.success(submissionTAN))

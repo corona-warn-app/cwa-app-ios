@@ -982,7 +982,7 @@ class CoronaTestServiceTests: CWATestCase {
 
 		waitForExpectations(timeout: .short)
 
-		XCTAssertNil(service.pcrTest)
+		XCTAssertNil(service.pcrTest.value)
 		XCTAssertNil(store.pcrTestResultMetadata)
 	}
 
@@ -1667,7 +1667,7 @@ class CoronaTestServiceTests: CWATestCase {
 
 		waitForExpectations(timeout: .short)
 
-		XCTAssertNil(service.antigenTest)
+		XCTAssertNil(service.antigenTest.value)
 	}
 
 	func testRegisterAntigenTestAndGetResult_RegistrationSucceedsGettingTestResultFails() {
@@ -2124,7 +2124,7 @@ class CoronaTestServiceTests: CWATestCase {
 
 		waitForExpectations(timeout: .short)
 
-		XCTAssertNil(service.pcrTest)
+		XCTAssertNil(service.pcrTest.value)
 	}
 
 	func testRegisterRapidPCRTestAndGetResult_RegistrationSucceedsGettingTestResultFails() {
@@ -3743,34 +3743,34 @@ class CoronaTestServiceTests: CWATestCase {
 		service.pcrTest.value = PCRTest.mock(registrationToken: "pcrRegistrationToken")
 		service.antigenTest.value = AntigenTest.mock(registrationToken: "antigenRegistrationToken")
 
-		XCTAssertNotNil(service.pcrTest)
-		XCTAssertNotNil(service.antigenTest)
+		XCTAssertNotNil(service.pcrTest.value)
+		XCTAssertNotNil(service.antigenTest.value)
 		XCTAssertTrue(store.recycleBinItems.isEmpty)
 		XCTAssertTrue(store.recycleBinItemsSubject.value.isEmpty)
 
 		service.moveTestToBin(.pcr)
 
-		XCTAssertNil(service.pcrTest)
-		XCTAssertNotNil(service.antigenTest)
+		XCTAssertNil(service.pcrTest.value)
+		XCTAssertNotNil(service.antigenTest.value)
 		XCTAssertEqual(store.recycleBinItems.count, 1)
 		XCTAssertEqual(store.recycleBinItemsSubject.value.count, 1)
 
 		service.pcrTest.value = PCRTest.mock(registrationToken: "pcrRegistrationToken2")
 
-		XCTAssertNotNil(service.pcrTest)
-		XCTAssertNotNil(service.antigenTest)
+		XCTAssertNotNil(service.pcrTest.value)
+		XCTAssertNotNil(service.antigenTest.value)
 
 		service.moveTestToBin(.antigen)
 
-		XCTAssertNotNil(service.pcrTest)
-		XCTAssertNil(service.antigenTest)
+		XCTAssertNotNil(service.pcrTest.value)
+		XCTAssertNil(service.antigenTest.value)
 		XCTAssertEqual(store.recycleBinItems.count, 2)
 		XCTAssertEqual(store.recycleBinItemsSubject.value.count, 2)
 
 		service.moveTestToBin(.pcr)
 
-		XCTAssertNil(service.pcrTest)
-		XCTAssertNil(service.antigenTest)
+		XCTAssertNil(service.pcrTest.value)
+		XCTAssertNil(service.antigenTest.value)
 		XCTAssertEqual(store.recycleBinItems.count, 3)
 		XCTAssertEqual(store.recycleBinItemsSubject.value.count, 3)
 	}
@@ -3802,28 +3802,28 @@ class CoronaTestServiceTests: CWATestCase {
 		service.pcrTest.value = PCRTest.mock(registrationToken: "pcrRegistrationToken")
 		service.antigenTest.value = AntigenTest.mock(registrationToken: "antigenRegistrationToken")
 
-		XCTAssertNotNil(service.pcrTest)
-		XCTAssertNotNil(service.antigenTest)
+		XCTAssertNotNil(service.pcrTest.value)
+		XCTAssertNotNil(service.antigenTest.value)
 
 		service.removeTest(.pcr)
 
-		XCTAssertNil(service.pcrTest)
-		XCTAssertNotNil(service.antigenTest)
+		XCTAssertNil(service.pcrTest.value)
+		XCTAssertNotNil(service.antigenTest.value)
 
 		service.pcrTest.value = PCRTest.mock(registrationToken: "pcrRegistrationToken")
 
-		XCTAssertNotNil(service.pcrTest)
-		XCTAssertNotNil(service.antigenTest)
+		XCTAssertNotNil(service.pcrTest.value)
+		XCTAssertNotNil(service.antigenTest.value)
 
 		service.removeTest(.antigen)
 
-		XCTAssertNotNil(service.pcrTest)
-		XCTAssertNil(service.antigenTest)
+		XCTAssertNotNil(service.pcrTest.value)
+		XCTAssertNil(service.antigenTest.value)
 
 		service.removeTest(.pcr)
 
-		XCTAssertNil(service.pcrTest)
-		XCTAssertNil(service.antigenTest)
+		XCTAssertNil(service.pcrTest.value)
+		XCTAssertNil(service.antigenTest.value)
 	}
 
 	// MARK: - Plausible Deniability
