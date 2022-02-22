@@ -58,7 +58,6 @@ class HomeTestResultCellModelTests: CWATestCase {
 		AccessibilityIdentifiers.Home.TestResultCell.loadingPCRButton
 	]
 
-	// swiftlint:disable:next function_body_length
 	func test_whenTestResultChanges_then_changesAreReflectedInTheSubscription() {
 		let expectationSubtitles = expectation(description: "expectationSubtitles")
 		let expectationDescription = expectation(description: "expectationDescription")
