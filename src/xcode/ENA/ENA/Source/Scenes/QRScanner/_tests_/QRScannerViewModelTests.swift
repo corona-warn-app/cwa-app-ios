@@ -34,7 +34,6 @@ final class TestQRScannerViewModel: QRScannerViewModel {
 	#endif
 }
 // swiftlint:disable line_length
-// swiftlint:disable:next type_body_length
 class QRScannerViewModelTests: XCTestCase {
 
 	func test_ifValid_PCR_Test_Scanned_then_parsing_is_successful() {
