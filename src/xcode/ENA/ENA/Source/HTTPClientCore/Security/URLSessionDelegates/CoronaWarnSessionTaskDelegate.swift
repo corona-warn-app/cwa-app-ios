@@ -24,6 +24,7 @@ class CoronaWarnSessionTaskDelegate: NSObject, URLSessionTaskDelegate {
 		// `serverTrust` not nil implies that authenticationMethod == NSURLAuthenticationMethodServerTrust
 		guard let trust = challenge.protectionSpace.serverTrust else {
 			// Reject all requests that we do not have a public key to pin for
+			// TODO: Should we set here the trustEvalutaionError?
 			completionHandler(.cancelAuthenticationChallenge, /* credential */ nil)
 			return
 		}
