@@ -1143,6 +1143,8 @@
 		AB9B991F26D5417200F2506D /* VaccinationCertificateTemplate_v4.1.pdf in Resources */ = {isa = PBXBuildFile; fileRef = ABEA875926D3811100A8E950 /* VaccinationCertificateTemplate_v4.1.pdf */; };
 		AB9E9E7A261308C000515408 /* RiskTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB9E9E79261308C000515408 /* RiskTests.swift */; };
 		ABAAE2D527C3DC3500A53AB1 /* CoronaWarnSessionTaskDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABAAE2D427C3DC3500A53AB1 /* CoronaWarnSessionTaskDelegate.swift */; };
+		ABAAE2D827C516D500A53AB1 /* TrustEvaluationFake.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABAAE2D727C516D500A53AB1 /* TrustEvaluationFake.swift */; };
+		ABAAE2DA27C51AB300A53AB1 /* TrustEvaluationErrorStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABAAE2D927C51AB300A53AB1 /* TrustEvaluationErrorStub.swift */; };
 		ABAC9D2E2624938100EB183F /* TestResultTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABAC9D2D2624938100EB183F /* TestResultTests.swift */; };
 		ABB078EE272C260B0037B30F /* RestServiceProviderFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABBA6BB8272AA1E200EEF2E4 /* RestServiceProviderFactory.swift */; };
 		ABB078F0273034AC0037B30F /* SecureCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABB078EF273034AC0037B30F /* SecureCache.swift */; };
@@ -1412,8 +1414,6 @@
 		BA7DCA152747D923009E4557 /* _EvaluateTrust.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA7DCA142747D923009E4557 /* _EvaluateTrust.swift */; };
 		BA7DCA172747D944009E4557 /* DefaultTrustEvaluation.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA7DCA162747D944009E4557 /* DefaultTrustEvaluation.swift */; };
 		BA7DCA1A2747DA96009E4557 /* JSONWebKeyTrustEvaluation.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA7DCA192747DA96009E4557 /* JSONWebKeyTrustEvaluation.swift */; };
-		BA7DCA1D2747E74F009E4557 /* URLSessionDelegate+UpdateEvaluateTrust.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA7DCA1C2747E74F009E4557 /* URLSessionDelegate+UpdateEvaluateTrust.swift */; };
-		BA7DCA202747E80E009E4557 /* FakeEvaluateTrust.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA7DCA1E2747E7F6009E4557 /* FakeEvaluateTrust.swift */; };
 		BA7EABAD25C973FE001AA5FE /* DMKeyValueCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA7EABAC25C973FE001AA5FE /* DMKeyValueCellViewModel.swift */; };
 		BA7F15A12629D3F200CA4783 /* RouteTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA7F15A02629D3F200CA4783 /* RouteTests.swift */; };
 		BA7F15AD2629DA1000CA4783 /* RapidTestInformationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA7F15AC2629DA1000CA4783 /* RapidTestInformationTests.swift */; };
@@ -2846,6 +2846,8 @@
 		AB9B991B26D5389100F2506D /* HealthCertificate+PDFTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HealthCertificate+PDFTests.swift"; sourceTree = "<group>"; };
 		AB9E9E79261308C000515408 /* RiskTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RiskTests.swift; sourceTree = "<group>"; };
 		ABAAE2D427C3DC3500A53AB1 /* CoronaWarnSessionTaskDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoronaWarnSessionTaskDelegate.swift; sourceTree = "<group>"; };
+		ABAAE2D727C516D500A53AB1 /* TrustEvaluationFake.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrustEvaluationFake.swift; sourceTree = "<group>"; };
+		ABAAE2D927C51AB300A53AB1 /* TrustEvaluationErrorStub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrustEvaluationErrorStub.swift; sourceTree = "<group>"; };
 		ABAC9D2D2624938100EB183F /* TestResultTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestResultTests.swift; sourceTree = "<group>"; };
 		ABAE0A1B257F77D90030ED47 /* ContactDiaryStoreSchemaV1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactDiaryStoreSchemaV1.swift; sourceTree = "<group>"; };
 		ABAE0A36257FA88D0030ED47 /* ContactDiaryStoreSchemaV1Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactDiaryStoreSchemaV1Tests.swift; sourceTree = "<group>"; };
@@ -3117,8 +3119,6 @@
 		BA7DCA142747D923009E4557 /* _EvaluateTrust.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = _EvaluateTrust.swift; sourceTree = "<group>"; };
 		BA7DCA162747D944009E4557 /* DefaultTrustEvaluation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultTrustEvaluation.swift; sourceTree = "<group>"; };
 		BA7DCA192747DA96009E4557 /* JSONWebKeyTrustEvaluation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONWebKeyTrustEvaluation.swift; sourceTree = "<group>"; };
-		BA7DCA1C2747E74F009E4557 /* URLSessionDelegate+UpdateEvaluateTrust.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URLSessionDelegate+UpdateEvaluateTrust.swift"; sourceTree = "<group>"; };
-		BA7DCA1E2747E7F6009E4557 /* FakeEvaluateTrust.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FakeEvaluateTrust.swift; sourceTree = "<group>"; };
 		BA7EABAC25C973FE001AA5FE /* DMKeyValueCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMKeyValueCellViewModel.swift; sourceTree = "<group>"; };
 		BA7F15A02629D3F200CA4783 /* RouteTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteTests.swift; sourceTree = "<group>"; };
 		BA7F15AC2629DA1000CA4783 /* RapidTestInformationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RapidTestInformationTests.swift; sourceTree = "<group>"; };
@@ -7508,6 +7508,15 @@
 			path = Doubles;
 			sourceTree = "<group>";
 		};
+		ABAAE2D627C516AF00A53AB1 /* __tests__ */ = {
+			isa = PBXGroup;
+			children = (
+				ABAAE2D727C516D500A53AB1 /* TrustEvaluationFake.swift */,
+				ABAAE2D927C51AB300A53AB1 /* TrustEvaluationErrorStub.swift */,
+			);
+			path = __tests__;
+			sourceTree = "<group>";
+		};
 		ABAE0A12257F77A20030ED47 /* Store */ = {
 			isa = PBXGroup;
 			children = (
@@ -8913,6 +8922,7 @@
 		BA7DCA132747D918009E4557 /* EvaluateTrust */ = {
 			isa = PBXGroup;
 			children = (
+				ABAAE2D627C516AF00A53AB1 /* __tests__ */,
 				BA7DCA142747D923009E4557 /* _EvaluateTrust.swift */,
 				BA7DCA162747D944009E4557 /* DefaultTrustEvaluation.swift */,
 				BA7DCA192747DA96009E4557 /* JSONWebKeyTrustEvaluation.swift */,
@@ -8925,20 +8935,10 @@
 		BA7DCA182747DA61009E4557 /* URLSessionDelegates */ = {
 			isa = PBXGroup;
 			children = (
-				BA7DCA1B2747E703009E4557 /* __tests__ */,
 				B1CD33402486AA7100B06E9B /* CoronaWarnURLSessionDelegate.swift */,
 				ABAAE2D427C3DC3500A53AB1 /* CoronaWarnSessionTaskDelegate.swift */,
 			);
 			path = URLSessionDelegates;
-			sourceTree = "<group>";
-		};
-		BA7DCA1B2747E703009E4557 /* __tests__ */ = {
-			isa = PBXGroup;
-			children = (
-				BA7DCA1C2747E74F009E4557 /* URLSessionDelegate+UpdateEvaluateTrust.swift */,
-				BA7DCA1E2747E7F6009E4557 /* FakeEvaluateTrust.swift */,
-			);
-			path = __tests__;
 			sourceTree = "<group>";
 		};
 		BA7F15AB2629D9FA00CA4783 /* __tests_ */ = {
@@ -11075,6 +11075,7 @@
 				BAA8BAE225CAD8B000E29CFE /* DMStaticTextCellViewModel.swift in Sources */,
 				347E3CAE27A9A20D00895277 /* BoosterDetailsViewModel.swift in Sources */,
 				BA5B7FDA26458EF400502087 /* HealthCertificateQRCodeCell.swift in Sources */,
+				ABAAE2DA27C51AB300A53AB1 /* TrustEvaluationErrorStub.swift in Sources */,
 				BA0F6C59263186830046BA48 /* AntigenTestProfileInputViewController.swift in Sources */,
 				BAFC6AC026A71F7900F18BBE /* DSCListMetaData.swift in Sources */,
 				71EF33DB2497F419007B7E1B /* ENANavigationFooterItem.swift in Sources */,
@@ -11378,6 +11379,7 @@
 				508266DA278DA60000091991 /* Archive+CBOR.swift in Sources */,
 				50C51CB625CDEA4300D4C33A /* HTTPClient+SubmitAnalyticsDataTests.swift in Sources */,
 				0127B09E272855D6008E30AF /* CoronaTestRestorationHandlerTests.swift in Sources */,
+				ABAAE2D827C516D500A53AB1 /* TrustEvaluationFake.swift in Sources */,
 				AB86B2B926033E8F007C77B3 /* CheckinSplittingServiceTests.swift in Sources */,
 				AB1EEC1026382BC20001D1DB /* ExposureSubmissionIntroViewModelTests.swift in Sources */,
 				01BA07202620921400237DD8 /* CheckinTestCase.swift in Sources */,
@@ -11441,7 +11443,6 @@
 				AB2F094F25D169DC00C16309 /* SurveyURLServiceTests.swift in Sources */,
 				ABCA884926BBC9B4005FF148 /* CheckinEncryptionTests.swift in Sources */,
 				BAA19D652612151B00CBBDDD /* CheckInTimeModelTests.swift in Sources */,
-				BA7DCA202747E80E009E4557 /* FakeEvaluateTrust.swift in Sources */,
 				01DDF4462654221A0043B4E1 /* DidSetPublishedTests.swift in Sources */,
 				BAD3199926FA0EB2006E82E7 /* CovPassCheckInformationViewModelTests.swift in Sources */,
 				0185DDDE25B77786001FBEA7 /* HomeStatisticsCellModelTests.swift in Sources */,
@@ -11479,7 +11480,6 @@
 				BA2D4F05263701950080FD77 /* SimpleTextCellViewModelTests.swift in Sources */,
 				AB86B2AF26026AC3007C77B3 /* EventCheckoutServiceTests.swift in Sources */,
 				506BEF05276A465A0062D5D6 /* StandardRestServiceTests.swift in Sources */,
-				BA7DCA1D2747E74F009E4557 /* URLSessionDelegate+UpdateEvaluateTrust.swift in Sources */,
 				347FBB08260B8FE000672770 /* TraceLocationDetailsViewModelTests.swift in Sources */,
 				350B26C5265E4E8D00180183 /* CWATestCase.swift in Sources */,
 				BA2D4EFC2636FDBC0080FD77 /* AntigenTestProfileViewModelTests.swift in Sources */,
