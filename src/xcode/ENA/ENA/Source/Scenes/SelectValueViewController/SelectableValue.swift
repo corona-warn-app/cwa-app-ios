@@ -4,6 +4,7 @@
 
 struct SelectableValue: Comparable {
 	
+		// MARK: - Internal
 	let title: String
 	let subtitle: String?
 	let identifier: String?
