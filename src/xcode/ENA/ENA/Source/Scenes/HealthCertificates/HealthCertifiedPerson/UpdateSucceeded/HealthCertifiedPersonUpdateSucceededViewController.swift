@@ -3,8 +3,11 @@
 //
 
 import UIKit
+#if DEBUG
+import SwiftUI
+#endif
 
-class HealthCertifiedPersonUpdateSucceededViewController: UIViewController, DismissHandling {
+class HealthCertifiedPersonUpdateSucceededViewController: DynamicTableViewController, DismissHandling {
 
 	// MARK: - Init
 
@@ -25,9 +28,11 @@ class HealthCertifiedPersonUpdateSucceededViewController: UIViewController, Dism
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		// setup navigation bar
-		title = AppStrings.HealthCertificate.Person.UpdateSucceeded.title
 		navigationItem.hidesBackButton = true
 		navigationItem.rightBarButtonItem = dismissHandlingCloseBarButton
+		navigationController?.navigationBar.prefersLargeTitles = true
+		
+		setupTableView()
 	}
 
 	// MARK: - Protocol DismissHandling
@@ -43,5 +48,36 @@ class HealthCertifiedPersonUpdateSucceededViewController: UIViewController, Dism
 	// MARK: - Private
 
 	private let didTapEnd: () -> Void
+	private let viewModel = HealthCertifiedPersonUpdateSucceededViewModel()
+	
+	private func setupTableView() {
+		tableView.separatorStyle = .none
+		tableView.allowsSelection = false
+		tableView.backgroundColor = .enaColor(for: .background)
+		tableView.contentInsetAdjustmentBehavior = .never
+
+		dynamicTableViewModel = viewModel.dynamicTableViewModel
+	}
 
 }
+
+// MARK: SwiftUI Preview
+#if DEBUG
+@available(iOS 13.0.0, *)
+struct HealthCertifiedPersonUpdateSucceededViewControllerContainerView: UIViewControllerRepresentable {
+	typealias UIViewControllerType = UINavigationController
+	func makeUIViewController(context: Context) -> UIViewControllerType {
+		return UINavigationController(rootViewController: HealthCertifiedPersonUpdateSucceededViewController(didTapEnd: {}))
+	}
+	func updateUIViewController(_ uiViewController: UIViewControllerType, context: Context) {}
+}
+@available(iOS 13.0.0, *)
+struct ContentViewController_Previews: PreviewProvider {
+	static var previews: some View {
+		Group {
+			HealthCertifiedPersonUpdateSucceededViewControllerContainerView().colorScheme(.light)
+			HealthCertifiedPersonUpdateSucceededViewControllerContainerView().colorScheme(.dark)
+		} // or .dark
+	}
+}
+#endif
