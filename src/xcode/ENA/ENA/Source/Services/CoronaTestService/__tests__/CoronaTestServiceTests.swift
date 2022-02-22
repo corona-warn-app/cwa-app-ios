@@ -745,7 +745,7 @@ class CoronaTestServiceTests: CWATestCase {
 				healthCertificateService: healthCertificateService
 			),
 			recycleBin: .fake(),
-			badgeWrapper: .fake()
+			badgeWrapper: badgeWrapper
 		)
 
 		let expectedCounts = [nil, "1", nil]
@@ -1565,7 +1565,7 @@ class CoronaTestServiceTests: CWATestCase {
 				healthCertificateService: healthCertificateService
 			),
 			recycleBin: .fake(),
-			badgeWrapper: .fake()
+			badgeWrapper: badgeWrapper
 		)
 		
 		let expectedCounts = [nil, "1", nil]
@@ -2048,7 +2048,7 @@ class CoronaTestServiceTests: CWATestCase {
 				healthCertificateService: healthCertificateService
 			),
 			recycleBin: .fake(),
-			badgeWrapper: .fake()
+			badgeWrapper: badgeWrapper
 		)
 
 		let expectedCounts = [nil, "1", nil]
@@ -2750,6 +2750,7 @@ class CoronaTestServiceTests: CWATestCase {
 			dccSignatureVerifier: DCCSignatureVerifyingStub(),
 			dscListProvider: MockDSCListProvider(),
 			appConfiguration: appConfiguration,
+			notificationCenter: mockNotificationCenter,
 			cclService: FakeCCLService(),
 			recycleBin: .fake()
 		)
@@ -2768,6 +2769,7 @@ class CoronaTestServiceTests: CWATestCase {
 				appConfiguration: appConfiguration,
 				healthCertificateService: healthCertificateService
 			),
+			notificationCenter: mockNotificationCenter,
 			recycleBin: .fake(),
 			badgeWrapper: .fake()
 		)
