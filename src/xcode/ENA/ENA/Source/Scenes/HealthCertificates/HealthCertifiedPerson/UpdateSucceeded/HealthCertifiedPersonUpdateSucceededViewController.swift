@@ -41,10 +41,6 @@ class HealthCertifiedPersonUpdateSucceededViewController: DynamicTableViewContro
 		didTapEnd()
 	}
 
-	// MARK: - Public
-
-	// MARK: - Internal
-
 	// MARK: - Private
 
 	private let didTapEnd: () -> Void
@@ -61,7 +57,7 @@ class HealthCertifiedPersonUpdateSucceededViewController: DynamicTableViewContro
 
 }
 
-// MARK: SwiftUI Preview
+// MARK: - SwiftUI Preview
 #if DEBUG
 @available(iOS 13.0.0, *)
 struct HealthCertifiedPersonUpdateSucceededViewControllerContainerView: UIViewControllerRepresentable {
