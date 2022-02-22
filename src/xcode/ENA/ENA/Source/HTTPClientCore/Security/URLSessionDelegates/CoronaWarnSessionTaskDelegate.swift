@@ -6,10 +6,8 @@ import Foundation
 
 class CoronaWarnSessionTaskDelegate: NSObject, URLSessionTaskDelegate {
 	
-	// Map the trust evaluations to the tasks.
-	// This way every task has its own trust evaluation.
-	var trustEvaluations = [Int: TrustEvaluating]()
-	
+	// MARK: - Protocol URLSessionTaskDelegate
+
 	func urlSession(
 		_ session: URLSession,
 		task: URLSessionTask,
@@ -72,4 +70,21 @@ class CoronaWarnSessionTaskDelegate: NSObject, URLSessionTaskDelegate {
 		
 		trustEvaluations[task.taskIdentifier] = nil
 	}
+	
+	// MARK: - Internal
+
+	var trustEvaluations: [Int: TrustEvaluating] {
+		get { trustEvaluationsQueue.sync { _trustEvaluations } }
+		set { trustEvaluationsQueue.sync { _trustEvaluations = newValue } }
+	}
+
+	// MARK: - Private
+	
+	// Serial queue for safe access of trustEvaluations.
+	private let trustEvaluationsQueue = DispatchQueue(label: "com.sap.CoronaWarnSessionTaskDelegate.trustEvaluationsQueue")
+
+	// Map the trust evaluations to the tasks.
+	// This way every task has its own trust evaluation.
+	private var _trustEvaluations = [Int: TrustEvaluating]()
+
 }
