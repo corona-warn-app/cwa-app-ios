@@ -51,8 +51,8 @@ class HealthCertificateOverviewViewModel {
 					Log.debug("couldn't find a match for the selectedScenario identifier")
 					return
 				}
-				self?.changeAdmissionScenarioStatusLabel = dccAdmissionCheckScenarios.labelText
-				self?.changeAdmissionScenarioButtonLabel = selectedScenario.titleText
+				self?.changeAdmissionScenarioStatusText = dccAdmissionCheckScenarios.labelText
+				self?.changeAdmissionScenarioButtonText = selectedScenario.titleText
 			}
 			.store(in: &subscriptions)
 	}
