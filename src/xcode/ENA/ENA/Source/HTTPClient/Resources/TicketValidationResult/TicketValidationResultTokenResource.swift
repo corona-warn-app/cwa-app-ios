@@ -13,16 +13,13 @@ struct TicketValidationResultTokenResource: Resource {
 		resultTokenServiceURL: URL,
 		jwt: String,
 		sendModel: TicketValidationResultTokenSendModel,
-		validationServiceAllowlistEntry: [ValidationServiceAllowlistEntry]
+		trustEvaluation: TrustEvaluating
 	) {
 		self.locator = .ticketValidationResultToken(resultTokenServiceURL: resultTokenServiceURL, jwt: jwt)
-		self.type = .dynamicPinning
+		self.type = .default
 		self.sendResource = JSONSendResource<TicketValidationResultTokenSendModel>(sendModel)
 		self.receiveResource = StringReceiveResource<TicketValidationAccessTokenReceiveModel>()
-		self.trustEvaluation = AllowListEvaluationTrust(
-			allowList: validationServiceAllowlistEntry,
-			trustEvaluation: ENASecurity.JSONWebKeyTrustEvaluation()
-		)
+		self.trustEvaluation = trustEvaluation
 	}
 
 	// MARK: - Protocol Resource

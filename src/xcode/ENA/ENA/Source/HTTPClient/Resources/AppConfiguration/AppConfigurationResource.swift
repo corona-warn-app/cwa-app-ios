@@ -8,14 +8,16 @@ struct AppConfigurationResource: Resource {
 
 	// MARK: - Init
 
-	init() {
+	init(
+		trustEvaluation: TrustEvaluating = DefaultTrustEvaluation(
+			publicKeyHash: Environments().currentEnvironment().pinningKeyHash
+		)
+	) {
 		self.locator = .appConfiguration
 		self.type = .caching()
 		self.sendResource = EmptySendResource()
 		self.receiveResource = ProtobufReceiveResource<SAP_Internal_V2_ApplicationConfigurationIOS>()
-		self.trustEvaluation = DefaultTrustEvaluation(
-			publicKeyHash: Environments().currentEnvironment().pinningKeyHash
-		)
+		self.trustEvaluation = trustEvaluation
 	}
 
 	// MARK: - Protocol Resource

@@ -50,15 +50,13 @@ struct DCCReissuanceResource: Resource {
 
 	init(
 		sendModel: DCCReissuanceSendModel,
-		publicKeyHash: String
+		trustEvaluation: TrustEvaluating
 	) {
 		self.locator = .dccReissuance
-		self.type = .dynamicPinning
+		self.type = .default
 		self.sendResource = JSONSendResource<DCCReissuanceSendModel>(sendModel)
 		self.receiveResource = JSONReceiveResource<DCCReissuanceReceiveModel>()
-		self.trustEvaluation = DefaultTrustEvaluation(
-			publicKeyHash: publicKeyHash
-		)
+		self.trustEvaluation = trustEvaluation
 	}
 
 	// MARK: - Protocol Resource

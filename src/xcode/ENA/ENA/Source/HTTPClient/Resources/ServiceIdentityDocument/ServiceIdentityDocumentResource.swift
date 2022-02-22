@@ -11,16 +11,13 @@ struct ServiceIdentityDocumentResource: Resource {
 
 	init(
 		endpointUrl: URL,
-		validationServiceAllowlistEntry: [ValidationServiceAllowlistEntry]
+		trustEvaluation: TrustEvaluating
 	) {
 		self.locator = Locator.serviceIdentityDocument(endpointUrl: endpointUrl)
-		self.type = .dynamicPinning
+		self.type = .default
 		self.sendResource = EmptySendResource()
 		self.receiveResource = JSONReceiveResource<TicketValidationServiceIdentityDocument>()
-		self.trustEvaluation = AllowListEvaluationTrust(
-			allowList: validationServiceAllowlistEntry,
-			trustEvaluation: ENASecurity.JSONWebKeyTrustEvaluation()
-		)
+		self.trustEvaluation = trustEvaluation
 	}
 	
 	// MARK: - Protocol Resource

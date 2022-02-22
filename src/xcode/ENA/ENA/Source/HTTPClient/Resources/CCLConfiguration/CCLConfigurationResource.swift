@@ -9,7 +9,10 @@ struct CCLConfigurationResource: Resource {
 	// MARK: - Init
 	
 	init(
-		isFake: Bool = false
+		isFake: Bool = false,
+		trustEvaluation: TrustEvaluating = DefaultTrustEvaluation(
+			publicKeyHash: Environments().currentEnvironment().pinningKeyHash
+		)
 	) {
 		self.type = .caching(
 			Set<CacheUsePolicy>([.loadOnlyOnceADay])
@@ -26,9 +29,7 @@ struct CCLConfigurationResource: Resource {
 
 		self.sendResource = EmptySendResource()
 		self.receiveResource = CBORReceiveResource<CCLConfigurationReceiveModel>()
-		self.trustEvaluation = DefaultTrustEvaluation(
-			publicKeyHash: Environments().currentEnvironment().pinningKeyHash
-		)
+		self.trustEvaluation = trustEvaluation
 	}
 	
 	// MARK: - Protocol Resource

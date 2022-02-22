@@ -274,9 +274,14 @@ final class TicketValidation: TicketValidating {
 
 		Log.debug("Request document of service identity at URL: \(private: url)", log: .ticketValidation)
 
+		let trustEvaluation = AllowListEvaluationTrust(
+			allowList: allowList.validationServiceAllowList,
+			trustEvaluation: ENASecurity.JSONWebKeyTrustEvaluation()
+		)
+
 		let resource = ServiceIdentityDocumentResource(
 			endpointUrl: url,
-			validationServiceAllowlistEntry: allowList.validationServiceAllowList
+			trustEvaluation: trustEvaluation
 		)
 
 		restServiceProvider.load(resource) { [weak self] result in
@@ -313,6 +318,10 @@ final class TicketValidation: TicketValidating {
 
 		Log.debug("Request access token at URL: \(private: url)", log: .ticketValidation)
 
+		let trustEvaluation = JSONWebKeyTrustEvaluation(
+			jwkSet: accessTokenServiceJwkSet,
+			trustEvaluation: ENASecurity.JSONWebKeyTrustEvaluation()
+		)
         let resource = TicketValidationAccessTokenResource(
             accessTokenServiceURL: url,
             jwt: jwt,
@@ -320,7 +329,7 @@ final class TicketValidation: TicketValidating {
                 service: validationService.id,
                 pubKey: publicKeyBase64
             ),
-			jsonWebKeys: accessTokenServiceJwkSet
+			trustEvaluation: trustEvaluation
         )
 
         Log.info("Ticket Validation: Requesting access token", log: .ticketValidation)
@@ -366,6 +375,11 @@ final class TicketValidation: TicketValidating {
 
 		Log.debug("Request result token at URL: \(private: url)", log: .ticketValidation)
 
+		let trustEvaluation = AllowListEvaluationTrust(
+			allowList: allowList.validationServiceAllowList,
+			trustEvaluation: ENASecurity.JSONWebKeyTrustEvaluation()
+		)
+
 		let resource = TicketValidationResultTokenResource(
 			resultTokenServiceURL: url,
 			jwt: jwt,
@@ -377,7 +391,7 @@ final class TicketValidation: TicketValidating {
 				encScheme: encryptionScheme.rawValue,
 				sigAlg: signatureAlgorithm
 			),
-			validationServiceAllowlistEntry: allowList.validationServiceAllowList
+			trustEvaluation: trustEvaluation
 		)
 
 		Log.info("Ticket Validation: Requesting result token", log: .ticketValidation)

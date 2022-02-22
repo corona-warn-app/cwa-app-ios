@@ -8,12 +8,16 @@ struct ServiceIdentityDocumentValidationDecoratorResource: Resource {
 
 	// MARK: - Init
 
-	init(url: URL, isFake: Bool = false) {
+	init(
+		url: URL,
+		isFake: Bool = false,
+		trustEvaluation: TrustEvaluating = DisabledTrustEvaluation()
+	) {
 		self.locator = .serviceIdentityDocumentValidationDecorator(url: url)
-		self.type = .disabledPinning
+		self.type = .default
 		self.sendResource = EmptySendResource()
 		self.receiveResource = JSONReceiveResource<TicketValidationServiceIdentityDocument>()
-		self.trustEvaluation = DisabledTrustEvaluation()
+		self.trustEvaluation = trustEvaluation
 	}
 
 	// MARK: - Protocol Resource

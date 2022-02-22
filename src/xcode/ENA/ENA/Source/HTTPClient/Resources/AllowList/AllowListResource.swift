@@ -8,7 +8,11 @@ struct AllowListResource: Resource {
 	
 	// MARK: - Init
 
-	init() {
+	init(
+		trustEvaluation: TrustEvaluating = DefaultTrustEvaluation(
+			publicKeyHash: Environments().currentEnvironment().pinningKeyHash
+		)
+	) {
 		self.locator = .allowList
 		self.type = .caching(
 			// define special cache policies to handle from the cache
@@ -18,9 +22,7 @@ struct AllowListResource: Resource {
 		)
 		self.sendResource = EmptySendResource()
 		self.receiveResource = ProtobufReceiveResource<SAP_Internal_Dgc_ValidationServiceAllowlist>()
-		self.trustEvaluation = DefaultTrustEvaluation(
-			publicKeyHash: Environments().currentEnvironment().pinningKeyHash
-		)
+		self.trustEvaluation = trustEvaluation
 	}
 
 	// MARK: - Protocol Resource

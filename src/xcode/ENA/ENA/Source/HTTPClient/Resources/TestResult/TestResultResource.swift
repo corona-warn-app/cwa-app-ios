@@ -8,14 +8,17 @@ struct TestResultResource: Resource {
 	// MARK: - Init
 	init(
 		isFake: Bool = false,
-		sendModel: TestResultSendModel
+		sendModel: TestResultSendModel,
+		trustEvaluation: TrustEvaluating = DefaultTrustEvaluation(
+			publicKeyHash: Environments().currentEnvironment().pinningKeyHash
+		)
 	) {
 		self.locator = .testResult(isFake: isFake)
 		self.type = .default
 		self.sendResource = JSONSendResource<TestResultSendModel>(sendModel)
 		self.receiveResource = JSONReceiveResource<TestResultReceiveModel>()
 		self.regTokenModel = sendModel
-		self.trustEvaluation = DefaultTrustEvaluation(publicKeyHash: Environments().currentEnvironment().pinningKeyHash)
+		self.trustEvaluation = trustEvaluation
 	}
 
 	// MARK: - Protocol Resource
