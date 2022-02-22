@@ -9,7 +9,7 @@ import ENASecurity
 
 final class TrustEvaluationTests: CWATestCase {
 
-	func testGIVEN_TrustError_WHEN_Loading_THEN_CERT_CHAIN_EMTPY() throws {
+	func testGIVEN_TrustError_WHEN_Loading_THEN_CERT_MISMATCH() throws {
 
 		let expectation = expectation(description: "Expect that we got an error")
 
@@ -23,9 +23,7 @@ final class TrustEvaluationTests: CWATestCase {
 			cache: KeyValueCacheFake()
 		)
 
-		let trustErrorStub = TrustEvaluationErrorStub(
-			error: TrustEvaluationError.jsonWebKey(.CERT_CHAIN_EMTPY)
-		)
+		let trustErrorStub = DefaultTrustEvaluation(publicKeyHash: "trash")
 
 		let someResource = ResourceFake(
 			trustEvaluation: trustErrorStub
@@ -36,8 +34,8 @@ final class TrustEvaluationTests: CWATestCase {
 			case .success:
 				XCTFail("Failure expected.")
 			case .failure(let error):
-				guard case .trustEvaluationError(.jsonWebKey(.CERT_CHAIN_EMTPY)) = error else {
-					XCTFail("CERT_CHAIN_EMTPY error expected. Instead error received: \(error)")
+				guard case .trustEvaluationError(.default(.CERT_MISMATCH)) = error else {
+					XCTFail("CERT_MISMATCH error expected. Instead error received: \(error)")
 					return
 				}
 			}
