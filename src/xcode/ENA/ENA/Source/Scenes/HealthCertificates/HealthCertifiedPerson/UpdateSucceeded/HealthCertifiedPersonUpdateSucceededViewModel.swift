@@ -20,7 +20,7 @@ struct HealthCertifiedPersonUpdateSucceededViewModel {
 					.headlineWithImage(
 						headerText: AppStrings.HealthCertificate.Person.UpdateSucceeded.title,
 						image: UIImage(imageLiteralResourceName: "Illu_Replace_Success"),
-						imageAccessibilityIdentifier: AccessibilityIdentifiers.TicketValidation.ValidationResult.Passed.headerImageWithTitle //TODO
+						imageAccessibilityIdentifier: AccessibilityIdentifiers.HealthCertificate.Person.UpdateSucceeded.image
 					),
 					.title2(text: AppStrings.HealthCertificate.Person.UpdateSucceeded.headline),
 
@@ -31,5 +31,4 @@ struct HealthCertifiedPersonUpdateSucceededViewModel {
 			)
 		])
 	}
-
 }
