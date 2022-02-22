@@ -31,7 +31,10 @@ final class DCCReissuanceResourceTests: CWATestCase {
 		let expectation = self.expectation(description: "completion handler succeeds")
 
 		let restServiceProvider = RestServiceProvider(session: stack.urlSession, cache: KeyValueCacheFake())
-		let dccReissuanceResource = DCCReissuanceResource(sendModel: sendModel)
+		let dccReissuanceResource = DCCReissuanceResource(
+			sendModel: sendModel,
+			trustEvaluation: .fake()
+		)
 		restServiceProvider.load(dccReissuanceResource) { result in
 			switch result {
 			case let .success(model):

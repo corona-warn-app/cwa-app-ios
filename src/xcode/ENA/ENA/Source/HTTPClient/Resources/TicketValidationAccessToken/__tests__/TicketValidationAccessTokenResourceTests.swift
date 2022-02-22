@@ -21,7 +21,8 @@ final class TicketValidationAccessTokenResourceTests: CWATestCase {
 		let ticketValidationAccessTokenResource = TicketValidationAccessTokenResource(
 			accessTokenServiceURL: URL(staticString: "http://www.coronawarn.app"),
 			jwt: "headerJWT",
-			sendModel: TicketValidationAccessTokenSendModel(service: "", pubKey: "")
+			sendModel: TicketValidationAccessTokenSendModel(service: "", pubKey: ""),
+			trustEvaluation: .fake()
 		)
 
 		serviceProvider.load(ticketValidationAccessTokenResource) { result in
@@ -50,7 +51,8 @@ final class TicketValidationAccessTokenResourceTests: CWATestCase {
 		let ticketValidationAccessTokenResource = TicketValidationAccessTokenResource(
 			accessTokenServiceURL: URL(staticString: "http://www.coronawarn.app"),
 			jwt: "headerJWT",
-			sendModel: TicketValidationAccessTokenSendModel(service: "", pubKey: "")
+			sendModel: TicketValidationAccessTokenSendModel(service: "", pubKey: ""),
+			trustEvaluation: .fake()
 		)
 
 		serviceProvider.load(ticketValidationAccessTokenResource) { result in
@@ -75,7 +77,8 @@ final class TicketValidationAccessTokenResourceTests: CWATestCase {
 		let ticketValidationAccessTokenResource = TicketValidationAccessTokenResource(
 			accessTokenServiceURL: URL(staticString: "http://www.coronawarn.app"),
 			jwt: "headerJWT",
-			sendModel: TicketValidationAccessTokenSendModel(service: "", pubKey: "")
+			sendModel: TicketValidationAccessTokenSendModel(service: "", pubKey: ""),
+			trustEvaluation: .fake()
 		)
 
 		let customError = try XCTUnwrap(
@@ -89,7 +92,8 @@ final class TicketValidationAccessTokenResourceTests: CWATestCase {
 		let ticketValidationAccessTokenResource = TicketValidationAccessTokenResource(
 			accessTokenServiceURL: URL(staticString: "http://www.coronawarn.app"),
 			jwt: "headerJWT",
-			sendModel: TicketValidationAccessTokenSendModel(service: "", pubKey: "")
+			sendModel: TicketValidationAccessTokenSendModel(service: "", pubKey: ""),
+			trustEvaluation: .fake()
 		)
 
 		let customError = try XCTUnwrap(
@@ -103,7 +107,8 @@ final class TicketValidationAccessTokenResourceTests: CWATestCase {
 		let ticketValidationAccessTokenResource = TicketValidationAccessTokenResource(
 			accessTokenServiceURL: URL(staticString: "http://www.coronawarn.app"),
 			jwt: "headerJWT",
-			sendModel: TicketValidationAccessTokenSendModel(service: "", pubKey: "")
+			sendModel: TicketValidationAccessTokenSendModel(service: "", pubKey: ""),
+			trustEvaluation: .fake()
 		)
 
 		let customError = try XCTUnwrap(
@@ -125,7 +130,8 @@ final class TicketValidationAccessTokenResourceTests: CWATestCase {
 		let ticketValidationAccessTokenResource = TicketValidationAccessTokenResource(
 			accessTokenServiceURL: URL(staticString: "http://www.coronawarn.app"),
 			jwt: "headerJWT",
-			sendModel: TicketValidationAccessTokenSendModel(service: "", pubKey: "")
+			sendModel: TicketValidationAccessTokenSendModel(service: "", pubKey: ""),
+			trustEvaluation: .fake()
 		)
 
 		let customError = try XCTUnwrap(
@@ -139,7 +145,8 @@ final class TicketValidationAccessTokenResourceTests: CWATestCase {
 		let ticketValidationAccessTokenResource = TicketValidationAccessTokenResource(
 			accessTokenServiceURL: URL(staticString: "http://www.coronawarn.app"),
 			jwt: "headerJWT",
-			sendModel: TicketValidationAccessTokenSendModel(service: "", pubKey: "")
+			sendModel: TicketValidationAccessTokenSendModel(service: "", pubKey: ""),
+			trustEvaluation: .fake()
 		)
 
 		let customError = try XCTUnwrap(

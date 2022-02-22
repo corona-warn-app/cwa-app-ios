@@ -20,7 +20,8 @@ final class TicketValidationResultTokenResourceTests: CWATestCase {
 		let ticketValidationResultTokenResource = TicketValidationResultTokenResource(
 			resultTokenServiceURL: URL(staticString: "http://www.coronawarn.app"),
 			jwt: "headerJWT",
-			sendModel: TicketValidationResultTokenSendModel(kid: "", dcc: "", sig: "", encKey: "", encScheme: "", sigAlg: "")
+			sendModel: TicketValidationResultTokenSendModel(kid: "", dcc: "", sig: "", encKey: "", encScheme: "", sigAlg: ""),
+			trustEvaluation: .fake()
 		)
 
 		serviceProvider.load(ticketValidationResultTokenResource) { result in
@@ -48,7 +49,8 @@ final class TicketValidationResultTokenResourceTests: CWATestCase {
 		let ticketValidationResultTokenResource = TicketValidationResultTokenResource(
 			resultTokenServiceURL: URL(staticString: "http://www.coronawarn.app"),
 			jwt: "headerJWT",
-			sendModel: TicketValidationResultTokenSendModel(kid: "", dcc: "", sig: "", encKey: "", encScheme: "", sigAlg: "")
+			sendModel: TicketValidationResultTokenSendModel(kid: "", dcc: "", sig: "", encKey: "", encScheme: "", sigAlg: ""),
+			trustEvaluation: .fake()
 		)
 
 		serviceProvider.load(ticketValidationResultTokenResource) { result in
@@ -73,7 +75,8 @@ final class TicketValidationResultTokenResourceTests: CWATestCase {
 		let ticketValidationResultTokenResource = TicketValidationResultTokenResource(
 			resultTokenServiceURL: URL(staticString: "http://www.coronawarn.app"),
 			jwt: "headerJWT",
-			sendModel: TicketValidationResultTokenSendModel(kid: "", dcc: "", sig: "", encKey: "", encScheme: "", sigAlg: "")
+			sendModel: TicketValidationResultTokenSendModel(kid: "", dcc: "", sig: "", encKey: "", encScheme: "", sigAlg: ""),
+			trustEvaluation: .fake()
 		)
 
 		let customError = try XCTUnwrap(
@@ -87,7 +90,8 @@ final class TicketValidationResultTokenResourceTests: CWATestCase {
 		let ticketValidationResultTokenResource = TicketValidationResultTokenResource(
 			resultTokenServiceURL: URL(staticString: "http://www.coronawarn.app"),
 			jwt: "headerJWT",
-			sendModel: TicketValidationResultTokenSendModel(kid: "", dcc: "", sig: "", encKey: "", encScheme: "", sigAlg: "")
+			sendModel: TicketValidationResultTokenSendModel(kid: "", dcc: "", sig: "", encKey: "", encScheme: "", sigAlg: ""),
+			trustEvaluation: .fake()
 		)
 
 		let customError = try XCTUnwrap(
@@ -101,7 +105,8 @@ final class TicketValidationResultTokenResourceTests: CWATestCase {
 		let ticketValidationResultTokenResource = TicketValidationResultTokenResource(
 			resultTokenServiceURL: URL(staticString: "http://www.coronawarn.app"),
 			jwt: "headerJWT",
-			sendModel: TicketValidationResultTokenSendModel(kid: "", dcc: "", sig: "", encKey: "", encScheme: "", sigAlg: "")
+			sendModel: TicketValidationResultTokenSendModel(kid: "", dcc: "", sig: "", encKey: "", encScheme: "", sigAlg: ""),
+			trustEvaluation: .fake()
 		)
 
 		let customError = try XCTUnwrap(
@@ -123,7 +128,8 @@ final class TicketValidationResultTokenResourceTests: CWATestCase {
 		let ticketValidationResultTokenResource = TicketValidationResultTokenResource(
 			resultTokenServiceURL: URL(staticString: "http://www.coronawarn.app"),
 			jwt: "headerJWT",
-			sendModel: TicketValidationResultTokenSendModel(kid: "", dcc: "", sig: "", encKey: "", encScheme: "", sigAlg: "")
+			sendModel: TicketValidationResultTokenSendModel(kid: "", dcc: "", sig: "", encKey: "", encScheme: "", sigAlg: ""),
+			trustEvaluation: .fake()
 		)
 
 		let customError = try XCTUnwrap(
@@ -137,7 +143,8 @@ final class TicketValidationResultTokenResourceTests: CWATestCase {
 		let ticketValidationResultTokenResource = TicketValidationResultTokenResource(
 			resultTokenServiceURL: URL(staticString: "http://www.coronawarn.app"),
 			jwt: "headerJWT",
-			sendModel: TicketValidationResultTokenSendModel(kid: "", dcc: "", sig: "", encKey: "", encScheme: "", sigAlg: "")
+			sendModel: TicketValidationResultTokenSendModel(kid: "", dcc: "", sig: "", encKey: "", encScheme: "", sigAlg: ""),
+			trustEvaluation: .fake()
 		)
 
 		let customError = try XCTUnwrap(

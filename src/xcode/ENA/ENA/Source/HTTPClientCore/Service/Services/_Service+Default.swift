@@ -137,7 +137,6 @@ extension Service {
 			
 			// Set the trust evaluation which is executed during the request on the CoronaWarnSessionTaskDelegate.
 			if let coronaSessionDelegate = session.delegate as? CoronaWarnSessionTaskDelegate {
-				
 				coronaSessionDelegate.trustEvaluations[task.taskIdentifier] = resource.trustEvaluation
 			}
 						
