@@ -89,6 +89,7 @@ final class HealthCertificatesTabCoordinator {
 	private let healthCertificateValidationOnboardedCountriesProvider: HealthCertificateValidationOnboardedCountriesProviding
 	private let vaccinationValueSetsProvider: VaccinationValueSetsProviding
 	private let qrScannerCoordinator: QRScannerCoordinator
+	private let activityIndicatorView = QRScannerActivityIndicatorView(title: AppStrings.HealthCertificate.Overview.loadingIndicatorLabel)
 
 	private var certificateCoordinator: HealthCertificateCoordinator?
 	private var healthCertifiedPersonCoordinator: HealthCertifiedPersonCoordinator?
@@ -230,42 +231,45 @@ final class HealthCertificatesTabCoordinator {
 				presorted: true,
 				title: scenarios.scenarioSelection.titleText.localized(cclService: cclService),
 				preselected: nil,
+				isInitialCellWithValue: true,
 				initialValue: nil,
 				accessibilityIdentifier: AccessibilityIdentifiers.LocalStatistics.selectState,
 				selectionCellIconType: .none
+			)
+			let selectValueViewController = SelectValueTableViewController(
+				selectValueViewModel,
+				closeOnSelection: false,
+				dismiss: { [weak self] in
+					self?.viewController.presentedViewController?.dismiss(animated: true, completion: nil)
+				}
+			)
+			let navigationController = UINavigationController(rootViewController: selectValueViewController)
+			self.viewController.present(
+				navigationController,
+				animated: true
 			)
 			selectValueViewModel.$selectedValue.sink { [weak self] federalState in
 				guard let self = self, let state = federalState else {
 					return
 				}
 				self.healthCertificateService.lastSelectedScenarioIdentifier = state.identifier
-				self.showActivityIndicator(from: self.viewController.view)
+				DispatchQueue.main.async { [weak self] in
+					self?.showActivityIndicator(from: navigationController.view)
+				}
 				self.healthCertificateService.updateDCCWalletInfosIfNeeded(
 					isForced: true
 				) { [weak self] in
-					self?.hideActivityIndicator()
 					DispatchQueue.main.async {
+						self?.hideActivityIndicator()
 						self?.viewController.presentedViewController?.dismiss(animated: true, completion: nil)
 					}
 				}
 			}.store(in: &subscriptions)
-			
-			let selectValueViewController = SelectValueTableViewController(
-				selectValueViewModel,
-				closeOnSelection: false,
-				dismiss: { [weak self] in
-					self?.viewController.presentedViewController?.dismiss(animated: true, completion: nil)
-				})
-			self.viewController.present(
-				UINavigationController(rootViewController: selectValueViewController),
-				animated: true
-			)
 		case .failure(let error):
 			showErrorAlert(title: AppStrings.HealthCertificate.Error.title, error: error)
 			Log.error(error.localizedDescription)
 		}
 	}
-	private let activityIndicatorView = QRScannerActivityIndicatorView(frame: .zero, title: AppStrings.HealthCertificate.Overview.loadingIndicatorLabel)
 
 	private func showActivityIndicator(from view: UIView) {
 		activityIndicatorView.alpha = 0.0
