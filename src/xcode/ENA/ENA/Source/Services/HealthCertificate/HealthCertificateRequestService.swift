@@ -84,7 +84,6 @@ class HealthCertificateRequestService {
 		)
 	}
 
-	// swiftlint:disable:next cyclomatic_complexity
 	func executeTestCertificateRequest(
 		_ testCertificateRequest: TestCertificateRequest,
 		retryIfCertificateIsPending: Bool,
@@ -108,89 +107,15 @@ class HealthCertificateRequestService {
 			let publicKey = try rsaKeyPair.publicKeyForBackend()
 
 			appConfiguration.appConfiguration()
-				.sink { [weak self] in
-					guard let self = self else { return }
-
-					var waitAfterPublicKeyRegistrationInSeconds = TimeInterval($0.dgcParameters.testCertificateParameters.waitAfterPublicKeyRegistrationInSeconds)
-
-					var waitForRetryInSeconds = TimeInterval($0.dgcParameters.testCertificateParameters.waitForRetryInSeconds)
-
-					// 0 means the value is not set -> setting it to a default waiting time of 10 seconds
-					if waitAfterPublicKeyRegistrationInSeconds == 0 {
-						waitAfterPublicKeyRegistrationInSeconds = 10
-					}
-
-					if waitForRetryInSeconds == 0 {
-						waitForRetryInSeconds = 10
-					}
-
-					Log.info("[HealthCertificateService] waitAfterPublicKeyRegistrationInSeconds: \(waitAfterPublicKeyRegistrationInSeconds), waitForRetryInSeconds: \(waitForRetryInSeconds)", log: .api)
-
-					if !testCertificateRequest.rsaPublicKeyRegistered {
-						Log.info("[HealthCertificateService] Registering public key …", log: .api)
-
-						self.client.dccRegisterPublicKey(
-							isFake: false,
-							token: testCertificateRequest.registrationToken,
-							publicKey: publicKey,
-							completion: { result in
-								switch result {
-								case .success:
-									Log.info("[HealthCertificateService] Public key successfully registered", log: .api)
-
-									testCertificateRequest.rsaPublicKeyRegistered = true
-									DispatchQueue.global().asyncAfter(deadline: .now() + waitAfterPublicKeyRegistrationInSeconds) {
-										self.requestDigitalCovidCertificate(
-											for: testCertificateRequest,
-											rsaKeyPair: rsaKeyPair,
-											retryIfCertificateIsPending: retryIfCertificateIsPending,
-											waitForRetryInSeconds: waitForRetryInSeconds,
-											completion: completion
-										)
-									}
-								case .failure(let registrationError) where registrationError == .tokenAlreadyAssigned:
-									Log.info("[HealthCertificateService] Public key was already registered.", log: .api)
-
-									testCertificateRequest.rsaPublicKeyRegistered = true
-									testCertificateRequest.isLoading = false
-									self.requestDigitalCovidCertificate(
-										for: testCertificateRequest,
-										rsaKeyPair: rsaKeyPair,
-										retryIfCertificateIsPending: retryIfCertificateIsPending,
-										waitForRetryInSeconds: waitForRetryInSeconds,
-										completion: completion
-									)
-								case .failure(let registrationError):
-									Log.error("[HealthCertificateService] Public key registration failed: \(registrationError.localizedDescription)", log: .api)
-
-									testCertificateRequest.requestExecutionFailed = true
-									testCertificateRequest.isLoading = false
-									completion?(.failure(.publicKeyRegistrationFailed(registrationError)))
-								}
-							}
-						)
-					} else if let encryptedDEK = testCertificateRequest.encryptedDEK,
-							  let encryptedCOSE = testCertificateRequest.encryptedCOSE {
-						Log.info("[HealthCertificateService] Encrypted COSE and DEK already exist, immediately assembling certificate.", log: .api)
-
-						self.assembleDigitalCovidCertificate(
-							for: testCertificateRequest,
-							rsaKeyPair: rsaKeyPair,
-							encryptedDEK: encryptedDEK,
-							encryptedCOSE: encryptedCOSE,
-							completion: completion
-						)
-					} else {
-						Log.info("[HealthCertificateService] Public key already registered, immediately requesting certificate.", log: .api)
-
-						self.requestDigitalCovidCertificate(
-							for: testCertificateRequest,
-							rsaKeyPair: rsaKeyPair,
-							retryIfCertificateIsPending: retryIfCertificateIsPending,
-							waitForRetryInSeconds: waitForRetryInSeconds,
-							completion: completion
-						)
-					}
+				.sink { [weak self] appConfig in
+					self?.executeTestCertificateRequest(
+						testCertificateRequest,
+						appConfig: appConfig,
+						rsaKeyPair: rsaKeyPair,
+						publicKey: publicKey,
+						retryIfCertificateIsPending: retryIfCertificateIsPending,
+						completion: completion
+					)
 				}
 				.store(in: &subscriptions)
 		} catch let error as DCCRSAKeyPairError {
@@ -265,6 +190,98 @@ class HealthCertificateRequestService {
 				}
 			}
 			.store(in: &subscriptions)
+	}
+
+	private func executeTestCertificateRequest(
+		_ testCertificateRequest: TestCertificateRequest,
+		appConfig: SAP_Internal_V2_ApplicationConfigurationIOS,
+		rsaKeyPair: DCCRSAKeyPair,
+		publicKey: String,
+		retryIfCertificateIsPending: Bool,
+		completion: ((Result<Void, HealthCertificateServiceError.TestCertificateRequestError>) -> Void)? = nil
+	) {
+		var waitAfterPublicKeyRegistrationInSeconds = TimeInterval(appConfig.dgcParameters.testCertificateParameters.waitAfterPublicKeyRegistrationInSeconds)
+
+		var waitForRetryInSeconds = TimeInterval(appConfig.dgcParameters.testCertificateParameters.waitForRetryInSeconds)
+
+		// 0 means the value is not set -> setting it to a default waiting time of 10 seconds
+		if waitAfterPublicKeyRegistrationInSeconds == 0 {
+			waitAfterPublicKeyRegistrationInSeconds = 10
+		}
+
+		if waitForRetryInSeconds == 0 {
+			waitForRetryInSeconds = 10
+		}
+
+		Log.info("[HealthCertificateService] waitAfterPublicKeyRegistrationInSeconds: \(waitAfterPublicKeyRegistrationInSeconds), waitForRetryInSeconds: \(waitForRetryInSeconds)", log: .api)
+
+		if !testCertificateRequest.rsaPublicKeyRegistered {
+			Log.info("[HealthCertificateService] Registering public key …", log: .api)
+
+			client.dccRegisterPublicKey(
+				isFake: false,
+				token: testCertificateRequest.registrationToken,
+				publicKey: publicKey,
+				completion: { [weak self] result in
+					guard let self = self else { return }
+
+					switch result {
+					case .success:
+						Log.info("[HealthCertificateService] Public key successfully registered", log: .api)
+
+						testCertificateRequest.rsaPublicKeyRegistered = true
+						DispatchQueue.global().asyncAfter(deadline: .now() + waitAfterPublicKeyRegistrationInSeconds) {
+							self.requestDigitalCovidCertificate(
+								for: testCertificateRequest,
+								rsaKeyPair: rsaKeyPair,
+								retryIfCertificateIsPending: retryIfCertificateIsPending,
+								waitForRetryInSeconds: waitForRetryInSeconds,
+								completion: completion
+							)
+						}
+					case .failure(let registrationError) where registrationError == .tokenAlreadyAssigned:
+						Log.info("[HealthCertificateService] Public key was already registered.", log: .api)
+
+						testCertificateRequest.rsaPublicKeyRegistered = true
+						testCertificateRequest.isLoading = false
+						self.requestDigitalCovidCertificate(
+							for: testCertificateRequest,
+							rsaKeyPair: rsaKeyPair,
+							retryIfCertificateIsPending: retryIfCertificateIsPending,
+							waitForRetryInSeconds: waitForRetryInSeconds,
+							completion: completion
+						)
+					case .failure(let registrationError):
+						Log.error("[HealthCertificateService] Public key registration failed: \(registrationError.localizedDescription)", log: .api)
+
+						testCertificateRequest.requestExecutionFailed = true
+						testCertificateRequest.isLoading = false
+						completion?(.failure(.publicKeyRegistrationFailed(registrationError)))
+					}
+				}
+			)
+		} else if let encryptedDEK = testCertificateRequest.encryptedDEK,
+				  let encryptedCOSE = testCertificateRequest.encryptedCOSE {
+			Log.info("[HealthCertificateService] Encrypted COSE and DEK already exist, immediately assembling certificate.", log: .api)
+
+			self.assembleDigitalCovidCertificate(
+				for: testCertificateRequest,
+				rsaKeyPair: rsaKeyPair,
+				encryptedDEK: encryptedDEK,
+				encryptedCOSE: encryptedCOSE,
+				completion: completion
+			)
+		} else {
+			Log.info("[HealthCertificateService] Public key already registered, immediately requesting certificate.", log: .api)
+
+			self.requestDigitalCovidCertificate(
+				for: testCertificateRequest,
+				rsaKeyPair: rsaKeyPair,
+				retryIfCertificateIsPending: retryIfCertificateIsPending,
+				waitForRetryInSeconds: waitForRetryInSeconds,
+				completion: completion
+			)
+		}
 	}
 
 	private func requestDigitalCovidCertificate(
