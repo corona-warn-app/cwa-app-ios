@@ -2124,6 +2124,8 @@ enum AppStrings {
 
 			enum UpdateSucceeded {
 				static let title = NSLocalizedString("HealthCertifiedPerson_UpdateSucceeded_Title", comment: "")
+				static let headline = NSLocalizedString("HealthCertifiedPerson_UpdateSucceeded_Headline", comment: "")
+				static let body = NSLocalizedString("HealthCertifiedPerson_UpdateSucceeded_Body", comment: "")
 			}
 
 
