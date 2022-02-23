@@ -4,7 +4,7 @@
 
 import UIKit
 
-class HealthCertifiedPersonUpdateSucceededViewController: UIViewController, DismissHandling {
+class HealthCertifiedPersonReissuanceSucceededViewController: UIViewController, DismissHandling {
 
 	// MARK: - Init
 

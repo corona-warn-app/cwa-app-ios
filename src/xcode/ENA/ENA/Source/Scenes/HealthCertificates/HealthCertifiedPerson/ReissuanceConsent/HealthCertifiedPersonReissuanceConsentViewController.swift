@@ -4,7 +4,7 @@
 
 import UIKit
 
-class HealthCertifiedPersonUpdateConsentViewController: DynamicTableViewController, DismissHandling, FooterViewHandling {
+class HealthCertifiedPersonReissuanceConsentViewController: DynamicTableViewController, DismissHandling, FooterViewHandling {
 
 	// MARK: - Init
 
@@ -15,7 +15,7 @@ class HealthCertifiedPersonUpdateConsentViewController: DynamicTableViewControll
 		dismiss: @escaping () -> Void
 	) {
 		self.presentAlert = presentAlert
-		self.viewModel = HealthCertifiedPersonUpdateConsentViewModel()
+		self.viewModel = HealthCertifiedPersonReissuanceConsentViewModel(faqAnker: "test", onDisclaimerButtonTap: { })
 		self.presentUpdateSuccess = presentUpdateSuccess
 		self.didCancel = didCancel
 		self.dismiss = dismiss
@@ -82,7 +82,7 @@ class HealthCertifiedPersonUpdateConsentViewController: DynamicTableViewControll
 	private let presentUpdateSuccess: () -> Void
 	private let didCancel: () -> Void
 	private let dismiss: () -> Void
-	private let viewModel: HealthCertifiedPersonUpdateConsentViewModel
+	private let viewModel: HealthCertifiedPersonReissuanceConsentViewModel
 
 	private func showAlert() {
 		footerView?.setLoadingIndicator(false, disable: false, button: .primary)

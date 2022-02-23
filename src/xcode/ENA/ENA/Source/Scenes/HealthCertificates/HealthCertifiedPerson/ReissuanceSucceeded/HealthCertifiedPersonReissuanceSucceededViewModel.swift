@@ -9,7 +9,7 @@ import UIKit
 /// needed to get replaced in later tasks
 ///
 
-struct HealthCertifiedPersonUpdateSucceededViewModel {
+struct HealthCertifiedPersonReissuanceSucceededViewModel {
 
 	// MARK: - Init
 	init() {
