@@ -118,7 +118,7 @@
 
 "ExposureDetection_Guide_Home" = "Dacă este posibil, mergeți acasă și rămâneți în casă și, de asemenea, evitați întâlnirile cu persoane din afara gospodăriei dvs.";
 
-"ExposureDetection_Guide_Hotline" = "Dacă aveți alte întrebări, vă rugăm să sunați la 116 117 (în Germania). Apoi, în timpul mesajului automat, apăsați tasta 2 (pentru punctul de asistență al Ministerului Sănătății). Apăsați tasta 1 (serviciul de urgență medical general), doar dacă aveți simptome.";
+"ExposureDetection_Guide_Hotline" = "Dacă aveți alte întrebări, vă rugăm să sunați la 116 117 (în Germania). Apoi, în timpul mesajului automat, apăsați tasta 2 pentru punctul de asistență al Ministerului Federal al Sănătății. Apăsați tasta 1 (serviciul de urgență medical general), doar dacă aveți simptome.";
 
 "ExposureDetection_Guide_Vaccination_HighRisk" = "Dacă încă nu v-ați vaccinat, consultați telefonic medicul de familie după ce vă testați.";
 
@@ -597,7 +597,7 @@
 
 "ExposureSubmission_PhoneDetailsForeign" = "Pentru apeluri din afara Germaniei.\nSe vor aplica tarifele furnizorului dvs. de servicii de telefonie.";
 
-"ExposureSubmission_PhoneDetailDescription" = "Serviciul clienți vă stă la dispoziție în următoarele limbi: \nengleză, germană, turcă\n\nProgram de lucru:\nZilnic (inclusiv în weekend): 07:00 - 20:00 (CET)\n\nDacă aveți alte întrebări, vă rugăm să sunați la 116 117 (în Germania). Apoi, în timpul mesajului automat, apăsați tasta 2 (pentru punctul de asistență al Ministerului Sănătății). Apăsați tasta 1 (serviciul de urgență medical general), doar dacă aveți simptome.";
+"ExposureSubmission_PhoneDetailDescription" = "Serviciul clienți vă stă la dispoziție în următoarele limbi: \nengleză, germană, turcă\n\nProgram de lucru:\nZilnic (inclusiv în weekend): 07:00 - 20:00 (CET)\n\nDacă aveți alte întrebări, vă rugăm să sunați la 116 117 (în Germania). Apoi, în timpul mesajului automat, apăsați tasta 2 pentru punctul de asistență al Ministerului Federal al Sănătății. Apăsați tasta 1 (serviciul de urgență medical general), doar dacă aveți simptome.";
 
 "ExposureSubmission_SectionDescription2" = "Înregistrați testul dvs. PCR introducând codul TAN în aplicație.";
 
@@ -1344,7 +1344,9 @@
 /* App Information */
 "App_Information_Title" = "Info aplicație";
 
-"App_Information_Version" = "Versiune";
+"App_Information_AppVersion" = "Versiune aplicație: %@";
+
+"App_Information_CCLVersion" = "Versiune CCL: %@";
 
 /* App Information - About */
 "App_Information_About_Navigation" = "Despre aplicație";
@@ -1385,7 +1387,7 @@
 
 "App_Information_Contact_Hotline_Details_Foreign" = "Pentru apeluri din afara Germaniei.\nSe vor aplica tarifele furnizorului dvs. de servicii de telefonie.";
 
-"App_Information_Contact_Hotline_Terms" = "Serviciul clienți vă stă la dispoziție în următoarele limbi: \nengleză, germană, turcă\n\nProgram de lucru:\nluni - sâmbătă: 07:00 - 20:00 (CET)\n(exceptând sărbătorile legale)\n\nDacă aveți alte întrebări, vă rugăm să sunați la 116 117 (în Germania). Apoi, în timpul mesajului automat, apăsați tasta 2 (pentru punctul de asistență al Ministerului Sănătății). Apăsați tasta 1 (serviciul de urgență medical general), doar dacă aveți simptome.";
+"App_Information_Contact_Hotline_Terms" = "Serviciul clienți vă stă la dispoziție în următoarele limbi: \nengleză, germană, turcă\n\nProgram de lucru:\nluni - sâmbătă: 07:00 - 20:00 (CET)\n(exceptând sărbătorile legale)\n\nDacă aveți alte întrebări, vă rugăm să sunați la 116 117 (în Germania). Apoi, în timpul mesajului automat, apăsați tasta 2 pentru punctul de asistență al Ministerului Federal al Sănătății. Apăsați tasta 1 (serviciul de urgență medical general), doar dacă aveți simptome.";
 
 /* App Information - Imprint */
 "App_Information_New_Features_Navigation" = "Caracteristici noi";
@@ -2891,9 +2893,6 @@
 
 "HealthCertificate_Details_moreButtonTitle" = "Mai mult";
 
-/* Vaccination Certificate Details */
-"VaccinationCertificate_Details_OneOfOneHint" = "Acesta este un vaccin care necesită o singură doză sau un vaccin pentru o persoană care s-a recuperat după boală și care are nevoie de o singură doză.";
-
 /* Health Certificate Delete Alert */
 "HealthCertificate_Alert_deleteButton" = "Ștergere certificat";
 
@@ -2931,6 +2930,15 @@
 "RecoveryCertificate_Alert_title" = "Doriți să ștergeți certificatul de recuperare?";
 
 "RecoveryCertificate_Alert_message" = "Certificatul va fi mutat în coșul de reciclare. Veți găsi coșul de reciclare pe mozaicul „Mai mult” al paginii de tab de stare, unde puteți șterge definitiv sau restaura certificatul. Certificatul va fi șters automat după 30 de zile.";
+
+/* Decoding Failed Health Certificate Delete Alert */
+"DecodingFailedHealthCertificate_Alert_title" = "Doriți să ștergeți definitiv certificatul?";
+
+"DecodingFailedHealthCertificate_Alert_message" = "Certificatul nu a putut fi decodificat, astfel nu pot fi afișate informații despre acesta. Dacă îl ștergeți, nu îl mai puteți utiliza ca dovadă.";
+
+"DecodingFailedHealthCertificate_Alert_deleteButton" = "Ștergere definitivă certificat";
+
+"DecodingFailedHealthCertificate_Alert_cancelButton" = "Anulare";
 
 /* Health Certificate Print PDF */
 "HealthCertificate_PrintPdf_showPrintableVersion" = "Afișare versiune de tipărire";

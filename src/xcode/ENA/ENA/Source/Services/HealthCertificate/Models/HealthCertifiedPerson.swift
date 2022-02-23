@@ -96,19 +96,16 @@ class HealthCertifiedPerson: Codable, Equatable, Comparable {
 		try container.encode(healthCertificates, forKey: .healthCertificates)
 		try container.encode(decodingFailedHealthCertificates, forKey: .decodingFailedHealthCertificates)
 		try container.encode(isPreferredPerson, forKey: .isPreferredPerson)
+		try container.encode(dccWalletInfo, forKey: .dccWalletInfo)
+		try container.encode(mostRecentWalletInfoUpdateFailed, forKey: .mostRecentWalletInfoUpdateFailed)
 		try container.encode(boosterRule, forKey: .boosterRule)
 		try container.encode(isNewBoosterRule, forKey: .isNewBoosterRule)
-		try container.encode(dccWalletInfo, forKey: .dccWalletInfo)
 	}
 
 	// MARK: - Protocol Equatable
 
 	static func == (lhs: HealthCertifiedPerson, rhs: HealthCertifiedPerson) -> Bool {
-		lhs.healthCertificates == rhs.healthCertificates &&
-		lhs.isPreferredPerson == rhs.isPreferredPerson &&
-		lhs.boosterRule == rhs.boosterRule &&
-		lhs.isNewBoosterRule == rhs.isNewBoosterRule &&
-		lhs.dccWalletInfo == rhs.dccWalletInfo
+		lhs === rhs
 	}
 
 	// MARK: - Protocol Comparable
@@ -118,7 +115,6 @@ class HealthCertifiedPerson: Codable, Equatable, Comparable {
 		let haveSamePreferredStateAndAreInAlphabeticalOrder = lhs.isPreferredPerson == rhs.isPreferredPerson && lhs.name?.fullName ?? "" < rhs.name?.fullName ?? ""
 
 		return preferredPersonPrecedesNonPreferred || haveSamePreferredStateAndAreInAlphabeticalOrder
-
 	}
 
 	// MARK: - Internal
@@ -301,7 +297,7 @@ class HealthCertifiedPerson: Codable, Equatable, Comparable {
 		NotificationCenter.default.removeObserver(self, name: UIApplication.didEnterBackgroundNotification, object: nil)
 		NotificationCenter.default.removeObserver(self, name: UIApplication.didBecomeActiveNotification, object: nil)
 
-		guard let nextMostRelevantCertificateChangeDate = dccWalletInfo?.validUntil else {
+		guard let dccWalletInfoExpirationDate = dccWalletInfo?.validUntil else {
 			return
 		}
 
@@ -309,10 +305,10 @@ class HealthCertifiedPerson: Codable, Equatable, Comparable {
 		NotificationCenter.default.addObserver(self, selector: #selector(invalidateTimer), name: UIApplication.didEnterBackgroundNotification, object: nil)
 		NotificationCenter.default.addObserver(self, selector: #selector(scheduleDCCWalletInfoUpdateTimer), name: UIApplication.didBecomeActiveNotification, object: nil)
 
-		dccWalletInfoUpdateTimer = Timer(fireAt: nextMostRelevantCertificateChangeDate, interval: 0, target: self, selector: #selector(updateDCCWalletInfo), userInfo: nil, repeats: false)
+		dccWalletInfoUpdateTimer = Timer(fireAt: dccWalletInfoExpirationDate, interval: 0, target: self, selector: #selector(updateDCCWalletInfo), userInfo: nil, repeats: false)
 
-		guard let mostRelevantCertificateTimer = dccWalletInfoUpdateTimer else { return }
-		RunLoop.current.add(mostRelevantCertificateTimer, forMode: .common)
+		guard let dccWalletInfoUpdateTimer = dccWalletInfoUpdateTimer else { return }
+		RunLoop.main.add(dccWalletInfoUpdateTimer, forMode: .common)
 	}
 
 	@objc

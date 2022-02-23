@@ -605,7 +605,10 @@ class QRScannerCoordinator {
 		let overwriteNoticeViewController = TestOverwriteNoticeViewController(
 			testType: coronaTest.type,
 			didTapPrimaryButton: { [weak self] in
-				self?.restoreAndShow(recycleBinItem: recycleBinItem)
+				// Dismiss override notice
+				self?.parentViewController?.dismiss(animated: true) {
+					self?.restoreAndShow(recycleBinItem: recycleBinItem)
+				}
 			},
 			didTapCloseButton: { [weak self] in
 				self?.parentViewController?.dismiss(animated: true)
@@ -645,8 +648,9 @@ class QRScannerCoordinator {
 			return
 		}
 
-		self.recycleBin.restore(recycleBinItem)
-		let exposureSubmissionCoordinator = self.exposureSubmissionCoordinator(parentViewController: parentViewController)
+		recycleBin.restore(recycleBinItem)
+
+		let exposureSubmissionCoordinator = exposureSubmissionCoordinator(parentViewController: parentViewController)
 		exposureSubmissionCoordinator.start(with: coronaTest.type)
 	}
 
@@ -827,6 +831,8 @@ class QRScannerCoordinator {
 			unwrappedError = healthCertificateServiceError
 		case .ticketValidation(let ticketValidationError):
 			unwrappedError = ticketValidationError
+		case let .invalidError(qrCodeError):
+			return qrCodeError.localizedDescription
 		}
 		
 		return unwrappedError.localizedDescription
@@ -888,7 +894,8 @@ class QRScannerCoordinator {
 	) -> RecycleBinItem? {
 		switch testRegistrationInformation {
 		case .pcr(guid: _, qrCodeHash: let qrCodeHash),
-			.antigen(qrCodeInformation: _, qrCodeHash: let qrCodeHash):
+			.antigen(qrCodeInformation: _, qrCodeHash: let qrCodeHash),
+			.rapidPCR(qrCodeInformation: _, qrCodeHash: let qrCodeHash):
 			return store.recycleBinItems.first {
 				guard case .coronaTest(let coronaTest) = $0.item else {
 					return false

@@ -220,8 +220,13 @@ final class ENAExposureManager: NSObject, ExposureManager {
 	/// Activates `ENManager`
 	/// Needs to be called before `ExposureManager.enable()`
 	func activate(completion: @escaping CompletionHandler) {
+		guard manager.exposureNotificationStatus != .active else {
+			Log.error("ENF is already enabled - do not trigger it twice")
+			completion(nil)
+			return
+		}
+
 		Log.info("Trying to activate ENManager")
-		
 		var isActive = false
 		
 		manager.activate { activationError in
