@@ -1471,4 +1471,234 @@ class HealthCertificateServiceTests: CWATestCase {
 		XCTAssertEqual(service.unseenNewsCount.value, 0)
 	}
 
+	func testCertificateReissuanceNotificationTriggeredFromDCCWalletInfo() throws {
+		let healthCertificate: HealthCertificate = try vaccinationCertificate(type: .incomplete, ageInDays: 180)
+
+		let newDCCWalletInfo: DCCWalletInfo = .fake(
+			certificateReissuance: .fake(
+				reissuanceDivision: .fake(),
+				certificateToReissue: .fake(certificateRef: .fake(barcodeData: healthCertificate.base45)),
+				accompanyingCertificates: []
+			)
+		)
+
+		let notificationCenter = MockUserNotificationCenter()
+
+		var cclService = FakeCCLService()
+		cclService.dccWalletInfoResult = .success(newDCCWalletInfo)
+		cclService.didChange = false
+
+		let expectation = expectation(description: "notificationRequests changed")
+		expectation.expectedFulfillmentCount = 3
+
+		notificationCenter.onAdding = { _ in
+			expectation.fulfill()
+		}
+
+		let service = HealthCertificateService(
+			store: MockTestStore(),
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
+			dscListProvider: MockDSCListProvider(),
+			appConfiguration: CachedAppConfigurationMock(),
+			notificationCenter: notificationCenter,
+			cclService: cclService,
+			recycleBin: .fake()
+		)
+
+		service.addHealthCertificate(healthCertificate)
+
+		XCTAssertEqual(service.healthCertifiedPersons.count, 1)
+
+		waitForExpectations(timeout: .medium)
+
+		// There should be now 1 notification for certificate reissuance, 1 for expireSoon and 1 for expired.
+		XCTAssertEqual(notificationCenter.notificationRequests.count, 3)
+		XCTAssertTrue(notificationCenter.notificationRequests.contains { $0.identifier.hasPrefix("HealthCertificateNotificationExpireSoon") })
+		XCTAssertTrue(notificationCenter.notificationRequests.contains { $0.identifier.hasPrefix("HealthCertificateNotificationExpired") })
+		XCTAssertTrue(notificationCenter.notificationRequests.contains { $0.identifier.hasPrefix("CertificateReissuanceNotification") })
+	}
+
+	func testNoCertificateReissuanceNotificationTriggeredFromDCCWalletInfoWithoutCertificateReissuance() throws {
+		let healthCertificate: HealthCertificate = try vaccinationCertificate(type: .incomplete, ageInDays: 180)
+
+		let newDCCWalletInfo: DCCWalletInfo = .fake(
+			certificateReissuance: nil
+		)
+
+		let notificationCenter = MockUserNotificationCenter()
+
+		var cclService = FakeCCLService()
+		cclService.dccWalletInfoResult = .success(newDCCWalletInfo)
+		cclService.didChange = false
+
+		let expectation = expectation(description: "notificationRequests changed")
+		expectation.expectedFulfillmentCount = 2
+
+		notificationCenter.onAdding = { _ in
+			expectation.fulfill()
+		}
+
+		let service = HealthCertificateService(
+			store: MockTestStore(),
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
+			dscListProvider: MockDSCListProvider(),
+			appConfiguration: CachedAppConfigurationMock(),
+			notificationCenter: notificationCenter,
+			cclService: cclService,
+			recycleBin: .fake()
+		)
+
+		service.addHealthCertificate(healthCertificate)
+
+		XCTAssertEqual(service.healthCertifiedPersons.count, 1)
+
+		waitForExpectations(timeout: .medium)
+
+		// There should be now 1 notification for expireSoon and 1 for expired.
+		XCTAssertEqual(notificationCenter.notificationRequests.count, 2)
+		XCTAssertTrue(notificationCenter.notificationRequests.contains { $0.identifier.hasPrefix("HealthCertificateNotificationExpireSoon") })
+		XCTAssertTrue(notificationCenter.notificationRequests.contains { $0.identifier.hasPrefix("HealthCertificateNotificationExpired") })
+		XCTAssertFalse(notificationCenter.notificationRequests.contains { $0.identifier.hasPrefix("CertificateReissuanceNotification") })
+	}
+
+	func testNoDuplicateCertificateReissuanceNotificationTriggeredFromDCCWalletInfo() throws {
+		let healthCertificate: HealthCertificate = try vaccinationCertificate(type: .incomplete, ageInDays: 180)
+
+		let dccWalletInfo: DCCWalletInfo = .fake(
+			validUntil: Date(timeIntervalSinceNow: 100),
+			certificateReissuance: .fake(
+				reissuanceDivision: .fake(),
+				certificateToReissue: .fake(certificateRef: .fake(barcodeData: healthCertificate.base45)),
+				accompanyingCertificates: []
+			)
+		)
+
+		let healthCertifiedPerson = HealthCertifiedPerson(
+			healthCertificates: [healthCertificate],
+			dccWalletInfo: dccWalletInfo
+		)
+
+		let store = MockTestStore()
+		store.healthCertifiedPersons = [healthCertifiedPerson]
+
+		let notificationCenter = MockUserNotificationCenter()
+
+		var cclService = FakeCCLService()
+		cclService.dccWalletInfoResult = .success(dccWalletInfo)
+		cclService.didChange = true
+
+		let walletExpectation = expectation(description: "dccWalletInfo updated with same certificate reissuance")
+
+		let subscription = healthCertifiedPerson.$dccWalletInfo
+			.dropFirst()
+			.sink {
+				XCTAssertEqual($0, dccWalletInfo)
+				walletExpectation.fulfill()
+			}
+
+		let notificationExpectation = expectation(description: "notificationRequests changed")
+		notificationExpectation.isInverted = true
+
+		notificationCenter.onAdding = { _ in
+			notificationExpectation.fulfill()
+		}
+
+		let service = HealthCertificateService(
+			store: store,
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
+			dscListProvider: MockDSCListProvider(),
+			appConfiguration: CachedAppConfigurationMock(),
+			notificationCenter: notificationCenter,
+			cclService: cclService,
+			recycleBin: .fake()
+		)
+
+		XCTAssertEqual(service.healthCertifiedPersons.count, 1)
+
+		waitForExpectations(timeout: .short)
+
+		// There should be no new notifications scheduled from the DCCWalletInfo update
+		XCTAssertEqual(notificationCenter.notificationRequests.count, 0)
+
+		subscription.cancel()
+	}
+
+	func testCertificateReissuanceIncreasesUnseenNewsCount() throws {
+		let store = MockTestStore()
+		let service = HealthCertificateService(
+			store: store,
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
+			dscListProvider: MockDSCListProvider(),
+			appConfiguration: CachedAppConfigurationMock(),
+			cclService: FakeCCLService(),
+			recycleBin: .fake()
+		)
+
+		XCTAssertTrue(store.healthCertifiedPersons.isEmpty)
+
+		// Register vaccination certificate
+
+		let firstVaccinationCertificateBase45 = try base45Fake(
+			from: DigitalCovidCertificate.fake(
+				name: .fake(standardizedFamilyName: "GUENDLING", standardizedGivenName: "NICK"),
+				vaccinationEntries: [VaccinationEntry.fake(
+					doseNumber: 2,
+					totalSeriesOfDoses: 2,
+					dateOfVaccination: "2021-05-28",
+					uniqueCertificateIdentifier: "3"
+				)]
+			),
+			and: .fake(expirationTime: .distantFuture)
+		)
+		let firstVaccinationCertificate = try HealthCertificate(base45: firstVaccinationCertificateBase45, isNew: true)
+
+		let registrationResult = service.registerHealthCertificate(base45: firstVaccinationCertificateBase45, markAsNew: true)
+
+		switch registrationResult {
+		case let .success(certificateResult):
+			XCTAssertEqual(certificateResult.person.healthCertificates, [firstVaccinationCertificate])
+		case .failure(let error):
+			XCTFail("Registration should succeed, failed with error: \(error.localizedDescription)")
+		}
+
+		// Marking as new increases unseen news count
+		XCTAssertEqual(service.unseenNewsCount.value, 1)
+		XCTAssertTrue(try XCTUnwrap(store.healthCertifiedPersons.first?.healthCertificates.first).isNew)
+
+		// Setting certificate reissuance increases unseen news count
+		store.healthCertifiedPersons.first?.dccWalletInfo = .fake(certificateReissuance: .fake(reissuanceDivision: .fake(visible: true)))
+		XCTAssertEqual(store.healthCertifiedPersons.first?.unseenNewsCount, 2)
+		XCTAssertEqual(service.unseenNewsCount.value, 2)
+
+		// Setting to same certificate reissuance leaves unseen news count unchanged
+		store.healthCertifiedPersons.first?.dccWalletInfo = .fake(certificateReissuance: .fake(reissuanceDivision: .fake(visible: true)))
+		XCTAssertEqual(store.healthCertifiedPersons.first?.unseenNewsCount, 2)
+		XCTAssertEqual(service.unseenNewsCount.value, 2)
+
+		// Setting certificate reissuance to nil decreases unseen news count
+		store.healthCertifiedPersons.first?.dccWalletInfo = .fake(certificateReissuance: nil)
+		XCTAssertEqual(store.healthCertifiedPersons.first?.unseenNewsCount, 1)
+		XCTAssertEqual(service.unseenNewsCount.value, 1)
+
+		// Setting invisible certificate reissuance does not increase unseen news count
+		store.healthCertifiedPersons.first?.dccWalletInfo = .fake(certificateReissuance: .fake(reissuanceDivision: .fake(visible: false)))
+		XCTAssertEqual(store.healthCertifiedPersons.first?.unseenNewsCount, 1)
+		XCTAssertEqual(service.unseenNewsCount.value, 1)
+
+		// Setting certificate reissuance increases unseen news count
+		store.healthCertifiedPersons.first?.dccWalletInfo = .fake(certificateReissuance: .fake(reissuanceDivision: .fake(visible: true)))
+		XCTAssertEqual(store.healthCertifiedPersons.first?.unseenNewsCount, 2)
+		XCTAssertEqual(service.unseenNewsCount.value, 2)
+
+		// Marking certificate as seen decreases unseen news count
+		store.healthCertifiedPersons.first?.healthCertificates.first?.isNew = false
+		XCTAssertEqual(store.healthCertifiedPersons.first?.unseenNewsCount, 1)
+		XCTAssertEqual(service.unseenNewsCount.value, 1)
+
+		// Marking certificate reissuance as seen decreases unseen news count
+		store.healthCertifiedPersons.first?.isNewCertificateReissuance = false
+		XCTAssertEqual(store.healthCertifiedPersons.first?.unseenNewsCount, 0)
+		XCTAssertEqual(service.unseenNewsCount.value, 0)
+	}
+
 }
