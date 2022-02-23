@@ -29,7 +29,8 @@ class HealthCertifiedPersonViewModelTests: XCTestCase {
 			dismiss: {},
 			didTapBoosterNotification: { _ in },
 			didTapValidationButton: { _, _ in },
-			showInfoHit: { }
+			showInfoHit: { },
+			didTapUpdateNotification: { }
 		)
 
 		// THEN
@@ -83,7 +84,8 @@ class HealthCertifiedPersonViewModelTests: XCTestCase {
 			dismiss: {},
 			didTapBoosterNotification: { _ in },
 			didTapValidationButton: { _, _ in },
-			showInfoHit: { }
+			showInfoHit: { },
+			didTapUpdateNotification: { }
 		)
 
 		// WHEN
@@ -127,7 +129,8 @@ class HealthCertifiedPersonViewModelTests: XCTestCase {
 			dismiss: {},
 			didTapBoosterNotification: { _ in },
 			didTapValidationButton: { _, _ in },
-			showInfoHit: { }
+			showInfoHit: { },
+			didTapUpdateNotification: { }
 		)
 
 		// THEN
@@ -163,7 +166,8 @@ class HealthCertifiedPersonViewModelTests: XCTestCase {
 			dismiss: {},
 			didTapBoosterNotification: { _ in },
 			didTapValidationButton: { _, _ in },
-			showInfoHit: { }
+			showInfoHit: { },
+			didTapUpdateNotification: { }
 		)
 
 		// THEN
@@ -195,7 +199,8 @@ class HealthCertifiedPersonViewModelTests: XCTestCase {
 			dismiss: {},
 			didTapBoosterNotification: { _ in },
 			didTapValidationButton: { _, _ in },
-			showInfoHit: { }
+			showInfoHit: { },
+			didTapUpdateNotification: { }
 		)
 
 		// THEN
@@ -227,7 +232,8 @@ class HealthCertifiedPersonViewModelTests: XCTestCase {
 			dismiss: {},
 			didTapBoosterNotification: { _ in },
 			didTapValidationButton: { _, _ in },
-			showInfoHit: { }
+			showInfoHit: { },
+			didTapUpdateNotification: { }
 		)
 
 		// THEN
@@ -259,7 +265,8 @@ class HealthCertifiedPersonViewModelTests: XCTestCase {
 			dismiss: {},
 			didTapBoosterNotification: { _ in },
 			didTapValidationButton: { _, _ in },
-			showInfoHit: { }
+			showInfoHit: { },
+			didTapUpdateNotification: { }
 		)
 
 		// THEN
@@ -291,7 +298,8 @@ class HealthCertifiedPersonViewModelTests: XCTestCase {
 			dismiss: {},
 			didTapBoosterNotification: { _ in },
 			didTapValidationButton: { _, _ in },
-			showInfoHit: { }
+			showInfoHit: { },
+			didTapUpdateNotification: { }
 		)
 
 		// THEN
@@ -323,7 +331,8 @@ class HealthCertifiedPersonViewModelTests: XCTestCase {
 			dismiss: {},
 			didTapBoosterNotification: { _ in },
 			didTapValidationButton: { _, _ in },
-			showInfoHit: { }
+			showInfoHit: { },
+			didTapUpdateNotification: { }
 		)
 
 		// THEN
@@ -365,7 +374,8 @@ class HealthCertifiedPersonViewModelTests: XCTestCase {
 				expectation.fulfill()
 			},
 			didTapValidationButton: { _, _ in },
-			showInfoHit: { }
+			showInfoHit: { },
+			didTapUpdateNotification: { }
 		)
 
 		viewModel.didTapBoosterNotificationCell()
