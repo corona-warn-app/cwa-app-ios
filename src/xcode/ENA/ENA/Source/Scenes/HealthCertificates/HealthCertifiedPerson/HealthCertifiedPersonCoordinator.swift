@@ -145,9 +145,22 @@ final class HealthCertifiedPersonCoordinator {
 		)
 	}
 
+	private func showDataPrivacy() {
+		let detailViewController = HTMLViewController(model: AppInformationModel.privacyModel)
+		detailViewController.title = AppStrings.AppInformation.privacyTitle
+		detailViewController.isDismissable = false
+		if #available(iOS 13.0, *) {
+			detailViewController.isModalInPresentation = true
+		}
+		navigationController.pushViewController(detailViewController, animated: true)
+	}
+
 	private func showUpdateConsent(_ healthCertificate: HealthCertificate) {
 		let updateConsentViewController = HealthCertifiedPersonReissuanceConsentViewController(
 			healthCertificate,
+			didTapDataPrivacy: { [weak self] in
+				self?.showDataPrivacy()
+			},
 			presentAlert: { [weak self] okAction, retryAction in
 				let alert = UIAlertController(
 					title: AppStrings.HealthCertificate.Person.UpdateConsent.defaultAlertTitle,

@@ -10,6 +10,7 @@ class HealthCertifiedPersonReissuanceConsentViewController: DynamicTableViewCont
 
 	init(
 		_ healthCertificate: HealthCertificate,
+		didTapDataPrivacy: @escaping () -> Void,
 		presentAlert: @escaping (_ ok: UIAlertAction, _ retry: UIAlertAction) -> Void,
 		presentUpdateSuccess: @escaping () -> Void,
 		didCancel: @escaping () -> Void,
@@ -19,9 +20,7 @@ class HealthCertifiedPersonReissuanceConsentViewController: DynamicTableViewCont
 		self.viewModel = HealthCertifiedPersonReissuanceConsentViewModel(
 			faqAnker: "NYD",
 			healthCertificate: healthCertificate,
-			onDisclaimerButtonTap: {
-				Log.info("onDisclaimerButtonTap")
-			}
+			onDisclaimerButtonTap: didTapDataPrivacy
 		)
 
 		self.presentUpdateSuccess = presentUpdateSuccess
