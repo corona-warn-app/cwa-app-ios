@@ -89,6 +89,7 @@ final class HealthCertificatesTabCoordinator {
 	private let healthCertificateValidationOnboardedCountriesProvider: HealthCertificateValidationOnboardedCountriesProviding
 	private let vaccinationValueSetsProvider: VaccinationValueSetsProviding
 	private let qrScannerCoordinator: QRScannerCoordinator
+	private let activityIndicatorView = QRScannerActivityIndicatorView(title: AppStrings.HealthCertificate.Overview.loadingIndicatorLabel)
 
 	private var modalNavigationController: DismissHandlingNavigationController!
 	private var validationCoordinator: HealthCertificateValidationCoordinator?
@@ -229,7 +230,8 @@ final class HealthCertificatesTabCoordinator {
 				closeOnSelection: false,
 				dismiss: { [weak self] in
 					self?.viewController.presentedViewController?.dismiss(animated: true, completion: nil)
-				})
+				}
+			)
 			let navigationController = UINavigationController(rootViewController: selectValueViewController)
 			self.viewController.present(
 				navigationController,
@@ -241,14 +243,13 @@ final class HealthCertificatesTabCoordinator {
 				}
 				self.healthCertificateService.lastSelectedScenarioIdentifier = state.identifier
 				DispatchQueue.main.async { [weak self] in
-					guard let self = self else { return }
-					self.showActivityIndicator(from: navigationController.view)
+					self?.showActivityIndicator(from: navigationController.view)
 				}
 				self.healthCertificateService.updateDCCWalletInfosIfNeeded(
 					isForced: true
 				) { [weak self] in
 					DispatchQueue.main.async {
-						// self?.hideActivityIndicator()
+						self?.hideActivityIndicator()
 						self?.viewController.presentedViewController?.dismiss(animated: true, completion: nil)
 					}
 				}
@@ -258,7 +259,6 @@ final class HealthCertificatesTabCoordinator {
 			Log.error(error.localizedDescription)
 		}
 	}
-	private let activityIndicatorView = QRScannerActivityIndicatorView(frame: .zero, title: AppStrings.HealthCertificate.Overview.loadingIndicatorLabel)
 
 	private func showActivityIndicator(from view: UIView) {
 		activityIndicatorView.alpha = 0.0

@@ -95,7 +95,7 @@ class QRScannerCoordinator {
 	private let coronaTestService: CoronaTestService
 	private let recycleBin: RecycleBin
 
-	private let activityIndicatorView = QRScannerActivityIndicatorView(frame: .zero, title: AppStrings.FileScanner.hudText)
+	private let activityIndicatorView = QRScannerActivityIndicatorView(title: AppStrings.FileScanner.hudText)
 	private let activityIndicatorAnimationDuration = 0.45
 	
 	private var presenter: QRScannerPresenter!

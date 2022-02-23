@@ -7,8 +7,8 @@ import UIKit
 class QRScannerActivityIndicatorView: UIView {
 
 	// MARK: - Init
-	
-	init(frame: CGRect, title: String) {
+		
+	init(frame: CGRect = .zero, title: String) {
 		self.title = title
 		
 		super.init(frame: frame)
