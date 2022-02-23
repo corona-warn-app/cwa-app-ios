@@ -388,7 +388,7 @@ class ENAUITests_13_CreateHealthCertificate: CWATestCase {
 		// Check if the selection button exists
 		let selectionButtonCell = try XCTUnwrap(app.cells[AccessibilityIdentifiers.HealthCertificate.Overview.changeAdmissionScenarioCell])
 		
-		// navigate to the scenario selection screen
+		// Navigate to the scenario selection screen
 		selectionButtonCell.waitAndTap()
 
 		// Select federal state Berlin
@@ -451,7 +451,7 @@ class ENAUITests_13_CreateHealthCertificate: CWATestCase {
 		snapshot("screenshot_test_certificate_valid_overview_part1")
 		app.swipeUp(velocity: .slow)
 
-		// Navigatate to test certificate details screen
+		// Navigate to test certificate details screen
 		app.cells[AccessibilityIdentifiers.HealthCertificate.Person.certificateCell].waitAndTap()
 
 		snapshot("screenshot_test_certificate_valid_details_part1")
