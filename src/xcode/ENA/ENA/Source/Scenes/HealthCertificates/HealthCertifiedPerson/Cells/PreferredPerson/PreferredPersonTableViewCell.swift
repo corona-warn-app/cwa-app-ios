@@ -45,6 +45,7 @@ class PreferredPersonTableViewCell: UITableViewCell, ReuseIdentifierProviding {
 		preferredPersonSwitch.accessibilityLabel = cellModel.description
 
 		cellModel.$isPreferredPerson
+			.receive(on: DispatchQueue.main.ocombine)
 			.assign(to: \.isOn, on: preferredPersonSwitch)
 			.store(in: &subscriptions)
 

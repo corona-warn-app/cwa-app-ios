@@ -54,5 +54,29 @@ class Name_ExtensionTests: XCTestCase {
 		// THEN
 		XCTAssertEqual(name.reversedStandardizedName, "MEYER<<THOMAS<<ARMIN")
 	}
-
+	
+	func test_GroupingComponents() {
+		let bundle = Bundle(for: Name_ExtensionTests.self)
+		guard let url = bundle.url(forResource: "dcc-holder-name-components", withExtension: "json"),
+			  let data = FileManager.default.contents(atPath: url.path),
+			  let testCases = try? JSONDecoder().decode(TestCases.self, from: data).data else {
+				  XCTFail("Could not load json with testcases.")
+				  return
+		}
+		
+		for testCase in testCases {
+			let name = Name(familyName: "", givenName: "", standardizedFamilyName: testCase.actName, standardizedGivenName: "")
+			XCTAssertEqual(name.familyNameGroupingComponents, testCase.expNameComponents, "Failed test case: \(testCase.description	)")
+		}
+	}
+	
+	private struct TestCases: Decodable {
+		struct TestCase: Decodable {
+			let description: String
+			let actName: String
+			let expNameComponents: [String]
+		}
+		
+		let data: [TestCase]
+	}
 }

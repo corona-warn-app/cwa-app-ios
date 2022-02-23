@@ -499,15 +499,15 @@ class HealthCertificateServiceTests: CWATestCase {
 
 		service.updatePublishersFromStore()
 
-		XCTAssertEqual(service.healthCertifiedPersons, [
-			HealthCertifiedPerson(healthCertificates: [
+		XCTAssertEqual(service.healthCertifiedPersons.map { $0.healthCertificates }, [
+			[
 				healthCertificate1, healthCertificate2
-			]),
-			HealthCertifiedPerson(healthCertificates: [
+			],
+			[
 				healthCertificate3
-			])
+			]
 		])
-		XCTAssertEqual(service.healthCertifiedPersons, store.healthCertifiedPersons)
+		XCTAssertEqual(service.healthCertifiedPersons.map { $0.healthCertificates }, store.healthCertifiedPersons.map { $0.healthCertificates })
 
 		// Removing one of multiple certificates
 
@@ -524,7 +524,7 @@ class HealthCertificateServiceTests: CWATestCase {
 				]
 			]
 		)
-		XCTAssertEqual(service.healthCertifiedPersons, store.healthCertifiedPersons)
+		XCTAssertEqual(service.healthCertifiedPersons.map { $0.healthCertificates }, store.healthCertifiedPersons.map { $0.healthCertificates })
 
 		// Removing last certificate of a person
 
@@ -538,7 +538,7 @@ class HealthCertificateServiceTests: CWATestCase {
 				]
 			]
 		)
-		XCTAssertEqual(service.healthCertifiedPersons, store.healthCertifiedPersons)
+		XCTAssertEqual(service.healthCertifiedPersons.map { $0.healthCertificates }, store.healthCertifiedPersons.map { $0.healthCertificates })
 
 		// Removing last certificate of last person
 
