@@ -20,8 +20,8 @@ class HealthCertifiedPersonReissuanceConsentViewController: DynamicTableViewCont
 		self.presentAlert = presentAlert
 		self.viewModel = HealthCertifiedPersonReissuanceConsentViewModel(
 			faqAnker: "NYD",
-			healthCertificate: healthCertificate,
-			healthCertifiedPerson: healthCertifiedPerson,
+			certificate: healthCertificate,
+			certifiedPerson: healthCertifiedPerson,
 			onDisclaimerButtonTap: didTapDataPrivacy
 		)
 
@@ -79,10 +79,6 @@ class HealthCertifiedPersonReissuanceConsentViewController: DynamicTableViewCont
 		}
 	}
 
-	// MARK: - Public
-
-	// MARK: - Internal
-
 	// MARK: - Private
 
 	private let presentAlert: (_ ok: UIAlertAction, _ retry: UIAlertAction) -> Void
@@ -121,7 +117,11 @@ class HealthCertifiedPersonReissuanceConsentViewController: DynamicTableViewCont
 			UINib(nibName: "ExposureDetectionLinkCell", bundle: nil),
 			forCellReuseIdentifier: "linkCell"
 		)
-		tableView.register(ReissuanceConsentCertificateCell.self, forCellReuseIdentifier: ReissuanceConsentCertificateCell.reuseIdentifier)
+
+		tableView.register(
+			HealthCertificateCell.self,
+			forCellReuseIdentifier: HealthCertificateCell.reuseIdentifier
+		)
 
 		tableView.contentInsetAdjustmentBehavior = .automatic
 		tableView.separatorStyle = .none

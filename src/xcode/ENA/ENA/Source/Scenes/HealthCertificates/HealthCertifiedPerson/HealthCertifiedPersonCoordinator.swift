@@ -136,7 +136,7 @@ final class HealthCertifiedPersonCoordinator {
 			},
 			didTapUpdateNotification: { [weak self] in
 				// add code to find healthCertificate for update here
-				guard let healthCertificate = healthCertifiedPerson.healthCertificates.first else {
+				guard let healthCertificate = healthCertifiedPerson.mostRelevantHealthCertificate else {
 					Log.error("missing health certificate to update")
 					return
 				}

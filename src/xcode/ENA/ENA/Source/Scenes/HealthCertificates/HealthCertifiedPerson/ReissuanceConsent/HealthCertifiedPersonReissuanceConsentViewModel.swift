@@ -18,21 +18,15 @@ final class HealthCertifiedPersonReissuanceConsentViewModel {
 
 	init(
 		faqAnker: String,
-		healthCertificate: HealthCertificate,
-		healthCertifiedPerson: HealthCertifiedPerson,
+		certificate: HealthCertificate,
+		certifiedPerson: HealthCertifiedPerson,
 		onDisclaimerButtonTap: @escaping () -> Void
 	) {
 		self.faqAnker = faqAnker
-		self.healthCertificate = healthCertificate
-		self.healthCertifiedPerson = healthCertifiedPerson
+		self.certificate = certificate
+		self.certifiedPerson = certifiedPerson
 		self.onDisclaimerButtonTap = onDisclaimerButtonTap
 	}
-
-	// MARK: - Overrides
-
-	// MARK: - Protocol <#Name#>
-
-	// MARK: - Public
 
 	// MARK: - Internal
 
@@ -43,7 +37,7 @@ final class HealthCertifiedPersonReissuanceConsentViewModel {
 			[
 				.section(
 					cells: [
-						.reissuanceConsentCertificateCell(healthCertificate, healthCertifiedPerson: healthCertifiedPerson),
+						.certificate(certificate, certifiedPerson: certifiedPerson),
 						.title2(text: AppStrings.HealthCertificate.Person.UpdateConsent.headline),
 						.subheadline(text: AppStrings.HealthCertificate.Person.UpdateConsent.subHeadline),
 						.body(text: AppStrings.HealthCertificate.Person.UpdateConsent.body_1),
@@ -123,13 +117,14 @@ final class HealthCertifiedPersonReissuanceConsentViewModel {
 	// MARK: - Private
 
 	private let faqAnker: String
-	private let healthCertificate: HealthCertificate
-	private let healthCertifiedPerson: HealthCertifiedPerson
+	private let certificate: HealthCertificate
+	private let certifiedPerson: HealthCertifiedPerson
 	private let onDisclaimerButtonTap: () -> Void
 
 	private let normalTextAttribute: [NSAttributedString.Key: Any] = [
 		NSAttributedString.Key.font: UIFont.enaFont(for: .body)
 	]
+
 	private let boldTextAttribute: [NSAttributedString.Key: Any] = [
 		NSAttributedString.Key.font: UIFont.enaFont(for: .body, weight: .bold)
 	]
@@ -141,17 +136,21 @@ final class HealthCertifiedPersonReissuanceConsentViewModel {
 	private func attributedStringWithBoldText(text: String) -> NSMutableAttributedString {
 		return NSMutableAttributedString(string: "\(text)", attributes: boldTextAttribute)
 	}
-
 }
 
 private extension DynamicCell {
-	static func reissuanceConsentCertificateCell(_ healthCertificate: HealthCertificate, healthCertifiedPerson: HealthCertifiedPerson) -> Self {
-		.custom(withIdentifier: ReissuanceConsentCertificateCell.dynamicTableViewCellReuseIdentifier) { _, cell, _ in
-			guard let cell = cell as? ReissuanceConsentCertificateCell else {
+	static func certificate(_ certificate: HealthCertificate, certifiedPerson: HealthCertifiedPerson) -> Self {
+		.custom(withIdentifier: HealthCertificateCell.dynamicTableViewCellReuseIdentifier) { _, cell, _ in
+			guard let cell = cell as? HealthCertificateCell else {
 				return
 			}
-			let cellViewModel = HealthCertificateCellViewModel(healthCertificate: healthCertificate, healthCertifiedPerson: healthCertifiedPerson)
-			cell.configure(cellViewModel)
+			cell.configure(
+				HealthCertificateCellViewModel(
+					healthCertificate: certificate,
+					healthCertifiedPerson: certifiedPerson
+				),
+				withDisclosureIndicator: false
+			)
 		}
 	}
 }
