@@ -15,7 +15,7 @@ extension RapidTestQRCodeInformation {
 		testID: String? = nil,
 		dateOfBirth: Date? = nil,
 		certificateSupportedByPointOfCare: Bool = false
-	) -> Self? {
+	) -> Self {
 		RapidTestQRCodeInformation(
 			hash: hash,
 			timestamp: timestamp,

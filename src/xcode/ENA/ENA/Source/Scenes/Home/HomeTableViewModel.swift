@@ -12,7 +12,7 @@ class HomeTableViewModel {
 	init(
 		state: HomeState,
 		store: Store,
-		coronaTestService: CoronaTestService,
+		coronaTestService: CoronaTestServiceProviding,
 		onTestResultCellTap: @escaping (CoronaTestType?) -> Void,
 		badgeWrapper: HomeBadgeWrapper
 	) {
@@ -22,13 +22,13 @@ class HomeTableViewModel {
 		self.onTestResultCellTap = onTestResultCellTap
 		self.badgeWrapper = badgeWrapper
 
-		coronaTestService.$pcrTest
+		coronaTestService.pcrTest
 			.sink { [weak self] _ in
 				self?.update()
 			}
 			.store(in: &subscriptions)
 
-		coronaTestService.$antigenTest
+		coronaTestService.antigenTest
 			.sink { [weak self] _ in
 				self?.update()
 			}
@@ -59,7 +59,7 @@ class HomeTableViewModel {
 
 	let state: HomeState
 	let store: Store
-	let coronaTestService: CoronaTestService
+	let coronaTestService: CoronaTestServiceProviding
 	var isUpdating: Bool = false
 
 	@OpenCombine.Published var testResultLoadingError: Error?
@@ -103,7 +103,7 @@ class HomeTableViewModel {
 	}
 
 	func didTapTestResultCell(coronaTestType: CoronaTestType) {
-		if coronaTestType == .antigen && coronaTestService.antigenTestIsOutdated {
+		if coronaTestType == .antigen && coronaTestService.antigenTestIsOutdated.value {
 			return
 		}
 
@@ -111,7 +111,7 @@ class HomeTableViewModel {
 	}
 
 	func didTapTestResultButton(coronaTestType: CoronaTestType) {
-		if coronaTestType == .antigen && coronaTestService.antigenTestIsOutdated {
+		if coronaTestType == .antigen && coronaTestService.antigenTestIsOutdated.value {
 			coronaTestService.removeTest(coronaTestType)
 		} else {
 			onTestResultCellTap(coronaTestType)
@@ -173,11 +173,11 @@ class HomeTableViewModel {
 		switch testType {
 			// Only show errors for corona tests that are still expecting their final test result
 		case .pcr:
-			if self.coronaTestService.pcrTest != nil && self.coronaTestService.pcrTest?.finalTestResultReceivedDate == nil {
+			if self.coronaTestService.pcrTest.value != nil && self.coronaTestService.pcrTest.value?.finalTestResultReceivedDate == nil {
 				self.testResultLoadingError = error
 			}
 		case .antigen:
-			if self.coronaTestService.antigenTest != nil && self.coronaTestService.antigenTest?.finalTestResultReceivedDate == nil {
+			if self.coronaTestService.antigenTest.value != nil && self.coronaTestService.antigenTest.value?.finalTestResultReceivedDate == nil {
 				self.testResultLoadingError = error
 			}
 		}
@@ -190,7 +190,7 @@ class HomeTableViewModel {
 			riskAndTestResultsRows.append(.risk)
 		}
 
-		if let pcrTest = coronaTestService.pcrTest {
+		if let pcrTest = coronaTestService.pcrTest.value {
 			let testResultState: TestResultState
 			if pcrTest.testResult == .positive && pcrTest.positiveTestResultWasShown {
 				testResultState = .positiveResultWasShown
@@ -200,7 +200,7 @@ class HomeTableViewModel {
 			riskAndTestResultsRows.append(.pcrTestResult(testResultState))
 		}
 
-		if let antigenTest = coronaTestService.antigenTest {
+		if let antigenTest = coronaTestService.antigenTest.value {
 			let testResultState: TestResultState
 			if antigenTest.testResult == .positive && antigenTest.positiveTestResultWasShown {
 				testResultState = .positiveResultWasShown

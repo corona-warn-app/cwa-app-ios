@@ -49,7 +49,7 @@ final class DMDeveloperMenu {
 		exposureSubmissionService: ExposureSubmissionService,
 		environmentProvider: EnvironmentProviding,
 		otpService: OTPServiceProviding,
-		coronaTestService: CoronaTestService,
+		coronaTestService: CoronaTestServiceProviding,
 		eventStore: EventStoringProviding,
 		qrCodePosterTemplateProvider: QRCodePosterTemplateProviding,
 		ppacService: PrivacyPreservingAccessControl,
@@ -140,7 +140,7 @@ final class DMDeveloperMenu {
 	private let developerStore: DMStore
 	private let environmentProvider: EnvironmentProviding
 	private let otpService: OTPServiceProviding
-	private let coronaTestService: CoronaTestService
+	private let coronaTestService: CoronaTestServiceProviding
 	private let qrCodePosterTemplateProvider: QRCodePosterTemplateProviding
 	private let ppacService: PrivacyPreservingAccessControl
 	private let healthCertificateService: HealthCertificateService

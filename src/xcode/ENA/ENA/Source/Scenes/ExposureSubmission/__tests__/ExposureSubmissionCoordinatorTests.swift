@@ -15,7 +15,7 @@ class ExposureSubmissionCoordinatorTests: CWATestCase {
 	private var parentNavigationController: UINavigationController!
 	private var exposureSubmissionService: MockExposureSubmissionService!
 	private var store: Store!
-	private var coronaTestService: CoronaTestService!
+	private var coronaTestService: CoronaTestServiceProviding!
 	private var healthCertificateService: HealthCertificateService!
 	private var healthCertificateValidationService: HealthCertificateValidationService!
 	private var vaccinationValueSetsProvider: VaccinationValueSetsProvider!
@@ -38,24 +38,7 @@ class ExposureSubmissionCoordinatorTests: CWATestCase {
 
 		eventStore = MockEventStore()
 
-		coronaTestService = CoronaTestService(
-			client: client,
-			store: store,
-			eventStore: eventStore,
-			diaryStore: diaryStore,
-			appConfiguration: appConfiguration,
-			healthCertificateService: HealthCertificateService(
-				store: store,
-				dccSignatureVerifier: DCCSignatureVerifyingStub(),
-				dscListProvider: MockDSCListProvider(),
-				client: client,
-				appConfiguration: appConfiguration,
-				cclService: FakeCCLService(),
-				recycleBin: recycleBin
-			),
-			recycleBin: recycleBin,
-			badgeWrapper: .fake()
-		)
+		coronaTestService = MockCoronaTestService()
 		
 		healthCertificateService = HealthCertificateService(
 			store: store,
@@ -191,7 +174,7 @@ class ExposureSubmissionCoordinatorTests: CWATestCase {
 			exposureSubmissionService: exposureSubmissionService
 		)
 
-		coronaTestService.pcrTest = PCRTest.mock(registrationToken: "asdf", testResult: .negative)
+		coronaTestService.pcrTest.value = PCRTest.mock(registrationToken: "asdf", testResult: .negative)
 
 		coordinator.start(with: .pcr)
 
@@ -210,7 +193,7 @@ class ExposureSubmissionCoordinatorTests: CWATestCase {
 			exposureSubmissionService: exposureSubmissionService
 		)
 
-		coronaTestService.pcrTest = PCRTest.mock(registrationToken: "asdf", testResult: .positive)
+		coronaTestService.pcrTest.value = PCRTest.mock(registrationToken: "asdf", testResult: .positive)
 
 		coordinator.start(with: .pcr)
 
@@ -248,14 +231,14 @@ class ExposureSubmissionCoordinatorTests: CWATestCase {
 			exposureSubmissionService: exposureSubmissionService
 		)
 
-		coronaTestService.pcrTest = PCRTest.mock(testResult: .positive, positiveTestResultWasShown: false)
+		coronaTestService.pcrTest.value = PCRTest.mock(testResult: .positive, positiveTestResultWasShown: false)
 
 		coordinator.start(with: .pcr)
 
 		let unknown = coordinator.getInitialViewController()
 		XCTAssertTrue(unknown is TopBottomContainerViewController<TestResultAvailableViewController, FooterViewController>)
 
-		coronaTestService.pcrTest?.positiveTestResultWasShown = true
+		coronaTestService.pcrTest.value?.positiveTestResultWasShown = true
 
 		let positive = coordinator.getInitialViewController()
 		XCTAssertTrue(positive is TopBottomContainerViewController<ExposureSubmissionWarnOthersViewController, FooterViewController>)

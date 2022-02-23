@@ -379,16 +379,16 @@ class RouteTests: CWATestCase {
 		let url = "https://s.coronawarn.app?v=1#eyJ0aW1lc3RhbXAiOjE2Mjc0MDM4MDEsInNhbHQiOiJEQkFDOUU5ODNGQkVDRDc5RDRERkIzMzI3MTUyN0M2NyIsInRlc3RpZCI6ImE5NjIyMjlmLTg3M2EtNDAyNy05NjUxLWJlNWJhZTZkNzVjNSIsImhhc2giOiI1ZGI3ZGI5OGZhMGM2NDYxMWJhZDdhMmQxYzk4MGE1MDc4MzZiM2ZiZWIzNzNiMWNlMGMwNGNmNmUxNjYzNDExIn0"
 		
 		// WHEN
-		let testInformation = try XCTUnwrap(RapidTestQRCodeInformation(
-												hash: "5db7db98fa0c64611bad7a2d1c980a507836b3fbeb373b1ce0c04cf6e1663411",
-												timestamp: 1627403801,
-												firstName: nil,
-												lastName: nil,
-												dateOfBirth: nil,
-												testID: "a962229f-873a-4027-9651-be5bae6d75c5",
-												cryptographicSalt: "DBAC9E983FBECD79D4DFB33271527C67",
-												certificateSupportedByPointOfCare: nil
-		))
+		let testInformation = RapidTestQRCodeInformation(
+			hash: "5db7db98fa0c64611bad7a2d1c980a507836b3fbeb373b1ce0c04cf6e1663411",
+			timestamp: 1627403801,
+			firstName: nil,
+			lastName: nil,
+			dateOfBirth: nil,
+			testID: "a962229f-873a-4027-9651-be5bae6d75c5",
+			cryptographicSalt: "DBAC9E983FBECD79D4DFB33271527C67",
+			certificateSupportedByPointOfCare: nil
+		)
 		let route = try XCTUnwrap(Route(url))
 
 		// THEN
