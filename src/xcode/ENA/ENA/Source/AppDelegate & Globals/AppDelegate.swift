@@ -285,7 +285,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 	var store: Store
 	let restServiceCache: KeyValueCaching
 
-	lazy var coronaTestService: CoronaTestService = {
+	lazy var coronaTestService: CoronaTestServiceProviding = {
 		return CoronaTestService(
 			client: client,
 			restServiceProvider: restServiceProvider,

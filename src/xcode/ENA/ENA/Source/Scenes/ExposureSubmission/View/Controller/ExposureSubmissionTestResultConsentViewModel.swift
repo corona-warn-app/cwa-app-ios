@@ -13,7 +13,7 @@ class ExposureSubmissionTestResultConsentViewModel {
 	init(
 		supportedCountries: [Country],
 		coronaTestType: CoronaTestType,
-		coronaTestService: CoronaTestService,
+		coronaTestService: CoronaTestServiceProviding,
 		testResultAvailability: TestResultAvailability,
 		dismissCompletion: (() -> Void)?
 	) {
@@ -49,7 +49,7 @@ class ExposureSubmissionTestResultConsentViewModel {
 
 								switch self.coronaTestType {
 								case .pcr:
-									self.coronaTestService.$pcrTest
+									self.coronaTestService.pcrTest
 										.sink { pcrTest in
 											guard let pcrTest = pcrTest else {
 												return
@@ -59,7 +59,7 @@ class ExposureSubmissionTestResultConsentViewModel {
 										}
 										.store(in: &self.subscriptions)
 								case .antigen:
-									self.coronaTestService.$antigenTest
+									self.coronaTestService.antigenTest
 										.sink { antigenTest in
 											guard let antigenTest = antigenTest else {
 												return
@@ -141,7 +141,7 @@ class ExposureSubmissionTestResultConsentViewModel {
 
 	private let supportedCountries: [Country]
 	private let coronaTestType: CoronaTestType
-	private var coronaTestService: CoronaTestService
+	private var coronaTestService: CoronaTestServiceProviding
 	private let testResultAvailability: TestResultAvailability
 	private let dismissCompletion: (() -> Void)?
 	
@@ -153,9 +153,9 @@ class ExposureSubmissionTestResultConsentViewModel {
 
 		switch coronaTestType {
 		case .pcr:
-			coronaTestService.pcrTest?.isSubmissionConsentGiven = switchState.isOn
+			coronaTestService.pcrTest.value?.isSubmissionConsentGiven = switchState.isOn
 		case .antigen:
-			coronaTestService.antigenTest?.isSubmissionConsentGiven = switchState.isOn
+			coronaTestService.antigenTest.value?.isSubmissionConsentGiven = switchState.isOn
 		}
 	}
 

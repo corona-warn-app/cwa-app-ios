@@ -9,29 +9,8 @@ import HealthCertificateToolkit
 class HomeShownPositiveTestResultCellModelTest: CWATestCase {
 
     func testShownPositivePCRTest() throws {
-		let client = ClientMock()
-		let store = MockTestStore()
-		let appConfiguration = CachedAppConfigurationMock()
-		let coronaTestService = CoronaTestService(
-			client: client,
-			store: store,
-			eventStore: MockEventStore(),
-			diaryStore: MockDiaryStore(),
-			appConfiguration: appConfiguration,
-			healthCertificateService: HealthCertificateService(
-				store: store,
-				dccSignatureVerifier: DCCSignatureVerifyingStub(),
-				dscListProvider: MockDSCListProvider(),
-				client: client,
-				appConfiguration: appConfiguration,
-				cclService: FakeCCLService(),
-				recycleBin: .fake()
-			),
-			recycleBin: .fake(),
-			badgeWrapper: .fake()
-		)
-
-		coronaTestService.pcrTest = PCRTest.mock(
+		let coronaTestService = MockCoronaTestService()
+		coronaTestService.pcrTest.value = PCRTest.mock(
 			registrationDate: Date(timeIntervalSinceReferenceDate: 0),
 			testResult: .positive,
 			positiveTestResultWasShown: true,
@@ -80,7 +59,7 @@ class HomeShownPositiveTestResultCellModelTest: CWATestCase {
 		XCTAssertEqual(homeItemViewModels[2].separatorColor, .clear)
 		XCTAssertEqual(homeItemViewModels[2].containerInsets, .init(top: 10.0, left: 0.0, bottom: 10.0, right: 0))
 
-		coronaTestService.pcrTest?.keysSubmitted = true
+		coronaTestService.pcrTest.value?.keysSubmitted = true
 
 		XCTAssertTrue(cellModel.isWarnOthersButtonHidden)
 		XCTAssertTrue(cellModel.isRemoveTestButtonHidden)
@@ -114,30 +93,8 @@ class HomeShownPositiveTestResultCellModelTest: CWATestCase {
     }
 
 	func testShownPositiveAntigenTest() throws {
-		let client = ClientMock()
-		let store = MockTestStore()
-		let appConfiguration = CachedAppConfigurationMock()
-
-		let coronaTestService = CoronaTestService(
-			client: client,
-			store: store,
-			eventStore: MockEventStore(),
-			diaryStore: MockDiaryStore(),
-			appConfiguration: appConfiguration,
-			healthCertificateService: HealthCertificateService(
-				store: store,
-				dccSignatureVerifier: DCCSignatureVerifyingStub(),
-				dscListProvider: MockDSCListProvider(),
-				client: client,
-				appConfiguration: appConfiguration,
-				cclService: FakeCCLService(),
-				recycleBin: .fake()
-			),
-			recycleBin: .fake(),
-			badgeWrapper: .fake()
-		)
-
-		coronaTestService.antigenTest = AntigenTest.mock(
+		let coronaTestService = MockCoronaTestService()
+		coronaTestService.antigenTest.value = AntigenTest.mock(
 			pointOfCareConsentDate: Date(timeIntervalSinceReferenceDate: 0),
 			testResult: .positive,
 			positiveTestResultWasShown: true,
@@ -186,7 +143,7 @@ class HomeShownPositiveTestResultCellModelTest: CWATestCase {
 		XCTAssertEqual(homeItemViewModels[2].separatorColor, .clear)
 		XCTAssertEqual(homeItemViewModels[2].containerInsets, .init(top: 10.0, left: 0.0, bottom: 10.0, right: 0))
 
-		coronaTestService.antigenTest?.keysSubmitted = true
+		coronaTestService.antigenTest.value?.keysSubmitted = true
 
 		XCTAssertTrue(cellModel.isWarnOthersButtonHidden)
 		XCTAssertTrue(cellModel.isRemoveTestButtonHidden)

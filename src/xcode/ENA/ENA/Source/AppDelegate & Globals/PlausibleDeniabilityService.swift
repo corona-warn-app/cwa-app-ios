@@ -18,7 +18,7 @@ struct PlausibleDeniabilityService: PlausibleDeniability {
 		client: Client,
 		restServiceProvider: RestServiceProviding,
 		store: Store,
-		coronaTestService: CoronaTestService
+		coronaTestService: CoronaTestServiceProviding
 	) {
 		self.client = client
 		self.store = store
@@ -90,11 +90,11 @@ struct PlausibleDeniabilityService: PlausibleDeniability {
 
 	private let client: Client
 	private let store: Store
-	private let coronaTestService: CoronaTestService
+	private let coronaTestService: CoronaTestServiceProviding
 	private let fakeRequestService: FakeRequestService
 
 	private var isAllowedToPerformBackgroundFakeRequests: Bool {
-		return coronaTestService.pcrTest != nil || coronaTestService.antigenTest != nil
+		return coronaTestService.pcrTest.value != nil || coronaTestService.antigenTest.value != nil
 	}
 
 	/// Triggers one or more fake requests over a time interval of multiple seconds.

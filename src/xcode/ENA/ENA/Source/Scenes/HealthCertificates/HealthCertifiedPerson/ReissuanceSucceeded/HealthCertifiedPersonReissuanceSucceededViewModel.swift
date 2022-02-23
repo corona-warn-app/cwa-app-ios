@@ -11,15 +11,24 @@ import UIKit
 
 struct HealthCertifiedPersonReissuanceSucceededViewModel {
 
-	// MARK: - Init
-	init() {
-		self.image = UIImage()
-		self.text = "This is a dummy for the moment"
+	// MARK: - Protocol TicketValidationResultViewModel
+
+	var dynamicTableViewModel: DynamicTableViewModel {
+		DynamicTableViewModel([
+			.section(
+				cells: [
+					.headlineWithImage(
+						headerText: AppStrings.HealthCertificate.Person.UpdateSucceeded.title,
+						image: UIImage(imageLiteralResourceName: "Illu_Replace_Success"),
+						imageAccessibilityIdentifier: AccessibilityIdentifiers.HealthCertificate.Person.UpdateSucceeded.image
+					),
+					.title2(text: AppStrings.HealthCertificate.Person.UpdateSucceeded.headline),
+
+					.body(
+						text: AppStrings.HealthCertificate.Person.UpdateSucceeded.body
+					)
+				]
+			)
+		])
 	}
-
-	// MARK: - Private
-
-	private let image: UIImage
-	private let text: String
-
 }
