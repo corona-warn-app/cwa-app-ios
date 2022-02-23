@@ -20,9 +20,9 @@ final class DCCReissuanceResourceTests: CWATestCase {
 			]
 		)
 
-		let relations = DCCReissuanceRelations(index: 0, action: "yes")
-		let certficate = DCCReissuanceCertificates(certificate: "one", relations: [relations])
-		let model = DCCReissuanceReceiveModel(certificates: [certficate])
+		let relation = DCCReissuanceRelation(index: 0, action: "yes")
+		let certficate = DCCReissuanceCertificate(certificate: "one", relations: [relation])
+		let model = DCCReissuanceReceiveModel([certficate])
 
 		let stack = MockNetworkStack(
 			httpStatus: 200,
@@ -39,9 +39,9 @@ final class DCCReissuanceResourceTests: CWATestCase {
 		restServiceProvider.load(dccReissuanceResource) { result in
 			switch result {
 			case let .success(model):
-				XCTAssertEqual(model.certificates.first?.certificate, "one")
-				XCTAssertEqual(model.certificates.first?.relations.first?.index, 0)
-				XCTAssertEqual(model.certificates.first?.relations.first?.action, "yes")
+				XCTAssertEqual(model.first?.certificate, "one")
+				XCTAssertEqual(model.first?.relations.first?.index, 0)
+				XCTAssertEqual(model.first?.relations.first?.action, "yes")
 			case let .failure(error):
 				XCTFail("Test should succeed but failed with error: \(error)")
 			}
@@ -53,49 +53,6 @@ final class DCCReissuanceResourceTests: CWATestCase {
 	}
 
 	// MARK: - Failures
-
-	func testGIVEN_Resource_WHEN_PinMismatch_THEN_DCC_RI_PIN_MISMATCH() throws {
-		let expectation = expectation(description: "Expect that we got an error")
-
-		let stack = MockNetworkStack(
-			sessionDelegate: CoronaWarnSessionTaskDelegate(),
-			error: NSError(domain: NSURLErrorDomain, code: NSURLErrorUnknown, userInfo: nil)
-		)
-
-		let restServiceProvider = RestServiceProvider(
-			session: stack.urlSession,
-			cache: KeyValueCacheFake()
-		)
-
-		let trustErrorStub = TrustEvaluationErrorStub(
-			error: TrustEvaluationError.jsonWebKey(.CERT_PIN_MISMATCH)
-		)
-
-		let sendModel = DCCReissuanceSendModel(
-			certificates: [
-				"one"
-			]
-		)
-
-		let resource = DCCReissuanceResource(
-			sendModel: sendModel,
-			trustEvaluation: trustErrorStub
-		)
-
-		restServiceProvider.load(resource) { result in
-			switch result {
-			case .success:
-				XCTFail("Failure expected.")
-			case .failure(let error):
-				guard case .receivedResourceError(.DCC_RI_PIN_MISMATCH) = error else {
-					XCTFail("DCC_RI_PIN_MISMATCH error expected. Instead error received: \(error)")
-					return
-				}
-			}
-			expectation.fulfill()
-		}
-		waitForExpectations(timeout: .short)
-	}
 
 	func testGIVEN_Resource_WHEN_Response_Body_Is_Malformed_THEN_DCC_RI_PARSE_ERR() throws {
 		let expectation = expectation(description: "Expect that we got an error")

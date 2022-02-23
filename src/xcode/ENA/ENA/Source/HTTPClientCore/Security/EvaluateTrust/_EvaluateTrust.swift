@@ -8,6 +8,8 @@ public enum TrustEvaluationError: Error {
 	case `default` (DefaultTrustEvaluationError)
 	case jsonWebKey (JSONWebKeyTrustEvaluationError)
 	case allowList (JSONWebKeyTrustEvaluationError)
+	case notSupportedAuthenticationMethod
+	case invalidSecTrust
 }
 
 protocol TrustEvaluating {

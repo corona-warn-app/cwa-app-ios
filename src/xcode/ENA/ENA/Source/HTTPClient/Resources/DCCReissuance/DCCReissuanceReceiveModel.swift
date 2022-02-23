@@ -4,18 +4,15 @@
 
 import Foundation
 
-struct DCCReissuanceReceiveModel: Codable {
+typealias DCCReissuanceReceiveModel = [DCCReissuanceCertificate]
 
-	let certificates: [DCCReissuanceCertificates]
-}
-
-struct DCCReissuanceCertificates: Codable {
+struct DCCReissuanceCertificate: Codable {
 
 	let certificate: String
-	let relations: [DCCReissuanceRelations]
+	let relations: [DCCReissuanceRelation]
 }
 
-struct DCCReissuanceRelations: Codable {
+struct DCCReissuanceRelation: Codable {
 
 	let index: Int
 	let action: String

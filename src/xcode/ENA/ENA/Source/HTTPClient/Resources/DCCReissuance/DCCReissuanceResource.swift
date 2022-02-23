@@ -2,8 +2,6 @@
 // 🦠 Corona-Warn-App
 //
 
-// TODO: Create PR for Ticket
-
 import Foundation
 
 enum DCCReissuanceResourceError: LocalizedError {
@@ -68,7 +66,6 @@ struct DCCReissuanceResource: Resource {
 	var locator: Locator
 	var type: ServiceType
 	var sendResource: JSONSendResource<DCCReissuanceSendModel>
-	// TODO: Check Data Structure for Response
 	var receiveResource: JSONReceiveResource<DCCReissuanceReceiveModel>
 
 	func customError(for error: ServiceError<DCCReissuanceResourceError>) -> DCCReissuanceResourceError? {
@@ -112,7 +109,7 @@ struct DCCReissuanceResource: Resource {
 			return .DCC_RI_403
 		case 406:
 			return .DCC_RI_406
-		case 402, 405, 407...499:
+		case 402, 404, 405, 407...499:
 			return .DCC_RI_CLIENT_ERR
 		case 500:
 			return .DCC_RI_500

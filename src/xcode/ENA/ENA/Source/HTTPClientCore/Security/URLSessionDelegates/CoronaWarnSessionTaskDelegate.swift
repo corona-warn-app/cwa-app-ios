@@ -15,16 +15,16 @@ class CoronaWarnSessionTaskDelegate: NSObject, URLSessionTaskDelegate {
 		completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Void
 	) {
 		
-		// Reject all requests that we do not have a TrustEvaluation for.
-		guard let trustEvaluation = trustEvaluations[task.taskIdentifier] else {
-			completionHandler(.cancelAuthenticationChallenge, /* credential */ nil)
+		// If there is no trust evaluation or the trust evaluation is DisabledTrustEvaluation, perform default handling - as if this delegate were not implemented.
+		guard var trustEvaluation = trustEvaluations[task.taskIdentifier],
+			  !(trustEvaluation is DisabledTrustEvaluation) else {
+			completionHandler(.performDefaultHandling, nil)
 			return
 		}
 		
 		// `serverTrust` not nil implies that authenticationMethod == NSURLAuthenticationMethodServerTrust
 		guard let trust = challenge.protectionSpace.serverTrust else {
-			// Reject all requests that we do not have a public key to pin for
-			// TODO: Should we set here the trustEvalutaionError?
+			trustEvaluation.trustEvaluationError = .notSupportedAuthenticationMethod
 			completionHandler(.cancelAuthenticationChallenge, /* credential */ nil)
 			return
 		}
@@ -43,6 +43,7 @@ class CoronaWarnSessionTaskDelegate: NSObject, URLSessionTaskDelegate {
 				SecTrustEvaluateAsyncWithError(trust, dispatchQueue) { trust, isValid, error in
 					guard isValid else {
 						Log.error("Evaluation failed with error: \(error?.localizedDescription ?? "<nil>")", log: .api, error: error)
+						trustEvaluation.trustEvaluationError = .invalidSecTrust
 						completionHandler(.cancelAuthenticationChallenge, /* credential */ nil)
 						return
 					}
@@ -65,6 +66,7 @@ class CoronaWarnSessionTaskDelegate: NSObject, URLSessionTaskDelegate {
 				)
 			} else {
 				Log.error("Evaluation failed with status: \(status)", log: .api, error: nil)
+				trustEvaluation.trustEvaluationError = .invalidSecTrust
 				completionHandler(.cancelAuthenticationChallenge, /* credential */ nil)
 			}
 		}
