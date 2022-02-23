@@ -439,7 +439,7 @@ class CoronaTestService {
 			return
 		}
 			let resource = RegistrationTokenResource(
-				sendModel: SendRegistrationTokenModel(
+				sendModel: RegistrationTokenSendModel(
 					token: registrationToken
 				)
 			)
@@ -655,7 +655,7 @@ class CoronaTestService {
 		}
 
 		let resource = TeleTanResource(
-			sendModel: KeyModel(
+			sendModel: TeleTanSendModel(
 				key: key,
 				keyType: type,
 				keyDob: dateOfBirthKey

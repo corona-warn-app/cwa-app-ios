@@ -10,11 +10,13 @@ class HealthCertifiedPersonViewController: UIViewController, UITableViewDataSour
 	// MARK: - Init
 
 	init(
+		cclService: CCLServable,
 		healthCertificateService: HealthCertificateService,
 		healthCertifiedPerson: HealthCertifiedPerson,
 		vaccinationValueSetsProvider: VaccinationValueSetsProviding,
 		dismiss: @escaping () -> Void,
 		didTapValidationButton: @escaping (HealthCertificate, @escaping (Bool) -> Void) -> Void,
+		didTapBoosterNotification: @escaping (HealthCertifiedPerson) -> Void,
 		didTapHealthCertificate: @escaping (HealthCertificate) -> Void,
 		didSwipeToDelete: @escaping (HealthCertificate, @escaping () -> Void) -> Void,
 		showInfoHit: @escaping () -> Void
@@ -24,10 +26,12 @@ class HealthCertifiedPersonViewController: UIViewController, UITableViewDataSour
 		self.didSwipeToDelete = didSwipeToDelete
 
 		self.viewModel = HealthCertifiedPersonViewModel(
+			cclService: cclService,
 			healthCertificateService: healthCertificateService,
 			healthCertifiedPerson: healthCertifiedPerson,
 			healthCertificateValueSetsProvider: vaccinationValueSetsProvider,
 			dismiss: dismiss,
+			didTapBoosterNotification: didTapBoosterNotification,
 			didTapValidationButton: didTapValidationButton,
 			showInfoHit: showInfoHit
 		)
@@ -55,12 +59,6 @@ class HealthCertifiedPersonViewController: UIViewController, UITableViewDataSour
 		super.viewDidAppear(animated)
 
 		viewModel.attemptToRestoreDecodingFailedHealthCertificates()
-	}
-
-	override func viewDidDisappear(_ animated: Bool) {
-		super.viewDidDisappear(animated)
-
-		viewModel.markBoosterRuleAsSeen()
 	}
 
 	override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
@@ -98,14 +96,19 @@ class HealthCertifiedPersonViewController: UIViewController, UITableViewDataSour
 			cell.configure(with: viewModel.qrCodeCellViewModel)
 			return cell
 
-		case .admissionState:
-			let cell = tableView.dequeueReusableCell(cellType: AdmissionStateTableViewCell.self, for: indexPath)
-			cell.configure(with: viewModel.vaccinationAdmissionStateViewModel)
+		case .boosterNotification:
+			let cell = tableView.dequeueReusableCell(cellType: BoosterNotificationTableViewCell.self, for: indexPath)
+			cell.configure(with: viewModel.boosterNotificationCellModel)
 			return cell
 
-		case .vaccinationHint:
-			let cell = tableView.dequeueReusableCell(cellType: VaccinationHintTableViewCell.self, for: indexPath)
-			cell.configure(with: viewModel.vaccinationHintCellViewModel)
+		case .admissionState:
+			let cell = tableView.dequeueReusableCell(cellType: AdmissionStateTableViewCell.self, for: indexPath)
+			cell.configure(with: viewModel.admissionStateCellModel)
+			return cell
+
+		case .vaccinationState:
+			let cell = tableView.dequeueReusableCell(cellType: VaccinationStateTableViewCell.self, for: indexPath)
+			cell.configure(with: viewModel.vaccinationStateCellModel)
 			return cell
 
 		case .person:
@@ -155,6 +158,8 @@ class HealthCertifiedPersonViewController: UIViewController, UITableViewDataSour
 	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 		let section = HealthCertifiedPersonViewModel.TableViewSection.map(indexPath.section)
 		switch section {
+		case .boosterNotification:
+			viewModel.didTapBoosterNotificationCell()
 		case .certificates:
 			if let healthCertificate = viewModel.healthCertificate(for: indexPath) {
 				didTapHealthCertificate(healthCertificate)
@@ -171,8 +176,9 @@ class HealthCertifiedPersonViewController: UIViewController, UITableViewDataSour
 	func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
 		guard editingStyle == .delete, let healthCertificate = viewModel.healthCertificate(for: indexPath) else { return }
 
-		let vaccinationHintWasVisible = viewModel.vaccinationHintIsVisible
+		let vaccinationStateWasVisible = viewModel.vaccinationStateIsVisible
 		let admissionStateWasVisible = viewModel.admissionStateIsVisible
+		let boosterNotificationWasVisible = viewModel.boosterNotificationIsVisible
 
 		self.didSwipeToDelete(healthCertificate) { [weak self] in
 			guard let self = self else { return }
@@ -183,16 +189,22 @@ class HealthCertifiedPersonViewController: UIViewController, UITableViewDataSour
 				var deleteIndexPaths = [indexPath]
 				var insertIndexPaths = [IndexPath]()
 
-				if vaccinationHintWasVisible && !self.viewModel.vaccinationHintIsVisible {
-					deleteIndexPaths.append(IndexPath(row: 0, section: HealthCertifiedPersonViewModel.TableViewSection.vaccinationHint.rawValue))
-				} else if !vaccinationHintWasVisible && self.viewModel.vaccinationHintIsVisible {
-					insertIndexPaths.append(IndexPath(row: 0, section: HealthCertifiedPersonViewModel.TableViewSection.vaccinationHint.rawValue))
+				if vaccinationStateWasVisible && !self.viewModel.vaccinationStateIsVisible {
+					deleteIndexPaths.append(IndexPath(row: 0, section: HealthCertifiedPersonViewModel.TableViewSection.vaccinationState.rawValue))
+				} else if !vaccinationStateWasVisible && self.viewModel.vaccinationStateIsVisible {
+					insertIndexPaths.append(IndexPath(row: 0, section: HealthCertifiedPersonViewModel.TableViewSection.vaccinationState.rawValue))
 				}
 				
-				if !self.viewModel.admissionStateIsVisible && admissionStateWasVisible {
+				if admissionStateWasVisible && !self.viewModel.admissionStateIsVisible {
 					deleteIndexPaths.append(IndexPath(row: 0, section: HealthCertifiedPersonViewModel.TableViewSection.admissionState.rawValue))
-				} else if self.viewModel.admissionStateIsVisible && !admissionStateWasVisible {
+				} else if !admissionStateWasVisible && self.viewModel.admissionStateIsVisible {
 					insertIndexPaths.append(IndexPath(row: 0, section: HealthCertifiedPersonViewModel.TableViewSection.admissionState.rawValue))
+				}
+
+				if boosterNotificationWasVisible && !self.viewModel.boosterNotificationIsVisible {
+					deleteIndexPaths.append(IndexPath(row: 0, section: HealthCertifiedPersonViewModel.TableViewSection.boosterNotification.rawValue))
+				} else if !boosterNotificationWasVisible && self.viewModel.boosterNotificationIsVisible {
+					insertIndexPaths.append(IndexPath(row: 0, section: HealthCertifiedPersonViewModel.TableViewSection.boosterNotification.rawValue))
 				}
 				
 				tableView.deleteRows(at: deleteIndexPaths, with: .automatic)
@@ -233,16 +245,9 @@ class HealthCertifiedPersonViewController: UIViewController, UITableViewDataSour
 		navigationItem.rightBarButtonItem = dismissHandlingCloseBarButton(.contrast)
 		navigationItem.hidesBackButton = true
 
-		// create a transparent navigation bar
-		let emptyImage = UIImage()
-		navigationController?.navigationBar.setBackgroundImage(emptyImage, for: .default)
-		navigationController?.navigationBar.shadowImage = emptyImage
-		navigationController?.navigationBar.isTranslucent = true
-		navigationController?.view.backgroundColor = .clear
-
-		navigationController?.navigationBar.prefersLargeTitles = false
-		navigationController?.navigationBar.sizeToFit()
-		navigationItem.largeTitleDisplayMode = .never
+		if let dismissHandlingNC = navigationController as? DismissHandlingNavigationController {
+			dismissHandlingNC.setupTransparentNavigationBar()
+		}
 	}
 
 	private func setupBackground() {
@@ -289,25 +294,28 @@ class HealthCertifiedPersonViewController: UIViewController, UITableViewDataSour
 			forCellReuseIdentifier: HealthCertificateSimpleTextCell.reuseIdentifier
 		)
 		tableView.register(
-			AdmissionStateTableViewCell.self,
-			forCellReuseIdentifier: AdmissionStateTableViewCell.reuseIdentifier
-		)
-
-		tableView.register(
 			HealthCertificateQRCodeCell.self,
 			forCellReuseIdentifier: HealthCertificateQRCodeCell.reuseIdentifier
 		)
 		tableView.register(
-			HealthCertificateCell.self,
-			forCellReuseIdentifier: HealthCertificateCell.reuseIdentifier
+			BoosterNotificationTableViewCell.self,
+			forCellReuseIdentifier: BoosterNotificationTableViewCell.reuseIdentifier
+		)
+		tableView.register(
+			AdmissionStateTableViewCell.self,
+			forCellReuseIdentifier: AdmissionStateTableViewCell.reuseIdentifier
+		)
+		tableView.register(
+			VaccinationStateTableViewCell.self,
+			forCellReuseIdentifier: VaccinationStateTableViewCell.reuseIdentifier
 		)
 		tableView.register(
 			PreferredPersonTableViewCell.self,
 			forCellReuseIdentifier: PreferredPersonTableViewCell.reuseIdentifier
 		)
 		tableView.register(
-			VaccinationHintTableViewCell.self,
-			forCellReuseIdentifier: VaccinationHintTableViewCell.reuseIdentifier
+			HealthCertificateCell.self,
+			forCellReuseIdentifier: HealthCertificateCell.reuseIdentifier
 		)
 	}
 

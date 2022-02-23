@@ -312,9 +312,8 @@ enum AccessibilityIdentifiers {
 		static let furtherInfos_Title = "AppStrings.ExposureSubmissionResult.furtherInfos_Title"
 		static let warnOthersConsentGivenCell = "AppStrings.ExposureSubmissionResult.warnOthersConsentGiven"
 		static let warnOthersConsentNotGivenCell = "AppStrings.ExposureSubmissionResult.warnOthersConsentNotGiven"
-		
+
 		enum Antigen {
-			static let proofTitle = "AppStrings.ExposureSubmissionResult.Antigen.proofTitle"
 			static let proofDesc = "AppStrings.ExposureSubmissionResult.Antigen.proofDesc"
 		}
 	}
@@ -418,6 +417,7 @@ enum AccessibilityIdentifiers {
 		static let selectDistrict = "AppStrings.LocalStatistics.selectDistrict"
 		static let manageStatisticsCard = "AppStrings.LocalStatistics.manageStatisticsCard"
 		static let localStatisticsCard = "AppStrings.LocalStatistics.localStatisticsCard"
+		static let localStatisticsCardTitle = "AppStrings.LocalStatistics.localStatisticsCardTitle"
 		static let addLocalIncidencesButton = "AppStrings.LocalStatistics.addLocalIncidencesButton"
 		static let addLocalIncidenceLabel = "AppStrings.LocalStatistics.addLocalIncidenceLabel"
 		static let modifyLocalIncidencesButton = "AppStrings.LocalStatistics.modifyLocalIncidencesButton"
@@ -806,6 +806,13 @@ enum AccessibilityIdentifiers {
 				static let headerImageWithTitle = "TicketValidation.ValidationResult.Open.headerImageWithTitle"
 				static let subtitle = "TicketValidation.ValidationResult.Open.subtitle"
 			}
+		}
+	}
+	
+	enum BoosterNotification {
+		enum Details {
+			static let image = "BoosterNotification.Details.image"
+			static let boosterNotificationCell = "BoosterNotification.Details.boosterNotificationCell"
 		}
 	}
 

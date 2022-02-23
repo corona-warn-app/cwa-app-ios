@@ -22,7 +22,8 @@ final class DMViewController: UITableViewController, RequiresAppDependencies {
 		eventStore: EventStoringProviding,
 		qrCodePosterTemplateProvider: QRCodePosterTemplateProviding,
 		ppacService: PrivacyPreservingAccessControl,
-		healthCertificateService: HealthCertificateService
+		healthCertificateService: HealthCertificateService,
+		cache: KeyValueCaching
 	) {
 		self.client = client
 		self.restServiceProvider = restServiceProvider
@@ -34,7 +35,7 @@ final class DMViewController: UITableViewController, RequiresAppDependencies {
 		self.qrCodePosterTemplateProvider = qrCodePosterTemplateProvider
 		self.ppacService = ppacService
 		self.healthCertificateService = healthCertificateService
-
+		self.cache = cache
 		super.init(style: .plain)
 		title = "👩🏾‍💻 Developer Menu 🧑‍💻"
 	}
@@ -83,11 +84,13 @@ final class DMViewController: UITableViewController, RequiresAppDependencies {
 		let vc: UIViewController?
 
 		switch menuItem {
+		case .cclConfig:
+			vc = DMCCLConfigurationViewController()
 		case .newHttp:
 			vc = DMNHCViewController(
-				store: store
+				store: store,
+				cache: cache
 			)
-
 		case .ticketValidation:
 			vc = DMTicketValidationViewController(store: store)
 
@@ -194,6 +197,7 @@ final class DMViewController: UITableViewController, RequiresAppDependencies {
 	private let qrCodePosterTemplateProvider: QRCodePosterTemplateProviding
 	private let ppacService: PrivacyPreservingAccessControl
 	private let healthCertificateService: HealthCertificateService
+	private let cache: KeyValueCaching
 
 	private var keys = [SAP_External_Exposurenotification_TemporaryExposureKey]() {
 		didSet {

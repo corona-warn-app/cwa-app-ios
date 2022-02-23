@@ -42,9 +42,8 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 					dscListProvider: MockDSCListProvider(),
 					client: client,
 					appConfiguration: appConfigurationProvider,
-					boosterNotificationsService: BoosterNotificationsService(
-						rulesDownloadService: FakeRulesDownloadService()
-					),
+					cclService: FakeCCLService(),
+
 					recycleBin: .fake()
 				),
 				recycleBin: .fake(),
@@ -140,9 +139,7 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 					dscListProvider: MockDSCListProvider(),
 					client: client,
 					appConfiguration: appConfigurationProvider,
-					boosterNotificationsService: BoosterNotificationsService(
-						rulesDownloadService: FakeRulesDownloadService()
-					),
+					cclService: FakeCCLService(),
 					recycleBin: .fake()
 				),
 				recycleBin: .fake(),
@@ -197,9 +194,7 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 					dscListProvider: MockDSCListProvider(),
 					client: client,
 					appConfiguration: appConfigurationProvider,
-					boosterNotificationsService: BoosterNotificationsService(
-						rulesDownloadService: FakeRulesDownloadService()
-					),
+					cclService: FakeCCLService(),
 					recycleBin: .fake()
 				),
 				recycleBin: .fake(),
@@ -256,9 +251,7 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 					dscListProvider: MockDSCListProvider(),
 					client: client,
 					appConfiguration: appConfigurationProvider,
-					boosterNotificationsService: BoosterNotificationsService(
-						rulesDownloadService: FakeRulesDownloadService()
-					),
+					cclService: FakeCCLService(),
 					recycleBin: .fake()
 				),
 				recycleBin: .fake(),
@@ -314,9 +307,7 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 					dscListProvider: MockDSCListProvider(),
 					client: client,
 					appConfiguration: appConfigurationProvider,
-					boosterNotificationsService: BoosterNotificationsService(
-						rulesDownloadService: FakeRulesDownloadService()
-					),
+					cclService: FakeCCLService(),
 					recycleBin: .fake()
 				),
 				recycleBin: .fake(),
@@ -364,9 +355,7 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 					dscListProvider: MockDSCListProvider(),
 					client: client,
 					appConfiguration: appConfigurationProvider,
-					boosterNotificationsService: BoosterNotificationsService(
-						rulesDownloadService: FakeRulesDownloadService()
-					),
+					cclService: FakeCCLService(),
 					recycleBin: .fake()
 				),
 				recycleBin: .fake(),
@@ -424,9 +413,7 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 					dscListProvider: MockDSCListProvider(),
 					client: client,
 					appConfiguration: appConfigurationProvider,
-					boosterNotificationsService: BoosterNotificationsService(
-						rulesDownloadService: FakeRulesDownloadService()
-					),
+					cclService: FakeCCLService(),
 					recycleBin: .fake()
 				),
 				recycleBin: .fake(),
@@ -484,9 +471,7 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 					dscListProvider: MockDSCListProvider(),
 					client: client,
 					appConfiguration: appConfigurationProvider,
-					boosterNotificationsService: BoosterNotificationsService(
-						rulesDownloadService: FakeRulesDownloadService()
-					),
+					cclService: FakeCCLService(),
 					recycleBin: .fake()
 				),
 				recycleBin: .fake(),
@@ -543,9 +528,7 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 					dscListProvider: MockDSCListProvider(),
 					client: client,
 					appConfiguration: appConfigurationProvider,
-					boosterNotificationsService: BoosterNotificationsService(
-						rulesDownloadService: FakeRulesDownloadService()
-					),
+					cclService: FakeCCLService(),
 					recycleBin: .fake()
 				),
 				recycleBin: .fake(),
@@ -603,9 +586,7 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 					dscListProvider: MockDSCListProvider(),
 					client: client,
 					appConfiguration: appConfigurationProvider,
-					boosterNotificationsService: BoosterNotificationsService(
-						rulesDownloadService: FakeRulesDownloadService()
-					),
+					cclService: FakeCCLService(),
 					recycleBin: .fake()
 				),
 				recycleBin: .fake(),
@@ -666,9 +647,7 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 					dscListProvider: MockDSCListProvider(),
 					client: client,
 					appConfiguration: appConfigurationProvider,
-					boosterNotificationsService: BoosterNotificationsService(
-						rulesDownloadService: FakeRulesDownloadService()
-					),
+					cclService: FakeCCLService(),
 					recycleBin: .fake()
 				),
 				recycleBin: .fake(),
@@ -731,9 +710,7 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 					dscListProvider: MockDSCListProvider(),
 					client: client,
 					appConfiguration: appConfigurationProvider,
-					boosterNotificationsService: BoosterNotificationsService(
-						rulesDownloadService: FakeRulesDownloadService()
-					),
+					cclService: FakeCCLService(),
 					recycleBin: .fake()
 				),
 				recycleBin: .fake(),
@@ -793,9 +770,7 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 					dscListProvider: MockDSCListProvider(),
 					client: client,
 					appConfiguration: appConfigurationProvider,
-					boosterNotificationsService: BoosterNotificationsService(
-						rulesDownloadService: FakeRulesDownloadService()
-					),
+					cclService: FakeCCLService(),
 					recycleBin: .fake()
 				),
 				recycleBin: .fake(),
@@ -853,9 +828,7 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 					dscListProvider: MockDSCListProvider(),
 					client: client,
 					appConfiguration: appConfigurationProvider,
-					boosterNotificationsService: BoosterNotificationsService(
-						rulesDownloadService: FakeRulesDownloadService()
-					),
+					cclService: FakeCCLService(),
 					recycleBin: .fake()
 				),
 				recycleBin: .fake(),
@@ -930,9 +903,7 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 					dscListProvider: MockDSCListProvider(),
 					client: client,
 					appConfiguration: appConfigurationProvider,
-					boosterNotificationsService: BoosterNotificationsService(
-						rulesDownloadService: FakeRulesDownloadService()
-					),
+					cclService: FakeCCLService(),
 					recycleBin: .fake()
 				),
 				recycleBin: .fake(),
@@ -1384,8 +1355,8 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 		let appConfiguration = CachedAppConfigurationMock()
 		let restServiceProvider = RestServiceProviderStub(
 			results: [
-				.success(RegistrationTokenModel(registrationToken: "fake")),
-				.success(SubmissionTANModel(submissionTAN: "fake"))
+				.success(TeleTanReceiveModel(registrationToken: "fake")),
+				.success(RegistrationTokenReceiveModel(submissionTAN: "fake"))
 			]
 		)
 		
@@ -1406,9 +1377,7 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration,
-				boosterNotificationsService: BoosterNotificationsService(
-					rulesDownloadService: FakeRulesDownloadService()
-				),
+				cclService: FakeCCLService(),
 				recycleBin: .fake()
 			),
 			recycleBin: .fake(),
@@ -1512,9 +1481,7 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 					dscListProvider: MockDSCListProvider(),
 					client: client,
 					appConfiguration: appConfigurationProvider,
-					boosterNotificationsService: BoosterNotificationsService(
-						rulesDownloadService: FakeRulesDownloadService()
-					),
+					cclService: FakeCCLService(),
 					recycleBin: .fake()
 				),
 				recycleBin: .fake(),

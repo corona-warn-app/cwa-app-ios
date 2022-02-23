@@ -11,16 +11,20 @@ class HealthCertificateOverviewViewController: UITableViewController {
 
 	init(
 		viewModel: HealthCertificateOverviewViewModel,
+		cclService: CCLServable,
 		onInfoBarButtonItemTap: @escaping () -> Void,
 		onCreateHealthCertificateTap: @escaping () -> Void,
 		onCertifiedPersonTap: @escaping (HealthCertifiedPerson) -> Void,
-		onCovPassCheckInfoButtonTap: @escaping () -> Void
+		onCovPassCheckInfoButtonTap: @escaping () -> Void,
+		onTapToDelete: @escaping (DecodingFailedHealthCertificate) -> Void
 	) {
 		self.viewModel = viewModel
+		self.cclService = cclService
 		self.onInfoBarButtonItemTap = onInfoBarButtonItemTap
 		self.onCreateHealthCertificateTap = onCreateHealthCertificateTap
 		self.onCertifiedPersonTap = onCertifiedPersonTap
 		self.onCovPassCheckInfoButtonTap = onCovPassCheckInfoButtonTap
+		self.onTapToDelete = onTapToDelete
 
 		super.init(style: .grouped)
 		
@@ -135,11 +139,13 @@ class HealthCertificateOverviewViewController: UITableViewController {
 	// MARK: - Private
 
 	private let viewModel: HealthCertificateOverviewViewModel
-
+	private let cclService: CCLServable
+	
 	private let onInfoBarButtonItemTap: () -> Void
 	private let onCreateHealthCertificateTap: () -> Void
 	private let onCertifiedPersonTap: (HealthCertifiedPerson) -> Void
 	private let onCovPassCheckInfoButtonTap: () -> Void
+	private let onTapToDelete: (DecodingFailedHealthCertificate) -> Void
 
 	private var subscriptions = Set<AnyCancellable>()
 
@@ -218,6 +224,7 @@ class HealthCertificateOverviewViewController: UITableViewController {
 		guard let healthCertifiedPerson = viewModel.healthCertifiedPersons[safe: indexPath.row],
 			  let cellModel = HealthCertifiedPersonCellModel(
 				healthCertifiedPerson: healthCertifiedPerson,
+				cclService: cclService,
 				onCovPassCheckInfoButtonTap: { [weak self] in
 					self?.onCovPassCheckInfoButtonTap()
 				}
@@ -240,6 +247,9 @@ class HealthCertificateOverviewViewController: UITableViewController {
 				decodingFailedHealthCertificate: decodingFailedHealthCertificate,
 				onCovPassCheckInfoButtonTap: { [weak self] in
 					self?.onCovPassCheckInfoButtonTap()
+				},
+				onTapToDelete: { [weak self] decodingFailedHealthCertificate in
+					self?.onTapToDelete(decodingFailedHealthCertificate)
 				}
 			  ) else {
 			return UITableViewCell()

@@ -34,19 +34,19 @@ class AdmissionStateTableViewCell: UITableViewCell, UITextViewDelegate, ReuseIde
 
 	func configure(with cellModel: AdmissionStateCellModel) {
 		titleLabel.text = cellModel.title
-		titleLabel.accessibilityIdentifier = AccessibilityIdentifiers.HealthCertificate.AdmissionState.title
+		titleLabel.isHidden = (cellModel.title ?? "").isEmpty
 		
 		subtitleLabel.text = cellModel.subtitle
-		subtitleLabel.accessibilityIdentifier = AccessibilityIdentifiers.HealthCertificate.AdmissionState.subtitle
+		subtitleLabel.isHidden = (cellModel.subtitle ?? "").isEmpty
 
 		descriptionLabel.text = cellModel.description
-		descriptionLabel.accessibilityIdentifier = AccessibilityIdentifiers.HealthCertificate.AdmissionState.description
+		descriptionLabel.isHidden = (cellModel.description ?? "").isEmpty
 
 		faqLinkTextView.attributedText = cellModel.faqLink
-		faqLinkTextView.isHidden = cellModel.faqLink == nil
-		faqLinkTextView.accessibilityIdentifier = AccessibilityIdentifiers.HealthCertificate.AdmissionState.faq
+		faqLinkTextView.isHidden = (cellModel.faqLink?.string ?? "").isEmpty
 
 		roundedLabeledView?.configure(title: cellModel.shortTitle, gradientType: cellModel.gradientType)
+		roundedLabeledView?.isHidden = (cellModel.shortTitle ?? "").isEmpty
 	}
 
 	// MARK: - Private
@@ -74,30 +74,29 @@ class AdmissionStateTableViewCell: UITableViewCell, UITextViewDelegate, ReuseIde
 	}()
 
 	private let topStackView: UIStackView = {
-		let titleStackView = UIStackView()
-		titleStackView.axis = .horizontal
-		titleStackView.distribution = .fill
-		titleStackView.alignment = .top
-		titleStackView.spacing = 6
+		let topStackView = AccessibleStackView()
+		topStackView.distribution = .fill
+		topStackView.alignment = .top
+		topStackView.spacing = 6
 
-		return titleStackView
+		return topStackView
 	}()
 	
 	private let titleStackView: UIStackView = {
-		let topStackView = UIStackView()
-		topStackView.axis = .vertical
-		topStackView.distribution = .fill
-		topStackView.alignment = .fill
-		topStackView.spacing = 0
+		let titleStackView = UIStackView()
+		titleStackView.axis = .vertical
+		titleStackView.distribution = .fill
+		titleStackView.alignment = .fill
+		titleStackView.spacing = 0
 
-		return topStackView
+		return titleStackView
 	}()
 
 	private let titleLabel: ENALabel = {
 		let titleLabel = ENALabel(style: .headline)
 		titleLabel.numberOfLines = 0
 		titleLabel.textColor = .enaColor(for: .textPrimary1)
-		titleLabel.setContentCompressionResistancePriority(.required, for: .horizontal)
+		titleLabel.accessibilityIdentifier = AccessibilityIdentifiers.HealthCertificate.AdmissionState.title
 
 		return titleLabel
 	}()
@@ -106,6 +105,7 @@ class AdmissionStateTableViewCell: UITableViewCell, UITextViewDelegate, ReuseIde
 		let subtitleLabel = ENALabel(style: .body)
 		subtitleLabel.numberOfLines = 0
 		subtitleLabel.textColor = .enaColor(for: .textPrimary2)
+		subtitleLabel.accessibilityIdentifier = AccessibilityIdentifiers.HealthCertificate.AdmissionState.subtitle
 
 		return subtitleLabel
 	}()
@@ -120,6 +120,7 @@ class AdmissionStateTableViewCell: UITableViewCell, UITextViewDelegate, ReuseIde
 	private let descriptionLabel: ENALabel = {
 		let descriptionLabel = ENALabel(style: .body)
 		descriptionLabel.numberOfLines = 0
+		descriptionLabel.accessibilityIdentifier = AccessibilityIdentifiers.HealthCertificate.AdmissionState.description
 
 		return descriptionLabel
 	}()
@@ -133,6 +134,8 @@ class AdmissionStateTableViewCell: UITableViewCell, UITextViewDelegate, ReuseIde
 		faqLinkTextView.textContainer.lineFragmentPadding = .zero
 		faqLinkTextView.textColor = .enaColor(for: .textPrimary1)
 		faqLinkTextView.tintColor = .enaColor(for: .textTint)
+		faqLinkTextView.accessibilityTraits = .button
+		faqLinkTextView.accessibilityIdentifier = AccessibilityIdentifiers.HealthCertificate.AdmissionState.faq
 		faqLinkTextView.linkTextAttributes = [
 			.foregroundColor: UIColor.enaColor(for: .textTint),
 			.underlineColor: UIColor.clear

@@ -90,7 +90,11 @@ class HealthCertifiedPersonTableViewCell: UITableViewCell, ReuseIdentifierProvid
 			segmentedControl.selectedSegmentIndex = 0
 		}
 
-		setupAccessibility(validityStateTitleIsVisible: cellModel.caption != nil)
+		setupAccessibility(
+			admissionStateIsVisible: cellModel.isStatusTitleVisible,
+			segmentedControlIsVisible: !cellModel.switchableHealthCertificates.isEmpty,
+			validityStateTitleIsVisible: cellModel.caption != nil
+		)
 	}
 	
 	// MARK: - Private
@@ -175,12 +179,11 @@ class HealthCertifiedPersonTableViewCell: UITableViewCell, ReuseIdentifierProvid
 	}()
 
 	private lazy var admissionStateStackView: UIStackView = {
-		let stackView = UIStackView(
+		let stackView = AccessibleStackView(
 			arrangedSubviews: [
 				admissionStateTitleLabel, admissionStateView
 			].compactMap { $0 }
 		)
-		stackView.axis = .horizontal
 		stackView.spacing = 8.0
 		stackView.alignment = .center
 
@@ -192,6 +195,7 @@ class HealthCertifiedPersonTableViewCell: UITableViewCell, ReuseIdentifierProvid
 		admissionStateTitleLabel.numberOfLines = 0
 		admissionStateTitleLabel.textColor = .enaColor(for: .textPrimary1)
 		admissionStateTitleLabel.text = AppStrings.HealthCertificate.Overview.admissionStateTitle
+		admissionStateTitleLabel.setContentCompressionResistancePriority(.init(rawValue: 998), for: .horizontal)
 
 		return admissionStateTitleLabel
 	}()
@@ -289,17 +293,36 @@ class HealthCertifiedPersonTableViewCell: UITableViewCell, ReuseIdentifierProvid
 		return captionLabel
 	}()
 
+	private lazy var tapGestureRecognizer: UITapGestureRecognizer = {
+		let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(handleTapGesture))
+		gestureRecognizer.numberOfTapsRequired = 7
+
+		return gestureRecognizer
+	}()
+
 	private var cellModel: HealthCertifiedPersonCellModel?
 
-	private func setupAccessibility(validityStateTitleIsVisible: Bool) {
-		cardView.accessibilityElements = [titleLabel, nameLabel, qrCodeView]
+	private func setupAccessibility(
+		admissionStateIsVisible: Bool,
+		segmentedControlIsVisible: Bool,
+		validityStateTitleIsVisible: Bool
+	) {
+		cardView.accessibilityElements = [titleLabel, nameLabel]
+
+		if admissionStateIsVisible {
+			cardView.accessibilityElements?.append(admissionStateStackView)
+		}
+
+		cardView.accessibilityElements?.append(qrCodeView)
+
+		if segmentedControlIsVisible {
+			cardView.accessibilityElements?.append(segmentedControl)
+		}
 
 		if validityStateTitleIsVisible {
 			cardView.accessibilityElements?.append(captionLabel)
 		}
 
-		qrCodeView.accessibilityTraits = [.image, .button]
-		qrCodeView.isAccessibilityElement = true
 		accessibilityIdentifier = AccessibilityIdentifiers.HealthCertificate.Overview.healthCertifiedPersonCell
 	}
 
@@ -388,6 +411,8 @@ class HealthCertifiedPersonTableViewCell: UITableViewCell, ReuseIdentifierProvid
 				captionCountLabel.bottomAnchor.constraint(equalTo: captionCountView.bottomAnchor, constant: -2.0)
 			]
 		)
+
+		addGestureRecognizer(tapGestureRecognizer)
 	}
 
 	private func updateBorderColors() {
@@ -398,6 +423,11 @@ class HealthCertifiedPersonTableViewCell: UITableViewCell, ReuseIdentifierProvid
 	@objc
 	func segmentedControlValueChanged(_ sender: UISegmentedControl) {
 		cellModel?.showHealthCertificate(at: sender.selectedSegmentIndex)
+	}
+
+	@objc
+	func handleTapGesture() {
+		cellModel?.onTapToDelete?()
 	}
 
 }

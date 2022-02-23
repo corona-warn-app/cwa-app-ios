@@ -24,6 +24,7 @@ struct HealthCertificateQRCodeCellViewModel {
 		self.qrCodeViewModel = HealthCertificateQRCodeViewModel(
 			healthCertificate: healthCertificate,
 			showRealQRCodeIfValidityStateBlocked: mode == .details,
+			imageAccessibilityTraits: .image,
 			accessibilityLabel: accessibilityText,
 			covPassCheckInfoPosition: .top,
 			onCovPassCheckInfoButtonTap: onCovPassCheckInfoButtonTap

@@ -139,7 +139,10 @@ class HealthCertificateServiceMigrationTests: XCTestCase {
 		let person03 = HealthCertifiedPerson(
 			healthCertificates: [cert04],
 			isPreferredPerson: true,
-			boosterRule: .fake(),
+			dccWalletInfo: .fake(
+				boosterNotification: .fake(visible: true, identifier: "BoosterRuleIdentifier"),
+				validUntil: Date(timeIntervalSinceNow: 100)
+			),
 			isNewBoosterRule: true
 		)
 
@@ -161,7 +164,7 @@ class HealthCertificateServiceMigrationTests: XCTestCase {
 		let otherPerson = try XCTUnwrap(service.healthCertifiedPersons.first)
 		XCTAssertEqual(otherPerson.healthCertificates, [cert04])
 		XCTAssertTrue(otherPerson.isPreferredPerson)
-		XCTAssertNotNil(otherPerson.boosterRule)
+		XCTAssertNotNil(otherPerson.dccWalletInfo)
 		XCTAssertTrue(otherPerson.isNewBoosterRule)
 	}
 
@@ -177,9 +180,7 @@ class HealthCertificateServiceMigrationTests: XCTestCase {
 			appConfiguration: CachedAppConfigurationMock(
 				with: SAP_Internal_V2_ApplicationConfigurationIOS()
 			),
-			boosterNotificationsService: BoosterNotificationsService(
-				rulesDownloadService: FakeRulesDownloadService()
-			),
+			cclService: FakeCCLService(),
 			recycleBin: RecycleBin(
 				store: store
 			)

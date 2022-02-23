@@ -119,7 +119,7 @@
 
 "ExposureDetection_Guide_Home" = "Begeben Sie sich, wenn möglich, nach Hause bzw. bleiben Sie zu Hause und vermeiden Sie Begegnungen außerhalb Ihres Haushalts.";
 
-"ExposureDetection_Guide_Hotline" = "Bei sonstigen Fragen wenden Sie sich bitte an den kassenärztlichen Bereitschaftsdienst unter der Telefonnummer 116 117.";
+"ExposureDetection_Guide_Hotline" = "Bei Fragen rufen Sie die 116 117 an. Wählen Sie bei der Telefonansage dann die 2, um die Servicestelle des Bundesministeriums für Gesundheit zu erreichen. Nur bei Krankheitssymptomen wählen Sie die 1 (kassenärztlicher Bereitschaftsdienst).";
 
 "ExposureDetection_Guide_Vaccination_HighRisk" = "Sollten Sie bisher nicht geimpft sein, besprechen Sie nach der Testung die Impfung mit Ihrer Hausarztpraxis.";
 
@@ -612,7 +612,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmission_PhoneDetailsForeign" = "Für Anrufe aus dem Ausland.\nEs fallen die Gebühren des jeweiligen Telefonanbieters an.";
 
-"ExposureSubmission_PhoneDetailDescription" = "Unser Kundenservice ist in den folgenden Sprachen für Sie da:\nDeutsch, Englisch, Türkisch\n\nErreichbarkeit:\nMo-So: 07:00 - 20:00 Uhr\n\nFür gesundheitliche Fragen wenden Sie sich bitte an Ihre Hausarztpraxis oder die Hotline des ärztlichen Bereitschaftsdienstes 116 117.";
+"ExposureSubmission_PhoneDetailDescription" = "Unser Kundenservice ist in den folgenden Sprachen für Sie da:\nDeutsch, Englisch, Türkisch\n\nErreichbarkeit:\nMo-So: 07:00 - 20:00 Uhr\n\nBei Fragen rufen Sie die 116 117 an. Wählen Sie bei der Telefonansage dann die 2, um die Servicestelle des Bundesministeriums für Gesundheit zu erreichen. Nur bei Krankheitssymptomen wählen Sie die 1 (kassenärztlicher Bereitschaftsdienst).";
 
 "ExposureSubmission_SectionDescription2" = "Geben Sie die TAN in der App ein, um Ihren PCR-Test zu registrieren.";
 
@@ -933,8 +933,6 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmissionResult_Timer_Title" = "Ergebnis liegt vor seit";
 
-"ExposureSubmissionResult_Negative_Antigen_Proof_Title" = "Nachweis-Funktion";
-
 "ExposureSubmissionResult_Negative_Antigen_Proof_Desc" = "Um den hier angezeigten Befund überprüfbar nachzuweisen, ist ein Digitales Testzertifikat der EU notwendig. Wenn Sie bei der Registrierung des Tests ein Digitales Testzertifikat angefordert haben und die Teststelle deren Ausstellung unterstützt, können Sie Ihr Digitales Testzertifikat anhand des oben angegebenen Links anzeigen. Sie finden das Zertifikat außerdem im Bereich „Zertifikate“.\nInformieren Sie sich diesbezüglich bitte auch über die Kriterien zur Anerkennung und Gültigkeit von Test-Zertifikaten in Bezug auf den Zweck für den Sie den Nachweis benötigen.";
 
 "ExposureSubmissionResult_Negative_Antigen_NoProof_Title" = "Keine Nachweis-Funktion";
@@ -1055,7 +1053,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmission_TestCertificate_Information_BirthdayPlaceholder" = "Geburtsdatum";
 
-"ExposureSubmission_TestCertificate_Information_BirthdayText" = "Zur Sicherheit wird Ihr Testergebnis mit Ihrem Geburtsdatum geschützt. Das Testergebnis kann nur bei korrekt angegebenem Geburtsdatum zugestellt werden.";
+"ExposureSubmission_TestCertificate_Information_BirthdayText" = "Zur Sicherheit wird Ihr Testzertifikat mit Ihrem Geburtsdatum geschützt. Das Testzertifikat kann nur bei korrekt angegebenem Geburtsdatum zugestellt werden.";
 
 "ExposureSubmission_TestCertificate_Information_Dataprivacy_Title" = "Ausführliche Hinweise zur Datenverarbeitung finden Sie in der Datenschutzerklärung";
 
@@ -1387,7 +1385,9 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "App_Information_Title" = "App-Informationen";
 
-"App_Information_Version" = "Version";
+"App_Information_AppVersion" = "App-Version: %@";
+
+"App_Information_CCLVersion" = "CCL-Version: %@";
 
 /* App Information - About */
 
@@ -1429,7 +1429,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "App_Information_Contact_Hotline_Details_Foreign" = "Für Anrufe aus dem Ausland.\nEs fallen die Gebühren des jeweiligen Telefonanbieters an.";
 
-"App_Information_Contact_Hotline_Terms" = "Unser Kundenservice ist in den folgenden Sprachen für Sie da:\nDeutsch, Englisch, Türkisch\n\nErreichbarkeit:\nMo-Sa: 07:00 - 22:00 Uhr\n(außer an bundesweiten Feiertagen)\n\nFür gesundheitliche Fragen wenden Sie sich bitte an Ihre Hausarztpraxis oder die Hotline des ärztlichen Bereitschaftsdienstes 116 117.";
+"App_Information_Contact_Hotline_Terms" = "Unser Kundenservice ist in den folgenden Sprachen für Sie da:\nDeutsch, Englisch, Türkisch\n\nErreichbarkeit:\nMo-Sa: 07:00 - 22:00 Uhr\n(außer an bundesweiten Feiertagen)\n\nBei Fragen rufen Sie die 116 117 an. Wählen Sie bei der Telefonansage dann die 2, um die Servicestelle des Bundesministeriums für Gesundheit zu erreichen. Nur bei Krankheitssymptomen wählen Sie die 1 (kassenärztlicher Bereitschaftsdienst).";
 
 /* App Information - Imprint */
 "App_Information_New_Features_Navigation" = "Neue Funktionen";
@@ -1645,23 +1645,11 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "NewVersionFeatures_Info_about_abb_information" = "Änderungen zum Release finden Sie in den App-Informationen unter dem Menüpunkt „Neue Funktionen”.";
 
-/* Version 2.17 */
+/* Version 2.18 */
 
-"NewVersionFeature_217_positiveTest_title" = "Hinweise bei positivem Test";
+"NewVersionFeature_218_centralManagementOfRules_title" = "Zentrale Verwaltung von Regeln";
 
-"NewVersionFeature_217_positiveTest_description" = "Die Hinweise und Vorgehensweise bei einem positiven Testergebnis wurden überarbeitet.";
-
-"NewVersionFeature_217_statisticsBoosterVaccination_title" = "Statistik zu Auffrischimpfungen";
-
-"NewVersionFeature_217_statisticsBoosterVaccination_description" = "Neben den Statistiken für mindestens einmal geimpfte und vollständig geimpfte Personen, finden Sie jetzt auch die Anzahl der Personen, die eine Auffrischimpfung erhalten haben.";
-
-"NewVersionFeature_217_linkSocialMedia_title" = "Link zu Social Media";
-
-"NewVersionFeature_217_linkSocialMedia_description" = "Wenn Sie über die Corona-Warn-App auf dem Laufenden bleiben und sich mit anderen austauschen wollen, können Sie unseren Social-Media-Kanälen folgen. Sie finden jetzt auf der Startseite unter \"Mehr\" einen Social-Media-Link.";
-
-"NewVersionFeature_217_deleteDateRecycleBin_title" = "Löschdatum für Papierkorbinhalte";
-
-"NewVersionFeature_217_deleteDateRecycleBin_description" = "Jedes Element, dass in den Papierkorb verschoben wird, wird nach 30 Tagen endgültig gelöscht. Dieses Löschdatum wird jetzt für jedes Element angezeigt.";
+"NewVersionFeature_218_centralManagementOfRules_description" = "Die Regeln für Zertifikate (z.B. hinsichtlich ihrer Gültigkeit oder Priorisierung, wenn mehrere Zertifikate vorhanden sind) und für die Ermittlung des G-Status wurden aus der Corona-Warn-App herausgelöst. Diese Regeln sind jetzt zentral abgelegt und können daher unabhängig von den App-Releases angepasst werden. Damit kann schneller auf Regeländerungen reagiert werden. Nach einer Änderung werden die aktualisierten Regeln an die App übertragen. Für Sie ändert sich an der Benutzung der Corona-Warn-App nichts durch diese zentrale Verwaltung der Regeln.";
 
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Länderübergreifende Risiko-Ermittlung";
@@ -2087,7 +2075,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 /* - Fully vaccinated people card */
 
-"Statistics_Card_FullyVaccinated_Title" = "Vollständig geimpfte Personen";
+"Statistics_Card_FullyVaccinated_Title" = "Grundimmunisiert";
 
 "Statistics_Card_FullyVaccinated_Today" = "Bis heute";
 
@@ -2187,7 +2175,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "Statistics_Info_AtLeastOnce_Text" = "Anzahl der an das RKI übermittelten Personen, die die erste Impfdosis erhalten haben.";
 
-"Statistics_Info_FullyVaccinated_Title" = "Vollständig geimpfte Personen";
+"Statistics_Info_FullyVaccinated_Title" = "Grundimmunisiert";
 
 "Statistics_Info_FullyVaccinated_Text" = "Anzahl der an das RKI übermittelten Personen, die alle notwendigen Impfdosen der Grundimmunisierung erhalten haben.";
 
@@ -2925,55 +2913,13 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "HealthCertificate_unified_QR_code_notice" = "Dieser QR-Code lässt sich verlässlich mit der CovPassCheck-App überprüfen.";
 
+"HealthCertificate_unified_QR_code_infoButton" = "Info";
+
 "HealthCertifiedPerson_title" = "Digitales COVID-Zertifikat der EU";
 
-/* Health Certified Person Admission State */
+/* Health Certified Person */
 
-"HealthCertifiedPerson_AdmissionState_title" = "Status-Nachweis";
-
-"HealthCertifiedPerson_AdmissionState_subtitle2G" = "2G";
-
-"HealthCertifiedPerson_AdmissionState_subtitle2GPlusPCR" = "2G+ PCR-Test";
-
-"HealthCertifiedPerson_AdmissionState_subtitle2GPlusAntigen" = "2G+ Schnelltest";
-
-"HealthCertifiedPerson_AdmissionState_subtitle3G" = "3G";
-
-"HealthCertifiedPerson_AdmissionState_subtitle3GPlus" = "3G+";
-
-"HealthCertifiedPerson_AdmissionState_description2G" = "Ihre Zertifikate erfüllen die 2G-Regel. Wenn Sie Ihren aktuellen Status vorweisen müssen, schließen Sie diese Ansicht und zeigen Sie den QR-Code auf der Zertifikatsübersicht.";
-
-"HealthCertifiedPerson_AdmissionState_description2GPlusPCR" = "Ihre Zertifikate erfüllen die 2G-Plus-Regel. Wenn Sie Ihren aktuellen Status vorweisen müssen, schließen Sie diese Ansicht und zeigen Sie den QR-Code auf der Zertifikatsübersicht.";
-
-"HealthCertifiedPerson_AdmissionState_description2GPlusAntigen" = "Ihre Zertifikate erfüllen die 2G-Plus-Regel, es sei denn, es wird ein PCR-Test benötigt. Wenn Sie Ihren aktuellen Status vorweisen müssen, schließen Sie diese Ansicht und zeigen Sie den QR-Code auf der Zertifikatsübersicht.";
-
-"HealthCertifiedPerson_AdmissionState_description3G" = "Ihre Zertifikate erfüllen die 3G-Regel. Wenn Sie Ihren aktuellen Status vorweisen müssen, schließen Sie diese Ansicht und zeigen Sie den QR-Code auf der Zertifikatsübersicht.";
-
-"HealthCertifiedPerson_AdmissionState_description3GPlus" = "Ihre Zertifikate erfüllen die 3G-Plus-Regel. Wenn Sie Ihren aktuellen Status vorweisen müssen, schließen Sie diese Ansicht und zeigen Sie den QR-Code auf der Zertifikatsübersicht.";
-
-"HealthCertifiedPerson_AdmissionStateFAQ" = "Mehr Informationen finden Sie in den %@.";
-
-"HealthCertifiedPerson_AdmissionState_FAQ_Placeholder" = "FAQ";
-
-"HealthCertifiedPerson_AdmissionState_shortTitle_title2G" = "2G";
-
-"HealthCertifiedPerson_AdmissionState_shortTitle_title2GPlus" = "2G+";
-
-"HealthCertifiedPerson_AdmissionState_shortTitle_title3G" = "3G";
-
-"HealthCertifiedPerson_AdmissionState_shortTitle_title3GPlus" = "3G+";
-
-/* Health Certified Person Hint */
-
-"HealthCertifiedPerson_VaccinationHint_title" = "Impfstatus";
-
-"HealthCertifiedPerson_partiallyVaccinated" = "Sie haben noch nicht alle derzeit geplanten Impfungen erhalten. Daher ist Ihr Impfschutz noch nicht vollständig.";
-
-"HealthCertifiedPerson_completelyProtected" = "Sie haben nun alle derzeit geplanten Impfungen erhalten. Ihr Impfschutz ist vollständig.";
-
-"HealthCertifiedPerson_boosterRuleFAQ" = "Mehr Informationen finden Sie in den %@.";
-
-"HealthCertifiedPerson_boosterRuleFAQ_placeholder_FAQ" = "FAQ";
+"HealthCertifiedPerson_faq" = "Mehr Informationen finden Sie in den FAQ.";
 
 "HealthCertifiedPerson_dateOfBirth" = "Geboren %@";
 
@@ -3047,11 +2993,6 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "HealthCertificate_Details_moreButtonTitle" = "Mehr";
 
-
-/* Vaccination Certificate Details */
-
-"VaccinationCertificate_Details_OneOfOneHint" = "Es handelt sich hier um einen Impfstoff, bei dem nur eine Impfdosis erforderlich ist oder um eine Impfung für Genesene, die nur eine Impfdosis benötigt.";
-
 /* Health Certificate Delete Alert */
 
 "HealthCertificate_Alert_deleteButton" = "Zertifikat löschen";
@@ -3095,6 +3036,16 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 "RecoveryCertificate_Alert_title" = "Wollen Sie das Genesenenzertifikat löschen?";
 
 "RecoveryCertificate_Alert_message" = "Das Zertifikat wird in den Papierkorb verschoben. Den Papierkorb finden Sie auf der „Mehr“-Kachel der Status-Registerkarte. Dort können Sie es endgültig löschen oder wiederherstellen. Nach 30 Tagen wird das Zertifikat automatisch gelöscht.";
+
+/* Decoding Failed Health Certificate Delete Alert */
+
+"DecodingFailedHealthCertificate_Alert_title" = "Wollen Sie das Zertifikat endgültig löschen?";
+
+"DecodingFailedHealthCertificate_Alert_message" = "Das Zertifikat konnte nicht dekodiert werden, daher können keine Informationen dazu angezeigt werden. Wenn Sie es löschen, können Sie es nicht mehr als Nachweis verwenden.";
+
+"DecodingFailedHealthCertificate_Alert_deleteButton" = "Zertifikat endgültig löschen";
+
+"DecodingFailedHealthCertificate_Alert_cancelButton" = "Abbrechen";
 
 /* Health Certificate Print PDF */
 

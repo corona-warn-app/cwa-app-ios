@@ -118,7 +118,7 @@
 
 "ExposureDetection_Guide_Home" = "Mümkünse lütfen eve gidin ve evde kalın ve beraber yaşadığınız kişiler haricinde başka insanlarla karşılaşmaktan kaçının.";
 
-"ExposureDetection_Guide_Hotline" = "Başka sorularınız varsa lütfen tıbbi acil servis yardım hattı ile 116 117 numaralı telefondan iletişime geçin.";
+"ExposureDetection_Guide_Hotline" = "Herhangi bir sorunuz varsa lütfen 116 117'yi (Almanya'da) arayın. Ardından otomatik mesaj sırasında, Federal Sağlık Bakanlığı hizmet noktası için 2'ye basın. Belirtileriniz varsa sadece 1'e (genel tıbbi acil servis) basın.";
 
 "ExposureDetection_Guide_Vaccination_HighRisk" = "Henüz aşı olmadıysanız test yaptırdıktan sonra aile hekiminize danışın.";
 
@@ -597,7 +597,7 @@
 
 "ExposureSubmission_PhoneDetailsForeign" = "Almanya dışından yapılan aramalar içindir.\nTelefon sağlayıcınız tarafından uygulanan ücretler geçerlidir.";
 
-"ExposureSubmission_PhoneDetailDescription" = "Müşteri hizmetlerimiz şu dillerde size yardımcı olmaya hazır: \nİngilizce, Almanca, Türkçe\n\nMesai saatleri:\nGünlük (hafta sonları dahil): 7:00 - 20:00 (CET)\n\nSağlıkla ilgili tüm sorularınız için lütfen aile hekiminizle veya tıbbi acil servis yardım hattı ile iletişime geçin. Telefon: 116 117.";
+"ExposureSubmission_PhoneDetailDescription" = "Müşteri hizmetlerimiz şu dillerde size yardımcı olmaya hazır: \nİngilizce, Almanca, Türkçe\n\nMesai saatleri:\nGünlük (hafta sonları dahil): 7:00 - 20:00 (CET)\n\nHerhangi bir sorunuz varsa lütfen 116 117'yi (Almanya'da) arayın. Ardından otomatik mesaj sırasında, Federal Sağlık Bakanlığı hizmet noktası için 2'ye basın. Belirtileriniz varsa sadece 1'e (genel tıbbi acil servis) basın.";
 
 "ExposureSubmission_SectionDescription2" = "Uygulamaya TAN girerek PCR testinizi kaydedin.";
 
@@ -916,8 +916,6 @@
 
 "ExposureSubmissionResult_Timer_Title" = "Sonucun çıktığı tarih:";
 
-"ExposureSubmissionResult_Negative_Antigen_Proof_Title" = " ";
-
 "ExposureSubmissionResult_Negative_Antigen_Proof_Desc" = "Burada görüntülenen sonucunuzu doğrulanabilir şekilde kanıtlamak için AB Dijital Covid Sertifikası gereklidir. Testinizi kaydettiğinizde dijital test sertifikası talebinde bulunduysanız ve test noktası, dijital sertifika düzenlemeyi destekliyorsa yukarıda belirtilen bağlantıyı kullanarak dijital test sertifikanızı bulabilirsiniz. Sertifikayı \"Sertifikalar\" sekmesinde de bulabilirsiniz.\nKanıt gerektiren amaç bağlamında test sertifikalarının geçerliliği ve kabulüne ilişkin ölçütleri de bulabilirsiniz.";
 
 "ExposureSubmissionResult_Negative_Antigen_NoProof_Title" = "Doğrulama Özelliği Yok";
@@ -1032,7 +1030,7 @@
 
 "ExposureSubmission_TestCertificate_Information_BirthdayPlaceholder" = "Doğum Tarihi";
 
-"ExposureSubmission_TestCertificate_Information_BirthdayText" = "Güvenlik amaçları nedeniyle test sonucunuz doğum tarihinizle korunmaktadır. Test sonucu yalnızca doğru doğum tarihini belirtirseniz düzenlenebilir.";
+"ExposureSubmission_TestCertificate_Information_BirthdayText" = "Güvenlik amaçları nedeniyle test sertifikanız doğum tarihinizle korunmaktadır. Test sertifikası yalnızca doğru doğum tarihini belirtirseniz düzenlenebilir.";
 
 "ExposureSubmission_TestCertificate_Information_Dataprivacy_Title" = "Veri işleme hakkında daha ayrıntılı bilgi için lütfen gizlilik bildirimine başvurun.";
 
@@ -1346,7 +1344,9 @@
 /* App Information */
 "App_Information_Title" = "Uygulama Bilgileri";
 
-"App_Information_Version" = "Versiyon";
+"App_Information_AppVersion" = "Uygulama versiyonu: %@";
+
+"App_Information_CCLVersion" = "CCL versiyonu: %@";
 
 /* App Information - About */
 "App_Information_About_Navigation" = "Uygulama Hakkında";
@@ -1387,7 +1387,7 @@
 
 "App_Information_Contact_Hotline_Details_Foreign" = "Almanya dışından yapılan aramalar içindir.\nTelefon sağlayıcınız tarafından uygulanan ücretler geçerlidir.";
 
-"App_Information_Contact_Hotline_Terms" = "Müşteri hizmetlerimiz şu dillerde size yardımcı olmaya hazır: \nİngilizce, Almanca, Türkçe\n\nMesai saatleri:\nPts-Cts: 7:00 - 22:00 (CET)\n(ulusal tatiller hariçtir)\n\nSağlıkla ilgili tüm sorularınız için lütfen aile hekiminizle veya tıbbi acil servis yardım hattı ile iletişime geçin. Telefon: 116 117.";
+"App_Information_Contact_Hotline_Terms" = "Müşteri hizmetlerimiz şu dillerde size yardımcı olmaya hazır: \nİngilizce, Almanca, Türkçe\n\nMesai saatleri:\nPt-Ct: 7:00 – 20:00 (CET)\n(resmi tatiller hariç)\n\nHerhangi bir sorunuz varsa lütfen 116 117'yi (Almanya'da) arayın. Ardından otomatik mesaj sırasında, Federal Sağlık Bakanlığı hizmet noktası için 2'ye basın. Belirtileriniz varsa sadece 1'e (genel tıbbi acil servis) basın.";
 
 /* App Information - Imprint */
 "App_Information_New_Features_Navigation" = "Yeni Özellikler";
@@ -1601,22 +1601,10 @@
 /* New Version Features */
 "NewVersionFeatures_Info_about_abb_information" = "Bu sürümdeki değişiklikleri uygulama bilgilerinde “Yeni Özellikler” bölümünde bulabilirsiniz.";
 
-/* Version 2.17 */
-"NewVersionFeature_217_positiveTest_title" = "Pozitif Test Sonucu Durumunda Notlar";
+/* Version 2.18 */
+"NewVersionFeature_218_centralManagementOfRules_title" = "Merkezi Kural Yönetimi";
 
-"NewVersionFeature_217_positiveTest_description" = "Pozitif test sonucunun gözden geçirilmesi durumuna ilişkin notlar ve önerilen prosedür.";
-
-"NewVersionFeature_217_statisticsBoosterVaccination_title" = "Hatırlatma Aşılarına İlişkin İstatistikler";
-
-"NewVersionFeature_217_statisticsBoosterVaccination_description" = "Bir doz aşı olmuş ve tam aşılı kişilere ilişkin istatistiklerin yanı sıra artık hatırlatma aşısı olan kişi sayısına da ulaşacaksınız.";
-
-"NewVersionFeature_217_linkSocialMedia_title" = "Sosyal Medya Bağlantısı";
-
-"NewVersionFeature_217_linkSocialMedia_description" = "Corona-Warn-App'teki en son geliştirmeleri takip etmek ve bunları başkalarıyla tartışmak istiyorsanız sosyal medya kanallarımızı takip edebilirsiniz. Artık, ana ekranda \"Diğer\" kısmında bir sosyal medya bağlantısına da erişeceksiniz.";
-
-"NewVersionFeature_217_deleteDateRecycleBin_title" = "Geri Dönüşüm Kutusu için Silme Tarihi";
-
-"NewVersionFeature_217_deleteDateRecycleBin_description" = "Geri dönüşüm kutusuna taşınan her öğe, 30 gün sonra kalıcı olarak silinir. Bu silme tarihi artık her öğe için görüntülenmektedir.";
+"NewVersionFeature_218_centralManagementOfRules_description" = "Sertifikalara ilişkin kurallar (örneğin geçerlilikleriyle ilgili olarak veya birden fazla sertifika mevcut olduğunda bunların önceliğinin belirlenmesi ile ilgili olarak) ve “G” durumunuzu (aşılanmış, iyileşmiş, test yaptırmış) belirleme kuralları Corona-Warn-App'ten ayrılmıştır. Bu kurallar artık merkezi olarak depolanır ve bu nedenle uygulama sürümlerinden bağımsız olarak ayarlanabilir, bu da kural değişikliklerine daha hızlı tepki vermeyi mümkün kılar. Herhangi bir değişiklik yapıldıktan sonra, güncellenen kurallar uygulamaya otomatik olarak aktarılacaktır. Merkezi kural yönetimi, Corona-Warn-App'i kullanma şeklinizi değiştirmez.";
 
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Uluslararası Maruz Kalma Günlüğü";
@@ -2029,7 +2017,7 @@
 "Statistics_Card_AtLeastOneVaccinated_SecondarySubtitleLabel" = "(popülasyona göre)";
 
 /* - Fully vaccinated people card */
-"Statistics_Card_FullyVaccinated_Title" = "Tüm Aşıları Olan Kişiler";
+"Statistics_Card_FullyVaccinated_Title" = "Temel Bağışıklığı Olan Kişiler";
 
 "Statistics_Card_FullyVaccinated_Today" = "Bugüne kadar";
 
@@ -2124,7 +2112,7 @@
 
 "Statistics_Info_AtLeastOnce_Text" = "RKI'ye aşının ilk dozunu aldıkları bildirilen kişilerin sayısı.";
 
-"Statistics_Info_FullyVaccinated_Title" = "Tüm aşıları olan kişiler";
+"Statistics_Info_FullyVaccinated_Title" = "Temel bağışıklığı olan kişiler";
 
 "Statistics_Info_FullyVaccinated_Text" = "RKI'ye temel bağışıklık için gereken tüm aşı dozlarını aldıkları bildirilen kişilerin sayısı.";
 
@@ -2827,53 +2815,12 @@
 /* Health Certified Person Screen */
 "HealthCertificate_unified_QR_code_notice" = "Bu QR kod, CovPassCheck uygulaması ile güvenilir şekilde doğrulanabilir.";
 
+"HealthCertificate_unified_QR_code_infoButton" = "Bilgi";
+
 "HealthCertifiedPerson_title" = "AB Dijital COVID Sertifikası";
 
-/* Health Certified Person Admission State */
-"HealthCertifiedPerson_AdmissionState_title" = "Durum Kanıtı";
-
-"HealthCertifiedPerson_AdmissionState_subtitle2G" = "2G";
-
-"HealthCertifiedPerson_AdmissionState_subtitle2GPlusPCR" = "2G+ PCR testi";
-
-"HealthCertifiedPerson_AdmissionState_subtitle2GPlusAntigen" = "2G+ hızlı testi";
-
-"HealthCertifiedPerson_AdmissionState_subtitle3G" = "3G";
-
-"HealthCertifiedPerson_AdmissionState_subtitle3GPlus" = "3G+";
-
-"HealthCertifiedPerson_AdmissionState_description2G" = "Sertifikalarınız 2G kuralına uygun. Güncel durumunuzu kanıtlamanız gerekiyorsa bu görünümünü kapatın ve sertifikaya genel bakış bölümündeki QR kodu gösterin.";
-
-"HealthCertifiedPerson_AdmissionState_description2GPlusPCR" = "Sertifikalarınız 2G plus kuralına uygun. Güncel durumunuzu kanıtlamanız gerekiyorsa bu görünümünü kapatın ve sertifikaya genel bakış bölümündeki QR kodu gösterin.";
-
-"HealthCertifiedPerson_AdmissionState_description2GPlusAntigen" = "PCR testi gerekmiyorsa sertifikalarınız 2G plus kuralına uygun. Güncel durumunuzu kanıtlamanız gerekiyorsa bu görünümünü kapatın ve sertifikaya genel bakış bölümündeki QR kodu gösterin.";
-
-"HealthCertifiedPerson_AdmissionState_description3G" = "Sertifikalarınız 3G kuralına uygun. Güncel durumunuzu kanıtlamanız gerekiyorsa bu görünümünü kapatın ve sertifikaya genel bakış bölümündeki QR kodu gösterin.";
-
-"HealthCertifiedPerson_AdmissionState_description3GPlus" = "Sertifikalarınız 3G plus kuralına uygun. Güncel durumunuzu kanıtlamanız gerekiyorsa bu görünümünü kapatın ve sertifikaya genel bakış bölümündeki QR kodu gösterin.";
-
-"HealthCertifiedPerson_AdmissionStateFAQ" = "Daha fazla bilgi için lütfen %@ sayfamıza bakın.";
-
-"HealthCertifiedPerson_AdmissionState_FAQ_Placeholder" = "SSS";
-
-"HealthCertifiedPerson_AdmissionState_shortTitle_title2G" = "2G";
-
-"HealthCertifiedPerson_AdmissionState_shortTitle_title2GPlus" = "2G+";
-
-"HealthCertifiedPerson_AdmissionState_shortTitle_title3G" = "3G";
-
-"HealthCertifiedPerson_AdmissionState_shortTitle_title3GPlus" = "3G+";
-
-/* Health Certified Person Hint */
-"HealthCertifiedPerson_VaccinationHint_title" = "Aşı Durumu";
-
-"HealthCertifiedPerson_partiallyVaccinated" = "Henüz şu anda tüm planlanan aşıları olmadınız. Dolayısıyla aşı korumanız henüz tamamlanmadı.";
-
-"HealthCertifiedPerson_completelyProtected" = "Geçerli olarak planlanan tüm aşıları yaptırdınız. Aşı korumanız tamamlandı.";
-
-"HealthCertifiedPerson_boosterRuleFAQ" = "Daha fazla bilgi için lütfen %@ sayfamıza bakın.";
-
-"HealthCertifiedPerson_boosterRuleFAQ_placeholder_FAQ" = "SSS";
+/* Health Certified Person */
+"HealthCertifiedPerson_faq" = "Daha fazla bilgi için lütfen SSS sayfamıza bakın.";
 
 "HealthCertifiedPerson_dateOfBirth" = "Doğum tarihi: %@";
 
@@ -2946,9 +2893,6 @@
 
 "HealthCertificate_Details_moreButtonTitle" = "Daha Fazla";
 
-/* Vaccination Certificate Details */
-"VaccinationCertificate_Details_OneOfOneHint" = "Bu, yalnızca bir doz uygulanması gereken bir aşıdır ya da hastalığı geçirerek yalnızca bir doza ihtiyacı olan kişiye yönelik bir aşıdır.";
-
 /* Health Certificate Delete Alert */
 "HealthCertificate_Alert_deleteButton" = "Sertifikayı Sil";
 
@@ -2986,6 +2930,15 @@
 "RecoveryCertificate_Alert_title" = "İyileşme sertifikasını silmek istiyor musunuz?";
 
 "RecoveryCertificate_Alert_message" = "Sertifika geri dönüşüm kutusuna taşınacak. Geri dönüşüm kutusunu, durum sekmesinde yer alan \"Daha Fazla\" kutucuğunda bulabilirsiniz. Burada sertifikayı kalıcı olarak silebilir veya geri yükleyebilirsiniz. Sertifika 30 gün sonra otomatik olarak silinir.";
+
+/* Decoding Failed Health Certificate Delete Alert */
+"DecodingFailedHealthCertificate_Alert_title" = "Sertifikayı kalıcı olarak silmek istiyor musunuz?";
+
+"DecodingFailedHealthCertificate_Alert_message" = "Sertifikanın kodu çözülemedi, bu nedenle sertifika için hiçbir bilgi görüntülenemiyor. Silerseniz, sertifikayı artık kanıt olarak kullanamazsınız.";
+
+"DecodingFailedHealthCertificate_Alert_deleteButton" = "Sertifikayı Kalıcı Olarak Sil";
+
+"DecodingFailedHealthCertificate_Alert_cancelButton" = "İptal";
 
 /* Health Certificate Print PDF */
 "HealthCertificate_PrintPdf_showPrintableVersion" = "Basılı Versiyonu Görüntüle";

@@ -24,8 +24,8 @@ class ExposureSubmissionServiceTests: CWATestCase {
 		let appConfiguration = CachedAppConfigurationMock()
 		let restServiceProvider = RestServiceProviderStub(
 			results: [
-				.success(SubmissionTANModel(submissionTAN: "fake")),
-				.success(SubmissionTANModel(submissionTAN: "fake"))
+				.success(RegistrationTokenReceiveModel(submissionTAN: "fake")),
+				.success(RegistrationTokenReceiveModel(submissionTAN: "fake"))
 			]
 		)
 		
@@ -42,9 +42,8 @@ class ExposureSubmissionServiceTests: CWATestCase {
 				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration,
-				boosterNotificationsService: BoosterNotificationsService(
-					rulesDownloadService: FakeRulesDownloadService()
-				),
+				cclService: FakeCCLService(),
+
 				recycleBin: .fake()
 			),
 			recycleBin: .fake(),
@@ -114,8 +113,8 @@ class ExposureSubmissionServiceTests: CWATestCase {
 		eventStore.createCheckin(Checkin.mock())
 		let restServiceProvider = RestServiceProviderStub(
 			results: [
-				.success(SubmissionTANModel(submissionTAN: "fake")),
-				.success(SubmissionTANModel(submissionTAN: "fake"))
+				.success(RegistrationTokenReceiveModel(submissionTAN: "fake")),
+				.success(RegistrationTokenReceiveModel(submissionTAN: "fake"))
 			]
 		)
 		
@@ -132,9 +131,8 @@ class ExposureSubmissionServiceTests: CWATestCase {
 				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration,
-				boosterNotificationsService: BoosterNotificationsService(
-					rulesDownloadService: FakeRulesDownloadService()
-				),
+				cclService: FakeCCLService(),
+
 				recycleBin: .fake()
 			),
 			recycleBin: .fake(),
@@ -179,8 +177,8 @@ class ExposureSubmissionServiceTests: CWATestCase {
 		let appConfigurationProvider = CachedAppConfigurationMock()
 		let restServiceProvider = RestServiceProviderStub(
 			results: [
-				.success(SubmissionTANModel(submissionTAN: "fake")),
-				.success(SubmissionTANModel(submissionTAN: "fake"))
+				.success(RegistrationTokenReceiveModel(submissionTAN: "fake")),
+				.success(RegistrationTokenReceiveModel(submissionTAN: "fake"))
 			]
 		)
 		
@@ -197,9 +195,8 @@ class ExposureSubmissionServiceTests: CWATestCase {
 				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfigurationProvider,
-				boosterNotificationsService: BoosterNotificationsService(
-					rulesDownloadService: FakeRulesDownloadService()
-				),
+				cclService: FakeCCLService(),
+
 				recycleBin: .fake()
 			),
 			recycleBin: .fake(),
@@ -251,8 +248,8 @@ class ExposureSubmissionServiceTests: CWATestCase {
 		let appConfiguration = CachedAppConfigurationMock()
 		let restServiceProvider = RestServiceProviderStub(
 			results: [
-				.success(SubmissionTANModel(submissionTAN: "fake")),
-				.success(SubmissionTANModel(submissionTAN: "fake"))
+				.success(RegistrationTokenReceiveModel(submissionTAN: "fake")),
+				.success(RegistrationTokenReceiveModel(submissionTAN: "fake"))
 			]
 		)
 		
@@ -269,9 +266,8 @@ class ExposureSubmissionServiceTests: CWATestCase {
 				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration,
-				boosterNotificationsService: BoosterNotificationsService(
-					rulesDownloadService: FakeRulesDownloadService()
-				),
+				cclService: FakeCCLService(),
+
 				recycleBin: .fake()
 			),
 			recycleBin: .fake(),
@@ -328,9 +324,8 @@ class ExposureSubmissionServiceTests: CWATestCase {
 				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration,
-				boosterNotificationsService: BoosterNotificationsService(
-					rulesDownloadService: FakeRulesDownloadService()
-				),
+				cclService: FakeCCLService(),
+
 				recycleBin: .fake()
 			),
 			recycleBin: .fake(),
@@ -387,9 +382,8 @@ class ExposureSubmissionServiceTests: CWATestCase {
 				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfigurationProvider,
-				boosterNotificationsService: BoosterNotificationsService(
-					rulesDownloadService: FakeRulesDownloadService()
-				),
+				cclService: FakeCCLService(),
+
 				recycleBin: .fake()
 			),
 			recycleBin: .fake(),
@@ -448,9 +442,8 @@ class ExposureSubmissionServiceTests: CWATestCase {
 				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfigurationProvider,
-				boosterNotificationsService: BoosterNotificationsService(
-					rulesDownloadService: FakeRulesDownloadService()
-				),
+				cclService: FakeCCLService(),
+
 				recycleBin: .fake()
 			),
 			recycleBin: .fake(),
@@ -506,9 +499,8 @@ class ExposureSubmissionServiceTests: CWATestCase {
 				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfigurationProvider,
-				boosterNotificationsService: BoosterNotificationsService(
-					rulesDownloadService: FakeRulesDownloadService()
-				),
+				cclService: FakeCCLService(),
+
 				recycleBin: .fake()
 			),
 			recycleBin: .fake(),
@@ -553,8 +545,8 @@ class ExposureSubmissionServiceTests: CWATestCase {
 		let appConfigurationProvider = CachedAppConfigurationMock()
 		let restServiceProvider = RestServiceProviderStub(
 			results: [
-				.success(SubmissionTANModel(submissionTAN: "fake")),
-				.success(SubmissionTANModel(submissionTAN: "fake"))
+				.success(RegistrationTokenReceiveModel(submissionTAN: "fake")),
+				.success(RegistrationTokenReceiveModel(submissionTAN: "fake"))
 			]
 		)
 		
@@ -571,9 +563,8 @@ class ExposureSubmissionServiceTests: CWATestCase {
 				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfigurationProvider,
-				boosterNotificationsService: BoosterNotificationsService(
-					rulesDownloadService: FakeRulesDownloadService()
-				),
+				cclService: FakeCCLService(),
+
 				recycleBin: .fake()
 			),
 			recycleBin: .fake(),
@@ -618,8 +609,8 @@ class ExposureSubmissionServiceTests: CWATestCase {
 		let appConfigurationProvider = CachedAppConfigurationMock()
 		let restServiceProvider = RestServiceProviderStub(
 			results: [
-				.success(SubmissionTANModel(submissionTAN: "fake")),
-				.success(SubmissionTANModel(submissionTAN: "fake"))
+				.success(RegistrationTokenReceiveModel(submissionTAN: "fake")),
+				.success(RegistrationTokenReceiveModel(submissionTAN: "fake"))
 			]
 		)
 		
@@ -636,9 +627,8 @@ class ExposureSubmissionServiceTests: CWATestCase {
 				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfigurationProvider,
-				boosterNotificationsService: BoosterNotificationsService(
-					rulesDownloadService: FakeRulesDownloadService()
-				),
+				cclService: FakeCCLService(),
+
 				recycleBin: .fake()
 			),
 			recycleBin: .fake(),
@@ -679,8 +669,8 @@ class ExposureSubmissionServiceTests: CWATestCase {
 		let store = MockTestStore()
 		let restServiceProvider = RestServiceProviderStub(
 			results: [
-				.success(SubmissionTANModel(submissionTAN: "fake")),
-				.success(SubmissionTANModel(submissionTAN: "fake"))
+				.success(RegistrationTokenReceiveModel(submissionTAN: "fake")),
+				.success(RegistrationTokenReceiveModel(submissionTAN: "fake"))
 			]
 		)
 		
@@ -697,9 +687,8 @@ class ExposureSubmissionServiceTests: CWATestCase {
 				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfigurationProvider,
-				boosterNotificationsService: BoosterNotificationsService(
-					rulesDownloadService: FakeRulesDownloadService()
-				),
+				cclService: FakeCCLService(),
+
 				recycleBin: .fake()
 			),
 			recycleBin: .fake(),
@@ -742,8 +731,8 @@ class ExposureSubmissionServiceTests: CWATestCase {
 		let store = MockTestStore()
 		let restServiceProvider = RestServiceProviderStub(
 			results: [
-				.success(SubmissionTANModel(submissionTAN: "fake")),
-				.success(SubmissionTANModel(submissionTAN: "fake"))
+				.success(RegistrationTokenReceiveModel(submissionTAN: "fake")),
+				.success(RegistrationTokenReceiveModel(submissionTAN: "fake"))
 			]
 		)
 		
@@ -760,9 +749,8 @@ class ExposureSubmissionServiceTests: CWATestCase {
 				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfigurationProvider,
-				boosterNotificationsService: BoosterNotificationsService(
-					rulesDownloadService: FakeRulesDownloadService()
-				),
+				cclService: FakeCCLService(),
+
 				recycleBin: .fake()
 			),
 			recycleBin: .fake(),
@@ -814,7 +802,7 @@ class ExposureSubmissionServiceTests: CWATestCase {
 		let restServiceProvider = RestServiceProviderStub(loadResources: [
 			LoadResource(
 				result: .success(
-					SubmissionTANModel(submissionTAN: "fake")
+					RegistrationTokenReceiveModel(submissionTAN: "fake")
 				),
 				willLoadResource: { resource in
 					guard let resource = resource as? RegistrationTokenResource else {
@@ -851,9 +839,8 @@ class ExposureSubmissionServiceTests: CWATestCase {
 				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfigurationProvider,
-				boosterNotificationsService: BoosterNotificationsService(
-					rulesDownloadService: FakeRulesDownloadService()
-				),
+				cclService: FakeCCLService(),
+
 				recycleBin: .fake()
 			),
 			recycleBin: .fake(),
@@ -927,9 +914,7 @@ class ExposureSubmissionServiceTests: CWATestCase {
 					dscListProvider: MockDSCListProvider(),
 					client: client,
 					appConfiguration: appConfiguration,
-					boosterNotificationsService: BoosterNotificationsService(
-						rulesDownloadService: FakeRulesDownloadService()
-					),
+					cclService: FakeCCLService(),
 					recycleBin: .fake()
 				),
 				recycleBin: .fake(),
@@ -988,9 +973,7 @@ class ExposureSubmissionServiceTests: CWATestCase {
 					dscListProvider: MockDSCListProvider(),
 					client: client,
 					appConfiguration: appConfiguration,
-					boosterNotificationsService: BoosterNotificationsService(
-						rulesDownloadService: FakeRulesDownloadService()
-					),
+					cclService: FakeCCLService(),
 					recycleBin: .fake()
 				),
 				recycleBin: .fake(),
@@ -1053,9 +1036,7 @@ class ExposureSubmissionServiceTests: CWATestCase {
 					dscListProvider: MockDSCListProvider(),
 					client: client,
 					appConfiguration: appConfiguration,
-					boosterNotificationsService: BoosterNotificationsService(
-						rulesDownloadService: FakeRulesDownloadService()
-					),
+					cclService: FakeCCLService(),
 					recycleBin: .fake()
 				),
 				recycleBin: .fake(),
@@ -1085,7 +1066,7 @@ class ExposureSubmissionServiceTests: CWATestCase {
 		let restServiceProvider = RestServiceProviderStub(loadResources: [
 			LoadResource(
 				result: .success(
-					SubmissionTANModel(submissionTAN: "fake")
+					RegistrationTokenReceiveModel(submissionTAN: "fake")
 				),
 				willLoadResource: { resource in
 					expectation.fulfill()
@@ -1127,9 +1108,7 @@ class ExposureSubmissionServiceTests: CWATestCase {
 				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfigurationProvider,
-				boosterNotificationsService: BoosterNotificationsService(
-					rulesDownloadService: FakeRulesDownloadService()
-				),
+				cclService: FakeCCLService(),
 				recycleBin: .fake()
 			),
 			recycleBin: .fake(),

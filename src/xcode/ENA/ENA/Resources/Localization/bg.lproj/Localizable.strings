@@ -118,7 +118,7 @@
 
 "ExposureDetection_Guide_Home" = "По възможност се приберете и си останете вкъщи, избягвайки срещи с хора, които не са от Вашето домакинство.";
 
-"ExposureDetection_Guide_Hotline" = "Ако имате въпроси, свързани със здравето, се обадете на горещата линия на службата за медицинска помощ на телефон 116 117.";
+"ExposureDetection_Guide_Hotline" = "Ако имате въпроси се обадете на тел. 116 117(за Германия). По време на автоматичното съобщение натиснете 2 за свързване с Федерално министерство на здравеопазването. Натиснете 1(за свързване със службата за спешна медицинска помощ) само ако имате симптоми.";
 
 "ExposureDetection_Guide_Vaccination_HighRisk" = "Ако все още не сте се ваксинирали, консултирайте се с Вашия личен лекар, след като се тествате.";
 
@@ -597,7 +597,7 @@
 
 "ExposureSubmission_PhoneDetailsForeign" = "За обаждания извън територията на Германия.\nВажат тарифите на телефонния ви оператор.";
 
-"ExposureSubmission_PhoneDetailDescription" = "Обслужването на клиентите, което предлагаме, е налично на следните езици: немски, английски, турски\n\nРаботно време:\nВсеки ден (включително уикендите) от 07:00 до 20:00 ч. (CET)\n\nАко имате въпроси, свързани със здравето, се обадете на личния си лекар или на горещата линия на службата за медицинска помощ на телефон 116 117.";
+"ExposureSubmission_PhoneDetailDescription" = "Обслужването на клиентите, което предлагаме, е налично на следните езици: \nнемски, английски, турски\n\nРаботно време:\nвсеки ден от 07:00 до 20:00ч. (CET) \n\nАко имате въпроси се обадете на тел. 116 117(за Германия). По време на автоматичното съобщение натиснете 2 за свързване с Федерално министерство на здравеопазването. Натиснете 1(за свързване със службата за спешна медицинска помощ) само ако имате симптоми.";
 
 "ExposureSubmission_SectionDescription2" = "Регистрирайте PCR теста си, като въведете ТАН кода в приложението.";
 
@@ -916,8 +916,6 @@
 
 "ExposureSubmissionResult_Timer_Title" = "Резултатът ще е достъпен след";
 
-"ExposureSubmissionResult_Negative_Antigen_Proof_Title" = " ";
-
 "ExposureSubmissionResult_Negative_Antigen_Proof_Desc" = "За да докажете резултата, който се показва тук се изисква цифров COVID сертификат на ЕС. Ако сте заявили цифров сертификат за направен тест, когато сте регистрирали своя тест и пунктът поддържа издаването на такива, може да откриете своя цифров сертификат за направен тест в посоченият линк по-горе. Също така може да го намерите в таба “Сертификати”. \nМоля, запознайте се с критериите за признаване на валидност на цифрови сертификати за направени тестове, според това за какво Ви трябва доказателство.";
 
 "ExposureSubmissionResult_Negative_Antigen_NoProof_Title" = "Без функция за проверка";
@@ -1032,7 +1030,7 @@
 
 "ExposureSubmission_TestCertificate_Information_BirthdayPlaceholder" = "Дата на раждане";
 
-"ExposureSubmission_TestCertificate_Information_BirthdayText" = "С цел сигурност, резултатът от теста е защитен с датата Ви на раждане. Той може да бъде издаден само ако посочите правилната дата.";
+"ExposureSubmission_TestCertificate_Information_BirthdayText" = "С цел сигурност, Вашият сертификат за направен тест е защитен с датата Ви на раждане. Той може да бъде издаден само ако посочите правилната дата.";
 
 "ExposureSubmission_TestCertificate_Information_Dataprivacy_Title" = "За повече информация относно обработката на данни, прочетете декларацията за поверителност.";
 
@@ -1346,7 +1344,9 @@
 /* App Information */
 "App_Information_Title" = "За приложението";
 
-"App_Information_Version" = "Версия";
+"App_Information_AppVersion" = "Версия на приложение: %@";
+
+"App_Information_CCLVersion" = "Версия на CCL: %@";
 
 /* App Information - About */
 "App_Information_About_Navigation" = "За приложението";
@@ -1387,7 +1387,7 @@
 
 "App_Information_Contact_Hotline_Details_Foreign" = "За обаждания извън територията на Германия.\nВажат тарифите на телефонния ви оператор.";
 
-"App_Information_Contact_Hotline_Terms" = "Обслужването на клиентите, което предлагаме, е налично на следните езици: \nнемски, английски, турски\n\nРаботно време:\nпонеделник - събота, от 07:00 до 22:00 ч. (CET) \n(освен на национални празници)\n\nАко имате въпроси, свързани със здравето, се обадете на личния си лекар или на горещата линия на службата за медицинска помощ на телефон 116 117.";
+"App_Information_Contact_Hotline_Terms" = "Обслужването на клиентите, което предлагаме, е налично на следните езици: \nнемски, английски, турски\n\nРаботно време:\nпонеделник - събота, от 07:00 до 22:00ч. (CET) \n(освен на национални празници)\n\nАко имате въпроси се обадете на тел. 116 117(за Германия). По време на автоматичното съобщение натиснете 2 за свързване с Федерално министерство на здравеопазването. Натиснете 1(за свързване със службата за спешна медицинска помощ) само ако имате симптоми.";
 
 /* App Information - Imprint */
 "App_Information_New_Features_Navigation" = "Нови функции";
@@ -1601,22 +1601,10 @@
 /* New Version Features */
 "NewVersionFeatures_Info_about_abb_information" = "Може да видите промените в тази версия в подраздела „Нови функции“ на информацията за приложението.";
 
-/* Version 2.17 */
-"NewVersionFeature_217_positiveTest_title" = "Бележки в случай на положителен резултат от тест";
+/* Version 2.18 */
+"NewVersionFeature_218_centralManagementOfRules_title" = "Централна администрация на правила";
 
-"NewVersionFeature_217_positiveTest_description" = "Бележките и препоръчаните процедури в случай на положителен резултат от тест са ревизирани. ";
-
-"NewVersionFeature_217_statisticsBoosterVaccination_title" = "Статистики за бустерни дози";
-
-"NewVersionFeature_217_statisticsBoosterVaccination_description" = "В допълнение към статистиката за хора, които са получили една доза ваксина и хора, които са напълно ваксинирани ще намерите и броя хора, които са получили бустерна доза.";
-
-"NewVersionFeature_217_linkSocialMedia_title" = "Възка към социалните медии";
-
-"NewVersionFeature_217_linkSocialMedia_description" = "Ако желаете да сте информирани за най-новите развития във връзка с приложението Corona-Warn-App и да ги обсъждате с други, може да ни последвате в социалните медии. Ще намерите връзка към социалните ни медии в началния екран под \"Още\".";
-
-"NewVersionFeature_217_deleteDateRecycleBin_title" = "Дата на изтриване за съдържанието на кошчето";
-
-"NewVersionFeature_217_deleteDateRecycleBin_description" = "Всеки елемент преместен в кошчето се изтрива окончателно след 30 дни. Тази дата на изтриване се показва за всеки елемент.";
+"NewVersionFeature_218_centralManagementOfRules_description" = "Правилата за сертификатите, отнасящи се за тяхната валидност или приоритизация, когато има повече от един сертификат, за определяне на Вашия “G” статус(ваксиниран, преболедувал, тестван) вече са разделени от Corona-Warn-App. Сега тези правила се съхраняват централно и могат да се коригират независимо от версиите на приложението, което позволява да реагирате по-бързо при промени на правилата. След промяна актуализираните правила ще се пренасят в приложението автоматично. Тази централна администрация на правила не променя начина на използване на Corona-Warn-App.";
 
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Международно регистриране на излаганията";
@@ -2029,7 +2017,7 @@
 "Statistics_Card_AtLeastOneVaccinated_SecondarySubtitleLabel" = "от населението";
 
 /* - Fully vaccinated people card */
-"Statistics_Card_FullyVaccinated_Title" = "Напълно ваксинирани лица";
+"Statistics_Card_FullyVaccinated_Title" = "Лица с основна имунизация";
 
 "Statistics_Card_FullyVaccinated_Today" = "До днес";
 
@@ -2124,7 +2112,7 @@
 
 "Statistics_Info_AtLeastOnce_Text" = "Брой на лицата, за които има предадени данни в института „Роберт Кох“, че са получили първа доза ваксина.";
 
-"Statistics_Info_FullyVaccinated_Title" = "Напълно ваксинирани лица";
+"Statistics_Info_FullyVaccinated_Title" = "Лица с основна имунизация";
 
 "Statistics_Info_FullyVaccinated_Text" = "Брой на лицата, за които има предадени данни в института „Роберт Кох“, че са получили всички необходими дози ваксини за основна имунизация.";
 
@@ -2827,53 +2815,12 @@
 /* Health Certified Person Screen */
 "HealthCertificate_unified_QR_code_notice" = "Този QR код може да бъде надеждно проверен с приложението CovPassCheck.";
 
+"HealthCertificate_unified_QR_code_infoButton" = "Информация";
+
 "HealthCertifiedPerson_title" = "Цифров сертификат за COVID на ЕС";
 
-/* Health Certified Person Admission State */
-"HealthCertifiedPerson_AdmissionState_title" = "Доказателство за статус";
-
-"HealthCertifiedPerson_AdmissionState_subtitle2G" = "2G";
-
-"HealthCertifiedPerson_AdmissionState_subtitle2GPlusPCR" = "2G+ PCR тест";
-
-"HealthCertifiedPerson_AdmissionState_subtitle2GPlusAntigen" = "2G+ бърз тест";
-
-"HealthCertifiedPerson_AdmissionState_subtitle3G" = "3G";
-
-"HealthCertifiedPerson_AdmissionState_subtitle3GPlus" = "3G+";
-
-"HealthCertifiedPerson_AdmissionState_description2G" = "Вашите сертификати отговарят на 2G правилото. Ако Ви се налага да доказвате своя текущ статус затворете този изглед и покажете QR кода в “Преглед на сертификати”.";
-
-"HealthCertifiedPerson_AdmissionState_description2GPlusPCR" = "Вашите сертификати отговарят на 2G plus правилото. Ако Ви се налага да доказвате своя текущ статус затворете този изглед и покажете QR кода в “Преглед на сертификати”.";
-
-"HealthCertifiedPerson_AdmissionState_description2GPlusAntigen" = "Вашите сертификати отговарят на 2G plus правилото, освен ако не Ви се изисква PCR тест. Ако Ви се налага да доказвате своя текущ статус затворете този изглед и покажете QR кода в “Преглед на сертификати”.";
-
-"HealthCertifiedPerson_AdmissionState_description3G" = "Вашите сертификати отговарят на 3G правилото. Ако Ви се налага да доказвате своя текущ статус затворете този изглед и покажете QR кода в “Преглед на сертификати”.";
-
-"HealthCertifiedPerson_AdmissionState_description3GPlus" = "Вашите сертификати отговарят на 3G plus правилото. Ако Ви се налага да доказвате своя текущ статус затворете този изглед и покажете QR кода в “Преглед на сертификати”.";
-
-"HealthCertifiedPerson_AdmissionStateFAQ" = "За повече информация вижте страницата ни с %@.";
-
-"HealthCertifiedPerson_AdmissionState_FAQ_Placeholder" = "ЧЗВ";
-
-"HealthCertifiedPerson_AdmissionState_shortTitle_title2G" = "2G";
-
-"HealthCertifiedPerson_AdmissionState_shortTitle_title2GPlus" = "2G+";
-
-"HealthCertifiedPerson_AdmissionState_shortTitle_title3G" = "3G";
-
-"HealthCertifiedPerson_AdmissionState_shortTitle_title3GPlus" = "3G+";
-
-/* Health Certified Person Hint */
-"HealthCertifiedPerson_VaccinationHint_title" = "Ваксинационен статус";
-
-"HealthCertifiedPerson_partiallyVaccinated" = "Не сте получили всички планирани за момента ваксинации – Вашата ваксинационна защита все още не е пълна.";
-
-"HealthCertifiedPerson_completelyProtected" = "Получили сте всички планирани за момента ваксинации. Ваксинационната Ви защита е пълна.";
-
-"HealthCertifiedPerson_boosterRuleFAQ" = "За повече информация вижте страницата ни с %@.";
-
-"HealthCertifiedPerson_boosterRuleFAQ_placeholder_FAQ" = "ЧЗВ";
+/* Health Certified Person */
+"HealthCertifiedPerson_faq" = "За повече информация вижте страницата „ЧЗВ“.";
 
 "HealthCertifiedPerson_dateOfBirth" = "Дата на раждане %@";
 
@@ -2946,9 +2893,6 @@
 
 "HealthCertificate_Details_moreButtonTitle" = "Повече";
 
-/* Vaccination Certificate Details */
-"VaccinationCertificate_Details_OneOfOneHint" = "Тази ваксина осигурява защита с една доза или се поставя на преболедувало лице, което се нуждае само от една доза.";
-
 /* Health Certificate Delete Alert */
 "HealthCertificate_Alert_deleteButton" = "Изтриване на сертификат";
 
@@ -2986,6 +2930,15 @@
 "RecoveryCertificate_Alert_title" = "Желаете ли да изтриете сертификата за възстановяване?";
 
 "RecoveryCertificate_Alert_message" = "Сертификатът ще бъде преместен в кошчето, което се намира на плочка \"Още\" от страницата на таб \"Статус\". Там можете да го изтриете за постоянно или да го възстановите. Сертификатът ще бъде изтрит автоматично след 30 дни.";
+
+/* Decoding Failed Health Certificate Delete Alert */
+"DecodingFailedHealthCertificate_Alert_title" = "Желаете ли да изтриете окончателно сертификата?";
+
+"DecodingFailedHealthCertificate_Alert_message" = "Този сертификат не може да бъде разчетен и информацията не може да се визуализира. Ако го изтриете вече няма да може да го използвате за доказателство.";
+
+"DecodingFailedHealthCertificate_Alert_deleteButton" = "Окончателно изтриване на сертификат";
+
+"DecodingFailedHealthCertificate_Alert_cancelButton" = "Отказ";
 
 /* Health Certificate Print PDF */
 "HealthCertificate_PrintPdf_showPrintableVersion" = "Показване на версия за печат";

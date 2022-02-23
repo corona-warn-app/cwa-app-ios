@@ -28,7 +28,7 @@ class ExposureSubmissionTestResultViewModelTests: CWATestCase {
 		
 		let restServiceProvider = RestServiceProviderStub(loadResources: [
 			LoadResource(
-				result: .success(TestResultModel(testResult: TestResult.expired.rawValue, sc: nil, labId: "SomeLabId")),
+				result: .success(TestResultReceiveModel(testResult: TestResult.expired.rawValue, sc: nil, labId: "SomeLabId")),
 				willLoadResource: { res in
 					if let resource = res as? TestResultResource, !resource.locator.isFake {
 						getTestResultExpectation.fulfill()
@@ -53,9 +53,7 @@ class ExposureSubmissionTestResultViewModelTests: CWATestCase {
 				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration,
-				boosterNotificationsService: BoosterNotificationsService(
-					rulesDownloadService: FakeRulesDownloadService()
-				),
+				cclService: FakeCCLService(),
 				recycleBin: .fake()
 			),
 			recycleBin: .fake(),
@@ -97,7 +95,7 @@ class ExposureSubmissionTestResultViewModelTests: CWATestCase {
 			
 			let restServiceProvider = RestServiceProviderStub(loadResources: [
 				LoadResource(
-					result: .success(TestResultModel(testResult: TestResult.expired.rawValue, sc: nil, labId: "SomeLabId")),
+					result: .success(TestResultReceiveModel(testResult: TestResult.expired.rawValue, sc: nil, labId: "SomeLabId")),
 					willLoadResource: { res in
 						if let resource = res as? TestResultResource, !resource.locator.isFake {
 							getTestResultExpectation.fulfill()
@@ -124,9 +122,7 @@ class ExposureSubmissionTestResultViewModelTests: CWATestCase {
 					dscListProvider: MockDSCListProvider(),
 					client: client,
 					appConfiguration: appConfiguration,
-					boosterNotificationsService: BoosterNotificationsService(
-						rulesDownloadService: FakeRulesDownloadService()
-					),
+					cclService: FakeCCLService(),
 					recycleBin: .fake()
 				),
 				recycleBin: .fake(),
@@ -166,7 +162,7 @@ class ExposureSubmissionTestResultViewModelTests: CWATestCase {
 		
 		let restServiceProvider = RestServiceProviderStub(loadResources: [
 			LoadResource(
-				result: .success(TestResultModel(testResult: TestResult.expired.rawValue, sc: nil, labId: "SomeLabId")),
+				result: .success(TestResultReceiveModel(testResult: TestResult.expired.rawValue, sc: nil, labId: "SomeLabId")),
 				willLoadResource: { res in
 					if let resource = res as? TestResultResource, !resource.locator.isFake {
 						getTestResultExpectation.fulfill()
@@ -192,9 +188,7 @@ class ExposureSubmissionTestResultViewModelTests: CWATestCase {
 				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration,
-				boosterNotificationsService: BoosterNotificationsService(
-					rulesDownloadService: FakeRulesDownloadService()
-				),
+				cclService: FakeCCLService(),
 				recycleBin: .fake()
 			),
 			recycleBin: .fake(),
@@ -233,7 +227,7 @@ class ExposureSubmissionTestResultViewModelTests: CWATestCase {
 		
 		let restServiceProvider = RestServiceProviderStub(loadResources: [
 			LoadResource(
-				result: .success(TestResultModel(testResult: TestResult.negative.rawValue, sc: nil, labId: "SomeLabId")),
+				result: .success(TestResultReceiveModel(testResult: TestResult.negative.rawValue, sc: nil, labId: "SomeLabId")),
 				willLoadResource: { res in
 					if let resource = res as? TestResultResource, !resource.locator.isFake {
 						// Since we currently don´t have a `didLoadResource` this will have to do 😇
@@ -257,9 +251,7 @@ class ExposureSubmissionTestResultViewModelTests: CWATestCase {
 				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration,
-				boosterNotificationsService: BoosterNotificationsService(
-					rulesDownloadService: FakeRulesDownloadService()
-				),
+				cclService: FakeCCLService(),
 				recycleBin: .fake()
 			),
 			recycleBin: .fake(),
@@ -342,9 +334,7 @@ class ExposureSubmissionTestResultViewModelTests: CWATestCase {
 				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration,
-				boosterNotificationsService: BoosterNotificationsService(
-					rulesDownloadService: FakeRulesDownloadService()
-				),
+				cclService: FakeCCLService(),
 				recycleBin: .fake()
 			),
 			recycleBin: .fake(),
@@ -379,7 +369,7 @@ class ExposureSubmissionTestResultViewModelTests: CWATestCase {
 		
 		let restServiceProvider = RestServiceProviderStub(loadResources: [
 			LoadResource(
-				result: .success(TestResultModel(testResult: TestResult.pending.rawValue, sc: nil, labId: "SomeLabId")),
+				result: .success(TestResultReceiveModel(testResult: TestResult.pending.rawValue, sc: nil, labId: "SomeLabId")),
 				willLoadResource: { res in
 					if let resource = res as? TestResultResource, !resource.locator.isFake {
 						getTestResultExpectation.fulfill()
@@ -400,9 +390,7 @@ class ExposureSubmissionTestResultViewModelTests: CWATestCase {
 				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration,
-				boosterNotificationsService: BoosterNotificationsService(
-					rulesDownloadService: FakeRulesDownloadService()
-				),
+				cclService: FakeCCLService(),
 				recycleBin: .fake()
 			),
 			recycleBin: .fake(),
@@ -471,9 +459,7 @@ class ExposureSubmissionTestResultViewModelTests: CWATestCase {
 				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration,
-				boosterNotificationsService: BoosterNotificationsService(
-					rulesDownloadService: FakeRulesDownloadService()
-				),
+				cclService: FakeCCLService(),
 				recycleBin: .fake()
 			),
 			recycleBin: .fake(),
@@ -520,9 +506,7 @@ class ExposureSubmissionTestResultViewModelTests: CWATestCase {
 					dscListProvider: MockDSCListProvider(),
 					client: client,
 					appConfiguration: appConfiguration,
-					boosterNotificationsService: BoosterNotificationsService(
-						rulesDownloadService: FakeRulesDownloadService()
-					),
+					cclService: FakeCCLService(),
 					recycleBin: .fake()
 				),
 				recycleBin: .fake(),
@@ -570,9 +554,7 @@ class ExposureSubmissionTestResultViewModelTests: CWATestCase {
 				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration,
-				boosterNotificationsService: BoosterNotificationsService(
-					rulesDownloadService: FakeRulesDownloadService()
-				),
+				cclService: FakeCCLService(),
 				recycleBin: .fake()
 			),
 			recycleBin: .fake(),
@@ -618,9 +600,7 @@ class ExposureSubmissionTestResultViewModelTests: CWATestCase {
 					dscListProvider: MockDSCListProvider(),
 					client: client,
 					appConfiguration: appConfiguration,
-					boosterNotificationsService: BoosterNotificationsService(
-						rulesDownloadService: FakeRulesDownloadService()
-					),
+					cclService: FakeCCLService(),
 					recycleBin: .fake()
 				),
 				recycleBin: .fake(),
@@ -673,9 +653,7 @@ class ExposureSubmissionTestResultViewModelTests: CWATestCase {
 					dscListProvider: MockDSCListProvider(),
 					client: client,
 					appConfiguration: appConfiguration,
-					boosterNotificationsService: BoosterNotificationsService(
-						rulesDownloadService: FakeRulesDownloadService()
-					),
+					cclService: FakeCCLService(),
 					recycleBin: .fake()
 				),
 				recycleBin: .fake(),
@@ -730,9 +708,7 @@ class ExposureSubmissionTestResultViewModelTests: CWATestCase {
 						dscListProvider: MockDSCListProvider(),
 						client: client,
 						appConfiguration: appConfiguration,
-						boosterNotificationsService: BoosterNotificationsService(
-							rulesDownloadService: FakeRulesDownloadService()
-						),
+						cclService: FakeCCLService(),
 						recycleBin: .fake()
 					),
 					recycleBin: .fake(),
@@ -786,9 +762,7 @@ class ExposureSubmissionTestResultViewModelTests: CWATestCase {
 				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration,
-				boosterNotificationsService: BoosterNotificationsService(
-					rulesDownloadService: FakeRulesDownloadService()
-				),
+				cclService: FakeCCLService(),
 				recycleBin: .fake()
 			),
 			recycleBin: .fake(),
@@ -848,9 +822,7 @@ class ExposureSubmissionTestResultViewModelTests: CWATestCase {
 				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration,
-				boosterNotificationsService: BoosterNotificationsService(
-					rulesDownloadService: FakeRulesDownloadService()
-				),
+				cclService: FakeCCLService(),
 				recycleBin: .fake()
 			),
 			recycleBin: .fake(),
@@ -874,7 +846,7 @@ class ExposureSubmissionTestResultViewModelTests: CWATestCase {
 		
 		let section = model.dynamicTableViewModel.section(0)
 		let cells = section.cells
-		XCTAssertEqual(cells.count, 11)
+		XCTAssertEqual(cells.count, 10)
 		
 		let firstItem = cells[0]
 		var id = firstItem.cellReuseIdentifier
@@ -886,7 +858,7 @@ class ExposureSubmissionTestResultViewModelTests: CWATestCase {
 		
 		let thirdItem = cells[2]
 		id = thirdItem.cellReuseIdentifier
-		XCTAssertEqual(id.rawValue, "labelCell")
+		XCTAssertEqual(id.rawValue, "stepCell")
 		
 		let fourthItem = cells[3]
 		id = fourthItem.cellReuseIdentifier
@@ -898,7 +870,7 @@ class ExposureSubmissionTestResultViewModelTests: CWATestCase {
 		
 		let sixthItem = cells[5]
 		id = sixthItem.cellReuseIdentifier
-		XCTAssertEqual(id.rawValue, "stepCell")
+		XCTAssertEqual(id.rawValue, "labelCell")
 		
 		let seventhItem = cells[6]
 		id = seventhItem.cellReuseIdentifier
@@ -906,7 +878,7 @@ class ExposureSubmissionTestResultViewModelTests: CWATestCase {
 		
 		let eigthItem = cells[7]
 		id = eigthItem.cellReuseIdentifier
-		XCTAssertEqual(id.rawValue, "labelCell")
+		XCTAssertEqual(id.rawValue, "bulletPointCell")
 		
 		let ninthItem = cells[8]
 		id = ninthItem.cellReuseIdentifier
@@ -914,10 +886,6 @@ class ExposureSubmissionTestResultViewModelTests: CWATestCase {
 		
 		let tenthItem = cells[9]
 		id = tenthItem.cellReuseIdentifier
-		XCTAssertEqual(id.rawValue, "bulletPointCell")
-		
-		let eventhItem = cells[10]
-		id = eventhItem.cellReuseIdentifier
 		XCTAssertEqual(id.rawValue, "bulletPointCell")
 	}
 	
@@ -938,9 +906,7 @@ class ExposureSubmissionTestResultViewModelTests: CWATestCase {
 				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration,
-				boosterNotificationsService: BoosterNotificationsService(
-					rulesDownloadService: FakeRulesDownloadService()
-				),
+				cclService: FakeCCLService(),
 				recycleBin: .fake()
 			),
 			recycleBin: .fake(),
@@ -1000,9 +966,7 @@ class ExposureSubmissionTestResultViewModelTests: CWATestCase {
 				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration,
-				boosterNotificationsService: BoosterNotificationsService(
-					rulesDownloadService: FakeRulesDownloadService()
-				),
+				cclService: FakeCCLService(),
 				recycleBin: .fake()
 			),
 			recycleBin: .fake(),
@@ -1066,9 +1030,7 @@ class ExposureSubmissionTestResultViewModelTests: CWATestCase {
 				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration,
-				boosterNotificationsService: BoosterNotificationsService(
-					rulesDownloadService: FakeRulesDownloadService()
-				),
+				cclService: FakeCCLService(),
 				recycleBin: .fake()
 			),
 			recycleBin: .fake(),

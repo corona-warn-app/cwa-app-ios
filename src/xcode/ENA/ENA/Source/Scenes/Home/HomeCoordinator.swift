@@ -23,7 +23,9 @@ class HomeCoordinator: RequiresAppDependencies {
 		qrScannerCoordinator: QRScannerCoordinator,
 		recycleBin: RecycleBin,
 		restServiceProvider: RestServiceProviding,
-		badgeWrapper: HomeBadgeWrapper
+		badgeWrapper: HomeBadgeWrapper,
+		cache: KeyValueCaching,
+		cclService: CCLServable
 	) {
 		self.delegate = delegate
 		self.otpService = otpService
@@ -38,6 +40,8 @@ class HomeCoordinator: RequiresAppDependencies {
 		self.recycleBin = recycleBin
 		self.restServiceProvider = restServiceProvider
 		self.badgeWrapper = badgeWrapper
+		self.cache = cache
+		self.cclService = cclService
 	}
 
 	deinit {
@@ -193,6 +197,8 @@ class HomeCoordinator: RequiresAppDependencies {
 	private let recycleBin: RecycleBin
 	private let restServiceProvider: RestServiceProviding
 	private let badgeWrapper: HomeBadgeWrapper
+	private let cache: KeyValueCaching
+	private let cclService: CCLServable
 
 	private var homeController: HomeTableViewController?
 	private var homeState: HomeState?
@@ -389,7 +395,8 @@ class HomeCoordinator: RequiresAppDependencies {
 	private func showAppInformation() {
 		rootViewController.pushViewController(
 			AppInformationViewController(
-				elsService: elsService
+				elsService: elsService,
+				cclService: cclService
 			),
 			animated: true
 		)
@@ -500,16 +507,15 @@ class HomeCoordinator: RequiresAppDependencies {
 		state.$riskState
 			.receive(on: DispatchQueue.main.ocombine)
 			.sink { [weak self] riskState in
-				// check if risk level raised and if home screen tab is not selected
+				// check if risk level changed and if home screen tab is not selected
 				guard case let .risk(risk) = riskState,
 					  risk.riskLevelHasChanged,
-					  risk.level == .high,
 					  self?.rootViewController.tabBarController?.selectedViewController != self?.rootViewController
 				else {
-					Log.info("wrong risk level or home screen tab is active - skipped to set tab bar badge")
+					Log.info("home screen tab is active - skipped to set tab bar badge")
 					return
 				}
-				self?.badgeWrapper.update(.riskStateIncreased, value: 1)
+				self?.badgeWrapper.update(.riskStateChanged, value: 1)
 			}
 			.store(in: &subscriptions)
 
@@ -542,7 +548,8 @@ class HomeCoordinator: RequiresAppDependencies {
 			eventStore: eventStore,
 			qrCodePosterTemplateProvider: qrCodePosterTemplateProvider,
 			ppacService: ppacService,
-			healthCertificateService: healthCertificateService
+			healthCertificateService: healthCertificateService,
+			cache: cache
 		)
 		developerMenu?.enableIfAllowed()
 	}

@@ -139,10 +139,10 @@ class TaskExecutionHandler: ENATaskExecutionDelegate {
 				
 				group.enter()
 				DispatchQueue.global().async {
-					Log.info("Check if Booster Notifications need to be downloaded.", log: .background)
-					self.executeBoosterNotificationsCreation {
+					Log.info("Check if DCC wallet infos need to be updated and booster notifications need to be triggered.", log: .background)
+					self.executeDCCWalletInfoUpdatesAndTriggerBoosterNotificationsIfNeeded {
 						group.leave()
-						Log.info("Done Checking if Booster Notifications should download …", log: .background)
+						Log.info("Done checking if DCC wallet infos need to be updated and booster notifications need to be triggered", log: .background)
 					}
 				}
 				
@@ -322,19 +322,13 @@ class TaskExecutionHandler: ENATaskExecutionDelegate {
 			completion()
 		})
 	}
-	
-	private func executeBoosterNotificationsCreation(completion: @escaping () -> Void) {
-		Log.info("Checking if Booster rules need to be downloaded...", log: .vaccination)
-		healthCertificateService.checkIfBoosterRulesShouldBeFetched(completion: { errorMessage in
-			guard let errorMessage = errorMessage else {
-				return
-			}
-			Log.error(errorMessage, log: .vaccination, error: nil)
-		})
-		completion()
+
+	private func executeDCCWalletInfoUpdatesAndTriggerBoosterNotificationsIfNeeded(completion: @escaping () -> Void) {
+		Log.info("[ENATaskExecutionDelegate] Checking if DCC wallet infos need to be updated and booster notifications need to be triggered...", log: .vaccination)
+		healthCertificateService.updateDCCWalletInfosIfNeeded(completion: completion)
 	}
-	
+
 	private func checkCertificateValidityStates(completion: @escaping () -> Void) {
-		healthCertificateService.updateValidityStatesAndNotificationsWithFreshDSCList(shouldScheduleTimer: false, completion: completion)
+		healthCertificateService.updateValidityStatesAndNotificationsWithFreshDSCList(completion: completion)
 	}
 }

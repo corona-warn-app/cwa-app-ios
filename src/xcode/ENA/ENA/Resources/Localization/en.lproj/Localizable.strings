@@ -118,7 +118,7 @@
 
 "ExposureDetection_Guide_Home" = "If possible, please go home and stay at home and avoid any encounters outside of your own household.";
 
-"ExposureDetection_Guide_Hotline" = "If you have any other questions, please contact the general medical emergency service on telephone number 116 117.";
+"ExposureDetection_Guide_Hotline" = "If you have any questions, please call 116 117 (in Germany). Then, during the automated message, press 2 for the Federal Ministry of Health service point. Only press 1 (the general medical emergency service) if you have symptoms.";
 
 "ExposureDetection_Guide_Vaccination_HighRisk" = "If you have not been vaccinated yet, consult with your family doctor after you get tested.";
 
@@ -597,7 +597,7 @@
 
 "ExposureSubmission_PhoneDetailsForeign" = "For calls from outside Germany.\nThe fees from your telephone provider will apply.";
 
-"ExposureSubmission_PhoneDetailDescription" = "Our customer service is available in the following languages: \nEnglish, German, Turkish\n\nBusiness hours:\nDaily (including weekends): 7am – 8pm (CET)\n\nIf you have any health-related questions, please contact your general practitioner or the medical emergency service hotline; telephone: 116 117.";
+"ExposureSubmission_PhoneDetailDescription" = "Our customer service is available in the following languages: \nEnglish, German, Turkish\n\nBusiness hours:\nDaily (including weekends): 7am – 8pm (CET)\n\nIf you have any questions, please call 116 117 (in Germany). Then, during the automated message, press 2 for the Federal Ministry of Health service point. Only press 1 (the general medical emergency service) if you have symptoms.";
 
 "ExposureSubmission_SectionDescription2" = "Register your PCR test by entering the TAN in the app.";
 
@@ -916,8 +916,6 @@
 
 "ExposureSubmissionResult_Timer_Title" = "Result available since";
 
-"ExposureSubmissionResult_Negative_Antigen_Proof_Title" = " ";
-
 "ExposureSubmissionResult_Negative_Antigen_Proof_Desc" = "To verifiably prove the result displayed here, an EU Digital Covid Certificate is required. If you requested a digital test certificate when you registered your test and the testing point supports the issuing of digital certificates, you can find your digital test certificate using the link specified above. You will also find the certificate on the “Certificates” tab.\nPlease also find out about the criteria for recognition and validity of test certificates in the context of the purpose for which you need proof.";
 
 "ExposureSubmissionResult_Negative_Antigen_NoProof_Title" = "No Verification Feature";
@@ -1032,7 +1030,7 @@
 
 "ExposureSubmission_TestCertificate_Information_BirthdayPlaceholder" = "Date of Birth";
 
-"ExposureSubmission_TestCertificate_Information_BirthdayText" = "For security purposes, your test result is protected with your date of birth. The test result can only be issued if you specify the correct date of birth.";
+"ExposureSubmission_TestCertificate_Information_BirthdayText" = "For security purposes, your test certificate is protected with your date of birth. The test certificate can only be issued if you specify the correct date of birth.";
 
 "ExposureSubmission_TestCertificate_Information_Dataprivacy_Title" = "For more detailed information about data processing, please refer to the privacy notice.";
 
@@ -1346,7 +1344,9 @@
 /* App Information */
 "App_Information_Title" = "App Information";
 
-"App_Information_Version" = "Version";
+"App_Information_AppVersion" = "App version: %@";
+
+"App_Information_CCLVersion" = "CCL version: %@";
 
 /* App Information - About */
 "App_Information_About_Navigation" = "About the App";
@@ -1387,7 +1387,7 @@
 
 "App_Information_Contact_Hotline_Details_Foreign" = "For calls from outside Germany.\nThe fees from your telephone provider will apply.";
 
-"App_Information_Contact_Hotline_Terms" = "Our customer service is available in the following languages: \nEnglish, German, Turkish\n\nBusiness hours:\nMo-Sa: 7am - 10pm (CET)\n(except national holidays)\n\nIf you have any health-related questions, please contact your general practitioner or the medical emergency service hotline; telephone: 116 117.";
+"App_Information_Contact_Hotline_Terms" = "Our customer service is available in the following languages: \nEnglish, German, Turkish\n\nBusiness hours:\nMo-Sa: 7am – 10pm (CET)\n(except national holidays)\n\nIf you have any questions, please call 116 117 (in Germany). Then, during the automated message, press 2 for the Federal Ministry of Health service point. Only press 1 (the general medical emergency service) if you have symptoms.";
 
 /* App Information - Imprint */
 "App_Information_New_Features_Navigation" = "New Features";
@@ -1601,22 +1601,10 @@
 /* New Version Features */
 "NewVersionFeatures_Info_about_abb_information" = "Changes in this release can be found in the app information, under “New Features”.";
 
-/* Version 2.17 */
-"NewVersionFeature_217_positiveTest_title" = "Notes in Case of a Positive Test Result";
+/* Version 2.18 */
+"NewVersionFeature_218_centralManagementOfRules_title" = "Central Administration of Rules";
 
-"NewVersionFeature_217_positiveTest_description" = "The notes and recommended procedure in the case of a positive test result have been revised.";
-
-"NewVersionFeature_217_statisticsBoosterVaccination_title" = "Statistics for Booster Vaccinations";
-
-"NewVersionFeature_217_statisticsBoosterVaccination_description" = "In addition to the statistics for persons who have received one vaccination dose and persons who have been fully vaccinated, you will now also find the number of persons who have received a booster vaccination.";
-
-"NewVersionFeature_217_linkSocialMedia_title" = "Link to Social Media";
-
-"NewVersionFeature_217_linkSocialMedia_description" = "If you want to keep up with the latest developments in the Corona-Warn-App and discuss them with others, you can follow our social media channels. You will now find a social media link on the home screen, under “More”.";
-
-"NewVersionFeature_217_deleteDateRecycleBin_title" = "Deletion Date for Recycle Bin Contents";
-
-"NewVersionFeature_217_deleteDateRecycleBin_description" = "Every element that is moved to the recycle bin is permanently deleted after 30 days. This deletion date is now displayed for every element.";
+"NewVersionFeature_218_centralManagementOfRules_description" = "The rules for certificates (with regard to their validity, for example, or their prioritization when several certificates are available) and for determining your “G” status (vaccinated, recovered, tested) have been separated from the Corona-Warn-App. These rules are now stored centrally and can therefore be adjusted independently of app releases, which will make it possible to react to rule changes more quickly. After a change, the updated rules will be transferred to the app automatically. This central administration of rules does not change how you use the Corona-Warn-App.";
 
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Transnational Exposure Logging";
@@ -2029,7 +2017,7 @@
 "Statistics_Card_AtLeastOneVaccinated_SecondarySubtitleLabel" = "of the population";
 
 /* - Fully vaccinated people card */
-"Statistics_Card_FullyVaccinated_Title" = "People Who Are Fully Vaccinated";
+"Statistics_Card_FullyVaccinated_Title" = "People Who Have Basic Immunization";
 
 "Statistics_Card_FullyVaccinated_Today" = "Up to today";
 
@@ -2124,7 +2112,7 @@
 
 "Statistics_Info_AtLeastOnce_Text" = "Number of persons reported to the RKI who have received the first dose of the vaccine.";
 
-"Statistics_Info_FullyVaccinated_Title" = "People who are fully vaccinated";
+"Statistics_Info_FullyVaccinated_Title" = "People who have basic immunization";
 
 "Statistics_Info_FullyVaccinated_Text" = "Number of persons reported to the RKI who have received all the vaccine doses necessary for basic immunization.";
 
@@ -2827,53 +2815,12 @@
 /* Health Certified Person Screen */
 "HealthCertificate_unified_QR_code_notice" = "This QR code can be verified reliably with the CovPassCheck app.";
 
+"HealthCertificate_unified_QR_code_infoButton" = "Information";
+
 "HealthCertifiedPerson_title" = "EU Digital COVID Certificate";
 
-/* Health Certified Person Admission State */
-"HealthCertifiedPerson_AdmissionState_title" = "Proof of Status";
-
-"HealthCertifiedPerson_AdmissionState_subtitle2G" = "2G";
-
-"HealthCertifiedPerson_AdmissionState_subtitle2GPlusPCR" = "2G+ PCR test";
-
-"HealthCertifiedPerson_AdmissionState_subtitle2GPlusAntigen" = "2G+ rapid test";
-
-"HealthCertifiedPerson_AdmissionState_subtitle3G" = "3G";
-
-"HealthCertifiedPerson_AdmissionState_subtitle3GPlus" = "3G+";
-
-"HealthCertifiedPerson_AdmissionState_description2G" = "Your certificates satisfy the 2G rule. If you need to prove your current status, close this view and show the QR code in the certificate overview.";
-
-"HealthCertifiedPerson_AdmissionState_description2GPlusPCR" = "Your certificates satisfy the 2G plus rule. If you need to prove your current status, close this view and show the QR code in the certificate overview.";
-
-"HealthCertifiedPerson_AdmissionState_description2GPlusAntigen" = "Your certificates satisfy the 2G plus rule, unless a PCR test is required. If you need to prove your current status, close this view and show the QR code in the certificate overview.";
-
-"HealthCertifiedPerson_AdmissionState_description3G" = "Your certificates satisfy the 3G rule. If you need to prove your current status, close this view and show the QR code in the certificate overview.";
-
-"HealthCertifiedPerson_AdmissionState_description3GPlus" = "Your certificates satisfy the 3G plus rule. If you need to prove your current status, close this view and show the QR code in the certificate overview.";
-
-"HealthCertifiedPerson_AdmissionStateFAQ" = "For further information, please see our %@ page.";
-
-"HealthCertifiedPerson_AdmissionState_FAQ_Placeholder" = "FAQ";
-
-"HealthCertifiedPerson_AdmissionState_shortTitle_title2G" = "2G";
-
-"HealthCertifiedPerson_AdmissionState_shortTitle_title2GPlus" = "2G+";
-
-"HealthCertifiedPerson_AdmissionState_shortTitle_title3G" = "3G";
-
-"HealthCertifiedPerson_AdmissionState_shortTitle_title3GPlus" = "3G+";
-
-/* Health Certified Person Hint */
-"HealthCertifiedPerson_VaccinationHint_title" = "Vaccination Status";
-
-"HealthCertifiedPerson_partiallyVaccinated" = "You have not yet received all the currently planned vaccinations. As such, your vaccination protection is not complete yet.";
-
-"HealthCertifiedPerson_completelyProtected" = "You have received all currently planned vaccinations. Your vaccination protection is complete.";
-
-"HealthCertifiedPerson_boosterRuleFAQ" = "For further information, please see our %@ page.";
-
-"HealthCertifiedPerson_boosterRuleFAQ_placeholder_FAQ" = "FAQ";
+/* Health Certified Person */
+"HealthCertifiedPerson_faq" = "For further information, please see our FAQ page.";
 
 "HealthCertifiedPerson_dateOfBirth" = "Born %@";
 
@@ -2946,9 +2893,6 @@
 
 "HealthCertificate_Details_moreButtonTitle" = "More";
 
-/* Vaccination Certificate Details */
-"VaccinationCertificate_Details_OneOfOneHint" = "This is a vaccine that only requires one dose or a vaccine for a recovered person who only needs one dose.";
-
 /* Health Certificate Delete Alert */
 "HealthCertificate_Alert_deleteButton" = "Delete Certificate";
 
@@ -2986,6 +2930,15 @@
 "RecoveryCertificate_Alert_title" = "Do you want to delete the certificate of recovery?";
 
 "RecoveryCertificate_Alert_message" = "The certificate will be moved to the recycle bin. You’ll find the recycle bin on the “More” tile of the status tab page, where you can permanently delete the certificate or restore it. The certificate will be deleted automatically after 30 days.";
+
+/* Decoding Failed Health Certificate Delete Alert */
+"DecodingFailedHealthCertificate_Alert_title" = "Do you want to delete the certificate permanently?";
+
+"DecodingFailedHealthCertificate_Alert_message" = "The certificate could not be decoded, so no information can be displayed for it. If you delete it, you can no longer use it as proof.";
+
+"DecodingFailedHealthCertificate_Alert_deleteButton" = "Delete Certificate Permanently";
+
+"DecodingFailedHealthCertificate_Alert_cancelButton" = "Cancel";
 
 /* Health Certificate Print PDF */
 "HealthCertificate_PrintPdf_showPrintableVersion" = "Display Print Version";

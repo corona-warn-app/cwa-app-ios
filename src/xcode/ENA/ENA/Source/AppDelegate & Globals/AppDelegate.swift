@@ -40,11 +40,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		#if DEBUG
 		if isUITesting {
 			self.store = MockTestStore()
+			self.restServiceCache = KeyValueCacheFake()
 		} else {
 			self.store = SecureStore(subDirectory: "database")
+			self.restServiceCache = SecureKeyValueCache(subDirectory: "RestServiceCache", store: store)
 		}
 		#else
 		self.store = SecureStore(subDirectory: "database")
+		self.restServiceCache = SecureKeyValueCache(subDirectory: "RestServiceCache")
 		#endif
 
 		if store.appInstallationDate == nil {
@@ -52,7 +55,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 			Log.debug("App installation date: \(String(describing: store.appInstallationDate))")
 		}
 
-		self.restServiceCache = SecureKeyValueCache(subDirectory: "RestServiceCache")
 		self.restServiceProvider = RestServiceProvider(cache: restServiceCache)
 		self.client = HTTPClient(environmentProvider: environmentProvider)
 		self.wifiClient = WifiOnlyHTTPClient(environmentProvider: environmentProvider)
@@ -194,12 +196,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		updateExposureState(state)
 		Analytics.triggerAnalyticsSubmission()
 		appUpdateChecker.checkAppVersionDialog(for: window?.rootViewController)
-		healthCertificateService.checkIfBoosterRulesShouldBeFetched(completion: { errorMessage in
-			guard let errorMessage = errorMessage else {
-				return
-			}
-			Log.error(errorMessage, log: .vaccination, error: nil)
-		})
+		healthCertificateService.updateDCCWalletInfosIfNeeded()
 	}
 	
 	func applicationWillTerminate(_ application: UIApplication) {
@@ -390,13 +387,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		dscListProvider: dscListProvider,
 		client: client,
 		appConfiguration: appConfigurationProvider,
-		boosterNotificationsService: BoosterNotificationsService(
-			rulesDownloadService: RulesDownloadService(
-				restServiceProvider: restServiceProvider
-			)
-		),
+		cclService: cclService,
 		recycleBin: recycleBin
 	)
+
+	private lazy var cclService: CCLServable = {
+		CCLService(restServiceProvider)
+	}()
 
 	private lazy var analyticsSubmitter: PPAnalyticsSubmitting = {
 		return PPAnalyticsSubmitter(
@@ -807,6 +804,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		eventCheckoutService: eventCheckoutService,
 		otpService: otpService,
 		ppacService: ppacService,
+		cclService: cclService,
 		healthCertificateService: healthCertificateService,
 		healthCertificateValidationService: healthCertificateValidationService,
 		healthCertificateValidationOnboardedCountriesProvider: healthCertificateValidationOnboardedCountriesProvider,
@@ -814,7 +812,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		elsService: elsService,
 		recycleBin: recycleBin,
 		restServiceProvider: restServiceProvider,
-		badgeWrapper: badgeWrapper
+		badgeWrapper: badgeWrapper,
+		cache: restServiceCache
 	)
 
 	private lazy var appUpdateChecker = AppUpdateCheckHelper(appConfigurationProvider: self.appConfigurationProvider, store: self.store)

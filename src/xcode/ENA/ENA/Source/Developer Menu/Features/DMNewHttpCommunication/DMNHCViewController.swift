@@ -11,10 +11,12 @@ class DMNHCViewController: UITableViewController {
 	// MARK: - Init
 
 	init(
-		store: Store
+		store: Store,
+		cache: KeyValueCaching
 	) {
 		self.viewModel = DMNHCViewModel(
-			store: store
+			store: store,
+			cache: cache
 		)
 
 		if #available(iOS 13.0, *) {
@@ -79,7 +81,7 @@ class DMNHCViewController: UITableViewController {
 	}
 
 	private func setupNavigationBar() {
-		title = "New HTTP Communication Calls"
+		title = "New Rest Service - Only for DEVs"
 	}
 }
 #endif

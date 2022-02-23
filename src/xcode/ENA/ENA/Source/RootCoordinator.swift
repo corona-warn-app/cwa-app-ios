@@ -32,6 +32,7 @@ class RootCoordinator: NSObject, RequiresAppDependencies, UITabBarControllerDele
 		eventCheckoutService: EventCheckoutService,
 		otpService: OTPServiceProviding,
 		ppacService: PrivacyPreservingAccessControl,
+		cclService: CCLServable,
 		healthCertificateService: HealthCertificateService,
 		healthCertificateValidationService: HealthCertificateValidationProviding,
 		healthCertificateValidationOnboardedCountriesProvider: HealthCertificateValidationOnboardedCountriesProviding,
@@ -39,7 +40,8 @@ class RootCoordinator: NSObject, RequiresAppDependencies, UITabBarControllerDele
 		elsService: ErrorLogSubmissionProviding,
 		recycleBin: RecycleBin,
 		restServiceProvider: RestServiceProviding,
-		badgeWrapper: HomeBadgeWrapper
+		badgeWrapper: HomeBadgeWrapper,
+		cache: KeyValueCaching
 	) {
 		self.delegate = delegate
 		self.coronaTestService = coronaTestService
@@ -48,6 +50,7 @@ class RootCoordinator: NSObject, RequiresAppDependencies, UITabBarControllerDele
 		self.eventCheckoutService = eventCheckoutService
 		self.otpService = otpService
 		self.ppacService = ppacService
+		self.cclService = cclService
 		self.healthCertificateService = healthCertificateService
 		self.healthCertificateValidationService = healthCertificateValidationService
 		self.healthCertificateValidationOnboardedCountriesProvider = healthCertificateValidationOnboardedCountriesProvider
@@ -56,6 +59,7 @@ class RootCoordinator: NSObject, RequiresAppDependencies, UITabBarControllerDele
 		self.recycleBin = recycleBin
 		self.restServiceProvider = restServiceProvider
 		self.badgeWrapper = badgeWrapper
+		self.cache = cache
 	}
 
 	deinit {
@@ -167,7 +171,9 @@ class RootCoordinator: NSObject, RequiresAppDependencies, UITabBarControllerDele
 			qrScannerCoordinator: qrScannerCoordinator,
 			recycleBin: recycleBin,
 			restServiceProvider: restServiceProvider,
-			badgeWrapper: badgeWrapper
+			badgeWrapper: badgeWrapper,
+			cache: cache,
+			cclService: cclService
 		)
 		self.homeCoordinator = homeCoordinator
 		homeCoordinator.showHome(
@@ -177,6 +183,7 @@ class RootCoordinator: NSObject, RequiresAppDependencies, UITabBarControllerDele
 	
 		let healthCertificatesTabCoordinator = HealthCertificatesTabCoordinator(
 			store: store,
+			cclService: cclService,
 			healthCertificateService: healthCertificateService,
 			healthCertificateValidationService: healthCertificateValidationService,
 			healthCertificateValidationOnboardedCountriesProvider: healthCertificateValidationOnboardedCountriesProvider,
@@ -347,6 +354,7 @@ class RootCoordinator: NSObject, RequiresAppDependencies, UITabBarControllerDele
 	private let otpService: OTPServiceProviding
 	private let ppacService: PrivacyPreservingAccessControl
 	private let elsService: ErrorLogSubmissionProviding
+	private let cclService: CCLServable
 	private let healthCertificateService: HealthCertificateService
 	private let healthCertificateValidationService: HealthCertificateValidationProviding
 	private let healthCertificateValidationOnboardedCountriesProvider: HealthCertificateValidationOnboardedCountriesProviding
@@ -354,7 +362,7 @@ class RootCoordinator: NSObject, RequiresAppDependencies, UITabBarControllerDele
 	private let recycleBin: RecycleBin
 	private let restServiceProvider: RestServiceProviding
 	private let badgeWrapper: HomeBadgeWrapper
-
+	private let cache: KeyValueCaching
 	private let tabBarController = UITabBarController()
 
 	private var homeCoordinator: HomeCoordinator?
