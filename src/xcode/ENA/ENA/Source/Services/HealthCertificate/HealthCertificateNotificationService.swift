@@ -104,8 +104,8 @@ class HealthCertificateNotificationService {
 
 			Log.info("Scheduling booster notification for \(private: String(describing: name))", log: .vaccination)
 
-			let id = ENAHasher.sha256(name + dateOfBirth)
-			self.scheduleBoosterNotification(id: id, completion: completion)
+			let personIdentifier = ENAHasher.sha256(name + dateOfBirth)
+			self.scheduleBoosterNotification(personIdentifier: personIdentifier, completion: completion)
 		} else {
 			Log.debug("Booster notification identifier \(private: newBoosterNotificationIdentifier) unchanged, no booster notification scheduled", log: .vaccination)
 			completion?()
@@ -242,8 +242,11 @@ class HealthCertificateNotificationService {
 		}
 	}
 	
-	private func scheduleBoosterNotification(id: String, completion: (() -> Void)? = nil) {
-		Log.info("Schedule booster notification for certificate with id: \(private: id) with trigger date: \(Date())", log: .vaccination)
+	private func scheduleBoosterNotification(
+		personIdentifier: String,
+		completion: (() -> Void)? = nil
+	) {
+		Log.info("Schedule booster notification for id: \(private: personIdentifier)", log: .vaccination)
 
 		let content = UNMutableNotificationContent()
 		content.title = AppStrings.LocalNotifications.certificateGenericTitle
@@ -251,7 +254,7 @@ class HealthCertificateNotificationService {
 		content.sound = .default
 
 		let request = UNNotificationRequest(
-			identifier: LocalNotificationIdentifier.boosterVaccination.rawValue + "\(id)",
+			identifier: LocalNotificationIdentifier.boosterVaccination.rawValue + "\(personIdentifier)",
 			content: content,
 			trigger: nil
 		)
