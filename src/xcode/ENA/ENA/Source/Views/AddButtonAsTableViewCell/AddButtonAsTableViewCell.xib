@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -32,7 +32,7 @@
                                         </constraints>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VaD-d6-UT4" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
-                                        <rect key="frame" x="63" y="25.5" width="209" height="17"/>
+                                        <rect key="frame" x="63" y="25" width="184" height="18"/>
                                         <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -40,6 +40,12 @@
                                             <userDefinedRuntimeAttribute type="string" keyPath="ibEnaStyle" value="headline"/>
                                         </userDefinedRuntimeAttributes>
                                     </label>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Icons_Chevron_plain" translatesAutoresizingMaskIntoConstraints="NO" id="EaK-hJ-PyK">
+                                        <rect key="frame" x="262" y="28" width="10" height="12"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="10" id="GA6-NT-ROj"/>
+                                        </constraints>
+                                    </imageView>
                                 </subviews>
                                 <directionalEdgeInsets key="directionalLayoutMargins" top="8" leading="16" bottom="8" trailing="16"/>
                             </stackView>
@@ -72,6 +78,7 @@
             <directionalEdgeInsets key="directionalLayoutMargins" top="8" leading="24" bottom="8" trailing="24"/>
             <connections>
                 <outlet property="containerView" destination="1nm-Ky-YXw" id="pdG-4j-XQx"/>
+                <outlet property="customAccessoryView" destination="EaK-hJ-PyK" id="3Hc-RS-Whg"/>
                 <outlet property="iconImageView" destination="FYm-e4-59U" id="zHB-Qy-qrg"/>
                 <outlet property="label" destination="VaD-d6-UT4" id="ElH-wJ-0uX"/>
             </connections>
@@ -80,11 +87,12 @@
     </objects>
     <designables>
         <designable name="VaD-d6-UT4">
-            <size key="intrinsicContentSize" width="35.5" height="17"/>
+            <size key="intrinsicContentSize" width="39" height="18"/>
         </designable>
     </designables>
     <resources>
         <image name="Icon_Add" width="32" height="32"/>
+        <image name="Icons_Chevron_plain" width="7" height="12"/>
         <namedColor name="ENA Cell Background Color">
             <color red="0.96078431372549022" green="0.96078431372549022" blue="0.96078431372549022" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

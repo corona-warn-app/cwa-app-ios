@@ -4,7 +4,6 @@
 
 import XCTest
 
-// swiftlint:disable type_body_length
 class ENAUITests_13_CreateHealthCertificate: CWATestCase {
 
 	// MARK: - Overrides
@@ -31,9 +30,8 @@ class ENAUITests_13_CreateHealthCertificate: CWATestCase {
 
 		app.buttons[AccessibilityIdentifiers.TabBar.certificates].waitAndTap()
 
-		/// Home Screen
-		let registerCertificateTitle = try XCTUnwrap(app.cells[AccessibilityIdentifiers.HealthCertificate.Overview.addCertificateCell])
-		registerCertificateTitle.waitAndTap()
+		/// Tap Scan Button
+		app.buttons[AccessibilityIdentifiers.TabBar.scanner].waitAndTap()
 
 		// Simulator only Alert will open where you can choose what the QRScanner should scan, we want the first HC here.
 		let hc1Button = try XCTUnwrap(app.buttons[AccessibilityIdentifiers.UniversalQRScanner.fakeHC1])
@@ -254,8 +252,7 @@ class ENAUITests_13_CreateHealthCertificate: CWATestCase {
 		app.buttons[AccessibilityIdentifiers.TabBar.certificates].waitAndTap()
 
 		/// Tap Scan Button
-		let registerCertificateTitle = try XCTUnwrap(app.cells[AccessibilityIdentifiers.HealthCertificate.Overview.addCertificateCell])
-		registerCertificateTitle.waitAndTap()
+		app.buttons[AccessibilityIdentifiers.TabBar.scanner].waitAndTap()
 
 		// Simulator only Alert will open where you can choose what the QRScanner should scan
 		let eventButton = try XCTUnwrap(app.buttons[AccessibilityIdentifiers.UniversalQRScanner.fakeEvent])
@@ -278,8 +275,7 @@ class ENAUITests_13_CreateHealthCertificate: CWATestCase {
 		app.buttons[AccessibilityIdentifiers.TabBar.certificates].waitAndTap()
 
 		/// Tap Scan Button
-		let registerCertificateTitle = try XCTUnwrap(app.cells[AccessibilityIdentifiers.HealthCertificate.Overview.addCertificateCell])
-		registerCertificateTitle.waitAndTap()
+		app.buttons[AccessibilityIdentifiers.TabBar.scanner].waitAndTap()
 
 		/// Simulator only Alert will open where you can choose what the QRScanner should scan
 		let eventButton = try XCTUnwrap(app.buttons[AccessibilityIdentifiers.UniversalQRScanner.fakeEvent])
@@ -296,8 +292,7 @@ class ENAUITests_13_CreateHealthCertificate: CWATestCase {
 		app.buttons[AccessibilityIdentifiers.TabBar.certificates].waitAndTap()
 
 		/// Tap Scan Button
-		let registerCertificateTitle = try XCTUnwrap(app.cells[AccessibilityIdentifiers.HealthCertificate.Overview.addCertificateCell])
-		registerCertificateTitle.waitAndTap()
+		app.buttons[AccessibilityIdentifiers.TabBar.scanner].waitAndTap()
 
 		/// Simulator only Alert will open where you can choose what the QRScanner should scan
 		let pcrButton = try XCTUnwrap(app.buttons[AccessibilityIdentifiers.UniversalQRScanner.fakePCR])
@@ -331,7 +326,7 @@ class ENAUITests_13_CreateHealthCertificate: CWATestCase {
 		let primaryButton = try XCTUnwrap(app.buttons[AccessibilityIdentifiers.General.primaryFooterButton])
 		primaryButton.waitAndTap()
 
-		XCTAssertTrue(app.cells[AccessibilityIdentifiers.HealthCertificate.Overview.addCertificateCell].waitForExistence(timeout: .short))
+		XCTAssertFalse(app.cells[AccessibilityIdentifiers.HealthCertificate.Overview.changeAdmissionScenarioCell].waitForExistence(timeout: .short))
 		
 		snapshot("screenshot_health_certificate_empty_screen")
 	}
@@ -343,9 +338,8 @@ class ENAUITests_13_CreateHealthCertificate: CWATestCase {
 
 		app.buttons[AccessibilityIdentifiers.TabBar.certificates].waitAndTap()
 
-		/// Home Screen
-		let registerCertificateTitle = try XCTUnwrap(app.cells[AccessibilityIdentifiers.HealthCertificate.Overview.addCertificateCell])
-		registerCertificateTitle.waitAndTap()
+		/// Tap Scan Button
+		app.buttons[AccessibilityIdentifiers.TabBar.scanner].waitAndTap()
 
 		// Simulator only Alert will open where you can choose what the QRScanner should scan, we want the first HC here.
 		let hc2Button = try XCTUnwrap(app.buttons[AccessibilityIdentifiers.UniversalQRScanner.fakeHC2])

@@ -29,6 +29,29 @@ extension DCCWalletInfo {
 
 }
 
+extension DCCAdmissionCheckScenarios {
+	static func fake(
+		labelText: DCCUIText = .fake(),
+		scenarioSelection: DCCScenarioSelection = .fake()
+	) -> DCCAdmissionCheckScenarios {
+		DCCAdmissionCheckScenarios(
+			labelText: labelText,
+			scenarioSelection: scenarioSelection)
+	}
+}
+
+extension DCCScenarioSelection {
+	static func fake(
+		titleText: DCCUIText = .fake(),
+		items: [DCCScenarioSelectionItem] = []
+	) -> DCCScenarioSelection {
+		DCCScenarioSelection(
+			titleText: titleText,
+			items: items
+		)
+	}
+}
+
 extension DCCAdmissionState {
 
 	static func fake(
