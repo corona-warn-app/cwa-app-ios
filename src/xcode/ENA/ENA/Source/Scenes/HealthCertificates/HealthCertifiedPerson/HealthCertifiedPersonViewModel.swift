@@ -236,7 +236,6 @@ final class HealthCertifiedPersonViewModel {
 	private let didTapUpdateNotification: () -> Void
 	private var subscriptions = Set<AnyCancellable>()
 
-	private var subscriptions = Set<AnyCancellable>()
 	private var healthCertificateCellViewModels = [HealthCertificateCellViewModel]()
 
 	private func constructHealthCertificateCellViewModels(for person: HealthCertifiedPerson) {

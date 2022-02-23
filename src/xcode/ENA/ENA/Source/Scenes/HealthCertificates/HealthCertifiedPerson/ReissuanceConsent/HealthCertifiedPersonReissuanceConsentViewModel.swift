@@ -12,7 +12,7 @@ enum HealthCertifiedPersonUpdateError: Error {
 }
 
 
-struct HealthCertifiedPersonUpdateConsentViewModel {
+struct HealthCertifiedPersonReissuanceConsentViewModel {
 
 	// MARK: - Init
 

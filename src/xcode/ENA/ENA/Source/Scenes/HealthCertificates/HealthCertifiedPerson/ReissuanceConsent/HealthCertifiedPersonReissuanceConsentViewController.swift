@@ -4,7 +4,7 @@
 
 import UIKit
 
-class HealthCertifiedPersonUpdateConsentViewController: UIViewController, DismissHandling, FooterViewHandling {
+class HealthCertifiedPersonReissuanceConsentViewController: UIViewController, DismissHandling, FooterViewHandling {
 
 	// MARK: - Init
 
@@ -15,7 +15,7 @@ class HealthCertifiedPersonUpdateConsentViewController: UIViewController, Dismis
 		dismiss: @escaping () -> Void
 	) {
 		self.presentAlert = presentAlert
-		self.viewModel = HealthCertifiedPersonUpdateConsentViewModel()
+		self.viewModel = HealthCertifiedPersonReissuanceConsentViewModel()
 		self.presentUpdateSuccess = presentUpdateSuccess
 		self.didCancel = didCancel
 		self.dismiss = dismiss
@@ -78,7 +78,7 @@ class HealthCertifiedPersonUpdateConsentViewController: UIViewController, Dismis
 	private let presentUpdateSuccess: () -> Void
 	private let didCancel: () -> Void
 	private let dismiss: () -> Void
-	private let viewModel: HealthCertifiedPersonUpdateConsentViewModel
+	private let viewModel: HealthCertifiedPersonReissuanceConsentViewModel
 
 	private func showAlert() {
 		footerView?.setLoadingIndicator(false, disable: false, button: .primary)
