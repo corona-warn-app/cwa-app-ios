@@ -170,6 +170,10 @@ class HealthCertifiedPerson: Codable, Equatable, Comparable {
 				isNewBoosterRule = dccWalletInfo?.boosterNotification.identifier != nil
 			}
 
+			if dccWalletInfo?.certificateReissuance != oldValue?.certificateReissuance {
+				isNewCertificateReissuance = dccWalletInfo?.certificateReissuance?.reissuanceDivision.visible == true
+			}
+
 			if dccWalletInfo != nil {
 				/// Once initial dccWalletInfo was calculated, legacy boosterRule property can be set to nil
 				boosterRule = nil
