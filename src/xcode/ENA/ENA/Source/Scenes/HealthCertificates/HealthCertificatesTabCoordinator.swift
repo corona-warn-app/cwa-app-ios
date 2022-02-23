@@ -381,4 +381,32 @@ final class HealthCertificatesTabCoordinator {
 		certificateCoordinator?.start()
 	}
 
+	private func showErrorAlert(
+		title: String,
+		error: Error
+	) {
+		DispatchQueue.main.async { [weak self] in
+
+			guard let self = self else {
+				fatalError("Could not create strong self")
+			}
+			
+			let alert = UIAlertController(
+				title: title,
+				message: error.localizedDescription,
+				preferredStyle: .alert
+			)
+
+			let okayAction = UIAlertAction(
+				title: AppStrings.Common.alertActionOk,
+				style: .cancel,
+				handler: { _ in
+					alert.dismiss(animated: true)
+				}
+			)
+			alert.addAction(okayAction)
+			
+			self.viewController.present(alert, animated: true, completion: nil)
+		}
+	}
 }
