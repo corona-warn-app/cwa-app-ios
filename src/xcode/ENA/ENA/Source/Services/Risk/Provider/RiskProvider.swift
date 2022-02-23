@@ -22,7 +22,7 @@ final class RiskProvider: RiskProviding {
 		keyPackageDownload: KeyPackageDownloadProtocol,
 		traceWarningPackageDownload: TraceWarningPackageDownloading,
 		exposureDetectionExecutor: ExposureDetectionDelegate,
-		coronaTestService: CoronaTestService
+		coronaTestService: CoronaTestServiceProviding
 	) {
 		self.riskProvidingConfiguration = configuration
 		self.store = store
@@ -157,7 +157,7 @@ final class RiskProvider: RiskProviding {
 	private let enfRiskCalculation: ENFRiskCalculationProtocol
 	private let checkinRiskCalculation: CheckinRiskCalculationProtocol
 	private let exposureDetectionExecutor: ExposureDetectionDelegate
-	private let coronaTestService: CoronaTestService
+	private let coronaTestService: CoronaTestServiceProviding
 	
 	private let queue = DispatchQueue(label: "com.sap.RiskProvider")
 	private let consumersQueue = DispatchQueue(label: "com.sap.RiskProvider.consumer")

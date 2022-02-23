@@ -11,7 +11,7 @@ class HomeShownPositiveTestResultCellModel {
 
 	init(
 		coronaTestType: CoronaTestType,
-		coronaTestService: CoronaTestService,
+		coronaTestService: CoronaTestServiceProviding,
 		onUpdate: @escaping () -> Void
 	) {
 		self.coronaTestType = coronaTestType
@@ -20,7 +20,7 @@ class HomeShownPositiveTestResultCellModel {
 		case .pcr:
 			title = AppStrings.Home.TestResult.pcrTitle
 
-			coronaTestService.$pcrTest
+			coronaTestService.pcrTest
 				.sink { [weak self] pcrTest in
 					guard let pcrTest = pcrTest else {
 						return
@@ -33,7 +33,7 @@ class HomeShownPositiveTestResultCellModel {
 		case .antigen:
 			title = AppStrings.Home.TestResult.antigenTitle
 
-			coronaTestService.$antigenTest
+			coronaTestService.antigenTest
 				.sink { [weak self] antigenTest in
 					guard let antigenTest = antigenTest else {
 						return

@@ -18,7 +18,7 @@ final class DMViewController: UITableViewController, RequiresAppDependencies {
 		wifiClient: WifiOnlyHTTPClient,
 		exposureSubmissionService: ExposureSubmissionService,
 		otpService: OTPServiceProviding,
-		coronaTestService: CoronaTestService,
+		coronaTestService: CoronaTestServiceProviding,
 		eventStore: EventStoringProviding,
 		qrCodePosterTemplateProvider: QRCodePosterTemplateProviding,
 		ppacService: PrivacyPreservingAccessControl,
@@ -192,7 +192,7 @@ final class DMViewController: UITableViewController, RequiresAppDependencies {
 	private let consumer = RiskConsumer()
 	private let exposureSubmissionService: ExposureSubmissionService
 	private let otpService: OTPServiceProviding
-	private let coronaTestService: CoronaTestService
+	private let coronaTestService: CoronaTestServiceProviding
 	private let eventStore: EventStoringProviding
 	private let qrCodePosterTemplateProvider: QRCodePosterTemplateProviding
 	private let ppacService: PrivacyPreservingAccessControl

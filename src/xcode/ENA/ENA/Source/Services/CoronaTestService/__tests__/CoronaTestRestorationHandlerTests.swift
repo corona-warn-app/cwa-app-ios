@@ -44,7 +44,7 @@ class CoronaTestRestorationHandlerTests: CWATestCase {
 			XCTFail("canRestore should return success for .antigen")
 		}
 
-		service.pcrTest = PCRTest.mock(registrationToken: "pcrRegistrationToken")
+		service.pcrTest.value = PCRTest.mock(registrationToken: "pcrRegistrationToken")
 
 		if case .failure(.testTypeAlreadyRegistered) = restorationHandler.canRestore(.pcr(.mock())) { } else {
 			XCTFail("canRestore should return failure for .pcr")
@@ -54,7 +54,7 @@ class CoronaTestRestorationHandlerTests: CWATestCase {
 			XCTFail("canRestore should return success for .antigen")
 		}
 
-		service.antigenTest = AntigenTest.mock(registrationToken: "antigenRegistrationToken")
+		service.antigenTest.value = AntigenTest.mock(registrationToken: "antigenRegistrationToken")
 
 		if case .failure(.testTypeAlreadyRegistered) = restorationHandler.canRestore(.pcr(.mock())) { } else {
 			XCTFail("canRestore should return failure for .pcr")
@@ -64,7 +64,7 @@ class CoronaTestRestorationHandlerTests: CWATestCase {
 			XCTFail("canRestore should return failure for .antigen")
 		}
 
-		service.pcrTest = nil
+		service.pcrTest.value = nil
 
 		if case .success = restorationHandler.canRestore(.pcr(.mock())) { } else {
 			XCTFail("canRestore should return success for .pcr")
@@ -104,13 +104,13 @@ class CoronaTestRestorationHandlerTests: CWATestCase {
 
 		let activeTest = PCRTest.mock(registrationToken: "activeTest")
 
-		service.pcrTest = activeTest
+		service.pcrTest.value = activeTest
 
 		let testToRestore = PCRTest.mock(registrationToken: "testToRestore")
 
 		restorationHandler.restore(.pcr(testToRestore))
 
-		XCTAssertEqual(service.pcrTest, testToRestore)
+		XCTAssertEqual(service.pcrTest.value, testToRestore)
 
 		guard case let .coronaTest(coronaTest) = store.recycleBinItems.first?.item, case let .pcr(pcrTest) = coronaTest else {
 			XCTFail("Cannot find replaced test in recycle bin")
@@ -149,13 +149,13 @@ class CoronaTestRestorationHandlerTests: CWATestCase {
 
 		let activeTest = AntigenTest.mock(registrationToken: "activeTest")
 
-		service.antigenTest = activeTest
+		service.antigenTest.value = activeTest
 
 		let testToRestore = AntigenTest.mock(registrationToken: "testToRestore")
 
 		restorationHandler.restore(.antigen(testToRestore))
 
-		XCTAssertEqual(service.antigenTest, testToRestore)
+		XCTAssertEqual(service.antigenTest.value, testToRestore)
 
 		guard case let .coronaTest(coronaTest) = store.recycleBinItems.first?.item, case let .antigen(antigenTest) = coronaTest else {
 			XCTFail("Cannot find replaced test in recycle bin")
