@@ -589,6 +589,11 @@ class HealthCertificateService {
 					previousBoosterNotificationIdentifier: previousBoosterNotificationIdentifier,
 					completion: completion
 				)
+				self.healthCertificateNotificationService.scheduleCertificateReissuanceNotificationIfNeeded(
+					for: person,
+					previousCertificateReissuance: previousCertificateReissuance,
+					completion: completion
+				)
 			case .failure(let error):
 				Log.error("Wallet info update failed", error: error)
 				person.mostRecentWalletInfoUpdateFailed = true
