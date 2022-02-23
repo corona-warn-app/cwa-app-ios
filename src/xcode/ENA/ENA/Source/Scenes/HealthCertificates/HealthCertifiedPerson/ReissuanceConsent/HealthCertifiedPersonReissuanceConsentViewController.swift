@@ -10,6 +10,7 @@ class HealthCertifiedPersonReissuanceConsentViewController: DynamicTableViewCont
 
 	init(
 		_ healthCertificate: HealthCertificate,
+		healthCertifiedPerson: HealthCertifiedPerson,
 		didTapDataPrivacy: @escaping () -> Void,
 		presentAlert: @escaping (_ ok: UIAlertAction, _ retry: UIAlertAction) -> Void,
 		presentUpdateSuccess: @escaping () -> Void,
@@ -20,6 +21,7 @@ class HealthCertifiedPersonReissuanceConsentViewController: DynamicTableViewCont
 		self.viewModel = HealthCertifiedPersonReissuanceConsentViewModel(
 			faqAnker: "NYD",
 			healthCertificate: healthCertificate,
+			healthCertifiedPerson: healthCertifiedPerson,
 			onDisclaimerButtonTap: didTapDataPrivacy
 		)
 
@@ -119,6 +121,7 @@ class HealthCertifiedPersonReissuanceConsentViewController: DynamicTableViewCont
 			UINib(nibName: "ExposureDetectionLinkCell", bundle: nil),
 			forCellReuseIdentifier: "linkCell"
 		)
+		tableView.register(ReissuanceConsentCertificateCell.self, forCellReuseIdentifier: ReissuanceConsentCertificateCell.reuseIdentifier)
 
 		tableView.contentInsetAdjustmentBehavior = .automatic
 		tableView.separatorStyle = .none

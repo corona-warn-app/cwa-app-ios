@@ -19,10 +19,12 @@ final class HealthCertifiedPersonReissuanceConsentViewModel {
 	init(
 		faqAnker: String,
 		healthCertificate: HealthCertificate,
+		healthCertifiedPerson: HealthCertifiedPerson,
 		onDisclaimerButtonTap: @escaping () -> Void
 	) {
 		self.faqAnker = faqAnker
 		self.healthCertificate = healthCertificate
+		self.healthCertifiedPerson = healthCertifiedPerson
 		self.onDisclaimerButtonTap = onDisclaimerButtonTap
 	}
 
@@ -41,6 +43,7 @@ final class HealthCertifiedPersonReissuanceConsentViewModel {
 			[
 				.section(
 					cells: [
+						.reissuanceConsentCertificateCell(healthCertificate, healthCertifiedPerson: healthCertifiedPerson),
 						.title2(text: AppStrings.HealthCertificate.Person.UpdateConsent.headline),
 						.subheadline(text: AppStrings.HealthCertificate.Person.UpdateConsent.subHeadline),
 						.body(text: AppStrings.HealthCertificate.Person.UpdateConsent.body_1),
@@ -121,6 +124,7 @@ final class HealthCertifiedPersonReissuanceConsentViewModel {
 
 	private let faqAnker: String
 	private let healthCertificate: HealthCertificate
+	private let healthCertifiedPerson: HealthCertifiedPerson
 	private let onDisclaimerButtonTap: () -> Void
 
 	private let normalTextAttribute: [NSAttributedString.Key: Any] = [
@@ -138,4 +142,16 @@ final class HealthCertifiedPersonReissuanceConsentViewModel {
 		return NSMutableAttributedString(string: "\(text)", attributes: boldTextAttribute)
 	}
 
+}
+
+private extension DynamicCell {
+	static func reissuanceConsentCertificateCell(_ healthCertificate: HealthCertificate, healthCertifiedPerson: HealthCertifiedPerson) -> Self {
+		.custom(withIdentifier: ReissuanceConsentCertificateCell.dynamicTableViewCellReuseIdentifier) { _, cell, _ in
+			guard let cell = cell as? ReissuanceConsentCertificateCell else {
+				return
+			}
+			let cellViewModel = HealthCertificateCellViewModel(healthCertificate: healthCertificate, healthCertifiedPerson: healthCertifiedPerson)
+			cell.configure(cellViewModel)
+		}
+	}
 }

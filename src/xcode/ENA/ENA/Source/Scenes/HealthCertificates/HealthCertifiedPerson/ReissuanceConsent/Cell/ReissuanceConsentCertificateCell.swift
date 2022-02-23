@@ -4,7 +4,7 @@
 
 import UIKit
 
-class ReissuanceConsentCertificateCell: UITableViewCell {
+class ReissuanceConsentCertificateCell: UITableViewCell, ReuseIdentifierProviding {
 
 	// MARK: - Init
 
@@ -12,6 +12,7 @@ class ReissuanceConsentCertificateCell: UITableViewCell {
 		style: UITableViewCell.CellStyle, reuseIdentifier: String?
 	) {
 		super.init(style: style, reuseIdentifier: reuseIdentifier)
+		setupView()
 	}
 
 	@available(*, unavailable)

@@ -135,12 +135,12 @@ final class HealthCertifiedPersonCoordinator {
 				self.presentCovPassInfoScreen(self.navigationController)
 			},
 			didTapUpdateNotification: { [weak self] in
-				// find healthCertificate to update
+				// add code to find healthCertificate for update here
 				guard let healthCertificate = healthCertifiedPerson.healthCertificates.first else {
 					Log.error("missing health certificate to update")
 					return
 				}
-				self?.showUpdateConsent(healthCertificate)
+				self?.showUpdateConsent(healthCertificate, healthCertifiedPerson)
 			}
 		)
 	}
@@ -157,9 +157,10 @@ final class HealthCertifiedPersonCoordinator {
 		navigationController.pushViewController(detailViewController, animated: true)
 	}
 
-	private func showUpdateConsent(_ healthCertificate: HealthCertificate) {
+	private func showUpdateConsent(_ healthCertificate: HealthCertificate, _ healthCertifiedPerson: HealthCertifiedPerson) {
 		let updateConsentViewController = HealthCertifiedPersonReissuanceConsentViewController(
 			healthCertificate,
+			healthCertifiedPerson: healthCertifiedPerson,
 			didTapDataPrivacy: { [weak self] in
 				self?.showDataPrivacy()
 			},
