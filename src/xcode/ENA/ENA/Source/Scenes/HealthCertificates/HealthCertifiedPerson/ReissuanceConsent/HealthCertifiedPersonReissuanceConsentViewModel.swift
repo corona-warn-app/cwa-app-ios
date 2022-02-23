@@ -18,9 +18,11 @@ final class HealthCertifiedPersonReissuanceConsentViewModel {
 
 	init(
 		faqAnker: String,
+		healthCertificate: HealthCertificate,
 		onDisclaimerButtonTap: @escaping () -> Void
 	) {
 		self.faqAnker = faqAnker
+		self.healthCertificate = healthCertificate
 		self.onDisclaimerButtonTap = onDisclaimerButtonTap
 	}
 
@@ -118,6 +120,7 @@ final class HealthCertifiedPersonReissuanceConsentViewModel {
 	// MARK: - Private
 
 	private let faqAnker: String
+	private let healthCertificate: HealthCertificate
 	private let onDisclaimerButtonTap: () -> Void
 
 	private let normalTextAttribute: [NSAttributedString.Key: Any] = [

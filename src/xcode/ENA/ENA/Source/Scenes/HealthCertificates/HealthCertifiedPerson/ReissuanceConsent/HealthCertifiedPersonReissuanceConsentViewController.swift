@@ -9,13 +9,21 @@ class HealthCertifiedPersonReissuanceConsentViewController: DynamicTableViewCont
 	// MARK: - Init
 
 	init(
+		_ healthCertificate: HealthCertificate,
 		presentAlert: @escaping (_ ok: UIAlertAction, _ retry: UIAlertAction) -> Void,
 		presentUpdateSuccess: @escaping () -> Void,
 		didCancel: @escaping () -> Void,
 		dismiss: @escaping () -> Void
 	) {
 		self.presentAlert = presentAlert
-		self.viewModel = HealthCertifiedPersonReissuanceConsentViewModel(faqAnker: "test", onDisclaimerButtonTap: { })
+		self.viewModel = HealthCertifiedPersonReissuanceConsentViewModel(
+			faqAnker: "NYD",
+			healthCertificate: healthCertificate,
+			onDisclaimerButtonTap: {
+				Log.info("onDisclaimerButtonTap")
+			}
+		)
+
 		self.presentUpdateSuccess = presentUpdateSuccess
 		self.didCancel = didCancel
 		self.dismiss = dismiss
@@ -110,10 +118,13 @@ class HealthCertifiedPersonReissuanceConsentViewController: DynamicTableViewCont
 			UINib(nibName: String(describing: DynamicLegalExtendedCell.self), bundle: nil),
 			forCellReuseIdentifier: DynamicLegalExtendedCell.reuseIdentifier
 		)
+		tableView.register(
+			UINib(nibName: "ExposureDetectionLinkCell", bundle: nil),
+			forCellReuseIdentifier: "linkCell"
+		)
 
 		tableView.contentInsetAdjustmentBehavior = .automatic
 		tableView.separatorStyle = .none
-		tableView.allowsSelection = false
 		dynamicTableViewModel = viewModel.dynamicTableViewModel
 	}
 
