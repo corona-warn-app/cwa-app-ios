@@ -240,7 +240,7 @@ class HealthCertifiedPerson: Codable, Equatable, Comparable {
 
 		return certificatesWithNews.count
 			+ (dccWalletInfo?.boosterNotification.identifier != nil && isNewBoosterRule ? 1 : 0)
-			+ (dccWalletInfo?.certificateReissuance != nil && isNewCertificateReissuance ? 1 : 0)
+			+ (dccWalletInfo?.certificateReissuance?.reissuanceDivision.visible == true && isNewCertificateReissuance ? 1 : 0)
 	}
 
 	var mostRelevantHealthCertificate: HealthCertificate? {
