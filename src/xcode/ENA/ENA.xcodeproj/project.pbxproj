@@ -1323,6 +1323,7 @@
 		BA18127527AD82C5000E5EDD /* CCLServiceBoosterNotificationRulesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA18127427AD82C5000E5EDD /* CCLServiceBoosterNotificationRulesTests.swift */; };
 		BA18127727AD82DA000E5EDD /* CCLServiceBaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA18127627AD82DA000E5EDD /* CCLServiceBaseTests.swift */; };
 		BA19978B2715B006009FEC00 /* Name+ExtensionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA19978A2715B006009FEC00 /* Name+ExtensionTests.swift */; };
+		BA1E574927C684DB001DCF99 /* ReissuanceConsentCertificateCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA1E574827C684DB001DCF99 /* ReissuanceConsentCertificateCell.swift */; };
 		BA1FC82C26E251FD00CCCC17 /* DMLocalNotificationsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA1FC82A26E250E800CCCC17 /* DMLocalNotificationsViewController.swift */; };
 		BA1FC82D26E2520000CCCC17 /* DMNotificationsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA1FC82B26E250E800CCCC17 /* DMNotificationsViewModel.swift */; };
 		BA27993B255995E100C3B64D /* DMWifiClientViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA27993A255995E100C3B64D /* DMWifiClientViewController.swift */; };
@@ -3030,6 +3031,7 @@
 		BA18127427AD82C5000E5EDD /* CCLServiceBoosterNotificationRulesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CCLServiceBoosterNotificationRulesTests.swift; sourceTree = "<group>"; };
 		BA18127627AD82DA000E5EDD /* CCLServiceBaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CCLServiceBaseTests.swift; sourceTree = "<group>"; };
 		BA19978A2715B006009FEC00 /* Name+ExtensionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Name+ExtensionTests.swift"; sourceTree = "<group>"; };
+		BA1E574827C684DB001DCF99 /* ReissuanceConsentCertificateCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReissuanceConsentCertificateCell.swift; sourceTree = "<group>"; };
 		BA1FC82A26E250E800CCCC17 /* DMLocalNotificationsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMLocalNotificationsViewController.swift; sourceTree = "<group>"; };
 		BA1FC82B26E250E800CCCC17 /* DMNotificationsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMNotificationsViewModel.swift; sourceTree = "<group>"; };
 		BA27993A255995E100C3B64D /* DMWifiClientViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMWifiClientViewController.swift; sourceTree = "<group>"; };
@@ -8469,6 +8471,14 @@
 			path = __tests__;
 			sourceTree = "<group>";
 		};
+		BA1E574727C684B0001DCF99 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				BA1E574827C684DB001DCF99 /* ReissuanceConsentCertificateCell.swift */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
 		BA1FC82726E2508000CCCC17 /* DMNotifications */ = {
 			isa = PBXGroup;
 			children = (
@@ -9202,6 +9212,7 @@
 		BAC5CC0C27BEB56600094C32 /* ReissuanceConsent */ = {
 			isa = PBXGroup;
 			children = (
+				BA1E574727C684B0001DCF99 /* Cell */,
 				BAC5CC0D27BEB5AC00094C32 /* HealthCertifiedPersonReissuanceConsentViewController.swift */,
 				BAC5CC0F27BEB5BC00094C32 /* HealthCertifiedPersonReissuanceConsentViewModel.swift */,
 			);
@@ -11224,6 +11235,7 @@
 				BAB1239C2572A06D00A179FB /* TanInputViewModel.swift in Sources */,
 				8F3202442600C7BB00D6A224 /* TorchMode.swift in Sources */,
 				01D02626258A769200B6389A /* HTTPURLResponse+Header.swift in Sources */,
+				BA1E574927C684DB001DCF99 /* ReissuanceConsentCertificateCell.swift in Sources */,
 				EB3BCA882507B6C1003F27C7 /* ExposureSubmissionSymptomsOnsetViewController.swift in Sources */,
 				8F39D07D263F62A80096F4E2 /* els_otp_request_ios.pb.swift in Sources */,
 				5001DE7A26E2019A004242FA /* LocalStatistics.swift in Sources */,

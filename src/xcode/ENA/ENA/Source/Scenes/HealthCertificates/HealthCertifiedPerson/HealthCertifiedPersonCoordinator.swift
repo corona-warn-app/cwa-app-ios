@@ -183,7 +183,6 @@ final class HealthCertifiedPersonCoordinator {
 				self?.navigationController.dismiss(animated: true)
 			}
 		)
-		updateConsentViewController.navigationItem.hidesBackButton = true
 
 		let footerViewModel = FooterViewModel(
 			primaryButtonName: AppStrings.HealthCertificate.Person.UpdateConsent.primaryButtonTitle,
