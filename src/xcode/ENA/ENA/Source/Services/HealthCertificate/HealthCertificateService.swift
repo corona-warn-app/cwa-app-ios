@@ -584,16 +584,30 @@ class HealthCertificateService {
 				}
 				#endif
 
+				let dispatchGroup = DispatchGroup()
+
+				dispatchGroup.enter()
 				self.healthCertificateNotificationService.scheduleBoosterNotificationIfNeeded(
 					for: person,
 					previousBoosterNotificationIdentifier: previousBoosterNotificationIdentifier,
-					completion: completion
+					completion: {
+						dispatchGroup.leave()
+					}
 				)
+
+				dispatchGroup.enter()
 				self.healthCertificateNotificationService.scheduleCertificateReissuanceNotificationIfNeeded(
 					for: person,
 					previousCertificateReissuance: previousCertificateReissuance,
-					completion: completion
+					completion: {
+						dispatchGroup.leave()
+					}
 				)
+
+				dispatchGroup.notify(queue: .global()) {
+					completion?()
+				}
+
 			case .failure(let error):
 				Log.error("Wallet info update failed", error: error)
 				person.mostRecentWalletInfoUpdateFailed = true
