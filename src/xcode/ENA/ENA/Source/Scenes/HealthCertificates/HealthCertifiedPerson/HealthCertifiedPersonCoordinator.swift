@@ -141,7 +141,7 @@ final class HealthCertifiedPersonCoordinator {
 	}
 
 	private func showUpdateConsent() {
-		let updateConsentViewController = HealthCertifiedPersonUpdateConsentViewController(
+		let updateConsentViewController = HealthCertifiedPersonReissuanceConsentViewController(
 			presentAlert: { [weak self] okAction, retryAction in
 				let alert = UIAlertController(
 					title: AppStrings.HealthCertificate.Person.UpdateConsent.defaultAlertTitle,
@@ -182,7 +182,7 @@ final class HealthCertifiedPersonCoordinator {
 	}
 
 	private func presentUpdateSucceeded() {
-		let updateSucceededViewController = HealthCertifiedPersonUpdateSucceededViewController(
+		let updateSucceededViewController = HealthCertifiedPersonReissuanceSucceededViewController(
 			didTapEnd: { [weak self] in
 				self?.navigationController.popToRootViewController(animated: true)
 			}

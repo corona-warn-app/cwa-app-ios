@@ -7,7 +7,7 @@ import UIKit
 import SwiftUI
 #endif
 
-class HealthCertifiedPersonUpdateSucceededViewController: DynamicTableViewController, DismissHandling {
+class HealthCertifiedPersonReissuanceSucceededViewController: DynamicTableViewController, DismissHandling {
 
 	// MARK: - Init
 
@@ -44,7 +44,7 @@ class HealthCertifiedPersonUpdateSucceededViewController: DynamicTableViewContro
 	// MARK: - Private
 
 	private let didTapEnd: () -> Void
-	private let viewModel = HealthCertifiedPersonUpdateSucceededViewModel()
+	private let viewModel = HealthCertifiedPersonReissuanceSucceededViewModel()
 	
 	private func setupTableView() {
 		tableView.separatorStyle = .none
@@ -60,10 +60,10 @@ class HealthCertifiedPersonUpdateSucceededViewController: DynamicTableViewContro
 // MARK: - SwiftUI Preview
 #if DEBUG
 @available(iOS 13.0.0, *)
-struct HealthCertifiedPersonUpdateSucceededViewControllerContainerView: UIViewControllerRepresentable {
+struct HealthCertifiedPersonReissuanceSucceededViewControllerContainerView: UIViewControllerRepresentable {
 	typealias UIViewControllerType = UINavigationController
 	func makeUIViewController(context: Context) -> UIViewControllerType {
-		return UINavigationController(rootViewController: HealthCertifiedPersonUpdateSucceededViewController(didTapEnd: {}))
+		return UINavigationController(rootViewController: HealthCertifiedPersonReissuanceSucceededViewController(didTapEnd: {}))
 	}
 	func updateUIViewController(_ uiViewController: UIViewControllerType, context: Context) {}
 }
@@ -71,8 +71,8 @@ struct HealthCertifiedPersonUpdateSucceededViewControllerContainerView: UIViewCo
 struct ContentViewController_Previews: PreviewProvider {
 	static var previews: some View {
 		Group {
-			HealthCertifiedPersonUpdateSucceededViewControllerContainerView().colorScheme(.light)
-			HealthCertifiedPersonUpdateSucceededViewControllerContainerView().colorScheme(.dark)
+			HealthCertifiedPersonReissuanceSucceededViewControllerContainerView().colorScheme(.light)
+			HealthCertifiedPersonReissuanceSucceededViewControllerContainerView().colorScheme(.dark)
 		} // or .dark
 	}
 }
