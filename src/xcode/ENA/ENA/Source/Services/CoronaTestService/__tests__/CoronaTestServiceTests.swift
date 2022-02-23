@@ -2947,7 +2947,6 @@ class CoronaTestServiceTests: CWATestCase {
 	}
 
 	func test_When_UpdateTestResultSuccessWithPositive_Then_ContactJournalHasAnEntry() throws {
-		let mockNotificationCenter = MockUserNotificationCenter()
 		let client = ClientMock()
 		let sampleCollectionDate = Date()
 		
@@ -3014,7 +3013,6 @@ class CoronaTestServiceTests: CWATestCase {
 	}
 
 	func test_When_UpdateTestResultSuccessWithPending_Then_ContactJournalHasNoEntry() throws {
-		let mockNotificationCenter = MockUserNotificationCenter()
 		let client = ClientMock()
 		
 		let restServiceProvider = RestServiceProviderStub(results: [
@@ -3067,7 +3065,6 @@ class CoronaTestServiceTests: CWATestCase {
 	}
 
 	func test_When_UpdateTestResultSuccessWithExpired_Then_ContactJournalHasNoEntry() throws {
-		let mockNotificationCenter = MockUserNotificationCenter()
 		let client = ClientMock()
 		
 		let restServiceProvider = RestServiceProviderStub(results: [
@@ -3120,7 +3117,6 @@ class CoronaTestServiceTests: CWATestCase {
 	}
 
 	func test_When_UpdateTestResultSuccessWithInvalid_Then_ContactJournalHasNoEntry() throws {
-		let mockNotificationCenter = MockUserNotificationCenter()
 		let client = ClientMock()
 
 		let restServiceProvider = RestServiceProviderStub(results: [
@@ -3174,7 +3170,6 @@ class CoronaTestServiceTests: CWATestCase {
 	}
 
 	func test_When_UpdateTestResultSuccessWithNegative_Then_ContactJournalHasAnEntry() throws {
-		let mockNotificationCenter = MockUserNotificationCenter()
 		let client = ClientMock()
 		
 		let restServiceProvider = RestServiceProviderStub(results: [
@@ -3277,7 +3272,6 @@ class CoronaTestServiceTests: CWATestCase {
 	}
 
 	func test_When_UpdateWithForce_And_FinalTestResultExist_Then_ClientIsCalled() {
-		let mockNotificationCenter = MockUserNotificationCenter()
 		let client = ClientMock()
 		let store = MockTestStore()
 		let appConfiguration = CachedAppConfigurationMock()
@@ -3343,7 +3337,6 @@ class CoronaTestServiceTests: CWATestCase {
 	}
 
 	func test_When_UpdateWithoutForce_And_FinalTestResultExist_Then_ClientIsNotCalled() {
-		let mockNotificationCenter = MockUserNotificationCenter()
 		let client = ClientMock()
 		let store = MockTestStore()
 		let appConfiguration = CachedAppConfigurationMock()
@@ -3402,7 +3395,6 @@ class CoronaTestServiceTests: CWATestCase {
 	}
 
 	func test_When_UpdateWithoutForce_And_NoFinalTestResultExist_Then_ClientIsCalled() {
-		let mockNotificationCenter = MockUserNotificationCenter()
 		let client = ClientMock()
 		let store = MockTestStore()
 		let appConfiguration = CachedAppConfigurationMock()
@@ -3468,7 +3460,6 @@ class CoronaTestServiceTests: CWATestCase {
 	}
 
 	func test_When_UpdatingExpiredTestResultOlderThan21Days_Then_ClientIsNotCalled() throws {
-		let mockNotificationCenter = MockUserNotificationCenter()
 		let client = ClientMock()
 		let store = MockTestStore()
 		let appConfiguration = CachedAppConfigurationMock()
@@ -3538,7 +3529,6 @@ class CoronaTestServiceTests: CWATestCase {
 	}
 
 	func test_When_UpdatingExpiredAntigenTestResultWithoutRegistrationDateButPointOfCareConsentDateOlderThan21Days_Then_ClientIsNotCalled() throws {
-		let mockNotificationCenter = MockUserNotificationCenter()
 		let client = ClientMock()
 		let store = MockTestStore()
 		let appConfiguration = CachedAppConfigurationMock()
@@ -3596,7 +3586,6 @@ class CoronaTestServiceTests: CWATestCase {
 	}
 
 	func test_When_UpdatingExpiredTestResultYoungerThan21Days_Then_ClientIsCalled() throws {
-		let mockNotificationCenter = MockUserNotificationCenter()
 		let client = ClientMock()
 		let store = MockTestStore()
 		let appConfiguration = CachedAppConfigurationMock()
@@ -3667,7 +3656,6 @@ class CoronaTestServiceTests: CWATestCase {
 	}
 
 	func test_When_UpdatingExpiredAntigenTestResultWithoutRegistrationDateAndPointOfCareConsentDateYoungerThan21Days_Then_ClientIsCalled() throws {
-		let mockNotificationCenter = MockUserNotificationCenter()
 		let client = ClientMock()
 		let store = MockTestStore()
 		let appConfiguration = CachedAppConfigurationMock()
