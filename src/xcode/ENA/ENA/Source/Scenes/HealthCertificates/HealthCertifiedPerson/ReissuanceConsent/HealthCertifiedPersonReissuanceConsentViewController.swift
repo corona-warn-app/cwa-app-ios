@@ -39,8 +39,6 @@ class HealthCertifiedPersonReissuanceConsentViewController: DynamicTableViewCont
 	override func viewDidLoad() {
 		super.viewDidLoad()
 
-		(navigationController as? DismissHandlingNavigationController)?.restoreOriginalNavigationBar()
-
 		navigationItem.hidesBackButton = true
 		navigationItem.rightBarButtonItem = dismissHandlingCloseBarButton
 		title = viewModel.title

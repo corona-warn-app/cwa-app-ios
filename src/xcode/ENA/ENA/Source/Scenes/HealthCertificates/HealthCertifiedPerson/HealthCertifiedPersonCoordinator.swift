@@ -152,6 +152,8 @@ final class HealthCertifiedPersonCoordinator {
 		if #available(iOS 13.0, *) {
 			detailViewController.isModalInPresentation = true
 		}
+		detailViewController.navigationItem.largeTitleDisplayMode = .always
+		detailViewController.navigationItem.hidesBackButton = false
 		navigationController.pushViewController(detailViewController, animated: true)
 	}
 
@@ -197,6 +199,7 @@ final class HealthCertifiedPersonCoordinator {
 			topController: updateConsentViewController,
 			bottomController: footerViewController
 		)
+		navigationController.restoreOriginalNavigationBar()
 		navigationController.pushViewController(containerViewController, animated: true)
 	}
 

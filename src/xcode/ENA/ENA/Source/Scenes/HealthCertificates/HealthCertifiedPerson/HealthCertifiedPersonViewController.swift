@@ -52,9 +52,13 @@ class HealthCertifiedPersonViewController: UIViewController, UITableViewDataSour
 		super.viewDidLoad()
 
 		setupBackground()
-		setupNavigationBar()
 		setupTableView()
 		setupViewModel()
+	}
+
+	override func viewWillAppear(_ animated: Bool) {
+		super.viewWillAppear(animated)
+		setupNavigationBar()
 	}
 
 	override func viewDidAppear(_ animated: Bool) {
