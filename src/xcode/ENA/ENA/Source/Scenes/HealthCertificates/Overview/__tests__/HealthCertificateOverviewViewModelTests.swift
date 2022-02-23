@@ -10,7 +10,10 @@ class HealthCertificateOverviewViewModelTests: XCTestCase {
 
 	func testGIVEN_HealthCertificateOverviewViewModel_THEN_SetupIsCorrect() {
 		// GIVEN
-		let viewModel = HealthCertificateOverviewViewModel(healthCertificateService: service)
+		let viewModel = HealthCertificateOverviewViewModel(
+			healthCertificateService: service,
+			healthCertificateRequestService: requestService
+		)
 
 		// THEN
 		XCTAssertEqual(viewModel.numberOfSections, 4)
@@ -22,8 +25,12 @@ class HealthCertificateOverviewViewModelTests: XCTestCase {
 
 	func testGIVEN_requestTestCertificate_THEN_noErrorIsSet() {
 		// GIVEN
-		let viewModel = HealthCertificateOverviewViewModel(healthCertificateService: service)
-		service.registerAndExecuteTestCertificateRequest(
+		let viewModel = HealthCertificateOverviewViewModel(
+			healthCertificateService: service,
+			healthCertificateRequestService: requestService
+		)
+
+		requestService.registerAndExecuteTestCertificateRequest(
 			coronaTestType: .pcr,
 			registrationToken: "registrationToken",
 			registrationDate: Date(),
@@ -40,18 +47,23 @@ class HealthCertificateOverviewViewModelTests: XCTestCase {
 	// MARK: - Private
 
 	private let service: HealthCertificateService = {
-		let client = ClientMock()
-		let store = MockTestStore()
-		return HealthCertificateService(
-			store: store,
+		HealthCertificateService(
+			store: MockTestStore(),
 			dccSignatureVerifier: DCCSignatureVerifyingStub(),
 			dscListProvider: MockDSCListProvider(),
-			client: client,
 			appConfiguration: CachedAppConfigurationMock(),
 			cclService: FakeCCLService(),
 			recycleBin: .fake()
 		)
 	}()
 
+	private lazy var requestService: HealthCertificateRequestService = {
+		HealthCertificateRequestService(
+			store: MockTestStore(),
+			client: ClientMock(),
+			appConfiguration: CachedAppConfigurationMock(),
+			healthCertificateService: service
+		)
+	}()
 
 }

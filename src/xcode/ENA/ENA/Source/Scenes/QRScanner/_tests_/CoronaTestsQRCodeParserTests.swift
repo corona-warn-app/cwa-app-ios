@@ -451,7 +451,7 @@ class CoronaTestsQRCodeParserTests: CWATestCase {
         let antigenTestInformation = RapidTestQRCodeInformation.mock(hash: invalidHash)
         
         do {
-            let payloadData = try XCTUnwrap(JSONEncoder().encode(antigenTestInformation))
+            let payloadData = try JSONEncoder().encode(antigenTestInformation)
             let payloadString = payloadData.base64EncodedString()
             let url = "https://s.coronawarn.app/?v=1#\(payloadString)"
             let route = Route(url)
@@ -466,7 +466,7 @@ class CoronaTestsQRCodeParserTests: CWATestCase {
         let antigenTestInformation = RapidTestQRCodeInformation.mock(hash: invalidHash)
         
         do {
-            let payloadData = try XCTUnwrap(JSONEncoder().encode(antigenTestInformation))
+            let payloadData = try JSONEncoder().encode(antigenTestInformation)
             let payloadString = payloadData.base64EncodedString()
             let url = "https://s.coronawarn.app/?v=1#\(payloadString)"
             let route = Route(url)
@@ -487,7 +487,7 @@ class CoronaTestsQRCodeParserTests: CWATestCase {
             dateOfBirth: Date(timeIntervalSince1970: 1619618081)
         )
         do {
-            let payloadData = try XCTUnwrap(JSONEncoder().encode(antigenTestInformation))
+            let payloadData = try JSONEncoder().encode(antigenTestInformation)
             let payloadString = payloadData.base64EncodedString()
             let url = "https://s.coronawarn.app/?v=1#\(payloadString)"
             let route = Route(url)
@@ -508,7 +508,7 @@ class CoronaTestsQRCodeParserTests: CWATestCase {
             dateOfBirth: Date(timeIntervalSince1970: 1619618081)
         )
         do {
-            let payloadData = try XCTUnwrap(JSONEncoder().encode(antigenTestInformation))
+            let payloadData = try JSONEncoder().encode(antigenTestInformation)
             let payloadString = payloadData.base64EncodedString()
             let url = "https://s.coronawarn.app/?v=1#\(payloadString)"
             let route = Route(url)
@@ -529,7 +529,7 @@ class CoronaTestsQRCodeParserTests: CWATestCase {
             dateOfBirth: Date(timeIntervalSince1970: 1619618081)
         )
         do {
-            let payloadData = try XCTUnwrap(JSONEncoder().encode(antigenTestInformation))
+			let payloadData = try JSONEncoder().encode(antigenTestInformation)
             let payloadString = payloadData.base64EncodedString()
             let url = "https://s.coronawarn.app/?v=1#\(payloadString)"
             let route = Route(url)

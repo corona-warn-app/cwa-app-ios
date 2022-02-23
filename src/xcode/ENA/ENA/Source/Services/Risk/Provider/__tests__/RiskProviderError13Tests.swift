@@ -7,8 +7,7 @@ import ExposureNotification
 import HealthCertificateToolkit
 @testable import ENA
 
-// swiftlint:disable:next type_body_length
-final class RiskProviderError13Tests: RiskProviderTests {
+final class RiskProviderError13Tests: CWATestCase {
 	
 	func testThatDetectionFails_Error13_lastExposureDateIsTooOld() throws {
 		let duration = DateComponents(day: 1)
@@ -19,7 +18,6 @@ final class RiskProviderError13Tests: RiskProviderTests {
 			wrappingComponents: false
 		))
 
-		let client = ClientMock()
 		let store = MockTestStore()
 		store.enfRiskCalculationResult = ENFRiskCalculationResult(
 			riskLevel: .low,
@@ -60,24 +58,7 @@ final class RiskProviderError13Tests: RiskProviderTests {
 			keyPackageDownload: makeKeyPackageDownloadMock(with: store),
 			traceWarningPackageDownload: makeTraceWarningPackageDownloadMock(with: store, appConfig: appConfig),
 			exposureDetectionExecutor: exposureDetectionDelegateStub,
-			coronaTestService: CoronaTestService(
-				client: client,
-				store: store,
-				eventStore: MockEventStore(),
-				diaryStore: MockDiaryStore(),
-				appConfiguration: appConfig,
-				healthCertificateService: HealthCertificateService(
-					store: store,
-					dccSignatureVerifier: DCCSignatureVerifyingStub(),
-					dscListProvider: MockDSCListProvider(),
-					client: client,
-					appConfiguration: appConfig,
-					cclService: FakeCCLService(),
-					recycleBin: .fake()
-				),
-				recycleBin: .fake(),
-				badgeWrapper: .fake()
-			)
+			coronaTestService: MockCoronaTestService()
 		)
 
 		let consumer = RiskConsumer()
@@ -122,7 +103,6 @@ final class RiskProviderError13Tests: RiskProviderTests {
 			wrappingComponents: false
 		))
 
-		let client = ClientMock()
 		let store = MockTestStore()
 		store.enfRiskCalculationResult = ENFRiskCalculationResult(
 			riskLevel: .low,
@@ -163,24 +143,7 @@ final class RiskProviderError13Tests: RiskProviderTests {
 			keyPackageDownload: makeKeyPackageDownloadMock(with: store),
 			traceWarningPackageDownload: makeTraceWarningPackageDownloadMock(with: store, appConfig: appConfig),
 			exposureDetectionExecutor: exposureDetectionDelegateStub,
-			coronaTestService: CoronaTestService(
-				client: client,
-				store: store,
-				eventStore: MockEventStore(),
-				diaryStore: MockDiaryStore(),
-				appConfiguration: appConfig,
-				healthCertificateService: HealthCertificateService(
-					store: store,
-					dccSignatureVerifier: DCCSignatureVerifyingStub(),
-					dscListProvider: MockDSCListProvider(),
-					client: client,
-					appConfiguration: appConfig,
-					cclService: FakeCCLService(),
-					recycleBin: .fake()
-				),
-				recycleBin: .fake(),
-				badgeWrapper: .fake()
-			)
+			coronaTestService: MockCoronaTestService()
 		)
 
 		let consumer = RiskConsumer()
@@ -226,7 +189,6 @@ final class RiskProviderError13Tests: RiskProviderTests {
 			wrappingComponents: false
 		))
 
-		let client = ClientMock()
 		let store = MockTestStore()
 		store.enfRiskCalculationResult = ENFRiskCalculationResult(
 			riskLevel: .low,
@@ -267,24 +229,7 @@ final class RiskProviderError13Tests: RiskProviderTests {
 			keyPackageDownload: makeKeyPackageDownloadMock(with: store),
 			traceWarningPackageDownload: makeTraceWarningPackageDownloadMock(with: store, appConfig: appConfig),
 			exposureDetectionExecutor: exposureDetectionDelegateStub,
-			coronaTestService: CoronaTestService(
-				client: client,
-				store: store,
-				eventStore: MockEventStore(),
-				diaryStore: MockDiaryStore(),
-				appConfiguration: appConfig,
-				healthCertificateService: HealthCertificateService(
-					store: store,
-					dccSignatureVerifier: DCCSignatureVerifyingStub(),
-					dscListProvider: MockDSCListProvider(),
-					client: client,
-					appConfiguration: appConfig,
-					cclService: FakeCCLService(),
-					recycleBin: .fake()
-				),
-				recycleBin: .fake(),
-				badgeWrapper: .fake()
-			)
+			coronaTestService: MockCoronaTestService()
 		)
 
 		let consumer = RiskConsumer()
@@ -329,7 +274,6 @@ final class RiskProviderError13Tests: RiskProviderTests {
 			wrappingComponents: false
 		))
 
-		let client = ClientMock()
 		let store = MockTestStore()
 		store.enfRiskCalculationResult = ENFRiskCalculationResult(
 			riskLevel: .low,
@@ -370,24 +314,7 @@ final class RiskProviderError13Tests: RiskProviderTests {
 			keyPackageDownload: makeKeyPackageDownloadMock(with: store),
 			traceWarningPackageDownload: makeTraceWarningPackageDownloadMock(with: store, appConfig: appConfig),
 			exposureDetectionExecutor: exposureDetectionDelegateStub,
-			coronaTestService: CoronaTestService(
-				client: client,
-				store: store,
-				eventStore: MockEventStore(),
-				diaryStore: MockDiaryStore(),
-				appConfiguration: appConfig,
-				healthCertificateService: HealthCertificateService(
-					store: store,
-					dccSignatureVerifier: DCCSignatureVerifyingStub(),
-					dscListProvider: MockDSCListProvider(),
-					client: client,
-					appConfiguration: appConfig,
-					cclService: FakeCCLService(),
-					recycleBin: .fake()
-				),
-				recycleBin: .fake(),
-				badgeWrapper: .fake()
-			)
+			coronaTestService: MockCoronaTestService()
 		)
 
 		let consumer = RiskConsumer()

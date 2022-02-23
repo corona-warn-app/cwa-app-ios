@@ -12,7 +12,7 @@ class ExposureSubmissionCoordinatorModel {
 
 	init(
 		exposureSubmissionService: ExposureSubmissionService,
-		coronaTestService: CoronaTestService,
+		coronaTestService: CoronaTestServiceProviding,
 		eventProvider: EventProviding
 	) {
 		self.exposureSubmissionService = exposureSubmissionService
@@ -30,7 +30,7 @@ class ExposureSubmissionCoordinatorModel {
 	// MARK: - Internal
 
 	let exposureSubmissionService: ExposureSubmissionService
-	let coronaTestService: CoronaTestService
+	let coronaTestService: CoronaTestServiceProviding
 	let eventProvider: EventProviding
 	
 	var coronaTestType: CoronaTestType?
@@ -47,7 +47,7 @@ class ExposureSubmissionCoordinatorModel {
 	func shouldShowOverrideTestNotice(for coronaTestType: CoronaTestType) -> Bool {
 		if let oldTest = coronaTestService.coronaTest(ofType: coronaTestType),
 		   oldTest.testResult != .expired,
-		   !(oldTest.type == .antigen && coronaTestService.antigenTestIsOutdated) {
+		   !(oldTest.type == .antigen && coronaTestService.antigenTestIsOutdated.value) {
 			return true
 		} else {
 			return false
@@ -236,9 +236,9 @@ class ExposureSubmissionCoordinatorModel {
 	func setSubmissionConsentGiven(_ isSubmissionConsentGiven: Bool) {
 		switch coronaTestType {
 		case .pcr:
-			coronaTestService.pcrTest?.isSubmissionConsentGiven = isSubmissionConsentGiven
+			coronaTestService.pcrTest.value?.isSubmissionConsentGiven = isSubmissionConsentGiven
 		case .antigen:
-			coronaTestService.antigenTest?.isSubmissionConsentGiven = isSubmissionConsentGiven
+			coronaTestService.antigenTest.value?.isSubmissionConsentGiven = isSubmissionConsentGiven
 		case .none:
 			fatalError("Cannot set submission consent, no corona test type is set")
 		}

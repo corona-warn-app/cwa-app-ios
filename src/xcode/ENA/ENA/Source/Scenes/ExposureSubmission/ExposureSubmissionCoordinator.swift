@@ -18,7 +18,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 	init(
 		parentViewController: UIViewController,
 		exposureSubmissionService: ExposureSubmissionService,
-		coronaTestService: CoronaTestService,
+		coronaTestService: CoronaTestServiceProviding,
 		healthCertificateService: HealthCertificateService,
 		healthCertificateValidationService: HealthCertificateValidationProviding,
 		eventProvider: EventProviding,
@@ -1596,9 +1596,9 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 			// don't save expired tests after registering them
 			switch testQRCodeInformation.testType {
 			case .antigen:
-				model.coronaTestService.antigenTest = nil
+				model.coronaTestService.antigenTest.value = nil
 			case .pcr:
-				model.coronaTestService.pcrTest = nil
+				model.coronaTestService.pcrTest.value = nil
 			}
 
 		default:

@@ -37,7 +37,7 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 		store: Store,
 		client: Client,
 		appConfig: AppConfigurationProviding,
-		coronaTestService: CoronaTestService,
+		coronaTestService: CoronaTestServiceProviding,
 		ppacService: PrivacyPreservingAccessControl
 	) {
 		guard let store = store as? (Store & PPAnalyticsData) else {
@@ -175,7 +175,7 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 	private let store: (Store & PPAnalyticsData)
 	private let client: Client
 	private let configurationProvider: AppConfigurationProviding
-	private let coronaTestService: CoronaTestService
+	private let coronaTestService: CoronaTestServiceProviding
 	private let ppacService: PrivacyPreservingAccessControl
 	
 	private var submissionState: PPASubmissionState
@@ -266,12 +266,12 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 		switch type {
 		case .pcr:
 			isSubmitted = store.pcrKeySubmissionMetadata?.submitted ?? false
-			_testResultReceivedDate = coronaTestService.pcrTest?.finalTestResultReceivedDate
-			isTestResultPositive = coronaTestService.pcrTest?.testResult == .positive
+			_testResultReceivedDate = coronaTestService.pcrTest.value?.finalTestResultReceivedDate
+			isTestResultPositive = coronaTestService.pcrTest.value?.testResult == .positive
 		case .antigen:
 			isSubmitted = store.antigenKeySubmissionMetadata?.submitted ?? false
-			_testResultReceivedDate = coronaTestService.antigenTest?.finalTestResultReceivedDate
-			isTestResultPositive = coronaTestService.antigenTest?.testResult == .positive
+			_testResultReceivedDate = coronaTestService.antigenTest.value?.finalTestResultReceivedDate
+			isTestResultPositive = coronaTestService.antigenTest.value?.testResult == .positive
 		}
 
 		// if there is no test result time stamp

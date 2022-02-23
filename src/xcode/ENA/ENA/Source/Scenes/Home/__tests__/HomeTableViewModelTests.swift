@@ -9,11 +9,8 @@ import HealthCertificateToolkit
 class HomeTableViewModelTests: CWATestCase {
 
 	func testSectionsRowsAndHeights() throws {
-		let client = ClientMock()
 		let store = MockTestStore()
-		let appConfiguration = CachedAppConfigurationMock()
 
-		let badgeWrapper = HomeBadgeWrapper.fake()
 		let viewModel = HomeTableViewModel(
 			state: .init(
 				store: store,
@@ -30,26 +27,9 @@ class HomeTableViewModelTests: CWATestCase {
 				)
 			),
 			store: store,
-			coronaTestService: CoronaTestService(
-				client: client,
-				store: store,
-				eventStore: MockEventStore(),
-				diaryStore: MockDiaryStore(),
-				appConfiguration: appConfiguration,
-				healthCertificateService: HealthCertificateService(
-					store: store,
-					dccSignatureVerifier: DCCSignatureVerifyingStub(),
-					dscListProvider: MockDSCListProvider(),
-					client: client,
-					appConfiguration: appConfiguration,
-					cclService: FakeCCLService(),
-					recycleBin: .fake()
-				),
-				recycleBin: .fake(),
-				badgeWrapper: badgeWrapper
-			),
+			coronaTestService: MockCoronaTestService(),
 			onTestResultCellTap: { _ in },
-			badgeWrapper: badgeWrapper
+			badgeWrapper: .fake()
 		)
 
 		// Number of Sections
@@ -68,18 +48,17 @@ class HomeTableViewModelTests: CWATestCase {
 	}
 
 	func testRiskAndTestRowsIfKeysSubmitted() {
-		let client = ClientMock()
 		let store = MockTestStore()
-		let appConfiguration = CachedAppConfigurationMock()
 
-		store.pcrTest = PCRTest.mock(
+		let coronaTestService = MockCoronaTestService()
+		coronaTestService.hasAtLeastOneShownPositiveOrSubmittedTest = true
+		coronaTestService.pcrTest.value = PCRTest.mock(
 			registrationToken: "FAKETOKEN!",
 			testResult: .positive,
 			positiveTestResultWasShown: true,
 			keysSubmitted: true
 		)
 		
-		let badgeWrapper = HomeBadgeWrapper.fake()
 		let viewModel = HomeTableViewModel(
 			state: .init(
 				store: store,
@@ -96,26 +75,9 @@ class HomeTableViewModelTests: CWATestCase {
 				)
 			),
 			store: store,
-			coronaTestService: CoronaTestService(
-				client: client,
-				store: store,
-				eventStore: MockEventStore(),
-				diaryStore: MockDiaryStore(),
-				appConfiguration: appConfiguration,
-				healthCertificateService: HealthCertificateService(
-					store: store,
-					dccSignatureVerifier: DCCSignatureVerifyingStub(),
-					dscListProvider: MockDSCListProvider(),
-					client: client,
-					appConfiguration: appConfiguration,
-					cclService: FakeCCLService(),
-					recycleBin: .fake()
-				),
-				recycleBin: .fake(),
-				badgeWrapper: badgeWrapper
-			),
+			coronaTestService: coronaTestService,
 			onTestResultCellTap: { _ in },
-			badgeWrapper: badgeWrapper
+			badgeWrapper: .fake()
 		)
 		
 		XCTAssertEqual(viewModel.numberOfRows(in: 1), 1)
@@ -123,191 +85,15 @@ class HomeTableViewModelTests: CWATestCase {
 	}
 	
 	func testRiskAndTestRowsIfPositiveTestResultWasShown() {
-		let client = ClientMock()
 		let store = MockTestStore()
-		let appConfiguration = CachedAppConfigurationMock()
 
-		store.pcrTest = PCRTest.mock(
+		let coronaTestService = MockCoronaTestService()
+		coronaTestService.hasAtLeastOneShownPositiveOrSubmittedTest = true
+		coronaTestService.pcrTest.value = PCRTest.mock(
 			registrationToken: "FAKETOKEN!",
 			testResult: .positive,
 			positiveTestResultWasShown: true,
 			keysSubmitted: false
-		)
-		let badgeWrapper = HomeBadgeWrapper.fake()
-		let viewModel = HomeTableViewModel(
-			state: .init(
-				store: store,
-				riskProvider: MockRiskProvider(),
-				exposureManagerState: .init(authorized: true, enabled: true, status: .active),
-				enState: .enabled,
-				statisticsProvider: StatisticsProvider(
-					client: CachingHTTPClientMock(),
-					store: store
-				),
-				localStatisticsProvider: LocalStatisticsProvider(
-					client: CachingHTTPClientMock(),
-					store: store
-				)
-			),
-			store: store,
-			coronaTestService: CoronaTestService(
-				client: client,
-				store: store,
-				eventStore: MockEventStore(),
-				diaryStore: MockDiaryStore(),
-				appConfiguration: appConfiguration,
-				healthCertificateService: HealthCertificateService(
-					store: store,
-					dccSignatureVerifier: DCCSignatureVerifyingStub(),
-					dscListProvider: MockDSCListProvider(),
-					client: client,
-					appConfiguration: appConfiguration,
-					cclService: FakeCCLService(),
-					recycleBin: .fake()
-				),
-				recycleBin: .fake(),
-				badgeWrapper: badgeWrapper
-			),
-			onTestResultCellTap: { _ in },
-			badgeWrapper: badgeWrapper
-		)
-		
-		XCTAssertEqual(viewModel.numberOfRows(in: 1), 1)
-		XCTAssertEqual(viewModel.riskAndTestResultsRows, [.pcrTestResult(.positiveResultWasShown)])
-	}
-
-	func testRowHeightsWithoutStatistics() {
-		let client = ClientMock()
-		let store = MockTestStore()
-		let appConfiguration = CachedAppConfigurationMock()
-		let badgeWrapper = HomeBadgeWrapper.fake()
-		let viewModel = HomeTableViewModel(
-			state: .init(
-				store: store,
-				riskProvider: MockRiskProvider(),
-				exposureManagerState: .init(authorized: true, enabled: true, status: .active),
-				enState: .enabled,
-				statisticsProvider: StatisticsProvider(
-					client: CachingHTTPClientMock(),
-					store: store
-				),
-				localStatisticsProvider: LocalStatisticsProvider(
-					client: CachingHTTPClientMock(),
-					store: store
-				)
-			),
-			store: store,
-			coronaTestService: CoronaTestService(
-				client: client,
-				store: store,
-				eventStore: MockEventStore(),
-				diaryStore: MockDiaryStore(),
-				appConfiguration: appConfiguration,
-				healthCertificateService: HealthCertificateService(
-					store: store,
-					dccSignatureVerifier: DCCSignatureVerifyingStub(),
-					dscListProvider: MockDSCListProvider(),
-					client: client,
-					appConfiguration: appConfiguration,
-					cclService: FakeCCLService(),
-					recycleBin: .fake()
-				),
-				recycleBin: .fake(),
-				badgeWrapper: badgeWrapper
-			),
-			onTestResultCellTap: { _ in },
-			badgeWrapper: badgeWrapper
-		)
-		viewModel.state.statistics.keyFigureCards = []
-
-		for section in HomeTableViewModel.Section.allCases.map({ $0.rawValue }) {
-			for row in 0..<viewModel.numberOfRows(in: section) {
-				XCTAssertEqual(
-					viewModel.heightForRow(at: IndexPath(row: row, section: section)),
-					section == HomeTableViewModel.Section.statistics.rawValue ? 0 : UITableView.automaticDimension
-				)
-			}
-		}
-	}
-
-	func testRowHeightsWithStatistics() {
-		let client = ClientMock()
-		let store = MockTestStore()
-		let appConfiguration = CachedAppConfigurationMock()
-
-		let badgeWrapper = HomeBadgeWrapper.fake()
-		let viewModel = HomeTableViewModel(
-			state: .init(
-				store: store,
-				riskProvider: MockRiskProvider(),
-				exposureManagerState: .init(authorized: true, enabled: true, status: .active),
-				enState: .enabled,
-				statisticsProvider: StatisticsProvider(
-					client: CachingHTTPClientMock(),
-					store: store
-				),
-				localStatisticsProvider: LocalStatisticsProvider(
-					client: CachingHTTPClientMock(),
-					store: store
-				)
-			),
-			store: store,
-			coronaTestService: CoronaTestService(
-				client: client,
-				store: store,
-				eventStore: MockEventStore(),
-				diaryStore: MockDiaryStore(),
-				appConfiguration: appConfiguration,
-				healthCertificateService: HealthCertificateService(
-					store: store,
-					dccSignatureVerifier: DCCSignatureVerifyingStub(),
-					dscListProvider: MockDSCListProvider(),
-					client: client,
-					appConfiguration: appConfiguration,
-					cclService: FakeCCLService(),
-					recycleBin: .fake()
-				),
-				recycleBin: .fake(),
-				badgeWrapper: badgeWrapper
-			),
-			onTestResultCellTap: { _ in },
-			badgeWrapper: badgeWrapper
-		)
-		viewModel.state.updateStatistics()
-
-		for section in HomeTableViewModel.Section.allCases.map({ $0.rawValue }) {
-			for row in 0..<viewModel.numberOfRows(in: section) {
-				XCTAssertEqual(
-					viewModel.heightForRow(at: IndexPath(row: row, section: section)),
-					UITableView.automaticDimension
-				)
-			}
-		}
-	}
-
-	func testShouldShowDeletionConfirmationAlert() {
-		let client = ClientMock()
-		let store = MockTestStore()
-		let appConfiguration = CachedAppConfigurationMock()
-
-		let badgeWrapper = HomeBadgeWrapper.fake()
-		let coronaTestService = CoronaTestService(
-			client: client,
-			store: store,
-			eventStore: MockEventStore(),
-			diaryStore: MockDiaryStore(),
-			appConfiguration: appConfiguration,
-			healthCertificateService: HealthCertificateService(
-				store: store,
-				dccSignatureVerifier: DCCSignatureVerifyingStub(),
-				dscListProvider: MockDSCListProvider(),
-				client: client,
-				appConfiguration: appConfiguration,
-				cclService: FakeCCLService(),
-				recycleBin: .fake()
-			),
-			recycleBin: .fake(),
-			badgeWrapper: badgeWrapper
 		)
 
 		let viewModel = HomeTableViewModel(
@@ -328,44 +114,143 @@ class HomeTableViewModelTests: CWATestCase {
 			store: store,
 			coronaTestService: coronaTestService,
 			onTestResultCellTap: { _ in },
-			badgeWrapper: badgeWrapper
+			badgeWrapper: .fake()
+		)
+		
+		XCTAssertEqual(viewModel.numberOfRows(in: 1), 1)
+		XCTAssertEqual(viewModel.riskAndTestResultsRows, [.pcrTestResult(.positiveResultWasShown)])
+	}
+
+	func testRowHeightsWithoutStatistics() {
+		let store = MockTestStore()
+		let viewModel = HomeTableViewModel(
+			state: .init(
+				store: store,
+				riskProvider: MockRiskProvider(),
+				exposureManagerState: .init(authorized: true, enabled: true, status: .active),
+				enState: .enabled,
+				statisticsProvider: StatisticsProvider(
+					client: CachingHTTPClientMock(),
+					store: store
+				),
+				localStatisticsProvider: LocalStatisticsProvider(
+					client: CachingHTTPClientMock(),
+					store: store
+				)
+			),
+			store: store,
+			coronaTestService: MockCoronaTestService(),
+			onTestResultCellTap: { _ in },
+			badgeWrapper: .fake()
+		)
+		viewModel.state.statistics.keyFigureCards = []
+
+		for section in HomeTableViewModel.Section.allCases.map({ $0.rawValue }) {
+			for row in 0..<viewModel.numberOfRows(in: section) {
+				XCTAssertEqual(
+					viewModel.heightForRow(at: IndexPath(row: row, section: section)),
+					section == HomeTableViewModel.Section.statistics.rawValue ? 0 : UITableView.automaticDimension
+				)
+			}
+		}
+	}
+
+	func testRowHeightsWithStatistics() {
+		let store = MockTestStore()
+
+		let viewModel = HomeTableViewModel(
+			state: .init(
+				store: store,
+				riskProvider: MockRiskProvider(),
+				exposureManagerState: .init(authorized: true, enabled: true, status: .active),
+				enState: .enabled,
+				statisticsProvider: StatisticsProvider(
+					client: CachingHTTPClientMock(),
+					store: store
+				),
+				localStatisticsProvider: LocalStatisticsProvider(
+					client: CachingHTTPClientMock(),
+					store: store
+				)
+			),
+			store: store,
+			coronaTestService: MockCoronaTestService(),
+			onTestResultCellTap: { _ in },
+			badgeWrapper: .fake()
+		)
+		viewModel.state.updateStatistics()
+
+		for section in HomeTableViewModel.Section.allCases.map({ $0.rawValue }) {
+			for row in 0..<viewModel.numberOfRows(in: section) {
+				XCTAssertEqual(
+					viewModel.heightForRow(at: IndexPath(row: row, section: section)),
+					UITableView.automaticDimension
+				)
+			}
+		}
+	}
+
+	func testShouldShowDeletionConfirmationAlert() {
+		let store = MockTestStore()
+
+		let coronaTestService = MockCoronaTestService()
+
+		let viewModel = HomeTableViewModel(
+			state: .init(
+				store: store,
+				riskProvider: MockRiskProvider(),
+				exposureManagerState: .init(authorized: true, enabled: true, status: .active),
+				enState: .enabled,
+				statisticsProvider: StatisticsProvider(
+					client: CachingHTTPClientMock(),
+					store: store
+				),
+				localStatisticsProvider: LocalStatisticsProvider(
+					client: CachingHTTPClientMock(),
+					store: store
+				)
+			),
+			store: store,
+			coronaTestService: coronaTestService,
+			onTestResultCellTap: { _ in },
+			badgeWrapper: .fake()
 		)
 
 		XCTAssertFalse(viewModel.shouldShowDeletionConfirmationAlert(for: .pcr))
 		XCTAssertFalse(viewModel.shouldShowDeletionConfirmationAlert(for: .antigen))
 
-		coronaTestService.pcrTest = nil
-		coronaTestService.antigenTest = .mock(testResult: .expired)
+		coronaTestService.pcrTest.value = nil
+		coronaTestService.antigenTest.value = .mock(testResult: .expired)
 
 		XCTAssertFalse(viewModel.shouldShowDeletionConfirmationAlert(for: .pcr))
 		XCTAssertTrue(viewModel.shouldShowDeletionConfirmationAlert(for: .antigen))
 
-		coronaTestService.pcrTest = .mock(testResult: .expired)
-		coronaTestService.antigenTest = nil
+		coronaTestService.pcrTest.value = .mock(testResult: .expired)
+		coronaTestService.antigenTest.value = nil
 
 		XCTAssertTrue(viewModel.shouldShowDeletionConfirmationAlert(for: .pcr))
 		XCTAssertFalse(viewModel.shouldShowDeletionConfirmationAlert(for: .antigen))
 
-		coronaTestService.pcrTest = .mock(testResult: .pending)
-		coronaTestService.antigenTest = .mock(testResult: .pending)
+		coronaTestService.pcrTest.value = .mock(testResult: .pending)
+		coronaTestService.antigenTest.value = .mock(testResult: .pending)
 
 		XCTAssertFalse(viewModel.shouldShowDeletionConfirmationAlert(for: .pcr))
 		XCTAssertFalse(viewModel.shouldShowDeletionConfirmationAlert(for: .antigen))
 
-		coronaTestService.pcrTest = .mock(testResult: .negative)
-		coronaTestService.antigenTest = .mock(testResult: .negative)
+		coronaTestService.pcrTest.value = .mock(testResult: .negative)
+		coronaTestService.antigenTest.value = .mock(testResult: .negative)
 
 		XCTAssertFalse(viewModel.shouldShowDeletionConfirmationAlert(for: .pcr))
 		XCTAssertFalse(viewModel.shouldShowDeletionConfirmationAlert(for: .antigen))
 
-		coronaTestService.pcrTest = .mock(testResult: .positive)
-		coronaTestService.antigenTest = .mock(testResult: .positive)
+		coronaTestService.pcrTest.value = .mock(testResult: .positive)
+		coronaTestService.antigenTest.value = .mock(testResult: .positive)
 
 		XCTAssertFalse(viewModel.shouldShowDeletionConfirmationAlert(for: .pcr))
 		XCTAssertFalse(viewModel.shouldShowDeletionConfirmationAlert(for: .antigen))
 
-		coronaTestService.pcrTest = .mock(testResult: .invalid)
-		coronaTestService.antigenTest = .mock(testResult: .invalid)
+		coronaTestService.pcrTest.value = .mock(testResult: .invalid)
+		coronaTestService.antigenTest.value = .mock(testResult: .invalid)
 
 		XCTAssertFalse(viewModel.shouldShowDeletionConfirmationAlert(for: .pcr))
 		XCTAssertFalse(viewModel.shouldShowDeletionConfirmationAlert(for: .antigen))

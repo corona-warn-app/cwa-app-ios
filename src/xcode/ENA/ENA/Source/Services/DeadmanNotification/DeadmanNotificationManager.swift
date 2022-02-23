@@ -14,7 +14,7 @@ struct DeadmanNotificationManager: DeadmanNotificationManageable {
 	// MARK: - Init
 
 	init(
-		coronaTestService: CoronaTestService,
+		coronaTestService: CoronaTestServiceProviding,
 		userNotificationCenter: UserNotificationCenter = UNUserNotificationCenter.current()
 	) {
 		self.coronaTestService = coronaTestService
@@ -72,7 +72,7 @@ struct DeadmanNotificationManager: DeadmanNotificationManageable {
 	
 	// MARK: - Private
 
-	private let coronaTestService: CoronaTestService
+	private let coronaTestService: CoronaTestServiceProviding
 	private let userNotificationCenter: UserNotificationCenter
 
 	/// Cancels the Deadman Notification

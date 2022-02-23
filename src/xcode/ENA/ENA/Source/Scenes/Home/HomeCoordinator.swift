@@ -15,7 +15,7 @@ class HomeCoordinator: RequiresAppDependencies {
 		otpService: OTPServiceProviding,
 		ppacService: PrivacyPreservingAccessControl,
 		eventStore: EventStoringProviding,
-		coronaTestService: CoronaTestService,
+		coronaTestService: CoronaTestServiceProviding,
 		healthCertificateService: HealthCertificateService,
 		healthCertificateValidationService: HealthCertificateValidationProviding,
 		elsService: ErrorLogSubmissionProviding,
@@ -194,7 +194,7 @@ class HomeCoordinator: RequiresAppDependencies {
 	private let ppacService: PrivacyPreservingAccessControl
 	private let otpService: OTPServiceProviding
 	private let eventStore: EventStoringProviding
-	private let coronaTestService: CoronaTestService
+	private let coronaTestService: CoronaTestServiceProviding
 	private let elsService: ErrorLogSubmissionProviding
 	private let healthCertificateService: HealthCertificateService
 	private let healthCertificateValidationService: HealthCertificateValidationProviding
