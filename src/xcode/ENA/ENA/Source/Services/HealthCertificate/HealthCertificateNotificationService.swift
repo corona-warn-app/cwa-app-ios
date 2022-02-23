@@ -21,7 +21,7 @@ class HealthCertificateNotificationService {
 	func createNotifications(for healthCertificate: HealthCertificate) {
 		Log.info("Create notifications.")
 
-		let id = healthCertificate.uniqueCertificateIdentifier
+		let healthCertificateIdentifier = healthCertificate.uniqueCertificateIdentifier
 
 		let expirationThresholdInDays = appConfiguration.currentAppConfig.value.dgcParameters.expirationThresholdInDays
 		let expiringSoonDate = Calendar.current.date(
@@ -31,18 +31,18 @@ class HealthCertificateNotificationService {
 		)
 
 		let expirationDate = healthCertificate.expirationDate
-		scheduleNotificationForExpiringSoon(id: id, date: expiringSoonDate)
-		scheduleNotificationForExpired(id: id, date: expirationDate)
+		scheduleNotificationForExpiringSoon(healthCertificateIdentifier: healthCertificateIdentifier, date: expiringSoonDate)
+		scheduleNotificationForExpired(healthCertificateIdentifier: healthCertificateIdentifier, date: expirationDate)
 
 		// Schedule an 'invalid' notification, if it was not scheduled before.
 		if healthCertificate.validityState == .invalid && !healthCertificate.didShowInvalidNotification {
-			scheduleInvalidNotification(id: id)
+			scheduleInvalidNotification(healthCertificateIdentifier: healthCertificateIdentifier)
 			healthCertificate.didShowInvalidNotification = true
 		}
 
 		// Schedule a 'blocked' notification, if it was not scheduled before.
 		if healthCertificate.validityState == .blocked && !healthCertificate.didShowBlockedNotification {
-			scheduleBlockedNotification(id: id)
+			scheduleBlockedNotification(healthCertificateIdentifier: healthCertificateIdentifier)
 			healthCertificate.didShowBlockedNotification = true
 		}
 	}
@@ -51,12 +51,12 @@ class HealthCertificateNotificationService {
 		for healthCertificate: HealthCertificate,
 		completion: @escaping () -> Void
 	) {
-		let id = healthCertificate.uniqueCertificateIdentifier
+		let healthCertificateIdentifier = healthCertificate.uniqueCertificateIdentifier
 		
-		Log.info("Cancel all notifications for certificate with id: \(private: id).", log: .vaccination)
+		Log.info("Cancel all notifications for certificate with id: \(private: healthCertificateIdentifier).", log: .vaccination)
 		
-		let expiringSoonId = LocalNotificationIdentifier.certificateExpiringSoon.rawValue + "\(id)"
-		let expiredId = LocalNotificationIdentifier.certificateExpired.rawValue + "\(id)"
+		let expiringSoonId = LocalNotificationIdentifier.certificateExpiringSoon.rawValue + "\(healthCertificateIdentifier)"
+		let expiredId = LocalNotificationIdentifier.certificateExpired.rawValue + "\(healthCertificateIdentifier)"
 
 		notificationCenter.getPendingNotificationRequests { [weak self] requests in
 			let notificationIds = requests.map {
@@ -118,15 +118,15 @@ class HealthCertificateNotificationService {
 	private let notificationCenter: UserNotificationCenter
 	
 	private func scheduleNotificationForExpiringSoon(
-		id: String,
+		healthCertificateIdentifier: String,
 		date: Date?
 	) {
 		guard let date = date else {
-			Log.error("Could not schedule expiring soon notification for certificate with id: \(private: id) because we have no expiringSoonDate.", log: .vaccination)
+			Log.error("Could not schedule expiring soon notification for certificate with id: \(private: healthCertificateIdentifier) because we have no expiringSoonDate.", log: .vaccination)
 			return
 		}
 		
-		Log.info("Schedule expiring soon notification for certificate with id: \(private: id) with expiringSoonDate: \(date)", log: .vaccination)
+		Log.info("Schedule expiring soon notification for certificate with id: \(private: healthCertificateIdentifier) with expiringSoonDate: \(date)", log: .vaccination)
 
 		let content = UNMutableNotificationContent()
 		content.title = AppStrings.LocalNotifications.certificateGenericTitle
@@ -141,7 +141,7 @@ class HealthCertificateNotificationService {
 		let trigger = UNCalendarNotificationTrigger(dateMatching: expiringSoonDateComponents, repeats: false)
 
 		let request = UNNotificationRequest(
-			identifier: LocalNotificationIdentifier.certificateExpiringSoon.rawValue + "\(id)",
+			identifier: LocalNotificationIdentifier.certificateExpiringSoon.rawValue + "\(healthCertificateIdentifier)",
 			content: content,
 			trigger: trigger
 		)
@@ -150,10 +150,10 @@ class HealthCertificateNotificationService {
 	}
 	
 	private func scheduleNotificationForExpired(
-		id: String,
+		healthCertificateIdentifier: String,
 		date: Date
 	) {
-		Log.info("Schedule expired notification for certificate with id: \(private: id) with expirationDate: \(date)", log: .vaccination)
+		Log.info("Schedule expired notification for certificate with id: \(private: healthCertificateIdentifier) with expirationDate: \(date)", log: .vaccination)
 
 		let content = UNMutableNotificationContent()
 		content.title = AppStrings.LocalNotifications.certificateGenericTitle
@@ -168,7 +168,7 @@ class HealthCertificateNotificationService {
 		let trigger = UNCalendarNotificationTrigger(dateMatching: expiredDateComponents, repeats: false)
 
 		let request = UNNotificationRequest(
-			identifier: LocalNotificationIdentifier.certificateExpired.rawValue + "\(id)",
+			identifier: LocalNotificationIdentifier.certificateExpired.rawValue + "\(healthCertificateIdentifier)",
 			content: content,
 			trigger: trigger
 		)
@@ -177,9 +177,9 @@ class HealthCertificateNotificationService {
 	}
 
 	private func scheduleInvalidNotification(
-		id: String
+		healthCertificateIdentifier: String
 	) {
-		Log.info("Schedule invalid notification for certificate with id: \(private: id)", log: .vaccination)
+		Log.info("Schedule invalid notification for certificate with id: \(private: healthCertificateIdentifier)", log: .vaccination)
 
 		let content = UNMutableNotificationContent()
 		content.title = AppStrings.LocalNotifications.certificateGenericTitle
@@ -187,7 +187,7 @@ class HealthCertificateNotificationService {
 		content.sound = .default
 
 		let request = UNNotificationRequest(
-			identifier: LocalNotificationIdentifier.certificateInvalid.rawValue + "\(id)",
+			identifier: LocalNotificationIdentifier.certificateInvalid.rawValue + "\(healthCertificateIdentifier)",
 			content: content,
 			trigger: nil
 		)
@@ -196,9 +196,9 @@ class HealthCertificateNotificationService {
 	}
 
 	private func scheduleBlockedNotification(
-		id: String
+		healthCertificateIdentifier: String
 	) {
-		Log.info("Schedule blocked notification for certificate with id: \(private: id)", log: .vaccination)
+		Log.info("Schedule blocked notification for certificate with id: \(private: healthCertificateIdentifier)", log: .vaccination)
 
 		let content = UNMutableNotificationContent()
 		content.title = AppStrings.LocalNotifications.certificateGenericTitle
@@ -206,7 +206,7 @@ class HealthCertificateNotificationService {
 		content.sound = .default
 
 		let request = UNNotificationRequest(
-			identifier: LocalNotificationIdentifier.certificateBlocked.rawValue + "\(id)",
+			identifier: LocalNotificationIdentifier.certificateBlocked.rawValue + "\(healthCertificateIdentifier)",
 			content: content,
 			trigger: nil
 		)
@@ -214,7 +214,10 @@ class HealthCertificateNotificationService {
 		addNotification(request: request)
 	}
 	
-	private func addNotification(request: UNNotificationRequest, completion: (() -> Void)? = nil) {
+	private func addNotification(
+		request: UNNotificationRequest,
+		completion: (() -> Void)? = nil
+	) {
 		_ = notificationCenter.getPendingNotificationRequests { [weak self] requests in
 			guard !requests.contains(request) else {
 				Log.info(
