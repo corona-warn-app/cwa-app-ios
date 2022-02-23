@@ -25,7 +25,9 @@ final class SelectValueTableViewCell: UITableViewCell {
 	func configure(_ cellViewModel: SelectValueCellViewModel) {
 		selectableValueLabel.text = cellViewModel.text
 		selectableValueLabel.isEnabled = cellViewModel.isEnabled
+		
 		selectableSubtitleLabel.text = cellViewModel.subtitle
+		selectableSubtitleLabel.isEnabled = cellViewModel.isEnabled
 		selectableSubtitleLabel.isHidden = cellViewModel.subtitle == nil
 		isUserInteractionEnabled = cellViewModel.isEnabled
 		accessoryView = cellViewModel.isEnabled ? UIImageView(image: cellViewModel.image) : nil
@@ -47,19 +49,20 @@ final class SelectValueTableViewCell: UITableViewCell {
 		let stackView = UIStackView()
 		stackView.translatesAutoresizingMaskIntoConstraints = false
 		stackView.axis = .vertical
-		stackView.distribution = .fillEqually
+		stackView.distribution = .fill
 		
 		// configure the selectableValueLabel
 		selectableValueLabel.translatesAutoresizingMaskIntoConstraints = false
 		selectableValueLabel.font = .enaFont(for: .body)
 		selectableValueLabel.textAlignment = .left
+		selectableValueLabel.numberOfLines = 0
+
 		stackView.addArrangedSubview(selectableValueLabel)
 		
 		// configure the selectableSubtitleLabel
 		selectableSubtitleLabel.translatesAutoresizingMaskIntoConstraints = false
 		selectableSubtitleLabel.font = .enaFont(for: .footnote)
 		selectableSubtitleLabel.numberOfLines = 0
-		selectableSubtitleLabel.textColor = .enaColor(for: .textSemanticGray)
 		selectableSubtitleLabel.textAlignment = .left
 		selectableSubtitleLabel.isHidden = true
 		stackView.addArrangedSubview(selectableSubtitleLabel)

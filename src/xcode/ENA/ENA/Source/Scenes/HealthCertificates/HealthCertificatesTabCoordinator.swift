@@ -219,36 +219,40 @@ final class HealthCertificatesTabCoordinator {
 				presorted: true,
 				title: scenarios.scenarioSelection.titleText.localized(cclService: cclService),
 				preselected: nil,
+				isInitialCellWithValue: true,
 				initialValue: nil,
 				accessibilityIdentifier: AccessibilityIdentifiers.LocalStatistics.selectState,
 				selectionCellIconType: .none
 			)
-			selectValueViewModel.$selectedValue.sink { [weak self] federalState in
-				guard let self = self, let state = federalState else {
-					return
-				}
-				self.healthCertificateService.lastSelectedScenarioIdentifier = state.identifier
-				self.showActivityIndicator(from: self.viewController.view)
-				self.healthCertificateService.updateDCCWalletInfosIfNeeded(
-					isForced: true
-				) { [weak self] in
-					self?.hideActivityIndicator()
-					DispatchQueue.main.async {
-						self?.viewController.presentedViewController?.dismiss(animated: true, completion: nil)
-					}
-				}
-			}.store(in: &subscriptions)
-			
 			let selectValueViewController = SelectValueTableViewController(
 				selectValueViewModel,
 				closeOnSelection: false,
 				dismiss: { [weak self] in
 					self?.viewController.presentedViewController?.dismiss(animated: true, completion: nil)
 				})
+			let navigationController = UINavigationController(rootViewController: selectValueViewController)
 			self.viewController.present(
-				UINavigationController(rootViewController: selectValueViewController),
+				navigationController,
 				animated: true
 			)
+			selectValueViewModel.$selectedValue.sink { [weak self] federalState in
+				guard let self = self, let state = federalState else {
+					return
+				}
+				self.healthCertificateService.lastSelectedScenarioIdentifier = state.identifier
+				DispatchQueue.main.async { [weak self] in
+					guard let self = self else { return }
+					self.showActivityIndicator(from: navigationController.view)
+				}
+				self.healthCertificateService.updateDCCWalletInfosIfNeeded(
+					isForced: true
+				) { [weak self] in
+					DispatchQueue.main.async {
+						// self?.hideActivityIndicator()
+						self?.viewController.presentedViewController?.dismiss(animated: true, completion: nil)
+					}
+				}
+			}.store(in: &subscriptions)
 		case .failure(let error):
 			showErrorAlert(title: AppStrings.HealthCertificate.Error.title, error: error)
 			Log.error(error.localizedDescription)
