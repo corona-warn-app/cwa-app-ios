@@ -2829,6 +2829,8 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "HealthCertificate_Admission_Scenario_Button_Label" = "Regeln des Bundes";
 
+"HealthCertificate_Loading_Indicator_Label" = "Status wird ermittelt";
+
 "HealthCertificate_Overview_News" = "Es gibt Neuigkeiten zu Ihren Zertifikaten";
 
 /* - Test Certificate Request */

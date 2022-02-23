@@ -6,6 +6,7 @@ import UIKit
 import OpenCombine
 import PDFKit
 
+// swiftlint:disable type_body_length
 final class HealthCertificatesTabCoordinator {
 	
 	// MARK: - Init
@@ -88,6 +89,7 @@ final class HealthCertificatesTabCoordinator {
 	private let healthCertificateValidationOnboardedCountriesProvider: HealthCertificateValidationOnboardedCountriesProviding
 	private let vaccinationValueSetsProvider: VaccinationValueSetsProviding
 	private let qrScannerCoordinator: QRScannerCoordinator
+	private let activityIndicatorView = QRScannerActivityIndicatorView(title: AppStrings.HealthCertificate.Overview.loadingIndicatorLabel)
 
 	private var certificateCoordinator: HealthCertificateCoordinator?
 	private var healthCertifiedPersonCoordinator: HealthCertifiedPersonCoordinator?
@@ -210,8 +212,92 @@ final class HealthCertificatesTabCoordinator {
 		viewController.present(navigationController, animated: true)
 	}
 	
+	
 	private func showAdmissionScenarios() {
-		// to.do show admission scenarios list - EXPOSUREAPP-11764
+		let result = self.cclService.dccAdmissionCheckScenarios()
+		switch result {
+		case .success(let scenarios):
+			self.store.dccAdmissionCheckScenarios = scenarios
+			let listItems = scenarios.scenarioSelection.items.map({
+				SelectableValue(
+					title: $0.titleText.localized(cclService: cclService),
+					subtitle: $0.subtitleText?.localized(cclService: cclService),
+					identifier: $0.identifier,
+					isEnabled: $0.enabled
+				)
+			})
+			let selectValueViewModel = SelectValueViewModel(
+				listItems,
+				presorted: true,
+				title: scenarios.scenarioSelection.titleText.localized(cclService: cclService),
+				preselected: nil,
+				isInitialCellWithValue: true,
+				initialValue: nil,
+				accessibilityIdentifier: AccessibilityIdentifiers.LocalStatistics.selectState,
+				selectionCellIconType: .none
+			)
+			let selectValueViewController = SelectValueTableViewController(
+				selectValueViewModel,
+				closeOnSelection: false,
+				dismiss: { [weak self] in
+					self?.viewController.presentedViewController?.dismiss(animated: true, completion: nil)
+				}
+			)
+			let navigationController = UINavigationController(rootViewController: selectValueViewController)
+			self.viewController.present(
+				navigationController,
+				animated: true
+			)
+			selectValueViewModel.$selectedValue.sink { [weak self] federalState in
+				guard let self = self, let state = federalState else {
+					return
+				}
+				self.healthCertificateService.lastSelectedScenarioIdentifier = state.identifier
+				DispatchQueue.main.async { [weak self] in
+					self?.showActivityIndicator(from: navigationController.view)
+				}
+				self.healthCertificateService.updateDCCWalletInfosIfNeeded(
+					isForced: true
+				) { [weak self] in
+					DispatchQueue.main.async {
+						self?.hideActivityIndicator()
+						self?.viewController.presentedViewController?.dismiss(animated: true, completion: nil)
+					}
+				}
+			}.store(in: &subscriptions)
+		case .failure(let error):
+			showErrorAlert(title: AppStrings.HealthCertificate.Error.title, error: error)
+			Log.error(error.localizedDescription)
+		}
+	}
+
+	private func showActivityIndicator(from view: UIView) {
+		activityIndicatorView.alpha = 0.0
+		activityIndicatorView.translatesAutoresizingMaskIntoConstraints = false
+		view.addSubview(activityIndicatorView)
+		NSLayoutConstraint.activate(
+			[
+				activityIndicatorView.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor),
+				activityIndicatorView.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor),
+				activityIndicatorView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+				activityIndicatorView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+			]
+		)
+
+		let animator = UIViewPropertyAnimator(duration: 0.45, curve: .easeIn) { [weak self] in
+			self?.activityIndicatorView.alpha = 1.0
+		}
+		animator.startAnimation()
+	}
+
+	private func hideActivityIndicator() {
+		let animator = UIViewPropertyAnimator(duration: 0.45, curve: .easeIn) { [weak self] in
+			self?.activityIndicatorView.alpha = 0.0
+		}
+		animator.addCompletion { [weak self] _ in
+			self?.activityIndicatorView.removeFromSuperview()
+		}
+		animator.startAnimation()
 	}
 
 	private func setupCertificateBadgeCount() {

@@ -98,7 +98,7 @@ class HealthCertificateService {
 	@DidSetPublished var lastSelectedScenarioIdentifier: String? {
 		didSet {
 			if lastSelectedScenarioIdentifier != oldValue {
-				updateDCCWalletInfoForAllPersons()
+				self.store.lastSelectedScenarioIdentifier = lastSelectedScenarioIdentifier
 			}
 		}
 	}
@@ -275,15 +275,14 @@ class HealthCertificateService {
 		recycleBin.moveToBin(.certificate(healthCertificate))
 	}
 
-	func updateDCCWalletInfosIfNeeded(completion: (() -> Void)? = nil) {
+	func updateDCCWalletInfosIfNeeded(isForced: Bool = false, completion: (() -> Void)? = nil) {
 		cclService.updateConfiguration { [weak self] configurationDidChange in
 			guard let self = self else {
 				completion?()
 				return
 			}
-
 			let dispatchGroup = DispatchGroup()
-			for person in self.healthCertifiedPersons where configurationDidChange || person.needsDCCWalletInfoUpdate {
+			for person in self.healthCertifiedPersons where (configurationDidChange || person.needsDCCWalletInfoUpdate || isForced) {
 				dispatchGroup.enter()
 				self.updateDCCWalletInfo(for: person) {
 					dispatchGroup.leave()
@@ -1278,11 +1277,5 @@ class HealthCertificateService {
 		addNotification(request: request, completion: completion)
 	}
 	
-	private func updateDCCWalletInfoForAllPersons() {
-		for person in self.healthCertifiedPersons {
-			self.updateDCCWalletInfo(for: person)
-		}
-	}
-
 	// swiftlint:disable:next file_length
 }

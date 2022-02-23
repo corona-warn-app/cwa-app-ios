@@ -40,13 +40,19 @@ class HealthCertificateOverviewViewModel {
 			.store(in: &subscriptions)
 		
 		healthCertificateService.$lastSelectedScenarioIdentifier
-			.sink { [weak self] _ in
+			.sink { [weak self] identifier in
 				guard let dccAdmissionCheckScenarios = self?.store.dccAdmissionCheckScenarios else {
+					Log.debug("couldn't find the dccAdmissionCheckScenarios in the store")
 					return
 				}
-				
+				guard let selectedScenario = dccAdmissionCheckScenarios.scenarioSelection.items.first(where: {
+					$0.identifier == identifier
+				}) else {
+					Log.debug("couldn't find a match for the selectedScenario identifier")
+					return
+				}
 				self?.changeAdmissionScenarioStatusText = dccAdmissionCheckScenarios.labelText
-				self?.changeAdmissionScenarioButtonText = dccAdmissionCheckScenarios.scenarioSelection.titleText
+				self?.changeAdmissionScenarioButtonText = selectedScenario.titleText
 			}
 			.store(in: &subscriptions)
 	}

@@ -158,19 +158,24 @@ final class SettingsDataDonationViewModel: BaseDataDonationViewModel {
 
 	///  user tapped select state
 	func didTapSelectStateButton() {
+		let initialValue = SelectableValue(title: AppStrings.DataDonation.ValueSelection.noValue, isEnabled: true)
+		let selectableStates = dataDonationModel.allFederalStateNames.map {
+			SelectableValue(title: $0)
+		}
 		let selectValueViewModel = SelectValueViewModel(
-			dataDonationModel.allFederalStateNames,
+			selectableStates,
 			title: AppStrings.DataDonation.ValueSelection.Title.FederalState,
 			preselected: dataDonationModel.federalStateName,
+			initialValue: initialValue,
 			accessibilityIdentifier: AccessibilityIdentifiers.DataDonation.federalStateCell,
 			selectionCellIconType: .checkmark
 		)
 		selectValueViewModel.$selectedValue.sink { [weak self] federalState in
-			guard self?.dataDonationModel.federalStateName != federalState else {
+			guard self?.dataDonationModel.federalStateName != federalState?.title else {
 				return
 			}
 			// if a new fedaral state got selected reset region as well
-			self?.dataDonationModel.federalStateName = federalState
+			self?.dataDonationModel.federalStateName = federalState?.title
 			self?.dataDonationModel.region = nil
 			self?.dataDonationModel.save()
 		}.store(in: &subscriptions)
@@ -183,19 +188,23 @@ final class SettingsDataDonationViewModel: BaseDataDonationViewModel {
 			Log.debug("Missing federal state to load regions", log: .ppac)
 			return
 		}
-
+		let initialValue = SelectableValue(title: AppStrings.DataDonation.ValueSelection.noValue, isEnabled: true)
+		let selectableRegions = dataDonationModel.allRegions(by: federalStateName).map {
+			SelectableValue(title: $0)
+		}
 		let selectValueViewModel = SelectValueViewModel(
-			dataDonationModel.allRegions(by: federalStateName),
+			selectableRegions,
 			title: AppStrings.DataDonation.ValueSelection.Title.Region,
 			preselected: dataDonationModel.region,
+			initialValue: initialValue,
 			accessibilityIdentifier: AccessibilityIdentifiers.DataDonation.regionCell,
 			selectionCellIconType: .checkmark
 		)
 		selectValueViewModel.$selectedValue .sink { [weak self] region in
-			guard self?.dataDonationModel.region != region else {
+			guard self?.dataDonationModel.region != region?.title else {
 				return
 			}
-			self?.dataDonationModel.region = region
+			self?.dataDonationModel.region = region?.title
 			self?.dataDonationModel.save()
 		}.store(in: &subscriptions)
 
@@ -204,19 +213,24 @@ final class SettingsDataDonationViewModel: BaseDataDonationViewModel {
 
 	///  user tapped select age
 	func didTapAgeButton() {
+		let initialValue = SelectableValue(title: AppStrings.DataDonation.ValueSelection.noValue, isEnabled: true)
+		let selectableAgeGroups = AgeGroup.allCases.map({ $0.text }).map {
+			SelectableValue(title: $0)
+		}
 		let selectValueViewModel = SelectValueViewModel(
-			AgeGroup.allCases.map({ $0.text }),
+			selectableAgeGroups,
 			presorted: true,
 			title: AppStrings.DataDonation.ValueSelection.Title.Age,
 			preselected: dataDonationModel.age,
+			initialValue: initialValue,
 			accessibilityIdentifier: AccessibilityIdentifiers.DataDonation.ageGroupCell,
 			selectionCellIconType: .checkmark
 		)
 		selectValueViewModel.$selectedValue .sink { [weak self] age in
-			guard self?.dataDonationModel.age != age else {
+			guard self?.dataDonationModel.age != age?.title else {
 				return
 			}
-			self?.dataDonationModel.age = age
+			self?.dataDonationModel.age = age?.title
 			self?.dataDonationModel.save()
 		}.store(in: &subscriptions)
 
