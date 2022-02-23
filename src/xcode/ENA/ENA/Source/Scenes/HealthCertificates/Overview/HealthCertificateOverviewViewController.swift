@@ -213,6 +213,7 @@ class HealthCertificateOverviewViewController: UITableViewController {
 
 		cell.configure(cellModel: ChangeAdmissionScenarionCellModel(changeAdmissionScenarioButtonText: viewModel.changeAdmissionScenarioButtonText?.localized(cclService: cclService) ?? AppStrings.HealthCertificate.Overview.admissionScenarioButtonLabel))
 		cell.accessibilityIdentifier = AccessibilityIdentifiers.HealthCertificate.Overview.changeAdmissionScenarioCell
+		cell.accessibilityLabel = viewModel.changeAdmissionScenarioButtonText?.localized(cclService: cclService) ?? AppStrings.HealthCertificate.Overview.admissionScenarioButtonLabel
 		return cell
 	}
 	
