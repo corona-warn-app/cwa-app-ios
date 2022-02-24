@@ -17,13 +17,11 @@ final class HealthCertifiedPersonReissuanceConsentViewModel {
 	// MARK: - Init
 
 	init(
-		faqAnker: String = "dcc_replacement",
 		cclService: CCLServable,
 		certificate: HealthCertificate,
 		certifiedPerson: HealthCertifiedPerson,
 		onDisclaimerButtonTap: @escaping () -> Void
 	) {
-		self.faqAnker = faqAnker
 		self.cclService = cclService
 		self.certificate = certificate
 		self.certifiedPerson = certifiedPerson
@@ -36,7 +34,7 @@ final class HealthCertifiedPersonReissuanceConsentViewModel {
 
 	private var titleDynamicCell: DynamicCell? {
 		guard let title = certifiedPerson.dccWalletInfo?.certificateReissuance?.reissuanceDivision.titleText?.localized(cclService: cclService) else {
-			Log.info("subtitle missing")
+			Log.info("title missing")
 			return nil
 		}
 		return DynamicCell.title2(text: title)
@@ -52,10 +50,21 @@ final class HealthCertifiedPersonReissuanceConsentViewModel {
 
 	private var longTextDynamicCell: DynamicCell? {
 		guard let longtext = certifiedPerson.dccWalletInfo?.certificateReissuance?.reissuanceDivision.longText?.localized(cclService: cclService) else {
-			Log.info("subtitle missing")
+			Log.info("long text missing")
 			return nil
 		}
 		return DynamicCell.body(text: longtext)
+	}
+
+	private var faqLinkDynamicCell: DynamicCell? {
+		guard let faqAnchor = certifiedPerson.dccWalletInfo?.certificateReissuance?.reissuanceDivision.faqAnchor else {
+			Log.info("long text missing")
+			return nil
+		}
+		return DynamicCell.link(
+			text: AppStrings.HealthCertificate.Person.faq,
+			url: URL(string: LinkHelper.urlString(suffix: faqAnchor, type: .faq))
+		)
 	}
 
 	var dynamicTableViewModel: DynamicTableViewModel {
@@ -99,12 +108,10 @@ final class HealthCertifiedPersonReissuanceConsentViewModel {
 							.bulletPoint(text: AppStrings.HealthCertificate.Person.UpdateConsent.bulletPoint_1),
 							.bulletPoint(text: AppStrings.HealthCertificate.Person.UpdateConsent.bulletPoint_2),
 							.space(height: 8.0),
-							.link(
-								text: AppStrings.HealthCertificate.Person.faq,
-								url: URL(string: LinkHelper.urlString(suffix: faqAnker, type: .faq))
-							),
+							faqLinkDynamicCell,
 							.space(height: 8.0)
 						]
+						.compactMap({ $0 })
 				),
 				.section(
 					separators: .all,
@@ -142,7 +149,6 @@ final class HealthCertifiedPersonReissuanceConsentViewModel {
 
 	// MARK: - Private
 
-	private let faqAnker: String
 	private let cclService: CCLServable
 	private let certificate: HealthCertificate
 	private let certifiedPerson: HealthCertifiedPerson
