@@ -227,6 +227,15 @@ class HealthCertifiedPerson: Codable, Equatable, Comparable {
 		healthCertificates.first?.dateOfBirth
 	}
 
+	/// Not a constant identifier, can change if certificates are added or removed!
+	var identifier: String? {
+		guard let name = name?.standardizedName, let dateOfBirth = dateOfBirth else {
+			return nil
+		}
+
+		return ENAHasher.sha256(name + dateOfBirth)
+	}
+
 	var vaccinationCertificates: [HealthCertificate] {
 		healthCertificates.filter { $0.vaccinationEntry != nil }
 	}

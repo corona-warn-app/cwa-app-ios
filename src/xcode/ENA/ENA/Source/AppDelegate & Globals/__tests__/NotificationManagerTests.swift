@@ -126,16 +126,14 @@ class NotificationManagerTests: XCTestCase {
 		_ = healthCertificateService.registerHealthCertificate(base45: vaccinationCertificate1Base45)
 		
 		// WHEN
-		guard let name = healthCertifiedPerson.name?.groupingStandardizedName,
-			  let dateOfBirth = healthCertifiedPerson.dateOfBirth
-		else {
-			XCTFail("Person name and dob cant be nil")
+		guard let personIdentifier = healthCertifiedPerson.identifier else {
+			XCTFail("Person identifier can't be nil")
 			return
 		}
-			let notificationRawValue = LocalNotificationIdentifier.boosterVaccination.rawValue
-			let hashedID = ENAHasher.sha256(name + dateOfBirth)
-			let id = notificationRawValue + hashedID
-		let extractedHealthCertifiedPerson = try XCTUnwrap(notificationManager.extractPerson(notificationRawValue, from: id))
+
+		let notificationRawValue = LocalNotificationIdentifier.boosterVaccination.rawValue
+		let notificationIdentifier = notificationRawValue + personIdentifier
+		let extractedHealthCertifiedPerson = try XCTUnwrap(notificationManager.extractPerson(notificationRawValue, from: notificationIdentifier))
 		
 		// THEN
 		
