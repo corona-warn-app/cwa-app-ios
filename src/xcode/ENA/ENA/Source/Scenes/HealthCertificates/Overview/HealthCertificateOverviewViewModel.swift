@@ -11,10 +11,14 @@ class HealthCertificateOverviewViewModel {
 	// MARK: - Init
 
 	init(
-		healthCertificateService: HealthCertificateService
+		store: HealthCertificateStoring,
+		healthCertificateService: HealthCertificateService,
+		cclService: CCLServable
 	) {
+		self.store = store
 		self.healthCertificateService = healthCertificateService
-
+		self.cclService = cclService
+		
 		healthCertificateService.$healthCertifiedPersons
 			.sink {
 				self.healthCertifiedPersons = $0
@@ -34,14 +38,33 @@ class HealthCertificateOverviewViewModel {
 				}
 			}
 			.store(in: &subscriptions)
+		
+		healthCertificateService.$lastSelectedScenarioIdentifier
+			.sink { [weak self] identifier in
+				guard let dccAdmissionCheckScenarios = self?.store.dccAdmissionCheckScenarios else {
+					Log.debug("couldn't find the dccAdmissionCheckScenarios in the store")
+					return
+				}
+				guard let selectedScenario = dccAdmissionCheckScenarios.scenarioSelection.items.first(where: {
+					$0.identifier == identifier
+				}) else {
+					Log.debug("couldn't find a match for the selectedScenario identifier")
+					return
+				}
+				self?.changeAdmissionScenarioStatusText = dccAdmissionCheckScenarios.labelText
+				self?.changeAdmissionScenarioButtonText = selectedScenario.titleText
+			}
+			.store(in: &subscriptions)
 	}
 
 	// MARK: - Internal
 
 	enum Section: Int, CaseIterable {
-		case createCertificate
+		case changeAdmissionScenarioStatusLabel
+		case changeAdmissionScenario
 		case testCertificateRequest
 		case healthCertificate
+		case healthCertificateScanningInfo
 		case decodingFailedHealthCertificates
 	}
 
@@ -49,6 +72,8 @@ class HealthCertificateOverviewViewModel {
 	@DidSetPublished var decodingFailedHealthCertificates: [DecodingFailedHealthCertificate] = []
 	@DidSetPublished var testCertificateRequests: [TestCertificateRequest] = []
 	@DidSetPublished var testCertificateRequestError: HealthCertificateServiceError.TestCertificateRequestError?
+	@DidSetPublished var changeAdmissionScenarioStatusText: DCCUIText?
+	@DidSetPublished var changeAdmissionScenarioButtonText: DCCUIText?
 
 	var isEmpty: Bool {
 		numberOfRows(in: Section.testCertificateRequest.rawValue) == 0 &&
@@ -62,12 +87,16 @@ class HealthCertificateOverviewViewModel {
 
 	func numberOfRows(in section: Int) -> Int {
 		switch Section(rawValue: section) {
-		case .createCertificate:
-			return 1
+		case .changeAdmissionScenarioStatusLabel:
+			return rowsForAdmissionCheckScenarios
+		case .changeAdmissionScenario:
+			return rowsForAdmissionCheckScenarios
 		case .testCertificateRequest:
 			return testCertificateRequests.count
 		case .healthCertificate:
 			return healthCertifiedPersons.count
+		case .healthCertificateScanningInfo:
+			return rowsForAdmissionCheckScenarios
 		case .decodingFailedHealthCertificates:
 			return decodingFailedHealthCertificates.count
 		case .none:
@@ -97,10 +126,18 @@ class HealthCertificateOverviewViewModel {
 	func attemptToRestoreDecodingFailedHealthCertificates() {
 		healthCertificateService.attemptToRestoreDecodingFailedHealthCertificates()
 	}
-
+	
 	// MARK: - Private
 
 	private let healthCertificateService: HealthCertificateService
+	private let store: HealthCertificateStoring
+	private let cclService: CCLServable
 	private var subscriptions = Set<AnyCancellable>()
 
+	private var rowsForAdmissionCheckScenarios: Int {
+		if !healthCertifiedPersons.isEmpty && !cclService.cclAdmissionCheckScenariosDisabled {
+			return 1
+		}
+		return 0
+	}
 }
