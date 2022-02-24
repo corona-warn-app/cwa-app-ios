@@ -65,10 +65,12 @@ final class DMNHCViewModel {
 						return
 					}
 
-					let sendModel = DCCReissuanceSendModel(certificates: [firstMatchingCertificate.base45])
+					let sendModel = DCCReissuanceSendModel(
+						certificates: [firstMatchingCertificate.base45]
+					)
 
 					let appConfig = self.appConfiguration.currentAppConfig.value
-					let publicKeyHash = appConfig.dgcParameters.reissueServicePublicKeyDigest.toHexString()
+					let publicKeyHash = appConfig.dgcParameters.reissueServicePublicKeyDigest.sha256String()
 					let trust = DefaultTrustEvaluation(publicKeyHash: publicKeyHash)
 					let resource = DCCReissuanceResource(
 						sendModel: sendModel,
