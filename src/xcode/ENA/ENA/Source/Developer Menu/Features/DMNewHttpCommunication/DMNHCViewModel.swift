@@ -60,13 +60,15 @@ final class DMNHCViewModel {
 						return
 					}
 
-					guard let firstMatchingCertificate = self.healthCertificateService.healthCertifiedPersons.first?.mostRelevantHealthCertificate else {
+					let certificates = self.healthCertificateService.healthCertifiedPersons.flatMap { $0.healthCertificates }
+
+					guard let firstVaccinationCertificate = certificates.first(where: { $0.type == .vaccination }) else {
 						Log.error("Could not get certificate")
 						return
 					}
 
 					let sendModel = DCCReissuanceSendModel(
-						certificates: [firstMatchingCertificate.base45]
+						certificates: [firstVaccinationCertificate.base45]
 					)
 
 					let appConfig = self.appConfiguration.currentAppConfig.value
@@ -81,6 +83,7 @@ final class DMNHCViewModel {
 							switch result {
 							case let .success(model):
 								Log.info("DCC Reissuance successfull called.")
+								Log.info("DCC Reissuance response: \(model)")
 							case let .failure(error):
 								Log.error("DCC Reissuance call failure with: \(error)", error: error)
 							}
