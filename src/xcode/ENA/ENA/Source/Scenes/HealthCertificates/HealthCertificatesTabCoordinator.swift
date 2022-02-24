@@ -6,7 +6,6 @@ import UIKit
 import OpenCombine
 import PDFKit
 
-// swiftlint:disable type_body_length
 final class HealthCertificatesTabCoordinator {
 	
 	// MARK: - Init
@@ -27,7 +26,8 @@ final class HealthCertificatesTabCoordinator {
 		self.healthCertificateValidationOnboardedCountriesProvider = healthCertificateValidationOnboardedCountriesProvider
 		self.vaccinationValueSetsProvider = vaccinationValueSetsProvider
 		self.qrScannerCoordinator = qrScannerCoordinator
-
+		self.cclScenariosHelper = CCLScenariosHelper(cclService: cclService, store: store)
+		
 		#if DEBUG
 		if isUITesting {
 			store.healthCertificateInfoScreenShown = LaunchArguments.infoScreen.healthCertificateInfoScreenShown.boolValue
@@ -90,6 +90,7 @@ final class HealthCertificatesTabCoordinator {
 	private let vaccinationValueSetsProvider: VaccinationValueSetsProviding
 	private let qrScannerCoordinator: QRScannerCoordinator
 	private let activityIndicatorView = QRScannerActivityIndicatorView(title: AppStrings.HealthCertificate.Overview.loadingIndicatorLabel)
+	private let cclScenariosHelper: CCLScenariosHelper
 
 	private var modalNavigationController: DismissHandlingNavigationController!
 	private var validationCoordinator: HealthCertificateValidationCoordinator?
@@ -115,9 +116,7 @@ final class HealthCertificatesTabCoordinator {
 				self?.presentInfoScreen()
 			},
 			onChangeAdmissionScenarioTap: { [weak self] in
-				guard let self = self else { return }
-
-				self.showAdmissionScenarios()
+				self?.showAdmissionScenarios()
 			},
 			onCertifiedPersonTap: { [weak self] healthCertifiedPerson in
 				self?.showHealthCertifiedPerson(healthCertifiedPerson)
@@ -127,7 +126,7 @@ final class HealthCertificatesTabCoordinator {
 			}
 		)
 	}()
-
+	
 	private func presentCovPassInfoScreen(rootViewController: UIViewController? = nil) {
 		let presentViewController = rootViewController ?? viewController
 		let covPassInformationViewController = CovPassCheckInformationViewController(
@@ -201,65 +200,6 @@ final class HealthCertificatesTabCoordinator {
 		viewController.present(navigationController, animated: true)
 	}
 	
-	
-	private func showAdmissionScenarios() {
-		let result = self.cclService.dccAdmissionCheckScenarios()
-		switch result {
-		case .success(let scenarios):
-			self.store.dccAdmissionCheckScenarios = scenarios
-			let listItems = scenarios.scenarioSelection.items.map({
-				SelectableValue(
-					title: $0.titleText.localized(cclService: cclService),
-					subtitle: $0.subtitleText?.localized(cclService: cclService),
-					identifier: $0.identifier,
-					isEnabled: $0.enabled
-				)
-			})
-			let selectValueViewModel = SelectValueViewModel(
-				listItems,
-				presorted: true,
-				title: scenarios.scenarioSelection.titleText.localized(cclService: cclService),
-				preselected: nil,
-				isInitialCellWithValue: true,
-				initialValue: nil,
-				accessibilityIdentifier: AccessibilityIdentifiers.LocalStatistics.selectState,
-				selectionCellIconType: .none
-			)
-			let selectValueViewController = SelectValueTableViewController(
-				selectValueViewModel,
-				closeOnSelection: false,
-				dismiss: { [weak self] in
-					self?.viewController.presentedViewController?.dismiss(animated: true, completion: nil)
-				}
-			)
-			let navigationController = UINavigationController(rootViewController: selectValueViewController)
-			self.viewController.present(
-				navigationController,
-				animated: true
-			)
-			selectValueViewModel.$selectedValue.sink { [weak self] federalState in
-				guard let self = self, let state = federalState else {
-					return
-				}
-				self.healthCertificateService.lastSelectedScenarioIdentifier = state.identifier
-				DispatchQueue.main.async { [weak self] in
-					self?.showActivityIndicator(from: navigationController.view)
-				}
-				self.healthCertificateService.updateDCCWalletInfosIfNeeded(
-					isForced: true
-				) { [weak self] in
-					DispatchQueue.main.async {
-						self?.hideActivityIndicator()
-						self?.viewController.presentedViewController?.dismiss(animated: true, completion: nil)
-					}
-				}
-			}.store(in: &subscriptions)
-		case .failure(let error):
-			showErrorAlert(title: AppStrings.HealthCertificate.Error.title, error: error)
-			Log.error(error.localizedDescription)
-		}
-	}
-
 	private func showActivityIndicator(from view: UIView) {
 		activityIndicatorView.alpha = 0.0
 		activityIndicatorView.translatesAutoresizingMaskIntoConstraints = false
@@ -467,7 +407,7 @@ final class HealthCertificatesTabCoordinator {
 		
 		certificateCoordinator?.start()
 	}
-	
+
 	private func showValidationFlow(
 		healthCertificate: HealthCertificate,
 		countries: [Country]
@@ -483,4 +423,43 @@ final class HealthCertificatesTabCoordinator {
 
 		validationCoordinator?.start()
 	}
+	
+	private func showAdmissionScenarios() {
+		self.cclScenariosHelper.showAdmissionScenarios { [weak self] result in
+			guard let self = self else { return }
+
+			switch result {
+			case .success(let selectValueViewModel):
+				let selectValueViewController = SelectValueTableViewController(
+					selectValueViewModel,
+					closeOnSelection: false,
+					dismiss: { [weak self] in
+						self?.viewController.presentedViewController?.dismiss(animated: true, completion: nil)
+					}
+				)
+				
+				let navigationController = UINavigationController(rootViewController: selectValueViewController)
+				self.viewController.present(navigationController, animated: true)
+				selectValueViewModel.$selectedValue.sink { [weak self] federalState in
+					guard let state = federalState else { return }
+					self?.healthCertificateService.lastSelectedScenarioIdentifier = state.identifier
+					DispatchQueue.main.async { [weak self] in
+						self?.showActivityIndicator(from: navigationController.view)
+					}
+					self?.healthCertificateService.updateDCCWalletInfosIfNeeded(
+						isForced: true
+					) { [weak self] in
+						DispatchQueue.main.async {
+							self?.hideActivityIndicator()
+							self?.viewController.presentedViewController?.dismiss(animated: true, completion: nil)
+						}
+					}
+				}.store(in: &self.subscriptions)
+
+			case .failure(let error):
+				self.showErrorAlert(title: AppStrings.HealthCertificate.Error.title, error: error)
+			}
+		}
+	}
+
 }

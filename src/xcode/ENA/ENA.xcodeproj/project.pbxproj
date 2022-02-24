@@ -900,6 +900,7 @@
 		8F3D71AA25A86AD300D52CCD /* HomeExposureLoggingCellModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F3D71A925A86AD300D52CCD /* HomeExposureLoggingCellModelTests.swift */; };
 		8F43A3CB25D55A3E008FD630 /* ppa_data.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F43A3C925D55A3D008FD630 /* ppa_data.pb.swift */; };
 		8F43A3CC25D55A3E008FD630 /* ppa_data_request_ios.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F43A3CA25D55A3E008FD630 /* ppa_data_request_ios.pb.swift */; };
+		8F48192527C68DD1003C06EC /* CCLScenariosHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F48192427C68DD1003C06EC /* CCLScenariosHelper.swift */; };
 		8F499B03267CDE420047C1A6 /* ManageStatisticsCardView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8F499B02267CDE420047C1A6 /* ManageStatisticsCardView.xib */; };
 		8F499B05267CDE530047C1A6 /* ManageStatisticsCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F499B04267CDE530047C1A6 /* ManageStatisticsCardView.swift */; };
 		8F499B072681496D0047C1A6 /* CustomDashedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F499B062681496D0047C1A6 /* CustomDashedView.swift */; };
@@ -2601,6 +2602,7 @@
 		8F3D71A925A86AD300D52CCD /* HomeExposureLoggingCellModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeExposureLoggingCellModelTests.swift; sourceTree = "<group>"; };
 		8F43A3C925D55A3D008FD630 /* ppa_data.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ppa_data.pb.swift; sourceTree = "<group>"; };
 		8F43A3CA25D55A3E008FD630 /* ppa_data_request_ios.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ppa_data_request_ios.pb.swift; sourceTree = "<group>"; };
+		8F48192427C68DD1003C06EC /* CCLScenariosHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CCLScenariosHelper.swift; sourceTree = "<group>"; };
 		8F499B02267CDE420047C1A6 /* ManageStatisticsCardView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ManageStatisticsCardView.xib; sourceTree = "<group>"; };
 		8F499B04267CDE530047C1A6 /* ManageStatisticsCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageStatisticsCardView.swift; sourceTree = "<group>"; };
 		8F499B062681496D0047C1A6 /* CustomDashedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomDashedView.swift; sourceTree = "<group>"; };
@@ -7519,6 +7521,7 @@
 			children = (
 				34C40E3727A45C780098C6ED /* __tests__ */,
 				ABB8DF5F2799BEC300DD99E4 /* CCLService.swift */,
+				8F48192427C68DD1003C06EC /* CCLScenariosHelper.swift */,
 				AB77385227A160A000B9EA95 /* DCCWalletCertificate.swift */,
 				AB2628D927A2E348003D39A6 /* GetWalletInfoInput.swift */,
 				01C5F2FE2799859D00F60047 /* DCCWalletInfo.swift */,
@@ -10655,6 +10658,7 @@
 				EE278B30245F2C8A008B06F9 /* InviteFriendsViewController.swift in Sources */,
 				BA69A7DD25CD788F00023265 /* SelectValueViewModel.swift in Sources */,
 				8F3BB93A2684A890000B9A95 /* LocalStatisticsFederalState.swift in Sources */,
+				8F48192527C68DD1003C06EC /* CCLScenariosHelper.swift in Sources */,
 				EB67B5E1262AD4A800218EC7 /* ExposureSubmissionCheckinsViewModel.swift in Sources */,
 				5001DE7126E1FFB4004242FA /* Statistics.swift in Sources */,
 				EB513E0625FA35AD0020C0B9 /* presence_tracing_parameters.pb.swift in Sources */,
