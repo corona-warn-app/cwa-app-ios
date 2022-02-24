@@ -292,48 +292,52 @@ extension SAP_Internal_V2_ApplicationConfigurationIOS: SwiftProtobuf.Message, Sw
 
   func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
     try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      if let v = _storage._minVersion {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every if/case branch local when no optimizations
+      // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+      // https://github.com/apple/swift-protobuf/issues/1182
+      try { if let v = _storage._minVersion {
         try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-      }
-      if let v = _storage._latestVersion {
+      } }()
+      try { if let v = _storage._latestVersion {
         try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
-      }
-      if let v = _storage._appFeatures {
+      } }()
+      try { if let v = _storage._appFeatures {
         try visitor.visitSingularMessageField(value: v, fieldNumber: 3)
-      }
+      } }()
       if !_storage._supportedCountries.isEmpty {
         try visitor.visitRepeatedStringField(value: _storage._supportedCountries, fieldNumber: 4)
       }
-      if let v = _storage._keyDownloadParameters {
+      try { if let v = _storage._keyDownloadParameters {
         try visitor.visitSingularMessageField(value: v, fieldNumber: 5)
-      }
-      if let v = _storage._exposureDetectionParameters {
+      } }()
+      try { if let v = _storage._exposureDetectionParameters {
         try visitor.visitSingularMessageField(value: v, fieldNumber: 6)
-      }
-      if let v = _storage._riskCalculationParameters {
+      } }()
+      try { if let v = _storage._riskCalculationParameters {
         try visitor.visitSingularMessageField(value: v, fieldNumber: 7)
-      }
-      if let v = _storage._exposureConfiguration {
+      } }()
+      try { if let v = _storage._exposureConfiguration {
         try visitor.visitSingularMessageField(value: v, fieldNumber: 8)
-      }
-      if let v = _storage._eventDrivenUserSurveyParameters {
+      } }()
+      try { if let v = _storage._eventDrivenUserSurveyParameters {
         try visitor.visitSingularMessageField(value: v, fieldNumber: 9)
-      }
-      if let v = _storage._privacyPreservingAnalyticsParameters {
+      } }()
+      try { if let v = _storage._privacyPreservingAnalyticsParameters {
         try visitor.visitSingularMessageField(value: v, fieldNumber: 10)
-      }
-      if let v = _storage._errorLogSharingParameters {
+      } }()
+      try { if let v = _storage._errorLogSharingParameters {
         try visitor.visitSingularMessageField(value: v, fieldNumber: 11)
-      }
-      if let v = _storage._presenceTracingParameters {
+      } }()
+      try { if let v = _storage._presenceTracingParameters {
         try visitor.visitSingularMessageField(value: v, fieldNumber: 12)
-      }
-      if let v = _storage._coronaTestParameters {
+      } }()
+      try { if let v = _storage._coronaTestParameters {
         try visitor.visitSingularMessageField(value: v, fieldNumber: 13)
-      }
-      if let v = _storage._dgcParameters {
+      } }()
+      try { if let v = _storage._dgcParameters {
         try visitor.visitSingularMessageField(value: v, fieldNumber: 14)
-      }
+      } }()
     }
     try unknownFields.traverse(visitor: &visitor)
   }
