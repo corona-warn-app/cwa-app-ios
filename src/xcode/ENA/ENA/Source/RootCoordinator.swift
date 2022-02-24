@@ -191,7 +191,8 @@ class RootCoordinator: NSObject, RequiresAppDependencies, UITabBarControllerDele
 			healthCertificateValidationService: healthCertificateValidationService,
 			healthCertificateValidationOnboardedCountriesProvider: healthCertificateValidationOnboardedCountriesProvider,
 			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
-			qrScannerCoordinator: qrScannerCoordinator
+			qrScannerCoordinator: qrScannerCoordinator,
+			appConfigProvider: appConfigurationProvider
 		)
 		self.healthCertificatesTabCoordinator = healthCertificatesTabCoordinator
 

@@ -3,6 +3,7 @@
 //
 
 import Foundation
+import OpenCombine
 
 /// Error and ViewModel are dummies for the moment to construct the flow for the moment
 /// needed to get replaced in later tasks
@@ -12,30 +13,33 @@ enum HealthCertifiedPersonUpdateError: Error {
 }
 
 
-struct HealthCertifiedPersonReissuanceConsentViewModel {
+class HealthCertifiedPersonReissuanceConsentViewModel {
 
 	// MARK: - Init
-
-	// MARK: - Overrides
-
-	// MARK: - Protocol <#Name#>
-
-	// MARK: - Public
+	
+	init(
+		person: HealthCertifiedPerson,
+		appConfigProvider: AppConfigurationProviding
+	) {
+		self.healthCertifiedPerson = person
+		self.appConfigProvider = appConfigProvider
+	}
 
 	// MARK: - Internal
 
 	func submit(completion: @escaping (Result<Void, HealthCertifiedPersonUpdateError>) -> Void) {
-		DispatchQueue.global(qos: .background).asyncAfter(deadline: .now() + 0.5) {
-			// let's create a random result
-			let success = Bool.random()
-			if success {
-				completion(.success(()))
-			} else {
-				completion(.failure(.UpdateFailedError))
-			}
-		}
+			appConfigProvider.appConfiguration()
+				.sink { _ in
+					
+			 }
+			 .store(in: &subscriptions)
 	}
 
 	// MARK: - Private
+
+	private let healthCertifiedPerson: HealthCertifiedPerson
+	private let appConfigProvider: AppConfigurationProviding
+	private var subscriptions = Set<AnyCancellable>()
+
 
 }

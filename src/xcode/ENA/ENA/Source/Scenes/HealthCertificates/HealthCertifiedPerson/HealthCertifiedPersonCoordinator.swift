@@ -18,7 +18,8 @@ final class HealthCertifiedPersonCoordinator {
 		healthCertificateValidationOnboardedCountriesProvider: HealthCertificateValidationOnboardedCountriesProviding,
 		vaccinationValueSetsProvider: VaccinationValueSetsProviding,
 		showHealthCertificateFlow: @escaping (HealthCertifiedPerson, HealthCertificate, Bool) -> Void,
-		presentCovPassInfoScreen: @escaping (UIViewController) -> Void
+		presentCovPassInfoScreen: @escaping (UIViewController) -> Void,
+		appConfigProvider: AppConfigurationProviding
 	) {
 		self.store = store
 		self.parentViewController = parentViewController
@@ -31,6 +32,7 @@ final class HealthCertifiedPersonCoordinator {
 		self.presentCovPassInfoScreen = presentCovPassInfoScreen
 		// set an empty starting viewController
 		self.navigationController = DismissHandlingNavigationController(rootViewController: UIViewController())
+		self.appConfigProvider = appConfigProvider
 	}
 
 	// MARK: - Internal
@@ -53,6 +55,7 @@ final class HealthCertifiedPersonCoordinator {
 	private let vaccinationValueSetsProvider: VaccinationValueSetsProviding
 	private let showHealthCertificateFlow: (HealthCertifiedPerson, HealthCertificate, Bool) -> Void
 	private let presentCovPassInfoScreen: (UIViewController) -> Void
+	private let appConfigProvider: AppConfigurationProviding
 
 	private weak var parentViewController: UIViewController?
 
@@ -135,13 +138,15 @@ final class HealthCertifiedPersonCoordinator {
 				self.presentCovPassInfoScreen(self.navigationController)
 			},
 			didTapUpdateNotification: { [weak self] in
-				self?.showUpdateConsent()
+				self?.showUpdateConsent(for: healthCertifiedPerson)
 			}
 		)
 	}
 
-	private func showUpdateConsent() {
+	private func showUpdateConsent(for person: HealthCertifiedPerson) {
 		let updateConsentViewController = HealthCertifiedPersonReissuanceConsentViewController(
+			for: person,
+			appConfigProvider: appConfigProvider,
 			presentAlert: { [weak self] okAction, retryAction in
 				let alert = UIAlertController(
 					title: AppStrings.HealthCertificate.Person.UpdateConsent.defaultAlertTitle,
