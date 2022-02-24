@@ -19,7 +19,8 @@ final class HealthCertifiedPersonCoordinator {
 		vaccinationValueSetsProvider: VaccinationValueSetsProviding,
 		showHealthCertificateFlow: @escaping (HealthCertifiedPerson, HealthCertificate, Bool) -> Void,
 		presentCovPassInfoScreen: @escaping (UIViewController) -> Void,
-		appConfigProvider: AppConfigurationProviding
+		appConfigProvider: AppConfigurationProviding,
+		restServiceProvider: RestServiceProviding
 	) {
 		self.store = store
 		self.parentViewController = parentViewController
@@ -33,6 +34,7 @@ final class HealthCertifiedPersonCoordinator {
 		// set an empty starting viewController
 		self.navigationController = DismissHandlingNavigationController(rootViewController: UIViewController())
 		self.appConfigProvider = appConfigProvider
+		self.restServiceProvider = restServiceProvider
 	}
 
 	// MARK: - Internal
@@ -56,6 +58,7 @@ final class HealthCertifiedPersonCoordinator {
 	private let showHealthCertificateFlow: (HealthCertifiedPerson, HealthCertificate, Bool) -> Void
 	private let presentCovPassInfoScreen: (UIViewController) -> Void
 	private let appConfigProvider: AppConfigurationProviding
+	private let restServiceProvider: RestServiceProviding
 
 	private weak var parentViewController: UIViewController?
 
@@ -147,6 +150,7 @@ final class HealthCertifiedPersonCoordinator {
 		let updateConsentViewController = HealthCertifiedPersonReissuanceConsentViewController(
 			for: person,
 			appConfigProvider: appConfigProvider,
+			restServiceProvider: restServiceProvider,
 			presentAlert: { [weak self] okAction, retryAction in
 				let alert = UIAlertController(
 					title: AppStrings.HealthCertificate.Person.UpdateConsent.defaultAlertTitle,

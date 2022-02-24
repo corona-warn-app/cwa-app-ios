@@ -11,6 +11,7 @@ class HealthCertifiedPersonReissuanceConsentViewController: UIViewController, Di
 	init(
 		for person: HealthCertifiedPerson,
 		appConfigProvider: AppConfigurationProviding,
+		restServiceProvider: RestServiceProviding,
 		presentAlert: @escaping (_ ok: UIAlertAction, _ retry: UIAlertAction) -> Void,
 		presentUpdateSuccess: @escaping () -> Void,
 		didCancel: @escaping () -> Void,
@@ -19,7 +20,8 @@ class HealthCertifiedPersonReissuanceConsentViewController: UIViewController, Di
 		self.presentAlert = presentAlert
 		self.viewModel = HealthCertifiedPersonReissuanceConsentViewModel(
 			person: person,
-			appConfigProvider: appConfigProvider
+			appConfigProvider: appConfigProvider,
+			restServiceProvider: restServiceProvider
 		)
 		self.presentUpdateSuccess = presentUpdateSuccess
 		self.didCancel = didCancel

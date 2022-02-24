@@ -19,7 +19,8 @@ final class HealthCertificatesTabCoordinator {
 		healthCertificateValidationOnboardedCountriesProvider: HealthCertificateValidationOnboardedCountriesProviding,
 		vaccinationValueSetsProvider: VaccinationValueSetsProviding,
 		qrScannerCoordinator: QRScannerCoordinator,
-		appConfigProvider: AppConfigurationProviding
+		appConfigProvider: AppConfigurationProviding,
+		restServiceProvider: RestServiceProviding
 	) {
 		self.store = store
 		self.cclService = cclService
@@ -30,6 +31,7 @@ final class HealthCertificatesTabCoordinator {
 		self.vaccinationValueSetsProvider = vaccinationValueSetsProvider
 		self.qrScannerCoordinator = qrScannerCoordinator
 		self.appConfigProvider = appConfigProvider
+		self.restServiceProvider = restServiceProvider
 
 		#if DEBUG
 		if isUITesting {
@@ -95,7 +97,8 @@ final class HealthCertificatesTabCoordinator {
 	private let qrScannerCoordinator: QRScannerCoordinator
 	private let activityIndicatorView = QRScannerActivityIndicatorView(title: AppStrings.HealthCertificate.Overview.loadingIndicatorLabel)
 	private let appConfigProvider: AppConfigurationProviding
-
+	private let restServiceProvider: RestServiceProviding
+	
 	private var certificateCoordinator: HealthCertificateCoordinator?
 	private var healthCertifiedPersonCoordinator: HealthCertifiedPersonCoordinator?
 
@@ -334,7 +337,8 @@ final class HealthCertificatesTabCoordinator {
 			presentCovPassInfoScreen: { [weak self] viewController in
 				self?.presentCovPassInfoScreen(rootViewController: viewController)
 			},
-			appConfigProvider: appConfigProvider
+			appConfigProvider: appConfigProvider,
+			restServiceProvider: restServiceProvider
 		)
 		healthCertifiedPersonCoordinator?.showHealthCertifiedPerson(healthCertifiedPerson)
 	}
