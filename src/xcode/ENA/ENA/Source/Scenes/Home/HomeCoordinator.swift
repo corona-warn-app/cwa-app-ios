@@ -15,7 +15,7 @@ class HomeCoordinator: RequiresAppDependencies {
 		otpService: OTPServiceProviding,
 		ppacService: PrivacyPreservingAccessControl,
 		eventStore: EventStoringProviding,
-		coronaTestService: CoronaTestService,
+		coronaTestService: CoronaTestServiceProviding,
 		healthCertificateService: HealthCertificateService,
 		healthCertificateValidationService: HealthCertificateValidationProviding,
 		elsService: ErrorLogSubmissionProviding,
@@ -54,15 +54,21 @@ class HomeCoordinator: RequiresAppDependencies {
 
 	func showHome(enStateHandler: ENStateHandler, route: Route?) {
 		guard homeController == nil else {
-			guard case .rapidAntigen = route else {
+			switch route {
+			case .rapidAntigen, .rapidPCR:
+				// only select tab if route is .rapidAntigen or .rapidPCR
+				selectHomeTabSection(route: route)
+				return
+			case .testResultFromNotification,
+				 .checkIn,
+				 .healthCertificateFromNotification,
+				 .healthCertifiedPersonFromNotification,
+				 .none:
 				rootViewController.dismiss(animated: false)
 				rootViewController.popToRootViewController(animated: false)
 				homeController?.scrollToTop(animated: false)
 				return
 			}
-			// only select tab if route is .rapidAntigen
-			selectHomeTabSection(route: route)
-			return
 		}
 		let homeState = HomeState(
 			store: store,
@@ -188,7 +194,7 @@ class HomeCoordinator: RequiresAppDependencies {
 	private let ppacService: PrivacyPreservingAccessControl
 	private let otpService: OTPServiceProviding
 	private let eventStore: EventStoringProviding
-	private let coronaTestService: CoronaTestService
+	private let coronaTestService: CoronaTestServiceProviding
 	private let elsService: ErrorLogSubmissionProviding
 	private let healthCertificateService: HealthCertificateService
 	private let healthCertificateValidationService: HealthCertificateValidationProviding

@@ -15,7 +15,8 @@ class HealthCertificateOverviewViewController: UITableViewController {
 		onInfoBarButtonItemTap: @escaping () -> Void,
 		onChangeAdmissionScenarioTap: @escaping () -> Void,
 		onCertifiedPersonTap: @escaping (HealthCertifiedPerson) -> Void,
-		onCovPassCheckInfoButtonTap: @escaping () -> Void
+		onCovPassCheckInfoButtonTap: @escaping () -> Void,
+		onTapToDelete: @escaping (DecodingFailedHealthCertificate) -> Void
 	) {
 		self.viewModel = viewModel
 		self.cclService = cclService
@@ -23,6 +24,7 @@ class HealthCertificateOverviewViewController: UITableViewController {
 		self.onChangeAdmissionScenarioTap = onChangeAdmissionScenarioTap
 		self.onCertifiedPersonTap = onCertifiedPersonTap
 		self.onCovPassCheckInfoButtonTap = onCovPassCheckInfoButtonTap
+		self.onTapToDelete = onTapToDelete
 
 		super.init(style: .grouped)
 		
@@ -158,6 +160,7 @@ class HealthCertificateOverviewViewController: UITableViewController {
 	private let onChangeAdmissionScenarioTap: () -> Void
 	private let onCertifiedPersonTap: (HealthCertifiedPerson) -> Void
 	private let onCovPassCheckInfoButtonTap: () -> Void
+	private let onTapToDelete: (DecodingFailedHealthCertificate) -> Void
 
 	private var subscriptions = Set<AnyCancellable>()
 
@@ -278,6 +281,9 @@ class HealthCertificateOverviewViewController: UITableViewController {
 				decodingFailedHealthCertificate: decodingFailedHealthCertificate,
 				onCovPassCheckInfoButtonTap: { [weak self] in
 					self?.onCovPassCheckInfoButtonTap()
+				},
+				onTapToDelete: { [weak self] decodingFailedHealthCertificate in
+					self?.onTapToDelete(decodingFailedHealthCertificate)
 				}
 			  ) else {
 			return UITableViewCell()

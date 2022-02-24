@@ -118,7 +118,7 @@
 
 "ExposureDetection_Guide_Home" = "Mümkünse lütfen eve gidin ve evde kalın ve beraber yaşadığınız kişiler haricinde başka insanlarla karşılaşmaktan kaçının.";
 
-"ExposureDetection_Guide_Hotline" = "Herhangi bir sorunuz varsa, lütfen 116 117'yi (Almanya'da) arayın. Ardından otomatik mesaj sırasında 2'ye basın (Sağlık Bakanlığı hizmet noktası için). Belirtileriniz varsa sadece 1'e (genel tıbbi acil servis) basın.";
+"ExposureDetection_Guide_Hotline" = "Herhangi bir sorunuz varsa lütfen 116 117'yi (Almanya'da) arayın. Ardından otomatik mesaj sırasında, Federal Sağlık Bakanlığı hizmet noktası için 2'ye basın. Belirtileriniz varsa sadece 1'e (genel tıbbi acil servis) basın.";
 
 "ExposureDetection_Guide_Vaccination_HighRisk" = "Henüz aşı olmadıysanız test yaptırdıktan sonra aile hekiminize danışın.";
 
@@ -597,7 +597,7 @@
 
 "ExposureSubmission_PhoneDetailsForeign" = "Almanya dışından yapılan aramalar içindir.\nTelefon sağlayıcınız tarafından uygulanan ücretler geçerlidir.";
 
-"ExposureSubmission_PhoneDetailDescription" = "Müşteri hizmetlerimiz şu dillerde size yardımcı olmaya hazır: \nİngilizce, Almanca, Türkçe\n\nMesai saatleri:\nGünlük (hafta sonları dahil): 7:00 - 20:00 (CET)\n\nHerhangi bir sorunuz varsa, lütfen 116 117'yi (Almanya'da) arayın. Ardından otomatik mesaj sırasında 2'ye basın (Sağlık Bakanlığı hizmet noktası için). Belirtileriniz varsa sadece 1'e (genel tıbbi acil servis) basın.";
+"ExposureSubmission_PhoneDetailDescription" = "Müşteri hizmetlerimiz şu dillerde size yardımcı olmaya hazır: \nİngilizce, Almanca, Türkçe\n\nMesai saatleri:\nGünlük (hafta sonları dahil): 7:00 - 20:00 (CET)\n\nHerhangi bir sorunuz varsa lütfen 116 117'yi (Almanya'da) arayın. Ardından otomatik mesaj sırasında, Federal Sağlık Bakanlığı hizmet noktası için 2'ye basın. Belirtileriniz varsa sadece 1'e (genel tıbbi acil servis) basın.";
 
 "ExposureSubmission_SectionDescription2" = "Uygulamaya TAN girerek PCR testinizi kaydedin.";
 
@@ -1344,7 +1344,9 @@
 /* App Information */
 "App_Information_Title" = "Uygulama Bilgileri";
 
-"App_Information_Version" = "Versiyon";
+"App_Information_AppVersion" = "Uygulama versiyonu: %@";
+
+"App_Information_CCLVersion" = "CCL versiyonu: %@";
 
 /* App Information - About */
 "App_Information_About_Navigation" = "Uygulama Hakkında";
@@ -1385,7 +1387,7 @@
 
 "App_Information_Contact_Hotline_Details_Foreign" = "Almanya dışından yapılan aramalar içindir.\nTelefon sağlayıcınız tarafından uygulanan ücretler geçerlidir.";
 
-"App_Information_Contact_Hotline_Terms" = "Müşteri hizmetlerimiz şu dillerde size yardımcı olmaya hazır: \nİngilizce, Almanca, Türkçe\n\nMesai saatleri:\nPt-Ct: 7:00 – 20:00 (CET)\n(resmi tatiller hariç)\n\nHerhangi bir sorunuz varsa, lütfen 116 117'yi (Almanya'da) arayın. Ardından otomatik mesaj sırasında 2'ye basın (Sağlık Bakanlığı hizmet noktası için). Belirtileriniz varsa sadece 1'e (genel tıbbi acil servis) basın.";
+"App_Information_Contact_Hotline_Terms" = "Müşteri hizmetlerimiz şu dillerde size yardımcı olmaya hazır: \nİngilizce, Almanca, Türkçe\n\nMesai saatleri:\nPt-Ct: 7:00 – 20:00 (CET)\n(resmi tatiller hariç)\n\nHerhangi bir sorunuz varsa lütfen 116 117'yi (Almanya'da) arayın. Ardından otomatik mesaj sırasında, Federal Sağlık Bakanlığı hizmet noktası için 2'ye basın. Belirtileriniz varsa sadece 1'e (genel tıbbi acil servis) basın.";
 
 /* App Information - Imprint */
 "App_Information_New_Features_Navigation" = "Yeni Özellikler";
@@ -2891,9 +2893,6 @@
 
 "HealthCertificate_Details_moreButtonTitle" = "Daha Fazla";
 
-/* Vaccination Certificate Details */
-"VaccinationCertificate_Details_OneOfOneHint" = "Bu, yalnızca bir doz uygulanması gereken bir aşıdır ya da hastalığı geçirerek yalnızca bir doza ihtiyacı olan kişiye yönelik bir aşıdır.";
-
 /* Health Certificate Delete Alert */
 "HealthCertificate_Alert_deleteButton" = "Sertifikayı Sil";
 
@@ -2931,6 +2930,15 @@
 "RecoveryCertificate_Alert_title" = "İyileşme sertifikasını silmek istiyor musunuz?";
 
 "RecoveryCertificate_Alert_message" = "Sertifika geri dönüşüm kutusuna taşınacak. Geri dönüşüm kutusunu, durum sekmesinde yer alan \"Daha Fazla\" kutucuğunda bulabilirsiniz. Burada sertifikayı kalıcı olarak silebilir veya geri yükleyebilirsiniz. Sertifika 30 gün sonra otomatik olarak silinir.";
+
+/* Decoding Failed Health Certificate Delete Alert */
+"DecodingFailedHealthCertificate_Alert_title" = "Sertifikayı kalıcı olarak silmek istiyor musunuz?";
+
+"DecodingFailedHealthCertificate_Alert_message" = "Sertifikanın kodu çözülemedi, bu nedenle sertifika için hiçbir bilgi görüntülenemiyor. Silerseniz, sertifikayı artık kanıt olarak kullanamazsınız.";
+
+"DecodingFailedHealthCertificate_Alert_deleteButton" = "Sertifikayı Kalıcı Olarak Sil";
+
+"DecodingFailedHealthCertificate_Alert_cancelButton" = "İptal";
 
 /* Health Certificate Print PDF */
 "HealthCertificate_PrintPdf_showPrintableVersion" = "Basılı Versiyonu Görüntüle";

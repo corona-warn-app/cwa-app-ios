@@ -119,7 +119,7 @@
 
 "ExposureDetection_Guide_Home" = "Begeben Sie sich, wenn möglich, nach Hause bzw. bleiben Sie zu Hause und vermeiden Sie Begegnungen außerhalb Ihres Haushalts.";
 
-"ExposureDetection_Guide_Hotline" = "Bei Fragen rufen Sie die 116 117 an. Wählen Sie bei der Telefonansage dann die 2 (Servicestelle des Gesundheitsministeriums). Nur bei Krankheitssymptomen wählen Sie die 1 (kassenärztlicher Bereitschaftsdienst).";
+"ExposureDetection_Guide_Hotline" = "Bei Fragen rufen Sie die 116 117 an. Wählen Sie bei der Telefonansage dann die 2, um die Servicestelle des Bundesministeriums für Gesundheit zu erreichen. Nur bei Krankheitssymptomen wählen Sie die 1 (kassenärztlicher Bereitschaftsdienst).";
 
 "ExposureDetection_Guide_Vaccination_HighRisk" = "Sollten Sie bisher nicht geimpft sein, besprechen Sie nach der Testung die Impfung mit Ihrer Hausarztpraxis.";
 
@@ -612,7 +612,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmission_PhoneDetailsForeign" = "Für Anrufe aus dem Ausland.\nEs fallen die Gebühren des jeweiligen Telefonanbieters an.";
 
-"ExposureSubmission_PhoneDetailDescription" = "Unser Kundenservice ist in den folgenden Sprachen für Sie da:\nDeutsch, Englisch, Türkisch\n\nErreichbarkeit:\nMo-So: 07:00 - 20:00 Uhr\n\nBei Fragen rufen Sie die 116 117 an. Wählen Sie bei der Telefonansage dann die 2 (Servicestelle des Gesundheitsministeriums). Nur bei Krankheitssymptomen wählen Sie die 1 (kassenärztlicher Bereitschaftsdienst).";
+"ExposureSubmission_PhoneDetailDescription" = "Unser Kundenservice ist in den folgenden Sprachen für Sie da:\nDeutsch, Englisch, Türkisch\n\nErreichbarkeit:\nMo-So: 07:00 - 20:00 Uhr\n\nBei Fragen rufen Sie die 116 117 an. Wählen Sie bei der Telefonansage dann die 2, um die Servicestelle des Bundesministeriums für Gesundheit zu erreichen. Nur bei Krankheitssymptomen wählen Sie die 1 (kassenärztlicher Bereitschaftsdienst).";
 
 "ExposureSubmission_SectionDescription2" = "Geben Sie die TAN in der App ein, um Ihren PCR-Test zu registrieren.";
 
@@ -1429,7 +1429,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "App_Information_Contact_Hotline_Details_Foreign" = "Für Anrufe aus dem Ausland.\nEs fallen die Gebühren des jeweiligen Telefonanbieters an.";
 
-"App_Information_Contact_Hotline_Terms" = "Unser Kundenservice ist in den folgenden Sprachen für Sie da:\nDeutsch, Englisch, Türkisch\n\nErreichbarkeit:\nMo-Sa: 07:00 - 22:00 Uhr\n(außer an bundesweiten Feiertagen)\n\nBei Fragen rufen Sie die 116 117 an. Wählen Sie bei der Telefonansage dann die 2 (Servicestelle des Gesundheitsministeriums). Nur bei Krankheitssymptomen wählen Sie die 1 (kassenärztlicher Bereitschaftsdienst).";
+"App_Information_Contact_Hotline_Terms" = "Unser Kundenservice ist in den folgenden Sprachen für Sie da:\nDeutsch, Englisch, Türkisch\n\nErreichbarkeit:\nMo-Sa: 07:00 - 22:00 Uhr\n(außer an bundesweiten Feiertagen)\n\nBei Fragen rufen Sie die 116 117 an. Wählen Sie bei der Telefonansage dann die 2, um die Servicestelle des Bundesministeriums für Gesundheit zu erreichen. Nur bei Krankheitssymptomen wählen Sie die 1 (kassenärztlicher Bereitschaftsdienst).";
 
 /* App Information - Imprint */
 "App_Information_New_Features_Navigation" = "Neue Funktionen";
@@ -1649,7 +1649,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "NewVersionFeature_218_centralManagementOfRules_title" = "Zentrale Verwaltung von Regeln";
 
-"NewVersionFeature_218_centralManagementOfRules_description" = "Die Regeln für Zertifikate (z.B. hinsichtlich ihrer Gültigkeit, oder Priorisierung, wenn mehrere Zertifikate vorhanden sind) und für die Ermittlung des G-Status wurden aus der Corona-Warn-App herausgelöst. Diese Regeln sind jetzt zentral abgelegt und können daher unabhängig von den App-Releases angepasst werden. Damit kann schneller auf Regeländerungen reagiert werden. Nach einer Änderung werden die aktualisierten Regeln an die App übertragen. Für Sie ändert sich an der Benutzung der Corona-Warn-App nichts durch diese zentrale Verwaltung der Regeln.";
+"NewVersionFeature_218_centralManagementOfRules_description" = "Die Regeln für Zertifikate (z.B. hinsichtlich ihrer Gültigkeit oder Priorisierung, wenn mehrere Zertifikate vorhanden sind) und für die Ermittlung des G-Status wurden aus der Corona-Warn-App herausgelöst. Diese Regeln sind jetzt zentral abgelegt und können daher unabhängig von den App-Releases angepasst werden. Damit kann schneller auf Regeländerungen reagiert werden. Nach einer Änderung werden die aktualisierten Regeln an die App übertragen. Für Sie ändert sich an der Benutzung der Corona-Warn-App nichts durch diese zentrale Verwaltung der Regeln.";
 
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Länderübergreifende Risiko-Ermittlung";
@@ -2165,7 +2165,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "Statistics_Info_KeySubmissions_Title" = "Warnende Personen";
 
-"Statistics_Info_KeySubmissions_Text" = "Anzahl der über einen PCR-Test Corona-positiv getesteten Personen, die mithilfe der App ihre Mitmenschen gewarnt haben.";
+"Statistics_Info_KeySubmissions_Text" = "Anzahl der Corona-positiv getesteten Personen, die mithilfe der App ihre Mitmenschen gewarnt haben.";
 
 "Statistics_Info_ReproductionNumber_Title" = "7-Tage-R-Wert";
 
@@ -2957,6 +2957,30 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "HealthCertifiedPerson_newlyAddedCertificate" = "Neu";
 
+/* HealthCertifiedPerson UpdateConsent */
+
+"HealthCertifiedPerson_UpdateConsent_primaryButtonTitle" = "Einverstanden";
+
+"HealthCertifiedPerson_UpdateConsent_secondaryButtonTitle" = "Abbrechen";
+
+"HealthCertifiedPerson_DefaultAlert_Title" = "Fehler";
+
+"HealthCertifiedPerson_DefaultAlert_Message" = "Möglicherweise wurde Ihre Internet-Verbindung unterbrochen. Bitte stellen Sie sicher, dass Sie mit dem Internet verbunden sind.";
+
+"HealthCertifiedPerson_DefaultAlert_OKButton" = "OK";
+
+"HealthCertifiedPerson_DefaultAlert_RetryButton" = "Wiederholen";
+
+"HealthCertifiedPerson_UpdateConsent_Title" = "Ihr Einverständnis";
+
+/* HealthCertifiedPerson UpdateSucceeded */
+
+"HealthCertifiedPerson_UpdateSucceeded_Title" = "Zertifikat aktualisiert";
+
+"HealthCertifiedPerson_UpdateSucceeded_Headline" = "Ihr Zertifikat wurde erfolgreich aktualisiert";
+
+"HealthCertifiedPerson_UpdateSucceeded_Body" = "Sie finden das aktualisierte Zertifikat nun in der Zertifikate-Registerkarte.";
+
 /* Vaccination Certificate Details */
 
 "HealthCertificate_Details_vaccinationCount" = "Impfung %i von %i";
@@ -2998,10 +3022,6 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 "HealthCertificate_Details_expirationDateDetails" = "Bitte bemühen Sie sich rechtzeitig darum, einen neuen digitalen Nachweis ausstellen zu lassen.";
 
 "HealthCertificate_Details_moreButtonTitle" = "Mehr";
-
-/* Vaccination Certificate Details */
-
-"VaccinationCertificate_Details_OneOfOneHint" = "Es handelt sich hier um einen Impfstoff, bei dem nur eine Impfdosis erforderlich ist oder um eine Impfung für Genesene, die nur eine Impfdosis benötigt.";
 
 /* Health Certificate Delete Alert */
 
@@ -3046,6 +3066,16 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 "RecoveryCertificate_Alert_title" = "Wollen Sie das Genesenenzertifikat löschen?";
 
 "RecoveryCertificate_Alert_message" = "Das Zertifikat wird in den Papierkorb verschoben. Den Papierkorb finden Sie auf der „Mehr“-Kachel der Status-Registerkarte. Dort können Sie es endgültig löschen oder wiederherstellen. Nach 30 Tagen wird das Zertifikat automatisch gelöscht.";
+
+/* Decoding Failed Health Certificate Delete Alert */
+
+"DecodingFailedHealthCertificate_Alert_title" = "Wollen Sie das Zertifikat endgültig löschen?";
+
+"DecodingFailedHealthCertificate_Alert_message" = "Das Zertifikat konnte nicht dekodiert werden, daher können keine Informationen dazu angezeigt werden. Wenn Sie es löschen, können Sie es nicht mehr als Nachweis verwenden.";
+
+"DecodingFailedHealthCertificate_Alert_deleteButton" = "Zertifikat endgültig löschen";
+
+"DecodingFailedHealthCertificate_Alert_cancelButton" = "Abbrechen";
 
 /* Health Certificate Print PDF */
 
@@ -3159,7 +3189,7 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "HealthCertificate_Validation_Passed_unknownTitle" = "Zertifikat nicht prüfbar";
 
-"HealthCertificate_Validation_Passed_subtitle" = "Ihr Zertifikat ist im gewählten Land gültig";
+"HealthCertificate_Validation_Passed_subtitle" = "Ihr Zertifikat ist für die Einreise in das gewählte Land gültig";
 
 "HealthCertificate_Validation_Passed_unknownSubtitle" = "Ihr Zertifikat konnte nicht geprüft werden";
 
@@ -3187,7 +3217,7 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "HealthCertificate_Validation_Failed_title" = "Zertifikat nicht gültig";
 
-"HealthCertificate_Validation_Failed_subtitle" = "Ihr Zertifikat ist im gewählten Land nicht gültig";
+"HealthCertificate_Validation_Failed_subtitle" = "Ihr Zertifikat ist für die Einreise in das gewählte Land nicht gültig";
 
 "HealthCertificate_Validation_Failed_failedSectionTitle" = "Prüfung abgeschlossen";
 
@@ -3201,7 +3231,7 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "HealthCertificate_Validation_TechnicalFailed_title" = "Zertifikat nicht gültig";
 
-"HealthCertificate_Validation_TechnicalFailed_subtitle" = "Ihr Zertifikat ist im gewählten Land nicht gültig";
+"HealthCertificate_Validation_TechnicalFailed_subtitle" = "Ihr Zertifikat ist für die Einreise in das gewählte Land nicht gültig";
 
 "HealthCertificate_Validation_TechnicalFailed_failedSectionTitle" = "Technische Prüfung";
 
