@@ -71,7 +71,7 @@ class RestServiceProviderStub: RestServiceProviding {
 		return .failure(.resourceError(.missingCache))
 	}
 
-	func update(_ evaluateTrust: EvaluateTrust) {
+	func update(_ evaluateTrust: TrustEvaluating) {
 		Log.debug("No update supported")
 	}
 	

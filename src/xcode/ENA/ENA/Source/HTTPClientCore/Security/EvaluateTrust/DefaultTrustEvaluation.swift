@@ -2,7 +2,11 @@
 // 🦠 Corona-Warn-App
 //
 
-struct DefaultEvaluateTrust: EvaluateTrust {
+public enum DefaultTrustEvaluationError {
+	case CERT_MISMATCH
+}
+
+class DefaultTrustEvaluation: TrustEvaluating {
 	
 	init(
 		publicKeyHash: String
@@ -10,7 +14,7 @@ struct DefaultEvaluateTrust: EvaluateTrust {
 		self.publicKeyHash = publicKeyHash
 	}
 	
-	// MARK: - Protocol EvaluateTrust
+	// MARK: - Protocol TrustEvaluating
 	
 	/// Common evaluation, covering iOS versions 12.5 or 13.x
 	/// - Parameters:
@@ -38,6 +42,7 @@ struct DefaultEvaluateTrust: EvaluateTrust {
 			  let serverPublicKeyData = SecKeyCopyExternalRepresentation(serverPublicKey, nil ) as Data?,
 			  publicKeyHash == serverPublicKeyData.sha256String()
 		else {
+			trustEvaluationError = .default(.CERT_MISMATCH)
 			completionHandler(.cancelAuthenticationChallenge, /* credential */ nil)
 			return
 		}
@@ -48,7 +53,7 @@ struct DefaultEvaluateTrust: EvaluateTrust {
 	
 	// MARK: - Internal
 
-	var trustEvaluationError: Error?
+	var trustEvaluationError: TrustEvaluationError?
 
 	// MARK: - Private
 	

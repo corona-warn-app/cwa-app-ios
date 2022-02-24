@@ -4,14 +4,14 @@
 
 import Foundation
 
-public enum TrustEvaluationError: Error {
+public enum JSONWebKeyTrustEvaluationError: Error {
     case CERT_CHAIN_EMTPY
     case CERT_PIN_NO_JWK_FOR_KID
     case CERT_PIN_MISMATCH
     case CERT_PIN_HOST_MISMATCH
 }
 
-public class TrustEvaluation {
+public class JSONWebKeyTrustEvaluation {
 
     // MARK: - Init
 
@@ -19,7 +19,7 @@ public class TrustEvaluation {
 
     // MARK: - Public
 
-    public func check(trust: SecTrust, against jwkSet: [JSONWebKey], logMessage: ((String) -> Void)?) -> Result<Void, TrustEvaluationError> {
+    public func check(trust: SecTrust, against jwkSet: [JSONWebKey], logMessage: ((String) -> Void)?) -> Result<Void, JSONWebKeyTrustEvaluationError> {
         // Extract leafCertificate: the leafCertificate shall be extracted from the certificateChain. This is typically the first certificate of the chain.
         if let serverCertificate = SecTrustGetCertificateAtIndex(trust, 0),
            let serverCertificateData = SecCertificateCopyData(serverCertificate) as Data? {
@@ -30,7 +30,7 @@ public class TrustEvaluation {
         }
     }
 
-    public func check(serverKeyData: Data, against jwkSet: [JSONWebKey], logMessage: ((String) -> Void)?) -> Result<Void, TrustEvaluationError> {
+    public func check(serverKeyData: Data, against jwkSet: [JSONWebKey], logMessage: ((String) -> Void)?) -> Result<Void, JSONWebKeyTrustEvaluationError> {
         // Determine requiredKid: the requiredKid (a string) shall be determined by taking the first 8 bytes of the SHA-256 fingerprint of the leafCertificate and encoding it with base64.
         
         let requiredKid = serverKeyData.keyIdentifier
@@ -74,7 +74,7 @@ public class TrustEvaluation {
         hostname: String,
         trust: SecTrust,
         allowList: [ValidationServiceAllowlistEntry]
-    ) -> Result<Void, TrustEvaluationError> {
+    ) -> Result<Void, JSONWebKeyTrustEvaluationError> {
                 
         guard let serverCertificate = SecTrustGetCertificateAtIndex(trust, 0),
            let leafCertificate = SecCertificateCopyData(serverCertificate) as Data? else {
