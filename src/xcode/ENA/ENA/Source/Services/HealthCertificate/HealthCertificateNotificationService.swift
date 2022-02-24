@@ -94,9 +94,8 @@ class HealthCertificateNotificationService {
 		}
 
 		if newBoosterNotificationIdentifier != previousBoosterNotificationIdentifier {
-			// we need to have an ID for the notification and since the certified person doesn't have this property "unlike the certificates" we will compute it as the hash of the string of the standardizedName + dateOfBirth
-			guard let name = name, let dateOfBirth = person.dateOfBirth else {
-				Log.error("standardizedName or dateOfBirth is nil, will not trigger booster notification", log: .vaccination)
+			guard let personIdentifier = person.identifier else {
+				Log.error("Person identifier is nil, will not trigger booster notification", log: .vaccination)
 				completion?()
 
 				return
@@ -104,7 +103,6 @@ class HealthCertificateNotificationService {
 
 			Log.info("Scheduling booster notification for \(private: String(describing: name))", log: .vaccination)
 
-			let personIdentifier = ENAHasher.sha256(name + dateOfBirth)
 			self.scheduleBoosterNotification(personIdentifier: personIdentifier, completion: completion)
 		} else {
 			Log.debug("Booster notification identifier \(private: newBoosterNotificationIdentifier) unchanged, no booster notification scheduled", log: .vaccination)
@@ -126,9 +124,8 @@ class HealthCertificateNotificationService {
 		}
 
 		if newCertificateReissuance != previousCertificateReissuance {
-			// we need to have an ID for the notification and since the certified person doesn't have this property "unlike the certificates" we will compute it as the hash of the string of the standardizedName + dateOfBirth
-			guard let name = name, let dateOfBirth = person.dateOfBirth else {
-				Log.error("standardizedName or dateOfBirth is nil, will not trigger reissuance notification", log: .vaccination)
+			guard let personIdentifier = person.identifier else {
+				Log.error("Person identifier is nil, will not trigger booster notification", log: .vaccination)
 				completion?()
 
 				return
@@ -136,7 +133,6 @@ class HealthCertificateNotificationService {
 
 			Log.info("Scheduling reissuance notification for \(private: String(describing: name))", log: .vaccination)
 
-			let personIdentifier = ENAHasher.sha256(name + dateOfBirth)
 			self.scheduleCertificateReissuanceNotification(personIdentifier: personIdentifier, completion: completion)
 		} else {
 			Log.debug("Certificate reissuance \(private: newCertificateReissuance) unchanged, no reissuance notification scheduled", log: .vaccination)
