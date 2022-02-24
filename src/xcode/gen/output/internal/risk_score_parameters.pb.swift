@@ -295,27 +295,31 @@ extension SAP_Internal_RiskScoreParameters: SwiftProtobuf.Message, SwiftProtobuf
 
   func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
     try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      if let v = _storage._transmission {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every if/case branch local when no optimizations
+      // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+      // https://github.com/apple/swift-protobuf/issues/1182
+      try { if let v = _storage._transmission {
         try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-      }
+      } }()
       if _storage._transmissionWeight != 0 {
         try visitor.visitSingularDoubleField(value: _storage._transmissionWeight, fieldNumber: 2)
       }
-      if let v = _storage._duration {
+      try { if let v = _storage._duration {
         try visitor.visitSingularMessageField(value: v, fieldNumber: 3)
-      }
+      } }()
       if _storage._durationWeight != 0 {
         try visitor.visitSingularDoubleField(value: _storage._durationWeight, fieldNumber: 4)
       }
-      if let v = _storage._daysSinceLastExposure {
+      try { if let v = _storage._daysSinceLastExposure {
         try visitor.visitSingularMessageField(value: v, fieldNumber: 5)
-      }
+      } }()
       if _storage._daysWeight != 0 {
         try visitor.visitSingularDoubleField(value: _storage._daysWeight, fieldNumber: 6)
       }
-      if let v = _storage._attenuation {
+      try { if let v = _storage._attenuation {
         try visitor.visitSingularMessageField(value: v, fieldNumber: 7)
-      }
+      } }()
       if _storage._attenuationWeight != 0 {
         try visitor.visitSingularDoubleField(value: _storage._attenuationWeight, fieldNumber: 8)
       }
