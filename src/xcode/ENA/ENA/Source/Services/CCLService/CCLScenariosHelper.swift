@@ -6,13 +6,19 @@ import Foundation
 
 class CCLScenariosHelper {
 	
+	// MARK: - Init
+			
 	init(cclService: CCLServable, store: HealthCertificateStoring) {
 		self.cclService = cclService
 		self.store = store
 	}
 	
+	// MARK: - Private
+
 	private let cclService: CCLServable
 	private let store: HealthCertificateStoring
+
+	// MARK: - Internal
 
 	func showAdmissionScenarios(
 		completion: @escaping (Result<SelectValueViewModel, DCCAdmissionCheckScenariosAccessError>) -> Void) {
