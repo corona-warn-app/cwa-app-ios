@@ -18,13 +18,13 @@ final class HealthCertifiedPersonReissuanceConsentViewModel {
 
 	init(
 		faqAnker: String = "dcc_replacement",
+		cclService: CCLServable,
+		certificate: HealthCertificate,
 		certifiedPerson: HealthCertifiedPerson,
 		onDisclaimerButtonTap: @escaping () -> Void
 	) {
-		guard let certificate = certifiedPerson.mostRelevantHealthCertificate else {
-			fatalError("NYD")
-		}
 		self.faqAnker = faqAnker
+		self.cclService = cclService
 		self.certificate = certificate
 		self.certifiedPerson = certifiedPerson
 		self.onDisclaimerButtonTap = onDisclaimerButtonTap
@@ -34,17 +34,41 @@ final class HealthCertifiedPersonReissuanceConsentViewModel {
 
 	let title: String = AppStrings.HealthCertificate.Person.UpdateConsent.title
 
+	private var titleDynamicCell: DynamicCell? {
+		guard let title = certifiedPerson.dccWalletInfo?.certificateReissuance?.reissuanceDivision.titleText?.localized(cclService: cclService) else {
+			Log.info("subtitle missing")
+			return nil
+		}
+		return DynamicCell.title2(text: title)
+	}
+
+	private var subtileDynamicCell: DynamicCell? {
+		guard let subtitle = certifiedPerson.dccWalletInfo?.certificateReissuance?.reissuanceDivision.subtitleText?.localized(cclService: cclService) else {
+			Log.info("subtitle missing")
+			return nil
+		}
+		return DynamicCell.subheadline(text: subtitle)
+	}
+
+	private var longTextDynamicCell: DynamicCell? {
+		guard let longtext = certifiedPerson.dccWalletInfo?.certificateReissuance?.reissuanceDivision.longText?.localized(cclService: cclService) else {
+			Log.info("subtitle missing")
+			return nil
+		}
+		return DynamicCell.body(text: longtext)
+	}
+
 	var dynamicTableViewModel: DynamicTableViewModel {
 		DynamicTableViewModel(
 			[
 				.section(
 					cells: [
 						.certificate(certificate, certifiedPerson: certifiedPerson),
-						.title2(text: AppStrings.HealthCertificate.Person.UpdateConsent.headline),
-						.subheadline(text: AppStrings.HealthCertificate.Person.UpdateConsent.subHeadline),
-						.body(text: AppStrings.HealthCertificate.Person.UpdateConsent.body_1),
-						.body(text: AppStrings.HealthCertificate.Person.UpdateConsent.body_2)
+						titleDynamicCell,
+						subtileDynamicCell,
+						longTextDynamicCell
 					]
+						.compactMap({ $0 })
 				),
 				.section(
 					cells: [
@@ -119,6 +143,7 @@ final class HealthCertifiedPersonReissuanceConsentViewModel {
 	// MARK: - Private
 
 	private let faqAnker: String
+	private let cclService: CCLServable
 	private let certificate: HealthCertificate
 	private let certifiedPerson: HealthCertifiedPerson
 	private let onDisclaimerButtonTap: () -> Void

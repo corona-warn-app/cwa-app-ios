@@ -9,6 +9,8 @@ class HealthCertifiedPersonReissuanceConsentViewController: DynamicTableViewCont
 	// MARK: - Init
 
 	init(
+		cclService: CCLServable,
+		certificate: HealthCertificate,
 		healthCertifiedPerson: HealthCertifiedPerson,
 		didTapDataPrivacy: @escaping () -> Void,
 		presentAlert: @escaping (_ ok: UIAlertAction, _ retry: UIAlertAction) -> Void,
@@ -18,6 +20,8 @@ class HealthCertifiedPersonReissuanceConsentViewController: DynamicTableViewCont
 	) {
 		self.presentAlert = presentAlert
 		self.viewModel = HealthCertifiedPersonReissuanceConsentViewModel(
+			cclService: cclService,
+			certificate: certificate,
 			certifiedPerson: healthCertifiedPerson,
 			onDisclaimerButtonTap: didTapDataPrivacy
 		)
