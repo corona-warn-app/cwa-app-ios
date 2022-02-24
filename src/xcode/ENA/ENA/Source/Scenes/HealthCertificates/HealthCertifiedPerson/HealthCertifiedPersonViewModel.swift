@@ -19,7 +19,7 @@ final class HealthCertifiedPersonViewModel {
 		didTapBoosterNotification: @escaping (HealthCertifiedPerson) -> Void,
 		didTapValidationButton: @escaping (HealthCertificate, @escaping (Bool) -> Void) -> Void,
 		showInfoHit: @escaping () -> Void,
-		didTapUpdateNotification: @escaping () -> Void
+		didTapCertificateReissuance: @escaping (HealthCertifiedPerson) -> Void
 	) {
 		self.cclService = cclService
 		self.healthCertificateService = healthCertificateService
@@ -29,7 +29,7 @@ final class HealthCertifiedPersonViewModel {
 		self.didTapBoosterNotification = didTapBoosterNotification
 		self.didTapValidationButton = didTapValidationButton
 		self.showInfo = showInfoHit
-		self.didTapUpdateNotification = didTapUpdateNotification
+		self.didTapCertificateReissuance = didTapCertificateReissuance
 
 		self.certificateReissuanceCellModel = CertificateReissuanceCellModel(healthCertifiedPerson: healthCertifiedPerson, cclService: cclService)
 		self.boosterNotificationCellModel = BoosterNotificationCellModel(healthCertifiedPerson: healthCertifiedPerson, cclService: cclService)
@@ -225,6 +225,10 @@ final class HealthCertifiedPersonViewModel {
 		return TableViewSection.map(indexPath.section) == .certificates
 	}
 
+	func didTapCertificateReissuanceCell() {
+		didTapCertificateReissuance(healthCertifiedPerson)
+	}
+
 	func didTapBoosterNotificationCell() {
 		didTapBoosterNotification(healthCertifiedPerson)
 	}
@@ -239,10 +243,10 @@ final class HealthCertifiedPersonViewModel {
 	private let healthCertificateService: HealthCertificateService
 	private let healthCertificateValueSetsProvider: VaccinationValueSetsProviding
 
+	private let didTapCertificateReissuance: (HealthCertifiedPerson) -> Void
 	private let didTapBoosterNotification: (HealthCertifiedPerson) -> Void
 	private let didTapValidationButton: (HealthCertificate, @escaping (Bool) -> Void) -> Void
 	private let showInfo: () -> Void
-	private let didTapUpdateNotification: () -> Void
 	private var subscriptions = Set<AnyCancellable>()
 
 	private var healthCertificateCellViewModels = [HealthCertificateCellViewModel]()

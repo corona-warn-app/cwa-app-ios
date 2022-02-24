@@ -20,7 +20,7 @@ class HealthCertifiedPersonViewController: UIViewController, UITableViewDataSour
 		didTapHealthCertificate: @escaping (HealthCertificate) -> Void,
 		didSwipeToDelete: @escaping (HealthCertificate, @escaping () -> Void) -> Void,
 		showInfoHit: @escaping () -> Void,
-		didTapUpdateNotification: @escaping () -> Void
+		didTapCertificateReissuance: @escaping (HealthCertifiedPerson) -> Void
 	) {
 		self.dismiss = dismiss
 		self.didTapHealthCertificate = didTapHealthCertificate
@@ -35,7 +35,7 @@ class HealthCertifiedPersonViewController: UIViewController, UITableViewDataSour
 			didTapBoosterNotification: didTapBoosterNotification,
 			didTapValidationButton: didTapValidationButton,
 			showInfoHit: showInfoHit,
-			didTapUpdateNotification: didTapUpdateNotification
+			didTapCertificateReissuance: didTapCertificateReissuance
 		)
 
 		super.init(nibName: nil, bundle: nil)
@@ -165,6 +165,8 @@ class HealthCertifiedPersonViewController: UIViewController, UITableViewDataSour
 	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 		let section = HealthCertifiedPersonViewModel.TableViewSection.map(indexPath.section)
 		switch section {
+		case .certificateReissuance:
+			viewModel.didTapCertificateReissuanceCell()
 		case .boosterNotification:
 			viewModel.didTapBoosterNotificationCell()
 		case .certificates:
