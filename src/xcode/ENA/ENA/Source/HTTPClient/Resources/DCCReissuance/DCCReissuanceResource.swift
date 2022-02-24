@@ -13,6 +13,7 @@ enum DCCReissuanceResourceError: LocalizedError {
 	case DCC_RI_401
 	case DCC_RI_403
 	case DCC_RI_406
+	case DCC_RI_429
 	case DCC_RI_500
 	case DCC_RI_CLIENT_ERR
 	case DCC_RI_SERVER_ERR
@@ -33,6 +34,8 @@ enum DCCReissuanceResourceError: LocalizedError {
 		case .DCC_RI_403:
 			return "someError"
 		case .DCC_RI_406:
+			return "someError"
+		case .DCC_RI_429:
 			return "someError"
 		case .DCC_RI_500:
 			return "someError"
@@ -109,7 +112,9 @@ struct DCCReissuanceResource: Resource {
 			return .DCC_RI_403
 		case 406:
 			return .DCC_RI_406
-		case 402, 404, 405, 407...499:
+		case 429:
+			return .DCC_RI_429
+		case 402, 404, 405, 407...428, 430...499:
 			return .DCC_RI_CLIENT_ERR
 		case 500:
 			return .DCC_RI_500
