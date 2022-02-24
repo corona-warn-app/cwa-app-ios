@@ -3241,7 +3241,7 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 /* Reissuance */
 
-/* HealthCertifiedPerson Consent */
+/* HealthCertificate Resissuance Consent */
 
 "HealthCertificate_Reissuance_Consent_primaryButtonTitle" = "Einverstanden";
 
@@ -3257,7 +3257,7 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "HealthCertificate_Reissuance_Consent_Title" = "Ihr Einverständnis";
 
-/* HealthCertifiedPerson Succeeded */
+/* HealthCertificate Resissuance Succeeded */
 
 "HealthCertificate_Reissuance_Succeeded_Title" = "Zertifikat aktualisiert";
 
@@ -3265,7 +3265,7 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "HealthCertificate_Reissuance_Succeeded_Body" = "Sie finden das aktualisierte Zertifikat nun in der Zertifikate-Registerkarte.";
 
-/* Request Error */
+/* HealthCertificate Resissuance Request Error */
 
 "HealthCertificate_Reissuance_Error_Contact_Support" = "Es ist ein technischer Fehler aufgetreten. Bitte kontaktieren Sie die technische Hotline über App-Informationen -> Technische Hotline.";
 
