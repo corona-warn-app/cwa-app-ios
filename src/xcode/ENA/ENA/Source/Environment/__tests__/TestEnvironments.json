@@ -8,6 +8,7 @@
 			"dataDonationURL": "https://TestEnvironment0.datadonation",
 			"errorLogSubmissionURL": "https://TestEnvironment0.logupload",
 			"dccURL": "https://TestEnvironment0.dgc",
+			"dccRecertifyURL": "https://TestEnvironment0.logupload",
 			"validationKeyString": "Key0",
 			"pinningKeyHash": "hash0"
 		},
@@ -19,6 +20,7 @@
 			"dataDonationURL": "https://TestEnvironment1.datadonation",
 			"errorLogSubmissionURL": "https://TestEnvironment1.logupload",
 			"dccURL": "https://TestEnvironment1.dgc",
+			"dccRecertifyURL": "https://TestEnvironment1.logupload",
 			"validationKeyString": "Key1",
 			"pinningKeyHash": "hash1"
 		},
@@ -30,6 +32,7 @@
 			"dataDonationURL": "https://TestEnvironment2.datadonation",
 			"errorLogSubmissionURL": "https://TestEnvironment2.logupload",
 			"dccURL": "https://TestEnvironment2.dgc",
+			"dccRecertifyURL": "https://TestEnvironment2.logupload",
 			"validationKeyString": "Key2",
 			"pinningKeyHash": "hash2"
 		},
@@ -41,6 +44,7 @@
 			"dataDonationURL": "https://prod.datadonation",
 			"errorLogSubmissionURL": "https://prod.logupload",
 			"dccURL": "https://prod.dgc",
+			"dccRecertifyURL": "https://prod.recertify",
 			"validationKeyString": "Key",
 			"pinningKeyHash": "hash"
 		}
