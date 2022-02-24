@@ -23,8 +23,6 @@ class RestServiceProvider: RestServiceProviding {
 		self.standardRestService = StandardRestService(environment: environment, session: session)
 		self.cachedRestService = CachedRestService(environment: environment, session: session, cache: cache)
 		self.wifiOnlyRestService = WifiOnlyRestService(environment: environment, session: session)
-		self.dynamicPinningRestService = DynamicPinningRestService(environment: environment, session: session, jwkSet: jwkSet)
-		self.disabledPinningRestService = DisabledPinningRestService(environment: environment, session: session)
 	}
 
 	func load<R>(
@@ -41,13 +39,6 @@ class RestServiceProvider: RestServiceProviding {
 			wifiOnlyRestService.load(resource, completion)
 		case .retrying:
 			Log.error("Not yet implemented")
-		case .dynamicPinning:
-			/// use lock to make sure we are not updating dynamicPinningRestService at the moment
-			updateLock.lock()
-			dynamicPinningRestService.load(resource, completion)
-			updateLock.unlock()
-		case .disabledPinning:
-			disabledPinningRestService.load(resource, completion)
 		}
 	}
 	
@@ -61,25 +52,10 @@ class RestServiceProvider: RestServiceProviding {
 			return cachedRestService.cached(resource)
 		case .wifiOnly:
 			return wifiOnlyRestService.cached(resource)
-		case .dynamicPinning:
-			return dynamicPinningRestService.cached(resource)
-		case .disabledPinning:
-			return disabledPinningRestService.cached(resource)
 		default:
 			Log.error("Cache is not supported by that type of restService")
 			return .failure(.resourceError(.missingCache))
 		}
-	}
-
-	// update evaluation trust - only possible for dynamic pinning at the moment
-	func update(_ evaluateTrust: EvaluateTrust) {
-		guard let delegate = dynamicPinningRestService.urlSessionDelegate as? CoronaWarnURLSessionDelegate else {
-			return
-		}
-
-		updateLock.lock()
-		delegate.evaluateTrust = evaluateTrust
-		updateLock.unlock()
 	}
 
 	// MARK: - Private
@@ -89,21 +65,5 @@ class RestServiceProvider: RestServiceProviding {
 	private let standardRestService: StandardRestService
 	private let cachedRestService: CachedRestService
 	private let wifiOnlyRestService: WifiOnlyRestService
-	private let dynamicPinningRestService: DynamicPinningRestService
-	private let disabledPinningRestService: DisabledPinningRestService
-	private let updateLock: NSLock = NSLock()
 
 }
-
-#if !RELEASE
-extension RestServiceProvider {
-
-	var evaluateTrust: EvaluateTrust? {
-		guard let delegate = dynamicPinningRestService.urlSessionDelegate as? CoronaWarnURLSessionDelegate else {
-			return nil
-		}
-		return delegate.evaluateTrust
-	}
-
-}
-#endif

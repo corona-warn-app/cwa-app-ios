@@ -18,6 +18,4 @@ protocol RestServiceProviding {
 	func cached<R>(
 		_ resource: R
 	) -> Result<R.Receive.ReceiveModel, ServiceError<R.CustomError>> where R: Resource
-
-	func update(_ evaluateTrust: EvaluateTrust)
 }

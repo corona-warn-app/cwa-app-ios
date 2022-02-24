@@ -8,6 +8,7 @@
             "dataDonationURL": "https://data.coronawarn.app",
             "errorLogSubmissionURL": "https://logupload.coronawarn.app",
             "dccURL": "https://dcc.coronawarn.app",
+            "dccRecertifyURL": "https://api.recertify.ubirch.com",
             "validationKeyString": "c7DEstcUIRcyk35OYDJ95/hTg3UVhsaDXKT0zK7NhHPXoyzipEnOp3GyNXDVpaPi3cAfQmxeuFMZAIX2+6A5Xg==",
             "pinningKeyHash": "f30c3959de6b062374f037c505fb3864e1b0678086252ab457ddd97c729d06ab"
         }
