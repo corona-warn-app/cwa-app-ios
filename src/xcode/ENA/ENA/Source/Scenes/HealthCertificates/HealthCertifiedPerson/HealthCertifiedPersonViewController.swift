@@ -317,6 +317,10 @@ class HealthCertifiedPersonViewController: UIViewController, UITableViewDataSour
 			forCellReuseIdentifier: HealthCertificateQRCodeCell.reuseIdentifier
 		)
 		tableView.register(
+			CertificateReissuanceTableViewCell.self,
+			forCellReuseIdentifier: CertificateReissuanceTableViewCell.reuseIdentifier
+		)
+		tableView.register(
 			BoosterNotificationTableViewCell.self,
 			forCellReuseIdentifier: BoosterNotificationTableViewCell.reuseIdentifier
 		)
