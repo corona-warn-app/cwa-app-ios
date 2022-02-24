@@ -140,6 +140,55 @@ class NotificationManagerTests: XCTestCase {
 		XCTAssertEqual(extractedHealthCertifiedPerson.name?.standardizedName, healthCertifiedPerson.name?.standardizedName)
 		XCTAssertEqual(extractedHealthCertifiedPerson.dateOfBirth, healthCertifiedPerson.dateOfBirth)
 	}
+
+	func testGIVEN_HealthCertifiedPerson_WHEN_CertificateReissuanceNotificationIsTriggered_THEN_ExtractionIsCorrect() throws {
+
+		// GIVEN
+
+		let (healthCertificateService, notificationManager) = createServices()
+
+		let vaccinationCertificate1Base45 = try base45Fake(
+			from: DigitalCovidCertificate.fake(
+				name: .fake(standardizedFamilyName: "BRAUSE", standardizedGivenName: "PASCAL"),
+				vaccinationEntries: [VaccinationEntry.fake(
+					dateOfVaccination: "2021-09-03",
+					uniqueCertificateIdentifier: "1"
+				)]
+			)
+		)
+
+		let expectedName = Name.fake(standardizedFamilyName: "TEUBER", standardizedGivenName: "KAI")
+
+		let vaccinationCertificate2Base45 = try base45Fake(
+			from: DigitalCovidCertificate.fake(
+				name: expectedName,
+				vaccinationEntries: [VaccinationEntry.fake(
+					dateOfVaccination: "2021-09-06",
+					uniqueCertificateIdentifier: "2"
+				)]
+			)
+		)
+		let expectedCertificate = try XCTUnwrap(HealthCertificate(base45: vaccinationCertificate2Base45))
+		let healthCertifiedPerson = HealthCertifiedPerson(healthCertificates: [expectedCertificate])
+
+		_ = healthCertificateService.registerHealthCertificate(base45: vaccinationCertificate2Base45)
+		_ = healthCertificateService.registerHealthCertificate(base45: vaccinationCertificate1Base45)
+
+		// WHEN
+		guard let personIdentifier = healthCertifiedPerson.identifier else {
+			XCTFail("Person identifier can't be nil")
+			return
+		}
+
+		let notificationRawValue = LocalNotificationIdentifier.certificateReissuance.rawValue
+		let notificationIdentifier = notificationRawValue + personIdentifier
+		let extractedHealthCertifiedPerson = try XCTUnwrap(notificationManager.extractPerson(notificationRawValue, from: notificationIdentifier))
+
+		// THEN
+
+		XCTAssertEqual(extractedHealthCertifiedPerson.name?.standardizedName, healthCertifiedPerson.name?.standardizedName)
+		XCTAssertEqual(extractedHealthCertifiedPerson.dateOfBirth, healthCertifiedPerson.dateOfBirth)
+	}
 	
 	private func createServices() -> (HealthCertificateService, NotificationManager) {
 		
