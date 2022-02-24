@@ -20,7 +20,8 @@ final class TicketValidationResultTokenResourceTests: CWATestCase {
 		let ticketValidationResultTokenResource = TicketValidationResultTokenResource(
 			resultTokenServiceURL: URL(staticString: "http://www.coronawarn.app"),
 			jwt: "headerJWT",
-			sendModel: TicketValidationResultTokenSendModel(kid: "", dcc: "", sig: "", encKey: "", encScheme: "", sigAlg: "")
+			sendModel: TicketValidationResultTokenSendModel(kid: "", dcc: "", sig: "", encKey: "", encScheme: "", sigAlg: ""),
+			trustEvaluation: .fake()
 		)
 
 		serviceProvider.load(ticketValidationResultTokenResource) { result in
@@ -48,7 +49,8 @@ final class TicketValidationResultTokenResourceTests: CWATestCase {
 		let ticketValidationResultTokenResource = TicketValidationResultTokenResource(
 			resultTokenServiceURL: URL(staticString: "http://www.coronawarn.app"),
 			jwt: "headerJWT",
-			sendModel: TicketValidationResultTokenSendModel(kid: "", dcc: "", sig: "", encKey: "", encScheme: "", sigAlg: "")
+			sendModel: TicketValidationResultTokenSendModel(kid: "", dcc: "", sig: "", encKey: "", encScheme: "", sigAlg: ""),
+			trustEvaluation: .fake()
 		)
 
 		serviceProvider.load(ticketValidationResultTokenResource) { result in
@@ -73,7 +75,8 @@ final class TicketValidationResultTokenResourceTests: CWATestCase {
 		let ticketValidationResultTokenResource = TicketValidationResultTokenResource(
 			resultTokenServiceURL: URL(staticString: "http://www.coronawarn.app"),
 			jwt: "headerJWT",
-			sendModel: TicketValidationResultTokenSendModel(kid: "", dcc: "", sig: "", encKey: "", encScheme: "", sigAlg: "")
+			sendModel: TicketValidationResultTokenSendModel(kid: "", dcc: "", sig: "", encKey: "", encScheme: "", sigAlg: ""),
+			trustEvaluation: .fake()
 		)
 
 		let customError = try XCTUnwrap(
@@ -87,7 +90,8 @@ final class TicketValidationResultTokenResourceTests: CWATestCase {
 		let ticketValidationResultTokenResource = TicketValidationResultTokenResource(
 			resultTokenServiceURL: URL(staticString: "http://www.coronawarn.app"),
 			jwt: "headerJWT",
-			sendModel: TicketValidationResultTokenSendModel(kid: "", dcc: "", sig: "", encKey: "", encScheme: "", sigAlg: "")
+			sendModel: TicketValidationResultTokenSendModel(kid: "", dcc: "", sig: "", encKey: "", encScheme: "", sigAlg: ""),
+			trustEvaluation: .fake()
 		)
 
 		let customError = try XCTUnwrap(
@@ -101,7 +105,8 @@ final class TicketValidationResultTokenResourceTests: CWATestCase {
 		let ticketValidationResultTokenResource = TicketValidationResultTokenResource(
 			resultTokenServiceURL: URL(staticString: "http://www.coronawarn.app"),
 			jwt: "headerJWT",
-			sendModel: TicketValidationResultTokenSendModel(kid: "", dcc: "", sig: "", encKey: "", encScheme: "", sigAlg: "")
+			sendModel: TicketValidationResultTokenSendModel(kid: "", dcc: "", sig: "", encKey: "", encScheme: "", sigAlg: ""),
+			trustEvaluation: .fake()
 		)
 
 		let customError = try XCTUnwrap(
@@ -123,11 +128,12 @@ final class TicketValidationResultTokenResourceTests: CWATestCase {
 		let ticketValidationResultTokenResource = TicketValidationResultTokenResource(
 			resultTokenServiceURL: URL(staticString: "http://www.coronawarn.app"),
 			jwt: "headerJWT",
-			sendModel: TicketValidationResultTokenSendModel(kid: "", dcc: "", sig: "", encKey: "", encScheme: "", sigAlg: "")
+			sendModel: TicketValidationResultTokenSendModel(kid: "", dcc: "", sig: "", encKey: "", encScheme: "", sigAlg: ""),
+			trustEvaluation: .fake()
 		)
 
 		let customError = try XCTUnwrap(
-			ticketValidationResultTokenResource.customError(for: .trustEvaluationError(.CERT_PIN_MISMATCH))
+			ticketValidationResultTokenResource.customError(for: .trustEvaluationError(.jsonWebKey(.CERT_PIN_MISMATCH)))
 		)
 
 		XCTAssertEqual(customError, .RTR_CERT_PIN_MISMATCH)
@@ -137,11 +143,12 @@ final class TicketValidationResultTokenResourceTests: CWATestCase {
 		let ticketValidationResultTokenResource = TicketValidationResultTokenResource(
 			resultTokenServiceURL: URL(staticString: "http://www.coronawarn.app"),
 			jwt: "headerJWT",
-			sendModel: TicketValidationResultTokenSendModel(kid: "", dcc: "", sig: "", encKey: "", encScheme: "", sigAlg: "")
+			sendModel: TicketValidationResultTokenSendModel(kid: "", dcc: "", sig: "", encKey: "", encScheme: "", sigAlg: ""),
+			trustEvaluation: .fake()
 		)
 
 		let customError = try XCTUnwrap(
-			ticketValidationResultTokenResource.customError(for: .trustEvaluationError(.CERT_PIN_HOST_MISMATCH))
+			ticketValidationResultTokenResource.customError(for: .trustEvaluationError(.jsonWebKey(.CERT_PIN_HOST_MISMATCH)))
 		)
 
 		XCTAssertEqual(customError, .RTR_CERT_PIN_HOST_MISMATCH)

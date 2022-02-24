@@ -5,7 +5,7 @@
 import UIKit
 import OpenCombine
 
-class BoosterNotificationTableViewCell: UITableViewCell, UITextViewDelegate, ReuseIdentifierProviding {
+class BoosterNotificationTableViewCell: UITableViewCell, ReuseIdentifierProviding {
 
 	// MARK: - Init
 
@@ -26,12 +26,6 @@ class BoosterNotificationTableViewCell: UITableViewCell, UITextViewDelegate, Reu
 		super.traitCollectionDidChange(previousTraitCollection)
 
 		updateBorderWidth()
-	}
-
-	// MARK: - Protocol UITextViewDelegate
-
-	func textView(_ textView: UITextView, shouldInteractWith url: URL, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
-		LinkHelper.open(url: url, interaction: interaction) == .allow
 	}
 
 	// MARK: - Internal

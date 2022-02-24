@@ -179,6 +179,7 @@ private class CBORReceiveTestResource: Resource {
 		self.type = type
 		self.sendResource = EmptySendResource()
 		self.receiveResource = receiveResource
+		self.trustEvaluation = .fake()
 	}
 	
 	typealias Send = EmptySendResource
@@ -189,4 +190,5 @@ private class CBORReceiveTestResource: Resource {
 	let type: ServiceType
 	let sendResource: EmptySendResource
 	var receiveResource: CBORReceiveResource<CBORDecodingTestModel>
+	var trustEvaluation: TrustEvaluating
 }

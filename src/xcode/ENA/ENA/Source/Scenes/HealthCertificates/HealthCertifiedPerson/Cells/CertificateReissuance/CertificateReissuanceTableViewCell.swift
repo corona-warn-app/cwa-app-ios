@@ -5,7 +5,7 @@
 import UIKit
 import OpenCombine
 
-class CertificateReissuanceTableViewCell: UITableViewCell, UITextViewDelegate, ReuseIdentifierProviding {
+class CertificateReissuanceTableViewCell: UITableViewCell, ReuseIdentifierProviding {
 
 	// MARK: - Init
 
@@ -26,12 +26,6 @@ class CertificateReissuanceTableViewCell: UITableViewCell, UITextViewDelegate, R
 		super.traitCollectionDidChange(previousTraitCollection)
 
 		updateBorderWidth()
-	}
-
-	// MARK: - Protocol UITextViewDelegate
-
-	func textView(_ textView: UITextView, shouldInteractWith url: URL, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
-		LinkHelper.open(url: url, interaction: interaction) == .allow
 	}
 
 	// MARK: - Internal

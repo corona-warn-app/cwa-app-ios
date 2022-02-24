@@ -11,7 +11,10 @@ struct DCCRulesResource: Resource {
 
 	init(
 		isFake: Bool = false,
-		ruleType: HealthCertificateValidationRuleType
+		ruleType: HealthCertificateValidationRuleType,
+		trustEvaluation: TrustEvaluating = DefaultTrustEvaluation(
+			publicKeyHash: Environments().currentEnvironment().pinningKeyHash
+		)
 	) {
 		self.locator = .DCCRules(ruleType: ruleType, isFake: isFake)
 
@@ -34,6 +37,7 @@ struct DCCRulesResource: Resource {
 		self.sendResource = EmptySendResource()
 		self.receiveResource = CBORReceiveResource<DCCRulesReceiveModel>()
 		self.ruleType = ruleType
+		self.trustEvaluation = trustEvaluation
 	}
 
 	// MARK: - Protocol Resource
@@ -41,6 +45,8 @@ struct DCCRulesResource: Resource {
 	typealias Send = EmptySendResource
 	typealias Receive = CBORReceiveResource<DCCRulesReceiveModel>
 	typealias CustomError = DCCDownloadRulesError
+
+	let trustEvaluation: TrustEvaluating
 
 	var locator: Locator
 	var type: ServiceType

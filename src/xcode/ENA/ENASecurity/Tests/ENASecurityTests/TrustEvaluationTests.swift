@@ -24,7 +24,7 @@ class TrustEvaluationTests: XCTestCase {
             JSONWebKey(x5c: [""], kid: "", alg: "", use: "")
         ]
         let derBase64 = try XCTUnwrap(Data(base64Encoded: derBase64Key))
-        let trustEvaluation = TrustEvaluation()
+        let trustEvaluation = JSONWebKeyTrustEvaluation()
 
         let result = trustEvaluation.check(serverKeyData: derBase64, against: jwkSet) { message in
             print(message)
@@ -43,7 +43,7 @@ class TrustEvaluationTests: XCTestCase {
             JSONWebKey(x5c: [""], kid: "", alg: "", use: "")
         ]
         let derBase64 = try XCTUnwrap(Data(base64Encoded: derBase64Key))
-        let trustEvaluation = TrustEvaluation()
+        let trustEvaluation = JSONWebKeyTrustEvaluation()
 
         let result = trustEvaluation.check(serverKeyData: derBase64, against: jwkSet) { message in
             print(message)
@@ -67,7 +67,7 @@ class TrustEvaluationTests: XCTestCase {
             JSONWebKey(x5c: [""], kid: "", alg: "", use: "")
         ]
         let derBase64 = try XCTUnwrap(Data(base64Encoded: derBase64Key))
-        let trustEvaluation = TrustEvaluation()
+        let trustEvaluation = JSONWebKeyTrustEvaluation()
 
         let result = trustEvaluation.check(serverKeyData: derBase64, against: jwkSet) { message in
             print(message)
@@ -100,7 +100,7 @@ class TrustEvaluationTests: XCTestCase {
         let trust = try XCTUnwrap(optionalTrust)
         let fingerprint256 = data.sha256().base64EncodedString()
         
-        let result = TrustEvaluation().checkServerCertificateAgainstAllowlist(
+        let result = JSONWebKeyTrustEvaluation().checkServerCertificateAgainstAllowlist(
             hostname: hostName,
             trust: trust,
             allowList: [
@@ -140,7 +140,7 @@ class TrustEvaluationTests: XCTestCase {
         let wrongDataObject = Data()
         let fingerprint256 = wrongDataObject.sha256().base64EncodedString()
         
-        let result = TrustEvaluation().checkServerCertificateAgainstAllowlist(
+        let result = JSONWebKeyTrustEvaluation().checkServerCertificateAgainstAllowlist(
             hostname: hostName,
             trust: trust,
             allowList: [
@@ -179,7 +179,7 @@ class TrustEvaluationTests: XCTestCase {
         let trust = try XCTUnwrap(optionalTrust)
         let fingerprint256 = data.sha256().base64EncodedString()
         
-        let result = TrustEvaluation().checkServerCertificateAgainstAllowlist(
+        let result = JSONWebKeyTrustEvaluation().checkServerCertificateAgainstAllowlist(
             hostname: hostName,
             trust: trust,
             allowList: [
