@@ -153,7 +153,16 @@ final class HealthCertifiedPersonCoordinator {
 	}
 
 	private func showCertificateReissuanceConsent(for person: HealthCertifiedPerson) {
+		guard let dccReference = person.dccWalletInfo?.certificateReissuance?.certificateToReissue.certificateRef,
+			  let certificate = person.healthCertificate(for: dccReference)
+		else {
+			Log.error("No certificate for reissuance found - stop here")
+			return
+		}
+
 		let updateConsentViewController = HealthCertifiedPersonReissuanceConsentViewController(
+			cclService: cclService,
+			certificate: certificate,
 			healthCertifiedPerson: person,
 			didTapDataPrivacy: { [weak self] in
 				self?.showDataPrivacy()
