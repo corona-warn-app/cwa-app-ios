@@ -162,16 +162,7 @@ class NotificationManagerTests: XCTestCase {
 			recycleBin: .fake()
 		)
 		
-		let coronaTestService = CoronaTestService(
-			client: client,
-			store: store,
-			eventStore: eventStore,
-			diaryStore: diaryStore,
-			appConfiguration: cachedAppConfig,
-			healthCertificateService: healthCertificateService,
-			recycleBin: .fake(),
-			badgeWrapper: .fake()
-		)
+		let coronaTestService = MockCoronaTestService()
 		
 		let eventCheckoutService = EventCheckoutService(
 			eventStore: eventStore,

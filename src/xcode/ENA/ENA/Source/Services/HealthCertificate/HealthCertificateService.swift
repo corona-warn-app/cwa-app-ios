@@ -94,7 +94,15 @@ class HealthCertificateService {
 			updateTestCertificateRequestSubscriptions(for: testCertificateRequests)
 		}
 	}
-
+	
+	@DidSetPublished var lastSelectedScenarioIdentifier: String? {
+		didSet {
+			if lastSelectedScenarioIdentifier != oldValue {
+				self.store.lastSelectedScenarioIdentifier = lastSelectedScenarioIdentifier
+			}
+		}
+	}
+	
 	private(set) var unseenNewsCount = CurrentValueSubject<Int, Never>(0)
 	var didRegisterTestCertificate: ((String, TestCertificateRequest) -> Void)?
 	
@@ -267,15 +275,14 @@ class HealthCertificateService {
 		recycleBin.moveToBin(.certificate(healthCertificate))
 	}
 
-	func updateDCCWalletInfosIfNeeded(completion: (() -> Void)? = nil) {
+	func updateDCCWalletInfosIfNeeded(isForced: Bool = false, completion: (() -> Void)? = nil) {
 		cclService.updateConfiguration { [weak self] configurationDidChange in
 			guard let self = self else {
 				completion?()
 				return
 			}
-
 			let dispatchGroup = DispatchGroup()
-			for person in self.healthCertifiedPersons where configurationDidChange || person.needsDCCWalletInfoUpdate {
+			for person in self.healthCertifiedPersons where (configurationDidChange || person.needsDCCWalletInfoUpdate || isForced) {
 				dispatchGroup.enter()
 				self.updateDCCWalletInfo(for: person) {
 					dispatchGroup.leave()
@@ -736,7 +743,7 @@ class HealthCertificateService {
 	private func updateDCCWalletInfo(for person: HealthCertifiedPerson, completion: (() -> Void)? = nil) {
 		person.queue.async {
 			let result = self.cclService.dccWalletInfo(
-				for: person.healthCertificates.map { $0.dccWalletCertificate }
+				for: person.healthCertificates.map { $0.dccWalletCertificate }, with: self.store.lastSelectedScenarioIdentifier ?? ""
 			)
 
 			switch result {
@@ -1269,6 +1276,6 @@ class HealthCertificateService {
 
 		addNotification(request: request, completion: completion)
 	}
-
+	
 	// swiftlint:disable:next file_length
 }

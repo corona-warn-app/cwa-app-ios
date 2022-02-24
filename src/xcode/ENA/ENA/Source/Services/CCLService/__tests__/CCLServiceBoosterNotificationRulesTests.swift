@@ -21,6 +21,7 @@ class CCLServiceBoosterNotificationRulesTests: CCLServiceBaseTests {
 	func testGIVEN_emptyCache_WHEN_404_THEN_didChangeIsFalse() throws {
 		// GIVEN
 		let eTag = "DummyDataETag"
+		let appConfiguration = CachedAppConfigurationMock()
 		let stack = MockNetworkStack(
 			httpStatus: 404,
 			headerFields: [
@@ -29,7 +30,7 @@ class CCLServiceBoosterNotificationRulesTests: CCLServiceBaseTests {
 		)
 
 		let restServiceProvider = RestServiceProvider(session: stack.urlSession, cache: KeyValueCacheFake())
-		let cclService = CCLService(restServiceProvider, cclServiceMode: [.boosterRules], signatureVerifier: MockVerifier())
+		let cclService = CCLService(restServiceProvider, appConfiguration: appConfiguration, cclServiceMode: [.boosterRules], signatureVerifier: MockVerifier())
 		let expectation = expectation(description: "update finished")
 
 		// WHEN
@@ -48,7 +49,7 @@ class CCLServiceBoosterNotificationRulesTests: CCLServiceBaseTests {
 		// GIVEN
 		let eTag = "DummyDataETag"
 		let boosterRulesData = try boosterRulesData()
-
+		let appConfiguration = CachedAppConfigurationMock()
 		let stack = MockNetworkStack(
 			httpStatus: 200,
 			headerFields: [
@@ -58,7 +59,7 @@ class CCLServiceBoosterNotificationRulesTests: CCLServiceBaseTests {
 		)
 		let cache = try cache(with: Locator.DCCRules(ruleType: .boosterNotification, isFake: false), eTag: eTag, date: yesterday, responseData: boosterRulesData)
 		let restServiceProvider = RestServiceProvider(session: stack.urlSession, cache: cache)
-		let cclService = CCLService(restServiceProvider, cclServiceMode: [.boosterRules], signatureVerifier: MockVerifier())
+		let cclService = CCLService(restServiceProvider, appConfiguration: appConfiguration, cclServiceMode: [.boosterRules], signatureVerifier: MockVerifier())
 		let expectation = expectation(description: "update finished")
 
 		// WHEN
@@ -77,7 +78,7 @@ class CCLServiceBoosterNotificationRulesTests: CCLServiceBaseTests {
 		// GIVEN
 		let eTag = "DummyDataETag"
 		let boosterRulesData = try boosterRulesData()
-
+		let appConfiguration = CachedAppConfigurationMock()
 		let stack = MockNetworkStack(
 			httpStatus: 200,
 			headerFields: [
@@ -87,7 +88,7 @@ class CCLServiceBoosterNotificationRulesTests: CCLServiceBaseTests {
 		)
 		let cache = try cache(with: Locator.DCCRules(ruleType: .boosterNotification, isFake: false), eTag: eTag, date: today, responseData: boosterRulesData)
 		let restServiceProvider = RestServiceProvider(session: stack.urlSession, cache: cache)
-		let cclService = CCLService(restServiceProvider, cclServiceMode: [.boosterRules], signatureVerifier: MockVerifier())
+		let cclService = CCLService(restServiceProvider, appConfiguration: appConfiguration, cclServiceMode: [.boosterRules], signatureVerifier: MockVerifier())
 		let expectation = expectation(description: "update finished")
 
 		// WHEN

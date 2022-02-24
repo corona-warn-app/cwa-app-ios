@@ -285,7 +285,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 	var store: Store
 	let restServiceCache: KeyValueCaching
 
-	lazy var coronaTestService: CoronaTestService = {
+	lazy var coronaTestService: CoronaTestServiceProviding = {
 		return CoronaTestService(
 			client: client,
 			restServiceProvider: restServiceProvider,
@@ -392,7 +392,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 	)
 
 	private lazy var cclService: CCLServable = {
-		CCLService(restServiceProvider)
+		CCLService(restServiceProvider, appConfiguration: appConfigurationProvider)
 	}()
 
 	private lazy var analyticsSubmitter: PPAnalyticsSubmitting = {

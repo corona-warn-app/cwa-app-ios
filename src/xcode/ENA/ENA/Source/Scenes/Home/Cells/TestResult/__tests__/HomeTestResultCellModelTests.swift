@@ -58,7 +58,6 @@ class HomeTestResultCellModelTests: CWATestCase {
 		AccessibilityIdentifiers.Home.TestResultCell.loadingPCRButton
 	]
 
-	// swiftlint:disable:next function_body_length
 	func test_whenTestResultChanges_then_changesAreReflectedInTheSubscription() {
 		let expectationSubtitles = expectation(description: "expectationSubtitles")
 		let expectationDescription = expectation(description: "expectationDescription")
@@ -86,29 +85,8 @@ class HomeTestResultCellModelTests: CWATestCase {
 		expectationAccessibilityIdentifiers.expectedFulfillmentCount = accessibilityIdentifiersArray.count
 		expectationOnUpdate.expectedFulfillmentCount = 7
 
-		let client = ClientMock()
-		let store = MockTestStore()
-		let appConfiguration = CachedAppConfigurationMock()
-		
-		let coronaTestService = CoronaTestService(
-			client: client,
-			store: store,
-			eventStore: MockEventStore(),
-			diaryStore: MockDiaryStore(),
-			appConfiguration: appConfiguration,
-			healthCertificateService: HealthCertificateService(
-				store: store,
-				dccSignatureVerifier: DCCSignatureVerifyingStub(),
-				dscListProvider: MockDSCListProvider(),
-				client: client,
-				appConfiguration: appConfiguration,
-				cclService: FakeCCLService(),
-				recycleBin: .fake()
-			),
-			recycleBin: .fake(),
-			badgeWrapper: .fake()
-		)
-		coronaTestService.pcrTest = PCRTest.mock()
+		let coronaTestService = MockCoronaTestService()
+		coronaTestService.pcrTest.value = PCRTest.mock()
 
 		let cellModel = HomeTestResultCellModel(
 			coronaTestType: .pcr,
@@ -176,11 +154,11 @@ class HomeTestResultCellModelTests: CWATestCase {
 			}
 			.store(in: &subscriptions)
 
-		coronaTestService.pcrTest?.testResult = .negative
-		coronaTestService.pcrTest?.testResult = .invalid
-		coronaTestService.pcrTest?.testResult = .positive
-		coronaTestService.pcrTest?.testResult = .expired
-		coronaTestService.pcrTestResultIsLoading = true
+		coronaTestService.pcrTest.value?.testResult = .negative
+		coronaTestService.pcrTest.value?.testResult = .invalid
+		coronaTestService.pcrTest.value?.testResult = .positive
+		coronaTestService.pcrTest.value?.testResult = .expired
+		coronaTestService.pcrTestResultIsLoading.value = true
 
 		waitForExpectations(timeout: .short, handler: nil)
 

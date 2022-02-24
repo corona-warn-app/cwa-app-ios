@@ -726,8 +726,8 @@ enum AccessibilityIdentifiers {
 		}
 
 		enum Overview {
-			static let addCertificateCell =
-				"addCertificateCell"
+			static let changeAdmissionScenarioCell =
+				"AppStrings.HealthCertificate.changeAdmissionScenarioCell"
 			static let healthCertifiedPersonCell = "AppStrings.HealthCertificate.healthCertifiedPersonCell"
 			static let testCertificateRequestCell = "AppStrings.HealthCertificate.testCertificateRequestCell"
 		}
@@ -747,6 +747,10 @@ enum AccessibilityIdentifiers {
 		enum Person {
 			static let certificateCell = "HealthCertificate.Person.cell"
 			static let validationButton = "HealthCertificate.Person.validationButton"
+			
+			enum UpdateSucceeded {
+				static let image = "HealthCertificate.Person.UpdateSucceeded.image"
+			}
 		}
 		
 		enum AdmissionState {

@@ -9,8 +9,9 @@ final class SelectValueCellViewModel {
 
 	// MARK: - Init
 
-	init(text: String, isSelected: Bool, cellIconType: SelectionCellIcon, isEnabled: Bool = true) {
+	init(text: String, subtitle: String? = nil, isSelected: Bool, cellIconType: SelectionCellIcon, isEnabled: Bool = true) {
 		self.text = text
+		self.subtitle = subtitle
 		self.isEnabled = isEnabled
 		
 		switch cellIconType {
@@ -26,6 +27,7 @@ final class SelectValueCellViewModel {
 	// MARK: - Internal
 
 	let text: String
+	let subtitle: String?
 	let image: UIImage?
 	let isEnabled: Bool
 }

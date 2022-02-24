@@ -2807,11 +2807,9 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "HealthCertificate_Overview_title" = "Zertifikate";
 
-"HealthCertificate_Overview_add" = "Zertifikat hinzufügen";
-
 "HealthCertificate_Overview_EmptyTitle" = "Noch keine Zertifikate vorhanden";
 
-"HealthCertificate_Overview_EmptyDescription" = "Hier werden die gespeicherten digitalen Impfzertifikate, Genesenenzertifikate und Testzertifikate angezeigt.\n\nUm ein Zertifikat hinzuzufügen, scannen Sie bitte den dazugehörigen QR-Code.";
+"HealthCertificate_Overview_EmptyDescription" = "Hier werden die gespeicherten digitalen Impfzertifikate, Genesenenzertifikate und Testzertifikate angezeigt.\n\nScannen Sie den QR-Code des Zertifikats mit Hilfe des QR-Code-Scanners in der unteren Navigationsleiste.";
 
 "HealthCertificate_Overview_EmptyImageDescription" = "Zertifikatssiegel mit digitalem Zertifikat im Hintergrund";
 
@@ -2824,6 +2822,14 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 "HealthCertificate_Overview_TwoGCertificate" = "2G-Zertifikat";
 
 "HealthCertificate_Overview_TestCertificate" = "Testzertifikat";
+
+"HealthCertificate_Overview_Scanning_Info" = "Fügen Sie weitere Zertifikate über den QR-Code-Scanner in der unteren Navigationsleiste hinzu";
+
+"HealthCertificate_Admission_Scenario_Status_Label" = "Status für folgendes Bundesland";
+
+"HealthCertificate_Admission_Scenario_Button_Label" = "Regeln des Bundes";
+
+"HealthCertificate_Loading_Indicator_Label" = "Status wird ermittelt";
 
 "HealthCertificate_Overview_News" = "Es gibt Neuigkeiten zu Ihren Zertifikaten";
 
@@ -2970,6 +2976,10 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 /* HealthCertifiedPerson UpdateSucceeded */
 
 "HealthCertifiedPerson_UpdateSucceeded_Title" = "Zertifikat aktualisiert";
+
+"HealthCertifiedPerson_UpdateSucceeded_Headline" = "Ihr Zertifikat wurde erfolgreich aktualisiert";
+
+"HealthCertifiedPerson_UpdateSucceeded_Body" = "Sie finden das aktualisierte Zertifikat nun in der Zertifikate-Registerkarte.";
 
 /* Vaccination Certificate Details */
 

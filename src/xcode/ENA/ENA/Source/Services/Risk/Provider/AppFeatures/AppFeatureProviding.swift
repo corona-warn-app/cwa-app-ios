@@ -15,6 +15,7 @@ extension SAP_Internal_V2_ApplicationConfigurationIOS {
 		case validationServiceMinVersionPatch = "validation-service-ios-min-version-patch"
 		case dccPersonCountMax = "dcc-person-count-max"
 		case dccPersonWarnThreshold = "dcc-person-warn-threshold"
+		case cclAdmissionCheckScenariosDisabled = "ccl-admission-check-scenarios-disabled"
 
 		var defaultValue: Int {
 			switch self {
@@ -32,6 +33,8 @@ extension SAP_Internal_V2_ApplicationConfigurationIOS {
 				return 20
 			case .dccPersonWarnThreshold:
 				return 10
+			case .cclAdmissionCheckScenariosDisabled:
+				return 0
 			}
 		}
 	}

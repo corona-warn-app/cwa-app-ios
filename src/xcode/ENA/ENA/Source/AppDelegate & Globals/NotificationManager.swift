@@ -10,7 +10,7 @@ final class NotificationManager: NSObject, UNUserNotificationCenterDelegate {
 	// MARK: - Init
 	
 	init(
-		coronaTestService: CoronaTestService,
+		coronaTestService: CoronaTestServiceProviding,
 		eventCheckoutService: EventCheckoutService,
 		healthCertificateService: HealthCertificateService,
 		showHome: @escaping () -> Void,
@@ -102,7 +102,7 @@ final class NotificationManager: NSObject, UNUserNotificationCenterDelegate {
 	}
 	// MARK: - Private
 	
-	private let coronaTestService: CoronaTestService
+	private let coronaTestService: CoronaTestServiceProviding
 	private let eventCheckoutService: EventCheckoutService
 	private let healthCertificateService: HealthCertificateService
 	private let showHome: () -> Void
@@ -111,14 +111,14 @@ final class NotificationManager: NSObject, UNUserNotificationCenterDelegate {
 	private let showHealthCertifiedPerson: (Route) -> Void
 
 	private func showPositivePCRTestResultIfNeeded() {
-		if let pcrTest = coronaTestService.pcrTest,
+		if let pcrTest = coronaTestService.pcrTest.value,
 		   pcrTest.positiveTestResultWasShown {
 			showTestResultFromNotification(.testResultFromNotification(.pcr))
 		}
 	}
 
 	private func showPositiveAntigenTestResultIfNeeded() {
-		if let antigenTest = coronaTestService.antigenTest,
+		if let antigenTest = coronaTestService.antigenTest.value,
 		   antigenTest.positiveTestResultWasShown {
 			showTestResultFromNotification(.testResultFromNotification(.antigen))
 		}
