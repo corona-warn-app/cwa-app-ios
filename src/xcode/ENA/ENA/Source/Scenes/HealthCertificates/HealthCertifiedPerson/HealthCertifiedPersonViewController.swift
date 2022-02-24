@@ -98,6 +98,11 @@ class HealthCertifiedPersonViewController: UIViewController, UITableViewDataSour
 			cell.configure(with: viewModel.qrCodeCellViewModel)
 			return cell
 
+		case .certificateReissuance:
+			let cell = tableView.dequeueReusableCell(cellType: CertificateReissuanceTableViewCell.self, for: indexPath)
+			cell.configure(with: viewModel.certificateReissuanceCellModel)
+			return cell
+
 		case .boosterNotification:
 			let cell = tableView.dequeueReusableCell(cellType: BoosterNotificationTableViewCell.self, for: indexPath)
 			cell.configure(with: viewModel.boosterNotificationCellModel)
