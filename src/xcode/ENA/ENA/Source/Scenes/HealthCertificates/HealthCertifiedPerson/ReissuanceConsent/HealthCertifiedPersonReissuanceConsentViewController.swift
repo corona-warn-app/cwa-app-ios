@@ -116,7 +116,6 @@ class HealthCertifiedPersonReissuanceConsentViewController: DynamicTableViewCont
 			UINib(nibName: "ExposureDetectionLinkCell", bundle: nil),
 			forCellReuseIdentifier: "linkCell"
 		)
-
 		tableView.register(
 			HealthCertificateCell.self,
 			forCellReuseIdentifier: HealthCertificateCell.reuseIdentifier
