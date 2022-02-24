@@ -144,8 +144,8 @@ final class HealthCertifiedPersonCoordinator {
 		let updateConsentViewController = HealthCertifiedPersonReissuanceConsentViewController(
 			presentAlert: { [weak self] okAction, retryAction in
 				let alert = UIAlertController(
-					title: AppStrings.HealthCertificate.Person.UpdateConsent.defaultAlertTitle,
-					message: AppStrings.HealthCertificate.Person.UpdateConsent.defaultAlertMessage,
+					title: AppStrings.HealthCertificate.Reissuance.Consent.defaultAlertTitle,
+					message: AppStrings.HealthCertificate.Reissuance.Consent.defaultAlertMessage,
 					preferredStyle: .alert
 				)
 				alert.addAction(okAction)
@@ -165,8 +165,8 @@ final class HealthCertifiedPersonCoordinator {
 		updateConsentViewController.navigationItem.hidesBackButton = true
 
 		let footerViewModel = FooterViewModel(
-			primaryButtonName: AppStrings.HealthCertificate.Person.UpdateConsent.primaryButtonTitle,
-			secondaryButtonName: AppStrings.HealthCertificate.Person.UpdateConsent.secondaryButtonTitle,
+			primaryButtonName: AppStrings.HealthCertificate.Reissuance.Consent.primaryButtonTitle,
+			secondaryButtonName: AppStrings.HealthCertificate.Reissuance.Consent.secondaryButtonTitle,
 			isPrimaryButtonEnabled: false,
 			isSecondaryButtonEnabled: true,
 			primaryCustomDisableBackgroundColor: .enaColor(for: .backgroundLightGray),

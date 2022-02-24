@@ -34,7 +34,7 @@ class HealthCertifiedPersonReissuanceConsentViewController: UIViewController, Di
 		// Do any additional setup after loading the view.
 		navigationItem.hidesBackButton = true
 		navigationItem.rightBarButtonItem = dismissHandlingCloseBarButton
-		title = AppStrings.HealthCertificate.Person.UpdateConsent.title
+		title = AppStrings.HealthCertificate.Reissuance.Consent.title
 	}
 
 	// MARK: - Protocol DismissHandling
@@ -84,14 +84,14 @@ class HealthCertifiedPersonReissuanceConsentViewController: UIViewController, Di
 		footerView?.setLoadingIndicator(false, disable: false, button: .primary)
 		
 		let okAction = UIAlertAction(
-			title: AppStrings.HealthCertificate.Person.UpdateConsent.defaultAlertOKButton,
+			title: AppStrings.HealthCertificate.Reissuance.Consent.defaultAlertOKButton,
 			style: .default, handler: { _ in
 				Log.info("OK Alert action needed here")
 			}
 		)
 
 		let retryAction = UIAlertAction(
-			title: AppStrings.HealthCertificate.Person.UpdateConsent.defaultAlertRetryButton,
+			title: AppStrings.HealthCertificate.Reissuance.Consent.defaultAlertRetryButton,
 			style: .default, handler: { _ in
 				Log.info("Retry Alert action needed here")
 			}

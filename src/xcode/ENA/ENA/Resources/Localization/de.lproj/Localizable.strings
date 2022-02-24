@@ -2957,30 +2957,6 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "HealthCertifiedPerson_newlyAddedCertificate" = "Neu";
 
-/* HealthCertifiedPerson UpdateConsent */
-
-"HealthCertifiedPerson_UpdateConsent_primaryButtonTitle" = "Einverstanden";
-
-"HealthCertifiedPerson_UpdateConsent_secondaryButtonTitle" = "Abbrechen";
-
-"HealthCertifiedPerson_DefaultAlert_Title" = "Fehler";
-
-"HealthCertifiedPerson_DefaultAlert_Message" = "Möglicherweise wurde Ihre Internet-Verbindung unterbrochen. Bitte stellen Sie sicher, dass Sie mit dem Internet verbunden sind.";
-
-"HealthCertifiedPerson_DefaultAlert_OKButton" = "OK";
-
-"HealthCertifiedPerson_DefaultAlert_RetryButton" = "Wiederholen";
-
-"HealthCertifiedPerson_UpdateConsent_Title" = "Ihr Einverständnis";
-
-/* HealthCertifiedPerson UpdateSucceeded */
-
-"HealthCertifiedPerson_UpdateSucceeded_Title" = "Zertifikat aktualisiert";
-
-"HealthCertifiedPerson_UpdateSucceeded_Headline" = "Ihr Zertifikat wurde erfolgreich aktualisiert";
-
-"HealthCertifiedPerson_UpdateSucceeded_Body" = "Sie finden das aktualisierte Zertifikat nun in der Zertifikate-Registerkarte.";
-
 /* Vaccination Certificate Details */
 
 "HealthCertificate_Details_vaccinationCount" = "Impfung %i von %i";
@@ -3262,6 +3238,33 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 "HealthCertificate_ValidityState_Blocked" = "Zertifikat ungültig";
 
 "HealthCertificate_ValidityState_Blocked_description" = "Das Zertifikat wurde von der ausstellenden Behörde zurückgerufen. Bitte bemühen Sie sich darum, einen neuen digitalen Nachweis ausstellen zu lassen.";
+
+/* Reissuance */
+
+/* HealthCertifiedPerson Consent */
+
+"HealthCertificate_Reissuance_Consent_primaryButtonTitle" = "Einverstanden";
+
+"HealthCertificate_Reissuance_Consent_secondaryButtonTitle" = "Abbrechen";
+
+"HealthCertificate_Reissuance_Consent_DefaultAlert_Title" = "Fehler";
+
+"HealthCertificate_Reissuance_Consent_DefaultAlert_Message" = "Möglicherweise wurde Ihre Internet-Verbindung unterbrochen. Bitte stellen Sie sicher, dass Sie mit dem Internet verbunden sind.";
+
+"HealthCertificate_Reissuance_Consent_DefaultAlert_OKButton" = "OK";
+
+"HealthCertificate_Reissuance_Consent_DefaultAlert_RetryButton" = "Wiederholen";
+
+"HealthCertificate_Reissuance_Consent_Title" = "Ihr Einverständnis";
+
+/* HealthCertifiedPerson Succeeded */
+
+"HealthCertificate_Reissuance_Succeeded_Title" = "Zertifikat aktualisiert";
+
+"HealthCertificate_Reissuance_Succeeded_Headline" = "Ihr Zertifikat wurde erfolgreich aktualisiert";
+
+"HealthCertificate_Reissuance_Succeeded_Body" = "Sie finden das aktualisierte Zertifikat nun in der Zertifikate-Registerkarte.";
+
 
 /* Universal QR Scanner */
 
