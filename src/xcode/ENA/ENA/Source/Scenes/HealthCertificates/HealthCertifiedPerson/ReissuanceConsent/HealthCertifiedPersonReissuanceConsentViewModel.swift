@@ -18,10 +18,12 @@ final class HealthCertifiedPersonReissuanceConsentViewModel {
 
 	init(
 		faqAnker: String = "dcc_replacement",
-		certificate: HealthCertificate,
 		certifiedPerson: HealthCertifiedPerson,
 		onDisclaimerButtonTap: @escaping () -> Void
 	) {
+		guard let certificate = certifiedPerson.mostRelevantHealthCertificate else {
+			fatalError("NYD")
+		}
 		self.faqAnker = faqAnker
 		self.certificate = certificate
 		self.certifiedPerson = certifiedPerson

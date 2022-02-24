@@ -63,7 +63,8 @@ final class DMBoosterRulesViewModel {
 						boosterNotification: DCCBoosterNotification(visible: false, identifier: nil, titleText: nil, subtitleText: nil, longText: nil, faqAnchor: nil),
 						mostRelevantCertificate: dccWalletInfo.mostRelevantCertificate,
 						verification: dccWalletInfo.verification,
-						validUntil: dccWalletInfo.validUntil
+						validUntil: dccWalletInfo.validUntil,
+						certificateReissuance: dccWalletInfo.certificateReissuance
 					)
 					self.refreshTableView([TableViewSections.cachedPassedBoosterRule.rawValue])
 				}

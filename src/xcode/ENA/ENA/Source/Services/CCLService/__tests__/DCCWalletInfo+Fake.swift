@@ -13,9 +13,10 @@ extension DCCWalletInfo {
 		admissionState: DCCAdmissionState = .fake(),
 		vaccinationState: DCCVaccinationState = .fake(),
 		boosterNotification: DCCBoosterNotification = .fake(),
-		mostRelevantCertificate: DCCMostRelevantCertificate = .fake(),
+		mostRelevantCertificate: DCCCertificateContainer = .fake(),
 		verification: DCCVerification = .fake(),
-		validUntil: Date = Date()
+		validUntil: Date = Date(),
+		certificateReissuance: DCCCertificateReissuance? = nil
 	) -> DCCWalletInfo {
 		DCCWalletInfo(
 			admissionState: admissionState,
@@ -23,7 +24,8 @@ extension DCCWalletInfo {
 			boosterNotification: boosterNotification,
 			mostRelevantCertificate: mostRelevantCertificate,
 			verification: verification,
-			validUntil: validUntil
+			validUntil: validUntil,
+			certificateReissuance: certificateReissuance
 		)
 	}
 
@@ -142,12 +144,12 @@ extension DCCUIText {
 
 }
 
-extension DCCMostRelevantCertificate {
+extension DCCCertificateContainer {
 
 	static func fake(
 		certificateRef: DCCCertificateReference = .fake()
-	) -> DCCMostRelevantCertificate {
-		DCCMostRelevantCertificate(
+	) -> DCCCertificateContainer {
+		DCCCertificateContainer(
 			certificateRef: certificateRef
 		)
 	}
@@ -187,6 +189,42 @@ extension DCCCertificateReference {
 	) -> DCCCertificateReference {
 		DCCCertificateReference(
 			barcodeData: barcodeData
+		)
+	}
+
+}
+
+extension DCCCertificateReissuance {
+
+	static func fake(
+		reissuanceDivision: DCCCertificateReissuanceDivision = .fake(),
+		certificateToReissue: DCCCertificateContainer = .fake(),
+		accompanyingCertificates: [DCCCertificateContainer] = []
+	) -> DCCCertificateReissuance {
+		DCCCertificateReissuance(
+			reissuanceDivision: reissuanceDivision,
+			certificateToReissue: certificateToReissue,
+			accompanyingCertificates: accompanyingCertificates
+		)
+	}
+
+}
+
+extension DCCCertificateReissuanceDivision {
+
+	static func fake(
+		visible: Bool = false,
+		titleText: DCCUIText? = nil,
+		subtitleText: DCCUIText? = nil,
+		longText: DCCUIText? = nil,
+		faqAnchor: String? = nil
+	) -> DCCCertificateReissuanceDivision {
+		DCCCertificateReissuanceDivision(
+			visible: visible,
+			titleText: titleText,
+			subtitleText: subtitleText,
+			longText: longText,
+			faqAnchor: faqAnchor
 		)
 	}
 

@@ -10,9 +10,12 @@ class HealthCertificateOverviewViewModelTests: XCTestCase {
 
 	func testGIVEN_HealthCertificateOverviewViewModel_THEN_SetupIsCorrect() {
 		// GIVEN
-		let cclService = FakeCCLService()
-		let store = MockTestStore()
-		let viewModel = HealthCertificateOverviewViewModel(store: store, healthCertificateService: service, cclService: cclService)
+		let viewModel = HealthCertificateOverviewViewModel(
+			store: MockTestStore(),
+			healthCertificateService: service,
+			healthCertificateRequestService: requestService,
+			cclService: FakeCCLService()
+		)
 
 		// THEN
 		XCTAssertEqual(viewModel.numberOfSections, 6)
@@ -24,10 +27,14 @@ class HealthCertificateOverviewViewModelTests: XCTestCase {
 
 	func testGIVEN_requestTestCertificate_THEN_noErrorIsSet() {
 		// GIVEN
-		let cclService = FakeCCLService()
-		let store = MockTestStore()
-		let viewModel = HealthCertificateOverviewViewModel(store: store, healthCertificateService: service, cclService: cclService)
-		service.registerAndExecuteTestCertificateRequest(
+		let viewModel = HealthCertificateOverviewViewModel(
+			store: MockTestStore(),
+			healthCertificateService: service,
+			healthCertificateRequestService: requestService,
+			cclService: FakeCCLService()
+		)
+
+		requestService.registerAndExecuteTestCertificateRequest(
 			coronaTestType: .pcr,
 			registrationToken: "registrationToken",
 			registrationDate: Date(),
@@ -44,18 +51,23 @@ class HealthCertificateOverviewViewModelTests: XCTestCase {
 	// MARK: - Private
 
 	private let service: HealthCertificateService = {
-		let client = ClientMock()
-		let store = MockTestStore()
-		return HealthCertificateService(
-			store: store,
+		HealthCertificateService(
+			store: MockTestStore(),
 			dccSignatureVerifier: DCCSignatureVerifyingStub(),
 			dscListProvider: MockDSCListProvider(),
-			client: client,
 			appConfiguration: CachedAppConfigurationMock(),
 			cclService: FakeCCLService(),
 			recycleBin: .fake()
 		)
 	}()
 
+	private lazy var requestService: HealthCertificateRequestService = {
+		HealthCertificateRequestService(
+			store: MockTestStore(),
+			client: ClientMock(),
+			appConfiguration: CachedAppConfigurationMock(),
+			healthCertificateService: service
+		)
+	}()
 
 }

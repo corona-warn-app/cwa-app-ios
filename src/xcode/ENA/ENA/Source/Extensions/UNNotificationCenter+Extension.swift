@@ -27,6 +27,7 @@ public enum LocalNotificationIdentifier: String {
 	case certificateInvalid = "HealthCertificateNotificationInvalid"
 	case certificateBlocked = "HealthCertificateNotificationBlocked"
 	case boosterVaccination = "BoosterVaccinationNotification"
+	case certificateReissuance = "CertificateReissuanceNotification"
 }
 
 extension UserNotificationCenter {

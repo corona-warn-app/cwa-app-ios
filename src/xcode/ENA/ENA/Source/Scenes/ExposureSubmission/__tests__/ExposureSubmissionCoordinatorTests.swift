@@ -44,7 +44,6 @@ class ExposureSubmissionCoordinatorTests: CWATestCase {
 			store: store,
 			dccSignatureVerifier: DCCSignatureVerifyingStub(),
 			dscListProvider: MockDSCListProvider(),
-			client: client,
 			appConfiguration: appConfiguration,
 			cclService: FakeCCLService(),
 			recycleBin: recycleBin
