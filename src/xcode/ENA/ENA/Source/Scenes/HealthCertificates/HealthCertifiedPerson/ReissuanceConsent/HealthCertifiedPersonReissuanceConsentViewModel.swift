@@ -174,7 +174,8 @@ private extension DynamicCell {
 			cell.configure(
 				HealthCertificateCellViewModel(
 					healthCertificate: certificate,
-					healthCertifiedPerson: certifiedPerson
+					healthCertifiedPerson: certifiedPerson,
+					details: .reissuance
 				),
 				withDisclosureIndicator: false
 			)

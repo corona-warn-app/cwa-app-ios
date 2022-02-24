@@ -23,13 +23,14 @@ final class HealthCertificateCellViewModel {
 	enum HealthCertificateCellDetails {
 		case allDetails
 		case overview
+		case reissuance
 	}
 	
 	let healthCertificate: HealthCertificate
 	
 	lazy var gradientType: GradientView.GradientType = {
 		switch details {
-		case .allDetails:
+		case .allDetails, .reissuance:
 			if healthCertificate.isUsable &&
 				healthCertificate == healthCertifiedPerson.mostRelevantHealthCertificate {
 				return healthCertifiedPerson.gradientType
@@ -55,11 +56,26 @@ final class HealthCertificateCellViewModel {
 	lazy var subheadline: String? = {
 		switch healthCertificate.entry {
 		case .vaccination(let vaccinationEntry):
-			return String(
-				format: AppStrings.HealthCertificate.Person.VaccinationCertificate.vaccinationCount,
-				vaccinationEntry.doseNumber,
-				vaccinationEntry.totalSeriesOfDoses
-			)
+			switch details {
+			case .allDetails, .overview:
+				return String(
+					format: AppStrings.HealthCertificate.Person.VaccinationCertificate.vaccinationCount,
+					vaccinationEntry.doseNumber,
+					vaccinationEntry.totalSeriesOfDoses
+				)
+			case .reissuance:
+				let subHeadline = [
+					healthCertifiedPerson.name?.fullName,
+					String(
+						format: AppStrings.HealthCertificate.Person.VaccinationCertificate.vaccinationCount,
+						vaccinationEntry.doseNumber,
+						vaccinationEntry.totalSeriesOfDoses
+					)
+				]
+					.compactMap({ $0 })
+					.joined(separator: "\n")
+				return subHeadline
+			}
 		case .test(let testEntry) where testEntry.coronaTestType == .pcr:
 			return AppStrings.HealthCertificate.Person.TestCertificate.pcrTest
 		case .test(let testEntry) where testEntry.coronaTestType == .antigen:
@@ -100,7 +116,7 @@ final class HealthCertificateCellViewModel {
 
 	lazy var validityStateInfo: String? = {
 		switch details {
-		case .allDetails:
+		case .allDetails, .reissuance:
 			if !healthCertificate.isConsideredValid {
 				switch healthCertificate.validityState {
 				case .valid:
@@ -151,6 +167,8 @@ final class HealthCertificateCellViewModel {
 			return healthCertificate == healthCertifiedPerson.mostRelevantHealthCertificate
 		case .overview:
 			return false
+		case .reissuance:
+			return false
 		}
 	}()
 
@@ -172,6 +190,8 @@ final class HealthCertificateCellViewModel {
 		case .allDetails:
 			return healthCertificate.isNew || healthCertificate.isValidityStateNew
 		case .overview:
+			return false
+		case .reissuance:
 			return false
 		}
 	}()
