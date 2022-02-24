@@ -17,7 +17,7 @@ final class HealthCertifiedPersonReissuanceConsentViewModel {
 	// MARK: - Init
 
 	init(
-		faqAnker: String,
+		faqAnker: String = "dcc_replacement",
 		certificate: HealthCertificate,
 		certifiedPerson: HealthCertifiedPerson,
 		onDisclaimerButtonTap: @escaping () -> Void

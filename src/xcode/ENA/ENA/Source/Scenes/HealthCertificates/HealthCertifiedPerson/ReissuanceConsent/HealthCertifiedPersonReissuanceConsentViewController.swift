@@ -19,7 +19,6 @@ class HealthCertifiedPersonReissuanceConsentViewController: DynamicTableViewCont
 	) {
 		self.presentAlert = presentAlert
 		self.viewModel = HealthCertifiedPersonReissuanceConsentViewModel(
-			faqAnker: "NYD",
 			certificate: healthCertificate,
 			certifiedPerson: healthCertifiedPerson,
 			onDisclaimerButtonTap: didTapDataPrivacy
