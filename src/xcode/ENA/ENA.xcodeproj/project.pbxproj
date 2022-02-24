@@ -308,6 +308,8 @@
 		01BCBFB22756092100E4B6F1 /* TicketValidationServiceIdentityDocumentError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01BCBFB12756092000E4B6F1 /* TicketValidationServiceIdentityDocumentError.swift */; };
 		01BCBFB42756095D00E4B6F1 /* TicketValidationServiceIdentityDocumentResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01BCBFB32756095D00E4B6F1 /* TicketValidationServiceIdentityDocumentResult.swift */; };
 		01C1AC34276783DC00D45BFA /* OrderedCollections in Frameworks */ = {isa = PBXBuildFile; productRef = 01C1AC33276783DC00D45BFA /* OrderedCollections */; };
+		01C1C84927C37ED9005592B0 /* HealthCertificateNotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01C1C84827C37ED9005592B0 /* HealthCertificateNotificationService.swift */; };
+		01C1C84B27C38337005592B0 /* HealthCertificateRequestService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01C1C84A27C38337005592B0 /* HealthCertificateRequestService.swift */; };
 		01C1C84E27C3C025005592B0 /* CoronaTestServiceProviding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01C1C84C27C3B423005592B0 /* CoronaTestServiceProviding.swift */; };
 		01C2D43E2501225100FB23BF /* MockExposureSubmissionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3284256248E7431006B1F09 /* MockExposureSubmissionService.swift */; };
 		01C2D4432501260D00FB23BF /* OptionGroupViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01C2D440250124E600FB23BF /* OptionGroupViewModelTests.swift */; };
@@ -347,6 +349,7 @@
 		01D3078A2562B03C00ADB67B /* RiskState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D307892562B03B00ADB67B /* RiskState.swift */; };
 		01D319D426C18B9B008698D8 /* HealthCertificateDecodingContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D319D326C18B9B008698D8 /* HealthCertificateDecodingContainer.swift */; };
 		01D6816327C3D18200FF6D18 /* MockCoronaTestService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D6816227C3D18100FF6D18 /* MockCoronaTestService.swift */; };
+		01D6816527C5206000FF6D18 /* HealthCertificateRequestServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D6816427C5206000FF6D18 /* HealthCertificateRequestServiceTests.swift */; };
 		01D6948B25026EC000B45BEA /* DatePickerOptionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D6948A25026EC000B45BEA /* DatePickerOptionViewModel.swift */; };
 		01D6948D2502717F00B45BEA /* DatePickerDayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D6948C2502717F00B45BEA /* DatePickerDayView.swift */; };
 		01D6948F2502729000B45BEA /* DatePickerDay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D6948E2502729000B45BEA /* DatePickerDay.swift */; };
@@ -2005,6 +2008,8 @@
 		01BCBFAE27552A5900E4B6F1 /* TicketValidationResultTokenResourceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketValidationResultTokenResourceTests.swift; sourceTree = "<group>"; };
 		01BCBFB12756092000E4B6F1 /* TicketValidationServiceIdentityDocumentError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketValidationServiceIdentityDocumentError.swift; sourceTree = "<group>"; };
 		01BCBFB32756095D00E4B6F1 /* TicketValidationServiceIdentityDocumentResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketValidationServiceIdentityDocumentResult.swift; sourceTree = "<group>"; };
+		01C1C84827C37ED9005592B0 /* HealthCertificateNotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthCertificateNotificationService.swift; sourceTree = "<group>"; };
+		01C1C84A27C38337005592B0 /* HealthCertificateRequestService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthCertificateRequestService.swift; sourceTree = "<group>"; };
 		01C1C84C27C3B423005592B0 /* CoronaTestServiceProviding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoronaTestServiceProviding.swift; sourceTree = "<group>"; };
 		01C2D440250124E600FB23BF /* OptionGroupViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionGroupViewModelTests.swift; sourceTree = "<group>"; };
 		01C5F2FE2799859D00F60047 /* DCCWalletInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DCCWalletInfo.swift; sourceTree = "<group>"; };
@@ -2044,6 +2049,7 @@
 		01D319D326C18B9B008698D8 /* HealthCertificateDecodingContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthCertificateDecodingContainer.swift; sourceTree = "<group>"; };
 		01D3ECFF2490230400551E65 /* StoreTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = StoreTests.swift; sourceTree = "<group>"; };
 		01D6816227C3D18100FF6D18 /* MockCoronaTestService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockCoronaTestService.swift; sourceTree = "<group>"; };
+		01D6816427C5206000FF6D18 /* HealthCertificateRequestServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthCertificateRequestServiceTests.swift; sourceTree = "<group>"; };
 		01D6948A25026EC000B45BEA /* DatePickerOptionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerOptionViewModel.swift; sourceTree = "<group>"; };
 		01D6948C2502717F00B45BEA /* DatePickerDayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerDayView.swift; sourceTree = "<group>"; };
 		01D6948E2502729000B45BEA /* DatePickerDay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerDay.swift; sourceTree = "<group>"; };
@@ -3973,6 +3979,8 @@
 				AB61206D27B6602900CC8C08 /* Migration */,
 				017D8D9B263B02520009E91C /* __tests__ */,
 				017D8D9C263B02860009E91C /* HealthCertificateService.swift */,
+				01C1C84827C37ED9005592B0 /* HealthCertificateNotificationService.swift */,
+				01C1C84A27C38337005592B0 /* HealthCertificateRequestService.swift */,
 				34079850274D3D40007E6071 /* HealthCertificateService+UITestingMethods.swift */,
 				017D8DAB263BEF920009E91C /* HealthCertificateServiceError.swift */,
 				017D8D9E263B02C40009E91C /* Models */,
@@ -3986,6 +3994,7 @@
 			children = (
 				50A24A1127B29C8C005DDB9B /* HealthCertificateService+GroupingAfterDeletionTests.swift */,
 				017D8D99263AF3730009E91C /* HealthCertificateServiceTests.swift */,
+				01D6816427C5206000FF6D18 /* HealthCertificateRequestServiceTests.swift */,
 				BA821E9226B41F81008DA362 /* ValidationStateServiceTests.swift */,
 			);
 			path = __tests__;
@@ -10307,6 +10316,7 @@
 				340AC9BA2747E5870028DE11 /* TicketValidationNoSupportedCertificateCellModel.swift in Sources */,
 				0190987D257E64C70065D050 /* DiaryCoordinator.swift in Sources */,
 				CD99A3A9245C272400BF12AF /* ExposureSubmissionService.swift in Sources */,
+				01C1C84927C37ED9005592B0 /* HealthCertificateNotificationService.swift in Sources */,
 				0186FB60268F35B900872D45 /* HealthCertificateValidationViewController.swift in Sources */,
 				01E1025D266665A6009ED803 /* AntigenTest.swift in Sources */,
 				BADA5B51266574B900D76C1C /* BirthdayDatePickerCell.swift in Sources */,
@@ -10793,6 +10803,7 @@
 				0138F6CA25F6133E00A9B075 /* TraceLocationDetailsViewController.swift in Sources */,
 				94EAF89C25B8162200BE1F40 /* NewVersionFeature.swift in Sources */,
 				ABC506D6274F9CE600698A95 /* TicketValidationServiceIdentityDocument.swift in Sources */,
+				01C1C84B27C38337005592B0 /* HealthCertificateRequestService.swift in Sources */,
 				EB1BB11225CC40030076CB67 /* PlausibleDeniabilityService.swift in Sources */,
 				0190986A257E64A70065D050 /* DiaryOverviewTableViewController.swift in Sources */,
 				019789362746920600AAC31C /* TicketValidationPassedViewModel.swift in Sources */,
@@ -11680,6 +11691,7 @@
 				BAD3199D26FA2102006E82E7 /* HealthCertificateQRCodeViewTests.swift in Sources */,
 				B1AC51D624CED8820087C35B /* DetectionModeTests.swift in Sources */,
 				8FA88FE02616692000FD36DA /* TraceLocationCheckinViewModelTests.swift in Sources */,
+				01D6816527C5206000FF6D18 /* HealthCertificateRequestServiceTests.swift in Sources */,
 				ABE17DE527AC30A600E9EA2D /* HealthCertificate+BelongsToSamePersonTests.swift in Sources */,
 				0109DB9A26037E6A00624BB3 /* TraceLocation+Mock.swift in Sources */,
 				0144DD9725D40CC600CFB1D1 /* MockDeadmanNotificationManager.swift in Sources */,

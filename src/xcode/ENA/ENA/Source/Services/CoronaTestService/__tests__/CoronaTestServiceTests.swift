@@ -17,21 +17,27 @@ class CoronaTestServiceTests: CWATestCase {
 		let store = MockTestStore()
 		let appConfiguration = CachedAppConfigurationMock()
 
+		let healthCertificateService = HealthCertificateService(
+			store: store,
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
+			dscListProvider: MockDSCListProvider(),
+			appConfiguration: appConfiguration,
+			cclService: FakeCCLService(),
+			recycleBin: .fake()
+		)
+
 		let service = CoronaTestService(
 			client: client,
 			store: store,
 			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
 			appConfiguration: appConfiguration,
-			healthCertificateService: HealthCertificateService(
+			healthCertificateService: healthCertificateService,
+			healthCertificateRequestService: HealthCertificateRequestService(
 				store: store,
-				dccSignatureVerifier: DCCSignatureVerifyingStub(),
-				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration,
-				cclService: FakeCCLService(),
-
-				recycleBin: .fake()
+				healthCertificateService: healthCertificateService
 			),
 			recycleBin: .fake(),
 			badgeWrapper: .fake()
@@ -54,21 +60,27 @@ class CoronaTestServiceTests: CWATestCase {
 		let store = MockTestStore()
 		let appConfiguration = CachedAppConfigurationMock()
 
+		let healthCertificateService = HealthCertificateService(
+			store: store,
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
+			dscListProvider: MockDSCListProvider(),
+			appConfiguration: appConfiguration,
+			cclService: FakeCCLService(),
+			recycleBin: .fake()
+		)
+
 		let service = CoronaTestService(
 			client: client,
 			store: store,
 			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
 			appConfiguration: appConfiguration,
-			healthCertificateService: HealthCertificateService(
+			healthCertificateService: healthCertificateService,
+			healthCertificateRequestService: HealthCertificateRequestService(
 				store: store,
-				dccSignatureVerifier: DCCSignatureVerifyingStub(),
-				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration,
-				cclService: FakeCCLService(),
-
-				recycleBin: .fake()
+				healthCertificateService: healthCertificateService
 			),
 			recycleBin: .fake(),
 			badgeWrapper: .fake()
@@ -109,21 +121,27 @@ class CoronaTestServiceTests: CWATestCase {
 		let client = ClientMock()
 		let store = MockTestStore()
 
+		let healthCertificateService = HealthCertificateService(
+			store: store,
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
+			dscListProvider: MockDSCListProvider(),
+			appConfiguration: appConfiguration,
+			cclService: FakeCCLService(),
+			recycleBin: .fake()
+		)
+
 		let service = CoronaTestService(
 			client: client,
 			store: store,
 			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
 			appConfiguration: appConfiguration,
-			healthCertificateService: HealthCertificateService(
+			healthCertificateService: healthCertificateService,
+			healthCertificateRequestService: HealthCertificateRequestService(
 				store: store,
-				dccSignatureVerifier: DCCSignatureVerifyingStub(),
-				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration,
-				cclService: FakeCCLService(),
-
-				recycleBin: .fake()
+				healthCertificateService: healthCertificateService
 			),
 			recycleBin: .fake(),
 			badgeWrapper: .fake()
@@ -162,21 +180,27 @@ class CoronaTestServiceTests: CWATestCase {
 		let client = ClientMock()
 		let store = MockTestStore()
 
+		let healthCertificateService = HealthCertificateService(
+			store: store,
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
+			dscListProvider: MockDSCListProvider(),
+			appConfiguration: appConfiguration,
+			cclService: FakeCCLService(),
+			recycleBin: .fake()
+		)
+
 		let service = CoronaTestService(
 			client: client,
 			store: store,
 			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
 			appConfiguration: appConfiguration,
-			healthCertificateService: HealthCertificateService(
+			healthCertificateService: healthCertificateService,
+			healthCertificateRequestService: HealthCertificateRequestService(
 				store: store,
-				dccSignatureVerifier: DCCSignatureVerifyingStub(),
-				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration,
-				cclService: FakeCCLService(),
-
-				recycleBin: .fake()
+				healthCertificateService: healthCertificateService
 			),
 			recycleBin: .fake(),
 			badgeWrapper: .fake()
@@ -217,21 +241,27 @@ class CoronaTestServiceTests: CWATestCase {
 		let client = ClientMock()
 		let store = MockTestStore()
 
+		let healthCertificateService = HealthCertificateService(
+			store: store,
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
+			dscListProvider: MockDSCListProvider(),
+			appConfiguration: appConfiguration,
+			cclService: FakeCCLService(),
+			recycleBin: .fake()
+		)
+
 		let service = CoronaTestService(
 			client: client,
 			store: store,
 			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
 			appConfiguration: appConfiguration,
-			healthCertificateService: HealthCertificateService(
+			healthCertificateService: healthCertificateService,
+			healthCertificateRequestService: HealthCertificateRequestService(
 				store: store,
-				dccSignatureVerifier: DCCSignatureVerifyingStub(),
-				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration,
-				cclService: FakeCCLService(),
-
-				recycleBin: .fake()
+				healthCertificateService: healthCertificateService
 			),
 			recycleBin: .fake(),
 			badgeWrapper: .fake()
@@ -270,21 +300,27 @@ class CoronaTestServiceTests: CWATestCase {
 		let client = ClientMock()
 		let store = MockTestStore()
 
+		let healthCertificateService = HealthCertificateService(
+			store: store,
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
+			dscListProvider: MockDSCListProvider(),
+			appConfiguration: appConfiguration,
+			cclService: FakeCCLService(),
+			recycleBin: .fake()
+		)
+
 		let service = CoronaTestService(
 			client: client,
 			store: store,
 			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
 			appConfiguration: appConfiguration,
-			healthCertificateService: HealthCertificateService(
+			healthCertificateService: healthCertificateService,
+			healthCertificateRequestService: HealthCertificateRequestService(
 				store: store,
-				dccSignatureVerifier: DCCSignatureVerifyingStub(),
-				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration,
-				cclService: FakeCCLService(),
-
-				recycleBin: .fake()
+				healthCertificateService: healthCertificateService
 			),
 			recycleBin: .fake(),
 			badgeWrapper: .fake()
@@ -327,21 +363,27 @@ class CoronaTestServiceTests: CWATestCase {
 		let client = ClientMock()
 		let store = MockTestStore()
 
+		let healthCertificateService = HealthCertificateService(
+			store: store,
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
+			dscListProvider: MockDSCListProvider(),
+			appConfiguration: appConfiguration,
+			cclService: FakeCCLService(),
+			recycleBin: .fake()
+		)
+
 		let service = CoronaTestService(
 			client: client,
 			store: store,
 			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
 			appConfiguration: appConfiguration,
-			healthCertificateService: HealthCertificateService(
+			healthCertificateService: healthCertificateService,
+			healthCertificateRequestService: HealthCertificateRequestService(
 				store: store,
-				dccSignatureVerifier: DCCSignatureVerifyingStub(),
-				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration,
-				cclService: FakeCCLService(),
-
-				recycleBin: .fake()
+				healthCertificateService: healthCertificateService
 			),
 			recycleBin: .fake(),
 			badgeWrapper: .fake()
@@ -384,26 +426,32 @@ class CoronaTestServiceTests: CWATestCase {
 	func testOutdatedPublisherStillOutdatedWhenReplacingOutdatedNegativeAntigenTestWithAnotherOutdatedOne() {
 		var defaultAppConfig = CachedAppConfigurationMock.defaultAppConfiguration
 		defaultAppConfig.coronaTestParameters.coronaRapidAntigenTestParameters.hoursToDeemTestOutdated = 48
-		let appConfig = CachedAppConfigurationMock(with: defaultAppConfig)
+		let appConfiguration = CachedAppConfigurationMock(with: defaultAppConfig)
 
 		let client = ClientMock()
 		let store = MockTestStore()
+
+		let healthCertificateService = HealthCertificateService(
+			store: store,
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
+			dscListProvider: MockDSCListProvider(),
+			appConfiguration: appConfiguration,
+			cclService: FakeCCLService(),
+			recycleBin: .fake()
+		)
 
 		let service = CoronaTestService(
 			client: client,
 			store: store,
 			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
-			appConfiguration: appConfig,
-			healthCertificateService: HealthCertificateService(
+			appConfiguration: appConfiguration,
+			healthCertificateService: healthCertificateService,
+			healthCertificateRequestService: HealthCertificateRequestService(
 				store: store,
-				dccSignatureVerifier: DCCSignatureVerifyingStub(),
-				dscListProvider: MockDSCListProvider(),
 				client: client,
-				appConfiguration: appConfig,
-				cclService: FakeCCLService(),
-
-				recycleBin: .fake()
+				appConfiguration: appConfiguration,
+				healthCertificateService: healthCertificateService
 			),
 			recycleBin: .fake(),
 			badgeWrapper: .fake()
@@ -448,26 +496,32 @@ class CoronaTestServiceTests: CWATestCase {
 		for testResult in testResults {
 			var defaultAppConfig = CachedAppConfigurationMock.defaultAppConfiguration
 			defaultAppConfig.coronaTestParameters.coronaRapidAntigenTestParameters.hoursToDeemTestOutdated = 48
-			let appConfig = CachedAppConfigurationMock(with: defaultAppConfig)
+			let appConfiguration = CachedAppConfigurationMock(with: defaultAppConfig)
 
 			let client = ClientMock()
 			let store = MockTestStore()
+
+			let healthCertificateService = HealthCertificateService(
+				store: store,
+				dccSignatureVerifier: DCCSignatureVerifyingStub(),
+				dscListProvider: MockDSCListProvider(),
+				appConfiguration: appConfiguration,
+				cclService: FakeCCLService(),
+				recycleBin: .fake()
+			)
 
 			let service = CoronaTestService(
 				client: client,
 				store: store,
 				eventStore: MockEventStore(),
 				diaryStore: MockDiaryStore(),
-				appConfiguration: appConfig,
-				healthCertificateService: HealthCertificateService(
+				appConfiguration: appConfiguration,
+				healthCertificateService: healthCertificateService,
+				healthCertificateRequestService: HealthCertificateRequestService(
 					store: store,
-					dccSignatureVerifier: DCCSignatureVerifyingStub(),
-					dscListProvider: MockDSCListProvider(),
 					client: client,
-					appConfiguration: appConfig,
-					cclService: FakeCCLService(),
-
-					recycleBin: .fake()
+					appConfiguration: appConfiguration,
+					healthCertificateService: healthCertificateService
 				),
 				recycleBin: .fake(),
 				badgeWrapper: .fake()
@@ -503,21 +557,27 @@ class CoronaTestServiceTests: CWATestCase {
 		let store = MockTestStore()
 		let appConfiguration = CachedAppConfigurationMock()
 
+		let healthCertificateService = HealthCertificateService(
+			store: store,
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
+			dscListProvider: MockDSCListProvider(),
+			appConfiguration: appConfiguration,
+			cclService: FakeCCLService(),
+			recycleBin: .fake()
+		)
+
 		let service = CoronaTestService(
 			client: client,
 			store: store,
 			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
 			appConfiguration: appConfiguration,
-			healthCertificateService: HealthCertificateService(
+			healthCertificateService: healthCertificateService,
+			healthCertificateRequestService: HealthCertificateRequestService(
 				store: store,
-				dccSignatureVerifier: DCCSignatureVerifyingStub(),
-				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration,
-				cclService: FakeCCLService(),
-
-				recycleBin: .fake()
+				healthCertificateService: healthCertificateService
 			),
 			recycleBin: .fake(),
 			badgeWrapper: .fake()
@@ -554,6 +614,15 @@ class CoronaTestServiceTests: CWATestCase {
 
 		let appConfiguration = CachedAppConfigurationMock()
 
+		let healthCertificateService = HealthCertificateService(
+			store: store,
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
+			dscListProvider: MockDSCListProvider(),
+			appConfiguration: appConfiguration,
+			cclService: FakeCCLService(),
+			recycleBin: .fake()
+		)
+
 		let service = CoronaTestService(
 			client: client,
 			restServiceProvider: restServiceProvider,
@@ -561,15 +630,12 @@ class CoronaTestServiceTests: CWATestCase {
 			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
 			appConfiguration: appConfiguration,
-			healthCertificateService: HealthCertificateService(
+			healthCertificateService: healthCertificateService,
+			healthCertificateRequestService: HealthCertificateRequestService(
 				store: store,
-				dccSignatureVerifier: DCCSignatureVerifyingStub(),
-				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration,
-				cclService: FakeCCLService(),
-
-				recycleBin: .fake()
+				healthCertificateService: healthCertificateService
 			),
 			recycleBin: .fake(),
 			badgeWrapper: .fake()
@@ -655,6 +721,15 @@ class CoronaTestServiceTests: CWATestCase {
 
 		let appConfiguration = CachedAppConfigurationMock()
 		let badgeWrapper = HomeBadgeWrapper.fake()
+		let healthCertificateService = HealthCertificateService(
+			store: store,
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
+			dscListProvider: MockDSCListProvider(),
+			appConfiguration: appConfiguration,
+			cclService: FakeCCLService(),
+			recycleBin: .fake()
+		)
+
 		let service = CoronaTestService(
 			client: client,
 			restServiceProvider: restServiceProvider,
@@ -662,15 +737,12 @@ class CoronaTestServiceTests: CWATestCase {
 			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
 			appConfiguration: appConfiguration,
-			healthCertificateService: HealthCertificateService(
+			healthCertificateService: healthCertificateService,
+			healthCertificateRequestService: HealthCertificateRequestService(
 				store: store,
-				dccSignatureVerifier: DCCSignatureVerifyingStub(),
-				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration,
-				cclService: FakeCCLService(),
-
-				recycleBin: .fake()
+				healthCertificateService: healthCertificateService
 			),
 			recycleBin: .fake(),
 			badgeWrapper: badgeWrapper
@@ -777,6 +849,15 @@ class CoronaTestServiceTests: CWATestCase {
 
 		let appConfiguration = CachedAppConfigurationMock()
 		let badgeWrapper = HomeBadgeWrapper.fake()
+		let healthCertificateService = HealthCertificateService(
+			store: store,
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
+			dscListProvider: MockDSCListProvider(),
+			appConfiguration: appConfiguration,
+			cclService: FakeCCLService(),
+			recycleBin: .fake()
+		)
+
 		let service = CoronaTestService(
 			client: client,
 			restServiceProvider: restServiceProvider,
@@ -784,18 +865,15 @@ class CoronaTestServiceTests: CWATestCase {
 			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
 			appConfiguration: appConfiguration,
-			healthCertificateService: HealthCertificateService(
+			healthCertificateService: healthCertificateService,
+			healthCertificateRequestService: HealthCertificateRequestService(
 				store: store,
-				dccSignatureVerifier: DCCSignatureVerifyingStub(),
-				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration,
-				cclService: FakeCCLService(),
-
-				recycleBin: .fake()
+				healthCertificateService: healthCertificateService
 			),
 			recycleBin: .fake(),
-			badgeWrapper: badgeWrapper
+			badgeWrapper: .fake()
 		)
 		
 		let expectedCounts: [String?] = [nil]
@@ -872,6 +950,15 @@ class CoronaTestServiceTests: CWATestCase {
 
 		let appConfiguration = CachedAppConfigurationMock()
 
+		let healthCertificateService = HealthCertificateService(
+			store: store,
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
+			dscListProvider: MockDSCListProvider(),
+			appConfiguration: appConfiguration,
+			cclService: FakeCCLService(),
+			recycleBin: .fake()
+		)
+
 		let service = CoronaTestService(
 			client: client,
 			restServiceProvider: restServiceProvider,
@@ -879,15 +966,12 @@ class CoronaTestServiceTests: CWATestCase {
 			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
 			appConfiguration: appConfiguration,
-			healthCertificateService: HealthCertificateService(
+			healthCertificateService: healthCertificateService,
+			healthCertificateRequestService: HealthCertificateRequestService(
 				store: store,
-				dccSignatureVerifier: DCCSignatureVerifyingStub(),
-				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration,
-				cclService: FakeCCLService(),
-
-				recycleBin: .fake()
+				healthCertificateService: healthCertificateService
 			),
 			recycleBin: .fake(),
 			badgeWrapper: .fake()
@@ -940,6 +1024,15 @@ class CoronaTestServiceTests: CWATestCase {
 
 		let appConfiguration = CachedAppConfigurationMock()
 
+		let healthCertificateService = HealthCertificateService(
+			store: store,
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
+			dscListProvider: MockDSCListProvider(),
+			appConfiguration: appConfiguration,
+			cclService: FakeCCLService(),
+			recycleBin: .fake()
+		)
+
 		let service = CoronaTestService(
 			client: client,
 			restServiceProvider: restServiceProvider,
@@ -947,15 +1040,12 @@ class CoronaTestServiceTests: CWATestCase {
 			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
 			appConfiguration: appConfiguration,
-			healthCertificateService: HealthCertificateService(
+			healthCertificateService: healthCertificateService,
+			healthCertificateRequestService: HealthCertificateRequestService(
 				store: store,
-				dccSignatureVerifier: DCCSignatureVerifyingStub(),
-				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration,
-				cclService: FakeCCLService(),
-
-				recycleBin: .fake()
+				healthCertificateService: healthCertificateService
 			),
 			recycleBin: .fake(),
 			badgeWrapper: .fake()
@@ -1007,6 +1097,15 @@ class CoronaTestServiceTests: CWATestCase {
 
 		let appConfiguration = CachedAppConfigurationMock()
 
+		let healthCertificateService = HealthCertificateService(
+			store: store,
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
+			dscListProvider: MockDSCListProvider(),
+			appConfiguration: appConfiguration,
+			cclService: FakeCCLService(),
+			recycleBin: .fake()
+		)
+
 		let service = CoronaTestService(
 			client: client,
 			restServiceProvider: restServiceProvider,
@@ -1014,15 +1113,12 @@ class CoronaTestServiceTests: CWATestCase {
 			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
 			appConfiguration: appConfiguration,
-			healthCertificateService: HealthCertificateService(
+			healthCertificateService: healthCertificateService,
+			healthCertificateRequestService: HealthCertificateRequestService(
 				store: store,
-				dccSignatureVerifier: DCCSignatureVerifyingStub(),
-				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration,
-				cclService: FakeCCLService(),
-
-				recycleBin: .fake()
+				healthCertificateService: healthCertificateService
 			),
 			recycleBin: .fake(),
 			badgeWrapper: .fake()
@@ -1095,6 +1191,15 @@ class CoronaTestServiceTests: CWATestCase {
 		let appConfiguration = CachedAppConfigurationMock()
 		let diaryStore = MockDiaryStore()
 
+		let healthCertificateService = HealthCertificateService(
+			store: store,
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
+			dscListProvider: MockDSCListProvider(),
+			appConfiguration: appConfiguration,
+			cclService: FakeCCLService(),
+			recycleBin: .fake()
+		)
+
 		let service = CoronaTestService(
 			client: client,
 			restServiceProvider: restServiceProvider,
@@ -1102,15 +1207,12 @@ class CoronaTestServiceTests: CWATestCase {
 			eventStore: eventStore,
 			diaryStore: diaryStore,
 			appConfiguration: appConfiguration,
-			healthCertificateService: HealthCertificateService(
+			healthCertificateService: healthCertificateService,
+			healthCertificateRequestService: HealthCertificateRequestService(
 				store: store,
-				dccSignatureVerifier: DCCSignatureVerifyingStub(),
-				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration,
-				cclService: FakeCCLService(),
-
-				recycleBin: .fake()
+				healthCertificateService: healthCertificateService
 			),
 			recycleBin: .fake(),
 			badgeWrapper: .fake()
@@ -1185,6 +1287,15 @@ class CoronaTestServiceTests: CWATestCase {
 		let appConfiguration = CachedAppConfigurationMock()
 		let diaryStore = MockDiaryStore()
 
+		let healthCertificateService = HealthCertificateService(
+			store: store,
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
+			dscListProvider: MockDSCListProvider(),
+			appConfiguration: appConfiguration,
+			cclService: FakeCCLService(),
+			recycleBin: .fake()
+		)
+
 		let service = CoronaTestService(
 			client: client,
 			restServiceProvider: restServiceProvider,
@@ -1192,15 +1303,12 @@ class CoronaTestServiceTests: CWATestCase {
 			eventStore: MockEventStore(),
 			diaryStore: diaryStore,
 			appConfiguration: appConfiguration,
-			healthCertificateService: HealthCertificateService(
+			healthCertificateService: healthCertificateService,
+			healthCertificateRequestService: HealthCertificateRequestService(
 				store: store,
-				dccSignatureVerifier: DCCSignatureVerifyingStub(),
-				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration,
-				cclService: FakeCCLService(),
-
-				recycleBin: .fake()
+				healthCertificateService: healthCertificateService
 			),
 			recycleBin: .fake(),
 			badgeWrapper: .fake()
@@ -1265,6 +1373,15 @@ class CoronaTestServiceTests: CWATestCase {
 		let client = ClientMock()
 		let appConfiguration = CachedAppConfigurationMock()
 		let diaryStore = MockDiaryStore()
+		let healthCertificateService = HealthCertificateService(
+			store: store,
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
+			dscListProvider: MockDSCListProvider(),
+			appConfiguration: appConfiguration,
+			cclService: FakeCCLService(),
+			recycleBin: .fake()
+		)
+
 		let service = CoronaTestService(
 			client: client,
 			restServiceProvider: restServiceProvider,
@@ -1272,15 +1389,12 @@ class CoronaTestServiceTests: CWATestCase {
 			eventStore: MockEventStore(),
 			diaryStore: diaryStore,
 			appConfiguration: appConfiguration,
-			healthCertificateService: HealthCertificateService(
+			healthCertificateService: healthCertificateService,
+			healthCertificateRequestService: HealthCertificateRequestService(
 				store: store,
-				dccSignatureVerifier: DCCSignatureVerifyingStub(),
-				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration,
-				cclService: FakeCCLService(),
-
-				recycleBin: .fake()
+				healthCertificateService: healthCertificateService
 			),
 			recycleBin: .fake(),
 			badgeWrapper: .fake()
@@ -1335,6 +1449,15 @@ class CoronaTestServiceTests: CWATestCase {
 		let store = MockTestStore()
 		let appConfiguration = CachedAppConfigurationMock()
 
+		let healthCertificateService = HealthCertificateService(
+			store: store,
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
+			dscListProvider: MockDSCListProvider(),
+			appConfiguration: appConfiguration,
+			cclService: FakeCCLService(),
+			recycleBin: .fake()
+		)
+
 		let service = CoronaTestService(
 			client: client,
 			restServiceProvider: restServiceProvider,
@@ -1342,15 +1465,12 @@ class CoronaTestServiceTests: CWATestCase {
 			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
 			appConfiguration: appConfiguration,
-			healthCertificateService: HealthCertificateService(
+			healthCertificateService: healthCertificateService,
+			healthCertificateRequestService: HealthCertificateRequestService(
 				store: store,
-				dccSignatureVerifier: DCCSignatureVerifyingStub(),
-				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration,
-				cclService: FakeCCLService(),
-
-				recycleBin: .fake()
+				healthCertificateService: healthCertificateService
 			),
 			recycleBin: .fake(),
 			badgeWrapper: .fake()
@@ -1421,6 +1541,15 @@ class CoronaTestServiceTests: CWATestCase {
 		let store = MockTestStore()
 		let appConfiguration = CachedAppConfigurationMock()
 		let badgeWrapper = HomeBadgeWrapper.fake()
+		let healthCertificateService = HealthCertificateService(
+			store: store,
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
+			dscListProvider: MockDSCListProvider(),
+			appConfiguration: appConfiguration,
+			cclService: FakeCCLService(),
+			recycleBin: .fake()
+		)
+
 		let service = CoronaTestService(
 			client: client,
 			restServiceProvider: restServiceProvider,
@@ -1428,15 +1557,12 @@ class CoronaTestServiceTests: CWATestCase {
 			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
 			appConfiguration: appConfiguration,
-			healthCertificateService: HealthCertificateService(
+			healthCertificateService: healthCertificateService,
+			healthCertificateRequestService: HealthCertificateRequestService(
 				store: store,
-				dccSignatureVerifier: DCCSignatureVerifyingStub(),
-				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration,
-				cclService: FakeCCLService(),
-
-				recycleBin: .fake()
+				healthCertificateService: healthCertificateService
 			),
 			recycleBin: .fake(),
 			badgeWrapper: badgeWrapper
@@ -1538,6 +1664,15 @@ class CoronaTestServiceTests: CWATestCase {
 
 		let appConfiguration = CachedAppConfigurationMock()
 		let badgeWrapper = HomeBadgeWrapper.fake()
+		let healthCertificateService = HealthCertificateService(
+			store: store,
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
+			dscListProvider: MockDSCListProvider(),
+			appConfiguration: appConfiguration,
+			cclService: FakeCCLService(),
+			recycleBin: .fake()
+		)
+
 		let service = CoronaTestService(
 			client: client,
 			restServiceProvider: restServiceProvider,
@@ -1545,15 +1680,12 @@ class CoronaTestServiceTests: CWATestCase {
 			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
 			appConfiguration: appConfiguration,
-			healthCertificateService: HealthCertificateService(
+			healthCertificateService: healthCertificateService,
+			healthCertificateRequestService: HealthCertificateRequestService(
 				store: store,
-				dccSignatureVerifier: DCCSignatureVerifyingStub(),
-				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration,
-				cclService: FakeCCLService(),
-
-				recycleBin: .fake()
+				healthCertificateService: healthCertificateService
 			),
 			recycleBin: .fake(),
 			badgeWrapper: .fake()
@@ -1620,6 +1752,15 @@ class CoronaTestServiceTests: CWATestCase {
 		let store = MockTestStore()
 		let appConfiguration = CachedAppConfigurationMock()
 
+		let healthCertificateService = HealthCertificateService(
+			store: store,
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
+			dscListProvider: MockDSCListProvider(),
+			appConfiguration: appConfiguration,
+			cclService: FakeCCLService(),
+			recycleBin: .fake()
+		)
+
 		let service = CoronaTestService(
 			client: client,
 			restServiceProvider: restServiceProvider,
@@ -1627,15 +1768,12 @@ class CoronaTestServiceTests: CWATestCase {
 			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
 			appConfiguration: appConfiguration,
-			healthCertificateService: HealthCertificateService(
+			healthCertificateService: healthCertificateService,
+			healthCertificateRequestService: HealthCertificateRequestService(
 				store: store,
-				dccSignatureVerifier: DCCSignatureVerifyingStub(),
-				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration,
-				cclService: FakeCCLService(),
-
-				recycleBin: .fake()
+				healthCertificateService: healthCertificateService
 			),
 			recycleBin: .fake(),
 			badgeWrapper: .fake()
@@ -1683,6 +1821,15 @@ class CoronaTestServiceTests: CWATestCase {
 		let store = MockTestStore()
 		let appConfiguration = CachedAppConfigurationMock()
 
+		let healthCertificateService = HealthCertificateService(
+			store: store,
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
+			dscListProvider: MockDSCListProvider(),
+			appConfiguration: appConfiguration,
+			cclService: FakeCCLService(),
+			recycleBin: .fake()
+		)
+
 		let service = CoronaTestService(
 			client: client,
 			restServiceProvider: restServiceProvider,
@@ -1690,15 +1837,12 @@ class CoronaTestServiceTests: CWATestCase {
 			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
 			appConfiguration: appConfiguration,
-			healthCertificateService: HealthCertificateService(
+			healthCertificateService: healthCertificateService,
+			healthCertificateRequestService: HealthCertificateRequestService(
 				store: store,
-				dccSignatureVerifier: DCCSignatureVerifyingStub(),
-				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration,
-				cclService: FakeCCLService(),
-
-				recycleBin: .fake()
+				healthCertificateService: healthCertificateService
 			),
 			recycleBin: .fake(),
 			badgeWrapper: .fake()
@@ -1780,6 +1924,15 @@ class CoronaTestServiceTests: CWATestCase {
 
 		let appConfiguration = CachedAppConfigurationMock()
 
+		let healthCertificateService = HealthCertificateService(
+			store: store,
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
+			dscListProvider: MockDSCListProvider(),
+			appConfiguration: appConfiguration,
+			cclService: FakeCCLService(),
+			recycleBin: .fake()
+		)
+
 		let service = CoronaTestService(
 			client: client,
 			restServiceProvider: restServiceProvider,
@@ -1787,15 +1940,12 @@ class CoronaTestServiceTests: CWATestCase {
 			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
 			appConfiguration: appConfiguration,
-			healthCertificateService: HealthCertificateService(
+			healthCertificateService: healthCertificateService,
+			healthCertificateRequestService: HealthCertificateRequestService(
 				store: store,
-				dccSignatureVerifier: DCCSignatureVerifyingStub(),
-				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration,
-				cclService: FakeCCLService(),
-
-				recycleBin: .fake()
+				healthCertificateService: healthCertificateService
 			),
 			recycleBin: .fake(),
 			badgeWrapper: .fake()
@@ -1874,6 +2024,15 @@ class CoronaTestServiceTests: CWATestCase {
 
 		let appConfiguration = CachedAppConfigurationMock()
 		let badgeWrapper = HomeBadgeWrapper.fake()
+		let healthCertificateService = HealthCertificateService(
+			store: store,
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
+			dscListProvider: MockDSCListProvider(),
+			appConfiguration: appConfiguration,
+			cclService: FakeCCLService(),
+			recycleBin: .fake()
+		)
+
 		let service = CoronaTestService(
 			client: client,
 			restServiceProvider: restServiceProvider,
@@ -1881,15 +2040,12 @@ class CoronaTestServiceTests: CWATestCase {
 			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
 			appConfiguration: appConfiguration,
-			healthCertificateService: HealthCertificateService(
+			healthCertificateService: healthCertificateService,
+			healthCertificateRequestService: HealthCertificateRequestService(
 				store: store,
-				dccSignatureVerifier: DCCSignatureVerifyingStub(),
-				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration,
-				cclService: FakeCCLService(),
-
-				recycleBin: .fake()
+				healthCertificateService: healthCertificateService
 			),
 			recycleBin: .fake(),
 			badgeWrapper: badgeWrapper
@@ -1996,6 +2152,15 @@ class CoronaTestServiceTests: CWATestCase {
 
 		let appConfiguration = CachedAppConfigurationMock()
 		let badgeWrapper = HomeBadgeWrapper.fake()
+		let healthCertificateService = HealthCertificateService(
+			store: store,
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
+			dscListProvider: MockDSCListProvider(),
+			appConfiguration: appConfiguration,
+			cclService: FakeCCLService(),
+			recycleBin: .fake()
+		)
+
 		let service = CoronaTestService(
 			client: client,
 			restServiceProvider: restServiceProvider,
@@ -2003,15 +2168,12 @@ class CoronaTestServiceTests: CWATestCase {
 			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
 			appConfiguration: appConfiguration,
-			healthCertificateService: HealthCertificateService(
+			healthCertificateService: healthCertificateService,
+			healthCertificateRequestService: HealthCertificateRequestService(
 				store: store,
-				dccSignatureVerifier: DCCSignatureVerifyingStub(),
-				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration,
-				cclService: FakeCCLService(),
-
-				recycleBin: .fake()
+				healthCertificateService: healthCertificateService
 			),
 			recycleBin: .fake(),
 			badgeWrapper: .fake()
@@ -2077,6 +2239,15 @@ class CoronaTestServiceTests: CWATestCase {
 		let store = MockTestStore()
 		let appConfiguration = CachedAppConfigurationMock()
 
+		let healthCertificateService = HealthCertificateService(
+			store: store,
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
+			dscListProvider: MockDSCListProvider(),
+			appConfiguration: appConfiguration,
+			cclService: FakeCCLService(),
+			recycleBin: .fake()
+		)
+
 		let service = CoronaTestService(
 			client: client,
 			restServiceProvider: restServiceProvider,
@@ -2084,15 +2255,12 @@ class CoronaTestServiceTests: CWATestCase {
 			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
 			appConfiguration: appConfiguration,
-			healthCertificateService: HealthCertificateService(
+			healthCertificateService: healthCertificateService,
+			healthCertificateRequestService: HealthCertificateRequestService(
 				store: store,
-				dccSignatureVerifier: DCCSignatureVerifyingStub(),
-				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration,
-				cclService: FakeCCLService(),
-
-				recycleBin: .fake()
+				healthCertificateService: healthCertificateService
 			),
 			recycleBin: .fake(),
 			badgeWrapper: .fake()
@@ -2144,6 +2312,15 @@ class CoronaTestServiceTests: CWATestCase {
 
 		let appConfiguration = CachedAppConfigurationMock()
 
+		let healthCertificateService = HealthCertificateService(
+			store: store,
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
+			dscListProvider: MockDSCListProvider(),
+			appConfiguration: appConfiguration,
+			cclService: FakeCCLService(),
+			recycleBin: .fake()
+		)
+
 		let service = CoronaTestService(
 			client: client,
 			restServiceProvider: restServiceProvider,
@@ -2151,15 +2328,12 @@ class CoronaTestServiceTests: CWATestCase {
 			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
 			appConfiguration: appConfiguration,
-			healthCertificateService: HealthCertificateService(
+			healthCertificateService: healthCertificateService,
+			healthCertificateRequestService: HealthCertificateRequestService(
 				store: store,
-				dccSignatureVerifier: DCCSignatureVerifyingStub(),
-				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration,
-				cclService: FakeCCLService(),
-
-				recycleBin: .fake()
+				healthCertificateService: healthCertificateService
 			),
 			recycleBin: .fake(),
 			badgeWrapper: .fake()
@@ -2227,9 +2401,17 @@ class CoronaTestServiceTests: CWATestCase {
 		])
 
 		let client = ClientMock()
-
 		let store = MockTestStore()
 		let appConfiguration = CachedAppConfigurationMock()
+
+		let healthCertificateService = HealthCertificateService(
+			store: store,
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
+			dscListProvider: MockDSCListProvider(),
+			appConfiguration: appConfiguration,
+			cclService: FakeCCLService(),
+			recycleBin: .fake()
+		)
 
 		let service = CoronaTestService(
 			client: client,
@@ -2238,14 +2420,12 @@ class CoronaTestServiceTests: CWATestCase {
 			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
 			appConfiguration: appConfiguration,
-			healthCertificateService: HealthCertificateService(
+			healthCertificateService: healthCertificateService,
+			healthCertificateRequestService: HealthCertificateRequestService(
 				store: store,
-				dccSignatureVerifier: DCCSignatureVerifyingStub(),
-				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration,
-				cclService: FakeCCLService(),
-				recycleBin: .fake()
+				healthCertificateService: healthCertificateService
 			),
 			recycleBin: .fake(),
 			badgeWrapper: .fake()
@@ -2286,10 +2466,18 @@ class CoronaTestServiceTests: CWATestCase {
 		])
 		
 		let client = ClientMock()
-		
 		let store = MockTestStore()
 		let appConfiguration = CachedAppConfigurationMock()
 		
+		let healthCertificateService = HealthCertificateService(
+			store: store,
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
+			dscListProvider: MockDSCListProvider(),
+			appConfiguration: appConfiguration,
+			cclService: FakeCCLService(),
+			recycleBin: .fake()
+		)
+
 		let service = CoronaTestService(
 			client: client,
 			restServiceProvider: restServiceProvider,
@@ -2297,14 +2485,12 @@ class CoronaTestServiceTests: CWATestCase {
 			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
 			appConfiguration: appConfiguration,
-			healthCertificateService: HealthCertificateService(
+			healthCertificateService: healthCertificateService,
+			healthCertificateRequestService: HealthCertificateRequestService(
 				store: store,
-				dccSignatureVerifier: DCCSignatureVerifyingStub(),
-				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration,
-				cclService: FakeCCLService(),
-				recycleBin: .fake()
+				healthCertificateService: healthCertificateService
 			),
 			recycleBin: .fake(),
 			badgeWrapper: .fake()
@@ -2343,20 +2529,27 @@ class CoronaTestServiceTests: CWATestCase {
 		let store = MockTestStore()
 		let appConfiguration = CachedAppConfigurationMock()
 
+		let healthCertificateService = HealthCertificateService(
+			store: store,
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
+			dscListProvider: MockDSCListProvider(),
+			appConfiguration: appConfiguration,
+			cclService: FakeCCLService(),
+			recycleBin: .fake()
+		)
+
 		let service = CoronaTestService(
 			client: client,
 			store: store,
 			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
 			appConfiguration: appConfiguration,
-			healthCertificateService: HealthCertificateService(
+			healthCertificateService: healthCertificateService,
+			healthCertificateRequestService: HealthCertificateRequestService(
 				store: store,
-				dccSignatureVerifier: DCCSignatureVerifyingStub(),
-				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration,
-				cclService: FakeCCLService(),
-				recycleBin: .fake()
+				healthCertificateService: healthCertificateService
 			),
 			recycleBin: .fake(),
 			badgeWrapper: .fake()
@@ -2383,20 +2576,27 @@ class CoronaTestServiceTests: CWATestCase {
 		let store = MockTestStore()
 		let appConfiguration = CachedAppConfigurationMock()
 
+		let healthCertificateService = HealthCertificateService(
+			store: store,
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
+			dscListProvider: MockDSCListProvider(),
+			appConfiguration: appConfiguration,
+			cclService: FakeCCLService(),
+			recycleBin: .fake()
+		)
+
 		let service = CoronaTestService(
 			client: client,
 			store: store,
 			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
 			appConfiguration: appConfiguration,
-			healthCertificateService: HealthCertificateService(
+			healthCertificateService: healthCertificateService,
+			healthCertificateRequestService: HealthCertificateRequestService(
 				store: store,
-				dccSignatureVerifier: DCCSignatureVerifyingStub(),
-				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration,
-				cclService: FakeCCLService(),
-				recycleBin: .fake()
+				healthCertificateService: healthCertificateService
 			),
 			recycleBin: .fake(),
 			badgeWrapper: .fake()
@@ -2423,20 +2623,27 @@ class CoronaTestServiceTests: CWATestCase {
 		let store = MockTestStore()
 		let appConfiguration = CachedAppConfigurationMock()
 
+		let healthCertificateService = HealthCertificateService(
+			store: store,
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
+			dscListProvider: MockDSCListProvider(),
+			appConfiguration: appConfiguration,
+			cclService: FakeCCLService(),
+			recycleBin: .fake()
+		)
+
 		let service = CoronaTestService(
 			client: client,
 			store: store,
 			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
 			appConfiguration: appConfiguration,
-			healthCertificateService: HealthCertificateService(
+			healthCertificateService: healthCertificateService,
+			healthCertificateRequestService: HealthCertificateRequestService(
 				store: store,
-				dccSignatureVerifier: DCCSignatureVerifyingStub(),
-				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration,
-				cclService: FakeCCLService(),
-				recycleBin: .fake()
+				healthCertificateService: healthCertificateService
 			),
 			recycleBin: .fake(),
 			badgeWrapper: .fake()
@@ -2471,20 +2678,27 @@ class CoronaTestServiceTests: CWATestCase {
 		let store = MockTestStore()
 		let appConfiguration = CachedAppConfigurationMock()
 
+		let healthCertificateService = HealthCertificateService(
+			store: store,
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
+			dscListProvider: MockDSCListProvider(),
+			appConfiguration: appConfiguration,
+			cclService: FakeCCLService(),
+			recycleBin: .fake()
+		)
+
 		let service = CoronaTestService(
 			client: client,
 			store: store,
 			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
 			appConfiguration: appConfiguration,
-			healthCertificateService: HealthCertificateService(
+			healthCertificateService: healthCertificateService,
+			healthCertificateRequestService: HealthCertificateRequestService(
 				store: store,
-				dccSignatureVerifier: DCCSignatureVerifyingStub(),
-				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration,
-				cclService: FakeCCLService(),
-				recycleBin: .fake()
+				healthCertificateService: healthCertificateService
 			),
 			recycleBin: .fake(),
 			badgeWrapper: .fake()
@@ -2531,6 +2745,16 @@ class CoronaTestServiceTests: CWATestCase {
 
 		])
 
+		let healthCertificateService = HealthCertificateService(
+			store: store,
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
+			dscListProvider: MockDSCListProvider(),
+			appConfiguration: appConfiguration,
+			notificationCenter: mockNotificationCenter,
+			cclService: FakeCCLService(),
+			recycleBin: .fake()
+		)
+
 		let testService = CoronaTestService(
 			client: client,
 			restServiceProvider: restServiceProvider,
@@ -2538,14 +2762,12 @@ class CoronaTestServiceTests: CWATestCase {
 			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
 			appConfiguration: appConfiguration,
-			healthCertificateService: HealthCertificateService(
+			healthCertificateService: healthCertificateService,
+			healthCertificateRequestService: HealthCertificateRequestService(
 				store: store,
-				dccSignatureVerifier: DCCSignatureVerifyingStub(),
-				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration,
-				cclService: FakeCCLService(),
-				recycleBin: .fake()
+				healthCertificateService: healthCertificateService
 			),
 			notificationCenter: mockNotificationCenter,
 			recycleBin: .fake(),
@@ -2586,6 +2808,15 @@ class CoronaTestServiceTests: CWATestCase {
 		let store = MockTestStore()
 		let appConfiguration = CachedAppConfigurationMock()
 
+		let healthCertificateService = HealthCertificateService(
+			store: store,
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
+			dscListProvider: MockDSCListProvider(),
+			appConfiguration: appConfiguration,
+			cclService: FakeCCLService(),
+			recycleBin: .fake()
+		)
+
 		let testService = CoronaTestService(
 			client: client,
 			restServiceProvider: restServiceProvider,
@@ -2593,16 +2824,13 @@ class CoronaTestServiceTests: CWATestCase {
 			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
 			appConfiguration: appConfiguration,
-			healthCertificateService: HealthCertificateService(
+			healthCertificateService: healthCertificateService,
+			healthCertificateRequestService: HealthCertificateRequestService(
 				store: store,
-				dccSignatureVerifier: DCCSignatureVerifyingStub(),
-				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration,
-				cclService: FakeCCLService(),
-				recycleBin: .fake()
+				healthCertificateService: healthCertificateService
 			),
-			notificationCenter: mockNotificationCenter,
 			recycleBin: .fake(),
 			badgeWrapper: .fake()
 		)
@@ -2629,6 +2857,15 @@ class CoronaTestServiceTests: CWATestCase {
 		let store = MockTestStore()
 		let appConfiguration = CachedAppConfigurationMock()
 
+		let healthCertificateService = HealthCertificateService(
+			store: store,
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
+			dscListProvider: MockDSCListProvider(),
+			appConfiguration: appConfiguration,
+			cclService: FakeCCLService(),
+			recycleBin: .fake()
+		)
+
 		let testService = CoronaTestService(
 			client: client,
 			restServiceProvider: restServiceProvider,
@@ -2636,14 +2873,12 @@ class CoronaTestServiceTests: CWATestCase {
 			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
 			appConfiguration: appConfiguration,
-			healthCertificateService: HealthCertificateService(
+			healthCertificateService: healthCertificateService,
+			healthCertificateRequestService: HealthCertificateRequestService(
 				store: store,
-				dccSignatureVerifier: DCCSignatureVerifyingStub(),
-				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration,
-				cclService: FakeCCLService(),
-				recycleBin: .fake()
+				healthCertificateService: healthCertificateService
 			),
 			recycleBin: .fake(),
 			badgeWrapper: .fake()
@@ -2673,6 +2908,15 @@ class CoronaTestServiceTests: CWATestCase {
 		let store = MockTestStore()
 		let appConfiguration = CachedAppConfigurationMock()
 
+		let healthCertificateService = HealthCertificateService(
+			store: store,
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
+			dscListProvider: MockDSCListProvider(),
+			appConfiguration: appConfiguration,
+			cclService: FakeCCLService(),
+			recycleBin: .fake()
+		)
+
 		let testService = CoronaTestService(
 			client: client,
 			restServiceProvider: restServiceProvider,
@@ -2680,16 +2924,13 @@ class CoronaTestServiceTests: CWATestCase {
 			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
 			appConfiguration: appConfiguration,
-			healthCertificateService: HealthCertificateService(
+			healthCertificateService: healthCertificateService,
+			healthCertificateRequestService: HealthCertificateRequestService(
 				store: store,
-				dccSignatureVerifier: DCCSignatureVerifyingStub(),
-				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration,
-				cclService: FakeCCLService(),
-				recycleBin: .fake()
+				healthCertificateService: healthCertificateService
 			),
-			notificationCenter: mockNotificationCenter,
 			recycleBin: .fake(),
 			badgeWrapper: .fake()
 		)
@@ -2706,7 +2947,6 @@ class CoronaTestServiceTests: CWATestCase {
 	}
 
 	func test_When_UpdateTestResultSuccessWithPositive_Then_ContactJournalHasAnEntry() throws {
-		let mockNotificationCenter = MockUserNotificationCenter()
 		let client = ClientMock()
 		let sampleCollectionDate = Date()
 		
@@ -2719,6 +2959,15 @@ class CoronaTestServiceTests: CWATestCase {
 		let diaryStore = MockDiaryStore()
 		let store = MockTestStore()
 		let appConfiguration = CachedAppConfigurationMock()
+		let healthCertificateService = HealthCertificateService(
+			store: store,
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
+			dscListProvider: MockDSCListProvider(),
+			appConfiguration: appConfiguration,
+			cclService: FakeCCLService(),
+			recycleBin: .fake()
+		)
+
 		let testService = CoronaTestService(
 			client: client,
 			restServiceProvider: restServiceProvider,
@@ -2726,16 +2975,13 @@ class CoronaTestServiceTests: CWATestCase {
 			eventStore: MockEventStore(),
 			diaryStore: diaryStore,
 			appConfiguration: appConfiguration,
-			healthCertificateService: HealthCertificateService(
+			healthCertificateService: healthCertificateService,
+			healthCertificateRequestService: HealthCertificateRequestService(
 				store: store,
-				dccSignatureVerifier: DCCSignatureVerifyingStub(),
-				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration,
-				cclService: FakeCCLService(),
-				recycleBin: .fake()
+				healthCertificateService: healthCertificateService
 			),
-			notificationCenter: mockNotificationCenter,
 			recycleBin: .fake(),
 			badgeWrapper: .fake()
 		)
@@ -2767,7 +3013,6 @@ class CoronaTestServiceTests: CWATestCase {
 	}
 
 	func test_When_UpdateTestResultSuccessWithPending_Then_ContactJournalHasNoEntry() throws {
-		let mockNotificationCenter = MockUserNotificationCenter()
 		let client = ClientMock()
 		
 		let restServiceProvider = RestServiceProviderStub(results: [
@@ -2778,6 +3023,15 @@ class CoronaTestServiceTests: CWATestCase {
 		let diaryStore = MockDiaryStore()
 		let store = MockTestStore()
 		let appConfiguration = CachedAppConfigurationMock()
+		let healthCertificateService = HealthCertificateService(
+			store: store,
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
+			dscListProvider: MockDSCListProvider(),
+			appConfiguration: appConfiguration,
+			cclService: FakeCCLService(),
+			recycleBin: .fake()
+		)
+
 		let testService = CoronaTestService(
 			client: client,
 			restServiceProvider: restServiceProvider,
@@ -2785,16 +3039,13 @@ class CoronaTestServiceTests: CWATestCase {
 			eventStore: MockEventStore(),
 			diaryStore: diaryStore,
 			appConfiguration: appConfiguration,
-			healthCertificateService: HealthCertificateService(
+			healthCertificateService: healthCertificateService,
+			healthCertificateRequestService: HealthCertificateRequestService(
 				store: store,
-				dccSignatureVerifier: DCCSignatureVerifyingStub(),
-				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration,
-				cclService: FakeCCLService(),
-				recycleBin: .fake()
+				healthCertificateService: healthCertificateService
 			),
-			notificationCenter: mockNotificationCenter,
 			recycleBin: .fake(),
 			badgeWrapper: .fake()
 		)
@@ -2814,7 +3065,6 @@ class CoronaTestServiceTests: CWATestCase {
 	}
 
 	func test_When_UpdateTestResultSuccessWithExpired_Then_ContactJournalHasNoEntry() throws {
-		let mockNotificationCenter = MockUserNotificationCenter()
 		let client = ClientMock()
 		
 		let restServiceProvider = RestServiceProviderStub(results: [
@@ -2825,6 +3075,15 @@ class CoronaTestServiceTests: CWATestCase {
 		let diaryStore = MockDiaryStore()
 		let store = MockTestStore()
 		let appConfiguration = CachedAppConfigurationMock()
+		let healthCertificateService = HealthCertificateService(
+			store: store,
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
+			dscListProvider: MockDSCListProvider(),
+			appConfiguration: appConfiguration,
+			cclService: FakeCCLService(),
+			recycleBin: .fake()
+		)
+
 		let testService = CoronaTestService(
 			client: client,
 			restServiceProvider: restServiceProvider,
@@ -2832,16 +3091,13 @@ class CoronaTestServiceTests: CWATestCase {
 			eventStore: MockEventStore(),
 			diaryStore: diaryStore,
 			appConfiguration: appConfiguration,
-			healthCertificateService: HealthCertificateService(
+			healthCertificateService: healthCertificateService,
+			healthCertificateRequestService: HealthCertificateRequestService(
 				store: store,
-				dccSignatureVerifier: DCCSignatureVerifyingStub(),
-				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration,
-				cclService: FakeCCLService(),
-				recycleBin: .fake()
+				healthCertificateService: healthCertificateService
 			),
-			notificationCenter: mockNotificationCenter,
 			recycleBin: .fake(),
 			badgeWrapper: .fake()
 		)
@@ -2861,7 +3117,6 @@ class CoronaTestServiceTests: CWATestCase {
 	}
 
 	func test_When_UpdateTestResultSuccessWithInvalid_Then_ContactJournalHasNoEntry() throws {
-		let mockNotificationCenter = MockUserNotificationCenter()
 		let client = ClientMock()
 
 		let restServiceProvider = RestServiceProviderStub(results: [
@@ -2873,6 +3128,15 @@ class CoronaTestServiceTests: CWATestCase {
 		let store = MockTestStore()
 		let appConfiguration = CachedAppConfigurationMock()
 
+		let healthCertificateService = HealthCertificateService(
+			store: store,
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
+			dscListProvider: MockDSCListProvider(),
+			appConfiguration: appConfiguration,
+			cclService: FakeCCLService(),
+			recycleBin: .fake()
+		)
+
 		let testService = CoronaTestService(
 			client: client,
 			restServiceProvider: restServiceProvider,
@@ -2880,16 +3144,13 @@ class CoronaTestServiceTests: CWATestCase {
 			eventStore: MockEventStore(),
 			diaryStore: diaryStore,
 			appConfiguration: appConfiguration,
-			healthCertificateService: HealthCertificateService(
+			healthCertificateService: healthCertificateService,
+			healthCertificateRequestService: HealthCertificateRequestService(
 				store: store,
-				dccSignatureVerifier: DCCSignatureVerifyingStub(),
-				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration,
-				cclService: FakeCCLService(),
-				recycleBin: .fake()
+				healthCertificateService: healthCertificateService
 			),
-			notificationCenter: mockNotificationCenter,
 			recycleBin: .fake(),
 			badgeWrapper: .fake()
 		)
@@ -2909,7 +3170,6 @@ class CoronaTestServiceTests: CWATestCase {
 	}
 
 	func test_When_UpdateTestResultSuccessWithNegative_Then_ContactJournalHasAnEntry() throws {
-		let mockNotificationCenter = MockUserNotificationCenter()
 		let client = ClientMock()
 		
 		let restServiceProvider = RestServiceProviderStub(results: [
@@ -2921,6 +3181,15 @@ class CoronaTestServiceTests: CWATestCase {
 		let store = MockTestStore()
 		let appConfiguration = CachedAppConfigurationMock()
 
+		let healthCertificateService = HealthCertificateService(
+			store: store,
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
+			dscListProvider: MockDSCListProvider(),
+			appConfiguration: appConfiguration,
+			cclService: FakeCCLService(),
+			recycleBin: .fake()
+		)
+
 		let testService = CoronaTestService(
 			client: client,
 			restServiceProvider: restServiceProvider,
@@ -2928,16 +3197,13 @@ class CoronaTestServiceTests: CWATestCase {
 			eventStore: MockEventStore(),
 			diaryStore: diaryStore,
 			appConfiguration: appConfiguration,
-			healthCertificateService: HealthCertificateService(
+			healthCertificateService: healthCertificateService,
+			healthCertificateRequestService: HealthCertificateRequestService(
 				store: store,
-				dccSignatureVerifier: DCCSignatureVerifyingStub(),
-				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration,
-				cclService: FakeCCLService(),
-				recycleBin: .fake()
+				healthCertificateService: healthCertificateService
 			),
-			notificationCenter: mockNotificationCenter,
 			recycleBin: .fake(),
 			badgeWrapper: .fake()
 		)
@@ -2967,6 +3233,15 @@ class CoronaTestServiceTests: CWATestCase {
 
 		let store = MockTestStore()
 		let appConfiguration = CachedAppConfigurationMock()
+		let healthCertificateService = HealthCertificateService(
+			store: store,
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
+			dscListProvider: MockDSCListProvider(),
+			appConfiguration: appConfiguration,
+			cclService: FakeCCLService(),
+			recycleBin: .fake()
+		)
+
 		let testService = CoronaTestService(
 			client: client,
 			restServiceProvider: restServiceProvider,
@@ -2974,16 +3249,13 @@ class CoronaTestServiceTests: CWATestCase {
 			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
 			appConfiguration: appConfiguration,
-			healthCertificateService: HealthCertificateService(
+			healthCertificateService: healthCertificateService,
+			healthCertificateRequestService: HealthCertificateRequestService(
 				store: store,
-				dccSignatureVerifier: DCCSignatureVerifyingStub(),
-				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration,
-				cclService: FakeCCLService(),
-				recycleBin: .fake()
+				healthCertificateService: healthCertificateService
 			),
-			notificationCenter: mockNotificationCenter,
 			recycleBin: .fake(),
 			badgeWrapper: .fake()
 		)
@@ -3000,7 +3272,6 @@ class CoronaTestServiceTests: CWATestCase {
 	}
 
 	func test_When_UpdateWithForce_And_FinalTestResultExist_Then_ClientIsCalled() {
-		let mockNotificationCenter = MockUserNotificationCenter()
 		let client = ClientMock()
 		let store = MockTestStore()
 		let appConfiguration = CachedAppConfigurationMock()
@@ -3025,6 +3296,15 @@ class CoronaTestServiceTests: CWATestCase {
 				})
 		])
 
+		let healthCertificateService = HealthCertificateService(
+			store: store,
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
+			dscListProvider: MockDSCListProvider(),
+			appConfiguration: appConfiguration,
+			cclService: FakeCCLService(),
+			recycleBin: .fake()
+		)
+
 		let testService = CoronaTestService(
 			client: client,
 			restServiceProvider: restServiceProvider,
@@ -3032,16 +3312,13 @@ class CoronaTestServiceTests: CWATestCase {
 			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
 			appConfiguration: appConfiguration,
-			healthCertificateService: HealthCertificateService(
+			healthCertificateService: healthCertificateService,
+			healthCertificateRequestService: HealthCertificateRequestService(
 				store: store,
-				dccSignatureVerifier: DCCSignatureVerifyingStub(),
-				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration,
-				cclService: FakeCCLService(),
-				recycleBin: .fake()
+				healthCertificateService: healthCertificateService
 			),
-			notificationCenter: mockNotificationCenter,
 			recycleBin: .fake(),
 			badgeWrapper: .fake()
 		)
@@ -3060,7 +3337,6 @@ class CoronaTestServiceTests: CWATestCase {
 	}
 
 	func test_When_UpdateWithoutForce_And_FinalTestResultExist_Then_ClientIsNotCalled() {
-		let mockNotificationCenter = MockUserNotificationCenter()
 		let client = ClientMock()
 		let store = MockTestStore()
 		let appConfiguration = CachedAppConfigurationMock()
@@ -3078,6 +3354,15 @@ class CoronaTestServiceTests: CWATestCase {
 				})
 		])
 
+		let healthCertificateService = HealthCertificateService(
+			store: store,
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
+			dscListProvider: MockDSCListProvider(),
+			appConfiguration: appConfiguration,
+			cclService: FakeCCLService(),
+			recycleBin: .fake()
+		)
+
 		let testService = CoronaTestService(
 			client: client,
 			restServiceProvider: restServiceProvider,
@@ -3085,16 +3370,13 @@ class CoronaTestServiceTests: CWATestCase {
 			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
 			appConfiguration: appConfiguration,
-			healthCertificateService: HealthCertificateService(
+			healthCertificateService: healthCertificateService,
+			healthCertificateRequestService: HealthCertificateRequestService(
 				store: store,
-				dccSignatureVerifier: DCCSignatureVerifyingStub(),
-				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration,
-				cclService: FakeCCLService(),
-				recycleBin: .fake()
+				healthCertificateService: healthCertificateService
 			),
-			notificationCenter: mockNotificationCenter,
 			recycleBin: .fake(),
 			badgeWrapper: .fake()
 		)
@@ -3113,7 +3395,6 @@ class CoronaTestServiceTests: CWATestCase {
 	}
 
 	func test_When_UpdateWithoutForce_And_NoFinalTestResultExist_Then_ClientIsCalled() {
-		let mockNotificationCenter = MockUserNotificationCenter()
 		let client = ClientMock()
 		let store = MockTestStore()
 		let appConfiguration = CachedAppConfigurationMock()
@@ -3138,6 +3419,15 @@ class CoronaTestServiceTests: CWATestCase {
 				})
 		])
 		
+		let healthCertificateService = HealthCertificateService(
+			store: store,
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
+			dscListProvider: MockDSCListProvider(),
+			appConfiguration: appConfiguration,
+			cclService: FakeCCLService(),
+			recycleBin: .fake()
+		)
+
 		let testService = CoronaTestService(
 			client: client,
 			restServiceProvider: restServiceProvider,
@@ -3145,16 +3435,13 @@ class CoronaTestServiceTests: CWATestCase {
 			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
 			appConfiguration: appConfiguration,
-			healthCertificateService: HealthCertificateService(
+			healthCertificateService: healthCertificateService,
+			healthCertificateRequestService: HealthCertificateRequestService(
 				store: store,
-				dccSignatureVerifier: DCCSignatureVerifyingStub(),
-				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration,
-				cclService: FakeCCLService(),
-				recycleBin: .fake()
+				healthCertificateService: healthCertificateService
 			),
-			notificationCenter: mockNotificationCenter,
 			recycleBin: .fake(),
 			badgeWrapper: .fake()
 		)
@@ -3173,7 +3460,6 @@ class CoronaTestServiceTests: CWATestCase {
 	}
 
 	func test_When_UpdatingExpiredTestResultOlderThan21Days_Then_ClientIsNotCalled() throws {
-		let mockNotificationCenter = MockUserNotificationCenter()
 		let client = ClientMock()
 		let store = MockTestStore()
 		let appConfiguration = CachedAppConfigurationMock()
@@ -3200,6 +3486,15 @@ class CoronaTestServiceTests: CWATestCase {
 				})
 		])
 
+		let healthCertificateService = HealthCertificateService(
+			store: store,
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
+			dscListProvider: MockDSCListProvider(),
+			appConfiguration: appConfiguration,
+			cclService: FakeCCLService(),
+			recycleBin: .fake()
+		)
+
 		let testService = CoronaTestService(
 			client: client,
 			restServiceProvider: restServiceProvider,
@@ -3207,16 +3502,13 @@ class CoronaTestServiceTests: CWATestCase {
 			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
 			appConfiguration: appConfiguration,
-			healthCertificateService: HealthCertificateService(
+			healthCertificateService: healthCertificateService,
+			healthCertificateRequestService: HealthCertificateRequestService(
 				store: store,
-				dccSignatureVerifier: DCCSignatureVerifyingStub(),
-				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration,
-				cclService: FakeCCLService(),
-				recycleBin: .fake()
+				healthCertificateService: healthCertificateService
 			),
-			notificationCenter: mockNotificationCenter,
 			recycleBin: .fake(),
 			badgeWrapper: .fake()
 		)
@@ -3237,7 +3529,6 @@ class CoronaTestServiceTests: CWATestCase {
 	}
 
 	func test_When_UpdatingExpiredAntigenTestResultWithoutRegistrationDateButPointOfCareConsentDateOlderThan21Days_Then_ClientIsNotCalled() throws {
-		let mockNotificationCenter = MockUserNotificationCenter()
 		let client = ClientMock()
 		let store = MockTestStore()
 		let appConfiguration = CachedAppConfigurationMock()
@@ -3256,6 +3547,15 @@ class CoronaTestServiceTests: CWATestCase {
 		])
 
 		let pointOfCareConsentDate = try XCTUnwrap(Calendar.current.date(byAdding: .day, value: -21, to: Date()))
+		let healthCertificateService = HealthCertificateService(
+			store: store,
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
+			dscListProvider: MockDSCListProvider(),
+			appConfiguration: appConfiguration,
+			cclService: FakeCCLService(),
+			recycleBin: .fake()
+		)
+
 		let testService = CoronaTestService(
 			client: client,
 			restServiceProvider: restServiceProvider,
@@ -3263,16 +3563,13 @@ class CoronaTestServiceTests: CWATestCase {
 			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
 			appConfiguration: appConfiguration,
-			healthCertificateService: HealthCertificateService(
+			healthCertificateService: healthCertificateService,
+			healthCertificateRequestService: HealthCertificateRequestService(
 				store: store,
-				dccSignatureVerifier: DCCSignatureVerifyingStub(),
-				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration,
-				cclService: FakeCCLService(),
-				recycleBin: .fake()
+				healthCertificateService: healthCertificateService
 			),
-			notificationCenter: mockNotificationCenter,
 			recycleBin: .fake(),
 			badgeWrapper: .fake()
 		)
@@ -3289,7 +3586,6 @@ class CoronaTestServiceTests: CWATestCase {
 	}
 
 	func test_When_UpdatingExpiredTestResultYoungerThan21Days_Then_ClientIsCalled() throws {
-		let mockNotificationCenter = MockUserNotificationCenter()
 		let client = ClientMock()
 		let store = MockTestStore()
 		let appConfiguration = CachedAppConfigurationMock()
@@ -3317,6 +3613,15 @@ class CoronaTestServiceTests: CWATestCase {
 				})
 		])
 		
+		let healthCertificateService = HealthCertificateService(
+			store: store,
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
+			dscListProvider: MockDSCListProvider(),
+			appConfiguration: appConfiguration,
+			cclService: FakeCCLService(),
+			recycleBin: .fake()
+		)
+
 		let testService = CoronaTestService(
 			client: client,
 			restServiceProvider: restServiceProvider,
@@ -3324,16 +3629,13 @@ class CoronaTestServiceTests: CWATestCase {
 			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
 			appConfiguration: appConfiguration,
-			healthCertificateService: HealthCertificateService(
+			healthCertificateService: healthCertificateService,
+			healthCertificateRequestService: HealthCertificateRequestService(
 				store: store,
-				dccSignatureVerifier: DCCSignatureVerifyingStub(),
-				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration,
-				cclService: FakeCCLService(),
-				recycleBin: .fake()
+				healthCertificateService: healthCertificateService
 			),
-			notificationCenter: mockNotificationCenter,
 			recycleBin: .fake(),
 			badgeWrapper: .fake()
 		)
@@ -3354,7 +3656,6 @@ class CoronaTestServiceTests: CWATestCase {
 	}
 
 	func test_When_UpdatingExpiredAntigenTestResultWithoutRegistrationDateAndPointOfCareConsentDateYoungerThan21Days_Then_ClientIsCalled() throws {
-		let mockNotificationCenter = MockUserNotificationCenter()
 		let client = ClientMock()
 		let store = MockTestStore()
 		let appConfiguration = CachedAppConfigurationMock()
@@ -3374,6 +3675,15 @@ class CoronaTestServiceTests: CWATestCase {
 				})
 		])
 		
+		let healthCertificateService = HealthCertificateService(
+			store: store,
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
+			dscListProvider: MockDSCListProvider(),
+			appConfiguration: appConfiguration,
+			cclService: FakeCCLService(),
+			recycleBin: .fake()
+		)
+
 		let testService = CoronaTestService(
 			client: client,
 			restServiceProvider: restServiceProvider,
@@ -3381,16 +3691,13 @@ class CoronaTestServiceTests: CWATestCase {
 			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
 			appConfiguration: appConfiguration,
-			healthCertificateService: HealthCertificateService(
+			healthCertificateService: healthCertificateService,
+			healthCertificateRequestService: HealthCertificateRequestService(
 				store: store,
-				dccSignatureVerifier: DCCSignatureVerifyingStub(),
-				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration,
-				cclService: FakeCCLService(),
-				recycleBin: .fake()
+				healthCertificateService: healthCertificateService
 			),
-			notificationCenter: mockNotificationCenter,
 			recycleBin: .fake(),
 			badgeWrapper: .fake()
 		)
@@ -3418,6 +3725,15 @@ class CoronaTestServiceTests: CWATestCase {
 		let store = MockTestStore()
 		let appConfiguration = CachedAppConfigurationMock()
 
+		let healthCertificateService = HealthCertificateService(
+			store: store,
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
+			dscListProvider: MockDSCListProvider(),
+			appConfiguration: appConfiguration,
+			cclService: FakeCCLService(),
+			recycleBin: .fake()
+		)
+
 		let testService = CoronaTestService(
 			client: client,
 			restServiceProvider: restServiceProvider,
@@ -3425,16 +3741,13 @@ class CoronaTestServiceTests: CWATestCase {
 			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
 			appConfiguration: appConfiguration,
-			healthCertificateService: HealthCertificateService(
+			healthCertificateService: healthCertificateService,
+			healthCertificateRequestService: HealthCertificateRequestService(
 				store: store,
-				dccSignatureVerifier: DCCSignatureVerifyingStub(),
-				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration,
-				cclService: FakeCCLService(),
-				recycleBin: .fake()
+				healthCertificateService: healthCertificateService
 			),
-			notificationCenter: MockUserNotificationCenter(),
 			recycleBin: .fake(),
 			badgeWrapper: .fake()
 		)
@@ -3467,6 +3780,15 @@ class CoronaTestServiceTests: CWATestCase {
 		let store = MockTestStore()
 		let appConfiguration = CachedAppConfigurationMock()
 
+		let healthCertificateService = HealthCertificateService(
+			store: store,
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
+			dscListProvider: MockDSCListProvider(),
+			appConfiguration: appConfiguration,
+			cclService: FakeCCLService(),
+			recycleBin: .fake()
+		)
+
 		let testService = CoronaTestService(
 			client: client,
 			restServiceProvider: restServiceProvider,
@@ -3474,16 +3796,13 @@ class CoronaTestServiceTests: CWATestCase {
 			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
 			appConfiguration: appConfiguration,
-			healthCertificateService: HealthCertificateService(
+			healthCertificateService: healthCertificateService,
+			healthCertificateRequestService: HealthCertificateRequestService(
 				store: store,
-				dccSignatureVerifier: DCCSignatureVerifyingStub(),
-				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration,
-				cclService: FakeCCLService(),
-				recycleBin: .fake()
+				healthCertificateService: healthCertificateService
 			),
-			notificationCenter: MockUserNotificationCenter(),
 			recycleBin: .fake(),
 			badgeWrapper: .fake()
 		)
@@ -3519,6 +3838,15 @@ class CoronaTestServiceTests: CWATestCase {
 		let store = MockTestStore()
 		let appConfiguration = CachedAppConfigurationMock()
 
+		let healthCertificateService = HealthCertificateService(
+			store: store,
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
+			dscListProvider: MockDSCListProvider(),
+			appConfiguration: appConfiguration,
+			cclService: FakeCCLService(),
+			recycleBin: .fake()
+		)
+
 		let testService = CoronaTestService(
 			client: client,
 			restServiceProvider: restServiceProvider,
@@ -3526,16 +3854,13 @@ class CoronaTestServiceTests: CWATestCase {
 			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
 			appConfiguration: appConfiguration,
-			healthCertificateService: HealthCertificateService(
+			healthCertificateService: healthCertificateService,
+			healthCertificateRequestService: HealthCertificateRequestService(
 				store: store,
-				dccSignatureVerifier: DCCSignatureVerifyingStub(),
-				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration,
-				cclService: FakeCCLService(),
-				recycleBin: .fake()
+				healthCertificateService: healthCertificateService
 			),
-			notificationCenter: MockUserNotificationCenter(),
 			recycleBin: .fake(),
 			badgeWrapper: .fake()
 		)
@@ -3571,6 +3896,15 @@ class CoronaTestServiceTests: CWATestCase {
 		let store = MockTestStore()
 		let appConfiguration = CachedAppConfigurationMock()
 
+		let healthCertificateService = HealthCertificateService(
+			store: store,
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
+			dscListProvider: MockDSCListProvider(),
+			appConfiguration: appConfiguration,
+			cclService: FakeCCLService(),
+			recycleBin: .fake()
+		)
+
 		let testService = CoronaTestService(
 			client: client,
 			restServiceProvider: restServiceProvider,
@@ -3578,16 +3912,13 @@ class CoronaTestServiceTests: CWATestCase {
 			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
 			appConfiguration: appConfiguration,
-			healthCertificateService: HealthCertificateService(
+			healthCertificateService: healthCertificateService,
+			healthCertificateRequestService: HealthCertificateRequestService(
 				store: store,
-				dccSignatureVerifier: DCCSignatureVerifyingStub(),
-				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration,
-				cclService: FakeCCLService(),
-				recycleBin: .fake()
+				healthCertificateService: healthCertificateService
 			),
-			notificationCenter: MockUserNotificationCenter(),
 			recycleBin: .fake(),
 			badgeWrapper: .fake()
 		)
@@ -3623,6 +3954,15 @@ class CoronaTestServiceTests: CWATestCase {
 		let store = MockTestStore()
 		let appConfiguration = CachedAppConfigurationMock()
 
+		let healthCertificateService = HealthCertificateService(
+			store: store,
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
+			dscListProvider: MockDSCListProvider(),
+			appConfiguration: appConfiguration,
+			cclService: FakeCCLService(),
+			recycleBin: .fake()
+		)
+
 		let testService = CoronaTestService(
 			client: client,
 			restServiceProvider: restServiceProvider,
@@ -3630,16 +3970,13 @@ class CoronaTestServiceTests: CWATestCase {
 			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
 			appConfiguration: appConfiguration,
-			healthCertificateService: HealthCertificateService(
+			healthCertificateService: healthCertificateService,
+			healthCertificateRequestService: HealthCertificateRequestService(
 				store: store,
-				dccSignatureVerifier: DCCSignatureVerifyingStub(),
-				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration,
-				cclService: FakeCCLService(),
-				recycleBin: .fake()
+				healthCertificateService: healthCertificateService
 			),
-			notificationCenter: MockUserNotificationCenter(),
 			recycleBin: .fake(),
 			badgeWrapper: .fake()
 		)
@@ -3675,6 +4012,15 @@ class CoronaTestServiceTests: CWATestCase {
 		let store = MockTestStore()
 		let appConfiguration = CachedAppConfigurationMock()
 
+		let healthCertificateService = HealthCertificateService(
+			store: store,
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
+			dscListProvider: MockDSCListProvider(),
+			appConfiguration: appConfiguration,
+			cclService: FakeCCLService(),
+			recycleBin: .fake()
+		)
+
 		let testService = CoronaTestService(
 			client: client,
 			restServiceProvider: restServiceProvider,
@@ -3682,16 +4028,13 @@ class CoronaTestServiceTests: CWATestCase {
 			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
 			appConfiguration: appConfiguration,
-			healthCertificateService: HealthCertificateService(
+			healthCertificateService: healthCertificateService,
+			healthCertificateRequestService: HealthCertificateRequestService(
 				store: store,
-				dccSignatureVerifier: DCCSignatureVerifyingStub(),
-				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration,
-				cclService: FakeCCLService(),
-				recycleBin: .fake()
+				healthCertificateService: healthCertificateService
 			),
-			notificationCenter: MockUserNotificationCenter(),
 			recycleBin: .fake(),
 			badgeWrapper: .fake()
 		)
@@ -3721,20 +4064,27 @@ class CoronaTestServiceTests: CWATestCase {
 		let appConfiguration = CachedAppConfigurationMock()
 		let recycleBin = RecycleBin(store: store)
 
+		let healthCertificateService = HealthCertificateService(
+			store: store,
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
+			dscListProvider: MockDSCListProvider(),
+			appConfiguration: appConfiguration,
+			cclService: FakeCCLService(),
+			recycleBin: recycleBin
+		)
+
 		let service = CoronaTestService(
 			client: client,
 			store: store,
 			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
 			appConfiguration: appConfiguration,
-			healthCertificateService: HealthCertificateService(
+			healthCertificateService: healthCertificateService,
+			healthCertificateRequestService: HealthCertificateRequestService(
 				store: store,
-				dccSignatureVerifier: DCCSignatureVerifyingStub(),
-				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration,
-				cclService: FakeCCLService(),
-				recycleBin: recycleBin
+				healthCertificateService: healthCertificateService
 			),
 			recycleBin: recycleBin,
 			badgeWrapper: .fake()
@@ -3780,20 +4130,27 @@ class CoronaTestServiceTests: CWATestCase {
 		let store = MockTestStore()
 		let appConfiguration = CachedAppConfigurationMock()
 
+		let healthCertificateService = HealthCertificateService(
+			store: store,
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
+			dscListProvider: MockDSCListProvider(),
+			appConfiguration: appConfiguration,
+			cclService: FakeCCLService(),
+			recycleBin: .fake()
+		)
+
 		let service = CoronaTestService(
 			client: client,
 			store: store,
 			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
 			appConfiguration: appConfiguration,
-			healthCertificateService: HealthCertificateService(
+			healthCertificateService: healthCertificateService,
+			healthCertificateRequestService: HealthCertificateRequestService(
 				store: store,
-				dccSignatureVerifier: DCCSignatureVerifyingStub(),
-				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration,
-				cclService: FakeCCLService(),
-				recycleBin: .fake()
+				healthCertificateService: healthCertificateService
 			),
 			recycleBin: .fake(),
 			badgeWrapper: .fake()
@@ -3881,6 +4238,15 @@ class CoronaTestServiceTests: CWATestCase {
 		let store = MockTestStore()
 		let appConfiguration = CachedAppConfigurationMock()
 
+		let healthCertificateService = HealthCertificateService(
+			store: store,
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
+			dscListProvider: MockDSCListProvider(),
+			appConfiguration: appConfiguration,
+			cclService: FakeCCLService(),
+			recycleBin: .fake()
+		)
+
 		let service = CoronaTestService(
 			client: client,
 			restServiceProvider: restServiceProvider,
@@ -3888,14 +4254,12 @@ class CoronaTestServiceTests: CWATestCase {
 			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
 			appConfiguration: appConfiguration,
-			healthCertificateService: HealthCertificateService(
+			healthCertificateService: healthCertificateService,
+			healthCertificateRequestService: HealthCertificateRequestService(
 				store: store,
-				dccSignatureVerifier: DCCSignatureVerifyingStub(),
-				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration,
-				cclService: FakeCCLService(),
-				recycleBin: .fake()
+				healthCertificateService: healthCertificateService
 			),
 			recycleBin: .fake(),
 			badgeWrapper: .fake()
@@ -3997,6 +4361,15 @@ class CoronaTestServiceTests: CWATestCase {
 					count += 1
 				})
 		])
+		let healthCertificateService = HealthCertificateService(
+			store: store,
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
+			dscListProvider: MockDSCListProvider(),
+			appConfiguration: appConfiguration,
+			cclService: FakeCCLService(),
+			recycleBin: .fake()
+		)
+
 		let service = CoronaTestService(
 			client: client,
 			restServiceProvider: restServiceProvider,
@@ -4004,14 +4377,12 @@ class CoronaTestServiceTests: CWATestCase {
 			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
 			appConfiguration: appConfiguration,
-			healthCertificateService: HealthCertificateService(
+			healthCertificateService: healthCertificateService,
+			healthCertificateRequestService: HealthCertificateRequestService(
 				store: store,
-				dccSignatureVerifier: DCCSignatureVerifyingStub(),
-				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration,
-				cclService: FakeCCLService(),
-				recycleBin: .fake()
+				healthCertificateService: healthCertificateService
 			),
 			recycleBin: .fake(),
 			badgeWrapper: .fake()
