@@ -378,7 +378,7 @@ class ENAUITests_13_CreateHealthCertificate: CWATestCase {
 		XCTAssertEqual(app.cells.matching(identifier: AccessibilityIdentifiers.HealthCertificate.Person.certificateCell).count, 2)
 	}
 
-	func test_screenshot_HealthCertificate_FederalState_Flow() throws {
+	func test_HealthCertificate_FederalState_Flow() throws {
 		app.setLaunchArgument(LaunchArguments.healthCertificate.firstAndSecondHealthCertificate, to: true)
 		app.setLaunchArgument(LaunchArguments.infoScreen.healthCertificateInfoScreenShown, to: true)
 		app.launch()
