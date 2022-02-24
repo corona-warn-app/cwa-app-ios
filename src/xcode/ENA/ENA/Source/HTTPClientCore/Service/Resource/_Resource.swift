@@ -18,6 +18,8 @@ protocol Resource {
 	// Defines a default value for no network cases as the specific receive model (for resources like e.g. AppConfig, AllowList)
 	var defaultModel: Receive.ReceiveModel? { get }
 	
+	var trustEvaluation: TrustEvaluating { get }
+	
 	func customError(for error: ServiceError<CustomError>) -> CustomError?
 	
 #if !RELEASE
@@ -34,7 +36,7 @@ extension Resource {
 	var defaultModel: Receive.ReceiveModel? {
 		nil
 	}
-	
+
 	func customError(for error: ServiceError<CustomError>) -> CustomError? {
 		return nil
 	}
