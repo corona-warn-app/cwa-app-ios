@@ -14,6 +14,7 @@ enum Endpoint: Equatable, CustomStringConvertible {
 	case dataDonation
 	case errorLogSubmission
 	case dcc
+	case dccRecertify
 	case dynamic(URL)
 
 	// MARK: - CustomStringConvertible
@@ -31,6 +32,8 @@ enum Endpoint: Equatable, CustomStringConvertible {
 			return "errorLogSubmission"
 		case .dcc:
 			return "dcc"
+		case .dccRecertify:
+			return "dccRecertify"
 		case let .dynamic(url):
 			return "dynamic" + url.absoluteString
 		}
@@ -52,6 +55,8 @@ enum Endpoint: Equatable, CustomStringConvertible {
 			return environmentData.dccURL
 		case .dataDonation:
 			return environmentData.dataDonationURL
+		case .dccRecertify:
+			return environmentData.dccRecertifyURL
 		case .dynamic(let url):
 			return url
 		}

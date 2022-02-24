@@ -3,53 +3,28 @@
 //
 
 import Foundation
-import ENASecurity
 
-final class CoronaWarnURLSessionDelegate: NSObject, URLSessionDelegate {
-
-	// MARK: - Init
-
-	/// Initializes a CWA Session delegate
-	/// - Parameter publicKeyHash: the SHA256 of the certificate to pin
-
-	init(
-		evaluateTrust: TrustEvaluating
-	) {
-		self.evaluateTrust = evaluateTrust
-	}
-
-	convenience init(
-		publicKeyHash: String
-	) {
-		self.init(
-			evaluateTrust: DefaultTrustEvaluation(
-				publicKeyHash: publicKeyHash
-			)
-		)
-	}
-
-	convenience init(
-		jwkSet: [JSONWebKey],
-		trustEvaluation: ENASecurity.JSONWebKeyTrustEvaluation = ENASecurity.JSONWebKeyTrustEvaluation()
-	) {
-		self.init(
-			evaluateTrust: JSONWebKeyTrustEvaluation(
-				jwkSet: jwkSet,
-				trustEvaluation: trustEvaluation
-			)
-		)
-	}
-
-	// MARK: - Protocol URLSessionDelegate
+class CoronaWarnSessionTaskDelegate: NSObject, URLSessionTaskDelegate {
+	
+	// MARK: - Protocol URLSessionTaskDelegate
 
 	func urlSession(
 		_ session: URLSession,
+		task: URLSessionTask,
 		didReceive challenge: URLAuthenticationChallenge,
 		completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Void
 	) {
+		
+		// If there is no trust evaluation or the trust evaluation is DisabledTrustEvaluation, perform default handling - as if this delegate were not implemented.
+		guard var trustEvaluation = trustEvaluations[task.taskIdentifier],
+			  !(trustEvaluation is DisabledTrustEvaluation) else {
+			completionHandler(.performDefaultHandling, nil)
+			return
+		}
+		
 		// `serverTrust` not nil implies that authenticationMethod == NSURLAuthenticationMethodServerTrust
 		guard let trust = challenge.protectionSpace.serverTrust else {
-			// Reject all requests that we do not have a public key to pin for
+			trustEvaluation.trustEvaluationError = .notSupportedAuthenticationMethod
 			completionHandler(.cancelAuthenticationChallenge, /* credential */ nil)
 			return
 		}
@@ -65,13 +40,14 @@ final class CoronaWarnURLSessionDelegate: NSObject, URLSessionDelegate {
 		if #available(iOS 13.0, *) {
 			let dispatchQueue = session.delegateQueue.underlyingQueue ?? DispatchQueue.global()
 			dispatchQueue.async {
-				SecTrustEvaluateAsyncWithError(trust, dispatchQueue) { [weak self] trust, isValid, error in
+				SecTrustEvaluateAsyncWithError(trust, dispatchQueue) { trust, isValid, error in
 					guard isValid else {
 						Log.error("Evaluation failed with error: \(error?.localizedDescription ?? "<nil>")", log: .api, error: error)
+						trustEvaluation.trustEvaluationError = .invalidSecTrust
 						completionHandler(.cancelAuthenticationChallenge, /* credential */ nil)
 						return
 					}
-					self?.evaluateTrust.evaluate(
+					trustEvaluation.evaluate(
 						challenge: challenge,
 						trust: trust,
 						completionHandler: completionHandler
@@ -83,19 +59,35 @@ final class CoronaWarnURLSessionDelegate: NSObject, URLSessionDelegate {
 			let status = SecTrustEvaluate(trust, &secresult)
 			
 			if status == errSecSuccess {
-				self.evaluateTrust.evaluate(
+				trustEvaluation.evaluate(
 					challenge: challenge,
 					trust: trust,
 					completionHandler: completionHandler
 				)
 			} else {
 				Log.error("Evaluation failed with status: \(status)", log: .api, error: nil)
+				trustEvaluation.trustEvaluationError = .invalidSecTrust
 				completionHandler(.cancelAuthenticationChallenge, /* credential */ nil)
 			}
 		}
+		
+		trustEvaluations[task.taskIdentifier] = nil
 	}
-
+	
 	// MARK: - Internal
 
-	var evaluateTrust: TrustEvaluating
+	var trustEvaluations: [Int: TrustEvaluating] {
+		get { trustEvaluationsQueue.sync { _trustEvaluations } }
+		set { trustEvaluationsQueue.sync { _trustEvaluations = newValue } }
+	}
+
+	// MARK: - Private
+	
+	// Serial queue for safe access of trustEvaluations.
+	private let trustEvaluationsQueue = DispatchQueue(label: "com.sap.CoronaWarnSessionTaskDelegate.trustEvaluationsQueue")
+
+	// Map the trust evaluations to the tasks.
+	// This way every task has its own trust evaluation.
+	private var _trustEvaluations = [Int: TrustEvaluating]()
+
 }
