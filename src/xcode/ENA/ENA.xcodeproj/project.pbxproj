@@ -350,6 +350,8 @@
 		01D319D426C18B9B008698D8 /* HealthCertificateDecodingContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D319D326C18B9B008698D8 /* HealthCertificateDecodingContainer.swift */; };
 		01D6816327C3D18200FF6D18 /* MockCoronaTestService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D6816227C3D18100FF6D18 /* MockCoronaTestService.swift */; };
 		01D6816527C5206000FF6D18 /* HealthCertificateRequestServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D6816427C5206000FF6D18 /* HealthCertificateRequestServiceTests.swift */; };
+		01D6816927C7734900FF6D18 /* CertificateReissuanceCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D6816827C771A900FF6D18 /* CertificateReissuanceCellModel.swift */; };
+		01D6816A27C7734C00FF6D18 /* CertificateReissuanceTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D6816727C771A900FF6D18 /* CertificateReissuanceTableViewCell.swift */; };
 		01D6948B25026EC000B45BEA /* DatePickerOptionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D6948A25026EC000B45BEA /* DatePickerOptionViewModel.swift */; };
 		01D6948D2502717F00B45BEA /* DatePickerDayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D6948C2502717F00B45BEA /* DatePickerDayView.swift */; };
 		01D6948F2502729000B45BEA /* DatePickerDay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D6948E2502729000B45BEA /* DatePickerDay.swift */; };
@@ -2050,6 +2052,8 @@
 		01D3ECFF2490230400551E65 /* StoreTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = StoreTests.swift; sourceTree = "<group>"; };
 		01D6816227C3D18100FF6D18 /* MockCoronaTestService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockCoronaTestService.swift; sourceTree = "<group>"; };
 		01D6816427C5206000FF6D18 /* HealthCertificateRequestServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthCertificateRequestServiceTests.swift; sourceTree = "<group>"; };
+		01D6816727C771A900FF6D18 /* CertificateReissuanceTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CertificateReissuanceTableViewCell.swift; sourceTree = "<group>"; };
+		01D6816827C771A900FF6D18 /* CertificateReissuanceCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CertificateReissuanceCellModel.swift; sourceTree = "<group>"; };
 		01D6948A25026EC000B45BEA /* DatePickerOptionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerOptionViewModel.swift; sourceTree = "<group>"; };
 		01D6948C2502717F00B45BEA /* DatePickerDayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerDayView.swift; sourceTree = "<group>"; };
 		01D6948E2502729000B45BEA /* DatePickerDay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerDay.swift; sourceTree = "<group>"; };
@@ -4529,6 +4533,15 @@
 				01D16C6124ED6DB3007DB387 /* MockLowPowerModeStatusProvider.swift */,
 			);
 			path = __tests__;
+			sourceTree = "<group>";
+		};
+		01D6816627C7719700FF6D18 /* CertificateReissuance */ = {
+			isa = PBXGroup;
+			children = (
+				01D6816827C771A900FF6D18 /* CertificateReissuanceCellModel.swift */,
+				01D6816727C771A900FF6D18 /* CertificateReissuanceTableViewCell.swift */,
+			);
+			path = CertificateReissuance;
 			sourceTree = "<group>";
 		};
 		01D69492250272E500B45BEA /* DatePickerOption */ = {
@@ -8756,6 +8769,7 @@
 				0191556E2680DACD00D49C88 /* HealthCertificate */,
 				019155682680DAB400D49C88 /* PreferredPerson */,
 				01B5DFDA26E0FFDB00043955 /* VaccinationState */,
+				01D6816627C7719700FF6D18 /* CertificateReissuance */,
 				01DED64927A44E97006A958C /* BoosterNotification */,
 				8F56B26B276370F8007D4E29 /* AdmissionState */,
 			);
@@ -10861,6 +10875,7 @@
 				01A6C3032626DE2500B6E95A /* HomeTestResultTableViewCell.swift in Sources */,
 				BA5B7FD026458EF400502087 /* HealthCertificateKeyValueTextCell.swift in Sources */,
 				501352302788399E00511ADF /* ValidationOnboardedCountriesReceiveModel.swift in Sources */,
+				01D6816A27C7734C00FF6D18 /* CertificateReissuanceTableViewCell.swift in Sources */,
 				8FB7C92B2750EF6E0071C98C /* TicketValidationServiceIdentityDocumentValidationDecorator.swift in Sources */,
 				BAB953D625B86015007B80C7 /* HistoryExposure.swift in Sources */,
 				BA5B7FD226458EF400502087 /* HealthCertificateTopCornerCell.swift in Sources */,
@@ -11296,6 +11311,7 @@
 				8F39D07D263F62A80096F4E2 /* els_otp_request_ios.pb.swift in Sources */,
 				5001DE7A26E2019A004242FA /* LocalStatistics.swift in Sources */,
 				FEDCE29E414945F14E7CE576 /* ENStateHandler+State.swift in Sources */,
+				01D6816927C7734900FF6D18 /* CertificateReissuanceCellModel.swift in Sources */,
 				FEDCE6E2763B0BABFADF36BA /* ExposureDetectionViewModel.swift in Sources */,
 				50F0653A2654FFC200774173 /* tri_state_boolean.pb.swift in Sources */,
 				BA41016226F8D7DB0073F28D /* CovPassCheckInformationViewController.swift in Sources */,
