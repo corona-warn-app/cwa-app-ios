@@ -790,13 +790,13 @@
 		50C5204025ADACBB008DF2F4 /* HomeShownPositiveTestResultCellModelTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50C5203F25ADACBB008DF2F4 /* HomeShownPositiveTestResultCellModelTest.swift */; };
 		50C5C1B525891CC800C4817A /* DynamicLegalExtendedCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 50C5C1B425891CC800C4817A /* DynamicLegalExtendedCell.xib */; };
 		50C5C1BA258920AD00C4817A /* DynamicLegalExtendedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50C5C1B9258920AD00C4817A /* DynamicLegalExtendedCell.swift */; };
+		50CDFB2027BBEADC00FE0793 /* HealthCertifiedPersonArray+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50CDFB1F27BBEADC00FE0793 /* HealthCertifiedPersonArray+Utils.swift */; };
 		50CDFB2827BE82E900FE0793 /* DCCReissuanceResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50CDFB2727BE82E900FE0793 /* DCCReissuanceResource.swift */; };
 		50CDFB2A27BE82F300FE0793 /* DCCReissuanceReceiveModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50CDFB2927BE82F300FE0793 /* DCCReissuanceReceiveModel.swift */; };
 		50CDFB2C27BE82FB00FE0793 /* DCCReissuanceSendModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50CDFB2B27BE82FB00FE0793 /* DCCReissuanceSendModel.swift */; };
 		50CDFB2E27BE84E800FE0793 /* Locator+DCCReissuance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50CDFB2D27BE84E800FE0793 /* Locator+DCCReissuance.swift */; };
 		50CDFB3027BEA2E200FE0793 /* Locator+DCCReissuanceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50CDFB2F27BEA2C900FE0793 /* Locator+DCCReissuanceTests.swift */; };
 		50CDFB3227BEA42300FE0793 /* DCCReissuanceResourceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50CDFB3127BEA42300FE0793 /* DCCReissuanceResourceTests.swift */; };
-		50CDFB2027BBEADC00FE0793 /* HealthCertifiedPersonArray+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50CDFB1F27BBEADC00FE0793 /* HealthCertifiedPersonArray+Utils.swift */; };
 		50D3493D274E85E400F00493 /* String+Regex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50D3493C274E85E400F00493 /* String+Regex.swift */; };
 		50D3493F274FB66C00F00493 /* ServiceIdentityDocumentResourceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50D3493E274FB66C00F00493 /* ServiceIdentityDocumentResourceTests.swift */; };
 		50D7BD7026DE405100494FB7 /* Locator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50D7BD6F26DE405100494FB7 /* Locator.swift */; };
@@ -1479,6 +1479,7 @@
 		BAA4D72225E9501E00821B5C /* EUSettingsViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAA4D72125E9501E00821B5C /* EUSettingsViewModelTests.swift */; };
 		BAA4D73025E95B3A00821B5C /* CheckinTabCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAA4D72F25E95B3A00821B5C /* CheckinTabCoordinator.swift */; };
 		BAA7F60027A044D90050E072 /* CacheDataTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAA7F5FF27A044D90050E072 /* CacheDataTests.swift */; };
+		BAA8558B27C82A9C00D0EA26 /* HealthCertifiedPersonReissuanceConsentViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAA8558A27C82A9C00D0EA26 /* HealthCertifiedPersonReissuanceConsentViewModelTests.swift */; };
 		BAA8BAE225CAD8B000E29CFE /* DMStaticTextCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAA8BAE125CAD8B000E29CFE /* DMStaticTextCellViewModel.swift */; };
 		BAA8BAED25CAD91700E29CFE /* DMStaticTextTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAA8BAEC25CAD91700E29CFE /* DMStaticTextTableViewCell.swift */; };
 		BAAAF131267366A700F9666B /* HealthCertifiedPersonCellModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAAAF130267366A700F9666B /* HealthCertifiedPersonCellModelTests.swift */; };
@@ -2497,13 +2498,13 @@
 		50C5203F25ADACBB008DF2F4 /* HomeShownPositiveTestResultCellModelTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeShownPositiveTestResultCellModelTest.swift; sourceTree = "<group>"; };
 		50C5C1B425891CC800C4817A /* DynamicLegalExtendedCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DynamicLegalExtendedCell.xib; sourceTree = "<group>"; };
 		50C5C1B9258920AD00C4817A /* DynamicLegalExtendedCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicLegalExtendedCell.swift; sourceTree = "<group>"; };
+		50CDFB1F27BBEADC00FE0793 /* HealthCertifiedPersonArray+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HealthCertifiedPersonArray+Utils.swift"; sourceTree = "<group>"; };
 		50CDFB2727BE82E900FE0793 /* DCCReissuanceResource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DCCReissuanceResource.swift; sourceTree = "<group>"; };
 		50CDFB2927BE82F300FE0793 /* DCCReissuanceReceiveModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DCCReissuanceReceiveModel.swift; sourceTree = "<group>"; };
 		50CDFB2B27BE82FB00FE0793 /* DCCReissuanceSendModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DCCReissuanceSendModel.swift; sourceTree = "<group>"; };
 		50CDFB2D27BE84E800FE0793 /* Locator+DCCReissuance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Locator+DCCReissuance.swift"; sourceTree = "<group>"; };
 		50CDFB2F27BEA2C900FE0793 /* Locator+DCCReissuanceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Locator+DCCReissuanceTests.swift"; sourceTree = "<group>"; };
 		50CDFB3127BEA42300FE0793 /* DCCReissuanceResourceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DCCReissuanceResourceTests.swift; sourceTree = "<group>"; };
-		50CDFB1F27BBEADC00FE0793 /* HealthCertifiedPersonArray+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HealthCertifiedPersonArray+Utils.swift"; sourceTree = "<group>"; };
 		50D3493C274E85E400F00493 /* String+Regex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Regex.swift"; sourceTree = "<group>"; };
 		50D3493E274FB66C00F00493 /* ServiceIdentityDocumentResourceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceIdentityDocumentResourceTests.swift; sourceTree = "<group>"; };
 		50D50A5F25D6CCA70092BC2A /* ENAUITests_05_DataDonation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ENAUITests_05_DataDonation.swift; sourceTree = "<group>"; };
@@ -3204,6 +3205,7 @@
 		BAA4D72125E9501E00821B5C /* EUSettingsViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EUSettingsViewModelTests.swift; sourceTree = "<group>"; };
 		BAA4D72F25E95B3A00821B5C /* CheckinTabCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckinTabCoordinator.swift; sourceTree = "<group>"; };
 		BAA7F5FF27A044D90050E072 /* CacheDataTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheDataTests.swift; sourceTree = "<group>"; };
+		BAA8558A27C82A9C00D0EA26 /* HealthCertifiedPersonReissuanceConsentViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthCertifiedPersonReissuanceConsentViewModelTests.swift; sourceTree = "<group>"; };
 		BAA8BAE125CAD8B000E29CFE /* DMStaticTextCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMStaticTextCellViewModel.swift; sourceTree = "<group>"; };
 		BAA8BAEC25CAD91700E29CFE /* DMStaticTextTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMStaticTextTableViewCell.swift; sourceTree = "<group>"; };
 		BAAAF130267366A700F9666B /* HealthCertifiedPersonCellModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthCertifiedPersonCellModelTests.swift; sourceTree = "<group>"; };
@@ -9144,6 +9146,14 @@
 			path = Checkin;
 			sourceTree = "<group>";
 		};
+		BAA8558927C82A7800D0EA26 /* __tests__ */ = {
+			isa = PBXGroup;
+			children = (
+				BAA8558A27C82A9C00D0EA26 /* HealthCertifiedPersonReissuanceConsentViewModelTests.swift */,
+			);
+			path = __tests__;
+			sourceTree = "<group>";
+		};
 		BAA8BB0C25CAEF0000E29CFE /* CellsAndViewModels */ = {
 			isa = PBXGroup;
 			children = (
@@ -9274,6 +9284,7 @@
 		BAC5CC0C27BEB56600094C32 /* ReissuanceConsent */ = {
 			isa = PBXGroup;
 			children = (
+				BAA8558927C82A7800D0EA26 /* __tests__ */,
 				BAC5CC0D27BEB5AC00094C32 /* HealthCertifiedPersonReissuanceConsentViewController.swift */,
 				BAC5CC0F27BEB5BC00094C32 /* HealthCertifiedPersonReissuanceConsentViewModel.swift */,
 			);
@@ -11501,6 +11512,7 @@
 				B15382E7248290BB0010F007 /* AppleFilesWriterTests.swift in Sources */,
 				50373EC925FBD08A000109AE /* HTTPClient+TraceWarningPackageDownloadTests.swift in Sources */,
 				AB1FCBD42521FC47005930BA /* EnvironmentTests.swift in Sources */,
+				BAA8558B27C82A9C00D0EA26 /* HealthCertifiedPersonReissuanceConsentViewModelTests.swift in Sources */,
 				50BD1425260B74C20013983A /* VerificationMock.swift in Sources */,
 				BAB2583827A94CA300DF347B /* FakeCCLService.swift in Sources */,
 				BA02641325E6A0800019CD55 /* FooterViewModelTests.swift in Sources */,
