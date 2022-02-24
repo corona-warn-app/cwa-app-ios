@@ -19,7 +19,8 @@ class HealthCertifiedPersonViewController: UIViewController, UITableViewDataSour
 		didTapBoosterNotification: @escaping (HealthCertifiedPerson) -> Void,
 		didTapHealthCertificate: @escaping (HealthCertificate) -> Void,
 		didSwipeToDelete: @escaping (HealthCertificate, @escaping () -> Void) -> Void,
-		showInfoHit: @escaping () -> Void
+		showInfoHit: @escaping () -> Void,
+		didTapUpdateNotification: @escaping () -> Void
 	) {
 		self.dismiss = dismiss
 		self.didTapHealthCertificate = didTapHealthCertificate
@@ -33,7 +34,8 @@ class HealthCertifiedPersonViewController: UIViewController, UITableViewDataSour
 			dismiss: dismiss,
 			didTapBoosterNotification: didTapBoosterNotification,
 			didTapValidationButton: didTapValidationButton,
-			showInfoHit: showInfoHit
+			showInfoHit: showInfoHit,
+			didTapUpdateNotification: didTapUpdateNotification
 		)
 
 		super.init(nibName: nil, bundle: nil)
@@ -173,12 +175,15 @@ class HealthCertifiedPersonViewController: UIViewController, UITableViewDataSour
 		viewModel.canEditRow(at: indexPath)
 	}
 
+	// swiftlint:disable cyclomatic_complexity
 	func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
 		guard editingStyle == .delete, let healthCertificate = viewModel.healthCertificate(for: indexPath) else { return }
 
 		let vaccinationStateWasVisible = viewModel.vaccinationStateIsVisible
 		let admissionStateWasVisible = viewModel.admissionStateIsVisible
 		let boosterNotificationWasVisible = viewModel.boosterNotificationIsVisible
+
+		let previousCertificates = viewModel.healthCertifiedPerson.healthCertificates.sorted(by: >)
 
 		self.didSwipeToDelete(healthCertificate) { [weak self] in
 			guard let self = self else { return }
@@ -206,7 +211,14 @@ class HealthCertifiedPersonViewController: UIViewController, UITableViewDataSour
 				} else if !boosterNotificationWasVisible && self.viewModel.boosterNotificationIsVisible {
 					insertIndexPaths.append(IndexPath(row: 0, section: HealthCertifiedPersonViewModel.TableViewSection.boosterNotification.rawValue))
 				}
-				
+
+				// For the case that a person splits after deleting a certificate, there could be some more certificates to be removed (because they are moved into a new person).
+				for (index, certificate) in previousCertificates.enumerated() where certificate != healthCertificate {
+					if !self.viewModel.healthCertifiedPerson.healthCertificates.contains(certificate) {
+						deleteIndexPaths.append(IndexPath(row: index, section: HealthCertifiedPersonViewModel.TableViewSection.certificates.rawValue))
+					}
+				}
+
 				tableView.deleteRows(at: deleteIndexPaths, with: .automatic)
 				tableView.insertRows(at: insertIndexPaths, with: .automatic)
 			}, completion: { _ in

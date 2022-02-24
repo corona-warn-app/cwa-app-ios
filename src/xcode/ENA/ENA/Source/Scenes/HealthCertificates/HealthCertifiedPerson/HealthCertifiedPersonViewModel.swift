@@ -18,7 +18,8 @@ final class HealthCertifiedPersonViewModel {
 		dismiss: @escaping () -> Void,
 		didTapBoosterNotification: @escaping (HealthCertifiedPerson) -> Void,
 		didTapValidationButton: @escaping (HealthCertificate, @escaping (Bool) -> Void) -> Void,
-		showInfoHit: @escaping () -> Void
+		showInfoHit: @escaping () -> Void,
+		didTapUpdateNotification: @escaping () -> Void
 	) {
 		self.cclService = cclService
 		self.healthCertificateService = healthCertificateService
@@ -28,6 +29,7 @@ final class HealthCertifiedPersonViewModel {
 		self.didTapBoosterNotification = didTapBoosterNotification
 		self.didTapValidationButton = didTapValidationButton
 		self.showInfo = showInfoHit
+		self.didTapUpdateNotification = didTapUpdateNotification
 
 		self.boosterNotificationCellModel = BoosterNotificationCellModel(healthCertifiedPerson: healthCertifiedPerson, cclService: cclService)
 		self.admissionStateCellModel = AdmissionStateCellModel(healthCertifiedPerson: healthCertifiedPerson, cclService: cclService)
@@ -89,6 +91,16 @@ final class HealthCertifiedPersonViewModel {
 		}
 	}
 
+	let healthCertifiedPerson: HealthCertifiedPerson
+
+	let boosterNotificationCellModel: BoosterNotificationCellModel
+	let admissionStateCellModel: AdmissionStateCellModel
+	let vaccinationStateCellModel: VaccinationStateCellModel
+
+	@OpenCombine.Published private(set) var gradientType: GradientView.GradientType = .lightBlue
+	@OpenCombine.Published private(set) var triggerReload: Bool = false
+	@OpenCombine.Published private(set) var updateError: Error?
+
 	var headerCellViewModel: HealthCertificateSimpleTextCellViewModel {
 		let centerParagraphStyle = NSMutableParagraphStyle()
 		centerParagraphStyle.alignment = .center
@@ -122,16 +134,6 @@ final class HealthCertifiedPersonViewModel {
 			accessibilityTraits: .staticText
 		)
 	}
-
-	let healthCertifiedPerson: HealthCertifiedPerson
-
-	let boosterNotificationCellModel: BoosterNotificationCellModel
-	let admissionStateCellModel: AdmissionStateCellModel
-	let vaccinationStateCellModel: VaccinationStateCellModel
-
-	@OpenCombine.Published private(set) var gradientType: GradientView.GradientType = .lightBlue
-	@OpenCombine.Published private(set) var triggerReload: Bool = false
-	@OpenCombine.Published private(set) var updateError: Error?
 
 	var qrCodeCellViewModel: HealthCertificateQRCodeCellViewModel {
 		guard let mostRelevantHealthCertificate = healthCertifiedPerson.mostRelevantHealthCertificate
@@ -231,10 +233,11 @@ final class HealthCertifiedPersonViewModel {
 	private let didTapBoosterNotification: (HealthCertifiedPerson) -> Void
 	private let didTapValidationButton: (HealthCertificate, @escaping (Bool) -> Void) -> Void
 	private let showInfo: () -> Void
+	private let didTapUpdateNotification: () -> Void
 	private var subscriptions = Set<AnyCancellable>()
 
 	private var healthCertificateCellViewModels = [HealthCertificateCellViewModel]()
-	
+
 	private func constructHealthCertificateCellViewModels(for person: HealthCertifiedPerson) {
 		let sortedHealthCertificates = person.healthCertificates.sorted(by: >)
 		healthCertificateCellViewModels = sortedHealthCertificates.map {

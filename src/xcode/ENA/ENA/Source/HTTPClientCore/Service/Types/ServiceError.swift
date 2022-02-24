@@ -3,11 +3,12 @@
 //
 
 import ENASecurity
+import Foundation
 
 /**
 The errors that can occur while using the service and calling http methods.
 */
-enum ServiceError<RE>: Error, CustomStringConvertible, Equatable where RE: Error {
+enum ServiceError<RE>: LocalizedError, Equatable where RE: Error {
 	case invalidRequestError(ResourceError)
 	case trustEvaluationError(TrustEvaluationError)
 	case transportationError(Error)
@@ -18,26 +19,26 @@ enum ServiceError<RE>: Error, CustomStringConvertible, Equatable where RE: Error
 	case invalidResponseType
 	case fakeResponse
 
-	// MARK: - Protocol CustomStringConvertible
+	// MARK: - Protocol LocalizedError
 
-	var description: String {
+	var errorDescription: String {
 		switch self {
 		case .invalidRequestError(let resourceError):
 			return "invalidRequestError(\(resourceError))"
 		case .trustEvaluationError(let trustEvaluationError):
 			return "trustEvaluationError(\(trustEvaluationError))"
-		case .transportationError(let error):
-			return "transportationError(\(error))"
+		case .transportationError:
+			return AppStrings.ExposureSubmissionError.noNetworkConnection
 		case .unexpectedServerError(let errorCode):
-			return "unexpectedServerError(\(errorCode))"
+			return "\(AppStrings.ExposureSubmissionError.other)\(errorCode). \(AppStrings.ExposureSubmissionError.otherend)"
 		case .resourceError(let resourceError):
 			return "resourceError(\(String(describing: resourceError)))"
 		case .receivedResourceError(let resourceError):
 			return "\(resourceError)"
 		case .invalidResponse:
-			return "invalidResponse"
+			return AppStrings.ExposureSubmissionError.invalidResponse
 		case .invalidResponseType:
-			return "invalidResponseType"
+			return AppStrings.ExposureSubmissionError.noResponse
 		case .fakeResponse:
 			return "fakeResponse"
 		}

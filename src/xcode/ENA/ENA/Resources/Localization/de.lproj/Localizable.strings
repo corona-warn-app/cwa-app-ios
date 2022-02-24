@@ -2951,6 +2951,26 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "HealthCertifiedPerson_newlyAddedCertificate" = "Neu";
 
+/* HealthCertifiedPerson UpdateConsent */
+
+"HealthCertifiedPerson_UpdateConsent_primaryButtonTitle" = "Einverstanden";
+
+"HealthCertifiedPerson_UpdateConsent_secondaryButtonTitle" = "Abbrechen";
+
+"HealthCertifiedPerson_DefaultAlert_Title" = "Fehler";
+
+"HealthCertifiedPerson_DefaultAlert_Message" = "Möglicherweise wurde Ihre Internet-Verbindung unterbrochen. Bitte stellen Sie sicher, dass Sie mit dem Internet verbunden sind.";
+
+"HealthCertifiedPerson_DefaultAlert_OKButton" = "OK";
+
+"HealthCertifiedPerson_DefaultAlert_RetryButton" = "Wiederholen";
+
+"HealthCertifiedPerson_UpdateConsent_Title" = "Ihr Einverständnis";
+
+/* HealthCertifiedPerson UpdateSucceeded */
+
+"HealthCertifiedPerson_UpdateSucceeded_Title" = "Zertifikat aktualisiert";
+
 /* Vaccination Certificate Details */
 
 "HealthCertificate_Details_vaccinationCount" = "Impfung %i von %i";
@@ -3159,7 +3179,7 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "HealthCertificate_Validation_Passed_unknownTitle" = "Zertifikat nicht prüfbar";
 
-"HealthCertificate_Validation_Passed_subtitle" = "Ihr Zertifikat ist im gewählten Land gültig";
+"HealthCertificate_Validation_Passed_subtitle" = "Ihr Zertifikat ist für die Einreise in das gewählte Land gültig";
 
 "HealthCertificate_Validation_Passed_unknownSubtitle" = "Ihr Zertifikat konnte nicht geprüft werden";
 
@@ -3187,7 +3207,7 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "HealthCertificate_Validation_Failed_title" = "Zertifikat nicht gültig";
 
-"HealthCertificate_Validation_Failed_subtitle" = "Ihr Zertifikat ist im gewählten Land nicht gültig";
+"HealthCertificate_Validation_Failed_subtitle" = "Ihr Zertifikat ist für die Einreise in das gewählte Land nicht gültig";
 
 "HealthCertificate_Validation_Failed_failedSectionTitle" = "Prüfung abgeschlossen";
 
@@ -3201,7 +3221,7 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "HealthCertificate_Validation_TechnicalFailed_title" = "Zertifikat nicht gültig";
 
-"HealthCertificate_Validation_TechnicalFailed_subtitle" = "Ihr Zertifikat ist im gewählten Land nicht gültig";
+"HealthCertificate_Validation_TechnicalFailed_subtitle" = "Ihr Zertifikat ist für die Einreise in das gewählte Land nicht gültig";
 
 "HealthCertificate_Validation_TechnicalFailed_failedSectionTitle" = "Technische Prüfung";
 
