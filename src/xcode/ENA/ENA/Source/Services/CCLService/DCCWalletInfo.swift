@@ -17,6 +17,29 @@ struct DCCWalletInfo: Codable, Equatable {
 
 }
 
+struct DCCAdmissionCheckScenarios: Codable, Equatable {
+	
+	let labelText: DCCUIText
+	let scenarioSelection: DCCScenarioSelection
+
+}
+
+struct DCCScenarioSelection: Codable, Equatable {
+	
+	let titleText: DCCUIText
+	let items: [DCCScenarioSelectionItem]
+
+}
+
+struct DCCScenarioSelectionItem: Codable, Equatable {
+	
+	let identifier: String
+	let titleText: DCCUIText
+	let subtitleText: DCCUIText?
+	let enabled: Bool
+
+}
+
 struct DCCAdmissionState: Codable, Equatable {
 
 	let visible: Bool

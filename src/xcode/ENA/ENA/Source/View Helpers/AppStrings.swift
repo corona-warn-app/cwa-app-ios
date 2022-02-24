@@ -2031,7 +2031,6 @@ enum AppStrings {
 
 		enum Overview {
 			static let title = NSLocalizedString("HealthCertificate_Overview_title", comment: "")
-			static let addCertificate = NSLocalizedString("HealthCertificate_Overview_add", comment: "")
 			static let emptyTitle = NSLocalizedString("HealthCertificate_Overview_EmptyTitle", comment: "")
 			static let emptyDescription = NSLocalizedString("HealthCertificate_Overview_EmptyDescription", comment: "")
 			static let emptyImageDescription = NSLocalizedString("HealthCertificate_Overview_EmptyImageDescription", comment: "")
@@ -2041,6 +2040,10 @@ enum AppStrings {
 			static let twoGCertificate = NSLocalizedString("HealthCertificate_Overview_TwoGCertificate", comment: "")
 			static let testCertificate = NSLocalizedString("HealthCertificate_Overview_TestCertificate", comment: "")
 			static let news = NSLocalizedString("HealthCertificate_Overview_News", comment: "")
+			static let scanningInfo = NSLocalizedString("HealthCertificate_Overview_Scanning_Info", comment: "")
+			static let admissionScenarioStatusLabel = NSLocalizedString("HealthCertificate_Admission_Scenario_Status_Label", comment: "")
+			static let admissionScenarioButtonLabel = NSLocalizedString("HealthCertificate_Admission_Scenario_Button_Label", comment: "")
+			static let loadingIndicatorLabel = NSLocalizedString("HealthCertificate_Loading_Indicator_Label", comment: "")
 
 			enum TestCertificateRequest {
 				static let title = NSLocalizedString("TestCertificateRequest_title", comment: "")

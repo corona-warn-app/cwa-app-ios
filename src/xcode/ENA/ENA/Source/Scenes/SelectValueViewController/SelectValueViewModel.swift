@@ -10,29 +10,33 @@ final class SelectValueViewModel {
 	// MARK: - Init
 
 	init(
-		_ allowedValues: [String],
+		_ allowedValues: [SelectableValue],
 		presorted: Bool = false,
 		title: String,
 		preselected: String? = nil,
-		isInitialCellEnabled: Bool = true,
 		isInitialCellWithValue: Bool = false,
-		initialString: String = AppStrings.DataDonation.ValueSelection.noValue,
+		initialValue: SelectableValue?,
 		accessibilityIdentifier: String,
 		selectionCellIconType: SelectionCellIcon
 	) {
 		self.selectionCellIconType = selectionCellIconType
-		self.isInitialCellEnabled = isInitialCellEnabled
+        self.isInitialCellEnabled = initialValue?.isEnabled ?? true
 		self.isInitialCellWithValue = isInitialCellWithValue
+        var firstElementArray = [SelectableValue]()
+        if let firstElement = initialValue {
+            firstElementArray.append(firstElement)
+        }
+        
 		switch presorted {
 		case false:
-			self.allValues = [initialString] + allowedValues.sorted()
+            self.allValues = firstElementArray + allowedValues.sorted()
 		default:
-			self.allValues = [initialString] + allowedValues
+			self.allValues = firstElementArray + allowedValues
 		}
 		self.title = title
 		self.accessibilityIdentifier = accessibilityIdentifier
 		guard let preselected = preselected,
-			  let selectedIndex = self.allValues.firstIndex(of: preselected) else {
+			  let selectedIndex = self.allValues.firstIndex(where: { $0.title == preselected }) else {
 			self.selectedTupel = (nil, 0)
 			self.selectedValue = nil
 			return
@@ -53,19 +57,19 @@ final class SelectValueViewModel {
 	
 	/// this tuple represents the change (oldValue, currentValue)
 	@OpenCombine.Published private (set) var selectedTupel: (Int?, Int)
-	@OpenCombine.Published private (set) var selectedValue: String?
+	@OpenCombine.Published private (set) var selectedValue: SelectableValue?
 
 	var numberOfSelectableValues: Int {
 		return allValues.count
 	}
 
 	func cellViewModel(for indexPath: IndexPath) -> SelectValueCellViewModel {
-		let isEnabled = indexPath.item > 0 ? true : isInitialCellEnabled
 		return SelectValueCellViewModel(
-			text: allValues[indexPath.row],
+			text: allValues[indexPath.row].title,
+			subtitle: allValues[indexPath.row].subtitle,
 			isSelected: selectedTupel.1 == indexPath.row,
 			cellIconType: selectionCellIconType,
-			isEnabled: isEnabled
+			isEnabled: allValues[indexPath.row].isEnabled
 		)
 	}
 
@@ -85,6 +89,6 @@ final class SelectValueViewModel {
 
 	// MARK: - Private
 
-	private let allValues: [String]
+	private let allValues: [SelectableValue]
 	private let selectionCellIconType: SelectionCellIcon
 }
