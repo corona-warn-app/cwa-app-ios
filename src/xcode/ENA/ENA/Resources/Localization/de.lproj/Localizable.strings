@@ -3265,6 +3265,16 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "HealthCertificate_Reissuance_Succeeded_Body" = "Sie finden das aktualisierte Zertifikat nun in der Zertifikate-Registerkarte.";
 
+/* Request Error */
+
+"HealthCertificate_Reissuance_Error_Contact_Support" = "Es ist ein technischer Fehler aufgetreten. Bitte kontaktieren Sie die technische Hotline über App-Informationen -> Technische Hotline.";
+
+"HealthCertificate_Reissuance_Error_No_Network" = "Möglicherweise wurde Ihre Internet-Verbindung unterbrochen. Bitte prüfen Sie die Verbindung und versuchen Sie es erneut.";
+
+"HealthCertificate_Reissuance_Error_Try_Again" = "Es ist ein Fehler bei der Aktualisierung Ihres Zertifikats aufgetreten. Bitte versuchen Sie es erneut. Wenn der Fehler weiterhin auftritt, kontaktieren Sie bitte die technische Hotline über App-Informationen -> Technische Hotline.";
+
+"HealthCertificate_Reissuance_Error_Not_Supported" = "Ihr Zertifikat kann nicht aktualisiert werden. Bitte kontaktieren Sie die technische Hotline über App-Informationen -> Technische Hotline.";
+
 
 /* Universal QR Scanner */
 

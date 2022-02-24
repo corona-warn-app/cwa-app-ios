@@ -22,27 +22,27 @@ enum DCCReissuanceResourceError: LocalizedError {
 		switch self {
 			// texts to be added in https://jira-ibs.wbs.net.sap/browse/EXPOSUREAPP-11930
 		case .DCC_RI_PIN_MISMATCH:
-			return "someError"
+			return AppStrings.HealthCertificate.Reissuance.Errors.contactSupport
 		case .DCC_RI_PARSE_ERR:
-			return "someError"
+			return AppStrings.HealthCertificate.Reissuance.Errors.contactSupport
 		case .DCC_RI_NO_NETWORK:
-			return "someError"
+			return AppStrings.HealthCertificate.Reissuance.Errors.noNetwork
 		case .DCC_RI_400:
-			return "someError"
+			return AppStrings.HealthCertificate.Reissuance.Errors.tryAgain
 		case .DCC_RI_401:
-			return "someError"
+			return AppStrings.HealthCertificate.Reissuance.Errors.notSupported
 		case .DCC_RI_403:
-			return "someError"
+			return AppStrings.HealthCertificate.Reissuance.Errors.notSupported
 		case .DCC_RI_406:
-			return "someError"
+			return AppStrings.HealthCertificate.Reissuance.Errors.tryAgain
 		case .DCC_RI_429:
-			return "someError"
+			return AppStrings.HealthCertificate.Reissuance.Errors.tryAgain
 		case .DCC_RI_500:
-			return "someError"
+			return AppStrings.HealthCertificate.Reissuance.Errors.tryAgain
 		case .DCC_RI_CLIENT_ERR:
-			return "someError"
+			return AppStrings.HealthCertificate.Reissuance.Errors.tryAgain
 		case .DCC_RI_SERVER_ERR:
-			return "someError"
+			return AppStrings.HealthCertificate.Reissuance.Errors.tryAgain
 		}
 	}
 }

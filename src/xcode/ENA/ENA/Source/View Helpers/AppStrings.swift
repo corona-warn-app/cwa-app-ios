@@ -2354,6 +2354,10 @@ enum AppStrings {
 			}
 
 			enum Errors {
+				static let contactSupport = NSLocalizedString("HealthCertificate_Reissuance_Error_Contact_Support", comment: "")
+				static let noNetwork = NSLocalizedString("HealthCertificate_Reissuance_Error_No_Network", comment: "")
+				static let tryAgain = NSLocalizedString("HealthCertificate_Reissuance_Error_Try_Again", comment: "")
+				static let notSupported = NSLocalizedString("HealthCertificate_Reissuance_Error_Not_Supported", comment: "")
 
 			}
 		}
