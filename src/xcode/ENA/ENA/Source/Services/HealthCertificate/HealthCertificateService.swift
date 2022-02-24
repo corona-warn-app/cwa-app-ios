@@ -576,20 +576,45 @@ class HealthCertificateService {
 			switch result {
 			case .success(let dccWalletInfo):
 				let previousBoosterNotificationIdentifier = person.boosterRule?.identifier ?? person.dccWalletInfo?.boosterNotification.identifier
+				let previousCertificateReissuance = person.dccWalletInfo?.certificateReissuance
 				person.dccWalletInfo = dccWalletInfo
 				person.mostRecentWalletInfoUpdateFailed = false
 				
 				#if DEBUG
-				if isUITesting, LaunchArguments.healthCertificate.hasBoosterNotification.boolValue {
-					person.dccWalletInfo = self.updateDccWalletInfoForMockBoosterNotification(dccWalletInfo: dccWalletInfo)
+				if isUITesting {
+					if LaunchArguments.healthCertificate.hasBoosterNotification.boolValue {
+						person.dccWalletInfo = self.updateDccWalletInfoForMockBoosterNotification(dccWalletInfo: dccWalletInfo)
+					}
+					if LaunchArguments.healthCertificate.hasCertificateReissuance.boolValue {
+						person.dccWalletInfo = self.updateDccWalletInfoForMockCertificateReissuance(dccWalletInfo: dccWalletInfo)
+					}
 				}
 				#endif
 
+				let dispatchGroup = DispatchGroup()
+
+				dispatchGroup.enter()
 				self.healthCertificateNotificationService.scheduleBoosterNotificationIfNeeded(
 					for: person,
 					previousBoosterNotificationIdentifier: previousBoosterNotificationIdentifier,
-					completion: completion
+					completion: {
+						dispatchGroup.leave()
+					}
 				)
+
+				dispatchGroup.enter()
+				self.healthCertificateNotificationService.scheduleCertificateReissuanceNotificationIfNeeded(
+					for: person,
+					previousCertificateReissuance: previousCertificateReissuance,
+					completion: {
+						dispatchGroup.leave()
+					}
+				)
+
+				dispatchGroup.notify(queue: .global()) {
+					completion?()
+				}
+
 			case .failure(let error):
 				Log.error("Wallet info update failed", error: error)
 				person.mostRecentWalletInfoUpdateFailed = true

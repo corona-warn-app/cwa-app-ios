@@ -94,9 +94,8 @@ class HealthCertificateNotificationService {
 		}
 
 		if newBoosterNotificationIdentifier != previousBoosterNotificationIdentifier {
-			// we need to have an ID for the notification and since the certified person doesn't have this property "unlike the certificates" we will compute it as the hash of the string of the standardizedName + dateOfBirth
-			guard let name = name, let dateOfBirth = person.dateOfBirth else {
-				Log.error("standardizedName or dateOfBirth is nil, will not trigger booster notification", log: .vaccination)
+			guard let personIdentifier = person.identifier else {
+				Log.error("Person identifier is nil, will not trigger booster notification", log: .vaccination)
 				completion?()
 
 				return
@@ -104,10 +103,39 @@ class HealthCertificateNotificationService {
 
 			Log.info("Scheduling booster notification for \(private: String(describing: name))", log: .vaccination)
 
-			let personIdentifier = ENAHasher.sha256(name + dateOfBirth)
 			self.scheduleBoosterNotification(personIdentifier: personIdentifier, completion: completion)
 		} else {
 			Log.debug("Booster notification identifier \(private: newBoosterNotificationIdentifier) unchanged, no booster notification scheduled", log: .vaccination)
+			completion?()
+		}
+	}
+
+	func scheduleCertificateReissuanceNotificationIfNeeded(
+		for person: HealthCertifiedPerson,
+		previousCertificateReissuance: DCCCertificateReissuance?,
+		completion: (() -> Void)? = nil
+	) {
+		let name = person.name?.standardizedName
+		guard let newCertificateReissuance = person.dccWalletInfo?.certificateReissuance else {
+			Log.info("No certificate reissuance found for person \(private: String(describing: name))", log: .vaccination)
+			completion?()
+
+			return
+		}
+
+		if newCertificateReissuance != previousCertificateReissuance {
+			guard let personIdentifier = person.identifier else {
+				Log.error("Person identifier is nil, will not trigger booster notification", log: .vaccination)
+				completion?()
+
+				return
+			}
+
+			Log.info("Scheduling reissuance notification for \(private: String(describing: name))", log: .vaccination)
+
+			self.scheduleCertificateReissuanceNotification(personIdentifier: personIdentifier, completion: completion)
+		} else {
+			Log.debug("Certificate reissuance \(private: newCertificateReissuance) unchanged, no reissuance notification scheduled", log: .vaccination)
 			completion?()
 		}
 	}
@@ -213,6 +241,46 @@ class HealthCertificateNotificationService {
 
 		addNotification(request: request)
 	}
+
+	private func scheduleBoosterNotification(
+		personIdentifier: String,
+		completion: (() -> Void)? = nil
+	) {
+		Log.info("Schedule booster notification for person with id: \(private: personIdentifier)", log: .vaccination)
+
+		let content = UNMutableNotificationContent()
+		content.title = AppStrings.LocalNotifications.certificateGenericTitle
+		content.body = AppStrings.LocalNotifications.certificateGenericBody
+		content.sound = .default
+
+		let request = UNNotificationRequest(
+			identifier: LocalNotificationIdentifier.boosterVaccination.rawValue + "\(personIdentifier)",
+			content: content,
+			trigger: nil
+		)
+
+		addNotification(request: request, completion: completion)
+	}
+
+	private func scheduleCertificateReissuanceNotification(
+		personIdentifier: String,
+		completion: (() -> Void)? = nil
+	) {
+		Log.info("Schedule certificate reissuance notification for person with id: \(private: personIdentifier)", log: .vaccination)
+
+		let content = UNMutableNotificationContent()
+		content.title = AppStrings.LocalNotifications.certificateGenericTitle
+		content.body = AppStrings.LocalNotifications.certificateValidityBody
+		content.sound = .default
+
+		let request = UNNotificationRequest(
+			identifier: LocalNotificationIdentifier.certificateReissuance.rawValue + "\(personIdentifier)",
+			content: content,
+			trigger: nil
+		)
+
+		addNotification(request: request, completion: completion)
+	}
 	
 	private func addNotification(
 		request: UNNotificationRequest,
@@ -240,26 +308,6 @@ class HealthCertificateNotificationService {
 				completion?()
 			}
 		}
-	}
-	
-	private func scheduleBoosterNotification(
-		personIdentifier: String,
-		completion: (() -> Void)? = nil
-	) {
-		Log.info("Schedule booster notification for id: \(private: personIdentifier)", log: .vaccination)
-
-		let content = UNMutableNotificationContent()
-		content.title = AppStrings.LocalNotifications.certificateGenericTitle
-		content.body = AppStrings.LocalNotifications.certificateGenericBody
-		content.sound = .default
-
-		let request = UNNotificationRequest(
-			identifier: LocalNotificationIdentifier.boosterVaccination.rawValue + "\(personIdentifier)",
-			content: content,
-			trigger: nil
-		)
-
-		addNotification(request: request, completion: completion)
 	}
 
 }
