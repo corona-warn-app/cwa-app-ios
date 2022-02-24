@@ -11,13 +11,15 @@ class HealthCertificateOverviewViewModelTests: XCTestCase {
 	func testGIVEN_HealthCertificateOverviewViewModel_THEN_SetupIsCorrect() {
 		// GIVEN
 		let viewModel = HealthCertificateOverviewViewModel(
+			store: MockTestStore(),
 			healthCertificateService: service,
-			healthCertificateRequestService: requestService
+			healthCertificateRequestService: requestService,
+			cclService: FakeCCLService()
 		)
 
 		// THEN
-		XCTAssertEqual(viewModel.numberOfSections, 4)
-		XCTAssertEqual(viewModel.numberOfRows(in: 0), 1)
+		XCTAssertEqual(viewModel.numberOfSections, 6)
+		XCTAssertEqual(viewModel.numberOfRows(in: 0), 0)
 		XCTAssertEqual(viewModel.numberOfRows(in: 1), 0)
 		XCTAssertEqual(viewModel.numberOfRows(in: 2), 0)
 		XCTAssertEqual(viewModel.numberOfRows(in: 3), 0)
@@ -26,8 +28,10 @@ class HealthCertificateOverviewViewModelTests: XCTestCase {
 	func testGIVEN_requestTestCertificate_THEN_noErrorIsSet() {
 		// GIVEN
 		let viewModel = HealthCertificateOverviewViewModel(
+			store: MockTestStore(),
 			healthCertificateService: service,
-			healthCertificateRequestService: requestService
+			healthCertificateRequestService: requestService,
+			cclService: FakeCCLService()
 		)
 
 		requestService.registerAndExecuteTestCertificateRequest(
