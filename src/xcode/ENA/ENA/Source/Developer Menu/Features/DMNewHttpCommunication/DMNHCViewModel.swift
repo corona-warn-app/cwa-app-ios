@@ -14,10 +14,14 @@ final class DMNHCViewModel {
 
 	init(
 		store: Store,
-		cache: KeyValueCaching
+		cache: KeyValueCaching,
+		appConfiguration: AppConfigurationProviding,
+		healthCertificateService: HealthCertificateService
 	) {
 		self.store = store
 		self.restService = RestServiceProvider(cache: cache)
+		self.appConfiguration = appConfiguration
+		self.healthCertificateService = healthCertificateService
 	}
 
 	// MARK: - Internal
@@ -44,6 +48,44 @@ final class DMNHCViewModel {
 		}
 
 		switch section {
+
+		case .reissuance:
+			return DMButtonCellViewModel(
+				text: "dcc ressiuance (for first match)",
+				textColor: .white,
+				backgroundColor: .enaColor(for: .buttonPrimary),
+				action: { [weak self] in
+					guard let self = self else {
+						Log.error("Could not create strong self")
+						return
+					}
+
+					guard let firstMatchingCertificate = self.healthCertificateService.healthCertifiedPersons.first?.mostRelevantHealthCertificate else {
+						Log.error("Could not get certificate")
+						return
+					}
+
+					let sendModel = DCCReissuanceSendModel(certificates: [firstMatchingCertificate.base45])
+
+					let appConfig = self.appConfiguration.currentAppConfig.value
+					let publicKeyHash = appConfig.dgcParameters.reissueServicePublicKeyDigest.toHexString()
+					let trust = DefaultTrustEvaluation(publicKeyHash: publicKeyHash)
+					let resource = DCCReissuanceResource(
+						sendModel: sendModel,
+						trustEvaluation: trust
+					)
+					self.restService.load(resource) { result in
+						DispatchQueue.main.async {
+							switch result {
+							case let .success(model):
+								Log.info("DCC Reissuance successfull called.")
+							case let .failure(error):
+								Log.error("DCC Reissuance call failure with: \(error)", error: error)
+							}
+						}
+					}
+				}
+			)
 			
 		case .cclConfiguration:
 			return DMButtonCellViewModel(
@@ -129,6 +171,7 @@ final class DMNHCViewModel {
 	// MARK: - Private
 
 	private enum TableViewSections: Int, CaseIterable {
+		case reissuance
 		case cclConfiguration
 		case dccRules
 		case appConfig
@@ -138,6 +181,8 @@ final class DMNHCViewModel {
 
 	private let store: Store
 	private let restService: RestServiceProviding
+	private let appConfiguration: AppConfigurationProviding
+	private let healthCertificateService: HealthCertificateService
 
 	private func showDCCRulesSheetAndSubmit() {
 		let sheet = UIAlertController(title: "Type", message: "select ruletype", preferredStyle: .actionSheet)
