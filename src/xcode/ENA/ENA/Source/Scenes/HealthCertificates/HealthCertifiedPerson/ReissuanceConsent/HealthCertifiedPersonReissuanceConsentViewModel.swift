@@ -29,7 +29,11 @@ class HealthCertifiedPersonReissuanceConsentViewModel {
 
 	func submit(completion: @escaping (Result<Void, HealthCertifiedPersonUpdateError>) -> Void) {
 			appConfigProvider.appConfiguration()
-				.sink { _ in
+				.sink { appConfig in
+					let publicKeyHash =  appConfig.dgcParameters.reissueServicePublicKeyDigest.sha256String()
+					
+					let trustEvaluation = DefaultTrustEvaluation(publicKeyHash: publicKeyHash)
+					
 					
 			 }
 			 .store(in: &subscriptions)
