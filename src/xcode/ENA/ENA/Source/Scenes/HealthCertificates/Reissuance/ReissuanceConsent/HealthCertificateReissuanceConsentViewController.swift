@@ -14,8 +14,7 @@ class HealthCertificateReissuanceConsentViewController: DynamicTableViewControll
 		healthCertifiedPerson: HealthCertifiedPerson,
 		didTapDataPrivacy: @escaping () -> Void,
 		presentAlert: @escaping (_ ok: UIAlertAction, _ retry: UIAlertAction) -> Void,
-		presentUpdateSuccess: @escaping () -> Void,
-		didCancel: @escaping () -> Void,
+		onReissuanceSuccess: @escaping () -> Void,
 		dismiss: @escaping () -> Void
 	) {
 		self.presentAlert = presentAlert
@@ -26,8 +25,7 @@ class HealthCertificateReissuanceConsentViewController: DynamicTableViewControll
 			onDisclaimerButtonTap: didTapDataPrivacy
 		)
 
-		self.presentUpdateSuccess = presentUpdateSuccess
-		self.didCancel = didCancel
+		self.onReissuanceSuccess = onReissuanceSuccess
 		self.dismiss = dismiss
 		super.init(nibName: nil, bundle: nil)
 	}
@@ -73,7 +71,7 @@ class HealthCertificateReissuanceConsentViewController: DynamicTableViewControll
 					switch result {
 					case .success:
 						DispatchQueue.main.async {
-							self?.presentUpdateSuccess()
+							self?.onReissuanceSuccess()
 						}
 					case .failure:
 						DispatchQueue.main.async {
@@ -90,8 +88,7 @@ class HealthCertificateReissuanceConsentViewController: DynamicTableViewControll
 	// MARK: - Private
 
 	private let presentAlert: (_ ok: UIAlertAction, _ retry: UIAlertAction) -> Void
-	private let presentUpdateSuccess: () -> Void
-	private let didCancel: () -> Void
+	private let onReissuanceSuccess: () -> Void
 	private let dismiss: () -> Void
 	private let viewModel: HealthCertificateReissuanceConsentViewModel
 

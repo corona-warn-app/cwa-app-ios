@@ -173,7 +173,7 @@ final class HealthCertificateReissuanceConsentViewModel {
 			url: URL(string: LinkHelper.urlString(suffix: faqAnchor, type: .faq))
 		)
 	}
-	
+
 }
 
 private extension DynamicCell {
