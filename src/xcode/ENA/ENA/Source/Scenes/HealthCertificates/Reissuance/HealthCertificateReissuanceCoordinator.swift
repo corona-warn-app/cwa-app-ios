@@ -67,7 +67,7 @@ final class HealthCertificateReissuanceCoordinator {
 		let footerViewModel = FooterViewModel(
 			primaryButtonName: AppStrings.HealthCertificate.Reissuance.Consent.primaryButtonTitle,
 			secondaryButtonName: AppStrings.HealthCertificate.Reissuance.Consent.secondaryButtonTitle,
-			isPrimaryButtonEnabled: false,
+			isPrimaryButtonEnabled: true,
 			isSecondaryButtonEnabled: true,
 			primaryCustomDisableBackgroundColor: .enaColor(for: .backgroundLightGray),
 			secondaryCustomDisableBackgroundColor: .enaColor(for: .backgroundLightGray)
