@@ -32,41 +32,6 @@ final class HealthCertificateReissuanceConsentViewModel {
 
 	let title: String = AppStrings.HealthCertificate.Reissuance.Consent.title
 
-	private var titleDynamicCell: DynamicCell? {
-		guard let title = certifiedPerson.dccWalletInfo?.certificateReissuance?.reissuanceDivision.titleText?.localized(cclService: cclService) else {
-			Log.info("title missing")
-			return nil
-		}
-		return DynamicCell.title2(text: title)
-	}
-
-	private var subtileDynamicCell: DynamicCell? {
-		guard let subtitle = certifiedPerson.dccWalletInfo?.certificateReissuance?.reissuanceDivision.subtitleText?.localized(cclService: cclService) else {
-			Log.info("subtitle missing")
-			return nil
-		}
-		return DynamicCell.subheadline(text: subtitle)
-	}
-
-	private var longTextDynamicCell: DynamicCell? {
-		guard let longtext = certifiedPerson.dccWalletInfo?.certificateReissuance?.reissuanceDivision.longText?.localized(cclService: cclService) else {
-			Log.info("long text missing")
-			return nil
-		}
-		return DynamicCell.body(text: longtext)
-	}
-
-	private var faqLinkDynamicCell: DynamicCell? {
-		guard let faqAnchor = certifiedPerson.dccWalletInfo?.certificateReissuance?.reissuanceDivision.faqAnchor else {
-			Log.info("long text missing")
-			return nil
-		}
-		return DynamicCell.link(
-			text: AppStrings.HealthCertificate.Person.faq,
-			url: URL(string: LinkHelper.urlString(suffix: faqAnchor, type: .faq))
-		)
-	}
-
 	var dynamicTableViewModel: DynamicTableViewModel {
 		DynamicTableViewModel(
 			[
@@ -173,6 +138,42 @@ final class HealthCertificateReissuanceConsentViewModel {
 	private func attributedStringWithBoldText(text: String) -> NSMutableAttributedString {
 		return NSMutableAttributedString(string: "\(text)", attributes: boldTextAttribute)
 	}
+
+	private var titleDynamicCell: DynamicCell? {
+		guard let title = certifiedPerson.dccWalletInfo?.certificateReissuance?.reissuanceDivision.titleText?.localized(cclService: cclService) else {
+			Log.info("title missing")
+			return nil
+		}
+		return DynamicCell.title2(text: title)
+	}
+
+	private var subtileDynamicCell: DynamicCell? {
+		guard let subtitle = certifiedPerson.dccWalletInfo?.certificateReissuance?.reissuanceDivision.subtitleText?.localized(cclService: cclService) else {
+			Log.info("subtitle missing")
+			return nil
+		}
+		return DynamicCell.subheadline(text: subtitle)
+	}
+
+	private var longTextDynamicCell: DynamicCell? {
+		guard let longtext = certifiedPerson.dccWalletInfo?.certificateReissuance?.reissuanceDivision.longText?.localized(cclService: cclService) else {
+			Log.info("long text missing")
+			return nil
+		}
+		return DynamicCell.body(text: longtext)
+	}
+
+	private var faqLinkDynamicCell: DynamicCell? {
+		guard let faqAnchor = certifiedPerson.dccWalletInfo?.certificateReissuance?.reissuanceDivision.faqAnchor else {
+			Log.info("long text missing")
+			return nil
+		}
+		return DynamicCell.link(
+			text: AppStrings.HealthCertificate.Person.faq,
+			url: URL(string: LinkHelper.urlString(suffix: faqAnchor, type: .faq))
+		)
+	}
+	
 }
 
 private extension DynamicCell {
