@@ -20,7 +20,7 @@ class HealthCertifiedPersonViewController: UIViewController, UITableViewDataSour
 		didTapHealthCertificate: @escaping (HealthCertificate) -> Void,
 		didSwipeToDelete: @escaping (HealthCertificate, @escaping () -> Void) -> Void,
 		showInfoHit: @escaping () -> Void,
-		didTapUpdateNotification: @escaping () -> Void
+		didTapCertificateReissuance: @escaping (HealthCertifiedPerson) -> Void
 	) {
 		self.dismiss = dismiss
 		self.didTapHealthCertificate = didTapHealthCertificate
@@ -35,7 +35,7 @@ class HealthCertifiedPersonViewController: UIViewController, UITableViewDataSour
 			didTapBoosterNotification: didTapBoosterNotification,
 			didTapValidationButton: didTapValidationButton,
 			showInfoHit: showInfoHit,
-			didTapUpdateNotification: didTapUpdateNotification
+			didTapCertificateReissuance: didTapCertificateReissuance
 		)
 
 		super.init(nibName: nil, bundle: nil)
@@ -96,6 +96,11 @@ class HealthCertifiedPersonViewController: UIViewController, UITableViewDataSour
 		case .qrCode:
 			let cell = tableView.dequeueReusableCell(cellType: HealthCertificateQRCodeCell.self, for: indexPath)
 			cell.configure(with: viewModel.qrCodeCellViewModel)
+			return cell
+
+		case .certificateReissuance:
+			let cell = tableView.dequeueReusableCell(cellType: CertificateReissuanceTableViewCell.self, for: indexPath)
+			cell.configure(with: viewModel.certificateReissuanceCellModel)
 			return cell
 
 		case .boosterNotification:
@@ -160,6 +165,8 @@ class HealthCertifiedPersonViewController: UIViewController, UITableViewDataSour
 	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 		let section = HealthCertifiedPersonViewModel.TableViewSection.map(indexPath.section)
 		switch section {
+		case .certificateReissuance:
+			viewModel.didTapCertificateReissuanceCell()
 		case .boosterNotification:
 			viewModel.didTapBoosterNotificationCell()
 		case .certificates:
@@ -182,6 +189,7 @@ class HealthCertifiedPersonViewController: UIViewController, UITableViewDataSour
 		let vaccinationStateWasVisible = viewModel.vaccinationStateIsVisible
 		let admissionStateWasVisible = viewModel.admissionStateIsVisible
 		let boosterNotificationWasVisible = viewModel.boosterNotificationIsVisible
+		let certificateReissuanceWasVisible = viewModel.certificateReissuanceIsVisible
 
 		let previousCertificates = viewModel.healthCertifiedPerson.healthCertificates.sorted(by: >)
 
@@ -210,6 +218,12 @@ class HealthCertifiedPersonViewController: UIViewController, UITableViewDataSour
 					deleteIndexPaths.append(IndexPath(row: 0, section: HealthCertifiedPersonViewModel.TableViewSection.boosterNotification.rawValue))
 				} else if !boosterNotificationWasVisible && self.viewModel.boosterNotificationIsVisible {
 					insertIndexPaths.append(IndexPath(row: 0, section: HealthCertifiedPersonViewModel.TableViewSection.boosterNotification.rawValue))
+				}
+
+				if certificateReissuanceWasVisible && !self.viewModel.certificateReissuanceIsVisible {
+					deleteIndexPaths.append(IndexPath(row: 0, section: HealthCertifiedPersonViewModel.TableViewSection.certificateReissuance.rawValue))
+				} else if !certificateReissuanceWasVisible && self.viewModel.certificateReissuanceIsVisible {
+					insertIndexPaths.append(IndexPath(row: 0, section: HealthCertifiedPersonViewModel.TableViewSection.certificateReissuance.rawValue))
 				}
 
 				// For the case that a person splits after deleting a certificate, there could be some more certificates to be removed (because they are moved into a new person).
@@ -308,6 +322,10 @@ class HealthCertifiedPersonViewController: UIViewController, UITableViewDataSour
 		tableView.register(
 			HealthCertificateQRCodeCell.self,
 			forCellReuseIdentifier: HealthCertificateQRCodeCell.reuseIdentifier
+		)
+		tableView.register(
+			CertificateReissuanceTableViewCell.self,
+			forCellReuseIdentifier: CertificateReissuanceTableViewCell.reuseIdentifier
 		)
 		tableView.register(
 			BoosterNotificationTableViewCell.self,

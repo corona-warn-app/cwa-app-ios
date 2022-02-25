@@ -19,7 +19,7 @@ final class HealthCertifiedPersonViewModel {
 		didTapBoosterNotification: @escaping (HealthCertifiedPerson) -> Void,
 		didTapValidationButton: @escaping (HealthCertificate, @escaping (Bool) -> Void) -> Void,
 		showInfoHit: @escaping () -> Void,
-		didTapUpdateNotification: @escaping () -> Void
+		didTapCertificateReissuance: @escaping (HealthCertifiedPerson) -> Void
 	) {
 		self.cclService = cclService
 		self.healthCertificateService = healthCertificateService
@@ -29,8 +29,9 @@ final class HealthCertifiedPersonViewModel {
 		self.didTapBoosterNotification = didTapBoosterNotification
 		self.didTapValidationButton = didTapValidationButton
 		self.showInfo = showInfoHit
-		self.didTapUpdateNotification = didTapUpdateNotification
+		self.didTapCertificateReissuance = didTapCertificateReissuance
 
+		self.certificateReissuanceCellModel = CertificateReissuanceCellModel(healthCertifiedPerson: healthCertifiedPerson, cclService: cclService)
 		self.boosterNotificationCellModel = BoosterNotificationCellModel(healthCertifiedPerson: healthCertifiedPerson, cclService: cclService)
 		self.admissionStateCellModel = AdmissionStateCellModel(healthCertifiedPerson: healthCertifiedPerson, cclService: cclService)
 		self.vaccinationStateCellModel = VaccinationStateCellModel(healthCertifiedPerson: healthCertifiedPerson, cclService: cclService)
@@ -73,6 +74,7 @@ final class HealthCertifiedPersonViewModel {
 	enum TableViewSection: Int, CaseIterable {
 		case header
 		case qrCode
+		case certificateReissuance
 		case boosterNotification
 		case admissionState
 		case vaccinationState
@@ -93,6 +95,7 @@ final class HealthCertifiedPersonViewModel {
 
 	let healthCertifiedPerson: HealthCertifiedPerson
 
+	let certificateReissuanceCellModel: CertificateReissuanceCellModel
 	let boosterNotificationCellModel: BoosterNotificationCellModel
 	let admissionStateCellModel: AdmissionStateCellModel
 	let vaccinationStateCellModel: VaccinationStateCellModel
@@ -154,6 +157,10 @@ final class HealthCertifiedPersonViewModel {
 		)
 	}
 
+	var certificateReissuanceIsVisible: Bool {
+		healthCertifiedPerson.dccWalletInfo?.certificateReissuance?.reissuanceDivision.visible ?? false
+	}
+
 	var boosterNotificationIsVisible: Bool {
 		healthCertifiedPerson.dccWalletInfo?.boosterNotification.visible ?? false
 	}
@@ -178,6 +185,8 @@ final class HealthCertifiedPersonViewModel {
 			return 1
 		case .qrCode:
 			return 1
+		case .certificateReissuance:
+			return certificateReissuanceIsVisible ? 1 : 0
 		case .boosterNotification:
 			return boosterNotificationIsVisible ? 1 : 0
 		case .admissionState:
@@ -216,6 +225,10 @@ final class HealthCertifiedPersonViewModel {
 		return TableViewSection.map(indexPath.section) == .certificates
 	}
 
+	func didTapCertificateReissuanceCell() {
+		didTapCertificateReissuance(healthCertifiedPerson)
+	}
+
 	func didTapBoosterNotificationCell() {
 		didTapBoosterNotification(healthCertifiedPerson)
 	}
@@ -230,10 +243,10 @@ final class HealthCertifiedPersonViewModel {
 	private let healthCertificateService: HealthCertificateService
 	private let healthCertificateValueSetsProvider: VaccinationValueSetsProviding
 
+	private let didTapCertificateReissuance: (HealthCertifiedPerson) -> Void
 	private let didTapBoosterNotification: (HealthCertifiedPerson) -> Void
 	private let didTapValidationButton: (HealthCertificate, @escaping (Bool) -> Void) -> Void
 	private let showInfo: () -> Void
-	private let didTapUpdateNotification: () -> Void
 	private var subscriptions = Set<AnyCancellable>()
 
 	private var healthCertificateCellViewModels = [HealthCertificateCellViewModel]()

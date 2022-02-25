@@ -19,6 +19,7 @@ class CoronaTestService: CoronaTestServiceProviding {
 		diaryStore: DiaryStoring,
 		appConfiguration: AppConfigurationProviding,
 		healthCertificateService: HealthCertificateService,
+		healthCertificateRequestService: HealthCertificateRequestService,
 		notificationCenter: UserNotificationCenter = UNUserNotificationCenter.current(),
 		recycleBin: RecycleBin,
 		badgeWrapper: HomeBadgeWrapper
@@ -37,6 +38,7 @@ class CoronaTestService: CoronaTestServiceProviding {
 			self.appConfiguration = CachedAppConfigurationMock()
 
 			self.healthCertificateService = healthCertificateService
+			self.healthCertificateRequestService = healthCertificateRequestService
 			self.notificationCenter = notificationCenter
 			self.recycleBin = recycleBin
 			self.badgeWrapper = badgeWrapper
@@ -60,6 +62,7 @@ class CoronaTestService: CoronaTestServiceProviding {
 		self.diaryStore = diaryStore
 		self.appConfiguration = appConfiguration
 		self.healthCertificateService = healthCertificateService
+		self.healthCertificateRequestService = healthCertificateRequestService
 		self.notificationCenter = notificationCenter
 		self.recycleBin = recycleBin
 		self.badgeWrapper = badgeWrapper
@@ -67,7 +70,7 @@ class CoronaTestService: CoronaTestServiceProviding {
 		self.fakeRequestService = FakeRequestService(client: client, restServiceProvider: restServiceProvider)
 		self.warnOthersReminder = WarnOthersReminder(store: store)
 
-		healthCertificateService.didRegisterTestCertificate = setUniqueCertificateIdentifier
+		healthCertificateRequestService.didRegisterTestCertificate = setUniqueCertificateIdentifier
 
 		setup()
 	}
@@ -81,6 +84,7 @@ class CoronaTestService: CoronaTestServiceProviding {
 		diaryStore: DiaryStoring,
 		appConfiguration: AppConfigurationProviding,
 		healthCertificateService: HealthCertificateService,
+		healthCertificateRequestService: HealthCertificateRequestService,
 		notificationCenter: UserNotificationCenter = UNUserNotificationCenter.current(),
 		recycleBin: RecycleBin,
 		badgeWrapper: HomeBadgeWrapper
@@ -93,6 +97,7 @@ class CoronaTestService: CoronaTestServiceProviding {
 			diaryStore: diaryStore,
 			appConfiguration: appConfiguration,
 			healthCertificateService: healthCertificateService,
+			healthCertificateRequestService: healthCertificateRequestService,
 			notificationCenter: notificationCenter,
 			recycleBin: recycleBin,
 			badgeWrapper: badgeWrapper
@@ -661,6 +666,7 @@ class CoronaTestService: CoronaTestServiceProviding {
 	private let diaryStore: DiaryStoring
 	private let appConfiguration: AppConfigurationProviding
 	private let healthCertificateService: HealthCertificateService
+	private let healthCertificateRequestService: HealthCertificateRequestService
 	private let notificationCenter: UserNotificationCenter
 	private let recycleBin: RecycleBin
 	private let badgeWrapper: HomeBadgeWrapper
@@ -910,7 +916,7 @@ class CoronaTestService: CoronaTestServiceProviding {
 						}
 
 						if testResult == .negative && coronaTest.certificateConsentGiven && !coronaTest.certificateRequested {
-							self.healthCertificateService.registerAndExecuteTestCertificateRequest(
+							self.healthCertificateRequestService.registerAndExecuteTestCertificateRequest(
 								coronaTestType: coronaTestType,
 								registrationToken: registrationToken,
 								registrationDate: registrationDate,
