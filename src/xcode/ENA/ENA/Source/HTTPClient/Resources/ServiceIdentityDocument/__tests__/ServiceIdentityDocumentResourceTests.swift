@@ -21,7 +21,10 @@ final class ServiceIdentityDocumentResourceTests: CWATestCase {
 		let restServiceProvider = RestServiceProvider(session: stack.urlSession, cache: KeyValueCacheFake())
 
 		let fakeURL = try XCTUnwrap(URL(string: "some"))
-		let resource = ServiceIdentityDocumentResource(endpointUrl: fakeURL)
+		let resource = ServiceIdentityDocumentResource(
+			endpointUrl: fakeURL,
+			trustEvaluation: .fake()
+		)
 
 		let expectation = expectation(description: "Expect that we got a completion")
 		restServiceProvider.load(resource) { result in
@@ -48,7 +51,10 @@ final class ServiceIdentityDocumentResourceTests: CWATestCase {
 		let restServiceProvider = RestServiceProvider(session: stack.urlSession, cache: KeyValueCacheFake())
 
 		let fakeURL = try XCTUnwrap(URL(string: "some"))
-		let resource = ServiceIdentityDocumentResource(endpointUrl: fakeURL)
+		let resource = ServiceIdentityDocumentResource(
+			endpointUrl: fakeURL,
+			trustEvaluation: .fake()
+		)
 
 		let expectation = expectation(description: "Expect that we got a completion")
 		restServiceProvider.load(resource) { result in
@@ -75,7 +81,10 @@ final class ServiceIdentityDocumentResourceTests: CWATestCase {
 		let restServiceProvider = RestServiceProvider(session: stack.urlSession, cache: KeyValueCacheFake())
 
 		let fakeURL = try XCTUnwrap(URL(string: "some"))
-		let resource = ServiceIdentityDocumentResource(endpointUrl: fakeURL)
+		let resource = ServiceIdentityDocumentResource(
+			endpointUrl: fakeURL,
+			trustEvaluation: .fake()
+		)
 
 		let expectation = expectation(description: "Expect that we got a completion")
 		restServiceProvider.load(resource) { result in
@@ -102,7 +111,10 @@ final class ServiceIdentityDocumentResourceTests: CWATestCase {
 		let restServiceProvider = RestServiceProvider(session: stack.urlSession, cache: KeyValueCacheFake())
 
 		let fakeURL = try XCTUnwrap(URL(string: "some"))
-		let resource = ServiceIdentityDocumentResource(endpointUrl: fakeURL)
+		let resource = ServiceIdentityDocumentResource(
+			endpointUrl: fakeURL,
+			trustEvaluation: .fake()
+		)
 
 		let expectation = expectation(description: "Expect that we got a completion")
 		restServiceProvider.load(resource) { result in
@@ -129,7 +141,10 @@ final class ServiceIdentityDocumentResourceTests: CWATestCase {
 		let restServiceProvider = RestServiceProvider(session: stack.urlSession, cache: KeyValueCacheFake())
 
 		let fakeURL = try XCTUnwrap(URL(string: "some"))
-		let resource = ServiceIdentityDocumentResource(endpointUrl: fakeURL)
+		let resource = ServiceIdentityDocumentResource(
+			endpointUrl: fakeURL,
+			trustEvaluation: .fake()
+		)
 
 		let expectation = expectation(description: "Expect that we got a completion")
 		restServiceProvider.load(resource) { result in
@@ -150,19 +165,21 @@ final class ServiceIdentityDocumentResourceTests: CWATestCase {
 	
 	func testGIVEN_ServiceIdentityDocumentResource_WHEN_Loading_DynmaicPinningNoHostMatchFound_THEN_VS_ID_CERT_PIN_HOST_MISMATCH() throws {
 
-		let trustErrorStub = EvaluateTrustErrorStub(
-			error: TrustEvaluationError.CERT_PIN_HOST_MISMATCH
-		)
-		let sessionDelegate = CoronaWarnURLSessionDelegate(evaluateTrust: trustErrorStub)
 		let stack = MockNetworkStack(
-			sessionDelegate: sessionDelegate,
+			sessionDelegate: CoronaWarnSessionTaskDelegate(),
 			error: NSError(domain: NSURLErrorDomain, code: NSURLErrorNotConnectedToInternet, userInfo: nil)
 		)
 
 		let restServiceProvider = RestServiceProvider(session: stack.urlSession, cache: KeyValueCacheFake())
 
+		let trustErrorStub = TrustEvaluationErrorStub(
+			error: TrustEvaluationError.jsonWebKey(.CERT_PIN_HOST_MISMATCH)
+		)
 		let fakeURL = try XCTUnwrap(URL(string: "some"))
-		let resource = ServiceIdentityDocumentResource(endpointUrl: fakeURL)
+		let resource = ServiceIdentityDocumentResource(
+			endpointUrl: fakeURL,
+			trustEvaluation: trustErrorStub
+		)
 
 		let expectation = expectation(description: "Expect that we got a completion")
 		restServiceProvider.load(resource) { result in
@@ -183,19 +200,21 @@ final class ServiceIdentityDocumentResourceTests: CWATestCase {
 	
 	func testGIVEN_ServiceIdentityDocumentResource_WHEN_Loading_DynamicPinningCertificateMismatches_THEN_VS_ID_CERT_PIN_MISMATCH() throws {
 		
-		let trustErrorStub = EvaluateTrustErrorStub(
-			error: TrustEvaluationError.CERT_PIN_MISMATCH
-		)
-		let sessionDelegate = CoronaWarnURLSessionDelegate(evaluateTrust: trustErrorStub)
 		let stack = MockNetworkStack(
-			sessionDelegate: sessionDelegate,
+			sessionDelegate: CoronaWarnSessionTaskDelegate(),
 			error: NSError(domain: NSURLErrorDomain, code: NSURLErrorNotConnectedToInternet, userInfo: nil)
 		)
 		
 		let restServiceProvider = RestServiceProvider(session: stack.urlSession, cache: KeyValueCacheFake())
 
+		let trustErrorStub = TrustEvaluationErrorStub(
+			error: TrustEvaluationError.jsonWebKey(.CERT_PIN_MISMATCH)
+		)
 		let fakeURL = try XCTUnwrap(URL(string: "some"))
-		let resource = ServiceIdentityDocumentResource(endpointUrl: fakeURL)
+		let resource = ServiceIdentityDocumentResource(
+			endpointUrl: fakeURL,
+			trustEvaluation: trustErrorStub
+		)
 
 		let expectation = expectation(description: "Expect that we got a completion")
 		restServiceProvider.load(resource) { result in
@@ -214,18 +233,4 @@ final class ServiceIdentityDocumentResourceTests: CWATestCase {
 		waitForExpectations(timeout: .short)
 	}
 	
-}
-
-struct EvaluateTrustErrorStub: EvaluateTrust {
-
-	init(error: Error) {
-		trustEvaluationError = error
-	}
-	
-	// MARK: - Protocol EvaluateTrust
-	
-	// We don't need to implement, trustEvaluationError will be used by the delegate to read the error.
-	func evaluate(challenge: URLAuthenticationChallenge, trust: SecTrust, completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Void) {}
-	
-	var trustEvaluationError: Error?
 }

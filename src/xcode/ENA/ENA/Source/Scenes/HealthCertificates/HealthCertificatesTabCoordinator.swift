@@ -14,6 +14,7 @@ final class HealthCertificatesTabCoordinator {
 		store: HealthCertificateStoring,
 		cclService: CCLServable,
 		healthCertificateService: HealthCertificateService,
+		healthCertificateRequestService: HealthCertificateRequestService,
 		healthCertificateValidationService: HealthCertificateValidationProviding,
 		healthCertificateValidationOnboardedCountriesProvider: HealthCertificateValidationOnboardedCountriesProviding,
 		vaccinationValueSetsProvider: VaccinationValueSetsProviding,
@@ -22,6 +23,7 @@ final class HealthCertificatesTabCoordinator {
 		self.store = store
 		self.cclService = cclService
 		self.healthCertificateService = healthCertificateService
+		self.healthCertificateRequestService = healthCertificateRequestService
 		self.healthCertificateValidationService = healthCertificateValidationService
 		self.healthCertificateValidationOnboardedCountriesProvider = healthCertificateValidationOnboardedCountriesProvider
 		self.vaccinationValueSetsProvider = vaccinationValueSetsProvider
@@ -85,6 +87,7 @@ final class HealthCertificatesTabCoordinator {
 	private let store: HealthCertificateStoring
 	private let cclService: CCLServable
 	private let healthCertificateService: HealthCertificateService
+	private let healthCertificateRequestService: HealthCertificateRequestService
 	private let healthCertificateValidationService: HealthCertificateValidationProviding
 	private let healthCertificateValidationOnboardedCountriesProvider: HealthCertificateValidationOnboardedCountriesProviding
 	private let vaccinationValueSetsProvider: VaccinationValueSetsProviding
@@ -109,6 +112,7 @@ final class HealthCertificatesTabCoordinator {
 			viewModel: HealthCertificateOverviewViewModel(
 				store: store,
 				healthCertificateService: healthCertificateService,
+				healthCertificateRequestService: healthCertificateRequestService,
 				cclService: cclService
 			),
 			cclService: cclService,

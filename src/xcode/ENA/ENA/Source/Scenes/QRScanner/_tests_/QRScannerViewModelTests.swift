@@ -34,12 +34,10 @@ final class TestQRScannerViewModel: QRScannerViewModel {
 	#endif
 }
 // swiftlint:disable line_length
-// swiftlint:disable:next type_body_length
 class QRScannerViewModelTests: XCTestCase {
 
 	func test_ifValid_PCR_Test_Scanned_then_parsing_is_successful() {
 		let store = MockTestStore()
-		let client = ClientMock()
 		let appConfigurationProvider = CachedAppConfigurationMock()
 		let dscListProvider = MockDSCListProvider()
 		let dccSignatureVerifier = DCCSignatureVerifyingStub()
@@ -47,7 +45,6 @@ class QRScannerViewModelTests: XCTestCase {
 			store: store,
 			dccSignatureVerifier: dccSignatureVerifier,
 			dscListProvider: dscListProvider,
-			client: client,
 			appConfiguration: appConfigurationProvider,
 			cclService: FakeCCLService(),
 			recycleBin: .fake()
@@ -94,7 +91,6 @@ class QRScannerViewModelTests: XCTestCase {
 	
 	func test_ifValid_Antigen_Test_Scanned_then_parsing_is_successful() {
 		let store = MockTestStore()
-		let client = ClientMock()
 		let appConfigurationProvider = CachedAppConfigurationMock()
 		let dscListProvider = MockDSCListProvider()
 		let dccSignatureVerifier = DCCSignatureVerifyingStub()
@@ -102,7 +98,6 @@ class QRScannerViewModelTests: XCTestCase {
 			store: store,
 			dccSignatureVerifier: dccSignatureVerifier,
 			dscListProvider: dscListProvider,
-			client: client,
 			appConfiguration: appConfigurationProvider,
 			cclService: FakeCCLService(),
 			recycleBin: .fake()
@@ -144,7 +139,6 @@ class QRScannerViewModelTests: XCTestCase {
 	
 	func test_ifValid_RapidPCR_Test_Scanned_then_parsing_is_successful() {
 		let store = MockTestStore()
-		let client = ClientMock()
 		let appConfigurationProvider = CachedAppConfigurationMock()
 		let dscListProvider = MockDSCListProvider()
 		let dccSignatureVerifier = DCCSignatureVerifyingStub()
@@ -152,7 +146,6 @@ class QRScannerViewModelTests: XCTestCase {
 			store: store,
 			dccSignatureVerifier: dccSignatureVerifier,
 			dscListProvider: dscListProvider,
-			client: client,
 			appConfiguration: appConfigurationProvider,
 			cclService: FakeCCLService(),
 			recycleBin: .fake()
@@ -193,7 +186,6 @@ class QRScannerViewModelTests: XCTestCase {
 	}
 	func test_ifValid_Event_Scanned_then_parsing_is_successful() {
 		let store = MockTestStore()
-		let client = ClientMock()
 		let appConfigurationProvider = CachedAppConfigurationMock()
 		let dscListProvider = MockDSCListProvider()
 		let dccSignatureVerifier = DCCSignatureVerifyingStub()
@@ -201,7 +193,6 @@ class QRScannerViewModelTests: XCTestCase {
 			store: store,
 			dccSignatureVerifier: dccSignatureVerifier,
 			dscListProvider: dscListProvider,
-			client: client,
 			appConfiguration: appConfigurationProvider,
 			cclService: FakeCCLService(),
 			recycleBin: .fake()
@@ -244,7 +235,6 @@ class QRScannerViewModelTests: XCTestCase {
 	
 	func test_ifValid_Certificate_Scanned_then_parsing_is_successful() {
 		let store = MockTestStore()
-		let client = ClientMock()
 		let appConfigurationProvider = CachedAppConfigurationMock()
 		let dscListProvider = MockDSCListProvider()
 		let dccSignatureVerifier = DCCSignatureVerifyingStub()
@@ -252,7 +242,6 @@ class QRScannerViewModelTests: XCTestCase {
 			store: store,
 			dccSignatureVerifier: dccSignatureVerifier,
 			dscListProvider: dscListProvider,
-			client: client,
 			appConfiguration: appConfigurationProvider,
 			cclService: FakeCCLService(),
 			recycleBin: .fake()
@@ -296,7 +285,6 @@ class QRScannerViewModelTests: XCTestCase {
 	
 	func test_ifInValid_QRCode_Scanned_then_parsing_fails() {
 		let store = MockTestStore()
-		let client = ClientMock()
 		let appConfigurationProvider = CachedAppConfigurationMock()
 		let dscListProvider = MockDSCListProvider()
 		let dccSignatureVerifier = DCCSignatureVerifyingStub()
@@ -304,7 +292,6 @@ class QRScannerViewModelTests: XCTestCase {
 			store: store,
 			dccSignatureVerifier: dccSignatureVerifier,
 			dscListProvider: dscListProvider,
-			client: client,
 			appConfiguration: appConfigurationProvider,
 			cclService: FakeCCLService(),
 			recycleBin: .fake()
@@ -347,7 +334,6 @@ class QRScannerViewModelTests: XCTestCase {
 
 	func testInitialUnsuccessfulScanWithSuccessfulRetry() {
 		let store = MockTestStore()
-		let client = ClientMock()
 		let appConfigurationProvider = CachedAppConfigurationMock()
 		let dscListProvider = MockDSCListProvider()
 		let dccSignatureVerifier = DCCSignatureVerifyingStub()
@@ -355,7 +341,6 @@ class QRScannerViewModelTests: XCTestCase {
 			store: store,
 			dccSignatureVerifier: dccSignatureVerifier,
 			dscListProvider: dscListProvider,
-			client: client,
 			appConfiguration: appConfigurationProvider,
 			cclService: FakeCCLService(),
 			recycleBin: .fake()

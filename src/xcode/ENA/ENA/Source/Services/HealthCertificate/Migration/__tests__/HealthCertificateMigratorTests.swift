@@ -415,12 +415,10 @@ class HealthCertificateMigratorTests: XCTestCase {
 	// MARK: - Helpers
 
 	private func getService(store: Store) -> HealthCertificateService {
-		let client = ClientMock()
 		return HealthCertificateService(
 			store: store,
 			dccSignatureVerifier: DCCSignatureVerifyingStub(),
 			dscListProvider: MockDSCListProvider(),
-			client: client,
 			appConfiguration: CachedAppConfigurationMock(
 				with: SAP_Internal_V2_ApplicationConfigurationIOS()
 			),

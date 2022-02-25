@@ -47,6 +47,8 @@ struct SAP_Internal_V2_DGCParameters {
   /// Clears the value of `blockListParameters`. Subsequent reads from it will return its default value.
   mutating func clearBlockListParameters() {self._blockListParameters = nil}
 
+  var reissueServicePublicKeyDigest: Data = Data()
+
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
   init() {}
@@ -105,6 +107,7 @@ extension SAP_Internal_V2_DGCParameters: SwiftProtobuf.Message, SwiftProtobuf._M
     1: .same(proto: "testCertificateParameters"),
     2: .same(proto: "expirationThresholdInDays"),
     3: .same(proto: "blockListParameters"),
+    4: .same(proto: "reissueServicePublicKeyDigest"),
   ]
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -116,20 +119,28 @@ extension SAP_Internal_V2_DGCParameters: SwiftProtobuf.Message, SwiftProtobuf._M
       case 1: try { try decoder.decodeSingularMessageField(value: &self._testCertificateParameters) }()
       case 2: try { try decoder.decodeSingularUInt32Field(value: &self.expirationThresholdInDays) }()
       case 3: try { try decoder.decodeSingularMessageField(value: &self._blockListParameters) }()
+      case 4: try { try decoder.decodeSingularBytesField(value: &self.reissueServicePublicKeyDigest) }()
       default: break
       }
     }
   }
 
   func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if let v = self._testCertificateParameters {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
+    try { if let v = self._testCertificateParameters {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-    }
+    } }()
     if self.expirationThresholdInDays != 0 {
       try visitor.visitSingularUInt32Field(value: self.expirationThresholdInDays, fieldNumber: 2)
     }
-    if let v = self._blockListParameters {
+    try { if let v = self._blockListParameters {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 3)
+    } }()
+    if !self.reissueServicePublicKeyDigest.isEmpty {
+      try visitor.visitSingularBytesField(value: self.reissueServicePublicKeyDigest, fieldNumber: 4)
     }
     try unknownFields.traverse(visitor: &visitor)
   }
@@ -138,6 +149,7 @@ extension SAP_Internal_V2_DGCParameters: SwiftProtobuf.Message, SwiftProtobuf._M
     if lhs._testCertificateParameters != rhs._testCertificateParameters {return false}
     if lhs.expirationThresholdInDays != rhs.expirationThresholdInDays {return false}
     if lhs._blockListParameters != rhs._blockListParameters {return false}
+    if lhs.reissueServicePublicKeyDigest != rhs.reissueServicePublicKeyDigest {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

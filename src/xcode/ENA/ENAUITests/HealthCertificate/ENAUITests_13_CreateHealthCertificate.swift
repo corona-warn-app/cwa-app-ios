@@ -4,6 +4,7 @@
 
 import XCTest
 
+// swiftlint:disable type_body_length
 class ENAUITests_13_CreateHealthCertificate: CWATestCase {
 
 	// MARK: - Overrides
@@ -377,6 +378,27 @@ class ENAUITests_13_CreateHealthCertificate: CWATestCase {
 		XCTAssertEqual(app.cells.matching(identifier: AccessibilityIdentifiers.HealthCertificate.Person.certificateCell).count, 2)
 	}
 
+	func test_HealthCertificate_FederalState_Flow() throws {
+		app.setLaunchArgument(LaunchArguments.healthCertificate.firstAndSecondHealthCertificate, to: true)
+		app.setLaunchArgument(LaunchArguments.infoScreen.healthCertificateInfoScreenShown, to: true)
+		app.launch()
+
+		app.buttons[AccessibilityIdentifiers.TabBar.certificates].waitAndTap()
+
+		// Check if the selection button exists
+		let selectionButtonCell = try XCTUnwrap(app.cells[AccessibilityIdentifiers.HealthCertificate.Overview.changeAdmissionScenarioCell])
+		
+		// Navigate to the scenario selection screen
+		selectionButtonCell.waitAndTap()
+
+		// Select federal state Berlin
+		app.cells.element(boundBy: 2).waitAndTap()
+		
+		// Check if the button with label Berlin exists
+		let selectedStateButton = try XCTUnwrap(app.buttons[app.localized("FederalState_Berlin")])
+		XCTAssertTrue(selectedStateButton.waitForExistence(timeout: .medium))
+	}
+	
 	func test_screenshot_HealthCertificate_printPDF() throws {
 		app.setLaunchArgument(LaunchArguments.healthCertificate.firstAndSecondHealthCertificate, to: true)
 		app.setLaunchArgument(LaunchArguments.healthCertificate.firstAndSecondHealthCertificateIssuerDE, to: true)
@@ -429,7 +451,7 @@ class ENAUITests_13_CreateHealthCertificate: CWATestCase {
 		snapshot("screenshot_test_certificate_valid_overview_part1")
 		app.swipeUp(velocity: .slow)
 
-		// Navigatate to test certificate details screen
+		// Navigate to test certificate details screen
 		app.cells[AccessibilityIdentifiers.HealthCertificate.Person.certificateCell].waitAndTap()
 
 		snapshot("screenshot_test_certificate_valid_details_part1")
