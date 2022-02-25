@@ -12,13 +12,11 @@ class HealthCertificateService_GroupingAfterDeletionTests: XCTestCase {
 		
 		// GIVEN
 		
-		let client = ClientMock()
 		let store = MockTestStore()
 		let service = HealthCertificateService(
 			store: store,
 			dccSignatureVerifier: DCCSignatureVerifyingStub(),
 			dscListProvider: MockDSCListProvider(),
-			client: client,
 			appConfiguration: CachedAppConfigurationMock(),
 			cclService: FakeCCLService(),
 			recycleBin: .fake()
@@ -101,13 +99,11 @@ class HealthCertificateService_GroupingAfterDeletionTests: XCTestCase {
 		
 		// GIVEN
 		
-		let client = ClientMock()
 		let store = MockTestStore()
 		let service = HealthCertificateService(
 			store: store,
 			dccSignatureVerifier: DCCSignatureVerifyingStub(),
 			dscListProvider: MockDSCListProvider(),
-			client: client,
 			appConfiguration: CachedAppConfigurationMock(),
 			cclService: FakeCCLService(),
 			recycleBin: .fake()

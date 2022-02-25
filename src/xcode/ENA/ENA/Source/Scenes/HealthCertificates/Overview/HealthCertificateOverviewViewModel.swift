@@ -13,10 +13,12 @@ class HealthCertificateOverviewViewModel {
 	init(
 		store: HealthCertificateStoring,
 		healthCertificateService: HealthCertificateService,
+		healthCertificateRequestService: HealthCertificateRequestService,
 		cclService: CCLServable
 	) {
 		self.store = store
 		self.healthCertificateService = healthCertificateService
+		self.healthCertificateRequestService = healthCertificateRequestService
 		self.cclService = cclService
 		
 		healthCertificateService.$healthCertifiedPersons
@@ -28,7 +30,7 @@ class HealthCertificateOverviewViewModel {
 			}
 			.store(in: &subscriptions)
 
-		healthCertificateService.$testCertificateRequests
+		healthCertificateRequestService.$testCertificateRequests
 			.sink { testCertificateRequests in
 				let updatedTestCertificateRequests = testCertificateRequests
 					.sorted { $0.registrationDate > $1.registrationDate }
@@ -109,7 +111,7 @@ class HealthCertificateOverviewViewModel {
 			return
 		}
 
-		healthCertificateService.executeTestCertificateRequest(
+		healthCertificateRequestService.executeTestCertificateRequest(
 			testCertificateRequest,
 			retryIfCertificateIsPending: false
 		) { [weak self] result in
@@ -120,7 +122,7 @@ class HealthCertificateOverviewViewModel {
 	}
 
 	func remove(testCertificateRequest: TestCertificateRequest) {
-		healthCertificateService.remove(testCertificateRequest: testCertificateRequest)
+		healthCertificateRequestService.remove(testCertificateRequest: testCertificateRequest)
 	}
 
 	func attemptToRestoreDecodingFailedHealthCertificates() {
@@ -129,8 +131,9 @@ class HealthCertificateOverviewViewModel {
 	
 	// MARK: - Private
 
-	private let healthCertificateService: HealthCertificateService
 	private let store: HealthCertificateStoring
+	private let healthCertificateService: HealthCertificateService
+	private let healthCertificateRequestService: HealthCertificateRequestService
 	private let cclService: CCLServable
 	private var subscriptions = Set<AnyCancellable>()
 

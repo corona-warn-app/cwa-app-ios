@@ -5,7 +5,7 @@
 import UIKit
 import OpenCombine
 
-class BoosterNotificationTableViewCell: UITableViewCell, ReuseIdentifierProviding {
+class CertificateReissuanceTableViewCell: UITableViewCell, ReuseIdentifierProviding {
 
 	// MARK: - Init
 
@@ -30,7 +30,7 @@ class BoosterNotificationTableViewCell: UITableViewCell, ReuseIdentifierProvidin
 
 	// MARK: - Internal
 
-	func configure(with cellModel: BoosterNotificationCellModel) {
+	func configure(with cellModel: CertificateReissuanceCellModel) {
 		titleLabel.text = cellModel.title
 		titleLabel.isHidden = (cellModel.title ?? "").isEmpty
 
