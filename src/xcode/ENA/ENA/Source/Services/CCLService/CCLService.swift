@@ -27,7 +27,7 @@ protocol CCLServable {
 
 	var configurationVersion: String { get }
 	
-	var cclAdmissionCheckScenariosDisabled: Bool { get }
+	var dccAdmissionCheckScenariosEnabled: Bool { get }
 	
 	func updateConfiguration(completion: @escaping (_ didChange: Bool) -> Void)
 	
@@ -106,8 +106,8 @@ class CCLService: CCLServable {
 			.joined(separator: ", ")
 	}
 
-	var cclAdmissionCheckScenariosDisabled: Bool {
-		return self.appConfiguration.featureProvider.boolValue(for: .cclAdmissionCheckScenariosDisabled)
+	var dccAdmissionCheckScenariosEnabled: Bool {
+		return self.appConfiguration.featureProvider.boolValue(for: .dccAdmissionCheckScenariosEnabled)
 	}
 	
 	func updateConfiguration(
