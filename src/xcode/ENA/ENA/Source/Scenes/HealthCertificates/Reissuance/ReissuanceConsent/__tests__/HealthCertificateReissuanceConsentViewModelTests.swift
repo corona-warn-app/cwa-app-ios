@@ -66,7 +66,7 @@ class HealthCertificateReissuanceConsentViewModelTests: CWATestCase {
 		XCTAssertEqual(sectionsCount, 4)
 		XCTAssertEqual(viewModel.dynamicTableViewModel.numberOfRows(section: 0), 4)
 		XCTAssertEqual(viewModel.dynamicTableViewModel.numberOfRows(section: 1), 2)
-		XCTAssertEqual(viewModel.dynamicTableViewModel.numberOfRows(section: 2), 6)
+		XCTAssertEqual(viewModel.dynamicTableViewModel.numberOfRows(section: 2), 5)
 		XCTAssertEqual(viewModel.dynamicTableViewModel.numberOfRows(section: 3), 1)
 	}
 
@@ -100,7 +100,7 @@ class HealthCertificateReissuanceConsentViewModelTests: CWATestCase {
 		XCTAssertEqual(sectionsCount, 4)
 		XCTAssertEqual(viewModel.dynamicTableViewModel.numberOfRows(section: 0), 2)
 		XCTAssertEqual(viewModel.dynamicTableViewModel.numberOfRows(section: 1), 2)
-		XCTAssertEqual(viewModel.dynamicTableViewModel.numberOfRows(section: 2), 6)
+		XCTAssertEqual(viewModel.dynamicTableViewModel.numberOfRows(section: 2), 5)
 		XCTAssertEqual(viewModel.dynamicTableViewModel.numberOfRows(section: 3), 1)
 	}
 
