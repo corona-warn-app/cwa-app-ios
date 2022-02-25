@@ -135,6 +135,10 @@ final class HealthCertificateReissuanceConsentViewModel {
 		)
 	}
 
+	func markCertificateReissuanceAsSeen() {
+		certifiedPerson.isNewCertificateReissuance = false
+	}
+
 	func submit(completion: @escaping (Result<Void, HealthCertifiedPersonUpdateError>) -> Void) {
 		DispatchQueue.global(qos: .background).asyncAfter(deadline: .now() + 0.5) {
 			// let's create a random result

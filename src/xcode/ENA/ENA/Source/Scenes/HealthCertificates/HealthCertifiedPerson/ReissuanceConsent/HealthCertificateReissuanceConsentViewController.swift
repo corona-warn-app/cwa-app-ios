@@ -50,6 +50,12 @@ class HealthCertificateReissuanceConsentViewController: DynamicTableViewControll
 		setupView()
 	}
 
+	override func viewDidAppear(_ animated: Bool) {
+		super.viewDidAppear(animated)
+
+		viewModel.markCertificateReissuanceAsSeen()
+	}
+
 	// MARK: - Protocol DismissHandling
 
 	func wasAttemptedToBeDismissed() {
