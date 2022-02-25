@@ -163,6 +163,12 @@ class CCLService: CCLServable {
 	}
 	
 	func dccAdmissionCheckScenarios() -> Swift.Result<DCCAdmissionCheckScenarios, DCCAdmissionCheckScenariosAccessError> {
+		#if DEBUG
+		if isUITesting {
+			return .success(mockDCCAdmissionCheckScenarios)
+		}
+		#endif
+
 		let getAdmissionCheckScenariosInput = GetAdmissionCheckScenariosInput.make()
 		
 		do {
@@ -221,6 +227,61 @@ class CCLService: CCLServable {
 
 	private var boosterNotificationRules: [Rule]
 	private var cclConfigurations: [CCLConfiguration]
+
+	#if DEBUG
+	private var mockDCCAdmissionCheckScenarios: DCCAdmissionCheckScenarios {
+		let statusTitle = DCCUIText(
+			type: "string",
+			quantity: nil,
+			quantityParameterIndex: nil,
+			functionName: nil,
+			localizedText: ["de": "Status für folgendes Bundesland"],
+			parameters: []
+		)
+		
+		let buttonTitle = DCCUIText(
+			type: "string",
+			quantity: nil,
+			quantityParameterIndex: nil,
+			functionName: nil,
+			localizedText: ["de": "Regeln des Bundes"],
+			parameters: []
+		)
+
+		let countrySubtitle = DCCUIText(
+			type: "string",
+			quantity: nil,
+			quantityParameterIndex: nil,
+			functionName: nil,
+			localizedText: ["de": "Regeln in Ihrem Bundesland können davon abweichen"],
+			parameters: []
+		)
+		
+		let bwTitle = DCCUIText(
+			type: "string",
+			quantity: nil,
+			quantityParameterIndex: nil,
+			functionName: nil,
+			localizedText: ["de": "Baden Württemberg"],
+			parameters: []
+		)
+		
+		let berlinTitle = DCCUIText(
+			type: "string",
+			quantity: nil,
+			quantityParameterIndex: nil,
+			functionName: nil,
+			localizedText: ["de": "Berlin"],
+			parameters: []
+		)
+		
+		let entireCountry = DCCScenarioSelectionItem(identifier: "DE", titleText: buttonTitle, subtitleText: countrySubtitle, enabled: true)
+		let bw = DCCScenarioSelectionItem(identifier: "BW", titleText: bwTitle, subtitleText: nil, enabled: true)
+		let berlin = DCCScenarioSelectionItem(identifier: "Berlin", titleText: berlinTitle, subtitleText: nil, enabled: true)
+		
+		return DCCAdmissionCheckScenarios(labelText: statusTitle, scenarioSelection: DCCScenarioSelection(titleText: buttonTitle, items: [entireCountry, bw, berlin]))
+	}
+	#endif
 
 	private func getConfigurations(
 		completion: @escaping (Swift.Result<[CCLConfiguration], CCLDownloadError>) -> Void
