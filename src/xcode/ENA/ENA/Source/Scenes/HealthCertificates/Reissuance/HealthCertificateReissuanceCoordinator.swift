@@ -93,7 +93,7 @@ final class HealthCertificateReissuanceCoordinator {
 	}
 
 	private func showReissuanceSucceeded() {
-		let reissuanceSucceededViewController = HealthCertifiedPersonReissuanceSucceededViewController(
+		let reissuanceSucceededViewController = HealthCertificateReissuanceSucceededViewController(
 			didTapEnd: { [weak self] in
 				self?.parentViewController.dismiss(animated: true)
 			}
