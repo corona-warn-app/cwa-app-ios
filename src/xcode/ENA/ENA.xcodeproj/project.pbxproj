@@ -1479,7 +1479,7 @@
 		BAA4D72225E9501E00821B5C /* EUSettingsViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAA4D72125E9501E00821B5C /* EUSettingsViewModelTests.swift */; };
 		BAA4D73025E95B3A00821B5C /* CheckinTabCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAA4D72F25E95B3A00821B5C /* CheckinTabCoordinator.swift */; };
 		BAA7F60027A044D90050E072 /* CacheDataTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAA7F5FF27A044D90050E072 /* CacheDataTests.swift */; };
-		BAA8558B27C82A9C00D0EA26 /* HealthCertifiedPersonReissuanceConsentViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAA8558A27C82A9C00D0EA26 /* HealthCertifiedPersonReissuanceConsentViewModelTests.swift */; };
+		BAA8558B27C82A9C00D0EA26 /* HealthCertificateReissuanceConsentViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAA8558A27C82A9C00D0EA26 /* HealthCertificateReissuanceConsentViewModelTests.swift */; };
 		BAA8BAE225CAD8B000E29CFE /* DMStaticTextCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAA8BAE125CAD8B000E29CFE /* DMStaticTextCellViewModel.swift */; };
 		BAA8BAED25CAD91700E29CFE /* DMStaticTextTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAA8BAEC25CAD91700E29CFE /* DMStaticTextTableViewCell.swift */; };
 		BAAAF131267366A700F9666B /* HealthCertifiedPersonCellModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAAAF130267366A700F9666B /* HealthCertifiedPersonCellModelTests.swift */; };
@@ -1506,8 +1506,8 @@
 		BAC2F58626667A84008A6C7B /* DCCErrors.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAC2F58526667A84008A6C7B /* DCCErrors.swift */; };
 		BAC42DC42583AF9D001A94C0 /* ENATextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAC42DC32583AF9D001A94C0 /* ENATextField.swift */; };
 		BAC5CC0B27BE84DA00094C32 /* HealthCertifiedPersonCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAC5CC0A27BE84DA00094C32 /* HealthCertifiedPersonCoordinator.swift */; };
-		BAC5CC0E27BEB5AC00094C32 /* HealthCertifiedPersonReissuanceConsentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAC5CC0D27BEB5AC00094C32 /* HealthCertifiedPersonReissuanceConsentViewController.swift */; };
-		BAC5CC1027BEB5BC00094C32 /* HealthCertifiedPersonReissuanceConsentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAC5CC0F27BEB5BC00094C32 /* HealthCertifiedPersonReissuanceConsentViewModel.swift */; };
+		BAC5CC0E27BEB5AC00094C32 /* HealthCertificateReissuanceConsentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAC5CC0D27BEB5AC00094C32 /* HealthCertificateReissuanceConsentViewController.swift */; };
+		BAC5CC1027BEB5BC00094C32 /* HealthCertificateReissuanceConsentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAC5CC0F27BEB5BC00094C32 /* HealthCertificateReissuanceConsentViewModel.swift */; };
 		BAC7292026037D61006D83C7 /* AddCheckinCellModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAC7291F26037D61006D83C7 /* AddCheckinCellModelTests.swift */; };
 		BAC729312603863E006D83C7 /* CheckinCellModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAC729302603863E006D83C7 /* CheckinCellModelTests.swift */; };
 		BAC7419E26414D4700955311 /* SimpleTextCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA5B0BED26341A6A0020C977 /* SimpleTextCell.swift */; };
@@ -3205,7 +3205,7 @@
 		BAA4D72125E9501E00821B5C /* EUSettingsViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EUSettingsViewModelTests.swift; sourceTree = "<group>"; };
 		BAA4D72F25E95B3A00821B5C /* CheckinTabCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckinTabCoordinator.swift; sourceTree = "<group>"; };
 		BAA7F5FF27A044D90050E072 /* CacheDataTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheDataTests.swift; sourceTree = "<group>"; };
-		BAA8558A27C82A9C00D0EA26 /* HealthCertifiedPersonReissuanceConsentViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthCertifiedPersonReissuanceConsentViewModelTests.swift; sourceTree = "<group>"; };
+		BAA8558A27C82A9C00D0EA26 /* HealthCertificateReissuanceConsentViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthCertificateReissuanceConsentViewModelTests.swift; sourceTree = "<group>"; };
 		BAA8BAE125CAD8B000E29CFE /* DMStaticTextCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMStaticTextCellViewModel.swift; sourceTree = "<group>"; };
 		BAA8BAEC25CAD91700E29CFE /* DMStaticTextTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMStaticTextTableViewCell.swift; sourceTree = "<group>"; };
 		BAAAF130267366A700F9666B /* HealthCertifiedPersonCellModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthCertifiedPersonCellModelTests.swift; sourceTree = "<group>"; };
@@ -3233,8 +3233,8 @@
 		BAC2F58526667A84008A6C7B /* DCCErrors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DCCErrors.swift; sourceTree = "<group>"; };
 		BAC42DC32583AF9D001A94C0 /* ENATextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ENATextField.swift; sourceTree = "<group>"; };
 		BAC5CC0A27BE84DA00094C32 /* HealthCertifiedPersonCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthCertifiedPersonCoordinator.swift; sourceTree = "<group>"; };
-		BAC5CC0D27BEB5AC00094C32 /* HealthCertifiedPersonReissuanceConsentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthCertifiedPersonReissuanceConsentViewController.swift; sourceTree = "<group>"; };
-		BAC5CC0F27BEB5BC00094C32 /* HealthCertifiedPersonReissuanceConsentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthCertifiedPersonReissuanceConsentViewModel.swift; sourceTree = "<group>"; };
+		BAC5CC0D27BEB5AC00094C32 /* HealthCertificateReissuanceConsentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthCertificateReissuanceConsentViewController.swift; sourceTree = "<group>"; };
+		BAC5CC0F27BEB5BC00094C32 /* HealthCertificateReissuanceConsentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthCertificateReissuanceConsentViewModel.swift; sourceTree = "<group>"; };
 		BAC7291F26037D61006D83C7 /* AddCheckinCellModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCheckinCellModelTests.swift; sourceTree = "<group>"; };
 		BAC729302603863E006D83C7 /* CheckinCellModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckinCellModelTests.swift; sourceTree = "<group>"; };
 		BAC939CC261F5359008BECED /* TestOverwriteNoticeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestOverwriteNoticeViewController.swift; sourceTree = "<group>"; };
@@ -9149,7 +9149,7 @@
 		BAA8558927C82A7800D0EA26 /* __tests__ */ = {
 			isa = PBXGroup;
 			children = (
-				BAA8558A27C82A9C00D0EA26 /* HealthCertifiedPersonReissuanceConsentViewModelTests.swift */,
+				BAA8558A27C82A9C00D0EA26 /* HealthCertificateReissuanceConsentViewModelTests.swift */,
 			);
 			path = __tests__;
 			sourceTree = "<group>";
@@ -9285,8 +9285,8 @@
 			isa = PBXGroup;
 			children = (
 				BAA8558927C82A7800D0EA26 /* __tests__ */,
-				BAC5CC0D27BEB5AC00094C32 /* HealthCertifiedPersonReissuanceConsentViewController.swift */,
-				BAC5CC0F27BEB5BC00094C32 /* HealthCertifiedPersonReissuanceConsentViewModel.swift */,
+				BAC5CC0D27BEB5AC00094C32 /* HealthCertificateReissuanceConsentViewController.swift */,
+				BAC5CC0F27BEB5BC00094C32 /* HealthCertificateReissuanceConsentViewModel.swift */,
 			);
 			path = ReissuanceConsent;
 			sourceTree = "<group>";
@@ -10461,7 +10461,7 @@
 				8F872150274DBD7B00A263D5 /* ServiceIdentityDocumentValidationDecoratorResource.swift in Sources */,
 				BAFC6ABE26A7183000F18BBE /* DSCListProvider.swift in Sources */,
 				5093B9AA260DEB2D007C0B09 /* TraceLocationCheckinViewController.swift in Sources */,
-				BAC5CC1027BEB5BC00094C32 /* HealthCertifiedPersonReissuanceConsentViewModel.swift in Sources */,
+				BAC5CC1027BEB5BC00094C32 /* HealthCertificateReissuanceConsentViewModel.swift in Sources */,
 				50C0299325E4067400460FA4 /* RiskExposureMetadata.swift in Sources */,
 				01F6702825FF80490069C4F9 /* CheckinsOverviewEmptyStateViewModel.swift in Sources */,
 				2FA9E39924D2F4350030561C /* ExposureSubmission+ErrorParsing.swift in Sources */,
@@ -10776,7 +10776,7 @@
 				BA3EE65D26984F990083ADEA /* DynamicTableViewHeadlineWithImageCell.swift in Sources */,
 				34039DD8274E6C7C000AF3C4 /* TicketValidationConditions+CertificateSelection.swift in Sources */,
 				5078DCA12684B3ED00535917 /* HealthCertificateValidationService.swift in Sources */,
-				BAC5CC0E27BEB5AC00094C32 /* HealthCertifiedPersonReissuanceConsentViewController.swift in Sources */,
+				BAC5CC0E27BEB5AC00094C32 /* HealthCertificateReissuanceConsentViewController.swift in Sources */,
 				BA5B7FD726458EF400502087 /* HealthCertificateCellViewModel.swift in Sources */,
 				ABBF429626209952002A9A2B /* Checkin+Update.swift in Sources */,
 				01F2A58125803AA500DA96A6 /* DiaryOverviewDescriptionTableViewCell.swift in Sources */,
@@ -11512,7 +11512,7 @@
 				B15382E7248290BB0010F007 /* AppleFilesWriterTests.swift in Sources */,
 				50373EC925FBD08A000109AE /* HTTPClient+TraceWarningPackageDownloadTests.swift in Sources */,
 				AB1FCBD42521FC47005930BA /* EnvironmentTests.swift in Sources */,
-				BAA8558B27C82A9C00D0EA26 /* HealthCertifiedPersonReissuanceConsentViewModelTests.swift in Sources */,
+				BAA8558B27C82A9C00D0EA26 /* HealthCertificateReissuanceConsentViewModelTests.swift in Sources */,
 				50BD1425260B74C20013983A /* VerificationMock.swift in Sources */,
 				BAB2583827A94CA300DF347B /* FakeCCLService.swift in Sources */,
 				BA02641325E6A0800019CD55 /* FooterViewModelTests.swift in Sources */,

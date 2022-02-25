@@ -160,7 +160,7 @@ final class HealthCertifiedPersonCoordinator {
 			return
 		}
 
-		let updateConsentViewController = HealthCertifiedPersonReissuanceConsentViewController(
+		let updateConsentViewController = HealthCertificateReissuanceConsentViewController(
 			cclService: cclService,
 			certificate: certificate,
 			healthCertifiedPerson: person,

@@ -12,7 +12,7 @@ enum HealthCertifiedPersonUpdateError: Error {
 	case UpdateFailedError
 }
 
-final class HealthCertifiedPersonReissuanceConsentViewModel {
+final class HealthCertificateReissuanceConsentViewModel {
 
 	// MARK: - Init
 

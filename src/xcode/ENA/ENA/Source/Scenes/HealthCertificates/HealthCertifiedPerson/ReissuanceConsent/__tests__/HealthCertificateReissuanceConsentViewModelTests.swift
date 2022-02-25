@@ -6,7 +6,7 @@ import XCTest
 @testable import ENA
 import HealthCertificateToolkit
 
-class HealthCertifiedPersonReissuanceConsentViewModelTests: CWATestCase {
+class HealthCertificateReissuanceConsentViewModelTests: CWATestCase {
 
 
 	let titleText = DCCUIText(
@@ -39,7 +39,7 @@ class HealthCertifiedPersonReissuanceConsentViewModelTests: CWATestCase {
 	func testGIVEN_ViewModel_WHEN_AllTextsArePresent_THEN_NumberOfCellsMatches() throws {
 		// GIVEN
 		let certificate = HealthCertificate.mock()
-		let viewModel = HealthCertifiedPersonReissuanceConsentViewModel(
+		let viewModel = HealthCertificateReissuanceConsentViewModel(
 			cclService: FakeCCLService(),
 			certificate: certificate,
 			certifiedPerson: HealthCertifiedPerson(
@@ -73,7 +73,7 @@ class HealthCertifiedPersonReissuanceConsentViewModelTests: CWATestCase {
 	func testGIVEN_ViewModel_WHEN_OnlyOneTextIsPresent_THEN_NumberOfCellsMatches() throws {
 		// GIVEN
 		let certificate = HealthCertificate.mock()
-		let viewModel = HealthCertifiedPersonReissuanceConsentViewModel(
+		let viewModel = HealthCertificateReissuanceConsentViewModel(
 			cclService: FakeCCLService(),
 			certificate: certificate,
 			certifiedPerson: HealthCertifiedPerson(
