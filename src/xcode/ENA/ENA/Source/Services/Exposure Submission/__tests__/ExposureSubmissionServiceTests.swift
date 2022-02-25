@@ -744,6 +744,15 @@ class ExposureSubmissionServiceTests: CWATestCase {
 			count += 1
 			completion(.success(()))
 		}
+
+		let healthCertificateService = HealthCertificateService(
+			store: store,
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
+			dscListProvider: MockDSCListProvider(),
+			appConfiguration: appConfigurationProvider,
+			cclService: FakeCCLService(),
+			recycleBin: .fake()
+		)
 		
 		let coronaTestService = CoronaTestService(
 			client: client,
@@ -752,14 +761,12 @@ class ExposureSubmissionServiceTests: CWATestCase {
 			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
 			appConfiguration: appConfigurationProvider,
-			healthCertificateService: HealthCertificateService(
+			healthCertificateService: healthCertificateService,
+			healthCertificateRequestService: HealthCertificateRequestService(
 				store: store,
-				dccSignatureVerifier: DCCSignatureVerifyingStub(),
-				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfigurationProvider,
-				cclService: FakeCCLService(),
-				recycleBin: .fake()
+				healthCertificateService: healthCertificateService
 			),
 			recycleBin: .fake(),
 			badgeWrapper: .fake()
