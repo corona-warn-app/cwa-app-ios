@@ -18,14 +18,14 @@ struct HealthCertifiedPersonReissuanceSucceededViewModel {
 			.section(
 				cells: [
 					.headlineWithImage(
-						headerText: AppStrings.HealthCertificate.Person.UpdateSucceeded.title,
+						headerText: AppStrings.HealthCertificate.Reissuance.Succeeded.title,
 						image: UIImage(imageLiteralResourceName: "Illu_Replace_Success"),
 						imageAccessibilityIdentifier: AccessibilityIdentifiers.HealthCertificate.Person.UpdateSucceeded.image
 					),
-					.title2(text: AppStrings.HealthCertificate.Person.UpdateSucceeded.headline),
+					.title2(text: AppStrings.HealthCertificate.Reissuance.Succeeded.headline),
 
 					.body(
-						text: AppStrings.HealthCertificate.Person.UpdateSucceeded.body
+						text: AppStrings.HealthCertificate.Reissuance.Succeeded.body
 					)
 				]
 			)

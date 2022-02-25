@@ -44,6 +44,7 @@ class HealthCertifiedPersonReissuanceConsentViewController: DynamicTableViewCont
 
 		navigationItem.hidesBackButton = true
 		navigationItem.rightBarButtonItem = dismissHandlingCloseBarButton
+		
 		title = viewModel.title
 
 		setupView()
@@ -92,14 +93,14 @@ class HealthCertifiedPersonReissuanceConsentViewController: DynamicTableViewCont
 		footerView?.setLoadingIndicator(false, disable: false, button: .primary)
 		
 		let okAction = UIAlertAction(
-			title: AppStrings.HealthCertificate.Person.UpdateConsent.defaultAlertOKButton,
+			title: AppStrings.HealthCertificate.Reissuance.Consent.defaultAlertOKButton,
 			style: .default, handler: { _ in
 				Log.info("OK Alert action needed here")
 			}
 		)
 
 		let retryAction = UIAlertAction(
-			title: AppStrings.HealthCertificate.Person.UpdateConsent.defaultAlertRetryButton,
+			title: AppStrings.HealthCertificate.Reissuance.Consent.defaultAlertRetryButton,
 			style: .default, handler: { _ in
 				Log.info("Retry Alert action needed here")
 			}

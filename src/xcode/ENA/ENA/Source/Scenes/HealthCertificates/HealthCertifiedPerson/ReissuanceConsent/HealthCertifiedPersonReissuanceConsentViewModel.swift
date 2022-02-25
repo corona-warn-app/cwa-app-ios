@@ -30,7 +30,7 @@ final class HealthCertifiedPersonReissuanceConsentViewModel {
 
 	// MARK: - Internal
 
-	let title: String = AppStrings.HealthCertificate.Person.UpdateConsent.title
+	let title: String = AppStrings.HealthCertificate.Reissuance.Consent.title
 
 	private var titleDynamicCell: DynamicCell? {
 		guard let title = certifiedPerson.dccWalletInfo?.certificateReissuance?.reissuanceDivision.titleText?.localized(cclService: cclService) else {
@@ -83,12 +83,12 @@ final class HealthCertifiedPersonReissuanceConsentViewModel {
 					cells: [
 						.icon(
 							UIImage(imageLiteralResourceName: "more_recycle_bin"),
-							text: .string(AppStrings.HealthCertificate.Person.UpdateConsent.deleteNotice),
+							text: .string(AppStrings.HealthCertificate.Reissuance.Consent.deleteNotice),
 							alignment: .top
 						),
 						.icon(
 							UIImage(imageLiteralResourceName: "Icons_Certificates_01"),
-							text: .string(AppStrings.HealthCertificate.Person.UpdateConsent.cancelNotice),
+							text: .string(AppStrings.HealthCertificate.Reissuance.Consent.cancelNotice),
 							alignment: .top
 						)
 					]
@@ -97,16 +97,16 @@ final class HealthCertifiedPersonReissuanceConsentViewModel {
 					cells:
 						[
 							.legalExtended(
-								title: NSAttributedString(string: AppStrings.HealthCertificate.Person.UpdateConsent.legalTitle),
-								subheadline1: attributedStringWithRegularText(text: AppStrings.HealthCertificate.Person.UpdateConsent.legalSubtitle),
+								title: NSAttributedString(string: AppStrings.HealthCertificate.Reissuance.Consent.legalTitle),
+								subheadline1: attributedStringWithRegularText(text: AppStrings.HealthCertificate.Reissuance.Consent.legalSubtitle),
 								bulletPoints1: [
-									attributedStringWithBoldText(text: AppStrings.HealthCertificate.Person.UpdateConsent.legalBullet1),
-									attributedStringWithBoldText(text: AppStrings.HealthCertificate.Person.UpdateConsent.legalBullet2)
+									attributedStringWithBoldText(text: AppStrings.HealthCertificate.Reissuance.Consent.legalBullet1),
+									attributedStringWithBoldText(text: AppStrings.HealthCertificate.Reissuance.Consent.legalBullet2)
 								],
 								subheadline2: nil
 							),
-							.bulletPoint(text: AppStrings.HealthCertificate.Person.UpdateConsent.bulletPoint_1),
-							.bulletPoint(text: AppStrings.HealthCertificate.Person.UpdateConsent.bulletPoint_2),
+							.bulletPoint(text: AppStrings.HealthCertificate.Reissuance.Consent.bulletPoint_1),
+							.bulletPoint(text: AppStrings.HealthCertificate.Reissuance.Consent.bulletPoint_2),
 							.space(height: 8.0),
 							faqLinkDynamicCell,
 							.space(height: 8.0)

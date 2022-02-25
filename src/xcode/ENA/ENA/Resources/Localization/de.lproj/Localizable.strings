@@ -2957,46 +2957,6 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "HealthCertifiedPerson_newlyAddedCertificate" = "Neu";
 
-/* HealthCertifiedPerson UpdateConsent */
-
-"HealthCertifiedPerson_UpdateConsent_primaryButtonTitle" = "Einverstanden";
-
-"HealthCertifiedPerson_UpdateConsent_secondaryButtonTitle" = "Abbrechen";
-
-"HealthCertifiedPerson_DefaultAlert_Title" = "Fehler";
-
-"HealthCertifiedPerson_DefaultAlert_Message" = "Möglicherweise wurde Ihre Internet-Verbindung unterbrochen. Bitte stellen Sie sicher, dass Sie mit dem Internet verbunden sind.";
-
-"HealthCertifiedPerson_DefaultAlert_OKButton" = "OK";
-
-"HealthCertifiedPerson_DefaultAlert_RetryButton" = "Wiederholen";
-
-"HealthCertifiedPerson_UpdateConsent_Title" = "Ihr Einverständnis";
-
-"HealthCertifiedPerson_UpdateConsent_Delete_Notice" = "Das alte Zertifikat wird automatisch in den Papierkorb verschoben und nach 30 Tagen gelöscht. Das Zertifikat kann innerhalb der 30 Tage jederzeit wiederhergestellt werden.";
-
-"HealthCertifiedPerson_UpdateConsent_Cancel_Notice" = "Falls Sie hier abbrechen, können Sie die Aktualisierung jederzeit in Ihrer Zertifikatsübersicht anfordern.";
-
-"HealthCertifiedPerson_UpdateConsent_Legal_Title" = "Ihr Einverständnis";
-
-"HealthCertifiedPerson_UpdateConsent_Legal_Subtitle" = "Durch Antippen von „Einverstanden“ willigen Sie in folgende Schritte ein:";
-
-"HealthCertifiedPerson_UpdateConsent_Legal_Bullet_1" = "Die App übermittelt das Impfzertifikat zur Überprüfung an das RKI.";
-
-"HealthCertifiedPerson_UpdateConsent_Legal_Bullet_2" = "Das RKI überprüft das Impfzertifikat und stellt ein aktualisiertes Zertifikat aus und übermittelt dieses an Ihre App.";
-
-"HealthCertifiedPerson_UpdateConsent_Bullet_Point_1" = "Die Aktualisierung des Zertifikats ist freiwillig und kostenlos.";
-
-"HealthCertifiedPerson_UpdateConsent_Bullet_Point_2" = "Um sicherzustellen, dass Zertifikate nur einmalig aktualisiert werden können, wird die Kennung des alten Zertifikats durch das RKI dokumentiert.";
-
-/* HealthCertifiedPerson UpdateSucceeded */
-
-"HealthCertifiedPerson_UpdateSucceeded_Title" = "Zertifikat aktualisiert";
-
-"HealthCertifiedPerson_UpdateSucceeded_Headline" = "Ihr Zertifikat wurde erfolgreich aktualisiert";
-
-"HealthCertifiedPerson_UpdateSucceeded_Body" = "Sie finden das aktualisierte Zertifikat nun in der Zertifikate-Registerkarte.";
-
 /* Vaccination Certificate Details */
 
 "HealthCertificate_Details_vaccinationCount" = "Impfung %i von %i";
@@ -3279,6 +3239,59 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "HealthCertificate_ValidityState_Blocked_description" = "Das Zertifikat wurde von der ausstellenden Behörde zurückgerufen. Bitte bemühen Sie sich darum, einen neuen digitalen Nachweis ausstellen zu lassen.";
 
+/* Reissuance */
+
+/* HealthCertificate Resissuance Consent */
+
+"HealthCertificate_Reissuance_Consent_primaryButtonTitle" = "Einverstanden";
+
+"HealthCertificate_Reissuance_Consent_secondaryButtonTitle" = "Abbrechen";
+
+"HealthCertificate_Reissuance_Consent_DefaultAlert_Title" = "Fehler";
+
+"HealthCertificate_Reissuance_Consent_DefaultAlert_Message" = "Möglicherweise wurde Ihre Internet-Verbindung unterbrochen. Bitte stellen Sie sicher, dass Sie mit dem Internet verbunden sind.";
+
+"HealthCertificate_Reissuance_Consent_DefaultAlert_OKButton" = "OK";
+
+"HealthCertificate_Reissuance_Consent_DefaultAlert_RetryButton" = "Wiederholen";
+
+"HealthCertificate_Reissuance_Consent_Title" = "Ihr Einverständnis";
+
+"HealthCertificate_Reissuance_Consent_Delete_Notice" = "Das alte Zertifikat wird automatisch in den Papierkorb verschoben und nach 30 Tagen gelöscht. Das Zertifikat kann innerhalb der 30 Tage jederzeit wiederhergestellt werden.";
+
+"HealthCertificate_Reissuance_Consent_Cancel_Notice" = "Falls Sie hier abbrechen, können Sie die Aktualisierung jederzeit in Ihrer Zertifikatsübersicht anfordern.";
+
+"HealthCertificate_Reissuance_Consent_Legal_Title" = "Ihr Einverständnis";
+
+"HealthCertificate_Reissuance_Consent_Legal_Subtitle" = "Durch Antippen von „Einverstanden“ willigen Sie in folgende Schritte ein:";
+
+"HealthCertificate_Reissuance_Consent_Legal_Bullet_1" = "Die App übermittelt das Impfzertifikat zur Überprüfung an das RKI.";
+
+"HealthCertificate_Reissuance_Consent_Legal_Bullet_2" = "Das RKI überprüft das Impfzertifikat und stellt ein aktualisiertes Zertifikat aus und übermittelt dieses an Ihre App.";
+
+"HealthCertificate_Reissuance_Consent_Bullet_Point_1" = "Die Aktualisierung des Zertifikats ist freiwillig und kostenlos.";
+
+"HealthCertificate_Reissuance_Consent_Bullet_Point_2" = "Um sicherzustellen, dass Zertifikate nur einmalig aktualisiert werden können, wird die Kennung des alten Zertifikats durch das RKI dokumentiert.";
+
+/* HealthCertificate Resissuance Succeeded */
+
+"HealthCertificate_Reissuance_Succeeded_Title" = "Zertifikat aktualisiert";
+
+"HealthCertificate_Reissuance_Succeeded_Headline" = "Ihr Zertifikat wurde erfolgreich aktualisiert";
+
+"HealthCertificate_Reissuance_Succeeded_Body" = "Sie finden das aktualisierte Zertifikat nun in der Zertifikate-Registerkarte.";
+
+/* HealthCertificate Resissuance Request Error */
+
+"HealthCertificate_Reissuance_Error_Contact_Support" = "Es ist ein technischer Fehler aufgetreten. Bitte kontaktieren Sie die technische Hotline über App-Informationen -> Technische Hotline.";
+
+"HealthCertificate_Reissuance_Error_No_Network" = "Möglicherweise wurde Ihre Internet-Verbindung unterbrochen. Bitte prüfen Sie die Verbindung und versuchen Sie es erneut.";
+
+"HealthCertificate_Reissuance_Error_Try_Again" = "Es ist ein Fehler bei der Aktualisierung Ihres Zertifikats aufgetreten. Bitte versuchen Sie es erneut. Wenn der Fehler weiterhin auftritt, kontaktieren Sie bitte die technische Hotline über App-Informationen -> Technische Hotline.";
+
+"HealthCertificate_Reissuance_Error_Not_Supported" = "Ihr Zertifikat kann nicht aktualisiert werden. Bitte kontaktieren Sie die technische Hotline über App-Informationen -> Technische Hotline.";
+
+
 /* Universal QR Scanner */
 
 "UniversalQRScanner_ScannerTitle" = "QR-Code-Scanner";
@@ -3376,7 +3389,7 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "FileScanner_InvalidQRCode_title" = "Kein geeigneter QR-Code";
 
-"FileScanner_InvalidQRCode_message" = "Der QR-Code wird nicht von der Corona-Warn-App unterstützt. Bitte wählen Sie einen geeigneten QR-Code."; 
+"FileScanner_InvalidQRCode_message" = "Der QR-Code wird nicht von der Corona-Warn-App unterstützt. Bitte wählen Sie einen geeigneten QR-Code.";
 
 "FileScanner_FileNotReadable_title" = "Datei nicht lesbar";
 
