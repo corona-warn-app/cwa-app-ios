@@ -20,7 +20,6 @@ enum DCCReissuanceResourceError: LocalizedError {
 
 	var errorDescription: String? {
 		switch self {
-			// texts to be added in https://jira-ibs.wbs.net.sap/browse/EXPOSUREAPP-11930
 		case .DCC_RI_PIN_MISMATCH:
 			return AppStrings.HealthCertificate.Reissuance.Errors.contactSupport
 		case .DCC_RI_PARSE_ERR:
