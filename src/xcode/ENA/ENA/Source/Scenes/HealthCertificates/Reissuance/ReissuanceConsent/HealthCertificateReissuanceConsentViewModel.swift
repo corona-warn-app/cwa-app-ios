@@ -186,7 +186,7 @@ private extension DynamicCell {
 				HealthCertificateCellViewModel(
 					healthCertificate: certificate,
 					healthCertifiedPerson: certifiedPerson,
-					details: .reissuance
+					details: .overviewPlusName
 				),
 				withDisclosureIndicator: false
 			)

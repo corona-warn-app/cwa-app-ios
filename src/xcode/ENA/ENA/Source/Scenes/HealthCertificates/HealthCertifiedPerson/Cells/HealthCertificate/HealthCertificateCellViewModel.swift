@@ -23,21 +23,21 @@ final class HealthCertificateCellViewModel {
 	enum HealthCertificateCellDetails {
 		case allDetails
 		case overview
-		case reissuance
+		case overviewPlusName
 	}
 	
 	let healthCertificate: HealthCertificate
 	
 	lazy var gradientType: GradientView.GradientType = {
 		switch details {
-		case .allDetails, .reissuance:
+		case .allDetails:
 			if healthCertificate.isUsable &&
 				healthCertificate == healthCertifiedPerson.mostRelevantHealthCertificate {
 				return healthCertifiedPerson.gradientType
 			} else {
 				return .solidGrey
 			}
-		case .overview:
+		case .overview, .overviewPlusName:
 			return .lightBlue
 		}
 	}()
@@ -53,29 +53,23 @@ final class HealthCertificateCellViewModel {
 		}
 	}()
 
+	lazy var name: String? = {
+		switch details {
+		case .allDetails, .overview:
+			return nil
+		case .overviewPlusName:
+			return healthCertifiedPerson.name?.fullName
+		}
+	}()
+
 	lazy var subheadline: String? = {
 		switch healthCertificate.entry {
 		case .vaccination(let vaccinationEntry):
-			switch details {
-			case .allDetails, .overview:
-				return String(
-					format: AppStrings.HealthCertificate.Person.VaccinationCertificate.vaccinationCount,
-					vaccinationEntry.doseNumber,
-					vaccinationEntry.totalSeriesOfDoses
-				)
-			case .reissuance:
-				let subHeadline = [
-					healthCertifiedPerson.name?.fullName,
-					String(
-						format: AppStrings.HealthCertificate.Person.VaccinationCertificate.vaccinationCount,
-						vaccinationEntry.doseNumber,
-						vaccinationEntry.totalSeriesOfDoses
-					)
-				]
-					.compactMap({ $0 })
-					.joined(separator: "\n")
-				return subHeadline
-			}
+			return String(
+				format: AppStrings.HealthCertificate.Person.VaccinationCertificate.vaccinationCount,
+				vaccinationEntry.doseNumber,
+				vaccinationEntry.totalSeriesOfDoses
+			)
 		case .test(let testEntry) where testEntry.coronaTestType == .pcr:
 			return AppStrings.HealthCertificate.Person.TestCertificate.pcrTest
 		case .test(let testEntry) where testEntry.coronaTestType == .antigen:
@@ -116,7 +110,7 @@ final class HealthCertificateCellViewModel {
 
 	lazy var validityStateInfo: String? = {
 		switch details {
-		case .allDetails, .reissuance:
+		case .allDetails:
 			if !healthCertificate.isConsideredValid {
 				switch healthCertificate.validityState {
 				case .valid:
@@ -139,7 +133,7 @@ final class HealthCertificateCellViewModel {
 			} else {
 				return nil
 			}
-		case .overview:
+		case .overview, .overviewPlusName:
 			return nil
 		}
 	}()
@@ -165,9 +159,7 @@ final class HealthCertificateCellViewModel {
 		switch details {
 		case .allDetails:
 			return healthCertificate == healthCertifiedPerson.mostRelevantHealthCertificate
-		case .overview:
-			return false
-		case .reissuance:
+		case .overview, .overviewPlusName:
 			return false
 		}
 	}()
@@ -189,9 +181,7 @@ final class HealthCertificateCellViewModel {
 		switch details {
 		case .allDetails:
 			return healthCertificate.isNew || healthCertificate.isValidityStateNew
-		case .overview:
-			return false
-		case .reissuance:
+		case .overview, .overviewPlusName:
 			return false
 		}
 	}()
