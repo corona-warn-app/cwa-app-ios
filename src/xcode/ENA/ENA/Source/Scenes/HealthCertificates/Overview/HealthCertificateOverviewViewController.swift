@@ -206,7 +206,7 @@ class HealthCertificateOverviewViewController: UITableViewController {
 			fatalError("Could not dequeue OverviewLabelTableCell")
 		}
 
-		cell.configure(text: viewModel.changeAdmissionScenarioStatusText?.localized(cclService: cclService) ?? AppStrings.HealthCertificate.Overview.admissionScenarioStatusLabel, noBottomInset: true, textAlignment: .left)
+		cell.configure(text: viewModel.changeAdmissionScenarioStatusText?.localized(cclService: cclService) ?? AppStrings.HealthCertificate.Overview.admissionScenarioStatusLabel, noBottomInset: true, color: .enaColor(for: .textPrimary2), textAlignment: .left)
 		return cell
 	}
 	
@@ -225,7 +225,7 @@ class HealthCertificateOverviewViewController: UITableViewController {
 			fatalError("Could not dequeue OverviewLabelTableCell")
 		}
 
-		cell.configure(text: AppStrings.HealthCertificate.Overview.scanningInfo, textAlignment: textAlignment)
+		cell.configure(text: AppStrings.HealthCertificate.Overview.scanningInfo, color: .enaColor(for: .textPrimary2), textAlignment: textAlignment)
 		return cell
 	}
 	
