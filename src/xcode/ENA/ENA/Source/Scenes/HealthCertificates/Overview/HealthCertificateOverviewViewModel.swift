@@ -95,7 +95,7 @@ class HealthCertificateOverviewViewModel {
 		case .changeAdmissionScenario:
 			return rowsForAdmissionCheckScenarios
 		case .healthCertificateScanningInfoOnTop:
-			return cclService.dccAdmissionCheckScenariosEnabled ? 0 : 1
+			return healthCertifiedPersons.isEmpty ? 1 : 0
 		case .testCertificateRequest:
 			return testCertificateRequests.count
 		case .healthCertificate:
