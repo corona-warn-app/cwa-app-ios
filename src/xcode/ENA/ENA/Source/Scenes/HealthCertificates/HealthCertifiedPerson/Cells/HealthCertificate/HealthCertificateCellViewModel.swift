@@ -23,6 +23,7 @@ final class HealthCertificateCellViewModel {
 	enum HealthCertificateCellDetails {
 		case allDetails
 		case overview
+		case overviewPlusName
 	}
 	
 	let healthCertificate: HealthCertificate
@@ -36,7 +37,7 @@ final class HealthCertificateCellViewModel {
 			} else {
 				return .solidGrey
 			}
-		case .overview:
+		case .overview, .overviewPlusName:
 			return .lightBlue
 		}
 	}()
@@ -49,6 +50,15 @@ final class HealthCertificateCellViewModel {
 			return AppStrings.HealthCertificate.Person.TestCertificate.headline
 		case .recovery:
 			return AppStrings.HealthCertificate.Person.RecoveryCertificate.headline
+		}
+	}()
+
+	lazy var name: String? = {
+		switch details {
+		case .allDetails, .overview:
+			return nil
+		case .overviewPlusName:
+			return healthCertifiedPerson.name?.fullName
 		}
 	}()
 
@@ -123,7 +133,7 @@ final class HealthCertificateCellViewModel {
 			} else {
 				return nil
 			}
-		case .overview:
+		case .overview, .overviewPlusName:
 			return nil
 		}
 	}()
@@ -149,7 +159,7 @@ final class HealthCertificateCellViewModel {
 		switch details {
 		case .allDetails:
 			return healthCertificate == healthCertifiedPerson.mostRelevantHealthCertificate
-		case .overview:
+		case .overview, .overviewPlusName:
 			return false
 		}
 	}()
@@ -171,7 +181,7 @@ final class HealthCertificateCellViewModel {
 		switch details {
 		case .allDetails:
 			return healthCertificate.isNew || healthCertificate.isValidityStateNew
-		case .overview:
+		case .overview, .overviewPlusName:
 			return false
 		}
 	}()
