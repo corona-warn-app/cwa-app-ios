@@ -7456,6 +7456,7 @@
 		AB68532225F923C600380F5A /* __tests__ */ = {
 			isa = PBXGroup;
 			children = (
+				502B60FA276CB7640049CC60 /* Error+Fake.swift */,
 				AB68531825F9233200380F5A /* Store */,
 				01DDF4452654221A0043B4E1 /* DidSetPublishedTests.swift */,
 			);
@@ -8956,7 +8957,6 @@
 			children = (
 				ABB078F327316EB60037B30F /* CachedRestServiceTests.swift */,
 				BAF6A46D27A15DDC008DFAF5 /* CachePolicyTests.swift */,
-				502B60FA276CB7640049CC60 /* Error+Fake.swift */,
 				A1E419442495476C0016E52A /* MockNetworkStack.swift */,
 				CD678F6E246C43FC00B6A0F8 /* MockURLSession.swift */,
 				BA7DB3A32743F1A80028683F /* RestServiceProviderStub.swift */,

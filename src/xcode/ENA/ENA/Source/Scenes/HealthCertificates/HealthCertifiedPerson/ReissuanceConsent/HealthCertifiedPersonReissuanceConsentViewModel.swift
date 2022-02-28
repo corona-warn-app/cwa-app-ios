@@ -9,10 +9,11 @@ import OpenCombine
 /// needed to get replaced in later tasks
 ///
 enum HealthCertifiedPersonUpdateError: Error {
-	case updateFailedError
+	case submitFailedError
+	case replaceHealthCertificateError(Error)
+	case noRelation
+	case certificateToReissueMissing
 	case restServiceError(ServiceError<DCCReissuanceResourceError>)
-	case certificateDecodingErrro(Error)
-	case DCC_RI_NO_RELATION
 }
 
 
@@ -24,7 +25,7 @@ class HealthCertifiedPersonReissuanceConsentViewModel {
 		person: HealthCertifiedPerson,
 		appConfigProvider: AppConfigurationProviding,
 		restServiceProvider: RestServiceProviding,
-		healthCertificateService: HealthCertificateService
+		healthCertificateService: HealthCertificateServiceServable
 	) {
 		self.healthCertifiedPerson = person
 		self.appConfigProvider = appConfigProvider
@@ -38,7 +39,7 @@ class HealthCertifiedPersonReissuanceConsentViewModel {
 			appConfigProvider.appConfiguration()
 				.sink { [weak self] appConfig in
 					guard let self = self else {
-						completion(.failure(.updateFailedError))
+						completion(.failure(.submitFailedError))
 						return
 					}
 					
@@ -47,7 +48,7 @@ class HealthCertifiedPersonReissuanceConsentViewModel {
 					
 					guard let certificateToReissue = self.healthCertifiedPerson.dccWalletInfo?.certificateReissuance?.certificateToReissue.certificateRef.barcodeData,
 						let certificateToReissueRef = self.healthCertifiedPerson.dccWalletInfo?.certificateReissuance?.certificateToReissue.certificateRef else {
-						completion(.failure(.updateFailedError))
+						completion(.failure(.certificateToReissueMissing))
 						return
 					}
 					
@@ -64,7 +65,7 @@ class HealthCertifiedPersonReissuanceConsentViewModel {
 					
 					self.restServiceProvider.load(resource) { [weak self] result in
 						guard let self = self else {
-							completion(.failure(.updateFailedError))
+							completion(.failure(.submitFailedError))
 							return
 						}
 						
@@ -78,7 +79,7 @@ class HealthCertifiedPersonReissuanceConsentViewModel {
 							}
 							
 							guard let certificate = certificate else {
-								completion(.failure(.DCC_RI_NO_RELATION))
+								completion(.failure(.noRelation))
 								return
 							}
 							
@@ -88,8 +89,9 @@ class HealthCertifiedPersonReissuanceConsentViewModel {
 									with: certificate.certificate,
 									for: self.healthCertifiedPerson
 								)
+								completion(.success(()))
 							} catch {
-								completion(.failure(.certificateDecodingErrro(error)))
+								completion(.failure(.replaceHealthCertificateError(error)))
 							}
 
 						case .failure(let error):
@@ -105,7 +107,7 @@ class HealthCertifiedPersonReissuanceConsentViewModel {
 	private let healthCertifiedPerson: HealthCertifiedPerson
 	private let appConfigProvider: AppConfigurationProviding
 	private let restServiceProvider: RestServiceProviding
-	private let healthCertificateService: HealthCertificateService
+	private let healthCertificateService: HealthCertificateServiceServable
 	private var subscriptions = Set<AnyCancellable>()
 	
 }

@@ -10,8 +10,16 @@ import HealthCertificateToolkit
 // version will be used for migration logic
 public let kCurrentHealthCertifiedPersonsVersion = 3
 
+protocol HealthCertificateServiceServable {
+	func replaceHealthCertificate(
+		oldCertificateRef: DCCCertificateReference,
+		with newHealthCertificateString: String,
+		for person: HealthCertifiedPerson
+	) throws
+}
+
 // swiftlint:disable:next type_body_length
-class HealthCertificateService {
+class HealthCertificateService: HealthCertificateServiceServable {
 
 	// MARK: - Init
 
