@@ -21,7 +21,7 @@ class CCLScenariosHelper {
 	// MARK: - Internal
 
 	func showAdmissionScenarios() -> Result<SelectValueViewModel, DCCAdmissionCheckScenariosAccessError> {
-		let result = self.cclService.dccAdmissionCheckScenarios()
+		let result = cclService.dccAdmissionCheckScenarios()
 		switch result {
 		case .success(let scenarios):
 			self.store.dccAdmissionCheckScenarios = scenarios
