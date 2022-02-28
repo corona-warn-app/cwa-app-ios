@@ -5,13 +5,7 @@
 import Foundation
 import UIKit
 
-/// ViewModel is a dummy for the moment to construct the flow for the moment
-/// needed to get replaced in later tasks
-///
-
-struct HealthCertifiedPersonReissuanceSucceededViewModel {
-
-	// MARK: - Protocol TicketValidationResultViewModel
+struct HealthCertificateReissuanceSucceededViewModel {
 
 	var dynamicTableViewModel: DynamicTableViewModel {
 		DynamicTableViewModel([

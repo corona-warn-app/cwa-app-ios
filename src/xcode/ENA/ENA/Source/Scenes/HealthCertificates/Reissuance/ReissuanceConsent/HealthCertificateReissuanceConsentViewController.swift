@@ -4,20 +4,28 @@
 
 import UIKit
 
-class HealthCertifiedPersonReissuanceConsentViewController: UIViewController, DismissHandling, FooterViewHandling {
+class HealthCertificateReissuanceConsentViewController: DynamicTableViewController, DismissHandling, FooterViewHandling {
 
 	// MARK: - Init
 
 	init(
+		cclService: CCLServable,
+		certificate: HealthCertificate,
+		healthCertifiedPerson: HealthCertifiedPerson,
+		didTapDataPrivacy: @escaping () -> Void,
 		presentAlert: @escaping (_ ok: UIAlertAction, _ retry: UIAlertAction) -> Void,
-		presentUpdateSuccess: @escaping () -> Void,
-		didCancel: @escaping () -> Void,
+		onReissuanceSuccess: @escaping () -> Void,
 		dismiss: @escaping () -> Void
 	) {
 		self.presentAlert = presentAlert
-		self.viewModel = HealthCertifiedPersonReissuanceConsentViewModel()
-		self.presentUpdateSuccess = presentUpdateSuccess
-		self.didCancel = didCancel
+		self.viewModel = HealthCertificateReissuanceConsentViewModel(
+			cclService: cclService,
+			certificate: certificate,
+			certifiedPerson: healthCertifiedPerson,
+			onDisclaimerButtonTap: didTapDataPrivacy
+		)
+
+		self.onReissuanceSuccess = onReissuanceSuccess
 		self.dismiss = dismiss
 		super.init(nibName: nil, bundle: nil)
 	}
@@ -31,10 +39,19 @@ class HealthCertifiedPersonReissuanceConsentViewController: UIViewController, Di
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		// Do any additional setup after loading the view.
+
 		navigationItem.hidesBackButton = true
 		navigationItem.rightBarButtonItem = dismissHandlingCloseBarButton
-		title = AppStrings.HealthCertificate.Reissuance.Consent.title
+		
+		title = viewModel.title
+
+		setupView()
+	}
+
+	override func viewDidAppear(_ animated: Bool) {
+		super.viewDidAppear(animated)
+
+		viewModel.markCertificateReissuanceAsSeen()
 	}
 
 	// MARK: - Protocol DismissHandling
@@ -54,7 +71,7 @@ class HealthCertifiedPersonReissuanceConsentViewController: UIViewController, Di
 					switch result {
 					case .success:
 						DispatchQueue.main.async {
-							self?.presentUpdateSuccess()
+							self?.onReissuanceSuccess()
 						}
 					case .failure:
 						DispatchQueue.main.async {
@@ -68,17 +85,12 @@ class HealthCertifiedPersonReissuanceConsentViewController: UIViewController, Di
 		}
 	}
 
-	// MARK: - Public
-
-	// MARK: - Internal
-
 	// MARK: - Private
 
 	private let presentAlert: (_ ok: UIAlertAction, _ retry: UIAlertAction) -> Void
-	private let presentUpdateSuccess: () -> Void
-	private let didCancel: () -> Void
+	private let onReissuanceSuccess: () -> Void
 	private let dismiss: () -> Void
-	private let viewModel: HealthCertifiedPersonReissuanceConsentViewModel
+	private let viewModel: HealthCertificateReissuanceConsentViewModel
 
 	private func showAlert() {
 		footerView?.setLoadingIndicator(false, disable: false, button: .primary)
@@ -99,7 +111,25 @@ class HealthCertifiedPersonReissuanceConsentViewController: UIViewController, Di
 		presentAlert(okAction, retryAction)
 	}
 
-	private func setupStickyButtons() {
+	private func setupView() {
+		view.backgroundColor = .enaColor(for: .background)
+
+		tableView.register(
+			UINib(nibName: String(describing: DynamicLegalExtendedCell.self), bundle: nil),
+			forCellReuseIdentifier: DynamicLegalExtendedCell.reuseIdentifier
+		)
+		tableView.register(
+			UINib(nibName: "ExposureDetectionLinkCell", bundle: nil),
+			forCellReuseIdentifier: "linkCell"
+		)
+		tableView.register(
+			HealthCertificateCell.self,
+			forCellReuseIdentifier: HealthCertificateCell.reuseIdentifier
+		)
+
+		tableView.contentInsetAdjustmentBehavior = .automatic
+		tableView.separatorStyle = .none
+		dynamicTableViewModel = viewModel.dynamicTableViewModel
 	}
 
 }
