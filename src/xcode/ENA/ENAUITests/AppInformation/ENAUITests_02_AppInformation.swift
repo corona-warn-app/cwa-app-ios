@@ -204,8 +204,8 @@ class ENAUITests_02_AppInformation: CWATestCase {
 		XCTAssertTrue(app.state == .runningForeground)
 		app.cells["AppStrings.AppInformation.accessibility"].waitAndTap()
 		
-		// Check if URL that would get opened is 'https://www.coronawarn.app/de/accessability/'
-		XCTAssertTrue(app.alerts.firstMatch.staticTexts["https://www.coronawarn.app/de/accessability/"].waitForExistence(timeout: .short))
+		// Check if URL that would get opened is 'https://www.coronawarn.app/de/accessibility/'
+		XCTAssertTrue(app.alerts.firstMatch.staticTexts["https://www.coronawarn.app/de/accessibility/"].waitForExistence(timeout: .short))
 	}
 
 	func test_0030_AppInformationFlow_ConfirmationScreen_ErrorReportDetailScreen() throws {
