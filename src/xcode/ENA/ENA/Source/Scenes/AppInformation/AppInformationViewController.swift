@@ -109,14 +109,21 @@ class AppInformationViewController: DynamicTableViewController, NavigationBarOpa
 	
 	override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		let cell = super.tableView(tableView, cellForRowAt: indexPath)
-		cell.accessoryType = .disclosureIndicator
 		cell.selectionStyle = .default
-
 		cell.isAccessibilityElement = true
 		cell.accessibilityLabel = cell.textLabel?.text
 		if let category = Category(rawValue: indexPath.row),
 			let accessibilityIdentifier = model[category]?.accessibilityIdentifier {
 			cell.accessibilityIdentifier = accessibilityIdentifier
+			switch category {
+			case .faq, .accessibility:
+				let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 20, height: 20))
+				imageView.image = UIImage(named: "icons_safari_link")
+				imageView.contentMode = .scaleAspectFit
+				cell.accessoryView = imageView
+			case .about, .contact, .errorReport, .imprint, .legal, .privacy, .versionInfo, .terms:
+				cell.accessoryType = .disclosureIndicator
+			}
 		}
 
 		return cell
