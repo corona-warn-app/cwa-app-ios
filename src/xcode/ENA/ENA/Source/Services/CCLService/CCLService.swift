@@ -84,27 +84,19 @@ class CCLService: CCLServable {
 		}
 
 		// cclConfigurations
-		self.cclConfigurations = []
 		if cclServiceMode.contains(.configuration) {
 			switch restServiceProvider.cached(cclConfigurationResource) {
 			case let .success(configurations):
-				self.cclConfigurations = configurations.cclConfigurations
-				self.updateJsonFunctions(configurations.cclConfigurations)
+				replaceCCLConfigurations(with: configurations.cclConfigurations)
 			case let .failure(error):
-				Log.error("Failed to read ccl configurations from cache - init empty", error: error)
-				self.updateJsonFunctions([])
+				Log.error("Failed to read ccl configurations from cache", error: error)
 			}
 		}
 	}
 	
 	// MARK: - Protocol CCLServable
 
-	var configurationVersion: String {
-		return cclConfigurations
-			.sorted { $0.identifier < $1.identifier }
-			.map { $0.version }
-			.joined(separator: ", ")
-	}
+	var configurationVersion: String = ""
 
 	var cclAdmissionCheckScenariosDisabled: Bool {
 		appConfiguration.featureProvider.boolValue(for: .cclAdmissionCheckScenariosDisabled)
@@ -130,8 +122,7 @@ class CCLService: CCLServable {
 
 				switch result {
 				case let .success(configurations):
-					self?.cclConfigurations = configurations
-					self?.updateJsonFunctions(configurations)
+					self?.replaceCCLConfigurations(with: configurations)
 					configurationDidUpdate = true
 				case .failure(let error):
 					Log.error("CCLConfiguration might be loaded from the cache - skip this error", error: error)
@@ -218,7 +209,7 @@ class CCLService: CCLServable {
 	private let restServiceProvider: RestServiceProviding
 	private let appConfiguration: AppConfigurationProviding
 
-	private let jsonFunctions: JsonFunctions = JsonFunctions()
+	private var jsonFunctions: JsonFunctions = JsonFunctions()
 
 	private let cclConfigurationResource: CCLConfigurationResource
 	private let boosterNotificationRulesResource: DCCRulesResource
@@ -226,7 +217,6 @@ class CCLService: CCLServable {
 	private let cclServiceMode: [CCLServiceMode]
 
 	private var boosterNotificationRules: [Rule]
-	private var cclConfigurations: [CCLConfiguration]
 
 	#if DEBUG
 	private var mockDCCAdmissionCheckScenarios: DCCAdmissionCheckScenarios {
@@ -329,13 +319,34 @@ class CCLService: CCLServable {
 		}
 	}
 
-	private func updateJsonFunctions(
-		_ configurations: [CCLConfiguration]
+	private func replaceCCLConfigurations(
+		with newCCLConfigurations: [CCLConfiguration]
 	) {
-		configurations.forEach { [weak self] configuration in
-			configuration.functionDescriptors.forEach { jsonFunctionDescriptor in
-				self?.jsonFunctions.registerFunction(jsonFunctionDescriptor: jsonFunctionDescriptor)
+		/// Reset registered functions by creating a new instance
+		jsonFunctions = JsonFunctions()
+
+		for configuration in newCCLConfigurations {
+			registerJsonFunctions(from: configuration)
+		}
+
+		/// Register functions from the default configurations as well, in case the default configurations contain (new) configurations not contained in the cached/fetched configurations
+		if let defaultConfigurations = cclConfigurationResource.defaultModel?.cclConfigurations {
+			for configuration in defaultConfigurations where !newCCLConfigurations.contains(where: { $0.identifier == configuration.identifier }) {
+				registerJsonFunctions(from: configuration)
 			}
+		}
+
+		configurationVersion = newCCLConfigurations
+			.sorted { $0.identifier < $1.identifier }
+			.map { $0.version }
+			.joined(separator: ", ")
+	}
+
+	private func registerJsonFunctions(
+		from configuration: CCLConfiguration
+	) {
+		for jsonFunctionDescriptor in configuration.functionDescriptors {
+			jsonFunctions.registerFunction(jsonFunctionDescriptor: jsonFunctionDescriptor)
 		}
 	}
 
