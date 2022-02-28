@@ -95,7 +95,7 @@ class HealthCertificateOverviewViewModel {
 		case .changeAdmissionScenario:
 			return rowsForAdmissionCheckScenarios
 		case .healthCertificateScanningInfoOnTop:
-			return healthCertifiedPersons.isEmpty ? 1 : 0
+			return rowsForScanningInfoOnTop
 		case .testCertificateRequest:
 			return testCertificateRequests.count
 		case .healthCertificate:
@@ -142,6 +142,15 @@ class HealthCertificateOverviewViewModel {
 
 	private var rowsForAdmissionCheckScenarios: Int {
 		if !healthCertifiedPersons.isEmpty && cclService.dccAdmissionCheckScenariosEnabled {
+			return 1
+		}
+		return 0
+	}
+	
+	private var rowsForScanningInfoOnTop: Int {
+		if cclService.dccAdmissionCheckScenariosEnabled && healthCertifiedPersons.isEmpty {
+			return 1
+		} else if !cclService.dccAdmissionCheckScenariosEnabled {
 			return 1
 		}
 		return 0
