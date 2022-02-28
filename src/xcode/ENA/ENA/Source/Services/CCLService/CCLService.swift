@@ -107,7 +107,7 @@ class CCLService: CCLServable {
 	}
 
 	var cclAdmissionCheckScenariosDisabled: Bool {
-		return self.appConfiguration.featureProvider.boolValue(for: .cclAdmissionCheckScenariosDisabled)
+		appConfiguration.featureProvider.boolValue(for: .cclAdmissionCheckScenariosDisabled)
 	}
 	
 	func updateConfiguration(

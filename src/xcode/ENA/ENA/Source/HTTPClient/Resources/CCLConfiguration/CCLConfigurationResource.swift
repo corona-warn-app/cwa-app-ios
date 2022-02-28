@@ -44,13 +44,14 @@ struct CCLConfigurationResource: Resource {
 	var type: ServiceType
 	var sendResource: EmptySendResource
 	var receiveResource: CBORReceiveResource<CCLConfigurationReceiveModel>
+
 	var defaultModel: CCLConfigurationReceiveModel? {
-			
 		guard let url = Bundle.main.url(forResource: "ccl-configuration", withExtension: "bin"),
 			  let fallbackBin = try? Data(contentsOf: url) else {
 			Log.error("Creating the default model failed due to loading default bin from disc", log: .client)
 			return nil
 		}
+
 		switch CCLConfigurationReceiveModel.make(with: fallbackBin) {
 		case .success(let model):
 			return model
@@ -65,6 +66,6 @@ struct CCLConfigurationResource: Resource {
 	#if !RELEASE
 	// Needed for dev menu force updates.
 	static let keyForceUpdateCCLConfiguration = "keyForceUpdateCCLConfiguration"
-
 	#endif
+
 }
