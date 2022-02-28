@@ -151,6 +151,7 @@ final class HealthCertifiedPersonCoordinator {
 			for: person,
 			appConfigProvider: appConfigProvider,
 			restServiceProvider: restServiceProvider,
+			healthCertificateService: healthCertificateService,
 			presentAlert: { [weak self] okAction, retryAction in
 				let alert = UIAlertController(
 					title: AppStrings.HealthCertificate.Person.UpdateConsent.defaultAlertTitle,

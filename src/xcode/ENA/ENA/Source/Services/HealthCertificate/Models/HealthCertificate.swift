@@ -30,7 +30,7 @@ final class HealthCertificate: Codable, Equatable, Comparable, RecycleBinIdentif
 		keyIdentifier = Self.extractKeyIdentifier(from: base45)
 	}
 
-	required init(from decoder: Decoder) throws {DCCReissuanceResource
+	required init(from decoder: Decoder) throws {
 		let container = try decoder.container(keyedBy: CodingKeys.self)
 
 		base45 = try container.decode(Base45.self, forKey: .base45)
