@@ -1116,6 +1116,8 @@ enum AppStrings {
 		static let contactHotlineForeignNumber = NSLocalizedString("App_Information_Contact_Hotline_Number_Foreign", comment: "")
 		static let contactHotlineForeignDetails = NSLocalizedString("App_Information_Contact_Hotline_Details_Foreign", comment: "")
 		static let contactHotlineTerms = NSLocalizedString("App_Information_Contact_Hotline_Terms", comment: "")
+		
+		static let accessibilityNavigation = NSLocalizedString("App_Information_Accessibility_Navigation", comment: "")
 
 		static let imprintNavigation = NSLocalizedString("App_Information_Imprint_Navigation", comment: "")
 		static let imprintImageDescription = NSLocalizedString("App_Information_Imprint_ImageDescription", comment: "")

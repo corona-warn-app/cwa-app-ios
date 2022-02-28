@@ -1456,6 +1456,11 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "App_Information_Contact_Form_Title" = "Kontaktformular";
 
+/* App Information - Accessibility */
+
+"App_Information_Accessibility_Navigation" = "Barrierefreiheitserklärung";
+
+
 /* App Information - Legal */
 "App_Information_Legal_Navigation" = "Rechtliche Hinweise";
 
