@@ -356,7 +356,7 @@ final class HealthCertificatesTabCoordinator {
 	}
 	
 	private func showAdmissionScenarios() {
-		let result = self.cclScenariosHelper.showAdmissionScenarios()
+		let result = cclScenariosHelper.showAdmissionScenarios()
 		switch result {
 		case .success(let selectValueViewModel):
 			let selectValueViewController = SelectValueTableViewController(
