@@ -20,8 +20,7 @@ class CCLScenariosHelper {
 
 	// MARK: - Internal
 
-	func showAdmissionScenarios(
-		completion: @escaping (Result<SelectValueViewModel, DCCAdmissionCheckScenariosAccessError>) -> Void) {
+	func showAdmissionScenarios() -> Result<SelectValueViewModel, DCCAdmissionCheckScenariosAccessError> {
 		let result = self.cclService.dccAdmissionCheckScenarios()
 		switch result {
 		case .success(let scenarios):
@@ -44,10 +43,10 @@ class CCLScenariosHelper {
 				accessibilityIdentifier: AccessibilityIdentifiers.LocalStatistics.selectState,
 				selectionCellIconType: .none
 			)
-			completion(.success(selectValueViewModel))
+			return .success(selectValueViewModel)
 			
 		case .failure(let error):
-			completion(.failure(error))
+			return .failure(error)
 			Log.error(error.localizedDescription)
 		}
 	}

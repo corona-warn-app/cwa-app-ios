@@ -356,40 +356,37 @@ final class HealthCertificatesTabCoordinator {
 	}
 	
 	private func showAdmissionScenarios() {
-		self.cclScenariosHelper.showAdmissionScenarios { [weak self] result in
-			guard let self = self else { return }
-
-			switch result {
-			case .success(let selectValueViewModel):
-				let selectValueViewController = SelectValueTableViewController(
-					selectValueViewModel,
-					closeOnSelection: false,
-					dismiss: { [weak self] in
+		let result = self.cclScenariosHelper.showAdmissionScenarios()
+		switch result {
+		case .success(let selectValueViewModel):
+			let selectValueViewController = SelectValueTableViewController(
+				selectValueViewModel,
+				closeOnSelection: false,
+				dismiss: { [weak self] in
+					self?.viewController.presentedViewController?.dismiss(animated: true, completion: nil)
+				}
+			)
+			
+			let navigationController = UINavigationController(rootViewController: selectValueViewController)
+			self.viewController.present(navigationController, animated: true)
+			selectValueViewModel.$selectedValue.sink { [weak self] federalState in
+				guard let state = federalState else { return }
+				self?.healthCertificateService.lastSelectedScenarioIdentifier = state.identifier
+				DispatchQueue.main.async { [weak self] in
+					self?.showActivityIndicator(from: navigationController.view)
+				}
+				self?.healthCertificateService.updateDCCWalletInfosIfNeeded(
+					isForced: true
+				) { [weak self] in
+					DispatchQueue.main.async {
+						self?.hideActivityIndicator()
 						self?.viewController.presentedViewController?.dismiss(animated: true, completion: nil)
 					}
-				)
-				
-				let navigationController = UINavigationController(rootViewController: selectValueViewController)
-				self.viewController.present(navigationController, animated: true)
-				selectValueViewModel.$selectedValue.sink { [weak self] federalState in
-					guard let state = federalState else { return }
-					self?.healthCertificateService.lastSelectedScenarioIdentifier = state.identifier
-					DispatchQueue.main.async { [weak self] in
-						self?.showActivityIndicator(from: navigationController.view)
-					}
-					self?.healthCertificateService.updateDCCWalletInfosIfNeeded(
-						isForced: true
-					) { [weak self] in
-						DispatchQueue.main.async {
-							self?.hideActivityIndicator()
-							self?.viewController.presentedViewController?.dismiss(animated: true, completion: nil)
-						}
-					}
-				}.store(in: &self.subscriptions)
-
-			case .failure(let error):
-				self.showErrorAlert(title: AppStrings.HealthCertificate.Error.title, error: error)
-			}
+				}
+			}.store(in: &self.subscriptions)
+			
+		case .failure(let error):
+			self.showErrorAlert(title: AppStrings.HealthCertificate.Error.title, error: error)
 		}
 	}
 
