@@ -140,6 +140,7 @@ class AppInformationViewController: DynamicTableViewController, NavigationBarOpa
 		case about
 		case faq
 		case terms
+		case accessibility
 		case privacy
 		case legal
 		case contact
