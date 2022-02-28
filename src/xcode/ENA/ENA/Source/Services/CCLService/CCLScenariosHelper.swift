@@ -13,14 +13,9 @@ class CCLScenariosHelper {
 		self.store = store
 	}
 	
-	// MARK: - Private
-
-	private let cclService: CCLServable
-	private let store: HealthCertificateStoring
-
 	// MARK: - Internal
 
-	func showAdmissionScenarios() -> Result<SelectValueViewModel, DCCAdmissionCheckScenariosAccessError> {
+	func viewModelForAdmissionScenarios() -> Result<SelectValueViewModel, DCCAdmissionCheckScenariosAccessError> {
 		let result = self.cclService.dccAdmissionCheckScenarios()
 		switch result {
 		case .success(let scenarios):
@@ -50,4 +45,10 @@ class CCLScenariosHelper {
 			Log.error(error.localizedDescription)
 		}
 	}
+
+	// MARK: - Private
+
+	private let cclService: CCLServable
+	private let store: HealthCertificateStoring
+
 }
