@@ -329,14 +329,17 @@ class CCLService: CCLServable {
 			registerJsonFunctions(from: configuration)
 		}
 
+		var registeredConfigurations = newCCLConfigurations
+
 		/// Register functions from the default configurations as well, in case the default configurations contain (new) configurations not contained in the cached/fetched configurations
 		if let defaultConfigurations = cclConfigurationResource.defaultModel?.cclConfigurations {
 			for configuration in defaultConfigurations where !newCCLConfigurations.contains(where: { $0.identifier == configuration.identifier }) {
 				registerJsonFunctions(from: configuration)
+				registeredConfigurations.append(configuration)
 			}
 		}
 
-		configurationVersion = newCCLConfigurations
+		configurationVersion = registeredConfigurations
 			.sorted { $0.identifier < $1.identifier }
 			.map { $0.version }
 			.joined(separator: ", ")
