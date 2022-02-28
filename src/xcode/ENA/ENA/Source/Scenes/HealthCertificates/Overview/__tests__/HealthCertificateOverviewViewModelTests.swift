@@ -44,7 +44,7 @@ class HealthCertificateOverviewViewModelTests: XCTestCase {
 		XCTAssertEqual(viewModel.numberOfSections, 7)
 		XCTAssertEqual(viewModel.numberOfRows(in: 0), 0)
 		XCTAssertEqual(viewModel.numberOfRows(in: 1), 0)
-		XCTAssertEqual(viewModel.numberOfRows(in: 2), 0)
+		XCTAssertEqual(viewModel.numberOfRows(in: 2), 1)
 		XCTAssertEqual(viewModel.numberOfRows(in: 3), 0)
 		XCTAssertEqual(viewModel.numberOfRows(in: 4), 0)
 		XCTAssertEqual(viewModel.numberOfRows(in: 5), 0)
