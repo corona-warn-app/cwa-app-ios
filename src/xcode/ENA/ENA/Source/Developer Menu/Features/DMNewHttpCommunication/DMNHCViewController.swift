@@ -12,11 +12,15 @@ class DMNHCViewController: UITableViewController {
 
 	init(
 		store: Store,
-		cache: KeyValueCaching
+		cache: KeyValueCaching,
+		appConfiguration: AppConfigurationProviding,
+		healthCertificateService: HealthCertificateService
 	) {
 		self.viewModel = DMNHCViewModel(
 			store: store,
-			cache: cache
+			cache: cache,
+			appConfiguration: appConfiguration,
+			healthCertificateService: healthCertificateService
 		)
 
 		if #available(iOS 13.0, *) {

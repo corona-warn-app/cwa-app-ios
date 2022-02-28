@@ -15,7 +15,10 @@ extension Locator {
 		return Locator(
 			endpoint: .dccRecertify,
 			paths: ["api", "certify", "v2", "reissue"],
-			method: .post
+			method: .post,
+			defaultHeaders: [
+				"Content-Type": "application/json"
+			]
 		)
 	}
 }

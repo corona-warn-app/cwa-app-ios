@@ -89,7 +89,9 @@ final class DMViewController: UITableViewController, RequiresAppDependencies {
 		case .newHttp:
 			vc = DMNHCViewController(
 				store: store,
-				cache: cache
+				cache: cache,
+				appConfiguration: appConfigurationProvider,
+				healthCertificateService: healthCertificateService
 			)
 		case .ticketValidation:
 			vc = DMTicketValidationViewController(store: store)

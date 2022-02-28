@@ -140,13 +140,13 @@ final class HealthCertifiedPersonCoordinator {
 				}
 				self.presentCovPassInfoScreen(self.navigationController)
 			},
-			didTapUpdateNotification: { [weak self] in
-				self?.showUpdateConsent(for: healthCertifiedPerson)
+			didTapCertificateReissuance: { [weak self] person in
+				self?.showCertificateReissuanceConsent(for: person)
 			}
 		)
 	}
 
-	private func showUpdateConsent(for person: HealthCertifiedPerson) {
+	private func showCertificateReissuanceConsent(for person: HealthCertifiedPerson) {
 		let updateConsentViewController = HealthCertifiedPersonReissuanceConsentViewController(
 			for: person,
 			appConfigProvider: appConfigProvider,
