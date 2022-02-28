@@ -1040,6 +1040,7 @@ enum AppStrings {
 	enum SafariView {
 		static let targetURL = NSLocalizedString("safari_corona_website", tableName: "Localizable.links", comment: "")
 		static let socialMedia = NSLocalizedString("safari_corona_social_media", tableName: "Localizable.links", comment: "")
+		static let accessibility = NSLocalizedString("safari_corona_accessibility", tableName: "Localizable.links", comment: "")
 	}
 
 	enum LocalNotifications {
