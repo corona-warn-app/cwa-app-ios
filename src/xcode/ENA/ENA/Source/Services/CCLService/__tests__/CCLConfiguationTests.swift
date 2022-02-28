@@ -100,12 +100,58 @@ class CCLServiceConfigurationTests: CCLServiceBaseTests {
 
 	// MARK: - Configuration version
 
+	func testGIVEN_defaultCCLConfiguration_WHEN_gettingVersion_THEN_versionIsNotEmpty() throws {
+		// WHEN
+		let defaultConfigurationVersions = try defaultConfigurationVersions()
+
+		// THEN
+		XCTAssertFalse(defaultConfigurationVersions.isEmpty)
+		XCTAssertFalse(try XCTUnwrap(defaultConfigurationVersions.first).isEmpty)
+	}
+
+	func testGIVEN_cachedCCLConfigurationWithOnlyDefaultVersion_WHEN_gettingVersion_THEN_versionIsCorrect() throws {
+		// GIVEN
+		let appConfiguration = CachedAppConfigurationMock()
+
+		let cache = try cache()
+		let restServiceProvider = RestServiceProvider(session: MockNetworkStack().urlSession, cache: cache)
+		let cclService = CCLService(restServiceProvider, appConfiguration: appConfiguration, cclServiceMode: [.configuration], signatureVerifier: MockVerifier())
+
+		// WHEN
+		let version = cclService.configurationVersion
+
+		// THEN
+		XCTAssertEqual(version, (try defaultConfigurationVersionsString()))
+	}
+
+	func testGIVEN_cachedCCLConfigurationsSameAsDefaultVersions_WHEN_gettingVersion_THEN_versionIsCorrect() throws {
+		// GIVEN
+		let eTag = "DummyDataETag"
+		let cclConfigurationData = try XCTUnwrap(
+			Archive.createArchiveData(
+				accessMode: .create,
+				cborData: HealthCertificateToolkit.CCLConfigurationCBORDataFake(configs: try defaultConfigurations())
+			)
+		)
+		let appConfiguration = CachedAppConfigurationMock()
+
+		let cache = try cache(with: Locator.CCLConfiguration(isFake: false), eTag: eTag, date: today, responseData: cclConfigurationData)
+		let restServiceProvider = RestServiceProvider(session: MockNetworkStack().urlSession, cache: cache)
+		let cclService = CCLService(restServiceProvider, appConfiguration: appConfiguration, cclServiceMode: [.configuration], signatureVerifier: MockVerifier())
+
+		// WHEN
+		let version = cclService.configurationVersion
+
+		// THEN
+		XCTAssertEqual(version, (try defaultConfigurationVersionsString()))
+	}
+
 	func testGIVEN_cachedCCLConfigurationWithOneVersion_WHEN_gettingVersion_THEN_versionIsCorrect() throws {
 		// GIVEN
 		let eTag = "DummyDataETag"
 		let cclConfigurationData = try cclConfigurationData(
 			identifiersAndVersions: [
-				"CCL-DE-0001": "1.0.0"
+				"AAA-Cached-CCL": "Cached-Version"
 			]
 		)
 		let appConfiguration = CachedAppConfigurationMock()
@@ -118,7 +164,7 @@ class CCLServiceConfigurationTests: CCLServiceBaseTests {
 		let version = cclService.configurationVersion
 
 		// THEN
-		XCTAssertEqual(version, "1.0.0")
+		XCTAssertEqual(version, "Cached-Version, " + (try defaultConfigurationVersionsString()))
 	}
 
 	func testGIVEN_cachedCCLConfigurationWithMultipleVersions_WHEN_gettingVersion_THEN_versionIsCorrect() throws {
@@ -126,10 +172,10 @@ class CCLServiceConfigurationTests: CCLServiceBaseTests {
 		let eTag = "DummyDataETag"
 		let cclConfigurationData = try cclConfigurationData(
 			identifiersAndVersions: [
-				"CCL-DE-0002": "1.0.1",
-				"CCL-DE-0004": "1.2.5",
-				"CCL-DE-0014": "1.0.37",
-				"CCL-DE-0001": "1.0.0"
+				"AAA-Cached-CCL-0002": "1.0.1",
+				"AAA-Cached-CCL-0004": "1.2.5",
+				"AAA-Cached-CCL-0014": "1.0.37",
+				"AAA-Cached-CCL-0001": "1.0.0"
 			]
 		)
 		let appConfiguration = CachedAppConfigurationMock()
@@ -142,7 +188,7 @@ class CCLServiceConfigurationTests: CCLServiceBaseTests {
 		let version = cclService.configurationVersion
 
 		// THEN
-		XCTAssertEqual(version, "1.0.0, 1.0.1, 1.2.5, 1.0.37")
+		XCTAssertEqual(version, "1.0.0, 1.0.1, 1.2.5, 1.0.37, " + (try defaultConfigurationVersionsString()))
 	}
 
 	func testGIVEN_newCCLConfiguration_WHEN_updatingConfiguration_THEN_versionIsUpdated() throws {
@@ -151,14 +197,14 @@ class CCLServiceConfigurationTests: CCLServiceBaseTests {
 		let appConfiguration = CachedAppConfigurationMock()
 		let oldCCLConfigurationData = try cclConfigurationData(
 			identifiersAndVersions: [
-				"CCL-DE-0001": "1.0.0"
+				"AAA-Cached-CCL-0001": "1.0.0"
 			]
 		)
 
 		let updatedCCLConfigurationData = try cclConfigurationData(
 			identifiersAndVersions: [
-				"CCL-DE-0003": "1.0.2",
-				"CCL-DE-0005": "1.1.0"
+				"AAA-Cached-CCL-0003": "1.0.2",
+				"AAA-Cached-CCL-0005": "1.1.0"
 			]
 		)
 
@@ -182,13 +228,13 @@ class CCLServiceConfigurationTests: CCLServiceBaseTests {
 		// THEN
 		waitForExpectations(timeout: .short)
 
-		XCTAssertEqual(cclService.configurationVersion, "1.0.2, 1.1.0")
+		XCTAssertEqual(cclService.configurationVersion, "1.0.2, 1.1.0, " + (try defaultConfigurationVersionsString()))
 	}
 
 	// MARK: - Helpers
 
-	func cclConfigurationData() throws -> Data {
-		return try XCTUnwrap(
+	private func cclConfigurationData() throws -> Data {
+		try XCTUnwrap(
 			Archive.createArchiveData(
 				accessMode: .create,
 				cborData: HealthCertificateToolkit.CCLConfigurationCBORDataFake()
@@ -196,7 +242,7 @@ class CCLServiceConfigurationTests: CCLServiceBaseTests {
 		)
 	}
 
-	func cclConfigurationData(identifiersAndVersions: [String: String]) throws -> Data {
+	private func cclConfigurationData(identifiersAndVersions: [String: String]) throws -> Data {
 		let configs = identifiersAndVersions
 			.map { key, value in
 				CCLConfiguration.fake(identifier: key, version: value)
@@ -208,6 +254,26 @@ class CCLServiceConfigurationTests: CCLServiceBaseTests {
 				cborData: HealthCertificateToolkit.CCLConfigurationCBORDataFake(configs: configs)
 			)
 		)
+	}
+
+	private func defaultConfigurations() throws -> [CCLConfiguration] {
+		try XCTUnwrap(CCLConfigurationResource().defaultModel?.cclConfigurations)
+	}
+
+	private func defaultConfigurationVersions() throws -> [String] {
+		try defaultConfigurations()
+			.map { $0.version }
+	}
+
+	private func defaultConfigurationVersionsString() throws -> String {
+		try defaultConfigurations()
+			.map { $0.version }
+			.joined(separator: ", ")
+	}
+
+	private func defaultConfigurationVersionIdentifiers() throws -> [String] {
+		try defaultConfigurations()
+			.map { $0.identifier }
 	}
 
 }
