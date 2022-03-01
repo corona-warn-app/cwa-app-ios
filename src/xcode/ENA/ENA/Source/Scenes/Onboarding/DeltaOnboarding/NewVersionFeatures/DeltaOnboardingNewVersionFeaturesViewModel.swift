@@ -13,11 +13,21 @@ struct DeltaOnboardingNewVersionFeaturesViewModel {
 		
 		// ADD NEW FEATURES HERE
 		
-		self.featureVersion = "2.18"
+		self.featureVersion = "2.19"
 		
 		self.newVersionFeatures.append(
-			// Central Management Of Rules
-			NewVersionFeature(title: AppStrings.NewVersionFeatures.feature218CentralManagementOfRulesTitle, description: AppStrings.NewVersionFeatures.feature218CentralManagementOfRulesDescription)
+			// Rapid PCR tests
+			NewVersionFeature(title: AppStrings.NewVersionFeatures.feature219RapidPCRTitle, description: AppStrings.NewVersionFeatures.feature219RapidPCRDescription)
+		)
+		
+		self.newVersionFeatures.append(
+			// Fault tolerant name handling
+			NewVersionFeature(title: AppStrings.NewVersionFeatures.feature219FaultTolerantNameHandlingTitle, description: AppStrings.NewVersionFeatures.feature219FaultTolerantNameHandlingDescription)
+		)
+		
+		self.newVersionFeatures.append(
+			// Automatic Replacement of Vaccination Certificates
+			NewVersionFeature(title: AppStrings.NewVersionFeatures.feature219VaccinationCertificateReplacementTitle, description: AppStrings.NewVersionFeatures.feature219VaccinationCertificateReplacementDescription)
 		)
 	}
 
