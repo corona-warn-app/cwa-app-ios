@@ -10,9 +10,9 @@ extension DynamicAction {
 			LinkHelper.open(urlString: AppStrings.SafariView.targetURL)
 		}
 	}
-	static var safariAccessibility : Self {
-			.execute { _, _ in
-				LinkHelper.open(urlString: AppStrings.SafariView.accessibility)
+	static var safariAccessibility: Self {
+		.execute { _, _ in
+			LinkHelper.open(urlString: AppStrings.SafariView.accessibility)
 		}
 	}
 	

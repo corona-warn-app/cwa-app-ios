@@ -119,7 +119,7 @@ class AppInformationViewController: DynamicTableViewController, NavigationBarOpa
 			case .faq, .accessibility:
 				let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 20, height: 20))
 				imageView.image = UIImage(named: "icons_safari_link")
-				imageView.contentMode = .scaleAspectFit
+				imageView.contentMode = .scaleAspectFill
 				cell.accessoryView = imageView
 			case .about, .contact, .errorReport, .imprint, .legal, .privacy, .versionInfo, .terms:
 				cell.accessoryType = .disclosureIndicator
