@@ -149,6 +149,7 @@ final class MockTestStore: Store, PPAnalyticsData {
 	var lastSelectedValidationDate: Date = Date()
 	var lastSelectedScenarioIdentifier: String?
 	var dccAdmissionCheckScenarios: DCCAdmissionCheckScenarios?
+	var regroupingAfterMigrationChanged: Bool = false
 
 	// MARK: - Protocol VaccinationCaching
 

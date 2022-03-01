@@ -218,6 +218,8 @@ protocol HealthCertificateStoring: AnyObject {
 
 	var dccAdmissionCheckScenarios: DCCAdmissionCheckScenarios? { get set }
 
+	var regroupingAfterMigrationChanged: Bool { get set }
+
 }
 
 /// this section contains only deprecated stuff, please do not add new things here
