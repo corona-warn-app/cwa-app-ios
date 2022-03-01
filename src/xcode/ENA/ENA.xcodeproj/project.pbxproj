@@ -805,6 +805,10 @@
 		50D7BD7526DE716A00494FB7 /* DMCCLConfigurationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50D7BD7326DE6E5100494FB7 /* DMCCLConfigurationViewModel.swift */; };
 		50DC527924FEB2AE00F6D8EB /* AppInformationDynamicCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50DC527824FEB2AE00F6D8EB /* AppInformationDynamicCell.swift */; };
 		50DC527B24FEB5CA00F6D8EB /* AppInformationModelTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50DC527A24FEB5CA00F6D8EB /* AppInformationModelTest.swift */; };
+		50DED23727CE31F10035267C /* DMHealthCertificateMigrationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50DED23627CE31F10035267C /* DMHealthCertificateMigrationViewController.swift */; };
+		50DED23927CE31FA0035267C /* DMHealthCertificateMigrationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50DED23827CE31FA0035267C /* DMHealthCertificateMigrationViewModel.swift */; };
+		50DED23B27CE438E0035267C /* DMTextFieldCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50DED23A27CE438E0035267C /* DMTextFieldCellViewModel.swift */; };
+		50DED23D27CE439B0035267C /* DMTextFieldTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50DED23C27CE439B0035267C /* DMTextFieldTableViewCell.swift */; };
 		50E3BE5A250127DF0033E2C7 /* AppInformationDynamicAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50E3BE59250127DF0033E2C7 /* AppInformationDynamicAction.swift */; };
 		50E7F08D27C3EEE700FE8E72 /* DisabledTrustEvaluation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50E7F08C27C3EEE700FE8E72 /* DisabledTrustEvaluation.swift */; };
 		50E861F92705D7E1001E29B2 /* DynamicTableViewDoubleLabelViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50E861F82705D7E1001E29B2 /* DynamicTableViewDoubleLabelViewCell.swift */; };
@@ -2516,6 +2520,10 @@
 		50D7BD7326DE6E5100494FB7 /* DMCCLConfigurationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMCCLConfigurationViewModel.swift; sourceTree = "<group>"; };
 		50DC527824FEB2AE00F6D8EB /* AppInformationDynamicCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppInformationDynamicCell.swift; sourceTree = "<group>"; };
 		50DC527A24FEB5CA00F6D8EB /* AppInformationModelTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppInformationModelTest.swift; sourceTree = "<group>"; };
+		50DED23627CE31F10035267C /* DMHealthCertificateMigrationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMHealthCertificateMigrationViewController.swift; sourceTree = "<group>"; };
+		50DED23827CE31FA0035267C /* DMHealthCertificateMigrationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMHealthCertificateMigrationViewModel.swift; sourceTree = "<group>"; };
+		50DED23A27CE438E0035267C /* DMTextFieldCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMTextFieldCellViewModel.swift; sourceTree = "<group>"; };
+		50DED23C27CE439B0035267C /* DMTextFieldTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMTextFieldTableViewCell.swift; sourceTree = "<group>"; };
 		50E3BE59250127DF0033E2C7 /* AppInformationDynamicAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppInformationDynamicAction.swift; sourceTree = "<group>"; };
 		50E7F08C27C3EEE700FE8E72 /* DisabledTrustEvaluation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisabledTrustEvaluation.swift; sourceTree = "<group>"; };
 		50E861F82705D7E1001E29B2 /* DynamicTableViewDoubleLabelViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicTableViewDoubleLabelViewCell.swift; sourceTree = "<group>"; };
@@ -6188,6 +6196,15 @@
 			path = DMNewHttpCommunication;
 			sourceTree = "<group>";
 		};
+		50DED23527CE31E70035267C /* DMHealthCertificateMigration */ = {
+			isa = PBXGroup;
+			children = (
+				50DED23627CE31F10035267C /* DMHealthCertificateMigrationViewController.swift */,
+				50DED23827CE31FA0035267C /* DMHealthCertificateMigrationViewModel.swift */,
+			);
+			path = DMHealthCertificateMigration;
+			sourceTree = "<group>";
+		};
 		50E861FA27070E7C001E29B2 /* __tests__ */ = {
 			isa = PBXGroup;
 			children = (
@@ -8167,6 +8184,7 @@
 		B16457BC24DC3E0E002879EB /* Features */ = {
 			isa = PBXGroup;
 			children = (
+				50DED23527CE31E70035267C /* DMHealthCertificateMigration */,
 				50AF182527A4222500BAA9DB /* DMCCLConfiguration */,
 				50D7BD7126DE6E3F00494FB7 /* DMNewHttpCommunication */,
 				BA291ABF275A4830003C42C2 /* DMTicketValidation */,
@@ -9181,6 +9199,8 @@
 				BA6D163F255ADD0400ED3492 /* DMSwitchCellViewModel.swift */,
 				BA6D1638255AD35900ED3492 /* DMSwitchTableViewCell.swift */,
 				BA6D1639255AD35900ED3492 /* DMSwitchTableViewCell.xib */,
+				50DED23A27CE438E0035267C /* DMTextFieldCellViewModel.swift */,
+				50DED23C27CE439B0035267C /* DMTextFieldTableViewCell.swift */,
 			);
 			path = CellsAndViewModels;
 			sourceTree = "<group>";
@@ -10462,6 +10482,7 @@
 				BA00FED226BC2F35009DA07F /* AppFeatureUnencryptedEventsDecorator.swift in Sources */,
 				01E1C949274FB3CB007FD7B3 /* Locator+TicketValidationAccessToken.swift in Sources */,
 				71FD8862246EB27F00E804D0 /* ExposureDetectionViewController.swift in Sources */,
+				50DED23B27CE438E0035267C /* DMTextFieldCellViewModel.swift in Sources */,
 				01CBB82C2660F3690094CF8B /* CardView.swift in Sources */,
 				50EE7606274685E0003DE929 /* SecondTicketValidationConsentViewController.swift in Sources */,
 				AB0246DB2716D732002668A1 /* RecycleBinRestorationHandling.swift in Sources */,
@@ -11043,6 +11064,7 @@
 				71B804472484CC0800D53506 /* ENALabel.swift in Sources */,
 				3525AC3425E7BDC3002DDC82 /* StreamReader.swift in Sources */,
 				5001DE9C26E2155C004242FA /* Locator+DCCRules.swift in Sources */,
+				50DED23927CE31FA0035267C /* DMHealthCertificateMigrationViewModel.swift in Sources */,
 				BAD3CCD3271EEB2C004C06AD /* TeleTanSendModel.swift in Sources */,
 				AB18201C275F63F40054B873 /* ContagionInfoViewModel.swift in Sources */,
 				5001DE9426E2114F004242FA /* DCCRegisterPublicKey.swift in Sources */,
@@ -11260,6 +11282,7 @@
 				013A551F260B48250092B5B1 /* TraceLocationType.swift in Sources */,
 				94BACE6A25D27DC2007B2A99 /* DeltaOnboardingDataDonation.swift in Sources */,
 				347FBB41260E405000672770 /* TraceLocationDetailsHeaderCell.swift in Sources */,
+				50DED23727CE31F10035267C /* DMHealthCertificateMigrationViewController.swift in Sources */,
 				0190B225255C423600CF4244 /* Date+Age.swift in Sources */,
 				8F499B05267CDE530047C1A6 /* ManageStatisticsCardView.swift in Sources */,
 				352E0F19255D537C00DC3E20 /* AppConfiguration+Validation.swift in Sources */,
@@ -11304,6 +11327,7 @@
 				BA01BA66264423CF00D906B6 /* HealthCertificateInfoViewModel.swift in Sources */,
 				8FB776F326EA5338005255BB /* DMBoosterChoosePersonViewModel.swift in Sources */,
 				BA112DF7255586E9007F5712 /* WifiOnlyHTTPClient.swift in Sources */,
+				50DED23D27CE439B0035267C /* DMTextFieldTableViewCell.swift in Sources */,
 				0138F61D25EFE71B00A9B075 /* TraceLocationsCoordinator.swift in Sources */,
 				0138F65425F1174200A9B075 /* TraceLocationsOverviewEmptyStateViewModel.swift in Sources */,
 				01E10277266BC4B1009ED803 /* TestCertificateRequestTableViewCell.swift in Sources */,
