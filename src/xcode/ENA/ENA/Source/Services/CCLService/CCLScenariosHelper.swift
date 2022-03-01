@@ -41,8 +41,8 @@ class CCLScenariosHelper {
 			return .success(selectValueViewModel)
 			
 		case .failure(let error):
-			return .failure(error)
 			Log.error(error.localizedDescription)
+			return .failure(error)
 		}
 	}
 
