@@ -8,7 +8,6 @@ import HealthCertificateToolkit
 
 class HealthCertificateReissuanceConsentViewModelTests: CWATestCase {
 
-
 	let titleText = DCCUIText(
 		type: "string",
 		quantity: nil,
@@ -56,6 +55,9 @@ class HealthCertificateReissuanceConsentViewModelTests: CWATestCase {
 					)
 				)
 			),
+			appConfigProvider: CachedAppConfigurationMock(),
+			restServiceProvider: RestServiceProviderStub(loadResources: []),
+			healthCertificateService: HealthCertificateServiceFake(),
 			onDisclaimerButtonTap: { }
 		)
 
@@ -90,6 +92,9 @@ class HealthCertificateReissuanceConsentViewModelTests: CWATestCase {
 					)
 				)
 			),
+			appConfigProvider: CachedAppConfigurationMock(),
+			restServiceProvider: RestServiceProviderStub(loadResources: []),
+			healthCertificateService: HealthCertificateServiceFake(),
 			onDisclaimerButtonTap: { }
 		)
 
@@ -149,11 +154,14 @@ class HealthCertificateReissuanceConsentViewModelTests: CWATestCase {
 
 		let healthCertificateServiceSpy = HealthCertificateServiceSpy()
 		let appConfigMock = CachedAppConfigurationMock()
-		let viewModel = HealthCertifiedPersonReissuanceConsentViewModel(
-			person: person,
+		let viewModel = HealthCertificateReissuanceConsentViewModel(
+			cclService: FakeCCLService(),
+			certificate: try .init(base45: healthCertificateBase45),
+			certifiedPerson: person,
 			appConfigProvider: appConfigMock,
 			restServiceProvider: restServiceProvider,
-			healthCertificateService: healthCertificateServiceSpy
+			healthCertificateService: healthCertificateServiceSpy,
+			onDisclaimerButtonTap: { }
 		)
 		
 		let submitExpectation = expectation(description: "Submit completion is called.")
@@ -213,11 +221,14 @@ class HealthCertificateReissuanceConsentViewModelTests: CWATestCase {
 
 		let healthCertificateServiceSpy = HealthCertificateServiceSpy()
 		let appConfigMock = CachedAppConfigurationMock()
-		let viewModel = HealthCertifiedPersonReissuanceConsentViewModel(
-			person: person,
+		let viewModel = HealthCertificateReissuanceConsentViewModel(
+			cclService: FakeCCLService(),
+			certificate: try .init(base45: healthCertificateBase45),
+			certifiedPerson: person,
 			appConfigProvider: appConfigMock,
 			restServiceProvider: restServiceProvider,
-			healthCertificateService: healthCertificateServiceSpy
+			healthCertificateService: healthCertificateServiceSpy,
+			onDisclaimerButtonTap: { }
 		)
 		
 		let submitExpectation = expectation(description: "Submit completion is called.")
@@ -279,11 +290,14 @@ class HealthCertificateReissuanceConsentViewModelTests: CWATestCase {
 
 		let healthCertificateServiceSpy = HealthCertificateServiceSpy()
 		let appConfigMock = CachedAppConfigurationMock()
-		let viewModel = HealthCertifiedPersonReissuanceConsentViewModel(
-			person: person,
+		let viewModel = HealthCertificateReissuanceConsentViewModel(
+			cclService: FakeCCLService(),
+			certificate: try .init(base45: healthCertificateBase45),
+			certifiedPerson: person,
 			appConfigProvider: appConfigMock,
 			restServiceProvider: restServiceProvider,
-			healthCertificateService: healthCertificateServiceSpy
+			healthCertificateService: healthCertificateServiceSpy,
+			onDisclaimerButtonTap: { }
 		)
 		
 		let submitExpectation = expectation(description: "Submit completion is called.")
@@ -347,11 +361,14 @@ class HealthCertificateReissuanceConsentViewModelTests: CWATestCase {
 
 		let healthCertificateServiceErrorStub = HealthCertificateServiceErrorStub()
 		let appConfigMock = CachedAppConfigurationMock()
-		let viewModel = HealthCertifiedPersonReissuanceConsentViewModel(
-			person: person,
+		let viewModel = HealthCertificateReissuanceConsentViewModel(
+			cclService: FakeCCLService(),
+			certificate: try .init(base45: healthCertificateBase45),
+			certifiedPerson: person,
 			appConfigProvider: appConfigMock,
 			restServiceProvider: restServiceProvider,
-			healthCertificateService: healthCertificateServiceErrorStub
+			healthCertificateService: healthCertificateServiceErrorStub,
+			onDisclaimerButtonTap: { }
 		)
 		
 		let submitExpectation = expectation(description: "Submit completion is called.")
@@ -393,13 +410,20 @@ class HealthCertificateReissuanceConsentViewModelTests: CWATestCase {
 			   ]
 		   )
 
+		let healthCertificateBase45 = try base45Fake(
+			from: DigitalCovidCertificate.fake()
+		)
+		
 		let healthCertificateServiceSpy = HealthCertificateServiceSpy()
 		let appConfigMock = CachedAppConfigurationMock()
-		let viewModel = HealthCertifiedPersonReissuanceConsentViewModel(
-			person: person,
+		let viewModel = HealthCertificateReissuanceConsentViewModel(
+			cclService: FakeCCLService(),
+			certificate: try .init(base45: healthCertificateBase45),
+			certifiedPerson: person,
 			appConfigProvider: appConfigMock,
 			restServiceProvider: restServiceProvider,
-			healthCertificateService: healthCertificateServiceSpy
+			healthCertificateService: healthCertificateServiceSpy,
+			onDisclaimerButtonTap: { }
 		)
 		
 		let submitExpectation = expectation(description: "Submit completion is called.")
@@ -417,6 +441,15 @@ class HealthCertificateReissuanceConsentViewModelTests: CWATestCase {
 		waitForExpectations(timeout: .short)
 		XCTAssertFalse(healthCertificateServiceSpy.didCallReplaceHealthCertificate)
 	}
+}
+
+class HealthCertificateServiceFake: HealthCertificateServiceServable {
+	
+	func replaceHealthCertificate(
+		oldCertificateRef: DCCCertificateReference,
+		with newHealthCertificateString: String,
+		for person: HealthCertifiedPerson) throws { }
+	
 }
 
 class HealthCertificateServiceSpy: HealthCertificateServiceServable {
