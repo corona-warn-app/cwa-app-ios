@@ -1650,11 +1650,19 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "NewVersionFeatures_Info_about_abb_information" = "Änderungen zum Release finden Sie in den App-Informationen unter dem Menüpunkt „Neue Funktionen”.";
 
-/* Version 2.18 */
+/* Version 2.19 */
 
-"NewVersionFeature_218_centralManagementOfRules_title" = "Zentrale Verwaltung von Regeln";
+"NewVersionFeature_219_rapidPCR_title" = "Registrierung von PCR-Schnelltests";
 
-"NewVersionFeature_218_centralManagementOfRules_description" = "Die Regeln für Zertifikate (z.B. hinsichtlich ihrer Gültigkeit oder Priorisierung, wenn mehrere Zertifikate vorhanden sind) und für die Ermittlung des G-Status wurden aus der Corona-Warn-App herausgelöst. Diese Regeln sind jetzt zentral abgelegt und können daher unabhängig von den App-Releases angepasst werden. Damit kann schneller auf Regeländerungen reagiert werden. Nach einer Änderung werden die aktualisierten Regeln an die App übertragen. Für Sie ändert sich an der Benutzung der Corona-Warn-App nichts durch diese zentrale Verwaltung der Regeln.";
+"NewVersionFeature_219_rapidPCR_description" = "Sie können jetzt PCR-Schnelltests in der Corona-Warn-App registrieren und das Ergebnis sowie das Testzertifikat über die App erhalten.";
+
+"NewVersionFeature_219_faultTolerantNameHandling_title" = "Zuordnung von Zertifikaten";
+
+"NewVersionFeature_219_faultTolerantNameHandling_description" = "Die Zuordnung von Zertifikaten zu Personen wurde fehlertoleranter gestaltet. Kleine Unterschiede in der Schreibweise von Vor- und Nachnamen werden ignoriert, sodass die Zertifikate trotzdem derselben Person zugeordnet werden können.";
+
+"NewVersionFeature_219_vaccinationCertificateReplacement_title" = "Zertifikate aktualisieren";
+
+"NewVersionFeature_219_vaccinationCertificateReplacement_description" = "Die Spezifikationen der EU für Impfzertifikate für Auffrischimpfungen wurden geändert. Entspricht Ihr Zertifikat nicht mehr den aktuellen Spezifikationen, so können Sie direkt über die Corona-Warn-App ein neues anfordern.";
 
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Länderübergreifende Risiko-Ermittlung";
