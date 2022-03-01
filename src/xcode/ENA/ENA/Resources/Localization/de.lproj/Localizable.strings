@@ -3102,7 +3102,7 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "HealthCertificate_FaultTolerantNaming_RegroupDone_Title" = "Zuordnung von Zertifikaten";
 
-"HealthCertificate_FaultTolerantNaming_RegroupDone_Message" = "Wir haben die Gruppierung der Zertifikate verbessert. Zertifikate mit geringen Namensunterschieden werden nicht mehr verschiedenen Personen zugeordnet.";
+"HealthCertificate_FaultTolerantNaming_RegroupDone_Message" = "Die Gruppierung von Zertifikaten wurde verbessert. Zertifikate mit geringen Namensunterschieden werden nicht mehr verschiedenen Personen zugeordnet.";
 
 "HealthCertificate_FaultTolerantNaming_RegroupDone_OkayButton" = "OK";
 
