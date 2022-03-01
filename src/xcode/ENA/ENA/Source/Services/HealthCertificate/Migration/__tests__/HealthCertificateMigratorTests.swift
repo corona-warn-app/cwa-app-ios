@@ -7,6 +7,7 @@ import XCTest
 import HealthCertificateToolkit
 @testable import ENA
 
+// swiftlint:disable file_length
 // swiftlint:disable type_body_length
 class HealthCertificateMigratorTests: XCTestCase {
 
