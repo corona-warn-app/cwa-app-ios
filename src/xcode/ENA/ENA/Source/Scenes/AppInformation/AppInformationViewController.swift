@@ -117,8 +117,8 @@ class AppInformationViewController: DynamicTableViewController, NavigationBarOpa
 			cell.accessibilityIdentifier = accessibilityIdentifier
 			switch category {
 			case .faq, .accessibility:
-				let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 20, height: 20))
-				imageView.image = UIImage(named: "icons_safari_link")
+				let imageView = UIImageView(image: UIImage(named: "icons_safari_link"))
+				imageView.adjustsImageSizeForAccessibilityContentSizeCategory = true
 				imageView.contentMode = .scaleAspectFill
 				cell.accessoryView = imageView
 			case .about, .contact, .errorReport, .imprint, .legal, .privacy, .versionInfo, .terms:
