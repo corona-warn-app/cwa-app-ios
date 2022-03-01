@@ -21,13 +21,15 @@ class HealthCertificateMigrator: HealthCertificateMigration {
 			// after leaving mark migration as done
 			store.healthCertifiedPersonsVersion = kCurrentHealthCertifiedPersonsVersion
 		}
-		
+		let oldPersons = store.healthCertifiedPersons
 		var newHealthCertifiedPersons = regroup(originalPersons: store.healthCertifiedPersons)
 		newHealthCertifiedPersons.sort()
 		for person in newHealthCertifiedPersons {
 			person.healthCertificates = person.healthCertificates.sorted(by: <)
 		}
 		store.healthCertifiedPersons = newHealthCertifiedPersons
+		let newPersons = newHealthCertifiedPersons
+		store.regroupingAfterMigrationChanged = oldPersons != newPersons ? true : false
 	}
 		
 	private func regroup(

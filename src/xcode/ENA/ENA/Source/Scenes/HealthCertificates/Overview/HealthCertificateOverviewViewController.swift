@@ -16,7 +16,8 @@ class HealthCertificateOverviewViewController: UITableViewController {
 		onChangeAdmissionScenarioTap: @escaping () -> Void,
 		onCertifiedPersonTap: @escaping (HealthCertifiedPerson) -> Void,
 		onCovPassCheckInfoButtonTap: @escaping () -> Void,
-		onTapToDelete: @escaping (DecodingFailedHealthCertificate) -> Void
+		onTapToDelete: @escaping (DecodingFailedHealthCertificate) -> Void,
+		showAlertAfterRegroup: @escaping () -> Void
 	) {
 		self.viewModel = viewModel
 		self.cclService = cclService
@@ -25,6 +26,7 @@ class HealthCertificateOverviewViewController: UITableViewController {
 		self.onCertifiedPersonTap = onCertifiedPersonTap
 		self.onCovPassCheckInfoButtonTap = onCovPassCheckInfoButtonTap
 		self.onTapToDelete = onTapToDelete
+		self.showAlertAfterRegroup = showAlertAfterRegroup
 
 		super.init(style: .grouped)
 		
@@ -99,6 +101,10 @@ class HealthCertificateOverviewViewController: UITableViewController {
 
 		updateEmptyState()
 		viewModel.attemptToRestoreDecodingFailedHealthCertificates()
+
+		if viewModel.shouldShowAlertAfterRegroup {
+			showAlertAfterRegroup()
+		}
 	}
 
 	// MARK: - Protocol UITableViewDataSource
@@ -161,6 +167,7 @@ class HealthCertificateOverviewViewController: UITableViewController {
 	private let onCertifiedPersonTap: (HealthCertifiedPerson) -> Void
 	private let onCovPassCheckInfoButtonTap: () -> Void
 	private let onTapToDelete: (DecodingFailedHealthCertificate) -> Void
+	private let showAlertAfterRegroup: () -> Void
 
 	private var subscriptions = Set<AnyCancellable>()
 
