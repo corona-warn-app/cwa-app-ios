@@ -20,9 +20,35 @@ enum TestResult: Int, CaseIterable, Codable {
 	//	8	Invalid (rapid antigen test)
 	//	9	Redeemed (rapid antigen test; locally referred to as Expired))
 
-	init?(serverResponse: Int) {
-		// Values for antigen tests are pending = 5, negative = 6, ...
-		self.init(rawValue: serverResponse % 5)
+	// swiftlint:disable cyclomatic_complexity
+	init(
+		serverResponse: Int,
+		coronaTestType: CoronaTestType
+	) {
+		switch (serverResponse, coronaTestType) {
+		case (0, _):
+			self = .pending
+		case (1, .pcr):
+			self = .negative
+		case (2, .pcr):
+			self = .positive
+		case (3, .pcr):
+			self = .invalid
+		case (4, .pcr):
+			self = .expired
+		case (5, .antigen):
+			self = .pending
+		case (6, .antigen):
+			self = .negative
+		case (7, .antigen):
+			self = .positive
+		case (8, .antigen):
+			self = .invalid
+		case (9, .antigen):
+			self = .expired
+		default:
+			self = .invalid
+		}
 	}
 
 	// MARK: - Internal

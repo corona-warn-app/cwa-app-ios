@@ -215,6 +215,9 @@
 		019789342746920600AAC31C /* TicketValidationResultViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01978925274686EB00AAC31C /* TicketValidationResultViewModel.swift */; };
 		019789352746920600AAC31C /* TicketValidationOpenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01978927274686EC00AAC31C /* TicketValidationOpenViewModel.swift */; };
 		019789362746920600AAC31C /* TicketValidationPassedViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01978926274686EB00AAC31C /* TicketValidationPassedViewModel.swift */; };
+		01992EC027CE4B7800BC16DA /* TestResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FA9E39224D2F2920030561C /* TestResult.swift */; };
+		01992EC227CE4B9000BC16DA /* CoronaTestType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01992EC127CE4B8000BC16DA /* CoronaTestType.swift */; };
+		01992EC327CE4B9100BC16DA /* CoronaTestType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01992EC127CE4B8000BC16DA /* CoronaTestType.swift */; };
 		019BFC6C24C9901A0053973D /* sqlite3.c in Sources */ = {isa = PBXBuildFile; fileRef = 0DFCC2702484DC8400E2811D /* sqlite3.c */; settings = {COMPILER_FLAGS = "-w"; }; };
 		019C9F0025894BAA00B26392 /* DiaryStoringProviding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 019C9EFF25894BAA00B26392 /* DiaryStoringProviding.swift */; };
 		019C9F1E25894CDD00B26392 /* DiaryOverviewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 019C9F1D25894CDD00B26392 /* DiaryOverviewViewModel.swift */; };
@@ -953,7 +956,6 @@
 		8FB331B6268BD8EE00804747 /* LocalStatisticsRegion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FB331B5268BD8EE00804747 /* LocalStatisticsRegion.swift */; };
 		8FB331B8268BDA5C00804747 /* SAP_Internal_Stats_SevenDayIncidenceData+Formatting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FB331B7268BDA5C00804747 /* SAP_Internal_Stats_SevenDayIncidenceData+Formatting.swift */; };
 		8FB331BB268C574900804747 /* LocalStats.bin in Resources */ = {isa = PBXBuildFile; fileRef = 8FB331BA268C574900804747 /* LocalStats.bin */; };
-		8FB5A61625DD65D500679990 /* TestResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FA9E39224D2F2920030561C /* TestResult.swift */; };
 		8FB776ED26EA323C005255BB /* DMBoosterRulesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FB776EC26EA323C005255BB /* DMBoosterRulesViewController.swift */; };
 		8FB776EF26EA3255005255BB /* DMBoosterRulesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FB776EE26EA3255005255BB /* DMBoosterRulesViewModel.swift */; };
 		8FB776F126EA532C005255BB /* DMBoosterChoosePersonViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FB776F026EA532C005255BB /* DMBoosterChoosePersonViewController.swift */; };
@@ -1922,6 +1924,7 @@
 		0197892B27468A9700AAC31C /* TicketValidationResultCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketValidationResultCellModel.swift; sourceTree = "<group>"; };
 		0197892C27468A9700AAC31C /* DynamicCell+TicketValidationResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DynamicCell+TicketValidationResult.swift"; sourceTree = "<group>"; };
 		0197892D27468A9700AAC31C /* TicketValidationResultTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketValidationResultTableViewCell.swift; sourceTree = "<group>"; };
+		01992EC127CE4B8000BC16DA /* CoronaTestType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoronaTestType.swift; sourceTree = "<group>"; };
 		019C9EFF25894BAA00B26392 /* DiaryStoringProviding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryStoringProviding.swift; sourceTree = "<group>"; };
 		019C9F0725894BE900B26392 /* MockDiaryStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockDiaryStore.swift; sourceTree = "<group>"; };
 		019C9F1D25894CDD00B26392 /* DiaryOverviewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryOverviewViewModel.swift; sourceTree = "<group>"; };
@@ -3647,6 +3650,7 @@
 				01C1C84C27C3B423005592B0 /* CoronaTestServiceProviding.swift */,
 				010F27DD26370AA5004CBE35 /* CoronaTestServiceError.swift */,
 				011217012617412300320745 /* CoronaTest.swift */,
+				01992EC127CE4B8000BC16DA /* CoronaTestType.swift */,
 				01E1025B26666566009ED803 /* PCRTest.swift */,
 				01E1025C2666658B009ED803 /* AntigenTest.swift */,
 				01E102632667AB62009ED803 /* TestedPerson.swift */,
@@ -11207,6 +11211,7 @@
 				8FB776F726F25AE5005255BB /* QRCodeResult.swift in Sources */,
 				0112170A2617695100320745 /* FakeRequestService.swift in Sources */,
 				71330E41248109F600EB10F6 /* DynamicTableViewSection.swift in Sources */,
+				01992EC227CE4B9000BC16DA /* CoronaTestType.swift in Sources */,
 				BA6CC737260CF63B00F191FB /* CheckInHeaderCell.swift in Sources */,
 				50293D55267A4191004B3EBE /* AddButtonAsTableViewCell.swift in Sources */,
 				508266DC278DE9D300091991 /* Dictionary+Headers.swift in Sources */,
@@ -11786,7 +11791,7 @@
 				134F0DBC247578FF00D88934 /* ENAUITests_01a_Home.swift in Sources */,
 				EB11B02A24EE7CA500143A95 /* ENAUITests_03_Settings.swift in Sources */,
 				134F0DBD247578FF00D88934 /* ENAUITests-Extensions.swift in Sources */,
-				8FB5A61625DD65D500679990 /* TestResult.swift in Sources */,
+				01992EC327CE4B9100BC16DA /* CoronaTestType.swift in Sources */,
 				948DCDC3252EFC9A00CDE020 /* ENAUITests_04c_ExposureLogging.swift in Sources */,
 				85D7596424570491008175F0 /* ENAUITests.swift in Sources */,
 				EB1C221225B7140B00A5CA6E /* ENAUITests_08_UpdateOSUITests.swift in Sources */,
@@ -11796,6 +11801,7 @@
 				01306955270746D100D945E3 /* ENAUITests_16_UniversalQRCodeScanner.swift in Sources */,
 				BA53FD27270B28A200CF8475 /* ENAUITests_17_FileScanner.swift in Sources */,
 				50EE76022743FC87003DE929 /* ENAUITests_19_TicketValidation.swift in Sources */,
+				01992EC027CE4B7800BC16DA /* TestResult.swift in Sources */,
 				5081EF0E25FFDEC7004B8FDE /* ENAUITests_10_CheckIns.swift in Sources */,
 				AB8A6694266F922500F65E1D /* ENAUITests_13_CreateHealthCertificate.swift in Sources */,
 				13E50469248E3CD20086641C /* ENAUITests_02_AppInformation.swift in Sources */,
