@@ -1169,7 +1169,6 @@
 		ABB078F2273035340037B30F /* SecureStoring.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABB078F1273035340037B30F /* SecureStoring.swift */; };
 		ABB078F527316EC70037B30F /* CachedRestServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABB078F327316EB60037B30F /* CachedRestServiceTests.swift */; };
 		ABB8DF602799BEC300DD99E4 /* CCLService.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABB8DF5F2799BEC300DD99E4 /* CCLService.swift */; };
-		ABBB8ABD27CCBE1500CCA3F1 /* HealthCertifiedPersonReissuanceConsentViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABBB8ABC27CCBE1500CCA3F1 /* HealthCertifiedPersonReissuanceConsentViewModelTests.swift */; };
 		ABBBC056273AD2C3009A4B56 /* ENASecurity in Frameworks */ = {isa = PBXBuildFile; productRef = ABBBC055273AD2C3009A4B56 /* ENASecurity */; };
 		ABBF425D261DD7B5002A9A2B /* CheckinTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABBF425C261DD7B5002A9A2B /* CheckinTests.swift */; };
 		ABBF429626209952002A9A2B /* Checkin+Update.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABBF429526209952002A9A2B /* Checkin+Update.swift */; };
@@ -2900,7 +2899,6 @@
 		ABB078F327316EB60037B30F /* CachedRestServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CachedRestServiceTests.swift; sourceTree = "<group>"; };
 		ABB8DF5F2799BEC300DD99E4 /* CCLService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CCLService.swift; sourceTree = "<group>"; };
 		ABBA6BB8272AA1E200EEF2E4 /* RestServiceProviderFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestServiceProviderFactory.swift; sourceTree = "<group>"; };
-		ABBB8ABC27CCBE1500CCA3F1 /* HealthCertifiedPersonReissuanceConsentViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthCertifiedPersonReissuanceConsentViewModelTests.swift; sourceTree = "<group>"; };
 		ABBF425C261DD7B5002A9A2B /* CheckinTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckinTests.swift; sourceTree = "<group>"; };
 		ABBF429526209952002A9A2B /* Checkin+Update.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Checkin+Update.swift"; sourceTree = "<group>"; };
 		ABC1C271267B854500223625 /* DCCDateStringFormatterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DCCDateStringFormatterTests.swift; sourceTree = "<group>"; };
@@ -9516,7 +9514,6 @@
 				019DDEDE26F1E48B00390509 /* VaccinationStateCellModelTests.swift */,
 				01915573268475EB00D49C88 /* HealthCertificateCellViewModelTests.swift */,
 				01E107F3276B426200E0595B /* AdmissionStateCellModelTests.swift */,
-				ABBB8ABC27CCBE1500CCA3F1 /* HealthCertifiedPersonReissuanceConsentViewModelTests.swift */,
 			);
 			path = __tests__;
 			sourceTree = "<group>";
