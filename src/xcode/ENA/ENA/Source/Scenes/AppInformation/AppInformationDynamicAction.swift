@@ -5,9 +5,14 @@
 import UIKit
 
 extension DynamicAction {
-	static var safari: Self {
+	static var safariFAQs: Self {
 		.execute { _, _ in
 			LinkHelper.open(urlString: AppStrings.SafariView.targetURL)
+		}
+	}
+	static var safariAccessibility: Self {
+		.execute { _, _ in
+			LinkHelper.open(urlString: AppStrings.SafariView.accessibility)
 		}
 	}
 	
