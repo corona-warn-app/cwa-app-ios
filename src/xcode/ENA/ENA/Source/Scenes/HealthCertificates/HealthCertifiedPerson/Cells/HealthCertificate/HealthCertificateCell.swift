@@ -37,6 +37,10 @@ class HealthCertificateCell: UITableViewCell, ReuseIdentifierProviding {
 		iconImageView.image = cellViewModel.image
 
 		headlineLabel.text = cellViewModel.headline
+
+		nameLabel.text = cellViewModel.name
+		nameLabel.isHidden = cellViewModel.name == nil
+
 		subheadlineLabel.text = cellViewModel.subheadline
 		detailsLabel.text = cellViewModel.detail
 
@@ -55,11 +59,12 @@ class HealthCertificateCell: UITableViewCell, ReuseIdentifierProviding {
 
 	// MARK: - Private
 
-	private let backgroundContainerView = UIView()
+	private var backgroundContainerView = UIView()
 	private let disclosureContainerView = UIView()
 	private let disclosureImageView = UIImageView()
 
 	private let headlineLabel = ENALabel(style: .headline)
+	private let nameLabel = ENALabel(style: .body)
 	private let subheadlineLabel = ENALabel(style: .body)
 	private let detailsLabel = ENALabel(style: .body)
 	private let validityStateInfoLabel = ENALabel(style: .body)
@@ -106,13 +111,16 @@ class HealthCertificateCell: UITableViewCell, ReuseIdentifierProviding {
 		headlineStackView.axis = .horizontal
 		headlineStackView.spacing = 8
 
+		nameLabel.textColor = .enaColor(for: .textPrimary2)
+		nameLabel.numberOfLines = 0
+
 		subheadlineLabel.textColor = .enaColor(for: .textPrimary2)
 		subheadlineLabel.numberOfLines = 0
 
 		detailsLabel.textColor = .enaColor(for: .textPrimary2)
 		detailsLabel.numberOfLines = 0
 
-		let subheadlineDetailsStackView = UIStackView(arrangedSubviews: [subheadlineLabel, detailsLabel])
+		let subheadlineDetailsStackView = UIStackView(arrangedSubviews: [nameLabel, subheadlineLabel, detailsLabel])
 		subheadlineDetailsStackView.axis = .vertical
 		subheadlineDetailsStackView.spacing = 0
 
@@ -197,14 +205,18 @@ class HealthCertificateCell: UITableViewCell, ReuseIdentifierProviding {
 	}
 
 	private func setupAccessibility() {
-		accessibilityElements = [backgroundContainerView as Any]
+		accessibilityElements = [backgroundContainerView]
 
-		backgroundContainerView.accessibilityElements = [headlineLabel as Any, subheadlineLabel as Any, detailsLabel as Any]
+		backgroundContainerView.accessibilityElements = [headlineLabel]
 
-		if currentlyUsedStackView.isHidden {
-			backgroundContainerView.accessibilityElements = [headlineLabel as Any, subheadlineLabel as Any, detailsLabel as Any]
-		} else {
-			backgroundContainerView.accessibilityElements = [headlineLabel as Any, subheadlineLabel as Any, detailsLabel as Any, currentlyUsedLabel as Any]
+		if !nameLabel.isHidden {
+			backgroundContainerView.accessibilityElements?.append(nameLabel)
+		}
+
+		backgroundContainerView.accessibilityElements?.append(contentsOf: [subheadlineLabel, detailsLabel])
+
+		if !currentlyUsedStackView.isHidden {
+			backgroundContainerView.accessibilityElements?.append(currentlyUsedLabel)
 		}
 
 		headlineLabel.accessibilityTraits = [.staticText, .button]

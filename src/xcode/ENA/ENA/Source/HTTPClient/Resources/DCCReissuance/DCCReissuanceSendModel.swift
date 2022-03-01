@@ -8,6 +8,6 @@ struct DCCReissuanceSendModel: Encodable {
 	
 	// MARK: - Internal
 
-	let action: String = "combine"
+	let action: String = "renew"
 	let certificates: [String]
 }

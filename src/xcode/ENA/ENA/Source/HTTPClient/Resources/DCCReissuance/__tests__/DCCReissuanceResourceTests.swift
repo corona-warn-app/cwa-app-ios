@@ -283,6 +283,44 @@ final class DCCReissuanceResourceTests: CWATestCase {
 		waitForExpectations(timeout: .short)
 	}
 
+	func testGIVEN_Resource_WHEN_Response_429_THEN_DCC_RI_429() throws {
+		let expectation = expectation(description: "Expect that we got an error")
+
+		let stack = MockNetworkStack(
+			httpStatus: 429
+		)
+
+		let restServiceProvider = RestServiceProvider(
+			session: stack.urlSession,
+			cache: KeyValueCacheFake()
+		)
+
+		let sendModel = DCCReissuanceSendModel(
+			certificates: [
+				"one"
+			]
+		)
+
+		let resource = DCCReissuanceResource(
+			sendModel: sendModel,
+			trustEvaluation: .fake()
+		)
+
+		restServiceProvider.load(resource) { result in
+			switch result {
+			case .success:
+				XCTFail("Failure expected.")
+			case .failure(let error):
+				guard case .receivedResourceError(.DCC_RI_429) = error else {
+					XCTFail("DCC_RI_429 error expected. Instead error received: \(error)")
+					return
+				}
+			}
+			expectation.fulfill()
+		}
+		waitForExpectations(timeout: .short)
+	}
+
 	func testGIVEN_Resource_WHEN_Response_500_THEN_DCC_RI_500() throws {
 		let expectation = expectation(description: "Expect that we got an error")
 
