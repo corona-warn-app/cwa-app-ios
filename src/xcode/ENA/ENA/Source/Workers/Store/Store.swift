@@ -218,7 +218,8 @@ protocol HealthCertificateStoring: AnyObject {
 
 	var dccAdmissionCheckScenarios: DCCAdmissionCheckScenarios? { get set }
 
-	var regroupingAfterMigrationChanged: Bool { get set }
+	/// Flag to inform the user that a regroup after a migration was applied.
+	var shouldShowRegroupingAlert: Bool { get set }
 
 }
 

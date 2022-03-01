@@ -269,9 +269,9 @@ final class SecureStore: SecureKeyValueStoring, Store, AntigenTestProfileStoring
 		set { kvStore["dccAdmissionCheckScenarios"] = newValue }
 	}
 
-	var regroupingAfterMigrationChanged: Bool {
-		get { kvStore["regroupingAfterMigrationChanged"] as Bool? ?? false }
-		set { kvStore["regroupingAfterMigrationChanged"] = newValue }
+	var shouldShowRegroupingAlert: Bool {
+		get { kvStore["shouldShowRegroupingAlert"] as Bool? ?? false }
+		set { kvStore["shouldShowRegroupingAlert"] = newValue }
 	}
 		
 	// MARK: - Protocol VaccinationCaching

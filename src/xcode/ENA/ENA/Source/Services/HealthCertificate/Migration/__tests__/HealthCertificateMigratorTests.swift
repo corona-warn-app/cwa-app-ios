@@ -468,7 +468,7 @@ class HealthCertificateMigratorTests: XCTestCase {
 		}
 	}
 
-	func testGIVEN_SomePersons_WHEN_MigrationRegroupsNot_THEN_RegroupingAfterMigrationChangedIsFalse() throws {
+	func testGIVEN_SomePersons_WHEN_MigrationRegroupsNot_THEN_ShouldShowRegroupingAlertIsFalse() throws {
 		// GIVEN
 		let thomas01 = HealthCertifiedPerson(healthCertificates: [
 			try HealthCertificate(base45: try thomasCert01())
@@ -483,7 +483,7 @@ class HealthCertificateMigratorTests: XCTestCase {
 			ulrike01
 		]
 
-		XCTAssertFalse(store.regroupingAfterMigrationChanged)
+		XCTAssertFalse(store.shouldShowRegroupingAlert)
 
 		// WHEN
 		let migrator = HealthCertificateMigrator()
@@ -501,11 +501,11 @@ class HealthCertificateMigratorTests: XCTestCase {
 		XCTAssertEqual(thomas.healthCertificates.count, 1)
 		XCTAssertEqual(ulrike.name, ulrike01.name)
 		XCTAssertEqual(ulrike.healthCertificates.count, 1)
-		XCTAssertFalse(store.regroupingAfterMigrationChanged)
+		XCTAssertFalse(store.shouldShowRegroupingAlert)
 
 	}
 
-	func testGIVEN_SomePersons_WHEN_MigrationRegroups_THEN_RegroupingAfterMigrationChangedIsTrue() throws {
+	func testGIVEN_SomePersons_WHEN_MigrationRegroups_THEN_ShouldShowRegroupingAlertIsTrue() throws {
 		// GIVEN
 		let thomas01 = HealthCertifiedPerson(healthCertificates: [
 			try HealthCertificate(base45: try thomasCert01())
@@ -536,7 +536,7 @@ class HealthCertificateMigratorTests: XCTestCase {
 			andreas01
 		]
 
-		XCTAssertFalse(store.regroupingAfterMigrationChanged)
+		XCTAssertFalse(store.shouldShowRegroupingAlert)
 
 		// WHEN
 		let migrator = HealthCertificateMigrator()
@@ -551,7 +551,7 @@ class HealthCertificateMigratorTests: XCTestCase {
 		XCTAssertEqual(migratedPersons[1].healthCertificates.count, 3)
 		XCTAssertEqual(migratedPersons[2].name, ulrike01.name)
 		XCTAssertEqual(migratedPersons[2].healthCertificates.count, 2)
-		XCTAssertTrue(store.regroupingAfterMigrationChanged)
+		XCTAssertTrue(store.shouldShowRegroupingAlert)
 	}
 	
 	// MARK: - Helpers

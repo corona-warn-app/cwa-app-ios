@@ -141,7 +141,7 @@ final class HealthCertificatesTabCoordinator {
 			},
 			showAlertAfterRegroup: { [weak self] in
 				self?.showAlertAfterRegrouping()
-				self?.store.regroupingAfterMigrationChanged = false
+				self?.store.shouldShowRegroupingAlert = false
 			}
 		)
 	}()

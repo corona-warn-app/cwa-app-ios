@@ -89,7 +89,7 @@ class HealthCertificateOverviewViewModel {
 	}
 
 	var shouldShowAlertAfterRegroup: Bool {
-		return store.regroupingAfterMigrationChanged
+		return store.shouldShowRegroupingAlert
 	}
 
 	func numberOfRows(in section: Int) -> Int {
