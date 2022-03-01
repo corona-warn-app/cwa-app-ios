@@ -29,7 +29,7 @@ class HealthCertificateMigrator: HealthCertificateMigration {
 		}
 		store.healthCertifiedPersons = newHealthCertifiedPersons
 		let newPersons = newHealthCertifiedPersons
-		store.regroupingAfterMigrationChanged = oldPersons != newPersons ? true : false
+		store.regroupingAfterMigrationChanged = oldPersons != newPersons
 	}
 		
 	private func regroup(
