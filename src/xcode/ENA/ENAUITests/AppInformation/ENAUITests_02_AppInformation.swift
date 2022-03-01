@@ -28,8 +28,8 @@ class ENAUITests_02_AppInformation: CWATestCase {
 		appInformationLabel.waitAndTap()
 		
 		XCTAssertTrue(app.cells[AccessibilityIdentifiers.AppInformation.aboutNavigation].waitForExistence(timeout: .medium))
-		XCTAssertTrue(app.cells[AccessibilityIdentifiers.AppInformation.faqNavigation].waitForExistence(timeout: .medium))
-		XCTAssertTrue(app.cells[AccessibilityIdentifiers.AppInformation.accessibilityNavigation].waitForExistence(timeout: .medium))
+		XCTAssertTrue(app.staticTexts[AccessibilityIdentifiers.AppInformation.faqNavigation].waitForExistence(timeout: .medium))
+		XCTAssertTrue(app.staticTexts[AccessibilityIdentifiers.AppInformation.accessibilityNavigation].waitForExistence(timeout: .medium))
 		XCTAssertTrue(app.cells[AccessibilityIdentifiers.AppInformation.contactNavigation].waitForExistence(timeout: .medium))
 		XCTAssertTrue(app.cells[AccessibilityIdentifiers.AppInformation.privacyNavigation].waitForExistence(timeout: .medium))
 		XCTAssertTrue(app.cells[AccessibilityIdentifiers.AppInformation.termsNavigation].waitForExistence(timeout: .medium))
@@ -64,7 +64,7 @@ class ENAUITests_02_AppInformation: CWATestCase {
 		appInformationLabel.waitAndTap()
 
 		XCTAssertTrue(app.state == .runningForeground)
-		app.cells["AppStrings.AppInformation.faqNavigation"].waitAndTap()
+		app.staticTexts[AccessibilityIdentifiers.AppInformation.faqNavigation].waitAndTap()
 		
 		// Check if URL that would get opened is 'https://www.coronawarn.app/de/faq/'
 		XCTAssertTrue(app.alerts.firstMatch.staticTexts["https://www.coronawarn.app/de/faq/"].waitForExistence(timeout: .short))
@@ -202,10 +202,10 @@ class ENAUITests_02_AppInformation: CWATestCase {
 		appInformationLabel.waitAndTap()
 
 		XCTAssertTrue(app.state == .runningForeground)
-		app.cells["AppStrings.AppInformation.accessibility"].waitAndTap()
+		app.staticTexts[AccessibilityIdentifiers.AppInformation.accessibilityNavigation].waitAndTap()
 		
-		// Check if URL that would get opened is 'https://www.coronawarn.app/de/accessibility/'
-		XCTAssertTrue(app.alerts.firstMatch.staticTexts["https://www.coronawarn.app/de/accessibility/"].waitForExistence(timeout: .short))
+		// Check if URL that would get opened is 'https://www.coronawarn.app/de/accessibility'
+		XCTAssertTrue(app.alerts.firstMatch.staticTexts["https://www.coronawarn.app/de/accessibility"].waitForExistence(timeout: .short))
 	}
 
 	func test_0030_AppInformationFlow_ConfirmationScreen_ErrorReportDetailScreen() throws {
