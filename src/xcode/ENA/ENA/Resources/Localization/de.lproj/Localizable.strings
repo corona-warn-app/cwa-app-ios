@@ -2814,7 +2814,7 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "HealthCertificate_Overview_EmptyTitle" = "Noch keine Zertifikate vorhanden";
 
-"HealthCertificate_Overview_EmptyDescription" = "Hier werden die gespeicherten digitalen Impfzertifikate, Genesenenzertifikate und Testzertifikate angezeigt.\n\nScannen Sie den QR-Code des Zertifikats mit Hilfe des QR-Code-Scanners in der unteren Navigationsleiste.";
+"HealthCertificate_Overview_EmptyDescription" = "Hier werden die gespeicherten digitalen Impfzertifikate, Genesenenzertifikate und Testzertifikate angezeigt.";
 
 "HealthCertificate_Overview_EmptyImageDescription" = "Zertifikatssiegel mit digitalem Zertifikat im Hintergrund";
 

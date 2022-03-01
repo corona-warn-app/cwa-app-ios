@@ -117,12 +117,14 @@ class HealthCertificateOverviewViewController: UITableViewController {
 			return changeAdmissionScenarioStatusLabelCell(forRowAt: indexPath)
 		case .changeAdmissionScenario:
 			return changeAdmissionScenarioCell(forRowAt: indexPath)
+		case .healthCertificateScanningInfoOnTop:
+			return healthCertificateScanningInfoCell(forRowAt: indexPath, textAlignment: .left)
 		case .testCertificateRequest:
 			return testCertificateRequestCell(forRowAt: indexPath)
 		case .healthCertificate:
 			return healthCertifiedPersonCell(forRowAt: indexPath)
 		case .healthCertificateScanningInfo:
-			return healthCertificateScanningInfoCell(forRowAt: indexPath)
+			return healthCertificateScanningInfoCell(forRowAt: indexPath, textAlignment: .center)
 		case .decodingFailedHealthCertificates:
 			return decodingFailedHealthCertificateCell(forRowAt: indexPath)
 		case .none:
@@ -138,6 +140,8 @@ class HealthCertificateOverviewViewController: UITableViewController {
 			break
 		case .changeAdmissionScenario:
 			onChangeAdmissionScenarioTap()
+		case .healthCertificateScanningInfoOnTop:
+			break
 		case .testCertificateRequest:
 			break
 		case .healthCertificate:
@@ -202,7 +206,7 @@ class HealthCertificateOverviewViewController: UITableViewController {
 			fatalError("Could not dequeue OverviewLabelTableCell")
 		}
 
-		cell.configure(text: viewModel.changeAdmissionScenarioStatusText?.localized(cclService: cclService) ?? AppStrings.HealthCertificate.Overview.admissionScenarioStatusLabel, noBottomInset: true, textAlignment: .left)
+		cell.configure(text: viewModel.changeAdmissionScenarioStatusText?.localized(cclService: cclService) ?? AppStrings.HealthCertificate.Overview.admissionScenarioStatusLabel, noBottomInset: true, color: .enaColor(for: .textPrimary2), textAlignment: .left)
 		return cell
 	}
 	
@@ -216,12 +220,12 @@ class HealthCertificateOverviewViewController: UITableViewController {
 		return cell
 	}
 	
-	private func healthCertificateScanningInfoCell(forRowAt indexPath: IndexPath) -> UITableViewCell {
+	private func healthCertificateScanningInfoCell(forRowAt indexPath: IndexPath, textAlignment: NSTextAlignment) -> UITableViewCell {
 		guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: OverviewLabelTableViewCell.self), for: indexPath) as? OverviewLabelTableViewCell else {
 			fatalError("Could not dequeue OverviewLabelTableCell")
 		}
 
-		cell.configure(text: AppStrings.HealthCertificate.Overview.scanningInfo, textAlignment: .center)
+		cell.configure(text: AppStrings.HealthCertificate.Overview.scanningInfo, color: .enaColor(for: .textPrimary2), textAlignment: textAlignment)
 		return cell
 	}
 	
