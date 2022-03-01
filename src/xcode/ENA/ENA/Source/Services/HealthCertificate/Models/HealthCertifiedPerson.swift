@@ -132,7 +132,7 @@ class HealthCertifiedPerson: Codable, Equatable, Comparable {
 	@DidSetPublished var healthCertificates: [HealthCertificate] {
 		didSet {
 			// States and subscriptions only need to be updated if certificates were added or removed
-			if healthCertificates.map({ $0.uniqueCertificateIdentifier }) != oldValue.map({ $0.uniqueCertificateIdentifier }) {
+			if healthCertificates.map({ $0.base45 }) != oldValue.map({ $0.base45 }) {
 				updateDCCWalletInfo()
 				updateHealthCertificateSubscriptions(for: healthCertificates)
 			}
