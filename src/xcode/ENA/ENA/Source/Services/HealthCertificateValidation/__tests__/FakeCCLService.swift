@@ -15,7 +15,7 @@ struct FakeCCLService: CCLServable {
 
 	var configurationVersion: String = "configurationVersion"
 
-	var cclAdmissionCheckScenariosDisabled: Bool = false
+	var dccAdmissionCheckScenariosEnabled: Bool = false
 	
 	func updateConfiguration(completion: (Bool) -> Void) {
 		completion(didChange)

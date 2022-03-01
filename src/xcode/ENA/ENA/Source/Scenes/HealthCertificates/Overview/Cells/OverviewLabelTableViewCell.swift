@@ -49,6 +49,7 @@ class OverviewLabelTableViewCell: UITableViewCell, ReuseIdentifierProviding {
 		contentTextLabel.text = text
 		contentTextLabel.textAlignment = textAlignment ?? .left
 		contentTextLabel.textColor = color ?? .enaColor(for: .textPrimary1)
+		contentTextLabel.style = .subheadline
 		
 		if noBottomInset {
 			contentView.preservesSuperviewLayoutMargins = false
@@ -64,7 +65,7 @@ class OverviewLabelTableViewCell: UITableViewCell, ReuseIdentifierProviding {
 
 	// MARK: - Internal
 
-	var contentTextLabel = UILabel()
+	var contentTextLabel = ENALabel()
 
 	// MARK: - Private
 

@@ -62,6 +62,7 @@ final class HealthCertifiedPersonCoordinator {
 
 	private weak var parentViewController: UIViewController?
 
+	private var reissuanceCoordinator: HealthCertificateReissuanceCoordinator?
 	private var validationCoordinator: HealthCertificateValidationCoordinator?
 
 	private func healthCertifiedPersonViewController(
@@ -141,63 +142,32 @@ final class HealthCertifiedPersonCoordinator {
 				self.presentCovPassInfoScreen(self.navigationController)
 			},
 			didTapCertificateReissuance: { [weak self] person in
-				self?.showCertificateReissuanceConsent(for: person)
+				self?.showCertificateReissuanceFlow(for: person)
 			}
 		)
 	}
 
-	private func showCertificateReissuanceConsent(for person: HealthCertifiedPerson) {
-		let updateConsentViewController = HealthCertifiedPersonReissuanceConsentViewController(
-			for: person,
-			appConfigProvider: appConfigProvider,
-			restServiceProvider: restServiceProvider,
+	private func showCertificateReissuanceFlow(
+		for person: HealthCertifiedPerson
+	) {
+		guard let dccReference = person.dccWalletInfo?.certificateReissuance?.certificateToReissue.certificateRef,
+			  let certificate = person.healthCertificate(for: dccReference)
+		else {
+			Log.error("No certificate for reissuance found - stop here")
+			return
+		}
+
+		reissuanceCoordinator = HealthCertificateReissuanceCoordinator(
+			parentViewController: navigationController,
 			healthCertificateService: healthCertificateService,
-			presentAlert: { [weak self] okAction, retryAction in
-				let alert = UIAlertController(
-					title: AppStrings.HealthCertificate.Person.UpdateConsent.defaultAlertTitle,
-					message: AppStrings.HealthCertificate.Person.UpdateConsent.defaultAlertMessage,
-					preferredStyle: .alert
-				)
-				alert.addAction(okAction)
-				alert.addAction(retryAction)
-				self?.navigationController.present(alert, animated: true)
-			},
-			presentUpdateSuccess: { [weak self] in
-				self?.presentUpdateSucceeded()
-			},
-			didCancel: { [weak self] in
-				self?.navigationController.popToRootViewController(animated: true)
-			},
-			dismiss: { [weak self] in
-				self?.navigationController.dismiss(animated: true)
-			}
+			restServiceProvider: restServiceProvider,
+			appConfigProvider: appConfigProvider,
+			healthCertifiedPerson: person,
+			healthCertificate: certificate,
+			cclService: cclService
 		)
-		updateConsentViewController.navigationItem.hidesBackButton = true
 
-		let footerViewModel = FooterViewModel(
-			primaryButtonName: AppStrings.HealthCertificate.Person.UpdateConsent.primaryButtonTitle,
-			secondaryButtonName: AppStrings.HealthCertificate.Person.UpdateConsent.secondaryButtonTitle,
-			isPrimaryButtonEnabled: false,
-			isSecondaryButtonEnabled: true,
-			primaryCustomDisableBackgroundColor: .enaColor(for: .backgroundLightGray),
-			secondaryCustomDisableBackgroundColor: .enaColor(for: .backgroundLightGray)
-		)
-		let footerViewController = FooterViewController(footerViewModel)
-
-		let containerViewController = TopBottomContainerViewController(
-			topController: updateConsentViewController,
-			bottomController: footerViewController
-		)
-		navigationController.pushViewController(containerViewController, animated: true)
-	}
-
-	private func presentUpdateSucceeded() {
-		let updateSucceededViewController = HealthCertifiedPersonReissuanceSucceededViewController(
-			didTapEnd: { [weak self] in
-				self?.navigationController.popToRootViewController(animated: true)
-			}
-		)
-		navigationController.pushViewController(updateSucceededViewController, animated: true)
+		reissuanceCoordinator?.start()
 	}
 
 	private func showDeleteAlert(
