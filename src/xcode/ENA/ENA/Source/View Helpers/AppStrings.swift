@@ -2208,6 +2208,12 @@ enum AppStrings {
 			}
 		}
 
+		enum FaultTolerantNaming {
+			static let title = NSLocalizedString("HealthCertificate_FaultTolerantNaming_RegroupDone_Title", comment: "")
+			static let message = NSLocalizedString("HealthCertificate_FaultTolerantNaming_RegroupDone_Message", comment: "")
+			static let okayButton = NSLocalizedString("HealthCertificate_FaultTolerantNaming_RegroupDone_OkayButton", comment: "")
+		}
+
 		enum ValidityState {
 			static let expiringSoon = NSLocalizedString("HealthCertificate_ValidityState_ExpiringSoon", comment: "")
 			static let expiringSoonDescription = NSLocalizedString("HealthCertificate_ValidityState_ExpiringSoon_description", comment: "")

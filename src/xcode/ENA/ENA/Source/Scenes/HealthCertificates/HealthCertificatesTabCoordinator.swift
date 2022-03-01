@@ -143,6 +143,10 @@ final class HealthCertificatesTabCoordinator {
 						}
 					)
 				)
+			},
+			showAlertAfterRegroup: { [weak self] in
+				self?.showAlertAfterRegrouping()
+				self?.store.shouldShowRegroupingAlert = false
 			}
 		)
 	}()
@@ -362,6 +366,26 @@ final class HealthCertificatesTabCoordinator {
 			self.viewController.present(alert, animated: true, completion: nil)
 		}
 	}
+
+	private func showAlertAfterRegrouping() {
+		let alert = UIAlertController(
+			title: AppStrings.HealthCertificate.FaultTolerantNaming.title,
+			message: AppStrings.HealthCertificate.FaultTolerantNaming.message,
+			preferredStyle: .alert
+		)
+
+		let okAction = UIAlertAction(
+			title: AppStrings.HealthCertificate.FaultTolerantNaming.okayButton,
+			style: .cancel,
+			handler: { _ in
+				alert.dismiss(animated: true)
+			}
+		)
+
+		alert.addAction(okAction)
+
+		self.viewController.present(alert, animated: true, completion: nil)
+	}
 	
 	private func showAdmissionScenarios() {
 		let result = self.cclScenariosHelper.viewModelForAdmissionScenarios()
@@ -397,5 +421,4 @@ final class HealthCertificatesTabCoordinator {
 			self.showErrorAlert(title: AppStrings.HealthCertificate.Error.title, error: error)
 		}
 	}
-
 }

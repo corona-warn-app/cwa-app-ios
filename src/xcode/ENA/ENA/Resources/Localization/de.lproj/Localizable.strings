@@ -3098,6 +3098,14 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "HealthCertificate_PrintPdf_ErrorAlert_ValueSetsFetching_Message" = "Die Druckversion des Zertifikats kann nicht angezeigt werden, da das Zertifikat momentan nicht abgerufen werden kann. Bitte versuchen Sie es später noch einmal.";
 
+/* Certificate Fault Tolerant Naming */
+
+"HealthCertificate_FaultTolerantNaming_RegroupDone_Title" = "Zuordnung von Zertifikaten";
+
+"HealthCertificate_FaultTolerantNaming_RegroupDone_Message" = "Die Gruppierung von Zertifikaten wurde verbessert. Zertifikate mit geringen Namensunterschieden werden nicht mehr verschiedenen Personen zugeordnet.";
+
+"HealthCertificate_FaultTolerantNaming_RegroupDone_OkayButton" = "OK";
+
 /* Health Certificate Errors */
 
 "HealthCertificate_Error_Title" = "Fehler";
