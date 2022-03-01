@@ -1,0 +1,12 @@
+{
+  "images" : [
+    {
+      "filename" : "icon_admission_state.pdf",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}

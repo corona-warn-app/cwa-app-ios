@@ -17,7 +17,8 @@ class HealthCertifiedPerson: Codable, Equatable, Comparable {
 		dccWalletInfo: DCCWalletInfo? = nil,
 		mostRecentWalletInfoUpdateFailed: Bool = false,
 		boosterRule: Rule? = nil,
-		isNewBoosterRule: Bool = false
+		isNewBoosterRule: Bool = false,
+		isNewCertificateReissuance: Bool = false
 	) {
 		self.healthCertificates = healthCertificates
 		self.isPreferredPerson = isPreferredPerson
@@ -25,6 +26,7 @@ class HealthCertifiedPerson: Codable, Equatable, Comparable {
 		self.mostRecentWalletInfoUpdateFailed = mostRecentWalletInfoUpdateFailed
 		self.boosterRule = boosterRule
 		self.isNewBoosterRule = isNewBoosterRule
+		self.isNewCertificateReissuance = isNewCertificateReissuance
 
 		setup()
 	}
@@ -39,6 +41,7 @@ class HealthCertifiedPerson: Codable, Equatable, Comparable {
 		case mostRecentWalletInfoUpdateFailed
 		case boosterRule
 		case isNewBoosterRule
+		case isNewCertificateReissuance
 	}
 
 	required init(from decoder: Decoder) throws {
@@ -51,6 +54,7 @@ class HealthCertifiedPerson: Codable, Equatable, Comparable {
 		mostRecentWalletInfoUpdateFailed = try container.decodeIfPresent(Bool.self, forKey: .mostRecentWalletInfoUpdateFailed) ?? false
 		boosterRule = try container.decodeIfPresent(Rule.self, forKey: .boosterRule)
 		isNewBoosterRule = try container.decodeIfPresent(Bool.self, forKey: .isNewBoosterRule) ?? false
+		isNewCertificateReissuance = try container.decodeIfPresent(Bool.self, forKey: .isNewCertificateReissuance) ?? false
 
 		let decodingContainers = try container.decode([HealthCertificateDecodingContainer].self, forKey: .healthCertificates)
 
@@ -96,19 +100,17 @@ class HealthCertifiedPerson: Codable, Equatable, Comparable {
 		try container.encode(healthCertificates, forKey: .healthCertificates)
 		try container.encode(decodingFailedHealthCertificates, forKey: .decodingFailedHealthCertificates)
 		try container.encode(isPreferredPerson, forKey: .isPreferredPerson)
+		try container.encode(dccWalletInfo, forKey: .dccWalletInfo)
+		try container.encode(mostRecentWalletInfoUpdateFailed, forKey: .mostRecentWalletInfoUpdateFailed)
 		try container.encode(boosterRule, forKey: .boosterRule)
 		try container.encode(isNewBoosterRule, forKey: .isNewBoosterRule)
-		try container.encode(dccWalletInfo, forKey: .dccWalletInfo)
+		try container.encode(isNewCertificateReissuance, forKey: .isNewCertificateReissuance)
 	}
 
 	// MARK: - Protocol Equatable
 
 	static func == (lhs: HealthCertifiedPerson, rhs: HealthCertifiedPerson) -> Bool {
-		lhs.healthCertificates == rhs.healthCertificates &&
-		lhs.isPreferredPerson == rhs.isPreferredPerson &&
-		lhs.boosterRule == rhs.boosterRule &&
-		lhs.isNewBoosterRule == rhs.isNewBoosterRule &&
-		lhs.dccWalletInfo == rhs.dccWalletInfo
+		lhs === rhs
 	}
 
 	// MARK: - Protocol Comparable
@@ -118,7 +120,6 @@ class HealthCertifiedPerson: Codable, Equatable, Comparable {
 		let haveSamePreferredStateAndAreInAlphabeticalOrder = lhs.isPreferredPerson == rhs.isPreferredPerson && lhs.name?.fullName ?? "" < rhs.name?.fullName ?? ""
 
 		return preferredPersonPrecedesNonPreferred || haveSamePreferredStateAndAreInAlphabeticalOrder
-
 	}
 
 	// MARK: - Internal
@@ -169,6 +170,10 @@ class HealthCertifiedPerson: Codable, Equatable, Comparable {
 				isNewBoosterRule = dccWalletInfo?.boosterNotification.identifier != nil
 			}
 
+			if dccWalletInfo?.certificateReissuance != oldValue?.certificateReissuance {
+				isNewCertificateReissuance = dccWalletInfo?.certificateReissuance?.reissuanceDivision.visible == true
+			}
+
 			if dccWalletInfo != nil {
 				/// Once initial dccWalletInfo was calculated, legacy boosterRule property can be set to nil
 				boosterRule = nil
@@ -197,6 +202,14 @@ class HealthCertifiedPerson: Codable, Equatable, Comparable {
 		}
 	}
 
+	@DidSetPublished var isNewCertificateReissuance: Bool {
+		didSet {
+			if isNewCertificateReissuance != oldValue {
+				objectDidChange.send(self)
+			}
+		}
+	}
+
 	/// Only kept around for migration purposes so people that already have a booster rule set don't get a second notification for the same rule
 	var boosterRule: Rule? {
 		didSet {
@@ -214,6 +227,15 @@ class HealthCertifiedPerson: Codable, Equatable, Comparable {
 		healthCertificates.first?.dateOfBirth
 	}
 
+	/// Not a constant identifier, can change if certificates are added or removed!
+	var identifier: String? {
+		guard let name = name?.standardizedName, let dateOfBirth = dateOfBirth else {
+			return nil
+		}
+
+		return ENAHasher.sha256(name + dateOfBirth)
+	}
+
 	var vaccinationCertificates: [HealthCertificate] {
 		healthCertificates.filter { $0.vaccinationEntry != nil }
 	}
@@ -225,7 +247,9 @@ class HealthCertifiedPerson: Codable, Equatable, Comparable {
 	var unseenNewsCount: Int {
 		let certificatesWithNews = healthCertificates.filter { $0.isNew || $0.isValidityStateNew }
 
-		return certificatesWithNews.count + (dccWalletInfo?.boosterNotification.identifier != nil && isNewBoosterRule ? 1 : 0)
+		return certificatesWithNews.count
+			+ (dccWalletInfo?.boosterNotification.identifier != nil && isNewBoosterRule ? 1 : 0)
+			+ (dccWalletInfo?.certificateReissuance?.reissuanceDivision.visible == true && isNewCertificateReissuance ? 1 : 0)
 	}
 
 	var mostRelevantHealthCertificate: HealthCertificate? {

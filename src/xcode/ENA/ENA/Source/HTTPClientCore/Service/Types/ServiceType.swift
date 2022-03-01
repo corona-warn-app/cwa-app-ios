@@ -8,6 +8,4 @@ enum ServiceType {
 	case caching(Set<CacheUsePolicy> = [])
 	case wifiOnly
 	case retrying
-	case dynamicPinning
-	case disabledPinning
 }

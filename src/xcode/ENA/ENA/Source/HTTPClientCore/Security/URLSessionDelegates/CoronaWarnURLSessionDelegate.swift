@@ -13,7 +13,7 @@ final class CoronaWarnURLSessionDelegate: NSObject, URLSessionDelegate {
 	/// - Parameter publicKeyHash: the SHA256 of the certificate to pin
 
 	init(
-		evaluateTrust: EvaluateTrust
+		evaluateTrust: TrustEvaluating
 	) {
 		self.evaluateTrust = evaluateTrust
 	}
@@ -22,7 +22,7 @@ final class CoronaWarnURLSessionDelegate: NSObject, URLSessionDelegate {
 		publicKeyHash: String
 	) {
 		self.init(
-			evaluateTrust: DefaultEvaluateTrust(
+			evaluateTrust: DefaultTrustEvaluation(
 				publicKeyHash: publicKeyHash
 			)
 		)
@@ -30,10 +30,10 @@ final class CoronaWarnURLSessionDelegate: NSObject, URLSessionDelegate {
 
 	convenience init(
 		jwkSet: [JSONWebKey],
-		trustEvaluation: TrustEvaluation = TrustEvaluation()
+		trustEvaluation: ENASecurity.JSONWebKeyTrustEvaluation = ENASecurity.JSONWebKeyTrustEvaluation()
 	) {
 		self.init(
-			evaluateTrust: DynamicEvaluateTrust(
+			evaluateTrust: JSONWebKeyTrustEvaluation(
 				jwkSet: jwkSet,
 				trustEvaluation: trustEvaluation
 			)
@@ -97,5 +97,5 @@ final class CoronaWarnURLSessionDelegate: NSObject, URLSessionDelegate {
 
 	// MARK: - Internal
 
-	var evaluateTrust: EvaluateTrust
+	var evaluateTrust: TrustEvaluating
 }

@@ -12,7 +12,7 @@ class HomeTestResultCellModel {
 
 	init(
 		coronaTestType: CoronaTestType,
-		coronaTestService: CoronaTestService,
+		coronaTestService: CoronaTestServiceProviding,
 		onUpdate: @escaping () -> Void
 	) {
 		self.coronaTestType = coronaTestType
@@ -40,7 +40,7 @@ class HomeTestResultCellModel {
 	// MARK: - Private
 
 	private let coronaTestType: CoronaTestType
-	private let coronaTestService: CoronaTestService
+	private let coronaTestService: CoronaTestServiceProviding
 	private let onUpdate: () -> Void
 
 	private var subscriptions = Set<AnyCancellable>()
@@ -51,7 +51,7 @@ class HomeTestResultCellModel {
 		case .pcr:
 			title = AppStrings.Home.TestResult.pcrTitle
 
-			coronaTestService.$pcrTest
+			coronaTestService.pcrTest
 				.receive(on: DispatchQueue.OCombine(.main))
 				.sink { [weak self] pcrTest in
 					guard let pcrTest = pcrTest else {
@@ -63,10 +63,10 @@ class HomeTestResultCellModel {
 				}
 				.store(in: &subscriptions)
 
-			coronaTestService.$pcrTestResultIsLoading
+			coronaTestService.pcrTestResultIsLoading
 				.receive(on: DispatchQueue.OCombine(.main))
 				.sink { [weak self] testResultIsLoading in
-					if self?.coronaTestService.pcrTest?.finalTestResultReceivedDate == nil {
+					if self?.coronaTestService.pcrTest.value?.finalTestResultReceivedDate == nil {
 						if testResultIsLoading {
 							self?.configureLoading()
 						} else if self?.isActivityIndicatorHidden == false {
@@ -79,13 +79,13 @@ class HomeTestResultCellModel {
 		case .antigen:
 			title = AppStrings.Home.TestResult.antigenTitle
 
-			coronaTestService.$antigenTest
+			coronaTestService.antigenTest
 				.receive(on: DispatchQueue.OCombine(.main))
 				.sink { [weak self] antigenTest in
 					guard
 						let self = self,
 						let antigenTest = antigenTest,
-						!self.coronaTestService.antigenTestIsOutdated
+						!self.coronaTestService.antigenTestIsOutdated.value
 					else {
 						return
 					}
@@ -95,10 +95,10 @@ class HomeTestResultCellModel {
 				}
 				.store(in: &subscriptions)
 
-			coronaTestService.$antigenTestResultIsLoading
+			coronaTestService.antigenTestResultIsLoading
 				.receive(on: DispatchQueue.OCombine(.main))
 				.sink { [weak self] testResultIsLoading in
-					if self?.coronaTestService.antigenTest?.finalTestResultReceivedDate == nil {
+					if self?.coronaTestService.antigenTest.value?.finalTestResultReceivedDate == nil {
 						if testResultIsLoading {
 							self?.configureLoading()
 						} else if self?.isActivityIndicatorHidden == false {
@@ -109,7 +109,7 @@ class HomeTestResultCellModel {
 				}
 				.store(in: &subscriptions)
 
-			coronaTestService.$antigenTestIsOutdated
+			coronaTestService.antigenTestIsOutdated
 				.receive(on: DispatchQueue.OCombine(.main))
 				.sink { [weak self] antigenTestIsOutdated in
 					guard antigenTestIsOutdated else {

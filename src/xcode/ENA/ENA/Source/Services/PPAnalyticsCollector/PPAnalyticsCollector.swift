@@ -14,7 +14,7 @@ enum PPAnalyticsCollector {
 	/// Setup Analytics for regular use. We expect here a secure store.
 	static func setup(
 		store: Store,
-		coronaTestService: CoronaTestService,
+		coronaTestService: CoronaTestServiceProviding,
 		submitter: PPAnalyticsSubmitting,
 		testResultCollector: PPAAnalyticsTestResultCollector,
 		submissionCollector: PPAAnalyticsSubmissionCollector
@@ -130,7 +130,7 @@ enum PPAnalyticsCollector {
 
 	// The real store property.
 	private static var _store: (Store & PPAnalyticsData)?
-	private static var coronaTestService: CoronaTestService?
+	private static var coronaTestService: CoronaTestServiceProviding?
 	private static var submitter: PPAnalyticsSubmitting?
 	private static var testResultCollector: PPAAnalyticsTestResultCollector?
 	private static var submissionCollector: PPAAnalyticsSubmissionCollector?
@@ -302,7 +302,7 @@ extension PPAnalyticsCollector {
 	static func setupMock(
 		store: (Store & PPAnalyticsData)? = nil,
 		submitter: PPAnalyticsSubmitter? = nil,
-		coronaTestService: CoronaTestService? = nil
+		coronaTestService: CoronaTestServiceProviding? = nil
 	) {
 		PPAnalyticsCollector.store = store
 		PPAnalyticsCollector.submitter = submitter

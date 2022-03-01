@@ -14,32 +14,13 @@ class TestResultAvailableViewModelTest: CWATestCase {
 		let expectationFulFill = expectation(description: "primary button code execute")
 		let expectationNotFulFill = expectation(description: "consent cell code execute")
 		expectationNotFulFill.isInverted = true
-		
-		let client = ClientMock()
-		let appConfiguration = CachedAppConfigurationMock()
-		let store = MockTestStore()
-		store.pcrTest = PCRTest.mock(testResult: .positive)
+
+		let coronaTestService = MockCoronaTestService()
+		coronaTestService.pcrTest.value = PCRTest.mock(testResult: .positive)
 		
 		let viewModel = TestResultAvailableViewModel(
 			coronaTestType: .pcr,
-			coronaTestService: CoronaTestService(
-				client: client,
-				store: store,
-				eventStore: MockEventStore(),
-				diaryStore: MockDiaryStore(),
-				appConfiguration: appConfiguration,
-				healthCertificateService: HealthCertificateService(
-					store: store,
-					dccSignatureVerifier: DCCSignatureVerifyingStub(),
-					dscListProvider: MockDSCListProvider(),
-					client: client,
-					appConfiguration: appConfiguration,
-					cclService: FakeCCLService(),
-					recycleBin: .fake()
-				),
-				recycleBin: .fake(),
-				badgeWrapper: .fake()
-			),
+			coronaTestService: coronaTestService,
 			onSubmissionConsentCellTap: { _ in
 				expectationNotFulFill.fulfill()
 			},
@@ -62,31 +43,12 @@ class TestResultAvailableViewModelTest: CWATestCase {
 		expectationNotFulFill.isInverted = true
 		var bindings: Set<AnyCancellable> = []
 		
-		let client = ClientMock()
-		let appConfiguration = CachedAppConfigurationMock()
-		let store = MockTestStore()
-		store.pcrTest = PCRTest.mock(testResult: .positive)
-		
+		let coronaTestService = MockCoronaTestService()
+		coronaTestService.pcrTest.value = PCRTest.mock(testResult: .positive)
+
 		let viewModel = TestResultAvailableViewModel(
 			coronaTestType: .pcr,
-			coronaTestService: CoronaTestService(
-				client: client,
-				store: store,
-				eventStore: MockEventStore(),
-				diaryStore: MockDiaryStore(),
-				appConfiguration: appConfiguration,
-				healthCertificateService: HealthCertificateService(
-					store: store,
-					dccSignatureVerifier: DCCSignatureVerifyingStub(),
-					dscListProvider: MockDSCListProvider(),
-					client: client,
-					appConfiguration: appConfiguration,
-					cclService: FakeCCLService(),
-					recycleBin: .fake()
-				),
-				recycleBin: .fake(),
-				badgeWrapper: .fake()
-			),
+			coronaTestService: coronaTestService,
 			onSubmissionConsentCellTap: { _ in
 				expectationNotFulFill.fulfill()
 			},
@@ -118,31 +80,12 @@ class TestResultAvailableViewModelTest: CWATestCase {
 		expectationNotFulFill.isInverted = true
 		var bindings: Set<AnyCancellable> = []
 		
-		let client = ClientMock()
-		let appConfiguration = CachedAppConfigurationMock()
-		let store = MockTestStore()
-		store.pcrTest = PCRTest.mock(testResult: .positive)
-		
+		let coronaTestService = MockCoronaTestService()
+		coronaTestService.pcrTest.value = PCRTest.mock(testResult: .positive)
+
 		let viewModel = TestResultAvailableViewModel(
 			coronaTestType: .pcr,
-			coronaTestService: CoronaTestService(
-				client: client,
-				store: store,
-				eventStore: MockEventStore(),
-				diaryStore: MockDiaryStore(),
-				appConfiguration: appConfiguration,
-				healthCertificateService: HealthCertificateService(
-					store: store,
-					dccSignatureVerifier: DCCSignatureVerifyingStub(),
-					dscListProvider: MockDSCListProvider(),
-					client: client,
-					appConfiguration: appConfiguration,
-					cclService: FakeCCLService(),
-					recycleBin: .fake()
-				),
-				recycleBin: .fake(),
-				badgeWrapper: .fake()
-			),
+			coronaTestService: coronaTestService,
 			onSubmissionConsentCellTap: { _ in
 				expectationFulFill.fulfill()
 			},

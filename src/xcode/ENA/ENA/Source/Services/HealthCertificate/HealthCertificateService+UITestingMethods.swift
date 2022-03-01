@@ -68,7 +68,7 @@ extension HealthCertificateService {
 			let testCert1 = DigitalCovidCertificateFake.makeBase45Fake(
 				from: DigitalCovidCertificate.fake(
 					name: .fake(familyName: "Schneider", givenName: "Andrea", standardizedFamilyName: "SCHNEIDER", standardizedGivenName: "ANDREA"),
-					testEntries: [TestEntry.fake(dateTimeOfSampleCollection: "2021-04-12T16:01:00Z")]
+					testEntries: [TestEntry.fake(dateTimeOfSampleCollection: "2021-04-12T16:01:00Z", uniqueCertificateIdentifier: "1")]
 				),
 				and: CBORWebTokenHeader.fake(expirationTime: expirationTime)
 			)
@@ -78,7 +78,7 @@ extension HealthCertificateService {
 			let testCert2 = DigitalCovidCertificateFake.makeBase45Fake(
 				from: DigitalCovidCertificate.fake(
 					name: .fake(familyName: "Schneider", givenName: "Toni", standardizedFamilyName: "SCHNEIDER", standardizedGivenName: "TONI"),
-					testEntries: [TestEntry.fake(dateTimeOfSampleCollection: "2021-04-12T17:01:00Z")]
+					testEntries: [TestEntry.fake(dateTimeOfSampleCollection: "2021-04-12T17:01:00Z", uniqueCertificateIdentifier: "2")]
 				),
 				and: CBORWebTokenHeader.fake(expirationTime: expirationTime)
 			)
@@ -88,7 +88,7 @@ extension HealthCertificateService {
 			let testCert3 = DigitalCovidCertificateFake.makeBase45Fake(
 				from: DigitalCovidCertificate.fake(
 					name: .fake(familyName: "Schneider", givenName: "Victoria", standardizedFamilyName: "SCHNEIDER", standardizedGivenName: "VICTORIA"),
-					testEntries: [TestEntry.fake(dateTimeOfSampleCollection: "2021-04-13T18:01:00Z")]
+					testEntries: [TestEntry.fake(dateTimeOfSampleCollection: "2021-04-13T18:01:00Z", uniqueCertificateIdentifier: "3")]
 				),
 				and: CBORWebTokenHeader.fake(expirationTime: expirationTime)
 			)
@@ -98,7 +98,7 @@ extension HealthCertificateService {
 			let testCert4 = DigitalCovidCertificateFake.makeBase45Fake(
 				from: DigitalCovidCertificate.fake(
 					name: .fake(familyName: "Schneider", givenName: "Thomas", standardizedFamilyName: "SCHNEIDER", standardizedGivenName: "THOMAS"),
-					testEntries: [TestEntry.fake(dateTimeOfSampleCollection: "2021-04-15T12:01:00Z")]
+					testEntries: [TestEntry.fake(dateTimeOfSampleCollection: "2021-04-15T12:01:00Z", uniqueCertificateIdentifier: "4")]
 				),
 				and: CBORWebTokenHeader.fake(expirationTime: expirationTime)
 			)
@@ -192,7 +192,59 @@ extension HealthCertificateService {
 			boosterNotification: DCCBoosterNotification(visible: true, identifier: "hello", titleText: titleText, subtitleText: subtitleText, longText: testLongText, faqAnchor: "test"),
 			mostRelevantCertificate: dccWalletInfo.mostRelevantCertificate,
 			verification: dccWalletInfo.verification,
-			validUntil: dccWalletInfo.validUntil
+			validUntil: dccWalletInfo.validUntil,
+			certificateReissuance: dccWalletInfo.certificateReissuance
+		)
+	}
+
+	func updateDccWalletInfoForMockCertificateReissuance(dccWalletInfo: DCCWalletInfo) -> DCCWalletInfo {
+		let titleText = DCCUIText(
+			type: "string",
+			quantity: nil,
+			quantityParameterIndex: nil,
+			functionName: nil,
+			localizedText: ["de": "Zertifikat aktualisieren"],
+			parameters: []
+		)
+
+		let subtitleText = DCCUIText(
+			type: "string",
+			quantity: nil,
+			quantityParameterIndex: nil,
+			functionName: nil,
+			localizedText: ["de": "Neuausstellung direkt über die App vornehmen"],
+			parameters: []
+		)
+
+		let testLongText = DCCUIText(
+			type: "string",
+			quantity: nil,
+			quantityParameterIndex: nil,
+			functionName: nil,
+			localizedText: ["de": "Die Spezifikationen der EU für Booster-Impfzertifikate wurden geändert. Dieses Zertifikat entspricht nicht den aktuellen Spezifikationen. Das Impfzertifikat ist zwar weiterhin gültig, es kann jedoch sein, dass bei einer Prüfung die Booster-Impfung nicht erkannt wird. Bitte lassen Sie sich daher ein neues Impfzertifikat ausstellen.\n\nSie können ein neues Impfzertifikat direkt kostenlos über die App anfordern. Hierfür ist Ihr Einverständnis erforderlich."],
+			parameters: []
+		)
+
+		return DCCWalletInfo(
+			admissionState: dccWalletInfo.admissionState,
+			vaccinationState: dccWalletInfo.vaccinationState,
+			boosterNotification: dccWalletInfo.boosterNotification,
+			mostRelevantCertificate: dccWalletInfo.mostRelevantCertificate,
+			verification: dccWalletInfo.verification,
+			validUntil: dccWalletInfo.validUntil,
+			certificateReissuance: DCCCertificateReissuance(
+				reissuanceDivision: DCCCertificateReissuanceDivision(
+					visible: true,
+					titleText: titleText,
+					subtitleText: subtitleText,
+					longText: testLongText,
+					faqAnchor: "certificateReissuance"
+				),
+				certificateToReissue: DCCCertificateContainer(
+					certificateRef: DCCCertificateReference(barcodeData: "")
+				),
+				accompanyingCertificates: []
+			)
 		)
 	}
 	#endif

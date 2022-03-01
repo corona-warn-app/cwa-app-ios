@@ -19,14 +19,22 @@ enum DCCWalletInfoAccessError: Error {
 	case failedFunctionsEvaluation(Error)
 }
 
+enum DCCAdmissionCheckScenariosAccessError: Error {
+	case failedFunctionsEvaluation(Error)
+}
+
 protocol CCLServable {
 
 	var configurationVersion: String { get }
 	
+	var dccAdmissionCheckScenariosEnabled: Bool { get }
+	
 	func updateConfiguration(completion: @escaping (_ didChange: Bool) -> Void)
 	
-	func dccWalletInfo(for certificates: [DCCWalletCertificate]) -> Swift.Result<DCCWalletInfo, DCCWalletInfoAccessError>
+	func dccWalletInfo(for certificates: [DCCWalletCertificate], with identifier: String?) -> Swift.Result<DCCWalletInfo, DCCWalletInfoAccessError>
 	
+	func dccAdmissionCheckScenarios() -> Swift.Result<DCCAdmissionCheckScenarios, DCCAdmissionCheckScenariosAccessError>
+
 	func evaluateFunctionWithDefaultValues<T: Decodable>(name: String, parameters: [String: AnyDecodable]) throws -> T
 
 }
@@ -47,10 +55,12 @@ class CCLService: CCLServable {
 	/// - signatureVerifier: for fake CBOR Receive Resources to work
 	init(
 		_ restServiceProvider: RestServiceProviding,
+		appConfiguration: AppConfigurationProviding,
 		cclServiceMode: [CCLServiceMode] = [.configuration, .boosterRules],
 		signatureVerifier: SignatureVerification = SignatureVerifier()
 	) {
 		self.restServiceProvider = restServiceProvider
+		self.appConfiguration = appConfiguration
 		self.cclServiceMode = cclServiceMode
 
 		var cclConfigurationResource = CCLConfigurationResource()
@@ -96,6 +106,10 @@ class CCLService: CCLServable {
 			.joined(separator: ", ")
 	}
 
+	var dccAdmissionCheckScenariosEnabled: Bool {
+		return self.appConfiguration.featureProvider.boolValue(for: .dccAdmissionCheckScenariosEnabled)
+	}
+	
 	func updateConfiguration(
 		completion: @escaping (_ didChange: Bool) -> Void
 	) {
@@ -148,12 +162,35 @@ class CCLService: CCLServable {
 		}
 	}
 	
+	func dccAdmissionCheckScenarios() -> Swift.Result<DCCAdmissionCheckScenarios, DCCAdmissionCheckScenariosAccessError> {
+		#if DEBUG
+		if isUITesting {
+			return .success(mockDCCAdmissionCheckScenarios)
+		}
+		#endif
+
+		let getAdmissionCheckScenariosInput = GetAdmissionCheckScenariosInput.make()
+		
+		do {
+			let admissionCheckScenarios: DCCAdmissionCheckScenarios = try jsonFunctions.evaluateFunction(
+				name: "getDccAdmissionCheckScenarios",
+				parameters: getAdmissionCheckScenariosInput
+			)
+			
+			return .success(admissionCheckScenarios)
+		} catch {
+			return .failure(.failedFunctionsEvaluation(error))
+		}
+	}
+	
 	func dccWalletInfo(
-		for certificates: [DCCWalletCertificate]
+		for certificates: [DCCWalletCertificate],
+		with identifer: String? = ""
 	) -> Swift.Result<DCCWalletInfo, DCCWalletInfoAccessError> {
 		let getWalletInfoInput = GetWalletInfoInput.make(
 			certificates: certificates,
-			boosterNotificationRules: boosterNotificationRules
+			boosterNotificationRules: boosterNotificationRules,
+			identifier: identifer
 		)
 		
 		do {
@@ -161,6 +198,7 @@ class CCLService: CCLServable {
 				name: "getDccWalletInfo",
 				parameters: getWalletInfoInput
 			)
+			
 			return .success(walletInfo)
 		} catch {
 			return .failure(.failedFunctionsEvaluation(error))
@@ -178,6 +216,8 @@ class CCLService: CCLServable {
 	// MARK: - Private
 
 	private let restServiceProvider: RestServiceProviding
+	private let appConfiguration: AppConfigurationProviding
+
 	private let jsonFunctions: JsonFunctions = JsonFunctions()
 
 	private let cclConfigurationResource: CCLConfigurationResource
@@ -187,6 +227,61 @@ class CCLService: CCLServable {
 
 	private var boosterNotificationRules: [Rule]
 	private var cclConfigurations: [CCLConfiguration]
+
+	#if DEBUG
+	private var mockDCCAdmissionCheckScenarios: DCCAdmissionCheckScenarios {
+		let statusTitle = DCCUIText(
+			type: "string",
+			quantity: nil,
+			quantityParameterIndex: nil,
+			functionName: nil,
+			localizedText: ["de": "Status für folgendes Bundesland"],
+			parameters: []
+		)
+		
+		let buttonTitle = DCCUIText(
+			type: "string",
+			quantity: nil,
+			quantityParameterIndex: nil,
+			functionName: nil,
+			localizedText: ["de": "Regeln des Bundes"],
+			parameters: []
+		)
+
+		let countrySubtitle = DCCUIText(
+			type: "string",
+			quantity: nil,
+			quantityParameterIndex: nil,
+			functionName: nil,
+			localizedText: ["de": "Regeln in Ihrem Bundesland können davon abweichen"],
+			parameters: []
+		)
+		
+		let bwTitle = DCCUIText(
+			type: "string",
+			quantity: nil,
+			quantityParameterIndex: nil,
+			functionName: nil,
+			localizedText: ["de": "Baden Württemberg"],
+			parameters: []
+		)
+		
+		let berlinTitle = DCCUIText(
+			type: "string",
+			quantity: nil,
+			quantityParameterIndex: nil,
+			functionName: nil,
+			localizedText: ["de": "Berlin"],
+			parameters: []
+		)
+		
+		let entireCountry = DCCScenarioSelectionItem(identifier: "DE", titleText: buttonTitle, subtitleText: countrySubtitle, enabled: true)
+		let bw = DCCScenarioSelectionItem(identifier: "BW", titleText: bwTitle, subtitleText: nil, enabled: true)
+		let berlin = DCCScenarioSelectionItem(identifier: "Berlin", titleText: berlinTitle, subtitleText: nil, enabled: true)
+		
+		return DCCAdmissionCheckScenarios(labelText: statusTitle, scenarioSelection: DCCScenarioSelection(titleText: buttonTitle, items: [entireCountry, bw, berlin]))
+	}
+	#endif
 
 	private func getConfigurations(
 		completion: @escaping (Swift.Result<[CCLConfiguration], CCLDownloadError>) -> Void

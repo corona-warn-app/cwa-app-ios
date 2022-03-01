@@ -66,6 +66,7 @@ class DismissHandlingNavigationController: UINavigationController, UIAdaptivePre
 		navigationBar.shadowImage = emptyImage
 		navigationBar.isTranslucent = true
 		view.backgroundColor = .clear
+		navigationBar.tintColor = .clear
 
 		navigationBar.prefersLargeTitles = false
 		navigationBar.sizeToFit()
@@ -76,6 +77,7 @@ class DismissHandlingNavigationController: UINavigationController, UIAdaptivePre
 		navigationBar.shadowImage = shadowImage
 		navigationBar.isTranslucent = isTranslucent
 		view.backgroundColor = backgroundColor
+		navigationBar.tintColor = .enaColor(for: .tint)
 
 		// reset to initial values
 		backgroundImage = nil

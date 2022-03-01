@@ -274,13 +274,16 @@ final class TicketValidation: TicketValidating {
 
 		Log.debug("Request document of service identity at URL: \(private: url)", log: .ticketValidation)
 
-		let resource = ServiceIdentityDocumentResource(endpointUrl: url)
-		restServiceProvider.update(
-			AllowListEvaluationTrust(
-				allowList: allowList.validationServiceAllowList,
-				trustEvaluation: TrustEvaluation()
-			)
+		let trustEvaluation = AllowListEvaluationTrust(
+			allowList: allowList.validationServiceAllowList,
+			trustEvaluation: ENASecurity.JSONWebKeyTrustEvaluation()
 		)
+
+		let resource = ServiceIdentityDocumentResource(
+			endpointUrl: url,
+			trustEvaluation: trustEvaluation
+		)
+
 		restServiceProvider.load(resource) { [weak self] result in
 			switch result {
 			case .success(let serviceIdentityDocument):
@@ -315,20 +318,18 @@ final class TicketValidation: TicketValidating {
 
 		Log.debug("Request access token at URL: \(private: url)", log: .ticketValidation)
 
+		let trustEvaluation = JSONWebKeyTrustEvaluation(
+			jwkSet: accessTokenServiceJwkSet,
+			trustEvaluation: ENASecurity.JSONWebKeyTrustEvaluation()
+		)
         let resource = TicketValidationAccessTokenResource(
             accessTokenServiceURL: url,
             jwt: jwt,
             sendModel: TicketValidationAccessTokenSendModel(
                 service: validationService.id,
                 pubKey: publicKeyBase64
-            )
-        )
-
-        restServiceProvider.update(
-            DynamicEvaluateTrust(
-                jwkSet: accessTokenServiceJwkSet,
-                trustEvaluation: TrustEvaluation()
-            )
+            ),
+			trustEvaluation: trustEvaluation
         )
 
         Log.info("Ticket Validation: Requesting access token", log: .ticketValidation)
@@ -374,6 +375,11 @@ final class TicketValidation: TicketValidating {
 
 		Log.debug("Request result token at URL: \(private: url)", log: .ticketValidation)
 
+		let trustEvaluation = AllowListEvaluationTrust(
+			allowList: allowList.validationServiceAllowList,
+			trustEvaluation: ENASecurity.JSONWebKeyTrustEvaluation()
+		)
+
 		let resource = TicketValidationResultTokenResource(
 			resultTokenServiceURL: url,
 			jwt: jwt,
@@ -384,14 +390,8 @@ final class TicketValidation: TicketValidating {
 				encKey: encryptionKeyBase64,
 				encScheme: encryptionScheme.rawValue,
 				sigAlg: signatureAlgorithm
-			)
-		)
-
-		restServiceProvider.update(
-			AllowListEvaluationTrust(
-				allowList: allowList.validationServiceAllowList,
-				trustEvaluation: TrustEvaluation()
-			)
+			),
+			trustEvaluation: trustEvaluation
 		)
 
 		Log.info("Ticket Validation: Requesting result token", log: .ticketValidation)

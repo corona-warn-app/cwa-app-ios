@@ -14,7 +14,7 @@ class DMPPAMostRecentData: UIViewController {
 		store: Store,
 		client: Client,
 		appConfig: AppConfigurationProviding,
-		coronaTestService: CoronaTestService,
+		coronaTestService: CoronaTestServiceProviding,
 		ppacService: PrivacyPreservingAccessControl
 	) {
 		self.store = store
