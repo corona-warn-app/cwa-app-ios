@@ -39,7 +39,7 @@ final class HealthCertificateReissuanceConsentViewModel {
 					cells: [
 						.certificate(certificate, certifiedPerson: certifiedPerson),
 						titleDynamicCell,
-						subtileDynamicCell,
+						subtitleDynamicCell,
 						longTextDynamicCell
 					]
 						.compactMap({ $0 })
@@ -211,12 +211,12 @@ final class HealthCertificateReissuanceConsentViewModel {
 		return DynamicCell.title2(text: title)
 	}
 
-	private var subtileDynamicCell: DynamicCell? {
+	private var subtitleDynamicCell: DynamicCell? {
 		guard let subtitle = certifiedPerson.dccWalletInfo?.certificateReissuance?.reissuanceDivision.subtitleText?.localized(cclService: cclService) else {
 			Log.info("subtitle missing")
 			return nil
 		}
-		return DynamicCell.subheadline(text: subtitle)
+		return DynamicCell.subheadline(text: subtitle, color: .enaColor(for: .textPrimary2))
 	}
 
 	private var longTextDynamicCell: DynamicCell? {
