@@ -58,15 +58,8 @@ final class HealthCertificateReissuanceCoordinator {
 			didTapDataPrivacy: { [weak self] in
 				self?.showDataPrivacy()
 			},
-			presentAlert: { [weak self] okAction, retryAction in
-				let alert = UIAlertController(
-					title: AppStrings.HealthCertificate.Reissuance.Consent.defaultAlertTitle,
-					message: AppStrings.HealthCertificate.Reissuance.Consent.defaultAlertMessage,
-					preferredStyle: .alert
-				)
-				alert.addAction(okAction)
-				alert.addAction(retryAction)
-				self?.navigationController.present(alert, animated: true)
+			onError: { [weak self] error in
+				self?.showReissuanceError(error)
 			},
 			onReissuanceSuccess: { [weak self] in
 				self?.showReissuanceSucceeded()
@@ -102,6 +95,23 @@ final class HealthCertificateReissuanceCoordinator {
 		detailViewController.navigationItem.largeTitleDisplayMode = .always
 		detailViewController.navigationItem.hidesBackButton = false
 		navigationController.pushViewController(detailViewController, animated: true)
+	}
+
+	private func showReissuanceError(_ error: HealthCertificateReissuanceError) {
+		let alert = UIAlertController(
+			title: AppStrings.HealthCertificate.Reissuance.Consent.defaultAlertTitle,
+			message: error.localizedDescription,
+			preferredStyle: .alert
+		)
+
+		alert.addAction(
+			UIAlertAction(
+				title: AppStrings.HealthCertificate.Reissuance.Consent.defaultAlertOKButton,
+				style: .default
+			)
+		)
+
+		navigationController.present(alert, animated: true)
 	}
 
 	private func showReissuanceSucceeded() {
