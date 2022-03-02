@@ -2836,7 +2836,7 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "HealthCertificate_Overview_TestCertificate" = "Testzertifikat";
 
-"HealthCertificate_Overview_Scanning_Info" = "Fügen Sie weitere Zertifikate über den QR-Code-Scanner in der unteren Navigationsleiste hinzu";
+"HealthCertificate_Overview_Scanning_Info" = "Fügen Sie weitere Zertifikate über den QR-Code-Scanner in der unteren Navigationsleiste hinzu.";
 
 "HealthCertificate_Admission_Scenario_Status_Label" = "Status für folgendes Bundesland";
 
