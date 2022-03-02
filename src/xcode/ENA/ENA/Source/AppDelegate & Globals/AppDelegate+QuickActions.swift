@@ -138,7 +138,9 @@ extension AppDelegate {
 			
 			// dismiss an overlaying, modally presented view controller
 			coordinator.checkinTabCoordinator?.viewController.presentedViewController?.dismiss(animated: false, completion: nil)
-			
+						// open qr code scanner for fast event checkin
+			coordinator.checkinTabCoordinator?.showQRCodeScanner()
+
 		case QuickAction.diaryNewEntry.rawValue:
 			Log.info("Shortcut: Open new diary entry", log: .ui)
 			guard let tabBarController = coordinator.tabBarController else { return }
