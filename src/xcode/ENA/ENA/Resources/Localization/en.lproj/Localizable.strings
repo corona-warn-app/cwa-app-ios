@@ -2299,13 +2299,7 @@
 
 /* Quick Actions a.k.a. shortcuts */
 
-"QuickAction_qrCodeScanner" = "Scan QR code";
-
-"QuickAction_showCertificates" = "Show certificates";
-
 "QuickAction_eventCheckin" = "Check In";
-
-"QuickAction_newContactDiaryEntry" = "Add Journal Entry for Today";
 
 /* Checkins */
 "Checkins_Overview_Title" = "My Check-Ins";
