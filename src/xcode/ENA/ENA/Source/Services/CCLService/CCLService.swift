@@ -108,7 +108,7 @@ class CCLService: CCLServable {
 
 	var dccAdmissionCheckScenariosEnabled: Bool {
 		#if DEBUG
-		if isUITesting && LaunchArguments.healthCertificate.isDCCAdmissionCheckScenariosEnabled.boolValue == true {
+		if isUITesting && LaunchArguments.healthCertificate.isDCCAdmissionCheckScenariosEnabled.boolValue {
 			return true
 		}
 		#endif
