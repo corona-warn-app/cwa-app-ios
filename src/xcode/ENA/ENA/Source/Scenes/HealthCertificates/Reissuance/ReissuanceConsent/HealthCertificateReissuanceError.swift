@@ -31,7 +31,6 @@ enum HealthCertificateReissuanceError: LocalizedError {
 			default:
 				return serviceError.localizedDescription
 			}
-
 		}
 	}
 
