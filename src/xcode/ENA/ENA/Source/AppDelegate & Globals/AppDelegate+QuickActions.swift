@@ -66,8 +66,6 @@ enum QuickAction: String {
 					UIApplicationShortcutItem(type: QuickAction.eventCheckin.rawValue, localizedTitle: AppStrings.QuickActions.eventCheckin, localizedSubtitle: nil, icon: UIApplicationShortcutIcon(templateImageName: "Icons_Tabbar_Checkin"))
 				]
 			)
-				UIApplicationShortcutItem(type: QuickAction.qrCodeScanner.rawValue, localizedTitle: AppStrings.QuickActions.qrCodeScanner, localizedSubtitle: nil, icon: UIApplicationShortcutIcon(templateImageName: "qrcode.viewfinder"))
-			)
 		}
 		
 		application.shortcutItems = shortcutItems
