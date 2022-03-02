@@ -18,7 +18,9 @@ final class HealthCertificatesTabCoordinator {
 		healthCertificateValidationService: HealthCertificateValidationProviding,
 		healthCertificateValidationOnboardedCountriesProvider: HealthCertificateValidationOnboardedCountriesProviding,
 		vaccinationValueSetsProvider: VaccinationValueSetsProviding,
-		qrScannerCoordinator: QRScannerCoordinator
+		qrScannerCoordinator: QRScannerCoordinator,
+		appConfigProvider: AppConfigurationProviding,
+		restServiceProvider: RestServiceProviding
 	) {
 		self.store = store
 		self.cclService = cclService
@@ -28,6 +30,8 @@ final class HealthCertificatesTabCoordinator {
 		self.healthCertificateValidationOnboardedCountriesProvider = healthCertificateValidationOnboardedCountriesProvider
 		self.vaccinationValueSetsProvider = vaccinationValueSetsProvider
 		self.qrScannerCoordinator = qrScannerCoordinator
+		self.appConfigProvider = appConfigProvider
+		self.restServiceProvider = restServiceProvider
 		self.cclScenariosHelper = CCLScenariosHelper(cclService: cclService, store: store)
 		
 		#if DEBUG
@@ -93,8 +97,9 @@ final class HealthCertificatesTabCoordinator {
 	private let vaccinationValueSetsProvider: VaccinationValueSetsProviding
 	private let qrScannerCoordinator: QRScannerCoordinator
 	private let activityIndicatorView = QRScannerActivityIndicatorView(title: AppStrings.HealthCertificate.Overview.loadingIndicatorLabel)
+	private let appConfigProvider: AppConfigurationProviding
+	private let restServiceProvider: RestServiceProviding
 	private let cclScenariosHelper: CCLScenariosHelper
-
 	private var certificateCoordinator: HealthCertificateCoordinator?
 	private var healthCertifiedPersonCoordinator: HealthCertifiedPersonCoordinator?
 
@@ -138,6 +143,10 @@ final class HealthCertificatesTabCoordinator {
 						}
 					)
 				)
+			},
+			showAlertAfterRegroup: { [weak self] in
+				self?.showAlertAfterRegrouping()
+				self?.store.shouldShowRegroupingAlert = false
 			}
 		)
 	}()
@@ -268,9 +277,12 @@ final class HealthCertificatesTabCoordinator {
 					healthCertificate: healthCertificate,
 					isPushed: isPushed
 				)
-			}, presentCovPassInfoScreen: { [weak self] viewController in
+			},
+			presentCovPassInfoScreen: { [weak self] viewController in
 				self?.presentCovPassInfoScreen(rootViewController: viewController)
-			}
+			},
+			appConfigProvider: appConfigProvider,
+			restServiceProvider: restServiceProvider
 		)
 		healthCertifiedPersonCoordinator?.showHealthCertifiedPerson(healthCertifiedPerson)
 	}
@@ -354,6 +366,26 @@ final class HealthCertificatesTabCoordinator {
 			self.viewController.present(alert, animated: true, completion: nil)
 		}
 	}
+
+	private func showAlertAfterRegrouping() {
+		let alert = UIAlertController(
+			title: AppStrings.HealthCertificate.FaultTolerantNaming.title,
+			message: AppStrings.HealthCertificate.FaultTolerantNaming.message,
+			preferredStyle: .alert
+		)
+
+		let okAction = UIAlertAction(
+			title: AppStrings.HealthCertificate.FaultTolerantNaming.okayButton,
+			style: .cancel,
+			handler: { _ in
+				alert.dismiss(animated: true)
+			}
+		)
+
+		alert.addAction(okAction)
+
+		self.viewController.present(alert, animated: true, completion: nil)
+	}
 	
 	private func showAdmissionScenarios() {
 		let result = self.cclScenariosHelper.viewModelForAdmissionScenarios()
@@ -389,5 +421,4 @@ final class HealthCertificatesTabCoordinator {
 			self.showErrorAlert(title: AppStrings.HealthCertificate.Error.title, error: error)
 		}
 	}
-
 }

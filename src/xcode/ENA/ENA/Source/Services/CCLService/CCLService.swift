@@ -107,6 +107,12 @@ class CCLService: CCLServable {
 	}
 
 	var dccAdmissionCheckScenariosEnabled: Bool {
+		#if DEBUG
+		if isUITesting && LaunchArguments.healthCertificate.isDCCAdmissionCheckScenariosEnabled.boolValue {
+			return true
+		}
+		#endif
+		
 		return self.appConfiguration.featureProvider.boolValue(for: .dccAdmissionCheckScenariosEnabled)
 	}
 	

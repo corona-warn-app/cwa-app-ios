@@ -1456,6 +1456,11 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "App_Information_Contact_Form_Title" = "Kontaktformular";
 
+/* App Information - Accessibility */
+
+"App_Information_Accessibility_Navigation" = "Barrierefreiheitserklärung";
+
+
 /* App Information - Legal */
 "App_Information_Legal_Navigation" = "Rechtliche Hinweise";
 
@@ -2835,7 +2840,7 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "HealthCertificate_Overview_TestCertificate" = "Testzertifikat";
 
-"HealthCertificate_Overview_Scanning_Info" = "Fügen Sie weitere Zertifikate über den QR-Code-Scanner in der unteren Navigationsleiste hinzu";
+"HealthCertificate_Overview_Scanning_Info" = "Fügen Sie weitere Zertifikate über den QR-Code-Scanner in der unteren Navigationsleiste hinzu.";
 
 "HealthCertificate_Admission_Scenario_Status_Label" = "Status für folgendes Bundesland";
 
@@ -3096,6 +3101,14 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 "HealthCertificate_PrintPdf_ErrorAlert_ValueSetsFetching_Title" = "Druckversion anzeigen nicht möglich";
 
 "HealthCertificate_PrintPdf_ErrorAlert_ValueSetsFetching_Message" = "Die Druckversion des Zertifikats kann nicht angezeigt werden, da das Zertifikat momentan nicht abgerufen werden kann. Bitte versuchen Sie es später noch einmal.";
+
+/* Certificate Fault Tolerant Naming */
+
+"HealthCertificate_FaultTolerantNaming_RegroupDone_Title" = "Zuordnung von Zertifikaten";
+
+"HealthCertificate_FaultTolerantNaming_RegroupDone_Message" = "Die Gruppierung von Zertifikaten wurde verbessert. Zertifikate mit geringen Namensunterschieden werden nicht mehr verschiedenen Personen zugeordnet.";
+
+"HealthCertificate_FaultTolerantNaming_RegroupDone_OkayButton" = "OK";
 
 /* Health Certificate Errors */
 

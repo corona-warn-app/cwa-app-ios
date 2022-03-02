@@ -7,8 +7,64 @@ import XCTest
 import HealthCertificateToolkit
 @testable import ENA
 
+// swiftlint:disable file_length
 // swiftlint:disable type_body_length
 class HealthCertificateMigratorTests: XCTestCase {
+
+	func testGIVEN_4_Persons_WHEN_Migration_THEN_GroupingIsNotChanged() throws {
+
+		// GIVEN
+		let thomas01 = HealthCertifiedPerson(
+			healthCertificates: [
+				try HealthCertificate(
+					base45: try thomasCert01(),
+					isNew: true
+				)],
+			isPreferredPerson: true
+		)
+
+		let ulrike01 = HealthCertifiedPerson(
+			healthCertificates: [
+				try HealthCertificate(
+					base45: try ulrikeCert01(),
+					isValidityStateNew: true
+				)
+			]
+		)
+		let store = MockTestStore(healthCertifiedPersonsVersion: 2)
+		store.healthCertifiedPersons = [
+			thomas01,
+			ulrike01
+		]
+
+		// WHEN
+		let migrator = HealthCertificateMigrator()
+		migrator.migrate(store: store)
+		let migratedPersons = store.healthCertifiedPersons
+
+		// THEN
+
+		// Test grouing
+		XCTAssertEqual(migratedPersons.count, 2)
+		let thomas = migratedPersons[0]
+		let ulrike = migratedPersons[1]
+
+		XCTAssertEqual(thomas.name, thomas01.name)
+		XCTAssertEqual(thomas.healthCertificates.count, 1)
+		XCTAssertEqual(ulrike.name, ulrike01.name)
+		XCTAssertEqual(ulrike.healthCertificates.count, 1)
+		// Test migrated properties
+		XCTAssertTrue(thomas.isPreferredPerson)
+		XCTAssertFalse(thomas.mostRecentWalletInfoUpdateFailed)
+		XCTAssertNil(thomas.boosterRule)
+		XCTAssertFalse(thomas.isNewBoosterRule)
+		XCTAssertTrue(ulrike.healthCertificates[0].isValidityStateNew)
+		XCTAssertFalse(ulrike.isPreferredPerson)
+		XCTAssertNil(ulrike.dccWalletInfo)
+		XCTAssertFalse(ulrike.mostRecentWalletInfoUpdateFailed)
+		XCTAssertNil(ulrike.boosterRule)
+		XCTAssertFalse(ulrike.isNewBoosterRule)
+	}
 	
 	func testGIVEN_4_Persons_Order_1_WHEN_Migration_THEN_Grouped_to_2_Persons() throws {
 		
@@ -410,6 +466,92 @@ class HealthCertificateMigratorTests: XCTestCase {
 			XCTAssertEqual(migratedPersons[2].name, ulrike01.name)
 			XCTAssertEqual(migratedPersons[2].healthCertificates.count, 2)
 		}
+	}
+
+	func testGIVEN_SomePersons_WHEN_MigrationRegroupsNot_THEN_ShouldShowRegroupingAlertIsFalse() throws {
+		// GIVEN
+		let thomas01 = HealthCertifiedPerson(healthCertificates: [
+			try HealthCertificate(base45: try thomasCert01())
+		])
+
+		let ulrike01 = HealthCertifiedPerson(healthCertificates: [
+			try HealthCertificate(base45: try ulrikeCert01())
+		])
+		let store = MockTestStore(healthCertifiedPersonsVersion: 2)
+		store.healthCertifiedPersons = [
+			thomas01,
+			ulrike01
+		]
+
+		XCTAssertFalse(store.shouldShowRegroupingAlert)
+
+		// WHEN
+		let migrator = HealthCertificateMigrator()
+		migrator.migrate(store: store)
+		let migratedPersons = store.healthCertifiedPersons
+
+		// THEN
+
+		// Test grouing
+		XCTAssertEqual(migratedPersons.count, 2)
+		let thomas = migratedPersons[0]
+		let ulrike = migratedPersons[1]
+
+		XCTAssertEqual(thomas.name, thomas01.name)
+		XCTAssertEqual(thomas.healthCertificates.count, 1)
+		XCTAssertEqual(ulrike.name, ulrike01.name)
+		XCTAssertEqual(ulrike.healthCertificates.count, 1)
+		XCTAssertFalse(store.shouldShowRegroupingAlert)
+
+	}
+
+	func testGIVEN_SomePersons_WHEN_MigrationRegroups_THEN_ShouldShowRegroupingAlertIsTrue() throws {
+		// GIVEN
+		let thomas01 = HealthCertifiedPerson(healthCertificates: [
+			try HealthCertificate(base45: try thomasCert01())
+		])
+		let thomas02 = HealthCertifiedPerson(healthCertificates: [
+			try HealthCertificate(base45: try thomasCert02())
+		])
+		let thomas03 = HealthCertifiedPerson(healthCertificates: [
+			try HealthCertificate(base45: try thomasCert03())
+		])
+		let ulrike01 = HealthCertifiedPerson(healthCertificates: [
+			try HealthCertificate(base45: try ulrikeCert01())
+		])
+		let ulrike02 = HealthCertifiedPerson(healthCertificates: [
+			try HealthCertificate(base45: try ulrikeCert02())
+		])
+		let andreas01 = HealthCertifiedPerson(healthCertificates: [
+			try HealthCertificate(base45: try andreasCert01())
+		])
+
+		let store = MockTestStore(healthCertifiedPersonsVersion: 2)
+		store.healthCertifiedPersons = [
+			ulrike01,
+			thomas02,
+			thomas03,
+			ulrike02,
+			thomas01,
+			andreas01
+		]
+
+		XCTAssertFalse(store.shouldShowRegroupingAlert)
+
+		// WHEN
+		let migrator = HealthCertificateMigrator()
+		migrator.migrate(store: store)
+		let migratedPersons = store.healthCertifiedPersons
+
+		// THEN
+		XCTAssertEqual(migratedPersons.count, 3)
+		XCTAssertEqual(migratedPersons[0].name, andreas01.name)
+		XCTAssertEqual(migratedPersons[0].healthCertificates.count, 1)
+		XCTAssertEqual(migratedPersons[1].name, thomas01.name)
+		XCTAssertEqual(migratedPersons[1].healthCertificates.count, 3)
+		XCTAssertEqual(migratedPersons[2].name, ulrike01.name)
+		XCTAssertEqual(migratedPersons[2].healthCertificates.count, 2)
+		XCTAssertTrue(store.shouldShowRegroupingAlert)
 	}
 	
 	// MARK: - Helpers

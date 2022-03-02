@@ -7,8 +7,11 @@ import UIKit
 class HealthCertificateReissuanceConsentViewController: DynamicTableViewController, DismissHandling, FooterViewHandling {
 
 	// MARK: - Init
-
+	
 	init(
+		healthCertificateService: HealthCertificateService,
+		restServiceProvider: RestServiceProviding,
+		appConfigProvider: AppConfigurationProviding,
 		cclService: CCLServable,
 		certificate: HealthCertificate,
 		healthCertifiedPerson: HealthCertifiedPerson,
@@ -17,16 +20,21 @@ class HealthCertificateReissuanceConsentViewController: DynamicTableViewControll
 		onReissuanceSuccess: @escaping () -> Void,
 		dismiss: @escaping () -> Void
 	) {
-		self.presentAlert = presentAlert
+
 		self.viewModel = HealthCertificateReissuanceConsentViewModel(
 			cclService: cclService,
 			certificate: certificate,
 			certifiedPerson: healthCertifiedPerson,
+			appConfigProvider: appConfigProvider,
+			restServiceProvider: restServiceProvider,
+			healthCertificateService: healthCertificateService,
 			onDisclaimerButtonTap: didTapDataPrivacy
 		)
 
+		self.presentAlert = presentAlert
 		self.onReissuanceSuccess = onReissuanceSuccess
 		self.dismiss = dismiss
+		
 		super.init(nibName: nil, bundle: nil)
 	}
 

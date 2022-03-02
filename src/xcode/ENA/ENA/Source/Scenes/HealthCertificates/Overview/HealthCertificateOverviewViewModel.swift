@@ -88,6 +88,10 @@ class HealthCertificateOverviewViewModel {
 		Section.allCases.count
 	}
 
+	var shouldShowAlertAfterRegroup: Bool {
+		return store.shouldShowRegroupingAlert
+	}
+
 	func numberOfRows(in section: Int) -> Int {
 		switch Section(rawValue: section) {
 		case .changeAdmissionScenarioStatusLabel:

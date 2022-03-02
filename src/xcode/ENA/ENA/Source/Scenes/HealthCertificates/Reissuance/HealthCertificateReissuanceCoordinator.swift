@@ -10,11 +10,17 @@ final class HealthCertificateReissuanceCoordinator {
 	
 	init(
 		parentViewController: UIViewController,
+		healthCertificateService: HealthCertificateService,
+		restServiceProvider: RestServiceProviding,
+		appConfigProvider: AppConfigurationProviding,
 		healthCertifiedPerson: HealthCertifiedPerson,
 		healthCertificate: HealthCertificate,
 		cclService: CCLServable
 	) {
 		self.parentViewController = parentViewController
+		self.healthCertificateService = healthCertificateService
+		self.restServiceProvider = restServiceProvider
+		self.appConfigProvider = appConfigProvider
 		self.healthCertifiedPerson = healthCertifiedPerson
 		self.healthCertificate = healthCertificate
 		self.cclService = cclService
@@ -32,6 +38,9 @@ final class HealthCertificateReissuanceCoordinator {
 	private weak var parentViewController: UIViewController!
 	private var navigationController: UINavigationController!
 
+	private let healthCertificateService: HealthCertificateService
+	private let restServiceProvider: RestServiceProviding
+	private let appConfigProvider: AppConfigurationProviding
 	private let healthCertifiedPerson: HealthCertifiedPerson
 	private let healthCertificate: HealthCertificate
 	private let cclService: CCLServable
@@ -40,6 +49,9 @@ final class HealthCertificateReissuanceCoordinator {
 
 	private lazy var reissuanceScreen: UIViewController = {
 		let consentViewController = HealthCertificateReissuanceConsentViewController(
+			healthCertificateService: healthCertificateService,
+			restServiceProvider: restServiceProvider,
+			appConfigProvider: appConfigProvider,
 			cclService: cclService,
 			certificate: healthCertificate,
 			healthCertifiedPerson: healthCertifiedPerson,

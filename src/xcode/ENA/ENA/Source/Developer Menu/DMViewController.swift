@@ -84,6 +84,8 @@ final class DMViewController: UITableViewController, RequiresAppDependencies {
 		let vc: UIViewController?
 
 		switch menuItem {
+		case .healthCertificateMigration:
+			vc = DMHealthCertificateMigrationViewController(store: store)
 		case .cclConfig:
 			vc = DMCCLConfigurationViewController()
 		case .newHttp:
