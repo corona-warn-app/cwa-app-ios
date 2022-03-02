@@ -61,6 +61,11 @@ enum QuickAction: String {
 		if status == .authorized || status == .notDetermined {
 			// dont show camera related actions if no camera access is granted
 			shortcutItems.append(
+				contentsOf: [
+					UIApplicationShortcutItem(type: QuickAction.qrCodeScanner.rawValue, localizedTitle: AppStrings.QuickActions.qrCodeScanner, localizedSubtitle: nil, icon: UIApplicationShortcutIcon(templateImageName: "qrcode.viewfinder")),
+					UIApplicationShortcutItem(type: QuickAction.eventCheckin.rawValue, localizedTitle: AppStrings.QuickActions.eventCheckin, localizedSubtitle: nil, icon: UIApplicationShortcutIcon(templateImageName: "Icons_Tabbar_Checkin"))
+				]
+			)
 				UIApplicationShortcutItem(type: QuickAction.qrCodeScanner.rawValue, localizedTitle: AppStrings.QuickActions.qrCodeScanner, localizedSubtitle: nil, icon: UIApplicationShortcutIcon(templateImageName: "qrcode.viewfinder"))
 			)
 		}
