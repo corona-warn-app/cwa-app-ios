@@ -64,6 +64,7 @@ class HealthCertificateOverviewViewModel {
 	enum Section: Int, CaseIterable {
 		case changeAdmissionScenarioStatusLabel
 		case changeAdmissionScenario
+		case healthCertificateScanningInfoOnTop
 		case testCertificateRequest
 		case healthCertificate
 		case healthCertificateScanningInfo
@@ -87,12 +88,18 @@ class HealthCertificateOverviewViewModel {
 		Section.allCases.count
 	}
 
+	var shouldShowAlertAfterRegroup: Bool {
+		return store.shouldShowRegroupingAlert
+	}
+
 	func numberOfRows(in section: Int) -> Int {
 		switch Section(rawValue: section) {
 		case .changeAdmissionScenarioStatusLabel:
 			return rowsForAdmissionCheckScenarios
 		case .changeAdmissionScenario:
 			return rowsForAdmissionCheckScenarios
+		case .healthCertificateScanningInfoOnTop:
+			return rowsForScanningInfoOnTop
 		case .testCertificateRequest:
 			return testCertificateRequests.count
 		case .healthCertificate:
@@ -138,7 +145,16 @@ class HealthCertificateOverviewViewModel {
 	private var subscriptions = Set<AnyCancellable>()
 
 	private var rowsForAdmissionCheckScenarios: Int {
-		if !healthCertifiedPersons.isEmpty && !cclService.cclAdmissionCheckScenariosDisabled {
+		if !healthCertifiedPersons.isEmpty && cclService.dccAdmissionCheckScenariosEnabled {
+			return 1
+		}
+		return 0
+	}
+	
+	private var rowsForScanningInfoOnTop: Int {
+		if cclService.dccAdmissionCheckScenariosEnabled && healthCertifiedPersons.isEmpty {
+			return 1
+		} else if !cclService.dccAdmissionCheckScenariosEnabled {
 			return 1
 		}
 		return 0

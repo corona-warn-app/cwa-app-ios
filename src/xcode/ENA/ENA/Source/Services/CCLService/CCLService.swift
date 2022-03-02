@@ -27,7 +27,7 @@ protocol CCLServable {
 
 	var configurationVersion: String { get }
 	
-	var cclAdmissionCheckScenariosDisabled: Bool { get }
+	var dccAdmissionCheckScenariosEnabled: Bool { get }
 	
 	func updateConfiguration(completion: @escaping (_ didChange: Bool) -> Void)
 	
@@ -98,8 +98,14 @@ class CCLService: CCLServable {
 
 	var configurationVersion: String = ""
 
-	var cclAdmissionCheckScenariosDisabled: Bool {
-		appConfiguration.featureProvider.boolValue(for: .cclAdmissionCheckScenariosDisabled)
+	var dccAdmissionCheckScenariosEnabled: Bool {
+		#if DEBUG
+		if isUITesting && LaunchArguments.healthCertificate.isDCCAdmissionCheckScenariosEnabled.boolValue {
+			return true
+		}
+		#endif
+		
+		return appConfiguration.featureProvider.boolValue(for: .dccAdmissionCheckScenariosEnabled)
 	}
 	
 	func updateConfiguration(

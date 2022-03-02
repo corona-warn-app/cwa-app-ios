@@ -194,6 +194,7 @@ enum AccessibilityIdentifiers {
 		static let aboutNavigation = "AppStrings.AppInformation.aboutNavigation"
 		static let faqNavigation = "AppStrings.AppInformation.faqNavigation"
 		static let termsNavigation = "AppStrings.AppInformation.termsNavigation"
+		static let accessibilityNavigation = "AppStrings.AppInformation.accessibility"
 		static let privacyNavigation = "AppStrings.AppInformation.privacyNavigation"
 		static let legalNavigation = "AppStrings.AppInformation.legalNavigation"
 		static let contactNavigation = "AppStrings.AppInformation.contactNavigation"

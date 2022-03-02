@@ -380,6 +380,7 @@ class ENAUITests_13_CreateHealthCertificate: CWATestCase {
 
 	func test_HealthCertificate_FederalState_Flow() throws {
 		app.setLaunchArgument(LaunchArguments.healthCertificate.firstAndSecondHealthCertificate, to: true)
+		app.setLaunchArgument(LaunchArguments.healthCertificate.isDCCAdmissionCheckScenariosEnabled, to: true)
 		app.setLaunchArgument(LaunchArguments.infoScreen.healthCertificateInfoScreenShown, to: true)
 		app.launch()
 

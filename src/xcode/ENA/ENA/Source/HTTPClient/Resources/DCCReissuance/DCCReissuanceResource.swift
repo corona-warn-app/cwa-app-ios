@@ -13,33 +13,35 @@ enum DCCReissuanceResourceError: LocalizedError {
 	case DCC_RI_401
 	case DCC_RI_403
 	case DCC_RI_406
+	case DCC_RI_429
 	case DCC_RI_500
 	case DCC_RI_CLIENT_ERR
 	case DCC_RI_SERVER_ERR
 
 	var errorDescription: String? {
 		switch self {
-			// texts to be added in https://jira-ibs.wbs.net.sap/browse/EXPOSUREAPP-11930
 		case .DCC_RI_PIN_MISMATCH:
-			return "someError"
+			return AppStrings.HealthCertificate.Reissuance.Errors.contactSupport
 		case .DCC_RI_PARSE_ERR:
-			return "someError"
+			return AppStrings.HealthCertificate.Reissuance.Errors.contactSupport
 		case .DCC_RI_NO_NETWORK:
-			return "someError"
+			return AppStrings.HealthCertificate.Reissuance.Errors.noNetwork
 		case .DCC_RI_400:
-			return "someError"
+			return AppStrings.HealthCertificate.Reissuance.Errors.tryAgain
 		case .DCC_RI_401:
-			return "someError"
+			return AppStrings.HealthCertificate.Reissuance.Errors.notSupported
 		case .DCC_RI_403:
-			return "someError"
+			return AppStrings.HealthCertificate.Reissuance.Errors.notSupported
 		case .DCC_RI_406:
-			return "someError"
+			return AppStrings.HealthCertificate.Reissuance.Errors.tryAgain
+		case .DCC_RI_429:
+			return AppStrings.HealthCertificate.Reissuance.Errors.tryAgain
 		case .DCC_RI_500:
-			return "someError"
+			return AppStrings.HealthCertificate.Reissuance.Errors.tryAgain
 		case .DCC_RI_CLIENT_ERR:
-			return "someError"
+			return AppStrings.HealthCertificate.Reissuance.Errors.tryAgain
 		case .DCC_RI_SERVER_ERR:
-			return "someError"
+			return AppStrings.HealthCertificate.Reissuance.Errors.tryAgain
 		}
 	}
 }
@@ -109,7 +111,9 @@ struct DCCReissuanceResource: Resource {
 			return .DCC_RI_403
 		case 406:
 			return .DCC_RI_406
-		case 402, 404, 405, 407...499:
+		case 429:
+			return .DCC_RI_429
+		case 402, 404, 405, 407...428, 430...499:
 			return .DCC_RI_CLIENT_ERR
 		case 500:
 			return .DCC_RI_500

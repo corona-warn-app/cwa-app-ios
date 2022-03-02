@@ -34,6 +34,7 @@ extension XCTestCase {
 		doseNumber: Int = 1,
 		totalSeriesOfDoses: Int = 2,
 		identifier: String = "01DE/84503/1119349007/DXSGWLWL40SU8ZFKIYIBK39A3#S",
+		name: Name = .fake(),
 		dateOfBirth: String = "1942-01-01"
 	) throws -> HealthCertificate {
 		let date = Calendar.current.date(byAdding: .day, value: daysOffset, to: Date())
@@ -46,6 +47,7 @@ extension XCTestCase {
 
 		let firstTestCertificateBase45 = try base45Fake(
 			from: DigitalCovidCertificate.fake(
+				name: name,
 				dateOfBirth: dateOfBirth,
 				vaccinationEntries: [
 					vaccinationEntry

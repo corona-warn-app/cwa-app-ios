@@ -28,7 +28,8 @@ class ENAUITests_02_AppInformation: CWATestCase {
 		appInformationLabel.waitAndTap()
 		
 		XCTAssertTrue(app.cells[AccessibilityIdentifiers.AppInformation.aboutNavigation].waitForExistence(timeout: .medium))
-		XCTAssertTrue(app.cells[AccessibilityIdentifiers.AppInformation.faqNavigation].waitForExistence(timeout: .medium))
+		XCTAssertTrue(app.staticTexts[AccessibilityIdentifiers.AppInformation.faqNavigation].waitForExistence(timeout: .medium))
+		XCTAssertTrue(app.staticTexts[AccessibilityIdentifiers.AppInformation.accessibilityNavigation].waitForExistence(timeout: .medium))
 		XCTAssertTrue(app.cells[AccessibilityIdentifiers.AppInformation.contactNavigation].waitForExistence(timeout: .medium))
 		XCTAssertTrue(app.cells[AccessibilityIdentifiers.AppInformation.privacyNavigation].waitForExistence(timeout: .medium))
 		XCTAssertTrue(app.cells[AccessibilityIdentifiers.AppInformation.termsNavigation].waitForExistence(timeout: .medium))
@@ -63,7 +64,7 @@ class ENAUITests_02_AppInformation: CWATestCase {
 		appInformationLabel.waitAndTap()
 
 		XCTAssertTrue(app.state == .runningForeground)
-		app.cells["AppStrings.AppInformation.faqNavigation"].waitAndTap()
+		app.staticTexts[AccessibilityIdentifiers.AppInformation.faqNavigation].waitAndTap()
 		
 		// Check if URL that would get opened is 'https://www.coronawarn.app/de/faq/'
 		XCTAssertTrue(app.alerts.firstMatch.staticTexts["https://www.coronawarn.app/de/faq/"].waitForExistence(timeout: .short))
@@ -189,7 +190,25 @@ class ENAUITests_02_AppInformation: CWATestCase {
 
 	}
 	
-	func test_0029_AppInformationFlow_ConfirmationScreen_ErrorReportDetailScreen() throws {
+	func test_0029_AppInformationFlow_accessibility() throws {
+		app.launch()
+
+		// only run if onboarding screen is present
+		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Home.rightBarButtonDescription].waitForExistence(timeout: .medium))
+
+		// assert cells
+		let moreCell = app.cells[AccessibilityIdentifiers.Home.MoreInfoCell.moreCell]
+		let appInformationLabel = moreCell.buttons[AccessibilityIdentifiers.Home.MoreInfoCell.appInformationLabel]
+		appInformationLabel.waitAndTap()
+
+		XCTAssertTrue(app.state == .runningForeground)
+		app.staticTexts[AccessibilityIdentifiers.AppInformation.accessibilityNavigation].waitAndTap()
+		
+		// Check if URL that would get opened is 'https://www.coronawarn.app/de/accessibility'
+		XCTAssertTrue(app.alerts.firstMatch.staticTexts["https://www.coronawarn.app/de/accessibility"].waitForExistence(timeout: .short))
+	}
+
+	func test_0030_AppInformationFlow_ConfirmationScreen_ErrorReportDetailScreen() throws {
 		app.setLaunchArgument(LaunchArguments.errorReport.elsLogActive, to: false)
 		app.launch()
 		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Home.rightBarButtonDescription].waitForExistence(timeout: .short))
@@ -205,7 +224,7 @@ class ENAUITests_02_AppInformation: CWATestCase {
 		XCTAssertTrue(app.staticTexts[AccessibilityIdentifiers.ErrorReport.detailedInformationContent2].exists)
 	}
 	
-	func test_0030_AppInformationFlow_ConfirmationScreen_HistoryScreen() throws {
+	func test_0031_AppInformationFlow_ConfirmationScreen_HistoryScreen() throws {
 		app.setLaunchArgument(LaunchArguments.errorReport.elsLogActive, to: false)
 		app.setLaunchArgument(LaunchArguments.errorReport.elsCreateFakeHistory, to: true)
 		app.launch()
