@@ -28,7 +28,7 @@ final class CCLConfigurationResourceTests: CWATestCase {
 		let expectation = self.expectation(description: "completion handler succeeds")
 
 		let restServiceProvider = RestServiceProvider(session: stack.urlSession, cache: KeyValueCacheFake())
-		var cclConfigurationResource = CCLConfigurationResource()
+		let cclConfigurationResource = CCLConfigurationResource()
 		cclConfigurationResource.receiveResource = CBORReceiveResource(signatureVerifier: MockVerifier())
 
 		// We should load fresh configuration
@@ -63,7 +63,7 @@ final class CCLConfigurationResourceTests: CWATestCase {
 			headerFields: ["eTag": eTag]
 		)
 
-		var cclConfigurationResource = CCLConfigurationResource()
+		let cclConfigurationResource = CCLConfigurationResource()
 		cclConfigurationResource.receiveResource = CBORReceiveResource(signatureVerifier: MockVerifier())
 
 		let cache = KeyValueCacheFake()
@@ -105,7 +105,7 @@ final class CCLConfigurationResourceTests: CWATestCase {
 			httpStatus: 404,
 			headerFields: ["eTag": eTag]
 		)
-		var cclConfigurationResource = CCLConfigurationResource()
+		let cclConfigurationResource = CCLConfigurationResource()
 		cclConfigurationResource.receiveResource = CBORReceiveResource(signatureVerifier: MockVerifier())
 		
 		let restServiceProvider = RestServiceProvider(

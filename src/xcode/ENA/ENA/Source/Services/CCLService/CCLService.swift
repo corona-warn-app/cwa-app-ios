@@ -64,7 +64,6 @@ class CCLService: CCLServable {
 		self.appConfiguration = appConfiguration
 		self.cclServiceMode = cclServiceMode
 
-		var cclConfigurationResource = cclConfigurationResource
 		cclConfigurationResource.receiveResource = CBORReceiveResource(signatureVerifier: signatureVerifier)
 		self.cclConfigurationResource = cclConfigurationResource
 
