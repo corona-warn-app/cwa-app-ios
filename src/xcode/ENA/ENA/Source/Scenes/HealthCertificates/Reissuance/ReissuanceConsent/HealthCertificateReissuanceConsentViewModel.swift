@@ -4,12 +4,14 @@
 
 import Foundation
 import UIKit
+import OpenCombine
 
-/// Error and ViewModel are dummies for the moment to construct the flow for the moment
-/// needed to get replaced in later tasks
-///
 enum HealthCertifiedPersonUpdateError: Error {
-	case UpdateFailedError
+	case submitFailedError
+	case replaceHealthCertificateError(Error)
+	case noRelation
+	case certificateToReissueMissing
+	case restServiceError(ServiceError<DCCReissuanceResourceError>)
 }
 
 final class HealthCertificateReissuanceConsentViewModel {
@@ -20,11 +22,17 @@ final class HealthCertificateReissuanceConsentViewModel {
 		cclService: CCLServable,
 		certificate: HealthCertificate,
 		certifiedPerson: HealthCertifiedPerson,
+		appConfigProvider: AppConfigurationProviding,
+		restServiceProvider: RestServiceProviding,
+		healthCertificateService: HealthCertificateServiceServable,
 		onDisclaimerButtonTap: @escaping () -> Void
 	) {
 		self.cclService = cclService
 		self.certificate = certificate
 		self.certifiedPerson = certifiedPerson
+		self.appConfigProvider = appConfigProvider
+		self.restServiceProvider = restServiceProvider
+		self.healthCertificateService = healthCertificateService
 		self.onDisclaimerButtonTap = onDisclaimerButtonTap
 	}
 
@@ -105,15 +113,70 @@ final class HealthCertificateReissuanceConsentViewModel {
 	}
 
 	func submit(completion: @escaping (Result<Void, HealthCertifiedPersonUpdateError>) -> Void) {
-		DispatchQueue.global(qos: .background).asyncAfter(deadline: .now() + 0.5) {
-			// let's create a random result
-			let success = Bool.random()
-			if success {
-				completion(.success(()))
-			} else {
-				completion(.failure(.UpdateFailedError))
-			}
-		}
+			appConfigProvider.appConfiguration()
+				.sink { [weak self] appConfig in
+					guard let self = self else {
+						completion(.failure(.submitFailedError))
+						return
+					}
+					
+					let publicKeyHash = appConfig.dgcParameters.reissueServicePublicKeyDigest.sha256String()
+					let trustEvaluation = DefaultTrustEvaluation(publicKeyHash: publicKeyHash)
+					
+					guard let certificateToReissue = self.certifiedPerson.dccWalletInfo?.certificateReissuance?.certificateToReissue.certificateRef.barcodeData,
+						let certificateToReissueRef = self.certifiedPerson.dccWalletInfo?.certificateReissuance?.certificateToReissue.certificateRef else {
+						completion(.failure(.certificateToReissueMissing))
+						return
+					}
+					
+					let accompanyingCertificates = self.certifiedPerson.dccWalletInfo?.certificateReissuance?.accompanyingCertificates.compactMap {
+						$0.certificateRef.barcodeData
+					} ?? []
+					
+					let certificates = [certificateToReissue] + accompanyingCertificates
+					let sendModel = DCCReissuanceSendModel(certificates: certificates)
+					let resource = DCCReissuanceResource(
+						sendModel: sendModel,
+						trustEvaluation: trustEvaluation
+					)
+					
+					self.restServiceProvider.load(resource) { [weak self] result in
+						guard let self = self else {
+							completion(.failure(.submitFailedError))
+							return
+						}
+						
+						switch result {
+						case .success(let certificates):
+
+							let certificate = certificates.first { certificate in
+								return certificate.relations.contains { relation in
+									relation.index == 0 && relation.action == "replace"
+								}
+							}
+							
+							guard let certificate = certificate else {
+								completion(.failure(.noRelation))
+								return
+							}
+							
+							do {
+								try self.healthCertificateService.replaceHealthCertificate(
+									oldCertificateRef: certificateToReissueRef,
+									with: certificate.certificate,
+									for: self.certifiedPerson
+								)
+								completion(.success(()))
+							} catch {
+								completion(.failure(.replaceHealthCertificateError(error)))
+							}
+
+						case .failure(let error):
+							completion(.failure(.restServiceError(error)))
+						}
+					}
+			 }
+			 .store(in: &subscriptions)
 	}
 
 	// MARK: - Private
@@ -122,7 +185,11 @@ final class HealthCertificateReissuanceConsentViewModel {
 	private let certificate: HealthCertificate
 	private let certifiedPerson: HealthCertifiedPerson
 	private let onDisclaimerButtonTap: () -> Void
-
+	private let appConfigProvider: AppConfigurationProviding
+	private let restServiceProvider: RestServiceProviding
+	private let healthCertificateService: HealthCertificateServiceServable
+	private var subscriptions = Set<AnyCancellable>()
+	
 	private let normalTextAttribute: [NSAttributedString.Key: Any] = [
 		NSAttributedString.Key.font: UIFont.enaFont(for: .body)
 	]

@@ -19,6 +19,10 @@ class HealthCertificateNotificationService {
 	// MARK: - Internal
 
 	func createNotifications(for healthCertificate: HealthCertificate) {
+		guard healthCertificate.type != .test else {
+			return
+		}
+
 		Log.info("Create notifications.")
 
 		let healthCertificateIdentifier = healthCertificate.uniqueCertificateIdentifier
@@ -51,6 +55,11 @@ class HealthCertificateNotificationService {
 		for healthCertificate: HealthCertificate,
 		completion: @escaping () -> Void
 	) {
+		guard healthCertificate.type != .test else {
+			completion()
+			return
+		}
+		
 		let healthCertificateIdentifier = healthCertificate.uniqueCertificateIdentifier
 		
 		Log.info("Cancel all notifications for certificate with id: \(private: healthCertificateIdentifier).", log: .vaccination)
@@ -73,11 +82,9 @@ class HealthCertificateNotificationService {
 
 	func recreateNotifications(for healthCertificate: HealthCertificate) {
 		// No notifications for test certificates
-		if healthCertificate.type == .recovery || healthCertificate.type == .vaccination {
-			removeAllNotifications(for: healthCertificate, completion: { [weak self] in
-				self?.createNotifications(for: healthCertificate)
-			})
-		}
+		removeAllNotifications(for: healthCertificate, completion: { [weak self] in
+			self?.createNotifications(for: healthCertificate)
+		})
 	}
 
 	func scheduleBoosterNotificationIfNeeded(
