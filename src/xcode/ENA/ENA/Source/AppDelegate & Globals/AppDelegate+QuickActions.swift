@@ -54,7 +54,6 @@ enum QuickAction: String {
 
 		var shortcutItems = [
 			UIApplicationShortcutItem(type: QuickAction.diaryNewEntry.rawValue, localizedTitle: AppStrings.QuickActions.contactDiaryNewEntry, localizedSubtitle: nil, icon: UIApplicationShortcutIcon(templateImageName: "book.closed")),
-			UIApplicationShortcutItem(type: QuickAction.eventCheckin.rawValue, localizedTitle: AppStrings.QuickActions.eventCheckin, localizedSubtitle: nil, icon: UIApplicationShortcutIcon(templateImageName: "Icons_Tabbar_Checkin")),
 			UIApplicationShortcutItem(type: QuickAction.showCertificates.rawValue, localizedTitle: AppStrings.QuickActions.showCertificates, localizedSubtitle: nil, icon: UIApplicationShortcutIcon(templateImageName: "Icons_Tabbar_Certificates"))
 		]
 		
