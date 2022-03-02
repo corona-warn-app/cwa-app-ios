@@ -57,13 +57,14 @@ class CCLService: CCLServable {
 		_ restServiceProvider: RestServiceProviding,
 		appConfiguration: AppConfigurationProviding,
 		cclServiceMode: [CCLServiceMode] = [.configuration, .boosterRules],
-		signatureVerifier: SignatureVerification = SignatureVerifier()
+		signatureVerifier: SignatureVerification = SignatureVerifier(),
+		cclConfigurationResource: CCLConfigurationResource = CCLConfigurationResource()
 	) {
 		self.restServiceProvider = restServiceProvider
 		self.appConfiguration = appConfiguration
 		self.cclServiceMode = cclServiceMode
 
-		var cclConfigurationResource = CCLConfigurationResource()
+		var cclConfigurationResource = cclConfigurationResource
 		cclConfigurationResource.receiveResource = CBORReceiveResource(signatureVerifier: signatureVerifier)
 		self.cclConfigurationResource = cclConfigurationResource
 
@@ -332,7 +333,7 @@ class CCLService: CCLServable {
 		var registeredConfigurations = newCCLConfigurations
 
 		/// Register functions from the default configurations as well, in case the default configurations contain (new) configurations not contained in the cached/fetched configurations
-		if let defaultConfigurations = cclConfigurationResource.defaultModel?.cclConfigurations {
+		if let defaultConfigurations = cclConfigurationResource.defaultModel()?.cclConfigurations {
 			for configuration in defaultConfigurations where !newCCLConfigurations.contains(where: { $0.identifier == configuration.identifier }) {
 				registerJsonFunctions(from: configuration)
 				registeredConfigurations.append(configuration)

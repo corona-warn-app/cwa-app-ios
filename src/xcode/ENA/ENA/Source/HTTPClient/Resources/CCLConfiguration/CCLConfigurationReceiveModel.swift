@@ -6,6 +6,14 @@ import Foundation
 import HealthCertificateToolkit
 
 struct CCLConfigurationReceiveModel: CBORDecodable, MetaDataProviding {
+
+	// MARK: - Init
+
+	init(
+		_ cclConfigurations: [CCLConfiguration]
+	) {
+		self.cclConfigurations = cclConfigurations
+	}
 	
 	// MARK: - Protocol CBORDecoding
 	
@@ -25,13 +33,5 @@ struct CCLConfigurationReceiveModel: CBORDecodable, MetaDataProviding {
 	// MARK: - Internal
 
 	let cclConfigurations: [CCLConfiguration]
-
-	// MARK: - Private
-	
-	private init(
-		_ cclConfigurations: [CCLConfiguration]
-	) {
-		self.cclConfigurations = cclConfigurations
-	}
 
 }

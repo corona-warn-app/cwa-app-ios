@@ -215,6 +215,7 @@
 		019789342746920600AAC31C /* TicketValidationResultViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01978925274686EB00AAC31C /* TicketValidationResultViewModel.swift */; };
 		019789352746920600AAC31C /* TicketValidationOpenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01978927274686EC00AAC31C /* TicketValidationOpenViewModel.swift */; };
 		019789362746920600AAC31C /* TicketValidationPassedViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01978926274686EB00AAC31C /* TicketValidationPassedViewModel.swift */; };
+		01992EC527CF9E0C00BC16DA /* MockCCLConfigurationResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01992EC427CF9E0B00BC16DA /* MockCCLConfigurationResource.swift */; };
 		019BFC6C24C9901A0053973D /* sqlite3.c in Sources */ = {isa = PBXBuildFile; fileRef = 0DFCC2702484DC8400E2811D /* sqlite3.c */; settings = {COMPILER_FLAGS = "-w"; }; };
 		019C9F0025894BAA00B26392 /* DiaryStoringProviding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 019C9EFF25894BAA00B26392 /* DiaryStoringProviding.swift */; };
 		019C9F1E25894CDD00B26392 /* DiaryOverviewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 019C9F1D25894CDD00B26392 /* DiaryOverviewViewModel.swift */; };
@@ -790,13 +791,13 @@
 		50C5204025ADACBB008DF2F4 /* HomeShownPositiveTestResultCellModelTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50C5203F25ADACBB008DF2F4 /* HomeShownPositiveTestResultCellModelTest.swift */; };
 		50C5C1B525891CC800C4817A /* DynamicLegalExtendedCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 50C5C1B425891CC800C4817A /* DynamicLegalExtendedCell.xib */; };
 		50C5C1BA258920AD00C4817A /* DynamicLegalExtendedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50C5C1B9258920AD00C4817A /* DynamicLegalExtendedCell.swift */; };
+		50CDFB2027BBEADC00FE0793 /* HealthCertifiedPersonArray+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50CDFB1F27BBEADC00FE0793 /* HealthCertifiedPersonArray+Utils.swift */; };
 		50CDFB2827BE82E900FE0793 /* DCCReissuanceResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50CDFB2727BE82E900FE0793 /* DCCReissuanceResource.swift */; };
 		50CDFB2A27BE82F300FE0793 /* DCCReissuanceReceiveModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50CDFB2927BE82F300FE0793 /* DCCReissuanceReceiveModel.swift */; };
 		50CDFB2C27BE82FB00FE0793 /* DCCReissuanceSendModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50CDFB2B27BE82FB00FE0793 /* DCCReissuanceSendModel.swift */; };
 		50CDFB2E27BE84E800FE0793 /* Locator+DCCReissuance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50CDFB2D27BE84E800FE0793 /* Locator+DCCReissuance.swift */; };
 		50CDFB3027BEA2E200FE0793 /* Locator+DCCReissuanceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50CDFB2F27BEA2C900FE0793 /* Locator+DCCReissuanceTests.swift */; };
 		50CDFB3227BEA42300FE0793 /* DCCReissuanceResourceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50CDFB3127BEA42300FE0793 /* DCCReissuanceResourceTests.swift */; };
-		50CDFB2027BBEADC00FE0793 /* HealthCertifiedPersonArray+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50CDFB1F27BBEADC00FE0793 /* HealthCertifiedPersonArray+Utils.swift */; };
 		50D3493D274E85E400F00493 /* String+Regex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50D3493C274E85E400F00493 /* String+Regex.swift */; };
 		50D3493F274FB66C00F00493 /* ServiceIdentityDocumentResourceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50D3493E274FB66C00F00493 /* ServiceIdentityDocumentResourceTests.swift */; };
 		50D7BD7026DE405100494FB7 /* Locator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50D7BD6F26DE405100494FB7 /* Locator.swift */; };
@@ -1919,6 +1920,7 @@
 		0197892B27468A9700AAC31C /* TicketValidationResultCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketValidationResultCellModel.swift; sourceTree = "<group>"; };
 		0197892C27468A9700AAC31C /* DynamicCell+TicketValidationResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DynamicCell+TicketValidationResult.swift"; sourceTree = "<group>"; };
 		0197892D27468A9700AAC31C /* TicketValidationResultTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketValidationResultTableViewCell.swift; sourceTree = "<group>"; };
+		01992EC427CF9E0B00BC16DA /* MockCCLConfigurationResource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockCCLConfigurationResource.swift; sourceTree = "<group>"; };
 		019C9EFF25894BAA00B26392 /* DiaryStoringProviding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryStoringProviding.swift; sourceTree = "<group>"; };
 		019C9F0725894BE900B26392 /* MockDiaryStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockDiaryStore.swift; sourceTree = "<group>"; };
 		019C9F1D25894CDD00B26392 /* DiaryOverviewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryOverviewViewModel.swift; sourceTree = "<group>"; };
@@ -2497,13 +2499,13 @@
 		50C5203F25ADACBB008DF2F4 /* HomeShownPositiveTestResultCellModelTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeShownPositiveTestResultCellModelTest.swift; sourceTree = "<group>"; };
 		50C5C1B425891CC800C4817A /* DynamicLegalExtendedCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DynamicLegalExtendedCell.xib; sourceTree = "<group>"; };
 		50C5C1B9258920AD00C4817A /* DynamicLegalExtendedCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicLegalExtendedCell.swift; sourceTree = "<group>"; };
+		50CDFB1F27BBEADC00FE0793 /* HealthCertifiedPersonArray+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HealthCertifiedPersonArray+Utils.swift"; sourceTree = "<group>"; };
 		50CDFB2727BE82E900FE0793 /* DCCReissuanceResource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DCCReissuanceResource.swift; sourceTree = "<group>"; };
 		50CDFB2927BE82F300FE0793 /* DCCReissuanceReceiveModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DCCReissuanceReceiveModel.swift; sourceTree = "<group>"; };
 		50CDFB2B27BE82FB00FE0793 /* DCCReissuanceSendModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DCCReissuanceSendModel.swift; sourceTree = "<group>"; };
 		50CDFB2D27BE84E800FE0793 /* Locator+DCCReissuance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Locator+DCCReissuance.swift"; sourceTree = "<group>"; };
 		50CDFB2F27BEA2C900FE0793 /* Locator+DCCReissuanceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Locator+DCCReissuanceTests.swift"; sourceTree = "<group>"; };
 		50CDFB3127BEA42300FE0793 /* DCCReissuanceResourceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DCCReissuanceResourceTests.swift; sourceTree = "<group>"; };
-		50CDFB1F27BBEADC00FE0793 /* HealthCertifiedPersonArray+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HealthCertifiedPersonArray+Utils.swift"; sourceTree = "<group>"; };
 		50D3493C274E85E400F00493 /* String+Regex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Regex.swift"; sourceTree = "<group>"; };
 		50D3493E274FB66C00F00493 /* ServiceIdentityDocumentResourceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceIdentityDocumentResourceTests.swift; sourceTree = "<group>"; };
 		50D50A5F25D6CCA70092BC2A /* ENAUITests_05_DataDonation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ENAUITests_05_DataDonation.swift; sourceTree = "<group>"; };
@@ -5769,6 +5771,7 @@
 			children = (
 				50AF182327A3F20500BAA9DB /* CCLConfigurationResourceTests.swift */,
 				BAF5E41127B167A7001DF172 /* Locator+CCLConfigurationTest.swift */,
+				01992EC427CF9E0B00BC16DA /* MockCCLConfigurationResource.swift */,
 			);
 			path = __tests__;
 			sourceTree = "<group>";
@@ -11696,6 +11699,7 @@
 				BAB6C82325C4666900E042FB /* PPACServiceTest.swift in Sources */,
 				50842BF0274FCFFB0015E63F /* TicketValidationServiceIdentityDocument+Fake.swift in Sources */,
 				BA7D177925D547D4006B9EBF /* DataDonationModelTests.swift in Sources */,
+				01992EC527CF9E0C00BC16DA /* MockCCLConfigurationResource.swift in Sources */,
 				01B605E7258A4A980093DB8E /* DiaryContactPersonTest.swift in Sources */,
 				B18C411D246DB30000B8D8CB /* URL+Helper.swift in Sources */,
 				502B60FC276CB7B60049CC60 /* Error+Fake.swift in Sources */,

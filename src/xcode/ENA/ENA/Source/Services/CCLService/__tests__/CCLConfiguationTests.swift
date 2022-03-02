@@ -100,50 +100,129 @@ class CCLServiceConfigurationTests: CCLServiceBaseTests {
 
 	// MARK: - Configuration version
 
-	func testGIVEN_defaultCCLConfiguration_WHEN_gettingVersion_THEN_versionIsNotEmpty() throws {
-		// WHEN
-		let defaultConfigurationVersions = try defaultConfigurationVersions()
-
-		// THEN
-		XCTAssertFalse(defaultConfigurationVersions.isEmpty)
-		XCTAssertFalse(try XCTUnwrap(defaultConfigurationVersions.first).isEmpty)
-	}
-
-	func testGIVEN_cachedCCLConfigurationWithOnlyDefaultVersion_WHEN_gettingVersion_THEN_versionIsCorrect() throws {
+	func testGIVEN_cachedCCLConfigurationWithOnlyOneDefaultVersion_WHEN_gettingVersion_THEN_versionIsCorrect() throws {
 		// GIVEN
 		let appConfiguration = CachedAppConfigurationMock()
-
 		let cache = try cache()
 		let restServiceProvider = RestServiceProvider(session: MockNetworkStack().urlSession, cache: cache)
-		let cclService = CCLService(restServiceProvider, appConfiguration: appConfiguration, cclServiceMode: [.configuration], signatureVerifier: MockVerifier())
+
+		let resource = MockCCLConfigurationResource(
+			defaultModel: CCLConfigurationReceiveModel([
+				.fake(identifier: "CCL-Default-Configuration", version: "DefaultVersion-1.0.0")
+			])
+		)
+
+		let cclService = CCLService(
+			restServiceProvider,
+			appConfiguration: appConfiguration,
+			cclServiceMode: [.configuration],
+			signatureVerifier: MockVerifier(),
+			cclConfigurationResource: resource
+		)
 
 		// WHEN
 		let version = cclService.configurationVersion
 
 		// THEN
-		XCTAssertEqual(version, (try defaultConfigurationVersionsString()))
+		XCTAssertEqual(version, "DefaultVersion-1.0.0")
 	}
 
-	func testGIVEN_cachedCCLConfigurationsSameAsDefaultVersions_WHEN_gettingVersion_THEN_versionIsCorrect() throws {
+	func testGIVEN_cachedCCLConfigurationWithMultipleDefaultVersions_WHEN_gettingVersion_THEN_versionIsCorrect() throws {
+		// GIVEN
+		let appConfiguration = CachedAppConfigurationMock()
+		let cache = try cache()
+		let restServiceProvider = RestServiceProvider(session: MockNetworkStack().urlSession, cache: cache)
+
+		let resource = MockCCLConfigurationResource(
+			defaultModel: CCLConfigurationReceiveModel([
+				.fake(identifier: "Second-CCL-Default-Configuration", version: "AnotherDefaultVersion-2.5.0alpha"),
+				.fake(identifier: "CCL-Default-Configuration", version: "DefaultVersion-1.0.0")
+			])
+		)
+
+		let cclService = CCLService(
+			restServiceProvider,
+			appConfiguration: appConfiguration,
+			cclServiceMode: [.configuration],
+			signatureVerifier: MockVerifier(),
+			cclConfigurationResource: resource
+		)
+
+		// WHEN
+		let version = cclService.configurationVersion
+
+		// THEN
+		XCTAssertEqual(version, "DefaultVersion-1.0.0, AnotherDefaultVersion-2.5.0alpha")
+	}
+
+	func testGIVEN_cachedCCLConfigurationSameAsDefaultVersion_WHEN_gettingVersion_THEN_versionIsCorrect() throws {
 		// GIVEN
 		let eTag = "DummyDataETag"
-		let cclConfigurationData = try XCTUnwrap(
-			Archive.createArchiveData(
-				accessMode: .create,
-				cborData: HealthCertificateToolkit.CCLConfigurationCBORDataFake(configs: try defaultConfigurations())
-			)
+		let cclConfigurationData = try cclConfigurationData(
+			identifiersAndVersions: [
+				"CCL-Default-Configuration": "DefaultVersion-1.0.0"
+			]
 		)
 		let appConfiguration = CachedAppConfigurationMock()
 
 		let cache = try cache(with: Locator.CCLConfiguration(isFake: false), eTag: eTag, date: today, responseData: cclConfigurationData)
 		let restServiceProvider = RestServiceProvider(session: MockNetworkStack().urlSession, cache: cache)
-		let cclService = CCLService(restServiceProvider, appConfiguration: appConfiguration, cclServiceMode: [.configuration], signatureVerifier: MockVerifier())
+
+		let resource = MockCCLConfigurationResource(
+			defaultModel: CCLConfigurationReceiveModel([
+				.fake(identifier: "CCL-Default-Configuration", version: "DefaultVersion-1.0.0")
+			])
+		)
+
+		let cclService = CCLService(
+			restServiceProvider,
+			appConfiguration: appConfiguration,
+			cclServiceMode: [.configuration],
+			signatureVerifier: MockVerifier(),
+			cclConfigurationResource: resource
+		)
 
 		// WHEN
 		let version = cclService.configurationVersion
 
 		// THEN
-		XCTAssertEqual(version, (try defaultConfigurationVersionsString()))
+		XCTAssertEqual(version, "DefaultVersion-1.0.0")
+	}
+
+	func testGIVEN_multipleCachedCCLConfigurationsSameAsDefaultVersions_WHEN_gettingVersion_THEN_versionIsCorrect() throws {
+		// GIVEN
+		let eTag = "DummyDataETag"
+		let cclConfigurationData = try cclConfigurationData(
+			identifiersAndVersions: [
+				"CCL-Default-Configuration": "DefaultVersion-1.0.0",
+				"Second-CCL-Default-Configuration": "AnotherDefaultVersion-2.5.0alpha"
+			]
+		)
+		let appConfiguration = CachedAppConfigurationMock()
+
+		let cache = try cache(with: Locator.CCLConfiguration(isFake: false), eTag: eTag, date: today, responseData: cclConfigurationData)
+		let restServiceProvider = RestServiceProvider(session: MockNetworkStack().urlSession, cache: cache)
+
+		let resource = MockCCLConfigurationResource(
+			defaultModel: CCLConfigurationReceiveModel([
+				.fake(identifier: "Second-CCL-Default-Configuration", version: "AnotherDefaultVersion-2.5.0alpha"),
+				.fake(identifier: "CCL-Default-Configuration", version: "DefaultVersion-1.0.0")
+			])
+		)
+
+		let cclService = CCLService(
+			restServiceProvider,
+			appConfiguration: appConfiguration,
+			cclServiceMode: [.configuration],
+			signatureVerifier: MockVerifier(),
+			cclConfigurationResource: resource
+		)
+
+		// WHEN
+		let version = cclService.configurationVersion
+
+		// THEN
+		XCTAssertEqual(version, "DefaultVersion-1.0.0, AnotherDefaultVersion-2.5.0alpha")
 	}
 
 	func testGIVEN_cachedCCLConfigurationWithOneVersion_WHEN_gettingVersion_THEN_versionIsCorrect() throws {
@@ -158,13 +237,21 @@ class CCLServiceConfigurationTests: CCLServiceBaseTests {
 
 		let cache = try cache(with: Locator.CCLConfiguration(isFake: false), eTag: eTag, date: today, responseData: cclConfigurationData)
 		let restServiceProvider = RestServiceProvider(session: MockNetworkStack().urlSession, cache: cache)
-		let cclService = CCLService(restServiceProvider, appConfiguration: appConfiguration, cclServiceMode: [.configuration], signatureVerifier: MockVerifier())
+		let resource = MockCCLConfigurationResource(defaultModel: nil)
+
+		let cclService = CCLService(
+			restServiceProvider,
+			appConfiguration: appConfiguration,
+			cclServiceMode: [.configuration],
+			signatureVerifier: MockVerifier(),
+			cclConfigurationResource: resource
+		)
 
 		// WHEN
 		let version = cclService.configurationVersion
 
 		// THEN
-		XCTAssertEqual(version, "Cached-Version, " + (try defaultConfigurationVersionsString()))
+		XCTAssertEqual(version, "Cached-Version")
 	}
 
 	func testGIVEN_cachedCCLConfigurationWithMultipleVersions_WHEN_gettingVersion_THEN_versionIsCorrect() throws {
@@ -182,13 +269,21 @@ class CCLServiceConfigurationTests: CCLServiceBaseTests {
 
 		let cache = try cache(with: Locator.CCLConfiguration(isFake: false), eTag: eTag, date: today, responseData: cclConfigurationData)
 		let restServiceProvider = RestServiceProvider(session: MockNetworkStack().urlSession, cache: cache)
-		let cclService = CCLService(restServiceProvider, appConfiguration: appConfiguration, cclServiceMode: [.configuration], signatureVerifier: MockVerifier())
+		let resource = MockCCLConfigurationResource(defaultModel: nil)
+
+		let cclService = CCLService(
+			restServiceProvider,
+			appConfiguration: appConfiguration,
+			cclServiceMode: [.configuration],
+			signatureVerifier: MockVerifier(),
+			cclConfigurationResource: resource
+		)
 
 		// WHEN
 		let version = cclService.configurationVersion
 
 		// THEN
-		XCTAssertEqual(version, "1.0.0, 1.0.1, 1.2.5, 1.0.37, " + (try defaultConfigurationVersionsString()))
+		XCTAssertEqual(version, "1.0.0, 1.0.1, 1.2.5, 1.0.37")
 	}
 
 	func testGIVEN_newCCLConfiguration_WHEN_updatingConfiguration_THEN_versionIsUpdated() throws {
@@ -217,7 +312,16 @@ class CCLServiceConfigurationTests: CCLServiceBaseTests {
 		)
 		let cache = try cache(with: Locator.CCLConfiguration(isFake: false), eTag: eTag, date: yesterday, responseData: oldCCLConfigurationData)
 		let restServiceProvider = RestServiceProvider(session: stack.urlSession, cache: cache)
-		let cclService = CCLService(restServiceProvider, appConfiguration: appConfiguration, cclServiceMode: [.configuration], signatureVerifier: MockVerifier())
+		let resource = MockCCLConfigurationResource(defaultModel: nil)
+
+		let cclService = CCLService(
+			restServiceProvider,
+			appConfiguration: appConfiguration,
+			cclServiceMode: [.configuration],
+			signatureVerifier: MockVerifier(),
+			cclConfigurationResource: resource
+		)
+		
 		let expectation = expectation(description: "update finished")
 
 		// WHEN
@@ -228,7 +332,7 @@ class CCLServiceConfigurationTests: CCLServiceBaseTests {
 		// THEN
 		waitForExpectations(timeout: .short)
 
-		XCTAssertEqual(cclService.configurationVersion, "1.0.2, 1.1.0, " + (try defaultConfigurationVersionsString()))
+		XCTAssertEqual(cclService.configurationVersion, "1.0.2, 1.1.0")
 	}
 
 	// MARK: - Helpers
@@ -254,26 +358,6 @@ class CCLServiceConfigurationTests: CCLServiceBaseTests {
 				cborData: HealthCertificateToolkit.CCLConfigurationCBORDataFake(configs: configs)
 			)
 		)
-	}
-
-	private func defaultConfigurations() throws -> [CCLConfiguration] {
-		try XCTUnwrap(CCLConfigurationResource().defaultModel?.cclConfigurations)
-	}
-
-	private func defaultConfigurationVersions() throws -> [String] {
-		try defaultConfigurations()
-			.map { $0.version }
-	}
-
-	private func defaultConfigurationVersionsString() throws -> String {
-		try defaultConfigurations()
-			.map { $0.version }
-			.joined(separator: ", ")
-	}
-
-	private func defaultConfigurationVersionIdentifiers() throws -> [String] {
-		try defaultConfigurations()
-			.map { $0.identifier }
 	}
 
 }
