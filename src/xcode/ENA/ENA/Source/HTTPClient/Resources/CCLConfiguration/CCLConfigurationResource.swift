@@ -12,7 +12,8 @@ class CCLConfigurationResource: Resource {
 		isFake: Bool = false,
 		trustEvaluation: TrustEvaluating = DefaultTrustEvaluation(
 			publicKeyHash: Environments().currentEnvironment().pinningKeyHash
-		)
+		),
+		mockDefaultModel: CCLConfigurationReceiveModel? = nil
 	) {
 		self.type = .caching(
 			Set<CacheUsePolicy>([.loadOnlyOnceADay])
@@ -30,6 +31,12 @@ class CCLConfigurationResource: Resource {
 		self.sendResource = EmptySendResource()
 		self.receiveResource = CBORReceiveResource<CCLConfigurationReceiveModel>()
 		self.trustEvaluation = trustEvaluation
+
+		#if DEBUG
+		self.defaultModel = mockDefaultModel ?? bundledDefaultModel
+		#else
+		self.defaultModel = bundledDefaultModel
+		#endif
 	}
 	
 	// MARK: - Protocol Resource
@@ -44,8 +51,18 @@ class CCLConfigurationResource: Resource {
 	var type: ServiceType
 	var sendResource: EmptySendResource
 	var receiveResource: CBORReceiveResource<CCLConfigurationReceiveModel>
+	var defaultModel: CCLConfigurationReceiveModel?
+	
+	// MARK: - Internal
+	
+	#if !RELEASE
+	// Needed for dev menu force updates.
+	static let keyForceUpdateCCLConfiguration = "keyForceUpdateCCLConfiguration"
+	#endif
 
-	func defaultModel() -> CCLConfigurationReceiveModel? {
+	// MARK: - Private
+
+	private var bundledDefaultModel: CCLConfigurationReceiveModel? {
 		guard let url = Bundle.main.url(forResource: "ccl-configuration", withExtension: "bin"),
 			  let fallbackBin = try? Data(contentsOf: url) else {
 			Log.error("Creating the default model failed due to loading default bin from disc", log: .client)
@@ -60,12 +77,5 @@ class CCLConfigurationResource: Resource {
 			return nil
 		}
 	}
-	
-	// MARK: - Internal
-	
-	#if !RELEASE
-	// Needed for dev menu force updates.
-	static let keyForceUpdateCCLConfiguration = "keyForceUpdateCCLConfiguration"
-	#endif
 
 }

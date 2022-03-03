@@ -228,7 +228,7 @@ extension Service {
 		_ error: ServiceError<R.CustomError>
 	) -> Result<R.Receive.ReceiveModel, ServiceError<R.CustomError>> where R: Resource {
 		// Check if we have default value. If so, return it independent wich error we had
-		if let defaultModel = resource.defaultModel() {
+		if let defaultModel = resource.defaultModel {
 			Log.info("Found some default value", log: .client)
 			guard var modelWithMetadata = defaultModel as? MetaDataProviding else {
 				return .success(defaultModel)

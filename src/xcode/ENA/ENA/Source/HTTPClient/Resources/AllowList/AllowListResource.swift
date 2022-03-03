@@ -39,7 +39,7 @@ struct AllowListResource: Resource {
 	var receiveResource: ProtobufReceiveResource<SAP_Internal_Dgc_ValidationServiceAllowlist>
 	
 	// Tech spec says that the default is an empty set
-	func defaultModel() -> SAP_Internal_Dgc_ValidationServiceAllowlist? {
+	var defaultModel: SAP_Internal_Dgc_ValidationServiceAllowlist? {
 		return SAP_Internal_Dgc_ValidationServiceAllowlist()
 	}
 	
