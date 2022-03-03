@@ -60,4 +60,30 @@ enum TestResult: Int, CaseIterable, Codable {
 	// On the server it's called "redeemed", but this state means that the test is expired.
 	// Actually redeemed tests return a code 400 when registered.
 	case expired = 4
+
+	static func serverResponse(for testResult: TestResult, on coronaTestType: CoronaTestType) -> Int {
+		switch (testResult, coronaTestType) {
+		case (.pending, .pcr):
+			return 0
+		case (.negative, .pcr):
+			return 1
+		case (.positive, .pcr):
+			return 2
+		case (.invalid, .pcr):
+			return 3
+		case (.expired, .pcr):
+			return 4
+		case (.pending, .antigen):
+			return 5
+		case (.negative, .antigen):
+			return 6
+		case (.positive, .antigen):
+			return 7
+		case (.invalid, .antigen):
+			return 8
+		case (.expired, .antigen):
+			return 9
+		}
+	}
+
 }
