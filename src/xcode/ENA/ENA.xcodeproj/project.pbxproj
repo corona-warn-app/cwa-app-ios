@@ -1667,7 +1667,7 @@
 		EBE0F9612786F71D001F20E8 /* TestResultResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBE0F9602786F71D001F20E8 /* TestResultResource.swift */; };
 		EBE0F9652786F7D9001F20E8 /* TestResultReceiveModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBE0F9642786F7D9001F20E8 /* TestResultReceiveModel.swift */; };
 		EBE0F96727870D30001F20E8 /* TestResultsResourceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBE0F96627870D30001F20E8 /* TestResultsResourceTests.swift */; };
-		EBE3D29027D0E44600AB28F2 /* default_app_config_270 in Resources */ = {isa = PBXBuildFile; fileRef = EBE3D28F27D0E44600AB28F2 /* default_app_config_270 */; };
+		EBE3D29227D0ECD800AB28F2 /* default_app_config_2200 in Resources */ = {isa = PBXBuildFile; fileRef = EBE3D29127D0ECD800AB28F2 /* default_app_config_2200 */; };
 		EE22DB81247FB40A001B0A71 /* ENStateHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE22DB7F247FB409001B0A71 /* ENStateHandler.swift */; };
 		EE22DB8A247FB43A001B0A71 /* ImageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE22DB85247FB43A001B0A71 /* ImageTableViewCell.swift */; };
 		EE22DB8C247FB43A001B0A71 /* DescriptionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE22DB87247FB43A001B0A71 /* DescriptionTableViewCell.swift */; };
@@ -3424,7 +3424,7 @@
 		EBE0F9622786F783001F20E8 /* TestResultSendModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestResultSendModel.swift; sourceTree = "<group>"; };
 		EBE0F9642786F7D9001F20E8 /* TestResultReceiveModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestResultReceiveModel.swift; sourceTree = "<group>"; };
 		EBE0F96627870D30001F20E8 /* TestResultsResourceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestResultsResourceTests.swift; sourceTree = "<group>"; };
-		EBE3D28F27D0E44600AB28F2 /* default_app_config_270 */ = {isa = PBXFileReference; lastKnownFileType = file; path = default_app_config_270; sourceTree = "<group>"; };
+		EBE3D29127D0ECD800AB28F2 /* default_app_config_2200 */ = {isa = PBXFileReference; lastKnownFileType = file; path = default_app_config_2200; sourceTree = "<group>"; };
 		EE22DB7F247FB409001B0A71 /* ENStateHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ENStateHandler.swift; sourceTree = "<group>"; };
 		EE22DB85247FB43A001B0A71 /* ImageTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageTableViewCell.swift; sourceTree = "<group>"; };
 		EE22DB87247FB43A001B0A71 /* DescriptionTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DescriptionTableViewCell.swift; sourceTree = "<group>"; };
@@ -9827,7 +9827,7 @@
 		EBE3D28E27D0E3D700AB28F2 /* AppConfig */ = {
 			isa = PBXGroup;
 			children = (
-				EBE3D28F27D0E44600AB28F2 /* default_app_config_270 */,
+				EBE3D29127D0ECD800AB28F2 /* default_app_config_2200 */,
 			);
 			path = AppConfig;
 			sourceTree = "<group>";
@@ -10132,6 +10132,7 @@
 				01D0262E258A791C00B6389A /* OnboardingInfoViewController.xib in Resources */,
 				AB628A1F251CDADE00CF61D2 /* Environments.json in Resources */,
 				014891B324F90D0B002A6F77 /* ENA.plist in Resources */,
+				EBE3D29227D0ECD800AB28F2 /* default_app_config_2200 in Resources */,
 				AB9B991026D522B700F2506D /* LICENSE.txt in Resources */,
 				01D0272E258BD2B100B6389A /* BackgroundAppRefreshViewController.xib in Resources */,
 				01F2A564257FC7D200DA96A6 /* DiaryOverviewDayTableViewCell.xib in Resources */,
@@ -10149,7 +10150,6 @@
 				BA6D163B255AD35900ED3492 /* DMSwitchTableViewCell.xib in Resources */,
 				013069512705D4A900D945E3 /* QRScannerTooltipViewController.xib in Resources */,
 				85D7594B24570491008175F0 /* Assets.xcassets in Resources */,
-				EBE3D29027D0E44600AB28F2 /* default_app_config_270 in Resources */,
 				AB9B991426D522B700F2506D /* OpenSans-Bold.ttf in Resources */,
 				8F64BD8F2767947600E48299 /* RoundedLabeledView.xib in Resources */,
 				711EFCC924935C79005FEF21 /* ExposureSubmissionTestResultHeaderView.xib in Resources */,
