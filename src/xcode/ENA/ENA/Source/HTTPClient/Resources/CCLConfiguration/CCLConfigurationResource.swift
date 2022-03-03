@@ -4,7 +4,7 @@
 
 import Foundation
 
-struct CCLConfigurationResource: Resource {
+class CCLConfigurationResource: Resource {
 	
 	// MARK: - Init
 	
@@ -30,6 +30,8 @@ struct CCLConfigurationResource: Resource {
 		self.sendResource = EmptySendResource()
 		self.receiveResource = CBORReceiveResource<CCLConfigurationReceiveModel>()
 		self.trustEvaluation = trustEvaluation
+
+		self.defaultModel = bundledDefaultModel
 	}
 	
 	// MARK: - Protocol Resource
@@ -44,13 +46,24 @@ struct CCLConfigurationResource: Resource {
 	var type: ServiceType
 	var sendResource: EmptySendResource
 	var receiveResource: CBORReceiveResource<CCLConfigurationReceiveModel>
-	var defaultModel: CCLConfigurationReceiveModel? {
-			
+	var defaultModel: CCLConfigurationReceiveModel?
+	
+	// MARK: - Internal
+	
+	#if !RELEASE
+	// Needed for dev menu force updates.
+	static let keyForceUpdateCCLConfiguration = "keyForceUpdateCCLConfiguration"
+	#endif
+
+	// MARK: - Private
+
+	private var bundledDefaultModel: CCLConfigurationReceiveModel? {
 		guard let url = Bundle.main.url(forResource: "ccl-configuration", withExtension: "bin"),
 			  let fallbackBin = try? Data(contentsOf: url) else {
 			Log.error("Creating the default model failed due to loading default bin from disc", log: .client)
 			return nil
 		}
+
 		switch CCLConfigurationReceiveModel.make(with: fallbackBin) {
 		case .success(let model):
 			return model
@@ -59,12 +72,5 @@ struct CCLConfigurationResource: Resource {
 			return nil
 		}
 	}
-	
-	// MARK: - Internal
-	
-	#if !RELEASE
-	// Needed for dev menu force updates.
-	static let keyForceUpdateCCLConfiguration = "keyForceUpdateCCLConfiguration"
 
-	#endif
 }
