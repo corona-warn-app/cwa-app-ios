@@ -711,7 +711,7 @@
 
 "ExposureSubmissionResult_Title_Antigen" = "Rapid Test";
 
-"ExposureSubmissionResult_CardSubTitle" = "Your Diagnosis";
+"ExposureSubmissionResult_CardSubTitle" = "Your PCR test result";
 
 "ExposureSubmissionResult_CardSubTitle_Antigen" = "Your rapid test result";
 
@@ -1414,6 +1414,9 @@
 
 "App_Information_Contact_Form_Title" = "Contact Form";
 
+/* App Information - Accessibility */
+"App_Information_Accessibility_Navigation" = "Accessibility Declaration";
+
 /* App Information - Legal */
 "App_Information_Legal_Navigation" = "Legal Notices";
 
@@ -1601,10 +1604,18 @@
 /* New Version Features */
 "NewVersionFeatures_Info_about_abb_information" = "Changes in this release can be found in the app information, under “New Features”.";
 
-/* Version 2.18 */
-"NewVersionFeature_218_centralManagementOfRules_title" = "Central Administration of Rules";
+/* Version 2.19 */
+"NewVersionFeature_219_rapidPCR_title" = "Registration of PCR Rapid Tests";
 
-"NewVersionFeature_218_centralManagementOfRules_description" = "The rules for certificates (with regard to their validity, for example, or their prioritization when several certificates are available) and for determining your “G” status (vaccinated, recovered, tested) have been separated from the Corona-Warn-App. These rules are now stored centrally and can therefore be adjusted independently of app releases, which will make it possible to react to rule changes more quickly. After a change, the updated rules will be transferred to the app automatically. This central administration of rules does not change how you use the Corona-Warn-App.";
+"NewVersionFeature_219_rapidPCR_description" = "You can now register PCR rapid tests in the Corona-Warn-App and receive the result and your test certificate through the app.";
+
+"NewVersionFeature_219_faultTolerantNameHandling_title" = "Certificate Assignment";
+
+"NewVersionFeature_219_faultTolerantNameHandling_description" = "The assignment of certificates to people has been made more error-tolerant. Minor differences in the spelling of first and last names are ignored, so affected certificates can still be assigned to the same person.";
+
+"NewVersionFeature_219_vaccinationCertificateReplacement_title" = "Certificate Update";
+
+"NewVersionFeature_219_vaccinationCertificateReplacement_description" = "The EU specifications for vaccination certificates for booster vaccinations have changed. If your certificate no longer matches the current specifications, you can request a new one directly in the Corona-Warn-App.";
 
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Transnational Exposure Logging";
@@ -1945,9 +1956,9 @@
 
 "Statistics_Card_CombinedIncidence_Date" = "Up to %@";
 
-"Statistics_Card_CombinedIncidence_PrimaryLabelSubtitle" = "New Infections";
+"Statistics_Card_CombinedIncidence_PrimaryLabelSubtitle" = "new infections";
 
-"Statistics_Card_CombinedIncidence_SecondaryLabelSubtitle" = "Hospitalizations";
+"Statistics_Card_CombinedIncidence_SecondaryLabelSubtitle" = "hospitalizations";
 
 /* - Infections Card */
 "Statistics_Card_Infections_Title" = "Confirmed New Infections";
@@ -1969,11 +1980,11 @@
 
 "Statistics_Card_Region_Date" = "Up to %@";
 
-"Statistics_Card_Region_PrimaryLabelSubtitle" = "New Infections";
+"Statistics_Card_Region_PrimaryLabelSubtitle" = "new infections";
 
-"Statistics_Card_Region_SecondaryLabelSubtitle_FederalState" = "Hospitalizations";
+"Statistics_Card_Region_SecondaryLabelSubtitle_FederalState" = "hospitalizations";
 
-"Statistics_Card_Region_SecondaryLabelSubtitle_AdministrativeUnit" = "Hospitalizations in %@";
+"Statistics_Card_Region_SecondaryLabelSubtitle_AdministrativeUnit" = "hospitalizations in %@";
 
 /* - Key Submissions Card */
 "Statistics_Card_KeySubmissions_Title" = "Warnings by App Users";
@@ -2055,7 +2066,7 @@
 
 "Statistics_Card_AppliedDoseRates_Date" = "%@";
 
-"Statistics_Card_AppliedDoseRates_SecondaryLabelTitle" = "7-Day Average";
+"Statistics_Card_AppliedDoseRates_SecondaryLabelTitle" = "7-day average";
 
 "Statistics_Card_AppliedDoseRates_TertiaryLabelTitle" = "Total";
 
@@ -2068,7 +2079,7 @@
 
 "Statistics_Card_IntensiveCare_Date" = "Up to %@";
 
-"Statistics_Card_IntensiveCare_SecondaryLabelTitle" = "COVID-19 Occupancy Rate of All Intensive Care Beds";
+"Statistics_Card_IntensiveCare_SecondaryLabelTitle" = "COVID-19 occupancy rate of all intensive care beds";
 
 /* Error */
 "Statistics_LoadingError" = "The statistics cannot be loaded. Please close the app and try again.";
@@ -2102,7 +2113,7 @@
 
 "Statistics_Info_KeySubmissions_Title" = "Warnings by App Users";
 
-"Statistics_Info_KeySubmissions_Text" = "Number of app users who have been diagnosed with coronavirus via PCR test and have warned others through the app.";
+"Statistics_Info_KeySubmissions_Text" = "Number of app users who have been diagnosed with coronavirus and have warned others through the app";
 
 "Statistics_Info_ReproductionNumber_Title" = "7-day R value";
 
@@ -2715,11 +2726,9 @@
 /* Health Certificate Overview */
 "HealthCertificate_Overview_title" = "Certificates";
 
-"HealthCertificate_Overview_add" = "Add Certificate";
-
 "HealthCertificate_Overview_EmptyTitle" = "No certificates available yet";
 
-"HealthCertificate_Overview_EmptyDescription" = "The saved digital vaccination certificates, certificates of recovery, and test certificates are displayed here.\n\nTo add a certificate, please scan the corresponding QR code.";
+"HealthCertificate_Overview_EmptyDescription" = "The saved digital vaccination certificates, certificates of recovery, and test certificates are displayed here.";
 
 "HealthCertificate_Overview_EmptyImageDescription" = "Certificate seal with digital certificate in the background";
 
@@ -2732,6 +2741,14 @@
 "HealthCertificate_Overview_TwoGCertificate" = "2G Certificate";
 
 "HealthCertificate_Overview_TestCertificate" = "Test Certificate";
+
+"HealthCertificate_Overview_Scanning_Info" = "To add additional certificates, use the QR code scanner in the navigation bar below.";
+
+"HealthCertificate_Admission_Scenario_Status_Label" = "Status for the following federal state";
+
+"HealthCertificate_Admission_Scenario_Button_Label" = "Federal government regulations";
+
+"HealthCertificate_Loading_Indicator_Label" = "Determining status...";
 
 "HealthCertificate_Overview_News" = "There is news about your certificates";
 
@@ -2969,6 +2986,13 @@
 
 "HealthCertificate_PrintPdf_ErrorAlert_ValueSetsFetching_Message" = "The print version of the certificate cannot be displayed because the certificate cannot be retrieved right now. Please try again later.";
 
+/* Certificate Fault Tolerant Naming */
+"HealthCertificate_FaultTolerantNaming_RegroupDone_Title" = "Certificate Assignment";
+
+"HealthCertificate_FaultTolerantNaming_RegroupDone_Message" = "The grouping of certificates has been improved. Certificates with only minor differences in the name will no longer be assigned to different people.";
+
+"HealthCertificate_FaultTolerantNaming_RegroupDone_OkayButton" = "OK";
+
 /* Health Certificate Errors */
 "HealthCertificate_Error_Title" = "Error";
 
@@ -3044,7 +3068,7 @@
 
 "HealthCertificate_Validation_Passed_unknownTitle" = "Certificate Cannot Be Verified";
 
-"HealthCertificate_Validation_Passed_subtitle" = "Your certificate is valid in the selected country";
+"HealthCertificate_Validation_Passed_subtitle" = "Your certificate is valid for entry into the selected country";
 
 "HealthCertificate_Validation_Passed_unknownSubtitle" = "Your certificate could not be verified";
 
@@ -3070,7 +3094,7 @@
 /* - Failed */
 "HealthCertificate_Validation_Failed_title" = "Certificate Is Not Valid";
 
-"HealthCertificate_Validation_Failed_subtitle" = "Your certificate is not valid in the selected country";
+"HealthCertificate_Validation_Failed_subtitle" = "Your certificate is not valid for entry into the selected country";
 
 "HealthCertificate_Validation_Failed_failedSectionTitle" = "Verification complete";
 
@@ -3083,7 +3107,7 @@
 /* - Technical Validation Failed */
 "HealthCertificate_Validation_TechnicalFailed_title" = "Certificate Is Not Valid";
 
-"HealthCertificate_Validation_TechnicalFailed_subtitle" = "Your certificate is not valid in the selected country";
+"HealthCertificate_Validation_TechnicalFailed_subtitle" = "Your certificate is not valid for entry into the selected country";
 
 "HealthCertificate_Validation_TechnicalFailed_failedSectionTitle" = "Technical check";
 
@@ -3113,6 +3137,54 @@
 "HealthCertificate_ValidityState_Blocked" = "Certificate Invalid";
 
 "HealthCertificate_ValidityState_Blocked_description" = "The certificate has been recalled by the issuing authority. Please get a new digital certificate.";
+
+/* Reissuance */
+/* HealthCertificate Resissuance Consent */
+"HealthCertificate_Reissuance_Consent_primaryButtonTitle" = "Accept";
+
+"HealthCertificate_Reissuance_Consent_secondaryButtonTitle" = "Cancel";
+
+"HealthCertificate_Reissuance_Consent_DefaultAlert_Title" = "Error";
+
+"HealthCertificate_Reissuance_Consent_DefaultAlert_Message" = "Your Internet connection may have been lost. Please ensure that you are connected to the Internet.";
+
+"HealthCertificate_Reissuance_Consent_DefaultAlert_OKButton" = "OK";
+
+"HealthCertificate_Reissuance_Consent_DefaultAlert_RetryButton" = "Repeat";
+
+"HealthCertificate_Reissuance_Consent_Title" = "Your Consent";
+
+"HealthCertificate_Reissuance_Consent_Delete_Notice" = "The old certificate will be moved automatically to the recycle bin and deleted after 30 days. The certificate can be restored at any time within these 30 days.";
+
+"HealthCertificate_Reissuance_Consent_Cancel_Notice" = "If you cancel now, you can request an update in the certificate overview at any time.";
+
+"HealthCertificate_Reissuance_Consent_Legal_Title" = "Your Consent";
+
+"HealthCertificate_Reissuance_Consent_Legal_Subtitle" = "By tapping “Agree”, you consent to the following steps:";
+
+"HealthCertificate_Reissuance_Consent_Legal_Bullet_1" = "The app sends the vaccination certificate to the RKI for verification.";
+
+"HealthCertificate_Reissuance_Consent_Legal_Bullet_2" = "The RKI checks the vaccination certificate, issues an updated certificate, and sends it to your app.";
+
+"HealthCertificate_Reissuance_Consent_Bullet_Point_1" = "Updating your certificate is voluntary and free of charge.";
+
+"HealthCertificate_Reissuance_Consent_Bullet_Point_2" = "To ensure that certificates can only be updated once, the identifier of the old certificate is documented by the RKI.";
+
+/* HealthCertificate Resissuance Succeeded */
+"HealthCertificate_Reissuance_Succeeded_Title" = "Certificate Updated";
+
+"HealthCertificate_Reissuance_Succeeded_Headline" = "Your certificate has been updated successfully";
+
+"HealthCertificate_Reissuance_Succeeded_Body" = "The updated certificate is now available on the “Certificates” tab.";
+
+/* HealthCertificate Resissuance Request Error */
+"HealthCertificate_Reissuance_Error_Contact_Support" = "An technical error has occurred. Please contact the technical hotline via App Information -> Technical Hotline.";
+
+"HealthCertificate_Reissuance_Error_No_Network" = "Your Internet connection may have been lost. Please check the connection and try again.";
+
+"HealthCertificate_Reissuance_Error_Try_Again" = "An error occurred during the update of your certificate. Please try again. If the error persists, please contact the technical hotline via App Information -> Technical Hotline.";
+
+"HealthCertificate_Reissuance_Error_Not_Supported" = "Your certificate cannot be updated. Please contact the technical hotline via App Information -> Technical Hotline.";
 
 /* Universal QR Scanner */
 "UniversalQRScanner_ScannerTitle" = "QR Code Scanner";

@@ -6,14 +6,6 @@ import Foundation
 import UIKit
 import OpenCombine
 
-enum HealthCertifiedPersonUpdateError: Error {
-	case submitFailedError
-	case replaceHealthCertificateError(Error)
-	case noRelation
-	case certificateToReissueMissing
-	case restServiceError(ServiceError<DCCReissuanceResourceError>)
-}
-
 final class HealthCertificateReissuanceConsentViewModel {
 
 	// MARK: - Init
@@ -47,7 +39,7 @@ final class HealthCertificateReissuanceConsentViewModel {
 					cells: [
 						.certificate(certificate, certifiedPerson: certifiedPerson),
 						titleDynamicCell,
-						subtileDynamicCell,
+						subtitleDynamicCell,
 						longTextDynamicCell
 					]
 						.compactMap({ $0 })
@@ -112,11 +104,12 @@ final class HealthCertificateReissuanceConsentViewModel {
 		certifiedPerson.isNewCertificateReissuance = false
 	}
 
-	func submit(completion: @escaping (Result<Void, HealthCertifiedPersonUpdateError>) -> Void) {
+	func submit(completion: @escaping (Result<Void, HealthCertificateReissuanceError>) -> Void) {
 			appConfigProvider.appConfiguration()
 				.sink { [weak self] appConfig in
 					guard let self = self else {
 						completion(.failure(.submitFailedError))
+						Log.error("App config fetch during reissuance failed due to self being nil", log: .vaccination)
 						return
 					}
 					
@@ -126,6 +119,7 @@ final class HealthCertificateReissuanceConsentViewModel {
 					guard let certificateToReissue = self.certifiedPerson.dccWalletInfo?.certificateReissuance?.certificateToReissue.certificateRef.barcodeData,
 						let certificateToReissueRef = self.certifiedPerson.dccWalletInfo?.certificateReissuance?.certificateToReissue.certificateRef else {
 						completion(.failure(.certificateToReissueMissing))
+						Log.error("Certificate reissuance failed: certificate to reissue is missing", log: .vaccination)
 						return
 					}
 					
@@ -143,12 +137,12 @@ final class HealthCertificateReissuanceConsentViewModel {
 					self.restServiceProvider.load(resource) { [weak self] result in
 						guard let self = self else {
 							completion(.failure(.submitFailedError))
+							Log.error("Reissuance request failed due to self being nil", log: .vaccination)
 							return
 						}
 						
 						switch result {
 						case .success(let certificates):
-
 							let certificate = certificates.first { certificate in
 								return certificate.relations.contains { relation in
 									relation.index == 0 && relation.action == "replace"
@@ -157,6 +151,7 @@ final class HealthCertificateReissuanceConsentViewModel {
 							
 							guard let certificate = certificate else {
 								completion(.failure(.noRelation))
+								Log.error("Replacing the certificate with a reissued certificate failed, no relation found", log: .vaccination)
 								return
 							}
 							
@@ -169,10 +164,12 @@ final class HealthCertificateReissuanceConsentViewModel {
 								completion(.success(()))
 							} catch {
 								completion(.failure(.replaceHealthCertificateError(error)))
+								Log.error("Replacing the certificate with a reissued certificate failed in service", log: .vaccination, error: error)
 							}
 
 						case .failure(let error):
 							completion(.failure(.restServiceError(error)))
+							Log.error("Reissuance request failed", log: .vaccination, error: error)
 						}
 					}
 			 }
@@ -214,12 +211,12 @@ final class HealthCertificateReissuanceConsentViewModel {
 		return DynamicCell.title2(text: title)
 	}
 
-	private var subtileDynamicCell: DynamicCell? {
+	private var subtitleDynamicCell: DynamicCell? {
 		guard let subtitle = certifiedPerson.dccWalletInfo?.certificateReissuance?.reissuanceDivision.subtitleText?.localized(cclService: cclService) else {
 			Log.info("subtitle missing")
 			return nil
 		}
-		return DynamicCell.subheadline(text: subtitle)
+		return DynamicCell.subheadline(text: subtitle, color: .enaColor(for: .textPrimary2))
 	}
 
 	private var longTextDynamicCell: DynamicCell? {

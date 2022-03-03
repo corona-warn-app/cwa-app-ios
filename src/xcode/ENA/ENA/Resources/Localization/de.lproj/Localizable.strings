@@ -3274,8 +3274,6 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "HealthCertificate_Reissuance_Consent_DefaultAlert_Title" = "Fehler";
 
-"HealthCertificate_Reissuance_Consent_DefaultAlert_Message" = "Möglicherweise wurde Ihre Internet-Verbindung unterbrochen. Bitte stellen Sie sicher, dass Sie mit dem Internet verbunden sind.";
-
 "HealthCertificate_Reissuance_Consent_DefaultAlert_OKButton" = "OK";
 
 "HealthCertificate_Reissuance_Consent_DefaultAlert_RetryButton" = "Wiederholen";

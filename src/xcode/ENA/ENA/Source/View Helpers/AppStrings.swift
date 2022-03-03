@@ -2357,7 +2357,6 @@ enum AppStrings {
 				static let secondaryButtonTitle = NSLocalizedString("HealthCertificate_Reissuance_Consent_secondaryButtonTitle", comment: "")
 
 				static let defaultAlertTitle = NSLocalizedString("HealthCertificate_Reissuance_Consent_DefaultAlert_Title", comment: "")
-				static let defaultAlertMessage = NSLocalizedString("HealthCertificate_Reissuance_Consent_DefaultAlert_Message", comment: "")
 				static let defaultAlertOKButton = NSLocalizedString("HealthCertificate_Reissuance_Consent_DefaultAlert_OKButton", comment: "")
 				static let defaultAlertRetryButton = NSLocalizedString("HealthCertificate_Reissuance_Consent_DefaultAlert_RetryButton", comment: "")
 
@@ -2386,7 +2385,6 @@ enum AppStrings {
 				static let noNetwork = NSLocalizedString("HealthCertificate_Reissuance_Error_No_Network", comment: "")
 				static let tryAgain = NSLocalizedString("HealthCertificate_Reissuance_Error_Try_Again", comment: "")
 				static let notSupported = NSLocalizedString("HealthCertificate_Reissuance_Error_Not_Supported", comment: "")
-
 			}
 		}
 	}
