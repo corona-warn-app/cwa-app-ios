@@ -10,7 +10,7 @@ import ZIPFoundation
 class CacheAppConfigMockTests: CWATestCase {
 
 	func testDefaultConfig() throws {
-		let url = try XCTUnwrap(Bundle.main.url(forResource: "default_app_config_270", withExtension: ""))
+		let url = try XCTUnwrap(Bundle.main.url(forResource: "default_app_config_2200", withExtension: ""))
 		let data = try Data(contentsOf: url)
 		let zip = try XCTUnwrap(Archive(data: data, accessMode: .read))
 		let staticConfig = try zip.extractAppConfiguration()

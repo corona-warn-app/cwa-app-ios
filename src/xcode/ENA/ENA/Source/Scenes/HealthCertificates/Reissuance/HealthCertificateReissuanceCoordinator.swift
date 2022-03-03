@@ -10,11 +10,17 @@ final class HealthCertificateReissuanceCoordinator {
 	
 	init(
 		parentViewController: UIViewController,
+		healthCertificateService: HealthCertificateService,
+		restServiceProvider: RestServiceProviding,
+		appConfigProvider: AppConfigurationProviding,
 		healthCertifiedPerson: HealthCertifiedPerson,
 		healthCertificate: HealthCertificate,
 		cclService: CCLServable
 	) {
 		self.parentViewController = parentViewController
+		self.healthCertificateService = healthCertificateService
+		self.restServiceProvider = restServiceProvider
+		self.appConfigProvider = appConfigProvider
 		self.healthCertifiedPerson = healthCertifiedPerson
 		self.healthCertificate = healthCertificate
 		self.cclService = cclService
@@ -32,6 +38,9 @@ final class HealthCertificateReissuanceCoordinator {
 	private weak var parentViewController: UIViewController!
 	private var navigationController: UINavigationController!
 
+	private let healthCertificateService: HealthCertificateService
+	private let restServiceProvider: RestServiceProviding
+	private let appConfigProvider: AppConfigurationProviding
 	private let healthCertifiedPerson: HealthCertifiedPerson
 	private let healthCertificate: HealthCertificate
 	private let cclService: CCLServable
@@ -40,21 +49,17 @@ final class HealthCertificateReissuanceCoordinator {
 
 	private lazy var reissuanceScreen: UIViewController = {
 		let consentViewController = HealthCertificateReissuanceConsentViewController(
+			healthCertificateService: healthCertificateService,
+			restServiceProvider: restServiceProvider,
+			appConfigProvider: appConfigProvider,
 			cclService: cclService,
 			certificate: healthCertificate,
 			healthCertifiedPerson: healthCertifiedPerson,
 			didTapDataPrivacy: { [weak self] in
 				self?.showDataPrivacy()
 			},
-			presentAlert: { [weak self] okAction, retryAction in
-				let alert = UIAlertController(
-					title: AppStrings.HealthCertificate.Reissuance.Consent.defaultAlertTitle,
-					message: AppStrings.HealthCertificate.Reissuance.Consent.defaultAlertMessage,
-					preferredStyle: .alert
-				)
-				alert.addAction(okAction)
-				alert.addAction(retryAction)
-				self?.navigationController.present(alert, animated: true)
+			onError: { [weak self] error in
+				self?.showReissuanceError(error)
 			},
 			onReissuanceSuccess: { [weak self] in
 				self?.showReissuanceSucceeded()
@@ -90,6 +95,23 @@ final class HealthCertificateReissuanceCoordinator {
 		detailViewController.navigationItem.largeTitleDisplayMode = .always
 		detailViewController.navigationItem.hidesBackButton = false
 		navigationController.pushViewController(detailViewController, animated: true)
+	}
+
+	private func showReissuanceError(_ error: HealthCertificateReissuanceError) {
+		let alert = UIAlertController(
+			title: AppStrings.HealthCertificate.Reissuance.Consent.defaultAlertTitle,
+			message: error.localizedDescription,
+			preferredStyle: .alert
+		)
+
+		alert.addAction(
+			UIAlertAction(
+				title: AppStrings.HealthCertificate.Reissuance.Consent.defaultAlertOKButton,
+				style: .default
+			)
+		)
+
+		navigationController.present(alert, animated: true)
 	}
 
 	private func showReissuanceSucceeded() {

@@ -21,27 +21,27 @@ enum DCCReissuanceResourceError: LocalizedError {
 	var errorDescription: String? {
 		switch self {
 		case .DCC_RI_PIN_MISMATCH:
-			return AppStrings.HealthCertificate.Reissuance.Errors.contactSupport
+			return "\(AppStrings.HealthCertificate.Reissuance.Errors.contactSupport) (DCC_RI_PIN_MISMATCH)"
 		case .DCC_RI_PARSE_ERR:
-			return AppStrings.HealthCertificate.Reissuance.Errors.contactSupport
+			return "\(AppStrings.HealthCertificate.Reissuance.Errors.contactSupport) (DCC_RI_PARSE_ERR)"
 		case .DCC_RI_NO_NETWORK:
-			return AppStrings.HealthCertificate.Reissuance.Errors.noNetwork
+			return "\(AppStrings.HealthCertificate.Reissuance.Errors.noNetwork) (DCC_RI_NO_NETWORK)"
 		case .DCC_RI_400:
-			return AppStrings.HealthCertificate.Reissuance.Errors.tryAgain
+			return "\(AppStrings.HealthCertificate.Reissuance.Errors.tryAgain) (DCC_RI_400)"
 		case .DCC_RI_401:
-			return AppStrings.HealthCertificate.Reissuance.Errors.notSupported
+			return "\(AppStrings.HealthCertificate.Reissuance.Errors.notSupported) (DCC_RI_401)"
 		case .DCC_RI_403:
-			return AppStrings.HealthCertificate.Reissuance.Errors.notSupported
+			return "\(AppStrings.HealthCertificate.Reissuance.Errors.notSupported) (DCC_RI_403)"
 		case .DCC_RI_406:
-			return AppStrings.HealthCertificate.Reissuance.Errors.tryAgain
+			return "\(AppStrings.HealthCertificate.Reissuance.Errors.tryAgain) (DCC_RI_406)"
 		case .DCC_RI_429:
-			return AppStrings.HealthCertificate.Reissuance.Errors.tryAgain
+			return "\(AppStrings.HealthCertificate.Reissuance.Errors.tryAgain) (DCC_RI_429)"
 		case .DCC_RI_500:
-			return AppStrings.HealthCertificate.Reissuance.Errors.tryAgain
+			return "\(AppStrings.HealthCertificate.Reissuance.Errors.tryAgain) (DCC_RI_500)"
 		case .DCC_RI_CLIENT_ERR:
-			return AppStrings.HealthCertificate.Reissuance.Errors.tryAgain
+			return "\(AppStrings.HealthCertificate.Reissuance.Errors.tryAgain) (DCC_RI_CLIENT_ERR)"
 		case .DCC_RI_SERVER_ERR:
-			return AppStrings.HealthCertificate.Reissuance.Errors.tryAgain
+			return "\(AppStrings.HealthCertificate.Reissuance.Errors.tryAgain) (DCC_RI_SERVER_ERR)"
 		}
 	}
 }

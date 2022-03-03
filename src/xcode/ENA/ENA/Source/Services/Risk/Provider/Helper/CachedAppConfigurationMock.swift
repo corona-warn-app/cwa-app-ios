@@ -35,7 +35,7 @@ final class CachedAppConfigurationMock: AppConfigurationProviding {
 	///	This is synchronously for test and screenshot purposes. Use `AppConfigurationProviding` for 'real' config fetching!
 	static let defaultAppConfiguration: SAP_Internal_V2_ApplicationConfigurationIOS = {
 		guard
-			let url = Bundle.main.url(forResource: "default_app_config_270", withExtension: ""),
+			let url = Bundle.main.url(forResource: "default_app_config_2200", withExtension: ""),
 			let data = try? Data(contentsOf: url),
 			let zip = Archive(data: data, accessMode: .read),
 			var staticConfig = try? zip.extractAppConfiguration() else {

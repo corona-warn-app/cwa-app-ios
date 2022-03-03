@@ -151,6 +151,7 @@ enum LaunchArguments {
 		static let familyCertificates = LaunchArgument(name: "familyCertificates")
 		static let invalidCertificateCheck = LaunchArgument(name: "invalidCertificateCheck")
 		static let showTestCertificateOnTestResult = LaunchArgument(name: "showTestCertificateOnTestResult")
+		static let isDCCAdmissionCheckScenariosEnabled = LaunchArgument(name: "isDCCAdmissionCheckScenariosEnabled")
 	}
 
 	enum notifications {
