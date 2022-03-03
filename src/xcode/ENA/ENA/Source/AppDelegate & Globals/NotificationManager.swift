@@ -61,14 +61,13 @@ final class NotificationManager: NSObject, UNUserNotificationCenterDelegate {
 			let testIdentifier = ActionableNotificationIdentifier.testResult.identifier
 			let testTypeIdentifier = ActionableNotificationIdentifier.testResultType.identifier
 
-			guard let testResultTypeRawValue = response.notification.request.content.userInfo[testTypeIdentifier] as? Int,
-				  let testResultType = CoronaTestType(rawValue: testResultTypeRawValue),
-				  let testResultRawValue = response.notification.request.content.userInfo[testIdentifier] as? Int else {
+			guard let testResultRawValue = response.notification.request.content.userInfo[testIdentifier] as? Int,
+				  let testResult = TestResult(rawValue: testResultRawValue),
+				  let testResultTypeRawValue = response.notification.request.content.userInfo[testTypeIdentifier] as? Int,
+				  let testResultType = CoronaTestType(rawValue: testResultTypeRawValue) else {
 				showHome()
 				return
 			}
-
-			let testResult = TestResult(serverResponse: testResultRawValue, coronaTestType: testResultType)
 
 			switch testResult {
 			case .positive, .negative:
