@@ -164,6 +164,9 @@
          <TestPlanReference
             reference = "container:TestPlans/TicketValidationUITests.xctestplan">
          </TestPlanReference>
+         <TestPlanReference
+            reference = "container:TestPlans/ReplaceHealthCertificate.xctestplan">
+         </TestPlanReference>
       </TestPlans>
       <Testables>
          <TestableReference

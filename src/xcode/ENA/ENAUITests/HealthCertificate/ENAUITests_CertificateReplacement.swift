@@ -24,7 +24,7 @@ class ENAUITests_CertificateReplacement: CWATestCase {
 	
 	// MARK: - Tests
 
-	func test_some() throws {
+	func test_CertificateReplacement() throws {
 		app.setLaunchArgument(LaunchArguments.healthCertificate.firstAndSecondHealthCertificate, to: true)
 		app.setLaunchArgument(LaunchArguments.infoScreen.healthCertificateInfoScreenShown, to: true)
 		app.setLaunchArgument(LaunchArguments.healthCertificate.hasCertificateReissuance, to: true)
