@@ -7,26 +7,34 @@ import UIKit
 class HealthCertificateReissuanceConsentViewController: DynamicTableViewController, DismissHandling, FooterViewHandling {
 
 	// MARK: - Init
-
+	
 	init(
+		healthCertificateService: HealthCertificateService,
+		restServiceProvider: RestServiceProviding,
+		appConfigProvider: AppConfigurationProviding,
 		cclService: CCLServable,
 		certificate: HealthCertificate,
 		healthCertifiedPerson: HealthCertifiedPerson,
 		didTapDataPrivacy: @escaping () -> Void,
-		presentAlert: @escaping (_ ok: UIAlertAction, _ retry: UIAlertAction) -> Void,
+		onError: @escaping (HealthCertificateReissuanceError) -> Void,
 		onReissuanceSuccess: @escaping () -> Void,
 		dismiss: @escaping () -> Void
 	) {
-		self.presentAlert = presentAlert
+
 		self.viewModel = HealthCertificateReissuanceConsentViewModel(
 			cclService: cclService,
 			certificate: certificate,
 			certifiedPerson: healthCertifiedPerson,
+			appConfigProvider: appConfigProvider,
+			restServiceProvider: restServiceProvider,
+			healthCertificateService: healthCertificateService,
 			onDisclaimerButtonTap: didTapDataPrivacy
 		)
 
+		self.onError = onError
 		self.onReissuanceSuccess = onReissuanceSuccess
 		self.dismiss = dismiss
+		
 		super.init(nibName: nil, bundle: nil)
 	}
 
@@ -68,14 +76,16 @@ class HealthCertificateReissuanceConsentViewController: DynamicTableViewControll
 			footerView?.setLoadingIndicator(true, disable: true, button: .primary)
 			viewModel.submit(
 				completion: { [weak self] result in
+					self?.footerView?.setLoadingIndicator(false, disable: false, button: .primary)
+
 					switch result {
 					case .success:
 						DispatchQueue.main.async {
 							self?.onReissuanceSuccess()
 						}
-					case .failure:
+					case .failure(let error):
 						DispatchQueue.main.async {
-							self?.showAlert()
+							self?.onError(error)
 						}
 					}
 				}
@@ -87,29 +97,10 @@ class HealthCertificateReissuanceConsentViewController: DynamicTableViewControll
 
 	// MARK: - Private
 
-	private let presentAlert: (_ ok: UIAlertAction, _ retry: UIAlertAction) -> Void
+	private let onError: (HealthCertificateReissuanceError) -> Void
 	private let onReissuanceSuccess: () -> Void
 	private let dismiss: () -> Void
 	private let viewModel: HealthCertificateReissuanceConsentViewModel
-
-	private func showAlert() {
-		footerView?.setLoadingIndicator(false, disable: false, button: .primary)
-		
-		let okAction = UIAlertAction(
-			title: AppStrings.HealthCertificate.Reissuance.Consent.defaultAlertOKButton,
-			style: .default, handler: { _ in
-				Log.info("OK Alert action needed here")
-			}
-		)
-
-		let retryAction = UIAlertAction(
-			title: AppStrings.HealthCertificate.Reissuance.Consent.defaultAlertRetryButton,
-			style: .default, handler: { _ in
-				Log.info("Retry Alert action needed here")
-			}
-		)
-		presentAlert(okAction, retryAction)
-	}
 
 	private func setupView() {
 		view.backgroundColor = .enaColor(for: .background)

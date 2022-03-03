@@ -1040,6 +1040,7 @@ enum AppStrings {
 	enum SafariView {
 		static let targetURL = NSLocalizedString("safari_corona_website", tableName: "Localizable.links", comment: "")
 		static let socialMedia = NSLocalizedString("safari_corona_social_media", tableName: "Localizable.links", comment: "")
+		static let accessibility = NSLocalizedString("safari_corona_accessibility", tableName: "Localizable.links", comment: "")
 	}
 
 	enum LocalNotifications {
@@ -1115,6 +1116,8 @@ enum AppStrings {
 		static let contactHotlineForeignNumber = NSLocalizedString("App_Information_Contact_Hotline_Number_Foreign", comment: "")
 		static let contactHotlineForeignDetails = NSLocalizedString("App_Information_Contact_Hotline_Details_Foreign", comment: "")
 		static let contactHotlineTerms = NSLocalizedString("App_Information_Contact_Hotline_Terms", comment: "")
+		
+		static let accessibilityNavigation = NSLocalizedString("App_Information_Accessibility_Navigation", comment: "")
 
 		static let imprintNavigation = NSLocalizedString("App_Information_Imprint_Navigation", comment: "")
 		static let imprintImageDescription = NSLocalizedString("App_Information_Imprint_ImageDescription", comment: "")
@@ -1155,10 +1158,14 @@ enum AppStrings {
 		static let generalDescription = NSLocalizedString("DeltaOnboarding_NewVersionFeatures_Description", comment: "")
 		static let aboutAppInformation = NSLocalizedString("NewVersionFeatures_Info_about_abb_information", comment: "")
 
-		/* Version 2.18 */
+		/* Version 2.19 */
 
-		static let feature218CentralManagementOfRulesTitle = NSLocalizedString("NewVersionFeature_218_centralManagementOfRules_title", comment: "")
-		static let feature218CentralManagementOfRulesDescription = NSLocalizedString("NewVersionFeature_218_centralManagementOfRules_description", comment: "")
+		static let feature219RapidPCRTitle = NSLocalizedString("NewVersionFeature_219_rapidPCR_title", comment: "")
+		static let feature219RapidPCRDescription = NSLocalizedString("NewVersionFeature_219_rapidPCR_description", comment: "")
+		static let feature219FaultTolerantNameHandlingTitle = NSLocalizedString("NewVersionFeature_219_faultTolerantNameHandling_title", comment: "")
+		static let feature219FaultTolerantNameHandlingDescription = NSLocalizedString("NewVersionFeature_219_faultTolerantNameHandling_description", comment: "")
+		static let feature219VaccinationCertificateReplacementTitle = NSLocalizedString("NewVersionFeature_219_vaccinationCertificateReplacement_title", comment: "")
+		static let feature219VaccinationCertificateReplacementDescription = NSLocalizedString("NewVersionFeature_219_vaccinationCertificateReplacement_description", comment: "")
 	}
 
 	enum DeltaOnboarding {
@@ -2201,6 +2208,12 @@ enum AppStrings {
 			}
 		}
 
+		enum FaultTolerantNaming {
+			static let title = NSLocalizedString("HealthCertificate_FaultTolerantNaming_RegroupDone_Title", comment: "")
+			static let message = NSLocalizedString("HealthCertificate_FaultTolerantNaming_RegroupDone_Message", comment: "")
+			static let okayButton = NSLocalizedString("HealthCertificate_FaultTolerantNaming_RegroupDone_OkayButton", comment: "")
+		}
+
 		enum ValidityState {
 			static let expiringSoon = NSLocalizedString("HealthCertificate_ValidityState_ExpiringSoon", comment: "")
 			static let expiringSoonDescription = NSLocalizedString("HealthCertificate_ValidityState_ExpiringSoon_description", comment: "")
@@ -2342,7 +2355,6 @@ enum AppStrings {
 				static let secondaryButtonTitle = NSLocalizedString("HealthCertificate_Reissuance_Consent_secondaryButtonTitle", comment: "")
 
 				static let defaultAlertTitle = NSLocalizedString("HealthCertificate_Reissuance_Consent_DefaultAlert_Title", comment: "")
-				static let defaultAlertMessage = NSLocalizedString("HealthCertificate_Reissuance_Consent_DefaultAlert_Message", comment: "")
 				static let defaultAlertOKButton = NSLocalizedString("HealthCertificate_Reissuance_Consent_DefaultAlert_OKButton", comment: "")
 				static let defaultAlertRetryButton = NSLocalizedString("HealthCertificate_Reissuance_Consent_DefaultAlert_RetryButton", comment: "")
 
@@ -2371,7 +2383,6 @@ enum AppStrings {
 				static let noNetwork = NSLocalizedString("HealthCertificate_Reissuance_Error_No_Network", comment: "")
 				static let tryAgain = NSLocalizedString("HealthCertificate_Reissuance_Error_Try_Again", comment: "")
 				static let notSupported = NSLocalizedString("HealthCertificate_Reissuance_Error_Not_Supported", comment: "")
-
 			}
 		}
 	}

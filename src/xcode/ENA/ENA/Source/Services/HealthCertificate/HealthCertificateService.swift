@@ -10,8 +10,16 @@ import HealthCertificateToolkit
 // version will be used for migration logic
 public let kCurrentHealthCertifiedPersonsVersion = 3
 
+protocol HealthCertificateServiceServable {
+	func replaceHealthCertificate(
+		oldCertificateRef: DCCCertificateReference,
+		with newHealthCertificateString: String,
+		for person: HealthCertifiedPerson
+	) throws
+}
+
 // swiftlint:disable:next type_body_length
-class HealthCertificateService {
+class HealthCertificateService: HealthCertificateServiceServable {
 
 	// MARK: - Init
 
@@ -201,6 +209,28 @@ class HealthCertificateService {
 			return .failure(.other(error))
 		}
 	}
+	
+	func replaceHealthCertificate(
+		oldCertificateRef: DCCCertificateReference,
+		with newHealthCertificateString: String,
+		for person: HealthCertifiedPerson
+	) throws {
+		let newHealthCertificate = try HealthCertificate(base45: newHealthCertificateString)
+		guard let oldHealthCertificate = person.healthCertificate(for: oldCertificateRef) else {
+			return
+		}
+		
+		person.healthCertificates.replace(oldHealthCertificate, with: newHealthCertificate)
+		
+		updateValidityState(for: newHealthCertificate)
+		scheduleTimer()
+
+		healthCertificateNotificationService.createNotifications(for: newHealthCertificate)
+		
+		healthCertificateNotificationService.removeAllNotifications(for: oldHealthCertificate, completion: {})
+
+		recycleBin.moveToBin(.certificate(oldHealthCertificate))
+	}
 
 	@discardableResult
 	func addHealthCertificate(_ healthCertificate: HealthCertificate) -> HealthCertifiedPerson {
@@ -221,9 +251,7 @@ class HealthCertificateService {
 		updateValidityState(for: healthCertificate)
 		scheduleTimer()
 
-		if healthCertificate.type != .test {
-			healthCertificateNotificationService.createNotifications(for: healthCertificate)
-		}
+		healthCertificateNotificationService.createNotifications(for: healthCertificate)
 		
 		if isNewPersonAdded {
 			Log.info("[HealthCertificateService] Successfully registered health certificate for a new person", log: .api)

@@ -24,12 +24,17 @@ class AppInformationViewController: DynamicTableViewController, NavigationBarOpa
 			.faq: AppInformationCellModel(
 				text: AppStrings.AppInformation.faqNavigation,
 				accessibilityIdentifier: AccessibilityIdentifiers.AppInformation.faqNavigation,
-				action: .safari
+				action: .safariFAQs
 			),
 			.terms: AppInformationCellModel(
 				text: AppStrings.AppInformation.termsTitle,
 				accessibilityIdentifier: AccessibilityIdentifiers.AppInformation.termsNavigation,
 				action: .push(htmlModel: AppInformationModel.termsModel, withTitle: AppStrings.AppInformation.termsNavigation)
+			),
+			.accessibility: AppInformationCellModel(
+				text: AppStrings.AppInformation.accessibilityNavigation,
+				accessibilityIdentifier: AccessibilityIdentifiers.AppInformation.accessibilityNavigation,
+				action: .safariAccessibility
 			),
 			.privacy: AppInformationCellModel(
 				text: AppStrings.AppInformation.privacyNavigation,
@@ -104,14 +109,21 @@ class AppInformationViewController: DynamicTableViewController, NavigationBarOpa
 	
 	override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		let cell = super.tableView(tableView, cellForRowAt: indexPath)
-		cell.accessoryType = .disclosureIndicator
 		cell.selectionStyle = .default
-
 		cell.isAccessibilityElement = true
 		cell.accessibilityLabel = cell.textLabel?.text
 		if let category = Category(rawValue: indexPath.row),
 			let accessibilityIdentifier = model[category]?.accessibilityIdentifier {
 			cell.accessibilityIdentifier = accessibilityIdentifier
+			switch category {
+			case .faq, .accessibility:
+				let imageView = UIImageView(image: UIImage(named: "icons_safari_link"))
+				imageView.adjustsImageSizeForAccessibilityContentSizeCategory = true
+				imageView.contentMode = .scaleAspectFill
+				cell.accessoryView = imageView
+			case .about, .contact, .errorReport, .imprint, .legal, .privacy, .versionInfo, .terms:
+				cell.accessoryType = .disclosureIndicator
+			}
 		}
 
 		return cell
@@ -135,6 +147,7 @@ class AppInformationViewController: DynamicTableViewController, NavigationBarOpa
 		case about
 		case faq
 		case terms
+		case accessibility
 		case privacy
 		case legal
 		case contact

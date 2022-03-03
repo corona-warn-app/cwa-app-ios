@@ -7,7 +7,8 @@
 import Foundation
 
 enum DMMenuItem: Int, CaseIterable {
-	case cclConfig = 0
+	case healthCertificateMigration = 0
+	case cclConfig
 	case newHttp
 	case ticketValidation
 	case keys
@@ -42,7 +43,6 @@ enum DMMenuItem: Int, CaseIterable {
 	case dscLists
 	case notifications
 	case boosterRules
-	
 }
 
 extension DMMenuItem {
@@ -59,6 +59,7 @@ extension DMMenuItem {
 	
 	var title: String {
 		switch self {
+		case .healthCertificateMigration: return "HealthCertificates migration"
 		case .cclConfig: return "CCL Configuration"
 		case .newHttp: return "New RestService - Only for DEVs"
 		case .ticketValidation: return "Ticket validation service"
@@ -98,6 +99,7 @@ extension DMMenuItem {
 	}
 	var subtitle: String {
 		switch self {
+		case .healthCertificateMigration: return "Set migration version number"
 		case .cclConfig: return "Download forced or not the ccl configuration"
 		case .newHttp: return "New RestService - Only for DEVs"
 		case .ticketValidation: return "Configure ticket validation service"
