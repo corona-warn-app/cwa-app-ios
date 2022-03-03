@@ -12,8 +12,7 @@ class CCLConfigurationResource: Resource {
 		isFake: Bool = false,
 		trustEvaluation: TrustEvaluating = DefaultTrustEvaluation(
 			publicKeyHash: Environments().currentEnvironment().pinningKeyHash
-		),
-		mockDefaultModel: CCLConfigurationReceiveModel? = nil
+		)
 	) {
 		self.type = .caching(
 			Set<CacheUsePolicy>([.loadOnlyOnceADay])
@@ -32,11 +31,7 @@ class CCLConfigurationResource: Resource {
 		self.receiveResource = CBORReceiveResource<CCLConfigurationReceiveModel>()
 		self.trustEvaluation = trustEvaluation
 
-		#if DEBUG
-		self.defaultModel = mockDefaultModel ?? bundledDefaultModel
-		#else
 		self.defaultModel = bundledDefaultModel
-		#endif
 	}
 	
 	// MARK: - Protocol Resource
