@@ -128,6 +128,8 @@ struct SAP_Internal_V2_PresenceTracingRiskCalculationParameters {
 
   var normalizedTimePerDayToRiskLevelMapping: [SAP_Internal_V2_NormalizedTimeToRiskLevelMapping] = []
 
+  var maxCheckInAgeInDays: UInt32 = 0
+
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
   init() {}
@@ -393,6 +395,7 @@ extension SAP_Internal_V2_PresenceTracingRiskCalculationParameters: SwiftProtobu
     1: .same(proto: "transmissionRiskValueMapping"),
     2: .same(proto: "normalizedTimePerCheckInToRiskLevelMapping"),
     3: .same(proto: "normalizedTimePerDayToRiskLevelMapping"),
+    4: .same(proto: "maxCheckInAgeInDays"),
   ]
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -404,6 +407,7 @@ extension SAP_Internal_V2_PresenceTracingRiskCalculationParameters: SwiftProtobu
       case 1: try { try decoder.decodeRepeatedMessageField(value: &self.transmissionRiskValueMapping) }()
       case 2: try { try decoder.decodeRepeatedMessageField(value: &self.normalizedTimePerCheckInToRiskLevelMapping) }()
       case 3: try { try decoder.decodeRepeatedMessageField(value: &self.normalizedTimePerDayToRiskLevelMapping) }()
+      case 4: try { try decoder.decodeSingularUInt32Field(value: &self.maxCheckInAgeInDays) }()
       default: break
       }
     }
@@ -419,6 +423,9 @@ extension SAP_Internal_V2_PresenceTracingRiskCalculationParameters: SwiftProtobu
     if !self.normalizedTimePerDayToRiskLevelMapping.isEmpty {
       try visitor.visitRepeatedMessageField(value: self.normalizedTimePerDayToRiskLevelMapping, fieldNumber: 3)
     }
+    if self.maxCheckInAgeInDays != 0 {
+      try visitor.visitSingularUInt32Field(value: self.maxCheckInAgeInDays, fieldNumber: 4)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -426,6 +433,7 @@ extension SAP_Internal_V2_PresenceTracingRiskCalculationParameters: SwiftProtobu
     if lhs.transmissionRiskValueMapping != rhs.transmissionRiskValueMapping {return false}
     if lhs.normalizedTimePerCheckInToRiskLevelMapping != rhs.normalizedTimePerCheckInToRiskLevelMapping {return false}
     if lhs.normalizedTimePerDayToRiskLevelMapping != rhs.normalizedTimePerDayToRiskLevelMapping {return false}
+    if lhs.maxCheckInAgeInDays != rhs.maxCheckInAgeInDays {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
