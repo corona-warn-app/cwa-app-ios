@@ -36,11 +36,21 @@ struct SAP_Internal_V2_CoronaTestParameters {
   /// Clears the value of `coronaRapidAntigenTestParameters`. Subsequent reads from it will return its default value.
   mutating func clearCoronaRapidAntigenTestParameters() {self._coronaRapidAntigenTestParameters = nil}
 
+  var coronaPcrtestParameters: SAP_Internal_V2_CoronaPCRTestParameters {
+    get {return _coronaPcrtestParameters ?? SAP_Internal_V2_CoronaPCRTestParameters()}
+    set {_coronaPcrtestParameters = newValue}
+  }
+  /// Returns true if `coronaPcrtestParameters` has been explicitly set.
+  var hasCoronaPcrtestParameters: Bool {return self._coronaPcrtestParameters != nil}
+  /// Clears the value of `coronaPcrtestParameters`. Subsequent reads from it will return its default value.
+  mutating func clearCoronaPcrtestParameters() {self._coronaPcrtestParameters = nil}
+
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
   init() {}
 
   fileprivate var _coronaRapidAntigenTestParameters: SAP_Internal_V2_CoronaRapidAntigenTestParameters? = nil
+  fileprivate var _coronaPcrtestParameters: SAP_Internal_V2_CoronaPCRTestParameters? = nil
 }
 
 struct SAP_Internal_V2_CoronaRapidAntigenTestParameters {
@@ -49,6 +59,20 @@ struct SAP_Internal_V2_CoronaRapidAntigenTestParameters {
   // methods supported on all messages.
 
   var hoursToDeemTestOutdated: UInt32 = 0
+
+  var hoursSinceSampleCollectionToShowRiskCard: UInt32 = 0
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+}
+
+struct SAP_Internal_V2_CoronaPCRTestParameters {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  var hoursSinceTestRegistrationToShowRiskCard: UInt32 = 0
 
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -63,6 +87,7 @@ extension SAP_Internal_V2_CoronaTestParameters: SwiftProtobuf.Message, SwiftProt
   static let protoMessageName: String = _protobuf_package + ".CoronaTestParameters"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "coronaRapidAntigenTestParameters"),
+    2: .same(proto: "coronaPCRTestParameters"),
   ]
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -72,6 +97,7 @@ extension SAP_Internal_V2_CoronaTestParameters: SwiftProtobuf.Message, SwiftProt
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
       case 1: try { try decoder.decodeSingularMessageField(value: &self._coronaRapidAntigenTestParameters) }()
+      case 2: try { try decoder.decodeSingularMessageField(value: &self._coronaPcrtestParameters) }()
       default: break
       }
     }
@@ -85,11 +111,15 @@ extension SAP_Internal_V2_CoronaTestParameters: SwiftProtobuf.Message, SwiftProt
     try { if let v = self._coronaRapidAntigenTestParameters {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
     } }()
+    try { if let v = self._coronaPcrtestParameters {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
+    } }()
     try unknownFields.traverse(visitor: &visitor)
   }
 
   static func ==(lhs: SAP_Internal_V2_CoronaTestParameters, rhs: SAP_Internal_V2_CoronaTestParameters) -> Bool {
     if lhs._coronaRapidAntigenTestParameters != rhs._coronaRapidAntigenTestParameters {return false}
+    if lhs._coronaPcrtestParameters != rhs._coronaPcrtestParameters {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -99,6 +129,7 @@ extension SAP_Internal_V2_CoronaRapidAntigenTestParameters: SwiftProtobuf.Messag
   static let protoMessageName: String = _protobuf_package + ".CoronaRapidAntigenTestParameters"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "hoursToDeemTestOutdated"),
+    2: .same(proto: "hoursSinceSampleCollectionToShowRiskCard"),
   ]
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -108,6 +139,7 @@ extension SAP_Internal_V2_CoronaRapidAntigenTestParameters: SwiftProtobuf.Messag
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
       case 1: try { try decoder.decodeSingularUInt32Field(value: &self.hoursToDeemTestOutdated) }()
+      case 2: try { try decoder.decodeSingularUInt32Field(value: &self.hoursSinceSampleCollectionToShowRiskCard) }()
       default: break
       }
     }
@@ -117,11 +149,47 @@ extension SAP_Internal_V2_CoronaRapidAntigenTestParameters: SwiftProtobuf.Messag
     if self.hoursToDeemTestOutdated != 0 {
       try visitor.visitSingularUInt32Field(value: self.hoursToDeemTestOutdated, fieldNumber: 1)
     }
+    if self.hoursSinceSampleCollectionToShowRiskCard != 0 {
+      try visitor.visitSingularUInt32Field(value: self.hoursSinceSampleCollectionToShowRiskCard, fieldNumber: 2)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
   static func ==(lhs: SAP_Internal_V2_CoronaRapidAntigenTestParameters, rhs: SAP_Internal_V2_CoronaRapidAntigenTestParameters) -> Bool {
     if lhs.hoursToDeemTestOutdated != rhs.hoursToDeemTestOutdated {return false}
+    if lhs.hoursSinceSampleCollectionToShowRiskCard != rhs.hoursSinceSampleCollectionToShowRiskCard {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension SAP_Internal_V2_CoronaPCRTestParameters: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".CoronaPCRTestParameters"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "hoursSinceTestRegistrationToShowRiskCard"),
+  ]
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularUInt32Field(value: &self.hoursSinceTestRegistrationToShowRiskCard) }()
+      default: break
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.hoursSinceTestRegistrationToShowRiskCard != 0 {
+      try visitor.visitSingularUInt32Field(value: self.hoursSinceTestRegistrationToShowRiskCard, fieldNumber: 1)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: SAP_Internal_V2_CoronaPCRTestParameters, rhs: SAP_Internal_V2_CoronaPCRTestParameters) -> Bool {
+    if lhs.hoursSinceTestRegistrationToShowRiskCard != rhs.hoursSinceTestRegistrationToShowRiskCard {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
