@@ -88,8 +88,7 @@
     {
       "parallelizable" : true,
       "selectedTests" : [
-        "ENAUITests_CertificateReplacement\/test_CertificateReplacement()",
-        "ENAUITests_CertificateReplacement\/test_some()"
+        "ENAUITests_CertificateReissuance\/test_CertificateReissuance()"
       ],
       "target" : {
         "containerPath" : "container:ENA.xcodeproj",

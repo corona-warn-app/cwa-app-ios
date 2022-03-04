@@ -4,7 +4,7 @@
 
 import XCTest
 
-class ENAUITests_CertificateReplacement: CWATestCase {
+class ENAUITests_CertificateReissuance: CWATestCase {
 
 	// MARK: - Overrides
 
@@ -24,7 +24,7 @@ class ENAUITests_CertificateReplacement: CWATestCase {
 	
 	// MARK: - Tests
 
-	func test_CertificateReplacement() throws {
+	func test_CertificateReissuance() throws {
 		app.setLaunchArgument(LaunchArguments.healthCertificate.firstAndSecondHealthCertificate, to: true)
 		app.setLaunchArgument(LaunchArguments.infoScreen.healthCertificateInfoScreenShown, to: true)
 		app.setLaunchArgument(LaunchArguments.healthCertificate.hasCertificateReissuance, to: true)
