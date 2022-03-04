@@ -9,7 +9,6 @@ enum CoronaTestServiceError: LocalizedError, Equatable {
 	case teleTanError(ServiceError<TeleTanError>) // Rename to teleTanServiceError ?
 	case registrationTokenError(ServiceError<RegistrationTokenError>)
 	case testResultError(ServiceError<TestResultError>)
-	case unknownTestResult
 	case testExpired
 	case noRegistrationToken
 	case noCoronaTestOfRequestedType
@@ -55,7 +54,7 @@ enum CoronaTestServiceError: LocalizedError, Equatable {
 			}
 		case .testResultError(let testResultError):
 			return testResultError.errorDescription
-		case .unknownTestResult, .noCoronaTestOfRequestedType, .malformedDateOfBirthKey:
+		case .noCoronaTestOfRequestedType, .malformedDateOfBirthKey:
 			Log.error("\(self)", log: .api)
 			return AppStrings.ExposureSubmissionError.defaultError + "\n(\(String(describing: self)))"
 		}

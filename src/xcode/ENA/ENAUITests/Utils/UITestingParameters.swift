@@ -18,17 +18,21 @@ extension ENStatus {
 }
 
 extension TestResult {
+
 	// MARK: - Init
 	
-	init?(stringValue: String) {
+	init?(stringValue: String, coronaTestType: CoronaTestType) {
 		guard let rawValue = Int(stringValue) else {
 			fatalError("Could not convert String to Int")
 		}
 		
-		self.init(serverResponse: rawValue)
+		self.init(serverResponse: rawValue, coronaTestType: coronaTestType)
 	}
+
+	// MARK: - Internal
 	
 	var stringValue: String {
 		String(describing: self.rawValue)
 	}
+
 }

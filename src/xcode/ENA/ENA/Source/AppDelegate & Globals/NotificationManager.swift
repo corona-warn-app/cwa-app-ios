@@ -62,7 +62,7 @@ final class NotificationManager: NSObject, UNUserNotificationCenterDelegate {
 			let testTypeIdentifier = ActionableNotificationIdentifier.testResultType.identifier
 
 			guard let testResultRawValue = response.notification.request.content.userInfo[testIdentifier] as? Int,
-				  let testResult = TestResult(serverResponse: testResultRawValue),
+				  let testResult = TestResult(rawValue: testResultRawValue),
 				  let testResultTypeRawValue = response.notification.request.content.userInfo[testTypeIdentifier] as? Int,
 				  let testResultType = CoronaTestType(rawValue: testResultTypeRawValue) else {
 				showHome()
