@@ -73,7 +73,6 @@ final class HealthCertifiedPersonViewModel {
 
 	enum TableViewSection: Int, CaseIterable {
 		case header
-		case qrCode
 		case certificateReissuance
 		case boosterNotification
 		case admissionState
@@ -138,6 +137,7 @@ final class HealthCertifiedPersonViewModel {
 		)
 	}
 
+	/*
 	var qrCodeCellViewModel: HealthCertificateQRCodeCellViewModel {
 		guard let mostRelevantHealthCertificate = healthCertifiedPerson.mostRelevantHealthCertificate
 			else {
@@ -155,7 +155,7 @@ final class HealthCertifiedPersonViewModel {
 				self?.showInfo()
 			}
 		)
-	}
+	}*/
 
 	var certificateReissuanceIsVisible: Bool {
 		healthCertifiedPerson.dccWalletInfo?.certificateReissuance?.reissuanceDivision.visible ?? false
@@ -182,8 +182,6 @@ final class HealthCertifiedPersonViewModel {
 	func numberOfItems(in section: TableViewSection) -> Int {
 		switch section {
 		case .header:
-			return 1
-		case .qrCode:
 			return 1
 		case .certificateReissuance:
 			return certificateReissuanceIsVisible ? 1 : 0

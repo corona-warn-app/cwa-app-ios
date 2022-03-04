@@ -97,11 +97,6 @@ class HealthCertifiedPersonViewController: UIViewController, UITableViewDataSour
 			cell.configure(with: viewModel.headerCellViewModel)
 			return cell
 
-		case .qrCode:
-			let cell = tableView.dequeueReusableCell(cellType: HealthCertificateQRCodeCell.self, for: indexPath)
-			cell.configure(with: viewModel.qrCodeCellViewModel)
-			return cell
-
 		case .certificateReissuance:
 			let cell = tableView.dequeueReusableCell(cellType: CertificateReissuanceTableViewCell.self, for: indexPath)
 			cell.configure(with: viewModel.certificateReissuanceCellModel)
@@ -153,10 +148,10 @@ class HealthCertifiedPersonViewController: UIViewController, UITableViewDataSour
 	// MARK: - Protocol UITableViewDelegate
 
 	func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-		// we are only interested in QRCode cell once if the traitCollectionDidChange - to update gradientHeightConstraint
+		// we are only interested in admission state cell once if the traitCollectionDidChange - to update gradientHeightConstraint
 		guard
 			didCalculateGradientHeight == false,
-			HealthCertifiedPersonViewModel.TableViewSection.map(indexPath.section) == .qrCode
+			HealthCertifiedPersonViewModel.TableViewSection.map(indexPath.section) == .admissionState
 		else {
 			return
 		}
@@ -322,10 +317,6 @@ class HealthCertifiedPersonViewController: UIViewController, UITableViewDataSour
 		tableView.register(
 			HealthCertificateSimpleTextCell.self,
 			forCellReuseIdentifier: HealthCertificateSimpleTextCell.reuseIdentifier
-		)
-		tableView.register(
-			HealthCertificateQRCodeCell.self,
-			forCellReuseIdentifier: HealthCertificateQRCodeCell.reuseIdentifier
 		)
 		tableView.register(
 			CertificateReissuanceTableViewCell.self,

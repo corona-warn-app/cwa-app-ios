@@ -76,6 +76,20 @@ class HealthCertificateCell: UITableViewCell, ReuseIdentifierProviding {
 	private let unseenNewsIndicator = CertificateBadgeView()
 	private let gradientBackground = GradientView()
 
+	private lazy var validationButton: ENAButton = {
+		let validationButton = ENAButton()
+		validationButton.hasBorder = true
+		validationButton.hasBackground = false
+		validationButton.setTitle(
+			AppStrings.HealthCertificate.Person.validationButtonTitle,
+			for: .normal
+		)
+		validationButton.accessibilityIdentifier = AccessibilityIdentifiers.HealthCertificate.Person.validationButton
+		// validationButton.addTarget(self, action: #selector(validationButtonTapped), for: .primaryActionTriggered)
+
+		return validationButton
+	}()
+	
 	private func setupView() {
 		backgroundColor = .clear
 		contentView.backgroundColor = .clear
@@ -166,6 +180,9 @@ class HealthCertificateCell: UITableViewCell, ReuseIdentifierProviding {
 		hStackView.alignment = .top
 		backgroundContainerView.addSubview(hStackView)
 
+		validationButton.translatesAutoresizingMaskIntoConstraints = false
+		backgroundContainerView.addSubview(validationButton)
+		
 		unseenNewsIndicator.backgroundColor = .systemRed
 		unseenNewsIndicator.translatesAutoresizingMaskIntoConstraints = false
 		backgroundContainerView.insertSubview(unseenNewsIndicator, aboveSubview: gradientBackground)
@@ -191,10 +208,15 @@ class HealthCertificateCell: UITableViewCell, ReuseIdentifierProviding {
 				unseenNewsIndicator.centerYAnchor.constraint(equalTo: gradientBackground.topAnchor, constant: 4),
 
 				hStackView.topAnchor.constraint(equalTo: backgroundContainerView.topAnchor, constant: 16.0),
-				hStackView.bottomAnchor.constraint(equalTo: backgroundContainerView.bottomAnchor, constant: -24.0),
+				// hStackView.bottomAnchor.constraint(equalTo: validationButton.bottomAnchor, constant: -4.0),
 				hStackView.leadingAnchor.constraint(equalTo: backgroundContainerView.leadingAnchor, constant: 16.0),
 				hStackView.trailingAnchor.constraint(equalTo: backgroundContainerView.trailingAnchor, constant: -16.0),
 
+				validationButton.topAnchor.constraint(equalTo: iconImageView.bottomAnchor, constant: 4.0),
+				validationButton.bottomAnchor.constraint(equalTo: backgroundContainerView.bottomAnchor, constant: -4.0),
+				validationButton.leadingAnchor.constraint(equalTo: backgroundContainerView.leadingAnchor, constant: 16.0),
+				validationButton.trailingAnchor.constraint(equalTo: backgroundContainerView.trailingAnchor, constant: -16.0),
+				
 				disclosureContainerView.leadingAnchor.constraint(equalTo: disclosureImageView.leadingAnchor),
 				disclosureContainerView.trailingAnchor.constraint(equalTo: disclosureImageView.trailingAnchor),
 
