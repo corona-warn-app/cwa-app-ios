@@ -219,6 +219,8 @@
 		01992EC227CE4B9000BC16DA /* CoronaTestType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01992EC127CE4B8000BC16DA /* CoronaTestType.swift */; };
 		01992EC327CE4B9100BC16DA /* CoronaTestType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01992EC127CE4B8000BC16DA /* CoronaTestType.swift */; };
 		01992EC727CFCDCB00BC16DA /* HealthCertificateReissuanceError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01992EC627CFCDCB00BC16DA /* HealthCertificateReissuanceError.swift */; };
+		01992ECB27D2735600BC16DA /* LoadingScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01992EC927D2735600BC16DA /* LoadingScreenViewController.swift */; };
+		01992ECC27D2735600BC16DA /* LoadingScreenViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01992ECA27D2735600BC16DA /* LoadingScreenViewController.xib */; };
 		019BFC6C24C9901A0053973D /* sqlite3.c in Sources */ = {isa = PBXBuildFile; fileRef = 0DFCC2702484DC8400E2811D /* sqlite3.c */; settings = {COMPILER_FLAGS = "-w"; }; };
 		019C9F0025894BAA00B26392 /* DiaryStoringProviding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 019C9EFF25894BAA00B26392 /* DiaryStoringProviding.swift */; };
 		019C9F1E25894CDD00B26392 /* DiaryOverviewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 019C9F1D25894CDD00B26392 /* DiaryOverviewViewModel.swift */; };
@@ -1931,6 +1933,8 @@
 		0197892D27468A9700AAC31C /* TicketValidationResultTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketValidationResultTableViewCell.swift; sourceTree = "<group>"; };
 		01992EC127CE4B8000BC16DA /* CoronaTestType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoronaTestType.swift; sourceTree = "<group>"; };
 		01992EC627CFCDCB00BC16DA /* HealthCertificateReissuanceError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthCertificateReissuanceError.swift; sourceTree = "<group>"; };
+		01992EC927D2735600BC16DA /* LoadingScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingScreenViewController.swift; sourceTree = "<group>"; };
+		01992ECA27D2735600BC16DA /* LoadingScreenViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LoadingScreenViewController.xib; sourceTree = "<group>"; };
 		019C9EFF25894BAA00B26392 /* DiaryStoringProviding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryStoringProviding.swift; sourceTree = "<group>"; };
 		019C9F0725894BE900B26392 /* MockDiaryStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockDiaryStore.swift; sourceTree = "<group>"; };
 		019C9F1D25894CDD00B26392 /* DiaryOverviewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryOverviewViewModel.swift; sourceTree = "<group>"; };
@@ -4202,6 +4206,15 @@
 				0197892C27468A9700AAC31C /* DynamicCell+TicketValidationResult.swift */,
 			);
 			path = Cells;
+			sourceTree = "<group>";
+		};
+		01992EC827D2731900BC16DA /* LoadingScreen */ = {
+			isa = PBXGroup;
+			children = (
+				01992EC927D2735600BC16DA /* LoadingScreenViewController.swift */,
+				01992ECA27D2735600BC16DA /* LoadingScreenViewController.xib */,
+			);
+			path = LoadingScreen;
 			sourceTree = "<group>";
 		};
 		019C9F2225894D2A00B26392 /* Model */ = {
@@ -6728,6 +6741,7 @@
 		85D759712457059A008175F0 /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
+				01992EC827D2731900BC16DA /* LoadingScreen */,
 				01A4DFD12653D3DE00F13432 /* AntigenTestProfile */,
 				71176E30248957B1004B0C9F /* App */,
 				EE85998B2462EFD4002E7AE2 /* AppInformation */,
@@ -10127,6 +10141,7 @@
 				01E4298E251DCDC90057FCBE /* Localizable.legal.strings in Resources */,
 				01F332392714839D005CE21E /* RecycleBinItemTableViewCell.xib in Resources */,
 				AB9B991926D522B700F2506D /* OpenSans-SemiBoldItalic.ttf in Resources */,
+				01992ECC27D2735600BC16DA /* LoadingScreenViewController.xib in Resources */,
 				ABEA875E26D3811100A8E950 /* TestCertificateTemplate_v4.1.pdf in Resources */,
 				AB9B991226D522B700F2506D /* OpenSans-BoldItalic.ttf in Resources */,
 				AB9B991626D522B700F2506D /* OpenSans-LightItalic.ttf in Resources */,
@@ -10637,6 +10652,7 @@
 				BA16BBF327B2BFD700C21B87 /* SerialSecureCacheMigrator.swift in Sources */,
 				50690CB32696FA0300127CB2 /* HealthCertificateValidationOnboardedCountriesProvider.swift in Sources */,
 				50C0298825E4067400460FA4 /* AgeGroup.swift in Sources */,
+				01992ECB27D2735600BC16DA /* LoadingScreenViewController.swift in Sources */,
 				35EA684A25553B5C00335F73 /* DownloadedPackagesStoreV2.swift in Sources */,
 				BAA8BAED25CAD91700E29CFE /* DMStaticTextTableViewCell.swift in Sources */,
 				2F26CE2E248B9C4F00BE30EE /* UIViewController+BackButton.swift in Sources */,
