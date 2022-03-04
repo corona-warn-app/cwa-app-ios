@@ -50,7 +50,6 @@ class HealthCertificateService: HealthCertificateServiceServable {
 			self.cclService = cclService
 			self.recycleBin = recycleBin
 
-			setup()
 			configureForTesting()
 
 			return
@@ -68,8 +67,6 @@ class HealthCertificateService: HealthCertificateServiceServable {
 		)
 		self.cclService = cclService
 		self.recycleBin = recycleBin
-
-		setup()
 	}
 
 	// MARK: - Internal
@@ -119,6 +116,38 @@ class HealthCertificateService: HealthCertificateServiceServable {
 				date.timeIntervalSinceNow.sign == .plus
 			}
 		return allDatesToExam.min()
+	}
+
+	func setup(
+		updatingWalletInfos: Bool,
+		completion: @escaping () -> Void
+	) {
+		setupQueue.async {
+			guard !self.isSetUp else {
+				completion()
+				return
+			}
+
+			HealthCertificateMigrator().migrate(store: self.store)
+			self.updatePublishersFromStore()
+			self.updateTimeBasedValidityStates()
+
+			self.updateGradients()
+
+			self.subscribeAppConfigUpdates()
+			self.subscribeDSCListChanges()
+			self.scheduleTimer()
+
+			if updatingWalletInfos {
+				self.updateDCCWalletInfosIfNeeded(completion: {
+					self.isSetUp = true
+					completion()
+				})
+			} else {
+				self.isSetUp = true
+				completion()
+			}
+		}
 	}
 
 	// swiftlint:disable cyclomatic_complexity
@@ -499,24 +528,13 @@ class HealthCertificateService: HealthCertificateServiceServable {
 	private let recycleBin: RecycleBin
 	private let cclService: CCLServable
 
+	private let setupQueue = DispatchQueue(label: "com.sap.HealthCertificateService.setup")
+
+	private var isSetUp = false
 	private var initialHealthCertifiedPersonsReadFromStore = false
 
 	private var healthCertifiedPersonSubscriptions = Set<AnyCancellable>()
 	private var subscriptions = Set<AnyCancellable>()
-
-	private func setup() {
-		
-		HealthCertificateMigrator().migrate(store: store)
-		updatePublishersFromStore()
-		updateTimeBasedValidityStates()
-
-		updateGradients()
-		
-		subscribeAppConfigUpdates()
-		subscribeDSCListChanges()
-		updateDCCWalletInfosIfNeeded()
-		scheduleTimer()
-	}
 
 	private func subscribeAppConfigUpdates() {
 		// subscribe app config updates
