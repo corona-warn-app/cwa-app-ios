@@ -603,11 +603,14 @@ class HealthCertificateService: HealthCertificateServiceServable {
 
 			switch result {
 			case .success(let dccWalletInfo):
+				let isAdmissionStateChanged = dccWalletInfo.admissionState != person.dccWalletInfo?.admissionState
 				let previousBoosterNotificationIdentifier = person.boosterRule?.identifier ?? person.dccWalletInfo?.boosterNotification.identifier
 				let previousCertificateReissuance = person.dccWalletInfo?.certificateReissuance
 				person.dccWalletInfo = dccWalletInfo
 				person.mostRecentWalletInfoUpdateFailed = false
-				
+				if isAdmissionStateChanged {
+					person.isAdmissionStateChanged = isAdmissionStateChanged
+				}
 				#if DEBUG
 				if isUITesting {
 					if LaunchArguments.healthCertificate.hasBoosterNotification.boolValue {
