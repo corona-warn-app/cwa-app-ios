@@ -103,7 +103,7 @@ class HealthCertificateService: HealthCertificateServiceServable {
 		}
 	}
 	
-	private(set) var unseenNewsCount = CurrentValueSubject<Int, Never>(0)
+	var unseenNewsCount = CurrentValueSubject<Int, Never>(0)
 	
 	var nextValidityTimer: Timer?
 
