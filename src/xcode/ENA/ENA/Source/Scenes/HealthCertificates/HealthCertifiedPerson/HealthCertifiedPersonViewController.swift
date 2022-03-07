@@ -157,7 +157,7 @@ class HealthCertifiedPersonViewController: UIViewController, UITableViewDataSour
 		}
 
 		let cellRect = tableView.rectForRow(at: indexPath)
-		backgroundView.gradientHeightConstraint.constant = cellRect.midY + (tableView.contentOffset.y / 2) + view.safeAreaInsets.top
+		backgroundView.gradientHeightConstraint.constant = cellRect.midY + (tableView.contentOffset.y / 2)
 		didCalculateGradientHeight = true
 	}
 
