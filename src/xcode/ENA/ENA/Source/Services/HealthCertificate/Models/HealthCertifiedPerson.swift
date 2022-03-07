@@ -248,6 +248,7 @@ class HealthCertifiedPerson: Codable, Equatable, Comparable {
 		let certificatesWithNews = healthCertificates.filter { $0.isNew || $0.isValidityStateNew }
 
 		return certificatesWithNews.count
+			+ (isAdmissionStateChanged ? 1 : 0)
 			+ (dccWalletInfo?.boosterNotification.identifier != nil && isNewBoosterRule ? 1 : 0)
 			+ (dccWalletInfo?.certificateReissuance?.reissuanceDivision.visible == true && isNewCertificateReissuance ? 1 : 0)
 	}
@@ -262,6 +263,8 @@ class HealthCertifiedPerson: Codable, Equatable, Comparable {
 		return dccWalletInfo == nil || mostRecentWalletInfoUpdateFailed || (dccWalletInfo?.validUntil ?? now) < now
 	}
 
+	var isAdmissionStateChanged: Bool = false
+	
 	func healthCertificate(for reference: DCCCertificateReference) -> HealthCertificate? {
 		healthCertificates.first { $0.base45 == reference.barcodeData }
 	}
