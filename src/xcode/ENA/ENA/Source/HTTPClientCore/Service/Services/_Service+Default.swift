@@ -246,7 +246,7 @@ extension Service {
 		} else {
 			// We don't have a default value. And now check if we want to override the error by a custom error defined in the resource
 			Log.error("Found no default value. Will fail now.", log: .client, error: error)
-			return .failure(customError(in: resource, for: error))
+			return .failure(customError(in: resource, for: error, responseData))
 		}
 	}
 	

@@ -46,6 +46,11 @@ enum DCCReissuanceResourceError: LocalizedError {
 	}
 }
 
+struct ErrorCode: Decodable {
+	let errorCode: String
+	let message: String
+}
+
 struct DCCReissuanceResource: Resource {
 
 	// MARK: - Init
@@ -79,7 +84,7 @@ struct DCCReissuanceResource: Resource {
 		case .transportationError:
 			return .DCC_RI_NO_NETWORK
 		case .unexpectedServerError(let statusCode):
-			return unexpectedServerError(statusCode)
+			return unexpectedServerError(statusCode, responseBody)
 		default:
 			return nil
 		}
@@ -101,8 +106,15 @@ struct DCCReissuanceResource: Resource {
 		}
 	}
 
-	private func unexpectedServerError(_ statusCode: Int) -> DCCReissuanceResourceError? {
-		Log.error("DCCReissuance error status code: \(statusCode)")
+	private func unexpectedServerError(
+		_ statusCode: Int,
+		_ responseBody: Data?
+	) -> DCCReissuanceResourceError? {
+		if let data = responseBody,
+		   let errorCode = try? JSONDecoder().decode(ErrorCode.self, from: data) {
+			Log.error("DCCReissuance error status code: \(statusCode), with ErrorCode model: \(errorCode)")
+		}
+
 		switch statusCode {
 		case 400:
 			return .DCC_RI_400
