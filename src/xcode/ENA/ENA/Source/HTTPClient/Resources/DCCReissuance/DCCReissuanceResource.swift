@@ -9,12 +9,12 @@ enum DCCReissuanceResourceError: LocalizedError {
 	case DCC_RI_PIN_MISMATCH
 	case DCC_RI_PARSE_ERR
 	case DCC_RI_NO_NETWORK
-	case DCC_RI_400
-	case DCC_RI_401
-	case DCC_RI_403
-	case DCC_RI_406
-	case DCC_RI_429
-	case DCC_RI_500
+	case DCC_RI_400(ErrorCode?)
+	case DCC_RI_401(ErrorCode?)
+	case DCC_RI_403(ErrorCode?)
+	case DCC_RI_406(ErrorCode?)
+	case DCC_RI_429(ErrorCode?)
+	case DCC_RI_500(ErrorCode?)
 	case DCC_RI_CLIENT_ERR
 	case DCC_RI_SERVER_ERR
 
@@ -110,26 +110,28 @@ struct DCCReissuanceResource: Resource {
 		_ statusCode: Int,
 		_ responseBody: Data?
 	) -> DCCReissuanceResourceError? {
+		var errorCode: ErrorCode?
 		if let data = responseBody,
-		   let errorCode = try? JSONDecoder().decode(ErrorCode.self, from: data) {
-			Log.error("DCCReissuance error status code: \(statusCode), with ErrorCode model: \(errorCode)")
+		   let customErrorCode = try? JSONDecoder().decode(ErrorCode.self, from: data) {
+			errorCode = customErrorCode
+			Log.error("DCCReissuance error status code: \(statusCode), with ErrorCode model: \(customErrorCode)")
 		}
 
 		switch statusCode {
 		case 400:
-			return .DCC_RI_400
+			return .DCC_RI_400(errorCode)
 		case 401:
-			return .DCC_RI_401
+			return .DCC_RI_401(errorCode)
 		case 403:
-			return .DCC_RI_403
+			return .DCC_RI_403(errorCode)
 		case 406:
-			return .DCC_RI_406
+			return .DCC_RI_406(errorCode)
 		case 429:
-			return .DCC_RI_429
+			return .DCC_RI_429(errorCode)
 		case 402, 404, 405, 407...428, 430...499:
 			return .DCC_RI_CLIENT_ERR
 		case 500:
-			return .DCC_RI_500
+			return .DCC_RI_500(errorCode)
 		case (501...599):
 			return .DCC_RI_SERVER_ERR
 		default:
