@@ -614,7 +614,10 @@ class HealthCertificateService: HealthCertificateServiceServable {
 						person.dccWalletInfo = self.updateDccWalletInfoForMockBoosterNotification(dccWalletInfo: dccWalletInfo)
 					}
 					if LaunchArguments.healthCertificate.hasCertificateReissuance.boolValue {
-						person.dccWalletInfo = self.updateDccWalletInfoForMockCertificateReissuance(dccWalletInfo: dccWalletInfo)
+						person.dccWalletInfo = self.updateDccWalletInfoForMockCertificateReissuance(
+							dccWalletInfo: dccWalletInfo,
+							certifiedPerson: person
+						)
 					}
 				}
 				#endif
