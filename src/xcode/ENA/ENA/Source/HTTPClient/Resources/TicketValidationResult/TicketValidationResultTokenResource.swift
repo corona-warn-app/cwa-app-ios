@@ -31,7 +31,10 @@ struct TicketValidationResultTokenResource: Resource {
 	var sendResource: JSONSendResource<TicketValidationResultTokenSendModel>
 	var receiveResource: StringReceiveResource<TicketValidationAccessTokenReceiveModel>
 
-	func customError(for error: ServiceError<TicketValidationResultTokenError>) -> TicketValidationResultTokenError? {
+	func customError(
+		for error: ServiceError<TicketValidationResultTokenError>,
+		responseBody: Data? = nil
+	) -> TicketValidationResultTokenError? {
 		switch error {
 		case .trustEvaluationError(let trustEvaluationError):
 			return trustEvaluationErrorHandling(trustEvaluationError)

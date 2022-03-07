@@ -33,7 +33,10 @@ struct ServiceIdentityDocumentValidationDecoratorResource: Resource {
 	var sendResource: EmptySendResource
 	var receiveResource: JSONReceiveResource<TicketValidationServiceIdentityDocument>
 	
-	func customError(for error: ServiceError<ServiceIdentityResourceDecoratorError>) -> ServiceIdentityResourceDecoratorError? {
+	func customError(
+		for error: ServiceError<ServiceIdentityResourceDecoratorError>,
+		responseBody: Data? = nil
+	) -> ServiceIdentityResourceDecoratorError? {
 		switch error {
 		case .unexpectedServerError(let statusCode):
 			switch statusCode {

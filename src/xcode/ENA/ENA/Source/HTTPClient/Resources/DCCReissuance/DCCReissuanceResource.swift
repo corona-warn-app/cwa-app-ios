@@ -70,7 +70,7 @@ struct DCCReissuanceResource: Resource {
 	var sendResource: JSONSendResource<DCCReissuanceSendModel>
 	var receiveResource: JSONReceiveResource<DCCReissuanceReceiveModel>
 
-	func customError(for error: ServiceError<DCCReissuanceResourceError>) -> DCCReissuanceResourceError? {
+	func customError(for error: ServiceError<DCCReissuanceResourceError>, responseBody: Data?) -> DCCReissuanceResourceError? {
 		switch error {
 		case .trustEvaluationError(let trustError):
 			return trustEvaluationErrorHandling(trustError)

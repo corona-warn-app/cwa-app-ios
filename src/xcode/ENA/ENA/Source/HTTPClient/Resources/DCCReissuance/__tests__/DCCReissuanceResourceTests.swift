@@ -135,7 +135,8 @@ final class DCCReissuanceResourceTests: CWATestCase {
 		let expectation = expectation(description: "Expect that we got an error")
 
 		let stack = MockNetworkStack(
-			httpStatus: 400
+			httpStatus: 400,
+			responseData: try JSONEncoder().encode("{\"errorCode\":\"RI400-1200\",\"message\":\"certificates not acceptable for action\"}")
 		)
 
 		let restServiceProvider = RestServiceProvider(
