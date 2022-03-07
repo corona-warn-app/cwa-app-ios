@@ -43,6 +43,7 @@ class HealthCertificateCellViewModelTests: XCTestCase {
 		XCTAssertNil(viewModel.validityStateInfo)
 		XCTAssertEqual(viewModel.image, UIImage(imageLiteralResourceName: "VaccinationCertificate_PartiallyVaccinated_Icon"))
 		XCTAssertTrue(viewModel.isCurrentlyUsedCertificateHintVisible)
+		XCTAssertTrue(viewModel.isValidationButtonEnabled)
 	}
 
 	func testAllDetailsViewModelWithNewValidIncompleteVaccinationCertificate() throws {
@@ -79,6 +80,7 @@ class HealthCertificateCellViewModelTests: XCTestCase {
 		XCTAssertEqual(viewModel.image, UIImage(imageLiteralResourceName: "VaccinationCertificate_PartiallyVaccinated_Icon"))
 		XCTAssertEqual(viewModel.currentlyUsedImage, UIImage(named: "Icon_CurrentlyUsedCertificate_light"))
 		XCTAssertTrue(viewModel.isCurrentlyUsedCertificateHintVisible)
+		XCTAssertTrue(viewModel.isValidationButtonEnabled)
 	}
 
 	func testAllDetailsViewModelWithJust3of3BoosterVaccinationCertificateWithCompleteProtection() throws {
@@ -100,6 +102,7 @@ class HealthCertificateCellViewModelTests: XCTestCase {
 		XCTAssertEqual(viewModel.image, UIImage(imageLiteralResourceName: "VaccinationCertificate_CompletelyProtected_Icon"))
 		XCTAssertEqual(viewModel.currentlyUsedImage, UIImage(named: "Icon_CurrentlyUsedCertificate_dark"))
 		XCTAssertTrue(viewModel.isCurrentlyUsedCertificateHintVisible)
+		XCTAssertTrue(viewModel.isValidationButtonEnabled)
 	}
 
 	func testAllDetailsViewModelWithJust2of1BoosterVaccinationCertificateWithCompleteProtection() throws {
@@ -121,6 +124,7 @@ class HealthCertificateCellViewModelTests: XCTestCase {
 		XCTAssertEqual(viewModel.image, UIImage(imageLiteralResourceName: "VaccinationCertificate_CompletelyProtected_Icon"))
 		XCTAssertEqual(viewModel.currentlyUsedImage, UIImage(named: "Icon_CurrentlyUsedCertificate_medium"))
 		XCTAssertTrue(viewModel.isCurrentlyUsedCertificateHintVisible)
+		XCTAssertTrue(viewModel.isValidationButtonEnabled)
 	}
 
 	func testAllDetailsViewModelWithSeriesCompletingVaccinationCertificateWithCompleteProtection() throws {
@@ -140,6 +144,7 @@ class HealthCertificateCellViewModelTests: XCTestCase {
 		XCTAssertEqual(viewModel.image, UIImage(imageLiteralResourceName: "VaccinationCertificate_CompletelyProtected_Icon"))
 		XCTAssertEqual(viewModel.currentlyUsedImage, UIImage(named: "Icon_CurrentlyUsedCertificate_light"))
 		XCTAssertTrue(viewModel.isCurrentlyUsedCertificateHintVisible)
+		XCTAssertTrue(viewModel.isValidationButtonEnabled)
 	}
 
 	func testAllDetailsViewModelWithTwoVaccinations_FirstVaccinationIsNotCurrentlyUsed() throws {
@@ -208,6 +213,7 @@ class HealthCertificateCellViewModelTests: XCTestCase {
 		XCTAssertEqual(viewModel.image, UIImage(imageLiteralResourceName: "VaccinationCertificate_PartiallyVaccinated_Icon"))
 		XCTAssertEqual(viewModel.currentlyUsedImage, UIImage(named: "Icon_CurrentlyUsedCertificate_light"))
 		XCTAssertTrue(viewModel.isCurrentlyUsedCertificateHintVisible)
+		XCTAssertTrue(viewModel.isValidationButtonEnabled)
 	}
 
 	func testAllDetailsViewModelWithExpiredIncompleteVaccinationCertificate() throws {
@@ -244,6 +250,7 @@ class HealthCertificateCellViewModelTests: XCTestCase {
 		XCTAssertEqual(viewModel.image, UIImage(imageLiteralResourceName: "Icon_WarningTriangle_small"))
 		XCTAssertEqual(viewModel.currentlyUsedImage, UIImage(named: "Icon_CurrentlyUsedCertificate_grey"))
 		XCTAssertTrue(viewModel.isCurrentlyUsedCertificateHintVisible)
+		XCTAssertTrue(viewModel.isValidationButtonEnabled)
 	}
 
 	func testAllDetailsViewModelWithInvalidIncompleteVaccinationCertificate() throws {
@@ -280,6 +287,7 @@ class HealthCertificateCellViewModelTests: XCTestCase {
 		XCTAssertEqual(viewModel.image, UIImage(imageLiteralResourceName: "Icon_WarningTriangle_small"))
 		XCTAssertEqual(viewModel.currentlyUsedImage, UIImage(named: "Icon_CurrentlyUsedCertificate_grey"))
 		XCTAssertTrue(viewModel.isCurrentlyUsedCertificateHintVisible)
+		XCTAssertTrue(viewModel.isValidationButtonEnabled)
 	}
 
 	func testAllDetailsViewModelWithBlockedIncompleteVaccinationCertificate() throws {
@@ -316,6 +324,7 @@ class HealthCertificateCellViewModelTests: XCTestCase {
 		XCTAssertEqual(viewModel.image, UIImage(imageLiteralResourceName: "Icon_WarningTriangle_small"))
 		XCTAssertEqual(viewModel.currentlyUsedImage, UIImage(named: "Icon_CurrentlyUsedCertificate_grey"))
 		XCTAssertTrue(viewModel.isCurrentlyUsedCertificateHintVisible)
+		XCTAssertFalse(viewModel.isValidationButtonEnabled)
 	}
 
 	func testAllDetailsViewModelWithValidPCRTestCertificate() throws {
@@ -350,6 +359,7 @@ class HealthCertificateCellViewModelTests: XCTestCase {
 		XCTAssertEqual(viewModel.image, UIImage(imageLiteralResourceName: "TestCertificate_Icon"))
 		XCTAssertEqual(viewModel.currentlyUsedImage, UIImage(named: "Icon_CurrentlyUsedCertificate_light"))
 		XCTAssertTrue(viewModel.isCurrentlyUsedCertificateHintVisible)
+		XCTAssertTrue(viewModel.isValidationButtonEnabled)
 	}
 
 	func testAllDetailsViewModelWithNewValidPCRTestCertificate() throws {
@@ -385,6 +395,7 @@ class HealthCertificateCellViewModelTests: XCTestCase {
 		XCTAssertEqual(viewModel.image, UIImage(imageLiteralResourceName: "TestCertificate_Icon"))
 		XCTAssertEqual(viewModel.currentlyUsedImage, UIImage(named: "Icon_CurrentlyUsedCertificate_light"))
 		XCTAssertTrue(viewModel.isCurrentlyUsedCertificateHintVisible)
+		XCTAssertTrue(viewModel.isValidationButtonEnabled)
 	}
 
 	func testAllDetailsViewModelWithSoonExpiringAntigenTestCertificate() throws {
@@ -421,6 +432,7 @@ class HealthCertificateCellViewModelTests: XCTestCase {
 		XCTAssertEqual(viewModel.image, UIImage(imageLiteralResourceName: "TestCertificate_Icon"))
 		XCTAssertEqual(viewModel.currentlyUsedImage, UIImage(named: "Icon_CurrentlyUsedCertificate_light"))
 		XCTAssertTrue(viewModel.isCurrentlyUsedCertificateHintVisible)
+		XCTAssertTrue(viewModel.isValidationButtonEnabled)
 	}
 
 	func testAllDetailsViewModelWithSoonExpiringNewAntigenTestCertificate() throws {
@@ -457,6 +469,7 @@ class HealthCertificateCellViewModelTests: XCTestCase {
 		XCTAssertEqual(viewModel.image, UIImage(imageLiteralResourceName: "TestCertificate_Icon"))
 		XCTAssertEqual(viewModel.currentlyUsedImage, UIImage(named: "Icon_CurrentlyUsedCertificate_light"))
 		XCTAssertTrue(viewModel.isCurrentlyUsedCertificateHintVisible)
+		XCTAssertTrue(viewModel.isValidationButtonEnabled)
 	}
 
 	func testAllDetailsViewModelWithExpiredTestCertificateOfUnknownType() throws {
@@ -492,6 +505,7 @@ class HealthCertificateCellViewModelTests: XCTestCase {
 		XCTAssertEqual(viewModel.image, UIImage(imageLiteralResourceName: "TestCertificate_Icon"))
 		XCTAssertEqual(viewModel.currentlyUsedImage, UIImage(named: "Icon_CurrentlyUsedCertificate_light"))
 		XCTAssertTrue(viewModel.isCurrentlyUsedCertificateHintVisible)
+		XCTAssertTrue(viewModel.isValidationButtonEnabled)
 	}
 
 	func testAllDetailsViewModelWithExpiredNewTestCertificateOfUnknownType() throws {
@@ -527,6 +541,7 @@ class HealthCertificateCellViewModelTests: XCTestCase {
 		XCTAssertEqual(viewModel.image, UIImage(imageLiteralResourceName: "TestCertificate_Icon"))
 		XCTAssertEqual(viewModel.currentlyUsedImage, UIImage(named: "Icon_CurrentlyUsedCertificate_light"))
 		XCTAssertTrue(viewModel.isCurrentlyUsedCertificateHintVisible)
+		XCTAssertTrue(viewModel.isValidationButtonEnabled)
 	}
 
 	func testAllDetailsViewModelWithInvalidPCRTestCertificate() throws {
@@ -562,6 +577,7 @@ class HealthCertificateCellViewModelTests: XCTestCase {
 		XCTAssertEqual(viewModel.image, UIImage(imageLiteralResourceName: "Icon_WarningTriangle_small"))
 		XCTAssertEqual(viewModel.currentlyUsedImage, UIImage(named: "Icon_CurrentlyUsedCertificate_grey"))
 		XCTAssertTrue(viewModel.isCurrentlyUsedCertificateHintVisible)
+		XCTAssertTrue(viewModel.isValidationButtonEnabled)
 	}
 
 	func testAllDetailsViewModelWithBlockedAntigenTestCertificate() throws {
@@ -597,6 +613,7 @@ class HealthCertificateCellViewModelTests: XCTestCase {
 		XCTAssertEqual(viewModel.image, UIImage(imageLiteralResourceName: "Icon_WarningTriangle_small"))
 		XCTAssertEqual(viewModel.currentlyUsedImage, UIImage(named: "Icon_CurrentlyUsedCertificate_grey"))
 		XCTAssertTrue(viewModel.isCurrentlyUsedCertificateHintVisible)
+		XCTAssertFalse(viewModel.isValidationButtonEnabled)
 	}
 
 	func testAllDetailsViewModelWithValidRecoveryCertificate() throws {
@@ -630,6 +647,7 @@ class HealthCertificateCellViewModelTests: XCTestCase {
 		XCTAssertEqual(viewModel.image, UIImage(imageLiteralResourceName: "RecoveryCertificate_Icon"))
 		XCTAssertEqual(viewModel.currentlyUsedImage, UIImage(named: "Icon_CurrentlyUsedCertificate_light"))
 		XCTAssertTrue(viewModel.isCurrentlyUsedCertificateHintVisible)
+		XCTAssertTrue(viewModel.isValidationButtonEnabled)
 	}
 
 	func testAllDetailsViewModelWithNewValidRecoveryCertificate() throws {
@@ -664,6 +682,7 @@ class HealthCertificateCellViewModelTests: XCTestCase {
 		XCTAssertEqual(viewModel.image, UIImage(imageLiteralResourceName: "RecoveryCertificate_Icon"))
 		XCTAssertEqual(viewModel.currentlyUsedImage, UIImage(named: "Icon_CurrentlyUsedCertificate_light"))
 		XCTAssertTrue(viewModel.isCurrentlyUsedCertificateHintVisible)
+		XCTAssertTrue(viewModel.isValidationButtonEnabled)
 	}
 
 	func testAllDetailsViewModelWithSoonExpiringRecoveryCertificate() throws {
@@ -707,6 +726,7 @@ class HealthCertificateCellViewModelTests: XCTestCase {
 		XCTAssertEqual(viewModel.image, UIImage(imageLiteralResourceName: "RecoveryCertificate_Icon"))
 		XCTAssertEqual(viewModel.currentlyUsedImage, UIImage(named: "Icon_CurrentlyUsedCertificate_light"))
 		XCTAssertTrue(viewModel.isCurrentlyUsedCertificateHintVisible)
+		XCTAssertTrue(viewModel.isValidationButtonEnabled)
 	}
 
 	func testAllDetailsViewModelWithExpiredRecoveryCertificate() throws {
@@ -741,6 +761,7 @@ class HealthCertificateCellViewModelTests: XCTestCase {
 		XCTAssertEqual(viewModel.image, UIImage(imageLiteralResourceName: "Icon_WarningTriangle_small"))
 		XCTAssertEqual(viewModel.currentlyUsedImage, UIImage(named: "Icon_CurrentlyUsedCertificate_grey"))
 		XCTAssertTrue(viewModel.isCurrentlyUsedCertificateHintVisible)
+		XCTAssertTrue(viewModel.isValidationButtonEnabled)
 	}
 
 	func testAllDetailsViewModelWithInvalidRecoveryCertificate() throws {
@@ -775,6 +796,7 @@ class HealthCertificateCellViewModelTests: XCTestCase {
 		XCTAssertEqual(viewModel.image, UIImage(imageLiteralResourceName: "Icon_WarningTriangle_small"))
 		XCTAssertEqual(viewModel.currentlyUsedImage, UIImage(named: "Icon_CurrentlyUsedCertificate_grey"))
 		XCTAssertTrue(viewModel.isCurrentlyUsedCertificateHintVisible)
+		XCTAssertTrue(viewModel.isValidationButtonEnabled)
 	}
 
 	func testAllDetailsViewModelWithBlockedRecoveryCertificate() throws {
@@ -809,6 +831,7 @@ class HealthCertificateCellViewModelTests: XCTestCase {
 		XCTAssertEqual(viewModel.image, UIImage(imageLiteralResourceName: "Icon_WarningTriangle_small"))
 		XCTAssertEqual(viewModel.currentlyUsedImage, UIImage(named: "Icon_CurrentlyUsedCertificate_grey"))
 		XCTAssertTrue(viewModel.isCurrentlyUsedCertificateHintVisible)
+		XCTAssertFalse(viewModel.isValidationButtonEnabled)
 	}
 
 	func testForAllDetailsIsUnseenNewsIndicatorVisibleFalseWithoutNews() throws {
