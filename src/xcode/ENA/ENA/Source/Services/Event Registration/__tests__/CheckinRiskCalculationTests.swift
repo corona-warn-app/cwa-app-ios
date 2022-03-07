@@ -306,7 +306,82 @@ class CheckinRiskCalculationTests: CWATestCase {
 		XCTAssertEqual(checkinRiskCalculationResult.riskLevelPerDate.count, 0)
 		XCTAssertEqual(checkinRiskCalculationResult.checkinIdsWithRiskPerDate.count, 0)
 	}
+	
+	func test_Given_maxCheckInAgeInDays_When_Equals_checkinEndDate_Then_Checkin_is_NOT_Filtered() {
+		guard let checkinStartDate = utcFormatter.date(from: "2021-03-04T09:30:00+01:00"),
+			  let checkinEndDate = utcFormatter.date(from: "2021-03-04T010:30:00+01:00"),
+			  let matchStartDate = utcFormatter.date(from: "2021-03-04T09:40:00+01:00"),
+			  let matchEndDate = utcFormatter.date(from: "2021-03-04T09:50:00+01:00")else {
+			XCTFail("Could not create dates.")
+			return
+		}
 
+		guard let riskCalculation = makeRiskCalculation(
+			checkinStartDate: checkinStartDate,
+			checkinEndDate: checkinEndDate,
+			matchStartDate: matchStartDate,
+			matchEndDate: matchEndDate
+		) else {
+			XCTFail("Could not create CheckinRiskCalculation.")
+			return
+		}
+
+		var appConfig = createAppConfig()
+		// Set maxCheckInAgeInDays to be the same value (in days) as 'checkinEndDate'.
+		let maxCheckInAgeInDays = UInt32(checkinEndDate.timeIntervalSince1970) / 86400
+		appConfig.presenceTracingParameters.riskCalculationParameters.maxCheckInAgeInDays = maxCheckInAgeInDays
+		let checkinRiskCalculationResult = riskCalculation.calculateRisk(with: appConfig)
+
+		let numberOfLowCheckinRisks: Int = checkinRiskCalculationResult.checkinIdsWithRiskPerDate.reduce(0) {
+			$1.value.reduce($0) {
+				$1.riskLevel == .low ? $0 + 1 : $0
+			}
+		}
+
+		// The checkin has the same age in days as 'maxCheckInAgeInDays'.
+		// Because of that, it is part of the risk caclulation and results in 1 low encounter.
+		XCTAssertEqual(numberOfLowCheckinRisks, 1)
+		XCTAssertEqual(checkinRiskCalculationResult.checkinIdsWithRiskPerDate.count, 1)
+	}
+	
+	func test_Given_maxCheckInAgeInDays_When_Smaller_checkinEndDate_Then_Checkin_is_Filtered() {
+		guard let checkinStartDate = utcFormatter.date(from: "2021-03-04T09:30:00+01:00"),
+			  let checkinEndDate = utcFormatter.date(from: "2021-03-04T010:30:00+01:00"),
+			  let matchStartDate = utcFormatter.date(from: "2021-03-04T09:40:00+01:00"),
+			  let matchEndDate = utcFormatter.date(from: "2021-03-04T09:50:00+01:00")else {
+			XCTFail("Could not create dates.")
+			return
+		}
+
+		guard let riskCalculation = makeRiskCalculation(
+			checkinStartDate: checkinStartDate,
+			checkinEndDate: checkinEndDate,
+			matchStartDate: matchStartDate,
+			matchEndDate: matchEndDate
+		) else {
+			XCTFail("Could not create CheckinRiskCalculation.")
+			return
+		}
+
+		var appConfig = createAppConfig()
+		// Set maxCheckInAgeInDays to be bigger (in days) then 'checkinEndDate'.
+		// In this case the chekin should be filtered and not used for risk calculation.
+		let maxCheckInAgeInDays = (UInt32(checkinEndDate.timeIntervalSince1970) / 86400) + 1
+		appConfig.presenceTracingParameters.riskCalculationParameters.maxCheckInAgeInDays = maxCheckInAgeInDays
+		let checkinRiskCalculationResult = riskCalculation.calculateRisk(with: appConfig)
+
+		let numberOfLowCheckinRisks: Int = checkinRiskCalculationResult.checkinIdsWithRiskPerDate.reduce(0) {
+			$1.value.reduce($0) {
+				$1.riskLevel == .low ? $0 + 1 : $0
+			}
+		}
+
+		// The checkin is older then maxCheckInAgeInDays and gots removed.
+		// Because of that, there is no risk encoutern.
+		XCTAssertEqual(numberOfLowCheckinRisks, 0)
+		XCTAssertEqual(checkinRiskCalculationResult.checkinIdsWithRiskPerDate.count, 0)
+	}
+	
 	private func createAppConfig() -> SAP_Internal_V2_ApplicationConfigurationIOS {
 		var config = SAP_Internal_V2_ApplicationConfigurationIOS()
 		var tracingParameters = SAP_Internal_V2_PresenceTracingParameters()
