@@ -68,6 +68,10 @@ final class AdmissionStateCellModel {
 		return healthCertifiedPerson.gradientType
 	}
 
+	var isAdmissionStateChanged: Bool {
+		return healthCertifiedPerson.isAdmissionStateChanged
+	}
+	
 	// MARK: - Private
 
 	private let healthCertifiedPerson: HealthCertifiedPerson
