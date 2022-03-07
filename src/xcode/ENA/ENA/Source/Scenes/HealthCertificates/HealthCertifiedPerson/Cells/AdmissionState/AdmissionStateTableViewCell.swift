@@ -47,6 +47,8 @@ class AdmissionStateTableViewCell: UITableViewCell, UITextViewDelegate, ReuseIde
 
 		roundedLabeledView?.configure(title: cellModel.shortTitle, gradientType: cellModel.gradientType)
 		roundedLabeledView?.isHidden = (cellModel.shortTitle ?? "").isEmpty
+		
+		unseenNewsIndicator.isHidden = !cellModel.isAdmissionStateChanged
 	}
 
 	// MARK: - Private
@@ -90,6 +92,16 @@ class AdmissionStateTableViewCell: UITableViewCell, UITextViewDelegate, ReuseIde
 		titleStackView.spacing = 0
 
 		return titleStackView
+	}()
+
+	private let mainTitleStackView: UIStackView = {
+		let mainTitleStackView = UIStackView()
+		mainTitleStackView.axis = .horizontal
+		mainTitleStackView.distribution = .fill
+		mainTitleStackView.alignment = .center
+		mainTitleStackView.spacing = 6
+
+		return mainTitleStackView
 	}()
 
 	private let titleLabel: ENALabel = {
@@ -144,6 +156,14 @@ class AdmissionStateTableViewCell: UITableViewCell, UITextViewDelegate, ReuseIde
 		return faqLinkTextView
 	}()
 
+	private let unseenNewsIndicator: UIView = {
+		let unseenNewsIndicator = UIView()
+		unseenNewsIndicator.backgroundColor = .systemRed
+		unseenNewsIndicator.layer.cornerRadius = 5.5
+
+		return unseenNewsIndicator
+	}()
+
 	private func setupView() {
 		backgroundColor = .clear
 		contentView.backgroundColor = .clear
@@ -159,7 +179,11 @@ class AdmissionStateTableViewCell: UITableViewCell, UITextViewDelegate, ReuseIde
 		contentStackView.translatesAutoresizingMaskIntoConstraints = false
 		backgroundContainerView.addSubview(contentStackView)
 		
-		titleStackView.addArrangedSubview(titleLabel)
+		mainTitleStackView.addArrangedSubview(titleLabel)
+		mainTitleStackView.addArrangedSubview(unseenNewsIndicator)
+		mainTitleStackView.addArrangedSubview(UIView())
+
+		titleStackView.addArrangedSubview(mainTitleStackView)
 		titleStackView.addArrangedSubview(subtitleLabel)
 
 		topStackView.addArrangedSubview(titleStackView)
@@ -183,7 +207,9 @@ class AdmissionStateTableViewCell: UITableViewCell, UITextViewDelegate, ReuseIde
 				contentStackView.topAnchor.constraint(equalTo: backgroundContainerView.topAnchor, constant: 16.0),
 				contentStackView.bottomAnchor.constraint(equalTo: backgroundContainerView.bottomAnchor, constant: -16.0),
 				contentStackView.leadingAnchor.constraint(equalTo: backgroundContainerView.leadingAnchor, constant: 16.0),
-				contentStackView.trailingAnchor.constraint(equalTo: backgroundContainerView.trailingAnchor, constant: -16.0)
+				contentStackView.trailingAnchor.constraint(equalTo: backgroundContainerView.trailingAnchor, constant: -16.0),
+				unseenNewsIndicator.widthAnchor.constraint(equalToConstant: 11),
+				unseenNewsIndicator.heightAnchor.constraint(equalToConstant: 11)
 			]
 		)
 	}
