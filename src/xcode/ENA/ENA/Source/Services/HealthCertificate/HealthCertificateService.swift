@@ -122,8 +122,11 @@ class HealthCertificateService: HealthCertificateServiceServable {
 		updatingWalletInfos: Bool,
 		completion: @escaping () -> Void
 	) {
+		Log.info("[HealthCertificateService] Setting up", log: .background)
+
 		setupQueue.async {
 			guard !self.isSetUp else {
+				Log.info("[HealthCertificateService] Already set up", log: .background)
 				completion()
 				return
 			}
@@ -140,10 +143,12 @@ class HealthCertificateService: HealthCertificateServiceServable {
 
 			if updatingWalletInfos {
 				self.updateDCCWalletInfosIfNeeded(completion: {
+					Log.info("[HealthCertificateService] Setup finished including wallet info updates", log: .background)
 					self.isSetUp = true
 					completion()
 				})
 			} else {
+				Log.info("[HealthCertificateService] Setup finished without wallet info updates", log: .background)
 				self.isSetUp = true
 				completion()
 			}
