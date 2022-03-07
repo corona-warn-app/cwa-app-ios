@@ -59,6 +59,15 @@ class TaskExecutionHandler: ENATaskExecutionDelegate {
 			return
 		}
 
+		let setupGroup = DispatchGroup()
+
+		setupGroup.enter()
+		healthCertificateService.setup(updatingWalletInfos: false) {
+			setupGroup.leave()
+		}
+
+		setupGroup.wait()
+
 		let group = DispatchGroup()
 
 		group.enter()
