@@ -281,6 +281,9 @@ final class HealthCertificatesTabCoordinator {
 			presentCovPassInfoScreen: { [weak self] viewController in
 				self?.presentCovPassInfoScreen(rootViewController: viewController)
 			},
+			onDismiss: { [weak self] in
+				self?.overviewScreen.tableView.reloadData()
+			},
 			appConfigProvider: appConfigProvider,
 			restServiceProvider: restServiceProvider
 		)
