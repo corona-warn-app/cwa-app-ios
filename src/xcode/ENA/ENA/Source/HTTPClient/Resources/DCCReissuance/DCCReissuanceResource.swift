@@ -102,6 +102,7 @@ struct DCCReissuanceResource: Resource {
 	}
 
 	private func unexpectedServerError(_ statusCode: Int) -> DCCReissuanceResourceError? {
+		Log.error("DCCReissuance error status code: \(statusCode)")
 		switch statusCode {
 		case 400:
 			return .DCC_RI_400
