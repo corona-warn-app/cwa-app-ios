@@ -137,26 +137,6 @@ final class HealthCertifiedPersonViewModel {
 		)
 	}
 
-	/*
-	var qrCodeCellViewModel: HealthCertificateQRCodeCellViewModel {
-		guard let mostRelevantHealthCertificate = healthCertifiedPerson.mostRelevantHealthCertificate
-			else {
-			fatalError("Cell cannot be shown without a health certificate")
-		}
-
-		return HealthCertificateQRCodeCellViewModel(
-			mode: .overview,
-			healthCertificate: mostRelevantHealthCertificate,
-			accessibilityText: AppStrings.HealthCertificate.Person.QRCodeImageDescription,
-			onValidationButtonTap: { [weak self] healthCertificate, loadingStateHandler in
-				self?.didTapValidationButton(healthCertificate, loadingStateHandler)
-			},
-			onCovPassCheckInfoButtonTap: { [ weak self] in
-				self?.showInfo()
-			}
-		)
-	}*/
-
 	var certificateReissuanceIsVisible: Bool {
 		healthCertifiedPerson.dccWalletInfo?.certificateReissuance?.reissuanceDivision.visible ?? false
 	}
@@ -254,7 +234,10 @@ final class HealthCertifiedPersonViewModel {
 		healthCertificateCellViewModels = sortedHealthCertificates.map {
 			HealthCertificateCellViewModel(
 				healthCertificate: $0,
-				healthCertifiedPerson: person
+				healthCertifiedPerson: person,
+				onValidationButtonTap: { [weak self] healthCertificate, loadingStateHandler in
+					self?.didTapValidationButton(healthCertificate, loadingStateHandler)
+				}
 			)
 		}
 	}
