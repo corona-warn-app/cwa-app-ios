@@ -348,7 +348,7 @@ class CheckinRiskCalculationTests: CWATestCase {
 		guard let checkinStartDate = utcFormatter.date(from: "2021-03-04T09:30:00+01:00"),
 			  let checkinEndDate = utcFormatter.date(from: "2021-03-04T010:30:00+01:00"),
 			  let matchStartDate = utcFormatter.date(from: "2021-03-04T09:40:00+01:00"),
-			  let matchEndDate = utcFormatter.date(from: "2021-03-04T09:50:00+01:00")else {
+			  let matchEndDate = utcFormatter.date(from: "2021-03-04T09:50:00+01:00") else {
 			XCTFail("Could not create dates.")
 			return
 		}
