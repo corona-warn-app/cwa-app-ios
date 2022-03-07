@@ -45,15 +45,16 @@ final class CheckinRiskCalculation: CheckinRiskCalculationProtocol {
 		// 1. Drop Submitted CheckIns: filter out all CheckIns with Check-in Submitted set to true.
 		// This is to ensure that users don't match their own submitted check-ins.
 
-		let chickens = eventStore.checkinsPublisher.value.filter {
-			!$0.checkinSubmitted
-		}
-		// 1.1 Filter by age: filter out all CheckIns where the date described by `endTimestamp` is older than `maxCheckInAgeInDays`. The calculation shall use seconds/timestamps for calculation (i.e. `maxCheckInAgeInDays x 86400`)
-		.filter {
-			let maxCheckInAgeInDays = config.presenceTracingParameters.riskCalculationParameters.maxCheckInAgeInDays
-			let checkinIsToOld = Int($0.checkinEndDate.timeIntervalSince1970) < maxCheckInAgeInDays * 86400
-			return !checkinIsToOld
-		}
+		let chickens = eventStore.checkinsPublisher.value
+			.filter {
+				!$0.checkinSubmitted
+			}
+			// 1.1 Filter by age: filter out all CheckIns where the date described by `endTimestamp` is older than `maxCheckInAgeInDays`. The calculation shall use seconds/timestamps for calculation (i.e. `maxCheckInAgeInDays x 86400`)
+			.filter {
+				let maxCheckInAgeInDays = config.presenceTracingParameters.riskCalculationParameters.maxCheckInAgeInDays
+				let checkinIsTooOld = Int($0.checkinEndDate.timeIntervalSince1970) < maxCheckInAgeInDays * 86400
+				return !checkinIsTooOld
+			}
 
 		for checkin in chickens {
 			// 2. Split CheckIn by Midnight UTC: the CheckIn is split as per Split CheckIn by Midnight UTC.
