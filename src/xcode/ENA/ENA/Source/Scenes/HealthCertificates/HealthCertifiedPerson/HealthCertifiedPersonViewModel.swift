@@ -236,6 +236,13 @@ final class HealthCertifiedPersonViewModel {
 	func attemptToRestoreDecodingFailedHealthCertificates() {
 		healthCertifiedPerson.attemptToRestoreDecodingFailedHealthCertificates()
 	}
+	
+	func markAsSeen() {
+		if healthCertifiedPerson.isAdmissionStateChanged {
+			healthCertifiedPerson.isAdmissionStateChanged = false
+			healthCertificateService.unseenNewsCount.value -= 1
+		}
+	}
 
 	// MARK: - Private
 
