@@ -256,6 +256,10 @@ class HealthCertificateCell: UITableViewCell, ReuseIdentifierProviding {
 			backgroundContainerView.accessibilityElements?.append(currentlyUsedLabel)
 		}
 
+		if !validationButton.isHidden {
+			accessibilityElements?.append(validationButton)
+		}
+		
 		headlineLabel.accessibilityTraits = [.staticText, .button]
 	}
 
