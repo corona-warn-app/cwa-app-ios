@@ -123,7 +123,7 @@ class HealthCertificateCell: UITableViewCell, ReuseIdentifierProviding {
 		contentView.addSubview(backgroundContainerView)
 
 		headlineLabel.numberOfLines = 0
-		headlineLabel.setContentHuggingPriority(.required, for: .horizontal)
+		headlineLabel.setContentHuggingPriority(.defaultHigh, for: .horizontal)
 
 		disclosureImageView.image = UIImage(named: "Icons_Chevron_plain")
 		disclosureImageView.contentMode = .scaleAspectFit
@@ -136,7 +136,7 @@ class HealthCertificateCell: UITableViewCell, ReuseIdentifierProviding {
 		headlineStackView.alignment = .bottom
 		headlineStackView.distribution = .fill
 		headlineStackView.axis = .horizontal
-		headlineStackView.spacing = 24
+		headlineStackView.spacing = 8
 
 		nameLabel.textColor = .enaColor(for: .textPrimary2)
 		nameLabel.numberOfLines = 0
@@ -196,7 +196,6 @@ class HealthCertificateCell: UITableViewCell, ReuseIdentifierProviding {
 		validationButtonStackView.translatesAutoresizingMaskIntoConstraints = false
 		validationButtonStackView.axis = .vertical
 		validationButtonStackView.spacing = 12.0
-		validationButtonStackView.distribution = .fillProportionally
 		validationButtonStackView.alignment = .top
 		
 		backgroundContainerView.addSubview(validationButtonStackView)
@@ -230,8 +229,9 @@ class HealthCertificateCell: UITableViewCell, ReuseIdentifierProviding {
 				validationButtonStackView.leadingAnchor.constraint(equalTo: backgroundContainerView.leadingAnchor, constant: 16.0),
 				validationButtonStackView.trailingAnchor.constraint(equalTo: backgroundContainerView.trailingAnchor, constant: -16.0),
 				
+				hStackView.trailingAnchor.constraint(equalTo: validationButtonStackView.trailingAnchor),
 				validationButton.widthAnchor.constraint(equalTo: validationButtonStackView.widthAnchor),
-
+				
 				disclosureContainerView.leadingAnchor.constraint(equalTo: disclosureImageView.leadingAnchor),
 				disclosureContainerView.trailingAnchor.constraint(equalTo: disclosureImageView.trailingAnchor),
 
