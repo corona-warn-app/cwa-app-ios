@@ -19,6 +19,7 @@ final class HealthCertifiedPersonCoordinator {
 		vaccinationValueSetsProvider: VaccinationValueSetsProviding,
 		showHealthCertificateFlow: @escaping (HealthCertifiedPerson, HealthCertificate, Bool) -> Void,
 		presentCovPassInfoScreen: @escaping (UIViewController) -> Void,
+		onDismiss: @escaping () -> Void,
 		appConfigProvider: AppConfigurationProviding,
 		restServiceProvider: RestServiceProviding
 	) {
@@ -31,6 +32,7 @@ final class HealthCertifiedPersonCoordinator {
 		self.vaccinationValueSetsProvider = vaccinationValueSetsProvider
 		self.showHealthCertificateFlow = showHealthCertificateFlow
 		self.presentCovPassInfoScreen = presentCovPassInfoScreen
+		self.onDismiss = onDismiss
 		// set an empty starting viewController
 		self.navigationController = DismissHandlingNavigationController(rootViewController: UIViewController())
 		self.appConfigProvider = appConfigProvider
@@ -57,6 +59,7 @@ final class HealthCertifiedPersonCoordinator {
 	private let vaccinationValueSetsProvider: VaccinationValueSetsProviding
 	private let showHealthCertificateFlow: (HealthCertifiedPerson, HealthCertificate, Bool) -> Void
 	private let presentCovPassInfoScreen: (UIViewController) -> Void
+	private let onDismiss: () -> Void
 	private let appConfigProvider: AppConfigurationProviding
 	private let restServiceProvider: RestServiceProviding
 
@@ -74,6 +77,7 @@ final class HealthCertifiedPersonCoordinator {
 			healthCertifiedPerson: healthCertifiedPerson,
 			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
 			dismiss: { [weak self] in
+				self?.onDismiss()
 				self?.navigationController.dismiss(animated: true)
 			},
 			didTapValidationButton: { [weak self] healthCertificate, setLoadingState in
