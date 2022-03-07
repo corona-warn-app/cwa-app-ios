@@ -75,6 +75,7 @@ class HealthCertifiedPersonViewController: UIViewController, UITableViewDataSour
 	// MARK: - Protocol DismissHandling
 
 	func wasAttemptedToBeDismissed() {
+		viewModel.markAsSeen()
 		dismiss()
 	}
 
