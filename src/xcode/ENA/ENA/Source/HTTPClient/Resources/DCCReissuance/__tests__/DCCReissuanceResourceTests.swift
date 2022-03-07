@@ -164,6 +164,7 @@ final class DCCReissuanceResourceTests: CWATestCase {
 					XCTFail("DCC_RI_400 error expected. Instead error received: \(error)")
 					return
 				}
+				XCTAssertEqual(errorCode?.description, "\nRI400-1200: certificates not acceptable for action")
 				XCTAssertEqual(errorCode?.errorCode, "RI400-1200")
 				XCTAssertEqual(errorCode?.message, "certificates not acceptable for action")
 			}
