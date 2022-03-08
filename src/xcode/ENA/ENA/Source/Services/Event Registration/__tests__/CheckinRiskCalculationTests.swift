@@ -5,6 +5,7 @@
 import XCTest
 @testable import ENA
 
+// swiftlint:disable type_body_length
 class CheckinRiskCalculationTests: CWATestCase {
 
 	// For all the test scenarios, please consider the risk calculation parameters in the mocked app configuration.
@@ -15,7 +16,8 @@ class CheckinRiskCalculationTests: CWATestCase {
 		guard let checkinStartDate = utcFormatter.date(from: "2021-03-04T09:30:00+01:00"),
 			  let checkinEndDate = utcFormatter.date(from: "2021-03-04T010:30:00+01:00"),
 			  let matchStartDate = utcFormatter.date(from: "2021-03-04T09:40:00+01:00"),
-			  let matchEndDate = utcFormatter.date(from: "2021-03-04T09:50:00+01:00")else {
+			  let matchEndDate = utcFormatter.date(from: "2021-03-04T09:50:00+01:00"),
+			  let nowDate = utcFormatter.date(from: "2021-03-04T010:30:00+01:00") else {
 			XCTFail("Could not create dates.")
 			return
 		}
@@ -30,7 +32,10 @@ class CheckinRiskCalculationTests: CWATestCase {
 			return
 		}
 
-		let checkinRiskCalculationResult = riskCalculation.calculateRisk(with: createAppConfig())
+		let checkinRiskCalculationResult = riskCalculation.calculateRisk(
+			with: createAppConfig(),
+			now: nowDate
+		)
 
 		let numberOfLowDayRisks: Int = checkinRiskCalculationResult.riskLevelPerDate.reduce(0) {
 			$1.value == .low ? $0 + 1 : $0
@@ -54,7 +59,8 @@ class CheckinRiskCalculationTests: CWATestCase {
 		guard let checkinStartDate = utcFormatter.date(from: "2021-03-04T09:30:00+01:00"),
 			  let checkinEndDate = utcFormatter.date(from: "2021-03-04T010:30:00+01:00"),
 			  let matchStartDate = utcFormatter.date(from: "2021-03-04T09:40:00+01:00"),
-			  let matchEndDate = utcFormatter.date(from: "2021-03-04T10:00:00+01:00")else {
+			  let matchEndDate = utcFormatter.date(from: "2021-03-04T10:00:00+01:00"),
+			  let nowDate = utcFormatter.date(from: "2021-03-04T010:30:00+01:00") else {
 			XCTFail("Could not create dates.")
 			return
 		}
@@ -69,7 +75,10 @@ class CheckinRiskCalculationTests: CWATestCase {
 			return
 		}
 
-		let checkinRiskCalculationResult = riskCalculation.calculateRisk(with: createAppConfig())
+		let checkinRiskCalculationResult = riskCalculation.calculateRisk(
+			with: createAppConfig(),
+			now: nowDate
+		)
 
 		let numberOfHighDayRisks: Int = checkinRiskCalculationResult.riskLevelPerDate.reduce(0) {
 			$1.value == .high ? $0 + 1 : $0
@@ -93,7 +102,8 @@ class CheckinRiskCalculationTests: CWATestCase {
 		guard let checkinStartDate = utcFormatter.date(from: "2021-03-04T09:30:00+01:00"),
 			  let checkinEndDate = utcFormatter.date(from: "2021-03-04T010:30:00+01:00"),
 			  let matchStartDate = utcFormatter.date(from: "2021-03-04T09:40:00+01:00"),
-			  let matchEndDate = utcFormatter.date(from: "2021-03-04T10:10:00+01:00")else {
+			  let matchEndDate = utcFormatter.date(from: "2021-03-04T10:10:00+01:00"),
+			  let nowDate = utcFormatter.date(from: "2021-03-04T010:30:00+01:00") else {
 			XCTFail("Could not create dates.")
 			return
 		}
@@ -108,7 +118,10 @@ class CheckinRiskCalculationTests: CWATestCase {
 			return
 		}
 
-		let checkinRiskCalculationResult = riskCalculation.calculateRisk(with: createAppConfig())
+		let checkinRiskCalculationResult = riskCalculation.calculateRisk(
+			with: createAppConfig(),
+			now: nowDate
+		)
 
 		let numberOfLowDayRisks: Int = checkinRiskCalculationResult.riskLevelPerDate.reduce(0) {
 			$1.value == .low ? $0 + 1 : $0
@@ -132,7 +145,8 @@ class CheckinRiskCalculationTests: CWATestCase {
 		guard let checkinStartDate = utcFormatter.date(from: "2021-03-04T09:30:00+01:00"),
 			  let checkinEndDate = utcFormatter.date(from: "2021-03-04T010:30:00+01:00"),
 			  let matchStartDate = utcFormatter.date(from: "2021-03-04T09:30:00+01:00"),
-			  let matchEndDate = utcFormatter.date(from: "2021-03-04T10:30:00+01:00")else {
+			  let matchEndDate = utcFormatter.date(from: "2021-03-04T10:30:00+01:00"),
+			  let nowDate = utcFormatter.date(from: "2021-03-04T010:30:00+01:00") else {
 			XCTFail("Could not create dates.")
 			return
 		}
@@ -147,7 +161,10 @@ class CheckinRiskCalculationTests: CWATestCase {
 			return
 		}
 
-		let checkinRiskCalculationResult = riskCalculation.calculateRisk(with: createAppConfig())
+		let checkinRiskCalculationResult = riskCalculation.calculateRisk(
+			with: createAppConfig(),
+			now: nowDate
+		)
 
 		let numberOfHighDayRisks: Int = checkinRiskCalculationResult.riskLevelPerDate.reduce(0) {
 			$1.value == .high ? $0 + 1 : $0
@@ -173,7 +190,8 @@ class CheckinRiskCalculationTests: CWATestCase {
 			  let checkin2StartDate = utcFormatter.date(from: "2021-03-05T13:30:00+01:00"),
 			  let checkin2EndDate = utcFormatter.date(from: "2021-03-06T19:30:00+01:00"),
 			  let match1StartDate = utcFormatter.date(from: "2021-03-04T10:30:00+01:00"),
-			  let match1EndDate = utcFormatter.date(from: "2021-03-06T15:30:00+01:00")else {
+			  let match1EndDate = utcFormatter.date(from: "2021-03-06T15:30:00+01:00"),
+			  let nowDate = utcFormatter.date(from: "2021-03-04T010:30:00+01:00") else {
 			XCTFail("Could not create dates.")
 			return
 		}
@@ -230,7 +248,10 @@ class CheckinRiskCalculationTests: CWATestCase {
 			traceWarningMatcher: traceWarningMatcher
 		)
 
-		let checkinRiskCalculationResult = riskCalculation.calculateRisk(with: createAppConfig())
+		let checkinRiskCalculationResult = riskCalculation.calculateRisk(
+			with: createAppConfig(),
+			now: nowDate
+		)
 
 		let numberOfHighRisks: Int = checkinRiskCalculationResult.riskLevelPerDate.reduce(0) {
 			$1.value == .high ? $0 + 1 : $0
@@ -252,7 +273,8 @@ class CheckinRiskCalculationTests: CWATestCase {
 		guard let checkinStartDate = utcFormatter.date(from: "2021-03-04T09:30:00+01:00"),
 			  let checkinEndDate = utcFormatter.date(from: "2021-03-04T010:30:00+01:00"),
 			  let matchStartDate = utcFormatter.date(from: "2021-03-04T09:30:00+01:00"),
-			  let matchEndDate = utcFormatter.date(from: "2021-03-04T10:30:00+01:00")else {
+			  let matchEndDate = utcFormatter.date(from: "2021-03-04T10:30:00+01:00"),
+			  let nowDate = utcFormatter.date(from: "2021-03-04T010:30:00+01:00") else {
 			XCTFail("Could not create dates.")
 			return
 		}
@@ -289,7 +311,10 @@ class CheckinRiskCalculationTests: CWATestCase {
 			traceWarningMatcher: traceWarningMatcher
 		)
 
-		let checkinRiskCalculationResult = riskCalculation.calculateRisk(with: createAppConfig())
+		let checkinRiskCalculationResult = riskCalculation.calculateRisk(
+			with: createAppConfig(),
+			now: nowDate
+		)
 
 		let numberOfHighDayRisks: Int = checkinRiskCalculationResult.riskLevelPerDate.reduce(0) {
 			$1.value == .high ? $0 + 1 : $0
@@ -311,7 +336,8 @@ class CheckinRiskCalculationTests: CWATestCase {
 		guard let checkinStartDate = utcFormatter.date(from: "2021-03-04T09:30:00+01:00"),
 			  let checkinEndDate = utcFormatter.date(from: "2021-03-04T010:30:00+01:00"),
 			  let matchStartDate = utcFormatter.date(from: "2021-03-04T09:40:00+01:00"),
-			  let matchEndDate = utcFormatter.date(from: "2021-03-04T09:50:00+01:00") else {
+			  let matchEndDate = utcFormatter.date(from: "2021-03-04T09:50:00+01:00"),
+			  let nowDate = utcFormatter.date(from: "2021-03-07T010:30:00+01:00") else {
 			XCTFail("Could not create dates.")
 			return
 		}
@@ -327,10 +353,11 @@ class CheckinRiskCalculationTests: CWATestCase {
 		}
 
 		var appConfig = createAppConfig()
-		// Set maxCheckInAgeInDays to be the same value (in days) as 'checkinEndDate'.
-		let maxCheckInAgeInDays = UInt32(checkinEndDate.timeIntervalSince1970) / 86400
-		appConfig.presenceTracingParameters.riskCalculationParameters.maxCheckInAgeInDays = maxCheckInAgeInDays
-		let checkinRiskCalculationResult = riskCalculation.calculateRisk(with: appConfig)
+		
+		// The injected reference date 'now' is exactly 3 days older then checkinEndDate.
+		// With maxCheckInAgeInDays set to 3, the checkin should not be filtered and the risk calculation should lead to a risk entry.
+		appConfig.presenceTracingParameters.riskCalculationParameters.maxCheckInAgeInDays = 3
+		let checkinRiskCalculationResult = riskCalculation.calculateRisk(with: appConfig, now: nowDate)
 
 		let numberOfLowCheckinRisks: Int = checkinRiskCalculationResult.checkinIdsWithRiskPerDate.reduce(0) {
 			$1.value.reduce($0) {
@@ -338,8 +365,6 @@ class CheckinRiskCalculationTests: CWATestCase {
 			}
 		}
 
-		// The checkin has the same age in days as 'maxCheckInAgeInDays'.
-		// Because of that, it is part of the risk caclulation and results in 1 low encounter.
 		XCTAssertEqual(numberOfLowCheckinRisks, 1)
 		XCTAssertEqual(checkinRiskCalculationResult.checkinIdsWithRiskPerDate.count, 1)
 	}
@@ -348,7 +373,8 @@ class CheckinRiskCalculationTests: CWATestCase {
 		guard let checkinStartDate = utcFormatter.date(from: "2021-03-04T09:30:00+01:00"),
 			  let checkinEndDate = utcFormatter.date(from: "2021-03-04T010:30:00+01:00"),
 			  let matchStartDate = utcFormatter.date(from: "2021-03-04T09:40:00+01:00"),
-			  let matchEndDate = utcFormatter.date(from: "2021-03-04T09:50:00+01:00") else {
+			  let matchEndDate = utcFormatter.date(from: "2021-03-04T09:50:00+01:00"),
+			  let nowDate = utcFormatter.date(from: "2021-03-07T010:30:01+01:00") else {
 			XCTFail("Could not create dates.")
 			return
 		}
@@ -364,11 +390,11 @@ class CheckinRiskCalculationTests: CWATestCase {
 		}
 
 		var appConfig = createAppConfig()
-		// Set maxCheckInAgeInDays to be bigger (in days) then 'checkinEndDate'.
-		// In this case the chekin should be filtered and not used for risk calculation.
-		let maxCheckInAgeInDays = (UInt32(checkinEndDate.timeIntervalSince1970) / 86400) + 1
-		appConfig.presenceTracingParameters.riskCalculationParameters.maxCheckInAgeInDays = maxCheckInAgeInDays
-		let checkinRiskCalculationResult = riskCalculation.calculateRisk(with: appConfig)
+		
+		// The injected reference date 'now' is exactly 3 days and 1 second older then checkinEndDate.
+		// With maxCheckInAgeInDays set to 3, the checkin should be filtered and the risk calculation should not lead to a risk entry.
+		appConfig.presenceTracingParameters.riskCalculationParameters.maxCheckInAgeInDays = 3
+		let checkinRiskCalculationResult = riskCalculation.calculateRisk(with: appConfig, now: nowDate)
 
 		let numberOfLowCheckinRisks: Int = checkinRiskCalculationResult.checkinIdsWithRiskPerDate.reduce(0) {
 			$1.value.reduce($0) {
@@ -376,8 +402,6 @@ class CheckinRiskCalculationTests: CWATestCase {
 			}
 		}
 
-		// The checkin is older then maxCheckInAgeInDays and gots removed.
-		// Because of that, there is no risk encoutern.
 		XCTAssertEqual(numberOfLowCheckinRisks, 0)
 		XCTAssertEqual(checkinRiskCalculationResult.checkinIdsWithRiskPerDate.count, 0)
 	}

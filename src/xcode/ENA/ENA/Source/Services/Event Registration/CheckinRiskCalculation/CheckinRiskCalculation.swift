@@ -6,7 +6,18 @@ import Foundation
 import OpenCombine
 
 protocol CheckinRiskCalculationProtocol {
-	func calculateRisk(with config: SAP_Internal_V2_ApplicationConfigurationIOS) -> CheckinRiskCalculationResult
+	func calculateRisk(
+		with config: SAP_Internal_V2_ApplicationConfigurationIOS,
+		now: Date
+	) -> CheckinRiskCalculationResult
+}
+
+extension CheckinRiskCalculationProtocol {
+	func calculateRisk(
+		with config: SAP_Internal_V2_ApplicationConfigurationIOS
+	) -> CheckinRiskCalculationResult {
+		calculateRisk(with: config, now: Date())
+	}
 }
 
 final class CheckinRiskCalculation: CheckinRiskCalculationProtocol {
@@ -31,7 +42,10 @@ final class CheckinRiskCalculation: CheckinRiskCalculationProtocol {
 
 	// MARK: - Protocol CheckinRiskCalculationProtocol
 
-	func calculateRisk(with config: SAP_Internal_V2_ApplicationConfigurationIOS) -> CheckinRiskCalculationResult {
+	func calculateRisk(
+		with config: SAP_Internal_V2_ApplicationConfigurationIOS,
+		now: Date = Date()
+	) -> CheckinRiskCalculationResult {
 
 		Log.info("[CheckinRiskCalculation] Start checkin risk calculation.", log: .checkin)
 
@@ -51,8 +65,9 @@ final class CheckinRiskCalculation: CheckinRiskCalculationProtocol {
 			}
 			// 1.1 Filter by age: filter out all CheckIns where the date described by `endTimestamp` is older than `maxCheckInAgeInDays`. The calculation shall use seconds/timestamps for calculation (i.e. `maxCheckInAgeInDays x 86400`)
 			.filter {
-				let maxCheckInAgeInDays = config.presenceTracingParameters.riskCalculationParameters.maxCheckInAgeInDays
-				let checkinIsTooOld = Int($0.checkinEndDate.timeIntervalSince1970) < maxCheckInAgeInDays * 86400
+				let maxCheckInAgeInSeconds = config.presenceTracingParameters.riskCalculationParameters.maxCheckInAgeInDays * 86400
+				let checkinAgeInSeconds = Int(now.timeIntervalSince1970 - $0.checkinEndDate.timeIntervalSince1970)
+				let checkinIsTooOld = checkinAgeInSeconds > maxCheckInAgeInSeconds
 				return !checkinIsTooOld
 			}
 
