@@ -36,7 +36,7 @@ class CachingHTTPClient: AppConfigurationFetching, StatisticsFetching, LocalStat
 	///   - signatureVerifier: The signatureVerifier to use for package validation.
 	init(
 		environmentProvider: EnvironmentProviding = Environments(),
-		session: URLSession = .legacyCoronaWarnSession(
+		session: URLSession = .coronaWarnSession(
 			configuration: .cachingSessionConfiguration()
 		),
 		signatureVerifier: SignatureVerifier = SignatureVerifier()

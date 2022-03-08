@@ -68,6 +68,13 @@ extension Service {
 			var task: URLSessionDataTask?
 			task = session.dataTask(with: request) { bodyData, response, error in
 				
+				defer {
+					   if let coronaSessionDelegate = session.delegate as? CoronaWarnSessionTaskDelegate,
+						  let task = task {
+						   coronaSessionDelegate.trustEvaluations[task.taskIdentifier] = nil
+					   }
+				}
+				
 				// If there is a transportation error, check if the underlying error is a trust evaluation error and possibly return it.
 				if error != nil,
 				   let coronaSessionDelegate = session.delegate as? CoronaWarnSessionTaskDelegate,

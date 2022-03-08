@@ -70,8 +70,6 @@ class CoronaWarnSessionTaskDelegate: NSObject, URLSessionTaskDelegate {
 				completionHandler(.cancelAuthenticationChallenge, /* credential */ nil)
 			}
 		}
-		
-		trustEvaluations[task.taskIdentifier] = nil
 	}
 	
 	// MARK: - Internal
