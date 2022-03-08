@@ -37,7 +37,10 @@ struct TeleTanResource: Resource {
 	var sendResource: PaddingJSONSendResource<TeleTanSendModel>
 	var receiveResource: JSONReceiveResource<TeleTanReceiveModel>
 
-	func customError(for error: ServiceError<TeleTanError>) -> TeleTanError? {
+	func customError(
+		for error: ServiceError<TeleTanError>,
+		responseBody: Data? = nil
+	) -> TeleTanError? {
 		switch error {
 		case .unexpectedServerError(let statusCode):
 			switch (keyModel.keyType, statusCode) {

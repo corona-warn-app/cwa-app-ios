@@ -31,6 +31,8 @@ class DefaultTrustEvaluation: TrustEvaluating {
 		trust: SecTrust,
 		completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Void
 	) {
+		
+		Log.info("Evaluate trust...")
 #if DEBUG
 		// debug/review: print the chain
 		for i in 0..<SecTrustGetCertificateCount(trust) {
@@ -45,12 +47,14 @@ class DefaultTrustEvaluation: TrustEvaluating {
 			  let serverPublicKeyData = SecKeyCopyExternalRepresentation(serverPublicKey, nil ) as Data?,
 			  publicKeyHash == serverPublicKeyData.sha256()
 		else {
+			Log.error("Certificate mismatch.")
 			trustEvaluationError = .default(.CERT_MISMATCH)
 			completionHandler(.cancelAuthenticationChallenge, /* credential */ nil)
 			return
 		}
 		
 		// Success! This is our server
+		Log.info("Trust evaluation was successful.")
 		completionHandler(.useCredential, URLCredential(trust: trust))
 	}
 	

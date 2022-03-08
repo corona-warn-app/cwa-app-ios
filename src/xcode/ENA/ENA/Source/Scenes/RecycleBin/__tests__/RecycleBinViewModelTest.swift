@@ -120,7 +120,7 @@ class RecycleBinViewModelTest: CWATestCase {
 		let restoreHandlerExpectation = expectation(description: "restore called on handler")
 		var certificateRestorationHandler = CertificateRestorationHandlerFake()
 		certificateRestorationHandler.restore = { certificate in
-			XCTAssertEqual(certificate, .mock(base45: HealthCertificateMocks.mockBase45))
+			XCTAssertEqual(certificate.base45, HealthCertificateMocks.mockBase45)
 			restoreHandlerExpectation.fulfill()
 		}
 
