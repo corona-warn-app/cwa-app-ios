@@ -40,8 +40,6 @@ class DefaultTrustEvaluation: TrustEvaluating {
 		}
 #endif
 		
-		// we expect a chain of at least 2 certificates
-		// index '1' is the required intermediate
 		guard let serverCertificate = SecTrustGetCertificateAtIndex(trust, certificatePosition),
 			  let serverPublicKey = SecCertificateCopyKey(serverCertificate),
 			  let serverPublicKeyData = SecKeyCopyExternalRepresentation(serverPublicKey, nil ) as Data?,
