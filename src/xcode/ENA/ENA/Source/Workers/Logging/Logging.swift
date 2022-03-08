@@ -122,9 +122,9 @@ enum Log {
 			// swiftlint:disable:next no_direct_oslog
 			os_log("%{public}@ %{public}@", log: log, type: type, meta, message)
 		}
-
+		
 		// Save logs to File. This is used for viewing and exporting logs from debug menu.
-		fileLogger.log(message, logType: type, file: file, line: line, function: function)
+		fileLogger.log(message, logType: type, file: file, line: line, function: function, error: error?.localizedDescription)
 	}
 }
 
@@ -220,12 +220,16 @@ struct FileLogger {
 		#endif
 	}
 
-	func log(_ logMessage: String, logType: OSLogType, file: String? = nil, line: Int? = nil, function: String? = nil) {
+	func log(_ logMessage: String, logType: OSLogType, file: String? = nil, line: Int? = nil, function: String? = nil, error: String? = nil) {
 		var meta: String = ""
 		if let file = file, let line = line, let function = function {
 			meta = "[\(file):\(line)] [\(function)]\n"
 		}
-		let prefixedLogMessage = "\(logType.title) \(logDateFormatter.string(from: Date()))\n\(meta)\(logMessage)\n\n"
+		var errorMessage: String = ""
+		if let error = error {
+			errorMessage = "\nError: \(error)"
+		}
+		let prefixedLogMessage = "\(logType.title) \(logDateFormatter.string(from: Date()))\n\(meta)\(logMessage)\(errorMessage)\n\n"
 
 		writeLog(of: logType, message: prefixedLogMessage)
 	}
