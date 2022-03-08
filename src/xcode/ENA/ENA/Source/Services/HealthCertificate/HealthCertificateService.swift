@@ -99,6 +99,8 @@ class HealthCertificateService: HealthCertificateServiceServable {
 			}
 		}
 	}
+
+	@DidSetPublished var isSetUp = false
 	
 	private(set) var unseenNewsCount = CurrentValueSubject<Int, Never>(0)
 	
@@ -535,7 +537,6 @@ class HealthCertificateService: HealthCertificateServiceServable {
 
 	private let setupQueue = DispatchQueue(label: "com.sap.HealthCertificateService.setup")
 
-	private var isSetUp = false
 	private var initialHealthCertifiedPersonsReadFromStore = false
 
 	private var healthCertifiedPersonSubscriptions = Set<AnyCancellable>()
