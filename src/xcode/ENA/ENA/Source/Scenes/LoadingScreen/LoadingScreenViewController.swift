@@ -21,7 +21,12 @@ class LoadingScreenViewController: UIViewController {
 	override func viewDidAppear(_ animated: Bool) {
 		Log.info("Loading screen did appear", log: .appLifecycle)
 		// Don't show loading screen content on fast devices
-		DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+		DispatchQueue.main.asyncAfter(deadline: .now() + 3) { [weak self] in
+			guard let self = self else {
+				Log.info("Loading screen did not show activity indicator", log: .appLifecycle)
+				return
+			}
+
 			Log.info("Loading screen did show activity indicator", log: .appLifecycle)
 
 			self.logoImageView.isHidden = false
