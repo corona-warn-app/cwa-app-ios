@@ -327,7 +327,7 @@ final class HealthCertificate: Codable, Equatable, Comparable, RecycleBinIdentif
 		case .test(let testEntry):
 			return testEntry.sampleCollectionDate
 		case .recovery(let recoveryEntry):
-			return recoveryEntry.localCertificateValidityStartDate
+			return recoveryEntry.localDateOfFirstPositiveNAAResult
 		}
 	}
 
