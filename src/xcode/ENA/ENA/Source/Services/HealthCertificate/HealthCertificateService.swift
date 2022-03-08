@@ -50,8 +50,6 @@ class HealthCertificateService: HealthCertificateServiceServable {
 			self.cclService = cclService
 			self.recycleBin = recycleBin
 
-			configureForTesting()
-
 			return
 		}
 		#endif
@@ -135,6 +133,13 @@ class HealthCertificateService: HealthCertificateServiceServable {
 
 			HealthCertificateMigrator().migrate(store: self.store)
 			self.updatePublishersFromStore()
+
+			#if DEBUG
+			if isUITesting {
+				self.configureForTesting()
+			}
+			#endif
+
 			self.updateTimeBasedValidityStates()
 
 			self.updateGradients()
