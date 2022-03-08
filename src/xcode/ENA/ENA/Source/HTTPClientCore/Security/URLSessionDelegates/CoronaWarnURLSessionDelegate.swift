@@ -19,7 +19,7 @@ final class CoronaWarnURLSessionDelegate: NSObject, URLSessionDelegate {
 	}
 
 	convenience init(
-		publicKeyHash: String
+		publicKeyHash: Data
 	) {
 		self.init(
 			evaluateTrust: DefaultTrustEvaluation(

@@ -12,7 +12,7 @@ struct ValidationOnboardedCountriesResource: Resource {
 	init(
 		isFake: Bool = false,
 		trustEvaluation: TrustEvaluating = DefaultTrustEvaluation(
-			publicKeyHash: Environments().currentEnvironment().pinningKeyHash
+			publicKeyHash: Environments().currentEnvironment().pinningKeyHashData
 		)
 	) {
 		self.locator = .validationOnboardedCountries(isFake: isFake)
