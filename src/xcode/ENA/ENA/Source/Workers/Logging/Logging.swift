@@ -124,7 +124,7 @@ enum Log {
 		}
 		
 		// Save logs to File. This is used for viewing and exporting logs from debug menu.
-		fileLogger.log(message, logType: type, file: file, line: line, function: function, error: error?.localizedDescription)
+		fileLogger.log(message, logType: type, file: file, line: line, function: function, error: error)
 	}
 }
 
@@ -220,16 +220,20 @@ struct FileLogger {
 		#endif
 	}
 
-	func log(_ logMessage: String, logType: OSLogType, file: String? = nil, line: Int? = nil, function: String? = nil, error: String? = nil) {
+	func log(_ logMessage: String, logType: OSLogType, file: String? = nil, line: Int? = nil, function: String? = nil, error: Swift.Error? = nil) {
 		var meta: String = ""
 		if let file = file, let line = line, let function = function {
 			meta = "[\(file):\(line)] [\(function)]\n"
 		}
+		
+		var errorLocalizedDescription: String = ""
 		var errorMessage: String = ""
 		if let error = error {
+			errorLocalizedDescription = "\nErrorLocalizedDescription: \(error.localizedDescription)"
 			errorMessage = "\nError: \(error)"
 		}
-		let prefixedLogMessage = "\(logType.title) \(logDateFormatter.string(from: Date()))\n\(meta)\(logMessage)\(errorMessage)\n\n"
+
+		let prefixedLogMessage = "\(logType.title) \(logDateFormatter.string(from: Date()))\n\(meta)\(logMessage)\(errorLocalizedDescription)\(errorMessage)\n\n"
 
 		writeLog(of: logType, message: prefixedLogMessage)
 	}
