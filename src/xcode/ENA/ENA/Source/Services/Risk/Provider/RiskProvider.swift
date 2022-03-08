@@ -459,17 +459,17 @@ final class RiskProvider: RiskProviding {
 		/// Triggers a notification for every risk level change.
 		switch risk.riskLevelChange {
 		case .decreased:
-			Log.info("decrease risk change state won't trigger a notification")
+			Log.info("decrease risk change state won't trigger a high risk notification")
 		case .increased:
-			triggerRiskNotification()
+			triggerHighRiskNotification()
 		case let .unchanged(riskLevel):
 			if riskLevel == .high {
-				triggerRiskNotification()
+				triggerHighRiskNotification()
 			}
 		}
 	}
 
-	private func triggerRiskNotification() {
+	private func triggerHighRiskNotification() {
 		Log.info("Trigger notification about high risk level", log: .riskDetection)
 		UNUserNotificationCenter.current().presentNotification(
 			title: AppStrings.LocalNotifications.detectExposureTitle,
