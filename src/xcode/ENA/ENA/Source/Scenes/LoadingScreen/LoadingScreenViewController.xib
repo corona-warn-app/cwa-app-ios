@@ -28,8 +28,8 @@
                         <constraint firstAttribute="width" constant="100" id="nPW-BQ-6AB"/>
                     </constraints>
                 </imageView>
-                <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="NFk-9K-mS0">
-                    <rect key="frame" x="188.5" y="653.5" width="37" height="37"/>
+                <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="NFk-9K-mS0">
+                    <rect key="frame" x="197" y="662" width="20" height="20"/>
                 </activityIndicatorView>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
