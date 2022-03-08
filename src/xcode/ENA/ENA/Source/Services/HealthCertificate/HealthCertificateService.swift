@@ -142,11 +142,11 @@ class HealthCertificateService: HealthCertificateServiceServable {
 			self.scheduleTimer()
 
 			if updatingWalletInfos {
-				self.updateDCCWalletInfosIfNeeded(completion: {
+				self.updateDCCWalletInfosIfNeeded {
 					Log.info("[HealthCertificateService] Setup finished including wallet info updates", log: .background)
 					self.isSetUp = true
 					completion()
-				})
+				}
 			} else {
 				Log.info("[HealthCertificateService] Setup finished without wallet info updates", log: .background)
 				self.isSetUp = true
