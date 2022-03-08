@@ -20,9 +20,35 @@ enum TestResult: Int, CaseIterable, Codable {
 	//	8	Invalid (rapid antigen test)
 	//	9	Redeemed (rapid antigen test; locally referred to as Expired))
 
-	init?(serverResponse: Int) {
-		// Values for antigen tests are pending = 5, negative = 6, ...
-		self.init(rawValue: serverResponse % 5)
+	// swiftlint:disable cyclomatic_complexity
+	init(
+		serverResponse: Int,
+		coronaTestType: CoronaTestType
+	) {
+		switch (serverResponse, coronaTestType) {
+		case (0, _):
+			self = .pending
+		case (1, .pcr):
+			self = .negative
+		case (2, .pcr):
+			self = .positive
+		case (3, .pcr):
+			self = .invalid
+		case (4, .pcr):
+			self = .expired
+		case (5, .antigen):
+			self = .pending
+		case (6, .antigen):
+			self = .negative
+		case (7, .antigen):
+			self = .positive
+		case (8, .antigen):
+			self = .invalid
+		case (9, .antigen):
+			self = .expired
+		default:
+			self = .invalid
+		}
 	}
 
 	// MARK: - Internal
@@ -34,4 +60,30 @@ enum TestResult: Int, CaseIterable, Codable {
 	// On the server it's called "redeemed", but this state means that the test is expired.
 	// Actually redeemed tests return a code 400 when registered.
 	case expired = 4
+
+	static func serverResponse(for testResult: TestResult, on coronaTestType: CoronaTestType) -> Int {
+		switch (testResult, coronaTestType) {
+		case (.pending, .pcr):
+			return 0
+		case (.negative, .pcr):
+			return 1
+		case (.positive, .pcr):
+			return 2
+		case (.invalid, .pcr):
+			return 3
+		case (.expired, .pcr):
+			return 4
+		case (.pending, .antigen):
+			return 5
+		case (.negative, .antigen):
+			return 6
+		case (.positive, .antigen):
+			return 7
+		case (.invalid, .antigen):
+			return 8
+		case (.expired, .antigen):
+			return 9
+		}
+	}
+
 }

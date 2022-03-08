@@ -403,7 +403,7 @@ class HealthCertificateReissuanceConsentViewModelTests: CWATestCase {
 			loadResources: [
 				   LoadResource(
 					result: .failure(
-						ServiceError.receivedResourceError(DCCReissuanceResourceError.DCC_RI_400)
+						ServiceError.receivedResourceError(DCCReissuanceResourceError.DCC_RI_400(nil))
 					),
 					   willLoadResource: nil
 				   )
