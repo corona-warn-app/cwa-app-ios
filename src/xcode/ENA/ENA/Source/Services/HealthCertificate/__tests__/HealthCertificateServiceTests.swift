@@ -55,7 +55,7 @@ class HealthCertificateServiceTests: CWATestCase {
 
 		waitForExpectations(timeout: .short)
 
-		XCTAssertEqual(store.healthCertifiedPersons.first?.healthCertificates, [vaccinationCertificate])
+		XCTAssertEqual(store.healthCertifiedPersons.first?.healthCertificates.map { $0.base45 }, [vaccinationCertificate.base45])
 
 		subscription.cancel()
 	}
@@ -142,16 +142,18 @@ class HealthCertificateServiceTests: CWATestCase {
 
 		var registrationResult = service.registerHealthCertificate(base45: firstTestCertificateBase45)
 
+		var registeredFirstTestCertificate: HealthCertificate?
 		switch registrationResult {
 		case let .success(certificateResult):
-			XCTAssertEqual(certificateResult.person.healthCertificates, [firstTestCertificate])
+			XCTAssertEqual(certificateResult.person.healthCertificates.map { $0.base45 }, [firstTestCertificate.base45])
 			XCTAssertNil(certificateResult.registrationDetail)
+			registeredFirstTestCertificate = certificateResult.certificate
 		case .failure:
 			XCTFail("Registration should succeed")
 		}
 
 		XCTAssertEqual(store.healthCertifiedPersons.count, 1)
-		XCTAssertEqual(store.healthCertifiedPersons.first?.healthCertificates, [firstTestCertificate])
+		XCTAssertEqual(store.healthCertifiedPersons.first?.healthCertificates.map { $0.base45 }, [firstTestCertificate.base45])
 
 		// By default added certificate are not marked as new
 		XCTAssertFalse(try XCTUnwrap(store.healthCertifiedPersons.first?.healthCertificates[safe: 0]).isNew)
@@ -166,7 +168,7 @@ class HealthCertificateServiceTests: CWATestCase {
 		}
 
 		XCTAssertEqual(store.healthCertifiedPersons.count, 1)
-		XCTAssertEqual(store.healthCertifiedPersons.first?.healthCertificates, [firstTestCertificate])
+		XCTAssertEqual(store.healthCertifiedPersons.first?.healthCertificates.map { $0.base45 }, [firstTestCertificate.base45])
 
 		// Certificates that were not added successfully don't change unseenNewsCount
 		XCTAssertEqual(service.unseenNewsCount.value, 0)
@@ -194,7 +196,7 @@ class HealthCertificateServiceTests: CWATestCase {
 		}
 
 		XCTAssertEqual(store.healthCertifiedPersons.count, 1)
-		XCTAssertEqual(store.healthCertifiedPersons.first?.healthCertificates, [firstTestCertificate])
+		XCTAssertEqual(store.healthCertifiedPersons.first?.healthCertificates.map { $0.base45 }, [firstTestCertificate.base45])
 
 		// Register second test certificate for same person
 
@@ -212,16 +214,18 @@ class HealthCertificateServiceTests: CWATestCase {
 
 		registrationResult = service.registerHealthCertificate(base45: secondTestCertificateBase45, markAsNew: true)
 
+		var registeredSecondTestCertificate: HealthCertificate?
 		switch registrationResult {
 		case let .success(certificateResult):
-			XCTAssertEqual(certificateResult.person.healthCertificates, [firstTestCertificate, secondTestCertificate])
+			XCTAssertEqual(certificateResult.person.healthCertificates.map { $0.base45 }, [firstTestCertificate, secondTestCertificate].map { $0.base45 })
 			XCTAssertNil(certificateResult.registrationDetail)
+			registeredSecondTestCertificate = certificateResult.certificate
 		case .failure(let error):
 			XCTFail("Registration should succeed, failed with error: \(error.localizedDescription)")
 		}
 
 		XCTAssertEqual(store.healthCertifiedPersons.count, 1)
-		XCTAssertEqual(store.healthCertifiedPersons.first?.healthCertificates, [firstTestCertificate, secondTestCertificate])
+		XCTAssertEqual(store.healthCertifiedPersons.first?.healthCertificates.map { $0.base45 }, [firstTestCertificate, secondTestCertificate].map { $0.base45 })
 
 		// Marking as new increases unseen news count
 		XCTAssertEqual(service.unseenNewsCount.value, 1)
@@ -243,16 +247,18 @@ class HealthCertificateServiceTests: CWATestCase {
 
 		registrationResult = service.registerHealthCertificate(base45: firstVaccinationCertificateBase45, markAsNew: true)
 
+		var registeredFirstVaccinationCertificate: HealthCertificate?
 		switch registrationResult {
 		case let .success(certificateResult):
-			XCTAssertEqual(certificateResult.person.healthCertificates, [firstVaccinationCertificate, firstTestCertificate, secondTestCertificate])
+			XCTAssertEqual(certificateResult.person.healthCertificates.map { $0.base45 }, [firstVaccinationCertificate, firstTestCertificate, secondTestCertificate].map { $0.base45 })
 			XCTAssertNil(certificateResult.registrationDetail)
+			registeredFirstVaccinationCertificate = certificateResult.certificate
 		case .failure(let error):
 			XCTFail("Registration should succeed, failed with error: \(error.localizedDescription)")
 		}
 
 		XCTAssertEqual(store.healthCertifiedPersons.count, 1)
-		XCTAssertEqual(store.healthCertifiedPersons.first?.healthCertificates, [firstVaccinationCertificate, firstTestCertificate, secondTestCertificate])
+		XCTAssertEqual(store.healthCertifiedPersons.first?.healthCertificates.map { $0.base45 }, [firstVaccinationCertificate, firstTestCertificate, secondTestCertificate].map { $0.base45 })
 		XCTAssertEqual(service.healthCertifiedPersons.first?.gradientType, .lightBlue)
 
 		// Marking as new increases unseen news count
@@ -277,7 +283,7 @@ class HealthCertificateServiceTests: CWATestCase {
 
 		switch registrationResult {
 		case let .success(certificateResult):
-			XCTAssertEqual(certificateResult.person.healthCertificates, [secondVaccinationCertificate])
+			XCTAssertEqual(certificateResult.person.healthCertificates.map { $0.base45 }, [secondVaccinationCertificate.base45])
 			XCTAssertEqual(certificateResult.registrationDetail, .personWarnThresholdReached)
 		case .failure(let error):
 			XCTFail("Registration should succeed, failed with error: \(error.localizedDescription)")
@@ -286,10 +292,10 @@ class HealthCertificateServiceTests: CWATestCase {
 		XCTAssertEqual(store.healthCertifiedPersons.count, 2)
 
 		// New health certified person comes first due to alphabetical ordering
-		XCTAssertEqual(store.healthCertifiedPersons.first?.healthCertificates, [secondVaccinationCertificate])
+		XCTAssertEqual(store.healthCertifiedPersons.first?.healthCertificates.map { $0.base45 }, [secondVaccinationCertificate.base45])
 		XCTAssertEqual(service.healthCertifiedPersons.first?.gradientType, .lightBlue)
 
-		XCTAssertEqual(store.healthCertifiedPersons.last?.healthCertificates, [firstVaccinationCertificate, firstTestCertificate, secondTestCertificate])
+		XCTAssertEqual(store.healthCertifiedPersons.last?.healthCertificates.map { $0.base45 }, [firstVaccinationCertificate, firstTestCertificate, secondTestCertificate].map { $0.base45 })
 		XCTAssertEqual(service.healthCertifiedPersons.last?.gradientType, .mediumBlue)
 
 		// Register test certificate for second person
@@ -310,17 +316,17 @@ class HealthCertificateServiceTests: CWATestCase {
 
 		switch registrationResult {
 		case let .success(certificateResult):
-			XCTAssertEqual(certificateResult.person.healthCertificates, [thirdTestCertificate, secondVaccinationCertificate])
+			XCTAssertEqual(certificateResult.person.healthCertificates.map { $0.base45 }, [thirdTestCertificate, secondVaccinationCertificate].map { $0.base45 })
 		case .failure(let error):
 			XCTFail("Registration should succeed, failed with error: \(error.localizedDescription)")
 		}
 
 		XCTAssertEqual(store.healthCertifiedPersons.count, 2)
 
-		XCTAssertEqual(store.healthCertifiedPersons.first?.healthCertificates, [thirdTestCertificate, secondVaccinationCertificate])
+		XCTAssertEqual(store.healthCertifiedPersons.first?.healthCertificates.map { $0.base45 }, [thirdTestCertificate, secondVaccinationCertificate].map { $0.base45 })
 		XCTAssertEqual(service.healthCertifiedPersons.first?.gradientType, .lightBlue)
 
-		XCTAssertEqual(store.healthCertifiedPersons.last?.healthCertificates, [firstVaccinationCertificate, firstTestCertificate, secondTestCertificate])
+		XCTAssertEqual(store.healthCertifiedPersons.last?.healthCertificates.map { $0.base45 }, [firstVaccinationCertificate, firstTestCertificate, secondTestCertificate].map { $0.base45 })
 		XCTAssertEqual(service.healthCertifiedPersons.last?.gradientType, .mediumBlue)
 
 		// Register expired recovery certificate for a third person to check gradients are correct
@@ -360,17 +366,17 @@ class HealthCertificateServiceTests: CWATestCase {
 
 		switch registrationResult {
 		case let .success(certificateResult):
-			XCTAssertEqual(certificateResult.person.healthCertificates, [firstRecoveryCertificate])
+			XCTAssertEqual(certificateResult.person.healthCertificates.map { $0.base45 }, [firstRecoveryCertificate.base45])
 			XCTAssertEqual(certificateResult.registrationDetail, .personWarnThresholdReached)
 		case .failure(let error):
 			XCTFail("Registration should succeed, failed with error: \(error.localizedDescription)")
 		}
 
-		XCTAssertEqual(store.healthCertifiedPersons[safe: 0]?.healthCertificates, [thirdTestCertificate, secondVaccinationCertificate])
+		XCTAssertEqual(store.healthCertifiedPersons[safe: 0]?.healthCertificates.map { $0.base45 }, [thirdTestCertificate, secondVaccinationCertificate].map { $0.base45 })
 		XCTAssertEqual(service.healthCertifiedPersons[safe: 0]?.gradientType, .lightBlue)
 		XCTAssertEqual(try XCTUnwrap(store.healthCertifiedPersons[safe: 0]).unseenNewsCount, 0)
 
-		XCTAssertEqual(store.healthCertifiedPersons[safe: 1]?.healthCertificates, [firstRecoveryCertificate])
+		XCTAssertEqual(store.healthCertifiedPersons[safe: 1]?.healthCertificates.map { $0.base45 }, [firstRecoveryCertificate.base45])
 		XCTAssertEqual(service.healthCertifiedPersons[safe: 1]?.gradientType, .solidGrey)
 		XCTAssertEqual(try XCTUnwrap(store.healthCertifiedPersons[safe: 1]).unseenNewsCount, 1)
 
@@ -378,7 +384,7 @@ class HealthCertificateServiceTests: CWATestCase {
 		XCTAssertEqual(service.unseenNewsCount.value, 3)
 		XCTAssertTrue(try XCTUnwrap(store.healthCertifiedPersons[safe: 1]?.healthCertificates[safe: 0]).isValidityStateNew)
 
-		XCTAssertEqual(store.healthCertifiedPersons[safe: 2]?.healthCertificates, [firstVaccinationCertificate, firstTestCertificate, secondTestCertificate])
+		XCTAssertEqual(store.healthCertifiedPersons[safe: 2]?.healthCertificates.map { $0.base45 }, [firstVaccinationCertificate, firstTestCertificate, secondTestCertificate].map { $0.base45 })
 		XCTAssertEqual(service.healthCertifiedPersons[safe: 2]?.gradientType, .darkBlue)
 		XCTAssertEqual(try XCTUnwrap(store.healthCertifiedPersons[safe: 2]).unseenNewsCount, 2)
 
@@ -386,13 +392,13 @@ class HealthCertificateServiceTests: CWATestCase {
 
 		service.healthCertifiedPersons.last?.isPreferredPerson = true
 
-		XCTAssertEqual(store.healthCertifiedPersons[safe: 0]?.healthCertificates, [firstVaccinationCertificate, firstTestCertificate, secondTestCertificate])
+		XCTAssertEqual(store.healthCertifiedPersons[safe: 0]?.healthCertificates.map { $0.base45 }, [firstVaccinationCertificate, firstTestCertificate, secondTestCertificate].map { $0.base45 })
 		XCTAssertEqual(service.healthCertifiedPersons[safe: 0]?.gradientType, .lightBlue)
 
-		XCTAssertEqual(store.healthCertifiedPersons[safe: 1]?.healthCertificates, [thirdTestCertificate, secondVaccinationCertificate])
+		XCTAssertEqual(store.healthCertifiedPersons[safe: 1]?.healthCertificates.map { $0.base45 }, [thirdTestCertificate, secondVaccinationCertificate].map { $0.base45 })
 		XCTAssertEqual(service.healthCertifiedPersons[safe: 1]?.gradientType, .mediumBlue)
 
-		XCTAssertEqual(store.healthCertifiedPersons[safe: 2]?.healthCertificates, [firstRecoveryCertificate])
+		XCTAssertEqual(store.healthCertifiedPersons[safe: 2]?.healthCertificates.map { $0.base45 }, [firstRecoveryCertificate.base45])
 		XCTAssertEqual(service.healthCertifiedPersons[safe: 2]?.gradientType, .solidGrey)
 
 		// Attempt to add a 4th person, max amount was set to 3
@@ -420,16 +426,16 @@ class HealthCertificateServiceTests: CWATestCase {
 
 		// Remove all certificates of first person and check that person is removed and gradient is correct
 
-		service.moveHealthCertificateToBin(firstVaccinationCertificate)
-		service.moveHealthCertificateToBin(firstTestCertificate)
-		service.moveHealthCertificateToBin(secondTestCertificate)
+		service.moveHealthCertificateToBin(try XCTUnwrap(registeredFirstVaccinationCertificate))
+		service.moveHealthCertificateToBin(try XCTUnwrap(registeredFirstTestCertificate))
+		service.moveHealthCertificateToBin(try XCTUnwrap(registeredSecondTestCertificate))
 
 		XCTAssertEqual(store.healthCertifiedPersons.count, 2)
 
-		XCTAssertEqual(store.healthCertifiedPersons[safe: 0]?.healthCertificates, [thirdTestCertificate, secondVaccinationCertificate])
+		XCTAssertEqual(store.healthCertifiedPersons[safe: 0]?.healthCertificates.map { $0.base45 }, [thirdTestCertificate, secondVaccinationCertificate].map { $0.base45 })
 		XCTAssertEqual(service.healthCertifiedPersons[safe: 0]?.gradientType, .lightBlue)
 
-		XCTAssertEqual(store.healthCertifiedPersons[safe: 1]?.healthCertificates, [firstRecoveryCertificate])
+		XCTAssertEqual(store.healthCertifiedPersons[safe: 1]?.healthCertificates.map { $0.base45 }, [firstRecoveryCertificate.base45])
 		XCTAssertEqual(service.healthCertifiedPersons[safe: 1]?.gradientType, .solidGrey)
 	}
 
@@ -1431,7 +1437,7 @@ class HealthCertificateServiceTests: CWATestCase {
 
 		switch registrationResult {
 		case let .success(certificateResult):
-			XCTAssertEqual(certificateResult.person.healthCertificates, [firstVaccinationCertificate])
+			XCTAssertEqual(certificateResult.person.healthCertificates.map { $0.base45 }, [firstVaccinationCertificate.base45])
 		case .failure(let error):
 			XCTFail("Registration should succeed, failed with error: \(error.localizedDescription)")
 		}
@@ -1656,7 +1662,7 @@ class HealthCertificateServiceTests: CWATestCase {
 
 		switch registrationResult {
 		case let .success(certificateResult):
-			XCTAssertEqual(certificateResult.person.healthCertificates, [firstVaccinationCertificate])
+			XCTAssertEqual(certificateResult.person.healthCertificates.map { $0.base45 }, [firstVaccinationCertificate.base45])
 		case .failure(let error):
 			XCTFail("Registration should succeed, failed with error: \(error.localizedDescription)")
 		}

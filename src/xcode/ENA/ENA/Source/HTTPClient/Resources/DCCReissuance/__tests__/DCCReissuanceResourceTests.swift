@@ -131,11 +131,54 @@ final class DCCReissuanceResourceTests: CWATestCase {
 		waitForExpectations(timeout: .short)
 	}
 
+	func testGIVEN_Resource_WHEN_Response_400WithErrorCode_THEN_DCC_RI_400() throws {
+		let expectation = expectation(description: "Expect that we got an error")
+
+		let stack = MockNetworkStack(
+			httpStatus: 400,
+			responseData: "{\"errorCode\":\"RI400-1200\",\"message\":\"certificates not acceptable for action\"}".data(using: .utf8)
+		)
+
+		let restServiceProvider = RestServiceProvider(
+			session: stack.urlSession,
+			cache: KeyValueCacheFake()
+		)
+
+		let sendModel = DCCReissuanceSendModel(
+			certificates: [
+				"one"
+			]
+		)
+
+		let resource = DCCReissuanceResource(
+			sendModel: sendModel,
+			trustEvaluation: .fake()
+		)
+
+		restServiceProvider.load(resource) { result in
+			switch result {
+			case .success:
+				XCTFail("Failure expected.")
+			case .failure(let error):
+				guard case .receivedResourceError(.DCC_RI_400(let errorCode)) = error else {
+					XCTFail("DCC_RI_400 error expected. Instead error received: \(error)")
+					return
+				}
+				XCTAssertEqual(errorCode?.description, "\nRI400-1200: certificates not acceptable for action")
+				XCTAssertEqual(errorCode?.errorCode, "RI400-1200")
+				XCTAssertEqual(errorCode?.message, "certificates not acceptable for action")
+			}
+			expectation.fulfill()
+		}
+		waitForExpectations(timeout: .short)
+	}
+
 	func testGIVEN_Resource_WHEN_Response_400_THEN_DCC_RI_400() throws {
 		let expectation = expectation(description: "Expect that we got an error")
 
 		let stack = MockNetworkStack(
-			httpStatus: 400
+			httpStatus: 400,
+			responseData: try JSONEncoder().encode("{\"errorCode\":\"RI400-1200\",\"message\":\"certificates not acceptable for action\"}")
 		)
 
 		let restServiceProvider = RestServiceProvider(

@@ -53,7 +53,10 @@ struct DCCRulesResource: Resource {
 	var sendResource: EmptySendResource
 	var receiveResource: CBORReceiveResource<DCCRulesReceiveModel>
 
-	func customError(for error: ServiceError<DCCDownloadRulesError>) -> DCCDownloadRulesError? {
+	func customError(
+		for error: ServiceError<DCCDownloadRulesError>,
+		responseBody: Data? = nil
+	) -> DCCDownloadRulesError? {
 		switch error {
 		case .transportationError:
 			return .NO_NETWORK

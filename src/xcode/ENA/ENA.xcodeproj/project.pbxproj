@@ -1084,7 +1084,6 @@
 		AB1EEC1026382BC20001D1DB /* ExposureSubmissionIntroViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB1EEC0F26382BC20001D1DB /* ExposureSubmissionIntroViewModelTests.swift */; };
 		AB1FCBD42521FC47005930BA /* EnvironmentTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB1FCBCC2521FC44005930BA /* EnvironmentTests.swift */; };
 		AB2628DA27A2E348003D39A6 /* GetWalletInfoInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB2628D927A2E348003D39A6 /* GetWalletInfoInput.swift */; };
-		AB2628DD27A2FACF003D39A6 /* GetWalletInfoInputTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB2628DC27A2FACF003D39A6 /* GetWalletInfoInputTests.swift */; };
 		AB2628E127A3F220003D39A6 /* HealthCertificateMapping.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB2628E027A3F220003D39A6 /* HealthCertificateMapping.swift */; };
 		AB2F094A25D1687300C16309 /* SurveyURLProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB2F094925D1687300C16309 /* SurveyURLProvider.swift */; };
 		AB2F094F25D169DC00C16309 /* SurveyURLServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB2F094E25D169DC00C16309 /* SurveyURLServiceTests.swift */; };
@@ -1096,6 +1095,7 @@
 		AB42A193263C284200892536 /* HealthCertificateToolkit in Frameworks */ = {isa = PBXBuildFile; productRef = AB42A192263C284200892536 /* HealthCertificateToolkit */; };
 		AB453F602534B04400D8339E /* ExposureManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB453F5F2534B04400D8339E /* ExposureManagerTests.swift */; };
 		AB51906126CEA7B800E2E4EE /* HealthCertificate+PDF.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB51906026CEA7B800E2E4EE /* HealthCertificate+PDF.swift */; };
+		AB536A1F27D64D2400992D69 /* GetWalletInfoInputTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB536A1E27D64D2400992D69 /* GetWalletInfoInputTests.swift */; };
 		AB5F84AD24F8F7A1000400D4 /* SerialMigrator.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB5F84AC24F8F7A1000400D4 /* SerialMigrator.swift */; };
 		AB5F84B024F8F7C3000400D4 /* Migration.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB5F84AF24F8F7C3000400D4 /* Migration.swift */; };
 		AB5F84B224F8F7E3000400D4 /* Migration0To1.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB5F84B124F8F7E3000400D4 /* Migration0To1.swift */; };
@@ -1179,6 +1179,8 @@
 		ABB078F2273035340037B30F /* SecureStoring.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABB078F1273035340037B30F /* SecureStoring.swift */; };
 		ABB078F527316EC70037B30F /* CachedRestServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABB078F327316EB60037B30F /* CachedRestServiceTests.swift */; };
 		ABB8DF602799BEC300DD99E4 /* CCLService.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABB8DF5F2799BEC300DD99E4 /* CCLService.swift */; };
+		ABBB8ABF27D0B2C500CCA3F1 /* ENAUITests_CertificateReissuance.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABBB8ABE27D0B2C500CCA3F1 /* ENAUITests_CertificateReissuance.swift */; };
+		ABBB8AC127D0DA5F00CCA3F1 /* ReissueHealthCertificateUITests.xctestplan in Resources */ = {isa = PBXBuildFile; fileRef = ABBB8AC027D0DA5F00CCA3F1 /* ReissueHealthCertificateUITests.xctestplan */; };
 		ABBBC056273AD2C3009A4B56 /* ENASecurity in Frameworks */ = {isa = PBXBuildFile; productRef = ABBBC055273AD2C3009A4B56 /* ENASecurity */; };
 		ABBF425D261DD7B5002A9A2B /* CheckinTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABBF425C261DD7B5002A9A2B /* CheckinTests.swift */; };
 		ABBF429626209952002A9A2B /* Checkin+Update.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABBF429526209952002A9A2B /* Checkin+Update.swift */; };
@@ -2823,7 +2825,6 @@
 		AB1FCBCC2521FC44005930BA /* EnvironmentTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnvironmentTests.swift; sourceTree = "<group>"; };
 		AB1FCBDB2521FCD5005930BA /* TestEnvironments.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = TestEnvironments.json; sourceTree = "<group>"; };
 		AB2628D927A2E348003D39A6 /* GetWalletInfoInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetWalletInfoInput.swift; sourceTree = "<group>"; };
-		AB2628DC27A2FACF003D39A6 /* GetWalletInfoInputTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetWalletInfoInputTests.swift; sourceTree = "<group>"; };
 		AB2628E027A3F220003D39A6 /* HealthCertificateMapping.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthCertificateMapping.swift; sourceTree = "<group>"; };
 		AB2F094925D1687300C16309 /* SurveyURLProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SurveyURLProvider.swift; sourceTree = "<group>"; };
 		AB2F094E25D169DC00C16309 /* SurveyURLServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SurveyURLServiceTests.swift; sourceTree = "<group>"; };
@@ -2833,6 +2834,7 @@
 		AB35609F2547194C00C3F8E0 /* DeviceTimeCheckTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceTimeCheckTests.swift; sourceTree = "<group>"; };
 		AB453F5F2534B04400D8339E /* ExposureManagerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExposureManagerTests.swift; sourceTree = "<group>"; };
 		AB51906026CEA7B800E2E4EE /* HealthCertificate+PDF.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HealthCertificate+PDF.swift"; sourceTree = "<group>"; };
+		AB536A1E27D64D2400992D69 /* GetWalletInfoInputTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetWalletInfoInputTests.swift; sourceTree = "<group>"; };
 		AB5F84AC24F8F7A1000400D4 /* SerialMigrator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SerialMigrator.swift; sourceTree = "<group>"; };
 		AB5F84AF24F8F7C3000400D4 /* Migration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Migration.swift; sourceTree = "<group>"; };
 		AB5F84B124F8F7E3000400D4 /* Migration0To1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Migration0To1.swift; sourceTree = "<group>"; };
@@ -2918,6 +2920,8 @@
 		ABB078F327316EB60037B30F /* CachedRestServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CachedRestServiceTests.swift; sourceTree = "<group>"; };
 		ABB8DF5F2799BEC300DD99E4 /* CCLService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CCLService.swift; sourceTree = "<group>"; };
 		ABBA6BB8272AA1E200EEF2E4 /* RestServiceProviderFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestServiceProviderFactory.swift; sourceTree = "<group>"; };
+		ABBB8ABE27D0B2C500CCA3F1 /* ENAUITests_CertificateReissuance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ENAUITests_CertificateReissuance.swift; sourceTree = "<group>"; };
+		ABBB8AC027D0DA5F00CCA3F1 /* ReissueHealthCertificateUITests.xctestplan */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = ReissueHealthCertificateUITests.xctestplan; path = TestPlans/ReissueHealthCertificateUITests.xctestplan; sourceTree = "<group>"; };
 		ABBF425C261DD7B5002A9A2B /* CheckinTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckinTests.swift; sourceTree = "<group>"; };
 		ABBF429526209952002A9A2B /* Checkin+Update.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Checkin+Update.swift"; sourceTree = "<group>"; };
 		ABC1C271267B854500223625 /* DCCDateStringFormatterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DCCDateStringFormatterTests.swift; sourceTree = "<group>"; };
@@ -5169,10 +5173,10 @@
 				34C40E3127A2FCB30098C6ED /* ccl-text-descriptor-test-cases.json */,
 				34C40E2F27A2D2590098C6ED /* DCCUITextTests.swift */,
 				01C5F300279EA48600F60047 /* DCCWalletInfo+Fake.swift */,
-				AB2628DC27A2FACF003D39A6 /* GetWalletInfoInputTests.swift */,
 				BA18127627AD82DA000E5EDD /* CCLServiceBaseTests.swift */,
 				BA18127427AD82C5000E5EDD /* CCLServiceBoosterNotificationRulesTests.swift */,
 				BA18127227AD5D54000E5EDD /* CCLConfiguationTests.swift */,
+				AB536A1E27D64D2400992D69 /* GetWalletInfoInputTests.swift */,
 				345D1E6727BD8A7600F79EFD /* GetAdmissionCheckScenariosInputTests.swift */,
 			);
 			path = __tests__;
@@ -5217,6 +5221,7 @@
 				EB9DDB852719BF8300A19A53 /* OnboardingUITests.xctestplan */,
 				EB9DDB792719BF8200A19A53 /* QuickActionsUITests.xctestplan */,
 				EB5DAABC271EE2EE0043065D /* RecycleBinUITests.xctestplan */,
+				ABBB8AC027D0DA5F00CCA3F1 /* ReissueHealthCertificateUITests.xctestplan */,
 				3523CA31252DC617002E6DEC /* Screenshots.xctestplan */,
 				EB9DDB7E2719BF8300A19A53 /* SettingsUITests.xctestplan */,
 				35075C0E252637C300DE92F7 /* SmokeTests.xctestplan */,
@@ -9314,6 +9319,7 @@
 			children = (
 				AB76C4BC269735BC009ADEB0 /* Validation */,
 				BAC291492652BEA600CFA8A5 /* ENAUITests_13_CreateHealthCertificate.swift */,
+				ABBB8ABE27D0B2C500CCA3F1 /* ENAUITests_CertificateReissuance.swift */,
 			);
 			path = HealthCertificate;
 			sourceTree = "<group>";
@@ -10227,6 +10233,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				ABBB8AC127D0DA5F00CCA3F1 /* ReissueHealthCertificateUITests.xctestplan in Resources */,
 				13E5046C248E434B0086641C /* Localizable.strings in Resources */,
 				13E5046D248E434B0086641C /* Localizable.stringsdict in Resources */,
 				AB8B0D4525306089009C067B /* Localizable.links.strings in Resources */,
@@ -11503,6 +11510,7 @@
 				AB1885D825238DD100D39BBE /* OnboardingInfoViewControllerTests.swift in Sources */,
 				B16177E824802F9B006E435A /* DownloadedPackagesSQLLiteStoreTests.swift in Sources */,
 				B1175216248A9F9600C3325C /* ConvertingKeysTests.swift in Sources */,
+				AB536A1F27D64D2400992D69 /* GetWalletInfoInputTests.swift in Sources */,
 				EBD2D0A725A86C68006E4220 /* MockRiskProvider.swift in Sources */,
 				B10F9B8B249961BC00C418F4 /* DynamicTypeLabelTests.swift in Sources */,
 				BA9E4B0125B5DFCB00F284EF /* RiskLevelPerDay.swift in Sources */,
@@ -11690,7 +11698,6 @@
 				AB5F84BB24F92876000400D4 /* Migration0To1Tests.swift in Sources */,
 				3583490C264AAE5600C4888D /* StreamReaderTests.swift in Sources */,
 				504E8AD125D2CE0600CAFBDF /* PPAnalyticsSubmitterTests.swift in Sources */,
-				AB2628DD27A2FACF003D39A6 /* GetWalletInfoInputTests.swift in Sources */,
 				50DC527B24FEB5CA00F6D8EB /* AppInformationModelTest.swift in Sources */,
 				010A47512751415E000AA80E /* TicketValidationAccessToken+Fake.swift in Sources */,
 				BA8BBA08255A90690034D4BC /* WifiHTTPClientTests.swift in Sources */,
@@ -11851,6 +11858,7 @@
 				356153AD257FA8A300F6CD4D /* AccessibilityIdentifiers.swift in Sources */,
 				941B68AE253F007100DC1962 /* Int+Increment.swift in Sources */,
 				01306955270746D100D945E3 /* ENAUITests_16_UniversalQRCodeScanner.swift in Sources */,
+				ABBB8ABF27D0B2C500CCA3F1 /* ENAUITests_CertificateReissuance.swift in Sources */,
 				BA53FD27270B28A200CF8475 /* ENAUITests_17_FileScanner.swift in Sources */,
 				50EE76022743FC87003DE929 /* ENAUITests_19_TicketValidation.swift in Sources */,
 				01992EC027CE4B7800BC16DA /* TestResult.swift in Sources */,
@@ -12080,7 +12088,7 @@
 				CODE_SIGN_ENTITLEMENTS = "${PROJECT}/Resources/ENACommunity.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = $IPHONE_APP_DEV_TEAM;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -12235,7 +12243,7 @@
 				CODE_SIGN_ENTITLEMENTS = "${PROJECT}/Resources/ENA.entitlements";
 				CODE_SIGN_IDENTITY = $IPHONE_APP_CODE_SIGN_IDENTITY;
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = 523TP53AQF;
 				GCC_PREPROCESSOR_DEFINITIONS = "SQLITE_HAS_CODEC=1";
 				INFOPLIST_FILE = ENA/Resources/Info_Testflight.plist;
@@ -12414,7 +12422,7 @@
 				CODE_SIGN_ENTITLEMENTS = "${PROJECT}/Resources/ENA.entitlements";
 				CODE_SIGN_IDENTITY = $IPHONE_APP_CODE_SIGN_IDENTITY;
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = 523TP53AQF;
 				GCC_PREPROCESSOR_DEFINITIONS = "SQLITE_HAS_CODEC=1";
 				INFOPLIST_FILE = ENA/Resources/Info_Testflight.plist;
@@ -12656,7 +12664,7 @@
 				CODE_SIGN_ENTITLEMENTS = "${PROJECT}/Resources/ENATest.entitlements";
 				CODE_SIGN_IDENTITY = $IPHONE_APP_CODE_SIGN_IDENTITY;
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = 523TP53AQF;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -12696,7 +12704,7 @@
 				CODE_SIGN_ENTITLEMENTS = "${PROJECT}/Resources/ENA.entitlements";
 				CODE_SIGN_IDENTITY = $IPHONE_APP_CODE_SIGN_IDENTITY;
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 3;
 				GCC_PREPROCESSOR_DEFINITIONS = "SQLITE_HAS_CODEC=1";
 				INFOPLIST_FILE = ENA/Resources/Info.plist;
 				IPHONE_APP_CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -12839,7 +12847,7 @@
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 3;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -12883,7 +12891,7 @@
 				CODE_SIGNING_ALLOWED = NO;
 				CODE_SIGNING_REQUIRED = NO;
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 3;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -12926,7 +12934,7 @@
 				CODE_SIGNING_ALLOWED = NO;
 				CODE_SIGNING_REQUIRED = NO;
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 3;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
