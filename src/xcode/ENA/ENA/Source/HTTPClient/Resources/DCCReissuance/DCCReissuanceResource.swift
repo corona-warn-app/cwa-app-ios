@@ -9,12 +9,12 @@ enum DCCReissuanceResourceError: LocalizedError {
 	case DCC_RI_PIN_MISMATCH
 	case DCC_RI_PARSE_ERR
 	case DCC_RI_NO_NETWORK
-	case DCC_RI_400
-	case DCC_RI_401
-	case DCC_RI_403
-	case DCC_RI_406
-	case DCC_RI_429
-	case DCC_RI_500
+	case DCC_RI_400(ErrorCode?)
+	case DCC_RI_401(ErrorCode?)
+	case DCC_RI_403(ErrorCode?)
+	case DCC_RI_406(ErrorCode?)
+	case DCC_RI_429(ErrorCode?)
+	case DCC_RI_500(ErrorCode?)
 	case DCC_RI_CLIENT_ERR
 	case DCC_RI_SERVER_ERR
 
@@ -26,23 +26,38 @@ enum DCCReissuanceResourceError: LocalizedError {
 			return "\(AppStrings.HealthCertificate.Reissuance.Errors.contactSupport) (DCC_RI_PARSE_ERR)"
 		case .DCC_RI_NO_NETWORK:
 			return "\(AppStrings.HealthCertificate.Reissuance.Errors.noNetwork) (DCC_RI_NO_NETWORK)"
-		case .DCC_RI_400:
-			return "\(AppStrings.HealthCertificate.Reissuance.Errors.tryAgain) (DCC_RI_400)"
-		case .DCC_RI_401:
-			return "\(AppStrings.HealthCertificate.Reissuance.Errors.notSupported) (DCC_RI_401)"
-		case .DCC_RI_403:
-			return "\(AppStrings.HealthCertificate.Reissuance.Errors.notSupported) (DCC_RI_403)"
-		case .DCC_RI_406:
-			return "\(AppStrings.HealthCertificate.Reissuance.Errors.tryAgain) (DCC_RI_406)"
-		case .DCC_RI_429:
-			return "\(AppStrings.HealthCertificate.Reissuance.Errors.tryAgain) (DCC_RI_429)"
-		case .DCC_RI_500:
-			return "\(AppStrings.HealthCertificate.Reissuance.Errors.tryAgain) (DCC_RI_500)"
+		case .DCC_RI_400(let errorCode):
+			let description = errorCode?.description ?? ""
+			return "\(AppStrings.HealthCertificate.Reissuance.Errors.tryAgain) (DCC_RI_400)" + description
+		case .DCC_RI_401(let errorCode):
+			let description = errorCode?.description ?? ""
+			return "\(AppStrings.HealthCertificate.Reissuance.Errors.notSupported) (DCC_RI_401)" + description
+		case .DCC_RI_403(let errorCode):
+			let description = errorCode?.description ?? ""
+			return "\(AppStrings.HealthCertificate.Reissuance.Errors.notSupported) (DCC_RI_403)" + description
+		case .DCC_RI_406(let errorCode):
+			let description = errorCode?.description ?? ""
+			return "\(AppStrings.HealthCertificate.Reissuance.Errors.tryAgain) (DCC_RI_406)" + description
+		case .DCC_RI_429(let errorCode):
+			let description = errorCode?.description ?? ""
+			return "\(AppStrings.HealthCertificate.Reissuance.Errors.tryAgain) (DCC_RI_429)" + description
+		case .DCC_RI_500(let errorCode):
+			let description = errorCode?.description ?? ""
+			return "\(AppStrings.HealthCertificate.Reissuance.Errors.tryAgain) (DCC_RI_500)" + description
 		case .DCC_RI_CLIENT_ERR:
 			return "\(AppStrings.HealthCertificate.Reissuance.Errors.tryAgain) (DCC_RI_CLIENT_ERR)"
 		case .DCC_RI_SERVER_ERR:
 			return "\(AppStrings.HealthCertificate.Reissuance.Errors.tryAgain) (DCC_RI_SERVER_ERR)"
 		}
+	}
+}
+
+struct ErrorCode: Decodable, CustomStringConvertible {
+	let errorCode: String
+	let message: String
+
+	var description: String {
+		"\n\(errorCode): \(message)"
 	}
 }
 
@@ -70,7 +85,7 @@ struct DCCReissuanceResource: Resource {
 	var sendResource: JSONSendResource<DCCReissuanceSendModel>
 	var receiveResource: JSONReceiveResource<DCCReissuanceReceiveModel>
 
-	func customError(for error: ServiceError<DCCReissuanceResourceError>) -> DCCReissuanceResourceError? {
+	func customError(for error: ServiceError<DCCReissuanceResourceError>, responseBody: Data?) -> DCCReissuanceResourceError? {
 		switch error {
 		case .trustEvaluationError(let trustError):
 			return trustEvaluationErrorHandling(trustError)
@@ -79,7 +94,7 @@ struct DCCReissuanceResource: Resource {
 		case .transportationError:
 			return .DCC_RI_NO_NETWORK
 		case .unexpectedServerError(let statusCode):
-			return unexpectedServerError(statusCode)
+			return unexpectedServerError(statusCode, responseBody)
 		default:
 			return nil
 		}
@@ -101,22 +116,32 @@ struct DCCReissuanceResource: Resource {
 		}
 	}
 
-	private func unexpectedServerError(_ statusCode: Int) -> DCCReissuanceResourceError? {
+	private func unexpectedServerError(
+		_ statusCode: Int,
+		_ responseBody: Data?
+	) -> DCCReissuanceResourceError? {
+		var errorCode: ErrorCode?
+		if let data = responseBody,
+		   let customErrorCode = try? JSONDecoder().decode(ErrorCode.self, from: data) {
+			errorCode = customErrorCode
+			Log.error("DCCReissuance error status code: \(statusCode), with ErrorCode model: \(customErrorCode)")
+		}
+
 		switch statusCode {
 		case 400:
-			return .DCC_RI_400
+			return .DCC_RI_400(errorCode)
 		case 401:
-			return .DCC_RI_401
+			return .DCC_RI_401(errorCode)
 		case 403:
-			return .DCC_RI_403
+			return .DCC_RI_403(errorCode)
 		case 406:
-			return .DCC_RI_406
+			return .DCC_RI_406(errorCode)
 		case 429:
-			return .DCC_RI_429
+			return .DCC_RI_429(errorCode)
 		case 402, 404, 405, 407...428, 430...499:
 			return .DCC_RI_CLIENT_ERR
 		case 500:
-			return .DCC_RI_500
+			return .DCC_RI_500(errorCode)
 		case (501...599):
 			return .DCC_RI_SERVER_ERR
 		default:
