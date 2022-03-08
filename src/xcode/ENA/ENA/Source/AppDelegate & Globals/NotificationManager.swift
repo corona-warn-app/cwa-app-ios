@@ -154,6 +154,10 @@ final class NotificationManager: NSObject, UNUserNotificationCenterDelegate {
 			let route = Route(healthCertifiedPerson: certifiedPerson)
 			Log.debug("Received certificateReissuance notification")
 			showHealthCertifiedPerson(route)
+		} else if let (certifiedPerson) = extractPerson(LocalNotificationIdentifier.admissionStateChange.rawValue, from: identifier) {
+			let route = Route(healthCertifiedPerson: certifiedPerson)
+			Log.debug("Received admissionStateChange notification")
+			showHealthCertifiedPerson(route)
 		}
 	}
 	

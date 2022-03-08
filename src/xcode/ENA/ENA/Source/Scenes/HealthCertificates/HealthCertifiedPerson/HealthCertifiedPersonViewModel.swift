@@ -237,10 +237,9 @@ final class HealthCertifiedPersonViewModel {
 		healthCertifiedPerson.attemptToRestoreDecodingFailedHealthCertificates()
 	}
 	
-	func markAsSeen() {
+	func markAdmissionStateAsSeen() {
 		if healthCertifiedPerson.isAdmissionStateChanged {
 			healthCertifiedPerson.isAdmissionStateChanged = false
-			healthCertificateService.unseenNewsCount.value -= 1
 		}
 	}
 

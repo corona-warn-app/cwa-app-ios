@@ -103,7 +103,7 @@ class HealthCertificateService: HealthCertificateServiceServable {
 		}
 	}
 	
-	var unseenNewsCount = CurrentValueSubject<Int, Never>(0)
+	private(set) var unseenNewsCount = CurrentValueSubject<Int, Never>(0)
 	
 	var nextValidityTimer: Timer?
 
@@ -603,14 +603,12 @@ class HealthCertificateService: HealthCertificateServiceServable {
 
 			switch result {
 			case .success(let dccWalletInfo):
-				let isAdmissionStateChanged = dccWalletInfo.admissionState != person.dccWalletInfo?.admissionState
 				let previousBoosterNotificationIdentifier = person.boosterRule?.identifier ?? person.dccWalletInfo?.boosterNotification.identifier
 				let previousCertificateReissuance = person.dccWalletInfo?.certificateReissuance
+				let previousAdmissionStateIdentifier = person.dccWalletInfo?.admissionState.identifier
+
 				person.dccWalletInfo = dccWalletInfo
 				person.mostRecentWalletInfoUpdateFailed = false
-				if isAdmissionStateChanged {
-					person.isAdmissionStateChanged = isAdmissionStateChanged
-				}
 				#if DEBUG
 				if isUITesting {
 					if LaunchArguments.healthCertificate.hasBoosterNotification.boolValue {
@@ -637,6 +635,15 @@ class HealthCertificateService: HealthCertificateServiceServable {
 				self.healthCertificateNotificationService.scheduleCertificateReissuanceNotificationIfNeeded(
 					for: person,
 					previousCertificateReissuance: previousCertificateReissuance,
+					completion: {
+						dispatchGroup.leave()
+					}
+				)
+				
+				dispatchGroup.enter()
+				self.healthCertificateNotificationService.scheduleAdmissionStateChangedNotificationIfNeeded(
+					for: person,
+					previousAdmissionStateIdentifier: previousAdmissionStateIdentifier,
 					completion: {
 						dispatchGroup.leave()
 					}
