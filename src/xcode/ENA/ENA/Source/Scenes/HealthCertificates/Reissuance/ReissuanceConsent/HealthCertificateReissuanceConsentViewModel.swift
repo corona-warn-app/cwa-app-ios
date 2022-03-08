@@ -105,75 +105,84 @@ final class HealthCertificateReissuanceConsentViewModel {
 	}
 
 	func submit(completion: @escaping (Result<Void, HealthCertificateReissuanceError>) -> Void) {
-			appConfigProvider.appConfiguration()
-				.sink { [weak self] appConfig in
+		#if DEBUG
+		if isUITesting {
+			if LaunchArguments.healthCertificate.hasCertificateReissuance.boolValue {
+				completion(.success(()))
+				return
+			}
+		}
+		#endif
+		
+		appConfigProvider.appConfiguration()
+			.sink { [weak self] appConfig in
+				guard let self = self else {
+					completion(.failure(.submitFailedError))
+					Log.error("App config fetch during reissuance failed due to self being nil", log: .vaccination)
+					return
+				}
+				
+				let publicKeyHash = appConfig.dgcParameters.reissueServicePublicKeyDigest.sha256String()
+				let trustEvaluation = DefaultTrustEvaluation(publicKeyHash: publicKeyHash)
+				
+				guard let certificateToReissue = self.certifiedPerson.dccWalletInfo?.certificateReissuance?.certificateToReissue.certificateRef.barcodeData,
+					  let certificateToReissueRef = self.certifiedPerson.dccWalletInfo?.certificateReissuance?.certificateToReissue.certificateRef else {
+						  completion(.failure(.certificateToReissueMissing))
+						  Log.error("Certificate reissuance failed: certificate to reissue is missing", log: .vaccination)
+						  return
+					  }
+				
+				let accompanyingCertificates = self.certifiedPerson.dccWalletInfo?.certificateReissuance?.accompanyingCertificates.compactMap {
+					$0.certificateRef.barcodeData
+				} ?? []
+				
+				let certificates = [certificateToReissue] + accompanyingCertificates
+				let sendModel = DCCReissuanceSendModel(certificates: certificates)
+				let resource = DCCReissuanceResource(
+					sendModel: sendModel,
+					trustEvaluation: trustEvaluation
+				)
+				
+				self.restServiceProvider.load(resource) { [weak self] result in
 					guard let self = self else {
 						completion(.failure(.submitFailedError))
-						Log.error("App config fetch during reissuance failed due to self being nil", log: .vaccination)
+						Log.error("Reissuance request failed due to self being nil", log: .vaccination)
 						return
 					}
 					
-					let publicKeyHash = appConfig.dgcParameters.reissueServicePublicKeyDigest.sha256String()
-					let trustEvaluation = DefaultTrustEvaluation(publicKeyHash: publicKeyHash)
-					
-					guard let certificateToReissue = self.certifiedPerson.dccWalletInfo?.certificateReissuance?.certificateToReissue.certificateRef.barcodeData,
-						let certificateToReissueRef = self.certifiedPerson.dccWalletInfo?.certificateReissuance?.certificateToReissue.certificateRef else {
-						completion(.failure(.certificateToReissueMissing))
-						Log.error("Certificate reissuance failed: certificate to reissue is missing", log: .vaccination)
-						return
-					}
-					
-					let accompanyingCertificates = self.certifiedPerson.dccWalletInfo?.certificateReissuance?.accompanyingCertificates.compactMap {
-						$0.certificateRef.barcodeData
-					} ?? []
-					
-					let certificates = [certificateToReissue] + accompanyingCertificates
-					let sendModel = DCCReissuanceSendModel(certificates: certificates)
-					let resource = DCCReissuanceResource(
-						sendModel: sendModel,
-						trustEvaluation: trustEvaluation
-					)
-					
-					self.restServiceProvider.load(resource) { [weak self] result in
-						guard let self = self else {
-							completion(.failure(.submitFailedError))
-							Log.error("Reissuance request failed due to self being nil", log: .vaccination)
+					switch result {
+					case .success(let certificates):
+						let certificate = certificates.first { certificate in
+							return certificate.relations.contains { relation in
+								relation.index == 0 && relation.action == "replace"
+							}
+						}
+						
+						guard let certificate = certificate else {
+							completion(.failure(.noRelation))
+							Log.error("Replacing the certificate with a reissued certificate failed, no relation found", log: .vaccination)
 							return
 						}
 						
-						switch result {
-						case .success(let certificates):
-							let certificate = certificates.first { certificate in
-								return certificate.relations.contains { relation in
-									relation.index == 0 && relation.action == "replace"
-								}
-							}
-							
-							guard let certificate = certificate else {
-								completion(.failure(.noRelation))
-								Log.error("Replacing the certificate with a reissued certificate failed, no relation found", log: .vaccination)
-								return
-							}
-							
-							do {
-								try self.healthCertificateService.replaceHealthCertificate(
-									oldCertificateRef: certificateToReissueRef,
-									with: certificate.certificate,
-									for: self.certifiedPerson
-								)
-								completion(.success(()))
-							} catch {
-								completion(.failure(.replaceHealthCertificateError(error)))
-								Log.error("Replacing the certificate with a reissued certificate failed in service", log: .vaccination, error: error)
-							}
-
-						case .failure(let error):
-							completion(.failure(.restServiceError(error)))
-							Log.error("Reissuance request failed", log: .vaccination, error: error)
+						do {
+							try self.healthCertificateService.replaceHealthCertificate(
+								oldCertificateRef: certificateToReissueRef,
+								with: certificate.certificate,
+								for: self.certifiedPerson
+							)
+							completion(.success(()))
+						} catch {
+							completion(.failure(.replaceHealthCertificateError(error)))
+							Log.error("Replacing the certificate with a reissued certificate failed in service", log: .vaccination, error: error)
 						}
+						
+					case .failure(let error):
+						completion(.failure(.restServiceError(error)))
+						Log.error("Reissuance request failed", log: .vaccination, error: error)
 					}
-			 }
-			 .store(in: &subscriptions)
+				}
+			}
+			.store(in: &subscriptions)
 	}
 
 	// MARK: - Private

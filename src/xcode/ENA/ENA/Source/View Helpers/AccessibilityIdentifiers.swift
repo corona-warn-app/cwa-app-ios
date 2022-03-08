@@ -779,6 +779,11 @@ enum AccessibilityIdentifiers {
 		}
 
 		static let qrCodeCell = "HealthCertificate.qrCodeCell"
+		
+		enum Reissuance {
+			static let cell = "AppStrings.HealthCertificate.Reissuance.cell"
+			static let successTitle = "AppStrings.HealthCertificate.Reissuance.successTitle"
+		}
 	}
 	
 	enum TicketValidation {
@@ -820,5 +825,4 @@ enum AccessibilityIdentifiers {
 			static let boosterNotificationCell = "BoosterNotification.Details.boosterNotificationCell"
 		}
 	}
-
 }

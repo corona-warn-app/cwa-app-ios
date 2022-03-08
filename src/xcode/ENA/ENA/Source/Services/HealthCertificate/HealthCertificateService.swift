@@ -615,7 +615,10 @@ class HealthCertificateService: HealthCertificateServiceServable {
 						person.dccWalletInfo = self.updateDccWalletInfoForMockBoosterNotification(dccWalletInfo: dccWalletInfo)
 					}
 					if LaunchArguments.healthCertificate.hasCertificateReissuance.boolValue {
-						person.dccWalletInfo = self.updateDccWalletInfoForMockCertificateReissuance(dccWalletInfo: dccWalletInfo)
+						person.dccWalletInfo = self.updateDccWalletInfoForMockCertificateReissuance(
+							dccWalletInfo: dccWalletInfo,
+							certifiedPerson: person
+						)
 					}
 				}
 				#endif
@@ -748,20 +751,10 @@ class HealthCertificateService: HealthCertificateServiceServable {
 		healthCertifiedPerson: HealthCertifiedPerson
 	) -> [HealthCertifiedPerson] {
 		
-		// Save the reference of the person and the first certificate of it. We need to preserve the reference of the person because there might be some combine registrations on this person.
 		let allCertificates = healthCertifiedPerson.healthCertificates
-		var certificates = healthCertifiedPerson.healthCertificates
-		guard let first = certificates.first else {
-			Log.error("Should not happen because we proof before if we have at least one certificate in the person", log: .api)
-			return []
-		}
-		certificates.removeFirst()
 		// Create now from every remaining certificate of the person a new person
-		var splittedPersons = certificates.map { HealthCertifiedPerson(healthCertificates: [$0]) }
-		healthCertifiedPerson.healthCertificates = [first]
-		// Append the original person to the newly created persons
-		splittedPersons.append(healthCertifiedPerson)
-		
+		let splittedPersons = allCertificates.map { HealthCertifiedPerson(healthCertificates: [$0]) }
+
 		var regroupedPersons = [HealthCertifiedPerson]()
 
 		for certificate in allCertificates {
@@ -795,6 +788,9 @@ class HealthCertificateService: HealthCertificateServiceServable {
 			
 			regroupedPersons.append(mergedPerson)
 		}
+		
+		healthCertifiedPerson.healthCertificates = regroupedPersons[0].healthCertificates
+		regroupedPersons[0] = healthCertifiedPerson
 		
 		return regroupedPersons
 	}
