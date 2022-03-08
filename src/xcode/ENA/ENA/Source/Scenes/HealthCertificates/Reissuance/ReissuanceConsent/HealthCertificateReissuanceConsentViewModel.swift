@@ -105,6 +105,8 @@ final class HealthCertificateReissuanceConsentViewModel {
 	}
 
 	func submit(completion: @escaping (Result<Void, HealthCertificateReissuanceError>) -> Void) {
+		Log.info("Submit certificate for reissuance...", log: .vaccination)
+
 		#if DEBUG
 		if isUITesting {
 			if LaunchArguments.healthCertificate.hasCertificateReissuance.boolValue {
@@ -170,6 +172,8 @@ final class HealthCertificateReissuanceConsentViewModel {
 								with: certificate.certificate,
 								for: self.certifiedPerson
 							)
+							
+							Log.error("Certificate reissuance was successful.", log: .vaccination)
 							completion(.success(()))
 						} catch {
 							completion(.failure(.replaceHealthCertificateError(error)))
