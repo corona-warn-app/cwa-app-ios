@@ -135,9 +135,9 @@ struct HealthCertificateQRCodeCellViewModel {
 					)
 				}
 			case .recovery(let recoveryEntry):
-				return recoveryEntry.localCertificateValidityEndDate.map {
+				return recoveryEntry.localDateOfFirstPositiveNAAResult.map {
 					String(
-						format: AppStrings.HealthCertificate.Person.RecoveryCertificate.validityDate,
+						format: AppStrings.HealthCertificate.Person.RecoveryCertificate.positiveTestFrom,
 						DateFormatter.localizedString(from: $0, dateStyle: .short, timeStyle: .none)
 					)
 				}
