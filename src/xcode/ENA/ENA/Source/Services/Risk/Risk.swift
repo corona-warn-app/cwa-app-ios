@@ -12,9 +12,16 @@ struct Risk: Equatable {
 		var calculationDate: Date?
 	}
 
+	enum RiskLevelChange: Equatable {
+		case increased
+		case decreased
+		case unchanged(RiskLevel)
+	}
+
 	let level: RiskLevel
 	let details: Details
 	let riskLevelHasChanged: Bool
+	let riskLevelChange: RiskLevelChange
 }
 
 extension Risk {
@@ -93,10 +100,19 @@ extension Risk {
 			calculationDate: calculationDate
 		)
 
+		// determine global risk level change type
+		let riskLevelChange: RiskLevelChange
+		if riskLevelHasChanged {
+			riskLevelChange = totalRiskLevel == .high ? .increased : .decreased
+		} else {
+			riskLevelChange = .unchanged(totalRiskLevel)
+		}
+
 		self.init(
 			level: totalRiskLevel,
 			details: details,
-			riskLevelHasChanged: riskLevelHasChanged
+			riskLevelHasChanged: riskLevelHasChanged,
+			riskLevelChange: riskLevelChange
 		)
 	}
 }
@@ -105,15 +121,19 @@ extension Risk {
 extension Risk {
 	static let numberOfDaysWithRiskLevel = LaunchArguments.risk.numberOfDaysWithRiskLevel.intValue
 	static let numberOfDaysWithRiskLevelDefaultValue: Int = LaunchArguments.risk.riskLevel.stringValue == "high" ? 1 : 0
-	static let mocked = Risk(
-		// UITests can set app.launchArguments LaunchArguments.risk.riskLevel
-		level: LaunchArguments.risk.riskLevel.stringValue == "high" ? .high : .low,
-		details: Risk.Details(
-			mostRecentDateWithRiskLevel: Date(timeIntervalSinceNow: -24 * 3600),
-			numberOfDaysWithRiskLevel: numberOfDaysWithRiskLevel,
-			calculationDate: Date()),
-		riskLevelHasChanged: true
-	)
+	static let mocked: Risk = {
+		let level: RiskLevel = LaunchArguments.risk.riskLevel.stringValue == "high" ? .high : .low
+		return Risk(
+			// UITests can set app.launchArguments LaunchArguments.risk.riskLevel
+			level: level,
+			details: Risk.Details(
+				mostRecentDateWithRiskLevel: Date(timeIntervalSinceNow: -24 * 3600),
+				numberOfDaysWithRiskLevel: numberOfDaysWithRiskLevel,
+				calculationDate: Date()),
+			riskLevelHasChanged: true,
+			riskLevelChange: level == .high ? .increased : .decreased
+		)
+	}()
 
 	static func mocked(
 		level: RiskLevel = .low) -> Risk {
@@ -123,7 +143,8 @@ extension Risk {
 				mostRecentDateWithRiskLevel: Date(timeIntervalSinceNow: -24 * 3600),
 				numberOfDaysWithRiskLevel: numberOfDaysWithRiskLevel,
 				calculationDate: Date()),
-			riskLevelHasChanged: true
+			riskLevelHasChanged: true,
+			riskLevelChange: level == .high ? .increased : .decreased
 		)
 	}
 }

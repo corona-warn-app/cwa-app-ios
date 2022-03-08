@@ -34,7 +34,8 @@ class HomeState: ENStateHandlerUpdating {
 						numberOfDaysWithRiskLevel: 0,
 						calculationDate: nil
 					),
-					riskLevelHasChanged: false
+					riskLevelHasChanged: false,
+					riskLevelChange: .unchanged(.low)
 				)
 			)
 		}

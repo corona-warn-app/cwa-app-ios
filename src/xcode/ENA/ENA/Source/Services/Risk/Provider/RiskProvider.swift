@@ -457,14 +457,25 @@ final class RiskProvider: RiskProviding {
 	
 	private func checkIfRiskLevelHasChangedForNotifications(_ risk: Risk) {
 		/// Triggers a notification for every risk level change.
-		if risk.riskLevelHasChanged {
-			Log.info("Trigger notification about changed risk level", log: .riskDetection)
-			UNUserNotificationCenter.current().presentNotification(
-				title: AppStrings.LocalNotifications.detectExposureTitle,
-				body: AppStrings.LocalNotifications.detectExposureBody,
-				identifier: ActionableNotificationIdentifier.riskDetection.identifier
-			)
+		switch risk.riskLevelChange {
+		case .decreased:
+			Log.info("decrease risk change state won't trigger a notification")
+		case .increased:
+			triggerRiskNotification()
+		case let .unchanged(riskLevel):
+			if riskLevel == .high {
+				triggerRiskNotification()
+			}
 		}
+	}
+
+	private func triggerRiskNotification() {
+		Log.info("Trigger notification about high risk level", log: .riskDetection)
+		UNUserNotificationCenter.current().presentNotification(
+			title: AppStrings.LocalNotifications.detectExposureTitle,
+			body: AppStrings.LocalNotifications.detectExposureBody,
+			identifier: ActionableNotificationIdentifier.riskDetection.identifier
+		)
 	}
 
 	private func checkIfRiskStatusLoweredAlertShouldBeShown(_ risk: Risk) {
