@@ -51,14 +51,19 @@ class HealthCertificateMigrator: HealthCertificateMigration {
 			guard let firstPerson = allPersons.first else {
 				continue
 			}
-			
+
+			guard allPersons.count > 1 else {
+				regroupedPersons.append(firstPerson)
+				continue
+			}
+
 			for matchingPerson in allPersons {
 				for certificate in matchingPerson.healthCertificates {
 					if !firstPerson.healthCertificates.contains(certificate) {
 						firstPerson.healthCertificates.append(certificate)
 					}
 				}
-				
+
 				if matchingPerson.isPreferredPerson {
 					firstPerson.isPreferredPerson = true
 				}

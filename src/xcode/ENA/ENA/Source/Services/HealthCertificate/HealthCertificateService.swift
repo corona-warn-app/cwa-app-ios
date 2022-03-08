@@ -787,7 +787,7 @@ class HealthCertificateService: HealthCertificateServiceServable {
 				mergedPerson = person
 			}
 			
-			for matchingPerson in allPersons {
+			for matchingPerson in allPersons where allPersons.count > 1 {
 				for certificate in matchingPerson.healthCertificates {
 					if !mergedPerson.healthCertificates.contains(certificate) {
 						mergedPerson.healthCertificates.append(certificate)
