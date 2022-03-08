@@ -2,6 +2,8 @@
 // 🦠 Corona-Warn-App
 //
 
+import Foundation
+
 public enum DefaultTrustEvaluationError {
 	case CERT_MISMATCH
 }
@@ -9,9 +11,12 @@ public enum DefaultTrustEvaluationError {
 class DefaultTrustEvaluation: TrustEvaluating {
 	
 	init(
-		publicKeyHash: String
+		publicKeyHash: Data,
+		// 1 is used as default for backwards compatibility.
+		certificatePosition: Int = 1
 	) {
 		self.publicKeyHash = publicKeyHash
+		self.certificatePosition = certificatePosition
 	}
 	
 	// MARK: - Protocol TrustEvaluating
@@ -37,12 +42,10 @@ class DefaultTrustEvaluation: TrustEvaluating {
 		}
 #endif
 		
-		// we expect a chain of at least 2 certificates
-		// index '1' is the required intermediate
-		guard let serverCertificate = SecTrustGetCertificateAtIndex(trust, 1),
+		guard let serverCertificate = SecTrustGetCertificateAtIndex(trust, certificatePosition),
 			  let serverPublicKey = SecCertificateCopyKey(serverCertificate),
 			  let serverPublicKeyData = SecKeyCopyExternalRepresentation(serverPublicKey, nil ) as Data?,
-			  publicKeyHash == serverPublicKeyData.sha256String()
+			  publicKeyHash == serverPublicKeyData.sha256()
 		else {
 			Log.error("Certificate mismatch.")
 			trustEvaluationError = .default(.CERT_MISMATCH)
@@ -61,6 +64,7 @@ class DefaultTrustEvaluation: TrustEvaluating {
 
 	// MARK: - Private
 	
-	private let publicKeyHash: String
+	private let publicKeyHash: Data
+	private let certificatePosition: Int
 	
 }

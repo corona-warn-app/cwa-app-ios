@@ -10,7 +10,7 @@ struct AppConfigurationResource: Resource {
 
 	init(
 		trustEvaluation: TrustEvaluating = DefaultTrustEvaluation(
-			publicKeyHash: Environments().currentEnvironment().pinningKeyHash
+			publicKeyHash: Environments().currentEnvironment().pinningKeyHashData
 		)
 	) {
 		self.locator = .appConfiguration
