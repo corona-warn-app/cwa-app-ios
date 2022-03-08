@@ -13,7 +13,7 @@ struct DCCRulesResource: Resource {
 		isFake: Bool = false,
 		ruleType: HealthCertificateValidationRuleType,
 		trustEvaluation: TrustEvaluating = DefaultTrustEvaluation(
-			publicKeyHash: Environments().currentEnvironment().pinningKeyHash
+			publicKeyHash: Environments().currentEnvironment().pinningKeyHashData
 		)
 	) {
 		self.locator = .DCCRules(ruleType: ruleType, isFake: isFake)

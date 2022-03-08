@@ -35,7 +35,7 @@ extension URLSession {
 		var coronaWarnURLSessionDelegate: CoronaWarnURLSessionDelegate?
 		if withPinning {
 			coronaWarnURLSessionDelegate = CoronaWarnURLSessionDelegate(
-				publicKeyHash: Environments().currentEnvironment().pinningKeyHash
+				publicKeyHash: Environments().currentEnvironment().pinningKeyHashData
 			)
 		}
 

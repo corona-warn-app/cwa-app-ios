@@ -23,7 +23,7 @@ struct RegistrationTokenResource: Resource {
 		isFake: Bool = false,
 		sendModel: RegistrationTokenSendModel,
 		trustEvaluation: TrustEvaluating = DefaultTrustEvaluation(
-			publicKeyHash: Environments().currentEnvironment().pinningKeyHash
+			publicKeyHash: Environments().currentEnvironment().pinningKeyHashData
 		)
 	) {
 		self.locator = .registrationToken(isFake: isFake)

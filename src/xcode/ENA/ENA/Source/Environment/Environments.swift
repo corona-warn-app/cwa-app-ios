@@ -24,6 +24,10 @@ struct EnvironmentData: Codable {
 
 	/// Used for certificate pinning
 	let pinningKeyHash: String
+	
+	var pinningKeyHashData: Data {
+		pinningKeyHash.dataWithHexString()
+	}
 }
 
 // MARK: - ServerEnvironment access.
