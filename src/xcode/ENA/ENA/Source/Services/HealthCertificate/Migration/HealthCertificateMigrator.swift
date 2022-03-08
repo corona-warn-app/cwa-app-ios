@@ -68,7 +68,10 @@ class HealthCertificateMigrator: HealthCertificateMigration {
 					firstPerson.isPreferredPerson = true
 				}
 			}
-			
+
+			// Remove outdated wallet info so it gets recalculated with the new combined set of certificates
+			firstPerson.dccWalletInfo = nil
+
 			regroupedPersons.append(firstPerson)
 		}
 		
