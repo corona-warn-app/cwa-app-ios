@@ -105,6 +105,8 @@ final class HealthCertificateReissuanceConsentViewModel {
 	}
 
 	func submit(completion: @escaping (Result<Void, HealthCertificateReissuanceError>) -> Void) {
+		Log.info("Submit certificate for reissuance.")
+
 			appConfigProvider.appConfiguration()
 				.sink { [weak self] appConfig in
 					guard let self = self else {
@@ -161,6 +163,7 @@ final class HealthCertificateReissuanceConsentViewModel {
 									with: certificate.certificate,
 									for: self.certifiedPerson
 								)
+								Log.info("Certificate reissuance was successful.")
 								completion(.success(()))
 							} catch {
 								completion(.failure(.replaceHealthCertificateError(error)))
