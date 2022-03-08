@@ -38,6 +38,7 @@ final class HomeImageItemView: UIView, HomeItemView, HomeItemViewSeparatorable {
 		if let containerInsets = viewModel.containerInsets {
 			stackView.layoutMargins = containerInsets
 		}
+		stackView.alignment = viewModel.stackViewAlignment
 	}
 
 	// MARK: - Protocol RiskItemViewSeparatorable
