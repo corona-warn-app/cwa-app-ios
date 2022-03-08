@@ -197,7 +197,10 @@ extension HealthCertificateService {
 		)
 	}
 
-	func updateDccWalletInfoForMockCertificateReissuance(dccWalletInfo: DCCWalletInfo) -> DCCWalletInfo {
+	func updateDccWalletInfoForMockCertificateReissuance(
+		dccWalletInfo: DCCWalletInfo,
+		certifiedPerson: HealthCertifiedPerson
+	) -> DCCWalletInfo {
 		let titleText = DCCUIText(
 			type: "string",
 			quantity: nil,
@@ -241,7 +244,7 @@ extension HealthCertificateService {
 					faqAnchor: "certificateReissuance"
 				),
 				certificateToReissue: DCCCertificateContainer(
-					certificateRef: DCCCertificateReference(barcodeData: "")
+					certificateRef: DCCCertificateReference(barcodeData: certifiedPerson.healthCertificates.first?.base45 ?? "")
 				),
 				accompanyingCertificates: []
 			)
