@@ -477,13 +477,13 @@ final class RiskProvider: RiskProviding {
 			// store a flag so we know an alert is required
 			switch UIApplication.shared.applicationState {
 			case .active:
-				store.showAnotherHighExposureAlert = false
+				Log.info("Another high exposure notification was triggered in foreground - no alert needed")
 			case .inactive:
 				store.showAnotherHighExposureAlert = true
 			case .background:
 				store.showAnotherHighExposureAlert = true
 			@unknown default:
-				store.showAnotherHighExposureAlert = false
+				Log.error("Unknown application state")
 			}
 		}
 	}
