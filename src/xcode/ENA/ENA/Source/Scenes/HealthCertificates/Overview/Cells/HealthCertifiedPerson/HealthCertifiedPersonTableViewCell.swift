@@ -232,8 +232,8 @@ class HealthCertifiedPersonTableViewCell: UITableViewCell, ReuseIdentifierProvid
 			segmentedControl.layer.borderColor = UIColor.enaColor(for: .cellBackground).cgColor
 		}
 
-		segmentedControl.setTitleTextAttributes([.font: UIFont.enaFont(for: .subheadline), .foregroundColor: UIColor.enaColor(for: .textPrimary1)], for: .normal)
-		segmentedControl.setTitleTextAttributes([.font: UIFont.enaFont(for: .subheadline, weight: .bold), .foregroundColor: UIColor.enaColor(for: .textPrimary1)], for: .selected)
+		segmentedControl.setTitleTextAttributes([.font: UIFont.enaFont(for: .footnote), .foregroundColor: UIColor.enaColor(for: .textPrimary1)], for: .normal)
+		segmentedControl.setTitleTextAttributes([.font: UIFont.enaFont(for: .footnote, weight: .bold), .foregroundColor: UIColor.enaColor(for: .textPrimary1)], for: .selected)
 
 		segmentedControl.addTarget(self, action: #selector(segmentedControlValueChanged), for: .valueChanged)
 
