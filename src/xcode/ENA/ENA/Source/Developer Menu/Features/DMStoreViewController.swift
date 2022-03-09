@@ -30,7 +30,7 @@ final class DMStoreViewController: UITableViewController {
 				String(describing: store.antigenTest)
 			},
 			DMStoreItem(attribute: "healthCertifiedPersons") { store in
-				"\(store.healthCertifiedPersons.count) person(s)"
+				"\(store.healthCertifiedPersons.count) person(s), \(store.healthCertifiedPersons.flatMap { $0.healthCertificates }.count) certificate(s)"
 			},
 			DMStoreItem(attribute: "lastAppConfigETag") { store in
 				store.appConfigMetadata?.lastAppConfigETag.description ?? "<nil>"

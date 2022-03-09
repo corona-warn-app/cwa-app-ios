@@ -1531,7 +1531,7 @@
 
 "RiskLegend_Legend2_Title" = "Enfeksiyon Riski";
 
-"RiskLegend_Legend2_Text" = "Maruz kalma günlüğü etkin olduğunda uygulama kişisel enfeksiyon riskinizi hesaplar. Bunu, son 14 günde koronavirüs tanısı almış kişilere maruz kalma sürenizi ve yakınlığınızı ölçerek gerçekleştirir.";
+"RiskLegend_Legend2_Text" = "Maruz kalma günlüğü etkin olduğunda uygulama kişisel enfeksiyon riskinizi hesaplar. Bunu, son 14 günde koronavirüs tanısı almış kişilere maruz kalma sürenizi ve yakınlığınızı ölçerek gerçekleştirir. Maruz kalma günlüğü check-in'lerinizi de hesaba katar. Koronavirüs tanısı almış bir kişiyle aynı anda ya da koronavirüs tanısı almış bir kişiden 30 dakika sonra aynı yerde bulunmuşsanız size uyarı verilir.";
 
 "RiskLegend_Legend2_RiskLevels" = "Şu risk durumu gösterilebilir:";
 
@@ -1605,9 +1605,9 @@
 "NewVersionFeatures_Info_about_abb_information" = "Bu sürümdeki değişiklikleri uygulama bilgilerinde “Yeni Özellikler” bölümünde bulabilirsiniz.";
 
 /* Version 2.19 */
-"NewVersionFeature_219_rapidPCR_title" = "PCR Hızlı Testlerinin Kaydı";
+"NewVersionFeature_219_rapidPCR_title" = "Hızlı PCR Testlerinin Kaydı";
 
-"NewVersionFeature_219_rapidPCR_description" = "Artık Corona-Warn-App uygulamasinda PCR hızlı testlerini kaydedebilir ve sonucunuzu ve test sertifikanızı uygulama üzerinden alabilirsiniz.";
+"NewVersionFeature_219_rapidPCR_description" = "Artık Corona-Warn-App uygulamasında hızlı PCR testlerini kaydedebilir ve sonucunuzu ve test sertifikanızı uygulama üzerinden alabilirsiniz.";
 
 "NewVersionFeature_219_faultTolerantNameHandling_title" = "Sertifika Ataması";
 
@@ -2309,9 +2309,13 @@
 "Contact_Journal_Notes_Description" = "Enfeksiyon riskinizin daha iyi tahmin edilmesine yardımcı olacak notları buraya girebilirsiniz.\n\nBaşka insanlarla ne kadar yakın olduğunuz ve ne yaptığınız (örnekler: “yakın bir şekilde birlikte oturduk”, “spor yaptık”, “az mesafe vardı”, “şarkı söyledik”) gibi, karşılaşmanıza veya konaklamanıza dair enfeksiyon riskiniz üzerinde bir etkisi olabilecek ek koşulları buraya yazabilirsiniz.\n\nBu notlar daha sonra hafızanızı tazelemenize yardımcı olabilir. Gerekirse erken aşamada bir arada olduğunuz kişileri uyarmanızı sağlayacak ve kamu sağlığı yetkililerinin potansiyel enfeksiyon zincirlerini takip edebilmesine yardımcı olacaktır.";
 
 /* Quick Actions a.k.a. shortcuts */
-"QuickAction_newContactDiaryEntry" = "Bugün için Günce Girişi Ekle";
+"QuickAction_qrCodeScanner" = "QR Kodu Tara";
 
-"QuickAction_eventCheckin" = "Check In";
+"QuickAction_showCertificates" = "Sertifikaları görüntüle";
+
+"QuickAction_eventCheckin" = "Check-in'leri görüntüle";
+
+"QuickAction_newContactDiaryEntry" = "Giriş ekle";
 
 /* Checkins */
 "Checkins_Overview_Title" = "Check-In’lerim";
@@ -3146,8 +3150,6 @@
 "HealthCertificate_Reissuance_Consent_secondaryButtonTitle" = "İptal";
 
 "HealthCertificate_Reissuance_Consent_DefaultAlert_Title" = "Hata";
-
-"HealthCertificate_Reissuance_Consent_DefaultAlert_Message" = "İnternet bağlantınız kesilmiş olabilir. Lütfen internet bağlantınızın olduğundan emin olun.";
 
 "HealthCertificate_Reissuance_Consent_DefaultAlert_OKButton" = "Tamam";
 
