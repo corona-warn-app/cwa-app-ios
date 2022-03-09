@@ -243,6 +243,7 @@ extension HealthCertificateService {
 					longText: testLongText,
 					faqAnchor: "certificateReissuance"
 				),
+				// should be the second one for screenshots requirements.
 				certificateToReissue: DCCCertificateContainer(
 					certificateRef: DCCCertificateReference(barcodeData: certifiedPerson.healthCertificates.last?.base45 ?? "")
 				),
