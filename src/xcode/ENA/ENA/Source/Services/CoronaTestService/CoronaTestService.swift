@@ -854,12 +854,7 @@ class CoronaTestService: CoronaTestServiceProviding {
 					completion(.failure(.testResultError(error)))
 				}
 			case let .success(response):
-				guard let testResult = TestResult(serverResponse: response.testResult) else {
-					Log.error("[CoronaTestService] Getting test result failed: Unknown test result \(response)", log: .api)
-
-					completion(.failure(.unknownTestResult))
-					return
-				}
+				let testResult = TestResult(serverResponse: response.testResult, coronaTestType: coronaTestType)
 
 				Log.info("[CoronaTestService] Got test result (coronaTestType: \(coronaTestType), testResult: \(testResult)), sampleCollectionDate: \(String(describing: response.sc))", log: .api)
 				var updatedSampleCollectionDate: Date?
@@ -1142,9 +1137,9 @@ class CoronaTestService: CoronaTestServiceProviding {
 	private func mockTestResult(for coronaTestType: CoronaTestType) -> TestResult? {
 		switch coronaTestType {
 		case .pcr:
-			return LaunchArguments.test.pcr.testResult.stringValue.flatMap { TestResult(stringValue: $0) }
+			return LaunchArguments.test.pcr.testResult.stringValue.flatMap { TestResult(stringValue: $0, coronaTestType: .pcr) }
 		case .antigen:
-			return LaunchArguments.test.antigen.testResult.stringValue.flatMap { TestResult(stringValue: $0) }
+			return LaunchArguments.test.antigen.testResult.stringValue.flatMap { TestResult(stringValue: $0, coronaTestType: .antigen) }
 		}
 	}
 

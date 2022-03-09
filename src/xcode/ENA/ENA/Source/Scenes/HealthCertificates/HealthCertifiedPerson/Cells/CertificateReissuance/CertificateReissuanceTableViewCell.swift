@@ -120,7 +120,7 @@ class CertificateReissuanceTableViewCell: UITableViewCell, ReuseIdentifierProvid
 		contentView.backgroundColor = .clear
 		selectionStyle = .none
 
-		accessibilityIdentifier = AccessibilityIdentifiers.BoosterNotification.Details.boosterNotificationCell
+		accessibilityIdentifier = AccessibilityIdentifiers.HealthCertificate.Reissuance.cell
 
 		updateBorderWidth()
 
