@@ -22,10 +22,16 @@ class LogDataItem: NSObject, UIActivityItemSource {
 		}
 
 		do {
-			try archive.addEntry(with: "cwa-all-logs.txt", type: .file, uncompressedSize: UInt32(logString.count), compressionMethod: .deflate, bufferSize: 4, provider: { position, size -> Data in
-				// This will be called until `data` is exhausted.
-				return rawData.subdata(in: position..<position + size)
-			})
+			try archive.addEntry(
+				with: "cwa-all-logs.txt",
+				type: .file,
+				uncompressedSize: Int64(logString.count),
+				compressionMethod: .deflate,
+				bufferSize: 4,
+				provider: { position, size in
+					return rawData.subdata(in: Int(position)..<Int(position) + size)
+				}
+			)
 			guard let compressed = archive.data else {
 				Log.warning("Log compression failed for unknown reasons.", log: .localData)
 				return nil
