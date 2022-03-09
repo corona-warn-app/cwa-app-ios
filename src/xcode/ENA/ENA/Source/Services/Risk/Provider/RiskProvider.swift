@@ -434,6 +434,7 @@ final class RiskProvider: RiskProviding {
 		store.enfRiskCalculationResult = enfRiskCalculationResult
 		store.checkinRiskCalculationResult = checkinRiskCalculationResult
 
+		// first check if a notification might get triggered then write mostRecentDateWithRiskLevel to the store
 		checkIfRiskLevelHasChangedForNotifications(risk)
 		store.mostRecentDateWithRiskLevel = risk.details.mostRecentDateWithRiskLevel
 
@@ -444,7 +445,6 @@ final class RiskProvider: RiskProviding {
 		/// We were able to calculate a risk so we have to reset the DeadMan Notification
 		DeadmanNotificationManager(coronaTestService: coronaTestService).resetDeadmanNotification()
 	}
-	
 
 	private func _provideRiskResult(_ result: RiskProviderResult, to consumer: RiskConsumer?) {
 		#if DEBUG
