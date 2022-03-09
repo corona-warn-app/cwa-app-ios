@@ -20,5 +20,6 @@ struct HomeImageItemViewModel: HomeItemViewModel {
 	let separatorColor: UIColor
 
 	let containerInsets: UIEdgeInsets?
+	let stackViewAlignment: UIStackView.Alignment
 
 }
