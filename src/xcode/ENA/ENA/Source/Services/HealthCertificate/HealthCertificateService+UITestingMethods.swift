@@ -244,7 +244,7 @@ extension HealthCertificateService {
 					faqAnchor: "certificateReissuance"
 				),
 				certificateToReissue: DCCCertificateContainer(
-					certificateRef: DCCCertificateReference(barcodeData: certifiedPerson.healthCertificates.first?.base45 ?? "")
+					certificateRef: DCCCertificateReference(barcodeData: certifiedPerson.healthCertificates.last?.base45 ?? "")
 				),
 				accompanyingCertificates: []
 			)
