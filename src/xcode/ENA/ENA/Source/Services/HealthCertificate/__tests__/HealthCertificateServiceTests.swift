@@ -1707,7 +1707,7 @@ class HealthCertificateServiceTests: CWATestCase {
 		XCTAssertEqual(service.unseenNewsCount.value, 0)
 	}
 
-	func test_replaceHealthCertificate() throws {
+	func test_replaceHealthCertificate_markAsNewIsTrue() throws {
 		let store = MockTestStore()
 		let recycleBin = RecycleBin.fake(store: store)
 		let service = HealthCertificateService(
@@ -1749,10 +1749,63 @@ class HealthCertificateServiceTests: CWATestCase {
 		try service.replaceHealthCertificate(
 			oldCertificateRef: oldCertificateRef,
 			with: newCertificateBase45,
-			for: person
+			for: person,
+			markAsNew: true
 		)
 		
 		XCTAssertEqual(person.healthCertificates[0].vaccinationEntry?.uniqueCertificateIdentifier, "newCertificate")
+		XCTAssertTrue(person.healthCertificates[0].isNew)
+		XCTAssertEqual(store.recycleBinItems.count, 1)
+	}
+	
+	func test_replaceHealthCertificate_markAsNewIsFalse() throws {
+		let store = MockTestStore()
+		let recycleBin = RecycleBin.fake(store: store)
+		let service = HealthCertificateService(
+			store: store,
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
+			dscListProvider: MockDSCListProvider(),
+			appConfiguration: CachedAppConfigurationMock(),
+			cclService: FakeCCLService(),
+			recycleBin: recycleBin
+		)
+		
+		let newCertificateBase45 = try base45Fake(
+			from: DigitalCovidCertificate.fake(
+				vaccinationEntries: [
+					VaccinationEntry.fake(
+						uniqueCertificateIdentifier: "newCertificate"
+					)
+				]
+			)
+		)
+		
+		let oldCertificateBase45 = try base45Fake(
+			from: DigitalCovidCertificate.fake(
+				vaccinationEntries: [
+					VaccinationEntry.fake(
+						uniqueCertificateIdentifier: "oldCertificate"
+					)
+				]
+			)
+		)
+		let person = HealthCertifiedPerson(
+			healthCertificates: [
+				try HealthCertificate(base45: oldCertificateBase45)
+			]
+		)
+
+		let oldCertificateRef = DCCCertificateReference(barcodeData: oldCertificateBase45)
+		
+		try service.replaceHealthCertificate(
+			oldCertificateRef: oldCertificateRef,
+			with: newCertificateBase45,
+			for: person,
+			markAsNew: false
+		)
+		
+		XCTAssertEqual(person.healthCertificates[0].vaccinationEntry?.uniqueCertificateIdentifier, "newCertificate")
+		XCTAssertFalse(person.healthCertificates[0].isNew)
 		XCTAssertEqual(store.recycleBinItems.count, 1)
 	}
 }
