@@ -30,8 +30,7 @@ final class AdmissionStateCellModel {
 
 	var description: String? {
 		if healthCertifiedPerson.isAdmissionStateChanged {
-			return "Ihr Status hat sich geändert. Ihre Zertifikate erfüllen jetzt die 2G-Regel. Wenn Sie Ihren aktuellen Status vorweisen müssen, schließen Sie diese Ansicht und zeigen Sie den QR-Code auf der Zertifikatsübersicht.\nMehr Informationen zu Ihrem Status im FAQ."
-			// return healthCertifiedPerson.dccWalletInfo?.admissionState.stateChangeNotificationText?.localized(cclService: cclService)
+			return healthCertifiedPerson.dccWalletInfo?.admissionState.stateChangeNotificationText?.localized(cclService: cclService)
 		} else {
 			return healthCertifiedPerson.dccWalletInfo?.admissionState.longText?.localized(cclService: cclService)
 		}
