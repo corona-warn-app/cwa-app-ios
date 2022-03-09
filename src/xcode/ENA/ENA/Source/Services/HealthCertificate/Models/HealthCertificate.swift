@@ -263,6 +263,17 @@ final class HealthCertificate: Codable, Equatable, Comparable, RecycleBinIdentif
 			.components(separatedBy: CharacterSet(charactersIn: "/#:"))
 	}
 
+	var sortDate: Date? {
+		switch entry {
+		case .vaccination(let vaccinationEntry):
+			return vaccinationEntry.localVaccinationDate
+		case .test(let testEntry):
+			return testEntry.sampleCollectionDate
+		case .recovery(let recoveryEntry):
+			return recoveryEntry.localCertificateValidityStartDate
+		}
+	}
+
 	func isBlocked(by blockedIdentifierChunks: [SAP_Internal_V2_DGCBlockedUVCIChunk]) -> Bool {
 		blockedIdentifierChunks.contains {
 			/// Skip if at least one index would be out of bounds
@@ -318,17 +329,6 @@ final class HealthCertificate: Codable, Equatable, Comparable, RecycleBinIdentif
 
 	private var trimmedDateOfBirth: String {
 		digitalCovidCertificate.dateOfBirth.trimmingCharacters(in: .whitespaces)
-	}
-	
-	private var sortDate: Date? {
-		switch entry {
-		case .vaccination(let vaccinationEntry):
-			return vaccinationEntry.localVaccinationDate
-		case .test(let testEntry):
-			return testEntry.sampleCollectionDate
-		case .recovery(let recoveryEntry):
-			return recoveryEntry.localCertificateValidityStartDate
-		}
 	}
 
 	private static func extractCBORWebTokenHeader(from base45: Base45) throws -> CBORWebTokenHeader {

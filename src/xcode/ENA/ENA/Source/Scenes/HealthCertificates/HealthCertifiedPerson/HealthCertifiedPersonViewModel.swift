@@ -246,7 +246,16 @@ final class HealthCertifiedPersonViewModel {
 	private var healthCertificateCellViewModels = [HealthCertificateCellViewModel]()
 
 	private func constructHealthCertificateCellViewModels(for person: HealthCertifiedPerson) {
-		let sortedHealthCertificates = person.healthCertificates.sorted(by: >)
+		let sortedHealthCertificates = person.healthCertificates.sorted(by: { lhs, rhs in
+			let lhsIsMostRelevant = lhs == person.mostRelevantHealthCertificate ? 1 : 0
+			let rhsIsMostRelevant = rhs == person.mostRelevantHealthCertificate ? 1 : 0
+			
+			if let lhsDate = lhs.sortDate, let rhsDate = rhs.sortDate {
+				return (lhsIsMostRelevant, lhsDate, lhs.cborWebTokenHeader.issuedAt) > (rhsIsMostRelevant, rhsDate, rhs.cborWebTokenHeader.issuedAt)
+			}
+			return false
+		})
+		
 		healthCertificateCellViewModels = sortedHealthCertificates.map {
 			HealthCertificateCellViewModel(
 				healthCertificate: $0,
