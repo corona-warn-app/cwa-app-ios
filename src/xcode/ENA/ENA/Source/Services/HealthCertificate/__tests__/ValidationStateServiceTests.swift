@@ -6,6 +6,21 @@ import XCTest
 import HealthCertificateToolkit
 @testable import ENA
 
+extension HealthCertificateService {
+
+	func syncSetup() {
+		let dispatchGroup = DispatchGroup()
+
+		dispatchGroup.enter()
+		setup(updatingWalletInfos: true) {
+			dispatchGroup.leave()
+		}
+
+		dispatchGroup.wait()
+	}
+
+}
+
 class TestHealthCertificateService: HealthCertificateService {
 
 	convenience init(
@@ -26,7 +41,6 @@ class TestHealthCertificateService: HealthCertificateService {
 		)
 		self.validUntilDates = validUntilDates
 		self.expirationDates = expirationDates
-
 	}
 
 	// inject some test data helpers
@@ -65,6 +79,7 @@ class ValidationStateServiceTests: XCTestCase {
 			cclService: FakeCCLService(),
 			recycleBin: .fake()
 		)
+		service.syncSetup()
 		service.validationUpdatedHook = {
 			validationStateServiceExpectation.fulfill()
 		}
@@ -94,6 +109,7 @@ class ValidationStateServiceTests: XCTestCase {
 			cclService: FakeCCLService(),
 			recycleBin: .fake()
 		)
+		service.syncSetup()
 		service.validationUpdatedHook = {
 			validationStateServiceExpectation.fulfill()
 		}
