@@ -14,7 +14,8 @@ protocol HealthCertificateServiceServable {
 	func replaceHealthCertificate(
 		oldCertificateRef: DCCCertificateReference,
 		with newHealthCertificateString: String,
-		for person: HealthCertifiedPerson
+		for person: HealthCertifiedPerson,
+		markAsNew: Bool
 	) throws
 }
 
@@ -254,9 +255,10 @@ class HealthCertificateService: HealthCertificateServiceServable {
 	func replaceHealthCertificate(
 		oldCertificateRef: DCCCertificateReference,
 		with newHealthCertificateString: String,
-		for person: HealthCertifiedPerson
+		for person: HealthCertifiedPerson,
+		markAsNew: Bool
 	) throws {
-		let newHealthCertificate = try HealthCertificate(base45: newHealthCertificateString)
+		let newHealthCertificate = try HealthCertificate(base45: newHealthCertificateString, isNew: markAsNew)
 		guard let oldHealthCertificate = person.healthCertificate(for: oldCertificateRef) else {
 			return
 		}
