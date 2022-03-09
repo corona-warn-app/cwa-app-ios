@@ -256,7 +256,7 @@ final class HealthCertificate: Codable, Equatable, Comparable, RecycleBinIdentif
 			.dropPrefix("URN:UVCI:")
 			.components(separatedBy: CharacterSet(charactersIn: "/#:"))
 
-	var sortDate: Date? {
+	lazy var sortDate: Date? = {
 		switch entry {
 		case .vaccination(let vaccinationEntry):
 			return vaccinationEntry.localVaccinationDate
@@ -265,8 +265,8 @@ final class HealthCertificate: Codable, Equatable, Comparable, RecycleBinIdentif
 		case .recovery(let recoveryEntry):
 			return recoveryEntry.localCertificateValidityStartDate
 		}
-	}
-
+	}()
+	
 	func isBlocked(by blockedIdentifierChunks: [SAP_Internal_V2_DGCBlockedUVCIChunk]) -> Bool {
 		blockedIdentifierChunks.contains {
 			/// Skip if at least one index would be out of bounds
@@ -319,17 +319,6 @@ final class HealthCertificate: Codable, Equatable, Comparable, RecycleBinIdentif
 	private lazy var familyNameComponents = Set<String>(name.familyNameGroupingComponents)
 	private lazy var trimmedDateOfBirth: String = digitalCovidCertificate.dateOfBirth
 		.trimmingCharacters(in: .whitespaces)
-	
-	private lazy var sortDate: Date? = {
-		switch entry {
-		case .vaccination(let vaccinationEntry):
-			return vaccinationEntry.localVaccinationDate
-		case .test(let testEntry):
-			return testEntry.sampleCollectionDate
-		case .recovery(let recoveryEntry):
-			return recoveryEntry.localCertificateValidityStartDate
-		}
-	}()
 
 	private static func extractCBORWebTokenHeader(from base45: Base45) throws -> CBORWebTokenHeader {
 		let webTokenHeaderResult = DigitalCovidCertificateAccess().extractCBORWebTokenHeader(from: base45)
