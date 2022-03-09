@@ -823,13 +823,13 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 		}
 
 		let alert = UIAlertController(
-			title: AppStrings.Home.riskStatusLoweredAlertTitle,
-			message: AppStrings.Home.riskStatusLoweredAlertMessage,
+			title: AppStrings.Home.riskStatusAnotherHighExposureAlertTitle,
+			message: AppStrings.Home.riskStatusAnotherHighExposureAlertMessage,
 			preferredStyle: .alert
 		)
 
 		let alertAction = UIAlertAction(
-			title: AppStrings.Home.riskStatusLoweredAlertPrimaryButtonTitle,
+			title: AppStrings.Home.riskStatusAnotherHighExposureButtonTitle,
 			style: .default,
 			handler: { _ in
 				completion()
