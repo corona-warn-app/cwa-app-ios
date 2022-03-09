@@ -158,6 +158,22 @@ final class HealthCertifiedPersonViewModel {
 			healthCertifiedPerson: healthCertifiedPerson
 		)
 	}
+	
+	var topMostCell: TableViewSection {
+		if certificateReissuanceIsVisible {
+			return .certificateReissuance
+		} else if boosterNotificationIsVisible {
+			return .boosterNotification
+		} else if admissionStateIsVisible {
+			return .admissionState
+		} else if vaccinationStateIsVisible {
+			return .vaccinationState
+		} else if boosterNotificationIsVisible {
+			return .boosterNotification
+		} else {
+			return .person
+		}
+	}
 
 	func numberOfItems(in section: TableViewSection) -> Int {
 		switch section {

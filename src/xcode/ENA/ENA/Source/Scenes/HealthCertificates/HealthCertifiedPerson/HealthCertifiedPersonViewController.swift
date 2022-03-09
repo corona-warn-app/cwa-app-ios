@@ -151,7 +151,7 @@ class HealthCertifiedPersonViewController: UIViewController, UITableViewDataSour
 		// we are only interested in admission state cell once if the traitCollectionDidChange - to update gradientHeightConstraint
 		guard
 			didCalculateGradientHeight == false,
-			HealthCertifiedPersonViewModel.TableViewSection.map(indexPath.section) == .admissionState
+			HealthCertifiedPersonViewModel.TableViewSection.map(indexPath.section) == viewModel.topMostCell
 		else {
 			return
 		}
