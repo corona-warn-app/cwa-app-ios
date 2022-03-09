@@ -1531,7 +1531,7 @@
 
 "RiskLegend_Legend2_Title" = "Risc de infectare";
 
-"RiskLegend_Legend2_Text" = "Când este activă înregistrarea în jurnal a expunerilor, aplicația calculează riscul dvs. personal de infectare. Efectuează acest lucru prin măsurarea duratei și a proximității expunerii la persoanele care au fost diagnosticate cu coronavirus în ultimele 14 zile.";
+"RiskLegend_Legend2_Text" = "Când este activă înregistrarea în jurnal a expunerilor, aplicația calculează riscul dvs. personal de infectare. Efectuează acest lucru prin măsurarea duratei și a proximității expunerii la persoanele care au fost diagnosticate cu coronavirus în ultimele 14 zile. Înregistrarea în jurnal a expunerilor ține cont și de check-inurile dvs. Sunteți avertizat dacă ați fost în aceeași cameră cu o persoană care a fost diagnosticată ulterior cu coronavirus sau dacă ați fost în cameră în decurs de 30 de minute de la plecarea acesteia.";
 
 "RiskLegend_Legend2_RiskLevels" = "Poate fi afișată următoarea stare a riscului:";
 
@@ -1605,9 +1605,9 @@
 "NewVersionFeatures_Info_about_abb_information" = "Modificările din această versiune pot fi găsite în informațiile aplicației, la „Caracteristici noi”.";
 
 /* Version 2.19 */
-"NewVersionFeature_219_rapidPCR_title" = "Înregistrarea testelor rapide PCR";
+"NewVersionFeature_219_rapidPCR_title" = "Înregistrarea testelor PCR rapide";
 
-"NewVersionFeature_219_rapidPCR_description" = "Acum puteți înregistra teste rapide PCR în Corona-Warn-App și puteți primi rezultatul și certificatul dvs. de test prin aplicație.";
+"NewVersionFeature_219_rapidPCR_description" = "Acum puteți înregistra teste PCR rapide în Corona-Warn-App și puteți primi rezultatul și certificatul dvs. de test prin aplicație.";
 
 "NewVersionFeature_219_faultTolerantNameHandling_title" = "Atribuirea certificatului";
 
@@ -2309,9 +2309,13 @@
 "Contact_Journal_Notes_Description" = "Acum puteți introduce aici note care vă vor ajuta să estimați mai bine riscul dvs. de infectare.\n\nNotați aici circumstanțele suplimentare ale întâlnirii sau șederii dvs. care ar putea avea efect asupra riscului dvs. de infectare, de exemplu, cât de aproape vă aflați față de alte persoane și ce făceați (exemple: „am stat aproape unul de altul”, „am făcut sport”, „spațiu puțin”, „am cântat”).\n\nAceste note vă pot ajuta să vă împrospătați memoria mai târziu. Dacă este necesar, acestea vor conduce la avertizarea timpurie a celorlalte persoane cu care v-ați întâlnit și, de asemenea, pot ajuta autoritățile de sănătate publică să urmărească posibilele lanțuri de infectare.";
 
 /* Quick Actions a.k.a. shortcuts */
-"QuickAction_newContactDiaryEntry" = "Adăugare intrare în jurnal pentru astăzi";
+"QuickAction_qrCodeScanner" = "Scanare cod QR";
 
-"QuickAction_eventCheckin" = "Check-in";
+"QuickAction_showCertificates" = "Afișare certificate";
+
+"QuickAction_eventCheckin" = "Afișare check-inuri";
+
+"QuickAction_newContactDiaryEntry" = "Adăugare intrare";
 
 /* Checkins */
 "Checkins_Overview_Title" = "Check-inurile mele";
@@ -3146,8 +3150,6 @@
 "HealthCertificate_Reissuance_Consent_secondaryButtonTitle" = "Anulare";
 
 "HealthCertificate_Reissuance_Consent_DefaultAlert_Title" = "Eroare";
-
-"HealthCertificate_Reissuance_Consent_DefaultAlert_Message" = "Se poate să fi pierdut conexiunea la internet. Asigurați-vă că sunteți conectat la internet.";
 
 "HealthCertificate_Reissuance_Consent_DefaultAlert_OKButton" = "OK";
 
