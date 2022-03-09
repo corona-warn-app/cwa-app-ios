@@ -22,6 +22,7 @@ class HealthCertificateServiceTests: CWATestCase {
 			cclService: FakeCCLService(),
 			recycleBin: .fake()
 		)
+		service.syncSetup()
 
 		let healthCertifiedPersonsExpectation = expectation(description: "healthCertifiedPersons publisher updated")
 		// One for registration, one for the validity state update, one for is validity state new update and one for the wallet info update
@@ -123,6 +124,7 @@ class HealthCertificateServiceTests: CWATestCase {
 			cclService: FakeCCLService(),
 			recycleBin: .fake()
 		)
+		service.syncSetup()
 
 		XCTAssertTrue(store.healthCertifiedPersons.isEmpty)
 
@@ -450,6 +452,7 @@ class HealthCertificateServiceTests: CWATestCase {
 			cclService: FakeCCLService(),
 			recycleBin: .fake()
 		)
+		service.syncSetup()
 
 		let healthCertificate1 = try HealthCertificate(
 			base45: try base45Fake(from: DigitalCovidCertificate.fake(
@@ -693,6 +696,7 @@ class HealthCertificateServiceTests: CWATestCase {
 			cclService: FakeCCLService(),
 			recycleBin: .fake()
 		)
+		service.syncSetup()
 
 		XCTAssertEqual(healthCertificate.validityState, .expired)
 		XCTAssertEqual(service.healthCertifiedPersons.first?.healthCertificates.first?.validityState, .expired)
@@ -727,6 +731,7 @@ class HealthCertificateServiceTests: CWATestCase {
 			cclService: FakeCCLService(),
 			recycleBin: .fake()
 		)
+		service.syncSetup()
 
 		XCTAssertEqual(healthCertificate.validityState, .expired)
 		XCTAssertEqual(service.healthCertifiedPersons.first?.healthCertificates.first?.validityState, .expired)
@@ -774,6 +779,7 @@ class HealthCertificateServiceTests: CWATestCase {
 			cclService: FakeCCLService(),
 			recycleBin: .fake()
 		)
+		service.syncSetup()
 
 		XCTAssertEqual(healthCertificate.validityState, .expiringSoon)
 		XCTAssertEqual(store.healthCertifiedPersons.first?.healthCertificates.first?.validityState, .expiringSoon)
@@ -816,6 +822,7 @@ class HealthCertificateServiceTests: CWATestCase {
 			cclService: cclService,
 			recycleBin: .fake()
 		)
+		service.syncSetup()
 
 		waitForExpectations(timeout: .short)
 
@@ -862,6 +869,7 @@ class HealthCertificateServiceTests: CWATestCase {
 			cclService: cclService,
 			recycleBin: .fake()
 		)
+		service.syncSetup()
 
 		waitForExpectations(timeout: .short)
 
@@ -904,6 +912,7 @@ class HealthCertificateServiceTests: CWATestCase {
 			cclService: cclService,
 			recycleBin: .fake()
 		)
+		service.syncSetup()
 
 		waitForExpectations(timeout: .short)
 
@@ -950,6 +959,7 @@ class HealthCertificateServiceTests: CWATestCase {
 			cclService: cclService,
 			recycleBin: .fake()
 		)
+		service.syncSetup()
 
 		waitForExpectations(timeout: .short)
 
@@ -996,6 +1006,7 @@ class HealthCertificateServiceTests: CWATestCase {
 			cclService: cclService,
 			recycleBin: .fake()
 		)
+		service.syncSetup()
 
 		waitForExpectations(timeout: .short)
 
@@ -1087,6 +1098,7 @@ class HealthCertificateServiceTests: CWATestCase {
 			cclService: FakeCCLService(),
 			recycleBin: .fake()
 		)
+		service.syncSetup()
 
 		XCTAssertEqual(healthCertificate.validityState, .expiringSoon)
 		XCTAssertEqual(store.healthCertifiedPersons.first?.healthCertificates.first?.validityState, .expiringSoon)
@@ -1335,6 +1347,7 @@ class HealthCertificateServiceTests: CWATestCase {
 			cclService: cclService,
 			recycleBin: .fake()
 		)
+		service.syncSetup()
 
 		XCTAssertEqual(service.healthCertifiedPersons.count, 1)
 
@@ -1393,6 +1406,7 @@ class HealthCertificateServiceTests: CWATestCase {
 			cclService: cclService,
 			recycleBin: .fake()
 		)
+		service.syncSetup()
 
 		XCTAssertEqual(service.healthCertifiedPersons.count, 1)
 
@@ -1414,6 +1428,7 @@ class HealthCertificateServiceTests: CWATestCase {
 			cclService: FakeCCLService(),
 			recycleBin: .fake()
 		)
+		service.syncSetup()
 
 		XCTAssertTrue(store.healthCertifiedPersons.isEmpty)
 
@@ -1618,6 +1633,7 @@ class HealthCertificateServiceTests: CWATestCase {
 			cclService: cclService,
 			recycleBin: .fake()
 		)
+		service.syncSetup()
 
 		XCTAssertEqual(service.healthCertifiedPersons.count, 1)
 
@@ -1639,6 +1655,7 @@ class HealthCertificateServiceTests: CWATestCase {
 			cclService: FakeCCLService(),
 			recycleBin: .fake()
 		)
+		service.syncSetup()
 
 		XCTAssertTrue(store.healthCertifiedPersons.isEmpty)
 
