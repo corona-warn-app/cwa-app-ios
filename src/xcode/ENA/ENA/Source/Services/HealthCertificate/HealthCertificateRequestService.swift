@@ -185,6 +185,22 @@ class HealthCertificateRequestService {
 		NotificationCenter.default.ocombine
 			.publisher(for: UIApplication.didBecomeActiveNotification)
 			.sink { [weak self] _ in
+				guard let self = self, self.healthCertificateService.isSetUp else {
+					return
+				}
+
+				self.testCertificateRequests.forEach {
+					self.executeTestCertificateRequest($0, retryIfCertificateIsPending: false)
+				}
+			}
+			.store(in: &subscriptions)
+
+		healthCertificateService.$isSetUp
+			.sink { [weak self] isSetUp in
+				guard isSetUp else {
+					return
+				}
+
 				self?.testCertificateRequests.forEach {
 					self?.executeTestCertificateRequest($0, retryIfCertificateIsPending: false)
 				}
