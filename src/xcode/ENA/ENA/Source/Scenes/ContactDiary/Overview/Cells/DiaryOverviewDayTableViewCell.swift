@@ -8,8 +8,16 @@ class DiaryOverviewDayTableViewCell: UITableViewCell {
 
 	// MARK: - Internal
 
-	func configure(cellViewModel: DiaryOverviewDayCellModel) {
+	func configure(
+		cellViewModel: DiaryOverviewDayCellModel,
+		didTapClickableView: @escaping () -> Void
+	) {
+		self.didTapClickableView = didTapClickableView
+
 		dateLabel.text = cellViewModel.formattedDate
+		let tapOnDateStackViewRecognizer = UITapGestureRecognizer(target: self, action: #selector(clickableAreaWasTapped))
+		dateStackView.addGestureRecognizer(tapOnDateStackViewRecognizer)
+		dateStackView.addSubview(dateLabel)
 
 		exposureHistoryStackView.isHidden = cellViewModel.hideExposureHistory
 		exposureHistoryNoticeImageView.image = cellViewModel.exposureHistoryImage
@@ -137,6 +145,8 @@ class DiaryOverviewDayTableViewCell: UITableViewCell {
 		}
 
 		encountersVisitsContainerStackView.isHidden = encountersVisitsStackView.arrangedSubviews.isEmpty
+		let tapOnEncounterVisitsStackViewRecognizer = UITapGestureRecognizer(target: self, action: #selector(clickableAreaWasTapped))
+		encountersVisitsContainerStackView.addGestureRecognizer(tapOnEncounterVisitsStackViewRecognizer)
 
 		accessibilityTraits = [.button]
 		accessibilityIdentifier = String(format: AccessibilityIdentifiers.ContactDiaryInformation.Overview.cell, cellViewModel.accessibilityIdentifierIndex)
@@ -144,6 +154,7 @@ class DiaryOverviewDayTableViewCell: UITableViewCell {
 
 	// MARK: - Private
 
+	@IBOutlet private weak var dateStackView: UIStackView!
 	@IBOutlet private weak var dateLabel: ENALabel!
 	@IBOutlet private weak var encountersVisitsContainerStackView: UIStackView!
 	@IBOutlet private weak var encountersVisitsStackView: UIStackView!
@@ -161,6 +172,8 @@ class DiaryOverviewDayTableViewCell: UITableViewCell {
 	@IBOutlet private weak var checkinHistoryTitleLabel: ENALabel!
 	@IBOutlet private weak var checkinHistoryDetailLabel: ENALabel!
 	@IBOutlet private weak var checkinsWithRiskStackView: UIStackView!
+
+	private var didTapClickableView: (() -> Void)?
 
 	private func arrangedView(for test: DiaryDayTest) -> UIView {
 		let containerView = UIView()
@@ -209,6 +222,11 @@ class DiaryOverviewDayTableViewCell: UITableViewCell {
 			]
 		)
 		return containerView
+	}
+
+	@objc
+	private func clickableAreaWasTapped() {
+		didTapClickableView?()
 	}
 
 }
