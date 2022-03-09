@@ -14,7 +14,8 @@ protocol HealthCertificateServiceServable {
 	func replaceHealthCertificate(
 		oldCertificateRef: DCCCertificateReference,
 		with newHealthCertificateString: String,
-		for person: HealthCertifiedPerson
+		for person: HealthCertifiedPerson,
+		markAsNew: Bool
 	) throws
 }
 
@@ -50,9 +51,6 @@ class HealthCertificateService: HealthCertificateServiceServable {
 			self.cclService = cclService
 			self.recycleBin = recycleBin
 
-			setup()
-			configureForTesting()
-
 			return
 		}
 		#endif
@@ -68,8 +66,6 @@ class HealthCertificateService: HealthCertificateServiceServable {
 		)
 		self.cclService = cclService
 		self.recycleBin = recycleBin
-
-		setup()
 	}
 
 	// MARK: - Internal
@@ -98,10 +94,12 @@ class HealthCertificateService: HealthCertificateServiceServable {
 	@DidSetPublished var lastSelectedScenarioIdentifier: String? {
 		didSet {
 			if lastSelectedScenarioIdentifier != oldValue {
-				self.store.lastSelectedScenarioIdentifier = lastSelectedScenarioIdentifier
+				store.lastSelectedScenarioIdentifier = lastSelectedScenarioIdentifier
 			}
 		}
 	}
+
+	@DidSetPublished var isSetUp = false
 	
 	private(set) var unseenNewsCount = CurrentValueSubject<Int, Never>(0)
 	
@@ -119,6 +117,50 @@ class HealthCertificateService: HealthCertificateServiceServable {
 				date.timeIntervalSinceNow.sign == .plus
 			}
 		return allDatesToExam.min()
+	}
+
+	func setup(
+		updatingWalletInfos: Bool,
+		completion: @escaping () -> Void
+	) {
+		Log.info("[HealthCertificateService] Setting up", log: .background)
+
+		setupQueue.async {
+			guard !self.isSetUp else {
+				Log.info("[HealthCertificateService] Already set up", log: .background)
+				completion()
+				return
+			}
+
+			HealthCertificateMigrator().migrate(store: self.store)
+			self.updatePublishersFromStore()
+
+			#if DEBUG
+			if isUITesting {
+				self.configureForTesting()
+			}
+			#endif
+
+			self.updateTimeBasedValidityStates()
+
+			self.updateGradients()
+
+			self.subscribeAppConfigUpdates()
+			self.subscribeDSCListChanges()
+			self.scheduleTimer()
+
+			if updatingWalletInfos {
+				self.updateDCCWalletInfosIfNeeded {
+					Log.info("[HealthCertificateService] Setup finished including wallet info updates", log: .background)
+					self.isSetUp = true
+					completion()
+				}
+			} else {
+				Log.info("[HealthCertificateService] Setup finished without wallet info updates", log: .background)
+				self.isSetUp = true
+				completion()
+			}
+		}
 	}
 
 	// swiftlint:disable cyclomatic_complexity
@@ -213,9 +255,10 @@ class HealthCertificateService: HealthCertificateServiceServable {
 	func replaceHealthCertificate(
 		oldCertificateRef: DCCCertificateReference,
 		with newHealthCertificateString: String,
-		for person: HealthCertifiedPerson
+		for person: HealthCertifiedPerson,
+		markAsNew: Bool
 	) throws {
-		let newHealthCertificate = try HealthCertificate(base45: newHealthCertificateString)
+		let newHealthCertificate = try HealthCertificate(base45: newHealthCertificateString, isNew: markAsNew)
 		guard let oldHealthCertificate = person.healthCertificate(for: oldCertificateRef) else {
 			return
 		}
@@ -316,6 +359,8 @@ class HealthCertificateService: HealthCertificateServiceServable {
 
 	func updatePublishersFromStore() {
 		Log.info("[HealthCertificateService] Updating publishers from store", log: .api)
+
+		lastSelectedScenarioIdentifier = store.lastSelectedScenarioIdentifier
 
 		healthCertifiedPersons = store.healthCertifiedPersons
 		initialHealthCertifiedPersonsReadFromStore = true
@@ -499,24 +544,12 @@ class HealthCertificateService: HealthCertificateServiceServable {
 	private let recycleBin: RecycleBin
 	private let cclService: CCLServable
 
+	private let setupQueue = DispatchQueue(label: "com.sap.HealthCertificateService.setup")
+
 	private var initialHealthCertifiedPersonsReadFromStore = false
 
 	private var healthCertifiedPersonSubscriptions = Set<AnyCancellable>()
 	private var subscriptions = Set<AnyCancellable>()
-
-	private func setup() {
-		
-		HealthCertificateMigrator().migrate(store: store)
-		updatePublishersFromStore()
-		updateTimeBasedValidityStates()
-
-		updateGradients()
-		
-		subscribeAppConfigUpdates()
-		subscribeDSCListChanges()
-		updateDCCWalletInfosIfNeeded()
-		scheduleTimer()
-	}
 
 	private func subscribeAppConfigUpdates() {
 		// subscribe app config updates
@@ -764,7 +797,7 @@ class HealthCertificateService: HealthCertificateServiceServable {
 				mergedPerson = person
 			}
 			
-			for matchingPerson in allPersons {
+			for matchingPerson in allPersons where allPersons.count > 1 {
 				for certificate in matchingPerson.healthCertificates {
 					if !mergedPerson.healthCertificates.contains(certificate) {
 						mergedPerson.healthCertificates.append(certificate)

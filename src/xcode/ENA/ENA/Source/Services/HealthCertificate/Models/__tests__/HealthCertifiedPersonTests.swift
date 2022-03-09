@@ -119,7 +119,12 @@ class HealthCertifiedPersonTests: CWATestCase {
 		XCTAssertEqual(decodedHealthCertifiedPerson.boosterRule, boosterRule)
 		XCTAssertEqual(decodedHealthCertifiedPerson.dccWalletInfo, dccWallet)
 		XCTAssertTrue(decodedHealthCertifiedPerson.mostRecentWalletInfoUpdateFailed)
-		XCTAssertEqual(decodedHealthCertifiedPerson.healthCertificates, [firstHealthCertificate, secondHealthCertificate])
+		XCTAssertEqual(decodedHealthCertifiedPerson.healthCertificates.map { $0.base45 }, [firstHealthCertificate, secondHealthCertificate].map { $0.base45 })
+		XCTAssertEqual(decodedHealthCertifiedPerson.healthCertificates.map { $0.validityState }, [firstHealthCertificate, secondHealthCertificate].map { $0.validityState })
+		XCTAssertEqual(decodedHealthCertifiedPerson.healthCertificates.map { $0.isNew }, [firstHealthCertificate, secondHealthCertificate].map { $0.isNew })
+		XCTAssertEqual(decodedHealthCertifiedPerson.healthCertificates.map { $0.isValidityStateNew }, [firstHealthCertificate, secondHealthCertificate].map { $0.isValidityStateNew })
+		XCTAssertEqual(decodedHealthCertifiedPerson.healthCertificates.map { $0.didShowInvalidNotification }, [firstHealthCertificate, secondHealthCertificate].map { $0.didShowInvalidNotification })
+		XCTAssertEqual(decodedHealthCertifiedPerson.healthCertificates.map { $0.didShowBlockedNotification }, [firstHealthCertificate, secondHealthCertificate].map { $0.didShowBlockedNotification })
 	}
 
 }

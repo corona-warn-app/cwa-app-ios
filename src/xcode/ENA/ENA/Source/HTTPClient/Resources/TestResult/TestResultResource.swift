@@ -10,7 +10,7 @@ struct TestResultResource: Resource {
 		isFake: Bool = false,
 		sendModel: TestResultSendModel,
 		trustEvaluation: TrustEvaluating = DefaultTrustEvaluation(
-			publicKeyHash: Environments().currentEnvironment().pinningKeyHash
+			publicKeyHash: Environments().currentEnvironment().pinningKeyHashData
 		)
 	) {
 		self.locator = .testResult(isFake: isFake)

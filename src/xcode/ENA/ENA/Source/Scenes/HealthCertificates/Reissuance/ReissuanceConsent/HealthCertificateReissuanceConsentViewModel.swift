@@ -105,6 +105,8 @@ final class HealthCertificateReissuanceConsentViewModel {
 	}
 
 	func submit(completion: @escaping (Result<Void, HealthCertificateReissuanceError>) -> Void) {
+		Log.info("Submit certificate for reissuance...", log: .vaccination)
+
 		#if DEBUG
 		if isUITesting {
 			if LaunchArguments.healthCertificate.hasCertificateReissuance.boolValue {
@@ -122,8 +124,10 @@ final class HealthCertificateReissuanceConsentViewModel {
 					return
 				}
 				
-				let publicKeyHash = appConfig.dgcParameters.reissueServicePublicKeyDigest.sha256String()
-				let trustEvaluation = DefaultTrustEvaluation(publicKeyHash: publicKeyHash)
+				let trustEvaluation = DefaultTrustEvaluation(
+					publicKeyHash: appConfig.dgcParameters.reissueServicePublicKeyDigest,
+					certificatePosition: 0
+				)
 				
 				guard let certificateToReissue = self.certifiedPerson.dccWalletInfo?.certificateReissuance?.certificateToReissue.certificateRef.barcodeData,
 					  let certificateToReissueRef = self.certifiedPerson.dccWalletInfo?.certificateReissuance?.certificateToReissue.certificateRef else {
@@ -168,8 +172,11 @@ final class HealthCertificateReissuanceConsentViewModel {
 							try self.healthCertificateService.replaceHealthCertificate(
 								oldCertificateRef: certificateToReissueRef,
 								with: certificate.certificate,
-								for: self.certifiedPerson
+								for: self.certifiedPerson,
+								markAsNew: true
 							)
+							
+							Log.error("Certificate reissuance was successful.", log: .vaccination)
 							completion(.success(()))
 						} catch {
 							completion(.failure(.replaceHealthCertificateError(error)))
