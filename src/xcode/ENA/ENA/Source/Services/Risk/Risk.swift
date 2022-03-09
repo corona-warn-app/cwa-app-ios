@@ -136,7 +136,9 @@ extension Risk {
 	}()
 
 	static func mocked(
-		level: RiskLevel = .low) -> Risk {
+		level: RiskLevel = .low,
+		riskLevelChange: RiskLevelChange = .decreased
+	) -> Risk {
 		Risk(
 			level: level,
 			details: Risk.Details(
@@ -144,7 +146,7 @@ extension Risk {
 				numberOfDaysWithRiskLevel: numberOfDaysWithRiskLevel,
 				calculationDate: Date()),
 			riskLevelHasChanged: true,
-			riskLevelChange: level == .high ? .increased : .decreased
+			riskLevelChange: riskLevelChange
 		)
 	}
 }

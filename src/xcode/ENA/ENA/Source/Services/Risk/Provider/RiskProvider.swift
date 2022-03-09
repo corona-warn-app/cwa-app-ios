@@ -435,6 +435,8 @@ final class RiskProvider: RiskProviding {
 		store.checkinRiskCalculationResult = checkinRiskCalculationResult
 
 		checkIfRiskLevelHasChangedForNotifications(risk)
+		store.mostRecentDateWithRiskLevel = risk.details.mostRecentDateWithRiskLevel
+
 		checkIfRiskStatusLoweredAlertShouldBeShown(risk)
 		Analytics.collect(.riskExposureMetadata(.update))
 		completion(.success(risk))
@@ -463,9 +465,15 @@ final class RiskProvider: RiskProviding {
 		case .increased:
 			triggerHighRiskNotification()
 		case let .unchanged(riskLevel):
-			if riskLevel == .high {
-				triggerHighRiskNotification()
-			}
+			guard riskLevel == .high,
+				  let mostRecentDateWithRiskLevel = risk.details.mostRecentDateWithRiskLevel,
+				  let previousMostRecentDateWithRiskLevel = store.mostRecentDateWithRiskLevel,
+				  mostRecentDateWithRiskLevel > previousMostRecentDateWithRiskLevel
+			else {
+					  Log.info("Missing mostRecentDateWithRiskLevel - do not trigger anything")
+					  return
+				  }
+			triggerHighRiskNotification()
 		}
 	}
 
