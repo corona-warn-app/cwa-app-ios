@@ -172,7 +172,8 @@ final class HealthCertificateReissuanceConsentViewModel {
 							try self.healthCertificateService.replaceHealthCertificate(
 								oldCertificateRef: certificateToReissueRef,
 								with: certificate.certificate,
-								for: self.certifiedPerson
+								for: self.certifiedPerson,
+								markAsNew: true
 							)
 							
 							Log.error("Certificate reissuance was successful.", log: .vaccination)
