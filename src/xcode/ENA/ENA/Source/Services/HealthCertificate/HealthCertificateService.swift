@@ -98,7 +98,7 @@ class HealthCertificateService: HealthCertificateServiceServable {
 	@DidSetPublished var lastSelectedScenarioIdentifier: String? {
 		didSet {
 			if lastSelectedScenarioIdentifier != oldValue {
-				self.store.lastSelectedScenarioIdentifier = lastSelectedScenarioIdentifier
+				store.lastSelectedScenarioIdentifier = lastSelectedScenarioIdentifier
 			}
 		}
 	}
@@ -316,6 +316,8 @@ class HealthCertificateService: HealthCertificateServiceServable {
 
 	func updatePublishersFromStore() {
 		Log.info("[HealthCertificateService] Updating publishers from store", log: .api)
+
+		lastSelectedScenarioIdentifier = store.lastSelectedScenarioIdentifier
 
 		healthCertifiedPersons = store.healthCertifiedPersons
 		initialHealthCertifiedPersonsReadFromStore = true
