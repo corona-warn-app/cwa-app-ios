@@ -605,7 +605,7 @@ class HealthCertificateMigratorTests: XCTestCase {
 					standardizedGivenName: "ARMIN"
 				),
 				dateOfBirth: "1966-11-16",
-				recoveryEntries: [.fake(certificateValidFrom: "2022-01-03")]
+				recoveryEntries: [.fake(dateOfFirstPositiveNAAResult: "2022-01-03")]
 			)
 		)
 	}
