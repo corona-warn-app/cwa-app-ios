@@ -37,6 +37,8 @@ protocol StoreProtocol: AnyObject {
 
 	var mostRecentDateWithRiskLevel: Date? { get set }
 
+	var showAnotherHighExposureAlert: Bool { get set }
+
 	/// Set to true whenever a risk calculation changes the risk from .high to .low
 	var shouldShowRiskStatusLoweredAlert: Bool { get set }
 

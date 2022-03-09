@@ -474,6 +474,17 @@ final class RiskProvider: RiskProviding {
 					  return
 				  }
 			triggerHighRiskNotification()
+			// store a flag so we know an alert is required
+			switch UIApplication.shared.applicationState {
+			case .active:
+				store.showAnotherHighExposureAlert = false
+			case .inactive:
+				store.showAnotherHighExposureAlert = true
+			case .background:
+				store.showAnotherHighExposureAlert = true
+			@unknown default:
+				store.showAnotherHighExposureAlert = false
+			}
 		}
 	}
 

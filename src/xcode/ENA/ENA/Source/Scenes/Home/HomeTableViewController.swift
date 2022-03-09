@@ -275,10 +275,12 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 		self.showDeltaOnboardingIfNeeded(completion: { [weak self] in
 			self?.showInformationHowRiskDetectionWorksIfNeeded(completion: {
 				self?.showBackgroundFetchAlertIfNeeded(completion: {
-					self?.showRiskStatusLoweredAlertIfNeeded(completion: {
-						self?.showQRScannerTooltipIfNeeded(completion: {  [weak self] in
-							self?.showRouteIfNeeded(completion: { [weak self] in
-								self?.deltaOnboardingIsRunning = false
+					self?.showAnotherHighExposureAlertIfNeeded(completion: {
+						self?.showRiskStatusLoweredAlertIfNeeded(completion: {
+							self?.showQRScannerTooltipIfNeeded(completion: {  [weak self] in
+								self?.showRouteIfNeeded(completion: { [weak self] in
+									self?.deltaOnboardingIsRunning = false
+								})
 							})
 						})
 					})
@@ -812,6 +814,33 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 				completion()
 			}
 		)
+	}
+
+	private func showAnotherHighExposureAlertIfNeeded(completion: @escaping () -> Void) {
+		guard viewModel.store.showAnotherHighExposureAlert else {
+			completion()
+			return
+		}
+
+		let alert = UIAlertController(
+			title: AppStrings.Home.riskStatusLoweredAlertTitle,
+			message: AppStrings.Home.riskStatusLoweredAlertMessage,
+			preferredStyle: .alert
+		)
+
+		let alertAction = UIAlertAction(
+			title: AppStrings.Home.riskStatusLoweredAlertPrimaryButtonTitle,
+			style: .default,
+			handler: { _ in
+				completion()
+			}
+		)
+		alert.addAction(alertAction)
+
+		present(alert, animated: true) { [weak self] in
+			self?.viewModel.store.showAnotherHighExposureAlert = false
+		}
+
 	}
 
 	private func showRiskStatusLoweredAlertIfNeeded(completion: @escaping () -> Void = {}) {

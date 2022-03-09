@@ -15,6 +15,7 @@ final class MockTestStore: Store, PPAnalyticsData {
 	var enfRiskCalculationResult: ENFRiskCalculationResult?
 	var checkinRiskCalculationResult: CheckinRiskCalculationResult?
 	var mostRecentDateWithRiskLevel: Date?
+	var showAnotherHighExposureAlert: Bool = false
 	var shouldShowRiskStatusLoweredAlert: Bool = false
 	var exposureActivationConsentAcceptTimestamp: Int64?
 	var exposureActivationConsentAccept: Bool = false

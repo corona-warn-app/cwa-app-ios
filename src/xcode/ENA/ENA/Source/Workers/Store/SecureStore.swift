@@ -133,6 +133,11 @@ final class SecureStore: SecureKeyValueStoring, Store, AntigenTestProfileStoring
 		set { kvStore["mostRecentDateWithRiskLevel"] = newValue }
 	}
 
+	var showAnotherHighExposureAlert: Bool {
+		get { kvStore["showAnotherHighExposureAlert"] as Bool? ?? false }
+		set { kvStore["showAnotherHighExposureAlert"] = newValue }
+	}
+
 	var shouldShowRiskStatusLoweredAlert: Bool {
 		get { kvStore["shouldShowRiskStatusLoweredAlert"] as Bool? ?? false }
 		set { kvStore["shouldShowRiskStatusLoweredAlert"] = newValue }
