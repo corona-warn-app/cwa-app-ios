@@ -10275,7 +10275,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# Provide a default environment file, if not present\n${SOURCE_ROOT}/create_default_env.sh\n";
+			shellScript = "# Provide a default environment file, if not present\n\"${SOURCE_ROOT}\"/create_default_env.sh\n";
 		};
 		71AFBD9324642AF500F91006 /* SwiftLint */ = {
 			isa = PBXShellScriptBuildPhase;
