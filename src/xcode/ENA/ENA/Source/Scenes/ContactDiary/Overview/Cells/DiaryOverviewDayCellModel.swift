@@ -24,8 +24,6 @@ final class DiaryOverviewDayCellModel {
 		self.accessibilityIdentifierIndex = accessibilityIdentifierIndex
 	}
 
-	// MARK: - Public
-
 	// MARK: - Internal
 
 	let historyExposure: HistoryExposure
