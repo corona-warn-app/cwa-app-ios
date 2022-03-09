@@ -164,7 +164,8 @@
         "ENAUITests_14_ValidateHealthCertificate",
         "ENAUITests_15_OnBehalfCheckinSubmission\/test_screenshot_OnBehalfCheckinSubmissionWithExistingTraceLocation()",
         "ENAUITests_17_FileScanner\/test_screenshot_OpenUniversalScannerAndSelectFile_CheckForSheet()",
-        "ENAUITests_19_TicketValidation\/test_screenshot_ticket_validation_firstConsent()"
+        "ENAUITests_19_TicketValidation\/test_screenshot_ticket_validation_firstConsent()",
+        "ENAUITests_20_CertificateReissuance\/test_screenshot_CertificateReissuance()"
       ],
       "target" : {
         "containerPath" : "container:ENA.xcodeproj",
