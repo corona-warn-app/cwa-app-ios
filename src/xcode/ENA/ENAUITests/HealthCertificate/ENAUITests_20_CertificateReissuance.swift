@@ -40,11 +40,7 @@ class ENAUITests_20_CertificateReissuance: CWATestCase {
 
 		// Certificate Screen
 		app.cells[AccessibilityIdentifiers.HealthCertificate.Reissuance.cell].waitAndTap()
-		snapshot("screenshot_health_certificate_reissuance_consentScreen_1")
-		app.swipeUp(velocity: .slow)
-		snapshot("screenshot_health_certificate_reissuance_consentScreen_2")
-		app.swipeUp(velocity: .slow)
-		snapshot("screenshot_health_certificate_reissuance_consentScreen_3")
+		snapshot("screenshot_health_certificate_reissuance_consentScreen")
 		
 		// Accept Consent
 		app.buttons[AccessibilityIdentifiers.General.primaryFooterButton].waitAndTap()
