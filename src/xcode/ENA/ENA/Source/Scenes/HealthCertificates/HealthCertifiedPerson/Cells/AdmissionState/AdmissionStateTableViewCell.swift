@@ -160,7 +160,8 @@ class AdmissionStateTableViewCell: UITableViewCell, UITextViewDelegate, ReuseIde
 		let unseenNewsIndicator = UIView()
 		unseenNewsIndicator.backgroundColor = .systemRed
 		unseenNewsIndicator.layer.cornerRadius = 5.5
-
+		unseenNewsIndicator.isAccessibilityElement = true
+		unseenNewsIndicator.accessibilityIdentifier = AccessibilityIdentifiers.HealthCertificate.AdmissionState.unseenNewsIndicator
 		return unseenNewsIndicator
 	}()
 
