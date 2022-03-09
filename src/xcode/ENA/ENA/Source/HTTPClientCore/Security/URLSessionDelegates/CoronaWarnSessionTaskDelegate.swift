@@ -14,16 +14,19 @@ class CoronaWarnSessionTaskDelegate: NSObject, URLSessionTaskDelegate {
 		didReceive challenge: URLAuthenticationChallenge,
 		completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Void
 	) {
-		
+		Log.info("Did receive authentication challenge.")
+
 		// If there is no trust evaluation or the trust evaluation is DisabledTrustEvaluation, perform default handling - as if this delegate were not implemented.
 		guard var trustEvaluation = trustEvaluations[task.taskIdentifier],
 			  !(trustEvaluation is DisabledTrustEvaluation) else {
+			Log.error("No trust evaluation configured. Perform default challenge handling.")
 			completionHandler(.performDefaultHandling, nil)
 			return
 		}
 		
 		// `serverTrust` not nil implies that authenticationMethod == NSURLAuthenticationMethodServerTrust
 		guard let trust = challenge.protectionSpace.serverTrust else {
+			Log.error("Abort authentication challenge. authenticationMethod NSURLAuthenticationMethodServerTrust is not supported.")
 			trustEvaluation.trustEvaluationError = .notSupportedAuthenticationMethod
 			completionHandler(.cancelAuthenticationChallenge, /* credential */ nil)
 			return
@@ -70,8 +73,6 @@ class CoronaWarnSessionTaskDelegate: NSObject, URLSessionTaskDelegate {
 				completionHandler(.cancelAuthenticationChallenge, /* credential */ nil)
 			}
 		}
-		
-		trustEvaluations[task.taskIdentifier] = nil
 	}
 	
 	// MARK: - Internal

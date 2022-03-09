@@ -1016,6 +1016,7 @@ class HealthCertificateRequestServiceTests: CWATestCase {
 			cclService: FakeCCLService(),
 			recycleBin: .fake()
 		)
+		healthCertificateService.syncSetup()
 
 		let healthCertificateRequestService = HealthCertificateRequestService(
 			store: store,
