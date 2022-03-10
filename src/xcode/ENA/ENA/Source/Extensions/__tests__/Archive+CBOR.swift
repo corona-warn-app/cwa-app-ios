@@ -15,20 +15,20 @@ extension Archive {
 		try archive.addEntry(
 			with: "export.bin",
 			type: .file,
-			uncompressedSize: UInt32(cborData.count),
+			uncompressedSize: Int64(cborData.count),
 			bufferSize: 4,
-			provider: { position, size -> Data in
-				return cborData.subdata(in: position..<position + size)
+			provider: { position, size in
+				return cborData.subdata(in: Int(position)..<Int(position) + size)
 			}
 		)
 		
 		try archive.addEntry(
 			with: "export.sig",
 			type: .file,
-			uncompressedSize: 12,
+			uncompressedSize: Int64(12),
 			bufferSize: 4,
-			provider: { position, size -> Data in
-				return Data().subdata(in: position..<position + size)
+			provider: { position, size in
+				return Data().subdata(in: Int(position)..<Int(position) + size)
 			}
 		)
 		
