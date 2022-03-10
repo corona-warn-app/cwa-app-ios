@@ -16,6 +16,7 @@ struct RiskCalculationConfiguration: Codable {
 		self.normalizedTimePerDayToRiskLevelMapping = riskCalculationParameters.normalizedTimePerDayToRiskLevelMapping.map { NormalizedTimeToRiskLevelMapping(from: $0) }
 		self.trlEncoding = TrlEncoding(from: riskCalculationParameters.trlEncoding)
 		self.transmissionRiskValueMapping = riskCalculationParameters.transmissionRiskValueMapping.map { TransmissionRiskValueMapping(from: $0) }
+		self.maxEncounterAgeInDays = riskCalculationParameters.maxEncounterAgeInDays == 0 ? 14 : riskCalculationParameters.maxEncounterAgeInDays
 	}
 
 	// MARK: - Internal
@@ -27,5 +28,5 @@ struct RiskCalculationConfiguration: Codable {
 	let normalizedTimePerDayToRiskLevelMapping: [NormalizedTimeToRiskLevelMapping]
 	let trlEncoding: TrlEncoding
 	let transmissionRiskValueMapping: [TransmissionRiskValueMapping]
-	
+	let maxEncounterAgeInDays: UInt32
 }

@@ -97,3 +97,12 @@ struct ExposureWindow: Codable, Equatable {
 		Calendar.utcCalendar.dateComponents([.day], from: date, to: now).day ?? 0
 	}
 }
+
+extension Array where Element == ExposureWindow {
+	
+	func filteredByAge(maxEncounterAgeInDays: UInt32, now: Date = Date()) -> [ExposureWindow] {
+		filter {
+			$0.age(from: now) <= maxEncounterAgeInDays
+		}
+	}
+}

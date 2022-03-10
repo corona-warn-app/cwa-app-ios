@@ -40,8 +40,10 @@ final class ENFRiskCalculation: ENFRiskCalculationProtocol, Codable {
 		configuration: RiskCalculationConfiguration
 	) -> ENFRiskCalculationResult {
 		Log.info("[RiskCalculation] Started risk calculation", log: .riskDetection)
+		
+		let windowsFilteredByAge = exposureWindows.filteredByAge(maxEncounterAgeInDays: configuration.maxEncounterAgeInDays)
 
-		mappedExposureWindows = exposureWindows
+		mappedExposureWindows = windowsFilteredByAge
 			.map { RiskCalculationExposureWindow(exposureWindow: $0, configuration: configuration) }
 
 		/// 0. Filter by `Risk Level`, `Minutes at Attenuation`, and `Transmission Risk Level`

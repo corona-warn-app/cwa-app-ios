@@ -117,6 +117,37 @@ class ExposureWindowTest: CWATestCase {
 		
 		XCTAssertEqual(age, 1)
 	}
+	
+	func test_ExposureWindow_AgeFilter() throws {
+		let windows = [
+			ExposureWindow(
+				calibrationConfidence: try XCTUnwrap(ENCalibrationConfidence(rawValue: 1)),
+				date: try XCTUnwrap(ExposureWindowTest.utcFormatter.date(from: "2022-03-09T00:00:00Z")),
+				reportType: try XCTUnwrap(ENDiagnosisReportType(rawValue: 1)),
+				infectiousness: try XCTUnwrap(ENInfectiousness(rawValue: 1)),
+				scanInstances: []
+			),
+			ExposureWindow(
+				calibrationConfidence: try XCTUnwrap(ENCalibrationConfidence(rawValue: 1)),
+				date: try XCTUnwrap(ExposureWindowTest.utcFormatter.date(from: "2022-03-10T00:00:00Z")),
+				reportType: try XCTUnwrap(ENDiagnosisReportType(rawValue: 1)),
+				infectiousness: try XCTUnwrap(ENInfectiousness(rawValue: 1)),
+				scanInstances: []
+			),
+			ExposureWindow(
+				calibrationConfidence: try XCTUnwrap(ENCalibrationConfidence(rawValue: 1)),
+				date: try XCTUnwrap(ExposureWindowTest.utcFormatter.date(from: "2022-03-11T00:00:00Z")),
+				reportType: try XCTUnwrap(ENDiagnosisReportType(rawValue: 1)),
+				infectiousness: try XCTUnwrap(ENInfectiousness(rawValue: 1)),
+				scanInstances: []
+			)
+		]
+		
+		let now = try XCTUnwrap(ExposureWindowTest.utcFormatter.date(from: "2022-03-11T13:00:00Z"))
+		// 1 of the 3 ExposureWindows is 2 days old and gets filtered by maxEncounterAgeInDays = 1
+		let filteredWindows = windows.filteredByAge(maxEncounterAgeInDays: 1, now: now)
+		XCTAssertEqual(filteredWindows.count, 2)
+	}
 
 	fileprivate static let utcFormatter: DateFormatter = {
 		let formatter = DateFormatter()
