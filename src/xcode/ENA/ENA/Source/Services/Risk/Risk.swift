@@ -20,8 +20,17 @@ struct Risk: Equatable {
 
 	let level: RiskLevel
 	let details: Details
-	let riskLevelHasChanged: Bool
 	let riskLevelChange: RiskLevelChange
+
+	var riskLevelHasChanged: Bool {
+		switch riskLevelChange {
+		case .increased, .decreased:
+			return true
+		case .unchanged:
+			return false
+		}
+	}
+
 }
 
 extension Risk {
@@ -33,14 +42,6 @@ extension Risk {
 	) {
 		Log.info("[Risk] Merging risks from ENF and checkin. Create Risk.", log: .riskDetection)
 
-		// determine if global risk level has changed
-		let riskLevelHasChanged = previousENFRiskCalculationResult?.riskLevel != nil &&
-			enfRiskCalculationResult.riskLevel != previousENFRiskCalculationResult?.riskLevel ||
-			previousCheckinCalculationResult?.riskLevel != nil &&
-			checkinCalculationResult.riskLevel != previousCheckinCalculationResult?.riskLevel
-
-		Log.debug("[Risk] riskLevelHasChanged: \(riskLevelHasChanged)", log: .riskDetection)
-		
 		// Check for each risk source (enf and checkin) if one of them got high. Only needed for PPA.
 		if previousENFRiskCalculationResult?.riskLevel == .low &&
 			enfRiskCalculationResult.riskLevel == .high {
@@ -100,18 +101,22 @@ extension Risk {
 			calculationDate: calculationDate
 		)
 
-		// determine global risk level change type
-		let riskLevelChange: RiskLevelChange
-		if riskLevelHasChanged {
-			riskLevelChange = totalRiskLevel == .high ? .increased : .decreased
-		} else {
-			riskLevelChange = .unchanged(totalRiskLevel)
-		}
+		// determine if risk level has changed
+		let riskLevelHasChanged = previousENFRiskCalculationResult?.riskLevel != nil &&
+			enfRiskCalculationResult.riskLevel != previousENFRiskCalculationResult?.riskLevel ||
+			previousCheckinCalculationResult?.riskLevel != nil &&
+			checkinCalculationResult.riskLevel != previousCheckinCalculationResult?.riskLevel
+
+		// determine global riskLevelChange
+		let riskLevelChange: RiskLevelChange = riskLevelHasChanged ?
+			totalRiskLevel == .high ? .increased : .decreased :
+			.unchanged(totalRiskLevel)
+
+		Log.debug("[Risk] riskLevelChange: \(riskLevelChange)", log: .riskDetection)
 
 		self.init(
 			level: totalRiskLevel,
 			details: details,
-			riskLevelHasChanged: riskLevelHasChanged,
 			riskLevelChange: riskLevelChange
 		)
 	}
@@ -130,7 +135,6 @@ extension Risk {
 				mostRecentDateWithRiskLevel: Date(timeIntervalSinceNow: -24 * 3600),
 				numberOfDaysWithRiskLevel: numberOfDaysWithRiskLevel,
 				calculationDate: Date()),
-			riskLevelHasChanged: true,
 			riskLevelChange: level == .high ? .increased : .decreased
 		)
 	}()
@@ -145,7 +149,6 @@ extension Risk {
 				mostRecentDateWithRiskLevel: Date(timeIntervalSinceNow: -24 * 3600),
 				numberOfDaysWithRiskLevel: numberOfDaysWithRiskLevel,
 				calculationDate: Date()),
-			riskLevelHasChanged: true,
 			riskLevelChange: riskLevelChange
 		)
 	}
