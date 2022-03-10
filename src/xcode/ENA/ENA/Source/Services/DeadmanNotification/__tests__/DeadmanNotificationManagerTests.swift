@@ -72,43 +72,6 @@ class DeadmanNotificationManagerTests: CWATestCase {
 		XCTAssertEqual(notificationCenter.notificationRequests.count, 1)
 	}
 
-	func testDeadmanNotificationIsNotScheduledIfPositiveTestResultWasShownOrKeysWereSubmitted() {
-		let coronaTestService = MockCoronaTestService()
-		coronaTestService.hasAtLeastOneShownPositiveOrSubmittedTest = true
-
-		let notificationCenter = MockUserNotificationCenter()
-
-		let manager = DeadmanNotificationManager(
-			coronaTestService: coronaTestService,
-			userNotificationCenter: notificationCenter
-		)
-
-		XCTAssertTrue(notificationCenter.notificationRequests.isEmpty)
-
-		manager.scheduleDeadmanNotificationIfNeeded()
-
-		XCTAssertTrue(notificationCenter.notificationRequests.isEmpty)
-	}
-
-	func testDeadmanNotificationIsNotRescheduledIfPositiveTestResultWasShownOrKeysWereSubmitted() {
-		let coronaTestService = MockCoronaTestService()
-		coronaTestService.hasAtLeastOneShownPositiveOrSubmittedTest = true
-
-		let notificationCenter = MockUserNotificationCenter()
-		notificationCenter.notificationRequests = [deadmanNotificationRequest]
-
-		let manager = DeadmanNotificationManager(
-			coronaTestService: coronaTestService,
-			userNotificationCenter: notificationCenter
-		)
-
-		XCTAssertFalse(notificationCenter.notificationRequests.isEmpty)
-
-		manager.resetDeadmanNotification()
-
-		XCTAssertTrue(notificationCenter.notificationRequests.isEmpty)
-	}
-
 	// MARK: - Private
 
 	private var deadmanNotificationRequest: UNNotificationRequest {

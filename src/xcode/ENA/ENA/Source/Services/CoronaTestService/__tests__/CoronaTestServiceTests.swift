@@ -55,64 +55,6 @@ class CoronaTestServiceTests: CWATestCase {
 		waitForExpectations(timeout: .short)
 	}
 
-	func testHasAtLeastOneShownPositiveOrSubmittedTest() {
-		let client = ClientMock()
-		let store = MockTestStore()
-		let appConfiguration = CachedAppConfigurationMock()
-
-		let healthCertificateService = HealthCertificateService(
-			store: store,
-			dccSignatureVerifier: DCCSignatureVerifyingStub(),
-			dscListProvider: MockDSCListProvider(),
-			appConfiguration: appConfiguration,
-			cclService: FakeCCLService(),
-			recycleBin: .fake()
-		)
-
-		let service = CoronaTestService(
-			client: client,
-			store: store,
-			eventStore: MockEventStore(),
-			diaryStore: MockDiaryStore(),
-			appConfiguration: appConfiguration,
-			healthCertificateService: healthCertificateService,
-			healthCertificateRequestService: HealthCertificateRequestService(
-				store: store,
-				client: client,
-				appConfiguration: appConfiguration,
-				healthCertificateService: healthCertificateService
-			),
-			recycleBin: .fake(),
-			badgeWrapper: .fake()
-		)
-
-		XCTAssertFalse(service.hasAtLeastOneShownPositiveOrSubmittedTest)
-
-		service.pcrTest.value = PCRTest.mock(positiveTestResultWasShown: false, keysSubmitted: false)
-		XCTAssertFalse(service.hasAtLeastOneShownPositiveOrSubmittedTest)
-
-		service.antigenTest.value = AntigenTest.mock(positiveTestResultWasShown: false, keysSubmitted: false)
-		XCTAssertFalse(service.hasAtLeastOneShownPositiveOrSubmittedTest)
-
-		service.pcrTest.value?.positiveTestResultWasShown = true
-		XCTAssertTrue(service.hasAtLeastOneShownPositiveOrSubmittedTest)
-
-		service.pcrTest.value?.positiveTestResultWasShown = false
-		service.antigenTest.value?.positiveTestResultWasShown = true
-		XCTAssertTrue(service.hasAtLeastOneShownPositiveOrSubmittedTest)
-
-		service.antigenTest.value?.positiveTestResultWasShown = false
-		service.pcrTest.value?.keysSubmitted = true
-		XCTAssertTrue(service.hasAtLeastOneShownPositiveOrSubmittedTest)
-
-		service.pcrTest.value?.keysSubmitted = false
-		service.antigenTest.value?.keysSubmitted = true
-		XCTAssertTrue(service.hasAtLeastOneShownPositiveOrSubmittedTest)
-
-		service.antigenTest.value?.keysSubmitted = false
-		XCTAssertFalse(service.hasAtLeastOneShownPositiveOrSubmittedTest)
-	}
-
 	func testOutdatedPublisherSetForAlreadyOutdatedNegativeAntigenTestWithoutSampleCollectionDate() {
 		var defaultAppConfig = CachedAppConfigurationMock.defaultAppConfiguration
 		defaultAppConfig.coronaTestParameters.coronaRapidAntigenTestParameters.hoursToDeemTestOutdated = 48
