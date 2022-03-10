@@ -83,6 +83,7 @@ class HomeCoordinator: RequiresAppDependencies {
 			viewModel: HomeTableViewModel(
 				state: homeState,
 				store: store,
+				appConfiguration: appConfigurationProvider,
 				coronaTestService: coronaTestService,
 				onTestResultCellTap: { [weak self] coronaTestType in
 					self?.showExposureSubmission(testType: coronaTestType)

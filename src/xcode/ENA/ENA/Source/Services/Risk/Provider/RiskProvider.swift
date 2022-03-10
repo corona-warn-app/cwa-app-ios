@@ -93,54 +93,6 @@ final class RiskProvider: RiskProviding {
 			return
 		}
 
-		guard !coronaTestService.hasAtLeastOneShownPositiveOrSubmittedTest else {
-			Log.info("RiskProvider: At least one registered test has an already shown positive test result or keys submitted. Don't start new risk detection.", log: .riskDetection)
-
-			// Keep downloading key packages and trace warning packages for plausible deniability
-			updateActivityState(.onlyDownloadsRequested)
-
-			downloadKeyPackages { [weak self] result in
-				guard let self = self else {
-					return
-				}
-				
-				switch result {
-				case .success:
-					self.appConfigurationProvider.appConfiguration().sink { appConfiguration in
-						self.downloadTraceWarningPackages(with: appConfiguration) { result in
-							self.updateActivityState(.idle)
-
-							// Check that the shown positive or submitted test wasn't deleted in the meantime.
-							// If it was deleted, start a new risk detection.
-							guard self.coronaTestService.hasAtLeastOneShownPositiveOrSubmittedTest else {
-								self.requestRisk(userInitiated: userInitiated, timeoutInterval: timeoutInterval)
-								return
-							}
-
-							switch result {
-							case .success:
-								// Try to obtain already calculated risk.
-								if let risk = self.previousRiskIfExistingAndNotExpired(userInitiated: userInitiated) {
-									Log.info("RiskProvider: Using risk from previous detection", log: .riskDetection)
-
-									self.successOnTargetQueue(risk: risk)
-								} else {
-									self.failOnTargetQueue(error: .deactivatedDueToActiveTest)
-								}
-							case .failure(let error):
-								self.failOnTargetQueue(error: error)
-							}
-						}
-					}.store(in: &self.subscriptions)
-				case .failure(let error):
-					Log.info("RiskProvider: Failed to download key packages", log: .riskDetection)
-					self.failOnTargetQueue(error: error)
-				}
-			}
-
-			return
-		}
-
 		queue.async {
 			self.updateActivityState(userInitiated ? .riskManuallyRequested : .riskRequested)
 			self._requestRiskLevel(userInitiated: userInitiated, timeoutInterval: timeoutInterval)

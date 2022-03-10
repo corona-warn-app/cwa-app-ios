@@ -116,11 +116,6 @@ class CoronaTestService: CoronaTestServiceProviding {
 	var pcrTestResultIsLoading = CurrentValueSubject<Bool, Never>(false)
 	var antigenTestResultIsLoading = CurrentValueSubject<Bool, Never>(false)
 
-	var hasAtLeastOneShownPositiveOrSubmittedTest: Bool {
-		pcrTest.value?.positiveTestResultWasShown == true || pcrTest.value?.keysSubmitted == true ||
-			antigenTest.value?.positiveTestResultWasShown == true || antigenTest.value?.keysSubmitted == true
-	}
-
 	func coronaTest(ofType type: CoronaTestType) -> CoronaTest? {
 		switch type {
 		case .pcr:

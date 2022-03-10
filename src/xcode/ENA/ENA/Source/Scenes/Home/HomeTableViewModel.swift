@@ -12,12 +12,14 @@ class HomeTableViewModel {
 	init(
 		state: HomeState,
 		store: Store,
+		appConfiguration: AppConfigurationProviding,
 		coronaTestService: CoronaTestServiceProviding,
 		onTestResultCellTap: @escaping (CoronaTestType?) -> Void,
 		badgeWrapper: HomeBadgeWrapper
 	) {
 		self.state = state
 		self.store = store
+		self.appConfiguration = appConfiguration
 		self.coronaTestService = coronaTestService
 		self.onTestResultCellTap = onTestResultCellTap
 		self.badgeWrapper = badgeWrapper
@@ -164,29 +166,16 @@ class HomeTableViewModel {
 
 	// MARK: - Private
 
+	private let appConfiguration: AppConfigurationProviding
 	private let onTestResultCellTap: (CoronaTestType?) -> Void
 	private let badgeWrapper: HomeBadgeWrapper
 
 	private var subscriptions = Set<AnyCancellable>()
 
-	private func showErrorIfNeeded(testType: CoronaTestType, _ error: CoronaTestServiceError) {
-		switch testType {
-			// Only show errors for corona tests that are still expecting their final test result
-		case .pcr:
-			if self.coronaTestService.pcrTest.value != nil && self.coronaTestService.pcrTest.value?.finalTestResultReceivedDate == nil {
-				self.testResultLoadingError = error
-			}
-		case .antigen:
-			if self.coronaTestService.antigenTest.value != nil && self.coronaTestService.antigenTest.value?.finalTestResultReceivedDate == nil {
-				self.testResultLoadingError = error
-			}
-		}
-	}
-
 	private var computedRiskAndTestResultsRows: [RiskAndTestResultsRow] {
 		var riskAndTestResultsRows = [RiskAndTestResultsRow]()
 
-		if !coronaTestService.hasAtLeastOneShownPositiveOrSubmittedTest {
+		if !shouldHideRiskCard {
 			riskAndTestResultsRows.append(.risk)
 		}
 
@@ -211,6 +200,41 @@ class HomeTableViewModel {
 		}
 
 		return riskAndTestResultsRows
+	}
+
+	private var shouldHideRiskCard: Bool {
+		guard state.risk?.level != .high else {
+			return false
+		}
+
+		let hoursSincePCRTestRegistrationToShowRiskCard = appConfiguration.currentAppConfig.value
+			.coronaTestParameters.coronaPcrtestParameters.hoursSinceTestRegistrationToShowRiskCard
+		let hoursSinceAntigenSampleCollectionToShowRiskCard = appConfiguration.currentAppConfig.value
+			.coronaTestParameters.coronaRapidAntigenTestParameters.hoursSinceSampleCollectionToShowRiskCard
+
+		let pcrTestShouldHideRiskCard = coronaTestService.pcrTest.value.map {
+			$0.positiveTestResultWasShown && Date().timeIntervalSince($0.registrationDate) / 3600 < Double(hoursSincePCRTestRegistrationToShowRiskCard)
+		} ?? false
+
+		let antigenTestShouldHideRiskCard = coronaTestService.antigenTest.value.map {
+			$0.positiveTestResultWasShown && Date().timeIntervalSince($0.testDate) / 3600 < Double(hoursSinceAntigenSampleCollectionToShowRiskCard)
+		} ?? false
+
+		return pcrTestShouldHideRiskCard || antigenTestShouldHideRiskCard
+	}
+
+	private func showErrorIfNeeded(testType: CoronaTestType, _ error: CoronaTestServiceError) {
+		switch testType {
+		// Only show errors for corona tests that are still expecting their final test result
+		case .pcr:
+			if self.coronaTestService.pcrTest.value != nil && self.coronaTestService.pcrTest.value?.finalTestResultReceivedDate == nil {
+				self.testResultLoadingError = error
+			}
+		case .antigen:
+			if self.coronaTestService.antigenTest.value != nil && self.coronaTestService.antigenTest.value?.finalTestResultReceivedDate == nil {
+				self.testResultLoadingError = error
+			}
+		}
 	}
 
 	private func update() {
