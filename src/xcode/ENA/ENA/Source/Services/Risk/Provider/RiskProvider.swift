@@ -434,11 +434,7 @@ final class RiskProvider: RiskProviding {
 		store.enfRiskCalculationResult = enfRiskCalculationResult
 		store.checkinRiskCalculationResult = checkinRiskCalculationResult
 
-		// most mostRecentDateWithRiskLevel is required to decide if a notification will trigger in unchanged state
-		// so we need to store new mostRecentDateWithRiskLevel after checkIfRiskLevelHasChangedForNotifications
 		checkIfRiskLevelHasChangedForNotifications(risk)
-		store.mostRecentDateWithRiskLevel = risk.details.mostRecentDateWithRiskLevel
-
 		checkIfRiskStatusLoweredAlertShouldBeShown(risk)
 		Analytics.collect(.riskExposureMetadata(.update))
 		completion(.success(risk))
@@ -471,9 +467,9 @@ final class RiskProvider: RiskProviding {
 				  let previousMostRecentDateWithRiskLevel = store.mostRecentDateWithRiskLevel,
 				  mostRecentDateWithRiskLevel > previousMostRecentDateWithRiskLevel
 			else {
-					  Log.info("Missing mostRecentDateWithRiskLevel - do not trigger anything")
-					  return
-				  }
+				Log.info("Missing mostRecentDateWithRiskLevel - do not trigger anything")
+				return
+			}
 			triggerHighRiskNotification()
 			// store a flag so we know an alert is required
 			switch UIApplication.shared.applicationState {
@@ -485,6 +481,8 @@ final class RiskProvider: RiskProviding {
 				Log.error("Unknown application state")
 			}
 		}
+		// after we notification check is done update mostRecentDateWithRiskLevel in store
+		store.mostRecentDateWithRiskLevel = risk.details.mostRecentDateWithRiskLevel
 	}
 
 	private func triggerHighRiskNotification() {
