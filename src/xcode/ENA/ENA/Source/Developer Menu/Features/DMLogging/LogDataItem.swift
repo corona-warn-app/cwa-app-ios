@@ -9,40 +9,6 @@ class LogDataItem: NSObject, UIActivityItemSource {
 
 	let compressedData: NSData
 
-
-	/// New `LogDataItem` from the given String
-	/// - Parameter logString: the log String that represents this item
-	init?(logString: String) {
-		guard
-			let archive = Archive(accessMode: .create),
-			let rawData = logString.data(using: .utf8)
-		else {
-			Log.warning("No log data to export.", log: .localData)
-			return nil
-		}
-
-		do {
-			try archive.addEntry(
-				with: "cwa-all-logs.txt",
-				type: .file,
-				uncompressedSize: Int64(logString.count),
-				compressionMethod: .deflate,
-				bufferSize: 4,
-				provider: { position, size in
-					return rawData.subdata(in: Int(position)..<Int(position) + size)
-				}
-			)
-			guard let compressed = archive.data else {
-				Log.warning("Log compression failed for unknown reasons.", log: .localData)
-				return nil
-			}
-			self.compressedData = compressed as NSData
-		} catch {
-			Log.error("Log export error", log: .localData, error: error)
-			return nil
-		}
-	}
-
 	/// New `LogDataItem` from file at given URL
 	/// - Parameter url: The file url to read. The content represents this item
 	init?(at url: URL) {

@@ -284,7 +284,8 @@ class HomeRiskCellModel: CountdownTimerDelegate {
 				iconTintColor: titleColor,
 				color: backgroundColor,
 				separatorColor: separatorColor,
-				containerInsets: nil
+				containerInsets: nil,
+				stackViewAlignment: .center
 			)
 		)
 
@@ -299,7 +300,8 @@ class HomeRiskCellModel: CountdownTimerDelegate {
 				iconTintColor: titleColor,
 				color: backgroundColor,
 				separatorColor: separatorColor,
-				containerInsets: nil
+				containerInsets: nil,
+				stackViewAlignment: .center
 			)
 			itemViewModels.append(recentRiskDaysModel)
 
@@ -311,7 +313,8 @@ class HomeRiskCellModel: CountdownTimerDelegate {
 				iconTintColor: titleColor,
 				color: backgroundColor,
 				separatorColor: separatorColor,
-				containerInsets: nil
+				containerInsets: nil,
+				stackViewAlignment: .center
 			)
 			itemViewModels.append(daysSinceInstallationModel)
 		}
@@ -327,7 +330,8 @@ class HomeRiskCellModel: CountdownTimerDelegate {
 				iconTintColor: titleColor,
 				color: backgroundColor,
 				separatorColor: separatorColor,
-				containerInsets: nil
+				containerInsets: nil,
+				stackViewAlignment: .center
 			)
 		)
 	}
@@ -371,7 +375,8 @@ class HomeRiskCellModel: CountdownTimerDelegate {
 				iconTintColor: titleColor,
 				color: backgroundColor,
 				separatorColor: separatorColor,
-				containerInsets: nil
+				containerInsets: nil,
+				stackViewAlignment: .center
 			),
 			HomeImageItemViewModel(
 				title: String(
@@ -383,7 +388,8 @@ class HomeRiskCellModel: CountdownTimerDelegate {
 				iconTintColor: titleColor,
 				color: backgroundColor,
 				separatorColor: separatorColor,
-				containerInsets: nil
+				containerInsets: nil,
+				stackViewAlignment: .center
 			),
 			HomeImageItemViewModel(
 				title: String(
@@ -395,7 +401,8 @@ class HomeRiskCellModel: CountdownTimerDelegate {
 				iconTintColor: titleColor,
 				color: backgroundColor,
 				separatorColor: separatorColor,
-				containerInsets: nil
+				containerInsets: nil,
+				stackViewAlignment: .center
 			)
 		]
 	}
@@ -430,7 +437,8 @@ class HomeRiskCellModel: CountdownTimerDelegate {
 				iconTintColor: .enaColor(for: .riskNeutral),
 				color: backgroundColor,
 				separatorColor: separatorColor,
-				containerInsets: nil
+				containerInsets: nil,
+				stackViewAlignment: .center
 			),
 			HomeImageItemViewModel(
 				title: String(
@@ -442,7 +450,8 @@ class HomeRiskCellModel: CountdownTimerDelegate {
 				iconTintColor: .enaColor(for: .riskNeutral),
 				color: backgroundColor,
 				separatorColor: separatorColor,
-				containerInsets: nil
+				containerInsets: nil,
+				stackViewAlignment: .center
 			)
 		]
 	}
@@ -477,7 +486,8 @@ class HomeRiskCellModel: CountdownTimerDelegate {
 				iconTintColor: .enaColor(for: .riskNeutral),
 				color: backgroundColor,
 				separatorColor: separatorColor,
-				containerInsets: nil
+				containerInsets: nil,
+				stackViewAlignment: .center
 			),
 			HomeImageItemViewModel(
 				title: String(
@@ -489,7 +499,8 @@ class HomeRiskCellModel: CountdownTimerDelegate {
 				iconTintColor: .enaColor(for: .riskNeutral),
 				color: backgroundColor,
 				separatorColor: separatorColor,
-				containerInsets: nil
+				containerInsets: nil,
+				stackViewAlignment: .center
 			)
 		]
 	}

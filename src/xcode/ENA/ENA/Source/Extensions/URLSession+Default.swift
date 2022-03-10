@@ -13,7 +13,7 @@ extension URLSession {
 		/// Disable certificate pinning while app is running in Community or Debug mode
 		let CoronaWarnSessionTaskDelegate: CoronaWarnSessionTaskDelegate? = nil
 		#else
-		var CoronaWarnSessionTaskDelegate = CoronaWarnSessionTaskDelegate()
+		let CoronaWarnSessionTaskDelegate = CoronaWarnSessionTaskDelegate()
 		
 		#endif
 		return URLSession(
@@ -35,7 +35,7 @@ extension URLSession {
 		var coronaWarnURLSessionDelegate: CoronaWarnURLSessionDelegate?
 		if withPinning {
 			coronaWarnURLSessionDelegate = CoronaWarnURLSessionDelegate(
-				publicKeyHash: Environments().currentEnvironment().pinningKeyHash
+				publicKeyHash: Environments().currentEnvironment().pinningKeyHashData
 			)
 		}
 

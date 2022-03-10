@@ -4,7 +4,7 @@
 
 import XCTest
 
-class ENAUITests_CertificateReissuance: CWATestCase {
+class ENAUITests_20_CertificateReissuance: CWATestCase {
 
 	// MARK: - Overrides
 
@@ -22,9 +22,9 @@ class ENAUITests_CertificateReissuance: CWATestCase {
 	
 	var app: XCUIApplication!
 	
-	// MARK: - Tests
+	// MARK: - Screenshots
 
-	func test_CertificateReissuance() throws {
+	func test_screenshot_CertificateReissuance() throws {
 		app.setLaunchArgument(LaunchArguments.healthCertificate.firstAndSecondHealthCertificate, to: true)
 		app.setLaunchArgument(LaunchArguments.infoScreen.healthCertificateInfoScreenShown, to: true)
 		app.setLaunchArgument(LaunchArguments.healthCertificate.hasCertificateReissuance, to: true)
@@ -35,17 +35,18 @@ class ENAUITests_CertificateReissuance: CWATestCase {
 
 		// Navigate to the person screen
 		app.cells[AccessibilityIdentifiers.HealthCertificate.Overview.healthCertifiedPersonCell].waitAndTap()
-		
-		app.swipeUp(velocity: .slow)
+
+		snapshot("screenshot_health_certificate_reissuance_refresh_certificate")
 
 		// Certificate Screen
 		app.cells[AccessibilityIdentifiers.HealthCertificate.Reissuance.cell].waitAndTap()
+		snapshot("screenshot_health_certificate_reissuance_consentScreen")
 		
 		// Accept Consent
 		app.buttons[AccessibilityIdentifiers.General.primaryFooterButton].waitAndTap()
 		
 		// Check if success screen is visible.
 		app.staticTexts[AccessibilityIdentifiers.HealthCertificate.Reissuance.successTitle].wait()
+		snapshot("screenshot_health_certificate_reissuance_success")
 	}
-
 }
