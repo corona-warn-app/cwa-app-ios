@@ -448,7 +448,9 @@ class HealthCertificateServiceFake: HealthCertificateServiceServable {
 	func replaceHealthCertificate(
 		oldCertificateRef: DCCCertificateReference,
 		with newHealthCertificateString: String,
-		for person: HealthCertifiedPerson) throws { }
+		for person: HealthCertifiedPerson,
+		markAsNew: Bool
+	) throws { }
 	
 }
 
@@ -459,7 +461,9 @@ class HealthCertificateServiceSpy: HealthCertificateServiceServable {
 	func replaceHealthCertificate(
 		oldCertificateRef: DCCCertificateReference,
 		with newHealthCertificateString: String,
-		for person: HealthCertifiedPerson) throws {
+		for person: HealthCertifiedPerson,
+		markAsNew: Bool
+	) throws {
 			didCallReplaceHealthCertificate = true
 	}
 	
@@ -470,7 +474,9 @@ class HealthCertificateServiceErrorStub: HealthCertificateServiceServable {
 	func replaceHealthCertificate(
 		oldCertificateRef: DCCCertificateReference,
 		with newHealthCertificateString: String,
-		for person: HealthCertifiedPerson) throws {
+		for person: HealthCertifiedPerson,
+		markAsNew: Bool
+	) throws {
 			throw FakeError.fake
 	}
 	

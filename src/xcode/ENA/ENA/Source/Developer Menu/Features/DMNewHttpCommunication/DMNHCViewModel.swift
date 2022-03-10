@@ -72,8 +72,11 @@ final class DMNHCViewModel {
 					)
 
 					let appConfig = self.appConfiguration.currentAppConfig.value
-					let publicKeyHash = appConfig.dgcParameters.reissueServicePublicKeyDigest.sha256String()
-					let trust = DefaultTrustEvaluation(publicKeyHash: publicKeyHash)
+					let publicKeyHash = appConfig.dgcParameters.reissueServicePublicKeyDigest
+					let trust = DefaultTrustEvaluation(
+						publicKeyHash: publicKeyHash,
+						certificatePosition: 0
+					)
 					let resource = DCCReissuanceResource(
 						sendModel: sendModel,
 						trustEvaluation: trust
