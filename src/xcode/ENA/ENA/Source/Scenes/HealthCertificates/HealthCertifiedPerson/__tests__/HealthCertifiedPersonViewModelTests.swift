@@ -61,6 +61,51 @@ class HealthCertifiedPersonViewModelTests: XCTestCase {
 		XCTAssertEqual(HealthCertifiedPersonViewModel.TableViewSection.map(6), .certificates)
 	}
 
+	func testGIVEN_HealthCertifiedPersonViewModel_WHEN_mostRelevantCertificate_THEN_orderIsCorrect() throws {
+		// GIVEN
+		let store = MockTestStore()
+		let cclService = FakeCCLService()
+		let service = HealthCertificateService(
+			store: store,
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
+			dscListProvider: MockDSCListProvider(),
+			appConfiguration: CachedAppConfigurationMock(),
+			cclService: cclService,
+			recycleBin: .fake()
+		)
+
+		let recoveryCertificate = try recoveryCertificate(daysOffset: -5)
+		let boosterVaccination = try vaccinationCertificate(daysOffset: -15, doseNumber: 3, totalSeriesOfDoses: 3)
+		let secondVaccinationCertificate = try vaccinationCertificate(daysOffset: -90, doseNumber: 2, totalSeriesOfDoses: 2)
+		let firstVaccinationCertificate = try vaccinationCertificate(daysOffset: -120, doseNumber: 1, totalSeriesOfDoses: 2)
+		
+		let healthCertifiedPerson = HealthCertifiedPerson(healthCertificates: [recoveryCertificate, firstVaccinationCertificate, secondVaccinationCertificate, boosterVaccination])
+		
+		healthCertifiedPerson.dccWalletInfo = .fake(
+			mostRelevantCertificate: .fake(
+				certificateRef: .fake(barcodeData: boosterVaccination.base45)
+			)
+		)
+
+		let viewModel = HealthCertifiedPersonViewModel(
+			cclService: cclService,
+			healthCertificateService: service,
+			healthCertifiedPerson: healthCertifiedPerson,
+			healthCertificateValueSetsProvider: VaccinationValueSetsProvider(client: CachingHTTPClientMock(), store: MockTestStore()),
+			dismiss: {},
+			didTapBoosterNotification: { _ in },
+			didTapValidationButton: { _, _ in },
+			showInfoHit: { },
+			didTapCertificateReissuance: { _ in }
+		)
+		
+		let healthCertificates = (0..<viewModel.healthCertifiedPerson.healthCertificates.count).map { viewModel.healthCertificate(for: IndexPath(row: $0, section: HealthCertifiedPersonViewModel.TableViewSection.certificates.rawValue)) }
+		
+		// THEN
+		XCTAssertEqual(viewModel.numberOfItems(in: .certificates), 4)
+		XCTAssertEqual(healthCertificates, [boosterVaccination, recoveryCertificate, secondVaccinationCertificate, firstVaccinationCertificate])
+	}
+	
 	func testGIVEN_HealthCertifiedPersonViewModel_WHEN_qrCodeCellViewModel_THEN_noFatalError() throws {
 		// GIVEN
 		let store = MockTestStore()
@@ -98,7 +143,7 @@ class HealthCertifiedPersonViewModelTests: XCTestCase {
 		XCTAssertEqual(healthCertificateCellViewModel.gradientType, .lightBlue)
 		XCTAssertEqual(healthCertificate.name.fullName, "Erika Dörte Schmitt Mustermann")
 	}
-
+	
 	func testHeightForFooter() throws {
 		// GIVEN
 		let store = MockTestStore()
