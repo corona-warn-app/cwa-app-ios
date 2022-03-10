@@ -842,7 +842,7 @@ class HealthCertifiedPersonCellModelTests: XCTestCase {
 		XCTAssertEqual(cellModel.shortStatus, "2G+Y")
 	}
 
-	func testThirdCertificateIsNotShown() throws {
+	func testAdmissionStateWithBadgeAndThreeCertificatesToShow() throws {
 		let twoGCertificate = try vaccinationCertificate(daysOffset: -1, doseNumber: 2, totalSeriesOfDoses: 2)
 		let testCertificate = try testCertificate(daysOffset: -1, type: .antigen)
 		let thirdCertificate = try vaccinationCertificate(daysOffset: -5, doseNumber: 1, totalSeriesOfDoses: 2)
@@ -882,7 +882,57 @@ class HealthCertifiedPersonCellModelTests: XCTestCase {
 		XCTAssertTrue(cellModel.isStatusTitleVisible)
 		XCTAssertEqual(
 			cellModel.switchableHealthCertificates,
-			["2G-Zertifikat": twoGCertificate, "Testzertifikat": testCertificate]
+			["2G-Zertifikat": twoGCertificate, "Testzertifikat": testCertificate, "Drittes Zertifikat": thirdCertificate]
+		)
+		XCTAssertEqual(cellModel.shortStatus, "2G+Y")
+	}
+
+	func testFourthCertificateIsNotShown() throws {
+		let twoGCertificate = try vaccinationCertificate(daysOffset: -1, doseNumber: 2, totalSeriesOfDoses: 2)
+		let testCertificate = try testCertificate(daysOffset: -1, type: .antigen)
+		let thirdCertificate = try vaccinationCertificate(daysOffset: -5, doseNumber: 1, totalSeriesOfDoses: 2)
+		let fourthCertificate = try vaccinationCertificate(daysOffset: -16, doseNumber: 0, totalSeriesOfDoses: 2)
+
+		let healthCertifiedPerson = HealthCertifiedPerson(healthCertificates: [twoGCertificate, testCertificate, thirdCertificate, fourthCertificate])
+		healthCertifiedPerson.dccWalletInfo = .fake(
+			admissionState: .fake(visible: true, badgeText: .fake(string: "2G+Y")),
+			verification: .fake(
+				certificates: [
+					.fake(
+						buttonText: .fake(string: "2G-Zertifikat"),
+						certificateRef: .fake(barcodeData: twoGCertificate.base45)
+					),
+					.fake(
+						buttonText: .fake(string: "Testzertifikat"),
+						certificateRef: .fake(barcodeData: testCertificate.base45)
+					),
+					.fake(
+						buttonText: .fake(string: "Drittes Zertifikat"),
+						certificateRef: .fake(barcodeData: thirdCertificate.base45)
+					),
+					.fake(
+						buttonText: .fake(string: "Viertes Zertifikat"),
+						certificateRef: .fake(barcodeData: fourthCertificate.base45)
+					)
+				]
+			)
+		)
+
+		let cclService = FakeCCLService()
+
+		let cellModel = try XCTUnwrap(
+			HealthCertifiedPersonCellModel(
+				healthCertifiedPerson: healthCertifiedPerson,
+				cclService: cclService,
+				onCovPassCheckInfoButtonTap: { }
+			)
+		)
+
+		XCTAssertEqual(cellModel.qrCodeViewModel.covPassCheckInfoPosition, .bottom)
+		XCTAssertTrue(cellModel.isStatusTitleVisible)
+		XCTAssertEqual(
+			cellModel.switchableHealthCertificates,
+			["2G-Zertifikat": twoGCertificate, "Testzertifikat": testCertificate, "Drittes Zertifikat": thirdCertificate]
 		)
 		XCTAssertEqual(cellModel.shortStatus, "2G+Y")
 	}
