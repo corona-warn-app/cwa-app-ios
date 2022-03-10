@@ -8,6 +8,15 @@ import OpenCombine
 #if !RELEASE
 
 final class MockTestStore: Store, PPAnalyticsData {
+
+	init() {
+#if DEBUG
+		if isUITesting {
+			self.showAnotherHighExposureAlert = LaunchArguments.risk.anotherHightEncounter.boolValue
+		}
+#endif
+	}
+
 	var firstPlaybookExecution: Date?
 	var lastBackgroundFakeRequest: Date = .init()
 	var hasSeenBackgroundFetchAlert: Bool = false

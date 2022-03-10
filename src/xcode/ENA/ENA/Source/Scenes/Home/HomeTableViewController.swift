@@ -836,6 +836,7 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 			}
 		)
 		alert.addAction(alertAction)
+		alertAction.accessibilityIdentifier = AccessibilityIdentifiers.Home.Alerts.anotherHighExposureButtonOK
 
 		present(alert, animated: true) { [weak self] in
 			self?.viewModel.store.showAnotherHighExposureAlert = false

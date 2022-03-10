@@ -64,6 +64,8 @@ enum LaunchArguments {
 		static let numberOfDaysWithRiskLevel = LaunchArgument(name: "numberOfDaysWithRiskLevel")
 		/// Set the level of risk for checkin
 		static let checkinRiskLevel = LaunchArgument(name: "checkinRiskLevel")
+		/// set bool for anotherHighEncounterAlert
+		static let anotherHightEncounter = LaunchArgument(name: "anotherHightEncounter")
 	}
 	
 	enum exposureSubmission {
