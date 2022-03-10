@@ -21,8 +21,7 @@ final class RiskProvider: RiskProviding {
 		checkinRiskCalculation: CheckinRiskCalculationProtocol,
 		keyPackageDownload: KeyPackageDownloadProtocol,
 		traceWarningPackageDownload: TraceWarningPackageDownloading,
-		exposureDetectionExecutor: ExposureDetectionDelegate,
-		coronaTestService: CoronaTestServiceProviding
+		exposureDetectionExecutor: ExposureDetectionDelegate
 	) {
 		self.riskProvidingConfiguration = configuration
 		self.store = store
@@ -34,7 +33,6 @@ final class RiskProvider: RiskProviding {
 		self.keyPackageDownload = keyPackageDownload
 		self.traceWarningPackageDownload = traceWarningPackageDownload
 		self.exposureDetectionExecutor = exposureDetectionExecutor
-		self.coronaTestService = coronaTestService
 		self.keyPackageDownloadStatus = .idle
 		self.traceWarningDownloadStatus = .idle
 		self.rateLimitLogger = RateLimitLogger(store: store)
@@ -109,8 +107,7 @@ final class RiskProvider: RiskProviding {
 	private let enfRiskCalculation: ENFRiskCalculationProtocol
 	private let checkinRiskCalculation: CheckinRiskCalculationProtocol
 	private let exposureDetectionExecutor: ExposureDetectionDelegate
-	private let coronaTestService: CoronaTestServiceProviding
-	
+
 	private let queue = DispatchQueue(label: "com.sap.RiskProvider")
 	private let consumersQueue = DispatchQueue(label: "com.sap.RiskProvider.consumer")
 
@@ -392,7 +389,7 @@ final class RiskProvider: RiskProviding {
 		completion(.success(risk))
 
 		/// We were able to calculate a risk so we have to reset the DeadMan Notification
-		DeadmanNotificationManager(coronaTestService: coronaTestService).resetDeadmanNotification()
+		DeadmanNotificationManager().resetDeadmanNotification()
 	}
 	
 

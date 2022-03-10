@@ -48,8 +48,7 @@ final class RiskProviderError13Tests: CWATestCase {
 			checkinRiskCalculation: CheckinRiskCalculationFake(),
 			keyPackageDownload: makeKeyPackageDownloadMock(with: store),
 			traceWarningPackageDownload: makeTraceWarningPackageDownloadMock(with: store, appConfig: appConfig),
-			exposureDetectionExecutor: exposureDetectionDelegateStub,
-			coronaTestService: MockCoronaTestService()
+			exposureDetectionExecutor: exposureDetectionDelegateStub
 		)
 
 		let consumer = RiskConsumer()
@@ -124,8 +123,7 @@ final class RiskProviderError13Tests: CWATestCase {
 			checkinRiskCalculation: CheckinRiskCalculationFake(),
 			keyPackageDownload: makeKeyPackageDownloadMock(with: store),
 			traceWarningPackageDownload: makeTraceWarningPackageDownloadMock(with: store, appConfig: appConfig),
-			exposureDetectionExecutor: exposureDetectionDelegateStub,
-			coronaTestService: MockCoronaTestService()
+			exposureDetectionExecutor: exposureDetectionDelegateStub
 		)
 
 		let consumer = RiskConsumer()
@@ -201,8 +199,7 @@ final class RiskProviderError13Tests: CWATestCase {
 			checkinRiskCalculation: CheckinRiskCalculationFake(),
 			keyPackageDownload: makeKeyPackageDownloadMock(with: store),
 			traceWarningPackageDownload: makeTraceWarningPackageDownloadMock(with: store, appConfig: appConfig),
-			exposureDetectionExecutor: exposureDetectionDelegateStub,
-			coronaTestService: MockCoronaTestService()
+			exposureDetectionExecutor: exposureDetectionDelegateStub
 		)
 
 		let consumer = RiskConsumer()
@@ -277,8 +274,7 @@ final class RiskProviderError13Tests: CWATestCase {
 			checkinRiskCalculation: CheckinRiskCalculationFake(),
 			keyPackageDownload: makeKeyPackageDownloadMock(with: store),
 			traceWarningPackageDownload: makeTraceWarningPackageDownloadMock(with: store, appConfig: appConfig),
-			exposureDetectionExecutor: exposureDetectionDelegateStub,
-			coronaTestService: MockCoronaTestService()
+			exposureDetectionExecutor: exposureDetectionDelegateStub
 		)
 
 		let consumer = RiskConsumer()

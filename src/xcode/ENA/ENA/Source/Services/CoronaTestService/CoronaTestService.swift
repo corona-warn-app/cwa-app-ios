@@ -557,7 +557,7 @@ class CoronaTestService: CoronaTestServiceProviding {
 		}
 
 		warnOthersReminder.cancelNotifications(for: coronaTestType)
-		DeadmanNotificationManager(coronaTestService: self).resetDeadmanNotification()
+		DeadmanNotificationManager().resetDeadmanNotification()
 	}
 
 	func evaluateShowingTest(ofType coronaTestType: CoronaTestType) {
@@ -990,7 +990,7 @@ class CoronaTestService: CoronaTestServiceProviding {
 
 	private func scheduleWarnOthersNotificationIfNeeded(coronaTestType: CoronaTestType) {
 		if let coronaTest = coronaTest(ofType: coronaTestType), coronaTest.positiveTestResultWasShown {
-			DeadmanNotificationManager(coronaTestService: self).resetDeadmanNotification()
+			DeadmanNotificationManager().resetDeadmanNotification()
 
 			if !coronaTest.isSubmissionConsentGiven, !coronaTest.keysSubmitted {
 				warnOthersReminder.scheduleNotifications(for: coronaTestType)

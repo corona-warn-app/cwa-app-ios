@@ -12,7 +12,6 @@ class DeadmanNotificationManagerTests: CWATestCase {
 		let notificationCenter = MockUserNotificationCenter()
 
 		let manager = DeadmanNotificationManager(
-			coronaTestService: MockCoronaTestService(),
 			userNotificationCenter: notificationCenter
 		)
 
@@ -45,7 +44,6 @@ class DeadmanNotificationManagerTests: CWATestCase {
 		notificationCenter.notificationRequests = [deadmanNotificationRequest]
 
 		let manager = DeadmanNotificationManager(
-			coronaTestService: MockCoronaTestService(),
 			userNotificationCenter: notificationCenter
 		)
 
@@ -61,7 +59,6 @@ class DeadmanNotificationManagerTests: CWATestCase {
 		notificationCenter.notificationRequests = [deadmanNotificationRequest]
 
 		let manager = DeadmanNotificationManager(
-			coronaTestService: MockCoronaTestService(),
 			userNotificationCenter: notificationCenter
 		)
 
