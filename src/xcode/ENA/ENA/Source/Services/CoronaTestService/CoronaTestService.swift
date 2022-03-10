@@ -657,6 +657,10 @@ class CoronaTestService: CoronaTestServiceProviding {
 		return healthTuple
 	}
 
+	func addCoronaTestToContactDiary(testDate: String, testType: Int, testResult: Int) {
+		diaryStore.addCoronaTest(testDate: testDate, testType: testType, testResult: testResult)
+	}
+	
 	// MARK: - Private
 
 	private let client: Client
