@@ -85,5 +85,45 @@ class ExposureWindowTest: CWATestCase {
 
 		XCTAssertEqual(exposureWindow.scanInstances.count, 1)
 	}
+	
+	func test_Age_Todays_ExposureWindow() throws {
+		let windowDate = try XCTUnwrap(ExposureWindowTest.utcFormatter.date(from: "2022-03-10T00:00:00Z"))
+		let todayDate = try XCTUnwrap(ExposureWindowTest.utcFormatter.date(from: "2022-03-10T13:00:00Z"))
+		let window = ExposureWindow(
+			calibrationConfidence: try XCTUnwrap(ENCalibrationConfidence(rawValue: 1)),
+			date: windowDate,
+			reportType: try XCTUnwrap(ENDiagnosisReportType(rawValue: 1)),
+			infectiousness: try XCTUnwrap(ENInfectiousness(rawValue: 1)),
+			scanInstances: []
+		)
+		
+		let age = window.age(from: todayDate)
+		
+		XCTAssertEqual(age, 0)
+	}
+	
+	func test_Age_Yesterdays_ExposureWindow() throws {
+		let windowDate = try XCTUnwrap(ExposureWindowTest.utcFormatter.date(from: "2022-03-09T00:00:00Z"))
+		let todayDate = try XCTUnwrap(ExposureWindowTest.utcFormatter.date(from: "2022-03-10T13:00:00Z"))
+		let window = ExposureWindow(
+			calibrationConfidence: try XCTUnwrap(ENCalibrationConfidence(rawValue: 1)),
+			date: windowDate,
+			reportType: try XCTUnwrap(ENDiagnosisReportType(rawValue: 1)),
+			infectiousness: try XCTUnwrap(ENInfectiousness(rawValue: 1)),
+			scanInstances: []
+		)
+		
+		let age = window.age(from: todayDate)
+		
+		XCTAssertEqual(age, 1)
+	}
 
+	fileprivate static let utcFormatter: DateFormatter = {
+		let formatter = DateFormatter()
+		formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss'Z'"
+		formatter.timeZone = TimeZone(abbreviation: "UTC")
+		formatter.locale = Locale(identifier: "en_US_POSIX")
+		formatter.calendar = Calendar(identifier: .gregorian)
+		return formatter
+	}()
 }
