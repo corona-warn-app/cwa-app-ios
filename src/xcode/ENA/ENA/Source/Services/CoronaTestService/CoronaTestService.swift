@@ -172,6 +172,7 @@ class CoronaTestService: CoronaTestServiceProviding {
 						submissionTAN: nil,
 						keysSubmitted: false,
 						journalEntryCreated: false,
+						certificateSupportedByPointOfCare: true,
 						certificateConsentGiven: certificateConsentGiven,
 						certificateRequested: false
 					)
@@ -229,6 +230,7 @@ class CoronaTestService: CoronaTestServiceProviding {
 						submissionTAN: nil,
 						keysSubmitted: false,
 						journalEntryCreated: false,
+						certificateSupportedByPointOfCare: true,
 						certificateConsentGiven: false,
 						certificateRequested: false
 					)
@@ -396,6 +398,7 @@ class CoronaTestService: CoronaTestServiceProviding {
 						submissionTAN: nil,
 						keysSubmitted: false,
 						journalEntryCreated: false,
+						certificateSupportedByPointOfCare: certificateSupportedByPointOfCare,
 						certificateConsentGiven: certificateConsentGiven,
 						certificateRequested: false
 					)
@@ -622,6 +625,7 @@ class CoronaTestService: CoronaTestServiceProviding {
 				submissionTAN: store.tan,
 				keysSubmitted: keysSubmitted,
 				journalEntryCreated: false,
+				certificateSupportedByPointOfCare: true,
 				certificateConsentGiven: false,
 				certificateRequested: false
 			)
@@ -1103,6 +1107,7 @@ class CoronaTestService: CoronaTestServiceProviding {
 				submissionTAN: nil,
 				keysSubmitted: LaunchArguments.test.pcr.keysSubmitted.boolValue,
 				journalEntryCreated: false,
+				certificateSupportedByPointOfCare: true,
 				certificateConsentGiven: false,
 				certificateRequested: false
 			)
