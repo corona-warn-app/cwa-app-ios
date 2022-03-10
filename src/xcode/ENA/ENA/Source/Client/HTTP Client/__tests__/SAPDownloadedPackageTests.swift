@@ -86,12 +86,12 @@ final class SAPDownloadedPackageTests: CWATestCase {
 		let someData = try XCTUnwrap("Some string!".data(using: .utf8))
 		let archive = try XCTUnwrap(Archive(accessMode: .create))
 
-		try archive.addEntry(with: "export.bin", type: .file, uncompressedSize: 12, bufferSize: 4, provider: { position, size -> Data in
-			return someData.subdata(in: position..<position + size)
+		try archive.addEntry(with: "export.bin", type: .file, uncompressedSize: Int64(12), bufferSize: 4, provider: { position, size in
+			return someData.subdata(in: Int(position)..<Int(position) + size)
 		})
 
-		try archive.addEntry(with: "export.sig", type: .file, uncompressedSize: 12, bufferSize: 4, provider: { position, size -> Data in
-			return someData.subdata(in: position..<position + size)
+		try archive.addEntry(with: "export.sig", type: .file, uncompressedSize: Int64(12), bufferSize: 4, provider: { position, size in
+			return someData.subdata(in: Int(position)..<Int(position) + size)
 		})
 		let archiveData = archive.data ?? Data()
 
@@ -102,8 +102,8 @@ final class SAPDownloadedPackageTests: CWATestCase {
 		let someData = try XCTUnwrap("Some string!".data(using: .utf8))
 		let archive = try XCTUnwrap(Archive(accessMode: .create))
 
-		try archive.addEntry(with: "export.bin", type: .file, uncompressedSize: 12, bufferSize: 4, provider: { position, size -> Data in
-			return someData.subdata(in: position..<position + size)
+		try archive.addEntry(with: "export.bin", type: .file, uncompressedSize: Int64(12), bufferSize: 4, provider: { position, size in
+			return someData.subdata(in: Int(position)..<Int(position) + size)
 		})
 		let archiveData = archive.data ?? Data()
 
@@ -114,8 +114,8 @@ final class SAPDownloadedPackageTests: CWATestCase {
 		let someData = try XCTUnwrap("Some string!".data(using: .utf8))
 		let archive = try XCTUnwrap(Archive(accessMode: .create))
 
-		try archive.addEntry(with: "export.sig", type: .file, uncompressedSize: 12, bufferSize: 4, provider: { position, size -> Data in
-			return someData.subdata(in: position..<position + size)
+		try archive.addEntry(with: "export.sig", type: .file, uncompressedSize: Int64(12), bufferSize: 4, provider: { position, size in
+			return someData.subdata(in: Int(position)..<Int(position) + size)
 		})
 		let archiveData = archive.data ?? Data()
 
