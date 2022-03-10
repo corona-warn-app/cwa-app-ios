@@ -11,7 +11,7 @@ class CCLConfigurationResource: Resource {
 	init(
 		isFake: Bool = false,
 		trustEvaluation: TrustEvaluating = DefaultTrustEvaluation(
-			publicKeyHash: Environments().currentEnvironment().pinningKeyHash
+			publicKeyHash: Environments().currentEnvironment().pinningKeyHashData
 		)
 	) {
 		self.type = .caching(

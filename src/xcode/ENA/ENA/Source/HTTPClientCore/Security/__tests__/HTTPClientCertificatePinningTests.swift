@@ -10,7 +10,7 @@ class HTTPClientCertificatePinningTests: CWATestCase {
 	/// Testing ~~certificate~~ public key pinning mechanism on a valid and invalid host.
     func testPinning() throws {
 		let coronaWarnURLSessionDelegate = CoronaWarnURLSessionDelegate(
-			publicKeyHash: "f30c3959de6b062374f037c505fb3864e1b0678086252ab457ddd97c729d06ab"
+			publicKeyHash: "f30c3959de6b062374f037c505fb3864e1b0678086252ab457ddd97c729d06ab".dataWithHexString()
 		)
 		let session = URLSession(
 			configuration: .coronaWarnSessionConfiguration(),
@@ -70,7 +70,7 @@ class HTTPClientCertificatePinningTests: CWATestCase {
 		]
 
 		let coronaWarnURLSessionDelegate = CoronaWarnURLSessionDelegate(
-			publicKeyHash: "f30c3959de6b062374f037c505fb3864e1b0678086252ab457ddd97c729d06ab"
+			publicKeyHash: "f30c3959de6b062374f037c505fb3864e1b0678086252ab457ddd97c729d06ab".dataWithHexString()
 		)
 		let session = URLSession(
 			configuration: .coronaWarnSessionConfiguration(),
