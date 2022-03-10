@@ -171,6 +171,10 @@ final class DiaryOverviewDayCellModel {
 		diaryDay.formattedDate
 	}
 
+	var dateAccessibilityIdentifier: String {
+		return AccessibilityIdentifiers.ContactDiaryInformation.Overview.cellDateHeader
+	}
+
 	var diaryDayTests: [DiaryDayTest] {
 		return diaryDay.tests
 	}
