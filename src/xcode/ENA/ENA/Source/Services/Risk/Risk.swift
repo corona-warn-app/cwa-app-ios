@@ -116,7 +116,8 @@ extension Risk {
 	)
 
 	static func mocked(
-		level: RiskLevel = .low) -> Risk {
+		level: RiskLevel = .low
+	) -> Risk {
 		Risk(
 			level: level,
 			details: Risk.Details(

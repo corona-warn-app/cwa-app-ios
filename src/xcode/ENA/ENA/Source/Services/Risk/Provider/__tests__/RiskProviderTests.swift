@@ -347,17 +347,8 @@ class RiskProviderTests: CWATestCase {
 		))
 		
 		let store = MockTestStore()
-		store.enfRiskCalculationResult = ENFRiskCalculationResult(
-			riskLevel: .low,
-			minimumDistinctEncountersWithLowRisk: 0,
-			minimumDistinctEncountersWithHighRisk: 0,
-			mostRecentDateWithLowRisk: nil,
-			mostRecentDateWithHighRisk: nil,
-			numberOfDaysWithLowRisk: 0,
-			numberOfDaysWithHighRisk: 0,
-			calculationDate: lastExposureDetectionDate,
-			riskLevelPerDate: [:],
-			minimumDistinctEncountersWithHighRiskPerDate: [:]
+		store.enfRiskCalculationResult = .fake(
+			calculationDate: lastExposureDetectionDate
 		)
 		store.checkinRiskCalculationResult = CheckinRiskCalculationResult(
 			calculationDate: Date(),
@@ -579,77 +570,6 @@ class RiskProviderTests: CWATestCase {
 		
 		sut.observeRisk(consumer)
 		sut.requestRisk(userInitiated: true)
-		
-		waitForExpectations(timeout: .medium)
-		
-		XCTAssertEqual(receivedActivityStates, expectedActivityStates)
-	}
-
-	func testThatDetectionIsNotRequestedIfPositiveTestResultWasShownOrKeysWereSubmitted() throws {
-		let duration = DateComponents(day: 1)
-		
-		let store = MockTestStore()
-		store.enfRiskCalculationResult = nil
-
-		let coronaTestService = MockCoronaTestService()
-		coronaTestService.hasAtLeastOneShownPositiveOrSubmittedTest = true
-		
-		let config = RiskProvidingConfiguration(
-			exposureDetectionValidityDuration: duration,
-			exposureDetectionInterval: duration
-		)
-		
-		let exposureDetectionDelegateStub = ExposureDetectionDelegateStub(result: .success([MutableENExposureWindow()]))
-		let appConfig = CachedAppConfigurationMock(with: SAP_Internal_V2_ApplicationConfigurationIOS())
-		
-		let riskProvider = RiskProvider(
-			configuration: config,
-			store: store,
-			appConfigurationProvider: appConfig,
-			exposureManagerState: .init(authorized: true, enabled: true, status: .active),
-			enfRiskCalculation: ENFRiskCalculationFake(),
-			checkinRiskCalculation: CheckinRiskCalculationFake(),
-			keyPackageDownload: makeKeyPackageDownloadMock(with: store),
-			traceWarningPackageDownload: makeTraceWarningPackageDownloadMock(with: store, appConfig: appConfig),
-			exposureDetectionExecutor: exposureDetectionDelegateStub,
-			coronaTestService: coronaTestService
-		)
-		
-		let consumer = RiskConsumer()
-		
-		let didCalculateRiskExpectation = expectation(description: "expect didCalculateRisk not to be called")
-		didCalculateRiskExpectation.isInverted = true
-		
-		let didFailCalculateRiskExpectation = expectation(description: "expect didFailCalculateRisk to be called")
-		
-		let expectedActivityStates: [RiskProviderActivityState] = [.onlyDownloadsRequested, .downloading, .idle]
-		let didChangeActivityStateExpectation = expectation(description: "expect didChangeActivityState to be called")
-		didChangeActivityStateExpectation.expectedFulfillmentCount = expectedActivityStates.count
-		
-		consumer.didCalculateRisk = { _ in
-			didCalculateRiskExpectation.fulfill()
-		}
-		
-		consumer.didFailCalculateRisk = { error in
-			// Make sure that exposure windows where NOT requested.
-			XCTAssertFalse(exposureDetectionDelegateStub.exposureWindowsWereDetected)
-			
-			guard case .deactivatedDueToActiveTest = error else {
-				XCTFail("deactivatedDueToActiveTest error expected.")
-				didFailCalculateRiskExpectation.fulfill()
-				return
-			}
-			didFailCalculateRiskExpectation.fulfill()
-		}
-		
-		var receivedActivityStates = [RiskProviderActivityState]()
-		consumer.didChangeActivityState = {
-			receivedActivityStates.append($0)
-			didChangeActivityStateExpectation.fulfill()
-		}
-		
-		riskProvider.observeRisk(consumer)
-		riskProvider.requestRisk(userInitiated: true)
 		
 		waitForExpectations(timeout: .medium)
 		
@@ -910,17 +830,10 @@ class RiskProviderTests: CWATestCase {
 		let today = Calendar.utcCalendar.startOfDay(for: Date())
 		let previousRiskLevelPerDate = [today: previousRiskLevel]
 		
-		store.enfRiskCalculationResult = ENFRiskCalculationResult(
+		store.enfRiskCalculationResult = .fake(
 			riskLevel: previousRiskLevel,
-			minimumDistinctEncountersWithLowRisk: 0,
-			minimumDistinctEncountersWithHighRisk: 0,
-			mostRecentDateWithLowRisk: nil,
-			mostRecentDateWithHighRisk: nil,
-			numberOfDaysWithLowRisk: 0,
-			numberOfDaysWithHighRisk: 0,
 			calculationDate: lastExposureDetectionDate,
-			riskLevelPerDate: previousRiskLevelPerDate,
-			minimumDistinctEncountersWithHighRiskPerDate: [:]
+			riskLevelPerDate: previousRiskLevelPerDate
 		)
 		
 		store.checkinRiskCalculationResult = CheckinRiskCalculationResult(
@@ -979,17 +892,8 @@ class RiskProviderTests: CWATestCase {
 		))
 		
 		let store = MockTestStore()
-		store.enfRiskCalculationResult = ENFRiskCalculationResult(
-			riskLevel: .low,
-			minimumDistinctEncountersWithLowRisk: 0,
-			minimumDistinctEncountersWithHighRisk: 0,
-			mostRecentDateWithLowRisk: nil,
-			mostRecentDateWithHighRisk: nil,
-			numberOfDaysWithLowRisk: 0,
-			numberOfDaysWithHighRisk: 0,
-			calculationDate: lastExposureDetectionDate,
-			riskLevelPerDate: [:],
-			minimumDistinctEncountersWithHighRiskPerDate: [:]
+		store.enfRiskCalculationResult = .fake(
+			calculationDate: lastExposureDetectionDate
 		)
 		store.checkinRiskCalculationResult = CheckinRiskCalculationResult(
 			calculationDate: Date(),
@@ -1067,17 +971,8 @@ class RiskProviderTests: CWATestCase {
 		))
 		
 		let store = MockTestStore()
-		store.enfRiskCalculationResult = ENFRiskCalculationResult(
-			riskLevel: .low,
-			minimumDistinctEncountersWithLowRisk: 0,
-			minimumDistinctEncountersWithHighRisk: 0,
-			mostRecentDateWithLowRisk: nil,
-			mostRecentDateWithHighRisk: nil,
-			numberOfDaysWithLowRisk: 0,
-			numberOfDaysWithHighRisk: 0,
-			calculationDate: lastExposureDetectionDate,
-			riskLevelPerDate: [:],
-			minimumDistinctEncountersWithHighRiskPerDate: [:]
+		store.enfRiskCalculationResult = .fake(
+			calculationDate: lastExposureDetectionDate
 		)
 		store.checkinRiskCalculationResult = CheckinRiskCalculationResult(
 			calculationDate: Date(),
@@ -1153,17 +1048,8 @@ class RiskProviderTests: CWATestCase {
 		))
 		
 		let store = MockTestStore()
-		store.enfRiskCalculationResult = ENFRiskCalculationResult(
-			riskLevel: .low,
-			minimumDistinctEncountersWithLowRisk: 0,
-			minimumDistinctEncountersWithHighRisk: 0,
-			mostRecentDateWithLowRisk: nil,
-			mostRecentDateWithHighRisk: nil,
-			numberOfDaysWithLowRisk: 0,
-			numberOfDaysWithHighRisk: 0,
-			calculationDate: lastExposureDetectionDate,
-			riskLevelPerDate: [:],
-			minimumDistinctEncountersWithHighRiskPerDate: [:]
+		store.enfRiskCalculationResult = .fake(
+			calculationDate: lastExposureDetectionDate
 		)
 		store.checkinRiskCalculationResult = CheckinRiskCalculationResult(
 			calculationDate: Date(),
@@ -1241,17 +1127,8 @@ class RiskProviderTests: CWATestCase {
 		))
 		
 		let store = MockTestStore()
-		store.enfRiskCalculationResult = ENFRiskCalculationResult(
-			riskLevel: .low,
-			minimumDistinctEncountersWithLowRisk: 0,
-			minimumDistinctEncountersWithHighRisk: 0,
-			mostRecentDateWithLowRisk: nil,
-			mostRecentDateWithHighRisk: nil,
-			numberOfDaysWithLowRisk: 0,
-			numberOfDaysWithHighRisk: 0,
-			calculationDate: lastExposureDetectionDate,
-			riskLevelPerDate: [:],
-			minimumDistinctEncountersWithHighRiskPerDate: [:]
+		store.enfRiskCalculationResult = .fake(
+			calculationDate: lastExposureDetectionDate
 		)
 		store.checkinRiskCalculationResult = CheckinRiskCalculationResult(
 			calculationDate: Date(),
@@ -1371,17 +1248,10 @@ class ENFRiskCalculationFake: ENFRiskCalculationProtocol {
 	) -> ENFRiskCalculationResult {
 		mappedExposureWindows = exposureWindows.map({ RiskCalculationExposureWindow(exposureWindow: $0, configuration: configuration) })
 		
-		return ENFRiskCalculationResult(
+		return .fake(
 			riskLevel: riskLevel,
-			minimumDistinctEncountersWithLowRisk: 0,
-			minimumDistinctEncountersWithHighRisk: 0,
-			mostRecentDateWithLowRisk: nil,
-			mostRecentDateWithHighRisk: nil,
-			numberOfDaysWithLowRisk: 0,
-			numberOfDaysWithHighRisk: 0,
 			calculationDate: Date(),
-			riskLevelPerDate: riskLevelPerDate,
-			minimumDistinctEncountersWithHighRiskPerDate: [:]
+			riskLevelPerDate: riskLevelPerDate
 		)
 	}
 	
