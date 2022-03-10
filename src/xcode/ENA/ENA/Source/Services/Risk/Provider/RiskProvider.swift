@@ -434,7 +434,8 @@ final class RiskProvider: RiskProviding {
 		store.enfRiskCalculationResult = enfRiskCalculationResult
 		store.checkinRiskCalculationResult = checkinRiskCalculationResult
 
-		// first check if a notification might get triggered then write mostRecentDateWithRiskLevel to the store
+		// most mostRecentDateWithRiskLevel is required to decide if a notification will trigger in unchanged state
+		// so we need to store new mostRecentDateWithRiskLevel after checkIfRiskLevelHasChangedForNotifications
 		checkIfRiskLevelHasChangedForNotifications(risk)
 		store.mostRecentDateWithRiskLevel = risk.details.mostRecentDateWithRiskLevel
 
@@ -478,9 +479,7 @@ final class RiskProvider: RiskProviding {
 			switch UIApplication.shared.applicationState {
 			case .active:
 				Log.info("Another high exposure notification was triggered in foreground - no alert needed")
-			case .inactive:
-				store.showAnotherHighExposureAlert = true
-			case .background:
+			case .inactive, .background:
 				store.showAnotherHighExposureAlert = true
 			@unknown default:
 				Log.error("Unknown application state")
