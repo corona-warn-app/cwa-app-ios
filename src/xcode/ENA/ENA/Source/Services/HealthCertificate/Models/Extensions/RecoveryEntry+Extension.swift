@@ -7,14 +7,6 @@ import HealthCertificateToolkit
 
 extension RecoveryEntry {
 
-	var localCertificateValidityStartDate: Date? {
-		return ISO8601DateFormatter.justLocalDateFormatter.date(from: certificateValidFrom)
-	}
-
-	var localCertificateValidityEndDate: Date? {
-		return ISO8601DateFormatter.justLocalDateFormatter.date(from: certificateValidUntil)
-	}
-
 	var localDateOfFirstPositiveNAAResult: Date? {
 		return ISO8601DateFormatter.justLocalDateFormatter.date(from: dateOfFirstPositiveNAAResult)
 	}
