@@ -207,20 +207,34 @@ class HomeTableViewModel {
 			return false
 		}
 
-		let hoursSincePCRTestRegistrationToShowRiskCard = appConfiguration.currentAppConfig.value
-			.coronaTestParameters.coronaPcrtestParameters.hoursSinceTestRegistrationToShowRiskCard
-		let hoursSinceAntigenSampleCollectionToShowRiskCard = appConfiguration.currentAppConfig.value
-			.coronaTestParameters.coronaRapidAntigenTestParameters.hoursSinceSampleCollectionToShowRiskCard
-
-		let pcrTestShouldHideRiskCard = coronaTestService.pcrTest.value.map {
-			$0.positiveTestResultWasShown && Date().timeIntervalSince($0.registrationDate) / 3600 < Double(hoursSincePCRTestRegistrationToShowRiskCard)
-		} ?? false
-
-		let antigenTestShouldHideRiskCard = coronaTestService.antigenTest.value.map {
-			$0.positiveTestResultWasShown && Date().timeIntervalSince($0.testDate) / 3600 < Double(hoursSinceAntigenSampleCollectionToShowRiskCard)
-		} ?? false
+		let pcrTestShouldHideRiskCard = pcrRiskCardRevealDate.map { $0 > Date() } ?? false
+		let antigenTestShouldHideRiskCard = antigenRiskCardRevealDate.map { $0 > Date() } ?? false
 
 		return pcrTestShouldHideRiskCard || antigenTestShouldHideRiskCard
+	}
+
+	private var pcrRiskCardRevealDate: Date? {
+		guard let pcrTest = coronaTestService.pcrTest.value, pcrTest.positiveTestResultWasShown else {
+			return nil
+		}
+
+		let hoursSinceTestRegistrationToShowRiskCard = appConfiguration.currentAppConfig.value
+			.coronaTestParameters.coronaPcrtestParameters.hoursSinceTestRegistrationToShowRiskCard
+
+		return pcrTest.registrationDate
+			.addingTimeInterval(3600 * Double(hoursSinceTestRegistrationToShowRiskCard))
+	}
+
+	private var antigenRiskCardRevealDate: Date? {
+		guard let antigenTest = coronaTestService.antigenTest.value, antigenTest.positiveTestResultWasShown else {
+			return nil
+		}
+
+		let hoursSinceSampleCollectionToShowRiskCard = appConfiguration.currentAppConfig.value
+			.coronaTestParameters.coronaRapidAntigenTestParameters.hoursSinceSampleCollectionToShowRiskCard
+
+		return antigenTest.testDate
+			.addingTimeInterval(3600 * Double(hoursSinceSampleCollectionToShowRiskCard))
 	}
 
 	private func showErrorIfNeeded(testType: CoronaTestType, _ error: CoronaTestServiceError) {
