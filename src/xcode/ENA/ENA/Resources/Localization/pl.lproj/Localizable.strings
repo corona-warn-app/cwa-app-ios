@@ -1531,7 +1531,7 @@
 
 "RiskLegend_Legend2_Title" = "Ryzyko zakażenia";
 
-"RiskLegend_Legend2_Text" = "Jeśli rejestrowanie narażenia jest aktywne, aplikacja oblicza Twoje osobiste ryzyko zakażenia poprzez pomiar czasu trwania i bliskości Twojego kontaktu z osobami, u których zdiagnozowano koronawirusa w ciągu ostatnich 14 dni.";
+"RiskLegend_Legend2_Text" = "Jeśli rejestrowanie narażenia jest aktywne, aplikacja oblicza Twoje osobiste ryzyko zakażenia poprzez pomiar czasu trwania i bliskości Twojego kontaktu z osobami, u których zdiagnozowano koronawirusa w ciągu ostatnich 14 dni. Rejestrowanie narażenia uwzględnia również Twoje zameldowania. Otrzymasz ostrzeżenie, jeśli przebywałeś(-aś) w tym samym pomieszczeniu w tym samym czasie, co osoba, u której zdiagnozowano koronawirusa, lub do 30 minut po opuszczeniu pomieszczenia przez taką osobę.";
 
 "RiskLegend_Legend2_RiskLevels" = "Może wyświetlić się następujący status ryzyka:";
 
@@ -2309,9 +2309,13 @@
 "Contact_Journal_Notes_Description" = "Możesz tu wpisać uwagi, które pomogą Ci lepiej oszacować ryzyko zakażenia.\n\nZapisz okoliczności Twojego kontaktu lub przebywania w jakimś miejscu, które mogły zwiększyć ryzyko zakażenia, np. odległość od innych osób lub wykonywane czynności (przykłady: „siedzieliśmy blisko siebie”, „uprawialiśmy sport”, „mało miejsca”, „śpiewaliśmy”).\n\nTe notatki pomogą Ci później odświeżyć pamięć. W razie potrzeby pozwolą Ci również ostrzec osoby, z którymi spędzałeś(-aś) czas na wczesnym etapie, a także pomogą organom ds. zdrowia publicznego w prześledzeniu potencjalnych łańcuchów zakażenia.";
 
 /* Quick Actions a.k.a. shortcuts */
-"QuickAction_newContactDiaryEntry" = "Dodaj wpis do dziennika na dziś";
+"QuickAction_qrCodeScanner" = "Skanuj kod QR";
 
-"QuickAction_eventCheckin" = "Zamelduj się";
+"QuickAction_showCertificates" = "Wyświetl certyfikaty";
+
+"QuickAction_eventCheckin" = "Wyświetl zameldowania";
+
+"QuickAction_newContactDiaryEntry" = "Dodaj wpis";
 
 /* Checkins */
 "Checkins_Overview_Title" = "Moje zameldowania";
@@ -3146,8 +3150,6 @@
 "HealthCertificate_Reissuance_Consent_secondaryButtonTitle" = "Anuluj";
 
 "HealthCertificate_Reissuance_Consent_DefaultAlert_Title" = "Błąd";
-
-"HealthCertificate_Reissuance_Consent_DefaultAlert_Message" = "Twoje połączenie z Internetem mogło zostać utracone. Zadbaj o jego przywrócenie.";
 
 "HealthCertificate_Reissuance_Consent_DefaultAlert_OKButton" = "OK";
 
