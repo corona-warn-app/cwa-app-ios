@@ -348,8 +348,6 @@ final class HealthCertificateViewModel {
 			\RecoveryEntry.dateOfFirstPositiveNAAResult,
 			\RecoveryEntry.countryOfTest,
 			\RecoveryEntry.certificateIssuer,
-			\RecoveryEntry.certificateValidFrom,
-			\RecoveryEntry.certificateValidUntil,
 			\RecoveryEntry.uniqueCertificateIdentifier
 		]
 
