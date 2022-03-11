@@ -1611,7 +1611,7 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 					from: DigitalCovidCertificate.fake(
 						recoveryEntries: [
 							RecoveryEntry.fake(
-								certificateValidUntil: "2021-12-03T07:12:45.132Z"
+								dateOfFirstPositiveNAAResult: "2022-03-01T07:12:45.132Z"
 							)
 						]
 					)
@@ -1625,7 +1625,7 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 
 		// THEN
 		XCTAssertEqual(viewModel.title, "Genesenenzertifikat")
-		XCTAssertEqual(viewModel.subtitle, "gültig bis 03.12.21")
+		XCTAssertEqual(viewModel.subtitle, "Positiver Test vom 01.03.22")
 		XCTAssertEqual(viewModel.qrCodeViewModel.accessibilityLabel, "accessibilityText")
 		XCTAssertEqual(viewModel.qrCodeViewModel.covPassCheckInfoPosition, .top)
 
@@ -1650,7 +1650,7 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 					from: DigitalCovidCertificate.fake(
 						recoveryEntries: [
 							RecoveryEntry.fake(
-								certificateValidUntil: "2021-12-03T07:12:45.132Z"
+								dateOfFirstPositiveNAAResult: "2022-03-01T07:12:45.132Z"
 							)
 						]
 					)
@@ -1665,7 +1665,7 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 
 		// THEN
 		XCTAssertEqual(viewModel.title, "Genesenenzertifikat")
-		XCTAssertEqual(viewModel.subtitle, "gültig bis 03.12.21")
+		XCTAssertEqual(viewModel.subtitle, "Positiver Test vom 01.03.22")
 		XCTAssertEqual(viewModel.qrCodeViewModel.accessibilityLabel, "accessibilityText")
 		XCTAssertEqual(viewModel.qrCodeViewModel.covPassCheckInfoPosition, .top)
 
@@ -1766,7 +1766,7 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 					from: DigitalCovidCertificate.fake(
 						recoveryEntries: [
 							.fake(
-								certificateValidUntil: "2021-12-03T07:12:45.132Z"
+								dateOfFirstPositiveNAAResult: "2022-03-01T07:12:45.132Z"
 							)
 						]
 					),
@@ -1781,7 +1781,7 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 
 		// THEN
 		XCTAssertEqual(viewModel.title, "Genesenenzertifikat")
-		XCTAssertEqual(viewModel.subtitle, "gültig bis 03.12.21")
+		XCTAssertEqual(viewModel.subtitle, "Positiver Test vom 01.03.22")
 		XCTAssertEqual(viewModel.qrCodeViewModel.accessibilityLabel, "accessibilityText")
 		XCTAssertEqual(viewModel.qrCodeViewModel.covPassCheckInfoPosition, .top)
 
@@ -1814,7 +1814,7 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 					from: DigitalCovidCertificate.fake(
 						recoveryEntries: [
 							.fake(
-								certificateValidUntil: "2021-12-03T07:12:45.132Z"
+								dateOfFirstPositiveNAAResult: "2022-03-01T07:12:45.132Z"
 							)
 						]
 					),
@@ -1830,7 +1830,7 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 
 		// THEN
 		XCTAssertEqual(viewModel.title, "Genesenenzertifikat")
-		XCTAssertEqual(viewModel.subtitle, "gültig bis 03.12.21")
+		XCTAssertEqual(viewModel.subtitle, "Positiver Test vom 01.03.22")
 		XCTAssertEqual(viewModel.qrCodeViewModel.accessibilityLabel, "accessibilityText")
 		XCTAssertEqual(viewModel.qrCodeViewModel.covPassCheckInfoPosition, .top)
 
