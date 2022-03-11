@@ -1825,4 +1825,56 @@ class HealthCertificateServiceTests: CWATestCase {
 		XCTAssertFalse(person.healthCertificates[0].isNew)
 		XCTAssertEqual(store.recycleBinItems.count, 1)
 	}
+	
+	func testDCCAdmissionStateChanged_Then_flagIsSetInHealthCertifiedPerson() throws {
+		let vaccinationHealthCertificate: HealthCertificate = try vaccinationCertificate(type: .seriesCompletingOrBooster, ageInDays: 2)
+		let healthCertifiedPerson = HealthCertifiedPerson(
+			healthCertificates: [vaccinationHealthCertificate],
+			dccWalletInfo: DCCWalletInfo.fake(
+				admissionState: .fake(
+					identifier: "3G",
+					visible: true,
+					badgeText: .fake(string: "3G"),
+					subtitleText: .fake(string: "3G")
+				)
+			)
+		)
+
+		let store = MockTestStore()
+		store.healthCertifiedPersons = [healthCertifiedPerson]
+
+		let newDCCWalletInfo: DCCWalletInfo = .fake(
+			admissionState: .fake(
+				identifier: "2G+",
+				visible: true,
+				badgeText: .fake(string: "2G+")
+			)
+		)
+
+		var cclService = FakeCCLService()
+		cclService.dccWalletInfoResult = .success(newDCCWalletInfo)
+		cclService.didChange = true
+
+		let expectation = expectation(description: "dccWalletInfo updated")
+
+		let subscription = healthCertifiedPerson.$dccWalletInfo
+			.first(where: { $0?.admissionState.identifier == "2G+" && healthCertifiedPerson.isAdmissionStateChanged })
+			.sink { _ in
+				XCTAssertTrue(healthCertifiedPerson.isAdmissionStateChanged)
+				expectation.fulfill()
+			}
+
+		_ = HealthCertificateService(
+			store: store,
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
+			dscListProvider: MockDSCListProvider(),
+			appConfiguration: CachedAppConfigurationMock(),
+			cclService: cclService,
+			recycleBin: .fake()
+		)
+		
+		waitForExpectations(timeout: .short)
+		subscription.cancel()
+	}
+
 }
