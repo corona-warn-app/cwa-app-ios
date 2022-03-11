@@ -148,7 +148,7 @@ class HealthCertifiedPersonViewController: UIViewController, UITableViewDataSour
 	// MARK: - Protocol UITableViewDelegate
 
 	func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-		// we are only interested in admission state cell once if the traitCollectionDidChange - to update gradientHeightConstraint
+		// we are only interested in top most cell once if the traitCollectionDidChange - to update gradientHeightConstraint
 		guard
 			didCalculateGradientHeight == false,
 			HealthCertifiedPersonViewModel.TableViewSection.map(indexPath.section) == viewModel.topMostCell
