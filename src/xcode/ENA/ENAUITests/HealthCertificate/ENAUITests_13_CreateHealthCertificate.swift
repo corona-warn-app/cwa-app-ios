@@ -104,6 +104,9 @@ class ENAUITests_13_CreateHealthCertificate: CWATestCase {
 		
 		certificateTitle.waitAndTap()
 
+		let headerCell = app.cells[AccessibilityIdentifiers.HealthCertificate.header]
+		XCTAssertTrue(headerCell.waitForExistence(timeout: .short))
+		
 		app.swipeUp(velocity: .slow)
 		
 		// Certified Person screen
@@ -123,6 +126,9 @@ class ENAUITests_13_CreateHealthCertificate: CWATestCase {
 		let certificateTitle = try XCTUnwrap(app.cells[AccessibilityIdentifiers.HealthCertificate.Overview.healthCertifiedPersonCell])
 		
 		certificateTitle.waitAndTap()
+
+		let headerCell = app.cells[AccessibilityIdentifiers.HealthCertificate.header]
+		XCTAssertTrue(headerCell.waitForExistence(timeout: .short))
 
 		app.swipeUp(velocity: .slow)
 		
@@ -157,6 +163,9 @@ class ENAUITests_13_CreateHealthCertificate: CWATestCase {
 		snapshot("screenshot_vaccination_certificate_expiring_overview")
 
 		certificateTitle.waitAndTap()
+
+		let headerCell = app.cells[AccessibilityIdentifiers.HealthCertificate.header]
+		XCTAssertTrue(headerCell.waitForExistence(timeout: .short))
 
 		app.swipeUp(velocity: .slow)
 		
@@ -356,6 +365,9 @@ class ENAUITests_13_CreateHealthCertificate: CWATestCase {
 		let certificateTitle = try XCTUnwrap(app.cells[AccessibilityIdentifiers.HealthCertificate.Overview.healthCertifiedPersonCell])
 		
 		certificateTitle.waitAndTap()
+
+		let headerCell = app.cells[AccessibilityIdentifiers.HealthCertificate.header]
+		XCTAssertTrue(headerCell.waitForExistence(timeout: .short))
 
 		snapshot("screenshot_vaccination_certificate_valid_details_part1")
 		app.swipeUp(velocity: .slow)

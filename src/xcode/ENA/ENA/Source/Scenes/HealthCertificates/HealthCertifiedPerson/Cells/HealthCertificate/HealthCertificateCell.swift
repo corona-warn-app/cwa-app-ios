@@ -123,7 +123,7 @@ class HealthCertificateCell: UITableViewCell, ReuseIdentifierProviding {
 		contentView.addSubview(backgroundContainerView)
 
 		headlineLabel.numberOfLines = 0
-		headlineLabel.setContentHuggingPriority(.defaultHigh, for: .horizontal)
+		headlineLabel.setContentHuggingPriority(.defaultLow, for: .horizontal)
 
 		disclosureImageView.image = UIImage(named: "Icons_Chevron_plain")
 		disclosureImageView.contentMode = .scaleAspectFit

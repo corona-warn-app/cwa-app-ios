@@ -133,7 +133,8 @@ final class HealthCertifiedPersonViewModel {
 				.joined(with: "\n"),
 			topSpace: 14.0,
 			font: .enaFont(for: .headline),
-			accessibilityTraits: .staticText
+			accessibilityTraits: .staticText,
+			accessibilityIdentifier: AccessibilityIdentifiers.HealthCertificate.header
 		)
 	}
 

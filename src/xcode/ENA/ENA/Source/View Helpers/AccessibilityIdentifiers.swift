@@ -778,6 +778,7 @@ enum AccessibilityIdentifiers {
 			static let okAction = "AppStrings.HealthCertificate.PrintPDF.okAction"
 		}
 
+		static let header = "HealthCertificate.header"
 		static let qrCodeCell = "HealthCertificate.qrCodeCell"
 		
 		enum Reissuance {
