@@ -168,8 +168,6 @@ final class HealthCertifiedPersonViewModel {
 			return .admissionState
 		} else if vaccinationStateIsVisible {
 			return .vaccinationState
-		} else if boosterNotificationIsVisible {
-			return .boosterNotification
 		} else {
 			return .person
 		}
