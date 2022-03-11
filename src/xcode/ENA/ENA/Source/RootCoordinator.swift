@@ -311,7 +311,8 @@ class RootCoordinator: NSObject, RequiresAppDependencies, UITabBarControllerDele
 			pageType: .togetherAgainstCoronaPage,
 			exposureManager: self.exposureManager,
 			store: self.store,
-			client: self.client
+			client: self.client,
+			appConfigProvider: appConfigurationProvider
 		)
 		
 		let navigationVC = AppOnboardingNavigationController(rootViewController: onboardingVC)
