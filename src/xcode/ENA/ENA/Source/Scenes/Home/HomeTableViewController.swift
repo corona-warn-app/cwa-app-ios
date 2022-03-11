@@ -822,9 +822,12 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 			return
 		}
 
+		let currentAppConfig = appConfigurationProvider.currentAppConfig.value
+		let numberOfDays = currentAppConfig.hasRiskCalculationParameters ? Int(currentAppConfig.riskCalculationParameters.maxEncounterAgeInDays) : 10
+
 		let alert = UIAlertController(
 			title: AppStrings.Home.riskStatusAnotherHighExposureAlertTitle,
-			message: AppStrings.Home.riskStatusAnotherHighExposureAlertMessage,
+			message: String(format: AppStrings.Home.riskStatusAnotherHighExposureAlertMessage, numberOfDays),
 			preferredStyle: .alert
 		)
 

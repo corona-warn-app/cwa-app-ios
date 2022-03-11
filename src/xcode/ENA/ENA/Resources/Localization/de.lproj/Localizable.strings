@@ -1385,7 +1385,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "Home_Alert_RiskStatusAnotherHighExposure_Title" = "Neue Risikobegegnung";
 
-"Home_Alert_RiskStatusAnotherHighExposure_Message" = "Sie hatten eine erneute Begegnung mit erhöhtem Risiko. Alle Risikobegegnungen der vergangenen 10 Tage finden Sie in Ihrem Kontakttagebuch.";
+"Home_Alert_RiskStatusAnotherHighExposure_Message" = "Sie hatten eine erneute Begegnung mit erhöhtem Risiko. Alle Risikobegegnungen der vergangenen %i Tage finden Sie in Ihrem Kontakttagebuch.";
 
 "Home_Alert_RiskStatusAnotherHighExposure_PrimaryButtonTitle" = "OK";
 

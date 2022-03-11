@@ -1013,7 +1013,6 @@ enum AppStrings {
 		static let riskStatusAnotherHighExposureAlertTitle = NSLocalizedString("Home_Alert_RiskStatusAnotherHighExposure_Title", comment: "")
 		static let riskStatusAnotherHighExposureAlertMessage = NSLocalizedString("Home_Alert_RiskStatusAnotherHighExposure_Message", comment: "")
 		static let riskStatusAnotherHighExposureButtonTitle = NSLocalizedString("Home_Alert_RiskStatusAnotherHighExposure_PrimaryButtonTitle", comment: "")
-
 	}
 
 	enum InviteFriends {
