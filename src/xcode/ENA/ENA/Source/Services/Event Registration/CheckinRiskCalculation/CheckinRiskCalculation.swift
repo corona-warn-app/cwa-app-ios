@@ -66,7 +66,7 @@ final class CheckinRiskCalculation: CheckinRiskCalculationProtocol {
 			// 1.1 Filter by age: filter out all CheckIns where the date described by `endTimestamp` is older than `maxCheckInAgeInDays`. The calculation shall use seconds/timestamps for calculation (i.e. `maxCheckInAgeInDays x 86400`)
 			.filter {
 				let maxCheckInAgeInSeconds = config.presenceTracingParameters.riskCalculationParameters.maxCheckInAgeInDays * 86400
-				let checkinAgeInSeconds = Int(now.timeIntervalSince1970 - $0.checkinEndDate.timeIntervalSince1970)
+				let checkinAgeInSeconds = Int(now.timeIntervalSince($0.checkinEndDate))
 				let checkinIsTooOld = checkinAgeInSeconds > maxCheckInAgeInSeconds
 				return !checkinIsTooOld
 			}
