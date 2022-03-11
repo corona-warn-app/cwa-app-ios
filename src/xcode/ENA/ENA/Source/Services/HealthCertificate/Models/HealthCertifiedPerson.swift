@@ -179,7 +179,7 @@ class HealthCertifiedPerson: Codable, Equatable, Comparable {
 			if dccWalletInfo?.certificateReissuance != oldValue?.certificateReissuance {
 				isNewCertificateReissuance = dccWalletInfo?.certificateReissuance?.reissuanceDivision.visible == true
 			}
-			if dccWalletInfo?.admissionState != oldValue?.admissionState {
+			if oldValue?.admissionState != nil && dccWalletInfo?.admissionState.identifier != oldValue?.admissionState.identifier {
 				isAdmissionStateChanged = dccWalletInfo?.admissionState.identifier != nil
 			}
 

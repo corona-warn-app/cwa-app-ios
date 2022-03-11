@@ -327,7 +327,7 @@ class HealthCertificateNotificationService {
 
 		let content = UNMutableNotificationContent()
 		content.title = AppStrings.LocalNotifications.certificateGenericTitle
-		content.body = AppStrings.LocalNotifications.certificateValidityBody
+		content.body = AppStrings.LocalNotifications.certificateGenericBody
 		content.sound = .default
 
 		let request = UNNotificationRequest(
