@@ -622,7 +622,7 @@ class HealthCertificateCellViewModelTests: XCTestCase {
 				from: DigitalCovidCertificate.fake(
 					recoveryEntries: [
 						RecoveryEntry.fake(
-							certificateValidUntil: "2022-03-18T07:12:45.132Z"
+							dateOfFirstPositiveNAAResult: "2022-03-01T07:12:45.132Z"
 						)
 					]
 				)
@@ -642,7 +642,7 @@ class HealthCertificateCellViewModelTests: XCTestCase {
 		XCTAssertEqual(viewModel.headline, "Genesenenzertifikat")
 		XCTAssertNil(viewModel.name)
 		XCTAssertNil(viewModel.subheadline)
-		XCTAssertEqual(viewModel.detail, "gültig bis 18.03.22")
+		XCTAssertEqual(viewModel.detail, "Positiver Test vom 01.03.22")
 		XCTAssertNil(viewModel.validityStateInfo)
 		XCTAssertEqual(viewModel.image, UIImage(imageLiteralResourceName: "RecoveryCertificate_Icon"))
 		XCTAssertEqual(viewModel.currentlyUsedImage, UIImage(named: "Icon_CurrentlyUsedCertificate_light"))
@@ -656,7 +656,7 @@ class HealthCertificateCellViewModelTests: XCTestCase {
 				from: DigitalCovidCertificate.fake(
 					recoveryEntries: [
 						RecoveryEntry.fake(
-							certificateValidUntil: "2022-03-18T07:12:45.132Z"
+							dateOfFirstPositiveNAAResult: "2022-03-01T07:12:45.132Z"
 						)
 					]
 				)
@@ -677,7 +677,7 @@ class HealthCertificateCellViewModelTests: XCTestCase {
 		XCTAssertEqual(viewModel.headline, "Genesenenzertifikat")
 		XCTAssertNil(viewModel.name)
 		XCTAssertNil(viewModel.subheadline)
-		XCTAssertEqual(viewModel.detail, "gültig bis 18.03.22")
+		XCTAssertEqual(viewModel.detail, "Positiver Test vom 01.03.22")
 		XCTAssertEqual(viewModel.validityStateInfo, "Neu")
 		XCTAssertEqual(viewModel.image, UIImage(imageLiteralResourceName: "RecoveryCertificate_Icon"))
 		XCTAssertEqual(viewModel.currentlyUsedImage, UIImage(named: "Icon_CurrentlyUsedCertificate_light"))
@@ -692,7 +692,7 @@ class HealthCertificateCellViewModelTests: XCTestCase {
 				from: DigitalCovidCertificate.fake(
 					recoveryEntries: [
 						RecoveryEntry.fake(
-							certificateValidUntil: "2022-03-18T07:12:45.132Z"
+							dateOfFirstPositiveNAAResult: "2022-03-01T07:12:45.132Z"
 						)
 					]
 				),
@@ -714,7 +714,7 @@ class HealthCertificateCellViewModelTests: XCTestCase {
 		XCTAssertEqual(viewModel.headline, "Genesenenzertifikat")
 		XCTAssertNil(viewModel.name)
 		XCTAssertNil(viewModel.subheadline)
-		XCTAssertEqual(viewModel.detail, "gültig bis 18.03.22")
+		XCTAssertEqual(viewModel.detail, "Positiver Test vom 01.03.22")
 		XCTAssertEqual(
 			viewModel.validityStateInfo,
 			String(
@@ -735,7 +735,7 @@ class HealthCertificateCellViewModelTests: XCTestCase {
 				from: DigitalCovidCertificate.fake(
 					recoveryEntries: [
 						RecoveryEntry.fake(
-							certificateValidUntil: "2022-03-18T07:12:45.132Z"
+							dateOfFirstPositiveNAAResult: "2022-03-01T07:12:45.132Z"
 						)
 					]
 				)
@@ -756,7 +756,7 @@ class HealthCertificateCellViewModelTests: XCTestCase {
 		XCTAssertEqual(viewModel.headline, "Genesenenzertifikat")
 		XCTAssertNil(viewModel.name)
 		XCTAssertNil(viewModel.subheadline)
-		XCTAssertEqual(viewModel.detail, "gültig bis 18.03.22")
+		XCTAssertEqual(viewModel.detail, "Positiver Test vom 01.03.22")
 		XCTAssertEqual(viewModel.validityStateInfo, "Zertifikat abgelaufen")
 		XCTAssertEqual(viewModel.image, UIImage(imageLiteralResourceName: "Icon_WarningTriangle_small"))
 		XCTAssertEqual(viewModel.currentlyUsedImage, UIImage(named: "Icon_CurrentlyUsedCertificate_grey"))
@@ -770,7 +770,7 @@ class HealthCertificateCellViewModelTests: XCTestCase {
 				from: DigitalCovidCertificate.fake(
 					recoveryEntries: [
 						RecoveryEntry.fake(
-							certificateValidUntil: "2022-03-18T07:12:45.132Z"
+							dateOfFirstPositiveNAAResult: "2022-03-01T07:12:45.132Z"
 						)
 					]
 				)
@@ -791,7 +791,7 @@ class HealthCertificateCellViewModelTests: XCTestCase {
 		XCTAssertEqual(viewModel.headline, "Genesenenzertifikat")
 		XCTAssertNil(viewModel.name)
 		XCTAssertNil(viewModel.subheadline)
-		XCTAssertEqual(viewModel.detail, "gültig bis 18.03.22")
+		XCTAssertEqual(viewModel.detail, "Positiver Test vom 01.03.22")
 		XCTAssertEqual(viewModel.validityStateInfo, "Zertifikat (Signatur) ungültig")
 		XCTAssertEqual(viewModel.image, UIImage(imageLiteralResourceName: "Icon_WarningTriangle_small"))
 		XCTAssertEqual(viewModel.currentlyUsedImage, UIImage(named: "Icon_CurrentlyUsedCertificate_grey"))
@@ -805,7 +805,7 @@ class HealthCertificateCellViewModelTests: XCTestCase {
 				from: DigitalCovidCertificate.fake(
 					recoveryEntries: [
 						RecoveryEntry.fake(
-							certificateValidUntil: "2022-03-18T07:12:45.132Z"
+							dateOfFirstPositiveNAAResult: "2022-03-01T07:12:45.132Z"
 						)
 					]
 				)
@@ -826,7 +826,7 @@ class HealthCertificateCellViewModelTests: XCTestCase {
 		XCTAssertEqual(viewModel.headline, "Genesenenzertifikat")
 		XCTAssertNil(viewModel.name)
 		XCTAssertNil(viewModel.subheadline)
-		XCTAssertEqual(viewModel.detail, "gültig bis 18.03.22")
+		XCTAssertEqual(viewModel.detail, "Positiver Test vom 01.03.22")
 		XCTAssertEqual(viewModel.validityStateInfo, "Zertifikat ungültig")
 		XCTAssertEqual(viewModel.image, UIImage(imageLiteralResourceName: "Icon_WarningTriangle_small"))
 		XCTAssertEqual(viewModel.currentlyUsedImage, UIImage(named: "Icon_CurrentlyUsedCertificate_grey"))
@@ -1479,7 +1479,7 @@ class HealthCertificateCellViewModelTests: XCTestCase {
 				from: DigitalCovidCertificate.fake(
 					recoveryEntries: [
 						RecoveryEntry.fake(
-							certificateValidUntil: "2022-03-18T07:12:45.132Z"
+							dateOfFirstPositiveNAAResult: "2022-03-01T07:12:45.132Z"
 						)
 					]
 				)
@@ -1499,7 +1499,7 @@ class HealthCertificateCellViewModelTests: XCTestCase {
 		XCTAssertEqual(viewModel.headline, "Genesenenzertifikat")
 		XCTAssertNil(viewModel.name)
 		XCTAssertNil(viewModel.subheadline)
-		XCTAssertEqual(viewModel.detail, "gültig bis 18.03.22")
+		XCTAssertEqual(viewModel.detail, "Positiver Test vom 01.03.22")
 		XCTAssertNil(viewModel.validityStateInfo)
 		XCTAssertEqual(viewModel.image, UIImage(imageLiteralResourceName: "RecoveryCertificate_Icon"))
 		XCTAssertFalse(viewModel.isCurrentlyUsedCertificateHintVisible)
@@ -1511,7 +1511,7 @@ class HealthCertificateCellViewModelTests: XCTestCase {
 				from: DigitalCovidCertificate.fake(
 					recoveryEntries: [
 						RecoveryEntry.fake(
-							certificateValidUntil: "2022-03-18T07:12:45.132Z"
+							dateOfFirstPositiveNAAResult: "2022-03-01T07:12:45.132Z"
 						)
 					]
 				)
@@ -1532,7 +1532,7 @@ class HealthCertificateCellViewModelTests: XCTestCase {
 		XCTAssertEqual(viewModel.headline, "Genesenenzertifikat")
 		XCTAssertNil(viewModel.name)
 		XCTAssertNil(viewModel.subheadline)
-		XCTAssertEqual(viewModel.detail, "gültig bis 18.03.22")
+		XCTAssertEqual(viewModel.detail, "Positiver Test vom 01.03.22")
 		XCTAssertNil(viewModel.validityStateInfo)
 		XCTAssertEqual(viewModel.image, UIImage(imageLiteralResourceName: "RecoveryCertificate_Icon"))
 		XCTAssertFalse(viewModel.isCurrentlyUsedCertificateHintVisible)
@@ -1545,7 +1545,7 @@ class HealthCertificateCellViewModelTests: XCTestCase {
 				from: DigitalCovidCertificate.fake(
 					recoveryEntries: [
 						RecoveryEntry.fake(
-							certificateValidUntil: "2022-03-18T07:12:45.132Z"
+							dateOfFirstPositiveNAAResult: "2022-03-01T07:12:45.132Z"
 						)
 					]
 				),
@@ -1567,7 +1567,7 @@ class HealthCertificateCellViewModelTests: XCTestCase {
 		XCTAssertEqual(viewModel.headline, "Genesenenzertifikat")
 		XCTAssertNil(viewModel.name)
 		XCTAssertNil(viewModel.subheadline)
-		XCTAssertEqual(viewModel.detail, "gültig bis 18.03.22")
+		XCTAssertEqual(viewModel.detail, "Positiver Test vom 01.03.22")
 		XCTAssertNil(viewModel.validityStateInfo)
 		XCTAssertEqual(viewModel.image, UIImage(imageLiteralResourceName: "RecoveryCertificate_Icon"))
 		XCTAssertFalse(viewModel.isCurrentlyUsedCertificateHintVisible)
@@ -1579,7 +1579,7 @@ class HealthCertificateCellViewModelTests: XCTestCase {
 				from: DigitalCovidCertificate.fake(
 					recoveryEntries: [
 						RecoveryEntry.fake(
-							certificateValidUntil: "2022-03-18T07:12:45.132Z"
+							dateOfFirstPositiveNAAResult: "2022-03-01T07:12:45.132Z"
 						)
 					]
 				)
@@ -1600,7 +1600,7 @@ class HealthCertificateCellViewModelTests: XCTestCase {
 		XCTAssertEqual(viewModel.headline, "Genesenenzertifikat")
 		XCTAssertNil(viewModel.name)
 		XCTAssertNil(viewModel.subheadline)
-		XCTAssertEqual(viewModel.detail, "gültig bis 18.03.22")
+		XCTAssertEqual(viewModel.detail, "Positiver Test vom 01.03.22")
 		XCTAssertNil(viewModel.validityStateInfo)
 		XCTAssertEqual(viewModel.image, UIImage(imageLiteralResourceName: "Icon_WarningTriangle_small"))
 		XCTAssertFalse(viewModel.isCurrentlyUsedCertificateHintVisible)
@@ -1612,7 +1612,7 @@ class HealthCertificateCellViewModelTests: XCTestCase {
 				from: DigitalCovidCertificate.fake(
 					recoveryEntries: [
 						RecoveryEntry.fake(
-							certificateValidUntil: "2022-03-18T07:12:45.132Z"
+							dateOfFirstPositiveNAAResult: "2022-03-01T07:12:45.132Z"
 						)
 					]
 				)
@@ -1633,7 +1633,7 @@ class HealthCertificateCellViewModelTests: XCTestCase {
 		XCTAssertEqual(viewModel.headline, "Genesenenzertifikat")
 		XCTAssertNil(viewModel.name)
 		XCTAssertNil(viewModel.subheadline)
-		XCTAssertEqual(viewModel.detail, "gültig bis 18.03.22")
+		XCTAssertEqual(viewModel.detail, "Positiver Test vom 01.03.22")
 		XCTAssertNil(viewModel.validityStateInfo)
 		XCTAssertEqual(viewModel.image, UIImage(imageLiteralResourceName: "Icon_WarningTriangle_small"))
 		XCTAssertFalse(viewModel.isCurrentlyUsedCertificateHintVisible)
@@ -1645,7 +1645,7 @@ class HealthCertificateCellViewModelTests: XCTestCase {
 				from: DigitalCovidCertificate.fake(
 					recoveryEntries: [
 						RecoveryEntry.fake(
-							certificateValidUntil: "2022-03-18T07:12:45.132Z"
+							dateOfFirstPositiveNAAResult: "2022-03-01T07:12:45.132Z"
 						)
 					]
 				)
@@ -1666,7 +1666,7 @@ class HealthCertificateCellViewModelTests: XCTestCase {
 		XCTAssertEqual(viewModel.headline, "Genesenenzertifikat")
 		XCTAssertNil(viewModel.name)
 		XCTAssertNil(viewModel.subheadline)
-		XCTAssertEqual(viewModel.detail, "gültig bis 18.03.22")
+		XCTAssertEqual(viewModel.detail, "Positiver Test vom 01.03.22")
 		XCTAssertNil(viewModel.validityStateInfo)
 		XCTAssertEqual(viewModel.image, UIImage(imageLiteralResourceName: "Icon_WarningTriangle_small"))
 		XCTAssertFalse(viewModel.isCurrentlyUsedCertificateHintVisible)
@@ -2350,7 +2350,7 @@ class HealthCertificateCellViewModelTests: XCTestCase {
 					name: .fake(familyName: "Brause", givenName: "Pascal"),
 					recoveryEntries: [
 						RecoveryEntry.fake(
-							certificateValidUntil: "2022-03-18T07:12:45.132Z"
+							dateOfFirstPositiveNAAResult: "2022-03-01T07:12:45.132Z"
 						)
 					]
 				)
@@ -2370,7 +2370,7 @@ class HealthCertificateCellViewModelTests: XCTestCase {
 		XCTAssertEqual(viewModel.headline, "Genesenenzertifikat")
 		XCTAssertEqual(viewModel.name, "Pascal Brause")
 		XCTAssertNil(viewModel.subheadline)
-		XCTAssertEqual(viewModel.detail, "gültig bis 18.03.22")
+		XCTAssertEqual(viewModel.detail, "Positiver Test vom 01.03.22")
 		XCTAssertNil(viewModel.validityStateInfo)
 		XCTAssertEqual(viewModel.image, UIImage(imageLiteralResourceName: "RecoveryCertificate_Icon"))
 		XCTAssertFalse(viewModel.isCurrentlyUsedCertificateHintVisible)
@@ -2383,7 +2383,7 @@ class HealthCertificateCellViewModelTests: XCTestCase {
 					name: .fake(familyName: "Khalid", givenName: "Naveed"),
 					recoveryEntries: [
 						RecoveryEntry.fake(
-							certificateValidUntil: "2022-03-18T07:12:45.132Z"
+							dateOfFirstPositiveNAAResult: "2022-03-01T07:12:45.132Z"
 						)
 					]
 				)
@@ -2404,7 +2404,7 @@ class HealthCertificateCellViewModelTests: XCTestCase {
 		XCTAssertEqual(viewModel.headline, "Genesenenzertifikat")
 		XCTAssertEqual(viewModel.name, "Naveed Khalid")
 		XCTAssertNil(viewModel.subheadline)
-		XCTAssertEqual(viewModel.detail, "gültig bis 18.03.22")
+		XCTAssertEqual(viewModel.detail, "Positiver Test vom 01.03.22")
 		XCTAssertNil(viewModel.validityStateInfo)
 		XCTAssertEqual(viewModel.image, UIImage(imageLiteralResourceName: "RecoveryCertificate_Icon"))
 		XCTAssertFalse(viewModel.isCurrentlyUsedCertificateHintVisible)
@@ -2418,7 +2418,7 @@ class HealthCertificateCellViewModelTests: XCTestCase {
 					name: .fake(familyName: "Ahmed", givenName: "Omar Abdelaziz Hanafy Abdelaziz"),
 					recoveryEntries: [
 						RecoveryEntry.fake(
-							certificateValidUntil: "2022-03-18T07:12:45.132Z"
+							dateOfFirstPositiveNAAResult: "2022-03-01T07:12:45.132Z"
 						)
 					]
 				),
@@ -2440,7 +2440,7 @@ class HealthCertificateCellViewModelTests: XCTestCase {
 		XCTAssertEqual(viewModel.headline, "Genesenenzertifikat")
 		XCTAssertEqual(viewModel.name, "Omar Abdelaziz Hanafy Abdelaziz Ahmed")
 		XCTAssertNil(viewModel.subheadline)
-		XCTAssertEqual(viewModel.detail, "gültig bis 18.03.22")
+		XCTAssertEqual(viewModel.detail, "Positiver Test vom 01.03.22")
 		XCTAssertNil(viewModel.validityStateInfo)
 		XCTAssertEqual(viewModel.image, UIImage(imageLiteralResourceName: "RecoveryCertificate_Icon"))
 		XCTAssertFalse(viewModel.isCurrentlyUsedCertificateHintVisible)
@@ -2453,7 +2453,7 @@ class HealthCertificateCellViewModelTests: XCTestCase {
 					name: .fake(familyName: "Guendling", givenName: "Nick"),
 					recoveryEntries: [
 						RecoveryEntry.fake(
-							certificateValidUntil: "2022-03-18T07:12:45.132Z"
+							dateOfFirstPositiveNAAResult: "2022-03-01T07:12:45.132Z"
 						)
 					]
 				)
@@ -2474,7 +2474,7 @@ class HealthCertificateCellViewModelTests: XCTestCase {
 		XCTAssertEqual(viewModel.headline, "Genesenenzertifikat")
 		XCTAssertEqual(viewModel.name, "Nick Guendling")
 		XCTAssertNil(viewModel.subheadline)
-		XCTAssertEqual(viewModel.detail, "gültig bis 18.03.22")
+		XCTAssertEqual(viewModel.detail, "Positiver Test vom 01.03.22")
 		XCTAssertNil(viewModel.validityStateInfo)
 		XCTAssertEqual(viewModel.image, UIImage(imageLiteralResourceName: "Icon_WarningTriangle_small"))
 		XCTAssertFalse(viewModel.isCurrentlyUsedCertificateHintVisible)
@@ -2487,7 +2487,7 @@ class HealthCertificateCellViewModelTests: XCTestCase {
 					name: .fake(familyName: "Teuber", givenName: "Kai-Marcel"),
 					recoveryEntries: [
 						RecoveryEntry.fake(
-							certificateValidUntil: "2022-03-18T07:12:45.132Z"
+							dateOfFirstPositiveNAAResult: "2022-03-01T07:12:45.132Z"
 						)
 					]
 				)
@@ -2508,7 +2508,7 @@ class HealthCertificateCellViewModelTests: XCTestCase {
 		XCTAssertEqual(viewModel.headline, "Genesenenzertifikat")
 		XCTAssertEqual(viewModel.name, "Kai-Marcel Teuber")
 		XCTAssertNil(viewModel.subheadline)
-		XCTAssertEqual(viewModel.detail, "gültig bis 18.03.22")
+		XCTAssertEqual(viewModel.detail, "Positiver Test vom 01.03.22")
 		XCTAssertNil(viewModel.validityStateInfo)
 		XCTAssertEqual(viewModel.image, UIImage(imageLiteralResourceName: "Icon_WarningTriangle_small"))
 		XCTAssertFalse(viewModel.isCurrentlyUsedCertificateHintVisible)
@@ -2521,7 +2521,7 @@ class HealthCertificateCellViewModelTests: XCTestCase {
 					name: .fake(familyName: "Scherer", givenName: "Marcus"),
 					recoveryEntries: [
 						RecoveryEntry.fake(
-							certificateValidUntil: "2022-03-18T07:12:45.132Z"
+							dateOfFirstPositiveNAAResult: "2022-03-01T07:12:45.132Z"
 						)
 					]
 				)
@@ -2542,7 +2542,7 @@ class HealthCertificateCellViewModelTests: XCTestCase {
 		XCTAssertEqual(viewModel.headline, "Genesenenzertifikat")
 		XCTAssertEqual(viewModel.name, "Marcus Scherer")
 		XCTAssertNil(viewModel.subheadline)
-		XCTAssertEqual(viewModel.detail, "gültig bis 18.03.22")
+		XCTAssertEqual(viewModel.detail, "Positiver Test vom 01.03.22")
 		XCTAssertNil(viewModel.validityStateInfo)
 		XCTAssertEqual(viewModel.image, UIImage(imageLiteralResourceName: "Icon_WarningTriangle_small"))
 		XCTAssertFalse(viewModel.isCurrentlyUsedCertificateHintVisible)

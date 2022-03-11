@@ -7,18 +7,10 @@ import HealthCertificateToolkit
 
 extension RecoveryEntry {
 
-	var localCertificateValidityStartDate: Date? {
-		return ISO8601DateFormatter.justLocalDateFormatter.date(from: certificateValidFrom)
-	}
-
-	var localCertificateValidityEndDate: Date? {
-		return ISO8601DateFormatter.justLocalDateFormatter.date(from: certificateValidUntil)
-	}
-
 	var localDateOfFirstPositiveNAAResult: Date? {
 		return ISO8601DateFormatter.justLocalDateFormatter.date(from: dateOfFirstPositiveNAAResult)
 	}
-
+  
 	func title(for keyPath: PartialKeyPath<RecoveryEntry>) -> String? {
 		switch keyPath {
 		case \RecoveryEntry.diseaseOrAgentTargeted:
