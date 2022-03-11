@@ -1750,12 +1750,13 @@ class HealthCertificateServiceTests: CWATestCase {
 		XCTAssertEqual(store.recycleBinItems.count, 1)
 	}
 	
-	func testDCCAdmissionStateChangge_Then_flagIsSetInHealthCertifiedPerson() throws {
+	func testDCCAdmissionStateChanged_Then_flagIsSetInHealthCertifiedPerson() throws {
 		let vaccinationHealthCertificate: HealthCertificate = try vaccinationCertificate(type: .seriesCompletingOrBooster, ageInDays: 2)
 		let healthCertifiedPerson = HealthCertifiedPerson(
 			healthCertificates: [vaccinationHealthCertificate],
 			dccWalletInfo: DCCWalletInfo.fake(
 				admissionState: .fake(
+					identifier: "3G",
 					visible: true,
 					badgeText: .fake(string: "3G"),
 					subtitleText: .fake(string: "3G")
@@ -1767,7 +1768,11 @@ class HealthCertificateServiceTests: CWATestCase {
 		store.healthCertifiedPersons = [healthCertifiedPerson]
 
 		let newDCCWalletInfo: DCCWalletInfo = .fake(
-			admissionState: .fake(visible: true, badgeText: .fake(string: "2G+"))
+			admissionState: .fake(
+				identifier: "2G+",
+				visible: true,
+				badgeText: .fake(string: "2G+")
+			)
 		)
 
 		var cclService = FakeCCLService()
@@ -1777,14 +1782,13 @@ class HealthCertificateServiceTests: CWATestCase {
 		let expectation = expectation(description: "dccWalletInfo updated")
 
 		let subscription = healthCertifiedPerson.$dccWalletInfo
-			.dropFirst()
+			.first(where: { $0?.admissionState.identifier == "2G+" && healthCertifiedPerson.isAdmissionStateChanged })
 			.sink { _ in
-				if healthCertifiedPerson.isAdmissionStateChanged {
-					expectation.fulfill()
-				}
+				XCTAssertTrue(healthCertifiedPerson.isAdmissionStateChanged)
+				expectation.fulfill()
 			}
 
-		let service = HealthCertificateService(
+		_ = HealthCertificateService(
 			store: store,
 			dccSignatureVerifier: DCCSignatureVerifyingStub(),
 			dscListProvider: MockDSCListProvider(),
@@ -1793,7 +1797,6 @@ class HealthCertificateServiceTests: CWATestCase {
 			recycleBin: .fake()
 		)
 		
-		XCTAssertNotNil(service)
 		waitForExpectations(timeout: .short)
 		subscription.cancel()
 	}
