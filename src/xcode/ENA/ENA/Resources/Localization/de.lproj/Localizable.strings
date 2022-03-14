@@ -2968,7 +2968,7 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "HealthCertifiedPerson_RecoveryCertificate_headline" = "Genesenenzertifikat";
 
-"HealthCertifiedPerson_RecoveryCertificate_validityDate" = "gültig bis %@";
+"HealthCertifiedPerson_RecoveryCertificate_positiveTestFrom" = "Positiver Test vom %@";
 
 "HealthCertifiedPerson_currentlyUsedCertificate" = "Aktuell verwendetes Zertifikat";
 
@@ -3492,7 +3492,7 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "RecycleBin_RecoveryCertificate_headline" = "Genesenenzertifikat";
 
-"RecycleBin_RecoveryCertificate_validityDate" = "gültig bis %@";
+"RecycleBin_RecoveryCertificate_positiveTestFrom" = "Positiver Test vom %@";
 
 /* - Corona Test */
 

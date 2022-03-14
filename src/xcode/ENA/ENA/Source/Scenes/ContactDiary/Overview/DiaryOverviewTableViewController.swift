@@ -123,14 +123,17 @@ class DiaryOverviewTableViewController: UITableViewController {
 		guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: DiaryOverviewDayTableViewCell.self), for: indexPath) as? DiaryOverviewDayTableViewCell else {
 			fatalError("Could not dequeue DiaryOverviewDayTableViewCell")
 		}
+
 		cell.configure(
 			cellViewModel: viewModel.cellModel(for: indexPath),
 			didTapClickableView: { [weak self] in
-				guard let self = self else {
+				guard let self = self,
+					  let currentIndexPath = self.tableView.indexPath(for: cell) else {
 					Log.error("Create strong self failed. Could not open day.")
 					return
 				}
-				self.onCellSelection(self.viewModel.day(by: indexPath))
+
+				self.onCellSelection(self.viewModel.day(by: currentIndexPath))
 			}
 		)
 		return cell
