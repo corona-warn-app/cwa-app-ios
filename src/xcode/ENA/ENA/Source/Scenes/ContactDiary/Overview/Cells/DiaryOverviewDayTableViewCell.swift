@@ -14,12 +14,59 @@ class DiaryOverviewDayTableViewCell: UITableViewCell {
 	) {
 		self.didTapClickableView = didTapClickableView
 
+		// should be clickable with grey background
+		configureDateHeader(cellViewModel)
+		// should not be clickable with white background
+		configureExposureHistory(cellViewModel)
+		// should not be clickable with white background
+		configureTests(cellViewModel)
+		// should not be clickable with white background
+		configureCheckinWithRisks(cellViewModel)
+		// should be clickable with grey background
+		configureEncounters(cellViewModel)
+
+		cellContainerView.layer.cornerRadius = 14
+		if #available(iOS 13.0, *) {
+			cellContainerView.layer.cornerCurve = .continuous
+		}
+		cellContainerView.layer.borderWidth = 1
+		cellContainerView.layer.borderColor = UIColor.enaColor(for: .hairline).cgColor
+
+	}
+
+	// MARK: - Private
+
+	@IBOutlet private weak var cellContainerView: UIView!
+	@IBOutlet private weak var dateStackView: UIStackView!
+	@IBOutlet private weak var dateLabel: ENALabel!
+	@IBOutlet private weak var encountersVisitsContainerStackView: UIStackView!
+	@IBOutlet private weak var encountersVisitsStackView: UIStackView!
+	@IBOutlet private weak var exposureHistoryStackView: UIStackView!
+	@IBOutlet private weak var exposureHistoryNoticeImageView: UIImageView!
+	@IBOutlet private weak var exposureHistoryTitleLabel: ENALabel!
+	@IBOutlet private weak var exposureHistoryDetailLabel: ENALabel!
+
+	// PCR & Antigen TestsStackView
+	@IBOutlet private weak var testsStackView: UIStackView!
+
+	// Check-Ins with risk
+	@IBOutlet private weak var checkinHistoryStackView: UIStackView!
+	@IBOutlet private weak var checkinHistoryNoticeImageView: UIImageView!
+	@IBOutlet private weak var checkinHistoryTitleLabel: ENALabel!
+	@IBOutlet private weak var checkinHistoryDetailLabel: ENALabel!
+	@IBOutlet private weak var checkinsWithRiskStackView: UIStackView!
+
+	private var didTapClickableView: (() -> Void)?
+
+	private func configureDateHeader(_ cellViewModel: DiaryOverviewDayCellModel) {
 		dateLabel.text = cellViewModel.formattedDate
 		dateLabel.accessibilityIdentifier = String(format: AccessibilityIdentifiers.ContactDiaryInformation.Overview.cellDateHeader, cellViewModel.accessibilityIdentifierIndex)
 
 		let tapOnDateStackViewRecognizer = UITapGestureRecognizer(target: self, action: #selector(clickableAreaWasTapped))
 		dateStackView.addGestureRecognizer(tapOnDateStackViewRecognizer)
+	}
 
+	private func configureExposureHistory(_ cellViewModel: DiaryOverviewDayCellModel) {
 		exposureHistoryStackView.isHidden = cellViewModel.hideExposureHistory
 		exposureHistoryNoticeImageView.image = cellViewModel.exposureHistoryImage
 		exposureHistoryTitleLabel.text = cellViewModel.exposureHistoryTitle
@@ -28,14 +75,64 @@ class DiaryOverviewDayTableViewCell: UITableViewCell {
 		exposureHistoryTitleLabel.style = .body
 		exposureHistoryDetailLabel.style = .subheadline
 		exposureHistoryDetailLabel.textColor = .enaColor(for: .textPrimary2)
+	}
 
+	private func configureTests(_ cellViewModel: DiaryOverviewDayCellModel) {
 		// pcr & antigen tests
 		testsStackView.arrangedSubviews.forEach { $0.removeFromSuperview() }
 		cellViewModel.diaryDayTests.forEach { diaryDayTest in
-			let testView = arrangedView(for: diaryDayTest)
-			testsStackView.addArrangedSubview(testView)
-		}
 
+			let containerView = UIView()
+			containerView.translatesAutoresizingMaskIntoConstraints = false
+
+			let separator = UIView()
+			separator.translatesAutoresizingMaskIntoConstraints = false
+			separator.backgroundColor = .enaColor(for: .hairline)
+			containerView.addSubview(separator)
+
+			let imageView = UIImageView()
+			imageView.translatesAutoresizingMaskIntoConstraints = false
+			imageView.contentMode = .center
+			imageView.image = diaryDayTest.result == .negative ? UIImage(imageLiteralResourceName: "Test_green") : UIImage(imageLiteralResourceName: "Test_red")
+
+			let titleLabel = ENALabel()
+			titleLabel.style = .body
+			titleLabel.text = diaryDayTest.type == .pcr ? AppStrings.ContactDiary.Overview.Tests.pcrRegistered : AppStrings.ContactDiary.Overview.Tests.antigenDone
+
+			let detailLabel = ENALabel()
+			detailLabel.style = .subheadline
+			detailLabel.textColor = .enaColor(for: .textPrimary2)
+			detailLabel.text = diaryDayTest.result == .negative ? AppStrings.ContactDiary.Overview.Tests.negativeResult : AppStrings.ContactDiary.Overview.Tests.positiveResult
+
+			let verticalStackView = UIStackView(arrangedSubviews: [titleLabel, detailLabel])
+			verticalStackView.axis = .vertical
+			verticalStackView.spacing = 8.0
+
+			let horizontalStackView = UIStackView(arrangedSubviews: [imageView, verticalStackView])
+			horizontalStackView.translatesAutoresizingMaskIntoConstraints = false
+			horizontalStackView.alignment = .center
+			horizontalStackView.spacing = 15.0
+			containerView.addSubview(horizontalStackView)
+
+			NSLayoutConstraint.activate(
+				[
+					separator.heightAnchor.constraint(equalToConstant: 1.0),
+					separator.leadingAnchor.constraint(equalTo: containerView.leadingAnchor),
+					separator.trailingAnchor.constraint(equalTo: containerView.trailingAnchor),
+
+					imageView.widthAnchor.constraint(equalToConstant: 32),
+					horizontalStackView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 18.0),
+					horizontalStackView.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 12.0),
+					horizontalStackView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -8.0),
+					horizontalStackView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -8.0)
+				]
+			)
+
+			testsStackView.addArrangedSubview(containerView)
+		}
+	}
+
+	private func configureCheckinWithRisks(_ cellViewModel: DiaryOverviewDayCellModel) {
 		// Check-Ins with risk
 		checkinHistoryStackView.isHidden = cellViewModel.hideCheckinRisk
 		checkinHistoryNoticeImageView.image = cellViewModel.checkinImage
@@ -45,9 +142,9 @@ class DiaryOverviewDayTableViewCell: UITableViewCell {
 		checkinHistoryDetailLabel.text = cellViewModel.checkinDetailDescription
 		checkinHistoryDetailLabel.style = .subheadline
 		checkinHistoryDetailLabel.textColor = .enaColor(for: .textPrimary2)
-		
+
 		checkinsWithRiskStackView.arrangedSubviews.forEach { $0.removeFromSuperview() }
-		
+
 		cellViewModel.checkinsWithRisk.enumerated().forEach { index, riskyCheckin in
 			let checkInLabel = ENALabel()
 			checkInLabel.adjustsFontForContentSizeCategory = true
@@ -57,13 +154,15 @@ class DiaryOverviewDayTableViewCell: UITableViewCell {
 			let riskColor = cellViewModel.colorFor(riskLevel: riskyCheckin.risk)
 			let eventName = cellViewModel.checkInDespription(checkinWithRisk: riskyCheckin)
 			let checkinName = NSAttributedString(string: eventName).bulletPointString(bulletPointFont: .enaFont(for: .title2, weight: .bold, italic: false), bulletPointColor: riskColor)
-			
+
 			checkInLabel.attributedText = checkinName
 			checkInLabel.isAccessibilityElement = true
 			checkInLabel.accessibilityIdentifier = "CheckinWithRisk\(index)"
 			checkinsWithRiskStackView.addArrangedSubview(checkInLabel)
 		}
-		
+	}
+
+	private func configureEncounters(_ cellViewModel: DiaryOverviewDayCellModel) {
 		encountersVisitsStackView.arrangedSubviews.forEach { $0.removeFromSuperview() }
 
 		cellViewModel.selectedEntries.enumerated().forEach { index, entry in
@@ -168,87 +267,6 @@ class DiaryOverviewDayTableViewCell: UITableViewCell {
 		accessibilityTraits = [.button]
 		accessibilityIdentifier = String(format: AccessibilityIdentifiers.ContactDiaryInformation.Overview.cell, cellViewModel.accessibilityIdentifierIndex)
 
-
-		cellContainerView.layer.cornerRadius = 14
-		if #available(iOS 13.0, *) {
-			cellContainerView.layer.cornerCurve = .continuous
-		}
-		cellContainerView.layer.borderWidth = 1
-		cellContainerView.layer.borderColor = UIColor.enaColor(for: .hairline).cgColor
-
-	}
-
-	// MARK: - Private
-
-	@IBOutlet private weak var cellContainerView: UIView!
-	@IBOutlet private weak var dateStackView: UIStackView!
-	@IBOutlet private weak var dateLabel: ENALabel!
-	@IBOutlet private weak var encountersVisitsContainerStackView: UIStackView!
-	@IBOutlet private weak var encountersVisitsStackView: UIStackView!
-	@IBOutlet private weak var exposureHistoryStackView: UIStackView!
-	@IBOutlet private weak var exposureHistoryNoticeImageView: UIImageView!
-	@IBOutlet private weak var exposureHistoryTitleLabel: ENALabel!
-	@IBOutlet private weak var exposureHistoryDetailLabel: ENALabel!
-
-	// PCR & Antigen TestsStackView
-	@IBOutlet private weak var testsStackView: UIStackView!
-
-	// Check-Ins with risk
-	@IBOutlet private weak var checkinHistoryStackView: UIStackView!
-	@IBOutlet private weak var checkinHistoryNoticeImageView: UIImageView!
-	@IBOutlet private weak var checkinHistoryTitleLabel: ENALabel!
-	@IBOutlet private weak var checkinHistoryDetailLabel: ENALabel!
-	@IBOutlet private weak var checkinsWithRiskStackView: UIStackView!
-
-	private var didTapClickableView: (() -> Void)?
-
-	private func arrangedView(for test: DiaryDayTest) -> UIView {
-		let containerView = UIView()
-		containerView.translatesAutoresizingMaskIntoConstraints = false
-
-		let separator = UIView()
-		separator.translatesAutoresizingMaskIntoConstraints = false
-		separator.backgroundColor = .enaColor(for: .hairline)
-		containerView.addSubview(separator)
-
-		let imageView = UIImageView()
-		imageView.translatesAutoresizingMaskIntoConstraints = false
-		imageView.contentMode = .center
-		imageView.image = test.result == .negative ? UIImage(imageLiteralResourceName: "Test_green") : UIImage(imageLiteralResourceName: "Test_red")
-
-		let titleLabel = ENALabel()
-		titleLabel.style = .body
-		titleLabel.text = test.type == .pcr ? AppStrings.ContactDiary.Overview.Tests.pcrRegistered : AppStrings.ContactDiary.Overview.Tests.antigenDone
-
-		let detailLabel = ENALabel()
-		detailLabel.style = .subheadline
-		detailLabel.textColor = .enaColor(for: .textPrimary2)
-		detailLabel.text = test.result == .negative ? AppStrings.ContactDiary.Overview.Tests.negativeResult : AppStrings.ContactDiary.Overview.Tests.positiveResult
-
-		let verticalStackView = UIStackView(arrangedSubviews: [titleLabel, detailLabel])
-		verticalStackView.axis = .vertical
-		verticalStackView.spacing = 8.0
-
-		let horizontalStackView = UIStackView(arrangedSubviews: [imageView, verticalStackView])
-		horizontalStackView.translatesAutoresizingMaskIntoConstraints = false
-		horizontalStackView.alignment = .center
-		horizontalStackView.spacing = 15.0
-		containerView.addSubview(horizontalStackView)
-
-		NSLayoutConstraint.activate(
-			[
-				separator.heightAnchor.constraint(equalToConstant: 1.0),
-				separator.leadingAnchor.constraint(equalTo: containerView.leadingAnchor),
-				separator.trailingAnchor.constraint(equalTo: containerView.trailingAnchor),
-
-				imageView.widthAnchor.constraint(equalToConstant: 32),
-				horizontalStackView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 18.0),
-				horizontalStackView.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 12.0),
-				horizontalStackView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -8.0),
-				horizontalStackView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -8.0)
-			]
-		)
-		return containerView
 	}
 
 	@objc
