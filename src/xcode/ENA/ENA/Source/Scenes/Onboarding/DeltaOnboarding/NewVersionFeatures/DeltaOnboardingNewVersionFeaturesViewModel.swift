@@ -17,7 +17,7 @@ struct DeltaOnboardingNewVersionFeaturesViewModel {
 		
 		self.newVersionFeatures.append(
 			// High Risk Indicator Shortened
-			NewVersionFeature(title: AppStrings.NewVersionFeatures.feature220HighRiskShortenedTitle, description: AppStrings.NewVersionFeatures.feature220HighRiskShortenedTitle)
+			NewVersionFeature(title: AppStrings.NewVersionFeatures.feature220HighRiskShortenedTitle, description: AppStrings.NewVersionFeatures.feature220HighRiskShortenedDescription)
 		)
 		
 		self.newVersionFeatures.append(
