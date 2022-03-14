@@ -93,7 +93,7 @@ struct ExposureWindow: Codable, Equatable {
 	let scanInstances: [ScanInstance]
 	
 	// For each Exposure Window, its `age` shall be calculated as the full as the number of days between its date and the current device time.
-	func age(from now: Date = Date()) -> Int {
+	func ageInDays(from now: Date = Date()) -> Int {
 		Calendar.utcCalendar.dateComponents([.day], from: date, to: now).day ?? 0
 	}
 }
@@ -102,7 +102,7 @@ extension Array where Element == ExposureWindow {
 	
 	func filteredByAge(maxEncounterAgeInDays: UInt32, now: Date = Date()) -> [ExposureWindow] {
 		filter {
-			$0.age(from: now) <= maxEncounterAgeInDays
+			$0.ageInDays(from: now) <= maxEncounterAgeInDays
 		}
 	}
 }
