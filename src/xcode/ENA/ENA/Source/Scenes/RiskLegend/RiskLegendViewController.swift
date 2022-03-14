@@ -4,15 +4,18 @@
 
 import Foundation
 import UIKit
+import OpenCombine
 
 class RiskLegendViewController: DynamicTableViewController {
 
 	// MARK: - Init
 
 	init(
-		onDismiss: @escaping () -> Void
+		onDismiss: @escaping () -> Void,
+		appConfigProvider: AppConfigurationProviding
 	) {
 		self.onDismiss = onDismiss
+		self.appConfigProvider = appConfigProvider
 		super.init(nibName: nil, bundle: nil)
 	}
 
@@ -36,10 +39,20 @@ class RiskLegendViewController: DynamicTableViewController {
 
 		navigationController?.navigationBar.prefersLargeTitles = true
 		navigationItem.title = AppStrings.RiskLegend.title
-
 		view.backgroundColor = .enaColor(for: .background)
 
-		dynamicTableViewModel = model
+		appConfigProvider.appConfiguration()
+			.sink { [weak self] appConfig in
+				guard let self = self else {
+					Log.debug("failed to get strong self")
+					return
+				}
+				self.dynamicTableViewModel = self.model(
+					maxEncounterAgeInDays: Int(appConfig.riskCalculationParameters.defaultedMaxEncounterAgeInDays)
+				)
+				self.tableView.reloadData()
+			}
+			.store(in: &subscriptions)
 	}
 
 	override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -56,8 +69,12 @@ class RiskLegendViewController: DynamicTableViewController {
 	}
 
 	let onDismiss: () -> Void
+	
 
 	// MARK: - Private
+
+	private let appConfigProvider: AppConfigurationProviding
+	private var subscriptions = Set<AnyCancellable>()
 
 	private func setupTableView() {
 		tableView.separatorStyle = .none
@@ -67,14 +84,15 @@ class RiskLegendViewController: DynamicTableViewController {
 		)
 	}
 
-	private var model: DynamicTableViewModel {
+	// swiftlint:disable function_body_length
+	private func model(maxEncounterAgeInDays: Int) -> DynamicTableViewModel {
 		let insets: UIEdgeInsets
 		if #available(iOS 13, *) {
 			insets = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 0)
 		} else {
 			insets = UIEdgeInsets(top: 16, left: 16, bottom: 0, right: 0)
 		}
-
+		
 		return DynamicTableViewModel([
 			.navigationSubtitle(
 				text: AppStrings.RiskLegend.subtitle,
@@ -102,7 +120,10 @@ class RiskLegendViewController: DynamicTableViewController {
 				cells: [
 					.icon(UIImage(named: "Icons_Ueberblick_2"), text: .string(AppStrings.RiskLegend.legend2Title), style: .title2) { _, cell, _ in cell.accessibilityTraits = .header },
 					.body(
-						text: AppStrings.RiskLegend.legend2Text,
+						text: String(
+							format: AppStrings.RiskLegend.legend2Text,
+							maxEncounterAgeInDays
+						),
 						accessibilityIdentifier: AccessibilityIdentifiers.RiskLegend.legend2Text
 					),
 					.space(height: 8),
