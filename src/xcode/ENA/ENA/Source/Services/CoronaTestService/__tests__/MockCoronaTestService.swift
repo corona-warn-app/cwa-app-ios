@@ -150,6 +150,14 @@ class MockCoronaTestService: CoronaTestServiceProviding {
 		return nil
 	}
 
+	func addCoronaTestToContactDiary(
+		testDate: String,
+		testType: Int,
+		testResult: Int
+	) {
+		
+	}
+
 	#if DEBUG
 
 	func mockHealthCertificateTuple() -> (certificate: HealthCertificate, certifiedPerson: HealthCertifiedPerson)? {
