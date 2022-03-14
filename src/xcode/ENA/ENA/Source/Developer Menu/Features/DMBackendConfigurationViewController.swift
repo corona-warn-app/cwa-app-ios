@@ -27,17 +27,35 @@ final class DMBackendConfigurationViewController: UITableViewController {
 	// MARK: Properties
 
 	private let environmentProvider: EnvironmentProviding
-
+	
 	private var distributionURL: String {
 		environmentProvider.currentEnvironment().distributionURL.absoluteString
 	}
+	
 	private var submissionURL: String {
 		environmentProvider.currentEnvironment().submissionURL.absoluteString
 	}
+	
 	private var verificationURL: String {
 		environmentProvider.currentEnvironment().verificationURL.absoluteString
 	}
-
+	
+	private var dataDonationURL: String {
+		environmentProvider.currentEnvironment().dataDonationURL.absoluteString
+	}
+	
+	private var errorLogSubmissionURL: String {
+		environmentProvider.currentEnvironment().errorLogSubmissionURL.absoluteString
+	}
+	
+	private var dccURL: String {
+		environmentProvider.currentEnvironment().dccURL.absoluteString
+	}
+	
+	private var dccRecertifyURL: String {
+		environmentProvider.currentEnvironment().dccRecertifyURL.absoluteString
+	}
+	
 	// MARK: UIViewController
 
 	override func viewDidLoad() {
@@ -67,6 +85,18 @@ final class DMBackendConfigurationViewController: UITableViewController {
 		case 2:
 			title = "Verification URL"
 			subtitle = verificationURL
+		case 3:
+			title = "Data Donation URL"
+			subtitle = dataDonationURL
+		case 4:
+			title = "Error Log Submission URL"
+			subtitle = errorLogSubmissionURL
+		case 5:
+			title = "DCC URL"
+			subtitle = dccURL
+		case 6:
+			title = "DCC Recertify URL"
+			subtitle = dccRecertifyURL
 		default:
 			title = nil
 			subtitle = nil
@@ -78,7 +108,7 @@ final class DMBackendConfigurationViewController: UITableViewController {
 	}
 
 	override func tableView(_: UITableView, numberOfRowsInSection _: Int) -> Int {
-		3
+		7
 	}
 }
 

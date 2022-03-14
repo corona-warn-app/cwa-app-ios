@@ -55,4 +55,10 @@ extension UIFont {
 			.preferredFont(forTextStyle: style.textStyle)
 			.scaledFont(size: style.fontSize, weight: weight ?? style.fontWeight, italic: italic)
 	}
+
+	static func unscaledENAFont(for style: ENAFont, weight: UIFont.Weight? = nil, italic: Bool = false) -> UIFont {
+		return UIFont
+			.preferredFont(forTextStyle: style.textStyle)
+			.unscaledFont(size: style.fontSize, weight: weight ?? style.fontWeight, italic: italic)
+	}
 }

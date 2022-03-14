@@ -11,7 +11,7 @@ import HealthCertificateToolkit
 // swiftlint:disable type_body_length
 class HealthCertificateMigratorTests: XCTestCase {
 
-	func testGIVEN_4_Persons_WHEN_Migration_THEN_GroupingIsNotChanged() throws {
+	func testGIVEN_2_Persons_WHEN_Migration_THEN_GroupingIsNotChanged() throws {
 
 		// GIVEN
 		let thomas01 = HealthCertifiedPerson(
@@ -20,7 +20,8 @@ class HealthCertificateMigratorTests: XCTestCase {
 					base45: try thomasCert01(),
 					isNew: true
 				)],
-			isPreferredPerson: true
+			isPreferredPerson: true,
+			dccWalletInfo: .fake()
 		)
 
 		let ulrike01 = HealthCertifiedPerson(
@@ -29,7 +30,8 @@ class HealthCertificateMigratorTests: XCTestCase {
 					base45: try ulrikeCert01(),
 					isValidityStateNew: true
 				)
-			]
+			],
+			dccWalletInfo: .fake()
 		)
 		let store = MockTestStore(healthCertifiedPersonsVersion: 2)
 		store.healthCertifiedPersons = [
@@ -55,12 +57,13 @@ class HealthCertificateMigratorTests: XCTestCase {
 		XCTAssertEqual(ulrike.healthCertificates.count, 1)
 		// Test migrated properties
 		XCTAssertTrue(thomas.isPreferredPerson)
+		XCTAssertNotNil(thomas.dccWalletInfo)
 		XCTAssertFalse(thomas.mostRecentWalletInfoUpdateFailed)
 		XCTAssertNil(thomas.boosterRule)
 		XCTAssertFalse(thomas.isNewBoosterRule)
 		XCTAssertTrue(ulrike.healthCertificates[0].isValidityStateNew)
 		XCTAssertFalse(ulrike.isPreferredPerson)
-		XCTAssertNil(ulrike.dccWalletInfo)
+		XCTAssertNotNil(ulrike.dccWalletInfo)
 		XCTAssertFalse(ulrike.mostRecentWalletInfoUpdateFailed)
 		XCTAssertNil(ulrike.boosterRule)
 		XCTAssertFalse(ulrike.isNewBoosterRule)
@@ -77,21 +80,26 @@ class HealthCertificateMigratorTests: XCTestCase {
 					validityState: .expired,
 					didShowInvalidNotification: true
 				)
-			]
+			],
+			dccWalletInfo: .fake()
 		)
 		let thomas02 = HealthCertifiedPerson(
 			healthCertificates: [
 				try HealthCertificate(
 					base45: try thomasCert02(),
 					isNew: true
-				)]
+				)
+			],
+			dccWalletInfo: .fake()
 		)
 		let thomas03 = HealthCertifiedPerson(
 			healthCertificates: [
 				try HealthCertificate(
 					base45: try thomasCert03()
-				)],
+				)
+			],
 			isPreferredPerson: true,
+			dccWalletInfo: .fake(),
 			mostRecentWalletInfoUpdateFailed: true,
 			boosterRule: .fake(),
 			isNewBoosterRule: true
@@ -102,7 +110,8 @@ class HealthCertificateMigratorTests: XCTestCase {
 					base45: try ulrikeCert01(),
 					isValidityStateNew: true
 				)
-			]
+			],
+			dccWalletInfo: .fake()
 		)
 		let store = MockTestStore(healthCertifiedPersonsVersion: 2)
 		store.healthCertifiedPersons = [
@@ -119,17 +128,20 @@ class HealthCertificateMigratorTests: XCTestCase {
 		
 		// THEN
 		
-		// Test grouing
+		// Test grouping
 		XCTAssertEqual(migratedPersons.count, 2)
 		let thomas = migratedPersons[0]
 		let ulrike = migratedPersons[1]
 		
 		XCTAssertEqual(thomas.name, thomas01.name)
 		XCTAssertEqual(thomas.healthCertificates.count, 3)
+
 		XCTAssertEqual(ulrike.name, ulrike01.name)
 		XCTAssertEqual(ulrike.healthCertificates.count, 1)
+
 		// Test migrated properties
 		XCTAssertTrue(thomas.isPreferredPerson)
+		XCTAssertNil(thomas.dccWalletInfo)
 		XCTAssertFalse(thomas.mostRecentWalletInfoUpdateFailed)
 		XCTAssertNil(thomas.boosterRule)
 		XCTAssertFalse(thomas.isNewBoosterRule)
@@ -138,7 +150,7 @@ class HealthCertificateMigratorTests: XCTestCase {
 		XCTAssertTrue(thomas.healthCertificates[1].isNew)
 		XCTAssertTrue(ulrike.healthCertificates[0].isValidityStateNew)
 		XCTAssertFalse(ulrike.isPreferredPerson)
-		XCTAssertNil(ulrike.dccWalletInfo)
+		XCTAssertNotNil(ulrike.dccWalletInfo)
 		XCTAssertFalse(ulrike.mostRecentWalletInfoUpdateFailed)
 		XCTAssertNil(ulrike.boosterRule)
 		XCTAssertFalse(ulrike.isNewBoosterRule)
@@ -147,25 +159,35 @@ class HealthCertificateMigratorTests: XCTestCase {
 	func testGIVEN_4_Persons_Order_2_WHEN_Migration_THEN_Grouped_to_2_Persons() throws {
 		// GIVEN
 		
-		let thomas01 = HealthCertifiedPerson(healthCertificates: [
-			try HealthCertificate(base45: try thomasCert01())
-		])
+		let thomas01 = HealthCertifiedPerson(
+			healthCertificates: [
+				try HealthCertificate(base45: try thomasCert01())
+			],
+			dccWalletInfo: .fake()
+		)
 		let thomas02 = HealthCertifiedPerson(
 			healthCertificates: [
 				try HealthCertificate(
 					base45: try thomasCert02()
-				)],
+				)
+			],
+			dccWalletInfo: .fake(),
 			boosterRule: .fake()
 		)
-		let thomas03 = HealthCertifiedPerson(healthCertificates: [
-			try HealthCertificate(base45: try thomasCert03())
-		])
+		let thomas03 = HealthCertifiedPerson(
+			healthCertificates: [
+				try HealthCertificate(base45: try thomasCert03())
+			],
+			dccWalletInfo: .fake()
+		)
 		let ulrike01 = HealthCertifiedPerson(
 			healthCertificates: [
 				try HealthCertificate(
 					base45: try ulrikeCert01()
-				)],
+				)
+			],
 			isPreferredPerson: true,
+			dccWalletInfo: .fake(),
 			boosterRule: nil
 		)
 		
@@ -183,15 +205,20 @@ class HealthCertificateMigratorTests: XCTestCase {
 		let migratedPersons = store.healthCertifiedPersons
 		
 		// THEN
-		// By setting isPrefered to ulrike, we expect her to be first in the list
+		// By setting isPreferred to ulrike, we expect her to be first in the list
 		XCTAssertEqual(migratedPersons.count, 2)
 		XCTAssertEqual(migratedPersons[0].name, ulrike01.name)
 		XCTAssertEqual(migratedPersons[0].healthCertificates.count, 1)
 		XCTAssertTrue(migratedPersons[0].isPreferredPerson)
+		XCTAssertNotNil(migratedPersons[0].dccWalletInfo)
+		XCTAssertFalse(migratedPersons[0].mostRecentWalletInfoUpdateFailed)
 		XCTAssertNil(migratedPersons[0].boosterRule)
+
 		XCTAssertEqual(migratedPersons[1].name, thomas01.name)
 		XCTAssertEqual(migratedPersons[1].healthCertificates.count, 3)
 		XCTAssertFalse(migratedPersons[1].isPreferredPerson)
+		XCTAssertNil(migratedPersons[1].dccWalletInfo)
+		XCTAssertFalse(migratedPersons[0].mostRecentWalletInfoUpdateFailed)
 		XCTAssertNil(migratedPersons[1].boosterRule)
 	}
 	
@@ -236,8 +263,10 @@ class HealthCertificateMigratorTests: XCTestCase {
 		XCTAssertEqual(migratedPersons[0].name, thomas01.name)
 		XCTAssertEqual(migratedPersons[0].healthCertificates.count, 3)
 		XCTAssertNil(migratedPersons[0].dccWalletInfo)
+
 		XCTAssertEqual(migratedPersons[1].name, ulrike01.name)
 		XCTAssertEqual(migratedPersons[1].healthCertificates.count, 1)
+
 	}
 	
 	func testGIVEN_4_Persons_Order_4_WHEN_Migration_THEN_Grouped_to_2_Persons() throws {
@@ -372,24 +401,42 @@ class HealthCertificateMigratorTests: XCTestCase {
 	
 	func testGIVEN_6_Persons_WHEN_Migration_THEN_Grouped_to_3_Persons() throws {
 		// GIVEN
-		let thomas01 = HealthCertifiedPerson(healthCertificates: [
-			try HealthCertificate(base45: try thomasCert01())
-		])
-		let thomas02 = HealthCertifiedPerson(healthCertificates: [
-			try HealthCertificate(base45: try thomasCert02())
-		])
-		let thomas03 = HealthCertifiedPerson(healthCertificates: [
-			try HealthCertificate(base45: try thomasCert03())
-		])
-		let ulrike01 = HealthCertifiedPerson(healthCertificates: [
-			try HealthCertificate(base45: try ulrikeCert01())
-		])
-		let ulrike02 = HealthCertifiedPerson(healthCertificates: [
-			try HealthCertificate(base45: try ulrikeCert02())
-		])
-		let andreas01 = HealthCertifiedPerson(healthCertificates: [
-			try HealthCertificate(base45: try andreasCert01())
-		])
+		let thomas01 = HealthCertifiedPerson(
+			healthCertificates: [
+				try HealthCertificate(base45: try thomasCert01())
+			],
+			dccWalletInfo: .fake()
+		)
+		let thomas02 = HealthCertifiedPerson(
+			healthCertificates: [
+				try HealthCertificate(base45: try thomasCert02())
+			],
+			dccWalletInfo: .fake()
+		)
+		let thomas03 = HealthCertifiedPerson(
+			healthCertificates: [
+				try HealthCertificate(base45: try thomasCert03())
+			],
+			dccWalletInfo: .fake()
+		)
+		let ulrike01 = HealthCertifiedPerson(
+			healthCertificates: [
+				try HealthCertificate(base45: try ulrikeCert01())
+			],
+			dccWalletInfo: .fake()
+		)
+		let ulrike02 = HealthCertifiedPerson(
+			healthCertificates: [
+				try HealthCertificate(base45: try ulrikeCert02())
+			],
+			dccWalletInfo: .fake()
+		)
+		let andreas01 = HealthCertifiedPerson(
+			healthCertificates: [
+				try HealthCertificate(base45: try andreasCert01())
+			],
+			dccWalletInfo: .fake()
+		)
 		
 		let store = MockTestStore(healthCertifiedPersonsVersion: 2)
 		store.healthCertifiedPersons = [
@@ -410,10 +457,13 @@ class HealthCertificateMigratorTests: XCTestCase {
 		XCTAssertEqual(migratedPersons.count, 3)
 		XCTAssertEqual(migratedPersons[0].name, andreas01.name)
 		XCTAssertEqual(migratedPersons[0].healthCertificates.count, 1)
+		XCTAssertNotNil(migratedPersons[0].dccWalletInfo)
 		XCTAssertEqual(migratedPersons[1].name, thomas01.name)
 		XCTAssertEqual(migratedPersons[1].healthCertificates.count, 3)
+		XCTAssertNil(migratedPersons[1].dccWalletInfo)
 		XCTAssertEqual(migratedPersons[2].name, ulrike01.name)
 		XCTAssertEqual(migratedPersons[2].healthCertificates.count, 2)
+		XCTAssertNil(migratedPersons[2].dccWalletInfo)
 	}
 	
 	func testGIVEN_6_Persons_Shuffled_Order_WHEN_Migration_THEN_Grouped_to_3_Persons() throws {
@@ -605,7 +655,7 @@ class HealthCertificateMigratorTests: XCTestCase {
 					standardizedGivenName: "ARMIN"
 				),
 				dateOfBirth: "1966-11-16",
-				recoveryEntries: [.fake(certificateValidFrom: "2022-01-03")]
+				recoveryEntries: [.fake(dateOfFirstPositiveNAAResult: "2022-01-03")]
 			)
 		)
 	}

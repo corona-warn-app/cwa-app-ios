@@ -847,12 +847,26 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 	}
 
 	private func showUI() {
-		if store.isOnboarded {
-			showHome(route)
-		} else {
-			postOnboardingRoute = route
-			showOnboarding()
-		}
+		coordinator.showLoadingScreen()
+
+		healthCertificateService.setup(
+			updatingWalletInfos: true,
+			completion: { [weak self] in
+				guard let self = self else {
+					return
+				}
+
+				DispatchQueue.main.async {
+					if self.store.isOnboarded {
+						self.showHome(self.route)
+					} else {
+						self.postOnboardingRoute = self.route
+						self.showOnboarding()
+					}
+				}
+			}
+		)
+
 	}
 
 	private func setupNavigationBarAppearance() {

@@ -2142,7 +2142,7 @@ enum AppStrings {
 
 			enum RecoveryCertificate {
 				static let headline = NSLocalizedString("HealthCertifiedPerson_RecoveryCertificate_headline", comment: "")
-				static let validityDate = NSLocalizedString("HealthCertifiedPerson_RecoveryCertificate_validityDate", comment: "")
+				static let positiveTestFrom = NSLocalizedString("HealthCertifiedPerson_RecoveryCertificate_positiveTestFrom", comment: "")
 			}
 
 		}
@@ -2532,7 +2532,7 @@ enum AppStrings {
 
 		enum RecoveryCertificate {
 			static let headline = NSLocalizedString("RecycleBin_RecoveryCertificate_headline", comment: "")
-			static let validityDate = NSLocalizedString("RecycleBin_RecoveryCertificate_validityDate", comment: "")
+			static let positiveTestFrom = NSLocalizedString("RecycleBin_RecoveryCertificate_positiveTestFrom", comment: "")
 		}
 
 		enum CoronaTest {

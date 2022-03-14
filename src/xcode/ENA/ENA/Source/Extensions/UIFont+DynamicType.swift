@@ -26,6 +26,20 @@ extension UIFont {
 			return font
 		}
 	}
+
+	func unscaledFont(size: CGFloat? = nil, weight: Weight? = .regular, italic: Bool = false) -> UIFont {
+		guard let textStyle = self.textStyle else { return self }
+
+		let description = UIFontDescriptor.preferredFontDescriptor(withTextStyle: textStyle)
+		let font = UIFont.systemFont(ofSize: size ?? description.pointSize, weight: weight ?? .regular)
+
+		if italic,
+		   let italicFontDescriptor = font.fontDescriptor.withSymbolicTraits(.traitItalic) {
+			return UIFont(descriptor: italicFontDescriptor, size: 0)
+		} else {
+			return font
+		}
+	}
 }
 
 extension UIFont.Weight {
