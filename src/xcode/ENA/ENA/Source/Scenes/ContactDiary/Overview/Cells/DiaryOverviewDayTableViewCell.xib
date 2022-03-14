@@ -172,11 +172,6 @@ Nur der Mann im Mo schaut zu</string>
                             <constraint firstAttribute="bottom" secondItem="3yR-Fn-6YN" secondAttribute="bottom" priority="999" constant="16" id="fSU-ec-S60"/>
                             <constraint firstAttribute="trailing" secondItem="3yR-Fn-6YN" secondAttribute="trailing" id="zuK-fo-OQT"/>
                         </constraints>
-                        <userDefinedRuntimeAttributes>
-                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                <integer key="value" value="14"/>
-                            </userDefinedRuntimeAttribute>
-                        </userDefinedRuntimeAttributes>
                     </view>
                 </subviews>
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -192,6 +187,7 @@ Nur der Mann im Mo schaut zu</string>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <directionalEdgeInsets key="directionalLayoutMargins" top="8" leading="24" bottom="8" trailing="24"/>
             <connections>
+                <outlet property="cellContainerView" destination="Eyw-oN-Ew5" id="uBZ-hj-h7Y"/>
                 <outlet property="checkinHistoryDetailLabel" destination="ETM-Eq-rvE" id="u3Q-Jj-rDz"/>
                 <outlet property="checkinHistoryNoticeImageView" destination="bqu-yO-Qy4" id="vrO-8I-3ba"/>
                 <outlet property="checkinHistoryStackView" destination="8TA-t5-hG7" id="VNy-WF-fCZ"/>

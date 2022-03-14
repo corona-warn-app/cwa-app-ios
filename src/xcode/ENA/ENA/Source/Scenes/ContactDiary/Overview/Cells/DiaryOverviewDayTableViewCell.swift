@@ -20,7 +20,6 @@ class DiaryOverviewDayTableViewCell: UITableViewCell {
 		dateStackView.addGestureRecognizer(tapOnDateStackViewRecognizer)
 		dateStackView.addSubview(dateLabel)
 
-
 		exposureHistoryStackView.isHidden = cellViewModel.hideExposureHistory
 		exposureHistoryNoticeImageView.image = cellViewModel.exposureHistoryImage
 		exposureHistoryTitleLabel.text = cellViewModel.exposureHistoryTitle
@@ -143,6 +142,22 @@ class DiaryOverviewDayTableViewCell: UITableViewCell {
 			entryStackView.addArrangedSubview(imageView)
 			entryStackView.addArrangedSubview(entryLabelStackView)
 
+			if index > 0 {
+				let separatorLine = UIView()
+				separatorLine.backgroundColor = .enaColor(for: .hairline)
+				separatorLine.translatesAutoresizingMaskIntoConstraints = false
+
+				entryStackView.addSubview(separatorLine)
+
+				// Draw a seperator line from leading to trailing of the cellContainerView and between two entryStackViews. For this we need some offsets.
+				NSLayoutConstraint.activate([
+					separatorLine.heightAnchor.constraint(equalToConstant: 1),
+					separatorLine.topAnchor.constraint(equalTo: entryStackView.topAnchor, constant: -10),
+					separatorLine.leadingAnchor.constraint(equalTo: entryStackView.leadingAnchor, constant: -16),
+					separatorLine.trailingAnchor.constraint(equalTo: entryStackView.trailingAnchor, constant: 8)
+				])
+			}
+
 			encountersVisitsStackView.addArrangedSubview(entryStackView)
 		}
 
@@ -152,10 +167,20 @@ class DiaryOverviewDayTableViewCell: UITableViewCell {
 
 		accessibilityTraits = [.button]
 		accessibilityIdentifier = String(format: AccessibilityIdentifiers.ContactDiaryInformation.Overview.cell, cellViewModel.accessibilityIdentifierIndex)
+
+
+		cellContainerView.layer.cornerRadius = 14
+		if #available(iOS 13.0, *) {
+			cellContainerView.layer.cornerCurve = .continuous
+		}
+		cellContainerView.layer.borderWidth = 1
+		cellContainerView.layer.borderColor = UIColor.enaColor(for: .hairline).cgColor
+
 	}
 
 	// MARK: - Private
 
+	@IBOutlet private weak var cellContainerView: UIView!
 	@IBOutlet private weak var dateStackView: UIStackView!
 	@IBOutlet private weak var dateLabel: ENALabel!
 	@IBOutlet private weak var encountersVisitsContainerStackView: UIStackView!
