@@ -25,16 +25,30 @@ class HomeTableViewModel {
 		self.badgeWrapper = badgeWrapper
 
 		coronaTestService.pcrTest
+			.dropFirst()
+			.sink { [weak self] _ in
+				self?.update()
+				self?.scheduleUpdateTimer()
+			}
+			.store(in: &subscriptions)
+
+		coronaTestService.antigenTest
+			.dropFirst()
+			.sink { [weak self] _ in
+				self?.update()
+				self?.scheduleUpdateTimer()
+			}
+			.store(in: &subscriptions)
+
+		state.$riskState
+			.dropFirst()
 			.sink { [weak self] _ in
 				self?.update()
 			}
 			.store(in: &subscriptions)
 
-		coronaTestService.antigenTest
-			.sink { [weak self] _ in
-				self?.update()
-			}
-			.store(in: &subscriptions)
+		update()
+		scheduleUpdateTimer()
 	}
 
 	// MARK: - Internal
@@ -171,6 +185,7 @@ class HomeTableViewModel {
 	private let badgeWrapper: HomeBadgeWrapper
 
 	private var subscriptions = Set<AnyCancellable>()
+	private var updateTimer: Timer?
 
 	private var computedRiskAndTestResultsRows: [RiskAndTestResultsRow] {
 		var riskAndTestResultsRows = [RiskAndTestResultsRow]()
@@ -237,6 +252,12 @@ class HomeTableViewModel {
 			.addingTimeInterval(3600 * Double(hoursSinceSampleCollectionToShowRiskCard))
 	}
 
+	private var nextRevealDate: Date? {
+		[pcrRiskCardRevealDate, antigenRiskCardRevealDate]
+			.compactMap { $0 }
+			.min()
+	}
+
 	private func showErrorIfNeeded(testType: CoronaTestType, _ error: CoronaTestServiceError) {
 		switch testType {
 		// Only show errors for corona tests that are still expecting their final test result
@@ -251,6 +272,33 @@ class HomeTableViewModel {
 		}
 	}
 
+	@objc
+	private func scheduleUpdateTimer() {
+		updateTimer?.invalidate()
+
+		NotificationCenter.default.removeObserver(self, name: UIApplication.didEnterBackgroundNotification, object: nil)
+		NotificationCenter.default.removeObserver(self, name: UIApplication.didBecomeActiveNotification, object: nil)
+
+		guard let nextRevealDate = nextRevealDate else {
+			return
+		}
+
+		// Schedule new timer.
+		NotificationCenter.default.addObserver(self, selector: #selector(invalidateTimer), name: UIApplication.didEnterBackgroundNotification, object: nil)
+		NotificationCenter.default.addObserver(self, selector: #selector(scheduleUpdateTimer), name: UIApplication.didBecomeActiveNotification, object: nil)
+
+		updateTimer = Timer(fireAt: nextRevealDate, interval: 0, target: self, selector: #selector(update), userInfo: nil, repeats: false)
+
+		guard let updateTimer = updateTimer else { return }
+		RunLoop.main.add(updateTimer, forMode: .common)
+	}
+
+	@objc
+	private func invalidateTimer() {
+		updateTimer?.invalidate()
+	}
+
+	@objc
 	private func update() {
 		let updatedRiskAndTestResultsRows = self.computedRiskAndTestResultsRows
 
