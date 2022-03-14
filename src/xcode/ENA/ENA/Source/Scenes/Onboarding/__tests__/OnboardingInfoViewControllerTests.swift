@@ -24,7 +24,8 @@ class OnboardingInfoViewControllerTests: CWATestCase {
 			exposureManager: mockExposureManager,
 			store: mockStore,
 			client: mockClient,
-			supportedCountries: supportedCountries
+			supportedCountries: supportedCountries,
+			appConfigProvider: CachedAppConfigurationMock()
 		)
 		
 		XCTAssertNotNil(onboardingInfoViewController, "Could not create OnboardingInfoViewController")
