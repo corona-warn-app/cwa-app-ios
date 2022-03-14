@@ -24,8 +24,6 @@ final class DiaryOverviewDayCellModel {
 		self.accessibilityIdentifierIndex = accessibilityIdentifierIndex
 	}
 
-	// MARK: - Public
-
 	// MARK: - Internal
 
 	let historyExposure: HistoryExposure
@@ -171,6 +169,10 @@ final class DiaryOverviewDayCellModel {
 
 	var formattedDate: String {
 		diaryDay.formattedDate
+	}
+
+	var dateAccessibilityIdentifier: String {
+		return AccessibilityIdentifiers.ContactDiaryInformation.Overview.cellDateHeader
 	}
 
 	var diaryDayTests: [DiaryDayTest] {

@@ -69,16 +69,6 @@ class DiaryOverviewTableViewController: UITableViewController {
 		}
 	}
 
-	// MARK: - Protocol UITableViewDelegate
-
-	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-		guard indexPath.section == 1 else {
-			return
-		}
-
-		onCellSelection(viewModel.day(by: indexPath))
-	}
-
 	// MARK: - Private
 
 	private let viewModel: DiaryOverviewViewModel
@@ -133,7 +123,19 @@ class DiaryOverviewTableViewController: UITableViewController {
 		guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: DiaryOverviewDayTableViewCell.self), for: indexPath) as? DiaryOverviewDayTableViewCell else {
 			fatalError("Could not dequeue DiaryOverviewDayTableViewCell")
 		}
-		cell.configure(cellViewModel: viewModel.cellModel(for: indexPath))
+
+		cell.configure(
+			cellViewModel: viewModel.cellModel(for: indexPath),
+			didTapClickableView: { [weak self] in
+				guard let self = self,
+					  let currentIndexPath = self.tableView.indexPath(for: cell) else {
+					Log.error("Create strong self failed. Could not open day.")
+					return
+				}
+
+				self.onCellSelection(self.viewModel.day(by: currentIndexPath))
+			}
+		)
 		return cell
 	}
 	

@@ -431,10 +431,11 @@ final class RiskProvider: RiskProviding {
 			previousCheckinCalculationResult: store.checkinRiskCalculationResult
 		)
 
+		let previousRisk = previousRisk
 		store.enfRiskCalculationResult = enfRiskCalculationResult
 		store.checkinRiskCalculationResult = checkinRiskCalculationResult
 
-		checkIfRiskLevelHasChangedForNotifications(risk)
+		checkIfRiskLevelHasChangedForNotifications(risk, previousRisk: previousRisk)
 		checkIfRiskStatusLoweredAlertShouldBeShown(risk)
 		Analytics.collect(.riskExposureMetadata(.update))
 		completion(.success(risk))
@@ -454,7 +455,7 @@ final class RiskProvider: RiskProviding {
 		consumer?.provideRiskCalculationResult(result)
 	}
 	
-	private func checkIfRiskLevelHasChangedForNotifications(_ risk: Risk) {
+	private func checkIfRiskLevelHasChangedForNotifications(_ risk: Risk, previousRisk: Risk?) {
 		/// Triggers a notification for every risk level change.
 		switch risk.riskLevelChange {
 		case .decreased:
@@ -464,7 +465,7 @@ final class RiskProvider: RiskProviding {
 		case let .unchanged(riskLevel):
 			guard riskLevel == .high,
 				  let mostRecentDateWithRiskLevel = risk.details.mostRecentDateWithRiskLevel,
-				  let previousMostRecentDateWithRiskLevel = store.mostRecentDateWithRiskLevel,
+				  let previousMostRecentDateWithRiskLevel = previousRisk?.details.mostRecentDateWithRiskLevel,
 				  mostRecentDateWithRiskLevel > previousMostRecentDateWithRiskLevel
 			else {
 				Log.info("Missing mostRecentDateWithRiskLevel - do not trigger anything")
@@ -481,8 +482,6 @@ final class RiskProvider: RiskProviding {
 				Log.error("Unknown application state")
 			}
 		}
-		// after we notification check is done update mostRecentDateWithRiskLevel in store
-		store.mostRecentDateWithRiskLevel = risk.details.mostRecentDateWithRiskLevel
 	}
 
 	private func triggerHighRiskNotification() {

@@ -741,12 +741,6 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 	}
 
 	private func showInformationHowRiskDetectionWorksIfNeeded(completion: @escaping () -> Void = {}) {
-		#if DEBUG
-		if isUITesting {
-			viewModel.store.userNeedsToBeInformedAboutHowRiskDetectionWorks = LaunchArguments.infoScreen.userNeedsToBeInformedAboutHowRiskDetectionWorks.boolValue
-		}
-		#endif
-
 		guard viewModel.store.userNeedsToBeInformedAboutHowRiskDetectionWorks else {
 			completion()
 			return

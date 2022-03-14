@@ -12,7 +12,8 @@ final class MockTestStore: Store, PPAnalyticsData {
 	init() {
 #if DEBUG
 		if isUITesting {
-			self.showAnotherHighExposureAlert = LaunchArguments.risk.anotherHightEncounter.boolValue
+			self.showAnotherHighExposureAlert = LaunchArguments.risk.anotherHighEncounter.boolValue
+			self.userNeedsToBeInformedAboutHowRiskDetectionWorks = LaunchArguments.infoScreen.userNeedsToBeInformedAboutHowRiskDetectionWorks.boolValue
 		}
 #endif
 	}
@@ -23,7 +24,6 @@ final class MockTestStore: Store, PPAnalyticsData {
 	var referenceDateForRateLimitLogger: Date?
 	var enfRiskCalculationResult: ENFRiskCalculationResult?
 	var checkinRiskCalculationResult: CheckinRiskCalculationResult?
-	var mostRecentDateWithRiskLevel: Date?
 	var showAnotherHighExposureAlert: Bool = false
 	var shouldShowRiskStatusLoweredAlert: Bool = false
 	var exposureActivationConsentAcceptTimestamp: Int64?

@@ -19,7 +19,7 @@ class ENAUITests_01c_HighExposureAlert: XCTestCase {
 	}
 
 	func test_StoreHasBool_AlertGetsShown() {
-		app.setLaunchArgument(LaunchArguments.risk.anotherHightEncounter, to: true)
+		app.setLaunchArgument(LaunchArguments.risk.anotherHighEncounter, to: true)
 		app.launch()
 		app.alerts.buttons[AccessibilityIdentifiers.Home.Alerts.anotherHighExposureButtonOK].waitAndTap()
 	}
