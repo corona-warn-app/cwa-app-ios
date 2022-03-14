@@ -13,6 +13,7 @@ final class MockTestStore: Store, PPAnalyticsData {
 #if DEBUG
 		if isUITesting {
 			self.showAnotherHighExposureAlert = LaunchArguments.risk.anotherHighEncounter.boolValue
+			self.userNeedsToBeInformedAboutHowRiskDetectionWorks = LaunchArguments.infoScreen.userNeedsToBeInformedAboutHowRiskDetectionWorks.boolValue
 		}
 #endif
 	}
