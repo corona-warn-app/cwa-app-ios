@@ -1181,7 +1181,6 @@
 		ABBB8ABF27D0B2C500CCA3F1 /* ENAUITests_20_CertificateReissuance.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABBB8ABE27D0B2C500CCA3F1 /* ENAUITests_20_CertificateReissuance.swift */; };
 		ABBB8AC127D0DA5F00CCA3F1 /* ReissueHealthCertificateUITests.xctestplan in Resources */ = {isa = PBXBuildFile; fileRef = ABBB8AC027D0DA5F00CCA3F1 /* ReissueHealthCertificateUITests.xctestplan */; };
 		ABBB8AC327D2241200CCA3F1 /* SystemTimeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABBB8AC227D2241200CCA3F1 /* SystemTimeTests.swift */; };
-		ABBB8AC527D2302000CCA3F1 /* GetWalletInfoInputTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABBB8AC427D2302000CCA3F1 /* GetWalletInfoInputTests.swift */; };
 		ABBBC056273AD2C3009A4B56 /* ENASecurity in Frameworks */ = {isa = PBXBuildFile; productRef = ABBBC055273AD2C3009A4B56 /* ENASecurity */; };
 		ABBF425D261DD7B5002A9A2B /* CheckinTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABBF425C261DD7B5002A9A2B /* CheckinTests.swift */; };
 		ABBF429626209952002A9A2B /* Checkin+Update.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABBF429526209952002A9A2B /* Checkin+Update.swift */; };
@@ -1338,6 +1337,7 @@
 		BA06D5A825DBE0910039D1DB /* TextFieldManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA06D5A725DBE0910039D1DB /* TextFieldManager.swift */; };
 		BA06D5B325DC11C60039D1DB /* DiaryAddAndEditEntryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA06D5B225DC11C60039D1DB /* DiaryAddAndEditEntryModel.swift */; };
 		BA06D5BB25DC2E910039D1DB /* TextFieldsManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA06D5BA25DC2E910039D1DB /* TextFieldsManagerTests.swift */; };
+		BA07576627DF710B00EE3C66 /* RiskCalculationParameters+Defaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA07576527DF710B00EE3C66 /* RiskCalculationParameters+Defaults.swift */; };
 		BA07735C25C2FCB800EAF6B8 /* PPACService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA07735B25C2FCB800EAF6B8 /* PPACService.swift */; };
 		BA0887A6269F43930007B3F3 /* NSMutableAttributedString+Link.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA0887A5269F43930007B3F3 /* NSMutableAttributedString+Link.swift */; };
 		BA0A1E3F26A5CC090045E712 /* dsc_list.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA0A1E3E26A5CC090045E712 /* dsc_list.pb.swift */; };
@@ -3076,6 +3076,7 @@
 		BA06D5A725DBE0910039D1DB /* TextFieldManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldManager.swift; sourceTree = "<group>"; };
 		BA06D5B225DC11C60039D1DB /* DiaryAddAndEditEntryModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryAddAndEditEntryModel.swift; sourceTree = "<group>"; };
 		BA06D5BA25DC2E910039D1DB /* TextFieldsManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldsManagerTests.swift; sourceTree = "<group>"; };
+		BA07576527DF710B00EE3C66 /* RiskCalculationParameters+Defaults.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "RiskCalculationParameters+Defaults.swift"; sourceTree = "<group>"; };
 		BA07735B25C2FCB800EAF6B8 /* PPACService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PPACService.swift; sourceTree = "<group>"; };
 		BA0887A5269F43930007B3F3 /* NSMutableAttributedString+Link.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSMutableAttributedString+Link.swift"; sourceTree = "<group>"; };
 		BA0A1E3E26A5CC090045E712 /* dsc_list.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = dsc_list.pb.swift; sourceTree = "<group>"; };
@@ -7974,6 +7975,7 @@
 		B102BDC12460405F00CD55A2 /* Backend */ = {
 			isa = PBXGroup;
 			children = (
+				BA07576427DF710000EE3C66 /* Extentions */,
 				B15382DA24826F7E0010F007 /* __tests__ */,
 				EB08F1762541CE3200D11FA9 /* app_version_config.pb.swift */,
 				EB08F1712541CE3200D11FA9 /* attenuation_duration.pb.swift */,
@@ -8565,6 +8567,14 @@
 				BA8824D625D2A88800AD9B11 /* ppdd-ppa-administrative-unit-set-ua-approved.json */,
 			);
 			path = District;
+			sourceTree = "<group>";
+		};
+		BA07576427DF710000EE3C66 /* Extentions */ = {
+			isa = PBXGroup;
+			children = (
+				BA07576527DF710B00EE3C66 /* RiskCalculationParameters+Defaults.swift */,
+			);
+			path = Extentions;
 			sourceTree = "<group>";
 		};
 		BA07735A25C2FC5E00EAF6B8 /* PPAccessControl */ = {
@@ -11275,6 +11285,7 @@
 				EB67B5DB262AD48F00218EC7 /* ExposureSubmissionCheckinsViewController.swift in Sources */,
 				01909882257E675D0065D050 /* DiaryContactPerson.swift in Sources */,
 				016E262F25AF45770077C64C /* StatisticsInfoViewController.swift in Sources */,
+				BA07576627DF710B00EE3C66 /* RiskCalculationParameters+Defaults.swift in Sources */,
 				8F7FD70F25E3EFAC006CDE01 /* HTMLViewController.swift in Sources */,
 				AB1BA92D25C30406002EA97F /* SurveyConsentViewController.swift in Sources */,
 				017AD17F25A5A30500FA2B3F /* DynamicHeader+ExposureDetection.swift in Sources */,
