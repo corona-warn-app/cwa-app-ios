@@ -75,6 +75,8 @@ class DiaryOverviewDayTableViewCell: UITableViewCell {
 		exposureHistoryTitleLabel.style = .body
 		exposureHistoryDetailLabel.style = .subheadline
 		exposureHistoryDetailLabel.textColor = .enaColor(for: .textPrimary2)
+
+		exposureHistoryStackView.backgroundColor = .enaColor(for: .background)
 	}
 
 	private func configureTests(_ cellViewModel: DiaryOverviewDayCellModel) {
@@ -130,11 +132,13 @@ class DiaryOverviewDayTableViewCell: UITableViewCell {
 
 			testsStackView.addArrangedSubview(containerView)
 		}
+		testsStackView.backgroundColor = .enaColor(for: .background)
 	}
 
 	private func configureCheckinWithRisks(_ cellViewModel: DiaryOverviewDayCellModel) {
 		// Check-Ins with risk
 		checkinHistoryStackView.isHidden = cellViewModel.hideCheckinRisk
+		checkinHistoryStackView.backgroundColor = .enaColor(for: .background)
 		checkinHistoryNoticeImageView.image = cellViewModel.checkinImage
 		checkinHistoryTitleLabel.text = cellViewModel.checkinTitleHeadlineText
 		checkinHistoryTitleLabel.accessibilityIdentifier = cellViewModel.checkinTitleAccessibilityIdentifier
@@ -241,23 +245,23 @@ class DiaryOverviewDayTableViewCell: UITableViewCell {
 			entryStackView.addArrangedSubview(imageView)
 			entryStackView.addArrangedSubview(entryLabelStackView)
 
-			if index > 0 {
-				let separatorLine = UIView()
-				separatorLine.backgroundColor = .enaColor(for: .hairline)
-				separatorLine.translatesAutoresizingMaskIntoConstraints = false
-
-				entryStackView.addSubview(separatorLine)
-
-				// Draw a seperator line from leading to trailing of the cellContainerView and between two entryStackViews. For this we need some offsets.
-				NSLayoutConstraint.activate([
-					separatorLine.heightAnchor.constraint(equalToConstant: 1),
-					separatorLine.topAnchor.constraint(equalTo: entryStackView.topAnchor, constant: -10),
-					separatorLine.leadingAnchor.constraint(equalTo: entryStackView.leadingAnchor, constant: -16),
-					separatorLine.trailingAnchor.constraint(equalTo: entryStackView.trailingAnchor, constant: 8)
-				])
-			}
-
 			encountersVisitsStackView.addArrangedSubview(entryStackView)
+			let entryHeight = CGFloat(30) + imageView.frame.height
+			encountersVisitsStackView.spacing = entryHeight
+
+			let separatorLine = UIView()
+			separatorLine.backgroundColor = .enaColor(for: .hairline)
+			separatorLine.translatesAutoresizingMaskIntoConstraints = false
+
+			entryStackView.addSubview(separatorLine)
+
+			// Draw a seperator line from leading to trailing of the cellContainerView and between two entryStackViews. For this we need some offsets.
+			NSLayoutConstraint.activate([
+				separatorLine.heightAnchor.constraint(equalToConstant: 1),
+				separatorLine.topAnchor.constraint(equalTo: entryStackView.centerYAnchor, constant: -(entryHeight)),
+				separatorLine.leadingAnchor.constraint(equalTo: encountersVisitsStackView.leadingAnchor),
+				separatorLine.trailingAnchor.constraint(equalTo: encountersVisitsStackView.trailingAnchor)
+			])
 		}
 
 		encountersVisitsContainerStackView.isHidden = encountersVisitsStackView.arrangedSubviews.isEmpty

@@ -99,7 +99,7 @@ Nur der Mann im Mo schaut zu</string>
                                         <directionalEdgeInsets key="directionalLayoutMargins" top="0.0" leading="0.0" bottom="0.0" trailing="0.0"/>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="8TA-t5-hG7" userLabel="CheckIn History Stack View">
-                                        <rect key="frame" x="0.0" y="156.5" width="288" height="111.5"/>
+                                        <rect key="frame" x="0.0" y="156.5" width="288" height="116.5"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qdg-B6-8si">
                                                 <rect key="frame" x="0.0" y="0.0" width="288" height="1"/>
@@ -109,16 +109,16 @@ Nur der Mann im Mo schaut zu</string>
                                                 </constraints>
                                             </view>
                                             <stackView opaque="NO" contentMode="scaleToFill" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="6PC-KR-Fhz">
-                                                <rect key="frame" x="0.0" y="1" width="288" height="110.5"/>
+                                                <rect key="frame" x="0.0" y="1" width="288" height="115.5"/>
                                                 <subviews>
                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="top" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" image="Icons_Attention_high" translatesAutoresizingMaskIntoConstraints="NO" id="bqu-yO-Qy4" userLabel="Checkin History Notice Image View">
-                                                        <rect key="frame" x="16" y="8" width="32" height="94.5"/>
+                                                        <rect key="frame" x="16" y="8" width="32" height="99.5"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="32" id="ZLg-dW-jqE"/>
                                                         </constraints>
                                                     </imageView>
                                                     <stackView opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="IpT-5K-GbX">
-                                                        <rect key="frame" x="63" y="8" width="209" height="94.5"/>
+                                                        <rect key="frame" x="63" y="8" width="209" height="99.5"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="1000" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DhW-nb-RWO" userLabel="Checkin History Title Label" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
                                                                 <rect key="frame" x="0.0" y="0.0" width="209" height="17"/>
@@ -135,7 +135,7 @@ Nur der Mann im Mo schaut zu</string>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="clK-BJ-qDX">
-                                                                <rect key="frame" x="0.0" y="63.5" width="209" height="31"/>
+                                                                <rect key="frame" x="0.0" y="63.5" width="209" height="36"/>
                                                             </stackView>
                                                         </subviews>
                                                     </stackView>
@@ -146,21 +146,14 @@ Nur der Mann im Mo schaut zu</string>
                                         <directionalEdgeInsets key="directionalLayoutMargins" top="0.0" leading="0.0" bottom="0.0" trailing="0.0"/>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="yux-ar-fw9">
-                                        <rect key="frame" x="0.0" y="268" width="288" height="55"/>
+                                        <rect key="frame" x="0.0" y="273" width="288" height="50"/>
                                         <subviews>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="deb-kv-rqF">
-                                                <rect key="frame" x="0.0" y="4" width="288" height="1"/>
-                                                <color key="backgroundColor" name="ENA Hairline Color"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="1" id="iDO-97-kfJ"/>
-                                                </constraints>
-                                            </view>
-                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="18" translatesAutoresizingMaskIntoConstraints="NO" id="Qc1-jl-ZTB">
-                                                <rect key="frame" x="0.0" y="5" width="288" height="50"/>
-                                                <directionalEdgeInsets key="directionalLayoutMargins" top="20" leading="16" bottom="4" trailing="8"/>
+                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalCentering" translatesAutoresizingMaskIntoConstraints="NO" id="Qc1-jl-ZTB">
+                                                <rect key="frame" x="0.0" y="0.0" width="288" height="50"/>
+                                                <directionalEdgeInsets key="directionalLayoutMargins" top="13" leading="16" bottom="4" trailing="8"/>
                                             </stackView>
                                         </subviews>
-                                        <directionalEdgeInsets key="directionalLayoutMargins" top="4" leading="0.0" bottom="0.0" trailing="0.0"/>
+                                        <directionalEdgeInsets key="directionalLayoutMargins" top="0.0" leading="0.0" bottom="0.0" trailing="0.0"/>
                                     </stackView>
                                 </subviews>
                             </stackView>
