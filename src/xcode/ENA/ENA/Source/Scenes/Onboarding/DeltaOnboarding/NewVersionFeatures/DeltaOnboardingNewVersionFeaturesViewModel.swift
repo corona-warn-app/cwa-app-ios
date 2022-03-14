@@ -13,21 +13,36 @@ struct DeltaOnboardingNewVersionFeaturesViewModel {
 		
 		// ADD NEW FEATURES HERE
 		
-		self.featureVersion = "2.19"
+		self.featureVersion = "2.20"
 		
 		self.newVersionFeatures.append(
-			// Rapid PCR tests
-			NewVersionFeature(title: AppStrings.NewVersionFeatures.feature219RapidPCRTitle, description: AppStrings.NewVersionFeatures.feature219RapidPCRDescription)
+			// High Risk Indicator Shortened
+			NewVersionFeature(title: AppStrings.NewVersionFeatures.feature220HighRiskShortenedTitle, description: AppStrings.NewVersionFeatures.feature220HighRiskShortenedTitle)
 		)
 		
 		self.newVersionFeatures.append(
-			// Fault tolerant name handling
-			NewVersionFeature(title: AppStrings.NewVersionFeatures.feature219FaultTolerantNameHandlingTitle, description: AppStrings.NewVersionFeatures.feature219FaultTolerantNameHandlingDescription)
+			// Display Risk Positive Result
+			NewVersionFeature(title: AppStrings.NewVersionFeatures.feature220DisplayRiskPositiveResultTitle, description: AppStrings.NewVersionFeatures.feature220DisplayRiskPositiveResultDescription)
 		)
 		
 		self.newVersionFeatures.append(
-			// Automatic Replacement of Vaccination Certificates
-			NewVersionFeature(title: AppStrings.NewVersionFeatures.feature219VaccinationCertificateReplacementTitle, description: AppStrings.NewVersionFeatures.feature219VaccinationCertificateReplacementDescription)
+			// Notification Risk Encounter
+			NewVersionFeature(title: AppStrings.NewVersionFeatures.feature220NotificateRiskEncounterTitle, description: AppStrings.NewVersionFeatures.feature220NotificateRiskEncounterDescription)
+		)
+		
+		self.newVersionFeatures.append(
+			// Notification Status Change
+			NewVersionFeature(title: AppStrings.NewVersionFeatures.feature220NotificationStatusChangeTitle, description: AppStrings.NewVersionFeatures.feature220NotificationStatusChangeDescription)
+		)
+		
+		self.newVersionFeatures.append(
+			// Recovery Certificates Details
+			NewVersionFeature(title: AppStrings.NewVersionFeatures.feature220RecoveryCertificatesDetailsTitle, description: AppStrings.NewVersionFeatures.feature220RecoveryCertificatesDetailsDescription)
+		)
+		
+		self.newVersionFeatures.append(
+			// Remove QR Code
+			NewVersionFeature(title: AppStrings.NewVersionFeatures.feature220RemoveQRCodeTitle, description: AppStrings.NewVersionFeatures.feature220RemoveQRCodeDescription)
 		)
 	}
 
