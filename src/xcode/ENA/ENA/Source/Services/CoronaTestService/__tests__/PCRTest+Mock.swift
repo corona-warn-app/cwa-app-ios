@@ -17,6 +17,7 @@ extension PCRTest {
 		submissionTAN: String? = nil,
 		keysSubmitted: Bool = false,
 		journalEntryCreated: Bool = false,
+		certificateSupportedByPointOfCare: Bool = false,
 		certificateConsentGiven: Bool = false,
 		certificateRequested: Bool = false,
 		uniqueCertificateIdentifier: String? = nil
@@ -31,7 +32,7 @@ extension PCRTest {
 			submissionTAN: submissionTAN,
 			keysSubmitted: keysSubmitted,
 			journalEntryCreated: journalEntryCreated,
-			certificateSupportedByPointOfCare: false,
+			certificateSupportedByPointOfCare: certificateSupportedByPointOfCare,
 			certificateConsentGiven: certificateConsentGiven,
 			certificateRequested: certificateRequested,
 			uniqueCertificateIdentifier: uniqueCertificateIdentifier
