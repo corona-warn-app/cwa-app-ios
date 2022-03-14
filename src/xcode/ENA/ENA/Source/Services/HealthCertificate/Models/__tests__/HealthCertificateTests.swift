@@ -265,7 +265,7 @@ class HealthCertificateTests: XCTestCase {
 
 		let recoveryCertificateBase45 = try base45Fake(from: DigitalCovidCertificate.fake(
 			recoveryEntries: [RecoveryEntry.fake(
-				certificateValidFrom: "2020-01-01"
+				dateOfFirstPositiveNAAResult: "2020-01-01"
 			)]
 		))
 
