@@ -109,7 +109,7 @@ class AdmissionStateTableViewCell: UITableViewCell, UITextViewDelegate, ReuseIde
 		titleLabel.numberOfLines = 0
 		titleLabel.textColor = .enaColor(for: .textPrimary1)
 		titleLabel.accessibilityIdentifier = AccessibilityIdentifiers.HealthCertificate.AdmissionState.title
-		titleLabel.contentCompressionResistancePriority(.required, for: .vertical)
+		titleLabel.setContentHuggingPriority(.required, for: .vertical)
 
 		return titleLabel
 	}()
