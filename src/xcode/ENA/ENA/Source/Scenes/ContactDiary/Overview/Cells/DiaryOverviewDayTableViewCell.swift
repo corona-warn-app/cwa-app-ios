@@ -16,10 +16,9 @@ class DiaryOverviewDayTableViewCell: UITableViewCell {
 
 		dateLabel.text = cellViewModel.formattedDate
 		dateLabel.accessibilityIdentifier = String(format: AccessibilityIdentifiers.ContactDiaryInformation.Overview.cellDateHeader, cellViewModel.accessibilityIdentifierIndex)
+
 		let tapOnDateStackViewRecognizer = UITapGestureRecognizer(target: self, action: #selector(clickableAreaWasTapped))
 		dateStackView.addGestureRecognizer(tapOnDateStackViewRecognizer)
-		dateStackView.addSubview(dateLabel)
-
 
 		exposureHistoryStackView.isHidden = cellViewModel.hideExposureHistory
 		exposureHistoryNoticeImageView.image = cellViewModel.exposureHistoryImage
