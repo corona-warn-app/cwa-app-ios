@@ -156,8 +156,9 @@ class HealthCertifiedPersonViewController: UIViewController, UITableViewDataSour
 			return
 		}
 
+		let headerRect = tableView.rectForRow(at: IndexPath(row: 0, section: 0))
 		let cellRect = tableView.rectForRow(at: indexPath)
-		backgroundView.gradientHeightConstraint.constant = cellRect.midY + (tableView.contentOffset.y / 2)
+		backgroundView.gradientHeightConstraint.constant = cellRect.height / 2 + headerRect.height + (tableView.contentOffset.y / 2) + view.safeAreaInsets.top
 		didCalculateGradientHeight = true
 	}
 
@@ -355,6 +356,7 @@ class HealthCertifiedPersonViewController: UIViewController, UITableViewDataSour
 			.sink { [weak self] triggerReload in
 				guard triggerReload, let self = self, !self.isAnimatingChanges else { return }
 
+				self.didCalculateGradientHeight = false
 				self.tableView.reloadData()
 			}
 			.store(in: &subscriptions)
