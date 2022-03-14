@@ -31,7 +31,7 @@ extension PCRTest {
 			submissionTAN: submissionTAN,
 			keysSubmitted: keysSubmitted,
 			journalEntryCreated: journalEntryCreated,
-			certificateSupportedByPointOfCare: true,
+			certificateSupportedByPointOfCare: false,
 			certificateConsentGiven: certificateConsentGiven,
 			certificateRequested: certificateRequested,
 			uniqueCertificateIdentifier: uniqueCertificateIdentifier
