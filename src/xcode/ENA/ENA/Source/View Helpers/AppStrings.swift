@@ -1164,14 +1164,20 @@ enum AppStrings {
 		static let generalDescription = NSLocalizedString("DeltaOnboarding_NewVersionFeatures_Description", comment: "")
 		static let aboutAppInformation = NSLocalizedString("NewVersionFeatures_Info_about_abb_information", comment: "")
 
-		/* Version 2.19 */
+		/* Version 2.20 */
 
-		static let feature219RapidPCRTitle = NSLocalizedString("NewVersionFeature_219_rapidPCR_title", comment: "")
-		static let feature219RapidPCRDescription = NSLocalizedString("NewVersionFeature_219_rapidPCR_description", comment: "")
-		static let feature219FaultTolerantNameHandlingTitle = NSLocalizedString("NewVersionFeature_219_faultTolerantNameHandling_title", comment: "")
-		static let feature219FaultTolerantNameHandlingDescription = NSLocalizedString("NewVersionFeature_219_faultTolerantNameHandling_description", comment: "")
-		static let feature219VaccinationCertificateReplacementTitle = NSLocalizedString("NewVersionFeature_219_vaccinationCertificateReplacement_title", comment: "")
-		static let feature219VaccinationCertificateReplacementDescription = NSLocalizedString("NewVersionFeature_219_vaccinationCertificateReplacement_description", comment: "")
+		static let feature220HighRiskShortenedTitle = NSLocalizedString("NewVersionFeature_220_highRiskShortened_title", comment: "")
+		static let feature220HighRiskShortenedDescription = NSLocalizedString("NewVersionFeature_220_highRiskShortened_description", comment: "")
+		static let feature220DisplayRiskPositiveResultTitle = NSLocalizedString("NewVersionFeature_220_displayRiskPositiveResult_title", comment: "")
+		static let feature220DisplayRiskPositiveResultDescription = NSLocalizedString("NewVersionFeature_220_displayRiskPositiveResult_description", comment: "")
+		static let feature220NotificateRiskEncounterTitle = NSLocalizedString("NewVersionFeature_220_notificateRiskEncounter_title", comment: "")
+		static let feature220NotificateRiskEncounterDescription = NSLocalizedString("NewVersionFeature_220_notificateRiskEncounter_description", comment: "")
+		static let feature220NotificationStatusChangeTitle = NSLocalizedString("NewVersionFeature_220_notificationStatusChange_title", comment: "")
+		static let feature220NotificationStatusChangeDescription = NSLocalizedString("NewVersionFeature_220_notificationStatusChange_description", comment: "")
+		static let feature220RecoveryCertificatesDetailsTitle = NSLocalizedString("NewVersionFeature_220_recoveryCertificatesDetails_title", comment: "")
+		static let feature220RecoveryCertificatesDetailsDescription = NSLocalizedString("NewVersionFeature_220_recoveryCertificatesDetails_description", comment: "")
+		static let feature220RemoveQRCodeTitle = NSLocalizedString("NewVersionFeature_220_removeQRCode_title", comment: "")
+		static let feature220RemoveQRCodeDescription = NSLocalizedString("NewVersionFeature_220_removeQRCode_description", comment: "")
 	}
 
 	enum DeltaOnboarding {
