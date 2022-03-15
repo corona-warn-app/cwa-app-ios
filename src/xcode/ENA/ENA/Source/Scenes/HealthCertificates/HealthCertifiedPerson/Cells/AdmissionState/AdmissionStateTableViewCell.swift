@@ -49,6 +49,8 @@ class AdmissionStateTableViewCell: UITableViewCell, UITextViewDelegate, ReuseIde
 		roundedLabeledView?.isHidden = (cellModel.shortTitle ?? "").isEmpty
 		
 		unseenNewsIndicator.isHidden = !cellModel.isAdmissionStateChanged
+	
+		layoutIfNeeded()
 	}
 
 	// MARK: - Private
