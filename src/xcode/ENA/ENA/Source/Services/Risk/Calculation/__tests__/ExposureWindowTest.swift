@@ -97,7 +97,7 @@ class ExposureWindowTest: CWATestCase {
 			scanInstances: []
 		)
 		
-		let age = window.age(from: todayDate)
+		let age = window.ageInDays(from: todayDate)
 		
 		XCTAssertEqual(age, 0)
 	}
@@ -113,7 +113,7 @@ class ExposureWindowTest: CWATestCase {
 			scanInstances: []
 		)
 		
-		let age = window.age(from: todayDate)
+		let age = window.ageInDays(from: todayDate)
 		
 		XCTAssertEqual(age, 1)
 	}
