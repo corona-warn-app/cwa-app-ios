@@ -50,15 +50,11 @@ class HealthCertificateQRCodeCell: UITableViewCell, ReuseIdentifierProviding {
 
 		unseenNewsIndicator.isHidden = !cellViewModel.isUnseenNewsIndicatorVisible
 
-		validationButton.isEnabled = cellViewModel.isValidationButtonEnabled
-		validationButton.isHidden = !cellViewModel.isValidationButtonVisible
-
 		setupAccessibility(
 			titleLabelIsVisible: cellViewModel.title != nil,
 			subtitleLabelIsVisible: cellViewModel.subtitle != nil,
 			validityStateTitleIsVisible: cellViewModel.validityStateTitle != nil,
-			validityStateDescriptionIsVisible: cellViewModel.validityStateDescription != nil,
-			validationButtonIsVisible: cellViewModel.isValidationButtonVisible
+			validityStateDescriptionIsVisible: cellViewModel.validityStateDescription != nil
 		)
 	}
 
@@ -152,20 +148,6 @@ class HealthCertificateQRCodeCell: UITableViewCell, ReuseIdentifierProviding {
 		return validityStateDescriptionLabel
 	}()
 
-	private lazy var validationButton: ENAButton = {
-		let validationButton = ENAButton()
-		validationButton.hasBorder = true
-		validationButton.hasBackground = false
-		validationButton.setTitle(
-			AppStrings.HealthCertificate.Person.validationButtonTitle,
-			for: .normal
-		)
-		validationButton.accessibilityIdentifier = AccessibilityIdentifiers.HealthCertificate.Person.validationButton
-		validationButton.addTarget(self, action: #selector(validationButtonTapped), for: .primaryActionTriggered)
-
-		return validationButton
-	}()
-
 	private let stackView: UIStackView = {
 		let stackView = UIStackView()
 		stackView.alignment = .fill
@@ -203,7 +185,6 @@ class HealthCertificateQRCodeCell: UITableViewCell, ReuseIdentifierProviding {
 		stackView.setCustomSpacing(12, after: validityStateStackView)
 
 		stackView.addArrangedSubview(validityStateDescriptionLabel)
-		stackView.addArrangedSubview(validationButton)
 
 		stackView.translatesAutoresizingMaskIntoConstraints = false
 		backgroundContainerView.addSubview(stackView)
@@ -230,8 +211,7 @@ class HealthCertificateQRCodeCell: UITableViewCell, ReuseIdentifierProviding {
 		titleLabelIsVisible: Bool,
 		subtitleLabelIsVisible: Bool,
 		validityStateTitleIsVisible: Bool,
-		validityStateDescriptionIsVisible: Bool,
-		validationButtonIsVisible: Bool
+		validityStateDescriptionIsVisible: Bool
 	) {
 		isAccessibilityElement = false
 		accessibilityElements = [qrCodeView]
@@ -251,23 +231,11 @@ class HealthCertificateQRCodeCell: UITableViewCell, ReuseIdentifierProviding {
 			accessibilityElements?.append(validityStateDescriptionLabel)
 		}
 
-		if validationButtonIsVisible {
-			accessibilityElements?.append(validationButton)
-		}
-
 		accessibilityIdentifier = AccessibilityIdentifiers.HealthCertificate.qrCodeCell
 	}
 
 	private func updateBorderWidth() {
 		backgroundContainerView.layer.borderWidth = traitCollection.userInterfaceStyle == .dark ? 0 : 1
-	}
-
-	@objc
-	private func validationButtonTapped() {
-		cellViewModel?.didTapValidationButton { [weak self] isLoading in
-			self?.validationButton.isLoading = isLoading
-			self?.validationButton.isEnabled = !isLoading
-		}
 	}
 
 }
