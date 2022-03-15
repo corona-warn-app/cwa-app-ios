@@ -253,7 +253,6 @@ class DiaryOverviewDayTableViewCell: UITableViewCell {
 			// Let's draw a seperator line between each entryStackView.
 			let separatorLine = UIView()
 			separatorLine.backgroundColor = .enaColor(for: .hairline)
-			separatorLine.translatesAutoresizingMaskIntoConstraints = false
 
 			// The position is dynamical and so we need to calculate the postion to our own (depending of the layout in the xib and what we do before this step)
 			let entryHeight = CGFloat(30) + imageView.frame.height
@@ -261,19 +260,24 @@ class DiaryOverviewDayTableViewCell: UITableViewCell {
 
 			entryStackView.addSubview(separatorLine)
 
+			let topConstraint: NSLayoutConstraint
+
+			// Only for the first entryStackView we need the seperator line on the top of the container itself. Otherwise, we draw it on our own calculated position.
+			if index == 0 {
+				topConstraint = separatorLine.topAnchor.constraint(equalTo: encountersVisitsContainerStackView.topAnchor)
+			} else {
+				topConstraint = separatorLine.topAnchor.constraint(equalTo: entryStackView.centerYAnchor, constant: -(entryHeight))
+			}
+
 			// Draw the seperator line from leading to trailing of the encountersVisitsContainerStackView
 			NSLayoutConstraint.activate([
 				separatorLine.heightAnchor.constraint(equalToConstant: 1),
 				separatorLine.leadingAnchor.constraint(equalTo: encountersVisitsContainerStackView.leadingAnchor),
-				separatorLine.trailingAnchor.constraint(equalTo: encountersVisitsContainerStackView.trailingAnchor)
+				separatorLine.trailingAnchor.constraint(equalTo: encountersVisitsContainerStackView.trailingAnchor),
+				topConstraint
 			])
 
-			// Only for the first entryStackView we need the seperator line on the top of the container itself. Otherwise, we draw it on our own calculated position.
-			if index == 0 {
-				separatorLine.topAnchor.constraint(equalTo: encountersVisitsContainerStackView.topAnchor).isActive = true
-			} else {
-				separatorLine.topAnchor.constraint(equalTo: entryStackView.centerYAnchor, constant: -(entryHeight)).isActive = true
-			}
+
 		}
 		encountersVisitsContainerStackView.isHidden = cellViewModel.selectedEntries.isEmpty
 		let tapOnEncounterVisitsStackViewRecognizer = UITapGestureRecognizer(target: self, action: #selector(clickableAreaWasTapped))
