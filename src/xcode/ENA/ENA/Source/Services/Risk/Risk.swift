@@ -12,9 +12,25 @@ struct Risk: Equatable {
 		var calculationDate: Date?
 	}
 
+	enum RiskLevelChange: Equatable {
+		case increased
+		case decreased
+		case unchanged(RiskLevel)
+	}
+
 	let level: RiskLevel
 	let details: Details
-	let riskLevelHasChanged: Bool
+	let riskLevelChange: RiskLevelChange
+
+	var riskLevelHasChanged: Bool {
+		switch riskLevelChange {
+		case .increased, .decreased:
+			return true
+		case .unchanged:
+			return false
+		}
+	}
+
 }
 
 extension Risk {
@@ -26,14 +42,6 @@ extension Risk {
 	) {
 		Log.info("[Risk] Merging risks from ENF and checkin. Create Risk.", log: .riskDetection)
 
-		// determine if global risk level has changed
-		let riskLevelHasChanged = previousENFRiskCalculationResult?.riskLevel != nil &&
-			enfRiskCalculationResult.riskLevel != previousENFRiskCalculationResult?.riskLevel ||
-			previousCheckinCalculationResult?.riskLevel != nil &&
-			checkinCalculationResult.riskLevel != previousCheckinCalculationResult?.riskLevel
-
-		Log.debug("[Risk] riskLevelHasChanged: \(riskLevelHasChanged)", log: .riskDetection)
-		
 		// Check for each risk source (enf and checkin) if one of them got high. Only needed for PPA.
 		if previousENFRiskCalculationResult?.riskLevel == .low &&
 			enfRiskCalculationResult.riskLevel == .high {
@@ -93,10 +101,23 @@ extension Risk {
 			calculationDate: calculationDate
 		)
 
+		// determine if risk level has changed
+		let riskLevelHasChanged = previousENFRiskCalculationResult?.riskLevel != nil &&
+			enfRiskCalculationResult.riskLevel != previousENFRiskCalculationResult?.riskLevel ||
+			previousCheckinCalculationResult?.riskLevel != nil &&
+			checkinCalculationResult.riskLevel != previousCheckinCalculationResult?.riskLevel
+
+		// determine global riskLevelChange
+		let riskLevelChange: RiskLevelChange = riskLevelHasChanged ?
+			totalRiskLevel == .high ? .increased : .decreased :
+			.unchanged(totalRiskLevel)
+
+		Log.debug("[Risk] riskLevelChange: \(riskLevelChange)", log: .riskDetection)
+
 		self.init(
 			level: totalRiskLevel,
 			details: details,
-			riskLevelHasChanged: riskLevelHasChanged
+			riskLevelChange: riskLevelChange
 		)
 	}
 }
@@ -105,25 +126,30 @@ extension Risk {
 extension Risk {
 	static let numberOfDaysWithRiskLevel = LaunchArguments.risk.numberOfDaysWithRiskLevel.intValue
 	static let numberOfDaysWithRiskLevelDefaultValue: Int = LaunchArguments.risk.riskLevel.stringValue == "high" ? 1 : 0
-	static let mocked = Risk(
-		// UITests can set app.launchArguments LaunchArguments.risk.riskLevel
-		level: LaunchArguments.risk.riskLevel.stringValue == "high" ? .high : .low,
-		details: Risk.Details(
-			mostRecentDateWithRiskLevel: Date(timeIntervalSinceNow: -24 * 3600),
-			numberOfDaysWithRiskLevel: numberOfDaysWithRiskLevel,
-			calculationDate: Date()),
-		riskLevelHasChanged: true
-	)
+	static let mocked: Risk = {
+		let level: RiskLevel = LaunchArguments.risk.riskLevel.stringValue == "high" ? .high : .low
+		return Risk(
+			// UITests can set app.launchArguments LaunchArguments.risk.riskLevel
+			level: level,
+			details: Risk.Details(
+				mostRecentDateWithRiskLevel: Date(timeIntervalSinceNow: -24 * 3600),
+				numberOfDaysWithRiskLevel: numberOfDaysWithRiskLevel,
+				calculationDate: Date()),
+			riskLevelChange: level == .high ? .increased : .decreased
+		)
+	}()
 
 	static func mocked(
-		level: RiskLevel = .low) -> Risk {
+		level: RiskLevel = .low,
+		riskLevelChange: RiskLevelChange = .decreased
+	) -> Risk {
 		Risk(
 			level: level,
 			details: Risk.Details(
 				mostRecentDateWithRiskLevel: Date(timeIntervalSinceNow: -24 * 3600),
 				numberOfDaysWithRiskLevel: numberOfDaysWithRiskLevel,
 				calculationDate: Date()),
-			riskLevelHasChanged: true
+			riskLevelChange: riskLevelChange
 		)
 	}
 }
