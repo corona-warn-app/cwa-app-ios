@@ -97,11 +97,6 @@ class HealthCertifiedPersonViewController: UIViewController, UITableViewDataSour
 			cell.configure(with: viewModel.headerCellViewModel)
 			return cell
 
-		case .qrCode:
-			let cell = tableView.dequeueReusableCell(cellType: HealthCertificateQRCodeCell.self, for: indexPath)
-			cell.configure(with: viewModel.qrCodeCellViewModel)
-			return cell
-
 		case .certificateReissuance:
 			let cell = tableView.dequeueReusableCell(cellType: CertificateReissuanceTableViewCell.self, for: indexPath)
 			cell.configure(with: viewModel.certificateReissuanceCellModel)
@@ -153,16 +148,17 @@ class HealthCertifiedPersonViewController: UIViewController, UITableViewDataSour
 	// MARK: - Protocol UITableViewDelegate
 
 	func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-		// we are only interested in QRCode cell once if the traitCollectionDidChange - to update gradientHeightConstraint
+		// we are only interested in top most cell once if the traitCollectionDidChange - to update gradientHeightConstraint
 		guard
 			didCalculateGradientHeight == false,
-			HealthCertifiedPersonViewModel.TableViewSection.map(indexPath.section) == .qrCode
+			HealthCertifiedPersonViewModel.TableViewSection.map(indexPath.section) == viewModel.topMostCell
 		else {
 			return
 		}
 
+		let headerRect = tableView.rectForRow(at: IndexPath(row: 0, section: 0))
 		let cellRect = tableView.rectForRow(at: indexPath)
-		backgroundView.gradientHeightConstraint.constant = cellRect.midY + (tableView.contentOffset.y / 2) + view.safeAreaInsets.top
+		backgroundView.gradientHeightConstraint.constant = cellRect.height / 2 + headerRect.height + view.safeAreaInsets.top
 		didCalculateGradientHeight = true
 	}
 
@@ -324,10 +320,6 @@ class HealthCertifiedPersonViewController: UIViewController, UITableViewDataSour
 			forCellReuseIdentifier: HealthCertificateSimpleTextCell.reuseIdentifier
 		)
 		tableView.register(
-			HealthCertificateQRCodeCell.self,
-			forCellReuseIdentifier: HealthCertificateQRCodeCell.reuseIdentifier
-		)
-		tableView.register(
 			CertificateReissuanceTableViewCell.self,
 			forCellReuseIdentifier: CertificateReissuanceTableViewCell.reuseIdentifier
 		)
@@ -364,6 +356,7 @@ class HealthCertifiedPersonViewController: UIViewController, UITableViewDataSour
 			.sink { [weak self] triggerReload in
 				guard triggerReload, let self = self, !self.isAnimatingChanges else { return }
 
+				self.didCalculateGradientHeight = false
 				self.tableView.reloadData()
 			}
 			.store(in: &subscriptions)
