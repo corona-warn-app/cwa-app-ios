@@ -143,7 +143,6 @@ class DiaryOverviewDayTableViewCell: UITableViewCell {
 		checkinHistoryContainerStackView.isHidden = cellViewModel.hideCheckinRisk
 		checkinHistoryContainerStackView.backgroundColor = .enaColor(for: .darkBackground)
 		// Because we set the background color, the border of the underying view disappears. For this we need some new borders at the left and right.
-
 		drawBorders(to: [.left, .right], on: checkinHistoryContainerStackView)
 
 		checkinHistoryNoticeImageView.image = cellViewModel.checkinImage
