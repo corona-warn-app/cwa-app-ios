@@ -27,6 +27,12 @@ class HealthCertificateCell: UITableViewCell, ReuseIdentifierProviding {
 		updateBorder()
 	}
 
+	override func prepareForReuse() {
+		super.prepareForReuse()
+
+		cellViewModel = nil
+	}
+	
 	// MARK: - Internal
 	
 	func configure(
@@ -49,12 +55,17 @@ class HealthCertificateCell: UITableViewCell, ReuseIdentifierProviding {
 
 		currentlyUsedStackView.isHidden = !cellViewModel.isCurrentlyUsedCertificateHintVisible
 		currentlyUsedImageView.image = cellViewModel.currentlyUsedImage
+		
+		validationButton.isEnabled = cellViewModel.isValidationButtonEnabled
+		validationButton.isHidden = !cellViewModel.isCurrentlyUsedCertificateHintVisible
 
 		unseenNewsIndicator.isHidden = !cellViewModel.isUnseenNewsIndicatorVisible
 	
 		disclosureImageView.isHidden = !withDisclosureIndicator
 
 		setupAccessibility()
+		
+		self.cellViewModel = cellViewModel
 	}
 
 	// MARK: - Private
@@ -76,6 +87,22 @@ class HealthCertificateCell: UITableViewCell, ReuseIdentifierProviding {
 	private let unseenNewsIndicator = CertificateBadgeView()
 	private let gradientBackground = GradientView()
 
+	private var cellViewModel: HealthCertificateCellViewModel?
+	
+	private lazy var validationButton: ENAButton = {
+		let validationButton = ENAButton()
+		validationButton.hasBorder = true
+		validationButton.hasBackground = false
+		validationButton.setTitle(
+			AppStrings.HealthCertificate.Person.validationButtonTitle,
+			for: .normal
+		)
+		validationButton.accessibilityIdentifier = AccessibilityIdentifiers.HealthCertificate.Person.validationButton
+		validationButton.addTarget(self, action: #selector(validationButtonTapped), for: .primaryActionTriggered)
+
+		return validationButton
+	}()
+	
 	private func setupView() {
 		backgroundColor = .clear
 		contentView.backgroundColor = .clear
@@ -164,8 +191,15 @@ class HealthCertificateCell: UITableViewCell, ReuseIdentifierProviding {
 		hStackView.spacing = 16.0
 		hStackView.distribution = .fillProportionally
 		hStackView.alignment = .top
-		backgroundContainerView.addSubview(hStackView)
 
+		let validationButtonStackView = UIStackView(arrangedSubviews: [hStackView, validationButton])
+		validationButtonStackView.translatesAutoresizingMaskIntoConstraints = false
+		validationButtonStackView.axis = .vertical
+		validationButtonStackView.spacing = 12.0
+		validationButtonStackView.alignment = .top
+		
+		backgroundContainerView.addSubview(validationButtonStackView)
+		
 		unseenNewsIndicator.backgroundColor = .systemRed
 		unseenNewsIndicator.translatesAutoresizingMaskIntoConstraints = false
 		backgroundContainerView.insertSubview(unseenNewsIndicator, aboveSubview: gradientBackground)
@@ -190,11 +224,14 @@ class HealthCertificateCell: UITableViewCell, ReuseIdentifierProviding {
 				unseenNewsIndicator.centerXAnchor.constraint(equalTo: gradientBackground.trailingAnchor, constant: -4),
 				unseenNewsIndicator.centerYAnchor.constraint(equalTo: gradientBackground.topAnchor, constant: 4),
 
-				hStackView.topAnchor.constraint(equalTo: backgroundContainerView.topAnchor, constant: 16.0),
-				hStackView.bottomAnchor.constraint(equalTo: backgroundContainerView.bottomAnchor, constant: -24.0),
-				hStackView.leadingAnchor.constraint(equalTo: backgroundContainerView.leadingAnchor, constant: 16.0),
-				hStackView.trailingAnchor.constraint(equalTo: backgroundContainerView.trailingAnchor, constant: -16.0),
-
+				validationButtonStackView.topAnchor.constraint(equalTo: backgroundContainerView.topAnchor, constant: 16.0),
+				validationButtonStackView.bottomAnchor.constraint(equalTo: backgroundContainerView.bottomAnchor, constant: -16.0),
+				validationButtonStackView.leadingAnchor.constraint(equalTo: backgroundContainerView.leadingAnchor, constant: 16.0),
+				validationButtonStackView.trailingAnchor.constraint(equalTo: backgroundContainerView.trailingAnchor, constant: -16.0),
+				
+				hStackView.trailingAnchor.constraint(equalTo: validationButtonStackView.trailingAnchor),
+				validationButton.widthAnchor.constraint(equalTo: validationButtonStackView.widthAnchor),
+				
 				disclosureContainerView.leadingAnchor.constraint(equalTo: disclosureImageView.leadingAnchor),
 				disclosureContainerView.trailingAnchor.constraint(equalTo: disclosureImageView.trailingAnchor),
 
@@ -219,6 +256,10 @@ class HealthCertificateCell: UITableViewCell, ReuseIdentifierProviding {
 			backgroundContainerView.accessibilityElements?.append(currentlyUsedLabel)
 		}
 
+		if !validationButton.isHidden {
+			accessibilityElements?.append(validationButton)
+		}
+		
 		headlineLabel.accessibilityTraits = [.staticText, .button]
 	}
 
@@ -226,4 +267,11 @@ class HealthCertificateCell: UITableViewCell, ReuseIdentifierProviding {
 		backgroundContainerView.layer.borderWidth = traitCollection.userInterfaceStyle == .dark ? 0 : 1
 	}
 
+	@objc
+	private func validationButtonTapped() {
+		cellViewModel?.didTapValidationButton { [weak self] isLoading in
+			self?.validationButton.isLoading = isLoading
+			self?.validationButton.isEnabled = !isLoading
+		}
+	}
 }

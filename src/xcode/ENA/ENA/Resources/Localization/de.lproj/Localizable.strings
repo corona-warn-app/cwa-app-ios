@@ -1381,6 +1381,14 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "Home_Alert_RiskStatusLowered_PrimaryButtonTitle" = "OK";
 
+/* Home Alert another high exposure */
+
+"Home_Alert_RiskStatusAnotherHighExposure_Title" = "Neue Risikobegegnung";
+
+"Home_Alert_RiskStatusAnotherHighExposure_Message" = "Sie hatten eine erneute Begegnung mit erhöhtem Risiko. Alle Risikobegegnungen der vergangenen %i Tage finden Sie in Ihrem Kontakttagebuch.";
+
+"Home_Alert_RiskStatusAnotherHighExposure_PrimaryButtonTitle" = "OK";
+
 /* App Information */
 
 "App_Information_Title" = "App-Informationen";
@@ -1650,19 +1658,31 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "NewVersionFeatures_Info_about_abb_information" = "Änderungen zum Release finden Sie in den App-Informationen unter dem Menüpunkt „Neue Funktionen”.";
 
-/* Version 2.19 */
+/* Version 2.20 */
 
-"NewVersionFeature_219_rapidPCR_title" = "Registrierung von PCR-Schnelltests";
+"NewVersionFeature_220_highRiskShortened_title" = "Anzeige erhöhten Risikos verkürzt";
 
-"NewVersionFeature_219_rapidPCR_description" = "Sie können jetzt PCR-Schnelltests in der Corona-Warn-App registrieren und das Ergebnis sowie das Testzertifikat über die App erhalten.";
+"NewVersionFeature_220_highRiskShortened_description" = "Ein erhöhtes Risiko nach einer Risikobegegnung wird nur noch für 10 anstatt für 14 Tage angezeigt.";
 
-"NewVersionFeature_219_faultTolerantNameHandling_title" = "Zuordnung von Zertifikaten";
+"NewVersionFeature_220_displayRiskPositiveResult_title" = "Risikoanzeige nach positivem Testergebnis";
 
-"NewVersionFeature_219_faultTolerantNameHandling_description" = "Die Zuordnung von Zertifikaten zu Personen wurde fehlertoleranter gestaltet. Kleine Unterschiede in der Schreibweise von Vor- und Nachnamen werden ignoriert, sodass die Zertifikate trotzdem derselben Person zugeordnet werden können.";
+"NewVersionFeature_220_displayRiskPositiveResult_description" = "Auch wenn Sie einen positiven Test in der Corona-Warn-App registriert haben, wird Ihnen nun nach einer Risikobegegnung die rote Kachel für ein erhöhtes Risiko eingeblendet. Sieben Tage nach dem positiven Test wird ihr Risikostatus dauerhaft wieder eingeblendet.";
 
-"NewVersionFeature_219_vaccinationCertificateReplacement_title" = "Zertifikate aktualisieren";
+"NewVersionFeature_220_notificateRiskEncounter_title" = "Nachricht zu neuer Risikobegegnung";
 
-"NewVersionFeature_219_vaccinationCertificateReplacement_description" = "Die Spezifikationen der EU für Impfzertifikate für Auffrischimpfungen wurden geändert. Entspricht Ihr Zertifikat nicht mehr den aktuellen Spezifikationen, so können Sie direkt über die Corona-Warn-App ein neues anfordern.";
+"NewVersionFeature_220_notificateRiskEncounter_description" = "Wenn Sie nach einer Risikobegegnung eine weitere Begegnung mit erhöhtem Risiko hatten, dann wird Ihnen darüber jetzt eine Benachrichtigung angezeigt.";
+
+"NewVersionFeature_220_notificationStatusChange_title" = "Nachricht über Status-Änderung";
+
+"NewVersionFeature_220_notificationStatusChange_description" = "Wenn sich Ihr Status geändert hat (z. B. durch Hinzufügen eines Zertifikats, oder weil sich die Regeln geändert haben) werden Sie auf der Zertifikate-Registerkarte darüber informiert.";
+
+"NewVersionFeature_220_recoveryCertificatesDetails_title" = "Genesenenzertifikate ohne Gültigkeitsdaten";
+
+"NewVersionFeature_220_recoveryCertificatesDetails_description" = "Für Genesenenzertifikate werden keine Gültigkeitsdaten mehr angezeigt, da die Gültigkeit von lokalen Regeln bestimmt wird. Stattdessen wird nun das Datum des ersten positiven Tests angezeigt.";
+
+"NewVersionFeature_220_removeQRCode_title" = "Doppelten QR-Code entfernt";
+
+"NewVersionFeature_220_removeQRCode_description" = "Vom Detail-Bildschirm für Ihre Person wurde der QR-Code für Ihr aktuell verwendetes Zertifikat entfernt. Der QR-Code befindet sich ebenfalls auf der Zertifikate-Übersicht, wird also auf dem Detail-Bildschirm nicht benötigt.";
 
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Länderübergreifende Risiko-Ermittlung";
@@ -2968,7 +2988,7 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "HealthCertifiedPerson_RecoveryCertificate_headline" = "Genesenenzertifikat";
 
-"HealthCertifiedPerson_RecoveryCertificate_validityDate" = "gültig bis %@";
+"HealthCertifiedPerson_RecoveryCertificate_positiveTestFrom" = "Positiver Test vom %@";
 
 "HealthCertifiedPerson_currentlyUsedCertificate" = "Aktuell verwendetes Zertifikat";
 
@@ -3492,7 +3512,7 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "RecycleBin_RecoveryCertificate_headline" = "Genesenenzertifikat";
 
-"RecycleBin_RecoveryCertificate_validityDate" = "gültig bis %@";
+"RecycleBin_RecoveryCertificate_positiveTestFrom" = "Positiver Test vom %@";
 
 /* - Corona Test */
 

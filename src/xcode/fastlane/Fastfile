@@ -222,6 +222,12 @@ platform :ios do
       --header 'Authorization: Bearer #{ENV["TSI_CLOUD_TOKEN"]}' \
       --form 'file=@../ENA.ipa'"
     )
+
+    # Trigger Tests on Mobile Device Cloud via CircleCI (cwa-app-automation)
+    sh("curl -u '#{ENV["CIRCLE_API_ADMIN_TOKEN"]}': \
+      -d 'build_parameters[CIRCLE_JOB]=ios' \
+      https://circleci.com/api/v1.1/project/github/corona-warn-app/cwa-app-automation/tree/main"
+    )
   end
 
   desc "Update GitHub Pages"
