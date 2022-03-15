@@ -67,6 +67,8 @@ class DiaryOverviewDayTableViewCell: UITableViewCell {
 
 		let tapOnDateStackViewRecognizer = UITapGestureRecognizer(target: self, action: #selector(clickableAreaWasTapped))
 		dateStackView.addGestureRecognizer(tapOnDateStackViewRecognizer)
+		drawBorders(to: [.left, .right], on: dateStackView)
+		dateStackView.backgroundColor = .enaColor(for: .cellBackground)
 	}
 
 	private func configureExposureHistory(_ cellViewModel: DiaryOverviewDayCellModel) {
@@ -89,7 +91,7 @@ class DiaryOverviewDayTableViewCell: UITableViewCell {
 		testsStackView.arrangedSubviews.forEach { $0.removeFromSuperview() }
 		testsStackView.backgroundColor = .enaColor(for: .darkBackground)
 		// Because we set the background color, the border of the underying view disappears. For this we need some new borders at the left and right and here for the top, too.
-		drawBorders(to: [.left, .top, .right], on: testsStackView)
+		drawBorders(to: [.left, .right], on: testsStackView)
 
 		cellViewModel.diaryDayTests.forEach { diaryDayTest in
 
@@ -130,6 +132,7 @@ class DiaryOverviewDayTableViewCell: UITableViewCell {
 				]
 			)
 
+			drawBorders(to: [.top], on: containerView)
 			testsStackView.addArrangedSubview(containerView)
 		}
 	}
@@ -276,6 +279,10 @@ class DiaryOverviewDayTableViewCell: UITableViewCell {
 		let tapOnEncounterVisitsStackViewRecognizer = UITapGestureRecognizer(target: self, action: #selector(clickableAreaWasTapped))
 		encountersVisitsContainerStackView.addGestureRecognizer(tapOnEncounterVisitsStackViewRecognizer)
 
+		drawBorders(to: [.left, .right], on: encountersVisitsContainerStackView)
+		encountersVisitsContainerStackView.backgroundColor = .enaColor(for: .cellBackground)
+
+		// For UI Testing
 		accessibilityTraits = [.button]
 		accessibilityIdentifier = String(format: AccessibilityIdentifiers.ContactDiaryInformation.Overview.cell, cellViewModel.accessibilityIdentifierIndex)
 	}
@@ -299,7 +306,9 @@ class DiaryOverviewDayTableViewCell: UITableViewCell {
 		bottomBackground.layer.borderColor = UIColor.enaColor(for: .hairline).cgColor
 		bottomBackground.layer.maskedCorners = [.layerMaxXMaxYCorner, .layerMinXMaxYCorner]
 
-		if encountersVisitsContainerStackView.isHidden {
+		// Show same background like the topBackground when we have not the encountersVisitsContainerStackView at the bottom displayed or the hole day is empty
+		if encountersVisitsContainerStackView.isHidden &&
+			(!testsStackView.isHidden && !exposureHistoryStackView.isHidden && !checkinHistoryContainerStackView.isHidden) {
 			bottomBackground.backgroundColor = .enaColor(for: .darkBackground)
 		} else {
 			bottomBackground.backgroundColor = .enaColor(for: .cellBackground)
