@@ -24,7 +24,7 @@ class TestResultMetadataTests: CWATestCase {
 		secureStore.isPrivacyPreservingAnalyticsConsentGiven = true
 		
 		let today = Date()
-		let enfRiskCalculationResult = mockENFRiskCalculationResult(risk: .low)
+		let enfRiskCalculationResult: ENFRiskCalculationResult = .fake(riskLevel: .low)
 		secureStore.enfRiskCalculationResult = enfRiskCalculationResult
 		let checkinRiskCalculationResult = mockCheckinRiskCalculationResult(risk: .low)
 		secureStore.checkinRiskCalculationResult = checkinRiskCalculationResult
@@ -103,7 +103,7 @@ class TestResultMetadataTests: CWATestCase {
 			return
 		}
 		
-		let enfRiskCalculationResult = mockENFRiskCalculationResult(risk: .high, mostRecentDateHighRisk: mostRecentDateHighRisk)
+		let enfRiskCalculationResult: ENFRiskCalculationResult = .fake(riskLevel: .high, mostRecentDateWithHighRisk: mostRecentDateHighRisk)
 		secureStore.dateOfConversionToENFHighRisk = Calendar.current.date(byAdding: .day, value: -1, to: today)
 		secureStore.enfRiskCalculationResult = enfRiskCalculationResult
 		
@@ -206,7 +206,7 @@ class TestResultMetadataTests: CWATestCase {
 		}
 		
 		// set ENF to low
-		let enfRiskCalculationResult = mockENFRiskCalculationResult(risk: .low, mostRecentDateLowRisk: mostRecentDateRisk)
+		let enfRiskCalculationResult: ENFRiskCalculationResult = .fake(riskLevel: .low, mostRecentDateWithLowRisk: mostRecentDateRisk)
 		secureStore.dateOfConversionToENFHighRisk = Calendar.current.date(byAdding: .day, value: -1, to: today)
 		secureStore.enfRiskCalculationResult = enfRiskCalculationResult
 		
@@ -246,7 +246,7 @@ class TestResultMetadataTests: CWATestCase {
 		}
 		
 		// set ENF to low
-		let enfRiskCalculationResult = mockENFRiskCalculationResult(risk: .high, mostRecentDateHighRisk: mostRecentDateRisk)
+		let enfRiskCalculationResult: ENFRiskCalculationResult = .fake(riskLevel: .high, mostRecentDateWithHighRisk: mostRecentDateRisk)
 		secureStore.dateOfConversionToENFHighRisk = Calendar.current.date(byAdding: .day, value: -1, to: today)
 		secureStore.enfRiskCalculationResult = enfRiskCalculationResult
 		
@@ -287,7 +287,7 @@ class TestResultMetadataTests: CWATestCase {
 		let secureStore = MockTestStore()
 		Analytics.setupMock(store: secureStore)
 		secureStore.isPrivacyPreservingAnalyticsConsentGiven = true
-		let riskCalculationResult = mockENFRiskCalculationResult(risk: .low)
+		let riskCalculationResult: ENFRiskCalculationResult = .fake(riskLevel: .low)
 		secureStore.enfRiskCalculationResult = riskCalculationResult
 
 		guard let registrationDate = Calendar.utcCalendar.date(byAdding: .day, value: -4, to: Date()) else {
@@ -310,7 +310,7 @@ class TestResultMetadataTests: CWATestCase {
 		let secureStore = MockTestStore()
 		Analytics.setupMock(store: secureStore)
 		secureStore.isPrivacyPreservingAnalyticsConsentGiven = true
-		let riskCalculationResult = mockENFRiskCalculationResult(risk: .low)
+		let riskCalculationResult: ENFRiskCalculationResult = .fake(riskLevel: .low)
 		secureStore.enfRiskCalculationResult = riskCalculationResult
 
 		if let registrationDate = Calendar.current.date(byAdding: .day, value: -4, to: Date()) {
@@ -342,7 +342,7 @@ class TestResultMetadataTests: CWATestCase {
 		let secureStore = MockTestStore()
 		Analytics.setupMock(store: secureStore)
 		secureStore.isPrivacyPreservingAnalyticsConsentGiven = true
-		let riskCalculationResult = mockENFRiskCalculationResult(risk: .low)
+		let riskCalculationResult: ENFRiskCalculationResult = .fake(riskLevel: .low)
 		secureStore.enfRiskCalculationResult = riskCalculationResult
 		Analytics.collect(.testResultMetadata(.updateTestResult(.pending, "", .pcr)))
 		Analytics.collect(.testResultMetadata(.updateTestResult(.pending, "", .antigen)))
@@ -368,7 +368,7 @@ class TestResultMetadataTests: CWATestCase {
 		let secureStore = MockTestStore()
 		Analytics.setupMock(store: secureStore)
 		secureStore.isPrivacyPreservingAnalyticsConsentGiven = true
-		let riskCalculationResult = mockENFRiskCalculationResult(risk: .low)
+		let riskCalculationResult: ENFRiskCalculationResult = .fake(riskLevel: .low)
 		secureStore.enfRiskCalculationResult = riskCalculationResult
 		Analytics.collect(.testResultMetadata(.updateTestResult(.pending, "", .pcr)))
 
@@ -395,7 +395,7 @@ class TestResultMetadataTests: CWATestCase {
 		let secureStore = MockTestStore()
 		Analytics.setupMock(store: secureStore)
 		secureStore.isPrivacyPreservingAnalyticsConsentGiven = true
-		let riskCalculationResult = mockENFRiskCalculationResult(risk: .low)
+		let riskCalculationResult: ENFRiskCalculationResult = .fake(riskLevel: .low)
 		secureStore.enfRiskCalculationResult = riskCalculationResult
 
 		if let registrationDate = Calendar.current.date(byAdding: .day, value: -4, to: Date()) {
@@ -422,21 +422,6 @@ class TestResultMetadataTests: CWATestCase {
 		// The if the value is valid and the token the same then the testResult should be updated
 		XCTAssertEqual(secureStore.pcrTestResultMetadata?.testResult, .positive, "testResult should be updated")
 		XCTAssertEqual(secureStore.antigenTestResultMetadata?.testResult, .positive, "testResult should be updated")
-	}
-
-	private func mockENFRiskCalculationResult(risk: RiskLevel = .high, mostRecentDateHighRisk: Date? = nil, mostRecentDateLowRisk: Date? = nil) -> ENFRiskCalculationResult {
-		ENFRiskCalculationResult(
-			riskLevel: risk,
-			minimumDistinctEncountersWithLowRisk: 0,
-			minimumDistinctEncountersWithHighRisk: 0,
-			mostRecentDateWithLowRisk: mostRecentDateLowRisk,
-			mostRecentDateWithHighRisk: mostRecentDateHighRisk,
-			numberOfDaysWithLowRisk: 0,
-			numberOfDaysWithHighRisk: 2,
-			calculationDate: Date(),
-			riskLevelPerDate: [:],
-			minimumDistinctEncountersWithHighRiskPerDate: [:]
-		)
 	}
 	
 	private func mockCheckinRiskCalculationResult(risk: RiskLevel = .high, dateForRisk: Date? = nil) -> CheckinRiskCalculationResult {
