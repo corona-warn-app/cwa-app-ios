@@ -88,7 +88,8 @@
     {
       "parallelizable" : true,
       "selectedTests" : [
-        "ENAUITests_12_AntigenTestProfile\/test_FIRST_CreateAntigenTestProfile_THEN_EditProfile_THEN_DeleteProfile()"
+        "ENAUITests_12_AntigenTestProfile\/test_FIRST_CreateAntigenTestProfile_THEN_EditProfile_THEN_DeleteProfile()",
+        "ENAUITests_AntigenTestProfile\/test_FIRST_CreateAntigenTestProfile_THEN_EditProfile_THEN_DeleteProfile()"
       ],
       "target" : {
         "containerPath" : "container:ENA.xcodeproj",

@@ -92,7 +92,12 @@
         "ENAUITests_06_DeltaOnboarding\/testDeltaOnboardings()",
         "ENAUITests_06_DeltaOnboarding\/test_DeltaOnboardingNewVersionFeatures()",
         "ENAUITests_06_DeltaOnboarding\/test_DeltaOnboardingNotificationRework()",
-        "ENAUITests_06_DeltaOnboarding\/test_DeltaOnboardingV15()"
+        "ENAUITests_06_DeltaOnboarding\/test_DeltaOnboardingV15()",
+        "ENAUITests_DeltaOnboarding\/testDeltaOnboardingNewVersionFeatures()",
+        "ENAUITests_DeltaOnboarding\/testDeltaOnboardings()",
+        "ENAUITests_DeltaOnboarding\/test_DeltaOnboardingNewVersionFeatures()",
+        "ENAUITests_DeltaOnboarding\/test_DeltaOnboardingNotificationRework()",
+        "ENAUITests_DeltaOnboarding\/test_DeltaOnboardingV15()"
       ],
       "target" : {
         "containerPath" : "container:ENA.xcodeproj",

@@ -92,7 +92,13 @@
         "ENAUITests_10_CheckIns\/testCheckinInfoScreen_navigate_to_dataPrivacy()",
         "ENAUITests_10_CheckIns\/test_RegisterCertificateFromCheckinTabWithInfoScreen()",
         "ENAUITests_10_CheckIns\/test_RegisterCertificateFromCheckinTabWithoutInfoScreen()",
-        "ENAUITests_10_CheckIns\/test_RegisterCoronaTestFromCheckinTab()"
+        "ENAUITests_10_CheckIns\/test_RegisterCoronaTestFromCheckinTab()",
+        "ENAUITests_CheckIns\/testCheckinInfoScreen_confirmConsent()",
+        "ENAUITests_CheckIns\/testCheckinInfoScreen_navigate_to_dataPrivacy()",
+        "ENAUITests_CheckIns\/test_RegisterCertificateFromCheckinTabWithInfoScreen()",
+        "ENAUITests_CheckIns\/test_RegisterCertificateFromCheckinTabWithoutInfoScreen()",
+        "ENAUITests_CheckIns\/test_RegisterCoronaTestFromCheckinTab()",
+        "ENAUITests_CheckIns\/test_screenshot_WHEN_scan_QRCode_THEN_checkin_and_checkout()"
       ],
       "target" : {
         "containerPath" : "container:ENA.xcodeproj",

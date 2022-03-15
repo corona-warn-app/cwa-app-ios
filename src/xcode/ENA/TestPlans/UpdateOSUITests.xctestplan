@@ -88,7 +88,8 @@
     {
       "parallelizable" : true,
       "selectedTests" : [
-        "ENAUITests_08_UpdateOS\/test_UpdateOS()"
+        "ENAUITests_08_UpdateOS\/test_UpdateOS()",
+        "ENAUITests_UpdateOS\/test_UpdateOS()"
       ],
       "target" : {
         "containerPath" : "container:ENA.xcodeproj",

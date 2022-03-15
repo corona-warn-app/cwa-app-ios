@@ -99,7 +99,20 @@
         "ENAUITests_02_AppInformation\/test_0027_AppInformationFlow_ErrorReportsStart()",
         "ENAUITests_02_AppInformation\/test_0028_AppInformationFlow_PrivacyScreen()",
         "ENAUITests_02_AppInformation\/test_0029_AppInformationFlow_ConfirmationScreen_ErrorReportDetailScreen()",
-        "ENAUITests_02_AppInformation\/test_0030_AppInformationFlow_ConfirmationScreen_HistoryScreen()"
+        "ENAUITests_02_AppInformation\/test_0030_AppInformationFlow_ConfirmationScreen_HistoryScreen()",
+        "ENAUITests_AppInformation\/test_0020_AppInformationFlow()",
+        "ENAUITests_AppInformation\/test_0021_AppInformationFlow_about()",
+        "ENAUITests_AppInformation\/test_0022_AppInformationFlow_faq()",
+        "ENAUITests_AppInformation\/test_0023_AppInformationFlow_contact()",
+        "ENAUITests_AppInformation\/test_0024_AppInformationFlow_privacy()",
+        "ENAUITests_AppInformation\/test_0025_AppInformationFlow_terms()",
+        "ENAUITests_AppInformation\/test_0026_AppInformationFlow_ErrorReports()",
+        "ENAUITests_AppInformation\/test_0026a_AppInformationFlow_ErrorReportsShouldBeActiveForDebugAsDefault()",
+        "ENAUITests_AppInformation\/test_0027_AppInformationFlow_ErrorReportsStart()",
+        "ENAUITests_AppInformation\/test_0028_AppInformationFlow_PrivacyScreen()",
+        "ENAUITests_AppInformation\/test_0029_AppInformationFlow_accessibility()",
+        "ENAUITests_AppInformation\/test_0030_AppInformationFlow_ConfirmationScreen_ErrorReportDetailScreen()",
+        "ENAUITests_AppInformation\/test_0031_AppInformationFlow_ConfirmationScreen_HistoryScreen()"
       ],
       "target" : {
         "containerPath" : "container:ENA.xcodeproj",

@@ -96,7 +96,17 @@
         "ENAUITests_09_TraceLocations\/test_WHEN_tapCreateQRCode_THEN_traceLocation_input_screen_is_displayed()",
         "ENAUITests_09_TraceLocations\/test_WHEN_traceLocation_exists_THEN_checkin_and_checkout()",
         "ENAUITests_09_TraceLocations\/test_WHEN_traceLocation_is_tapped_THEN_details_of_traceLocation_are_displayed()",
-        "ENAUITests_09_TraceLocations\/test_events_in_contact_journal()"
+        "ENAUITests_09_TraceLocations\/test_events_in_contact_journal()",
+        "ENAUITests_TraceLocations\/test_WHEN_QRCode_is_created_THEN_list_contains_traceLocation()",
+        "ENAUITests_TraceLocations\/test_WHEN_event_checkout_THEN_display_details()",
+        "ENAUITests_TraceLocations\/test_WHEN_list_contains_traceLocations_THEN_delete_all_entries_via_menu_function()",
+        "ENAUITests_TraceLocations\/test_WHEN_navigate_to_TraceLocations_for_the_first_time_THEN_infoscreen_is_displayed()",
+        "ENAUITests_TraceLocations\/test_WHEN_navigate_to_TraceLocations_for_the_second_time_THEN_no_infoscreen_is_displayed()",
+        "ENAUITests_TraceLocations\/test_WHEN_tapCreateQRCode_THEN_traceLocation_input_screen_is_displayed()",
+        "ENAUITests_TraceLocations\/test_WHEN_traceLocation_exists_THEN_checkin_and_checkout()",
+        "ENAUITests_TraceLocations\/test_WHEN_traceLocation_is_tapped_THEN_details_of_traceLocation_are_displayed()",
+        "ENAUITests_TraceLocations\/test_events_in_contact_journal()",
+        "ENAUITests_TraceLocations\/test_screenshots_of_traceLocation_print_flow()"
       ],
       "target" : {
         "containerPath" : "container:ENA.xcodeproj",

@@ -91,7 +91,11 @@
         "ENAUITests_11_QuickActions\/testLaunchAfterOnboarding_diaryInfoPassed()",
         "ENAUITests_11_QuickActions\/testLaunchAfterOnboarding_diaryInfoRequired()",
         "ENAUITests_11_QuickActions\/testLaunchViaShortcutFromFreshInstall()",
-        "ENAUITests_11_QuickActions\/testShortcutAvailabilityDuringSubmissionFlow()"
+        "ENAUITests_11_QuickActions\/testShortcutAvailabilityDuringSubmissionFlow()",
+        "ENAUITests_QuickActions\/testLaunchAfterOnboarding_diaryInfoPassed()",
+        "ENAUITests_QuickActions\/testLaunchAfterOnboarding_diaryInfoRequired()",
+        "ENAUITests_QuickActions\/testLaunchViaShortcutFromFreshInstall()",
+        "ENAUITests_QuickActions\/testShortcutAvailabilityDuringSubmissionFlow()"
       ],
       "target" : {
         "containerPath" : "container:ENA.xcodeproj",
