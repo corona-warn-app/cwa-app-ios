@@ -846,6 +846,12 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 			return
 		}
 
+		guard !viewModel.riskStatusLoweredAlertShouldBeSuppressed else {
+			viewModel.store.shouldShowRiskStatusLoweredAlert = false
+			completion()
+			return
+		}
+
 		let alert = UIAlertController(
 			title: AppStrings.Home.riskStatusLoweredAlertTitle,
 			message: AppStrings.Home.riskStatusLoweredAlertMessage,
