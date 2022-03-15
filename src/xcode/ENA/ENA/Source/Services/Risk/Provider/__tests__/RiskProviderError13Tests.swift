@@ -19,17 +19,8 @@ final class RiskProviderError13Tests: CWATestCase {
 		))
 
 		let store = MockTestStore()
-		store.enfRiskCalculationResult = ENFRiskCalculationResult(
-			riskLevel: .low,
-			minimumDistinctEncountersWithLowRisk: 0,
-			minimumDistinctEncountersWithHighRisk: 0,
-			mostRecentDateWithLowRisk: nil,
-			mostRecentDateWithHighRisk: nil,
-			numberOfDaysWithLowRisk: 0,
-			numberOfDaysWithHighRisk: 0,
-			calculationDate: lastExposureDetectionDate,
-			riskLevelPerDate: [:],
-			minimumDistinctEncountersWithHighRiskPerDate: [:]
+		store.enfRiskCalculationResult = .fake(
+			calculationDate: lastExposureDetectionDate
 		)
 		store.checkinRiskCalculationResult = CheckinRiskCalculationResult(
 			calculationDate: lastExposureDetectionDate,
@@ -57,8 +48,7 @@ final class RiskProviderError13Tests: CWATestCase {
 			checkinRiskCalculation: CheckinRiskCalculationFake(),
 			keyPackageDownload: makeKeyPackageDownloadMock(with: store),
 			traceWarningPackageDownload: makeTraceWarningPackageDownloadMock(with: store, appConfig: appConfig),
-			exposureDetectionExecutor: exposureDetectionDelegateStub,
-			coronaTestService: MockCoronaTestService()
+			exposureDetectionExecutor: exposureDetectionDelegateStub
 		)
 
 		let consumer = RiskConsumer()
@@ -104,17 +94,8 @@ final class RiskProviderError13Tests: CWATestCase {
 		))
 
 		let store = MockTestStore()
-		store.enfRiskCalculationResult = ENFRiskCalculationResult(
-			riskLevel: .low,
-			minimumDistinctEncountersWithLowRisk: 0,
-			minimumDistinctEncountersWithHighRisk: 0,
-			mostRecentDateWithLowRisk: nil,
-			mostRecentDateWithHighRisk: nil,
-			numberOfDaysWithLowRisk: 0,
-			numberOfDaysWithHighRisk: 0,
-			calculationDate: lastExposureDetectionDate,
-			riskLevelPerDate: [:],
-			minimumDistinctEncountersWithHighRiskPerDate: [:]
+		store.enfRiskCalculationResult = .fake(
+			calculationDate: lastExposureDetectionDate
 		)
 		store.checkinRiskCalculationResult = CheckinRiskCalculationResult(
 			calculationDate: lastExposureDetectionDate,
@@ -142,8 +123,7 @@ final class RiskProviderError13Tests: CWATestCase {
 			checkinRiskCalculation: CheckinRiskCalculationFake(),
 			keyPackageDownload: makeKeyPackageDownloadMock(with: store),
 			traceWarningPackageDownload: makeTraceWarningPackageDownloadMock(with: store, appConfig: appConfig),
-			exposureDetectionExecutor: exposureDetectionDelegateStub,
-			coronaTestService: MockCoronaTestService()
+			exposureDetectionExecutor: exposureDetectionDelegateStub
 		)
 
 		let consumer = RiskConsumer()
@@ -190,17 +170,8 @@ final class RiskProviderError13Tests: CWATestCase {
 		))
 
 		let store = MockTestStore()
-		store.enfRiskCalculationResult = ENFRiskCalculationResult(
-			riskLevel: .low,
-			minimumDistinctEncountersWithLowRisk: 0,
-			minimumDistinctEncountersWithHighRisk: 0,
-			mostRecentDateWithLowRisk: nil,
-			mostRecentDateWithHighRisk: nil,
-			numberOfDaysWithLowRisk: 0,
-			numberOfDaysWithHighRisk: 0,
-			calculationDate: lastExposureDetectionDate,
-			riskLevelPerDate: [:],
-			minimumDistinctEncountersWithHighRiskPerDate: [:]
+		store.enfRiskCalculationResult = .fake(
+			calculationDate: lastExposureDetectionDate
 		)
 		store.checkinRiskCalculationResult = CheckinRiskCalculationResult(
 			calculationDate: lastExposureDetectionDate,
@@ -228,8 +199,7 @@ final class RiskProviderError13Tests: CWATestCase {
 			checkinRiskCalculation: CheckinRiskCalculationFake(),
 			keyPackageDownload: makeKeyPackageDownloadMock(with: store),
 			traceWarningPackageDownload: makeTraceWarningPackageDownloadMock(with: store, appConfig: appConfig),
-			exposureDetectionExecutor: exposureDetectionDelegateStub,
-			coronaTestService: MockCoronaTestService()
+			exposureDetectionExecutor: exposureDetectionDelegateStub
 		)
 
 		let consumer = RiskConsumer()
@@ -275,17 +245,8 @@ final class RiskProviderError13Tests: CWATestCase {
 		))
 
 		let store = MockTestStore()
-		store.enfRiskCalculationResult = ENFRiskCalculationResult(
-			riskLevel: .low,
-			minimumDistinctEncountersWithLowRisk: 0,
-			minimumDistinctEncountersWithHighRisk: 0,
-			mostRecentDateWithLowRisk: nil,
-			mostRecentDateWithHighRisk: nil,
-			numberOfDaysWithLowRisk: 0,
-			numberOfDaysWithHighRisk: 0,
-			calculationDate: lastExposureDetectionDate,
-			riskLevelPerDate: [:],
-			minimumDistinctEncountersWithHighRiskPerDate: [:]
+		store.enfRiskCalculationResult = .fake(
+			calculationDate: lastExposureDetectionDate
 		)
 		store.checkinRiskCalculationResult = CheckinRiskCalculationResult(
 			calculationDate: lastExposureDetectionDate,
@@ -313,8 +274,7 @@ final class RiskProviderError13Tests: CWATestCase {
 			checkinRiskCalculation: CheckinRiskCalculationFake(),
 			keyPackageDownload: makeKeyPackageDownloadMock(with: store),
 			traceWarningPackageDownload: makeTraceWarningPackageDownloadMock(with: store, appConfig: appConfig),
-			exposureDetectionExecutor: exposureDetectionDelegateStub,
-			coronaTestService: MockCoronaTestService()
+			exposureDetectionExecutor: exposureDetectionDelegateStub
 		)
 
 		let consumer = RiskConsumer()
