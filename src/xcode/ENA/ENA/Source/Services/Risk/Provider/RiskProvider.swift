@@ -431,10 +431,11 @@ final class RiskProvider: RiskProviding {
 			previousCheckinCalculationResult: store.checkinRiskCalculationResult
 		)
 
+		let previousRisk = previousRisk
 		store.enfRiskCalculationResult = enfRiskCalculationResult
 		store.checkinRiskCalculationResult = checkinRiskCalculationResult
 
-		checkIfRiskLevelHasChangedForNotifications(risk)
+		checkIfRiskLevelHasChangedForNotifications(risk, previousRisk: previousRisk)
 		checkIfRiskStatusLoweredAlertShouldBeShown(risk)
 		Analytics.collect(.riskExposureMetadata(.update))
 		completion(.success(risk))
@@ -442,7 +443,6 @@ final class RiskProvider: RiskProviding {
 		/// We were able to calculate a risk so we have to reset the DeadMan Notification
 		DeadmanNotificationManager(coronaTestService: coronaTestService).resetDeadmanNotification()
 	}
-	
 
 	private func _provideRiskResult(_ result: RiskProviderResult, to consumer: RiskConsumer?) {
 		#if DEBUG
@@ -455,16 +455,42 @@ final class RiskProvider: RiskProviding {
 		consumer?.provideRiskCalculationResult(result)
 	}
 	
-	private func checkIfRiskLevelHasChangedForNotifications(_ risk: Risk) {
+	private func checkIfRiskLevelHasChangedForNotifications(_ risk: Risk, previousRisk: Risk?) {
 		/// Triggers a notification for every risk level change.
-		if risk.riskLevelHasChanged {
-			Log.info("Trigger notification about changed risk level", log: .riskDetection)
-			UNUserNotificationCenter.current().presentNotification(
-				title: AppStrings.LocalNotifications.detectExposureTitle,
-				body: AppStrings.LocalNotifications.detectExposureBody,
-				identifier: ActionableNotificationIdentifier.riskDetection.identifier
-			)
+		switch risk.riskLevelChange {
+		case .decreased:
+			Log.info("decrease risk change state won't trigger a high risk notification")
+		case .increased:
+			triggerHighRiskNotification()
+		case let .unchanged(riskLevel):
+			guard riskLevel == .high,
+				  let mostRecentDateWithRiskLevel = risk.details.mostRecentDateWithRiskLevel,
+				  let previousMostRecentDateWithRiskLevel = previousRisk?.details.mostRecentDateWithRiskLevel,
+				  mostRecentDateWithRiskLevel > previousMostRecentDateWithRiskLevel
+			else {
+				Log.info("Missing mostRecentDateWithRiskLevel - do not trigger anything")
+				return
+			}
+			triggerHighRiskNotification()
+			// store a flag so we know an alert is required
+			switch UIApplication.shared.applicationState {
+			case .active:
+				Log.info("Another high exposure notification was triggered in foreground - no alert needed")
+			case .inactive, .background:
+				store.showAnotherHighExposureAlert = true
+			@unknown default:
+				Log.error("Unknown application state")
+			}
 		}
+	}
+
+	private func triggerHighRiskNotification() {
+		Log.info("Trigger notification about high risk level", log: .riskDetection)
+		UNUserNotificationCenter.current().presentNotification(
+			title: AppStrings.LocalNotifications.detectExposureTitle,
+			body: AppStrings.LocalNotifications.detectExposureBody,
+			identifier: ActionableNotificationIdentifier.riskDetection.identifier
+		)
 	}
 
 	private func checkIfRiskStatusLoweredAlertShouldBeShown(_ risk: Risk) {
