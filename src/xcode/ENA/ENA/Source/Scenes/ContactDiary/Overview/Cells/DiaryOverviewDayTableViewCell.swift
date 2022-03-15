@@ -135,6 +135,7 @@ class DiaryOverviewDayTableViewCell: UITableViewCell {
 			drawBorders(to: [.top], on: containerView)
 			testsStackView.addArrangedSubview(containerView)
 		}
+		testsStackView.isHidden = cellViewModel.diaryDayTests.isEmpty
 	}
 
 	private func configureCheckinWithRisks(_ cellViewModel: DiaryOverviewDayCellModel) {
@@ -306,11 +307,10 @@ class DiaryOverviewDayTableViewCell: UITableViewCell {
 		bottomBackground.layer.maskedCorners = [.layerMaxXMaxYCorner, .layerMinXMaxYCorner]
 
 		// Show same background like the topBackground when we have not the encountersVisitsContainerStackView at the bottom displayed or the hole day is empty
-		if encountersVisitsContainerStackView.isHidden &&
-			(!testsStackView.isHidden && !exposureHistoryStackView.isHidden && !checkinHistoryContainerStackView.isHidden) {
-			bottomBackground.backgroundColor = .enaColor(for: .darkBackground)
-		} else {
+		if (testsStackView.isHidden && exposureHistoryStackView.isHidden && checkinHistoryContainerStackView.isHidden) || !encountersVisitsContainerStackView.isHidden {
 			bottomBackground.backgroundColor = .enaColor(for: .cellBackground)
+		} else {
+			bottomBackground.backgroundColor = .enaColor(for: .darkBackground)
 		}
 	}
 
