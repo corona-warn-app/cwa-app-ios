@@ -253,6 +253,7 @@ class DiaryOverviewDayTableViewCell: UITableViewCell {
 			// Let's draw a seperator line between each entryStackView.
 			let separatorLine = UIView()
 			separatorLine.backgroundColor = .enaColor(for: .hairline)
+			separatorLine.translatesAutoresizingMaskIntoConstraints = false
 
 			// The position is dynamical and so we need to calculate the postion to our own (depending of the layout in the xib and what we do before this step)
 			let entryHeight = CGFloat(30) + imageView.frame.height
@@ -276,8 +277,6 @@ class DiaryOverviewDayTableViewCell: UITableViewCell {
 				separatorLine.trailingAnchor.constraint(equalTo: encountersVisitsContainerStackView.trailingAnchor),
 				topConstraint
 			])
-
-
 		}
 		encountersVisitsContainerStackView.isHidden = cellViewModel.selectedEntries.isEmpty
 		let tapOnEncounterVisitsStackViewRecognizer = UITapGestureRecognizer(target: self, action: #selector(clickableAreaWasTapped))
@@ -285,6 +284,8 @@ class DiaryOverviewDayTableViewCell: UITableViewCell {
 
 		drawBorders(to: [.left, .right], on: encountersVisitsContainerStackView)
 		encountersVisitsContainerStackView.backgroundColor = .enaColor(for: .cellBackground)
+		encountersVisitsContainerStackView.spacing = 20
+		encountersVisitsContainerStackView.distribution = .fillEqually
 
 		// For UI Testing
 		accessibilityTraits = [.button]
