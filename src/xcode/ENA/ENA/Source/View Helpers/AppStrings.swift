@@ -1009,6 +1009,10 @@ enum AppStrings {
 		static let riskStatusLoweredAlertTitle = NSLocalizedString("Home_Alert_RiskStatusLowered_Title", comment: "")
 		static let riskStatusLoweredAlertMessage = NSLocalizedString("Home_Alert_RiskStatusLowered_Message", comment: "")
 		static let riskStatusLoweredAlertPrimaryButtonTitle = NSLocalizedString("Home_Alert_RiskStatusLowered_PrimaryButtonTitle", comment: "")
+
+		static let riskStatusAnotherHighExposureAlertTitle = NSLocalizedString("Home_Alert_RiskStatusAnotherHighExposure_Title", comment: "")
+		static let riskStatusAnotherHighExposureAlertMessage = NSLocalizedString("Home_Alert_RiskStatusAnotherHighExposure_Message", comment: "")
+		static let riskStatusAnotherHighExposureButtonTitle = NSLocalizedString("Home_Alert_RiskStatusAnotherHighExposure_PrimaryButtonTitle", comment: "")
 	}
 
 	enum InviteFriends {
