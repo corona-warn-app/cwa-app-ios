@@ -116,11 +116,6 @@ class CoronaTestService: CoronaTestServiceProviding {
 	var pcrTestResultIsLoading = CurrentValueSubject<Bool, Never>(false)
 	var antigenTestResultIsLoading = CurrentValueSubject<Bool, Never>(false)
 
-	var hasAtLeastOneShownPositiveOrSubmittedTest: Bool {
-		pcrTest.value?.positiveTestResultWasShown == true || pcrTest.value?.keysSubmitted == true ||
-			antigenTest.value?.positiveTestResultWasShown == true || antigenTest.value?.keysSubmitted == true
-	}
-
 	func coronaTest(ofType type: CoronaTestType) -> CoronaTest? {
 		switch type {
 		case .pcr:
@@ -565,7 +560,7 @@ class CoronaTestService: CoronaTestServiceProviding {
 		}
 
 		warnOthersReminder.cancelNotifications(for: coronaTestType)
-		DeadmanNotificationManager(coronaTestService: self).resetDeadmanNotification()
+		DeadmanNotificationManager().resetDeadmanNotification()
 	}
 
 	func evaluateShowingTest(ofType coronaTestType: CoronaTestType) {
@@ -999,7 +994,7 @@ class CoronaTestService: CoronaTestServiceProviding {
 
 	private func scheduleWarnOthersNotificationIfNeeded(coronaTestType: CoronaTestType) {
 		if let coronaTest = coronaTest(ofType: coronaTestType), coronaTest.positiveTestResultWasShown {
-			DeadmanNotificationManager(coronaTestService: self).resetDeadmanNotification()
+			DeadmanNotificationManager().resetDeadmanNotification()
 
 			if !coronaTest.isSubmissionConsentGiven, !coronaTest.keysSubmitted {
 				warnOthersReminder.scheduleNotifications(for: coronaTestType)
