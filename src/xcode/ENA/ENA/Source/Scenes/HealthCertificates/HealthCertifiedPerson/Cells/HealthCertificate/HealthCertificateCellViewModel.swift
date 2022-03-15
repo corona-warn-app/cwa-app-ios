@@ -11,11 +11,13 @@ final class HealthCertificateCellViewModel {
 	init(
 		healthCertificate: HealthCertificate,
 		healthCertifiedPerson: HealthCertifiedPerson,
-		details: HealthCertificateCellDetails = .allDetails
+		details: HealthCertificateCellDetails = .allDetails,
+		onValidationButtonTap: ((HealthCertificate, @escaping (Bool) -> Void) -> Void)? = nil
 	) {
 		self.healthCertificate = healthCertificate
 		self.healthCertifiedPerson = healthCertifiedPerson
 		self.details = details
+		self.onValidationButtonTap = onValidationButtonTap
 	}
 
 	// MARK: - Internal
@@ -186,8 +188,19 @@ final class HealthCertificateCellViewModel {
 		}
 	}()
 
+	lazy var isValidationButtonEnabled: Bool = {
+		healthCertificate.validityState != .blocked
+	}()
+	
+	func didTapValidationButton(loadingStateHandler: @escaping (Bool) -> Void) {
+		onValidationButtonTap?(healthCertificate) { isLoading in
+			loadingStateHandler(isLoading)
+		}
+	}
+
 	// MARK: - Private
 
 	private let healthCertifiedPerson: HealthCertifiedPerson
 	private let details: HealthCertificateCellDetails
+	private let onValidationButtonTap: ((HealthCertificate, @escaping (Bool) -> Void) -> Void)?
 }
