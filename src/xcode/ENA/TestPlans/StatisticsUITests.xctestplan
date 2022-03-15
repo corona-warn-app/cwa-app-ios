@@ -90,11 +90,8 @@
       "selectedTests" : [
         "ENAUITests_Statistics\/test_AddStatisticsButton_flow()",
         "ENAUITests_Statistics\/test_AddStatisticsButton_maximumNumberOfCards()",
-        "ENAUITests_Statistics\/test_RemoveStatisticsButton_flow()",
         "ENAUITests_Statistics\/test_StatisticsCardInfoButtons()",
-        "ENAUITests_Statistics\/test_StatisticsCardTitles()",
-        "ENAUITests_Statistics\/test_screenshot_local_statistics_card()",
-        "ENAUITests_Statistics\/test_screenshot_statistics_card_titles()"
+        "ENAUITests_Statistics\/test_StatisticsCardTitles()"
       ],
       "target" : {
         "containerPath" : "container:ENA.xcodeproj",

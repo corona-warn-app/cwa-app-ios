@@ -88,8 +88,7 @@
     {
       "parallelizable" : true,
       "selectedTests" : [
-        "ENAUITests_ExposureDetection\/test_NavigationToSurvey()",
-        "ENAUITests_ExposureDetection\/test_navigateToInformationGuideHygiene()"
+        "ENAUITests_ExposureDetection\/test_NavigationToSurvey()"
       ],
       "target" : {
         "containerPath" : "container:ENA.xcodeproj",

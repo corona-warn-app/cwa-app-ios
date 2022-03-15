@@ -92,8 +92,7 @@
         "ENAUITests_UniversalQRCodeScanner\/test_CheckinFromUniversalQRCodeScannerWithoutInfoScreen()",
         "ENAUITests_UniversalQRCodeScanner\/test_RegisterCertificateFromUniversalQRCodeScannerWithInfoScreen()",
         "ENAUITests_UniversalQRCodeScanner\/test_RegisterCertificateFromUniversalQRCodeScannerWithoutInfoScreen()",
-        "ENAUITests_UniversalQRCodeScanner\/test_RegisterCoronaTestFromUniversalQRCodeScanner()",
-        "ENAUITests_UniversalQRCodeScanner\/test_screenshot_UniversalQRCodeScannerAndQRScannerInfoScreen()"
+        "ENAUITests_UniversalQRCodeScanner\/test_RegisterCoronaTestFromUniversalQRCodeScanner()"
       ],
       "target" : {
         "containerPath" : "container:ENA.xcodeproj",

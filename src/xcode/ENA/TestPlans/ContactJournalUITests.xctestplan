@@ -106,12 +106,7 @@
         "ENAUITests_ContactJournal\/testOverviewScenario3()",
         "ENAUITests_ContactJournal\/testOverviewScenario4()",
         "ENAUITests_ContactJournal\/test_AddTwoPersonsAndOneLocationToDate()",
-        "ENAUITests_ContactJournal\/test_Overview()",
-        "ENAUITests_ContactJournal\/test_screenshot_AddTwoPersonsTwoLocations()",
-        "ENAUITests_ContactJournal\/test_screenshot_ContactJournalInformation()",
-        "ENAUITests_ContactJournal\/test_screenshot_EditLocationScreen()",
-        "ENAUITests_ContactJournal\/test_screenshot_EditPersonScreen()",
-        "ENAUITests_ContactJournal\/test_screenshot_TwoPersonsOneLocationAndMessages()"
+        "ENAUITests_ContactJournal\/test_Overview()"
       ],
       "target" : {
         "containerPath" : "container:ENA.xcodeproj",

@@ -92,8 +92,7 @@
         "ENAUITests_CheckIns\/testCheckinInfoScreen_navigate_to_dataPrivacy()",
         "ENAUITests_CheckIns\/test_RegisterCertificateFromCheckinTabWithInfoScreen()",
         "ENAUITests_CheckIns\/test_RegisterCertificateFromCheckinTabWithoutInfoScreen()",
-        "ENAUITests_CheckIns\/test_RegisterCoronaTestFromCheckinTab()",
-        "ENAUITests_CheckIns\/test_screenshot_WHEN_scan_QRCode_THEN_checkin_and_checkout()"
+        "ENAUITests_CheckIns\/test_RegisterCoronaTestFromCheckinTab()"
       ],
       "target" : {
         "containerPath" : "container:ENA.xcodeproj",

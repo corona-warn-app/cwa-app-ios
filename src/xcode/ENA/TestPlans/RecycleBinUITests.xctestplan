@@ -88,9 +88,7 @@
     {
       "parallelizable" : true,
       "selectedTests" : [
-        "ENAUITests_RecycleBin\/test_RecycleBinCertificateFlow()",
-        "ENAUITests_RecycleBin\/test_RecycleBinCoronaTestFlow()",
-        "ENAUITests_RecycleBin\/test_RecycleBinCoronaTestFlowWithOverwriteNotice()"
+        "ENAUITests_RecycleBin\/test_RecycleBinCertificateFlow()"
       ],
       "target" : {
         "containerPath" : "container:ENA.xcodeproj",

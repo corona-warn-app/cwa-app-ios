@@ -88,8 +88,6 @@
     {
       "parallelizable" : true,
       "selectedTests" : [
-        "ENAUITests_TicketValidation\/test_screenshot_ticketValidation_failed()",
-        "ENAUITests_TicketValidation\/test_screenshot_ticketValidation_passed()",
         "ENAUITests_TicketValidation\/test_ticketValidation_flow_open()"
       ],
       "target" : {

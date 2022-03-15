@@ -88,8 +88,6 @@
     {
       "parallelizable" : true,
       "selectedTests" : [
-        "ENAUITests_ValidateHealthCertificate\/test_screenshot_validation_country_picker()",
-        "ENAUITests_ValidateHealthCertificate\/test_screenshot_validation_datetime_picker()",
         "ENAUITests_ValidateHealthCertificate\/test_validation_result_invalid()",
         "ENAUITests_ValidateHealthCertificate\/test_validation_result_valid()"
       ],

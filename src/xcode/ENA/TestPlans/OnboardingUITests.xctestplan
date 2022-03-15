@@ -89,8 +89,7 @@
       "parallelizable" : true,
       "selectedTests" : [
         "ENAUITests_Onboarding\/test_0000_OnboardingFlow_DisablePermissions_normal_XXXL()",
-        "ENAUITests_Onboarding\/test_0001_OnboardingFlow_EnablePermissions_normal_XS()",
-        "ENAUITests_Onboarding\/test_0002_Screenshots_OnboardingFlow_EnablePermissions_normal_S()"
+        "ENAUITests_Onboarding\/test_0001_OnboardingFlow_EnablePermissions_normal_XS()"
       ],
       "target" : {
         "containerPath" : "container:ENA.xcodeproj",

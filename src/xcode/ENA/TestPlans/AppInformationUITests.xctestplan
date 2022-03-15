@@ -97,10 +97,7 @@
         "ENAUITests_AppInformation\/test_0026_AppInformationFlow_ErrorReports()",
         "ENAUITests_AppInformation\/test_0026a_AppInformationFlow_ErrorReportsShouldBeActiveForDebugAsDefault()",
         "ENAUITests_AppInformation\/test_0027_AppInformationFlow_ErrorReportsStart()",
-        "ENAUITests_AppInformation\/test_0028_AppInformationFlow_PrivacyScreen()",
-        "ENAUITests_AppInformation\/test_0029_AppInformationFlow_accessibility()",
-        "ENAUITests_AppInformation\/test_0030_AppInformationFlow_ConfirmationScreen_ErrorReportDetailScreen()",
-        "ENAUITests_AppInformation\/test_0031_AppInformationFlow_ConfirmationScreen_HistoryScreen()"
+        "ENAUITests_AppInformation\/test_0028_AppInformationFlow_PrivacyScreen()"
       ],
       "target" : {
         "containerPath" : "container:ENA.xcodeproj",

@@ -96,8 +96,7 @@
         "ENAUITests_TraceLocations\/test_WHEN_tapCreateQRCode_THEN_traceLocation_input_screen_is_displayed()",
         "ENAUITests_TraceLocations\/test_WHEN_traceLocation_exists_THEN_checkin_and_checkout()",
         "ENAUITests_TraceLocations\/test_WHEN_traceLocation_is_tapped_THEN_details_of_traceLocation_are_displayed()",
-        "ENAUITests_TraceLocations\/test_events_in_contact_journal()",
-        "ENAUITests_TraceLocations\/test_screenshots_of_traceLocation_print_flow()"
+        "ENAUITests_TraceLocations\/test_events_in_contact_journal()"
       ],
       "target" : {
         "containerPath" : "container:ENA.xcodeproj",

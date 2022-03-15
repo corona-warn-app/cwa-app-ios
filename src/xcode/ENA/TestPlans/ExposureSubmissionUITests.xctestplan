@@ -105,15 +105,6 @@
         "ENAUITests_ExposureSubmission\/test_ThankYouScreen_WarnOthersFromAlert()",
         "ENAUITests_ExposureSubmission\/test_ThankYouScreen_withWarnOthers()",
         "ENAUITests_ExposureSubmission\/test_exposureSubmissionSuccess_screen()",
-        "ENAUITests_ExposureSubmission\/test_screenshot_SubmitQR()",
-        "ENAUITests_ExposureSubmission\/test_screenshot_SubmitTAN()",
-        "ENAUITests_ExposureSubmission\/test_screenshot_SymptomsOptionYes()",
-        "ENAUITests_ExposureSubmission\/test_screenshot_TestCertificateScreen()",
-        "ENAUITests_ExposureSubmission\/test_screenshot_symptoms_onset_date_option()",
-        "ENAUITests_ExposureSubmission\/test_screenshot_test_certificate_test_result_negative()",
-        "ENAUITests_ExposureSubmission\/test_screenshot_test_result_available()",
-        "ENAUITests_ExposureSubmission\/test_screenshot_test_result_pending()",
-        "ENAUITests_ExposureSubmission\/test_screenshot_test_result_positive()",
         "ENAUITests_ExposureSubmission\/test_test_result_negative()"
       ],
       "target" : {

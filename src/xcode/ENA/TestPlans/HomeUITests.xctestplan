@@ -100,15 +100,7 @@
         "ENAUITests_Home\/test_homescreen_riskCardLow_0days()",
         "ENAUITests_Home\/test_homescreen_riskCardLow_1day()",
         "ENAUITests_Home\/test_homescreen_riskCardLow_Ndays()",
-        "ENAUITests_Home\/test_homescreen_riskCardLow_riskMultipleDays()",
-        "ENAUITests_Home\/test_screenshot_homescreen_invalid_test_result()",
-        "ENAUITests_Home\/test_screenshot_homescreen_negative_test_result()",
-        "ENAUITests_Home\/test_screenshot_homescreen_pending_test_result()",
-        "ENAUITests_Home\/test_screenshot_homescreen_positive_test_result()",
-        "ENAUITests_Home\/test_screenshot_homescreen_riskCardHigh_riskOneDay()",
-        "ENAUITests_Home\/test_screenshot_homescreen_riskCardLow_14days()",
-        "ENAUITests_Home\/test_screenshot_homescreen_riskCardLow_riskNoDays()",
-        "ENAUITests_Home\/test_screenshot_homescreen_riskCardLow_riskOneDay()"
+        "ENAUITests_Home\/test_homescreen_riskCardLow_riskMultipleDays()"
       ],
       "target" : {
         "containerPath" : "container:ENA.xcodeproj",

@@ -89,7 +89,25 @@
       "parallelizable" : true,
       "skippedTests" : [
         "ENAUITests",
-        "ENAUITests_11_QuickActions\/testLaunchViaShortcutFromFreshInstall()"
+        "ENAUITests_00_Onboarding",
+        "ENAUITests_01a_Home",
+        "ENAUITests_01b_Statistics",
+        "ENAUITests_03_Settings",
+        "ENAUITests_04a_ExposureSubmission",
+        "ENAUITests_04c_ExposureLogging",
+        "ENAUITests_06_DeltaOnboarding",
+        "ENAUITests_07_ContactJournal",
+        "ENAUITests_08_UpdateOS",
+        "ENAUITests_09_TraceLocations",
+        "ENAUITests_10_CheckIns",
+        "ENAUITests_11_QuickActions",
+        "ENAUITests_12_AntigenTestProfile",
+        "ENAUITests_13_CreateHealthCertificate",
+        "ENAUITests_14_ValidateHealthCertificate",
+        "ENAUITests_15_OnBehalfCheckinSubmission",
+        "ENAUITests_17_FileScanner",
+        "ENAUITests_19_TicketValidation",
+        "ENAUITests_20_CertificateReissuance"
       ],
       "target" : {
         "containerPath" : "container:ENA.xcodeproj",
