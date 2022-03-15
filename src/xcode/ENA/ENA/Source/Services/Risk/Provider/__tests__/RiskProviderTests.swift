@@ -1398,7 +1398,10 @@ class CheckinRiskCalculationFake: CheckinRiskCalculationProtocol {
 	
 	let riskLevelPerDate: [Date: RiskLevel]
 	
-	func calculateRisk(with config: SAP_Internal_V2_ApplicationConfigurationIOS) -> CheckinRiskCalculationResult {
+	func calculateRisk(
+		with config: SAP_Internal_V2_ApplicationConfigurationIOS,
+		now: Date = Date()
+	) -> CheckinRiskCalculationResult {
 		return CheckinRiskCalculationResult(calculationDate: Date(), checkinIdsWithRiskPerDate: [Date: [CheckinIdWithRisk]](), riskLevelPerDate: riskLevelPerDate)
 	}
 }
