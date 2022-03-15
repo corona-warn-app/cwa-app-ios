@@ -159,7 +159,14 @@ class HealthCertificateNotificationService {
 
 			return
 		}
+		
+		guard previousAdmissionStateIdentifier != nil else {
+			Log.info("No old admissionState for person \(private: String(describing: name))", log: .vaccination)
+			completion?()
 
+			return
+		}
+		
 		if newAdmissionStateIdentifier != previousAdmissionStateIdentifier {
 			guard let personIdentifier = person.identifier else {
 				Log.error("Person identifier is nil, will not trigger admissionState notification", log: .vaccination)
