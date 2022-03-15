@@ -6,7 +6,7 @@ import XCTest
 import ExposureNotification
 
 // swiftlint:disable:next type_body_length
-class ENAUITests_07_ContactJournal: CWATestCase {
+class ENAUITests_ContactJournal: CWATestCase {
 
 	// MARK: - Overrides
 

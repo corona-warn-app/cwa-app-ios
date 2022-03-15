@@ -7,7 +7,7 @@ import ExposureNotification
 
 // swiftlint:disable file_length
 // swiftlint:disable:next type_body_length
-class ENAUITests_04a_ExposureSubmission: CWATestCase {
+class ENAUITests_ExposureSubmission: CWATestCase {
 
 	// MARK: - Attributes.
 	

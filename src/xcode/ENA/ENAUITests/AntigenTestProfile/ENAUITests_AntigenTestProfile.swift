@@ -4,7 +4,7 @@
 
 import XCTest
 
-class ENAUITests_12_AntigenTestProfile: CWATestCase {
+class ENAUITests_AntigenTestProfile: CWATestCase {
 	
 	// MARK: - Overrides
 	

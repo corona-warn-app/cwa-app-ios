@@ -4,7 +4,7 @@
 
 import XCTest
 
-class ENAUITests_04b_ExposureDetection: CWATestCase {
+class ENAUITests_ExposureDetection: CWATestCase {
 	var app: XCUIApplication!
 
 	override func setUp() {

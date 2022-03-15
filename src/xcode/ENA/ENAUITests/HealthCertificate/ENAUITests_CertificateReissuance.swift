@@ -4,7 +4,7 @@
 
 import XCTest
 
-class ENAUITests_20_CertificateReissuance: CWATestCase {
+class ENAUITests_CertificateReissuance: CWATestCase {
 
 	// MARK: - Overrides
 

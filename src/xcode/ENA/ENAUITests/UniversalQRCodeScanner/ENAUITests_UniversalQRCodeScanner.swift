@@ -4,7 +4,7 @@
 
 import XCTest
 
-class ENAUITests_16_UniversalQRCodeScanner: CWATestCase {
+class ENAUITests_UniversalQRCodeScanner: CWATestCase {
 	
 	var app: XCUIApplication!
 	

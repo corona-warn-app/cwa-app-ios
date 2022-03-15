@@ -4,7 +4,7 @@
 
 import XCTest
 
-class ENAUITests_15_OnBehalfCheckinSubmission: CWATestCase {
+class ENAUITests_OnBehalfCheckinSubmission: CWATestCase {
 	
 	// MARK: - Setup.
 	

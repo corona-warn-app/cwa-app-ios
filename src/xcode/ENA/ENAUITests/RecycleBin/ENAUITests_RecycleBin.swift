@@ -4,7 +4,7 @@
 
 import XCTest
 
-class ENAUITests_18_RecycleBin: CWATestCase {
+class ENAUITests_RecycleBin: CWATestCase {
 	var app: XCUIApplication!
 
 	override func setUpWithError() throws {

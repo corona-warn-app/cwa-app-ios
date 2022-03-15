@@ -5,7 +5,7 @@
 import XCTest
 import ExposureNotification
 
-class ENAUITests_11_QuickActions: CWATestCase {
+class ENAUITests_QuickActions: CWATestCase {
 
 	private let springboard = XCUIApplication(bundleIdentifier: "com.apple.springboard")
 	private lazy var cwaBundleDisplayName = "Corona-Warn"

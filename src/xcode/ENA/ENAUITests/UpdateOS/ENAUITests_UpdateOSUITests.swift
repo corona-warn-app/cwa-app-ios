@@ -4,7 +4,7 @@
 
 import XCTest
 
-class ENAUITests_08_UpdateOS: CWATestCase {
+class ENAUITests_UpdateOS: CWATestCase {
 
 	var app: XCUIApplication!
 

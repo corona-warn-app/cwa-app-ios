@@ -4,7 +4,7 @@
 
 import XCTest
 
-class ENAUITests_17_FileScanner: CWATestCase {
+class ENAUITests_FileScanner: CWATestCase {
 
 	var app: XCUIApplication!
 

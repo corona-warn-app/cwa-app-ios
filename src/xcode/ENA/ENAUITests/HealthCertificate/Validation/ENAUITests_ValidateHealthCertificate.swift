@@ -5,7 +5,7 @@
 import XCTest
 import Foundation
 
-class ENAUITests_14_ValidateHealthCertificate: CWATestCase {
+class ENAUITests_ValidateHealthCertificate: CWATestCase {
 
 	// MARK: - Overrides
 
