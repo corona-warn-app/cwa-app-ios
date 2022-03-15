@@ -120,8 +120,7 @@ class DiaryOverviewViewModel {
 			}
 		}
 		checkinsWithRisk.sort(by: { $0.checkIn.traceLocationDescription < $1.checkIn.traceLocationDescription })
-//		return checkinsWithRisk
-		return createFakeDataForCheckin(with: .high)
+		return checkinsWithRisk
 	}
 	
 	#if DEBUG
