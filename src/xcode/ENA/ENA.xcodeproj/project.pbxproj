@@ -768,6 +768,7 @@
 		50B5058925CAF3EF00EEA380 /* DMOTPServiceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50B5058825CAF3EF00EEA380 /* DMOTPServiceViewController.swift */; };
 		50B5058E25CAF3FC00EEA380 /* DMOTPServiceViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50B5058D25CAF3FC00EEA380 /* DMOTPServiceViewModel.swift */; };
 		50B9133A26B2DDC00005C8D8 /* MockUserNotificationCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB87353F253704D100325C6C /* MockUserNotificationCenter.swift */; };
+		50BA6C7B27E0B2DA00EB500B /* BorderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50BA6C7A27E0B2DA00EB500B /* BorderView.swift */; };
 		50BC9035279EEBE00000C930 /* TestResultSendModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBE0F9622786F783001F20E8 /* TestResultSendModel.swift */; };
 		50BC9039279EEC4D0000C930 /* Locator+TeleTan.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5001DE7F26E202B3004242FA /* Locator+TeleTan.swift */; };
 		50BC903F279EECCA0000C930 /* Locator+TicketValidationResultToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = 010A47692754D5F6000AA80E /* Locator+TicketValidationResultToken.swift */; };
@@ -2494,6 +2495,7 @@
 		50B5057C25CAEF5C00EEA380 /* OTPToken.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OTPToken.swift; sourceTree = "<group>"; };
 		50B5058825CAF3EF00EEA380 /* DMOTPServiceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMOTPServiceViewController.swift; sourceTree = "<group>"; };
 		50B5058D25CAF3FC00EEA380 /* DMOTPServiceViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMOTPServiceViewModel.swift; sourceTree = "<group>"; };
+		50BA6C7A27E0B2DA00EB500B /* BorderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BorderView.swift; sourceTree = "<group>"; };
 		50BD1405260A1E840013983A /* TraceWarningSuccess.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraceWarningSuccess.swift; sourceTree = "<group>"; };
 		50BD141F260B73CC0013983A /* Verification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Verification.swift; sourceTree = "<group>"; };
 		50BD1424260B74C20013983A /* VerificationMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerificationMock.swift; sourceTree = "<group>"; };
@@ -6661,6 +6663,7 @@
 				0138F63025F114E700A9B075 /* EmptyStateView */,
 				71FE1C83247AC33D00851FEB /* ExposureSubmission */,
 				50FE67D226149C5F00A2B2E7 /* AccessibleStackView.swift */,
+				50BA6C7A27E0B2DA00EB500B /* BorderView.swift */,
 				01CBB82B2660F3690094CF8B /* CardView.swift */,
 				85E33443247EB357006E74EC /* CircularProgressView.swift */,
 				713EA25A247818B000AB7EE8 /* DynamicTypeButton.swift */,
@@ -10559,6 +10562,7 @@
 				3529BC1925D6BA800097E492 /* CachingHTTPClientMock.swift in Sources */,
 				8F872150274DBD7B00A263D5 /* ServiceIdentityDocumentValidationDecoratorResource.swift in Sources */,
 				BAFC6ABE26A7183000F18BBE /* DSCListProvider.swift in Sources */,
+				50BA6C7B27E0B2DA00EB500B /* BorderView.swift in Sources */,
 				5093B9AA260DEB2D007C0B09 /* TraceLocationCheckinViewController.swift in Sources */,
 				BAC5CC1027BEB5BC00094C32 /* HealthCertificateReissuanceConsentViewModel.swift in Sources */,
 				50C0299325E4067400460FA4 /* RiskExposureMetadata.swift in Sources */,

@@ -319,14 +319,20 @@ class DiaryOverviewDayTableViewCell: UITableViewCell {
 	}
 
 	private func drawBorders(to orientations: [BorderOrientation], on view: UIView) {
-		// Prevent drawing the borders mutliple times by setting a tag on it and search for the tag.
-		if view.subviews.contains(where: { $0.tag == view.hashValue }) {
+		if view.subviews.contains(where: { view in
+			guard let border = view as? BorderView else {
+				return false
+			}
+			return border.wasDrawn
+		}) {
+			// Skip drawing when the the borders were already drawn and the property was set to true
 			return
 		}
+
 		orientations.forEach { orientation in
 
-			let separator = UIView()
-			separator.tag = view.hashValue
+			let separator = BorderView()
+			separator.wasDrawn = true
 			separator.backgroundColor = .enaColor(for: .hairline)
 			separator.translatesAutoresizingMaskIntoConstraints = false
 			view.addSubview(separator)
