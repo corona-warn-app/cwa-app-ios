@@ -10,7 +10,7 @@ enum AccessibilityLabels {
 	
 	// access Localized.strings via UITest bundle
 	static func localized(_ key: String) -> String {
-		let uiTestBundle = Bundle(for: ENAUITests_01a_Home.self)
+		let uiTestBundle = Bundle(for: ENAUITests_Home.self)
 		return NSLocalizedString(key, bundle: uiTestBundle, comment: "")
 	}
 

@@ -790,7 +790,7 @@ class ENAUITests_ExposureSubmission: CWATestCase {
 
 // MARK: - Helpers.
 
-extension ENAUITests_04a_ExposureSubmission {
+extension ENAUITests_ExposureSubmission {
 
 	private func type(_ app: XCUIApplication, text: String) {
 		text.forEach {
@@ -812,7 +812,7 @@ extension ENAUITests_04a_ExposureSubmission {
 	/// Use this method to grab localized strings correctly.
 	private func localized(_ string: String) -> String {
 		if let path =
-			Bundle(for: ENAUITests_04a_ExposureSubmission.self)
+			Bundle(for: ENAUITests_ExposureSubmission.self)
 				.path(
 					forResource: deviceLanguage,
 					ofType: "lproj"
