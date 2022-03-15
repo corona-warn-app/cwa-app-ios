@@ -88,10 +88,6 @@
     {
       "parallelizable" : true,
       "selectedTests" : [
-        "ENAUITests_01b_Statistics\/test_AddStatisticsButton_flow()",
-        "ENAUITests_01b_Statistics\/test_AddStatisticsButton_maximumNumberOfCards()",
-        "ENAUITests_01b_Statistics\/test_StatisticsCardInfoButtons()",
-        "ENAUITests_01b_Statistics\/test_StatisticsCardTitles()",
         "ENAUITests_Statistics\/test_AddStatisticsButton_flow()",
         "ENAUITests_Statistics\/test_AddStatisticsButton_maximumNumberOfCards()",
         "ENAUITests_Statistics\/test_RemoveStatisticsButton_flow()",

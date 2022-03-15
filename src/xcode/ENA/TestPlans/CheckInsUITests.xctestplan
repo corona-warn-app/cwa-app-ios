@@ -88,11 +88,6 @@
     {
       "parallelizable" : true,
       "selectedTests" : [
-        "ENAUITests_10_CheckIns\/testCheckinInfoScreen_confirmConsent()",
-        "ENAUITests_10_CheckIns\/testCheckinInfoScreen_navigate_to_dataPrivacy()",
-        "ENAUITests_10_CheckIns\/test_RegisterCertificateFromCheckinTabWithInfoScreen()",
-        "ENAUITests_10_CheckIns\/test_RegisterCertificateFromCheckinTabWithoutInfoScreen()",
-        "ENAUITests_10_CheckIns\/test_RegisterCoronaTestFromCheckinTab()",
         "ENAUITests_CheckIns\/testCheckinInfoScreen_confirmConsent()",
         "ENAUITests_CheckIns\/testCheckinInfoScreen_navigate_to_dataPrivacy()",
         "ENAUITests_CheckIns\/test_RegisterCertificateFromCheckinTabWithInfoScreen()",

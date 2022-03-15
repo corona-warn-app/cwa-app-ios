@@ -88,10 +88,6 @@
     {
       "parallelizable" : true,
       "selectedTests" : [
-        "ENAUITests_03_Settings\/test_0030_SettingsFlow()",
-        "ENAUITests_03_Settings\/test_0031_SettingsFlow_BackgroundAppRefresh()",
-        "ENAUITests_03_Settings\/test_SettingsNotificationsOff()",
-        "ENAUITests_03_Settings\/test_SettingsNotificationsOn()",
         "ENAUITests_Settings\/test_0030_SettingsFlow()",
         "ENAUITests_Settings\/test_0031_SettingsFlow_BackgroundAppRefresh()",
         "ENAUITests_Settings\/test_SettingsNotificationsOff()",

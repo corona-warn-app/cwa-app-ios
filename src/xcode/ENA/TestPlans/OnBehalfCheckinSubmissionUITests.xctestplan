@@ -88,7 +88,6 @@
     {
       "parallelizable" : true,
       "selectedTests" : [
-        "ENAUITests_15_OnBehalfCheckinSubmission\/testOnBehalfCheckinSubmissionWithQRCodeScan()",
         "ENAUITests_OnBehalfCheckinSubmission\/testOnBehalfCheckinSubmissionWithQRCodeScan()",
         "ENAUITests_OnBehalfCheckinSubmission\/test_screenshot_OnBehalfCheckinSubmissionWithExistingTraceLocation()"
       ],

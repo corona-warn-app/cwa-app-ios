@@ -88,11 +88,6 @@
     {
       "parallelizable" : true,
       "selectedTests" : [
-        "ENAUITests_16_UniversalQRCodeScanner\/test_CheckinFromUniversalQRCodeScannerWithInfoScreen()",
-        "ENAUITests_16_UniversalQRCodeScanner\/test_CheckinFromUniversalQRCodeScannerWithoutInfoScreen()",
-        "ENAUITests_16_UniversalQRCodeScanner\/test_RegisterCertificateFromUniversalQRCodeScannerWithInfoScreen()",
-        "ENAUITests_16_UniversalQRCodeScanner\/test_RegisterCertificateFromUniversalQRCodeScannerWithoutInfoScreen()",
-        "ENAUITests_16_UniversalQRCodeScanner\/test_RegisterCoronaTestFromUniversalQRCodeScanner()",
         "ENAUITests_UniversalQRCodeScanner\/test_CheckinFromUniversalQRCodeScannerWithInfoScreen()",
         "ENAUITests_UniversalQRCodeScanner\/test_CheckinFromUniversalQRCodeScannerWithoutInfoScreen()",
         "ENAUITests_UniversalQRCodeScanner\/test_RegisterCertificateFromUniversalQRCodeScannerWithInfoScreen()",

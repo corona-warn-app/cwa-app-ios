@@ -88,8 +88,6 @@
     {
       "parallelizable" : true,
       "selectedTests" : [
-        "ENAUITests_04c_ExposureLogging\/test_exposureLogging()",
-        "ENAUITests_04c_ExposureLogging\/test_exposureLoggingOff()",
         "ENAUITests_ExposureLogging\/test_exposureLogging()",
         "ENAUITests_ExposureLogging\/test_exposureLoggingOff()"
       ],

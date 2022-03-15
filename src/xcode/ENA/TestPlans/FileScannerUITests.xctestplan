@@ -88,9 +88,6 @@
     {
       "parallelizable" : true,
       "selectedTests" : [
-        "ENAUITests_17_FileScanner\/test_OpenUniversalScannerAndSelectFile_CheckForSheet()",
-        "ENAUITests_17_FileScanner\/test_OpenUniversalScannerAndSelectFile_OpenImage()",
-        "ENAUITests_17_FileScanner\/test_OpenUniversalScannerAndSelectFile_OpensDocumentPicker()",
         "ENAUITests_FileScanner\/test_OpenUniversalScannerAndSelectFile_CheckForSheet()",
         "ENAUITests_FileScanner\/test_OpenUniversalScannerAndSelectFile_OpenImage()",
         "ENAUITests_FileScanner\/test_OpenUniversalScannerAndSelectFile_OpensDocumentPicker()"
