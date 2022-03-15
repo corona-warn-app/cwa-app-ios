@@ -76,7 +76,6 @@ class GradientBackgroundView: UIView {
 				gradientHeightConstraint,
 				
 				backgroundViewContainer.topAnchor.constraint(equalTo: gradientView.bottomAnchor),
-				backgroundViewContainer.topAnchor.constraint(equalTo: gradientView.bottomAnchor),
 				backgroundViewContainer.leadingAnchor.constraint(equalTo: leadingAnchor),
 				backgroundViewContainer.trailingAnchor.constraint(equalTo: trailingAnchor),
 				backgroundViewContainer.bottomAnchor.constraint(equalTo: bottomAnchor)
