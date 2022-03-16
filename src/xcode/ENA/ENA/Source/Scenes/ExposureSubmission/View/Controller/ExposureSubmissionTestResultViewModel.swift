@@ -246,7 +246,16 @@ extension ExposureSubmissionTestResultViewModel {
 				)
 			])
 			if let test = coronaTest.pcrTest {
-				if !test.certificateConsentGiven {
+				if !test.certificateSupportedByPointOfCare {
+					cells.append(
+						ExposureSubmissionDynamicCell.stepCell(
+							title: AppStrings.ExposureSubmissionResult.testCertificateTitle,
+							description: AppStrings.ExposureSubmissionResult.Antigen.testCenterNotSupportedTitle,
+							icon: UIImage(named: "certificate-qr-light"),
+							hairline: .none
+						)
+					)
+				} else if !test.certificateConsentGiven {
 					cells.append(
 						ExposureSubmissionDynamicCell.stepCell(
 							title: AppStrings.ExposureSubmissionResult.testCertificateTitle,
