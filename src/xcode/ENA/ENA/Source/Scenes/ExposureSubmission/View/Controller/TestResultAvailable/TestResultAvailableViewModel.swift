@@ -12,7 +12,7 @@ final class TestResultAvailableViewModel {
 	
 	init(
 		coronaTestType: CoronaTestType,
-		coronaTestService: CoronaTestService,
+		coronaTestService: CoronaTestServiceProviding,
 		onSubmissionConsentCellTap: @escaping (@escaping (Bool) -> Void) -> Void,
 		onPrimaryButtonTap: @escaping (@escaping (Bool) -> Void) -> Void,
 		onDismiss: @escaping () -> Void
@@ -23,7 +23,7 @@ final class TestResultAvailableViewModel {
 
 		switch coronaTestType {
 		case .pcr:
-			coronaTestService.$pcrTest
+			coronaTestService.pcrTest
 				.sink { [weak self] pcrTest in
 					guard let self = self, let pcrTest = pcrTest else {
 						return
@@ -32,7 +32,7 @@ final class TestResultAvailableViewModel {
 				}
 				.store(in: &cancellables)
 		case .antigen:
-			coronaTestService.$antigenTest
+			coronaTestService.antigenTest
 				.sink { [weak self] antigenTest in
 					guard let self = self, let antigenTest = antigenTest else {
 						return

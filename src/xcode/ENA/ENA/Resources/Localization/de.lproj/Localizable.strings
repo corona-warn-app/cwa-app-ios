@@ -726,7 +726,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmissionResult_Title_Antigen" = "Schnelltest";
 
-"ExposureSubmissionResult_CardSubTitle" = "Ihr Befund";
+"ExposureSubmissionResult_CardSubTitle" = "Ihr PCR-Test-Befund";
 
 "ExposureSubmissionResult_CardSubTitle_Antigen" = "Ihr Schnelltest-Befund";
 
@@ -1456,6 +1456,11 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "App_Information_Contact_Form_Title" = "Kontaktformular";
 
+/* App Information - Accessibility */
+
+"App_Information_Accessibility_Navigation" = "Barrierefreiheitserklärung";
+
+
 /* App Information - Legal */
 "App_Information_Legal_Navigation" = "Rechtliche Hinweise";
 
@@ -1570,7 +1575,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "RiskLegend_Legend2_Title" = "Infektionsrisiko";
 
-"RiskLegend_Legend2_Text" = "Wenn Sie die Risiko-Ermittlung aktiviert haben, berechnet die App Ihr persönliches Infektionsrisiko. Als Grundlage dafür misst sie, über welche Dauer und mit welchem Abstand in den letzten 14 Tagen Begegnungen mit Corona-positiv getesteten Personen stattfanden.";
+"RiskLegend_Legend2_Text" = "Wenn Sie die Risiko-Ermittlung aktiviert haben, berechnet die App Ihr persönliches Infektionsrisiko. Als Grundlage dafür misst sie, über welche Dauer und mit welchem Abstand in den letzten 14 Tagen Begegnungen mit Corona-positiv getesteten Personen stattfanden. Bei der Risikoermittlung werden außerdem Ihre Check-Ins berücksichtigt. Sie werden gewarnt, wenn Sie sich zur selben Zeit oder bis 30 Minuten nach der positiv getesteten Person im selben Raum aufgehalten haben.";
 
 "RiskLegend_Legend2_RiskLevels" = "Folgende Risikostatus können angezeigt werden:";
 
@@ -1645,11 +1650,19 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "NewVersionFeatures_Info_about_abb_information" = "Änderungen zum Release finden Sie in den App-Informationen unter dem Menüpunkt „Neue Funktionen”.";
 
-/* Version 2.18 */
+/* Version 2.19 */
 
-"NewVersionFeature_218_centralManagementOfRules_title" = "Zentrale Verwaltung von Regeln";
+"NewVersionFeature_219_rapidPCR_title" = "Registrierung von PCR-Schnelltests";
 
-"NewVersionFeature_218_centralManagementOfRules_description" = "Die Regeln für Zertifikate (z.B. hinsichtlich ihrer Gültigkeit oder Priorisierung, wenn mehrere Zertifikate vorhanden sind) und für die Ermittlung des G-Status wurden aus der Corona-Warn-App herausgelöst. Diese Regeln sind jetzt zentral abgelegt und können daher unabhängig von den App-Releases angepasst werden. Damit kann schneller auf Regeländerungen reagiert werden. Nach einer Änderung werden die aktualisierten Regeln an die App übertragen. Für Sie ändert sich an der Benutzung der Corona-Warn-App nichts durch diese zentrale Verwaltung der Regeln.";
+"NewVersionFeature_219_rapidPCR_description" = "Sie können jetzt PCR-Schnelltests in der Corona-Warn-App registrieren und das Ergebnis sowie das Testzertifikat über die App erhalten.";
+
+"NewVersionFeature_219_faultTolerantNameHandling_title" = "Zuordnung von Zertifikaten";
+
+"NewVersionFeature_219_faultTolerantNameHandling_description" = "Die Zuordnung von Zertifikaten zu Personen wurde fehlertoleranter gestaltet. Kleine Unterschiede in der Schreibweise von Vor- und Nachnamen werden ignoriert, sodass die Zertifikate trotzdem derselben Person zugeordnet werden können.";
+
+"NewVersionFeature_219_vaccinationCertificateReplacement_title" = "Zertifikate aktualisieren";
+
+"NewVersionFeature_219_vaccinationCertificateReplacement_description" = "Die Spezifikationen der EU für Impfzertifikate für Auffrischimpfungen wurden geändert. Entspricht Ihr Zertifikat nicht mehr den aktuellen Spezifikationen, so können Sie direkt über die Corona-Warn-App ein neues anfordern.";
 
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Länderübergreifende Risiko-Ermittlung";
@@ -2165,7 +2178,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "Statistics_Info_KeySubmissions_Title" = "Warnende Personen";
 
-"Statistics_Info_KeySubmissions_Text" = "Anzahl der über einen PCR-Test Corona-positiv getesteten Personen, die mithilfe der App ihre Mitmenschen gewarnt haben.";
+"Statistics_Info_KeySubmissions_Text" = "Anzahl der Corona-positiv getesteten Personen, die mithilfe der App ihre Mitmenschen gewarnt haben.";
 
 "Statistics_Info_ReproductionNumber_Title" = "7-Tage-R-Wert";
 
@@ -2368,9 +2381,13 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 /* Quick Actions a.k.a. shortcuts */
 
-"QuickAction_newContactDiaryEntry" = "Tagebuch-Eintrag für heute hinzufügen";
+"QuickAction_qrCodeScanner" = "QR-Code scannen";
 
-"QuickAction_eventCheckin" = "Einchecken";
+"QuickAction_showCertificates" = "Zertifikate anzeigen";
+
+"QuickAction_eventCheckin" = "Check-ins anzeigen";
+
+"QuickAction_newContactDiaryEntry" = "Eintrag hinzufügen";
 
 /* Checkins */
 
@@ -2807,11 +2824,9 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "HealthCertificate_Overview_title" = "Zertifikate";
 
-"HealthCertificate_Overview_add" = "Zertifikat hinzufügen";
-
 "HealthCertificate_Overview_EmptyTitle" = "Noch keine Zertifikate vorhanden";
 
-"HealthCertificate_Overview_EmptyDescription" = "Hier werden die gespeicherten digitalen Impfzertifikate, Genesenenzertifikate und Testzertifikate angezeigt.\n\nUm ein Zertifikat hinzuzufügen, scannen Sie bitte den dazugehörigen QR-Code.";
+"HealthCertificate_Overview_EmptyDescription" = "Hier werden die gespeicherten digitalen Impfzertifikate, Genesenenzertifikate und Testzertifikate angezeigt.";
 
 "HealthCertificate_Overview_EmptyImageDescription" = "Zertifikatssiegel mit digitalem Zertifikat im Hintergrund";
 
@@ -2824,6 +2839,14 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 "HealthCertificate_Overview_TwoGCertificate" = "2G-Zertifikat";
 
 "HealthCertificate_Overview_TestCertificate" = "Testzertifikat";
+
+"HealthCertificate_Overview_Scanning_Info" = "Fügen Sie weitere Zertifikate über den QR-Code-Scanner in der unteren Navigationsleiste hinzu.";
+
+"HealthCertificate_Admission_Scenario_Status_Label" = "Status für folgendes Bundesland";
+
+"HealthCertificate_Admission_Scenario_Button_Label" = "Regeln des Bundes";
+
+"HealthCertificate_Loading_Indicator_Label" = "Status wird ermittelt";
 
 "HealthCertificate_Overview_News" = "Es gibt Neuigkeiten zu Ihren Zertifikaten";
 
@@ -3079,6 +3102,14 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "HealthCertificate_PrintPdf_ErrorAlert_ValueSetsFetching_Message" = "Die Druckversion des Zertifikats kann nicht angezeigt werden, da das Zertifikat momentan nicht abgerufen werden kann. Bitte versuchen Sie es später noch einmal.";
 
+/* Certificate Fault Tolerant Naming */
+
+"HealthCertificate_FaultTolerantNaming_RegroupDone_Title" = "Zuordnung von Zertifikaten";
+
+"HealthCertificate_FaultTolerantNaming_RegroupDone_Message" = "Die Gruppierung von Zertifikaten wurde verbessert. Zertifikate mit geringen Namensunterschieden werden nicht mehr verschiedenen Personen zugeordnet.";
+
+"HealthCertificate_FaultTolerantNaming_RegroupDone_OkayButton" = "OK";
+
 /* Health Certificate Errors */
 
 "HealthCertificate_Error_Title" = "Fehler";
@@ -3159,7 +3190,7 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "HealthCertificate_Validation_Passed_unknownTitle" = "Zertifikat nicht prüfbar";
 
-"HealthCertificate_Validation_Passed_subtitle" = "Ihr Zertifikat ist im gewählten Land gültig";
+"HealthCertificate_Validation_Passed_subtitle" = "Ihr Zertifikat ist für die Einreise in das gewählte Land gültig";
 
 "HealthCertificate_Validation_Passed_unknownSubtitle" = "Ihr Zertifikat konnte nicht geprüft werden";
 
@@ -3187,7 +3218,7 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "HealthCertificate_Validation_Failed_title" = "Zertifikat nicht gültig";
 
-"HealthCertificate_Validation_Failed_subtitle" = "Ihr Zertifikat ist im gewählten Land nicht gültig";
+"HealthCertificate_Validation_Failed_subtitle" = "Ihr Zertifikat ist für die Einreise in das gewählte Land nicht gültig";
 
 "HealthCertificate_Validation_Failed_failedSectionTitle" = "Prüfung abgeschlossen";
 
@@ -3201,7 +3232,7 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "HealthCertificate_Validation_TechnicalFailed_title" = "Zertifikat nicht gültig";
 
-"HealthCertificate_Validation_TechnicalFailed_subtitle" = "Ihr Zertifikat ist im gewählten Land nicht gültig";
+"HealthCertificate_Validation_TechnicalFailed_subtitle" = "Ihr Zertifikat ist für die Einreise in das gewählte Land nicht gültig";
 
 "HealthCertificate_Validation_TechnicalFailed_failedSectionTitle" = "Technische Prüfung";
 
@@ -3232,6 +3263,57 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 "HealthCertificate_ValidityState_Blocked" = "Zertifikat ungültig";
 
 "HealthCertificate_ValidityState_Blocked_description" = "Das Zertifikat wurde von der ausstellenden Behörde zurückgerufen. Bitte bemühen Sie sich darum, einen neuen digitalen Nachweis ausstellen zu lassen.";
+
+/* Reissuance */
+
+/* HealthCertificate Resissuance Consent */
+
+"HealthCertificate_Reissuance_Consent_primaryButtonTitle" = "Einverstanden";
+
+"HealthCertificate_Reissuance_Consent_secondaryButtonTitle" = "Abbrechen";
+
+"HealthCertificate_Reissuance_Consent_DefaultAlert_Title" = "Fehler";
+
+"HealthCertificate_Reissuance_Consent_DefaultAlert_OKButton" = "OK";
+
+"HealthCertificate_Reissuance_Consent_DefaultAlert_RetryButton" = "Wiederholen";
+
+"HealthCertificate_Reissuance_Consent_Title" = "Ihr Einverständnis";
+
+"HealthCertificate_Reissuance_Consent_Delete_Notice" = "Das alte Zertifikat wird automatisch in den Papierkorb verschoben und nach 30 Tagen gelöscht. Das Zertifikat kann innerhalb der 30 Tage jederzeit wiederhergestellt werden.";
+
+"HealthCertificate_Reissuance_Consent_Cancel_Notice" = "Falls Sie hier abbrechen, können Sie die Aktualisierung jederzeit in Ihrer Zertifikatsübersicht anfordern.";
+
+"HealthCertificate_Reissuance_Consent_Legal_Title" = "Ihr Einverständnis";
+
+"HealthCertificate_Reissuance_Consent_Legal_Subtitle" = "Durch Antippen von „Einverstanden“ willigen Sie in folgende Schritte ein:";
+
+"HealthCertificate_Reissuance_Consent_Legal_Bullet_1" = "Die App übermittelt das Impfzertifikat zur Überprüfung an das RKI.";
+
+"HealthCertificate_Reissuance_Consent_Legal_Bullet_2" = "Das RKI überprüft das Impfzertifikat und stellt ein aktualisiertes Zertifikat aus und übermittelt dieses an Ihre App.";
+
+"HealthCertificate_Reissuance_Consent_Bullet_Point_1" = "Die Aktualisierung des Zertifikats ist freiwillig und kostenlos.";
+
+"HealthCertificate_Reissuance_Consent_Bullet_Point_2" = "Um sicherzustellen, dass Zertifikate nur einmalig aktualisiert werden können, wird die Kennung des alten Zertifikats durch das RKI dokumentiert.";
+
+/* HealthCertificate Resissuance Succeeded */
+
+"HealthCertificate_Reissuance_Succeeded_Title" = "Zertifikat aktualisiert";
+
+"HealthCertificate_Reissuance_Succeeded_Headline" = "Ihr Zertifikat wurde erfolgreich aktualisiert";
+
+"HealthCertificate_Reissuance_Succeeded_Body" = "Sie finden das aktualisierte Zertifikat nun in der Zertifikate-Registerkarte.";
+
+/* HealthCertificate Resissuance Request Error */
+
+"HealthCertificate_Reissuance_Error_Contact_Support" = "Es ist ein technischer Fehler aufgetreten. Bitte kontaktieren Sie die technische Hotline über App-Informationen -> Technische Hotline.";
+
+"HealthCertificate_Reissuance_Error_No_Network" = "Möglicherweise wurde Ihre Internet-Verbindung unterbrochen. Bitte prüfen Sie die Verbindung und versuchen Sie es erneut.";
+
+"HealthCertificate_Reissuance_Error_Try_Again" = "Es ist ein Fehler bei der Aktualisierung Ihres Zertifikats aufgetreten. Bitte versuchen Sie es erneut. Wenn der Fehler weiterhin auftritt, kontaktieren Sie bitte die technische Hotline über App-Informationen -> Technische Hotline.";
+
+"HealthCertificate_Reissuance_Error_Not_Supported" = "Ihr Zertifikat kann nicht aktualisiert werden. Bitte kontaktieren Sie die technische Hotline über App-Informationen -> Technische Hotline.";
+
 
 /* Universal QR Scanner */
 
@@ -3330,7 +3412,7 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "FileScanner_InvalidQRCode_title" = "Kein geeigneter QR-Code";
 
-"FileScanner_InvalidQRCode_message" = "Der QR-Code wird nicht von der Corona-Warn-App unterstützt. Bitte wählen Sie einen geeigneten QR-Code."; 
+"FileScanner_InvalidQRCode_message" = "Der QR-Code wird nicht von der Corona-Warn-App unterstützt. Bitte wählen Sie einen geeigneten QR-Code.";
 
 "FileScanner_FileNotReadable_title" = "Datei nicht lesbar";
 

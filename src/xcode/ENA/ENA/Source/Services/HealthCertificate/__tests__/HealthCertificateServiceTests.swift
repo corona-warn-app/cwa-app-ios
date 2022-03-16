@@ -14,16 +14,15 @@ class HealthCertificateServiceTests: CWATestCase {
 
 	func testHealthCertifiedPersonsPublisherTriggeredAndStoreUpdatedOnCertificateRegistration() throws {
 		let store = MockTestStore()
-		let client = ClientMock()
 		let service = HealthCertificateService(
 			store: store,
 			dccSignatureVerifier: DCCSignatureVerifyingStub(),
 			dscListProvider: MockDSCListProvider(),
-			client: client,
 			appConfiguration: CachedAppConfigurationMock(),
 			cclService: FakeCCLService(),
 			recycleBin: .fake()
 		)
+		service.syncSetup()
 
 		let healthCertifiedPersonsExpectation = expectation(description: "healthCertifiedPersons publisher updated")
 		// One for registration, one for the validity state update, one for is validity state new update and one for the wallet info update
@@ -57,20 +56,17 @@ class HealthCertificateServiceTests: CWATestCase {
 
 		waitForExpectations(timeout: .short)
 
-		XCTAssertEqual(store.healthCertifiedPersons.first?.healthCertificates, [vaccinationCertificate])
+		XCTAssertEqual(store.healthCertifiedPersons.first?.healthCertificates.map { $0.base45 }, [vaccinationCertificate.base45])
 
 		subscription.cancel()
 	}
 
 	func testGIVEN_Certificate_WHEN_Register_THEN_SignatureInvalidError() throws {
 		// GIVEN
-		let client = ClientMock()
-		let store = MockTestStore()
 		let service = HealthCertificateService(
-			store: store,
+			store: MockTestStore(),
 			dccSignatureVerifier: DCCSignatureVerifyingStub(error: .HC_COSE_NO_SIGN1),
 			dscListProvider: MockDSCListProvider(),
-			client: client,
 			appConfiguration: CachedAppConfigurationMock(),
 			cclService: FakeCCLService(),
 			recycleBin: .fake()
@@ -119,17 +115,16 @@ class HealthCertificateServiceTests: CWATestCase {
 		let appConfigProvider = CachedAppConfigurationMock(with: appConfig, store: MockTestStore())
 
 		let store = MockTestStore()
-		let client = ClientMock()
 
 		let service = HealthCertificateService(
 			store: store,
 			dccSignatureVerifier: DCCSignatureVerifyingStub(),
 			dscListProvider: MockDSCListProvider(),
-			client: client,
 			appConfiguration: appConfigProvider,
 			cclService: FakeCCLService(),
 			recycleBin: .fake()
 		)
+		service.syncSetup()
 
 		XCTAssertTrue(store.healthCertifiedPersons.isEmpty)
 
@@ -149,16 +144,18 @@ class HealthCertificateServiceTests: CWATestCase {
 
 		var registrationResult = service.registerHealthCertificate(base45: firstTestCertificateBase45)
 
+		var registeredFirstTestCertificate: HealthCertificate?
 		switch registrationResult {
 		case let .success(certificateResult):
-			XCTAssertEqual(certificateResult.person.healthCertificates, [firstTestCertificate])
+			XCTAssertEqual(certificateResult.person.healthCertificates.map { $0.base45 }, [firstTestCertificate.base45])
 			XCTAssertNil(certificateResult.registrationDetail)
+			registeredFirstTestCertificate = certificateResult.certificate
 		case .failure:
 			XCTFail("Registration should succeed")
 		}
 
 		XCTAssertEqual(store.healthCertifiedPersons.count, 1)
-		XCTAssertEqual(store.healthCertifiedPersons.first?.healthCertificates, [firstTestCertificate])
+		XCTAssertEqual(store.healthCertifiedPersons.first?.healthCertificates.map { $0.base45 }, [firstTestCertificate.base45])
 
 		// By default added certificate are not marked as new
 		XCTAssertFalse(try XCTUnwrap(store.healthCertifiedPersons.first?.healthCertificates[safe: 0]).isNew)
@@ -173,7 +170,7 @@ class HealthCertificateServiceTests: CWATestCase {
 		}
 
 		XCTAssertEqual(store.healthCertifiedPersons.count, 1)
-		XCTAssertEqual(store.healthCertifiedPersons.first?.healthCertificates, [firstTestCertificate])
+		XCTAssertEqual(store.healthCertifiedPersons.first?.healthCertificates.map { $0.base45 }, [firstTestCertificate.base45])
 
 		// Certificates that were not added successfully don't change unseenNewsCount
 		XCTAssertEqual(service.unseenNewsCount.value, 0)
@@ -201,7 +198,7 @@ class HealthCertificateServiceTests: CWATestCase {
 		}
 
 		XCTAssertEqual(store.healthCertifiedPersons.count, 1)
-		XCTAssertEqual(store.healthCertifiedPersons.first?.healthCertificates, [firstTestCertificate])
+		XCTAssertEqual(store.healthCertifiedPersons.first?.healthCertificates.map { $0.base45 }, [firstTestCertificate.base45])
 
 		// Register second test certificate for same person
 
@@ -219,16 +216,18 @@ class HealthCertificateServiceTests: CWATestCase {
 
 		registrationResult = service.registerHealthCertificate(base45: secondTestCertificateBase45, markAsNew: true)
 
+		var registeredSecondTestCertificate: HealthCertificate?
 		switch registrationResult {
 		case let .success(certificateResult):
-			XCTAssertEqual(certificateResult.person.healthCertificates, [firstTestCertificate, secondTestCertificate])
+			XCTAssertEqual(certificateResult.person.healthCertificates.map { $0.base45 }, [firstTestCertificate, secondTestCertificate].map { $0.base45 })
 			XCTAssertNil(certificateResult.registrationDetail)
+			registeredSecondTestCertificate = certificateResult.certificate
 		case .failure(let error):
 			XCTFail("Registration should succeed, failed with error: \(error.localizedDescription)")
 		}
 
 		XCTAssertEqual(store.healthCertifiedPersons.count, 1)
-		XCTAssertEqual(store.healthCertifiedPersons.first?.healthCertificates, [firstTestCertificate, secondTestCertificate])
+		XCTAssertEqual(store.healthCertifiedPersons.first?.healthCertificates.map { $0.base45 }, [firstTestCertificate, secondTestCertificate].map { $0.base45 })
 
 		// Marking as new increases unseen news count
 		XCTAssertEqual(service.unseenNewsCount.value, 1)
@@ -250,16 +249,18 @@ class HealthCertificateServiceTests: CWATestCase {
 
 		registrationResult = service.registerHealthCertificate(base45: firstVaccinationCertificateBase45, markAsNew: true)
 
+		var registeredFirstVaccinationCertificate: HealthCertificate?
 		switch registrationResult {
 		case let .success(certificateResult):
-			XCTAssertEqual(certificateResult.person.healthCertificates, [firstVaccinationCertificate, firstTestCertificate, secondTestCertificate])
+			XCTAssertEqual(certificateResult.person.healthCertificates.map { $0.base45 }, [firstVaccinationCertificate, firstTestCertificate, secondTestCertificate].map { $0.base45 })
 			XCTAssertNil(certificateResult.registrationDetail)
+			registeredFirstVaccinationCertificate = certificateResult.certificate
 		case .failure(let error):
 			XCTFail("Registration should succeed, failed with error: \(error.localizedDescription)")
 		}
 
 		XCTAssertEqual(store.healthCertifiedPersons.count, 1)
-		XCTAssertEqual(store.healthCertifiedPersons.first?.healthCertificates, [firstVaccinationCertificate, firstTestCertificate, secondTestCertificate])
+		XCTAssertEqual(store.healthCertifiedPersons.first?.healthCertificates.map { $0.base45 }, [firstVaccinationCertificate, firstTestCertificate, secondTestCertificate].map { $0.base45 })
 		XCTAssertEqual(service.healthCertifiedPersons.first?.gradientType, .lightBlue)
 
 		// Marking as new increases unseen news count
@@ -284,7 +285,7 @@ class HealthCertificateServiceTests: CWATestCase {
 
 		switch registrationResult {
 		case let .success(certificateResult):
-			XCTAssertEqual(certificateResult.person.healthCertificates, [secondVaccinationCertificate])
+			XCTAssertEqual(certificateResult.person.healthCertificates.map { $0.base45 }, [secondVaccinationCertificate.base45])
 			XCTAssertEqual(certificateResult.registrationDetail, .personWarnThresholdReached)
 		case .failure(let error):
 			XCTFail("Registration should succeed, failed with error: \(error.localizedDescription)")
@@ -293,10 +294,10 @@ class HealthCertificateServiceTests: CWATestCase {
 		XCTAssertEqual(store.healthCertifiedPersons.count, 2)
 
 		// New health certified person comes first due to alphabetical ordering
-		XCTAssertEqual(store.healthCertifiedPersons.first?.healthCertificates, [secondVaccinationCertificate])
+		XCTAssertEqual(store.healthCertifiedPersons.first?.healthCertificates.map { $0.base45 }, [secondVaccinationCertificate.base45])
 		XCTAssertEqual(service.healthCertifiedPersons.first?.gradientType, .lightBlue)
 
-		XCTAssertEqual(store.healthCertifiedPersons.last?.healthCertificates, [firstVaccinationCertificate, firstTestCertificate, secondTestCertificate])
+		XCTAssertEqual(store.healthCertifiedPersons.last?.healthCertificates.map { $0.base45 }, [firstVaccinationCertificate, firstTestCertificate, secondTestCertificate].map { $0.base45 })
 		XCTAssertEqual(service.healthCertifiedPersons.last?.gradientType, .mediumBlue)
 
 		// Register test certificate for second person
@@ -317,17 +318,17 @@ class HealthCertificateServiceTests: CWATestCase {
 
 		switch registrationResult {
 		case let .success(certificateResult):
-			XCTAssertEqual(certificateResult.person.healthCertificates, [thirdTestCertificate, secondVaccinationCertificate])
+			XCTAssertEqual(certificateResult.person.healthCertificates.map { $0.base45 }, [thirdTestCertificate, secondVaccinationCertificate].map { $0.base45 })
 		case .failure(let error):
 			XCTFail("Registration should succeed, failed with error: \(error.localizedDescription)")
 		}
 
 		XCTAssertEqual(store.healthCertifiedPersons.count, 2)
 
-		XCTAssertEqual(store.healthCertifiedPersons.first?.healthCertificates, [thirdTestCertificate, secondVaccinationCertificate])
+		XCTAssertEqual(store.healthCertifiedPersons.first?.healthCertificates.map { $0.base45 }, [thirdTestCertificate, secondVaccinationCertificate].map { $0.base45 })
 		XCTAssertEqual(service.healthCertifiedPersons.first?.gradientType, .lightBlue)
 
-		XCTAssertEqual(store.healthCertifiedPersons.last?.healthCertificates, [firstVaccinationCertificate, firstTestCertificate, secondTestCertificate])
+		XCTAssertEqual(store.healthCertifiedPersons.last?.healthCertificates.map { $0.base45 }, [firstVaccinationCertificate, firstTestCertificate, secondTestCertificate].map { $0.base45 })
 		XCTAssertEqual(service.healthCertifiedPersons.last?.gradientType, .mediumBlue)
 
 		// Register expired recovery certificate for a third person to check gradients are correct
@@ -367,17 +368,17 @@ class HealthCertificateServiceTests: CWATestCase {
 
 		switch registrationResult {
 		case let .success(certificateResult):
-			XCTAssertEqual(certificateResult.person.healthCertificates, [firstRecoveryCertificate])
+			XCTAssertEqual(certificateResult.person.healthCertificates.map { $0.base45 }, [firstRecoveryCertificate.base45])
 			XCTAssertEqual(certificateResult.registrationDetail, .personWarnThresholdReached)
 		case .failure(let error):
 			XCTFail("Registration should succeed, failed with error: \(error.localizedDescription)")
 		}
 
-		XCTAssertEqual(store.healthCertifiedPersons[safe: 0]?.healthCertificates, [thirdTestCertificate, secondVaccinationCertificate])
+		XCTAssertEqual(store.healthCertifiedPersons[safe: 0]?.healthCertificates.map { $0.base45 }, [thirdTestCertificate, secondVaccinationCertificate].map { $0.base45 })
 		XCTAssertEqual(service.healthCertifiedPersons[safe: 0]?.gradientType, .lightBlue)
 		XCTAssertEqual(try XCTUnwrap(store.healthCertifiedPersons[safe: 0]).unseenNewsCount, 0)
 
-		XCTAssertEqual(store.healthCertifiedPersons[safe: 1]?.healthCertificates, [firstRecoveryCertificate])
+		XCTAssertEqual(store.healthCertifiedPersons[safe: 1]?.healthCertificates.map { $0.base45 }, [firstRecoveryCertificate.base45])
 		XCTAssertEqual(service.healthCertifiedPersons[safe: 1]?.gradientType, .solidGrey)
 		XCTAssertEqual(try XCTUnwrap(store.healthCertifiedPersons[safe: 1]).unseenNewsCount, 1)
 
@@ -385,7 +386,7 @@ class HealthCertificateServiceTests: CWATestCase {
 		XCTAssertEqual(service.unseenNewsCount.value, 3)
 		XCTAssertTrue(try XCTUnwrap(store.healthCertifiedPersons[safe: 1]?.healthCertificates[safe: 0]).isValidityStateNew)
 
-		XCTAssertEqual(store.healthCertifiedPersons[safe: 2]?.healthCertificates, [firstVaccinationCertificate, firstTestCertificate, secondTestCertificate])
+		XCTAssertEqual(store.healthCertifiedPersons[safe: 2]?.healthCertificates.map { $0.base45 }, [firstVaccinationCertificate, firstTestCertificate, secondTestCertificate].map { $0.base45 })
 		XCTAssertEqual(service.healthCertifiedPersons[safe: 2]?.gradientType, .darkBlue)
 		XCTAssertEqual(try XCTUnwrap(store.healthCertifiedPersons[safe: 2]).unseenNewsCount, 2)
 
@@ -393,13 +394,13 @@ class HealthCertificateServiceTests: CWATestCase {
 
 		service.healthCertifiedPersons.last?.isPreferredPerson = true
 
-		XCTAssertEqual(store.healthCertifiedPersons[safe: 0]?.healthCertificates, [firstVaccinationCertificate, firstTestCertificate, secondTestCertificate])
+		XCTAssertEqual(store.healthCertifiedPersons[safe: 0]?.healthCertificates.map { $0.base45 }, [firstVaccinationCertificate, firstTestCertificate, secondTestCertificate].map { $0.base45 })
 		XCTAssertEqual(service.healthCertifiedPersons[safe: 0]?.gradientType, .lightBlue)
 
-		XCTAssertEqual(store.healthCertifiedPersons[safe: 1]?.healthCertificates, [thirdTestCertificate, secondVaccinationCertificate])
+		XCTAssertEqual(store.healthCertifiedPersons[safe: 1]?.healthCertificates.map { $0.base45 }, [thirdTestCertificate, secondVaccinationCertificate].map { $0.base45 })
 		XCTAssertEqual(service.healthCertifiedPersons[safe: 1]?.gradientType, .mediumBlue)
 
-		XCTAssertEqual(store.healthCertifiedPersons[safe: 2]?.healthCertificates, [firstRecoveryCertificate])
+		XCTAssertEqual(store.healthCertifiedPersons[safe: 2]?.healthCertificates.map { $0.base45 }, [firstRecoveryCertificate.base45])
 		XCTAssertEqual(service.healthCertifiedPersons[safe: 2]?.gradientType, .solidGrey)
 
 		// Attempt to add a 4th person, max amount was set to 3
@@ -427,32 +428,31 @@ class HealthCertificateServiceTests: CWATestCase {
 
 		// Remove all certificates of first person and check that person is removed and gradient is correct
 
-		service.moveHealthCertificateToBin(firstVaccinationCertificate)
-		service.moveHealthCertificateToBin(firstTestCertificate)
-		service.moveHealthCertificateToBin(secondTestCertificate)
+		service.moveHealthCertificateToBin(try XCTUnwrap(registeredFirstVaccinationCertificate))
+		service.moveHealthCertificateToBin(try XCTUnwrap(registeredFirstTestCertificate))
+		service.moveHealthCertificateToBin(try XCTUnwrap(registeredSecondTestCertificate))
 
 		XCTAssertEqual(store.healthCertifiedPersons.count, 2)
 
-		XCTAssertEqual(store.healthCertifiedPersons[safe: 0]?.healthCertificates, [thirdTestCertificate, secondVaccinationCertificate])
+		XCTAssertEqual(store.healthCertifiedPersons[safe: 0]?.healthCertificates.map { $0.base45 }, [thirdTestCertificate, secondVaccinationCertificate].map { $0.base45 })
 		XCTAssertEqual(service.healthCertifiedPersons[safe: 0]?.gradientType, .lightBlue)
 
-		XCTAssertEqual(store.healthCertifiedPersons[safe: 1]?.healthCertificates, [firstRecoveryCertificate])
+		XCTAssertEqual(store.healthCertifiedPersons[safe: 1]?.healthCertificates.map { $0.base45 }, [firstRecoveryCertificate.base45])
 		XCTAssertEqual(service.healthCertifiedPersons[safe: 1]?.gradientType, .solidGrey)
 	}
 
 	func testLoadingCertificatesFromStoreAndRemovingCertificates() throws {
 		let store = MockTestStore()
-		let client = ClientMock()
 
 		let service = HealthCertificateService(
 			store: store,
 			dccSignatureVerifier: DCCSignatureVerifyingStub(),
 			dscListProvider: MockDSCListProvider(),
-			client: client,
 			appConfiguration: CachedAppConfigurationMock(),
 			cclService: FakeCCLService(),
 			recycleBin: .fake()
 		)
+		service.syncSetup()
 
 		let healthCertificate1 = try HealthCertificate(
 			base45: try base45Fake(from: DigitalCovidCertificate.fake(
@@ -499,15 +499,15 @@ class HealthCertificateServiceTests: CWATestCase {
 
 		service.updatePublishersFromStore()
 
-		XCTAssertEqual(service.healthCertifiedPersons, [
-			HealthCertifiedPerson(healthCertificates: [
+		XCTAssertEqual(service.healthCertifiedPersons.map { $0.healthCertificates }, [
+			[
 				healthCertificate1, healthCertificate2
-			]),
-			HealthCertifiedPerson(healthCertificates: [
+			],
+			[
 				healthCertificate3
-			])
+			]
 		])
-		XCTAssertEqual(service.healthCertifiedPersons, store.healthCertifiedPersons)
+		XCTAssertEqual(service.healthCertifiedPersons.map { $0.healthCertificates }, store.healthCertifiedPersons.map { $0.healthCertificates })
 
 		// Removing one of multiple certificates
 
@@ -524,7 +524,7 @@ class HealthCertificateServiceTests: CWATestCase {
 				]
 			]
 		)
-		XCTAssertEqual(service.healthCertifiedPersons, store.healthCertifiedPersons)
+		XCTAssertEqual(service.healthCertifiedPersons.map { $0.healthCertificates }, store.healthCertifiedPersons.map { $0.healthCertificates })
 
 		// Removing last certificate of a person
 
@@ -538,7 +538,7 @@ class HealthCertificateServiceTests: CWATestCase {
 				]
 			]
 		)
-		XCTAssertEqual(service.healthCertifiedPersons, store.healthCertifiedPersons)
+		XCTAssertEqual(service.healthCertifiedPersons.map { $0.healthCertificates }, store.healthCertifiedPersons.map { $0.healthCertificates })
 
 		// Removing last certificate of last person
 
@@ -549,14 +549,12 @@ class HealthCertificateServiceTests: CWATestCase {
 
 	func testRestoreCertificateFromRecycleBin() throws {
 		let store = MockTestStore()
-		let client = ClientMock()
 		let recycleBin = RecycleBin.fake(store: store)
 
 		let service = HealthCertificateService(
 			store: store,
 			dccSignatureVerifier: DCCSignatureVerifyingStub(),
 			dscListProvider: MockDSCListProvider(),
-			client: client,
 			appConfiguration: CachedAppConfigurationMock(),
 			cclService: FakeCCLService(),
 			recycleBin: recycleBin
@@ -628,12 +626,11 @@ class HealthCertificateServiceTests: CWATestCase {
 		parameters.expirationThresholdInDays = UInt32(expirationThresholdInDays)
 		appConfig.dgcParameters = parameters
 		let cachedAppConfig = CachedAppConfigurationMock(with: appConfig)
-		let client = ClientMock()
+
 		let service = HealthCertificateService(
 			store: store,
 			dccSignatureVerifier: DCCSignatureVerifyingStub(),
 			dscListProvider: MockDSCListProvider(),
-			client: client,
 			appConfiguration: cachedAppConfig,
 			cclService: FakeCCLService(),
 			recycleBin: .fake()
@@ -655,12 +652,10 @@ class HealthCertificateServiceTests: CWATestCase {
 		let healthCertificate = try HealthCertificate(base45: healthCertificateBase45)
 		XCTAssertEqual(healthCertificate.validityState, .valid)
 
-		let client = ClientMock()
 		let service = HealthCertificateService(
 			store: MockTestStore(),
 			dccSignatureVerifier: DCCSignatureVerifyingStub(error: .HC_COSE_NO_SIGN1),
 			dscListProvider: MockDSCListProvider(),
-			client: client,
 			appConfiguration: CachedAppConfigurationMock(),
 			cclService: FakeCCLService(),
 			recycleBin: .fake()
@@ -697,11 +692,11 @@ class HealthCertificateServiceTests: CWATestCase {
 			store: store,
 			dccSignatureVerifier: DCCSignatureVerifyingStub(),
 			dscListProvider: MockDSCListProvider(),
-			client: ClientMock(),
 			appConfiguration: CachedAppConfigurationMock(),
 			cclService: FakeCCLService(),
 			recycleBin: .fake()
 		)
+		service.syncSetup()
 
 		XCTAssertEqual(healthCertificate.validityState, .expired)
 		XCTAssertEqual(service.healthCertifiedPersons.first?.healthCertificates.first?.validityState, .expired)
@@ -732,11 +727,11 @@ class HealthCertificateServiceTests: CWATestCase {
 			store: store,
 			dccSignatureVerifier: DCCSignatureVerifyingStub(),
 			dscListProvider: MockDSCListProvider(),
-			client: ClientMock(),
 			appConfiguration: CachedAppConfigurationMock(),
 			cclService: FakeCCLService(),
 			recycleBin: .fake()
 		)
+		service.syncSetup()
 
 		XCTAssertEqual(healthCertificate.validityState, .expired)
 		XCTAssertEqual(service.healthCertifiedPersons.first?.healthCertificates.first?.validityState, .expired)
@@ -780,11 +775,11 @@ class HealthCertificateServiceTests: CWATestCase {
 			store: store,
 			dccSignatureVerifier: DCCSignatureVerifyingStub(),
 			dscListProvider: MockDSCListProvider(),
-			client: ClientMock(),
 			appConfiguration: cachedAppConfig,
 			cclService: FakeCCLService(),
 			recycleBin: .fake()
 		)
+		service.syncSetup()
 
 		XCTAssertEqual(healthCertificate.validityState, .expiringSoon)
 		XCTAssertEqual(store.healthCertifiedPersons.first?.healthCertificates.first?.validityState, .expiringSoon)
@@ -823,11 +818,11 @@ class HealthCertificateServiceTests: CWATestCase {
 			store: store,
 			dccSignatureVerifier: DCCSignatureVerifyingStub(),
 			dscListProvider: MockDSCListProvider(),
-			client: ClientMock(),
 			appConfiguration: CachedAppConfigurationMock(),
 			cclService: cclService,
 			recycleBin: .fake()
 		)
+		service.syncSetup()
 
 		waitForExpectations(timeout: .short)
 
@@ -870,11 +865,11 @@ class HealthCertificateServiceTests: CWATestCase {
 			store: store,
 			dccSignatureVerifier: DCCSignatureVerifyingStub(),
 			dscListProvider: MockDSCListProvider(),
-			client: ClientMock(),
 			appConfiguration: CachedAppConfigurationMock(),
 			cclService: cclService,
 			recycleBin: .fake()
 		)
+		service.syncSetup()
 
 		waitForExpectations(timeout: .short)
 
@@ -913,11 +908,11 @@ class HealthCertificateServiceTests: CWATestCase {
 			store: store,
 			dccSignatureVerifier: DCCSignatureVerifyingStub(),
 			dscListProvider: MockDSCListProvider(),
-			client: ClientMock(),
 			appConfiguration: CachedAppConfigurationMock(),
 			cclService: cclService,
 			recycleBin: .fake()
 		)
+		service.syncSetup()
 
 		waitForExpectations(timeout: .short)
 
@@ -960,11 +955,11 @@ class HealthCertificateServiceTests: CWATestCase {
 			store: store,
 			dccSignatureVerifier: DCCSignatureVerifyingStub(),
 			dscListProvider: MockDSCListProvider(),
-			client: ClientMock(),
 			appConfiguration: CachedAppConfigurationMock(),
 			cclService: cclService,
 			recycleBin: .fake()
 		)
+		service.syncSetup()
 
 		waitForExpectations(timeout: .short)
 
@@ -1007,11 +1002,11 @@ class HealthCertificateServiceTests: CWATestCase {
 			store: store,
 			dccSignatureVerifier: DCCSignatureVerifyingStub(),
 			dscListProvider: MockDSCListProvider(),
-			client: ClientMock(),
 			appConfiguration: CachedAppConfigurationMock(),
 			cclService: cclService,
 			recycleBin: .fake()
 		)
+		service.syncSetup()
 
 		waitForExpectations(timeout: .short)
 
@@ -1054,7 +1049,6 @@ class HealthCertificateServiceTests: CWATestCase {
 			store: store,
 			dccSignatureVerifier: DCCSignatureVerifyingStub(),
 			dscListProvider: MockDSCListProvider(),
-			client: ClientMock(),
 			appConfiguration: CachedAppConfigurationMock(),
 			cclService: cclService,
 			recycleBin: .fake()
@@ -1096,982 +1090,30 @@ class HealthCertificateServiceTests: CWATestCase {
 		appConfig.dgcParameters = parameters
 		let cachedAppConfig = CachedAppConfigurationMock(with: appConfig)
 
-		let client = ClientMock()
 		let service = HealthCertificateService(
 			store: store,
 			dccSignatureVerifier: DCCSignatureVerifyingStub(),
 			dscListProvider: MockDSCListProvider(),
-			client: client,
 			appConfiguration: cachedAppConfig,
 			cclService: FakeCCLService(),
 			recycleBin: .fake()
 		)
+		service.syncSetup()
 
 		XCTAssertEqual(healthCertificate.validityState, .expiringSoon)
 		XCTAssertEqual(store.healthCertifiedPersons.first?.healthCertificates.first?.validityState, .expiringSoon)
 
 		service.moveHealthCertificateToBin(healthCertificate)
 	}
-
-	func testTestCertificateRegistrationAndExecution_Success() throws {
-		let store = MockTestStore()
-		let client = ClientMock()
-
-		let registerPublicKeyExpectation = expectation(description: "dccRegisterPublicKey called")
-		client.onDCCRegisterPublicKey = { _, _, _, completion in
-			registerPublicKeyExpectation.fulfill()
-			completion(.success(()))
-		}
-
-		var keyPair: DCCRSAKeyPair?
-
-		let getDigitalCovid19CertificateExpectation = expectation(description: "getDigitalCovid19Certificate called")
-		client.onGetDigitalCovid19Certificate = { _, _, completion in
-			let dek = (try? keyPair?.encrypt(Data()).base64EncodedString()) ?? ""
-			getDigitalCovid19CertificateExpectation.fulfill()
-			completion(.success((DCCResponse(dek: dek, dcc: "coseObject"))))
-		}
-
-		var config = CachedAppConfigurationMock.defaultAppConfiguration
-		config.dgcParameters.testCertificateParameters.waitAfterPublicKeyRegistrationInSeconds = 1
-		config.dgcParameters.testCertificateParameters.waitForRetryInSeconds = 1
-		let appConfig = CachedAppConfigurationMock(with: config)
-
-		let base45TestCertificate = try base45Fake(
-			from: DigitalCovidCertificate.fake(
-				testEntries: [TestEntry.fake()]
-			)
-		)
-
-		var digitalCovidCertificateAccess = MockDigitalCovidCertificateAccess()
-		digitalCovidCertificateAccess.convertedToBase45 = .success(base45TestCertificate)
-
-		let service = HealthCertificateService(
-			store: store,
-			dccSignatureVerifier: DCCSignatureVerifyingStub(),
-			dscListProvider: MockDSCListProvider(),
-			client: client,
-			appConfiguration: appConfig,
-			digitalCovidCertificateAccess: digitalCovidCertificateAccess,
-			cclService: FakeCCLService(),
-			recycleBin: .fake()
-		)
-
-		let requestsSubscription = service.$testCertificateRequests
-			.sink {
-				if let requestWithKeyPair = $0.first(where: { $0.rsaKeyPair != nil }) {
-					keyPair = requestWithKeyPair.rsaKeyPair
-				}
-			}
-
-		let personsExpectation = expectation(description: "Persons not empty")
-		personsExpectation.expectedFulfillmentCount = 4
-		let personsSubscription = service.$healthCertifiedPersons
-			.sink {
-				if !$0.isEmpty {
-					personsExpectation.fulfill()
-				}
-			}
-
-		let expectedCounts = [0, 1, 0]
-		let countExpectation = expectation(description: "Count updated")
-		countExpectation.expectedFulfillmentCount = expectedCounts.count
-		var receivedCounts = [Int]()
-		let countSubscription = service.unseenNewsCount
-			.sink {
-				receivedCounts.append($0)
-				countExpectation.fulfill()
-			}
-
-		let completionExpectation = expectation(description: "registerAndExecuteTestCertificateRequest completion called")
-		service.registerAndExecuteTestCertificateRequest(
-			coronaTestType: .pcr,
-			registrationToken: "registrationToken",
-			registrationDate: Date(),
-			retryExecutionIfCertificateIsPending: false,
-			labId: "SomeLabId"
-		) { _ in
-			completionExpectation.fulfill()
-		}
-
-		// Wait for certificate registration to succeed
-		wait(for: [completionExpectation], timeout: .medium)
-
-		service.healthCertifiedPersons.first?.healthCertificates.first?.isValidityStateNew = false
-		service.healthCertifiedPersons.first?.healthCertificates.first?.isNew = false
-
-		waitForExpectations(timeout: .medium)
-
-		requestsSubscription.cancel()
-		personsSubscription.cancel()
-		countSubscription.cancel()
-
-		XCTAssertEqual(
-			try XCTUnwrap(service.healthCertifiedPersons.first).healthCertificates.first?.base45,
-			base45TestCertificate
-		)
-		XCTAssertTrue(service.testCertificateRequests.isEmpty)
-		XCTAssertEqual(receivedCounts, expectedCounts)
-	}
-
-	func testTestCertificateExecution_NewTestCertificateRequest() throws {
-		let store = MockTestStore()
-		let client = ClientMock()
-
-		let testCertificateRequest = TestCertificateRequest(
-			coronaTestType: .antigen,
-			registrationToken: "registrationToken",
-			registrationDate: Date()
-		)
-
-		store.testCertificateRequests = [testCertificateRequest]
-
-		let registerPublicKeyExpectation = expectation(description: "dccRegisterPublicKey called")
-		client.onDCCRegisterPublicKey = { _, _, _, completion in
-			registerPublicKeyExpectation.fulfill()
-			completion(.success(()))
-		}
-
-		let getDigitalCovid19CertificateExpectation = expectation(description: "getDigitalCovid19Certificate called")
-		client.onGetDigitalCovid19Certificate = { _, _, completion in
-			let dek = (try? testCertificateRequest.rsaKeyPair?.encrypt(Data()).base64EncodedString()) ?? ""
-			getDigitalCovid19CertificateExpectation.fulfill()
-			completion(.success((DCCResponse(dek: dek, dcc: "coseObject"))))
-		}
-
-		var config = CachedAppConfigurationMock.defaultAppConfiguration
-		config.dgcParameters.testCertificateParameters.waitAfterPublicKeyRegistrationInSeconds = 1
-		config.dgcParameters.testCertificateParameters.waitForRetryInSeconds = 1
-		let appConfig = CachedAppConfigurationMock(with: config)
-
-		let base45TestCertificate = try base45Fake(
-			from: DigitalCovidCertificate.fake(
-				testEntries: [TestEntry.fake()]
-			)
-		)
-
-		var digitalCovidCertificateAccess = MockDigitalCovidCertificateAccess()
-		digitalCovidCertificateAccess.convertedToBase45 = .success(base45TestCertificate)
-
-		let service = HealthCertificateService(
-			store: store,
-			dccSignatureVerifier: DCCSignatureVerifyingStub(),
-			dscListProvider: MockDSCListProvider(),
-			client: client,
-			appConfiguration: appConfig,
-			digitalCovidCertificateAccess: digitalCovidCertificateAccess,
-			cclService: FakeCCLService(),
-			recycleBin: .fake()
-		)
-
-		let personsExpectation = expectation(description: "Persons not empty")
-		personsExpectation.expectedFulfillmentCount = 3
-		let personsSubscription = service.$healthCertifiedPersons
-			.sink {
-				if !$0.isEmpty {
-					personsExpectation.fulfill()
-				}
-			}
-
-		let completionExpectation = expectation(description: "completion called")
-		service.executeTestCertificateRequest(
-			testCertificateRequest,
-			retryIfCertificateIsPending: false,
-			completion: { result in
-				switch result {
-				case .success:
-					break
-				case .failure:
-					XCTFail("Request expected to succeed")
-				}
-				completionExpectation.fulfill()
-			}
-		)
-
-		waitForExpectations(timeout: .medium)
-
-		personsSubscription.cancel()
-
-		XCTAssertEqual(
-			try XCTUnwrap(service.healthCertifiedPersons.first).healthCertificates.first?.base45,
-			base45TestCertificate
-		)
-		XCTAssertTrue(service.testCertificateRequests.isEmpty)
-	}
-
-	func testTestCertificateExecution_ExistingUnregisteredKeyPair_Success() throws {
-		let store = MockTestStore()
-		let client = ClientMock()
-
-		let keyPair = try DCCRSAKeyPair(registrationToken: "registrationToken")
-		let testCertificateRequest = TestCertificateRequest(
-			coronaTestType: .antigen,
-			registrationToken: "registrationToken",
-			registrationDate: Date(),
-			rsaKeyPair: keyPair,
-			rsaPublicKeyRegistered: false
-		)
-
-		store.testCertificateRequests = [testCertificateRequest]
-
-		let registerPublicKeyExpectation = expectation(description: "dccRegisterPublicKey called")
-		client.onDCCRegisterPublicKey = { _, _, _, completion in
-			registerPublicKeyExpectation.fulfill()
-			completion(.success(()))
-		}
-
-		let getDigitalCovid19CertificateExpectation = expectation(description: "getDigitalCovid19Certificate called")
-		client.onGetDigitalCovid19Certificate = { _, _, completion in
-			let dek = (try? testCertificateRequest.rsaKeyPair?.encrypt(Data()).base64EncodedString()) ?? ""
-			getDigitalCovid19CertificateExpectation.fulfill()
-			completion(.success((DCCResponse(dek: dek, dcc: "coseObject"))))
-		}
-
-		var config = CachedAppConfigurationMock.defaultAppConfiguration
-		config.dgcParameters.testCertificateParameters.waitAfterPublicKeyRegistrationInSeconds = 1
-		config.dgcParameters.testCertificateParameters.waitForRetryInSeconds = 1
-		let appConfig = CachedAppConfigurationMock(with: config)
-
-		let base45TestCertificate = try base45Fake(
-			from: DigitalCovidCertificate.fake(
-				testEntries: [TestEntry.fake()]
-			)
-		)
-
-		var digitalCovidCertificateAccess = MockDigitalCovidCertificateAccess()
-		digitalCovidCertificateAccess.convertedToBase45 = .success(base45TestCertificate)
-
-		let service = HealthCertificateService(
-			store: store,
-			dccSignatureVerifier: DCCSignatureVerifyingStub(),
-			dscListProvider: MockDSCListProvider(),
-			client: client,
-			appConfiguration: appConfig,
-			digitalCovidCertificateAccess: digitalCovidCertificateAccess,
-			cclService: FakeCCLService(),
-			recycleBin: .fake()
-		)
-
-		let personsExpectation = expectation(description: "Persons not empty")
-		personsExpectation.expectedFulfillmentCount = 3
-		let personsSubscription = service.$healthCertifiedPersons
-			.sink {
-				if !$0.isEmpty {
-					personsExpectation.fulfill()
-				}
-			}
-
-		let completionExpectation = expectation(description: "completion called")
-		service.executeTestCertificateRequest(
-			testCertificateRequest,
-			retryIfCertificateIsPending: false,
-			completion: { result in
-				switch result {
-				case .success:
-					break
-				case .failure:
-					XCTFail("Request expected to succeed")
-				}
-				completionExpectation.fulfill()
-			}
-		)
-
-		waitForExpectations(timeout: .medium)
-
-		personsSubscription.cancel()
-
-		XCTAssertEqual(testCertificateRequest.rsaKeyPair, keyPair)
-
-		XCTAssertEqual(
-			try XCTUnwrap(service.healthCertifiedPersons.first).healthCertificates.first?.base45,
-			base45TestCertificate
-		)
-		XCTAssertTrue(service.testCertificateRequests.isEmpty)
-	}
-
-	func testTestCertificateExecution_ExistingUnregisteredKeyPair_AlreadyRegisteredError() throws {
-		let store = MockTestStore()
-		let client = ClientMock()
-
-		let keyPair = try DCCRSAKeyPair(registrationToken: "registrationToken")
-		let testCertificateRequest = TestCertificateRequest(
-			coronaTestType: .antigen,
-			registrationToken: "registrationToken",
-			registrationDate: Date(),
-			rsaKeyPair: keyPair,
-			rsaPublicKeyRegistered: false
-		)
-
-		store.testCertificateRequests = [testCertificateRequest]
-
-		let registerPublicKeyExpectation = expectation(description: "dccRegisterPublicKey called")
-		client.onDCCRegisterPublicKey = { _, _, _, completion in
-			registerPublicKeyExpectation.fulfill()
-			completion(.failure(.tokenAlreadyAssigned))
-		}
-
-		let getDigitalCovid19CertificateExpectation = expectation(description: "getDigitalCovid19Certificate called")
-		client.onGetDigitalCovid19Certificate = { _, _, completion in
-			let dek = (try? testCertificateRequest.rsaKeyPair?.encrypt(Data()).base64EncodedString()) ?? ""
-			getDigitalCovid19CertificateExpectation.fulfill()
-			completion(.success((DCCResponse(dek: dek, dcc: "coseObject"))))
-		}
-
-		var config = CachedAppConfigurationMock.defaultAppConfiguration
-		config.dgcParameters.testCertificateParameters.waitAfterPublicKeyRegistrationInSeconds = 1
-		config.dgcParameters.testCertificateParameters.waitForRetryInSeconds = 1
-		let appConfig = CachedAppConfigurationMock(with: config)
-
-		let base45TestCertificate = try base45Fake(
-			from: DigitalCovidCertificate.fake(
-				testEntries: [TestEntry.fake()]
-			)
-		)
-
-		var digitalCovidCertificateAccess = MockDigitalCovidCertificateAccess()
-		digitalCovidCertificateAccess.convertedToBase45 = .success(base45TestCertificate)
-
-		let service = HealthCertificateService(
-			store: store,
-			dccSignatureVerifier: DCCSignatureVerifyingStub(),
-			dscListProvider: MockDSCListProvider(),
-			client: client,
-			appConfiguration: appConfig,
-			digitalCovidCertificateAccess: digitalCovidCertificateAccess,
-			cclService: FakeCCLService(),
-			recycleBin: .fake()
-		)
-
-		let personsExpectation = expectation(description: "Persons not empty")
-		personsExpectation.expectedFulfillmentCount = 3
-		let personsSubscription = service.$healthCertifiedPersons
-			.sink {
-				if !$0.isEmpty {
-					personsExpectation.fulfill()
-				}
-			}
-
-		let completionExpectation = expectation(description: "completion called")
-		service.executeTestCertificateRequest(
-			testCertificateRequest,
-			retryIfCertificateIsPending: false,
-			completion: { result in
-				switch result {
-				case .success:
-					break
-				case .failure:
-					XCTFail("Request expected to succeed")
-				}
-				completionExpectation.fulfill()
-			}
-		)
-
-		waitForExpectations(timeout: .medium)
-
-		personsSubscription.cancel()
-
-		XCTAssertEqual(testCertificateRequest.rsaKeyPair, keyPair)
-
-		XCTAssertEqual(
-			try XCTUnwrap(service.healthCertifiedPersons.first).healthCertificates.first?.base45,
-			base45TestCertificate
-		)
-		XCTAssertTrue(service.testCertificateRequests.isEmpty)
-	}
-
-	func testTestCertificateExecution_ExistingUnregisteredKeyPair_NetworkError() throws {
-		let store = MockTestStore()
-		let client = ClientMock()
-
-		let keyPair = try DCCRSAKeyPair(registrationToken: "registrationToken")
-		let testCertificateRequest = TestCertificateRequest(
-			coronaTestType: .antigen,
-			registrationToken: "registrationToken",
-			registrationDate: Date(),
-			rsaKeyPair: keyPair,
-			rsaPublicKeyRegistered: false
-		)
-
-		store.testCertificateRequests = [testCertificateRequest]
-
-		let registerPublicKeyExpectation = expectation(description: "dccRegisterPublicKey called")
-		client.onDCCRegisterPublicKey = { _, _, _, completion in
-			registerPublicKeyExpectation.fulfill()
-			completion(.failure(.noNetworkConnection))
-		}
-
-		let getDigitalCovid19CertificateExpectation = expectation(description: "getDigitalCovid19Certificate called")
-		getDigitalCovid19CertificateExpectation.isInverted = true
-		client.onGetDigitalCovid19Certificate = { _, _, _ in
-			getDigitalCovid19CertificateExpectation.fulfill()
-		}
-
-		let service = HealthCertificateService(
-			store: store,
-			dccSignatureVerifier: DCCSignatureVerifyingStub(),
-			dscListProvider: MockDSCListProvider(),
-			client: client,
-			appConfiguration: CachedAppConfigurationMock(),
-			digitalCovidCertificateAccess: MockDigitalCovidCertificateAccess(),
-			cclService: FakeCCLService(),
-			recycleBin: .fake()
-		)
-
-		let completionExpectation = expectation(description: "completion called")
-		service.executeTestCertificateRequest(
-			testCertificateRequest,
-			retryIfCertificateIsPending: false,
-			completion: { result in
-				switch result {
-				case .success:
-					XCTFail("Request expected to fail")
-				case .failure(let error):
-					if case .publicKeyRegistrationFailed(let publicKeyError) = error,
-					   case .noNetworkConnection = publicKeyError {} else {
-						   XCTFail("No network error on public key registration expected")
-					   }
-				}
-				completionExpectation.fulfill()
-			}
-		)
-
-		waitForExpectations(timeout: .medium)
-
-		XCTAssertEqual(service.testCertificateRequests.first, testCertificateRequest)
-		XCTAssertFalse(testCertificateRequest.rsaPublicKeyRegistered)
-		XCTAssertTrue(testCertificateRequest.requestExecutionFailed)
-		XCTAssertFalse(testCertificateRequest.isLoading)
-	}
-
-	func testTestCertificateExecution_ExistingRegisteredKeyPair_Success() throws {
-		let store = MockTestStore()
-		let client = ClientMock()
-
-		let keyPair = try DCCRSAKeyPair(registrationToken: "registrationToken")
-		let testCertificateRequest = TestCertificateRequest(
-			coronaTestType: .antigen,
-			registrationToken: "registrationToken",
-			registrationDate: Date(),
-			rsaKeyPair: keyPair,
-			rsaPublicKeyRegistered: true
-		)
-
-		store.testCertificateRequests = [testCertificateRequest]
-
-		let registerPublicKeyExpectation = expectation(description: "dccRegisterPublicKey not called")
-		registerPublicKeyExpectation.isInverted = true
-		client.onDCCRegisterPublicKey = { _, _, _, _ in
-			registerPublicKeyExpectation.fulfill()
-		}
-
-		let getDigitalCovid19CertificateExpectation = expectation(description: "getDigitalCovid19Certificate called")
-		client.onGetDigitalCovid19Certificate = { _, _, completion in
-			let dek = (try? testCertificateRequest.rsaKeyPair?.encrypt(Data()).base64EncodedString()) ?? ""
-			getDigitalCovid19CertificateExpectation.fulfill()
-			completion(.success((DCCResponse(dek: dek, dcc: "coseObject"))))
-		}
-
-		var config = CachedAppConfigurationMock.defaultAppConfiguration
-		config.dgcParameters.testCertificateParameters.waitAfterPublicKeyRegistrationInSeconds = 1
-		config.dgcParameters.testCertificateParameters.waitForRetryInSeconds = 1
-		let appConfig = CachedAppConfigurationMock(with: config)
-
-		let base45TestCertificate = try base45Fake(
-			from: DigitalCovidCertificate.fake(
-				testEntries: [TestEntry.fake()]
-			)
-		)
-
-		var digitalCovidCertificateAccess = MockDigitalCovidCertificateAccess()
-		digitalCovidCertificateAccess.convertedToBase45 = .success(base45TestCertificate)
-		
-		let service = HealthCertificateService(
-			store: store,
-			dccSignatureVerifier: DCCSignatureVerifyingStub(),
-			dscListProvider: MockDSCListProvider(),
-			client: client,
-			appConfiguration: appConfig,
-			digitalCovidCertificateAccess: digitalCovidCertificateAccess,
-			cclService: FakeCCLService(),
-			recycleBin: .fake()
-		)
-
-		let personsExpectation = expectation(description: "Persons not empty")
-		personsExpectation.expectedFulfillmentCount = 3
-		let personsSubscription = service.$healthCertifiedPersons
-			.sink {
-				if !$0.isEmpty {
-					personsExpectation.fulfill()
-				}
-			}
-
-		let completionExpectation = expectation(description: "completion called")
-		service.executeTestCertificateRequest(
-			testCertificateRequest,
-			retryIfCertificateIsPending: false,
-			completion: { result in
-				switch result {
-				case .success:
-					break
-				case .failure:
-					XCTFail("Request expected to succeed")
-				}
-				completionExpectation.fulfill()
-			}
-		)
-
-		waitForExpectations(timeout: .medium)
-
-		personsSubscription.cancel()
-
-		XCTAssertEqual(testCertificateRequest.rsaKeyPair, keyPair)
-
-		XCTAssertEqual(
-			try XCTUnwrap(service.healthCertifiedPersons.first).healthCertificates.first?.base45,
-			base45TestCertificate
-		)
-		XCTAssertTrue(service.testCertificateRequests.isEmpty)
-	}
-
-	func testTestCertificateExecution_GettingCertificateFailsTwiceWithPending() throws {
-		let store = MockTestStore()
-		let client = ClientMock()
-
-		let keyPair = try DCCRSAKeyPair(registrationToken: "registrationToken")
-		let testCertificateRequest = TestCertificateRequest(
-			coronaTestType: .antigen,
-			registrationToken: "registrationToken",
-			registrationDate: Date(),
-			rsaKeyPair: keyPair,
-			rsaPublicKeyRegistered: true
-		)
-
-		store.testCertificateRequests = [testCertificateRequest]
-
-		let getDigitalCovid19CertificateExpectation = expectation(description: "getDigitalCovid19Certificate called")
-		getDigitalCovid19CertificateExpectation.expectedFulfillmentCount = 2
-		client.onGetDigitalCovid19Certificate = { _, _, completion in
-			getDigitalCovid19CertificateExpectation.fulfill()
-			completion(.failure(.dccPending))
-		}
-
-		var config = CachedAppConfigurationMock.defaultAppConfiguration
-		config.dgcParameters.testCertificateParameters.waitForRetryInSeconds = 1
-		let appConfig = CachedAppConfigurationMock(with: config)
-
-		let service = HealthCertificateService(
-			store: store,
-			dccSignatureVerifier: DCCSignatureVerifyingStub(),
-			dscListProvider: MockDSCListProvider(),
-			client: client,
-			appConfiguration: appConfig,
-			cclService: FakeCCLService(),
-			recycleBin: .fake()
-		)
-
-		let completionExpectation = expectation(description: "completion called")
-		service.executeTestCertificateRequest(
-			testCertificateRequest,
-			retryIfCertificateIsPending: true,
-			completion: { result in
-				switch result {
-				case .success:
-					XCTFail("Request expected to fail")
-				case .failure(let error):
-					if case .certificateRequestFailed(let certificateRequestError) = error,
-					   case .dccPending = certificateRequestError {} else {
-						   XCTFail("DCC pending error on certificate request expected")
-					   }
-				}
-				completionExpectation.fulfill()
-			}
-		)
-
-		waitForExpectations(timeout: .medium)
-
-		XCTAssertEqual(service.testCertificateRequests.first, testCertificateRequest)
-		XCTAssertTrue(testCertificateRequest.requestExecutionFailed)
-		XCTAssertFalse(testCertificateRequest.isLoading)
-	}
-
-	func testTestCertificateExecution_AssemblyFails_Base64DecodingFailed() throws {
-		let store = MockTestStore()
-		let client = ClientMock()
-
-		let keyPair = try DCCRSAKeyPair(registrationToken: "registrationToken")
-		let testCertificateRequest = TestCertificateRequest(
-			coronaTestType: .antigen,
-			registrationToken: "registrationToken",
-			registrationDate: Date(),
-			rsaKeyPair: keyPair,
-			rsaPublicKeyRegistered: true,
-			encryptedDEK: "dataEncryptionKey",
-			encryptedCOSE: ""
-		)
-
-		store.testCertificateRequests = [testCertificateRequest]
-
-		let getDigitalCovid19CertificateExpectation = expectation(description: "getDigitalCovid19Certificate called")
-		getDigitalCovid19CertificateExpectation.isInverted = true
-		client.onGetDigitalCovid19Certificate = { _, _, _ in
-			getDigitalCovid19CertificateExpectation.fulfill()
-		}
-
-		let service = HealthCertificateService(
-			store: store,
-			dccSignatureVerifier: DCCSignatureVerifyingStub(),
-			dscListProvider: MockDSCListProvider(),
-			client: client,
-			appConfiguration: CachedAppConfigurationMock(),
-			cclService: FakeCCLService(),
-			recycleBin: .fake()
-		)
-
-		let completionExpectation = expectation(description: "completion called")
-		service.executeTestCertificateRequest(
-			testCertificateRequest,
-			retryIfCertificateIsPending: true,
-			completion: { result in
-				switch result {
-				case .success:
-					XCTFail("Request expected to fail")
-				case .failure(let error):
-					if case .base64DecodingFailed = error {} else {
-						XCTFail("Base 64 decoding failed error expected")
-					}
-				}
-				completionExpectation.fulfill()
-			}
-		)
-
-		waitForExpectations(timeout: .medium)
-
-		XCTAssertEqual(service.testCertificateRequests.first, testCertificateRequest)
-		XCTAssertTrue(testCertificateRequest.requestExecutionFailed)
-		XCTAssertFalse(testCertificateRequest.isLoading)
-	}
-
-	func testTestCertificateExecution_AssemblyFails_DecryptionFailed() throws {
-		let store = MockTestStore()
-		let client = ClientMock()
-
-		let keyPair = try DCCRSAKeyPair(registrationToken: "registrationToken")
-		let testCertificateRequest = TestCertificateRequest(
-			coronaTestType: .antigen,
-			registrationToken: "registrationToken",
-			registrationDate: Date(),
-			rsaKeyPair: keyPair,
-			rsaPublicKeyRegistered: true,
-			encryptedDEK: "",
-			encryptedCOSE: ""
-		)
-
-		store.testCertificateRequests = [testCertificateRequest]
-
-		let getDigitalCovid19CertificateExpectation = expectation(description: "getDigitalCovid19Certificate called")
-		getDigitalCovid19CertificateExpectation.isInverted = true
-		client.onGetDigitalCovid19Certificate = { _, _, _ in
-			getDigitalCovid19CertificateExpectation.fulfill()
-		}
-
-		let service = HealthCertificateService(
-			store: store,
-			dccSignatureVerifier: DCCSignatureVerifyingStub(),
-			dscListProvider: MockDSCListProvider(),
-			client: client,
-			appConfiguration: CachedAppConfigurationMock(),
-			cclService: FakeCCLService(),
-			recycleBin: .fake()
-		)
-
-		let completionExpectation = expectation(description: "completion called")
-		service.executeTestCertificateRequest(
-			testCertificateRequest,
-			retryIfCertificateIsPending: true,
-			completion: { result in
-				switch result {
-				case .success:
-					XCTFail("Request expected to fail")
-				case .failure(let error):
-					if case .decryptionFailed = error {} else {
-						XCTFail("Decryption failed error expected")
-					}
-				}
-				completionExpectation.fulfill()
-			}
-		)
-
-		waitForExpectations(timeout: .medium)
-
-		XCTAssertEqual(service.testCertificateRequests.first, testCertificateRequest)
-		XCTAssertTrue(testCertificateRequest.requestExecutionFailed)
-		XCTAssertFalse(testCertificateRequest.isLoading)
-	}
-
-	func testTestCertificateExecution_AssemblyFails_AssemblyFailed() throws {
-		let store = MockTestStore()
-		let client = ClientMock()
-
-		let keyPair = try DCCRSAKeyPair(registrationToken: "registrationToken")
-		let testCertificateRequest = TestCertificateRequest(
-			coronaTestType: .antigen,
-			registrationToken: "registrationToken",
-			registrationDate: Date(),
-			rsaKeyPair: keyPair,
-			rsaPublicKeyRegistered: true,
-			encryptedDEK: try keyPair.encrypt(Data()).base64EncodedString(),
-			encryptedCOSE: ""
-		)
-
-		store.testCertificateRequests = [testCertificateRequest]
-
-		let getDigitalCovid19CertificateExpectation = expectation(description: "getDigitalCovid19Certificate called")
-		getDigitalCovid19CertificateExpectation.isInverted = true
-		client.onGetDigitalCovid19Certificate = { _, _, _ in
-			getDigitalCovid19CertificateExpectation.fulfill()
-		}
-
-		var digitalCovidCertificateAccess = MockDigitalCovidCertificateAccess()
-		digitalCovidCertificateAccess.convertedToBase45 = .failure(.AES_DECRYPTION_FAILED)
-
-		let service = HealthCertificateService(
-			store: store,
-			dccSignatureVerifier: DCCSignatureVerifyingStub(),
-			dscListProvider: MockDSCListProvider(),
-			client: client,
-			appConfiguration: CachedAppConfigurationMock(),
-			digitalCovidCertificateAccess: digitalCovidCertificateAccess,
-			cclService: FakeCCLService(),
-			recycleBin: .fake()
-		)
-
-		let completionExpectation = expectation(description: "completion called")
-		service.executeTestCertificateRequest(
-			testCertificateRequest,
-			retryIfCertificateIsPending: true,
-			completion: { result in
-				switch result {
-				case .success:
-					XCTFail("Request expected to fail")
-				case .failure(let error):
-					if case .assemblyFailed(let assemblyError) = error,
-					   case .AES_DECRYPTION_FAILED = assemblyError {} else {
-						   XCTFail("Assembly failed with AES decryption failed error expected")
-					   }
-				}
-				completionExpectation.fulfill()
-			}
-		)
-
-		waitForExpectations(timeout: .medium)
-
-		XCTAssertEqual(service.testCertificateRequests.first, testCertificateRequest)
-		XCTAssertTrue(testCertificateRequest.requestExecutionFailed)
-		XCTAssertFalse(testCertificateRequest.isLoading)
-	}
-
-	func testTestCertificateExecution_PCRAndNoLabId_dgcNotSupportedByLabErrorReturned() {
-		let service = HealthCertificateService(
-			store: MockTestStore(),
-			dccSignatureVerifier: DCCSignatureVerifyingStub(),
-			dscListProvider: MockDSCListProvider(),
-			client: ClientMock(),
-			appConfiguration: CachedAppConfigurationMock(),
-			digitalCovidCertificateAccess: MockDigitalCovidCertificateAccess(),
-			cclService: FakeCCLService(),
-			recycleBin: .fake()
-		)
-
-		let completionExpectation = expectation(description: "Completion is called.")
-		service.registerAndExecuteTestCertificateRequest(
-			coronaTestType: .pcr,
-			registrationToken: "",
-			registrationDate: Date(),
-			retryExecutionIfCertificateIsPending: true,
-			labId: nil
-		) { result in
-			guard case let .failure(error) = result,
-				  case .dgcNotSupportedByLab = error else {
-					  XCTFail("Error dgcNotSupportedByLab was expected.")
-					  completionExpectation.fulfill()
-					  return
-				  }
-			completionExpectation.fulfill()
-		}
-
-		waitForExpectations(timeout: .short)
-		
-		XCTAssertEqual(service.testCertificateRequests.count, 1)
-		XCTAssertTrue(service.testCertificateRequests[0].requestExecutionFailed)
-		XCTAssertFalse(service.testCertificateRequests[0].isLoading)
-	}
-
-	func testTestCertificateRegistrationAndExecution_SignatureNotCheckedOnRegistration() throws {
-		let client = ClientMock()
-
-		var keyPair: DCCRSAKeyPair?
-
-		let getDigitalCovid19CertificateExpectation = expectation(description: "getDigitalCovid19Certificate called")
-		client.onGetDigitalCovid19Certificate = { _, _, completion in
-			let dek = (try? keyPair?.encrypt(Data()).base64EncodedString()) ?? ""
-			getDigitalCovid19CertificateExpectation.fulfill()
-			completion(.success((DCCResponse(dek: dek, dcc: "coseObject"))))
-		}
-
-		var config = CachedAppConfigurationMock.defaultAppConfiguration
-		config.dgcParameters.testCertificateParameters.waitAfterPublicKeyRegistrationInSeconds = 1
-		config.dgcParameters.testCertificateParameters.waitForRetryInSeconds = 1
-		let appConfig = CachedAppConfigurationMock(with: config)
-
-		let base45TestCertificate = try base45Fake(
-			from: DigitalCovidCertificate.fake(
-				testEntries: [TestEntry.fake()]
-			)
-		)
-
-		var digitalCovidCertificateAccess = MockDigitalCovidCertificateAccess()
-		digitalCovidCertificateAccess.convertedToBase45 = .success(base45TestCertificate)
-		let store = MockTestStore()
-		let service = HealthCertificateService(
-			store: store,
-			// Return error on signature check to ensure the certificate is registered regardless
-			dccSignatureVerifier: DCCSignatureVerifyingStub(error: .HC_DSC_NO_MATCH),
-			dscListProvider: MockDSCListProvider(),
-			client: client,
-			appConfiguration: appConfig,
-			digitalCovidCertificateAccess: digitalCovidCertificateAccess,
-			cclService: FakeCCLService(),
-			recycleBin: .fake()
-		)
-
-		let requestsSubscription = service.$testCertificateRequests
-			.sink {
-				if let requestWithKeyPair = $0.first(where: { $0.rsaKeyPair != nil }) {
-					keyPair = requestWithKeyPair.rsaKeyPair
-				}
-			}
-
-		let completionExpectation = expectation(description: "registerAndExecuteTestCertificateRequest completion called")
-		service.registerAndExecuteTestCertificateRequest(
-			coronaTestType: .pcr,
-			registrationToken: "registrationToken",
-			registrationDate: Date(),
-			retryExecutionIfCertificateIsPending: false,
-			labId: "SomeLabId"
-		) { result in
-			if case .failure = result {
-				XCTFail("Success expected")
-			}
-
-			completionExpectation.fulfill()
-		}
-
-		waitForExpectations(timeout: .medium)
-
-		requestsSubscription.cancel()
-
-		XCTAssertEqual(
-			try XCTUnwrap(service.healthCertifiedPersons.first).healthCertificates.first?.base45,
-			base45TestCertificate
-		)
-		XCTAssertTrue(service.testCertificateRequests.isEmpty)
-	}
-
-	func testTestCertificateRegistrationAndExecution_MaxPersonCountNotConsideredOnRegistration() throws {
-		let client = ClientMock()
-
-		var keyPair: DCCRSAKeyPair?
-
-		let getDigitalCovid19CertificateExpectation = expectation(description: "getDigitalCovid19Certificate called")
-		client.onGetDigitalCovid19Certificate = { _, _, completion in
-			let dek = (try? keyPair?.encrypt(Data()).base64EncodedString()) ?? ""
-			getDigitalCovid19CertificateExpectation.fulfill()
-			completion(.success((DCCResponse(dek: dek, dcc: "coseObject"))))
-		}
-
-		var maxCountFeature = SAP_Internal_V2_AppFeature()
-		maxCountFeature.label = "dcc-person-count-max"
-		maxCountFeature.value = 1
-
-		var appFeatures = SAP_Internal_V2_AppFeatures()
-		appFeatures.appFeatures = [maxCountFeature]
-
-		var config = CachedAppConfigurationMock.defaultAppConfiguration
-		config.dgcParameters.testCertificateParameters.waitAfterPublicKeyRegistrationInSeconds = 1
-		config.dgcParameters.testCertificateParameters.waitForRetryInSeconds = 1
-		config.appFeatures = appFeatures
-		let appConfig = CachedAppConfigurationMock(with: config)
-
-		let base45TestCertificate = try base45Fake(
-			from: DigitalCovidCertificate.fake(
-				dateOfBirth: "1970-03-26",
-				testEntries: [TestEntry.fake()]
-			)
-		)
-
-		var digitalCovidCertificateAccess = MockDigitalCovidCertificateAccess()
-		digitalCovidCertificateAccess.convertedToBase45 = .success(base45TestCertificate)
-
-		let store = MockTestStore()
-		store.healthCertifiedPersons = [
-			HealthCertifiedPerson(
-				healthCertificates: [try vaccinationCertificate(dateOfBirth: "1997-06-16")],
-				boosterRule: .fake()
-			)
-		]
-
-		let service = HealthCertificateService(
-			store: store,
-			// Return error on signature check to ensure the certificate is registered regardless
-			dccSignatureVerifier: DCCSignatureVerifyingStub(error: .HC_DSC_NO_MATCH),
-			dscListProvider: MockDSCListProvider(),
-			client: client,
-			appConfiguration: appConfig,
-			digitalCovidCertificateAccess: digitalCovidCertificateAccess,
-			cclService: FakeCCLService(),
-			recycleBin: .fake()
-		)
-
-		let requestsSubscription = service.$testCertificateRequests
-			.sink {
-				if let requestWithKeyPair = $0.first(where: { $0.rsaKeyPair != nil }) {
-					keyPair = requestWithKeyPair.rsaKeyPair
-				}
-			}
-
-		let completionExpectation = expectation(description: "registerAndExecuteTestCertificateRequest completion called")
-		service.registerAndExecuteTestCertificateRequest(
-			coronaTestType: .pcr,
-			registrationToken: "registrationToken",
-			registrationDate: Date(),
-			retryExecutionIfCertificateIsPending: false,
-			labId: "SomeLabId"
-		) { result in
-			if case .failure = result {
-				XCTFail("Success expected")
-			}
-
-			completionExpectation.fulfill()
-		}
-
-		waitForExpectations(timeout: .medium)
-
-		requestsSubscription.cancel()
-
-		XCTAssertEqual(service.healthCertifiedPersons.count, 2)
-		XCTAssertTrue(service.testCertificateRequests.isEmpty)
-	}
 	
 	func testGIVEN_HealthCertificate_WHEN_CertificatesAreAddedAndRemoved_THEN_NotificationsShouldBeCreatedAndRemoved() throws {
 		// GIVEN
 		let store = MockTestStore()
-		let client = ClientMock()
 		let notificationCenter = MockUserNotificationCenter()
 		let service = HealthCertificateService(
 			store: store,
 			dccSignatureVerifier: DCCSignatureVerifyingStub(),
 			dscListProvider: MockDSCListProvider(),
-			client: client,
 			appConfiguration: CachedAppConfigurationMock(),
 			digitalCovidCertificateAccess: MockDigitalCovidCertificateAccess(),
 			notificationCenter: notificationCenter,
@@ -2152,12 +1194,10 @@ class HealthCertificateServiceTests: CWATestCase {
 
 		// WHEN
 		// When creating the service with the store, all certificates are checked for their validityStatus and thus their notifications are created.
-		let client = ClientMock()
 		let service = HealthCertificateService(
 			store: store,
 			dccSignatureVerifier: DCCSignatureVerifyingStub(error: .HC_DSC_EXPIRED),
 			dscListProvider: MockDSCListProvider(),
-			client: client,
 			appConfiguration: CachedAppConfigurationMock(),
 			digitalCovidCertificateAccess: MockDigitalCovidCertificateAccess(),
 			notificationCenter: notificationCenter,
@@ -2199,7 +1239,6 @@ class HealthCertificateServiceTests: CWATestCase {
 			store: MockTestStore(),
 			dccSignatureVerifier: DCCSignatureVerifyingStub(),
 			dscListProvider: MockDSCListProvider(),
-			client: ClientMock(),
 			appConfiguration: CachedAppConfigurationMock(),
 			notificationCenter: notificationCenter,
 			cclService: cclService,
@@ -2243,7 +1282,6 @@ class HealthCertificateServiceTests: CWATestCase {
 			store: MockTestStore(),
 			dccSignatureVerifier: DCCSignatureVerifyingStub(),
 			dscListProvider: MockDSCListProvider(),
-			client: ClientMock(),
 			appConfiguration: CachedAppConfigurationMock(),
 			notificationCenter: notificationCenter,
 			cclService: cclService,
@@ -2304,12 +1342,12 @@ class HealthCertificateServiceTests: CWATestCase {
 			store: store,
 			dccSignatureVerifier: DCCSignatureVerifyingStub(),
 			dscListProvider: MockDSCListProvider(),
-			client: ClientMock(),
 			appConfiguration: CachedAppConfigurationMock(),
 			notificationCenter: notificationCenter,
 			cclService: cclService,
 			recycleBin: .fake()
 		)
+		service.syncSetup()
 
 		XCTAssertEqual(service.healthCertifiedPersons.count, 1)
 
@@ -2363,12 +1401,12 @@ class HealthCertificateServiceTests: CWATestCase {
 			store: store,
 			dccSignatureVerifier: DCCSignatureVerifyingStub(),
 			dscListProvider: MockDSCListProvider(),
-			client: ClientMock(),
 			appConfiguration: CachedAppConfigurationMock(),
 			notificationCenter: notificationCenter,
 			cclService: cclService,
 			recycleBin: .fake()
 		)
+		service.syncSetup()
 
 		XCTAssertEqual(service.healthCertifiedPersons.count, 1)
 
@@ -2382,16 +1420,15 @@ class HealthCertificateServiceTests: CWATestCase {
 
 	func testBoosterRuleIncreasesUnseenNewsCount() throws {
 		let store = MockTestStore()
-		let client = ClientMock()
 		let service = HealthCertificateService(
 			store: store,
 			dccSignatureVerifier: DCCSignatureVerifyingStub(),
 			dscListProvider: MockDSCListProvider(),
-			client: client,
 			appConfiguration: CachedAppConfigurationMock(),
 			cclService: FakeCCLService(),
 			recycleBin: .fake()
 		)
+		service.syncSetup()
 
 		XCTAssertTrue(store.healthCertifiedPersons.isEmpty)
 
@@ -2415,7 +1452,7 @@ class HealthCertificateServiceTests: CWATestCase {
 
 		switch registrationResult {
 		case let .success(certificateResult):
-			XCTAssertEqual(certificateResult.person.healthCertificates, [firstVaccinationCertificate])
+			XCTAssertEqual(certificateResult.person.healthCertificates.map { $0.base45 }, [firstVaccinationCertificate.base45])
 		case .failure(let error):
 			XCTFail("Registration should succeed, failed with error: \(error.localizedDescription)")
 		}
@@ -2455,4 +1492,337 @@ class HealthCertificateServiceTests: CWATestCase {
 		XCTAssertEqual(service.unseenNewsCount.value, 0)
 	}
 
+	func testCertificateReissuanceNotificationTriggeredFromDCCWalletInfo() throws {
+		let healthCertificate: HealthCertificate = try vaccinationCertificate(type: .incomplete, ageInDays: 180)
+
+		let newDCCWalletInfo: DCCWalletInfo = .fake(
+			certificateReissuance: .fake(
+				reissuanceDivision: .fake(),
+				certificateToReissue: .fake(certificateRef: .fake(barcodeData: healthCertificate.base45)),
+				accompanyingCertificates: []
+			)
+		)
+
+		let notificationCenter = MockUserNotificationCenter()
+
+		var cclService = FakeCCLService()
+		cclService.dccWalletInfoResult = .success(newDCCWalletInfo)
+		cclService.didChange = false
+
+		let expectation = expectation(description: "notificationRequests changed")
+		expectation.expectedFulfillmentCount = 3
+
+		notificationCenter.onAdding = { _ in
+			expectation.fulfill()
+		}
+
+		let service = HealthCertificateService(
+			store: MockTestStore(),
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
+			dscListProvider: MockDSCListProvider(),
+			appConfiguration: CachedAppConfigurationMock(),
+			notificationCenter: notificationCenter,
+			cclService: cclService,
+			recycleBin: .fake()
+		)
+
+		service.addHealthCertificate(healthCertificate)
+
+		XCTAssertEqual(service.healthCertifiedPersons.count, 1)
+
+		waitForExpectations(timeout: .medium)
+
+		// There should be now 1 notification for certificate reissuance, 1 for expireSoon and 1 for expired.
+		XCTAssertEqual(notificationCenter.notificationRequests.count, 3)
+		XCTAssertTrue(notificationCenter.notificationRequests.contains { $0.identifier.hasPrefix("HealthCertificateNotificationExpireSoon") })
+		XCTAssertTrue(notificationCenter.notificationRequests.contains { $0.identifier.hasPrefix("HealthCertificateNotificationExpired") })
+		XCTAssertTrue(notificationCenter.notificationRequests.contains { $0.identifier.hasPrefix("CertificateReissuanceNotification") })
+	}
+
+	func testNoCertificateReissuanceNotificationTriggeredFromDCCWalletInfoWithoutCertificateReissuance() throws {
+		let healthCertificate: HealthCertificate = try vaccinationCertificate(type: .incomplete, ageInDays: 180)
+
+		let newDCCWalletInfo: DCCWalletInfo = .fake(
+			certificateReissuance: nil
+		)
+
+		let notificationCenter = MockUserNotificationCenter()
+
+		var cclService = FakeCCLService()
+		cclService.dccWalletInfoResult = .success(newDCCWalletInfo)
+		cclService.didChange = false
+
+		let expectation = expectation(description: "notificationRequests changed")
+		expectation.expectedFulfillmentCount = 2
+
+		notificationCenter.onAdding = { _ in
+			expectation.fulfill()
+		}
+
+		let service = HealthCertificateService(
+			store: MockTestStore(),
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
+			dscListProvider: MockDSCListProvider(),
+			appConfiguration: CachedAppConfigurationMock(),
+			notificationCenter: notificationCenter,
+			cclService: cclService,
+			recycleBin: .fake()
+		)
+
+		service.addHealthCertificate(healthCertificate)
+
+		XCTAssertEqual(service.healthCertifiedPersons.count, 1)
+
+		waitForExpectations(timeout: .medium)
+
+		// There should be now 1 notification for expireSoon and 1 for expired.
+		XCTAssertEqual(notificationCenter.notificationRequests.count, 2)
+		XCTAssertTrue(notificationCenter.notificationRequests.contains { $0.identifier.hasPrefix("HealthCertificateNotificationExpireSoon") })
+		XCTAssertTrue(notificationCenter.notificationRequests.contains { $0.identifier.hasPrefix("HealthCertificateNotificationExpired") })
+		XCTAssertFalse(notificationCenter.notificationRequests.contains { $0.identifier.hasPrefix("CertificateReissuanceNotification") })
+	}
+
+	func testNoDuplicateCertificateReissuanceNotificationTriggeredFromDCCWalletInfo() throws {
+		let healthCertificate: HealthCertificate = try vaccinationCertificate(type: .incomplete, ageInDays: 180)
+
+		let dccWalletInfo: DCCWalletInfo = .fake(
+			validUntil: Date(timeIntervalSinceNow: 100),
+			certificateReissuance: .fake(
+				reissuanceDivision: .fake(),
+				certificateToReissue: .fake(certificateRef: .fake(barcodeData: healthCertificate.base45)),
+				accompanyingCertificates: []
+			)
+		)
+
+		let healthCertifiedPerson = HealthCertifiedPerson(
+			healthCertificates: [healthCertificate],
+			dccWalletInfo: dccWalletInfo
+		)
+
+		let store = MockTestStore()
+		store.healthCertifiedPersons = [healthCertifiedPerson]
+
+		let notificationCenter = MockUserNotificationCenter()
+
+		var cclService = FakeCCLService()
+		cclService.dccWalletInfoResult = .success(dccWalletInfo)
+		cclService.didChange = true
+
+		let walletExpectation = expectation(description: "dccWalletInfo updated with same certificate reissuance")
+
+		let subscription = healthCertifiedPerson.$dccWalletInfo
+			.dropFirst()
+			.sink {
+				XCTAssertEqual($0, dccWalletInfo)
+				walletExpectation.fulfill()
+			}
+
+		let notificationExpectation = expectation(description: "notificationRequests changed")
+		notificationExpectation.isInverted = true
+
+		notificationCenter.onAdding = { _ in
+			notificationExpectation.fulfill()
+		}
+
+		let service = HealthCertificateService(
+			store: store,
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
+			dscListProvider: MockDSCListProvider(),
+			appConfiguration: CachedAppConfigurationMock(),
+			notificationCenter: notificationCenter,
+			cclService: cclService,
+			recycleBin: .fake()
+		)
+		service.syncSetup()
+
+		XCTAssertEqual(service.healthCertifiedPersons.count, 1)
+
+		waitForExpectations(timeout: .short)
+
+		// There should be no new notifications scheduled from the DCCWalletInfo update
+		XCTAssertEqual(notificationCenter.notificationRequests.count, 0)
+
+		subscription.cancel()
+	}
+
+	func testCertificateReissuanceIncreasesUnseenNewsCount() throws {
+		let store = MockTestStore()
+		let service = HealthCertificateService(
+			store: store,
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
+			dscListProvider: MockDSCListProvider(),
+			appConfiguration: CachedAppConfigurationMock(),
+			cclService: FakeCCLService(),
+			recycleBin: .fake()
+		)
+		service.syncSetup()
+
+		XCTAssertTrue(store.healthCertifiedPersons.isEmpty)
+
+		// Register vaccination certificate
+
+		let firstVaccinationCertificateBase45 = try base45Fake(
+			from: DigitalCovidCertificate.fake(
+				name: .fake(standardizedFamilyName: "GUENDLING", standardizedGivenName: "NICK"),
+				vaccinationEntries: [VaccinationEntry.fake(
+					doseNumber: 2,
+					totalSeriesOfDoses: 2,
+					dateOfVaccination: "2021-05-28",
+					uniqueCertificateIdentifier: "3"
+				)]
+			),
+			and: .fake(expirationTime: .distantFuture)
+		)
+		let firstVaccinationCertificate = try HealthCertificate(base45: firstVaccinationCertificateBase45, isNew: true)
+
+		let registrationResult = service.registerHealthCertificate(base45: firstVaccinationCertificateBase45, markAsNew: true)
+
+		switch registrationResult {
+		case let .success(certificateResult):
+			XCTAssertEqual(certificateResult.person.healthCertificates.map { $0.base45 }, [firstVaccinationCertificate.base45])
+		case .failure(let error):
+			XCTFail("Registration should succeed, failed with error: \(error.localizedDescription)")
+		}
+
+		// Marking as new increases unseen news count
+		XCTAssertEqual(service.unseenNewsCount.value, 1)
+		XCTAssertTrue(try XCTUnwrap(store.healthCertifiedPersons.first?.healthCertificates.first).isNew)
+
+		// Setting certificate reissuance increases unseen news count
+		store.healthCertifiedPersons.first?.dccWalletInfo = .fake(certificateReissuance: .fake(reissuanceDivision: .fake(visible: true)))
+		XCTAssertEqual(store.healthCertifiedPersons.first?.unseenNewsCount, 2)
+		XCTAssertEqual(service.unseenNewsCount.value, 2)
+
+		// Setting to same certificate reissuance leaves unseen news count unchanged
+		store.healthCertifiedPersons.first?.dccWalletInfo = .fake(certificateReissuance: .fake(reissuanceDivision: .fake(visible: true)))
+		XCTAssertEqual(store.healthCertifiedPersons.first?.unseenNewsCount, 2)
+		XCTAssertEqual(service.unseenNewsCount.value, 2)
+
+		// Setting certificate reissuance to nil decreases unseen news count
+		store.healthCertifiedPersons.first?.dccWalletInfo = .fake(certificateReissuance: nil)
+		XCTAssertEqual(store.healthCertifiedPersons.first?.unseenNewsCount, 1)
+		XCTAssertEqual(service.unseenNewsCount.value, 1)
+
+		// Setting invisible certificate reissuance does not increase unseen news count
+		store.healthCertifiedPersons.first?.dccWalletInfo = .fake(certificateReissuance: .fake(reissuanceDivision: .fake(visible: false)))
+		XCTAssertEqual(store.healthCertifiedPersons.first?.unseenNewsCount, 1)
+		XCTAssertEqual(service.unseenNewsCount.value, 1)
+
+		// Setting certificate reissuance increases unseen news count
+		store.healthCertifiedPersons.first?.dccWalletInfo = .fake(certificateReissuance: .fake(reissuanceDivision: .fake(visible: true)))
+		XCTAssertEqual(store.healthCertifiedPersons.first?.unseenNewsCount, 2)
+		XCTAssertEqual(service.unseenNewsCount.value, 2)
+
+		// Marking certificate as seen decreases unseen news count
+		store.healthCertifiedPersons.first?.healthCertificates.first?.isNew = false
+		XCTAssertEqual(store.healthCertifiedPersons.first?.unseenNewsCount, 1)
+		XCTAssertEqual(service.unseenNewsCount.value, 1)
+
+		// Marking certificate reissuance as seen decreases unseen news count
+		store.healthCertifiedPersons.first?.isNewCertificateReissuance = false
+		XCTAssertEqual(store.healthCertifiedPersons.first?.unseenNewsCount, 0)
+		XCTAssertEqual(service.unseenNewsCount.value, 0)
+	}
+
+	func test_replaceHealthCertificate_markAsNewIsTrue() throws {
+		let store = MockTestStore()
+		let recycleBin = RecycleBin.fake(store: store)
+		let service = HealthCertificateService(
+			store: store,
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
+			dscListProvider: MockDSCListProvider(),
+			appConfiguration: CachedAppConfigurationMock(),
+			cclService: FakeCCLService(),
+			recycleBin: recycleBin
+		)
+		
+		let newCertificateBase45 = try base45Fake(
+			from: DigitalCovidCertificate.fake(
+				vaccinationEntries: [
+					VaccinationEntry.fake(
+						uniqueCertificateIdentifier: "newCertificate"
+					)
+				]
+			)
+		)
+		
+		let oldCertificateBase45 = try base45Fake(
+			from: DigitalCovidCertificate.fake(
+				vaccinationEntries: [
+					VaccinationEntry.fake(
+						uniqueCertificateIdentifier: "oldCertificate"
+					)
+				]
+			)
+		)
+		let person = HealthCertifiedPerson(
+			healthCertificates: [
+				try HealthCertificate(base45: oldCertificateBase45)
+			]
+		)
+
+		let oldCertificateRef = DCCCertificateReference(barcodeData: oldCertificateBase45)
+		
+		try service.replaceHealthCertificate(
+			oldCertificateRef: oldCertificateRef,
+			with: newCertificateBase45,
+			for: person,
+			markAsNew: true
+		)
+		
+		XCTAssertEqual(person.healthCertificates[0].vaccinationEntry?.uniqueCertificateIdentifier, "newCertificate")
+		XCTAssertTrue(person.healthCertificates[0].isNew)
+		XCTAssertEqual(store.recycleBinItems.count, 1)
+	}
+	
+	func test_replaceHealthCertificate_markAsNewIsFalse() throws {
+		let store = MockTestStore()
+		let recycleBin = RecycleBin.fake(store: store)
+		let service = HealthCertificateService(
+			store: store,
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
+			dscListProvider: MockDSCListProvider(),
+			appConfiguration: CachedAppConfigurationMock(),
+			cclService: FakeCCLService(),
+			recycleBin: recycleBin
+		)
+		
+		let newCertificateBase45 = try base45Fake(
+			from: DigitalCovidCertificate.fake(
+				vaccinationEntries: [
+					VaccinationEntry.fake(
+						uniqueCertificateIdentifier: "newCertificate"
+					)
+				]
+			)
+		)
+		
+		let oldCertificateBase45 = try base45Fake(
+			from: DigitalCovidCertificate.fake(
+				vaccinationEntries: [
+					VaccinationEntry.fake(
+						uniqueCertificateIdentifier: "oldCertificate"
+					)
+				]
+			)
+		)
+		let person = HealthCertifiedPerson(
+			healthCertificates: [
+				try HealthCertificate(base45: oldCertificateBase45)
+			]
+		)
+
+		let oldCertificateRef = DCCCertificateReference(barcodeData: oldCertificateBase45)
+		
+		try service.replaceHealthCertificate(
+			oldCertificateRef: oldCertificateRef,
+			with: newCertificateBase45,
+			for: person,
+			markAsNew: false
+		)
+		
+		XCTAssertEqual(person.healthCertificates[0].vaccinationEntry?.uniqueCertificateIdentifier, "newCertificate")
+		XCTAssertFalse(person.healthCertificates[0].isNew)
+		XCTAssertEqual(store.recycleBinItems.count, 1)
+	}
 }

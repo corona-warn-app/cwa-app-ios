@@ -14,7 +14,7 @@ final class DMWarnOthersNotificationViewController: UIViewController, UITextFiel
 	init(
 		warnOthersReminder: WarnOthersReminder,
 		store: Store,
-		coronaTestService: CoronaTestService
+		coronaTestService: CoronaTestServiceProviding
 	) {
 		self.store = store
 		self.warnOthersReminder = warnOthersReminder
@@ -170,7 +170,7 @@ final class DMWarnOthersNotificationViewController: UIViewController, UITextFiel
 	
 	private var subscriptions: Set<AnyCancellable> = []
 	
-	private var coronaTestService: CoronaTestService
+	private var coronaTestService: CoronaTestServiceProviding
 	
 	private var timeInterval1TextField: UITextField!
 	private var timeInterval2TextField: UITextField!
@@ -185,7 +185,7 @@ final class DMWarnOthersNotificationViewController: UIViewController, UITextFiel
 	private var currentAntigenSubmissionConsentStatusStateLabel = UILabel()
 
 	private func setupSubscriptions() {
-		coronaTestService.$pcrTest
+		coronaTestService.pcrTest
 			.sink { pcrTest in
 				self.pcrConsentSwitch.isEnabled = pcrTest != nil
 
@@ -199,7 +199,7 @@ final class DMWarnOthersNotificationViewController: UIViewController, UITextFiel
 			}
 			.store(in: &subscriptions)
 
-		coronaTestService.$antigenTest
+		coronaTestService.antigenTest
 			.sink { antigenTest in
 				self.antigenConsentSwitch.isEnabled = antigenTest != nil
 
@@ -216,12 +216,12 @@ final class DMWarnOthersNotificationViewController: UIViewController, UITextFiel
 	
 	@objc
 	private func pcrConsentStateChanged(switchState: UISwitch) {
-		coronaTestService.pcrTest?.isSubmissionConsentGiven = switchState.isOn
+		coronaTestService.pcrTest.value?.isSubmissionConsentGiven = switchState.isOn
 	}
 
 	@objc
 	private func antigenConsentStateChanged(switchState: UISwitch) {
-		coronaTestService.antigenTest?.isSubmissionConsentGiven = switchState.isOn
+		coronaTestService.antigenTest.value?.isSubmissionConsentGiven = switchState.isOn
 	}
 	
 	@objc

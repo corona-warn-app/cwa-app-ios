@@ -6,13 +6,27 @@ import XCTest
 import HealthCertificateToolkit
 @testable import ENA
 
+extension HealthCertificateService {
+
+	func syncSetup() {
+		let dispatchGroup = DispatchGroup()
+
+		dispatchGroup.enter()
+		setup(updatingWalletInfos: true) {
+			dispatchGroup.leave()
+		}
+
+		dispatchGroup.wait()
+	}
+
+}
+
 class TestHealthCertificateService: HealthCertificateService {
 
 	convenience init(
 		store: HealthCertificateStoring,
 		dccSignatureVerifier: DCCSignatureVerifying,
 		dscListProvider: DSCListProviding,
-		client: Client,
 		appConfiguration: AppConfigurationProviding,
 		validUntilDates: [Date],
 		expirationDates: [Date]
@@ -21,14 +35,12 @@ class TestHealthCertificateService: HealthCertificateService {
 			store: store,
 			dccSignatureVerifier: dccSignatureVerifier,
 			dscListProvider: dscListProvider,
-			client: client,
 			appConfiguration: appConfiguration,
 			cclService: FakeCCLService(),
 			recycleBin: .fake()
 		)
 		self.validUntilDates = validUntilDates
 		self.expirationDates = expirationDates
-
 	}
 
 	// inject some test data helpers
@@ -59,16 +71,15 @@ class ValidationStateServiceTests: XCTestCase {
 
 		let appConfiguration = CachedAppConfigurationMock()
 		let store = MockTestStore()
-		let client = ClientMock()
 		let service = TestHealthCertificateService(
 			store: store,
 			dccSignatureVerifier: DCCSignatureVerifyingStub(),
 			dscListProvider: MockDSCListProvider(),
-			client: client,
 			appConfiguration: appConfiguration,
 			cclService: FakeCCLService(),
 			recycleBin: .fake()
 		)
+		service.syncSetup()
 		service.validationUpdatedHook = {
 			validationStateServiceExpectation.fulfill()
 		}
@@ -94,11 +105,11 @@ class ValidationStateServiceTests: XCTestCase {
 			store: store,
 			dccSignatureVerifier: DCCSignatureVerifyingStub(),
 			dscListProvider: dscListProvider,
-			client: ClientMock(),
 			appConfiguration: CachedAppConfigurationMock(),
 			cclService: FakeCCLService(),
 			recycleBin: .fake()
 		)
+		service.syncSetup()
 		service.validationUpdatedHook = {
 			validationStateServiceExpectation.fulfill()
 		}
@@ -137,7 +148,6 @@ class ValidationStateServiceTests: XCTestCase {
 			store: MockTestStore(),
 			dccSignatureVerifier: DCCSignatureVerifyingStub(),
 			dscListProvider: MockDSCListProvider(),
-			client: ClientMock(),
 			appConfiguration: CachedAppConfigurationMock(),
 			validUntilDates: dateHelper.orderDates.shuffled(),
 			expirationDates: dateHelper.futureDates.shuffled()
@@ -156,7 +166,6 @@ class ValidationStateServiceTests: XCTestCase {
 			store: MockTestStore(),
 			dccSignatureVerifier: DCCSignatureVerifyingStub(),
 			dscListProvider: MockDSCListProvider(),
-			client: ClientMock(),
 			appConfiguration: CachedAppConfigurationMock(),
 			validUntilDates: dateHelper.orderDates.shuffled(),
 			expirationDates: dateHelper.futureDates.shuffled()

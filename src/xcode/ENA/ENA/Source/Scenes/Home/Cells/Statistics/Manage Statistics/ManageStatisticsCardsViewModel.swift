@@ -24,12 +24,15 @@ class ManageStatisticsCardsViewModel {
 	// MARK: - Internal
 	
 	func presentStateSelection() {
+		let initialValue = SelectableValue(title: AppStrings.Statistics.Card.fromNationWide, isEnabled: false)
+		let selectableStates = localStatisticsModel.allFederalStateNames.map {
+			SelectableValue(title: $0)
+		}
 		let selectValueViewModel = SelectValueViewModel(
-			localStatisticsModel.allFederalStateNames,
+			selectableStates,
 			title: AppStrings.DataDonation.ValueSelection.Title.FederalState,
 			preselected: nil,
-			isInitialCellEnabled: false,
-			initialString: AppStrings.Statistics.Card.fromNationWide,
+			initialValue: initialValue,
 			accessibilityIdentifier: AccessibilityIdentifiers.LocalStatistics.selectState,
 			selectionCellIconType: .discloseIndicator
 		)
@@ -37,8 +40,8 @@ class ManageStatisticsCardsViewModel {
 			guard let state = federalState else {
 				return
 			}
-			self?.federalState = state
-			self?.showSelectDistrictList(for: state)
+			self?.federalState = state.title
+			self?.showSelectDistrictList(for: state.title)
 		}.store(in: &subscriptions)
 		presentFederalStatesList(selectValueViewModel)
 	}
@@ -46,14 +49,15 @@ class ManageStatisticsCardsViewModel {
 	// MARK: - Private
 
 	private func showSelectDistrictList(for federalStateName: String) {
-
+		let initialValue = SelectableValue(title: AppStrings.Statistics.AddCard.stateWide, isEnabled: true)
+		let selectableRegions = localStatisticsModel.allRegions(by: federalStateName).map {
+			SelectableValue(title: $0)
+		}
 		let selectValueViewModel = SelectValueViewModel(
-			localStatisticsModel.allRegions(by: federalStateName),
+			selectableRegions,
 			title: AppStrings.DataDonation.ValueSelection.Title.Region,
 			preselected: nil,
-			isInitialCellEnabled: true,
-			isInitialCellWithValue: true,
-			initialString: AppStrings.Statistics.AddCard.stateWide,
+			isInitialCellWithValue: true, initialValue: initialValue,
 			accessibilityIdentifier: AccessibilityIdentifiers.LocalStatistics.selectDistrict,
 			selectionCellIconType: .none
 		)
@@ -62,7 +66,7 @@ class ManageStatisticsCardsViewModel {
 				Log.warning("AddStatistics District is nil", log: .localStatistics)
 				return
 			}
-			self?.generateFilterID(for: unWrappedDistrict)
+			self?.generateFilterID(for: unWrappedDistrict.title)
 		}.store(in: &subscriptions)
 
 		presentSelectDistrictsList(selectValueViewModel)

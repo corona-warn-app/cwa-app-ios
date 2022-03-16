@@ -10,12 +10,16 @@ struct ValidationOnboardedCountriesResource: Resource {
 	// MARK: - Init
 	
 	init(
-		isFake: Bool = false
+		isFake: Bool = false,
+		trustEvaluation: TrustEvaluating = DefaultTrustEvaluation(
+			publicKeyHash: Environments().currentEnvironment().pinningKeyHashData
+		)
 	) {
 		self.locator = .validationOnboardedCountries(isFake: isFake)
 		self.type = .caching()
 		self.sendResource = EmptySendResource()
 		self.receiveResource = CBORReceiveResource<ValidationOnboardedCountriesReceiveModel>()
+		self.trustEvaluation = trustEvaluation
 	}
 	
 	// MARK: - Protocol Resource
@@ -23,13 +27,18 @@ struct ValidationOnboardedCountriesResource: Resource {
 	typealias Send = EmptySendResource
 	typealias Receive = CBORReceiveResource<ValidationOnboardedCountriesReceiveModel>
 	typealias CustomError = ValidationOnboardedCountriesError
+
+	let trustEvaluation: TrustEvaluating
 	
 	var locator: Locator
 	var type: ServiceType
 	var sendResource: EmptySendResource
 	var receiveResource: CBORReceiveResource<ValidationOnboardedCountriesReceiveModel>
 	
-	func customError(for error: ServiceError<ValidationOnboardedCountriesError>) -> ValidationOnboardedCountriesError? {
+	func customError(
+		for error: ServiceError<ValidationOnboardedCountriesError>,
+		responseBody: Data? = nil
+	) -> ValidationOnboardedCountriesError? {
 		switch error {
 		case .transportationError:
 			return .ONBOARDED_COUNTRIES_NO_NETWORK

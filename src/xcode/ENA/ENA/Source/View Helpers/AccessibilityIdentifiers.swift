@@ -194,6 +194,7 @@ enum AccessibilityIdentifiers {
 		static let aboutNavigation = "AppStrings.AppInformation.aboutNavigation"
 		static let faqNavigation = "AppStrings.AppInformation.faqNavigation"
 		static let termsNavigation = "AppStrings.AppInformation.termsNavigation"
+		static let accessibilityNavigation = "AppStrings.AppInformation.accessibility"
 		static let privacyNavigation = "AppStrings.AppInformation.privacyNavigation"
 		static let legalNavigation = "AppStrings.AppInformation.legalNavigation"
 		static let contactNavigation = "AppStrings.AppInformation.contactNavigation"
@@ -726,8 +727,8 @@ enum AccessibilityIdentifiers {
 		}
 
 		enum Overview {
-			static let addCertificateCell =
-				"addCertificateCell"
+			static let changeAdmissionScenarioCell =
+				"AppStrings.HealthCertificate.changeAdmissionScenarioCell"
 			static let healthCertifiedPersonCell = "AppStrings.HealthCertificate.healthCertifiedPersonCell"
 			static let testCertificateRequestCell = "AppStrings.HealthCertificate.testCertificateRequestCell"
 		}
@@ -747,6 +748,10 @@ enum AccessibilityIdentifiers {
 		enum Person {
 			static let certificateCell = "HealthCertificate.Person.cell"
 			static let validationButton = "HealthCertificate.Person.validationButton"
+			
+			enum UpdateSucceeded {
+				static let image = "HealthCertificate.Person.UpdateSucceeded.image"
+			}
 		}
 		
 		enum AdmissionState {
@@ -774,6 +779,11 @@ enum AccessibilityIdentifiers {
 		}
 
 		static let qrCodeCell = "HealthCertificate.qrCodeCell"
+		
+		enum Reissuance {
+			static let cell = "AppStrings.HealthCertificate.Reissuance.cell"
+			static let successTitle = "AppStrings.HealthCertificate.Reissuance.successTitle"
+		}
 	}
 	
 	enum TicketValidation {
@@ -815,5 +825,4 @@ enum AccessibilityIdentifiers {
 			static let boosterNotificationCell = "BoosterNotification.Details.boosterNotificationCell"
 		}
 	}
-
 }

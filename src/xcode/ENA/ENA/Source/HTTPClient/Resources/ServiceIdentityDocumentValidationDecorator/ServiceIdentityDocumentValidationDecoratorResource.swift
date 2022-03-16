@@ -8,11 +8,16 @@ struct ServiceIdentityDocumentValidationDecoratorResource: Resource {
 
 	// MARK: - Init
 
-	init(url: URL, isFake: Bool = false) {
+	init(
+		url: URL,
+		isFake: Bool = false,
+		trustEvaluation: TrustEvaluating = DisabledTrustEvaluation()
+	) {
 		self.locator = .serviceIdentityDocumentValidationDecorator(url: url)
-		self.type = .disabledPinning
+		self.type = .default
 		self.sendResource = EmptySendResource()
 		self.receiveResource = JSONReceiveResource<TicketValidationServiceIdentityDocument>()
+		self.trustEvaluation = trustEvaluation
 	}
 
 	// MARK: - Protocol Resource
@@ -21,12 +26,17 @@ struct ServiceIdentityDocumentValidationDecoratorResource: Resource {
 	typealias Receive = JSONReceiveResource<TicketValidationServiceIdentityDocument>
 	typealias CustomError = ServiceIdentityResourceDecoratorError
 
+	let trustEvaluation: TrustEvaluating
+
 	var locator: Locator
 	var type: ServiceType
 	var sendResource: EmptySendResource
 	var receiveResource: JSONReceiveResource<TicketValidationServiceIdentityDocument>
 	
-	func customError(for error: ServiceError<ServiceIdentityResourceDecoratorError>) -> ServiceIdentityResourceDecoratorError? {
+	func customError(
+		for error: ServiceError<ServiceIdentityResourceDecoratorError>,
+		responseBody: Data? = nil
+	) -> ServiceIdentityResourceDecoratorError? {
 		switch error {
 		case .unexpectedServerError(let statusCode):
 			switch statusCode {

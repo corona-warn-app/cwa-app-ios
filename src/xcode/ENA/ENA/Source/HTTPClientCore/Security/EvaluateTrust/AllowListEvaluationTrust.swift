@@ -5,19 +5,19 @@
 import Foundation
 import ENASecurity
 
-class AllowListEvaluationTrust: EvaluateTrust {
+class AllowListEvaluationTrust: TrustEvaluating {
 
 	// MARK: - Init
 
 	init(
 		allowList: [ValidationServiceAllowlistEntry],
-		trustEvaluation: TrustEvaluation
+		trustEvaluation: ENASecurity.JSONWebKeyTrustEvaluation
 	) {
 		self.allowList = allowList
 		self.trustEvaluation = trustEvaluation
 	}
 
-	// MARK: - Protocol EvaluateTrust
+	// MARK: - Protocol TrustEvaluating
 
 	func evaluate(
 		challenge: URLAuthenticationChallenge,
@@ -45,18 +45,18 @@ class AllowListEvaluationTrust: EvaluateTrust {
 			completionHandler(.useCredential, URLCredential(trust: trust))
 		case .failure(let error):
 			Log.debug("AuthenticationChallenge failed with error \(error.localizedDescription)", log: .client)
-			trustEvaluationError = error
+			trustEvaluationError = .jsonWebKey(error)
 			completionHandler(.cancelAuthenticationChallenge, nil)
 		}
 	}
 		
 	// MARK: - Internal
 
-	var trustEvaluationError: Error?
+	var trustEvaluationError: TrustEvaluationError?
 
 	// MARK: - Private
 
-	private let trustEvaluation: TrustEvaluation
+	private let trustEvaluation: ENASecurity.JSONWebKeyTrustEvaluation
 	private var allowList: [ValidationServiceAllowlistEntry]
 
 }

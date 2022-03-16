@@ -4,12 +4,15 @@
 
 import Foundation
 
-struct CCLConfigurationResource: Resource {
+class CCLConfigurationResource: Resource {
 	
 	// MARK: - Init
 	
 	init(
-		isFake: Bool = false
+		isFake: Bool = false,
+		trustEvaluation: TrustEvaluating = DefaultTrustEvaluation(
+			publicKeyHash: Environments().currentEnvironment().pinningKeyHashData
+		)
 	) {
 		self.type = .caching(
 			Set<CacheUsePolicy>([.loadOnlyOnceADay])
@@ -26,6 +29,9 @@ struct CCLConfigurationResource: Resource {
 
 		self.sendResource = EmptySendResource()
 		self.receiveResource = CBORReceiveResource<CCLConfigurationReceiveModel>()
+		self.trustEvaluation = trustEvaluation
+
+		self.defaultModel = bundledDefaultModel
 	}
 	
 	// MARK: - Protocol Resource
@@ -33,18 +39,31 @@ struct CCLConfigurationResource: Resource {
 	typealias Send = EmptySendResource
 	typealias Receive = CBORReceiveResource<CCLConfigurationReceiveModel>
 	typealias CustomError = Error
+
+	let trustEvaluation: TrustEvaluating
 	
 	var locator: Locator
 	var type: ServiceType
 	var sendResource: EmptySendResource
 	var receiveResource: CBORReceiveResource<CCLConfigurationReceiveModel>
-	var defaultModel: CCLConfigurationReceiveModel? {
-			
+	var defaultModel: CCLConfigurationReceiveModel?
+	
+	// MARK: - Internal
+	
+	#if !RELEASE
+	// Needed for dev menu force updates.
+	static let keyForceUpdateCCLConfiguration = "keyForceUpdateCCLConfiguration"
+	#endif
+
+	// MARK: - Private
+
+	private var bundledDefaultModel: CCLConfigurationReceiveModel? {
 		guard let url = Bundle.main.url(forResource: "ccl-configuration", withExtension: "bin"),
 			  let fallbackBin = try? Data(contentsOf: url) else {
 			Log.error("Creating the default model failed due to loading default bin from disc", log: .client)
 			return nil
 		}
+
 		switch CCLConfigurationReceiveModel.make(with: fallbackBin) {
 		case .success(let model):
 			return model
@@ -53,12 +72,5 @@ struct CCLConfigurationResource: Resource {
 			return nil
 		}
 	}
-	
-	// MARK: - Internal
-	
-	#if !RELEASE
-	// Needed for dev menu force updates.
-	static let keyForceUpdateCCLConfiguration = "keyForceUpdateCCLConfiguration"
 
-	#endif
 }

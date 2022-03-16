@@ -8,7 +8,7 @@ final class PPAAnalyticsSubmissionCollector {
 
 	init(
 		store: Store,
-		coronaTestService: CoronaTestService
+		coronaTestService: CoronaTestServiceProviding
 	) {
 		// We put the PPAnalyticsData protocol and its implementation in a separate file because this protocol is only used by the collector. And only the collector should use it!
 		// This way we avoid the direct access of analytics data at other places over the store.
@@ -124,7 +124,7 @@ final class PPAAnalyticsSubmissionCollector {
 	// MARK: - Private
 
 	private var store: PPAnalyticsData & StoreProtocol
-	private var coronaTestService: CoronaTestService
+	private var coronaTestService: CoronaTestServiceProviding
 
 	private func setHoursSinceTestResult(type: CoronaTestType) {
 		guard let testResultReceivedDate = coronaTestService.coronaTest(ofType: type)?.finalTestResultReceivedDate else {
@@ -205,9 +205,9 @@ final class PPAAnalyticsSubmissionCollector {
 			let _registrationTime: Date?
 			switch type {
 			case .pcr:
-				_registrationTime = coronaTestService.pcrTest?.registrationDate
+				_registrationTime = coronaTestService.pcrTest.value?.registrationDate
 			case .antigen:
-				_registrationTime = coronaTestService.antigenTest?.registrationDate
+				_registrationTime = coronaTestService.antigenTest.value?.registrationDate
 			}
 
 			guard let dateOfRiskChangeToHigh = store.dateOfConversionToENFHighRisk,
@@ -270,9 +270,9 @@ final class PPAAnalyticsSubmissionCollector {
 			let _registrationTime: Date?
 			switch type {
 			case .pcr:
-				_registrationTime = coronaTestService.pcrTest?.registrationDate
+				_registrationTime = coronaTestService.pcrTest.value?.registrationDate
 			case .antigen:
-				_registrationTime = coronaTestService.antigenTest?.registrationDate
+				_registrationTime = coronaTestService.antigenTest.value?.registrationDate
 			}
 
 			guard let dateOfRiskChangeToHigh = store.dateOfConversionToCheckinHighRisk,

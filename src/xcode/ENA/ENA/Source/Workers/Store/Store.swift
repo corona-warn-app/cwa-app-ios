@@ -213,6 +213,13 @@ protocol HealthCertificateStoring: AnyObject {
 	var lastBoosterNotificationsExecutionDate: Date? { get set }
 
 	var healthCertifiedPersonsVersion: Int? { get set }
+	
+	var lastSelectedScenarioIdentifier: String? { get set }
+
+	var dccAdmissionCheckScenarios: DCCAdmissionCheckScenarios? { get set }
+
+	/// Flag to inform the user that a regroup after a migration was applied.
+	var shouldShowRegroupingAlert: Bool { get set }
 
 }
 

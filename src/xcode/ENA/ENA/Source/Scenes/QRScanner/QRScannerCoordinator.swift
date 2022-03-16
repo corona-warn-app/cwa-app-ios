@@ -38,7 +38,7 @@ class QRScannerCoordinator {
 		healthCertificateValidationOnboardedCountriesProvider: HealthCertificateValidationOnboardedCountriesProviding,
 		vaccinationValueSetsProvider: VaccinationValueSetsProviding,
 		exposureSubmissionService: ExposureSubmissionService,
-		coronaTestService: CoronaTestService,
+		coronaTestService: CoronaTestServiceProviding,
 		recycleBin: RecycleBin
 	) {
 		self.store = store
@@ -92,10 +92,10 @@ class QRScannerCoordinator {
 	private let healthCertificateValidationOnboardedCountriesProvider: HealthCertificateValidationOnboardedCountriesProviding
 	private let vaccinationValueSetsProvider: VaccinationValueSetsProviding
 	private let exposureSubmissionService: ExposureSubmissionService
-	private let coronaTestService: CoronaTestService
+	private let coronaTestService: CoronaTestServiceProviding
 	private let recycleBin: RecycleBin
 
-	private let activityIndicatorView = QRScannerActivityIndicatorView()
+	private let activityIndicatorView = QRScannerActivityIndicatorView(title: AppStrings.FileScanner.hudText)
 	private let activityIndicatorAnimationDuration = 0.45
 	
 	private var presenter: QRScannerPresenter!
@@ -894,7 +894,8 @@ class QRScannerCoordinator {
 	) -> RecycleBinItem? {
 		switch testRegistrationInformation {
 		case .pcr(guid: _, qrCodeHash: let qrCodeHash),
-			.antigen(qrCodeInformation: _, qrCodeHash: let qrCodeHash):
+			.antigen(qrCodeInformation: _, qrCodeHash: let qrCodeHash),
+			.rapidPCR(qrCodeInformation: _, qrCodeHash: let qrCodeHash):
 			return store.recycleBinItems.first {
 				guard case .coronaTest(let coronaTest) = $0.item else {
 					return false

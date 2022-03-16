@@ -17,21 +17,27 @@ class CoronaTestServiceTests: CWATestCase {
 		let store = MockTestStore()
 		let appConfiguration = CachedAppConfigurationMock()
 
+		let healthCertificateService = HealthCertificateService(
+			store: store,
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
+			dscListProvider: MockDSCListProvider(),
+			appConfiguration: appConfiguration,
+			cclService: FakeCCLService(),
+			recycleBin: .fake()
+		)
+
 		let service = CoronaTestService(
 			client: client,
 			store: store,
 			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
 			appConfiguration: appConfiguration,
-			healthCertificateService: HealthCertificateService(
+			healthCertificateService: healthCertificateService,
+			healthCertificateRequestService: HealthCertificateRequestService(
 				store: store,
-				dccSignatureVerifier: DCCSignatureVerifyingStub(),
-				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration,
-				cclService: FakeCCLService(),
-
-				recycleBin: .fake()
+				healthCertificateService: healthCertificateService
 			),
 			recycleBin: .fake(),
 			badgeWrapper: .fake()
@@ -54,21 +60,27 @@ class CoronaTestServiceTests: CWATestCase {
 		let store = MockTestStore()
 		let appConfiguration = CachedAppConfigurationMock()
 
+		let healthCertificateService = HealthCertificateService(
+			store: store,
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
+			dscListProvider: MockDSCListProvider(),
+			appConfiguration: appConfiguration,
+			cclService: FakeCCLService(),
+			recycleBin: .fake()
+		)
+
 		let service = CoronaTestService(
 			client: client,
 			store: store,
 			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
 			appConfiguration: appConfiguration,
-			healthCertificateService: HealthCertificateService(
+			healthCertificateService: healthCertificateService,
+			healthCertificateRequestService: HealthCertificateRequestService(
 				store: store,
-				dccSignatureVerifier: DCCSignatureVerifyingStub(),
-				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration,
-				cclService: FakeCCLService(),
-
-				recycleBin: .fake()
+				healthCertificateService: healthCertificateService
 			),
 			recycleBin: .fake(),
 			badgeWrapper: .fake()
@@ -76,28 +88,28 @@ class CoronaTestServiceTests: CWATestCase {
 
 		XCTAssertFalse(service.hasAtLeastOneShownPositiveOrSubmittedTest)
 
-		service.pcrTest = PCRTest.mock(positiveTestResultWasShown: false, keysSubmitted: false)
+		service.pcrTest.value = PCRTest.mock(positiveTestResultWasShown: false, keysSubmitted: false)
 		XCTAssertFalse(service.hasAtLeastOneShownPositiveOrSubmittedTest)
 
-		service.antigenTest = AntigenTest.mock(positiveTestResultWasShown: false, keysSubmitted: false)
+		service.antigenTest.value = AntigenTest.mock(positiveTestResultWasShown: false, keysSubmitted: false)
 		XCTAssertFalse(service.hasAtLeastOneShownPositiveOrSubmittedTest)
 
-		service.pcrTest?.positiveTestResultWasShown = true
+		service.pcrTest.value?.positiveTestResultWasShown = true
 		XCTAssertTrue(service.hasAtLeastOneShownPositiveOrSubmittedTest)
 
-		service.pcrTest?.positiveTestResultWasShown = false
-		service.antigenTest?.positiveTestResultWasShown = true
+		service.pcrTest.value?.positiveTestResultWasShown = false
+		service.antigenTest.value?.positiveTestResultWasShown = true
 		XCTAssertTrue(service.hasAtLeastOneShownPositiveOrSubmittedTest)
 
-		service.antigenTest?.positiveTestResultWasShown = false
-		service.pcrTest?.keysSubmitted = true
+		service.antigenTest.value?.positiveTestResultWasShown = false
+		service.pcrTest.value?.keysSubmitted = true
 		XCTAssertTrue(service.hasAtLeastOneShownPositiveOrSubmittedTest)
 
-		service.pcrTest?.keysSubmitted = false
-		service.antigenTest?.keysSubmitted = true
+		service.pcrTest.value?.keysSubmitted = false
+		service.antigenTest.value?.keysSubmitted = true
 		XCTAssertTrue(service.hasAtLeastOneShownPositiveOrSubmittedTest)
 
-		service.antigenTest?.keysSubmitted = false
+		service.antigenTest.value?.keysSubmitted = false
 		XCTAssertFalse(service.hasAtLeastOneShownPositiveOrSubmittedTest)
 	}
 
@@ -109,21 +121,27 @@ class CoronaTestServiceTests: CWATestCase {
 		let client = ClientMock()
 		let store = MockTestStore()
 
+		let healthCertificateService = HealthCertificateService(
+			store: store,
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
+			dscListProvider: MockDSCListProvider(),
+			appConfiguration: appConfiguration,
+			cclService: FakeCCLService(),
+			recycleBin: .fake()
+		)
+
 		let service = CoronaTestService(
 			client: client,
 			store: store,
 			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
 			appConfiguration: appConfiguration,
-			healthCertificateService: HealthCertificateService(
+			healthCertificateService: healthCertificateService,
+			healthCertificateRequestService: HealthCertificateRequestService(
 				store: store,
-				dccSignatureVerifier: DCCSignatureVerifyingStub(),
-				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration,
-				cclService: FakeCCLService(),
-
-				recycleBin: .fake()
+				healthCertificateService: healthCertificateService
 			),
 			recycleBin: .fake(),
 			badgeWrapper: .fake()
@@ -135,13 +153,13 @@ class CoronaTestServiceTests: CWATestCase {
 		let expectedValues = [false, false, true]
 
 		var receivedValues = [Bool]()
-		let subscription = service.$antigenTestIsOutdated
+		let subscription = service.antigenTestIsOutdated
 			.sink {
 				receivedValues.append($0)
 				publisherExpectation.fulfill()
 			}
 
-		service.antigenTest = AntigenTest.mock(
+		service.antigenTest.value = AntigenTest.mock(
 			pointOfCareConsentDate: Date(timeIntervalSinceNow: -(60 * 60 * 48)),
 			sampleCollectionDate: nil,
 			testResult: .negative
@@ -162,21 +180,27 @@ class CoronaTestServiceTests: CWATestCase {
 		let client = ClientMock()
 		let store = MockTestStore()
 
+		let healthCertificateService = HealthCertificateService(
+			store: store,
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
+			dscListProvider: MockDSCListProvider(),
+			appConfiguration: appConfiguration,
+			cclService: FakeCCLService(),
+			recycleBin: .fake()
+		)
+
 		let service = CoronaTestService(
 			client: client,
 			store: store,
 			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
 			appConfiguration: appConfiguration,
-			healthCertificateService: HealthCertificateService(
+			healthCertificateService: healthCertificateService,
+			healthCertificateRequestService: HealthCertificateRequestService(
 				store: store,
-				dccSignatureVerifier: DCCSignatureVerifyingStub(),
-				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration,
-				cclService: FakeCCLService(),
-
-				recycleBin: .fake()
+				healthCertificateService: healthCertificateService
 			),
 			recycleBin: .fake(),
 			badgeWrapper: .fake()
@@ -188,7 +212,7 @@ class CoronaTestServiceTests: CWATestCase {
 		let expectedValues = [false, false, true]
 
 		var receivedValues = [Bool]()
-		let subscription = service.$antigenTestIsOutdated
+		let subscription = service.antigenTestIsOutdated
 			.sink {
 				receivedValues.append($0)
 				publisherExpectation.fulfill()
@@ -196,7 +220,7 @@ class CoronaTestServiceTests: CWATestCase {
 
 		// Outdated only according to sample collection date, not according to point of care consent date
 		// As we are using the sample collection date if set, the test is outdated
-		service.antigenTest = AntigenTest.mock(
+		service.antigenTest.value = AntigenTest.mock(
 			pointOfCareConsentDate: Date(timeIntervalSinceNow: -(60 * 60 * 46)),
 			sampleCollectionDate: Date(timeIntervalSinceNow: -(60 * 60 * 48)),
 			testResult: .negative
@@ -217,21 +241,27 @@ class CoronaTestServiceTests: CWATestCase {
 		let client = ClientMock()
 		let store = MockTestStore()
 
+		let healthCertificateService = HealthCertificateService(
+			store: store,
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
+			dscListProvider: MockDSCListProvider(),
+			appConfiguration: appConfiguration,
+			cclService: FakeCCLService(),
+			recycleBin: .fake()
+		)
+
 		let service = CoronaTestService(
 			client: client,
 			store: store,
 			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
 			appConfiguration: appConfiguration,
-			healthCertificateService: HealthCertificateService(
+			healthCertificateService: healthCertificateService,
+			healthCertificateRequestService: HealthCertificateRequestService(
 				store: store,
-				dccSignatureVerifier: DCCSignatureVerifyingStub(),
-				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration,
-				cclService: FakeCCLService(),
-
-				recycleBin: .fake()
+				healthCertificateService: healthCertificateService
 			),
 			recycleBin: .fake(),
 			badgeWrapper: .fake()
@@ -243,13 +273,13 @@ class CoronaTestServiceTests: CWATestCase {
 		let expectedValues = [false, false, true]
 
 		var receivedValues = [Bool]()
-		let subscription = service.$antigenTestIsOutdated
+		let subscription = service.antigenTestIsOutdated
 			.sink {
 				receivedValues.append($0)
 				publisherExpectation.fulfill()
 			}
 
-		service.antigenTest = AntigenTest.mock(
+		service.antigenTest.value = AntigenTest.mock(
 			pointOfCareConsentDate: Date(timeIntervalSinceNow: -(60 * 60 * 48) + 5),
 			testResult: .negative
 		)
@@ -270,21 +300,27 @@ class CoronaTestServiceTests: CWATestCase {
 		let client = ClientMock()
 		let store = MockTestStore()
 
+		let healthCertificateService = HealthCertificateService(
+			store: store,
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
+			dscListProvider: MockDSCListProvider(),
+			appConfiguration: appConfiguration,
+			cclService: FakeCCLService(),
+			recycleBin: .fake()
+		)
+
 		let service = CoronaTestService(
 			client: client,
 			store: store,
 			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
 			appConfiguration: appConfiguration,
-			healthCertificateService: HealthCertificateService(
+			healthCertificateService: healthCertificateService,
+			healthCertificateRequestService: HealthCertificateRequestService(
 				store: store,
-				dccSignatureVerifier: DCCSignatureVerifyingStub(),
-				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration,
-				cclService: FakeCCLService(),
-
-				recycleBin: .fake()
+				healthCertificateService: healthCertificateService
 			),
 			recycleBin: .fake(),
 			badgeWrapper: .fake()
@@ -296,7 +332,7 @@ class CoronaTestServiceTests: CWATestCase {
 		let expectedValues = [false, false, true, false]
 
 		var receivedValues = [Bool]()
-		let subscription = service.$antigenTestIsOutdated
+		let subscription = service.antigenTestIsOutdated
 			.sink { antigenTestIsOutdated in
 				receivedValues.append(antigenTestIsOutdated)
 				publisherExpectation.fulfill()
@@ -307,7 +343,7 @@ class CoronaTestServiceTests: CWATestCase {
 				}
 			}
 
-		service.antigenTest = AntigenTest.mock(
+		service.antigenTest.value = AntigenTest.mock(
 			pointOfCareConsentDate: Date(timeIntervalSinceNow: -(60 * 60 * 48)),
 			testResult: .negative
 		)
@@ -327,21 +363,27 @@ class CoronaTestServiceTests: CWATestCase {
 		let client = ClientMock()
 		let store = MockTestStore()
 
+		let healthCertificateService = HealthCertificateService(
+			store: store,
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
+			dscListProvider: MockDSCListProvider(),
+			appConfiguration: appConfiguration,
+			cclService: FakeCCLService(),
+			recycleBin: .fake()
+		)
+
 		let service = CoronaTestService(
 			client: client,
 			store: store,
 			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
 			appConfiguration: appConfiguration,
-			healthCertificateService: HealthCertificateService(
+			healthCertificateService: healthCertificateService,
+			healthCertificateRequestService: HealthCertificateRequestService(
 				store: store,
-				dccSignatureVerifier: DCCSignatureVerifyingStub(),
-				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration,
-				cclService: FakeCCLService(),
-
-				recycleBin: .fake()
+				healthCertificateService: healthCertificateService
 			),
 			recycleBin: .fake(),
 			badgeWrapper: .fake()
@@ -353,14 +395,14 @@ class CoronaTestServiceTests: CWATestCase {
 		let expectedValues = [false, false, true, false]
 
 		var receivedValues = [Bool]()
-		let subscription = service.$antigenTestIsOutdated
+		let subscription = service.antigenTestIsOutdated
 			.sink { antigenTestIsOutdated in
 				receivedValues.append(antigenTestIsOutdated)
 				publisherExpectation.fulfill()
 
 				// Replace test as soon as outdated state is set
-				if antigenTestIsOutdated && service.antigenTest?.registrationToken == "1" {
-					service.antigenTest = AntigenTest.mock(
+				if antigenTestIsOutdated && service.antigenTest.value?.registrationToken == "1" {
+					service.antigenTest.value = AntigenTest.mock(
 						registrationToken: "2",
 						pointOfCareConsentDate: Date(),
 						testResult: .pending
@@ -368,7 +410,7 @@ class CoronaTestServiceTests: CWATestCase {
 				}
 			}
 
-		service.antigenTest = AntigenTest.mock(
+		service.antigenTest.value = AntigenTest.mock(
 			registrationToken: "1",
 			pointOfCareConsentDate: Date(timeIntervalSinceNow: -(60 * 60 * 48)),
 			testResult: .negative
@@ -384,26 +426,32 @@ class CoronaTestServiceTests: CWATestCase {
 	func testOutdatedPublisherStillOutdatedWhenReplacingOutdatedNegativeAntigenTestWithAnotherOutdatedOne() {
 		var defaultAppConfig = CachedAppConfigurationMock.defaultAppConfiguration
 		defaultAppConfig.coronaTestParameters.coronaRapidAntigenTestParameters.hoursToDeemTestOutdated = 48
-		let appConfig = CachedAppConfigurationMock(with: defaultAppConfig)
+		let appConfiguration = CachedAppConfigurationMock(with: defaultAppConfig)
 
 		let client = ClientMock()
 		let store = MockTestStore()
+
+		let healthCertificateService = HealthCertificateService(
+			store: store,
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
+			dscListProvider: MockDSCListProvider(),
+			appConfiguration: appConfiguration,
+			cclService: FakeCCLService(),
+			recycleBin: .fake()
+		)
 
 		let service = CoronaTestService(
 			client: client,
 			store: store,
 			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
-			appConfiguration: appConfig,
-			healthCertificateService: HealthCertificateService(
+			appConfiguration: appConfiguration,
+			healthCertificateService: healthCertificateService,
+			healthCertificateRequestService: HealthCertificateRequestService(
 				store: store,
-				dccSignatureVerifier: DCCSignatureVerifyingStub(),
-				dscListProvider: MockDSCListProvider(),
 				client: client,
-				appConfiguration: appConfig,
-				cclService: FakeCCLService(),
-
-				recycleBin: .fake()
+				appConfiguration: appConfiguration,
+				healthCertificateService: healthCertificateService
 			),
 			recycleBin: .fake(),
 			badgeWrapper: .fake()
@@ -415,14 +463,14 @@ class CoronaTestServiceTests: CWATestCase {
 		let expectedValues = [false, false, true, false, true]
 
 		var receivedValues = [Bool]()
-		let subscription = service.$antigenTestIsOutdated
+		let subscription = service.antigenTestIsOutdated
 			.sink { antigenTestIsOutdated in
 				receivedValues.append(antigenTestIsOutdated)
 				publisherExpectation.fulfill()
 
 				// Replace test as soon as outdated state is set
-				if antigenTestIsOutdated && service.antigenTest?.registrationToken == "1" {
-					service.antigenTest = AntigenTest.mock(
+				if antigenTestIsOutdated && service.antigenTest.value?.registrationToken == "1" {
+					service.antigenTest.value = AntigenTest.mock(
 						registrationToken: "2",
 						pointOfCareConsentDate: Date(timeIntervalSinceNow: -(60 * 60 * 48)),
 						testResult: .negative
@@ -430,7 +478,7 @@ class CoronaTestServiceTests: CWATestCase {
 				}
 			}
 
-		service.antigenTest = AntigenTest.mock(
+		service.antigenTest.value = AntigenTest.mock(
 			registrationToken: "1",
 			pointOfCareConsentDate: Date(timeIntervalSinceNow: -(60 * 60 * 48)),
 			testResult: .negative
@@ -448,26 +496,32 @@ class CoronaTestServiceTests: CWATestCase {
 		for testResult in testResults {
 			var defaultAppConfig = CachedAppConfigurationMock.defaultAppConfiguration
 			defaultAppConfig.coronaTestParameters.coronaRapidAntigenTestParameters.hoursToDeemTestOutdated = 48
-			let appConfig = CachedAppConfigurationMock(with: defaultAppConfig)
+			let appConfiguration = CachedAppConfigurationMock(with: defaultAppConfig)
 
 			let client = ClientMock()
 			let store = MockTestStore()
+
+			let healthCertificateService = HealthCertificateService(
+				store: store,
+				dccSignatureVerifier: DCCSignatureVerifyingStub(),
+				dscListProvider: MockDSCListProvider(),
+				appConfiguration: appConfiguration,
+				cclService: FakeCCLService(),
+				recycleBin: .fake()
+			)
 
 			let service = CoronaTestService(
 				client: client,
 				store: store,
 				eventStore: MockEventStore(),
 				diaryStore: MockDiaryStore(),
-				appConfiguration: appConfig,
-				healthCertificateService: HealthCertificateService(
+				appConfiguration: appConfiguration,
+				healthCertificateService: healthCertificateService,
+				healthCertificateRequestService: HealthCertificateRequestService(
 					store: store,
-					dccSignatureVerifier: DCCSignatureVerifyingStub(),
-					dscListProvider: MockDSCListProvider(),
 					client: client,
-					appConfiguration: appConfig,
-					cclService: FakeCCLService(),
-
-					recycleBin: .fake()
+					appConfiguration: appConfiguration,
+					healthCertificateService: healthCertificateService
 				),
 				recycleBin: .fake(),
 				badgeWrapper: .fake()
@@ -479,13 +533,13 @@ class CoronaTestServiceTests: CWATestCase {
 			let expectedValues = [false, false]
 
 			var receivedValues = [Bool]()
-			let subscription = service.$antigenTestIsOutdated
+			let subscription = service.antigenTestIsOutdated
 				.sink {
 					receivedValues.append($0)
 					publisherExpectation.fulfill()
 				}
 
-			service.antigenTest = AntigenTest.mock(
+			service.antigenTest.value = AntigenTest.mock(
 				pointOfCareConsentDate: Date(timeIntervalSinceNow: -(60 * 60 * 48)),
 				testResult: testResult
 			)
@@ -503,21 +557,27 @@ class CoronaTestServiceTests: CWATestCase {
 		let store = MockTestStore()
 		let appConfiguration = CachedAppConfigurationMock()
 
+		let healthCertificateService = HealthCertificateService(
+			store: store,
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
+			dscListProvider: MockDSCListProvider(),
+			appConfiguration: appConfiguration,
+			cclService: FakeCCLService(),
+			recycleBin: .fake()
+		)
+
 		let service = CoronaTestService(
 			client: client,
 			store: store,
 			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
 			appConfiguration: appConfiguration,
-			healthCertificateService: HealthCertificateService(
+			healthCertificateService: healthCertificateService,
+			healthCertificateRequestService: HealthCertificateRequestService(
 				store: store,
-				dccSignatureVerifier: DCCSignatureVerifyingStub(),
-				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration,
-				cclService: FakeCCLService(),
-
-				recycleBin: .fake()
+				healthCertificateService: healthCertificateService
 			),
 			recycleBin: .fake(),
 			badgeWrapper: .fake()
@@ -526,8 +586,8 @@ class CoronaTestServiceTests: CWATestCase {
 		XCTAssertNil(service.coronaTest(ofType: .pcr))
 		XCTAssertNil(service.coronaTest(ofType: .antigen))
 
-		service.pcrTest = PCRTest.mock(registrationToken: "pcrRegistrationToken")
-		service.antigenTest = AntigenTest.mock(registrationToken: "antigenRegistrationToken")
+		service.pcrTest.value = PCRTest.mock(registrationToken: "pcrRegistrationToken")
+		service.antigenTest.value = AntigenTest.mock(registrationToken: "antigenRegistrationToken")
 
 		XCTAssertEqual(service.coronaTest(ofType: .pcr)?.registrationToken, "pcrRegistrationToken")
 		XCTAssertEqual(service.coronaTest(ofType: .antigen)?.registrationToken, "antigenRegistrationToken")
@@ -546,13 +606,22 @@ class CoronaTestServiceTests: CWATestCase {
 			.success(
 				TeleTanReceiveModel(registrationToken: "registrationToken")
 			),
-			.success(TestResultReceiveModel(testResult: TestResult.pending.rawValue, sc: nil, labId: "SomeLabId"))
+			.success(TestResultReceiveModel(testResult: TestResult.serverResponse(for: .pending, on: .pcr), sc: nil, labId: "SomeLabId"))
 
 		])
 
 		let client = ClientMock()
 
 		let appConfiguration = CachedAppConfigurationMock()
+
+		let healthCertificateService = HealthCertificateService(
+			store: store,
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
+			dscListProvider: MockDSCListProvider(),
+			appConfiguration: appConfiguration,
+			cclService: FakeCCLService(),
+			recycleBin: .fake()
+		)
 
 		let service = CoronaTestService(
 			client: client,
@@ -561,20 +630,17 @@ class CoronaTestServiceTests: CWATestCase {
 			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
 			appConfiguration: appConfiguration,
-			healthCertificateService: HealthCertificateService(
+			healthCertificateService: healthCertificateService,
+			healthCertificateRequestService: HealthCertificateRequestService(
 				store: store,
-				dccSignatureVerifier: DCCSignatureVerifyingStub(),
-				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration,
-				cclService: FakeCCLService(),
-
-				recycleBin: .fake()
+				healthCertificateService: healthCertificateService
 			),
 			recycleBin: .fake(),
 			badgeWrapper: .fake()
 		)
-		service.pcrTest = nil
+		service.pcrTest.value = nil
 
 		let expectation = self.expectation(description: "Expect to receive a result.")
 
@@ -582,6 +648,7 @@ class CoronaTestServiceTests: CWATestCase {
 			guid: "guid",
 			qrCodeHash: "qrCodeHash",
 			isSubmissionConsentGiven: false,
+			markAsUnseen: false,
 			certificateConsent: .notGiven
 		) { result in
 			expectation.fulfill()
@@ -595,7 +662,7 @@ class CoronaTestServiceTests: CWATestCase {
 
 		waitForExpectations(timeout: .short)
 
-		guard let pcrTest = service.pcrTest else {
+		guard let pcrTest = service.pcrTest.value else {
 			XCTFail("pcrTest should not be nil")
 			return
 		}
@@ -647,13 +714,22 @@ class CoronaTestServiceTests: CWATestCase {
 				}
 			),
 			LoadResource(
-				result: .success(TestResultReceiveModel(testResult: TestResult.negative.rawValue, sc: nil, labId: nil)), willLoadResource: nil)
+				result: .success(TestResultReceiveModel(testResult: TestResult.serverResponse(for: .negative, on: .pcr), sc: nil, labId: nil)), willLoadResource: nil)
 		])
 
 		let client = ClientMock()
 
 		let appConfiguration = CachedAppConfigurationMock()
 		let badgeWrapper = HomeBadgeWrapper.fake()
+		let healthCertificateService = HealthCertificateService(
+			store: store,
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
+			dscListProvider: MockDSCListProvider(),
+			appConfiguration: appConfiguration,
+			cclService: FakeCCLService(),
+			recycleBin: .fake()
+		)
+
 		let service = CoronaTestService(
 			client: client,
 			restServiceProvider: restServiceProvider,
@@ -661,15 +737,12 @@ class CoronaTestServiceTests: CWATestCase {
 			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
 			appConfiguration: appConfiguration,
-			healthCertificateService: HealthCertificateService(
+			healthCertificateService: healthCertificateService,
+			healthCertificateRequestService: HealthCertificateRequestService(
 				store: store,
-				dccSignatureVerifier: DCCSignatureVerifyingStub(),
-				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration,
-				cclService: FakeCCLService(),
-
-				recycleBin: .fake()
+				healthCertificateService: healthCertificateService
 			),
 			recycleBin: .fake(),
 			badgeWrapper: badgeWrapper
@@ -686,7 +759,7 @@ class CoronaTestServiceTests: CWATestCase {
 				countExpectation.fulfill()
 			}
 
-		service.pcrTest = nil
+		service.pcrTest.value = nil
 
 		let expectation = self.expectation(description: "Expect to receive a result.")
 
@@ -710,7 +783,7 @@ class CoronaTestServiceTests: CWATestCase {
 
 		waitForExpectations(timeout: .short)
 
-		guard let pcrTest = service.pcrTest else {
+		guard let pcrTest = service.pcrTest.value else {
 			XCTFail("pcrTest should not be nil")
 			return
 		}
@@ -769,13 +842,22 @@ class CoronaTestServiceTests: CWATestCase {
 				}
 			),
 			LoadResource(
-				result: .success(TestResultReceiveModel(testResult: TestResult.negative.rawValue, sc: nil, labId: nil)), willLoadResource: nil)
+				result: .success(TestResultReceiveModel(testResult: TestResult.serverResponse(for: .negative, on: .pcr), sc: nil, labId: nil)), willLoadResource: nil)
 		])
 
 		let client = ClientMock()
 
 		let appConfiguration = CachedAppConfigurationMock()
 		let badgeWrapper = HomeBadgeWrapper.fake()
+		let healthCertificateService = HealthCertificateService(
+			store: store,
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
+			dscListProvider: MockDSCListProvider(),
+			appConfiguration: appConfiguration,
+			cclService: FakeCCLService(),
+			recycleBin: .fake()
+		)
+
 		let service = CoronaTestService(
 			client: client,
 			restServiceProvider: restServiceProvider,
@@ -783,18 +865,15 @@ class CoronaTestServiceTests: CWATestCase {
 			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
 			appConfiguration: appConfiguration,
-			healthCertificateService: HealthCertificateService(
+			healthCertificateService: healthCertificateService,
+			healthCertificateRequestService: HealthCertificateRequestService(
 				store: store,
-				dccSignatureVerifier: DCCSignatureVerifyingStub(),
-				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration,
-				cclService: FakeCCLService(),
-
-				recycleBin: .fake()
+				healthCertificateService: healthCertificateService
 			),
 			recycleBin: .fake(),
-			badgeWrapper: badgeWrapper
+			badgeWrapper: .fake()
 		)
 		
 		let expectedCounts: [String?] = [nil]
@@ -808,7 +887,7 @@ class CoronaTestServiceTests: CWATestCase {
 				countExpectation.fulfill()
 			}
 
-		service.pcrTest = nil
+		service.pcrTest.value = nil
 
 		let expectation = self.expectation(description: "Expect to receive a result.")
 
@@ -816,6 +895,7 @@ class CoronaTestServiceTests: CWATestCase {
 			guid: "F1EE0D-F1EE0D4D-4346-4B63-B9CF-1522D9200915",
 			qrCodeHash: "",
 			isSubmissionConsentGiven: true,
+			markAsUnseen: false,
 			certificateConsent: .given(dateOfBirth: "1995-06-07")
 		) { result in
 			expectation.fulfill()
@@ -829,7 +909,7 @@ class CoronaTestServiceTests: CWATestCase {
 
 		waitForExpectations(timeout: .short)
 
-		guard let pcrTest = service.pcrTest else {
+		guard let pcrTest = service.pcrTest.value else {
 			XCTFail("pcrTest should not be nil")
 			return
 		}
@@ -863,12 +943,21 @@ class CoronaTestServiceTests: CWATestCase {
 				}
 			),
 			LoadResource(
-				result: .success(TestResultReceiveModel(testResult: TestResult.negative.rawValue, sc: nil, labId: nil)), willLoadResource: nil)
+				result: .success(TestResultReceiveModel(testResult: TestResult.serverResponse(for: .negative, on: .pcr), sc: nil, labId: nil)), willLoadResource: nil)
 		])
 
 		let client = ClientMock()
 
 		let appConfiguration = CachedAppConfigurationMock()
+
+		let healthCertificateService = HealthCertificateService(
+			store: store,
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
+			dscListProvider: MockDSCListProvider(),
+			appConfiguration: appConfiguration,
+			cclService: FakeCCLService(),
+			recycleBin: .fake()
+		)
 
 		let service = CoronaTestService(
 			client: client,
@@ -877,20 +966,17 @@ class CoronaTestServiceTests: CWATestCase {
 			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
 			appConfiguration: appConfiguration,
-			healthCertificateService: HealthCertificateService(
+			healthCertificateService: healthCertificateService,
+			healthCertificateRequestService: HealthCertificateRequestService(
 				store: store,
-				dccSignatureVerifier: DCCSignatureVerifyingStub(),
-				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration,
-				cclService: FakeCCLService(),
-
-				recycleBin: .fake()
+				healthCertificateService: healthCertificateService
 			),
 			recycleBin: .fake(),
 			badgeWrapper: .fake()
 		)
-		service.pcrTest = nil
+		service.pcrTest.value = nil
 
 		let expectation = self.expectation(description: "Expect to receive a result.")
 
@@ -898,6 +984,7 @@ class CoronaTestServiceTests: CWATestCase {
 			guid: "F1EE0D-F1EE0D4D-4346-4B63-B9CF-1522D9200915",
 			qrCodeHash: "",
 			isSubmissionConsentGiven: true,
+			markAsUnseen: false,
 			certificateConsent: .given(dateOfBirth: nil)
 		) { result in
 			expectation.fulfill()
@@ -911,7 +998,7 @@ class CoronaTestServiceTests: CWATestCase {
 
 		waitForExpectations(timeout: .short)
 
-		guard let pcrTest = service.pcrTest else {
+		guard let pcrTest = service.pcrTest.value else {
 			XCTFail("pcrTest should not be nil")
 			return
 		}
@@ -937,6 +1024,15 @@ class CoronaTestServiceTests: CWATestCase {
 
 		let appConfiguration = CachedAppConfigurationMock()
 
+		let healthCertificateService = HealthCertificateService(
+			store: store,
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
+			dscListProvider: MockDSCListProvider(),
+			appConfiguration: appConfiguration,
+			cclService: FakeCCLService(),
+			recycleBin: .fake()
+		)
+
 		let service = CoronaTestService(
 			client: client,
 			restServiceProvider: restServiceProvider,
@@ -944,20 +1040,17 @@ class CoronaTestServiceTests: CWATestCase {
 			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
 			appConfiguration: appConfiguration,
-			healthCertificateService: HealthCertificateService(
+			healthCertificateService: healthCertificateService,
+			healthCertificateRequestService: HealthCertificateRequestService(
 				store: store,
-				dccSignatureVerifier: DCCSignatureVerifyingStub(),
-				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration,
-				cclService: FakeCCLService(),
-
-				recycleBin: .fake()
+				healthCertificateService: healthCertificateService
 			),
 			recycleBin: .fake(),
 			badgeWrapper: .fake()
 		)
-		service.pcrTest = nil
+		service.pcrTest.value = nil
 
 		let expectation = self.expectation(description: "Expect to receive a result.")
 
@@ -965,6 +1058,7 @@ class CoronaTestServiceTests: CWATestCase {
 			guid: "guid",
 			qrCodeHash: "",
 			isSubmissionConsentGiven: false,
+			markAsUnseen: false,
 			certificateConsent: .notGiven
 		) { result in
 			expectation.fulfill()
@@ -978,7 +1072,7 @@ class CoronaTestServiceTests: CWATestCase {
 
 		waitForExpectations(timeout: .short)
 
-		XCTAssertNil(service.pcrTest)
+		XCTAssertNil(service.pcrTest.value)
 		XCTAssertNil(store.pcrTestResultMetadata)
 	}
 
@@ -1003,6 +1097,15 @@ class CoronaTestServiceTests: CWATestCase {
 
 		let appConfiguration = CachedAppConfigurationMock()
 
+		let healthCertificateService = HealthCertificateService(
+			store: store,
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
+			dscListProvider: MockDSCListProvider(),
+			appConfiguration: appConfiguration,
+			cclService: FakeCCLService(),
+			recycleBin: .fake()
+		)
+
 		let service = CoronaTestService(
 			client: client,
 			restServiceProvider: restServiceProvider,
@@ -1010,20 +1113,17 @@ class CoronaTestServiceTests: CWATestCase {
 			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
 			appConfiguration: appConfiguration,
-			healthCertificateService: HealthCertificateService(
+			healthCertificateService: healthCertificateService,
+			healthCertificateRequestService: HealthCertificateRequestService(
 				store: store,
-				dccSignatureVerifier: DCCSignatureVerifyingStub(),
-				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration,
-				cclService: FakeCCLService(),
-
-				recycleBin: .fake()
+				healthCertificateService: healthCertificateService
 			),
 			recycleBin: .fake(),
 			badgeWrapper: .fake()
 		)
-		service.pcrTest = nil
+		service.pcrTest.value = nil
 
 		let expectation = self.expectation(description: "Expect to receive a result.")
 
@@ -1031,6 +1131,7 @@ class CoronaTestServiceTests: CWATestCase {
 			guid: "guid",
 			qrCodeHash: "qrCodeHash",
 			isSubmissionConsentGiven: false,
+			markAsUnseen: false,
 			certificateConsent: .notGiven
 		) { result in
 			expectation.fulfill()
@@ -1044,7 +1145,7 @@ class CoronaTestServiceTests: CWATestCase {
 
 		waitForExpectations(timeout: .short)
 
-		guard let pcrTest = service.pcrTest else {
+		guard let pcrTest = service.pcrTest.value else {
 			XCTFail("pcrTest should not be nil")
 			return
 		}
@@ -1090,6 +1191,15 @@ class CoronaTestServiceTests: CWATestCase {
 		let appConfiguration = CachedAppConfigurationMock()
 		let diaryStore = MockDiaryStore()
 
+		let healthCertificateService = HealthCertificateService(
+			store: store,
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
+			dscListProvider: MockDSCListProvider(),
+			appConfiguration: appConfiguration,
+			cclService: FakeCCLService(),
+			recycleBin: .fake()
+		)
+
 		let service = CoronaTestService(
 			client: client,
 			restServiceProvider: restServiceProvider,
@@ -1097,15 +1207,12 @@ class CoronaTestServiceTests: CWATestCase {
 			eventStore: eventStore,
 			diaryStore: diaryStore,
 			appConfiguration: appConfiguration,
-			healthCertificateService: HealthCertificateService(
+			healthCertificateService: healthCertificateService,
+			healthCertificateRequestService: HealthCertificateRequestService(
 				store: store,
-				dccSignatureVerifier: DCCSignatureVerifyingStub(),
-				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration,
-				cclService: FakeCCLService(),
-
-				recycleBin: .fake()
+				healthCertificateService: healthCertificateService
 			),
 			recycleBin: .fake(),
 			badgeWrapper: .fake()
@@ -1116,7 +1223,7 @@ class CoronaTestServiceTests: CWATestCase {
 		)
 		store.isPrivacyPreservingAnalyticsConsentGiven = true
 		
-		service.pcrTest = nil
+		service.pcrTest.value = nil
 
 		let expectation = self.expectation(description: "Expect to receive a result.")
 
@@ -1135,7 +1242,7 @@ class CoronaTestServiceTests: CWATestCase {
 		
 		waitForExpectations(timeout: .short)
 
-		guard let pcrTest = service.pcrTest else {
+		guard let pcrTest = service.pcrTest.value else {
 			XCTFail("pcrTest should not be nil")
 			return
 		}
@@ -1180,6 +1287,15 @@ class CoronaTestServiceTests: CWATestCase {
 		let appConfiguration = CachedAppConfigurationMock()
 		let diaryStore = MockDiaryStore()
 
+		let healthCertificateService = HealthCertificateService(
+			store: store,
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
+			dscListProvider: MockDSCListProvider(),
+			appConfiguration: appConfiguration,
+			cclService: FakeCCLService(),
+			recycleBin: .fake()
+		)
+
 		let service = CoronaTestService(
 			client: client,
 			restServiceProvider: restServiceProvider,
@@ -1187,21 +1303,18 @@ class CoronaTestServiceTests: CWATestCase {
 			eventStore: MockEventStore(),
 			diaryStore: diaryStore,
 			appConfiguration: appConfiguration,
-			healthCertificateService: HealthCertificateService(
+			healthCertificateService: healthCertificateService,
+			healthCertificateRequestService: HealthCertificateRequestService(
 				store: store,
-				dccSignatureVerifier: DCCSignatureVerifyingStub(),
-				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration,
-				cclService: FakeCCLService(),
-
-				recycleBin: .fake()
+				healthCertificateService: healthCertificateService
 			),
 			recycleBin: .fake(),
 			badgeWrapper: .fake()
 		)
 		
-		service.pcrTest = nil
+		service.pcrTest.value = nil
 
 		let expectation = self.expectation(description: "Expect to receive a result.")
 
@@ -1220,7 +1333,7 @@ class CoronaTestServiceTests: CWATestCase {
 		
 		waitForExpectations(timeout: .short)
 
-		guard let pcrTest = service.pcrTest else {
+		guard let pcrTest = service.pcrTest.value else {
 			XCTFail("pcrTest should not be nil")
 			return
 		}
@@ -1260,6 +1373,15 @@ class CoronaTestServiceTests: CWATestCase {
 		let client = ClientMock()
 		let appConfiguration = CachedAppConfigurationMock()
 		let diaryStore = MockDiaryStore()
+		let healthCertificateService = HealthCertificateService(
+			store: store,
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
+			dscListProvider: MockDSCListProvider(),
+			appConfiguration: appConfiguration,
+			cclService: FakeCCLService(),
+			recycleBin: .fake()
+		)
+
 		let service = CoronaTestService(
 			client: client,
 			restServiceProvider: restServiceProvider,
@@ -1267,20 +1389,17 @@ class CoronaTestServiceTests: CWATestCase {
 			eventStore: MockEventStore(),
 			diaryStore: diaryStore,
 			appConfiguration: appConfiguration,
-			healthCertificateService: HealthCertificateService(
+			healthCertificateService: healthCertificateService,
+			healthCertificateRequestService: HealthCertificateRequestService(
 				store: store,
-				dccSignatureVerifier: DCCSignatureVerifyingStub(),
-				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration,
-				cclService: FakeCCLService(),
-
-				recycleBin: .fake()
+				healthCertificateService: healthCertificateService
 			),
 			recycleBin: .fake(),
 			badgeWrapper: .fake()
 		)
-		service.pcrTest = nil
+		service.pcrTest.value = nil
 
 		let expectation = self.expectation(description: "Expect to receive a result.")
 
@@ -1299,7 +1418,7 @@ class CoronaTestServiceTests: CWATestCase {
 
 		waitForExpectations(timeout: .short)
 
-		XCTAssertNil(service.pcrTest)
+		XCTAssertNil(service.pcrTest.value)
 		XCTAssertNil(store.pcrTestResultMetadata)
 		XCTAssertTrue(diaryStore.coronaTests.isEmpty)
 	}
@@ -1322,13 +1441,22 @@ class CoronaTestServiceTests: CWATestCase {
 				}
 			),
 			LoadResource(
-				result: .success(TestResultReceiveModel(testResult: TestResult.pending.rawValue, sc: 123456789, labId: "SomeLabId")), willLoadResource: nil)
+				result: .success(TestResultReceiveModel(testResult: TestResult.serverResponse(for: .pending, on: .antigen), sc: 123456789, labId: "SomeLabId")), willLoadResource: nil)
 		])
 
 		let client = ClientMock()
 
 		let store = MockTestStore()
 		let appConfiguration = CachedAppConfigurationMock()
+
+		let healthCertificateService = HealthCertificateService(
+			store: store,
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
+			dscListProvider: MockDSCListProvider(),
+			appConfiguration: appConfiguration,
+			cclService: FakeCCLService(),
+			recycleBin: .fake()
+		)
 
 		let service = CoronaTestService(
 			client: client,
@@ -1337,20 +1465,17 @@ class CoronaTestServiceTests: CWATestCase {
 			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
 			appConfiguration: appConfiguration,
-			healthCertificateService: HealthCertificateService(
+			healthCertificateService: healthCertificateService,
+			healthCertificateRequestService: HealthCertificateRequestService(
 				store: store,
-				dccSignatureVerifier: DCCSignatureVerifyingStub(),
-				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration,
-				cclService: FakeCCLService(),
-
-				recycleBin: .fake()
+				healthCertificateService: healthCertificateService
 			),
 			recycleBin: .fake(),
 			badgeWrapper: .fake()
 		)
-		service.antigenTest = nil
+		service.antigenTest.value = nil
 
 		let expectation = self.expectation(description: "Expect to receive a result.")
 
@@ -1362,6 +1487,7 @@ class CoronaTestServiceTests: CWATestCase {
 			lastName: "Mustermann",
 			dateOfBirth: "1964-08-12",
 			isSubmissionConsentGiven: false,
+			markAsUnseen: false,
 			certificateSupportedByPointOfCare: true,
 			// Date of birth given even though it is not used for antigen tests
 			certificateConsent: .given(dateOfBirth: "1964-08-12")
@@ -1377,7 +1503,7 @@ class CoronaTestServiceTests: CWATestCase {
 
 		waitForExpectations(timeout: .short)
 
-		guard let antigenTest = service.antigenTest else {
+		guard let antigenTest = service.antigenTest.value else {
 			XCTFail("antigenTest should not be nil")
 			return
 		}
@@ -1406,7 +1532,7 @@ class CoronaTestServiceTests: CWATestCase {
 			.success(
 				TeleTanReceiveModel(registrationToken: "registrationToken")
 			),
-			.success(TestResultReceiveModel(testResult: TestResult.pending.rawValue, sc: nil, labId: nil)),
+			.success(TestResultReceiveModel(testResult: TestResult.serverResponse(for: .pending, on: .antigen), sc: nil, labId: nil)),
 			.success(RegistrationTokenReceiveModel(submissionTAN: "fake"))
 		])
 
@@ -1415,6 +1541,15 @@ class CoronaTestServiceTests: CWATestCase {
 		let store = MockTestStore()
 		let appConfiguration = CachedAppConfigurationMock()
 		let badgeWrapper = HomeBadgeWrapper.fake()
+		let healthCertificateService = HealthCertificateService(
+			store: store,
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
+			dscListProvider: MockDSCListProvider(),
+			appConfiguration: appConfiguration,
+			cclService: FakeCCLService(),
+			recycleBin: .fake()
+		)
+
 		let service = CoronaTestService(
 			client: client,
 			restServiceProvider: restServiceProvider,
@@ -1422,15 +1557,12 @@ class CoronaTestServiceTests: CWATestCase {
 			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
 			appConfiguration: appConfiguration,
-			healthCertificateService: HealthCertificateService(
+			healthCertificateService: healthCertificateService,
+			healthCertificateRequestService: HealthCertificateRequestService(
 				store: store,
-				dccSignatureVerifier: DCCSignatureVerifyingStub(),
-				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration,
-				cclService: FakeCCLService(),
-
-				recycleBin: .fake()
+				healthCertificateService: healthCertificateService
 			),
 			recycleBin: .fake(),
 			badgeWrapper: badgeWrapper
@@ -1446,9 +1578,7 @@ class CoronaTestServiceTests: CWATestCase {
 				countExpectation.fulfill()
 			}
 		
-		service.pcrTest = nil
-
-		service.antigenTest = nil
+		service.antigenTest.value = nil
 
 		let expectation = self.expectation(description: "Expect to receive a result.")
 
@@ -1477,7 +1607,7 @@ class CoronaTestServiceTests: CWATestCase {
 
 		waitForExpectations(timeout: .short)
 
-		guard let antigenTest = service.antigenTest else {
+		guard let antigenTest = service.antigenTest.value else {
 			XCTFail("antigenTest should not be nil")
 			return
 		}
@@ -1526,7 +1656,7 @@ class CoronaTestServiceTests: CWATestCase {
 				}
 			),
 			LoadResource(
-				   result: .success(TestResultReceiveModel(testResult: TestResult.negative.rawValue, sc: nil, labId: nil)), willLoadResource: nil
+				   result: .success(TestResultReceiveModel(testResult: TestResult.serverResponse(for: .negative, on: .antigen), sc: nil, labId: nil)), willLoadResource: nil
 			)
 		])
 
@@ -1534,6 +1664,15 @@ class CoronaTestServiceTests: CWATestCase {
 
 		let appConfiguration = CachedAppConfigurationMock()
 		let badgeWrapper = HomeBadgeWrapper.fake()
+		let healthCertificateService = HealthCertificateService(
+			store: store,
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
+			dscListProvider: MockDSCListProvider(),
+			appConfiguration: appConfiguration,
+			cclService: FakeCCLService(),
+			recycleBin: .fake()
+		)
+
 		let service = CoronaTestService(
 			client: client,
 			restServiceProvider: restServiceProvider,
@@ -1541,15 +1680,12 @@ class CoronaTestServiceTests: CWATestCase {
 			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
 			appConfiguration: appConfiguration,
-			healthCertificateService: HealthCertificateService(
+			healthCertificateService: healthCertificateService,
+			healthCertificateRequestService: HealthCertificateRequestService(
 				store: store,
-				dccSignatureVerifier: DCCSignatureVerifyingStub(),
-				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration,
-				cclService: FakeCCLService(),
-
-				recycleBin: .fake()
+				healthCertificateService: healthCertificateService
 			),
 			recycleBin: .fake(),
 			badgeWrapper: .fake()
@@ -1565,7 +1701,7 @@ class CoronaTestServiceTests: CWATestCase {
 				countExpectation.fulfill()
 			}
 
-		service.antigenTest = nil
+		service.antigenTest.value = nil
 
 		let expectation = self.expectation(description: "Expect to receive a result.")
 
@@ -1577,6 +1713,7 @@ class CoronaTestServiceTests: CWATestCase {
 			lastName: "Mustermann",
 			dateOfBirth: "1964-08-12",
 			isSubmissionConsentGiven: false,
+			markAsUnseen: false,
 			certificateSupportedByPointOfCare: true,
 			certificateConsent: .given(dateOfBirth: nil)
 		) { result in
@@ -1591,7 +1728,7 @@ class CoronaTestServiceTests: CWATestCase {
 
 		waitForExpectations(timeout: .short)
 
-		guard let antigenTest = service.antigenTest else {
+		guard let antigenTest = service.antigenTest.value else {
 			XCTFail("antigenTest should not be nil")
 			return
 		}
@@ -1615,6 +1752,15 @@ class CoronaTestServiceTests: CWATestCase {
 		let store = MockTestStore()
 		let appConfiguration = CachedAppConfigurationMock()
 
+		let healthCertificateService = HealthCertificateService(
+			store: store,
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
+			dscListProvider: MockDSCListProvider(),
+			appConfiguration: appConfiguration,
+			cclService: FakeCCLService(),
+			recycleBin: .fake()
+		)
+
 		let service = CoronaTestService(
 			client: client,
 			restServiceProvider: restServiceProvider,
@@ -1622,20 +1768,17 @@ class CoronaTestServiceTests: CWATestCase {
 			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
 			appConfiguration: appConfiguration,
-			healthCertificateService: HealthCertificateService(
+			healthCertificateService: healthCertificateService,
+			healthCertificateRequestService: HealthCertificateRequestService(
 				store: store,
-				dccSignatureVerifier: DCCSignatureVerifyingStub(),
-				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration,
-				cclService: FakeCCLService(),
-
-				recycleBin: .fake()
+				healthCertificateService: healthCertificateService
 			),
 			recycleBin: .fake(),
 			badgeWrapper: .fake()
 		)
-		service.antigenTest = nil
+		service.antigenTest.value = nil
 
 		let expectation = self.expectation(description: "Expect to receive a result.")
 
@@ -1647,6 +1790,7 @@ class CoronaTestServiceTests: CWATestCase {
 			lastName: nil,
 			dateOfBirth: nil,
 			isSubmissionConsentGiven: true,
+			markAsUnseen: false,
 			certificateSupportedByPointOfCare: false,
 			certificateConsent: .notGiven
 		) { result in
@@ -1661,7 +1805,7 @@ class CoronaTestServiceTests: CWATestCase {
 
 		waitForExpectations(timeout: .short)
 
-		XCTAssertNil(service.antigenTest)
+		XCTAssertNil(service.antigenTest.value)
 	}
 
 	func testRegisterAntigenTestAndGetResult_RegistrationSucceedsGettingTestResultFails() {
@@ -1677,6 +1821,15 @@ class CoronaTestServiceTests: CWATestCase {
 		let store = MockTestStore()
 		let appConfiguration = CachedAppConfigurationMock()
 
+		let healthCertificateService = HealthCertificateService(
+			store: store,
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
+			dscListProvider: MockDSCListProvider(),
+			appConfiguration: appConfiguration,
+			cclService: FakeCCLService(),
+			recycleBin: .fake()
+		)
+
 		let service = CoronaTestService(
 			client: client,
 			restServiceProvider: restServiceProvider,
@@ -1684,20 +1837,17 @@ class CoronaTestServiceTests: CWATestCase {
 			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
 			appConfiguration: appConfiguration,
-			healthCertificateService: HealthCertificateService(
+			healthCertificateService: healthCertificateService,
+			healthCertificateRequestService: HealthCertificateRequestService(
 				store: store,
-				dccSignatureVerifier: DCCSignatureVerifyingStub(),
-				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration,
-				cclService: FakeCCLService(),
-
-				recycleBin: .fake()
+				healthCertificateService: healthCertificateService
 			),
 			recycleBin: .fake(),
 			badgeWrapper: .fake()
 		)
-		service.antigenTest = nil
+		service.antigenTest.value = nil
 
 		let expectation = self.expectation(description: "Expect to receive a result.")
 
@@ -1709,6 +1859,7 @@ class CoronaTestServiceTests: CWATestCase {
 			lastName: nil,
 			dateOfBirth: nil,
 			isSubmissionConsentGiven: true,
+			markAsUnseen: false,
 			certificateSupportedByPointOfCare: false,
 			certificateConsent: .notGiven
 		) { result in
@@ -1723,7 +1874,7 @@ class CoronaTestServiceTests: CWATestCase {
 
 		waitForExpectations(timeout: .short)
 
-		guard let antigenTest = service.antigenTest else {
+		guard let antigenTest = service.antigenTest.value else {
 			XCTFail("antigenTest should not be nil")
 			return
 		}
@@ -1743,18 +1894,44 @@ class CoronaTestServiceTests: CWATestCase {
 		XCTAssertFalse(antigenTest.journalEntryCreated)
 	}
 
-	// MARK: - Test Result Update
+	func testRegisterRapidPCRTestAndGetResult_successWithoutSubmissionConsentGivenWithTestedPerson() {
+		let restServiceProvider = RestServiceProviderStub(loadResources: [
+			LoadResource(
+				result: .success(
+					TeleTanReceiveModel(registrationToken: "registrationToken")
+				),
+				willLoadResource: { resource in
+					// Ensure that the date of birth is not passed to the client for rapid PCR tests if it is given accidentally
 
-	func testUpdatePCRTestResult_success() {
-		let restServiceProvider = RestServiceProviderStub(results: [
-			.success(TestResultReceiveModel(testResult: TestResult.positive.rawValue, sc: nil, labId: nil)),
-			.success(RegistrationTokenReceiveModel(submissionTAN: "fake"))
+					guard let resource = resource as? TeleTanResource,
+						let sendModel = resource.sendResource.sendModel else {
+						XCTFail("TeleTanResource expected.")
+						return
+					}
+					XCTAssertNil(sendModel.keyDob)
+				}
+			),
+			LoadResource(
+				result: .success(TestResultReceiveModel(testResult: TestResult.serverResponse(for: .pending, on: .pcr), sc: 123456789, labId: "SomeLabId")), willLoadResource: nil)
 		])
 
 		let client = ClientMock()
 
 		let store = MockTestStore()
+		store.enfRiskCalculationResult = mockRiskCalculationResult()
+		Analytics.setupMock(store: store)
+		store.isPrivacyPreservingAnalyticsConsentGiven = true
+
 		let appConfiguration = CachedAppConfigurationMock()
+
+		let healthCertificateService = HealthCertificateService(
+			store: store,
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
+			dscListProvider: MockDSCListProvider(),
+			appConfiguration: appConfiguration,
+			cclService: FakeCCLService(),
+			recycleBin: .fake()
+		)
 
 		let service = CoronaTestService(
 			client: client,
@@ -1763,19 +1940,497 @@ class CoronaTestServiceTests: CWATestCase {
 			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
 			appConfiguration: appConfiguration,
-			healthCertificateService: HealthCertificateService(
+			healthCertificateService: healthCertificateService,
+			healthCertificateRequestService: HealthCertificateRequestService(
 				store: store,
-				dccSignatureVerifier: DCCSignatureVerifyingStub(),
-				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration,
-				cclService: FakeCCLService(),
-				recycleBin: .fake()
+				healthCertificateService: healthCertificateService
 			),
 			recycleBin: .fake(),
 			badgeWrapper: .fake()
 		)
-		service.pcrTest = PCRTest.mock(registrationToken: "regToken")
+		service.pcrTest.value = nil
+
+		let expectation = self.expectation(description: "Expect to receive a result.")
+
+		service.registerRapidPCRTestAndGetResult(
+			with: "hash",
+			qrCodeHash: "qrCodeHash",
+			pointOfCareConsentDate: Date(timeIntervalSince1970: 2222),
+			firstName: "Erika",
+			lastName: "Mustermann",
+			dateOfBirth: "1964-08-12",
+			isSubmissionConsentGiven: false,
+			markAsUnseen: false,
+			certificateSupportedByPointOfCare: true,
+			certificateConsent: .notGiven
+		) { result in
+			expectation.fulfill()
+			switch result {
+			case .failure:
+				XCTFail("This test should always return a successful result.")
+			case .success(let testResult):
+				XCTAssertEqual(testResult, TestResult.pending)
+			}
+		}
+
+		waitForExpectations(timeout: .short)
+
+		guard let rapidPCRTest = service.pcrTest.value else {
+			XCTFail("rapidPCRTest should not be nil")
+			return
+		}
+		
+		XCTAssertEqual(rapidPCRTest.registrationToken, "registrationToken")
+		XCTAssertEqual(rapidPCRTest.qrCodeHash, "qrCodeHash")
+		XCTAssertEqual(
+			try XCTUnwrap(rapidPCRTest.registrationDate).timeIntervalSince1970,
+			Date().timeIntervalSince1970,
+			accuracy: 10
+		)
+		XCTAssertEqual(rapidPCRTest.testResult, .pending)
+		XCTAssertNil(rapidPCRTest.finalTestResultReceivedDate)
+		XCTAssertFalse(rapidPCRTest.positiveTestResultWasShown)
+		XCTAssertFalse(rapidPCRTest.isSubmissionConsentGiven)
+		XCTAssertNil(rapidPCRTest.submissionTAN)
+		XCTAssertFalse(rapidPCRTest.keysSubmitted)
+		XCTAssertFalse(rapidPCRTest.journalEntryCreated)
+		XCTAssertFalse(rapidPCRTest.certificateConsentGiven)
+		XCTAssertFalse(rapidPCRTest.certificateRequested)
+		XCTAssertEqual(store.pcrTestResultMetadata?.testResult, .pending)
+		XCTAssertEqual(
+			try XCTUnwrap(store.pcrTestResultMetadata?.testRegistrationDate).timeIntervalSince1970,
+			Date().timeIntervalSince1970,
+			accuracy: 10
+		)
+	}
+
+	func testRegisterRapidPCRTestAndGetResult_successWithSubmissionConsentGiven() {
+		let restServiceProvider = RestServiceProviderStub(results: [
+			.success(
+				TeleTanReceiveModel(registrationToken: "registrationToken")
+			),
+			.success(TestResultReceiveModel(testResult: TestResult.serverResponse(for: .pending, on: .pcr), sc: nil, labId: nil)),
+			.success(RegistrationTokenReceiveModel(submissionTAN: "fake"))
+		])
+
+		let client = ClientMock()
+
+		let store = MockTestStore()
+		store.enfRiskCalculationResult = mockRiskCalculationResult()
+		Analytics.setupMock(store: store)
+		store.isPrivacyPreservingAnalyticsConsentGiven = true
+
+		let appConfiguration = CachedAppConfigurationMock()
+		let badgeWrapper = HomeBadgeWrapper.fake()
+		let healthCertificateService = HealthCertificateService(
+			store: store,
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
+			dscListProvider: MockDSCListProvider(),
+			appConfiguration: appConfiguration,
+			cclService: FakeCCLService(),
+			recycleBin: .fake()
+		)
+
+		let service = CoronaTestService(
+			client: client,
+			restServiceProvider: restServiceProvider,
+			store: store,
+			eventStore: MockEventStore(),
+			diaryStore: MockDiaryStore(),
+			appConfiguration: appConfiguration,
+			healthCertificateService: healthCertificateService,
+			healthCertificateRequestService: HealthCertificateRequestService(
+				store: store,
+				client: client,
+				appConfiguration: appConfiguration,
+				healthCertificateService: healthCertificateService
+			),
+			recycleBin: .fake(),
+			badgeWrapper: badgeWrapper
+		)
+
+		let expectedCounts = [nil, "1", nil]
+		let countExpectation = expectation(description: "Count updated")
+		countExpectation.expectedFulfillmentCount = 3
+		var receivedCounts = [String?]()
+		let countSubscription = badgeWrapper.$stringValue
+			.sink {
+				receivedCounts.append($0)
+				countExpectation.fulfill()
+			}
+
+		service.pcrTest.value = nil
+
+		let expectation = self.expectation(description: "Expect to receive a result.")
+		service.registerRapidPCRTestAndGetResult(
+			with: "hash",
+			qrCodeHash: "qrCodeHash",
+			pointOfCareConsentDate: Date(timeIntervalSince1970: 2222),
+			firstName: nil,
+			lastName: nil,
+			dateOfBirth: nil,
+			isSubmissionConsentGiven: true,
+			markAsUnseen: true,
+			certificateSupportedByPointOfCare: false,
+			certificateConsent: .notGiven
+		) { result in
+			expectation.fulfill()
+			switch result {
+			case .failure:
+				XCTFail("This test should always return a successful result.")
+			case .success(let testResult):
+				XCTAssertEqual(testResult, TestResult.pending)
+			}
+		}
+
+		badgeWrapper.reset(.unseenTests)
+
+		waitForExpectations(timeout: .short)
+
+		guard let rapidPCRTest = service.pcrTest.value else {
+			XCTFail("rapidPCRTest should not be nil")
+			return
+		}
+
+		countSubscription.cancel()
+
+		XCTAssertEqual(receivedCounts, expectedCounts)
+		XCTAssertEqual(rapidPCRTest.registrationToken, "registrationToken")
+		XCTAssertEqual(rapidPCRTest.qrCodeHash, "qrCodeHash")
+		XCTAssertEqual(rapidPCRTest.testResult, .pending)
+		XCTAssertNil(rapidPCRTest.finalTestResultReceivedDate)
+		XCTAssertFalse(rapidPCRTest.positiveTestResultWasShown)
+		XCTAssertTrue(rapidPCRTest.isSubmissionConsentGiven)
+		XCTAssertNil(rapidPCRTest.submissionTAN)
+		XCTAssertFalse(rapidPCRTest.keysSubmitted)
+		XCTAssertFalse(rapidPCRTest.journalEntryCreated)
+		XCTAssertFalse(rapidPCRTest.certificateConsentGiven)
+		XCTAssertFalse(rapidPCRTest.certificateRequested)
+		
+		XCTAssertEqual(
+			try XCTUnwrap(rapidPCRTest.registrationDate).timeIntervalSince1970,
+			Date().timeIntervalSince1970,
+			accuracy: 10
+		)
+		XCTAssertEqual(store.pcrTestResultMetadata?.testResult, .pending)
+		XCTAssertEqual(
+			try XCTUnwrap(store.pcrTestResultMetadata?.testRegistrationDate).timeIntervalSince1970,
+			Date().timeIntervalSince1970,
+			accuracy: 10
+		)
+	}
+
+	func testRegisterRapidPCRTestAndGetResult_CertificateConsentGivenWithoutDateOfBirth() {
+		let store = MockTestStore()
+		store.enfRiskCalculationResult = mockRiskCalculationResult()
+
+		Analytics.setupMock(store: store)
+		store.isPrivacyPreservingAnalyticsConsentGiven = true
+
+		let restServiceProvider = RestServiceProviderStub(loadResources: [
+			LoadResource(
+				result: .success(
+					TeleTanReceiveModel(registrationToken: "registrationToken")
+				),
+				willLoadResource: { resource in
+					guard let resource = resource as? TeleTanResource,
+						let sendModel = resource.sendResource.sendModel else {
+						XCTFail("TeleTanResource expected.")
+						return
+					}
+					XCTAssertNil(sendModel.keyDob)
+				}
+			),
+			LoadResource(
+				   result: .success(TestResultReceiveModel(testResult: TestResult.serverResponse(for: .negative, on: .pcr), sc: nil, labId: nil)), willLoadResource: nil
+			)
+		])
+
+		let client = ClientMock()
+
+		let appConfiguration = CachedAppConfigurationMock()
+		let badgeWrapper = HomeBadgeWrapper.fake()
+		let healthCertificateService = HealthCertificateService(
+			store: store,
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
+			dscListProvider: MockDSCListProvider(),
+			appConfiguration: appConfiguration,
+			cclService: FakeCCLService(),
+			recycleBin: .fake()
+		)
+
+		let service = CoronaTestService(
+			client: client,
+			restServiceProvider: restServiceProvider,
+			store: store,
+			eventStore: MockEventStore(),
+			diaryStore: MockDiaryStore(),
+			appConfiguration: appConfiguration,
+			healthCertificateService: healthCertificateService,
+			healthCertificateRequestService: HealthCertificateRequestService(
+				store: store,
+				client: client,
+				appConfiguration: appConfiguration,
+				healthCertificateService: healthCertificateService
+			),
+			recycleBin: .fake(),
+			badgeWrapper: .fake()
+		)
+
+		let expectedCounts: [String?] = [nil]
+		let countExpectation = expectation(description: "Count updated")
+		countExpectation.expectedFulfillmentCount = 1
+		var receivedCounts = [String?]()
+		let countSubscription = badgeWrapper.$stringValue
+			.sink {
+				receivedCounts.append($0)
+				countExpectation.fulfill()
+			}
+
+		service.pcrTest.value = nil
+
+		let expectation = self.expectation(description: "Expect to receive a result.")
+
+		service.registerRapidPCRTestAndGetResult(
+			with: "hash",
+			qrCodeHash: "",
+			pointOfCareConsentDate: Date(timeIntervalSince1970: 2222),
+			firstName: "Erika",
+			lastName: "Mustermann",
+			dateOfBirth: "1964-08-12",
+			isSubmissionConsentGiven: false,
+			markAsUnseen: false,
+			certificateSupportedByPointOfCare: true,
+			certificateConsent: .given(dateOfBirth: nil)
+		) { result in
+			expectation.fulfill()
+			switch result {
+			case .failure:
+				XCTFail("This test should always return a successful result.")
+			case .success(let testResult):
+				XCTAssertEqual(testResult, TestResult.negative)
+			}
+		}
+
+		waitForExpectations(timeout: .short)
+
+		guard let rapidPCR = service.pcrTest.value else {
+			XCTFail("rapidPCR should not be nil")
+			return
+		}
+
+		countSubscription.cancel()
+
+		XCTAssertEqual(receivedCounts, expectedCounts)
+		XCTAssertTrue(rapidPCR.certificateConsentGiven)
+		XCTAssertTrue(rapidPCR.certificateRequested)
+	}
+
+	func testRegisterRapidPCRTestAndGetResult_RegistrationFails() {
+		let client = ClientMock()
+
+		let restServiceProvider = RestServiceProviderStub(results: [
+			.failure(ServiceError<TeleTanError>.receivedResourceError(.qrAlreadyUsed)),
+			.success(RegistrationTokenReceiveModel(submissionTAN: "fake"))
+		])
+
+		let store = MockTestStore()
+		let appConfiguration = CachedAppConfigurationMock()
+
+		let healthCertificateService = HealthCertificateService(
+			store: store,
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
+			dscListProvider: MockDSCListProvider(),
+			appConfiguration: appConfiguration,
+			cclService: FakeCCLService(),
+			recycleBin: .fake()
+		)
+
+		let service = CoronaTestService(
+			client: client,
+			restServiceProvider: restServiceProvider,
+			store: store,
+			eventStore: MockEventStore(),
+			diaryStore: MockDiaryStore(),
+			appConfiguration: appConfiguration,
+			healthCertificateService: healthCertificateService,
+			healthCertificateRequestService: HealthCertificateRequestService(
+				store: store,
+				client: client,
+				appConfiguration: appConfiguration,
+				healthCertificateService: healthCertificateService
+			),
+			recycleBin: .fake(),
+			badgeWrapper: .fake()
+		)
+		service.pcrTest.value = nil
+
+		let expectation = self.expectation(description: "Expect to receive a result.")
+
+		service.registerRapidPCRTestAndGetResult(
+			with: "hash",
+			qrCodeHash: "",
+			pointOfCareConsentDate: Date(timeIntervalSince1970: 2222),
+			firstName: nil,
+			lastName: nil,
+			dateOfBirth: nil,
+			isSubmissionConsentGiven: true,
+			markAsUnseen: false,
+			certificateSupportedByPointOfCare: false,
+			certificateConsent: .notGiven
+		) { result in
+			expectation.fulfill()
+			switch result {
+			case .failure(let error):
+				XCTAssertEqual(error, .teleTanError(ServiceError<TeleTanError>.receivedResourceError(.qrAlreadyUsed)))
+			case .success:
+				XCTFail("This test should always return a failure.")
+			}
+		}
+
+		waitForExpectations(timeout: .short)
+
+		XCTAssertNil(service.pcrTest.value)
+	}
+
+	func testRegisterRapidPCRTestAndGetResult_RegistrationSucceedsGettingTestResultFails() {
+		let client = ClientMock()
+
+		let restServiceProvider = RestServiceProviderStub(results: [
+			.success(TeleTanReceiveModel(registrationToken: "registrationToken")),
+			.failure(ServiceError<TestResultError>.unexpectedServerError(500)),
+			.success(RegistrationTokenReceiveModel(submissionTAN: "fake"))
+		]
+		)
+
+		let store = MockTestStore()
+		store.enfRiskCalculationResult = mockRiskCalculationResult()
+		Analytics.setupMock(store: store)
+		store.isPrivacyPreservingAnalyticsConsentGiven = true
+
+		let appConfiguration = CachedAppConfigurationMock()
+
+		let healthCertificateService = HealthCertificateService(
+			store: store,
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
+			dscListProvider: MockDSCListProvider(),
+			appConfiguration: appConfiguration,
+			cclService: FakeCCLService(),
+			recycleBin: .fake()
+		)
+
+		let service = CoronaTestService(
+			client: client,
+			restServiceProvider: restServiceProvider,
+			store: store,
+			eventStore: MockEventStore(),
+			diaryStore: MockDiaryStore(),
+			appConfiguration: appConfiguration,
+			healthCertificateService: healthCertificateService,
+			healthCertificateRequestService: HealthCertificateRequestService(
+				store: store,
+				client: client,
+				appConfiguration: appConfiguration,
+				healthCertificateService: healthCertificateService
+			),
+			recycleBin: .fake(),
+			badgeWrapper: .fake()
+		)
+		service.pcrTest.value = nil
+
+		let expectation = self.expectation(description: "Expect to receive a result.")
+
+		service.registerRapidPCRTestAndGetResult(
+			with: "hash",
+			qrCodeHash: "qrCodeHash",
+			pointOfCareConsentDate: Date(timeIntervalSince1970: 2222),
+			firstName: nil,
+			lastName: nil,
+			dateOfBirth: nil,
+			isSubmissionConsentGiven: false,
+			markAsUnseen: false,
+			certificateSupportedByPointOfCare: false,
+			certificateConsent: .notGiven
+		) { result in
+			expectation.fulfill()
+			switch result {
+			case .failure(let error):
+				XCTAssertEqual(error, .testResultError(.unexpectedServerError(500)))
+			case .success:
+				XCTFail("This test should always return a failure.")
+			}
+		}
+
+		waitForExpectations(timeout: .short)
+
+		guard let rapidPCRTest = service.pcrTest.value else {
+			XCTFail("rapidPCRTest should not be nil")
+			return
+		}
+		
+		XCTAssertEqual(rapidPCRTest.registrationToken, "registrationToken")
+		XCTAssertEqual(rapidPCRTest.qrCodeHash, "qrCodeHash")
+		XCTAssertEqual(
+			try XCTUnwrap(rapidPCRTest.registrationDate).timeIntervalSince1970,
+			Date().timeIntervalSince1970,
+			accuracy: 10
+		)
+		XCTAssertEqual(rapidPCRTest.testResult, .pending)
+		XCTAssertNil(rapidPCRTest.finalTestResultReceivedDate)
+		XCTAssertFalse(rapidPCRTest.positiveTestResultWasShown)
+		XCTAssertFalse(rapidPCRTest.isSubmissionConsentGiven)
+		XCTAssertNil(rapidPCRTest.submissionTAN)
+		XCTAssertFalse(rapidPCRTest.keysSubmitted)
+		XCTAssertFalse(rapidPCRTest.journalEntryCreated)
+		XCTAssertNil(store.pcrTestResultMetadata?.testResult)
+		XCTAssertEqual(
+			try XCTUnwrap(store.pcrTestResultMetadata?.testRegistrationDate).timeIntervalSince1970,
+			Date().timeIntervalSince1970,
+			accuracy: 10
+		)
+	}
+
+	// MARK: - Test Result Update
+
+	func testUpdatePCRTestResult_success() {
+		let restServiceProvider = RestServiceProviderStub(results: [
+			.success(TestResultReceiveModel(testResult: TestResult.serverResponse(for: .positive, on: .pcr), sc: nil, labId: nil)),
+			.success(RegistrationTokenReceiveModel(submissionTAN: "fake"))
+		])
+
+		let client = ClientMock()
+		let store = MockTestStore()
+		let appConfiguration = CachedAppConfigurationMock()
+
+		let healthCertificateService = HealthCertificateService(
+			store: store,
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
+			dscListProvider: MockDSCListProvider(),
+			appConfiguration: appConfiguration,
+			cclService: FakeCCLService(),
+			recycleBin: .fake()
+		)
+
+		let service = CoronaTestService(
+			client: client,
+			restServiceProvider: restServiceProvider,
+			store: store,
+			eventStore: MockEventStore(),
+			diaryStore: MockDiaryStore(),
+			appConfiguration: appConfiguration,
+			healthCertificateService: healthCertificateService,
+			healthCertificateRequestService: HealthCertificateRequestService(
+				store: store,
+				client: client,
+				appConfiguration: appConfiguration,
+				healthCertificateService: healthCertificateService
+			),
+			recycleBin: .fake(),
+			badgeWrapper: .fake()
+		)
+		service.pcrTest.value = PCRTest.mock(registrationToken: "regToken")
 
 		let expectation = self.expectation(description: "Expect to receive a result.")
 
@@ -1791,7 +2446,7 @@ class CoronaTestServiceTests: CWATestCase {
 
 		waitForExpectations(timeout: .short)
 
-		guard let pcrTest = service.pcrTest else {
+		guard let pcrTest = service.pcrTest.value else {
 			XCTFail("pcrTest should not be nil")
 			return
 		}
@@ -1806,15 +2461,23 @@ class CoronaTestServiceTests: CWATestCase {
 
 	func testUpdateAntigenTestResult_success() {
 		let restServiceProvider = RestServiceProviderStub(results: [
-			.success(TestResultReceiveModel(testResult: TestResult.positive.rawValue, sc: nil, labId: nil)),
+			.success(TestResultReceiveModel(testResult: TestResult.serverResponse(for: .positive, on: .antigen), sc: nil, labId: nil)),
 			.success(RegistrationTokenReceiveModel(submissionTAN: "fake"))
 		])
 		
 		let client = ClientMock()
-		
 		let store = MockTestStore()
 		let appConfiguration = CachedAppConfigurationMock()
 		
+		let healthCertificateService = HealthCertificateService(
+			store: store,
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
+			dscListProvider: MockDSCListProvider(),
+			appConfiguration: appConfiguration,
+			cclService: FakeCCLService(),
+			recycleBin: .fake()
+		)
+
 		let service = CoronaTestService(
 			client: client,
 			restServiceProvider: restServiceProvider,
@@ -1822,19 +2485,17 @@ class CoronaTestServiceTests: CWATestCase {
 			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
 			appConfiguration: appConfiguration,
-			healthCertificateService: HealthCertificateService(
+			healthCertificateService: healthCertificateService,
+			healthCertificateRequestService: HealthCertificateRequestService(
 				store: store,
-				dccSignatureVerifier: DCCSignatureVerifyingStub(),
-				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration,
-				cclService: FakeCCLService(),
-				recycleBin: .fake()
+				healthCertificateService: healthCertificateService
 			),
 			recycleBin: .fake(),
 			badgeWrapper: .fake()
 		)
-		service.antigenTest = AntigenTest.mock(registrationToken: "regToken")
+		service.antigenTest.value = AntigenTest.mock(registrationToken: "regToken")
 		
 		let expectation = self.expectation(description: "Expect to receive a result.")
 		
@@ -1850,7 +2511,7 @@ class CoronaTestServiceTests: CWATestCase {
 		
 		waitForExpectations(timeout: .short)
 		
-		guard let antigenTest = service.antigenTest else {
+		guard let antigenTest = service.antigenTest.value else {
 			XCTFail("antigenTest should not be nil")
 			return
 		}
@@ -1868,25 +2529,32 @@ class CoronaTestServiceTests: CWATestCase {
 		let store = MockTestStore()
 		let appConfiguration = CachedAppConfigurationMock()
 
+		let healthCertificateService = HealthCertificateService(
+			store: store,
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
+			dscListProvider: MockDSCListProvider(),
+			appConfiguration: appConfiguration,
+			cclService: FakeCCLService(),
+			recycleBin: .fake()
+		)
+
 		let service = CoronaTestService(
 			client: client,
 			store: store,
 			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
 			appConfiguration: appConfiguration,
-			healthCertificateService: HealthCertificateService(
+			healthCertificateService: healthCertificateService,
+			healthCertificateRequestService: HealthCertificateRequestService(
 				store: store,
-				dccSignatureVerifier: DCCSignatureVerifyingStub(),
-				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration,
-				cclService: FakeCCLService(),
-				recycleBin: .fake()
+				healthCertificateService: healthCertificateService
 			),
 			recycleBin: .fake(),
 			badgeWrapper: .fake()
 		)
-		service.pcrTest = nil
+		service.pcrTest.value = nil
 
 		let expectation = self.expectation(description: "Expect to receive a result.")
 
@@ -1908,25 +2576,32 @@ class CoronaTestServiceTests: CWATestCase {
 		let store = MockTestStore()
 		let appConfiguration = CachedAppConfigurationMock()
 
+		let healthCertificateService = HealthCertificateService(
+			store: store,
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
+			dscListProvider: MockDSCListProvider(),
+			appConfiguration: appConfiguration,
+			cclService: FakeCCLService(),
+			recycleBin: .fake()
+		)
+
 		let service = CoronaTestService(
 			client: client,
 			store: store,
 			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
 			appConfiguration: appConfiguration,
-			healthCertificateService: HealthCertificateService(
+			healthCertificateService: healthCertificateService,
+			healthCertificateRequestService: HealthCertificateRequestService(
 				store: store,
-				dccSignatureVerifier: DCCSignatureVerifyingStub(),
-				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration,
-				cclService: FakeCCLService(),
-				recycleBin: .fake()
+				healthCertificateService: healthCertificateService
 			),
 			recycleBin: .fake(),
 			badgeWrapper: .fake()
 		)
-		service.antigenTest = nil
+		service.antigenTest.value = nil
 
 		let expectation = self.expectation(description: "Expect to receive a result.")
 
@@ -1948,25 +2623,32 @@ class CoronaTestServiceTests: CWATestCase {
 		let store = MockTestStore()
 		let appConfiguration = CachedAppConfigurationMock()
 
+		let healthCertificateService = HealthCertificateService(
+			store: store,
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
+			dscListProvider: MockDSCListProvider(),
+			appConfiguration: appConfiguration,
+			cclService: FakeCCLService(),
+			recycleBin: .fake()
+		)
+
 		let service = CoronaTestService(
 			client: client,
 			store: store,
 			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
 			appConfiguration: appConfiguration,
-			healthCertificateService: HealthCertificateService(
+			healthCertificateService: healthCertificateService,
+			healthCertificateRequestService: HealthCertificateRequestService(
 				store: store,
-				dccSignatureVerifier: DCCSignatureVerifyingStub(),
-				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration,
-				cclService: FakeCCLService(),
-				recycleBin: .fake()
+				healthCertificateService: healthCertificateService
 			),
 			recycleBin: .fake(),
 			badgeWrapper: .fake()
 		)
-		service.pcrTest = PCRTest.mock(registrationToken: nil)
+		service.pcrTest.value = PCRTest.mock(registrationToken: nil)
 
 		let expectation = self.expectation(description: "Expect to receive a result.")
 
@@ -1982,7 +2664,7 @@ class CoronaTestServiceTests: CWATestCase {
 
 		waitForExpectations(timeout: .short)
 
-		guard let pcrTest = service.pcrTest else {
+		guard let pcrTest = service.pcrTest.value else {
 			XCTFail("pcrTest should not be nil")
 			return
 		}
@@ -1996,25 +2678,32 @@ class CoronaTestServiceTests: CWATestCase {
 		let store = MockTestStore()
 		let appConfiguration = CachedAppConfigurationMock()
 
+		let healthCertificateService = HealthCertificateService(
+			store: store,
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
+			dscListProvider: MockDSCListProvider(),
+			appConfiguration: appConfiguration,
+			cclService: FakeCCLService(),
+			recycleBin: .fake()
+		)
+
 		let service = CoronaTestService(
 			client: client,
 			store: store,
 			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
 			appConfiguration: appConfiguration,
-			healthCertificateService: HealthCertificateService(
+			healthCertificateService: healthCertificateService,
+			healthCertificateRequestService: HealthCertificateRequestService(
 				store: store,
-				dccSignatureVerifier: DCCSignatureVerifyingStub(),
-				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration,
-				cclService: FakeCCLService(),
-				recycleBin: .fake()
+				healthCertificateService: healthCertificateService
 			),
 			recycleBin: .fake(),
 			badgeWrapper: .fake()
 		)
-		service.antigenTest = AntigenTest.mock(registrationToken: nil)
+		service.antigenTest.value = AntigenTest.mock(registrationToken: nil)
 
 		let expectation = self.expectation(description: "Expect to receive a result.")
 
@@ -2030,7 +2719,7 @@ class CoronaTestServiceTests: CWATestCase {
 
 		waitForExpectations(timeout: .short)
 
-		guard let antigenTest = service.antigenTest else {
+		guard let antigenTest = service.antigenTest.value else {
 			XCTFail("antigenTest should not be nil")
 			return
 		}
@@ -2046,7 +2735,7 @@ class CoronaTestServiceTests: CWATestCase {
 		let store = MockTestStore()
 		let appConfiguration = CachedAppConfigurationMock()
 		let restServiceProvider = RestServiceProviderStub(results: [
-			.success(TestResultReceiveModel(testResult: TestResult.pending.rawValue, sc: nil, labId: "SomeLabId")),
+			.success(TestResultReceiveModel(testResult: TestResult.serverResponse(for: .pending, on: .pcr), sc: nil, labId: "SomeLabId")),
 			.success(RegistrationTokenReceiveModel(submissionTAN: "fake")),
 			.success(RegistrationTokenReceiveModel(submissionTAN: "fake")),
 			.success(RegistrationTokenReceiveModel(submissionTAN: "fake")),
@@ -2056,6 +2745,16 @@ class CoronaTestServiceTests: CWATestCase {
 
 		])
 
+		let healthCertificateService = HealthCertificateService(
+			store: store,
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
+			dscListProvider: MockDSCListProvider(),
+			appConfiguration: appConfiguration,
+			notificationCenter: mockNotificationCenter,
+			cclService: FakeCCLService(),
+			recycleBin: .fake()
+		)
+
 		let testService = CoronaTestService(
 			client: client,
 			restServiceProvider: restServiceProvider,
@@ -2063,21 +2762,19 @@ class CoronaTestServiceTests: CWATestCase {
 			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
 			appConfiguration: appConfiguration,
-			healthCertificateService: HealthCertificateService(
+			healthCertificateService: healthCertificateService,
+			healthCertificateRequestService: HealthCertificateRequestService(
 				store: store,
-				dccSignatureVerifier: DCCSignatureVerifyingStub(),
-				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration,
-				cclService: FakeCCLService(),
-				recycleBin: .fake()
+				healthCertificateService: healthCertificateService
 			),
 			notificationCenter: mockNotificationCenter,
 			recycleBin: .fake(),
 			badgeWrapper: .fake()
 		)
-		testService.antigenTest = AntigenTest.mock(registrationToken: "regToken")
-		testService.pcrTest = PCRTest.mock(registrationToken: "regToken")
+		testService.antigenTest.value = AntigenTest.mock(registrationToken: "regToken")
+		testService.pcrTest.value = PCRTest.mock(registrationToken: "regToken")
 
 		let completionExpectation = expectation(description: "Completion should be called.")
 		completionExpectation.expectedFulfillmentCount = 3
@@ -2104,12 +2801,21 @@ class CoronaTestServiceTests: CWATestCase {
 		let client = ClientMock()
 
 		let restServiceProvider = RestServiceProviderStub(results: [
-			.success(TestResultReceiveModel(testResult: TestResult.positive.rawValue, sc: nil, labId: "SomeLabId")),
+			.success(TestResultReceiveModel(testResult: TestResult.serverResponse(for: .positive, on: .pcr), sc: nil, labId: "SomeLabId")),
 			.success(TeleTanReceiveModel(registrationToken: "token"))
 		])
 		
 		let store = MockTestStore()
 		let appConfiguration = CachedAppConfigurationMock()
+
+		let healthCertificateService = HealthCertificateService(
+			store: store,
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
+			dscListProvider: MockDSCListProvider(),
+			appConfiguration: appConfiguration,
+			cclService: FakeCCLService(),
+			recycleBin: .fake()
+		)
 
 		let testService = CoronaTestService(
 			client: client,
@@ -2118,21 +2824,18 @@ class CoronaTestServiceTests: CWATestCase {
 			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
 			appConfiguration: appConfiguration,
-			healthCertificateService: HealthCertificateService(
+			healthCertificateService: healthCertificateService,
+			healthCertificateRequestService: HealthCertificateRequestService(
 				store: store,
-				dccSignatureVerifier: DCCSignatureVerifyingStub(),
-				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration,
-				cclService: FakeCCLService(),
-				recycleBin: .fake()
+				healthCertificateService: healthCertificateService
 			),
-			notificationCenter: mockNotificationCenter,
 			recycleBin: .fake(),
 			badgeWrapper: .fake()
 		)
-		testService.antigenTest = AntigenTest.mock(registrationToken: "regToken")
-		testService.pcrTest = PCRTest.mock(registrationToken: "regToken")
+		testService.antigenTest.value = AntigenTest.mock(registrationToken: "regToken")
+		testService.pcrTest.value = PCRTest.mock(registrationToken: "regToken")
 
 		let completionExpectation = expectation(description: "Completion should be called.")
 		testService.updateTestResults(presentNotification: false) { _ in
@@ -2154,6 +2857,15 @@ class CoronaTestServiceTests: CWATestCase {
 		let store = MockTestStore()
 		let appConfiguration = CachedAppConfigurationMock()
 
+		let healthCertificateService = HealthCertificateService(
+			store: store,
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
+			dscListProvider: MockDSCListProvider(),
+			appConfiguration: appConfiguration,
+			cclService: FakeCCLService(),
+			recycleBin: .fake()
+		)
+
 		let testService = CoronaTestService(
 			client: client,
 			restServiceProvider: restServiceProvider,
@@ -2161,20 +2873,18 @@ class CoronaTestServiceTests: CWATestCase {
 			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
 			appConfiguration: appConfiguration,
-			healthCertificateService: HealthCertificateService(
+			healthCertificateService: healthCertificateService,
+			healthCertificateRequestService: HealthCertificateRequestService(
 				store: store,
-				dccSignatureVerifier: DCCSignatureVerifyingStub(),
-				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration,
-				cclService: FakeCCLService(),
-				recycleBin: .fake()
+				healthCertificateService: healthCertificateService
 			),
 			recycleBin: .fake(),
 			badgeWrapper: .fake()
 		)
-		testService.antigenTest = AntigenTest.mock(registrationToken: "regToken")
-		testService.pcrTest = PCRTest.mock(registrationToken: "regToken")
+		testService.antigenTest.value = AntigenTest.mock(registrationToken: "regToken")
+		testService.pcrTest.value = PCRTest.mock(registrationToken: "regToken")
 
 		let completionExpectation = expectation(description: "Completion should be called.")
 		testService.updateTestResults(presentNotification: true) { result in
@@ -2191,12 +2901,21 @@ class CoronaTestServiceTests: CWATestCase {
 		let client = ClientMock()
 		
 		let restServiceProvider = RestServiceProviderStub(results: [
-			.success(TestResultReceiveModel(testResult: TestResult.pending.rawValue, sc: nil, labId: "SomeLabId")),
-			.success(TestResultReceiveModel(testResult: TestResult.pending.rawValue, sc: nil, labId: "SomeLabId"))
+			.success(TestResultReceiveModel(testResult: TestResult.serverResponse(for: .pending, on: .pcr), sc: nil, labId: "SomeLabId")),
+			.success(TestResultReceiveModel(testResult: TestResult.serverResponse(for: .pending, on: .antigen), sc: nil, labId: "SomeLabId"))
 		])
 
 		let store = MockTestStore()
 		let appConfiguration = CachedAppConfigurationMock()
+
+		let healthCertificateService = HealthCertificateService(
+			store: store,
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
+			dscListProvider: MockDSCListProvider(),
+			appConfiguration: appConfiguration,
+			cclService: FakeCCLService(),
+			recycleBin: .fake()
+		)
 
 		let testService = CoronaTestService(
 			client: client,
@@ -2205,21 +2924,18 @@ class CoronaTestServiceTests: CWATestCase {
 			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
 			appConfiguration: appConfiguration,
-			healthCertificateService: HealthCertificateService(
+			healthCertificateService: healthCertificateService,
+			healthCertificateRequestService: HealthCertificateRequestService(
 				store: store,
-				dccSignatureVerifier: DCCSignatureVerifyingStub(),
-				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration,
-				cclService: FakeCCLService(),
-				recycleBin: .fake()
+				healthCertificateService: healthCertificateService
 			),
-			notificationCenter: mockNotificationCenter,
 			recycleBin: .fake(),
 			badgeWrapper: .fake()
 		)
-		testService.antigenTest = AntigenTest.mock(registrationToken: "regToken")
-		testService.pcrTest = PCRTest.mock(registrationToken: "regToken")
+		testService.antigenTest.value = AntigenTest.mock(registrationToken: "regToken")
+		testService.pcrTest.value = PCRTest.mock(registrationToken: "regToken")
 
 		let completionExpectation = expectation(description: "Completion should be called.")
 		testService.updateTestResults(presentNotification: true) { _ in
@@ -2231,19 +2947,27 @@ class CoronaTestServiceTests: CWATestCase {
 	}
 
 	func test_When_UpdateTestResultSuccessWithPositive_Then_ContactJournalHasAnEntry() throws {
-		let mockNotificationCenter = MockUserNotificationCenter()
 		let client = ClientMock()
 		let sampleCollectionDate = Date()
 		
 		let restServiceProvider = RestServiceProviderStub(results: [
-			.success(TestResultReceiveModel(testResult: TestResult.positive.rawValue, sc: Int(sampleCollectionDate.timeIntervalSince1970), labId: "SomeLabId")),
-			.success(TestResultReceiveModel(testResult: TestResult.positive.rawValue, sc: Int(sampleCollectionDate.timeIntervalSince1970), labId: "SomeLabId"))
+			.success(TestResultReceiveModel(testResult: TestResult.serverResponse(for: .positive, on: .pcr), sc: Int(sampleCollectionDate.timeIntervalSince1970), labId: "SomeLabId")),
+			.success(TestResultReceiveModel(testResult: TestResult.serverResponse(for: .positive, on: .antigen), sc: Int(sampleCollectionDate.timeIntervalSince1970), labId: "SomeLabId"))
 		])
 		
 
 		let diaryStore = MockDiaryStore()
 		let store = MockTestStore()
 		let appConfiguration = CachedAppConfigurationMock()
+		let healthCertificateService = HealthCertificateService(
+			store: store,
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
+			dscListProvider: MockDSCListProvider(),
+			appConfiguration: appConfiguration,
+			cclService: FakeCCLService(),
+			recycleBin: .fake()
+		)
+
 		let testService = CoronaTestService(
 			client: client,
 			restServiceProvider: restServiceProvider,
@@ -2251,16 +2975,13 @@ class CoronaTestServiceTests: CWATestCase {
 			eventStore: MockEventStore(),
 			diaryStore: diaryStore,
 			appConfiguration: appConfiguration,
-			healthCertificateService: HealthCertificateService(
+			healthCertificateService: healthCertificateService,
+			healthCertificateRequestService: HealthCertificateRequestService(
 				store: store,
-				dccSignatureVerifier: DCCSignatureVerifyingStub(),
-				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration,
-				cclService: FakeCCLService(),
-				recycleBin: .fake()
+				healthCertificateService: healthCertificateService
 			),
-			notificationCenter: mockNotificationCenter,
 			recycleBin: .fake(),
 			badgeWrapper: .fake()
 		)
@@ -2268,12 +2989,12 @@ class CoronaTestServiceTests: CWATestCase {
 			registrationToken: "regToken",
 			pointOfCareConsentDate: Date(timeIntervalSinceNow: -24 * 60 * 60 * 3)
 		)
-		testService.antigenTest = antigenTest
+		testService.antigenTest.value = antigenTest
 		let sampleCollectionAntigenTestDate = ISO8601DateFormatter.justLocalDateFormatter.string(from: sampleCollectionDate)
 
 		let pcrTest = PCRTest.mock(registrationToken: "regToken")
 		let pcrRegistrationDate = ISO8601DateFormatter.justUTCDateFormatter.string(from: pcrTest.registrationDate)
-		testService.pcrTest = pcrTest
+		testService.pcrTest.value = pcrTest
 
 		let completionExpectation = expectation(description: "Completion should be called.")
 		testService.updateTestResults(presentNotification: true) { _ in
@@ -2287,22 +3008,30 @@ class CoronaTestServiceTests: CWATestCase {
 		XCTAssertEqual(diaryStore.coronaTests.count, 2)
 		XCTAssertEqual(pcrJournalEntry.date, pcrRegistrationDate)
 		XCTAssertEqual(antigenJournalEntry.date, sampleCollectionAntigenTestDate)
-		XCTAssertTrue(try XCTUnwrap(testService.antigenTest?.journalEntryCreated))
-		XCTAssertTrue(try XCTUnwrap(testService.pcrTest?.journalEntryCreated))
+		XCTAssertTrue(try XCTUnwrap(testService.antigenTest.value?.journalEntryCreated))
+		XCTAssertTrue(try XCTUnwrap(testService.pcrTest.value?.journalEntryCreated))
 	}
 
 	func test_When_UpdateTestResultSuccessWithPending_Then_ContactJournalHasNoEntry() throws {
-		let mockNotificationCenter = MockUserNotificationCenter()
 		let client = ClientMock()
 		
 		let restServiceProvider = RestServiceProviderStub(results: [
-			.success(TestResultReceiveModel(testResult: TestResult.pending.rawValue, sc: nil, labId: nil)),
-			.success(TestResultReceiveModel(testResult: TestResult.pending.rawValue, sc: nil, labId: nil))
+			.success(TestResultReceiveModel(testResult: TestResult.serverResponse(for: .pending, on: .pcr), sc: nil, labId: nil)),
+			.success(TestResultReceiveModel(testResult: TestResult.serverResponse(for: .pending, on: .antigen), sc: nil, labId: nil))
 		])
 
 		let diaryStore = MockDiaryStore()
 		let store = MockTestStore()
 		let appConfiguration = CachedAppConfigurationMock()
+		let healthCertificateService = HealthCertificateService(
+			store: store,
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
+			dscListProvider: MockDSCListProvider(),
+			appConfiguration: appConfiguration,
+			cclService: FakeCCLService(),
+			recycleBin: .fake()
+		)
+
 		let testService = CoronaTestService(
 			client: client,
 			restServiceProvider: restServiceProvider,
@@ -2310,22 +3039,19 @@ class CoronaTestServiceTests: CWATestCase {
 			eventStore: MockEventStore(),
 			diaryStore: diaryStore,
 			appConfiguration: appConfiguration,
-			healthCertificateService: HealthCertificateService(
+			healthCertificateService: healthCertificateService,
+			healthCertificateRequestService: HealthCertificateRequestService(
 				store: store,
-				dccSignatureVerifier: DCCSignatureVerifyingStub(),
-				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration,
-				cclService: FakeCCLService(),
-				recycleBin: .fake()
+				healthCertificateService: healthCertificateService
 			),
-			notificationCenter: mockNotificationCenter,
 			recycleBin: .fake(),
 			badgeWrapper: .fake()
 		)
 
-		testService.antigenTest = AntigenTest.mock(registrationToken: "regToken")
-		testService.pcrTest = PCRTest.mock(registrationToken: "regToken")
+		testService.antigenTest.value = AntigenTest.mock(registrationToken: "regToken")
+		testService.pcrTest.value = PCRTest.mock(registrationToken: "regToken")
 
 		let completionExpectation = expectation(description: "Completion should be called.")
 		testService.updateTestResults(presentNotification: true) { _ in
@@ -2334,22 +3060,30 @@ class CoronaTestServiceTests: CWATestCase {
 		waitForExpectations(timeout: .short)
 
 		XCTAssertEqual(diaryStore.coronaTests.count, 0)
-		XCTAssertFalse(try XCTUnwrap(testService.antigenTest?.journalEntryCreated))
-		XCTAssertFalse(try XCTUnwrap(testService.pcrTest?.journalEntryCreated))
+		XCTAssertFalse(try XCTUnwrap(testService.antigenTest.value?.journalEntryCreated))
+		XCTAssertFalse(try XCTUnwrap(testService.pcrTest.value?.journalEntryCreated))
 	}
 
 	func test_When_UpdateTestResultSuccessWithExpired_Then_ContactJournalHasNoEntry() throws {
-		let mockNotificationCenter = MockUserNotificationCenter()
 		let client = ClientMock()
 		
 		let restServiceProvider = RestServiceProviderStub(results: [
-			.success(TestResultReceiveModel(testResult: TestResult.expired.rawValue, sc: nil, labId: nil)),
-			.success(TestResultReceiveModel(testResult: TestResult.expired.rawValue, sc: nil, labId: nil))
+			.success(TestResultReceiveModel(testResult: TestResult.serverResponse(for: .expired, on: .pcr), sc: nil, labId: nil)),
+			.success(TestResultReceiveModel(testResult: TestResult.serverResponse(for: .expired, on: .antigen), sc: nil, labId: nil))
 		])
 
 		let diaryStore = MockDiaryStore()
 		let store = MockTestStore()
 		let appConfiguration = CachedAppConfigurationMock()
+		let healthCertificateService = HealthCertificateService(
+			store: store,
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
+			dscListProvider: MockDSCListProvider(),
+			appConfiguration: appConfiguration,
+			cclService: FakeCCLService(),
+			recycleBin: .fake()
+		)
+
 		let testService = CoronaTestService(
 			client: client,
 			restServiceProvider: restServiceProvider,
@@ -2357,22 +3091,19 @@ class CoronaTestServiceTests: CWATestCase {
 			eventStore: MockEventStore(),
 			diaryStore: diaryStore,
 			appConfiguration: appConfiguration,
-			healthCertificateService: HealthCertificateService(
+			healthCertificateService: healthCertificateService,
+			healthCertificateRequestService: HealthCertificateRequestService(
 				store: store,
-				dccSignatureVerifier: DCCSignatureVerifyingStub(),
-				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration,
-				cclService: FakeCCLService(),
-				recycleBin: .fake()
+				healthCertificateService: healthCertificateService
 			),
-			notificationCenter: mockNotificationCenter,
 			recycleBin: .fake(),
 			badgeWrapper: .fake()
 		)
 
-		testService.antigenTest = AntigenTest.mock(registrationToken: "regToken")
-		testService.pcrTest = PCRTest.mock(registrationToken: "regToken")
+		testService.antigenTest.value = AntigenTest.mock(registrationToken: "regToken")
+		testService.pcrTest.value = PCRTest.mock(registrationToken: "regToken")
 
 		let completionExpectation = expectation(description: "Completion should be called.")
 		testService.updateTestResults(presentNotification: true) { _ in
@@ -2381,22 +3112,30 @@ class CoronaTestServiceTests: CWATestCase {
 		waitForExpectations(timeout: .short)
 
 		XCTAssertEqual(diaryStore.coronaTests.count, 0)
-		XCTAssertFalse(try XCTUnwrap(testService.antigenTest?.journalEntryCreated))
-		XCTAssertFalse(try XCTUnwrap(testService.pcrTest?.journalEntryCreated))
+		XCTAssertFalse(try XCTUnwrap(testService.antigenTest.value?.journalEntryCreated))
+		XCTAssertFalse(try XCTUnwrap(testService.pcrTest.value?.journalEntryCreated))
 	}
 
 	func test_When_UpdateTestResultSuccessWithInvalid_Then_ContactJournalHasNoEntry() throws {
-		let mockNotificationCenter = MockUserNotificationCenter()
 		let client = ClientMock()
 
 		let restServiceProvider = RestServiceProviderStub(results: [
-			.success(TestResultReceiveModel(testResult: TestResult.invalid.rawValue, sc: nil, labId: nil)),
-			.success(TestResultReceiveModel(testResult: TestResult.invalid.rawValue, sc: nil, labId: nil))
+			.success(TestResultReceiveModel(testResult: TestResult.serverResponse(for: .invalid, on: .pcr), sc: nil, labId: nil)),
+			.success(TestResultReceiveModel(testResult: TestResult.serverResponse(for: .invalid, on: .antigen), sc: nil, labId: nil))
 		])
 		
 		let diaryStore = MockDiaryStore()
 		let store = MockTestStore()
 		let appConfiguration = CachedAppConfigurationMock()
+
+		let healthCertificateService = HealthCertificateService(
+			store: store,
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
+			dscListProvider: MockDSCListProvider(),
+			appConfiguration: appConfiguration,
+			cclService: FakeCCLService(),
+			recycleBin: .fake()
+		)
 
 		let testService = CoronaTestService(
 			client: client,
@@ -2405,22 +3144,19 @@ class CoronaTestServiceTests: CWATestCase {
 			eventStore: MockEventStore(),
 			diaryStore: diaryStore,
 			appConfiguration: appConfiguration,
-			healthCertificateService: HealthCertificateService(
+			healthCertificateService: healthCertificateService,
+			healthCertificateRequestService: HealthCertificateRequestService(
 				store: store,
-				dccSignatureVerifier: DCCSignatureVerifyingStub(),
-				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration,
-				cclService: FakeCCLService(),
-				recycleBin: .fake()
+				healthCertificateService: healthCertificateService
 			),
-			notificationCenter: mockNotificationCenter,
 			recycleBin: .fake(),
 			badgeWrapper: .fake()
 		)
 
-		testService.antigenTest = AntigenTest.mock(registrationToken: "regToken")
-		testService.pcrTest = PCRTest.mock(registrationToken: "regToken")
+		testService.antigenTest.value = AntigenTest.mock(registrationToken: "regToken")
+		testService.pcrTest.value = PCRTest.mock(registrationToken: "regToken")
 
 		let completionExpectation = expectation(description: "Completion should be called.")
 		testService.updateTestResults(presentNotification: true) { _ in
@@ -2429,22 +3165,30 @@ class CoronaTestServiceTests: CWATestCase {
 		waitForExpectations(timeout: .short)
 
 		XCTAssertEqual(diaryStore.coronaTests.count, 0)
-		XCTAssertFalse(try XCTUnwrap(testService.antigenTest?.journalEntryCreated))
-		XCTAssertFalse(try XCTUnwrap(testService.pcrTest?.journalEntryCreated))
+		XCTAssertFalse(try XCTUnwrap(testService.antigenTest.value?.journalEntryCreated))
+		XCTAssertFalse(try XCTUnwrap(testService.pcrTest.value?.journalEntryCreated))
 	}
 
 	func test_When_UpdateTestResultSuccessWithNegative_Then_ContactJournalHasAnEntry() throws {
-		let mockNotificationCenter = MockUserNotificationCenter()
 		let client = ClientMock()
 		
 		let restServiceProvider = RestServiceProviderStub(results: [
-			.success(TestResultReceiveModel(testResult: TestResult.negative.rawValue, sc: nil, labId: nil)),
-			.success(TestResultReceiveModel(testResult: TestResult.negative.rawValue, sc: nil, labId: nil))
+			.success(TestResultReceiveModel(testResult: TestResult.serverResponse(for: .negative, on: .pcr), sc: nil, labId: nil)),
+			.success(TestResultReceiveModel(testResult: TestResult.serverResponse(for: .negative, on: .antigen), sc: nil, labId: nil))
 		])
 
 		let diaryStore = MockDiaryStore()
 		let store = MockTestStore()
 		let appConfiguration = CachedAppConfigurationMock()
+
+		let healthCertificateService = HealthCertificateService(
+			store: store,
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
+			dscListProvider: MockDSCListProvider(),
+			appConfiguration: appConfiguration,
+			cclService: FakeCCLService(),
+			recycleBin: .fake()
+		)
 
 		let testService = CoronaTestService(
 			client: client,
@@ -2453,22 +3197,19 @@ class CoronaTestServiceTests: CWATestCase {
 			eventStore: MockEventStore(),
 			diaryStore: diaryStore,
 			appConfiguration: appConfiguration,
-			healthCertificateService: HealthCertificateService(
+			healthCertificateService: healthCertificateService,
+			healthCertificateRequestService: HealthCertificateRequestService(
 				store: store,
-				dccSignatureVerifier: DCCSignatureVerifyingStub(),
-				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration,
-				cclService: FakeCCLService(),
-				recycleBin: .fake()
+				healthCertificateService: healthCertificateService
 			),
-			notificationCenter: mockNotificationCenter,
 			recycleBin: .fake(),
 			badgeWrapper: .fake()
 		)
 
-		testService.antigenTest = AntigenTest.mock(registrationToken: "regToken")
-		testService.pcrTest = PCRTest.mock(registrationToken: "regToken")
+		testService.antigenTest.value = AntigenTest.mock(registrationToken: "regToken")
+		testService.pcrTest.value = PCRTest.mock(registrationToken: "regToken")
 
 		let completionExpectation = expectation(description: "Completion should be called.")
 		testService.updateTestResults(presentNotification: true) { _ in
@@ -2477,8 +3218,8 @@ class CoronaTestServiceTests: CWATestCase {
 		waitForExpectations(timeout: .short)
 
 		XCTAssertEqual(diaryStore.coronaTests.count, 2)
-		XCTAssertTrue(try XCTUnwrap(testService.antigenTest?.journalEntryCreated))
-		XCTAssertTrue(try XCTUnwrap(testService.pcrTest?.journalEntryCreated))
+		XCTAssertTrue(try XCTUnwrap(testService.antigenTest.value?.journalEntryCreated))
+		XCTAssertTrue(try XCTUnwrap(testService.pcrTest.value?.journalEntryCreated))
 	}
 
 	func test_When_UpdateTestResultsSuccessWithExpired_Then_NoNotificationIsShown() {
@@ -2486,12 +3227,21 @@ class CoronaTestServiceTests: CWATestCase {
 		let client = ClientMock()
 		
 		let restServiceProvider = RestServiceProviderStub(results: [
-			.success(TestResultReceiveModel(testResult: TestResult.expired.rawValue, sc: nil, labId: nil)),
-			.success(TestResultReceiveModel(testResult: TestResult.expired.rawValue, sc: nil, labId: nil))
+			.success(TestResultReceiveModel(testResult: TestResult.serverResponse(for: .expired, on: .pcr), sc: nil, labId: nil)),
+			.success(TestResultReceiveModel(testResult: TestResult.serverResponse(for: .expired, on: .antigen), sc: nil, labId: nil))
 		])
 
 		let store = MockTestStore()
 		let appConfiguration = CachedAppConfigurationMock()
+		let healthCertificateService = HealthCertificateService(
+			store: store,
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
+			dscListProvider: MockDSCListProvider(),
+			appConfiguration: appConfiguration,
+			cclService: FakeCCLService(),
+			recycleBin: .fake()
+		)
+
 		let testService = CoronaTestService(
 			client: client,
 			restServiceProvider: restServiceProvider,
@@ -2499,21 +3249,18 @@ class CoronaTestServiceTests: CWATestCase {
 			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
 			appConfiguration: appConfiguration,
-			healthCertificateService: HealthCertificateService(
+			healthCertificateService: healthCertificateService,
+			healthCertificateRequestService: HealthCertificateRequestService(
 				store: store,
-				dccSignatureVerifier: DCCSignatureVerifyingStub(),
-				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration,
-				cclService: FakeCCLService(),
-				recycleBin: .fake()
+				healthCertificateService: healthCertificateService
 			),
-			notificationCenter: mockNotificationCenter,
 			recycleBin: .fake(),
 			badgeWrapper: .fake()
 		)
-		testService.antigenTest = AntigenTest.mock(registrationToken: "regToken")
-		testService.pcrTest = PCRTest.mock(registrationToken: "regToken")
+		testService.antigenTest.value = AntigenTest.mock(registrationToken: "regToken")
+		testService.pcrTest.value = PCRTest.mock(registrationToken: "regToken")
 
 		let completionExpectation = expectation(description: "Completion should be called.")
 		testService.updateTestResults(presentNotification: true) { _ in
@@ -2525,7 +3272,6 @@ class CoronaTestServiceTests: CWATestCase {
 	}
 
 	func test_When_UpdateWithForce_And_FinalTestResultExist_Then_ClientIsCalled() {
-		let mockNotificationCenter = MockUserNotificationCenter()
 		let client = ClientMock()
 		let store = MockTestStore()
 		let appConfiguration = CachedAppConfigurationMock()
@@ -2535,20 +3281,29 @@ class CoronaTestServiceTests: CWATestCase {
 		
 		let restServiceProvider = RestServiceProviderStub(loadResources: [
 			LoadResource(
-				result: .success(TestResultReceiveModel(testResult: TestResult.expired.rawValue, sc: nil, labId: "SomeLabId")),
+				result: .success(TestResultReceiveModel(testResult: TestResult.serverResponse(for: .expired, on: .pcr), sc: nil, labId: "SomeLabId")),
 				willLoadResource: { res in
 					if let resource = res as? TestResultResource, !resource.locator.isFake {
 						getTestResultExpectation.fulfill()
 					}
 				}),
 			LoadResource(
-				result: .success(TestResultReceiveModel(testResult: TestResult.expired.rawValue, sc: nil, labId: "SomeLabId")),
+				result: .success(TestResultReceiveModel(testResult: TestResult.serverResponse(for: .expired, on: .antigen), sc: nil, labId: "SomeLabId")),
 				willLoadResource: { res in
 					if let resource = res as? TestResultResource, !resource.locator.isFake {
 						getTestResultExpectation.fulfill()
 					}
 				})
 		])
+
+		let healthCertificateService = HealthCertificateService(
+			store: store,
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
+			dscListProvider: MockDSCListProvider(),
+			appConfiguration: appConfiguration,
+			cclService: FakeCCLService(),
+			recycleBin: .fake()
+		)
 
 		let testService = CoronaTestService(
 			client: client,
@@ -2557,24 +3312,21 @@ class CoronaTestServiceTests: CWATestCase {
 			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
 			appConfiguration: appConfiguration,
-			healthCertificateService: HealthCertificateService(
+			healthCertificateService: healthCertificateService,
+			healthCertificateRequestService: HealthCertificateRequestService(
 				store: store,
-				dccSignatureVerifier: DCCSignatureVerifyingStub(),
-				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration,
-				cclService: FakeCCLService(),
-				recycleBin: .fake()
+				healthCertificateService: healthCertificateService
 			),
-			notificationCenter: mockNotificationCenter,
 			recycleBin: .fake(),
 			badgeWrapper: .fake()
 		)
-		testService.antigenTest = AntigenTest.mock(
+		testService.antigenTest.value = AntigenTest.mock(
 			registrationToken: "regToken",
 			finalTestResultReceivedDate: Date()
 		)
-		testService.pcrTest = PCRTest.mock(
+		testService.pcrTest.value = PCRTest.mock(
 			registrationToken: "regToken",
 			finalTestResultReceivedDate: Date()
 		)
@@ -2585,7 +3337,6 @@ class CoronaTestServiceTests: CWATestCase {
 	}
 
 	func test_When_UpdateWithoutForce_And_FinalTestResultExist_Then_ClientIsNotCalled() {
-		let mockNotificationCenter = MockUserNotificationCenter()
 		let client = ClientMock()
 		let store = MockTestStore()
 		let appConfiguration = CachedAppConfigurationMock()
@@ -2595,13 +3346,22 @@ class CoronaTestServiceTests: CWATestCase {
 		
 		let restServiceProvider = RestServiceProviderStub(loadResources: [
 			LoadResource(
-				result: .success(TestResultReceiveModel(testResult: TestResult.expired.rawValue, sc: nil, labId: "SomeLabId")),
+				result: .success(TestResultReceiveModel(testResult: TestResult.serverResponse(for: .expired, on: .pcr), sc: nil, labId: "SomeLabId")),
 				willLoadResource: { res in
 					if let resource = res as? TestResultResource, !resource.locator.isFake {
 						getTestResultExpectation.fulfill()
 					}
 				})
 		])
+
+		let healthCertificateService = HealthCertificateService(
+			store: store,
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
+			dscListProvider: MockDSCListProvider(),
+			appConfiguration: appConfiguration,
+			cclService: FakeCCLService(),
+			recycleBin: .fake()
+		)
 
 		let testService = CoronaTestService(
 			client: client,
@@ -2610,24 +3370,21 @@ class CoronaTestServiceTests: CWATestCase {
 			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
 			appConfiguration: appConfiguration,
-			healthCertificateService: HealthCertificateService(
+			healthCertificateService: healthCertificateService,
+			healthCertificateRequestService: HealthCertificateRequestService(
 				store: store,
-				dccSignatureVerifier: DCCSignatureVerifyingStub(),
-				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration,
-				cclService: FakeCCLService(),
-				recycleBin: .fake()
+				healthCertificateService: healthCertificateService
 			),
-			notificationCenter: mockNotificationCenter,
 			recycleBin: .fake(),
 			badgeWrapper: .fake()
 		)
-		testService.antigenTest = AntigenTest.mock(
+		testService.antigenTest.value = AntigenTest.mock(
 			registrationToken: "regToken",
 			finalTestResultReceivedDate: Date()
 		)
-		testService.pcrTest = PCRTest.mock(
+		testService.pcrTest.value = PCRTest.mock(
 			registrationToken: "regToken",
 			finalTestResultReceivedDate: Date()
 		)
@@ -2638,7 +3395,6 @@ class CoronaTestServiceTests: CWATestCase {
 	}
 
 	func test_When_UpdateWithoutForce_And_NoFinalTestResultExist_Then_ClientIsCalled() {
-		let mockNotificationCenter = MockUserNotificationCenter()
 		let client = ClientMock()
 		let store = MockTestStore()
 		let appConfiguration = CachedAppConfigurationMock()
@@ -2648,14 +3404,14 @@ class CoronaTestServiceTests: CWATestCase {
 		
 		let restServiceProvider = RestServiceProviderStub(loadResources: [
 			LoadResource(
-				result: .success(TestResultReceiveModel(testResult: TestResult.expired.rawValue, sc: nil, labId: "SomeLabId")),
+				result: .success(TestResultReceiveModel(testResult: TestResult.serverResponse(for: .expired, on: .pcr), sc: nil, labId: "SomeLabId")),
 				willLoadResource: { res in
 					if let resource = res as? TestResultResource, !resource.locator.isFake {
 						getTestResultExpectation.fulfill()
 					}
 				}),
 			LoadResource(
-				result: .success(TestResultReceiveModel(testResult: TestResult.expired.rawValue, sc: nil, labId: "SomeLabId")),
+				result: .success(TestResultReceiveModel(testResult: TestResult.serverResponse(for: .expired, on: .antigen), sc: nil, labId: "SomeLabId")),
 				willLoadResource: { res in
 					if let resource = res as? TestResultResource, !resource.locator.isFake {
 						getTestResultExpectation.fulfill()
@@ -2663,6 +3419,15 @@ class CoronaTestServiceTests: CWATestCase {
 				})
 		])
 		
+		let healthCertificateService = HealthCertificateService(
+			store: store,
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
+			dscListProvider: MockDSCListProvider(),
+			appConfiguration: appConfiguration,
+			cclService: FakeCCLService(),
+			recycleBin: .fake()
+		)
+
 		let testService = CoronaTestService(
 			client: client,
 			restServiceProvider: restServiceProvider,
@@ -2670,24 +3435,21 @@ class CoronaTestServiceTests: CWATestCase {
 			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
 			appConfiguration: appConfiguration,
-			healthCertificateService: HealthCertificateService(
+			healthCertificateService: healthCertificateService,
+			healthCertificateRequestService: HealthCertificateRequestService(
 				store: store,
-				dccSignatureVerifier: DCCSignatureVerifyingStub(),
-				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration,
-				cclService: FakeCCLService(),
-				recycleBin: .fake()
+				healthCertificateService: healthCertificateService
 			),
-			notificationCenter: mockNotificationCenter,
 			recycleBin: .fake(),
 			badgeWrapper: .fake()
 		)
-		testService.antigenTest = AntigenTest.mock(
+		testService.antigenTest.value = AntigenTest.mock(
 			registrationToken: "regToken",
 			finalTestResultReceivedDate: nil
 		)
-		testService.pcrTest = PCRTest.mock(
+		testService.pcrTest.value = PCRTest.mock(
 			registrationToken: "regToken",
 			finalTestResultReceivedDate: nil
 		)
@@ -2698,7 +3460,6 @@ class CoronaTestServiceTests: CWATestCase {
 	}
 
 	func test_When_UpdatingExpiredTestResultOlderThan21Days_Then_ClientIsNotCalled() throws {
-		let mockNotificationCenter = MockUserNotificationCenter()
 		let client = ClientMock()
 		let store = MockTestStore()
 		let appConfiguration = CachedAppConfigurationMock()
@@ -2710,20 +3471,29 @@ class CoronaTestServiceTests: CWATestCase {
 		
 		let restServiceProvider = RestServiceProviderStub(loadResources: [
 			LoadResource(
-				result: .success(TestResultReceiveModel(testResult: TestResult.expired.rawValue, sc: nil, labId: "SomeLabId")),
+				result: .success(TestResultReceiveModel(testResult: TestResult.serverResponse(for: .expired, on: .pcr), sc: nil, labId: "SomeLabId")),
 				willLoadResource: { res in
 					if let resource = res as? TestResultResource, !resource.locator.isFake {
 						getTestResultExpectation.fulfill()
 					}
 				}),
 			LoadResource(
-				result: .success(TestResultReceiveModel(testResult: TestResult.expired.rawValue, sc: nil, labId: "SomeLabId")),
+				result: .success(TestResultReceiveModel(testResult: TestResult.serverResponse(for: .expired, on: .antigen), sc: nil, labId: "SomeLabId")),
 				willLoadResource: { res in
 					if let resource = res as? TestResultResource, !resource.locator.isFake {
 						getTestResultExpectation.fulfill()
 					}
 				})
 		])
+
+		let healthCertificateService = HealthCertificateService(
+			store: store,
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
+			dscListProvider: MockDSCListProvider(),
+			appConfiguration: appConfiguration,
+			cclService: FakeCCLService(),
+			recycleBin: .fake()
+		)
 
 		let testService = CoronaTestService(
 			client: client,
@@ -2732,25 +3502,22 @@ class CoronaTestServiceTests: CWATestCase {
 			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
 			appConfiguration: appConfiguration,
-			healthCertificateService: HealthCertificateService(
+			healthCertificateService: healthCertificateService,
+			healthCertificateRequestService: HealthCertificateRequestService(
 				store: store,
-				dccSignatureVerifier: DCCSignatureVerifyingStub(),
-				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration,
-				cclService: FakeCCLService(),
-				recycleBin: .fake()
+				healthCertificateService: healthCertificateService
 			),
-			notificationCenter: mockNotificationCenter,
 			recycleBin: .fake(),
 			badgeWrapper: .fake()
 		)
-		testService.antigenTest = AntigenTest.mock(
+		testService.antigenTest.value = AntigenTest.mock(
 			registrationToken: "regToken",
 			registrationDate: registrationDate,
 			testResult: .expired
 		)
-		testService.pcrTest = PCRTest.mock(
+		testService.pcrTest.value = PCRTest.mock(
 			registrationToken: "regToken",
 			registrationDate: registrationDate,
 			testResult: .expired
@@ -2762,7 +3529,6 @@ class CoronaTestServiceTests: CWATestCase {
 	}
 
 	func test_When_UpdatingExpiredAntigenTestResultWithoutRegistrationDateButPointOfCareConsentDateOlderThan21Days_Then_ClientIsNotCalled() throws {
-		let mockNotificationCenter = MockUserNotificationCenter()
 		let client = ClientMock()
 		let store = MockTestStore()
 		let appConfiguration = CachedAppConfigurationMock()
@@ -2772,7 +3538,7 @@ class CoronaTestServiceTests: CWATestCase {
 		
 		let restServiceProvider = RestServiceProviderStub(loadResources: [
 			LoadResource(
-				result: .success(TestResultReceiveModel(testResult: TestResult.expired.rawValue, sc: nil, labId: "SomeLabId")),
+				result: .success(TestResultReceiveModel(testResult: TestResult.serverResponse(for: .expired, on: .antigen), sc: nil, labId: "SomeLabId")),
 				willLoadResource: { res in
 					if let resource = res as? TestResultResource, !resource.locator.isFake {
 						getTestResultExpectation.fulfill()
@@ -2781,6 +3547,15 @@ class CoronaTestServiceTests: CWATestCase {
 		])
 
 		let pointOfCareConsentDate = try XCTUnwrap(Calendar.current.date(byAdding: .day, value: -21, to: Date()))
+		let healthCertificateService = HealthCertificateService(
+			store: store,
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
+			dscListProvider: MockDSCListProvider(),
+			appConfiguration: appConfiguration,
+			cclService: FakeCCLService(),
+			recycleBin: .fake()
+		)
+
 		let testService = CoronaTestService(
 			client: client,
 			restServiceProvider: restServiceProvider,
@@ -2788,20 +3563,17 @@ class CoronaTestServiceTests: CWATestCase {
 			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
 			appConfiguration: appConfiguration,
-			healthCertificateService: HealthCertificateService(
+			healthCertificateService: healthCertificateService,
+			healthCertificateRequestService: HealthCertificateRequestService(
 				store: store,
-				dccSignatureVerifier: DCCSignatureVerifyingStub(),
-				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration,
-				cclService: FakeCCLService(),
-				recycleBin: .fake()
+				healthCertificateService: healthCertificateService
 			),
-			notificationCenter: mockNotificationCenter,
 			recycleBin: .fake(),
 			badgeWrapper: .fake()
 		)
-		testService.antigenTest = AntigenTest.mock(
+		testService.antigenTest.value = AntigenTest.mock(
 			registrationToken: "regToken",
 			pointOfCareConsentDate: pointOfCareConsentDate,
 			registrationDate: nil,
@@ -2814,7 +3586,6 @@ class CoronaTestServiceTests: CWATestCase {
 	}
 
 	func test_When_UpdatingExpiredTestResultYoungerThan21Days_Then_ClientIsCalled() throws {
-		let mockNotificationCenter = MockUserNotificationCenter()
 		let client = ClientMock()
 		let store = MockTestStore()
 		let appConfiguration = CachedAppConfigurationMock()
@@ -2827,14 +3598,14 @@ class CoronaTestServiceTests: CWATestCase {
 		
 		let restServiceProvider = RestServiceProviderStub(loadResources: [
 			LoadResource(
-				result: .success(TestResultReceiveModel(testResult: TestResult.expired.rawValue, sc: nil, labId: "SomeLabId")),
+				result: .success(TestResultReceiveModel(testResult: TestResult.serverResponse(for: .expired, on: .pcr), sc: nil, labId: "SomeLabId")),
 				willLoadResource: { res in
 					if let resource = res as? TestResultResource, !resource.locator.isFake {
 						getTestResultExpectation.fulfill()
 					}
 				}),
 			LoadResource(
-				result: .success(TestResultReceiveModel(testResult: TestResult.expired.rawValue, sc: nil, labId: "SomeLabId")),
+				result: .success(TestResultReceiveModel(testResult: TestResult.serverResponse(for: .expired, on: .antigen), sc: nil, labId: "SomeLabId")),
 				willLoadResource: { res in
 					if let resource = res as? TestResultResource, !resource.locator.isFake {
 						getTestResultExpectation.fulfill()
@@ -2842,6 +3613,15 @@ class CoronaTestServiceTests: CWATestCase {
 				})
 		])
 		
+		let healthCertificateService = HealthCertificateService(
+			store: store,
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
+			dscListProvider: MockDSCListProvider(),
+			appConfiguration: appConfiguration,
+			cclService: FakeCCLService(),
+			recycleBin: .fake()
+		)
+
 		let testService = CoronaTestService(
 			client: client,
 			restServiceProvider: restServiceProvider,
@@ -2849,25 +3629,22 @@ class CoronaTestServiceTests: CWATestCase {
 			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
 			appConfiguration: appConfiguration,
-			healthCertificateService: HealthCertificateService(
+			healthCertificateService: healthCertificateService,
+			healthCertificateRequestService: HealthCertificateRequestService(
 				store: store,
-				dccSignatureVerifier: DCCSignatureVerifyingStub(),
-				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration,
-				cclService: FakeCCLService(),
-				recycleBin: .fake()
+				healthCertificateService: healthCertificateService
 			),
-			notificationCenter: mockNotificationCenter,
 			recycleBin: .fake(),
 			badgeWrapper: .fake()
 		)
-		testService.antigenTest = AntigenTest.mock(
+		testService.antigenTest.value = AntigenTest.mock(
 			registrationToken: "regToken",
 			registrationDate: registrationDate,
 			testResult: .expired
 		)
-		testService.pcrTest = PCRTest.mock(
+		testService.pcrTest.value = PCRTest.mock(
 			registrationToken: "regToken",
 			registrationDate: registrationDate,
 			testResult: .expired
@@ -2879,7 +3656,6 @@ class CoronaTestServiceTests: CWATestCase {
 	}
 
 	func test_When_UpdatingExpiredAntigenTestResultWithoutRegistrationDateAndPointOfCareConsentDateYoungerThan21Days_Then_ClientIsCalled() throws {
-		let mockNotificationCenter = MockUserNotificationCenter()
 		let client = ClientMock()
 		let store = MockTestStore()
 		let appConfiguration = CachedAppConfigurationMock()
@@ -2891,7 +3667,7 @@ class CoronaTestServiceTests: CWATestCase {
 		
 		let restServiceProvider = RestServiceProviderStub(loadResources: [
 			LoadResource(
-				result: .success(TestResultReceiveModel(testResult: TestResult.expired.rawValue, sc: nil, labId: "SomeLabId")),
+				result: .success(TestResultReceiveModel(testResult: TestResult.serverResponse(for: .expired, on: .antigen), sc: nil, labId: "SomeLabId")),
 				willLoadResource: { res in
 					if let resource = res as? TestResultResource, !resource.locator.isFake {
 						getTestResultExpectation.fulfill()
@@ -2899,6 +3675,15 @@ class CoronaTestServiceTests: CWATestCase {
 				})
 		])
 		
+		let healthCertificateService = HealthCertificateService(
+			store: store,
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
+			dscListProvider: MockDSCListProvider(),
+			appConfiguration: appConfiguration,
+			cclService: FakeCCLService(),
+			recycleBin: .fake()
+		)
+
 		let testService = CoronaTestService(
 			client: client,
 			restServiceProvider: restServiceProvider,
@@ -2906,20 +3691,17 @@ class CoronaTestServiceTests: CWATestCase {
 			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
 			appConfiguration: appConfiguration,
-			healthCertificateService: HealthCertificateService(
+			healthCertificateService: healthCertificateService,
+			healthCertificateRequestService: HealthCertificateRequestService(
 				store: store,
-				dccSignatureVerifier: DCCSignatureVerifyingStub(),
-				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration,
-				cclService: FakeCCLService(),
-				recycleBin: .fake()
+				healthCertificateService: healthCertificateService
 			),
-			notificationCenter: mockNotificationCenter,
 			recycleBin: .fake(),
 			badgeWrapper: .fake()
 		)
-		testService.antigenTest = AntigenTest.mock(
+		testService.antigenTest.value = AntigenTest.mock(
 			registrationToken: "regToken",
 			registrationDate: pointOfCareConsentDate,
 			testResult: .expired
@@ -2943,6 +3725,15 @@ class CoronaTestServiceTests: CWATestCase {
 		let store = MockTestStore()
 		let appConfiguration = CachedAppConfigurationMock()
 
+		let healthCertificateService = HealthCertificateService(
+			store: store,
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
+			dscListProvider: MockDSCListProvider(),
+			appConfiguration: appConfiguration,
+			cclService: FakeCCLService(),
+			recycleBin: .fake()
+		)
+
 		let testService = CoronaTestService(
 			client: client,
 			restServiceProvider: restServiceProvider,
@@ -2950,20 +3741,17 @@ class CoronaTestServiceTests: CWATestCase {
 			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
 			appConfiguration: appConfiguration,
-			healthCertificateService: HealthCertificateService(
+			healthCertificateService: healthCertificateService,
+			healthCertificateRequestService: HealthCertificateRequestService(
 				store: store,
-				dccSignatureVerifier: DCCSignatureVerifyingStub(),
-				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration,
-				cclService: FakeCCLService(),
-				recycleBin: .fake()
+				healthCertificateService: healthCertificateService
 			),
-			notificationCenter: MockUserNotificationCenter(),
 			recycleBin: .fake(),
 			badgeWrapper: .fake()
 		)
-		testService.pcrTest = PCRTest.mock(
+		testService.pcrTest.value = PCRTest.mock(
 			registrationToken: "regToken",
 			registrationDate: registrationDate,
 			testResult: .negative
@@ -2973,7 +3761,7 @@ class CoronaTestServiceTests: CWATestCase {
 
 		testService.updateTestResult(for: .pcr, force: true, presentNotification: false) {
 			XCTAssertEqual($0, .success(.expired))
-			XCTAssertEqual(testService.pcrTest?.testResult, .expired)
+			XCTAssertEqual(testService.pcrTest.value?.testResult, .expired)
 			completionExpectation.fulfill()
 		}
 
@@ -2992,6 +3780,15 @@ class CoronaTestServiceTests: CWATestCase {
 		let store = MockTestStore()
 		let appConfiguration = CachedAppConfigurationMock()
 
+		let healthCertificateService = HealthCertificateService(
+			store: store,
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
+			dscListProvider: MockDSCListProvider(),
+			appConfiguration: appConfiguration,
+			cclService: FakeCCLService(),
+			recycleBin: .fake()
+		)
+
 		let testService = CoronaTestService(
 			client: client,
 			restServiceProvider: restServiceProvider,
@@ -2999,20 +3796,17 @@ class CoronaTestServiceTests: CWATestCase {
 			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
 			appConfiguration: appConfiguration,
-			healthCertificateService: HealthCertificateService(
+			healthCertificateService: healthCertificateService,
+			healthCertificateRequestService: HealthCertificateRequestService(
 				store: store,
-				dccSignatureVerifier: DCCSignatureVerifyingStub(),
-				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration,
-				cclService: FakeCCLService(),
-				recycleBin: .fake()
+				healthCertificateService: healthCertificateService
 			),
-			notificationCenter: MockUserNotificationCenter(),
 			recycleBin: .fake(),
 			badgeWrapper: .fake()
 		)
-		testService.pcrTest = PCRTest.mock(
+		testService.pcrTest.value = PCRTest.mock(
 			registrationToken: "regToken",
 			registrationDate: registrationDate,
 			testResult: .negative
@@ -3022,7 +3816,7 @@ class CoronaTestServiceTests: CWATestCase {
 
 		testService.updateTestResult(for: .pcr, force: true, presentNotification: false) {
 			XCTAssertEqual($0, .failure(.testResultError(.receivedResourceError(.qrDoesNotExist))))
-			XCTAssertEqual(testService.pcrTest?.testResult, .expired)
+			XCTAssertEqual(testService.pcrTest.value?.testResult, .expired)
 			completionExpectation.fulfill()
 		}
 
@@ -3044,6 +3838,15 @@ class CoronaTestServiceTests: CWATestCase {
 		let store = MockTestStore()
 		let appConfiguration = CachedAppConfigurationMock()
 
+		let healthCertificateService = HealthCertificateService(
+			store: store,
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
+			dscListProvider: MockDSCListProvider(),
+			appConfiguration: appConfiguration,
+			cclService: FakeCCLService(),
+			recycleBin: .fake()
+		)
+
 		let testService = CoronaTestService(
 			client: client,
 			restServiceProvider: restServiceProvider,
@@ -3051,20 +3854,17 @@ class CoronaTestServiceTests: CWATestCase {
 			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
 			appConfiguration: appConfiguration,
-			healthCertificateService: HealthCertificateService(
+			healthCertificateService: healthCertificateService,
+			healthCertificateRequestService: HealthCertificateRequestService(
 				store: store,
-				dccSignatureVerifier: DCCSignatureVerifyingStub(),
-				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration,
-				cclService: FakeCCLService(),
-				recycleBin: .fake()
+				healthCertificateService: healthCertificateService
 			),
-			notificationCenter: MockUserNotificationCenter(),
 			recycleBin: .fake(),
 			badgeWrapper: .fake()
 		)
-		testService.antigenTest = AntigenTest.mock(
+		testService.antigenTest.value = AntigenTest.mock(
 			registrationToken: "regToken",
 			pointOfCareConsentDate: pointOfCareConsentDate,
 			registrationDate: registrationDate,
@@ -3075,7 +3875,7 @@ class CoronaTestServiceTests: CWATestCase {
 
 		testService.updateTestResult(for: .antigen, force: true, presentNotification: false) {
 			XCTAssertEqual($0, .success(.expired))
-			XCTAssertEqual(testService.antigenTest?.testResult, .expired)
+			XCTAssertEqual(testService.antigenTest.value?.testResult, .expired)
 			completionExpectation.fulfill()
 		}
 
@@ -3096,6 +3896,15 @@ class CoronaTestServiceTests: CWATestCase {
 		let store = MockTestStore()
 		let appConfiguration = CachedAppConfigurationMock()
 
+		let healthCertificateService = HealthCertificateService(
+			store: store,
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
+			dscListProvider: MockDSCListProvider(),
+			appConfiguration: appConfiguration,
+			cclService: FakeCCLService(),
+			recycleBin: .fake()
+		)
+
 		let testService = CoronaTestService(
 			client: client,
 			restServiceProvider: restServiceProvider,
@@ -3103,20 +3912,17 @@ class CoronaTestServiceTests: CWATestCase {
 			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
 			appConfiguration: appConfiguration,
-			healthCertificateService: HealthCertificateService(
+			healthCertificateService: healthCertificateService,
+			healthCertificateRequestService: HealthCertificateRequestService(
 				store: store,
-				dccSignatureVerifier: DCCSignatureVerifyingStub(),
-				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration,
-				cclService: FakeCCLService(),
-				recycleBin: .fake()
+				healthCertificateService: healthCertificateService
 			),
-			notificationCenter: MockUserNotificationCenter(),
 			recycleBin: .fake(),
 			badgeWrapper: .fake()
 		)
-		testService.antigenTest = AntigenTest.mock(
+		testService.antigenTest.value = AntigenTest.mock(
 			registrationToken: "regToken",
 			pointOfCareConsentDate: pointOfCareConsentDate,
 			registrationDate: registrationDate,
@@ -3127,7 +3933,7 @@ class CoronaTestServiceTests: CWATestCase {
 
 		testService.updateTestResult(for: .antigen, force: true, presentNotification: false) {
 			XCTAssertEqual($0, .failure(.testResultError(.receivedResourceError(.qrDoesNotExist))))
-			XCTAssertEqual(testService.antigenTest?.testResult, .expired)
+			XCTAssertEqual(testService.antigenTest.value?.testResult, .expired)
 			completionExpectation.fulfill()
 		}
 
@@ -3148,6 +3954,15 @@ class CoronaTestServiceTests: CWATestCase {
 		let store = MockTestStore()
 		let appConfiguration = CachedAppConfigurationMock()
 
+		let healthCertificateService = HealthCertificateService(
+			store: store,
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
+			dscListProvider: MockDSCListProvider(),
+			appConfiguration: appConfiguration,
+			cclService: FakeCCLService(),
+			recycleBin: .fake()
+		)
+
 		let testService = CoronaTestService(
 			client: client,
 			restServiceProvider: restServiceProvider,
@@ -3155,20 +3970,17 @@ class CoronaTestServiceTests: CWATestCase {
 			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
 			appConfiguration: appConfiguration,
-			healthCertificateService: HealthCertificateService(
+			healthCertificateService: healthCertificateService,
+			healthCertificateRequestService: HealthCertificateRequestService(
 				store: store,
-				dccSignatureVerifier: DCCSignatureVerifyingStub(),
-				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration,
-				cclService: FakeCCLService(),
-				recycleBin: .fake()
+				healthCertificateService: healthCertificateService
 			),
-			notificationCenter: MockUserNotificationCenter(),
 			recycleBin: .fake(),
 			badgeWrapper: .fake()
 		)
-		testService.antigenTest = AntigenTest.mock(
+		testService.antigenTest.value = AntigenTest.mock(
 			registrationToken: "regToken",
 			pointOfCareConsentDate: pointOfCareConsentDate,
 			registrationDate: nil,
@@ -3179,7 +3991,7 @@ class CoronaTestServiceTests: CWATestCase {
 
 		testService.updateTestResult(for: .antigen, force: true, presentNotification: false) {
 			XCTAssertEqual($0, .success(.expired))
-			XCTAssertEqual(testService.antigenTest?.testResult, .expired)
+			XCTAssertEqual(testService.antigenTest.value?.testResult, .expired)
 			completionExpectation.fulfill()
 		}
 
@@ -3200,6 +4012,15 @@ class CoronaTestServiceTests: CWATestCase {
 		let store = MockTestStore()
 		let appConfiguration = CachedAppConfigurationMock()
 
+		let healthCertificateService = HealthCertificateService(
+			store: store,
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
+			dscListProvider: MockDSCListProvider(),
+			appConfiguration: appConfiguration,
+			cclService: FakeCCLService(),
+			recycleBin: .fake()
+		)
+
 		let testService = CoronaTestService(
 			client: client,
 			restServiceProvider: restServiceProvider,
@@ -3207,20 +4028,17 @@ class CoronaTestServiceTests: CWATestCase {
 			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
 			appConfiguration: appConfiguration,
-			healthCertificateService: HealthCertificateService(
+			healthCertificateService: healthCertificateService,
+			healthCertificateRequestService: HealthCertificateRequestService(
 				store: store,
-				dccSignatureVerifier: DCCSignatureVerifyingStub(),
-				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration,
-				cclService: FakeCCLService(),
-				recycleBin: .fake()
+				healthCertificateService: healthCertificateService
 			),
-			notificationCenter: MockUserNotificationCenter(),
 			recycleBin: .fake(),
 			badgeWrapper: .fake()
 		)
-		testService.antigenTest = AntigenTest.mock(
+		testService.antigenTest.value = AntigenTest.mock(
 			registrationToken: "regToken",
 			pointOfCareConsentDate: pointOfCareConsentDate,
 			registrationDate: nil,
@@ -3231,7 +4049,7 @@ class CoronaTestServiceTests: CWATestCase {
 
 		testService.updateTestResult(for: .antigen, force: true, presentNotification: false) {
 			XCTAssertEqual($0, .failure(.testResultError(.receivedResourceError(.qrDoesNotExist))))
-			XCTAssertEqual(testService.antigenTest?.testResult, .expired)
+			XCTAssertEqual(testService.antigenTest.value?.testResult, .expired)
 			completionExpectation.fulfill()
 		}
 
@@ -3246,56 +4064,63 @@ class CoronaTestServiceTests: CWATestCase {
 		let appConfiguration = CachedAppConfigurationMock()
 		let recycleBin = RecycleBin(store: store)
 
+		let healthCertificateService = HealthCertificateService(
+			store: store,
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
+			dscListProvider: MockDSCListProvider(),
+			appConfiguration: appConfiguration,
+			cclService: FakeCCLService(),
+			recycleBin: recycleBin
+		)
+
 		let service = CoronaTestService(
 			client: client,
 			store: store,
 			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
 			appConfiguration: appConfiguration,
-			healthCertificateService: HealthCertificateService(
+			healthCertificateService: healthCertificateService,
+			healthCertificateRequestService: HealthCertificateRequestService(
 				store: store,
-				dccSignatureVerifier: DCCSignatureVerifyingStub(),
-				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration,
-				cclService: FakeCCLService(),
-				recycleBin: recycleBin
+				healthCertificateService: healthCertificateService
 			),
 			recycleBin: recycleBin,
 			badgeWrapper: .fake()
 		)
 
-		service.pcrTest = PCRTest.mock(registrationToken: "pcrRegistrationToken")
-		service.antigenTest = AntigenTest.mock(registrationToken: "antigenRegistrationToken")
+		service.pcrTest.value = PCRTest.mock(registrationToken: "pcrRegistrationToken")
+		service.antigenTest.value = AntigenTest.mock(registrationToken: "antigenRegistrationToken")
 
-		XCTAssertNotNil(service.pcrTest)
-		XCTAssertNotNil(service.antigenTest)
+		XCTAssertNotNil(service.pcrTest.value)
+		XCTAssertNotNil(service.antigenTest.value)
 		XCTAssertTrue(store.recycleBinItems.isEmpty)
 		XCTAssertTrue(store.recycleBinItemsSubject.value.isEmpty)
 
 		service.moveTestToBin(.pcr)
 
-		XCTAssertNil(service.pcrTest)
-		XCTAssertNotNil(service.antigenTest)
+		XCTAssertNil(service.pcrTest.value)
+		XCTAssertNotNil(service.antigenTest.value)
 		XCTAssertEqual(store.recycleBinItems.count, 1)
 		XCTAssertEqual(store.recycleBinItemsSubject.value.count, 1)
 
-		service.pcrTest = PCRTest.mock(registrationToken: "pcrRegistrationToken2")
+		service.pcrTest.value = PCRTest.mock(registrationToken: "pcrRegistrationToken2")
 
-		XCTAssertNotNil(service.pcrTest)
-		XCTAssertNotNil(service.antigenTest)
+		XCTAssertNotNil(service.pcrTest.value)
+		XCTAssertNotNil(service.antigenTest.value)
 
 		service.moveTestToBin(.antigen)
 
-		XCTAssertNotNil(service.pcrTest)
-		XCTAssertNil(service.antigenTest)
+		XCTAssertNotNil(service.pcrTest.value)
+		XCTAssertNil(service.antigenTest.value)
 		XCTAssertEqual(store.recycleBinItems.count, 2)
 		XCTAssertEqual(store.recycleBinItemsSubject.value.count, 2)
 
 		service.moveTestToBin(.pcr)
 
-		XCTAssertNil(service.pcrTest)
-		XCTAssertNil(service.antigenTest)
+		XCTAssertNil(service.pcrTest.value)
+		XCTAssertNil(service.antigenTest.value)
 		XCTAssertEqual(store.recycleBinItems.count, 3)
 		XCTAssertEqual(store.recycleBinItemsSubject.value.count, 3)
 	}
@@ -3305,50 +4130,57 @@ class CoronaTestServiceTests: CWATestCase {
 		let store = MockTestStore()
 		let appConfiguration = CachedAppConfigurationMock()
 
+		let healthCertificateService = HealthCertificateService(
+			store: store,
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
+			dscListProvider: MockDSCListProvider(),
+			appConfiguration: appConfiguration,
+			cclService: FakeCCLService(),
+			recycleBin: .fake()
+		)
+
 		let service = CoronaTestService(
 			client: client,
 			store: store,
 			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
 			appConfiguration: appConfiguration,
-			healthCertificateService: HealthCertificateService(
+			healthCertificateService: healthCertificateService,
+			healthCertificateRequestService: HealthCertificateRequestService(
 				store: store,
-				dccSignatureVerifier: DCCSignatureVerifyingStub(),
-				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration,
-				cclService: FakeCCLService(),
-				recycleBin: .fake()
+				healthCertificateService: healthCertificateService
 			),
 			recycleBin: .fake(),
 			badgeWrapper: .fake()
 		)
 
-		service.pcrTest = PCRTest.mock(registrationToken: "pcrRegistrationToken")
-		service.antigenTest = AntigenTest.mock(registrationToken: "antigenRegistrationToken")
+		service.pcrTest.value = PCRTest.mock(registrationToken: "pcrRegistrationToken")
+		service.antigenTest.value = AntigenTest.mock(registrationToken: "antigenRegistrationToken")
 
-		XCTAssertNotNil(service.pcrTest)
-		XCTAssertNotNil(service.antigenTest)
+		XCTAssertNotNil(service.pcrTest.value)
+		XCTAssertNotNil(service.antigenTest.value)
 
 		service.removeTest(.pcr)
 
-		XCTAssertNil(service.pcrTest)
-		XCTAssertNotNil(service.antigenTest)
+		XCTAssertNil(service.pcrTest.value)
+		XCTAssertNotNil(service.antigenTest.value)
 
-		service.pcrTest = PCRTest.mock(registrationToken: "pcrRegistrationToken")
+		service.pcrTest.value = PCRTest.mock(registrationToken: "pcrRegistrationToken")
 
-		XCTAssertNotNil(service.pcrTest)
-		XCTAssertNotNil(service.antigenTest)
+		XCTAssertNotNil(service.pcrTest.value)
+		XCTAssertNotNil(service.antigenTest.value)
 
 		service.removeTest(.antigen)
 
-		XCTAssertNotNil(service.pcrTest)
-		XCTAssertNil(service.antigenTest)
+		XCTAssertNotNil(service.pcrTest.value)
+		XCTAssertNil(service.antigenTest.value)
 
 		service.removeTest(.pcr)
 
-		XCTAssertNil(service.pcrTest)
-		XCTAssertNil(service.antigenTest)
+		XCTAssertNil(service.pcrTest.value)
+		XCTAssertNil(service.antigenTest.value)
 	}
 
 	// MARK: - Plausible Deniability
@@ -3406,6 +4238,15 @@ class CoronaTestServiceTests: CWATestCase {
 		let store = MockTestStore()
 		let appConfiguration = CachedAppConfigurationMock()
 
+		let healthCertificateService = HealthCertificateService(
+			store: store,
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
+			dscListProvider: MockDSCListProvider(),
+			appConfiguration: appConfiguration,
+			cclService: FakeCCLService(),
+			recycleBin: .fake()
+		)
+
 		let service = CoronaTestService(
 			client: client,
 			restServiceProvider: restServiceProvider,
@@ -3413,20 +4254,18 @@ class CoronaTestServiceTests: CWATestCase {
 			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
 			appConfiguration: appConfiguration,
-			healthCertificateService: HealthCertificateService(
+			healthCertificateService: healthCertificateService,
+			healthCertificateRequestService: HealthCertificateRequestService(
 				store: store,
-				dccSignatureVerifier: DCCSignatureVerifyingStub(),
-				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration,
-				cclService: FakeCCLService(),
-				recycleBin: .fake()
+				healthCertificateService: healthCertificateService
 			),
 			recycleBin: .fake(),
 			badgeWrapper: .fake()
 		)
-		service.pcrTest = PCRTest.mock(registrationToken: "regToken")
-		service.antigenTest = AntigenTest.mock(registrationToken: "regToken")
+		service.pcrTest.value = PCRTest.mock(registrationToken: "regToken")
+		service.antigenTest.value = AntigenTest.mock(registrationToken: "regToken")
 
 		service.registerPCRTest(
 			teleTAN: "test-teletan",
@@ -3494,7 +4333,7 @@ class CoronaTestServiceTests: CWATestCase {
 		let appConfiguration = CachedAppConfigurationMock()
 		let restServiceProvider = RestServiceProviderStub(loadResources: [
 			LoadResource(
-				result: .success(TestResultReceiveModel(testResult: testResult.rawValue, sc: nil, labId: nil)),
+				result: .success(TestResultReceiveModel(testResult: TestResult.serverResponse(for: testResult, on: coronaTestType), sc: nil, labId: nil)),
 				willLoadResource: { resource in
 					guard let resource = resource as? TestResultResource  else {
 						XCTFail("TestResultResource expected.")
@@ -3522,6 +4361,15 @@ class CoronaTestServiceTests: CWATestCase {
 					count += 1
 				})
 		])
+		let healthCertificateService = HealthCertificateService(
+			store: store,
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
+			dscListProvider: MockDSCListProvider(),
+			appConfiguration: appConfiguration,
+			cclService: FakeCCLService(),
+			recycleBin: .fake()
+		)
+
 		let service = CoronaTestService(
 			client: client,
 			restServiceProvider: restServiceProvider,
@@ -3529,20 +4377,18 @@ class CoronaTestServiceTests: CWATestCase {
 			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
 			appConfiguration: appConfiguration,
-			healthCertificateService: HealthCertificateService(
+			healthCertificateService: healthCertificateService,
+			healthCertificateRequestService: HealthCertificateRequestService(
 				store: store,
-				dccSignatureVerifier: DCCSignatureVerifyingStub(),
-				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration,
-				cclService: FakeCCLService(),
-				recycleBin: .fake()
+				healthCertificateService: healthCertificateService
 			),
 			recycleBin: .fake(),
 			badgeWrapper: .fake()
 		)
-		service.pcrTest = PCRTest.mock(registrationToken: "regToken")
-		service.antigenTest = AntigenTest.mock(registrationToken: "regToken")
+		service.pcrTest.value = PCRTest.mock(registrationToken: "regToken")
+		service.antigenTest.value = AntigenTest.mock(registrationToken: "regToken")
 
 		// Run test.
 
@@ -3551,7 +4397,7 @@ class CoronaTestServiceTests: CWATestCase {
 			case .failure(let error):
 				XCTFail(error.localizedDescription)
 			case .success(let result):
-				XCTAssertEqual(result.rawValue, testResult.rawValue)
+				XCTAssertEqual(result, testResult)
 			}
 
 			expectation.fulfill()

@@ -7,6 +7,7 @@ import XCTest
 @testable import ENA
 import OpenCombine
 import HealthCertificateToolkit
+import class CertLogic.Rule
 
 class HealthCertifiedPersonTests: CWATestCase {
 
@@ -95,12 +96,16 @@ class HealthCertifiedPersonTests: CWATestCase {
 			isNew: true,
 			isValidityStateNew: true
 		)
+		let boosterRule = Rule.fake(identifier: "Booster Rule Identifier 0815")
+		let dccWallet = DCCWalletInfo.fake()
 
 		// GIVEN
 		let healthCertifiedPerson = HealthCertifiedPerson(
 			healthCertificates: [firstHealthCertificate, secondHealthCertificate],
 			isPreferredPerson: true,
-			boosterRule: .fake(identifier: "Booster Rule Identifier 0815"),
+			dccWalletInfo: dccWallet,
+			mostRecentWalletInfoUpdateFailed: true,
+			boosterRule: boosterRule,
 			isNewBoosterRule: true
 		)
 
@@ -109,7 +114,17 @@ class HealthCertifiedPersonTests: CWATestCase {
 		let decodedHealthCertifiedPerson = try JSONDecoder().decode(HealthCertifiedPerson.self, from: jsonData)
 
 		// THEN
-		XCTAssertEqual(decodedHealthCertifiedPerson, healthCertifiedPerson)
+		XCTAssertTrue(decodedHealthCertifiedPerson.isPreferredPerson)
+		XCTAssertTrue(decodedHealthCertifiedPerson.isNewBoosterRule)
+		XCTAssertEqual(decodedHealthCertifiedPerson.boosterRule, boosterRule)
+		XCTAssertEqual(decodedHealthCertifiedPerson.dccWalletInfo, dccWallet)
+		XCTAssertTrue(decodedHealthCertifiedPerson.mostRecentWalletInfoUpdateFailed)
+		XCTAssertEqual(decodedHealthCertifiedPerson.healthCertificates.map { $0.base45 }, [firstHealthCertificate, secondHealthCertificate].map { $0.base45 })
+		XCTAssertEqual(decodedHealthCertifiedPerson.healthCertificates.map { $0.validityState }, [firstHealthCertificate, secondHealthCertificate].map { $0.validityState })
+		XCTAssertEqual(decodedHealthCertifiedPerson.healthCertificates.map { $0.isNew }, [firstHealthCertificate, secondHealthCertificate].map { $0.isNew })
+		XCTAssertEqual(decodedHealthCertifiedPerson.healthCertificates.map { $0.isValidityStateNew }, [firstHealthCertificate, secondHealthCertificate].map { $0.isValidityStateNew })
+		XCTAssertEqual(decodedHealthCertifiedPerson.healthCertificates.map { $0.didShowInvalidNotification }, [firstHealthCertificate, secondHealthCertificate].map { $0.didShowInvalidNotification })
+		XCTAssertEqual(decodedHealthCertifiedPerson.healthCertificates.map { $0.didShowBlockedNotification }, [firstHealthCertificate, secondHealthCertificate].map { $0.didShowBlockedNotification })
 	}
 
 }

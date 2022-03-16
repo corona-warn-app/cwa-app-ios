@@ -10,7 +10,7 @@ final class NotificationManager: NSObject, UNUserNotificationCenterDelegate {
 	// MARK: - Init
 	
 	init(
-		coronaTestService: CoronaTestService,
+		coronaTestService: CoronaTestServiceProviding,
 		eventCheckoutService: EventCheckoutService,
 		healthCertificateService: HealthCertificateService,
 		showHome: @escaping () -> Void,
@@ -62,7 +62,7 @@ final class NotificationManager: NSObject, UNUserNotificationCenterDelegate {
 			let testTypeIdentifier = ActionableNotificationIdentifier.testResultType.identifier
 
 			guard let testResultRawValue = response.notification.request.content.userInfo[testIdentifier] as? Int,
-				  let testResult = TestResult(serverResponse: testResultRawValue),
+				  let testResult = TestResult(rawValue: testResultRawValue),
 				  let testResultTypeRawValue = response.notification.request.content.userInfo[testTypeIdentifier] as? Int,
 				  let testResultType = CoronaTestType(rawValue: testResultTypeRawValue) else {
 				showHome()
@@ -102,7 +102,7 @@ final class NotificationManager: NSObject, UNUserNotificationCenterDelegate {
 	}
 	// MARK: - Private
 	
-	private let coronaTestService: CoronaTestService
+	private let coronaTestService: CoronaTestServiceProviding
 	private let eventCheckoutService: EventCheckoutService
 	private let healthCertificateService: HealthCertificateService
 	private let showHome: () -> Void
@@ -111,14 +111,14 @@ final class NotificationManager: NSObject, UNUserNotificationCenterDelegate {
 	private let showHealthCertifiedPerson: (Route) -> Void
 
 	private func showPositivePCRTestResultIfNeeded() {
-		if let pcrTest = coronaTestService.pcrTest,
+		if let pcrTest = coronaTestService.pcrTest.value,
 		   pcrTest.positiveTestResultWasShown {
 			showTestResultFromNotification(.testResultFromNotification(.pcr))
 		}
 	}
 
 	private func showPositiveAntigenTestResultIfNeeded() {
-		if let antigenTest = coronaTestService.antigenTest,
+		if let antigenTest = coronaTestService.antigenTest.value,
 		   antigenTest.positiveTestResultWasShown {
 			showTestResultFromNotification(.testResultFromNotification(.antigen))
 		}
@@ -150,6 +150,10 @@ final class NotificationManager: NSObject, UNUserNotificationCenterDelegate {
 			let route = Route(healthCertifiedPerson: certifiedPerson)
 			Log.debug("Received boosterVaccination notification")
 			showHealthCertifiedPerson(route)
+		} else if let (certifiedPerson) = extractPerson(LocalNotificationIdentifier.certificateReissuance.rawValue, from: identifier) {
+			let route = Route(healthCertifiedPerson: certifiedPerson)
+			Log.debug("Received certificateReissuance notification")
+			showHealthCertifiedPerson(route)
 		}
 	}
 	
@@ -164,14 +168,9 @@ final class NotificationManager: NSObject, UNUserNotificationCenterDelegate {
 	}
 	
 	private func findHealthCertifiedPerson(_ identifier: String) -> (HealthCertifiedPerson)? {
-		let matchedPerson = healthCertificateService.healthCertifiedPersons.first {
-			if let name = $0.name?.groupingStandardizedName,
-			   let dateOfBirth = $0.dateOfBirth {
-				let hashedID = ENAHasher.sha256(name + dateOfBirth)
-				return hashedID == identifier
+		return healthCertificateService.healthCertifiedPersons
+			.first {
+				$0.identifier == identifier
 			}
-			return false
-		}
-		return matchedPerson
 	}
 }

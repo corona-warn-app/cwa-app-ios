@@ -711,7 +711,7 @@
 
 "ExposureSubmissionResult_Title_Antigen" = "Szybki test";
 
-"ExposureSubmissionResult_CardSubTitle" = "Twoja diagnoza";
+"ExposureSubmissionResult_CardSubTitle" = "Wynik Twojego testu PCR";
 
 "ExposureSubmissionResult_CardSubTitle_Antigen" = "Wynik Twojego szybkiego testu";
 
@@ -1414,6 +1414,9 @@
 
 "App_Information_Contact_Form_Title" = "Formularz kontaktowy";
 
+/* App Information - Accessibility */
+"App_Information_Accessibility_Navigation" = "Deklaracja dostępności";
+
 /* App Information - Legal */
 "App_Information_Legal_Navigation" = "Informacje prawne";
 
@@ -1528,7 +1531,7 @@
 
 "RiskLegend_Legend2_Title" = "Ryzyko zakażenia";
 
-"RiskLegend_Legend2_Text" = "Jeśli rejestrowanie narażenia jest aktywne, aplikacja oblicza Twoje osobiste ryzyko zakażenia poprzez pomiar czasu trwania i bliskości Twojego kontaktu z osobami, u których zdiagnozowano koronawirusa w ciągu ostatnich 14 dni.";
+"RiskLegend_Legend2_Text" = "Jeśli rejestrowanie narażenia jest aktywne, aplikacja oblicza Twoje osobiste ryzyko zakażenia poprzez pomiar czasu trwania i bliskości Twojego kontaktu z osobami, u których zdiagnozowano koronawirusa w ciągu ostatnich 14 dni. Rejestrowanie narażenia uwzględnia również Twoje zameldowania. Otrzymasz ostrzeżenie, jeśli przebywałeś(-aś) w tym samym pomieszczeniu w tym samym czasie, co osoba, u której zdiagnozowano koronawirusa, lub do 30 minut po opuszczeniu pomieszczenia przez taką osobę.";
 
 "RiskLegend_Legend2_RiskLevels" = "Może wyświetlić się następujący status ryzyka:";
 
@@ -1601,10 +1604,18 @@
 /* New Version Features */
 "NewVersionFeatures_Info_about_abb_information" = "Dane o zmianach w tej wersji można znaleźć w informacjach o aplikacji w sekcji „Nowe funkcje”.";
 
-/* Version 2.18 */
-"NewVersionFeature_218_centralManagementOfRules_title" = "Centralna administracja reguł";
+/* Version 2.19 */
+"NewVersionFeature_219_rapidPCR_title" = "Rejestracja szybkich testów PCR";
 
-"NewVersionFeature_218_centralManagementOfRules_description" = "Reguły certyfikatów (odnoszące się na przykład do ich ważności lub priorytetów w przypadku dostępności kilku certyfikatów) i ustalania statusu „G” (zaszczepiony, ozdrowieniec, przetestowany) zostały oddzielone od aplikacji Corona-Warn-App. Te reguły są teraz przechowywane centralnie i dlatego można je dostosowywać niezależnie od wersji aplikacji, co umożliwia szybszą reakcję na zmiany reguł. Po zmianie zaktualizowane reguły zostaną przeniesione do aplikacji automatycznie. Ta centralna administracja reguł nie zmienia sposobu korzystania z aplikacji Corona-Warn-App.";
+"NewVersionFeature_219_rapidPCR_description" = "Możesz teraz zarejestrować szybkie testy PCR w aplikacji Corona-Warn-App i otrzymać za jej pośrednictwem wynik i certyfikat testu.";
+
+"NewVersionFeature_219_faultTolerantNameHandling_title" = "Przypisywanie certyfikatów";
+
+"NewVersionFeature_219_faultTolerantNameHandling_description" = "Przypisywanie certyfikatów do osób stało się bardziej odporne na błędy. Niewielkie różnice w pisowni imion i nazwisk są ignorowane, więc certyfikaty, w których takie różnice występują, mogą zostać mimo to przypisane do tej samej osoby.";
+
+"NewVersionFeature_219_vaccinationCertificateReplacement_title" = "Aktualizacja certyfikatu";
+
+"NewVersionFeature_219_vaccinationCertificateReplacement_description" = "Zmieniły się specyfikacje UE dla certyfikatów szczepień przypominających. Jeśli Twój certyfikat nie jest zgodny z aktualnymi specyfikacjami, możesz zamówić nowy bezpośrednio w aplikacji Corona-Warn-App.";
 
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Rejestrowanie narażenia w różnych krajach";
@@ -1945,9 +1956,9 @@
 
 "Statistics_Card_CombinedIncidence_Date" = "Do %@";
 
-"Statistics_Card_CombinedIncidence_PrimaryLabelSubtitle" = "Nowe zakażenia";
+"Statistics_Card_CombinedIncidence_PrimaryLabelSubtitle" = "nowe zakażenia";
 
-"Statistics_Card_CombinedIncidence_SecondaryLabelSubtitle" = "Hospitalizacje";
+"Statistics_Card_CombinedIncidence_SecondaryLabelSubtitle" = "hospitalizacje";
 
 /* - Infections Card */
 "Statistics_Card_Infections_Title" = "Potwierdzone nowe zakażenia";
@@ -1969,11 +1980,11 @@
 
 "Statistics_Card_Region_Date" = "Do %@";
 
-"Statistics_Card_Region_PrimaryLabelSubtitle" = "Nowe zakażenia";
+"Statistics_Card_Region_PrimaryLabelSubtitle" = "nowe zakażenia";
 
-"Statistics_Card_Region_SecondaryLabelSubtitle_FederalState" = "Hospitalizacje";
+"Statistics_Card_Region_SecondaryLabelSubtitle_FederalState" = "hospitalizacje";
 
-"Statistics_Card_Region_SecondaryLabelSubtitle_AdministrativeUnit" = "Hospitalizacje w %@";
+"Statistics_Card_Region_SecondaryLabelSubtitle_AdministrativeUnit" = "hospitalizacje w %@";
 
 /* - Key Submissions Card */
 "Statistics_Card_KeySubmissions_Title" = "Ostrzeżenia od użytkowników aplikacji";
@@ -2068,7 +2079,7 @@
 
 "Statistics_Card_IntensiveCare_Date" = "Do %@";
 
-"Statistics_Card_IntensiveCare_SecondaryLabelTitle" = "Wskaźnik obłożenia wszystkich łóżek intensywnej terapii z powodu COVID-19";
+"Statistics_Card_IntensiveCare_SecondaryLabelTitle" = "Wskaźnik obłożenia wszystkich łóżek na intensywnej terapii z powodu COVID-19";
 
 /* Error */
 "Statistics_LoadingError" = "Nie można załadować statystyk. Zamknij aplikację i spróbuj ponownie.";
@@ -2102,7 +2113,7 @@
 
 "Statistics_Info_KeySubmissions_Title" = "Ostrzeżenia od użytkowników aplikacji";
 
-"Statistics_Info_KeySubmissions_Text" = "Liczba użytkowników aplikacji ze zdiagnozowanym za pomocą testu PCR zakażeniem koronawirusem, którzy ostrzegli innych za pomocą aplikacji.";
+"Statistics_Info_KeySubmissions_Text" = "Liczba użytkowników aplikacji ze zdiagnozowanym zakażeniem koronawirusem, którzy ostrzegli innych za pomocą aplikacji";
 
 "Statistics_Info_ReproductionNumber_Title" = "7-dniowa wartość R";
 
@@ -2298,9 +2309,13 @@
 "Contact_Journal_Notes_Description" = "Możesz tu wpisać uwagi, które pomogą Ci lepiej oszacować ryzyko zakażenia.\n\nZapisz okoliczności Twojego kontaktu lub przebywania w jakimś miejscu, które mogły zwiększyć ryzyko zakażenia, np. odległość od innych osób lub wykonywane czynności (przykłady: „siedzieliśmy blisko siebie”, „uprawialiśmy sport”, „mało miejsca”, „śpiewaliśmy”).\n\nTe notatki pomogą Ci później odświeżyć pamięć. W razie potrzeby pozwolą Ci również ostrzec osoby, z którymi spędzałeś(-aś) czas na wczesnym etapie, a także pomogą organom ds. zdrowia publicznego w prześledzeniu potencjalnych łańcuchów zakażenia.";
 
 /* Quick Actions a.k.a. shortcuts */
-"QuickAction_newContactDiaryEntry" = "Dodaj wpis do dziennika na dziś";
+"QuickAction_qrCodeScanner" = "Skanuj kod QR";
 
-"QuickAction_eventCheckin" = "Zamelduj się";
+"QuickAction_showCertificates" = "Wyświetl certyfikaty";
+
+"QuickAction_eventCheckin" = "Wyświetl zameldowania";
+
+"QuickAction_newContactDiaryEntry" = "Dodaj wpis";
 
 /* Checkins */
 "Checkins_Overview_Title" = "Moje zameldowania";
@@ -2716,11 +2731,9 @@
 /* Health Certificate Overview */
 "HealthCertificate_Overview_title" = "Certyfikaty";
 
-"HealthCertificate_Overview_add" = "Dodaj certyfikat";
-
 "HealthCertificate_Overview_EmptyTitle" = "Nie ma jeszcze dostępnych certyfikatów";
 
-"HealthCertificate_Overview_EmptyDescription" = "W tym miejscu wyświetlane są zapisane cyfrowe certyfikaty szczepień, certyfikaty statusu ozdrowieńca i certyfikaty testów.\n\nAby dodać certyfikat, zeskanuj odpowiedni kod QR.";
+"HealthCertificate_Overview_EmptyDescription" = "W tym miejscu wyświetlane są zapisane cyfrowe certyfikaty szczepień, certyfikaty statusu ozdrowieńca i certyfikaty testów.";
 
 "HealthCertificate_Overview_EmptyImageDescription" = "Pieczęć certyfikatu z cyfrowym certyfikatem w tle";
 
@@ -2733,6 +2746,14 @@
 "HealthCertificate_Overview_TwoGCertificate" = "Certyfikat 2G";
 
 "HealthCertificate_Overview_TestCertificate" = "Certyfikat testu";
+
+"HealthCertificate_Overview_Scanning_Info" = "Aby dodać kolejne certyfikaty, użyj skanera kodów QR na pasku nawigacyjnym poniżej.";
+
+"HealthCertificate_Admission_Scenario_Status_Label" = "Status dla następujących krajów związkowych";
+
+"HealthCertificate_Admission_Scenario_Button_Label" = "Przepisy władz federalnych";
+
+"HealthCertificate_Loading_Indicator_Label" = "Ustalanie statusu...";
 
 "HealthCertificate_Overview_News" = "Dostępne są nowe informacje na temat Twoich certyfikatów";
 
@@ -2970,6 +2991,13 @@
 
 "HealthCertificate_PrintPdf_ErrorAlert_ValueSetsFetching_Message" = "Nie można wyświetlić wersji certyfikatu do druku, ponieważ nie można teraz pobrać certyfikatu. Spróbuj ponownie później.";
 
+/* Certificate Fault Tolerant Naming */
+"HealthCertificate_FaultTolerantNaming_RegroupDone_Title" = "Przypisywanie certyfikatów";
+
+"HealthCertificate_FaultTolerantNaming_RegroupDone_Message" = "Usprawniono grupowanie certyfikatów. Certyfikaty, których nazwy różnią się tylko nieznacznie, nie będą już przypisywane do różnych osób.";
+
+"HealthCertificate_FaultTolerantNaming_RegroupDone_OkayButton" = "OK";
+
 /* Health Certificate Errors */
 "HealthCertificate_Error_Title" = "Błąd";
 
@@ -3045,7 +3073,7 @@
 
 "HealthCertificate_Validation_Passed_unknownTitle" = "Weryfikacja certyfikatu jest niemożliwa";
 
-"HealthCertificate_Validation_Passed_subtitle" = "Twój certyfikat jest ważny w wybranym kraju";
+"HealthCertificate_Validation_Passed_subtitle" = "Twój certyfikat jest ważny na wjazd do wybranego kraju";
 
 "HealthCertificate_Validation_Passed_unknownSubtitle" = "Twój certyfikat nie mógł zostać zweryfikowany";
 
@@ -3071,7 +3099,7 @@
 /* - Failed */
 "HealthCertificate_Validation_Failed_title" = "Certyfikat jest nieważny";
 
-"HealthCertificate_Validation_Failed_subtitle" = "Twój certyfikat nie jest ważny w wybranym kraju";
+"HealthCertificate_Validation_Failed_subtitle" = "Twój certyfikat nie jest ważny na wjazd do wybranego kraju";
 
 "HealthCertificate_Validation_Failed_failedSectionTitle" = "Weryfikacja zakończona";
 
@@ -3084,7 +3112,7 @@
 /* - Technical Validation Failed */
 "HealthCertificate_Validation_TechnicalFailed_title" = "Certyfikat jest nieważny";
 
-"HealthCertificate_Validation_TechnicalFailed_subtitle" = "Twój certyfikat nie jest ważny w wybranym kraju";
+"HealthCertificate_Validation_TechnicalFailed_subtitle" = "Twój certyfikat nie jest ważny na wjazd do wybranego kraju";
 
 "HealthCertificate_Validation_TechnicalFailed_failedSectionTitle" = "Kontrola techniczna";
 
@@ -3114,6 +3142,52 @@
 "HealthCertificate_ValidityState_Blocked" = "Certyfikat nieważny";
 
 "HealthCertificate_ValidityState_Blocked_description" = "Certyfikat został wycofany przez urząd wydający. Zdobądź nowy cyfrowy certyfikat.";
+
+/* Reissuance */
+/* HealthCertificate Resissuance Consent */
+"HealthCertificate_Reissuance_Consent_primaryButtonTitle" = "Akceptuj";
+
+"HealthCertificate_Reissuance_Consent_secondaryButtonTitle" = "Anuluj";
+
+"HealthCertificate_Reissuance_Consent_DefaultAlert_Title" = "Błąd";
+
+"HealthCertificate_Reissuance_Consent_DefaultAlert_OKButton" = "OK";
+
+"HealthCertificate_Reissuance_Consent_DefaultAlert_RetryButton" = "Powtórz";
+
+"HealthCertificate_Reissuance_Consent_Title" = "Twoja zgoda";
+
+"HealthCertificate_Reissuance_Consent_Delete_Notice" = "Stary certyfikat zostanie automatycznie przeniesiony do kosza i usunięty po 30 dniach. Certyfikat można odzyskać w dowolnym momencie w ciągu tych 30 dni.";
+
+"HealthCertificate_Reissuance_Consent_Cancel_Notice" = "Jeśli teraz zrezygnujesz, możesz w każdej chwili zażądać aktualizacji w przeglądzie certyfikatów.";
+
+"HealthCertificate_Reissuance_Consent_Legal_Title" = "Twoja zgoda";
+
+"HealthCertificate_Reissuance_Consent_Legal_Subtitle" = "Klikając „Akceptuj”, wyrażasz zgodę na następujące kroki:";
+
+"HealthCertificate_Reissuance_Consent_Legal_Bullet_1" = "Aplikacja wysyła certyfikat szczepienia do RKI w celu weryfikacji.";
+
+"HealthCertificate_Reissuance_Consent_Legal_Bullet_2" = "RKI sprawdza certyfikat szczepienia, wydaje zaktualizowany certyfikat i przesyła go do Twojej aplikacji. ";
+
+"HealthCertificate_Reissuance_Consent_Bullet_Point_1" = "Aktualizacja certyfikatu jest dobrowolna i bezpłatna.";
+
+"HealthCertificate_Reissuance_Consent_Bullet_Point_2" = "W celu zapewnienia, by certyfikaty mogły być aktualizowane tylko raz, identyfikator starego certyfikatu jest dokumentowany przez RKI.";
+
+/* HealthCertificate Resissuance Succeeded */
+"HealthCertificate_Reissuance_Succeeded_Title" = "Zaktualizowano certyfikat";
+
+"HealthCertificate_Reissuance_Succeeded_Headline" = "Twój certyfikat został pomyślnie zaktualizowany";
+
+"HealthCertificate_Reissuance_Succeeded_Body" = "Zaktualizowany certyfikat jest teraz dostępny w karcie „Certyfikaty”.";
+
+/* HealthCertificate Resissuance Request Error */
+"HealthCertificate_Reissuance_Error_Contact_Support" = "Wystąpił błąd techniczny. Skontaktuj się z infolinią techniczną, korzystając z opcji: Informacje o aplikacji -> Infolinia techniczna.";
+
+"HealthCertificate_Reissuance_Error_No_Network" = "Połączenie internetowe mogło zostać utracone. Sprawdź połączenie i spróbuj ponownie.";
+
+"HealthCertificate_Reissuance_Error_Try_Again" = "Podczas aktualizacji certyfikatu wystąpił błąd. Spróbuj ponownie. Jeśli błąd będzie nadal występował, skontaktuj się z infolinią techniczną, korzystając z opcji: Informacje o aplikacji -> Infolinia techniczna.";
+
+"HealthCertificate_Reissuance_Error_Not_Supported" = "Nie można aktualizować certyfikatu. Skontaktuj się z infolinią techniczną, wybierając opcje: Informacje o aplikacji -> Infolinia techniczna.";
 
 /* Universal QR Scanner */
 "UniversalQRScanner_ScannerTitle" = "Skaner kodów QR";

@@ -285,7 +285,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 	var store: Store
 	let restServiceCache: KeyValueCaching
 
-	lazy var coronaTestService: CoronaTestService = {
+	lazy var coronaTestService: CoronaTestServiceProviding = {
 		return CoronaTestService(
 			client: client,
 			restServiceProvider: restServiceProvider,
@@ -294,6 +294,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 			diaryStore: contactDiaryStore,
 			appConfiguration: appConfigurationProvider,
 			healthCertificateService: healthCertificateService,
+			healthCertificateRequestService: healthCertificateRequestService,
 			recycleBin: recycleBin,
 			badgeWrapper: badgeWrapper
 		)
@@ -385,14 +386,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		store: store,
 		dccSignatureVerifier: dccSignatureVerificationService,
 		dscListProvider: dscListProvider,
-		client: client,
 		appConfiguration: appConfigurationProvider,
 		cclService: cclService,
 		recycleBin: recycleBin
 	)
 
+	private lazy var healthCertificateRequestService = HealthCertificateRequestService(
+		store: store,
+		client: client,
+		appConfiguration: appConfigurationProvider,
+		healthCertificateService: healthCertificateService
+	)
+
 	private lazy var cclService: CCLServable = {
-		CCLService(restServiceProvider)
+		CCLService(restServiceProvider, appConfiguration: appConfigurationProvider)
 	}()
 
 	private lazy var analyticsSubmitter: PPAnalyticsSubmitting = {
@@ -806,6 +813,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		ppacService: ppacService,
 		cclService: cclService,
 		healthCertificateService: healthCertificateService,
+		healthCertificateRequestService: healthCertificateRequestService,
 		healthCertificateValidationService: healthCertificateValidationService,
 		healthCertificateValidationOnboardedCountriesProvider: healthCertificateValidationOnboardedCountriesProvider,
 		vaccinationValueSetsProvider: vaccinationValueSetsProvider,
@@ -841,12 +849,26 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 	}
 
 	private func showUI() {
-		if store.isOnboarded {
-			showHome(route)
-		} else {
-			postOnboardingRoute = route
-			showOnboarding()
-		}
+		coordinator.showLoadingScreen()
+
+		healthCertificateService.setup(
+			updatingWalletInfos: true,
+			completion: { [weak self] in
+				guard let self = self else {
+					return
+				}
+
+				DispatchQueue.main.async {
+					if self.store.isOnboarded {
+						self.showHome(self.route)
+					} else {
+						self.postOnboardingRoute = self.route
+						self.showOnboarding()
+					}
+				}
+			}
+		)
+
 	}
 
 	private func setupNavigationBarAppearance() {

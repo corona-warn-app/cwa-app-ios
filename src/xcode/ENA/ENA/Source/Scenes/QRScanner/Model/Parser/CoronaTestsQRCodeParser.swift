@@ -45,29 +45,37 @@ class CoronaTestsQRCodeParser: QRCodeParsable {
 	/// - the guid is a well formatted string (6-8-4-4-4-12) with length 43
 	///   (6 chars encode a random number, 32 chars for the uuid, 5 chars are separators)
 	func coronaTestQRCodeInformation(
-		from input: String
-	) -> Result<CoronaTestRegistrationInformation, QRCodeParserError> {
-		// general checks for both PCR and Rapid tests
-		guard !input.isEmpty,
-			  let urlComponents = URLComponents(string: input),
-			  !urlComponents.path.contains(" "),
-			  urlComponents.scheme?.lowercased() == "https" else {
-				  return .failure(.scanningError(.codeNotFound))
-			  }
-		// specific checks based on test type
-		if urlComponents.host?.lowercased() == "localhost" {
-			return pcrTestInformation(from: input, urlComponents: urlComponents)
-		} else if let route = Route(input),
-				  case .rapidAntigen(let testInformationResult) = route {
-			if case let .success(testInformation) = testInformationResult {
-				return .success(testInformation)
-			}
-			if case let .failure(qrCodeError) = testInformationResult {
-				return .failure(.invalidError(qrCodeError))
-			}
-		}
-		return .failure(.scanningError(.codeNotFound))
-	}
+        from input: String
+    ) -> Result<CoronaTestRegistrationInformation, QRCodeParserError> {
+        // general checks for both PCR and Rapid tests
+        guard !input.isEmpty,
+              let urlComponents = URLComponents(string: input),
+              !urlComponents.path.contains(" "),
+              urlComponents.scheme?.lowercased() == "https" else {
+                  return .failure(.scanningError(.codeNotFound))
+              }
+        // specific checks based on test type
+        if urlComponents.host?.lowercased() == "localhost" {
+            return pcrTestInformation(from: input, urlComponents: urlComponents)
+        } else if let route = Route(input),
+                  case .rapidAntigen(let testInformationResult) = route {
+            if case let .success(testInformation) = testInformationResult {
+                return .success(testInformation)
+            }
+            if case let .failure(qrCodeError) = testInformationResult {
+                return .failure(.invalidError(qrCodeError))
+            }
+        } else if let route = Route(input),
+                  case .rapidPCR(let testInformationResult) = route {
+            if case let .success(testInformation) = testInformationResult {
+                return .success(testInformation)
+            }
+            if case let .failure(qrCodeError) = testInformationResult {
+                return .failure(.invalidError(qrCodeError))
+            }
+        }
+        return .failure(.scanningError(.codeNotFound))
+    }
 
 	// MARK: - Private
 	

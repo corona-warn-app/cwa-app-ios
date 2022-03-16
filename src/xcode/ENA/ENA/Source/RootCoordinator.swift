@@ -26,7 +26,7 @@ class RootCoordinator: NSObject, RequiresAppDependencies, UITabBarControllerDele
 	
 	init(
 		_ delegate: CoordinatorDelegate,
-		coronaTestService: CoronaTestService,
+		coronaTestService: CoronaTestServiceProviding,
 		contactDiaryStore: DiaryStoringProviding,
 		eventStore: EventStoringProviding,
 		eventCheckoutService: EventCheckoutService,
@@ -34,6 +34,7 @@ class RootCoordinator: NSObject, RequiresAppDependencies, UITabBarControllerDele
 		ppacService: PrivacyPreservingAccessControl,
 		cclService: CCLServable,
 		healthCertificateService: HealthCertificateService,
+		healthCertificateRequestService: HealthCertificateRequestService,
 		healthCertificateValidationService: HealthCertificateValidationProviding,
 		healthCertificateValidationOnboardedCountriesProvider: HealthCertificateValidationOnboardedCountriesProviding,
 		vaccinationValueSetsProvider: VaccinationValueSetsProviding,
@@ -52,6 +53,7 @@ class RootCoordinator: NSObject, RequiresAppDependencies, UITabBarControllerDele
 		self.ppacService = ppacService
 		self.cclService = cclService
 		self.healthCertificateService = healthCertificateService
+		self.healthCertificateRequestService = healthCertificateRequestService
 		self.healthCertificateValidationService = healthCertificateValidationService
 		self.healthCertificateValidationOnboardedCountriesProvider = healthCertificateValidationOnboardedCountriesProvider
 		self.vaccinationValueSetsProvider = vaccinationValueSetsProvider
@@ -185,10 +187,13 @@ class RootCoordinator: NSObject, RequiresAppDependencies, UITabBarControllerDele
 			store: store,
 			cclService: cclService,
 			healthCertificateService: healthCertificateService,
+			healthCertificateRequestService: healthCertificateRequestService,
 			healthCertificateValidationService: healthCertificateValidationService,
 			healthCertificateValidationOnboardedCountriesProvider: healthCertificateValidationOnboardedCountriesProvider,
 			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
-			qrScannerCoordinator: qrScannerCoordinator
+			qrScannerCoordinator: qrScannerCoordinator,
+			appConfigProvider: appConfigurationProvider,
+			restServiceProvider: restServiceProvider
 		)
 		self.healthCertificatesTabCoordinator = healthCertificatesTabCoordinator
 
@@ -324,6 +329,31 @@ class RootCoordinator: NSObject, RequiresAppDependencies, UITabBarControllerDele
 		viewController.embedViewController(childViewController: navigationVC)
 	}
 
+	func showLoadingScreen() {
+		let loadingScreenViewController = LoadingScreenViewController()
+
+		tabBarController.clearChildViewController()
+		tabBarController.setViewControllers([], animated: false)
+
+		homeCoordinator = nil
+		diaryCoordinator = nil
+		checkinTabCoordinator = nil
+
+		viewController.clearChildViewController()
+		viewController.embedViewController(childViewController: loadingScreenViewController)
+
+		loadingScreenViewController.view.translatesAutoresizingMaskIntoConstraints = false
+
+		NSLayoutConstraint.activate(
+			[
+				viewController.view.leadingAnchor.constraint(equalTo: loadingScreenViewController.view.leadingAnchor),
+				viewController.view.topAnchor.constraint(equalTo: loadingScreenViewController.view.topAnchor),
+				viewController.view.trailingAnchor.constraint(equalTo: loadingScreenViewController.view.trailingAnchor),
+				viewController.view.bottomAnchor.constraint(equalTo: loadingScreenViewController.view.bottomAnchor)
+			]
+		)
+	}
+
 	func showEvent(_ guid: String) {
 		guard let checkInNavigationController = checkinTabCoordinator?.viewController,
 			  let index = tabBarController.viewControllers?.firstIndex(of: checkInNavigationController) else {
@@ -347,7 +377,7 @@ class RootCoordinator: NSObject, RequiresAppDependencies, UITabBarControllerDele
 
 	private weak var delegate: CoordinatorDelegate?
 
-	private let coronaTestService: CoronaTestService
+	private let coronaTestService: CoronaTestServiceProviding
 	private let contactDiaryStore: DiaryStoringProviding
 	private let eventStore: EventStoringProviding
 	private let eventCheckoutService: EventCheckoutService
@@ -356,6 +386,7 @@ class RootCoordinator: NSObject, RequiresAppDependencies, UITabBarControllerDele
 	private let elsService: ErrorLogSubmissionProviding
 	private let cclService: CCLServable
 	private let healthCertificateService: HealthCertificateService
+	private let healthCertificateRequestService: HealthCertificateRequestService
 	private let healthCertificateValidationService: HealthCertificateValidationProviding
 	private let healthCertificateValidationOnboardedCountriesProvider: HealthCertificateValidationOnboardedCountriesProviding
 	private let vaccinationValueSetsProvider: VaccinationValueSetsProviding

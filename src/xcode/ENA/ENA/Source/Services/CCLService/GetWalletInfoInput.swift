@@ -52,12 +52,14 @@ enum GetWalletInfoInput {
 		with date: Date = Date(),
 		language: String = Locale.current.languageCode ?? "en",
 		certificates: [DCCWalletCertificate],
-		boosterNotificationRules: [Rule]
+		boosterNotificationRules: [Rule],
+		identifier: String?
 	) -> [String: AnyDecodable] {
 		return CCLDefaultInput.addingTo(
 			parameters: [
 				"certificates": AnyDecodable(certificates),
-				"boosterNotificationRules": AnyDecodable(boosterNotificationRules)
+				"boosterNotificationRules": AnyDecodable(boosterNotificationRules),
+				"scenarioIdentifier": AnyDecodable(identifier)
 			],
 			date: date,
 			language: language
@@ -65,15 +67,28 @@ enum GetWalletInfoInput {
 	}
 }
 
+enum GetAdmissionCheckScenariosInput {
+	
+	static func make(
+		with date: Date = Date(),
+		language: String = Locale.current.languageCode ?? "en"
+	) -> [String: AnyDecodable] {
+		return CCLDefaultInput.addingTo(
+			parameters: [:],
+			date: date,
+			language: language
+		)
+	}
+
+}
+
 extension SystemTime {
 	
 	// MARK: - DateFormatters
 
-	static var timeZone: TimeZone = TimeZone.autoupdatingCurrent
-
 	static let localDateFormatter: DateFormatter = {
 		let formatter = DateFormatter()
-		formatter.timeZone = timeZone
+		formatter.timeZone = TimeZone.autoupdatingCurrent
 		formatter.dateFormat = "yyyy-MM-dd"
 		formatter.locale = Locale(identifier: "en_US_POSIX")
 		formatter.calendar = Calendar(identifier: .gregorian)
@@ -83,7 +98,7 @@ extension SystemTime {
 	// 2021-12-30T10:00:00+01:00
 	static let localDateTimeFormatter: DateFormatter = {
 		let formatter = DateFormatter()
-		formatter.timeZone = timeZone
+		formatter.timeZone = TimeZone.autoupdatingCurrent
 		formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssxxx"
 		formatter.locale = Locale(identifier: "en_US_POSIX")
 		formatter.calendar = Calendar(identifier: .gregorian)
@@ -93,7 +108,7 @@ extension SystemTime {
 	// 2021-12-30T00:00:00+01:00
 	static let localDateMidnightTimeFormatter: DateFormatter = {
 		let formatter = DateFormatter()
-		formatter.timeZone = timeZone
+		formatter.timeZone = TimeZone.autoupdatingCurrent
 		formatter.dateFormat = "yyyy-MM-dd'T00:00:00'xxx"
 		formatter.locale = Locale(identifier: "en_US_POSIX")
 		formatter.calendar = Calendar(identifier: .gregorian)

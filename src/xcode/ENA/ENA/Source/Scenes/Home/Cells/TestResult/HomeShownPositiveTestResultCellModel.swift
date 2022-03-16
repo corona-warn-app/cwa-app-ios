@@ -11,7 +11,7 @@ class HomeShownPositiveTestResultCellModel {
 
 	init(
 		coronaTestType: CoronaTestType,
-		coronaTestService: CoronaTestService,
+		coronaTestService: CoronaTestServiceProviding,
 		onUpdate: @escaping () -> Void
 	) {
 		self.coronaTestType = coronaTestType
@@ -20,7 +20,7 @@ class HomeShownPositiveTestResultCellModel {
 		case .pcr:
 			title = AppStrings.Home.TestResult.pcrTitle
 
-			coronaTestService.$pcrTest
+			coronaTestService.pcrTest
 				.sink { [weak self] pcrTest in
 					guard let pcrTest = pcrTest else {
 						return
@@ -33,7 +33,7 @@ class HomeShownPositiveTestResultCellModel {
 		case .antigen:
 			title = AppStrings.Home.TestResult.antigenTitle
 
-			coronaTestService.$antigenTest
+			coronaTestService.antigenTest
 				.sink { [weak self] antigenTest in
 					guard let antigenTest = antigenTest else {
 						return
@@ -91,7 +91,8 @@ class HomeShownPositiveTestResultCellModel {
 					iconTintColor: .enaColor(for: .riskHigh),
 					color: .clear,
 					separatorColor: .clear,
-					containerInsets: .init(top: 10.0, left: 0.0, bottom: 10.0, right: 0)
+					containerInsets: .init(top: 10.0, left: 0.0, bottom: 10.0, right: 0),
+					stackViewAlignment: .top
 				),
 				HomeImageItemViewModel(
 					title: AppStrings.Home.TestResult.ShownPositive.itemPCR1,
@@ -100,7 +101,8 @@ class HomeShownPositiveTestResultCellModel {
 					iconTintColor: .enaColor(for: .riskHigh),
 					color: .clear,
 					separatorColor: .clear,
-					containerInsets: .init(top: 10.0, left: 0.0, bottom: 10.0, right: 0)
+					containerInsets: .init(top: 10.0, left: 0.0, bottom: 10.0, right: 0),
+					stackViewAlignment: .top
 				),
 				HomeImageItemViewModel(
 					title: AppStrings.Home.TestResult.ShownPositive.itemPCR2,
@@ -109,7 +111,8 @@ class HomeShownPositiveTestResultCellModel {
 					iconTintColor: .enaColor(for: .riskHigh),
 					color: .clear,
 					separatorColor: .clear,
-					containerInsets: .init(top: 10.0, left: 0.0, bottom: 10.0, right: 0)
+					containerInsets: .init(top: 10.0, left: 0.0, bottom: 10.0, right: 0),
+					stackViewAlignment: .top
 				)
 			])
 		} else if coronaTest.type == .antigen {
@@ -121,7 +124,8 @@ class HomeShownPositiveTestResultCellModel {
 					iconTintColor: .enaColor(for: .riskHigh),
 					color: .clear,
 					separatorColor: .clear,
-					containerInsets: .init(top: 10.0, left: 0.0, bottom: 10.0, right: 0)
+					containerInsets: .init(top: 10.0, left: 0.0, bottom: 10.0, right: 0),
+					stackViewAlignment: .top
 				),
 				HomeImageItemViewModel(
 					title: AppStrings.Home.TestResult.ShownPositive.itemRAT1,
@@ -130,7 +134,8 @@ class HomeShownPositiveTestResultCellModel {
 					iconTintColor: .enaColor(for: .riskHigh),
 					color: .clear,
 					separatorColor: .clear,
-					containerInsets: .init(top: 10.0, left: 0.0, bottom: 10.0, right: 0)
+					containerInsets: .init(top: 10.0, left: 0.0, bottom: 10.0, right: 0),
+					stackViewAlignment: .top
 				),
 				HomeImageItemViewModel(
 					title: AppStrings.Home.TestResult.ShownPositive.itemRAT2,
@@ -139,7 +144,8 @@ class HomeShownPositiveTestResultCellModel {
 					iconTintColor: .enaColor(for: .riskHigh),
 					color: .clear,
 					separatorColor: .clear,
-					containerInsets: .init(top: 10.0, left: 0.0, bottom: 10.0, right: 0)
+					containerInsets: .init(top: 10.0, left: 0.0, bottom: 10.0, right: 0),
+					stackViewAlignment: .top
 				)
 			])
 		}

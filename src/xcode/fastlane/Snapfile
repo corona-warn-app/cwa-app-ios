@@ -6,7 +6,7 @@ devices([
 ])
 
 ios_version(
-  "15.0"
+  "15.2"
 )
 
 # Languages are set individually in CI

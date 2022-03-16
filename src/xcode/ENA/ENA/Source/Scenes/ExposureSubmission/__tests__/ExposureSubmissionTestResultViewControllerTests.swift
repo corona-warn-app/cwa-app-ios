@@ -8,48 +8,21 @@ import HealthCertificateToolkit
 @testable import ENA
 
 class ExposureSubmissionViewControllerTests: CWATestCase {
-	
-	private var store: Store!
-	
-	
-	override func setUpWithError() throws {
-		try super.setUpWithError()
-		store = MockTestStore()
-	}
 
 	private func createVC(coronaTest: CoronaTest) -> ExposureSubmissionTestResultViewController {
-		let client = ClientMock()
-		let store = MockTestStore()
-		let appConfiguration = CachedAppConfigurationMock()
-		
+		let coronaTestService = MockCoronaTestService()
+
 		switch coronaTest.type {
 		case .pcr:
-			store.pcrTest = coronaTest.pcrTest
+			coronaTestService.pcrTest.value = coronaTest.pcrTest
 		case .antigen:
-			store.antigenTest = coronaTest.antigenTest
+			coronaTestService.antigenTest.value = coronaTest.antigenTest
 		}
 
 		return ExposureSubmissionTestResultViewController(
 			viewModel: ExposureSubmissionTestResultViewModel(
 				coronaTestType: coronaTest.type,
-				coronaTestService: CoronaTestService(
-					client: client,
-					store: store,
-					eventStore: MockEventStore(),
-					diaryStore: MockDiaryStore(),
-					appConfiguration: appConfiguration,
-					healthCertificateService: HealthCertificateService(
-						store: store,
-						dccSignatureVerifier: DCCSignatureVerifyingStub(),
-						dscListProvider: MockDSCListProvider(),
-						client: client,
-						appConfiguration: appConfiguration,
-						cclService: FakeCCLService(),
-						recycleBin: .fake()
-					),
-					recycleBin: .fake(),
-					badgeWrapper: .fake()
-				),
+				coronaTestService: coronaTestService,
 				onSubmissionConsentCellTap: { _ in },
 				onContinueWithSymptomsFlowButtonTap: { },
 				onContinueWarnOthersButtonTap: { _ in },

@@ -711,7 +711,7 @@
 
 "ExposureSubmissionResult_Title_Antigen" = "Hızlı Test";
 
-"ExposureSubmissionResult_CardSubTitle" = "Tanı Sonucunuz";
+"ExposureSubmissionResult_CardSubTitle" = "PCR testinizin sonucu";
 
 "ExposureSubmissionResult_CardSubTitle_Antigen" = "Hızlı testinizin sonucu";
 
@@ -1414,6 +1414,9 @@
 
 "App_Information_Contact_Form_Title" = "İletişim Formu";
 
+/* App Information - Accessibility */
+"App_Information_Accessibility_Navigation" = "Erişilebilirlik Beyanı";
+
 /* App Information - Legal */
 "App_Information_Legal_Navigation" = "Yasal Bildirimler";
 
@@ -1528,7 +1531,7 @@
 
 "RiskLegend_Legend2_Title" = "Enfeksiyon Riski";
 
-"RiskLegend_Legend2_Text" = "Maruz kalma günlüğü etkin olduğunda uygulama kişisel enfeksiyon riskinizi hesaplar. Bunu, son 14 günde koronavirüs tanısı almış kişilere maruz kalma sürenizi ve yakınlığınızı ölçerek gerçekleştirir.";
+"RiskLegend_Legend2_Text" = "Maruz kalma günlüğü etkin olduğunda uygulama kişisel enfeksiyon riskinizi hesaplar. Bunu, son 14 günde koronavirüs tanısı almış kişilere maruz kalma sürenizi ve yakınlığınızı ölçerek gerçekleştirir. Maruz kalma günlüğü check-in'lerinizi de hesaba katar. Koronavirüs tanısı almış bir kişiyle aynı anda ya da koronavirüs tanısı almış bir kişiden 30 dakika sonra aynı yerde bulunmuşsanız size uyarı verilir.";
 
 "RiskLegend_Legend2_RiskLevels" = "Şu risk durumu gösterilebilir:";
 
@@ -1601,10 +1604,18 @@
 /* New Version Features */
 "NewVersionFeatures_Info_about_abb_information" = "Bu sürümdeki değişiklikleri uygulama bilgilerinde “Yeni Özellikler” bölümünde bulabilirsiniz.";
 
-/* Version 2.18 */
-"NewVersionFeature_218_centralManagementOfRules_title" = "Merkezi Kural Yönetimi";
+/* Version 2.19 */
+"NewVersionFeature_219_rapidPCR_title" = "Hızlı PCR Testlerinin Kaydı";
 
-"NewVersionFeature_218_centralManagementOfRules_description" = "Sertifikalara ilişkin kurallar (örneğin geçerlilikleriyle ilgili olarak veya birden fazla sertifika mevcut olduğunda bunların önceliğinin belirlenmesi ile ilgili olarak) ve “G” durumunuzu (aşılanmış, iyileşmiş, test yaptırmış) belirleme kuralları Corona-Warn-App'ten ayrılmıştır. Bu kurallar artık merkezi olarak depolanır ve bu nedenle uygulama sürümlerinden bağımsız olarak ayarlanabilir, bu da kural değişikliklerine daha hızlı tepki vermeyi mümkün kılar. Herhangi bir değişiklik yapıldıktan sonra, güncellenen kurallar uygulamaya otomatik olarak aktarılacaktır. Merkezi kural yönetimi, Corona-Warn-App'i kullanma şeklinizi değiştirmez.";
+"NewVersionFeature_219_rapidPCR_description" = "Artık Corona-Warn-App uygulamasında hızlı PCR testlerini kaydedebilir ve sonucunuzu ve test sertifikanızı uygulama üzerinden alabilirsiniz.";
+
+"NewVersionFeature_219_faultTolerantNameHandling_title" = "Sertifika Ataması";
+
+"NewVersionFeature_219_faultTolerantNameHandling_description" = "Kişilere sertifika ataması daha hata toleranslı hale getirildi. Ad ve soyadı yazımlarındaki ufak farklılıklar göz ardı edilir ve böylece etkilenen sertifikalar yine de aynı kişiye atanabilir.";
+
+"NewVersionFeature_219_vaccinationCertificateReplacement_title" = "Sertifika Güncellemesi";
+
+"NewVersionFeature_219_vaccinationCertificateReplacement_description" = "Hatırlatma aşılarının sertifikalarına ilişkin AB spesifikasyonları değişti. Sertifikanız güncel spesifikasyonları karşılamıyorsa doğrudan Corona-Warn-App uygulamasından yeni bir sertifika talebi oluşturabilirsiniz.";
 
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Uluslararası Maruz Kalma Günlüğü";
@@ -1945,9 +1956,9 @@
 
 "Statistics_Card_CombinedIncidence_Date" = "%@ tarihine kadar";
 
-"Statistics_Card_CombinedIncidence_PrimaryLabelSubtitle" = "Yeni Enfeksiyon Sayısı";
+"Statistics_Card_CombinedIncidence_PrimaryLabelSubtitle" = "yeni enfeksiyon sayısı";
 
-"Statistics_Card_CombinedIncidence_SecondaryLabelSubtitle" = "Hastaneye Yatış Sayısı";
+"Statistics_Card_CombinedIncidence_SecondaryLabelSubtitle" = "hastaneye yatış sayısı";
 
 /* - Infections Card */
 "Statistics_Card_Infections_Title" = "Onaylanan Yeni Enfeksiyon Sayısı";
@@ -1969,9 +1980,9 @@
 
 "Statistics_Card_Region_Date" = "%@ tarihine kadar";
 
-"Statistics_Card_Region_PrimaryLabelSubtitle" = "Yeni Enfeksiyon Sayısı";
+"Statistics_Card_Region_PrimaryLabelSubtitle" = "yeni enfeksiyon sayısı";
 
-"Statistics_Card_Region_SecondaryLabelSubtitle_FederalState" = "Hastaneye Yatış Sayısı";
+"Statistics_Card_Region_SecondaryLabelSubtitle_FederalState" = "hastaneye yatış sayısı";
 
 "Statistics_Card_Region_SecondaryLabelSubtitle_AdministrativeUnit" = "%@ için hastaneye yatış sayısı";
 
@@ -2055,7 +2066,7 @@
 
 "Statistics_Card_AppliedDoseRates_Date" = "%@";
 
-"Statistics_Card_AppliedDoseRates_SecondaryLabelTitle" = "7 Günlük Ortalama";
+"Statistics_Card_AppliedDoseRates_SecondaryLabelTitle" = "7 günlük ortalama";
 
 "Statistics_Card_AppliedDoseRates_TertiaryLabelTitle" = "Toplam";
 
@@ -2068,7 +2079,7 @@
 
 "Statistics_Card_IntensiveCare_Date" = "%@ tarihine kadar";
 
-"Statistics_Card_IntensiveCare_SecondaryLabelTitle" = "COVID-19 Nedeniyle Yatak Kullanımının Tüm Yoğun Bakım Yatakları Sayısına Oranı";
+"Statistics_Card_IntensiveCare_SecondaryLabelTitle" = "COVID-19 nedeniyle yatak kullanımının tüm yoğun bakım yatakları sayısına oranı";
 
 /* Error */
 "Statistics_LoadingError" = "İstatistikler yüklenemiyor. Lütfen uygulamayı kapatın ve tekrar deneyin.";
@@ -2102,7 +2113,7 @@
 
 "Statistics_Info_KeySubmissions_Title" = "Uygulama Kullanıcılarının Uyarıları";
 
-"Statistics_Info_KeySubmissions_Text" = "PCR testi ile koronavirüs tanısı alan ve uygulama üzerinden diğer kullanıcıları uyaran uygulama kullanıcılarının sayısı.";
+"Statistics_Info_KeySubmissions_Text" = "Koronavirüs tanısı koyulan ve uygulama üzerinden diğer kullanıcıları uyaran uygulama kullanıcılarının sayısı";
 
 "Statistics_Info_ReproductionNumber_Title" = "7 günlük R değeri";
 
@@ -2298,9 +2309,13 @@
 "Contact_Journal_Notes_Description" = "Enfeksiyon riskinizin daha iyi tahmin edilmesine yardımcı olacak notları buraya girebilirsiniz.\n\nBaşka insanlarla ne kadar yakın olduğunuz ve ne yaptığınız (örnekler: “yakın bir şekilde birlikte oturduk”, “spor yaptık”, “az mesafe vardı”, “şarkı söyledik”) gibi, karşılaşmanıza veya konaklamanıza dair enfeksiyon riskiniz üzerinde bir etkisi olabilecek ek koşulları buraya yazabilirsiniz.\n\nBu notlar daha sonra hafızanızı tazelemenize yardımcı olabilir. Gerekirse erken aşamada bir arada olduğunuz kişileri uyarmanızı sağlayacak ve kamu sağlığı yetkililerinin potansiyel enfeksiyon zincirlerini takip edebilmesine yardımcı olacaktır.";
 
 /* Quick Actions a.k.a. shortcuts */
-"QuickAction_newContactDiaryEntry" = "Bugün için Günce Girişi Ekle";
+"QuickAction_qrCodeScanner" = "QR Kodu Tara";
 
-"QuickAction_eventCheckin" = "Check In";
+"QuickAction_showCertificates" = "Sertifikaları görüntüle";
+
+"QuickAction_eventCheckin" = "Check-in'leri görüntüle";
+
+"QuickAction_newContactDiaryEntry" = "Giriş ekle";
 
 /* Checkins */
 "Checkins_Overview_Title" = "Check-In’lerim";
@@ -2716,11 +2731,9 @@
 /* Health Certificate Overview */
 "HealthCertificate_Overview_title" = "Sertifikalar";
 
-"HealthCertificate_Overview_add" = "Sertifika Ekle";
-
 "HealthCertificate_Overview_EmptyTitle" = "Henüz sertifika yok";
 
-"HealthCertificate_Overview_EmptyDescription" = "Kaydedilen dijital aşı sertifikaları, iyileşme sertifikaları ve test sertifikaları burada görüntülenir.\n\nSertifika eklemek için lütfen karşılık gelen QR kodu tarayın.";
+"HealthCertificate_Overview_EmptyDescription" = "Kaydedilen dijital aşı sertifikaları, iyileşme sertifikaları ve test sertifikaları burada görüntülenir.";
 
 "HealthCertificate_Overview_EmptyImageDescription" = "Arka planda dijital sertifika ve sertifika mührü";
 
@@ -2733,6 +2746,14 @@
 "HealthCertificate_Overview_TwoGCertificate" = "2G Sertifikası";
 
 "HealthCertificate_Overview_TestCertificate" = "Test Sertifikası";
+
+"HealthCertificate_Overview_Scanning_Info" = "İlave sertifikalar eklemek için aşağıdaki gezinti çubuğundaki QR kod tarayıcıyı kullanın.";
+
+"HealthCertificate_Admission_Scenario_Status_Label" = "Şu eyalete ilişkin durum";
+
+"HealthCertificate_Admission_Scenario_Button_Label" = "Federal hükûmet düzenlemeleri";
+
+"HealthCertificate_Loading_Indicator_Label" = "Durum belirleniyor...";
 
 "HealthCertificate_Overview_News" = "Sertifikalarınızla ilgili gelişme var";
 
@@ -2970,6 +2991,13 @@
 
 "HealthCertificate_PrintPdf_ErrorAlert_ValueSetsFetching_Message" = "Sertifika şu anda alınamadığı için sertifikanın basılı versiyonu görüntülenemiyor. Lütfen daha sonra tekrar deneyin.";
 
+/* Certificate Fault Tolerant Naming */
+"HealthCertificate_FaultTolerantNaming_RegroupDone_Title" = "Sertifika Ataması";
+
+"HealthCertificate_FaultTolerantNaming_RegroupDone_Message" = "Sertifikaları gruplama özelliği iyileştirildi. Yalnızca ufak ad farklılıkları olan sertifikalar artık farklı kişilere atanmayacak.";
+
+"HealthCertificate_FaultTolerantNaming_RegroupDone_OkayButton" = "Tamam";
+
 /* Health Certificate Errors */
 "HealthCertificate_Error_Title" = "Hata";
 
@@ -3045,7 +3073,7 @@
 
 "HealthCertificate_Validation_Passed_unknownTitle" = "Sertifika Doğrulanamıyor";
 
-"HealthCertificate_Validation_Passed_subtitle" = "Sertifikanız seçilen ülkede geçerli";
+"HealthCertificate_Validation_Passed_subtitle" = "Sertifikanız seçilen ülkeye giriş için geçerli";
 
 "HealthCertificate_Validation_Passed_unknownSubtitle" = "Sertifikanız doğrulanamadı";
 
@@ -3071,7 +3099,7 @@
 /* - Failed */
 "HealthCertificate_Validation_Failed_title" = "Sertifika Geçerli Değil";
 
-"HealthCertificate_Validation_Failed_subtitle" = "Sertifikanız seçilen ülkede geçerli değil";
+"HealthCertificate_Validation_Failed_subtitle" = "Sertifikanız seçilen ülkeye giriş için geçerli değil";
 
 "HealthCertificate_Validation_Failed_failedSectionTitle" = "Doğrulama tamamlandı";
 
@@ -3084,7 +3112,7 @@
 /* - Technical Validation Failed */
 "HealthCertificate_Validation_TechnicalFailed_title" = "Sertifika Geçerli Değil";
 
-"HealthCertificate_Validation_TechnicalFailed_subtitle" = "Sertifikanız seçilen ülkede geçerli değil";
+"HealthCertificate_Validation_TechnicalFailed_subtitle" = "Sertifikanız seçilen ülkeye giriş için geçerli değil";
 
 "HealthCertificate_Validation_TechnicalFailed_failedSectionTitle" = "Teknik kontrol";
 
@@ -3114,6 +3142,52 @@
 "HealthCertificate_ValidityState_Blocked" = "Sertifika Geçersiz";
 
 "HealthCertificate_ValidityState_Blocked_description" = "Sertifika, düzenleyen makam tarafından geri çağırıldı. Lütfen yeni bir dijital sertifika alın.";
+
+/* Reissuance */
+/* HealthCertificate Resissuance Consent */
+"HealthCertificate_Reissuance_Consent_primaryButtonTitle" = "Kabul Et";
+
+"HealthCertificate_Reissuance_Consent_secondaryButtonTitle" = "İptal";
+
+"HealthCertificate_Reissuance_Consent_DefaultAlert_Title" = "Hata";
+
+"HealthCertificate_Reissuance_Consent_DefaultAlert_OKButton" = "Tamam";
+
+"HealthCertificate_Reissuance_Consent_DefaultAlert_RetryButton" = "Tekrarla";
+
+"HealthCertificate_Reissuance_Consent_Title" = "İzniniz";
+
+"HealthCertificate_Reissuance_Consent_Delete_Notice" = "Eski sertifika otomatik olarak geri dönüşüm kutusuna taşınır ve 30 gün sonra silinir. Sertifika, bu 30 günlük süre içinde dilediğiniz zaman geri yüklenebilir.";
+
+"HealthCertificate_Reissuance_Consent_Cancel_Notice" = "Şimdi iptal ederseniz dilediğiniz zaman sertifikaya genel bakış bölümünde güncelleme talebi oluşturabilirsiniz.";
+
+"HealthCertificate_Reissuance_Consent_Legal_Title" = "İzniniz";
+
+"HealthCertificate_Reissuance_Consent_Legal_Subtitle" = "\"Kabul Et\" seçeneğine dokunduğunuzda aşağıdaki adımlara izin verirsiniz:";
+
+"HealthCertificate_Reissuance_Consent_Legal_Bullet_1" = "Uygulama, doğrulama için aşı sertifikasını RKI'ya gönderir.";
+
+"HealthCertificate_Reissuance_Consent_Legal_Bullet_2" = "RKI aşı sertifikasını kontrol eder, güncellenmiş bir sertifika düzenler ve güncellenmiş sertifikayı uygulamanıza gönderir.";
+
+"HealthCertificate_Reissuance_Consent_Bullet_Point_1" = "Sertifikanızı güncellemeniz gönüllülük esasına bağlı ve ücretsiz bir işlemdir.";
+
+"HealthCertificate_Reissuance_Consent_Bullet_Point_2" = "Sertifikaların yalnızca bir kez güncellenebilmesini sağlamak adına eski sertifikanızın tanıtıcısı RKI tarafından belgelenir.";
+
+/* HealthCertificate Resissuance Succeeded */
+"HealthCertificate_Reissuance_Succeeded_Title" = "Sertifika Güncellendi";
+
+"HealthCertificate_Reissuance_Succeeded_Headline" = "Sertifikanız başarıyla güncellendi";
+
+"HealthCertificate_Reissuance_Succeeded_Body" = "Güncellenen sertifikayı \"Sertifikalar\" sekmesinde bulabilirsiniz.";
+
+/* HealthCertificate Resissuance Request Error */
+"HealthCertificate_Reissuance_Error_Contact_Support" = "Teknik bir hata oluştu. Lütfen Uygulama Bilgileri -> Teknik Yardım Hattı üzerinden teknik yardım hattı ile iletişime geçin.";
+
+"HealthCertificate_Reissuance_Error_No_Network" = "İnternet bağlantınız kesilmiş olabilir. Lütfen bağlantıyı kontrol edin ve tekrar deneyin.";
+
+"HealthCertificate_Reissuance_Error_Try_Again" = "Sertifikanız güncellenirken bir hata oluştu. Lütfen tekrar deneyin. Hata devam ederse lütfen Uygulama Bilgileri -> Teknik Yardım Hattı üzerinden teknik yardım hattı ile iletişime geçin.";
+
+"HealthCertificate_Reissuance_Error_Not_Supported" = "Sertifikanız güncellenemiyor. Lütfen Uygulama Bilgileri -> Teknik Yardım Hattı üzerinden teknik yardım hattı ile iletişime geçin.";
 
 /* Universal QR Scanner */
 "UniversalQRScanner_ScannerTitle" = "QR Kod Tarayıcı";

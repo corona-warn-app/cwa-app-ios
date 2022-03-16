@@ -18,7 +18,9 @@ protocol Resource {
 	// Defines a default value for no network cases as the specific receive model (for resources like e.g. AppConfig, AllowList)
 	var defaultModel: Receive.ReceiveModel? { get }
 	
-	func customError(for error: ServiceError<CustomError>) -> CustomError?
+	var trustEvaluation: TrustEvaluating { get }
+	
+	func customError(for error: ServiceError<CustomError>, responseBody: Data?) -> CustomError?
 	
 #if !RELEASE
 	/// Used to define a default mock Resource to be returned by the resource if needed (e.g. UITests)
@@ -34,8 +36,8 @@ extension Resource {
 	var defaultModel: Receive.ReceiveModel? {
 		nil
 	}
-	
-	func customError(for error: ServiceError<CustomError>) -> CustomError? {
+
+	func customError(for error: ServiceError<CustomError>, responseBody: Data?) -> CustomError? {
 		return nil
 	}
 }

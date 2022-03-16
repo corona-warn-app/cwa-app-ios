@@ -711,7 +711,7 @@
 
 "ExposureSubmissionResult_Title_Antigen" = "Бърз тест";
 
-"ExposureSubmissionResult_CardSubTitle" = "Вашата диагноза";
+"ExposureSubmissionResult_CardSubTitle" = "Резултатът от Вашия PCR тест";
 
 "ExposureSubmissionResult_CardSubTitle_Antigen" = "Резултатът от бързия Ви тест";
 
@@ -1414,6 +1414,9 @@
 
 "App_Information_Contact_Form_Title" = "Формуляр за контакт";
 
+/* App Information - Accessibility */
+"App_Information_Accessibility_Navigation" = "Декларация за достъпност";
+
 /* App Information - Legal */
 "App_Information_Legal_Navigation" = "Правна информация";
 
@@ -1528,7 +1531,7 @@
 
 "RiskLegend_Legend2_Title" = "Риск от заразяване";
 
-"RiskLegend_Legend2_Text" = "Когато регистрирането на излагания е активно, приложението изчислява какъв е Вашият риск от заразяване, като измерва продължителността и близостта на контактите Ви с хора, които са били диагностицирани с COVID-19 през последните 14 дни.";
+"RiskLegend_Legend2_Text" = "Когато регистрирането на излагания е активно, приложението изчислява какъв е Вашият риск от заразяване, като измерва продължителността и близостта на контактите Ви с хора, които са били диагностицирани с COVID-19 през последните 14 дни. Данните за излагане вземат предвид и вашите регистрации. Ще бъдете предупредени, ако сте били в едно помещение по едно и също време с лице, което е било диагностицирано с коронавирус, или до 30 минути след това.";
 
 "RiskLegend_Legend2_RiskLevels" = "Възможни са следните нива на риск:";
 
@@ -1601,10 +1604,18 @@
 /* New Version Features */
 "NewVersionFeatures_Info_about_abb_information" = "Може да видите промените в тази версия в подраздела „Нови функции“ на информацията за приложението.";
 
-/* Version 2.18 */
-"NewVersionFeature_218_centralManagementOfRules_title" = "Централна администрация на правила";
+/* Version 2.19 */
+"NewVersionFeature_219_rapidPCR_title" = "Регистрация на бързи PCR тестове";
 
-"NewVersionFeature_218_centralManagementOfRules_description" = "Правилата за сертификатите, отнасящи се за тяхната валидност или приоритизация, когато има повече от един сертификат, за определяне на Вашия “G” статус(ваксиниран, преболедувал, тестван) вече са разделени от Corona-Warn-App. Сега тези правила се съхраняват централно и могат да се коригират независимо от версиите на приложението, което позволява да реагирате по-бързо при промени на правилата. След промяна актуализираните правила ще се пренасят в приложението автоматично. Тази централна администрация на правила не променя начина на използване на Corona-Warn-App.";
+"NewVersionFeature_219_rapidPCR_description" = "Вече можете да регистрирате бързи PCR тестове в Corona-Warn-App и да получите резултата и сертификата за тестване направо в приложението.";
+
+"NewVersionFeature_219_faultTolerantNameHandling_title" = "Присъединяване на сертификат";
+
+"NewVersionFeature_219_faultTolerantNameHandling_description" = "Присъединяването на сертификати към лица вече отчита по-малко грешки. Игнорират се малки разлики при изписването на собственото и фамилното име, което позволява присъединяване на сертификата към въпросното лице, въпреки тези разлики.";
+
+"NewVersionFeature_219_vaccinationCertificateReplacement_title" = "Актуализация на сертификат";
+
+"NewVersionFeature_219_vaccinationCertificateReplacement_description" = "Спецификациите на ЕС за сертификатите за ваксинация с бустерни дози са променени. Ако вашият сертификат вече не отговаря на настоящите спецификации, може да заявите нов директно в приложението Corona-Warn-App.";
 
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Международно регистриране на излаганията";
@@ -2055,7 +2066,7 @@
 
 "Statistics_Card_AppliedDoseRates_Date" = "%@";
 
-"Statistics_Card_AppliedDoseRates_SecondaryLabelTitle" = "Средно за последните 7 дни";
+"Statistics_Card_AppliedDoseRates_SecondaryLabelTitle" = "7 дни средно";
 
 "Statistics_Card_AppliedDoseRates_TertiaryLabelTitle" = "Общо";
 
@@ -2102,7 +2113,7 @@
 
 "Statistics_Info_KeySubmissions_Title" = "Лица, които изпращат предупреждения";
 
-"Statistics_Info_KeySubmissions_Text" = "Брой потребители, които са диагностицирани с коронавирус с помощта на PCR тест и са предупредили другите потребители чрез приложението.";
+"Statistics_Info_KeySubmissions_Text" = "Брой потребители, диагностицирани с коронавирус, които са предупредили другите потребители чрез приложението";
 
 "Statistics_Info_ReproductionNumber_Title" = "7-дневно репродуктивно число R";
 
@@ -2298,9 +2309,13 @@
 "Contact_Journal_Notes_Description" = "Можете за въвеждате бележки, които ще ми помогнат да прецените по-добре своя риск от заразяване.\n\nОпишете допълнителните обстоятелства във връзка с Вашия контакт или престой, които биха могли да окажат влияние върху Вашето ниво на риск от заразяване, например в каква близост сте били до други хора и какво сте правили (напр. „седяхме близо един до друг“, „спортувахме“, „пространството беше малко“ или „пяхме“).\n\nТези бележки ще Ви помогнат да опресните паметта си по-късно и да предупредите хората, с които сте били в контакт, ако се наложи. Също така ще дадат възможност на службите за обществено здравеопазване за проследят потенциалните вериги на заразяване.";
 
 /* Quick Actions a.k.a. shortcuts */
-"QuickAction_newContactDiaryEntry" = "Добавяне на запис с днешна дата в дневника";
+"QuickAction_qrCodeScanner" = "Сканиране на QR код";
 
-"QuickAction_eventCheckin" = "Регистрация";
+"QuickAction_showCertificates" = "Показване на сертификати";
+
+"QuickAction_eventCheckin" = "Показване на регистрации";
+
+"QuickAction_newContactDiaryEntry" = "Добавяне на запис";
 
 /* Checkins */
 "Checkins_Overview_Title" = "Моите регистрации";
@@ -2716,11 +2731,9 @@
 /* Health Certificate Overview */
 "HealthCertificate_Overview_title" = "Сертификати";
 
-"HealthCertificate_Overview_add" = "Добавяне на сертификат";
-
 "HealthCertificate_Overview_EmptyTitle" = "Все още няма сертификати";
 
-"HealthCertificate_Overview_EmptyDescription" = "Тук се показват запазените цифрови сертификати за ваксинация, възстановяване и тест.\n\nЗа да добавите сертификат, моля сканирайте съответния QR код.";
+"HealthCertificate_Overview_EmptyDescription" = "Тук се показват запазените цифрови сертификати за ваксинация, възстановяване и тест.";
 
 "HealthCertificate_Overview_EmptyImageDescription" = "Печат на сертификат на фона на цифров сертификат";
 
@@ -2733,6 +2746,14 @@
 "HealthCertificate_Overview_TwoGCertificate" = "2G Сертификат";
 
 "HealthCertificate_Overview_TestCertificate" = "Сертификат за тестване";
+
+"HealthCertificate_Overview_Scanning_Info" = "За да добавите допълнителни сертификати, използвайте скенера за QR кодове долу в навигационната лента.";
+
+"HealthCertificate_Admission_Scenario_Status_Label" = "Статус за следните федерални провинции";
+
+"HealthCertificate_Admission_Scenario_Button_Label" = "Разпоредби на федералните правителства";
+
+"HealthCertificate_Loading_Indicator_Label" = "Определяне на статус...";
 
 "HealthCertificate_Overview_News" = "Има новини относно сертификатите Ви";
 
@@ -2970,6 +2991,13 @@
 
 "HealthCertificate_PrintPdf_ErrorAlert_ValueSetsFetching_Message" = "Версията за печат на сертификата не може да бъде показана, защото в момента той не може да бъде извлечен. Моля, опитайте отново по-късно.";
 
+/* Certificate Fault Tolerant Naming */
+"HealthCertificate_FaultTolerantNaming_RegroupDone_Title" = "Присъединяване на сертификат";
+
+"HealthCertificate_FaultTolerantNaming_RegroupDone_Message" = "Групирането на сертификати е подобрено. Сертификатите само с малки разлики в имената вече няма да се присъединяват към различни лица.";
+
+"HealthCertificate_FaultTolerantNaming_RegroupDone_OkayButton" = "ОК";
+
 /* Health Certificate Errors */
 "HealthCertificate_Error_Title" = "Грешка";
 
@@ -3045,7 +3073,7 @@
 
 "HealthCertificate_Validation_Passed_unknownTitle" = "Сертификатът не може да бъде валидиран";
 
-"HealthCertificate_Validation_Passed_subtitle" = "Сертификатът ви е валиден в избраната държава";
+"HealthCertificate_Validation_Passed_subtitle" = "Сертификатът ви е валиден за влизане в избраната държава";
 
 "HealthCertificate_Validation_Passed_unknownSubtitle" = "Сертификатът Ви не беше валидиран";
 
@@ -3071,7 +3099,7 @@
 /* - Failed */
 "HealthCertificate_Validation_Failed_title" = "Сертификатът не е валиден";
 
-"HealthCertificate_Validation_Failed_subtitle" = "Сертификатът Ви не е валиден в избраната държава";
+"HealthCertificate_Validation_Failed_subtitle" = "Сертификатът ви не е валиден за влизане в избраната държава";
 
 "HealthCertificate_Validation_Failed_failedSectionTitle" = "Валидирането е успешно завършено";
 
@@ -3084,7 +3112,7 @@
 /* - Technical Validation Failed */
 "HealthCertificate_Validation_TechnicalFailed_title" = "Сертификатът не е валиден";
 
-"HealthCertificate_Validation_TechnicalFailed_subtitle" = "Сертификатът Ви не е валиден в избраната държава";
+"HealthCertificate_Validation_TechnicalFailed_subtitle" = "Сертификатът ви не е валиден за влизане в избраната държава";
 
 "HealthCertificate_Validation_TechnicalFailed_failedSectionTitle" = "Техническа проверка";
 
@@ -3114,6 +3142,52 @@
 "HealthCertificate_ValidityState_Blocked" = "Невалиден сертификат";
 
 "HealthCertificate_ValidityState_Blocked_description" = "Сертификатът е изтеглен от издаващия орган. Моля, снабдете се с нов цифров сертификат.";
+
+/* Reissuance */
+/* HealthCertificate Resissuance Consent */
+"HealthCertificate_Reissuance_Consent_primaryButtonTitle" = "Приемам";
+
+"HealthCertificate_Reissuance_Consent_secondaryButtonTitle" = "Отказ";
+
+"HealthCertificate_Reissuance_Consent_DefaultAlert_Title" = "Грешка";
+
+"HealthCertificate_Reissuance_Consent_DefaultAlert_OKButton" = "ОК";
+
+"HealthCertificate_Reissuance_Consent_DefaultAlert_RetryButton" = "Отново";
+
+"HealthCertificate_Reissuance_Consent_Title" = "Вашето съгласие";
+
+"HealthCertificate_Reissuance_Consent_Delete_Notice" = "Старият сертификат ще бъде автоматично преместен в кошчето и изтрит след 30 дни. Той може да бъде възстановен по всяко време в рамките на тези 30 дни.";
+
+"HealthCertificate_Reissuance_Consent_Cancel_Notice" = "Ако откажете сега, може да заявите актуализация в прегледа за сертификата по всяко време.";
+
+"HealthCertificate_Reissuance_Consent_Legal_Title" = "Вашето съгласие";
+
+"HealthCertificate_Reissuance_Consent_Legal_Subtitle" = "С докосването на \"Давам съгласие\" се съгласявате със следните стъпки:";
+
+"HealthCertificate_Reissuance_Consent_Legal_Bullet_1" = "Приложението изпраща сертификата за ваксинация за проверка към института „Роберт Кох“.";
+
+"HealthCertificate_Reissuance_Consent_Legal_Bullet_2" = "Институтът проверява неговия статус, издава актуализиран сертификат и го изпраща в приложението ви.";
+
+"HealthCertificate_Reissuance_Consent_Bullet_Point_1" = "Актуализирането на сертификата е доброволно и безплатно.";
+
+"HealthCertificate_Reissuance_Consent_Bullet_Point_2" = "За да се гарантира, че сертификатът може да се актуализира само веднъж, институтът „Роберт Кох“ документира идентификатора на стария сертификат.";
+
+/* HealthCertificate Resissuance Succeeded */
+"HealthCertificate_Reissuance_Succeeded_Title" = "Сертификатът е актуализиран";
+
+"HealthCertificate_Reissuance_Succeeded_Headline" = "Сертификатът Ви е успешно актуализиран";
+
+"HealthCertificate_Reissuance_Succeeded_Body" = "Актуализираният сертификат вече е наличен в таб „Сертификати“.";
+
+/* HealthCertificate Resissuance Request Error */
+"HealthCertificate_Reissuance_Error_Contact_Support" = "Възникна техническа грешка. Моля, свържете се с горещата линия за технически проблеми, посочена в „Информация за приложението“ -> „Технически въпроси“.";
+
+"HealthCertificate_Reissuance_Error_No_Network" = "Възможно е да няма връзка с интернет. Моля, проверете я и опитайте отново.";
+
+"HealthCertificate_Reissuance_Error_Try_Again" = "Възникна грешка при актуализирането на Вашия сертификат. Моля, опитайте отново. Ако грешката продължи да възниква, се обърнете към горещата линия за технически проблеми, посочена в „Информация за приложението“ -> „Технически въпроси“.";
+
+"HealthCertificate_Reissuance_Error_Not_Supported" = "Сертификатът Ви не може да бъде актуализиран. Моля, обадете се на горещата линия за технически въпроси, която можете да намерите в раздел „Информация за приложението“.";
 
 /* Universal QR Scanner */
 "UniversalQRScanner_ScannerTitle" = "Скенер за QR кодове";

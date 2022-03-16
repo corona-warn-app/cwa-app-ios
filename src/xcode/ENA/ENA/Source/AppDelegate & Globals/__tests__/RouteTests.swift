@@ -34,6 +34,214 @@ class RouteTests: CWATestCase {
 		XCTAssertEqual(antigenTestQRCodeInformation.cryptographicSalt, "7BFA06B5AD9311B8719BB80661C54EAD")
 		XCTAssertNil(antigenTestQRCodeInformation.certificateSupportedByPointOfCare)
 	}
+	
+	func testGIVEN_validRapidPCRUrlWithoutDGCInfo_WHEN_parseRoute_THEN_isValid() {
+		// GIVEN
+		let validRapidPcrUrl = "https://p.coronawarn.app?v=1#eyJ0aW1lc3RhbXAiOjE2MTk2MTcyNjksInNhbHQiOiI3QkZBMDZCNUFEOTMxMUI4NzE5QkI4MDY2MUM1NEVBRCIsInRlc3RpZCI6ImI0YTQwYzZjLWUwMmMtNDQ0OC1iOGFiLTBiNWI3YzM0ZDYwYSIsImhhc2giOiIxZWE0YzIyMmZmMGMwZTRlZDczNzNmMjc0Y2FhN2Y3NWQxMGZjY2JkYWM1NmM2MzI3NzFjZDk1OTIxMDJhNTU1IiwiZm4iOiJIZW5yeSIsImxuIjoiUGluemFuaSIsImRvYiI6IjE5ODktMDgtMzAifQ"
+
+		// WHEN
+		let route = Route(validRapidPcrUrl)
+
+		// THEN
+		guard
+			case let .rapidPCR(result) = route,
+			case let .success(coronaTestRegistrationInformation) = result,
+			case let .rapidPCR(qrCodeInformation: rapidPCRTestQRCodeInformation, qrCodeHash: _) = coronaTestRegistrationInformation
+		else {
+			XCTFail("unexpected route type")
+			return
+		}
+
+		XCTAssertEqual(route?.routeInformation, .rapidPCRTest)
+		XCTAssertEqual(rapidPCRTestQRCodeInformation.hash, "1ea4c222ff0c0e4ed7373f274caa7f75d10fccbdac56c632771cd9592102a555")
+		XCTAssertEqual(rapidPCRTestQRCodeInformation.timestamp, 1619617269)
+		XCTAssertEqual(rapidPCRTestQRCodeInformation.firstName, "Henry")
+		XCTAssertEqual(rapidPCRTestQRCodeInformation.lastName, "Pinzani")
+		XCTAssertEqual(rapidPCRTestQRCodeInformation.dateOfBirth, Date(timeIntervalSince1970: 620438400))
+		XCTAssertEqual(rapidPCRTestQRCodeInformation.testID, "b4a40c6c-e02c-4448-b8ab-0b5b7c34d60a")
+		XCTAssertEqual(rapidPCRTestQRCodeInformation.cryptographicSalt, "7BFA06B5AD9311B8719BB80661C54EAD")
+		XCTAssertNil(rapidPCRTestQRCodeInformation.certificateSupportedByPointOfCare)
+	}
+	
+	func testGIVEN_invalidRapidPCRUrl_WHEN_parseRoute_THEN_isValid() {
+		// GIVEN
+		let validRapidPcrUrl = "https://p.coronawarn.app?v=1#eJ0aW1lc3RhbXAiOjE2MTg0ODI2MzksImd1aWQiOiIzM0MxNDNENS0yMTgyLTQ3QjgtOTM4NS02ODBGMzE4RkU0OTMiLCJmbiI6IlJveSIsImxuIjoiRnJhc3NpbmV0aSIsImRvYiI6IjE5ODEtMTItMDEifQ=="
+
+		// WHEN
+		let route = Route(validRapidPcrUrl)
+		guard case let .rapidPCR(result) = route else {
+			XCTFail("unexpected route type")
+			return
+		}
+
+		// THEN
+		XCTAssertEqual(route?.routeInformation, .rapidPCRTest)
+		switch result {
+		case .success:
+			XCTFail("Route parse success wasn't expected")
+		case .failure:
+			break
+		}
+	}
+	
+	func testGIVEN_InvalidRapidPCRURLString_WHEN_createRoute_THEN_RouteIsNil() {
+		// GIVEN
+		let invalidRapidPcrTestURL = "http:p.coronawarn.app?v=1#eJ0aW1lc3RhbXAiOjE2MTg0ODI2MzksImd1aWQiOiIzM0MxNDNENS0yMTgyLTQ3QjgtOTM4NS02ODBGMzE4RkU0OTMiLCJmbiI6IlJveSIsImxuIjoiRnJhc3NpbmV0aSIsImRvYiI6IjE5ODEtMTItMDEifQ=="
+
+		// WHEN
+		let route = Route(invalidRapidPcrTestURL)
+
+		// THEN
+		XCTAssertNil(route)
+	}
+
+	func testGIVEN_InvalidRapidPCRTestInformation_WHEN_Route_THEN_FailureInvalidHash() throws {
+		// GIVEN
+		let rapidPCRTest = RapidTestQRCodeInformation.mock(
+			hash: "1ea4c222ff0c0e4ed7373f274caa7f75d10fccbdac56c632771cd9592102a55",
+			timestamp: 1619617269,
+			firstName: "Henry",
+			lastName: "Pinzani",
+			cryptographicSalt: "7BFA06B5AD9311B8719BB80661C54EAD",
+			testID: "b4a40c6c-e02c-4448-b8ab-0b5b7c34d60a",
+			dateOfBirth: Date(timeIntervalSince1970: 620438400),
+			certificateSupportedByPointOfCare: true
+		)
+
+		let jsonData = try JSONEncoder().encode(rapidPCRTest)
+		let base64 = jsonData.base64EncodedString()
+		let url = try XCTUnwrap(URLComponents(string: String(format: "https://p.coronawarn.app?v=1#%@", base64))?.url)
+
+		// WHEN
+		let route = Route(url: url)
+
+		// THEN
+		XCTAssertEqual(route?.routeInformation, .rapidPCRTest)
+		XCTAssertEqual(route, .rapidPCR(.failure(.invalidTestCode(.invalidHash))))
+	}
+
+	func testGIVEN_InvalidRapidPCRTestInformation_WHEN_Route_THEN_FailureInvalidTimeStamp() throws {
+		// GIVEN
+		let rapidPCRTest = RapidTestQRCodeInformation.mock(
+			hash: "1ea4c222ff0c0e4ed7373f274caa7f75d10fccbdac56c632771cd9592102a555",
+			timestamp: -5,
+			firstName: "Henry",
+			lastName: "Pinzani",
+			cryptographicSalt: "7BFA06B5AD9311B8719BB80661C54EAD",
+			testID: "b4a40c6c-e02c-4448-b8ab-0b5b7c34d60a",
+			dateOfBirth: Date(timeIntervalSince1970: 620438400),
+			certificateSupportedByPointOfCare: true
+		)
+
+		let jsonData = try JSONEncoder().encode(rapidPCRTest)
+		let base64 = jsonData.base64EncodedString()
+		let url = try XCTUnwrap(URLComponents(string: String(format: "https://p.coronawarn.app?v=1#%@", base64))?.url)
+
+		// WHEN
+		let route = Route(url: url)
+
+		// THEN
+		XCTAssertEqual(route?.routeInformation, .rapidPCRTest)
+		XCTAssertEqual(route, .rapidPCR(.failure(.invalidTestCode(.invalidTimeStamp))))
+	}
+
+	func testGIVEN_InvalidRapidPCRTestInformation_WHEN_URLWithMissingV1_THEN_RouteIsNil() throws {
+		// GIVEN
+		let rapidPCRTest = RapidTestQRCodeInformation.mock(
+			hash: "1ea4c222ff0c0e4ed7373f274caa7f75d10fccbdac56c632771cd9592102a555",
+			timestamp: 1619617269,
+			firstName: "Henry",
+			lastName: "Pinzani",
+			cryptographicSalt: "7BFA06B5AD9311B8719BB80661C54EAD",
+			testID: "b4a40c6c-e02c-4448-b8ab-0b5b7c34d60a",
+			dateOfBirth: Date(timeIntervalSince1970: 620438400),
+			certificateSupportedByPointOfCare: true
+		)
+
+		let jsonData = try JSONEncoder().encode(rapidPCRTest)
+		let base64 = jsonData.base64EncodedString()
+		let url = try XCTUnwrap(URLComponents(string: String(format: "https://p.coronawarn.app#%@", base64))?.url)
+
+		// WHEN
+		let route = Route(url: url)
+
+		// THEN
+		XCTAssertNil(route)
+	}
+
+	func testGIVEN_InvalidRapidPCRTestInformation_WHEN_FirstNameLastNameMiggingButDateOfBirthIsGiven_THEN_FailureInvalidTestedPersonInformation() throws {
+		// GIVEN
+		let rapidPCRTest = RapidTestQRCodeInformation.mock(
+			hash: "1ea4c222ff0c0e4ed7373f274caa7f75d10fccbdac56c632771cd9592102a555",
+			timestamp: 1619617269,
+			firstName: nil,
+			lastName: nil,
+			cryptographicSalt: "7BFA06B5AD9311B8719BB80661C54EAD",
+			testID: "b4a40c6c-e02c-4448-b8ab-0b5b7c34d60a",
+			dateOfBirth: Date(timeIntervalSince1970: 620438400),
+			certificateSupportedByPointOfCare: true
+		)
+
+		let jsonData = try JSONEncoder().encode(rapidPCRTest)
+		let base64 = jsonData.base64EncodedString()
+		let url = try XCTUnwrap(URLComponents(string: String(format: "https://p.coronawarn.app?v=1#%@", base64))?.url)
+
+		// WHEN
+		let route = Route(url: url)
+
+		// THEN
+		XCTAssertEqual(route?.routeInformation, .rapidPCRTest)
+		XCTAssertEqual(route, .rapidPCR(.failure(.invalidTestCode(.invalidTestedPersonInformation))))
+	}
+
+	func testGIVEN_nonPersonalizedCodeRapidPCRURL_WHEN_Route_THEN_Succeed() throws {
+		// GIVEN
+		let url = "https://p.coronawarn.app?v=1#eyJ0aW1lc3RhbXAiOjE2Mjc0MDM4MDEsInNhbHQiOiJEQkFDOUU5ODNGQkVDRDc5RDRERkIzMzI3MTUyN0M2NyIsInRlc3RpZCI6ImE5NjIyMjlmLTg3M2EtNDAyNy05NjUxLWJlNWJhZTZkNzVjNSIsImhhc2giOiI1ZGI3ZGI5OGZhMGM2NDYxMWJhZDdhMmQxYzk4MGE1MDc4MzZiM2ZiZWIzNzNiMWNlMGMwNGNmNmUxNjYzNDExIn0"
+		
+		// WHEN
+		let testInformation = try XCTUnwrap(RapidTestQRCodeInformation(
+												hash: "5db7db98fa0c64611bad7a2d1c980a507836b3fbeb373b1ce0c04cf6e1663411",
+												timestamp: 1627403801,
+												firstName: nil,
+												lastName: nil,
+												dateOfBirth: nil,
+												testID: "a962229f-873a-4027-9651-be5bae6d75c5",
+												cryptographicSalt: "DBAC9E983FBECD79D4DFB33271527C67",
+												certificateSupportedByPointOfCare: nil
+		))
+		let route = try XCTUnwrap(Route(url))
+
+		// THEN
+		XCTAssertEqual(route.routeInformation, .rapidPCRTest)
+		switch route {
+		case .rapidPCR(.success(let test)):
+			switch test {
+			case .rapidPCR(qrCodeInformation: let qrCodeInformation, qrCodeHash: _):
+				XCTAssertEqual(testInformation, qrCodeInformation)
+			case .pcr, .teleTAN, .antigen:
+				XCTFail("Wrong test. Expected rapidPCR")
+			}
+		default:
+			XCTFail("Wrong route. Expected .rapidPCR")
+		}
+	}
+	
+	func testGIVEN_manipulatedNonPersonalizedCodeRapidPCRURL_WHEN_Route_THEN_Fails() throws {
+		// GIVEN
+		let url = "https://p.coronawarn.app?v=1#eyJ0aW1lc3RhbXAiOjE2Mjc0NjAyNjAsInNhbHQiOiI1OTQyOTAxRDY1OEVBNDNENTk2ODI5REZEREY4QUY3NSIsInRlc3RpZCI6IjQyMGYwNzY1LWYzYWUtNGVhYy05ZTZiLTQ1MDRkNTk5NjIzMyIsImhhc2giOiI2NWVlMDVjMDZhODMzNjJjYzM2NTMxNDFmNDY0ODkwODRmZjA5NDQwZGI0OGZhYzU1MGMxOTZmZWI4NzkyOGMwIn0"
+		
+		// WHEN
+		let route = try XCTUnwrap(Route(url))
+
+		// THEN
+		XCTAssertEqual(route.routeInformation, .rapidPCRTest)
+		switch route {
+		case .rapidPCR(.failure(.invalidTestCode(let error))):
+			XCTAssertEqual(error, .hashMismatch)
+		default:
+			XCTFail("Wrong route. Expected .rapidAntigen")
+		}
+	}
 
 	func testGIVEN_invalidRATUrl_WHEN_parseRoute_THEN_isValid() {
 		// GIVEN
@@ -56,7 +264,7 @@ class RouteTests: CWATestCase {
 		}
 	}
 
-	func testGIVEN_InvalidURLString_WHEN_createRoute_THEN_RouteIsNil() {
+	func testGIVEN_InvalidRATURLString_WHEN_createRoute_THEN_RouteIsNil() {
 		// GIVEN
 		let invalidRATTestURL = "http:s.coronawarn.app?v=1#eJ0aW1lc3RhbXAiOjE2MTg0ODI2MzksImd1aWQiOiIzM0MxNDNENS0yMTgyLTQ3QjgtOTM4NS02ODBGMzE4RkU0OTMiLCJmbiI6IlJveSIsImxuIjoiRnJhc3NpbmV0aSIsImRvYiI6IjE5ODEtMTItMDEifQ=="
 
@@ -67,9 +275,9 @@ class RouteTests: CWATestCase {
 		XCTAssertNil(route)
 	}
 
-	func testGIVEN_InvalidTestInformation_WHEN_Route_THEN_FailureInvalidHash() throws {
+	func testGIVEN_InvalidRATTestInformation_WHEN_Route_THEN_FailureInvalidHash() throws {
 		// GIVEN
-		let antigenTest = AntigenTestQRCodeInformation.mock(
+		let antigenTest = RapidTestQRCodeInformation.mock(
 			hash: "1ea4c222ff0c0e4ed7373f274caa7f75d10fccbdac56c632771cd9592102a55",
 			timestamp: 1619617269,
 			firstName: "Henry",
@@ -92,9 +300,9 @@ class RouteTests: CWATestCase {
 		XCTAssertEqual(route, .rapidAntigen(.failure(.invalidTestCode(.invalidHash))))
 	}
 
-	func testGIVEN_InvalidTestInformation_WHEN_Route_THEN_FailureInvalidTimeStamp() throws {
+	func testGIVEN_InvalidRATTestInformation_WHEN_Route_THEN_FailureInvalidTimeStamp() throws {
 		// GIVEN
-		let antigenTest = AntigenTestQRCodeInformation.mock(
+		let antigenTest = RapidTestQRCodeInformation.mock(
 			hash: "1ea4c222ff0c0e4ed7373f274caa7f75d10fccbdac56c632771cd9592102a555",
 			timestamp: -5,
 			firstName: "Henry",
@@ -117,9 +325,9 @@ class RouteTests: CWATestCase {
 		XCTAssertEqual(route, .rapidAntigen(.failure(.invalidTestCode(.invalidTimeStamp))))
 	}
 
-	func testGIVEN_InvalidTestInformation_WHEN_URLWithMissingV1_THEN_RouteIsNil() throws {
+	func testGIVEN_InvalidRATTestInformation_WHEN_URLWithMissingV1_THEN_RouteIsNil() throws {
 		// GIVEN
-		let antigenTest = AntigenTestQRCodeInformation.mock(
+		let antigenTest = RapidTestQRCodeInformation.mock(
 			hash: "1ea4c222ff0c0e4ed7373f274caa7f75d10fccbdac56c632771cd9592102a555",
 			timestamp: 1619617269,
 			firstName: "Henry",
@@ -141,9 +349,9 @@ class RouteTests: CWATestCase {
 		XCTAssertNil(route)
 	}
 
-	func testGIVEN_InvalidTestInformation_WHEN_FirstNameLastNameMiggingButDateOfBirthIsGiven_THEN_FailureInvalidTestedPersonInformation() throws {
+	func testGIVEN_InvalidRATTestInformation_WHEN_FirstNameLastNameMiggingButDateOfBirthIsGiven_THEN_FailureInvalidTestedPersonInformation() throws {
 		// GIVEN
-		let antigenTest = AntigenTestQRCodeInformation.mock(
+		let antigenTest = RapidTestQRCodeInformation.mock(
 			hash: "1ea4c222ff0c0e4ed7373f274caa7f75d10fccbdac56c632771cd9592102a555",
 			timestamp: 1619617269,
 			firstName: nil,
@@ -166,21 +374,21 @@ class RouteTests: CWATestCase {
 		XCTAssertEqual(route, .rapidAntigen(.failure(.invalidTestCode(.invalidTestedPersonInformation))))
 	}
 
-	func testGIVEN_nonPersonalizedCodeURL_WHEN_Route_THEN_Succeed() throws {
+	func testGIVEN_nonPersonalizedCodeRATURL_WHEN_Route_THEN_Succeed() throws {
 		// GIVEN
 		let url = "https://s.coronawarn.app?v=1#eyJ0aW1lc3RhbXAiOjE2Mjc0MDM4MDEsInNhbHQiOiJEQkFDOUU5ODNGQkVDRDc5RDRERkIzMzI3MTUyN0M2NyIsInRlc3RpZCI6ImE5NjIyMjlmLTg3M2EtNDAyNy05NjUxLWJlNWJhZTZkNzVjNSIsImhhc2giOiI1ZGI3ZGI5OGZhMGM2NDYxMWJhZDdhMmQxYzk4MGE1MDc4MzZiM2ZiZWIzNzNiMWNlMGMwNGNmNmUxNjYzNDExIn0"
 		
 		// WHEN
-		let testInformation = try XCTUnwrap(AntigenTestQRCodeInformation(
-												hash: "5db7db98fa0c64611bad7a2d1c980a507836b3fbeb373b1ce0c04cf6e1663411",
-												timestamp: 1627403801,
-												firstName: nil,
-												lastName: nil,
-												dateOfBirth: nil,
-												testID: "a962229f-873a-4027-9651-be5bae6d75c5",
-												cryptographicSalt: "DBAC9E983FBECD79D4DFB33271527C67",
-												certificateSupportedByPointOfCare: nil
-		))
+		let testInformation = RapidTestQRCodeInformation(
+			hash: "5db7db98fa0c64611bad7a2d1c980a507836b3fbeb373b1ce0c04cf6e1663411",
+			timestamp: 1627403801,
+			firstName: nil,
+			lastName: nil,
+			dateOfBirth: nil,
+			testID: "a962229f-873a-4027-9651-be5bae6d75c5",
+			cryptographicSalt: "DBAC9E983FBECD79D4DFB33271527C67",
+			certificateSupportedByPointOfCare: nil
+		)
 		let route = try XCTUnwrap(Route(url))
 
 		// THEN
@@ -190,7 +398,7 @@ class RouteTests: CWATestCase {
 			switch test {
 			case .antigen(qrCodeInformation: let qrCodeInformation, qrCodeHash: _):
 				XCTAssertEqual(testInformation, qrCodeInformation)
-			case .pcr, .teleTAN:
+			case .pcr, .teleTAN, .rapidPCR:
 				XCTFail("Wrong test. Expected Antigen")
 			}
 		default:
@@ -198,7 +406,7 @@ class RouteTests: CWATestCase {
 		}
 	}
 	
-	func testGIVEN_manipulatedNonPersonalizedCodeURL_WHEN_Route_THEN_Fails() throws {
+	func testGIVEN_manipulatedNonPersonalizedCodeRATURL_WHEN_Route_THEN_Fails() throws {
 		// GIVEN
 		let url = "https://s.coronawarn.app?v=1#eyJ0aW1lc3RhbXAiOjE2Mjc0NjAyNjAsInNhbHQiOiI1OTQyOTAxRDY1OEVBNDNENTk2ODI5REZEREY4QUY3NSIsInRlc3RpZCI6IjQyMGYwNzY1LWYzYWUtNGVhYy05ZTZiLTQ1MDRkNTk5NjIzMyIsImhhc2giOiI2NWVlMDVjMDZhODMzNjJjYzM2NTMxNDFmNDY0ODkwODRmZjA5NDQwZGI0OGZhYzU1MGMxOTZmZWI4NzkyOGMwIn0"
 		

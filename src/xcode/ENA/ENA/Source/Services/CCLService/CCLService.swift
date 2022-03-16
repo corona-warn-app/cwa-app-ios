@@ -19,14 +19,22 @@ enum DCCWalletInfoAccessError: Error {
 	case failedFunctionsEvaluation(Error)
 }
 
+enum DCCAdmissionCheckScenariosAccessError: Error {
+	case failedFunctionsEvaluation(Error)
+}
+
 protocol CCLServable {
 
 	var configurationVersion: String { get }
 	
+	var dccAdmissionCheckScenariosEnabled: Bool { get }
+	
 	func updateConfiguration(completion: @escaping (_ didChange: Bool) -> Void)
 	
-	func dccWalletInfo(for certificates: [DCCWalletCertificate]) -> Swift.Result<DCCWalletInfo, DCCWalletInfoAccessError>
+	func dccWalletInfo(for certificates: [DCCWalletCertificate], with identifier: String?) -> Swift.Result<DCCWalletInfo, DCCWalletInfoAccessError>
 	
+	func dccAdmissionCheckScenarios() -> Swift.Result<DCCAdmissionCheckScenarios, DCCAdmissionCheckScenariosAccessError>
+
 	func evaluateFunctionWithDefaultValues<T: Decodable>(name: String, parameters: [String: AnyDecodable]) throws -> T
 
 }
@@ -47,13 +55,15 @@ class CCLService: CCLServable {
 	/// - signatureVerifier: for fake CBOR Receive Resources to work
 	init(
 		_ restServiceProvider: RestServiceProviding,
+		appConfiguration: AppConfigurationProviding,
 		cclServiceMode: [CCLServiceMode] = [.configuration, .boosterRules],
-		signatureVerifier: SignatureVerification = SignatureVerifier()
+		signatureVerifier: SignatureVerification = SignatureVerifier(),
+		cclConfigurationResource: CCLConfigurationResource = CCLConfigurationResource()
 	) {
 		self.restServiceProvider = restServiceProvider
+		self.appConfiguration = appConfiguration
 		self.cclServiceMode = cclServiceMode
 
-		var cclConfigurationResource = CCLConfigurationResource()
 		cclConfigurationResource.receiveResource = CBORReceiveResource(signatureVerifier: signatureVerifier)
 		self.cclConfigurationResource = cclConfigurationResource
 
@@ -74,28 +84,30 @@ class CCLService: CCLServable {
 		}
 
 		// cclConfigurations
-		self.cclConfigurations = []
 		if cclServiceMode.contains(.configuration) {
 			switch restServiceProvider.cached(cclConfigurationResource) {
 			case let .success(configurations):
-				self.cclConfigurations = configurations.cclConfigurations
-				self.updateJsonFunctions(configurations.cclConfigurations)
+				replaceCCLConfigurations(with: configurations.cclConfigurations)
 			case let .failure(error):
-				Log.error("Failed to read ccl configurations from cache - init empty", error: error)
-				self.updateJsonFunctions([])
+				Log.error("Failed to read ccl configurations from cache", error: error)
 			}
 		}
 	}
 	
 	// MARK: - Protocol CCLServable
 
-	var configurationVersion: String {
-		return cclConfigurations
-			.sorted { $0.identifier < $1.identifier }
-			.map { $0.version }
-			.joined(separator: ", ")
-	}
+	var configurationVersion: String = ""
 
+	var dccAdmissionCheckScenariosEnabled: Bool {
+		#if DEBUG
+		if isUITesting && LaunchArguments.healthCertificate.isDCCAdmissionCheckScenariosEnabled.boolValue {
+			return true
+		}
+		#endif
+		
+		return appConfiguration.featureProvider.boolValue(for: .dccAdmissionCheckScenariosEnabled)
+	}
+	
 	func updateConfiguration(
 		completion: @escaping (_ didChange: Bool) -> Void
 	) {
@@ -116,8 +128,7 @@ class CCLService: CCLServable {
 
 				switch result {
 				case let .success(configurations):
-					self?.cclConfigurations = configurations
-					self?.updateJsonFunctions(configurations)
+					self?.replaceCCLConfigurations(with: configurations)
 					configurationDidUpdate = true
 				case .failure(let error):
 					Log.error("CCLConfiguration might be loaded from the cache - skip this error", error: error)
@@ -148,12 +159,35 @@ class CCLService: CCLServable {
 		}
 	}
 	
+	func dccAdmissionCheckScenarios() -> Swift.Result<DCCAdmissionCheckScenarios, DCCAdmissionCheckScenariosAccessError> {
+		#if DEBUG
+		if isUITesting {
+			return .success(mockDCCAdmissionCheckScenarios)
+		}
+		#endif
+
+		let getAdmissionCheckScenariosInput = GetAdmissionCheckScenariosInput.make()
+		
+		do {
+			let admissionCheckScenarios: DCCAdmissionCheckScenarios = try jsonFunctions.evaluateFunction(
+				name: "getDccAdmissionCheckScenarios",
+				parameters: getAdmissionCheckScenariosInput
+			)
+			
+			return .success(admissionCheckScenarios)
+		} catch {
+			return .failure(.failedFunctionsEvaluation(error))
+		}
+	}
+	
 	func dccWalletInfo(
-		for certificates: [DCCWalletCertificate]
+		for certificates: [DCCWalletCertificate],
+		with identifer: String? = ""
 	) -> Swift.Result<DCCWalletInfo, DCCWalletInfoAccessError> {
 		let getWalletInfoInput = GetWalletInfoInput.make(
 			certificates: certificates,
-			boosterNotificationRules: boosterNotificationRules
+			boosterNotificationRules: boosterNotificationRules,
+			identifier: identifer
 		)
 		
 		do {
@@ -161,6 +195,7 @@ class CCLService: CCLServable {
 				name: "getDccWalletInfo",
 				parameters: getWalletInfoInput
 			)
+			
 			return .success(walletInfo)
 		} catch {
 			return .failure(.failedFunctionsEvaluation(error))
@@ -178,7 +213,9 @@ class CCLService: CCLServable {
 	// MARK: - Private
 
 	private let restServiceProvider: RestServiceProviding
-	private let jsonFunctions: JsonFunctions = JsonFunctions()
+	private let appConfiguration: AppConfigurationProviding
+
+	private var jsonFunctions: JsonFunctions = JsonFunctions()
 
 	private let cclConfigurationResource: CCLConfigurationResource
 	private let boosterNotificationRulesResource: DCCRulesResource
@@ -186,7 +223,61 @@ class CCLService: CCLServable {
 	private let cclServiceMode: [CCLServiceMode]
 
 	private var boosterNotificationRules: [Rule]
-	private var cclConfigurations: [CCLConfiguration]
+
+	#if DEBUG
+	private var mockDCCAdmissionCheckScenarios: DCCAdmissionCheckScenarios {
+		let statusTitle = DCCUIText(
+			type: "string",
+			quantity: nil,
+			quantityParameterIndex: nil,
+			functionName: nil,
+			localizedText: ["de": "Status für folgendes Bundesland"],
+			parameters: []
+		)
+		
+		let buttonTitle = DCCUIText(
+			type: "string",
+			quantity: nil,
+			quantityParameterIndex: nil,
+			functionName: nil,
+			localizedText: ["de": "Regeln des Bundes"],
+			parameters: []
+		)
+
+		let countrySubtitle = DCCUIText(
+			type: "string",
+			quantity: nil,
+			quantityParameterIndex: nil,
+			functionName: nil,
+			localizedText: ["de": "Regeln in Ihrem Bundesland können davon abweichen"],
+			parameters: []
+		)
+		
+		let bwTitle = DCCUIText(
+			type: "string",
+			quantity: nil,
+			quantityParameterIndex: nil,
+			functionName: nil,
+			localizedText: ["de": "Baden Württemberg"],
+			parameters: []
+		)
+		
+		let berlinTitle = DCCUIText(
+			type: "string",
+			quantity: nil,
+			quantityParameterIndex: nil,
+			functionName: nil,
+			localizedText: ["de": "Berlin"],
+			parameters: []
+		)
+		
+		let entireCountry = DCCScenarioSelectionItem(identifier: "DE", titleText: buttonTitle, subtitleText: countrySubtitle, enabled: true)
+		let bw = DCCScenarioSelectionItem(identifier: "BW", titleText: bwTitle, subtitleText: nil, enabled: true)
+		let berlin = DCCScenarioSelectionItem(identifier: "Berlin", titleText: berlinTitle, subtitleText: nil, enabled: true)
+		
+		return DCCAdmissionCheckScenarios(labelText: statusTitle, scenarioSelection: DCCScenarioSelection(titleText: buttonTitle, items: [entireCountry, bw, berlin]))
+	}
+	#endif
 
 	private func getConfigurations(
 		completion: @escaping (Swift.Result<[CCLConfiguration], CCLDownloadError>) -> Void
@@ -234,13 +325,37 @@ class CCLService: CCLServable {
 		}
 	}
 
-	private func updateJsonFunctions(
-		_ configurations: [CCLConfiguration]
+	private func replaceCCLConfigurations(
+		with newCCLConfigurations: [CCLConfiguration]
 	) {
-		configurations.forEach { [weak self] configuration in
-			configuration.functionDescriptors.forEach { jsonFunctionDescriptor in
-				self?.jsonFunctions.registerFunction(jsonFunctionDescriptor: jsonFunctionDescriptor)
+		/// Reset registered functions by creating a new instance
+		jsonFunctions = JsonFunctions()
+
+		for configuration in newCCLConfigurations {
+			registerJsonFunctions(from: configuration)
+		}
+
+		var registeredConfigurations = newCCLConfigurations
+
+		/// Register functions from the default configurations as well, in case the default configurations contain (new) configurations not contained in the cached/fetched configurations
+		if let defaultConfigurations = cclConfigurationResource.defaultModel?.cclConfigurations {
+			for configuration in defaultConfigurations where !newCCLConfigurations.contains(where: { $0.identifier == configuration.identifier }) {
+				registerJsonFunctions(from: configuration)
+				registeredConfigurations.append(configuration)
 			}
+		}
+
+		configurationVersion = registeredConfigurations
+			.sorted { $0.identifier < $1.identifier }
+			.map { $0.version }
+			.joined(separator: ", ")
+	}
+
+	private func registerJsonFunctions(
+		from configuration: CCLConfiguration
+	) {
+		for jsonFunctionDescriptor in configuration.functionDescriptors {
+			jsonFunctions.registerFunction(jsonFunctionDescriptor: jsonFunctionDescriptor)
 		}
 	}
 

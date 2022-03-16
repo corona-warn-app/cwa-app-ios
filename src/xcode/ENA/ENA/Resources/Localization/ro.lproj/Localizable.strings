@@ -711,7 +711,7 @@
 
 "ExposureSubmissionResult_Title_Antigen" = "Test rapid";
 
-"ExposureSubmissionResult_CardSubTitle" = "Diagnosticul dvs.";
+"ExposureSubmissionResult_CardSubTitle" = "Rezultatul testului dvs. PCR";
 
 "ExposureSubmissionResult_CardSubTitle_Antigen" = "Rezultatul testului dvs. rapid";
 
@@ -1414,6 +1414,9 @@
 
 "App_Information_Contact_Form_Title" = "Formular de contact";
 
+/* App Information - Accessibility */
+"App_Information_Accessibility_Navigation" = "Declarație de accesibilitate";
+
 /* App Information - Legal */
 "App_Information_Legal_Navigation" = "Mențiuni legale";
 
@@ -1528,7 +1531,7 @@
 
 "RiskLegend_Legend2_Title" = "Risc de infectare";
 
-"RiskLegend_Legend2_Text" = "Când este activă înregistrarea în jurnal a expunerilor, aplicația calculează riscul dvs. personal de infectare. Efectuează acest lucru prin măsurarea duratei și a proximității expunerii la persoanele care au fost diagnosticate cu coronavirus în ultimele 14 zile.";
+"RiskLegend_Legend2_Text" = "Când este activă înregistrarea în jurnal a expunerilor, aplicația calculează riscul dvs. personal de infectare. Efectuează acest lucru prin măsurarea duratei și a proximității expunerii la persoanele care au fost diagnosticate cu coronavirus în ultimele 14 zile. Înregistrarea în jurnal a expunerilor ține cont și de check-inurile dvs. Sunteți avertizat dacă ați fost în aceeași cameră cu o persoană care a fost diagnosticată ulterior cu coronavirus sau dacă ați fost în cameră în decurs de 30 de minute de la plecarea acesteia.";
 
 "RiskLegend_Legend2_RiskLevels" = "Poate fi afișată următoarea stare a riscului:";
 
@@ -1601,10 +1604,18 @@
 /* New Version Features */
 "NewVersionFeatures_Info_about_abb_information" = "Modificările din această versiune pot fi găsite în informațiile aplicației, la „Caracteristici noi”.";
 
-/* Version 2.18 */
-"NewVersionFeature_218_centralManagementOfRules_title" = "Administrarea centrală a regulilor";
+/* Version 2.19 */
+"NewVersionFeature_219_rapidPCR_title" = "Înregistrarea testelor PCR rapide";
 
-"NewVersionFeature_218_centralManagementOfRules_description" = "Regulile pentru certificate (de exemplu, cu privire la valabilitate sau la prioritizare, atunci când sunt disponibile mai multe certificate) și pentru determinarea stării „G” (vaccinat, trecut prin boală, testat) au fost scoase din aplicația Corona-Warn. Acum, aceste reguli sunt stocate central și, astfel, pot fi ajustate independent de versiunile aplicației, ceea ce face posibilă reacționarea mai rapidă la schimbările de reguli. După o schimbare, regulile actualizate vor fi transferate automat la aplicație. Această administrare centrală a regulilor nu schimbă modul în care utilizați aplicația Corona-Warn.";
+"NewVersionFeature_219_rapidPCR_description" = "Acum puteți înregistra teste PCR rapide în Corona-Warn-App și puteți primi rezultatul și certificatul dvs. de test prin aplicație.";
+
+"NewVersionFeature_219_faultTolerantNameHandling_title" = "Atribuirea certificatului";
+
+"NewVersionFeature_219_faultTolerantNameHandling_description" = "Atribuirea certificatelor la persoane a fost făcută mai tolerantă la erori. Sunt ignorate diferențele minore de ortografie în cazul prenumelor și numelor, astfel încât certificatele afectate pot fi totuși atribuite persoanelor în cauză.";
+
+"NewVersionFeature_219_vaccinationCertificateReplacement_title" = "Actualizarea certificatului";
+
+"NewVersionFeature_219_vaccinationCertificateReplacement_description" = "Prevederile UE pentru certificatele de vaccinare care presupun vaccinarea cu doza booster s-au modificat. Dacă certificatul dvs. nu mai corespunde cu prevederile curente, puteți solicita un certificat nou direct din Corona-Warn-App.";
 
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Înregistrare transnațională a expunerilor în jurnal";
@@ -1945,12 +1956,12 @@
 
 "Statistics_Card_CombinedIncidence_Date" = "Până la %@";
 
-"Statistics_Card_CombinedIncidence_PrimaryLabelSubtitle" = "Infectări noi";
+"Statistics_Card_CombinedIncidence_PrimaryLabelSubtitle" = "infectări noi";
 
-"Statistics_Card_CombinedIncidence_SecondaryLabelSubtitle" = "Spitalizări";
+"Statistics_Card_CombinedIncidence_SecondaryLabelSubtitle" = "spitalizări";
 
 /* - Infections Card */
-"Statistics_Card_Infections_Title" = "Infecții noi confirmate";
+"Statistics_Card_Infections_Title" = "Infectări noi confirmate";
 
 "Statistics_Card_Infections_Today" = "Astăzi";
 
@@ -1969,11 +1980,11 @@
 
 "Statistics_Card_Region_Date" = "Până la %@";
 
-"Statistics_Card_Region_PrimaryLabelSubtitle" = "Infectări noi";
+"Statistics_Card_Region_PrimaryLabelSubtitle" = "infectări noi";
 
-"Statistics_Card_Region_SecondaryLabelSubtitle_FederalState" = "Spitalizări";
+"Statistics_Card_Region_SecondaryLabelSubtitle_FederalState" = "spitalizări";
 
-"Statistics_Card_Region_SecondaryLabelSubtitle_AdministrativeUnit" = "Spitalizări în %@";
+"Statistics_Card_Region_SecondaryLabelSubtitle_AdministrativeUnit" = "spitalizări în %@";
 
 /* - Key Submissions Card */
 "Statistics_Card_KeySubmissions_Title" = "Avertizări de la utilizatorii aplicației";
@@ -2102,7 +2113,7 @@
 
 "Statistics_Info_KeySubmissions_Title" = "Avertizări de la utilizatorii aplicației";
 
-"Statistics_Info_KeySubmissions_Text" = "Numărul de utilizatori ai aplicației care au fost diagnosticați cu coronavirus prin test PCR și care i-au avertizat pe ceilalți prin aplicație.";
+"Statistics_Info_KeySubmissions_Text" = "Numărul de utilizatori ai aplicației care au fost diagnosticați cu coronavirus și care i-au avertizat pe ceilalți prin aplicație";
 
 "Statistics_Info_ReproductionNumber_Title" = "Valoarea R pe 7 zile";
 
@@ -2298,9 +2309,13 @@
 "Contact_Journal_Notes_Description" = "Acum puteți introduce aici note care vă vor ajuta să estimați mai bine riscul dvs. de infectare.\n\nNotați aici circumstanțele suplimentare ale întâlnirii sau șederii dvs. care ar putea avea efect asupra riscului dvs. de infectare, de exemplu, cât de aproape vă aflați față de alte persoane și ce făceați (exemple: „am stat aproape unul de altul”, „am făcut sport”, „spațiu puțin”, „am cântat”).\n\nAceste note vă pot ajuta să vă împrospătați memoria mai târziu. Dacă este necesar, acestea vor conduce la avertizarea timpurie a celorlalte persoane cu care v-ați întâlnit și, de asemenea, pot ajuta autoritățile de sănătate publică să urmărească posibilele lanțuri de infectare.";
 
 /* Quick Actions a.k.a. shortcuts */
-"QuickAction_newContactDiaryEntry" = "Adăugare intrare în jurnal pentru astăzi";
+"QuickAction_qrCodeScanner" = "Scanare cod QR";
 
-"QuickAction_eventCheckin" = "Check-in";
+"QuickAction_showCertificates" = "Afișare certificate";
+
+"QuickAction_eventCheckin" = "Afișare check-inuri";
+
+"QuickAction_newContactDiaryEntry" = "Adăugare intrare";
 
 /* Checkins */
 "Checkins_Overview_Title" = "Check-inurile mele";
@@ -2716,11 +2731,9 @@
 /* Health Certificate Overview */
 "HealthCertificate_Overview_title" = "Certificate";
 
-"HealthCertificate_Overview_add" = "Adăugare certificat";
-
 "HealthCertificate_Overview_EmptyTitle" = "Nu sunt încă disponibile certificate";
 
-"HealthCertificate_Overview_EmptyDescription" = "Certificatele de vaccinare digitale, certificatele de recuperare și certificatele de test salvate sunt afișate aici.\n\nPentru a adăuga un certificat, scanați codul QR corespunzător.";
+"HealthCertificate_Overview_EmptyDescription" = "Certificatele de vaccinare digitale, certificatele de recuperare și certificatele de test salvate sunt afișate aici.";
 
 "HealthCertificate_Overview_EmptyImageDescription" = "Sigiliu certificat cu certificat digital în fundal";
 
@@ -2733,6 +2746,14 @@
 "HealthCertificate_Overview_TwoGCertificate" = "Certificat 2G";
 
 "HealthCertificate_Overview_TestCertificate" = "Certificat de test";
+
+"HealthCertificate_Overview_Scanning_Info" = "Pentru a adăuga certificate suplimentare, utilizați scannerul de coduri QR de pe bara de navigare de mai jos.";
+
+"HealthCertificate_Admission_Scenario_Status_Label" = "Starea pentru următorul stat federal";
+
+"HealthCertificate_Admission_Scenario_Button_Label" = "Reglementările guvernului federal";
+
+"HealthCertificate_Loading_Indicator_Label" = "Se determină starea...";
 
 "HealthCertificate_Overview_News" = "Există noutăți despre certificatele dvs.";
 
@@ -2970,6 +2991,13 @@
 
 "HealthCertificate_PrintPdf_ErrorAlert_ValueSetsFetching_Message" = "Versiunea de tipărire a certificatului nu poate fi afișată deoarece certificatul nu poate fi obținut în acest moment. Încercați din nou mai târziu.";
 
+/* Certificate Fault Tolerant Naming */
+"HealthCertificate_FaultTolerantNaming_RegroupDone_Title" = "Atribuirea certificatului";
+
+"HealthCertificate_FaultTolerantNaming_RegroupDone_Message" = "Gruparea certificatelor a fost îmbunătățită. Certificatele care au doar diferențe minore de nume nu vor mai fi atribuite altor persoane.";
+
+"HealthCertificate_FaultTolerantNaming_RegroupDone_OkayButton" = "OK";
+
 /* Health Certificate Errors */
 "HealthCertificate_Error_Title" = "Eroare";
 
@@ -3045,7 +3073,7 @@
 
 "HealthCertificate_Validation_Passed_unknownTitle" = "Certificatul nu poate fi verificat";
 
-"HealthCertificate_Validation_Passed_subtitle" = "Certificatul dvs. este valabil în țara selectată";
+"HealthCertificate_Validation_Passed_subtitle" = "Certificatul dvs. este valabil pentru intrarea în țara selectată";
 
 "HealthCertificate_Validation_Passed_unknownSubtitle" = "Certificatul dvs. nu a putut fi verificat";
 
@@ -3071,7 +3099,7 @@
 /* - Failed */
 "HealthCertificate_Validation_Failed_title" = "Certificatul nu este valabil";
 
-"HealthCertificate_Validation_Failed_subtitle" = "Certificatul dvs. nu este valabil în țara selectată";
+"HealthCertificate_Validation_Failed_subtitle" = "Certificatul dvs. nu este valabil pentru intrarea în țara selectată";
 
 "HealthCertificate_Validation_Failed_failedSectionTitle" = "Verificare completă";
 
@@ -3084,7 +3112,7 @@
 /* - Technical Validation Failed */
 "HealthCertificate_Validation_TechnicalFailed_title" = "Certificatul nu este valabil";
 
-"HealthCertificate_Validation_TechnicalFailed_subtitle" = "Certificatul dvs. nu este valabil în țara selectată";
+"HealthCertificate_Validation_TechnicalFailed_subtitle" = "Certificatul dvs. nu este valabil pentru intrarea în țara selectată";
 
 "HealthCertificate_Validation_TechnicalFailed_failedSectionTitle" = "Verificare tehnică";
 
@@ -3114,6 +3142,52 @@
 "HealthCertificate_ValidityState_Blocked" = "Certificat nevalabil";
 
 "HealthCertificate_ValidityState_Blocked_description" = "Certificatul a fost revocat de către autoritatea emitentă. Obțineți un certificat digital nou.";
+
+/* Reissuance */
+/* HealthCertificate Resissuance Consent */
+"HealthCertificate_Reissuance_Consent_primaryButtonTitle" = "Accept";
+
+"HealthCertificate_Reissuance_Consent_secondaryButtonTitle" = "Anulare";
+
+"HealthCertificate_Reissuance_Consent_DefaultAlert_Title" = "Eroare";
+
+"HealthCertificate_Reissuance_Consent_DefaultAlert_OKButton" = "OK";
+
+"HealthCertificate_Reissuance_Consent_DefaultAlert_RetryButton" = "Repetare";
+
+"HealthCertificate_Reissuance_Consent_Title" = "Consimțământul dvs.";
+
+"HealthCertificate_Reissuance_Consent_Delete_Notice" = "Certificatul vechi va fi mutat automat în coșul de reciclare și va fi șters după 30 de zile. Certificatul poate fi restaurat oricând în aceste 30 de zile.";
+
+"HealthCertificate_Reissuance_Consent_Cancel_Notice" = "Dacă anulați acum, puteți solicita oricând o actualizare în sumarul certificatului.";
+
+"HealthCertificate_Reissuance_Consent_Legal_Title" = "Consimțământul dvs.";
+
+"HealthCertificate_Reissuance_Consent_Legal_Subtitle" = "Apăsând pe „Sunt de acord”, consimțiți cu următoarele etape:";
+
+"HealthCertificate_Reissuance_Consent_Legal_Bullet_1" = "Aplicația trimite certificatul de vaccinare la RKI pentru verificare.";
+
+"HealthCertificate_Reissuance_Consent_Legal_Bullet_2" = "RKI verifică certificatul de vaccinare, emite un certificat actualizat și îl trimite la aplicația dvs.";
+
+"HealthCertificate_Reissuance_Consent_Bullet_Point_1" = "Actualizarea certificatului dvs. este voluntară și gratuită.";
+
+"HealthCertificate_Reissuance_Consent_Bullet_Point_2" = "Pentru a vă asigura că certificatele pot fi actualizate o singură dată, identificatorul certificatului vechi este păstrat ca evidență de către RKI.";
+
+/* HealthCertificate Resissuance Succeeded */
+"HealthCertificate_Reissuance_Succeeded_Title" = "Certificat actualizat";
+
+"HealthCertificate_Reissuance_Succeeded_Headline" = "Certificatul dvs. a fost actualizat cu succes";
+
+"HealthCertificate_Reissuance_Succeeded_Body" = "Certificatul actualizat este disponibil acum pe tabul „Certificate”.";
+
+/* HealthCertificate Resissuance Request Error */
+"HealthCertificate_Reissuance_Error_Contact_Support" = "A apărut o eroare tehnică. Contactați hotline-ul tehnic prin Informații aplicație -> Hotline tehnic.";
+
+"HealthCertificate_Reissuance_Error_No_Network" = "Conexiunea dvs. la internet se poate să fi fost pierdută. Verificați conexiunea și încercați din nou.";
+
+"HealthCertificate_Reissuance_Error_Try_Again" = "A apărut o eroare la actualizarea certificatului dvs. Încercați din nou. Dacă eroarea persistă, contactați hotline-ul tehnic prin Informații aplicație -> Hotline tehnic.";
+
+"HealthCertificate_Reissuance_Error_Not_Supported" = "Certificatul dvs. nu poate fi actualizat. Contactați hotline-ul tehnic accesând Informații aplicație -> Hotline tehnic.";
 
 /* Universal QR Scanner */
 "UniversalQRScanner_ScannerTitle" = "Scanner de coduri QR";
