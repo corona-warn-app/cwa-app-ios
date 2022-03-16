@@ -28,14 +28,17 @@ struct OnboardingInfo {
 }
 
 extension OnboardingInfo {
-	static func testData() -> [Self] {
+	static func testData(appConfigProvider: AppConfigurationProviding) -> [Self] {
 		let info1 = OnboardingInfo(
 			title: AppStrings.Onboarding.onboardingInfo_togetherAgainstCoronaPage_title,
 			imageName: "Illu_Onboarding_GemeinsamCoronabekaempfen",
 			imageDescription: AppStrings.Onboarding.onboardingInfo_togetherAgainstCoronaPage_imageDescription,
 			showState: false,
 			boldText: AppStrings.Onboarding.onboardingInfo_togetherAgainstCoronaPage_boldText,
-			text: AppStrings.Onboarding.onboardingInfo_togetherAgainstCoronaPage_normalText,
+			text: String(
+				format: AppStrings.Onboarding.onboardingInfo_togetherAgainstCoronaPage_normalText,
+				appConfigProvider.currentAppConfig.value.riskCalculationParameters.defaultedMaxEncounterAgeInDays
+			),
 			link: AppStrings.Onboarding.onboardingInfo_togetherAgainstCoronaPage_link,
 			linkDisplayText: AppStrings.Onboarding.onboardingInfo_togetherAgainstCoronaPage_linkText,
 			actionText: AppStrings.Onboarding.onboardingLetsGo,
