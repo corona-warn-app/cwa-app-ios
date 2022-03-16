@@ -9,7 +9,10 @@ class RiskLegendeTest: CWATestCase {
 
 	func testGIVEN_riskLegendeViewController_WHEN_loaddynamicTableViewModel_THEN_SectionsMatch() {
 		// GIVEN
-		let riskLegendeViewController = RiskLegendViewController(onDismiss: {})
+		let riskLegendeViewController = RiskLegendViewController(
+			onDismiss: {},
+			appConfigProvider: CachedAppConfigurationMock()
+		)
 
 		// WHEN
 
@@ -35,9 +38,12 @@ class RiskLegendeTest: CWATestCase {
 		// GIVEN
 		let closexpectation = expectation(description: "close button hit")
 
-		let riskLegendeViewController = RiskLegendViewController(onDismiss: {
-			closexpectation.fulfill()
-		})
+		let riskLegendeViewController = RiskLegendViewController(
+			onDismiss: {
+				closexpectation.fulfill()
+			},
+			appConfigProvider: CachedAppConfigurationMock()
+		)
 
 		// WHEN
 		riskLegendeViewController.onDismiss()
