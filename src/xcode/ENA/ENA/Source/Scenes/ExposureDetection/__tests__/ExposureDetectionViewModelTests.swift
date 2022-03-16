@@ -26,6 +26,7 @@ class ExposureDetectionViewModelTests: CWATestCase {
 	}
 	
 	func testInitialLowRiskStateWithoutEncounters() {
+		var subscriptions = Set<AnyCancellable>()
 
 		let homeState = HomeState(
 			store: store,
@@ -54,6 +55,15 @@ class ExposureDetectionViewModelTests: CWATestCase {
 		// Needed to check the isHidden state of sections
 		let viewController = ExposureDetectionViewController(viewModel: viewModel, store: store)
 
+		let appConfigurationExpectation = expectation(description: "appConfigurationIsSet")
+		viewModel.appConfigurationProvider.appConfiguration()
+			.sink { _ in
+				appConfigurationExpectation.fulfill()
+			}
+			.store(in: &subscriptions)
+
+		waitForExpectations(timeout: .short)
+		
 		checkLowRiskConfiguration(
 			of: viewModel.dynamicTableViewModel,
 			viewController: viewController,
@@ -62,15 +72,15 @@ class ExposureDetectionViewModelTests: CWATestCase {
 		)
 
 		XCTAssertEqual(viewModel.titleText, AppStrings.ExposureDetection.low)
-		XCTAssertEqual(viewModel.riskBackgroundColor, .enaColor(for: .riskLow))
-		XCTAssertEqual(viewModel.titleTextColor, .enaColor(for: .textContrast))
+		XCTAssertEqual(viewModel.riskBackgroundColor.cgColor, UIColor.enaColor(for: .riskLow).cgColor)
+		XCTAssertEqual(viewModel.titleTextColor.cgColor, UIColor.enaColor(for: .textContrast).cgColor)
 		XCTAssertEqual(viewModel.closeButtonStyle, .contrast)
 
 		XCTAssertTrue(viewModel.isButtonHidden)
 
-		XCTAssertEqual(viewModel.riskTintColor, .enaColor(for: .riskLow))
-		XCTAssertEqual(viewModel.riskContrastTintColor, .enaColor(for: .textContrast))
-		XCTAssertEqual(viewModel.riskSeparatorColor, .enaColor(for: .hairlineContrast))
+		XCTAssertEqual(viewModel.riskTintColor.cgColor, UIColor.enaColor(for: .riskLow).cgColor)
+		XCTAssertEqual(viewModel.riskContrastTintColor.cgColor, UIColor.enaColor(for: .textContrast).cgColor)
+		XCTAssertEqual(viewModel.riskSeparatorColor.cgColor, UIColor.enaColor(for: .hairlineContrast).cgColor)
 
 		XCTAssertEqual(
 			viewModel.riskDetails,
@@ -83,6 +93,8 @@ class ExposureDetectionViewModelTests: CWATestCase {
 	}
 
 	func testLowRiskStateWithEncounters() {
+		var subscriptions = Set<AnyCancellable>()
+
 		let mostRecentDateWithLowRisk = Calendar.utcCalendar.startOfDay(for: Date())
 
 		let calculationDate = Date()
@@ -132,6 +144,15 @@ class ExposureDetectionViewModelTests: CWATestCase {
 		// Needed to check the isHidden state of sections
 		let viewController = ExposureDetectionViewController(viewModel: viewModel, store: store)
 
+		let appConfigurationExpectation = expectation(description: "appConfigurationIsSet")
+		viewModel.appConfigurationProvider.appConfiguration()
+			.sink { _ in
+				appConfigurationExpectation.fulfill()
+			}
+			.store(in: &subscriptions)
+
+		waitForExpectations(timeout: .short)
+		
 		checkLowRiskConfiguration(
 			of: viewModel.dynamicTableViewModel,
 			viewController: viewController,
@@ -140,15 +161,15 @@ class ExposureDetectionViewModelTests: CWATestCase {
 		)
 
 		XCTAssertEqual(viewModel.titleText, AppStrings.ExposureDetection.low)
-		XCTAssertEqual(viewModel.riskBackgroundColor, .enaColor(for: .riskLow))
-		XCTAssertEqual(viewModel.titleTextColor, .enaColor(for: .textContrast))
+		XCTAssertEqual(viewModel.riskBackgroundColor.cgColor, UIColor.enaColor(for: .riskLow).cgColor)
+		XCTAssertEqual(viewModel.titleTextColor.cgColor, UIColor.enaColor(for: .textContrast).cgColor)
 		XCTAssertEqual(viewModel.closeButtonStyle, .contrast)
 
 		XCTAssertTrue(viewModel.isButtonHidden)
 
-		XCTAssertEqual(viewModel.riskTintColor, .enaColor(for: .riskLow))
-		XCTAssertEqual(viewModel.riskContrastTintColor, .enaColor(for: .textContrast))
-		XCTAssertEqual(viewModel.riskSeparatorColor, .enaColor(for: .hairlineContrast))
+		XCTAssertEqual(viewModel.riskTintColor.cgColor, UIColor.enaColor(for: .riskLow).cgColor)
+		XCTAssertEqual(viewModel.riskContrastTintColor.cgColor, UIColor.enaColor(for: .textContrast).cgColor)
+		XCTAssertEqual(viewModel.riskSeparatorColor.cgColor, UIColor.enaColor(for: .hairlineContrast).cgColor)
 
 		XCTAssertEqual(
 			viewModel.riskDetails,

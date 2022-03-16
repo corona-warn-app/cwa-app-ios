@@ -638,9 +638,10 @@ class HealthCertificateService: HealthCertificateServiceServable {
 			case .success(let dccWalletInfo):
 				let previousBoosterNotificationIdentifier = person.boosterRule?.identifier ?? person.dccWalletInfo?.boosterNotification.identifier
 				let previousCertificateReissuance = person.dccWalletInfo?.certificateReissuance
+				let previousAdmissionStateIdentifier = person.dccWalletInfo?.admissionState.identifier
+
 				person.dccWalletInfo = dccWalletInfo
 				person.mostRecentWalletInfoUpdateFailed = false
-				
 				#if DEBUG
 				if isUITesting {
 					if LaunchArguments.healthCertificate.hasBoosterNotification.boolValue {
@@ -670,6 +671,15 @@ class HealthCertificateService: HealthCertificateServiceServable {
 				self.healthCertificateNotificationService.scheduleCertificateReissuanceNotificationIfNeeded(
 					for: person,
 					previousCertificateReissuance: previousCertificateReissuance,
+					completion: {
+						dispatchGroup.leave()
+					}
+				)
+				
+				dispatchGroup.enter()
+				self.healthCertificateNotificationService.scheduleAdmissionStateChangedNotificationIfNeeded(
+					for: person,
+					previousAdmissionStateIdentifier: previousAdmissionStateIdentifier,
 					completion: {
 						dispatchGroup.leave()
 					}

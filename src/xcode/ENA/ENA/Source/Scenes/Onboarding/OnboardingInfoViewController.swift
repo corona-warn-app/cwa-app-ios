@@ -22,13 +22,16 @@ final class OnboardingInfoViewController: UIViewController {
 		exposureManager: ExposureManager,
 		store: Store,
 		client: Client,
-		supportedCountries: [Country]? = nil
+		supportedCountries: [Country]? = nil,
+		appConfigProvider: AppConfigurationProviding
 	) {
 		self.pageType = pageType
 		self.exposureManager = exposureManager
 		self.store = store
 		self.client = client
 		self.supportedCountries = supportedCountries
+		self.onboardingInfos = OnboardingInfo.testData(appConfigProvider: appConfigProvider)
+		self.appConfigProvider = appConfigProvider
 		super.init(nibName: nil, bundle: nil)
 	}
 
@@ -89,9 +92,11 @@ final class OnboardingInfoViewController: UIViewController {
 	private var supportedCountries: [Country]?
 	private var client: Client
 	private var pageSetupDone = false
-	private var onboardingInfos = OnboardingInfo.testData()
+	private let onboardingInfos: [OnboardingInfo]
 	private var exposureManagerActivated = false
 	private var subscriptions = [AnyCancellable]()
+	private let appConfigProvider: AppConfigurationProviding
+
 
 	@IBAction private func didTapNextButton(_: Any) {
 		nextButton.isUserInteractionEnabled = false
@@ -135,7 +140,8 @@ final class OnboardingInfoViewController: UIViewController {
 			exposureManager: self.exposureManager,
 			store: self.store,
 			client: client,
-			supportedCountries: supportedCountries
+			supportedCountries: supportedCountries,
+			appConfigProvider: appConfigProvider
 		)
 		navigationController?.pushViewController(next, animated: true)
 	}

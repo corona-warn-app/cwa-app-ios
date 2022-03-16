@@ -229,6 +229,12 @@ final class HealthCertifiedPersonViewModel {
 	func attemptToRestoreDecodingFailedHealthCertificates() {
 		healthCertifiedPerson.attemptToRestoreDecodingFailedHealthCertificates()
 	}
+	
+	func markAdmissionStateAsSeen() {
+		if healthCertifiedPerson.isAdmissionStateChanged {
+			healthCertifiedPerson.isAdmissionStateChanged = false
+		}
+	}
 
 	// MARK: - Private
 

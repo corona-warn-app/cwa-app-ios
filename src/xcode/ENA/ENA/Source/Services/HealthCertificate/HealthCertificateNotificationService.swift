@@ -132,7 +132,7 @@ class HealthCertificateNotificationService {
 
 		if newCertificateReissuance != previousCertificateReissuance {
 			guard let personIdentifier = person.identifier else {
-				Log.error("Person identifier is nil, will not trigger booster notification", log: .vaccination)
+				Log.error("Person identifier is nil, will not trigger certificate reissuance notification", log: .vaccination)
 				completion?()
 
 				return
@@ -147,6 +147,43 @@ class HealthCertificateNotificationService {
 		}
 	}
 
+	func scheduleAdmissionStateChangedNotificationIfNeeded(
+		for person: HealthCertifiedPerson,
+		previousAdmissionStateIdentifier: String?,
+		completion: (() -> Void)? = nil
+	) {
+		let name = person.name?.standardizedName
+		guard let newAdmissionStateIdentifier = person.dccWalletInfo?.admissionState.identifier else {
+			Log.info("No New admissionState found for person \(private: String(describing: name))", log: .vaccination)
+			completion?()
+
+			return
+		}
+		
+		guard previousAdmissionStateIdentifier != nil else {
+			Log.info("No old admissionState for person \(private: String(describing: name))", log: .vaccination)
+			completion?()
+
+			return
+		}
+		
+		if newAdmissionStateIdentifier != previousAdmissionStateIdentifier {
+			guard let personIdentifier = person.identifier else {
+				Log.error("Person identifier is nil, will not trigger admissionState notification", log: .vaccination)
+				completion?()
+
+				return
+			}
+
+			Log.info("Scheduling admissionState notification for \(private: String(describing: name))", log: .vaccination)
+
+			self.scheduleAdmissionStateChangeNotification(personIdentifier: personIdentifier, completion: completion)
+		} else {
+			Log.debug("admissionState \(private: newAdmissionStateIdentifier) unchanged, no admissionState notification scheduled", log: .vaccination)
+			completion?()
+		}
+	}
+	
 	// MARK: - Private
 
 	private let appConfiguration: AppConfigurationProviding
@@ -289,6 +326,26 @@ class HealthCertificateNotificationService {
 		addNotification(request: request, completion: completion)
 	}
 	
+	private func scheduleAdmissionStateChangeNotification(
+		personIdentifier: String,
+		completion: (() -> Void)? = nil
+	) {
+		Log.info("Schedule AdmissionState change notification for person with id: \(private: personIdentifier)", log: .vaccination)
+
+		let content = UNMutableNotificationContent()
+		content.title = AppStrings.LocalNotifications.certificateGenericTitle
+		content.body = AppStrings.LocalNotifications.certificateGenericBody
+		content.sound = .default
+
+		let request = UNNotificationRequest(
+			identifier: LocalNotificationIdentifier.admissionStateChange.rawValue + "\(personIdentifier)",
+			content: content,
+			trigger: nil
+		)
+
+		addNotification(request: request, completion: completion)
+	}
+
 	private func addNotification(
 		request: UNNotificationRequest,
 		completion: (() -> Void)? = nil

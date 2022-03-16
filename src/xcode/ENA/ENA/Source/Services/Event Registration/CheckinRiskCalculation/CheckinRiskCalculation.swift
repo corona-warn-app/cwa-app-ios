@@ -6,7 +6,18 @@ import Foundation
 import OpenCombine
 
 protocol CheckinRiskCalculationProtocol {
-	func calculateRisk(with config: SAP_Internal_V2_ApplicationConfigurationIOS) -> CheckinRiskCalculationResult
+	func calculateRisk(
+		with config: SAP_Internal_V2_ApplicationConfigurationIOS,
+		now: Date
+	) -> CheckinRiskCalculationResult
+}
+
+extension CheckinRiskCalculationProtocol {
+	func calculateRisk(
+		with config: SAP_Internal_V2_ApplicationConfigurationIOS
+	) -> CheckinRiskCalculationResult {
+		calculateRisk(with: config, now: Date())
+	}
 }
 
 final class CheckinRiskCalculation: CheckinRiskCalculationProtocol {
@@ -31,7 +42,10 @@ final class CheckinRiskCalculation: CheckinRiskCalculationProtocol {
 
 	// MARK: - Protocol CheckinRiskCalculationProtocol
 
-	func calculateRisk(with config: SAP_Internal_V2_ApplicationConfigurationIOS) -> CheckinRiskCalculationResult {
+	func calculateRisk(
+		with config: SAP_Internal_V2_ApplicationConfigurationIOS,
+		now: Date = Date()
+	) -> CheckinRiskCalculationResult {
 
 		Log.info("[CheckinRiskCalculation] Start checkin risk calculation.", log: .checkin)
 
@@ -45,7 +59,17 @@ final class CheckinRiskCalculation: CheckinRiskCalculationProtocol {
 		// 1. Drop Submitted CheckIns: filter out all CheckIns with Check-in Submitted set to true.
 		// This is to ensure that users don't match their own submitted check-ins.
 
-		let chickens = eventStore.checkinsPublisher.value.filter { !$0.checkinSubmitted }
+		let chickens = eventStore.checkinsPublisher.value
+			.filter {
+				!$0.checkinSubmitted
+			}
+			// 1.1 Filter by age: filter out all CheckIns where the date described by `endTimestamp` is older than `maxCheckInAgeInDays`. The calculation shall use seconds/timestamps for calculation (i.e. `maxCheckInAgeInDays x 86400`)
+			.filter {
+				let maxCheckInAgeInSeconds = config.presenceTracingParameters.riskCalculationParameters.maxCheckInAgeInDays * 86400
+				let checkinAgeInSeconds = Int(now.timeIntervalSince($0.checkinEndDate))
+				let checkinIsTooOld = checkinAgeInSeconds > maxCheckInAgeInSeconds
+				return !checkinIsTooOld
+			}
 
 		for checkin in chickens {
 			// 2. Split CheckIn by Midnight UTC: the CheckIn is split as per Split CheckIn by Midnight UTC.
