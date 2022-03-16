@@ -2958,7 +2958,7 @@ class CoronaTestServiceTests: CWATestCase {
 			restServiceProvider: restServiceProvider,
 			store: store,
 			eventStore: MockEventStore(),
-			diaryStore: MockDiaryStore(),
+			diaryStore: diaryStore,
 			appConfiguration: appConfiguration,
 			healthCertificateService: healthCertificateService,
 			healthCertificateRequestService: HealthCertificateRequestService(
