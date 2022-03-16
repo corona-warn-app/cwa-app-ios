@@ -57,18 +57,22 @@ extension DCCScenarioSelection {
 extension DCCAdmissionState {
 
 	static func fake(
+		identifier: String? = nil,
 		visible: Bool = false,
 		badgeText: DCCUIText? = nil,
 		titleText: DCCUIText? = nil,
 		subtitleText: DCCUIText? = nil,
+		stateChangeNotificationText: DCCUIText? = nil,
 		longText: DCCUIText? = nil,
 		faqAnchor: String? = nil
 	) -> DCCAdmissionState {
 		DCCAdmissionState(
+			identifier: identifier,
 			visible: visible,
 			badgeText: badgeText,
 			titleText: titleText,
 			subtitleText: subtitleText,
+			stateChangeNotificationText: stateChangeNotificationText,
 			longText: longText,
 			faqAnchor: faqAnchor
 		)
