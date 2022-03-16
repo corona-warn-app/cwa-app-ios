@@ -80,7 +80,7 @@ class AdmissionStateTableViewCell: UITableViewCell, UITextViewDelegate, ReuseIde
 	private let topStackView: UIStackView = {
 		let topStackView = AccessibleStackView()
 		topStackView.distribution = .fill
-		topStackView.alignment = .top
+		topStackView.alignment = .fill
 		topStackView.spacing = 6
 
 		return topStackView
@@ -89,7 +89,7 @@ class AdmissionStateTableViewCell: UITableViewCell, UITextViewDelegate, ReuseIde
 	private let titleStackView: UIStackView = {
 		let titleStackView = UIStackView()
 		titleStackView.axis = .vertical
-		titleStackView.distribution = .fill
+		titleStackView.distribution = .fillEqually
 		titleStackView.alignment = .fill
 		titleStackView.spacing = 0
 
@@ -111,7 +111,6 @@ class AdmissionStateTableViewCell: UITableViewCell, UITextViewDelegate, ReuseIde
 		titleLabel.numberOfLines = 0
 		titleLabel.textColor = .enaColor(for: .textPrimary1)
 		titleLabel.accessibilityIdentifier = AccessibilityIdentifiers.HealthCertificate.AdmissionState.title
-		titleLabel.setContentCompressionResistancePriority(.required, for: .vertical)
 
 		return titleLabel
 	}()
