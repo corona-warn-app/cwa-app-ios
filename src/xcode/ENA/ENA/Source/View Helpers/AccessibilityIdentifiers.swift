@@ -766,6 +766,7 @@ enum AccessibilityIdentifiers {
 			static let subtitle = "HealthCertificate.AdmissionState.subtitle"
 			static let description = "HealthCertificate.AdmissionState.description"
 			static let faq = "HealthCertificate.AdmissionState.faq"
+			static let unseenNewsIndicator = "HealthCertificate.AdmissionState.unseenNewsIndicator"
 
 		}
 
