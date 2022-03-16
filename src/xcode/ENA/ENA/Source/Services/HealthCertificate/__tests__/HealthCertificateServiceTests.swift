@@ -1853,18 +1853,10 @@ class HealthCertificateServiceTests: CWATestCase {
 
 		var cclService = FakeCCLService()
 		cclService.dccWalletInfoResult = .success(newDCCWalletInfo)
-		cclService.didChange = true
+		cclService.didChange = false
 
 		let expectation = expectation(description: "dccWalletInfo updated")
-
-		let subscription = healthCertifiedPerson.$dccWalletInfo
-			.first(where: { $0?.admissionState.identifier == "2G+" && healthCertifiedPerson.isAdmissionStateChanged })
-			.sink { _ in
-				XCTAssertTrue(healthCertifiedPerson.isAdmissionStateChanged)
-				expectation.fulfill()
-			}
-
-		_ = HealthCertificateService(
+		let service = HealthCertificateService(
 			store: store,
 			dccSignatureVerifier: DCCSignatureVerifyingStub(),
 			dscListProvider: MockDSCListProvider(),
@@ -1872,9 +1864,11 @@ class HealthCertificateServiceTests: CWATestCase {
 			cclService: cclService,
 			recycleBin: .fake()
 		)
-		
+		service.setup(updatingWalletInfos: true) {
+			XCTAssertTrue(healthCertifiedPerson.isAdmissionStateChanged)
+			expectation.fulfill()
+		}
 		waitForExpectations(timeout: .short)
-		subscription.cancel()
 	}
 
 }
