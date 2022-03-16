@@ -287,8 +287,10 @@ final class RiskProvider: RiskProviding {
 
 				switch result {
 				case .success(let exposureWindows):
+					let windowsFilteredByAge = exposureWindows.filteredByAge(maxEncounterAgeInDays: appConfiguration.riskCalculationParameters.defaultedMaxEncounterAgeInDays)
+
 					self.calculateRiskLevel(
-						exposureWindows: exposureWindows,
+						exposureWindows: windowsFilteredByAge,
 						appConfiguration: appConfiguration,
 						completion: completion
 					)
