@@ -328,7 +328,7 @@
 "Settings_DaysSinceInstall_SubTitle" = "Dieser Zeitraum wird berücksichtigt.";
 
 "Settings_DaysSinceInstall_P1" = "Die Berechnung des Infektionsrisikos kann nur für die Zeiträume erfolgen, an denen die Risiko-Ermittlung aktiv war. Die Risiko-
-Ermittlung sollte daher dauerhaft aktiv sein. Für Ihre Risiko-Ermittlung wird der Zeitraum der letzten 14 Tage betrachtet.";
+Ermittlung sollte daher dauerhaft aktiv sein. Für Ihre Risiko-Ermittlung wird der Zeitraum der letzten %u Tage betrachtet.";
 
 "Settings_DaysSinceInstall_P2b" = "Wenn die Risiko-Ermittlung zu Zeiten, in denen Sie andere Personen getroffen haben, aktiv war, kann die Berechnung des Infektionsrisikos für diesen Zeitraum erfolgen.";
 
