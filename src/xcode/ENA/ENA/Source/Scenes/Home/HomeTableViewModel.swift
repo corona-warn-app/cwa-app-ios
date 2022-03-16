@@ -81,6 +81,10 @@ class HomeTableViewModel {
 	@OpenCombine.Published var testResultLoadingError: Error?
 	@OpenCombine.Published var riskAndTestResultsRows: [RiskAndTestResultsRow] = []
 
+	var riskStatusLoweredAlertShouldBeSuppressed: Bool {
+		shouldHideRiskCard
+	}
+
 	var numberOfSections: Int {
 		Section.allCases.count
 	}
