@@ -78,12 +78,7 @@ final class HealthCertificate: Codable, Equatable, Comparable, RecycleBinIdentif
 	// MARK: - Protocol Equatable
 
 	static func == (lhs: HealthCertificate, rhs: HealthCertificate) -> Bool {
-		lhs.base45 == rhs.base45 &&
-		lhs.validityState == rhs.validityState &&
-		lhs.isNew == rhs.isNew &&
-		lhs.isValidityStateNew == rhs.isValidityStateNew &&
-		lhs.didShowInvalidNotification == rhs.didShowInvalidNotification &&
-		lhs.didShowBlockedNotification == rhs.didShowBlockedNotification
+		lhs === rhs
 	}
 
 	// MARK: - Protocol Comparable
@@ -257,12 +252,21 @@ final class HealthCertificate: Codable, Equatable, Comparable, RecycleBinIdentif
 		validityState == .valid || type == .test && (validityState == .expiringSoon || validityState == .expired)
 	}
 
-	var uniqueCertificateIdentifierChunks: [String] {
-		uniqueCertificateIdentifier
+	lazy var uniqueCertificateIdentifierChunks: [String] = uniqueCertificateIdentifier
 			.dropPrefix("URN:UVCI:")
 			.components(separatedBy: CharacterSet(charactersIn: "/#:"))
-	}
 
+	lazy var sortDate: Date? = {
+		switch entry {
+		case .vaccination(let vaccinationEntry):
+			return vaccinationEntry.localVaccinationDate
+		case .test(let testEntry):
+			return testEntry.sampleCollectionDate
+		case .recovery(let recoveryEntry):
+			return recoveryEntry.localDateOfFirstPositiveNAAResult
+		}
+	}()
+	
 	func isBlocked(by blockedIdentifierChunks: [SAP_Internal_V2_DGCBlockedUVCIChunk]) -> Bool {
 		blockedIdentifierChunks.contains {
 			/// Skip if at least one index would be out of bounds
@@ -287,28 +291,23 @@ final class HealthCertificate: Codable, Equatable, Comparable, RecycleBinIdentif
 			return false
 		}
 		
-		let givenNameCompontents = Set<String>(self.name.givenNameGroupingComponents)
-		let otherGivenNameCompontents = other.name.givenNameGroupingComponents
-		let familyNameComponents = Set<String>(self.name.familyNameGroupingComponents)
-		let otherFamilyNameComponents = other.name.familyNameGroupingComponents
-		
 		// The intersection/overlap of the name components of sanitized familyNameComponents and otherFamilyNameComponents has at least one element, and
 		// the intersection/overlap of the name components of sanitized givenNameCompontents and otherGivenNameCompontents has at least one element
 		// or both are empty sets (givenName is an optional field)
 		let hasGivenNameIntersection: Bool
-		if givenNameCompontents.isEmpty && otherGivenNameCompontents.isEmpty {
+		if givenNameComponents.isEmpty && other.givenNameComponents.isEmpty {
 			hasGivenNameIntersection = true
 		} else {
-			hasGivenNameIntersection = givenNameCompontents.intersection(otherGivenNameCompontents).isNotEmpty
+			hasGivenNameIntersection = givenNameComponents.intersection(other.givenNameComponents).isNotEmpty
 		}
-		let hasFamilyNameIntersection = familyNameComponents.intersection(otherFamilyNameComponents).isNotEmpty
+		let hasFamilyNameIntersection = familyNameComponents.intersection(other.familyNameComponents).isNotEmpty
 		let hasNameIntersections = hasGivenNameIntersection && hasFamilyNameIntersection
 		
 		// The intersection/overlap of the name components of sanitized familyNameComponents and otherGivenNameCompontents has at least one element, and
 		// the intersection/overlap of the name components of sanitized givenNameCompontents and otherFamilyNameComponents has at least one element
 		// This covers scenarios where familyName and givenName were swapped.
-		let hasCrossIntersection_FamilyName_GivenName = familyNameComponents.intersection(otherGivenNameCompontents).isNotEmpty
-		let hasCrossIntersection_GivenName_FamilyName = givenNameCompontents.intersection(otherFamilyNameComponents).isNotEmpty
+		let hasCrossIntersection_FamilyName_GivenName = familyNameComponents.intersection(other.givenNameComponents).isNotEmpty
+		let hasCrossIntersection_GivenName_FamilyName = givenNameComponents.intersection(other.familyNameComponents).isNotEmpty
 		let hasCrossNameIntersections = hasCrossIntersection_FamilyName_GivenName && hasCrossIntersection_GivenName_FamilyName
 		
 		return hasNameIntersections || hasCrossNameIntersections
@@ -316,20 +315,10 @@ final class HealthCertificate: Codable, Equatable, Comparable, RecycleBinIdentif
 
 	// MARK: - Private
 
-	private var trimmedDateOfBirth: String {
-		digitalCovidCertificate.dateOfBirth.trimmingCharacters(in: .whitespaces)
-	}
-	
-	private var sortDate: Date? {
-		switch entry {
-		case .vaccination(let vaccinationEntry):
-			return vaccinationEntry.localVaccinationDate
-		case .test(let testEntry):
-			return testEntry.sampleCollectionDate
-		case .recovery(let recoveryEntry):
-			return recoveryEntry.localCertificateValidityStartDate
-		}
-	}
+	private lazy var givenNameComponents = Set<String>(name.givenNameGroupingComponents)
+	private lazy var familyNameComponents = Set<String>(name.familyNameGroupingComponents)
+	private lazy var trimmedDateOfBirth: String = digitalCovidCertificate.dateOfBirth
+		.trimmingCharacters(in: .whitespaces)
 
 	private static func extractCBORWebTokenHeader(from base45: Base45) throws -> CBORWebTokenHeader {
 		let webTokenHeaderResult = DigitalCovidCertificateAccess().extractCBORWebTokenHeader(from: base45)

@@ -32,7 +32,7 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 		self.restServiceProvider = restServiceProvider
 		self.store = store
 		self.eventStore = eventStore
-		self.deadmanNotificationManager = deadmanNotificationManager ?? DeadmanNotificationManager(coronaTestService: coronaTestService)
+		self.deadmanNotificationManager = deadmanNotificationManager ?? DeadmanNotificationManager()
 		self.coronaTestService = coronaTestService
 
 		fakeRequestService = FakeRequestService(client: client, restServiceProvider: restServiceProvider)

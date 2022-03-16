@@ -1341,6 +1341,13 @@
 
 "Home_Alert_RiskStatusLowered_PrimaryButtonTitle" = "OK";
 
+/* Home Alert another high exposure */
+"Home_Alert_RiskStatusAnotherHighExposure_Title" = "Expunere nouă";
+
+"Home_Alert_RiskStatusAnotherHighExposure_Message" = "Ați avut o altă expunere cu risc crescut. Veți găsi toate expunerile dvs. la risc din ultimele %i (de) zile în jurnalul dvs. de contacte.";
+
+"Home_Alert_RiskStatusAnotherHighExposure_PrimaryButtonTitle" = "OK";
+
 /* App Information */
 "App_Information_Title" = "Info aplicație";
 
@@ -1531,7 +1538,7 @@
 
 "RiskLegend_Legend2_Title" = "Risc de infectare";
 
-"RiskLegend_Legend2_Text" = "Când este activă înregistrarea în jurnal a expunerilor, aplicația calculează riscul dvs. personal de infectare. Efectuează acest lucru prin măsurarea duratei și a proximității expunerii la persoanele care au fost diagnosticate cu coronavirus în ultimele 14 zile.";
+"RiskLegend_Legend2_Text" = "Când este activă înregistrarea în jurnal a expunerilor, aplicația calculează riscul dvs. personal de infectare. Efectuează acest lucru prin măsurarea duratei și a proximității expunerii la persoanele care au fost diagnosticate cu coronavirus în ultimele 14 zile. Înregistrarea în jurnal a expunerilor ține cont și de check-inurile dvs. Sunteți avertizat dacă ați fost în aceeași cameră cu o persoană care a fost diagnosticată ulterior cu coronavirus sau dacă ați fost în cameră în decurs de 30 de minute de la plecarea acesteia.";
 
 "RiskLegend_Legend2_RiskLevels" = "Poate fi afișată următoarea stare a riscului:";
 
@@ -1604,18 +1611,30 @@
 /* New Version Features */
 "NewVersionFeatures_Info_about_abb_information" = "Modificările din această versiune pot fi găsite în informațiile aplicației, la „Caracteristici noi”.";
 
-/* Version 2.19 */
-"NewVersionFeature_219_rapidPCR_title" = "Înregistrarea testelor rapide PCR";
+/* Version 2.20 */
+"NewVersionFeature_220_highRiskShortened_title" = "Raportul despre riscul crescut a fost scurtat";
 
-"NewVersionFeature_219_rapidPCR_description" = "Acum puteți înregistra teste rapide PCR în Corona-Warn-App și puteți primi rezultatul și certificatul dvs. de test prin aplicație.";
+"NewVersionFeature_220_highRiskShortened_description" = "Un risc crescut după o expunere este afișat acum pentru doar 10 zile, în loc de 14.";
 
-"NewVersionFeature_219_faultTolerantNameHandling_title" = "Atribuirea certificatului";
+"NewVersionFeature_220_displayRiskPositiveResult_title" = "Raport de risc după un rezultat de test pozitiv";
 
-"NewVersionFeature_219_faultTolerantNameHandling_description" = "Atribuirea certificatelor la persoane a fost făcută mai tolerantă la erori. Sunt ignorate diferențele minore de ortografie în cazul prenumelor și numelor, astfel încât certificatele afectate pot fi totuși atribuite persoanelor în cauză.";
+"NewVersionFeature_220_displayRiskPositiveResult_description" = "Mozaicul roșu pentru risc crescut este afișat acum după o expunere, chiar dacă ați înregistrat un test pozitiv în aplicația Corona-Warn. Starea riscului este afișată din nou la șapte zile după testul pozitiv.";
 
-"NewVersionFeature_219_vaccinationCertificateReplacement_title" = "Actualizarea certificatului";
+"NewVersionFeature_220_notificateRiskEncounter_title" = "Mesaj pentru expunere nouă";
 
-"NewVersionFeature_219_vaccinationCertificateReplacement_description" = "Prevederile UE pentru certificatele de vaccinare care presupun vaccinarea cu doza booster s-au modificat. Dacă certificatul dvs. nu mai corespunde cu prevederile curente, puteți solicita un certificat nou direct din Corona-Warn-App.";
+"NewVersionFeature_220_notificateRiskEncounter_description" = "Dacă aveți o altă expunere cu risc crescut după o expunere anterioară, acum se va afișa o notificare și pentru această expunere.";
+
+"NewVersionFeature_220_notificationStatusChange_title" = "Raport despre modificarea de stare";
+
+"NewVersionFeature_220_notificationStatusChange_description" = "Dacă starea dvs. s-a modificat (deoarece, de exemplu, ați adăugat un certificat sau pentru că s-au schimbat regulile), veți fi notificat despre acest lucru pe tabul Certificate.";
+
+"NewVersionFeature_220_recoveryCertificatesDetails_title" = "Certificate de recuperare fără date de valabilitate";
+
+"NewVersionFeature_220_recoveryCertificatesDetails_description" = "Datele de valabilitate nu mai sunt afișate pentru certificatele de recuperare, deoarece valabilitatea acestora depinde de regulile locale. În schimb, acum este afișată data primului test pozitiv.";
+
+"NewVersionFeature_220_removeQRCode_title" = "Codul QR duplicat a fost eliminat";
+
+"NewVersionFeature_220_removeQRCode_description" = "Codul QR pentru certificatul utilizat în mod curent a fost eliminat din ecranul detaliat individual. Codul QR este, de asemenea, conținut în sumarul certificatului și, astfel, nu este necesar pe ecranul detaliat.";
 
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Înregistrare transnațională a expunerilor în jurnal";
@@ -2309,9 +2328,13 @@
 "Contact_Journal_Notes_Description" = "Acum puteți introduce aici note care vă vor ajuta să estimați mai bine riscul dvs. de infectare.\n\nNotați aici circumstanțele suplimentare ale întâlnirii sau șederii dvs. care ar putea avea efect asupra riscului dvs. de infectare, de exemplu, cât de aproape vă aflați față de alte persoane și ce făceați (exemple: „am stat aproape unul de altul”, „am făcut sport”, „spațiu puțin”, „am cântat”).\n\nAceste note vă pot ajuta să vă împrospătați memoria mai târziu. Dacă este necesar, acestea vor conduce la avertizarea timpurie a celorlalte persoane cu care v-ați întâlnit și, de asemenea, pot ajuta autoritățile de sănătate publică să urmărească posibilele lanțuri de infectare.";
 
 /* Quick Actions a.k.a. shortcuts */
-"QuickAction_newContactDiaryEntry" = "Adăugare intrare în jurnal pentru astăzi";
+"QuickAction_qrCodeScanner" = "Scanare cod QR";
 
-"QuickAction_eventCheckin" = "Check-in";
+"QuickAction_showCertificates" = "Afișare certificate";
+
+"QuickAction_eventCheckin" = "Afișare check-inuri";
+
+"QuickAction_newContactDiaryEntry" = "Adăugare intrare";
 
 /* Checkins */
 "Checkins_Overview_Title" = "Check-inurile mele";
@@ -2863,7 +2886,7 @@
 
 "HealthCertifiedPerson_RecoveryCertificate_headline" = "Certificat de recuperare";
 
-"HealthCertifiedPerson_RecoveryCertificate_validityDate" = "valabil până la %@";
+"HealthCertifiedPerson_RecoveryCertificate_positiveTestFrom" = "Test pozitiv de la %@";
 
 "HealthCertifiedPerson_currentlyUsedCertificate" = "Certificat utilizat în prezent";
 
@@ -3147,8 +3170,6 @@
 
 "HealthCertificate_Reissuance_Consent_DefaultAlert_Title" = "Eroare";
 
-"HealthCertificate_Reissuance_Consent_DefaultAlert_Message" = "Se poate să fi pierdut conexiunea la internet. Asigurați-vă că sunteți conectat la internet.";
-
 "HealthCertificate_Reissuance_Consent_DefaultAlert_OKButton" = "OK";
 
 "HealthCertificate_Reissuance_Consent_DefaultAlert_RetryButton" = "Repetare";
@@ -3358,7 +3379,7 @@
 /* - Recovery Certificate */
 "RecycleBin_RecoveryCertificate_headline" = "Certificat de recuperare";
 
-"RecycleBin_RecoveryCertificate_validityDate" = "valabil până la %@";
+"RecycleBin_RecoveryCertificate_positiveTestFrom" = "Test pozitiv de la %@";
 
 /* - Corona Test */
 "RecycleBin_CoronaTest_headline" = "Test";

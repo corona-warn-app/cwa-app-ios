@@ -13,7 +13,7 @@ struct TeleTanResource: Resource {
 		isFake: Bool = false,
 		sendModel: TeleTanSendModel,
 		trustEvaluation: TrustEvaluating = DefaultTrustEvaluation(
-			publicKeyHash: Environments().currentEnvironment().pinningKeyHash
+			publicKeyHash: Environments().currentEnvironment().pinningKeyHashData
 		)
 	) {
 		self.locator = .teleTan(isFake: isFake)
@@ -37,7 +37,10 @@ struct TeleTanResource: Resource {
 	var sendResource: PaddingJSONSendResource<TeleTanSendModel>
 	var receiveResource: JSONReceiveResource<TeleTanReceiveModel>
 
-	func customError(for error: ServiceError<TeleTanError>) -> TeleTanError? {
+	func customError(
+		for error: ServiceError<TeleTanError>,
+		responseBody: Data? = nil
+	) -> TeleTanError? {
 		switch error {
 		case .unexpectedServerError(let statusCode):
 			switch (keyModel.keyType, statusCode) {

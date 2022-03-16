@@ -20,7 +20,7 @@ protocol Resource {
 	
 	var trustEvaluation: TrustEvaluating { get }
 	
-	func customError(for error: ServiceError<CustomError>) -> CustomError?
+	func customError(for error: ServiceError<CustomError>, responseBody: Data?) -> CustomError?
 	
 #if !RELEASE
 	/// Used to define a default mock Resource to be returned by the resource if needed (e.g. UITests)
@@ -37,7 +37,7 @@ extension Resource {
 		nil
 	}
 
-	func customError(for error: ServiceError<CustomError>) -> CustomError? {
+	func customError(for error: ServiceError<CustomError>, responseBody: Data?) -> CustomError? {
 		return nil
 	}
 }

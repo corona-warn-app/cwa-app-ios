@@ -1341,6 +1341,13 @@
 
 "Home_Alert_RiskStatusLowered_PrimaryButtonTitle" = "Tamam";
 
+/* Home Alert another high exposure */
+"Home_Alert_RiskStatusAnotherHighExposure_Title" = "Yeni Maruz Kalma";
+
+"Home_Alert_RiskStatusAnotherHighExposure_Message" = "Artmış riskle başka bir maruz kalma yaşadınız. Son %i güne ait tüm riske maruz kalmalarınızı temas güncenizde bulabilirsiniz.";
+
+"Home_Alert_RiskStatusAnotherHighExposure_PrimaryButtonTitle" = "Tamam";
+
 /* App Information */
 "App_Information_Title" = "Uygulama Bilgileri";
 
@@ -1531,7 +1538,7 @@
 
 "RiskLegend_Legend2_Title" = "Enfeksiyon Riski";
 
-"RiskLegend_Legend2_Text" = "Maruz kalma günlüğü etkin olduğunda uygulama kişisel enfeksiyon riskinizi hesaplar. Bunu, son 14 günde koronavirüs tanısı almış kişilere maruz kalma sürenizi ve yakınlığınızı ölçerek gerçekleştirir.";
+"RiskLegend_Legend2_Text" = "Maruz kalma günlüğü etkin olduğunda uygulama kişisel enfeksiyon riskinizi hesaplar. Bunu, son 14 günde koronavirüs tanısı almış kişilere maruz kalma sürenizi ve yakınlığınızı ölçerek gerçekleştirir. Maruz kalma günlüğü check-in'lerinizi de hesaba katar. Koronavirüs tanısı almış bir kişiyle aynı anda ya da koronavirüs tanısı almış bir kişiden 30 dakika sonra aynı yerde bulunmuşsanız size uyarı verilir.";
 
 "RiskLegend_Legend2_RiskLevels" = "Şu risk durumu gösterilebilir:";
 
@@ -1604,18 +1611,30 @@
 /* New Version Features */
 "NewVersionFeatures_Info_about_abb_information" = "Bu sürümdeki değişiklikleri uygulama bilgilerinde “Yeni Özellikler” bölümünde bulabilirsiniz.";
 
-/* Version 2.19 */
-"NewVersionFeature_219_rapidPCR_title" = "PCR Hızlı Testlerinin Kaydı";
+/* Version 2.20 */
+"NewVersionFeature_220_highRiskShortened_title" = "Artmış Risk Raporunun Süresi Kısaltıldı";
 
-"NewVersionFeature_219_rapidPCR_description" = "Artık Corona-Warn-App uygulamasinda PCR hızlı testlerini kaydedebilir ve sonucunuzu ve test sertifikanızı uygulama üzerinden alabilirsiniz.";
+"NewVersionFeature_220_highRiskShortened_description" = "Bir maruz kalmadan sonra artmış risk raporu artık 14 yerine yalnızca on gün süreyle gösterilmektedir.";
 
-"NewVersionFeature_219_faultTolerantNameHandling_title" = "Sertifika Ataması";
+"NewVersionFeature_220_displayRiskPositiveResult_title" = "Pozitif Test Sonucundan Sonra Risk Raporu";
 
-"NewVersionFeature_219_faultTolerantNameHandling_description" = "Kişilere sertifika ataması daha hata toleranslı hale getirildi. Ad ve soyadı yazımlarındaki ufak farklılıklar göz ardı edilir ve böylece etkilenen sertifikalar yine de aynı kişiye atanabilir.";
+"NewVersionFeature_220_displayRiskPositiveResult_description" = "Artık Corona-Warn-App uygulamasında pozitif test sonucu kaydetseniz bile bir maruz kalmadan sonra kırmızı renkli artmış risk kutucuğu görüntülenmektedir. Risk durumunuz, pozitif testten yedi gün sonra yeniden gösterilir.";
 
-"NewVersionFeature_219_vaccinationCertificateReplacement_title" = "Sertifika Güncellemesi";
+"NewVersionFeature_220_notificateRiskEncounter_title" = "Yeni Maruz Kalma Mesajı";
 
-"NewVersionFeature_219_vaccinationCertificateReplacement_description" = "Hatırlatma aşılarının sertifikalarına ilişkin AB spesifikasyonları değişti. Sertifikanız güncel spesifikasyonları karşılamıyorsa doğrudan Corona-Warn-App uygulamasından yeni bir sertifika talebi oluşturabilirsiniz.";
+"NewVersionFeature_220_notificateRiskEncounter_description" = "Daha önceki bir maruz kalmadan sonra artmış riskli başka bir maruz kalma yaşarsanız bu maruz kalma için de bir bildirim görüntülenecektir.";
+
+"NewVersionFeature_220_notificationStatusChange_title" = "Durum Değişikliği Raporu";
+
+"NewVersionFeature_220_notificationStatusChange_description" = "Durumunuz değişmişse (örneğin, bir sertifika eklediğiniz için veya kurallar değiştiği için), Sertifikalar sekmesinde bu yönde bir bildirim gösterilecektir.";
+
+"NewVersionFeature_220_recoveryCertificatesDetails_title" = "Geçerlilik Verileri Olmayan İyileşme Sertifikaları";
+
+"NewVersionFeature_220_recoveryCertificatesDetails_description" = "Geçerlilikleri yerel kurallara bağlı olduğundan artık iyileşme sertifikaları için geçerlilik verileri görüntülenmemektedir. Bunun yerine ilk pozitif test sonucunun tarihi görüntülenmektedir.";
+
+"NewVersionFeature_220_removeQRCode_title" = "Çift QR Kod Kaldırıldı";
+
+"NewVersionFeature_220_removeQRCode_description" = "Geçerli olarak kullandığınız sertifikanin QR kodu, bireysel ayrıntı ekranınızdan kaldırılmıştır. QR kod, sertifikaya genel bakış bölümünde de bulunmaktadır ve bu nedenle ayrıntı ekranında bulunması gerekmez.";
 
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Uluslararası Maruz Kalma Günlüğü";
@@ -2309,9 +2328,13 @@
 "Contact_Journal_Notes_Description" = "Enfeksiyon riskinizin daha iyi tahmin edilmesine yardımcı olacak notları buraya girebilirsiniz.\n\nBaşka insanlarla ne kadar yakın olduğunuz ve ne yaptığınız (örnekler: “yakın bir şekilde birlikte oturduk”, “spor yaptık”, “az mesafe vardı”, “şarkı söyledik”) gibi, karşılaşmanıza veya konaklamanıza dair enfeksiyon riskiniz üzerinde bir etkisi olabilecek ek koşulları buraya yazabilirsiniz.\n\nBu notlar daha sonra hafızanızı tazelemenize yardımcı olabilir. Gerekirse erken aşamada bir arada olduğunuz kişileri uyarmanızı sağlayacak ve kamu sağlığı yetkililerinin potansiyel enfeksiyon zincirlerini takip edebilmesine yardımcı olacaktır.";
 
 /* Quick Actions a.k.a. shortcuts */
-"QuickAction_newContactDiaryEntry" = "Bugün için Günce Girişi Ekle";
+"QuickAction_qrCodeScanner" = "QR Kodu Tara";
 
-"QuickAction_eventCheckin" = "Check In";
+"QuickAction_showCertificates" = "Sertifikaları görüntüle";
+
+"QuickAction_eventCheckin" = "Check-in'leri görüntüle";
+
+"QuickAction_newContactDiaryEntry" = "Giriş ekle";
 
 /* Checkins */
 "Checkins_Overview_Title" = "Check-In’lerim";
@@ -2863,7 +2886,7 @@
 
 "HealthCertifiedPerson_RecoveryCertificate_headline" = "İyileşme Sertifikası";
 
-"HealthCertifiedPerson_RecoveryCertificate_validityDate" = "geçerlilik sonu: %@";
+"HealthCertifiedPerson_RecoveryCertificate_positiveTestFrom" = "%@ pozitif testi";
 
 "HealthCertifiedPerson_currentlyUsedCertificate" = "Şu anda kullanılan sertifika";
 
@@ -3147,8 +3170,6 @@
 
 "HealthCertificate_Reissuance_Consent_DefaultAlert_Title" = "Hata";
 
-"HealthCertificate_Reissuance_Consent_DefaultAlert_Message" = "İnternet bağlantınız kesilmiş olabilir. Lütfen internet bağlantınızın olduğundan emin olun.";
-
 "HealthCertificate_Reissuance_Consent_DefaultAlert_OKButton" = "Tamam";
 
 "HealthCertificate_Reissuance_Consent_DefaultAlert_RetryButton" = "Tekrarla";
@@ -3358,7 +3379,7 @@
 /* - Recovery Certificate */
 "RecycleBin_RecoveryCertificate_headline" = "İyileşme Sertifikası";
 
-"RecycleBin_RecoveryCertificate_validityDate" = "geçerlilik sonu: %@";
+"RecycleBin_RecoveryCertificate_positiveTestFrom" = "%@ pozitif testi";
 
 /* - Corona Test */
 "RecycleBin_CoronaTest_headline" = "Test";

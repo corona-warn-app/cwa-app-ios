@@ -116,11 +116,6 @@ class CoronaTestService: CoronaTestServiceProviding {
 	var pcrTestResultIsLoading = CurrentValueSubject<Bool, Never>(false)
 	var antigenTestResultIsLoading = CurrentValueSubject<Bool, Never>(false)
 
-	var hasAtLeastOneShownPositiveOrSubmittedTest: Bool {
-		pcrTest.value?.positiveTestResultWasShown == true || pcrTest.value?.keysSubmitted == true ||
-			antigenTest.value?.positiveTestResultWasShown == true || antigenTest.value?.keysSubmitted == true
-	}
-
 	func coronaTest(ofType type: CoronaTestType) -> CoronaTest? {
 		switch type {
 		case .pcr:
@@ -172,6 +167,7 @@ class CoronaTestService: CoronaTestServiceProviding {
 						submissionTAN: nil,
 						keysSubmitted: false,
 						journalEntryCreated: false,
+						certificateSupportedByPointOfCare: true,
 						certificateConsentGiven: certificateConsentGiven,
 						certificateRequested: false
 					)
@@ -229,6 +225,7 @@ class CoronaTestService: CoronaTestServiceProviding {
 						submissionTAN: nil,
 						keysSubmitted: false,
 						journalEntryCreated: false,
+						certificateSupportedByPointOfCare: true,
 						certificateConsentGiven: false,
 						certificateRequested: false
 					)
@@ -396,6 +393,7 @@ class CoronaTestService: CoronaTestServiceProviding {
 						submissionTAN: nil,
 						keysSubmitted: false,
 						journalEntryCreated: false,
+						certificateSupportedByPointOfCare: certificateSupportedByPointOfCare,
 						certificateConsentGiven: certificateConsentGiven,
 						certificateRequested: false
 					)
@@ -562,7 +560,7 @@ class CoronaTestService: CoronaTestServiceProviding {
 		}
 
 		warnOthersReminder.cancelNotifications(for: coronaTestType)
-		DeadmanNotificationManager(coronaTestService: self).resetDeadmanNotification()
+		DeadmanNotificationManager().resetDeadmanNotification()
 	}
 
 	func evaluateShowingTest(ofType coronaTestType: CoronaTestType) {
@@ -622,6 +620,7 @@ class CoronaTestService: CoronaTestServiceProviding {
 				submissionTAN: store.tan,
 				keysSubmitted: keysSubmitted,
 				journalEntryCreated: false,
+				certificateSupportedByPointOfCare: true,
 				certificateConsentGiven: false,
 				certificateRequested: false
 			)
@@ -854,12 +853,7 @@ class CoronaTestService: CoronaTestServiceProviding {
 					completion(.failure(.testResultError(error)))
 				}
 			case let .success(response):
-				guard let testResult = TestResult(serverResponse: response.testResult) else {
-					Log.error("[CoronaTestService] Getting test result failed: Unknown test result \(response)", log: .api)
-
-					completion(.failure(.unknownTestResult))
-					return
-				}
+				let testResult = TestResult(serverResponse: response.testResult, coronaTestType: coronaTestType)
 
 				Log.info("[CoronaTestService] Got test result (coronaTestType: \(coronaTestType), testResult: \(testResult)), sampleCollectionDate: \(String(describing: response.sc))", log: .api)
 				var updatedSampleCollectionDate: Date?
@@ -1000,7 +994,7 @@ class CoronaTestService: CoronaTestServiceProviding {
 
 	private func scheduleWarnOthersNotificationIfNeeded(coronaTestType: CoronaTestType) {
 		if let coronaTest = coronaTest(ofType: coronaTestType), coronaTest.positiveTestResultWasShown {
-			DeadmanNotificationManager(coronaTestService: self).resetDeadmanNotification()
+			DeadmanNotificationManager().resetDeadmanNotification()
 
 			if !coronaTest.isSubmissionConsentGiven, !coronaTest.keysSubmitted {
 				warnOthersReminder.scheduleNotifications(for: coronaTestType)
@@ -1108,6 +1102,7 @@ class CoronaTestService: CoronaTestServiceProviding {
 				submissionTAN: nil,
 				keysSubmitted: LaunchArguments.test.pcr.keysSubmitted.boolValue,
 				journalEntryCreated: false,
+				certificateSupportedByPointOfCare: true,
 				certificateConsentGiven: false,
 				certificateRequested: false
 			)
@@ -1142,9 +1137,9 @@ class CoronaTestService: CoronaTestServiceProviding {
 	private func mockTestResult(for coronaTestType: CoronaTestType) -> TestResult? {
 		switch coronaTestType {
 		case .pcr:
-			return LaunchArguments.test.pcr.testResult.stringValue.flatMap { TestResult(stringValue: $0) }
+			return LaunchArguments.test.pcr.testResult.stringValue.flatMap { TestResult(stringValue: $0, coronaTestType: .pcr) }
 		case .antigen:
-			return LaunchArguments.test.antigen.testResult.stringValue.flatMap { TestResult(stringValue: $0) }
+			return LaunchArguments.test.antigen.testResult.stringValue.flatMap { TestResult(stringValue: $0, coronaTestType: .antigen) }
 		}
 	}
 

@@ -33,7 +33,10 @@ struct ServiceIdentityDocumentResource: Resource {
 	var sendResource: EmptySendResource
 	var receiveResource: JSONReceiveResource<TicketValidationServiceIdentityDocument>
 	
-	func customError(for error: ServiceError<ServiceIdentityDocumentResourceError>) -> ServiceIdentityDocumentResourceError? {
+	func customError(
+		for error: ServiceError<ServiceIdentityDocumentResourceError>,
+		responseBody: Data? = nil
+	) -> ServiceIdentityDocumentResourceError? {
 		switch error {
 		case .trustEvaluationError(let trustEvaluationError):
 			return trustEvaluationErrorHandling(trustEvaluationError)

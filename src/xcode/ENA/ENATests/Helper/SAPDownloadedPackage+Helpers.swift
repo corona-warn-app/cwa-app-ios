@@ -52,12 +52,12 @@ extension SAPDownloadedPackage {
 	func zipped() throws -> Archive {
 		guard let archive = Archive(accessMode: .create) else { throw ArchivingError.creationError }
 
-		try archive.addEntry(with: "export.bin", type: .file, uncompressedSize: UInt32(bin.count), bufferSize: 4, provider: { position, size -> Data in
-			return bin.subdata(in: position..<position + size)
+		try archive.addEntry(with: "export.bin", type: .file, uncompressedSize: Int64(bin.count), bufferSize: 4, provider: { position, size in
+			return bin.subdata(in: Int(position)..<Int(position) + size)
 		})
 
-		try archive.addEntry(with: "export.sig", type: .file, uncompressedSize: UInt32(signature.count), bufferSize: 4, provider: { position, size -> Data in
-			return signature.subdata(in: position..<position + size)
+		try archive.addEntry(with: "export.sig", type: .file, uncompressedSize: Int64(signature.count), bufferSize: 4, provider: { position, size in
+			return signature.subdata(in: Int(position)..<Int(position) + size)
 		})
 
 		return archive

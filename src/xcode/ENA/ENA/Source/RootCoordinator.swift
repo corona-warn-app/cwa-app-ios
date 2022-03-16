@@ -330,6 +330,31 @@ class RootCoordinator: NSObject, RequiresAppDependencies, UITabBarControllerDele
 		viewController.embedViewController(childViewController: navigationVC)
 	}
 
+	func showLoadingScreen() {
+		let loadingScreenViewController = LoadingScreenViewController()
+
+		tabBarController.clearChildViewController()
+		tabBarController.setViewControllers([], animated: false)
+
+		homeCoordinator = nil
+		diaryCoordinator = nil
+		checkinTabCoordinator = nil
+
+		viewController.clearChildViewController()
+		viewController.embedViewController(childViewController: loadingScreenViewController)
+
+		loadingScreenViewController.view.translatesAutoresizingMaskIntoConstraints = false
+
+		NSLayoutConstraint.activate(
+			[
+				viewController.view.leadingAnchor.constraint(equalTo: loadingScreenViewController.view.leadingAnchor),
+				viewController.view.topAnchor.constraint(equalTo: loadingScreenViewController.view.topAnchor),
+				viewController.view.trailingAnchor.constraint(equalTo: loadingScreenViewController.view.trailingAnchor),
+				viewController.view.bottomAnchor.constraint(equalTo: loadingScreenViewController.view.bottomAnchor)
+			]
+		)
+	}
+
 	func showEvent(_ guid: String) {
 		guard let checkInNavigationController = checkinTabCoordinator?.viewController,
 			  let index = tabBarController.viewControllers?.firstIndex(of: checkInNavigationController) else {

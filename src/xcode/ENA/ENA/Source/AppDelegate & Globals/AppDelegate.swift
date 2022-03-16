@@ -157,7 +157,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		UNUserNotificationCenter.current().delegate = notificationManager
 
 		/// Setup DeadmanNotification after AppLaunch
-		DeadmanNotificationManager(coronaTestService: coronaTestService).scheduleDeadmanNotificationIfNeeded()
+		DeadmanNotificationManager().scheduleDeadmanNotificationIfNeeded()
 
 		consumer.didFailCalculateRisk = { [weak self] error in
 			if self?.store.isOnboarded == true {
@@ -364,8 +364,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 			checkinRiskCalculation: checkinRiskCalculation,
 			keyPackageDownload: keyPackageDownload,
 			traceWarningPackageDownload: traceWarningPackageDownload,
-			exposureDetectionExecutor: exposureDetectionExecutor,
-			coronaTestService: coronaTestService
+			exposureDetectionExecutor: exposureDetectionExecutor
 		)
 		#else
 		return RiskProvider(
@@ -376,8 +375,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 			checkinRiskCalculation: checkinRiskCalculation,
 			keyPackageDownload: keyPackageDownload,
 			traceWarningPackageDownload: traceWarningPackageDownload,
-			exposureDetectionExecutor: exposureDetectionExecutor,
-			coronaTestService: coronaTestService
+			exposureDetectionExecutor: exposureDetectionExecutor
 		)
 		#endif
 	}()
@@ -849,12 +847,26 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 	}
 
 	private func showUI() {
-		if store.isOnboarded {
-			showHome(route)
-		} else {
-			postOnboardingRoute = route
-			showOnboarding()
-		}
+		coordinator.showLoadingScreen()
+
+		healthCertificateService.setup(
+			updatingWalletInfos: true,
+			completion: { [weak self] in
+				guard let self = self else {
+					return
+				}
+
+				DispatchQueue.main.async {
+					if self.store.isOnboarded {
+						self.showHome(self.route)
+					} else {
+						self.postOnboardingRoute = self.route
+						self.showOnboarding()
+					}
+				}
+			}
+		)
+
 	}
 
 	private func setupNavigationBarAppearance() {

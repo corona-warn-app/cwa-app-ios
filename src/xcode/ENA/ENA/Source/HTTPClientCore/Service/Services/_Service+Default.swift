@@ -68,6 +68,13 @@ extension Service {
 			var task: URLSessionDataTask?
 			task = session.dataTask(with: request) { bodyData, response, error in
 				
+				defer {
+					   if let coronaSessionDelegate = session.delegate as? CoronaWarnSessionTaskDelegate,
+						  let task = task {
+						   coronaSessionDelegate.trustEvaluations[task.taskIdentifier] = nil
+					   }
+				}
+				
 				// If there is a transportation error, check if the underlying error is a trust evaluation error and possibly return it.
 				if error != nil,
 				   let coronaSessionDelegate = session.delegate as? CoronaWarnSessionTaskDelegate,
@@ -125,7 +132,7 @@ extension Service {
 				case 304:
 					completion(cached(resource))
 				default:
-					completion(failureOrDefaultValueHandling(resource, .unexpectedServerError(response.statusCode)))
+					completion(failureOrDefaultValueHandling(resource, .unexpectedServerError(response.statusCode), bodyData))
 				}
 			}
 			
@@ -208,9 +215,10 @@ extension Service {
 	///   - serviceError: The error that would be thrown with the fail.
 	func customError<R>(
 		in resource: R,
-		for serviceError: ServiceError<R.CustomError>
+		for serviceError: ServiceError<R.CustomError>,
+		_ responseData: Data? = nil
 	) -> ServiceError<R.CustomError> where R: Resource {
-		if let customError = resource.customError(for: serviceError) {
+		if let customError = resource.customError(for: serviceError, responseBody: responseData) {
 			return .receivedResourceError(customError)
 		} else {
 			return serviceError
@@ -225,7 +233,8 @@ extension Service {
 	///   - completion: Swift-Result of loading. If successful, it contains the concrete object of our call.
 	func failureOrDefaultValueHandling<R>(
 		_ resource: R,
-		_ error: ServiceError<R.CustomError>
+		_ error: ServiceError<R.CustomError>,
+		_ responseData: Data? = nil
 	) -> Result<R.Receive.ReceiveModel, ServiceError<R.CustomError>> where R: Resource {
 		// Check if we have default value. If so, return it independent wich error we had
 		if let defaultModel = resource.defaultModel {
@@ -244,7 +253,7 @@ extension Service {
 		} else {
 			// We don't have a default value. And now check if we want to override the error by a custom error defined in the resource
 			Log.error("Found no default value. Will fail now.", log: .client, error: error)
-			return .failure(customError(in: resource, for: error))
+			return .failure(customError(in: resource, for: error, responseData))
 		}
 	}
 	

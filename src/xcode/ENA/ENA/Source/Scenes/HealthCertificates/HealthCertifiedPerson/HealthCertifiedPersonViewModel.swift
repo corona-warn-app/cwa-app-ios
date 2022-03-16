@@ -73,7 +73,6 @@ final class HealthCertifiedPersonViewModel {
 
 	enum TableViewSection: Int, CaseIterable {
 		case header
-		case qrCode
 		case certificateReissuance
 		case boosterNotification
 		case admissionState
@@ -134,26 +133,8 @@ final class HealthCertifiedPersonViewModel {
 				.joined(with: "\n"),
 			topSpace: 14.0,
 			font: .enaFont(for: .headline),
-			accessibilityTraits: .staticText
-		)
-	}
-
-	var qrCodeCellViewModel: HealthCertificateQRCodeCellViewModel {
-		guard let mostRelevantHealthCertificate = healthCertifiedPerson.mostRelevantHealthCertificate
-			else {
-			fatalError("Cell cannot be shown without a health certificate")
-		}
-
-		return HealthCertificateQRCodeCellViewModel(
-			mode: .overview,
-			healthCertificate: mostRelevantHealthCertificate,
-			accessibilityText: AppStrings.HealthCertificate.Person.QRCodeImageDescription,
-			onValidationButtonTap: { [weak self] healthCertificate, loadingStateHandler in
-				self?.didTapValidationButton(healthCertificate, loadingStateHandler)
-			},
-			onCovPassCheckInfoButtonTap: { [ weak self] in
-				self?.showInfo()
-			}
+			accessibilityTraits: .staticText,
+			accessibilityIdentifier: AccessibilityIdentifiers.HealthCertificate.header
 		)
 	}
 
@@ -178,12 +159,24 @@ final class HealthCertifiedPersonViewModel {
 			healthCertifiedPerson: healthCertifiedPerson
 		)
 	}
+	
+	var topMostCell: TableViewSection {
+		if certificateReissuanceIsVisible {
+			return .certificateReissuance
+		} else if boosterNotificationIsVisible {
+			return .boosterNotification
+		} else if admissionStateIsVisible {
+			return .admissionState
+		} else if vaccinationStateIsVisible {
+			return .vaccinationState
+		} else {
+			return .person
+		}
+	}
 
 	func numberOfItems(in section: TableViewSection) -> Int {
 		switch section {
 		case .header:
-			return 1
-		case .qrCode:
 			return 1
 		case .certificateReissuance:
 			return certificateReissuanceIsVisible ? 1 : 0
@@ -252,11 +245,23 @@ final class HealthCertifiedPersonViewModel {
 	private var healthCertificateCellViewModels = [HealthCertificateCellViewModel]()
 
 	private func constructHealthCertificateCellViewModels(for person: HealthCertifiedPerson) {
-		let sortedHealthCertificates = person.healthCertificates.sorted(by: >)
+		let sortedHealthCertificates = person.healthCertificates.sorted(by: { lhs, rhs in
+			let lhsIsMostRelevant = lhs == person.mostRelevantHealthCertificate ? 1 : 0
+			let rhsIsMostRelevant = rhs == person.mostRelevantHealthCertificate ? 1 : 0
+			
+			if let lhsDate = lhs.sortDate, let rhsDate = rhs.sortDate {
+				return (lhsIsMostRelevant, lhsDate, lhs.cborWebTokenHeader.issuedAt) > (rhsIsMostRelevant, rhsDate, rhs.cborWebTokenHeader.issuedAt)
+			}
+			return false
+		})
+		
 		healthCertificateCellViewModels = sortedHealthCertificates.map {
 			HealthCertificateCellViewModel(
 				healthCertificate: $0,
-				healthCertifiedPerson: person
+				healthCertifiedPerson: person,
+				onValidationButtonTap: { [weak self] healthCertificate, loadingStateHandler in
+					self?.didTapValidationButton(healthCertificate, loadingStateHandler)
+				}
 			)
 		}
 	}

@@ -1341,6 +1341,13 @@
 
 "Home_Alert_RiskStatusLowered_PrimaryButtonTitle" = "OK";
 
+/* Home Alert another high exposure */
+"Home_Alert_RiskStatusAnotherHighExposure_Title" = "New Exposure";
+
+"Home_Alert_RiskStatusAnotherHighExposure_Message" = "You have had another exposure with increased risk. You will find all your risk exposures from the last %i days in your contact journal.";
+
+"Home_Alert_RiskStatusAnotherHighExposure_PrimaryButtonTitle" = "OK";
+
 /* App Information */
 "App_Information_Title" = "App Information";
 
@@ -1531,7 +1538,7 @@
 
 "RiskLegend_Legend2_Title" = "Risk of Infection";
 
-"RiskLegend_Legend2_Text" = "When exposure logging is active, the app calculates your personal risk of infection. It does this by measuring duration and proximity of your exposure to people who have been diagnosed with coronavirus over the last 14 days.";
+"RiskLegend_Legend2_Text" = "When exposure logging is active, the app calculates your personal risk of infection. It does this by measuring duration and proximity of your exposure to people who have been diagnosed with coronavirus over the last 14 days. Exposure logging also takes your check-ins into account. You are warned if you were in the same room at the same time as a person who has been diagnosed with coronavirus, or up to 30 minutes after.";
 
 "RiskLegend_Legend2_RiskLevels" = "The following risk status can be shown:";
 
@@ -1604,18 +1611,30 @@
 /* New Version Features */
 "NewVersionFeatures_Info_about_abb_information" = "Changes in this release can be found in the app information, under “New Features”.";
 
-/* Version 2.19 */
-"NewVersionFeature_219_rapidPCR_title" = "Registration of PCR Rapid Tests";
+/* Version 2.20 */
+"NewVersionFeature_220_highRiskShortened_title" = "Report of Increased Risk Shortened";
 
-"NewVersionFeature_219_rapidPCR_description" = "You can now register PCR rapid tests in the Corona-Warn-App and receive the result and your test certificate through the app.";
+"NewVersionFeature_220_highRiskShortened_description" = "An increased risk after an exposure is now only displayed for ten days instead of 14.";
 
-"NewVersionFeature_219_faultTolerantNameHandling_title" = "Certificate Assignment";
+"NewVersionFeature_220_displayRiskPositiveResult_title" = "Risk Report after Positive Test Result";
 
-"NewVersionFeature_219_faultTolerantNameHandling_description" = "The assignment of certificates to people has been made more error-tolerant. Minor differences in the spelling of first and last names are ignored, so affected certificates can still be assigned to the same person.";
+"NewVersionFeature_220_displayRiskPositiveResult_description" = "The red tile for increased risk is now displayed after an exposure even if you have registered a positive test in the Corona-Warn-App. Your risk status is shown again seven days after the positive test.";
 
-"NewVersionFeature_219_vaccinationCertificateReplacement_title" = "Certificate Update";
+"NewVersionFeature_220_notificateRiskEncounter_title" = "Message for New Exposure";
 
-"NewVersionFeature_219_vaccinationCertificateReplacement_description" = "The EU specifications for vaccination certificates for booster vaccinations have changed. If your certificate no longer matches the current specifications, you can request a new one directly in the Corona-Warn-App.";
+"NewVersionFeature_220_notificateRiskEncounter_description" = "If you have another exposure with increased risk after a previous exposure, a notification will now be displayed for this exposure as well.";
+
+"NewVersionFeature_220_notificationStatusChange_title" = "Report of Status Change";
+
+"NewVersionFeature_220_notificationStatusChange_description" = "If your status has changed (because you added a certificate, for example, or because the rules have changed), you will be notified of this on the Certificates tab.";
+
+"NewVersionFeature_220_recoveryCertificatesDetails_title" = "Certificates of Recovery without Validity Data";
+
+"NewVersionFeature_220_recoveryCertificatesDetails_description" = "Validity data is no longer displayed for certificates of recovery, because their validity depends on the local rules. The date of the first positive test is now displayed instead.";
+
+"NewVersionFeature_220_removeQRCode_title" = "Duplicate QR Code Removed";
+
+"NewVersionFeature_220_removeQRCode_description" = "The QR code for your currently used certificate has been removed from your individual detail screen. The QR code is also contained in the certificate overview and is therefore not needed on the detail screen.";
 
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Transnational Exposure Logging";
@@ -2309,8 +2328,13 @@
 "Contact_Journal_Notes_Description" = "You can enter notes here that will help you to better estimate your risk of infection.\n\nWrite down additional circumstances of your encounter or stay here that could have an effect on your risk of infection, for example, how close you were to other people and what you did (examples: “sat close together”, “played sports”, “little space”, “we sang”).\n\nThese notes can help you refresh your memory later. If necessary, they will also let you warn the people you have been with at an early stage, as well as help the public health authorities trace potential chains of infection.";
 
 /* Quick Actions a.k.a. shortcuts */
+"QuickAction_qrCodeScanner" = "Scan QR Code";
 
-"QuickAction_eventCheckin" = "Check In";
+"QuickAction_showCertificates" = "Display certificates";
+
+"QuickAction_eventCheckin" = "Display check-ins";
+
+"QuickAction_newContactDiaryEntry" = "Add entry";
 
 /* Checkins */
 "Checkins_Overview_Title" = "My Check-Ins";
@@ -2862,7 +2886,7 @@
 
 "HealthCertifiedPerson_RecoveryCertificate_headline" = "Certificate of Recovery";
 
-"HealthCertifiedPerson_RecoveryCertificate_validityDate" = "valid to %@";
+"HealthCertifiedPerson_RecoveryCertificate_positiveTestFrom" = "Positive test from %@";
 
 "HealthCertifiedPerson_currentlyUsedCertificate" = "Currently used certificate";
 
@@ -3146,8 +3170,6 @@
 
 "HealthCertificate_Reissuance_Consent_DefaultAlert_Title" = "Error";
 
-"HealthCertificate_Reissuance_Consent_DefaultAlert_Message" = "Your Internet connection may have been lost. Please ensure that you are connected to the Internet.";
-
 "HealthCertificate_Reissuance_Consent_DefaultAlert_OKButton" = "OK";
 
 "HealthCertificate_Reissuance_Consent_DefaultAlert_RetryButton" = "Repeat";
@@ -3357,7 +3379,7 @@
 /* - Recovery Certificate */
 "RecycleBin_RecoveryCertificate_headline" = "Certificate of Recovery";
 
-"RecycleBin_RecoveryCertificate_validityDate" = "valid to %@";
+"RecycleBin_RecoveryCertificate_positiveTestFrom" = "Positive test from %@";
 
 /* - Corona Test */
 "RecycleBin_CoronaTest_headline" = "Test";

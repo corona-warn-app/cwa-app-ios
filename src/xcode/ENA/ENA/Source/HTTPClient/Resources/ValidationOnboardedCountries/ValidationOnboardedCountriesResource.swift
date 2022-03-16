@@ -12,7 +12,7 @@ struct ValidationOnboardedCountriesResource: Resource {
 	init(
 		isFake: Bool = false,
 		trustEvaluation: TrustEvaluating = DefaultTrustEvaluation(
-			publicKeyHash: Environments().currentEnvironment().pinningKeyHash
+			publicKeyHash: Environments().currentEnvironment().pinningKeyHashData
 		)
 	) {
 		self.locator = .validationOnboardedCountries(isFake: isFake)
@@ -35,7 +35,10 @@ struct ValidationOnboardedCountriesResource: Resource {
 	var sendResource: EmptySendResource
 	var receiveResource: CBORReceiveResource<ValidationOnboardedCountriesReceiveModel>
 	
-	func customError(for error: ServiceError<ValidationOnboardedCountriesError>) -> ValidationOnboardedCountriesError? {
+	func customError(
+		for error: ServiceError<ValidationOnboardedCountriesError>,
+		responseBody: Data? = nil
+	) -> ValidationOnboardedCountriesError? {
 		switch error {
 		case .transportationError:
 			return .ONBOARDED_COUNTRIES_NO_NETWORK
