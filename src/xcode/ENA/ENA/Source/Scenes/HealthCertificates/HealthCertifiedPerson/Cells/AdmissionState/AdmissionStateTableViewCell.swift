@@ -45,12 +45,10 @@ class AdmissionStateTableViewCell: UITableViewCell, UITextViewDelegate, ReuseIde
 		faqLinkTextView.attributedText = cellModel.faqLink
 		faqLinkTextView.isHidden = (cellModel.faqLink?.string ?? "").isEmpty
 
-		roundedLabeledView?.configure(title: cellModel.shortTitle, gradientType: cellModel.gradientType)
-		roundedLabeledView?.isHidden = (cellModel.shortTitle ?? "").isEmpty
+		roundedLabeledView.configure(title: cellModel.shortTitle, gradientType: cellModel.gradientType)
+		roundedLabeledView.isHidden = (cellModel.shortTitle ?? "").isEmpty
 		
 		unseenNewsIndicator.isHidden = !cellModel.isAdmissionStateChanged
-	
-		layoutIfNeeded()
 	}
 
 	// MARK: - Private
@@ -80,7 +78,7 @@ class AdmissionStateTableViewCell: UITableViewCell, UITextViewDelegate, ReuseIde
 	private let topStackView: UIStackView = {
 		let topStackView = AccessibleStackView()
 		topStackView.distribution = .fill
-		topStackView.alignment = .fill
+		topStackView.alignment = .top
 		topStackView.spacing = 6
 
 		return topStackView
@@ -89,7 +87,7 @@ class AdmissionStateTableViewCell: UITableViewCell, UITextViewDelegate, ReuseIde
 	private let titleStackView: UIStackView = {
 		let titleStackView = UIStackView()
 		titleStackView.axis = .vertical
-		titleStackView.distribution = .fillEqually
+		titleStackView.distribution = .fill
 		titleStackView.alignment = .fill
 		titleStackView.spacing = 6
 
@@ -124,12 +122,7 @@ class AdmissionStateTableViewCell: UITableViewCell, UITextViewDelegate, ReuseIde
 		return subtitleLabel
 	}()
 
-	private lazy var roundedLabeledView: RoundedLabeledView? = {
-		let nibName = String(describing: RoundedLabeledView.self)
-		let nib = UINib(nibName: nibName, bundle: .main)
-
-		return nib.instantiate(withOwner: self, options: nil).first as? RoundedLabeledView
-	}()
+	private lazy var roundedLabeledView = RoundedLabeledView()
 
 	private let descriptionLabel: ENALabel = {
 		let descriptionLabel = ENALabel(style: .body)
@@ -190,10 +183,7 @@ class AdmissionStateTableViewCell: UITableViewCell, UITextViewDelegate, ReuseIde
 		titleStackView.addArrangedSubview(subtitleLabel)
 
 		topStackView.addArrangedSubview(titleStackView)
-
-		if let roundedLabeledView = roundedLabeledView {
-			topStackView.addArrangedSubview(roundedLabeledView)
-		}
+		topStackView.addArrangedSubview(roundedLabeledView)
 
 		contentStackView.addArrangedSubview(topStackView)
 		contentStackView.addArrangedSubview(descriptionLabel)
