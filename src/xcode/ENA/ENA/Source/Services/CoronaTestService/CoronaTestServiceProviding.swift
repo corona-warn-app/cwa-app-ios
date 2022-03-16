@@ -104,12 +104,8 @@ protocol CoronaTestServiceProviding {
 	
 	func healthCertificateTuple(for uniqueCertificateIdentifier: String) -> (certificate: HealthCertificate, certifiedPerson: HealthCertifiedPerson)?
 
-	func addCoronaTestToContactDiary(
-		testDate: String,
-		testType: Int,
-		testResult: Int
-	)
-
+	func createCoronaTestEntryInContactDiary(coronaTestType: CoronaTestType?)
+	
 	#if DEBUG
 
 	func mockHealthCertificateTuple() -> (certificate: HealthCertificate, certifiedPerson: HealthCertifiedPerson)?

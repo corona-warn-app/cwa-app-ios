@@ -243,32 +243,4 @@ class ExposureSubmissionCoordinatorModel {
 			fatalError("Cannot set submission consent, no corona test type is set")
 		}
 	}
-	
-	func createDiaryTestEntry() {
-		if let coronaTestType = coronaTestType,
-		   let coronaTest = coronaTestService.coronaTest(ofType: coronaTestType),
-		   (coronaTest.testResult == .positive || coronaTest.testResult == .negative) && !coronaTest.journalEntryCreated {
-			let sampleDate: Date
-			switch coronaTestType {
-			case .pcr:
-				coronaTestService.pcrTest.value?.journalEntryCreated = true
-				sampleDate = coronaTest.testDate
-			case .antigen:
-				coronaTestService.antigenTest.value?.journalEntryCreated = true
-				sampleDate = coronaTestService.antigenTest.value?.sampleCollectionDate ?? coronaTest.testDate
-			}
-			// PCR -> registration date
-			// antigen -> sample collection date if available otherwise we use point of care consent date
-			// Warning: updatedSampleCollectionDate must get used because the service level struct antigenTest has changed and coronaTest wasn't updated
-			//
-			let stringDate = ISO8601DateFormatter.justLocalDateFormatter.string(from: sampleDate)
-			Log.debug("Write test result to contact diary at date: \(stringDate)", log: .contactdiary)
-			coronaTestService.addCoronaTestToContactDiary(
-				testDate: stringDate,
-				testType: coronaTestType.rawValue,
-				testResult: coronaTest.testResult.rawValue
-			)
-		}
-	}
-
 }
