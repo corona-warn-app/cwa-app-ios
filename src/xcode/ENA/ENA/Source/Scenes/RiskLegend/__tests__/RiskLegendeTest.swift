@@ -3,22 +3,39 @@
 //
 
 import XCTest
+import OpenCombine
 @testable import ENA
 
 class RiskLegendeTest: CWATestCase {
 
 	func testGIVEN_riskLegendeViewController_WHEN_loaddynamicTableViewModel_THEN_SectionsMatch() {
+		var subscriptions = Set<AnyCancellable>()
+		let appConfigProvider = CachedAppConfigurationMock()
+		
 		// GIVEN
 		let riskLegendeViewController = RiskLegendViewController(
 			onDismiss: {},
-			appConfigProvider: CachedAppConfigurationMock()
+			appConfigProvider: appConfigProvider
 		)
 
 		// WHEN
-
+		
+		// Trigger 'viewDidLoad'
 		let view = riskLegendeViewController.view
-		let dynamicTableViewModel = riskLegendeViewController.dynamicTableViewModel
 
+		// Wait until the app config loads.
+		// dynamicTableViewModel will be created after app config is loaded.
+		let appConfigurationExpectation = expectation(description: "appConfigurationIsSet")
+		appConfigProvider.appConfiguration()
+			.sink { _ in
+				appConfigurationExpectation.fulfill()
+			}
+			.store(in: &subscriptions)
+
+		waitForExpectations(timeout: .short)
+		
+		let dynamicTableViewModel = riskLegendeViewController.dynamicTableViewModel
+		
 		// THEN
 		XCTAssertNotNil(view)
 		XCTAssertEqual(dynamicTableViewModel.numberOfSection, 10)
