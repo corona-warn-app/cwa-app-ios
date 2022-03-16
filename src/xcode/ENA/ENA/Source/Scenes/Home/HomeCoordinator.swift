@@ -296,7 +296,8 @@ class HomeCoordinator: RequiresAppDependencies {
 		let riskLegendViewController = RiskLegendViewController(
 			onDismiss: { [weak rootViewController] in
 				rootViewController?.dismiss(animated: true)
-			}
+			},
+			appConfigProvider: appConfigurationProvider
 		)
 
 		rootViewController.present(
