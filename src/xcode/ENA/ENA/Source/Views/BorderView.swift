@@ -5,7 +5,7 @@
 import UIKit
 
 // Simple View which holds a property that indicates if this view was already drawn
-class BorderView: UIView {
+class StatefulView: UIView {
 
 	init() {
 		super.init(frame: .zero)

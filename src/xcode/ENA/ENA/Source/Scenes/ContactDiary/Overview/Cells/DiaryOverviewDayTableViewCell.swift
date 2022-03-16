@@ -321,10 +321,10 @@ class DiaryOverviewDayTableViewCell: UITableViewCell {
 
 	private func drawBorders(to orientations: [BorderOrientation], on view: UIView) {
 		if view.subviews.contains(where: { view in
-			guard let border = view as? BorderView else {
+			guard let borderView = view as? StatefulView else {
 				return false
 			}
-			return border.wasDrawn
+			return borderView.wasDrawn
 		}) {
 			// Skip drawing when the the borders were already drawn and the property was set to true
 			return
@@ -332,7 +332,7 @@ class DiaryOverviewDayTableViewCell: UITableViewCell {
 
 		orientations.forEach { orientation in
 
-			let separator = BorderView()
+			let separator = StatefulView()
 			separator.wasDrawn = true
 			separator.backgroundColor = .enaColor(for: .hairline)
 			separator.translatesAutoresizingMaskIntoConstraints = false
