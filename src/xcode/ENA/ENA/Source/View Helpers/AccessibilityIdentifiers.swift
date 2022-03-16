@@ -91,6 +91,11 @@ enum AccessibilityIdentifiers {
 		
 		static let submitCardButton = "AppStrings.Home.submitCardButton"
 		static let traceLocationsCardButton = "AppStrings.Home.traceLocationsCardButton"
+
+		enum Alerts {
+			static let anotherHighExposureButtonOK = "AppStrings.Home.riskStatusAnotherHighExposureButtonTitle"
+		}
+
 	}
 	
 	enum ContactDiary {
@@ -129,6 +134,7 @@ enum AccessibilityIdentifiers {
 			static let checkinRiskLevelHigh = "AppStrings.ContactDiary.Overview.CheckinEncounter.titleHighRisk"
 			static let checkinTableView = "AppStrings.ContactDiary.Overview.CheckinEncounter.tableView"
 			static let cell = "ContactDiary_Overview_cell-%d"
+			static let cellDateHeader = "ContactDiary_Overview_cellDateHeader-%d"
 			static let person = "ContactDiary_Overview_personEntry-%d"
 			static let location = "ContactDiary_Overview_locationEntry-%d"
 		}
@@ -779,6 +785,7 @@ enum AccessibilityIdentifiers {
 			static let okAction = "AppStrings.HealthCertificate.PrintPDF.okAction"
 		}
 
+		static let header = "HealthCertificate.header"
 		static let qrCodeCell = "HealthCertificate.qrCodeCell"
 		
 		enum Reissuance {
