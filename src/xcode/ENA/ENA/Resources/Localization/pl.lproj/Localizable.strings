@@ -1341,6 +1341,13 @@
 
 "Home_Alert_RiskStatusLowered_PrimaryButtonTitle" = "OK";
 
+/* Home Alert another high exposure */
+"Home_Alert_RiskStatusAnotherHighExposure_Title" = "Nowe narażenie";
+
+"Home_Alert_RiskStatusAnotherHighExposure_Message" = "Wystąpiło kolejne narażenie o podwyższonym ryzyku. Wszystkie Twoje narażenia na ryzyko z ostatnich %i dni znajdziesz w dzienniku kontaktów.";
+
+"Home_Alert_RiskStatusAnotherHighExposure_PrimaryButtonTitle" = "OK";
+
 /* App Information */
 "App_Information_Title" = "Informacje o aplikacji";
 
@@ -1604,18 +1611,30 @@
 /* New Version Features */
 "NewVersionFeatures_Info_about_abb_information" = "Dane o zmianach w tej wersji można znaleźć w informacjach o aplikacji w sekcji „Nowe funkcje”.";
 
-/* Version 2.19 */
-"NewVersionFeature_219_rapidPCR_title" = "Rejestracja szybkich testów PCR";
+/* Version 2.20 */
+"NewVersionFeature_220_highRiskShortened_title" = "Raport o skróceniu okresu podwyższonego ryzyka";
 
-"NewVersionFeature_219_rapidPCR_description" = "Możesz teraz zarejestrować szybkie testy PCR w aplikacji Corona-Warn-App i otrzymać za jej pośrednictwem wynik i certyfikat testu.";
+"NewVersionFeature_220_highRiskShortened_description" = "Podwyższone ryzyko po narażeniu jest teraz wyświetlane tylko przez dziesięć dni zamiast 14.";
 
-"NewVersionFeature_219_faultTolerantNameHandling_title" = "Przypisywanie certyfikatów";
+"NewVersionFeature_220_displayRiskPositiveResult_title" = "Raport o ryzyku po pozytywnym wyniku testu";
 
-"NewVersionFeature_219_faultTolerantNameHandling_description" = "Przypisywanie certyfikatów do osób stało się bardziej odporne na błędy. Niewielkie różnice w pisowni imion i nazwisk są ignorowane, więc certyfikaty, w których takie różnice występują, mogą zostać mimo to przypisane do tej samej osoby.";
+"NewVersionFeature_220_displayRiskPositiveResult_description" = "Po wystąpieniu narażenia wyświetla się teraz czerwony kafelek informujący o podwyższonym ryzyku, nawet jeśli zarejestrowałeś(-aś) pozytywny wynik testu w aplikacji Corona-Warn-App. Twój status ryzyka jest ponownie wyświetlany po siedmiu dniach od pozytywnego wyniku testu.";
 
-"NewVersionFeature_219_vaccinationCertificateReplacement_title" = "Aktualizacja certyfikatu";
+"NewVersionFeature_220_notificateRiskEncounter_title" = "Wiadomość dotycząca nowego narażenia";
 
-"NewVersionFeature_219_vaccinationCertificateReplacement_description" = "Zmieniły się specyfikacje UE dla certyfikatów szczepień przypominających. Jeśli Twój certyfikat nie jest zgodny z aktualnymi specyfikacjami, możesz zamówić nowy bezpośrednio w aplikacji Corona-Warn-App.";
+"NewVersionFeature_220_notificateRiskEncounter_description" = "Jeśli po wcześniejszym narażeniu wystąpi kolejne narażenie o podwyższonym ryzyku, wyświetlane będzie teraz również powiadomienie dotyczące takiego narażenia.";
+
+"NewVersionFeature_220_notificationStatusChange_title" = "Raport o zmianie statusu";
+
+"NewVersionFeature_220_notificationStatusChange_description" = "Jeśli Twój status uległ zmianie (np. z powodu dodania certyfikatu lub zmiany zasad), otrzymasz powiadomienie na karcie Certyfikaty.";
+
+"NewVersionFeature_220_recoveryCertificatesDetails_title" = "Certyfikaty statusu ozdrowieńca bez danych dotyczących ważności";
+
+"NewVersionFeature_220_recoveryCertificatesDetails_description" = "Dane dotyczące ważności nie są już wyświetlane w przypadku certyfikatów statusu ozdrowieńca , ponieważ ich ważność zależy od lokalnych przepisów. Zamiast nich wyświetlana jest teraz data pierwszego testu z wynikiem pozytywnym.";
+
+"NewVersionFeature_220_removeQRCode_title" = "Usunięto zduplikowany kod QR";
+
+"NewVersionFeature_220_removeQRCode_description" = "Kod QR dla aktualnie używanego certyfikatu został usunięty z indywidualnego ekranu szczegółów. Kod QR jest również zawarty w przeglądzie certyfikatu i dlatego nie jest potrzebny na ekranie szczegółów.";
 
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Rejestrowanie narażenia w różnych krajach";
@@ -2867,7 +2886,7 @@
 
 "HealthCertifiedPerson_RecoveryCertificate_headline" = "Certyfikat statusu ozdrowieńca";
 
-"HealthCertifiedPerson_RecoveryCertificate_validityDate" = "ważne do %@";
+"HealthCertifiedPerson_RecoveryCertificate_positiveTestFrom" = "Pozytywny test z %@";
 
 "HealthCertifiedPerson_currentlyUsedCertificate" = "Aktualnie używany certyfikat";
 
@@ -3360,7 +3379,7 @@
 /* - Recovery Certificate */
 "RecycleBin_RecoveryCertificate_headline" = "Certyfikat statusu ozdrowieńca";
 
-"RecycleBin_RecoveryCertificate_validityDate" = "ważne do %@";
+"RecycleBin_RecoveryCertificate_positiveTestFrom" = "Pozytywny test z %@";
 
 /* - Corona Test */
 "RecycleBin_CoronaTest_headline" = "Test";
