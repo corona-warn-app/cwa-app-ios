@@ -2973,7 +2973,8 @@ class CoronaTestServiceTests: CWATestCase {
 	}
 	
 	func test_When_UpdateTestResultSuccessWithPending_Then_ContactJournalHasNoEntry() throws {
-		let testService = createCoronaTestService(forTestResult: .pending)
+		let diaryStore = MockDiaryStore()
+		let testService = createCoronaTestService(forTestResult: .pending, diaryStore: diaryStore)
 
 		testService.antigenTest.value = AntigenTest.mock(registrationToken: "regToken")
 		testService.pcrTest.value = PCRTest.mock(registrationToken: "regToken")
