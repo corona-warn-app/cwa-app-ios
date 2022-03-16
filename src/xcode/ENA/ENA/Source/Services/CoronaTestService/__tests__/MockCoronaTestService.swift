@@ -25,8 +25,6 @@ class MockCoronaTestService: CoronaTestServiceProviding {
 	var pcrTestResultIsLoading = CurrentValueSubject<Bool, Never>(false)
 	var antigenTestResultIsLoading = CurrentValueSubject<Bool, Never>(false)
 
-	var hasAtLeastOneShownPositiveOrSubmittedTest: Bool = false
-
 	func coronaTest(ofType type: CoronaTestType) -> CoronaTest? {
 		switch type {
 		case .pcr:

@@ -144,6 +144,7 @@ class RecycleBin {
 							isSubmissionConsentGiven: false,
 							keysSubmitted: false,
 							journalEntryCreated: false,
+							certificateSupportedByPointOfCare: false,
 							certificateConsentGiven: false,
 							certificateRequested: false
 						)

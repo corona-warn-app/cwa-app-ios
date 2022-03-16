@@ -55,64 +55,6 @@ class CoronaTestServiceTests: CWATestCase {
 		waitForExpectations(timeout: .short)
 	}
 
-	func testHasAtLeastOneShownPositiveOrSubmittedTest() {
-		let client = ClientMock()
-		let store = MockTestStore()
-		let appConfiguration = CachedAppConfigurationMock()
-
-		let healthCertificateService = HealthCertificateService(
-			store: store,
-			dccSignatureVerifier: DCCSignatureVerifyingStub(),
-			dscListProvider: MockDSCListProvider(),
-			appConfiguration: appConfiguration,
-			cclService: FakeCCLService(),
-			recycleBin: .fake()
-		)
-
-		let service = CoronaTestService(
-			client: client,
-			store: store,
-			eventStore: MockEventStore(),
-			diaryStore: MockDiaryStore(),
-			appConfiguration: appConfiguration,
-			healthCertificateService: healthCertificateService,
-			healthCertificateRequestService: HealthCertificateRequestService(
-				store: store,
-				client: client,
-				appConfiguration: appConfiguration,
-				healthCertificateService: healthCertificateService
-			),
-			recycleBin: .fake(),
-			badgeWrapper: .fake()
-		)
-
-		XCTAssertFalse(service.hasAtLeastOneShownPositiveOrSubmittedTest)
-
-		service.pcrTest.value = PCRTest.mock(positiveTestResultWasShown: false, keysSubmitted: false)
-		XCTAssertFalse(service.hasAtLeastOneShownPositiveOrSubmittedTest)
-
-		service.antigenTest.value = AntigenTest.mock(positiveTestResultWasShown: false, keysSubmitted: false)
-		XCTAssertFalse(service.hasAtLeastOneShownPositiveOrSubmittedTest)
-
-		service.pcrTest.value?.positiveTestResultWasShown = true
-		XCTAssertTrue(service.hasAtLeastOneShownPositiveOrSubmittedTest)
-
-		service.pcrTest.value?.positiveTestResultWasShown = false
-		service.antigenTest.value?.positiveTestResultWasShown = true
-		XCTAssertTrue(service.hasAtLeastOneShownPositiveOrSubmittedTest)
-
-		service.antigenTest.value?.positiveTestResultWasShown = false
-		service.pcrTest.value?.keysSubmitted = true
-		XCTAssertTrue(service.hasAtLeastOneShownPositiveOrSubmittedTest)
-
-		service.pcrTest.value?.keysSubmitted = false
-		service.antigenTest.value?.keysSubmitted = true
-		XCTAssertTrue(service.hasAtLeastOneShownPositiveOrSubmittedTest)
-
-		service.antigenTest.value?.keysSubmitted = false
-		XCTAssertFalse(service.hasAtLeastOneShownPositiveOrSubmittedTest)
-	}
-
 	func testOutdatedPublisherSetForAlreadyOutdatedNegativeAntigenTestWithoutSampleCollectionDate() {
 		var defaultAppConfig = CachedAppConfigurationMock.defaultAppConfiguration
 		defaultAppConfig.coronaTestParameters.coronaRapidAntigenTestParameters.hoursToDeemTestOutdated = 48
@@ -597,7 +539,7 @@ class CoronaTestServiceTests: CWATestCase {
 
 	func testRegisterPCRTestAndGetResult_successWithoutSubmissionOrCertificateConsentGiven() {
 		let store = MockTestStore()
-		store.enfRiskCalculationResult = mockRiskCalculationResult()
+		store.enfRiskCalculationResult = .fake()
 
 		Analytics.setupMock(store: store)
 		store.isPrivacyPreservingAnalyticsConsentGiven = true
@@ -694,7 +636,7 @@ class CoronaTestServiceTests: CWATestCase {
 
 	func testRegisterPCRTestAndGetResult_successWithSubmissionAndCertificateConsentGiven() {
 		let store = MockTestStore()
-		store.enfRiskCalculationResult = mockRiskCalculationResult()
+		store.enfRiskCalculationResult = .fake()
 		
 		Analytics.setupMock(store: store)
 		store.isPrivacyPreservingAnalyticsConsentGiven = true
@@ -824,7 +766,7 @@ class CoronaTestServiceTests: CWATestCase {
 
 	func testRegisterPCRTestAndGetResult_CertificateConsentGivenWithDateOfBirth() {
 		let store = MockTestStore()
-		store.enfRiskCalculationResult = mockRiskCalculationResult()
+		store.enfRiskCalculationResult = .fake()
 
 		Analytics.setupMock(store: store)
 		store.isPrivacyPreservingAnalyticsConsentGiven = true
@@ -925,7 +867,7 @@ class CoronaTestServiceTests: CWATestCase {
 
 	func testRegisterPCRTestAndGetResult_CertificateConsentGivenWithoutDateOfBirth() {
 		let store = MockTestStore()
-		store.enfRiskCalculationResult = mockRiskCalculationResult()
+		store.enfRiskCalculationResult = .fake()
 
 		Analytics.setupMock(store: store)
 		store.isPrivacyPreservingAnalyticsConsentGiven = true
@@ -1011,7 +953,7 @@ class CoronaTestServiceTests: CWATestCase {
 
 	func testRegisterPCRTestAndGetResult_RegistrationFails() {
 		let store = MockTestStore()
-		store.enfRiskCalculationResult = mockRiskCalculationResult()
+		store.enfRiskCalculationResult = .fake()
 
 		Analytics.setupMock(store: store)
 		store.isPrivacyPreservingAnalyticsConsentGiven = true
@@ -1080,7 +1022,7 @@ class CoronaTestServiceTests: CWATestCase {
 
 	func testRegisterPCRTestAndGetResult_RegistrationSucceedsGettingTestResultFails() {
 		let store = MockTestStore()
-		store.enfRiskCalculationResult = mockRiskCalculationResult()
+		store.enfRiskCalculationResult = .fake()
 
 		Analytics.setupMock(store: store)
 		store.isPrivacyPreservingAnalyticsConsentGiven = true
@@ -1176,7 +1118,7 @@ class CoronaTestServiceTests: CWATestCase {
 
 	func testRegisterPCRTestWithTeleTAN_successWithoutSubmissionConsentGiven() {
 		let store = MockTestStore()
-		store.enfRiskCalculationResult = mockRiskCalculationResult()
+		store.enfRiskCalculationResult = .fake()
 
 		let checkInMock = Checkin.mock()
 		let eventStore = MockEventStore()
@@ -1272,7 +1214,7 @@ class CoronaTestServiceTests: CWATestCase {
 
 	func testRegisterPCRTestWithTeleTAN_successWithSubmissionConsentGiven() {
 		let store = MockTestStore()
-		store.enfRiskCalculationResult = mockRiskCalculationResult()
+		store.enfRiskCalculationResult = .fake()
 
 		Analytics.setupMock(store: store)
 		store.isPrivacyPreservingAnalyticsConsentGiven = true
@@ -1362,7 +1304,7 @@ class CoronaTestServiceTests: CWATestCase {
 
 	func testRegisterPCRTestWithTeleTAN_RegistrationFails() {
 		let store = MockTestStore()
-		store.enfRiskCalculationResult = mockRiskCalculationResult()
+		store.enfRiskCalculationResult = .fake()
 
 		Analytics.setupMock(store: store)
 		store.isPrivacyPreservingAnalyticsConsentGiven = true
@@ -1638,7 +1580,7 @@ class CoronaTestServiceTests: CWATestCase {
 
 	func testRegisterAntigenTestAndGetResult_CertificateConsentGivenWithoutDateOfBirth() {
 		let store = MockTestStore()
-		store.enfRiskCalculationResult = mockRiskCalculationResult()
+		store.enfRiskCalculationResult = .fake()
 
 		Analytics.setupMock(store: store)
 		store.isPrivacyPreservingAnalyticsConsentGiven = true
@@ -1920,7 +1862,7 @@ class CoronaTestServiceTests: CWATestCase {
 		let client = ClientMock()
 
 		let store = MockTestStore()
-		store.enfRiskCalculationResult = mockRiskCalculationResult()
+		store.enfRiskCalculationResult = .fake()
 		Analytics.setupMock(store: store)
 		store.isPrivacyPreservingAnalyticsConsentGiven = true
 
@@ -2020,7 +1962,7 @@ class CoronaTestServiceTests: CWATestCase {
 		let client = ClientMock()
 
 		let store = MockTestStore()
-		store.enfRiskCalculationResult = mockRiskCalculationResult()
+		store.enfRiskCalculationResult = .fake()
 		Analytics.setupMock(store: store)
 		store.isPrivacyPreservingAnalyticsConsentGiven = true
 
@@ -2126,7 +2068,7 @@ class CoronaTestServiceTests: CWATestCase {
 
 	func testRegisterRapidPCRTestAndGetResult_CertificateConsentGivenWithoutDateOfBirth() {
 		let store = MockTestStore()
-		store.enfRiskCalculationResult = mockRiskCalculationResult()
+		store.enfRiskCalculationResult = .fake()
 
 		Analytics.setupMock(store: store)
 		store.isPrivacyPreservingAnalyticsConsentGiven = true
@@ -2308,7 +2250,7 @@ class CoronaTestServiceTests: CWATestCase {
 		)
 
 		let store = MockTestStore()
-		store.enfRiskCalculationResult = mockRiskCalculationResult()
+		store.enfRiskCalculationResult = .fake()
 		Analytics.setupMock(store: store)
 		store.isPrivacyPreservingAnalyticsConsentGiven = true
 
@@ -4286,21 +4228,6 @@ class CoronaTestServiceTests: CWATestCase {
 
 		waitForExpectations(timeout: .short)
 	}
-
- 	private func mockRiskCalculationResult() -> ENFRiskCalculationResult {
- 		ENFRiskCalculationResult(
- 			riskLevel: .high,
- 			minimumDistinctEncountersWithLowRisk: 0,
- 			minimumDistinctEncountersWithHighRisk: 0,
- 			mostRecentDateWithLowRisk: Date(),
- 			mostRecentDateWithHighRisk: Date(),
- 			numberOfDaysWithLowRisk: 0,
- 			numberOfDaysWithHighRisk: 2,
- 			calculationDate: Date(),
- 			riskLevelPerDate: [:],
- 			minimumDistinctEncountersWithHighRiskPerDate: [:]
- 		)
- 	}
 
 	// swiftlint:disable:next file_length
 }

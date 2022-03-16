@@ -22,7 +22,8 @@ struct PCRTest: Equatable, Hashable {
 	var keysSubmitted: Bool
 
 	var journalEntryCreated: Bool
-
+	
+	var certificateSupportedByPointOfCare: Bool
 	var certificateConsentGiven: Bool
 	var certificateRequested: Bool
 	
@@ -44,6 +45,7 @@ extension PCRTest: Codable {
 		case submissionTAN
 		case keysSubmitted
 		case journalEntryCreated
+		case certificateSupportedByPointOfCare
 		case certificateConsentGiven
 		case certificateRequested
 		case uniqueCertificateIdentifier
@@ -65,7 +67,8 @@ extension PCRTest: Codable {
 		keysSubmitted = try container.decode(Bool.self, forKey: .keysSubmitted)
 
 		journalEntryCreated = try container.decode(Bool.self, forKey: .journalEntryCreated)
-
+		
+		certificateSupportedByPointOfCare = try container.decodeIfPresent(Bool.self, forKey: .certificateSupportedByPointOfCare) ?? false
 		certificateConsentGiven = try container.decodeIfPresent(Bool.self, forKey: .certificateConsentGiven) ?? false
 		certificateRequested = try container.decodeIfPresent(Bool.self, forKey: .certificateRequested) ?? false
 		

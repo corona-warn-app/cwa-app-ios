@@ -28,7 +28,27 @@ extension XCTestCase {
 
 		return base45
 	}
+	
+	func recoveryCertificate(
+		daysOffset: Int = 0
+	) throws -> HealthCertificate {
+		let date = Calendar.current.date(byAdding: .day, value: daysOffset, to: Date())
+		let recoveryCertificate = try HealthCertificate(
+			base45: try base45Fake(
+				from: DigitalCovidCertificate.fake(
+					recoveryEntries: [
+						RecoveryEntry.fake(
+							dateOfFirstPositiveNAAResult: ISO8601DateFormatter.justUTCDateFormatter.string(from: try XCTUnwrap(date))
+						)
+					]
+				)
+			),
+			validityState: .valid
+		)
 
+		return recoveryCertificate
+	}
+	
 	func vaccinationCertificate(
 		daysOffset: Int = 0,
 		doseNumber: Int = 1,

@@ -1341,6 +1341,13 @@
 
 "Home_Alert_RiskStatusLowered_PrimaryButtonTitle" = "OK";
 
+/* Home Alert another high exposure */
+"Home_Alert_RiskStatusAnotherHighExposure_Title" = "Expunere nouă";
+
+"Home_Alert_RiskStatusAnotherHighExposure_Message" = "Ați avut o altă expunere cu risc crescut. Veți găsi toate expunerile dvs. la risc din ultimele %i (de) zile în jurnalul dvs. de contacte.";
+
+"Home_Alert_RiskStatusAnotherHighExposure_PrimaryButtonTitle" = "OK";
+
 /* App Information */
 "App_Information_Title" = "Info aplicație";
 
@@ -1604,18 +1611,30 @@
 /* New Version Features */
 "NewVersionFeatures_Info_about_abb_information" = "Modificările din această versiune pot fi găsite în informațiile aplicației, la „Caracteristici noi”.";
 
-/* Version 2.19 */
-"NewVersionFeature_219_rapidPCR_title" = "Înregistrarea testelor PCR rapide";
+/* Version 2.20 */
+"NewVersionFeature_220_highRiskShortened_title" = "Raportul despre riscul crescut a fost scurtat";
 
-"NewVersionFeature_219_rapidPCR_description" = "Acum puteți înregistra teste PCR rapide în Corona-Warn-App și puteți primi rezultatul și certificatul dvs. de test prin aplicație.";
+"NewVersionFeature_220_highRiskShortened_description" = "Un risc crescut după o expunere este afișat acum pentru doar 10 zile, în loc de 14.";
 
-"NewVersionFeature_219_faultTolerantNameHandling_title" = "Atribuirea certificatului";
+"NewVersionFeature_220_displayRiskPositiveResult_title" = "Raport de risc după un rezultat de test pozitiv";
 
-"NewVersionFeature_219_faultTolerantNameHandling_description" = "Atribuirea certificatelor la persoane a fost făcută mai tolerantă la erori. Sunt ignorate diferențele minore de ortografie în cazul prenumelor și numelor, astfel încât certificatele afectate pot fi totuși atribuite persoanelor în cauză.";
+"NewVersionFeature_220_displayRiskPositiveResult_description" = "Mozaicul roșu pentru risc crescut este afișat acum după o expunere, chiar dacă ați înregistrat un test pozitiv în aplicația Corona-Warn. Starea riscului este afișată din nou la șapte zile după testul pozitiv.";
 
-"NewVersionFeature_219_vaccinationCertificateReplacement_title" = "Actualizarea certificatului";
+"NewVersionFeature_220_notificateRiskEncounter_title" = "Mesaj pentru expunere nouă";
 
-"NewVersionFeature_219_vaccinationCertificateReplacement_description" = "Prevederile UE pentru certificatele de vaccinare care presupun vaccinarea cu doza booster s-au modificat. Dacă certificatul dvs. nu mai corespunde cu prevederile curente, puteți solicita un certificat nou direct din Corona-Warn-App.";
+"NewVersionFeature_220_notificateRiskEncounter_description" = "Dacă aveți o altă expunere cu risc crescut după o expunere anterioară, acum se va afișa o notificare și pentru această expunere.";
+
+"NewVersionFeature_220_notificationStatusChange_title" = "Raport despre modificarea de stare";
+
+"NewVersionFeature_220_notificationStatusChange_description" = "Dacă starea dvs. s-a modificat (deoarece, de exemplu, ați adăugat un certificat sau pentru că s-au schimbat regulile), veți fi notificat despre acest lucru pe tabul Certificate.";
+
+"NewVersionFeature_220_recoveryCertificatesDetails_title" = "Certificate de recuperare fără date de valabilitate";
+
+"NewVersionFeature_220_recoveryCertificatesDetails_description" = "Datele de valabilitate nu mai sunt afișate pentru certificatele de recuperare, deoarece valabilitatea acestora depinde de regulile locale. În schimb, acum este afișată data primului test pozitiv.";
+
+"NewVersionFeature_220_removeQRCode_title" = "Codul QR duplicat a fost eliminat";
+
+"NewVersionFeature_220_removeQRCode_description" = "Codul QR pentru certificatul utilizat în mod curent a fost eliminat din ecranul detaliat individual. Codul QR este, de asemenea, conținut în sumarul certificatului și, astfel, nu este necesar pe ecranul detaliat.";
 
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Înregistrare transnațională a expunerilor în jurnal";
@@ -2867,7 +2886,7 @@
 
 "HealthCertifiedPerson_RecoveryCertificate_headline" = "Certificat de recuperare";
 
-"HealthCertifiedPerson_RecoveryCertificate_validityDate" = "valabil până la %@";
+"HealthCertifiedPerson_RecoveryCertificate_positiveTestFrom" = "Test pozitiv de la %@";
 
 "HealthCertifiedPerson_currentlyUsedCertificate" = "Certificat utilizat în prezent";
 
@@ -3360,7 +3379,7 @@
 /* - Recovery Certificate */
 "RecycleBin_RecoveryCertificate_headline" = "Certificat de recuperare";
 
-"RecycleBin_RecoveryCertificate_validityDate" = "valabil până la %@";
+"RecycleBin_RecoveryCertificate_positiveTestFrom" = "Test pozitiv de la %@";
 
 /* - Corona Test */
 "RecycleBin_CoronaTest_headline" = "Test";
