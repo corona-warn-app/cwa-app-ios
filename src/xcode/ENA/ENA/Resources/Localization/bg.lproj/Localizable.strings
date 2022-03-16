@@ -1341,6 +1341,13 @@
 
 "Home_Alert_RiskStatusLowered_PrimaryButtonTitle" = "OK";
 
+/* Home Alert another high exposure */
+"Home_Alert_RiskStatusAnotherHighExposure_Title" = "Ново излагане";
+
+"Home_Alert_RiskStatusAnotherHighExposure_Message" = "Имате друго излагане с повишено ниво на риск. Може да видите всичките си излагания на риск от последните %i дни във Вашия дневник на контактите.";
+
+"Home_Alert_RiskStatusAnotherHighExposure_PrimaryButtonTitle" = "ОК";
+
 /* App Information */
 "App_Information_Title" = "За приложението";
 
@@ -1604,18 +1611,30 @@
 /* New Version Features */
 "NewVersionFeatures_Info_about_abb_information" = "Може да видите промените в тази версия в подраздела „Нови функции“ на информацията за приложението.";
 
-/* Version 2.19 */
-"NewVersionFeature_219_rapidPCR_title" = "Регистрация на бързи PCR тестове";
+/* Version 2.20 */
+"NewVersionFeature_220_highRiskShortened_title" = "Намален брой дни на отчета за повишеното ниво на риск";
 
-"NewVersionFeature_219_rapidPCR_description" = "Вече можете да регистрирате бързи PCR тестове в Corona-Warn-App и да получите резултата и сертификата за тестване направо в приложението.";
+"NewVersionFeature_220_highRiskShortened_description" = "Повишеното ниво на риск след излагане вече ще се показва за десет вместо 14 дни.";
 
-"NewVersionFeature_219_faultTolerantNameHandling_title" = "Присъединяване на сертификат";
+"NewVersionFeature_220_displayRiskPositiveResult_title" = "Отчет за риска след положителен резултат от тест";
 
-"NewVersionFeature_219_faultTolerantNameHandling_description" = "Присъединяването на сертификати към лица вече отчита по-малко грешки. Игнорират се малки разлики при изписването на собственото и фамилното име, което позволява присъединяване на сертификата към въпросното лице, въпреки тези разлики.";
+"NewVersionFeature_220_displayRiskPositiveResult_description" = "Червената плочка за повишено ниво на риск ще се показва след излагане дори ако сте регистрирали положителен тест в Corona-Warn-App. Статусът Ви на риск ще се покаже отново седем дни след положителния тест.";
 
-"NewVersionFeature_219_vaccinationCertificateReplacement_title" = "Актуализация на сертификат";
+"NewVersionFeature_220_notificateRiskEncounter_title" = "Съобщение за ново излагане";
 
-"NewVersionFeature_219_vaccinationCertificateReplacement_description" = "Спецификациите на ЕС за сертификатите за ваксинация с бустерни дози са променени. Ако вашият сертификат вече не отговаря на настоящите спецификации, може да заявите нов директно в приложението Corona-Warn-App.";
+"NewVersionFeature_220_notificateRiskEncounter_description" = "Ако имате друго излагане с повишено ниво на риск след предходно излагане, за него също ще се покаже известие.";
+
+"NewVersionFeature_220_notificationStatusChange_title" = "Отчет на промените в статуса";
+
+"NewVersionFeature_220_notificationStatusChange_description" = "Ако статусът Ви е променен (защото например сте добавили сертификат или правилата са се променили), ще получите известие за това на таба \"Сертификати\".";
+
+"NewVersionFeature_220_recoveryCertificatesDetails_title" = "Сертификати за възстановяване без данни за валидност";
+
+"NewVersionFeature_220_recoveryCertificatesDetails_description" = "Данните за валидност вече няма да се показват за сертификатите за възстановяване, защото валидността им зависи от местните правила. Вместо това ще се показва датата на първия положителен тест.";
+
+"NewVersionFeature_220_removeQRCode_title" = "Премахнат дублиран QR код";
+
+"NewVersionFeature_220_removeQRCode_description" = "QR кодът за сертификата Ви, който използвате в момента, е премахнат от индивидуалния екран с данни. Той се съдържа и в прегледа на сертификатите, затова не е необходим на екрана за подробни данни.";
 
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Международно регистриране на излаганията";
@@ -2867,7 +2886,7 @@
 
 "HealthCertifiedPerson_RecoveryCertificate_headline" = "Сертификат за възстановяване";
 
-"HealthCertifiedPerson_RecoveryCertificate_validityDate" = "валиден до %@";
+"HealthCertifiedPerson_RecoveryCertificate_positiveTestFrom" = "Положителен тест от %@";
 
 "HealthCertifiedPerson_currentlyUsedCertificate" = "Текущо използван сертификат";
 
@@ -3360,7 +3379,7 @@
 /* - Recovery Certificate */
 "RecycleBin_RecoveryCertificate_headline" = "Сертификат за възстановяване";
 
-"RecycleBin_RecoveryCertificate_validityDate" = "валиден до %@";
+"RecycleBin_RecoveryCertificate_positiveTestFrom" = "Положителен тест от %@";
 
 /* - Corona Test */
 "RecycleBin_CoronaTest_headline" = "Тест";
