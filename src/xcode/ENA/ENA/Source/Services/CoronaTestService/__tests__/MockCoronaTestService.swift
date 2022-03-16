@@ -102,13 +102,9 @@ class MockCoronaTestService: CoronaTestServiceProviding {
 		completion(registerRapidPCRTestAndGetResultResult ?? .failure(.noCoronaTestOfRequestedType))
 	}
 	
-	func reregister(coronaTest: CoronaTest) {
+	func reregister(coronaTest: CoronaTest) {}
 
-	}
-
-	func updateTestResults(force: Bool, presentNotification: Bool, completion: @escaping VoidResultHandler) {
-
-	}
+	func updateTestResults(force: Bool, presentNotification: Bool, completion: @escaping VoidResultHandler) {}
 
 	func updateTestResult(
 		for coronaTestType: CoronaTestType,
@@ -128,29 +124,19 @@ class MockCoronaTestService: CoronaTestServiceProviding {
 		onMoveTestToBin(coronaTestType)
 	}
 
-	func removeTest(_ coronaTestType: CoronaTestType) {
+	func removeTest(_ coronaTestType: CoronaTestType) {}
 
-	}
+	func evaluateShowingTest(ofType coronaTestType: CoronaTestType) {}
 
-	func evaluateShowingTest(ofType coronaTestType: CoronaTestType) {
+	func updatePublishersFromStore() {}
 
-	}
-
-	func updatePublishersFromStore() {
-
-	}
-
-	func migrate() {
-
-	}
+	func migrate() {}
 	
 	func healthCertificateTuple(for uniqueCertificateIdentifier: String) -> (certificate: HealthCertificate, certifiedPerson: HealthCertifiedPerson)? {
 		return nil
 	}
 
-	func createCoronaTestEntryInContactDiary(coronaTestType: CoronaTestType?) {
-		
-	}
+	func createCoronaTestEntryInContactDiary(coronaTestType: CoronaTestType?) {}
 	
 	#if DEBUG
 
