@@ -91,7 +91,7 @@ class AdmissionStateTableViewCell: UITableViewCell, UITextViewDelegate, ReuseIde
 		titleStackView.axis = .vertical
 		titleStackView.distribution = .fillEqually
 		titleStackView.alignment = .fill
-		titleStackView.spacing = 0
+		titleStackView.spacing = 6
 
 		return titleStackView
 	}()
