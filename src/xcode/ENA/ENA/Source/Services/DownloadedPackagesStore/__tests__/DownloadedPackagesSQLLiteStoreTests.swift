@@ -466,4 +466,43 @@ final class DownloadedPackagesSQLLiteStoreTests: CWATestCase {
 		XCTAssertEqual(store.hours(for: "2020-06-02", country: "DE").count, 1)
 		XCTAssertEqual(store.hours(for: "2020-06-04", country: "DE").count, 1)
 	}
+	
+	func test_MarkPackagesAsCheckedForExposures() throws {
+		let database = FMDatabase.inMemory()
+		let store = DownloadedPackagesSQLLiteStore(database: database, migrator: SerialMigratorFake(), latestVersion: 0)
+		store.open()
+
+		// Add days
+		let dayPackage1 = randomPackage()
+		let dayPackage2 = randomPackage()
+		let dayPackage3 = randomPackage()
+		try store.set(country: "DE", day: "2020-06-01", etag: nil, package: dayPackage1)
+		try store.set(country: "DE", day: "2020-06-02", etag: nil, package: dayPackage2)
+		try store.set(country: "DE", day: "2020-06-03", etag: nil, package: dayPackage3)
+
+		// Add hours
+		let hourPackage1 = randomPackage()
+		let hourPackage2 = randomPackage()
+		let hourPackage3 = randomPackage()
+		try store.set(country: "DE", hour: 1, day: "2020-06-4", etag: nil, package: hourPackage1)
+		try store.set(country: "DE", hour: 2, day: "2020-06-4", etag: nil, package: hourPackage2)
+		try store.set(country: "DE", hour: 3, day: "2020-06-4", etag: nil, package: hourPackage3)
+
+		try store.markPackagesAsCheckedForExposures([
+			dayPackage1.fingerprint,
+			dayPackage2.fingerprint,
+			hourPackage1.fingerprint,
+			hourPackage2.fingerprint
+		])
+		
+		XCTAssertEqual(store.hourlyPackagesNotCheckedForExposure(for: "2020-06-4", country: "DE").count, 1)
+		XCTAssertEqual(store.allDaysNotCheckedForExposure(country: "DE").count, 1)
+	}
+	
+	private func randomPackage() -> SAPDownloadedPackage {
+		SAPDownloadedPackage(
+			keysBin: Data(String.getRandomString(of: 5).utf8),
+			signature: Data(String.getRandomString(of: 5).utf8)
+		)
+	}
 }

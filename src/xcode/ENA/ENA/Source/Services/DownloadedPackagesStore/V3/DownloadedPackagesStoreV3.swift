@@ -10,7 +10,7 @@ protocol DownloadedPackagesStoreV3: AnyObject {
 	func open()
 	func close()
 
-	func markPackagesAsCheckedForExposures(_ packages: [SAPDownloadedPackage]) throws
+	func markPackagesAsCheckedForExposures(_ fingerprints: [String]) throws
 	
 	func set(country: Country.ID, hour: Int, day: String, etag: String?, package: SAPDownloadedPackage?) throws
 	func set(country: Country.ID, day: String, etag: String?, package: SAPDownloadedPackage?) throws
@@ -27,7 +27,9 @@ protocol DownloadedPackagesStoreV3: AnyObject {
 
 	func package(for day: String, country: Country.ID) -> SAPDownloadedPackage?
 	func hourlyPackages(for day: String, country: Country.ID) -> [SAPDownloadedPackage]
+	func hourlyPackagesNotCheckedForExposure(for day: String, country: Country.ID) -> [SAPDownloadedPackage]
 	func allDays(country: Country.ID) -> [String] // 2020-05-30
+	func allDaysNotCheckedForExposure(country: Country.ID) -> [String] // 2020-05-30
 	func hours(for day: String, country: Country.ID) -> [Int]
 
 	func reset()

@@ -113,9 +113,8 @@ extension DownloadedPackagesSQLLiteStoreV3: DownloadedPackagesStoreV3 {
 
 	// MARK: - Write Operations
 	
-	func markPackagesAsCheckedForExposures(_ packages: [SAPDownloadedPackage]) throws {
+	func markPackagesAsCheckedForExposures(_ fingerprints: [String]) throws {
 		try queue.sync {
-			let fingerprints = packages.map({ $0.fingerprint })
 			// ['a', 'b', 'c'] --> ?, ?, ?
 			let params = Array(repeating: "?", count: fingerprints.count).joined(separator: ", ")
 			
@@ -160,7 +159,8 @@ extension DownloadedPackagesSQLLiteStoreV3: DownloadedPackagesStoreV3 {
 					Z_HOUR,
 					Z_COUNTRY,
 					Z_ETAG,
-					Z_HASH
+					Z_HASH,
+					Z_CHECKED_FOR_EXPOSURES
 				)
 				VALUES (
 					:bin,
@@ -169,7 +169,8 @@ extension DownloadedPackagesSQLLiteStoreV3: DownloadedPackagesStoreV3 {
 					:hour,
 					:country,
 					:etag,
-					:hash
+					:hash,
+					:checkedForExposures
 				)
 				ON CONFLICT(
 					Z_COUNTRY,
@@ -178,7 +179,8 @@ extension DownloadedPackagesSQLLiteStoreV3: DownloadedPackagesStoreV3 {
 				)
 				DO UPDATE SET
 					Z_BIN = :bin,
-					Z_SIGNATURE = :signature
+					Z_SIGNATURE = :signature,
+					Z_HASH = :hash
 				;
 			"""
 			let parameters: [String: Any] = [
@@ -188,7 +190,8 @@ extension DownloadedPackagesSQLLiteStoreV3: DownloadedPackagesStoreV3 {
 				"hour": hour,
 				"country": country,
 				"etag": etag ?? NSNull(),
-				"hash": package.fingerprint
+				"hash": package.fingerprint,
+				"checkedForExposures": 0
 			]
 			guard self.database.executeUpdate(sql, withParameterDictionary: parameters) else {
 				Log.error("[SQLite] (\(database.lastErrorCode())) \(database.lastErrorMessage())", log: .localData)
@@ -242,7 +245,8 @@ extension DownloadedPackagesSQLLiteStoreV3: DownloadedPackagesStoreV3 {
 							Z_HOUR,
 							Z_COUNTRY,
 							Z_ETAG,
-							Z_HASH
+							Z_HASH,
+							Z_CHECKED_FOR_EXPOSURES
 						)
 						VALUES (
 							:bin,
@@ -251,7 +255,8 @@ extension DownloadedPackagesSQLLiteStoreV3: DownloadedPackagesStoreV3 {
 							NULL,
 							:country,
 							:etag,
-							:hash
+							:hash,
+							:checkedForExposures
 						)
 						ON CONFLICT (
 							Z_COUNTRY,
@@ -260,7 +265,8 @@ extension DownloadedPackagesSQLLiteStoreV3: DownloadedPackagesStoreV3 {
 						)
 						DO UPDATE SET
 							Z_BIN = :bin,
-							Z_SIGNATURE = :signature
+							Z_SIGNATURE = :signature,
+							Z_HASH = :hash
 					;
 				""",
 				withParameterDictionary: [
@@ -269,7 +275,8 @@ extension DownloadedPackagesSQLLiteStoreV3: DownloadedPackagesStoreV3 {
 					"day": day,
 					"country": country,
 					"etag": etag ?? NSNull(),
-					"hash": package.fingerprint
+					"hash": package.fingerprint,
+					"checkedForExposures": 0
 				]
 			)
 		}
@@ -404,6 +411,40 @@ extension DownloadedPackagesSQLLiteStoreV3: DownloadedPackagesStoreV3 {
 		}
 	}
 
+	func hourlyPackagesNotCheckedForExposure(for day: String, country: Country.ID) -> [SAPDownloadedPackage] {
+		queue.sync {
+			let sql = """
+				SELECT
+					Z_BIN,
+					Z_SIGNATURE,
+					Z_HOUR
+				FROM Z_DOWNLOADED_PACKAGE
+				WHERE
+					Z_COUNTRY = :country AND
+					Z_DAY = :day AND
+					Z_HOUR IS NOT NULL AND
+					Z_CHECKED_FOR_EXPOSURES = :checkedForExposures
+				ORDER BY
+					Z_HOUR DESC
+				;
+			"""
+
+			let parameters: [String: Any] = [
+				"day": day,
+				"country": country,
+				"checkedForExposures": 0
+			]
+
+			guard let result = self.database.execute(query: sql, parameters: parameters) else {
+				return []
+			}
+			defer { result.close() }
+			return result
+				.map { $0.downloadedPackage() }
+				.compactMap { $0 }
+		}
+	}
+	
 	func allDays(country: Country.ID) -> [String] {
 		queue.sync {
 			let sql = """
@@ -414,6 +455,34 @@ extension DownloadedPackagesSQLLiteStoreV3: DownloadedPackagesStoreV3 {
 				WHERE
 					Z_COUNTRY = :country AND
 					Z_HOUR IS NULL
+				;
+			"""
+
+			let parameters: [String: Any] = [
+				"country": country
+			]
+
+			guard let result = self.database.execute(query: sql, parameters: parameters) else {
+				return []
+			}
+			defer { result.close() }
+			return result
+				.map { $0.string(forColumn: "Z_DAY") }
+				.compactMap { $0 }
+		}
+	}
+	
+	func allDaysNotCheckedForExposure(country: Country.ID) -> [String] {
+		queue.sync {
+			let sql = """
+				SELECT
+					Z_DAY
+				FROM
+					Z_DOWNLOADED_PACKAGE
+				WHERE
+					Z_COUNTRY = :country AND
+					Z_HOUR IS NULL AND
+					Z_CHECKED_FOR_EXPOSURES = 0
 				;
 			"""
 
