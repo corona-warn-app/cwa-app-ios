@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="dark"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -43,10 +43,10 @@
                     <rect key="frame" x="16" y="50" width="382" height="82"/>
                     <subviews>
                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="hom-yY-rFX">
-                            <rect key="frame" x="48" y="20.5" width="319" height="41"/>
+                            <rect key="frame" x="48" y="25" width="319" height="32.5"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Inaktiv" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qFU-yF-xhT" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
-                                    <rect key="frame" x="0.0" y="0.0" width="319" height="20.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="319" height="18"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
@@ -55,7 +55,7 @@
                                     </userDefinedRuntimeAttributes>
                                 </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Derzeitige Größe 0 B (unkomprimiert) " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.59999999999999998" translatesAutoresizingMaskIntoConstraints="NO" id="r4G-LI-jww" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
-                                    <rect key="frame" x="0.0" y="20.5" width="319" height="20.5"/>
+                                    <rect key="frame" x="0.0" y="18" width="319" height="14.5"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                     <color key="textColor" name="ENA Text Primary 2 Color"/>
                                     <nil key="highlightedColor"/>
@@ -150,25 +150,25 @@
     </objects>
     <designables>
         <designable name="BIH-X6-akg">
-            <size key="intrinsicContentSize" width="46" height="30"/>
+            <size key="intrinsicContentSize" width="65" height="50"/>
         </designable>
         <designable name="C1D-6e-Eky">
-            <size key="intrinsicContentSize" width="46" height="30"/>
+            <size key="intrinsicContentSize" width="65" height="50"/>
         </designable>
         <designable name="hr5-Wn-LfN">
-            <size key="intrinsicContentSize" width="46" height="30"/>
+            <size key="intrinsicContentSize" width="65" height="50"/>
         </designable>
         <designable name="mpT-qK-jdH">
-            <size key="intrinsicContentSize" width="46" height="30"/>
+            <size key="intrinsicContentSize" width="65" height="50"/>
         </designable>
         <designable name="qFU-yF-xhT">
-            <size key="intrinsicContentSize" width="50" height="20.5"/>
+            <size key="intrinsicContentSize" width="48" height="18"/>
         </designable>
         <designable name="r4G-LI-jww">
-            <size key="intrinsicContentSize" width="290.5" height="20.5"/>
+            <size key="intrinsicContentSize" width="216" height="14.5"/>
         </designable>
         <designable name="zMZ-di-uo6">
-            <size key="intrinsicContentSize" width="41.5" height="20.5"/>
+            <size key="intrinsicContentSize" width="49.5" height="23"/>
         </designable>
     </designables>
     <resources>

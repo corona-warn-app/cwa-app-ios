@@ -27,5 +27,4 @@ struct RiskCalculationConfiguration: Codable {
 	let normalizedTimePerDayToRiskLevelMapping: [NormalizedTimeToRiskLevelMapping]
 	let trlEncoding: TrlEncoding
 	let transmissionRiskValueMapping: [TransmissionRiskValueMapping]
-	
 }

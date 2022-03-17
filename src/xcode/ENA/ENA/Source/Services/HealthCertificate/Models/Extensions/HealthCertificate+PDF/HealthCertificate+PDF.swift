@@ -102,14 +102,14 @@ extension HealthCertificate {
 				text: entry.formattedValue(for: \VaccinationEntry.marketingAuthorizationHolder, valueSets: valueSets) ?? "",
 				color: textColor,
 				font: HealthCertificate.openSansFont,
-				rect: CGRect(x: 158, y: 173, width: 126, height: 23),
+				rect: CGRect(x: 19, y: 173, width: 265, height: 23),
 				upsideDown: true
 			),
 			PDFText(
 				text: entry.formattedValue(for: \VaccinationEntry.vaccineMedicinalProduct, valueSets: valueSets) ?? "",
 				color: textColor,
 				font: HealthCertificate.openSansFont,
-				rect: CGRect(x: 158, y: 230, width: 126, height: 23),
+				rect: CGRect(x: 19, y: 230, width: 265, height: 23),
 				upsideDown: true
 			),
 			PDFText(
@@ -163,63 +163,63 @@ extension HealthCertificate {
 				text: entry.certificateIssuer,
 				color: textColor,
 				font: HealthCertificate.openSansFont,
-				rect: CGRect(x: 7, y: 25, width: 112, height: 21),
+				rect: CGRect(x: 7, y: 25, width: 112, height: 23),
 				upsideDown: true
 			),
 			PDFText(
 				text: entry.countryOfTest,
 				color: textColor,
 				font: HealthCertificate.openSansFont,
-				rect: CGRect(x: 7, y: 52, width: 112, height: 21),
+				rect: CGRect(x: 7, y: 52, width: 112, height: 23),
 				upsideDown: true
 			),
 			PDFText(
 				text: entry.testCenter ?? "",
 				color: textColor,
 				font: HealthCertificate.openSansFont,
-				rect: CGRect(x: 7, y: 79, width: 112, height: 21),
+				rect: CGRect(x: 7, y: 79, width: 112, height: 23),
 				upsideDown: true
 			),
 			PDFText(
 				text: entry.formattedValue(for: \TestEntry.testResult, valueSets: valueSets) ?? "",
 				color: textColor,
 				font: HealthCertificate.openSansFont,
-				rect: CGRect(x: 7, y: 108, width: 112, height: 21),
+				rect: CGRect(x: 7, y: 108, width: 112, height: 23),
 				upsideDown: true
 			),
 			PDFText(
 				text: entry.dateTimeOfSampleCollection,
 				color: textColor,
 				font: HealthCertificate.openSansFont,
-				rect: CGRect(x: 7, y: 146, width: 112, height: 21),
+				rect: CGRect(x: 7, y: 146, width: 112, height: 23),
 				upsideDown: true
 			),
 			PDFText(
 				text: entry.formattedValue(for: \TestEntry.ratTestName, valueSets: valueSets) ?? "",
 				color: textColor,
 				font: HealthCertificate.openSansFont,
-				rect: CGRect(x: 171, y: 190, width: 112, height: 21),
+				rect: CGRect(x: 7, y: 190, width: 276, height: 23),
 				upsideDown: true
 			),
 			PDFText(
 				text: entry.naaTestName ?? "",
 				color: textColor,
 				font: HealthCertificate.openSansFont,
-				rect: CGRect(x: 171, y: 238, width: 112, height: 21),
+				rect: CGRect(x: 7, y: 238, width: 276, height: 23),
 				upsideDown: true
 			),
 			PDFText(
 				text: entry.formattedValue(for: \TestEntry.typeOfTest, valueSets: valueSets) ?? "",
 				color: textColor,
 				font: HealthCertificate.openSansFont,
-				rect: CGRect(x: 7, y: 305, width: 112, height: 21),
+				rect: CGRect(x: 7, y: 305, width: 112, height: 23),
 				upsideDown: true
 			),
 			PDFText(
 				text: entry.formattedValue(for: \TestEntry.diseaseOrAgentTargeted, valueSets: valueSets) ?? "",
 				color: textColor,
 				font: HealthCertificate.openSansFont,
-				rect: CGRect(x: 7, y: 333, width: 112, height: 21),
+				rect: CGRect(x: 7, y: 333, width: 112, height: 23),
 				upsideDown: true
 			),
 			PDFText(
