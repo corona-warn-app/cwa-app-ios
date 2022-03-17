@@ -14,12 +14,16 @@ protocol Resource {
 	var type: ServiceType { get }
 	var sendResource: Send { get }
 	var receiveResource: Receive { get }
-	
+
+	// TODO: Enum loadingBahavior?
+
 	// Defines a default value for no network cases as the specific receive model (for resources like e.g. AppConfig, AllowList)
 	var defaultModel: Receive.ReceiveModel? { get }
-	
+	// Defines the trust evaluation for the certificate pinning.
 	var trustEvaluation: TrustEvaluating { get }
-	
+	// Indicates if the loading of the resource should be retried up to 3 times when it fails.
+	var retryingCount: Int? { get set }
+
 	func customError(for error: ServiceError<CustomError>, responseBody: Data?) -> CustomError?
 	
 #if !RELEASE
@@ -29,7 +33,7 @@ protocol Resource {
 #endif
 }
 
-// Custom error handling & caching support
+// Standard values for every resource
 
 extension Resource {
 	

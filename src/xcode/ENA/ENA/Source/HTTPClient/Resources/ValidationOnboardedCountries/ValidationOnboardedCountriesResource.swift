@@ -34,7 +34,8 @@ struct ValidationOnboardedCountriesResource: Resource {
 	var type: ServiceType
 	var sendResource: EmptySendResource
 	var receiveResource: CBORReceiveResource<ValidationOnboardedCountriesReceiveModel>
-	
+	var retryingCount: Int?
+
 	func customError(
 		for error: ServiceError<ValidationOnboardedCountriesError>,
 		responseBody: Data? = nil
