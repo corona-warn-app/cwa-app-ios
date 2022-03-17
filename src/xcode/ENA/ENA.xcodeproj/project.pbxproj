@@ -1168,6 +1168,9 @@
 		AB9B991E26D5416F00F2506D /* RecoveryCertificateTemplate_v4.1.pdf in Resources */ = {isa = PBXBuildFile; fileRef = ABEA875526D3811100A8E950 /* RecoveryCertificateTemplate_v4.1.pdf */; };
 		AB9B991F26D5417200F2506D /* VaccinationCertificateTemplate_v4.1.pdf in Resources */ = {isa = PBXBuildFile; fileRef = ABEA875926D3811100A8E950 /* VaccinationCertificateTemplate_v4.1.pdf */; };
 		AB9E9E7A261308C000515408 /* RiskTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB9E9E79261308C000515408 /* RiskTests.swift */; };
+		ABA146C927E3481F0096A44E /* DownloadedPackagesStoreV3.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABA146C727E3481F0096A44E /* DownloadedPackagesStoreV3.swift */; };
+		ABA146CA27E3481F0096A44E /* DownloadedPackagesSQLLiteStoreV3.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABA146C827E3481F0096A44E /* DownloadedPackagesSQLLiteStoreV3.swift */; };
+		ABA146CC27E366520096A44E /* Migration2To3.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABA146CB27E366520096A44E /* Migration2To3.swift */; };
 		ABAAE2D527C3DC3500A53AB1 /* CoronaWarnSessionTaskDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABAAE2D427C3DC3500A53AB1 /* CoronaWarnSessionTaskDelegate.swift */; };
 		ABAAE2D827C516D500A53AB1 /* TrustEvaluationFake.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABAAE2D727C516D500A53AB1 /* TrustEvaluationFake.swift */; };
 		ABAAE2DA27C51AB300A53AB1 /* TrustEvaluationErrorStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABAAE2D927C51AB300A53AB1 /* TrustEvaluationErrorStub.swift */; };
@@ -2906,6 +2909,9 @@
 		AB9B990E26D522B700F2506D /* OpenSans-SemiBoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-SemiBoldItalic.ttf"; sourceTree = "<group>"; };
 		AB9B991B26D5389100F2506D /* HealthCertificate+PDFTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HealthCertificate+PDFTests.swift"; sourceTree = "<group>"; };
 		AB9E9E79261308C000515408 /* RiskTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RiskTests.swift; sourceTree = "<group>"; };
+		ABA146C727E3481F0096A44E /* DownloadedPackagesStoreV3.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownloadedPackagesStoreV3.swift; sourceTree = "<group>"; };
+		ABA146C827E3481F0096A44E /* DownloadedPackagesSQLLiteStoreV3.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownloadedPackagesSQLLiteStoreV3.swift; sourceTree = "<group>"; };
+		ABA146CB27E366520096A44E /* Migration2To3.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Migration2To3.swift; sourceTree = "<group>"; };
 		ABAAE2D427C3DC3500A53AB1 /* CoronaWarnSessionTaskDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoronaWarnSessionTaskDelegate.swift; sourceTree = "<group>"; };
 		ABAAE2D727C516D500A53AB1 /* TrustEvaluationFake.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrustEvaluationFake.swift; sourceTree = "<group>"; };
 		ABAAE2D927C51AB300A53AB1 /* TrustEvaluationErrorStub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrustEvaluationErrorStub.swift; sourceTree = "<group>"; };
@@ -7431,6 +7437,7 @@
 			children = (
 				AB5F84B124F8F7E3000400D4 /* Migration0To1.swift */,
 				35C701EB2556BCB9008AEA91 /* Migration1To2.swift */,
+				ABA146CB27E366520096A44E /* Migration2To3.swift */,
 			);
 			path = Migrations;
 			sourceTree = "<group>";
@@ -7649,6 +7656,15 @@
 				AB68884125DACD8C00907465 /* MigrationStub.swift */,
 			);
 			path = Doubles;
+			sourceTree = "<group>";
+		};
+		ABA146C627E347E60096A44E /* V3 */ = {
+			isa = PBXGroup;
+			children = (
+				ABA146C827E3481F0096A44E /* DownloadedPackagesSQLLiteStoreV3.swift */,
+				ABA146C727E3481F0096A44E /* DownloadedPackagesStoreV3.swift */,
+			);
+			path = V3;
 			sourceTree = "<group>";
 		};
 		ABAAE2D627C516AF00A53AB1 /* __tests__ */ = {
@@ -8327,6 +8343,7 @@
 		B1D431C9246C848E00E728AD /* DownloadedPackagesStore */ = {
 			isa = PBXGroup;
 			children = (
+				ABA146C627E347E60096A44E /* V3 */,
 				35EA68402554BEB200335F73 /* V2 */,
 				AB5F84C224FE2EF2000400D4 /* V1 */,
 				AB5F84C124FE2EEA000400D4 /* V0 */,
@@ -10915,6 +10932,7 @@
 				8F499B092682357D0047C1A6 /* ManageStatisticsCardsViewModel.swift in Sources */,
 				0138F6FA25F66E8D00A9B075 /* TraceLocationPrintVersionViewModel.swift in Sources */,
 				019E2F0726A05196000EC4AD /* HealthCertificateValidityState.swift in Sources */,
+				ABA146C927E3481F0096A44E /* DownloadedPackagesStoreV3.swift in Sources */,
 				50412F2E2689B4DA00E4087C /* HealthCertificateValidationRuleType.swift in Sources */,
 				945CCFE625D68C2E007ADB4F /* AppOnboardingNavigationController.swift in Sources */,
 				8F64BD91276796A400E48299 /* RoundedLabeledView.swift in Sources */,
@@ -11070,6 +11088,7 @@
 				EB3B349E262B10B900B1801E /* ExposureSubmissionCheckinDescriptionCellModel.swift in Sources */,
 				EB7F8E9524E434E000A3CCC4 /* BackgroundAppRefreshViewController.swift in Sources */,
 				BA94BBC2260DFD42005CF38F /* CheckInTopCornerCell.swift in Sources */,
+				ABA146CC27E366520096A44E /* Migration2To3.swift in Sources */,
 				BAB9FC5B2630557900EB4E76 /* AntigenTestProfile.swift in Sources */,
 				EB7D205624E6A5930089264C /* InfoBoxViewModel.swift in Sources */,
 				5015D2D427A17391007D8763 /* Locator+CCLConfiguration.swift in Sources */,
@@ -11388,6 +11407,7 @@
 				BA9BCF6225B0875100DD7974 /* DiaryOverviewDayCellModel.swift in Sources */,
 				8FEC12242754B6C000C5DADC /* Locator+AllowList.swift in Sources */,
 				BA0887A6269F43930007B3F3 /* NSMutableAttributedString+Link.swift in Sources */,
+				ABA146CA27E3481F0096A44E /* DownloadedPackagesSQLLiteStoreV3.swift in Sources */,
 				5078DCA42684B5FB00535917 /* HealthCertificateValidationReport.swift in Sources */,
 				01EA17622590EAAF00E98E02 /* HomeTableViewController.swift in Sources */,
 				017D8DA6263B02F70009E91C /* HealthCertificate.swift in Sources */,
