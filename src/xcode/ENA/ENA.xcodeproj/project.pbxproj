@@ -1171,6 +1171,7 @@
 		ABA146C927E3481F0096A44E /* DownloadedPackagesStoreV3.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABA146C727E3481F0096A44E /* DownloadedPackagesStoreV3.swift */; };
 		ABA146CA27E3481F0096A44E /* DownloadedPackagesSQLLiteStoreV3.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABA146C827E3481F0096A44E /* DownloadedPackagesSQLLiteStoreV3.swift */; };
 		ABA146CC27E366520096A44E /* Migration2To3.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABA146CB27E366520096A44E /* Migration2To3.swift */; };
+		ABA146CE27E380650096A44E /* Migration2To3Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABA146CD27E380650096A44E /* Migration2To3Tests.swift */; };
 		ABAAE2D527C3DC3500A53AB1 /* CoronaWarnSessionTaskDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABAAE2D427C3DC3500A53AB1 /* CoronaWarnSessionTaskDelegate.swift */; };
 		ABAAE2D827C516D500A53AB1 /* TrustEvaluationFake.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABAAE2D727C516D500A53AB1 /* TrustEvaluationFake.swift */; };
 		ABAAE2DA27C51AB300A53AB1 /* TrustEvaluationErrorStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABAAE2D927C51AB300A53AB1 /* TrustEvaluationErrorStub.swift */; };
@@ -2912,6 +2913,7 @@
 		ABA146C727E3481F0096A44E /* DownloadedPackagesStoreV3.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownloadedPackagesStoreV3.swift; sourceTree = "<group>"; };
 		ABA146C827E3481F0096A44E /* DownloadedPackagesSQLLiteStoreV3.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownloadedPackagesSQLLiteStoreV3.swift; sourceTree = "<group>"; };
 		ABA146CB27E366520096A44E /* Migration2To3.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Migration2To3.swift; sourceTree = "<group>"; };
+		ABA146CD27E380650096A44E /* Migration2To3Tests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Migration2To3Tests.swift; sourceTree = "<group>"; };
 		ABAAE2D427C3DC3500A53AB1 /* CoronaWarnSessionTaskDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoronaWarnSessionTaskDelegate.swift; sourceTree = "<group>"; };
 		ABAAE2D727C516D500A53AB1 /* TrustEvaluationFake.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrustEvaluationFake.swift; sourceTree = "<group>"; };
 		ABAAE2D927C51AB300A53AB1 /* TrustEvaluationErrorStub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrustEvaluationErrorStub.swift; sourceTree = "<group>"; };
@@ -7417,6 +7419,7 @@
 			children = (
 				AB5F84BA24F92876000400D4 /* Migration0To1Tests.swift */,
 				35C701F32556C016008AEA91 /* Migration1To2Tests.swift */,
+				ABA146CD27E380650096A44E /* Migration2To3Tests.swift */,
 			);
 			path = Migration;
 			sourceTree = "<group>";
@@ -11625,6 +11628,7 @@
 				508266DA278DA60000091991 /* Archive+CBOR.swift in Sources */,
 				50C51CB625CDEA4300D4C33A /* HTTPClient+SubmitAnalyticsDataTests.swift in Sources */,
 				0127B09E272855D6008E30AF /* CoronaTestRestorationHandlerTests.swift in Sources */,
+				ABA146CE27E380650096A44E /* Migration2To3Tests.swift in Sources */,
 				ABAAE2D827C516D500A53AB1 /* TrustEvaluationFake.swift in Sources */,
 				AB86B2B926033E8F007C77B3 /* CheckinSplittingServiceTests.swift in Sources */,
 				AB1EEC1026382BC20001D1DB /* ExposureSubmissionIntroViewModelTests.swift in Sources */,
