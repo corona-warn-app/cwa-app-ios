@@ -724,14 +724,15 @@ class CoronaTestServiceTests: CWATestCase {
 		badgeWrapper.reset(.unseenTests)
 
 		waitForExpectations(timeout: .short)
-
+		countSubscription.cancel()
+		
+		service.createCoronaTestEntryInContactDiary(coronaTestType: .pcr)
 		guard let pcrTest = service.pcrTest.value else {
 			XCTFail("pcrTest should not be nil")
 			return
 		}
 
-		countSubscription.cancel()
-
+		XCTAssertTrue(pcrTest.journalEntryCreated)
 		XCTAssertEqual(receivedCounts, expectedCounts)
 		XCTAssertEqual(pcrTest.registrationToken, "registrationToken2")
 		XCTAssertEqual(pcrTest.qrCodeHash, "qrCodeHash")
@@ -759,9 +760,6 @@ class CoronaTestServiceTests: CWATestCase {
 			Date().timeIntervalSince1970,
 			accuracy: 10
 		)
-		
-		service.createCoronaTestEntryInContactDiary(coronaTestType: .pcr)
-		XCTAssertTrue(pcrTest.journalEntryCreated)
 	}
 
 	func testRegisterPCRTestAndGetResult_CertificateConsentGivenWithDateOfBirth() {
