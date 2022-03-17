@@ -57,12 +57,32 @@ extension Service {
 			completion(.success(receiveModel))
 			return
 		}
-		
+
+		// To check if we want to retry the load call, we hook in the completion call.
+		let retryingCompletion: ((Result<R.Receive.ReceiveModel, ServiceError<R.CustomError>>) -> Void) = { result in
+			switch result {
+
+			case .success(let model):
+				completion(.success(model))
+			case .failure(let error):
+				// For any failures we check if the resource has a retry flag and has some retries left and if so, we call load() recursivly.
+
+				if let retryingCount = resource.retryingCount,
+				   retryingCount > 0 {
+					var mutatableResource = resource
+					mutatableResource.retryingCount? -= 1
+					load(mutatableResource, completion)
+				} else {
+					completion(.failure(error))
+				}
+			}
+		}
+
 		// load data from the server
 		switch urlRequest(resource.locator, resource.sendResource, resource.receiveResource) {
 		case let .failure(resourceError):
 			Log.error("Creating url request failed.", log: .client)
-			completion(failureOrDefaultValueHandling(resource, .invalidRequestError(resourceError)))
+			retryingCompletion(failureOrDefaultValueHandling(resource, .invalidRequestError(resourceError)))
 		case let .success(request):
 
 			var task: URLSessionDataTask?
@@ -81,27 +101,27 @@ extension Service {
 				   let task = task,
 				   let trustEvaluationError = coronaSessionDelegate.trustEvaluations[task.taskIdentifier]?.trustEvaluationError {
 					Log.error("TrustEvaluation failed.", log: .client)
-					completion(failureOrDefaultValueHandling(resource, .trustEvaluationError(trustEvaluationError)))
+					retryingCompletion(failureOrDefaultValueHandling(resource, .trustEvaluationError(trustEvaluationError)))
 					return
 				}
 				
 				// case we have no network.
 				if let error = error {
-					completion(handleNoNetworkCachePolicy(error, resource))
+					retryingCompletion(handleNoNetworkCachePolicy(error, resource))
 					return
 				}
 								
 				// case we have a fake.
 				guard !resource.locator.isFake else {
 					Log.info("Fake detected no response given", log: .client)
-					completion(failureOrDefaultValueHandling(resource, .fakeResponse))
+					retryingCompletion(failureOrDefaultValueHandling(resource, .fakeResponse))
 					return
 				}
 
 				// case we have an invalid response.
 				guard let response = response as? HTTPURLResponse else {
 					Log.error("Invalid response.", log: .client, error: error)
-					completion(failureOrDefaultValueHandling(resource, .invalidResponseType))
+					retryingCompletion(failureOrDefaultValueHandling(resource, .invalidResponseType))
 					return
 				}
 				
@@ -113,7 +133,7 @@ extension Service {
 
 				// override status code by cache policy and handle it on other way.
 				if hasStatusCodeCachePolicy(resource, response.statusCode) {
-					completion(handleStatusCodeCachePolicy(response.statusCode, resource))
+					retryingCompletion(handleStatusCodeCachePolicy(response.statusCode, resource))
 					return
 				}
 				
@@ -121,18 +141,18 @@ extension Service {
 				// The codes here are in sync with the one in hasStatusCodeCachePolicy in the CachedRestService - do always sync them!
 				switch response.statusCode {
 				case 200, 201:
-					completion(decodeModel(resource, bodyData, response.allHeaderFields, false))
+					retryingCompletion(decodeModel(resource, bodyData, response.allHeaderFields, false))
 				case 204:
 					guard resource.receiveResource is EmptyReceiveResource else {
 						Log.error("This is not an EmptyReceiveResource", log: .client)
-						completion(failureOrDefaultValueHandling(resource, .invalidResponse))
+						retryingCompletion(failureOrDefaultValueHandling(resource, .invalidResponse))
 						return
 					}
-					completion(decodeModel(resource, bodyData, response.allHeaderFields, false))
+					retryingCompletion(decodeModel(resource, bodyData, response.allHeaderFields, false))
 				case 304:
-					completion(cached(resource))
+					retryingCompletion(cached(resource))
 				default:
-					completion(failureOrDefaultValueHandling(resource, .unexpectedServerError(response.statusCode), bodyData))
+					retryingCompletion(failureOrDefaultValueHandling(resource, .unexpectedServerError(response.statusCode), bodyData))
 				}
 			}
 			
@@ -236,7 +256,8 @@ extension Service {
 		_ error: ServiceError<R.CustomError>,
 		_ responseData: Data? = nil
 	) -> Result<R.Receive.ReceiveModel, ServiceError<R.CustomError>> where R: Resource {
-		// Check if we have default value. If so, return it independent wich error we had
+
+		// Check if we have default value. If so, return it independent which error we had
 		if let defaultModel = resource.defaultModel {
 			Log.info("Found some default value", log: .client)
 			guard var modelWithMetadata = defaultModel as? MetaDataProviding else {
@@ -289,8 +310,6 @@ extension Service {
 			return failureOrDefaultValueHandling(resource, .transportationError(error))
 		}
 	}
-	
-	// MARK: - Private
 
 	/// Handles the statusCode cache policy. Checks first, if the cache policy is defined. If not, proceed with the invalidResponse error. Otherwise, try to load the cached data. If this fails, we fall back to the the invalidResponse error.
 	///
