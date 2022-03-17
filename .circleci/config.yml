@@ -23,6 +23,9 @@ commands:
           command: |
             brew bundle
       - run:
+          name: Swiftlint where?
+          command: which swiftlint
+      - run:
           name: Install Bundler
           command: sudo gem install rake bundler:2.1.4
       - run:
