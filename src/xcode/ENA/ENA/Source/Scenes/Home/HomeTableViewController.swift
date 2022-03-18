@@ -859,9 +859,11 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 			return
 		}
 
+		let currentAppConfig = appConfigurationProvider.currentAppConfig.value
+
 		let alert = UIAlertController(
 			title: AppStrings.Home.riskStatusLoweredAlertTitle,
-			message: AppStrings.Home.riskStatusLoweredAlertMessage,
+			message: String(format: AppStrings.Home.riskStatusLoweredAlertMessage, currentAppConfig.riskCalculationParameters.defaultedMaxEncounterAgeInDays),
 			preferredStyle: .alert
 		)
 
