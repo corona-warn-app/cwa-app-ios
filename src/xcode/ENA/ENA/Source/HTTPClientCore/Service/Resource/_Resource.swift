@@ -6,6 +6,7 @@
  A Resource is a composition of locator (where a resources can be found), service type to be used, data to send (sendResource) and data to receive (receiveResource).
  */
 protocol Resource {
+	
 	associatedtype Send: SendResource
 	associatedtype Receive: ReceiveResource
 	associatedtype CustomError: Error
@@ -15,13 +16,12 @@ protocol Resource {
 	var sendResource: Send { get }
 	var receiveResource: Receive { get }
 
-	// TODO: Enum loadingBahavior?
-
 	// Defines a default value for no network cases as the specific receive model (for resources like e.g. AppConfig, AllowList)
 	var defaultModel: Receive.ReceiveModel? { get }
 	// Defines the trust evaluation for the certificate pinning.
 	var trustEvaluation: TrustEvaluating { get }
-	// Indicates if the loading of the resource should be retried up to 3 times when it fails.
+	// Indicates if the loading of the resource should be retried. Counts descending.
+	// NOTE: Compete logically with defaultModel: When setting both, we will never execute another retry but instead we will return the defaultModel.
 	var retryingCount: Int? { get set }
 
 	func customError(for error: ServiceError<CustomError>, responseBody: Data?) -> CustomError?
@@ -36,7 +36,7 @@ protocol Resource {
 // Standard values for every resource
 
 extension Resource {
-	
+
 	var defaultModel: Receive.ReceiveModel? {
 		nil
 	}
