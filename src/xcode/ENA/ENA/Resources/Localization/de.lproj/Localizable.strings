@@ -1437,7 +1437,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "App_Information_Contact_Hotline_Details_Foreign" = "Für Anrufe aus dem Ausland.\nEs fallen die Gebühren des jeweiligen Telefonanbieters an.";
 
-"App_Information_Contact_Hotline_Terms" = "Unser Kundenservice ist in den folgenden Sprachen für Sie da:\nDeutsch, Englisch, Türkisch\n\nErreichbarkeit:\nMo-Sa: 07:00 - 22:00 Uhr\n(außer an bundesweiten Feiertagen)\n\nBei Fragen rufen Sie die 116 117 an. Wählen Sie bei der Telefonansage dann die 2, um die Servicestelle des Bundesministeriums für Gesundheit zu erreichen. Nur bei Krankheitssymptomen wählen Sie die 1 (kassenärztlicher Bereitschaftsdienst).";
+"App_Information_Contact_Hotline_Terms" = "Unser Kundenservice ist in den folgenden Sprachen für Sie da:\nDeutsch\n\nErreichbarkeit:\nMo-Fr: 09:00 - 17:00 Uhr\n(außer an bundesweiten Feiertagen)\n\nBei Fragen rufen Sie die 116 117 an. Wählen Sie bei der Telefonansage dann die 2, um die Servicestelle des Bundesministeriums für Gesundheit zu erreichen. Nur bei Krankheitssymptomen wählen Sie die 1 (kassenärztlicher Bereitschaftsdienst).";
 
 /* App Information - Imprint */
 "App_Information_New_Features_Navigation" = "Neue Funktionen";
