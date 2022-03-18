@@ -4,14 +4,24 @@
 
 import Foundation
 
+struct PackageContainer {
+
+	enum PackageType {
+		case keys
+		case signature
+	}
+
+	let hash: String
+	let type: PackageType
+	let url: URL
+}
+
 struct WrittenPackages {
 
 	// MARK: - Init
 
-	init(
-		urls: [URL]
-	) {
-		self.urls = urls
+	init() {
+		self.packages = []
 	}
 
 	// MARK: - Internal
@@ -32,13 +42,17 @@ struct WrittenPackages {
 		}
 	}
 
-	mutating func add(_ url: URL) {
-		urls.append(url)
+	mutating func add(_ container: PackageContainer) {
+		packages.append(container)
+	}
+
+	var urls: [URL] {
+		packages.map { $0.url }
 	}
 
 	// MARK: - Internal
 
-	private(set) var urls: [URL]
+	private var packages: [PackageContainer]
 
 }
 
@@ -54,15 +68,15 @@ final class AppleFilesWriter {
 
 	// MARK: - Internal
 
-	private(set) var writtenPackages = WrittenPackages(urls: [])
+	private(set) var writtenPackages = WrittenPackages()
 
 	func writePackage(_ keyPackage: SAPDownloadedPackage) -> Bool {
 		do {
 			let filename = UUID().uuidString
 			let keyURL = try keyPackage.writeKeysEntry(toDirectory: rootDir, filename: filename)
 			let signatureURL = try keyPackage.writeSignatureEntry(toDirectory: rootDir, filename: filename)
-			writtenPackages.add(keyURL)
-			writtenPackages.add(signatureURL)
+			writtenPackages.add(PackageContainer(hash: keyPackage.fingerprint, type: .keys, url: keyURL))
+			writtenPackages.add(PackageContainer(hash: keyPackage.fingerprint, type: .signature, url: signatureURL))
 			return true
 		} catch {
 			writtenPackages.cleanUp()
