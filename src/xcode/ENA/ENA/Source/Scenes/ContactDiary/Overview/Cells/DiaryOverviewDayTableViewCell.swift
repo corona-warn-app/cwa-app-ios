@@ -395,12 +395,3 @@ class DiaryOverviewDayTableViewCell: UITableViewCell {
 		didTapClickableView?()
 	}
 }
-
-extension UIStackView {
-	func addBackgroundColor(_ color: UIColor) {
-		let additionalBackground = UIView(frame: bounds)
-		additionalBackground.backgroundColor = color
-		additionalBackground.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-		insertSubview(additionalBackground, at: 0)
-	}
-}
