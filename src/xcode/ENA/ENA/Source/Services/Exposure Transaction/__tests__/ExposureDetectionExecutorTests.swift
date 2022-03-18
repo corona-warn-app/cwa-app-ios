@@ -85,7 +85,7 @@ final class ExposureDetectionExecutorTests: CWATestCase {
 		_ = sut.detectExposureWindows(
 			exposureDetection,
 			detectSummaryWithConfiguration: ENExposureConfiguration(),
-			writtenPackages: WrittenPackages(urls: []),
+			writtenPackages: WrittenPackages(),
 			completion: { result in
 				defer { completionExpectation.fulfill() }
 
@@ -121,7 +121,7 @@ final class ExposureDetectionExecutorTests: CWATestCase {
 		_ = sut.detectExposureWindows(
 			exposureDetection,
 			detectSummaryWithConfiguration: ENExposureConfiguration(),
-			writtenPackages: WrittenPackages(urls: []),
+			writtenPackages: WrittenPackages(),
 			completion: { result in
 				defer { completionExpectation.fulfill() }
 
@@ -180,7 +180,7 @@ final class ExposureDetectionExecutorTests: CWATestCase {
 		_ = sut.detectExposureWindows(
 			exposureDetection,
 			detectSummaryWithConfiguration: ENExposureConfiguration(),
-			writtenPackages: WrittenPackages(urls: []),
+			writtenPackages: WrittenPackages(),
 			completion: { _ in
 				XCTAssertEqual(packageStore.allDays(country: "DE").count, 0)
 				XCTAssertNil(store.appConfigMetadata)

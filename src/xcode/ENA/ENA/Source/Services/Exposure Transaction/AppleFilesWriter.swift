@@ -20,7 +20,9 @@ struct WrittenPackages {
 
 	// MARK: - Init
 
-	init() {
+	init(
+		_ packages: [PackageContainer] = []
+	) {
 		self.packages = []
 	}
 

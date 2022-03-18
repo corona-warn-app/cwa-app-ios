@@ -17,7 +17,11 @@ final class ExposureDetectionTransactionTests: CWATestCase {
 		try "url0".write(to: url0, atomically: true, encoding: .utf8)
 		try "url1".write(to: url1, atomically: true, encoding: .utf8)
 
-		let writtenPackages = WrittenPackages(urls: [url0, url1])
+
+		let package01 = PackageContainer(hash: "1234", type: .signature, url: url0)
+		let package02 = PackageContainer(hash: "5678", type: .keys, url: url1)
+
+		let writtenPackages = WrittenPackages([package01, package02])
 
 		let writtenPackagesBeCalled = expectation(description: "writtenPackages called")
 
@@ -36,15 +40,30 @@ final class ExposureDetectionTransactionTests: CWATestCase {
 		let startCompletionCalled = expectation(description: "start completion called")
 
 		let store = MockTestStore()
+		let client = ClientMock()
+
+		let downloadedPackagesStore: DownloadedPackagesStore = DownloadedPackagesSQLLiteStore.inMemory()
+		downloadedPackagesStore.open()
+
+		let keyPackageDownload = KeyPackageDownload(
+			downloadedPackagesStore: downloadedPackagesStore,
+			client: client,
+			wifiClient: client,
+			store: store
+		)
+
 		let config = SAP_Internal_V2_ApplicationConfigurationIOS()
 		let detection = ExposureDetection(
 			delegate: delegate,
 			appConfiguration: config,
 			deviceTimeCheck: DeviceTimeCheck(store: store, appFeatureProvider: AppFeatureDeviceTimeCheckDecorator.mock(store: store, config: config))
 		)
-		detection.start { _ in
-			startCompletionCalled.fulfill()
-		}
+		detection.start(
+			keyPackageDownload,
+			completion: { _ in
+				startCompletionCalled.fulfill()
+			}
+		)
 
 		wait(
 			for: [
