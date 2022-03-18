@@ -50,20 +50,17 @@ final class ExposureDetection {
 		progress = delegate?.detectExposureWindows(
 			self,
 			detectSummaryWithConfiguration: exposureConfiguration,
-			writtenPackages: writtenPackages
-		) { [weak self] result in
-			writtenPackages.cleanUp()
-			self?.useExposureWindowsResult(result)
-		}
-	}
-
-	private func useExposureWindowsResult(_ result: Result<[ENExposureWindow], Error>) {
-		switch result {
-		case .success(let exposureWindows):
-			didDetectExposureWindows(exposureWindows)
-		case .failure(let error):
-			endPrematurely(reason: .noExposureWindows(error))
-		}
+			writtenPackages: writtenPackages,
+			completion: { [weak self] result in
+				writtenPackages.cleanUp()
+				switch result {
+				case .success(let exposureWindows):
+					self?.didDetectExposureWindows(exposureWindows)
+				case .failure(let error):
+					self?.endPrematurely(reason: .noExposureWindows(error))
+				}
+			}
+		)
 	}
 
 	typealias Completion = (Result<[ENExposureWindow], DidEndPrematurelyReason>) -> Void
