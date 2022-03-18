@@ -255,10 +255,6 @@ class DiaryOverviewDayTableViewCell: UITableViewCell {
 			separatorLine.backgroundColor = .enaColor(for: .hairline)
 			separatorLine.translatesAutoresizingMaskIntoConstraints = false
 
-			// The position is dynamical and so we need to calculate the postion to our own (depending of the layout in the xib and what we do before this step)
-			let entryHeight = CGFloat(30) + imageView.frame.height
-			encountersVisitsContainerStackView.spacing = entryHeight
-
 			entryStackView.addSubview(separatorLine)
 
 			let topConstraint: NSLayoutConstraint
@@ -267,7 +263,7 @@ class DiaryOverviewDayTableViewCell: UITableViewCell {
 			if index == 0 {
 				topConstraint = separatorLine.topAnchor.constraint(equalTo: encountersVisitsContainerStackView.topAnchor)
 			} else {
-				topConstraint = separatorLine.topAnchor.constraint(equalTo: entryStackView.centerYAnchor, constant: -(entryHeight))
+				topConstraint = separatorLine.topAnchor.constraint(equalTo: entryStackView.topAnchor, constant: -10)
 			}
 
 			// Draw the seperator line from leading to trailing of the encountersVisitsContainerStackView
@@ -285,7 +281,7 @@ class DiaryOverviewDayTableViewCell: UITableViewCell {
 		drawBorders(to: [.left, .right], on: encountersVisitsContainerStackView)
 		encountersVisitsContainerStackView.backgroundColor = .enaColor(for: .cellBackground)
 		encountersVisitsContainerStackView.spacing = 20
-		encountersVisitsContainerStackView.distribution = .fillEqually
+		encountersVisitsContainerStackView.distribution = .fill
 
 		// For UI Testing
 		accessibilityTraits = [.button]
@@ -293,6 +289,7 @@ class DiaryOverviewDayTableViewCell: UITableViewCell {
 	}
 
 	private func configureBackground() {
+
 		topBackground.layer.cornerRadius = 14
 		if #available(iOS 13.0, *) {
 			topBackground.layer.cornerCurve = .continuous
