@@ -5,16 +5,22 @@
 import Foundation
 
 struct WrittenPackages {
-	init(urls: [URL]) {
+
+	// MARK: - Init
+
+	init(
+		urls: [URL]
+	) {
 		self.urls = urls
 	}
 
-	var urls: [URL]
+	// MARK: - Internal
+
 	func cleanUp() {
 		guard let directoryURL = urls.first?.deletingLastPathComponent() else {
 			return
 		}
-			
+
 		let fileManager = FileManager()
 		Log.info("Removing: \(directoryURL)", log: .localData)
 
@@ -29,22 +35,26 @@ struct WrittenPackages {
 	mutating func add(_ url: URL) {
 		urls.append(url)
 	}
+
+	// MARK: - Internal
+
+	private(set) var urls: [URL]
+
 }
 
 final class AppleFilesWriter {
 
-	// MARK: Creating a Writer
+	// MARK: - Init
 
-	init(rootDir: URL) {
+	init(
+		rootDir: URL
+	) {
 		self.rootDir = rootDir
 	}
 
-	// MARK: Properties
+	// MARK: - Internal
 
 	private(set) var writtenPackages = WrittenPackages(urls: [])
-	let rootDir: URL
-
-	// MARK: Interacting with the Writer
 
 	func writePackage(_ keyPackage: SAPDownloadedPackage) -> Bool {
 		do {
@@ -59,6 +69,11 @@ final class AppleFilesWriter {
 			return false
 		}
 	}
+
+	// MARK: - Private
+
+	private let rootDir: URL
+
 }
 
 private extension SAPDownloadedPackage {
