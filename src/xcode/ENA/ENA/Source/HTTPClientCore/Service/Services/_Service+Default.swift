@@ -66,11 +66,12 @@ extension Service {
 				completion(.success(model))
 			case .failure(let error):
 				// For any failures we check if the resource has a retry flag and has some retries left and if so, we call load() recursivly.
-
 				if let retryingCount = resource.retryingCount,
 				   retryingCount > 0 {
+					Log.debug("Retry for resource discovered. Retry counter at: \(retryingCount)", log: .client)
 					var mutatableResource = resource
 					mutatableResource.retryingCount? -= 1
+					Log.debug("Remaining retries now: \(mutatableResource.retryingCount ?? 0)", log: .client)
 					load(mutatableResource, completion)
 				} else {
 					completion(.failure(error))
