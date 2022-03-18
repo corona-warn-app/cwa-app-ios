@@ -8,18 +8,8 @@ import Foundation
 /// Every time the user wants to know the own risk the app creates an `ExposureDetection`.
 final class ExposureDetection {
 
-	// MARK: Properties
-	private weak var delegate: ExposureDetectionDelegate?
-	private var completion: Completion?
-	private var progress: Progress?
-	private let appConfiguration: SAP_Internal_V2_ApplicationConfigurationIOS
-	private let deviceTimeCheck: DeviceTimeChecking
+	// MARK: - Init
 
-	// There was a decision not to use the 2 letter code "EU", but instead "EUR".
-	// Please see this story for more information: https://jira.itc.sap.com/browse/EXPOSUREBACK-151
-	private let country = "EUR"
-
-	// MARK: Creating a Transaction
 	init(
 		delegate: ExposureDetectionDelegate,
 		appConfiguration: SAP_Internal_V2_ApplicationConfigurationIOS,
@@ -30,9 +20,46 @@ final class ExposureDetection {
 		self.deviceTimeCheck = deviceTimeCheck
 	}
 
+	// MARK: - Internal
+
+	typealias Completion = (Result<[ENExposureWindow], DidEndPrematurelyReason>) -> Void
+
+	func start(_ keyPackageDownload: KeyPackageDownloadProtocol, completion: @escaping Completion) {
+		self.completion = completion
+
+		Log.info("ExposureDetection: Start writing packages to file system.", log: .riskDetection)
+
+		writeKeyPackagesToFileSystem { [weak self] writtenPackages in
+			guard let self = self else { return }
+
+			Log.info("ExposureDetection: Completed writing packages to file system.", log: .riskDetection)
+
+			if !self.deviceTimeCheck.isDeviceTimeCorrect {
+				Log.warning("ExposureDetection: Detecting exposure windows skipped due to wrong device time.", log: .riskDetection)
+				self.endPrematurely(reason: .wrongDeviceTime)
+			} else {
+				Log.info("ExposureDetection: Start detecting exposure windows.", log: .riskDetection)
+				let exposureConfiguration = ENExposureConfiguration(from: appConfiguration.exposureConfiguration)
+				self.detectExposureWindows(keyPackageDownload, writtenPackages: writtenPackages, exposureConfiguration: exposureConfiguration)
+			}
+		}
+	}
+
 	func cancel() {
 		progress?.cancel()
 	}
+
+	// MARK: - Private
+
+	private let appConfiguration: SAP_Internal_V2_ApplicationConfigurationIOS
+	private let deviceTimeCheck: DeviceTimeChecking
+	// There was a decision not to use the 2 letter code "EU", but instead "EUR".
+	// Please see this story for more information: https://jira.itc.sap.com/browse/EXPOSUREBACK-151
+	private let country = "EUR"
+
+	private weak var delegate: ExposureDetectionDelegate?
+	private var completion: Completion?
+	private var progress: Progress?
 
 	private func writeKeyPackagesToFileSystem(completion: (WrittenPackages) -> Void) {
 		if let writtenPackages = self.delegate?.exposureDetectionWriteDownloadedPackages(country: country) {
@@ -42,7 +69,7 @@ final class ExposureDetection {
 		}
 	}
 
-	private func detectExposureWindows(writtenPackages: WrittenPackages, exposureConfiguration: ENExposureConfiguration) {
+	private func detectExposureWindows(_ keyPackageDownload: KeyPackageDownloadProtocol, writtenPackages: WrittenPackages, exposureConfiguration: ENExposureConfiguration) {
 		if progress != nil {
 			Log.error("previous running progress found, will try to cancel", log: .riskDetection)
 			progress?.cancel()
@@ -52,9 +79,13 @@ final class ExposureDetection {
 			detectSummaryWithConfiguration: exposureConfiguration,
 			writtenPackages: writtenPackages,
 			completion: { [weak self] result in
-				writtenPackages.cleanUp()
+				defer {
+					writtenPackages.cleanUp()
+				}
+
 				switch result {
 				case .success(let exposureWindows):
+					keyPackageDownload.markPackagesAsCheckedForExposures(writtenPackages.fingerprints)
 					self?.didDetectExposureWindows(exposureWindows)
 				case .failure(let error):
 					self?.endPrematurely(reason: .noExposureWindows(error))
@@ -62,31 +93,6 @@ final class ExposureDetection {
 			}
 		)
 	}
-
-	typealias Completion = (Result<[ENExposureWindow], DidEndPrematurelyReason>) -> Void
-
-    func start(completion: @escaping Completion) {
-        self.completion = completion
-
-        Log.info("ExposureDetection: Start writing packages to file system.", log: .riskDetection)
-
-        writeKeyPackagesToFileSystem { [weak self] writtenPackages in
-            guard let self = self else { return }
-
-            Log.info("ExposureDetection: Completed writing packages to file system.", log: .riskDetection)
-
-			if !self.deviceTimeCheck.isDeviceTimeCorrect {
-				Log.warning("ExposureDetection: Detecting exposure windows skipped due to wrong device time.", log: .riskDetection)
-				self.endPrematurely(reason: .wrongDeviceTime)
-			} else {
-				Log.info("ExposureDetection: Start detecting exposure windows.", log: .riskDetection)
-				let exposureConfiguration = ENExposureConfiguration(from: appConfiguration.exposureConfiguration)
-				self.detectExposureWindows(writtenPackages: writtenPackages, exposureConfiguration: exposureConfiguration)
-			}
-        }
-    }
-	
-	// MARK: Working with the Completion Handler
 
 	// Ends the transaction prematurely with a given reason.
 	private func endPrematurely(reason: DidEndPrematurelyReason) {

@@ -9,6 +9,8 @@ protocol KeyPackageDownloadProtocol {
 
 	func startDayPackagesDownload(completion: @escaping (Result<Void, KeyPackageDownloadError>) -> Void)
 	func startHourPackagesDownload(completion: @escaping (Result<Void, KeyPackageDownloadError>) -> Void)
+
+	func markPackagesAsCheckedForExposures(_ fingerprints: [String])
 }
 
 enum KeyPackageDownloadError: Error {
@@ -116,6 +118,14 @@ class KeyPackageDownload: KeyPackageDownloadProtocol {
 				Log.error("KeyPackageDownload: Completed processing hour packages with error: \(error).", log: .riskDetection)
 				completion(.failure(error))
 			}
+		}
+	}
+
+	func markPackagesAsCheckedForExposures(_ fingerprints: [String]) {
+		do {
+			try downloadedPackagesStore.markPackagesAsCheckedForExposures(fingerprints)
+		} catch {
+			Log.error("Failed to markPackagesAsCheckedForExposures ")
 		}
 	}
 

@@ -46,6 +46,10 @@ struct WrittenPackages {
 		packages.append(container)
 	}
 
+	var fingerprints: [String] {
+		packages.map { $0.hash }
+	}
+
 	var urls: [URL] {
 		packages.map { $0.url }
 	}
