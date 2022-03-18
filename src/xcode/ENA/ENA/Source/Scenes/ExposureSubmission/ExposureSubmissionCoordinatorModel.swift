@@ -243,5 +243,4 @@ class ExposureSubmissionCoordinatorModel {
 			fatalError("Cannot set submission consent, no corona test type is set")
 		}
 	}
-
 }
