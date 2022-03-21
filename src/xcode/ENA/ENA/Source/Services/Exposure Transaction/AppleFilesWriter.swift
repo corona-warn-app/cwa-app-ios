@@ -49,7 +49,8 @@ struct WrittenPackages {
 	}
 
 	var fingerprints: [String] {
-		packages.map { $0.hash }
+		packages.filter { $0.type == .keys }
+			.map { $0.hash }
 	}
 
 	var urls: [URL] {
