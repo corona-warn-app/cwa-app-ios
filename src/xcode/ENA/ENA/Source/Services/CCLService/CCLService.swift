@@ -44,6 +44,7 @@ struct CCLServiceMode: OptionSet {
 	let rawValue: Int
 	static let configuration = CCLServiceMode(rawValue: 1 << 0)
 	static let boosterRules = CCLServiceMode(rawValue: 1 << 1)
+	static let invalidationRules = CCLServiceMode(rawValue: 1 << 2)
 }
 
 class CCLService: CCLServable {
