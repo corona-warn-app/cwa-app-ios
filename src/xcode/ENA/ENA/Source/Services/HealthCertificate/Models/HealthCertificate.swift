@@ -266,13 +266,7 @@ final class HealthCertificate: Codable, Equatable, Comparable, RecycleBinIdentif
 			return recoveryEntry.localDateOfFirstPositiveNAAResult
 		}
 	}()
-	
-	func isBlocked(by invalidationRules: [DCCCertificateContainer]) -> Bool {
-		invalidationRules.contains(where: {
-			$0.certificateRef.barcodeData == base45
-		})
-	}
-	
+		
 	func belongsToSamePerson(_ other: HealthCertificate) -> Bool {
 		// The sanitized dateOfBirth attributes are the same strings
 		guard self.trimmedDateOfBirth == other.trimmedDateOfBirth else {

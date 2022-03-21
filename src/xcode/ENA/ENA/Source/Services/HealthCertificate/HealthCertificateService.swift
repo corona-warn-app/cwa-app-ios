@@ -690,7 +690,10 @@ class HealthCertificateService: HealthCertificateServiceServable {
 	private func updateValidityState(for healthCertificate: HealthCertificate, person: HealthCertifiedPerson) {
 		let previousValidityState = healthCertificate.validityState
 
-		if let invalidationRules = person.dccWalletInfo?.certificatesRevokedByInvalidationRules, healthCertificate.isBlocked(by: invalidationRules) {
+		if let invalidationRules = person.dccWalletInfo?.certificatesRevokedByInvalidationRules,
+		   invalidationRules.contains(where: {
+			   $0.certificateRef.barcodeData == healthCertificate.base45
+		   }) {
 			healthCertificate.validityState = .blocked
 		} else {
 			let signatureVerificationResult = dccSignatureVerifier.verify(
