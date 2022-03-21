@@ -10,10 +10,12 @@ class FamilyMemberConsentViewController: DynamicTableViewController, DismissHand
 
 	init(
 		dismiss: @escaping () -> Void,
+		didTapDataPrivacy: @escaping () -> Void,
 		didTapSubmit: @escaping (String) -> Void
 	) {
 		self.dismiss = dismiss
 		self.didTapSubmit = didTapSubmit
+		self.didTapDataPrivacy = didTapDataPrivacy
 		self.viewModel = FamilyMemberConsentViewModel()
 		super.init(nibName: nil, bundle: nil)
 	}
@@ -58,6 +60,7 @@ class FamilyMemberConsentViewController: DynamicTableViewController, DismissHand
 
 	private let dismiss: () -> Void
 	private let didTapSubmit: (String) -> Void
+	private let didTapDataPrivacy: () -> Void
 	private let viewModel: FamilyMemberConsentViewModel
 
 	private func setupNavigationBar() {
