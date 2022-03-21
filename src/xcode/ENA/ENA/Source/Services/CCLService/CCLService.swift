@@ -360,7 +360,7 @@ class CCLService: CCLServable {
 					case .boosterNotification:
 						completion(.failure(.custom(DCCDownloadRulesError.RULE_CLIENT_ERROR(.boosterNotification))))
 					case .invalidation:
-						completion(.failure(.custom(DCCDownloadRulesError.RULE_CLIENT_ERROR(.boosterNotification))))
+						completion(.failure(.custom(DCCDownloadRulesError.RULE_CLIENT_ERROR(.invalidation))))
 					default:
 						break
 					}
