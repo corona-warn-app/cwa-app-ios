@@ -48,7 +48,7 @@ struct WrittenPackages {
 		packages.append(container)
 	}
 
-	var fingerprints: [String] {
+	var keyFingerprints: [String] {
 		packages.filter { $0.type == .keys }
 			.map { $0.hash }
 	}

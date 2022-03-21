@@ -89,7 +89,7 @@ final class ExposureDetection {
 				switch result {
 				case .success(let exposureWindows):
 					do {
-						try self?.downloadedPackagesStore.markPackagesAsCheckedForExposures(writtenPackages.fingerprints)
+						try self?.downloadedPackagesStore.markPackagesAsCheckedForExposures(writtenPackages.keyFingerprints)
 					} catch {
 						Log.error("Failed to markPackagesAsCheckedForExposures")
 					}
