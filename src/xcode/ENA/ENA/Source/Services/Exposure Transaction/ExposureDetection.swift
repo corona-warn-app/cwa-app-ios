@@ -13,11 +13,13 @@ final class ExposureDetection {
 	init(
 		delegate: ExposureDetectionDelegate,
 		appConfiguration: SAP_Internal_V2_ApplicationConfigurationIOS,
-		deviceTimeCheck: DeviceTimeChecking
+		deviceTimeCheck: DeviceTimeChecking,
+		downloadedPackagesStore: DownloadedPackagesStore
 	) {
 		self.delegate = delegate
 		self.appConfiguration = appConfiguration
 		self.deviceTimeCheck = deviceTimeCheck
+		self.downloadedPackagesStore = downloadedPackagesStore
 	}
 
 	// MARK: - Internal
@@ -56,6 +58,7 @@ final class ExposureDetection {
 	// There was a decision not to use the 2 letter code "EU", but instead "EUR".
 	// Please see this story for more information: https://jira.itc.sap.com/browse/EXPOSUREBACK-151
 	private let country = "EUR"
+	private let downloadedPackagesStore: DownloadedPackagesStore
 
 	private weak var delegate: ExposureDetectionDelegate?
 	private var completion: Completion?
@@ -85,7 +88,11 @@ final class ExposureDetection {
 
 				switch result {
 				case .success(let exposureWindows):
-					keyPackageDownload.markPackagesAsCheckedForExposures(writtenPackages.fingerprints)
+					do {
+						try self?.downloadedPackagesStore.markPackagesAsCheckedForExposures(writtenPackages.fingerprints)
+					} catch {
+						Log.error("Failed to markPackagesAsCheckedForExposures")
+					}
 					self?.didDetectExposureWindows(exposureWindows)
 				case .failure(let error):
 					self?.endPrematurely(reason: .noExposureWindows(error))
