@@ -72,7 +72,8 @@ class CCLService: CCLServable {
 		boosterNotificationRulesResource.receiveResource = CBORReceiveResource(signatureVerifier: signatureVerifier)
 		self.boosterNotificationRulesResource = boosterNotificationRulesResource
 
-		var invalidationRulesResource = DCCRulesResource(ruleType: .invalidation)
+		var invalidationRulesResource = DCCRulesResource(ruleType: .invalidation, restServiceType: .caching(
+			Set<CacheUsePolicy>([.loadOnlyOnceADay]))
 		invalidationRulesResource.receiveResource = CBORReceiveResource(signatureVerifier: signatureVerifier)
 		self.invalidationRulesResource = invalidationRulesResource
 

@@ -12,6 +12,7 @@ struct DCCRulesResource: Resource {
 	init(
 		isFake: Bool = false,
 		ruleType: HealthCertificateValidationRuleType,
+		restServiceType: ServiceType? = nil,
 		trustEvaluation: TrustEvaluating = DefaultTrustEvaluation(
 			publicKeyHash: Environments().currentEnvironment().pinningKeyHashData
 		)
@@ -19,15 +20,11 @@ struct DCCRulesResource: Resource {
 		self.locator = .DCCRules(ruleType: ruleType, isFake: isFake)
 
 		if ruleType == .boosterNotification {
-			self.type = .caching(
-				Set<CacheUsePolicy>([.loadOnlyOnceADay])
-			)
-		} else if ruleType == .invalidation {
-			self.type = .caching(
+			self.type = restServiceType ?? .caching(
 				Set<CacheUsePolicy>([.loadOnlyOnceADay])
 			)
 		} else {
-			self.type = .caching()
+			self.type = restServiceType ?? .caching()
 		}
 
 		#if !RELEASE
