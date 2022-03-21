@@ -116,22 +116,35 @@ extension DownloadedPackagesSQLLiteStoreV3: DownloadedPackagesStoreV3 {
 	func markPackagesAsCheckedForExposures(_ fingerprints: [String]) throws {
 		try queue.sync {
 			// ['a', 'b', 'c'] --> ?, ?, ?
-			let params = Array(repeating: "?", count: fingerprints.count).joined(separator: ", ")
+			let fingerprintParams = Array(repeating: "?", count: fingerprints.count).joined(separator: ", ")
 			
 			let sql = """
 				UPDATE
 					Z_DOWNLOADED_PACKAGE
 				SET
-					Z_CHECKED_FOR_EXPOSURES = 1
+					Z_CHECKED_FOR_EXPOSURES = 1,
+					Z_BIN = ?,
+					Z_SIGNATURE = ?
 				WHERE
 					Z_HASH
 				IN
-					(\(params))
+					(\(fingerprintParams))
 				;
 			"""
-
+			
+			// Set 'bin' and 'signature' to (nearly) empty data. (For the first two '?' in the query).
+			// It still needs to be set to some tiny data blob ("42"), otherwise FMDB will return nil while reading it.
+			// We are setting it to empty data to free up disk space, because the keys in these packages are not used anymore for risk calculation.
+			var parameters: [Any] = [
+				"42".data(using: .utf8) ?? Data(),
+				"42".data(using: .utf8) ?? Data()
+			]
+			
+			// Append fingerprints for the other '?' in the search query 'IN'.
+			parameters.append(contentsOf: fingerprints)
+			
 			do {
-				try database.executeUpdate(sql, values: fingerprints)
+				try database.executeUpdate(sql, values: parameters)
 			} catch {
 				Log.error("[SQLite] (\(database.lastErrorCode()) \(database.lastErrorMessage())", log: .localData)
 				let sqliteError = SQLiteErrorCode(rawValue: database.lastErrorCode()) ?? SQLiteErrorCode.unknown
