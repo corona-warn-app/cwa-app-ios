@@ -16,7 +16,7 @@ final class Migration2To3: Migration {
 
 	// MARK: - Protocol Migration
 
-	let version = 2
+	let version = 3
 
 	func execute() throws {
 		let sql = """
