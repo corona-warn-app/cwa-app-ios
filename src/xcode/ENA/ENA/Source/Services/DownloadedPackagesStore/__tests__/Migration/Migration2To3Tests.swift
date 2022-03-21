@@ -16,7 +16,7 @@ final class Migration2To3Tests: CWATestCase {
 		let rowCount = 14
 
 		// --- init V2
-		let storeV2 = DownloadedPackagesSQLLiteStoreV2(database: database, migrator: SerialMigratorFake(), latestVersion: 1)
+		let storeV2 = DownloadedPackagesSQLLiteStoreV2(database: database, migrator: SerialMigratorFake(), latestVersion: 2)
 		storeV2.open()
 
 		for index in 0..<rowCount {
@@ -26,7 +26,7 @@ final class Migration2To3Tests: CWATestCase {
 
 		XCTAssertTrue(database.tableExists(tableName))
 		XCTAssertEqual(database.numberOfRows(for: tableName), rowCount)
-		XCTAssertEqual(database.numberOfColumns(for: tableName), 5)
+		XCTAssertEqual(database.numberOfColumns(for: tableName), 7)
 
 		let migrator3 = SerialMigrator(
 			latestVersion: 3,
