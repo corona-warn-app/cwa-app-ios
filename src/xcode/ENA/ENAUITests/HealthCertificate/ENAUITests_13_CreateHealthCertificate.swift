@@ -575,7 +575,9 @@ class ENAUITests_13_CreateHealthCertificate: CWATestCase {
 		app.launch()
 
 		// Navigate to Certificates Tab.
-		app.buttons[AccessibilityIdentifiers.TabBar.certificates].waitAndTap()
+		let certificateTab = app.buttons[AccessibilityIdentifiers.TabBar.certificates]
+		XCTAssertTrue(certificateTab.waitForExistence(timeout: .medium))
+		certificateTab.waitAndTap()
 
 		// Navigate to Persons Tab.
 		app.cells[AccessibilityIdentifiers.HealthCertificate.Overview.healthCertifiedPersonCell].waitAndTap()
