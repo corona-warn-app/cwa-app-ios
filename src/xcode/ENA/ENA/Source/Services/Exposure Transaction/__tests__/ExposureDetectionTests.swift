@@ -56,7 +56,14 @@ final class ExposureDetectionTransactionTests: CWATestCase {
 		let detection = ExposureDetection(
 			delegate: delegate,
 			appConfiguration: config,
-			deviceTimeCheck: DeviceTimeCheck(store: store, appFeatureProvider: AppFeatureDeviceTimeCheckDecorator.mock(store: store, config: config))
+			deviceTimeCheck: DeviceTimeCheck(
+				store: store,
+				appFeatureProvider: AppFeatureDeviceTimeCheckDecorator.mock(
+					store: store,
+					config: config
+				)
+			),
+			downloadedPackagesStore: DownloadedPackagesSQLLiteStore.inMemory()
 		)
 		detection.start(
 			keyPackageDownload,

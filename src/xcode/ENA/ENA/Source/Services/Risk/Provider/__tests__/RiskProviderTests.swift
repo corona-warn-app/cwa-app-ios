@@ -48,7 +48,8 @@ class RiskProviderTests: CWATestCase {
 			keyPackageDownload: makeKeyPackageDownloadMock(with: store),
 			traceWarningPackageDownload: traceWarningPackageDownload,
 			exposureDetectionExecutor: exposureDetectionDelegateStub,
-			coronaTestService: MockCoronaTestService()
+			coronaTestService: MockCoronaTestService(),
+			downloadedPackagesStore: DownloadedPackagesSQLLiteStore.inMemory()
 		)
 		
 		let consumer = RiskConsumer()
@@ -124,7 +125,8 @@ class RiskProviderTests: CWATestCase {
 			keyPackageDownload: makeKeyPackageDownloadMock(with: store),
 			traceWarningPackageDownload: traceWarningPackageDownload,
 			exposureDetectionExecutor: exposureDetectionDelegateStub,
-			coronaTestService: MockCoronaTestService()
+			coronaTestService: MockCoronaTestService(),
+			downloadedPackagesStore: DownloadedPackagesSQLLiteStore.inMemory()
 		)
 		
 		let consumer = RiskConsumer()
@@ -200,7 +202,8 @@ class RiskProviderTests: CWATestCase {
 			keyPackageDownload: makeKeyPackageDownloadMock(with: store),
 			traceWarningPackageDownload: traceWarningPackageDownload,
 			exposureDetectionExecutor: exposureDetectionDelegateStub,
-			coronaTestService: MockCoronaTestService()
+			coronaTestService: MockCoronaTestService(),
+			downloadedPackagesStore: DownloadedPackagesSQLLiteStore.inMemory()
 		)
 		
 		let consumer = RiskConsumer()
@@ -263,7 +266,8 @@ class RiskProviderTests: CWATestCase {
 			keyPackageDownload: makeKeyPackageDownloadMock(with: store),
 			traceWarningPackageDownload: makeTraceWarningPackageDownloadMock(with: store, appConfig: appConfig),
 			exposureDetectionExecutor: exposureDetectionDelegateStub,
-			coronaTestService: MockCoronaTestService()
+			coronaTestService: MockCoronaTestService(),
+			downloadedPackagesStore: DownloadedPackagesSQLLiteStore.inMemory()
 		)
 		
 		let didCalculateRiskCalled = expectation(description: "expect didCalculateRisk to be called once")
@@ -313,7 +317,8 @@ class RiskProviderTests: CWATestCase {
 			keyPackageDownload: makeKeyPackageDownloadMock(with: store),
 			traceWarningPackageDownload: makeTraceWarningPackageDownloadMock(with: store, appConfig: cachedAppConfig),
 			exposureDetectionExecutor: exposureDetectionDelegateStub,
-			coronaTestService: MockCoronaTestService()
+			coronaTestService: MockCoronaTestService(),
+			downloadedPackagesStore: DownloadedPackagesSQLLiteStore.inMemory()
 		)
 		
 		let didCalculateRiskCalled = expectation(description: "expect didCalculateRisk to be called")
@@ -389,7 +394,8 @@ class RiskProviderTests: CWATestCase {
 			keyPackageDownload: makeKeyPackageDownloadMock(with: store),
 			traceWarningPackageDownload: makeTraceWarningPackageDownloadMock(with: store, appConfig: cachedAppConfig),
 			exposureDetectionExecutor: exposureDetectionDelegateStub,
-			coronaTestService: MockCoronaTestService()
+			coronaTestService: MockCoronaTestService(),
+			downloadedPackagesStore: DownloadedPackagesSQLLiteStore.inMemory()
 		)
 		
 		let requestRiskExpectation = expectation(description: "")
@@ -432,7 +438,8 @@ class RiskProviderTests: CWATestCase {
 			keyPackageDownload: makeKeyPackageDownloadMock(with: store),
 			traceWarningPackageDownload: makeTraceWarningPackageDownloadMock(with: store, appConfig: appConfig),
 			exposureDetectionExecutor: exposureDetectionDelegateStub,
-			coronaTestService: MockCoronaTestService()
+			coronaTestService: MockCoronaTestService(),
+			downloadedPackagesStore: DownloadedPackagesSQLLiteStore.inMemory()
 		)
 		
 		let consumer = RiskConsumer()
@@ -487,7 +494,8 @@ class RiskProviderTests: CWATestCase {
 			keyPackageDownload: makeKeyPackageDownloadMock(with: store),
 			traceWarningPackageDownload: makeTraceWarningPackageDownloadMock(with: store, appConfig: appConfig),
 			exposureDetectionExecutor: exposureDetectionDelegateStub,
-			coronaTestService: MockCoronaTestService()
+			coronaTestService: MockCoronaTestService(),
+			downloadedPackagesStore: DownloadedPackagesSQLLiteStore.inMemory()
 		)
 		
 		let consumer = RiskConsumer()
@@ -549,7 +557,8 @@ class RiskProviderTests: CWATestCase {
 			keyPackageDownload: makeKeyPackageDownloadMock(with: store),
 			traceWarningPackageDownload: makeTraceWarningPackageDownloadMock(with: store, appConfig: appConfig),
 			exposureDetectionExecutor: exposureDetectionDelegateStub,
-			coronaTestService: MockCoronaTestService()
+			coronaTestService: MockCoronaTestService(),
+			downloadedPackagesStore: DownloadedPackagesSQLLiteStore.inMemory()
 		)
 		
 		let consumer = RiskConsumer()
@@ -612,7 +621,8 @@ class RiskProviderTests: CWATestCase {
 			keyPackageDownload: makeKeyPackageDownloadMock(with: store),
 			traceWarningPackageDownload: makeTraceWarningPackageDownloadMock(with: store, appConfig: appConfig),
 			exposureDetectionExecutor: exposureDetectionDelegateStub,
-			coronaTestService: coronaTestService
+			coronaTestService: coronaTestService,
+			downloadedPackagesStore: DownloadedPackagesSQLLiteStore.inMemory()
 		)
 		
 		let consumer = RiskConsumer()
@@ -895,7 +905,8 @@ class RiskProviderTests: CWATestCase {
 			keyPackageDownload: makeKeyPackageDownloadMock(with: store),
 			traceWarningPackageDownload: makeTraceWarningPackageDownloadMock(with: store, appConfig: appConfig),
 			exposureDetectionExecutor: exposureDetectionDelegateStub,
-			coronaTestService: MockCoronaTestService()
+			coronaTestService: MockCoronaTestService(),
+			downloadedPackagesStore: DownloadedPackagesSQLLiteStore.inMemory()
 		)
 		
 	}
@@ -961,7 +972,8 @@ class RiskProviderTests: CWATestCase {
 			keyPackageDownload: keyPackageDownload,
 			traceWarningPackageDownload: makeTraceWarningPackageDownloadMock(with: store, appConfig: appConfigurationProvider),
 			exposureDetectionExecutor: exposureDetectionDelegateStub,
-			coronaTestService: MockCoronaTestService()
+			coronaTestService: MockCoronaTestService(),
+			downloadedPackagesStore: DownloadedPackagesSQLLiteStore.inMemory()
 		)
 	}
 	
@@ -1037,7 +1049,8 @@ class RiskProviderTests: CWATestCase {
 			keyPackageDownload: keyPackageDownload,
 			traceWarningPackageDownload: makeTraceWarningPackageDownloadMock(with: store, appConfig: cachedAppConfig),
 			exposureDetectionExecutor: exposureDetectionDelegateStub,
-			coronaTestService: MockCoronaTestService()
+			coronaTestService: MockCoronaTestService(),
+			downloadedPackagesStore: DownloadedPackagesSQLLiteStore.inMemory()
 		)
 		
 		let requestRiskExpectation = expectation(description: "")
@@ -1123,7 +1136,8 @@ class RiskProviderTests: CWATestCase {
 			keyPackageDownload: keyPackageDownload,
 			traceWarningPackageDownload: makeTraceWarningPackageDownloadMock(with: store, appConfig: cachedAppConfig),
 			exposureDetectionExecutor: exposureDetectionDelegateStub,
-			coronaTestService: MockCoronaTestService()
+			coronaTestService: MockCoronaTestService(),
+			downloadedPackagesStore: DownloadedPackagesSQLLiteStore.inMemory()
 		)
 		
 		let requestRiskExpectation = expectation(description: "")
@@ -1211,7 +1225,8 @@ class RiskProviderTests: CWATestCase {
 			keyPackageDownload: keyPackageDownload,
 			traceWarningPackageDownload: makeTraceWarningPackageDownloadMock(with: store, appConfig: cachedAppConfig),
 			exposureDetectionExecutor: exposureDetectionDelegateStub,
-			coronaTestService: MockCoronaTestService()
+			coronaTestService: MockCoronaTestService(),
+			downloadedPackagesStore: DownloadedPackagesSQLLiteStore.inMemory()
 		)
 		
 		let requestRiskExpectation = expectation(description: "")
@@ -1297,7 +1312,8 @@ class RiskProviderTests: CWATestCase {
 			keyPackageDownload: keyPackageDownload,
 			traceWarningPackageDownload: makeTraceWarningPackageDownloadMock(with: store, appConfig: cachedAppConfig),
 			exposureDetectionExecutor: exposureDetectionDelegateStub,
-			coronaTestService: MockCoronaTestService()
+			coronaTestService: MockCoronaTestService(),
+			downloadedPackagesStore: DownloadedPackagesSQLLiteStore.inMemory()
 		)
 		
 		let requestRiskExpectation = expectation(description: "")
