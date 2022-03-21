@@ -265,7 +265,7 @@ class HealthCertificateService: HealthCertificateServiceServable {
 		
 		person.healthCertificates.replace(oldHealthCertificate, with: newHealthCertificate)
 		
-		updateValidityState(for: newHealthCertificate)
+		updateValidityState(for: newHealthCertificate, person: person)
 		scheduleTimer()
 
 		healthCertificateNotificationService.createNotifications(for: newHealthCertificate)
@@ -291,7 +291,7 @@ class HealthCertificateService: HealthCertificateServiceServable {
 		let isNewPersonAdded = newlyGroupedPersons.count > healthCertifiedPersons.count
 		healthCertifiedPersons = newlyGroupedPersons
 		
-		updateValidityState(for: healthCertificate)
+		updateValidityState(for: healthCertificate, person: healthCertifiedPerson)
 		scheduleTimer()
 
 		healthCertificateNotificationService.createNotifications(for: healthCertificate)
@@ -458,7 +458,7 @@ class HealthCertificateService: HealthCertificateServiceServable {
 
 		healthCertifiedPersons.forEach { healthCertifiedPerson in
 			healthCertifiedPerson.healthCertificates.forEach { healthCertificate in
-				updateValidityState(for: healthCertificate)
+				updateValidityState(for: healthCertificate, person: healthCertifiedPerson)
 				healthCertificateNotificationService.recreateNotifications(for: healthCertificate)
 			}
 		}
@@ -687,12 +687,10 @@ class HealthCertificateService: HealthCertificateServiceServable {
 		}
 	}
 
-	private func updateValidityState(for healthCertificate: HealthCertificate) {
+	private func updateValidityState(for healthCertificate: HealthCertificate, person: HealthCertifiedPerson) {
 		let previousValidityState = healthCertificate.validityState
 
-		let blockedIdentifierChunks = appConfiguration.currentAppConfig.value
-			.dgcParameters.blockListParameters.blockedUvciChunks
-		if healthCertificate.isBlocked(by: blockedIdentifierChunks) {
+		if let invalidationRules = person.dccWalletInfo?.certificatesRevokedByInvalidationRules, healthCertificate.isBlocked(by: invalidationRules) {
 			healthCertificate.validityState = .blocked
 		} else {
 			let signatureVerificationResult = dccSignatureVerifier.verify(
