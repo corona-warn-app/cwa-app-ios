@@ -267,22 +267,10 @@ final class HealthCertificate: Codable, Equatable, Comparable, RecycleBinIdentif
 		}
 	}()
 	
-	func isBlocked(by blockedIdentifierChunks: [SAP_Internal_V2_DGCBlockedUVCIChunk]) -> Bool {
-		blockedIdentifierChunks.contains {
-			/// Skip if at least one index would be out of bounds
-			guard $0.indices.allSatisfy({ $0 < uniqueCertificateIdentifierChunks.count }) else {
-				return false
-			}
-
-			let blockedChunks = $0.indices
-				.map { uniqueCertificateIdentifierChunks[Int($0)] }
-				.joined(separator: "/")
-
-			let hash = ENAHasher.sha256(blockedChunks)
-			let hashData = hash.dataWithHexString()
-
-			return hashData == $0.hash
-		}
+	func isBlocked(by invalidationRules: [DCCCertificateContainer]) -> Bool {
+		invalidationRules.contains(where: {
+			$0.certificateRef.barcodeData == base45
+		})
 	}
 	
 	func belongsToSamePerson(_ other: HealthCertificate) -> Bool {
