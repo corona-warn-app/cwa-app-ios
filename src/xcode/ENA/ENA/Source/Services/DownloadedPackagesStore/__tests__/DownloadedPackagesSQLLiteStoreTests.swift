@@ -6,6 +6,7 @@
 import FMDB
 import XCTest
 
+// swiftlint:disable type_body_length
 final class DownloadedPackagesSQLLiteStoreTests: CWATestCase {
 
 	private var store: DownloadedPackagesSQLLiteStore = .inMemory()
@@ -200,8 +201,6 @@ final class DownloadedPackagesSQLLiteStoreTests: CWATestCase {
 
 	func test_deleteWithCloseOpenDB() throws {
 		let unitTestStore: DownloadedPackagesStore = DownloadedPackagesSQLLiteStore(fileName: "unittest")
-
-		unitTestStore.open()
 
 		let keysBin = Data("keys".utf8)
 		let signature = Data("sig".utf8)
@@ -465,5 +464,70 @@ final class DownloadedPackagesSQLLiteStoreTests: CWATestCase {
 		XCTAssertEqual(evilETagPackages.count, 2)
 		XCTAssertEqual(store.hours(for: "2020-06-02", country: "DE").count, 1)
 		XCTAssertEqual(store.hours(for: "2020-06-04", country: "DE").count, 1)
+	}
+	
+	func test_MarkPackagesAsCheckedForExposures() throws {
+		let database = FMDatabase.inMemory()
+		let store = DownloadedPackagesSQLLiteStore(database: database, migrator: SerialMigratorFake(), latestVersion: 0)
+		store.open()
+
+		// Add days
+		let dayPackage1 = randomPackage()
+		let dayPackage2 = randomPackage()
+		let dayPackage3 = randomPackage()
+		try store.set(country: "DE", day: "2020-06-01", etag: nil, package: dayPackage1)
+		try store.set(country: "DE", day: "2020-06-02", etag: nil, package: dayPackage2)
+		try store.set(country: "DE", day: "2020-06-03", etag: nil, package: dayPackage3)
+
+		// Add hours
+		let hourPackage1 = randomPackage()
+		let hourPackage2 = randomPackage()
+		let hourPackage3 = randomPackage()
+		try store.set(country: "DE", hour: 1, day: "2020-06-4", etag: nil, package: hourPackage1)
+		try store.set(country: "DE", hour: 2, day: "2020-06-4", etag: nil, package: hourPackage2)
+		try store.set(country: "DE", hour: 3, day: "2020-06-4", etag: nil, package: hourPackage3)
+
+		try store.markPackagesAsCheckedForExposures([
+			dayPackage1.fingerprint,
+			dayPackage2.fingerprint,
+			hourPackage1.fingerprint,
+			hourPackage2.fingerprint
+		])
+
+		// Check hour packages.
+		XCTAssertEqual(store.hourlyPackagesNotCheckedForExposure(for: "2020-06-4", country: "DE").count, 1)
+		let hourPackages = store.hourlyPackages(for: "2020-06-4", country: "DE")
+		XCTAssertEqual(hourPackages.count, 3)
+		
+		// Check if other packages data was set emtpy (42).
+		let numberOfEmptyPackages = try hourPackages.reduce(into: 0) { count, package in
+			let binData = try XCTUnwrap("42".data(using: .utf8))
+			let signatureData = try XCTUnwrap("42".data(using: .utf8))
+			if package.bin == binData &&
+				package.signature == signatureData {
+				count += 1
+			}
+		}
+		
+		XCTAssertEqual(numberOfEmptyPackages, 2)
+
+		// Check day packages.
+		
+		XCTAssertEqual(store.allDaysNotCheckedForExposure(country: "DE").count, 1)
+		let allDays = store.allDays(country: "DE")
+		XCTAssertEqual(allDays.count, 3)
+		let testDayPackage1 = try XCTUnwrap(store.package(for: "2020-06-01", country: "DE"))
+		XCTAssertEqual(testDayPackage1.bin, try XCTUnwrap("42".data(using: .utf8)))
+		XCTAssertEqual(testDayPackage1.signature, try XCTUnwrap("42".data(using: .utf8)))
+		let testDayPackage2 = try XCTUnwrap(store.package(for: "2020-06-02", country: "DE"))
+		XCTAssertEqual(testDayPackage2.bin, try XCTUnwrap("42".data(using: .utf8)))
+		XCTAssertEqual(testDayPackage2.signature, try XCTUnwrap("42".data(using: .utf8)))
+	}
+	
+	private func randomPackage() -> SAPDownloadedPackage {
+		SAPDownloadedPackage(
+			keysBin: Data(String.getRandomString(of: 5).utf8),
+			signature: Data(String.getRandomString(of: 5).utf8)
+		)
 	}
 }
