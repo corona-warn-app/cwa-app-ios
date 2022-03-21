@@ -34,7 +34,7 @@ final class ExposureDetectionExecutor: ExposureDetectionDelegate {
 			let rootDir = try fileManager.createKeyPackageDirectory()
 			let writer = AppleFilesWriter(rootDir: rootDir)
 
-			let allHourlyPackages = downloadedPackagesStore.hourlyPackages(for: .formattedToday(), country: country)
+			let allHourlyPackages = downloadedPackagesStore.hourlyPackagesNotCheckedForExposure(for: .formattedToday(), country: country)
 			for hourlyKeyPackage in allHourlyPackages {
 				let success = writer.writePackage(hourlyKeyPackage)
 				if !success {
@@ -42,7 +42,7 @@ final class ExposureDetectionExecutor: ExposureDetectionDelegate {
 				}
 			}
 
-			let allDayKeyPackages = downloadedPackagesStore.allDays(country: country)
+			let allDayKeyPackages = downloadedPackagesStore.allDaysNotCheckedForExposure(country: country)
 			for dayKeyPackage in allDayKeyPackages {
 				let _keyPackage = autoreleasepool(invoking: { downloadedPackagesStore.package(for: dayKeyPackage, country: country) })
 
