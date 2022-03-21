@@ -2237,6 +2237,14 @@ enum AppStrings {
 			static let blockedDescription = NSLocalizedString("HealthCertificate_ValidityState_Blocked_description", comment: "")
 		}
 
+		enum FamilyMemberConsent {
+			static let title = NSLocalizedString("HealthCertificate_FamilyMemberConsent_Title", comment: "")
+			static let imageDescription = NSLocalizedString("HealthCertificate_FamilyMemberConsent_ImageDescription", comment: "")
+			static let headline = NSLocalizedString("HealthCertificate_FamilyMemberConsent_Headline", comment: "")
+			static let inputTitle = NSLocalizedString("HealthCertificate_FamilyMemberConsent_InputTitle", comment: "")
+			static let inputPlaceholder = NSLocalizedString("HealthCertificate_FamilyMemberConsent_InputPlaceholder", comment: "")
+		}
+
 		enum Alert {
 			static let deleteButton = NSLocalizedString("HealthCertificate_Alert_deleteButton", comment: "")
 			static let cancelButton = NSLocalizedString("HealthCertificate_Alert_cancelButton", comment: "")

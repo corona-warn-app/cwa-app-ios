@@ -732,6 +732,10 @@ enum AccessibilityIdentifiers {
 			}
 		}
 
+		enum FamilyMemberConsent {
+			static let imageDescription = "AppStrings.HealthCertificate.FamilyMemberConsent.imageDescription"
+		}
+
 		enum Overview {
 			static let changeAdmissionScenarioCell =
 				"AppStrings.HealthCertificate.changeAdmissionScenarioCell"

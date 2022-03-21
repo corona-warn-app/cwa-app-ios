@@ -21,6 +21,8 @@ final class FamilyMemberConsentViewModel {
 
 	// MARK: - Internal
 
+	let title = AppStrings.HealthCertificate.FamilyMemberConsent.title
+
 	private(set) var name: String? {
 		didSet {
 			isPrimaryButtonEnabled = !(name?.isEmpty ?? true)
@@ -38,11 +40,13 @@ final class FamilyMemberConsentViewModel {
 						UIImage(
 							imageLiteralResourceName: "Illu_Family_Test_Consent"
 						),
-						accessibilityLabel: AppStrings.ExposureSubmission.TestCertificate.Info.imageDescription,
-						accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmission.TestCertificate.Info.imageDescription,
+						accessibilityLabel: AppStrings.HealthCertificate.FamilyMemberConsent.imageDescription,
+						accessibilityIdentifier: AccessibilityIdentifiers.HealthCertificate.FamilyMemberConsent.imageDescription,
 						height: 220
 					),
 				cells: [
+					.title2(text: AppStrings.HealthCertificate.FamilyMemberConsent.headline),
+					.body(text: AppStrings.HealthCertificate.FamilyMemberConsent.inputTitle)
 					]
 //					.body(
 //						text: AppStrings.ExposureSubmission.TestCertificate.Info.body,

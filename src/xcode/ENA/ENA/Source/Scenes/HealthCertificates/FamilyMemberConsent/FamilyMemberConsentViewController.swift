@@ -71,6 +71,8 @@ class FamilyMemberConsentViewController: DynamicTableViewController, DismissHand
 
 	private func setupNavigationBar() {
 		navigationItem.rightBarButtonItem = dismissHandlingCloseBarButton
+		navigationItem.title = viewModel.title
+		navigationController?.navigationBar.prefersLargeTitles = true
 	}
 
 	private func setupTableView() {

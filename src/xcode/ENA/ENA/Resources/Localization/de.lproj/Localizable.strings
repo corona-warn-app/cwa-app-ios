@@ -3036,6 +3036,18 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "HealthCertificate_Details_moreButtonTitle" = "Mehr";
 
+/* HealthCertificate Family Consent */
+
+"HealthCertificate_FamilyMemberConsent_Title" = "Ihr Einverständnis";
+
+"HealthCertificate_FamilyMemberConsent_ImageDescription" = "Eine Familie mit ihrem Zertifikat";
+
+"HealthCertificate_FamilyMemberConsent_Headline" = "Testergebnis für Familienmitglieder abrufen";
+
+"HealthCertificate_FamilyMemberConsent_InputTitle" = "Name der Person, die geteste wurde:";
+
+"HealthCertificate_FamilyMemberConsent_InputPlaceholder" = "Name";
+
 /* Health Certificate Delete Alert */
 
 "HealthCertificate_Alert_deleteButton" = "Zertifikat löschen";
