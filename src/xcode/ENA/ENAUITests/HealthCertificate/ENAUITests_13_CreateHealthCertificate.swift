@@ -580,7 +580,6 @@ class ENAUITests_13_CreateHealthCertificate: CWATestCase {
 		// Navigate to Persons Tab.
 		app.cells[AccessibilityIdentifiers.HealthCertificate.Overview.healthCertifiedPersonCell].waitAndTap()
 
-		app.swipeUp(velocity: .slow)
 		XCTAssertTrue(app.otherElements[AccessibilityIdentifiers.HealthCertificate.AdmissionState.unseenNewsIndicator].waitForExistence(timeout: .short))
 	}
 }
