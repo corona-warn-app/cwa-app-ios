@@ -6,6 +6,7 @@
 import FMDB
 import XCTest
 
+// swiftlint:disable type_body_length
 final class DownloadedPackagesSQLLiteStoreTests: CWATestCase {
 
 	private var store: DownloadedPackagesSQLLiteStore = .inMemory()
@@ -200,8 +201,6 @@ final class DownloadedPackagesSQLLiteStoreTests: CWATestCase {
 
 	func test_deleteWithCloseOpenDB() throws {
 		let unitTestStore: DownloadedPackagesStore = DownloadedPackagesSQLLiteStore(fileName: "unittest")
-
-		unitTestStore.open()
 
 		let keysBin = Data("keys".utf8)
 		let signature = Data("sig".utf8)
