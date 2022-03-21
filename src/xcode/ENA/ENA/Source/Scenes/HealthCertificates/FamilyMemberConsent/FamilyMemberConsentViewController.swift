@@ -3,8 +3,9 @@
 //
 
 import UIKit
+import OpenCombine
 
-class FamilyMemberConsentViewController: DynamicTableViewController, DismissHandling {
+class FamilyMemberConsentViewController: DynamicTableViewController, DismissHandling, FooterViewHandling {
 
 	// MARK: - Init
 
@@ -15,8 +16,9 @@ class FamilyMemberConsentViewController: DynamicTableViewController, DismissHand
 	) {
 		self.dismiss = dismiss
 		self.didTapSubmit = didTapSubmit
-		self.didTapDataPrivacy = didTapDataPrivacy
-		self.viewModel = FamilyMemberConsentViewModel()
+		self.viewModel = FamilyMemberConsentViewModel(
+			presentDisclaimer: didTapDataPrivacy
+		)
 		super.init(nibName: nil, bundle: nil)
 	}
 
@@ -40,16 +42,19 @@ class FamilyMemberConsentViewController: DynamicTableViewController, DismissHand
 		dismiss()
 	}
 
-	// MARK: - Protocol TableViewDataSource
+	// MARK: - FooterViewHandling
 
-	override func numberOfSections(in tableView: UITableView) -> Int {
-		// #warning Incomplete implementation, return the number of sections
-		return 0
-	}
-
-	override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-		// #warning Incomplete implementation, return the number of rows
-		return 0
+	func didTapFooterViewButton(_ type: FooterViewModel.ButtonType) {
+		switch type {
+		case .primary:
+			guard let familyMemberName = viewModel.name else {
+				Log.error("No family member name given - stop here")
+				return
+			}
+			didTapSubmit(familyMemberName)
+		case .secondary:
+			Log.error("This view doesn't have a secondary button")
+		}
 	}
 
 	// MARK: - Public
@@ -60,8 +65,9 @@ class FamilyMemberConsentViewController: DynamicTableViewController, DismissHand
 
 	private let dismiss: () -> Void
 	private let didTapSubmit: (String) -> Void
-	private let didTapDataPrivacy: () -> Void
 	private let viewModel: FamilyMemberConsentViewModel
+
+	private var subscriptions = Set<AnyCancellable>()
 
 	private func setupNavigationBar() {
 		navigationItem.rightBarButtonItem = dismissHandlingCloseBarButton
@@ -69,7 +75,14 @@ class FamilyMemberConsentViewController: DynamicTableViewController, DismissHand
 
 	private func setupTableView() {
 		view.backgroundColor = .enaColor(for: .background)
+		dynamicTableViewModel = viewModel.dynamicTableViewModel
+		tableView.separatorStyle = .none
 
+		viewModel.$isPrimaryButtonEnabled
+			.sink { [weak self] isEnabled in
+				self?.footerView?.setEnabled(isEnabled, button: .primary)
+			}
+			.store(in: &subscriptions)
 	}
 
 }
