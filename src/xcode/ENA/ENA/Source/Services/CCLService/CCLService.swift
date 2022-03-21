@@ -68,7 +68,12 @@ class CCLService: CCLServable {
 		cclConfigurationResource.receiveResource = CBORReceiveResource(signatureVerifier: signatureVerifier)
 		self.cclConfigurationResource = cclConfigurationResource
 
-		var boosterNotificationRulesResource = DCCRulesResource(ruleType: .boosterNotification)
+		var boosterNotificationRulesResource = DCCRulesResource(
+			ruleType: .boosterNotification,
+			restServiceType: .caching(
+				Set<CacheUsePolicy>([.loadOnlyOnceADay])
+			)
+		)
 		boosterNotificationRulesResource.receiveResource = CBORReceiveResource(signatureVerifier: signatureVerifier)
 		self.boosterNotificationRulesResource = boosterNotificationRulesResource
 
@@ -225,7 +230,6 @@ class CCLService: CCLServable {
 		let getWalletInfoInput = GetWalletInfoInput.make(
 			certificates: certificates,
 			boosterNotificationRules: boosterNotificationRules,
-			invalidationRules: invalidationRules,
 			identifier: identifer
 		)
 		
