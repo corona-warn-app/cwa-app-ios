@@ -16,7 +16,8 @@ extension DCCWalletInfo {
 		mostRelevantCertificate: DCCCertificateContainer = .fake(),
 		verification: DCCVerification = .fake(),
 		validUntil: Date = Date(),
-		certificateReissuance: DCCCertificateReissuance? = nil
+		certificateReissuance: DCCCertificateReissuance? = nil,
+		certificatesRevokedByInvalidationRules: [DCCCertificateContainer] = [.fake()]
 	) -> DCCWalletInfo {
 		DCCWalletInfo(
 			admissionState: admissionState,
@@ -25,7 +26,8 @@ extension DCCWalletInfo {
 			mostRelevantCertificate: mostRelevantCertificate,
 			verification: verification,
 			validUntil: validUntil,
-			certificateReissuance: certificateReissuance
+			certificateReissuance: certificateReissuance,
+			certificatesRevokedByInvalidationRules: certificatesRevokedByInvalidationRules
 		)
 	}
 

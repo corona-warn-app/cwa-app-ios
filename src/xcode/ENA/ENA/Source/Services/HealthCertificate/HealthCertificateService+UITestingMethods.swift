@@ -193,7 +193,8 @@ extension HealthCertificateService {
 			mostRelevantCertificate: dccWalletInfo.mostRelevantCertificate,
 			verification: dccWalletInfo.verification,
 			validUntil: dccWalletInfo.validUntil,
-			certificateReissuance: dccWalletInfo.certificateReissuance
+			certificateReissuance: dccWalletInfo.certificateReissuance,
+			certificatesRevokedByInvalidationRules: dccWalletInfo.certificatesRevokedByInvalidationRules
 		)
 	}
 
@@ -248,7 +249,8 @@ extension HealthCertificateService {
 					certificateRef: DCCCertificateReference(barcodeData: certifiedPerson.healthCertificates.last?.base45 ?? "")
 				),
 				accompanyingCertificates: []
-			)
+			),
+			certificatesRevokedByInvalidationRules: dccWalletInfo.certificatesRevokedByInvalidationRules
 		)
 	}
 	#endif
