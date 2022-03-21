@@ -22,7 +22,8 @@ final class RiskProvider: RiskProviding {
 		keyPackageDownload: KeyPackageDownloadProtocol,
 		traceWarningPackageDownload: TraceWarningPackageDownloading,
 		exposureDetectionExecutor: ExposureDetectionDelegate,
-		coronaTestService: CoronaTestServiceProviding
+		coronaTestService: CoronaTestServiceProviding,
+		downloadedPackagesStore: DownloadedPackagesStore
 	) {
 		self.riskProvidingConfiguration = configuration
 		self.store = store
@@ -38,6 +39,7 @@ final class RiskProvider: RiskProviding {
 		self.keyPackageDownloadStatus = .idle
 		self.traceWarningDownloadStatus = .idle
 		self.rateLimitLogger = RateLimitLogger(store: store)
+		self.downloadedPackagesStore = downloadedPackagesStore
 
 		self.registerForPackagesDownloadStatusUpdates()
 	}
@@ -161,6 +163,7 @@ final class RiskProvider: RiskProviding {
 	
 	private let queue = DispatchQueue(label: "com.sap.RiskProvider")
 	private let consumersQueue = DispatchQueue(label: "com.sap.RiskProvider.consumer")
+	private let downloadedPackagesStore: DownloadedPackagesStore
 
 	private var keyPackageDownload: KeyPackageDownloadProtocol
 	private var traceWarningPackageDownload: TraceWarningPackageDownloading
@@ -392,24 +395,28 @@ final class RiskProvider: RiskProviding {
 		exposureDetection = ExposureDetection(
 			delegate: exposureDetectionExecutor,
 			appConfiguration: appConfiguration,
-			deviceTimeCheck: appConfigurationProvider.deviceTimeCheck
+			deviceTimeCheck: appConfigurationProvider.deviceTimeCheck,
+			downloadedPackagesStore: downloadedPackagesStore
 		)
 
-		exposureDetection?.start { [weak self] result in
-			self?.rateLimitLogger.logEffect(result: result, blocking: softBlocking)
-			switch result {
-			case .success(let detectedExposureWindows):
-				Log.info("RiskProvider: Detect exposure completed", log: .riskDetection)
+		exposureDetection?.start(
+			keyPackageDownload,
+			completion: { [weak self] result in
+				self?.rateLimitLogger.logEffect(result: result, blocking: softBlocking)
+				switch result {
+				case .success(let detectedExposureWindows):
+					Log.info("RiskProvider: Detect exposure completed", log: .riskDetection)
 
-				let exposureWindows = detectedExposureWindows.map { ExposureWindow(from: $0) }
-				completion(.success(exposureWindows))
-			case .failure(let error):
-				Log.error("RiskProvider: Detect exposure failed", log: .riskDetection, error: error)
+					let exposureWindows = detectedExposureWindows.map { ExposureWindow(from: $0) }
+					completion(.success(exposureWindows))
+				case .failure(let error):
+					Log.error("RiskProvider: Detect exposure failed", log: .riskDetection, error: error)
 
-				completion(.failure(.failedRiskDetection(error)))
+					completion(.failure(.failedRiskDetection(error)))
+				}
+				self?.exposureDetection = nil
 			}
-			self?.exposureDetection = nil
-		}
+		)
 	}
 
 	private func calculateRiskLevel(exposureWindows: [ExposureWindow], appConfiguration: SAP_Internal_V2_ApplicationConfigurationIOS, completion: Completion) {
