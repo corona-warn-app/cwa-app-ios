@@ -493,9 +493,35 @@ final class DownloadedPackagesSQLLiteStoreTests: CWATestCase {
 			hourPackage1.fingerprint,
 			hourPackage2.fingerprint
 		])
-		
+
+		// Check hour packages.
 		XCTAssertEqual(store.hourlyPackagesNotCheckedForExposure(for: "2020-06-4", country: "DE").count, 1)
+		let hourPackages = store.hourlyPackages(for: "2020-06-4", country: "DE")
+		XCTAssertEqual(hourPackages.count, 3)
+		
+		// Check if other packages data was set emtpy (42).
+		let numberOfEmptyPackages = try hourPackages.reduce(into: 0) { count, package in
+			let binData = try XCTUnwrap("42".data(using: .utf8))
+			let signatureData = try XCTUnwrap("42".data(using: .utf8))
+			if package.bin == binData &&
+				package.signature == signatureData {
+				count += 1
+			}
+		}
+		
+		XCTAssertEqual(numberOfEmptyPackages, 2)
+
+		// Check day packages.
+		
 		XCTAssertEqual(store.allDaysNotCheckedForExposure(country: "DE").count, 1)
+		let allDays = store.allDays(country: "DE")
+		XCTAssertEqual(allDays.count, 3)
+		let testDayPackage1 = try XCTUnwrap(store.package(for: "2020-06-01", country: "DE"))
+		XCTAssertEqual(testDayPackage1.bin, try XCTUnwrap("42".data(using: .utf8)))
+		XCTAssertEqual(testDayPackage1.signature, try XCTUnwrap("42".data(using: .utf8)))
+		let testDayPackage2 = try XCTUnwrap(store.package(for: "2020-06-02", country: "DE"))
+		XCTAssertEqual(testDayPackage2.bin, try XCTUnwrap("42".data(using: .utf8)))
+		XCTAssertEqual(testDayPackage2.signature, try XCTUnwrap("42".data(using: .utf8)))
 	}
 	
 	private func randomPackage() -> SAPDownloadedPackage {
