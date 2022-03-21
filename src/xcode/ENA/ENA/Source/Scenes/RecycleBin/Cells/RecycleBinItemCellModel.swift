@@ -21,7 +21,7 @@ class RecycleBinItemCellModel {
 		switch recycleBinItem.item {
 		case .certificate:
 			return UIImage(named: "Icons_RecycleBin_Certificate")
-		case .coronaTest:
+		case .userCoronaTest:
 			return UIImage(named: "Icons_RecycleBin_CoronaTest")
 		}
 	}()
@@ -30,7 +30,7 @@ class RecycleBinItemCellModel {
 		switch recycleBinItem.item {
 		case .certificate(let certificate):
 			return certificate.name.fullName
-		case .coronaTest:
+		case .userCoronaTest:
 			return nil
 		}
 	}()
@@ -46,7 +46,7 @@ class RecycleBinItemCellModel {
 			case .recovery:
 				return AppStrings.RecycleBin.RecoveryCertificate.headline
 			}
-		case .coronaTest(let coronaTest):
+		case .userCoronaTest(let coronaTest):
 			return AppStrings.RecycleBin.CoronaTest.headline
 		}
 	}()
@@ -71,7 +71,7 @@ class RecycleBinItemCellModel {
 			case .recovery:
 				return nil
 			}
-		case .coronaTest(let coronaTest):
+		case .userCoronaTest(let coronaTest):
 			switch coronaTest {
 			case .pcr:
 				return AppStrings.RecycleBin.CoronaTest.pcrTest
@@ -107,7 +107,7 @@ class RecycleBinItemCellModel {
 					)
 				}
 			}
-		case .coronaTest(let coronaTest):
+		case .userCoronaTest(let coronaTest):
 			switch coronaTest {
 			case .pcr(let pcrTest):
 				return String(

@@ -30,8 +30,8 @@ class KeySubmissionMetadataTests: CWATestCase {
 		secureStore.dateOfConversionToENFHighRisk = Calendar.current.date(byAdding: .day, value: -1, to: Date())
 		secureStore.enfRiskCalculationResult = riskCalculationResult
 
-		coronaTestService.pcrTest.value = PCRTest.mock(registrationDate: Date())
-		coronaTestService.antigenTest.value = AntigenTest.mock(registrationDate: Date())
+		coronaTestService.pcrTest.value = .mock(registrationDate: Date())
+		coronaTestService.antigenTest.value = .mock(registrationDate: Date())
 
 		let keySubmissionMetadata = mockEmptyKeySubmissionMetadata()
 		
@@ -83,7 +83,7 @@ class KeySubmissionMetadataTests: CWATestCase {
 		secureStore.dateOfConversionToCheckinHighRisk = Calendar.current.date(byAdding: .day, value: -1, to: Date())
 		secureStore.checkinRiskCalculationResult = riskCalculationResult
 
-		coronaTestService.pcrTest.value = PCRTest.mock(registrationDate: Date())
+		coronaTestService.pcrTest.value = .mock(registrationDate: Date())
 
 		let keySubmissionMetadata = mockEmptyKeySubmissionMetadata()
 		
@@ -126,7 +126,7 @@ class KeySubmissionMetadataTests: CWATestCase {
 		secureStore.dateOfConversionToCheckinHighRisk = yesterday
 		secureStore.checkinRiskCalculationResult = checkinRiskCalculationResult
 		
-		coronaTestService.antigenTest.value = AntigenTest.mock(registrationDate: Date())
+		coronaTestService.antigenTest.value = .mock(registrationDate: Date())
 
 		let keySubmissionMetadata = mockEmptyKeySubmissionMetadata()
 		
@@ -163,7 +163,7 @@ class KeySubmissionMetadataTests: CWATestCase {
 		secureStore.dateOfConversionToENFHighRisk = Calendar.current.date(byAdding: .day, value: -1, to: Date())
 		secureStore.enfRiskCalculationResult = riskCalculationResult
 
-		coronaTestService.pcrTest.value = PCRTest.mock(registrationDate: Date())
+		coronaTestService.pcrTest.value = .mock(registrationDate: Date())
 
 		let keySubmissionMetadata = mockEmptyKeySubmissionMetadata()
 		
@@ -196,7 +196,7 @@ class KeySubmissionMetadataTests: CWATestCase {
 		secureStore.dateOfConversionToCheckinHighRisk = Calendar.current.date(byAdding: .day, value: -1, to: Date())
 		secureStore.checkinRiskCalculationResult = riskCalculationResult
 
-		coronaTestService.antigenTest.value = AntigenTest.mock(registrationDate: Date())
+		coronaTestService.antigenTest.value = .mock(registrationDate: Date())
 
 		let keySubmissionMetadata = mockEmptyKeySubmissionMetadata()
 		
@@ -238,7 +238,7 @@ class KeySubmissionMetadataTests: CWATestCase {
 		secureStore.dateOfConversionToCheckinHighRisk = yesterday
 		secureStore.checkinRiskCalculationResult = checkinRiskCalculationResult
 		
-		coronaTestService.pcrTest.value = PCRTest.mock(registrationDate: Date())
+		coronaTestService.pcrTest.value = .mock(registrationDate: Date())
 
 		let keySubmissionMetadata = mockEmptyKeySubmissionMetadata()
 		
@@ -274,11 +274,11 @@ class KeySubmissionMetadataTests: CWATestCase {
 		secureStore.dateOfConversionToENFHighRisk = Calendar.current.date(byAdding: .day, value: -1, to: Date())
 		secureStore.enfRiskCalculationResult = riskCalculationResult
 
-		coronaTestService.pcrTest.value = PCRTest.mock(
+		coronaTestService.pcrTest.value = .mock(
 			registrationDate: Calendar.current.date(byAdding: .day, value: -1, to: Date()) ?? Date(),
 			finalTestResultReceivedDate: dateSixHourAgo ?? Date()
 		)
-		coronaTestService.antigenTest.value = AntigenTest.mock(
+		coronaTestService.antigenTest.value = .mock(
 			registrationDate: Calendar.current.date(byAdding: .day, value: -1, to: Date()) ?? Date(),
 			finalTestResultReceivedDate: dateSixHourAgo ?? Date()
 		)

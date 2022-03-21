@@ -5,7 +5,7 @@
 import Foundation
 @testable import ENA
 
-extension PCRTest {
+extension UserPCRTest {
 
 	static func mock(
 		registrationToken: String? = nil,
@@ -21,8 +21,8 @@ extension PCRTest {
 		certificateConsentGiven: Bool = false,
 		certificateRequested: Bool = false,
 		uniqueCertificateIdentifier: String? = nil
-	) -> PCRTest {
-		PCRTest(
+	) -> UserPCRTest {
+		UserPCRTest(
 			registrationDate: registrationDate,
 			registrationToken: registrationToken,
 			testResult: testResult,

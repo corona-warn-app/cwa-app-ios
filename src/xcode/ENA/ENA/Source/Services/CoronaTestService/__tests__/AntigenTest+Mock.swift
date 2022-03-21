@@ -5,7 +5,7 @@
 import Foundation
 @testable import ENA
 
-extension AntigenTest {
+extension UserAntigenTest {
 
 	static func mock(
 		registrationToken: String? = nil,
@@ -24,8 +24,8 @@ extension AntigenTest {
 		certificateConsentGiven: Bool = false,
 		certificateRequested: Bool = false,
 		uniqueCertificateIdentifier: String? = nil
-	) -> AntigenTest {
-		AntigenTest(
+	) -> UserAntigenTest {
+		UserAntigenTest(
 			pointOfCareConsentDate: pointOfCareConsentDate,
 			sampleCollectionDate: sampleCollectionDate,
 			registrationDate: registrationDate,

@@ -68,7 +68,7 @@ class HomeShownPositiveTestResultCellModel {
 	private let coronaTestType: CoronaTestType
 	private var subscriptions = Set<AnyCancellable>()
 
-	private func configure(for coronaTest: CoronaTest) {
+	private func configure(for coronaTest: UserCoronaTest) {
 		let dateTemplate: String
 		switch coronaTestType {
 		case .pcr:

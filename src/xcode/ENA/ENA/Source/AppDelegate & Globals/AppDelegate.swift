@@ -64,7 +64,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 
 		super.init()
 
-		recycleBin.testRestorationHandler = CoronaTestRestorationHandler(service: coronaTestService)
+		recycleBin.userTestRestorationHandler = UserCoronaTestRestorationHandler(service: coronaTestService)
 		recycleBin.certificateRestorationHandler = HealthCertificateRestorationHandler(service: healthCertificateService)
 
 		// Make the analytics working. Should not be called later than at this moment of app initialization.

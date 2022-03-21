@@ -16,7 +16,7 @@ class TestResultAvailableViewModelTest: CWATestCase {
 		expectationNotFulFill.isInverted = true
 
 		let coronaTestService = MockCoronaTestService()
-		coronaTestService.pcrTest.value = PCRTest.mock(testResult: .positive)
+		coronaTestService.pcrTest.value = .mock(testResult: .positive)
 		
 		let viewModel = TestResultAvailableViewModel(
 			coronaTestType: .pcr,
@@ -44,7 +44,7 @@ class TestResultAvailableViewModelTest: CWATestCase {
 		var bindings: Set<AnyCancellable> = []
 		
 		let coronaTestService = MockCoronaTestService()
-		coronaTestService.pcrTest.value = PCRTest.mock(testResult: .positive)
+		coronaTestService.pcrTest.value = .mock(testResult: .positive)
 
 		let viewModel = TestResultAvailableViewModel(
 			coronaTestType: .pcr,
@@ -81,7 +81,7 @@ class TestResultAvailableViewModelTest: CWATestCase {
 		var bindings: Set<AnyCancellable> = []
 		
 		let coronaTestService = MockCoronaTestService()
-		coronaTestService.pcrTest.value = PCRTest.mock(testResult: .positive)
+		coronaTestService.pcrTest.value = .mock(testResult: .positive)
 
 		let viewModel = TestResultAvailableViewModel(
 			coronaTestType: .pcr,

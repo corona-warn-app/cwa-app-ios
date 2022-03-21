@@ -149,7 +149,7 @@ class HomeTestResultCellModel {
 			dateTemplate = AppStrings.Home.TestResult.Negative.dateAntigen
 		}
 
-		let testDate = coronaTestService.coronaTest(ofType: coronaTestType)?.testDate
+		let testDate = coronaTestService.userCoronaTest(ofType: coronaTestType)?.testDate
 		let formattedTestDate = testDate.map { dateFormatter.string(from: $0) }
 		footnote = formattedTestDate.map { String(format: dateTemplate, $0) }
 

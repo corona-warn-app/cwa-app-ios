@@ -139,7 +139,7 @@ class HomeTableViewModel {
 	}
 
 	func shouldShowDeletionConfirmationAlert(for coronaTestType: CoronaTestType) -> Bool {
-		coronaTestService.coronaTest(ofType: coronaTestType)?.testResult == .expired
+		coronaTestService.userCoronaTest(ofType: coronaTestType)?.testResult == .expired
 	}
 
 	func moveTestToBin(type coronaTestType: CoronaTestType) {

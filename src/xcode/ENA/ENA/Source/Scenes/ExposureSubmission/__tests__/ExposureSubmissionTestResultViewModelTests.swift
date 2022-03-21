@@ -26,7 +26,7 @@ class ExposureSubmissionTestResultViewModelTests: CWATestCase {
 		)
 		
 		let coronaTestService = MockCoronaTestService()
-		coronaTestService.pcrTest.value = PCRTest.mock(testResult: .positive, isSubmissionConsentGiven: true)
+		coronaTestService.pcrTest.value = .mock(testResult: .positive, isSubmissionConsentGiven: true)
 		coronaTestService.onUpdateTestResult = { _, _, _ in
 			updateTestResultExpectation.fulfill()
 		}
@@ -65,7 +65,7 @@ class ExposureSubmissionTestResultViewModelTests: CWATestCase {
 			onContinueWithSymptomsFlowButtonTapExpectation.isInverted = true
 			
 			let coronaTestService = MockCoronaTestService()
-			coronaTestService.pcrTest.value = PCRTest.mock(testResult: testResult)
+			coronaTestService.pcrTest.value = .mock(testResult: testResult)
 			coronaTestService.onUpdateTestResult = { _, _, _ in
 				updateTestResultExpectation.fulfill()
 			}
@@ -102,7 +102,7 @@ class ExposureSubmissionTestResultViewModelTests: CWATestCase {
 		onContinueWithSymptomsFlowButtonTapExpectation.isInverted = true
 		
 		let coronaTestService = MockCoronaTestService()
-		coronaTestService.pcrTest.value = PCRTest.mock(registrationToken: "asdf", testResult: .pending)
+		coronaTestService.pcrTest.value = .mock(registrationToken: "asdf", testResult: .pending)
 		coronaTestService.onUpdateTestResult = { coronaTestType, force, presentNotification in
 			XCTAssertEqual(coronaTestType, .pcr)
 			XCTAssertTrue(force)
@@ -137,7 +137,7 @@ class ExposureSubmissionTestResultViewModelTests: CWATestCase {
 		let updateTestResultExpectation = expectation(description: "updateTestResult on service is called")
 		
 		let coronaTestService = MockCoronaTestService()
-		coronaTestService.pcrTest.value = PCRTest.mock(registrationToken: "asdf", testResult: .pending)
+		coronaTestService.pcrTest.value = .mock(registrationToken: "asdf", testResult: .pending)
 		coronaTestService.onUpdateTestResult = { coronaTestType, force, presentNotification in
 			XCTAssertEqual(coronaTestType, .pcr)
 			XCTAssertTrue(force)
@@ -187,7 +187,7 @@ class ExposureSubmissionTestResultViewModelTests: CWATestCase {
 		let updateTestResultExpectation = expectation(description: "updateTestResult on service is called")
 
 		let coronaTestService = MockCoronaTestService()
-		coronaTestService.pcrTest.value = PCRTest.mock(registrationToken: "asdf", testResult: .pending)
+		coronaTestService.pcrTest.value = .mock(registrationToken: "asdf", testResult: .pending)
 		coronaTestService.updateTestResultResult = .failure(.testResultError(.invalidResponse))
 		coronaTestService.onUpdateTestResult = { coronaTestType, force, presentNotification in
 			XCTAssertEqual(coronaTestType, .pcr)
@@ -219,7 +219,7 @@ class ExposureSubmissionTestResultViewModelTests: CWATestCase {
 		let updateTestResultExpectation = expectation(description: "updateTestResult on service is called")
 
 		let coronaTestService = MockCoronaTestService()
-		coronaTestService.pcrTest.value = PCRTest.mock(registrationToken: "asdf", testResult: .pending)
+		coronaTestService.pcrTest.value = .mock(registrationToken: "asdf", testResult: .pending)
 		
 		let model = ExposureSubmissionTestResultViewModel(
 			coronaTestType: .pcr,
@@ -256,7 +256,7 @@ class ExposureSubmissionTestResultViewModelTests: CWATestCase {
 	
 	func testDidTapSecondaryButtonOnPendingTestResult() {
 		let coronaTestService = MockCoronaTestService()
-		coronaTestService.pcrTest.value = PCRTest.mock(testResult: .pending)
+		coronaTestService.pcrTest.value = .mock(testResult: .pending)
 		
 		let model = ExposureSubmissionTestResultViewModel(
 			coronaTestType: .pcr,
@@ -282,7 +282,7 @@ class ExposureSubmissionTestResultViewModelTests: CWATestCase {
 		let testResults: [TestResult] = [.negative, .invalid, .expired]
 		for testResult in testResults {
 			let coronaTestService = MockCoronaTestService()
-			coronaTestService.pcrTest.value = PCRTest.mock(testResult: testResult)
+			coronaTestService.pcrTest.value = .mock(testResult: testResult)
 			
 			let model = ExposureSubmissionTestResultViewModel(
 				coronaTestType: .pcr,
@@ -309,7 +309,7 @@ class ExposureSubmissionTestResultViewModelTests: CWATestCase {
 		let moveTestToBinExpectation = expectation(description: "moveTestToBin on service is called")
 
 		let coronaTestService = MockCoronaTestService()
-		coronaTestService.pcrTest.value = PCRTest.mock(testResult: .expired)
+		coronaTestService.pcrTest.value = .mock(testResult: .expired)
 		coronaTestService.onMoveTestToBin = { coronaTestType in
 			XCTAssertEqual(coronaTestType, .pcr)
 
@@ -338,7 +338,7 @@ class ExposureSubmissionTestResultViewModelTests: CWATestCase {
 	
 	func testNavigationFooterItemForPendingTestResult() throws {
 		let coronaTestService = MockCoronaTestService()
-		coronaTestService.pcrTest.value = PCRTest.mock(testResult: .pending)
+		coronaTestService.pcrTest.value = .mock(testResult: .pending)
 
 		let model = ExposureSubmissionTestResultViewModel(
 			coronaTestType: .pcr,
@@ -364,7 +364,7 @@ class ExposureSubmissionTestResultViewModelTests: CWATestCase {
 	
 	func testNavigationFooterItemForPositiveTestResult() throws {
 		let coronaTestService = MockCoronaTestService()
-		coronaTestService.pcrTest.value = PCRTest.mock(testResult: .positive)
+		coronaTestService.pcrTest.value = .mock(testResult: .positive)
 
 		let model = ExposureSubmissionTestResultViewModel(
 			coronaTestType: .pcr,
@@ -392,7 +392,7 @@ class ExposureSubmissionTestResultViewModelTests: CWATestCase {
 		let testResults: [TestResult] = [.negative, .invalid, .expired]
 		for testResult in testResults {
 			let coronaTestService = MockCoronaTestService()
-			coronaTestService.pcrTest.value = PCRTest.mock(testResult: testResult)
+			coronaTestService.pcrTest.value = .mock(testResult: testResult)
 
 			let model = ExposureSubmissionTestResultViewModel(
 				coronaTestType: .pcr,
@@ -419,7 +419,7 @@ class ExposureSubmissionTestResultViewModelTests: CWATestCase {
 	
 	func testDynamicTableViewModelForPositiveTestResult() {
 		let coronaTestService = MockCoronaTestService()
-		coronaTestService.pcrTest.value = PCRTest.mock(testResult: .positive)
+		coronaTestService.pcrTest.value = .mock(testResult: .positive)
 		
 		let model = ExposureSubmissionTestResultViewModel(
 			coronaTestType: .pcr,
@@ -458,7 +458,7 @@ class ExposureSubmissionTestResultViewModelTests: CWATestCase {
 	
 	func testDynamicTableViewModelForNegativeTestResult() {
 		let coronaTestService = MockCoronaTestService()
-		coronaTestService.pcrTest.value = PCRTest.mock(testResult: .negative)
+		coronaTestService.pcrTest.value = .mock(testResult: .negative)
 		
 		let model = ExposureSubmissionTestResultViewModel(
 			coronaTestType: .pcr,
@@ -521,7 +521,7 @@ class ExposureSubmissionTestResultViewModelTests: CWATestCase {
 	
 	func testDynamicTableViewModelForInvalidTestResult() {
 		let coronaTestService = MockCoronaTestService()
-		coronaTestService.pcrTest.value = PCRTest.mock(testResult: .invalid)
+		coronaTestService.pcrTest.value = .mock(testResult: .invalid)
 		
 		let model = ExposureSubmissionTestResultViewModel(
 			coronaTestType: .pcr,
@@ -560,7 +560,7 @@ class ExposureSubmissionTestResultViewModelTests: CWATestCase {
 	
 	func testDynamicTableViewModelForPendingTestResult() {
 		let coronaTestService = MockCoronaTestService()
-		coronaTestService.pcrTest.value = PCRTest.mock(testResult: .pending)
+		coronaTestService.pcrTest.value = .mock(testResult: .pending)
 		
 		let model = ExposureSubmissionTestResultViewModel(
 			coronaTestType: .pcr,
@@ -603,7 +603,7 @@ class ExposureSubmissionTestResultViewModelTests: CWATestCase {
 	
 	func testDynamicTableViewModelForExpiredTestResult() {
 		let coronaTestService = MockCoronaTestService()
-		coronaTestService.pcrTest.value = PCRTest.mock(testResult: .expired)
+		coronaTestService.pcrTest.value = .mock(testResult: .expired)
 		
 		let model = ExposureSubmissionTestResultViewModel(
 			coronaTestType: .pcr,

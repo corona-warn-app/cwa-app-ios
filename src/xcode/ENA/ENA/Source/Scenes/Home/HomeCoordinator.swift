@@ -466,7 +466,7 @@ class HomeCoordinator: RequiresAppDependencies {
 	private func showTestOverwriteNotice(
 		recycleBinItem: RecycleBinItem
 	) {
-		guard case let .coronaTest(coronaTest) = recycleBinItem.item else {
+		guard case let .userCoronaTest(coronaTest) = recycleBinItem.item else {
 			return
 		}
 

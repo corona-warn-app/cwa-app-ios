@@ -22,7 +22,7 @@ class RecycleBin {
 
 	static let expirationDays = 30
 	
-	var testRestorationHandler: TestRestorationHandling!
+	var userTestRestorationHandler: UserTestRestorationHandling!
 	var certificateRestorationHandler: CertificateRestorationHandling!
 
 	/// This function moves an item into the bin.
@@ -56,9 +56,9 @@ class RecycleBin {
 		case .certificate:
 			Log.info("Ask for certificate item restoration.", log: .recycleBin)
 			return .success(())
-		case .coronaTest(let coronaTest):
+		case .userCoronaTest(let coronaTest):
 			Log.info("Ask for test item restoration.", log: .recycleBin)
-			let canRestoreResult = testRestorationHandler.canRestore(coronaTest)
+			let canRestoreResult = userTestRestorationHandler.canRestore(coronaTest)
 			return canRestoreResult.mapError { RestorationError.testError($0) }
 		}
 	}
@@ -75,9 +75,9 @@ class RecycleBin {
 		case .certificate(let certificate):
 			Log.info("Restore certificate item.", log: .recycleBin)
 			certificateRestorationHandler.restore(certificate)
-		case .coronaTest(let coronaTest):
+		case .userCoronaTest(let coronaTest):
 			Log.info("Restore test item.", log: .recycleBin)
-			testRestorationHandler.restore(coronaTest)
+			userTestRestorationHandler.restore(coronaTest)
 		}
 
 		store.recycleBinItems.remove(item)
@@ -136,8 +136,8 @@ class RecycleBin {
 			store.recycleBinItems.insert(
 				RecycleBinItem(
 					recycledAt: Date(),
-					item: .coronaTest(.pcr(
-						PCRTest(
+					item: .userCoronaTest(.pcr(
+						UserPCRTest(
 							registrationDate: Date(),
 							testResult: .pending,
 							positiveTestResultWasShown: false,
@@ -162,7 +162,7 @@ class RecycleBin {
 extension RecycleBin {
 	static func fake(store: RecycleBinStoring = MockTestStore()) -> RecycleBin {
 		let recycleBin = RecycleBin(store: store)
-		recycleBin.testRestorationHandler = TestRestorationHandlerFake()
+		recycleBin.userTestRestorationHandler = UserTestRestorationHandlerFake()
 		recycleBin.certificateRestorationHandler = CertificateRestorationHandlerFake()
 		return recycleBin
 	}

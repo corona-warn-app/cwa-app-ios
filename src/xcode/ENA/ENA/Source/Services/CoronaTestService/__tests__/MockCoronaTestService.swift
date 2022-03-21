@@ -17,15 +17,17 @@ class MockCoronaTestService: CoronaTestServiceProviding {
 
 	// MARK: - Protocol CoronaTestServiceProviding
 
-	var pcrTest = CurrentValueSubject<PCRTest?, Never>(nil)
-	var antigenTest = CurrentValueSubject<AntigenTest?, Never>(nil)
+	var pcrTest = CurrentValueSubject<UserPCRTest?, Never>(nil)
+	var antigenTest = CurrentValueSubject<UserAntigenTest?, Never>(nil)
 
 	var antigenTestIsOutdated = CurrentValueSubject<Bool, Never>(false)
 
 	var pcrTestResultIsLoading = CurrentValueSubject<Bool, Never>(false)
 	var antigenTestResultIsLoading = CurrentValueSubject<Bool, Never>(false)
 
-	func coronaTest(ofType type: CoronaTestType) -> CoronaTest? {
+	var familyMemberTests = CurrentValueSubject<[FamilyMemberCoronaTest], Never>([])
+
+	func userCoronaTest(ofType type: CoronaTestType) -> UserCoronaTest? {
 		switch type {
 		case .pcr:
 			return pcrTest.value.map { .pcr($0) }
@@ -102,7 +104,7 @@ class MockCoronaTestService: CoronaTestServiceProviding {
 		completion(registerRapidPCRTestAndGetResultResult ?? .failure(.noCoronaTestOfRequestedType))
 	}
 	
-	func reregister(coronaTest: CoronaTest) {}
+	func reregister(coronaTest: UserCoronaTest) {}
 
 	func updateTestResults(force: Bool, presentNotification: Bool, completion: @escaping VoidResultHandler) {}
 

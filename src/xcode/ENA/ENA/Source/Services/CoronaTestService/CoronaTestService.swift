@@ -108,15 +108,17 @@ class CoronaTestService: CoronaTestServiceProviding {
 
 	// MARK: - Protocol CoronaTestServiceProviding
 
-	var pcrTest = CurrentValueSubject<PCRTest?, Never>(nil)
-	var antigenTest = CurrentValueSubject<AntigenTest?, Never>(nil)
+	var pcrTest = CurrentValueSubject<UserPCRTest?, Never>(nil)
+	var antigenTest = CurrentValueSubject<UserAntigenTest?, Never>(nil)
 
 	var antigenTestIsOutdated = CurrentValueSubject<Bool, Never>(false)
 
 	var pcrTestResultIsLoading = CurrentValueSubject<Bool, Never>(false)
 	var antigenTestResultIsLoading = CurrentValueSubject<Bool, Never>(false)
 
-	func coronaTest(ofType type: CoronaTestType) -> CoronaTest? {
+	var familyMemberTests = CurrentValueSubject<[FamilyMemberCoronaTest], Never>([])
+
+	func userCoronaTest(ofType type: CoronaTestType) -> UserCoronaTest? {
 		switch type {
 		case .pcr:
 			return pcrTest.value.map { .pcr($0) }
@@ -156,7 +158,7 @@ class CoronaTestService: CoronaTestServiceProviding {
 						self?.moveTestToBin(.pcr)
 					}
 
-					self?.pcrTest.value = PCRTest(
+					self?.pcrTest.value = UserPCRTest(
 						registrationDate: Date(),
 						registrationToken: registrationToken,
 						qrCodeHash: qrCodeHash,
@@ -215,7 +217,7 @@ class CoronaTestService: CoronaTestServiceProviding {
 						self?.moveTestToBin(.pcr)
 					}
 
-					 let _pcrTest = PCRTest(
+					 let _pcrTest = UserPCRTest(
 						registrationDate: Date(),
 						registrationToken: registrationToken,
 						testResult: .positive,
@@ -308,7 +310,7 @@ class CoronaTestService: CoronaTestServiceProviding {
 						certificateConsentGiven = true
 					}
 
-					self?.antigenTest.value = AntigenTest(
+					self?.antigenTest.value = UserAntigenTest(
 						pointOfCareConsentDate: pointOfCareConsentDate,
 						registrationDate: Date(),
 						registrationToken: registrationToken,
@@ -382,7 +384,7 @@ class CoronaTestService: CoronaTestServiceProviding {
 						certificateConsentGiven = true
 					}
 
-					self?.pcrTest.value = PCRTest(
+					self?.pcrTest.value = UserPCRTest(
 						registrationDate: Date(),
 						registrationToken: registrationToken,
 						qrCodeHash: qrCodeHash,
@@ -423,7 +425,7 @@ class CoronaTestService: CoronaTestServiceProviding {
 		)
 	}
 	
-	func reregister(coronaTest: CoronaTest) {
+	func reregister(coronaTest: UserCoronaTest) {
 		switch coronaTest {
 		case .pcr(let pcrTest):
 			self.pcrTest.value = pcrTest
@@ -493,7 +495,7 @@ class CoronaTestService: CoronaTestServiceProviding {
 	func getSubmissionTAN(for coronaTestType: CoronaTestType, completion: @escaping SubmissionTANResultHandler) {
 		Log.info("[CoronaTestService] Getting submission tan (coronaTestType: \(coronaTestType))", log: .api)
 
-		guard let coronaTest = coronaTest(ofType: coronaTestType) else {
+		guard let coronaTest = userCoronaTest(ofType: coronaTestType) else {
 			completion(.failure(.noCoronaTestOfRequestedType))
 			return
 		}
@@ -542,8 +544,8 @@ class CoronaTestService: CoronaTestServiceProviding {
 	func moveTestToBin(_ coronaTestType: CoronaTestType) {
 		Log.info("[CoronaTestService] Moving test to bin (coronaTestType: \(coronaTestType)", log: .api)
 
-		if let coronaTest = coronaTest(ofType: coronaTestType) {
-			recycleBin.moveToBin(.coronaTest(coronaTest))
+		if let coronaTest = userCoronaTest(ofType: coronaTestType) {
+			recycleBin.moveToBin(.userCoronaTest(coronaTest))
 		}
 
 		removeTest(coronaTestType)
@@ -610,7 +612,7 @@ class CoronaTestService: CoronaTestServiceProviding {
 			// from v2.1 we keep it set to true even after the submission.
 			let positiveTestResultWasShown = store.positiveTestResultWasShown || keysSubmitted
 
-			pcrTest.value = PCRTest(
+			pcrTest.value = UserPCRTest(
 				registrationDate: Date(timeIntervalSince1970: TimeInterval(testRegistrationTimestamp)),
 				registrationToken: store.registrationToken,
 				testResult: testResult,
@@ -658,7 +660,7 @@ class CoronaTestService: CoronaTestServiceProviding {
 	
 	func createCoronaTestEntryInContactDiary(coronaTestType: CoronaTestType?) {
 		if let coronaTestType = coronaTestType,
-		   let coronaTest = coronaTest(ofType: coronaTestType),
+		   let coronaTest = userCoronaTest(ofType: coronaTestType),
 		   (coronaTest.testResult == .positive || coronaTest.testResult == .negative) && !coronaTest.journalEntryCreated {
 			let sampleDate: Date
 			switch coronaTestType {
@@ -794,7 +796,7 @@ class CoronaTestService: CoronaTestServiceProviding {
 	) {
 		Log.info("[CoronaTestService] Getting test result (coronaTestType: \(coronaTestType), duringRegistration: \(duringRegistration))", log: .api)
 
-		guard let coronaTest = coronaTest(ofType: coronaTestType) else {
+		guard let coronaTest = userCoronaTest(ofType: coronaTestType) else {
 			Log.error("[CoronaTestService] Getting test result failed: No corona test of requested type", log: .api)
 
 			completion(.failure(.noCoronaTestOfRequestedType))
@@ -904,11 +906,11 @@ class CoronaTestService: CoronaTestServiceProviding {
 
 				switch testResult {
 				case .positive, .negative, .invalid:
-					if case .positive = testResult, let coronaTest = self.coronaTest(ofType: coronaTestType), !coronaTest.keysSubmitted {
+					if case .positive = testResult, let coronaTest = self.userCoronaTest(ofType: coronaTestType), !coronaTest.keysSubmitted {
 						self.createKeySubmissionMetadataDefaultValues(for: coronaTest)
 					}
 
-					if self.coronaTest(ofType: coronaTestType)?.finalTestResultReceivedDate == nil {
+					if self.userCoronaTest(ofType: coronaTestType)?.finalTestResultReceivedDate == nil {
 						switch coronaTestType {
 						case .pcr:
 							self.pcrTest.value?.finalTestResultReceivedDate = Date()
@@ -1000,7 +1002,7 @@ class CoronaTestService: CoronaTestServiceProviding {
 	}
 
 	private func scheduleWarnOthersNotificationIfNeeded(coronaTestType: CoronaTestType) {
-		if let coronaTest = coronaTest(ofType: coronaTestType), coronaTest.positiveTestResultWasShown {
+		if let coronaTest = userCoronaTest(ofType: coronaTestType), coronaTest.positiveTestResultWasShown {
 			DeadmanNotificationManager().resetDeadmanNotification()
 
 			if !coronaTest.isSubmissionConsentGiven, !coronaTest.keysSubmitted {
@@ -1009,7 +1011,7 @@ class CoronaTestService: CoronaTestServiceProviding {
 		}
 	}
 
-	private func createKeySubmissionMetadataDefaultValues(for coronaTest: CoronaTest) {
+	private func createKeySubmissionMetadataDefaultValues(for coronaTest: UserCoronaTest) {
 		let submittedAfterRapidAntigenTest: Bool
 		switch coronaTest {
 		case .pcr:
@@ -1097,9 +1099,9 @@ class CoronaTestService: CoronaTestServiceProviding {
 
 	#if DEBUG
 
-	private var mockPCRTest: PCRTest? {
+	private var mockPCRTest: UserPCRTest? {
 		if let testResult = mockTestResult(for: .pcr) {
-			return PCRTest(
+			return UserPCRTest(
 				registrationDate: Date(),
 				registrationToken: "asdf",
 				testResult: testResult,
@@ -1118,9 +1120,9 @@ class CoronaTestService: CoronaTestServiceProviding {
 		}
 	}
 
-	private var mockAntigenTest: AntigenTest? {
+	private var mockAntigenTest: UserAntigenTest? {
 		if let testResult = mockTestResult(for: .antigen) {
-			return AntigenTest(
+			return UserAntigenTest(
 				pointOfCareConsentDate: Date(),
 				registrationDate: Date(),
 				registrationToken: "zxcv",

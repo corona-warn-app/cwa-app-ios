@@ -36,16 +36,16 @@ class ExposureSubmissionCoordinatorModel {
 	var coronaTestType: CoronaTestType?
 	var markNewlyAddedCoronaTestAsUnseen: Bool = false
 
-	var coronaTest: CoronaTest? {
+	var coronaTest: UserCoronaTest? {
 		guard let coronaTestType = coronaTestType else {
 			return nil
 		}
 
-		return coronaTestService.coronaTest(ofType: coronaTestType)
+		return coronaTestService.userCoronaTest(ofType: coronaTestType)
 	}
 
 	func shouldShowOverrideTestNotice(for coronaTestType: CoronaTestType) -> Bool {
-		if let oldTest = coronaTestService.coronaTest(ofType: coronaTestType),
+		if let oldTest = coronaTestService.userCoronaTest(ofType: coronaTestType),
 		   oldTest.testResult != .expired,
 		   !(oldTest.type == .antigen && coronaTestService.antigenTestIsOutdated.value) {
 			return true

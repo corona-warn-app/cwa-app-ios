@@ -134,8 +134,9 @@ final class MockTestStore: Store, PPAnalyticsData {
 
 	// MARK: - CoronaTestStoring
 
-	var pcrTest: PCRTest?
-	var antigenTest: AntigenTest?
+	var pcrTest: UserPCRTest?
+	var antigenTest: UserAntigenTest?
+	var familyMemberTests: [FamilyMemberCoronaTest] = []
 
 	// MARK: - AntigenTestProfileStoring
 
