@@ -61,7 +61,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 			onSuccess: { supportedCountries in
 				switch testRegistrationInformationResult {
 				case let .success(testRegistrationInformation):
-					let testOwnerSelection = ExposureSubmissionTestOwnerSelectionViewController(viewModel: ExposureSubmissionTestOwnerSelectionViewModel(onTestOwnerSelection: { [weak self] testOwner in
+					let testOwnerSelectionScreen = ExposureSubmissionTestOwnerSelectionViewController(viewModel: ExposureSubmissionTestOwnerSelectionViewModel(onTestOwnerSelection: { [weak self] testOwner in
 						switch testOwner {
 						case .user:
 							self?.showQRInfoScreen(supportedCountries: supportedCountries, testRegistrationInformation: testRegistrationInformation)
@@ -70,7 +70,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 						}
 					}), onDismiss: { [weak self] in self?.dismiss() })
 					
-					self.start(with: testOwnerSelection)
+					self.start(with: testOwnerSelectionScreen)
 				case let .failure(qrCodeError):
 					switch qrCodeError {
 					case .invalidTestCode:
