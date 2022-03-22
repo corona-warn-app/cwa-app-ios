@@ -6745,7 +6745,6 @@
 		85D7596224570491008175F0 /* ENAUITests */ = {
 			isa = PBXGroup;
 			children = (
-				BA4345AA27DA439800285B67 /* Extensions */,
 				85D7596524570491008175F0 /* Info.plist */,
 				345065FD27564182003636DB /* Utils */,
 				941B68AD253F005600DC1962 /* Helper */,
@@ -8739,13 +8738,6 @@
 				BA41016326F8D8F60073F28D /* CovPassCheckInformationViewModel.swift */,
 			);
 			path = CovPassCheckInformation;
-			sourceTree = "<group>";
-		};
-		BA4345AA27DA439800285B67 /* Extensions */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Extensions;
 			sourceTree = "<group>";
 		};
 		BA4693AF25C82ED3004B2DBB /* DMPPACService */ = {
