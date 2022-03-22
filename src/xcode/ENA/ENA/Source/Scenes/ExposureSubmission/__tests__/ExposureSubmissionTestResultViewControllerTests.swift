@@ -14,9 +14,9 @@ class ExposureSubmissionViewControllerTests: CWATestCase {
 
 		switch coronaTest.type {
 		case .pcr:
-			coronaTestService.pcrTest.value = coronaTest.pcrTest as? UserPCRTest
+			coronaTestService.pcrTest.value = coronaTest.pcrTest
 		case .antigen:
-			coronaTestService.antigenTest.value = coronaTest.antigenTest as? UserAntigenTest
+			coronaTestService.antigenTest.value = coronaTest.antigenTest
 		}
 
 		return ExposureSubmissionTestResultViewController(

@@ -27,7 +27,7 @@ class MockCoronaTestService: CoronaTestServiceProviding {
 
 	var familyMemberTests = CurrentValueSubject<[FamilyMemberCoronaTest], Never>([])
 
-	func userCoronaTest(ofType type: CoronaTestType) -> UserCoronaTest? {
+	func coronaTest(ofType type: CoronaTestType) -> UserCoronaTest? {
 		switch type {
 		case .pcr:
 			return pcrTest.value.map { .pcr($0) }

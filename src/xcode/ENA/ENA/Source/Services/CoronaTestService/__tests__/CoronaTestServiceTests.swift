@@ -525,14 +525,14 @@ class CoronaTestServiceTests: CWATestCase {
 			badgeWrapper: .fake()
 		)
 
-		XCTAssertNil(service.userCoronaTest(ofType: .pcr))
-		XCTAssertNil(service.userCoronaTest(ofType: .antigen))
+		XCTAssertNil(service.coronaTest(ofType: .pcr))
+		XCTAssertNil(service.coronaTest(ofType: .antigen))
 
 		service.pcrTest.value = .mock(registrationToken: "pcrRegistrationToken")
 		service.antigenTest.value = .mock(registrationToken: "antigenRegistrationToken")
 
-		XCTAssertEqual(service.userCoronaTest(ofType: .pcr)?.registrationToken, "pcrRegistrationToken")
-		XCTAssertEqual(service.userCoronaTest(ofType: .antigen)?.registrationToken, "antigenRegistrationToken")
+		XCTAssertEqual(service.coronaTest(ofType: .pcr)?.registrationToken, "pcrRegistrationToken")
+		XCTAssertEqual(service.coronaTest(ofType: .antigen)?.registrationToken, "antigenRegistrationToken")
 	}
 
 	// MARK: - Test Registration

@@ -107,7 +107,7 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 	) {
 		Log.info("Started exposure submission...", log: .api)
 
-		guard let coronaTest = coronaTestService.userCoronaTest(ofType: coronaTestType) else {
+		guard let coronaTest = coronaTestService.coronaTest(ofType: coronaTestType) else {
 			Log.info("Cancelled submission: No corona test of given type registered.", log: .api)
 			completion(.noCoronaTestOfGivenType)
 			return

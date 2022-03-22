@@ -116,9 +116,7 @@ class CoronaTestService: CoronaTestServiceProviding {
 	var pcrTestResultIsLoading = CurrentValueSubject<Bool, Never>(false)
 	var antigenTestResultIsLoading = CurrentValueSubject<Bool, Never>(false)
 
-	var familyMemberTests = CurrentValueSubject<[FamilyMemberCoronaTest], Never>([])
-
-	func userCoronaTest(ofType type: CoronaTestType) -> UserCoronaTest? {
+	func coronaTest(ofType type: CoronaTestType) -> UserCoronaTest? {
 		switch type {
 		case .pcr:
 			return pcrTest.value.map { .pcr($0) }
@@ -495,7 +493,7 @@ class CoronaTestService: CoronaTestServiceProviding {
 	func getSubmissionTAN(for coronaTestType: CoronaTestType, completion: @escaping SubmissionTANResultHandler) {
 		Log.info("[CoronaTestService] Getting submission tan (coronaTestType: \(coronaTestType))", log: .api)
 
-		guard let coronaTest = userCoronaTest(ofType: coronaTestType) else {
+		guard let coronaTest = coronaTest(ofType: coronaTestType) else {
 			completion(.failure(.noCoronaTestOfRequestedType))
 			return
 		}
@@ -544,7 +542,7 @@ class CoronaTestService: CoronaTestServiceProviding {
 	func moveTestToBin(_ coronaTestType: CoronaTestType) {
 		Log.info("[CoronaTestService] Moving test to bin (coronaTestType: \(coronaTestType)", log: .api)
 
-		if let coronaTest = userCoronaTest(ofType: coronaTestType) {
+		if let coronaTest = coronaTest(ofType: coronaTestType) {
 			recycleBin.moveToBin(.userCoronaTest(coronaTest))
 		}
 
@@ -660,7 +658,7 @@ class CoronaTestService: CoronaTestServiceProviding {
 	
 	func createCoronaTestEntryInContactDiary(coronaTestType: CoronaTestType?) {
 		if let coronaTestType = coronaTestType,
-		   let coronaTest = userCoronaTest(ofType: coronaTestType),
+		   let coronaTest = coronaTest(ofType: coronaTestType),
 		   (coronaTest.testResult == .positive || coronaTest.testResult == .negative) && !coronaTest.journalEntryCreated {
 			let sampleDate: Date
 			switch coronaTestType {
@@ -796,7 +794,7 @@ class CoronaTestService: CoronaTestServiceProviding {
 	) {
 		Log.info("[CoronaTestService] Getting test result (coronaTestType: \(coronaTestType), duringRegistration: \(duringRegistration))", log: .api)
 
-		guard let coronaTest = userCoronaTest(ofType: coronaTestType) else {
+		guard let coronaTest = coronaTest(ofType: coronaTestType) else {
 			Log.error("[CoronaTestService] Getting test result failed: No corona test of requested type", log: .api)
 
 			completion(.failure(.noCoronaTestOfRequestedType))
@@ -906,11 +904,11 @@ class CoronaTestService: CoronaTestServiceProviding {
 
 				switch testResult {
 				case .positive, .negative, .invalid:
-					if case .positive = testResult, let coronaTest = self.userCoronaTest(ofType: coronaTestType), !coronaTest.keysSubmitted {
+					if case .positive = testResult, let coronaTest = self.coronaTest(ofType: coronaTestType), !coronaTest.keysSubmitted {
 						self.createKeySubmissionMetadataDefaultValues(for: coronaTest)
 					}
 
-					if self.userCoronaTest(ofType: coronaTestType)?.finalTestResultReceivedDate == nil {
+					if self.coronaTest(ofType: coronaTestType)?.finalTestResultReceivedDate == nil {
 						switch coronaTestType {
 						case .pcr:
 							self.pcrTest.value?.finalTestResultReceivedDate = Date()
@@ -1002,7 +1000,7 @@ class CoronaTestService: CoronaTestServiceProviding {
 	}
 
 	private func scheduleWarnOthersNotificationIfNeeded(coronaTestType: CoronaTestType) {
-		if let coronaTest = userCoronaTest(ofType: coronaTestType), coronaTest.positiveTestResultWasShown {
+		if let coronaTest = coronaTest(ofType: coronaTestType), coronaTest.positiveTestResultWasShown {
 			DeadmanNotificationManager().resetDeadmanNotification()
 
 			if !coronaTest.isSubmissionConsentGiven, !coronaTest.keysSubmitted {

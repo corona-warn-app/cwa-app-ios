@@ -127,7 +127,7 @@ final class PPAAnalyticsSubmissionCollector {
 	private var coronaTestService: CoronaTestServiceProviding
 
 	private func setHoursSinceTestResult(type: CoronaTestType) {
-		guard let testResultReceivedDate = coronaTestService.userCoronaTest(ofType: type)?.finalTestResultReceivedDate else {
+		guard let testResultReceivedDate = coronaTestService.coronaTest(ofType: type)?.finalTestResultReceivedDate else {
 			Log.warning("Could not log hoursSinceTestResult due to testResultReceivedTimeStamp is nil", log: .ppa)
 			return
 		}
@@ -147,7 +147,7 @@ final class PPAAnalyticsSubmissionCollector {
 	}
 
 	private func setHoursSinceTestRegistration(type: CoronaTestType) {
-		guard let registrationDate = coronaTestService.userCoronaTest(ofType: type)?.registrationDate else {
+		guard let registrationDate = coronaTestService.coronaTest(ofType: type)?.registrationDate else {
 			Log.warning("Could not log hoursSinceTestRegistration due to testRegistrationDate is nil", log: .ppa)
 			return
 		}
@@ -167,7 +167,7 @@ final class PPAAnalyticsSubmissionCollector {
 	}
 
 	private func setDaysSinceMostRecentDateAtENFRiskLevelAtTestRegistration(type: CoronaTestType) {
-		guard let registrationDate = coronaTestService.userCoronaTest(ofType: type)?.registrationDate else {
+		guard let registrationDate = coronaTestService.coronaTest(ofType: type)?.registrationDate else {
 			switch type {
 			case .pcr:
 				store.pcrKeySubmissionMetadata?.daysSinceMostRecentDateAtRiskLevelAtTestRegistration = -1
@@ -233,7 +233,7 @@ final class PPAAnalyticsSubmissionCollector {
 	}
 	
 	private func setDaysSinceMostRecentDateAtCheckinRiskLevelAtTestRegistration(type: CoronaTestType) {
-		guard let registrationDate = coronaTestService.userCoronaTest(ofType: type)?.registrationDate else {
+		guard let registrationDate = coronaTestService.coronaTest(ofType: type)?.registrationDate else {
 			switch type {
 			case .pcr:
 				store.pcrKeySubmissionMetadata?.daysSinceMostRecentDateAtCheckinRiskLevelAtTestRegistration = -1

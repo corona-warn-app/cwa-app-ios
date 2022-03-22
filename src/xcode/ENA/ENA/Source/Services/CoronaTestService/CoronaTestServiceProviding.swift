@@ -22,9 +22,7 @@ protocol CoronaTestServiceProviding {
 	var pcrTestResultIsLoading: CurrentValueSubject<Bool, Never> { get }
 	var antigenTestResultIsLoading: CurrentValueSubject<Bool, Never> { get }
 
-	var familyMemberTests: CurrentValueSubject<[FamilyMemberCoronaTest], Never> { get }
-
-	func userCoronaTest(ofType type: CoronaTestType) -> UserCoronaTest?
+	func coronaTest(ofType type: CoronaTestType) -> UserCoronaTest?
 	
 	// This function is responsible to register a PCR test from QR Code
 	func registerPCRTestAndGetResult(

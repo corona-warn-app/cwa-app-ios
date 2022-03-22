@@ -41,11 +41,11 @@ class ExposureSubmissionCoordinatorModel {
 			return nil
 		}
 
-		return coronaTestService.userCoronaTest(ofType: coronaTestType)
+		return coronaTestService.coronaTest(ofType: coronaTestType)
 	}
 
 	func shouldShowOverrideTestNotice(for coronaTestType: CoronaTestType) -> Bool {
-		if let oldTest = coronaTestService.userCoronaTest(ofType: coronaTestType),
+		if let oldTest = coronaTestService.coronaTest(ofType: coronaTestType),
 		   oldTest.testResult != .expired,
 		   !(oldTest.type == .antigen && coronaTestService.antigenTestIsOutdated.value) {
 			return true

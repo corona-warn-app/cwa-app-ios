@@ -8,7 +8,7 @@ struct UserCoronaTestRestorationHandler: UserTestRestorationHandling {
 
 	init(service: CoronaTestServiceProviding) {
 		canRestore = { coronaTest in
-			if service.userCoronaTest(ofType: coronaTest.type) == nil {
+			if service.coronaTest(ofType: coronaTest.type) == nil {
 				return .success(())
 			} else {
 				return .failure(.testTypeAlreadyRegistered)
@@ -16,7 +16,7 @@ struct UserCoronaTestRestorationHandler: UserTestRestorationHandling {
 		}
 
 		restore = { coronaTest in
-			if service.userCoronaTest(ofType: coronaTest.type) != nil {
+			if service.coronaTest(ofType: coronaTest.type) != nil {
 				service.moveTestToBin(coronaTest.type)
 			}
 
