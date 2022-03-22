@@ -93,7 +93,11 @@ class HealthCertificateOverviewViewController: UITableViewController {
 		navigationController?.navigationBar.prefersLargeTitles = true
 		navigationController?.navigationBar.sizeToFit()
 
-		tableView.reloadData()
+		// delay reloadData because scrolling to top may take up to 0.35 sec
+		// otherwise the contentOffSet gets broken
+		DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [tableView] in
+			tableView?.reloadData()
+		}
 	}
 
 	override func viewDidAppear(_ animated: Bool) {

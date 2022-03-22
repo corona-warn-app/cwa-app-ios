@@ -266,6 +266,9 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 				guard let self = self, let coronaTest = self.model.coronaTest else { return }
 
 				guard coronaTest.isSubmissionConsentGiven else {
+					self.model.coronaTestService.createCoronaTestEntryInContactDiary(
+						coronaTestType: self.model.coronaTestType
+					)
 					self.showTestResultScreen()
 					return
 				}
@@ -283,6 +286,9 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 					if error == .notAuthorized {
 						Log.info("OS submission authorization was declined.")
 						self.model.setSubmissionConsentGiven(false)
+						self.model.coronaTestService.createCoronaTestEntryInContactDiary(
+							coronaTestType: self.model.coronaTestType
+					 )
 						self.showTestResultScreen()
 					} else {
 						self.showErrorAlert(for: error)
@@ -628,6 +634,9 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 			if self?.model.coronaTest?.positiveTestResultWasShown == true {
 				self?.showThankYouScreen()
 			} else {
+				self?.model.coronaTestService.createCoronaTestEntryInContactDiary(
+					coronaTestType: self?.model.coronaTestType
+				   )
 				self?.showTestResultScreen()
 			}
 		}

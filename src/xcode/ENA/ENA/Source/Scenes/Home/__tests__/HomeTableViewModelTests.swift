@@ -476,6 +476,94 @@ class HomeTableViewModelTests: CWATestCase {
 		XCTAssertEqual(viewModel.riskAndTestResultsRows, [.risk, .antigenTestResult(.default)])
 	}
 
+	func testRiskLoweredAlertNotSuppressedIfRiskCardIsNotHidden() {
+		let store = MockTestStore()
+		store.enfRiskCalculationResult = .fake(riskLevel: .low)
+		store.checkinRiskCalculationResult = CheckinRiskCalculationResult(calculationDate: Date(), checkinIdsWithRiskPerDate: [:], riskLevelPerDate: [:])
+
+		store.shouldShowRiskStatusLoweredAlert = true
+
+		var defaultAppConfig = CachedAppConfigurationMock.defaultAppConfiguration
+		defaultAppConfig.coronaTestParameters.coronaPcrtestParameters.hoursSinceTestRegistrationToShowRiskCard = 168
+		let appConfiguration = CachedAppConfigurationMock(with: defaultAppConfig)
+
+		let coronaTestService = MockCoronaTestService()
+		coronaTestService.pcrTest.value = .mock(
+			registrationToken: "FAKETOKEN!",
+			registrationDate: Date(timeIntervalSinceNow: -3600 * 167),
+			testResult: .positive,
+			positiveTestResultWasShown: false
+		)
+
+		let viewModel = HomeTableViewModel(
+			state: .init(
+				store: store,
+				riskProvider: MockRiskProvider(),
+				exposureManagerState: .init(authorized: true, enabled: true, status: .active),
+				enState: .enabled,
+				statisticsProvider: StatisticsProvider(
+					client: CachingHTTPClientMock(),
+					store: store
+				),
+				localStatisticsProvider: LocalStatisticsProvider(
+					client: CachingHTTPClientMock(),
+					store: store
+				)
+			),
+			store: store,
+			appConfiguration: appConfiguration,
+			coronaTestService: coronaTestService,
+			onTestResultCellTap: { _ in },
+			badgeWrapper: .fake()
+		)
+
+		XCTAssertFalse(viewModel.riskStatusLoweredAlertShouldBeSuppressed)
+	}
+
+	func testRiskLoweredAlertSuppressedIfRiskCardIsHidden() {
+		let store = MockTestStore()
+		store.enfRiskCalculationResult = .fake(riskLevel: .low)
+		store.checkinRiskCalculationResult = CheckinRiskCalculationResult(calculationDate: Date(), checkinIdsWithRiskPerDate: [:], riskLevelPerDate: [:])
+
+		store.shouldShowRiskStatusLoweredAlert = true
+
+		var defaultAppConfig = CachedAppConfigurationMock.defaultAppConfiguration
+		defaultAppConfig.coronaTestParameters.coronaPcrtestParameters.hoursSinceTestRegistrationToShowRiskCard = 168
+		let appConfiguration = CachedAppConfigurationMock(with: defaultAppConfig)
+
+		let coronaTestService = MockCoronaTestService()
+		coronaTestService.pcrTest.value = .mock(
+			registrationToken: "FAKETOKEN!",
+			registrationDate: Date(timeIntervalSinceNow: -3600 * 167),
+			testResult: .positive,
+			positiveTestResultWasShown: true
+		)
+
+		let viewModel = HomeTableViewModel(
+			state: .init(
+				store: store,
+				riskProvider: MockRiskProvider(),
+				exposureManagerState: .init(authorized: true, enabled: true, status: .active),
+				enState: .enabled,
+				statisticsProvider: StatisticsProvider(
+					client: CachingHTTPClientMock(),
+					store: store
+				),
+				localStatisticsProvider: LocalStatisticsProvider(
+					client: CachingHTTPClientMock(),
+					store: store
+				)
+			),
+			store: store,
+			appConfiguration: appConfiguration,
+			coronaTestService: coronaTestService,
+			onTestResultCellTap: { _ in },
+			badgeWrapper: .fake()
+		)
+
+		XCTAssertTrue(viewModel.riskStatusLoweredAlertShouldBeSuppressed)
+	}
+
 	func testRowHeightsWithoutStatistics() {
 		let store = MockTestStore()
 		let viewModel = HomeTableViewModel(
