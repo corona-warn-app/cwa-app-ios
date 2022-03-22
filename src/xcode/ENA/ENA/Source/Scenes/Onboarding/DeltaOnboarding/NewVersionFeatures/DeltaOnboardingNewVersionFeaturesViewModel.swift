@@ -16,11 +16,6 @@ struct DeltaOnboardingNewVersionFeaturesViewModel {
 		self.featureVersion = "2.19"
 		
 		self.newVersionFeatures.append(
-			// Rapid PCR tests
-			NewVersionFeature(title: AppStrings.NewVersionFeatures.feature219RapidPCRTitle, description: AppStrings.NewVersionFeatures.feature219RapidPCRDescription)
-		)
-		
-		self.newVersionFeatures.append(
 			// Fault tolerant name handling
 			NewVersionFeature(title: AppStrings.NewVersionFeatures.feature219FaultTolerantNameHandlingTitle, description: AppStrings.NewVersionFeatures.feature219FaultTolerantNameHandlingDescription)
 		)
