@@ -68,13 +68,21 @@ class DiaryOverviewDayTableViewCell: UITableViewCell {
 		let tapOnDateStackViewRecognizer = UITapGestureRecognizer(target: self, action: #selector(clickableAreaWasTapped))
 		dateStackView.addGestureRecognizer(tapOnDateStackViewRecognizer)
 		drawBorders(to: [.left, .right], on: dateStackView)
-		dateStackView.backgroundColor = .enaColor(for: .cellBackground)
+		if #available(iOS 14.0, *) {
+			dateStackView.backgroundColor = .enaColor(for: .cellBackground)
+		} else {
+			dateStackView.add(backgroundColor: .enaColor(for: .cellBackground))
+		}
 	}
 
 	private func configureExposureHistory(_ cellViewModel: DiaryOverviewDayCellModel) {
 		// Because we set the background color, the border of the underying view disappears. For this we need some new borders at the left and right.
 		drawBorders(to: [.left, .right], on: exposureHistoryStackView)
-		exposureHistoryStackView.backgroundColor = .enaColor(for: .darkBackground)
+		if #available(iOS 14.0, *) {
+			exposureHistoryStackView.backgroundColor = .enaColor(for: .darkBackground)
+		} else {
+			exposureHistoryStackView.add(backgroundColor: .enaColor(for: .darkBackground))
+		}
 
 		exposureHistoryStackView.isHidden = cellViewModel.hideExposureHistory
 		exposureHistoryNoticeImageView.image = cellViewModel.exposureHistoryImage
@@ -89,7 +97,11 @@ class DiaryOverviewDayTableViewCell: UITableViewCell {
 	private func configureTests(_ cellViewModel: DiaryOverviewDayCellModel) {
 		// pcr & antigen tests
 		testsStackView.arrangedSubviews.forEach { $0.removeFromSuperview() }
-		testsStackView.backgroundColor = .enaColor(for: .darkBackground)
+		if #available(iOS 14.0, *) {
+			testsStackView.backgroundColor = .enaColor(for: .darkBackground)
+		} else {
+			testsStackView.add(backgroundColor: .enaColor(for: .darkBackground))
+		}
 		// Because we set the background color, the border of the underying view disappears. For this we need some new borders at the left and right and here for the top, too.
 		drawBorders(to: [.left, .right], on: testsStackView)
 
@@ -142,7 +154,11 @@ class DiaryOverviewDayTableViewCell: UITableViewCell {
 		// Check-Ins with risk
 		checkinsWithRiskStackView.arrangedSubviews.forEach { $0.removeFromSuperview() }
 		checkinHistoryContainerStackView.isHidden = cellViewModel.hideCheckinRisk
-		checkinHistoryContainerStackView.backgroundColor = .enaColor(for: .darkBackground)
+		if #available(iOS 14.0, *) {
+			checkinHistoryContainerStackView.backgroundColor = .enaColor(for: .darkBackground)
+		} else {
+			checkinHistoryContainerStackView.add(backgroundColor: .enaColor(for: .darkBackground))
+		}
 		// Because we set the background color, the border of the underlying view disappears. For this we need some new borders at the left and right.
 		drawBorders(to: [.left, .right], on: checkinHistoryContainerStackView)
 
@@ -255,10 +271,6 @@ class DiaryOverviewDayTableViewCell: UITableViewCell {
 			separatorLine.backgroundColor = .enaColor(for: .hairline)
 			separatorLine.translatesAutoresizingMaskIntoConstraints = false
 
-			// The position is dynamical and so we need to calculate the postion to our own (depending of the layout in the xib and what we do before this step)
-			let entryHeight = CGFloat(30) + imageView.frame.height
-			encountersVisitsContainerStackView.spacing = entryHeight
-
 			entryStackView.addSubview(separatorLine)
 
 			let topConstraint: NSLayoutConstraint
@@ -267,7 +279,7 @@ class DiaryOverviewDayTableViewCell: UITableViewCell {
 			if index == 0 {
 				topConstraint = separatorLine.topAnchor.constraint(equalTo: encountersVisitsContainerStackView.topAnchor)
 			} else {
-				topConstraint = separatorLine.topAnchor.constraint(equalTo: entryStackView.centerYAnchor, constant: -(entryHeight))
+				topConstraint = separatorLine.topAnchor.constraint(equalTo: entryStackView.topAnchor, constant: -10)
 			}
 
 			// Draw the seperator line from leading to trailing of the encountersVisitsContainerStackView
@@ -283,9 +295,14 @@ class DiaryOverviewDayTableViewCell: UITableViewCell {
 		encountersVisitsContainerStackView.addGestureRecognizer(tapOnEncounterVisitsStackViewRecognizer)
 
 		drawBorders(to: [.left, .right], on: encountersVisitsContainerStackView)
-		encountersVisitsContainerStackView.backgroundColor = .enaColor(for: .cellBackground)
+		if #available(iOS 14.0, *) {
+			encountersVisitsContainerStackView.backgroundColor = .enaColor(for: .cellBackground)
+		} else {
+			encountersVisitsContainerStackView.add(backgroundColor: .enaColor(for: .cellBackground))
+		}
+
 		encountersVisitsContainerStackView.spacing = 20
-		encountersVisitsContainerStackView.distribution = .fillEqually
+		encountersVisitsContainerStackView.distribution = .fill
 
 		// For UI Testing
 		accessibilityTraits = [.button]
@@ -294,22 +311,21 @@ class DiaryOverviewDayTableViewCell: UITableViewCell {
 
 	private func configureBackground() {
 		topBackground.layer.cornerRadius = 14
+		topBackground.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
 		if #available(iOS 13.0, *) {
 			topBackground.layer.cornerCurve = .continuous
 		}
 		topBackground.layer.borderWidth = 1
 		topBackground.layer.borderColor = UIColor.enaColor(for: .hairline).cgColor
-
-		topBackground.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
 		topBackground.backgroundColor = .enaColor(for: .cellBackground)
 
 		bottomBackground.layer.cornerRadius = 14
+		bottomBackground.layer.maskedCorners = [.layerMaxXMaxYCorner, .layerMinXMaxYCorner]
 		if #available(iOS 13.0, *) {
 			bottomBackground.layer.cornerCurve = .continuous
 		}
 		bottomBackground.layer.borderWidth = 1
 		bottomBackground.layer.borderColor = UIColor.enaColor(for: .hairline).cgColor
-		bottomBackground.layer.maskedCorners = [.layerMaxXMaxYCorner, .layerMinXMaxYCorner]
 
 		// Show same background like the topBackground when we have not the encountersVisitsContainerStackView at the bottom displayed or the hole day is empty
 		if (testsStackView.isHidden && exposureHistoryStackView.isHidden && checkinHistoryContainerStackView.isHidden) || !encountersVisitsContainerStackView.isHidden {
