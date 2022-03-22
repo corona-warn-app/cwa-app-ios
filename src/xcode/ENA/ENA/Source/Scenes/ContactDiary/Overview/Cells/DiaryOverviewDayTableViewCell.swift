@@ -310,7 +310,6 @@ class DiaryOverviewDayTableViewCell: UITableViewCell {
 	}
 
 	private func configureBackground() {
-
 		topBackground.layer.cornerRadius = 14
 		topBackground.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
 		if #available(iOS 13.0, *) {
@@ -318,16 +317,15 @@ class DiaryOverviewDayTableViewCell: UITableViewCell {
 		}
 		topBackground.layer.borderWidth = 1
 		topBackground.layer.borderColor = UIColor.enaColor(for: .hairline).cgColor
-
 		topBackground.backgroundColor = .enaColor(for: .cellBackground)
 
 		bottomBackground.layer.cornerRadius = 14
+		bottomBackground.layer.maskedCorners = [.layerMaxXMaxYCorner, .layerMinXMaxYCorner]
 		if #available(iOS 13.0, *) {
 			bottomBackground.layer.cornerCurve = .continuous
 		}
 		bottomBackground.layer.borderWidth = 1
 		bottomBackground.layer.borderColor = UIColor.enaColor(for: .hairline).cgColor
-		bottomBackground.layer.maskedCorners = [.layerMaxXMaxYCorner, .layerMinXMaxYCorner]
 
 		// Show same background like the topBackground when we have not the encountersVisitsContainerStackView at the bottom displayed or the hole day is empty
 		if (testsStackView.isHidden && exposureHistoryStackView.isHidden && checkinHistoryContainerStackView.isHidden) || !encountersVisitsContainerStackView.isHidden {
