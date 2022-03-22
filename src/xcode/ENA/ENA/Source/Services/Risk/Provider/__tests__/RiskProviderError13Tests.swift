@@ -48,7 +48,9 @@ final class RiskProviderError13Tests: CWATestCase {
 			checkinRiskCalculation: CheckinRiskCalculationFake(),
 			keyPackageDownload: makeKeyPackageDownloadMock(with: store),
 			traceWarningPackageDownload: makeTraceWarningPackageDownloadMock(with: store, appConfig: appConfig),
-			exposureDetectionExecutor: exposureDetectionDelegateStub
+			exposureDetectionExecutor: exposureDetectionDelegateStub,
+			coronaTestService: MockCoronaTestService(),
+			downloadedPackagesStore: DownloadedPackagesSQLLiteStore.inMemory()
 		)
 
 		let consumer = RiskConsumer()
@@ -123,7 +125,9 @@ final class RiskProviderError13Tests: CWATestCase {
 			checkinRiskCalculation: CheckinRiskCalculationFake(),
 			keyPackageDownload: makeKeyPackageDownloadMock(with: store),
 			traceWarningPackageDownload: makeTraceWarningPackageDownloadMock(with: store, appConfig: appConfig),
-			exposureDetectionExecutor: exposureDetectionDelegateStub
+			exposureDetectionExecutor: exposureDetectionDelegateStub,
+			coronaTestService: MockCoronaTestService(),
+			downloadedPackagesStore: DownloadedPackagesSQLLiteStore.inMemory()
 		)
 
 		let consumer = RiskConsumer()
@@ -199,7 +203,9 @@ final class RiskProviderError13Tests: CWATestCase {
 			checkinRiskCalculation: CheckinRiskCalculationFake(),
 			keyPackageDownload: makeKeyPackageDownloadMock(with: store),
 			traceWarningPackageDownload: makeTraceWarningPackageDownloadMock(with: store, appConfig: appConfig),
-			exposureDetectionExecutor: exposureDetectionDelegateStub
+			exposureDetectionExecutor: exposureDetectionDelegateStub,
+			coronaTestService: MockCoronaTestService(),
+			downloadedPackagesStore: DownloadedPackagesSQLLiteStore.inMemory()
 		)
 
 		let consumer = RiskConsumer()
@@ -274,7 +280,9 @@ final class RiskProviderError13Tests: CWATestCase {
 			checkinRiskCalculation: CheckinRiskCalculationFake(),
 			keyPackageDownload: makeKeyPackageDownloadMock(with: store),
 			traceWarningPackageDownload: makeTraceWarningPackageDownloadMock(with: store, appConfig: appConfig),
-			exposureDetectionExecutor: exposureDetectionDelegateStub
+			exposureDetectionExecutor: exposureDetectionDelegateStub,
+			coronaTestService: MockCoronaTestService(),
+			downloadedPackagesStore: DownloadedPackagesSQLLiteStore.inMemory()
 		)
 
 		let consumer = RiskConsumer()
