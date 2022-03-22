@@ -575,7 +575,7 @@ class ENAUITests_13_CreateHealthCertificate: CWATestCase {
 		app.launch()
 
 		// Navigate to Certificates Tab.
-		app.buttons[AccessibilityIdentifiers.TabBar.certificates].waitAndTap()
+		app.buttons[AccessibilityIdentifiers.TabBar.certificates].waitAndTap(.medium)
 
 		// Navigate to Persons Tab.
 		app.cells[AccessibilityIdentifiers.HealthCertificate.Overview.healthCertifiedPersonCell].waitAndTap()
