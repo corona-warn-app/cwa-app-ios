@@ -2252,7 +2252,7 @@ enum AppStrings {
 				static let bulletPoint = NSLocalizedString("HealthCertificate_FamilyMemberConsentLegal_BulletPoint", comment: "")
 				static let text = NSLocalizedString("HealthCertificate_FamilyMemberConsentLegal_text", comment: "")
 			}
-
+			static let primaryButton = NSLocalizedString("HealthCertificate_FamilyMemberConsent_Primary", comment: "")
 		}
 
 		enum Alert {

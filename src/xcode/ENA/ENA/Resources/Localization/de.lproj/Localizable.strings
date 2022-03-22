@@ -3060,6 +3060,8 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "HealthCertificate_FamilyMemberConsentLegal_text" = "Wenn Sie es sich später anders überlegen, können Sie den Test in der App löschen.";
 
+"HealthCertificate_FamilyMemberConsent_Primary" = "Einverstanden";
+
 /* Health Certificate Delete Alert */
 
 "HealthCertificate_Alert_deleteButton" = "Zertifikat löschen";
