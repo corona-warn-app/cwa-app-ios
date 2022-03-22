@@ -77,8 +77,14 @@ class FamilyMemberConsentViewController: DynamicTableViewController, DismissHand
 
 	private func setupTableView() {
 		view.backgroundColor = .enaColor(for: .background)
-		dynamicTableViewModel = viewModel.dynamicTableViewModel
 		tableView.separatorStyle = .none
+
+		tableView.register(
+			UINib(nibName: String(describing: DynamicLegalExtendedCell.self), bundle: nil),
+			forCellReuseIdentifier: DynamicLegalExtendedCell.reuseIdentifier
+		)
+
+		dynamicTableViewModel = viewModel.dynamicTableViewModel
 
 		viewModel.$isPrimaryButtonEnabled
 			.sink { [weak self] isEnabled in

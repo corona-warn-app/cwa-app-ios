@@ -3052,6 +3052,14 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "HealthCertificate_FamilyMemberConsent_Body02" = "Wenn das Testergebnis Ihres Familienmitglieds negativ ist, können Sie in den folgenden Schritten ein offizielles COVID-Testzertifikat anfordern.";
 
+"HealthCertificate_FamilyMemberConsentLegal_Headline" = "Ihr Einverständnis";
+
+"HealthCertificate_FamilyMemberConsentLegal_SubHeadline" = "Durch Antippen von „Einverstanden“ willigen Sie in folgende Schritte ein:";
+
+"HealthCertificate_FamilyMemberConsentLegal_BulletPoint" = "Die App ruft das Testergebnis Ihres Familienmitglieds ab.";
+
+"HealthCertificate_FamilyMemberConsentLegal_text" = "Wenn Sie es sich später anders überlegen, können Sie den Test in der App löschen.";
+
 /* Health Certificate Delete Alert */
 
 "HealthCertificate_Alert_deleteButton" = "Zertifikat löschen";

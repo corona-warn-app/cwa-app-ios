@@ -36,84 +36,39 @@ final class FamilyMemberConsentViewModel {
 			// Illustration with information text
 			.section(
 				header:
-					.image(
-						UIImage(
-							imageLiteralResourceName: "Illu_Family_Test_Consent"
+						.image(
+							UIImage(
+								imageLiteralResourceName: "Illu_Family_Test_Consent"
+							),
+							accessibilityLabel: AppStrings.HealthCertificate.FamilyMemberConsent.imageDescription,
+							accessibilityIdentifier: AccessibilityIdentifiers.HealthCertificate.FamilyMemberConsent.imageDescription,
+							height: 220
 						),
-						accessibilityLabel: AppStrings.HealthCertificate.FamilyMemberConsent.imageDescription,
-						accessibilityIdentifier: AccessibilityIdentifiers.HealthCertificate.FamilyMemberConsent.imageDescription,
-						height: 220
-					),
 				cells: [
 					.title2(text: AppStrings.HealthCertificate.FamilyMemberConsent.headline),
 					.body(text: AppStrings.HealthCertificate.FamilyMemberConsent.inputTitle),
 					.icon(UIImage(imageLiteralResourceName: "Icon_Family"), text: .string(AppStrings.HealthCertificate.FamilyMemberConsent.body01), alignment: .top),
 					.icon(UIImage(imageLiteralResourceName: "Icons_Certificates_01"), text: .string(AppStrings.HealthCertificate.FamilyMemberConsent.body02), alignment: .top)
-					]
-//					.body(
-//						text: AppStrings.ExposureSubmission.TestCertificate.Info.body,
-//						accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmission.TestCertificate.Info.body
-//					),
-//					isRapidTest ? nil : .birthdayDatePicker(
-//						placeholder: AppStrings.ExposureSubmission.TestCertificate.Info.birthdayPlaceholder,
-//						accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmission.TestCertificate.Info.birthdayPlaceholder,
-//						configure: { [weak self] _, cell, _ in
-//							guard let birthdayDateInputCell = cell as? BirthdayDatePickerCell,
-//								  let self = self else {
-//								return
-//							}
-//							self.subscriptions.forEach { $0.cancel() }
-//							birthdayDateInputCell.$dateOfBirth
-//								.dropFirst()
-//								.assign(to: \.dateOfBirth, on: self)
-//								.store(in: &self.subscriptions)
-//							birthdayDateInputCell.dateOfBirth = self.dateOfBirth
-//						}
-//					),
-//					isRapidTest ? nil : .body(
-//						text: AppStrings.ExposureSubmission.TestCertificate.Info.birthdayText,
-//						accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmission.TestCertificate.Info.birthdayText
-//					),
-//					.space(
-//						height: 15.0,
-//						color: .enaColor(for: .background)
-//					),
-//					.icon(
-//						UIImage(imageLiteralResourceName: "Icons_Certificates_02"),
-//						text: .string(AppStrings.ExposureSubmission.TestCertificate.Info.section_1),
-//						alignment: .top
-//					),
-//					.space(
-//						height: 15.0,
-//						color: .enaColor(for: .background)
-//					),
-//					.icon(
-//						UIImage(imageLiteralResourceName: "Icons_Certificates_01"),
-//						text: .string(AppStrings.ExposureSubmission.TestCertificate.Info.section_2),
-//						alignment: .top
-//					)
-//				].compactMap { $0 }
+				]
 			),
 			// Legal text
 			.section(
 				cells: [
-//					.legalExtended(
-//						title: NSAttributedString(string: AppStrings.ExposureSubmission.TestCertificate.Info.legalHeadline_1),
-//						subheadline1: nil,
-//						bulletPoints1: [
-//							NSAttributedString(string: AppStrings.ExposureSubmission.TestCertificate.Info.legalText_1),
-//							NSAttributedString(string: AppStrings.ExposureSubmission.TestCertificate.Info.legalText_2),
-//							isRapidTest ? nil : NSAttributedString(string: AppStrings.ExposureSubmission.TestCertificate.Info.legalText_2a_PCR),
-//							NSAttributedString(string: AppStrings.ExposureSubmission.TestCertificate.Info.legalText_3),
-//							NSAttributedString(string: AppStrings.ExposureSubmission.TestCertificate.Info.legalText_4),
-//							NSAttributedString(string: AppStrings.ExposureSubmission.TestCertificate.Info.legalText_5)
-//						].compactMap { $0 },
-//						subheadline2: nil,
-//						accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmission.TestCertificate.Info.acknowledgementTitle,
-//						configure: { _, cell, _ in
-//							cell.backgroundColor = .enaColor(for: .background)
-//						}
-//					)
+					.legalExtended(
+						title: NSAttributedString(string: AppStrings.HealthCertificate.FamilyMemberConsent.Legal.headline),
+						subheadline1: NSAttributedString(string: AppStrings.HealthCertificate.FamilyMemberConsent.Legal.subHeadline, attributes: normalTextAttribute),
+						bulletPoints1: [
+							bulletPointCellWithBoldHeadline(
+								title: AppStrings.HealthCertificate.FamilyMemberConsent.Legal.bulletPoint,
+								text: AppStrings.HealthCertificate.FamilyMemberConsent.Legal.text
+							)
+						],
+						subheadline2: nil,
+						accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmission.TestCertificate.Info.acknowledgementTitle,
+						configure: { _, cell, _ in
+							cell.backgroundColor = .enaColor(for: .background)
+						}
+					)
 				]
 			),
 			// Disclaimer cell
@@ -142,7 +97,17 @@ final class FamilyMemberConsentViewModel {
 	private let presentDisclaimer: () -> Void
 	private var subscriptions = Set<AnyCancellable>()
 
-// ILLUSTRARION: Illu_Family_Test_Consent
-// Dot Icon1:	Icons_Certificates_01 or Icons_RecycleBin_CoronaTest
-// Dot Icon2:	Icon_Family
+	private let boldTextAttribute: [NSAttributedString.Key: Any] = [
+		NSAttributedString.Key.font: UIFont.enaFont(for: .body, weight: .bold)
+	]
+	private let normalTextAttribute: [NSAttributedString.Key: Any] = [
+		NSAttributedString.Key.font: UIFont.enaFont(for: .body)
+	]
+
+	private func bulletPointCellWithBoldHeadline(title: String, text: String) -> NSMutableAttributedString {
+		let bulletPoint = NSMutableAttributedString(string: "\(title)" + "\n\t", attributes: boldTextAttribute)
+		bulletPoint.append(NSAttributedString(string: text, attributes: normalTextAttribute))
+		return bulletPoint
+	}
+
 }

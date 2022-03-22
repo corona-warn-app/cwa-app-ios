@@ -2245,6 +2245,14 @@ enum AppStrings {
 			static let inputPlaceholder = NSLocalizedString("HealthCertificate_FamilyMemberConsent_InputPlaceholder", comment: "")
 			static let body01 = NSLocalizedString("HealthCertificate_FamilyMemberConsent_Body01", comment: "")
 			static let body02 = NSLocalizedString("HealthCertificate_FamilyMemberConsent_Body02", comment: "")
+
+			enum Legal {
+				static let headline = NSLocalizedString("HealthCertificate_FamilyMemberConsentLegal_Headline", comment: "")
+				static let subHeadline = NSLocalizedString("HealthCertificate_FamilyMemberConsentLegal_SubHeadline", comment: "")
+				static let bulletPoint = NSLocalizedString("HealthCertificate_FamilyMemberConsentLegal_BulletPoint", comment: "")
+				static let text = NSLocalizedString("HealthCertificate_FamilyMemberConsentLegal_text", comment: "")
+			}
+
 		}
 
 		enum Alert {
