@@ -340,7 +340,7 @@ final class DayKeyPackageDownloadTest: CWATestCase {
 		let yesterdayKeyString = DateFormatter.packagesDayDateFormatter.string(from: yesterdayDate)
 		let countryId = "IT"
 
-		let packagesStore: DownloadedPackagesSQLLiteStoreV2 = .inMemory()
+		let packagesStore: DownloadedPackagesSQLLiteStoreV3 = .inMemory()
 		packagesStore.open()
 
 		let dummyPackage = SAPDownloadedPackage(keysBin: Data(), signature: Data())
@@ -382,7 +382,7 @@ final class DayKeyPackageDownloadTest: CWATestCase {
 	func test_When_NewPackagesFoundOnServer_Then_StatusChangesFrom_Idle_To_Downloading_To_CheckingForNewPackages_To_Idle() {
 		let store = MockTestStore()
 
-		let packagesStore: DownloadedPackagesSQLLiteStoreV2 = .inMemory()
+		let packagesStore: DownloadedPackagesSQLLiteStoreV3 = .inMemory()
 		packagesStore.open()
 
 		let dummyPackage = SAPDownloadedPackage(keysBin: Data(), signature: Data())
