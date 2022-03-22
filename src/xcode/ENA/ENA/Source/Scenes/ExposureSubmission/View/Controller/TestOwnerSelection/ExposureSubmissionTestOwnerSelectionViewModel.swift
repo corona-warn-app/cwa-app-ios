@@ -38,7 +38,8 @@ class ExposureSubmissionTestOwnerSelectionViewModel {
 							cell.configure(
 								headline: AppStrings.ExposureSubmission.TestOwnerSelection.userHeadline,
 								subheadline: AppStrings.ExposureSubmission.TestOwnerSelection.userSubheadline,
-								iconImage: UIImage(named: "Icons_User")
+								iconImage: UIImage(named: "Icons_User"),
+								accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmission.TestOwnerSelection.userButton
 							)
 						}),
 					.identifier(
@@ -54,7 +55,8 @@ class ExposureSubmissionTestOwnerSelectionViewModel {
 							cell.configure(
 								headline: AppStrings.ExposureSubmission.TestOwnerSelection.familyMemberHeadline,
 								subheadline: AppStrings.ExposureSubmission.TestOwnerSelection.familyMemberSubheadline,
-								iconImage: UIImage(named: "Icons_FamilyMembers")
+								iconImage: UIImage(named: "Icons_FamilyMembers"),
+								accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmission.TestOwnerSelection.familyMemberButton
 							)
 						})
 				].compactMap { $0 }

@@ -11,11 +11,13 @@ class ExposureSubmissionTestOwnerCell: UITableViewCell, ReuseIdentifierProviding
 	func configure(
 		headline: String,
 		subheadline: String,
-		iconImage: UIImage?
+		iconImage: UIImage?,
+		accessibilityIdentifier: String
 	) {
 		self.headlineLabel.text = headline
 		self.subheadlineLabel.text = subheadline
 		self.iconImageView.image = iconImage
+		self.accessibilityIdentifier = accessibilityIdentifier
 	}
 
 	// MARK: - Private
