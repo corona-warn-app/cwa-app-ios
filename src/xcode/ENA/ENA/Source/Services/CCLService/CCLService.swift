@@ -138,13 +138,13 @@ class CCLService: CCLServable {
 	func updateConfiguration(
 		completion: @escaping (_ didChange: Bool) -> Void
 	) {
-		// trigger both downloads, if one was updated notify caller in result
+		// trigger the 3 downloads, if one was updated notify caller in result
 
 		let dispatchGroup = DispatchGroup()
 
 		var configurationDidUpdate: Bool = false
 		var boosterRulesDidUpdate: Bool = false
-		var invalidationRulesDidUpdate = false
+		var invalidationRulesDidUpdate: Bool = false
 		
 		// lookup configuration updates
 		if cclServiceMode.contains(.configuration) {
