@@ -23,6 +23,8 @@ class RecycleBinItemCellModel {
 			return UIImage(named: "Icons_RecycleBin_Certificate")
 		case .userCoronaTest:
 			return UIImage(named: "Icons_RecycleBin_CoronaTest")
+		case .familyMemberCoronaTest:
+			return UIImage(named: "Icons_RecycleBin_CoronaTest")
 		}
 	}()
 
@@ -31,6 +33,8 @@ class RecycleBinItemCellModel {
 		case .certificate(let certificate):
 			return certificate.name.fullName
 		case .userCoronaTest:
+			return nil
+		case .familyMemberCoronaTest:
 			return nil
 		}
 	}()
@@ -46,7 +50,9 @@ class RecycleBinItemCellModel {
 			case .recovery:
 				return AppStrings.RecycleBin.RecoveryCertificate.headline
 			}
-		case .userCoronaTest(let coronaTest):
+		case .userCoronaTest:
+			return AppStrings.RecycleBin.CoronaTest.headline
+		case .familyMemberCoronaTest:
 			return AppStrings.RecycleBin.CoronaTest.headline
 		}
 	}()
@@ -72,6 +78,13 @@ class RecycleBinItemCellModel {
 				return nil
 			}
 		case .userCoronaTest(let coronaTest):
+			switch coronaTest {
+			case .pcr:
+				return AppStrings.RecycleBin.CoronaTest.pcrTest
+			case .antigen:
+				return AppStrings.RecycleBin.CoronaTest.antigenTest
+			}
+		case .familyMemberCoronaTest(let coronaTest):
 			switch coronaTest {
 			case .pcr:
 				return AppStrings.RecycleBin.CoronaTest.pcrTest
@@ -108,6 +121,19 @@ class RecycleBinItemCellModel {
 				}
 			}
 		case .userCoronaTest(let coronaTest):
+			switch coronaTest {
+			case .pcr(let pcrTest):
+				return String(
+					format: AppStrings.RecycleBin.CoronaTest.registrationDate,
+					DateFormatter.localizedString(from: pcrTest.registrationDate, dateStyle: .short, timeStyle: .none)
+				)
+			case .antigen(let antigenTest):
+				return String(
+					format: AppStrings.RecycleBin.CoronaTest.sampleCollectionDate,
+					DateFormatter.localizedString(from: antigenTest.testDate, dateStyle: .short, timeStyle: .none)
+				)
+			}
+		case .familyMemberCoronaTest(let coronaTest):
 			switch coronaTest {
 			case .pcr(let pcrTest):
 				return String(

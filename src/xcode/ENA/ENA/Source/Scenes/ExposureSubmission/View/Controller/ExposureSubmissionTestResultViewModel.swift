@@ -681,7 +681,7 @@ extension ExposureSubmissionTestResultViewModel {
 		]
 	}
 	
-	private func negativeAntigenTestResultSections(test: AntigenTest) -> [DynamicSection] {
+	private func negativeAntigenTestResultSections(test: UserAntigenTest) -> [DynamicSection] {
 		var cells = [DynamicCell]()
 
 		// Health Certificate

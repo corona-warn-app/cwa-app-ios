@@ -4,9 +4,11 @@
 
 import Foundation
 
-struct FamilyMemberAntigenTest: AntigenTest, Equatable, Hashable {
+struct FamilyMemberAntigenTest: Equatable, Hashable {
 
 	// MARK: - Internal
+
+	var displayName: String
 
 	// The date of when the consent was provided by the tested person at the Point of Care.
 	var pointOfCareConsentDate: Date
@@ -14,19 +16,24 @@ struct FamilyMemberAntigenTest: AntigenTest, Equatable, Hashable {
 	var sampleCollectionDate: Date?
 	var registrationDate: Date?
 	var registrationToken: String?
-	var qrCodeHash: String?
-
-	var testedPerson: TestedPerson
+	var qrCodeHash: String
+	var isNew: Bool
 
 	var testResult: TestResult
 	var finalTestResultReceivedDate: Date?
-	var positiveTestResultWasShown: Bool
+	var testResultWasShown: Bool
 
 	var certificateSupportedByPointOfCare: Bool
 	var certificateConsentGiven: Bool
 	var certificateRequested: Bool
 
 	var uniqueCertificateIdentifier: String?
+
+	var isLoading: Bool
+
+	var testDate: Date {
+		return sampleCollectionDate ?? pointOfCareConsentDate
+	}
 
 }
 
@@ -35,15 +42,16 @@ extension FamilyMemberAntigenTest: Codable {
 	// MARK: - Protocol Codable
 
 	enum CodingKeys: String, CodingKey {
+		case displayName
 		case pointOfCareConsentDate
 		case sampleCollectionDate
 		case registrationDate
 		case registrationToken
 		case qrCodeHash
-		case testedPerson
+		case isNew
 		case testResult
 		case finalTestResultReceivedDate
-		case positiveTestResultWasShown
+		case testResultWasShown
 		case certificateSupportedByPointOfCare
 		case certificateConsentGiven
 		case certificateRequested
@@ -53,23 +61,26 @@ extension FamilyMemberAntigenTest: Codable {
 	init(from decoder: Decoder) throws {
 		let container = try decoder.container(keyedBy: CodingKeys.self)
 
+		displayName = try container.decode(String.self, forKey: .displayName)
+
 		pointOfCareConsentDate = try container.decode(Date.self, forKey: .pointOfCareConsentDate)
 		sampleCollectionDate = try container.decodeIfPresent(Date.self, forKey: .sampleCollectionDate)
 		registrationDate = try container.decodeIfPresent(Date.self, forKey: .registrationDate)
 		registrationToken = try container.decodeIfPresent(String.self, forKey: .registrationToken)
-		qrCodeHash = try container.decodeIfPresent(String.self, forKey: .qrCodeHash)
-
-		testedPerson = try container.decode(TestedPerson.self, forKey: .testedPerson)
+		qrCodeHash = try container.decode(String.self, forKey: .qrCodeHash)
+		isNew = try container.decode(Bool.self, forKey: .isNew)
 
 		testResult = try container.decode(TestResult.self, forKey: .testResult)
 		finalTestResultReceivedDate = try container.decodeIfPresent(Date.self, forKey: .finalTestResultReceivedDate)
-		positiveTestResultWasShown = try container.decode(Bool.self, forKey: .positiveTestResultWasShown)
+		testResultWasShown = try container.decode(Bool.self, forKey: .testResultWasShown)
 
 		certificateSupportedByPointOfCare = try container.decodeIfPresent(Bool.self, forKey: .certificateSupportedByPointOfCare) ?? false
 		certificateConsentGiven = try container.decodeIfPresent(Bool.self, forKey: .certificateConsentGiven) ?? false
 		certificateRequested = try container.decodeIfPresent(Bool.self, forKey: .certificateRequested) ?? false
 		
 		uniqueCertificateIdentifier = try container.decodeIfPresent(String.self, forKey: .uniqueCertificateIdentifier)
+
+		isLoading = false
 	}
 
 }

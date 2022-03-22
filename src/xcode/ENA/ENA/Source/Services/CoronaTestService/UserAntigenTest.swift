@@ -4,7 +4,7 @@
 
 import Foundation
 
-struct UserAntigenTest: AntigenTest, Equatable, Hashable {
+struct UserAntigenTest: Equatable, Hashable {
 
 	// MARK: - Internal
 
@@ -34,6 +34,10 @@ struct UserAntigenTest: AntigenTest, Equatable, Hashable {
 	var certificateRequested: Bool
 
 	var uniqueCertificateIdentifier: String?
+
+	var testDate: Date {
+		return sampleCollectionDate ?? pointOfCareConsentDate
+	}
 
 }
 

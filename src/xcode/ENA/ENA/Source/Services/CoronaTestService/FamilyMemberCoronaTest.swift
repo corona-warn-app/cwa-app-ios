@@ -4,7 +4,7 @@
 
 import Foundation
 
-enum FamilyMemberCoronaTest: CoronaTest, Equatable, Codable, Hashable, RecycleBinIdentifiable {
+enum FamilyMemberCoronaTest: Equatable, Codable, Hashable, RecycleBinIdentifiable {
 
 	case pcr(FamilyMemberPCRTest)
 	case antigen(FamilyMemberAntigenTest)
@@ -19,15 +19,25 @@ enum FamilyMemberCoronaTest: CoronaTest, Equatable, Codable, Hashable, RecycleBi
 	}
 
 	var registrationToken: String? {
-		switch self {
-		case .pcr(let pcrTest):
-			return pcrTest.registrationToken
-		case .antigen(let antigenTest):
-			return antigenTest.registrationToken
+		get {
+			switch self {
+			case .pcr(let pcrTest):
+				return pcrTest.registrationToken
+			case .antigen(let antigenTest):
+				return antigenTest.registrationToken
+			}
+		}
+		set {
+			switch self {
+			case .pcr(var pcrTest):
+				pcrTest.registrationToken = newValue
+			case .antigen(var antigenTest):
+				antigenTest.registrationToken = newValue
+			}
 		}
 	}
 
-	var qrCodeHash: String? {
+	var qrCodeHash: String {
 		switch self {
 		case .pcr(let pcrTest):
 			return pcrTest.qrCodeHash
@@ -37,11 +47,21 @@ enum FamilyMemberCoronaTest: CoronaTest, Equatable, Codable, Hashable, RecycleBi
 	}
 
 	var testResult: TestResult {
-		switch self {
-		case .pcr(let pcrTest):
-			return pcrTest.testResult
-		case .antigen(let antigenTest):
-			return antigenTest.testResult
+		get {
+			switch self {
+			case .pcr(let pcrTest):
+				return pcrTest.testResult
+			case .antigen(let antigenTest):
+				return antigenTest.testResult
+			}
+		}
+		set {
+			switch self {
+			case .pcr(var pcrTest):
+				pcrTest.testResult = newValue
+			case .antigen(var antigenTest):
+				antigenTest.testResult = newValue
+			}
 		}
 	}
 
@@ -54,21 +74,60 @@ enum FamilyMemberCoronaTest: CoronaTest, Equatable, Codable, Hashable, RecycleBi
 		}
 	}
 
-	var finalTestResultReceivedDate: Date? {
-		switch self {
-		case .pcr(let pcrTest):
-			return pcrTest.finalTestResultReceivedDate
-		case .antigen(let antigenTest):
-			return antigenTest.finalTestResultReceivedDate
+	var sampleCollectionDate: Date? {
+		get {
+			switch self {
+			case .pcr:
+				return nil
+			case .antigen(let antigenTest):
+				return antigenTest.sampleCollectionDate
+			}
+		}
+		set {
+			switch self {
+			case .pcr:
+				break
+			case .antigen(var antigenTest):
+				antigenTest.sampleCollectionDate = newValue
+			}
 		}
 	}
 
-	var positiveTestResultWasShown: Bool {
-		switch self {
-		case .pcr(let pcrTest):
-			return pcrTest.positiveTestResultWasShown
-		case .antigen(let antigenTest):
-			return antigenTest.positiveTestResultWasShown
+	var finalTestResultReceivedDate: Date? {
+		get {
+			switch self {
+			case .pcr(let pcrTest):
+				return pcrTest.finalTestResultReceivedDate
+			case .antigen(let antigenTest):
+				return antigenTest.finalTestResultReceivedDate
+			}
+		}
+		set {
+			switch self {
+			case .pcr(var pcrTest):
+				pcrTest.finalTestResultReceivedDate = newValue
+			case .antigen(var antigenTest):
+				antigenTest.finalTestResultReceivedDate = newValue
+			}
+		}
+	}
+
+	var testResultWasShown: Bool {
+		get {
+			switch self {
+			case .pcr(let pcrTest):
+				return pcrTest.testResultWasShown
+			case .antigen(let antigenTest):
+				return antigenTest.testResultWasShown
+			}
+		}
+		set {
+			switch self {
+			case .pcr(var pcrTest):
+				pcrTest.testResultWasShown = newValue
+			case .antigen(var antigenTest):
+				antigenTest.testResultWasShown = newValue
+			}
 		}
 	}
 
@@ -82,11 +141,21 @@ enum FamilyMemberCoronaTest: CoronaTest, Equatable, Codable, Hashable, RecycleBi
 	}
 
 	var certificateRequested: Bool {
-		switch self {
-		case .pcr(let pcrTest):
-			return pcrTest.certificateRequested
-		case .antigen(let antigenTest):
-			return antigenTest.certificateRequested
+		get {
+			switch self {
+			case .pcr(let pcrTest):
+				return pcrTest.certificateRequested
+			case .antigen(let antigenTest):
+				return antigenTest.certificateRequested
+			}
+		}
+		set {
+			switch self {
+			case .pcr(var pcrTest):
+				pcrTest.certificateRequested = newValue
+			case .antigen(var antigenTest):
+				antigenTest.certificateRequested = newValue
+			}
 		}
 	}
 
@@ -99,7 +168,7 @@ enum FamilyMemberCoronaTest: CoronaTest, Equatable, Codable, Hashable, RecycleBi
 		}
 	}
 
-	var pcrTest: PCRTest? {
+	var pcrTest: FamilyMemberPCRTest? {
 		switch self {
 		case .pcr(let test):
 			return test
@@ -107,8 +176,8 @@ enum FamilyMemberCoronaTest: CoronaTest, Equatable, Codable, Hashable, RecycleBi
 			return nil
 		}
 	}
-	
-	var antigenTest: AntigenTest? {
+
+	var antigenTest: FamilyMemberAntigenTest? {
 		switch self {
 		case .pcr:
 			return nil
@@ -118,11 +187,40 @@ enum FamilyMemberCoronaTest: CoronaTest, Equatable, Codable, Hashable, RecycleBi
 	}
 
 	var uniqueCertificateIdentifier: String? {
-		switch self {
-		case .pcr(let test):
-			return test.uniqueCertificateIdentifier
-		case .antigen(let test):
-			return test.uniqueCertificateIdentifier
+		get {
+			switch self {
+			case .pcr(let pcrTest):
+				return pcrTest.uniqueCertificateIdentifier
+			case .antigen(let antigenTest):
+				return antigenTest.uniqueCertificateIdentifier
+			}
+		}
+		set {
+			switch self {
+			case .pcr(var pcrTest):
+				pcrTest.uniqueCertificateIdentifier = newValue
+			case .antigen(var antigenTest):
+				antigenTest.uniqueCertificateIdentifier = newValue
+			}
+		}
+	}
+
+	var isLoading: Bool {
+		get {
+			switch self {
+			case .pcr(let pcrTest):
+				return pcrTest.isLoading
+			case .antigen(let antigenTest):
+				return antigenTest.isLoading
+			}
+		}
+		set {
+			switch self {
+			case .pcr(var pcrTest):
+				pcrTest.isLoading = newValue
+			case .antigen(var antigenTest):
+				antigenTest.isLoading = newValue
+			}
 		}
 	}
 

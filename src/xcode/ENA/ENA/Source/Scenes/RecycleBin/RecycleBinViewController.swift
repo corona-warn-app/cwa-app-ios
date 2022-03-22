@@ -268,6 +268,17 @@ class RecycleBinViewController: UITableViewController, FooterViewHandling {
 					self?.viewModel.restoreItem(at: indexPath)
 				}
 			)
+		case .familyMemberCoronaTest:
+			showAlert(
+				title: AppStrings.RecycleBin.RestoreCoronaTestAlert.title,
+				message: AppStrings.RecycleBin.RestoreCoronaTestAlert.message,
+				cancelButtonTitle: AppStrings.RecycleBin.RestoreCoronaTestAlert.cancelButtonTitle,
+				confirmButtonTitle: AppStrings.RecycleBin.RestoreCoronaTestAlert.confirmButtonTitle,
+				confirmButtonStyle: .default,
+				confirmAction: { [weak self] in
+					self?.viewModel.restoreItem(at: indexPath)
+				}
+			)
 		}
 	}
 

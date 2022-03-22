@@ -65,6 +65,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		super.init()
 
 		recycleBin.userTestRestorationHandler = UserCoronaTestRestorationHandler(service: coronaTestService)
+		recycleBin.familyMemberTestRestorationHandler = FamilyMemberCoronaTestRestorationHandler(service: familyMemberCoronaTestService)
 		recycleBin.certificateRestorationHandler = HealthCertificateRestorationHandler(service: healthCertificateService)
 
 		// Make the analytics working. Should not be called later than at this moment of app initialization.
@@ -292,6 +293,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 			store: store,
 			eventStore: eventStore,
 			diaryStore: contactDiaryStore,
+			appConfiguration: appConfigurationProvider,
+			healthCertificateService: healthCertificateService,
+			healthCertificateRequestService: healthCertificateRequestService,
+			recycleBin: recycleBin,
+			badgeWrapper: badgeWrapper
+		)
+	}()
+
+	lazy var familyMemberCoronaTestService: FamilyMemberCoronaTestServiceProviding = {
+		return FamilyMemberCoronaTestService(
+			client: client,
+			restServiceProvider: restServiceProvider,
+			store: store,
 			appConfiguration: appConfigurationProvider,
 			healthCertificateService: healthCertificateService,
 			healthCertificateRequestService: healthCertificateRequestService,

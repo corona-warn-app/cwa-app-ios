@@ -4,7 +4,7 @@
 
 import Foundation
 
-enum UserCoronaTest: CoronaTest, Equatable, Codable, Hashable, RecycleBinIdentifiable {
+enum UserCoronaTest: Equatable, Codable, Hashable, RecycleBinIdentifiable {
 
 	case pcr(UserPCRTest)
 	case antigen(UserAntigenTest)
@@ -144,7 +144,7 @@ enum UserCoronaTest: CoronaTest, Equatable, Codable, Hashable, RecycleBinIdentif
 		}
 	}
 
-	var pcrTest: PCRTest? {
+	var pcrTest: UserPCRTest? {
 		switch self {
 		case .pcr(let test):
 			return test
@@ -153,7 +153,7 @@ enum UserCoronaTest: CoronaTest, Equatable, Codable, Hashable, RecycleBinIdentif
 		}
 	}
 	
-	var antigenTest: AntigenTest? {
+	var antigenTest: UserAntigenTest? {
 		switch self {
 		case .pcr:
 			return nil

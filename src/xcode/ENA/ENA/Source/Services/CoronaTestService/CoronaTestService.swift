@@ -977,7 +977,7 @@ class CoronaTestService: CoronaTestServiceProviding {
 		serialQueue.addOperation(operation)
 	}
 
-	private func setupOutdatedPublisher(for antigenTest: AntigenTest) {
+	private func setupOutdatedPublisher(for antigenTest: UserAntigenTest) {
 		// Only rapid antigen tests with a negative test result can become outdated
 		guard antigenTest.testResult == .negative else {
 			return

@@ -21,7 +21,7 @@ class ExposureSubmissionTestResultHeaderView: DynamicTableViewHeaderFooterView {
 
 	// MARK: - DynamicTableViewHeaderFooterView methods.
 
-	func configure(coronaTest: CoronaTest) {
+	func configure(coronaTest: UserCoronaTest) {
 		barView.backgroundColor = coronaTest.testResult.color
 		imageView.image = coronaTest.testResult.image
 

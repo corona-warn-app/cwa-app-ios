@@ -4,7 +4,7 @@
 
 import Foundation
 
-struct UserPCRTest: PCRTest, Equatable, Hashable {
+struct UserPCRTest: Equatable, Hashable {
 
 	// MARK: - Internal
 
@@ -28,6 +28,7 @@ struct UserPCRTest: PCRTest, Equatable, Hashable {
 	var certificateRequested: Bool
 	
 	var uniqueCertificateIdentifier: String?
+	
 }
 
 extension UserPCRTest: Codable {

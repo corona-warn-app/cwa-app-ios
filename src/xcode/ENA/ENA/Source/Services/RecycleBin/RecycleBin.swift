@@ -23,6 +23,7 @@ class RecycleBin {
 	static let expirationDays = 30
 	
 	var userTestRestorationHandler: UserTestRestorationHandling!
+	var familyMemberTestRestorationHandler: FamilyMemberTestRestorationHandling!
 	var certificateRestorationHandler: CertificateRestorationHandling!
 
 	/// This function moves an item into the bin.
@@ -57,9 +58,12 @@ class RecycleBin {
 			Log.info("Ask for certificate item restoration.", log: .recycleBin)
 			return .success(())
 		case .userCoronaTest(let coronaTest):
-			Log.info("Ask for test item restoration.", log: .recycleBin)
+			Log.info("Ask for user test item restoration.", log: .recycleBin)
 			let canRestoreResult = userTestRestorationHandler.canRestore(coronaTest)
 			return canRestoreResult.mapError { RestorationError.testError($0) }
+		case .familyMemberCoronaTest:
+			Log.info("Ask for family member test item restoration.", log: .recycleBin)
+			return .success(())
 		}
 	}
 
@@ -76,8 +80,11 @@ class RecycleBin {
 			Log.info("Restore certificate item.", log: .recycleBin)
 			certificateRestorationHandler.restore(certificate)
 		case .userCoronaTest(let coronaTest):
-			Log.info("Restore test item.", log: .recycleBin)
+			Log.info("Restore user test item.", log: .recycleBin)
 			userTestRestorationHandler.restore(coronaTest)
+		case .familyMemberCoronaTest(let coronaTest):
+			Log.info("Restore family member test item.", log: .recycleBin)
+			familyMemberTestRestorationHandler.restore(coronaTest)
 		}
 
 		store.recycleBinItems.remove(item)

@@ -11,7 +11,7 @@ protocol CoronaTestServiceProviding {
 	typealias VoidResultHandler = (Result<Void, CoronaTestServiceError>) -> Void
 	typealias RegistrationResultHandler = (Result<String, CoronaTestServiceError>) -> Void
 	typealias TestResultHandler = (Result<TestResult, CoronaTestServiceError>) -> Void
-	typealias CoronaTestHandler = (Result<CoronaTest, CoronaTestServiceError>) -> Void
+	typealias CoronaTestHandler = (Result<UserCoronaTest, CoronaTestServiceError>) -> Void
 	typealias SubmissionTANResultHandler = (Result<String, CoronaTestServiceError>) -> Void
 
 	var pcrTest: CurrentValueSubject<UserPCRTest?, Never> { get set }
