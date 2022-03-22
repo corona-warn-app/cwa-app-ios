@@ -641,6 +641,9 @@ class HealthCertificateService: HealthCertificateServiceServable {
 				person.dccWalletInfo = dccWalletInfo
 				person.mostRecentWalletInfoUpdateFailed = false
 				
+				for certificate in person.healthCertificates {
+					self.updateValidityState(for: certificate, person: person)
+				}
 				#if DEBUG
 				if isUITesting {
 					if LaunchArguments.healthCertificate.hasBoosterNotification.boolValue {
