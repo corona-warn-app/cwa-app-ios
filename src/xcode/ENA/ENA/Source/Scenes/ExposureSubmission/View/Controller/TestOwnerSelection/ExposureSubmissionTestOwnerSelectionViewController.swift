@@ -48,12 +48,12 @@ class ExposureSubmissionTestOwnerSelectionViewController: DynamicTableViewContro
 		navigationItem.hidesBackButton = true
 		
 		view.backgroundColor = .enaColor(for: .background)
-
-		tableView.register(
-			HealthCertificateCell.self,
-			forCellReuseIdentifier: HealthCertificateCell.reuseIdentifier
-		)
 		
+		tableView.register(
+			UINib(nibName: String(describing: ExposureSubmissionTestOwnerCell.self), bundle: nil),
+			forCellReuseIdentifier: String(describing: ExposureSubmissionTestOwnerCell.self)
+		)
+
 		dynamicTableViewModel = viewModel.dynamicTableViewModel
 		tableView.separatorStyle = .none
 	}

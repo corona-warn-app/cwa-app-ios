@@ -3,6 +3,7 @@
 //
 
 import Foundation
+import UIKit
 
 class ExposureSubmissionTestOwnerSelectionViewModel {
 	
@@ -16,7 +17,50 @@ class ExposureSubmissionTestOwnerSelectionViewModel {
 	
 	// MARK: - Internal
 
-	var dynamicTableViewModel: DynamicTableViewModel = DynamicTableViewModel([])
+	var dynamicTableViewModel: DynamicTableViewModel {
+		DynamicTableViewModel([
+			.section(
+				cells: [
+					.subheadline(
+						text: AppStrings.ExposureSubmission.TestOwnerSelection.description,
+						color: .enaColor(for: .textPrimary2)
+					),
+					.identifier(
+						ExposureSubmissionTestOwnerCell.dynamicTableViewCellReuseIdentifier,
+						action: .execute { _, _ in
+							self.onTestOwnerSelection(.user)
+						},
+						configure: { _, cell, _ in
+							guard let cell = cell as? ExposureSubmissionTestOwnerCell else {
+								fatalError("could not initialize cell of type `ExposureSubmissionTestOwnerCell`")
+							}
+
+							cell.configure(
+								headline: AppStrings.ExposureSubmission.TestOwnerSelection.userHeadline,
+								subheadline: AppStrings.ExposureSubmission.TestOwnerSelection.userSubheadline,
+								iconImage: UIImage(named: "Icons_User")
+							)
+						}),
+					.identifier(
+						ExposureSubmissionTestOwnerCell.dynamicTableViewCellReuseIdentifier,
+						action: .execute { _, _ in
+							self.onTestOwnerSelection(.familyMember)
+						},
+						configure: { _, cell, _ in
+							guard let cell = cell as? ExposureSubmissionTestOwnerCell else {
+								fatalError("could not initialize cell of type `ExposureSubmissionTestOwnerCell`")
+							}
+
+							cell.configure(
+								headline: AppStrings.ExposureSubmission.TestOwnerSelection.familyMemberHeadline,
+								subheadline: AppStrings.ExposureSubmission.TestOwnerSelection.familyMemberSubheadline,
+								iconImage: UIImage(named: "Icons_FamilyMembers")
+							)
+						})
+				].compactMap { $0 }
+			)
+		])
+	}
 	
 	// MARK: - Private
 
