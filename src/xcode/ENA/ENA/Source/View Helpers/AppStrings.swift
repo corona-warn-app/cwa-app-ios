@@ -2243,6 +2243,8 @@ enum AppStrings {
 			static let headline = NSLocalizedString("HealthCertificate_FamilyMemberConsent_Headline", comment: "")
 			static let inputTitle = NSLocalizedString("HealthCertificate_FamilyMemberConsent_InputTitle", comment: "")
 			static let inputPlaceholder = NSLocalizedString("HealthCertificate_FamilyMemberConsent_InputPlaceholder", comment: "")
+			static let body01 = NSLocalizedString("HealthCertificate_FamilyMemberConsent_Body01", comment: "")
+			static let body02 = NSLocalizedString("HealthCertificate_FamilyMemberConsent_Body02", comment: "")
 		}
 
 		enum Alert {

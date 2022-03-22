@@ -122,7 +122,8 @@ final class HealthCertificatesTabCoordinator {
 			),
 			cclService: cclService,
 			onInfoBarButtonItemTap: { [weak self] in
-				self?.presentInfoScreen()
+				self?.presentFamilyMemberConsentScreen()
+//				self?.presentInfoScreen()
 			},
 			onChangeAdmissionScenarioTap: { [weak self] in
 				self?.showAdmissionScenarios()

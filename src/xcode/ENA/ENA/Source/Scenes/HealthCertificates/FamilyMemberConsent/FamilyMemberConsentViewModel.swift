@@ -46,7 +46,9 @@ final class FamilyMemberConsentViewModel {
 					),
 				cells: [
 					.title2(text: AppStrings.HealthCertificate.FamilyMemberConsent.headline),
-					.body(text: AppStrings.HealthCertificate.FamilyMemberConsent.inputTitle)
+					.body(text: AppStrings.HealthCertificate.FamilyMemberConsent.inputTitle),
+					.icon(UIImage(imageLiteralResourceName: "Icon_Family"), text: .string(AppStrings.HealthCertificate.FamilyMemberConsent.body01), alignment: .top),
+					.icon(UIImage(imageLiteralResourceName: "Icons_Certificates_01"), text: .string(AppStrings.HealthCertificate.FamilyMemberConsent.body02), alignment: .top)
 					]
 //					.body(
 //						text: AppStrings.ExposureSubmission.TestCertificate.Info.body,
