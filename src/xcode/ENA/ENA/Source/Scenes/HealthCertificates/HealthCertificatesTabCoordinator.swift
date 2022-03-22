@@ -122,8 +122,7 @@ final class HealthCertificatesTabCoordinator {
 			),
 			cclService: cclService,
 			onInfoBarButtonItemTap: { [weak self] in
-				self?.presentFamilyMemberConsentScreen()
-//				self?.presentInfoScreen()
+				self?.presentInfoScreen()
 			},
 			onChangeAdmissionScenarioTap: { [weak self] in
 				self?.showAdmissionScenarios()
@@ -151,41 +150,6 @@ final class HealthCertificatesTabCoordinator {
 			}
 		)
 	}()
-
-	private func presentFamilyMemberConsentScreen() {
-		var navigationController: UINavigationController!
-
-		let familyMemberConsentViewController = FamilyMemberConsentViewController(
-			dismiss: {
-				navigationController.dismiss(animated: true)
-			}, didTapDataPrivacy: {
-				let detailViewController = HTMLViewController(model: AppInformationModel.privacyModel)
-				detailViewController.title = AppStrings.AppInformation.privacyTitle
-				detailViewController.isDismissable = false
-				// hides the footer view as well
-				detailViewController.hidesBottomBarWhenPushed = true
-				navigationController.pushViewController(detailViewController, animated: true)
-			}, didTapSubmit: { givenName in
-				Log.info("User has give name \(givenName)")
-			}
-		)
-
-		let footerViewController = FooterViewController(
-			FooterViewModel(
-				primaryButtonName: AppStrings.TraceLocations.Information.primaryButtonTitle,
-				isSecondaryButtonEnabled: false,
-				isSecondaryButtonHidden: true
-			)
-		)
-
-		let topBottomLayoutViewController = TopBottomContainerViewController(
-			topController: familyMemberConsentViewController,
-			bottomController: footerViewController
-		)
-
-		navigationController = DismissHandlingNavigationController(rootViewController: topBottomLayoutViewController)
-		viewController.present(navigationController, animated: true)
-	}
 
 	private func presentCovPassInfoScreen(rootViewController: UIViewController? = nil) {
 		let presentViewController = rootViewController ?? viewController
