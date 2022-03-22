@@ -317,13 +317,25 @@ final class ExposureNotificationSettingViewController: UITableViewController, Ac
 		return euTracingCell
 	}
 
-	private func daysSinceInstallationCell(for indexPath: IndexPath, in tableView: UITableView) -> UITableViewCell {
+	private func daysSinceInstallationCell(
+		for indexPath: IndexPath,
+		in tableView: UITableView
+	) -> UITableViewCell {
 		guard let daysSinceInstallationCell = tableView.dequeueReusableCell(withIdentifier: ReusableCellIdentifier.daysSinceInstallationCell.rawValue, for: indexPath) as? DaysSinceInstallTableViewCell else {
 			fatalError("Cell is not registered")
 		}
+		
+		daysSinceInstallationCell.configure(
+			viewModel: DaysSinceInstallCellViewModel(
+				store: store,
+				appConfigProvider: appConfigurationProvider
+			)
+		)
 
-		let daysSinceInstallation = store.appInstallationDate.map { Calendar.autoupdatingCurrent.startOfDay(for: $0).ageInDays ?? 0 } ?? 0
-		daysSinceInstallationCell.configure(daysSinceInstall: max(daysSinceInstallation, 0))
+		daysSinceInstallationCell.heightDidChange = { [weak self] in
+			self?.tableView.updateHeights()
+		}
+		
 		return daysSinceInstallationCell
 	}
 

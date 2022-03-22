@@ -745,32 +745,39 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 			completion()
 			return
 		}
-
-		let title = AppStrings.Home.riskDetectionHowToAlertTitle
-		let message = String(
-			format: AppStrings.Home.riskDetectionHowToAlertMessage,
-			14
-		)
-
-		let alert = UIAlertController(
-			title: title,
-			message: message,
-			preferredStyle: .alert
-		)
-
-		alert.addAction(
-			UIAlertAction(
-				title: NSLocalizedString("Alert_ActionOk", comment: ""),
-				style: .default,
-				handler: { _ in
-					completion()
-				}
+		
+		appConfigurationProvider.appConfiguration().sink { [weak self] appConfig in
+			guard let self = self else {
+				completion()
+				return
+			}
+			
+			let title = AppStrings.Home.riskDetectionHowToAlertTitle
+			let message = String(
+				format: AppStrings.Home.riskDetectionHowToAlertMessage,
+				appConfig.riskCalculationParameters.defaultedMaxEncounterAgeInDays
 			)
-		)
-
-		present(alert, animated: true) { [weak self] in
-			self?.viewModel.store.userNeedsToBeInformedAboutHowRiskDetectionWorks = false
-		}
+			
+			let alert = UIAlertController(
+				title: title,
+				message: message,
+				preferredStyle: .alert
+			)
+			
+			alert.addAction(
+				UIAlertAction(
+					title: NSLocalizedString("Alert_ActionOk", comment: ""),
+					style: .default,
+					handler: { _ in
+						completion()
+					}
+				)
+			)
+			
+			self.present(alert, animated: true) { [weak self] in
+				self?.viewModel.store.userNeedsToBeInformedAboutHowRiskDetectionWorks = false
+			}
+		}.store(in: &subscriptions)
 	}
 
 	/// This method checks whether the below conditions in regards to background fetching have been met
@@ -846,9 +853,17 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 			return
 		}
 
+		guard !viewModel.riskStatusLoweredAlertShouldBeSuppressed else {
+			viewModel.store.shouldShowRiskStatusLoweredAlert = false
+			completion()
+			return
+		}
+
+		let currentAppConfig = appConfigurationProvider.currentAppConfig.value
+
 		let alert = UIAlertController(
 			title: AppStrings.Home.riskStatusLoweredAlertTitle,
-			message: AppStrings.Home.riskStatusLoweredAlertMessage,
+			message: String(format: AppStrings.Home.riskStatusLoweredAlertMessage, currentAppConfig.riskCalculationParameters.defaultedMaxEncounterAgeInDays),
 			preferredStyle: .alert
 		)
 
