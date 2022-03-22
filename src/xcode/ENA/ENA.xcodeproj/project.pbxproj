@@ -641,6 +641,7 @@
 		5001DE9A26E2146E004242FA /* Locator+ValidationOnboardedCountries.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5001DE9926E2146E004242FA /* Locator+ValidationOnboardedCountries.swift */; };
 		5001DE9C26E2155C004242FA /* Locator+DCCRules.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5001DE9B26E2155C004242FA /* Locator+DCCRules.swift */; };
 		500396EF268DA1A90006D448 /* HealthCertificateValidationServiceValidationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 500396EE268DA1A80006D448 /* HealthCertificateValidationServiceValidationTests.swift */; };
+		50068E0527E4AE620069ED80 /* UIStackView+Background.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50068E0427E4AE620069ED80 /* UIStackView+Background.swift */; };
 		5006C275260E2A4900533CAA /* CheckinWithRisk.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5006C274260E2A4900533CAA /* CheckinWithRisk.swift */; };
 		5006C283260E4ABA00533CAA /* Checkin+Mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0109DB8E26037E1F00624BB3 /* Checkin+Mock.swift */; };
 		5008F60325DC0237008B516F /* PPAnalyticsCollector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5008F60225DC0237008B516F /* PPAnalyticsCollector.swift */; };
@@ -1094,7 +1095,6 @@
 		AB3560A02547194C00C3F8E0 /* DeviceTimeCheckTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB35609F2547194C00C3F8E0 /* DeviceTimeCheckTests.swift */; };
 		AB42A193263C284200892536 /* HealthCertificateToolkit in Frameworks */ = {isa = PBXBuildFile; productRef = AB42A192263C284200892536 /* HealthCertificateToolkit */; };
 		AB453F602534B04400D8339E /* ExposureManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB453F5F2534B04400D8339E /* ExposureManagerTests.swift */; };
-		AB4DA4B727DB88D70092F42D /* RiskCalculationParameters+Defaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB4DA4B627DB88D70092F42D /* RiskCalculationParameters+Defaults.swift */; };
 		AB4DA4B927DF9F810092F42D /* DaysSinceInstallCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB4DA4B827DF9F810092F42D /* DaysSinceInstallCellViewModel.swift */; };
 		AB4DA4BC27DFAA990092F42D /* UITableView+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB4DA4BB27DFAA990092F42D /* UITableView+Utils.swift */; };
 		AB51906126CEA7B800E2E4EE /* HealthCertificate+PDF.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB51906026CEA7B800E2E4EE /* HealthCertificate+PDF.swift */; };
@@ -2374,6 +2374,7 @@
 		5001DE9926E2146E004242FA /* Locator+ValidationOnboardedCountries.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Locator+ValidationOnboardedCountries.swift"; sourceTree = "<group>"; };
 		5001DE9B26E2155C004242FA /* Locator+DCCRules.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Locator+DCCRules.swift"; sourceTree = "<group>"; };
 		500396EE268DA1A80006D448 /* HealthCertificateValidationServiceValidationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthCertificateValidationServiceValidationTests.swift; sourceTree = "<group>"; };
+		50068E0427E4AE620069ED80 /* UIStackView+Background.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIStackView+Background.swift"; sourceTree = "<group>"; };
 		5006C274260E2A4900533CAA /* CheckinWithRisk.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckinWithRisk.swift; sourceTree = "<group>"; };
 		5008F60225DC0237008B516F /* PPAnalyticsCollector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PPAnalyticsCollector.swift; sourceTree = "<group>"; };
 		500DB4CB25CDDECF0038DFED /* PPASResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PPASResponse.swift; sourceTree = "<group>"; };
@@ -2844,7 +2845,6 @@
 		AB3560992547167800C3F8E0 /* DeviceTimeCheck.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceTimeCheck.swift; sourceTree = "<group>"; };
 		AB35609F2547194C00C3F8E0 /* DeviceTimeCheckTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceTimeCheckTests.swift; sourceTree = "<group>"; };
 		AB453F5F2534B04400D8339E /* ExposureManagerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExposureManagerTests.swift; sourceTree = "<group>"; };
-		AB4DA4B627DB88D70092F42D /* RiskCalculationParameters+Defaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RiskCalculationParameters+Defaults.swift"; sourceTree = "<group>"; };
 		AB4DA4B827DF9F810092F42D /* DaysSinceInstallCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DaysSinceInstallCellViewModel.swift; sourceTree = "<group>"; };
 		AB4DA4BB27DFAA990092F42D /* UITableView+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+Utils.swift"; sourceTree = "<group>"; };
 		AB51906026CEA7B800E2E4EE /* HealthCertificate+PDF.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HealthCertificate+PDF.swift"; sourceTree = "<group>"; };
@@ -6463,6 +6463,7 @@
 				01C6AC39252B2A500052814D /* UIImage+Color.swift */,
 				BA75BF52263607C1001B1FC0 /* UIImage+QRCode.swift */,
 				BAF5371A25E7D1A300C835E2 /* UIImage+Resize.swift */,
+				50068E0427E4AE620069ED80 /* UIStackView+Background.swift */,
 				35327FF5256D4CE600C36A44 /* UIStackView+prune.swift */,
 				514EE997246D4BEB00DE4884 /* UITableView */,
 				3494D92B261EF8AC00EC532C /* UITextField+CGFloat.swift */,
@@ -7421,14 +7422,6 @@
 				AB1FCBCC2521FC44005930BA /* EnvironmentTests.swift */,
 			);
 			path = __tests__;
-			sourceTree = "<group>";
-		};
-		AB4DA4B527DB88AC0092F42D /* Extensions */ = {
-			isa = PBXGroup;
-			children = (
-				AB4DA4B627DB88D70092F42D /* RiskCalculationParameters+Defaults.swift */,
-			);
-			path = Extensions;
 			sourceTree = "<group>";
 		};
 		AB51905F26CEA72400E2E4EE /* PDFGeneration */ = {
@@ -10633,6 +10626,7 @@
 				504BB0B525EE2392006B0E54 /* ErrorReportDetailInformationViewModel.swift in Sources */,
 				50D3493D274E85E400F00493 /* String+Regex.swift in Sources */,
 				01D319D426C18B9B008698D8 /* HealthCertificateDecodingContainer.swift in Sources */,
+				50068E0527E4AE620069ED80 /* UIStackView+Background.swift in Sources */,
 				BA1FC82D26E2520000CCCC17 /* DMNotificationsViewModel.swift in Sources */,
 				BAB8F2EF2695C4A500AF68A3 /* ValidationInformationViewController.swift in Sources */,
 				BADD36EB260B4FBA00DD282A /* EditCheckinDetailViewController.swift in Sources */,
