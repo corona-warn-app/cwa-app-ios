@@ -1,5 +1,26 @@
-//
+////
 // 🦠 Corona-Warn-App
 //
 
-import Foundation
+import UIKit
+
+class ExposureSubmissionTestOwnerCell: UITableViewCell, ReuseIdentifierProviding {
+	
+	// MARK: - Internal
+	
+	func configure(
+		headline: String,
+		subheadline: String,
+		iconImage: UIImage?
+	) {
+		self.headlineLabel.text = headline
+		self.subheadlineLabel.text = subheadline
+		self.iconImageView.image = iconImage
+	}
+
+	// MARK: - Private
+
+	@IBOutlet private weak var headlineLabel: ENALabel!
+	@IBOutlet private weak var subheadlineLabel: ENALabel!
+	@IBOutlet private weak var iconImageView: UIImageView!
+}
