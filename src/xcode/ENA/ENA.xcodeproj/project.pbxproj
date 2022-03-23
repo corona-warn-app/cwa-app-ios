@@ -7241,27 +7241,28 @@
 		A372DA3824BDA035003248BB /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				347A36AC27E8CA6700DA82D2 /* TestOwnerSelection */,
-				BA6F006F265FD2590020721B /* TestCertificate */,
+				EB67B5E5262AD65900218EC7 /* ExposureSubmissionCheckins */,
+				2F80CFDA247EDDB3000F06AF /* ExposureSubmissionHotlineViewController.swift */,
 				503DB1A6255D822E00576E57 /* ExposureSubmissionIntroViewController.swift */,
 				503DB1AB255D826900576E57 /* ExposureSubmissionIntroViewModel.swift */,
 				01909886257E7B900065D050 /* ExposureSubmissionQRInfoViewController.swift */,
 				01909887257E7B900065D050 /* ExposureSubmissionQRInfoViewModel.swift */,
+				505936932625BF7000D40216 /* ExposureSubmissionSuccessViewController.swift */,
+				EB3BCA872507B6C1003F27C7 /* ExposureSubmissionSymptomsOnsetViewController.swift */,
+				EBCD2411250790F400E5574C /* ExposureSubmissionSymptomsViewController.swift */,
 				5222AA67255ECFE100F338C7 /* ExposureSubmissionTestResultConsentViewController.swift */,
 				5222AA6F255ED8E000F338C7 /* ExposureSubmissionTestResultConsentViewModel.swift */,
 				71FE1C78247AC2B500851FEB /* ExposureSubmissionTestResultViewController.swift */,
 				016961982540574700FF92E3 /* ExposureSubmissionTestResultViewModel.swift */,
 				523D5E74256FDFE900EF67EA /* ExposureSubmissionThankYouViewController.swift */,
 				523D5E79256FE04000EF67EA /* ExposureSubmissionThankYouViewModel.swift */,
-				2F80CFDA247EDDB3000F06AF /* ExposureSubmissionHotlineViewController.swift */,
-				EBCD2411250790F400E5574C /* ExposureSubmissionSymptomsViewController.swift */,
-				EB3BCA872507B6C1003F27C7 /* ExposureSubmissionSymptomsOnsetViewController.swift */,
 				A3C4F95F24812CD20047F23E /* ExposureSubmissionWarnOthersViewController.swift */,
 				01A236792519D1E80043D9F8 /* ExposureSubmissionWarnOthersViewModel.swift */,
-				505936932625BF7000D40216 /* ExposureSubmissionSuccessViewController.swift */,
-				BAD962F925668E5D00FAB615 /* TestResultAvailable */,
+				BAC3F9BB27E8B64600483CC3 /* FamilyMemberConsent */,
 				BAB1239A25729FEA00A179FB /* TANInputViewController */,
-				EB67B5E5262AD65900218EC7 /* ExposureSubmissionCheckins */,
+				BA6F006F265FD2590020721B /* TestCertificate */,
+				347A36AC27E8CA6700DA82D2 /* TestOwnerSelection */,
+				BAD962F925668E5D00FAB615 /* TestResultAvailable */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -8570,7 +8571,6 @@
 		BA01BA5E264423B000D906B6 /* HealthCertificates */ = {
 			isa = PBXGroup;
 			children = (
-				BAC3F9BB27E8B64600483CC3 /* FamilyMemberConsent */,
 				347E3CAA27A99F1A00895277 /* BoosterDetails */,
 				BA5B7FC026458EF400502087 /* Cells */,
 				BA01BA5F264423CF00D906B6 /* Consent */,

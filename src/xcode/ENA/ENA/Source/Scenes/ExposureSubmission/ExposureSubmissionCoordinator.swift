@@ -519,7 +519,29 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 	}
 
 	private func showFamilyMemberTestConsentScreen() {
-		// to do EXPOSUREAPP-12303
+		let familyMemberConsentViewController = FamilyMemberConsentViewController(
+			dismiss: { [weak self] in
+				self?.dismiss()
+			}, didTapDataPrivacy: { [weak self] in
+				self?.showDataPrivacy()
+			}, didTapSubmit: { givenName in
+				Log.info("User has give name \(givenName)")
+			}
+		)
+
+		let footerViewController = FooterViewController(
+			FooterViewModel(
+				primaryButtonName: AppStrings.HealthCertificate.FamilyMemberConsent.primaryButton,
+				isSecondaryButtonEnabled: false,
+				isSecondaryButtonHidden: true
+			)
+		)
+
+		let topBottomLayoutViewController = TopBottomContainerViewController(
+			topController: familyMemberConsentViewController,
+			bottomController: footerViewController
+		)
+		push(topBottomLayoutViewController)
 	}
 	
 	private func showQRScreen(testRegistrationInformation: CoronaTestRegistrationInformation?, isLoading: @escaping (Bool) -> Void) {
