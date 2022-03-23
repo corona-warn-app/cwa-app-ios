@@ -40,8 +40,10 @@ enum FamilyMemberCoronaTest: Equatable, Codable, Hashable, RecycleBinIdentifiabl
 			switch self {
 			case .pcr(var pcrTest):
 				pcrTest.registrationToken = newValue
+				self = .pcr(pcrTest)
 			case .antigen(var antigenTest):
 				antigenTest.registrationToken = newValue
+				self = .antigen(antigenTest)
 			}
 		}
 	}
@@ -68,8 +70,10 @@ enum FamilyMemberCoronaTest: Equatable, Codable, Hashable, RecycleBinIdentifiabl
 			switch self {
 			case .pcr(var pcrTest):
 				pcrTest.isNew = newValue
+				self = .pcr(pcrTest)
 			case .antigen(var antigenTest):
 				antigenTest.isNew = newValue
+				self = .antigen(antigenTest)
 			}
 		}
 	}
@@ -87,8 +91,10 @@ enum FamilyMemberCoronaTest: Equatable, Codable, Hashable, RecycleBinIdentifiabl
 			switch self {
 			case .pcr(var pcrTest):
 				pcrTest.testResult = newValue
+				self = .pcr(pcrTest)
 			case .antigen(var antigenTest):
 				antigenTest.testResult = newValue
+				self = .antigen(antigenTest)
 			}
 		}
 	}
@@ -117,6 +123,7 @@ enum FamilyMemberCoronaTest: Equatable, Codable, Hashable, RecycleBinIdentifiabl
 				break
 			case .antigen(var antigenTest):
 				antigenTest.sampleCollectionDate = newValue
+				self = .antigen(antigenTest)
 			}
 		}
 	}
@@ -134,8 +141,10 @@ enum FamilyMemberCoronaTest: Equatable, Codable, Hashable, RecycleBinIdentifiabl
 			switch self {
 			case .pcr(var pcrTest):
 				pcrTest.finalTestResultReceivedDate = newValue
+				self = .pcr(pcrTest)
 			case .antigen(var antigenTest):
 				antigenTest.finalTestResultReceivedDate = newValue
+				self = .antigen(antigenTest)
 			}
 		}
 	}
@@ -153,8 +162,10 @@ enum FamilyMemberCoronaTest: Equatable, Codable, Hashable, RecycleBinIdentifiabl
 			switch self {
 			case .pcr(var pcrTest):
 				pcrTest.testResultWasShown = newValue
+				self = .pcr(pcrTest)
 			case .antigen(var antigenTest):
 				antigenTest.testResultWasShown = newValue
+				self = .antigen(antigenTest)
 			}
 		}
 	}
@@ -181,8 +192,10 @@ enum FamilyMemberCoronaTest: Equatable, Codable, Hashable, RecycleBinIdentifiabl
 			switch self {
 			case .pcr(var pcrTest):
 				pcrTest.certificateRequested = newValue
+				self = .pcr(pcrTest)
 			case .antigen(var antigenTest):
 				antigenTest.certificateRequested = newValue
+				self = .antigen(antigenTest)
 			}
 		}
 	}
@@ -227,8 +240,10 @@ enum FamilyMemberCoronaTest: Equatable, Codable, Hashable, RecycleBinIdentifiabl
 			switch self {
 			case .pcr(var pcrTest):
 				pcrTest.uniqueCertificateIdentifier = newValue
+				self = .pcr(pcrTest)
 			case .antigen(var antigenTest):
 				antigenTest.uniqueCertificateIdentifier = newValue
+				self = .antigen(antigenTest)
 			}
 		}
 	}
@@ -248,6 +263,7 @@ enum FamilyMemberCoronaTest: Equatable, Codable, Hashable, RecycleBinIdentifiabl
 				break
 			case .antigen(var antigenTest):
 				antigenTest.isOutdated = newValue
+				self = .antigen(antigenTest)
 			}
 		}
 	}
@@ -265,8 +281,10 @@ enum FamilyMemberCoronaTest: Equatable, Codable, Hashable, RecycleBinIdentifiabl
 			switch self {
 			case .pcr(var pcrTest):
 				pcrTest.isLoading = newValue
+				self = .pcr(pcrTest)
 			case .antigen(var antigenTest):
 				antigenTest.isLoading = newValue
+				self = .antigen(antigenTest)
 			}
 		}
 	}
