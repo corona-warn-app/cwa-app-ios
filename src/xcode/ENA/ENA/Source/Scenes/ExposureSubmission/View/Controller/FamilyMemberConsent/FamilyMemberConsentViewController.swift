@@ -84,6 +84,8 @@ class FamilyMemberConsentViewController: DynamicTableViewController, DismissHand
 			forCellReuseIdentifier: DynamicLegalExtendedCell.reuseIdentifier
 		)
 
+		tableView.register(FamilyNameTextFieldCell.self, forCellReuseIdentifier: FamilyNameTextFieldCell.reuseIdentifier)
+
 		dynamicTableViewModel = viewModel.dynamicTableViewModel
 
 		viewModel.$isPrimaryButtonEnabled
