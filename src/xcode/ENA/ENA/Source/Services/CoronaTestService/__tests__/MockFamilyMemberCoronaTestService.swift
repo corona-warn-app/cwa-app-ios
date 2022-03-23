@@ -31,7 +31,6 @@ class MockFamilyMemberCoronaTestService: FamilyMemberCoronaTestServiceProviding 
 		completion(registerPCRTestAndGetResultResult ?? .failure(.noCoronaTestOfRequestedType))
 	}
 
-	// swiftlint:disable:next function_parameter_count
 	func registerAntigenTestAndGetResult(
 		for displayName: String,
 		with hash: String,
@@ -45,7 +44,6 @@ class MockFamilyMemberCoronaTestService: FamilyMemberCoronaTestServiceProviding 
 		completion(registerAntigenTestAndGetResultResult ?? .failure(.noCoronaTestOfRequestedType))
 	}
 
-	// swiftlint:disable:next function_parameter_count
 	func registerRapidPCRTestAndGetResult(
 		for displayName: String,
 		with hash: String,
