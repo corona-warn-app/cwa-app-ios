@@ -452,10 +452,10 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 					self?.exposureManager.preAuthorizeKeys(completion: { error in
 						DispatchQueue.main.async { [weak self] in
 							if let error = error as? ENError {
-								let mappedSubmissionError = error.toExposureSubmissionError()
-								Log.error("Preauthorizaton for keys failed with ENError: \(error.localizedDescription), ExposureSubmissionError: \(mappedSubmissionError.localizedDescription)")
+								let submissionError = error.toExposureSubmissionError()
+								Log.error("Preauthorizaton for keys failed with ENError: \(error.localizedDescription), ExposureSubmissionError: \(submissionError.localizedDescription)")
 
-								switch mappedSubmissionError {
+								switch submissionError {
 								case .notAuthorized:
 									self?.showOverrideTestNoticeIfNecessary(
 										testRegistrationInformation: testRegistrationInformation,
@@ -464,7 +464,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 									)
 								default:
 									// present alert
-									let alert = UIAlertController.errorAlert(message: mappedSubmissionError.localizedDescription, completion: { [weak self] in
+									let alert = UIAlertController.errorAlert(message: submissionError.localizedDescription, completion: { [weak self] in
 										self?.showOverrideTestNoticeIfNecessary(
 											testRegistrationInformation: testRegistrationInformation,
 											submissionConsentGiven: true,
