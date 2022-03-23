@@ -59,6 +59,8 @@ class FamilyNameTextFieldCell: UITableViewCell, UITextFieldDelegate, ReuseIdenti
 		textField.returnKeyType = .done
 		textField.delegate = self
 		textField.layer.borderWidth = 0
+		textField.autocorrectionType = .yes
+		textField.spellCheckingType = .yes
 		contentView.addSubview(textField)
 
 		NSLayoutConstraint.activate(
