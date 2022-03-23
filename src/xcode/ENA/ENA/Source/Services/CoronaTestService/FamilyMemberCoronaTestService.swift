@@ -199,6 +199,7 @@ class FamilyMemberCoronaTestService: FamilyMemberCoronaTestServiceProviding {
 							certificateSupportedByPointOfCare: certificateSupportedByPointOfCare,
 							certificateConsentGiven: certificateConsentGiven,
 							certificateRequested: false,
+							isOutdated: false,
 							isLoading: false
 						)
 					)
@@ -208,6 +209,7 @@ class FamilyMemberCoronaTestService: FamilyMemberCoronaTestServiceProviding {
 					Log.info("[FamilyMemberCoronaTestService] Antigen test registered: \(private: coronaTest)", log: .api)
 
 					self?.getTestResult(for: coronaTest, duringRegistration: true) { result in
+						self?.scheduleOutdatedStateTimer()
 						completion(result)
 					}
 
@@ -411,6 +413,25 @@ class FamilyMemberCoronaTestService: FamilyMemberCoronaTestServiceProviding {
 
 	private var subscriptions = Set<AnyCancellable>()
 
+	private var nextOutdatedStateUpdateDate: Date? {
+		let hoursToDeemTestOutdated = appConfiguration.currentAppConfig.value
+			.coronaTestParameters.coronaRapidAntigenTestParameters.hoursToDeemTestOutdated
+
+		guard hoursToDeemTestOutdated != 0 else {
+			return nil
+		}
+
+		return coronaTests.value
+			.compactMap { $0.antigenTest }
+			.filter { $0.testResult == .negative && !$0.isOutdated }
+			.compactMap {
+				Calendar.current
+					.date(byAdding: .hour, value: Int(hoursToDeemTestOutdated), to: $0.testDate)
+			}
+			.sorted { $0 < $1 }
+			.min()
+	}
+
 	private func setup() {
 		updatePublishersFromStore()
 
@@ -419,6 +440,8 @@ class FamilyMemberCoronaTestService: FamilyMemberCoronaTestServiceProviding {
 				self?.store.familyMemberTests = coronaTests
 			}
 			.store(in: &subscriptions)
+
+		scheduleOutdatedStateTimer()
 	}
 
 	// internal for testing
@@ -624,6 +647,69 @@ class FamilyMemberCoronaTestService: FamilyMemberCoronaTestServiceProviding {
 		}
 	}
 
+	private func scheduleOutdatedStateTimer() {
+		outdatedStateTimer?.invalidate()
+		NotificationCenter.default.removeObserver(self, name: UIApplication.didEnterBackgroundNotification, object: nil)
+		NotificationCenter.default.removeObserver(self, name: UIApplication.didBecomeActiveNotification, object: nil)
+
+		guard let nextOutdatedStateUpdateDate = nextOutdatedStateUpdateDate else {
+			return
+		}
+
+		// Schedule new timer.
+		NotificationCenter.default.addObserver(self, selector: #selector(invalidateTimer), name: UIApplication.didEnterBackgroundNotification, object: nil)
+		NotificationCenter.default.addObserver(self, selector: #selector(refreshUpdateTimerAfterResumingFromBackground), name: UIApplication.didBecomeActiveNotification, object: nil)
+
+		outdatedStateTimer = Timer(fireAt: nextOutdatedStateUpdateDate, interval: 0, target: self, selector: #selector(updateFromTimer), userInfo: nil, repeats: false)
+
+		guard let outdatedStateTimer = outdatedStateTimer else { return }
+		RunLoop.current.add(outdatedStateTimer, forMode: .common)
+	}
+
+	@objc
+	private func invalidateTimer() {
+		outdatedStateTimer?.invalidate()
+	}
+
+	@objc
+	private func refreshUpdateTimerAfterResumingFromBackground() {
+		updateFromTimer()
+		scheduleOutdatedStateTimer()
+	}
+
+	@objc
+	private func updateFromTimer() {
+		coronaTests.value.forEach {
+			updateOutdatedState(for: $0)
+		}
+	}
+
+	private func updateOutdatedState(for coronaTest: FamilyMemberCoronaTest) {
+		let hoursToDeemTestOutdated = appConfiguration.currentAppConfig.value
+			.coronaTestParameters.coronaRapidAntigenTestParameters.hoursToDeemTestOutdated
+
+		// Only rapid antigen tests with a negative test result can become outdated
+		guard coronaTest.type == .antigen,
+			  coronaTest.testResult == .negative,
+			  hoursToDeemTestOutdated != 0,
+			  let outdatedDate = Calendar.current.date(byAdding: .hour, value: Int(hoursToDeemTestOutdated), to: coronaTest.testDate) else {
+			if coronaTest.isOutdated {
+				coronaTests.value.modify(coronaTest) {
+					$0.isOutdated = false
+				}
+			}
+
+			return
+		}
+
+		let isOutdated = Date() >= outdatedDate
+		if coronaTest.isOutdated != isOutdated {
+			coronaTests.value.modify(coronaTest) {
+				$0.isOutdated = isOutdated
+			}
+		}
+	}
+
 	#if DEBUG
 
 	private var mockPCRTest: FamilyMemberCoronaTest? {
@@ -665,6 +751,7 @@ class FamilyMemberCoronaTestService: FamilyMemberCoronaTestServiceProviding {
 					certificateSupportedByPointOfCare: false,
 					certificateConsentGiven: false,
 					certificateRequested: false,
+					isOutdated: false,
 					isLoading: false
 				)
 			)

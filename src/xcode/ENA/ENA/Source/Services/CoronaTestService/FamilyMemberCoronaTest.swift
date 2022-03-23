@@ -205,6 +205,25 @@ enum FamilyMemberCoronaTest: Equatable, Codable, Hashable, RecycleBinIdentifiabl
 		}
 	}
 
+	var isOutdated: Bool {
+		get {
+			switch self {
+			case .pcr:
+				return false
+			case .antigen(let antigenTest):
+				return antigenTest.isOutdated
+			}
+		}
+		set {
+			switch self {
+			case .pcr:
+				break
+			case .antigen(var antigenTest):
+				antigenTest.isOutdated = newValue
+			}
+		}
+	}
+
 	var isLoading: Bool {
 		get {
 			switch self {

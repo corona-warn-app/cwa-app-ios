@@ -29,6 +29,7 @@ struct FamilyMemberAntigenTest: Equatable, Hashable {
 
 	var uniqueCertificateIdentifier: String?
 
+	var isOutdated: Bool
 	var isLoading: Bool
 
 	var testDate: Date {
@@ -56,6 +57,7 @@ extension FamilyMemberAntigenTest: Codable {
 		case certificateConsentGiven
 		case certificateRequested
 		case uniqueCertificateIdentifier
+		case isOutdated
 	}
 
 	init(from decoder: Decoder) throws {
@@ -79,6 +81,8 @@ extension FamilyMemberAntigenTest: Codable {
 		certificateRequested = try container.decodeIfPresent(Bool.self, forKey: .certificateRequested) ?? false
 		
 		uniqueCertificateIdentifier = try container.decodeIfPresent(String.self, forKey: .uniqueCertificateIdentifier)
+
+		isOutdated = try container.decode(Bool.self, forKey: .isOutdated)
 
 		isLoading = false
 	}
