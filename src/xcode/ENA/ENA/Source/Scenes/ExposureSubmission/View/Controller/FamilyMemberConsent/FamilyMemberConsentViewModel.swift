@@ -47,7 +47,7 @@ final class FamilyMemberConsentViewModel {
 				cells: [
 					.title2(text: AppStrings.HealthCertificate.FamilyMemberConsent.headline),
 					.body(text: AppStrings.HealthCertificate.FamilyMemberConsent.inputTitle),
-					.textInput(),
+					.textInput(AppStrings.HealthCertificate.FamilyMemberConsent.inputPlaceholder),
 					.icon(UIImage(imageLiteralResourceName: "Icon_Family"), text: .string(AppStrings.HealthCertificate.FamilyMemberConsent.body01), alignment: .top),
 					.icon(UIImage(imageLiteralResourceName: "Icons_Certificates_01"), text: .string(AppStrings.HealthCertificate.FamilyMemberConsent.body02), alignment: .top)
 				]
@@ -113,12 +113,24 @@ final class FamilyMemberConsentViewModel {
 
 }
 
-extension DynamicCell {
+private extension DynamicCell {
 
 	static func textInput(
-		_ placeHolde: String? = nil
+		_ placeholder: String? = nil
 	) -> Self {
-		.identifier(DynamicTableViewCellReuseIdentifier(rawValue: FamilyNameTextFieldCell.reuseIdentifier))
+		let identifier = DynamicTableViewCellReuseIdentifier(
+			rawValue: FamilyNameTextFieldCell.reuseIdentifier
+		)
+		let dynamicCell = DynamicCell.identifier(
+			identifier,
+			configure: { _, cell, _ in
+				guard let cell = cell as? FamilyNameTextFieldCell else {
+					fatalError("Failed to get FamilyNameTextFieldCell")
+				}
+				cell.configure(placeholder)
+			}
+		)
+		return dynamicCell
 	}
 
 }

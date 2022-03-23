@@ -34,12 +34,15 @@ class FamilyNameTextFieldCell: UITableViewCell, UITextFieldDelegate, ReuseIdenti
 
 	// MARK: - Internal
 
-	// MARK: - Private
+	func configure(_ placeholder: String? = nil) {
+		textField.placeholder = placeholder
+	}
 
+	// MARK: - Private
+	private let textField = ENATextField(frame: .zero)
 	private var viewModel: String?
 
 	private func setupView() {
-		let textField = ENATextField(frame: .zero)
 		textField.translatesAutoresizingMaskIntoConstraints = false
 		textField.accessibilityIdentifier = AccessibilityIdentifiers.HealthCertificate.FamilyMemberConsent.textInput
 		textField.backgroundColor = .enaColor(for: .backgroundLightGray)
