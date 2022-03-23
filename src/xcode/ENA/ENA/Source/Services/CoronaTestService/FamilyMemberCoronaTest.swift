@@ -9,6 +9,15 @@ enum FamilyMemberCoronaTest: Equatable, Codable, Hashable, RecycleBinIdentifiabl
 	case pcr(FamilyMemberPCRTest)
 	case antigen(FamilyMemberAntigenTest)
 
+	var displayName: String {
+		switch self {
+		case .pcr(let pcrTest):
+			return pcrTest.displayName
+		case .antigen(let antigenTest):
+			return antigenTest.displayName
+		}
+	}
+
 	var registrationDate: Date? {
 		switch self {
 		case .pcr(let pcrTest):
