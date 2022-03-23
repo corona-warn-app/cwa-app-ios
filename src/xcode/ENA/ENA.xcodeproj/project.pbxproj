@@ -3448,6 +3448,9 @@
 		EB9DDB842719BF8300A19A53 /* ContactJournalUITests.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; name = ContactJournalUITests.xctestplan; path = TestPlans/ContactJournalUITests.xctestplan; sourceTree = "<group>"; };
 		EB9DDB852719BF8300A19A53 /* OnboardingUITests.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; name = OnboardingUITests.xctestplan; path = TestPlans/OnboardingUITests.xctestplan; sourceTree = "<group>"; };
 		EB9DDB862719BF8300A19A53 /* AntigenTestProfileUITests.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; name = AntigenTestProfileUITests.xctestplan; path = TestPlans/AntigenTestProfileUITests.xctestplan; sourceTree = "<group>"; };
+		EBA352A827EB435F00198D54 /* uk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = uk; path = uk.lproj/Localizable.strings; sourceTree = "<group>"; };
+		EBA352A927EB437900198D54 /* uk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = uk; path = uk.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		EBA352AA27EB438900198D54 /* uk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = uk; path = uk.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
 		EBA3BE3B25C2FAA800F1C2AC /* RootCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootCoordinator.swift; sourceTree = "<group>"; };
 		EBA403CF2589260D00D1F039 /* ColorCompatibility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorCompatibility.swift; sourceTree = "<group>"; };
 		EBB92C71259E10ED00013B41 /* UpdateOSViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateOSViewController.swift; sourceTree = "<group>"; };
@@ -10143,6 +10146,7 @@
 				pl,
 				ro,
 				bg,
+				uk,
 			);
 			mainGroup = 85D759322457048F008175F0;
 			packageReferences = (
@@ -12067,6 +12071,7 @@
 				EECF5E5924BDCC3C00332B8F /* pl */,
 				EECF5E5E24BDCC4D00332B8F /* ro */,
 				EECF5E6324BDCC5A00332B8F /* bg */,
+				EBA352A927EB437900198D54 /* uk */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -12080,6 +12085,7 @@
 				EECF5E5724BDCC3C00332B8F /* pl */,
 				EECF5E5C24BDCC4D00332B8F /* ro */,
 				EECF5E6124BDCC5A00332B8F /* bg */,
+				EBA352A827EB435F00198D54 /* uk */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
@@ -12093,6 +12099,7 @@
 				EECF5E5824BDCC3C00332B8F /* pl */,
 				EECF5E5D24BDCC4D00332B8F /* ro */,
 				EECF5E6224BDCC5A00332B8F /* bg */,
+				EBA352AA27EB438900198D54 /* uk */,
 			);
 			name = Localizable.stringsdict;
 			sourceTree = "<group>";
