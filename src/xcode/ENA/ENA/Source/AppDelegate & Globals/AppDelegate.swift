@@ -669,6 +669,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		eventStore.reset()
 
 		coronaTestService.updatePublishersFromStore()
+		familyMemberCoronaTestService.updatePublishersFromStore()
 		healthCertificateService.updatePublishersFromStore()
 	}
 
