@@ -273,6 +273,8 @@
 		01A636CE27EA7D0D001F5CB1 /* FamilyMemberCoronaTestRestorationHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A636CD27EA7C4C001F5CB1 /* FamilyMemberCoronaTestRestorationHandler.swift */; };
 		01A636D027EB41C5001F5CB1 /* FamilyMemberCoronaTestServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A636CF27EB41C5001F5CB1 /* FamilyMemberCoronaTestServiceTests.swift */; };
 		01A636D227EB4630001F5CB1 /* MockFamilyMemberCoronaTestService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A636D127EB4630001F5CB1 /* MockFamilyMemberCoronaTestService.swift */; };
+		01A636D527EB63CC001F5CB1 /* FamilyMemberPCRTest+Mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A636D327EB63CB001F5CB1 /* FamilyMemberPCRTest+Mock.swift */; };
+		01A636D627EB63CC001F5CB1 /* FamilyMemberAntigenTest+Mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A636D427EB63CB001F5CB1 /* FamilyMemberAntigenTest+Mock.swift */; };
 		01A6C2F62626DE1300B6E95A /* HomeTestRegistrationCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A6C2E82626D71700B6E95A /* HomeTestRegistrationCellModel.swift */; };
 		01A6C2FA2626DE1800B6E95A /* HomeTestRegistrationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A6C2E72626D71700B6E95A /* HomeTestRegistrationTableViewCell.swift */; };
 		01A6C2FE2626DE2200B6E95A /* HomeTestRegistrationTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01A6C2E92626D71700B6E95A /* HomeTestRegistrationTableViewCell.xib */; };
@@ -2001,6 +2003,9 @@
 		01A4DD0C25926A72007D5794 /* HomeLoadingItemViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeLoadingItemViewModel.swift; sourceTree = "<group>"; };
 		01A4DD4225935D1F007D5794 /* HomeRiskCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeRiskCellModel.swift; sourceTree = "<group>"; };
 		01A636CD27EA7C4C001F5CB1 /* FamilyMemberCoronaTestRestorationHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FamilyMemberCoronaTestRestorationHandler.swift; sourceTree = "<group>"; };
+		01A636D127EB4630001F5CB1 /* MockFamilyMemberCoronaTestService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockFamilyMemberCoronaTestService.swift; sourceTree = "<group>"; };
+		01A636D327EB63CB001F5CB1 /* FamilyMemberPCRTest+Mock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FamilyMemberPCRTest+Mock.swift"; sourceTree = "<group>"; };
+		01A636D427EB63CB001F5CB1 /* FamilyMemberAntigenTest+Mock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FamilyMemberAntigenTest+Mock.swift"; sourceTree = "<group>"; };
 		01A6C2E22626D71600B6E95A /* HomeTestResultCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTestResultCellModel.swift; sourceTree = "<group>"; };
 		01A6C2E32626D71600B6E95A /* HomeTestResultTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomeTestResultTableViewCell.xib; sourceTree = "<group>"; };
 		01A6C2E52626D71600B6E95A /* HomeTestResultCellModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTestResultCellModelTests.swift; sourceTree = "<group>"; };
@@ -4523,6 +4528,8 @@
 			children = (
 				01CBD88F261B3FBC00158B3E /* UserPCRTest+Mock.swift */,
 				01BA06FA261F5B1000237DD8 /* UserAntigenTest+Mock.swift */,
+				01A636D327EB63CB001F5CB1 /* FamilyMemberPCRTest+Mock.swift */,
+				01A636D427EB63CB001F5CB1 /* FamilyMemberAntigenTest+Mock.swift */,
 				ABAC9D2D2624938100EB183F /* TestResultTests.swift */,
 				0127B09D272855D6008E30AF /* CoronaTestRestorationHandlerTests.swift */,
 				01BA06C5261F417700237DD8 /* CoronaTestServiceTests.swift */,
@@ -11607,6 +11614,7 @@
 				EE22DB91247FB479001B0A71 /* MockStateHandlerObserverDelegate.swift in Sources */,
 				B1C7EE4624938EB700F1F284 /* ExposureDetection_FAQ_URL_Tests.swift in Sources */,
 				BA5EF931279EFA8700D9AB08 /* CacheData+Fake.swift in Sources */,
+				01A636D527EB63CC001F5CB1 /* FamilyMemberPCRTest+Mock.swift in Sources */,
 				EBD1D7B4275E4BA60046A1C3 /* KeySubmissionMetadata+Mock.swift in Sources */,
 				018B852826CE99A70037DD54 /* OnBehalfCheckinSubmissionServiceTests.swift in Sources */,
 				50101D75270739FA006F8B0F /* NotificationSettingsViewModelTests.swift in Sources */,
@@ -11861,6 +11869,7 @@
 				B18C411D246DB30000B8D8CB /* URL+Helper.swift in Sources */,
 				502B60FC276CB7B60049CC60 /* Error+Fake.swift in Sources */,
 				CDF27BD5246ADBF30044D32B /* HTTPClient+DaysAndHoursTests.swift in Sources */,
+				01A636D627EB63CC001F5CB1 /* FamilyMemberAntigenTest+Mock.swift in Sources */,
 				B117909824914D77007FF821 /* StoreTests.swift in Sources */,
 				01A6C3152626EA8000B6E95A /* HomeTestResultCellModelTests.swift in Sources */,
 				F22C6E252492082B00712A6B /* DynamicTableViewSpaceCellTests.swift in Sources */,
