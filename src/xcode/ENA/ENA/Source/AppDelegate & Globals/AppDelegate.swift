@@ -309,8 +309,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 			appConfiguration: appConfigurationProvider,
 			healthCertificateService: healthCertificateService,
 			healthCertificateRequestService: healthCertificateRequestService,
-			recycleBin: recycleBin,
-			badgeWrapper: badgeWrapper
+			recycleBin: recycleBin
 		)
 	}()
 

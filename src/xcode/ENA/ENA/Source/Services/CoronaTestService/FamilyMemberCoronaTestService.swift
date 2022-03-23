@@ -19,8 +19,7 @@ class FamilyMemberCoronaTestService: FamilyMemberCoronaTestServiceProviding {
 		healthCertificateService: HealthCertificateService,
 		healthCertificateRequestService: HealthCertificateRequestService,
 		notificationCenter: UserNotificationCenter = UNUserNotificationCenter.current(),
-		recycleBin: RecycleBin,
-		badgeWrapper: HomeBadgeWrapper
+		recycleBin: RecycleBin
 	) {
 		#if DEBUG
 		if isUITesting {
@@ -37,7 +36,6 @@ class FamilyMemberCoronaTestService: FamilyMemberCoronaTestServiceProviding {
 			self.healthCertificateRequestService = healthCertificateRequestService
 			self.notificationCenter = notificationCenter
 			self.recycleBin = recycleBin
-			self.badgeWrapper = badgeWrapper
 
 			self.fakeRequestService = FakeRequestService(client: client, restServiceProvider: restServiceProvider)
 
@@ -57,7 +55,6 @@ class FamilyMemberCoronaTestService: FamilyMemberCoronaTestServiceProviding {
 		self.healthCertificateRequestService = healthCertificateRequestService
 		self.notificationCenter = notificationCenter
 		self.recycleBin = recycleBin
-		self.badgeWrapper = badgeWrapper
 
 		self.fakeRequestService = FakeRequestService(client: client, restServiceProvider: restServiceProvider)
 
@@ -81,8 +78,7 @@ class FamilyMemberCoronaTestService: FamilyMemberCoronaTestServiceProviding {
 		healthCertificateService: HealthCertificateService,
 		healthCertificateRequestService: HealthCertificateRequestService,
 		notificationCenter: UserNotificationCenter = UNUserNotificationCenter.current(),
-		recycleBin: RecycleBin,
-		badgeWrapper: HomeBadgeWrapper
+		recycleBin: RecycleBin
 	) {
 		self.init(
 			client: client,
@@ -92,8 +88,7 @@ class FamilyMemberCoronaTestService: FamilyMemberCoronaTestServiceProviding {
 			healthCertificateService: healthCertificateService,
 			healthCertificateRequestService: healthCertificateRequestService,
 			notificationCenter: notificationCenter,
-			recycleBin: recycleBin,
-			badgeWrapper: badgeWrapper
+			recycleBin: recycleBin
 		)
 	}
 
@@ -408,8 +403,7 @@ class FamilyMemberCoronaTestService: FamilyMemberCoronaTestServiceProviding {
 	private let healthCertificateRequestService: HealthCertificateRequestService
 	private let notificationCenter: UserNotificationCenter
 	private let recycleBin: RecycleBin
-	private let badgeWrapper: HomeBadgeWrapper
-	private let serialQueue = AsyncOperation.serialQueue(named: "CoronaTestService.serialQueue")
+	private let serialQueue = AsyncOperation.serialQueue(named: "FamilyMemberCoronaTestService.serialQueue")
 
 	private let fakeRequestService: FakeRequestService
 
