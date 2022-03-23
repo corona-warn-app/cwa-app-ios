@@ -72,8 +72,6 @@ class FamilyMemberCoronaTestService: FamilyMemberCoronaTestServiceProviding {
 	convenience init(
 		client: Client,
 		store: CoronaTestStoring,
-		eventStore: EventStoringProviding,
-		diaryStore: DiaryStoring,
 		appConfiguration: AppConfigurationProviding,
 		healthCertificateService: HealthCertificateService,
 		healthCertificateRequestService: HealthCertificateRequestService,
@@ -103,7 +101,6 @@ class FamilyMemberCoronaTestService: FamilyMemberCoronaTestServiceProviding {
 		for displayName: String,
 		guid: String,
 		qrCodeHash: String,
-		isSubmissionConsentGiven: Bool,
 		certificateConsent: TestCertificateConsent,
 		completion: @escaping TestResultHandler
 	) {
@@ -116,7 +113,7 @@ class FamilyMemberCoronaTestService: FamilyMemberCoronaTestServiceProviding {
 			dateOfBirthKey = generatedDateOfBirthKey
 		}
 
-		Log.info("[FamilyMemberCoronaTestService] Registering PCR test (guid: \(private: guid, public: "GUID ID"), isSubmissionConsentGiven: \(isSubmissionConsentGiven), certificateConsentGiven: \(certificateConsentGiven)), dateOfBirthKey: \(private: String(describing: dateOfBirthKey))", log: .api)
+		Log.info("[FamilyMemberCoronaTestService] Registering PCR test (guid: \(private: guid, public: "GUID ID"), certificateConsentGiven: \(certificateConsentGiven)), dateOfBirthKey: \(private: String(describing: dateOfBirthKey))", log: .api)
 
 		getRegistrationToken(
 			forKey: ENAHasher.sha256(guid),
@@ -160,13 +157,11 @@ class FamilyMemberCoronaTestService: FamilyMemberCoronaTestServiceProviding {
 		)
 	}
 
-	// swiftlint:disable:next function_parameter_count
 	func registerAntigenTestAndGetResult(
 		for displayName: String,
 		with hash: String,
 		qrCodeHash: String,
 		pointOfCareConsentDate: Date,
-		isSubmissionConsentGiven: Bool,
 		certificateSupportedByPointOfCare: Bool,
 		certificateConsent: TestCertificateConsent,
 		completion: @escaping TestResultHandler
@@ -225,18 +220,16 @@ class FamilyMemberCoronaTestService: FamilyMemberCoronaTestServiceProviding {
 		)
 	}
 	
-	// swiftlint:disable:next function_parameter_count
 	func registerRapidPCRTestAndGetResult(
 		for displayName: String,
 		with hash: String,
 		qrCodeHash: String,
 		pointOfCareConsentDate: Date,
-		isSubmissionConsentGiven: Bool,
 		certificateSupportedByPointOfCare: Bool,
 		certificateConsent: TestCertificateConsent,
 		completion: @escaping TestResultHandler
 	) {
-		Log.info("[FamilyMemberCoronaTestService] Registering RapidPCR test (hash: \(private: hash), pointOfCareConsentDate: \(private: pointOfCareConsentDate), isSubmissionConsentGiven: \(isSubmissionConsentGiven))", log: .api)
+		Log.info("[FamilyMemberCoronaTestService] Registering RapidPCR test (hash: \(private: hash), pointOfCareConsentDate: \(private: pointOfCareConsentDate))", log: .api)
 
 		getRegistrationToken(
 			forKey: ENAHasher.sha256(hash),

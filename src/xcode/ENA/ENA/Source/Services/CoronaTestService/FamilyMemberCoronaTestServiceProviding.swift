@@ -19,30 +19,25 @@ protocol FamilyMemberCoronaTestServiceProviding {
 		for displayName: String,
 		guid: String,
 		qrCodeHash: String,
-		isSubmissionConsentGiven: Bool,
 		certificateConsent: TestCertificateConsent,
 		completion: @escaping TestResultHandler
 	)
 
-	// swiftlint:disable:next function_parameter_count
 	func registerAntigenTestAndGetResult(
 		for displayName: String,
 		with hash: String,
 		qrCodeHash: String,
 		pointOfCareConsentDate: Date,
-		isSubmissionConsentGiven: Bool,
 		certificateSupportedByPointOfCare: Bool,
 		certificateConsent: TestCertificateConsent,
 		completion: @escaping TestResultHandler
 	)
 
-	// swiftlint:disable:next function_parameter_count
 	func registerRapidPCRTestAndGetResult(
 		for displayName: String,
 		with hash: String,
 		qrCodeHash: String,
 		pointOfCareConsentDate: Date,
-		isSubmissionConsentGiven: Bool,
 		certificateSupportedByPointOfCare: Bool,
 		certificateConsent: TestCertificateConsent,
 		completion: @escaping TestResultHandler
