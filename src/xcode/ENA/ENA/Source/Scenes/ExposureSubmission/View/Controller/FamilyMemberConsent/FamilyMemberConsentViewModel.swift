@@ -32,7 +32,7 @@ final class FamilyMemberConsentViewModel {
 
 	var dynamicTableViewModel: DynamicTableViewModel {
 		DynamicTableViewModel([
-			// Illustration with information text
+			// Illustration with information text and text input cell
 			.section(
 				header:
 						.image(
@@ -52,7 +52,7 @@ final class FamilyMemberConsentViewModel {
 							guard let self = self else {
 								fatalError("Failed to get strong self")
 							}
-							cell.$viewModel
+							cell.$model
 								.sink(
 									receiveValue: { name in
 										self.name = name

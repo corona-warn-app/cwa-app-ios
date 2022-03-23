@@ -57,10 +57,6 @@ class FamilyMemberConsentViewController: DynamicTableViewController, DismissHand
 		}
 	}
 
-	// MARK: - Public
-
-	// MARK: - Internal
-
 	// MARK: - Private
 
 	private let dismiss: () -> Void

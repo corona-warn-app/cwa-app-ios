@@ -19,8 +19,6 @@ class FamilyNameTextFieldCell: UITableViewCell, UITextFieldDelegate, ReuseIdenti
 		fatalError("init(coder:) has not been implemented")
 	}
 
-	// MARK: - Overrides
-
 	// MARK: - Protocol UITextFieldDelegate
 
 	func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
@@ -28,29 +26,28 @@ class FamilyNameTextFieldCell: UITableViewCell, UITextFieldDelegate, ReuseIdenti
 			  let range = Range(range, in: oldString) else {
 			return false
 		}
-		viewModel = oldString.replacingCharacters(in: range, with: string)
+		model = oldString.replacingCharacters(in: range, with: string)
 		return true
 	}
 
 	func textFieldDidEndEditing(_ textField: UITextField) {
-		viewModel = textField.text
+		model = textField.text
 	}
 
 	func textFieldShouldReturn(_ textField: UITextField) -> Bool {
 		endEditing(true)
 	}
 
-	// MARK: - Public
-
 	// MARK: - Internal
 
-	@OpenCombine.Published private(set) var viewModel: String?
+	@OpenCombine.Published private(set) var model: String?
 
 	func configure(_ placeholder: String? = nil) {
 		textField.placeholder = placeholder
 	}
 
 	// MARK: - Private
+
 	private let textField = ENATextField(frame: .zero)
 
 	private func setupView() {
