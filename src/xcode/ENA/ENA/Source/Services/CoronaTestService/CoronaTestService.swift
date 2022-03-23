@@ -70,7 +70,11 @@ class CoronaTestService: CoronaTestServiceProviding {
 		self.fakeRequestService = FakeRequestService(client: client, restServiceProvider: restServiceProvider)
 		self.warnOthersReminder = WarnOthersReminder(store: store)
 
-		healthCertificateRequestService.didRegisterTestCertificate = setUniqueCertificateIdentifier
+		healthCertificateRequestService.didRegisterTestCertificate
+			.sink { [weak self] certificateIdentifier, testCertificateRequest in
+				self?.setUniqueCertificateIdentifier(certificateIdentifier, from: testCertificateRequest)
+			}
+			.store(in: &subscriptions)
 
 		setup()
 	}

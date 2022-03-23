@@ -61,8 +61,11 @@ class FamilyMemberCoronaTestService: FamilyMemberCoronaTestServiceProviding {
 
 		self.fakeRequestService = FakeRequestService(client: client, restServiceProvider: restServiceProvider)
 
-		// TODO: Won't work if both services register the same closure
-		healthCertificateRequestService.didRegisterTestCertificate = setUniqueCertificateIdentifier
+		healthCertificateRequestService.didRegisterTestCertificate
+			.sink { [weak self] certificateIdentifier, testCertificateRequest in
+				self?.setUniqueCertificateIdentifier(certificateIdentifier, from: testCertificateRequest)
+			}
+			.store(in: &subscriptions)
 
 		setup()
 	}
@@ -470,6 +473,7 @@ class FamilyMemberCoronaTestService: FamilyMemberCoronaTestServiceProviding {
 		return "x\(ENAHasher.sha256("\(guid)\(dateOfBirthString)").dropFirst())"
 	}
 
+	// swiftlint:disable:next cyclomatic_complexity
 	private func getTestResult(
 		for coronaTest: FamilyMemberCoronaTest,
 		force: Bool = true,
