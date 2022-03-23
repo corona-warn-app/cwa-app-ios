@@ -14,7 +14,7 @@ struct FamilyMemberAntigenTest: Equatable, Hashable {
 	var pointOfCareConsentDate: Date
 	// The date of when the test sample was collected.
 	var sampleCollectionDate: Date?
-	var registrationDate: Date?
+	var registrationDate: Date
 	var registrationToken: String?
 	var qrCodeHash: String
 	var isNew: Bool
@@ -67,7 +67,7 @@ extension FamilyMemberAntigenTest: Codable {
 
 		pointOfCareConsentDate = try container.decode(Date.self, forKey: .pointOfCareConsentDate)
 		sampleCollectionDate = try container.decodeIfPresent(Date.self, forKey: .sampleCollectionDate)
-		registrationDate = try container.decodeIfPresent(Date.self, forKey: .registrationDate)
+		registrationDate = try container.decode(Date.self, forKey: .registrationDate)
 		registrationToken = try container.decodeIfPresent(String.self, forKey: .registrationToken)
 		qrCodeHash = try container.decode(String.self, forKey: .qrCodeHash)
 		isNew = try container.decode(Bool.self, forKey: .isNew)

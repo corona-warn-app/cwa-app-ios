@@ -513,7 +513,7 @@ class FamilyMemberCoronaTestService: FamilyMemberCoronaTestServiceProviding {
 			return
 		}
 
-		let registrationDate = coronaTest.registrationDate ?? coronaTest.testDate
+		let registrationDate = coronaTest.registrationDate
 		let ageInDays = Calendar.current.dateComponents([.day], from: registrationDate, to: Date()).day ?? 0
 
 		guard coronaTest.testResult != .expired || ageInDays < 21 else {

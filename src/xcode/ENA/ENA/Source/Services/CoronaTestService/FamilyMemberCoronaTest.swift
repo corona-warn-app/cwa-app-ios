@@ -18,7 +18,7 @@ enum FamilyMemberCoronaTest: Equatable, Codable, Hashable, RecycleBinIdentifiabl
 		}
 	}
 
-	var registrationDate: Date? {
+	var registrationDate: Date {
 		switch self {
 		case .pcr(let pcrTest):
 			return pcrTest.registrationDate
