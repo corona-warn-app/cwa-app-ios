@@ -36,13 +36,13 @@ class FamilyNameTextFieldCell: UITableViewCell, UITextFieldDelegate, ReuseIdenti
 
 	// MARK: - Private
 
-//	private let textField: ENATextField = ENATextField(frame: .zero)
 	private var viewModel: String?
 
 	private func setupView() {
 		let textField = ENATextField(frame: .zero)
+		textField.translatesAutoresizingMaskIntoConstraints = false
 		textField.accessibilityIdentifier = AccessibilityIdentifiers.ContactDiaryInformation.Day.notesTextField
-		textField.backgroundColor = .enaColor(for: .darkBackground)
+		textField.backgroundColor = .enaColor(for: .backgroundLightGray)
 		textField.clearButtonMode = .whileEditing
 		textField.textColor = .enaColor(for: .textPrimary1)
 		textField.returnKeyType = .done
@@ -52,10 +52,10 @@ class FamilyNameTextFieldCell: UITableViewCell, UITextFieldDelegate, ReuseIdenti
 
 		NSLayoutConstraint.activate(
 			[
-				textField.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 8.0),
+				textField.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 13.0),
 				textField.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 8.0),
-				textField.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -8.0),
-				textField.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -88.0),
+				textField.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -33.0),
+				textField.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -8.0),
 				textField.heightAnchor.constraint(equalToConstant: 40.0)
 			]
 		)

@@ -47,6 +47,7 @@ final class FamilyMemberConsentViewModel {
 				cells: [
 					.title2(text: AppStrings.HealthCertificate.FamilyMemberConsent.headline),
 					.body(text: AppStrings.HealthCertificate.FamilyMemberConsent.inputTitle),
+					.textInput(),
 					.icon(UIImage(imageLiteralResourceName: "Icon_Family"), text: .string(AppStrings.HealthCertificate.FamilyMemberConsent.body01), alignment: .top),
 					.icon(UIImage(imageLiteralResourceName: "Icons_Certificates_01"), text: .string(AppStrings.HealthCertificate.FamilyMemberConsent.body02), alignment: .top)
 				]
@@ -108,6 +109,16 @@ final class FamilyMemberConsentViewModel {
 		let bulletPoint = NSMutableAttributedString(string: "\(title)" + "\n\t", attributes: boldTextAttribute)
 		bulletPoint.append(NSAttributedString(string: text, attributes: normalTextAttribute))
 		return bulletPoint
+	}
+
+}
+
+extension DynamicCell {
+
+	static func textInput(
+		_ placeHolde: String? = nil
+	) -> Self {
+		.identifier(DynamicTableViewCellReuseIdentifier(rawValue: FamilyNameTextFieldCell.reuseIdentifier))
 	}
 
 }
