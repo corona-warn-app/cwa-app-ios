@@ -23,13 +23,12 @@ final class FamilyMemberConsentViewModel {
 
 	let title = AppStrings.HealthCertificate.FamilyMemberConsent.title
 
+	@OpenCombine.Published private(set) var isPrimaryButtonEnabled: Bool
 	@OpenCombine.Published private(set) var name: String? {
 		didSet {
 			isPrimaryButtonEnabled = !(name?.isEmpty ?? true)
 		}
 	}
-
-	@OpenCombine.Published private(set) var isPrimaryButtonEnabled: Bool
 
 	var dynamicTableViewModel: DynamicTableViewModel {
 		DynamicTableViewModel([
