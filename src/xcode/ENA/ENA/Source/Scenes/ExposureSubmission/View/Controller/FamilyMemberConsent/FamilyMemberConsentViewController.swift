@@ -47,7 +47,7 @@ class FamilyMemberConsentViewController: DynamicTableViewController, DismissHand
 	func didTapFooterViewButton(_ type: FooterViewModel.ButtonType) {
 		switch type {
 		case .primary:
-			guard let familyMemberName = viewModel.name else {
+			guard let familyMemberName = viewModel.name?.value else {
 				Log.error("No family member name given - stop here")
 				return
 			}

@@ -3,6 +3,7 @@
 //
 
 import UIKit
+import OpenCombine
 
 class FamilyNameTextFieldCell: UITableViewCell, UITextFieldDelegate, ReuseIdentifierProviding {
 
@@ -34,13 +35,14 @@ class FamilyNameTextFieldCell: UITableViewCell, UITextFieldDelegate, ReuseIdenti
 
 	// MARK: - Internal
 
+	@OpenCombine.Published private(set) var viewModel: String?
+
 	func configure(_ placeholder: String? = nil) {
 		textField.placeholder = placeholder
 	}
 
 	// MARK: - Private
 	private let textField = ENATextField(frame: .zero)
-	private var viewModel: String?
 
 	private func setupView() {
 		textField.translatesAutoresizingMaskIntoConstraints = false

@@ -23,7 +23,7 @@ final class FamilyMemberConsentViewModel {
 
 	let title = AppStrings.HealthCertificate.FamilyMemberConsent.title
 
-	private(set) var name: String? {
+	@OpenCombine.Published private(set) var name: String? {
 		didSet {
 			isPrimaryButtonEnabled = !(name?.isEmpty ?? true)
 		}
@@ -47,7 +47,21 @@ final class FamilyMemberConsentViewModel {
 				cells: [
 					.title2(text: AppStrings.HealthCertificate.FamilyMemberConsent.headline),
 					.body(text: AppStrings.HealthCertificate.FamilyMemberConsent.inputTitle),
-					.textInput(AppStrings.HealthCertificate.FamilyMemberConsent.inputPlaceholder),
+					.textInput(
+						AppStrings.HealthCertificate.FamilyMemberConsent.inputPlaceholder,
+						configure: { [weak self] cell in
+							guard let self = self else {
+								fatalError("Failed to get strong self")
+							}
+							cell.$viewModel
+								.sink(
+									receiveValue: { name in
+										self.name = name
+									}
+								)
+								.store(in: &self.subscriptions)
+						}
+					),
 					.icon(UIImage(imageLiteralResourceName: "Icon_Family"), text: .string(AppStrings.HealthCertificate.FamilyMemberConsent.body01), alignment: .top),
 					.icon(UIImage(imageLiteralResourceName: "Icons_Certificates_01"), text: .string(AppStrings.HealthCertificate.FamilyMemberConsent.body02), alignment: .top)
 				]
@@ -116,7 +130,8 @@ final class FamilyMemberConsentViewModel {
 private extension DynamicCell {
 
 	static func textInput(
-		_ placeholder: String? = nil
+		_ placeholder: String? = nil,
+		configure: @escaping (FamilyNameTextFieldCell) -> Void
 	) -> Self {
 		let identifier = DynamicTableViewCellReuseIdentifier(
 			rawValue: FamilyNameTextFieldCell.reuseIdentifier
@@ -128,6 +143,7 @@ private extension DynamicCell {
 					fatalError("Failed to get FamilyNameTextFieldCell")
 				}
 				cell.configure(placeholder)
+				configure(cell)
 			}
 		)
 		return dynamicCell
