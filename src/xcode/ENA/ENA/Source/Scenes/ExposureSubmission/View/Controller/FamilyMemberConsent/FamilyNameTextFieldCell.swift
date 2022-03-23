@@ -11,6 +11,7 @@ class FamilyNameTextFieldCell: UITableViewCell, UITextFieldDelegate, ReuseIdenti
 
 	override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
 		super.init(style: style, reuseIdentifier: reuseIdentifier)
+		backgroundColor = .enaColor(for: .background)
 		setupView()
 	}
 
@@ -53,7 +54,6 @@ class FamilyNameTextFieldCell: UITableViewCell, UITextFieldDelegate, ReuseIdenti
 	private func setupView() {
 		textField.translatesAutoresizingMaskIntoConstraints = false
 		textField.accessibilityIdentifier = AccessibilityIdentifiers.HealthCertificate.FamilyMemberConsent.textInput
-		textField.backgroundColor = .enaColor(for: .backgroundLightGray)
 		textField.clearButtonMode = .whileEditing
 		textField.textColor = .enaColor(for: .textPrimary1)
 		textField.returnKeyType = .done
