@@ -3054,7 +3054,7 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "HealthCertificate_FamilyMemberConsent_Title" = "Ihr Einverständnis";
 
-"HealthCertificate_FamilyMemberConsent_ImageDescription" = "Eine Familie mit ihrem Zertifikat";
+"HealthCertificate_FamilyMemberConsent_ImageDescription" = "Eine Familie mit mehreren Mitgliedern; im Hintergrund ein Dokument mit QR-Code darauf.";
 
 "HealthCertificate_FamilyMemberConsent_Headline" = "Testergebnis für Familienmitglieder abrufen";
 
