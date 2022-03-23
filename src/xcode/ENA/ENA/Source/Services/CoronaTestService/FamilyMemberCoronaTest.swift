@@ -55,6 +55,15 @@ enum FamilyMemberCoronaTest: Equatable, Codable, Hashable, RecycleBinIdentifiabl
 		}
 	}
 
+	var isNew: Bool {
+		switch self {
+		case .pcr(let pcrTest):
+			return pcrTest.isNew
+		case .antigen(let antigenTest):
+			return antigenTest.isNew
+		}
+	}
+
 	var testResult: TestResult {
 		get {
 			switch self {
