@@ -116,7 +116,7 @@ class FamilyMemberCoronaTestService: FamilyMemberCoronaTestServiceProviding {
 			dateOfBirthKey = generatedDateOfBirthKey
 		}
 
-		Log.info("[CoronaTestService] Registering PCR test (guid: \(private: guid, public: "GUID ID"), isSubmissionConsentGiven: \(isSubmissionConsentGiven), certificateConsentGiven: \(certificateConsentGiven)), dateOfBirthKey: \(private: String(describing: dateOfBirthKey))", log: .api)
+		Log.info("[FamilyMemberCoronaTestService] Registering PCR test (guid: \(private: guid, public: "GUID ID"), isSubmissionConsentGiven: \(isSubmissionConsentGiven), certificateConsentGiven: \(certificateConsentGiven)), dateOfBirthKey: \(private: String(describing: dateOfBirthKey))", log: .api)
 
 		getRegistrationToken(
 			forKey: ENAHasher.sha256(guid),
@@ -144,13 +144,13 @@ class FamilyMemberCoronaTestService: FamilyMemberCoronaTestServiceProviding {
 
 					self?.coronaTests.value.append(coronaTest)
 
-					Log.info("[CoronaTestService] PCR test registered: \(private: coronaTest)", log: .api)
+					Log.info("[FamilyMemberCoronaTestService] PCR test registered: \(private: coronaTest)", log: .api)
 
 					self?.getTestResult(for: coronaTest, duringRegistration: true) { result in
 						completion(result)
 					}
 				case .failure(let error):
-					Log.error("[CoronaTestService] PCR test registration failed: \(error.localizedDescription)", log: .api)
+					Log.error("[FamilyMemberCoronaTestService] PCR test registration failed: \(error.localizedDescription)", log: .api)
 
 					completion(.failure(error))
 
@@ -171,7 +171,7 @@ class FamilyMemberCoronaTestService: FamilyMemberCoronaTestServiceProviding {
 		certificateConsent: TestCertificateConsent,
 		completion: @escaping TestResultHandler
 	) {
-		Log.info("[CoronaTestService] Registering antigen test (hash: \(private: hash), pointOfCareConsentDate: \(private: pointOfCareConsentDate)", log: .api)
+		Log.info("[FamilyMemberCoronaTestService] Registering antigen test (hash: \(private: hash), pointOfCareConsentDate: \(private: pointOfCareConsentDate)", log: .api)
 
 		getRegistrationToken(
 			forKey: ENAHasher.sha256(hash),
@@ -205,7 +205,7 @@ class FamilyMemberCoronaTestService: FamilyMemberCoronaTestServiceProviding {
 
 					self?.coronaTests.value.append(coronaTest)
 
-					Log.info("[CoronaTestService] Antigen test registered: \(private: coronaTest)", log: .api)
+					Log.info("[FamilyMemberCoronaTestService] Antigen test registered: \(private: coronaTest)", log: .api)
 
 					self?.getTestResult(for: coronaTest, duringRegistration: true) { result in
 						completion(result)
@@ -213,7 +213,7 @@ class FamilyMemberCoronaTestService: FamilyMemberCoronaTestServiceProviding {
 
 					self?.fakeRequestService.fakeSubmissionServerRequest()
 				case .failure(let error):
-					Log.error("[CoronaTestService] Antigen test registration failed: \(error.localizedDescription)", log: .api)
+					Log.error("[FamilyMemberCoronaTestService] Antigen test registration failed: \(error.localizedDescription)", log: .api)
 
 					completion(.failure(error))
 
@@ -234,7 +234,7 @@ class FamilyMemberCoronaTestService: FamilyMemberCoronaTestServiceProviding {
 		certificateConsent: TestCertificateConsent,
 		completion: @escaping TestResultHandler
 	) {
-		Log.info("[CoronaTestService] Registering RapidPCR test (hash: \(private: hash), pointOfCareConsentDate: \(private: pointOfCareConsentDate), isSubmissionConsentGiven: \(isSubmissionConsentGiven))", log: .api)
+		Log.info("[FamilyMemberCoronaTestService] Registering RapidPCR test (hash: \(private: hash), pointOfCareConsentDate: \(private: pointOfCareConsentDate), isSubmissionConsentGiven: \(isSubmissionConsentGiven))", log: .api)
 
 		getRegistrationToken(
 			forKey: ENAHasher.sha256(hash),
@@ -267,7 +267,7 @@ class FamilyMemberCoronaTestService: FamilyMemberCoronaTestServiceProviding {
 
 					self?.coronaTests.value.append(coronaTest)
 
-					Log.info("[CoronaTestService] RapidPCR test registered: \(private: coronaTest)", log: .api)
+					Log.info("[FamilyMemberCoronaTestService] RapidPCR test registered: \(private: coronaTest)", log: .api)
 
 					self?.getTestResult(for: coronaTest, duringRegistration: true) { result in
 						completion(result)
@@ -275,7 +275,7 @@ class FamilyMemberCoronaTestService: FamilyMemberCoronaTestServiceProviding {
 
 					self?.fakeRequestService.fakeSubmissionServerRequest()
 				case .failure(let error):
-					Log.error("[CoronaTestService] RapidPCR test registration failed: \(error.localizedDescription)", log: .api)
+					Log.error("[FamilyMemberCoronaTestService] RapidPCR test registration failed: \(error.localizedDescription)", log: .api)
 
 					completion(.failure(error))
 
@@ -290,14 +290,14 @@ class FamilyMemberCoronaTestService: FamilyMemberCoronaTestServiceProviding {
 	}
 
 	func updateTestResults(force: Bool = true, presentNotification: Bool, completion: @escaping VoidResultHandler) {
-		Log.info("[CoronaTestService] Update all test results. force: \(force), presentNotification: \(presentNotification)", log: .api)
+		Log.info("[FamilyMemberCoronaTestService] Update all test results. force: \(force), presentNotification: \(presentNotification)", log: .api)
 
 		let group = DispatchGroup()
 		var errors = [CoronaTestServiceError]()
 
 		for coronaTest in coronaTests.value {
 			group.enter()
-			Log.info("[CoronaTestService] Dispatch group entered in updateTestResults for (coronaTest: \(private: coronaTest))")
+			Log.info("[FamilyMemberCoronaTestService] Dispatch group entered in updateTestResults for (coronaTest: \(private: coronaTest))")
 			
 			updateTestResult(for: coronaTest, force: force, presentNotification: presentNotification) { result in
 				switch result {
@@ -308,7 +308,7 @@ class FamilyMemberCoronaTestService: FamilyMemberCoronaTestServiceProviding {
 					break
 				}
 
-				Log.info("[CoronaTestService] Dispatch group exited in updateTestResults for (coronaTest: \(private: coronaTest))")
+				Log.info("[FamilyMemberCoronaTestService] Dispatch group exited in updateTestResults for (coronaTest: \(private: coronaTest))")
 				group.leave()
 			}
 		}
@@ -328,14 +328,14 @@ class FamilyMemberCoronaTestService: FamilyMemberCoronaTestServiceProviding {
 		presentNotification: Bool = false,
 		completion: @escaping TestResultHandler
 	) {
-		Log.info("[CoronaTestService] Updating test result (coronaTest: \(private: coronaTest)), force: \(force), presentNotification: \(presentNotification)", log: .api)
+		Log.info("[FamilyMemberCoronaTestService] Updating test result (coronaTest: \(private: coronaTest)), force: \(force), presentNotification: \(presentNotification)", log: .api)
 
 		getTestResult(for: coronaTest, force: force, duringRegistration: false, presentNotification: presentNotification) { [weak self] result in
-			Log.info("[CoronaTestService] Received test result from getTestResult: \(private: result)")
+			Log.info("[FamilyMemberCoronaTestService] Received test result from getTestResult: \(private: result)")
 			
 			guard let self = self else {
 				completion(result)
-				Log.warning("[CoronaTestService] Could not get self, skipping fakeRequestService call")
+				Log.warning("[FamilyMemberCoronaTestService] Could not get self, skipping fakeRequestService call")
 				return
 			}
 
@@ -346,7 +346,7 @@ class FamilyMemberCoronaTestService: FamilyMemberCoronaTestServiceProviding {
 	}
 
 	func moveTestToBin(_ coronaTest: FamilyMemberCoronaTest) {
-		Log.info("[CoronaTestService] Moving test to bin (coronaTest: \(private: coronaTest)", log: .api)
+		Log.info("[FamilyMemberCoronaTestService] Moving test to bin (coronaTest: \(private: coronaTest)", log: .api)
 
 		recycleBin.moveToBin(.familyMemberCoronaTest(coronaTest))
 
@@ -362,7 +362,7 @@ class FamilyMemberCoronaTestService: FamilyMemberCoronaTestServiceProviding {
 	}
 
 	func evaluateShowing(of coronaTest: FamilyMemberCoronaTest) {
-		Log.info("[CoronaTestService] Evaluating showing test (coronaTest: \(private: coronaTest))", log: .api)
+		Log.info("[FamilyMemberCoronaTestService] Evaluating showing test (coronaTest: \(private: coronaTest))", log: .api)
 
 		coronaTests.value.modify(coronaTest) {
 			$0.testResultWasShown = true
@@ -370,12 +370,12 @@ class FamilyMemberCoronaTestService: FamilyMemberCoronaTestServiceProviding {
 	}
 
 	func updatePublishersFromStore() {
-		Log.info("[CoronaTestService] Updating publishers from store", log: .api)
+		Log.info("[FamilyMemberCoronaTestService] Updating publishers from store", log: .api)
 
 		if coronaTests.value != store.familyMemberTests {
 			coronaTests.value = store.familyMemberTests
 
-			Log.info("[CoronaTestService] Family member tests updated from store", log: .api)
+			Log.info("[FamilyMemberCoronaTestService] Family member tests updated from store", log: .api)
 		}
 	}
 	
@@ -475,17 +475,17 @@ class FamilyMemberCoronaTestService: FamilyMemberCoronaTestServiceProviding {
 		presentNotification: Bool = false,
 		_ completion: @escaping TestResultHandler
 	) {
-		Log.info("[CoronaTestService] Getting test result (coronaTest: \(private: coronaTest), duringRegistration: \(duringRegistration))", log: .api)
+		Log.info("[FamilyMemberCoronaTestService] Getting test result (coronaTest: \(private: coronaTest), duringRegistration: \(duringRegistration))", log: .api)
 
 		guard let registrationToken = coronaTest.registrationToken else {
-			Log.error("[CoronaTestService] Getting test result failed: No registration token", log: .api)
+			Log.error("[FamilyMemberCoronaTestService] Getting test result failed: No registration token", log: .api)
 
 			completion(.failure(.noRegistrationToken))
 			return
 		}
 
 		guard force || coronaTest.finalTestResultReceivedDate == nil else {
-			Log.info("[CoronaTestService] Get test result completed early because final test result is present.", log: .api)
+			Log.info("[FamilyMemberCoronaTestService] Get test result completed early because final test result is present.", log: .api)
 			completion(.success(coronaTest.testResult))
 			return
 		}
@@ -494,7 +494,7 @@ class FamilyMemberCoronaTestService: FamilyMemberCoronaTestServiceProviding {
 		let ageInDays = Calendar.current.dateComponents([.day], from: registrationDate, to: Date()).day ?? 0
 
 		guard coronaTest.testResult != .expired || ageInDays < 21 else {
-			Log.error("[CoronaTestService] Expired test result older than 21 days returned", log: .api)
+			Log.error("[FamilyMemberCoronaTestService] Expired test result older than 21 days returned", log: .api)
 
 			completion(.success(coronaTest.testResult))
 			return
@@ -524,11 +524,11 @@ class FamilyMemberCoronaTestService: FamilyMemberCoronaTestServiceProviding {
 
 			switch result {
 			case let .failure(error):
-				Log.error("[CoronaTestService] Getting test result failed: \(error.localizedDescription)", log: .api)
+				Log.error("[FamilyMemberCoronaTestService] Getting test result failed: \(error.localizedDescription)", log: .api)
 
 				// For error .qrDoesNotExist we set the test result to expired
 				if case let .receivedResourceError(ressourceError) = error, ressourceError == .qrDoesNotExist {
-					Log.info("[CoronaTestService] Error Code 400 when getting test result, setting expired test result", log: .api)
+					Log.info("[FamilyMemberCoronaTestService] Error Code 400 when getting test result, setting expired test result", log: .api)
 
 					self.coronaTests.value.modify(coronaTest) {
 						$0.testResult = .expired
@@ -536,11 +536,11 @@ class FamilyMemberCoronaTestService: FamilyMemberCoronaTestServiceProviding {
 
 					// For tests older than 21 days this should not be handled as an error
 					if ageInDays >= 21 {
-						Log.info("[CoronaTestService] Test older than 21 days, no error is returned", log: .api)
+						Log.info("[FamilyMemberCoronaTestService] Test older than 21 days, no error is returned", log: .api)
 
 						completion(.success(.expired))
 					} else {
-						Log.error("[CoronaTestService] Test younger than 21 days, error is returned", log: .api)
+						Log.error("[FamilyMemberCoronaTestService] Test younger than 21 days, error is returned", log: .api)
 
 						completion(.failure(.testResultError(error)))
 					}
@@ -550,7 +550,7 @@ class FamilyMemberCoronaTestService: FamilyMemberCoronaTestServiceProviding {
 			case let .success(response):
 				let testResult = TestResult(serverResponse: response.testResult, coronaTestType: coronaTest.type)
 
-				Log.info("[CoronaTestService] Got test result (coronaTest: \(private: coronaTest), testResult: \(testResult)), sampleCollectionDate: \(String(describing: response.sc))", log: .api)
+				Log.info("[FamilyMemberCoronaTestService] Got test result (coronaTest: \(private: coronaTest), testResult: \(testResult)), sampleCollectionDate: \(String(describing: response.sc))", log: .api)
 
 				self.coronaTests.value.modify(coronaTest) {
 					$0.testResult = testResult
@@ -581,7 +581,7 @@ class FamilyMemberCoronaTestService: FamilyMemberCoronaTestServiceProviding {
 						}
 
 						if presentNotification {
-							Log.info("[CoronaTestService] Triggering Notification (coronaTest: \(private: coronaTest), testResult: \(testResult))", log: .api)
+							Log.info("[FamilyMemberCoronaTestService] Triggering Notification (coronaTest: \(private: coronaTest), testResult: \(testResult))", log: .api)
 
 							// We attach the test result and type to determine which screen to show when user taps the notification
 							self.notificationCenter.presentNotification(
