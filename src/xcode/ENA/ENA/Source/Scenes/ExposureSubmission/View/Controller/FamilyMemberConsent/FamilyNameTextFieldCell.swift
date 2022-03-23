@@ -41,7 +41,7 @@ class FamilyNameTextFieldCell: UITableViewCell, UITextFieldDelegate, ReuseIdenti
 	private func setupView() {
 		let textField = ENATextField(frame: .zero)
 		textField.translatesAutoresizingMaskIntoConstraints = false
-		textField.accessibilityIdentifier = AccessibilityIdentifiers.ContactDiaryInformation.Day.notesTextField
+		textField.accessibilityIdentifier = AccessibilityIdentifiers.HealthCertificate.FamilyMemberConsent.textInput
 		textField.backgroundColor = .enaColor(for: .backgroundLightGray)
 		textField.clearButtonMode = .whileEditing
 		textField.textColor = .enaColor(for: .textPrimary1)
