@@ -95,6 +95,12 @@ class FamilyMemberCoronaTestService: FamilyMemberCoronaTestServiceProviding {
 	// MARK: - Protocol FamilyMemberCoronaTestServiceProviding
 
 	var coronaTests = CurrentValueSubject<[FamilyMemberCoronaTest], Never>([])
+
+	var unseenNewsCount: Int {
+		coronaTests.value
+			.filter { $0.hasUnseenNews }
+			.count
+	}
 	
 	// This function is responsible to register a PCR test from QR Code
 	func registerPCRTestAndGetResult(
@@ -360,7 +366,8 @@ class FamilyMemberCoronaTestService: FamilyMemberCoronaTestServiceProviding {
 		Log.info("[FamilyMemberCoronaTestService] Evaluating showing test (coronaTest: \(private: coronaTest))", log: .api)
 
 		coronaTests.value.modify(coronaTest) {
-			$0.testResultWasShown = true
+			$0.isNew = false
+			$0.testResultWasShown = coronaTest.finalTestResultReceivedDate != nil
 		}
 	}
 
