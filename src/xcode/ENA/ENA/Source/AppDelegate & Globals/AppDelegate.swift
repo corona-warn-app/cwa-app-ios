@@ -557,7 +557,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 			eventCheckoutService: self.eventCheckoutService,
 			store: self.store,
 			exposureSubmissionDependencies: self.exposureSubmissionServiceDependencies,
-			healthCertificateService: self.healthCertificateService
+			healthCertificateService: self.healthCertificateService,
+			familyMemberCoronaTestService: familyMemberCoronaTestService
 		)
 	}()
 
@@ -818,6 +819,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 	lazy var coordinator = RootCoordinator(
 		self,
 		coronaTestService: coronaTestService,
+		familyMemberCoronaTestService: familyMemberCoronaTestService,
 		contactDiaryStore: contactDiaryStore,
 		eventStore: eventStore,
 		eventCheckoutService: eventCheckoutService,

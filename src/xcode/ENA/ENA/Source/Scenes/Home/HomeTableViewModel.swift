@@ -14,6 +14,7 @@ class HomeTableViewModel {
 		store: Store,
 		appConfiguration: AppConfigurationProviding,
 		coronaTestService: CoronaTestServiceProviding,
+		familyMemberCoronaTestService: FamilyMemberCoronaTestServiceProviding,
 		onTestResultCellTap: @escaping (CoronaTestType?) -> Void,
 		badgeWrapper: HomeBadgeWrapper
 	) {
@@ -21,6 +22,7 @@ class HomeTableViewModel {
 		self.store = store
 		self.appConfiguration = appConfiguration
 		self.coronaTestService = coronaTestService
+		self.familyMemberCoronaTestService = familyMemberCoronaTestService
 		self.onTestResultCellTap = onTestResultCellTap
 		self.badgeWrapper = badgeWrapper
 
@@ -176,6 +178,13 @@ class HomeTableViewModel {
 				}
 			}
 		}
+
+		familyMemberCoronaTestService.updateTestResults(
+			force: false,
+			presentNotification: false
+		) { _ in
+			// Errors are only handled on the family member tests screen.
+		}
 	}
 
 	func resetBadgeCount() {
@@ -185,6 +194,7 @@ class HomeTableViewModel {
 	// MARK: - Private
 
 	private let appConfiguration: AppConfigurationProviding
+	private let familyMemberCoronaTestService: FamilyMemberCoronaTestServiceProviding
 	private let onTestResultCellTap: (CoronaTestType?) -> Void
 	private let badgeWrapper: HomeBadgeWrapper
 
