@@ -1483,6 +1483,7 @@
 		BA8848C6264AD91500EEA542 /* HealthCertificateKeyValueCellViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA8848C5264AD91500EEA542 /* HealthCertificateKeyValueCellViewModelTests.swift */; };
 		BA887F962608B5C800623FF6 /* SelectTraceLocationTypeFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA887F952608B5C800623FF6 /* SelectTraceLocationTypeFooterView.swift */; };
 		BA8A528327EB4F6D007A93DE /* FamilyNameTextFieldCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA8A528227EB4F6D007A93DE /* FamilyNameTextFieldCell.swift */; };
+		BA8A528627EB7EE2007A93DE /* FamilyMemberConsentViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA8A528527EB7EE2007A93DE /* FamilyMemberConsentViewModelTests.swift */; };
 		BA8A9FC627BFFC9C001DBB4B /* HealthCertificateReissuanceSucceededViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA8A9FC527BFFC9C001DBB4B /* HealthCertificateReissuanceSucceededViewController.swift */; };
 		BA8A9FC827BFFCAD001DBB4B /* HealthCertificateReissuanceSucceededViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA8A9FC727BFFCAD001DBB4B /* HealthCertificateReissuanceSucceededViewModel.swift */; };
 		BA8BBA08255A90690034D4BC /* WifiHTTPClientTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA8BBA07255A90690034D4BC /* WifiHTTPClientTests.swift */; };
@@ -3244,6 +3245,7 @@
 		BA8848C5264AD91500EEA542 /* HealthCertificateKeyValueCellViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthCertificateKeyValueCellViewModelTests.swift; sourceTree = "<group>"; };
 		BA887F952608B5C800623FF6 /* SelectTraceLocationTypeFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectTraceLocationTypeFooterView.swift; sourceTree = "<group>"; };
 		BA8A528227EB4F6D007A93DE /* FamilyNameTextFieldCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FamilyNameTextFieldCell.swift; sourceTree = "<group>"; };
+		BA8A528527EB7EE2007A93DE /* FamilyMemberConsentViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FamilyMemberConsentViewModelTests.swift; sourceTree = "<group>"; };
 		BA8A9FC527BFFC9C001DBB4B /* HealthCertificateReissuanceSucceededViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthCertificateReissuanceSucceededViewController.swift; sourceTree = "<group>"; };
 		BA8A9FC727BFFCAD001DBB4B /* HealthCertificateReissuanceSucceededViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthCertificateReissuanceSucceededViewModel.swift; sourceTree = "<group>"; };
 		BA8BBA07255A90690034D4BC /* WifiHTTPClientTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WifiHTTPClientTests.swift; sourceTree = "<group>"; };
@@ -9227,6 +9229,14 @@
 			path = __tests__;
 			sourceTree = "<group>";
 		};
+		BA8A528427EB7EC1007A93DE /* __tests__ */ = {
+			isa = PBXGroup;
+			children = (
+				BA8A528527EB7EE2007A93DE /* FamilyMemberConsentViewModelTests.swift */,
+			);
+			path = __tests__;
+			sourceTree = "<group>";
+		};
 		BA8A9FC427BFF788001DBB4B /* ReissuanceSucceeded */ = {
 			isa = PBXGroup;
 			children = (
@@ -9442,6 +9452,7 @@
 		BAC3F9BB27E8B64600483CC3 /* FamilyMemberConsent */ = {
 			isa = PBXGroup;
 			children = (
+				BA8A528427EB7EC1007A93DE /* __tests__ */,
 				BAC3F9BC27E8B67D00483CC3 /* FamilyMemberConsentViewController.swift */,
 				BAC3F9BE27E8B6ED00483CC3 /* FamilyMemberConsentViewModel.swift */,
 				BA8A528227EB4F6D007A93DE /* FamilyNameTextFieldCell.swift */,
@@ -11593,6 +11604,7 @@
 				506D881227A2D3F3006297FE /* DCCRulesResourceTests.swift in Sources */,
 				BA9BCF7725B09B5500DD7974 /* DiaryOverviewDayCellModelTests.swift in Sources */,
 				A1E419582495A8F90016E52A /* TeleTanResourceTests.swift in Sources */,
+				BA8A528627EB7EE2007A93DE /* FamilyMemberConsentViewModelTests.swift in Sources */,
 				01BA06C1261F384A00237DD8 /* WarnOthersReminderTests.swift in Sources */,
 				AB1820252760F4FE0054B873 /* HygieneRulesInfoViewModelTests.swift in Sources */,
 				01EBC9C325B70C310003496F /* SAP_Internal_Stats_Statistics+SupportedIDsTests.swift in Sources */,
