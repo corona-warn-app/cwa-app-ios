@@ -142,6 +142,15 @@ enum AppStrings {
 			}
 		}
 
+		enum TestOwnerSelection {
+			static let title = NSLocalizedString("ExposureSubmission_TestOwnerSelection_Title", comment: "")
+			static let description = NSLocalizedString("ExposureSubmission_TestOwnerSelection_Description", comment: "")
+			static let userHeadline = NSLocalizedString("ExposureSubmission_TestOwnerSelection_User_Headline", comment: "")
+			static let userSubheadline = NSLocalizedString("ExposureSubmission_TestOwnerSelection_User_Subheadline", comment: "")
+			static let familyMemberHeadline = NSLocalizedString("ExposureSubmission_TestOwnerSelection_FamilyMember_Headline", comment: "")
+			static let familyMemberSubheadline = NSLocalizedString("ExposureSubmission_TestOwnerSelection_FamilyMember_Subheadline", comment: "")
+		}
+		
 		enum TestCertificate {
 			enum Info {
 				static let title = NSLocalizedString("ExposureSubmission_TestCertificate_Information_Title", comment: "")

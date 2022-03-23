@@ -1035,6 +1035,20 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmission_Profile_ProfileTile_Description" = "Sparen Sie Zeit und zeigen Sie Ihr Schnelltest-Profil an der Teststelle vor.";
 
+/* ExposureSubmission TestOwnerSelection */
+
+"ExposureSubmission_TestOwnerSelection_Title" = "Test registrieren";
+
+"ExposureSubmission_TestOwnerSelection_Description" = "Sie erhalten das Ergebnis auf Ihrem Smartphone  und können ein digitales COVID-Testzertifikat anfordern. Nur wenn es Ihr eigener Test ist, können Sie im Fall eines positiven Testergebnisses andere warnen.";
+
+"ExposureSubmission_TestOwnerSelection_User_Headline" = "Für mich";
+
+"ExposureSubmission_TestOwnerSelection_User_Subheadline" = "Ihr eigener Test";
+
+"ExposureSubmission_TestOwnerSelection_FamilyMember_Headline" = "Für andere";
+
+"ExposureSubmission_TestOwnerSelection_FamilyMember_Subheadline" = "Test eines Familienmitglieds";
+
 /* ExposureSubmission TestCertificate */
 
 "ExposureSubmission_TestCertificate_Information_Title" = "COVID-Testzertifikat";
@@ -1682,7 +1696,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "NewVersionFeature_220_removeQRCode_title" = "Doppelten QR-Code entfernt";
 
-"NewVersionFeature_220_removeQRCode_description" = "Vom Detail-Bildschirm für Ihre Person wurde der QR-Code für Ihr aktuell verwendetes Zertifikat entfernt. Der QR-Code befindet sich ebenfalls auf der Zertifikate-Übersicht, wird also auf dem Detail-Bildschirm nicht benötigt.";
+"NewVersionFeature_220_removeQRCode_description" = "Vom Detail-Bildschirm für Personen wurde der QR-Code für das aktuell verwendete Zertifikat entfernt. Dadurch wurde Platz für Benachrichtigungen geschaffen und die Übersichtlichkeit erhöht. Der QR-Code befindet sich ebenfalls auf der Zertifikate-Übersicht, wird also auf dem Detail-Bildschirm nicht benötigt.";
 
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Länderübergreifende Risiko-Ermittlung";
