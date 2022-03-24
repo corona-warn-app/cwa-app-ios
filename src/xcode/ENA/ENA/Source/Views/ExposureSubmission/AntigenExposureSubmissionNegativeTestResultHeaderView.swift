@@ -183,7 +183,7 @@ class AntigenExposureSubmissionNegativeTestResultHeaderView: DynamicTableViewHea
 		
 	// MARK: - Internal
 	
-	func configure(coronaTest: AntigenTest) {
+	func configure(coronaTest: UserAntigenTest) {
 		lineView.backgroundColor = coronaTest.testResult.color
 		imageView.image = coronaTest.testResult.image
 		subtitleLabel.text = AppStrings.ExposureSubmissionResult.Antigen.card_subtitle

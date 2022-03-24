@@ -4,7 +4,7 @@
 
 import Foundation
 
-struct AntigenTest: Equatable, Hashable {
+struct UserAntigenTest: Equatable, Hashable {
 
 	// MARK: - Internal
 
@@ -41,7 +41,7 @@ struct AntigenTest: Equatable, Hashable {
 
 }
 
-extension AntigenTest: Codable {
+extension UserAntigenTest: Codable {
 
 	// MARK: - Protocol Codable
 

@@ -2,7 +2,7 @@
 // 🦠 Corona-Warn-App
 //
 
-struct CoronaTestRestorationHandler: TestRestorationHandling {
+struct UserCoronaTestRestorationHandler: UserTestRestorationHandling {
 
 	// MARK: - Init
 
@@ -24,9 +24,9 @@ struct CoronaTestRestorationHandler: TestRestorationHandling {
 		}
 	}
 
-	// MARK: - Protocol TestRestorationHandling
+	// MARK: - Protocol UserTestRestorationHandling
 
-	let canRestore: ((CoronaTest) -> Result<Void, TestRestorationError>)
-	let restore: ((CoronaTest) -> Void)
+	let canRestore: ((UserCoronaTest) -> Result<Void, TestRestorationError>)
+	let restore: ((UserCoronaTest) -> Void)
 
 }

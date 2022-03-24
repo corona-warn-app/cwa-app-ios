@@ -7,7 +7,7 @@ import OpenCombine
 import UIKit
 @testable import ENA
 
-class MockCoronaTestService: CoronaTestServiceProviding {
+class MockFamilyMemberCoronaTestService: FamilyMemberCoronaTestServiceProviding {
 
 	// MARK: - Init
 
@@ -17,29 +17,16 @@ class MockCoronaTestService: CoronaTestServiceProviding {
 
 	// MARK: - Protocol CoronaTestServiceProviding
 
-	var pcrTest = CurrentValueSubject<UserPCRTest?, Never>(nil)
-	var antigenTest = CurrentValueSubject<UserAntigenTest?, Never>(nil)
+	var coronaTests = CurrentValueSubject<[FamilyMemberCoronaTest], Never>([])
 
-	var antigenTestIsOutdated = CurrentValueSubject<Bool, Never>(false)
-
-	var pcrTestResultIsLoading = CurrentValueSubject<Bool, Never>(false)
-	var antigenTestResultIsLoading = CurrentValueSubject<Bool, Never>(false)
-
-	func coronaTest(ofType type: CoronaTestType) -> UserCoronaTest? {
-		switch type {
-		case .pcr:
-			return pcrTest.value.map { .pcr($0) }
-		case .antigen:
-			return antigenTest.value.map { .antigen($0) }
-		}
+	func upToDateTest(for coronaTest: FamilyMemberCoronaTest) -> FamilyMemberCoronaTest? {
+		coronaTests.value.first { $0.qrCodeHash == coronaTest.qrCodeHash }
 	}
 	
-	// This function is responsible to register a PCR test from QR Code
 	func registerPCRTestAndGetResult(
+		for displayName: String,
 		guid: String,
 		qrCodeHash: String,
-		isSubmissionConsentGiven: Bool,
-		markAsUnseen: Bool,
 		certificateConsent: TestCertificateConsent,
 		completion: @escaping TestResultHandler
 	) {
@@ -47,35 +34,11 @@ class MockCoronaTestService: CoronaTestServiceProviding {
 		completion(registerPCRTestAndGetResultResult ?? .failure(.noCoronaTestOfRequestedType))
 	}
 
-	// This function is responsible to register a PCR test from TeleTAN
-	func registerPCRTest(
-		teleTAN: String,
-		isSubmissionConsentGiven: Bool,
-		completion: @escaping (Result<Void, CoronaTestServiceError>) -> Void
-	) {
-		onRegisterPCRTestFromTeleTan()
-		completion(registerPCRTestFromTeleTanResult ?? .failure(.noCoronaTestOfRequestedType))
-	}
-	
-	func registerPCRTestAndGetResult(
-		teleTAN: String,
-		isSubmissionConsentGiven: Bool,
-		completion: @escaping TestResultHandler
-	) {
-		onRegisterPCRTestFromTeleTanAndGetResult()
-		completion(registerPCRTestFromTeleTanAndGetResultResult ?? .failure(.noCoronaTestOfRequestedType))
-	}
-
-	// swiftlint:disable:next function_parameter_count
 	func registerAntigenTestAndGetResult(
+		for displayName: String,
 		with hash: String,
 		qrCodeHash: String,
 		pointOfCareConsentDate: Date,
-		firstName: String?,
-		lastName: String?,
-		dateOfBirth: String?,
-		isSubmissionConsentGiven: Bool,
-		markAsUnseen: Bool,
 		certificateSupportedByPointOfCare: Bool,
 		certificateConsent: TestCertificateConsent,
 		completion: @escaping TestResultHandler
@@ -84,16 +47,11 @@ class MockCoronaTestService: CoronaTestServiceProviding {
 		completion(registerAntigenTestAndGetResultResult ?? .failure(.noCoronaTestOfRequestedType))
 	}
 
-	// swiftlint:disable:next function_parameter_count
 	func registerRapidPCRTestAndGetResult(
+		for displayName: String,
 		with hash: String,
 		qrCodeHash: String,
 		pointOfCareConsentDate: Date,
-		firstName: String?,
-		lastName: String?,
-		dateOfBirth: String?,
-		isSubmissionConsentGiven: Bool,
-		markAsUnseen: Bool,
 		certificateSupportedByPointOfCare: Bool,
 		certificateConsent: TestCertificateConsent,
 		completion: @escaping TestResultHandler
@@ -102,31 +60,27 @@ class MockCoronaTestService: CoronaTestServiceProviding {
 		completion(registerRapidPCRTestAndGetResultResult ?? .failure(.noCoronaTestOfRequestedType))
 	}
 	
-	func reregister(coronaTest: UserCoronaTest) {}
+	func reregister(coronaTest: FamilyMemberCoronaTest) {}
 
 	func updateTestResults(force: Bool, presentNotification: Bool, completion: @escaping VoidResultHandler) {}
 
 	func updateTestResult(
-		for coronaTestType: CoronaTestType,
+		for coronaTest: FamilyMemberCoronaTest,
 		force: Bool,
 		presentNotification: Bool,
 		completion: @escaping TestResultHandler
 	) {
-		onUpdateTestResult(coronaTestType, force, presentNotification)
-		completion(updateTestResultResult ?? .failure(.noCoronaTestOfRequestedType))
+		onUpdateTestResult(coronaTest, force, presentNotification)
+		completion(updateTestResultResult ?? .failure(.noRegistrationToken))
 	}
 
-	func getSubmissionTAN(for coronaTestType: CoronaTestType, completion: @escaping SubmissionTANResultHandler) {
-		completion(getSubmissionTANResult ?? .success("submissionTAN"))
+	func moveTestToBin(_ coronaTest: FamilyMemberCoronaTest) {
+		onMoveTestToBin(coronaTest)
 	}
 
-	func moveTestToBin(_ coronaTestType: CoronaTestType) {
-		onMoveTestToBin(coronaTestType)
-	}
+	func removeTest(_ coronaTest: FamilyMemberCoronaTest) {}
 
-	func removeTest(_ coronaTestType: CoronaTestType) {}
-
-	func evaluateShowingTest(ofType coronaTestType: CoronaTestType) {}
+	func evaluateShowing(of coronaTest: FamilyMemberCoronaTest) {}
 
 	func updatePublishersFromStore() {}
 
@@ -165,7 +119,7 @@ class MockCoronaTestService: CoronaTestServiceProviding {
 
 	var updateTestResultResult: Result<TestResult, CoronaTestServiceError>?
 	var onUpdateTestResult: (
-		_ coronaTestType: CoronaTestType,
+		_ coronaTest: FamilyMemberCoronaTest,
 		_ force: Bool,
 		_ presentNotification: Bool
 	) -> Void = { _, _, _ in }
@@ -173,12 +127,12 @@ class MockCoronaTestService: CoronaTestServiceProviding {
 	var getSubmissionTANResult: Result<String, CoronaTestServiceError>?
 
 	var onMoveTestToBin: (
-		_ coronaTestType: CoronaTestType
+		_ coronaTest: FamilyMemberCoronaTest
 	) -> Void = { _ in }
 
 }
 
-extension CoronaTestServiceProviding {
+extension FamilyMemberCoronaTestServiceProviding {
 
 	func updateTestResults(force: Bool = true, presentNotification: Bool, completion: @escaping VoidResultHandler) {
 		updateTestResults(
@@ -189,13 +143,13 @@ extension CoronaTestServiceProviding {
 	}
 
 	func updateTestResult(
-		for coronaTestType: CoronaTestType,
+		for coronaTest: FamilyMemberCoronaTest,
 		force: Bool = true,
 		presentNotification: Bool = false,
 		completion: @escaping TestResultHandler
 	) {
 		updateTestResult(
-			for: coronaTestType,
+			for: coronaTest,
 			force: force,
 			presentNotification: presentNotification,
 			completion: completion

@@ -47,7 +47,7 @@ class ExposureSubmissionTestResultViewModel {
 	@OpenCombine.Published var shouldAttemptToDismiss: Bool = false
 	@OpenCombine.Published var footerViewModel: FooterViewModel?
 	
-	var coronaTest: CoronaTest!
+	var coronaTest: UserCoronaTest!
 	
 	var title: String {
 		if showSpecialCaseForNegativeAntigenTest {
@@ -162,7 +162,7 @@ class ExposureSubmissionTestResultViewModel {
 		}
 	}
 
-	private func updateForCurrentTestResult(coronaTest: CoronaTest) {
+	private func updateForCurrentTestResult(coronaTest: UserCoronaTest) {
 		// Positive test results are not shown immediately
 		if coronaTest.testResult == .positive && self.coronaTest.testResult != .positive {
 			self.onChangeToPositiveTestResult()
@@ -681,7 +681,7 @@ extension ExposureSubmissionTestResultViewModel {
 		]
 	}
 	
-	private func negativeAntigenTestResultSections(test: AntigenTest) -> [DynamicSection] {
+	private func negativeAntigenTestResultSections(test: UserAntigenTest) -> [DynamicSection] {
 		var cells = [DynamicCell]()
 
 		// Health Certificate
@@ -928,7 +928,7 @@ extension ExposureSubmissionTestResultViewModel {
 // MARK: - Footer view helper
 extension ExposureSubmissionTestResultViewModel {
 	
-	static func footerViewModel(coronaTest: CoronaTest) -> FooterViewModel {
+	static func footerViewModel(coronaTest: UserCoronaTest) -> FooterViewModel {
 		switch coronaTest.testResult {
 		case .positive where coronaTest.keysSubmitted:
 			return FooterViewModel(
