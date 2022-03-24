@@ -103,7 +103,12 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 		})
 	}
 
-	func showTestResultScreen(triggeredFromTeletan: Bool = false) {
+	func showTestResultScreen(triggeredFromTeletan: Bool = false, saveToContactDiary: Bool = false) {
+		if saveToContactDiary {
+			model.coronaTestService.createCoronaTestEntryInContactDiary(
+				coronaTestType: model.coronaTestType
+			   )
+		}
 		let vc = createTestResultViewController(triggeredFromTeletan: triggeredFromTeletan)
 		push(vc)
 
@@ -266,10 +271,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 				guard let self = self, let coronaTest = self.model.coronaTest else { return }
 
 				guard coronaTest.isSubmissionConsentGiven else {
-					self.model.coronaTestService.createCoronaTestEntryInContactDiary(
-						coronaTestType: self.model.coronaTestType
-					)
-					self.showTestResultScreen()
+					self.showTestResultScreen(saveToContactDiary: true)
 					return
 				}
 
@@ -286,10 +288,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 					if error == .notAuthorized {
 						Log.info("OS submission authorization was declined.")
 						self.model.setSubmissionConsentGiven(false)
-						self.model.coronaTestService.createCoronaTestEntryInContactDiary(
-							coronaTestType: self.model.coronaTestType
-					 )
-						self.showTestResultScreen()
+						self.showTestResultScreen(saveToContactDiary: true)
 					} else {
 						self.showErrorAlert(for: error)
 					}
@@ -641,10 +640,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 			if self?.model.coronaTest?.positiveTestResultWasShown == true {
 				self?.showThankYouScreen()
 			} else {
-				self?.model.coronaTestService.createCoronaTestEntryInContactDiary(
-					coronaTestType: self?.model.coronaTestType
-				   )
-				self?.showTestResultScreen()
+				self?.showTestResultScreen(saveToContactDiary: true)
 			}
 		}
 		
@@ -1669,13 +1665,15 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 
 				switch testQRCodeInformation {
 				case .teleTAN:
-					self?.showTestResultScreen()
+					self?.showTestResultScreen(saveToContactDiary: true)
 				case .antigen, .pcr, .rapidPCR:
 					switch testResult {
 					case .positive:
 						self?.showTestResultAvailableScreen()
-					case .pending, .negative, .invalid, .expired:
+					case .pending, .invalid, .expired:
 						self?.showTestResultScreen()
+					case .negative:
+						self?.showTestResultScreen(saveToContactDiary: true)
 					}
 				}
 			},
