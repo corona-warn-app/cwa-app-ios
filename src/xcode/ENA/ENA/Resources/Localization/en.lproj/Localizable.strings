@@ -3180,14 +3180,6 @@
 
 "HealthCertificate_Reissuance_Consent_Cancel_Notice" = "If you cancel now, you can request an update in the certificate overview at any time.";
 
-"HealthCertificate_Reissuance_Consent_Legal_Title" = "Your Consent";
-
-"HealthCertificate_Reissuance_Consent_Legal_Subtitle" = "By tapping “Agree”, you consent to the following steps:";
-
-"HealthCertificate_Reissuance_Consent_Legal_Bullet_1" = "The app sends the vaccination certificate to the RKI for verification.";
-
-"HealthCertificate_Reissuance_Consent_Legal_Bullet_2" = "The RKI checks the vaccination certificate, issues an updated certificate, and sends it to your app.";
-
 "HealthCertificate_Reissuance_Consent_Bullet_Point_1" = "Updating your certificate is voluntary and free of charge.";
 
 "HealthCertificate_Reissuance_Consent_Bullet_Point_2" = "To ensure that certificates can only be updated once, the identifier of the old certificate is documented by the RKI.";

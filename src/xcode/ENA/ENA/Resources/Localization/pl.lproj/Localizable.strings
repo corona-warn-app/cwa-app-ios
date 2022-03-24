@@ -3180,14 +3180,6 @@
 
 "HealthCertificate_Reissuance_Consent_Cancel_Notice" = "Jeśli teraz zrezygnujesz, możesz w każdej chwili zażądać aktualizacji w przeglądzie certyfikatów.";
 
-"HealthCertificate_Reissuance_Consent_Legal_Title" = "Twoja zgoda";
-
-"HealthCertificate_Reissuance_Consent_Legal_Subtitle" = "Klikając „Akceptuj”, wyrażasz zgodę na następujące kroki:";
-
-"HealthCertificate_Reissuance_Consent_Legal_Bullet_1" = "Aplikacja wysyła certyfikat szczepienia do RKI w celu weryfikacji.";
-
-"HealthCertificate_Reissuance_Consent_Legal_Bullet_2" = "RKI sprawdza certyfikat szczepienia, wydaje zaktualizowany certyfikat i przesyła go do Twojej aplikacji. ";
-
 "HealthCertificate_Reissuance_Consent_Bullet_Point_1" = "Aktualizacja certyfikatu jest dobrowolna i bezpłatna.";
 
 "HealthCertificate_Reissuance_Consent_Bullet_Point_2" = "W celu zapewnienia, by certyfikaty mogły być aktualizowane tylko raz, identyfikator starego certyfikatu jest dokumentowany przez RKI.";

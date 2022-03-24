@@ -246,3 +246,13 @@
 "TicketValidation_SecondConsent_Legal_subBulletPoint3" = "Sınırları aşan seyahatlerde: gidilen ülkenin sertifikaya ilişkin talepleri";
 
 "TicketValidation_SecondConsent_Legal_subBulletPoint4" = "Sağlayıcının sertifikaya ilişkin talepleri (örn. hangi aşılar veya test yöntemleri kabul edilir)";
+
+/* HealthCertificate Resissuance Consent */
+
+"HealthCertificate_Reissuance_Consent_Legal_Title" = "Onayınız";
+
+"HealthCertificate_Reissuance_Consent_Legal_Subtitle" = "„Onay“ üzerine tıklayarak aşağıdaki adımları kabul edersiniz:";
+
+"HealthCertificate_Reissuance_Consent_Legal_Bullet_1" = "Uygulama, kontrol amaçlı olarak aşı sertifikasını RKI’ya iletir.";
+
+"HealthCertificate_Reissuance_Consent_Legal_Bullet_2" = "RKI aşı sertifikasını kontrol eder ve güncel bir sertifika oluşturur ve bunu uygulamanıza aktarır.";
