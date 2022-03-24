@@ -3304,14 +3304,6 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "HealthCertificate_Reissuance_Consent_Cancel_Notice" = "Falls Sie hier abbrechen, können Sie die Aktualisierung jederzeit in Ihrer Zertifikatsübersicht anfordern.";
 
-"HealthCertificate_Reissuance_Consent_Legal_Title" = "Ihr Einverständnis";
-
-"HealthCertificate_Reissuance_Consent_Legal_Subtitle" = "Durch Antippen von „Einverstanden“ willigen Sie in folgende Schritte ein:";
-
-"HealthCertificate_Reissuance_Consent_Legal_Bullet_1" = "Die App übermittelt das Impfzertifikat zur Überprüfung an das RKI.";
-
-"HealthCertificate_Reissuance_Consent_Legal_Bullet_2" = "Das RKI überprüft das Impfzertifikat und stellt ein aktualisiertes Zertifikat aus und übermittelt dieses an Ihre App.";
-
 "HealthCertificate_Reissuance_Consent_Bullet_Point_1" = "Die Aktualisierung des Zertifikats ist freiwillig und kostenlos.";
 
 "HealthCertificate_Reissuance_Consent_Bullet_Point_2" = "Um sicherzustellen, dass Zertifikate nur einmalig aktualisiert werden können, wird die Kennung des alten Zertifikats durch das RKI dokumentiert.";

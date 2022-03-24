@@ -3180,14 +3180,6 @@
 
 "HealthCertificate_Reissuance_Consent_Cancel_Notice" = "Ако откажете сега, може да заявите актуализация в прегледа за сертификата по всяко време.";
 
-"HealthCertificate_Reissuance_Consent_Legal_Title" = "Вашето съгласие";
-
-"HealthCertificate_Reissuance_Consent_Legal_Subtitle" = "С докосването на \"Давам съгласие\" се съгласявате със следните стъпки:";
-
-"HealthCertificate_Reissuance_Consent_Legal_Bullet_1" = "Приложението изпраща сертификата за ваксинация за проверка към института „Роберт Кох“.";
-
-"HealthCertificate_Reissuance_Consent_Legal_Bullet_2" = "Институтът проверява неговия статус, издава актуализиран сертификат и го изпраща в приложението ви.";
-
 "HealthCertificate_Reissuance_Consent_Bullet_Point_1" = "Актуализирането на сертификата е доброволно и безплатно.";
 
 "HealthCertificate_Reissuance_Consent_Bullet_Point_2" = "За да се гарантира, че сертификатът може да се актуализира само веднъж, институтът „Роберт Кох“ документира идентификатора на стария сертификат.";
