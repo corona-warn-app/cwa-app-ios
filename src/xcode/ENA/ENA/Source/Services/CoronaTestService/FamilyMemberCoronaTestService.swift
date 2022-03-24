@@ -374,6 +374,14 @@ class FamilyMemberCoronaTestService: FamilyMemberCoronaTestServiceProviding {
 		}
 	}
 
+	func evaluateShowingAllTests() {
+		Log.info("[FamilyMemberCoronaTestService] Evaluating showing all tests", log: .api)
+
+		coronaTests.value.forEach {
+			evaluateShowing(of: $0)
+		}
+	}
+
 	func updatePublishersFromStore() {
 		Log.info("[FamilyMemberCoronaTestService] Updating publishers from store", log: .api)
 
