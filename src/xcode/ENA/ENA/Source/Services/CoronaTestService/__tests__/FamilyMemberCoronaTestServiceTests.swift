@@ -3204,343 +3204,241 @@ class FamilyMemberCoronaTestServiceTests: CWATestCase {
 //		waitForExpectations(timeout: .short)
 //	}
 //
-//	// MARK: - Test Removal
-//
-//	func testMovingCoronaTestToBin() {
-//		let client = ClientMock()
-//		let store = MockTestStore()
-//		let appConfiguration = CachedAppConfigurationMock()
-//		let recycleBin = RecycleBin(store: store)
-//
-//		let healthCertificateService = HealthCertificateService(
-//			store: store,
-//			dccSignatureVerifier: DCCSignatureVerifyingStub(),
-//			dscListProvider: MockDSCListProvider(),
-//			appConfiguration: appConfiguration,
-//			cclService: FakeCCLService(),
-//			recycleBin: recycleBin
-//		)
-//
-//		let service = FamilyMemberCoronaTestService(
-//			client: client,
-//			store: store,
-//			appConfiguration: appConfiguration,
-//			healthCertificateService: healthCertificateService,
-//			healthCertificateRequestService: HealthCertificateRequestService(
-//				store: store,
-//				client: client,
-//				appConfiguration: appConfiguration,
-//				healthCertificateService: healthCertificateService
-//			),
-//			recycleBin: recycleBin
-//		)
-//
-//		service.pcrTest.value = .mock(registrationToken: "pcrRegistrationToken")
-//		service.antigenTest.value = .mock(registrationToken: "antigenRegistrationToken")
-//
-//		XCTAssertNotNil(service.pcrTest.value)
-//		XCTAssertNotNil(service.antigenTest.value)
-//		XCTAssertTrue(store.recycleBinItems.isEmpty)
-//		XCTAssertTrue(store.recycleBinItemsSubject.value.isEmpty)
-//
-//		service.moveTestToBin(.pcr)
-//
-//		XCTAssertNil(service.pcrTest.value)
-//		XCTAssertNotNil(service.antigenTest.value)
-//		XCTAssertEqual(store.recycleBinItems.count, 1)
-//		XCTAssertEqual(store.recycleBinItemsSubject.value.count, 1)
-//
-//		service.pcrTest.value = .mock(registrationToken: "pcrRegistrationToken2")
-//
-//		XCTAssertNotNil(service.pcrTest.value)
-//		XCTAssertNotNil(service.antigenTest.value)
-//
-//		service.moveTestToBin(.antigen)
-//
-//		XCTAssertNotNil(service.pcrTest.value)
-//		XCTAssertNil(service.antigenTest.value)
-//		XCTAssertEqual(store.recycleBinItems.count, 2)
-//		XCTAssertEqual(store.recycleBinItemsSubject.value.count, 2)
-//
-//		service.moveTestToBin(.pcr)
-//
-//		XCTAssertNil(service.pcrTest.value)
-//		XCTAssertNil(service.antigenTest.value)
-//		XCTAssertEqual(store.recycleBinItems.count, 3)
-//		XCTAssertEqual(store.recycleBinItemsSubject.value.count, 3)
-//	}
-//
-//	func testDeletingCoronaTest() {
-//		let client = ClientMock()
-//		let store = MockTestStore()
-//		let appConfiguration = CachedAppConfigurationMock()
-//
-//		let healthCertificateService = HealthCertificateService(
-//			store: store,
-//			dccSignatureVerifier: DCCSignatureVerifyingStub(),
-//			dscListProvider: MockDSCListProvider(),
-//			appConfiguration: appConfiguration,
-//			cclService: FakeCCLService(),
-//			recycleBin: .fake()
-//		)
-//
-//		let service = FamilyMemberCoronaTestService(
-//			client: client,
-//			store: store,
-//			appConfiguration: appConfiguration,
-//			healthCertificateService: healthCertificateService,
-//			healthCertificateRequestService: HealthCertificateRequestService(
-//				store: store,
-//				client: client,
-//				appConfiguration: appConfiguration,
-//				healthCertificateService: healthCertificateService
-//			),
-//			recycleBin: .fake()
-//		)
-//
-//		service.pcrTest.value = .mock(registrationToken: "pcrRegistrationToken")
-//		service.antigenTest.value = .mock(registrationToken: "antigenRegistrationToken")
-//
-//		XCTAssertNotNil(service.pcrTest.value)
-//		XCTAssertNotNil(service.antigenTest.value)
-//
-//		service.removeTest(.pcr)
-//
-//		XCTAssertNil(service.pcrTest.value)
-//		XCTAssertNotNil(service.antigenTest.value)
-//
-//		service.pcrTest.value = .mock(registrationToken: "pcrRegistrationToken")
-//
-//		XCTAssertNotNil(service.pcrTest.value)
-//		XCTAssertNotNil(service.antigenTest.value)
-//
-//		service.removeTest(.antigen)
-//
-//		XCTAssertNotNil(service.pcrTest.value)
-//		XCTAssertNil(service.antigenTest.value)
-//
-//		service.removeTest(.pcr)
-//
-//		XCTAssertNil(service.pcrTest.value)
-//		XCTAssertNil(service.antigenTest.value)
-//	}
-//
-//	// MARK: - Plausible Deniability
-//
-//	func test_registerPCRTestAndGetResultPlaybook() {
-//		// Counter to track the execution order.
-//		var count = 0
-//
-//		let expectation = self.expectation(description: "execute all callbacks")
-//		expectation.expectedFulfillmentCount = 4
-//
-//		// Initialize.
-//
-//		let restServiceProvider = RestServiceProviderStub(loadResources: [
-//			LoadResource(
-//				result: .success(
-//					TeleTanReceiveModel(registrationToken: "dummyRegToken")
-//				),
-//				willLoadResource: { resource in
-//					guard let resource = resource as? TeleTanResource  else {
-//						XCTFail("TeleTanResource expected.")
-//						return
-//					}
-//					expectation.fulfill()
-//
-//					XCTAssertFalse(resource.locator.isFake)
-//					XCTAssertEqual(count, 0)
-//
-//					count += 1
-//				}
-//			),
-//			LoadResource(
-//				result: .success(
-//					RegistrationTokenReceiveModel(submissionTAN: "fake")
-//				),
-//				willLoadResource: { _ in
-//					expectation.fulfill()
-//					XCTAssertEqual(count, 1)
-//					count += 1
-//				})
-//		])
-//
-//		let client = ClientMock()
-//
-//		client.onSubmitCountries = { _, isFake, completion in
-//			expectation.fulfill()
-//			XCTAssertTrue(isFake)
-//			XCTAssertEqual(count, 2)
-//			count += 1
-//			completion(.success(()))
-//		}
-//
-//		// Run test.
-//
-//		let store = MockTestStore()
-//		let appConfiguration = CachedAppConfigurationMock()
-//
-//		let healthCertificateService = HealthCertificateService(
-//			store: store,
-//			dccSignatureVerifier: DCCSignatureVerifyingStub(),
-//			dscListProvider: MockDSCListProvider(),
-//			appConfiguration: appConfiguration,
-//			cclService: FakeCCLService(),
-//			recycleBin: .fake()
-//		)
-//
-//		let service = FamilyMemberCoronaTestService(
-//			client: client,
-//			restServiceProvider: restServiceProvider,
-//			store: store,
-//			appConfiguration: appConfiguration,
-//			healthCertificateService: healthCertificateService,
-//			healthCertificateRequestService: HealthCertificateRequestService(
-//				store: store,
-//				client: client,
-//				appConfiguration: appConfiguration,
-//				healthCertificateService: healthCertificateService
-//			),
-//			recycleBin: .fake()
-//		)
-//		service.pcrTest.value = .mock(registrationToken: "regToken")
-//		service.antigenTest.value = .mock(registrationToken: "regToken")
-//
-//		service.registerPCRTest(
-//			teleTAN: "test-teletan",
-//			isSubmissionConsentGiven: true
-//		) { response in
-//			switch response {
-//			case .failure(let error):
-//				XCTFail(error.localizedDescription)
-//			case .success:
-//				break
-//			}
-//			expectation.fulfill()
-//		}
-//
-//		waitForExpectations(timeout: .short)
-//	}
-//
-//	func test_getTestResultPlaybookPositive() {
-//		getTestResultPlaybookTest(for: .pcr, with: .positive)
-//		getTestResultPlaybookTest(for: .antigen, with: .positive)
-//	}
-//
-//	func test_getTestResultPlaybookNegative() {
-//		getTestResultPlaybookTest(for: .pcr, with: .negative)
-//		getTestResultPlaybookTest(for: .antigen, with: .negative)
-//	}
-//
-//	func test_getTestResultPlaybookPending() {
-//		getTestResultPlaybookTest(for: .pcr, with: .pending)
-//		getTestResultPlaybookTest(for: .antigen, with: .pending)
-//	}
-//
-//	func test_getTestResultPlaybookInvalid() {
-//		getTestResultPlaybookTest(for: .pcr, with: .invalid)
-//		getTestResultPlaybookTest(for: .antigen, with: .invalid)
-//	}
-//
-//	func test_getTestResultPlaybookExpired() {
-//		getTestResultPlaybookTest(for: .pcr, with: .expired)
-//		getTestResultPlaybookTest(for: .antigen, with: .expired)
-//	}
-//
-//	// MARK: - Private
-//
-//	private func getTestResultPlaybookTest(for coronaTestType: CoronaTestType, with testResult: TestResult) {
-//		// Counter to track the execution order.
-//		var count = 0
-//
-//		let expectation = self.expectation(description: "execute all callbacks")
-//		expectation.expectedFulfillmentCount = 4
-//
-//		// Initialize.
-//
-//		let client = ClientMock()
-//
-//		client.onSubmitCountries = { _, isFake, completion in
-//			expectation.fulfill()
-//			XCTAssertTrue(isFake)
-//			XCTAssertEqual(count, 2)
-//			count += 1
-//			completion(.success(()))
-//		}
-//
-//		let store = MockTestStore()
-//		let appConfiguration = CachedAppConfigurationMock()
-//		let restServiceProvider = RestServiceProviderStub(loadResources: [
-//			LoadResource(
-//				result: .success(TestResultReceiveModel(testResult: TestResult.serverResponse(for: testResult, on: coronaTestType), sc: nil, labId: nil)),
-//				willLoadResource: { resource in
-//					guard let resource = resource as? TestResultResource  else {
-//						XCTFail("TestResultResource expected.")
-//						return
-//					}
-//					expectation.fulfill()
-//					XCTAssertFalse(resource.locator.isFake)
-//					XCTAssertEqual(count, 0)
-//					count += 1
-//				}
-//			),
-//			LoadResource(
-//				result: .success(
-//					RegistrationTokenReceiveModel(submissionTAN: "fake")
-//				),
-//				willLoadResource: { resource in
-//					guard let resource = resource as? RegistrationTokenResource  else {
-//						XCTFail("RegistrationTokenResource expected.")
-//						return
-//					}
-//					expectation.fulfill()
-//
-//					XCTAssertTrue(resource.locator.isFake)
-//					XCTAssertEqual(count, 1)
-//					count += 1
-//				})
-//		])
-//		let healthCertificateService = HealthCertificateService(
-//			store: store,
-//			dccSignatureVerifier: DCCSignatureVerifyingStub(),
-//			dscListProvider: MockDSCListProvider(),
-//			appConfiguration: appConfiguration,
-//			cclService: FakeCCLService(),
-//			recycleBin: .fake()
-//		)
-//
-//		let service = FamilyMemberCoronaTestService(
-//			client: client,
-//			restServiceProvider: restServiceProvider,
-//			store: store,
-//			appConfiguration: appConfiguration,
-//			healthCertificateService: healthCertificateService,
-//			healthCertificateRequestService: HealthCertificateRequestService(
-//				store: store,
-//				client: client,
-//				appConfiguration: appConfiguration,
-//				healthCertificateService: healthCertificateService
-//			),
-//			recycleBin: .fake()
-//		)
-//		service.pcrTest.value = .mock(registrationToken: "regToken")
-//		service.antigenTest.value = .mock(registrationToken: "regToken")
-//
-//		// Run test.
-//
-//		service.updateTestResult(for: coronaTestType) { response in
-//			switch response {
-//			case .failure(let error):
-//				XCTFail(error.localizedDescription)
-//			case .success(let result):
-//				XCTAssertEqual(result, testResult)
-//			}
-//
-//			expectation.fulfill()
-//		}
-//
-//		waitForExpectations(timeout: .short)
-//	}
-//
-//	// swiftlint:disable:next file_length
+	// MARK: - Test Removal
+
+	func testMovingCoronaTestToBin() {
+		let client = ClientMock()
+		let store = MockTestStore()
+		let appConfiguration = CachedAppConfigurationMock()
+		let recycleBin = RecycleBin(store: store)
+
+		let healthCertificateService = HealthCertificateService(
+			store: store,
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
+			dscListProvider: MockDSCListProvider(),
+			appConfiguration: appConfiguration,
+			cclService: FakeCCLService(),
+			recycleBin: recycleBin
+		)
+
+		let service = FamilyMemberCoronaTestService(
+			client: client,
+			store: store,
+			appConfiguration: appConfiguration,
+			healthCertificateService: healthCertificateService,
+			healthCertificateRequestService: HealthCertificateRequestService(
+				store: store,
+				client: client,
+				appConfiguration: appConfiguration,
+				healthCertificateService: healthCertificateService
+			),
+			recycleBin: recycleBin
+		)
+
+		let pcrTest: FamilyMemberCoronaTest = .pcr(.mock(registrationToken: "regToken", qrCodeHash: "pcrQRCodeHash"))
+		let pcrTest2: FamilyMemberCoronaTest = .pcr(.mock(registrationToken: "regToken", qrCodeHash: "pcrQRCodeHash"))
+		let antigenTest: FamilyMemberCoronaTest = .antigen(.mock(registrationToken: "regToken", qrCodeHash: "antigenQRCodeHash"))
+
+		service.coronaTests.value = [pcrTest, antigenTest]
+
+		XCTAssertTrue(store.recycleBinItems.isEmpty)
+		XCTAssertTrue(store.recycleBinItemsSubject.value.isEmpty)
+
+		service.moveTestToBin(pcrTest)
+
+		XCTAssertEqual(service.coronaTests.value, [antigenTest])
+		XCTAssertEqual(store.recycleBinItems.count, 1)
+		XCTAssertEqual(store.recycleBinItemsSubject.value.count, 1)
+
+		service.coronaTests.value = [pcrTest2, antigenTest]
+
+		service.moveTestToBin(antigenTest)
+
+		XCTAssertEqual(service.coronaTests.value, [pcrTest2])
+		XCTAssertEqual(store.recycleBinItems.count, 2)
+		XCTAssertEqual(store.recycleBinItemsSubject.value.count, 2)
+
+		service.moveTestToBin(pcrTest2)
+
+		XCTAssertEqual(service.coronaTests.value, [])
+		XCTAssertEqual(store.recycleBinItems.count, 3)
+		XCTAssertEqual(store.recycleBinItemsSubject.value.count, 3)
+	}
+
+	func testDeletingCoronaTest() {
+		let client = ClientMock()
+		let store = MockTestStore()
+		let appConfiguration = CachedAppConfigurationMock()
+
+		let healthCertificateService = HealthCertificateService(
+			store: store,
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
+			dscListProvider: MockDSCListProvider(),
+			appConfiguration: appConfiguration,
+			cclService: FakeCCLService(),
+			recycleBin: .fake()
+		)
+
+		let service = FamilyMemberCoronaTestService(
+			client: client,
+			store: store,
+			appConfiguration: appConfiguration,
+			healthCertificateService: healthCertificateService,
+			healthCertificateRequestService: HealthCertificateRequestService(
+				store: store,
+				client: client,
+				appConfiguration: appConfiguration,
+				healthCertificateService: healthCertificateService
+			),
+			recycleBin: .fake()
+		)
+
+		let pcrTest: FamilyMemberCoronaTest = .pcr(.mock(registrationToken: "regToken", qrCodeHash: "pcrQRCodeHash"))
+		let antigenTest: FamilyMemberCoronaTest = .antigen(.mock(registrationToken: "regToken", qrCodeHash: "antigenQRCodeHash"))
+
+		service.coronaTests.value = [pcrTest, antigenTest]
+
+		service.removeTest(pcrTest)
+
+		XCTAssertEqual(service.coronaTests.value, [antigenTest])
+
+		service.coronaTests.value = [pcrTest, antigenTest]
+
+		service.removeTest(antigenTest)
+
+		XCTAssertEqual(service.coronaTests.value, [pcrTest])
+
+		service.removeTest(pcrTest)
+
+		XCTAssertEqual(service.coronaTests.value, [])
+	}
+
+	// MARK: - Plausible Deniability
+
+	func test_getTestResultPlaybookPositive() throws {
+		try getTestResultPlaybookTest(for: .pcr, with: .positive)
+		try getTestResultPlaybookTest(for: .antigen, with: .positive)
+	}
+
+	func test_getTestResultPlaybookNegative() throws {
+		try getTestResultPlaybookTest(for: .pcr, with: .negative)
+		try getTestResultPlaybookTest(for: .antigen, with: .negative)
+	}
+
+	func test_getTestResultPlaybookPending() throws {
+		try getTestResultPlaybookTest(for: .pcr, with: .pending)
+		try getTestResultPlaybookTest(for: .antigen, with: .pending)
+	}
+
+	func test_getTestResultPlaybookInvalid() throws {
+		try getTestResultPlaybookTest(for: .pcr, with: .invalid)
+		try getTestResultPlaybookTest(for: .antigen, with: .invalid)
+	}
+
+	func test_getTestResultPlaybookExpired() throws {
+		try getTestResultPlaybookTest(for: .pcr, with: .expired)
+		try getTestResultPlaybookTest(for: .antigen, with: .expired)
+	}
+
+	// MARK: - Private
+
+	private func getTestResultPlaybookTest(for coronaTestType: CoronaTestType, with testResult: TestResult) throws {
+		// Counter to track the execution order.
+		var count = 0
+
+		let expectation = self.expectation(description: "execute all callbacks")
+		expectation.expectedFulfillmentCount = 4
+
+		// Initialize.
+
+		let client = ClientMock()
+
+		client.onSubmitCountries = { _, isFake, completion in
+			expectation.fulfill()
+			XCTAssertTrue(isFake)
+			XCTAssertEqual(count, 2)
+			count += 1
+			completion(.success(()))
+		}
+
+		let store = MockTestStore()
+		let appConfiguration = CachedAppConfigurationMock()
+		let restServiceProvider = RestServiceProviderStub(loadResources: [
+			LoadResource(
+				result: .success(TestResultReceiveModel(testResult: TestResult.serverResponse(for: testResult, on: coronaTestType), sc: nil, labId: nil)),
+				willLoadResource: { resource in
+					guard let resource = resource as? TestResultResource  else {
+						XCTFail("TestResultResource expected.")
+						return
+					}
+					expectation.fulfill()
+					XCTAssertFalse(resource.locator.isFake)
+					XCTAssertEqual(count, 0)
+					count += 1
+				}
+			),
+			LoadResource(
+				result: .success(
+					RegistrationTokenReceiveModel(submissionTAN: "fake")
+				),
+				willLoadResource: { resource in
+					guard let resource = resource as? RegistrationTokenResource  else {
+						XCTFail("RegistrationTokenResource expected.")
+						return
+					}
+					expectation.fulfill()
+
+					XCTAssertTrue(resource.locator.isFake)
+					XCTAssertEqual(count, 1)
+					count += 1
+				})
+		])
+		let healthCertificateService = HealthCertificateService(
+			store: store,
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
+			dscListProvider: MockDSCListProvider(),
+			appConfiguration: appConfiguration,
+			cclService: FakeCCLService(),
+			recycleBin: .fake()
+		)
+
+		let service = FamilyMemberCoronaTestService(
+			client: client,
+			restServiceProvider: restServiceProvider,
+			store: store,
+			appConfiguration: appConfiguration,
+			healthCertificateService: healthCertificateService,
+			healthCertificateRequestService: HealthCertificateRequestService(
+				store: store,
+				client: client,
+				appConfiguration: appConfiguration,
+				healthCertificateService: healthCertificateService
+			),
+			recycleBin: .fake()
+		)
+
+		switch coronaTestType {
+		case .pcr:
+			service.coronaTests.value = [.pcr(.mock(registrationToken: "regToken"))]
+		case .antigen:
+			service.coronaTests.value = [.antigen(.mock(registrationToken: "regToken"))]
+		}
+
+		// Run test.
+
+		service.updateTestResult(for: try XCTUnwrap(service.coronaTests.value.first)) { response in
+			switch response {
+			case .failure(let error):
+				XCTFail(error.localizedDescription)
+			case .success(let result):
+				XCTAssertEqual(result, testResult)
+			}
+
+			expectation.fulfill()
+		}
+
+		waitForExpectations(timeout: .short)
+	}
+
+	// swiftlint:disable:next file_length
 }
