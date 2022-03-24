@@ -14,7 +14,8 @@ protocol FamilyMemberCoronaTestServiceProviding {
 
 	var coronaTests: CurrentValueSubject<[FamilyMemberCoronaTest], Never> { get }
 
-	// This function is responsible to register a PCR test from QR Code
+	func upToDateTest(for coronaTest: FamilyMemberCoronaTest) -> FamilyMemberCoronaTest?
+
 	func registerPCRTestAndGetResult(
 		for displayName: String,
 		guid: String,

@@ -101,8 +101,11 @@ class FamilyMemberCoronaTestService: FamilyMemberCoronaTestServiceProviding {
 			.filter { $0.hasUnseenNews }
 			.count
 	}
+
+	func upToDateTest(for coronaTest: FamilyMemberCoronaTest) -> FamilyMemberCoronaTest? {
+		coronaTests.value.first { $0.qrCodeHash == coronaTest.qrCodeHash }
+	}
 	
-	// This function is responsible to register a PCR test from QR Code
 	func registerPCRTestAndGetResult(
 		for displayName: String,
 		guid: String,
