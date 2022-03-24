@@ -1665,7 +1665,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 
 				switch testQRCodeInformation {
 				case .teleTAN:
-					self?.showTestResultScreen(saveToContactDiary: true)
+					self?.showTestResultScreen()
 				case .antigen, .pcr, .rapidPCR:
 					switch testResult {
 					case .positive:
