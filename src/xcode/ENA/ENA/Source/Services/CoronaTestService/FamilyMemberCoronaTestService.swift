@@ -613,11 +613,7 @@ class FamilyMemberCoronaTestService: FamilyMemberCoronaTestServiceProviding {
 							self.notificationCenter.presentNotification(
 								title: AppStrings.LocalNotifications.testResultsTitle,
 								body: AppStrings.LocalNotifications.testResultsBody,
-								identifier: ActionableNotificationIdentifier.testResult.identifier,
-								info: [
-									ActionableNotificationIdentifier.testResult.identifier: testResult.rawValue,
-									ActionableNotificationIdentifier.familyTestResultTestIdentifier.identifier: coronaTest.qrCodeHash
-								]
+								identifier: ActionableNotificationIdentifier.familyTestResult.identifier
 							)
 						}
 					}
