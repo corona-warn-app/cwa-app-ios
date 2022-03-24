@@ -4,17 +4,35 @@
 
 import Foundation
 
-struct WrittenPackages {
-	init(urls: [URL]) {
-		self.urls = urls
+struct PackageContainer {
+
+	enum PackageType {
+		case keys
+		case signature
 	}
 
-	var urls: [URL]
+	let hash: String
+	let type: PackageType
+	let url: URL
+}
+
+struct WrittenPackages {
+
+	// MARK: - Init
+
+	init(
+		_ packages: [PackageContainer] = []
+	) {
+		self.packages = []
+	}
+
+	// MARK: - Internal
+
 	func cleanUp() {
 		guard let directoryURL = urls.first?.deletingLastPathComponent() else {
 			return
 		}
-			
+
 		let fileManager = FileManager()
 		Log.info("Removing: \(directoryURL)", log: .localData)
 
@@ -26,39 +44,57 @@ struct WrittenPackages {
 		}
 	}
 
-	mutating func add(_ url: URL) {
-		urls.append(url)
+	mutating func add(_ container: PackageContainer) {
+		packages.append(container)
 	}
+
+	var keyFingerprints: [String] {
+		packages.filter { $0.type == .keys }
+			.map { $0.hash }
+	}
+
+	var urls: [URL] {
+		packages.map { $0.url }
+	}
+
+	// MARK: - Internal
+
+	private var packages: [PackageContainer]
+
 }
 
 final class AppleFilesWriter {
 
-	// MARK: Creating a Writer
+	// MARK: - Init
 
-	init(rootDir: URL) {
+	init(
+		rootDir: URL
+	) {
 		self.rootDir = rootDir
 	}
 
-	// MARK: Properties
+	// MARK: - Internal
 
-	private(set) var writtenPackages = WrittenPackages(urls: [])
-	let rootDir: URL
-
-	// MARK: Interacting with the Writer
+	private(set) var writtenPackages = WrittenPackages()
 
 	func writePackage(_ keyPackage: SAPDownloadedPackage) -> Bool {
 		do {
 			let filename = UUID().uuidString
 			let keyURL = try keyPackage.writeKeysEntry(toDirectory: rootDir, filename: filename)
 			let signatureURL = try keyPackage.writeSignatureEntry(toDirectory: rootDir, filename: filename)
-			writtenPackages.add(keyURL)
-			writtenPackages.add(signatureURL)
+			writtenPackages.add(PackageContainer(hash: keyPackage.fingerprint, type: .keys, url: keyURL))
+			writtenPackages.add(PackageContainer(hash: keyPackage.fingerprint, type: .signature, url: signatureURL))
 			return true
 		} catch {
 			writtenPackages.cleanUp()
 			return false
 		}
 	}
+
+	// MARK: - Private
+
+	private let rootDir: URL
+
 }
 
 private extension SAPDownloadedPackage {

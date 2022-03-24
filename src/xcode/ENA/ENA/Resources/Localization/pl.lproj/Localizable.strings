@@ -268,7 +268,7 @@
 "ExposureDetection_ActiveTracingSection_Subtitle" = "Ten okres jest uwzględniony w obliczeniu.";
 
 /* There are two paragraphs in this section. The first one just contains text… */
-"ExposureDetection_ActiveTracingSection_Text_Paragraph0" = "Ryzyko zakażenia można obliczyć tylko dla okresów, w których rejestrowanie narażenia było aktywne. Dlatego też funkcja rejestrowania powinna być stale aktywna. Rejestrowanie narażenia obejmuje 14 ostatnich dni.";
+"ExposureDetection_ActiveTracingSection_Text_Paragraph0" = "Ryzyko zakażenia można obliczyć tylko dla okresów, w których rejestrowanie narażenia było aktywne. Dlatego też funkcja rejestrowania powinna być stale aktywna. Rejestrowanie narażenia obejmuje %u ostatnie(-ch) dni.";
 
 "ExposureDetection_ActiveTracingSection_Text_Paragraph1b" = "Jeśli rejestrowanie narażenia było aktywne podczas kontaktowania się z innymi ludźmi, można obliczyć ryzyko zakażenia dla tego okresu.";
 
@@ -321,7 +321,7 @@
 
 "Settings_DaysSinceInstall_SubTitle" = "Ten okres jest uwzględniony w obliczeniu.";
 
-"Settings_DaysSinceInstall_P1" = "Ryzyko zakażenia można obliczyć tylko dla okresów, w których rejestrowanie narażenia było aktywne. Dlatego też funkcja rejestrowania powinna być stale aktywna. Rejestrowanie narażenia obejmuje 14 ostatnich dni.";
+"Settings_DaysSinceInstall_P1" = "Ryzyko zakażenia można obliczyć tylko dla okresów, w których rejestrowanie narażenia było aktywne. Dlatego też funkcja rejestrowania powinna być stale aktywna. Rejestrowanie narażenia obejmuje %u ostatnie(-ch) dni.";
 
 "Settings_DaysSinceInstall_P2b" = "Jeśli rejestrowanie narażenia było aktywne podczas kontaktowania się z innymi ludźmi, można obliczyć ryzyko zakażenia dla tego okresu.";
 
@@ -450,7 +450,7 @@
 
 "OnboardingInfo_togetherAgainstCoronaPage_boldText" = "Większa ochrona dla Ciebie i dla nas wszystkich. Korzystając z aplikacji Corona-Warn-App, możemy znacznie szybciej przerwać łańcuchy zakażeń.";
 
-"OnboardingInfo_togetherAgainstCoronaPage_normalText" = "Zmień swoje urządzenie w system ostrzegania przed koronawirusem. Zapoznaj się ze swoim statusem ryzyka i dowiedz się, czy miałeś(-aś) bliski kontakt z osobą, u której w ciągu ostatnich 14 dni zdiagnozowano koronawirusa. \n\nAplikacja rejestruje kontakty między osobami poprzez wymianę zaszyfrowanych, losowych identyfikatorów między ich smartfonami bez uzyskiwania dostępu do danych osobowych.\n\nJeśli chcesz, możesz użyć aplikacji, aby udowodnić swój osobisty status dotyczący zakażenia (na przykład negatywny wynik szybkiego testu). Pamiętaj jednak, że nie masz obowiązku korzystania z aplikacji w celu potwierdzenia swojego statusu dotyczącego zakażenia. Możesz również udowodnić swój status dotyczący zakażenia w inny sposób, zgodny z przepisami prawnymi obowiązującymi w Twoim miejscu zamieszkania.\n\nPonadto możesz udowodnić swój osobisty status szczepienia.\n\nAplikacja rejestruje kontakty między osobami poprzez wymianę zaszyfrowanych, losowych identyfikatorów między ich smartfonami bez uzyskiwania dostępu do danych osobowych.";
+"OnboardingInfo_togetherAgainstCoronaPage_normalText" = "Zmień swoje urządzenie w system ostrzegania przed koronawirusem. Zapoznaj się ze swoim statusem ryzyka i dowiedz się, czy miałeś(-aś) bliski kontakt z osobą, u której w ciągu ostatnich %u dni zdiagnozowano koronawirusa. \n\nAplikacja rejestruje kontakty między osobami poprzez wymianę zaszyfrowanych, losowych identyfikatorów między ich smartfonami bez uzyskiwania dostępu do danych osobowych.\n\nJeśli chcesz, możesz użyć aplikacji, aby udowodnić swój osobisty status dotyczący zakażenia (na przykład negatywny wynik szybkiego testu). Pamiętaj jednak, że nie masz obowiązku korzystania z aplikacji w celu potwierdzenia swojego statusu dotyczącego zakażenia. Możesz również udowodnić swój status dotyczący zakażenia w inny sposób, zgodny z przepisami prawnymi obowiązującymi w Twoim miejscu zamieszkania.\n\nPonadto możesz udowodnić swój osobisty status szczepienia.\n\nAplikacja rejestruje kontakty między osobami poprzez wymianę zaszyfrowanych, losowych identyfikatorów między ich smartfonami bez uzyskiwania dostępu do danych osobowych.";
 
 "OnboardingInfo_togetherAgainstCoronaPage_linkText" = "Informacja o aplikacji w języku uproszczonym i języku migowym";
 
@@ -460,7 +460,7 @@
 
 "OnboardingInfo_privacyPage_boldText" = "";
 
-"OnboardingInfo_privacyPage_normalText" = "Zachowasz anonimowość.\nTwoje dane są w pełni zaszyfrowane i przesyłane pod pseudonimem.\n\nOdpowiedzialny organ: RODO, artykuł 4, paragraf. 7:\n\nRobert Koch-Institute\nNordufer 20\n13353 Berlin\nZapoznaj się z naszymi przepisami o prywatności danych.\n\nInformacje o prywatności danych:";
+"OnboardingInfo_privacyPage_normalText" = "Zachowasz anonimowość.\nTwoje dane są w pełni zaszyfrowane i przesyłane pod pseudonimem.\n\nAdministrator zgodnie z RODO, artykuł 4, (7):\n\nRobert Koch-Institute\nNordufer 20\n13353 Berlin\nZapoznaj się z naszymi przepisami o prywatności danych.\n\nInformacje o prywatności danych:";
 
 "OnboardingInfo_enableLoggingOfContactsPage_imageDescription" = "Trzy osoby aktywowały rejestrowanie narażenia na swoich urządzeniach, które będą rejestrować ich wzajemne kontakty.";
 
@@ -1337,7 +1337,7 @@
 /* Home Alert Risk Lowered */
 "Home_Alert_RiskStatusLowered_Title" = "Zmiana Twojego statusu ryzyka";
 
-"Home_Alert_RiskStatusLowered_Message" = "Ostatnie narażenie, które spowodowało zwiększenie Twojego ryzyka, miało miejsce ponad 14 dni temu. Z tego powodu ryzyko zakażenia zostało ponownie sklasyfikowane jako niskie.\n\nZalecenia:\nJeśli nie masz żadnych objawów zakażenia COVID-19, przestrzegaj nadal obowiązujących zasad dotyczących zachowania dystansu i higieny.\nJeżeli masz objawy zakażenia COVID-19, zalecamy wizytę u lekarza i wykonanie testu.";
+"Home_Alert_RiskStatusLowered_Message" = "Ostatnie narażenie, które spowodowało zwiększenie Twojego ryzyka, miało miejsce ponad %i dni temu. Z tego powodu ryzyko zakażenia zostało ponownie sklasyfikowane jako niskie.\n\nZalecenia:\nJeśli nie masz żadnych objawów zakażenia COVID-19, przestrzegaj nadal obowiązujących zasad dotyczących zachowania dystansu i higieny.\nJeżeli masz objawy zakażenia COVID-19, zalecamy wizytę u lekarza i wykonanie testu.";
 
 "Home_Alert_RiskStatusLowered_PrimaryButtonTitle" = "OK";
 
@@ -1394,7 +1394,7 @@
 
 "App_Information_Contact_Hotline_Details_Foreign" = "Dla połączeń spoza Niemiec.\nObowiązują opłaty podane przez operatora telefonicznego.";
 
-"App_Information_Contact_Hotline_Terms" = "Zapewniamy obsługę klienta w następujących językach: \nangielskim, niemieckim, tureckim\n\nGodziny pracy:\nPon.-Sob.: 7:00 – 22:00 (CET)\n(z wyjątkiem świąt)\nW razie jakichkolwiek innych pytań zadzwoń na numer 116 117 (w Niemczech). Następnie w trakcie automatycznego komunikatu naciśnij 2 (punkt Związkowego Ministerstwa Zdrowia). Naciśnij 1 (pogotowie ratunkowe) tylko, jeśli masz objawy.";
+"App_Information_Contact_Hotline_Terms" = "Zapewniamy obsługę klienta w następujących językach: \nniemieckim\n\nGodziny pracy:\nPon.-Pt.: 9:00 – 17:00 (CET)\n(z wyjątkiem świąt)\nW razie jakichkolwiek innych pytań zadzwoń na numer 116 117 (w Niemczech). Następnie w trakcie automatycznego komunikatu naciśnij 2 (punkt Związkowego Ministerstwa Zdrowia). Naciśnij 1 (pogotowie ratunkowe) tylko, jeśli masz objawy.";
 
 /* App Information - Imprint */
 "App_Information_New_Features_Navigation" = "Nowe funkcje";
@@ -1538,7 +1538,7 @@
 
 "RiskLegend_Legend2_Title" = "Ryzyko zakażenia";
 
-"RiskLegend_Legend2_Text" = "Jeśli rejestrowanie narażenia jest aktywne, aplikacja oblicza Twoje osobiste ryzyko zakażenia poprzez pomiar czasu trwania i bliskości Twojego kontaktu z osobami, u których zdiagnozowano koronawirusa w ciągu ostatnich 14 dni. Rejestrowanie narażenia uwzględnia również Twoje zameldowania. Otrzymasz ostrzeżenie, jeśli przebywałeś(-aś) w tym samym pomieszczeniu w tym samym czasie, co osoba, u której zdiagnozowano koronawirusa, lub do 30 minut po opuszczeniu pomieszczenia przez taką osobę.";
+"RiskLegend_Legend2_Text" = "Jeśli rejestrowanie narażenia jest aktywne, aplikacja oblicza Twoje osobiste ryzyko zakażenia poprzez pomiar czasu trwania i bliskości Twojego kontaktu z osobami, u których zdiagnozowano koronawirusa w ciągu ostatnich %u dni. Rejestrowanie narażenia uwzględnia również Twoje zameldowania. Otrzymasz ostrzeżenie, jeśli przebywałeś(-aś) w tym samym pomieszczeniu w tym samym czasie, co osoba, u której zdiagnozowano koronawirusa, lub do 30 minut po opuszczeniu pomieszczenia przez taką osobę.";
 
 "RiskLegend_Legend2_RiskLevels" = "Może wyświetlić się następujący status ryzyka:";
 
@@ -1614,7 +1614,7 @@
 /* Version 2.20 */
 "NewVersionFeature_220_highRiskShortened_title" = "Raport o skróceniu okresu podwyższonego ryzyka";
 
-"NewVersionFeature_220_highRiskShortened_description" = "Podwyższone ryzyko po narażeniu jest teraz wyświetlane tylko przez dziesięć dni zamiast 14.";
+"NewVersionFeature_220_highRiskShortened_description" = "Podwyższone ryzyko po narażeniu jest teraz wyświetlane tylko przez 10 dni zamiast 14.";
 
 "NewVersionFeature_220_displayRiskPositiveResult_title" = "Raport o ryzyku po pozytywnym wyniku testu";
 
@@ -1634,7 +1634,7 @@
 
 "NewVersionFeature_220_removeQRCode_title" = "Usunięto zduplikowany kod QR";
 
-"NewVersionFeature_220_removeQRCode_description" = "Kod QR dla aktualnie używanego certyfikatu został usunięty z indywidualnego ekranu szczegółów. Kod QR jest również zawarty w przeglądzie certyfikatu i dlatego nie jest potrzebny na ekranie szczegółów.";
+"NewVersionFeature_220_removeQRCode_description" = "Kod QR aktualnie używanego certyfikatu został usunięty z ekranu szczegółów dla poszczególnych osób, co pozwoliło uzyskać więcej miejsca na powiadomienia i ogólnie uporządkować ekran. Kod QR jest również zawarty w przeglądzie certyfikatu i dlatego nie jest potrzebny na ekranie szczegółów.";
 
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Rejestrowanie narażenia w różnych krajach";
@@ -3179,14 +3179,6 @@
 "HealthCertificate_Reissuance_Consent_Delete_Notice" = "Stary certyfikat zostanie automatycznie przeniesiony do kosza i usunięty po 30 dniach. Certyfikat można odzyskać w dowolnym momencie w ciągu tych 30 dni.";
 
 "HealthCertificate_Reissuance_Consent_Cancel_Notice" = "Jeśli teraz zrezygnujesz, możesz w każdej chwili zażądać aktualizacji w przeglądzie certyfikatów.";
-
-"HealthCertificate_Reissuance_Consent_Legal_Title" = "Twoja zgoda";
-
-"HealthCertificate_Reissuance_Consent_Legal_Subtitle" = "Klikając „Akceptuj”, wyrażasz zgodę na następujące kroki:";
-
-"HealthCertificate_Reissuance_Consent_Legal_Bullet_1" = "Aplikacja wysyła certyfikat szczepienia do RKI w celu weryfikacji.";
-
-"HealthCertificate_Reissuance_Consent_Legal_Bullet_2" = "RKI sprawdza certyfikat szczepienia, wydaje zaktualizowany certyfikat i przesyła go do Twojej aplikacji. ";
 
 "HealthCertificate_Reissuance_Consent_Bullet_Point_1" = "Aktualizacja certyfikatu jest dobrowolna i bezpłatna.";
 

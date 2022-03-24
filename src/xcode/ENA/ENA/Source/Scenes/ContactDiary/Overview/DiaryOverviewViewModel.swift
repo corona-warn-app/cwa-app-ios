@@ -13,7 +13,7 @@ class DiaryOverviewViewModel {
 		diaryStore: DiaryStoringProviding,
 		store: Store,
 		eventStore: EventStoringProviding,
-		homeState: HomeState? = nil
+		homeState: HomeState
 	) {
 		self.diaryStore = diaryStore
 		self.secureStore = store
@@ -34,9 +34,9 @@ class DiaryOverviewViewModel {
 		case days
 	}
 
-	@OpenCombine.Published var days: [DiaryDay] = []
+	@OpenCombine.Published private(set) var days: [DiaryDay] = []
 	
-	var homeState: HomeState?
+	var homeState: HomeState
 	var numberOfSections: Int {
 		Section.allCases.count
 	}

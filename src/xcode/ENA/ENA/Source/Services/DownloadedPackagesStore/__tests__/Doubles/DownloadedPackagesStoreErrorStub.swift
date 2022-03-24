@@ -5,8 +5,8 @@
 import XCTest
 @testable import ENA
 
-class DownloadedPackagesStoreErrorStub: DownloadedPackagesStoreV2 {
-
+class DownloadedPackagesStoreErrorStub: DownloadedPackagesStoreV3 {
+	
 	private let error: DownloadedPackagesSQLLiteStore.StoreError
 
 	init(error: DownloadedPackagesSQLLiteStore.StoreError) {
@@ -17,6 +17,9 @@ class DownloadedPackagesStoreErrorStub: DownloadedPackagesStoreV2 {
 
 	func close() { }
 
+	func markPackagesAsCheckedForExposures(_ fingerprints: [String]) throws {
+	}
+	
 	func set(country: Country.ID, hour: Int, day: String, etag: String?, package: SAPDownloadedPackage?) throws {
 		throw error
 	}
@@ -40,8 +43,16 @@ class DownloadedPackagesStoreErrorStub: DownloadedPackagesStoreV2 {
 	func hourlyPackages(for day: String, country: Country.ID) -> [SAPDownloadedPackage] {
 		return [SAPDownloadedPackage]()
 	}
+	
+	func hourlyPackagesNotCheckedForExposure(for day: String, country: Country.ID) -> [SAPDownloadedPackage] {
+		return [SAPDownloadedPackage]()
+	}
 
 	func allDays(country: Country.ID) -> [String] {
+		return [String]()
+	}
+	
+	func allDaysNotCheckedForExposure(country: Country.ID) -> [String] {
 		return [String]()
 	}
 
