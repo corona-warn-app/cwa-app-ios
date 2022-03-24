@@ -12,18 +12,12 @@ class ExposureSubmissionTestResultFamilyMemberViewModel {
 	init(
 		coronaTestType: CoronaTestType,
 		coronaTestService: CoronaTestServiceProviding,
-		onSubmissionConsentCellTap: @escaping (@escaping (Bool) -> Void) -> Void,
-		onContinueWithSymptomsFlowButtonTap: @escaping () -> Void,
-		onContinueWarnOthersButtonTap: @escaping (@escaping (Bool) -> Void) -> Void,
 		onChangeToPositiveTestResult: @escaping () -> Void,
 		onTestDeleted: @escaping () -> Void,
 		onTestCertificateCellTap: @escaping(HealthCertificate, HealthCertifiedPerson) -> Void
 	) {
 		self.coronaTestType = coronaTestType
 		self.coronaTestService = coronaTestService
-		self.onSubmissionConsentCellTap = onSubmissionConsentCellTap
-		self.onContinueWithSymptomsFlowButtonTap = onContinueWithSymptomsFlowButtonTap
-		self.onContinueWarnOthersButtonTap = onContinueWarnOthersButtonTap
 		self.onChangeToPositiveTestResult = onChangeToPositiveTestResult
 		self.onTestDeleted = onTestDeleted
 		self.onTestCertificateCellTap = onTestCertificateCellTap
@@ -38,8 +32,6 @@ class ExposureSubmissionTestResultFamilyMemberViewModel {
 	}
 	
 	// MARK: - Internal
-	
-	let onSubmissionConsentCellTap: (@escaping (Bool) -> Void) -> Void
 	
 	@OpenCombine.Published var dynamicTableViewModel: DynamicTableViewModel = DynamicTableViewModel([])
 	@OpenCombine.Published var shouldShowDeletionConfirmationAlert: Bool = false
@@ -93,9 +85,6 @@ class ExposureSubmissionTestResultFamilyMemberViewModel {
 	private var coronaTestService: CoronaTestServiceProviding
 
 	private let coronaTestType: CoronaTestType
-
-	private let onContinueWithSymptomsFlowButtonTap: () -> Void
-	private let onContinueWarnOthersButtonTap: (@escaping (Bool) -> Void) -> Void
 
 	private let onChangeToPositiveTestResult: () -> Void
 	private let onTestDeleted: () -> Void
