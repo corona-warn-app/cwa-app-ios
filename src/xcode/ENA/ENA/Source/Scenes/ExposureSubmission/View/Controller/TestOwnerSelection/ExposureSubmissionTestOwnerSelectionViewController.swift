@@ -58,4 +58,3 @@ class ExposureSubmissionTestOwnerSelectionViewController: DynamicTableViewContro
 		tableView.separatorStyle = .none
 	}
 }
-
