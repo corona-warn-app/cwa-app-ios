@@ -77,7 +77,6 @@ class CCLService: CCLServable {
 		self.invalidationRulesResource = invalidationRulesResource
 
 		// boosterNotificationRules
-		self.boosterNotificationRules = []
 		if cclServiceMode.contains(.boosterRules) {
 			switch restServiceProvider.cached(boosterNotificationRulesResource) {
 			case let .success(rules):
@@ -89,7 +88,6 @@ class CCLService: CCLServable {
 		}
 		
 		// InvalidationRules
-		self.invalidationRules = []
 		if cclServiceMode.contains(.invalidationRules) {
 			switch restServiceProvider.cached(invalidationRulesResource) {
 			case let .success(rules):
@@ -257,8 +255,8 @@ class CCLService: CCLServable {
 
 	private let cclServiceMode: [CCLServiceMode]
 
-	private var boosterNotificationRules: [Rule]
-	private var invalidationRules: [Rule]
+	private var boosterNotificationRules = [Rule]()
+	private var invalidationRules =[Rule]()
 
 	#if DEBUG
 	private var mockDCCAdmissionCheckScenarios: DCCAdmissionCheckScenarios {
