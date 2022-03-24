@@ -2400,10 +2400,10 @@ enum AppStrings {
 				static let deleteNotice = NSLocalizedString("HealthCertificate_Reissuance_Consent_Delete_Notice", comment: "")
 				static let cancelNotice = NSLocalizedString("HealthCertificate_Reissuance_Consent_Cancel_Notice", comment: "")
 
-				static let legalTitle = NSLocalizedString("HealthCertificate_Reissuance_Consent_Legal_Title", comment: "")
-				static let legalSubtitle = NSLocalizedString("HealthCertificate_Reissuance_Consent_Legal_Subtitle", comment: "")
-				static let legalBullet1 = NSLocalizedString("HealthCertificate_Reissuance_Consent_Legal_Bullet_1", comment: "")
-				static let legalBullet2 = NSLocalizedString("HealthCertificate_Reissuance_Consent_Legal_Bullet_2", comment: "")
+				static let legalTitle = NSLocalizedString("HealthCertificate_Reissuance_Consent_Legal_Title", tableName: "Localizable.legal", comment: "")
+				static let legalSubtitle = NSLocalizedString("HealthCertificate_Reissuance_Consent_Legal_Subtitle", tableName: "Localizable.legal", comment: "")
+				static let legalBullet1 = NSLocalizedString("HealthCertificate_Reissuance_Consent_Legal_Bullet_1", tableName: "Localizable.legal", comment: "")
+				static let legalBullet2 = NSLocalizedString("HealthCertificate_Reissuance_Consent_Legal_Bullet_2", tableName: "Localizable.legal", comment: "")
 
 				static let bulletPoint_1 = NSLocalizedString("HealthCertificate_Reissuance_Consent_Bullet_Point_1", comment: "")
 				static let bulletPoint_2 = NSLocalizedString("HealthCertificate_Reissuance_Consent_Bullet_Point_2", comment: "")

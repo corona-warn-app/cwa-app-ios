@@ -3180,14 +3180,6 @@
 
 "HealthCertificate_Reissuance_Consent_Cancel_Notice" = "Dacă anulați acum, puteți solicita oricând o actualizare în sumarul certificatului.";
 
-"HealthCertificate_Reissuance_Consent_Legal_Title" = "Consimțământul dvs.";
-
-"HealthCertificate_Reissuance_Consent_Legal_Subtitle" = "Apăsând pe „Sunt de acord”, consimțiți cu următoarele etape:";
-
-"HealthCertificate_Reissuance_Consent_Legal_Bullet_1" = "Aplicația trimite certificatul de vaccinare la RKI pentru verificare.";
-
-"HealthCertificate_Reissuance_Consent_Legal_Bullet_2" = "RKI verifică certificatul de vaccinare, emite un certificat actualizat și îl trimite la aplicația dvs.";
-
 "HealthCertificate_Reissuance_Consent_Bullet_Point_1" = "Actualizarea certificatului dvs. este voluntară și gratuită.";
 
 "HealthCertificate_Reissuance_Consent_Bullet_Point_2" = "Pentru a vă asigura că certificatele pot fi actualizate o singură dată, identificatorul certificatului vechi este păstrat ca evidență de către RKI.";
