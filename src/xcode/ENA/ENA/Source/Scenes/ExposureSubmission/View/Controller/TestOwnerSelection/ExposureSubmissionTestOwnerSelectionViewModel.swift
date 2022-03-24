@@ -16,7 +16,10 @@ class ExposureSubmissionTestOwnerSelectionViewModel {
 	}
 	
 	// MARK: - Internal
-
+enum TestOwner {
+	case user
+	case familyMember
+}
 	var dynamicTableViewModel: DynamicTableViewModel {
 		DynamicTableViewModel([
 			.section(
