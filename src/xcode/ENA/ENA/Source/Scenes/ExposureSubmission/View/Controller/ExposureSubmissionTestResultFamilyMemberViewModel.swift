@@ -59,24 +59,7 @@ class ExposureSubmissionTestResultFamilyMemberViewModel {
 	
 	func didTapPrimaryButton() {
 		switch coronaTest.testResult {
-		case .positive:
-			// Determine next step based on consent and submission state.
-			// If the keys were submitted, the test is supposed to be deleted and the alert is shown.
-			// If the keys were not yet submitted, the following scenarios can occur:
-			// In case the user has given exposure submission consent, we continue with collecting onset of symptoms.
-			// Otherwise we continue with the warn others process.
-			if coronaTest.keysSubmitted {
-				shouldShowDeletionConfirmationAlert = true
-			} else if coronaTest.isSubmissionConsentGiven {
-				Log.info("Positive Test Result: Next -> 'onset of symptoms'.")
-				onContinueWithSymptomsFlowButtonTap()
-			} else {
-				Log.info("Positive Test Result: Next -> 'warn others'.")
-				onContinueWarnOthersButtonTap { [weak self] isLoading in
-					self?.primaryButtonIsLoading = isLoading
-				}
-			}
-		case .negative, .invalid, .expired:
+		case .positive, .negative, .invalid, .expired:
 			shouldShowDeletionConfirmationAlert = true
 		case .pending:
 			refreshTest()
@@ -85,11 +68,9 @@ class ExposureSubmissionTestResultFamilyMemberViewModel {
 	
 	func didTapSecondaryButton() {
 		switch coronaTest.testResult {
-		case .positive:
-			self.shouldAttemptToDismiss = true
 		case .pending:
 			shouldShowDeletionConfirmationAlert = true
-		case .negative, .invalid, .expired:
+		case .positive, .negative, .invalid, .expired:
 			break
 		}
 	}
@@ -97,10 +78,6 @@ class ExposureSubmissionTestResultFamilyMemberViewModel {
 	func deleteTest() {
 		coronaTestService.moveTestToBin(coronaTestType)
 		onTestDeleted()
-	}
-	
-	func updateWarnOthers() {
-		coronaTestService.evaluateShowingTest(ofType: coronaTestType)
 	}
 	
 	func updateTestResultIfPossible() {
@@ -185,7 +162,7 @@ class ExposureSubmissionTestResultFamilyMemberViewModel {
 		case .pending:
 			sections = pendingTestResultSections
 		case .expired:
-			sections = expiredTestResultSections
+			sections = []
 		}
 		dynamicTableViewModel = DynamicTableViewModel(sections)
 		
@@ -612,66 +589,6 @@ extension ExposureSubmissionTestResultFamilyMemberViewModel {
 	#endif
 }
 
-
-// MARK: - Expired
-
-extension ExposureSubmissionTestResultFamilyMemberViewModel {
-	
-	private var expiredTestResultSections: [DynamicSection] {
-		var cells = [
-			DynamicCell.title2(
-				text: AppStrings.ExposureSubmissionResult.procedure,
-				accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionResult.procedure
-			)
-		]
-
-		switch coronaTest.type {
-		case .pcr:
-			cells.append(contentsOf: [
-				ExposureSubmissionDynamicCell.stepCell(
-					title: AppStrings.ExposureSubmissionResult.PCR.familyMemberTestAdded,
-					description: nil,
-					icon: UIImage(named: "Icons_Grey_Check"),
-					hairline: .iconAttached
-				)
-			])
-		case .antigen:
-			cells.append(contentsOf: [
-				ExposureSubmissionDynamicCell.stepCell(
-					title: AppStrings.ExposureSubmissionResult.Antigen.familyMemberTestAdded,
-					description: nil,
-					icon: UIImage(named: "Icons_Grey_Check"),
-					hairline: .iconAttached
-				)
-			])
-		}
-
-		cells.append(contentsOf: [
-			ExposureSubmissionDynamicCell.stepCell(
-				title: AppStrings.ExposureSubmissionResult.testExpired,
-				description: AppStrings.ExposureSubmissionResult.testExpiredDesc,
-				icon: UIImage(named: "Icons_Grey_Error"),
-				hairline: .topAttached
-			)
-		])
-
-		return [
-			.section(
-				header: .identifier(
-					ExposureSubmissionTestResultViewController.HeaderReuseIdentifier.pcrTestResult,
-					configure: { view, _ in
-						(view as? ExposureSubmissionTestResultHeaderView)?.configure(coronaTest: self.coronaTest)
-					}
-				),
-				separators: .none,
-				cells: cells
-			)
-		]
-	}
-
-}
-
-
 // MARK: - Invalid
 
 extension ExposureSubmissionTestResultFamilyMemberViewModel {
@@ -735,28 +652,7 @@ extension ExposureSubmissionTestResultFamilyMemberViewModel {
 	
 	static func footerViewModel(coronaTest: CoronaTest) -> FooterViewModel {
 		switch coronaTest.testResult {
-		case .positive where coronaTest.keysSubmitted:
-			return FooterViewModel(
-				primaryButtonName:
-					AppStrings.ExposureSubmissionPositiveTestResult.keysSubmittedPrimaryButtonTitle,
-				primaryIdentifier: AccessibilityIdentifiers.ExposureSubmission.primaryButton,
-				isSecondaryButtonEnabled: true,
-				isSecondaryButtonHidden: true
-			)
-		case .positive:
-			return FooterViewModel(
-				primaryButtonName: coronaTest.isSubmissionConsentGiven ?
-					AppStrings.ExposureSubmissionPositiveTestResult.withConsentPrimaryButtonTitle :
-				 AppStrings.ExposureSubmissionPositiveTestResult.noConsentPrimaryButtonTitle,
-				secondaryButtonName: coronaTest.isSubmissionConsentGiven ?
-					AppStrings.ExposureSubmissionPositiveTestResult.withConsentSecondaryButtonTitle :
-					AppStrings.ExposureSubmissionPositiveTestResult.noConsentSecondaryButtonTitle,
-				primaryIdentifier: AccessibilityIdentifiers.ExposureSubmission.primaryButton,
-				secondaryIdentifier: AccessibilityIdentifiers.ExposureSubmission.secondaryButton,
-				isSecondaryButtonEnabled: true,
-				isSecondaryButtonHidden: false
-			)
-		case .negative, .invalid, .expired:
+		case .positive, .negative, .invalid, .expired:
 			return FooterViewModel(
 				primaryButtonName: AppStrings.ExposureSubmissionResult.deleteButton,
 				primaryIdentifier: AccessibilityIdentifiers.ExposureSubmission.primaryButton,
