@@ -183,6 +183,11 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 				case .positiveResultWasShown:
 					return shownPositiveTestResultCell(forRowAt: indexPath, coronaTestType: .antigen)
 				}
+			case .familyTestResults(let count):
+				Log.info("Present family test cell with badge \(count)")
+				let cell = UITableViewCell(style: .default, reuseIdentifier: "TestALot")
+				cell.textLabel?.text = "Hallo Familie"
+				return cell
 			}
 		case .testRegistration:
 			return testRegistrationCell(forRowAt: indexPath)
@@ -236,14 +241,14 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 				viewModel.didTapTestResultCell(coronaTestType: .pcr)
 			case .antigenTestResult:
 				viewModel.didTapTestResultCell(coronaTestType: .antigen)
+			case .familyTestResults:
+				Log.info("NYD")
 			}
 		case .testRegistration:
 			onTestRegistrationCellTap()
-		case .statistics:
-			break
 		case .traceLocations:
 			onTraceLocationsCellTap()
-		case .moreInfo:
+		case .statistics, .moreInfo:
 			break
 		default:
 			fatalError("Invalid section")
