@@ -579,11 +579,11 @@ class ENAUITests_13_CreateHealthCertificate: CWATestCase {
 		app.launch()
 
 		// Navigate to Certificates Tab.
-		app.buttons[AccessibilityIdentifiers.TabBar.certificates].waitAndTap(.medium)
+		app.buttons[AccessibilityIdentifiers.TabBar.certificates].waitAndTap(.long)
 
 		// Navigate to Persons Tab.
-		app.cells[AccessibilityIdentifiers.HealthCertificate.Overview.healthCertifiedPersonCell].waitAndTap()
+		app.cells[AccessibilityIdentifiers.HealthCertificate.Overview.healthCertifiedPersonCell].waitAndTap(.long)
 
-		XCTAssertTrue(app.otherElements[AccessibilityIdentifiers.HealthCertificate.AdmissionState.unseenNewsIndicator].waitForExistence(timeout: .medium))
+		XCTAssertTrue(app.otherElements[AccessibilityIdentifiers.HealthCertificate.AdmissionState.unseenNewsIndicator].waitForExistence(timeout: .long))
 	}
 }
