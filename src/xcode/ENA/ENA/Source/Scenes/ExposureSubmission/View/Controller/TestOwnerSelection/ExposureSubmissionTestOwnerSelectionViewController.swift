@@ -59,7 +59,3 @@ class ExposureSubmissionTestOwnerSelectionViewController: DynamicTableViewContro
 	}
 }
 
-enum TestOwner {
-	case user
-	case familyMember
-}
