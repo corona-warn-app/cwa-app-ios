@@ -1670,10 +1670,8 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 					switch testResult {
 					case .positive:
 						self?.showTestResultAvailableScreen()
-					case .pending, .invalid, .expired:
+					case .pending, .invalid, .negative, .expired:
 						self?.showTestResultScreen()
-					case .negative:
-						self?.showTestResultScreen(saveToContactDiary: true)
 					}
 				}
 			},

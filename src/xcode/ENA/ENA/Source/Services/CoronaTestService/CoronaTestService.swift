@@ -907,7 +907,9 @@ class CoronaTestService: CoronaTestServiceProviding {
 					if case .positive = testResult, let coronaTest = self.coronaTest(ofType: coronaTestType), !coronaTest.keysSubmitted {
 						self.createKeySubmissionMetadataDefaultValues(for: coronaTest)
 					}
-
+					if case .negative = testResult {
+						self.createCoronaTestEntryInContactDiary(coronaTestType: coronaTestType)
+					}
 					if self.coronaTest(ofType: coronaTestType)?.finalTestResultReceivedDate == nil {
 						switch coronaTestType {
 						case .pcr:
