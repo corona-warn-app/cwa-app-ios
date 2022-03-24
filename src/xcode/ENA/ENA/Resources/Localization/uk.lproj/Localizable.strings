@@ -3180,14 +3180,6 @@
 
 "HealthCertificate_Reissuance_Consent_Cancel_Notice" = "Якщо ви скасуєте зараз, ви можете будь-коли подати запит на оновлення в огляді сертифіката.";
 
-"HealthCertificate_Reissuance_Consent_Legal_Title" = "Ваша згода";
-
-"HealthCertificate_Reissuance_Consent_Legal_Subtitle" = "Натиснувши «Згоден», ви погоджуєтеся на наступні кроки:";
-
-"HealthCertificate_Reissuance_Consent_Legal_Bullet_1" = "Застосунок надсилає сертифікат про вакцинацію до RKI для перевірки.";
-
-"HealthCertificate_Reissuance_Consent_Legal_Bullet_2" = "RKI перевіряє сертифікат про вакцинацію, видає оновлений сертифікат і надсилає його у ваш додаток.";
-
 "HealthCertificate_Reissuance_Consent_Bullet_Point_1" = "Оновлення сертифіката є добровільним і безкоштовним.";
 
 "HealthCertificate_Reissuance_Consent_Bullet_Point_2" = "Щоб гарантувати, що сертифікати можна оновити лише один раз, ідентифікатор старого сертифіката документується RKI.";
