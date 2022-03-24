@@ -337,7 +337,7 @@ class FamilyMemberCoronaTestServiceTests: CWATestCase {
 			}
 		}
 
-		waitForExpectations(timeout: .short)
+		waitForExpectations(timeout: .medium)
 		testsSubscription.cancel()
 
 		guard let pcrTest = service.coronaTests.value.first else {
@@ -848,7 +848,7 @@ class FamilyMemberCoronaTestServiceTests: CWATestCase {
 			}
 		}
 
-		waitForExpectations(timeout: .short)
+		waitForExpectations(timeout: .medium)
 		testsSubscription.cancel()
 
 		guard let antigenTest = service.coronaTests.value.first else {
@@ -1367,7 +1367,7 @@ class FamilyMemberCoronaTestServiceTests: CWATestCase {
 			}
 		}
 
-		waitForExpectations(timeout: .short)
+		waitForExpectations(timeout: .medium)
 		testsSubscription.cancel()
 
 		guard let rapidPCRTest = service.coronaTests.value.first else {
@@ -1685,7 +1685,7 @@ class FamilyMemberCoronaTestServiceTests: CWATestCase {
 			resultExpectation.fulfill()
 		}
 
-		waitForExpectations(timeout: .short)
+		waitForExpectations(timeout: .medium)
 		subscription.cancel()
 
 		guard let antigenTest = service.coronaTests.value.first else {
@@ -1761,7 +1761,7 @@ class FamilyMemberCoronaTestServiceTests: CWATestCase {
 			resultExpectation.fulfill()
 		}
 
-		waitForExpectations(timeout: .short)
+		waitForExpectations(timeout: .medium)
 		subscription.cancel()
 
 		guard let antigenTest = service.coronaTests.value.first else {
@@ -1813,7 +1813,6 @@ class FamilyMemberCoronaTestServiceTests: CWATestCase {
 		)
 
 		let publisherExpectation = expectation(description: "corona tests published")
-		publisherExpectation.expectedFulfillmentCount = 1
 
 		let subscription = service.coronaTests
 			.sink { _ in
@@ -1874,7 +1873,6 @@ class FamilyMemberCoronaTestServiceTests: CWATestCase {
 		)
 
 		let publisherExpectation = expectation(description: "corona tests published")
-		publisherExpectation.expectedFulfillmentCount = 1
 
 		let subscription = service.coronaTests
 			.sink { _ in
@@ -2003,7 +2001,6 @@ class FamilyMemberCoronaTestServiceTests: CWATestCase {
 			)
 
 			let publisherExpectation = expectation(description: "corona tests published")
-			publisherExpectation.expectedFulfillmentCount = 1
 
 			let subscription = service.coronaTests
 				.sink { _ in
