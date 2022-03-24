@@ -79,13 +79,19 @@ final class ExposureDetectionExecutorTests: CWATestCase {
 		let exposureDetection = ExposureDetection(
 			delegate: sut,
 			appConfiguration: config,
-			deviceTimeCheck: DeviceTimeCheck(store: store, appFeatureProvider: AppFeatureDeviceTimeCheckDecorator.mock(store: store, config: config))
+			deviceTimeCheck: DeviceTimeCheck(
+				store: store,
+				appFeatureProvider: AppFeatureDeviceTimeCheckDecorator.mock(
+					store: store,
+					config: config
+				)
+			),
+			downloadedPackagesStore: DownloadedPackagesSQLLiteStore.inMemory()
 		)
-
 		_ = sut.detectExposureWindows(
 			exposureDetection,
 			detectSummaryWithConfiguration: ENExposureConfiguration(),
-			writtenPackages: WrittenPackages(urls: []),
+			writtenPackages: WrittenPackages(),
 			completion: { result in
 				defer { completionExpectation.fulfill() }
 
@@ -115,13 +121,20 @@ final class ExposureDetectionExecutorTests: CWATestCase {
 		let exposureDetection = ExposureDetection(
 			delegate: sut,
 			appConfiguration: config,
-			deviceTimeCheck: DeviceTimeCheck(store: store, appFeatureProvider: AppFeatureDeviceTimeCheckDecorator.mock(store: store, config: config))
+			deviceTimeCheck: DeviceTimeCheck(
+				store: store,
+				appFeatureProvider: AppFeatureDeviceTimeCheckDecorator.mock(
+					store: store,
+					config: config
+				)
+			),
+			downloadedPackagesStore: DownloadedPackagesSQLLiteStore.inMemory()
 		)
 
 		_ = sut.detectExposureWindows(
 			exposureDetection,
 			detectSummaryWithConfiguration: ENExposureConfiguration(),
-			writtenPackages: WrittenPackages(urls: []),
+			writtenPackages: WrittenPackages(),
 			completion: { result in
 				defer { completionExpectation.fulfill() }
 
@@ -171,7 +184,14 @@ final class ExposureDetectionExecutorTests: CWATestCase {
 		let exposureDetection = ExposureDetection(
 			delegate: sut,
 			appConfiguration: config,
-			deviceTimeCheck: DeviceTimeCheck(store: store, appFeatureProvider: AppFeatureDeviceTimeCheckDecorator.mock(store: store, config: config))
+			deviceTimeCheck: DeviceTimeCheck(
+				store: store,
+				appFeatureProvider: AppFeatureDeviceTimeCheckDecorator.mock(
+					store: store,
+					config: config
+				)
+			),
+			downloadedPackagesStore: DownloadedPackagesSQLLiteStore.inMemory()
 		)
 
 		XCTAssertNotEqual(packageStore.allDays(country: "DE").count, 0)
@@ -180,7 +200,7 @@ final class ExposureDetectionExecutorTests: CWATestCase {
 		_ = sut.detectExposureWindows(
 			exposureDetection,
 			detectSummaryWithConfiguration: ENExposureConfiguration(),
-			writtenPackages: WrittenPackages(urls: []),
+			writtenPackages: WrittenPackages(),
 			completion: { _ in
 				XCTAssertEqual(packageStore.allDays(country: "DE").count, 0)
 				XCTAssertNil(store.appConfigMetadata)
