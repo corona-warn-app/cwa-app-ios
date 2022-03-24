@@ -748,7 +748,11 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmissionResult_testAdded" = "Ihr Test wurde hinzugefügt";
 
+"ExposureSubmissionResult_familyMember_testAdded" = "Der Test wurde hinzugefügt";
+
 "ExposureSubmissionResult_antigenTestAdded" = "Ihr Schnelltest wurde hinzugefügt";
+
+"ExposureSubmissionResult_familyMember_antigenTestAdded" = "Der Schnelltest wurde hinzugefügt";
 
 "ExposureSubmissionResult_antigenTestAddedDesc" = "Das Test-Ergebnis wird 48 Stunden hier angezeigt.";
 
@@ -780,12 +784,25 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmissionResult_testPending" = "Ihr Testergebnis liegt noch nicht vor";
 
+"ExposureSubmissionResult_familyMember_testPending" = "Ihr Testergebnis liegt noch nicht vor";
+
 "ExposureSubmissionResult_testPendingDesc" = "Sobald Ihr Testergebnis vorliegt, wird es Ihnen in der App angezeigt.\n\nSie bekommen Ihr Testergebnis auch außerhalb der App mitgeteilt. Falls Ihr Test positiv ist, bekommen Sie vom Gesundheitsamt eine Mitteilung.\n\nWenn Ihnen außerhalb der App ein positives Testergebnis mitgeteilt wurde, löschen Sie den aktuell in der App registrierten Test. Rufen Sie die unter „TAN anfragen” angegebene Nummer an, um eine TAN zu erhalten. Registrieren Sie dann Ihr Testergebnis mithilfe der TAN in der App.";
+
+"ExposureSubmissionResult_familyMember_testPendingDesc" = "Sobald Ihr Testergebnis vorliegt, wird es Ihnen in der App angezeigt.\nSie bekommen Ihr Testergebnis auch außerhalb der App mitgeteilt. Falls der Test positiv ist, bekommen Sie vom Gesundheitsamt eine Mitteilung.";
+
 "ExposureSubmissionResult_testCertificate_title" = "Ihr COVID-Testzertifikat";
+
+"ExposureSubmissionResult_familyMemberTestCertificate_title" = "COVID-Testzertifikat";
+
+"ExposureSubmissionResult_familyMemberAntigenTestCertificate_title" = "COVID-Testzertifikat";
 
 "ExposureSubmissionResult_testCertificate_testCenterNotSupported" = "Ein offizielles digitales COVID-Testzertifikat kann nicht ausgestellt werden, da diese Teststelle die Ausstellung der Testzertifikate nicht unterstützt.";
 
 "ExposureSubmissionResult_testCertificate_Pending" = "Ihr offizielles digitales COVID-Testzertifikat liegt noch nicht vor. Sobald es vorliegt, wird es Ihnen in der App angezeigt.";
+
+"ExposureSubmissionResult_familyMember_testCertificate_Pending" = "Auf Ihren Wunsch hin wird kein offizielles digitales COVID-Testzertifikat ausgestellt.";
+
+"ExposureSubmissionResult_familyMember_antigenTestCertificate_Pending" = "Ein Testzertifikat kann nicht angefordert werden, da diese Teststelle die Ausstellung von Testzertifikaten nicht unterstützt.";
 
 "ExposureSubmissionResult_testCertificate_NotRequested" = "Auf Ihren Wunsch hin wird kein offizielles digitales COVID-Testzertifikat ausgestellt.";
 
@@ -793,7 +810,11 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmissionResult_antigenTestPending" = "Ihr Testergebnis liegt noch nicht vor";
 
+"ExposureSubmissionResult_familyMember_antigenTestPending" = "Ihr Testergebnis liegt noch nicht vor";
+
 "ExposureSubmissionResult_antigenTestPendingDesc" = "Sobald Ihr Testergebnis vorliegt, wird es Ihnen in der App angezeigt.";
+
+"ExposureSubmissionResult_familyMember_antigenTestPendingDesc" = "Sobald das Testergebnis vorliegt, wird es Ihnen in der App angezeigt.";
 
 "ExposureSubmissionResult_antigenTestPendingContactJournal" = "Ihr Testergebnis wird dem Kontakt-Tagebuch hinzugefügt";
 
