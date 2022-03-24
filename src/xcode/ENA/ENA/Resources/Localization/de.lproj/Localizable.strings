@@ -3058,7 +3058,7 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "HealthCertificate_FamilyMemberConsent_Headline" = "Testergebnis für Familienmitglieder abrufen";
 
-"HealthCertificate_FamilyMemberConsent_InputTitle" = "Name der Person, die geteste wurde:";
+"HealthCertificate_FamilyMemberConsent_InputTitle" = "Name der Person, die getestet wurde:";
 
 "HealthCertificate_FamilyMemberConsent_InputPlaceholder" = "Name";
 
