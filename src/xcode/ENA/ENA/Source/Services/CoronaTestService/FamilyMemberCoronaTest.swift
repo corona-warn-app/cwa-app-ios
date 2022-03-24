@@ -170,6 +170,15 @@ enum FamilyMemberCoronaTest: Equatable, Codable, Hashable, RecycleBinIdentifiabl
 		}
 	}
 
+	var certificateSupportedByPointOfCare: Bool {
+		switch self {
+		case .pcr(let pcrTest):
+			return pcrTest.certificateSupportedByPointOfCare
+		case .antigen(let antigenTest):
+			return antigenTest.certificateSupportedByPointOfCare
+		}
+	}
+
 	var certificateConsentGiven: Bool {
 		switch self {
 		case .pcr(let pcrTest):

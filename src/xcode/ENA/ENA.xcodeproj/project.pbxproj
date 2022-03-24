@@ -2019,6 +2019,7 @@
 		01A4DD0C25926A72007D5794 /* HomeLoadingItemViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeLoadingItemViewModel.swift; sourceTree = "<group>"; };
 		01A4DD4225935D1F007D5794 /* HomeRiskCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeRiskCellModel.swift; sourceTree = "<group>"; };
 		01A636CD27EA7C4C001F5CB1 /* FamilyMemberCoronaTestRestorationHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FamilyMemberCoronaTestRestorationHandler.swift; sourceTree = "<group>"; };
+		01A636CF27EB41C5001F5CB1 /* FamilyMemberCoronaTestServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FamilyMemberCoronaTestServiceTests.swift; sourceTree = "<group>"; };
 		01A636D127EB4630001F5CB1 /* MockFamilyMemberCoronaTestService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockFamilyMemberCoronaTestService.swift; sourceTree = "<group>"; };
 		01A636D327EB63CB001F5CB1 /* FamilyMemberPCRTest+Mock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FamilyMemberPCRTest+Mock.swift"; sourceTree = "<group>"; };
 		01A636D427EB63CB001F5CB1 /* FamilyMemberAntigenTest+Mock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FamilyMemberAntigenTest+Mock.swift"; sourceTree = "<group>"; };
@@ -4569,6 +4570,7 @@
 				0127B09D272855D6008E30AF /* CoronaTestRestorationHandlerTests.swift */,
 				01BA06C5261F417700237DD8 /* CoronaTestServiceTests.swift */,
 				01D6816227C3D18100FF6D18 /* MockCoronaTestService.swift */,
+				01A636CF27EB41C5001F5CB1 /* FamilyMemberCoronaTestServiceTests.swift */,
 				01A636D127EB4630001F5CB1 /* MockFamilyMemberCoronaTestService.swift */,
 			);
 			path = __tests__;
@@ -11729,6 +11731,7 @@
 				B10F9B8C249961CE00C418F4 /* UIFont+DynamicTypeTests.swift in Sources */,
 				010B3DA225ADEBFF00EB44AB /* HomeRiskCellModelTests.swift in Sources */,
 				BAA4D71D25E94D6000821B5C /* UIImage+resizeTests.swift in Sources */,
+				01A636D027EB41C5001F5CB1 /* FamilyMemberCoronaTestServiceTests.swift in Sources */,
 				01C2D4432501260D00FB23BF /* OptionGroupViewModelTests.swift in Sources */,
 				01BA06F2261F536100237DD8 /* FakeRequestServiceTests.swift in Sources */,
 				BADE38092608D9EC00E07890 /* TraceLocationTypeTest.swift in Sources */,
