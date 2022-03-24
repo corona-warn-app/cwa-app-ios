@@ -58,8 +58,3 @@ class ExposureSubmissionTestOwnerSelectionViewController: DynamicTableViewContro
 		tableView.separatorStyle = .none
 	}
 }
-
-enum TestOwner {
-	case user
-	case familyMember
-}
