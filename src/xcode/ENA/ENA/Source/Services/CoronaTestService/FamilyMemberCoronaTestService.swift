@@ -503,6 +503,13 @@ class FamilyMemberCoronaTestService: FamilyMemberCoronaTestServiceProviding {
 	) {
 		Log.info("[FamilyMemberCoronaTestService] Getting test result (coronaTest: \(private: coronaTest), duringRegistration: \(duringRegistration))", log: .api)
 
+		guard upToDateTest(for: coronaTest) != nil else {
+			Log.error("[CoronaTestService] Getting test result failed: No corona test of requested type", log: .api)
+
+			completion(.failure(.noCoronaTestOfRequestedType))
+			return
+		}
+
 		guard let registrationToken = coronaTest.registrationToken else {
 			Log.error("[FamilyMemberCoronaTestService] Getting test result failed: No registration token", log: .api)
 
