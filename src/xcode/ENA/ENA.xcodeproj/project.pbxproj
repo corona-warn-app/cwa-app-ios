@@ -273,7 +273,6 @@
 		01A636CE27EA7D0D001F5CB1 /* FamilyMemberCoronaTestRestorationHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A636CD27EA7C4C001F5CB1 /* FamilyMemberCoronaTestRestorationHandler.swift */; };
 		01A636D027EB41C5001F5CB1 /* FamilyMemberCoronaTestServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A636CF27EB41C5001F5CB1 /* FamilyMemberCoronaTestServiceTests.swift */; };
 		01A636D227EB4630001F5CB1 /* MockFamilyMemberCoronaTestService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A636D127EB4630001F5CB1 /* MockFamilyMemberCoronaTestService.swift */; };
-		01A636D527EB63CC001F5CB1 /* FamilyMemberPCRTest+Mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A636D327EB63CB001F5CB1 /* FamilyMemberPCRTest+Mock.swift */; };
 		01A636D627EB63CC001F5CB1 /* FamilyMemberAntigenTest+Mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A636D427EB63CB001F5CB1 /* FamilyMemberAntigenTest+Mock.swift */; };
 		01A6C2F62626DE1300B6E95A /* HomeTestRegistrationCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A6C2E82626D71700B6E95A /* HomeTestRegistrationCellModel.swift */; };
 		01A6C2FA2626DE1800B6E95A /* HomeTestRegistrationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A6C2E72626D71700B6E95A /* HomeTestRegistrationTableViewCell.swift */; };
@@ -1497,8 +1496,10 @@
 		BA8A9FC627BFFC9C001DBB4B /* HealthCertificateReissuanceSucceededViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA8A9FC527BFFC9C001DBB4B /* HealthCertificateReissuanceSucceededViewController.swift */; };
 		BA8A9FC827BFFCAD001DBB4B /* HealthCertificateReissuanceSucceededViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA8A9FC727BFFCAD001DBB4B /* HealthCertificateReissuanceSucceededViewModel.swift */; };
 		BA8BBA08255A90690034D4BC /* WifiHTTPClientTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA8BBA07255A90690034D4BC /* WifiHTTPClientTests.swift */; };
+		BA8FC31B27ECD0960049A7B2 /* FamilyMemberPCRTest+Mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A636D327EB63CB001F5CB1 /* FamilyMemberPCRTest+Mock.swift */; };
 		BA904C9E25769D1800692110 /* TanInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA904C9D25769D1800692110 /* TanInputView.swift */; };
 		BA904CA62576A0B900692110 /* ENAInputLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA904CA52576A0B900692110 /* ENAInputLabel.swift */; };
+		BA91611A27ECD18C0076BC6B /* FamilyMemberAntigenTest+Mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A636D427EB63CB001F5CB1 /* FamilyMemberAntigenTest+Mock.swift */; };
 		BA941DCE25E5450D003F9653 /* TopBottomContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA941DCD25E5450D003F9653 /* TopBottomContainerViewController.swift */; };
 		BA94BBA5260DF4CC005CF38F /* CheckInTimeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA94BBA4260DF4CC005CF38F /* CheckInTimeCell.swift */; };
 		BA94BBAD260DF4F0005CF38F /* CheckInTimeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA94BBAC260DF4F0005CF38F /* CheckInTimeModel.swift */; };
@@ -10912,6 +10913,7 @@
 				ABC506CD274BE0A600698A95 /* ServiceIdentityDocumentResource.swift in Sources */,
 				AB190E7825FB5CE800FBFF0D /* CreateTraceLocationQuery.swift in Sources */,
 				BAC3F9BD27E8B67D00483CC3 /* FamilyMemberConsentViewController.swift in Sources */,
+				BA91611A27ECD18C0076BC6B /* FamilyMemberAntigenTest+Mock.swift in Sources */,
 				347E3CAC27A99FD700895277 /* BoosterDetailsViewController.swift in Sources */,
 				3518DD6525BA2D060090A26B /* NotificationManager.swift in Sources */,
 				ABE9613525EFEB5C00D0F699 /* DMDatePickerCellViewModel.swift in Sources */,
@@ -10923,6 +10925,7 @@
 				01164CE626C57BB5007F9C3E /* OnBehalfTraceLocationSelectionEmptyStateViewModel.swift in Sources */,
 				4B54B35226D52B8F00A49EB9 /* MockENManager.swift in Sources */,
 				94EAF87925B6CAA300BE1F40 /* DeltaOnboardingNewVersionFeaturesViewModel.swift in Sources */,
+				BA8FC31B27ECD0960049A7B2 /* FamilyMemberPCRTest+Mock.swift in Sources */,
 				ABB078F0273034AC0037B30F /* SecureCache.swift in Sources */,
 				01A4DD4325935D1F007D5794 /* HomeRiskCellModel.swift in Sources */,
 				2EB7D68B2680790D00633D30 /* CoronaTestResultOperation.swift in Sources */,
@@ -11714,7 +11717,6 @@
 				EE22DB91247FB479001B0A71 /* MockStateHandlerObserverDelegate.swift in Sources */,
 				B1C7EE4624938EB700F1F284 /* ExposureDetection_FAQ_URL_Tests.swift in Sources */,
 				BA5EF931279EFA8700D9AB08 /* CacheData+Fake.swift in Sources */,
-				01A636D527EB63CC001F5CB1 /* FamilyMemberPCRTest+Mock.swift in Sources */,
 				EBD1D7B4275E4BA60046A1C3 /* KeySubmissionMetadata+Mock.swift in Sources */,
 				ABA146D527EB219D0096A44E /* HomeStateFake.swift in Sources */,
 				018B852826CE99A70037DD54 /* OnBehalfCheckinSubmissionServiceTests.swift in Sources */,
