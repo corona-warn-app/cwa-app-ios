@@ -356,14 +356,7 @@ class CCLService: CCLServable {
 					completion(.failure(.custom(customError)))
 				} else {
 					Log.error("Unhandled error \(error.localizedDescription)", log: .vaccination)
-					switch resourceType.ruleType {
-					case .boosterNotification:
-						completion(.failure(.custom(DCCDownloadRulesError.RULE_CLIENT_ERROR(.boosterNotification))))
-					case .invalidation:
-						completion(.failure(.custom(DCCDownloadRulesError.RULE_CLIENT_ERROR(.boosterNotification))))
-					default:
-						break
-					}
+					completion(.failure(.custom(DCCDownloadRulesError.RULE_CLIENT_ERROR(resourceType.ruleType))))
 				}
 			}
 		}
