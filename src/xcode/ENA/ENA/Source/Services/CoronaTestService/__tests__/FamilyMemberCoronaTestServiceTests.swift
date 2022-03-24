@@ -1732,1478 +1732,1065 @@ class FamilyMemberCoronaTestServiceTests: CWATestCase {
 	}
 
 	// MARK: - Test Result Update
-//
-//	func testUpdatePCRTestResult_success() {
-//		let restServiceProvider = RestServiceProviderStub(results: [
-//			.success(TestResultReceiveModel(testResult: TestResult.serverResponse(for: .positive, on: .pcr), sc: nil, labId: nil)),
-//			.success(RegistrationTokenReceiveModel(submissionTAN: "fake"))
-//		])
-//
-//		let client = ClientMock()
-//		let store = MockTestStore()
-//		let appConfiguration = CachedAppConfigurationMock()
-//
-//		let healthCertificateService = HealthCertificateService(
-//			store: store,
-//			dccSignatureVerifier: DCCSignatureVerifyingStub(),
-//			dscListProvider: MockDSCListProvider(),
-//			appConfiguration: appConfiguration,
-//			cclService: FakeCCLService(),
-//			recycleBin: .fake()
-//		)
-//
-//		let service = FamilyMemberCoronaTestService(
-//			client: client,
-//			restServiceProvider: restServiceProvider,
-//			store: store,
-//			appConfiguration: appConfiguration,
-//			healthCertificateService: healthCertificateService,
-//			healthCertificateRequestService: HealthCertificateRequestService(
-//				store: store,
-//				client: client,
-//				appConfiguration: appConfiguration,
-//				healthCertificateService: healthCertificateService
-//			),
-//			recycleBin: .fake()
-//		)
-//		service.pcrTest.value = .mock(registrationToken: "regToken")
-//
-//		let expectation = self.expectation(description: "Expect to receive a result.")
-//
-//		service.updateTestResult(for: .pcr) { result in
-//			expectation.fulfill()
-//			switch result {
-//			case .failure:
-//				XCTFail("This test should always return a successful result.")
-//			case .success(let testResult):
-//				XCTAssertEqual(testResult, TestResult.positive)
-//			}
-//		}
-//
-//		waitForExpectations(timeout: .short)
-//
-//		guard let pcrTest = service.pcrTest.value else {
-//			XCTFail("pcrTest should not be nil")
-//			return
-//		}
-//
-//		XCTAssertEqual(pcrTest.testResult, .positive)
-//		XCTAssertEqual(
-//			try XCTUnwrap(pcrTest.finalTestResultReceivedDate).timeIntervalSince1970,
-//			Date().timeIntervalSince1970,
-//			accuracy: 10
-//		)
-//	}
-//
-//	func testUpdateAntigenTestResult_success() {
-//		let restServiceProvider = RestServiceProviderStub(results: [
-//			.success(TestResultReceiveModel(testResult: TestResult.serverResponse(for: .positive, on: .antigen), sc: nil, labId: nil)),
-//			.success(RegistrationTokenReceiveModel(submissionTAN: "fake"))
-//		])
-//
-//		let client = ClientMock()
-//		let store = MockTestStore()
-//		let appConfiguration = CachedAppConfigurationMock()
-//
-//		let healthCertificateService = HealthCertificateService(
-//			store: store,
-//			dccSignatureVerifier: DCCSignatureVerifyingStub(),
-//			dscListProvider: MockDSCListProvider(),
-//			appConfiguration: appConfiguration,
-//			cclService: FakeCCLService(),
-//			recycleBin: .fake()
-//		)
-//
-//		let service = FamilyMemberCoronaTestService(
-//			client: client,
-//			restServiceProvider: restServiceProvider,
-//			store: store,
-//			appConfiguration: appConfiguration,
-//			healthCertificateService: healthCertificateService,
-//			healthCertificateRequestService: HealthCertificateRequestService(
-//				store: store,
-//				client: client,
-//				appConfiguration: appConfiguration,
-//				healthCertificateService: healthCertificateService
-//			),
-//			recycleBin: .fake()
-//		)
-//		service.antigenTest.value = .mock(registrationToken: "regToken")
-//
-//		let expectation = self.expectation(description: "Expect to receive a result.")
-//
-//		service.updateTestResult(for: .antigen) { result in
-//			expectation.fulfill()
-//			switch result {
-//			case .failure:
-//				XCTFail("This test should always return a successful result.")
-//			case .success(let testResult):
-//				XCTAssertEqual(testResult, TestResult.positive)
-//			}
-//		}
-//
-//		waitForExpectations(timeout: .short)
-//
-//		guard let antigenTest = service.antigenTest.value else {
-//			XCTFail("antigenTest should not be nil")
-//			return
-//		}
-//
-//		XCTAssertEqual(antigenTest.testResult, .positive)
-//		XCTAssertEqual(
-//			try XCTUnwrap(antigenTest.finalTestResultReceivedDate).timeIntervalSince1970,
-//			Date().timeIntervalSince1970,
-//			accuracy: 10
-//		)
-//	}
-//
-//	func testUpdatePCRTestResult_noCoronaTestOfRequestedType() {
-//		let client = ClientMock()
-//		let store = MockTestStore()
-//		let appConfiguration = CachedAppConfigurationMock()
-//
-//		let healthCertificateService = HealthCertificateService(
-//			store: store,
-//			dccSignatureVerifier: DCCSignatureVerifyingStub(),
-//			dscListProvider: MockDSCListProvider(),
-//			appConfiguration: appConfiguration,
-//			cclService: FakeCCLService(),
-//			recycleBin: .fake()
-//		)
-//
-//		let service = FamilyMemberCoronaTestService(
-//			client: client,
-//			store: store,
-//			appConfiguration: appConfiguration,
-//			healthCertificateService: healthCertificateService,
-//			healthCertificateRequestService: HealthCertificateRequestService(
-//				store: store,
-//				client: client,
-//				appConfiguration: appConfiguration,
-//				healthCertificateService: healthCertificateService
-//			),
-//			recycleBin: .fake()
-//		)
-//		service.pcrTest.value = nil
-//
-//		let expectation = self.expectation(description: "Expect to receive a result.")
-//
-//		service.updateTestResult(for: .pcr) { result in
-//			expectation.fulfill()
-//			switch result {
-//			case .failure(let error):
-//				XCTAssertEqual(error, .noCoronaTestOfRequestedType)
-//			case .success:
-//				XCTFail("This test should always fail since the registration token is missing.")
-//			}
-//		}
-//
-//		waitForExpectations(timeout: .short)
-//	}
-//
-//	func testUpdateAntigenTestResult_noCoronaTestOfRequestedType() {
-//		let client = ClientMock()
-//		let store = MockTestStore()
-//		let appConfiguration = CachedAppConfigurationMock()
-//
-//		let healthCertificateService = HealthCertificateService(
-//			store: store,
-//			dccSignatureVerifier: DCCSignatureVerifyingStub(),
-//			dscListProvider: MockDSCListProvider(),
-//			appConfiguration: appConfiguration,
-//			cclService: FakeCCLService(),
-//			recycleBin: .fake()
-//		)
-//
-//		let service = FamilyMemberCoronaTestService(
-//			client: client,
-//			store: store,
-//			appConfiguration: appConfiguration,
-//			healthCertificateService: healthCertificateService,
-//			healthCertificateRequestService: HealthCertificateRequestService(
-//				store: store,
-//				client: client,
-//				appConfiguration: appConfiguration,
-//				healthCertificateService: healthCertificateService
-//			),
-//			recycleBin: .fake()
-//		)
-//		service.antigenTest.value = nil
-//
-//		let expectation = self.expectation(description: "Expect to receive a result.")
-//
-//		service.updateTestResult(for: .antigen) { result in
-//			expectation.fulfill()
-//			switch result {
-//			case .failure(let error):
-//				XCTAssertEqual(error, .noCoronaTestOfRequestedType)
-//			case .success:
-//				XCTFail("This test should always fail since the registration token is missing.")
-//			}
-//		}
-//
-//		waitForExpectations(timeout: .short)
-//	}
-//
-//	func testUpdatePCRTestResult_noRegistrationToken() {
-//		let client = ClientMock()
-//		let store = MockTestStore()
-//		let appConfiguration = CachedAppConfigurationMock()
-//
-//		let healthCertificateService = HealthCertificateService(
-//			store: store,
-//			dccSignatureVerifier: DCCSignatureVerifyingStub(),
-//			dscListProvider: MockDSCListProvider(),
-//			appConfiguration: appConfiguration,
-//			cclService: FakeCCLService(),
-//			recycleBin: .fake()
-//		)
-//
-//		let service = FamilyMemberCoronaTestService(
-//			client: client,
-//			store: store,
-//			appConfiguration: appConfiguration,
-//			healthCertificateService: healthCertificateService,
-//			healthCertificateRequestService: HealthCertificateRequestService(
-//				store: store,
-//				client: client,
-//				appConfiguration: appConfiguration,
-//				healthCertificateService: healthCertificateService
-//			),
-//			recycleBin: .fake()
-//		)
-//		service.pcrTest.value = .mock(registrationToken: nil)
-//
-//		let expectation = self.expectation(description: "Expect to receive a result.")
-//
-//		service.updateTestResult(for: .pcr) { result in
-//			expectation.fulfill()
-//			switch result {
-//			case .failure(let error):
-//				XCTAssertEqual(error, .noRegistrationToken)
-//			case .success:
-//				XCTFail("This test should always fail since the registration token is missing.")
-//			}
-//		}
-//
-//		waitForExpectations(timeout: .short)
-//
-//		guard let pcrTest = service.pcrTest.value else {
-//			XCTFail("pcrTest should not be nil")
-//			return
-//		}
-//
-//		XCTAssertEqual(pcrTest.testResult, .pending)
-//		XCTAssertNil(pcrTest.finalTestResultReceivedDate)
-//	}
-//
-//	func testUpdateAntigenTestResult_noRegistrationToken() {
-//		let client = ClientMock()
-//		let store = MockTestStore()
-//		let appConfiguration = CachedAppConfigurationMock()
-//
-//		let healthCertificateService = HealthCertificateService(
-//			store: store,
-//			dccSignatureVerifier: DCCSignatureVerifyingStub(),
-//			dscListProvider: MockDSCListProvider(),
-//			appConfiguration: appConfiguration,
-//			cclService: FakeCCLService(),
-//			recycleBin: .fake()
-//		)
-//
-//		let service = FamilyMemberCoronaTestService(
-//			client: client,
-//			store: store,
-//			appConfiguration: appConfiguration,
-//			healthCertificateService: healthCertificateService,
-//			healthCertificateRequestService: HealthCertificateRequestService(
-//				store: store,
-//				client: client,
-//				appConfiguration: appConfiguration,
-//				healthCertificateService: healthCertificateService
-//			),
-//			recycleBin: .fake()
-//		)
-//		service.antigenTest.value = .mock(registrationToken: nil)
-//
-//		let expectation = self.expectation(description: "Expect to receive a result.")
-//
-//		service.updateTestResult(for: .antigen) { result in
-//			expectation.fulfill()
-//			switch result {
-//			case .failure(let error):
-//				XCTAssertEqual(error, .noRegistrationToken)
-//			case .success:
-//				XCTFail("This test should always fail since the registration token is missing.")
-//			}
-//		}
-//
-//		waitForExpectations(timeout: .short)
-//
-//		guard let antigenTest = service.antigenTest.value else {
-//			XCTFail("antigenTest should not be nil")
-//			return
-//		}
-//
-//		XCTAssertEqual(antigenTest.testResult, .pending)
-//		XCTAssertNil(antigenTest.finalTestResultReceivedDate)
-//	}
-//
-//	func test_When_UpdatePresentNotificationTrue_Then_NotificationShouldBePresented() {
-//		let mockNotificationCenter = MockUserNotificationCenter()
-//		let client = ClientMock()
-//
-//		let store = MockTestStore()
-//		let appConfiguration = CachedAppConfigurationMock()
-//		let restServiceProvider = RestServiceProviderStub(results: [
-//			.success(TestResultReceiveModel(testResult: TestResult.serverResponse(for: .pending, on: .pcr), sc: nil, labId: "SomeLabId")),
-//			.success(RegistrationTokenReceiveModel(submissionTAN: "fake")),
-//			.success(RegistrationTokenReceiveModel(submissionTAN: "fake")),
-//			.success(RegistrationTokenReceiveModel(submissionTAN: "fake")),
-//			.success(RegistrationTokenReceiveModel(submissionTAN: "fake")),
-//			.success(RegistrationTokenReceiveModel(submissionTAN: "fake")),
-//			.success(RegistrationTokenReceiveModel(submissionTAN: "fake"))
-//
-//		])
-//
-//		let healthCertificateService = HealthCertificateService(
-//			store: store,
-//			dccSignatureVerifier: DCCSignatureVerifyingStub(),
-//			dscListProvider: MockDSCListProvider(),
-//			appConfiguration: appConfiguration,
-//			notificationCenter: mockNotificationCenter,
-//			cclService: FakeCCLService(),
-//			recycleBin: .fake()
-//		)
-//
-//		let testService = CoronaTestService(
-//			client: client,
-//			restServiceProvider: restServiceProvider,
-//			store: store,
-//			appConfiguration: appConfiguration,
-//			healthCertificateService: healthCertificateService,
-//			healthCertificateRequestService: HealthCertificateRequestService(
-//				store: store,
-//				client: client,
-//				appConfiguration: appConfiguration,
-//				healthCertificateService: healthCertificateService
-//			),
-//			notificationCenter: mockNotificationCenter,
-//			recycleBin: .fake()
-//		)
-//		testService.antigenTest.value = .mock(registrationToken: "regToken")
-//		testService.pcrTest.value = .mock(registrationToken: "regToken")
-//
-//		let completionExpectation = expectation(description: "Completion should be called.")
-//		completionExpectation.expectedFulfillmentCount = 3
-//
-//		testService.updateTestResults(presentNotification: true) { _ in
-//			completionExpectation.fulfill()
-//		}
-//
-//		// Updating two more times to check that notification are only scheduled once
-//		testService.updateTestResults(presentNotification: true) { _ in
-//			completionExpectation.fulfill()
-//		}
-//
-//		testService.updateTestResults(presentNotification: true) { _ in
-//			completionExpectation.fulfill()
-//		}
-//		waitForExpectations(timeout: .short)
-//
-//		XCTAssertEqual(mockNotificationCenter.notificationRequests.count, 2)
-//	}
-//
-//	func test_When_UpdatePresentNotificationFalse_Then_NotificationShouldNOTBePresented() {
-//		let mockNotificationCenter = MockUserNotificationCenter()
-//		let client = ClientMock()
-//
-//		let restServiceProvider = RestServiceProviderStub(results: [
-//			.success(TestResultReceiveModel(testResult: TestResult.serverResponse(for: .positive, on: .pcr), sc: nil, labId: "SomeLabId")),
-//			.success(TeleTanReceiveModel(registrationToken: "token"))
-//		])
-//
-//		let store = MockTestStore()
-//		let appConfiguration = CachedAppConfigurationMock()
-//
-//		let healthCertificateService = HealthCertificateService(
-//			store: store,
-//			dccSignatureVerifier: DCCSignatureVerifyingStub(),
-//			dscListProvider: MockDSCListProvider(),
-//			appConfiguration: appConfiguration,
-//			cclService: FakeCCLService(),
-//			recycleBin: .fake()
-//		)
-//
-//		let testService = CoronaTestService(
-//			client: client,
-//			restServiceProvider: restServiceProvider,
-//			store: store,
-//			appConfiguration: appConfiguration,
-//			healthCertificateService: healthCertificateService,
-//			healthCertificateRequestService: HealthCertificateRequestService(
-//				store: store,
-//				client: client,
-//				appConfiguration: appConfiguration,
-//				healthCertificateService: healthCertificateService
-//			),
-//			recycleBin: .fake()
-//		)
-//		testService.antigenTest.value = .mock(registrationToken: "regToken")
-//		testService.pcrTest.value = .mock(registrationToken: "regToken")
-//
-//		let completionExpectation = expectation(description: "Completion should be called.")
-//		testService.updateTestResults(presentNotification: false) { _ in
-//			completionExpectation.fulfill()
-//		}
-//		waitForExpectations(timeout: .short)
-//
-//		XCTAssertEqual(mockNotificationCenter.notificationRequests.count, 0)
-//	}
-//
-//	func test_When_UpdateTestResultsFails_Then_ErrorIsReturned() {
-//		let client = ClientMock()
-//
-//		let restServiceProvider = RestServiceProviderStub(results: [
-//			.failure(ServiceError<TestResultError>.invalidResponse),
-//			.success(TeleTanReceiveModel(registrationToken: "token"))
-//		])
-//
-//		let store = MockTestStore()
-//		let appConfiguration = CachedAppConfigurationMock()
-//
-//		let healthCertificateService = HealthCertificateService(
-//			store: store,
-//			dccSignatureVerifier: DCCSignatureVerifyingStub(),
-//			dscListProvider: MockDSCListProvider(),
-//			appConfiguration: appConfiguration,
-//			cclService: FakeCCLService(),
-//			recycleBin: .fake()
-//		)
-//
-//		let testService = CoronaTestService(
-//			client: client,
-//			restServiceProvider: restServiceProvider,
-//			store: store,
-//			appConfiguration: appConfiguration,
-//			healthCertificateService: healthCertificateService,
-//			healthCertificateRequestService: HealthCertificateRequestService(
-//				store: store,
-//				client: client,
-//				appConfiguration: appConfiguration,
-//				healthCertificateService: healthCertificateService
-//			),
-//			recycleBin: .fake()
-//		)
-//		testService.antigenTest.value = .mock(registrationToken: "regToken")
-//		testService.pcrTest.value = .mock(registrationToken: "regToken")
-//
-//		let completionExpectation = expectation(description: "Completion should be called.")
-//		testService.updateTestResults(presentNotification: true) { result in
-//			if case .success = result {
-//				XCTFail("Success not expected")
-//			}
-//			completionExpectation.fulfill()
-//		}
-//		waitForExpectations(timeout: .short)
-//	}
-//
-//	func test_When_UpdateTestResultsSuccessWithPending_Then_NoNotificationIsShown() {
-//		let mockNotificationCenter = MockUserNotificationCenter()
-//		let client = ClientMock()
-//
-//		let restServiceProvider = RestServiceProviderStub(results: [
-//			.success(TestResultReceiveModel(testResult: TestResult.serverResponse(for: .pending, on: .pcr), sc: nil, labId: "SomeLabId")),
-//			.success(TestResultReceiveModel(testResult: TestResult.serverResponse(for: .pending, on: .antigen), sc: nil, labId: "SomeLabId"))
-//		])
-//
-//		let store = MockTestStore()
-//		let appConfiguration = CachedAppConfigurationMock()
-//
-//		let healthCertificateService = HealthCertificateService(
-//			store: store,
-//			dccSignatureVerifier: DCCSignatureVerifyingStub(),
-//			dscListProvider: MockDSCListProvider(),
-//			appConfiguration: appConfiguration,
-//			cclService: FakeCCLService(),
-//			recycleBin: .fake()
-//		)
-//
-//		let testService = CoronaTestService(
-//			client: client,
-//			restServiceProvider: restServiceProvider,
-//			store: store,
-//			appConfiguration: appConfiguration,
-//			healthCertificateService: healthCertificateService,
-//			healthCertificateRequestService: HealthCertificateRequestService(
-//				store: store,
-//				client: client,
-//				appConfiguration: appConfiguration,
-//				healthCertificateService: healthCertificateService
-//			),
-//			recycleBin: .fake()
-//		)
-//		testService.antigenTest.value = .mock(registrationToken: "regToken")
-//		testService.pcrTest.value = .mock(registrationToken: "regToken")
-//
-//		let completionExpectation = expectation(description: "Completion should be called.")
-//		testService.updateTestResults(presentNotification: true) { _ in
-//			completionExpectation.fulfill()
-//		}
-//		waitForExpectations(timeout: .short)
-//
-//		XCTAssertEqual(mockNotificationCenter.notificationRequests.count, 0)
-//	}
-//
-//	func test_When_UpdateTestResultSuccessWithPositive_Then_ContactJournalHasAnEntry() throws {
-//		let sampleCollectionDate = Date()
-//		let diaryStore = MockDiaryStore()
-//		let testService = createCoronaTestService(
-//			forTestResult: .positive,
-//			sampleCollectionDate: sampleCollectionDate,
-//			diaryStore: diaryStore
-//		)
-//
-//		let antigenTest: UserAntigenTest = .mock(
-//			registrationToken: "regToken",
-//			pointOfCareConsentDate: Date(timeIntervalSinceNow: -24 * 60 * 60 * 3)
-//		)
-//		testService.antigenTest.value = antigenTest
-//		let sampleCollectionAntigenTestDate = ISO8601DateFormatter.justLocalDateFormatter.string(from: sampleCollectionDate)
-//
-//		let pcrTest: UserPCRTest = .mock(registrationToken: "regToken")
-//		let pcrRegistrationDate = ISO8601DateFormatter.justUTCDateFormatter.string(from: pcrTest.registrationDate)
-//		testService.pcrTest.value = pcrTest
-//
-//		let completionExpectation = expectation(description: "Completion should be called.")
-//		testService.updateTestResults(presentNotification: true) { _ in
-//			completionExpectation.fulfill()
-//		}
-//		waitForExpectations(timeout: .short)
-//		testService.createCoronaTestEntryInContactDiary(coronaTestType: .pcr)
-//		testService.createCoronaTestEntryInContactDiary(coronaTestType: .antigen)
-//
-//		let pcrJournalEntry = try XCTUnwrap(diaryStore.coronaTests.first { $0.type == .pcr })
-//		let antigenJournalEntry = try XCTUnwrap(diaryStore.coronaTests.first { $0.type == .antigen })
-//
-//		XCTAssertEqual(diaryStore.coronaTests.count, 2)
-//		XCTAssertEqual(pcrJournalEntry.date, pcrRegistrationDate)
-//		XCTAssertEqual(antigenJournalEntry.date, sampleCollectionAntigenTestDate)
-//		XCTAssertTrue(try XCTUnwrap(testService.antigenTest.value?.journalEntryCreated))
-//		XCTAssertTrue(try XCTUnwrap(testService.pcrTest.value?.journalEntryCreated))
-//	}
-//
-//	private func createCoronaTestService(forTestResult testResult: TestResult, sampleCollectionDate: Date? = nil, diaryStore: DiaryStoring = MockDiaryStore()) -> CoronaTestService {
-//		let client = ClientMock()
-//		let sampleTimeInterval: Int?
-//		if let sampleCollectionDate = sampleCollectionDate {
-//			sampleTimeInterval = Int(sampleCollectionDate.timeIntervalSince1970)
-//		} else {
-//			sampleTimeInterval = nil
-//		}
-//		let restServiceProvider = RestServiceProviderStub(results: [
-//			.success(TestResultReceiveModel(testResult: TestResult.serverResponse(for: testResult, on: .pcr), sc: sampleTimeInterval, labId: "SomeLabId")),
-//			.success(TestResultReceiveModel(testResult: TestResult.serverResponse(for: testResult, on: .antigen), sc: sampleTimeInterval, labId: "SomeLabId"))
-//		])
-//
-//
-//		let store = MockTestStore()
-//		let appConfiguration = CachedAppConfigurationMock()
-//		let healthCertificateService = HealthCertificateService(
-//			store: store,
-//			dccSignatureVerifier: DCCSignatureVerifyingStub(),
-//			dscListProvider: MockDSCListProvider(),
-//			appConfiguration: appConfiguration,
-//			cclService: FakeCCLService(),
-//			recycleBin: .fake()
-//		)
-//
-//		return CoronaTestService(
-//			client: client,
-//			restServiceProvider: restServiceProvider,
-//			store: store,
-//			eventStore: MockEventStore(),
-//			diaryStore: diaryStore,
-//			appConfiguration: appConfiguration,
-//			healthCertificateService: healthCertificateService,
-//			healthCertificateRequestService: HealthCertificateRequestService(
-//				store: store,
-//				client: client,
-//				appConfiguration: appConfiguration,
-//				healthCertificateService: healthCertificateService
-//			),
-//			recycleBin: .fake()
-//		)
-//	}
-//
-//	func test_When_UpdateTestResultSuccessWithPending_Then_ContactJournalHasNoEntry() throws {
-//		let diaryStore = MockDiaryStore()
-//		let testService = createCoronaTestService(forTestResult: .pending, diaryStore: diaryStore)
-//
-//		testService.antigenTest.value = .mock(registrationToken: "regToken")
-//		testService.pcrTest.value = .mock(registrationToken: "regToken")
-//
-//		let completionExpectation = expectation(description: "Completion should be called.")
-//		testService.updateTestResults(presentNotification: true) { _ in
-//			completionExpectation.fulfill()
-//		}
-//		waitForExpectations(timeout: .short)
-//
-//		XCTAssertEqual(diaryStore.coronaTests.count, 0)
-//		XCTAssertFalse(try XCTUnwrap(testService.antigenTest.value?.journalEntryCreated))
-//		XCTAssertFalse(try XCTUnwrap(testService.pcrTest.value?.journalEntryCreated))
-//	}
-//
-//	func test_When_UpdateTestResultSuccessWithExpired_Then_ContactJournalHasNoEntry() throws {
-//		let diaryStore = MockDiaryStore()
-//		let testService = createCoronaTestService(forTestResult: .expired, diaryStore: diaryStore)
-//		testService.antigenTest.value = .mock(registrationToken: "regToken")
-//		testService.pcrTest.value = .mock(registrationToken: "regToken")
-//
-//		let completionExpectation = expectation(description: "Completion should be called.")
-//		testService.updateTestResults(presentNotification: true) { _ in
-//			completionExpectation.fulfill()
-//		}
-//		waitForExpectations(timeout: .short)
-//
-//		XCTAssertEqual(diaryStore.coronaTests.count, 0)
-//		XCTAssertFalse(try XCTUnwrap(testService.antigenTest.value?.journalEntryCreated))
-//		XCTAssertFalse(try XCTUnwrap(testService.pcrTest.value?.journalEntryCreated))
-//	}
-//
-//	func test_When_UpdateTestResultSuccessWithInvalid_Then_ContactJournalHasNoEntry() throws {
-//		let client = ClientMock()
-//
-//		let restServiceProvider = RestServiceProviderStub(results: [
-//			.success(TestResultReceiveModel(testResult: TestResult.serverResponse(for: .invalid, on: .pcr), sc: nil, labId: nil)),
-//			.success(TestResultReceiveModel(testResult: TestResult.serverResponse(for: .invalid, on: .antigen), sc: nil, labId: nil))
-//		])
-//
-//		let diaryStore = MockDiaryStore()
-//		let store = MockTestStore()
-//		let appConfiguration = CachedAppConfigurationMock()
-//
-//		let healthCertificateService = HealthCertificateService(
-//			store: store,
-//			dccSignatureVerifier: DCCSignatureVerifyingStub(),
-//			dscListProvider: MockDSCListProvider(),
-//			appConfiguration: appConfiguration,
-//			cclService: FakeCCLService(),
-//			recycleBin: .fake()
-//		)
-//
-//		let testService = CoronaTestService(
-//			client: client,
-//			restServiceProvider: restServiceProvider,
-//			store: store,
-//			eventStore: MockEventStore(),
-//			diaryStore: diaryStore,
-//			appConfiguration: appConfiguration,
-//			healthCertificateService: healthCertificateService,
-//			healthCertificateRequestService: HealthCertificateRequestService(
-//				store: store,
-//				client: client,
-//				appConfiguration: appConfiguration,
-//				healthCertificateService: healthCertificateService
-//			),
-//			recycleBin: .fake()
-//		)
-//
-//		testService.antigenTest.value = .mock(registrationToken: "regToken")
-//		testService.pcrTest.value = .mock(registrationToken: "regToken")
-//
-//		let completionExpectation = expectation(description: "Completion should be called.")
-//		testService.updateTestResults(presentNotification: true) { _ in
-//			completionExpectation.fulfill()
-//		}
-//		waitForExpectations(timeout: .short)
-//
-//		XCTAssertEqual(diaryStore.coronaTests.count, 0)
-//		XCTAssertFalse(try XCTUnwrap(testService.antigenTest.value?.journalEntryCreated))
-//		XCTAssertFalse(try XCTUnwrap(testService.pcrTest.value?.journalEntryCreated))
-//	}
-//
-//	func test_When_UpdateTestResultSuccessWithNegative_Then_ContactJournalHasAnEntry() throws {
-//		let diaryStore = MockDiaryStore()
-//		let testService = createCoronaTestService(forTestResult: .negative, diaryStore: diaryStore)
-//		testService.antigenTest.value = .mock(registrationToken: "regToken")
-//		testService.pcrTest.value = .mock(registrationToken: "regToken")
-//
-//		let completionExpectation = expectation(description: "Completion should be called.")
-//		testService.updateTestResults(presentNotification: true) { _ in
-//			completionExpectation.fulfill()
-//		}
-//		waitForExpectations(timeout: .short)
-//
-//		testService.createCoronaTestEntryInContactDiary(coronaTestType: .pcr)
-//		testService.createCoronaTestEntryInContactDiary(coronaTestType: .antigen)
-//
-//		XCTAssertEqual(diaryStore.coronaTests.count, 2)
-//		XCTAssertTrue(try XCTUnwrap(testService.antigenTest.value?.journalEntryCreated))
-//		XCTAssertTrue(try XCTUnwrap(testService.pcrTest.value?.journalEntryCreated))
-//	}
-//
-//	func test_When_UpdateTestResultsSuccessWithExpired_Then_NoNotificationIsShown() {
-//		let mockNotificationCenter = MockUserNotificationCenter()
-//		let testService = createCoronaTestService(forTestResult: .expired)
-//		testService.antigenTest.value = .mock(registrationToken: "regToken")
-//		testService.pcrTest.value = .mock(registrationToken: "regToken")
-//
-//		let completionExpectation = expectation(description: "Completion should be called.")
-//		testService.updateTestResults(presentNotification: true) { _ in
-//			completionExpectation.fulfill()
-//		}
-//		waitForExpectations(timeout: .short)
-//
-//		XCTAssertEqual(mockNotificationCenter.notificationRequests.count, 0)
-//	}
-//
-//	func test_When_UpdateWithForce_And_FinalTestResultExist_Then_ClientIsCalled() {
-//		let client = ClientMock()
-//		let store = MockTestStore()
-//		let appConfiguration = CachedAppConfigurationMock()
-//
-//		let getTestResultExpectation = expectation(description: "Get Test result should be called.")
-//		getTestResultExpectation.expectedFulfillmentCount = 2
-//
-//		let restServiceProvider = RestServiceProviderStub(loadResources: [
-//			LoadResource(
-//				result: .success(TestResultReceiveModel(testResult: TestResult.serverResponse(for: .expired, on: .pcr), sc: nil, labId: "SomeLabId")),
-//				willLoadResource: { res in
-//					if let resource = res as? TestResultResource, !resource.locator.isFake {
-//						getTestResultExpectation.fulfill()
-//					}
-//				}),
-//			LoadResource(
-//				result: .success(TestResultReceiveModel(testResult: TestResult.serverResponse(for: .expired, on: .antigen), sc: nil, labId: "SomeLabId")),
-//				willLoadResource: { res in
-//					if let resource = res as? TestResultResource, !resource.locator.isFake {
-//						getTestResultExpectation.fulfill()
-//					}
-//				})
-//		])
-//
-//		let healthCertificateService = HealthCertificateService(
-//			store: store,
-//			dccSignatureVerifier: DCCSignatureVerifyingStub(),
-//			dscListProvider: MockDSCListProvider(),
-//			appConfiguration: appConfiguration,
-//			cclService: FakeCCLService(),
-//			recycleBin: .fake()
-//		)
-//
-//		let testService = CoronaTestService(
-//			client: client,
-//			restServiceProvider: restServiceProvider,
-//			store: store,
-//			appConfiguration: appConfiguration,
-//			healthCertificateService: healthCertificateService,
-//			healthCertificateRequestService: HealthCertificateRequestService(
-//				store: store,
-//				client: client,
-//				appConfiguration: appConfiguration,
-//				healthCertificateService: healthCertificateService
-//			),
-//			recycleBin: .fake()
-//		)
-//		testService.antigenTest.value = .mock(
-//			registrationToken: "regToken",
-//			finalTestResultReceivedDate: Date()
-//		)
-//		testService.pcrTest.value = .mock(
-//			registrationToken: "regToken",
-//			finalTestResultReceivedDate: Date()
-//		)
-//
-//		testService.updateTestResults(force: true, presentNotification: false) { _ in }
-//
-//		waitForExpectations(timeout: .short)
-//	}
-//
-//	func test_When_UpdateWithoutForce_And_FinalTestResultExist_Then_ClientIsNotCalled() {
-//		let client = ClientMock()
-//		let store = MockTestStore()
-//		let appConfiguration = CachedAppConfigurationMock()
-//
-//		let getTestResultExpectation = expectation(description: "Get Test result should NOT be called.")
-//		getTestResultExpectation.isInverted = true
-//
-//		let restServiceProvider = RestServiceProviderStub(loadResources: [
-//			LoadResource(
-//				result: .success(TestResultReceiveModel(testResult: TestResult.serverResponse(for: .expired, on: .pcr), sc: nil, labId: "SomeLabId")),
-//				willLoadResource: { res in
-//					if let resource = res as? TestResultResource, !resource.locator.isFake {
-//						getTestResultExpectation.fulfill()
-//					}
-//				})
-//		])
-//
-//		let healthCertificateService = HealthCertificateService(
-//			store: store,
-//			dccSignatureVerifier: DCCSignatureVerifyingStub(),
-//			dscListProvider: MockDSCListProvider(),
-//			appConfiguration: appConfiguration,
-//			cclService: FakeCCLService(),
-//			recycleBin: .fake()
-//		)
-//
-//		let testService = CoronaTestService(
-//			client: client,
-//			restServiceProvider: restServiceProvider,
-//			store: store,
-//			appConfiguration: appConfiguration,
-//			healthCertificateService: healthCertificateService,
-//			healthCertificateRequestService: HealthCertificateRequestService(
-//				store: store,
-//				client: client,
-//				appConfiguration: appConfiguration,
-//				healthCertificateService: healthCertificateService
-//			),
-//			recycleBin: .fake()
-//		)
-//		testService.antigenTest.value = .mock(
-//			registrationToken: "regToken",
-//			finalTestResultReceivedDate: Date()
-//		)
-//		testService.pcrTest.value = .mock(
-//			registrationToken: "regToken",
-//			finalTestResultReceivedDate: Date()
-//		)
-//
-//		testService.updateTestResults(force: false, presentNotification: false) { _ in }
-//
-//		waitForExpectations(timeout: .short)
-//	}
-//
-//	func test_When_UpdateWithoutForce_And_NoFinalTestResultExist_Then_ClientIsCalled() {
-//		let client = ClientMock()
-//		let store = MockTestStore()
-//		let appConfiguration = CachedAppConfigurationMock()
-//
-//		let getTestResultExpectation = expectation(description: "Get Test result should be called.")
-//		getTestResultExpectation.expectedFulfillmentCount = 2
-//
-//		let restServiceProvider = RestServiceProviderStub(loadResources: [
-//			LoadResource(
-//				result: .success(TestResultReceiveModel(testResult: TestResult.serverResponse(for: .expired, on: .pcr), sc: nil, labId: "SomeLabId")),
-//				willLoadResource: { res in
-//					if let resource = res as? TestResultResource, !resource.locator.isFake {
-//						getTestResultExpectation.fulfill()
-//					}
-//				}),
-//			LoadResource(
-//				result: .success(TestResultReceiveModel(testResult: TestResult.serverResponse(for: .expired, on: .antigen), sc: nil, labId: "SomeLabId")),
-//				willLoadResource: { res in
-//					if let resource = res as? TestResultResource, !resource.locator.isFake {
-//						getTestResultExpectation.fulfill()
-//					}
-//				})
-//		])
-//
-//		let healthCertificateService = HealthCertificateService(
-//			store: store,
-//			dccSignatureVerifier: DCCSignatureVerifyingStub(),
-//			dscListProvider: MockDSCListProvider(),
-//			appConfiguration: appConfiguration,
-//			cclService: FakeCCLService(),
-//			recycleBin: .fake()
-//		)
-//
-//		let testService = CoronaTestService(
-//			client: client,
-//			restServiceProvider: restServiceProvider,
-//			store: store,
-//			appConfiguration: appConfiguration,
-//			healthCertificateService: healthCertificateService,
-//			healthCertificateRequestService: HealthCertificateRequestService(
-//				store: store,
-//				client: client,
-//				appConfiguration: appConfiguration,
-//				healthCertificateService: healthCertificateService
-//			),
-//			recycleBin: .fake()
-//		)
-//		testService.antigenTest.value = .mock(
-//			registrationToken: "regToken",
-//			finalTestResultReceivedDate: nil
-//		)
-//		testService.pcrTest.value = .mock(
-//			registrationToken: "regToken",
-//			finalTestResultReceivedDate: nil
-//		)
-//
-//		testService.updateTestResults(force: false, presentNotification: false) { _ in }
-//
-//		waitForExpectations(timeout: .short)
-//	}
-//
-//	func test_When_UpdatingExpiredTestResultOlderThan21Days_Then_ClientIsNotCalled() throws {
-//		let client = ClientMock()
-//		let store = MockTestStore()
-//		let appConfiguration = CachedAppConfigurationMock()
-//
-//		let registrationDate = try XCTUnwrap(Calendar.current.date(byAdding: .day, value: -21, to: Date()))
-//
-//		let getTestResultExpectation = expectation(description: "Get Test result should NOT be called.")
-//		getTestResultExpectation.isInverted = true
-//
-//		let restServiceProvider = RestServiceProviderStub(loadResources: [
-//			LoadResource(
-//				result: .success(TestResultReceiveModel(testResult: TestResult.serverResponse(for: .expired, on: .pcr), sc: nil, labId: "SomeLabId")),
-//				willLoadResource: { res in
-//					if let resource = res as? TestResultResource, !resource.locator.isFake {
-//						getTestResultExpectation.fulfill()
-//					}
-//				}),
-//			LoadResource(
-//				result: .success(TestResultReceiveModel(testResult: TestResult.serverResponse(for: .expired, on: .antigen), sc: nil, labId: "SomeLabId")),
-//				willLoadResource: { res in
-//					if let resource = res as? TestResultResource, !resource.locator.isFake {
-//						getTestResultExpectation.fulfill()
-//					}
-//				})
-//		])
-//
-//		let healthCertificateService = HealthCertificateService(
-//			store: store,
-//			dccSignatureVerifier: DCCSignatureVerifyingStub(),
-//			dscListProvider: MockDSCListProvider(),
-//			appConfiguration: appConfiguration,
-//			cclService: FakeCCLService(),
-//			recycleBin: .fake()
-//		)
-//
-//		let testService = CoronaTestService(
-//			client: client,
-//			restServiceProvider: restServiceProvider,
-//			store: store,
-//			appConfiguration: appConfiguration,
-//			healthCertificateService: healthCertificateService,
-//			healthCertificateRequestService: HealthCertificateRequestService(
-//				store: store,
-//				client: client,
-//				appConfiguration: appConfiguration,
-//				healthCertificateService: healthCertificateService
-//			),
-//			recycleBin: .fake()
-//		)
-//		testService.antigenTest.value = .mock(
-//			registrationToken: "regToken",
-//			registrationDate: registrationDate,
-//			testResult: .expired
-//		)
-//		testService.pcrTest.value = .mock(
-//			registrationToken: "regToken",
-//			registrationDate: registrationDate,
-//			testResult: .expired
-//		)
-//
-//		testService.updateTestResults(force: false, presentNotification: false) { _ in }
-//
-//		waitForExpectations(timeout: .short)
-//	}
-//
-//	func test_When_UpdatingExpiredAntigenTestResultWithoutRegistrationDateButPointOfCareConsentDateOlderThan21Days_Then_ClientIsNotCalled() throws {
-//		let client = ClientMock()
-//		let store = MockTestStore()
-//		let appConfiguration = CachedAppConfigurationMock()
-//
-//		let getTestResultExpectation = expectation(description: "Get Test result should NOT be called.")
-//		getTestResultExpectation.isInverted = true
-//
-//		let restServiceProvider = RestServiceProviderStub(loadResources: [
-//			LoadResource(
-//				result: .success(TestResultReceiveModel(testResult: TestResult.serverResponse(for: .expired, on: .antigen), sc: nil, labId: "SomeLabId")),
-//				willLoadResource: { res in
-//					if let resource = res as? TestResultResource, !resource.locator.isFake {
-//						getTestResultExpectation.fulfill()
-//					}
-//				})
-//		])
-//
-//		let pointOfCareConsentDate = try XCTUnwrap(Calendar.current.date(byAdding: .day, value: -21, to: Date()))
-//		let healthCertificateService = HealthCertificateService(
-//			store: store,
-//			dccSignatureVerifier: DCCSignatureVerifyingStub(),
-//			dscListProvider: MockDSCListProvider(),
-//			appConfiguration: appConfiguration,
-//			cclService: FakeCCLService(),
-//			recycleBin: .fake()
-//		)
-//
-//		let testService = CoronaTestService(
-//			client: client,
-//			restServiceProvider: restServiceProvider,
-//			store: store,
-//			appConfiguration: appConfiguration,
-//			healthCertificateService: healthCertificateService,
-//			healthCertificateRequestService: HealthCertificateRequestService(
-//				store: store,
-//				client: client,
-//				appConfiguration: appConfiguration,
-//				healthCertificateService: healthCertificateService
-//			),
-//			recycleBin: .fake()
-//		)
-//		testService.antigenTest.value = .mock(
-//			registrationToken: "regToken",
-//			pointOfCareConsentDate: pointOfCareConsentDate,
-//			registrationDate: nil,
-//			testResult: .expired
-//		)
-//
-//		testService.updateTestResults(force: false, presentNotification: false) { _ in }
-//
-//		waitForExpectations(timeout: .short)
-//	}
-//
-//	func test_When_UpdatingExpiredTestResultYoungerThan21Days_Then_ClientIsCalled() throws {
-//		let client = ClientMock()
-//		let store = MockTestStore()
-//		let appConfiguration = CachedAppConfigurationMock()
-//
-//		let dateComponents = DateComponents(day: -21, second: 10)
-//		let registrationDate = try XCTUnwrap(Calendar.current.date(byAdding: dateComponents, to: Date()))
-//
-//		let getTestResultExpectation = expectation(description: "Get Test result should be called.")
-//		getTestResultExpectation.expectedFulfillmentCount = 2
-//
-//		let restServiceProvider = RestServiceProviderStub(loadResources: [
-//			LoadResource(
-//				result: .success(TestResultReceiveModel(testResult: TestResult.serverResponse(for: .expired, on: .pcr), sc: nil, labId: "SomeLabId")),
-//				willLoadResource: { res in
-//					if let resource = res as? TestResultResource, !resource.locator.isFake {
-//						getTestResultExpectation.fulfill()
-//					}
-//				}),
-//			LoadResource(
-//				result: .success(TestResultReceiveModel(testResult: TestResult.serverResponse(for: .expired, on: .antigen), sc: nil, labId: "SomeLabId")),
-//				willLoadResource: { res in
-//					if let resource = res as? TestResultResource, !resource.locator.isFake {
-//						getTestResultExpectation.fulfill()
-//					}
-//				})
-//		])
-//
-//		let healthCertificateService = HealthCertificateService(
-//			store: store,
-//			dccSignatureVerifier: DCCSignatureVerifyingStub(),
-//			dscListProvider: MockDSCListProvider(),
-//			appConfiguration: appConfiguration,
-//			cclService: FakeCCLService(),
-//			recycleBin: .fake()
-//		)
-//
-//		let testService = CoronaTestService(
-//			client: client,
-//			restServiceProvider: restServiceProvider,
-//			store: store,
-//			appConfiguration: appConfiguration,
-//			healthCertificateService: healthCertificateService,
-//			healthCertificateRequestService: HealthCertificateRequestService(
-//				store: store,
-//				client: client,
-//				appConfiguration: appConfiguration,
-//				healthCertificateService: healthCertificateService
-//			),
-//			recycleBin: .fake()
-//		)
-//		testService.antigenTest.value = .mock(
-//			registrationToken: "regToken",
-//			registrationDate: registrationDate,
-//			testResult: .expired
-//		)
-//		testService.pcrTest.value = .mock(
-//			registrationToken: "regToken",
-//			registrationDate: registrationDate,
-//			testResult: .expired
-//		)
-//
-//		testService.updateTestResults(force: false, presentNotification: false) { _ in }
-//
-//		waitForExpectations(timeout: .short)
-//	}
-//
-//	func test_When_UpdatingExpiredAntigenTestResultWithoutRegistrationDateAndPointOfCareConsentDateYoungerThan21Days_Then_ClientIsCalled() throws {
-//		let client = ClientMock()
-//		let store = MockTestStore()
-//		let appConfiguration = CachedAppConfigurationMock()
-//
-//		let dateComponents = DateComponents(day: -21, second: 10)
-//		let pointOfCareConsentDate = try XCTUnwrap(Calendar.current.date(byAdding: dateComponents, to: Date()))
-//
-//		let getTestResultExpectation = expectation(description: "Get Test result should be called.")
-//
-//		let restServiceProvider = RestServiceProviderStub(loadResources: [
-//			LoadResource(
-//				result: .success(TestResultReceiveModel(testResult: TestResult.serverResponse(for: .expired, on: .antigen), sc: nil, labId: "SomeLabId")),
-//				willLoadResource: { res in
-//					if let resource = res as? TestResultResource, !resource.locator.isFake {
-//						getTestResultExpectation.fulfill()
-//					}
-//				})
-//		])
-//
-//		let healthCertificateService = HealthCertificateService(
-//			store: store,
-//			dccSignatureVerifier: DCCSignatureVerifyingStub(),
-//			dscListProvider: MockDSCListProvider(),
-//			appConfiguration: appConfiguration,
-//			cclService: FakeCCLService(),
-//			recycleBin: .fake()
-//		)
-//
-//		let testService = CoronaTestService(
-//			client: client,
-//			restServiceProvider: restServiceProvider,
-//			store: store,
-//			appConfiguration: appConfiguration,
-//			healthCertificateService: healthCertificateService,
-//			healthCertificateRequestService: HealthCertificateRequestService(
-//				store: store,
-//				client: client,
-//				appConfiguration: appConfiguration,
-//				healthCertificateService: healthCertificateService
-//			),
-//			recycleBin: .fake()
-//		)
-//		testService.antigenTest.value = .mock(
-//			registrationToken: "regToken",
-//			registrationDate: pointOfCareConsentDate,
-//			testResult: .expired
-//		)
-//
-//		testService.updateTestResults(force: false, presentNotification: false) { _ in }
-//
-//		waitForExpectations(timeout: .short)
-//	}
-//
-//	func test_When_UpdatingPCRTestResultWithErrorCode400_And_RegistrationDateOlderThan21Days_Then_ExpiredTestResultIsSetAndReturnedWithoutError() throws {
-//		let client = ClientMock()
-//
-//		let restServiceProvider = RestServiceProviderStub(results: [
-//			.failure(ServiceError<TestResultError>.receivedResourceError(.qrDoesNotExist)),
-//			.success(RegistrationTokenReceiveModel(submissionTAN: "fake"))
-//		])
-//		let dateComponents = DateComponents(day: -21)
-//		let registrationDate = try XCTUnwrap(Calendar.current.date(byAdding: dateComponents, to: Date()))
-//
-//		let store = MockTestStore()
-//		let appConfiguration = CachedAppConfigurationMock()
-//
-//		let healthCertificateService = HealthCertificateService(
-//			store: store,
-//			dccSignatureVerifier: DCCSignatureVerifyingStub(),
-//			dscListProvider: MockDSCListProvider(),
-//			appConfiguration: appConfiguration,
-//			cclService: FakeCCLService(),
-//			recycleBin: .fake()
-//		)
-//
-//		let testService = CoronaTestService(
-//			client: client,
-//			restServiceProvider: restServiceProvider,
-//			store: store,
-//			appConfiguration: appConfiguration,
-//			healthCertificateService: healthCertificateService,
-//			healthCertificateRequestService: HealthCertificateRequestService(
-//				store: store,
-//				client: client,
-//				appConfiguration: appConfiguration,
-//				healthCertificateService: healthCertificateService
-//			),
-//			recycleBin: .fake()
-//		)
-//		testService.pcrTest.value = .mock(
-//			registrationToken: "regToken",
-//			registrationDate: registrationDate,
-//			testResult: .negative
-//		)
-//
-//		let completionExpectation = expectation(description: "Completion should be called.")
-//
-//		testService.updateTestResult(for: .pcr, force: true, presentNotification: false) {
-//			XCTAssertEqual($0, .success(.expired))
-//			XCTAssertEqual(testService.pcrTest.value?.testResult, .expired)
-//			completionExpectation.fulfill()
-//		}
-//
-//		waitForExpectations(timeout: .short)
-//	}
-//
-//	func test_When_UpdatingPCRTestResultWithErrorCode400_And_RegistrationDateYoungerThan21Days_Then_ExpiredTestResultIsSetAndErrorReturned() throws {
-//		let client = ClientMock()
-//
-//		let restServiceProvider = RestServiceProviderStub(results: [
-//			.failure(ServiceError<TestResultError>.receivedResourceError(.qrDoesNotExist)),
-//			.success(RegistrationTokenReceiveModel(submissionTAN: "fake"))
-//		])
-//		let registrationDate = try XCTUnwrap(Calendar.current.date(byAdding: DateComponents(day: -21, second: 10), to: Date()))
-//
-//		let store = MockTestStore()
-//		let appConfiguration = CachedAppConfigurationMock()
-//
-//		let healthCertificateService = HealthCertificateService(
-//			store: store,
-//			dccSignatureVerifier: DCCSignatureVerifyingStub(),
-//			dscListProvider: MockDSCListProvider(),
-//			appConfiguration: appConfiguration,
-//			cclService: FakeCCLService(),
-//			recycleBin: .fake()
-//		)
-//
-//		let testService = CoronaTestService(
-//			client: client,
-//			restServiceProvider: restServiceProvider,
-//			store: store,
-//			appConfiguration: appConfiguration,
-//			healthCertificateService: healthCertificateService,
-//			healthCertificateRequestService: HealthCertificateRequestService(
-//				store: store,
-//				client: client,
-//				appConfiguration: appConfiguration,
-//				healthCertificateService: healthCertificateService
-//			),
-//			recycleBin: .fake()
-//		)
-//		testService.pcrTest.value = .mock(
-//			registrationToken: "regToken",
-//			registrationDate: registrationDate,
-//			testResult: .negative
-//		)
-//
-//		let completionExpectation = expectation(description: "Completion should be called.")
-//
-//		testService.updateTestResult(for: .pcr, force: true, presentNotification: false) {
-//			XCTAssertEqual($0, .failure(.testResultError(.receivedResourceError(.qrDoesNotExist))))
-//			XCTAssertEqual(testService.pcrTest.value?.testResult, .expired)
-//			completionExpectation.fulfill()
-//		}
-//
-//		waitForExpectations(timeout: .short)
-//	}
-//
-//	func test_When_UpdatingAntigenTestResultWithErrorCode400_And_RegistrationDateOlderThan21Days_Then_ExpiredTestResultIsSetAndReturnedWithoutError() throws {
-//		let client = ClientMock()
-//
-//		let restServiceProvider = RestServiceProviderStub(results: [
-//			.failure(ServiceError<TestResultError>.receivedResourceError(.qrDoesNotExist)),
-//			.success(RegistrationTokenReceiveModel(submissionTAN: "fake"))
-//		])
-//		let dateComponents = DateComponents(day: -21)
-//		let registrationDate = try XCTUnwrap(Calendar.current.date(byAdding: dateComponents, to: Date()))
-//		// Set point of care date to younger than 21 days to ensure that registration date wins
-//		let pointOfCareConsentDate = try XCTUnwrap(Calendar.current.date(byAdding: DateComponents(day: -21, second: 10), to: Date()))
-//
-//		let store = MockTestStore()
-//		let appConfiguration = CachedAppConfigurationMock()
-//
-//		let healthCertificateService = HealthCertificateService(
-//			store: store,
-//			dccSignatureVerifier: DCCSignatureVerifyingStub(),
-//			dscListProvider: MockDSCListProvider(),
-//			appConfiguration: appConfiguration,
-//			cclService: FakeCCLService(),
-//			recycleBin: .fake()
-//		)
-//
-//		let testService = CoronaTestService(
-//			client: client,
-//			restServiceProvider: restServiceProvider,
-//			store: store,
-//			appConfiguration: appConfiguration,
-//			healthCertificateService: healthCertificateService,
-//			healthCertificateRequestService: HealthCertificateRequestService(
-//				store: store,
-//				client: client,
-//				appConfiguration: appConfiguration,
-//				healthCertificateService: healthCertificateService
-//			),
-//			recycleBin: .fake()
-//		)
-//		testService.antigenTest.value = .mock(
-//			registrationToken: "regToken",
-//			pointOfCareConsentDate: pointOfCareConsentDate,
-//			registrationDate: registrationDate,
-//			testResult: .negative
-//		)
-//
-//		let completionExpectation = expectation(description: "Completion should be called.")
-//
-//		testService.updateTestResult(for: .antigen, force: true, presentNotification: false) {
-//			XCTAssertEqual($0, .success(.expired))
-//			XCTAssertEqual(testService.antigenTest.value?.testResult, .expired)
-//			completionExpectation.fulfill()
-//		}
-//
-//		waitForExpectations(timeout: .short)
-//	}
-//
-//	func test_When_UpdatingAntigenTestResultWithErrorCode400_And_RegistrationDateYoungerThan21Days_Then_ExpiredTestResultIsSetAndErrorReturned() throws {
-//		let client = ClientMock()
-//
-//		let restServiceProvider = RestServiceProviderStub(results: [
-//			.failure(ServiceError<TestResultError>.receivedResourceError(.qrDoesNotExist)),
-//			.success(RegistrationTokenReceiveModel(submissionTAN: "fake"))
-//		])
-//		let registrationDate = try XCTUnwrap(Calendar.current.date(byAdding: DateComponents(day: -21, second: 10), to: Date()))
-//		// Set point of care date to older than 21 days to ensure that registration date wins
-//		let pointOfCareConsentDate = try XCTUnwrap(Calendar.current.date(byAdding: DateComponents(day: -21), to: Date()))
-//
-//		let store = MockTestStore()
-//		let appConfiguration = CachedAppConfigurationMock()
-//
-//		let healthCertificateService = HealthCertificateService(
-//			store: store,
-//			dccSignatureVerifier: DCCSignatureVerifyingStub(),
-//			dscListProvider: MockDSCListProvider(),
-//			appConfiguration: appConfiguration,
-//			cclService: FakeCCLService(),
-//			recycleBin: .fake()
-//		)
-//
-//		let testService = CoronaTestService(
-//			client: client,
-//			restServiceProvider: restServiceProvider,
-//			store: store,
-//			appConfiguration: appConfiguration,
-//			healthCertificateService: healthCertificateService,
-//			healthCertificateRequestService: HealthCertificateRequestService(
-//				store: store,
-//				client: client,
-//				appConfiguration: appConfiguration,
-//				healthCertificateService: healthCertificateService
-//			),
-//			recycleBin: .fake()
-//		)
-//		testService.antigenTest.value = .mock(
-//			registrationToken: "regToken",
-//			pointOfCareConsentDate: pointOfCareConsentDate,
-//			registrationDate: registrationDate,
-//			testResult: .negative
-//		)
-//
-//		let completionExpectation = expectation(description: "Completion should be called.")
-//
-//		testService.updateTestResult(for: .antigen, force: true, presentNotification: false) {
-//			XCTAssertEqual($0, .failure(.testResultError(.receivedResourceError(.qrDoesNotExist))))
-//			XCTAssertEqual(testService.antigenTest.value?.testResult, .expired)
-//			completionExpectation.fulfill()
-//		}
-//
-//		waitForExpectations(timeout: .short)
-//	}
-//
-//	func test_When_UpdatingAntigenTestResultWithErrorCode400_And_PointOfCareConsentDateOlderThan21Days_Then_ExpiredTestResultIsSetAndReturnedWithoutError() throws {
-//		let client = ClientMock()
-//
-//
-//		let restServiceProvider = RestServiceProviderStub(results: [
-//			.failure(ServiceError<TestResultError>.receivedResourceError(.qrDoesNotExist)),
-//			.success(RegistrationTokenReceiveModel(submissionTAN: "fake"))
-//		])
-//		let dateComponents = DateComponents(day: -21)
-//		let pointOfCareConsentDate = try XCTUnwrap(Calendar.current.date(byAdding: dateComponents, to: Date()))
-//
-//		let store = MockTestStore()
-//		let appConfiguration = CachedAppConfigurationMock()
-//
-//		let healthCertificateService = HealthCertificateService(
-//			store: store,
-//			dccSignatureVerifier: DCCSignatureVerifyingStub(),
-//			dscListProvider: MockDSCListProvider(),
-//			appConfiguration: appConfiguration,
-//			cclService: FakeCCLService(),
-//			recycleBin: .fake()
-//		)
-//
-//		let testService = CoronaTestService(
-//			client: client,
-//			restServiceProvider: restServiceProvider,
-//			store: store,
-//			appConfiguration: appConfiguration,
-//			healthCertificateService: healthCertificateService,
-//			healthCertificateRequestService: HealthCertificateRequestService(
-//				store: store,
-//				client: client,
-//				appConfiguration: appConfiguration,
-//				healthCertificateService: healthCertificateService
-//			),
-//			recycleBin: .fake()
-//		)
-//		testService.antigenTest.value = .mock(
-//			registrationToken: "regToken",
-//			pointOfCareConsentDate: pointOfCareConsentDate,
-//			registrationDate: nil,
-//			testResult: .negative
-//		)
-//
-//		let completionExpectation = expectation(description: "Completion should be called.")
-//
-//		testService.updateTestResult(for: .antigen, force: true, presentNotification: false) {
-//			XCTAssertEqual($0, .success(.expired))
-//			XCTAssertEqual(testService.antigenTest.value?.testResult, .expired)
-//			completionExpectation.fulfill()
-//		}
-//
-//		waitForExpectations(timeout: .short)
-//	}
-//
-//	func test_When_UpdatingAntigenTestResultWithErrorCode400_And_PointOfCareConsentDateYoungerThan21Days_Then_ExpiredTestResultIsSetAndErrorReturned() throws {
-//		let client = ClientMock()
-//
-//		let restServiceProvider = RestServiceProviderStub(results: [
-//			.failure(ServiceError<TestResultError>.receivedResourceError(.qrDoesNotExist)),
-//			.success(RegistrationTokenReceiveModel(submissionTAN: "fake"))
-//		])
-//
-//		let dateComponents = DateComponents(day: -21, second: 10)
-//		let pointOfCareConsentDate = try XCTUnwrap(Calendar.current.date(byAdding: dateComponents, to: Date()))
-//
-//		let store = MockTestStore()
-//		let appConfiguration = CachedAppConfigurationMock()
-//
-//		let healthCertificateService = HealthCertificateService(
-//			store: store,
-//			dccSignatureVerifier: DCCSignatureVerifyingStub(),
-//			dscListProvider: MockDSCListProvider(),
-//			appConfiguration: appConfiguration,
-//			cclService: FakeCCLService(),
-//			recycleBin: .fake()
-//		)
-//
-//		let testService = CoronaTestService(
-//			client: client,
-//			restServiceProvider: restServiceProvider,
-//			store: store,
-//			appConfiguration: appConfiguration,
-//			healthCertificateService: healthCertificateService,
-//			healthCertificateRequestService: HealthCertificateRequestService(
-//				store: store,
-//				client: client,
-//				appConfiguration: appConfiguration,
-//				healthCertificateService: healthCertificateService
-//			),
-//			recycleBin: .fake()
-//		)
-//		testService.antigenTest.value = .mock(
-//			registrationToken: "regToken",
-//			pointOfCareConsentDate: pointOfCareConsentDate,
-//			registrationDate: nil,
-//			testResult: .negative
-//		)
-//
-//		let completionExpectation = expectation(description: "Completion should be called.")
-//
-//		testService.updateTestResult(for: .antigen, force: true, presentNotification: false) {
-//			XCTAssertEqual($0, .failure(.testResultError(.receivedResourceError(.qrDoesNotExist))))
-//			XCTAssertEqual(testService.antigenTest.value?.testResult, .expired)
-//			completionExpectation.fulfill()
-//		}
-//
-//		waitForExpectations(timeout: .short)
-//	}
-//
+
+	func testUpdatePCRTestResult_success() {
+		let restServiceProvider = RestServiceProviderStub(results: [
+			.success(TestResultReceiveModel(testResult: TestResult.serverResponse(for: .positive, on: .pcr), sc: nil, labId: nil)),
+			.success(RegistrationTokenReceiveModel(submissionTAN: "fake"))
+		])
+
+		let client = ClientMock()
+		let store = MockTestStore()
+		let appConfiguration = CachedAppConfigurationMock()
+
+		let healthCertificateService = HealthCertificateService(
+			store: store,
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
+			dscListProvider: MockDSCListProvider(),
+			appConfiguration: appConfiguration,
+			cclService: FakeCCLService(),
+			recycleBin: .fake()
+		)
+
+		let service = FamilyMemberCoronaTestService(
+			client: client,
+			restServiceProvider: restServiceProvider,
+			store: store,
+			appConfiguration: appConfiguration,
+			healthCertificateService: healthCertificateService,
+			healthCertificateRequestService: HealthCertificateRequestService(
+				store: store,
+				client: client,
+				appConfiguration: appConfiguration,
+				healthCertificateService: healthCertificateService
+			),
+			recycleBin: .fake()
+		)
+
+		let pcrTest: FamilyMemberCoronaTest = .pcr(.mock(registrationToken: "regToken", qrCodeHash: "pcrQRCodeHash"))
+		service.coronaTests.value = [pcrTest]
+
+		let expectation = self.expectation(description: "Expect to receive a result.")
+
+		service.updateTestResult(for: pcrTest) { result in
+			expectation.fulfill()
+			switch result {
+			case .failure:
+				XCTFail("This test should always return a successful result.")
+			case .success(let testResult):
+				XCTAssertEqual(testResult, TestResult.positive)
+			}
+		}
+
+		waitForExpectations(timeout: .short)
+
+		guard let pcrTest = service.coronaTests.value.first else {
+			XCTFail("pcrTest should be registered")
+			return
+		}
+
+		XCTAssertEqual(pcrTest.testResult, .positive)
+		XCTAssertEqual(
+			try XCTUnwrap(pcrTest.finalTestResultReceivedDate).timeIntervalSince1970,
+			Date().timeIntervalSince1970,
+			accuracy: 10
+		)
+	}
+
+	func testUpdateAntigenTestResult_success() {
+		let restServiceProvider = RestServiceProviderStub(results: [
+			.success(TestResultReceiveModel(testResult: TestResult.serverResponse(for: .positive, on: .antigen), sc: nil, labId: nil)),
+			.success(RegistrationTokenReceiveModel(submissionTAN: "fake"))
+		])
+
+		let client = ClientMock()
+		let store = MockTestStore()
+		let appConfiguration = CachedAppConfigurationMock()
+
+		let healthCertificateService = HealthCertificateService(
+			store: store,
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
+			dscListProvider: MockDSCListProvider(),
+			appConfiguration: appConfiguration,
+			cclService: FakeCCLService(),
+			recycleBin: .fake()
+		)
+
+		let service = FamilyMemberCoronaTestService(
+			client: client,
+			restServiceProvider: restServiceProvider,
+			store: store,
+			appConfiguration: appConfiguration,
+			healthCertificateService: healthCertificateService,
+			healthCertificateRequestService: HealthCertificateRequestService(
+				store: store,
+				client: client,
+				appConfiguration: appConfiguration,
+				healthCertificateService: healthCertificateService
+			),
+			recycleBin: .fake()
+		)
+
+		let antigenTest: FamilyMemberCoronaTest = .antigen(.mock(registrationToken: "regToken", qrCodeHash: "pcrQRCodeHash"))
+		service.coronaTests.value = [antigenTest]
+
+		let expectation = self.expectation(description: "Expect to receive a result.")
+
+		service.updateTestResult(for: antigenTest) { result in
+			expectation.fulfill()
+			switch result {
+			case .failure:
+				XCTFail("This test should always return a successful result.")
+			case .success(let testResult):
+				XCTAssertEqual(testResult, TestResult.positive)
+			}
+		}
+
+		waitForExpectations(timeout: .short)
+
+		guard let antigenTest = service.coronaTests.value.first else {
+			XCTFail("antigenTest should be registered")
+			return
+		}
+
+		XCTAssertEqual(antigenTest.testResult, .positive)
+		XCTAssertEqual(
+			try XCTUnwrap(antigenTest.finalTestResultReceivedDate).timeIntervalSince1970,
+			Date().timeIntervalSince1970,
+			accuracy: 10
+		)
+	}
+
+	func testUpdateTestResult_noCoronaTestOfRequestedType() {
+		let client = ClientMock()
+		let store = MockTestStore()
+		let appConfiguration = CachedAppConfigurationMock()
+
+		let healthCertificateService = HealthCertificateService(
+			store: store,
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
+			dscListProvider: MockDSCListProvider(),
+			appConfiguration: appConfiguration,
+			cclService: FakeCCLService(),
+			recycleBin: .fake()
+		)
+
+		let service = FamilyMemberCoronaTestService(
+			client: client,
+			store: store,
+			appConfiguration: appConfiguration,
+			healthCertificateService: healthCertificateService,
+			healthCertificateRequestService: HealthCertificateRequestService(
+				store: store,
+				client: client,
+				appConfiguration: appConfiguration,
+				healthCertificateService: healthCertificateService
+			),
+			recycleBin: .fake()
+		)
+
+		let pcrTest: FamilyMemberCoronaTest = .pcr(.mock(registrationToken: "regToken", qrCodeHash: "pcrQRCodeHash"))
+		service.coronaTests.value = []
+
+		let expectation = self.expectation(description: "Expect to receive a result.")
+
+		service.updateTestResult(for: pcrTest) { result in
+			expectation.fulfill()
+			switch result {
+			case .failure(let error):
+				XCTAssertEqual(error, .noCoronaTestOfRequestedType)
+			case .success:
+				XCTFail("This test should always fail since the test is not registered.")
+			}
+		}
+
+		waitForExpectations(timeout: .short)
+	}
+
+	func testUpdatePCRTestResult_noRegistrationToken() {
+		let client = ClientMock()
+		let store = MockTestStore()
+		let appConfiguration = CachedAppConfigurationMock()
+
+		let healthCertificateService = HealthCertificateService(
+			store: store,
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
+			dscListProvider: MockDSCListProvider(),
+			appConfiguration: appConfiguration,
+			cclService: FakeCCLService(),
+			recycleBin: .fake()
+		)
+
+		let service = FamilyMemberCoronaTestService(
+			client: client,
+			store: store,
+			appConfiguration: appConfiguration,
+			healthCertificateService: healthCertificateService,
+			healthCertificateRequestService: HealthCertificateRequestService(
+				store: store,
+				client: client,
+				appConfiguration: appConfiguration,
+				healthCertificateService: healthCertificateService
+			),
+			recycleBin: .fake()
+		)
+
+		let pcrTest: FamilyMemberCoronaTest = .pcr(.mock(registrationToken: nil, qrCodeHash: "pcrQRCodeHash"))
+		service.coronaTests.value = [pcrTest]
+
+		let expectation = self.expectation(description: "Expect to receive a result.")
+
+		service.updateTestResult(for: pcrTest) { result in
+			expectation.fulfill()
+			switch result {
+			case .failure(let error):
+				XCTAssertEqual(error, .noRegistrationToken)
+			case .success:
+				XCTFail("This test should always fail since the registration token is missing.")
+			}
+		}
+
+		waitForExpectations(timeout: .short)
+
+		guard let pcrTest = service.coronaTests.value.first else {
+			XCTFail("pcrTest should be registered")
+			return
+		}
+
+		XCTAssertEqual(pcrTest.testResult, .pending)
+		XCTAssertNil(pcrTest.finalTestResultReceivedDate)
+	}
+
+	func testUpdateAntigenTestResult_noRegistrationToken() {
+		let client = ClientMock()
+		let store = MockTestStore()
+		let appConfiguration = CachedAppConfigurationMock()
+
+		let healthCertificateService = HealthCertificateService(
+			store: store,
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
+			dscListProvider: MockDSCListProvider(),
+			appConfiguration: appConfiguration,
+			cclService: FakeCCLService(),
+			recycleBin: .fake()
+		)
+
+		let service = FamilyMemberCoronaTestService(
+			client: client,
+			store: store,
+			appConfiguration: appConfiguration,
+			healthCertificateService: healthCertificateService,
+			healthCertificateRequestService: HealthCertificateRequestService(
+				store: store,
+				client: client,
+				appConfiguration: appConfiguration,
+				healthCertificateService: healthCertificateService
+			),
+			recycleBin: .fake()
+		)
+
+		let antigenTest: FamilyMemberCoronaTest = .antigen(.mock(registrationToken: nil, qrCodeHash: "pcrQRCodeHash"))
+		service.coronaTests.value = [antigenTest]
+
+		let expectation = self.expectation(description: "Expect to receive a result.")
+
+		service.updateTestResult(for: antigenTest) { result in
+			expectation.fulfill()
+			switch result {
+			case .failure(let error):
+				XCTAssertEqual(error, .noRegistrationToken)
+			case .success:
+				XCTFail("This test should always fail since the registration token is missing.")
+			}
+		}
+
+		waitForExpectations(timeout: .short)
+
+		guard let antigenTest = service.coronaTests.value.first else {
+			XCTFail("antigenTest should be registered")
+			return
+		}
+
+		XCTAssertEqual(antigenTest.testResult, .pending)
+		XCTAssertNil(antigenTest.finalTestResultReceivedDate)
+	}
+
+
+
+
+
+
+	func test_When_UpdatePresentNotificationTrue_Then_NotificationShouldBePresented() {
+		let mockNotificationCenter = MockUserNotificationCenter()
+		let client = ClientMock()
+
+		let store = MockTestStore()
+		let appConfiguration = CachedAppConfigurationMock()
+		let restServiceProvider = RestServiceProviderStub(results: [
+			.success(TestResultReceiveModel(testResult: TestResult.serverResponse(for: .pending, on: .pcr), sc: nil, labId: "SomeLabId")),
+			.success(RegistrationTokenReceiveModel(submissionTAN: "fake")),
+			.success(RegistrationTokenReceiveModel(submissionTAN: "fake")),
+			.success(RegistrationTokenReceiveModel(submissionTAN: "fake")),
+			.success(RegistrationTokenReceiveModel(submissionTAN: "fake")),
+			.success(RegistrationTokenReceiveModel(submissionTAN: "fake")),
+			.success(RegistrationTokenReceiveModel(submissionTAN: "fake"))
+
+		])
+
+		let healthCertificateService = HealthCertificateService(
+			store: store,
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
+			dscListProvider: MockDSCListProvider(),
+			appConfiguration: appConfiguration,
+			notificationCenter: mockNotificationCenter,
+			cclService: FakeCCLService(),
+			recycleBin: .fake()
+		)
+
+		let service = FamilyMemberCoronaTestService(
+			client: client,
+			restServiceProvider: restServiceProvider,
+			store: store,
+			appConfiguration: appConfiguration,
+			healthCertificateService: healthCertificateService,
+			healthCertificateRequestService: HealthCertificateRequestService(
+				store: store,
+				client: client,
+				appConfiguration: appConfiguration,
+				healthCertificateService: healthCertificateService
+			),
+			notificationCenter: mockNotificationCenter,
+			recycleBin: .fake()
+		)
+
+		let pcrTest: FamilyMemberCoronaTest = .pcr(.mock(registrationToken: "regToken", qrCodeHash: "pcrQRCodeHash"))
+		let antigenTest: FamilyMemberCoronaTest = .antigen(.mock(registrationToken: "regToken", qrCodeHash: "antigenQRCodeHash"))
+
+		service.coronaTests.value = [pcrTest, antigenTest]
+
+		let completionExpectation = expectation(description: "Completion should be called.")
+		completionExpectation.expectedFulfillmentCount = 3
+
+		service.updateTestResults(presentNotification: true) { _ in
+			completionExpectation.fulfill()
+		}
+
+		// Updating two more times to check that notification are only scheduled once
+		service.updateTestResults(presentNotification: true) { _ in
+			completionExpectation.fulfill()
+		}
+
+		service.updateTestResults(presentNotification: true) { _ in
+			completionExpectation.fulfill()
+		}
+		waitForExpectations(timeout: .short)
+
+		XCTAssertEqual(mockNotificationCenter.notificationRequests.count, 2)
+	}
+
+	func test_When_UpdatePresentNotificationFalse_Then_NotificationShouldNOTBePresented() {
+		let mockNotificationCenter = MockUserNotificationCenter()
+		let client = ClientMock()
+
+		let restServiceProvider = RestServiceProviderStub(results: [
+			.success(TestResultReceiveModel(testResult: TestResult.serverResponse(for: .positive, on: .pcr), sc: nil, labId: "SomeLabId")),
+			.success(TeleTanReceiveModel(registrationToken: "token"))
+		])
+
+		let store = MockTestStore()
+		let appConfiguration = CachedAppConfigurationMock()
+
+		let healthCertificateService = HealthCertificateService(
+			store: store,
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
+			dscListProvider: MockDSCListProvider(),
+			appConfiguration: appConfiguration,
+			cclService: FakeCCLService(),
+			recycleBin: .fake()
+		)
+
+		let service = FamilyMemberCoronaTestService(
+			client: client,
+			restServiceProvider: restServiceProvider,
+			store: store,
+			appConfiguration: appConfiguration,
+			healthCertificateService: healthCertificateService,
+			healthCertificateRequestService: HealthCertificateRequestService(
+				store: store,
+				client: client,
+				appConfiguration: appConfiguration,
+				healthCertificateService: healthCertificateService
+			),
+			recycleBin: .fake()
+		)
+
+		let pcrTest: FamilyMemberCoronaTest = .pcr(.mock(registrationToken: "regToken", qrCodeHash: "pcrQRCodeHash"))
+		let antigenTest: FamilyMemberCoronaTest = .antigen(.mock(registrationToken: "regToken", qrCodeHash: "antigenQRCodeHash"))
+
+		service.coronaTests.value = [pcrTest, antigenTest]
+
+		let completionExpectation = expectation(description: "Completion should be called.")
+		service.updateTestResults(presentNotification: false) { _ in
+			completionExpectation.fulfill()
+		}
+		waitForExpectations(timeout: .short)
+
+		XCTAssertEqual(mockNotificationCenter.notificationRequests.count, 0)
+	}
+
+	func test_When_UpdateTestResultsFails_Then_ErrorIsReturned() {
+		let client = ClientMock()
+
+		let restServiceProvider = RestServiceProviderStub(results: [
+			.failure(ServiceError<TestResultError>.invalidResponse),
+			.success(TeleTanReceiveModel(registrationToken: "token"))
+		])
+
+		let store = MockTestStore()
+		let appConfiguration = CachedAppConfigurationMock()
+
+		let healthCertificateService = HealthCertificateService(
+			store: store,
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
+			dscListProvider: MockDSCListProvider(),
+			appConfiguration: appConfiguration,
+			cclService: FakeCCLService(),
+			recycleBin: .fake()
+		)
+
+		let service = FamilyMemberCoronaTestService(
+			client: client,
+			restServiceProvider: restServiceProvider,
+			store: store,
+			appConfiguration: appConfiguration,
+			healthCertificateService: healthCertificateService,
+			healthCertificateRequestService: HealthCertificateRequestService(
+				store: store,
+				client: client,
+				appConfiguration: appConfiguration,
+				healthCertificateService: healthCertificateService
+			),
+			recycleBin: .fake()
+		)
+
+		let pcrTest: FamilyMemberCoronaTest = .pcr(.mock(registrationToken: "regToken", qrCodeHash: "pcrQRCodeHash"))
+		let antigenTest: FamilyMemberCoronaTest = .antigen(.mock(registrationToken: "regToken", qrCodeHash: "antigenQRCodeHash"))
+
+		service.coronaTests.value = [pcrTest, antigenTest]
+
+		let completionExpectation = expectation(description: "Completion should be called.")
+		service.updateTestResults(presentNotification: true) { result in
+			if case .success = result {
+				XCTFail("Success not expected")
+			}
+			completionExpectation.fulfill()
+		}
+		waitForExpectations(timeout: .short)
+	}
+
+	func test_When_UpdateTestResultsSuccessWithPending_Then_NoNotificationIsShown() {
+		let mockNotificationCenter = MockUserNotificationCenter()
+		let client = ClientMock()
+
+		let restServiceProvider = RestServiceProviderStub(results: [
+			.success(TestResultReceiveModel(testResult: TestResult.serverResponse(for: .pending, on: .pcr), sc: nil, labId: "SomeLabId")),
+			.success(TestResultReceiveModel(testResult: TestResult.serverResponse(for: .pending, on: .antigen), sc: nil, labId: "SomeLabId"))
+		])
+
+		let store = MockTestStore()
+		let appConfiguration = CachedAppConfigurationMock()
+
+		let healthCertificateService = HealthCertificateService(
+			store: store,
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
+			dscListProvider: MockDSCListProvider(),
+			appConfiguration: appConfiguration,
+			cclService: FakeCCLService(),
+			recycleBin: .fake()
+		)
+
+		let service = FamilyMemberCoronaTestService(
+			client: client,
+			restServiceProvider: restServiceProvider,
+			store: store,
+			appConfiguration: appConfiguration,
+			healthCertificateService: healthCertificateService,
+			healthCertificateRequestService: HealthCertificateRequestService(
+				store: store,
+				client: client,
+				appConfiguration: appConfiguration,
+				healthCertificateService: healthCertificateService
+			),
+			recycleBin: .fake()
+		)
+
+		let pcrTest: FamilyMemberCoronaTest = .pcr(.mock(registrationToken: "regToken", qrCodeHash: "pcrQRCodeHash"))
+		let antigenTest: FamilyMemberCoronaTest = .antigen(.mock(registrationToken: "regToken", qrCodeHash: "antigenQRCodeHash"))
+
+		service.coronaTests.value = [pcrTest, antigenTest]
+
+		let completionExpectation = expectation(description: "Completion should be called.")
+		service.updateTestResults(presentNotification: true) { _ in
+			completionExpectation.fulfill()
+		}
+		waitForExpectations(timeout: .short)
+
+		XCTAssertEqual(mockNotificationCenter.notificationRequests.count, 0)
+	}
+
+	func test_When_UpdateTestResultsSuccessWithExpired_Then_NoNotificationIsShown() {
+		let mockNotificationCenter = MockUserNotificationCenter()
+		let client = ClientMock()
+
+		let restServiceProvider = RestServiceProviderStub(results: [
+			.success(TestResultReceiveModel(testResult: TestResult.serverResponse(for: .expired, on: .pcr), sc: nil, labId: "SomeLabId")),
+			.success(TestResultReceiveModel(testResult: TestResult.serverResponse(for: .expired, on: .antigen), sc: nil, labId: "SomeLabId"))
+		])
+
+		let store = MockTestStore()
+		let appConfiguration = CachedAppConfigurationMock()
+
+		let healthCertificateService = HealthCertificateService(
+			store: store,
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
+			dscListProvider: MockDSCListProvider(),
+			appConfiguration: appConfiguration,
+			cclService: FakeCCLService(),
+			recycleBin: .fake()
+		)
+
+		let service = FamilyMemberCoronaTestService(
+			client: client,
+			restServiceProvider: restServiceProvider,
+			store: store,
+			appConfiguration: appConfiguration,
+			healthCertificateService: healthCertificateService,
+			healthCertificateRequestService: HealthCertificateRequestService(
+				store: store,
+				client: client,
+				appConfiguration: appConfiguration,
+				healthCertificateService: healthCertificateService
+			),
+			recycleBin: .fake()
+		)
+
+		let pcrTest: FamilyMemberCoronaTest = .pcr(.mock(registrationToken: "regToken", qrCodeHash: "pcrQRCodeHash"))
+		let antigenTest: FamilyMemberCoronaTest = .antigen(.mock(registrationToken: "regToken", qrCodeHash: "antigenQRCodeHash"))
+
+		service.coronaTests.value = [pcrTest, antigenTest]
+
+		let completionExpectation = expectation(description: "Completion should be called.")
+		service.updateTestResults(presentNotification: true) { _ in
+			completionExpectation.fulfill()
+		}
+		waitForExpectations(timeout: .short)
+
+		XCTAssertEqual(mockNotificationCenter.notificationRequests.count, 0)
+	}
+
+	func test_When_UpdateWithForce_And_FinalTestResultExist_Then_ClientIsCalled() {
+		let client = ClientMock()
+		let store = MockTestStore()
+		let appConfiguration = CachedAppConfigurationMock()
+
+		let getTestResultExpectation = expectation(description: "Get Test result should be called.")
+		getTestResultExpectation.expectedFulfillmentCount = 2
+
+		let restServiceProvider = RestServiceProviderStub(loadResources: [
+			LoadResource(
+				result: .success(TestResultReceiveModel(testResult: TestResult.serverResponse(for: .expired, on: .pcr), sc: nil, labId: "SomeLabId")),
+				willLoadResource: { res in
+					if let resource = res as? TestResultResource, !resource.locator.isFake {
+						getTestResultExpectation.fulfill()
+					}
+				}),
+			LoadResource(
+				result: .success(TestResultReceiveModel(testResult: TestResult.serverResponse(for: .expired, on: .antigen), sc: nil, labId: "SomeLabId")),
+				willLoadResource: { res in
+					if let resource = res as? TestResultResource, !resource.locator.isFake {
+						getTestResultExpectation.fulfill()
+					}
+				})
+		])
+
+		let healthCertificateService = HealthCertificateService(
+			store: store,
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
+			dscListProvider: MockDSCListProvider(),
+			appConfiguration: appConfiguration,
+			cclService: FakeCCLService(),
+			recycleBin: .fake()
+		)
+
+		let service = FamilyMemberCoronaTestService(
+			client: client,
+			restServiceProvider: restServiceProvider,
+			store: store,
+			appConfiguration: appConfiguration,
+			healthCertificateService: healthCertificateService,
+			healthCertificateRequestService: HealthCertificateRequestService(
+				store: store,
+				client: client,
+				appConfiguration: appConfiguration,
+				healthCertificateService: healthCertificateService
+			),
+			recycleBin: .fake()
+		)
+
+		let pcrTest: FamilyMemberCoronaTest = .pcr(.mock(registrationToken: "regToken", qrCodeHash: "pcrQRCodeHash", finalTestResultReceivedDate: Date()))
+		let antigenTest: FamilyMemberCoronaTest = .antigen(.mock(registrationToken: "regToken", qrCodeHash: "antigenQRCodeHash", finalTestResultReceivedDate: Date()))
+
+		service.coronaTests.value = [pcrTest, antigenTest]
+
+		service.updateTestResults(force: true, presentNotification: false) { _ in }
+
+		waitForExpectations(timeout: .short)
+	}
+
+	func test_When_UpdateWithoutForce_And_FinalTestResultExist_Then_ClientIsNotCalled() {
+		let client = ClientMock()
+		let store = MockTestStore()
+		let appConfiguration = CachedAppConfigurationMock()
+
+		let getTestResultExpectation = expectation(description: "Get Test result should NOT be called.")
+		getTestResultExpectation.isInverted = true
+
+		let restServiceProvider = RestServiceProviderStub(loadResources: [
+			LoadResource(
+				result: .success(TestResultReceiveModel(testResult: TestResult.serverResponse(for: .expired, on: .pcr), sc: nil, labId: "SomeLabId")),
+				willLoadResource: { res in
+					if let resource = res as? TestResultResource, !resource.locator.isFake {
+						getTestResultExpectation.fulfill()
+					}
+				})
+		])
+
+		let healthCertificateService = HealthCertificateService(
+			store: store,
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
+			dscListProvider: MockDSCListProvider(),
+			appConfiguration: appConfiguration,
+			cclService: FakeCCLService(),
+			recycleBin: .fake()
+		)
+
+		let service = FamilyMemberCoronaTestService(
+			client: client,
+			restServiceProvider: restServiceProvider,
+			store: store,
+			appConfiguration: appConfiguration,
+			healthCertificateService: healthCertificateService,
+			healthCertificateRequestService: HealthCertificateRequestService(
+				store: store,
+				client: client,
+				appConfiguration: appConfiguration,
+				healthCertificateService: healthCertificateService
+			),
+			recycleBin: .fake()
+		)
+
+		let pcrTest: FamilyMemberCoronaTest = .pcr(.mock(registrationToken: "regToken", qrCodeHash: "pcrQRCodeHash", finalTestResultReceivedDate: Date()))
+		let antigenTest: FamilyMemberCoronaTest = .antigen(.mock(registrationToken: "regToken", qrCodeHash: "antigenQRCodeHash", finalTestResultReceivedDate: Date()))
+
+		service.coronaTests.value = [pcrTest, antigenTest]
+
+		service.updateTestResults(force: false, presentNotification: false) { _ in }
+
+		waitForExpectations(timeout: .short)
+	}
+
+	func test_When_UpdateWithoutForce_And_NoFinalTestResultExist_Then_ClientIsCalled() {
+		let client = ClientMock()
+		let store = MockTestStore()
+		let appConfiguration = CachedAppConfigurationMock()
+
+		let getTestResultExpectation = expectation(description: "Get Test result should be called.")
+		getTestResultExpectation.expectedFulfillmentCount = 2
+
+		let restServiceProvider = RestServiceProviderStub(loadResources: [
+			LoadResource(
+				result: .success(TestResultReceiveModel(testResult: TestResult.serverResponse(for: .expired, on: .pcr), sc: nil, labId: "SomeLabId")),
+				willLoadResource: { res in
+					if let resource = res as? TestResultResource, !resource.locator.isFake {
+						getTestResultExpectation.fulfill()
+					}
+				}),
+			LoadResource(
+				result: .success(TestResultReceiveModel(testResult: TestResult.serverResponse(for: .expired, on: .antigen), sc: nil, labId: "SomeLabId")),
+				willLoadResource: { res in
+					if let resource = res as? TestResultResource, !resource.locator.isFake {
+						getTestResultExpectation.fulfill()
+					}
+				})
+		])
+
+		let healthCertificateService = HealthCertificateService(
+			store: store,
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
+			dscListProvider: MockDSCListProvider(),
+			appConfiguration: appConfiguration,
+			cclService: FakeCCLService(),
+			recycleBin: .fake()
+		)
+
+		let service = FamilyMemberCoronaTestService(
+			client: client,
+			restServiceProvider: restServiceProvider,
+			store: store,
+			appConfiguration: appConfiguration,
+			healthCertificateService: healthCertificateService,
+			healthCertificateRequestService: HealthCertificateRequestService(
+				store: store,
+				client: client,
+				appConfiguration: appConfiguration,
+				healthCertificateService: healthCertificateService
+			),
+			recycleBin: .fake()
+		)
+
+		let pcrTest: FamilyMemberCoronaTest = .pcr(.mock(registrationToken: "regToken", qrCodeHash: "pcrQRCodeHash", finalTestResultReceivedDate: nil))
+		let antigenTest: FamilyMemberCoronaTest = .antigen(.mock(registrationToken: "regToken", qrCodeHash: "antigenQRCodeHash", finalTestResultReceivedDate: nil))
+
+		service.coronaTests.value = [pcrTest, antigenTest]
+
+		service.updateTestResults(force: false, presentNotification: false) { _ in }
+
+		waitForExpectations(timeout: .short)
+	}
+
+	func test_When_UpdatingExpiredTestResultOlderThan21Days_Then_ClientIsNotCalled() throws {
+		let client = ClientMock()
+		let store = MockTestStore()
+		let appConfiguration = CachedAppConfigurationMock()
+
+		let registrationDate = try XCTUnwrap(Calendar.current.date(byAdding: .day, value: -21, to: Date()))
+
+		let getTestResultExpectation = expectation(description: "Get Test result should NOT be called.")
+		getTestResultExpectation.isInverted = true
+
+		let restServiceProvider = RestServiceProviderStub(loadResources: [
+			LoadResource(
+				result: .success(TestResultReceiveModel(testResult: TestResult.serverResponse(for: .expired, on: .pcr), sc: nil, labId: "SomeLabId")),
+				willLoadResource: { res in
+					if let resource = res as? TestResultResource, !resource.locator.isFake {
+						getTestResultExpectation.fulfill()
+					}
+				}),
+			LoadResource(
+				result: .success(TestResultReceiveModel(testResult: TestResult.serverResponse(for: .expired, on: .antigen), sc: nil, labId: "SomeLabId")),
+				willLoadResource: { res in
+					if let resource = res as? TestResultResource, !resource.locator.isFake {
+						getTestResultExpectation.fulfill()
+					}
+				})
+		])
+
+		let healthCertificateService = HealthCertificateService(
+			store: store,
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
+			dscListProvider: MockDSCListProvider(),
+			appConfiguration: appConfiguration,
+			cclService: FakeCCLService(),
+			recycleBin: .fake()
+		)
+
+		let service = FamilyMemberCoronaTestService(
+			client: client,
+			restServiceProvider: restServiceProvider,
+			store: store,
+			appConfiguration: appConfiguration,
+			healthCertificateService: healthCertificateService,
+			healthCertificateRequestService: HealthCertificateRequestService(
+				store: store,
+				client: client,
+				appConfiguration: appConfiguration,
+				healthCertificateService: healthCertificateService
+			),
+			recycleBin: .fake()
+		)
+
+		let pcrTest: FamilyMemberCoronaTest = .pcr(.mock(registrationDate: registrationDate, registrationToken: "regToken", qrCodeHash: "pcrQRCodeHash", testResult: .expired))
+		let antigenTest: FamilyMemberCoronaTest = .antigen(.mock(registrationDate: registrationDate, registrationToken: "regToken", qrCodeHash: "antigenQRCodeHash", testResult: .expired))
+
+		service.coronaTests.value = [pcrTest, antigenTest]
+
+		service.updateTestResults(force: false, presentNotification: false) { _ in }
+
+		waitForExpectations(timeout: .short)
+	}
+
+	func test_When_UpdatingExpiredTestResultYoungerThan21Days_Then_ClientIsCalled() throws {
+		let client = ClientMock()
+		let store = MockTestStore()
+		let appConfiguration = CachedAppConfigurationMock()
+
+		let dateComponents = DateComponents(day: -21, second: 10)
+		let registrationDate = try XCTUnwrap(Calendar.current.date(byAdding: dateComponents, to: Date()))
+
+		let getTestResultExpectation = expectation(description: "Get Test result should be called.")
+		getTestResultExpectation.expectedFulfillmentCount = 2
+
+		let restServiceProvider = RestServiceProviderStub(loadResources: [
+			LoadResource(
+				result: .success(TestResultReceiveModel(testResult: TestResult.serverResponse(for: .expired, on: .pcr), sc: nil, labId: "SomeLabId")),
+				willLoadResource: { res in
+					if let resource = res as? TestResultResource, !resource.locator.isFake {
+						getTestResultExpectation.fulfill()
+					}
+				}),
+			LoadResource(
+				result: .success(TestResultReceiveModel(testResult: TestResult.serverResponse(for: .expired, on: .antigen), sc: nil, labId: "SomeLabId")),
+				willLoadResource: { res in
+					if let resource = res as? TestResultResource, !resource.locator.isFake {
+						getTestResultExpectation.fulfill()
+					}
+				})
+		])
+
+		let healthCertificateService = HealthCertificateService(
+			store: store,
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
+			dscListProvider: MockDSCListProvider(),
+			appConfiguration: appConfiguration,
+			cclService: FakeCCLService(),
+			recycleBin: .fake()
+		)
+
+		let service = FamilyMemberCoronaTestService(
+			client: client,
+			restServiceProvider: restServiceProvider,
+			store: store,
+			appConfiguration: appConfiguration,
+			healthCertificateService: healthCertificateService,
+			healthCertificateRequestService: HealthCertificateRequestService(
+				store: store,
+				client: client,
+				appConfiguration: appConfiguration,
+				healthCertificateService: healthCertificateService
+			),
+			recycleBin: .fake()
+		)
+
+		let pcrTest: FamilyMemberCoronaTest = .pcr(.mock(registrationDate: registrationDate, registrationToken: "regToken", qrCodeHash: "pcrQRCodeHash", testResult: .expired))
+		let antigenTest: FamilyMemberCoronaTest = .antigen(.mock(registrationDate: registrationDate, registrationToken: "regToken", qrCodeHash: "antigenQRCodeHash", testResult: .expired))
+
+		service.coronaTests.value = [pcrTest, antigenTest]
+
+		service.updateTestResults(force: false, presentNotification: false) { _ in }
+
+		waitForExpectations(timeout: .short)
+	}
+
+	func test_When_UpdatingPCRTestResultWithErrorCode400_And_RegistrationDateOlderThan21Days_Then_ExpiredTestResultIsSetAndReturnedWithoutError() throws {
+		let client = ClientMock()
+
+		let restServiceProvider = RestServiceProviderStub(results: [
+			.failure(ServiceError<TestResultError>.receivedResourceError(.qrDoesNotExist)),
+			.success(RegistrationTokenReceiveModel(submissionTAN: "fake"))
+		])
+		let dateComponents = DateComponents(day: -21)
+		let registrationDate = try XCTUnwrap(Calendar.current.date(byAdding: dateComponents, to: Date()))
+
+		let store = MockTestStore()
+		let appConfiguration = CachedAppConfigurationMock()
+
+		let healthCertificateService = HealthCertificateService(
+			store: store,
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
+			dscListProvider: MockDSCListProvider(),
+			appConfiguration: appConfiguration,
+			cclService: FakeCCLService(),
+			recycleBin: .fake()
+		)
+
+		let service = FamilyMemberCoronaTestService(
+			client: client,
+			restServiceProvider: restServiceProvider,
+			store: store,
+			appConfiguration: appConfiguration,
+			healthCertificateService: healthCertificateService,
+			healthCertificateRequestService: HealthCertificateRequestService(
+				store: store,
+				client: client,
+				appConfiguration: appConfiguration,
+				healthCertificateService: healthCertificateService
+			),
+			recycleBin: .fake()
+		)
+
+		let pcrTest: FamilyMemberCoronaTest = .pcr(.mock(registrationDate: registrationDate, registrationToken: "regToken", qrCodeHash: "pcrQRCodeHash", testResult: .negative))
+
+		service.coronaTests.value = [pcrTest]
+
+		let completionExpectation = expectation(description: "Completion should be called.")
+
+		service.updateTestResult(for: pcrTest, force: true, presentNotification: false) {
+			XCTAssertEqual($0, .success(.expired))
+			XCTAssertEqual(service.coronaTests.value.first?.testResult, .expired)
+			completionExpectation.fulfill()
+		}
+
+		waitForExpectations(timeout: .short)
+	}
+
+	func test_When_UpdatingPCRTestResultWithErrorCode400_And_RegistrationDateYoungerThan21Days_Then_ExpiredTestResultIsSetAndErrorReturned() throws {
+		let client = ClientMock()
+
+		let restServiceProvider = RestServiceProviderStub(results: [
+			.failure(ServiceError<TestResultError>.receivedResourceError(.qrDoesNotExist)),
+			.success(RegistrationTokenReceiveModel(submissionTAN: "fake"))
+		])
+		let registrationDate = try XCTUnwrap(Calendar.current.date(byAdding: DateComponents(day: -21, second: 10), to: Date()))
+
+		let store = MockTestStore()
+		let appConfiguration = CachedAppConfigurationMock()
+
+		let healthCertificateService = HealthCertificateService(
+			store: store,
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
+			dscListProvider: MockDSCListProvider(),
+			appConfiguration: appConfiguration,
+			cclService: FakeCCLService(),
+			recycleBin: .fake()
+		)
+
+		let service = FamilyMemberCoronaTestService(
+			client: client,
+			restServiceProvider: restServiceProvider,
+			store: store,
+			appConfiguration: appConfiguration,
+			healthCertificateService: healthCertificateService,
+			healthCertificateRequestService: HealthCertificateRequestService(
+				store: store,
+				client: client,
+				appConfiguration: appConfiguration,
+				healthCertificateService: healthCertificateService
+			),
+			recycleBin: .fake()
+		)
+
+		let pcrTest: FamilyMemberCoronaTest = .pcr(.mock(registrationDate: registrationDate, registrationToken: "regToken", qrCodeHash: "pcrQRCodeHash", testResult: .negative))
+
+		service.coronaTests.value = [pcrTest]
+
+		let completionExpectation = expectation(description: "Completion should be called.")
+
+		service.updateTestResult(for: pcrTest, force: true, presentNotification: false) {
+			XCTAssertEqual($0, .failure(.testResultError(.receivedResourceError(.qrDoesNotExist))))
+			XCTAssertEqual(service.coronaTests.value.first?.testResult, .expired)
+			completionExpectation.fulfill()
+		}
+
+		waitForExpectations(timeout: .short)
+	}
+
+	func test_When_UpdatingAntigenTestResultWithErrorCode400_And_RegistrationDateOlderThan21Days_Then_ExpiredTestResultIsSetAndReturnedWithoutError() throws {
+		let client = ClientMock()
+
+		let restServiceProvider = RestServiceProviderStub(results: [
+			.failure(ServiceError<TestResultError>.receivedResourceError(.qrDoesNotExist)),
+			.success(RegistrationTokenReceiveModel(submissionTAN: "fake"))
+		])
+		let dateComponents = DateComponents(day: -21)
+		let registrationDate = try XCTUnwrap(Calendar.current.date(byAdding: dateComponents, to: Date()))
+		// Set point of care date to younger than 21 days to ensure that registration date wins
+		let pointOfCareConsentDate = try XCTUnwrap(Calendar.current.date(byAdding: DateComponents(day: -21, second: 10), to: Date()))
+
+		let store = MockTestStore()
+		let appConfiguration = CachedAppConfigurationMock()
+
+		let healthCertificateService = HealthCertificateService(
+			store: store,
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
+			dscListProvider: MockDSCListProvider(),
+			appConfiguration: appConfiguration,
+			cclService: FakeCCLService(),
+			recycleBin: .fake()
+		)
+
+		let service = FamilyMemberCoronaTestService(
+			client: client,
+			restServiceProvider: restServiceProvider,
+			store: store,
+			appConfiguration: appConfiguration,
+			healthCertificateService: healthCertificateService,
+			healthCertificateRequestService: HealthCertificateRequestService(
+				store: store,
+				client: client,
+				appConfiguration: appConfiguration,
+				healthCertificateService: healthCertificateService
+			),
+			recycleBin: .fake()
+		)
+
+		let antigenTest: FamilyMemberCoronaTest = .antigen(.mock(pointOfCareConsentDate: pointOfCareConsentDate, registrationDate: registrationDate, registrationToken: "regToken", qrCodeHash: "pcrQRCodeHash", testResult: .negative))
+
+		service.coronaTests.value = [antigenTest]
+
+		let completionExpectation = expectation(description: "Completion should be called.")
+
+		service.updateTestResult(for: antigenTest, force: true, presentNotification: false) {
+			XCTAssertEqual($0, .success(.expired))
+			XCTAssertEqual(service.coronaTests.value.first?.testResult, .expired)
+			completionExpectation.fulfill()
+		}
+
+		waitForExpectations(timeout: .short)
+	}
+
+	func test_When_UpdatingAntigenTestResultWithErrorCode400_And_RegistrationDateYoungerThan21Days_Then_ExpiredTestResultIsSetAndErrorReturned() throws {
+		let client = ClientMock()
+
+		let restServiceProvider = RestServiceProviderStub(results: [
+			.failure(ServiceError<TestResultError>.receivedResourceError(.qrDoesNotExist)),
+			.success(RegistrationTokenReceiveModel(submissionTAN: "fake"))
+		])
+		let registrationDate = try XCTUnwrap(Calendar.current.date(byAdding: DateComponents(day: -21, second: 10), to: Date()))
+		// Set point of care date to older than 21 days to ensure that registration date wins
+		let pointOfCareConsentDate = try XCTUnwrap(Calendar.current.date(byAdding: DateComponents(day: -21), to: Date()))
+
+		let store = MockTestStore()
+		let appConfiguration = CachedAppConfigurationMock()
+
+		let healthCertificateService = HealthCertificateService(
+			store: store,
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
+			dscListProvider: MockDSCListProvider(),
+			appConfiguration: appConfiguration,
+			cclService: FakeCCLService(),
+			recycleBin: .fake()
+		)
+
+		let service = FamilyMemberCoronaTestService(
+			client: client,
+			restServiceProvider: restServiceProvider,
+			store: store,
+			appConfiguration: appConfiguration,
+			healthCertificateService: healthCertificateService,
+			healthCertificateRequestService: HealthCertificateRequestService(
+				store: store,
+				client: client,
+				appConfiguration: appConfiguration,
+				healthCertificateService: healthCertificateService
+			),
+			recycleBin: .fake()
+		)
+
+		let antigenTest: FamilyMemberCoronaTest = .antigen(.mock(pointOfCareConsentDate: pointOfCareConsentDate, registrationDate: registrationDate, registrationToken: "regToken", qrCodeHash: "pcrQRCodeHash", testResult: .negative))
+
+		service.coronaTests.value = [antigenTest]
+
+		let completionExpectation = expectation(description: "Completion should be called.")
+
+		service.updateTestResult(for: antigenTest, force: true, presentNotification: false) {
+			XCTAssertEqual($0, .failure(.testResultError(.receivedResourceError(.qrDoesNotExist))))
+			XCTAssertEqual(service.coronaTests.value.first?.testResult, .expired)
+			completionExpectation.fulfill()
+		}
+
+		waitForExpectations(timeout: .short)
+	}
+
 	// MARK: - Test Removal
 
 	func testMovingCoronaTestToBin() {
@@ -3236,7 +2823,7 @@ class FamilyMemberCoronaTestServiceTests: CWATestCase {
 		)
 
 		let pcrTest: FamilyMemberCoronaTest = .pcr(.mock(registrationToken: "regToken", qrCodeHash: "pcrQRCodeHash"))
-		let pcrTest2: FamilyMemberCoronaTest = .pcr(.mock(registrationToken: "regToken", qrCodeHash: "pcrQRCodeHash"))
+		let pcrTest2: FamilyMemberCoronaTest = .pcr(.mock(registrationToken: "regToken2", qrCodeHash: "pcrQRCodeHash2"))
 		let antigenTest: FamilyMemberCoronaTest = .antigen(.mock(registrationToken: "regToken", qrCodeHash: "antigenQRCodeHash"))
 
 		service.coronaTests.value = [pcrTest, antigenTest]
