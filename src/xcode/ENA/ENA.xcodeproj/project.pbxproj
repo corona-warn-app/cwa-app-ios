@@ -526,6 +526,7 @@
 		347A36AB27E8B73F00DA82D2 /* ExposureSubmissionTestOwnerSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 347A36AA27E8B73F00DA82D2 /* ExposureSubmissionTestOwnerSelectionViewController.swift */; };
 		347A36AF27E8CAC800DA82D2 /* ExposureSubmissionTestOwnerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 347A36AE27E8CAC800DA82D2 /* ExposureSubmissionTestOwnerCell.swift */; };
 		347A36B327E8EF6600DA82D2 /* ExposureSubmissionTestOwnerCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 347A36B227E8EF6600DA82D2 /* ExposureSubmissionTestOwnerCell.xib */; };
+		347A36B527EB707500DA82D2 /* ExposureSubmissionTestResultFamilyMemberViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 347A36B427EB707500DA82D2 /* ExposureSubmissionTestResultFamilyMemberViewModel.swift */; };
 		347E3CAC27A99FD700895277 /* BoosterDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 347E3CAB27A99FD700895277 /* BoosterDetailsViewController.swift */; };
 		347E3CAE27A9A20D00895277 /* BoosterDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 347E3CAD27A9A20D00895277 /* BoosterDetailsViewModel.swift */; };
 		347E3CB227AAD56E00895277 /* BoosterDetailsViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 347E3CB027AAD4AA00895277 /* BoosterDetailsViewModelTests.swift */; };
@@ -2262,6 +2263,7 @@
 		347A36AA27E8B73F00DA82D2 /* ExposureSubmissionTestOwnerSelectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureSubmissionTestOwnerSelectionViewController.swift; sourceTree = "<group>"; };
 		347A36AE27E8CAC800DA82D2 /* ExposureSubmissionTestOwnerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureSubmissionTestOwnerCell.swift; sourceTree = "<group>"; };
 		347A36B227E8EF6600DA82D2 /* ExposureSubmissionTestOwnerCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ExposureSubmissionTestOwnerCell.xib; sourceTree = "<group>"; };
+		347A36B427EB707500DA82D2 /* ExposureSubmissionTestResultFamilyMemberViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureSubmissionTestResultFamilyMemberViewModel.swift; sourceTree = "<group>"; };
 		347E3CAB27A99FD700895277 /* BoosterDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoosterDetailsViewController.swift; sourceTree = "<group>"; };
 		347E3CAD27A9A20D00895277 /* BoosterDetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoosterDetailsViewModel.swift; sourceTree = "<group>"; };
 		347E3CB027AAD4AA00895277 /* BoosterDetailsViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoosterDetailsViewModelTests.swift; sourceTree = "<group>"; };
@@ -7247,6 +7249,7 @@
 				5222AA67255ECFE100F338C7 /* ExposureSubmissionTestResultConsentViewController.swift */,
 				5222AA6F255ED8E000F338C7 /* ExposureSubmissionTestResultConsentViewModel.swift */,
 				71FE1C78247AC2B500851FEB /* ExposureSubmissionTestResultViewController.swift */,
+				347A36B427EB707500DA82D2 /* ExposureSubmissionTestResultFamilyMemberViewModel.swift */,
 				016961982540574700FF92E3 /* ExposureSubmissionTestResultViewModel.swift */,
 				523D5E74256FDFE900EF67EA /* ExposureSubmissionThankYouViewController.swift */,
 				523D5E79256FE04000EF67EA /* ExposureSubmissionThankYouViewModel.swift */,
@@ -10915,6 +10918,7 @@
 				50D7BD7026DE405100494FB7 /* Locator.swift in Sources */,
 				B1FE13EF24891D0C00D012E5 /* RiskProvidingConfiguration.swift in Sources */,
 				010E07B2273D809800C2BE5F /* TicketValidating.swift in Sources */,
+				347A36B527EB707500DA82D2 /* ExposureSubmissionTestResultFamilyMemberViewModel.swift in Sources */,
 				014086BD2589033A00E9E5B2 /* DiaryEditEntriesCellModel.swift in Sources */,
 				B1F82DF224718C7300E2E56A /* DMBackendConfigurationViewController.swift in Sources */,
 				01A6C3042626DE2500B6E95A /* HomeTestResultCellModel.swift in Sources */,
