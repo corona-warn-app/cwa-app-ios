@@ -480,6 +480,11 @@ enum AccessibilityIdentifiers {
 			}
 		}
 
+		enum TestOwnerSelection {
+			static let userButton = "AppStrings.ExposureSubmission.TestOwnerSelection.userButton"
+			static let familyMemberButton = "AppStrings.ExposureSubmission.TestOwnerSelection.familyMemberButton"
+		}
+		
 		enum TestCertificate {
 			enum Info {
 				static let imageDescription = "AppStrings.ExposureSubmission.TestCertificate.Info.imageDescription"
