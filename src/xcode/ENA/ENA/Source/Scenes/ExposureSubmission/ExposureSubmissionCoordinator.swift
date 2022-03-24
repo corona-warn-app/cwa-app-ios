@@ -61,8 +61,16 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 			onSuccess: { supportedCountries in
 				switch testRegistrationInformationResult {
 				case let .success(testRegistrationInformation):
-					let qrInfoScreen = self.makeQRInfoScreen(supportedCountries: supportedCountries, testRegistrationInformation: testRegistrationInformation)
-					self.start(with: qrInfoScreen)
+					let testOwnerSelectionScreen = ExposureSubmissionTestOwnerSelectionViewController(viewModel: ExposureSubmissionTestOwnerSelectionViewModel(onTestOwnerSelection: { [weak self] testOwner in
+						switch testOwner {
+						case .user:
+							self?.showQRInfoScreen(supportedCountries: supportedCountries, testRegistrationInformation: testRegistrationInformation)
+						case .familyMember:
+							self?.showFamilyMemberTestConsentScreen()
+						}
+					}), onDismiss: { [weak self] in self?.dismiss() })
+					
+					self.start(with: testOwnerSelectionScreen)
 				case let .failure(qrCodeError):
 					switch qrCodeError {
 					case .invalidTestCode:
@@ -512,11 +520,15 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 
 		return topBottomContainerViewController
 	}
-
+	
 	private func showQRInfoScreen(supportedCountries: [Country], testRegistrationInformation: CoronaTestRegistrationInformation) {
 		push(makeQRInfoScreen(supportedCountries: supportedCountries, testRegistrationInformation: testRegistrationInformation))
 	}
 
+	private func showFamilyMemberTestConsentScreen() {
+		// to do EXPOSUREAPP-12303
+	}
+	
 	private func showQRScreen(testRegistrationInformation: CoronaTestRegistrationInformation?, isLoading: @escaping (Bool) -> Void) {
 		if let testRegistrationInformation = testRegistrationInformation {
 			showOverrideTestNoticeIfNecessary(
