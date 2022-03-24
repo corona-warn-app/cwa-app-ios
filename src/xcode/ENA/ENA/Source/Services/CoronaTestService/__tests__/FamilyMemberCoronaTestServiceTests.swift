@@ -794,7 +794,7 @@ class FamilyMemberCoronaTestServiceTests: CWATestCase {
 				}
 			),
 			LoadResource(
-				result: .success(TestResultReceiveModel(testResult: TestResult.serverResponse(for: .negative, on: .antigen), sc: 123456789, labId: "SomeLabId")), willLoadResource: nil)
+				result: .success(TestResultReceiveModel(testResult: TestResult.serverResponse(for: .negative, on: .antigen), sc: Int(Date(timeIntervalSinceNow: -60).timeIntervalSince1970), labId: "SomeLabId")), willLoadResource: nil)
 		])
 
 		let healthCertificateService = HealthCertificateService(
@@ -864,8 +864,16 @@ class FamilyMemberCoronaTestServiceTests: CWATestCase {
 			Date().timeIntervalSince1970,
 			accuracy: 10
 		)
-		XCTAssertEqual(try XCTUnwrap(antigenTest.sampleCollectionDate).timeIntervalSince1970, 123456789)
-		XCTAssertEqual(try XCTUnwrap(antigenTest.testDate).timeIntervalSince1970, 123456789)
+		XCTAssertEqual(
+			try XCTUnwrap(antigenTest.sampleCollectionDate).timeIntervalSince1970,
+			Date(timeIntervalSinceNow: -60).timeIntervalSince1970,
+			accuracy: 10
+		)
+		XCTAssertEqual(
+			try XCTUnwrap(antigenTest.testDate).timeIntervalSince1970,
+			Date(timeIntervalSinceNow: -60).timeIntervalSince1970,
+			accuracy: 10
+		)
 		XCTAssertEqual(antigenTest.testResult, .negative)
 		XCTAssertEqual(
 			try XCTUnwrap(antigenTest.finalTestResultReceivedDate).timeIntervalSince1970,
