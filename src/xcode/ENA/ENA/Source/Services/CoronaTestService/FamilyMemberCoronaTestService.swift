@@ -662,11 +662,16 @@ class FamilyMemberCoronaTestService: FamilyMemberCoronaTestServiceProviding {
 			return
 		}
 
+		guard nextOutdatedStateUpdateDate > Date() else {
+			updateOutdatedStates()
+			return
+		}
+
 		// Schedule new timer.
 		NotificationCenter.default.addObserver(self, selector: #selector(invalidateTimer), name: UIApplication.didEnterBackgroundNotification, object: nil)
 		NotificationCenter.default.addObserver(self, selector: #selector(refreshUpdateTimerAfterResumingFromBackground), name: UIApplication.didBecomeActiveNotification, object: nil)
 
-		outdatedStateTimer = Timer(fireAt: nextOutdatedStateUpdateDate, interval: 0, target: self, selector: #selector(updateFromTimer), userInfo: nil, repeats: false)
+		outdatedStateTimer = Timer(fireAt: nextOutdatedStateUpdateDate, interval: 0, target: self, selector: #selector(updateOutdatedStates), userInfo: nil, repeats: false)
 
 		guard let outdatedStateTimer = outdatedStateTimer else { return }
 		RunLoop.current.add(outdatedStateTimer, forMode: .common)
@@ -679,15 +684,17 @@ class FamilyMemberCoronaTestService: FamilyMemberCoronaTestServiceProviding {
 
 	@objc
 	private func refreshUpdateTimerAfterResumingFromBackground() {
-		updateFromTimer()
+		updateOutdatedStates()
 		scheduleOutdatedStateTimer()
 	}
 
 	@objc
-	private func updateFromTimer() {
-		coronaTests.value.forEach {
-			updateOutdatedState(for: $0)
+	private func updateOutdatedStates() {
+		for coronaTest in coronaTests.value {
+			updateOutdatedState(for: coronaTest)
 		}
+
+		scheduleOutdatedStateTimer()
 	}
 
 	private func updateOutdatedState(for coronaTest: FamilyMemberCoronaTest) {
