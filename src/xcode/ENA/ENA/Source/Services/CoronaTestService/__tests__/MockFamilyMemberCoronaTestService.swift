@@ -62,11 +62,13 @@ class MockFamilyMemberCoronaTestService: FamilyMemberCoronaTestServiceProviding 
 	
 	func reregister(coronaTest: FamilyMemberCoronaTest) {}
 
-	func updateTestResults(force: Bool, presentNotification: Bool, completion: @escaping VoidResultHandler) {}
+	func updateTestResults(
+		presentNotification: Bool,
+		completion: @escaping VoidResultHandler
+	) {}
 
 	func updateTestResult(
 		for coronaTest: FamilyMemberCoronaTest,
-		force: Bool,
 		presentNotification: Bool,
 		completion: @escaping TestResultHandler
 	) {

@@ -180,7 +180,6 @@ class HomeTableViewModel {
 		}
 
 		familyMemberCoronaTestService.updateTestResults(
-			force: false,
 			presentNotification: false
 		) { _ in
 			// Errors are only handled on the family member tests screen.
