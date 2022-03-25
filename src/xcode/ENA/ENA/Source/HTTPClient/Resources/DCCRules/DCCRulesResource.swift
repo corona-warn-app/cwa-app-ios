@@ -22,6 +22,10 @@ struct DCCRulesResource: Resource {
 			self.type = .caching(
 				Set<CacheUsePolicy>([.loadOnlyOnceADay])
 			)
+		} else if ruleType == .invalidation {
+			self.type = .caching(
+				Set<CacheUsePolicy>([.loadOnlyOnceADay])
+			)
 		} else {
 			self.type = .caching()
 		}
@@ -47,6 +51,7 @@ struct DCCRulesResource: Resource {
 	typealias CustomError = DCCDownloadRulesError
 
 	let trustEvaluation: TrustEvaluating
+	let ruleType: HealthCertificateValidationRuleType
 
 	var locator: Locator
 	var type: ServiceType
@@ -75,8 +80,6 @@ struct DCCRulesResource: Resource {
 	}
 
 	// MARK: - Private
-
-	private let ruleType: HealthCertificateValidationRuleType
 
 	private func handleResourceError(_ error: ResourceError?) -> DCCDownloadRulesError? {
 		guard let error = error else {

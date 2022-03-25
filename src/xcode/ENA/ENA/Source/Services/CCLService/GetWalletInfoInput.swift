@@ -53,12 +53,14 @@ enum GetWalletInfoInput {
 		language: String = Locale.current.languageCode ?? "en",
 		certificates: [DCCWalletCertificate],
 		boosterNotificationRules: [Rule],
+		invalidationRules: [Rule],
 		identifier: String?
 	) -> [String: AnyDecodable] {
 		return CCLDefaultInput.addingTo(
 			parameters: [
 				"certificates": AnyDecodable(certificates),
 				"boosterNotificationRules": AnyDecodable(boosterNotificationRules),
+				"invalidationRules": AnyDecodable(invalidationRules),
 				"scenarioIdentifier": AnyDecodable(identifier)
 			],
 			date: date,
