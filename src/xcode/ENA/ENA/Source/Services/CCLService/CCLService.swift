@@ -256,7 +256,7 @@ class CCLService: CCLServable {
 	private let cclServiceMode: [CCLServiceMode]
 
 	private var boosterNotificationRules = [Rule]()
-	private var invalidationRules =[Rule]()
+	private var invalidationRules = [Rule]()
 
 	#if DEBUG
 	private var mockDCCAdmissionCheckScenarios: DCCAdmissionCheckScenarios {
