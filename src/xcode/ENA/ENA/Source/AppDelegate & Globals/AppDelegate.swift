@@ -68,9 +68,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		if let error = contactDiaryStoreResult.error {
 			startupErrors.append(error)
 		}
-		
-		startupErrors = [URLSession.Response.Failure.noNetworkConnection, ContactDiaryStoreError.sqliteError(SecureSQLStoreError.database(.unknown(-2324)))]
-		
+				
 		super.init()
 
 		recycleBin.testRestorationHandler = CoronaTestRestorationHandler(service: coronaTestService)
