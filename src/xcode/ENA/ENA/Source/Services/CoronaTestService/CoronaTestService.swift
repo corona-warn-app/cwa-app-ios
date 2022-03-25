@@ -907,6 +907,7 @@ class CoronaTestService: CoronaTestServiceProviding {
 					if case .positive = testResult, let coronaTest = self.coronaTest(ofType: coronaTestType), !coronaTest.keysSubmitted {
 						self.createKeySubmissionMetadataDefaultValues(for: coronaTest)
 					}
+					// for negative result we save the result directly to the diary as there is no additional UI that the user has to go through unlike the positive test result where the user sees a "Test result is available" screen first
 					if case .negative = testResult {
 						self.createCoronaTestEntryInContactDiary(coronaTestType: coronaTestType)
 					}

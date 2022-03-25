@@ -103,12 +103,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 		})
 	}
 
-	func showTestResultScreen(triggeredFromTeletan: Bool = false, saveToContactDiary: Bool = false) {
-		if saveToContactDiary {
-			model.coronaTestService.createCoronaTestEntryInContactDiary(
-				coronaTestType: model.coronaTestType
-			   )
-		}
+	func showTestResultScreen(triggeredFromTeletan: Bool = false) {
 		let vc = createTestResultViewController(triggeredFromTeletan: triggeredFromTeletan)
 		push(vc)
 
@@ -271,7 +266,10 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 				guard let self = self, let coronaTest = self.model.coronaTest else { return }
 
 				guard coronaTest.isSubmissionConsentGiven else {
-					self.showTestResultScreen(saveToContactDiary: true)
+					self.model.coronaTestService.createCoronaTestEntryInContactDiary(
+						coronaTestType: self.model.coronaTestType
+					)
+					self.showTestResultScreen()
 					return
 				}
 
@@ -288,7 +286,10 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 					if error == .notAuthorized {
 						Log.info("OS submission authorization was declined.")
 						self.model.setSubmissionConsentGiven(false)
-						self.showTestResultScreen(saveToContactDiary: true)
+						self.model.coronaTestService.createCoronaTestEntryInContactDiary(
+							coronaTestType: self.model.coronaTestType
+					 )
+						self.showTestResultScreen()
 					} else {
 						self.showErrorAlert(for: error)
 					}
@@ -640,7 +641,10 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 			if self?.model.coronaTest?.positiveTestResultWasShown == true {
 				self?.showThankYouScreen()
 			} else {
-				self?.showTestResultScreen(saveToContactDiary: true)
+				self?.model.coronaTestService.createCoronaTestEntryInContactDiary(
+					coronaTestType: self?.model.coronaTestType
+				   )
+				self?.showTestResultScreen()
 			}
 		}
 		
