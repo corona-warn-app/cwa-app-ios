@@ -6,40 +6,6 @@ import FMDB
 
 extension ContactDiaryStore {
 
-	// MARK: - Init
-
-	convenience init?(url: URL) {
-
-		guard let databaseQueue = FMDatabaseQueue(path: url.path) else {
-			Log.error("[ContactDiaryStore] Failed to create FMDatabaseQueue.", log: .localData)
-			return nil
-		}
-
-		let latestDBVersion = 5
-		let schema = ContactDiaryStoreSchemaV5(
-			databaseQueue: databaseQueue
-		)
-
-		let migrations: [Migration] = [
-			ContactDiaryMigration1To2(databaseQueue: databaseQueue),
-			ContactDiaryMigration2To3(databaseQueue: databaseQueue),
-			ContactDiaryMigration3To4(databaseQueue: databaseQueue),
-			ContactDiaryMigration4To5(databaseQueue: databaseQueue)
-		]
-		let migrator = SerialDatabaseQueueMigrator(
-			queue: databaseQueue,
-			latestVersion: latestDBVersion,
-			migrations: migrations
-		)
-
-		self.init(
-			databaseQueue: databaseQueue,
-			schema: schema,
-			key: ContactDiaryStore.encryptionKey,
-			migrator: migrator
-		)
-	}
-
 	// MARK: - Internal
 
 	static var storeURL: URL {
@@ -67,17 +33,93 @@ extension ContactDiaryStore {
 		}
 		return storeDirectoryURL
 	}
+	
+	struct ContactDiaryStoreMakeResult {
+		let store: ContactDiaryStore
+		let error: SecureSQLStoreError?
+	}
 
-	static func make(url: URL? = nil) -> ContactDiaryStore {
-		let storeURL = url ?? ContactDiaryStore.storeURL
-
+	static func make(url: URL? = nil, numberOfTries: Int = 1) -> ContactDiaryStoreMakeResult {
 		Log.info("[ContactDiaryStore] Trying to create contact diary store...", log: .localData)
 
-		if let store = ContactDiaryStore(url: storeURL) {
-			Log.info("[ContactDiaryStore] Successfully created contact diary store", log: .localData)
-			return store
+		let storeURL = url ?? ContactDiaryStore.storeURL
+
+		guard let databaseQueue = FMDatabaseQueue(path: storeURL.path) else {
+			Log.error("[ContactDiaryStore] Failed to create FMDatabaseQueue.", log: .localData)
+			return ContactDiaryStoreMakeResult(
+				store: ContactDiaryStore.recoverStore(storeURL: storeURL, numberOfTries: numberOfTries),
+				error: .failedToCreateQueue
+			)
 		}
 
+		let latestDBVersion = 5
+		let schema = ContactDiaryStoreSchemaV5(
+			databaseQueue: databaseQueue
+		)
+
+		let migrations: [Migration] = [
+			ContactDiaryMigration1To2(databaseQueue: databaseQueue),
+			ContactDiaryMigration2To3(databaseQueue: databaseQueue),
+			ContactDiaryMigration3To4(databaseQueue: databaseQueue),
+			ContactDiaryMigration4To5(databaseQueue: databaseQueue)
+		]
+		let migrator = SerialDatabaseQueueMigrator(
+			queue: databaseQueue,
+			latestVersion: latestDBVersion,
+			migrations: migrations
+		)
+
+		let store = ContactDiaryStore(
+			databaseQueue: databaseQueue,
+			schema: schema,
+			key: ContactDiaryStore.encryptionKey,
+			migrator: migrator
+		)
+		
+		if case .failure(let error) = store.openAndSetup() {
+			Log.error("[ContactDiaryStore] Failed open and setup with error: \(error)", log: .localData)
+			return ContactDiaryStoreMakeResult(
+				store: ContactDiaryStore.recoverStore(storeURL: storeURL, numberOfTries: numberOfTries),
+				error: error
+			)
+		}
+
+		if case .failure(let error) = store.cleanup() {
+			Log.error("[ContactDiaryStore] Failed cleanup with error: \(error)", log: .localData)
+			return ContactDiaryStoreMakeResult(
+				store: store,
+				error: nil
+			)
+		}
+
+		var updateDiaryResult: SecureSQLStore.VoidResult?
+		store.databaseQueue.inDatabase { database in
+			updateDiaryResult = store.updateDiaryDays(with: database)
+		}
+		if case .failure(let error) = updateDiaryResult {
+			Log.error("[ContactDiaryStore] Failed updating entries with error: \(error)", log: .localData)
+			return ContactDiaryStoreMakeResult(
+				store: store,
+				error: nil
+			)
+		}
+		
+		store.registerToDidBecomeActiveNotification()
+		
+		return ContactDiaryStoreMakeResult(
+			store: store,
+			error: nil
+		)
+	}
+
+	// MARK: - Private
+
+	private static func recoverStore(storeURL: URL, numberOfTries: Int) -> ContactDiaryStore {
+		if numberOfTries == 0 {
+			Log.info("[ContactDiaryStore] Failed to rescue contact diary store.", log: .localData)
+			fatalError("[ContactDiaryStore] Could not create contact diary store after retrying.")
+		}
+		
 		Log.info("[ContactDiaryStore] Failed to create contact diary store. Try to rescue it...", log: .localData)
 
 		// The database could not be created – To the rescue!
@@ -89,17 +131,9 @@ extension ContactDiaryStore {
 			assertionFailure()
 		}
 
-		if let secondTryStore = ContactDiaryStore(url: storeURL) {
-			Log.info("[ContactDiaryStore] Successfully rescued contact diary store", log: .localData)
-			return secondTryStore
-		} else {
-			Log.info("[ContactDiaryStore] Failed to rescue contact diary store.", log: .localData)
-			fatalError("[ContactDiaryStore] Could not create contact diary store after second try.")
-		}
+		return ContactDiaryStore.make(url: storeURL, numberOfTries: numberOfTries - 1).store
 	}
-
-	// MARK: - Private
-
+	
 	private static var encryptionKey: String {
 		guard let keychain = try? KeychainHelper() else {
 			fatalError("[ContactDiaryStore] Failed to create KeychainHelper for contact diary store.")

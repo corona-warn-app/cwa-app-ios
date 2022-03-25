@@ -61,7 +61,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		self.recycleBin = RecycleBin(store: store)
 
 		self.downloadedPackagesStore.keyValueStore = self.store
-
+		
+		let contactDiaryStoreResult = ContactDiaryStore.make()
+		self.contactDiaryStore = contactDiaryStoreResult.store
+		
+		if let error = contactDiaryStoreResult.error {
+			startupErrors.append(error)
+		}
+		
+		startupErrors = [URLSession.Response.Failure.noNetworkConnection, ContactDiaryStoreError.sqliteError(SecureSQLStoreError.database(.unknown(-2324)))]
+		
 		super.init()
 
 		recycleBin.testRestorationHandler = CoronaTestRestorationHandler(service: coronaTestService)
@@ -103,6 +112,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		// We are (intentionally) keeping strong references for delegates. Let's clean them up.
 		self.taskExecutionDelegate = nil
 	}
+	
+	var startupErrors: [Error] = []
 
 	// MARK: - Protocol UIApplicationDelegate
 
@@ -271,7 +282,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 	let cachingClient = CachingHTTPClient()
 	let downloadedPackagesStore: DownloadedPackagesStore = DownloadedPackagesSQLLiteStore(fileName: "packages")
 	let taskScheduler: ENATaskScheduler = ENATaskScheduler.shared
-	let contactDiaryStore: DiaryStoringProviding = ContactDiaryStore.make()
+	let contactDiaryStore: DiaryStoringProviding
 	let eventStore: EventStoringProviding = {
 		#if DEBUG
 		if isUITesting {
@@ -921,7 +932,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 			fatalError("It should not happen.")
 		}
 
-		coordinator.showHome(enStateHandler: enStateHandler, route: route)
+		coordinator.showHome(
+			enStateHandler: enStateHandler,
+			route: route,
+			startupErrors: startupErrors
+		)
+		startupErrors.removeAll()
 	}
 
 	private func showOnboarding() {

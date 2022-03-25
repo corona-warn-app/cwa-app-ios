@@ -1229,6 +1229,10 @@ enum AppStrings {
 	}
 
 	enum ContactDiary {
+		
+		enum Error {
+			static let description = NSLocalizedString("ContactDiary_Overview_Error_Description", comment: "")
+		}
 
 		enum Overview {
 			static let menuButtonTitle = NSLocalizedString("ContactDiary_Overview_Button_Title_Menu", comment: "")
