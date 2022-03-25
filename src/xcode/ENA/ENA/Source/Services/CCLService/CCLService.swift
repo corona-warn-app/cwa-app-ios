@@ -230,6 +230,7 @@ class CCLService: CCLServable {
 		let getWalletInfoInput = GetWalletInfoInput.make(
 			certificates: certificates,
 			boosterNotificationRules: boosterNotificationRules,
+			invalidationRules: invalidationRules,
 			identifier: identifer
 		)
 		
