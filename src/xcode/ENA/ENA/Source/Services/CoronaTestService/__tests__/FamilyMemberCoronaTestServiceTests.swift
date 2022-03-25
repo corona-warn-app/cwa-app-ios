@@ -11,6 +11,132 @@ import XCTest
 // swiftlint:disable:next type_body_length
 class FamilyMemberCoronaTestServiceTests: CWATestCase {
 
+	// MARK: - Unseen News Count
+
+	func testUnseenNewsCount() {
+		let appConfiguration = CachedAppConfigurationMock()
+		let client = ClientMock()
+		let store = MockTestStore()
+
+		let antigenTest1: FamilyMemberCoronaTest = .antigen(.mock(qrCodeHash: "antigenQRCodeHash1", isNew: true, testResultWasShown: true))
+		let antigenTest2: FamilyMemberCoronaTest = .antigen(.mock(qrCodeHash: "antigenQRCodeHash2", isNew: true, testResultWasShown: false))
+		let antigenTest3: FamilyMemberCoronaTest = .antigen(.mock(qrCodeHash: "antigenQRCodeHash3", isNew: false, testResultWasShown: true))
+		let antigenTest4: FamilyMemberCoronaTest = .antigen(.mock(qrCodeHash: "antigenQRCodeHash4", isNew: false, finalTestResultReceivedDate: nil, testResultWasShown: false))
+		let antigenTest5: FamilyMemberCoronaTest = .antigen(.mock(qrCodeHash: "antigenQRCodeHash5", isNew: false, finalTestResultReceivedDate: Date(), testResultWasShown: false))
+		let pcrTest1: FamilyMemberCoronaTest = .pcr(.mock(qrCodeHash: "pcrQRCodeHash1", isNew: true, testResultWasShown: true))
+		let pcrTest2: FamilyMemberCoronaTest = .pcr(.mock(qrCodeHash: "pcrQRCodeHash2", isNew: true, testResultWasShown: false))
+		let pcrTest3: FamilyMemberCoronaTest = .pcr(.mock(qrCodeHash: "pcrQRCodeHash3", isNew: false, testResultWasShown: true))
+		let pcrTest4: FamilyMemberCoronaTest = .pcr(.mock(qrCodeHash: "pcrQRCodeHash4", isNew: false, finalTestResultReceivedDate: nil, testResultWasShown: false))
+		let pcrTest5: FamilyMemberCoronaTest = .pcr(.mock(qrCodeHash: "pcrQRCodeHash5", isNew: false, finalTestResultReceivedDate: Date(), testResultWasShown: false))
+
+		store.familyMemberTests = [antigenTest1, antigenTest2, antigenTest3, antigenTest4, antigenTest5, pcrTest1, pcrTest2, pcrTest3, pcrTest4, pcrTest5]
+
+		let healthCertificateService = HealthCertificateService(
+			store: store,
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
+			dscListProvider: MockDSCListProvider(),
+			appConfiguration: appConfiguration,
+			cclService: FakeCCLService(),
+			recycleBin: .fake()
+		)
+
+		let service = FamilyMemberCoronaTestService(
+			client: client,
+			store: store,
+			appConfiguration: appConfiguration,
+			healthCertificateService: healthCertificateService,
+			healthCertificateRequestService: HealthCertificateRequestService(
+				store: store,
+				client: client,
+				appConfiguration: appConfiguration,
+				healthCertificateService: healthCertificateService
+			),
+			recycleBin: .fake()
+		)
+
+		XCTAssertEqual(service.unseenNewsCount, 6)
+
+		service.evaluateShowing(of: antigenTest1)
+		XCTAssertEqual(service.unseenNewsCount, 5)
+
+		service.evaluateShowing(of: antigenTest2)
+		XCTAssertEqual(service.unseenNewsCount, 4)
+
+		service.evaluateShowing(of: antigenTest3)
+		XCTAssertEqual(service.unseenNewsCount, 4)
+
+		service.evaluateShowing(of: antigenTest4)
+		XCTAssertEqual(service.unseenNewsCount, 4)
+
+		service.evaluateShowing(of: antigenTest5)
+		XCTAssertEqual(service.unseenNewsCount, 3)
+
+		service.evaluateShowing(of: pcrTest1)
+		XCTAssertEqual(service.unseenNewsCount, 2)
+
+		service.evaluateShowing(of: pcrTest2)
+		XCTAssertEqual(service.unseenNewsCount, 1)
+
+		service.evaluateShowing(of: pcrTest3)
+		XCTAssertEqual(service.unseenNewsCount, 1)
+
+		service.evaluateShowing(of: pcrTest4)
+		XCTAssertEqual(service.unseenNewsCount, 1)
+
+		service.evaluateShowing(of: pcrTest5)
+		XCTAssertEqual(service.unseenNewsCount, 0)
+	}
+
+	func testEvaluatingShowingAllTests() {
+		let appConfiguration = CachedAppConfigurationMock()
+		let client = ClientMock()
+		let store = MockTestStore()
+
+		let antigenTest1: FamilyMemberCoronaTest = .antigen(.mock(qrCodeHash: "antigenQRCodeHash1", isNew: true, testResultWasShown: true))
+		let antigenTest2: FamilyMemberCoronaTest = .antigen(.mock(qrCodeHash: "antigenQRCodeHash2", isNew: true, testResultWasShown: false))
+		let antigenTest3: FamilyMemberCoronaTest = .antigen(.mock(qrCodeHash: "antigenQRCodeHash3", isNew: false, testResultWasShown: true))
+		let antigenTest4: FamilyMemberCoronaTest = .antigen(.mock(qrCodeHash: "antigenQRCodeHash4", isNew: false, finalTestResultReceivedDate: nil, testResultWasShown: false))
+		let antigenTest5: FamilyMemberCoronaTest = .antigen(.mock(qrCodeHash: "antigenQRCodeHash5", isNew: false, finalTestResultReceivedDate: Date(), testResultWasShown: false))
+		let pcrTest1: FamilyMemberCoronaTest = .pcr(.mock(qrCodeHash: "pcrQRCodeHash1", isNew: true, testResultWasShown: true))
+		let pcrTest2: FamilyMemberCoronaTest = .pcr(.mock(qrCodeHash: "pcrQRCodeHash2", isNew: true, testResultWasShown: false))
+		let pcrTest3: FamilyMemberCoronaTest = .pcr(.mock(qrCodeHash: "pcrQRCodeHash3", isNew: false, testResultWasShown: true))
+		let pcrTest4: FamilyMemberCoronaTest = .pcr(.mock(qrCodeHash: "pcrQRCodeHash4", isNew: false, finalTestResultReceivedDate: nil, testResultWasShown: false))
+		let pcrTest5: FamilyMemberCoronaTest = .pcr(.mock(qrCodeHash: "pcrQRCodeHash5", isNew: false, finalTestResultReceivedDate: Date(), testResultWasShown: false))
+
+		store.familyMemberTests = [antigenTest1, antigenTest2, antigenTest3, antigenTest4, antigenTest5, pcrTest1, pcrTest2, pcrTest3, pcrTest4, pcrTest5]
+
+		let healthCertificateService = HealthCertificateService(
+			store: store,
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
+			dscListProvider: MockDSCListProvider(),
+			appConfiguration: appConfiguration,
+			cclService: FakeCCLService(),
+			recycleBin: .fake()
+		)
+
+		let service = FamilyMemberCoronaTestService(
+			client: client,
+			store: store,
+			appConfiguration: appConfiguration,
+			healthCertificateService: healthCertificateService,
+			healthCertificateRequestService: HealthCertificateRequestService(
+				store: store,
+				client: client,
+				appConfiguration: appConfiguration,
+				healthCertificateService: healthCertificateService
+			),
+			recycleBin: .fake()
+		)
+
+		XCTAssertEqual(service.unseenNewsCount, 6)
+
+		service.evaluateShowingAllTests()
+
+		XCTAssertEqual(service.unseenNewsCount, 0)
+	}
+
+	// MARK: - Get Registration Token
+
 	func testGIVEN_Service_WHEN_getRegistrationToken_THEN_MallFormattedDOB() {
 		// GIVEN
 		let client = ClientMock()
@@ -52,238 +178,6 @@ class FamilyMemberCoronaTestServiceTests: CWATestCase {
 		waitForExpectations(timeout: .short)
 	}
 
-//	func testOutdatedPublisherSetForAlreadyOutdatedNegativeAntigenTestWithoutSampleCollectionDate() {
-//		var defaultAppConfig = CachedAppConfigurationMock.defaultAppConfiguration
-//		defaultAppConfig.coronaTestParameters.coronaRapidAntigenTestParameters.hoursToDeemTestOutdated = 48
-//		let appConfiguration = CachedAppConfigurationMock(with: defaultAppConfig)
-//
-//		let client = ClientMock()
-//		let store = MockTestStore()
-//
-//		let healthCertificateService = HealthCertificateService(
-//			store: store,
-//			dccSignatureVerifier: DCCSignatureVerifyingStub(),
-//			dscListProvider: MockDSCListProvider(),
-//			appConfiguration: appConfiguration,
-//			cclService: FakeCCLService(),
-//			recycleBin: .fake()
-//		)
-//
-//		let service = FamilyMemberCoronaTestService(
-//			client: client,
-//			store: store,
-//			appConfiguration: appConfiguration,
-//			healthCertificateService: healthCertificateService,
-//			healthCertificateRequestService: HealthCertificateRequestService(
-//				store: store,
-//				client: client,
-//				appConfiguration: appConfiguration,
-//				healthCertificateService: healthCertificateService
-//			),
-//			recycleBin: .fake()
-//		)
-//
-//		let publisherExpectation = expectation(description: "")
-//		publisherExpectation.expectedFulfillmentCount = 3
-//
-//		var receivedValues = [Bool]()
-//		let subscription = service.coronaTests
-//			.sink {
-//				publisherExpectation.fulfill()
-//			}
-//
-//		service.registerAntigenTestAndGetResult(
-//			for: "displayName",
-//			with: "guid",
-//			qrCodeHash: "qrCodeHash",
-//			pointOfCareConsentDate: Date(timeIntervalSinceNow: -(60 * 60 * 48)),
-//			certificateSupportedByPointOfCare: true,
-//			certificateConsent: .notGiven,
-//			completion:
-//		)
-//
-//		waitForExpectations(timeout: .short)
-//
-//		XCTAssertEqual(receivedValues, expectedValues)
-//
-//		subscription.cancel()
-//	}
-
-//	func testOutdatedPublisherSetForAlreadyOutdatedNegativeAntigenTestWithSampleCollectionDate() {
-//		var defaultAppConfig = CachedAppConfigurationMock.defaultAppConfiguration
-//		defaultAppConfig.coronaTestParameters.coronaRapidAntigenTestParameters.hoursToDeemTestOutdated = 48
-//		let appConfiguration = CachedAppConfigurationMock(with: defaultAppConfig)
-//
-//		let client = ClientMock()
-//		let store = MockTestStore()
-//
-//		let healthCertificateService = HealthCertificateService(
-//			store: store,
-//			dccSignatureVerifier: DCCSignatureVerifyingStub(),
-//			dscListProvider: MockDSCListProvider(),
-//			appConfiguration: appConfiguration,
-//			cclService: FakeCCLService(),
-//			recycleBin: .fake()
-//		)
-//
-//		let service = FamilyMemberCoronaTestService(
-//			client: client,
-//			store: store,
-//			appConfiguration: appConfiguration,
-//			healthCertificateService: healthCertificateService,
-//			healthCertificateRequestService: HealthCertificateRequestService(
-//				store: store,
-//				client: client,
-//				appConfiguration: appConfiguration,
-//				healthCertificateService: healthCertificateService
-//			),
-//			recycleBin: .fake()
-//		)
-//
-//		let publisherExpectation = expectation(description: "")
-//		publisherExpectation.expectedFulfillmentCount = 3
-//
-//		let expectedValues = [false, false, true]
-//
-//		var receivedValues = [Bool]()
-//		let subscription = service.antigenTestIsOutdated
-//			.sink {
-//				receivedValues.append($0)
-//				publisherExpectation.fulfill()
-//			}
-//
-//		// Outdated only according to sample collection date, not according to point of care consent date
-//		// As we are using the sample collection date if set, the test is outdated
-//		service.antigenTest.value = .mock(
-//			pointOfCareConsentDate: Date(timeIntervalSinceNow: -(60 * 60 * 46)),
-//			sampleCollectionDate: Date(timeIntervalSinceNow: -(60 * 60 * 48)),
-//			testResult: .negative
-//		)
-//
-//		waitForExpectations(timeout: .short)
-//
-//		XCTAssertEqual(receivedValues, expectedValues)
-//
-//		subscription.cancel()
-//	}
-//
-//	func testOutdatedPublisherSetForNegativeAntigenTestBecomingOutdatedAfter5Seconds() {
-//		var defaultAppConfig = CachedAppConfigurationMock.defaultAppConfiguration
-//		defaultAppConfig.coronaTestParameters.coronaRapidAntigenTestParameters.hoursToDeemTestOutdated = 48
-//		let appConfiguration = CachedAppConfigurationMock(with: defaultAppConfig)
-//
-//		let client = ClientMock()
-//		let store = MockTestStore()
-//
-//		let healthCertificateService = HealthCertificateService(
-//			store: store,
-//			dccSignatureVerifier: DCCSignatureVerifyingStub(),
-//			dscListProvider: MockDSCListProvider(),
-//			appConfiguration: appConfiguration,
-//			cclService: FakeCCLService(),
-//			recycleBin: .fake()
-//		)
-//
-//		let service = FamilyMemberCoronaTestService(
-//			client: client,
-//			store: store,
-//			appConfiguration: appConfiguration,
-//			healthCertificateService: healthCertificateService,
-//			healthCertificateRequestService: HealthCertificateRequestService(
-//				store: store,
-//				client: client,
-//				appConfiguration: appConfiguration,
-//				healthCertificateService: healthCertificateService
-//			),
-//			recycleBin: .fake()
-//		)
-//
-//		let publisherExpectation = expectation(description: "")
-//		publisherExpectation.expectedFulfillmentCount = 3
-//
-//		let expectedValues = [false, false, true]
-//
-//		var receivedValues = [Bool]()
-//		let subscription = service.antigenTestIsOutdated
-//			.sink {
-//				receivedValues.append($0)
-//				publisherExpectation.fulfill()
-//			}
-//
-//		service.antigenTest.value = .mock(
-//			pointOfCareConsentDate: Date(timeIntervalSinceNow: -(60 * 60 * 48) + 5),
-//			testResult: .negative
-//		)
-//
-//		// Setting 10 seconds explicitly as it takes 5 seconds for the outdated state to happen
-//		waitForExpectations(timeout: 10)
-//
-//		XCTAssertEqual(receivedValues, expectedValues)
-//
-//		subscription.cancel()
-//	}
-//
-//	func testOutdatedPublisherNotSetForNonNegativeAntigenTests() {
-//		let testResults: [TestResult] = [.pending, .positive, .invalid, .expired]
-//		for testResult in testResults {
-//			var defaultAppConfig = CachedAppConfigurationMock.defaultAppConfiguration
-//			defaultAppConfig.coronaTestParameters.coronaRapidAntigenTestParameters.hoursToDeemTestOutdated = 48
-//			let appConfiguration = CachedAppConfigurationMock(with: defaultAppConfig)
-//
-//			let client = ClientMock()
-//			let store = MockTestStore()
-//
-//			let healthCertificateService = HealthCertificateService(
-//				store: store,
-//				dccSignatureVerifier: DCCSignatureVerifyingStub(),
-//				dscListProvider: MockDSCListProvider(),
-//				appConfiguration: appConfiguration,
-//				cclService: FakeCCLService(),
-//				recycleBin: .fake()
-//			)
-//
-//			let service = FamilyMemberCoronaTestService(
-//				client: client,
-//				store: store,
-//				eventStore: MockEventStore(),
-//				diaryStore: MockDiaryStore(),
-//				appConfiguration: appConfiguration,
-//				healthCertificateService: healthCertificateService,
-//				healthCertificateRequestService: HealthCertificateRequestService(
-//					store: store,
-//					client: client,
-//					appConfiguration: appConfiguration,
-//					healthCertificateService: healthCertificateService
-//				),
-//				recycleBin: .fake(),
-//				badgeWrapper: .fake()
-//			)
-//
-//			let publisherExpectation = expectation(description: "")
-//			publisherExpectation.expectedFulfillmentCount = 2
-//
-//			let expectedValues = [false, false]
-//
-//			var receivedValues = [Bool]()
-//			let subscription = service.antigenTestIsOutdated
-//				.sink {
-//					receivedValues.append($0)
-//					publisherExpectation.fulfill()
-//				}
-//
-//			service.antigenTest.value = .mock(
-//				pointOfCareConsentDate: Date(timeIntervalSinceNow: -(60 * 60 * 48)),
-//				testResult: testResult
-//			)
-//
-//			waitForExpectations(timeout: .short)
-//
-//			XCTAssertEqual(receivedValues, expectedValues)
-//
-//			subscription.cancel()
-//		}
-//	}
-//
 	// MARK: - Test Registration
 
 	func testRegisterPCRTestAndGetResult_successWithoutCertificateConsentGiven() {
@@ -443,7 +337,7 @@ class FamilyMemberCoronaTestServiceTests: CWATestCase {
 			}
 		}
 
-		waitForExpectations(timeout: .short)
+		waitForExpectations(timeout: .medium)
 		testsSubscription.cancel()
 
 		guard let pcrTest = service.coronaTests.value.first else {
@@ -900,7 +794,7 @@ class FamilyMemberCoronaTestServiceTests: CWATestCase {
 				}
 			),
 			LoadResource(
-				result: .success(TestResultReceiveModel(testResult: TestResult.serverResponse(for: .negative, on: .antigen), sc: 123456789, labId: "SomeLabId")), willLoadResource: nil)
+				result: .success(TestResultReceiveModel(testResult: TestResult.serverResponse(for: .negative, on: .antigen), sc: Int(Date(timeIntervalSinceNow: -60).timeIntervalSince1970), labId: "SomeLabId")), willLoadResource: nil)
 		])
 
 		let healthCertificateService = HealthCertificateService(
@@ -954,7 +848,7 @@ class FamilyMemberCoronaTestServiceTests: CWATestCase {
 			}
 		}
 
-		waitForExpectations(timeout: .short)
+		waitForExpectations(timeout: .medium)
 		testsSubscription.cancel()
 
 		guard let antigenTest = service.coronaTests.value.first else {
@@ -970,8 +864,16 @@ class FamilyMemberCoronaTestServiceTests: CWATestCase {
 			Date().timeIntervalSince1970,
 			accuracy: 10
 		)
-		XCTAssertEqual(try XCTUnwrap(antigenTest.sampleCollectionDate).timeIntervalSince1970, 123456789)
-		XCTAssertEqual(try XCTUnwrap(antigenTest.testDate).timeIntervalSince1970, 123456789)
+		XCTAssertEqual(
+			try XCTUnwrap(antigenTest.sampleCollectionDate).timeIntervalSince1970,
+			Date(timeIntervalSinceNow: -60).timeIntervalSince1970,
+			accuracy: 10
+		)
+		XCTAssertEqual(
+			try XCTUnwrap(antigenTest.testDate).timeIntervalSince1970,
+			Date(timeIntervalSinceNow: -60).timeIntervalSince1970,
+			accuracy: 10
+		)
 		XCTAssertEqual(antigenTest.testResult, .negative)
 		XCTAssertEqual(
 			try XCTUnwrap(antigenTest.finalTestResultReceivedDate).timeIntervalSince1970,
@@ -1473,7 +1375,7 @@ class FamilyMemberCoronaTestServiceTests: CWATestCase {
 			}
 		}
 
-		waitForExpectations(timeout: .short)
+		waitForExpectations(timeout: .medium)
 		testsSubscription.cancel()
 
 		guard let rapidPCRTest = service.coronaTests.value.first else {
@@ -1729,6 +1631,400 @@ class FamilyMemberCoronaTestServiceTests: CWATestCase {
 		XCTAssertFalse(rapidPCRTest.certificateRequested)
 		XCTAssertFalse(rapidPCRTest.isOutdated)
 		XCTAssertFalse(rapidPCRTest.isLoading)
+	}
+
+	// MARK: - Outdated State
+
+	func testRegisterAlreadyOutdatedNegativeAntigenTestWithoutSampleCollectionDate() {
+		var defaultAppConfig = CachedAppConfigurationMock.defaultAppConfiguration
+		defaultAppConfig.coronaTestParameters.coronaRapidAntigenTestParameters.hoursToDeemTestOutdated = 48
+		let appConfiguration = CachedAppConfigurationMock(with: defaultAppConfig)
+
+		let client = ClientMock()
+		let store = MockTestStore()
+
+		let restServiceProvider = RestServiceProviderStub(results: [
+			.success(TeleTanReceiveModel(registrationToken: "registrationToken")),
+			.success(TestResultReceiveModel(testResult: TestResult.serverResponse(for: .negative, on: .antigen), sc: nil, labId: "SomeLabId"))
+		])
+
+		let healthCertificateService = HealthCertificateService(
+			store: store,
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
+			dscListProvider: MockDSCListProvider(),
+			appConfiguration: appConfiguration,
+			cclService: FakeCCLService(),
+			recycleBin: .fake()
+		)
+
+		let service = FamilyMemberCoronaTestService(
+			client: client,
+			restServiceProvider: restServiceProvider,
+			store: store,
+			appConfiguration: appConfiguration,
+			healthCertificateService: healthCertificateService,
+			healthCertificateRequestService: HealthCertificateRequestService(
+				store: store,
+				client: client,
+				appConfiguration: appConfiguration,
+				healthCertificateService: healthCertificateService
+			),
+			recycleBin: .fake()
+		)
+
+		let publisherExpectation = expectation(description: "corona tests published")
+		publisherExpectation.expectedFulfillmentCount = 8
+
+		let subscription = service.coronaTests
+			.sink { _ in
+				publisherExpectation.fulfill()
+			}
+
+		let resultExpectation = self.expectation(description: "Expect to receive a result.")
+
+		service.registerAntigenTestAndGetResult(
+			for: "displayName",
+			with: "hash",
+			qrCodeHash: "qrCodeHash",
+			pointOfCareConsentDate: Date(timeIntervalSinceNow: -(60 * 60 * 48)),
+			certificateSupportedByPointOfCare: true,
+			certificateConsent: .given(dateOfBirth: "2000-01-01")
+		) { _ in
+			resultExpectation.fulfill()
+		}
+
+		waitForExpectations(timeout: .medium)
+		subscription.cancel()
+
+		guard let antigenTest = service.coronaTests.value.first else {
+			XCTFail("antigenTest should be registered")
+			return
+		}
+
+		XCTAssertTrue(antigenTest.isOutdated)
+	}
+
+	func testRegisterAlreadyOutdatedNegativeAntigenTestWithSampleCollectionDate() {
+		var defaultAppConfig = CachedAppConfigurationMock.defaultAppConfiguration
+		defaultAppConfig.coronaTestParameters.coronaRapidAntigenTestParameters.hoursToDeemTestOutdated = 48
+		let appConfiguration = CachedAppConfigurationMock(with: defaultAppConfig)
+
+		let client = ClientMock()
+		let store = MockTestStore()
+
+		let restServiceProvider = RestServiceProviderStub(results: [
+			.success(TeleTanReceiveModel(registrationToken: "registrationToken")),
+			.success(TestResultReceiveModel(
+				testResult: TestResult.serverResponse(
+					for: .negative, on: .antigen),
+				sc: Int(Date(timeIntervalSinceNow: -(60 * 60 * 48)).timeIntervalSince1970),
+				labId: "SomeLabId"
+			))
+		])
+
+		let healthCertificateService = HealthCertificateService(
+			store: store,
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
+			dscListProvider: MockDSCListProvider(),
+			appConfiguration: appConfiguration,
+			cclService: FakeCCLService(),
+			recycleBin: .fake()
+		)
+
+		let service = FamilyMemberCoronaTestService(
+			client: client,
+			restServiceProvider: restServiceProvider,
+			store: store,
+			appConfiguration: appConfiguration,
+			healthCertificateService: healthCertificateService,
+			healthCertificateRequestService: HealthCertificateRequestService(
+				store: store,
+				client: client,
+				appConfiguration: appConfiguration,
+				healthCertificateService: healthCertificateService
+			),
+			recycleBin: .fake()
+		)
+
+		let publisherExpectation = expectation(description: "corona tests published")
+		publisherExpectation.expectedFulfillmentCount = 8
+
+		let subscription = service.coronaTests
+			.sink { _ in
+				publisherExpectation.fulfill()
+			}
+
+		let resultExpectation = self.expectation(description: "Expect to receive a result.")
+
+		service.registerAntigenTestAndGetResult(
+			for: "displayName",
+			with: "hash",
+			qrCodeHash: "qrCodeHash",
+			// Outdated only according to sample collection date, not according to point of care consent date
+			// As we are using the sample collection date if set, the test is outdated
+			pointOfCareConsentDate: Date(timeIntervalSinceNow: -(60 * 60 * 46)),
+			certificateSupportedByPointOfCare: true,
+			certificateConsent: .given(dateOfBirth: "2000-01-01")
+		) { _ in
+			resultExpectation.fulfill()
+		}
+
+		waitForExpectations(timeout: .medium)
+		subscription.cancel()
+
+		guard let antigenTest = service.coronaTests.value.first else {
+			XCTFail("antigenTest should be registered")
+			return
+		}
+
+		XCTAssertTrue(antigenTest.isOutdated)
+	}
+
+	func testOutdatedStateIsSetForNegativeAntigenTestWithoutSampleCollectionDate() {
+		var defaultAppConfig = CachedAppConfigurationMock.defaultAppConfiguration
+		defaultAppConfig.coronaTestParameters.coronaRapidAntigenTestParameters.hoursToDeemTestOutdated = 48
+		let appConfiguration = CachedAppConfigurationMock(with: defaultAppConfig)
+
+		let client = ClientMock()
+		let store = MockTestStore()
+
+		let antigenTest: FamilyMemberCoronaTest = .antigen(.mock(
+			pointOfCareConsentDate: Date(timeIntervalSinceNow: -(60 * 60 * 48)),
+			sampleCollectionDate: nil,
+			registrationToken: "regToken",
+			qrCodeHash: "antigenQRCodeHash",
+			testResult: .negative
+		))
+		store.familyMemberTests = [antigenTest]
+
+		let healthCertificateService = HealthCertificateService(
+			store: store,
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
+			dscListProvider: MockDSCListProvider(),
+			appConfiguration: appConfiguration,
+			cclService: FakeCCLService(),
+			recycleBin: .fake()
+		)
+
+		let service = FamilyMemberCoronaTestService(
+			client: client,
+			store: store,
+			appConfiguration: appConfiguration,
+			healthCertificateService: healthCertificateService,
+			healthCertificateRequestService: HealthCertificateRequestService(
+				store: store,
+				client: client,
+				appConfiguration: appConfiguration,
+				healthCertificateService: healthCertificateService
+			),
+			recycleBin: .fake()
+		)
+
+		let publisherExpectation = expectation(description: "corona tests published")
+
+		let subscription = service.coronaTests
+			.sink { _ in
+				publisherExpectation.fulfill()
+			}
+
+		waitForExpectations(timeout: .short)
+		subscription.cancel()
+
+		guard let antigenTest = service.upToDateTest(for: antigenTest) else {
+			XCTFail("antigenTest should be registered")
+			return
+		}
+
+		XCTAssertTrue(antigenTest.isOutdated)
+	}
+
+	func testOutdatedStateIsSetForNegativeAntigenTestWithSampleCollectionDate() {
+		var defaultAppConfig = CachedAppConfigurationMock.defaultAppConfiguration
+		defaultAppConfig.coronaTestParameters.coronaRapidAntigenTestParameters.hoursToDeemTestOutdated = 48
+		let appConfiguration = CachedAppConfigurationMock(with: defaultAppConfig)
+
+		let client = ClientMock()
+		let store = MockTestStore()
+
+		// Outdated only according to sample collection date, not according to point of care consent date
+		// As we are using the sample collection date if set, the test is outdated
+		let antigenTest: FamilyMemberCoronaTest = .antigen(.mock(
+			pointOfCareConsentDate: Date(timeIntervalSinceNow: -(60 * 60 * 46)),
+			sampleCollectionDate: Date(timeIntervalSinceNow: -(60 * 60 * 48)),
+			registrationToken: "regToken",
+			qrCodeHash: "antigenQRCodeHash",
+			testResult: .negative
+		))
+		store.familyMemberTests = [antigenTest]
+
+		let healthCertificateService = HealthCertificateService(
+			store: store,
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
+			dscListProvider: MockDSCListProvider(),
+			appConfiguration: appConfiguration,
+			cclService: FakeCCLService(),
+			recycleBin: .fake()
+		)
+
+		let service = FamilyMemberCoronaTestService(
+			client: client,
+			store: store,
+			appConfiguration: appConfiguration,
+			healthCertificateService: healthCertificateService,
+			healthCertificateRequestService: HealthCertificateRequestService(
+				store: store,
+				client: client,
+				appConfiguration: appConfiguration,
+				healthCertificateService: healthCertificateService
+			),
+			recycleBin: .fake()
+		)
+
+		let publisherExpectation = expectation(description: "corona tests published")
+
+		let subscription = service.coronaTests
+			.sink { _ in
+				publisherExpectation.fulfill()
+			}
+
+		waitForExpectations(timeout: .short)
+		subscription.cancel()
+
+		guard let antigenTest = service.upToDateTest(for: antigenTest) else {
+			XCTFail("antigenTest should be registered")
+			return
+		}
+
+		XCTAssertTrue(antigenTest.isOutdated)
+	}
+
+	func testOutdatedStateIsSetForNegativeAntigenTestBecomingOutdatedAfter5And10Seconds() {
+		var defaultAppConfig = CachedAppConfigurationMock.defaultAppConfiguration
+		defaultAppConfig.coronaTestParameters.coronaRapidAntigenTestParameters.hoursToDeemTestOutdated = 48
+		let appConfiguration = CachedAppConfigurationMock(with: defaultAppConfig)
+
+		let client = ClientMock()
+		let store = MockTestStore()
+
+		let antigenTest1: FamilyMemberCoronaTest = .antigen(.mock(
+			pointOfCareConsentDate: Date(timeIntervalSinceNow: -(60 * 60 * 48) + 5),
+			sampleCollectionDate: nil,
+			registrationToken: "regToken",
+			qrCodeHash: "antigenQRCodeHash",
+			testResult: .negative
+		))
+		let antigenTest2: FamilyMemberCoronaTest = .antigen(.mock(
+			pointOfCareConsentDate: Date(timeIntervalSinceNow: -(60 * 60 * 48) + 10),
+			sampleCollectionDate: nil,
+			registrationToken: "regToken2",
+			qrCodeHash: "antigenQRCodeHash2",
+			testResult: .negative
+		))
+		store.familyMemberTests = [antigenTest1, antigenTest2]
+
+		let healthCertificateService = HealthCertificateService(
+			store: store,
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
+			dscListProvider: MockDSCListProvider(),
+			appConfiguration: appConfiguration,
+			cclService: FakeCCLService(),
+			recycleBin: .fake()
+		)
+
+		let service = FamilyMemberCoronaTestService(
+			client: client,
+			store: store,
+			appConfiguration: appConfiguration,
+			healthCertificateService: healthCertificateService,
+			healthCertificateRequestService: HealthCertificateRequestService(
+				store: store,
+				client: client,
+				appConfiguration: appConfiguration,
+				healthCertificateService: healthCertificateService
+			),
+			recycleBin: .fake()
+		)
+
+		let publisherExpectation = expectation(description: "corona tests published")
+		publisherExpectation.expectedFulfillmentCount = 3
+
+		let subscription = service.coronaTests
+			.sink { _ in
+				publisherExpectation.fulfill()
+			}
+
+		// Setting 20 seconds explicitly as it takes 5 and 10 seconds for the outdated state to happen
+		waitForExpectations(timeout: 20)
+		subscription.cancel()
+
+		guard let antigenTest1 = service.upToDateTest(for: antigenTest1), let antigenTest2 = service.upToDateTest(for: antigenTest2) else {
+			XCTFail("antigenTests should be registered")
+			return
+		}
+
+		XCTAssertTrue(antigenTest1.isOutdated)
+		XCTAssertTrue(antigenTest2.isOutdated)
+	}
+
+	func testOutdatedStateIsNotSetForNonNegativeAntigenTests() {
+		let testResults: [TestResult] = [.pending, .positive, .invalid, .expired]
+		for testResult in testResults {
+			var defaultAppConfig = CachedAppConfigurationMock.defaultAppConfiguration
+			defaultAppConfig.coronaTestParameters.coronaRapidAntigenTestParameters.hoursToDeemTestOutdated = 48
+			let appConfiguration = CachedAppConfigurationMock(with: defaultAppConfig)
+
+			let client = ClientMock()
+			let store = MockTestStore()
+
+			let antigenTest: FamilyMemberCoronaTest = .antigen(.mock(
+				pointOfCareConsentDate: Date(timeIntervalSinceNow: -(60 * 60 * 48)),
+				sampleCollectionDate: nil,
+				registrationToken: "regToken",
+				qrCodeHash: "antigenQRCodeHash",
+				testResult: testResult
+			))
+			store.familyMemberTests = [antigenTest]
+
+			let healthCertificateService = HealthCertificateService(
+				store: store,
+				dccSignatureVerifier: DCCSignatureVerifyingStub(),
+				dscListProvider: MockDSCListProvider(),
+				appConfiguration: appConfiguration,
+				cclService: FakeCCLService(),
+				recycleBin: .fake()
+			)
+
+			let service = FamilyMemberCoronaTestService(
+				client: client,
+				store: store,
+				appConfiguration: appConfiguration,
+				healthCertificateService: healthCertificateService,
+				healthCertificateRequestService: HealthCertificateRequestService(
+					store: store,
+					client: client,
+					appConfiguration: appConfiguration,
+					healthCertificateService: healthCertificateService
+				),
+				recycleBin: .fake()
+			)
+
+			let publisherExpectation = expectation(description: "corona tests published")
+
+			let subscription = service.coronaTests
+				.sink { _ in
+					publisherExpectation.fulfill()
+				}
+
+			waitForExpectations(timeout: .short)
+			subscription.cancel()
+
+			guard let antigenTest = service.upToDateTest(for: antigenTest) else {
+				XCTFail("antigenTest should be registered")
+				return
+			}
+
+			XCTAssertFalse(antigenTest.isOutdated)
+		}
 	}
 
 	// MARK: - Test Result Update
@@ -2014,11 +2310,6 @@ class FamilyMemberCoronaTestServiceTests: CWATestCase {
 		XCTAssertEqual(antigenTest.testResult, .pending)
 		XCTAssertNil(antigenTest.finalTestResultReceivedDate)
 	}
-
-
-
-
-
 
 	func test_When_UpdatePresentNotificationTrue_Then_NotificationShouldBePresented() {
 		let mockNotificationCenter = MockUserNotificationCenter()
@@ -2837,7 +3128,9 @@ class FamilyMemberCoronaTestServiceTests: CWATestCase {
 		XCTAssertEqual(store.recycleBinItems.count, 1)
 		XCTAssertEqual(store.recycleBinItemsSubject.value.count, 1)
 
-		service.coronaTests.value = [pcrTest2, antigenTest]
+		service.reregister(coronaTest: pcrTest2)
+
+		XCTAssertEqual(service.coronaTests.value, [antigenTest, pcrTest2])
 
 		service.moveTestToBin(antigenTest)
 
@@ -2889,7 +3182,9 @@ class FamilyMemberCoronaTestServiceTests: CWATestCase {
 
 		XCTAssertEqual(service.coronaTests.value, [antigenTest])
 
-		service.coronaTests.value = [pcrTest, antigenTest]
+		service.reregister(coronaTest: pcrTest)
+
+		XCTAssertEqual(service.coronaTests.value, [antigenTest, pcrTest])
 
 		service.removeTest(antigenTest)
 

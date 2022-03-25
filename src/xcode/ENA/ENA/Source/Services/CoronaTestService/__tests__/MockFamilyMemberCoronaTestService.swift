@@ -82,15 +82,13 @@ class MockFamilyMemberCoronaTestService: FamilyMemberCoronaTestServiceProviding 
 
 	func evaluateShowing(of coronaTest: FamilyMemberCoronaTest) {}
 
-	func updatePublishersFromStore() {}
+	func evaluateShowingAllTests() {}
 
-	func migrate() {}
+	func updatePublishersFromStore() {}
 	
 	func healthCertificateTuple(for uniqueCertificateIdentifier: String) -> (certificate: HealthCertificate, certifiedPerson: HealthCertifiedPerson)? {
 		return nil
 	}
-
-	func createCoronaTestEntryInContactDiary(coronaTestType: CoronaTestType?) {}
 	
 	#if DEBUG
 

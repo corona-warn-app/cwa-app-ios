@@ -61,6 +61,8 @@ protocol FamilyMemberCoronaTestServiceProviding {
 
 	func evaluateShowing(of coronaTest: FamilyMemberCoronaTest)
 
+	func evaluateShowingAllTests()
+
 	func updatePublishersFromStore()
 	
 	func healthCertificateTuple(for uniqueCertificateIdentifier: String) -> (certificate: HealthCertificate, certifiedPerson: HealthCertifiedPerson)?

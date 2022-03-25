@@ -66,8 +66,7 @@ extension FamilyMemberPCRTest: Codable {
 		certificateConsentGiven = try container.decodeIfPresent(Bool.self, forKey: .certificateConsentGiven) ?? false
 		certificateRequested = try container.decodeIfPresent(Bool.self, forKey: .certificateRequested) ?? false
 		
-		uniqueCertificateIdentifier = try container.decodeIfPresent(String
-																		.self, forKey: .uniqueCertificateIdentifier)
+		uniqueCertificateIdentifier = try container.decodeIfPresent(String.self, forKey: .uniqueCertificateIdentifier)
 
 		isLoading = false
 	}
