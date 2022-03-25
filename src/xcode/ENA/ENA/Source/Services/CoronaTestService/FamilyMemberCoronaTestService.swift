@@ -591,6 +591,7 @@ class FamilyMemberCoronaTestService: FamilyMemberCoronaTestServiceProviding {
 
 				Log.info("[FamilyMemberCoronaTestService] Got test result (coronaTest: \(private: coronaTest), testResult: \(testResult)), sampleCollectionDate: \(String(describing: response.sc))", log: .api)
 
+				let previousTestResult = self.upToDateTest(for: coronaTest)?.testResult
 				self.coronaTests.value.modify(coronaTest) {
 					$0.testResult = testResult
 					$0.sampleCollectionDate = response.sc.map {
@@ -622,7 +623,7 @@ class FamilyMemberCoronaTestService: FamilyMemberCoronaTestServiceProviding {
 							}
 						}
 
-						if presentNotification {
+						if presentNotification && testResult != previousTestResult {
 							Log.info("[FamilyMemberCoronaTestService] Triggering Notification (coronaTest: \(private: coronaTest), testResult: \(testResult))", log: .api)
 
 							// We attach the test result and type to determine which screen to show when user taps the notification
