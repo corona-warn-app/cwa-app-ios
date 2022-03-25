@@ -68,11 +68,21 @@ class CCLService: CCLServable {
 		cclConfigurationResource.receiveResource = CBORReceiveResource(signatureVerifier: signatureVerifier)
 		self.cclConfigurationResource = cclConfigurationResource
 
-		var boosterNotificationRulesResource = DCCRulesResource(ruleType: .boosterNotification)
+		var boosterNotificationRulesResource = DCCRulesResource(
+			ruleType: .boosterNotification,
+			restServiceType: .caching(
+				Set<CacheUsePolicy>([.loadOnlyOnceADay])
+			)
+		)
 		boosterNotificationRulesResource.receiveResource = CBORReceiveResource(signatureVerifier: signatureVerifier)
 		self.boosterNotificationRulesResource = boosterNotificationRulesResource
 
-		var invalidationRulesResource = DCCRulesResource(ruleType: .invalidation)
+		var invalidationRulesResource = DCCRulesResource(
+			ruleType: .invalidation,
+			restServiceType: .caching(
+				Set<CacheUsePolicy>([.loadOnlyOnceADay])
+			)
+		)
 		invalidationRulesResource.receiveResource = CBORReceiveResource(signatureVerifier: signatureVerifier)
 		self.invalidationRulesResource = invalidationRulesResource
 
@@ -128,13 +138,13 @@ class CCLService: CCLServable {
 	func updateConfiguration(
 		completion: @escaping (_ didChange: Bool) -> Void
 	) {
-		// trigger both downloads, if one was updated notify caller in result
+		// trigger the 3 downloads, if one was updated notify caller in result
 
 		let dispatchGroup = DispatchGroup()
 
 		var configurationDidUpdate: Bool = false
 		var boosterRulesDidUpdate: Bool = false
-		var invalidationRulesDidUpdate = false
+		var invalidationRulesDidUpdate: Bool = false
 		
 		// lookup configuration updates
 		if cclServiceMode.contains(.configuration) {
@@ -220,7 +230,6 @@ class CCLService: CCLServable {
 		let getWalletInfoInput = GetWalletInfoInput.make(
 			certificates: certificates,
 			boosterNotificationRules: boosterNotificationRules,
-			invalidationRules: invalidationRules,
 			identifier: identifer
 		)
 		
@@ -356,14 +365,7 @@ class CCLService: CCLServable {
 					completion(.failure(.custom(customError)))
 				} else {
 					Log.error("Unhandled error \(error.localizedDescription)", log: .vaccination)
-					switch resourceType.ruleType {
-					case .boosterNotification:
-						completion(.failure(.custom(DCCDownloadRulesError.RULE_CLIENT_ERROR(.boosterNotification))))
-					case .invalidation:
-						completion(.failure(.custom(DCCDownloadRulesError.RULE_CLIENT_ERROR(.boosterNotification))))
-					default:
-						break
-					}
+					completion(.failure(.custom(DCCDownloadRulesError.RULE_CLIENT_ERROR(resourceType.ruleType))))
 				}
 			}
 		}
