@@ -9,12 +9,6 @@ import UIKit
 
 class MockFamilyMemberCoronaTestService: FamilyMemberCoronaTestServiceProviding {
 
-	// MARK: - Init
-
-	init() {
-
-	}
-
 	// MARK: - Protocol CoronaTestServiceProviding
 
 	var coronaTests = CurrentValueSubject<[FamilyMemberCoronaTest], Never>([])

@@ -2325,7 +2325,6 @@ class FamilyMemberCoronaTestServiceTests: CWATestCase {
 			.success(RegistrationTokenReceiveModel(submissionTAN: "fake")),
 			.success(RegistrationTokenReceiveModel(submissionTAN: "fake")),
 			.success(RegistrationTokenReceiveModel(submissionTAN: "fake"))
-
 		])
 
 		let healthCertificateService = HealthCertificateService(
