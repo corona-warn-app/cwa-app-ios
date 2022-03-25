@@ -142,6 +142,15 @@ enum AppStrings {
 			}
 		}
 
+		enum TestOwnerSelection {
+			static let title = NSLocalizedString("ExposureSubmission_TestOwnerSelection_Title", comment: "")
+			static let description = NSLocalizedString("ExposureSubmission_TestOwnerSelection_Description", comment: "")
+			static let userHeadline = NSLocalizedString("ExposureSubmission_TestOwnerSelection_User_Headline", comment: "")
+			static let userSubheadline = NSLocalizedString("ExposureSubmission_TestOwnerSelection_User_Subheadline", comment: "")
+			static let familyMemberHeadline = NSLocalizedString("ExposureSubmission_TestOwnerSelection_FamilyMember_Headline", comment: "")
+			static let familyMemberSubheadline = NSLocalizedString("ExposureSubmission_TestOwnerSelection_FamilyMember_Subheadline", comment: "")
+		}
+		
 		enum TestCertificate {
 			enum Info {
 				static let title = NSLocalizedString("ExposureSubmission_TestCertificate_Information_Title", comment: "")
@@ -2241,6 +2250,24 @@ enum AppStrings {
 			static let blockedDescription = NSLocalizedString("HealthCertificate_ValidityState_Blocked_description", comment: "")
 		}
 
+		enum FamilyMemberConsent {
+			static let title = NSLocalizedString("HealthCertificate_FamilyMemberConsent_Title", comment: "")
+			static let imageDescription = NSLocalizedString("HealthCertificate_FamilyMemberConsent_ImageDescription", comment: "")
+			static let headline = NSLocalizedString("HealthCertificate_FamilyMemberConsent_Headline", comment: "")
+			static let inputTitle = NSLocalizedString("HealthCertificate_FamilyMemberConsent_InputTitle", comment: "")
+			static let inputPlaceholder = NSLocalizedString("HealthCertificate_FamilyMemberConsent_InputPlaceholder", comment: "")
+			static let body01 = NSLocalizedString("HealthCertificate_FamilyMemberConsent_Body01", comment: "")
+			static let body02 = NSLocalizedString("HealthCertificate_FamilyMemberConsent_Body02", comment: "")
+
+			enum Legal {
+				static let headline = NSLocalizedString("HealthCertificate_FamilyMemberConsentLegal_Headline", comment: "")
+				static let subHeadline = NSLocalizedString("HealthCertificate_FamilyMemberConsentLegal_SubHeadline", comment: "")
+				static let bulletPoint = NSLocalizedString("HealthCertificate_FamilyMemberConsentLegal_BulletPoint", comment: "")
+				static let text = NSLocalizedString("HealthCertificate_FamilyMemberConsentLegal_text", comment: "")
+			}
+			static let primaryButton = NSLocalizedString("HealthCertificate_FamilyMemberConsent_Primary", comment: "")
+		}
+
 		enum Alert {
 			static let deleteButton = NSLocalizedString("HealthCertificate_Alert_deleteButton", comment: "")
 			static let cancelButton = NSLocalizedString("HealthCertificate_Alert_cancelButton", comment: "")
@@ -2377,10 +2404,10 @@ enum AppStrings {
 				static let deleteNotice = NSLocalizedString("HealthCertificate_Reissuance_Consent_Delete_Notice", comment: "")
 				static let cancelNotice = NSLocalizedString("HealthCertificate_Reissuance_Consent_Cancel_Notice", comment: "")
 
-				static let legalTitle = NSLocalizedString("HealthCertificate_Reissuance_Consent_Legal_Title", comment: "")
-				static let legalSubtitle = NSLocalizedString("HealthCertificate_Reissuance_Consent_Legal_Subtitle", comment: "")
-				static let legalBullet1 = NSLocalizedString("HealthCertificate_Reissuance_Consent_Legal_Bullet_1", comment: "")
-				static let legalBullet2 = NSLocalizedString("HealthCertificate_Reissuance_Consent_Legal_Bullet_2", comment: "")
+				static let legalTitle = NSLocalizedString("HealthCertificate_Reissuance_Consent_Legal_Title", tableName: "Localizable.legal", comment: "")
+				static let legalSubtitle = NSLocalizedString("HealthCertificate_Reissuance_Consent_Legal_Subtitle", tableName: "Localizable.legal", comment: "")
+				static let legalBullet1 = NSLocalizedString("HealthCertificate_Reissuance_Consent_Legal_Bullet_1", tableName: "Localizable.legal", comment: "")
+				static let legalBullet2 = NSLocalizedString("HealthCertificate_Reissuance_Consent_Legal_Bullet_2", tableName: "Localizable.legal", comment: "")
 
 				static let bulletPoint_1 = NSLocalizedString("HealthCertificate_Reissuance_Consent_Bullet_Point_1", comment: "")
 				static let bulletPoint_2 = NSLocalizedString("HealthCertificate_Reissuance_Consent_Bullet_Point_2", comment: "")
