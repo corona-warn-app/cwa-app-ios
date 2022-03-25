@@ -268,7 +268,7 @@
 "ExposureDetection_ActiveTracingSection_Subtitle" = "This period is included in the calculation.";
 
 /* There are two paragraphs in this section. The first one just contains text… */
-"ExposureDetection_ActiveTracingSection_Text_Paragraph0" = "Your risk of infection can be calculated only for periods during which exposure logging was active. The logging feature should therefore remain active permanently. Exposure logging covers the last 14 days.";
+"ExposureDetection_ActiveTracingSection_Text_Paragraph0" = "Your risk of infection can be calculated only for periods during which exposure logging was active. The logging feature should therefore remain active permanently. Exposure logging covers the last %u days.";
 
 "ExposureDetection_ActiveTracingSection_Text_Paragraph1b" = "If exposure logging was active at times during which you encountered other people, your risk of infection can be calculated for this period.";
 
@@ -321,7 +321,7 @@
 
 "Settings_DaysSinceInstall_SubTitle" = "This period is included in the calculation.";
 
-"Settings_DaysSinceInstall_P1" = "Your risk of infection can be calculated only for periods during which exposure logging was active. The logging feature should therefore remain active permanently. Exposure logging covers the last 14 days.";
+"Settings_DaysSinceInstall_P1" = "Your risk of infection can be calculated only for periods during which exposure logging was active. The logging feature should therefore remain active permanently. Exposure logging covers the last %u days.";
 
 "Settings_DaysSinceInstall_P2b" = "If exposure logging was active at times during which you encountered other people, your risk of infection can be calculated for this period.";
 
@@ -450,7 +450,7 @@
 
 "OnboardingInfo_togetherAgainstCoronaPage_boldText" = "More protection for you and for us all. By using the Corona-Warn-App we can break chains of infection much quicker.";
 
-"OnboardingInfo_togetherAgainstCoronaPage_normalText" = "Turn your device into a coronavirus warning system. Get an overview of your risk status and find out whether you’ve had close contact with people diagnosed with coronavirus in the last 14 days. \n\nThe app logs encounters between individuals by exchanging encrypted, random IDs between their smartphones, whereby no personal data whatsoever is accessed.\n\nIf you want, you can use the app to prove your personal infection status (a negative rapid test, for example). Please note, however, that you are under no obligation to use the app to prove your infection status. You can also prove your infection status in another manner compliant with the legal regulations at your residence.\n\nYou can also prove your personal vaccination status.\n\nThe app logs encounters between individuals by exchanging encrypted, random IDs between their smartphones, whereby no personal data whatsoever is accessed.";
+"OnboardingInfo_togetherAgainstCoronaPage_normalText" = "Turn your device into a coronavirus warning system. Get an overview of your risk status and find out whether you’ve had close contact with people diagnosed with coronavirus in the last %u days. \n\nThe app logs encounters between individuals by exchanging encrypted, random IDs between their smartphones, whereby no personal data whatsoever is accessed.\n\nIf you want, you can use the app to prove your personal infection status (a negative rapid test, for example). Please note, however, that you are under no obligation to use the app to prove your infection status. You can also prove your infection status in another manner compliant with the legal regulations at your residence.\n\nYou can also prove your personal vaccination status.\n\nThe app logs encounters between individuals by exchanging encrypted, random IDs between their smartphones, whereby no personal data whatsoever is accessed.";
 
 "OnboardingInfo_togetherAgainstCoronaPage_linkText" = "App Information in Simplified Language and Sign Language";
 
@@ -460,7 +460,7 @@
 
 "OnboardingInfo_privacyPage_boldText" = "";
 
-"OnboardingInfo_privacyPage_normalText" = "You will remain anonymous.\nYour data is fully encrypted and transmitted under a pseudonym.\n\nResponsible body: GDPR, article 4, para. 7:\n\nRobert Koch-Institute\nNordufer 20\n13353 Berlin\nPlease read our data privacy regulations.\n\nData privacy information:";
+"OnboardingInfo_privacyPage_normalText" = "You will remain anonymous.\nYour data is fully encrypted and transmitted under a pseudonym.\n\nController pursuant to GDPR, article 4 (7):\n\nRobert Koch-Institute\nNordufer 20\n13353 Berlin\nPlease read our data privacy regulations.\n\nData privacy information:";
 
 "OnboardingInfo_enableLoggingOfContactsPage_imageDescription" = "Three persons have activated exposure logging on their devices, which will log their encounters with each other.";
 
@@ -1337,9 +1337,16 @@
 /* Home Alert Risk Lowered */
 "Home_Alert_RiskStatusLowered_Title" = "Change of Your Risk Status";
 
-"Home_Alert_RiskStatusLowered_Message" = "The last exposure that resulted in your increased risk was more than 14 days ago. Therefore, your risk of infection has been ranked as low again.\n\nWhat you should do:\n If you do not have any COVID-19 symptoms, continue to follow the prevailing rules regarding distancing and hygiene.\n If you have COVID-19 symptoms, we recommend that you visit your doctor and get tested.";
+"Home_Alert_RiskStatusLowered_Message" = "The last exposure that resulted in your increased risk was more than %i days ago. Therefore, your risk of infection has been ranked as low again.\n\nWhat you should do:\n If you do not have any COVID-19 symptoms, continue to follow the prevailing rules regarding distancing and hygiene.\n If you have COVID-19 symptoms, we recommend that you visit your doctor and get tested.";
 
 "Home_Alert_RiskStatusLowered_PrimaryButtonTitle" = "OK";
+
+/* Home Alert another high exposure */
+"Home_Alert_RiskStatusAnotherHighExposure_Title" = "New Exposure";
+
+"Home_Alert_RiskStatusAnotherHighExposure_Message" = "You have had another exposure with increased risk. You will find all your risk exposures from the last %i days in your contact journal.";
+
+"Home_Alert_RiskStatusAnotherHighExposure_PrimaryButtonTitle" = "OK";
 
 /* App Information */
 "App_Information_Title" = "App Information";
@@ -1387,7 +1394,7 @@
 
 "App_Information_Contact_Hotline_Details_Foreign" = "For calls from outside Germany.\nThe fees from your telephone provider will apply.";
 
-"App_Information_Contact_Hotline_Terms" = "Our customer service is available in the following languages: \nEnglish, German, Turkish\n\nBusiness hours:\nMo-Sa: 7am – 10pm (CET)\n(except national holidays)\n\nIf you have any questions, please call 116 117 (in Germany). Then, during the automated message, press 2 for the Federal Ministry of Health service point. Only press 1 (the general medical emergency service) if you have symptoms.";
+"App_Information_Contact_Hotline_Terms" = "Our customer service is available in the following languages: \nGerman\n\nBusiness hours:\nMo-Fr: 9am – 5pm (CET)\n(except national holidays)\n\nIf you have any questions, please call 116 117 (in Germany). Then, during the automated message, press 2 for the Federal Ministry of Health service point. Only press 1 (the general medical emergency service) if you have symptoms.";
 
 /* App Information - Imprint */
 "App_Information_New_Features_Navigation" = "New Features";
@@ -1531,7 +1538,7 @@
 
 "RiskLegend_Legend2_Title" = "Risk of Infection";
 
-"RiskLegend_Legend2_Text" = "When exposure logging is active, the app calculates your personal risk of infection. It does this by measuring duration and proximity of your exposure to people who have been diagnosed with coronavirus over the last 14 days. Exposure logging also takes your check-ins into account. You are warned if you were in the same room at the same time as a person who has been diagnosed with coronavirus, or up to 30 minutes after.";
+"RiskLegend_Legend2_Text" = "When exposure logging is active, the app calculates your personal risk of infection. It does this by measuring duration and proximity of your exposure to people who have been diagnosed with coronavirus over the last %u days. Exposure logging also takes your check-ins into account. You are warned if you were in the same room at the same time as a person who has been diagnosed with coronavirus, or up to 30 minutes after.";
 
 "RiskLegend_Legend2_RiskLevels" = "The following risk status can be shown:";
 
@@ -1604,18 +1611,30 @@
 /* New Version Features */
 "NewVersionFeatures_Info_about_abb_information" = "Changes in this release can be found in the app information, under “New Features”.";
 
-/* Version 2.19 */
-"NewVersionFeature_219_rapidPCR_title" = "Registration of Rapid PCR Tests";
+/* Version 2.20 */
+"NewVersionFeature_220_highRiskShortened_title" = "Report of Increased Risk Shortened";
 
-"NewVersionFeature_219_rapidPCR_description" = "You can now register rapid PCR tests in the Corona-Warn-App and receive the result and your test certificate through the app.";
+"NewVersionFeature_220_highRiskShortened_description" = "An increased risk after an exposure is now only displayed for 10 days instead of 14.";
 
-"NewVersionFeature_219_faultTolerantNameHandling_title" = "Certificate Assignment";
+"NewVersionFeature_220_displayRiskPositiveResult_title" = "Risk Report after Positive Test Result";
 
-"NewVersionFeature_219_faultTolerantNameHandling_description" = "The assignment of certificates to people has been made more error-tolerant. Minor differences in the spelling of first and last names are ignored, so affected certificates can still be assigned to the same person.";
+"NewVersionFeature_220_displayRiskPositiveResult_description" = "The red tile for increased risk is now displayed after an exposure even if you have registered a positive test in the Corona-Warn-App. Your risk status is shown again seven days after the positive test.";
 
-"NewVersionFeature_219_vaccinationCertificateReplacement_title" = "Certificate Update";
+"NewVersionFeature_220_notificateRiskEncounter_title" = "Message for New Exposure";
 
-"NewVersionFeature_219_vaccinationCertificateReplacement_description" = "The EU specifications for vaccination certificates for booster vaccinations have changed. If your certificate no longer matches the current specifications, you can request a new one directly in the Corona-Warn-App.";
+"NewVersionFeature_220_notificateRiskEncounter_description" = "If you have another exposure with increased risk after a previous exposure, a notification will now be displayed for this exposure as well.";
+
+"NewVersionFeature_220_notificationStatusChange_title" = "Report of Status Change";
+
+"NewVersionFeature_220_notificationStatusChange_description" = "If your status has changed (because you added a certificate, for example, or because the rules have changed), you will be notified of this on the Certificates tab.";
+
+"NewVersionFeature_220_recoveryCertificatesDetails_title" = "Certificates of Recovery without Validity Data";
+
+"NewVersionFeature_220_recoveryCertificatesDetails_description" = "Validity data is no longer displayed for certificates of recovery, because their validity depends on the local rules. The date of the first positive test is now displayed instead.";
+
+"NewVersionFeature_220_removeQRCode_title" = "Duplicate QR Code Removed";
+
+"NewVersionFeature_220_removeQRCode_description" = "The QR code for your currently used certificate has been removed from the detail screen for individuals, creating more space for notifications and decluttering the screen in general. The QR code is also contained in the certificate overview and is therefore not needed on the detail screen.";
 
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Transnational Exposure Logging";
@@ -2867,7 +2886,7 @@
 
 "HealthCertifiedPerson_RecoveryCertificate_headline" = "Certificate of Recovery";
 
-"HealthCertifiedPerson_RecoveryCertificate_validityDate" = "valid to %@";
+"HealthCertifiedPerson_RecoveryCertificate_positiveTestFrom" = "Positive test from %@";
 
 "HealthCertifiedPerson_currentlyUsedCertificate" = "Currently used certificate";
 
@@ -3161,14 +3180,6 @@
 
 "HealthCertificate_Reissuance_Consent_Cancel_Notice" = "If you cancel now, you can request an update in the certificate overview at any time.";
 
-"HealthCertificate_Reissuance_Consent_Legal_Title" = "Your Consent";
-
-"HealthCertificate_Reissuance_Consent_Legal_Subtitle" = "By tapping “Agree”, you consent to the following steps:";
-
-"HealthCertificate_Reissuance_Consent_Legal_Bullet_1" = "The app sends the vaccination certificate to the RKI for verification.";
-
-"HealthCertificate_Reissuance_Consent_Legal_Bullet_2" = "The RKI checks the vaccination certificate, issues an updated certificate, and sends it to your app.";
-
 "HealthCertificate_Reissuance_Consent_Bullet_Point_1" = "Updating your certificate is voluntary and free of charge.";
 
 "HealthCertificate_Reissuance_Consent_Bullet_Point_2" = "To ensure that certificates can only be updated once, the identifier of the old certificate is documented by the RKI.";
@@ -3360,7 +3371,7 @@
 /* - Recovery Certificate */
 "RecycleBin_RecoveryCertificate_headline" = "Certificate of Recovery";
 
-"RecycleBin_RecoveryCertificate_validityDate" = "valid to %@";
+"RecycleBin_RecoveryCertificate_positiveTestFrom" = "Positive test from %@";
 
 /* - Corona Test */
 "RecycleBin_CoronaTest_headline" = "Test";

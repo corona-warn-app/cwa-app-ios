@@ -42,11 +42,12 @@ struct DCCScenarioSelectionItem: Codable, Equatable {
 }
 
 struct DCCAdmissionState: Codable, Equatable {
-
+	let identifier: String?
 	let visible: Bool
 	let badgeText: DCCUIText?
 	let titleText: DCCUIText?
 	let subtitleText: DCCUIText?
+	let stateChangeNotificationText: DCCUIText?
 	let longText: DCCUIText?
 	let faqAnchor: String?
 

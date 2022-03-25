@@ -167,6 +167,7 @@ class CoronaTestService: CoronaTestServiceProviding {
 						submissionTAN: nil,
 						keysSubmitted: false,
 						journalEntryCreated: false,
+						certificateSupportedByPointOfCare: true,
 						certificateConsentGiven: certificateConsentGiven,
 						certificateRequested: false
 					)
@@ -224,6 +225,7 @@ class CoronaTestService: CoronaTestServiceProviding {
 						submissionTAN: nil,
 						keysSubmitted: false,
 						journalEntryCreated: false,
+						certificateSupportedByPointOfCare: true,
 						certificateConsentGiven: false,
 						certificateRequested: false
 					)
@@ -391,6 +393,7 @@ class CoronaTestService: CoronaTestServiceProviding {
 						submissionTAN: nil,
 						keysSubmitted: false,
 						journalEntryCreated: false,
+						certificateSupportedByPointOfCare: certificateSupportedByPointOfCare,
 						certificateConsentGiven: certificateConsentGiven,
 						certificateRequested: false
 					)
@@ -617,6 +620,7 @@ class CoronaTestService: CoronaTestServiceProviding {
 				submissionTAN: store.tan,
 				keysSubmitted: keysSubmitted,
 				journalEntryCreated: false,
+				certificateSupportedByPointOfCare: true,
 				certificateConsentGiven: false,
 				certificateRequested: false
 			)
@@ -651,7 +655,35 @@ class CoronaTestService: CoronaTestServiceProviding {
 		}
 		return healthTuple
 	}
-
+	
+	func createCoronaTestEntryInContactDiary(coronaTestType: CoronaTestType?) {
+		if let coronaTestType = coronaTestType,
+		   let coronaTest = coronaTest(ofType: coronaTestType),
+		   (coronaTest.testResult == .positive || coronaTest.testResult == .negative) && !coronaTest.journalEntryCreated {
+			let sampleDate: Date
+			switch coronaTestType {
+			case .pcr:
+				pcrTest.value?.journalEntryCreated = true
+				sampleDate = coronaTest.testDate
+			case .antigen:
+				antigenTest.value?.journalEntryCreated = true
+				sampleDate = antigenTest.value?.sampleCollectionDate ?? coronaTest.testDate
+			}
+			// PCR -> registration date
+			// antigen -> sample collection date if available otherwise we use point of care consent date
+			// Warning: updatedSampleCollectionDate must get used because the service level struct antigenTest has changed and coronaTest wasn't updated
+			//
+			let stringDate = ISO8601DateFormatter.justLocalDateFormatter.string(from: sampleDate)
+			Log.debug("Write test result to contact diary at date: \(stringDate)", log: .contactdiary)
+			diaryStore.addCoronaTest(
+				testDate: stringDate,
+				testType: coronaTestType.rawValue,
+				testResult: coronaTest.testResult.rawValue
+			)
+			
+		}
+	}
+	
 	// MARK: - Private
 
 	private let client: Client
@@ -876,27 +908,6 @@ class CoronaTestService: CoronaTestServiceProviding {
 						self.createKeySubmissionMetadataDefaultValues(for: coronaTest)
 					}
 
-					// only store test result in diary if negative or positive
-					// Warning: check the current coronaTest so that changes are not overlooked
-					//
-					if let journalEntryCreated = self.coronaTest(ofType: coronaTestType)?.journalEntryCreated,
-					   (testResult == .positive || testResult == .negative) && !journalEntryCreated {
-						switch coronaTestType {
-						case .pcr:
-							self.pcrTest.value?.journalEntryCreated = true
-						case .antigen:
-							self.antigenTest.value?.journalEntryCreated = true
-						}
-						// PCR -> registration date
-						// antigen -> sample collection date if available otherwise we use point of care consent date
-						// Warning: updatedSampleCollectionDate must get used because the service level struct antigenTest has changed and coronaTest wasn't updated
-						//
-						let stringDate = ISO8601DateFormatter.justLocalDateFormatter.string(from: updatedSampleCollectionDate ?? coronaTest.testDate)
-						Log.debug("Write test result to contact diary at date: \(stringDate)", log: .contactdiary)
-						self.diaryStore.addCoronaTest(testDate: stringDate, testType: coronaTestType.rawValue, testResult: testResult.rawValue)
-
-					}
-
 					if self.coronaTest(ofType: coronaTestType)?.finalTestResultReceivedDate == nil {
 						switch coronaTestType {
 						case .pcr:
@@ -1098,6 +1109,7 @@ class CoronaTestService: CoronaTestServiceProviding {
 				submissionTAN: nil,
 				keysSubmitted: LaunchArguments.test.pcr.keysSubmitted.boolValue,
 				journalEntryCreated: false,
+				certificateSupportedByPointOfCare: true,
 				certificateConsentGiven: false,
 				certificateRequested: false
 			)

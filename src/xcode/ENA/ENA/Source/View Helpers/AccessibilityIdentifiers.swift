@@ -480,6 +480,11 @@ enum AccessibilityIdentifiers {
 			}
 		}
 
+		enum TestOwnerSelection {
+			static let userButton = "AppStrings.ExposureSubmission.TestOwnerSelection.userButton"
+			static let familyMemberButton = "AppStrings.ExposureSubmission.TestOwnerSelection.familyMemberButton"
+		}
+		
 		enum TestCertificate {
 			enum Info {
 				static let imageDescription = "AppStrings.ExposureSubmission.TestCertificate.Info.imageDescription"
@@ -732,6 +737,11 @@ enum AccessibilityIdentifiers {
 			}
 		}
 
+		enum FamilyMemberConsent {
+			static let imageDescription = "AppStrings.HealthCertificate.FamilyMemberConsent.imageDescription"
+			static let textInput = "HealthCertificate.FamilyMemberConsent.textInput"
+		}
+
 		enum Overview {
 			static let changeAdmissionScenarioCell =
 				"AppStrings.HealthCertificate.changeAdmissionScenarioCell"
@@ -766,6 +776,7 @@ enum AccessibilityIdentifiers {
 			static let subtitle = "HealthCertificate.AdmissionState.subtitle"
 			static let description = "HealthCertificate.AdmissionState.description"
 			static let faq = "HealthCertificate.AdmissionState.faq"
+			static let unseenNewsIndicator = "HealthCertificate.AdmissionState.unseenNewsIndicator"
 
 		}
 

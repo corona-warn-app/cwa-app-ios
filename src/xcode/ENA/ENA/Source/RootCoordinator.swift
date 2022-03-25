@@ -20,6 +20,7 @@ protocol CoordinatorDelegate: AnyObject {
 	Should be used as a delegate in view controllers that need to communicate with other view controllers, either for navigation, or something else (e.g. transferring state).
 	Helps to decouple different view controllers from each other and to remove navigation responsibility from view controllers.
 */
+// swiftlint:disable:next type_body_length
 class RootCoordinator: NSObject, RequiresAppDependencies, UITabBarControllerDelegate {
 
 	// MARK: - Init
@@ -160,6 +161,15 @@ class RootCoordinator: NSObject, RequiresAppDependencies, UITabBarControllerDele
 		)
 		self.qrScannerCoordinator = qrScannerCoordinator
 		
+		let homeState = HomeState(
+			store: store,
+			riskProvider: riskProvider,
+			exposureManagerState: exposureManager.exposureManagerState,
+			enState: enStateHandler.state,
+			statisticsProvider: statisticsProvider,
+			localStatisticsProvider: localStatisticsProvider
+		)
+		
 		let homeCoordinator = HomeCoordinator(
 			delegate,
 			otpService: otpService,
@@ -175,8 +185,12 @@ class RootCoordinator: NSObject, RequiresAppDependencies, UITabBarControllerDele
 			restServiceProvider: restServiceProvider,
 			badgeWrapper: badgeWrapper,
 			cache: cache,
-			cclService: cclService
+			cclService: cclService,
+			homeState: homeState
 		)
+		
+		self.homeState = homeState
+		
 		self.homeCoordinator = homeCoordinator
 		homeCoordinator.showHome(
 			enStateHandler: enStateHandler,
@@ -311,7 +325,8 @@ class RootCoordinator: NSObject, RequiresAppDependencies, UITabBarControllerDele
 			pageType: .togetherAgainstCoronaPage,
 			exposureManager: self.exposureManager,
 			store: self.store,
-			client: self.client
+			client: self.client,
+			appConfigProvider: appConfigurationProvider
 		)
 		
 		let navigationVC = AppOnboardingNavigationController(rootViewController: onboardingVC)
@@ -433,6 +448,38 @@ class RootCoordinator: NSObject, RequiresAppDependencies, UITabBarControllerDele
 			coronaTestService: coronaTestService
 		)
 	}()
+	
+	private lazy var statisticsProvider: StatisticsProvider = {
+			#if DEBUG
+			if isUITesting {
+				return StatisticsProvider(
+					client: CachingHTTPClientMock(),
+					store: store
+				)
+			}
+			#endif
+
+			return StatisticsProvider(
+				client: CachingHTTPClient(),
+				store: store
+			)
+		}()
+	
+	private lazy var localStatisticsProvider: LocalStatisticsProviding = {
+			#if DEBUG
+			if isUITesting {
+				return LocalStatisticsProvider(
+					client: CachingHTTPClientMock(),
+					store: store
+				)
+			}
+			#endif
+
+			return LocalStatisticsProvider(
+				client: CachingHTTPClient(),
+				store: store
+			)
+		}()
 }
 
 // MARK: - Protocol ExposureStateUpdating

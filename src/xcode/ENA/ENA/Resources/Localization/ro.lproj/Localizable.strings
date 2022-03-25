@@ -268,7 +268,7 @@
 "ExposureDetection_ActiveTracingSection_Subtitle" = "Această perioadă este inclusă în calcul.";
 
 /* There are two paragraphs in this section. The first one just contains text… */
-"ExposureDetection_ActiveTracingSection_Text_Paragraph0" = "Riscul dvs. de infectare poate fi calculat doar pentru perioadele în care a fost activă înregistrarea în jurnal a expunerilor. Prin urmare, caracteristica de înregistrare în jurnal trebuie să rămână permanent activă. Înregistrarea în jurnal a expunerilor acoperă ultimele 14 zile.";
+"ExposureDetection_ActiveTracingSection_Text_Paragraph0" = "Riscul dvs. de infectare poate fi calculat doar pentru perioadele în care a fost activă înregistrarea în jurnal a expunerilor. Prin urmare, caracteristica de înregistrare în jurnal trebuie să rămână permanent activă. Înregistrarea în jurnal a expunerilor acoperă ultimele %u (de) zile.";
 
 "ExposureDetection_ActiveTracingSection_Text_Paragraph1b" = "Dacă înregistrarea în jurnal a expunerilor a fost activă pe durata în care v-ați întâlnit cu alte persoane, riscul dvs. de infectare poate fi calculat pentru această perioadă.";
 
@@ -321,7 +321,7 @@
 
 "Settings_DaysSinceInstall_SubTitle" = "Această perioadă este inclusă în calcul.";
 
-"Settings_DaysSinceInstall_P1" = "Riscul dvs. de infectare poate fi calculat doar pentru perioadele în care a fost activă înregistrarea în jurnal a expunerilor. Prin urmare, caracteristica de înregistrare în jurnal trebuie să rămână permanent activă. Înregistrarea în jurnal a expunerilor acoperă ultimele 14 zile.";
+"Settings_DaysSinceInstall_P1" = "Riscul dvs. de infectare poate fi calculat doar pentru perioadele în care a fost activă înregistrarea în jurnal a expunerilor. Prin urmare, caracteristica de înregistrare în jurnal trebuie să rămână permanent activă. Înregistrarea în jurnal a expunerilor acoperă ultimele %u (de) zile.";
 
 "Settings_DaysSinceInstall_P2b" = "Dacă înregistrarea în jurnal a expunerilor a fost activă pe durata în care v-ați întâlnit cu alte persoane, riscul dvs. de infectare poate fi calculat pentru această perioadă.";
 
@@ -450,7 +450,7 @@
 
 "OnboardingInfo_togetherAgainstCoronaPage_boldText" = "Mai multă protecție pentru dvs. și pentru noi toți. Utilizând Corona-Warn-App putem întrerupe mai ușor lanțurile de infectare.";
 
-"OnboardingInfo_togetherAgainstCoronaPage_normalText" = "Transformați-vă dispozitivul într-un sistem de avertizare împotriva coronavirusului. Obțineți un sumar al stării de risc și aflați dacă ați intrat în contact strâns cu persoane diagnosticate cu coronavirus în ultimele 14 zile. \n\nAplicația înregistrează în jurnal întâlnirile dintre persoane prin smartphone-urile acestora, care schimbă ID-uri aleatorii criptate, fără a accesa niciun fel de date personale.\n\nDacă doriți, puteți utiliza aplicația pentru a dovedi starea de infectare personală (de exemplu, un test rapid negativ). Rețineți, totuși, că nu aveți nicio obligație de a utiliza aplicația pentru a dovedi starea dvs. de infectare. De asemenea, puteți dovedi starea dvs. de infectare într-un alt mod care respectă reglementările legale din localitatea dvs. de domiciliu.\n\nDe asemenea, puteți consulta starea vaccinării personale.\n\nAplicația înregistrează în jurnal întâlnirile dintre persoane prin smartphone-urile acestora, care schimbă ID-uri aleatorii criptate, fără a accesa niciun fel de date personale.";
+"OnboardingInfo_togetherAgainstCoronaPage_normalText" = "Transformați-vă dispozitivul într-un sistem de avertizare împotriva coronavirusului. Obțineți un sumar al stării de risc și aflați dacă ați intrat în contact strâns cu persoane diagnosticate cu coronavirus în ultimele %u (de) zile. \n\nAplicația înregistrează în jurnal întâlnirile dintre persoane prin smartphone-urile acestora, care schimbă ID-uri aleatorii criptate, fără a accesa niciun fel de date personale.\n\nDacă doriți, puteți utiliza aplicația pentru a dovedi starea de infectare personală (de exemplu, un test rapid negativ). Rețineți, totuși, că nu aveți nicio obligație de a utiliza aplicația pentru a dovedi starea dvs. de infectare. De asemenea, puteți dovedi starea dvs. de infectare într-un alt mod care respectă reglementările legale din localitatea dvs. de domiciliu.\n\nDe asemenea, puteți dovedi starea vaccinării personale.\n\nAplicația înregistrează în jurnal întâlnirile dintre persoane prin smartphone-urile acestora, care schimbă ID-uri aleatorii criptate, fără a accesa niciun fel de date personale.";
 
 "OnboardingInfo_togetherAgainstCoronaPage_linkText" = "Informații despre aplicație în limbaj simplificat și în limbajul semnelor";
 
@@ -460,7 +460,7 @@
 
 "OnboardingInfo_privacyPage_boldText" = "";
 
-"OnboardingInfo_privacyPage_normalText" = "Vă este păstrată anonimitatea.\nDatele dvs. sunt criptate integral și sunt transmise sub pseudonim.\n\nOrganism responsabil: GDPR, articolul 4, alin. 7:\n\nRobert Koch-Institute\nNordufer 20\n13353 Berlin\nConsultați reglementările noastre privind confidențialitatea datelor.\n\nInformații despre confidențialitatea datelor:";
+"OnboardingInfo_privacyPage_normalText" = "Vă este păstrată anonimitatea.\nDatele dvs. sunt criptate integral și sunt transmise sub pseudonim.\n\nOperator de date conform GDPR, articolul 4 (7):\n\nRobert Koch-Institute\nNordufer 20\n13353 Berlin\nConsultați reglementările noastre privind confidențialitatea datelor.\n\nInformații despre confidențialitatea datelor:";
 
 "OnboardingInfo_enableLoggingOfContactsPage_imageDescription" = "Trei persoane și-au activat pe dispozitiv înregistrarea în jurnal a expunerilor, ceea ce va duce la înregistrarea întâlnirilor lor.";
 
@@ -1337,9 +1337,16 @@
 /* Home Alert Risk Lowered */
 "Home_Alert_RiskStatusLowered_Title" = "Modificarea stării riscului dvs.";
 
-"Home_Alert_RiskStatusLowered_Message" = "Ultima expunere care a generat riscul dvs. crescut a avut loc cu mai mult de 14 zile în urmă. Prin urmare, riscul dvs. de infectare a fost clasificat ca fiind din nou redus.\n\nCe trebuie să faceți:\n Dacă nu aveți simptome specifice COVID-19, continuați să respectați regulile generale privind distanțarea și igiena.\n Dacă aveți simptome specifice COVID-19, vă recomandăm să mergeți la medic și să vă testați.";
+"Home_Alert_RiskStatusLowered_Message" = "Ultima expunere care a generat riscul dvs. crescut a avut loc cu mai mult de %i (de) zile în urmă. Prin urmare, riscul dvs. de infectare a fost clasificat ca fiind din nou redus.\n\nCe trebuie să faceți:\n Dacă nu aveți simptome specifice COVID-19, continuați să respectați regulile generale privind distanțarea și igiena.\n Dacă aveți simptome specifice COVID-19, vă recomandăm să mergeți la medic și să vă testați.";
 
 "Home_Alert_RiskStatusLowered_PrimaryButtonTitle" = "OK";
+
+/* Home Alert another high exposure */
+"Home_Alert_RiskStatusAnotherHighExposure_Title" = "Expunere nouă";
+
+"Home_Alert_RiskStatusAnotherHighExposure_Message" = "Ați avut o altă expunere cu risc crescut. Veți găsi toate expunerile dvs. la risc din ultimele %i (de) zile în jurnalul dvs. de contacte.";
+
+"Home_Alert_RiskStatusAnotherHighExposure_PrimaryButtonTitle" = "OK";
 
 /* App Information */
 "App_Information_Title" = "Info aplicație";
@@ -1387,7 +1394,7 @@
 
 "App_Information_Contact_Hotline_Details_Foreign" = "Pentru apeluri din afara Germaniei.\nSe vor aplica tarifele furnizorului dvs. de servicii de telefonie.";
 
-"App_Information_Contact_Hotline_Terms" = "Serviciul clienți vă stă la dispoziție în următoarele limbi: \nengleză, germană, turcă\n\nProgram de lucru:\nluni - sâmbătă: 07:00 - 20:00 (CET)\n(exceptând sărbătorile legale)\n\nDacă aveți alte întrebări, vă rugăm să sunați la 116 117 (în Germania). Apoi, în timpul mesajului automat, apăsați tasta 2 pentru punctul de asistență al Ministerului Federal al Sănătății. Apăsați tasta 1 (serviciul de urgență medical general), doar dacă aveți simptome.";
+"App_Information_Contact_Hotline_Terms" = "Serviciul clienți vă stă la dispoziție în următoarele limbi: \ngermană\n\nProgram de lucru:\nluni - vineri: 09:00 - 17:00 (CET)\n(exceptând sărbătorile legale)\n\nDacă aveți alte întrebări, vă rugăm să sunați la 116 117 (în Germania). Apoi, în timpul mesajului automat, apăsați tasta 2 pentru punctul de asistență al Ministerului Federal al Sănătății. Apăsați tasta 1 (serviciul de urgență medical general), doar dacă aveți simptome.";
 
 /* App Information - Imprint */
 "App_Information_New_Features_Navigation" = "Caracteristici noi";
@@ -1531,7 +1538,7 @@
 
 "RiskLegend_Legend2_Title" = "Risc de infectare";
 
-"RiskLegend_Legend2_Text" = "Când este activă înregistrarea în jurnal a expunerilor, aplicația calculează riscul dvs. personal de infectare. Efectuează acest lucru prin măsurarea duratei și a proximității expunerii la persoanele care au fost diagnosticate cu coronavirus în ultimele 14 zile. Înregistrarea în jurnal a expunerilor ține cont și de check-inurile dvs. Sunteți avertizat dacă ați fost în aceeași cameră cu o persoană care a fost diagnosticată ulterior cu coronavirus sau dacă ați fost în cameră în decurs de 30 de minute de la plecarea acesteia.";
+"RiskLegend_Legend2_Text" = "Când este activă înregistrarea în jurnal a expunerilor, aplicația calculează riscul dvs. personal de infectare. Efectuează acest lucru prin măsurarea duratei și a proximității expunerii la persoanele care au fost diagnosticate cu coronavirus în ultimele %u (de) zile. Înregistrarea în jurnal a expunerilor ține cont și de check-inurile dvs. Sunteți avertizat dacă ați fost în aceeași cameră cu o persoană care a fost diagnosticată ulterior cu coronavirus sau dacă ați fost în cameră în decurs de 30 de minute de la plecarea acesteia.";
 
 "RiskLegend_Legend2_RiskLevels" = "Poate fi afișată următoarea stare a riscului:";
 
@@ -1604,18 +1611,30 @@
 /* New Version Features */
 "NewVersionFeatures_Info_about_abb_information" = "Modificările din această versiune pot fi găsite în informațiile aplicației, la „Caracteristici noi”.";
 
-/* Version 2.19 */
-"NewVersionFeature_219_rapidPCR_title" = "Înregistrarea testelor PCR rapide";
+/* Version 2.20 */
+"NewVersionFeature_220_highRiskShortened_title" = "Raportul despre riscul crescut a fost scurtat";
 
-"NewVersionFeature_219_rapidPCR_description" = "Acum puteți înregistra teste PCR rapide în Corona-Warn-App și puteți primi rezultatul și certificatul dvs. de test prin aplicație.";
+"NewVersionFeature_220_highRiskShortened_description" = "Un risc crescut după o expunere este afișat acum pentru doar 10 zile, în loc de 14.";
 
-"NewVersionFeature_219_faultTolerantNameHandling_title" = "Atribuirea certificatului";
+"NewVersionFeature_220_displayRiskPositiveResult_title" = "Raport de risc după un rezultat de test pozitiv";
 
-"NewVersionFeature_219_faultTolerantNameHandling_description" = "Atribuirea certificatelor la persoane a fost făcută mai tolerantă la erori. Sunt ignorate diferențele minore de ortografie în cazul prenumelor și numelor, astfel încât certificatele afectate pot fi totuși atribuite persoanelor în cauză.";
+"NewVersionFeature_220_displayRiskPositiveResult_description" = "Mozaicul roșu pentru risc crescut este afișat acum după o expunere, chiar dacă ați înregistrat un test pozitiv în aplicația Corona-Warn. Starea riscului este afișată din nou la șapte zile după testul pozitiv.";
 
-"NewVersionFeature_219_vaccinationCertificateReplacement_title" = "Actualizarea certificatului";
+"NewVersionFeature_220_notificateRiskEncounter_title" = "Mesaj pentru expunere nouă";
 
-"NewVersionFeature_219_vaccinationCertificateReplacement_description" = "Prevederile UE pentru certificatele de vaccinare care presupun vaccinarea cu doza booster s-au modificat. Dacă certificatul dvs. nu mai corespunde cu prevederile curente, puteți solicita un certificat nou direct din Corona-Warn-App.";
+"NewVersionFeature_220_notificateRiskEncounter_description" = "Dacă aveți o altă expunere cu risc crescut după o expunere anterioară, acum se va afișa o notificare și pentru această expunere.";
+
+"NewVersionFeature_220_notificationStatusChange_title" = "Raport despre modificarea de stare";
+
+"NewVersionFeature_220_notificationStatusChange_description" = "Dacă starea dvs. s-a modificat (deoarece, de exemplu, ați adăugat un certificat sau pentru că s-au schimbat regulile), veți fi notificat despre acest lucru pe tabul Certificate.";
+
+"NewVersionFeature_220_recoveryCertificatesDetails_title" = "Certificate de recuperare fără date de valabilitate";
+
+"NewVersionFeature_220_recoveryCertificatesDetails_description" = "Datele de valabilitate nu mai sunt afișate pentru certificatele de recuperare, deoarece valabilitatea acestora depinde de regulile locale. În schimb, acum este afișată data primului test pozitiv.";
+
+"NewVersionFeature_220_removeQRCode_title" = "Codul QR duplicat a fost eliminat";
+
+"NewVersionFeature_220_removeQRCode_description" = "Codul QR pentru certificatul utilizat în mod curent a fost eliminat din ecranul detaliat personal, ceea ce a creat mai mult spațiu pentru notificări și a făcut mai mult loc pe ecranul general. Codul QR este, de asemenea, conținut în sumarul certificatului și, astfel, nu este necesar pe ecranul detaliat.";
 
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Înregistrare transnațională a expunerilor în jurnal";
@@ -2867,7 +2886,7 @@
 
 "HealthCertifiedPerson_RecoveryCertificate_headline" = "Certificat de recuperare";
 
-"HealthCertifiedPerson_RecoveryCertificate_validityDate" = "valabil până la %@";
+"HealthCertifiedPerson_RecoveryCertificate_positiveTestFrom" = "Test pozitiv de la %@";
 
 "HealthCertifiedPerson_currentlyUsedCertificate" = "Certificat utilizat în prezent";
 
@@ -3161,14 +3180,6 @@
 
 "HealthCertificate_Reissuance_Consent_Cancel_Notice" = "Dacă anulați acum, puteți solicita oricând o actualizare în sumarul certificatului.";
 
-"HealthCertificate_Reissuance_Consent_Legal_Title" = "Consimțământul dvs.";
-
-"HealthCertificate_Reissuance_Consent_Legal_Subtitle" = "Apăsând pe „Sunt de acord”, consimțiți cu următoarele etape:";
-
-"HealthCertificate_Reissuance_Consent_Legal_Bullet_1" = "Aplicația trimite certificatul de vaccinare la RKI pentru verificare.";
-
-"HealthCertificate_Reissuance_Consent_Legal_Bullet_2" = "RKI verifică certificatul de vaccinare, emite un certificat actualizat și îl trimite la aplicația dvs.";
-
 "HealthCertificate_Reissuance_Consent_Bullet_Point_1" = "Actualizarea certificatului dvs. este voluntară și gratuită.";
 
 "HealthCertificate_Reissuance_Consent_Bullet_Point_2" = "Pentru a vă asigura că certificatele pot fi actualizate o singură dată, identificatorul certificatului vechi este păstrat ca evidență de către RKI.";
@@ -3360,7 +3371,7 @@
 /* - Recovery Certificate */
 "RecycleBin_RecoveryCertificate_headline" = "Certificat de recuperare";
 
-"RecycleBin_RecoveryCertificate_validityDate" = "valabil până la %@";
+"RecycleBin_RecoveryCertificate_positiveTestFrom" = "Test pozitiv de la %@";
 
 /* - Corona Test */
 "RecycleBin_CoronaTest_headline" = "Test";

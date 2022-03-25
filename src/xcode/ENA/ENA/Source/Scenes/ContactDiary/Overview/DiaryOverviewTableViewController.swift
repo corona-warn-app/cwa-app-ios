@@ -85,7 +85,7 @@ class DiaryOverviewTableViewController: UITableViewController {
 			}
 			.store(in: &subscriptions)
 		
-		viewModel.homeState?.$riskState
+		viewModel.homeState.$riskState
 			.receive(on: DispatchQueue.main.ocombine)
 			.sink { [weak self] _ in
 				self?.tableView.reloadData()
