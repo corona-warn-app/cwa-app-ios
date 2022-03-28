@@ -14,13 +14,15 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 
 	func testShouldShowOverrideTestNotice_WithoutRegisteredTests() {
 		let coronaTestService = MockCoronaTestService()
-
+		let familyMemberCoronaTestService = MockFamilyMemberCoronaTestService()
+		
 		coronaTestService.pcrTest.value = nil
 		coronaTestService.antigenTest.value = nil
 
 		let model = ExposureSubmissionCoordinatorModel(
 			exposureSubmissionService: MockExposureSubmissionService(),
 			coronaTestService: coronaTestService,
+			familyMemberCoronaTestService: familyMemberCoronaTestService,
 			eventProvider: MockEventStore()
 		)
 
@@ -30,13 +32,15 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 
 	func testShouldShowOverrideTestNotice_WithRegisteredPCRTest() {
 		let coronaTestService = MockCoronaTestService()
-
+		let familyMemberCoronaTestService = MockFamilyMemberCoronaTestService()
+	
 		coronaTestService.pcrTest.value = .mock(testResult: .pending)
 		coronaTestService.antigenTest.value = nil
 
 		let model = ExposureSubmissionCoordinatorModel(
 			exposureSubmissionService: MockExposureSubmissionService(),
 			coronaTestService: coronaTestService,
+			familyMemberCoronaTestService: familyMemberCoronaTestService,
 			eventProvider: MockEventStore()
 		)
 
@@ -59,13 +63,15 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 
 	func testShouldShowOverrideTestNotice_WithRegisteredAntigenTest() {
 		let coronaTestService = MockCoronaTestService()
-
+		let familyMemberCoronaTestService = MockFamilyMemberCoronaTestService()
+		
 		coronaTestService.pcrTest.value = nil
 		coronaTestService.antigenTest.value = .mock(testResult: .pending)
 
 		let model = ExposureSubmissionCoordinatorModel(
 			exposureSubmissionService: MockExposureSubmissionService(),
 			coronaTestService: coronaTestService,
+			familyMemberCoronaTestService: familyMemberCoronaTestService,
 			eventProvider: MockEventStore()
 		)
 
@@ -92,13 +98,15 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 
 	func testShouldShowOverrideTestNotice_WithRegisteredTests() {
 		let coronaTestService = MockCoronaTestService()
-
+		let familyMemberCoronaTestService = MockFamilyMemberCoronaTestService()
+		
 		coronaTestService.pcrTest.value = .mock(testResult: .pending)
 		coronaTestService.antigenTest.value = .mock(testResult: .pending)
 
 		let model = ExposureSubmissionCoordinatorModel(
 			exposureSubmissionService: MockExposureSubmissionService(),
 			coronaTestService: coronaTestService,
+			familyMemberCoronaTestService: familyMemberCoronaTestService,
 			eventProvider: MockEventStore()
 		)
 
@@ -112,6 +120,7 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 		let model = ExposureSubmissionCoordinatorModel(
 			exposureSubmissionService: MockExposureSubmissionService(),
 			coronaTestService: MockCoronaTestService(),
+			familyMemberCoronaTestService: MockFamilyMemberCoronaTestService(),
 			eventProvider: MockEventStore()
 		)
 
@@ -122,6 +131,7 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 		let model = ExposureSubmissionCoordinatorModel(
 			exposureSubmissionService: MockExposureSubmissionService(),
 			coronaTestService: MockCoronaTestService(),
+			familyMemberCoronaTestService: MockFamilyMemberCoronaTestService(),
 			eventProvider: MockEventStore()
 		)
 
@@ -143,6 +153,7 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 		let model = ExposureSubmissionCoordinatorModel(
 			exposureSubmissionService: MockExposureSubmissionService(),
 			coronaTestService: MockCoronaTestService(),
+			familyMemberCoronaTestService: MockFamilyMemberCoronaTestService(),
 			eventProvider: MockEventStore()
 		)
 
@@ -164,6 +175,7 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 		let model = ExposureSubmissionCoordinatorModel(
 			exposureSubmissionService: MockExposureSubmissionService(),
 			coronaTestService: MockCoronaTestService(),
+			familyMemberCoronaTestService: MockFamilyMemberCoronaTestService(),
 			eventProvider: MockEventStore()
 		)
 
@@ -185,6 +197,7 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 		let model = ExposureSubmissionCoordinatorModel(
 			exposureSubmissionService: MockExposureSubmissionService(),
 			coronaTestService: MockCoronaTestService(),
+			familyMemberCoronaTestService: MockFamilyMemberCoronaTestService(),
 			eventProvider: MockEventStore()
 		)
 
@@ -197,6 +210,7 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 		let model = ExposureSubmissionCoordinatorModel(
 			exposureSubmissionService: MockExposureSubmissionService(),
 			coronaTestService: MockCoronaTestService(),
+			familyMemberCoronaTestService: MockFamilyMemberCoronaTestService(),
 			eventProvider: MockEventStore()
 		)
 
@@ -216,6 +230,7 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 		let model = ExposureSubmissionCoordinatorModel(
 			exposureSubmissionService: exposureSubmissionService,
 			coronaTestService: MockCoronaTestService(),
+			familyMemberCoronaTestService: MockFamilyMemberCoronaTestService(),
 			eventProvider: MockEventStore()
 		)
 
@@ -242,6 +257,7 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 		let model = ExposureSubmissionCoordinatorModel(
 			exposureSubmissionService: exposureSubmissionService,
 			coronaTestService: MockCoronaTestService(),
+			familyMemberCoronaTestService: MockFamilyMemberCoronaTestService(),
 			eventProvider: MockEventStore()
 		)
 
@@ -270,6 +286,7 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 		let model = ExposureSubmissionCoordinatorModel(
 			exposureSubmissionService: exposureSubmissionService,
 			coronaTestService: MockCoronaTestService(),
+			familyMemberCoronaTestService: MockFamilyMemberCoronaTestService(),
 			eventProvider: MockEventStore()
 		)
 
@@ -298,6 +315,7 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 		let model = ExposureSubmissionCoordinatorModel(
 			exposureSubmissionService: exposureSubmissionService,
 			coronaTestService: MockCoronaTestService(),
+			familyMemberCoronaTestService: MockFamilyMemberCoronaTestService(),
 			eventProvider: MockEventStore()
 		)
 
@@ -323,6 +341,7 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 		let model = ExposureSubmissionCoordinatorModel(
 			exposureSubmissionService: exposureSubmissionService,
 			coronaTestService: MockCoronaTestService(),
+			familyMemberCoronaTestService: MockFamilyMemberCoronaTestService(),
 			eventProvider: MockEventStore()
 		)
 
@@ -349,6 +368,7 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 		let model = ExposureSubmissionCoordinatorModel(
 			exposureSubmissionService: exposureSubmissionService,
 			coronaTestService: MockCoronaTestService(),
+			familyMemberCoronaTestService: MockFamilyMemberCoronaTestService(),
 			eventProvider: MockEventStore()
 		)
 
@@ -374,6 +394,7 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 		let model = ExposureSubmissionCoordinatorModel(
 			exposureSubmissionService: exposureSubmissionService,
 			coronaTestService: MockCoronaTestService(),
+			familyMemberCoronaTestService: MockFamilyMemberCoronaTestService(),
 			eventProvider: MockEventStore()
 		)
 
@@ -399,6 +420,7 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 		let model = ExposureSubmissionCoordinatorModel(
 			exposureSubmissionService: exposureSubmissionService,
 			coronaTestService: MockCoronaTestService(),
+			familyMemberCoronaTestService: MockFamilyMemberCoronaTestService(),
 			eventProvider: MockEventStore()
 		)
 
@@ -437,6 +459,7 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 		let model = ExposureSubmissionCoordinatorModel(
 			exposureSubmissionService: exposureSubmissionService,
 			coronaTestService: MockCoronaTestService(),
+			familyMemberCoronaTestService: MockFamilyMemberCoronaTestService(),
 			eventProvider: MockEventStore()
 		)
 
@@ -475,6 +498,7 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 		let model = ExposureSubmissionCoordinatorModel(
 			exposureSubmissionService: exposureSubmissionService,
 			coronaTestService: MockCoronaTestService(),
+			familyMemberCoronaTestService: MockFamilyMemberCoronaTestService(),
 			eventProvider: MockEventStore()
 		)
 
@@ -515,6 +539,7 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 		let model = ExposureSubmissionCoordinatorModel(
 			exposureSubmissionService: exposureSubmissionService,
 			coronaTestService: MockCoronaTestService(),
+			familyMemberCoronaTestService: MockFamilyMemberCoronaTestService(),
 			eventProvider: MockEventStore()
 		)
 
@@ -553,6 +578,7 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 		let model = ExposureSubmissionCoordinatorModel(
 			exposureSubmissionService: MockExposureSubmissionService(),
 			coronaTestService: coronaTestService,
+			familyMemberCoronaTestService: MockFamilyMemberCoronaTestService(),
 			eventProvider: MockEventStore()
 		)
 
@@ -596,6 +622,7 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 		let model = ExposureSubmissionCoordinatorModel(
 			exposureSubmissionService: MockExposureSubmissionService(),
 			coronaTestService: coronaTestService,
+			familyMemberCoronaTestService: MockFamilyMemberCoronaTestService(),
 			eventProvider: MockEventStore()
 		)
 
@@ -639,6 +666,7 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 		let model = ExposureSubmissionCoordinatorModel(
 			exposureSubmissionService: MockExposureSubmissionService(),
 			coronaTestService: coronaTestService,
+			familyMemberCoronaTestService: MockFamilyMemberCoronaTestService(),
 			eventProvider: MockEventStore()
 		)
 
@@ -682,6 +710,7 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 		let model = ExposureSubmissionCoordinatorModel(
 			exposureSubmissionService: MockExposureSubmissionService(),
 			coronaTestService: coronaTestService,
+			familyMemberCoronaTestService: MockFamilyMemberCoronaTestService(),
 			eventProvider: MockEventStore()
 		)
 
@@ -725,6 +754,7 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 		let model = ExposureSubmissionCoordinatorModel(
 			exposureSubmissionService: MockExposureSubmissionService(),
 			coronaTestService: coronaTestService,
+			familyMemberCoronaTestService: MockFamilyMemberCoronaTestService(),
 			eventProvider: MockEventStore()
 		)
 
@@ -768,6 +798,7 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 		let model = ExposureSubmissionCoordinatorModel(
 			exposureSubmissionService: MockExposureSubmissionService(),
 			coronaTestService: coronaTestService,
+			familyMemberCoronaTestService: MockFamilyMemberCoronaTestService(),
 			eventProvider: MockEventStore()
 		)
 
@@ -811,6 +842,7 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 		let model = ExposureSubmissionCoordinatorModel(
 			exposureSubmissionService: MockExposureSubmissionService(),
 			coronaTestService: coronaTestService,
+			familyMemberCoronaTestService: MockFamilyMemberCoronaTestService(),
 			eventProvider: MockEventStore()
 		)
 
@@ -854,6 +886,7 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 		let model = ExposureSubmissionCoordinatorModel(
 			exposureSubmissionService: MockExposureSubmissionService(),
 			coronaTestService: coronaTestService,
+			familyMemberCoronaTestService: MockFamilyMemberCoronaTestService(),
 			eventProvider: MockEventStore()
 		)
 
