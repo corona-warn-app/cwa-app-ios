@@ -34,14 +34,16 @@ class FamilyTestsHomeCell: UITableViewCell, ReuseIdentifierProviding {
 	// MARK: - Private
 
 	private let headerLabel: ENALabel =  {
-		let headlineLabel = ENALabel(style: .headline)
-		headlineLabel.text = AppStrings.Home.familyTestTitle
-		return headlineLabel
+		let headerLabel = ENALabel(style: .headline)
+		headerLabel.text = AppStrings.Home.familyTestTitle
+		headerLabel.numberOfLines = 0
+		return headerLabel
 	}()
 
 	private let detailsLabel: ENALabel = {
 		let detailsLabel = ENALabel(style: .body)
 		detailsLabel.text = AppStrings.Home.familyTestDetail
+		detailsLabel.numberOfLines = 0
 		return detailsLabel
 	}()
 
@@ -85,8 +87,8 @@ class FamilyTestsHomeCell: UITableViewCell, ReuseIdentifierProviding {
 				imageView.widthAnchor.constraint(equalToConstant: 40.0),
 				imageView.heightAnchor.constraint(equalToConstant: 40.0),
 
-				badgeView.topAnchor.constraint(equalTo: imageView.topAnchor, constant: -6.0),
-				badgeView.trailingAnchor.constraint(equalTo: imageView.trailingAnchor, constant: 6.0),
+				badgeView.topAnchor.constraint(equalTo: imageView.topAnchor, constant: -2.0),
+				badgeView.trailingAnchor.constraint(equalTo: imageView.trailingAnchor, constant: 2.0),
 
 				headerLabel.leadingAnchor.constraint(equalTo: imageView.trailingAnchor, constant: 9.0),
 				headerLabel.centerYAnchor.constraint(equalTo: imageView.centerYAnchor),

@@ -44,8 +44,8 @@ final class BadgeView: UIView {
 		label.font = .enaFont(for: .badge)
 		label.text = badgeCount
 		label.textColor = textColor
-
 		roundedRectView.addSubview(label)
+
 		NSLayoutConstraint.activate(
 			[
 				roundedRectView.leadingAnchor.constraint(equalTo: leadingAnchor),
@@ -60,5 +60,7 @@ final class BadgeView: UIView {
 				roundedRectView.widthAnchor.constraint(greaterThanOrEqualTo: roundedRectView.heightAnchor)
 			]
 		)
+
+		roundedRectView.isHidden = badgeCount == nil
 	}
 }
