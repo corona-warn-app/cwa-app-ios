@@ -1682,6 +1682,57 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 		)
 	}
 	
+	private func registerFamilyMemberTestAndGetResult(
+		for displayName: String,
+		with testQRCodeInformation: CoronaTestRegistrationInformation,
+		submissionConsentGiven: Bool,
+		certificateConsent: TestCertificateConsent,
+		isLoading: @escaping (Bool) -> Void
+	) {
+		func defaultAlert(_ error: Error) -> UIAlertController {
+			UIAlertController.errorAlert(
+				message: error.localizedDescription,
+				secondaryActionTitle: AppStrings.Common.alertActionRetry,
+				secondaryActionCompletion: { [weak self] in
+					self?.registerFamilyMemberTestAndGetResult(
+						for: displayName,
+						with: testQRCodeInformation,
+						submissionConsentGiven: submissionConsentGiven,
+						certificateConsent: certificateConsent,
+						isLoading: isLoading
+					)
+				}
+			)
+		}
+
+		model.registerFamilyMemberTestAndGetResult(
+			for: displayName,
+			registrationInformation: testQRCodeInformation,
+			certificateConsent: certificateConsent,
+			isLoading: isLoading,
+			onSuccess: { [weak self] testResult in
+				self?.model.coronaTestType = testQRCodeInformation.testType
+
+				switch testQRCodeInformation {
+				case .teleTAN:
+					break
+				case .antigen, .pcr, .rapidPCR:
+					switch testResult {
+					case .positive:
+						self?.showTestResultAvailableScreen()
+					case .pending, .negative, .invalid, .expired:
+						self?.showTestResultScreen()
+					}
+				}
+			},
+			onError: { [weak self] error in
+				let alert = self?.alert(error, testQRCodeInformation: testQRCodeInformation, isLoading: isLoading) ?? defaultAlert(error)
+				self?.navigationController?.present(alert, animated: true, completion: nil)
+				Log.error("An error occurred during result fetching: \(error)", log: .ui)
+			}
+		)
+	}
+	
 	private func submitExposure(showSubmissionSuccess: Bool = false, isLoading: @escaping (Bool) -> Void) {
 		self.model.submitExposure(
 			isLoading: isLoading,
