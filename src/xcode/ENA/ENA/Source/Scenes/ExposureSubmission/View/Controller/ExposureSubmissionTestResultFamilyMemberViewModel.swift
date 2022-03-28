@@ -146,7 +146,7 @@ class ExposureSubmissionTestResultFamilyMemberViewModel: ExposureSubmissionTestR
 	private func refreshTest() {
 		Log.info("Refresh test.")
 
-		familyMemberCoronaTestService.updateTestResult(for: familyMemberCoronaTest, presentNotification: <#Bool#>) { [weak self] result in
+		familyMemberCoronaTestService.updateTestResult(for: familyMemberCoronaTest, presentNotification: false) { [weak self] result in
 			guard let self = self else { return }
 			
 			switch result {
