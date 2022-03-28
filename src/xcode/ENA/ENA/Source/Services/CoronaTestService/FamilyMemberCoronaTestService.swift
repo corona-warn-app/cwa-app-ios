@@ -305,7 +305,6 @@ class FamilyMemberCoronaTestService: FamilyMemberCoronaTestServiceProviding {
 		coronaTests.value.append(coronaTest)
 	}
 
-
 	func updateTestResults(presentNotification: Bool, completion: @escaping VoidResultHandler) {
 		Log.info("[FamilyMemberCoronaTestService] Update all test results. presentNotification: \(presentNotification)", log: .api)
 

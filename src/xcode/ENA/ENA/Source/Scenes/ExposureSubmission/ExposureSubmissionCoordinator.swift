@@ -397,7 +397,6 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 	}
 
 	private func createFamilyMemberTestResultViewController(familyMemberCoronaTest: FamilyMemberCoronaTest) -> TopBottomContainerViewController<ExposureSubmissionTestResultViewController, FooterViewController> {
-		
 		let viewModel = ExposureSubmissionTestResultFamilyMemberViewModel(
 			familyMemberCoronaTest: familyMemberCoronaTest,
 			familyMemberCoronaTestService: model.familyMemberCoronaTestService,
@@ -537,7 +536,11 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 						}
 					})
 				} else {
-					
+					self?.showOverrideTestNoticeIfNecessary(
+						testRegistrationInformation: testRegistrationInformation,
+						submissionConsentGiven: true,
+						isLoading: isLoading
+					)
 				}
 			},
 			dismiss: { [weak self] in self?.dismiss() }

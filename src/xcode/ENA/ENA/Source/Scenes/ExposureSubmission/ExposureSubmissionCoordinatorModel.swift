@@ -141,7 +141,7 @@ class ExposureSubmissionCoordinatorModel {
 			}
 		}
 	}
-	
+
 	// swiftlint:disable cyclomatic_complexity
 	func registerTestAndGetResult(
 		for registrationInformation: CoronaTestRegistrationInformation,

@@ -11,6 +11,132 @@ import XCTest
 // swiftlint:disable:next type_body_length
 class FamilyMemberCoronaTestServiceTests: CWATestCase {
 
+	// MARK: - Unseen News Count
+
+	func testUnseenNewsCount() {
+		let appConfiguration = CachedAppConfigurationMock()
+		let client = ClientMock()
+		let store = MockTestStore()
+
+		let antigenTest1: FamilyMemberCoronaTest = .antigen(.mock(qrCodeHash: "antigenQRCodeHash1", isNew: true, testResultWasShown: true))
+		let antigenTest2: FamilyMemberCoronaTest = .antigen(.mock(qrCodeHash: "antigenQRCodeHash2", isNew: true, testResultWasShown: false))
+		let antigenTest3: FamilyMemberCoronaTest = .antigen(.mock(qrCodeHash: "antigenQRCodeHash3", isNew: false, testResultWasShown: true))
+		let antigenTest4: FamilyMemberCoronaTest = .antigen(.mock(qrCodeHash: "antigenQRCodeHash4", isNew: false, finalTestResultReceivedDate: nil, testResultWasShown: false))
+		let antigenTest5: FamilyMemberCoronaTest = .antigen(.mock(qrCodeHash: "antigenQRCodeHash5", isNew: false, finalTestResultReceivedDate: Date(), testResultWasShown: false))
+		let pcrTest1: FamilyMemberCoronaTest = .pcr(.mock(qrCodeHash: "pcrQRCodeHash1", isNew: true, testResultWasShown: true))
+		let pcrTest2: FamilyMemberCoronaTest = .pcr(.mock(qrCodeHash: "pcrQRCodeHash2", isNew: true, testResultWasShown: false))
+		let pcrTest3: FamilyMemberCoronaTest = .pcr(.mock(qrCodeHash: "pcrQRCodeHash3", isNew: false, testResultWasShown: true))
+		let pcrTest4: FamilyMemberCoronaTest = .pcr(.mock(qrCodeHash: "pcrQRCodeHash4", isNew: false, finalTestResultReceivedDate: nil, testResultWasShown: false))
+		let pcrTest5: FamilyMemberCoronaTest = .pcr(.mock(qrCodeHash: "pcrQRCodeHash5", isNew: false, finalTestResultReceivedDate: Date(), testResultWasShown: false))
+
+		store.familyMemberTests = [antigenTest1, antigenTest2, antigenTest3, antigenTest4, antigenTest5, pcrTest1, pcrTest2, pcrTest3, pcrTest4, pcrTest5]
+
+		let healthCertificateService = HealthCertificateService(
+			store: store,
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
+			dscListProvider: MockDSCListProvider(),
+			appConfiguration: appConfiguration,
+			cclService: FakeCCLService(),
+			recycleBin: .fake()
+		)
+
+		let service = FamilyMemberCoronaTestService(
+			client: client,
+			store: store,
+			appConfiguration: appConfiguration,
+			healthCertificateService: healthCertificateService,
+			healthCertificateRequestService: HealthCertificateRequestService(
+				store: store,
+				client: client,
+				appConfiguration: appConfiguration,
+				healthCertificateService: healthCertificateService
+			),
+			recycleBin: .fake()
+		)
+
+		XCTAssertEqual(service.unseenNewsCount, 6)
+
+		service.evaluateShowing(of: antigenTest1)
+		XCTAssertEqual(service.unseenNewsCount, 5)
+
+		service.evaluateShowing(of: antigenTest2)
+		XCTAssertEqual(service.unseenNewsCount, 4)
+
+		service.evaluateShowing(of: antigenTest3)
+		XCTAssertEqual(service.unseenNewsCount, 4)
+
+		service.evaluateShowing(of: antigenTest4)
+		XCTAssertEqual(service.unseenNewsCount, 4)
+
+		service.evaluateShowing(of: antigenTest5)
+		XCTAssertEqual(service.unseenNewsCount, 3)
+
+		service.evaluateShowing(of: pcrTest1)
+		XCTAssertEqual(service.unseenNewsCount, 2)
+
+		service.evaluateShowing(of: pcrTest2)
+		XCTAssertEqual(service.unseenNewsCount, 1)
+
+		service.evaluateShowing(of: pcrTest3)
+		XCTAssertEqual(service.unseenNewsCount, 1)
+
+		service.evaluateShowing(of: pcrTest4)
+		XCTAssertEqual(service.unseenNewsCount, 1)
+
+		service.evaluateShowing(of: pcrTest5)
+		XCTAssertEqual(service.unseenNewsCount, 0)
+	}
+
+	func testEvaluatingShowingAllTests() {
+		let appConfiguration = CachedAppConfigurationMock()
+		let client = ClientMock()
+		let store = MockTestStore()
+
+		let antigenTest1: FamilyMemberCoronaTest = .antigen(.mock(qrCodeHash: "antigenQRCodeHash1", isNew: true, testResultWasShown: true))
+		let antigenTest2: FamilyMemberCoronaTest = .antigen(.mock(qrCodeHash: "antigenQRCodeHash2", isNew: true, testResultWasShown: false))
+		let antigenTest3: FamilyMemberCoronaTest = .antigen(.mock(qrCodeHash: "antigenQRCodeHash3", isNew: false, testResultWasShown: true))
+		let antigenTest4: FamilyMemberCoronaTest = .antigen(.mock(qrCodeHash: "antigenQRCodeHash4", isNew: false, finalTestResultReceivedDate: nil, testResultWasShown: false))
+		let antigenTest5: FamilyMemberCoronaTest = .antigen(.mock(qrCodeHash: "antigenQRCodeHash5", isNew: false, finalTestResultReceivedDate: Date(), testResultWasShown: false))
+		let pcrTest1: FamilyMemberCoronaTest = .pcr(.mock(qrCodeHash: "pcrQRCodeHash1", isNew: true, testResultWasShown: true))
+		let pcrTest2: FamilyMemberCoronaTest = .pcr(.mock(qrCodeHash: "pcrQRCodeHash2", isNew: true, testResultWasShown: false))
+		let pcrTest3: FamilyMemberCoronaTest = .pcr(.mock(qrCodeHash: "pcrQRCodeHash3", isNew: false, testResultWasShown: true))
+		let pcrTest4: FamilyMemberCoronaTest = .pcr(.mock(qrCodeHash: "pcrQRCodeHash4", isNew: false, finalTestResultReceivedDate: nil, testResultWasShown: false))
+		let pcrTest5: FamilyMemberCoronaTest = .pcr(.mock(qrCodeHash: "pcrQRCodeHash5", isNew: false, finalTestResultReceivedDate: Date(), testResultWasShown: false))
+
+		store.familyMemberTests = [antigenTest1, antigenTest2, antigenTest3, antigenTest4, antigenTest5, pcrTest1, pcrTest2, pcrTest3, pcrTest4, pcrTest5]
+
+		let healthCertificateService = HealthCertificateService(
+			store: store,
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
+			dscListProvider: MockDSCListProvider(),
+			appConfiguration: appConfiguration,
+			cclService: FakeCCLService(),
+			recycleBin: .fake()
+		)
+
+		let service = FamilyMemberCoronaTestService(
+			client: client,
+			store: store,
+			appConfiguration: appConfiguration,
+			healthCertificateService: healthCertificateService,
+			healthCertificateRequestService: HealthCertificateRequestService(
+				store: store,
+				client: client,
+				appConfiguration: appConfiguration,
+				healthCertificateService: healthCertificateService
+			),
+			recycleBin: .fake()
+		)
+
+		XCTAssertEqual(service.unseenNewsCount, 6)
+
+		service.evaluateShowingAllTests()
+
+		XCTAssertEqual(service.unseenNewsCount, 0)
+	}
+
+	// MARK: - Get Registration Token
+
 	func testGIVEN_Service_WHEN_getRegistrationToken_THEN_MallFormattedDOB() {
 		// GIVEN
 		let client = ClientMock()
