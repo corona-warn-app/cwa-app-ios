@@ -3571,6 +3571,8 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "RecycleBin_CoronaTest_headline" = "Test";
 
+"RecycleBin_CoronaTest_familyMemberHeadline" = "Tests von Familienmitgliedern";
+
 "RecycleBin_CoronaTest_pcrTest" = "PCR-Test";
 
 "RecycleBin_CoronaTest_antigenTest" = "Schnelltest";

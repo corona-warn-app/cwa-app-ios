@@ -4,44 +4,47 @@
 
 import Foundation
 
-struct UserAntigenTest: Equatable, Hashable {
+struct UserAntigenTest: Equatable, Hashable, Codable {
 
-	// MARK: - Internal
+	// MARK: - Init
 
-	// The date of when the consent was provided by the tested person at the Point of Care.
-	var pointOfCareConsentDate: Date
-	// The date of when the test sample was collected.
-	var sampleCollectionDate: Date?
-	var registrationDate: Date?
-	var registrationToken: String?
-	var qrCodeHash: String?
-
-	var testedPerson: TestedPerson
-
-	var testResult: TestResult
-	var finalTestResultReceivedDate: Date?
-	var positiveTestResultWasShown: Bool
-
-	var isSubmissionConsentGiven: Bool
-	// Can only be used once to submit, cached here in case submission fails
-	var submissionTAN: String?
-	var keysSubmitted: Bool
-
-	var journalEntryCreated: Bool
-
-	var certificateSupportedByPointOfCare: Bool
-	var certificateConsentGiven: Bool
-	var certificateRequested: Bool
-
-	var uniqueCertificateIdentifier: String?
-
-	var testDate: Date {
-		return sampleCollectionDate ?? pointOfCareConsentDate
+	init(
+		pointOfCareConsentDate: Date,
+		sampleCollectionDate: Date? = nil,
+		registrationDate: Date? = nil,
+		registrationToken: String? = nil,
+		qrCodeHash: String? = nil,
+		testedPerson: TestedPerson,
+		testResult: TestResult,
+		finalTestResultReceivedDate: Date? = nil,
+		positiveTestResultWasShown: Bool,
+		isSubmissionConsentGiven: Bool,
+		submissionTAN: String? = nil,
+		keysSubmitted: Bool,
+		journalEntryCreated: Bool,
+		certificateSupportedByPointOfCare: Bool,
+		certificateConsentGiven: Bool,
+		certificateRequested: Bool,
+		uniqueCertificateIdentifier: String? = nil
+	) {
+		self.pointOfCareConsentDate = pointOfCareConsentDate
+		self.sampleCollectionDate = sampleCollectionDate
+		self.registrationDate = registrationDate
+		self.registrationToken = registrationToken
+		self.qrCodeHash = qrCodeHash
+		self.testedPerson = testedPerson
+		self.testResult = testResult
+		self.finalTestResultReceivedDate = finalTestResultReceivedDate
+		self.positiveTestResultWasShown = positiveTestResultWasShown
+		self.isSubmissionConsentGiven = isSubmissionConsentGiven
+		self.submissionTAN = submissionTAN
+		self.keysSubmitted = keysSubmitted
+		self.journalEntryCreated = journalEntryCreated
+		self.certificateSupportedByPointOfCare = certificateSupportedByPointOfCare
+		self.certificateConsentGiven = certificateConsentGiven
+		self.certificateRequested = certificateRequested
+		self.uniqueCertificateIdentifier = uniqueCertificateIdentifier
 	}
-
-}
-
-extension UserAntigenTest: Codable {
 
 	// MARK: - Protocol Codable
 
@@ -89,8 +92,41 @@ extension UserAntigenTest: Codable {
 		certificateSupportedByPointOfCare = try container.decodeIfPresent(Bool.self, forKey: .certificateSupportedByPointOfCare) ?? false
 		certificateConsentGiven = try container.decodeIfPresent(Bool.self, forKey: .certificateConsentGiven) ?? false
 		certificateRequested = try container.decodeIfPresent(Bool.self, forKey: .certificateRequested) ?? false
-		
+
 		uniqueCertificateIdentifier = try container.decodeIfPresent(String.self, forKey: .uniqueCertificateIdentifier)
+	}
+
+	// MARK: - Internal
+
+	// The date of when the consent was provided by the tested person at the Point of Care.
+	var pointOfCareConsentDate: Date
+	// The date of when the test sample was collected.
+	var sampleCollectionDate: Date?
+	var registrationDate: Date?
+	var registrationToken: String?
+	var qrCodeHash: String?
+
+	var testedPerson: TestedPerson
+
+	var testResult: TestResult
+	var finalTestResultReceivedDate: Date?
+	var positiveTestResultWasShown: Bool
+
+	var isSubmissionConsentGiven: Bool
+	// Can only be used once to submit, cached here in case submission fails
+	var submissionTAN: String?
+	var keysSubmitted: Bool
+
+	var journalEntryCreated: Bool
+
+	var certificateSupportedByPointOfCare: Bool
+	var certificateConsentGiven: Bool
+	var certificateRequested: Bool
+
+	var uniqueCertificateIdentifier: String?
+
+	var testDate: Date {
+		return sampleCollectionDate ?? pointOfCareConsentDate
 	}
 
 }

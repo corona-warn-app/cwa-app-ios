@@ -305,8 +305,9 @@ class FamilyMemberCoronaTestService: FamilyMemberCoronaTestServiceProviding {
 		coronaTests.value.append(coronaTest)
 	}
 
-	func updateTestResults(force: Bool = true, presentNotification: Bool, completion: @escaping VoidResultHandler) {
-		Log.info("[FamilyMemberCoronaTestService] Update all test results. force: \(force), presentNotification: \(presentNotification)", log: .api)
+
+	func updateTestResults(presentNotification: Bool, completion: @escaping VoidResultHandler) {
+		Log.info("[FamilyMemberCoronaTestService] Update all test results. presentNotification: \(presentNotification)", log: .api)
 
 		let group = DispatchGroup()
 		var errors = [CoronaTestServiceError]()
@@ -315,7 +316,7 @@ class FamilyMemberCoronaTestService: FamilyMemberCoronaTestServiceProviding {
 			group.enter()
 			Log.info("[FamilyMemberCoronaTestService] Dispatch group entered in updateTestResults for (coronaTest: \(private: coronaTest))")
 			
-			updateTestResult(for: coronaTest, force: force, presentNotification: presentNotification) { result in
+			updateTestResult(for: coronaTest, presentNotification: presentNotification) { result in
 				switch result {
 				case .failure(let error):
 					Log.error(error.localizedDescription, log: .api)
@@ -340,13 +341,12 @@ class FamilyMemberCoronaTestService: FamilyMemberCoronaTestServiceProviding {
 
 	func updateTestResult(
 		for coronaTest: FamilyMemberCoronaTest,
-		force: Bool = true,
 		presentNotification: Bool = false,
 		completion: @escaping TestResultHandler
 	) {
-		Log.info("[FamilyMemberCoronaTestService] Updating test result (coronaTest: \(private: coronaTest)), force: \(force), presentNotification: \(presentNotification)", log: .api)
+		Log.info("[FamilyMemberCoronaTestService] Updating test result (coronaTest: \(private: coronaTest)), presentNotification: \(presentNotification)", log: .api)
 
-		getTestResult(for: coronaTest, force: force, duringRegistration: false, presentNotification: presentNotification) { [weak self] result in
+		getTestResult(for: coronaTest, duringRegistration: false, presentNotification: presentNotification) { [weak self] result in
 			Log.info("[FamilyMemberCoronaTestService] Received test result from getTestResult: \(private: result)")
 			
 			guard let self = self else {
@@ -383,6 +383,14 @@ class FamilyMemberCoronaTestService: FamilyMemberCoronaTestServiceProviding {
 		coronaTests.value.modify(coronaTest) {
 			$0.isNew = false
 			$0.testResultWasShown = coronaTest.finalTestResultReceivedDate != nil
+		}
+	}
+
+	func evaluateShowingAllTests() {
+		Log.info("[FamilyMemberCoronaTestService] Evaluating showing all tests", log: .api)
+
+		coronaTests.value.forEach {
+			evaluateShowing(of: $0)
 		}
 	}
 
@@ -508,7 +516,6 @@ class FamilyMemberCoronaTestService: FamilyMemberCoronaTestServiceProviding {
 	// swiftlint:disable:next cyclomatic_complexity
 	private func getTestResult(
 		for coronaTest: FamilyMemberCoronaTest,
-		force: Bool = true,
 		duringRegistration: Bool,
 		presentNotification: Bool = false,
 		_ completion: @escaping TestResultHandler
@@ -529,7 +536,7 @@ class FamilyMemberCoronaTestService: FamilyMemberCoronaTestServiceProviding {
 			return
 		}
 
-		guard force || coronaTest.finalTestResultReceivedDate == nil else {
+		guard coronaTest.finalTestResultReceivedDate == nil else {
 			Log.info("[FamilyMemberCoronaTestService] Get test result completed early because final test result is present.", log: .api)
 			completion(.success(coronaTest.testResult))
 			return
@@ -597,6 +604,8 @@ class FamilyMemberCoronaTestService: FamilyMemberCoronaTestServiceProviding {
 
 				Log.info("[FamilyMemberCoronaTestService] Got test result (coronaTest: \(private: coronaTest), testResult: \(testResult)), sampleCollectionDate: \(String(describing: response.sc))", log: .api)
 
+				let previousTestResult = self.upToDateTest(for: coronaTest)?.testResult
+
 				self.coronaTests.value.modify(coronaTest) {
 					$0.testResult = testResult
 					$0.sampleCollectionDate = response.sc.map {
@@ -607,8 +616,11 @@ class FamilyMemberCoronaTestService: FamilyMemberCoronaTestServiceProviding {
 				switch testResult {
 				case .positive, .negative, .invalid:
 					if self.coronaTests.value.first(where: { $0.qrCodeHash == coronaTest.qrCodeHash })?.finalTestResultReceivedDate == nil {
-						self.coronaTests.value.modify(coronaTest) {
-							$0.finalTestResultReceivedDate = Date()
+						// For family member corona tests `.invalid` results should not prevent polling as there is no `force` mode to update tests that already have a result and `.invalid` results can potentially change.
+						if testResult == .negative || testResult == .positive {
+							self.coronaTests.value.modify(coronaTest) {
+								$0.finalTestResultReceivedDate = Date()
+							}
 						}
 
 						if testResult == .negative && coronaTest.certificateConsentGiven && !coronaTest.certificateRequested {
@@ -625,7 +637,7 @@ class FamilyMemberCoronaTestService: FamilyMemberCoronaTestServiceProviding {
 							}
 						}
 
-						if presentNotification {
+						if presentNotification && testResult != previousTestResult {
 							Log.info("[FamilyMemberCoronaTestService] Triggering Notification (coronaTest: \(private: coronaTest), testResult: \(testResult))", log: .api)
 
 							// We attach the test result and type to determine which screen to show when user taps the notification
@@ -674,11 +686,16 @@ class FamilyMemberCoronaTestService: FamilyMemberCoronaTestServiceProviding {
 			return
 		}
 
+		guard nextOutdatedStateUpdateDate > Date() else {
+			updateOutdatedStates()
+			return
+		}
+
 		// Schedule new timer.
 		NotificationCenter.default.addObserver(self, selector: #selector(invalidateTimer), name: UIApplication.didEnterBackgroundNotification, object: nil)
 		NotificationCenter.default.addObserver(self, selector: #selector(refreshUpdateTimerAfterResumingFromBackground), name: UIApplication.didBecomeActiveNotification, object: nil)
 
-		outdatedStateTimer = Timer(fireAt: nextOutdatedStateUpdateDate, interval: 0, target: self, selector: #selector(updateFromTimer), userInfo: nil, repeats: false)
+		outdatedStateTimer = Timer(fireAt: nextOutdatedStateUpdateDate, interval: 0, target: self, selector: #selector(updateOutdatedStates), userInfo: nil, repeats: false)
 
 		guard let outdatedStateTimer = outdatedStateTimer else { return }
 		RunLoop.current.add(outdatedStateTimer, forMode: .common)
@@ -691,15 +708,17 @@ class FamilyMemberCoronaTestService: FamilyMemberCoronaTestServiceProviding {
 
 	@objc
 	private func refreshUpdateTimerAfterResumingFromBackground() {
-		updateFromTimer()
+		updateOutdatedStates()
 		scheduleOutdatedStateTimer()
 	}
 
 	@objc
-	private func updateFromTimer() {
-		coronaTests.value.forEach {
-			updateOutdatedState(for: $0)
+	private func updateOutdatedStates() {
+		for coronaTest in coronaTests.value {
+			updateOutdatedState(for: coronaTest)
 		}
+
+		scheduleOutdatedStateTimer()
 	}
 
 	private func updateOutdatedState(for coronaTest: FamilyMemberCoronaTest) {

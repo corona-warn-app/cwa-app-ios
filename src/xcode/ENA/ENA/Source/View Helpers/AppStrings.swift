@@ -2583,6 +2583,7 @@ enum AppStrings {
 
 		enum CoronaTest {
 			static let headline = NSLocalizedString("RecycleBin_CoronaTest_headline", comment: "")
+			static let familyMemberHeadline = NSLocalizedString("RecycleBin_CoronaTest_familyMemberHeadline", comment: "")
 			static let pcrTest = NSLocalizedString("RecycleBin_CoronaTest_pcrTest", comment: "")
 			static let antigenTest = NSLocalizedString("RecycleBin_CoronaTest_antigenTest", comment: "")
 			static let registrationDate = NSLocalizedString("RecycleBin_CoronaTest_registrationDate", comment: "")

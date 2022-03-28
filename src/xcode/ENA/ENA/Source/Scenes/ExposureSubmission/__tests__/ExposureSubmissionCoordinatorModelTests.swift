@@ -33,7 +33,7 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 	func testShouldShowOverrideTestNotice_WithRegisteredPCRTest() {
 		let coronaTestService = MockCoronaTestService()
 		let familyMemberCoronaTestService = MockFamilyMemberCoronaTestService()
-	
+
 		coronaTestService.pcrTest.value = .mock(testResult: .pending)
 		coronaTestService.antigenTest.value = nil
 
