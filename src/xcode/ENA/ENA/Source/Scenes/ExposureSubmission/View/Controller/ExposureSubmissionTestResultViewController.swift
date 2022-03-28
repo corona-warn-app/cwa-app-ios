@@ -10,7 +10,7 @@ class ExposureSubmissionTestResultViewController: DynamicTableViewController, Fo
 	// MARK: - Init
 
 	init(
-		viewModel: ExposureSubmissionTestResultViewModel,
+		viewModel: ExposureSubmissionTestResultModel,
 		exposureSubmissionService: ExposureSubmissionService,
 		onDismiss: @escaping (TestResult, @escaping (Bool) -> Void) -> Void
 	) {
@@ -37,7 +37,7 @@ class ExposureSubmissionTestResultViewController: DynamicTableViewController, Fo
 	override func viewDidAppear(_ animated: Bool) {
 		super.viewDidAppear(animated)
 		
-		viewModel.updateWarnOthers()
+		viewModel.evaluateShowing()
 		viewModel.updateTestResultIfPossible()
 	}
 	
@@ -67,7 +67,7 @@ class ExposureSubmissionTestResultViewController: DynamicTableViewController, Fo
 	// MARK: - Protocol DismissHandling
 
 	func wasAttemptedToBeDismissed() {
-		onDismiss(viewModel.coronaTest.testResult) { [weak self] isLoading in
+		onDismiss(viewModel.testResult) { [weak self] isLoading in
 			DispatchQueue.main.async {
 				self?.navigationItem.rightBarButtonItem?.isEnabled = !isLoading
 				self?.footerView?.setLoadingIndicator(isLoading, disable: false, button: .primary)
@@ -80,7 +80,7 @@ class ExposureSubmissionTestResultViewController: DynamicTableViewController, Fo
 	
 	private let onDismiss: (TestResult, @escaping (Bool) -> Void) -> Void
 	private let exposureSubmissionService: ExposureSubmissionService
-	private let viewModel: ExposureSubmissionTestResultViewModel
+	private let viewModel: ExposureSubmissionTestResultModel
 
 	private var bindings: [AnyCancellable] = []
 
@@ -123,45 +123,45 @@ class ExposureSubmissionTestResultViewController: DynamicTableViewController, Fo
 	}
 
 	private func setUpBindings() {
-		viewModel.$dynamicTableViewModel
+		viewModel.dynamicTableViewModelPublisher
 			.sink { [weak self] dynamicTableViewModel in
 				self?.dynamicTableViewModel = dynamicTableViewModel
 				self?.tableView.reloadData()
 			}
 			.store(in: &bindings)
 
-		viewModel.$shouldShowDeletionConfirmationAlert
+		viewModel.shouldShowDeletionConfirmationAlertPublisher
 			.sink { [weak self] shouldShowDeletionConfirmationAlert in
 				guard let self = self, shouldShowDeletionConfirmationAlert else { return }
 
-				self.viewModel.shouldShowDeletionConfirmationAlert = false
+				self.viewModel.shouldShowDeletionConfirmationAlertPublisher.value = false
 
 				self.showDeletionConfirmationAlert()
 			}
 			.store(in: &bindings)
 		
-		viewModel.$shouldAttemptToDismiss
+		viewModel.shouldAttemptToDismissPublisher
 			.sink { [weak self] shouldAttemptToDismiss in
 				guard let self = self, shouldAttemptToDismiss else { return }
 				
-				self.viewModel.shouldAttemptToDismiss = false
+				self.viewModel.shouldAttemptToDismissPublisher.value = false
 				
 				self.wasAttemptedToBeDismissed()
 			}
 			.store(in: &bindings)
 
-		viewModel.$error
+		viewModel.errorPublisher
 			.sink { [weak self] error in
 				guard let self = self, let error = error else { return }
 
-				self.viewModel.error = nil
+				self.viewModel.errorPublisher.value = nil
 
 				let alert = self.setupErrorAlert(message: error.localizedDescription)
 				self.present(alert, animated: true)
 			}
 			.store(in: &bindings)
 		
-		viewModel.$footerViewModel
+		viewModel.footerViewModelPublisher
 			.dropFirst()
 			.sink { [weak self] footerViewModel in
 				guard let self = self, let footerViewModel = footerViewModel else { return }

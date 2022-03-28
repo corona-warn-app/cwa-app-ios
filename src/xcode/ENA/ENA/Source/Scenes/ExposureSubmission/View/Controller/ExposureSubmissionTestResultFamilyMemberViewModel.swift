@@ -5,75 +5,78 @@
 import UIKit
 import OpenCombine
 
-class ExposureSubmissionTestResultFamilyMemberViewModel {
+class ExposureSubmissionTestResultFamilyMemberViewModel: ExposureSubmissionTestResultModel {
 	
 	// MARK: - Init
 	
 	init(
-		coronaTestType: CoronaTestType,
-		coronaTestService: CoronaTestServiceProviding,
+		familyMemberCoronaTest: FamilyMemberCoronaTest,
+		familyMemberCoronaTestService: FamilyMemberCoronaTestServiceProviding,
 		onChangeToPositiveTestResult: @escaping () -> Void,
 		onTestDeleted: @escaping () -> Void,
 		onTestCertificateCellTap: @escaping(HealthCertificate, HealthCertifiedPerson) -> Void
 	) {
-		self.coronaTestType = coronaTestType
-		self.coronaTestService = coronaTestService
+		self.familyMemberCoronaTest = familyMemberCoronaTest
+		self.familyMemberCoronaTestService = familyMemberCoronaTestService
 		self.onChangeToPositiveTestResult = onChangeToPositiveTestResult
 		self.onTestDeleted = onTestDeleted
 		self.onTestCertificateCellTap = onTestCertificateCellTap
 
-		guard let coronaTest = coronaTestService.coronaTest(ofType: coronaTestType) else {
+		guard let familyMemberCoronaTest = familyMemberCoronaTestService.upToDateTest(for: familyMemberCoronaTest) else {
 			onTestDeleted()
 			return
 		}
 
-		self.coronaTest = coronaTest
+		self.familyMemberCoronaTest = familyMemberCoronaTest
+
 		bindToCoronaTestUpdates()
 	}
 	
 	// MARK: - Internal
 	
-	@OpenCombine.Published var dynamicTableViewModel: DynamicTableViewModel = DynamicTableViewModel([])
-	@OpenCombine.Published var shouldShowDeletionConfirmationAlert: Bool = false
-	@OpenCombine.Published var error: CoronaTestServiceError?
-	@OpenCombine.Published var shouldAttemptToDismiss: Bool = false
-	@OpenCombine.Published var footerViewModel: FooterViewModel?
-	
-	var coronaTest: CoronaTest!
-	
+	var dynamicTableViewModelPublisher = CurrentValueSubject<DynamicTableViewModel, Never>(DynamicTableViewModel([]))
+	var shouldShowDeletionConfirmationAlertPublisher = CurrentValueSubject<Bool, Never>(false)
+	var errorPublisher = CurrentValueSubject<CoronaTestServiceError?, Never>(nil)
+	var shouldAttemptToDismissPublisher = CurrentValueSubject<Bool, Never>(false)
+	var footerViewModelPublisher = CurrentValueSubject<FooterViewModel?, Never>(nil)
+
 	var title: String {
-		if showSpecialCaseForNegativeAntigenTest {
-			return AppStrings.ExposureSubmissionResult.Antigen.title
-		} else {
-			return AppStrings.ExposureSubmissionResult.PCR.title
-		}
+		return familyMemberCoronaTest.displayName
+	}
+	
+	var testResult: TestResult {
+		return familyMemberCoronaTest.testResult
 	}
 	
 	func didTapPrimaryButton() {
-		switch coronaTest.testResult {
+		switch familyMemberCoronaTest.testResult {
 		case .positive, .negative, .invalid, .expired:
-			shouldShowDeletionConfirmationAlert = true
+			shouldShowDeletionConfirmationAlertPublisher.value = true
 		case .pending:
 			refreshTest()
 		}
 	}
 	
 	func didTapSecondaryButton() {
-		switch coronaTest.testResult {
+		switch familyMemberCoronaTest.testResult {
 		case .pending:
-			shouldShowDeletionConfirmationAlert = true
+			shouldShowDeletionConfirmationAlertPublisher.value = true
 		case .positive, .negative, .invalid, .expired:
 			break
 		}
 	}
 	
 	func deleteTest() {
-		coronaTestService.moveTestToBin(coronaTestType)
+		familyMemberCoronaTestService.moveTestToBin(familyMemberCoronaTest)
 		onTestDeleted()
 	}
 	
+	func evaluateShowing() {
+		familyMemberCoronaTestService.evaluateShowing(of: familyMemberCoronaTest)
+	}
+	
 	func updateTestResultIfPossible() {
-		guard coronaTest.testResult == .pending else {
+		guard familyMemberCoronaTest.testResult == .pending else {
 			Log.info("Not refreshing test because status is pending")
 			return
 		}
@@ -82,9 +85,8 @@ class ExposureSubmissionTestResultFamilyMemberViewModel {
 	
 	// MARK: - Private
 	
-	private var coronaTestService: CoronaTestServiceProviding
-
-	private let coronaTestType: CoronaTestType
+	private var familyMemberCoronaTestService: FamilyMemberCoronaTestServiceProviding
+	private var familyMemberCoronaTest: FamilyMemberCoronaTest
 
 	private let onChangeToPositiveTestResult: () -> Void
 	private let onTestDeleted: () -> Void
@@ -94,54 +96,44 @@ class ExposureSubmissionTestResultFamilyMemberViewModel {
 	
 	private var primaryButtonIsLoading: Bool = false {
 		didSet {
-			footerViewModel?.setLoadingIndicator(primaryButtonIsLoading, disable: primaryButtonIsLoading, button: .primary)
-			footerViewModel?.setLoadingIndicator(false, disable: primaryButtonIsLoading, button: .secondary)
+			footerViewModelPublisher.value?.setLoadingIndicator(primaryButtonIsLoading, disable: primaryButtonIsLoading, button: .primary)
+			footerViewModelPublisher.value?.setLoadingIndicator(false, disable: primaryButtonIsLoading, button: .secondary)
 		}
 	}
 	
 	private var showSpecialCaseForNegativeAntigenTest: Bool {
-		return coronaTest.type == .antigen && coronaTest.testResult == .negative
+		return familyMemberCoronaTest.type == .antigen && familyMemberCoronaTest.testResult == .negative
 	}
 
 	private func bindToCoronaTestUpdates() {
-		switch coronaTestType {
-		case .pcr:
-			coronaTestService.pcrTest
-				.sink { [weak self] pcrTest in
-					guard let pcrTest = pcrTest else {
-						return
-					}
-
-					self?.updateForCurrentTestResult(coronaTest: .pcr(pcrTest))
+		familyMemberCoronaTestService.coronaTests
+			.sink { [weak self] _ in
+				
+				guard let familyMemberCoronaTest = self?.familyMemberCoronaTest, let familyMemberCoronaTest = self?.familyMemberCoronaTestService.upToDateTest(for: familyMemberCoronaTest) else {
+					return
 				}
-				.store(in: &subscriptions)
-		case .antigen:
-			coronaTestService.antigenTest
-				.sink { [weak self] antigenTest in
-					guard let antigenTest = antigenTest else {
-						return
-					}
 
-					self?.updateForCurrentTestResult(coronaTest: .antigen(antigenTest))
-				}
-				.store(in: &subscriptions)
-		}
+				self?.updateForCurrentTestResult(coronaTest: familyMemberCoronaTest)
+			}
+			.store(in: &subscriptions)
 	}
 
-	private func updateForCurrentTestResult(coronaTest: CoronaTest) {
+	private func updateForCurrentTestResult(coronaTest: FamilyMemberCoronaTest) {
 		// Positive test results are not shown immediately
-		if coronaTest.testResult == .positive && self.coronaTest.testResult != .positive {
+		if familyMemberCoronaTest.testResult == .positive && self.familyMemberCoronaTest.testResult != .positive {
 			self.onChangeToPositiveTestResult()
 		}
 
-		self.coronaTest = coronaTest
+		self.familyMemberCoronaTest = coronaTest
 
+		primaryButtonIsLoading = coronaTest.isLoading
+		
 		let sections: [DynamicSection]
 		switch coronaTest.testResult {
 		case .positive:
 			sections = positiveTestResultSections
 		case .negative:
-			if let test = coronaTest.antigenTest, showSpecialCaseForNegativeAntigenTest {
+			if let test = familyMemberCoronaTest.antigenTest, showSpecialCaseForNegativeAntigenTest {
 				sections = negativeAntigenTestResultSections(test: test)
 			} else {
 				sections = negativeTestResultSections
@@ -151,25 +143,23 @@ class ExposureSubmissionTestResultFamilyMemberViewModel {
 		case .pending:
 			sections = pendingTestResultSections
 		case .expired:
-			sections = []
+			onTestDeleted()
+			return
 		}
-		dynamicTableViewModel = DynamicTableViewModel(sections)
+		dynamicTableViewModelPublisher.value = DynamicTableViewModel(sections)
 		
-		footerViewModel = ExposureSubmissionTestResultViewModel.footerViewModel(coronaTest: coronaTest)
+		footerViewModelPublisher.value = ExposureSubmissionTestResultFamilyMemberViewModel.footerViewModel(coronaTest: coronaTest)
 	}
 	
 	private func refreshTest() {
 		Log.info("Refresh test.")
 
-		primaryButtonIsLoading = true
-		coronaTestService.updateTestResult(for: coronaTestType) { [weak self] result in
+		familyMemberCoronaTestService.updateTestResult(for: familyMemberCoronaTest) { [weak self] result in
 			guard let self = self else { return }
-			
-			self.primaryButtonIsLoading = false
 			
 			switch result {
 			case let .failure(error):
-				self.error = error
+				self.errorPublisher.value = error
 			case .success:
 				break
 			}
@@ -187,7 +177,7 @@ extension ExposureSubmissionTestResultFamilyMemberViewModel {
 						accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionResult.procedure
 		)]
 		
-		switch coronaTest.type {
+		switch familyMemberCoronaTest.type {
 		case .pcr:
 			cells.append(contentsOf: [
 				ExposureSubmissionDynamicCell.stepCell(
@@ -237,7 +227,7 @@ extension ExposureSubmissionTestResultFamilyMemberViewModel {
 				header: .identifier(
 					ExposureSubmissionTestResultViewController.HeaderReuseIdentifier.pcrTestResult,
 					configure: { view, _ in
-						(view as? ExposureSubmissionTestResultHeaderView)?.configure(coronaTest: self.coronaTest)
+						(view as? ExposureSubmissionTestResultHeaderView)?.configure(coronaTest: self.familyMemberCoronaTest)
 					}
 				),
 				cells: cells
@@ -255,7 +245,7 @@ extension ExposureSubmissionTestResultFamilyMemberViewModel {
 			.title2(text: AppStrings.ExposureSubmissionPositiveTestResult.keysSubmittedTitle1)
 		]
 
-		if coronaTest.type == .pcr {
+		if familyMemberCoronaTest.type == .pcr {
 			cells.append(contentsOf: [
 				ExposureSubmissionDynamicCell.stepCell(
 					style: .body,
@@ -281,7 +271,7 @@ extension ExposureSubmissionTestResultFamilyMemberViewModel {
 					bottomSpacing: .medium
 				)
 			])
-		} else if coronaTest.type == .antigen {
+		} else if familyMemberCoronaTest.type == .antigen {
 			cells.append(contentsOf: [
 				ExposureSubmissionDynamicCell.stepCell(
 					style: .body,
@@ -335,7 +325,7 @@ extension ExposureSubmissionTestResultFamilyMemberViewModel {
 				header: .identifier(
 					ExposureSubmissionTestResultViewController.HeaderReuseIdentifier.pcrTestResult,
 					configure: { view, _ in
-						(view as? ExposureSubmissionTestResultHeaderView)?.configure(coronaTest: self.coronaTest)
+						(view as? ExposureSubmissionTestResultHeaderView)?.configure(coronaTest: self.familyMemberCoronaTest)
 					}
 				),
 				separators: .none,
@@ -353,7 +343,7 @@ extension ExposureSubmissionTestResultFamilyMemberViewModel {
 		
 		let header: DynamicHeader
 
-		if let test = coronaTest.antigenTest, showSpecialCaseForNegativeAntigenTest {
+		if let test = familyMemberCoronaTest.antigenTest, showSpecialCaseForNegativeAntigenTest {
 			header = .identifier(
 				ExposureSubmissionTestResultViewController.HeaderReuseIdentifier.antigenTestResult,
 				configure: { view, _ in
@@ -364,7 +354,7 @@ extension ExposureSubmissionTestResultFamilyMemberViewModel {
 			header = .identifier(
 				ExposureSubmissionTestResultViewController.HeaderReuseIdentifier.pcrTestResult,
 				configure: { view, _ in
-					(view as? ExposureSubmissionTestResultHeaderView)?.configure(coronaTest: self.coronaTest)
+					(view as? ExposureSubmissionTestResultHeaderView)?.configure(coronaTest: self.familyMemberCoronaTest)
 				}
 			)
 		}
@@ -372,7 +362,7 @@ extension ExposureSubmissionTestResultFamilyMemberViewModel {
 		var cells = [DynamicCell]()
 
 		// Health Certificate
-		if coronaTest.certificateRequested, let healthTuple = coronaTestService.healthCertificateTuple(for: coronaTest.uniqueCertificateIdentifier ?? "") {
+		if familyMemberCoronaTest.certificateRequested, let healthTuple = familyMemberCoronaTestService.healthCertificateTuple(for: familyMemberCoronaTest.uniqueCertificateIdentifier ?? "") {
 			cells.append(DynamicCell.identifier(
 				ExposureSubmissionTestResultViewController.CustomCellReuseIdentifiers.healthCertificateCell,
 				action: .execute { _, _ in
@@ -393,14 +383,6 @@ extension ExposureSubmissionTestResultFamilyMemberViewModel {
 			)
 		}
 
-		#if DEBUG
-
-		if isUITesting && LaunchArguments.healthCertificate.showTestCertificateOnTestResult.boolValue, let healthTuple = coronaTestService.mockHealthCertificateTuple() {
-			cells.append(mockTestCertificateCell(certificate: healthTuple.certificate, certifiedPerson: healthTuple.certifiedPerson))
-		}
-		
-		#endif
-
 		// Evidence / Proof
 		cells.append(contentsOf: [
 			.body(
@@ -415,7 +397,7 @@ extension ExposureSubmissionTestResultFamilyMemberViewModel {
 			accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionResult.procedure
 		))
 		
-		switch coronaTest.type {
+		switch familyMemberCoronaTest.type {
 		case .pcr:
 			cells.append(
 				ExposureSubmissionDynamicCell.stepCell(
@@ -467,11 +449,11 @@ extension ExposureSubmissionTestResultFamilyMemberViewModel {
 		]
 	}
 	
-	private func negativeAntigenTestResultSections(test: AntigenTest) -> [DynamicSection] {
+	private func negativeAntigenTestResultSections(test: FamilyMemberAntigenTest) -> [DynamicSection] {
 		var cells = [DynamicCell]()
 
 		// Health Certificate
-		if test.certificateRequested, let healthTuple = coronaTestService.healthCertificateTuple(for: test.uniqueCertificateIdentifier ?? "") {
+		if test.certificateRequested, let healthTuple = familyMemberCoronaTestService.healthCertificateTuple(for: test.uniqueCertificateIdentifier ?? "") {
 			cells.append(DynamicCell.identifier(
 				ExposureSubmissionTestResultViewController.CustomCellReuseIdentifiers.healthCertificateCell,
 				action: .execute { _, _ in
@@ -491,14 +473,6 @@ extension ExposureSubmissionTestResultFamilyMemberViewModel {
 				})
 			)
 		}
-
-		#if DEBUG
-
-		if isUITesting && LaunchArguments.healthCertificate.showTestCertificateOnTestResult.boolValue, let healthTuple = coronaTestService.mockHealthCertificateTuple() {
-			cells.append(mockTestCertificateCell(certificate: healthTuple.certificate, certifiedPerson: healthTuple.certifiedPerson))
-		}
-		
-		#endif
 
 		// Evidence / Proof
 		cells.append(contentsOf: [
@@ -553,29 +527,6 @@ extension ExposureSubmissionTestResultFamilyMemberViewModel {
 			)
 		]
 	}
-	
-	#if DEBUG
-
-	private func mockTestCertificateCell(certificate: HealthCertificate, certifiedPerson: HealthCertifiedPerson) -> DynamicCell {
-		return DynamicCell.identifier(
-			ExposureSubmissionTestResultViewController.CustomCellReuseIdentifiers.healthCertificateCell,
-			action: .execute { _, _ in
-				self.onTestCertificateCellTap(certificate, certifiedPerson)
-			},
-			configure: { _, cell, _ in
-				guard let cell = cell as? HealthCertificateCell else {
-					fatalError("could not initialize cell of type `HealthCertificateCell`")
-				}
-				cell.configure(
-					HealthCertificateCellViewModel(
-						healthCertificate: certificate,
-						healthCertifiedPerson: certifiedPerson
-					)
-				)
-			})
-	}
-	
-	#endif
 }
 
 // MARK: - Invalid
@@ -590,7 +541,7 @@ extension ExposureSubmissionTestResultFamilyMemberViewModel {
 			)
 		]
 
-		switch coronaTest.type {
+		switch familyMemberCoronaTest.type {
 		case .pcr:
 			cells.append(contentsOf: [
 				ExposureSubmissionDynamicCell.stepCell(
@@ -625,7 +576,7 @@ extension ExposureSubmissionTestResultFamilyMemberViewModel {
 				header: .identifier(
 					ExposureSubmissionTestResultViewController.HeaderReuseIdentifier.pcrTestResult,
 					configure: { view, _ in
-						(view as? ExposureSubmissionTestResultHeaderView)?.configure(coronaTest: self.coronaTest)
+						(view as? ExposureSubmissionTestResultHeaderView)?.configure(coronaTest: self.familyMemberCoronaTest)
 					}
 				),
 				separators: .none,
@@ -639,7 +590,7 @@ extension ExposureSubmissionTestResultFamilyMemberViewModel {
 
 extension ExposureSubmissionTestResultFamilyMemberViewModel {
 	
-	static func footerViewModel(coronaTest: CoronaTest) -> FooterViewModel {
+	static func footerViewModel(coronaTest: FamilyMemberCoronaTest) -> FooterViewModel {
 		switch coronaTest.testResult {
 		case .positive, .negative, .invalid, .expired:
 			return FooterViewModel(
