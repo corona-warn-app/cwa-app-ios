@@ -51,7 +51,8 @@ class FamilyMemberCoronaTestServiceTests: CWATestCase {
 				appConfiguration: appConfiguration,
 				healthCertificateService: healthCertificateService
 			),
-			recycleBin: .fake()
+			recycleBin: .fake(),
+			badgeWrapper: HomeBadgeWrapper.fake()
 		)
 
 		XCTAssertEqual(service.unseenNewsCount, 6)
@@ -125,7 +126,8 @@ class FamilyMemberCoronaTestServiceTests: CWATestCase {
 				appConfiguration: appConfiguration,
 				healthCertificateService: healthCertificateService
 			),
-			recycleBin: .fake()
+			recycleBin: .fake(),
+			badgeWrapper: HomeBadgeWrapper.fake()
 		)
 
 		XCTAssertEqual(service.unseenNewsCount, 6)
@@ -163,7 +165,8 @@ class FamilyMemberCoronaTestServiceTests: CWATestCase {
 				appConfiguration: appConfiguration,
 				healthCertificateService: healthCertificateService
 			),
-			recycleBin: .fake()
+			recycleBin: .fake(),
+			badgeWrapper: HomeBadgeWrapper.fake()
 		)
 
 		// WHEN
@@ -211,7 +214,8 @@ class FamilyMemberCoronaTestServiceTests: CWATestCase {
 				appConfiguration: appConfiguration,
 				healthCertificateService: healthCertificateService
 			),
-			recycleBin: .fake()
+			recycleBin: .fake(),
+			badgeWrapper: HomeBadgeWrapper.fake()
 		)
 
 		XCTAssertTrue(service.coronaTests.value.isEmpty)
@@ -309,7 +313,8 @@ class FamilyMemberCoronaTestServiceTests: CWATestCase {
 				appConfiguration: appConfiguration,
 				healthCertificateService: healthCertificateService
 			),
-			recycleBin: .fake()
+			recycleBin: .fake(),
+			badgeWrapper: HomeBadgeWrapper.fake()
 		)
 
 		let testsUpdateExpectation = expectation(description: "Corona tests updated")
@@ -411,7 +416,8 @@ class FamilyMemberCoronaTestServiceTests: CWATestCase {
 				appConfiguration: appConfiguration,
 				healthCertificateService: healthCertificateService
 			),
-			recycleBin: .fake()
+			recycleBin: .fake(),
+			badgeWrapper: HomeBadgeWrapper.fake()
 		)
 
 		let resultExpectation = self.expectation(description: "Expect to receive a result.")
@@ -475,7 +481,8 @@ class FamilyMemberCoronaTestServiceTests: CWATestCase {
 				appConfiguration: appConfiguration,
 				healthCertificateService: healthCertificateService
 			),
-			recycleBin: .fake()
+			recycleBin: .fake(),
+			badgeWrapper: HomeBadgeWrapper.fake()
 		)
 
 		let expectation = self.expectation(description: "Expect to receive a result.")
@@ -531,7 +538,8 @@ class FamilyMemberCoronaTestServiceTests: CWATestCase {
 				appConfiguration: appConfiguration,
 				healthCertificateService: healthCertificateService
 			),
-			recycleBin: .fake()
+			recycleBin: .fake(),
+			badgeWrapper: HomeBadgeWrapper.fake()
 		)
 
 		let expectation = self.expectation(description: "Expect to receive a result.")
@@ -614,7 +622,8 @@ class FamilyMemberCoronaTestServiceTests: CWATestCase {
 				appConfiguration: appConfiguration,
 				healthCertificateService: healthCertificateService
 			),
-			recycleBin: .fake()
+			recycleBin: .fake(),
+			badgeWrapper: HomeBadgeWrapper.fake()
 		)
 
 		XCTAssertTrue(service.coronaTests.value.isEmpty)
@@ -716,7 +725,8 @@ class FamilyMemberCoronaTestServiceTests: CWATestCase {
 				appConfiguration: appConfiguration,
 				healthCertificateService: healthCertificateService
 			),
-			recycleBin: .fake()
+			recycleBin: .fake(),
+			badgeWrapper: HomeBadgeWrapper.fake()
 		)
 
 		XCTAssertTrue(service.coronaTests.value.isEmpty)
@@ -818,7 +828,8 @@ class FamilyMemberCoronaTestServiceTests: CWATestCase {
 				appConfiguration: appConfiguration,
 				healthCertificateService: healthCertificateService
 			),
-			recycleBin: .fake()
+			recycleBin: .fake(),
+			badgeWrapper: HomeBadgeWrapper.fake()
 		)
 
 		let testsUpdateExpectation = expectation(description: "Corona tests updated")
@@ -932,7 +943,8 @@ class FamilyMemberCoronaTestServiceTests: CWATestCase {
 				appConfiguration: appConfiguration,
 				healthCertificateService: healthCertificateService
 			),
-			recycleBin: .fake()
+			recycleBin: .fake(),
+			badgeWrapper: HomeBadgeWrapper.fake()
 		)
 
 		let resultExpectation = self.expectation(description: "Expect to receive a result.")
@@ -998,7 +1010,8 @@ class FamilyMemberCoronaTestServiceTests: CWATestCase {
 				appConfiguration: appConfiguration,
 				healthCertificateService: healthCertificateService
 			),
-			recycleBin: .fake()
+			recycleBin: .fake(),
+			badgeWrapper: HomeBadgeWrapper.fake()
 		)
 
 		let expectation = self.expectation(description: "Expect to receive a result.")
@@ -1056,7 +1069,8 @@ class FamilyMemberCoronaTestServiceTests: CWATestCase {
 				appConfiguration: appConfiguration,
 				healthCertificateService: healthCertificateService
 			),
-			recycleBin: .fake()
+			recycleBin: .fake(),
+			badgeWrapper: HomeBadgeWrapper.fake()
 		)
 
 		let expectation = self.expectation(description: "Expect to receive a result.")
@@ -1141,7 +1155,8 @@ class FamilyMemberCoronaTestServiceTests: CWATestCase {
 				appConfiguration: appConfiguration,
 				healthCertificateService: healthCertificateService
 			),
-			recycleBin: .fake()
+			recycleBin: .fake(),
+			badgeWrapper: HomeBadgeWrapper.fake()
 		)
 
 		XCTAssertTrue(service.coronaTests.value.isEmpty)
@@ -1243,7 +1258,8 @@ class FamilyMemberCoronaTestServiceTests: CWATestCase {
 				appConfiguration: appConfiguration,
 				healthCertificateService: healthCertificateService
 			),
-			recycleBin: .fake()
+			recycleBin: .fake(),
+			badgeWrapper: HomeBadgeWrapper.fake()
 		)
 
 		XCTAssertTrue(service.coronaTests.value.isEmpty)
@@ -1345,7 +1361,8 @@ class FamilyMemberCoronaTestServiceTests: CWATestCase {
 				appConfiguration: appConfiguration,
 				healthCertificateService: healthCertificateService
 			),
-			recycleBin: .fake()
+			recycleBin: .fake(),
+			badgeWrapper: HomeBadgeWrapper.fake()
 		)
 
 		let testsUpdateExpectation = expectation(description: "Corona tests updated")
@@ -1455,7 +1472,8 @@ class FamilyMemberCoronaTestServiceTests: CWATestCase {
 				appConfiguration: appConfiguration,
 				healthCertificateService: healthCertificateService
 			),
-			recycleBin: .fake()
+			recycleBin: .fake(),
+			badgeWrapper: HomeBadgeWrapper.fake()
 		)
 
 		let resultExpectation = self.expectation(description: "Expect to receive a result.")
@@ -1521,7 +1539,8 @@ class FamilyMemberCoronaTestServiceTests: CWATestCase {
 				appConfiguration: appConfiguration,
 				healthCertificateService: healthCertificateService
 			),
-			recycleBin: .fake()
+			recycleBin: .fake(),
+			badgeWrapper: HomeBadgeWrapper.fake()
 		)
 
 		let expectation = self.expectation(description: "Expect to receive a result.")
@@ -1579,7 +1598,8 @@ class FamilyMemberCoronaTestServiceTests: CWATestCase {
 				appConfiguration: appConfiguration,
 				healthCertificateService: healthCertificateService
 			),
-			recycleBin: .fake()
+			recycleBin: .fake(),
+			badgeWrapper: HomeBadgeWrapper.fake()
 		)
 
 		let expectation = self.expectation(description: "Expect to receive a result.")
@@ -1669,7 +1689,8 @@ class FamilyMemberCoronaTestServiceTests: CWATestCase {
 				appConfiguration: appConfiguration,
 				healthCertificateService: healthCertificateService
 			),
-			recycleBin: .fake()
+			recycleBin: .fake(),
+			badgeWrapper: HomeBadgeWrapper.fake()
 		)
 
 		let publisherExpectation = expectation(description: "corona tests published")
@@ -1743,7 +1764,8 @@ class FamilyMemberCoronaTestServiceTests: CWATestCase {
 				appConfiguration: appConfiguration,
 				healthCertificateService: healthCertificateService
 			),
-			recycleBin: .fake()
+			recycleBin: .fake(),
+			badgeWrapper: HomeBadgeWrapper.fake()
 		)
 
 		let publisherExpectation = expectation(description: "corona tests published")
@@ -1817,7 +1839,8 @@ class FamilyMemberCoronaTestServiceTests: CWATestCase {
 				appConfiguration: appConfiguration,
 				healthCertificateService: healthCertificateService
 			),
-			recycleBin: .fake()
+			recycleBin: .fake(),
+			badgeWrapper: HomeBadgeWrapper.fake()
 		)
 
 		let publisherExpectation = expectation(description: "corona tests published")
@@ -1877,7 +1900,8 @@ class FamilyMemberCoronaTestServiceTests: CWATestCase {
 				appConfiguration: appConfiguration,
 				healthCertificateService: healthCertificateService
 			),
-			recycleBin: .fake()
+			recycleBin: .fake(),
+			badgeWrapper: HomeBadgeWrapper.fake()
 		)
 
 		let publisherExpectation = expectation(description: "corona tests published")
@@ -1942,7 +1966,8 @@ class FamilyMemberCoronaTestServiceTests: CWATestCase {
 				appConfiguration: appConfiguration,
 				healthCertificateService: healthCertificateService
 			),
-			recycleBin: .fake()
+			recycleBin: .fake(),
+			badgeWrapper: HomeBadgeWrapper.fake()
 		)
 
 		let publisherExpectation = expectation(description: "corona tests published")
@@ -2005,7 +2030,8 @@ class FamilyMemberCoronaTestServiceTests: CWATestCase {
 					appConfiguration: appConfiguration,
 					healthCertificateService: healthCertificateService
 				),
-				recycleBin: .fake()
+				recycleBin: .fake(),
+				badgeWrapper: HomeBadgeWrapper.fake()
 			)
 
 			let publisherExpectation = expectation(description: "corona tests published")
@@ -2060,7 +2086,8 @@ class FamilyMemberCoronaTestServiceTests: CWATestCase {
 				appConfiguration: appConfiguration,
 				healthCertificateService: healthCertificateService
 			),
-			recycleBin: .fake()
+			recycleBin: .fake(),
+			badgeWrapper: HomeBadgeWrapper.fake()
 		)
 
 		let pcrTest: FamilyMemberCoronaTest = .pcr(.mock(registrationToken: "regToken", qrCodeHash: "pcrQRCodeHash"))
@@ -2124,7 +2151,8 @@ class FamilyMemberCoronaTestServiceTests: CWATestCase {
 				appConfiguration: appConfiguration,
 				healthCertificateService: healthCertificateService
 			),
-			recycleBin: .fake()
+			recycleBin: .fake(),
+			badgeWrapper: HomeBadgeWrapper.fake()
 		)
 
 		let antigenTest: FamilyMemberCoronaTest = .antigen(.mock(registrationToken: "regToken", qrCodeHash: "pcrQRCodeHash"))
@@ -2182,7 +2210,8 @@ class FamilyMemberCoronaTestServiceTests: CWATestCase {
 				appConfiguration: appConfiguration,
 				healthCertificateService: healthCertificateService
 			),
-			recycleBin: .fake()
+			recycleBin: .fake(),
+			badgeWrapper: HomeBadgeWrapper.fake()
 		)
 
 		let pcrTest: FamilyMemberCoronaTest = .pcr(.mock(registrationToken: "regToken", qrCodeHash: "pcrQRCodeHash"))
@@ -2228,7 +2257,8 @@ class FamilyMemberCoronaTestServiceTests: CWATestCase {
 				appConfiguration: appConfiguration,
 				healthCertificateService: healthCertificateService
 			),
-			recycleBin: .fake()
+			recycleBin: .fake(),
+			badgeWrapper: HomeBadgeWrapper.fake()
 		)
 
 		let pcrTest: FamilyMemberCoronaTest = .pcr(.mock(registrationToken: nil, qrCodeHash: "pcrQRCodeHash"))
@@ -2282,7 +2312,8 @@ class FamilyMemberCoronaTestServiceTests: CWATestCase {
 				appConfiguration: appConfiguration,
 				healthCertificateService: healthCertificateService
 			),
-			recycleBin: .fake()
+			recycleBin: .fake(),
+			badgeWrapper: HomeBadgeWrapper.fake()
 		)
 
 		let antigenTest: FamilyMemberCoronaTest = .antigen(.mock(registrationToken: nil, qrCodeHash: "pcrQRCodeHash"))
@@ -2350,7 +2381,8 @@ class FamilyMemberCoronaTestServiceTests: CWATestCase {
 				healthCertificateService: healthCertificateService
 			),
 			notificationCenter: mockNotificationCenter,
-			recycleBin: .fake()
+			recycleBin: .fake(),
+			badgeWrapper: HomeBadgeWrapper.fake()
 		)
 
 		let pcrTest: FamilyMemberCoronaTest = .pcr(.mock(registrationToken: "regToken", qrCodeHash: "pcrQRCodeHash"))
@@ -2411,7 +2443,8 @@ class FamilyMemberCoronaTestServiceTests: CWATestCase {
 				appConfiguration: appConfiguration,
 				healthCertificateService: healthCertificateService
 			),
-			recycleBin: .fake()
+			recycleBin: .fake(),
+			badgeWrapper: HomeBadgeWrapper.fake()
 		)
 
 		let pcrTest: FamilyMemberCoronaTest = .pcr(.mock(registrationToken: "regToken", qrCodeHash: "pcrQRCodeHash"))
@@ -2460,7 +2493,8 @@ class FamilyMemberCoronaTestServiceTests: CWATestCase {
 				appConfiguration: appConfiguration,
 				healthCertificateService: healthCertificateService
 			),
-			recycleBin: .fake()
+			recycleBin: .fake(),
+			badgeWrapper: HomeBadgeWrapper.fake()
 		)
 
 		let pcrTest: FamilyMemberCoronaTest = .pcr(.mock(registrationToken: "regToken", qrCodeHash: "pcrQRCodeHash"))
@@ -2511,7 +2545,8 @@ class FamilyMemberCoronaTestServiceTests: CWATestCase {
 				appConfiguration: appConfiguration,
 				healthCertificateService: healthCertificateService
 			),
-			recycleBin: .fake()
+			recycleBin: .fake(),
+			badgeWrapper: HomeBadgeWrapper.fake()
 		)
 
 		let pcrTest: FamilyMemberCoronaTest = .pcr(.mock(registrationToken: "regToken", qrCodeHash: "pcrQRCodeHash"))
@@ -2561,7 +2596,8 @@ class FamilyMemberCoronaTestServiceTests: CWATestCase {
 				appConfiguration: appConfiguration,
 				healthCertificateService: healthCertificateService
 			),
-			recycleBin: .fake()
+			recycleBin: .fake(),
+			badgeWrapper: HomeBadgeWrapper.fake()
 		)
 
 		let pcrTest: FamilyMemberCoronaTest = .pcr(.mock(registrationToken: "regToken", qrCodeHash: "pcrQRCodeHash"))
@@ -2617,7 +2653,8 @@ class FamilyMemberCoronaTestServiceTests: CWATestCase {
 				appConfiguration: appConfiguration,
 				healthCertificateService: healthCertificateService
 			),
-			recycleBin: .fake()
+			recycleBin: .fake(),
+			badgeWrapper: HomeBadgeWrapper.fake()
 		)
 
 		let pcrTest: FamilyMemberCoronaTest = .pcr(.mock(registrationToken: "regToken", qrCodeHash: "pcrQRCodeHash", finalTestResultReceivedDate: Date()))
@@ -2676,7 +2713,8 @@ class FamilyMemberCoronaTestServiceTests: CWATestCase {
 				appConfiguration: appConfiguration,
 				healthCertificateService: healthCertificateService
 			),
-			recycleBin: .fake()
+			recycleBin: .fake(),
+			badgeWrapper: HomeBadgeWrapper.fake()
 		)
 
 		let pcrTest: FamilyMemberCoronaTest = .pcr(.mock(registrationToken: "regToken", qrCodeHash: "pcrQRCodeHash", finalTestResultReceivedDate: nil))
@@ -2737,7 +2775,8 @@ class FamilyMemberCoronaTestServiceTests: CWATestCase {
 				appConfiguration: appConfiguration,
 				healthCertificateService: healthCertificateService
 			),
-			recycleBin: .fake()
+			recycleBin: .fake(),
+			badgeWrapper: HomeBadgeWrapper.fake()
 		)
 
 		let pcrTest: FamilyMemberCoronaTest = .pcr(.mock(registrationDate: registrationDate, registrationToken: "regToken", qrCodeHash: "pcrQRCodeHash", testResult: .expired))
@@ -2799,7 +2838,8 @@ class FamilyMemberCoronaTestServiceTests: CWATestCase {
 				appConfiguration: appConfiguration,
 				healthCertificateService: healthCertificateService
 			),
-			recycleBin: .fake()
+			recycleBin: .fake(),
+			badgeWrapper: HomeBadgeWrapper.fake()
 		)
 
 		let pcrTest: FamilyMemberCoronaTest = .pcr(.mock(registrationDate: registrationDate, registrationToken: "regToken", qrCodeHash: "pcrQRCodeHash", testResult: .expired))
@@ -2846,7 +2886,8 @@ class FamilyMemberCoronaTestServiceTests: CWATestCase {
 				appConfiguration: appConfiguration,
 				healthCertificateService: healthCertificateService
 			),
-			recycleBin: .fake()
+			recycleBin: .fake(),
+			badgeWrapper: HomeBadgeWrapper.fake()
 		)
 
 		let pcrTest: FamilyMemberCoronaTest = .pcr(.mock(registrationDate: registrationDate, registrationToken: "regToken", qrCodeHash: "pcrQRCodeHash", testResult: .negative))
@@ -2897,7 +2938,8 @@ class FamilyMemberCoronaTestServiceTests: CWATestCase {
 				appConfiguration: appConfiguration,
 				healthCertificateService: healthCertificateService
 			),
-			recycleBin: .fake()
+			recycleBin: .fake(),
+			badgeWrapper: HomeBadgeWrapper.fake()
 		)
 
 		let pcrTest: FamilyMemberCoronaTest = .pcr(.mock(registrationDate: registrationDate, registrationToken: "regToken", qrCodeHash: "pcrQRCodeHash", testResult: .negative))
@@ -2951,7 +2993,8 @@ class FamilyMemberCoronaTestServiceTests: CWATestCase {
 				appConfiguration: appConfiguration,
 				healthCertificateService: healthCertificateService
 			),
-			recycleBin: .fake()
+			recycleBin: .fake(),
+			badgeWrapper: HomeBadgeWrapper.fake()
 		)
 
 		let antigenTest: FamilyMemberCoronaTest = .antigen(.mock(pointOfCareConsentDate: pointOfCareConsentDate, registrationDate: registrationDate, registrationToken: "regToken", qrCodeHash: "pcrQRCodeHash", testResult: .negative))
@@ -3004,7 +3047,8 @@ class FamilyMemberCoronaTestServiceTests: CWATestCase {
 				appConfiguration: appConfiguration,
 				healthCertificateService: healthCertificateService
 			),
-			recycleBin: .fake()
+			recycleBin: .fake(),
+			badgeWrapper: HomeBadgeWrapper.fake()
 		)
 
 		let antigenTest: FamilyMemberCoronaTest = .antigen(.mock(pointOfCareConsentDate: pointOfCareConsentDate, registrationDate: registrationDate, registrationToken: "regToken", qrCodeHash: "pcrQRCodeHash", testResult: .negative))
@@ -3050,7 +3094,8 @@ class FamilyMemberCoronaTestServiceTests: CWATestCase {
 				appConfiguration: appConfiguration,
 				healthCertificateService: healthCertificateService
 			),
-			recycleBin: recycleBin
+			recycleBin: recycleBin,
+			badgeWrapper: HomeBadgeWrapper.fake()
 		)
 
 		let pcrTest: FamilyMemberCoronaTest = .pcr(.mock(registrationToken: "regToken", qrCodeHash: "pcrQRCodeHash"))
@@ -3110,7 +3155,8 @@ class FamilyMemberCoronaTestServiceTests: CWATestCase {
 				appConfiguration: appConfiguration,
 				healthCertificateService: healthCertificateService
 			),
-			recycleBin: .fake()
+			recycleBin: .fake(),
+			badgeWrapper: HomeBadgeWrapper.fake()
 		)
 
 		let pcrTest: FamilyMemberCoronaTest = .pcr(.mock(registrationToken: "regToken", qrCodeHash: "pcrQRCodeHash"))
@@ -3236,7 +3282,8 @@ class FamilyMemberCoronaTestServiceTests: CWATestCase {
 				appConfiguration: appConfiguration,
 				healthCertificateService: healthCertificateService
 			),
-			recycleBin: .fake()
+			recycleBin: .fake(),
+			badgeWrapper: HomeBadgeWrapper.fake()
 		)
 
 		switch coronaTestType {
