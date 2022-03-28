@@ -46,11 +46,13 @@ protocol FamilyMemberCoronaTestServiceProviding {
 	
 	func reregister(coronaTest: FamilyMemberCoronaTest)
 
-	func updateTestResults(force: Bool, presentNotification: Bool, completion: @escaping VoidResultHandler)
+	func updateTestResults(
+		presentNotification: Bool,
+		completion: @escaping VoidResultHandler
+	)
 
 	func updateTestResult(
 		for coronaTest: FamilyMemberCoronaTest,
-		force: Bool,
 		presentNotification: Bool,
 		completion: @escaping TestResultHandler
 	)
@@ -72,31 +74,5 @@ protocol FamilyMemberCoronaTestServiceProviding {
 	func mockHealthCertificateTuple() -> (certificate: HealthCertificate, certifiedPerson: HealthCertifiedPerson)?
 
 	#endif
-
-}
-
-extension FamilyMemberCoronaTestServiceProviding {
-
-	func updateTestResults(force: Bool = true, presentNotification: Bool, completion: @escaping VoidResultHandler) {
-		updateTestResults(
-			force: force,
-			presentNotification: presentNotification,
-			completion: completion
-		)
-	}
-
-	func updateTestResult(
-		for coronaTest: FamilyMemberCoronaTest,
-		force: Bool = true,
-		presentNotification: Bool = false,
-		completion: @escaping TestResultHandler
-	) {
-		updateTestResult(
-			for: coronaTest,
-			force: force,
-			presentNotification: presentNotification,
-			completion: completion
-		)
-	}
 
 }

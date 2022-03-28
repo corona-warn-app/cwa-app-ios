@@ -9,12 +9,6 @@ import UIKit
 
 class MockFamilyMemberCoronaTestService: FamilyMemberCoronaTestServiceProviding {
 
-	// MARK: - Init
-
-	init() {
-
-	}
-
 	// MARK: - Protocol CoronaTestServiceProviding
 
 	var coronaTests = CurrentValueSubject<[FamilyMemberCoronaTest], Never>([])
@@ -62,15 +56,17 @@ class MockFamilyMemberCoronaTestService: FamilyMemberCoronaTestServiceProviding 
 	
 	func reregister(coronaTest: FamilyMemberCoronaTest) {}
 
-	func updateTestResults(force: Bool, presentNotification: Bool, completion: @escaping VoidResultHandler) {}
+	func updateTestResults(
+		presentNotification: Bool,
+		completion: @escaping VoidResultHandler
+	) {}
 
 	func updateTestResult(
 		for coronaTest: FamilyMemberCoronaTest,
-		force: Bool,
 		presentNotification: Bool,
 		completion: @escaping TestResultHandler
 	) {
-		onUpdateTestResult(coronaTest, force, presentNotification)
+		onUpdateTestResult(coronaTest, presentNotification)
 		completion(updateTestResultResult ?? .failure(.noRegistrationToken))
 	}
 
@@ -118,40 +114,13 @@ class MockFamilyMemberCoronaTestService: FamilyMemberCoronaTestServiceProviding 
 	var updateTestResultResult: Result<TestResult, CoronaTestServiceError>?
 	var onUpdateTestResult: (
 		_ coronaTest: FamilyMemberCoronaTest,
-		_ force: Bool,
 		_ presentNotification: Bool
-	) -> Void = { _, _, _ in }
+	) -> Void = { _, _ in }
 
 	var getSubmissionTANResult: Result<String, CoronaTestServiceError>?
 
 	var onMoveTestToBin: (
 		_ coronaTest: FamilyMemberCoronaTest
 	) -> Void = { _ in }
-
-}
-
-extension FamilyMemberCoronaTestServiceProviding {
-
-	func updateTestResults(force: Bool = true, presentNotification: Bool, completion: @escaping VoidResultHandler) {
-		updateTestResults(
-			force: force,
-			presentNotification: presentNotification,
-			completion: completion
-		)
-	}
-
-	func updateTestResult(
-		for coronaTest: FamilyMemberCoronaTest,
-		force: Bool = true,
-		presentNotification: Bool = false,
-		completion: @escaping TestResultHandler
-	) {
-		updateTestResult(
-			for: coronaTest,
-			force: force,
-			presentNotification: presentNotification,
-			completion: completion
-		)
-	}
 
 }

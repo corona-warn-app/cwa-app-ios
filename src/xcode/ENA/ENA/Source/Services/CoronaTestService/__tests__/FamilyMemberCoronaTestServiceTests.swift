@@ -2325,7 +2325,6 @@ class FamilyMemberCoronaTestServiceTests: CWATestCase {
 			.success(RegistrationTokenReceiveModel(submissionTAN: "fake")),
 			.success(RegistrationTokenReceiveModel(submissionTAN: "fake")),
 			.success(RegistrationTokenReceiveModel(submissionTAN: "fake"))
-
 		])
 
 		let healthCertificateService = HealthCertificateService(
@@ -2579,66 +2578,7 @@ class FamilyMemberCoronaTestServiceTests: CWATestCase {
 		XCTAssertEqual(mockNotificationCenter.notificationRequests.count, 0)
 	}
 
-	func test_When_UpdateWithForce_And_FinalTestResultExist_Then_ClientIsCalled() {
-		let client = ClientMock()
-		let store = MockTestStore()
-		let appConfiguration = CachedAppConfigurationMock()
-
-		let getTestResultExpectation = expectation(description: "Get Test result should be called.")
-		getTestResultExpectation.expectedFulfillmentCount = 2
-
-		let restServiceProvider = RestServiceProviderStub(loadResources: [
-			LoadResource(
-				result: .success(TestResultReceiveModel(testResult: TestResult.serverResponse(for: .expired, on: .pcr), sc: nil, labId: "SomeLabId")),
-				willLoadResource: { res in
-					if let resource = res as? TestResultResource, !resource.locator.isFake {
-						getTestResultExpectation.fulfill()
-					}
-				}),
-			LoadResource(
-				result: .success(TestResultReceiveModel(testResult: TestResult.serverResponse(for: .expired, on: .antigen), sc: nil, labId: "SomeLabId")),
-				willLoadResource: { res in
-					if let resource = res as? TestResultResource, !resource.locator.isFake {
-						getTestResultExpectation.fulfill()
-					}
-				})
-		])
-
-		let healthCertificateService = HealthCertificateService(
-			store: store,
-			dccSignatureVerifier: DCCSignatureVerifyingStub(),
-			dscListProvider: MockDSCListProvider(),
-			appConfiguration: appConfiguration,
-			cclService: FakeCCLService(),
-			recycleBin: .fake()
-		)
-
-		let service = FamilyMemberCoronaTestService(
-			client: client,
-			restServiceProvider: restServiceProvider,
-			store: store,
-			appConfiguration: appConfiguration,
-			healthCertificateService: healthCertificateService,
-			healthCertificateRequestService: HealthCertificateRequestService(
-				store: store,
-				client: client,
-				appConfiguration: appConfiguration,
-				healthCertificateService: healthCertificateService
-			),
-			recycleBin: .fake()
-		)
-
-		let pcrTest: FamilyMemberCoronaTest = .pcr(.mock(registrationToken: "regToken", qrCodeHash: "pcrQRCodeHash", finalTestResultReceivedDate: Date()))
-		let antigenTest: FamilyMemberCoronaTest = .antigen(.mock(registrationToken: "regToken", qrCodeHash: "antigenQRCodeHash", finalTestResultReceivedDate: Date()))
-
-		service.coronaTests.value = [pcrTest, antigenTest]
-
-		service.updateTestResults(force: true, presentNotification: false) { _ in }
-
-		waitForExpectations(timeout: .short)
-	}
-
-	func test_When_UpdateWithoutForce_And_FinalTestResultExist_Then_ClientIsNotCalled() {
+	func test_When_Update_And_FinalTestResultExist_Then_ClientIsNotCalled() {
 		let client = ClientMock()
 		let store = MockTestStore()
 		let appConfiguration = CachedAppConfigurationMock()
@@ -2685,12 +2625,12 @@ class FamilyMemberCoronaTestServiceTests: CWATestCase {
 
 		service.coronaTests.value = [pcrTest, antigenTest]
 
-		service.updateTestResults(force: false, presentNotification: false) { _ in }
+		service.updateTestResults(presentNotification: false) { _ in }
 
 		waitForExpectations(timeout: .short)
 	}
 
-	func test_When_UpdateWithoutForce_And_NoFinalTestResultExist_Then_ClientIsCalled() {
+	func test_When_Update_And_NoFinalTestResultExist_Then_ClientIsCalled() {
 		let client = ClientMock()
 		let store = MockTestStore()
 		let appConfiguration = CachedAppConfigurationMock()
@@ -2744,7 +2684,7 @@ class FamilyMemberCoronaTestServiceTests: CWATestCase {
 
 		service.coronaTests.value = [pcrTest, antigenTest]
 
-		service.updateTestResults(force: false, presentNotification: false) { _ in }
+		service.updateTestResults(presentNotification: false) { _ in }
 
 		waitForExpectations(timeout: .short)
 	}
@@ -2805,7 +2745,7 @@ class FamilyMemberCoronaTestServiceTests: CWATestCase {
 
 		service.coronaTests.value = [pcrTest, antigenTest]
 
-		service.updateTestResults(force: false, presentNotification: false) { _ in }
+		service.updateTestResults(presentNotification: false) { _ in }
 
 		waitForExpectations(timeout: .short)
 	}
@@ -2867,7 +2807,7 @@ class FamilyMemberCoronaTestServiceTests: CWATestCase {
 
 		service.coronaTests.value = [pcrTest, antigenTest]
 
-		service.updateTestResults(force: false, presentNotification: false) { _ in }
+		service.updateTestResults(presentNotification: false) { _ in }
 
 		waitForExpectations(timeout: .short)
 	}
@@ -2915,7 +2855,7 @@ class FamilyMemberCoronaTestServiceTests: CWATestCase {
 
 		let completionExpectation = expectation(description: "Completion should be called.")
 
-		service.updateTestResult(for: pcrTest, force: true, presentNotification: false) {
+		service.updateTestResult(for: pcrTest, presentNotification: false) {
 			XCTAssertEqual($0, .success(.expired))
 			XCTAssertEqual(service.coronaTests.value.first?.testResult, .expired)
 			completionExpectation.fulfill()
@@ -2966,7 +2906,7 @@ class FamilyMemberCoronaTestServiceTests: CWATestCase {
 
 		let completionExpectation = expectation(description: "Completion should be called.")
 
-		service.updateTestResult(for: pcrTest, force: true, presentNotification: false) {
+		service.updateTestResult(for: pcrTest, presentNotification: false) {
 			XCTAssertEqual($0, .failure(.testResultError(.receivedResourceError(.qrDoesNotExist))))
 			XCTAssertEqual(service.coronaTests.value.first?.testResult, .expired)
 			completionExpectation.fulfill()
@@ -3020,7 +2960,7 @@ class FamilyMemberCoronaTestServiceTests: CWATestCase {
 
 		let completionExpectation = expectation(description: "Completion should be called.")
 
-		service.updateTestResult(for: antigenTest, force: true, presentNotification: false) {
+		service.updateTestResult(for: antigenTest, presentNotification: false) {
 			XCTAssertEqual($0, .success(.expired))
 			XCTAssertEqual(service.coronaTests.value.first?.testResult, .expired)
 			completionExpectation.fulfill()
@@ -3073,7 +3013,7 @@ class FamilyMemberCoronaTestServiceTests: CWATestCase {
 
 		let completionExpectation = expectation(description: "Completion should be called.")
 
-		service.updateTestResult(for: antigenTest, force: true, presentNotification: false) {
+		service.updateTestResult(for: antigenTest, presentNotification: false) {
 			XCTAssertEqual($0, .failure(.testResultError(.receivedResourceError(.qrDoesNotExist))))
 			XCTAssertEqual(service.coronaTests.value.first?.testResult, .expired)
 			completionExpectation.fulfill()

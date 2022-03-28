@@ -260,7 +260,7 @@ class TaskExecutionHandler: ENATaskExecutionDelegate {
 		// First check if user activated notification setting
 		UNUserNotificationCenter.current().getNotificationSettings { [weak self] settings in
 			if settings.authorizationStatus == .authorized || settings.authorizationStatus == .provisional {
-				self?.familyMemberCoronaTestService.updateTestResults(force: false, presentNotification: true) { result in
+				self?.familyMemberCoronaTestService.updateTestResults(presentNotification: true) { result in
 					switch result {
 					case .success:
 						completion(true)
