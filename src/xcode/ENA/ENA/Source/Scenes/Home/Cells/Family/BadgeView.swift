@@ -41,17 +41,22 @@ final class BadgeView: UIView {
 		let label = UILabel()
 		label.translatesAutoresizingMaskIntoConstraints = false
 		label.textAlignment = .center
-		label.font = .systemFont(ofSize: 17.0)
+		label.font = .enaFont(for: .badge)
 		label.text = badgeCount
 		label.textColor = textColor
 
 		roundedRectView.addSubview(label)
 		NSLayoutConstraint.activate(
 			[
+				roundedRectView.leadingAnchor.constraint(equalTo: leadingAnchor),
+				roundedRectView.topAnchor.constraint(equalTo: topAnchor),
+				roundedRectView.trailingAnchor.constraint(equalTo: trailingAnchor),
+				roundedRectView.bottomAnchor.constraint(equalTo: bottomAnchor),
+
 				roundedRectView.centerXAnchor.constraint(equalTo: label.centerXAnchor),
 				roundedRectView.centerYAnchor.constraint(equalTo: label.centerYAnchor),
-				roundedRectView.widthAnchor.constraint(equalTo: label.widthAnchor, constant: 8.0),
-				roundedRectView.heightAnchor.constraint(equalTo: label.heightAnchor, constant: 8.0),
+				roundedRectView.widthAnchor.constraint(equalTo: label.widthAnchor, constant: 4.0),
+				roundedRectView.heightAnchor.constraint(equalTo: label.heightAnchor, constant: 4.0),
 				roundedRectView.widthAnchor.constraint(greaterThanOrEqualTo: roundedRectView.heightAnchor)
 			]
 		)

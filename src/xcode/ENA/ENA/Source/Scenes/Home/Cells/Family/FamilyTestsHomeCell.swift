@@ -18,9 +18,17 @@ class FamilyTestsHomeCell: UITableViewCell, ReuseIdentifierProviding {
 		fatalError("init(coder:) has not been implemented")
 	}
 
+	// MARK: - Overrides
+
 	override func setHighlighted(_ highlighted: Bool, animated: Bool) {
 		super.setHighlighted(highlighted, animated: animated)
 		homeCardView.setHighlighted(highlighted, animated: animated)
+	}
+
+	// MARK: - Internal
+
+	func configure(_ badgeCount: Int) {
+
 	}
 
 	// MARK: - Private
@@ -38,6 +46,7 @@ class FamilyTestsHomeCell: UITableViewCell, ReuseIdentifierProviding {
 	}()
 
 	private let homeCardView = HomeCardView()
+	private let badgeView = BadgeView("1", fillColor: .red, textColor: .white)
 
 	private func setupView() {
 		selectionStyle = .none
@@ -47,9 +56,12 @@ class FamilyTestsHomeCell: UITableViewCell, ReuseIdentifierProviding {
 		homeCardView.backgroundColor = .white
 		contentView.addSubview(homeCardView)
 
-		let imageView = UIImageView(image: UIImage(imageLiteralResourceName: "Icon_Family"))
+		let imageView = UIImageView(image: UIImage(imageLiteralResourceName: "Icon_Family_Cell"))
 		imageView.translatesAutoresizingMaskIntoConstraints = false
 		homeCardView.addSubview(imageView)
+
+		badgeView.translatesAutoresizingMaskIntoConstraints = false
+		homeCardView.addSubview(badgeView)
 
 		headerLabel.translatesAutoresizingMaskIntoConstraints = false
 		homeCardView.addSubview(headerLabel)
@@ -70,6 +82,11 @@ class FamilyTestsHomeCell: UITableViewCell, ReuseIdentifierProviding {
 
 				imageView.leadingAnchor.constraint(equalTo: homeCardView.leadingAnchor, constant: 13.0),
 				imageView.topAnchor.constraint(equalTo: homeCardView.topAnchor, constant: 12.0),
+				imageView.widthAnchor.constraint(equalToConstant: 40.0),
+				imageView.heightAnchor.constraint(equalToConstant: 40.0),
+
+				badgeView.topAnchor.constraint(equalTo: imageView.topAnchor, constant: -6.0),
+				badgeView.trailingAnchor.constraint(equalTo: imageView.trailingAnchor, constant: 6.0),
 
 				headerLabel.leadingAnchor.constraint(equalTo: imageView.trailingAnchor, constant: 9.0),
 				headerLabel.centerYAnchor.constraint(equalTo: imageView.centerYAnchor),
@@ -86,7 +103,6 @@ class FamilyTestsHomeCell: UITableViewCell, ReuseIdentifierProviding {
 				detailsLabel.bottomAnchor.constraint(equalTo: homeCardView.bottomAnchor, constant: -15.0)
 			]
 		)
-
 	}
 
 }
