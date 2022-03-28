@@ -416,7 +416,6 @@ class FamilyMemberCoronaTestService: FamilyMemberCoronaTestServiceProviding {
 	private let notificationCenter: UserNotificationCenter
 	private let recycleBin: RecycleBin
 	private let serialQueue = AsyncOperation.serialQueue(named: "FamilyMemberCoronaTestService.serialQueue")
-
 	private let fakeRequestService: FakeRequestService
 
 	private var outdatedStateTimer: Timer?
