@@ -6589,7 +6589,7 @@
 				50C0296725E4067400460FA4 /* Metadata */,
 				51EE9A6C245C0FB500F2544F /* Onboarding */,
 				BAB9FC592630555600EB4E76 /* Profile */,
-				8FDB9401261FBA0F00BA8CB1 /* Submisstion */,
+				8FDB9401261FBA0F00BA8CB1 /* Submission */,
 				138910C3247A907500D739F6 /* Task Scheduling */,
 				2EB7D687268076F200633D30 /* Async Operation */,
 			);
@@ -7114,14 +7114,14 @@
 			path = ValidationDecorator;
 			sourceTree = "<group>";
 		};
-		8FDB9401261FBA0F00BA8CB1 /* Submisstion */ = {
+		8FDB9401261FBA0F00BA8CB1 /* Submission */ = {
 			isa = PBXGroup;
 			children = (
 				BA7F15AB2629D9FA00CA4783 /* __tests_ */,
 				8FDB9402261FBA3800BA8CB1 /* RapidTestQRCodeInformation.swift */,
 				8FDB940A261FBAAA00BA8CB1 /* CoronaTestRegistrationInformation.swift */,
 			);
-			path = Submisstion;
+			path = Submission;
 			sourceTree = "<group>";
 		};
 		8FE2667C264AA70300C2B432 /* HealthCertifiedPerson */ = {

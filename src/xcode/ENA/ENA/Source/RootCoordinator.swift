@@ -158,6 +158,7 @@ class RootCoordinator: NSObject, RequiresAppDependencies, UITabBarControllerDele
 			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
 			exposureSubmissionService: exposureSubmissionService,
 			coronaTestService: coronaTestService,
+			familyMemberCoronaTestService: familyMemberCoronaTestService,
 			recycleBin: recycleBin
 		)
 		self.qrScannerCoordinator = qrScannerCoordinator

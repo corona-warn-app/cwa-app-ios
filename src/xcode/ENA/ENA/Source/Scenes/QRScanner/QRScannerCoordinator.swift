@@ -39,6 +39,7 @@ class QRScannerCoordinator {
 		vaccinationValueSetsProvider: VaccinationValueSetsProviding,
 		exposureSubmissionService: ExposureSubmissionService,
 		coronaTestService: CoronaTestServiceProviding,
+		familyMemberCoronaTestService: FamilyMemberCoronaTestServiceProviding,
 		recycleBin: RecycleBin
 	) {
 		self.store = store
@@ -53,6 +54,7 @@ class QRScannerCoordinator {
 		self.vaccinationValueSetsProvider = vaccinationValueSetsProvider
 		self.exposureSubmissionService = exposureSubmissionService
 		self.coronaTestService = coronaTestService
+		self.familyMemberCoronaTestService = familyMemberCoronaTestService
 		self.recycleBin = recycleBin
 	}
 	
@@ -93,6 +95,7 @@ class QRScannerCoordinator {
 	private let vaccinationValueSetsProvider: VaccinationValueSetsProviding
 	private let exposureSubmissionService: ExposureSubmissionService
 	private let coronaTestService: CoronaTestServiceProviding
+	private let familyMemberCoronaTestService: FamilyMemberCoronaTestServiceProviding
 	private let recycleBin: RecycleBin
 
 	private let activityIndicatorView = QRScannerActivityIndicatorView(title: AppStrings.FileScanner.hudText)
@@ -879,6 +882,7 @@ class QRScannerCoordinator {
 			parentViewController: parentViewController,
 			exposureSubmissionService: exposureSubmissionService,
 			coronaTestService: coronaTestService,
+			familyMemberCoronaTestService: familyMemberCoronaTestService,
 			healthCertificateService: healthCertificateService,
 			healthCertificateValidationService: healthCertificateValidationService,
 			eventProvider: eventStore,
