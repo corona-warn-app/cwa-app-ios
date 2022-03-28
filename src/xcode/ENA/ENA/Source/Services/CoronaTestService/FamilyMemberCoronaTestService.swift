@@ -419,7 +419,6 @@ class FamilyMemberCoronaTestService: FamilyMemberCoronaTestServiceProviding {
 	private let fakeRequestService: FakeRequestService
 
 	private var outdatedStateTimer: Timer?
-
 	private var subscriptions = Set<AnyCancellable>()
 
 	private var nextOutdatedStateUpdateDate: Date? {
