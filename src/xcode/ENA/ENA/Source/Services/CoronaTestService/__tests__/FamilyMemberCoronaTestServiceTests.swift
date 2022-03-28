@@ -337,7 +337,7 @@ class FamilyMemberCoronaTestServiceTests: CWATestCase {
 			}
 		}
 
-		waitForExpectations(timeout: .short)
+		waitForExpectations(timeout: .medium)
 		testsSubscription.cancel()
 
 		guard let pcrTest = service.coronaTests.value.first else {
@@ -848,9 +848,8 @@ class FamilyMemberCoronaTestServiceTests: CWATestCase {
 			}
 		}
 
-		waitForExpectations(timeout: .short)
-		
-    testsSubscription.cancel()
+		waitForExpectations(timeout: .medium)
+		testsSubscription.cancel()
 
 		guard let antigenTest = service.coronaTests.value.first else {
 			XCTFail("antigenTest should be registered")
@@ -1378,8 +1377,7 @@ class FamilyMemberCoronaTestServiceTests: CWATestCase {
 			}
 		}
 
-		waitForExpectations(timeout: .short)
-
+		waitForExpectations(timeout: .medium)
 		testsSubscription.cancel()
 
 		guard let rapidPCRTest = service.coronaTests.value.first else {
