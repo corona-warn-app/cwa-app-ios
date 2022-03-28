@@ -2015,11 +2015,6 @@ class FamilyMemberCoronaTestServiceTests: CWATestCase {
 		XCTAssertNil(antigenTest.finalTestResultReceivedDate)
 	}
 
-
-
-
-
-
 	func test_When_UpdatePresentNotificationTrue_Then_NotificationShouldBePresented() {
 		let mockNotificationCenter = MockUserNotificationCenter()
 		let client = ClientMock()
