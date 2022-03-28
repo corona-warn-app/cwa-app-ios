@@ -1,9 +1,5 @@
 //
-//  CircleView.swift
-//  EurexCustomerApp
-//
-//  Created by Kai-Marcel Teuber on 25.01.21.
-//  Copyright © 2021 Deutsche Börse AG. All rights reserved.
+// 🦠 Corona-Warn-App
 //
 
 import Foundation
@@ -65,11 +61,11 @@ final class RoundedRectView: UIView {
 		}
 	}
 
-	// MARK: - Private
-
 	var rectCornerRadius: CGFloat {
 		bounds.size.height / 2.0
 	}
+
+	// MARK: - Private
 
 	private let trackLayer = CAShapeLayer()
 

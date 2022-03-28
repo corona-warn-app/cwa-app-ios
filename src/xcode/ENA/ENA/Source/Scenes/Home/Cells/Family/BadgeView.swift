@@ -6,6 +6,8 @@ import UIKit
 
 final class BadgeView: UIView {
 
+	// MARK: - Init
+
 	init(
 		_ badgeCount: String?,
 		fillColor: UIColor = .red,
@@ -22,6 +24,10 @@ final class BadgeView: UIView {
 	required init?(coder: NSCoder) {
 		fatalError("do not use")
 	}
+
+	// MARK: - Internal
+
+	// MARK: - Private
 
 	private let badgeCount: String?
 	private let fillColor: UIColor
