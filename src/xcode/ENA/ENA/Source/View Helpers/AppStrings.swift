@@ -2725,5 +2725,32 @@ enum AppStrings {
 			static let serviceProviderErrorNoMatchTitle = NSLocalizedString("TicketValidation_Error_serviceProviderErrorNoMatchTitle", comment: "")
 		}
 	}
+
+	enum FamilyMemberCoronaTest {
+		static let pcrCaption = NSLocalizedString("FamilyMemberCoronaTest_pcrCaption", comment: "")
+		static let antigenCaption = NSLocalizedString("FamilyMemberCoronaTest_antigenCaption", comment: "")
+
+		static let pcrDate = NSLocalizedString("FamilyMemberCoronaTest_pcrDate", comment: "")
+		static let antigenDate = NSLocalizedString("FamilyMemberCoronaTest_antigenDate", comment: "")
+
+		static let pendingDiagnosis = NSLocalizedString("FamilyMemberCoronaTest_pendingDiagnosis", comment: "")
+		static let pendingPCRDescription = NSLocalizedString("FamilyMemberCoronaTest_pendingPCRDescription", comment: "")
+		static let pendingAntigenDescription = NSLocalizedString("FamilyMemberCoronaTest_pendingAntigenDescription", comment: "")
+
+		static let negativeTopDiagnosis = NSLocalizedString("FamilyMemberCoronaTest_negativeTopDiagnosis", comment: "")
+		static let negativeBottomDiagnosis = NSLocalizedString("FamilyMemberCoronaTest_negativeBottomDiagnosis", comment: "")
+
+		static let positiveTopDiagnosis = NSLocalizedString("FamilyMemberCoronaTest_positiveTopDiagnosis", comment: "")
+		static let positiveBottomDiagnosis = NSLocalizedString("FamilyMemberCoronaTest_positiveBottomDiagnosis", comment: "")
+
+		static let invalidDiagnosis = NSLocalizedString("FamilyMemberCoronaTest_invalidDiagnosis", comment: "")
+		static let invalidDescription = NSLocalizedString("FamilyMemberCoronaTest_invalidDescription", comment: "")
+
+		static let outdatedDiagnosis = NSLocalizedString("FamilyMemberCoronaTest_outdatedDiagnosis", comment: "")
+		static let outdatedDescription = NSLocalizedString("FamilyMemberCoronaTest_outdatedDescription", comment: "")
+
+		static let expiredDiagnosis = NSLocalizedString("FamilyMemberCoronaTest_expiredDiagnosis", comment: "")
+		static let expiredDescription = NSLocalizedString("FamilyMemberCoronaTest_expiredDescription", comment: "")
+	}
 	// swiftlint:disable:next file_length
 }
