@@ -457,10 +457,15 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 			supportedCountries: supportedCountries,
 			onPrimaryButtonTap: { [weak self] isLoading in
 				if #available(iOS 14.4, *) {
+					Log.info("Start preauthorizaton for keys...")
+
 					self?.exposureManager.preAuthorizeKeys(completion: { error in
 						DispatchQueue.main.async { [weak self] in
 							if let error = error as? ENError {
-								switch error.toExposureSubmissionError() {
+								let submissionError = error.toExposureSubmissionError()
+								Log.error("Preauthorizaton for keys failed with ENError: \(error.localizedDescription), ExposureSubmissionError: \(submissionError.localizedDescription)")
+
+								switch submissionError {
 								case .notAuthorized:
 									self?.showOverrideTestNoticeIfNecessary(
 										testRegistrationInformation: testRegistrationInformation,
@@ -469,7 +474,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 									)
 								default:
 									// present alert
-									let alert = UIAlertController.errorAlert(message: error.localizedDescription, completion: { [weak self] in
+									let alert = UIAlertController.errorAlert(message: submissionError.localizedDescription, completion: { [weak self] in
 										self?.showOverrideTestNoticeIfNecessary(
 											testRegistrationInformation: testRegistrationInformation,
 											submissionConsentGiven: true,
@@ -479,6 +484,8 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 									self?.navigationController?.present(alert, animated: true, completion: nil)
 								}
 							} else {
+								Log.info("Preauthorizaton for keys was successful.")
+
 								self?.showOverrideTestNoticeIfNecessary(
 									testRegistrationInformation: testRegistrationInformation,
 									submissionConsentGiven: true,
@@ -521,7 +528,29 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 	}
 
 	private func showFamilyMemberTestConsentScreen() {
-		// to do EXPOSUREAPP-12303
+		let familyMemberConsentViewController = FamilyMemberConsentViewController(
+			dismiss: { [weak self] in
+				self?.dismiss()
+			}, didTapDataPrivacy: { [weak self] in
+				self?.showDataPrivacy()
+			}, didTapSubmit: { givenName in
+				Log.info("User has give name \(givenName)")
+			}
+		)
+
+		let footerViewController = FooterViewController(
+			FooterViewModel(
+				primaryButtonName: AppStrings.HealthCertificate.FamilyMemberConsent.primaryButton,
+				isSecondaryButtonEnabled: false,
+				isSecondaryButtonHidden: true
+			)
+		)
+
+		let topBottomLayoutViewController = TopBottomContainerViewController(
+			topController: familyMemberConsentViewController,
+			bottomController: footerViewController
+		)
+		push(topBottomLayoutViewController)
 	}
 	
 	private func showQRScreen(testRegistrationInformation: CoronaTestRegistrationInformation?, isLoading: @escaping (Bool) -> Void) {

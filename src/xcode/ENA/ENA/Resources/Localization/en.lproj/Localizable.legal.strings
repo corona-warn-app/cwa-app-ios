@@ -248,3 +248,12 @@
 
 "TicketValidation_SecondConsent_Legal_subBulletPoint4" = "Further certificate requirements on the part of the provider (e.g. which vaccines or test procedures are accepted)";
 
+/* HealthCertificate Resissuance Consent */
+
+"HealthCertificate_Reissuance_Consent_Legal_Title" = "Your consent";
+
+"HealthCertificate_Reissuance_Consent_Legal_Subtitle" = "By tapping on “Accept”, you consent to the following steps:";
+
+"HealthCertificate_Reissuance_Consent_Legal_Bullet_1" = "The app will transmit the vaccination certificate to the RKI for verification.";
+
+"HealthCertificate_Reissuance_Consent_Legal_Bullet_2" = "The RKI will check the vaccination certificate, issue an updated certificate and send this to your app.";

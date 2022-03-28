@@ -18,6 +18,7 @@ class ExposureSubmissionTestOwnerCell: UITableViewCell, ReuseIdentifierProviding
 		self.subheadlineLabel.text = subheadline
 		self.iconImageView.image = iconImage
 		self.accessibilityIdentifier = accessibilityIdentifier
+		self.accessibilityTraits = .button
 	}
 
 	// MARK: - Private

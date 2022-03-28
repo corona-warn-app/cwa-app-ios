@@ -26,7 +26,8 @@ class HomeCoordinator: RequiresAppDependencies {
 		restServiceProvider: RestServiceProviding,
 		badgeWrapper: HomeBadgeWrapper,
 		cache: KeyValueCaching,
-		cclService: CCLServable
+		cclService: CCLServable,
+		homeState: HomeState
 	) {
 		self.delegate = delegate
 		self.otpService = otpService
@@ -44,6 +45,7 @@ class HomeCoordinator: RequiresAppDependencies {
 		self.badgeWrapper = badgeWrapper
 		self.cache = cache
 		self.cclService = cclService
+		self.homeState = homeState
 	}
 
 	deinit {
@@ -72,14 +74,6 @@ class HomeCoordinator: RequiresAppDependencies {
 				return
 			}
 		}
-		let homeState = HomeState(
-			store: store,
-			riskProvider: riskProvider,
-			exposureManagerState: exposureManager.exposureManagerState,
-			enState: enStateHandler.state,
-			statisticsProvider: statisticsProvider,
-			localStatisticsProvider: localStatisticsProvider
-		)
 
 		let homeController = HomeTableViewController(
 			viewModel: HomeTableViewModel(
@@ -164,7 +158,6 @@ class HomeCoordinator: RequiresAppDependencies {
 			}
 		)
 
-		self.homeState = homeState
 		self.homeController = homeController
 		addToEnStateUpdateList(homeState)
 		setupHomeBadgeCount()
@@ -190,7 +183,7 @@ class HomeCoordinator: RequiresAppDependencies {
 	func updateDetectionMode(
 		_ detectionMode: DetectionMode
 	) {
-		homeState?.updateDetectionMode(detectionMode)
+		homeState.updateDetectionMode(detectionMode)
 	}
 
 	// MARK: - Private
@@ -212,7 +205,7 @@ class HomeCoordinator: RequiresAppDependencies {
 	private let cclService: CCLServable
 
 	private var homeController: HomeTableViewController?
-	private var homeState: HomeState?
+	private var homeState: HomeState
 	private var settingsController: SettingsViewController?
 	private var traceLocationsCoordinator: TraceLocationsCoordinator?
 	private var settingsCoordinator: SettingsCoordinator?
@@ -222,38 +215,6 @@ class HomeCoordinator: RequiresAppDependencies {
 	private var subscriptions = Set<AnyCancellable>()
 
 	private weak var delegate: CoordinatorDelegate?
-	   
-	private lazy var statisticsProvider: StatisticsProvider = {
-			#if DEBUG
-			if isUITesting {
-				return StatisticsProvider(
-					client: CachingHTTPClientMock(),
-					store: store
-				)
-			}
-			#endif
-
-			return StatisticsProvider(
-				client: CachingHTTPClient(),
-				store: store
-			)
-		}()
-	
-	private lazy var localStatisticsProvider: LocalStatisticsProviding = {
-			#if DEBUG
-			if isUITesting {
-				return LocalStatisticsProvider(
-					client: CachingHTTPClientMock(),
-					store: store
-				)
-			}
-			#endif
-
-			return LocalStatisticsProvider(
-				client: CachingHTTPClient(),
-				store: store
-			)
-		}()
 
 	private lazy var qrCodePosterTemplateProvider: QRCodePosterTemplateProvider = {
 		return QRCodePosterTemplateProvider(
@@ -325,10 +286,6 @@ class HomeCoordinator: RequiresAppDependencies {
 	}
 
 	private func showExposureDetection(state: HomeState) {
-		guard let homeState = homeState else {
-			return
-		}
-
 		exposureDetectionCoordinator = ExposureDetectionCoordinator(
 			rootViewController: rootViewController,
 			store: store,
@@ -511,13 +468,8 @@ class HomeCoordinator: RequiresAppDependencies {
 	}
 
 	private func setupHomeBadgeCount() {
-		guard let state = homeState else {
-			Log.error("Can'r observe badge changed - homeStat is missing, stop.")
-			return
-		}
-
 		// risk change might update the badge count string
-		state.$riskState
+		homeState.$riskState
 			.receive(on: DispatchQueue.main.ocombine)
 			.sink { [weak self] riskState in
 				// check if risk level changed and if home screen tab is not selected
@@ -571,14 +523,14 @@ class HomeCoordinator: RequiresAppDependencies {
 
 extension HomeCoordinator: ExposureStateUpdating {
 	func updateExposureState(_ state: ExposureManagerState) {
-		homeState?.updateExposureManagerState(state)
+		homeState.updateExposureManagerState(state)
 		settingsController?.updateExposureState(state)
 	}
 }
 
 extension HomeCoordinator: ENStateHandlerUpdating {
 	func updateEnState(_ state: ENStateHandler.State) {
-		homeState?.updateEnState(state)
+		homeState.updateEnState(state)
 		updateAllState(state)
 	}
 
