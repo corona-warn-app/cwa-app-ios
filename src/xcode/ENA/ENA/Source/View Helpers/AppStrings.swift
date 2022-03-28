@@ -918,6 +918,10 @@ enum AppStrings {
 		static let riskCardStatusDetectingTitle = NSLocalizedString("Home_Risk_Status_Detecting_Title", comment: "")
 		static let riskCardStatusDetectingBody = NSLocalizedString("Home_Risk_Status_Detecting_Body", comment: "")
 
+		// Family test
+		static let familyTestTitle = NSLocalizedString("Home_Family_Test_Title", comment: "")
+		static let familyTestDetail = NSLocalizedString("Home_Family_Test_Detail", comment: "")
+
 		// Test Result States
 		enum TestResult {
 			static let pcrTitle = NSLocalizedString("Home_resultCard_PCR_Title", comment: "")
