@@ -9,7 +9,8 @@ import UIKit
 protocol FamilyMemberCoronaTestServiceProviding {
 
 	typealias VoidResultHandler = (Result<Void, CoronaTestServiceError>) -> Void
-	typealias RegistrationResultHandler = (Result<String, CoronaTestServiceError>) -> Void
+	typealias RegistrationResultHandler = (Result<FamilyMemberCoronaTest, CoronaTestServiceError>) -> Void
+	typealias RegistrationTokenResultHandler = (Result<String, CoronaTestServiceError>) -> Void
 	typealias TestResultHandler = (Result<TestResult, CoronaTestServiceError>) -> Void
 
 	var coronaTests: CurrentValueSubject<[FamilyMemberCoronaTest], Never> { get }
@@ -21,7 +22,7 @@ protocol FamilyMemberCoronaTestServiceProviding {
 		guid: String,
 		qrCodeHash: String,
 		certificateConsent: TestCertificateConsent,
-		completion: @escaping TestResultHandler
+		completion: @escaping RegistrationResultHandler
 	)
 
 	func registerAntigenTestAndGetResult(
@@ -31,7 +32,7 @@ protocol FamilyMemberCoronaTestServiceProviding {
 		pointOfCareConsentDate: Date,
 		certificateSupportedByPointOfCare: Bool,
 		certificateConsent: TestCertificateConsent,
-		completion: @escaping TestResultHandler
+		completion: @escaping RegistrationResultHandler
 	)
 
 	func registerRapidPCRTestAndGetResult(
@@ -41,7 +42,7 @@ protocol FamilyMemberCoronaTestServiceProviding {
 		pointOfCareConsentDate: Date,
 		certificateSupportedByPointOfCare: Bool,
 		certificateConsent: TestCertificateConsent,
-		completion: @escaping TestResultHandler
+		completion: @escaping RegistrationResultHandler
 	)
 	
 	func reregister(coronaTest: FamilyMemberCoronaTest)

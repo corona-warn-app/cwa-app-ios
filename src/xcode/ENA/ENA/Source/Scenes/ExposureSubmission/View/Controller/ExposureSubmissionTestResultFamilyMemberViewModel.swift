@@ -12,13 +12,11 @@ class ExposureSubmissionTestResultFamilyMemberViewModel: ExposureSubmissionTestR
 	init(
 		familyMemberCoronaTest: FamilyMemberCoronaTest,
 		familyMemberCoronaTestService: FamilyMemberCoronaTestServiceProviding,
-		onChangeToPositiveTestResult: @escaping () -> Void,
 		onTestDeleted: @escaping () -> Void,
 		onTestCertificateCellTap: @escaping(HealthCertificate, HealthCertifiedPerson) -> Void
 	) {
 		self.familyMemberCoronaTest = familyMemberCoronaTest
 		self.familyMemberCoronaTestService = familyMemberCoronaTestService
-		self.onChangeToPositiveTestResult = onChangeToPositiveTestResult
 		self.onTestDeleted = onTestDeleted
 		self.onTestCertificateCellTap = onTestCertificateCellTap
 
@@ -88,7 +86,6 @@ class ExposureSubmissionTestResultFamilyMemberViewModel: ExposureSubmissionTestR
 	private var familyMemberCoronaTestService: FamilyMemberCoronaTestServiceProviding
 	private var familyMemberCoronaTest: FamilyMemberCoronaTest
 
-	private let onChangeToPositiveTestResult: () -> Void
 	private let onTestDeleted: () -> Void
 	private let onTestCertificateCellTap: (HealthCertificate, HealthCertifiedPerson) -> Void
 
@@ -119,11 +116,6 @@ class ExposureSubmissionTestResultFamilyMemberViewModel: ExposureSubmissionTestR
 	}
 
 	private func updateForCurrentTestResult(coronaTest: FamilyMemberCoronaTest) {
-		// Positive test results are not shown immediately
-		if familyMemberCoronaTest.testResult == .positive && self.familyMemberCoronaTest.testResult != .positive {
-			self.onChangeToPositiveTestResult()
-		}
-
 		self.familyMemberCoronaTest = coronaTest
 
 		primaryButtonIsLoading = coronaTest.isLoading

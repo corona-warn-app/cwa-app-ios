@@ -111,7 +111,7 @@ class FamilyMemberCoronaTestService: FamilyMemberCoronaTestServiceProviding {
 		guid: String,
 		qrCodeHash: String,
 		certificateConsent: TestCertificateConsent,
-		completion: @escaping TestResultHandler
+		completion: @escaping RegistrationResultHandler
 	) {
 		var certificateConsentGiven = false
 		var dateOfBirthKey: String?
@@ -152,8 +152,12 @@ class FamilyMemberCoronaTestService: FamilyMemberCoronaTestServiceProviding {
 
 					Log.info("[FamilyMemberCoronaTestService] PCR test registered: \(private: coronaTest)", log: .api)
 
-					self?.getTestResult(for: coronaTest, duringRegistration: true) { result in
-						completion(result)
+					self?.getTestResult(for: coronaTest, duringRegistration: true) { _ in
+						guard let updatedCoronaTest = self?.upToDateTest(for: coronaTest) else {
+							completion(.failure(.noCoronaTestOfRequestedType))
+							return
+						}
+						completion(.success(updatedCoronaTest))
 					}
 				case .failure(let error):
 					Log.error("[FamilyMemberCoronaTestService] PCR test registration failed: \(error.localizedDescription)", log: .api)
@@ -173,7 +177,7 @@ class FamilyMemberCoronaTestService: FamilyMemberCoronaTestServiceProviding {
 		pointOfCareConsentDate: Date,
 		certificateSupportedByPointOfCare: Bool,
 		certificateConsent: TestCertificateConsent,
-		completion: @escaping TestResultHandler
+		completion: @escaping RegistrationResultHandler
 	) {
 		Log.info("[FamilyMemberCoronaTestService] Registering antigen test (hash: \(private: hash), pointOfCareConsentDate: \(private: pointOfCareConsentDate)", log: .api)
 
@@ -212,9 +216,13 @@ class FamilyMemberCoronaTestService: FamilyMemberCoronaTestServiceProviding {
 
 					Log.info("[FamilyMemberCoronaTestService] Antigen test registered: \(private: coronaTest)", log: .api)
 
-					self?.getTestResult(for: coronaTest, duringRegistration: true) { result in
+					self?.getTestResult(for: coronaTest, duringRegistration: true) { _ in
 						self?.scheduleOutdatedStateTimer()
-						completion(result)
+						guard let updatedCoronaTest = self?.upToDateTest(for: coronaTest) else {
+							completion(.failure(.noCoronaTestOfRequestedType))
+							return
+						}
+						completion(.success(updatedCoronaTest))
 					}
 
 					self?.fakeRequestService.fakeSubmissionServerRequest()
@@ -236,7 +244,7 @@ class FamilyMemberCoronaTestService: FamilyMemberCoronaTestServiceProviding {
 		pointOfCareConsentDate: Date,
 		certificateSupportedByPointOfCare: Bool,
 		certificateConsent: TestCertificateConsent,
-		completion: @escaping TestResultHandler
+		completion: @escaping RegistrationResultHandler
 	) {
 		Log.info("[FamilyMemberCoronaTestService] Registering RapidPCR test (hash: \(private: hash), pointOfCareConsentDate: \(private: pointOfCareConsentDate))", log: .api)
 
@@ -273,8 +281,12 @@ class FamilyMemberCoronaTestService: FamilyMemberCoronaTestServiceProviding {
 
 					Log.info("[FamilyMemberCoronaTestService] RapidPCR test registered: \(private: coronaTest)", log: .api)
 
-					self?.getTestResult(for: coronaTest, duringRegistration: true) { result in
-						completion(result)
+					self?.getTestResult(for: coronaTest, duringRegistration: true) { _ in
+						guard let updatedCoronaTest = self?.upToDateTest(for: coronaTest) else {
+							completion(.failure(.noCoronaTestOfRequestedType))
+							return
+						}
+						completion(.success(updatedCoronaTest))
 					}
 
 					self?.fakeRequestService.fakeSubmissionServerRequest()
@@ -452,7 +464,7 @@ class FamilyMemberCoronaTestService: FamilyMemberCoronaTestServiceProviding {
 		forKey key: String,
 		withType type: KeyType,
 		dateOfBirthKey: String?,
-		completion: @escaping RegistrationResultHandler
+		completion: @escaping RegistrationTokenResultHandler
 	) {
 		// Check if first char of dateOfBirthKey is a lower cased "x". If not, we fail because it is malformed. If dateOfBirthKey is nil, we pass this check.
 		if let dateOfBirthKey = dateOfBirthKey {

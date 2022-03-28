@@ -141,7 +141,7 @@ class ExposureSubmissionCoordinatorModel {
 			}
 		}
 	}
-
+	
 	// swiftlint:disable cyclomatic_complexity
 	func registerTestAndGetResult(
 		for registrationInformation: CoronaTestRegistrationInformation,
@@ -241,7 +241,7 @@ class ExposureSubmissionCoordinatorModel {
 		registrationInformation: CoronaTestRegistrationInformation,
 		certificateConsent: TestCertificateConsent,
 		isLoading: @escaping (Bool) -> Void,
-		onSuccess: @escaping (TestResult) -> Void,
+		onSuccess: @escaping (FamilyMemberCoronaTest) -> Void,
 		onError: @escaping (CoronaTestServiceError) -> Void
 	) {
 		isLoading(true)
