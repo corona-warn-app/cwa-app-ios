@@ -185,8 +185,9 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 				}
 			case .familyTestResults(let count):
 				Log.info("Present family test cell with badge \(count)")
-				let cell = UITableViewCell(style: .default, reuseIdentifier: "TestALot")
-				cell.textLabel?.text = "Hallo Familie"
+				guard let cell = tableView.dequeueReusableCell(withIdentifier: FamilyTestsHomeCell.reuseIdentifier) else {
+					fatalError("Failed to get FamilyTestsHomeCell")
+				}
 				return cell
 			}
 		case .testRegistration:
@@ -381,6 +382,8 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 			UINib(nibName: String(describing: HomeMoreInfoTableViewCell.self), bundle: nil),
 			forCellReuseIdentifier: String(describing: HomeMoreInfoTableViewCell.self)
 		)
+
+		tableView.register(FamilyTestsHomeCell.self, forCellReuseIdentifier: FamilyTestsHomeCell.reuseIdentifier)
 
 		tableView.separatorStyle = .none
 		tableView.rowHeight = UITableView.automaticDimension
