@@ -19,19 +19,19 @@ final class RoundedRectView: UIView {
 		self.strokeColor = strokeColor
 		super.init(frame: .zero)
 		configure()
-		layer.addSublayer(trackLayer)
+		layer.addSublayer(shapeLayer)
 	}
 
 	override init(frame: CGRect) {
 		super.init(frame: frame)
 		configure()
-		layer.addSublayer(trackLayer)
+		layer.addSublayer(shapeLayer)
 	}
 
 	required init?(coder aDecoder: NSCoder) {
 		super.init(coder: aDecoder)
 		configure()
-		layer.addSublayer(trackLayer)
+		layer.addSublayer(shapeLayer)
 	}
 
 	// MARK: - Overrides
@@ -45,19 +45,19 @@ final class RoundedRectView: UIView {
 
 	var lineWidth: CGFloat = 3 {
 		didSet {
-			trackLayer.lineWidth = lineWidth
+			shapeLayer.lineWidth = lineWidth
 		}
 	}
 
 	var fillColor: UIColor = .clear {
 		didSet {
-			trackLayer.fillColor = fillColor.cgColor
+			shapeLayer.fillColor = fillColor.cgColor
 		}
 	}
 
 	var strokeColor: UIColor = .black {
 		didSet {
-			trackLayer.strokeColor = strokeColor.cgColor
+			shapeLayer.strokeColor = strokeColor.cgColor
 		}
 	}
 
@@ -67,17 +67,17 @@ final class RoundedRectView: UIView {
 
 	// MARK: - Private
 
-	private let trackLayer = CAShapeLayer()
+	private let shapeLayer = CAShapeLayer()
 
 	private func configure() {
-		trackLayer.fillColor   = fillColor.cgColor
-		trackLayer.strokeColor = strokeColor.cgColor
-		trackLayer.lineWidth = lineWidth
-		trackLayer.strokeStart = 0
-		trackLayer.strokeEnd   = 1
+		shapeLayer.fillColor   = fillColor.cgColor
+		shapeLayer.strokeColor = strokeColor.cgColor
+		shapeLayer.lineWidth = lineWidth
+		shapeLayer.strokeStart = 0
+		shapeLayer.strokeEnd   = 1
 	}
 
 	private func updatePath() {
-		trackLayer.path = UIBezierPath(roundedRect: frame, cornerRadius: rectCornerRadius).cgPath
+		shapeLayer.path = UIBezierPath(roundedRect: frame, cornerRadius: rectCornerRadius).cgPath
 	}
 }
