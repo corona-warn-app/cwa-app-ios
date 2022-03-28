@@ -669,6 +669,59 @@ class HealthCertificateServiceTests: CWATestCase {
 		service.moveHealthCertificateToBin(healthCertificate)
 	}
 
+	func testValidityStateUpdate_Blocked() throws {
+		let expiringDate = Calendar.current.date(
+			byAdding: .day,
+			value: 50,
+			to: Date()
+		)
+		
+		let healthCertificateBase45 = try base45Fake(
+			from: DigitalCovidCertificate.fake(
+				recoveryEntries: [.fake()]
+			),
+			and: .fake(expirationTime: try XCTUnwrap(expiringDate))
+		)
+		let healthCertificate = try HealthCertificate(base45: healthCertificateBase45)
+		XCTAssertEqual(healthCertificate.validityState, .valid)
+		
+		let wallet = DCCWalletInfo.fake(
+			certificatesRevokedByInvalidationRules: [
+				DCCCertificateContainer.fake(
+					certificateRef: .fake(
+						barcodeData: healthCertificateBase45
+					)
+				)
+			]
+		)
+		let healthCertifiedPerson = HealthCertifiedPerson(
+			healthCertificates: [healthCertificate],
+			dccWalletInfo: nil
+		)
+
+		let store = MockTestStore()
+		store.healthCertifiedPersons = [healthCertifiedPerson]
+		
+		var cclService = FakeCCLService()
+		cclService.dccWalletInfoResult = .success(wallet)
+		cclService.didChange = false
+
+		let service = HealthCertificateService(
+			store: store,
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
+			dscListProvider: MockDSCListProvider(),
+			appConfiguration: CachedAppConfigurationMock(),
+			cclService: cclService,
+			recycleBin: .fake()
+		)
+		service.syncSetup()
+
+		XCTAssertEqual(healthCertificate.validityState, .blocked)
+		XCTAssertEqual(service.healthCertifiedPersons.first?.healthCertificates.first?.validityState, .blocked)
+
+		service.moveHealthCertificateToBin(healthCertificate)
+	}
+
 	func testValidityStateUpdate_JustExpired() throws {
 		let healthCertificateBase45 = try base45Fake(
 			from: DigitalCovidCertificate.fake(
