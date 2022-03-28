@@ -183,14 +183,8 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 				case .positiveResultWasShown:
 					return shownPositiveTestResultCell(forRowAt: indexPath, coronaTestType: .antigen)
 				}
-			case .familyTestResults(let count):
-				Log.info("Present family test cell with badge \(count)")
-				guard let cell = tableView.dequeueReusableCell(withIdentifier: FamilyTestsHomeCell.reuseIdentifier) as? FamilyTestsHomeCell else {
-					fatalError("Failed to get FamilyTestsHomeCell")
-				}
-				let cellViewModel = FamilyTestsHomeCellViewModel(count)
-				cell.configure(with: cellViewModel)
-				return cell
+			case .familyTestResults(let unseenCount):
+				return familyTestCell(unseenCount)
 			}
 		case .testRegistration:
 			return testRegistrationCell(forRowAt: indexPath)
@@ -447,6 +441,15 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 
 		riskCell = cell
 
+		return cell
+	}
+
+	private func familyTestCell(_ unseenCount: Int) -> UITableViewCell {
+		guard let cell = tableView.dequeueReusableCell(withIdentifier: FamilyTestsHomeCell.reuseIdentifier) as? FamilyTestsHomeCell else {
+			fatalError("Failed to get FamilyTestsHomeCell")
+		}
+		let cellViewModel = FamilyTestsHomeCellViewModel(unseenCount)
+		cell.configure(with: cellViewModel)
 		return cell
 	}
 
