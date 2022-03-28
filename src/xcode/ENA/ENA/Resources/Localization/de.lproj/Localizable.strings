@@ -3737,3 +3737,40 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 "TicketValidation_Result_Failed_subtitle" = "Ihr Zertifikat entspricht nicht den Anforderungen des Anbieters";
 
 "TicketValidation_Result_Failed_description" = "Bei Rückfragen wenden Sie sich bitte an den Anbieter “%@”.";
+
+/* Family Member Corona Test */
+
+"FamilyMemberCoronaTest_pcrCaption" = "PCR-Test-Befund";
+
+"FamilyMemberCoronaTest_antigenCaption" = "Schnelltest-Befund";
+
+"FamilyMemberCoronaTest_pcrDate" = "Test hinzugefügt am %@";
+
+"FamilyMemberCoronaTest_antigenDate" = "Durchgeführt am %@";
+
+"FamilyMemberCoronaTest_pendingDiagnosis" = "Ergebnis liegt noch nicht vor";
+
+"FamilyMemberCoronaTest_pendingPCRDescription" = "Die Auswertung des PCR-Tests ist noch nicht abgeschlossen.";
+
+"FamilyMemberCoronaTest_pendingAntigenDescription" = "Die Auswertung des Schnelltests ist noch nicht abgeschlossen.";
+
+"FamilyMemberCoronaTest_negativeTopDiagnosis" = "SARS-CoV-2";
+
+"FamilyMemberCoronaTest_negativeBottomDiagnosis" = "negativ";
+
+"FamilyMemberCoronaTest_positiveTopDiagnosis" = "SARS-CoV-2";
+
+"FamilyMemberCoronaTest_positiveBottomDiagnosis" = "positiv";
+
+"FamilyMemberCoronaTest_invalidDiagnosis" = "Fehlerhafter Test";
+
+"FamilyMemberCoronaTest_invalidDescription" = "Der Test konnte nicht ausgewertet werden.";
+
+"FamilyMemberCoronaTest_outdatedDiagnosis" = "Test nicht mehr aktuell";
+
+"FamilyMemberCoronaTest_outdatedDescription" = "Der Schnelltest ist älter als %i Stunden und wird hier nicht mehr angezeigt.";
+
+"FamilyMemberCoronaTest_expiredDiagnosis" = "Nicht mehr gültig";
+
+"FamilyMemberCoronaTest_expiredDescription" = "Der Test liegt länger als 21 Tage zurück und ist daher nicht länger relevant.";
+
