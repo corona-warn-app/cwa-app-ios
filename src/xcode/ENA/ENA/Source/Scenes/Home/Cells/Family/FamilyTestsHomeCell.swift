@@ -27,8 +27,10 @@ class FamilyTestsHomeCell: UITableViewCell, ReuseIdentifierProviding {
 
 	// MARK: - Internal
 
-	func configure(_ badgeCount: Int) {
-
+	func configure(with viewModel: FamilyTestsHomeCellViewModel) {
+		badgeView.setBadge(viewModel.badgeText, animated: true)
+		detailsLabel.text = viewModel.detailText
+		detailsLabel.isHidden = viewModel.isDetailsHidden
 	}
 
 	// MARK: - Private
@@ -48,7 +50,7 @@ class FamilyTestsHomeCell: UITableViewCell, ReuseIdentifierProviding {
 	}()
 
 	private let homeCardView = HomeCardView()
-	private let badgeView = BadgeView("1", fillColor: .red, textColor: .white)
+	private let badgeView = BadgeView(nil, fillColor: .red, textColor: .white)
 
 	private func setupView() {
 		selectionStyle = .none

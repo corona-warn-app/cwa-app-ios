@@ -27,24 +27,34 @@ final class BadgeView: UIView {
 
 	// MARK: - Internal
 
+	func setBadge(_ text: String?, animated: Bool) {
+		let futureIsHidden = text == nil
+		let animator = UIViewPropertyAnimator(duration: animated ? 0.45 : 0.0, curve: .easeInOut) { [weak self] in
+			self?.badgeLabel.text = text
+			self?.roundedRectView?.alpha = futureIsHidden ? 0.0 : 1.0
+		}
+		animator.startAnimation()
+	}
+
 	// MARK: - Private
 
 	private let badgeCount: String?
 	private let fillColor: UIColor
 	private let textColor: UIColor
 
+	private let badgeLabel: ENALabel = ENALabel(style: .badge)
+	private var roundedRectView: RoundedRectView?
+
 	private func setupView() {
 		let roundedRectView = RoundedRectView(lineWidth: 1.0, fillColor: fillColor, strokeColor: textColor)
 		roundedRectView.translatesAutoresizingMaskIntoConstraints = false
 		addSubview(roundedRectView)
+		self.roundedRectView = roundedRectView
 
-		let label = UILabel()
-		label.translatesAutoresizingMaskIntoConstraints = false
-		label.textAlignment = .center
-		label.font = .enaFont(for: .badge)
-		label.text = badgeCount
-		label.textColor = textColor
-		roundedRectView.addSubview(label)
+		badgeLabel.translatesAutoresizingMaskIntoConstraints = false
+		badgeLabel.textAlignment = .center
+		badgeLabel.textColor = textColor
+		roundedRectView.addSubview(badgeLabel)
 
 		NSLayoutConstraint.activate(
 			[
@@ -53,14 +63,15 @@ final class BadgeView: UIView {
 				roundedRectView.trailingAnchor.constraint(equalTo: trailingAnchor),
 				roundedRectView.bottomAnchor.constraint(equalTo: bottomAnchor),
 
-				roundedRectView.centerXAnchor.constraint(equalTo: label.centerXAnchor),
-				roundedRectView.centerYAnchor.constraint(equalTo: label.centerYAnchor),
-				roundedRectView.widthAnchor.constraint(equalTo: label.widthAnchor, constant: 4.0),
-				roundedRectView.heightAnchor.constraint(equalTo: label.heightAnchor, constant: 4.0),
+				roundedRectView.centerXAnchor.constraint(equalTo: badgeLabel.centerXAnchor),
+				roundedRectView.centerYAnchor.constraint(equalTo: badgeLabel.centerYAnchor),
+				roundedRectView.widthAnchor.constraint(equalTo: badgeLabel.widthAnchor, constant: 4.0),
+				roundedRectView.heightAnchor.constraint(equalTo: badgeLabel.heightAnchor, constant: 4.0),
 				roundedRectView.widthAnchor.constraint(greaterThanOrEqualTo: roundedRectView.heightAnchor)
 			]
 		)
 
-		roundedRectView.isHidden = badgeCount == nil
+		badgeLabel.text = badgeCount
+		roundedRectView.alpha = badgeCount == nil ? 0.0 : 1.0
 	}
 }

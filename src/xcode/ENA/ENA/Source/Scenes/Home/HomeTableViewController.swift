@@ -185,9 +185,11 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 				}
 			case .familyTestResults(let count):
 				Log.info("Present family test cell with badge \(count)")
-				guard let cell = tableView.dequeueReusableCell(withIdentifier: FamilyTestsHomeCell.reuseIdentifier) else {
+				guard let cell = tableView.dequeueReusableCell(withIdentifier: FamilyTestsHomeCell.reuseIdentifier) as? FamilyTestsHomeCell else {
 					fatalError("Failed to get FamilyTestsHomeCell")
 				}
+				let cellViewModel = FamilyTestsHomeCellViewModel(count)
+				cell.configure(with: cellViewModel)
 				return cell
 			}
 		case .testRegistration:
