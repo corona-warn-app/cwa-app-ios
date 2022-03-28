@@ -302,23 +302,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 	}()
 
 	lazy var familyMemberCoronaTestService: FamilyMemberCoronaTestServiceProviding = {
-
-		let pcrTest: FamilyMemberCoronaTest = .pcr(.mock(registrationToken: "regToken", qrCodeHash: "pcrQRCodeHash"))
-		let pcrTest2: FamilyMemberCoronaTest = .pcr(.mock(registrationToken: "regToken", qrCodeHash: "pcrQRCodeHash"))
-		let antigenTest: FamilyMemberCoronaTest = .antigen(.mock(registrationToken: "regToken", qrCodeHash: "antigenQRCodeHash"))
-
-		let service = FamilyMemberCoronaTestService(
+		FamilyMemberCoronaTestService(
 			client: client,
 			restServiceProvider: restServiceProvider,
 			store: store,
 			appConfiguration: appConfigurationProvider,
 			healthCertificateService: healthCertificateService,
 			healthCertificateRequestService: healthCertificateRequestService,
-			recycleBin: recycleBin
+			recycleBin: recycleBin,
+			badgeWrapper: badgeWrapper
 		)
-
-		service.coronaTests.value = [pcrTest, antigenTest]
-		return service
 	}()
 
 	lazy var badgeWrapper: HomeBadgeWrapper = {
