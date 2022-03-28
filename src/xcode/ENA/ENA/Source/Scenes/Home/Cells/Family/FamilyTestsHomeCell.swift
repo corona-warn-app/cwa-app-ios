@@ -57,7 +57,7 @@ class FamilyTestsHomeCell: UITableViewCell, ReuseIdentifierProviding {
 		backgroundColor = .clear
 		contentView.backgroundColor = .clear
 
-		homeCardView.backgroundColor = .white
+		homeCardView.backgroundColor = .enaColor(for: .cellBackground)
 		contentView.addSubview(homeCardView)
 
 		let imageView = UIImageView(image: UIImage(imageLiteralResourceName: "Icon_Family_Cell"))
