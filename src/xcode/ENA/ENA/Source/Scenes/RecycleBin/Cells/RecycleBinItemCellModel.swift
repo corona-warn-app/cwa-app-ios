@@ -21,8 +21,10 @@ class RecycleBinItemCellModel {
 		switch recycleBinItem.item {
 		case .certificate:
 			return UIImage(named: "Icons_RecycleBin_Certificate")
-		case .coronaTest:
+		case .userCoronaTest:
 			return UIImage(named: "Icons_RecycleBin_CoronaTest")
+		case .familyMemberCoronaTest:
+			return UIImage(named: "Icons_RecycleBin_FamilyMemberCoronaTest")
 		}
 	}()
 
@@ -30,8 +32,10 @@ class RecycleBinItemCellModel {
 		switch recycleBinItem.item {
 		case .certificate(let certificate):
 			return certificate.name.fullName
-		case .coronaTest:
+		case .userCoronaTest:
 			return nil
+		case .familyMemberCoronaTest(let coronaTest):
+			return coronaTest.displayName
 		}
 	}()
 
@@ -46,8 +50,10 @@ class RecycleBinItemCellModel {
 			case .recovery:
 				return AppStrings.RecycleBin.RecoveryCertificate.headline
 			}
-		case .coronaTest(let coronaTest):
+		case .userCoronaTest:
 			return AppStrings.RecycleBin.CoronaTest.headline
+		case .familyMemberCoronaTest:
+			return AppStrings.RecycleBin.CoronaTest.familyMemberHeadline
 		}
 	}()
 
@@ -71,7 +77,14 @@ class RecycleBinItemCellModel {
 			case .recovery:
 				return nil
 			}
-		case .coronaTest(let coronaTest):
+		case .userCoronaTest(let coronaTest):
+			switch coronaTest {
+			case .pcr:
+				return AppStrings.RecycleBin.CoronaTest.pcrTest
+			case .antigen:
+				return AppStrings.RecycleBin.CoronaTest.antigenTest
+			}
+		case .familyMemberCoronaTest(let coronaTest):
 			switch coronaTest {
 			case .pcr:
 				return AppStrings.RecycleBin.CoronaTest.pcrTest
@@ -107,7 +120,20 @@ class RecycleBinItemCellModel {
 					)
 				}
 			}
-		case .coronaTest(let coronaTest):
+		case .userCoronaTest(let coronaTest):
+			switch coronaTest {
+			case .pcr(let pcrTest):
+				return String(
+					format: AppStrings.RecycleBin.CoronaTest.registrationDate,
+					DateFormatter.localizedString(from: pcrTest.registrationDate, dateStyle: .short, timeStyle: .none)
+				)
+			case .antigen(let antigenTest):
+				return String(
+					format: AppStrings.RecycleBin.CoronaTest.sampleCollectionDate,
+					DateFormatter.localizedString(from: antigenTest.testDate, dateStyle: .short, timeStyle: .none)
+				)
+			}
+		case .familyMemberCoronaTest(let coronaTest):
 			switch coronaTest {
 			case .pcr(let pcrTest):
 				return String(

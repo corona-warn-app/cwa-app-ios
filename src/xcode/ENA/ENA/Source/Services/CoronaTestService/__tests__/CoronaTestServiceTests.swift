@@ -101,7 +101,7 @@ class CoronaTestServiceTests: CWATestCase {
 				publisherExpectation.fulfill()
 			}
 
-		service.antigenTest.value = AntigenTest.mock(
+		service.antigenTest.value = .mock(
 			pointOfCareConsentDate: Date(timeIntervalSinceNow: -(60 * 60 * 48)),
 			sampleCollectionDate: nil,
 			testResult: .negative
@@ -162,7 +162,7 @@ class CoronaTestServiceTests: CWATestCase {
 
 		// Outdated only according to sample collection date, not according to point of care consent date
 		// As we are using the sample collection date if set, the test is outdated
-		service.antigenTest.value = AntigenTest.mock(
+		service.antigenTest.value = .mock(
 			pointOfCareConsentDate: Date(timeIntervalSinceNow: -(60 * 60 * 46)),
 			sampleCollectionDate: Date(timeIntervalSinceNow: -(60 * 60 * 48)),
 			testResult: .negative
@@ -221,7 +221,7 @@ class CoronaTestServiceTests: CWATestCase {
 				publisherExpectation.fulfill()
 			}
 
-		service.antigenTest.value = AntigenTest.mock(
+		service.antigenTest.value = .mock(
 			pointOfCareConsentDate: Date(timeIntervalSinceNow: -(60 * 60 * 48) + 5),
 			testResult: .negative
 		)
@@ -285,7 +285,7 @@ class CoronaTestServiceTests: CWATestCase {
 				}
 			}
 
-		service.antigenTest.value = AntigenTest.mock(
+		service.antigenTest.value = .mock(
 			pointOfCareConsentDate: Date(timeIntervalSinceNow: -(60 * 60 * 48)),
 			testResult: .negative
 		)
@@ -344,7 +344,7 @@ class CoronaTestServiceTests: CWATestCase {
 
 				// Replace test as soon as outdated state is set
 				if antigenTestIsOutdated && service.antigenTest.value?.registrationToken == "1" {
-					service.antigenTest.value = AntigenTest.mock(
+					service.antigenTest.value = .mock(
 						registrationToken: "2",
 						pointOfCareConsentDate: Date(),
 						testResult: .pending
@@ -352,7 +352,7 @@ class CoronaTestServiceTests: CWATestCase {
 				}
 			}
 
-		service.antigenTest.value = AntigenTest.mock(
+		service.antigenTest.value = .mock(
 			registrationToken: "1",
 			pointOfCareConsentDate: Date(timeIntervalSinceNow: -(60 * 60 * 48)),
 			testResult: .negative
@@ -412,7 +412,7 @@ class CoronaTestServiceTests: CWATestCase {
 
 				// Replace test as soon as outdated state is set
 				if antigenTestIsOutdated && service.antigenTest.value?.registrationToken == "1" {
-					service.antigenTest.value = AntigenTest.mock(
+					service.antigenTest.value = .mock(
 						registrationToken: "2",
 						pointOfCareConsentDate: Date(timeIntervalSinceNow: -(60 * 60 * 48)),
 						testResult: .negative
@@ -420,7 +420,7 @@ class CoronaTestServiceTests: CWATestCase {
 				}
 			}
 
-		service.antigenTest.value = AntigenTest.mock(
+		service.antigenTest.value = .mock(
 			registrationToken: "1",
 			pointOfCareConsentDate: Date(timeIntervalSinceNow: -(60 * 60 * 48)),
 			testResult: .negative
@@ -481,7 +481,7 @@ class CoronaTestServiceTests: CWATestCase {
 					publisherExpectation.fulfill()
 				}
 
-			service.antigenTest.value = AntigenTest.mock(
+			service.antigenTest.value = .mock(
 				pointOfCareConsentDate: Date(timeIntervalSinceNow: -(60 * 60 * 48)),
 				testResult: testResult
 			)
@@ -528,8 +528,8 @@ class CoronaTestServiceTests: CWATestCase {
 		XCTAssertNil(service.coronaTest(ofType: .pcr))
 		XCTAssertNil(service.coronaTest(ofType: .antigen))
 
-		service.pcrTest.value = PCRTest.mock(registrationToken: "pcrRegistrationToken")
-		service.antigenTest.value = AntigenTest.mock(registrationToken: "antigenRegistrationToken")
+		service.pcrTest.value = .mock(registrationToken: "pcrRegistrationToken")
+		service.antigenTest.value = .mock(registrationToken: "antigenRegistrationToken")
 
 		XCTAssertEqual(service.coronaTest(ofType: .pcr)?.registrationToken, "pcrRegistrationToken")
 		XCTAssertEqual(service.coronaTest(ofType: .antigen)?.registrationToken, "antigenRegistrationToken")
@@ -2372,7 +2372,7 @@ class CoronaTestServiceTests: CWATestCase {
 			recycleBin: .fake(),
 			badgeWrapper: .fake()
 		)
-		service.pcrTest.value = PCRTest.mock(registrationToken: "regToken")
+		service.pcrTest.value = .mock(registrationToken: "regToken")
 
 		let expectation = self.expectation(description: "Expect to receive a result.")
 
@@ -2437,7 +2437,7 @@ class CoronaTestServiceTests: CWATestCase {
 			recycleBin: .fake(),
 			badgeWrapper: .fake()
 		)
-		service.antigenTest.value = AntigenTest.mock(registrationToken: "regToken")
+		service.antigenTest.value = .mock(registrationToken: "regToken")
 		
 		let expectation = self.expectation(description: "Expect to receive a result.")
 		
@@ -2590,7 +2590,7 @@ class CoronaTestServiceTests: CWATestCase {
 			recycleBin: .fake(),
 			badgeWrapper: .fake()
 		)
-		service.pcrTest.value = PCRTest.mock(registrationToken: nil)
+		service.pcrTest.value = .mock(registrationToken: nil)
 
 		let expectation = self.expectation(description: "Expect to receive a result.")
 
@@ -2645,7 +2645,7 @@ class CoronaTestServiceTests: CWATestCase {
 			recycleBin: .fake(),
 			badgeWrapper: .fake()
 		)
-		service.antigenTest.value = AntigenTest.mock(registrationToken: nil)
+		service.antigenTest.value = .mock(registrationToken: nil)
 
 		let expectation = self.expectation(description: "Expect to receive a result.")
 
@@ -2715,8 +2715,8 @@ class CoronaTestServiceTests: CWATestCase {
 			recycleBin: .fake(),
 			badgeWrapper: .fake()
 		)
-		testService.antigenTest.value = AntigenTest.mock(registrationToken: "regToken")
-		testService.pcrTest.value = PCRTest.mock(registrationToken: "regToken")
+		testService.antigenTest.value = .mock(registrationToken: "regToken")
+		testService.pcrTest.value = .mock(registrationToken: "regToken")
 
 		let completionExpectation = expectation(description: "Completion should be called.")
 		completionExpectation.expectedFulfillmentCount = 3
@@ -2776,8 +2776,8 @@ class CoronaTestServiceTests: CWATestCase {
 			recycleBin: .fake(),
 			badgeWrapper: .fake()
 		)
-		testService.antigenTest.value = AntigenTest.mock(registrationToken: "regToken")
-		testService.pcrTest.value = PCRTest.mock(registrationToken: "regToken")
+		testService.antigenTest.value = .mock(registrationToken: "regToken")
+		testService.pcrTest.value = .mock(registrationToken: "regToken")
 
 		let completionExpectation = expectation(description: "Completion should be called.")
 		testService.updateTestResults(presentNotification: false) { _ in
@@ -2825,8 +2825,8 @@ class CoronaTestServiceTests: CWATestCase {
 			recycleBin: .fake(),
 			badgeWrapper: .fake()
 		)
-		testService.antigenTest.value = AntigenTest.mock(registrationToken: "regToken")
-		testService.pcrTest.value = PCRTest.mock(registrationToken: "regToken")
+		testService.antigenTest.value = .mock(registrationToken: "regToken")
+		testService.pcrTest.value = .mock(registrationToken: "regToken")
 
 		let completionExpectation = expectation(description: "Completion should be called.")
 		testService.updateTestResults(presentNotification: true) { result in
@@ -2876,8 +2876,8 @@ class CoronaTestServiceTests: CWATestCase {
 			recycleBin: .fake(),
 			badgeWrapper: .fake()
 		)
-		testService.antigenTest.value = AntigenTest.mock(registrationToken: "regToken")
-		testService.pcrTest.value = PCRTest.mock(registrationToken: "regToken")
+		testService.antigenTest.value = .mock(registrationToken: "regToken")
+		testService.pcrTest.value = .mock(registrationToken: "regToken")
 
 		let completionExpectation = expectation(description: "Completion should be called.")
 		testService.updateTestResults(presentNotification: true) { _ in
@@ -2897,14 +2897,14 @@ class CoronaTestServiceTests: CWATestCase {
 			diaryStore: diaryStore
 		)
 		
-		let antigenTest = AntigenTest.mock(
+		let antigenTest: UserAntigenTest = .mock(
 			registrationToken: "regToken",
 			pointOfCareConsentDate: Date(timeIntervalSinceNow: -24 * 60 * 60 * 3)
 		)
 		testService.antigenTest.value = antigenTest
 		let sampleCollectionAntigenTestDate = ISO8601DateFormatter.justLocalDateFormatter.string(from: sampleCollectionDate)
 
-		let pcrTest = PCRTest.mock(registrationToken: "regToken")
+		let pcrTest: UserPCRTest = .mock(registrationToken: "regToken")
 		let pcrRegistrationDate = ISO8601DateFormatter.justUTCDateFormatter.string(from: pcrTest.registrationDate)
 		testService.pcrTest.value = pcrTest
 		
@@ -2974,8 +2974,8 @@ class CoronaTestServiceTests: CWATestCase {
 		let diaryStore = MockDiaryStore()
 		let testService = createCoronaTestService(forTestResult: .pending, diaryStore: diaryStore)
 
-		testService.antigenTest.value = AntigenTest.mock(registrationToken: "regToken")
-		testService.pcrTest.value = PCRTest.mock(registrationToken: "regToken")
+		testService.antigenTest.value = .mock(registrationToken: "regToken")
+		testService.pcrTest.value = .mock(registrationToken: "regToken")
 
 		let completionExpectation = expectation(description: "Completion should be called.")
 		testService.updateTestResults(presentNotification: true) { _ in
@@ -2991,8 +2991,8 @@ class CoronaTestServiceTests: CWATestCase {
 	func test_When_UpdateTestResultSuccessWithExpired_Then_ContactJournalHasNoEntry() throws {
 		let diaryStore = MockDiaryStore()
 		let testService = createCoronaTestService(forTestResult: .expired, diaryStore: diaryStore)
-		testService.antigenTest.value = AntigenTest.mock(registrationToken: "regToken")
-		testService.pcrTest.value = PCRTest.mock(registrationToken: "regToken")
+		testService.antigenTest.value = .mock(registrationToken: "regToken")
+		testService.pcrTest.value = .mock(registrationToken: "regToken")
 
 		let completionExpectation = expectation(description: "Completion should be called.")
 		testService.updateTestResults(presentNotification: true) { _ in
@@ -3044,8 +3044,8 @@ class CoronaTestServiceTests: CWATestCase {
 			badgeWrapper: .fake()
 		)
 
-		testService.antigenTest.value = AntigenTest.mock(registrationToken: "regToken")
-		testService.pcrTest.value = PCRTest.mock(registrationToken: "regToken")
+		testService.antigenTest.value = .mock(registrationToken: "regToken")
+		testService.pcrTest.value = .mock(registrationToken: "regToken")
 
 		let completionExpectation = expectation(description: "Completion should be called.")
 		testService.updateTestResults(presentNotification: true) { _ in
@@ -3061,8 +3061,8 @@ class CoronaTestServiceTests: CWATestCase {
 	func test_When_UpdateTestResultSuccessWithNegative_Then_ContactJournalHasAnEntry() throws {
 		let diaryStore = MockDiaryStore()
 		let testService = createCoronaTestService(forTestResult: .negative, diaryStore: diaryStore)
-		testService.antigenTest.value = AntigenTest.mock(registrationToken: "regToken")
-		testService.pcrTest.value = PCRTest.mock(registrationToken: "regToken")
+		testService.antigenTest.value = .mock(registrationToken: "regToken")
+		testService.pcrTest.value = .mock(registrationToken: "regToken")
 
 		let completionExpectation = expectation(description: "Completion should be called.")
 		testService.updateTestResults(presentNotification: true) { _ in
@@ -3081,8 +3081,8 @@ class CoronaTestServiceTests: CWATestCase {
 	func test_When_UpdateTestResultsSuccessWithExpired_Then_NoNotificationIsShown() {
 		let mockNotificationCenter = MockUserNotificationCenter()
 		let testService = createCoronaTestService(forTestResult: .expired)
-		testService.antigenTest.value = AntigenTest.mock(registrationToken: "regToken")
-		testService.pcrTest.value = PCRTest.mock(registrationToken: "regToken")
+		testService.antigenTest.value = .mock(registrationToken: "regToken")
+		testService.pcrTest.value = .mock(registrationToken: "regToken")
 
 		let completionExpectation = expectation(description: "Completion should be called.")
 		testService.updateTestResults(presentNotification: true) { _ in
@@ -3144,11 +3144,11 @@ class CoronaTestServiceTests: CWATestCase {
 			recycleBin: .fake(),
 			badgeWrapper: .fake()
 		)
-		testService.antigenTest.value = AntigenTest.mock(
+		testService.antigenTest.value = .mock(
 			registrationToken: "regToken",
 			finalTestResultReceivedDate: Date()
 		)
-		testService.pcrTest.value = PCRTest.mock(
+		testService.pcrTest.value = .mock(
 			registrationToken: "regToken",
 			finalTestResultReceivedDate: Date()
 		)
@@ -3202,11 +3202,11 @@ class CoronaTestServiceTests: CWATestCase {
 			recycleBin: .fake(),
 			badgeWrapper: .fake()
 		)
-		testService.antigenTest.value = AntigenTest.mock(
+		testService.antigenTest.value = .mock(
 			registrationToken: "regToken",
 			finalTestResultReceivedDate: Date()
 		)
-		testService.pcrTest.value = PCRTest.mock(
+		testService.pcrTest.value = .mock(
 			registrationToken: "regToken",
 			finalTestResultReceivedDate: Date()
 		)
@@ -3267,11 +3267,11 @@ class CoronaTestServiceTests: CWATestCase {
 			recycleBin: .fake(),
 			badgeWrapper: .fake()
 		)
-		testService.antigenTest.value = AntigenTest.mock(
+		testService.antigenTest.value = .mock(
 			registrationToken: "regToken",
 			finalTestResultReceivedDate: nil
 		)
-		testService.pcrTest.value = PCRTest.mock(
+		testService.pcrTest.value = .mock(
 			registrationToken: "regToken",
 			finalTestResultReceivedDate: nil
 		)
@@ -3334,12 +3334,12 @@ class CoronaTestServiceTests: CWATestCase {
 			recycleBin: .fake(),
 			badgeWrapper: .fake()
 		)
-		testService.antigenTest.value = AntigenTest.mock(
+		testService.antigenTest.value = .mock(
 			registrationToken: "regToken",
 			registrationDate: registrationDate,
 			testResult: .expired
 		)
-		testService.pcrTest.value = PCRTest.mock(
+		testService.pcrTest.value = .mock(
 			registrationToken: "regToken",
 			registrationDate: registrationDate,
 			testResult: .expired
@@ -3395,7 +3395,7 @@ class CoronaTestServiceTests: CWATestCase {
 			recycleBin: .fake(),
 			badgeWrapper: .fake()
 		)
-		testService.antigenTest.value = AntigenTest.mock(
+		testService.antigenTest.value = .mock(
 			registrationToken: "regToken",
 			pointOfCareConsentDate: pointOfCareConsentDate,
 			registrationDate: nil,
@@ -3461,12 +3461,12 @@ class CoronaTestServiceTests: CWATestCase {
 			recycleBin: .fake(),
 			badgeWrapper: .fake()
 		)
-		testService.antigenTest.value = AntigenTest.mock(
+		testService.antigenTest.value = .mock(
 			registrationToken: "regToken",
 			registrationDate: registrationDate,
 			testResult: .expired
 		)
-		testService.pcrTest.value = PCRTest.mock(
+		testService.pcrTest.value = .mock(
 			registrationToken: "regToken",
 			registrationDate: registrationDate,
 			testResult: .expired
@@ -3523,7 +3523,7 @@ class CoronaTestServiceTests: CWATestCase {
 			recycleBin: .fake(),
 			badgeWrapper: .fake()
 		)
-		testService.antigenTest.value = AntigenTest.mock(
+		testService.antigenTest.value = .mock(
 			registrationToken: "regToken",
 			registrationDate: pointOfCareConsentDate,
 			testResult: .expired
@@ -3573,7 +3573,7 @@ class CoronaTestServiceTests: CWATestCase {
 			recycleBin: .fake(),
 			badgeWrapper: .fake()
 		)
-		testService.pcrTest.value = PCRTest.mock(
+		testService.pcrTest.value = .mock(
 			registrationToken: "regToken",
 			registrationDate: registrationDate,
 			testResult: .negative
@@ -3628,7 +3628,7 @@ class CoronaTestServiceTests: CWATestCase {
 			recycleBin: .fake(),
 			badgeWrapper: .fake()
 		)
-		testService.pcrTest.value = PCRTest.mock(
+		testService.pcrTest.value = .mock(
 			registrationToken: "regToken",
 			registrationDate: registrationDate,
 			testResult: .negative
@@ -3686,7 +3686,7 @@ class CoronaTestServiceTests: CWATestCase {
 			recycleBin: .fake(),
 			badgeWrapper: .fake()
 		)
-		testService.antigenTest.value = AntigenTest.mock(
+		testService.antigenTest.value = .mock(
 			registrationToken: "regToken",
 			pointOfCareConsentDate: pointOfCareConsentDate,
 			registrationDate: registrationDate,
@@ -3744,7 +3744,7 @@ class CoronaTestServiceTests: CWATestCase {
 			recycleBin: .fake(),
 			badgeWrapper: .fake()
 		)
-		testService.antigenTest.value = AntigenTest.mock(
+		testService.antigenTest.value = .mock(
 			registrationToken: "regToken",
 			pointOfCareConsentDate: pointOfCareConsentDate,
 			registrationDate: registrationDate,
@@ -3802,7 +3802,7 @@ class CoronaTestServiceTests: CWATestCase {
 			recycleBin: .fake(),
 			badgeWrapper: .fake()
 		)
-		testService.antigenTest.value = AntigenTest.mock(
+		testService.antigenTest.value = .mock(
 			registrationToken: "regToken",
 			pointOfCareConsentDate: pointOfCareConsentDate,
 			registrationDate: nil,
@@ -3860,7 +3860,7 @@ class CoronaTestServiceTests: CWATestCase {
 			recycleBin: .fake(),
 			badgeWrapper: .fake()
 		)
-		testService.antigenTest.value = AntigenTest.mock(
+		testService.antigenTest.value = .mock(
 			registrationToken: "regToken",
 			pointOfCareConsentDate: pointOfCareConsentDate,
 			registrationDate: nil,
@@ -3912,8 +3912,8 @@ class CoronaTestServiceTests: CWATestCase {
 			badgeWrapper: .fake()
 		)
 
-		service.pcrTest.value = PCRTest.mock(registrationToken: "pcrRegistrationToken")
-		service.antigenTest.value = AntigenTest.mock(registrationToken: "antigenRegistrationToken")
+		service.pcrTest.value = .mock(registrationToken: "pcrRegistrationToken")
+		service.antigenTest.value = .mock(registrationToken: "antigenRegistrationToken")
 
 		XCTAssertNotNil(service.pcrTest.value)
 		XCTAssertNotNil(service.antigenTest.value)
@@ -3927,7 +3927,7 @@ class CoronaTestServiceTests: CWATestCase {
 		XCTAssertEqual(store.recycleBinItems.count, 1)
 		XCTAssertEqual(store.recycleBinItemsSubject.value.count, 1)
 
-		service.pcrTest.value = PCRTest.mock(registrationToken: "pcrRegistrationToken2")
+		service.pcrTest.value = .mock(registrationToken: "pcrRegistrationToken2")
 
 		XCTAssertNotNil(service.pcrTest.value)
 		XCTAssertNotNil(service.antigenTest.value)
@@ -3978,8 +3978,8 @@ class CoronaTestServiceTests: CWATestCase {
 			badgeWrapper: .fake()
 		)
 
-		service.pcrTest.value = PCRTest.mock(registrationToken: "pcrRegistrationToken")
-		service.antigenTest.value = AntigenTest.mock(registrationToken: "antigenRegistrationToken")
+		service.pcrTest.value = .mock(registrationToken: "pcrRegistrationToken")
+		service.antigenTest.value = .mock(registrationToken: "antigenRegistrationToken")
 
 		XCTAssertNotNil(service.pcrTest.value)
 		XCTAssertNotNil(service.antigenTest.value)
@@ -3989,7 +3989,7 @@ class CoronaTestServiceTests: CWATestCase {
 		XCTAssertNil(service.pcrTest.value)
 		XCTAssertNotNil(service.antigenTest.value)
 
-		service.pcrTest.value = PCRTest.mock(registrationToken: "pcrRegistrationToken")
+		service.pcrTest.value = .mock(registrationToken: "pcrRegistrationToken")
 
 		XCTAssertNotNil(service.pcrTest.value)
 		XCTAssertNotNil(service.antigenTest.value)
@@ -4086,8 +4086,8 @@ class CoronaTestServiceTests: CWATestCase {
 			recycleBin: .fake(),
 			badgeWrapper: .fake()
 		)
-		service.pcrTest.value = PCRTest.mock(registrationToken: "regToken")
-		service.antigenTest.value = AntigenTest.mock(registrationToken: "regToken")
+		service.pcrTest.value = .mock(registrationToken: "regToken")
+		service.antigenTest.value = .mock(registrationToken: "regToken")
 
 		service.registerPCRTest(
 			teleTAN: "test-teletan",
@@ -4209,8 +4209,8 @@ class CoronaTestServiceTests: CWATestCase {
 			recycleBin: .fake(),
 			badgeWrapper: .fake()
 		)
-		service.pcrTest.value = PCRTest.mock(registrationToken: "regToken")
-		service.antigenTest.value = AntigenTest.mock(registrationToken: "regToken")
+		service.pcrTest.value = .mock(registrationToken: "regToken")
+		service.antigenTest.value = .mock(registrationToken: "regToken")
 
 		// Run test.
 

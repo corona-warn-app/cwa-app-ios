@@ -257,7 +257,7 @@ class RecycleBinViewController: UITableViewController, FooterViewHandling {
 					self?.viewModel.restoreItem(at: indexPath)
 				}
 			)
-		case .coronaTest:
+		case .userCoronaTest, .familyMemberCoronaTest:
 			showAlert(
 				title: AppStrings.RecycleBin.RestoreCoronaTestAlert.title,
 				message: AppStrings.RecycleBin.RestoreCoronaTestAlert.message,

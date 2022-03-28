@@ -22,18 +22,18 @@ class RecycleBinTests: XCTestCase {
 		let recycleBin = RecycleBin(store: mockStore)
 		let item = RecycleBinItem(
 			recycledAt: Date(),
-			item: RecycledItem.coronaTest(CoronaTest.antigen(.mock()))
+			item: .userCoronaTest(.antigen(.mock()))
 		)
 
 		let canRestoreExpectation = expectation(description: "canRestore is called.")
-		var handler = TestRestorationHandlerFake()
+		var handler = UserTestRestorationHandlerFake()
 		handler.canRestore = { _ in
 			canRestoreExpectation.fulfill()
 			return .success(())
 		}
 		handler.restore = { _ in }
 
-		recycleBin.testRestorationHandler = handler
+		recycleBin.userTestRestorationHandler = handler
 		let canRestoreResult = recycleBin.canRestore(item)
 
 		guard case .success = canRestoreResult else {
@@ -49,11 +49,11 @@ class RecycleBinTests: XCTestCase {
 		let recycleBin = RecycleBin(store: mockStore)
 		let item = RecycleBinItem(
 			recycledAt: Date(),
-			item: RecycledItem.coronaTest(CoronaTest.antigen(.mock()))
+			item: .userCoronaTest(.antigen(.mock()))
 		)
 
 		let canRestoreExpectation = expectation(description: "canRestore is called.")
-		var handler = TestRestorationHandlerFake()
+		var handler = UserTestRestorationHandlerFake()
 		handler.canRestore = { _ in
 			canRestoreExpectation.fulfill()
 			return .failure(.testTypeAlreadyRegistered)
@@ -61,7 +61,7 @@ class RecycleBinTests: XCTestCase {
 		handler.restore = { _ in }
 
 
-		recycleBin.testRestorationHandler = handler
+		recycleBin.userTestRestorationHandler = handler
 		let canRestoreResult = recycleBin.canRestore(item)
 
 		guard case .failure = canRestoreResult else {
