@@ -575,7 +575,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 			}, didTapDataPrivacy: { [weak self] in
 				self?.showDataPrivacy()
 			}, didTapSubmit: { [weak self] givenName in
-				Log.info("User has give name \(givenName)")
+				Log.info("User has give name \(private: givenName)")
 				self?.showTestCertificateScreenIfNecessary(
 					testOwner: .familyMember(displayName: givenName),
 					testRegistrationInformation: testRegistrationInformation,
