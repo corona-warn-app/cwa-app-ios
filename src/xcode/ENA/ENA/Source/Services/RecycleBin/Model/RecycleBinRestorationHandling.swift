@@ -10,18 +10,26 @@ enum TestRestorationError: Error {
 	case testTypeAlreadyRegistered
 }
 
-protocol TestRestorationHandling {
-	var canRestore: ((CoronaTest) -> Result<Void, TestRestorationError>) { get }
-	var restore: ((CoronaTest) -> Void) { get }
+protocol UserTestRestorationHandling {
+	var canRestore: ((UserCoronaTest) -> Result<Void, TestRestorationError>) { get }
+	var restore: ((UserCoronaTest) -> Void) { get }
+}
+
+protocol FamilyMemberTestRestorationHandling {
+	var restore: ((FamilyMemberCoronaTest) -> Void) { get }
 }
 
 protocol CertificateRestorationHandling {
 	var restore: ((HealthCertificate) -> Void) { get }
 }
 
-struct TestRestorationHandlerFake: TestRestorationHandling {
-	var canRestore: ((CoronaTest) -> Result<Void, TestRestorationError>) = { _ in return .success(()) }
-	var restore: ((CoronaTest) -> Void) = { _ in }
+struct UserTestRestorationHandlerFake: UserTestRestorationHandling {
+	var canRestore: ((UserCoronaTest) -> Result<Void, TestRestorationError>) = { _ in return .success(()) }
+	var restore: ((UserCoronaTest) -> Void) = { _ in }
+}
+
+struct FamilyMemberTestRestorationHandlerFake: FamilyMemberTestRestorationHandling {
+	var restore: ((FamilyMemberCoronaTest) -> Void) = { _ in }
 }
 
 struct CertificateRestorationHandlerFake: CertificateRestorationHandling {

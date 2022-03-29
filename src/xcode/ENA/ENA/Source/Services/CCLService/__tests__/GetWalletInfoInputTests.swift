@@ -10,7 +10,7 @@ import AnyCodable
 class GetWalletInfoInputTests: XCTestCase {
 
 	func test_InputData() throws {
-		let input = GetWalletInfoInput.make(with: Date(), language: "de", certificates: [], boosterNotificationRules: [], identifier: "")
+		let input = GetWalletInfoInput.make(with: Date(), language: "de", certificates: [], boosterNotificationRules: [], invalidationRules: [], identifier: "")
 		
 		XCTAssertEqual(input["os"], AnyDecodable("ios"))
 		XCTAssertEqual(input["language"], AnyDecodable("de"))

@@ -12,20 +12,15 @@ struct DCCRulesResource: Resource {
 	init(
 		isFake: Bool = false,
 		ruleType: HealthCertificateValidationRuleType,
+		restServiceType: ServiceType = .caching(),
 		trustEvaluation: TrustEvaluating = DefaultTrustEvaluation(
 			publicKeyHash: Environments().currentEnvironment().pinningKeyHashData
 		)
 	) {
 		self.locator = .DCCRules(ruleType: ruleType, isFake: isFake)
 
-		if ruleType == .boosterNotification {
-			self.type = .caching(
-				Set<CacheUsePolicy>([.loadOnlyOnceADay])
-			)
-		} else {
-			self.type = .caching()
-		}
-
+		self.type = restServiceType
+		
 		#if !RELEASE
 		// Debug menu: Force update of CCLConfiguration and Booster Notification Rules.
 		if ruleType == .boosterNotification &&
@@ -47,6 +42,7 @@ struct DCCRulesResource: Resource {
 	typealias CustomError = DCCDownloadRulesError
 
 	let trustEvaluation: TrustEvaluating
+	let ruleType: HealthCertificateValidationRuleType
 
 	var locator: Locator
 	var type: ServiceType
@@ -75,8 +71,6 @@ struct DCCRulesResource: Resource {
 	}
 
 	// MARK: - Private
-
-	private let ruleType: HealthCertificateValidationRuleType
 
 	private func handleResourceError(_ error: ResourceError?) -> DCCDownloadRulesError? {
 		guard let error = error else {

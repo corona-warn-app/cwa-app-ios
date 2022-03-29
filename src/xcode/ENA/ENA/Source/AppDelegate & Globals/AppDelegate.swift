@@ -71,7 +71,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 				
 		super.init()
 
-		recycleBin.testRestorationHandler = CoronaTestRestorationHandler(service: coronaTestService)
+		recycleBin.userTestRestorationHandler = UserCoronaTestRestorationHandler(service: coronaTestService)
+		recycleBin.familyMemberTestRestorationHandler = FamilyMemberCoronaTestRestorationHandler(service: familyMemberCoronaTestService)
 		recycleBin.certificateRestorationHandler = HealthCertificateRestorationHandler(service: healthCertificateService)
 
 		// Make the analytics working. Should not be called later than at this moment of app initialization.
@@ -306,6 +307,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 			healthCertificateRequestService: healthCertificateRequestService,
 			recycleBin: recycleBin,
 			badgeWrapper: badgeWrapper
+		)
+	}()
+
+	lazy var familyMemberCoronaTestService: FamilyMemberCoronaTestServiceProviding = {
+		return FamilyMemberCoronaTestService(
+			client: client,
+			restServiceProvider: restServiceProvider,
+			store: store,
+			appConfiguration: appConfigurationProvider,
+			healthCertificateService: healthCertificateService,
+			healthCertificateRequestService: healthCertificateRequestService,
+			recycleBin: recycleBin
 		)
 	}()
 
@@ -556,7 +569,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 			eventCheckoutService: self.eventCheckoutService,
 			store: self.store,
 			exposureSubmissionDependencies: self.exposureSubmissionServiceDependencies,
-			healthCertificateService: self.healthCertificateService
+			healthCertificateService: self.healthCertificateService,
+			familyMemberCoronaTestService: familyMemberCoronaTestService
 		)
 	}()
 
@@ -668,6 +682,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		eventStore.reset()
 
 		coronaTestService.updatePublishersFromStore()
+		familyMemberCoronaTestService.updatePublishersFromStore()
 		healthCertificateService.updatePublishersFromStore()
 	}
 
@@ -817,6 +832,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 	lazy var coordinator = RootCoordinator(
 		self,
 		coronaTestService: coronaTestService,
+		familyMemberCoronaTestService: familyMemberCoronaTestService,
 		contactDiaryStore: contactDiaryStore,
 		eventStore: eventStore,
 		eventCheckoutService: eventCheckoutService,

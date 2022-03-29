@@ -16,6 +16,7 @@ class HomeCoordinator: RequiresAppDependencies {
 		ppacService: PrivacyPreservingAccessControl,
 		eventStore: EventStoringProviding,
 		coronaTestService: CoronaTestServiceProviding,
+		familyMemberCoronaTestService: FamilyMemberCoronaTestServiceProviding,
 		healthCertificateService: HealthCertificateService,
 		healthCertificateValidationService: HealthCertificateValidationProviding,
 		elsService: ErrorLogSubmissionProviding,
@@ -33,6 +34,7 @@ class HomeCoordinator: RequiresAppDependencies {
 		self.ppacService = ppacService
 		self.eventStore = eventStore
 		self.coronaTestService = coronaTestService
+		self.familyMemberCoronaTestService = familyMemberCoronaTestService
 		self.healthCertificateService = healthCertificateService
 		self.healthCertificateValidationService = healthCertificateValidationService
 		self.elsService = elsService
@@ -79,6 +81,7 @@ class HomeCoordinator: RequiresAppDependencies {
 				store: store,
 				appConfiguration: appConfigurationProvider,
 				coronaTestService: coronaTestService,
+				familyMemberCoronaTestService: familyMemberCoronaTestService,
 				onTestResultCellTap: { [weak self] coronaTestType in
 					self?.showExposureSubmission(testType: coronaTestType)
 				},
@@ -190,6 +193,7 @@ class HomeCoordinator: RequiresAppDependencies {
 	private let otpService: OTPServiceProviding
 	private let eventStore: EventStoringProviding
 	private let coronaTestService: CoronaTestServiceProviding
+	private let familyMemberCoronaTestService: FamilyMemberCoronaTestServiceProviding
 	private let elsService: ErrorLogSubmissionProviding
 	private let healthCertificateService: HealthCertificateService
 	private let healthCertificateValidationService: HealthCertificateValidationProviding
@@ -424,7 +428,7 @@ class HomeCoordinator: RequiresAppDependencies {
 	private func showTestOverwriteNotice(
 		recycleBinItem: RecycleBinItem
 	) {
-		guard case let .coronaTest(coronaTest) = recycleBinItem.item else {
+		guard case let .userCoronaTest(coronaTest) = recycleBinItem.item else {
 			return
 		}
 
