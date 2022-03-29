@@ -18,6 +18,7 @@ enum ServiceError<RE>: LocalizedError, Equatable where RE: Error {
 	case invalidResponse
 	case invalidResponseType
 	case fakeResponse
+	case noReceiveModelToInterruptLoading
 
 	// MARK: - Protocol LocalizedError
 
@@ -41,6 +42,8 @@ enum ServiceError<RE>: LocalizedError, Equatable where RE: Error {
 			return AppStrings.ExposureSubmissionError.noResponse
 		case .fakeResponse:
 			return "fakeResponse"
+		case .noReceiveModelToInterruptLoading:
+			return "noReceiveModelToInterruptLoading"
 		}
 	}
 
@@ -87,6 +90,10 @@ enum ServiceError<RE>: LocalizedError, Equatable where RE: Error {
 		case (.trustEvaluationError, .trustEvaluationError):
 			return true
 		case (.trustEvaluationError, _):
+			return false
+		case (.noReceiveModelToInterruptLoading, .noReceiveModelToInterruptLoading):
+			return true
+		case (.noReceiveModelToInterruptLoading, _):
 			return false
 		}
 	}

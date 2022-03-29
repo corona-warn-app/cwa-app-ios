@@ -74,26 +74,31 @@ class CCLService: CCLServable {
 		// boosterNotificationRules
 		self.boosterNotificationRules = []
 		if cclServiceMode.contains(.boosterRules) {
-			switch restServiceProvider.cached(boosterNotificationRulesResource) {
-			case let .success(rules):
-				self.boosterNotificationRules = rules.rules
-			case let .failure(error):
-				Log.error("Failed to load boosterNotification rules from cache - init them empty", error: error)
-				self.boosterNotificationRules = []
-			}
+
+			restServiceProvider.cached(boosterNotificationRulesResource, { result in
+				switch result {
+				case let .success(rules):
+					self.boosterNotificationRules = rules.rules
+				case let .failure(error):
+					Log.error("Failed to load boosterNotification rules from cache - init them empty", error: error)
+					self.boosterNotificationRules = []
+				}
+			})
 		}
 
 		// cclConfigurations
 		if cclServiceMode.contains(.configuration) {
-			switch restServiceProvider.cached(cclConfigurationResource) {
-			case let .success(configurations):
-				replaceCCLConfigurations(with: configurations.cclConfigurations)
-			case let .failure(error):
-				Log.error("Failed to read ccl configurations from cache", error: error)
-			}
+			restServiceProvider.cached(cclConfigurationResource, { [weak self] result in
+				switch result {
+				case let .success(configurations):
+					self?.replaceCCLConfigurations(with: configurations.cclConfigurations)
+				case let .failure(error):
+					Log.error("Failed to read ccl configurations from cache", error: error)
+				}
+			})
 		}
 	}
-	
+
 	// MARK: - Protocol CCLServable
 
 	var configurationVersion: String = ""

@@ -23,10 +23,13 @@ protocol Service {
 	var session: URLSession { get }
 	var environment: EnvironmentProviding { get }
 
-	/// hook to provide a receive model this will interrupt loading
-	/// can be used to implement special caching behaviors
-	/// by default it will return nil - no interruption
-	func receiveModelToInterruptLoading<R>(_ resource: R) -> R.Receive.ReceiveModel? where R: Resource
+	/// Hook to provide a receive model what will interrupt loading
+	/// This can be used to implement special caching behaviors
+	/// By default it will return nil - no interruption
+	func receiveModelToInterruptLoading<R>(
+		_ resource: R,
+		_ completion: @escaping (Result<R.Receive.ReceiveModel, ServiceError<R.CustomError>>) -> Void
+	) where R: Resource
 
 	/// loads a ReceiveModel from an external endpoint via http call.
 	///
@@ -64,8 +67,9 @@ protocol Service {
 		_ resource: R,
 		_ bodyData: Data?,
 		_ headers: [AnyHashable: Any],
-		_ isCachedData: Bool
-	) -> Result<R.Receive.ReceiveModel, ServiceError<R.CustomError>> where R: Resource
+		_ isCachedData: Bool,
+		_ completion: @escaping (Result<R.Receive.ReceiveModel, ServiceError<R.CustomError>>) -> Void
+	) where R: Resource
 
 	/// implement this functions if you want to cache a resource.
 	///
@@ -74,8 +78,9 @@ protocol Service {
 	///   - locator: The locator of the load call. The locator contains the url, the endpoint and other describing things to build the URLRequest.
 	///   - completion: Swift-Result of loading. If successful, it contains the concrete object of our call. Can be for example a protobuf or JSON object. If the load calls fails, the result has a ServiceError, which can contains a ResourceError.
 	func cached<R>(
-		_ resource: R
-	) -> Result<R.Receive.ReceiveModel, ServiceError<R.CustomError>> where R: Resource
+		_ resource: R,
+		_ completion: @escaping (Result<R.Receive.ReceiveModel, ServiceError<R.CustomError>>) -> Void
+	) where R: Resource
 	
 	/// implement this functions if you want to check if we have something cached for this resource.
 	///

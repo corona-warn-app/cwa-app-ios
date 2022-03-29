@@ -65,10 +65,11 @@ class RestServiceProviderStub: RestServiceProviding {
 	}
 
 	func cached<R>(
-		_ resource: R
-	) -> Result<R.Receive.ReceiveModel, ServiceError<R.CustomError>> where R: Resource {
+		_ resource: R,
+		_ completion: @escaping (Result<R.Receive.ReceiveModel, ServiceError<R.CustomError>>) -> Void
+	) where R: Resource {
 		Log.info("Stub doesn't support cached model access at the moment")
-		return .failure(.resourceError(.missingCache))
+		completion(.failure(.resourceError(.missingCache)))
 	}
 
 	func update(_ evaluateTrust: TrustEvaluating) {

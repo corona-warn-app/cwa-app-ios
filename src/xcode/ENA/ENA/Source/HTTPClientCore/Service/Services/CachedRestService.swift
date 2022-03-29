@@ -42,35 +42,39 @@ class CachedRestService: Service {
 		)
 	}()
 
-	// check if policies are set and contain .loadOnlyOnceADay
-	// if check if data is in cache and if it was written today
-	// if return last cached receiveModel
-	func receiveModelToInterruptLoading<R>(_ resource: R) -> R.Receive.ReceiveModel? where R: Resource {
+	// Check if policies are set and contain .loadOnlyOnceADay
+	// If so, check if data is in cache and if it was written today
+	// If also, return last cached receiveModel
+	func receiveModelToInterruptLoading<R>(
+		_ resource: R,
+		_ completion: @escaping (Result<R.Receive.ReceiveModel, ServiceError<R.CustomError>>) -> Void
+	) where R: Resource {
 		Log.info("Lookup \(resource.receiveResource) in cache with hash \(resource.locator.uniqueIdentifier)", log: .client)
 		if case let .caching(policies) = resource.type,
 		   policies.contains(.loadOnlyOnceADay),
 		   let cachedData = cache[resource.locator.uniqueIdentifier],
 		   Calendar.current.isDateInToday(cachedData.date) {
-			if case let .success(receiveModel) = cached(resource) {
-				return receiveModel
-			}
+			cached(resource, completion)
+		} else {
+			completion(.failure(ServiceError.noReceiveModelToInterruptLoading))
 		}
-		return nil
 	}
 
 	func decodeModel<R>(
 		_ resource: R,
 		_ bodyData: Data?,
 		_ headers: [AnyHashable: Any],
-		_ isCachedData: Bool
-	) -> Result<R.Receive.ReceiveModel, ServiceError<R.CustomError>> where R: Resource {
+		_ isCachedData: Bool,
+		_ completion: @escaping (Result<R.Receive.ReceiveModel, ServiceError<R.CustomError>>) -> Void
+	) where R: Resource {
 		switch resource.receiveResource.decode(bodyData, headers: headers) {
 		case .success(let model):
 			guard let eTag = headers.value(caseInsensitiveKey: "ETag"),
 				  let data = bodyData else {
-					  Log.error("Neither eTag nor some data found. Abort with missing eTag error.", log: .client)
-					  return .failure(customError(in: resource, for: .resourceError(.missingEtag)))
-				  }
+				Log.error("Neither eTag nor some data found. Abort with missing eTag error.", log: .client)
+				completion(.failure(customError(in: resource, for: .resourceError(.missingEtag))))
+				return
+			}
 			
 			// Update cache only if we fetched some fresh data.
 			if !isCachedData {
@@ -90,29 +94,31 @@ class CachedRestService: Service {
 				modelWithMetadata.metaData.loadedFromCache = isCachedData
 				if let originalModelWithMetadata = modelWithMetadata as? R.Receive.ReceiveModel {
 					Log.debug("Returning now the original model with metadata", log: .client)
-					return .success(originalModelWithMetadata)
+					completion(.success(originalModelWithMetadata))
 				} else {
 					Log.warning("Cast back to R.Receive.ReceiveModel failed. Returning the model without metadata.", log: .client)
-					return .success(model)
+					completion(.success(model))
 				}
 			} else {
 				Log.debug("This model does not conforms to MetaDataProviding. Returning plain model.", log: .client)
-				return .success(model)
+				completion(.success(model))
 			}
 		case .failure(let error):
 			Log.error("Decoding for receive resource failed.", log: .client, error: error)
-			return failureOrDefaultValueHandling(resource, .resourceError(error))
+			failureOrDefaultValueHandling(resource, .resourceError(error), nil, completion)
 		}
 	}
 
 	func cached<R>(
-		_ resource: R
-	) -> Result<R.Receive.ReceiveModel, ServiceError<R.CustomError>> where R: Resource {
+		_ resource: R,
+		_ completion: @escaping (Result<R.Receive.ReceiveModel, ServiceError<R.CustomError>>) -> Void
+	) where R: Resource {
 		guard let cachedModel = cache[resource.locator.uniqueIdentifier] else {
 			Log.error("No data found in cache", log: .client)
-			return failureOrDefaultValueHandling(resource, .resourceError(.missingCache))
+			failureOrDefaultValueHandling(resource, .resourceError(.missingCache), nil, completion)
+			return
 		}
-		return decodeModel(resource, cachedModel.data, ["ETag": cachedModel.eTag], true)
+		decodeModel(resource, cachedModel.data, ["ETag": cachedModel.eTag], true, completion)
 	}
 	
 	func hasCachedData<R>(
