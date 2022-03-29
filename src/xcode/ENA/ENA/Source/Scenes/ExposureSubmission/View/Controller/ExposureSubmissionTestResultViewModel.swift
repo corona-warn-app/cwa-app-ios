@@ -5,7 +5,7 @@
 import UIKit
 import OpenCombine
 
-class ExposureSubmissionTestResultViewModel {
+class ExposureSubmissionTestResultViewModel: ExposureSubmissionTestResultModeling {
 	
 	// MARK: - Init
 	
@@ -41,13 +41,11 @@ class ExposureSubmissionTestResultViewModel {
 	
 	let onSubmissionConsentCellTap: (@escaping (Bool) -> Void) -> Void
 	
-	@OpenCombine.Published var dynamicTableViewModel: DynamicTableViewModel = DynamicTableViewModel([])
-	@OpenCombine.Published var shouldShowDeletionConfirmationAlert: Bool = false
-	@OpenCombine.Published var error: CoronaTestServiceError?
-	@OpenCombine.Published var shouldAttemptToDismiss: Bool = false
-	@OpenCombine.Published var footerViewModel: FooterViewModel?
-	
-	var coronaTest: UserCoronaTest!
+	var dynamicTableViewModelPublisher = CurrentValueSubject<DynamicTableViewModel, Never>(DynamicTableViewModel([]))
+	var shouldShowDeletionConfirmationAlertPublisher = CurrentValueSubject<Bool, Never>(false)
+	var errorPublisher = CurrentValueSubject<CoronaTestServiceError?, Never>(nil)
+	var shouldAttemptToDismissPublisher = CurrentValueSubject<Bool, Never>(false)
+	var footerViewModelPublisher = CurrentValueSubject<FooterViewModel?, Never>(nil)
 	
 	var title: String {
 		if showSpecialCaseForNegativeAntigenTest {
@@ -55,6 +53,10 @@ class ExposureSubmissionTestResultViewModel {
 		} else {
 			return AppStrings.ExposureSubmissionResult.PCR.title
 		}
+	}
+	
+	var testResult: TestResult {
+		return coronaTest.testResult
 	}
 	
 	func didTapPrimaryButton() {
@@ -66,7 +68,7 @@ class ExposureSubmissionTestResultViewModel {
 			// In case the user has given exposure submission consent, we continue with collecting onset of symptoms.
 			// Otherwise we continue with the warn others process.
 			if coronaTest.keysSubmitted {
-				shouldShowDeletionConfirmationAlert = true
+				shouldShowDeletionConfirmationAlertPublisher.value = true
 			} else if coronaTest.isSubmissionConsentGiven {
 				Log.info("Positive Test Result: Next -> 'onset of symptoms'.")
 				onContinueWithSymptomsFlowButtonTap()
@@ -77,7 +79,7 @@ class ExposureSubmissionTestResultViewModel {
 				}
 			}
 		case .negative, .invalid, .expired:
-			shouldShowDeletionConfirmationAlert = true
+			shouldShowDeletionConfirmationAlertPublisher.value = true
 		case .pending:
 			refreshTest()
 		}
@@ -86,9 +88,9 @@ class ExposureSubmissionTestResultViewModel {
 	func didTapSecondaryButton() {
 		switch coronaTest.testResult {
 		case .positive:
-			self.shouldAttemptToDismiss = true
+			self.shouldAttemptToDismissPublisher.value = true
 		case .pending:
-			shouldShowDeletionConfirmationAlert = true
+			shouldShowDeletionConfirmationAlertPublisher.value = true
 		case .negative, .invalid, .expired:
 			break
 		}
@@ -99,13 +101,13 @@ class ExposureSubmissionTestResultViewModel {
 		onTestDeleted()
 	}
 	
-	func updateWarnOthers() {
+	func evaluateShowing() {
 		coronaTestService.evaluateShowingTest(ofType: coronaTestType)
 	}
 	
 	func updateTestResultIfPossible() {
 		guard coronaTest.testResult == .pending else {
-			Log.info("Not refreshing test because status is pending")
+			Log.info("Not refreshing test because status is not pending")
 			return
 		}
 		refreshTest()
@@ -114,7 +116,8 @@ class ExposureSubmissionTestResultViewModel {
 	// MARK: - Private
 	
 	private var coronaTestService: CoronaTestServiceProviding
-
+	private var coronaTest: UserCoronaTest!
+	
 	private let coronaTestType: CoronaTestType
 
 	private let onContinueWithSymptomsFlowButtonTap: () -> Void
@@ -128,8 +131,8 @@ class ExposureSubmissionTestResultViewModel {
 	
 	private var primaryButtonIsLoading: Bool = false {
 		didSet {
-			footerViewModel?.setLoadingIndicator(primaryButtonIsLoading, disable: primaryButtonIsLoading, button: .primary)
-			footerViewModel?.setLoadingIndicator(false, disable: primaryButtonIsLoading, button: .secondary)
+			footerViewModelPublisher.value?.setLoadingIndicator(primaryButtonIsLoading, disable: primaryButtonIsLoading, button: .primary)
+			footerViewModelPublisher.value?.setLoadingIndicator(false, disable: primaryButtonIsLoading, button: .secondary)
 		}
 	}
 	
@@ -189,9 +192,9 @@ class ExposureSubmissionTestResultViewModel {
 		case .expired:
 			sections = expiredTestResultSections
 		}
-		dynamicTableViewModel = DynamicTableViewModel(sections)
+		dynamicTableViewModelPublisher.value = DynamicTableViewModel(sections)
 		
-		footerViewModel = ExposureSubmissionTestResultViewModel.footerViewModel(coronaTest: coronaTest)
+		footerViewModelPublisher.value = ExposureSubmissionTestResultViewModel.footerViewModel(coronaTest: coronaTest)
 	}
 	
 	private func refreshTest() {
@@ -205,7 +208,7 @@ class ExposureSubmissionTestResultViewModel {
 			
 			switch result {
 			case let .failure(error):
-				self.error = error
+				self.errorPublisher.value = error
 			case .success:
 				break
 			}
@@ -250,7 +253,7 @@ extension ExposureSubmissionTestResultViewModel {
 					cells.append(
 						ExposureSubmissionDynamicCell.stepCell(
 							title: AppStrings.ExposureSubmissionResult.testCertificateTitle,
-							description: AppStrings.ExposureSubmissionResult.Antigen.testCenterNotSupportedTitle,
+							description: AppStrings.ExposureSubmissionResult.testCenterNotSupportedTitle,
 							icon: UIImage(named: "certificate-qr-light"),
 							hairline: .none
 						)
@@ -264,7 +267,7 @@ extension ExposureSubmissionTestResultViewModel {
 							hairline: .none
 						)
 					)
-				} else if !test.certificateRequested {
+				} else {
 					cells.append(
 						ExposureSubmissionDynamicCell.stepCell(
 							title: AppStrings.ExposureSubmissionResult.testCertificateTitle,
@@ -302,7 +305,7 @@ extension ExposureSubmissionTestResultViewModel {
 					cells.append(
 						ExposureSubmissionDynamicCell.stepCell(
 							title: AppStrings.ExposureSubmissionResult.testCertificateTitle,
-							description: AppStrings.ExposureSubmissionResult.Antigen.testCenterNotSupportedTitle,
+							description: AppStrings.ExposureSubmissionResult.testCenterNotSupportedTitle,
 							icon: UIImage(named: "certificate-qr-light"),
 							hairline: .none
 						)
@@ -316,7 +319,7 @@ extension ExposureSubmissionTestResultViewModel {
 							hairline: .none
 						)
 					)
-				} else if !test.certificateRequested {
+				} else {
 					cells.append(
 						ExposureSubmissionDynamicCell.stepCell(
 							title: AppStrings.ExposureSubmissionResult.testCertificateTitle,
@@ -358,8 +361,8 @@ extension ExposureSubmissionTestResultViewModel {
 								activityIndicatorView.startAnimating()
 								cell?.accessoryView = isLoading ? activityIndicatorView : nil
 								cell?.isUserInteractionEnabled = !isLoading
-								self?.footerViewModel?.setEnabled(!isLoading, button: .primary)
-								self?.footerViewModel?.setEnabled(!isLoading, button: .secondary)
+								self?.footerViewModelPublisher.value?.setEnabled(!isLoading, button: .primary)
+								self?.footerViewModelPublisher.value?.setEnabled(!isLoading, button: .secondary)
 							}
 						},
 						configure: { _, cell, _ in
