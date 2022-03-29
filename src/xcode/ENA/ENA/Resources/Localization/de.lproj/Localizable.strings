@@ -746,9 +746,9 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmissionResult_Procedure" = "Infos zum Ablauf:";
 
-"ExposureSubmissionResult_testAdded" = "Ihr Test wurde hinzugefügt";
+"ExposureSubmissionResult_testAdded" = "Ihr PCR-Test wurde hinzugefügt";
 
-"ExposureSubmissionResult_familyMember_testAdded" = "Der Test wurde hinzugefügt";
+"ExposureSubmissionResult_familyMember_testAdded" = "Der PCR-Test wurde hinzugefügt";
 
 "ExposureSubmissionResult_antigenTestAdded" = "Ihr Schnelltest wurde hinzugefügt";
 
