@@ -256,3 +256,13 @@
 "HealthCertificate_Reissuance_Consent_Legal_Bullet_1" = "Uygulama, kontrol amaçlı olarak aşı sertifikasını RKI’ya iletir.";
 
 "HealthCertificate_Reissuance_Consent_Legal_Bullet_2" = "RKI aşı sertifikasını kontrol eder ve güncel bir sertifika oluşturur ve bunu uygulamanıza aktarır.";
+
+/* HealthCertificate Family Consent */
+
+"HealthCertificate_FamilyMemberConsentLegal_Headline" = "Onayınız";
+
+"HealthCertificate_FamilyMemberConsentLegal_SubHeadline" = "\"Kabul et\" seçeneğine tıklayarak aşağıdaki adımı kabul etmiş olursunuz:";
+
+"HealthCertificate_FamilyMemberConsentLegal_BulletPoint" = "Uygulama, aile ferdinin test sonucunu alır.";
+
+"HealthCertificate_FamilyMemberConsentLegal_text" = "Sonradan fikrinizi değiştirirseniz, testi uygulamadan kaldırabilirsiniz.";
