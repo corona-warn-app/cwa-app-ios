@@ -303,6 +303,7 @@ class ExposureSubmissionCoordinatorModel {
 				   }
 			)
 		case .teleTAN(tan: _):
+			// we don't support type teleTAN for family members
 			break
 		}
 	}

@@ -5,7 +5,7 @@
 import UIKit
 import OpenCombine
 
-protocol ExposureSubmissionTestResultModel {
+protocol ExposureSubmissionTestResultModeling {
 
 	var dynamicTableViewModelPublisher: OpenCombine.CurrentValueSubject<DynamicTableViewModel, Never> { get }
 	var shouldShowDeletionConfirmationAlertPublisher: OpenCombine.CurrentValueSubject<Bool, Never> { get }

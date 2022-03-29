@@ -5,7 +5,7 @@
 import UIKit
 import OpenCombine
 
-class ExposureSubmissionTestResultFamilyMemberViewModel: ExposureSubmissionTestResultModel {
+class ExposureSubmissionTestResultFamilyMemberViewModel: ExposureSubmissionTestResultModeling {
 	
 	// MARK: - Init
 	
@@ -110,12 +110,12 @@ class ExposureSubmissionTestResultFamilyMemberViewModel: ExposureSubmissionTestR
 					return
 				}
 
-				self?.updateForCurrentTestResult(coronaTest: familyMemberCoronaTest)
+				self?.updateSectionsForCurrentTestResult(coronaTest: familyMemberCoronaTest)
 			}
 			.store(in: &subscriptions)
 	}
 
-	private func updateForCurrentTestResult(coronaTest: FamilyMemberCoronaTest) {
+	private func updateSectionsForCurrentTestResult(coronaTest: FamilyMemberCoronaTest) {
 		self.familyMemberCoronaTest = coronaTest
 
 		primaryButtonIsLoading = coronaTest.isLoading
@@ -153,6 +153,7 @@ class ExposureSubmissionTestResultFamilyMemberViewModel: ExposureSubmissionTestR
 			case let .failure(error):
 				self.errorPublisher.value = error
 			case .success:
+				// we don't need to handle anything here as the subscriber in bindToCoronaTestUpdates() take care of the updates
 				break
 			}
 		}

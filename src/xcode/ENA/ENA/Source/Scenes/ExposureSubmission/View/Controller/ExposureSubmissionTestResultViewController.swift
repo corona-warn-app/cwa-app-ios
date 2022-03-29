@@ -10,7 +10,7 @@ class ExposureSubmissionTestResultViewController: DynamicTableViewController, Fo
 	// MARK: - Init
 
 	init(
-		viewModel: ExposureSubmissionTestResultModel,
+		viewModel: ExposureSubmissionTestResultModeling,
 		exposureSubmissionService: ExposureSubmissionService,
 		onDismiss: @escaping (TestResult, @escaping (Bool) -> Void) -> Void
 	) {
@@ -80,7 +80,7 @@ class ExposureSubmissionTestResultViewController: DynamicTableViewController, Fo
 	
 	private let onDismiss: (TestResult, @escaping (Bool) -> Void) -> Void
 	private let exposureSubmissionService: ExposureSubmissionService
-	private let viewModel: ExposureSubmissionTestResultModel
+	private let viewModel: ExposureSubmissionTestResultModeling
 
 	private var bindings: [AnyCancellable] = []
 

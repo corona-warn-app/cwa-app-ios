@@ -5,7 +5,7 @@
 import UIKit
 import OpenCombine
 
-class ExposureSubmissionTestResultViewModel: ExposureSubmissionTestResultModel {
+class ExposureSubmissionTestResultViewModel: ExposureSubmissionTestResultModeling {
 	
 	// MARK: - Init
 	
@@ -107,7 +107,7 @@ class ExposureSubmissionTestResultViewModel: ExposureSubmissionTestResultModel {
 	
 	func updateTestResultIfPossible() {
 		guard coronaTest.testResult == .pending else {
-			Log.info("Not refreshing test because status is pending")
+			Log.info("Not refreshing test because status is not pending")
 			return
 		}
 		refreshTest()
