@@ -186,35 +186,6 @@ extension ExposureSubmissionTestResultFamilyMemberViewModel {
 					hairline: .iconAttached
 				)
 			])
-			if !familyMemberCoronaTest.certificateSupportedByPointOfCare {
-				cells.append(
-					ExposureSubmissionDynamicCell.stepCell(
-						title: AppStrings.ExposureSubmissionResult.testCertificateTitle,
-						description: AppStrings.ExposureSubmissionResult.testCenterNotSupportedTitle,
-						icon: UIImage(named: "certificate-qr-light"),
-						hairline: .none
-					)
-				)
-			} else if !familyMemberCoronaTest.certificateConsentGiven {
-				cells.append(
-					ExposureSubmissionDynamicCell.stepCell(
-						title: AppStrings.ExposureSubmissionResult.testCertificateTitle,
-						description: AppStrings.ExposureSubmissionResult.testCertificateNotRequested,
-						icon: UIImage(named: "certificate-qr-light"),
-						hairline: .none
-					)
-				)
-			} else {
-				cells.append(
-					ExposureSubmissionDynamicCell.stepCell(
-						title: AppStrings.ExposureSubmissionResult.testCertificateTitle,
-						description: AppStrings.ExposureSubmissionResult.testCertificatePending,
-						icon: UIImage(named: "certificate-qr-light"),
-						hairline: .none
-					)
-				)
-			}
-			
 		case .antigen:
 			cells.append(contentsOf: [
 				ExposureSubmissionDynamicCell.stepCell(
@@ -230,36 +201,37 @@ extension ExposureSubmissionTestResultFamilyMemberViewModel {
 					hairline: .iconAttached
 				)
 			])
-			if !familyMemberCoronaTest.certificateSupportedByPointOfCare {
-				cells.append(
-					ExposureSubmissionDynamicCell.stepCell(
-						title: AppStrings.ExposureSubmissionResult.testCertificateTitle,
-						description: AppStrings.ExposureSubmissionResult.testCenterNotSupportedTitle,
-						icon: UIImage(named: "certificate-qr-light"),
-						hairline: .none
-					)
-				)
-			} else if !familyMemberCoronaTest.certificateConsentGiven {
-				cells.append(
-					ExposureSubmissionDynamicCell.stepCell(
-						title: AppStrings.ExposureSubmissionResult.testCertificateTitle,
-						description: AppStrings.ExposureSubmissionResult.testCertificateNotRequested,
-						icon: UIImage(named: "certificate-qr-light"),
-						hairline: .none
-					)
-				)
-			} else {
-				cells.append(
-					ExposureSubmissionDynamicCell.stepCell(
-						title: AppStrings.ExposureSubmissionResult.testCertificateTitle,
-						description: AppStrings.ExposureSubmissionResult.testCertificatePending,
-						icon: UIImage(named: "certificate-qr-light"),
-						hairline: .none
-					)
-				)
-			}
 		}
 		
+		if !familyMemberCoronaTest.certificateSupportedByPointOfCare {
+			cells.append(
+				ExposureSubmissionDynamicCell.stepCell(
+					title: AppStrings.ExposureSubmissionResult.familyMemberTestCertificateTitle,
+					description: AppStrings.ExposureSubmissionResult.testCenterNotSupportedTitle,
+					icon: UIImage(named: "certificate-qr-light"),
+					hairline: .none
+				)
+			)
+		} else if !familyMemberCoronaTest.certificateConsentGiven {
+			cells.append(
+				ExposureSubmissionDynamicCell.stepCell(
+					title: AppStrings.ExposureSubmissionResult.familyMemberTestCertificateTitle,
+					description: AppStrings.ExposureSubmissionResult.testCertificateNotRequested,
+					icon: UIImage(named: "certificate-qr-light"),
+					hairline: .none
+				)
+			)
+		} else {
+			cells.append(
+				ExposureSubmissionDynamicCell.stepCell(
+					title: AppStrings.ExposureSubmissionResult.familyMemberTestCertificateTitle,
+					description: AppStrings.ExposureSubmissionResult.familyMemberTestCertificatePending,
+					icon: UIImage(named: "certificate-qr-light"),
+					hairline: .none
+				)
+			)
+		}
+
 		return [
 			.section(
 				header: .identifier(

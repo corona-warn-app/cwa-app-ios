@@ -794,11 +794,11 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmissionResult_familyMemberTestCertificate_title" = "COVID-Testzertifikat";
 
-"ExposureSubmissionResult_familyMemberAntigenTestCertificate_title" = "COVID-Testzertifikat";
-
 "ExposureSubmissionResult_testCertificate_testCenterNotSupported" = "Ein offizielles digitales COVID-Testzertifikat kann nicht ausgestellt werden, da diese Teststelle die Ausstellung der Testzertifikate nicht unterstützt.";
 
 "ExposureSubmissionResult_testCertificate_Pending" = "Ihr offizielles digitales COVID-Testzertifikat liegt noch nicht vor. Sobald es vorliegt, wird es Ihnen in der App angezeigt.";
+
+"ExposureSubmissionResult_familyMemberTestCertificate_Pending" = "Das offizielle digitale COVID-Testzertifikat liegt noch nicht vor. Sobald es vorliegt, wird es Ihnen in der App angezeigt.";
 
 "ExposureSubmissionResult_testCertificate_NotRequested" = "Auf Ihren Wunsch hin wird kein offizielles digitales COVID-Testzertifikat ausgestellt.";
 
