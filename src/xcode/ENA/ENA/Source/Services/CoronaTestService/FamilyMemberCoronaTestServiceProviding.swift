@@ -57,6 +57,8 @@ protocol FamilyMemberCoronaTestServiceProviding {
 		completion: @escaping TestResultHandler
 	)
 
+	func moveAllTestsToBin()
+
 	func moveTestToBin(_ coronaTest: FamilyMemberCoronaTest)
 
 	func removeTest(_ coronaTest: FamilyMemberCoronaTest)

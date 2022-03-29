@@ -70,6 +70,8 @@ class MockFamilyMemberCoronaTestService: FamilyMemberCoronaTestServiceProviding 
 		completion(updateTestResultResult ?? .failure(.noRegistrationToken))
 	}
 
+	func moveAllTestsToBin() {}
+
 	func moveTestToBin(_ coronaTest: FamilyMemberCoronaTest) {
 		onMoveTestToBin(coronaTest)
 	}

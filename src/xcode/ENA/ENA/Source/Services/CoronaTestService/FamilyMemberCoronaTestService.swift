@@ -348,6 +348,12 @@ class FamilyMemberCoronaTestService: FamilyMemberCoronaTestServiceProviding {
 		}
 	}
 
+	func moveAllTestsToBin() {
+		for coronaTest in coronaTests.value {
+			moveTestToBin(coronaTest)
+		}
+	}
+
 	func moveTestToBin(_ coronaTest: FamilyMemberCoronaTest) {
 		Log.info("[FamilyMemberCoronaTestService] Moving test to bin (coronaTest: \(private: coronaTest)", log: .api)
 

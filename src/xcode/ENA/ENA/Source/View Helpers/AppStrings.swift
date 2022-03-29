@@ -2727,6 +2727,8 @@ enum AppStrings {
 	}
 
 	enum FamilyMemberCoronaTest {
+		static let title = NSLocalizedString("FamilyMemberCoronaTest_title", comment: "")
+
 		static let pcrCaption = NSLocalizedString("FamilyMemberCoronaTest_pcrCaption", comment: "")
 		static let antigenCaption = NSLocalizedString("FamilyMemberCoronaTest_antigenCaption", comment: "")
 
@@ -2753,6 +2755,20 @@ enum AppStrings {
 		static let expiredDiagnosis = NSLocalizedString("FamilyMemberCoronaTest_expiredDiagnosis", comment: "")
 		static let expiredDescription = NSLocalizedString("FamilyMemberCoronaTest_expiredDescription", comment: "")
 		static let expiredButtonTitle = NSLocalizedString("FamilyMemberCoronaTest_expiredButtonTitle", comment: "")
+
+		enum DeleteOneAlert {
+			   static let title = NSLocalizedString("FamilyMemberCoronaTest_DeleteOne_AlertTitle", comment: "")
+			   static let message = NSLocalizedString("FamilyMemberCoronaTest_DeleteOne_AlertMessage", comment: "")
+			   static let confirmButtonTitle = NSLocalizedString("FamilyMemberCoronaTest_DeleteOne_AlertConfirmButtonTitle", comment: "")
+			   static let cancelButtonTitle = NSLocalizedString("FamilyMemberCoronaTest_DeleteOne_AlertCancelButtonTitle", comment: "")
+		   }
+
+		   enum DeleteAllAlert {
+			   static let title = NSLocalizedString("FamilyMemberCoronaTest_DeleteAll_AlertTitle", comment: "")
+			   static let message = NSLocalizedString("FamilyMemberCoronaTest_DeleteAll_AlertMessage", comment: "")
+			   static let confirmButtonTitle = NSLocalizedString("FamilyMemberCoronaTest_DeleteAll_AlertConfirmButtonTitle", comment: "")
+			   static let cancelButtonTitle = NSLocalizedString("FamilyMemberCoronaTest_DeleteAll_AlertCancelButtonTitle", comment: "")
+		   }
 	}
 	// swiftlint:disable:next file_length
 }

@@ -3740,6 +3740,8 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 /* Family Member Corona Test */
 
+"FamilyMemberCoronaTest_title" = "Tests von Familienmitgliedern";
+
 "FamilyMemberCoronaTest_pcrCaption" = "PCR-Test-Befund";
 
 "FamilyMemberCoronaTest_antigenCaption" = "Schnelltest-Befund";
@@ -3777,4 +3779,21 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 "FamilyMemberCoronaTest_expiredDescription" = "Der Test liegt länger als 21 Tage zurück und ist daher nicht länger relevant.";
 
 "FamilyMemberCoronaTest_expiredButtonTitle" = "Test löschen";
+
+"FamilyMemberCoronaTest_DeleteOne_AlertTitle" = "Wollen Sie das Testergebnis entfernen?";
+
+"FamilyMemberCoronaTest_DeleteOne_AlertMessage" = "Das Testergebnis wird in den Papierkorb verschoben. Den Papierkorb finden Sie auf der „Mehr“-Kachel der Status-Registerkarte.\nDort können Sie es endgültig löschen oder wiederherstellen. Nach 30 Tagen wird das Testergebnis automatisch gelöscht.";
+
+"FamilyMemberCoronaTest_DeleteOne_AlertConfirmButtonTitle" = "Testergebnis entfernen";
+
+"FamilyMemberCoronaTest_DeleteOne_AlertCancelButtonTitle" = "Abbrechen";
+
+"FamilyMemberCoronaTest_DeleteAll_AlertTitle" = "Wollen Sie die Testergebnisse entfernen?";
+
+"FamilyMemberCoronaTest_DeleteAll_AlertMessage" = "Die Testergebnisse werden in den Papierkorb verschoben. Den Papierkorb finden Sie auf der „Mehr“-Kachel der Status-Registerkarte.\nDort können Sie diese endgültig löschen oder wiederherstellen. Nach 30 Tagen werden die Testergebnisse automatisch gelöscht.";
+
+"FamilyMemberCoronaTest_DeleteAll_AlertConfirmButtonTitle" = "Testergebnisse entfernen";
+
+"FamilyMemberCoronaTest_DeleteAll_AlertCancelButtonTitle" = "Abbrechen";
+
 

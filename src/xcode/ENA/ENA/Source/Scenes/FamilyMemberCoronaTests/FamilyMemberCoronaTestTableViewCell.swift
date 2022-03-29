@@ -6,7 +6,7 @@ import Foundation
 import UIKit
 import OpenCombine
 
-final class FamilyMemberTestResultTableViewCell: UITableViewCell {
+final class FamilyMemberCoronaTestTableViewCell: UITableViewCell {
 
 	// MARK: - Overrides
 
@@ -48,7 +48,7 @@ final class FamilyMemberTestResultTableViewCell: UITableViewCell {
 	// MARK: - Internal
 
 	func configure(
-		with cellModel: FamilyMemberTestResultCellModel,
+		with cellModel: FamilyMemberCoronaTestCellModel,
 		onPrimaryAction: @escaping () -> Void
 	) {
 		// clear all previous subscriptions
@@ -140,7 +140,7 @@ final class FamilyMemberTestResultTableViewCell: UITableViewCell {
 	@IBOutlet private weak var button: ENAButton!
 
 	private var subscriptions = Set<AnyCancellable>()
-	private var cellModel: FamilyMemberTestResultCellModel?
+	private var cellModel: FamilyMemberCoronaTestCellModel?
 
 	private var onPrimaryAction: (() -> Void)?
 
