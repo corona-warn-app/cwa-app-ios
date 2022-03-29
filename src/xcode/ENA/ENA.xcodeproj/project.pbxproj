@@ -1372,6 +1372,7 @@
 		BA0F6C5326317C220046BA48 /* AntigenTestProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA0F6C5226317C220046BA48 /* AntigenTestProfileViewModel.swift */; };
 		BA0F6C59263186830046BA48 /* AntigenTestProfileInputViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA0F6C58263186830046BA48 /* AntigenTestProfileInputViewController.swift */; };
 		BA0F6C61263186E50046BA48 /* AntigenTestProfileInputViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA0F6C60263186E50046BA48 /* AntigenTestProfileInputViewModel.swift */; };
+		BA10221527F309A600E91FA7 /* FamilyTestsHomeCellViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA10221427F309A600E91FA7 /* FamilyTestsHomeCellViewModelTests.swift */; };
 		BA112DF7255586E9007F5712 /* WifiOnlyHTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA112DF6255586E9007F5712 /* WifiOnlyHTTPClient.swift */; };
 		BA112E0A25559CDD007F5712 /* ClientWifiOnly.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA112E0925559CDD007F5712 /* ClientWifiOnly.swift */; };
 		BA11D5BA2588D590005DCD6B /* DiaryAddAndEditEntryViewModelTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA11D5B92588D590005DCD6B /* DiaryAddAndEditEntryViewModelTest.swift */; };
@@ -3147,6 +3148,7 @@
 		BA0F6C5226317C220046BA48 /* AntigenTestProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AntigenTestProfileViewModel.swift; sourceTree = "<group>"; };
 		BA0F6C58263186830046BA48 /* AntigenTestProfileInputViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AntigenTestProfileInputViewController.swift; sourceTree = "<group>"; };
 		BA0F6C60263186E50046BA48 /* AntigenTestProfileInputViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AntigenTestProfileInputViewModel.swift; sourceTree = "<group>"; };
+		BA10221427F309A600E91FA7 /* FamilyTestsHomeCellViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FamilyTestsHomeCellViewModelTests.swift; sourceTree = "<group>"; };
 		BA112DF6255586E9007F5712 /* WifiOnlyHTTPClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WifiOnlyHTTPClient.swift; sourceTree = "<group>"; };
 		BA112E0925559CDD007F5712 /* ClientWifiOnly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientWifiOnly.swift; sourceTree = "<group>"; };
 		BA11D5B92588D590005DCD6B /* DiaryAddAndEditEntryViewModelTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryAddAndEditEntryViewModelTest.swift; sourceTree = "<group>"; };
@@ -8740,6 +8742,14 @@
 			path = Cell;
 			sourceTree = "<group>";
 		};
+		BA10221327F3098600E91FA7 /* __tests__ */ = {
+			isa = PBXGroup;
+			children = (
+				BA10221427F309A600E91FA7 /* FamilyTestsHomeCellViewModelTests.swift */,
+			);
+			path = __tests__;
+			sourceTree = "<group>";
+		};
 		BA11D5B82588D576005DCD6B /* __tests__ */ = {
 			isa = PBXGroup;
 			children = (
@@ -9291,6 +9301,7 @@
 		BA91611B27ECD2D10076BC6B /* Family */ = {
 			isa = PBXGroup;
 			children = (
+				BA10221327F3098600E91FA7 /* __tests__ */,
 				BA91611C27ECD3190076BC6B /* FamilyTestsHomeCell.swift */,
 				BA91611E27ECD32A0076BC6B /* FamilyTestsHomeCellViewModel.swift */,
 				BA91612027EDF7060076BC6B /* BadgeView.swift */,
@@ -11969,6 +11980,7 @@
 				8FD7E2C927E9EABD00E08ABB /* CCLServiceInvalidationRulesTests.swift in Sources */,
 				AB9E9E7A261308C000515408 /* RiskTests.swift in Sources */,
 				0144BDE32509288B00B0857C /* SymptomsOnsetTests.swift in Sources */,
+				BA10221527F309A600E91FA7 /* FamilyTestsHomeCellViewModelTests.swift in Sources */,
 				BACD671725B7002F00BAF5D0 /* RiskCalculationResultTests.swift in Sources */,
 				BAF5E41427B16902001DF172 /* Locator+DCCRulesTests.swift in Sources */,
 				A124E64C249C4C9000E95F72 /* SAPDownloadedPackagesStore+Helpers.swift in Sources */,
