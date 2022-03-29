@@ -263,7 +263,6 @@ enum AppStrings {
 			static let proofDesc = NSLocalizedString("ExposureSubmissionResult_Negative_Antigen_Proof_Desc", comment: "")
 			static let noProofTitle = NSLocalizedString("ExposureSubmissionResult_Negative_Antigen_NoProof_Title", comment: "")
 			static let noProofDesc = NSLocalizedString("ExposureSubmissionResult_Negative_Antigen_NoProof_Desc", comment: "")
-			static let testCenterNotSupportedTitle = NSLocalizedString("ExposureSubmissionResult_testCertificate_testCenterNotSupported", comment: "")
 		}
 		static let testCertificatePending = NSLocalizedString("ExposureSubmissionResult_testCertificate_Pending", comment: "")
 		static let familyMemberTestCertificateDesc = NSLocalizedString("ExposureSubmissionResult_familyMember_testCertificate_description", comment: "")
@@ -273,7 +272,8 @@ enum AppStrings {
 		static let testCertificateTitle = NSLocalizedString("ExposureSubmissionResult_testCertificate_title", comment: "")
 		static let familyMemberTestCertificateTitle = NSLocalizedString("ExposureSubmissionResult_familyMemberTestCertificate_title", comment: "")
 		static let familyMemberAntigenTestCertificateTitle = NSLocalizedString("ExposureSubmissionResult_familyMemberAntigenTestCertificate_title", comment: "")
-		
+		static let testCenterNotSupportedTitle = NSLocalizedString("ExposureSubmissionResult_testCertificate_testCenterNotSupported", comment: "")
+
 		static let card_title = NSLocalizedString("ExposureSubmissionResult_CardTitle", comment: "")
 		static let card_invalid = NSLocalizedString("ExposureSubmissionResult_CardInvalid", comment: "")
 		static let card_pending = NSLocalizedString("ExposureSubmissionResult_CardPending", comment: "")

@@ -253,7 +253,7 @@ extension ExposureSubmissionTestResultViewModel {
 					cells.append(
 						ExposureSubmissionDynamicCell.stepCell(
 							title: AppStrings.ExposureSubmissionResult.testCertificateTitle,
-							description: AppStrings.ExposureSubmissionResult.Antigen.testCenterNotSupportedTitle,
+							description: AppStrings.ExposureSubmissionResult.testCenterNotSupportedTitle,
 							icon: UIImage(named: "certificate-qr-light"),
 							hairline: .none
 						)
@@ -267,7 +267,7 @@ extension ExposureSubmissionTestResultViewModel {
 							hairline: .none
 						)
 					)
-				} else if !test.certificateRequested {
+				} else {
 					cells.append(
 						ExposureSubmissionDynamicCell.stepCell(
 							title: AppStrings.ExposureSubmissionResult.testCertificateTitle,
@@ -305,7 +305,7 @@ extension ExposureSubmissionTestResultViewModel {
 					cells.append(
 						ExposureSubmissionDynamicCell.stepCell(
 							title: AppStrings.ExposureSubmissionResult.testCertificateTitle,
-							description: AppStrings.ExposureSubmissionResult.Antigen.testCenterNotSupportedTitle,
+							description: AppStrings.ExposureSubmissionResult.testCenterNotSupportedTitle,
 							icon: UIImage(named: "certificate-qr-light"),
 							hairline: .none
 						)
@@ -319,7 +319,7 @@ extension ExposureSubmissionTestResultViewModel {
 							hairline: .none
 						)
 					)
-				} else if !test.certificateRequested {
+				} else {
 					cells.append(
 						ExposureSubmissionDynamicCell.stepCell(
 							title: AppStrings.ExposureSubmissionResult.testCertificateTitle,

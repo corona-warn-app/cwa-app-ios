@@ -184,14 +184,37 @@ extension ExposureSubmissionTestResultFamilyMemberViewModel {
 					description: AppStrings.ExposureSubmissionResult.PCR.familyMemberTestPendingDesc,
 					icon: UIImage(named: "Icons_Grey_Wait"),
 					hairline: .iconAttached
-				),
-				ExposureSubmissionDynamicCell.stepCell(
-					title: AppStrings.ExposureSubmissionResult.familyMemberTestCertificateTitle,
-					description: AppStrings.ExposureSubmissionResult.familyMemberTestCertificateDesc,
-					icon: UIImage(named: "certificate-qr-light"),
-					hairline: .none
 				)
 			])
+			if !familyMemberCoronaTest.certificateSupportedByPointOfCare {
+				cells.append(
+					ExposureSubmissionDynamicCell.stepCell(
+						title: AppStrings.ExposureSubmissionResult.testCertificateTitle,
+						description: AppStrings.ExposureSubmissionResult.testCenterNotSupportedTitle,
+						icon: UIImage(named: "certificate-qr-light"),
+						hairline: .none
+					)
+				)
+			} else if !familyMemberCoronaTest.certificateConsentGiven {
+				cells.append(
+					ExposureSubmissionDynamicCell.stepCell(
+						title: AppStrings.ExposureSubmissionResult.testCertificateTitle,
+						description: AppStrings.ExposureSubmissionResult.testCertificateNotRequested,
+						icon: UIImage(named: "certificate-qr-light"),
+						hairline: .none
+					)
+				)
+			} else {
+				cells.append(
+					ExposureSubmissionDynamicCell.stepCell(
+						title: AppStrings.ExposureSubmissionResult.testCertificateTitle,
+						description: AppStrings.ExposureSubmissionResult.testCertificatePending,
+						icon: UIImage(named: "certificate-qr-light"),
+						hairline: .none
+					)
+				)
+			}
+			
 		case .antigen:
 			cells.append(contentsOf: [
 				ExposureSubmissionDynamicCell.stepCell(
@@ -205,14 +228,36 @@ extension ExposureSubmissionTestResultFamilyMemberViewModel {
 					description: AppStrings.ExposureSubmissionResult.Antigen.familyMemberTestPendingDesc,
 					icon: UIImage(named: "Icons_Grey_Wait"),
 					hairline: .iconAttached
-				),
-				ExposureSubmissionDynamicCell.stepCell(
-					title: AppStrings.ExposureSubmissionResult.familyMemberAntigenTestCertificateTitle,
-					description: AppStrings.ExposureSubmissionResult.familyMemberAntigenTestCertificateDesc,
-					icon: UIImage(named: "certificate-qr-light"),
-					hairline: .none
 				)
 			])
+			if !familyMemberCoronaTest.certificateSupportedByPointOfCare {
+				cells.append(
+					ExposureSubmissionDynamicCell.stepCell(
+						title: AppStrings.ExposureSubmissionResult.testCertificateTitle,
+						description: AppStrings.ExposureSubmissionResult.testCenterNotSupportedTitle,
+						icon: UIImage(named: "certificate-qr-light"),
+						hairline: .none
+					)
+				)
+			} else if !familyMemberCoronaTest.certificateConsentGiven {
+				cells.append(
+					ExposureSubmissionDynamicCell.stepCell(
+						title: AppStrings.ExposureSubmissionResult.testCertificateTitle,
+						description: AppStrings.ExposureSubmissionResult.testCertificateNotRequested,
+						icon: UIImage(named: "certificate-qr-light"),
+						hairline: .none
+					)
+				)
+			} else {
+				cells.append(
+					ExposureSubmissionDynamicCell.stepCell(
+						title: AppStrings.ExposureSubmissionResult.testCertificateTitle,
+						description: AppStrings.ExposureSubmissionResult.testCertificatePending,
+						icon: UIImage(named: "certificate-qr-light"),
+						hairline: .none
+					)
+				)
+			}
 		}
 		
 		return [

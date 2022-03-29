@@ -390,38 +390,6 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 		
 		return topBottomContainerViewController
 	}
-
-	private func createFamilyMemberTestResultViewController(familyMemberCoronaTest: FamilyMemberCoronaTest) -> TopBottomContainerViewController<ExposureSubmissionTestResultViewController, FooterViewController> {
-		let viewModel = ExposureSubmissionTestResultFamilyMemberViewModel(
-			familyMemberCoronaTest: familyMemberCoronaTest,
-			familyMemberCoronaTestService: model.familyMemberCoronaTestService,
-			onTestDeleted: { [weak self] in
-				self?.dismiss()
-			},
-			onTestCertificateCellTap: { [weak self] healthCertificate, healthCertifiedPerson in
-				self?.showHealthCertificate(healthCertifiedPerson: healthCertifiedPerson, healthCertificate: healthCertificate)
-			}
-		)
-		
-		let vc = ExposureSubmissionTestResultViewController(
-			viewModel: viewModel,
-			exposureSubmissionService: self.model.exposureSubmissionService,
-			onDismiss: { [weak self] testResult, isLoading in
-				self?.dismiss()
-			}
-		)
-		
-		let footerViewController = FooterViewController(
-			ExposureSubmissionTestResultFamilyMemberViewModel.footerViewModel(coronaTest: familyMemberCoronaTest)
-		)
-		
-		let topBottomContainerViewController = TopBottomContainerViewController(
-			topController: vc,
-			bottomController: footerViewController
-		)
-		
-		return topBottomContainerViewController
-	}
 	
 	private func createWarnOthersViewController(supportedCountries: [Country]) -> UIViewController {
 		if let testType = model.coronaTestType {
