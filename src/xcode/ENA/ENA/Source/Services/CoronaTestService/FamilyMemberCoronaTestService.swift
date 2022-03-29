@@ -152,12 +152,17 @@ class FamilyMemberCoronaTestService: FamilyMemberCoronaTestServiceProviding {
 
 					Log.info("[FamilyMemberCoronaTestService] PCR test registered: \(private: coronaTest)", log: .api)
 
-					self?.getTestResult(for: coronaTest, duringRegistration: true) { _ in
-						guard let updatedCoronaTest = self?.upToDateTest(for: coronaTest) else {
-							completion(.failure(.noCoronaTestOfRequestedType))
-							return
+					self?.getTestResult(for: coronaTest, duringRegistration: true) { testResult in
+						switch testResult {
+						case .success:
+							guard let updatedCoronaTest = self?.upToDateTest(for: coronaTest) else {
+								completion(.failure(.noCoronaTestOfRequestedType))
+								return
+							}
+							completion(.success(updatedCoronaTest))
+						case .failure(let error):
+							completion(.failure(error))
 						}
-						completion(.success(updatedCoronaTest))
 					}
 				case .failure(let error):
 					Log.error("[FamilyMemberCoronaTestService] PCR test registration failed: \(error.localizedDescription)", log: .api)
@@ -216,13 +221,18 @@ class FamilyMemberCoronaTestService: FamilyMemberCoronaTestServiceProviding {
 
 					Log.info("[FamilyMemberCoronaTestService] Antigen test registered: \(private: coronaTest)", log: .api)
 
-					self?.getTestResult(for: coronaTest, duringRegistration: true) { _ in
-						self?.scheduleOutdatedStateTimer()
-						guard let updatedCoronaTest = self?.upToDateTest(for: coronaTest) else {
-							completion(.failure(.noCoronaTestOfRequestedType))
-							return
+					self?.getTestResult(for: coronaTest, duringRegistration: true) { testResult in
+						switch testResult {
+						case .success:
+							self?.scheduleOutdatedStateTimer()
+							guard let updatedCoronaTest = self?.upToDateTest(for: coronaTest) else {
+								completion(.failure(.noCoronaTestOfRequestedType))
+								return
+							}
+							completion(.success(updatedCoronaTest))
+						case .failure(let error):
+							completion(.failure(error))
 						}
-						completion(.success(updatedCoronaTest))
 					}
 
 					self?.fakeRequestService.fakeSubmissionServerRequest()
@@ -281,12 +291,17 @@ class FamilyMemberCoronaTestService: FamilyMemberCoronaTestServiceProviding {
 
 					Log.info("[FamilyMemberCoronaTestService] RapidPCR test registered: \(private: coronaTest)", log: .api)
 
-					self?.getTestResult(for: coronaTest, duringRegistration: true) { _ in
-						guard let updatedCoronaTest = self?.upToDateTest(for: coronaTest) else {
-							completion(.failure(.noCoronaTestOfRequestedType))
-							return
+					self?.getTestResult(for: coronaTest, duringRegistration: true) { testResult in
+						switch testResult {
+						case .success:
+							guard let updatedCoronaTest = self?.upToDateTest(for: coronaTest) else {
+								completion(.failure(.noCoronaTestOfRequestedType))
+								return
+							}
+							completion(.success(updatedCoronaTest))
+						case .failure(let error):
+							completion(.failure(error))
 						}
-						completion(.success(updatedCoronaTest))
 					}
 
 					self?.fakeRequestService.fakeSubmissionServerRequest()
