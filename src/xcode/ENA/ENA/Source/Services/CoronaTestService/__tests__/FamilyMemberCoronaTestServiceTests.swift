@@ -232,8 +232,8 @@ class FamilyMemberCoronaTestServiceTests: CWATestCase {
 			switch result {
 			case .failure:
 				XCTFail("This test should always return a successful result.")
-			case .success(let testResult):
-				XCTAssertEqual(testResult, .pending)
+			case .success(let familyMemberCoronaTest):
+				XCTAssertEqual(familyMemberCoronaTest.testResult, .pending)
 			}
 		}
 
@@ -337,8 +337,8 @@ class FamilyMemberCoronaTestServiceTests: CWATestCase {
 			switch result {
 			case .failure:
 				XCTFail("This test should always return a successful result.")
-			case .success(let testResult):
-				XCTAssertEqual(testResult, TestResult.negative)
+			case .success(let familyMemberCoronaTest):
+				XCTAssertEqual(familyMemberCoronaTest.testResult, .negative)
 			}
 		}
 
@@ -432,8 +432,8 @@ class FamilyMemberCoronaTestServiceTests: CWATestCase {
 			switch result {
 			case .failure:
 				XCTFail("This test should always return a successful result.")
-			case .success(let testResult):
-				XCTAssertEqual(testResult, TestResult.negative)
+			case .success(let familyMemberCoronaTest):
+				XCTAssertEqual(familyMemberCoronaTest.testResult, .negative)
 			}
 		}
 
@@ -642,8 +642,8 @@ class FamilyMemberCoronaTestServiceTests: CWATestCase {
 			switch result {
 			case .failure:
 				XCTFail("This test should always return a successful result.")
-			case .success(let testResult):
-				XCTAssertEqual(testResult, .pending)
+			case .success(let familyMemberCoronaTest):
+				XCTAssertEqual(familyMemberCoronaTest.testResult, .pending)
 			}
 		}
 
@@ -745,8 +745,8 @@ class FamilyMemberCoronaTestServiceTests: CWATestCase {
 			switch result {
 			case .failure:
 				XCTFail("This test should always return a successful result.")
-			case .success(let testResult):
-				XCTAssertEqual(testResult, .pending)
+			case .success(let familyMemberCoronaTest):
+				XCTAssertEqual(familyMemberCoronaTest.testResult, .pending)
 			}
 		}
 
@@ -854,8 +854,8 @@ class FamilyMemberCoronaTestServiceTests: CWATestCase {
 			switch result {
 			case .failure:
 				XCTFail("This test should always return a successful result.")
-			case .success(let testResult):
-				XCTAssertEqual(testResult, TestResult.negative)
+			case .success(let familyMemberCoronaTest):
+				XCTAssertEqual(familyMemberCoronaTest.testResult, .negative)
 			}
 		}
 
@@ -875,6 +875,7 @@ class FamilyMemberCoronaTestServiceTests: CWATestCase {
 			Date().timeIntervalSince1970,
 			accuracy: 10
 		)
+
 		XCTAssertEqual(
 			try XCTUnwrap(antigenTest.sampleCollectionDate).timeIntervalSince1970,
 			Date(timeIntervalSinceNow: -60).timeIntervalSince1970,
@@ -885,6 +886,7 @@ class FamilyMemberCoronaTestServiceTests: CWATestCase {
 			Date(timeIntervalSinceNow: -60).timeIntervalSince1970,
 			accuracy: 10
 		)
+
 		XCTAssertEqual(antigenTest.testResult, .negative)
 		XCTAssertEqual(
 			try XCTUnwrap(antigenTest.finalTestResultReceivedDate).timeIntervalSince1970,
@@ -961,8 +963,8 @@ class FamilyMemberCoronaTestServiceTests: CWATestCase {
 			switch result {
 			case .failure:
 				XCTFail("This test should always return a successful result.")
-			case .success(let testResult):
-				XCTAssertEqual(testResult, TestResult.negative)
+			case .success(let familyMemberCoronaTest):
+				XCTAssertEqual(familyMemberCoronaTest.testResult, .negative)
 			}
 		}
 
@@ -1175,8 +1177,8 @@ class FamilyMemberCoronaTestServiceTests: CWATestCase {
 			switch result {
 			case .failure:
 				XCTFail("This test should always return a successful result.")
-			case .success(let testResult):
-				XCTAssertEqual(testResult, .pending)
+			case .success(let familyMemberCoronaTest):
+				XCTAssertEqual(familyMemberCoronaTest.testResult, .pending)
 			}
 		}
 
@@ -1278,8 +1280,8 @@ class FamilyMemberCoronaTestServiceTests: CWATestCase {
 			switch result {
 			case .failure:
 				XCTFail("This test should always return a successful result.")
-			case .success(let testResult):
-				XCTAssertEqual(testResult, .pending)
+			case .success(let familyMemberCoronaTest):
+				XCTAssertEqual(familyMemberCoronaTest.testResult, .pending)
 			}
 		}
 
@@ -1387,8 +1389,8 @@ class FamilyMemberCoronaTestServiceTests: CWATestCase {
 			switch result {
 			case .failure:
 				XCTFail("This test should always return a successful result.")
-			case .success(let testResult):
-				XCTAssertEqual(testResult, TestResult.negative)
+			case .success(let familyMemberCoronaTest):
+				XCTAssertEqual(familyMemberCoronaTest.testResult, .negative)
 			}
 		}
 
@@ -1490,8 +1492,8 @@ class FamilyMemberCoronaTestServiceTests: CWATestCase {
 			switch result {
 			case .failure:
 				XCTFail("This test should always return a successful result.")
-			case .success(let testResult):
-				XCTAssertEqual(testResult, TestResult.negative)
+			case .success(let familyMemberCoronaTest):
+				XCTAssertEqual(familyMemberCoronaTest.testResult, .negative)
 			}
 		}
 

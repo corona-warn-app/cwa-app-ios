@@ -22,7 +22,7 @@ class MockFamilyMemberCoronaTestService: FamilyMemberCoronaTestServiceProviding 
 		guid: String,
 		qrCodeHash: String,
 		certificateConsent: TestCertificateConsent,
-		completion: @escaping TestResultHandler
+		completion: @escaping RegistrationResultHandler
 	) {
 		onRegisterPCRTestAndGetResult()
 		completion(registerPCRTestAndGetResultResult ?? .failure(.noCoronaTestOfRequestedType))
@@ -35,7 +35,7 @@ class MockFamilyMemberCoronaTestService: FamilyMemberCoronaTestServiceProviding 
 		pointOfCareConsentDate: Date,
 		certificateSupportedByPointOfCare: Bool,
 		certificateConsent: TestCertificateConsent,
-		completion: @escaping TestResultHandler
+		completion: @escaping RegistrationResultHandler
 	) {
 		onRegisterAntigenTestAndGetResult()
 		completion(registerAntigenTestAndGetResultResult ?? .failure(.noCoronaTestOfRequestedType))
@@ -48,7 +48,7 @@ class MockFamilyMemberCoronaTestService: FamilyMemberCoronaTestServiceProviding 
 		pointOfCareConsentDate: Date,
 		certificateSupportedByPointOfCare: Bool,
 		certificateConsent: TestCertificateConsent,
-		completion: @escaping TestResultHandler
+		completion: @escaping RegistrationResultHandler
 	) {
 		onRegisterRapidPCRTestAndGetResult()
 		completion(registerRapidPCRTestAndGetResultResult ?? .failure(.noCoronaTestOfRequestedType))
@@ -96,7 +96,8 @@ class MockFamilyMemberCoronaTestService: FamilyMemberCoronaTestServiceProviding 
 
 	// MARK: - Internal
 
-	var registerPCRTestAndGetResultResult: Result<TestResult, CoronaTestServiceError>?
+	var registerPCRTestAndGetResultResult: Result<FamilyMemberCoronaTest, CoronaTestServiceError>?
+
 	var onRegisterPCRTestAndGetResult: () -> Void = { }
 
 	var registerPCRTestFromTeleTanResult: Result<Void, CoronaTestServiceError>?
@@ -105,10 +106,10 @@ class MockFamilyMemberCoronaTestService: FamilyMemberCoronaTestServiceProviding 
 	var registerPCRTestFromTeleTanAndGetResultResult: Result<TestResult, CoronaTestServiceError>?
 	var onRegisterPCRTestFromTeleTanAndGetResult: () -> Void = { }
 
-	var registerAntigenTestAndGetResultResult: Result<TestResult, CoronaTestServiceError>?
+	var registerAntigenTestAndGetResultResult: Result<FamilyMemberCoronaTest, CoronaTestServiceError>?
 	var onRegisterAntigenTestAndGetResult: () -> Void = { }
 
-	var registerRapidPCRTestAndGetResultResult: Result<TestResult, CoronaTestServiceError>?
+	var registerRapidPCRTestAndGetResultResult: Result<FamilyMemberCoronaTest, CoronaTestServiceError>?
 	var onRegisterRapidPCRTestAndGetResult: () -> Void = { }
 
 	var updateTestResultResult: Result<TestResult, CoronaTestServiceError>?
