@@ -38,7 +38,6 @@ struct FamilyMemberPCRTest: Equatable, Hashable, Codable {
 		self.isLoading = isLoading
 	}
 
-
 	// MARK: - Protocol Codable
 
 	enum CodingKeys: String, CodingKey {

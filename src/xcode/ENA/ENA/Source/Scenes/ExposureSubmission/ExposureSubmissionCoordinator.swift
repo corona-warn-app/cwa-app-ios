@@ -19,6 +19,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 		parentViewController: UIViewController,
 		exposureSubmissionService: ExposureSubmissionService,
 		coronaTestService: CoronaTestServiceProviding,
+		familyMemberCoronaTestService: FamilyMemberCoronaTestServiceProviding,
 		healthCertificateService: HealthCertificateService,
 		healthCertificateValidationService: HealthCertificateValidationProviding,
 		eventProvider: EventProviding,
@@ -41,6 +42,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 		model = ExposureSubmissionCoordinatorModel(
 			exposureSubmissionService: exposureSubmissionService,
 			coronaTestService: coronaTestService,
+			familyMemberCoronaTestService: familyMemberCoronaTestService,
 			eventProvider: eventProvider
 		)
 	}
@@ -66,7 +68,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 						case .user:
 							self?.showQRInfoScreen(supportedCountries: supportedCountries, testRegistrationInformation: testRegistrationInformation)
 						case .familyMember:
-							self?.showFamilyMemberTestConsentScreen()
+							self?.showFamilyMemberTestConsentScreen(testRegistrationInformation: testRegistrationInformation)
 						}
 					}), onDismiss: { [weak self] in self?.dismiss() })
 					
@@ -388,7 +390,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 		
 		return topBottomContainerViewController
 	}
-
+	
 	private func createWarnOthersViewController(supportedCountries: [Country]) -> UIViewController {
 		if let testType = model.coronaTestType {
 			Analytics.collect(.keySubmissionMetadata(.lastSubmissionFlowScreen(.submissionFlowScreenWarnOthers, testType)))
@@ -525,14 +527,20 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 		push(makeQRInfoScreen(supportedCountries: supportedCountries, testRegistrationInformation: testRegistrationInformation))
 	}
 
-	private func showFamilyMemberTestConsentScreen() {
+	private func showFamilyMemberTestConsentScreen(testRegistrationInformation: CoronaTestRegistrationInformation) {
 		let familyMemberConsentViewController = FamilyMemberConsentViewController(
 			dismiss: { [weak self] in
 				self?.dismiss()
 			}, didTapDataPrivacy: { [weak self] in
 				self?.showDataPrivacy()
-			}, didTapSubmit: { givenName in
-				Log.info("User has give name \(givenName)")
+			}, didTapSubmit: { [weak self] givenName in
+				Log.info("User has give name \(private: givenName)")
+				self?.showTestCertificateScreenIfNecessary(
+					testOwner: .familyMember(displayName: givenName),
+					testRegistrationInformation: testRegistrationInformation,
+					submissionConsentGiven: false,
+					isLoading: { _ in }
+				)
 			}
 		)
 
@@ -549,6 +557,42 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 			bottomController: footerViewController
 		)
 		push(topBottomLayoutViewController)
+	}
+	
+	private func showTestResultScreen(for familyMemberCoronaTest: FamilyMemberCoronaTest) {
+		let viewModel = ExposureSubmissionTestResultFamilyMemberViewModel(
+			familyMemberCoronaTest: familyMemberCoronaTest,
+			familyMemberCoronaTestService: model.familyMemberCoronaTestService,
+			onTestDeleted: { [weak self] in
+				self?.dismiss()
+			},
+			onTestCertificateCellTap: { [weak self] healthCertificate, healthCertifiedPerson in
+				self?.showHealthCertificate(healthCertifiedPerson: healthCertifiedPerson, healthCertificate: healthCertificate)
+			}
+		)
+		
+		let vc = ExposureSubmissionTestResultViewController(
+			viewModel: viewModel,
+			exposureSubmissionService: self.model.exposureSubmissionService,
+			onDismiss: { [weak self] testResult, isLoading in
+				if testResult == TestResult.positive {
+					self?.showPositiveTestResultCancelAlert(isLoading: isLoading)
+				} else {
+					self?.dismiss()
+				}
+			}
+		)
+		
+		let footerViewController = FooterViewController(
+			ExposureSubmissionTestResultFamilyMemberViewModel.footerViewModel(coronaTest: familyMemberCoronaTest)
+		)
+		
+		let topBottomContainerViewController = TopBottomContainerViewController(
+			topController: vc,
+			bottomController: footerViewController
+		)
+		
+		push(topBottomContainerViewController)
 	}
 	
 	private func showQRScreen(testRegistrationInformation: CoronaTestRegistrationInformation?, isLoading: @escaping (Bool) -> Void) {
@@ -592,6 +636,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 	) {
 		guard model.shouldShowOverrideTestNotice(for: testRegistrationInformation.testType) else {
 			showTestCertificateScreenIfNecessary(
+				testOwner: .user,
 				testRegistrationInformation: testRegistrationInformation,
 				submissionConsentGiven: submissionConsentGiven,
 				isLoading: isLoading
@@ -609,6 +654,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 			testType: testRegistrationInformation.testType,
 			didTapPrimaryButton: { [weak self] in
 				self?.showTestCertificateScreenIfNecessary(
+					testOwner: .user,
 					testRegistrationInformation: testRegistrationInformation,
 					submissionConsentGiven: submissionConsentGiven,
 					isLoading: { isLoading in
@@ -1304,12 +1350,14 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 	// MARK: Test Certificate
 
 	private func showTestCertificateScreenIfNecessary(
+		testOwner: TestOwner,
 		testRegistrationInformation: CoronaTestRegistrationInformation,
 		submissionConsentGiven: Bool,
 		isLoading: @escaping (Bool) -> Void
 	) {
 		guard model.shouldShowTestCertificateScreen(with: testRegistrationInformation) else {
 			self.registerTestAndGetResult(
+				for: testOwner,
 				with: testRegistrationInformation,
 				submissionConsentGiven: submissionConsentGiven,
 				certificateConsent: .notGiven,
@@ -1351,6 +1399,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 			},
 			didTapPrimaryButton: { [weak self] optionalBirthDateString, isLoading in
 				self?.registerTestAndGetResult(
+					for: testOwner,
 					with: testRegistrationInformation,
 					submissionConsentGiven: submissionConsentGiven,
 					certificateConsent: .given(dateOfBirth: optionalBirthDateString),
@@ -1359,6 +1408,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 			},
 			didTapSecondaryButton: { [weak self] isLoading in
 				self?.registerTestAndGetResult(
+					for: testOwner,
 					with: testRegistrationInformation,
 					submissionConsentGiven: submissionConsentGiven,
 					certificateConsent: .notGiven,
@@ -1659,18 +1709,19 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 	}
 
 	private func registerTestAndGetResult(
+		for testOwner: TestOwner,
 		with testQRCodeInformation: CoronaTestRegistrationInformation,
 		submissionConsentGiven: Bool,
 		certificateConsent: TestCertificateConsent,
 		isLoading: @escaping (Bool) -> Void
 	) {
-
 		func defaultAlert(_ error: Error) -> UIAlertController {
 			UIAlertController.errorAlert(
 				message: error.localizedDescription,
 				secondaryActionTitle: AppStrings.Common.alertActionRetry,
 				secondaryActionCompletion: { [weak self] in
 					self?.registerTestAndGetResult(
+						for: testOwner,
 						with: testQRCodeInformation,
 						submissionConsentGiven: submissionConsentGiven,
 						certificateConsent: certificateConsent,
@@ -1679,34 +1730,51 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 				}
 			)
 		}
+		
+		switch testOwner {
+		case .user:
+			model.registerTestAndGetResult(
+				for: testQRCodeInformation,
+				isSubmissionConsentGiven: submissionConsentGiven,
+				certificateConsent: certificateConsent,
+				isLoading: isLoading,
+				onSuccess: { [weak self] testResult in
+					self?.model.coronaTestType = testQRCodeInformation.testType
 
-		model.registerTestAndGetResult(
-			for: testQRCodeInformation,
-			isSubmissionConsentGiven: submissionConsentGiven,
-			certificateConsent: certificateConsent,
-			isLoading: isLoading,
-			onSuccess: { [weak self] testResult in
-				
-				self?.model.coronaTestType = testQRCodeInformation.testType
-
-				switch testQRCodeInformation {
-				case .teleTAN:
-					self?.showTestResultScreen()
-				case .antigen, .pcr, .rapidPCR:
-					switch testResult {
-					case .positive:
-						self?.showTestResultAvailableScreen()
-					case .pending, .negative, .invalid, .expired:
+					switch testQRCodeInformation {
+					case .teleTAN:
 						self?.showTestResultScreen()
+					case .antigen, .pcr, .rapidPCR:
+						switch testResult {
+						case .positive:
+							self?.showTestResultAvailableScreen()
+						case .pending, .negative, .invalid, .expired:
+							self?.showTestResultScreen()
+						}
 					}
+				},
+				onError: { [weak self] error in
+					let alert = self?.alert(error, testQRCodeInformation: testQRCodeInformation, isLoading: isLoading) ?? defaultAlert(error)
+					self?.navigationController?.present(alert, animated: true, completion: nil)
+					Log.error("An error occurred during result fetching: \(error)", log: .ui)
 				}
-			},
-			onError: { [weak self] error in
-				let alert = self?.alert(error, testQRCodeInformation: testQRCodeInformation, isLoading: isLoading) ?? defaultAlert(error)
-				self?.navigationController?.present(alert, animated: true, completion: nil)
-				Log.error("An error occurred during result fetching: \(error)", log: .ui)
-			}
-		)
+			)
+		case .familyMember(let displayName):
+			model.registerFamilyMemberTestAndGetResult(
+				for: displayName,
+				registrationInformation: testQRCodeInformation,
+				certificateConsent: certificateConsent,
+				isLoading: isLoading,
+				onSuccess: { [weak self] familyMemberCoronaTest in
+					self?.showTestResultScreen(for: familyMemberCoronaTest)
+				},
+				onError: { [weak self] error in
+					let alert = self?.alert(error, testQRCodeInformation: testQRCodeInformation, isLoading: isLoading) ?? defaultAlert(error)
+					self?.navigationController?.present(alert, animated: true, completion: nil)
+					Log.error("An error occurred during fetching result for a family member: \(error)", log: .ui)
+				}
+			)
+		}
 	}
 	
 	private func submitExposure(showSubmissionSuccess: Bool = false, isLoading: @escaping (Bool) -> Void) {

@@ -5,6 +5,11 @@
 import Foundation
 import UIKit
 
+enum TestOwner {
+	case user
+	case familyMember(displayName: String)
+}
+
 class ExposureSubmissionTestOwnerSelectionViewModel {
 	
 	// MARK: - Init
@@ -16,10 +21,7 @@ class ExposureSubmissionTestOwnerSelectionViewModel {
 	}
 	
 	// MARK: - Internal
-enum TestOwner {
-	case user
-	case familyMember
-}
+
 	var dynamicTableViewModel: DynamicTableViewModel {
 		DynamicTableViewModel([
 			.section(
@@ -48,7 +50,7 @@ enum TestOwner {
 					.identifier(
 						ExposureSubmissionTestOwnerCell.dynamicTableViewCellReuseIdentifier,
 						action: .execute { _, _ in
-							self.onTestOwnerSelection(.familyMember)
+							self.onTestOwnerSelection(.familyMember(displayName: ""))
 						},
 						configure: { _, cell, _ in
 							guard let cell = cell as? ExposureSubmissionTestOwnerCell else {
