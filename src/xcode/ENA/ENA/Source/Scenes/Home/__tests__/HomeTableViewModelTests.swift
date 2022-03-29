@@ -31,6 +31,7 @@ class HomeTableViewModelTests: CWATestCase {
 			store: store,
 			appConfiguration: CachedAppConfigurationMock(),
 			coronaTestService: MockCoronaTestService(),
+			familyMemberCoronaTestService: MockFamilyMemberCoronaTestService(),
 			onTestResultCellTap: { _ in },
 			badgeWrapper: .fake()
 		)
@@ -85,6 +86,7 @@ class HomeTableViewModelTests: CWATestCase {
 			store: store,
 			appConfiguration: appConfiguration,
 			coronaTestService: coronaTestService,
+			familyMemberCoronaTestService: MockFamilyMemberCoronaTestService(),
 			onTestResultCellTap: { _ in },
 			badgeWrapper: .fake()
 		)
@@ -128,6 +130,7 @@ class HomeTableViewModelTests: CWATestCase {
 			store: store,
 			appConfiguration: appConfiguration,
 			coronaTestService: coronaTestService,
+			familyMemberCoronaTestService: MockFamilyMemberCoronaTestService(),
 			onTestResultCellTap: { _ in },
 			badgeWrapper: .fake()
 		)
@@ -169,6 +172,7 @@ class HomeTableViewModelTests: CWATestCase {
 			store: store,
 			appConfiguration: appConfiguration,
 			coronaTestService: coronaTestService,
+			familyMemberCoronaTestService: MockFamilyMemberCoronaTestService(),
 			onTestResultCellTap: { _ in },
 			badgeWrapper: .fake()
 		)
@@ -212,6 +216,7 @@ class HomeTableViewModelTests: CWATestCase {
 			store: store,
 			appConfiguration: appConfiguration,
 			coronaTestService: coronaTestService,
+			familyMemberCoronaTestService: MockFamilyMemberCoronaTestService(),
 			onTestResultCellTap: { _ in },
 			badgeWrapper: .fake()
 		)
@@ -255,6 +260,7 @@ class HomeTableViewModelTests: CWATestCase {
 			store: store,
 			appConfiguration: appConfiguration,
 			coronaTestService: coronaTestService,
+			familyMemberCoronaTestService: MockFamilyMemberCoronaTestService(),
 			onTestResultCellTap: { _ in },
 			badgeWrapper: .fake()
 		)
@@ -298,6 +304,7 @@ class HomeTableViewModelTests: CWATestCase {
 			store: store,
 			appConfiguration: appConfiguration,
 			coronaTestService: coronaTestService,
+			familyMemberCoronaTestService: MockFamilyMemberCoronaTestService(),
 			onTestResultCellTap: { _ in },
 			badgeWrapper: .fake()
 		)
@@ -341,6 +348,7 @@ class HomeTableViewModelTests: CWATestCase {
 			store: store,
 			appConfiguration: appConfiguration,
 			coronaTestService: coronaTestService,
+			familyMemberCoronaTestService: MockFamilyMemberCoronaTestService(),
 			onTestResultCellTap: { _ in },
 			badgeWrapper: .fake()
 		)
@@ -382,6 +390,7 @@ class HomeTableViewModelTests: CWATestCase {
 			store: store,
 			appConfiguration: appConfiguration,
 			coronaTestService: coronaTestService,
+			familyMemberCoronaTestService: MockFamilyMemberCoronaTestService(),
 			onTestResultCellTap: { _ in },
 			badgeWrapper: .fake()
 		)
@@ -425,6 +434,7 @@ class HomeTableViewModelTests: CWATestCase {
 			store: store,
 			appConfiguration: appConfiguration,
 			coronaTestService: coronaTestService,
+			familyMemberCoronaTestService: MockFamilyMemberCoronaTestService(),
 			onTestResultCellTap: { _ in },
 			badgeWrapper: .fake()
 		)
@@ -468,6 +478,7 @@ class HomeTableViewModelTests: CWATestCase {
 			store: store,
 			appConfiguration: appConfiguration,
 			coronaTestService: coronaTestService,
+			familyMemberCoronaTestService: MockFamilyMemberCoronaTestService(),
 			onTestResultCellTap: { _ in },
 			badgeWrapper: .fake()
 		)
@@ -513,6 +524,7 @@ class HomeTableViewModelTests: CWATestCase {
 			store: store,
 			appConfiguration: appConfiguration,
 			coronaTestService: coronaTestService,
+			familyMemberCoronaTestService: MockFamilyMemberCoronaTestService(),
 			onTestResultCellTap: { _ in },
 			badgeWrapper: .fake()
 		)
@@ -557,6 +569,7 @@ class HomeTableViewModelTests: CWATestCase {
 			store: store,
 			appConfiguration: appConfiguration,
 			coronaTestService: coronaTestService,
+			familyMemberCoronaTestService: MockFamilyMemberCoronaTestService(),
 			onTestResultCellTap: { _ in },
 			badgeWrapper: .fake()
 		)
@@ -584,6 +597,7 @@ class HomeTableViewModelTests: CWATestCase {
 			store: store,
 			appConfiguration: CachedAppConfigurationMock(),
 			coronaTestService: MockCoronaTestService(),
+			familyMemberCoronaTestService: MockFamilyMemberCoronaTestService(),
 			onTestResultCellTap: { _ in },
 			badgeWrapper: .fake()
 		)
@@ -620,6 +634,7 @@ class HomeTableViewModelTests: CWATestCase {
 			store: store,
 			appConfiguration: CachedAppConfigurationMock(),
 			coronaTestService: MockCoronaTestService(),
+			familyMemberCoronaTestService: MockFamilyMemberCoronaTestService(),
 			onTestResultCellTap: { _ in },
 			badgeWrapper: .fake()
 		)
@@ -658,6 +673,7 @@ class HomeTableViewModelTests: CWATestCase {
 			store: store,
 			appConfiguration: CachedAppConfigurationMock(),
 			coronaTestService: coronaTestService,
+			familyMemberCoronaTestService: MockFamilyMemberCoronaTestService(),
 			onTestResultCellTap: { _ in },
 			badgeWrapper: .fake()
 		)

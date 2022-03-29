@@ -56,7 +56,7 @@ class HealthCertificateRequestService {
 		}
 	}
 
-	var didRegisterTestCertificate: ((String, TestCertificateRequest) -> Void)?
+	let didRegisterTestCertificate = PassthroughSubject<(String, TestCertificateRequest), Never>()
 
 	func registerAndExecuteTestCertificateRequest(
 		coronaTestType: CoronaTestType,
@@ -381,7 +381,7 @@ class HealthCertificateRequestService {
 				case .success(let certificateResult):
 					Log.info("[HealthCertificateService] Certificate assembly succeeded", log: .api)
 					
-					didRegisterTestCertificate?(certificateResult.certificate.uniqueCertificateIdentifier, testCertificateRequest)
+					didRegisterTestCertificate.send((certificateResult.certificate.uniqueCertificateIdentifier, testCertificateRequest))
 					
 					remove(testCertificateRequest: testCertificateRequest)
 					completion?(.success(()))

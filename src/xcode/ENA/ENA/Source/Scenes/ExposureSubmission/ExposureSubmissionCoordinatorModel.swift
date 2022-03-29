@@ -36,7 +36,7 @@ class ExposureSubmissionCoordinatorModel {
 	var coronaTestType: CoronaTestType?
 	var markNewlyAddedCoronaTestAsUnseen: Bool = false
 
-	var coronaTest: CoronaTest? {
+	var coronaTest: UserCoronaTest? {
 		guard let coronaTestType = coronaTestType else {
 			return nil
 		}

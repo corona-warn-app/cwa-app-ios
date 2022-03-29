@@ -1672,31 +1672,11 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "NewVersionFeatures_Info_about_abb_information" = "Änderungen zum Release finden Sie in den App-Informationen unter dem Menüpunkt „Neue Funktionen”.";
 
-/* Version 2.20 */
+/* Version 2.21 */
 
-"NewVersionFeature_220_highRiskShortened_title" = "Anzeige erhöhten Risikos verkürzt";
+"NewVersionFeature_221_familyMembersTest_title" = "Tests für Familie verwalten";
 
-"NewVersionFeature_220_highRiskShortened_description" = "Ein erhöhtes Risiko nach einer Risikobegegnung wird nur noch für 10 anstatt für 14 Tage angezeigt.";
-
-"NewVersionFeature_220_displayRiskPositiveResult_title" = "Risikoanzeige nach positivem Testergebnis";
-
-"NewVersionFeature_220_displayRiskPositiveResult_description" = "Auch wenn Sie einen positiven Test in der Corona-Warn-App registriert haben, wird Ihnen nun nach einer Risikobegegnung die rote Kachel für ein erhöhtes Risiko eingeblendet. Sieben Tage nach dem positiven Test wird ihr Risikostatus dauerhaft wieder eingeblendet.";
-
-"NewVersionFeature_220_notificateRiskEncounter_title" = "Nachricht zu neuer Risikobegegnung";
-
-"NewVersionFeature_220_notificateRiskEncounter_description" = "Wenn Sie nach einer Risikobegegnung eine weitere Begegnung mit erhöhtem Risiko hatten, dann wird Ihnen darüber jetzt eine Benachrichtigung angezeigt.";
-
-"NewVersionFeature_220_notificationStatusChange_title" = "Nachricht über Status-Änderung";
-
-"NewVersionFeature_220_notificationStatusChange_description" = "Wenn sich Ihr Status geändert hat (z. B. durch Hinzufügen eines Zertifikats, oder weil sich die Regeln geändert haben) werden Sie auf der Zertifikate-Registerkarte darüber informiert.";
-
-"NewVersionFeature_220_recoveryCertificatesDetails_title" = "Genesenenzertifikate ohne Gültigkeitsdaten";
-
-"NewVersionFeature_220_recoveryCertificatesDetails_description" = "Für Genesenenzertifikate werden keine Gültigkeitsdaten mehr angezeigt, da die Gültigkeit von lokalen Regeln bestimmt wird. Stattdessen wird nun das Datum des ersten positiven Tests angezeigt.";
-
-"NewVersionFeature_220_removeQRCode_title" = "Doppelten QR-Code entfernt";
-
-"NewVersionFeature_220_removeQRCode_description" = "Vom Detail-Bildschirm für Personen wurde der QR-Code für das aktuell verwendete Zertifikat entfernt. Dadurch wurde Platz für Benachrichtigungen geschaffen und die Übersichtlichkeit erhöht. Der QR-Code befindet sich ebenfalls auf der Zertifikate-Übersicht, wird also auf dem Detail-Bildschirm nicht benötigt.";
+"NewVersionFeature_221_familyMembersTest_description" = "Sie können jetzt Tests für Ihre Familienmitglieder in Ihrer App registrieren und damit die Testergebnisse auf Ihrem Smartphone erhalten und digitale COVID-Testzertifikate anfordern. Im Falle eines positiven Testergebnisses können Sie jedoch andere Benutzer nicht warnen. Dies geht nur, wenn Sie den Test für sich selbst registriert haben.";
 
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Länderübergreifende Risiko-Ermittlung";
@@ -3050,6 +3030,32 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "HealthCertificate_Details_moreButtonTitle" = "Mehr";
 
+/* HealthCertificate Family Consent */
+
+"HealthCertificate_FamilyMemberConsent_Title" = "Ihr Einverständnis";
+
+"HealthCertificate_FamilyMemberConsent_ImageDescription" = "Eine Familie mit mehreren Mitgliedern; im Hintergrund ein Dokument mit QR-Code darauf.";
+
+"HealthCertificate_FamilyMemberConsent_Headline" = "Testergebnis für Familienmitglieder abrufen";
+
+"HealthCertificate_FamilyMemberConsent_InputTitle" = "Name der Person, die getestet wurde:";
+
+"HealthCertificate_FamilyMemberConsent_InputPlaceholder" = "Name";
+
+"HealthCertificate_FamilyMemberConsent_Body01" = "Sie registrieren einen Test für ein Familienmitglied. Wurden Sie selber getestet, gehen Sie bitte zurück und wählen dies aus. Nur dann können Sie andere im Falle eines positiven Testergebnisses warnen!";
+
+"HealthCertificate_FamilyMemberConsent_Body02" = "Wenn das Testergebnis Ihres Familienmitglieds negativ ist, können Sie in den folgenden Schritten ein offizielles COVID-Testzertifikat anfordern.";
+
+"HealthCertificate_FamilyMemberConsentLegal_Headline" = "Ihr Einverständnis";
+
+"HealthCertificate_FamilyMemberConsentLegal_SubHeadline" = "Durch Antippen von „Einverstanden“ willigen Sie in folgende Schritte ein:";
+
+"HealthCertificate_FamilyMemberConsentLegal_BulletPoint" = "Die App ruft das Testergebnis Ihres Familienmitglieds ab.";
+
+"HealthCertificate_FamilyMemberConsentLegal_text" = "Wenn Sie es sich später anders überlegen, können Sie den Test in der App löschen.";
+
+"HealthCertificate_FamilyMemberConsent_Primary" = "Einverstanden";
+
 /* Health Certificate Delete Alert */
 
 "HealthCertificate_Alert_deleteButton" = "Zertifikat löschen";
@@ -3523,6 +3529,8 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 /* - Corona Test */
 
 "RecycleBin_CoronaTest_headline" = "Test";
+
+"RecycleBin_CoronaTest_familyMemberHeadline" = "Tests von Familienmitgliedern";
 
 "RecycleBin_CoronaTest_pcrTest" = "PCR-Test";
 

@@ -5,11 +5,14 @@
 import Foundation
 @testable import ENA
 
-extension PCRTest {
+extension UserAntigenTest {
 
 	static func mock(
 		registrationToken: String? = nil,
-		registrationDate: Date = Date(),
+		pointOfCareConsentDate: Date = Date(),
+		sampleCollectionDate: Date? = nil,
+		registrationDate: Date? = nil,
+		testedPerson: TestedPerson = TestedPerson(firstName: nil, lastName: nil, dateOfBirth: nil),
 		testResult: TestResult = .pending,
 		finalTestResultReceivedDate: Date? = nil,
 		positiveTestResultWasShown: Bool = false,
@@ -21,10 +24,13 @@ extension PCRTest {
 		certificateConsentGiven: Bool = false,
 		certificateRequested: Bool = false,
 		uniqueCertificateIdentifier: String? = nil
-	) -> PCRTest {
-		PCRTest(
+	) -> UserAntigenTest {
+		UserAntigenTest(
+			pointOfCareConsentDate: pointOfCareConsentDate,
+			sampleCollectionDate: sampleCollectionDate,
 			registrationDate: registrationDate,
 			registrationToken: registrationToken,
+			testedPerson: testedPerson,
 			testResult: testResult,
 			finalTestResultReceivedDate: finalTestResultReceivedDate,
 			positiveTestResultWasShown: positiveTestResultWasShown,

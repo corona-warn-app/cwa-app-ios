@@ -5,17 +5,17 @@
 import Foundation
 @testable import ENA
 
-extension AntigenTest {
+extension FamilyMemberPCRTest {
 
 	static func mock(
+		displayName: String = "",
+		registrationDate: Date = Date(),
 		registrationToken: String? = nil,
-		pointOfCareConsentDate: Date = Date(),
-		sampleCollectionDate: Date? = nil,
-		registrationDate: Date? = nil,
-		testedPerson: TestedPerson = TestedPerson(firstName: nil, lastName: nil, dateOfBirth: nil),
+		qrCodeHash: String = "",
+		isNew: Bool = false,
 		testResult: TestResult = .pending,
 		finalTestResultReceivedDate: Date? = nil,
-		positiveTestResultWasShown: Bool = false,
+		testResultWasShown: Bool = false,
 		isSubmissionConsentGiven: Bool = false,
 		submissionTAN: String? = nil,
 		keysSubmitted: Bool = false,
@@ -23,25 +23,23 @@ extension AntigenTest {
 		certificateSupportedByPointOfCare: Bool = false,
 		certificateConsentGiven: Bool = false,
 		certificateRequested: Bool = false,
-		uniqueCertificateIdentifier: String? = nil
-	) -> AntigenTest {
-		AntigenTest(
-			pointOfCareConsentDate: pointOfCareConsentDate,
-			sampleCollectionDate: sampleCollectionDate,
+		uniqueCertificateIdentifier: String? = nil,
+		isLoading: Bool = false
+	) -> FamilyMemberPCRTest {
+		FamilyMemberPCRTest(
+			displayName: displayName,
 			registrationDate: registrationDate,
 			registrationToken: registrationToken,
-			testedPerson: testedPerson,
+			qrCodeHash: qrCodeHash,
+			isNew: isNew,
 			testResult: testResult,
 			finalTestResultReceivedDate: finalTestResultReceivedDate,
-			positiveTestResultWasShown: positiveTestResultWasShown,
-			isSubmissionConsentGiven: isSubmissionConsentGiven,
-			submissionTAN: submissionTAN,
-			keysSubmitted: keysSubmitted,
-			journalEntryCreated: journalEntryCreated,
+			testResultWasShown: testResultWasShown,
 			certificateSupportedByPointOfCare: certificateSupportedByPointOfCare,
 			certificateConsentGiven: certificateConsentGiven,
 			certificateRequested: certificateRequested,
-			uniqueCertificateIdentifier: uniqueCertificateIdentifier
+			uniqueCertificateIdentifier: uniqueCertificateIdentifier,
+			isLoading: isLoading
 		)
 	}
 

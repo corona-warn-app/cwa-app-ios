@@ -8,13 +8,16 @@ protocol RecycleBinIdentifiable {
 
 enum RecycledItem: Hashable, Equatable, Codable {
 	case certificate(HealthCertificate)
-	case coronaTest(CoronaTest)
+	case userCoronaTest(UserCoronaTest)
+	case familyMemberCoronaTest(FamilyMemberCoronaTest)
 
 	var recycleBinIdentifier: String {
 		switch self {
 		case .certificate(let certificate):
 			return certificate.recycleBinIdentifier
-		case .coronaTest(let test):
+		case .userCoronaTest(let test):
+			return test.recycleBinIdentifier
+		case .familyMemberCoronaTest(let test):
 			return test.recycleBinIdentifier
 		}
 	}
@@ -25,7 +28,9 @@ enum RecycledItem: Hashable, Equatable, Codable {
 		switch (lhs, rhs) {
 		case let (.certificate(lhsCert), .certificate(rhsCert)):
 			return lhsCert.recycleBinIdentifier == rhsCert.recycleBinIdentifier
-		case let (.coronaTest(lhsTest), .coronaTest(rhsTest)):
+		case let (.userCoronaTest(lhsTest), .userCoronaTest(rhsTest)):
+			return lhsTest.recycleBinIdentifier == rhsTest.recycleBinIdentifier
+		case let (.familyMemberCoronaTest(lhsTest), .familyMemberCoronaTest(rhsTest)):
 			return lhsTest.recycleBinIdentifier == rhsTest.recycleBinIdentifier
 		default:
 			return false

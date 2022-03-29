@@ -13,36 +13,11 @@ struct DeltaOnboardingNewVersionFeaturesViewModel {
 		
 		// ADD NEW FEATURES HERE
 		
-		self.featureVersion = "2.20"
+		self.featureVersion = "2.21"
 		
 		self.newVersionFeatures.append(
-			// High Risk Indicator Shortened
-			NewVersionFeature(title: AppStrings.NewVersionFeatures.feature220HighRiskShortenedTitle, description: AppStrings.NewVersionFeatures.feature220HighRiskShortenedDescription)
-		)
-		
-		self.newVersionFeatures.append(
-			// Display Risk Positive Result
-			NewVersionFeature(title: AppStrings.NewVersionFeatures.feature220DisplayRiskPositiveResultTitle, description: AppStrings.NewVersionFeatures.feature220DisplayRiskPositiveResultDescription)
-		)
-		
-		self.newVersionFeatures.append(
-			// Notification Risk Encounter
-			NewVersionFeature(title: AppStrings.NewVersionFeatures.feature220NotificateRiskEncounterTitle, description: AppStrings.NewVersionFeatures.feature220NotificateRiskEncounterDescription)
-		)
-		
-		self.newVersionFeatures.append(
-			// Notification Status Change
-			NewVersionFeature(title: AppStrings.NewVersionFeatures.feature220NotificationStatusChangeTitle, description: AppStrings.NewVersionFeatures.feature220NotificationStatusChangeDescription)
-		)
-		
-		self.newVersionFeatures.append(
-			// Recovery Certificates Details
-			NewVersionFeature(title: AppStrings.NewVersionFeatures.feature220RecoveryCertificatesDetailsTitle, description: AppStrings.NewVersionFeatures.feature220RecoveryCertificatesDetailsDescription)
-		)
-		
-		self.newVersionFeatures.append(
-			// Remove QR Code
-			NewVersionFeature(title: AppStrings.NewVersionFeatures.feature220RemoveQRCodeTitle, description: AppStrings.NewVersionFeatures.feature220RemoveQRCodeDescription)
+			// Family members test
+			NewVersionFeature(title: AppStrings.NewVersionFeatures.feature221FamilyMembersTestTitle, description: AppStrings.NewVersionFeatures.feature221FamilyMembersTestDescription)
 		)
 	}
 

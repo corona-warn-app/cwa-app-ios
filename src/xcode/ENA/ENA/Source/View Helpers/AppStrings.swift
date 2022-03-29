@@ -1173,20 +1173,10 @@ enum AppStrings {
 		static let generalDescription = NSLocalizedString("DeltaOnboarding_NewVersionFeatures_Description", comment: "")
 		static let aboutAppInformation = NSLocalizedString("NewVersionFeatures_Info_about_abb_information", comment: "")
 
-		/* Version 2.20 */
+		/* Version 2.21 */
 
-		static let feature220HighRiskShortenedTitle = NSLocalizedString("NewVersionFeature_220_highRiskShortened_title", comment: "")
-		static let feature220HighRiskShortenedDescription = NSLocalizedString("NewVersionFeature_220_highRiskShortened_description", comment: "")
-		static let feature220DisplayRiskPositiveResultTitle = NSLocalizedString("NewVersionFeature_220_displayRiskPositiveResult_title", comment: "")
-		static let feature220DisplayRiskPositiveResultDescription = NSLocalizedString("NewVersionFeature_220_displayRiskPositiveResult_description", comment: "")
-		static let feature220NotificateRiskEncounterTitle = NSLocalizedString("NewVersionFeature_220_notificateRiskEncounter_title", comment: "")
-		static let feature220NotificateRiskEncounterDescription = NSLocalizedString("NewVersionFeature_220_notificateRiskEncounter_description", comment: "")
-		static let feature220NotificationStatusChangeTitle = NSLocalizedString("NewVersionFeature_220_notificationStatusChange_title", comment: "")
-		static let feature220NotificationStatusChangeDescription = NSLocalizedString("NewVersionFeature_220_notificationStatusChange_description", comment: "")
-		static let feature220RecoveryCertificatesDetailsTitle = NSLocalizedString("NewVersionFeature_220_recoveryCertificatesDetails_title", comment: "")
-		static let feature220RecoveryCertificatesDetailsDescription = NSLocalizedString("NewVersionFeature_220_recoveryCertificatesDetails_description", comment: "")
-		static let feature220RemoveQRCodeTitle = NSLocalizedString("NewVersionFeature_220_removeQRCode_title", comment: "")
-		static let feature220RemoveQRCodeDescription = NSLocalizedString("NewVersionFeature_220_removeQRCode_description", comment: "")
+		static let feature221FamilyMembersTestTitle = NSLocalizedString("NewVersionFeature_221_familyMembersTest_title", comment: "")
+		static let feature221FamilyMembersTestDescription = NSLocalizedString("NewVersionFeature_221_familyMembersTest_description", comment: "")
 	}
 
 	enum DeltaOnboarding {
@@ -2246,6 +2236,24 @@ enum AppStrings {
 			static let blockedDescription = NSLocalizedString("HealthCertificate_ValidityState_Blocked_description", comment: "")
 		}
 
+		enum FamilyMemberConsent {
+			static let title = NSLocalizedString("HealthCertificate_FamilyMemberConsent_Title", comment: "")
+			static let imageDescription = NSLocalizedString("HealthCertificate_FamilyMemberConsent_ImageDescription", comment: "")
+			static let headline = NSLocalizedString("HealthCertificate_FamilyMemberConsent_Headline", comment: "")
+			static let inputTitle = NSLocalizedString("HealthCertificate_FamilyMemberConsent_InputTitle", comment: "")
+			static let inputPlaceholder = NSLocalizedString("HealthCertificate_FamilyMemberConsent_InputPlaceholder", comment: "")
+			static let body01 = NSLocalizedString("HealthCertificate_FamilyMemberConsent_Body01", comment: "")
+			static let body02 = NSLocalizedString("HealthCertificate_FamilyMemberConsent_Body02", comment: "")
+
+			enum Legal {
+				static let headline = NSLocalizedString("HealthCertificate_FamilyMemberConsentLegal_Headline", comment: "")
+				static let subHeadline = NSLocalizedString("HealthCertificate_FamilyMemberConsentLegal_SubHeadline", comment: "")
+				static let bulletPoint = NSLocalizedString("HealthCertificate_FamilyMemberConsentLegal_BulletPoint", comment: "")
+				static let text = NSLocalizedString("HealthCertificate_FamilyMemberConsentLegal_text", comment: "")
+			}
+			static let primaryButton = NSLocalizedString("HealthCertificate_FamilyMemberConsent_Primary", comment: "")
+		}
+
 		enum Alert {
 			static let deleteButton = NSLocalizedString("HealthCertificate_Alert_deleteButton", comment: "")
 			static let cancelButton = NSLocalizedString("HealthCertificate_Alert_cancelButton", comment: "")
@@ -2556,6 +2564,7 @@ enum AppStrings {
 
 		enum CoronaTest {
 			static let headline = NSLocalizedString("RecycleBin_CoronaTest_headline", comment: "")
+			static let familyMemberHeadline = NSLocalizedString("RecycleBin_CoronaTest_familyMemberHeadline", comment: "")
 			static let pcrTest = NSLocalizedString("RecycleBin_CoronaTest_pcrTest", comment: "")
 			static let antigenTest = NSLocalizedString("RecycleBin_CoronaTest_antigenTest", comment: "")
 			static let registrationDate = NSLocalizedString("RecycleBin_CoronaTest_registrationDate", comment: "")
