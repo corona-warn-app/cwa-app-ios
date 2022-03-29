@@ -1792,7 +1792,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ContactDiary_Overview_Error_Title" = "Fehler";
 
-"ContactDiary_Overview_Error_Description" = "Die Daten Ihres Kontakt-Tagebuchs konnten nicht geladen werden. Fehler: %@";
+"ContactDiary_Overview_Error_Description" = "Die Daten Ihres Kontakt-Tagebuchs konnten nicht geladen werden. Daher musste das Kontakt-Tagebuch zurückgesetzt werden.  Fehler: %@";
 
 /* Overview */
 "ContactDiary_Overview_Button_Title_Menu" = "Menü";
