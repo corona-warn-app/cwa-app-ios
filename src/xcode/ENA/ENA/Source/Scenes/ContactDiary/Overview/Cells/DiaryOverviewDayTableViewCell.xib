@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -21,14 +21,23 @@
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Eyw-oN-Ew5">
                         <rect key="frame" x="16" y="4" width="288" height="355"/>
                         <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="E7O-qn-AY0" userLabel="TopBackground">
+                                <rect key="frame" x="0.0" y="0.0" width="288" height="177.5"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cj3-jE-har" userLabel="BottomBackground">
+                                <rect key="frame" x="0.0" y="177.5" width="288" height="177.5"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="3yR-Fn-6YN">
                                 <rect key="frame" x="0.0" y="16" width="288" height="323"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="5ET-0H-Nib">
                                         <rect key="frame" x="0.0" y="0.0" width="288" height="33"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UAS-Bk-PQl" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
+                                            <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UAS-Bk-PQl" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
                                                 <rect key="frame" x="16" y="8" width="240" height="17"/>
+                                                <gestureRecognizers/>
                                                 <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
@@ -98,7 +107,7 @@ Nur der Mann im Mo schaut zu</string>
                                         <directionalEdgeInsets key="directionalLayoutMargins" top="0.0" leading="0.0" bottom="0.0" trailing="0.0"/>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="8TA-t5-hG7" userLabel="CheckIn History Stack View">
-                                        <rect key="frame" x="0.0" y="155.5" width="288" height="112.5"/>
+                                        <rect key="frame" x="0.0" y="155.5" width="288" height="104.5"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qdg-B6-8si">
                                                 <rect key="frame" x="0.0" y="0.0" width="288" height="1"/>
@@ -108,16 +117,16 @@ Nur der Mann im Mo schaut zu</string>
                                                 </constraints>
                                             </view>
                                             <stackView opaque="NO" contentMode="scaleToFill" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="6PC-KR-Fhz">
-                                                <rect key="frame" x="0.0" y="1" width="288" height="111.5"/>
+                                                <rect key="frame" x="0.0" y="1" width="288" height="103.5"/>
                                                 <subviews>
                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="top" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" image="Icons_Attention_high" translatesAutoresizingMaskIntoConstraints="NO" id="bqu-yO-Qy4" userLabel="Checkin History Notice Image View">
-                                                        <rect key="frame" x="16" y="8" width="32" height="95.5"/>
+                                                        <rect key="frame" x="16" y="8" width="32" height="87.5"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="32" id="ZLg-dW-jqE"/>
                                                         </constraints>
                                                     </imageView>
                                                     <stackView opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="IpT-5K-GbX">
-                                                        <rect key="frame" x="63" y="8" width="209" height="95.5"/>
+                                                        <rect key="frame" x="63" y="8" width="209" height="87.5"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="1000" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DhW-nb-RWO" userLabel="Checkin History Title Label" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
                                                                 <rect key="frame" x="0.0" y="0.0" width="209" height="17"/>
@@ -134,7 +143,7 @@ Nur der Mann im Mo schaut zu</string>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="clK-BJ-qDX">
-                                                                <rect key="frame" x="0.0" y="63.5" width="209" height="32"/>
+                                                                <rect key="frame" x="0.0" y="63.5" width="209" height="24"/>
                                                             </stackView>
                                                         </subviews>
                                                     </stackView>
@@ -145,37 +154,27 @@ Nur der Mann im Mo schaut zu</string>
                                         <directionalEdgeInsets key="directionalLayoutMargins" top="0.0" leading="0.0" bottom="0.0" trailing="0.0"/>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="yux-ar-fw9">
-                                        <rect key="frame" x="0.0" y="268" width="288" height="55"/>
-                                        <subviews>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="deb-kv-rqF">
-                                                <rect key="frame" x="0.0" y="4" width="288" height="1"/>
-                                                <color key="backgroundColor" name="ENA Hairline Color"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="1" id="iDO-97-kfJ"/>
-                                                </constraints>
-                                            </view>
-                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="18" translatesAutoresizingMaskIntoConstraints="NO" id="Qc1-jl-ZTB">
-                                                <rect key="frame" x="0.0" y="5" width="288" height="50"/>
-                                                <directionalEdgeInsets key="directionalLayoutMargins" top="20" leading="16" bottom="4" trailing="8"/>
-                                            </stackView>
-                                        </subviews>
-                                        <directionalEdgeInsets key="directionalLayoutMargins" top="4" leading="0.0" bottom="0.0" trailing="0.0"/>
+                                        <rect key="frame" x="0.0" y="260" width="288" height="63"/>
+                                        <directionalEdgeInsets key="directionalLayoutMargins" top="13" leading="16" bottom="0.0" trailing="8"/>
                                     </stackView>
                                 </subviews>
                             </stackView>
                         </subviews>
-                        <color key="backgroundColor" name="ENA Cell Background Color"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="E7O-qn-AY0" firstAttribute="top" secondItem="Eyw-oN-Ew5" secondAttribute="top" id="2Rg-xx-gTE"/>
+                            <constraint firstItem="E7O-qn-AY0" firstAttribute="leading" secondItem="Eyw-oN-Ew5" secondAttribute="leading" id="2k1-we-REr"/>
+                            <constraint firstAttribute="centerY" secondItem="cj3-jE-har" secondAttribute="top" id="4x1-z4-nJP"/>
+                            <constraint firstAttribute="trailing" secondItem="cj3-jE-har" secondAttribute="trailing" id="BNK-8L-gL6"/>
+                            <constraint firstItem="E7O-qn-AY0" firstAttribute="bottom" secondItem="Eyw-oN-Ew5" secondAttribute="centerY" id="CW4-gL-N8L"/>
                             <constraint firstItem="3yR-Fn-6YN" firstAttribute="leading" secondItem="Eyw-oN-Ew5" secondAttribute="leading" id="JxW-XN-KbQ"/>
                             <constraint firstItem="3yR-Fn-6YN" firstAttribute="top" secondItem="Eyw-oN-Ew5" secondAttribute="top" constant="16" id="U8D-tF-wYS"/>
+                            <constraint firstAttribute="bottom" secondItem="cj3-jE-har" secondAttribute="bottom" id="cFV-A9-1pH"/>
                             <constraint firstAttribute="bottom" secondItem="3yR-Fn-6YN" secondAttribute="bottom" priority="999" constant="16" id="fSU-ec-S60"/>
+                            <constraint firstItem="cj3-jE-har" firstAttribute="leading" secondItem="Eyw-oN-Ew5" secondAttribute="leading" id="sJc-ik-kWb"/>
                             <constraint firstAttribute="trailing" secondItem="3yR-Fn-6YN" secondAttribute="trailing" id="zuK-fo-OQT"/>
+                            <constraint firstAttribute="trailing" secondItem="E7O-qn-AY0" secondAttribute="trailing" id="zyt-Mf-gIz"/>
                         </constraints>
-                        <userDefinedRuntimeAttributes>
-                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                <integer key="value" value="14"/>
-                            </userDefinedRuntimeAttribute>
-                        </userDefinedRuntimeAttributes>
                     </view>
                 </subviews>
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -191,19 +190,21 @@ Nur der Mann im Mo schaut zu</string>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <directionalEdgeInsets key="directionalLayoutMargins" top="8" leading="24" bottom="8" trailing="24"/>
             <connections>
+                <outlet property="bottomBackground" destination="cj3-jE-har" id="dyM-D6-K16"/>
+                <outlet property="checkinHistoryContainerStackView" destination="8TA-t5-hG7" id="VNy-WF-fCZ"/>
                 <outlet property="checkinHistoryDetailLabel" destination="ETM-Eq-rvE" id="u3Q-Jj-rDz"/>
                 <outlet property="checkinHistoryNoticeImageView" destination="bqu-yO-Qy4" id="vrO-8I-3ba"/>
-                <outlet property="checkinHistoryStackView" destination="8TA-t5-hG7" id="VNy-WF-fCZ"/>
                 <outlet property="checkinHistoryTitleLabel" destination="DhW-nb-RWO" id="7WS-6g-OvU"/>
                 <outlet property="checkinsWithRiskStackView" destination="clK-BJ-qDX" id="gt4-sZ-n2A"/>
                 <outlet property="dateLabel" destination="UAS-Bk-PQl" id="96b-bf-GYh"/>
+                <outlet property="dateStackView" destination="5ET-0H-Nib" id="t8d-wY-1AH"/>
                 <outlet property="encountersVisitsContainerStackView" destination="yux-ar-fw9" id="BDf-hv-0Gd"/>
-                <outlet property="encountersVisitsStackView" destination="Qc1-jl-ZTB" id="te0-WJ-Taf"/>
                 <outlet property="exposureHistoryDetailLabel" destination="OQA-ud-XfW" id="oMU-27-aiH"/>
                 <outlet property="exposureHistoryNoticeImageView" destination="csw-4j-F6h" id="6ZO-BT-Ncc"/>
                 <outlet property="exposureHistoryStackView" destination="j6E-VI-Q9V" id="waw-PO-4MY"/>
                 <outlet property="exposureHistoryTitleLabel" destination="iRf-oL-SUw" id="Tdh-Bj-n7N"/>
                 <outlet property="testsStackView" destination="Gob-eJ-UZU" id="t7k-fv-s5I"/>
+                <outlet property="topBackground" destination="E7O-qn-AY0" id="n8B-8G-0pb"/>
             </connections>
             <point key="canvasLocation" x="137.68115942028987" y="244.08482142857142"/>
         </tableViewCell>
@@ -228,9 +229,6 @@ Nur der Mann im Mo schaut zu</string>
     <resources>
         <image name="Icons_Attention_high" width="32" height="32"/>
         <image name="Icons_Chevron_plain" width="7" height="12"/>
-        <namedColor name="ENA Cell Background Color">
-            <color red="0.96078431372549022" green="0.96078431372549022" blue="0.96078431372549022" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </namedColor>
         <namedColor name="ENA Hairline Color">
             <color red="0.090196078431372548" green="0.098039215686274508" blue="0.10196078431372549" alpha="0.10000000149011612" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

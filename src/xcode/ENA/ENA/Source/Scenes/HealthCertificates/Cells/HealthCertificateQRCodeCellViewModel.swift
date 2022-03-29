@@ -14,12 +14,10 @@ struct HealthCertificateQRCodeCellViewModel {
 		mode: Mode,
 		healthCertificate: HealthCertificate,
 		accessibilityText: String,
-		onValidationButtonTap: ((HealthCertificate, @escaping (Bool) -> Void) -> Void)? = nil,
 		onCovPassCheckInfoButtonTap: @escaping () -> Void
 	) {
 		self.mode = mode
 		self.healthCertificate = healthCertificate
-		self.onValidationButtonTap = onValidationButtonTap
 
 		self.qrCodeViewModel = HealthCertificateQRCodeViewModel(
 			healthCertificate: healthCertificate,
@@ -135,9 +133,9 @@ struct HealthCertificateQRCodeCellViewModel {
 					)
 				}
 			case .recovery(let recoveryEntry):
-				return recoveryEntry.localCertificateValidityEndDate.map {
+				return recoveryEntry.localDateOfFirstPositiveNAAResult.map {
 					String(
-						format: AppStrings.HealthCertificate.Person.RecoveryCertificate.validityDate,
+						format: AppStrings.HealthCertificate.Person.RecoveryCertificate.positiveTestFrom,
 						DateFormatter.localizedString(from: $0, dateStyle: .short, timeStyle: .none)
 					)
 				}
@@ -153,24 +151,9 @@ struct HealthCertificateQRCodeCellViewModel {
 
 	let isUnseenNewsIndicatorVisible: Bool
 
-	var isValidationButtonVisible: Bool {
-		onValidationButtonTap != nil
-	}
-
-	var isValidationButtonEnabled: Bool {
-		healthCertificate.validityState != .blocked
-	}
-
-	func didTapValidationButton(loadingStateHandler: @escaping (Bool) -> Void) {
-		onValidationButtonTap?(healthCertificate) { isLoading in
-			loadingStateHandler(isLoading)
-		}
-	}
-
 	// MARK: - Private
 
 	private let mode: Mode
 	private let healthCertificate: HealthCertificate
-	private let onValidationButtonTap: ((HealthCertificate, @escaping (Bool) -> Void) -> Void)?
 
 }

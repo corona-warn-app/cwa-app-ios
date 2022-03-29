@@ -54,7 +54,7 @@ class DiaryOverviewViewModelTest: CWATestCase {
 			}
 			.store(in: &subscriptions)
 		
-		viewModel.homeState?.$riskState
+		viewModel.homeState.$riskState
 			.sink { _ in
 				expectationRefreshTableView.fulfill()
 			}
@@ -73,7 +73,8 @@ class DiaryOverviewViewModelTest: CWATestCase {
 		let viewModel = DiaryOverviewViewModel(
 			diaryStore: diaryStore,
 			store: store,
-			eventStore: MockEventStore()
+			eventStore: MockEventStore(),
+			homeState: .fake()
 		)
 
 		let daysPublisherExpectation = expectation(description: "Days publisher called")
@@ -95,7 +96,8 @@ class DiaryOverviewViewModelTest: CWATestCase {
 		let viewModel = DiaryOverviewViewModel(
 			diaryStore: makeMockStore(),
 			store: MockTestStore(),
-			eventStore: MockEventStore()
+			eventStore: MockEventStore(),
+			homeState: .fake()
 		)
 
 		XCTAssertEqual(viewModel.numberOfSections, 2)
@@ -105,7 +107,8 @@ class DiaryOverviewViewModelTest: CWATestCase {
 		let viewModel = DiaryOverviewViewModel(
 			diaryStore: makeMockStore(),
 			store: MockTestStore(),
-			eventStore: MockEventStore()
+			eventStore: MockEventStore(),
+			homeState: .fake()
 		)
 
 		XCTAssertEqual(viewModel.numberOfRows(in: 0), 1)
@@ -117,7 +120,8 @@ class DiaryOverviewViewModelTest: CWATestCase {
 		let viewModel = DiaryOverviewViewModel(
 			diaryStore: makeMockStore(),
 			store: MockTestStore(),
-			eventStore: MockEventStore()
+			eventStore: MockEventStore(),
+			homeState: .fake()
 		)
 
 		// WHEN
@@ -132,7 +136,8 @@ class DiaryOverviewViewModelTest: CWATestCase {
 		let viewModel = DiaryOverviewViewModel(
 			diaryStore: makeMockStore(),
 			store: MockTestStore(),
-			eventStore: MockEventStore()
+			eventStore: MockEventStore(),
+			homeState: .fake()
 		)
 
 		// WHEN
@@ -169,7 +174,8 @@ class DiaryOverviewViewModelTest: CWATestCase {
 		let viewModel = DiaryOverviewViewModel(
 			diaryStore: makeMockStore(),
 			store: store,
-			eventStore: MockEventStore()
+			eventStore: MockEventStore(),
+			homeState: .fake()
 		)
 
 		// WHEN
@@ -206,7 +212,8 @@ class DiaryOverviewViewModelTest: CWATestCase {
 		let viewModel = DiaryOverviewViewModel(
 			diaryStore: makeMockStore(),
 			store: store,
-			eventStore: MockEventStore()
+			eventStore: MockEventStore(),
+			homeState: .fake()
 		)
 
 
@@ -256,7 +263,8 @@ class DiaryOverviewViewModelTest: CWATestCase {
 		let viewModel = DiaryOverviewViewModel(
 			diaryStore: makeMockStore(),
 			store: store,
-			eventStore: eventStore
+			eventStore: eventStore,
+			homeState: .fake()
 		)
 
 		// WHEN

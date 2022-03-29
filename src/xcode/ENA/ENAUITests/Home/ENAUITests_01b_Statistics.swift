@@ -258,7 +258,6 @@ class ENAUITests_01b_Statistics: CWATestCase {
 	
 	func test_screenshot_local_statistics_card() throws {
 		// GIVEN
-		let incidenceTitle = AccessibilityIdentifiers.Statistics.Combined7DayIncidence.title
 		let addStatisticsButtonTitle = AccessibilityIdentifiers.LocalStatistics.addLocalIncidencesButton
 		let localStatisticsTitle = AccessibilityIdentifiers.LocalStatistics.localStatisticsCardTitle
 
@@ -266,10 +265,6 @@ class ENAUITests_01b_Statistics: CWATestCase {
 		app.setPreferredContentSizeCategory(accessibility: .normal, size: .S)
 		app.launch()
 		app.swipeUp(velocity: .slow)
-
-
-		XCTAssert(self.app.staticTexts[incidenceTitle].waitForExistence(timeout: .medium))
-		app.staticTexts[incidenceTitle].swipeRight()
 		
 		XCTAssert(app.buttons[addStatisticsButtonTitle].waitForExistence(timeout: .medium))
 		snapshot("statistics_add_local_statistics")

@@ -100,9 +100,9 @@ class RecycleBinItemCellModel {
 					)
 				}
 			case .recovery(let recoveryEntry):
-				return recoveryEntry.localCertificateValidityEndDate.map {
+				return recoveryEntry.localDateOfFirstPositiveNAAResult.map {
 					String(
-						format: AppStrings.RecycleBin.RecoveryCertificate.validityDate,
+						format: AppStrings.RecycleBin.RecoveryCertificate.positiveTestFrom,
 						DateFormatter.localizedString(from: $0, dateStyle: .short, timeStyle: .none)
 					)
 				}

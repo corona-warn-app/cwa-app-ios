@@ -8,12 +8,23 @@ import OpenCombine
 #if !RELEASE
 
 final class MockTestStore: Store, PPAnalyticsData {
+
+	init() {
+#if DEBUG
+		if isUITesting {
+			self.showAnotherHighExposureAlert = LaunchArguments.risk.anotherHighEncounter.boolValue
+			self.userNeedsToBeInformedAboutHowRiskDetectionWorks = LaunchArguments.infoScreen.userNeedsToBeInformedAboutHowRiskDetectionWorks.boolValue
+		}
+#endif
+	}
+
 	var firstPlaybookExecution: Date?
 	var lastBackgroundFakeRequest: Date = .init()
 	var hasSeenBackgroundFetchAlert: Bool = false
 	var referenceDateForRateLimitLogger: Date?
 	var enfRiskCalculationResult: ENFRiskCalculationResult?
 	var checkinRiskCalculationResult: CheckinRiskCalculationResult?
+	var showAnotherHighExposureAlert: Bool = false
 	var shouldShowRiskStatusLoweredAlert: Bool = false
 	var exposureActivationConsentAcceptTimestamp: Int64?
 	var exposureActivationConsentAccept: Bool = false

@@ -33,15 +33,32 @@ class DaysSinceInstallTableViewCell: UITableViewCell {
 
 	// MARK: - Internal
 
-	func configure(daysSinceInstall: Int) {
-		if daysSinceInstall < 14 {
-			p2Label.text = String(format: AppStrings.Settings.daysSinceInstallP2a, daysSinceInstall)
+	var heightDidChange: (() -> Void)?
+
+	func configure(
+		viewModel: DaysSinceInstallCellViewModel
+	) {
+		self.viewModel = viewModel
+
+		viewModel.maxEncounterAgeInDays { [weak self] maxDays in
+			guard let self = self else { return }
+			
+			self.p1Label.text = String(format: AppStrings.Settings.daysSinceInstallP1, maxDays)
+			
+			self.heightDidChange?()
+		}
+		
+		if viewModel.daysSinceInstall < 14 {
+			p2Label.text = String(format: AppStrings.Settings.daysSinceInstallP2a, viewModel.daysSinceInstall)
 		} else {
 			p2Label.text = AppStrings.Settings.daysSinceInstallP2b
 		}
+		
 	}
 
 	// MARK: - Private
+
+	private var viewModel: DaysSinceInstallCellViewModel!
 
 	private let stackView: UIStackView = {
 		let stackView = UIStackView(frame: .zero)
@@ -75,7 +92,6 @@ class DaysSinceInstallTableViewCell: UITableViewCell {
 		label.translatesAutoresizingMaskIntoConstraints = false
 		label.style = .body
 		label.numberOfLines = 0
-		label.text = AppStrings.Settings.daysSinceInstallP1
 		return label
 	}()
 

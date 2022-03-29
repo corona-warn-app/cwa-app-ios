@@ -275,10 +275,12 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 		self.showDeltaOnboardingIfNeeded(completion: { [weak self] in
 			self?.showInformationHowRiskDetectionWorksIfNeeded(completion: {
 				self?.showBackgroundFetchAlertIfNeeded(completion: {
-					self?.showRiskStatusLoweredAlertIfNeeded(completion: {
-						self?.showQRScannerTooltipIfNeeded(completion: {  [weak self] in
-							self?.showRouteIfNeeded(completion: { [weak self] in
-								self?.deltaOnboardingIsRunning = false
+					self?.showAnotherHighExposureAlertIfNeeded(completion: {
+						self?.showRiskStatusLoweredAlertIfNeeded(completion: {
+							self?.showQRScannerTooltipIfNeeded(completion: {  [weak self] in
+								self?.showRouteIfNeeded(completion: { [weak self] in
+									self?.deltaOnboardingIsRunning = false
+								})
 							})
 						})
 					})
@@ -739,42 +741,43 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 	}
 
 	private func showInformationHowRiskDetectionWorksIfNeeded(completion: @escaping () -> Void = {}) {
-		#if DEBUG
-		if isUITesting {
-			viewModel.store.userNeedsToBeInformedAboutHowRiskDetectionWorks = LaunchArguments.infoScreen.userNeedsToBeInformedAboutHowRiskDetectionWorks.boolValue
-		}
-		#endif
-
 		guard viewModel.store.userNeedsToBeInformedAboutHowRiskDetectionWorks else {
 			completion()
 			return
 		}
-
-		let title = AppStrings.Home.riskDetectionHowToAlertTitle
-		let message = String(
-			format: AppStrings.Home.riskDetectionHowToAlertMessage,
-			14
-		)
-
-		let alert = UIAlertController(
-			title: title,
-			message: message,
-			preferredStyle: .alert
-		)
-
-		alert.addAction(
-			UIAlertAction(
-				title: NSLocalizedString("Alert_ActionOk", comment: ""),
-				style: .default,
-				handler: { _ in
-					completion()
-				}
+		
+		appConfigurationProvider.appConfiguration().sink { [weak self] appConfig in
+			guard let self = self else {
+				completion()
+				return
+			}
+			
+			let title = AppStrings.Home.riskDetectionHowToAlertTitle
+			let message = String(
+				format: AppStrings.Home.riskDetectionHowToAlertMessage,
+				appConfig.riskCalculationParameters.defaultedMaxEncounterAgeInDays
 			)
-		)
-
-		present(alert, animated: true) { [weak self] in
-			self?.viewModel.store.userNeedsToBeInformedAboutHowRiskDetectionWorks = false
-		}
+			
+			let alert = UIAlertController(
+				title: title,
+				message: message,
+				preferredStyle: .alert
+			)
+			
+			alert.addAction(
+				UIAlertAction(
+					title: NSLocalizedString("Alert_ActionOk", comment: ""),
+					style: .default,
+					handler: { _ in
+						completion()
+					}
+				)
+			)
+			
+			self.present(alert, animated: true) { [weak self] in
+				self?.viewModel.store.userNeedsToBeInformedAboutHowRiskDetectionWorks = false
+			}
+		}.store(in: &subscriptions)
 	}
 
 	/// This method checks whether the below conditions in regards to background fetching have been met
@@ -814,15 +817,53 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 		)
 	}
 
+	private func showAnotherHighExposureAlertIfNeeded(completion: @escaping () -> Void) {
+		guard viewModel.store.showAnotherHighExposureAlert else {
+			completion()
+			return
+		}
+
+		let currentAppConfig = appConfigurationProvider.currentAppConfig.value
+
+		let alert = UIAlertController(
+			title: AppStrings.Home.riskStatusAnotherHighExposureAlertTitle,
+			message: String(format: AppStrings.Home.riskStatusAnotherHighExposureAlertMessage, currentAppConfig.riskCalculationParameters.defaultedMaxEncounterAgeInDays),
+			preferredStyle: .alert
+		)
+
+		let alertAction = UIAlertAction(
+			title: AppStrings.Home.riskStatusAnotherHighExposureButtonTitle,
+			style: .default,
+			handler: { _ in
+				completion()
+			}
+		)
+		alert.addAction(alertAction)
+		alertAction.accessibilityIdentifier = AccessibilityIdentifiers.Home.Alerts.anotherHighExposureButtonOK
+
+		present(alert, animated: true) { [weak self] in
+			self?.viewModel.store.showAnotherHighExposureAlert = false
+		}
+
+	}
+
 	private func showRiskStatusLoweredAlertIfNeeded(completion: @escaping () -> Void = {}) {
 		guard viewModel.store.shouldShowRiskStatusLoweredAlert else {
 			completion()
 			return
 		}
 
+		guard !viewModel.riskStatusLoweredAlertShouldBeSuppressed else {
+			viewModel.store.shouldShowRiskStatusLoweredAlert = false
+			completion()
+			return
+		}
+
+		let currentAppConfig = appConfigurationProvider.currentAppConfig.value
+
 		let alert = UIAlertController(
 			title: AppStrings.Home.riskStatusLoweredAlertTitle,
-			message: AppStrings.Home.riskStatusLoweredAlertMessage,
+			message: String(format: AppStrings.Home.riskStatusLoweredAlertMessage, currentAppConfig.riskCalculationParameters.defaultedMaxEncounterAgeInDays),
 			preferredStyle: .alert
 		)
 
