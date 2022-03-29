@@ -425,7 +425,7 @@ final class RiskProvider: RiskProviding {
 			guard riskLevel == .high,
 				  let mostRecentDateWithRiskLevel = risk.details.mostRecentDateWithRiskLevel,
 				  let previousMostRecentDateWithRiskLevel = previousRisk?.details.mostRecentDateWithRiskLevel,
-				  mostRecentDateWithRiskLevel > previousMostRecentDateWithRiskLevel
+				  mostRecentDateWithRiskLevel.ageInDays ?? 0 < previousMostRecentDateWithRiskLevel.ageInDays ?? 0
 			else {
 				Log.info("Missing mostRecentDateWithRiskLevel - do not trigger anything")
 				return

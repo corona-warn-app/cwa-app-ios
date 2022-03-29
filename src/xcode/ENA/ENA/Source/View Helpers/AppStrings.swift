@@ -2255,10 +2255,10 @@ enum AppStrings {
 			static let body02 = NSLocalizedString("HealthCertificate_FamilyMemberConsent_Body02", comment: "")
 
 			enum Legal {
-				static let headline = NSLocalizedString("HealthCertificate_FamilyMemberConsentLegal_Headline", comment: "")
-				static let subHeadline = NSLocalizedString("HealthCertificate_FamilyMemberConsentLegal_SubHeadline", comment: "")
-				static let bulletPoint = NSLocalizedString("HealthCertificate_FamilyMemberConsentLegal_BulletPoint", comment: "")
-				static let text = NSLocalizedString("HealthCertificate_FamilyMemberConsentLegal_text", comment: "")
+				static let headline = NSLocalizedString("HealthCertificate_FamilyMemberConsentLegal_Headline", tableName: "Localizable.legal", comment: "")
+				static let subHeadline = NSLocalizedString("HealthCertificate_FamilyMemberConsentLegal_SubHeadline", tableName: "Localizable.legal", comment: "")
+				static let bulletPoint = NSLocalizedString("HealthCertificate_FamilyMemberConsentLegal_BulletPoint", tableName: "Localizable.legal", comment: "")
+				static let text = NSLocalizedString("HealthCertificate_FamilyMemberConsentLegal_text", tableName: "Localizable.legal", comment: "")
 			}
 			static let primaryButton = NSLocalizedString("HealthCertificate_FamilyMemberConsent_Primary", comment: "")
 		}
