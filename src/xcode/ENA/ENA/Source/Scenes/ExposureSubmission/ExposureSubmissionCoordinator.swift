@@ -68,7 +68,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 						case .user:
 							self?.showQRInfoScreen(supportedCountries: supportedCountries, testRegistrationInformation: testRegistrationInformation)
 						case .familyMember:
-							self?.showFamilyMemberTestConsentScreen(testRegistrationInformation: testRegistrationInformation, isLoading: { _ in })
+							self?.showFamilyMemberTestConsentScreen(testRegistrationInformation: testRegistrationInformation)
 						}
 					}), onDismiss: { [weak self] in self?.dismiss() })
 					
@@ -568,7 +568,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 		push(makeQRInfoScreen(supportedCountries: supportedCountries, testRegistrationInformation: testRegistrationInformation))
 	}
 
-	private func showFamilyMemberTestConsentScreen(testRegistrationInformation: CoronaTestRegistrationInformation, isLoading: @escaping (Bool) -> Void) {
+	private func showFamilyMemberTestConsentScreen(testRegistrationInformation: CoronaTestRegistrationInformation) {
 		let familyMemberConsentViewController = FamilyMemberConsentViewController(
 			dismiss: { [weak self] in
 				self?.dismiss()
@@ -580,7 +580,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 					testOwner: .familyMember(displayName: givenName),
 					testRegistrationInformation: testRegistrationInformation,
 					submissionConsentGiven: nil,
-					isLoading: isLoading
+					isLoading: { _ in }
 				)
 			}
 		)
