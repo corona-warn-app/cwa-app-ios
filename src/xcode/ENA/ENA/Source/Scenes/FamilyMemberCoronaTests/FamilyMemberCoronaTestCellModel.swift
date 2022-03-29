@@ -33,7 +33,7 @@ class FamilyMemberCoronaTestCellModel {
 	@OpenCombine.Published var footnote: String?
 	@OpenCombine.Published var buttonTitle: String?
 	@OpenCombine.Published var image: UIImage?
-	@OpenCombine.Published var isUnreadNewsIndicatorHidden: Bool = true
+	@OpenCombine.Published var isUnseenNewsIndicatorHidden: Bool = true
 	@OpenCombine.Published var isDisclosureIndicatorHidden: Bool = false
 	@OpenCombine.Published var isUserInteractionEnabled: Bool = false
 	@OpenCombine.Published var isCellTappable: Bool = true
@@ -67,6 +67,7 @@ class FamilyMemberCoronaTestCellModel {
 
 	private func configure() {
 		name = coronaTest.displayName
+		isUnseenNewsIndicatorHidden = !coronaTest.hasUnseenNews
 
 		switch coronaTest.type {
 		case .pcr:

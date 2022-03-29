@@ -199,7 +199,7 @@
                 <outlet property="nameLabel" destination="pZ6-2K-xy0" id="lgX-Gz-hN0"/>
                 <outlet property="negativeDiagnosisStackView" destination="ePl-cD-L0V" id="35q-NI-xZH"/>
                 <outlet property="topDiagnosisLabel" destination="Jeb-zV-iB4" id="0Um-7a-OcF"/>
-                <outlet property="unreadNewsIndicator" destination="g3p-JC-dS9" id="JRq-Df-mBT"/>
+                <outlet property="unseenNewsIndicator" destination="g3p-JC-dS9" id="JRq-Df-mBT"/>
             </connections>
             <point key="canvasLocation" x="-449.27536231884062" y="4.3526785714285712"/>
         </tableViewCell>

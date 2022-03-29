@@ -97,8 +97,8 @@ final class FamilyMemberCoronaTestTableViewCell: UITableViewCell {
 			}
 			.store(in: &subscriptions)
 
-		cellModel.$isUnreadNewsIndicatorHidden
-			.assign(to: \.isHidden, on: unreadNewsIndicator)
+		cellModel.$isUnseenNewsIndicatorHidden
+			.assign(to: \.isHidden, on: unseenNewsIndicator)
 			.store(in: &subscriptions)
 
 		cellModel.$isDisclosureIndicatorHidden
@@ -125,7 +125,7 @@ final class FamilyMemberCoronaTestTableViewCell: UITableViewCell {
 
 	@IBOutlet private weak var cardView: HomeCardView!
 	@IBOutlet private weak var nameLabel: ENALabel!
-	@IBOutlet private weak var unreadNewsIndicator: UIView!
+	@IBOutlet private weak var unseenNewsIndicator: UIView!
 	@IBOutlet private weak var disclosureIndicatorView: UIView!
 
 	@IBOutlet private weak var captionLabel: ENALabel!
