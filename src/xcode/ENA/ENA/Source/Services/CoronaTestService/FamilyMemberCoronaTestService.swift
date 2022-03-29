@@ -222,9 +222,9 @@ class FamilyMemberCoronaTestService: FamilyMemberCoronaTestServiceProviding {
 					Log.info("[FamilyMemberCoronaTestService] Antigen test registered: \(private: coronaTest)", log: .api)
 
 					self?.getTestResult(for: coronaTest, duringRegistration: true) { testResult in
+						self?.scheduleOutdatedStateTimer()
 						switch testResult {
 						case .success:
-							self?.scheduleOutdatedStateTimer()
 							guard let updatedCoronaTest = self?.upToDateTest(for: coronaTest) else {
 								completion(.failure(.noCoronaTestOfRequestedType))
 								return

@@ -112,11 +112,6 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 		// If a TAN was entered, we skip `showTestResultAvailableScreen(with:)`, so we notify (again) about the new state
 		QuickAction.exposureSubmissionFlowTestResult = model.coronaTest?.testResult
 	}
-	
-	func showTestResultScreen(for familyMemberCoronaTest: FamilyMemberCoronaTest) {
-		let vc = createFamilyMemberTestResultViewController(familyMemberCoronaTest: familyMemberCoronaTest)
-		push(vc)
-	}
 
 	func showTanScreen() {
 		let tanInputViewModel = TanInputViewModel(
@@ -579,7 +574,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 				self?.showTestCertificateScreenIfNecessary(
 					testOwner: .familyMember(displayName: givenName),
 					testRegistrationInformation: testRegistrationInformation,
-					submissionConsentGiven: nil,
+					submissionConsentGiven: false,
 					isLoading: { _ in }
 				)
 			}
@@ -598,6 +593,42 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 			bottomController: footerViewController
 		)
 		push(topBottomLayoutViewController)
+	}
+	
+	private func showTestResultScreen(for familyMemberCoronaTest: FamilyMemberCoronaTest) {
+		let viewModel = ExposureSubmissionTestResultFamilyMemberViewModel(
+			familyMemberCoronaTest: familyMemberCoronaTest,
+			familyMemberCoronaTestService: model.familyMemberCoronaTestService,
+			onTestDeleted: { [weak self] in
+				self?.dismiss()
+			},
+			onTestCertificateCellTap: { [weak self] healthCertificate, healthCertifiedPerson in
+				self?.showHealthCertificate(healthCertifiedPerson: healthCertifiedPerson, healthCertificate: healthCertificate)
+			}
+		)
+		
+		let vc = ExposureSubmissionTestResultViewController(
+			viewModel: viewModel,
+			exposureSubmissionService: self.model.exposureSubmissionService,
+			onDismiss: { [weak self] testResult, isLoading in
+				if testResult == TestResult.positive {
+					self?.showPositiveTestResultCancelAlert(isLoading: isLoading)
+				} else {
+					self?.dismiss()
+				}
+			}
+		)
+		
+		let footerViewController = FooterViewController(
+			ExposureSubmissionTestResultFamilyMemberViewModel.footerViewModel(coronaTest: familyMemberCoronaTest)
+		)
+		
+		let topBottomContainerViewController = TopBottomContainerViewController(
+			topController: vc,
+			bottomController: footerViewController
+		)
+		
+		push(topBottomContainerViewController)
 	}
 	
 	private func showQRScreen(testRegistrationInformation: CoronaTestRegistrationInformation?, isLoading: @escaping (Bool) -> Void) {
@@ -1357,7 +1388,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 	private func showTestCertificateScreenIfNecessary(
 		testOwner: TestOwner,
 		testRegistrationInformation: CoronaTestRegistrationInformation,
-		submissionConsentGiven: Bool?,
+		submissionConsentGiven: Bool,
 		isLoading: @escaping (Bool) -> Void
 	) {
 		guard model.shouldShowTestCertificateScreen(with: testRegistrationInformation) else {
@@ -1716,7 +1747,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 	private func registerTestAndGetResult(
 		for testOwner: TestOwner,
 		with testQRCodeInformation: CoronaTestRegistrationInformation,
-		submissionConsentGiven: Bool?,
+		submissionConsentGiven: Bool,
 		certificateConsent: TestCertificateConsent,
 		isLoading: @escaping (Bool) -> Void
 	) {
@@ -1738,11 +1769,9 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 		
 		switch testOwner {
 		case .user:
-			guard let isSubmissionConsentGiven = submissionConsentGiven else { return }
-
 			model.registerTestAndGetResult(
 				for: testQRCodeInformation,
-				isSubmissionConsentGiven: isSubmissionConsentGiven,
+				isSubmissionConsentGiven: submissionConsentGiven,
 				certificateConsent: certificateConsent,
 				isLoading: isLoading,
 				onSuccess: { [weak self] testResult in
