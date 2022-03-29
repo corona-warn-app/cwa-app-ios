@@ -14,6 +14,7 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 		viewModel: HomeTableViewModel,
 		appConfigurationProvider: AppConfigurationProviding,
 		route: Route?,
+		startupErrors: [Error],
 		onInfoBarButtonItemTap: @escaping () -> Void,
 		onExposureLoggingCellTap: @escaping (ENStateHandler.State) -> Void,
 		onRiskCellTap: @escaping (HomeState) -> Void,
@@ -36,6 +37,7 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 		self.viewModel = viewModel
 		self.appConfigurationProvider = appConfigurationProvider
 		self.route = route
+		self.startupErrors = startupErrors
 		self.onInfoBarButtonItemTap = onInfoBarButtonItemTap
 		self.onExposureLoggingCellTap = onExposureLoggingCellTap
 		self.onRiskCellTap = onRiskCellTap
@@ -260,6 +262,7 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 	// MARK: - Internal
 
 	var route: Route?
+	var startupErrors: [Error]
 
 	func scrollToTop(animated: Bool) {
 		tableView.setContentOffset(.zero, animated: animated)
@@ -272,22 +275,23 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 		}
 		self.deltaOnboardingIsRunning = true
 
-		self.showDeltaOnboardingIfNeeded(completion: { [weak self] in
-			self?.showInformationHowRiskDetectionWorksIfNeeded(completion: {
-				self?.showBackgroundFetchAlertIfNeeded(completion: {
-					self?.showAnotherHighExposureAlertIfNeeded(completion: {
-						self?.showRiskStatusLoweredAlertIfNeeded(completion: {
-							self?.showQRScannerTooltipIfNeeded(completion: {  [weak self] in
-								self?.showRouteIfNeeded(completion: { [weak self] in
-									self?.deltaOnboardingIsRunning = false
+		self.showStartupErrorsIfNeeded {
+			self.showDeltaOnboardingIfNeeded(completion: { [weak self] in
+				self?.showInformationHowRiskDetectionWorksIfNeeded(completion: {
+					self?.showBackgroundFetchAlertIfNeeded(completion: {
+						self?.showAnotherHighExposureAlertIfNeeded(completion: {
+							self?.showRiskStatusLoweredAlertIfNeeded(completion: {
+								self?.showQRScannerTooltipIfNeeded(completion: {  [weak self] in
+									self?.showRouteIfNeeded(completion: { [weak self] in
+										self?.deltaOnboardingIsRunning = false
+									})
 								})
 							})
 						})
 					})
 				})
 			})
-		})
-
+		}
 	}
 
 	// MARK: - Private
@@ -931,6 +935,41 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 		alert.addAction(cancelAction)
 
 		present(alert, animated: true, completion: nil)
+	}
+	
+	func showStartupErrorsIfNeeded(completion: @escaping () -> Void) {
+		showErrors(startupErrors) { [weak self] in
+			guard let self = self else {
+				completion()
+				return
+			}
+			self.startupErrors.removeAll()
+			completion()
+		}
+	}
+	
+	func showErrors(_ errors: [Error], completion: @escaping () -> Void) {
+		var mutableErrors = errors
+		guard let firstError = mutableErrors.first else {
+			completion()
+			return
+		}
+		mutableErrors.removeFirst()
+		
+		let alert = UIAlertController(
+			title: AppStrings.Common.alertTitleGeneral,
+			message: firstError.localizedDescription,
+			preferredStyle: .alert
+		)
+		let okAction = UIAlertAction(title: AppStrings.Common.alertActionOk, style: .default) { [weak self] _ in
+			guard let self = self else {
+				completion()
+				return
+			}
+			self.showErrors(mutableErrors, completion: completion)
+		}
+		alert.addAction(okAction)
+		self.present(alert, animated: true)
 	}
 
 	@objc
