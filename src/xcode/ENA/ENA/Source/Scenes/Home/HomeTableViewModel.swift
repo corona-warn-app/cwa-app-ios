@@ -42,6 +42,14 @@ class HomeTableViewModel {
 			}
 			.store(in: &subscriptions)
 
+		familyMemberCoronaTestService.coronaTests
+			.dropFirst()
+			.sink { [weak self] _ in
+				self?.update()
+				self?.scheduleUpdateTimer()
+			}
+			.store(in: &subscriptions)
+
 		state.$riskState
 			.dropFirst()
 			.sink { [weak self] _ in
@@ -68,6 +76,7 @@ class HomeTableViewModel {
 		case risk
 		case pcrTestResult(TestResultState)
 		case antigenTestResult(TestResultState)
+		case familyTestResults(Int)
 	}
 
 	enum TestResultState: Equatable {
@@ -225,6 +234,13 @@ class HomeTableViewModel {
 				testResultState = .default
 			}
 			riskAndTestResultsRows.append(.antigenTestResult(testResultState))
+		}
+
+		if !familyMemberCoronaTestService.coronaTests.value.isEmpty {
+			let unseenCount = familyMemberCoronaTestService.coronaTests.value
+				.filter { !$0.testResultWasShown }
+				.count
+			riskAndTestResultsRows.append(.familyTestResults(unseenCount))
 		}
 
 		return riskAndTestResultsRows

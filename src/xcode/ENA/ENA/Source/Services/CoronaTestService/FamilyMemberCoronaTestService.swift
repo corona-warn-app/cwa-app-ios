@@ -19,7 +19,8 @@ class FamilyMemberCoronaTestService: FamilyMemberCoronaTestServiceProviding {
 		healthCertificateService: HealthCertificateService,
 		healthCertificateRequestService: HealthCertificateRequestService,
 		notificationCenter: UserNotificationCenter = UNUserNotificationCenter.current(),
-		recycleBin: RecycleBin
+		recycleBin: RecycleBin,
+		badgeWrapper: HomeBadgeWrapper
 	) {
 		#if DEBUG
 		if isUITesting {
@@ -38,7 +39,7 @@ class FamilyMemberCoronaTestService: FamilyMemberCoronaTestServiceProviding {
 			self.recycleBin = recycleBin
 
 			self.fakeRequestService = FakeRequestService(client: client, restServiceProvider: restServiceProvider)
-
+			self.badgeWrapper = badgeWrapper
 			setup()
 
 			coronaTests.value = [mockPCRTest, mockAntigenTest].compactMap { $0 }
@@ -57,6 +58,7 @@ class FamilyMemberCoronaTestService: FamilyMemberCoronaTestServiceProviding {
 		self.recycleBin = recycleBin
 
 		self.fakeRequestService = FakeRequestService(client: client, restServiceProvider: restServiceProvider)
+		self.badgeWrapper = badgeWrapper
 
 		healthCertificateRequestService.didRegisterTestCertificate
 			.sink { [weak self] certificateIdentifier, testCertificateRequest in
@@ -76,7 +78,8 @@ class FamilyMemberCoronaTestService: FamilyMemberCoronaTestServiceProviding {
 		healthCertificateService: HealthCertificateService,
 		healthCertificateRequestService: HealthCertificateRequestService,
 		notificationCenter: UserNotificationCenter = UNUserNotificationCenter.current(),
-		recycleBin: RecycleBin
+		recycleBin: RecycleBin,
+		badgeWrapper: HomeBadgeWrapper
 	) {
 		self.init(
 			client: client,
@@ -86,7 +89,8 @@ class FamilyMemberCoronaTestService: FamilyMemberCoronaTestServiceProviding {
 			healthCertificateService: healthCertificateService,
 			healthCertificateRequestService: healthCertificateRequestService,
 			notificationCenter: notificationCenter,
-			recycleBin: recycleBin
+			recycleBin: recycleBin,
+			badgeWrapper: badgeWrapper
 		)
 	}
 
@@ -318,6 +322,9 @@ class FamilyMemberCoronaTestService: FamilyMemberCoronaTestServiceProviding {
 	
 	func reregister(coronaTest: FamilyMemberCoronaTest) {
 		coronaTests.value.append(coronaTest)
+		if !coronaTest.testResultWasShown {
+			badgeWrapper.increase(.familyMemberUnseenTests, by: 1)
+		}
 	}
 
 	func updateTestResults(presentNotification: Bool, completion: @escaping VoidResultHandler) {
@@ -451,6 +458,7 @@ class FamilyMemberCoronaTestService: FamilyMemberCoronaTestServiceProviding {
 	private let serialQueue = AsyncOperation.serialQueue(named: "FamilyMemberCoronaTestService.serialQueue")
 
 	private let fakeRequestService: FakeRequestService
+	private let badgeWrapper: HomeBadgeWrapper
 
 	private var outdatedStateTimer: Timer?
 

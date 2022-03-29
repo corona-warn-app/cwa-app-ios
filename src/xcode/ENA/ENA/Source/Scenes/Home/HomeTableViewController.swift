@@ -183,6 +183,8 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 				case .positiveResultWasShown:
 					return shownPositiveTestResultCell(forRowAt: indexPath, coronaTestType: .antigen)
 				}
+			case .familyTestResults(let unseenCount):
+				return familyTestCell(unseenCount)
 			}
 		case .testRegistration:
 			return testRegistrationCell(forRowAt: indexPath)
@@ -236,14 +238,14 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 				viewModel.didTapTestResultCell(coronaTestType: .pcr)
 			case .antigenTestResult:
 				viewModel.didTapTestResultCell(coronaTestType: .antigen)
+			case .familyTestResults:
+				Log.info("NYD")
 			}
 		case .testRegistration:
 			onTestRegistrationCellTap()
-		case .statistics:
-			break
 		case .traceLocations:
 			onTraceLocationsCellTap()
-		case .moreInfo:
+		case .statistics, .moreInfo:
 			break
 		default:
 			fatalError("Invalid section")
@@ -377,6 +379,8 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 			forCellReuseIdentifier: String(describing: HomeMoreInfoTableViewCell.self)
 		)
 
+		tableView.register(FamilyTestsHomeCell.self, forCellReuseIdentifier: FamilyTestsHomeCell.reuseIdentifier)
+
 		tableView.separatorStyle = .none
 		tableView.rowHeight = UITableView.automaticDimension
 
@@ -437,6 +441,15 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 
 		riskCell = cell
 
+		return cell
+	}
+
+	private func familyTestCell(_ unseenCount: Int) -> UITableViewCell {
+		guard let cell = tableView.dequeueReusableCell(withIdentifier: FamilyTestsHomeCell.reuseIdentifier) as? FamilyTestsHomeCell else {
+			fatalError("Failed to get FamilyTestsHomeCell")
+		}
+		let cellViewModel = FamilyTestsHomeCellViewModel(unseenCount)
+		cell.configure(with: cellViewModel)
 		return cell
 	}
 

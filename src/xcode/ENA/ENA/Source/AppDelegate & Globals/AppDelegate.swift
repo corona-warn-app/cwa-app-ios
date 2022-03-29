@@ -302,14 +302,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 	}()
 
 	lazy var familyMemberCoronaTestService: FamilyMemberCoronaTestServiceProviding = {
-		return FamilyMemberCoronaTestService(
+		FamilyMemberCoronaTestService(
 			client: client,
 			restServiceProvider: restServiceProvider,
 			store: store,
 			appConfiguration: appConfigurationProvider,
 			healthCertificateService: healthCertificateService,
 			healthCertificateRequestService: healthCertificateRequestService,
-			recycleBin: recycleBin
+			recycleBin: recycleBin,
+			badgeWrapper: badgeWrapper
 		)
 	}()
 
