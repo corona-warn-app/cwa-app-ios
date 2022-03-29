@@ -10,7 +10,7 @@ class HomeShownPositiveTestResultCellModelTest: CWATestCase {
 
     func testShownPositivePCRTest() throws {
 		let coronaTestService = MockCoronaTestService()
-		coronaTestService.pcrTest.value = PCRTest.mock(
+		coronaTestService.pcrTest.value = .mock(
 			registrationDate: Date(timeIntervalSinceReferenceDate: 0),
 			testResult: .positive,
 			positiveTestResultWasShown: true,
@@ -94,7 +94,7 @@ class HomeShownPositiveTestResultCellModelTest: CWATestCase {
 
 	func testShownPositiveAntigenTest() throws {
 		let coronaTestService = MockCoronaTestService()
-		coronaTestService.antigenTest.value = AntigenTest.mock(
+		coronaTestService.antigenTest.value = .mock(
 			pointOfCareConsentDate: Date(timeIntervalSinceReferenceDate: 0),
 			testResult: .positive,
 			positiveTestResultWasShown: true,

@@ -31,7 +31,7 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 	func testShouldShowOverrideTestNotice_WithRegisteredPCRTest() {
 		let coronaTestService = MockCoronaTestService()
 
-		coronaTestService.pcrTest.value = PCRTest.mock(testResult: .pending)
+		coronaTestService.pcrTest.value = .mock(testResult: .pending)
 		coronaTestService.antigenTest.value = nil
 
 		let model = ExposureSubmissionCoordinatorModel(
@@ -61,7 +61,7 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 		let coronaTestService = MockCoronaTestService()
 
 		coronaTestService.pcrTest.value = nil
-		coronaTestService.antigenTest.value = AntigenTest.mock(testResult: .pending)
+		coronaTestService.antigenTest.value = .mock(testResult: .pending)
 
 		let model = ExposureSubmissionCoordinatorModel(
 			exposureSubmissionService: MockExposureSubmissionService(),
@@ -93,8 +93,8 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 	func testShouldShowOverrideTestNotice_WithRegisteredTests() {
 		let coronaTestService = MockCoronaTestService()
 
-		coronaTestService.pcrTest.value = PCRTest.mock(testResult: .pending)
-		coronaTestService.antigenTest.value = AntigenTest.mock(testResult: .pending)
+		coronaTestService.pcrTest.value = .mock(testResult: .pending)
+		coronaTestService.antigenTest.value = .mock(testResult: .pending)
 
 		let model = ExposureSubmissionCoordinatorModel(
 			exposureSubmissionService: MockExposureSubmissionService(),

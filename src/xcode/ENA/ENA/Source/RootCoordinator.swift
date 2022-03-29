@@ -28,6 +28,7 @@ class RootCoordinator: NSObject, RequiresAppDependencies, UITabBarControllerDele
 	init(
 		_ delegate: CoordinatorDelegate,
 		coronaTestService: CoronaTestServiceProviding,
+		familyMemberCoronaTestService: FamilyMemberCoronaTestServiceProviding,
 		contactDiaryStore: DiaryStoringProviding,
 		eventStore: EventStoringProviding,
 		eventCheckoutService: EventCheckoutService,
@@ -47,6 +48,7 @@ class RootCoordinator: NSObject, RequiresAppDependencies, UITabBarControllerDele
 	) {
 		self.delegate = delegate
 		self.coronaTestService = coronaTestService
+		self.familyMemberCoronaTestService = familyMemberCoronaTestService
 		self.contactDiaryStore = contactDiaryStore
 		self.eventStore = eventStore
 		self.eventCheckoutService = eventCheckoutService
@@ -176,6 +178,7 @@ class RootCoordinator: NSObject, RequiresAppDependencies, UITabBarControllerDele
 			ppacService: ppacService,
 			eventStore: eventStore,
 			coronaTestService: coronaTestService,
+			familyMemberCoronaTestService: familyMemberCoronaTestService,
 			healthCertificateService: healthCertificateService,
 			healthCertificateValidationService: healthCertificateValidationService,
 			elsService: elsService,
@@ -393,6 +396,7 @@ class RootCoordinator: NSObject, RequiresAppDependencies, UITabBarControllerDele
 	private weak var delegate: CoordinatorDelegate?
 
 	private let coronaTestService: CoronaTestServiceProviding
+	private let familyMemberCoronaTestService: FamilyMemberCoronaTestServiceProviding
 	private let contactDiaryStore: DiaryStoringProviding
 	private let eventStore: EventStoringProviding
 	private let eventCheckoutService: EventCheckoutService

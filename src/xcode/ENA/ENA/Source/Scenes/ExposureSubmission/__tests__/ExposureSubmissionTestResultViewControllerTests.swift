@@ -9,7 +9,7 @@ import HealthCertificateToolkit
 
 class ExposureSubmissionViewControllerTests: CWATestCase {
 
-	private func createVC(coronaTest: CoronaTest) -> ExposureSubmissionTestResultViewController {
+	private func createVC(coronaTest: UserCoronaTest) -> ExposureSubmissionTestResultViewController {
 		let coronaTestService = MockCoronaTestService()
 
 		switch coronaTest.type {
@@ -36,7 +36,7 @@ class ExposureSubmissionViewControllerTests: CWATestCase {
 	}
 
 	func testPositivePCRState() {
-		let vc = createVC(coronaTest: CoronaTest.pcr(PCRTest.mock(testResult: .positive)))
+		let vc = createVC(coronaTest: .pcr(.mock(testResult: .positive)))
 		_ = vc.view
 		XCTAssertEqual(vc.dynamicTableViewModel.numberOfSection, 1)
 
@@ -49,7 +49,7 @@ class ExposureSubmissionViewControllerTests: CWATestCase {
 	}
 
 	func testNegativePCRState() {
-		let vc = createVC(coronaTest: CoronaTest.pcr(PCRTest.mock(testResult: .negative)))
+		let vc = createVC(coronaTest: .pcr(.mock(testResult: .negative)))
 		_ = vc.view
 		XCTAssertEqual(vc.dynamicTableViewModel.numberOfSection, 1)
 
@@ -58,7 +58,7 @@ class ExposureSubmissionViewControllerTests: CWATestCase {
 	}
 	
 	func testNegativeAntigenState() {
-		let vc = createVC(coronaTest: CoronaTest.antigen(AntigenTest.mock(testResult: .negative)))
+		let vc = createVC(coronaTest: .antigen(.mock(testResult: .negative)))
 		_ = vc.view
 		XCTAssertEqual(vc.dynamicTableViewModel.numberOfSection, 1)
 

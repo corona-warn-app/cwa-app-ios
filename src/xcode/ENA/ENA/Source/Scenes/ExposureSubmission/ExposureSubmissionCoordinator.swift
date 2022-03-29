@@ -61,8 +61,16 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 			onSuccess: { supportedCountries in
 				switch testRegistrationInformationResult {
 				case let .success(testRegistrationInformation):
-					let qrInfoScreen = self.makeQRInfoScreen(supportedCountries: supportedCountries, testRegistrationInformation: testRegistrationInformation)
-					self.start(with: qrInfoScreen)
+					let testOwnerSelectionScreen = ExposureSubmissionTestOwnerSelectionViewController(viewModel: ExposureSubmissionTestOwnerSelectionViewModel(onTestOwnerSelection: { [weak self] testOwner in
+						switch testOwner {
+						case .user:
+							self?.showQRInfoScreen(supportedCountries: supportedCountries, testRegistrationInformation: testRegistrationInformation)
+						case .familyMember:
+							self?.showFamilyMemberTestConsentScreen()
+						}
+					}), onDismiss: { [weak self] in self?.dismiss() })
+					
+					self.start(with: testOwnerSelectionScreen)
 				case let .failure(qrCodeError):
 					switch qrCodeError {
 					case .invalidTestCode:
@@ -447,10 +455,15 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 			supportedCountries: supportedCountries,
 			onPrimaryButtonTap: { [weak self] isLoading in
 				if #available(iOS 14.4, *) {
+					Log.info("Start preauthorizaton for keys...")
+
 					self?.exposureManager.preAuthorizeKeys(completion: { error in
 						DispatchQueue.main.async { [weak self] in
 							if let error = error as? ENError {
-								switch error.toExposureSubmissionError() {
+								let submissionError = error.toExposureSubmissionError()
+								Log.error("Preauthorizaton for keys failed with ENError: \(error.localizedDescription), ExposureSubmissionError: \(submissionError.localizedDescription)")
+
+								switch submissionError {
 								case .notAuthorized:
 									self?.showOverrideTestNoticeIfNecessary(
 										testRegistrationInformation: testRegistrationInformation,
@@ -459,7 +472,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 									)
 								default:
 									// present alert
-									let alert = UIAlertController.errorAlert(message: error.localizedDescription, completion: { [weak self] in
+									let alert = UIAlertController.errorAlert(message: submissionError.localizedDescription, completion: { [weak self] in
 										self?.showOverrideTestNoticeIfNecessary(
 											testRegistrationInformation: testRegistrationInformation,
 											submissionConsentGiven: true,
@@ -469,6 +482,8 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 									self?.navigationController?.present(alert, animated: true, completion: nil)
 								}
 							} else {
+								Log.info("Preauthorizaton for keys was successful.")
+
 								self?.showOverrideTestNoticeIfNecessary(
 									testRegistrationInformation: testRegistrationInformation,
 									submissionConsentGiven: true,
@@ -505,11 +520,37 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 
 		return topBottomContainerViewController
 	}
-
+	
 	private func showQRInfoScreen(supportedCountries: [Country], testRegistrationInformation: CoronaTestRegistrationInformation) {
 		push(makeQRInfoScreen(supportedCountries: supportedCountries, testRegistrationInformation: testRegistrationInformation))
 	}
 
+	private func showFamilyMemberTestConsentScreen() {
+		let familyMemberConsentViewController = FamilyMemberConsentViewController(
+			dismiss: { [weak self] in
+				self?.dismiss()
+			}, didTapDataPrivacy: { [weak self] in
+				self?.showDataPrivacy()
+			}, didTapSubmit: { givenName in
+				Log.info("User has give name \(givenName)")
+			}
+		)
+
+		let footerViewController = FooterViewController(
+			FooterViewModel(
+				primaryButtonName: AppStrings.HealthCertificate.FamilyMemberConsent.primaryButton,
+				isSecondaryButtonEnabled: false,
+				isSecondaryButtonHidden: true
+			)
+		)
+
+		let topBottomLayoutViewController = TopBottomContainerViewController(
+			topController: familyMemberConsentViewController,
+			bottomController: footerViewController
+		)
+		push(topBottomLayoutViewController)
+	}
+	
 	private func showQRScreen(testRegistrationInformation: CoronaTestRegistrationInformation?, isLoading: @escaping (Bool) -> Void) {
 		if let testRegistrationInformation = testRegistrationInformation {
 			showOverrideTestNoticeIfNecessary(

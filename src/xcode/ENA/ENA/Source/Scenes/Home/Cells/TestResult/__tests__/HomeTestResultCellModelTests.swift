@@ -86,7 +86,7 @@ class HomeTestResultCellModelTests: CWATestCase {
 		expectationOnUpdate.expectedFulfillmentCount = 7
 
 		let coronaTestService = MockCoronaTestService()
-		coronaTestService.pcrTest.value = PCRTest.mock()
+		coronaTestService.pcrTest.value = .mock()
 
 		let cellModel = HomeTestResultCellModel(
 			coronaTestType: .pcr,

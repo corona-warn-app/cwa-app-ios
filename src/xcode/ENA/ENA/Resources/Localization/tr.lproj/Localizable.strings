@@ -3180,14 +3180,6 @@
 
 "HealthCertificate_Reissuance_Consent_Cancel_Notice" = "Şimdi iptal ederseniz dilediğiniz zaman sertifikaya genel bakış bölümünde güncelleme talebi oluşturabilirsiniz.";
 
-"HealthCertificate_Reissuance_Consent_Legal_Title" = "İzniniz";
-
-"HealthCertificate_Reissuance_Consent_Legal_Subtitle" = "\"Kabul Et\" seçeneğine dokunduğunuzda aşağıdaki adımlara izin verirsiniz:";
-
-"HealthCertificate_Reissuance_Consent_Legal_Bullet_1" = "Uygulama, doğrulama için aşı sertifikasını RKI'ya gönderir.";
-
-"HealthCertificate_Reissuance_Consent_Legal_Bullet_2" = "RKI aşı sertifikasını kontrol eder, güncellenmiş bir sertifika düzenler ve güncellenmiş sertifikayı uygulamanıza gönderir.";
-
 "HealthCertificate_Reissuance_Consent_Bullet_Point_1" = "Sertifikanızı güncellemeniz gönüllülük esasına bağlı ve ücretsiz bir işlemdir.";
 
 "HealthCertificate_Reissuance_Consent_Bullet_Point_2" = "Sertifikaların yalnızca bir kez güncellenebilmesini sağlamak adına eski sertifikanızın tanıtıcısı RKI tarafından belgelenir.";

@@ -593,7 +593,7 @@ class QRScannerCoordinator {
 	private func showTestOverwriteNotice(
 		recycleBinItem: RecycleBinItem
 	) {
-		guard case let .coronaTest(coronaTest) = recycleBinItem.item else {
+		guard case let .userCoronaTest(coronaTest) = recycleBinItem.item else {
 			return
 		}
 
@@ -644,7 +644,7 @@ class QRScannerCoordinator {
 
 	private func restoreAndShow(recycleBinItem: RecycleBinItem) {
 		guard let parentViewController = self.parentViewController,
-			  case .coronaTest(let coronaTest) = recycleBinItem.item else {
+			  case .userCoronaTest(let coronaTest) = recycleBinItem.item else {
 			return
 		}
 
@@ -897,7 +897,7 @@ class QRScannerCoordinator {
 			.antigen(qrCodeInformation: _, qrCodeHash: let qrCodeHash),
 			.rapidPCR(qrCodeInformation: _, qrCodeHash: let qrCodeHash):
 			return store.recycleBinItems.first {
-				guard case .coronaTest(let coronaTest) = $0.item else {
+				guard case .userCoronaTest(let coronaTest) = $0.item else {
 					return false
 				}
 
