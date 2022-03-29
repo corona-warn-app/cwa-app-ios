@@ -257,3 +257,13 @@
 "HealthCertificate_Reissuance_Consent_Legal_Bullet_1" = "The app will transmit the vaccination certificate to the RKI for verification.";
 
 "HealthCertificate_Reissuance_Consent_Legal_Bullet_2" = "The RKI will check the vaccination certificate, issue an updated certificate and send this to your app.";
+
+/* HealthCertificate Family Consent */
+
+"HealthCertificate_FamilyMemberConsentLegal_Headline" = "Your consent";
+
+"HealthCertificate_FamilyMemberConsentLegal_SubHeadline" = "By tapping on “Accept”, you consent to the following step:";
+
+"HealthCertificate_FamilyMemberConsentLegal_BulletPoint" = "The app will retrieve the family member’s test result.";
+
+"HealthCertificate_FamilyMemberConsentLegal_text" = "If you change your mind later, you can delete the test in the app.";

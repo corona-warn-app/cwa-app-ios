@@ -111,7 +111,7 @@ class FamilyMemberCoronaTestService: FamilyMemberCoronaTestServiceProviding {
 		guid: String,
 		qrCodeHash: String,
 		certificateConsent: TestCertificateConsent,
-		completion: @escaping TestResultHandler
+		completion: @escaping RegistrationResultHandler
 	) {
 		var certificateConsentGiven = false
 		var dateOfBirthKey: String?
@@ -152,8 +152,17 @@ class FamilyMemberCoronaTestService: FamilyMemberCoronaTestServiceProviding {
 
 					Log.info("[FamilyMemberCoronaTestService] PCR test registered: \(private: coronaTest)", log: .api)
 
-					self?.getTestResult(for: coronaTest, duringRegistration: true) { result in
-						completion(result)
+					self?.getTestResult(for: coronaTest, duringRegistration: true) { testResult in
+						switch testResult {
+						case .success:
+							guard let updatedCoronaTest = self?.upToDateTest(for: coronaTest) else {
+								completion(.failure(.noCoronaTestOfRequestedType))
+								return
+							}
+							completion(.success(updatedCoronaTest))
+						case .failure(let error):
+							completion(.failure(error))
+						}
 					}
 				case .failure(let error):
 					Log.error("[FamilyMemberCoronaTestService] PCR test registration failed: \(error.localizedDescription)", log: .api)
@@ -173,7 +182,7 @@ class FamilyMemberCoronaTestService: FamilyMemberCoronaTestServiceProviding {
 		pointOfCareConsentDate: Date,
 		certificateSupportedByPointOfCare: Bool,
 		certificateConsent: TestCertificateConsent,
-		completion: @escaping TestResultHandler
+		completion: @escaping RegistrationResultHandler
 	) {
 		Log.info("[FamilyMemberCoronaTestService] Registering antigen test (hash: \(private: hash), pointOfCareConsentDate: \(private: pointOfCareConsentDate)", log: .api)
 
@@ -212,9 +221,18 @@ class FamilyMemberCoronaTestService: FamilyMemberCoronaTestServiceProviding {
 
 					Log.info("[FamilyMemberCoronaTestService] Antigen test registered: \(private: coronaTest)", log: .api)
 
-					self?.getTestResult(for: coronaTest, duringRegistration: true) { result in
+					self?.getTestResult(for: coronaTest, duringRegistration: true) { testResult in
 						self?.scheduleOutdatedStateTimer()
-						completion(result)
+						switch testResult {
+						case .success:
+							guard let updatedCoronaTest = self?.upToDateTest(for: coronaTest) else {
+								completion(.failure(.noCoronaTestOfRequestedType))
+								return
+							}
+							completion(.success(updatedCoronaTest))
+						case .failure(let error):
+							completion(.failure(error))
+						}
 					}
 
 					self?.fakeRequestService.fakeSubmissionServerRequest()
@@ -236,7 +254,7 @@ class FamilyMemberCoronaTestService: FamilyMemberCoronaTestServiceProviding {
 		pointOfCareConsentDate: Date,
 		certificateSupportedByPointOfCare: Bool,
 		certificateConsent: TestCertificateConsent,
-		completion: @escaping TestResultHandler
+		completion: @escaping RegistrationResultHandler
 	) {
 		Log.info("[FamilyMemberCoronaTestService] Registering RapidPCR test (hash: \(private: hash), pointOfCareConsentDate: \(private: pointOfCareConsentDate))", log: .api)
 
@@ -273,8 +291,17 @@ class FamilyMemberCoronaTestService: FamilyMemberCoronaTestServiceProviding {
 
 					Log.info("[FamilyMemberCoronaTestService] RapidPCR test registered: \(private: coronaTest)", log: .api)
 
-					self?.getTestResult(for: coronaTest, duringRegistration: true) { result in
-						completion(result)
+					self?.getTestResult(for: coronaTest, duringRegistration: true) { testResult in
+						switch testResult {
+						case .success:
+							guard let updatedCoronaTest = self?.upToDateTest(for: coronaTest) else {
+								completion(.failure(.noCoronaTestOfRequestedType))
+								return
+							}
+							completion(.success(updatedCoronaTest))
+						case .failure(let error):
+							completion(.failure(error))
+						}
 					}
 
 					self?.fakeRequestService.fakeSubmissionServerRequest()
@@ -422,9 +449,11 @@ class FamilyMemberCoronaTestService: FamilyMemberCoronaTestServiceProviding {
 	private let notificationCenter: UserNotificationCenter
 	private let recycleBin: RecycleBin
 	private let serialQueue = AsyncOperation.serialQueue(named: "FamilyMemberCoronaTestService.serialQueue")
+
 	private let fakeRequestService: FakeRequestService
 
 	private var outdatedStateTimer: Timer?
+
 	private var subscriptions = Set<AnyCancellable>()
 
 	private var nextOutdatedStateUpdateDate: Date? {
@@ -463,7 +492,7 @@ class FamilyMemberCoronaTestService: FamilyMemberCoronaTestServiceProviding {
 		forKey key: String,
 		withType type: KeyType,
 		dateOfBirthKey: String?,
-		completion: @escaping RegistrationResultHandler
+		completion: @escaping RegistrationTokenResultHandler
 	) {
 		// Check if first char of dateOfBirthKey is a lower cased "x". If not, we fail because it is malformed. If dateOfBirthKey is nil, we pass this check.
 		if let dateOfBirthKey = dateOfBirthKey {
@@ -596,6 +625,7 @@ class FamilyMemberCoronaTestService: FamilyMemberCoronaTestServiceProviding {
 				Log.info("[FamilyMemberCoronaTestService] Got test result (coronaTest: \(private: coronaTest), testResult: \(testResult)), sampleCollectionDate: \(String(describing: response.sc))", log: .api)
 
 				let previousTestResult = self.upToDateTest(for: coronaTest)?.testResult
+
 				self.coronaTests.value.modify(coronaTest) {
 					$0.testResult = testResult
 					$0.sampleCollectionDate = response.sc.map {

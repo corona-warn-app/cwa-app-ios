@@ -227,8 +227,11 @@ enum AppStrings {
 			static let card_negative = NSLocalizedString("ExposureSubmissionResult_CardNegative", comment: "")
 			static let card_subtitle = NSLocalizedString("ExposureSubmissionResult_CardSubTitle", comment: "")
 			static let testPending = NSLocalizedString("ExposureSubmissionResult_testPending", comment: "")
+			static let familyMemberTestPending = NSLocalizedString("ExposureSubmissionResult_familyMember_testPending", comment: "")
 			static let testPendingDesc = NSLocalizedString("ExposureSubmissionResult_testPendingDesc", comment: "")
+			static let familyMemberTestPendingDesc = NSLocalizedString("ExposureSubmissionResult_familyMember_testPendingDesc", comment: "")
 			static let testAdded = NSLocalizedString("ExposureSubmissionResult_testAdded", comment: "")
+			static let familyMemberTestAdded = NSLocalizedString("ExposureSubmissionResult_familyMember_testAdded", comment: "")
 			static let registrationDate = NSLocalizedString("ExposureSubmissionResult_RegistrationDate", comment: "")
 			static let testPendingContactJournal = NSLocalizedString("ExposureSubmissionResult_pcrTestPendingContactJournal", comment: "")
 			static let testPendingContactJournalDesc = NSLocalizedString("ExposureSubmissionResult_pcrTestPendingContactJournalDesc", comment: "")
@@ -241,11 +244,14 @@ enum AppStrings {
 			static let card_negative = NSLocalizedString("ExposureSubmissionResult_CardNegative_Antigen", comment: "")
 			static let card_subtitle = NSLocalizedString("ExposureSubmissionResult_CardSubTitle_Antigen", comment: "")
 			static let testPending = NSLocalizedString("ExposureSubmissionResult_antigenTestPending", comment: "")
+			static let familyMemberTestPending = NSLocalizedString("ExposureSubmissionResult_familyMember_antigenTestPending", comment: "")
 			static let testPendingDesc = NSLocalizedString("ExposureSubmissionResult_antigenTestPendingDesc", comment: "")
+			static let familyMemberTestPendingDesc = NSLocalizedString("ExposureSubmissionResult_familyMember_antigenTestPendingDesc", comment: "")
 			static let testPendingContactJournal = NSLocalizedString("ExposureSubmissionResult_antigenTestPendingContactJournal", comment: "")
 			static let testPendingContactJournalDesc = NSLocalizedString("ExposureSubmissionResult_antigenTestPendingContactJournalDesc", comment: "")
 			static let testNegativeDesc = NSLocalizedString("ExposureSubmissionResult_antigenTestNegativDesc", comment: "")
 			static let testAdded = NSLocalizedString("ExposureSubmissionResult_antigenTestAdded", comment: "")
+			static let familyMemberTestAdded = NSLocalizedString("ExposureSubmissionResult_familyMember_antigenTestAdded", comment: "")
 			static let testAddedDesc = NSLocalizedString("ExposureSubmissionResult_antigenTestAddedDesc", comment: "")
 			static let personBirthdayPrefix = NSLocalizedString("ExposureSubmissionResult_Person_Birthday_Prefix", comment: "")
 			static let registrationDate = NSLocalizedString("ExposureSubmissionResult_RegistrationDate_Antigen", comment: "")
@@ -257,13 +263,14 @@ enum AppStrings {
 			static let proofDesc = NSLocalizedString("ExposureSubmissionResult_Negative_Antigen_Proof_Desc", comment: "")
 			static let noProofTitle = NSLocalizedString("ExposureSubmissionResult_Negative_Antigen_NoProof_Title", comment: "")
 			static let noProofDesc = NSLocalizedString("ExposureSubmissionResult_Negative_Antigen_NoProof_Desc", comment: "")
-			static let testCenterNotSupportedTitle = NSLocalizedString("ExposureSubmissionResult_testCertificate_testCenterNotSupported", comment: "")
 		}
 		static let testCertificatePending = NSLocalizedString("ExposureSubmissionResult_testCertificate_Pending", comment: "")
+		static let familyMemberTestCertificatePending = NSLocalizedString("ExposureSubmissionResult_familyMemberTestCertificate_Pending", comment: "")
 		static let testCertificateNotRequested = NSLocalizedString("ExposureSubmissionResult_testCertificate_NotRequested", comment: "")
 		static let testCertificateAvailableInTheTab = NSLocalizedString("ExposureSubmissionResult_testCertificate_AvailableInTab", comment: "")
-
 		static let testCertificateTitle = NSLocalizedString("ExposureSubmissionResult_testCertificate_title", comment: "")
+		static let familyMemberTestCertificateTitle = NSLocalizedString("ExposureSubmissionResult_familyMemberTestCertificate_title", comment: "")
+		static let testCenterNotSupportedTitle = NSLocalizedString("ExposureSubmissionResult_testCertificate_testCenterNotSupported", comment: "")
 
 		static let card_title = NSLocalizedString("ExposureSubmissionResult_CardTitle", comment: "")
 		static let card_invalid = NSLocalizedString("ExposureSubmissionResult_CardInvalid", comment: "")
@@ -1173,20 +1180,10 @@ enum AppStrings {
 		static let generalDescription = NSLocalizedString("DeltaOnboarding_NewVersionFeatures_Description", comment: "")
 		static let aboutAppInformation = NSLocalizedString("NewVersionFeatures_Info_about_abb_information", comment: "")
 
-		/* Version 2.20 */
+		/* Version 2.21 */
 
-		static let feature220HighRiskShortenedTitle = NSLocalizedString("NewVersionFeature_220_highRiskShortened_title", comment: "")
-		static let feature220HighRiskShortenedDescription = NSLocalizedString("NewVersionFeature_220_highRiskShortened_description", comment: "")
-		static let feature220DisplayRiskPositiveResultTitle = NSLocalizedString("NewVersionFeature_220_displayRiskPositiveResult_title", comment: "")
-		static let feature220DisplayRiskPositiveResultDescription = NSLocalizedString("NewVersionFeature_220_displayRiskPositiveResult_description", comment: "")
-		static let feature220NotificateRiskEncounterTitle = NSLocalizedString("NewVersionFeature_220_notificateRiskEncounter_title", comment: "")
-		static let feature220NotificateRiskEncounterDescription = NSLocalizedString("NewVersionFeature_220_notificateRiskEncounter_description", comment: "")
-		static let feature220NotificationStatusChangeTitle = NSLocalizedString("NewVersionFeature_220_notificationStatusChange_title", comment: "")
-		static let feature220NotificationStatusChangeDescription = NSLocalizedString("NewVersionFeature_220_notificationStatusChange_description", comment: "")
-		static let feature220RecoveryCertificatesDetailsTitle = NSLocalizedString("NewVersionFeature_220_recoveryCertificatesDetails_title", comment: "")
-		static let feature220RecoveryCertificatesDetailsDescription = NSLocalizedString("NewVersionFeature_220_recoveryCertificatesDetails_description", comment: "")
-		static let feature220RemoveQRCodeTitle = NSLocalizedString("NewVersionFeature_220_removeQRCode_title", comment: "")
-		static let feature220RemoveQRCodeDescription = NSLocalizedString("NewVersionFeature_220_removeQRCode_description", comment: "")
+		static let feature221FamilyMembersTestTitle = NSLocalizedString("NewVersionFeature_221_familyMembersTest_title", comment: "")
+		static let feature221FamilyMembersTestDescription = NSLocalizedString("NewVersionFeature_221_familyMembersTest_description", comment: "")
 	}
 
 	enum DeltaOnboarding {
@@ -2256,10 +2253,10 @@ enum AppStrings {
 			static let body02 = NSLocalizedString("HealthCertificate_FamilyMemberConsent_Body02", comment: "")
 
 			enum Legal {
-				static let headline = NSLocalizedString("HealthCertificate_FamilyMemberConsentLegal_Headline", comment: "")
-				static let subHeadline = NSLocalizedString("HealthCertificate_FamilyMemberConsentLegal_SubHeadline", comment: "")
-				static let bulletPoint = NSLocalizedString("HealthCertificate_FamilyMemberConsentLegal_BulletPoint", comment: "")
-				static let text = NSLocalizedString("HealthCertificate_FamilyMemberConsentLegal_text", comment: "")
+				static let headline = NSLocalizedString("HealthCertificate_FamilyMemberConsentLegal_Headline", tableName: "Localizable.legal", comment: "")
+				static let subHeadline = NSLocalizedString("HealthCertificate_FamilyMemberConsentLegal_SubHeadline", tableName: "Localizable.legal", comment: "")
+				static let bulletPoint = NSLocalizedString("HealthCertificate_FamilyMemberConsentLegal_BulletPoint", tableName: "Localizable.legal", comment: "")
+				static let text = NSLocalizedString("HealthCertificate_FamilyMemberConsentLegal_text", tableName: "Localizable.legal", comment: "")
 			}
 			static let primaryButton = NSLocalizedString("HealthCertificate_FamilyMemberConsent_Primary", comment: "")
 		}
