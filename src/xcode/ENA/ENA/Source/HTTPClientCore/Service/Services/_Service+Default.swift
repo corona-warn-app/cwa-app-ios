@@ -62,7 +62,6 @@ extension Service {
 			case .success(let receiveModel):
 				completion(.success(receiveModel))
 			case .failure(let serviceError):
-
 				if case .noReceiveModelToInterruptLoading = serviceError {
 					// This is a special case and we ignore the previous failure and continue loading. Equals a not found model.
 					break
@@ -70,7 +69,6 @@ extension Service {
 					completion(.failure(serviceError))
 				}
 			}
-
 		})
 
 		// load data from the server
