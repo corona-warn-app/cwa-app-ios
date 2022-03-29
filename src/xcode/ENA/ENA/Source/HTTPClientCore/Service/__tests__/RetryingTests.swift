@@ -135,4 +135,66 @@ class RetryingTests: XCTestCase {
 
 		waitForExpectations(timeout: .short)
 	}
+
+	func testGIVEN_RetryingResourceWithDefaultModel_WHEN_RetryIsDone_THEN_DefaultModelIsReturnedAfterLastRetry() throws {
+
+		let loadExpectation = expectation(description: "Retrying is done.")
+		// Should be 1 more then retries because we receive for the last call the successful answer.
+		loadExpectation.expectedFulfillmentCount = 4
+
+		var retryCount = 3
+
+		// Call fullfill on every request and decrease the retryCount
+		let mockSession = MockUrlSession(
+			data: nil,
+			nextResponse: nil,
+			error: nil
+		) { _ in
+			loadExpectation.fulfill()
+			retryCount -= 1
+		}
+
+		let url = try XCTUnwrap(URL(string: "https://example.com"))
+
+		// Prepare responses
+		let failingResponse = HTTPURLResponse(
+			url: url,
+			statusCode: 500,
+			httpVersion: nil,
+			headerFields: nil
+		)
+
+		// Return success with our model as soon we arrive the last retry. otherwise, return always a failure
+		mockSession.onPrepareResponse = {
+			mockSession.data = nil
+			mockSession.nextResponse = failingResponse
+		}
+
+		// Return nil and http code 500. In this case the service would ignore caching behavior and look up for default values.
+		let stack = MockNetworkStack(
+			mockSession: mockSession
+		)
+
+		let standardService = StandardRestService(session: stack.urlSession)
+
+		let defaultModel = DummyResourceModel(dummyValue: "DefaultModel")
+		let resource = ResourceFake(
+			defaultModel: defaultModel,
+			retryingCount: 3
+		)
+
+		standardService.load(resource, { result in
+
+			switch result {
+
+			case .success(let model):
+				XCTAssertEqual(model, defaultModel)
+			case .failure(let error):
+				XCTFail("Test should not fail but received error: \(error)")
+			}
+			loadExpectation.fulfill()
+		})
+
+		waitForExpectations(timeout: .short)
+	}
 }
