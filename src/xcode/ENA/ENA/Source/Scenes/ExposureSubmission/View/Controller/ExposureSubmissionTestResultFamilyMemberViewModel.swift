@@ -75,7 +75,7 @@ class ExposureSubmissionTestResultFamilyMemberViewModel: ExposureSubmissionTestR
 	
 	func updateTestResultIfPossible() {
 		guard familyMemberCoronaTest.testResult == .pending else {
-			Log.info("Not refreshing test because status is pending")
+			Log.info("Not refreshing test because status is not pending")
 			return
 		}
 		refreshTest()
