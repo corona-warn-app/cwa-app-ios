@@ -181,13 +181,13 @@ extension ExposureSubmissionTestResultFamilyMemberViewModel {
 				),
 				ExposureSubmissionDynamicCell.stepCell(
 					title: AppStrings.ExposureSubmissionResult.PCR.familyMemberTestPending,
-					description: AppStrings.ExposureSubmissionResult.PCR.familyMemberTestAdded,
+					description: AppStrings.ExposureSubmissionResult.PCR.familyMemberTestPendingDesc,
 					icon: UIImage(named: "Icons_Grey_Wait"),
 					hairline: .iconAttached
 				),
 				ExposureSubmissionDynamicCell.stepCell(
 					title: AppStrings.ExposureSubmissionResult.familyMemberTestCertificateTitle,
-					description: AppStrings.ExposureSubmissionResult.familyMemberTestCertificatePending,
+					description: AppStrings.ExposureSubmissionResult.familyMemberTestCertificateDesc,
 					icon: UIImage(named: "certificate-qr-light"),
 					hairline: .none
 				)
@@ -208,7 +208,7 @@ extension ExposureSubmissionTestResultFamilyMemberViewModel {
 				),
 				ExposureSubmissionDynamicCell.stepCell(
 					title: AppStrings.ExposureSubmissionResult.familyMemberAntigenTestCertificateTitle,
-					description: AppStrings.ExposureSubmissionResult.familyMemberAntigenTestCertificatePending,
+					description: AppStrings.ExposureSubmissionResult.familyMemberAntigenTestCertificateDesc,
 					icon: UIImage(named: "certificate-qr-light"),
 					hairline: .none
 				)
