@@ -260,7 +260,7 @@ class HomeTestResultCellModel {
 		description = AppStrings.Home.TestResult.Outdated.description
 		footnote = nil
 		buttonTitle = AppStrings.Home.TestResult.Button.hideTest
-		image = UIImage(named: "Illu_Hand_with_phone-pending")
+		image = UIImage(named: "Illu_Home_OutdatedTestErgebnis")
 		isDisclosureIndicatorHidden = true
 		isNegativeDiagnosisHidden = true
 		isActivityIndicatorHidden = true
