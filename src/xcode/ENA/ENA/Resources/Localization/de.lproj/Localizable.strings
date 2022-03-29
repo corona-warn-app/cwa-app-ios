@@ -3770,7 +3770,11 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "FamilyMemberCoronaTest_outdatedDescription" = "Der Schnelltest ist älter als %i Stunden und wird hier nicht mehr angezeigt.";
 
+"FamilyMemberCoronaTest_outdatedButtonTitle" = "Nicht mehr anzeigen";
+
 "FamilyMemberCoronaTest_expiredDiagnosis" = "Nicht mehr gültig";
 
 "FamilyMemberCoronaTest_expiredDescription" = "Der Test liegt länger als 21 Tage zurück und ist daher nicht länger relevant.";
+
+"FamilyMemberCoronaTest_expiredButtonTitle" = "Test löschen";
 

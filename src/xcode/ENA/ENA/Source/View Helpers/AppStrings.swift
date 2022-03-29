@@ -2748,9 +2748,11 @@ enum AppStrings {
 
 		static let outdatedDiagnosis = NSLocalizedString("FamilyMemberCoronaTest_outdatedDiagnosis", comment: "")
 		static let outdatedDescription = NSLocalizedString("FamilyMemberCoronaTest_outdatedDescription", comment: "")
+		static let outdatedButtonTitle = NSLocalizedString("FamilyMemberCoronaTest_outdatedButtonTitle", comment: "")
 
 		static let expiredDiagnosis = NSLocalizedString("FamilyMemberCoronaTest_expiredDiagnosis", comment: "")
 		static let expiredDescription = NSLocalizedString("FamilyMemberCoronaTest_expiredDescription", comment: "")
+		static let expiredButtonTitle = NSLocalizedString("FamilyMemberCoronaTest_expiredButtonTitle", comment: "")
 	}
 	// swiftlint:disable:next file_length
 }
