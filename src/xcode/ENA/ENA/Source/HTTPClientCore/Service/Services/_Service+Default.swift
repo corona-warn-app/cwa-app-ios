@@ -58,32 +58,16 @@ extension Service {
 			return
 		}
 
-		// To check if we want to retry the load call, we hook in the completion call.
-		let retryingCompletion: ((Result<R.Receive.ReceiveModel, ServiceError<R.CustomError>>) -> Void) = { result in
-			switch result {
-
-			case .success(let model):
-				completion(.success(model))
-			case .failure(let error):
-				// For any failures we check if the resource has a retry flag and has some retries left and if so, we call load() recursivly.
-				if let retryingCount = resource.retryingCount,
-				   retryingCount > 0 {
-					Log.debug("Retry for resource discovered. Retry counter at: \(retryingCount)", log: .client)
-					var mutatableResource = resource
-					mutatableResource.retryingCount? -= 1
-					Log.debug("Remaining retries now: \(mutatableResource.retryingCount ?? 0)", log: .client)
-					load(mutatableResource, completion)
-				} else {
-					completion(.failure(error))
-				}
-			}
-		}
-
 		// load data from the server
 		switch urlRequest(resource.locator, resource.sendResource, resource.receiveResource) {
 		case let .failure(resourceError):
 			Log.error("Creating url request failed.", log: .client)
-			retryingCompletion(failureOrDefaultValueHandling(resource, .invalidRequestError(resourceError)))
+			handleRetry(
+				resource,
+				failureOrDefaultValueHandling(resource, .invalidRequestError(resourceError)),
+				completion
+			)
+
 		case let .success(request):
 
 			var task: URLSessionDataTask?
@@ -102,27 +86,43 @@ extension Service {
 				   let task = task,
 				   let trustEvaluationError = coronaSessionDelegate.trustEvaluations[task.taskIdentifier]?.trustEvaluationError {
 					Log.error("TrustEvaluation failed.", log: .client)
-					retryingCompletion(failureOrDefaultValueHandling(resource, .trustEvaluationError(trustEvaluationError)))
+					handleRetry(
+						resource,
+						failureOrDefaultValueHandling(resource, .trustEvaluationError(trustEvaluationError)),
+						completion
+					)
 					return
 				}
 				
 				// case we have no network.
 				if let error = error {
-					retryingCompletion(handleNoNetworkCachePolicy(error, resource))
+					handleRetry(
+						resource,
+						handleNoNetworkCachePolicy(error, resource),
+						completion
+					)
 					return
 				}
 								
 				// case we have a fake.
 				guard !resource.locator.isFake else {
 					Log.info("Fake detected no response given", log: .client)
-					retryingCompletion(failureOrDefaultValueHandling(resource, .fakeResponse))
+					handleRetry(
+						resource,
+						failureOrDefaultValueHandling(resource, .fakeResponse),
+						completion
+					)
 					return
 				}
 
 				// case we have an invalid response.
 				guard let response = response as? HTTPURLResponse else {
 					Log.error("Invalid response.", log: .client, error: error)
-					retryingCompletion(failureOrDefaultValueHandling(resource, .invalidResponseType))
+					handleRetry(
+						resource,
+						failureOrDefaultValueHandling(resource, .invalidResponseType),
+						completion
+					)
 					return
 				}
 				
@@ -134,7 +134,11 @@ extension Service {
 
 				// override status code by cache policy and handle it on other way.
 				if hasStatusCodeCachePolicy(resource, response.statusCode) {
-					retryingCompletion(handleStatusCodeCachePolicy(response.statusCode, resource))
+					handleRetry(
+						resource,
+						handleStatusCodeCachePolicy(response.statusCode, resource),
+						completion
+					)
 					return
 				}
 				
@@ -142,18 +146,38 @@ extension Service {
 				// The codes here are in sync with the one in hasStatusCodeCachePolicy in the CachedRestService - do always sync them!
 				switch response.statusCode {
 				case 200, 201:
-					retryingCompletion(decodeModel(resource, bodyData, response.allHeaderFields, false))
+					handleRetry(
+						resource,
+						decodeModel(resource, bodyData, response.allHeaderFields, false),
+						completion
+					)
 				case 204:
 					guard resource.receiveResource is EmptyReceiveResource else {
 						Log.error("This is not an EmptyReceiveResource", log: .client)
-						retryingCompletion(failureOrDefaultValueHandling(resource, .invalidResponse))
+						handleRetry(
+							resource,
+							failureOrDefaultValueHandling(resource, .invalidResponse),
+							completion
+						)
 						return
 					}
-					retryingCompletion(decodeModel(resource, bodyData, response.allHeaderFields, false))
+					handleRetry(
+						resource,
+						decodeModel(resource, bodyData, response.allHeaderFields, false),
+						completion
+					)
 				case 304:
-					retryingCompletion(cached(resource))
+					handleRetry(
+						resource,
+						cached(resource),
+						completion
+					)
 				default:
-					retryingCompletion(failureOrDefaultValueHandling(resource, .unexpectedServerError(response.statusCode), bodyData))
+					handleRetry(
+						resource,
+						failureOrDefaultValueHandling(resource, .unexpectedServerError(response.statusCode), bodyData),
+						completion
+					)
 				}
 			}
 			
@@ -334,6 +358,36 @@ extension Service {
 		else {
 			Log.info("Found nothing cached.")
 			return failureOrDefaultValueHandling(resource, .unexpectedServerError(statusCode))
+		}
+	}
+
+	/// Handles the possible retry mechanism: Calls the result which we pass inside. If the result succeeds, we call immediately the completion. If the result fails, we first check if we want to retry the download and then if we have some attempts left to retry. If so, we call load() again. Otherwise, we call again the failureOrDefaultValueHandling() to return a possibly a default model or not.
+	///
+	/// - Parameters:
+	///   - resource: Generic ("R") object and normally of type ReceiveResource. It is where the retry and default model is defined.
+	///   - result: Result of a func call where we try to retrieve a model or get a fail.
+	///   - completion: Swift-Result of loading. If successful, it contains the concrete object of our call.
+	private func handleRetry<R>(
+		_ resource: R,
+		_ result: Result<R.Receive.ReceiveModel, ServiceError<R.CustomError>>,
+		_ completion: @escaping (Result<R.Receive.ReceiveModel, ServiceError<R.CustomError>>) -> Void
+	) where R: Resource {
+		switch result {
+		case .success(let model):
+			completion(.success(model))
+		case .failure(let error):
+			// For any failures we check if the resource has a retry flag and has some retries left and if so, we call load() recursivly.
+			if let retryingCount = resource.retryingCount,
+			   retryingCount > 0 {
+				Log.debug("Retry for resource discovered. Retry counter at: \(retryingCount)", log: .client)
+				var mutatableResource = resource
+				mutatableResource.retryingCount? -= 1
+				Log.debug("Remaining retries now: \(mutatableResource.retryingCount ?? 0)", log: .client)
+				load(mutatableResource, completion)
+			} else {
+				// Now after all retries exhausted (or we did not had any retry), we check if we can return a default value or not.
+				completion(failureOrDefaultValueHandling(resource, error))
+			}
 		}
 	}
 }
