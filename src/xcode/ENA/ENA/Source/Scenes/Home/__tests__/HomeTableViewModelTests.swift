@@ -51,6 +51,78 @@ class HomeTableViewModelTests: CWATestCase {
 		XCTAssertEqual(viewModel.riskAndTestResultsRows, [.risk])
 	}
 
+	func testRiskCellNotHiddenIfFamilyTestsExistAndUnreadCountIs2() {
+		let store = MockTestStore()
+		var defaultAppConfig = CachedAppConfigurationMock.defaultAppConfiguration
+		defaultAppConfig.coronaTestParameters.coronaPcrtestParameters.hoursSinceTestRegistrationToShowRiskCard = 168
+		let appConfiguration = CachedAppConfigurationMock(with: defaultAppConfig)
+
+		let familyCoronaTestService = MockFamilyMemberCoronaTestService()
+		familyCoronaTestService.coronaTests.value = [.antigen(.mock()), .pcr(.mock())]
+
+		let viewModel = HomeTableViewModel(
+			state: .init(
+				store: store,
+				riskProvider: MockRiskProvider(),
+				exposureManagerState: .init(authorized: true, enabled: true, status: .active),
+				enState: .enabled,
+				statisticsProvider: StatisticsProvider(
+					client: CachingHTTPClientMock(),
+					store: store
+				),
+				localStatisticsProvider: LocalStatisticsProvider(
+					client: CachingHTTPClientMock(),
+					store: store
+				)
+			),
+			store: store,
+			appConfiguration: appConfiguration,
+			coronaTestService: MockCoronaTestService(),
+			familyMemberCoronaTestService: familyCoronaTestService,
+			onTestResultCellTap: { _ in },
+			badgeWrapper: .fake()
+		)
+
+		XCTAssertEqual(viewModel.numberOfRows(in: 1), 2)
+		XCTAssertEqual(viewModel.riskAndTestResultsRows, [.risk, .familyTestResults(2)])
+	}
+
+	func testRiskCellNotHiddenIfFamilyTestsExistAndUnreadCountIsZero() {
+		let store = MockTestStore()
+		var defaultAppConfig = CachedAppConfigurationMock.defaultAppConfiguration
+		defaultAppConfig.coronaTestParameters.coronaPcrtestParameters.hoursSinceTestRegistrationToShowRiskCard = 168
+		let appConfiguration = CachedAppConfigurationMock(with: defaultAppConfig)
+
+		let familyCoronaTestService = MockFamilyMemberCoronaTestService()
+		familyCoronaTestService.coronaTests.value = [.antigen(.mock(testResultWasShown: true) ), .pcr(.mock(testResultWasShown: true))]
+
+		let viewModel = HomeTableViewModel(
+			state: .init(
+				store: store,
+				riskProvider: MockRiskProvider(),
+				exposureManagerState: .init(authorized: true, enabled: true, status: .active),
+				enState: .enabled,
+				statisticsProvider: StatisticsProvider(
+					client: CachingHTTPClientMock(),
+					store: store
+				),
+				localStatisticsProvider: LocalStatisticsProvider(
+					client: CachingHTTPClientMock(),
+					store: store
+				)
+			),
+			store: store,
+			appConfiguration: appConfiguration,
+			coronaTestService: MockCoronaTestService(),
+			familyMemberCoronaTestService: familyCoronaTestService,
+			onTestResultCellTap: { _ in },
+			badgeWrapper: .fake()
+		)
+
+		XCTAssertEqual(viewModel.numberOfRows(in: 1), 2)
+		XCTAssertEqual(viewModel.riskAndTestResultsRows, [.risk, .familyTestResults(0)])
+	}
+
 	func testRiskCellNotHiddenIfPositivePCRTestResultWasNotYetShownAndLimitToShowRiskCardNotReachedAndRiskLow() {
 		let store = MockTestStore()
 		store.enfRiskCalculationResult = .fake(riskLevel: .low)
@@ -717,5 +789,34 @@ class HomeTableViewModelTests: CWATestCase {
 		XCTAssertFalse(viewModel.shouldShowDeletionConfirmationAlert(for: .pcr))
 		XCTAssertFalse(viewModel.shouldShowDeletionConfirmationAlert(for: .antigen))
 	}
+/*
+	func testShouldShowDeletionConfirmationAlert() {
+		let store = MockTestStore()
+
+		let coronaTestService = MockCoronaTestService()
+
+		let viewModel = HomeTableViewModel(
+			state: .init(
+				store: store,
+				riskProvider: MockRiskProvider(),
+				exposureManagerState: .init(authorized: true, enabled: true, status: .active),
+				enState: .enabled,
+				statisticsProvider: StatisticsProvider(
+					client: CachingHTTPClientMock(),
+					store: store
+				),
+				localStatisticsProvider: LocalStatisticsProvider(
+					client: CachingHTTPClientMock(),
+					store: store
+				)
+			),
+			store: store,
+			appConfiguration: CachedAppConfigurationMock(),
+			coronaTestService: coronaTestService,
+			familyMemberCoronaTestService: MockFamilyMemberCoronaTestService(),
+			onTestResultCellTap: { _ in },
+			badgeWrapper: .fake()
+		)
+*/
 
 }
