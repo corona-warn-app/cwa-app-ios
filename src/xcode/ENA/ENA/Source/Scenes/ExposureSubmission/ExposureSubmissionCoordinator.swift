@@ -1762,17 +1762,17 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 		case .familyMember(let displayName):
 			model.registerFamilyMemberTestAndGetResult(
 				for: displayName,
-				   registrationInformation: testQRCodeInformation,
-				   certificateConsent: certificateConsent,
-				   isLoading: isLoading,
-				   onSuccess: { [weak self] familyMemberCoronaTest in
-					   self?.showTestResultScreen(for: familyMemberCoronaTest)
-				   },
-				   onError: { [weak self] error in
-					   let alert = self?.alert(error, testQRCodeInformation: testQRCodeInformation, isLoading: isLoading) ?? defaultAlert(error)
-					   self?.navigationController?.present(alert, animated: true, completion: nil)
-					   Log.error("An error occurred during fetching result for a family member: \(error)", log: .ui)
-				   }
+				registrationInformation: testQRCodeInformation,
+				certificateConsent: certificateConsent,
+				isLoading: isLoading,
+				onSuccess: { [weak self] familyMemberCoronaTest in
+					self?.showTestResultScreen(for: familyMemberCoronaTest)
+				},
+				onError: { [weak self] error in
+					let alert = self?.alert(error, testQRCodeInformation: testQRCodeInformation, isLoading: isLoading) ?? defaultAlert(error)
+					self?.navigationController?.present(alert, animated: true, completion: nil)
+					Log.error("An error occurred during fetching result for a family member: \(error)", log: .ui)
+				}
 			)
 		}
 	}
