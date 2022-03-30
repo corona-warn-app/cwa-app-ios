@@ -19,10 +19,8 @@ class FamilyTestsHomeCellViewModel: Equatable {
 	) {
 		self.familyMemberCoronaTestService = familyMemberCoronaTestService
 
-		familyMemberCoronaTestService.coronaTests.sink { [weak self] familyMemberTests in
-			self?.badgeCount.value = familyMemberTests
-				.filter { !$0.testResultWasShown }
-				.count
+		familyMemberCoronaTestService.coronaTests.sink { [weak self] _ in
+			self?.badgeCount.value = self?.familyMemberCoronaTestService.unseenNewsCount ?? 0
 		}
 		.store(in: &subscriptions)
 	}

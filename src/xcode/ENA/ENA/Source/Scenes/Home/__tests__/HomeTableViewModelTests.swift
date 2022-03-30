@@ -84,7 +84,7 @@ class HomeTableViewModelTests: CWATestCase {
 		)
 
 		XCTAssertEqual(viewModel.numberOfRows(in: 1), 2)
-		XCTAssertEqual(viewModel.riskAndTestResultsRows, [.risk, .familyTestResults(2)])
+		XCTAssertEqual(viewModel.riskAndTestResultsRows, [.risk, .familyTestResults])
 	}
 
 	func testRiskCellNotHiddenIfFamilyTestsExistAndUnreadCountIsZero() {
@@ -120,7 +120,7 @@ class HomeTableViewModelTests: CWATestCase {
 		)
 
 		XCTAssertEqual(viewModel.numberOfRows(in: 1), 2)
-		XCTAssertEqual(viewModel.riskAndTestResultsRows, [.risk, .familyTestResults(0)])
+		XCTAssertEqual(viewModel.riskAndTestResultsRows, [.risk, .familyTestResults])
 	}
 
 	func testRiskCellNotHiddenIfPositivePCRTestResultWasNotYetShownAndLimitToShowRiskCardNotReachedAndRiskLow() {
