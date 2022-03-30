@@ -485,7 +485,7 @@ final class RiskProvider: RiskProviding {
     }
 
 	private func successOnTargetQueue(risk: Risk) {
-		Log.info("RiskProvider: Risk detection and calculation was successful.", log: .riskDetection)
+		Log.info("RiskProvider: Risk detection and calculation was successful. Provide risk to consumers: \(risk)", log: .riskDetection)
 
 		updateActivityState(.idle)
 
