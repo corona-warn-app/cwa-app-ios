@@ -6,6 +6,9 @@ import UIKit
 import OpenCombine
 
 class ExposureSubmissionTestResultFamilyMemberViewModel: ExposureSubmissionTestResultModeling {
+	func evaluateSavingIntoContactDiary() {
+	}
+	
 	
 	// MARK: - Init
 	
