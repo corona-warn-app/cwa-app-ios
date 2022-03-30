@@ -589,25 +589,13 @@ class CoronaTestService: CoronaTestServiceProviding {
 	func evaluateSavingTestToDiary(ofTestType coronaTestType: CoronaTestType) {
 		Log.info("[CoronaTestService] Evaluating saving test (coronaTestType: \(coronaTestType))", log: .api)
 
-		switch coronaTestType {
-		case .pcr where pcrTest.value?.testResult == .positive:
-			guard let positiveTestResultWasShown = pcrTest.value?.positiveTestResultWasShown, !positiveTestResultWasShown else {
-				Log.info("[CoronaTestService] will not save PCR test to the diary (coronaTestType: \(coronaTestType))", log: .api)
-				return
-			}
-			Log.info("[CoronaTestService] Saving Positive PCR test result to the Contact Diary", log: .api)
-		case .antigen where antigenTest.value?.testResult == .positive:
-			guard let positiveTestResultWasShown = antigenTest.value?.positiveTestResultWasShown, !positiveTestResultWasShown else {
-				Log.info("[CoronaTestService] will not save antigen test to the diary (coronaTestType: \(coronaTestType))", log: .api)
-				return
-			}
-			Log.info("[CoronaTestService] Saving Positive antigen test result to the Contact Diary", log: .api)
-		default:
-			break
+		guard let coronaTest = coronaTest(ofType: coronaTestType), coronaTest.testResult == .positive, !coronaTest.positiveTestResultWasShown else {
+			Log.info("[CoronaTestService] will not save test to the diary (coronaTestType: \(coronaTestType))", log: .api)
+			return
 		}
-
 		createCoronaTestEntryInContactDiary(coronaTestType: coronaTestType)
 	}
+	
 	func updatePublishersFromStore() {
 		Log.info("[CoronaTestService] Updating publishers from store", log: .api)
 
