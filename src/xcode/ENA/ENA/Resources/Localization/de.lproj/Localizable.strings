@@ -3737,6 +3737,8 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "FamilyMemberCoronaTest_title" = "Tests von Familienmitgliedern";
 
+"FamilyMemberCoronaTest_deleteAllButtonTitle" = "Alle löschen";
+
 "FamilyMemberCoronaTest_pcrCaption" = "PCR-Test-Befund";
 
 "FamilyMemberCoronaTest_antigenCaption" = "Schnelltest-Befund";

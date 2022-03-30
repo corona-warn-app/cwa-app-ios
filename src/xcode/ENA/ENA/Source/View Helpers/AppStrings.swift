@@ -2729,6 +2729,7 @@ enum AppStrings {
 
 	enum FamilyMemberCoronaTest {
 		static let title = NSLocalizedString("FamilyMemberCoronaTest_title", comment: "")
+		static let deleteAllButtonTitle = NSLocalizedString("FamilyMemberCoronaTest_deleteAllButtonTitle", comment: "")
 
 		static let pcrCaption = NSLocalizedString("FamilyMemberCoronaTest_pcrCaption", comment: "")
 		static let antigenCaption = NSLocalizedString("FamilyMemberCoronaTest_antigenCaption", comment: "")
