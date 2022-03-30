@@ -3507,6 +3507,7 @@
 		EBA3BE3B25C2FAA800F1C2AC /* RootCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootCoordinator.swift; sourceTree = "<group>"; };
 		EBA403CF2589260D00D1F039 /* ColorCompatibility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorCompatibility.swift; sourceTree = "<group>"; };
 		EBA9560927F332C90085B647 /* DMCrashAppViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMCrashAppViewController.swift; sourceTree = "<group>"; };
+		EBACFD7827F45F630054C562 /* Environments.default.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = Environments.default.json; sourceTree = "<group>"; };
 		EBB92C71259E10ED00013B41 /* UpdateOSViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateOSViewController.swift; sourceTree = "<group>"; };
 		EBB92C76259E110900013B41 /* UpdateOSViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateOSViewModel.swift; sourceTree = "<group>"; };
 		EBB92C7B259E111A00013B41 /* UpdateOSView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateOSView.swift; sourceTree = "<group>"; };
@@ -7604,6 +7605,7 @@
 		AB628A1D251CDAA700CF61D2 /* Environment */ = {
 			isa = PBXGroup;
 			children = (
+				EBACFD7827F45F630054C562 /* Environments.default.json */,
 				AB628A1E251CDADE00CF61D2 /* Environments.json */,
 			);
 			path = Environment;
