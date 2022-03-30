@@ -128,8 +128,6 @@ class MockCoronaTestService: CoronaTestServiceProviding {
 
 	func evaluateShowingTest(ofType coronaTestType: CoronaTestType) {}
 
-	func evaluateSavingTestToDiary(ofTestType coronaTestType: CoronaTestType) {}
-	
 	func updatePublishersFromStore() {}
 
 	func migrate() {}

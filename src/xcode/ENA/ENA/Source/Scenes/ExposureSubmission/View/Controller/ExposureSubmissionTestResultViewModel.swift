@@ -102,7 +102,6 @@ class ExposureSubmissionTestResultViewModel: ExposureSubmissionTestResultModelin
 	}
 	
 	func evaluateShowing() {
-		coronaTestService.evaluateSavingTestToDiary(ofTestType: coronaTestType)
 		coronaTestService.evaluateShowingTest(ofType: coronaTestType)
 	}
 	
