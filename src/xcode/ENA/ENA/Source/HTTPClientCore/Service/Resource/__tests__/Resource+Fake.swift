@@ -12,7 +12,7 @@ class ResourceFake: Resource {
 		receiveResource: JSONReceiveResource<DummyResourceModel> = JSONReceiveResource<DummyResourceModel>(),
 		defaultModel: ResourceFake.Receive.ReceiveModel? = nil,
 		trustEvaluation: TrustEvaluating = DisabledTrustEvaluation(),
-		retryingCount: Int? = nil
+		retryingCount: Int = 0
 	) {
 		self.locator = locator
 		self.type = type
@@ -29,6 +29,7 @@ class ResourceFake: Resource {
 	let receiveResource: JSONReceiveResource<DummyResourceModel>
 	let defaultModel: ResourceFake.Receive.ReceiveModel?
 	let trustEvaluation: TrustEvaluating
+	let retryingCount: Int
 
 	typealias Send = PaddingJSONSendResource<DummyResourceModel>
 	typealias Receive = JSONReceiveResource<DummyResourceModel>

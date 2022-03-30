@@ -33,12 +33,14 @@ class RestServiceProviderTests: XCTestCase {
 		)
 
 		// WHEN
-		switch serviceProvider.cached(resource) {
-		case let .success(responseModel):
-			XCTAssertEqual(responseModel.dummyValue, "Goofy")
-		case .failure:
-			XCTFail("Reading from cache failed")
-		}
+		serviceProvider.cached(resource, { result in
+			switch result {
+			case let .success(responseModel):
+				XCTAssertEqual(responseModel.dummyValue, "Goofy")
+			case .failure:
+				XCTFail("Reading from cache failed")
+			}
+		})
 	}
 
 	func testGIVEN_CacheWithResourceData_WHEN_getCachedModelButServiceTypeIsWrong_THEN_MissingCache() throws {
@@ -67,17 +69,19 @@ class RestServiceProviderTests: XCTestCase {
 		)
 
 		// WHEN missingCache error is given
-		switch serviceProvider.cached(resource) {
-		case let .success(responseModel):
-			XCTFail("Reading from cache succeeded")
-			XCTAssertEqual(responseModel.dummyValue, "Goofy")
-		case let .failure(serviceError):
-			guard case let .resourceError(resourceError) = serviceError,
-				  case .notModified = resourceError else {
-					  XCTFail("failure expected")
-					  return
-				  }
-		}
+		serviceProvider.cached(resource, { result in
+			switch result {
+			case let .success(responseModel):
+				XCTFail("Reading from cache succeeded")
+				XCTAssertEqual(responseModel.dummyValue, "Goofy")
+			case let .failure(serviceError):
+				guard case let .resourceError(resourceError) = serviceError,
+					  case .notModified = resourceError else {
+					XCTFail("failure expected")
+					return
+				}
+			}
+		})
 	}
 
 	func testGIVEN_CacheWithoutResourceData_WHEN_getCachedModelButServiceTypeIsWrong_THEN_MissingCache() throws {
@@ -104,17 +108,19 @@ class RestServiceProviderTests: XCTestCase {
 		)
 
 		// WHEN missingCache error is given
-		switch serviceProvider.cached(resource) {
-		case let .success(responseModel):
-			XCTFail("Reading from cache succeeded")
-			XCTAssertEqual(responseModel.dummyValue, "Goofy")
-		case let .failure(serviceError):
-			guard case let .resourceError(resourceError) = serviceError,
-				  case .missingCache = resourceError else {
-					  XCTFail("failure expected")
-					  return
-				  }
-		}
+		serviceProvider.cached(resource, { result in
+			switch result {
+			case let .success(responseModel):
+				XCTFail("Reading from cache succeeded")
+				XCTAssertEqual(responseModel.dummyValue, "Goofy")
+			case let .failure(serviceError):
+				guard case let .resourceError(resourceError) = serviceError,
+					  case .missingCache = resourceError else {
+					XCTFail("failure expected")
+					return
+				}
+			}
+		})
 	}
 
 	func testGIVEN_CacheWithResourceData_WHEN_getCachedButLocatorIsDifferent_THEN_MissingCache() throws {
@@ -142,17 +148,19 @@ class RestServiceProviderTests: XCTestCase {
 			cache: cache
 		)
 
-		switch serviceProvider.cached(resource) {
-		case let .success(responseModel):
-			XCTFail("Reading from cache succeeded")
-			XCTAssertEqual(responseModel.dummyValue, "Goofy")
-		case let .failure(serviceError):
-			guard case let .resourceError(resourceError) = serviceError,
-				  case .missingCache = resourceError else {
-					  XCTFail("failure expected")
-					  return
-				  }
-		}
+		serviceProvider.cached(resource, { result in
+			switch result {
+			case let .success(responseModel):
+				XCTFail("Reading from cache succeeded")
+				XCTAssertEqual(responseModel.dummyValue, "Goofy")
+			case let .failure(serviceError):
+				guard case let .resourceError(resourceError) = serviceError,
+					  case .missingCache = resourceError else {
+					XCTFail("failure expected")
+					return
+				}
+			}
+		})
 	}
 
 	// MARK: - Helpers
