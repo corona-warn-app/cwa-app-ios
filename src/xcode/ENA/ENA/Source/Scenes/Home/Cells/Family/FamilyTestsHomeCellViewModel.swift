@@ -4,28 +4,42 @@
 
 import Foundation
 import UIKit
+import OpenCombine
 
-struct FamilyTestsHomeCellViewModel {
+class FamilyTestsHomeCellViewModel: Equatable {
+
+	static func == (lhs: FamilyTestsHomeCellViewModel, rhs: FamilyTestsHomeCellViewModel) -> Bool {
+		return true
+	}
 
 	// MARK: - Init
 
 	init(
-		_ badgeCount: Int = 0
+		familyMemberCoronaTestService: FamilyMemberCoronaTestServiceProviding
 	) {
-		self.badgeCount = badgeCount
+		self.familyMemberCoronaTestService = familyMemberCoronaTestService
+
+		familyMemberCoronaTestService.coronaTests.sink { [weak self] familyMemberTests in
+			self?.badgeCount.value = familyMemberTests
+				.filter { !$0.testResultWasShown }
+				.count
+		}
+		.store(in: &subscriptions)
 	}
 
 	// MARK: - Internal
 
 	let titleText: String = AppStrings.Home.familyTestTitle
 
+ 	var badgeCount: CurrentValueSubject<Int, Never> = CurrentValueSubject(0)
+
 	var badgeText: String? {
-		guard badgeCount > 0 else { return nil }
-		return "\(badgeCount)"
+		guard badgeCount.value > 0 else { return nil }
+		return "\(badgeCount.value)"
 	}
 
 	var detailText: String? {
-		badgeCount > 0 ? AppStrings.Home.familyTestDetail : nil
+		badgeCount.value > 0 ? AppStrings.Home.familyTestDetail : nil
 	}
 
 	var isDetailsHidden: Bool {
@@ -34,5 +48,8 @@ struct FamilyTestsHomeCellViewModel {
 
 	// MARK: - Private
 
-	private let badgeCount: Int
+	private let familyMemberCoronaTestService: FamilyMemberCoronaTestServiceProviding
+
+	private var subscriptions = Set<AnyCancellable>()
+
 }

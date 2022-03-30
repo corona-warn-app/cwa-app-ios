@@ -3,6 +3,7 @@
 //
 
 import UIKit
+import OpenCombine
 
 class FamilyTestsHomeCell: UITableViewCell, ReuseIdentifierProviding {
 
@@ -28,9 +29,13 @@ class FamilyTestsHomeCell: UITableViewCell, ReuseIdentifierProviding {
 	// MARK: - Internal
 
 	func configure(with viewModel: FamilyTestsHomeCellViewModel) {
-		badgeView.setBadge(viewModel.badgeText, animated: true)
-		detailsLabel.text = viewModel.detailText
-		detailsLabel.isHidden = viewModel.isDetailsHidden
+		subscriptions.removeAll()
+		viewModel.badgeCount.sink { [weak self] _ in
+			self?.badgeView.setBadge(viewModel.badgeText, animated: true)
+			self?.detailsLabel.text = viewModel.detailText
+			self?.detailsLabel.isHidden = viewModel.isDetailsHidden
+		}
+		.store(in: &subscriptions)
 	}
 
 	// MARK: - Private
@@ -74,6 +79,8 @@ class FamilyTestsHomeCell: UITableViewCell, ReuseIdentifierProviding {
 		imageView.translatesAutoresizingMaskIntoConstraints = false
 		return imageView
 	}()
+
+	private var subscriptions = Set<AnyCancellable>()
 
 	private func setupView() {
 		selectionStyle = .none
