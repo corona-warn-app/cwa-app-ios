@@ -46,6 +46,7 @@ class FamilyMemberCoronaTestCellModel {
 	private let familyMemberCoronaTestService: FamilyMemberCoronaTestServiceProviding
 	private let onUpdate: () -> Void
 
+	private var isConfigured = false
 	private var subscriptions = Set<AnyCancellable>()
 
 	private func setup() {
@@ -56,7 +57,7 @@ class FamilyMemberCoronaTestCellModel {
 					return
 				}
 
-				if updatedCoronaTest != self.coronaTest {
+				if !self.isConfigured || updatedCoronaTest != self.coronaTest {
 					self.coronaTest = updatedCoronaTest
 					self.configure()
 					self.onUpdate()
@@ -88,6 +89,8 @@ class FamilyMemberCoronaTestCellModel {
 		case .positive: configureTestResultPositive()
 		case .expired: configureTestResultExpired()
 		}
+
+		isConfigured = true
 	}
 
 	private func configureTestResultNegative() {
