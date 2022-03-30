@@ -60,7 +60,7 @@ class ContactDiaryStoreSchemaV4: StoreSchemaProtocol {
 
 			guard database.executeStatements(sql) else {
 				Log.error("[SQLite] (\(database.lastErrorCode())) \(database.lastErrorMessage())", log: .localData)
-				let error = SecureSQLStoreError.database(SQLiteErrorCode(rawValue: database.lastErrorCode()) ?? SQLiteErrorCode.unknown)
+				let error = SecureSQLStoreError.database(SQLiteErrorCode(rawValue: database.lastErrorCode()))
 				result = .failure(error)
 				return
 			}

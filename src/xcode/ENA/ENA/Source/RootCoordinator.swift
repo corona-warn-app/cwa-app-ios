@@ -115,7 +115,7 @@ class RootCoordinator: NSObject, RequiresAppDependencies, UITabBarControllerDele
 	}()
 
 	// swiftlint:disable function_body_length
-	func showHome(enStateHandler: ENStateHandler, route: Route?) {
+	func showHome(enStateHandler: ENStateHandler, route: Route?, startupErrors: [Error]) {
 		// only create and init the whole view stack if not done before
 		// there for we check if the homeCoordinator exists
 		defer {
@@ -141,7 +141,8 @@ class RootCoordinator: NSObject, RequiresAppDependencies, UITabBarControllerDele
 			  homeCoordinator == nil else {
 			homeCoordinator?.showHome(
 				enStateHandler: enStateHandler,
-				route: route
+				route: route,
+				startupErrors: startupErrors
 			)
 			return
 		}
@@ -198,7 +199,8 @@ class RootCoordinator: NSObject, RequiresAppDependencies, UITabBarControllerDele
 		self.homeCoordinator = homeCoordinator
 		homeCoordinator.showHome(
 			enStateHandler: enStateHandler,
-			route: route
+			route: route,
+			startupErrors: startupErrors
 		)
 	
 		let healthCertificatesTabCoordinator = HealthCertificatesTabCoordinator(
