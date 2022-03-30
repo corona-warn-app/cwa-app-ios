@@ -13,7 +13,7 @@ A Service has to define:
 - if in dependency of the specific Service, some customHeaders (e.g. ETag) has to be added to the http request headers (customHeaders<R>).
 */
 
-protocol Service {
+protocol Service: AnyObject {
 
 	init(
 		environment: EnvironmentProviding,
@@ -22,6 +22,7 @@ protocol Service {
 
 	var session: URLSession { get }
 	var environment: EnvironmentProviding { get }
+	var resourcesRetries: [String: Int] { get set }
 
 	/// Hook to provide a receive model what will interrupt loading
 	/// This can be used to implement special caching behaviors

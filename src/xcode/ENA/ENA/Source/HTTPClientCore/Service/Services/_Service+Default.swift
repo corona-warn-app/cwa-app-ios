@@ -71,6 +71,9 @@ extension Service {
 			}
 		})
 
+		// Save up the retryCount for our resource. Used later then.
+		self.resourcesRetries[resource.locator.uniqueIdentifier] = resource.retryingCount
+
 		// load data from the server
 		switch urlRequest(resource.locator, resource.sendResource, resource.receiveResource) {
 		case let .failure(resourceError):
@@ -79,10 +82,14 @@ extension Service {
 		case let .success(request):
 
 			var task: URLSessionDataTask?
-			task = session.dataTask(with: request) { bodyData, response, error in
+			task = session.dataTask(with: request) { [weak self] bodyData, response, error in
+
+				guard let self = self else {
+					fatalError("Self should not be nil at this point")
+				}
 				
 				defer {
-					   if let coronaSessionDelegate = session.delegate as? CoronaWarnSessionTaskDelegate,
+					if let coronaSessionDelegate = self.session.delegate as? CoronaWarnSessionTaskDelegate,
 						  let task = task {
 						   coronaSessionDelegate.trustEvaluations[task.taskIdentifier] = nil
 					   }
@@ -90,31 +97,31 @@ extension Service {
 				
 				// If there is a transportation error, check if the underlying error is a trust evaluation error and possibly return it.
 				if error != nil,
-				   let coronaSessionDelegate = session.delegate as? CoronaWarnSessionTaskDelegate,
+				   let coronaSessionDelegate = self.session.delegate as? CoronaWarnSessionTaskDelegate,
 				   let task = task,
 				   let trustEvaluationError = coronaSessionDelegate.trustEvaluations[task.taskIdentifier]?.trustEvaluationError {
 					Log.error("TrustEvaluation failed.", log: .client)
-					failureOrDefaultValueHandling(resource, .trustEvaluationError(trustEvaluationError), nil, completion)
+					self.failureOrDefaultValueHandling(resource, .trustEvaluationError(trustEvaluationError), nil, completion)
 					return
 				}
 				
 				// case we have no network.
 				if let error = error {
-					handleNoNetworkCachePolicy(resource, error, completion)
+					self.handleNoNetworkCachePolicy(resource, error, completion)
 					return
 				}
 								
 				// case we have a fake.
 				guard !resource.locator.isFake else {
 					Log.info("Fake detected no response given", log: .client)
-					failureOrDefaultValueHandling(resource, .fakeResponse, nil, completion)
+					self.failureOrDefaultValueHandling(resource, .fakeResponse, nil, completion)
 					return
 				}
 
 				// case we have an invalid response.
 				guard let response = response as? HTTPURLResponse else {
 					Log.error("Invalid response.", log: .client, error: error)
-					failureOrDefaultValueHandling(resource, .invalidResponseType, nil, completion)
+					self.failureOrDefaultValueHandling(resource, .invalidResponseType, nil, completion)
 					return
 				}
 				
@@ -125,8 +132,8 @@ extension Service {
 				#endif
 
 				// override status code by cache policy and handle it on other way.
-				if hasStatusCodeCachePolicy(resource, response.statusCode) {
-					handleStatusCodeCachePolicy(resource, response.statusCode, completion)
+				if self.hasStatusCodeCachePolicy(resource, response.statusCode) {
+					self.handleStatusCodeCachePolicy(resource, response.statusCode, completion)
 					return
 				}
 				
@@ -134,18 +141,18 @@ extension Service {
 				// The codes here are in sync with the one in hasStatusCodeCachePolicy in the CachedRestService - do always sync them!
 				switch response.statusCode {
 				case 200, 201:
-					decodeModel(resource, bodyData, response.allHeaderFields, false, completion)
+					self.decodeModel(resource, bodyData, response.allHeaderFields, false, completion)
 				case 204:
 					guard resource.receiveResource is EmptyReceiveResource else {
 						Log.error("This is not an EmptyReceiveResource", log: .client)
-						failureOrDefaultValueHandling(resource, .invalidResponse, nil, completion)
+						self.failureOrDefaultValueHandling(resource, .invalidResponse, nil, completion)
 						return
 					}
-					decodeModel(resource, bodyData, response.allHeaderFields, false, completion)
+					self.decodeModel(resource, bodyData, response.allHeaderFields, false, completion)
 				case 304:
-					cached(resource, completion)
+					self.cached(resource, completion)
 				default:
-					failureOrDefaultValueHandling(resource, .unexpectedServerError(response.statusCode), bodyData, completion)
+					self.failureOrDefaultValueHandling(resource, .unexpectedServerError(response.statusCode), bodyData, completion)
 				}
 			}
 			
@@ -253,13 +260,14 @@ extension Service {
 		_ completion: @escaping (Result<R.Receive.ReceiveModel, ServiceError<R.CustomError>>) -> Void
 	) where R: Resource {
 
-		if let retryingCount = resource.retryingCount,
-		   retryingCount > 0 {
-			Log.debug("Retry for resource discovered. Retry counter at: \(retryingCount)", log: .client)
-			var mutatableResource = resource
-			mutatableResource.retryingCount? -= 1
-			Log.debug("Remaining retries now: \(mutatableResource.retryingCount ?? 0)", log: .client)
-			load(mutatableResource, completion)
+		if var resourceRetryingCount = self.resourcesRetries[resource.locator.uniqueIdentifier],
+		   resourceRetryingCount > 0 {
+			Log.debug("Retry for resource discovered. Retry counter at: \(resourceRetryingCount)", log: .client)
+
+			resourceRetryingCount -= 1
+			self.resourcesRetries[resource.locator.uniqueIdentifier] = resourceRetryingCount
+			Log.debug("Remaining retries now: \(resourceRetryingCount)", log: .client)
+			load(resource, completion)
 		} else {
 			// Now after all retries exhausted (or we did not had any retry), we check if we can return a default value or not. If so, return it independent which error we had
 			if let defaultModel = resource.defaultModel {
@@ -280,13 +288,15 @@ extension Service {
 			} else {
 				// We don't have a default value. And now check if we want to override the error by a custom error defined in the resource
 				Log.error("Found no default value. Will fail now.", log: .client, error: error)
+				// cleanup the retryCount dictionary
+				self.resourcesRetries[resource.locator.uniqueIdentifier] = nil
 				completion(.failure(customError(in: resource, for: error, responseData)))
 			}
-
 		}
 	}
 	
 	// MARK: - Private
+
 
 	/// Handles the noNetwork cache policy: Checks first, if the cache policy is defined. If not, proceed with the transportation error. Otherwise, try to load the cached data. If this fails, we fall back to the the transportation error.
 	///
