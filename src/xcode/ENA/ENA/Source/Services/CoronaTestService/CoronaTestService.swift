@@ -585,7 +585,17 @@ class CoronaTestService: CoronaTestServiceProviding {
 
 		scheduleWarnOthersNotificationIfNeeded(coronaTestType: coronaTestType)
 	}
+	
+	func evaluateSavingTestToDiary(ofTestType coronaTestType: CoronaTestType) {
+		Log.info("[CoronaTestService] Evaluating saving test (coronaTestType: \(coronaTestType))", log: .api)
 
+		guard let coronaTest = coronaTest(ofType: coronaTestType), coronaTest.testResult == .positive, !coronaTest.positiveTestResultWasShown else {
+			Log.info("[CoronaTestService] will not save test to the diary (coronaTestType: \(coronaTestType))", log: .api)
+			return
+		}
+		createCoronaTestEntryInContactDiary(coronaTestType: coronaTestType)
+	}
+	
 	func updatePublishersFromStore() {
 		Log.info("[CoronaTestService] Updating publishers from store", log: .api)
 
@@ -911,7 +921,10 @@ class CoronaTestService: CoronaTestServiceProviding {
 					if case .positive = testResult, let coronaTest = self.coronaTest(ofType: coronaTestType), !coronaTest.keysSubmitted {
 						self.createKeySubmissionMetadataDefaultValues(for: coronaTest)
 					}
-
+					// for negative result we save the result directly to the diary as there is no additional UI that the user has to go through unlike the positive test result where the user sees a "Test result is available" screen first.
+					if case .negative = testResult {
+						self.createCoronaTestEntryInContactDiary(coronaTestType: coronaTestType)
+					}
 					if self.coronaTest(ofType: coronaTestType)?.finalTestResultReceivedDate == nil {
 						switch coronaTestType {
 						case .pcr:
