@@ -56,7 +56,7 @@ class HomeCoordinator: RequiresAppDependencies {
 
 	let rootViewController: UINavigationController = AppNavigationController(rootViewController: UIViewController())
 
-	func showHome(enStateHandler: ENStateHandler, route: Route?) {
+	func showHome(enStateHandler: ENStateHandler, route: Route?, startupErrors: [Error]) {
 		guard homeController == nil else {
 			switch route {
 			case .rapidAntigen, .rapidPCR:
@@ -89,6 +89,7 @@ class HomeCoordinator: RequiresAppDependencies {
 			),
 			appConfigurationProvider: appConfigurationProvider,
 			route: route,
+			startupErrors: startupErrors,
 			onInfoBarButtonItemTap: { [weak self] in
 				self?.showRiskLegend()
 			},
@@ -306,6 +307,7 @@ class HomeCoordinator: RequiresAppDependencies {
 			parentViewController: rootViewController,
 			exposureSubmissionService: exposureSubmissionService,
 			coronaTestService: coronaTestService,
+			familyMemberCoronaTestService: familyMemberCoronaTestService,
 			healthCertificateService: healthCertificateService,
 			healthCertificateValidationService: healthCertificateValidationService,
 			eventProvider: eventStore,

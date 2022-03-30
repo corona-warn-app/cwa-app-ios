@@ -227,8 +227,11 @@ enum AppStrings {
 			static let card_negative = NSLocalizedString("ExposureSubmissionResult_CardNegative", comment: "")
 			static let card_subtitle = NSLocalizedString("ExposureSubmissionResult_CardSubTitle", comment: "")
 			static let testPending = NSLocalizedString("ExposureSubmissionResult_testPending", comment: "")
+			static let familyMemberTestPending = NSLocalizedString("ExposureSubmissionResult_familyMember_testPending", comment: "")
 			static let testPendingDesc = NSLocalizedString("ExposureSubmissionResult_testPendingDesc", comment: "")
+			static let familyMemberTestPendingDesc = NSLocalizedString("ExposureSubmissionResult_familyMember_testPendingDesc", comment: "")
 			static let testAdded = NSLocalizedString("ExposureSubmissionResult_testAdded", comment: "")
+			static let familyMemberTestAdded = NSLocalizedString("ExposureSubmissionResult_familyMember_testAdded", comment: "")
 			static let registrationDate = NSLocalizedString("ExposureSubmissionResult_RegistrationDate", comment: "")
 			static let testPendingContactJournal = NSLocalizedString("ExposureSubmissionResult_pcrTestPendingContactJournal", comment: "")
 			static let testPendingContactJournalDesc = NSLocalizedString("ExposureSubmissionResult_pcrTestPendingContactJournalDesc", comment: "")
@@ -241,11 +244,14 @@ enum AppStrings {
 			static let card_negative = NSLocalizedString("ExposureSubmissionResult_CardNegative_Antigen", comment: "")
 			static let card_subtitle = NSLocalizedString("ExposureSubmissionResult_CardSubTitle_Antigen", comment: "")
 			static let testPending = NSLocalizedString("ExposureSubmissionResult_antigenTestPending", comment: "")
+			static let familyMemberTestPending = NSLocalizedString("ExposureSubmissionResult_familyMember_antigenTestPending", comment: "")
 			static let testPendingDesc = NSLocalizedString("ExposureSubmissionResult_antigenTestPendingDesc", comment: "")
+			static let familyMemberTestPendingDesc = NSLocalizedString("ExposureSubmissionResult_familyMember_antigenTestPendingDesc", comment: "")
 			static let testPendingContactJournal = NSLocalizedString("ExposureSubmissionResult_antigenTestPendingContactJournal", comment: "")
 			static let testPendingContactJournalDesc = NSLocalizedString("ExposureSubmissionResult_antigenTestPendingContactJournalDesc", comment: "")
 			static let testNegativeDesc = NSLocalizedString("ExposureSubmissionResult_antigenTestNegativDesc", comment: "")
 			static let testAdded = NSLocalizedString("ExposureSubmissionResult_antigenTestAdded", comment: "")
+			static let familyMemberTestAdded = NSLocalizedString("ExposureSubmissionResult_familyMember_antigenTestAdded", comment: "")
 			static let testAddedDesc = NSLocalizedString("ExposureSubmissionResult_antigenTestAddedDesc", comment: "")
 			static let personBirthdayPrefix = NSLocalizedString("ExposureSubmissionResult_Person_Birthday_Prefix", comment: "")
 			static let registrationDate = NSLocalizedString("ExposureSubmissionResult_RegistrationDate_Antigen", comment: "")
@@ -257,13 +263,14 @@ enum AppStrings {
 			static let proofDesc = NSLocalizedString("ExposureSubmissionResult_Negative_Antigen_Proof_Desc", comment: "")
 			static let noProofTitle = NSLocalizedString("ExposureSubmissionResult_Negative_Antigen_NoProof_Title", comment: "")
 			static let noProofDesc = NSLocalizedString("ExposureSubmissionResult_Negative_Antigen_NoProof_Desc", comment: "")
-			static let testCenterNotSupportedTitle = NSLocalizedString("ExposureSubmissionResult_testCertificate_testCenterNotSupported", comment: "")
 		}
 		static let testCertificatePending = NSLocalizedString("ExposureSubmissionResult_testCertificate_Pending", comment: "")
+		static let familyMemberTestCertificatePending = NSLocalizedString("ExposureSubmissionResult_familyMemberTestCertificate_Pending", comment: "")
 		static let testCertificateNotRequested = NSLocalizedString("ExposureSubmissionResult_testCertificate_NotRequested", comment: "")
 		static let testCertificateAvailableInTheTab = NSLocalizedString("ExposureSubmissionResult_testCertificate_AvailableInTab", comment: "")
-
 		static let testCertificateTitle = NSLocalizedString("ExposureSubmissionResult_testCertificate_title", comment: "")
+		static let familyMemberTestCertificateTitle = NSLocalizedString("ExposureSubmissionResult_familyMemberTestCertificate_title", comment: "")
+		static let testCenterNotSupportedTitle = NSLocalizedString("ExposureSubmissionResult_testCertificate_testCenterNotSupported", comment: "")
 
 		static let card_title = NSLocalizedString("ExposureSubmissionResult_CardTitle", comment: "")
 		static let card_invalid = NSLocalizedString("ExposureSubmissionResult_CardInvalid", comment: "")
@@ -1228,6 +1235,10 @@ enum AppStrings {
 	}
 
 	enum ContactDiary {
+		
+		enum Error {
+			static let description = NSLocalizedString("ContactDiary_Overview_Error_Description", comment: "")
+		}
 
 		enum Overview {
 			static let menuButtonTitle = NSLocalizedString("ContactDiary_Overview_Button_Title_Menu", comment: "")
