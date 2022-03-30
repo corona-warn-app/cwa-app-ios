@@ -731,9 +731,13 @@
 
 "ExposureSubmissionResult_Procedure" = "Как работи:";
 
-"ExposureSubmissionResult_testAdded" = "Вашият тест е добавен";
+"ExposureSubmissionResult_testAdded" = "Вашият PCR тест е добавен";
+
+"ExposureSubmissionResult_familyMember_testAdded" = "PCR тестът е добавен";
 
 "ExposureSubmissionResult_antigenTestAdded" = "Вашият бърз тест е добавен";
+
+"ExposureSubmissionResult_familyMember_antigenTestAdded" = "Бързият тест е добавен";
 
 "ExposureSubmissionResult_antigenTestAddedDesc" = "Резултатът от теста ще се показва тук в рамките на 48 часа.";
 
@@ -765,13 +769,21 @@
 
 "ExposureSubmissionResult_testPending" = "Все още няма резултат от теста Ви";
 
+"ExposureSubmissionResult_familyMember_testPending" = "Все още няма резултат от теста Ви";
+
 "ExposureSubmissionResult_testPendingDesc" = "Резултатът от Вашия тест ще се покаже в приложението веднага щом бъде готов.\n\nТой ще Ви бъде изпратен също и извън приложението. Службата за обществено здравеопазване ще Ви уведоми, ако е положителен.\n\nАко получите такова уведомление, моля изтрийте теста, който в момента е регистриран в приложението. Позвънете на номера, показан под „Заявка за ТАН код“, за да получите ТАН. Използвайте кода, за да регистрирате своя резултат в приложението и да предупредите останалите потребители.";
 
+"ExposureSubmissionResult_familyMember_testPendingDesc" = "Веднага щом резултатът от теста Ви е наличен, той ще се покаже в приложението.\nЩе получите резултата от теста и извън приложението. Службата за обществено здравеопазване ще се свърже с Вас, ако тестът Ви е положителен.";
+
 "ExposureSubmissionResult_testCertificate_title" = "Вашият сертификат за тест за COVID";
+
+"ExposureSubmissionResult_familyMemberTestCertificate_title" = "Сертификат за тест за COVID";
 
 "ExposureSubmissionResult_testCertificate_testCenterNotSupported" = "Не може да бъде издаден официален цифров COVID сертификат за тестване, тъй като този пункт не поддържа издаването на такива.";
 
 "ExposureSubmissionResult_testCertificate_Pending" = "Вашият официален цифров сертификат за тест за COVID все още не е наличен. Когато стане готов, той ще се появи в приложението Ви.";
+
+"ExposureSubmissionResult_familyMemberTestCertificate_Pending" = "Официалният цифров сертификат за тест за COVID все още не е наличен. Когато е готов, ще се появи в приложението Ви.";
 
 "ExposureSubmissionResult_testCertificate_NotRequested" = "Съобразно Вашата заявка няма да бъде издаден официален цифров сертификат за тест за COVID.";
 
@@ -779,7 +791,11 @@
 
 "ExposureSubmissionResult_antigenTestPending" = "Все още няма резултат от теста Ви";
 
+"ExposureSubmissionResult_familyMember_antigenTestPending" = "Все още няма резултат от теста Ви";
+
 "ExposureSubmissionResult_antigenTestPendingDesc" = "Резултатът от Вашия тест ще се покаже в приложението веднага щом бъде готов.";
+
+"ExposureSubmissionResult_familyMember_antigenTestPendingDesc" = "Резултатът от теста ще се покаже в приложението веднага щом бъде готов.";
 
 "ExposureSubmissionResult_antigenTestPendingContactJournal" = "Резултатът от Вашия тест ще бъде добавен в дневника на контактите Ви";
 
@@ -1012,6 +1028,19 @@
 "ExposureSubmission_Profile_ProfileTile_Title" = "Профил за бързи тестове";
 
 "ExposureSubmission_Profile_ProfileTile_Description" = "Спестете време като представите профила си в пункта за тестване.";
+
+/* ExposureSubmission TestOwnerSelection */
+"ExposureSubmission_TestOwnerSelection_Title" = "Регистриране на тест";
+
+"ExposureSubmission_TestOwnerSelection_Description" = "Ще получите резултата на Вашия смартфон и ще имате възможност да заявите цифров сертификат за тест за COVID. Може да предупредите другите само ако тестът е Ваш и сте получили диагноза за заразяване с коронавирус.";
+
+"ExposureSubmission_TestOwnerSelection_User_Headline" = "За мен";
+
+"ExposureSubmission_TestOwnerSelection_User_Subheadline" = "Вашия тест";
+
+"ExposureSubmission_TestOwnerSelection_FamilyMember_Headline" = "За другите";
+
+"ExposureSubmission_TestOwnerSelection_FamilyMember_Subheadline" = "Тест за член на семейството";
 
 /* ExposureSubmission TestCertificate */
 "ExposureSubmission_TestCertificate_Information_Title" = "Сертификат за тест за COVID";
@@ -1611,30 +1640,10 @@
 /* New Version Features */
 "NewVersionFeatures_Info_about_abb_information" = "Може да видите промените в тази версия в подраздела „Нови функции“ на информацията за приложението.";
 
-/* Version 2.20 */
-"NewVersionFeature_220_highRiskShortened_title" = "Намален брой дни на отчета за повишеното ниво на риск";
+/* Version 2.21 */
+"NewVersionFeature_221_familyMembersTest_title" = "Управление на тестове за Вашето семейство";
 
-"NewVersionFeature_220_highRiskShortened_description" = "Повишеното ниво на риск след излагане вече ще се показва за 10 вместо 14 дни.";
-
-"NewVersionFeature_220_displayRiskPositiveResult_title" = "Отчет за риска след положителен резултат от тест";
-
-"NewVersionFeature_220_displayRiskPositiveResult_description" = "Червената плочка за повишено ниво на риск ще се показва след излагане дори ако сте регистрирали положителен тест в Corona-Warn-App. Статусът Ви на риск ще се покаже отново седем дни след положителния тест.";
-
-"NewVersionFeature_220_notificateRiskEncounter_title" = "Съобщение за ново излагане";
-
-"NewVersionFeature_220_notificateRiskEncounter_description" = "Ако имате друго излагане с повишено ниво на риск след предходно излагане, за него също ще се покаже известие.";
-
-"NewVersionFeature_220_notificationStatusChange_title" = "Отчет на промените в статуса";
-
-"NewVersionFeature_220_notificationStatusChange_description" = "Ако статусът Ви е променен (защото например сте добавили сертификат или правилата са се променили), ще получите известие за това на таба \"Сертификати\".";
-
-"NewVersionFeature_220_recoveryCertificatesDetails_title" = "Сертификати за възстановяване без данни за валидност";
-
-"NewVersionFeature_220_recoveryCertificatesDetails_description" = "Данните за валидност вече няма да се показват за сертификатите за възстановяване, защото валидността им зависи от местните правила. Вместо това ще се показва датата на първия положителен тест.";
-
-"NewVersionFeature_220_removeQRCode_title" = "Премахнат дублиран QR код";
-
-"NewVersionFeature_220_removeQRCode_description" = "QR кодът за сертификата Ви, който използвате в момента, е премахнат от екрана с подробните данни за лицата, което осигурява повече пространство за известията и изчиства визията на екрана като цяло. Кодът се съдържа и в прегледа на сертификатите, затова не е необходим на екрана с подробни данни.";
+"NewVersionFeature_221_familyMembersTest_description" = "Вече можете да управлявате тестовете за членовете на Вашето семейство в приложението: може да получите резултатите от техните тестове на Вашия смартфон и да заявите цифрови сертификати за тест за COVID. Но ако сред тях има положителен тест, няма да можете да предупредите останалите. Това ще е възможно само ако регистрирате теста за себе си.";
 
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Международно регистриране на излаганията";
@@ -1746,6 +1755,11 @@
 "TestResultPositive_KeysSubmitted_PrimaryButton" = "Изтриване на тест";
 
 /* Contact Diary */
+/* Error */
+"ContactDiary_Overview_Error_Title" = "Грешка";
+
+"ContactDiary_Overview_Error_Description" = "Данните от Вашия дневник на контактите не можаха да се заредят, в резултат на което дневникът трябваше да бъде рестартиран. Грешка: %@";
+
 /* Overview */
 "ContactDiary_Overview_Button_Title_Menu" = "Меню";
 
@@ -2933,6 +2947,23 @@
 
 "HealthCertificate_Details_moreButtonTitle" = "Повече";
 
+/* HealthCertificate Family Consent */
+"HealthCertificate_FamilyMemberConsent_Title" = "Вашето съгласие";
+
+"HealthCertificate_FamilyMemberConsent_ImageDescription" = "Семейство от няколко члена; има документ с QR код във фонов режим";
+
+"HealthCertificate_FamilyMemberConsent_Headline" = "Вземане на тестов резултат за член от семейството";
+
+"HealthCertificate_FamilyMemberConsent_InputTitle" = "Име на тестваното лице:";
+
+"HealthCertificate_FamilyMemberConsent_InputPlaceholder" = "Име";
+
+"HealthCertificate_FamilyMemberConsent_Body01" = "Регистрирате тест за член от семейството. Ако това е Ваш тест, моля върнете се и изберете \"За мен\". Това е необходимо, за да можете да предупредите останалите, в случай че Ви бъде поставена диагноза заразяване с коронавирус.";
+
+"HealthCertificate_FamilyMemberConsent_Body02" = "Ако резултатът от теста на члена на Вашето семейство е отрицателен, в следващите стъпки ще можете да заявите официален сертификат за тест за COVID.";
+
+"HealthCertificate_FamilyMemberConsent_Primary" = "Приемам";
+
 /* Health Certificate Delete Alert */
 "HealthCertificate_Alert_deleteButton" = "Изтриване на сертификат";
 
@@ -3375,6 +3406,8 @@
 
 /* - Corona Test */
 "RecycleBin_CoronaTest_headline" = "Тест";
+
+"RecycleBin_CoronaTest_familyMemberHeadline" = "Тестове на членове от семейството";
 
 "RecycleBin_CoronaTest_pcrTest" = "PCR тест";
 
