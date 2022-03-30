@@ -268,7 +268,7 @@
 "ExposureDetection_ActiveTracingSection_Subtitle" = "Bu dönem hesaplamaya dahil edildi.";
 
 /* There are two paragraphs in this section. The first one just contains text… */
-"ExposureDetection_ActiveTracingSection_Text_Paragraph0" = "Enfeksiyon riskiniz yalnızca maruz kalma günlüğünün etkin olduğu dönemler için hesaplanabilir. Bu nedenle günlüğe kaydetme özelliğinin sürekli etkin kalması gerekir. Maruz kalma günlüğü son 14 günü kapsar.";
+"ExposureDetection_ActiveTracingSection_Text_Paragraph0" = "Enfeksiyon riskiniz yalnızca maruz kalma günlüğünün etkin olduğu dönemler için hesaplanabilir. Bu nedenle günlüğe kaydetme özelliğinin sürekli etkin kalması gerekir. Maruz kalma günlüğü son %u günü kapsar.";
 
 "ExposureDetection_ActiveTracingSection_Text_Paragraph1b" = "Maruz kalma günlüğü başka insanlarla karşılaştığınız anlarda etkindiyse bu dönem için enfeksiyon riskiniz hesaplanabilir.";
 
@@ -321,7 +321,7 @@
 
 "Settings_DaysSinceInstall_SubTitle" = "Bu dönem hesaplamaya dahil edildi.";
 
-"Settings_DaysSinceInstall_P1" = "Enfeksiyon riskiniz yalnızca maruz kalma günlüğünün etkin olduğu dönemler için hesaplanabilir. Bu nedenle günlüğe kaydetme özelliğinin sürekli etkin kalması gerekir. Maruz kalma günlüğü son 14 günü kapsar.";
+"Settings_DaysSinceInstall_P1" = "Enfeksiyon riskiniz yalnızca maruz kalma günlüğünün etkin olduğu dönemler için hesaplanabilir. Bu nedenle günlüğe kaydetme özelliğinin sürekli etkin kalması gerekir. Maruz kalma günlüğü son %u günü kapsar.";
 
 "Settings_DaysSinceInstall_P2b" = "Maruz kalma günlüğü başka insanlarla karşılaştığınız anlarda etkindiyse bu dönem için enfeksiyon riskiniz hesaplanabilir.";
 
@@ -450,7 +450,7 @@
 
 "OnboardingInfo_togetherAgainstCoronaPage_boldText" = "Sizin için ve hepimiz için daha fazla koruma. Corona-Warn-App uygulamasını kullanarak enfeksiyon zincirlerini çok daha kısa süre içinde kırabiliriz.";
 
-"OnboardingInfo_togetherAgainstCoronaPage_normalText" = "Cihazınızı koronavirüs uyarı sistemine dönüştürün. Risk durumunuza ilişkin genel bir bakış elde edin ve son 14 gün içinde koronavirüs tanısı konan herhangi biri ile yakın temasa geçip geçmediğinizi öğrenin. \n\nUygulama kişilerin akıllı telefonları arasında şifrelenmiş rastgele kimlikleri paylaşarak karşılaşma günlüğü oluşturur ve bu sırada hiçbir kişisel veriye erişim sağlanmaz.\n\nDilerseniz uygulamayı kişisel enfeksiyon durumunuzu (örneğin, negatif sonuç veren bir hızlı test) kanıtlamak için kullanabilirsiniz. Ancak lütfen unutmayın; enfeksiyon durumunuzu kanıtlamak için uygulamayı kullanmak zorunda değilsiniz. Enfeksiyon durumunuzu, ikamet ettiğiniz bölgede geçerli olan yasal düzenlemeler uyarınca başka bir şekilde de kanıtlayabilirsiniz.\n\nKişisel aşı durumunuzu da kanıtlayabilirsiniz.\n\nUygulama kişilerin akıllı telefonları arasında şifrelenmiş rastgele kimlikleri paylaşarak karşılaşma günlüğü oluşturur ve bu sırada hiçbir kişisel veriye erişim sağlanmaz.";
+"OnboardingInfo_togetherAgainstCoronaPage_normalText" = "Cihazınızı koronavirüs uyarı sistemine dönüştürün. Risk durumunuza ilişkin genel bir bakış elde edin ve son %u gün içinde koronavirüs tanısı konan herhangi biri ile yakın temasa geçip geçmediğinizi öğrenin. \n\nUygulama kişilerin akıllı telefonları arasında şifrelenmiş rastgele kimlikleri paylaşarak karşılaşma günlüğü oluşturur ve bu sırada hiçbir kişisel veriye erişim sağlanmaz.\n\nDilerseniz uygulamayı kişisel enfeksiyon durumunuzu (örneğin, negatif sonuç veren bir hızlı test) kanıtlamak için kullanabilirsiniz. Ancak lütfen unutmayın; enfeksiyon durumunuzu kanıtlamak için uygulamayı kullanmak zorunda değilsiniz. Enfeksiyon durumunuzu, ikamet ettiğiniz bölgede geçerli olan yasal düzenlemeler uyarınca başka bir şekilde de kanıtlayabilirsiniz.\n\nKişisel aşı durumunuzu da kanıtlayabilirsiniz.\n\nUygulama kişilerin akıllı telefonları arasında şifrelenmiş rastgele kimlikleri paylaşarak karşılaşma günlüğü oluşturur ve bu sırada hiçbir kişisel veriye erişim sağlanmaz.";
 
 "OnboardingInfo_togetherAgainstCoronaPage_linkText" = "Basitleştirilmiş Dilde ve İşaret Dilinde Uygulama Bilgileri";
 
@@ -460,7 +460,7 @@
 
 "OnboardingInfo_privacyPage_boldText" = "";
 
-"OnboardingInfo_privacyPage_normalText" = "Kimliğiniz gizli tutulacaktır.\nVerileriniz tamamen şifrelenir ve bir takma ad altında aktarılır.\n\nSorumlu kuruluş: GDPR, 4. madde, 7. paragraf:\n\nRobert Koch-Institute\nNordufer 20\n13353 Berlin\nLütfen veri gizliliği düzenlemelerimizi okuyun.\n\nVeri gizliliği bilgileri:";
+"OnboardingInfo_privacyPage_normalText" = "Kimliğiniz gizli tutulacaktır.\nVerileriniz tamamen şifrelenir ve bir takma ad altında aktarılır.\n\nGDPR, 4. madde, 7. paragraf uyarınca denetleyici:\n\nRobert Koch-Institute\nNordufer 20\n13353 Berlin\nLütfen veri gizliliği düzenlemelerimizi okuyun.\n\nVeri gizliliği bilgileri:";
 
 "OnboardingInfo_enableLoggingOfContactsPage_imageDescription" = "Üç kişi cihazlarında maruz kalma günlüğünü etkinleştirdi ve birbirleri ile karşılaşmaları günlüğe kaydedilecektir.";
 
@@ -1337,9 +1337,16 @@
 /* Home Alert Risk Lowered */
 "Home_Alert_RiskStatusLowered_Title" = "Risk Durumunuzda Değişiklik";
 
-"Home_Alert_RiskStatusLowered_Message" = "Risk durumunuzun artmasına neden olan son maruz kalma 14 günden uzun süre önce gerçekleşti. Bu nedenle enfeksiyon riskiniz yeniden düşük olarak derecelendirildi.\n\nYapmanız gerekenler:\n Herhangi bir COVID-19 belirtiniz yoksa mesafe ve hijyen konusunda belirlenen kurallara riayet etmenizi öneririz.\n COVID-19 belirtiniz varsa doktorunuzu ziyaret edip test yaptırmanızı öneririz.";
+"Home_Alert_RiskStatusLowered_Message" = "Risk durumunuzun artmasına neden olan son maruz kalma %i günden uzun süre önce gerçekleşti. Bu nedenle enfeksiyon riskiniz yeniden düşük olarak derecelendirildi.\n\nYapmanız gerekenler:\n Herhangi bir COVID-19 belirtiniz yoksa mesafe ve hijyen konusunda belirlenen kurallara riayet etmenizi öneririz.\n COVID-19 belirtiniz varsa doktorunuzu ziyaret edip test yaptırmanızı öneririz.";
 
 "Home_Alert_RiskStatusLowered_PrimaryButtonTitle" = "Tamam";
+
+/* Home Alert another high exposure */
+"Home_Alert_RiskStatusAnotherHighExposure_Title" = "Yeni Maruz Kalma";
+
+"Home_Alert_RiskStatusAnotherHighExposure_Message" = "Artmış riskle başka bir maruz kalma yaşadınız. Son %i güne ait tüm riske maruz kalmalarınızı temas güncenizde bulabilirsiniz.";
+
+"Home_Alert_RiskStatusAnotherHighExposure_PrimaryButtonTitle" = "Tamam";
 
 /* App Information */
 "App_Information_Title" = "Uygulama Bilgileri";
@@ -1387,7 +1394,7 @@
 
 "App_Information_Contact_Hotline_Details_Foreign" = "Almanya dışından yapılan aramalar içindir.\nTelefon sağlayıcınız tarafından uygulanan ücretler geçerlidir.";
 
-"App_Information_Contact_Hotline_Terms" = "Müşteri hizmetlerimiz şu dillerde size yardımcı olmaya hazır: \nİngilizce, Almanca, Türkçe\n\nMesai saatleri:\nPt-Ct: 7:00 – 20:00 (CET)\n(resmi tatiller hariç)\n\nHerhangi bir sorunuz varsa lütfen 116 117'yi (Almanya'da) arayın. Ardından otomatik mesaj sırasında, Federal Sağlık Bakanlığı hizmet noktası için 2'ye basın. Belirtileriniz varsa sadece 1'e (genel tıbbi acil servis) basın.";
+"App_Information_Contact_Hotline_Terms" = "Müşteri hizmetlerimiz şu dillerde size yardımcı olmaya hazır: \nAlmanca\n\nMesai saatleri:\nPt-Cu: 9:00 – 17:00 (CET)\n(resmi tatiller hariç)\n\nHerhangi bir sorunuz varsa lütfen 116 117'yi (Almanya'da) arayın. Ardından otomatik mesaj sırasında, Federal Sağlık Bakanlığı hizmet noktası için 2'ye basın. Belirtileriniz varsa sadece 1'e (genel tıbbi acil servis) basın.";
 
 /* App Information - Imprint */
 "App_Information_New_Features_Navigation" = "Yeni Özellikler";
@@ -1531,7 +1538,7 @@
 
 "RiskLegend_Legend2_Title" = "Enfeksiyon Riski";
 
-"RiskLegend_Legend2_Text" = "Maruz kalma günlüğü etkin olduğunda uygulama kişisel enfeksiyon riskinizi hesaplar. Bunu, son 14 günde koronavirüs tanısı almış kişilere maruz kalma sürenizi ve yakınlığınızı ölçerek gerçekleştirir. Maruz kalma günlüğü check-in'lerinizi de hesaba katar. Koronavirüs tanısı almış bir kişiyle aynı anda ya da koronavirüs tanısı almış bir kişiden 30 dakika sonra aynı yerde bulunmuşsanız size uyarı verilir.";
+"RiskLegend_Legend2_Text" = "Maruz kalma günlüğü etkin olduğunda uygulama kişisel enfeksiyon riskinizi hesaplar. Bunu, son %u günde koronavirüs tanısı almış kişilere maruz kalma sürenizi ve yakınlığınızı ölçerek gerçekleştirir. Maruz kalma günlüğü check-in'lerinizi de hesaba katar. Koronavirüs tanısı almış bir kişiyle aynı anda ya da koronavirüs tanısı almış bir kişiden 30 dakika sonra aynı yerde bulunmuşsanız size uyarı verilir.";
 
 "RiskLegend_Legend2_RiskLevels" = "Şu risk durumu gösterilebilir:";
 
@@ -1604,18 +1611,30 @@
 /* New Version Features */
 "NewVersionFeatures_Info_about_abb_information" = "Bu sürümdeki değişiklikleri uygulama bilgilerinde “Yeni Özellikler” bölümünde bulabilirsiniz.";
 
-/* Version 2.19 */
-"NewVersionFeature_219_rapidPCR_title" = "Hızlı PCR Testlerinin Kaydı";
+/* Version 2.20 */
+"NewVersionFeature_220_highRiskShortened_title" = "Artmış Risk Raporunun Süresi Kısaltıldı";
 
-"NewVersionFeature_219_rapidPCR_description" = "Artık Corona-Warn-App uygulamasında hızlı PCR testlerini kaydedebilir ve sonucunuzu ve test sertifikanızı uygulama üzerinden alabilirsiniz.";
+"NewVersionFeature_220_highRiskShortened_description" = "Bir maruz kalmadan sonra artmış risk raporu artık 14 yerine yalnızca 10 gün süreyle gösterilmektedir.";
 
-"NewVersionFeature_219_faultTolerantNameHandling_title" = "Sertifika Ataması";
+"NewVersionFeature_220_displayRiskPositiveResult_title" = "Pozitif Test Sonucundan Sonra Risk Raporu";
 
-"NewVersionFeature_219_faultTolerantNameHandling_description" = "Kişilere sertifika ataması daha hata toleranslı hale getirildi. Ad ve soyadı yazımlarındaki ufak farklılıklar göz ardı edilir ve böylece etkilenen sertifikalar yine de aynı kişiye atanabilir.";
+"NewVersionFeature_220_displayRiskPositiveResult_description" = "Artık Corona-Warn-App uygulamasında pozitif test sonucu kaydetseniz bile bir maruz kalmadan sonra kırmızı renkli artmış risk kutucuğu görüntülenmektedir. Risk durumunuz, pozitif testten yedi gün sonra yeniden gösterilir.";
 
-"NewVersionFeature_219_vaccinationCertificateReplacement_title" = "Sertifika Güncellemesi";
+"NewVersionFeature_220_notificateRiskEncounter_title" = "Yeni Maruz Kalma Mesajı";
 
-"NewVersionFeature_219_vaccinationCertificateReplacement_description" = "Hatırlatma aşılarının sertifikalarına ilişkin AB spesifikasyonları değişti. Sertifikanız güncel spesifikasyonları karşılamıyorsa doğrudan Corona-Warn-App uygulamasından yeni bir sertifika talebi oluşturabilirsiniz.";
+"NewVersionFeature_220_notificateRiskEncounter_description" = "Daha önceki bir maruz kalmadan sonra artmış riskli başka bir maruz kalma yaşarsanız bu maruz kalma için de bir bildirim görüntülenecektir.";
+
+"NewVersionFeature_220_notificationStatusChange_title" = "Durum Değişikliği Raporu";
+
+"NewVersionFeature_220_notificationStatusChange_description" = "Durumunuz değişmişse (örneğin, bir sertifika eklediğiniz için veya kurallar değiştiği için), Sertifikalar sekmesinde bu yönde bir bildirim gösterilecektir.";
+
+"NewVersionFeature_220_recoveryCertificatesDetails_title" = "Geçerlilik Verileri Olmayan İyileşme Sertifikaları";
+
+"NewVersionFeature_220_recoveryCertificatesDetails_description" = "Geçerlilikleri yerel kurallara bağlı olduğundan artık iyileşme sertifikaları için geçerlilik verileri görüntülenmemektedir. Bunun yerine ilk pozitif test sonucunun tarihi görüntülenmektedir.";
+
+"NewVersionFeature_220_removeQRCode_title" = "Çift QR Kod Kaldırıldı";
+
+"NewVersionFeature_220_removeQRCode_description" = "Geçerli olarak kullandığınız sertifikanızın QR kodu, bireyler için ayrıntı ekranından kaldırılarak bildirimler için daha fazla alan oluşturulmuş ve genel olarak ekran dağınıklığı giderilmiştir. QR kod, sertifikaya genel bakış bölümünde de bulunmaktadır ve bu nedenle ayrıntı ekranında bulunması gerekmez.";
 
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Uluslararası Maruz Kalma Günlüğü";
@@ -2867,7 +2886,7 @@
 
 "HealthCertifiedPerson_RecoveryCertificate_headline" = "İyileşme Sertifikası";
 
-"HealthCertifiedPerson_RecoveryCertificate_validityDate" = "geçerlilik sonu: %@";
+"HealthCertifiedPerson_RecoveryCertificate_positiveTestFrom" = "%@ pozitif testi";
 
 "HealthCertifiedPerson_currentlyUsedCertificate" = "Şu anda kullanılan sertifika";
 
@@ -3360,7 +3379,7 @@
 /* - Recovery Certificate */
 "RecycleBin_RecoveryCertificate_headline" = "İyileşme Sertifikası";
 
-"RecycleBin_RecoveryCertificate_validityDate" = "geçerlilik sonu: %@";
+"RecycleBin_RecoveryCertificate_positiveTestFrom" = "%@ pozitif testi";
 
 /* - Corona Test */
 "RecycleBin_CoronaTest_headline" = "Test";

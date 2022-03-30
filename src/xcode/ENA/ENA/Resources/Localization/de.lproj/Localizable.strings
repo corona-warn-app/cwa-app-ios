@@ -272,7 +272,7 @@
 "ExposureDetection_ActiveTracingSection_Subtitle" = "Dieser Zeitraum wird berücksichtigt.";
 
 /* There are two paragraphs in this section. The first one just contains text… */
-"ExposureDetection_ActiveTracingSection_Text_Paragraph0" = "Die Berechnung des Infektionsrisikos kann nur für die Zeiträume erfolgen, an denen die Risiko-Ermittlung aktiv war. Die Risiko-Ermittlung sollte daher dauerhaft aktiv sein. Für Ihre Risiko-Ermittlung wird der Zeitraum der letzten 14 Tage betrachtet.";
+"ExposureDetection_ActiveTracingSection_Text_Paragraph0" = "Die Berechnung des Infektionsrisikos kann nur für die Zeiträume erfolgen, an denen die Risiko-Ermittlung aktiv war. Die Risiko-Ermittlung sollte daher dauerhaft aktiv sein. Für Ihre Risiko-Ermittlung wird der Zeitraum der letzten %u Tage betrachtet.";
 
 "ExposureDetection_ActiveTracingSection_Text_Paragraph1b" = "Wenn die Risiko-Ermittlung zu Zeiten, in denen Sie andere Personen getroffen haben, aktiv war, kann die Berechnung des Infektionsrisikos für diesen Zeitraum erfolgen.";
 
@@ -328,7 +328,7 @@
 "Settings_DaysSinceInstall_SubTitle" = "Dieser Zeitraum wird berücksichtigt.";
 
 "Settings_DaysSinceInstall_P1" = "Die Berechnung des Infektionsrisikos kann nur für die Zeiträume erfolgen, an denen die Risiko-Ermittlung aktiv war. Die Risiko-
-Ermittlung sollte daher dauerhaft aktiv sein. Für Ihre Risiko-Ermittlung wird der Zeitraum der letzten 14 Tage betrachtet.";
+Ermittlung sollte daher dauerhaft aktiv sein. Für Ihre Risiko-Ermittlung wird der Zeitraum der letzten %u Tage betrachtet.";
 
 "Settings_DaysSinceInstall_P2b" = "Wenn die Risiko-Ermittlung zu Zeiten, in denen Sie andere Personen getroffen haben, aktiv war, kann die Berechnung des Infektionsrisikos für diesen Zeitraum erfolgen.";
 
@@ -462,7 +462,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "OnboardingInfo_togetherAgainstCoronaPage_boldText" = "Mehr Schutz für Sie und uns alle. Mit der Corona-Warn-App durchbrechen wir Infektionsketten schneller.";
 
-"OnboardingInfo_togetherAgainstCoronaPage_normalText" = "Machen Sie Ihr Smartphone zum Corona-Warn-System. Überblicken Sie Ihren Risikostatus und erfahren Sie, ob in den letzten 14 Tagen Corona-positiv getestete Personen in Ihrer Nähe waren.\n\nLassen Sie sich Ihre Testergebnisse (PCR-Test oder Antigen-Schnelltest) in der App anzeigen und warnen Sie andere, wenn Sie ein positives Testergebnis erhalten.\n\nAuf Wunsch können Sie mit der App Ihren persönlichen Infektionsstatus nachweisen (z.\U00A0B. negativer Schnelltest). Bitte beachten Sie, dass Sie grundsätzlich nicht zum Nachweis Ihres Infektionsstatus per App verpflichtet sind. Sie können Ihren Infektionsstatus im Rahmen der rechtlichen Bestimmungen an Ihrem Aufenthaltsort auch auf andere Weise nachweisen.\n\nEbenso können Sie Ihren persönlichen Impfstatus nachweisen.\n\nDie App merkt sich Begegnungen zwischen Menschen, indem ihre Smartphones verschlüsselte Zufalls-IDs austauschen. Persönliche Daten werden dabei nicht ausgetauscht.";
+"OnboardingInfo_togetherAgainstCoronaPage_normalText" = "Machen Sie Ihr Smartphone zum Corona-Warn-System. Überblicken Sie Ihren Risikostatus und erfahren Sie, ob in den letzten %u Tagen Corona-positiv getestete Personen in Ihrer Nähe waren.\n\nLassen Sie sich Ihre Testergebnisse (PCR-Test oder Antigen-Schnelltest) in der App anzeigen und warnen Sie andere, wenn Sie ein positives Testergebnis erhalten.\n\nAuf Wunsch können Sie mit der App Ihren persönlichen Infektionsstatus nachweisen (z.\U00A0B. negativer Schnelltest). Bitte beachten Sie, dass Sie grundsätzlich nicht zum Nachweis Ihres Infektionsstatus per App verpflichtet sind. Sie können Ihren Infektionsstatus im Rahmen der rechtlichen Bestimmungen an Ihrem Aufenthaltsort auch auf andere Weise nachweisen.\n\nEbenso können Sie Ihren persönlichen Impfstatus nachweisen.\n\nDie App merkt sich Begegnungen zwischen Menschen, indem ihre Smartphones verschlüsselte Zufalls-IDs austauschen. Persönliche Daten werden dabei nicht ausgetauscht.";
 
 "OnboardingInfo_togetherAgainstCoronaPage_linkText" = "Informationen zur App in leichter Sprache und Gebärdensprache";
 
@@ -1377,9 +1377,17 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "Home_Alert_RiskStatusLowered_Title" = "Änderung Ihres Risikostatus";
 
-"Home_Alert_RiskStatusLowered_Message" = "Die Risiko-Begegnung, die zu einem erhöhten Risiko für Sie geführt hat, liegt mehr als 14 Tage zurück. Daher wird das Infektionsrisiko wieder als niedrig für Sie eingestuft.\n\nSo verhalten Sie sich richtig:\n Wenn Sie keine Symptome von COVID-19 aufweisen, halten Sie sich an die allgemein geltenden Verhaltensregeln zu Abstand und Hygiene.\n Wenn Sie Symptome von COVID-19 aufweisen, empfehlen wir, dass Sie Ihren Arzt aufsuchen und sich testen lassen.";
+"Home_Alert_RiskStatusLowered_Message" = "Die Risiko-Begegnung, die zu einem erhöhten Risiko für Sie geführt hat, liegt mehr als %i Tage zurück. Daher wird das Infektionsrisiko wieder als niedrig für Sie eingestuft.\n\nSo verhalten Sie sich richtig:\n Wenn Sie keine Symptome von COVID-19 aufweisen, halten Sie sich an die allgemein geltenden Verhaltensregeln zu Abstand und Hygiene.\n Wenn Sie Symptome von COVID-19 aufweisen, empfehlen wir, dass Sie Ihren Arzt aufsuchen und sich testen lassen.";
 
 "Home_Alert_RiskStatusLowered_PrimaryButtonTitle" = "OK";
+
+/* Home Alert another high exposure */
+
+"Home_Alert_RiskStatusAnotherHighExposure_Title" = "Neue Risikobegegnung";
+
+"Home_Alert_RiskStatusAnotherHighExposure_Message" = "Sie hatten eine erneute Begegnung mit erhöhtem Risiko. Alle Risikobegegnungen der vergangenen %i Tage finden Sie in Ihrem Kontakttagebuch.";
+
+"Home_Alert_RiskStatusAnotherHighExposure_PrimaryButtonTitle" = "OK";
 
 /* App Information */
 
@@ -1429,7 +1437,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "App_Information_Contact_Hotline_Details_Foreign" = "Für Anrufe aus dem Ausland.\nEs fallen die Gebühren des jeweiligen Telefonanbieters an.";
 
-"App_Information_Contact_Hotline_Terms" = "Unser Kundenservice ist in den folgenden Sprachen für Sie da:\nDeutsch, Englisch, Türkisch\n\nErreichbarkeit:\nMo-Sa: 07:00 - 22:00 Uhr\n(außer an bundesweiten Feiertagen)\n\nBei Fragen rufen Sie die 116 117 an. Wählen Sie bei der Telefonansage dann die 2, um die Servicestelle des Bundesministeriums für Gesundheit zu erreichen. Nur bei Krankheitssymptomen wählen Sie die 1 (kassenärztlicher Bereitschaftsdienst).";
+"App_Information_Contact_Hotline_Terms" = "Unser Kundenservice ist in den folgenden Sprachen für Sie da:\nDeutsch\n\nErreichbarkeit:\nMo-Fr: 09:00 - 17:00 Uhr\n(außer an bundesweiten Feiertagen)\n\nBei Fragen rufen Sie die 116 117 an. Wählen Sie bei der Telefonansage dann die 2, um die Servicestelle des Bundesministeriums für Gesundheit zu erreichen. Nur bei Krankheitssymptomen wählen Sie die 1 (kassenärztlicher Bereitschaftsdienst).";
 
 /* App Information - Imprint */
 "App_Information_New_Features_Navigation" = "Neue Funktionen";
@@ -1575,7 +1583,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "RiskLegend_Legend2_Title" = "Infektionsrisiko";
 
-"RiskLegend_Legend2_Text" = "Wenn Sie die Risiko-Ermittlung aktiviert haben, berechnet die App Ihr persönliches Infektionsrisiko. Als Grundlage dafür misst sie, über welche Dauer und mit welchem Abstand in den letzten 14 Tagen Begegnungen mit Corona-positiv getesteten Personen stattfanden. Bei der Risikoermittlung werden außerdem Ihre Check-Ins berücksichtigt. Sie werden gewarnt, wenn Sie sich zur selben Zeit oder bis 30 Minuten nach der positiv getesteten Person im selben Raum aufgehalten haben.";
+"RiskLegend_Legend2_Text" = "Wenn Sie die Risiko-Ermittlung aktiviert haben, berechnet die App Ihr persönliches Infektionsrisiko. Als Grundlage dafür misst sie, über welche Dauer und mit welchem Abstand in den letzten %u Tagen Begegnungen mit Corona-positiv getesteten Personen stattfanden. Bei der Risikoermittlung werden außerdem Ihre Check-Ins berücksichtigt. Sie werden gewarnt, wenn Sie sich zur selben Zeit oder bis 30 Minuten nach der positiv getesteten Person im selben Raum aufgehalten haben.";
 
 "RiskLegend_Legend2_RiskLevels" = "Folgende Risikostatus können angezeigt werden:";
 
@@ -1650,19 +1658,31 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "NewVersionFeatures_Info_about_abb_information" = "Änderungen zum Release finden Sie in den App-Informationen unter dem Menüpunkt „Neue Funktionen”.";
 
-/* Version 2.19 */
+/* Version 2.20 */
 
-"NewVersionFeature_219_rapidPCR_title" = "Registrierung von PCR-Schnelltests";
+"NewVersionFeature_220_highRiskShortened_title" = "Anzeige erhöhten Risikos verkürzt";
 
-"NewVersionFeature_219_rapidPCR_description" = "Sie können jetzt PCR-Schnelltests in der Corona-Warn-App registrieren und das Ergebnis sowie das Testzertifikat über die App erhalten.";
+"NewVersionFeature_220_highRiskShortened_description" = "Ein erhöhtes Risiko nach einer Risikobegegnung wird nur noch für 10 anstatt für 14 Tage angezeigt.";
 
-"NewVersionFeature_219_faultTolerantNameHandling_title" = "Zuordnung von Zertifikaten";
+"NewVersionFeature_220_displayRiskPositiveResult_title" = "Risikoanzeige nach positivem Testergebnis";
 
-"NewVersionFeature_219_faultTolerantNameHandling_description" = "Die Zuordnung von Zertifikaten zu Personen wurde fehlertoleranter gestaltet. Kleine Unterschiede in der Schreibweise von Vor- und Nachnamen werden ignoriert, sodass die Zertifikate trotzdem derselben Person zugeordnet werden können.";
+"NewVersionFeature_220_displayRiskPositiveResult_description" = "Auch wenn Sie einen positiven Test in der Corona-Warn-App registriert haben, wird Ihnen nun nach einer Risikobegegnung die rote Kachel für ein erhöhtes Risiko eingeblendet. Sieben Tage nach dem positiven Test wird ihr Risikostatus dauerhaft wieder eingeblendet.";
 
-"NewVersionFeature_219_vaccinationCertificateReplacement_title" = "Zertifikate aktualisieren";
+"NewVersionFeature_220_notificateRiskEncounter_title" = "Nachricht zu neuer Risikobegegnung";
 
-"NewVersionFeature_219_vaccinationCertificateReplacement_description" = "Die Spezifikationen der EU für Impfzertifikate für Auffrischimpfungen wurden geändert. Entspricht Ihr Zertifikat nicht mehr den aktuellen Spezifikationen, so können Sie direkt über die Corona-Warn-App ein neues anfordern.";
+"NewVersionFeature_220_notificateRiskEncounter_description" = "Wenn Sie nach einer Risikobegegnung eine weitere Begegnung mit erhöhtem Risiko hatten, dann wird Ihnen darüber jetzt eine Benachrichtigung angezeigt.";
+
+"NewVersionFeature_220_notificationStatusChange_title" = "Nachricht über Status-Änderung";
+
+"NewVersionFeature_220_notificationStatusChange_description" = "Wenn sich Ihr Status geändert hat (z. B. durch Hinzufügen eines Zertifikats, oder weil sich die Regeln geändert haben) werden Sie auf der Zertifikate-Registerkarte darüber informiert.";
+
+"NewVersionFeature_220_recoveryCertificatesDetails_title" = "Genesenenzertifikate ohne Gültigkeitsdaten";
+
+"NewVersionFeature_220_recoveryCertificatesDetails_description" = "Für Genesenenzertifikate werden keine Gültigkeitsdaten mehr angezeigt, da die Gültigkeit von lokalen Regeln bestimmt wird. Stattdessen wird nun das Datum des ersten positiven Tests angezeigt.";
+
+"NewVersionFeature_220_removeQRCode_title" = "Doppelten QR-Code entfernt";
+
+"NewVersionFeature_220_removeQRCode_description" = "Vom Detail-Bildschirm für Personen wurde der QR-Code für das aktuell verwendete Zertifikat entfernt. Dadurch wurde Platz für Benachrichtigungen geschaffen und die Übersichtlichkeit erhöht. Der QR-Code befindet sich ebenfalls auf der Zertifikate-Übersicht, wird also auf dem Detail-Bildschirm nicht benötigt.";
 
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Länderübergreifende Risiko-Ermittlung";
@@ -2968,7 +2988,7 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "HealthCertifiedPerson_RecoveryCertificate_headline" = "Genesenenzertifikat";
 
-"HealthCertifiedPerson_RecoveryCertificate_validityDate" = "gültig bis %@";
+"HealthCertifiedPerson_RecoveryCertificate_positiveTestFrom" = "Positiver Test vom %@";
 
 "HealthCertifiedPerson_currentlyUsedCertificate" = "Aktuell verwendetes Zertifikat";
 
@@ -3492,7 +3512,7 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "RecycleBin_RecoveryCertificate_headline" = "Genesenenzertifikat";
 
-"RecycleBin_RecoveryCertificate_validityDate" = "gültig bis %@";
+"RecycleBin_RecoveryCertificate_positiveTestFrom" = "Positiver Test vom %@";
 
 /* - Corona Test */
 

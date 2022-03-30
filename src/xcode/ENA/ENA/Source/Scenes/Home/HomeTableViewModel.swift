@@ -12,27 +12,43 @@ class HomeTableViewModel {
 	init(
 		state: HomeState,
 		store: Store,
+		appConfiguration: AppConfigurationProviding,
 		coronaTestService: CoronaTestServiceProviding,
 		onTestResultCellTap: @escaping (CoronaTestType?) -> Void,
 		badgeWrapper: HomeBadgeWrapper
 	) {
 		self.state = state
 		self.store = store
+		self.appConfiguration = appConfiguration
 		self.coronaTestService = coronaTestService
 		self.onTestResultCellTap = onTestResultCellTap
 		self.badgeWrapper = badgeWrapper
 
 		coronaTestService.pcrTest
+			.dropFirst()
+			.sink { [weak self] _ in
+				self?.update()
+				self?.scheduleUpdateTimer()
+			}
+			.store(in: &subscriptions)
+
+		coronaTestService.antigenTest
+			.dropFirst()
+			.sink { [weak self] _ in
+				self?.update()
+				self?.scheduleUpdateTimer()
+			}
+			.store(in: &subscriptions)
+
+		state.$riskState
+			.dropFirst()
 			.sink { [weak self] _ in
 				self?.update()
 			}
 			.store(in: &subscriptions)
 
-		coronaTestService.antigenTest
-			.sink { [weak self] _ in
-				self?.update()
-			}
-			.store(in: &subscriptions)
+		update()
+		scheduleUpdateTimer()
 	}
 
 	// MARK: - Internal
@@ -64,6 +80,10 @@ class HomeTableViewModel {
 
 	@OpenCombine.Published var testResultLoadingError: Error?
 	@OpenCombine.Published var riskAndTestResultsRows: [RiskAndTestResultsRow] = []
+
+	var riskStatusLoweredAlertShouldBeSuppressed: Bool {
+		shouldHideRiskCard
+	}
 
 	var numberOfSections: Int {
 		Section.allCases.count
@@ -164,29 +184,17 @@ class HomeTableViewModel {
 
 	// MARK: - Private
 
+	private let appConfiguration: AppConfigurationProviding
 	private let onTestResultCellTap: (CoronaTestType?) -> Void
 	private let badgeWrapper: HomeBadgeWrapper
 
 	private var subscriptions = Set<AnyCancellable>()
-
-	private func showErrorIfNeeded(testType: CoronaTestType, _ error: CoronaTestServiceError) {
-		switch testType {
-			// Only show errors for corona tests that are still expecting their final test result
-		case .pcr:
-			if self.coronaTestService.pcrTest.value != nil && self.coronaTestService.pcrTest.value?.finalTestResultReceivedDate == nil {
-				self.testResultLoadingError = error
-			}
-		case .antigen:
-			if self.coronaTestService.antigenTest.value != nil && self.coronaTestService.antigenTest.value?.finalTestResultReceivedDate == nil {
-				self.testResultLoadingError = error
-			}
-		}
-	}
+	private var updateTimer: Timer?
 
 	private var computedRiskAndTestResultsRows: [RiskAndTestResultsRow] {
 		var riskAndTestResultsRows = [RiskAndTestResultsRow]()
 
-		if !coronaTestService.hasAtLeastOneShownPositiveOrSubmittedTest {
+		if !shouldHideRiskCard {
 			riskAndTestResultsRows.append(.risk)
 		}
 
@@ -213,6 +221,88 @@ class HomeTableViewModel {
 		return riskAndTestResultsRows
 	}
 
+	private var shouldHideRiskCard: Bool {
+		guard state.risk?.level != .high else {
+			return false
+		}
+
+		let pcrTestShouldHideRiskCard = pcrRiskCardRevealDate.map { $0 > Date() } ?? false
+		let antigenTestShouldHideRiskCard = antigenRiskCardRevealDate.map { $0 > Date() } ?? false
+
+		return pcrTestShouldHideRiskCard || antigenTestShouldHideRiskCard
+	}
+
+	private var pcrRiskCardRevealDate: Date? {
+		guard let pcrTest = coronaTestService.pcrTest.value, pcrTest.positiveTestResultWasShown else {
+			return nil
+		}
+
+		let hoursSinceTestRegistrationToShowRiskCard = appConfiguration.currentAppConfig.value
+			.coronaTestParameters.coronaPcrtestParameters.hoursSinceTestRegistrationToShowRiskCard
+
+		return pcrTest.registrationDate
+			.addingTimeInterval(3600 * Double(hoursSinceTestRegistrationToShowRiskCard))
+	}
+
+	private var antigenRiskCardRevealDate: Date? {
+		guard let antigenTest = coronaTestService.antigenTest.value, antigenTest.positiveTestResultWasShown else {
+			return nil
+		}
+
+		let hoursSinceSampleCollectionToShowRiskCard = appConfiguration.currentAppConfig.value
+			.coronaTestParameters.coronaRapidAntigenTestParameters.hoursSinceSampleCollectionToShowRiskCard
+
+		return antigenTest.testDate
+			.addingTimeInterval(3600 * Double(hoursSinceSampleCollectionToShowRiskCard))
+	}
+
+	private var nextRevealDate: Date? {
+		[pcrRiskCardRevealDate, antigenRiskCardRevealDate]
+			.compactMap { $0 }
+			.min()
+	}
+
+	private func showErrorIfNeeded(testType: CoronaTestType, _ error: CoronaTestServiceError) {
+		switch testType {
+		// Only show errors for corona tests that are still expecting their final test result
+		case .pcr:
+			if self.coronaTestService.pcrTest.value != nil && self.coronaTestService.pcrTest.value?.finalTestResultReceivedDate == nil {
+				self.testResultLoadingError = error
+			}
+		case .antigen:
+			if self.coronaTestService.antigenTest.value != nil && self.coronaTestService.antigenTest.value?.finalTestResultReceivedDate == nil {
+				self.testResultLoadingError = error
+			}
+		}
+	}
+
+	@objc
+	private func scheduleUpdateTimer() {
+		updateTimer?.invalidate()
+
+		NotificationCenter.default.removeObserver(self, name: UIApplication.didEnterBackgroundNotification, object: nil)
+		NotificationCenter.default.removeObserver(self, name: UIApplication.didBecomeActiveNotification, object: nil)
+
+		guard let nextRevealDate = nextRevealDate else {
+			return
+		}
+
+		// Schedule new timer.
+		NotificationCenter.default.addObserver(self, selector: #selector(invalidateTimer), name: UIApplication.didEnterBackgroundNotification, object: nil)
+		NotificationCenter.default.addObserver(self, selector: #selector(scheduleUpdateTimer), name: UIApplication.didBecomeActiveNotification, object: nil)
+
+		updateTimer = Timer(fireAt: nextRevealDate, interval: 0, target: self, selector: #selector(update), userInfo: nil, repeats: false)
+
+		guard let updateTimer = updateTimer else { return }
+		RunLoop.main.add(updateTimer, forMode: .common)
+	}
+
+	@objc
+	private func invalidateTimer() {
+		updateTimer?.invalidate()
+	}
+
+	@objc
 	private func update() {
 		let updatedRiskAndTestResultsRows = self.computedRiskAndTestResultsRows
 

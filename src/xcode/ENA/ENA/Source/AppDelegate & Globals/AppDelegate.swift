@@ -157,7 +157,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		UNUserNotificationCenter.current().delegate = notificationManager
 
 		/// Setup DeadmanNotification after AppLaunch
-		DeadmanNotificationManager(coronaTestService: coronaTestService).scheduleDeadmanNotificationIfNeeded()
+		DeadmanNotificationManager().scheduleDeadmanNotificationIfNeeded()
 
 		consumer.didFailCalculateRisk = { [weak self] error in
 			if self?.store.isOnboarded == true {
@@ -365,7 +365,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 			keyPackageDownload: keyPackageDownload,
 			traceWarningPackageDownload: traceWarningPackageDownload,
 			exposureDetectionExecutor: exposureDetectionExecutor,
-			coronaTestService: coronaTestService
+			coronaTestService: coronaTestService,
+			downloadedPackagesStore: downloadedPackagesStore
 		)
 		#else
 		return RiskProvider(
@@ -377,7 +378,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 			keyPackageDownload: keyPackageDownload,
 			traceWarningPackageDownload: traceWarningPackageDownload,
 			exposureDetectionExecutor: exposureDetectionExecutor,
-			coronaTestService: coronaTestService
+			coronaTestService: coronaTestService,
+			downloadedPackagesStore: downloadedPackagesStore
 		)
 		#endif
 	}()

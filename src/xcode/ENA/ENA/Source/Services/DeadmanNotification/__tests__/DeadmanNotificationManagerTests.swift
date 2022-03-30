@@ -12,7 +12,6 @@ class DeadmanNotificationManagerTests: CWATestCase {
 		let notificationCenter = MockUserNotificationCenter()
 
 		let manager = DeadmanNotificationManager(
-			coronaTestService: MockCoronaTestService(),
 			userNotificationCenter: notificationCenter
 		)
 
@@ -45,7 +44,6 @@ class DeadmanNotificationManagerTests: CWATestCase {
 		notificationCenter.notificationRequests = [deadmanNotificationRequest]
 
 		let manager = DeadmanNotificationManager(
-			coronaTestService: MockCoronaTestService(),
 			userNotificationCenter: notificationCenter
 		)
 
@@ -61,7 +59,6 @@ class DeadmanNotificationManagerTests: CWATestCase {
 		notificationCenter.notificationRequests = [deadmanNotificationRequest]
 
 		let manager = DeadmanNotificationManager(
-			coronaTestService: MockCoronaTestService(),
 			userNotificationCenter: notificationCenter
 		)
 
@@ -70,43 +67,6 @@ class DeadmanNotificationManagerTests: CWATestCase {
 		manager.scheduleDeadmanNotificationIfNeeded()
 
 		XCTAssertEqual(notificationCenter.notificationRequests.count, 1)
-	}
-
-	func testDeadmanNotificationIsNotScheduledIfPositiveTestResultWasShownOrKeysWereSubmitted() {
-		let coronaTestService = MockCoronaTestService()
-		coronaTestService.hasAtLeastOneShownPositiveOrSubmittedTest = true
-
-		let notificationCenter = MockUserNotificationCenter()
-
-		let manager = DeadmanNotificationManager(
-			coronaTestService: coronaTestService,
-			userNotificationCenter: notificationCenter
-		)
-
-		XCTAssertTrue(notificationCenter.notificationRequests.isEmpty)
-
-		manager.scheduleDeadmanNotificationIfNeeded()
-
-		XCTAssertTrue(notificationCenter.notificationRequests.isEmpty)
-	}
-
-	func testDeadmanNotificationIsNotRescheduledIfPositiveTestResultWasShownOrKeysWereSubmitted() {
-		let coronaTestService = MockCoronaTestService()
-		coronaTestService.hasAtLeastOneShownPositiveOrSubmittedTest = true
-
-		let notificationCenter = MockUserNotificationCenter()
-		notificationCenter.notificationRequests = [deadmanNotificationRequest]
-
-		let manager = DeadmanNotificationManager(
-			coronaTestService: coronaTestService,
-			userNotificationCenter: notificationCenter
-		)
-
-		XCTAssertFalse(notificationCenter.notificationRequests.isEmpty)
-
-		manager.resetDeadmanNotification()
-
-		XCTAssertTrue(notificationCenter.notificationRequests.isEmpty)
 	}
 
 	// MARK: - Private

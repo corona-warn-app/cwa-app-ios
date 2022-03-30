@@ -12,7 +12,7 @@ class DiaryCoordinator {
 		store: Store,
 		diaryStore: DiaryStoringProviding,
 		eventStore: EventStoringProviding,
-		homeState: HomeState?
+		homeState: HomeState
 	) {
 		self.store = store
 		self.diaryStore = diaryStore
@@ -131,7 +131,7 @@ class DiaryCoordinator {
 	private let store: Store
 	private let diaryStore: DiaryStoringProviding
 	private let eventStore: EventStoringProviding
-	private let homeState: HomeState?
+	private let homeState: HomeState
 
 	private var infoScreenShown: Bool {
 		get { store.journalWithExposureHistoryInfoScreenShown }

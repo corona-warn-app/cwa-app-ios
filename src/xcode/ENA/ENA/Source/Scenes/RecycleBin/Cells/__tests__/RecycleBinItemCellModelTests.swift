@@ -143,7 +143,7 @@ class RecycleBinItemCellModelTests: CWATestCase {
 					),
 					recoveryEntries: [
 						.fake(
-							certificateValidUntil: "2022-03-18T07:12:45.132Z"
+							dateOfFirstPositiveNAAResult: "2022-03-01T07:12:45.132Z"
 						)
 					]
 				)
@@ -160,7 +160,7 @@ class RecycleBinItemCellModelTests: CWATestCase {
 		XCTAssertEqual(viewModel.name, "Erika Dörte Schmidt-Mustermann")
 		XCTAssertEqual(viewModel.title, "Genesenenzertifikat")
 		XCTAssertNil(viewModel.secondaryInfo)
-		XCTAssertEqual(viewModel.tertiaryInfo, "gültig bis 18.03.22")
+		XCTAssertEqual(viewModel.tertiaryInfo, "Positiver Test vom 01.03.22")
 		XCTAssertEqual(viewModel.quaternaryInfo, "wird am \(DateFormatter.localizedString(from: expirationDate ?? Date(), dateStyle: .short, timeStyle: .none)) um \(DateFormatter.localizedString(from: expirationDate ?? Date(), dateStyle: .none, timeStyle: .short)) endgültig gelöscht")
 	}
 

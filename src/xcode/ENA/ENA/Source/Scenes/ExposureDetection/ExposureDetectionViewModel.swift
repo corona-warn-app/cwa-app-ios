@@ -268,28 +268,37 @@ class ExposureDetectionViewModel: CountdownTimerDelegate {
 	}
 
 	private func setupForRiskState(risk: Risk) {
-		switch risk.level {
-		case .low:
-			dynamicTableViewModel = lowRiskModel(risk: risk)
-		case .high:
-			appConfigurationProvider.appConfiguration()
-				.sink { [weak self] in
-					guard let self = self else {
-						Log.debug("failed to get strong self")
-						return
-					}
-
-					self.dynamicTableViewModel = self.highRiskModel(risk: risk, isSurveyEnabled: self.isSurveyEnabled($0))
+		appConfigurationProvider.appConfiguration()
+			.sink { [weak self] appConfig in
+				guard let self = self else {
+					Log.debug("failed to get strong self")
+					return
 				}
-				.store(in: &subscriptions)
-		}
+				
+				switch risk.level {
+				case .low:
+					
+					self.dynamicTableViewModel = self.lowRiskModel(
+						risk: risk,
+						maxEncounterAgeInDays: Int(appConfig.riskCalculationParameters.defaultedMaxEncounterAgeInDays)
+					)
+				case .high:
+					self.dynamicTableViewModel = self.highRiskModel(
+						risk: risk,
+						maxEncounterAgeInDays: Int(appConfig.riskCalculationParameters.defaultedMaxEncounterAgeInDays),
+						isSurveyEnabled: self.isSurveyEnabled(appConfig)
+					)
+					
+				}
+			}.store(in: &subscriptions)
+		
 		titleText = risk.level.text
 		titleTextAccessibilityColor = risk.level.accessibilityRiskColor
-
+		
 		riskBackgroundColor = risk.level.backgroundColor
 		titleTextColor = .enaColor(for: .textContrast)
 		closeButtonStyle = .contrast
-
+		
 		buttonTitle = riskButtonTitle
 		isButtonHidden = homeState.detectionMode == .automatic
 		isButtonEnabled = homeState.manualExposureDetectionState == .possible
@@ -368,7 +377,10 @@ class ExposureDetectionViewModel: CountdownTimerDelegate {
 		])
 	}
 
-	private func lowRiskModel(risk: Risk) -> DynamicTableViewModel {
+	private func lowRiskModel(
+		risk: Risk,
+		maxEncounterAgeInDays: Int
+	) -> DynamicTableViewModel {
 		let numberOfExposures = risk.details.numberOfDaysWithRiskLevel
 
 		var riskDataSectionCells = [DynamicCell]()
@@ -411,12 +423,20 @@ class ExposureDetectionViewModel: CountdownTimerDelegate {
 				accessibilityIdentifier: AccessibilityIdentifiers.ExposureDetection.lowRiskExposureSection
 			),
 			standardGuideSection,
-			activeTracingSection(risk: risk, accessibilityIdentifier: AccessibilityIdentifiers.ExposureDetection.activeTracingSection),
+			activeTracingSection(
+				risk: risk,
+				maxEncounterAgeInDays: maxEncounterAgeInDays,
+				accessibilityIdentifier: AccessibilityIdentifiers.ExposureDetection.activeTracingSection
+			),
 			explanationSection(numberOfExposures: numberOfExposures)
 		])
 	}
 
-	private func highRiskModel(risk: Risk, isSurveyEnabled: Bool) -> DynamicTableViewModel {
+	private func highRiskModel(
+		risk: Risk,
+		maxEncounterAgeInDays: Int,
+		isSurveyEnabled: Bool
+	) -> DynamicTableViewModel {
 		let numberOfExposures = risk.details.numberOfDaysWithRiskLevel
 
 		var sections: [DynamicSection] = [
@@ -484,6 +504,7 @@ class ExposureDetectionViewModel: CountdownTimerDelegate {
 			),
 			activeTracingSection(
 				risk: risk,
+				maxEncounterAgeInDays: maxEncounterAgeInDays,
 				accessibilityIdentifier: AccessibilityIdentifiers.ExposureDetection.activeTracingSectionText
 			),
 			highRiskExplanationSection(
@@ -596,8 +617,15 @@ class ExposureDetectionViewModel: CountdownTimerDelegate {
 	}
 
 
-	private func activeTracingSection(risk: Risk, accessibilityIdentifier: String?) -> DynamicSection {
-		let p0 = AppStrings.ExposureDetection.tracingParagraph0
+	private func activeTracingSection(
+		risk: Risk,
+		maxEncounterAgeInDays: Int,
+		accessibilityIdentifier: String?
+	) -> DynamicSection {
+		let p0 = String(
+			format: AppStrings.ExposureDetection.tracingParagraph0,
+			maxEncounterAgeInDays
+		)
 
 		let p1: String
 		if homeState.shouldShowDaysSinceInstallation && risk.details.numberOfDaysWithRiskLevel == 0 {

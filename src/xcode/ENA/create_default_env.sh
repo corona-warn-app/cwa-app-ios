@@ -2,7 +2,7 @@
 
 set -euo pipefail
 
-pushd `dirname ${0}`
+pushd `dirname '${0}'`
 
 LOCAL_ENVIRONMENTS=./ENA/Resources/Environment/Environments.json
 

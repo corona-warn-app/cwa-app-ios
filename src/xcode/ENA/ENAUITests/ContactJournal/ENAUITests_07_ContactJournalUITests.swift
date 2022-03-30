@@ -549,8 +549,8 @@ class ENAUITests_07_ContactJournal: CWATestCase {
 		// navigate to desired screen
 		navigateToJournalOverview()
 		
-		// select first cell
-		app.cells.element(boundBy: 1).waitAndTap()
+		// select first cell, but force the tap on the date because the rest of the cell is not clickable as per spec.
+		app.cells.element(boundBy: 1).staticTexts[String(format: AccessibilityIdentifiers.ContactDiaryInformation.Overview.cellDateHeader, 0)].waitAndTap()
 		
 		// add a person
 		addPersonToDayEntry("Andrea")
@@ -594,8 +594,8 @@ class ENAUITests_07_ContactJournal: CWATestCase {
 		// navigate to desired screen
 		navigateToJournalOverview()
 
-		// select first cell
-		app.cells.element(boundBy: 1).waitAndTap()
+		// select first cell, but force the tap on the date because the rest of the cell is not clickable as per spec.
+		app.cells.element(boundBy: 1).staticTexts[String(format: AccessibilityIdentifiers.ContactDiaryInformation.Overview.cellDateHeader, 0)].waitAndTap()
 
 		// add persons
 		addPersonToDayEntry("Erika Musterfrau")

@@ -29,7 +29,11 @@ final class AdmissionStateCellModel {
 	}
 
 	var description: String? {
-		healthCertifiedPerson.dccWalletInfo?.admissionState.longText?.localized(cclService: cclService)
+		if healthCertifiedPerson.isAdmissionStateChanged {
+			return healthCertifiedPerson.dccWalletInfo?.admissionState.stateChangeNotificationText?.localized(cclService: cclService)
+		} else {
+			return healthCertifiedPerson.dccWalletInfo?.admissionState.longText?.localized(cclService: cclService)
+		}
 	}
 
 	var faqLink: NSAttributedString? {
@@ -68,6 +72,10 @@ final class AdmissionStateCellModel {
 		return healthCertifiedPerson.gradientType
 	}
 
+	var isAdmissionStateChanged: Bool {
+		return healthCertifiedPerson.isAdmissionStateChanged
+	}
+	
 	// MARK: - Private
 
 	private let healthCertifiedPerson: HealthCertifiedPerson

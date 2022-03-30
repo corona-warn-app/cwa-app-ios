@@ -349,7 +349,7 @@ class HourKeyPackagesDownloadTests: CWATestCase {
 		let dummyPackage = SAPDownloadedPackage(keysBin: Data(), signature: Data())
 		let dummyResponse = PackageDownloadResponse(package: dummyPackage, etag: "\"etag\"")
 
-		let packagesStore: DownloadedPackagesSQLLiteStoreV2 = .inMemory()
+		let packagesStore: DownloadedPackagesSQLLiteStoreV3 = .inMemory()
 		packagesStore.open()
 		let countryId = "IT"
 		try packagesStore.addFetchedHours([lastHourKey: dummyResponse], day: .formattedToday(), country: countryId)
@@ -389,7 +389,7 @@ class HourKeyPackagesDownloadTests: CWATestCase {
 	func test_When_NewPackagesFoundOnServer_Then_StatusChangesFrom_Idle_To_Downloading_To_CheckingForNewPackages_To_Idle() {
 		let store = MockTestStore()
 
-		let packagesStore: DownloadedPackagesSQLLiteStoreV2 = .inMemory()
+		let packagesStore: DownloadedPackagesSQLLiteStoreV3 = .inMemory()
 		packagesStore.open()
 
 		let dummyPackage = SAPDownloadedPackage(keysBin: Data(), signature: Data())

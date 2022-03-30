@@ -73,7 +73,7 @@ class HealthCertifiedPersonTableViewCell: UITableViewCell, ReuseIdentifierProvid
 		}
 
 		admissionStateStackView.isHidden = !cellModel.isStatusTitleVisible
-		admissionStateView?.configure(title: cellModel.shortStatus, gradientType: cellModel.backgroundGradientType)
+		admissionStateView.configure(title: cellModel.shortStatus, gradientType: cellModel.backgroundGradientType)
 
 		segmentedControl.isHidden = cellModel.switchableHealthCertificates.isEmpty
 
@@ -179,11 +179,7 @@ class HealthCertifiedPersonTableViewCell: UITableViewCell, ReuseIdentifierProvid
 	}()
 
 	private lazy var admissionStateStackView: UIStackView = {
-		let stackView = AccessibleStackView(
-			arrangedSubviews: [
-				admissionStateTitleLabel, admissionStateView
-			].compactMap { $0 }
-		)
+		let stackView = AccessibleStackView(arrangedSubviews: [admissionStateTitleLabel, admissionStateView])
 		stackView.spacing = 8.0
 		stackView.alignment = .center
 
@@ -200,12 +196,7 @@ class HealthCertifiedPersonTableViewCell: UITableViewCell, ReuseIdentifierProvid
 		return admissionStateTitleLabel
 	}()
 
-	private lazy var admissionStateView: RoundedLabeledView? = {
-		let nibName = String(describing: RoundedLabeledView.self)
-		let nib = UINib(nibName: nibName, bundle: .main)
-
-		return nib.instantiate(withOwner: self, options: nil).first as? RoundedLabeledView
-	}()
+	private lazy var admissionStateView = RoundedLabeledView()
 
 	private let qrCodeView = HealthCertificateQRCodeView()
 

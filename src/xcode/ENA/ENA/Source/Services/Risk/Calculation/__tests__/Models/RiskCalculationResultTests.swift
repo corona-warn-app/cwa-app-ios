@@ -9,22 +9,22 @@ class RiskCalculationResultTests: CWATestCase {
 
 	/// Init a new model all values get stored as expected
 	func testGIVEN_InitRiskCalculationResult_THEN_AllValuesGetStored() {
-	// GIVEN
+		// GIVEN
 		let today = Date()
-	let enfRiskCalculationResult = ENFRiskCalculationResult(
-		riskLevel: .low,
-		minimumDistinctEncountersWithLowRisk: 0,
-		minimumDistinctEncountersWithHighRisk: 5,
-		mostRecentDateWithLowRisk: today,
-		mostRecentDateWithHighRisk: today,
-		numberOfDaysWithLowRisk: 10,
-		numberOfDaysWithHighRisk: 3,
-		calculationDate: today,
-		riskLevelPerDate: [today: .high],
-		minimumDistinctEncountersWithHighRiskPerDate: [Date(): 1]
-	)
+		let enfRiskCalculationResult = ENFRiskCalculationResult(
+			riskLevel: .low,
+			minimumDistinctEncountersWithLowRisk: 0,
+			minimumDistinctEncountersWithHighRisk: 5,
+			mostRecentDateWithLowRisk: today,
+			mostRecentDateWithHighRisk: today,
+			numberOfDaysWithLowRisk: 10,
+			numberOfDaysWithHighRisk: 3,
+			calculationDate: today,
+			riskLevelPerDate: [today: .high],
+			minimumDistinctEncountersWithHighRiskPerDate: [Date(): 1]
+		)
 
-	// THEN
+		// THEN
 		XCTAssertEqual(enfRiskCalculationResult.riskLevel, .low)
 		XCTAssertEqual(enfRiskCalculationResult.minimumDistinctEncountersWithLowRisk, 0)
 		XCTAssertEqual(enfRiskCalculationResult.minimumDistinctEncountersWithHighRisk, 5)
@@ -35,7 +35,6 @@ class RiskCalculationResultTests: CWATestCase {
 		XCTAssertEqual(enfRiskCalculationResult.calculationDate, today)
 		XCTAssertEqual(enfRiskCalculationResult.riskLevelPerDate, [today: .high])
 	}
-
 
 	/// New json format with empty 'riskLevelPerDate' should init without problems
 	func testGIVEN_NewFormatRiskCalculationResultWithoutRiskLevelPerDay_WHEN_ParseJson_THEN_RiskCalculationResultGetsCreated() throws {

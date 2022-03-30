@@ -18,7 +18,8 @@ class HealthCertifiedPerson: Codable, Equatable, Comparable {
 		mostRecentWalletInfoUpdateFailed: Bool = false,
 		boosterRule: Rule? = nil,
 		isNewBoosterRule: Bool = false,
-		isNewCertificateReissuance: Bool = false
+		isNewCertificateReissuance: Bool = false,
+		isAdmissionStateChanged: Bool = false
 	) {
 		self.healthCertificates = healthCertificates
 		self.isPreferredPerson = isPreferredPerson
@@ -27,6 +28,7 @@ class HealthCertifiedPerson: Codable, Equatable, Comparable {
 		self.boosterRule = boosterRule
 		self.isNewBoosterRule = isNewBoosterRule
 		self.isNewCertificateReissuance = isNewCertificateReissuance
+		self.isAdmissionStateChanged = isAdmissionStateChanged
 
 		setup()
 	}
@@ -42,6 +44,7 @@ class HealthCertifiedPerson: Codable, Equatable, Comparable {
 		case boosterRule
 		case isNewBoosterRule
 		case isNewCertificateReissuance
+		case isAdmissionStateChanged
 	}
 
 	required init(from decoder: Decoder) throws {
@@ -55,7 +58,8 @@ class HealthCertifiedPerson: Codable, Equatable, Comparable {
 		boosterRule = try container.decodeIfPresent(Rule.self, forKey: .boosterRule)
 		isNewBoosterRule = try container.decodeIfPresent(Bool.self, forKey: .isNewBoosterRule) ?? false
 		isNewCertificateReissuance = try container.decodeIfPresent(Bool.self, forKey: .isNewCertificateReissuance) ?? false
-
+		isAdmissionStateChanged = try container.decodeIfPresent(Bool.self, forKey: .isAdmissionStateChanged) ?? false
+		
 		let decodingContainers = try container.decode([HealthCertificateDecodingContainer].self, forKey: .healthCertificates)
 
 		for decodingContainer in decodingContainers {
@@ -105,6 +109,8 @@ class HealthCertifiedPerson: Codable, Equatable, Comparable {
 		try container.encode(boosterRule, forKey: .boosterRule)
 		try container.encode(isNewBoosterRule, forKey: .isNewBoosterRule)
 		try container.encode(isNewCertificateReissuance, forKey: .isNewCertificateReissuance)
+		try container.encode(isAdmissionStateChanged, forKey: .isAdmissionStateChanged)
+
 	}
 
 	// MARK: - Protocol Equatable
@@ -173,6 +179,9 @@ class HealthCertifiedPerson: Codable, Equatable, Comparable {
 			if dccWalletInfo?.certificateReissuance != oldValue?.certificateReissuance {
 				isNewCertificateReissuance = dccWalletInfo?.certificateReissuance?.reissuanceDivision.visible == true
 			}
+			if oldValue?.admissionState.identifier != nil && dccWalletInfo?.admissionState.identifier != oldValue?.admissionState.identifier {
+				isAdmissionStateChanged = dccWalletInfo?.admissionState.identifier != nil
+			}
 
 			if dccWalletInfo != nil {
 				/// Once initial dccWalletInfo was calculated, legacy boosterRule property can be set to nil
@@ -205,6 +214,14 @@ class HealthCertifiedPerson: Codable, Equatable, Comparable {
 	@DidSetPublished var isNewCertificateReissuance: Bool {
 		didSet {
 			if isNewCertificateReissuance != oldValue {
+				objectDidChange.send(self)
+			}
+		}
+	}
+
+	@DidSetPublished var isAdmissionStateChanged: Bool {
+		didSet {
+			if isAdmissionStateChanged != oldValue {
 				objectDidChange.send(self)
 			}
 		}
@@ -248,6 +265,7 @@ class HealthCertifiedPerson: Codable, Equatable, Comparable {
 		let certificatesWithNews = healthCertificates.filter { $0.isNew || $0.isValidityStateNew }
 
 		return certificatesWithNews.count
+			+ (isAdmissionStateChanged ? 1 : 0)
 			+ (dccWalletInfo?.boosterNotification.identifier != nil && isNewBoosterRule ? 1 : 0)
 			+ (dccWalletInfo?.certificateReissuance?.reissuanceDivision.visible == true && isNewCertificateReissuance ? 1 : 0)
 	}
@@ -261,7 +279,7 @@ class HealthCertifiedPerson: Codable, Equatable, Comparable {
 
 		return dccWalletInfo == nil || mostRecentWalletInfoUpdateFailed || (dccWalletInfo?.validUntil ?? now) < now
 	}
-
+	
 	func healthCertificate(for reference: DCCCertificateReference) -> HealthCertificate? {
 		healthCertificates.first { $0.base45 == reference.barcodeData }
 	}
