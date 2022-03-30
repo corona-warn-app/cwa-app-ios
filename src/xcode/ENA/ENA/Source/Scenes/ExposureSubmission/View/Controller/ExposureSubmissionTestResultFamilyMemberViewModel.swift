@@ -434,7 +434,7 @@ extension ExposureSubmissionTestResultFamilyMemberViewModel {
 				title: AppStrings.ExposureSubmissionResult.testNegative,
 				description: AppStrings.ExposureSubmissionResult.testNegativeDesc,
 				icon: UIImage(named: "Icons_Grey_Error"),
-				hairline: .topAttached
+				hairline: .none
 			)
 		])
 
@@ -508,7 +508,7 @@ extension ExposureSubmissionTestResultFamilyMemberViewModel {
 				title: AppStrings.ExposureSubmissionResult.testNegative,
 				description: AppStrings.ExposureSubmissionResult.Antigen.testNegativeDesc,
 				icon: UIImage(named: "Icons_Grey_Error"),
-				hairline: .topAttached
+				hairline: .none
 			)
 		])
 
@@ -577,7 +577,7 @@ extension ExposureSubmissionTestResultFamilyMemberViewModel {
 				title: AppStrings.ExposureSubmissionResult.testInvalid,
 				description: AppStrings.ExposureSubmissionResult.testInvalidDesc,
 				icon: UIImage(named: "Icons_Grey_Error"),
-				hairline: .topAttached
+				hairline: .none
 			)
 		])
 
