@@ -42,131 +42,39 @@ extension Service {
 		return .success(urlRequest)
 	}
 
-	func receiveModelToInterruptLoading<R>(
-		_ resource: R,
-		_ completion: @escaping (Result<R.Receive.ReceiveModel, ServiceError<R.CustomError>>) -> Void
-	) where R: Resource {
-		completion(.failure(ServiceError.noReceiveModelToInterruptLoading))
-	}
-
-    // swiftlint:disable cyclomatic_complexity
 	func load<R>(
 		_ resource: R,
 		_ completion: @escaping (Result<R.Receive.ReceiveModel, ServiceError<R.CustomError>>) -> Void
 	) where R: Resource {
 
-		// check if we interrupt loading and return directly a model
-		receiveModelToInterruptLoading(resource, { result in
+		// Check if we can interrupt loading and return directly a model wich is stored in our cache.
+		receiveModelToInterruptLoading(resource, { [weak self] result in
+			guard let self = self else {
+				Log.error("Could not create strong self", log: .client)
+				return
+			}
 			switch result {
-
 			case .success(let receiveModel):
 				completion(.success(receiveModel))
+				return
 			case .failure(let serviceError):
 				if case .noReceiveModelToInterruptLoading = serviceError {
-					// This is a special case and we ignore the previous failure and continue loading. Equals a not found model.
-					break
+					// This is a "normal" case and we ignore the previous failure and continue loading. Equals a not found model.
+					self.createUrlRequest(resource, completion)
 				} else {
+					// We found a model to return but while loading from cache, there occured an error (e.g. while decoding).
 					completion(.failure(serviceError))
+					return
 				}
 			}
 		})
+	}
 
-		// Save up the retryCount for our resource. Used later then.
-		self.resourcesRetries[resource.locator.uniqueIdentifier] = resource.retryingCount
-
-		// load data from the server
-		switch urlRequest(resource.locator, resource.sendResource, resource.receiveResource) {
-		case let .failure(resourceError):
-			Log.error("Creating url request failed.", log: .client)
-			failureOrDefaultValueHandling(resource, .invalidRequestError(resourceError), nil, completion)
-		case let .success(request):
-
-			var task: URLSessionDataTask?
-			task = session.dataTask(with: request) { [weak self] bodyData, response, error in
-
-				guard let self = self else {
-					fatalError("Self should not be nil at this point")
-				}
-				
-				defer {
-					if let coronaSessionDelegate = self.session.delegate as? CoronaWarnSessionTaskDelegate,
-						  let task = task {
-						   coronaSessionDelegate.trustEvaluations[task.taskIdentifier] = nil
-					   }
-				}
-				
-				// If there is a transportation error, check if the underlying error is a trust evaluation error and possibly return it.
-				if error != nil,
-				   let coronaSessionDelegate = self.session.delegate as? CoronaWarnSessionTaskDelegate,
-				   let task = task,
-				   let trustEvaluationError = coronaSessionDelegate.trustEvaluations[task.taskIdentifier]?.trustEvaluationError {
-					Log.error("TrustEvaluation failed.", log: .client)
-					self.failureOrDefaultValueHandling(resource, .trustEvaluationError(trustEvaluationError), nil, completion)
-					return
-				}
-				
-				// case we have no network.
-				if let error = error {
-					self.handleNoNetworkCachePolicy(resource, error, completion)
-					return
-				}
-								
-				// case we have a fake.
-				guard !resource.locator.isFake else {
-					Log.info("Fake detected no response given", log: .client)
-					self.failureOrDefaultValueHandling(resource, .fakeResponse, nil, completion)
-					return
-				}
-
-				// case we have an invalid response.
-				guard let response = response as? HTTPURLResponse else {
-					Log.error("Invalid response.", log: .client, error: error)
-					self.failureOrDefaultValueHandling(resource, .invalidResponseType, nil, completion)
-					return
-				}
-				
-				// Now we have a response and a valid status code.
-
-				#if DEBUG
-				Log.debug("URL Response \(response.statusCode)", log: .client)
-				#endif
-
-				// override status code by cache policy and handle it on other way.
-				if self.hasStatusCodeCachePolicy(resource, response.statusCode) {
-					self.handleStatusCodeCachePolicy(resource, response.statusCode, completion)
-					return
-				}
-				
-				// Normal status code handling
-				// The codes here are in sync with the one in hasStatusCodeCachePolicy in the CachedRestService - do always sync them!
-				switch response.statusCode {
-				case 200, 201:
-					self.decodeModel(resource, bodyData, response.allHeaderFields, false, completion)
-				case 204:
-					guard resource.receiveResource is EmptyReceiveResource else {
-						Log.error("This is not an EmptyReceiveResource", log: .client)
-						self.failureOrDefaultValueHandling(resource, .invalidResponse, nil, completion)
-						return
-					}
-					self.decodeModel(resource, bodyData, response.allHeaderFields, false, completion)
-				case 304:
-					self.cached(resource, completion)
-				default:
-					self.failureOrDefaultValueHandling(resource, .unexpectedServerError(response.statusCode), bodyData, completion)
-				}
-			}
-			
-			guard let task = task else {
-				fatalError("Task cannot be nil at this point.")
-			}
-			
-			// Set the trust evaluation which is executed during the request on the CoronaWarnSessionTaskDelegate.
-			if let coronaSessionDelegate = session.delegate as? CoronaWarnSessionTaskDelegate {
-				coronaSessionDelegate.trustEvaluations[task.taskIdentifier] = resource.trustEvaluation
-			}
-						
-			task.resume()
-		}
+	func receiveModelToInterruptLoading<R>(
+		_ resource: R,
+		_ completion: @escaping (Result<R.Receive.ReceiveModel, ServiceError<R.CustomError>>) -> Void
+	) where R: Resource {
+		completion(.failure(ServiceError.noReceiveModelToInterruptLoading))
 	}
 
 	func decodeModel<R>(
@@ -196,7 +104,7 @@ extension Service {
 			}
 		case .failure(let resourceError):
 			Log.error("Decoding for receive resource failed.", log: .client)
-			failureOrDefaultValueHandling(resource, .resourceError(resourceError), nil, completion)
+			retryOrDefaultValueOrFailureHandling(resource, .resourceError(resourceError), nil, completion)
 		}
 	}
 
@@ -205,7 +113,7 @@ extension Service {
 		_ completion: @escaping (Result<R.Receive.ReceiveModel, ServiceError<R.CustomError>>) -> Void
 	) where R: Resource {
 		Log.info("No caching allowed for current service.", log: .client)
-		failureOrDefaultValueHandling(resource, .resourceError(.notModified), nil, completion)
+		retryOrDefaultValueOrFailureHandling(resource, .resourceError(.notModified), nil, completion)
 	}
 
 	func hasCachedData<R>(
@@ -253,7 +161,7 @@ extension Service {
 	///   - resource: Generic ("R") object and normally of type ReceiveResource.
 	///   - error: The error that would be thrown with the fail.
 	///   - completion: Swift-Result of loading. If successful, it contains the concrete object of our call.
-	func failureOrDefaultValueHandling<R>(
+	func retryOrDefaultValueOrFailureHandling<R>(
 		_ resource: R,
 		_ error: ServiceError<R.CustomError>,
 		_ responseData: Data? = nil,
@@ -297,6 +205,146 @@ extension Service {
 	
 	// MARK: - Private
 
+	/// Creates the url request and if succesfull, calls the fetch.
+	///
+	/// - Parameters:
+	///   - resource: Generic ("R") object and normally of type ReceiveResource.
+	///   - completion: Swift-Result of loading. If successful, it contains the concrete object of our call.
+	private func createUrlRequest<R>(
+		_ resource: R,
+		_ completion: @escaping (Result<R.Receive.ReceiveModel, ServiceError<R.CustomError>>) -> Void
+	) where R: Resource {
+
+		// Save the retryCount of our resource (Make the counter thread safe). Use it then later then when neccessary.
+		resourcesRetries[resource.locator.uniqueIdentifier] = resource.retryingCount
+
+		// Create the url request
+		switch urlRequest(resource.locator, resource.sendResource, resource.receiveResource) {
+		case let .failure(resourceError):
+			Log.error("Creating url request failed.", log: .client)
+			retryOrDefaultValueOrFailureHandling(resource, .invalidRequestError(resourceError), nil, completion)
+		case let .success(request):
+			// Now fetch the data from the server
+			fetchFromServer(resource, request, completion)
+		}
+	}
+
+	/// The real fetch call to load data from the server. Handles all error cases and also the trust evaluation logic with the data task. If successfull, delegates all to the status code handling.
+	///
+	/// - Parameters:
+	///   - resource: Generic ("R") object and normally of type ReceiveResource.
+	///   - request: The URLRequest
+	///   - completion: Swift-Result of loading. If successful, it contains the concrete object of our call.
+	private func fetchFromServer<R>(
+		_ resource: R,
+		_ request: URLRequest,
+		_ completion: @escaping (Result<R.Receive.ReceiveModel, ServiceError<R.CustomError>>) -> Void
+	) where R: Resource {
+
+		var task: URLSessionDataTask?
+		task = self.session.dataTask(with: request) { [weak self] bodyData, response, error in
+
+			guard let self = self else {
+				Log.error("Could not create strong self", log: .client)
+				return
+			}
+
+			defer {
+				if let coronaSessionDelegate = self.session.delegate as? CoronaWarnSessionTaskDelegate,
+					  let task = task {
+					   coronaSessionDelegate.trustEvaluations[task.taskIdentifier] = nil
+				   }
+			}
+
+			// If there is a transportation error, check if the underlying error is a trust evaluation error and possibly return it.
+			if error != nil,
+			   let coronaSessionDelegate = self.session.delegate as? CoronaWarnSessionTaskDelegate,
+			   let task = task,
+			   let trustEvaluationError = coronaSessionDelegate.trustEvaluations[task.taskIdentifier]?.trustEvaluationError {
+				Log.error("TrustEvaluation failed.", log: .client)
+				self.retryOrDefaultValueOrFailureHandling(resource, .trustEvaluationError(trustEvaluationError), nil, completion)
+				return
+			}
+
+			// case we have no network.
+			if let error = error {
+				self.handleNoNetworkCachePolicy(resource, error, completion)
+				return
+			}
+
+			// case we have a fake.
+			guard !resource.locator.isFake else {
+				Log.info("Fake detected no response given", log: .client)
+				self.retryOrDefaultValueOrFailureHandling(resource, .fakeResponse, nil, completion)
+				return
+			}
+
+			// case we have an invalid response.
+			guard let response = response as? HTTPURLResponse else {
+				Log.error("Invalid response.", log: .client, error: error)
+				self.retryOrDefaultValueOrFailureHandling(resource, .invalidResponseType, nil, completion)
+				return
+			}
+
+			// Now we have a response and a valid status code.
+
+			#if DEBUG
+			Log.debug("URL Response \(response.statusCode)", log: .client)
+			#endif
+
+			// override status code by cache policy and handle it on other way.
+			if self.hasStatusCodeCachePolicy(resource, response.statusCode) {
+				self.handleStatusCodeCachePolicy(resource, response.statusCode, completion)
+				return
+			}
+
+			// Normal status code handling
+			self.handleStatusCodes(resource, response, bodyData, completion)
+		}
+
+		guard let task = task else {
+			fatalError("Task cannot be nil at this point.")
+		}
+
+		// Set the trust evaluation which is executed during the request on the CoronaWarnSessionTaskDelegate.
+		if let coronaSessionDelegate = self.session.delegate as? CoronaWarnSessionTaskDelegate {
+			coronaSessionDelegate.trustEvaluations[task.taskIdentifier] = resource.trustEvaluation
+		}
+
+		task.resume()
+	}
+
+	/// Handles the normal http status codes. Calls the decoding or cached funcs to get the model and returns it if successful.
+	///
+	/// - Parameters:
+	///   - resource: Generic ("R") object and normally of type ReceiveResource.
+	///   - response: The HTTPURLResponse
+	///   - bodyData: The responses body Data
+	///   - completion: Swift-Result of loading. If successful, it contains the concrete object of our call.
+	private func handleStatusCodes<R>(
+		_ resource: R,
+		_ response: HTTPURLResponse,
+		_ bodyData: Data?,
+		_ completion: @escaping (Result<R.Receive.ReceiveModel, ServiceError<R.CustomError>>) -> Void
+	) where R: Resource {
+
+		// The codes here are in sync with the one in hasStatusCodeCachePolicy in the CachedRestService - do always sync them!
+		switch response.statusCode {
+		case 200, 201:
+			self.decodeModel(resource, bodyData, response.allHeaderFields, false, completion)
+		case 204:
+			guard resource.receiveResource is EmptyReceiveResource else {
+				Log.error("This is not an EmptyReceiveResource", log: .client)
+				self.retryOrDefaultValueOrFailureHandling(resource, .invalidResponse, nil, completion)
+				return
+			}
+			self.decodeModel(resource, bodyData, response.allHeaderFields, false, completion)
+		case 304:
+			self.cached(resource, completion)
+		default:
+			self.retryOrDefaultValueOrFailureHandling(resource, .unexpectedServerError(response.statusCode), bodyData, completion)
+		}
+	}
 
 	/// Handles the noNetwork cache policy: Checks first, if the cache policy is defined. If not, proceed with the transportation error. Otherwise, try to load the cached data. If this fails, we fall back to the the transportation error.
 	///
@@ -315,7 +363,7 @@ extension Service {
 			  policies.contains(.noNetwork) else {
 			// Otherwise, fall back to the default
 			Log.info("No cache policy .noNetwork found.", log: .client)
-			failureOrDefaultValueHandling(resource, .transportationError(error), nil, completion)
+			retryOrDefaultValueOrFailureHandling(resource, .transportationError(error), nil, completion)
 			return
 		}
 		
@@ -327,7 +375,7 @@ extension Service {
 		// If not, we will fail with the original error
 		else {
 			Log.info("Found nothing cached.")
-			failureOrDefaultValueHandling(resource, .transportationError(error), nil, completion)
+			retryOrDefaultValueOrFailureHandling(resource, .transportationError(error), nil, completion)
 		}
 	}
 
@@ -353,37 +401,7 @@ extension Service {
 		// If not, we will fail with the original error
 		else {
 			Log.info("Found nothing cached.")
-			failureOrDefaultValueHandling(resource, .unexpectedServerError(statusCode), nil, completion)
+			retryOrDefaultValueOrFailureHandling(resource, .unexpectedServerError(statusCode), nil, completion)
 		}
 	}
-
-//	/// Handles the possible retry mechanism: Calls the result which we pass inside. If the result succeeds, we call immediately the completion. If the result fails, we first check if we want to retry the download and then if we have some attempts left to retry. If so, we call load() again. Otherwise, we call again the failureOrDefaultValueHandling() to return a possibly a default model or not.
-//	///
-//	/// - Parameters:
-//	///   - resource: Generic ("R") object and normally of type ReceiveResource. It is where the retry and default model is defined.
-//	///   - result: Result of a func call where we try to retrieve a model or get a fail.
-//	///   - completion: Swift-Result of loading. If successful, it contains the concrete object of our call.
-//	private func handleRetry<R>(
-//		_ resource: R,
-//		_ result: Result<R.Receive.ReceiveModel, ServiceError<R.CustomError>>,
-//		_ completion: @escaping (Result<R.Receive.ReceiveModel, ServiceError<R.CustomError>>) -> Void
-//	) where R: Resource {
-//		switch result {
-//		case .success(let model):
-//			completion(.success(model))
-//		case .failure(let error):
-//			// For any failures we check if the resource has some value defined for the retryingCount and also has some retries left. If so, we call load() recursivly.
-//			if let retryingCount = resource.retryingCount,
-//			   retryingCount > 0 {
-//				Log.debug("Retry for resource discovered. Retry counter at: \(retryingCount)", log: .client)
-//				var mutatableResource = resource
-//				mutatableResource.retryingCount? -= 1
-//				Log.debug("Remaining retries now: \(mutatableResource.retryingCount ?? 0)", log: .client)
-//				load(mutatableResource, completion)
-//			} else {
-//				// Now after all retries exhausted (or we did not had any retry), we check if we can return a default value or not.
-//				completion(failureOrDefaultValueHandling(resource, error))
-//			}
-//		}
-//	}
 }
