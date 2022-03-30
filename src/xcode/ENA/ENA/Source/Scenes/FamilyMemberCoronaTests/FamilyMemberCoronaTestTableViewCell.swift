@@ -58,6 +58,10 @@ final class FamilyMemberCoronaTestTableViewCell: UITableViewCell {
 			.assign(to: \.text, on: nameLabel)
 			.store(in: &subscriptions)
 
+		cellModel.$caption
+			.assign(to: \.text, on: captionLabel)
+			.store(in: &subscriptions)
+
 		cellModel.$topDiagnosis
 			.assign(to: \.text, on: topDiagnosisLabel)
 			.store(in: &subscriptions)
