@@ -11,7 +11,7 @@ class FamilyMemberCoronaTestsViewModel {
 	// MARK: - Init
 
 	init(
-		familyMemberCoronaTestService: FamilyMemberCoronaTestService,
+		familyMemberCoronaTestService: FamilyMemberCoronaTestServiceProviding,
 		onCoronaTestCellTap: @escaping (FamilyMemberCoronaTest) -> Void,
 		onLastDeletion: @escaping () -> Void
 	) {
@@ -89,7 +89,7 @@ class FamilyMemberCoronaTestsViewModel {
 
 	// MARK: - Private
 
-	private let familyMemberCoronaTestService: FamilyMemberCoronaTestService
+	private let familyMemberCoronaTestService: FamilyMemberCoronaTestServiceProviding
 	private let onCoronaTestCellTap: (FamilyMemberCoronaTest) -> Void
 
 	private var subscriptions: [AnyCancellable] = []

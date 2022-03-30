@@ -98,6 +98,9 @@ class HomeCoordinator: RequiresAppDependencies {
 			onRiskCellTap: { [weak self] homeState in
 				self?.showExposureDetection(state: homeState)
 			},
+			onFamilyTestResultsCellTap: { [weak self] in
+				self?.showFamilyMemberCoronaTests()
+			},
 			onInactiveCellButtonTap: { [weak self] enState in
 				self?.showExposureNotificationSetting(enState: enState)
 			},
@@ -207,6 +210,7 @@ class HomeCoordinator: RequiresAppDependencies {
 	private var homeController: HomeTableViewController?
 	private var homeState: HomeState
 	private var settingsController: SettingsViewController?
+	private var familyMemberCoronaTestsCoordinator: FamilyMemberCoronaTestsCoordinator?
 	private var traceLocationsCoordinator: TraceLocationsCoordinator?
 	private var settingsCoordinator: SettingsCoordinator?
 	private var exposureDetectionCoordinator: ExposureDetectionCoordinator?
@@ -321,6 +325,20 @@ class HomeCoordinator: RequiresAppDependencies {
 		} else {
 			coordinator.start(with: testType)
 		}
+	}
+
+	private func showFamilyMemberCoronaTests() {
+		familyMemberCoronaTestsCoordinator = FamilyMemberCoronaTestsCoordinator(
+			parentNavigationController: rootViewController,
+			familyMemberCoronaTestService: familyMemberCoronaTestService,
+			store: store,
+			healthCertificateService: healthCertificateService,
+			healthCertificateValidationService: healthCertificateValidationService,
+			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
+			healthCertificateValidationOnboardedCountriesProvider: healthCertificateValidationOnboardedCountriesProvider
+		)
+
+		familyMemberCoronaTestsCoordinator?.start()
 	}
 
 	private func showStatisticsInfo() {
