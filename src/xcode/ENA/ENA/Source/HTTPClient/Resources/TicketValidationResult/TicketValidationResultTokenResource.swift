@@ -30,7 +30,7 @@ struct TicketValidationResultTokenResource: Resource {
 	var type: ServiceType
 	var sendResource: JSONSendResource<TicketValidationResultTokenSendModel>
 	var receiveResource: StringReceiveResource<TicketValidationAccessTokenReceiveModel>
-	var retryingCount: Int?
+	
 
 	func customError(
 		for error: ServiceError<TicketValidationResultTokenError>,

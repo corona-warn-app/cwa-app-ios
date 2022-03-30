@@ -47,7 +47,6 @@ class CCLConfigurationResource: Resource {
 	var sendResource: EmptySendResource
 	var receiveResource: CBORReceiveResource<CCLConfigurationReceiveModel>
 	var defaultModel: CCLConfigurationReceiveModel?
-	var retryingCount: Int?
 	
 	// MARK: - Internal
 	

@@ -29,7 +29,6 @@ class ResourceFake: Resource {
 	let receiveResource: JSONReceiveResource<DummyResourceModel>
 	let defaultModel: ResourceFake.Receive.ReceiveModel?
 	let trustEvaluation: TrustEvaluating
-	var retryingCount: Int?
 
 	typealias Send = PaddingJSONSendResource<DummyResourceModel>
 	typealias Receive = JSONReceiveResource<DummyResourceModel>

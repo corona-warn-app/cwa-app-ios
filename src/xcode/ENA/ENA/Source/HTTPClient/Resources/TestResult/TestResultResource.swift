@@ -33,7 +33,7 @@ struct TestResultResource: Resource {
 	var type: ServiceType
 	var sendResource: JSONSendResource<TestResultSendModel>
 	var receiveResource: JSONReceiveResource<TestResultReceiveModel>
-	var retryingCount: Int?
+	
 
 	func customStatusCodeError(statusCode: Int) -> TestResultError? {
 		switch statusCode {
