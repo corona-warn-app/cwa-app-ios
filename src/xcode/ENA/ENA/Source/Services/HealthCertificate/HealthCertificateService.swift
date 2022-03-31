@@ -120,6 +120,7 @@ class HealthCertificateService: HealthCertificateServiceServable {
 	}
 
 	func setup(
+		shouldScheduleTimer: Bool = true,
 		updatingWalletInfos: Bool,
 		completion: @escaping () -> Void
 	) {
@@ -147,7 +148,10 @@ class HealthCertificateService: HealthCertificateServiceServable {
 
 			self.subscribeAppConfigUpdates()
 			self.subscribeDSCListChanges()
-			self.scheduleTimer()
+			
+			if shouldScheduleTimer {
+				self.scheduleTimer()
+			}
 
 			if updatingWalletInfos {
 				self.updateDCCWalletInfosIfNeeded {
@@ -434,7 +438,10 @@ class HealthCertificateService: HealthCertificateServiceServable {
 		return nil
 	}
 
-	func updateValidityStatesAndNotificationsWithFreshDSCList(completion: () -> Void) {
+	func updateValidityStatesAndNotificationsWithFreshDSCList(
+		completion: @escaping () -> Void,
+		shouldScheduleTimer: Bool = true
+	) {
 		Log.info("Update validity state and notifications with fresh dsc list.")
 
 		// .dropFirst: drops the first callback, which is called with default signing certificates.
@@ -444,7 +451,10 @@ class HealthCertificateService: HealthCertificateServiceServable {
 			.dropFirst()
 			.first()
 			.sink { [weak self] _ in
-				self?.updateValidityStatesAndNotifications()
+				self?.updateValidityStatesAndNotifications(
+					shouldScheduleTimer: shouldScheduleTimer
+				)
+				completion()
 			}
 			.store(in: &subscriptions)
 	}

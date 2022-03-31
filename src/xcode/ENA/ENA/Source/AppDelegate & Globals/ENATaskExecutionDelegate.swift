@@ -71,7 +71,10 @@ class TaskExecutionHandler: ENATaskExecutionDelegate {
 			self.executeExposureDetectionRequest { _ in
 				Log.info("Done detecting Exposures…", log: .background)
 
-				self.healthCertificateService.setup(updatingWalletInfos: false) {
+				self.healthCertificateService.setup(
+					shouldScheduleTimer: false,
+					updatingWalletInfos: false
+				) {
 					group.enter()
 					DispatchQueue.global().async {
 						Log.info("Trying to submit TEKs...", log: .background)
@@ -365,6 +368,9 @@ class TaskExecutionHandler: ENATaskExecutionDelegate {
 	}
 
 	private func checkCertificateValidityStates(completion: @escaping () -> Void) {
-		healthCertificateService.updateValidityStatesAndNotificationsWithFreshDSCList(completion: completion)
+		healthCertificateService.updateValidityStatesAndNotificationsWithFreshDSCList(
+			completion: completion,
+			shouldScheduleTimer: false
+		)
 	}
 }
