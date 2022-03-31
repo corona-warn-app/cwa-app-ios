@@ -120,7 +120,6 @@ class HealthCertificateService: HealthCertificateServiceServable {
 	}
 
 	func setup(
-		shouldScheduleTimer: Bool = true,
 		updatingWalletInfos: Bool,
 		completion: @escaping () -> Void
 	) {
@@ -149,9 +148,7 @@ class HealthCertificateService: HealthCertificateServiceServable {
 			self.subscribeAppConfigUpdates()
 			self.subscribeDSCListChanges()
 			
-			if shouldScheduleTimer {
-				self.scheduleTimer()
-			}
+			self.scheduleTimer()
 
 			if updatingWalletInfos {
 				self.updateDCCWalletInfosIfNeeded {
@@ -439,8 +436,7 @@ class HealthCertificateService: HealthCertificateServiceServable {
 	}
 
 	func updateValidityStatesAndNotificationsWithFreshDSCList(
-		completion: @escaping () -> Void,
-		shouldScheduleTimer: Bool = true
+		completion: @escaping () -> Void
 	) {
 		Log.info("Update validity state and notifications with fresh dsc list.")
 
@@ -451,9 +447,7 @@ class HealthCertificateService: HealthCertificateServiceServable {
 			.dropFirst()
 			.first()
 			.sink { [weak self] _ in
-				self?.updateValidityStatesAndNotifications(
-					shouldScheduleTimer: shouldScheduleTimer
-				)
+				self?.updateValidityStatesAndNotifications()
 				completion()
 			}
 			.store(in: &subscriptions)

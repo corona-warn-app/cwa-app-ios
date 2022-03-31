@@ -72,7 +72,6 @@ class TaskExecutionHandler: ENATaskExecutionDelegate {
 				Log.info("Done detecting Exposures…", log: .background)
 
 				self.healthCertificateService.setup(
-					shouldScheduleTimer: false,
 					updatingWalletInfos: false
 				) {
 					group.enter()
@@ -369,8 +368,7 @@ class TaskExecutionHandler: ENATaskExecutionDelegate {
 
 	private func checkCertificateValidityStates(completion: @escaping () -> Void) {
 		healthCertificateService.updateValidityStatesAndNotificationsWithFreshDSCList(
-			completion: completion,
-			shouldScheduleTimer: false
+			completion: completion
 		)
 	}
 }
