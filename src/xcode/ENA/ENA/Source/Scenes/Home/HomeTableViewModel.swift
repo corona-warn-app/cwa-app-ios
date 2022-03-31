@@ -76,7 +76,7 @@ class HomeTableViewModel {
 		case risk
 		case pcrTestResult(TestResultState)
 		case antigenTestResult(TestResultState)
-		case familyTestResults(Int)
+		case familyTestResults
 	}
 
 	enum TestResultState: Equatable {
@@ -98,6 +98,10 @@ class HomeTableViewModel {
 
 	var numberOfSections: Int {
 		Section.allCases.count
+	}
+
+	var familyHomeCellViewModel: FamilyTestsHomeCellViewModel {
+		FamilyTestsHomeCellViewModel(familyMemberCoronaTestService: familyMemberCoronaTestService)
 	}
 
 	func numberOfRows(in section: Int) -> Int {
@@ -237,10 +241,7 @@ class HomeTableViewModel {
 		}
 
 		if !familyMemberCoronaTestService.coronaTests.value.isEmpty {
-			let unseenCount = familyMemberCoronaTestService.coronaTests.value
-				.filter { !$0.testResultWasShown }
-				.count
-			riskAndTestResultsRows.append(.familyTestResults(unseenCount))
+			riskAndTestResultsRows.append(.familyTestResults)
 		}
 
 		return riskAndTestResultsRows

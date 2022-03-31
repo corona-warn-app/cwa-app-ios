@@ -15,6 +15,8 @@ protocol FamilyMemberCoronaTestServiceProviding {
 
 	var coronaTests: CurrentValueSubject<[FamilyMemberCoronaTest], Never> { get }
 
+	var unseenNewsCount: Int { get }
+
 	func upToDateTest(for coronaTest: FamilyMemberCoronaTest) -> FamilyMemberCoronaTest?
 
 	func registerPCRTestAndGetResult(

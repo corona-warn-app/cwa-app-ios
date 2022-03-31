@@ -46,7 +46,7 @@ final class BadgeView: UIView {
 	private var roundedRectView: RoundedRectView?
 
 	private func setupView() {
-		let roundedRectView = RoundedRectView(lineWidth: 1.0, fillColor: fillColor, strokeColor: textColor)
+		let roundedRectView = RoundedRectView(lineWidth: 0.0, fillColor: fillColor, strokeColor: textColor)
 		roundedRectView.translatesAutoresizingMaskIntoConstraints = false
 		addSubview(roundedRectView)
 		self.roundedRectView = roundedRectView

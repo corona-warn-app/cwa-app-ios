@@ -246,6 +246,8 @@ class HomeRiskCellModel: CountdownTimerDelegate {
 	}
 
 	private func setupForLowRiskState(risk: Risk) {
+		Log.info("Setup risk cell model for low risk state)", log: .riskDetection)
+
 		backgroundColor = .enaColor(for: .riskLow)
 		separatorColor = .enaColor(for: .hairlineContrast)
 
@@ -337,6 +339,8 @@ class HomeRiskCellModel: CountdownTimerDelegate {
 	}
 
 	private func setupForHighRiskState(risk: Risk) {
+		Log.info("Setup risk cell model for high risk state)", log: .riskDetection)
+
 		backgroundColor = .enaColor(for: .riskHigh)
 		separatorColor = .enaColor(for: .hairlineContrast)
 
@@ -408,6 +412,8 @@ class HomeRiskCellModel: CountdownTimerDelegate {
 	}
 
 	private func setupForInactiveState() {
+		Log.info("Setup risk cell model for inactive state)", log: .riskDetection)
+
 		backgroundColor = .enaColor(for: .background)
 		separatorColor = .enaColor(for: .hairline)
 
@@ -457,6 +463,8 @@ class HomeRiskCellModel: CountdownTimerDelegate {
 	}
 
 	private func setupForFailedState() {
+		Log.info("Setup risk cell model for failed state)", log: .riskDetection)
+
 		backgroundColor = .enaColor(for: .background)
 		separatorColor = .enaColor(for: .hairline)
 

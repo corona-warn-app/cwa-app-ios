@@ -13,6 +13,8 @@ class MockFamilyMemberCoronaTestService: FamilyMemberCoronaTestServiceProviding 
 
 	var coronaTests = CurrentValueSubject<[FamilyMemberCoronaTest], Never>([])
 
+	var unseenNewsCount: Int = 0
+
 	func upToDateTest(for coronaTest: FamilyMemberCoronaTest) -> FamilyMemberCoronaTest? {
 		coronaTests.value.first { $0.qrCodeHash == coronaTest.qrCodeHash }
 	}

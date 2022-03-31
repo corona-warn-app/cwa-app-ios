@@ -77,7 +77,7 @@ class EventStoreSchemaV1: StoreSchemaProtocol {
 
 			guard database.executeStatements(sql) else {
 				Log.error("[SQLite] (\(database.lastErrorCode())) \(database.lastErrorMessage())", log: .localData)
-				let sqliteError = SQLiteErrorCode(rawValue: database.lastErrorCode()) ?? SQLiteErrorCode.unknown
+				let sqliteError = SQLiteErrorCode(rawValue: database.lastErrorCode())
 				result = .failure(SecureSQLStoreError.database(sqliteError))
 				return
 			}

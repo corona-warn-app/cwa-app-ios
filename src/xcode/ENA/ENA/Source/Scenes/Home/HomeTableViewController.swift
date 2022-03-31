@@ -14,6 +14,7 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 		viewModel: HomeTableViewModel,
 		appConfigurationProvider: AppConfigurationProviding,
 		route: Route?,
+		startupErrors: [Error],
 		onInfoBarButtonItemTap: @escaping () -> Void,
 		onExposureLoggingCellTap: @escaping (ENStateHandler.State) -> Void,
 		onRiskCellTap: @escaping (HomeState) -> Void,
@@ -37,6 +38,7 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 		self.viewModel = viewModel
 		self.appConfigurationProvider = appConfigurationProvider
 		self.route = route
+		self.startupErrors = startupErrors
 		self.onInfoBarButtonItemTap = onInfoBarButtonItemTap
 		self.onExposureLoggingCellTap = onExposureLoggingCellTap
 		self.onRiskCellTap = onRiskCellTap
@@ -129,6 +131,7 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 			antigenTestResultCell = testResultCell(forRowAt: IndexPath(row: 2, section: HomeTableViewModel.Section.riskAndTestResults.rawValue), coronaTestType: .antigen)
 			antigenTestShownPositiveResultCell = shownPositiveTestResultCell(forRowAt: IndexPath(row: 2, section: HomeTableViewModel.Section.riskAndTestResults.rawValue), coronaTestType: .antigen)
 			statisticsCell = statisticsCell(forRowAt: IndexPath(row: 0, section: HomeTableViewModel.Section.statistics.rawValue))
+			familyTestCell = familyTestCellFactory()
 		}
 
 		/** navigationbar is a shared property - so we need to trigger a resizing because others could have set it to true*/
@@ -185,8 +188,8 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 				case .positiveResultWasShown:
 					return shownPositiveTestResultCell(forRowAt: indexPath, coronaTestType: .antigen)
 				}
-			case .familyTestResults(let unseenCount):
-				return familyTestCell(unseenCount)
+			case .familyTestResults:
+				return familyTestCellFactory()
 			}
 		case .testRegistration:
 			return testRegistrationCell(forRowAt: indexPath)
@@ -264,6 +267,7 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 	// MARK: - Internal
 
 	var route: Route?
+	var startupErrors: [Error]
 
 	func scrollToTop(animated: Bool) {
 		tableView.setContentOffset(.zero, animated: animated)
@@ -276,22 +280,23 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 		}
 		self.deltaOnboardingIsRunning = true
 
-		self.showDeltaOnboardingIfNeeded(completion: { [weak self] in
-			self?.showInformationHowRiskDetectionWorksIfNeeded(completion: {
-				self?.showBackgroundFetchAlertIfNeeded(completion: {
-					self?.showAnotherHighExposureAlertIfNeeded(completion: {
-						self?.showRiskStatusLoweredAlertIfNeeded(completion: {
-							self?.showQRScannerTooltipIfNeeded(completion: {  [weak self] in
-								self?.showRouteIfNeeded(completion: { [weak self] in
-									self?.deltaOnboardingIsRunning = false
+		self.showStartupErrorsIfNeeded {
+			self.showDeltaOnboardingIfNeeded(completion: { [weak self] in
+				self?.showInformationHowRiskDetectionWorksIfNeeded(completion: {
+					self?.showBackgroundFetchAlertIfNeeded(completion: {
+						self?.showAnotherHighExposureAlertIfNeeded(completion: {
+							self?.showRiskStatusLoweredAlertIfNeeded(completion: {
+								self?.showQRScannerTooltipIfNeeded(completion: {  [weak self] in
+									self?.showRouteIfNeeded(completion: { [weak self] in
+										self?.deltaOnboardingIsRunning = false
+									})
 								})
 							})
 						})
 					})
 				})
 			})
-		})
-
+		}
 	}
 
 	// MARK: - Private
@@ -327,6 +332,7 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 	private var antigenTestResultCell: UITableViewCell?
 	private var antigenTestShownPositiveResultCell: UITableViewCell?
 	private var statisticsCell: HomeStatisticsTableViewCell?
+	private var familyTestCell: FamilyTestsHomeCell?
 
 	private var subscriptions = Set<AnyCancellable>()
 
@@ -447,12 +453,15 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 		return cell
 	}
 
-	private func familyTestCell(_ unseenCount: Int) -> UITableViewCell {
+	private func familyTestCellFactory() -> FamilyTestsHomeCell {
+		if let familyTestCell = familyTestCell {
+			return familyTestCell
+		}
+
 		guard let cell = tableView.dequeueReusableCell(withIdentifier: FamilyTestsHomeCell.reuseIdentifier) as? FamilyTestsHomeCell else {
 			fatalError("Failed to get FamilyTestsHomeCell")
 		}
-		let cellViewModel = FamilyTestsHomeCellViewModel(unseenCount)
-		cell.configure(with: cellViewModel)
+		cell.configure(with: viewModel.familyHomeCellViewModel)
 		return cell
 	}
 
@@ -947,6 +956,41 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 		alert.addAction(cancelAction)
 
 		present(alert, animated: true, completion: nil)
+	}
+	
+	func showStartupErrorsIfNeeded(completion: @escaping () -> Void) {
+		showErrors(startupErrors) { [weak self] in
+			guard let self = self else {
+				completion()
+				return
+			}
+			self.startupErrors.removeAll()
+			completion()
+		}
+	}
+	
+	func showErrors(_ errors: [Error], completion: @escaping () -> Void) {
+		var mutableErrors = errors
+		guard let firstError = mutableErrors.first else {
+			completion()
+			return
+		}
+		mutableErrors.removeFirst()
+		
+		let alert = UIAlertController(
+			title: AppStrings.Common.alertTitleGeneral,
+			message: firstError.localizedDescription,
+			preferredStyle: .alert
+		)
+		let okAction = UIAlertAction(title: AppStrings.Common.alertActionOk, style: .default) { [weak self] _ in
+			guard let self = self else {
+				completion()
+				return
+			}
+			self.showErrors(mutableErrors, completion: completion)
+		}
+		alert.addAction(okAction)
+		self.present(alert, animated: true)
 	}
 
 	@objc

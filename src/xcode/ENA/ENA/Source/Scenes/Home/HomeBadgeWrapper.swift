@@ -11,11 +11,18 @@ class HomeBadgeWrapper {
 
 	init(
 		_ store: HomeBadgeStoring,
+		_ familyMemberCoronaTestService: FamilyMemberCoronaTestServiceProviding,
 		badgesCount: [BadgeType: Int?] = [:]
 	) {
 		self.store = store
+		self.familyMemberCoronaTestService = familyMemberCoronaTestService
 		self.badgesCount = badgesCount
-		
+
+		familyMemberCoronaTestService.coronaTests.sink { [weak self] _ in
+			self?.update(.familyMemberUnseenTests, value: self?.familyMemberCoronaTestService.unseenNewsCount)
+		}
+		.store(in: &subscriptions)
+
 		// we only load data if not injected
 		guard badgesCount.isEmpty else {
 			self.badgesCount = badgesCount
@@ -57,7 +64,9 @@ class HomeBadgeWrapper {
 	// MARK: - Private
 
 	private let store: HomeBadgeStoring
+	private let familyMemberCoronaTestService: FamilyMemberCoronaTestServiceProviding
 
+	private var subscriptions = Set<AnyCancellable>()
 	private var badgesCount: [BadgeType: Int?] = [:]
 
 	private func saveAndUpdate() {

@@ -84,7 +84,7 @@ class HomeTableViewModelTests: CWATestCase {
 		)
 
 		XCTAssertEqual(viewModel.numberOfRows(in: 1), 2)
-		XCTAssertEqual(viewModel.riskAndTestResultsRows, [.risk, .familyTestResults(2)])
+		XCTAssertEqual(viewModel.riskAndTestResultsRows, [.risk, .familyTestResults])
 	}
 
 	func testRiskCellNotHiddenIfFamilyTestsExistAndUnreadCountIsZero() {
@@ -120,7 +120,7 @@ class HomeTableViewModelTests: CWATestCase {
 		)
 
 		XCTAssertEqual(viewModel.numberOfRows(in: 1), 2)
-		XCTAssertEqual(viewModel.riskAndTestResultsRows, [.risk, .familyTestResults(0)])
+		XCTAssertEqual(viewModel.riskAndTestResultsRows, [.risk, .familyTestResults])
 	}
 
 	func testRiskCellNotHiddenIfPositivePCRTestResultWasNotYetShownAndLimitToShowRiskCardNotReachedAndRiskLow() {
@@ -789,34 +789,5 @@ class HomeTableViewModelTests: CWATestCase {
 		XCTAssertFalse(viewModel.shouldShowDeletionConfirmationAlert(for: .pcr))
 		XCTAssertFalse(viewModel.shouldShowDeletionConfirmationAlert(for: .antigen))
 	}
-/*
-	func testShouldShowDeletionConfirmationAlert() {
-		let store = MockTestStore()
-
-		let coronaTestService = MockCoronaTestService()
-
-		let viewModel = HomeTableViewModel(
-			state: .init(
-				store: store,
-				riskProvider: MockRiskProvider(),
-				exposureManagerState: .init(authorized: true, enabled: true, status: .active),
-				enState: .enabled,
-				statisticsProvider: StatisticsProvider(
-					client: CachingHTTPClientMock(),
-					store: store
-				),
-				localStatisticsProvider: LocalStatisticsProvider(
-					client: CachingHTTPClientMock(),
-					store: store
-				)
-			),
-			store: store,
-			appConfiguration: CachedAppConfigurationMock(),
-			coronaTestService: coronaTestService,
-			familyMemberCoronaTestService: MockFamilyMemberCoronaTestService(),
-			onTestResultCellTap: { _ in },
-			badgeWrapper: .fake()
-		)
-*/
 
 }

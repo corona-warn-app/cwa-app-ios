@@ -184,11 +184,7 @@ extension DownloadedPackagesSQLLiteStoreV1: DownloadedPackagesStoreV1 {
 	}
 
 	private func error(for sqliteErrorCode: Int32) -> SQLiteErrorCode {
-		if let error = SQLiteErrorCode(rawValue: sqliteErrorCode) {
-			return error
-		} else {
-			return .unknown
-		}
+		SQLiteErrorCode(rawValue: sqliteErrorCode)
 	}
 
 	@discardableResult
