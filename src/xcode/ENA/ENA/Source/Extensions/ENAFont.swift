@@ -12,6 +12,7 @@ enum ENAFont: String {
 	case body
 	case subheadline
 	case footnote
+	case badge
 }
 
 extension ENAFont {
@@ -23,6 +24,7 @@ extension ENAFont {
 		case .body: return 17
 		case .subheadline: return 15
 		case .footnote: return 13
+		case .badge: return 10
 		}
 	}
 
@@ -34,6 +36,7 @@ extension ENAFont {
 		case .body: return .regular
 		case .subheadline: return .regular
 		case .footnote: return .regular
+		case .badge: return .bold
 		}
 	}
 
@@ -45,6 +48,7 @@ extension ENAFont {
 		case .body: return .body
 		case .subheadline: return .subheadline
 		case .footnote: return .footnote
+		case .badge: return .caption1
 		}
 	}
 }

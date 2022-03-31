@@ -311,7 +311,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 	}()
 
 	lazy var familyMemberCoronaTestService: FamilyMemberCoronaTestServiceProviding = {
-		return FamilyMemberCoronaTestService(
+		FamilyMemberCoronaTestService(
 			client: client,
 			restServiceProvider: restServiceProvider,
 			store: store,
@@ -323,7 +323,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 	}()
 
 	lazy var badgeWrapper: HomeBadgeWrapper = {
-		return HomeBadgeWrapper(store)
+		return HomeBadgeWrapper(
+			store,
+			familyMemberCoronaTestService
+		)
 	}()
 
 	lazy var eventCheckoutService: EventCheckoutService = EventCheckoutService(
