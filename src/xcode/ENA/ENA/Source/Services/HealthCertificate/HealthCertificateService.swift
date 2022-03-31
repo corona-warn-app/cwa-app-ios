@@ -179,32 +179,31 @@ class HealthCertificateService: HealthCertificateServiceServable {
 	}
 
 	// swiftlint:disable cyclomatic_complexity
+	@discardableResult
 	func registerHealthCertificate(
 		base45: Base45,
 		checkSignatureUpfront: Bool = true,
 		checkMaxPersonCount: Bool = true,
 		markAsNew: Bool = false,
-		completion: @escaping (Result<CertificateResult, HealthCertificateServiceError.RegistrationError>) -> Void
-	) {
+		completedNotificationRegistration: @escaping () -> Void
+	) -> Result<CertificateResult, HealthCertificateServiceError.RegistrationError> {
 		Log.info("[HealthCertificateService] Registering health certificate from payload: \(private: base45)", log: .api)
-				
+		
 		// If the certificate is in the recycle bin, restore it and skip registration process.
 		if let recycleBinItem = recycleBin.item(for: base45), case let .certificate(healthCertificate) = recycleBinItem.item {
-			
-			addHealthCertificate(
+			let healthCertifiedPerson = addHealthCertificate(
 				healthCertificate,
-				completion: { healthCertifiedPerson in
-					completion(.success(
-						CertificateResult(
-							registrationDetail: .restoredFromBin,
-							person: healthCertifiedPerson,
-							certificate: healthCertificate
-						)
-					))
-				}
+				completedNotificationRegistration: completedNotificationRegistration
 			)
 			recycleBin.remove(recycleBinItem)
-			return
+
+			return .success(
+				CertificateResult(
+					registrationDetail: .restoredFromBin,
+					person: healthCertifiedPerson,
+					certificate: healthCertificate
+				)
+			)
 		}
 
 		do {
@@ -220,15 +219,13 @@ class HealthCertificateService: HealthCertificateServiceServable {
 					and: Date()
 				) {
 					Log.error("Signature check of certificate failed with error: \(error).")
-					completion(.failure(.invalidSignature(error)))
-					return
+					return .failure(.invalidSignature(error))
 				}
 			}
 
 			if healthCertificate.hasTooManyEntries {
 				Log.error("[HealthCertificateService] Registering health certificate failed: certificate has too many entries", log: .api)
-				completion(.failure(.certificateHasTooManyEntries))
-				return
+				return .failure(.certificateHasTooManyEntries)
 			}
 
 			var personWarnThresholdReached = false
@@ -240,8 +237,7 @@ class HealthCertificateService: HealthCertificateServiceServable {
 					
 					if healthCertifiedPersons.count >= appConfiguration.featureProvider.intValue(for: .dccPersonCountMax) {
 						Log.debug("Abort registering certificate due to too many persons registered.")
-						completion(.failure(.tooManyPersonsRegistered))
-						return
+						return .failure(.tooManyPersonsRegistered)
 					}
 					
 					if healthCertifiedPersons.count + 1 >= appConfiguration.featureProvider.intValue(for: .dccPersonWarnThreshold) {
@@ -253,29 +249,28 @@ class HealthCertificateService: HealthCertificateServiceServable {
 			
 			if healthCertifiedPersons.contains(healthCertificate) {
 				Log.error("[HealthCertificateService] Registering health certificate failed: certificate already registered", log: .api)
-				completion(.failure(.certificateAlreadyRegistered(healthCertificate.type)))
-				return
+				return .failure(.certificateAlreadyRegistered(healthCertificate.type))
 			}
 
-			addHealthCertificate(
+			let healthCertifiedPerson = addHealthCertificate(
 				healthCertificate,
-				completion: { healthCertifiedPerson in
-					Log.info("Successfuly registered health certificate.")
-						completion(.success(
-							CertificateResult(
-								registrationDetail: personWarnThresholdReached ? .personWarnThresholdReached : nil,
-								person: healthCertifiedPerson,
-								certificate: healthCertificate
-							)
-						))
-				}
+				completedNotificationRegistration: completedNotificationRegistration
+			)
+	
+			Log.info("Successfuly registered health certificate.")
+			return .success(
+				CertificateResult(
+					registrationDetail: personWarnThresholdReached ? .personWarnThresholdReached : nil,
+					person: healthCertifiedPerson,
+					certificate: healthCertificate
+				)
 			)
 
 		} catch let error as CertificateDecodingError {
 			Log.error("[HealthCertificateService] Registering health certificate failed with .decodingError: \(error.localizedDescription)", log: .api)
-			completion(.failure(.decodingError(error)))
+			return .failure(.decodingError(error))
 		} catch {
-			completion(.failure(.other(error)))
+			return .failure(.other(error))
 		}
 	}
 	
@@ -321,10 +316,11 @@ class HealthCertificateService: HealthCertificateServiceServable {
 		}
 	}
 
+	@discardableResult
 	func addHealthCertificate(
 		_ healthCertificate: HealthCertificate,
-		completion: @escaping (HealthCertifiedPerson) -> Void
-	) {
+		completedNotificationRegistration: @escaping () -> Void
+	) -> HealthCertifiedPerson {
 		Log.info("Add health certificate to person.")
 		
 		let newlyGroupedPersons = groupingPersons(appending: healthCertificate)
@@ -341,26 +337,24 @@ class HealthCertificateService: HealthCertificateServiceServable {
 		
 		updateValidityState(for: healthCertificate, person: healthCertifiedPerson)
 		scheduleTimer()
-		
+
 		healthCertificateNotificationService.createNotifications(
 			for: healthCertificate,
-			   completion: { [weak self] in
-				   guard let self = self else { return }
-				   
-				   if isNewPersonAdded {
-					   Log.info("[HealthCertificateService] Successfully registered health certificate for a new person", log: .api)
-					   // Manual update needed as the person subscriptions were not set up when the certificate was added
-					   self.updateDCCWalletInfo(for: healthCertifiedPerson)
-					   self.updateGradients()
-				   } else {
-					   Log.info("[HealthCertificateService] Successfully registered health certificate for a person with other existing certificates", log: .api)
-				   }
-				   
-				   Log.info("Finished adding health certificate to person.")
-				   
-				   completion(healthCertifiedPerson)
-			   }
+			completion: completedNotificationRegistration
 		)
+		
+		if isNewPersonAdded {
+			Log.info("[HealthCertificateService] Successfully registered health certificate for a new person", log: .api)
+			// Manual update needed as the person subscriptions were not set up when the certificate was added
+			updateDCCWalletInfo(for: healthCertifiedPerson)
+			updateGradients()
+		} else {
+			Log.info("[HealthCertificateService] Successfully registered health certificate for a person with other existing certificates", log: .api)
+		}
+		
+		Log.info("Finished adding health certificate to person.")
+		
+		return healthCertifiedPerson
 	}
 
 	func moveHealthCertificateToBin(_ healthCertificate: HealthCertificate) {

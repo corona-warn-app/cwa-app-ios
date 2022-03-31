@@ -24,17 +24,17 @@ class HealthCertificateQRCodeParser: QRCodeParsable {
 	) {
 		Log.info("Parse health certificate.")
 
-		healthCertificateService.registerHealthCertificate(base45: qrCode, markAsNew: markAsNew, completion: { result in
-			switch result {
-			case let .success(certificateResult):
-				Log.info("Successfuly parsed health certificate.")
-				completion(.success(.certificate(certificateResult)))
-			case .failure(let registrationError):
-				Log.info("Failed parsing health certificate with error: \(registrationError)")
-				// wrap RegistrationError into an QRScannerError.other error
-				completion(.failure(.certificateQrError(registrationError)))
-			}
-		})
+		let result = healthCertificateService.registerHealthCertificate(base45: qrCode, markAsNew: markAsNew, completedNotificationRegistration: {  })
+		
+		switch result {
+		case let .success(certificateResult):
+			Log.info("Successfuly parsed health certificate.")
+			completion(.success(.certificate(certificateResult)))
+		case .failure(let registrationError):
+			Log.info("Failed parsing health certificate with error: \(registrationError)")
+			// wrap RegistrationError into an QRScannerError.other error
+			completion(.failure(.certificateQrError(registrationError)))
+		}
 	}
 	
 	// MARK: - Private
