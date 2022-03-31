@@ -125,24 +125,34 @@ platform :ios do
       output_dir = "screenshots/screenshots-#{options[:languages]}-#{options[:mode]}"
 
       capture_ios_screenshots(
+        devices: ["iPhone 13"],
+        ios_version: "15.2",
+        scheme: "ENAScreenshots",
+        testplan: "Screenshots",
+        clear_previous_screenshots: true,
+        reinstall_app: true,
+        erase_simulator: true,
+        skip_helper_version_check: true,
+        localize_simulator: true,
+        disable_slide_to_type: true,
         languages:  options[:languages],
         dark_mode: options[:mode] == "dark",
         output_directory: output_dir,
         result_bundle: true,
-        skip_open_summary: false,
+        skip_open_summary: true,
         number_of_retries: 2,
         test_without_building: true
       )
     rescue
       UI.user_error!("Tests did fail, please check logs above or ENA.xcresult.zip")
     ensure
-      # trainer(
-      #   output_directory: "fastlane/test_output/#{options[:languages]}-#{options[:mode]}",
-      #   path: "#{output_dir}/test_output/#{options[:languages]}",
-      #   extension: ".junit",
-      #   fail_build: false
-      # )
-      # no xcresult created, so no zip like in the other lanes
+      trainer(
+        output_directory: "fastlane/test_output/#{options[:languages]}-#{options[:mode]}",
+        path: "#{output_dir}/test_output/#{options[:languages]}",
+        extension: ".junit",
+        fail_build: false
+      )
+      no xcresult created, so no zip like in the other lanes
     end
   end
 
