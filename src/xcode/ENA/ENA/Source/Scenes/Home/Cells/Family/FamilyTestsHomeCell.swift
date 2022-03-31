@@ -76,6 +76,7 @@ class FamilyTestsHomeCell: UITableViewCell, ReuseIdentifierProviding {
 
 	private let chevronImageView: UIImageView = {
 		let imageView = UIImageView(image: UIImage(imageLiteralResourceName: "Icons_Chevron_plain"))
+		imageView.adjustsImageSizeForAccessibilityContentSizeCategory = true
 		imageView.translatesAutoresizingMaskIntoConstraints = false
 		return imageView
 	}()
@@ -96,27 +97,29 @@ class FamilyTestsHomeCell: UITableViewCell, ReuseIdentifierProviding {
 
 		NSLayoutConstraint.activate(
 			[
-				homeCardView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 15.0),
-				homeCardView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 14.0),
-				homeCardView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -17.0),
+				homeCardView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16.0),
+				homeCardView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 12.0),
+				homeCardView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16.0),
 				homeCardView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -12.0),
 
 				familyIconImageView.leadingAnchor.constraint(equalTo: homeCardView.leadingAnchor, constant: 13.0),
-				familyIconImageView.topAnchor.constraint(equalTo: homeCardView.topAnchor, constant: 12.0),
+				familyIconImageView.topAnchor.constraint(greaterThanOrEqualTo: homeCardView.topAnchor, constant: 12.0),
+				familyIconImageView.bottomAnchor.constraint(lessThanOrEqualTo: homeCardView.bottomAnchor, constant: -12.0),
 				familyIconImageView.widthAnchor.constraint(equalToConstant: 40.0),
 				familyIconImageView.heightAnchor.constraint(equalToConstant: 40.0),
 
 				badgeView.topAnchor.constraint(equalTo: familyIconImageView.topAnchor, constant: -2.0),
 				badgeView.trailingAnchor.constraint(equalTo: familyIconImageView.trailingAnchor, constant: 2.0),
 
+				headerLabel.topAnchor.constraint(greaterThanOrEqualTo: homeCardView.topAnchor, constant: 15.0),
 				headerLabel.leadingAnchor.constraint(equalTo: familyIconImageView.trailingAnchor, constant: 9.0),
 				headerLabel.centerYAnchor.constraint(equalTo: familyIconImageView.centerYAnchor),
 
 				chevronImageView.leadingAnchor.constraint(greaterThanOrEqualTo: headerLabel.trailingAnchor, constant: 14.0),
 				chevronImageView.centerYAnchor.constraint(equalTo: familyIconImageView.centerYAnchor),
 				chevronImageView.trailingAnchor.constraint(equalTo: homeCardView.trailingAnchor, constant: -24.0),
-				chevronImageView.widthAnchor.constraint(equalToConstant: 7.0),
-				chevronImageView.heightAnchor.constraint(equalToConstant: 12.0),
+//				chevronImageView.widthAnchor.constraint(equalToConstant: 7.0),
+//				chevronImageView.heightAnchor.constraint(equalToConstant: 12.0),
 
 				detailsLabel.leadingAnchor.constraint(equalTo: headerLabel.leadingAnchor),
 				detailsLabel.topAnchor.constraint(equalTo: headerLabel.bottomAnchor, constant: 4.0),
