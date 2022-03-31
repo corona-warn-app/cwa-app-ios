@@ -2,7 +2,6 @@ name: Merge to Release Branch
 on:
   push:
     branches:
-      - 'admin/github_actions' #REMOVE ME BEFORE OPENING PR!
       - 'release/**'
 
 jobs:

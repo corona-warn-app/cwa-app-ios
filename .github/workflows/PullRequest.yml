@@ -3,10 +3,7 @@ on:
   pull_request:
     branches:    
       - 'release/**' #Running only if a PR is opened with a release branch as target
-  push:
-    branches:
-      - 'admin/github_actions' #REMOVE ME BEFORE OPENING PR!
-
+      
 concurrency: 
   group: ${{ github.head_ref || github.ref }} #Cancel old runs if they have not finished yet
   cancel-in-progress: true
