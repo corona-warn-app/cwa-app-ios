@@ -62,16 +62,12 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 			onSuccess: { supportedCountries in
 				switch testRegistrationInformationResult {
 				case let .success(testRegistrationInformation):
-					let testOwnerSelectionScreen = ExposureSubmissionTestOwnerSelectionViewController(viewModel: ExposureSubmissionTestOwnerSelectionViewModel(onTestOwnerSelection: { [weak self] testOwner in
-						switch testOwner {
-						case .user:
-							self?.showQRInfoScreen(supportedCountries: supportedCountries, testRegistrationInformation: testRegistrationInformation)
-						case .familyMember:
-							self?.showFamilyMemberTestConsentScreen(testRegistrationInformation: testRegistrationInformation)
-						}
-					}), onDismiss: { [weak self] in self?.dismiss() })
-					
-					self.start(with: testOwnerSelectionScreen)
+					self.start(
+						with: self.createTestOwnerSelectionScreen(
+							supportedCountries: supportedCountries,
+							testRegistrationInformation: testRegistrationInformation
+						)
+					)
 				case let .failure(qrCodeError):
 					switch qrCodeError {
 					case .invalidTestCode:
@@ -431,6 +427,32 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 		return topBottomContainerViewController
 	}
 
+	private func createTestOwnerSelectionScreen(
+		supportedCountries: [Country],
+		testRegistrationInformation: CoronaTestRegistrationInformation
+	) -> ExposureSubmissionTestOwnerSelectionViewController {
+		return ExposureSubmissionTestOwnerSelectionViewController(
+			viewModel: ExposureSubmissionTestOwnerSelectionViewModel(
+				onTestOwnerSelection: { [weak self] testOwner in
+					switch testOwner {
+					case .user:
+						self?.showQRInfoScreen(
+							supportedCountries: supportedCountries,
+							testRegistrationInformation: testRegistrationInformation
+						)
+					case .familyMember:
+						self?.showFamilyMemberTestConsentScreen(
+							testRegistrationInformation: testRegistrationInformation
+						)
+					}
+				}
+			),
+			onDismiss: { [weak self] in
+				self?.dismiss()
+			}
+		)
+	}
+
 	// MARK: Screen Flow
 
 	private func showHotlineScreen() {
@@ -601,11 +623,15 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 			}
 
 			qrScannerCoordinator.didScanCoronaTestInSubmissionFlow = { [weak self] testRegistrationInformation in
+				guard let self = self else {
+					return
+				}
+
 				DispatchQueue.main.async {
-					self?.model.exposureSubmissionService.loadSupportedCountries(
+					self.model.exposureSubmissionService.loadSupportedCountries(
 						isLoading: isLoading,
 						onSuccess: { supportedCountries in
-							self?.showQRInfoScreen(supportedCountries: supportedCountries, testRegistrationInformation: testRegistrationInformation)
+							self.push(self.createTestOwnerSelectionScreen(supportedCountries: supportedCountries, testRegistrationInformation: testRegistrationInformation))
 						}
 					)
 				}
