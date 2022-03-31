@@ -135,7 +135,7 @@ platform :ios do
         prelaunch_simulator: true,
         result_bundle: true,
         code_coverage: true,
-        concurrent_workers: 7 # 8 cores make 7 tests right? :D
+        concurrent_workers: 7, # 8 cores make 7 tests right? :D
         number_of_retries: 1, #take this you flaky tests
         output_style: "raw", # prevents long periods of silence which makes the CI & devs nervous
         output_types: ""
