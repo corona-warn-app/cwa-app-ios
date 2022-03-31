@@ -12,7 +12,7 @@ This is the default implementation of a service and serves not only as default i
 When a service wants a more specific handling, it can just implements the protocols functions and inherits from start the implementation of here.
 */
 extension Service {
-	
+
 	func urlRequest<S, R>(
 		_ locator: Locator,
 		_ sendResource: S,
@@ -168,14 +168,17 @@ extension Service {
 		_ completion: @escaping (Result<R.Receive.ReceiveModel, ServiceError<R.CustomError>>) -> Void
 	) where R: Resource {
 
-		if var resourceRetryingCount = self.resourcesRetries[resource.locator.uniqueIdentifier],
-		   resourceRetryingCount > 0 {
-			Log.debug("Retry for resource discovered. Retry counter at: \(resourceRetryingCount)", log: .client)
+		// TODO: Check if class and if so fatalError
+		if type(of: Struct)
+		{
+		}
 
-			resourceRetryingCount -= 1
-			self.resourcesRetries[resource.locator.uniqueIdentifier] = resourceRetryingCount
-			Log.debug("Remaining retries now: \(resourceRetryingCount)", log: .client)
-			load(resource, completion)
+		if resource.retryingCount > 0 {
+			Log.debug("Retry for resource discovered. Retry counter at: \(resource.retryingCount)", log: .client)
+			var resourceCopy = resource
+			resourceCopy.retryingCount -= 1
+			Log.debug("Remaining retries now: \(resourceCopy.retryingCount)", log: .client)
+			load(resourceCopy, completion)
 		} else {
 			// Now after all retries exhausted (or we did not had any retry), we check if we can return a default value or not. If so, return it independent which error we had
 			if let defaultModel = resource.defaultModel {
@@ -197,7 +200,6 @@ extension Service {
 				// We don't have a default value. And now check if we want to override the error by a custom error defined in the resource
 				Log.error("Found no default value. Will fail now.", log: .client, error: error)
 				// cleanup the retryCount dictionary
-				self.resourcesRetries[resource.locator.uniqueIdentifier] = nil
 				completion(.failure(customError(in: resource, for: error, responseData)))
 			}
 		}
@@ -214,9 +216,6 @@ extension Service {
 		_ resource: R,
 		_ completion: @escaping (Result<R.Receive.ReceiveModel, ServiceError<R.CustomError>>) -> Void
 	) where R: Resource {
-
-		// Save the retryCount of our resource (Make the counter thread safe). Use it then later then when neccessary.
-		resourcesRetries[resource.locator.uniqueIdentifier] = resource.retryingCount
 
 		// Create the url request
 		switch urlRequest(resource.locator, resource.sendResource, resource.receiveResource) {

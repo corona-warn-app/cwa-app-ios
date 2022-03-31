@@ -52,7 +52,7 @@ struct DCCRulesResource: Resource {
 	var type: ServiceType
 	var sendResource: EmptySendResource
 	var receiveResource: CBORReceiveResource<DCCRulesReceiveModel>
-	
+	var retryingCount: Int = 0
 
 	func customError(
 		for error: ServiceError<DCCDownloadRulesError>,

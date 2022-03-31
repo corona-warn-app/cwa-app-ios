@@ -22,7 +22,7 @@ protocol Resource {
 	var trustEvaluation: TrustEvaluating { get }
 	// Indicates if the loading of the resource should be retried. Counts descending.
 	// NOTE: Compete logically with defaultModel: When setting both, we will first exhaust all retries and then when still failing we will return the defaultModel.
-	var retryingCount: Int { get }
+	var retryingCount: Int { get set }
 
 	func customError(for error: ServiceError<CustomError>, responseBody: Data?) -> CustomError?
 	
@@ -36,10 +36,6 @@ protocol Resource {
 // Standard values for every resource
 
 extension Resource {
-
-	var retryingCount: Int {
-		return 0
-	}
 
 	var defaultModel: Receive.ReceiveModel? {
 		nil

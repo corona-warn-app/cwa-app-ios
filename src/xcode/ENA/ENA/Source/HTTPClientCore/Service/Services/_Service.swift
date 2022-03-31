@@ -22,7 +22,6 @@ protocol Service: AnyObject {
 
 	var session: URLSession { get }
 	var environment: EnvironmentProviding { get }
-	var resourcesRetries: [String: Int] { get set }
 
 	/// Hook to provide a receive model what will interrupt loading
 	/// This can be used to implement special caching behaviors

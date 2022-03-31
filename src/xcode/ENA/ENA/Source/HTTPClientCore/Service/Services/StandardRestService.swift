@@ -25,8 +25,6 @@ class StandardRestService: Service {
 
 	let environment: EnvironmentProviding
 
-	var resourcesRetries: [String: Int] = [:]
-
 	lazy var session: URLSession = {
 		optionalSession ??
 		.coronaWarnSession(
