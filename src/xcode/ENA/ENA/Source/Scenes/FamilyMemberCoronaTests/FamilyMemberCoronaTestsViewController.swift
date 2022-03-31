@@ -41,22 +41,49 @@ class FamilyMemberCoronaTestsViewController: UITableViewController, FooterViewHa
 			self?.animateChanges()
 		}
 
-		viewModel.$triggerReload
+		viewModel.triggerReload
 			.receive(on: DispatchQueue.main.ocombine)
 			.sink { [weak self] triggerReload in
 				guard let self = self, triggerReload else { return }
 
 				guard self.isAllowedToReload else {
-					self.viewModel.triggerReload = false
+					self.viewModel.triggerReload.value = false
 					return
 				}
 
 				self.tableView.reloadData()
-				self.viewModel.triggerReload = false
+				self.viewModel.triggerReload.value = false
+			}
+			.store(in: &subscriptions)
+
+		viewModel.isUpdatingTestResults
+			.receive(on: DispatchQueue.main.ocombine)
+			.sink {	[weak self] isUpdating in
+				isUpdating ? self?.refreshControl?.beginRefreshing() : self?.refreshControl?.endRefreshing()
+			}
+			.store(in: &subscriptions)
+
+		viewModel.testResultLoadingError
+			.receive(on: DispatchQueue.main.ocombine)
+			.sink { [weak self] error in
+				guard let self = self, let error = error else { return }
+
+				self.viewModel.testResultLoadingError.value = nil
+
+				self.alertError(
+					message: error.localizedDescription,
+					title: AppStrings.Home.TestResult.resultCardLoadingErrorTitle
+				)
 			}
 			.store(in: &subscriptions)
 	}
-	
+
+
+	override func viewDidAppear(_ animated: Bool) {
+		super.viewDidAppear(animated)
+
+		refresh()
+	}
 	override func setEditing(_ editing: Bool, animated: Bool) {
 		super.setEditing(editing, animated: animated)
 
@@ -114,7 +141,7 @@ class FamilyMemberCoronaTestsViewController: UITableViewController, FooterViewHa
 					tableView.deleteRows(at: [indexPath], with: .automatic)
 				}, completion: { _ in
 					self.isAllowedToReload = true
-					self.viewModel.triggerReload = true
+					self.viewModel.triggerReload.value = true
 
 					if self.viewModel.isEmpty {
 						self.setEditing(false, animated: true)
@@ -151,10 +178,18 @@ class FamilyMemberCoronaTestsViewController: UITableViewController, FooterViewHa
 		tableView.separatorStyle = .none
 		tableView.rowHeight = UITableView.automaticDimension
 		tableView.estimatedRowHeight = 60
+
+		refreshControl = UIRefreshControl()
+		refreshControl?.addTarget(self, action: #selector(refresh), for: .valueChanged)
+	}
+
+	@objc
+	private func refresh() {
+		viewModel.updateTestResults()
 	}
 
 	private func animateChanges() {
-		guard !viewModel.triggerReload else { return }
+		guard !viewModel.triggerReload.value else { return }
 
 		DispatchQueue.main.async { [self] in
 			tableView.performBatchUpdates(nil, completion: nil)

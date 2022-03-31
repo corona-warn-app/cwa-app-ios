@@ -36,7 +36,9 @@ class FamilyMemberCoronaTestsViewModel {
 		case coronaTests
 	}
 
-	@OpenCombine.Published var triggerReload: Bool = false
+	let triggerReload = CurrentValueSubject<Bool, Never>(false)
+	let isUpdatingTestResults = CurrentValueSubject<Bool, Never>(false)
+	let testResultLoadingError = CurrentValueSubject<Error?, Never>(nil)
 
 	var onUpdate: (() -> Void)?
 
@@ -87,6 +89,40 @@ class FamilyMemberCoronaTestsViewModel {
 		familyMemberCoronaTestService.moveAllTestsToBin()
 	}
 
+	func updateTestResults() {
+		isUpdatingTestResults.value = true
+
+		familyMemberCoronaTestService.updateTestResults(
+			presentNotification: false
+		) { [weak self] result in
+			guard let self = self else {
+				Log.error("Could not create strong self")
+				return
+			}
+
+			self.isUpdatingTestResults.value = false
+
+			if case .failure(let error) = result {
+				switch error {
+				case .noCoronaTestOfRequestedType, .noRegistrationToken, .testExpired:
+					// Errors because of no registered corona tests or expired tests are ignored
+					break
+				case .responseFailure(let responseFailure):
+					switch responseFailure {
+					case .fakeResponse:
+						Log.info("Fake response - skip it as it's not an error")
+					case .noResponse:
+						Log.info("Tried to get test result but no response was received")
+					default:
+						self.testResultLoadingError.value = error
+					}
+				case .teleTanError, .registrationTokenError, .malformedDateOfBirthKey, .testResultError:
+					self.testResultLoadingError.value = error
+				}
+			}
+		}
+	}
+
 	// MARK: - Private
 
 	private let familyMemberCoronaTestService: FamilyMemberCoronaTestServiceProviding
@@ -100,17 +136,21 @@ class FamilyMemberCoronaTestsViewModel {
 			return
 		}
 
-		coronaTestCellModels = coronaTests.map { coronaTest in
-			FamilyMemberCoronaTestCellModel(
-				coronaTest: coronaTest,
-				familyMemberCoronaTestService: familyMemberCoronaTestService,
-				onUpdate: { [weak self] in
-					self?.onUpdate?()
-				}
-			)
-		}
+		coronaTestCellModels = coronaTests
+			.sorted {
+				$0.registrationDate > $1.registrationDate
+			}
+			.map { coronaTest in
+				FamilyMemberCoronaTestCellModel(
+					coronaTest: coronaTest,
+					familyMemberCoronaTestService: familyMemberCoronaTestService,
+					onUpdate: { [weak self] in
+						self?.onUpdate?()
+					}
+				)
+			}
 
-		triggerReload = true
+		triggerReload.value = true
 	}
 
 }
