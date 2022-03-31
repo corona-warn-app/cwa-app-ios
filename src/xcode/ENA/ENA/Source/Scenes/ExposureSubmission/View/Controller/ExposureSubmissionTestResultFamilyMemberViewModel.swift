@@ -108,7 +108,6 @@ class ExposureSubmissionTestResultFamilyMemberViewModel: ExposureSubmissionTestR
 	private func bindToCoronaTestUpdates() {
 		familyMemberCoronaTestService.coronaTests
 			.sink { [weak self] _ in
-				
 				guard let familyMemberCoronaTest = self?.familyMemberCoronaTest, let familyMemberCoronaTest = self?.familyMemberCoronaTestService.upToDateTest(for: familyMemberCoronaTest) else {
 					return
 				}
@@ -120,8 +119,6 @@ class ExposureSubmissionTestResultFamilyMemberViewModel: ExposureSubmissionTestR
 
 	private func updateSectionsForCurrentTestResult(coronaTest: FamilyMemberCoronaTest) {
 		self.familyMemberCoronaTest = coronaTest
-
-		primaryButtonIsLoading = coronaTest.isLoading
 		
 		let sections: [DynamicSection]
 		switch coronaTest.testResult {
@@ -144,6 +141,7 @@ class ExposureSubmissionTestResultFamilyMemberViewModel: ExposureSubmissionTestR
 		dynamicTableViewModelPublisher.value = DynamicTableViewModel(sections)
 		
 		footerViewModelPublisher.value = ExposureSubmissionTestResultFamilyMemberViewModel.footerViewModel(coronaTest: coronaTest)
+		primaryButtonIsLoading = coronaTest.isLoading
 	}
 	
 	private func refreshTest() {

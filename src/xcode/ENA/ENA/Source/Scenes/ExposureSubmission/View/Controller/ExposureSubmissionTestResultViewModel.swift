@@ -153,6 +153,12 @@ class ExposureSubmissionTestResultViewModel: ExposureSubmissionTestResultModelin
 					self?.updateForCurrentTestResult(coronaTest: .pcr(pcrTest))
 				}
 				.store(in: &subscriptions)
+
+			coronaTestService.pcrTestResultIsLoading
+				.sink { [weak self] in
+					self?.primaryButtonIsLoading = $0
+				}
+				.store(in: &subscriptions)
 		case .antigen:
 			coronaTestService.antigenTest
 				.sink { [weak self] antigenTest in
@@ -161,6 +167,12 @@ class ExposureSubmissionTestResultViewModel: ExposureSubmissionTestResultModelin
 					}
 
 					self?.updateForCurrentTestResult(coronaTest: .antigen(antigenTest))
+				}
+				.store(in: &subscriptions)
+
+			coronaTestService.antigenTestResultIsLoading
+				.sink { [weak self] in
+					self?.primaryButtonIsLoading = $0
 				}
 				.store(in: &subscriptions)
 		}
@@ -201,11 +213,8 @@ class ExposureSubmissionTestResultViewModel: ExposureSubmissionTestResultModelin
 	private func refreshTest() {
 		Log.info("Refresh test.")
 
-		primaryButtonIsLoading = true
 		coronaTestService.updateTestResult(for: coronaTestType) { [weak self] result in
 			guard let self = self else { return }
-			
-			self.primaryButtonIsLoading = false
 			
 			switch result {
 			case let .failure(error):
