@@ -45,6 +45,15 @@ final class FamilyMemberCoronaTestTableViewCell: UITableViewCell {
 		clearSubscriptions()
 	}
 
+	override func layoutSubviews() {
+		super.layoutSubviews()
+
+		cardView.layer.shadowOffset = .init(width: 0.0, height: 1.0)
+		cardView.layer.shadowRadius = 3
+		cardView.layer.borderColor = UIColor.enaColor(for: .cardBorder).cgColor
+		cardView.layer.borderWidth = 1
+	}
+
 	// MARK: - Internal
 
 	func configure(
@@ -149,9 +158,6 @@ final class FamilyMemberCoronaTestTableViewCell: UITableViewCell {
 	private var onPrimaryAction: (() -> Void)?
 
 	private func setup() {
-		cardView.layer.shadowOffset = .init(width: 0.0, height: 1.0)
-		cardView.layer.shadowRadius = 5
-
 		updateIllustration(for: traitCollection)
 	}
 

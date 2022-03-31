@@ -19,16 +19,16 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="480-Cp-wyd" customClass="HomeCardView" customModule="ENA">
-                        <rect key="frame" x="16" y="12" width="382" height="355"/>
+                        <rect key="frame" x="16" y="4" width="382" height="371"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="Sca-8L-7ai">
-                                <rect key="frame" x="16" y="16" width="350" height="323"/>
+                                <rect key="frame" x="16" y="16" width="350" height="339"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="kBM-M0-Sbu">
-                                        <rect key="frame" x="0.0" y="0.0" width="350" height="55"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="350" height="71"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="1000" verticalCompressionResistancePriority="1000" ambiguous="YES" insetsLayoutMarginsFromSafeArea="NO" text="Title 2" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pZ6-2K-xy0" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="16" width="56.5" height="23"/>
+                                                <rect key="frame" x="0.0" y="24" width="56.5" height="23"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <color key="textColor" name="ENA Text Primary 1 Color"/>
                                                 <nil key="highlightedColor"/>
@@ -37,7 +37,7 @@
                                                 </userDefinedRuntimeAttributes>
                                             </label>
                                             <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="g3p-JC-dS9">
-                                                <rect key="frame" x="64.5" y="22" width="11" height="11"/>
+                                                <rect key="frame" x="64.5" y="30" width="11" height="11"/>
                                                 <color key="backgroundColor" systemColor="systemRedColor"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="11" id="Duf-OW-ccT"/>
@@ -50,11 +50,11 @@
                                                 </userDefinedRuntimeAttributes>
                                             </view>
                                             <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="M4l-tc-fB8">
-                                                <rect key="frame" x="83.5" y="2.5" width="240.5" height="50"/>
+                                                <rect key="frame" x="83.5" y="10.5" width="240.5" height="50"/>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                             </view>
                                             <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="muV-A7-NF0">
-                                                <rect key="frame" x="332" y="2.5" width="18" height="50"/>
+                                                <rect key="frame" x="332" y="10.5" width="18" height="50"/>
                                                 <subviews>
                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" insetsLayoutMarginsFromSafeArea="NO" image="Icons_Chevron_plain" adjustsImageSizeForAccessibilityContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Hr1-Xc-tXu">
                                                         <rect key="frame" x="0.0" y="19.5" width="7" height="12"/>
@@ -73,7 +73,7 @@
                                         </constraints>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="3ms-Ns-7X9">
-                                        <rect key="frame" x="0.0" y="67" width="350" height="256"/>
+                                        <rect key="frame" x="0.0" y="83" width="350" height="256"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" insetsLayoutMarginsFromSafeArea="NO" alignment="top" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="061-zw-rBZ">
                                                 <rect key="frame" x="0.0" y="0.0" width="350" height="186"/>
@@ -181,9 +181,9 @@
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 <constraints>
                     <constraint firstAttribute="trailing" secondItem="480-Cp-wyd" secondAttribute="trailing" constant="16" identifier="testresult.card.trailing" id="3hT-kt-lkw"/>
-                    <constraint firstItem="480-Cp-wyd" firstAttribute="top" secondItem="NkN-g1-Z80" secondAttribute="top" constant="12" identifier="testresult.card.top" id="DF4-DD-l53"/>
+                    <constraint firstItem="480-Cp-wyd" firstAttribute="top" secondItem="NkN-g1-Z80" secondAttribute="top" constant="4" identifier="testresult.card.top" id="DF4-DD-l53"/>
                     <constraint firstItem="480-Cp-wyd" firstAttribute="leading" secondItem="NkN-g1-Z80" secondAttribute="leading" constant="16" identifier="testresult.card.leading" id="eOc-NK-pQ2"/>
-                    <constraint firstAttribute="bottom" secondItem="480-Cp-wyd" secondAttribute="bottom" constant="12" identifier="testresult.card.bottom" id="uWL-tw-1Mh"/>
+                    <constraint firstAttribute="bottom" secondItem="480-Cp-wyd" secondAttribute="bottom" constant="4" identifier="testresult.card.bottom" id="uWL-tw-1Mh"/>
                 </constraints>
             </tableViewCellContentView>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
