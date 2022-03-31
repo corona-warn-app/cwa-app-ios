@@ -66,7 +66,7 @@ protocol FamilyMemberCoronaTestServiceProviding {
 
 	func removeTest(_ coronaTest: FamilyMemberCoronaTest)
 
-	func evaluateShowing(of coronaTest: FamilyMemberCoronaTest)
+	func evaluateShowing(of coronaTest: FamilyMemberCoronaTest, keepMarkedAsNew: Bool)
 
 	func evaluateShowingAllTests()
 

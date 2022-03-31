@@ -12,11 +12,13 @@ class ExposureSubmissionTestResultFamilyMemberViewModel: ExposureSubmissionTestR
 	init(
 		familyMemberCoronaTest: FamilyMemberCoronaTest,
 		familyMemberCoronaTestService: FamilyMemberCoronaTestServiceProviding,
+		keepMarkedAsNew: Bool,
 		onTestDeleted: @escaping () -> Void,
 		onTestCertificateCellTap: @escaping(HealthCertificate, HealthCertifiedPerson) -> Void
 	) {
 		self.familyMemberCoronaTest = familyMemberCoronaTest
 		self.familyMemberCoronaTestService = familyMemberCoronaTestService
+		self.keepMarkedAsNew = keepMarkedAsNew
 		self.onTestDeleted = onTestDeleted
 		self.onTestCertificateCellTap = onTestCertificateCellTap
 
@@ -70,7 +72,7 @@ class ExposureSubmissionTestResultFamilyMemberViewModel: ExposureSubmissionTestR
 	}
 	
 	func evaluateShowing() {
-		familyMemberCoronaTestService.evaluateShowing(of: familyMemberCoronaTest)
+		familyMemberCoronaTestService.evaluateShowing(of: familyMemberCoronaTest, keepMarkedAsNew: keepMarkedAsNew)
 	}
 	
 	func updateTestResultIfPossible() {
@@ -86,6 +88,7 @@ class ExposureSubmissionTestResultFamilyMemberViewModel: ExposureSubmissionTestR
 	private var familyMemberCoronaTestService: FamilyMemberCoronaTestServiceProviding
 	private var familyMemberCoronaTest: FamilyMemberCoronaTest
 
+	private let keepMarkedAsNew: Bool
 	private let onTestDeleted: () -> Void
 	private let onTestCertificateCellTap: (HealthCertificate, HealthCertifiedPerson) -> Void
 

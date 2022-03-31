@@ -555,6 +555,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 		let viewModel = ExposureSubmissionTestResultFamilyMemberViewModel(
 			familyMemberCoronaTest: familyMemberCoronaTest,
 			familyMemberCoronaTestService: model.familyMemberCoronaTestService,
+			keepMarkedAsNew: true,
 			onTestDeleted: { [weak self] in
 				self?.dismiss()
 			},

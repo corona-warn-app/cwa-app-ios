@@ -84,6 +84,7 @@ class FamilyMemberCoronaTestsCoordinator {
 			viewModel: ExposureSubmissionTestResultFamilyMemberViewModel(
 				familyMemberCoronaTest: coronaTest,
 				familyMemberCoronaTestService: familyMemberCoronaTestService,
+				keepMarkedAsNew: false,
 				onTestDeleted: { [weak self] in
 					self?.testResultNavigationController.dismiss(animated: true)
 				},
