@@ -56,34 +56,37 @@ class FamilyMemberCoronaTestServiceTests: CWATestCase {
 
 		XCTAssertEqual(service.unseenNewsCount, 6)
 
-		service.evaluateShowing(of: antigenTest1)
+		service.evaluateShowing(of: antigenTest1, keepMarkedAsNew: false)
 		XCTAssertEqual(service.unseenNewsCount, 5)
 
-		service.evaluateShowing(of: antigenTest2)
+		service.evaluateShowing(of: antigenTest2, keepMarkedAsNew: true)
+		XCTAssertEqual(service.unseenNewsCount, 5)
+
+		service.evaluateShowing(of: antigenTest2, keepMarkedAsNew: false)
 		XCTAssertEqual(service.unseenNewsCount, 4)
 
-		service.evaluateShowing(of: antigenTest3)
+		service.evaluateShowing(of: antigenTest3, keepMarkedAsNew: false)
 		XCTAssertEqual(service.unseenNewsCount, 4)
 
-		service.evaluateShowing(of: antigenTest4)
+		service.evaluateShowing(of: antigenTest4, keepMarkedAsNew: false)
 		XCTAssertEqual(service.unseenNewsCount, 4)
 
-		service.evaluateShowing(of: antigenTest5)
+		service.evaluateShowing(of: antigenTest5, keepMarkedAsNew: false)
 		XCTAssertEqual(service.unseenNewsCount, 3)
 
-		service.evaluateShowing(of: pcrTest1)
+		service.evaluateShowing(of: pcrTest1, keepMarkedAsNew: false)
 		XCTAssertEqual(service.unseenNewsCount, 2)
 
-		service.evaluateShowing(of: pcrTest2)
+		service.evaluateShowing(of: pcrTest2, keepMarkedAsNew: false)
 		XCTAssertEqual(service.unseenNewsCount, 1)
 
-		service.evaluateShowing(of: pcrTest3)
+		service.evaluateShowing(of: pcrTest3, keepMarkedAsNew: false)
 		XCTAssertEqual(service.unseenNewsCount, 1)
 
-		service.evaluateShowing(of: pcrTest4)
+		service.evaluateShowing(of: pcrTest4, keepMarkedAsNew: false)
 		XCTAssertEqual(service.unseenNewsCount, 1)
 
-		service.evaluateShowing(of: pcrTest5)
+		service.evaluateShowing(of: pcrTest5, keepMarkedAsNew: false)
 		XCTAssertEqual(service.unseenNewsCount, 0)
 	}
 
