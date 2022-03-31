@@ -64,7 +64,7 @@ class FamilyTestsHomeCell: UITableViewCell, ReuseIdentifierProviding {
 
 	private let homeCardView: HomeCardView = {
 		let homeCardView = HomeCardView()
-		homeCardView.backgroundColor = .enaColor(for: .cellBackground)
+		homeCardView.backgroundColor = .enaColor(for: .background)
 		return homeCardView
 	}()
 
