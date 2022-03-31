@@ -607,7 +607,8 @@ extension ExposureSubmissionTestResultViewModel {
 					cell.configure(
 						HealthCertificateCellViewModel(
 							healthCertificate: healthTuple.certificate,
-							healthCertifiedPerson: healthTuple.certifiedPerson
+							healthCertifiedPerson: healthTuple.certifiedPerson,
+							details: .allDetailsWithoutValidationButton
 						)
 					)
 				})
@@ -712,7 +713,8 @@ extension ExposureSubmissionTestResultViewModel {
 					cell.configure(
 						HealthCertificateCellViewModel(
 							healthCertificate: healthTuple.certificate,
-							healthCertifiedPerson: healthTuple.certifiedPerson
+							healthCertifiedPerson: healthTuple.certifiedPerson,
+							details: .allDetailsWithoutValidationButton
 						)
 					)
 				})
@@ -802,7 +804,8 @@ extension ExposureSubmissionTestResultViewModel {
 				cell.configure(
 					HealthCertificateCellViewModel(
 						healthCertificate: certificate,
-						healthCertifiedPerson: certifiedPerson
+						healthCertifiedPerson: certifiedPerson,
+						details: .allDetailsWithoutValidationButton
 					)
 				)
 			})
