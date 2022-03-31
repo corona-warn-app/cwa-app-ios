@@ -152,7 +152,7 @@ platform :ios do
         extension: ".junit",
         fail_build: false
       )
-      no xcresult created, so no zip like in the other lanes
+      #no xcresult created, so no zip like in the other lanes
     end
   end
 
