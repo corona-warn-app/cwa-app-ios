@@ -170,7 +170,8 @@ platform :ios do
         output_directory: output_dir,
         result_bundle: true,
         skip_open_summary: false,
-        number_of_retries: 2
+        number_of_retries: 2,
+        test_without_building: true
       )
     rescue
       UI.user_error!("Tests did fail, please check logs above or ENA.xcresult.zip")
