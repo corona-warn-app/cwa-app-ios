@@ -38,7 +38,7 @@ class FamilyMemberCoronaTestsViewController: UITableViewController, FooterViewHa
 		tableView.reloadData()
 
 		viewModel.onUpdate = { [weak self] in
-			self?.animateChanges()
+			self?.animateCellHeightChanges()
 		}
 
 		viewModel.triggerReload
@@ -94,10 +94,8 @@ class FamilyMemberCoronaTestsViewController: UITableViewController, FooterViewHa
 	override func setEditing(_ editing: Bool, animated: Bool) {
 		super.setEditing(editing, animated: animated)
 
-		// Only reset to false because it is also set to true for single-row swipe to delete and we don't want to enter edit mode then.
-		if editing == false {
-			updateFor(isEditing: false)
-		}
+		footerView?.update(to: editing ? .primary : .none)
+		animateCellHeightChanges()
 	}
 
 	// MARK: - FooterViewHandling
@@ -169,6 +167,10 @@ class FamilyMemberCoronaTestsViewController: UITableViewController, FooterViewHa
 		}
 	}
 
+	override func tableView(_ tableView: UITableView, willBeginEditingRowAt indexPath: IndexPath) {
+		// This empty implementation prevents the table view from going into editing mode as we don't want to show the "Delete all" and "Done" buttons on swipe to delete.
+	}
+
 	// MARK: - Private
 
 	private let viewModel: FamilyMemberCoronaTestsViewModel
@@ -195,7 +197,7 @@ class FamilyMemberCoronaTestsViewController: UITableViewController, FooterViewHa
 		viewModel.updateTestResults()
 	}
 
-	private func animateChanges() {
+	private func animateCellHeightChanges() {
 		guard !viewModel.triggerReload.value else { return }
 
 		DispatchQueue.main.async { [self] in
@@ -207,11 +209,6 @@ class FamilyMemberCoronaTestsViewController: UITableViewController, FooterViewHa
 				cell.contentView.layer.masksToBounds = false
 			}
 		}
-	}
-
-	private func updateFor(isEditing: Bool) {
-		let newState: FooterViewModel.VisibleButtons = isEditing ? .primary : .none
-		footerView?.update(to: newState)
 	}
 
 	private func coronaTestCell(forRowAt indexPath: IndexPath) -> UITableViewCell {

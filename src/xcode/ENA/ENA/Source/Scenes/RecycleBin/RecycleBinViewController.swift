@@ -130,7 +130,7 @@ class RecycleBinViewController: UITableViewController, FooterViewHandling {
 	}
 
 	override func tableView(_ tableView: UITableView, willBeginEditingRowAt indexPath: IndexPath) {
-		editModeEnteredBySwipeAction = true
+		// This empty implementation prevents the table view from going into editing mode as we don't want to show the "Delete all" and "Done" buttons on swipe to delete.
 	}
 
 	// MARK: - Private
@@ -139,7 +139,6 @@ class RecycleBinViewController: UITableViewController, FooterViewHandling {
 
 	private var subscriptions = [AnyCancellable]()
 	private var shouldReload = true
-	private var editModeEnteredBySwipeAction = false
 
 	private func setupTableView() {
 		tableView.register(
