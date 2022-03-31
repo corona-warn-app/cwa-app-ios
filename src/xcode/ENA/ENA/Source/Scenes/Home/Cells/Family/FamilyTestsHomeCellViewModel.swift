@@ -6,11 +6,7 @@ import Foundation
 import UIKit
 import OpenCombine
 
-class FamilyTestsHomeCellViewModel: Equatable {
-
-	static func == (lhs: FamilyTestsHomeCellViewModel, rhs: FamilyTestsHomeCellViewModel) -> Bool {
-		return true
-	}
+class FamilyTestsHomeCellViewModel {
 
 	// MARK: - Init
 

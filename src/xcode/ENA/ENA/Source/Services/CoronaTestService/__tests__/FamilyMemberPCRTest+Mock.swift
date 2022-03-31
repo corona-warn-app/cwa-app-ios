@@ -14,7 +14,7 @@ extension FamilyMemberPCRTest {
 		qrCodeHash: String = "",
 		isNew: Bool = false,
 		testResult: TestResult = .pending,
-		finalTestResultReceivedDate: Date? = Date(),
+		finalTestResultReceivedDate: Date? = nil,
 		testResultWasShown: Bool = false,
 		isSubmissionConsentGiven: Bool = false,
 		submissionTAN: String? = nil,
