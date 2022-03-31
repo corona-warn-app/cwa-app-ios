@@ -87,7 +87,9 @@ jobs:
         run: |
           cd src/xcode
           arch -arm64 bundle exec fastlane lint
-      - uses: actions/upload-artifact@v2
+      - name: Archive swiftlint report
+        if: always()
+        uses: actions/upload-artifact@v2
         with:
           name: swiftlint-${{ github.sha }}
           path: src/xcode/swiftlint.html
