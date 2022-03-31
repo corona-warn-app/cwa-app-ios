@@ -51,6 +51,78 @@ class HomeTableViewModelTests: CWATestCase {
 		XCTAssertEqual(viewModel.riskAndTestResultsRows, [.risk])
 	}
 
+	func testFamilyTestCellNotHiddenIfFamilyMemberTestsExist() {
+		let store = MockTestStore()
+		var defaultAppConfig = CachedAppConfigurationMock.defaultAppConfiguration
+		defaultAppConfig.coronaTestParameters.coronaPcrtestParameters.hoursSinceTestRegistrationToShowRiskCard = 168
+		let appConfiguration = CachedAppConfigurationMock(with: defaultAppConfig)
+
+		let familyCoronaTestService = MockFamilyMemberCoronaTestService()
+		familyCoronaTestService.coronaTests.value = [.antigen(.mock()), .pcr(.mock())]
+
+		let viewModel = HomeTableViewModel(
+			state: .init(
+				store: store,
+				riskProvider: MockRiskProvider(),
+				exposureManagerState: .init(authorized: true, enabled: true, status: .active),
+				enState: .enabled,
+				statisticsProvider: StatisticsProvider(
+					client: CachingHTTPClientMock(),
+					store: store
+				),
+				localStatisticsProvider: LocalStatisticsProvider(
+					client: CachingHTTPClientMock(),
+					store: store
+				)
+			),
+			store: store,
+			appConfiguration: appConfiguration,
+			coronaTestService: MockCoronaTestService(),
+			familyMemberCoronaTestService: familyCoronaTestService,
+			onTestResultCellTap: { _ in },
+			badgeWrapper: .fake()
+		)
+
+		XCTAssertEqual(viewModel.numberOfRows(in: 1), 2)
+		XCTAssertEqual(viewModel.riskAndTestResultsRows, [.risk, .familyTestResults])
+	}
+
+	func testFamilyTestCellIsHiddenIfNoFamilyMemberTestsExist() {
+		let store = MockTestStore()
+		var defaultAppConfig = CachedAppConfigurationMock.defaultAppConfiguration
+		defaultAppConfig.coronaTestParameters.coronaPcrtestParameters.hoursSinceTestRegistrationToShowRiskCard = 168
+		let appConfiguration = CachedAppConfigurationMock(with: defaultAppConfig)
+
+		let familyCoronaTestService = MockFamilyMemberCoronaTestService()
+		familyCoronaTestService.coronaTests.value = []
+
+		let viewModel = HomeTableViewModel(
+			state: .init(
+				store: store,
+				riskProvider: MockRiskProvider(),
+				exposureManagerState: .init(authorized: true, enabled: true, status: .active),
+				enState: .enabled,
+				statisticsProvider: StatisticsProvider(
+					client: CachingHTTPClientMock(),
+					store: store
+				),
+				localStatisticsProvider: LocalStatisticsProvider(
+					client: CachingHTTPClientMock(),
+					store: store
+				)
+			),
+			store: store,
+			appConfiguration: appConfiguration,
+			coronaTestService: MockCoronaTestService(),
+			familyMemberCoronaTestService: familyCoronaTestService,
+			onTestResultCellTap: { _ in },
+			badgeWrapper: .fake()
+		)
+
+		XCTAssertEqual(viewModel.numberOfRows(in: 1), 1)
+		XCTAssertEqual(viewModel.riskAndTestResultsRows, [.risk])
+	}
+
 	func testRiskCellNotHiddenIfPositivePCRTestResultWasNotYetShownAndLimitToShowRiskCardNotReachedAndRiskLow() {
 		let store = MockTestStore()
 		store.enfRiskCalculationResult = .fake(riskLevel: .low)

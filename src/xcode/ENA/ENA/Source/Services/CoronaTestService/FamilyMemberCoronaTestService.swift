@@ -38,7 +38,6 @@ class FamilyMemberCoronaTestService: FamilyMemberCoronaTestServiceProviding {
 			self.recycleBin = recycleBin
 
 			self.fakeRequestService = FakeRequestService(client: client, restServiceProvider: restServiceProvider)
-
 			setup()
 
 			coronaTests.value = [mockPCRTest, mockAntigenTest].compactMap { $0 }

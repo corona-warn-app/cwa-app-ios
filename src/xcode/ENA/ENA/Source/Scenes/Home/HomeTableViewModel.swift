@@ -42,6 +42,14 @@ class HomeTableViewModel {
 			}
 			.store(in: &subscriptions)
 
+		familyMemberCoronaTestService.coronaTests
+			.dropFirst()
+			.sink { [weak self] _ in
+				self?.update()
+				self?.scheduleUpdateTimer()
+			}
+			.store(in: &subscriptions)
+
 		state.$riskState
 			.dropFirst()
 			.sink { [weak self] _ in
@@ -68,6 +76,7 @@ class HomeTableViewModel {
 		case risk
 		case pcrTestResult(TestResultState)
 		case antigenTestResult(TestResultState)
+		case familyTestResults
 	}
 
 	enum TestResultState: Equatable {
@@ -89,6 +98,10 @@ class HomeTableViewModel {
 
 	var numberOfSections: Int {
 		Section.allCases.count
+	}
+
+	var familyHomeCellViewModel: FamilyTestsHomeCellViewModel {
+		FamilyTestsHomeCellViewModel(familyMemberCoronaTestService: familyMemberCoronaTestService)
 	}
 
 	func numberOfRows(in section: Int) -> Int {
@@ -225,6 +238,10 @@ class HomeTableViewModel {
 				testResultState = .default
 			}
 			riskAndTestResultsRows.append(.antigenTestResult(testResultState))
+		}
+
+		if !familyMemberCoronaTestService.coronaTests.value.isEmpty {
+			riskAndTestResultsRows.append(.familyTestResults)
 		}
 
 		return riskAndTestResultsRows

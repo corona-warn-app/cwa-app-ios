@@ -129,6 +129,7 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 			antigenTestResultCell = testResultCell(forRowAt: IndexPath(row: 2, section: HomeTableViewModel.Section.riskAndTestResults.rawValue), coronaTestType: .antigen)
 			antigenTestShownPositiveResultCell = shownPositiveTestResultCell(forRowAt: IndexPath(row: 2, section: HomeTableViewModel.Section.riskAndTestResults.rawValue), coronaTestType: .antigen)
 			statisticsCell = statisticsCell(forRowAt: IndexPath(row: 0, section: HomeTableViewModel.Section.statistics.rawValue))
+			familyTestCell = familyTestCellFactory()
 		}
 
 		/** navigationbar is a shared property - so we need to trigger a resizing because others could have set it to true*/
@@ -185,6 +186,8 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 				case .positiveResultWasShown:
 					return shownPositiveTestResultCell(forRowAt: indexPath, coronaTestType: .antigen)
 				}
+			case .familyTestResults:
+				return familyTestCellFactory()
 			}
 		case .testRegistration:
 			return testRegistrationCell(forRowAt: indexPath)
@@ -238,14 +241,14 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 				viewModel.didTapTestResultCell(coronaTestType: .pcr)
 			case .antigenTestResult:
 				viewModel.didTapTestResultCell(coronaTestType: .antigen)
+			case .familyTestResults:
+				Log.info("NYD")
 			}
 		case .testRegistration:
 			onTestRegistrationCellTap()
-		case .statistics:
-			break
 		case .traceLocations:
 			onTraceLocationsCellTap()
-		case .moreInfo:
+		case .statistics, .moreInfo:
 			break
 		default:
 			fatalError("Invalid section")
@@ -326,6 +329,7 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 	private var antigenTestResultCell: UITableViewCell?
 	private var antigenTestShownPositiveResultCell: UITableViewCell?
 	private var statisticsCell: HomeStatisticsTableViewCell?
+	private var familyTestCell: FamilyTestsHomeCell?
 
 	private var subscriptions = Set<AnyCancellable>()
 
@@ -380,6 +384,8 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 			UINib(nibName: String(describing: HomeMoreInfoTableViewCell.self), bundle: nil),
 			forCellReuseIdentifier: String(describing: HomeMoreInfoTableViewCell.self)
 		)
+
+		tableView.register(FamilyTestsHomeCell.self, forCellReuseIdentifier: FamilyTestsHomeCell.reuseIdentifier)
 
 		tableView.separatorStyle = .none
 		tableView.rowHeight = UITableView.automaticDimension
@@ -441,6 +447,18 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 
 		riskCell = cell
 
+		return cell
+	}
+
+	private func familyTestCellFactory() -> FamilyTestsHomeCell {
+		if let familyTestCell = familyTestCell {
+			return familyTestCell
+		}
+
+		guard let cell = tableView.dequeueReusableCell(withIdentifier: FamilyTestsHomeCell.reuseIdentifier) as? FamilyTestsHomeCell else {
+			fatalError("Failed to get FamilyTestsHomeCell")
+		}
+		cell.configure(with: viewModel.familyHomeCellViewModel)
 		return cell
 	}
 
