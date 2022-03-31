@@ -21,6 +21,7 @@ class FamilyMemberCoronaTestsViewModel {
 		familyMemberCoronaTestService.coronaTests
 			.sink { [weak self] in
 				guard !$0.isEmpty else {
+					self?.coronaTestCellModels = []
 					onLastDeletion()
 					return
 				}
