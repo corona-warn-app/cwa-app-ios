@@ -33,11 +33,11 @@ class FamilyTestsHomeCell: UITableViewCell, ReuseIdentifierProviding {
 		viewModel.badgeCount
 			.receive(on: DispatchQueue.main.ocombine)
 			.sink { [weak self] _ in
-			self?.badgeView.setBadge(viewModel.badgeText, animated: true)
-			self?.detailsLabel.text = viewModel.detailText
-			self?.detailsLabel.isHidden = viewModel.isDetailsHidden
-		}
-		.store(in: &subscriptions)
+				self?.badgeView.setBadge(viewModel.badgeText, animated: true)
+				self?.detailsLabel.text = viewModel.detailText
+				self?.detailsLabel.isHidden = viewModel.isDetailsHidden
+			}
+			.store(in: &subscriptions)
 	}
 
 	// MARK: - Private
