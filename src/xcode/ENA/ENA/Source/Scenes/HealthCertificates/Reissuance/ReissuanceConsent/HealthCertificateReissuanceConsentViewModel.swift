@@ -173,11 +173,13 @@ final class HealthCertificateReissuanceConsentViewModel {
 								oldCertificateRef: certificateToReissueRef,
 								with: certificate.certificate,
 								for: self.certifiedPerson,
-								markAsNew: true
+								markAsNew: true,
+								completion: {
+									completion(.success(()))
+								}
 							)
 							
 							Log.error("Certificate reissuance was successful.", log: .vaccination)
-							completion(.success(()))
 						} catch {
 							completion(.failure(.replaceHealthCertificateError(error)))
 							Log.error("Replacing the certificate with a reissued certificate failed in service", log: .vaccination, error: error)

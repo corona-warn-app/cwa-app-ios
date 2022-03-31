@@ -15,7 +15,8 @@ protocol HealthCertificateServiceServable {
 		oldCertificateRef: DCCCertificateReference,
 		with newHealthCertificateString: String,
 		for person: HealthCertifiedPerson,
-		markAsNew: Bool
+		markAsNew: Bool,
+		completion: @escaping () -> Void
 	) throws
 }
 
@@ -144,48 +145,66 @@ class HealthCertificateService: HealthCertificateServiceServable {
 			self.updateTimeBasedValidityStates()
 
 			self.updateGradients()
+			
+			let dispatchGroup = DispatchGroup()
 
-			self.subscribeAppConfigUpdates()
-			self.subscribeDSCListChanges()
+			dispatchGroup.enter()
+			self.subscribeAppConfigUpdates(completion: {
+				dispatchGroup.leave()
+			})
+			
+			dispatchGroup.enter()
+			self.subscribeDSCListChanges(completion: {
+				dispatchGroup.leave()
+			})
 			
 			self.scheduleTimer()
 
 			if updatingWalletInfos {
+				dispatchGroup.enter()
 				self.updateDCCWalletInfosIfNeeded {
 					Log.info("[HealthCertificateService] Setup finished including wallet info updates", log: .background)
 					self.isSetUp = true
-					completion()
+					dispatchGroup.leave()
 				}
 			} else {
 				Log.info("[HealthCertificateService] Setup finished without wallet info updates", log: .background)
 				self.isSetUp = true
-				completion()
 			}
+			
+			dispatchGroup.notify(queue: .main, execute: {
+				completion()
+			})
 		}
 	}
 
 	// swiftlint:disable cyclomatic_complexity
-	@discardableResult
 	func registerHealthCertificate(
 		base45: Base45,
 		checkSignatureUpfront: Bool = true,
 		checkMaxPersonCount: Bool = true,
-		markAsNew: Bool = false
-	) -> Result<CertificateResult, HealthCertificateServiceError.RegistrationError> {
+		markAsNew: Bool = false,
+		completion: @escaping (Result<CertificateResult, HealthCertificateServiceError.RegistrationError>) -> Void
+	) {
 		Log.info("[HealthCertificateService] Registering health certificate from payload: \(private: base45)", log: .api)
-		
+				
 		// If the certificate is in the recycle bin, restore it and skip registration process.
 		if let recycleBinItem = recycleBin.item(for: base45), case let .certificate(healthCertificate) = recycleBinItem.item {
-			let healthCertifiedPerson = addHealthCertificate(healthCertificate)
-			recycleBin.remove(recycleBinItem)
-
-			return .success(
-				CertificateResult(
-					registrationDetail: .restoredFromBin,
-					person: healthCertifiedPerson,
-					certificate: healthCertificate
-				)
+			
+			addHealthCertificate(
+				healthCertificate,
+				completion: { healthCertifiedPerson in
+					completion(.success(
+						CertificateResult(
+							registrationDetail: .restoredFromBin,
+							person: healthCertifiedPerson,
+							certificate: healthCertificate
+						)
+					))
+				}
 			)
+			recycleBin.remove(recycleBinItem)
+			return
 		}
 
 		do {
@@ -201,13 +220,15 @@ class HealthCertificateService: HealthCertificateServiceServable {
 					and: Date()
 				) {
 					Log.error("Signature check of certificate failed with error: \(error).")
-					return .failure(.invalidSignature(error))
+					completion(.failure(.invalidSignature(error)))
+					return
 				}
 			}
 
 			if healthCertificate.hasTooManyEntries {
 				Log.error("[HealthCertificateService] Registering health certificate failed: certificate has too many entries", log: .api)
-				return .failure(.certificateHasTooManyEntries)
+				completion(.failure(.certificateHasTooManyEntries))
+				return
 			}
 
 			var personWarnThresholdReached = false
@@ -219,7 +240,8 @@ class HealthCertificateService: HealthCertificateServiceServable {
 					
 					if healthCertifiedPersons.count >= appConfiguration.featureProvider.intValue(for: .dccPersonCountMax) {
 						Log.debug("Abort registering certificate due to too many persons registered.")
-						return .failure(.tooManyPersonsRegistered)
+						completion(.failure(.tooManyPersonsRegistered))
+						return
 					}
 					
 					if healthCertifiedPersons.count + 1 >= appConfiguration.featureProvider.intValue(for: .dccPersonWarnThreshold) {
@@ -231,25 +253,29 @@ class HealthCertificateService: HealthCertificateServiceServable {
 			
 			if healthCertifiedPersons.contains(healthCertificate) {
 				Log.error("[HealthCertificateService] Registering health certificate failed: certificate already registered", log: .api)
-				return .failure(.certificateAlreadyRegistered(healthCertificate.type))
+				completion(.failure(.certificateAlreadyRegistered(healthCertificate.type)))
+				return
 			}
 
-			let healthCertifiedPerson = addHealthCertificate(healthCertificate)
-	
-			Log.info("Successfuly registered health certificate.")
-			return .success(
-				CertificateResult(
-					registrationDetail: personWarnThresholdReached ? .personWarnThresholdReached : nil,
-					person: healthCertifiedPerson,
-					certificate: healthCertificate
-				)
+			addHealthCertificate(
+				healthCertificate,
+				completion: { healthCertifiedPerson in
+					Log.info("Successfuly registered health certificate.")
+						completion(.success(
+							CertificateResult(
+								registrationDetail: personWarnThresholdReached ? .personWarnThresholdReached : nil,
+								person: healthCertifiedPerson,
+								certificate: healthCertificate
+							)
+						))
+				}
 			)
 
 		} catch let error as CertificateDecodingError {
 			Log.error("[HealthCertificateService] Registering health certificate failed with .decodingError: \(error.localizedDescription)", log: .api)
-			return .failure(.decodingError(error))
+			completion(.failure(.decodingError(error)))
 		} catch {
-			return .failure(.other(error))
+			completion(.failure(.other(error)))
 		}
 	}
 	
@@ -257,7 +283,8 @@ class HealthCertificateService: HealthCertificateServiceServable {
 		oldCertificateRef: DCCCertificateReference,
 		with newHealthCertificateString: String,
 		for person: HealthCertifiedPerson,
-		markAsNew: Bool
+		markAsNew: Bool,
+		completion: @escaping () -> Void
 	) throws {
 		let newHealthCertificate = try HealthCertificate(base45: newHealthCertificateString, isNew: markAsNew)
 		guard let oldHealthCertificate = person.healthCertificate(for: oldCertificateRef) else {
@@ -269,15 +296,35 @@ class HealthCertificateService: HealthCertificateServiceServable {
 		updateValidityState(for: newHealthCertificate, person: person)
 		scheduleTimer()
 
-		healthCertificateNotificationService.createNotifications(for: newHealthCertificate)
+		let dispatchGroup = DispatchGroup()
 		
-		healthCertificateNotificationService.removeAllNotifications(for: oldHealthCertificate, completion: {})
+		dispatchGroup.enter()
+		healthCertificateNotificationService.createNotifications(
+			for: newHealthCertificate,
+			completion: {
+				dispatchGroup.leave()
+			}
+		)
+		
+		dispatchGroup.enter()
+		healthCertificateNotificationService.removeAllNotifications(
+			for: oldHealthCertificate,
+			completion: {
+				dispatchGroup.leave()
+			}
+		)
 
 		recycleBin.moveToBin(.certificate(oldHealthCertificate))
+		
+		dispatchGroup.notify(queue: .main) {
+			completion()
+		}
 	}
 
-	@discardableResult
-	func addHealthCertificate(_ healthCertificate: HealthCertificate) -> HealthCertifiedPerson {
+	func addHealthCertificate(
+		_ healthCertificate: HealthCertificate,
+		completion: @escaping (HealthCertifiedPerson) -> Void
+	) {
 		Log.info("Add health certificate to person.")
 		
 		let newlyGroupedPersons = groupingPersons(appending: healthCertificate)
@@ -294,21 +341,26 @@ class HealthCertificateService: HealthCertificateServiceServable {
 		
 		updateValidityState(for: healthCertificate, person: healthCertifiedPerson)
 		scheduleTimer()
-
-		healthCertificateNotificationService.createNotifications(for: healthCertificate)
 		
-		if isNewPersonAdded {
-			Log.info("[HealthCertificateService] Successfully registered health certificate for a new person", log: .api)
-			// Manual update needed as the person subscriptions were not set up when the certificate was added
-			updateDCCWalletInfo(for: healthCertifiedPerson)
-			updateGradients()
-		} else {
-			Log.info("[HealthCertificateService] Successfully registered health certificate for a person with other existing certificates", log: .api)
-		}
-		
-		Log.info("Finished adding health certificate to person.")
-		
-		return healthCertifiedPerson
+		healthCertificateNotificationService.createNotifications(
+			for: healthCertificate,
+			   completion: { [weak self] in
+				   guard let self = self else { return }
+				   
+				   if isNewPersonAdded {
+					   Log.info("[HealthCertificateService] Successfully registered health certificate for a new person", log: .api)
+					   // Manual update needed as the person subscriptions were not set up when the certificate was added
+					   self.updateDCCWalletInfo(for: healthCertifiedPerson)
+					   self.updateGradients()
+				   } else {
+					   Log.info("[HealthCertificateService] Successfully registered health certificate for a person with other existing certificates", log: .api)
+				   }
+				   
+				   Log.info("Finished adding health certificate to person.")
+				   
+				   completion(healthCertifiedPerson)
+			   }
+		)
 	}
 
 	func moveHealthCertificateToBin(_ healthCertificate: HealthCertificate) {
@@ -332,7 +384,7 @@ class HealthCertificateService: HealthCertificateServiceServable {
 			}
 		}
 		// we do not have to wait here, so we leave the completion empty
-		healthCertificateNotificationService.removeAllNotifications(for: healthCertificate, completion: {})
+		healthCertificateNotificationService.removeAllNotifications(for: healthCertificate, completion: { })
 
 		// Move HealthCertificate to the recycle-bin
 		recycleBin.moveToBin(.certificate(healthCertificate))
@@ -447,14 +499,16 @@ class HealthCertificateService: HealthCertificateServiceServable {
 			.dropFirst()
 			.first()
 			.sink { [weak self] _ in
-				self?.updateValidityStatesAndNotifications()
-				completion()
+				self?.updateValidityStatesAndNotifications(
+					completion: completion
+				)
 			}
 			.store(in: &subscriptions)
 	}
 
 	func updateValidityStatesAndNotifications(
-		shouldScheduleTimer: Bool = true
+		shouldScheduleTimer: Bool = true,
+		completion: @escaping () -> Void
 	) {
 		Log.info("Update validity states and notifications.")
 
@@ -463,7 +517,10 @@ class HealthCertificateService: HealthCertificateServiceServable {
 		healthCertifiedPersons.forEach { healthCertifiedPerson in
 			healthCertifiedPerson.healthCertificates.forEach { healthCertificate in
 				updateValidityState(for: healthCertificate, person: healthCertifiedPerson)
-				healthCertificateNotificationService.recreateNotifications(for: healthCertificate)
+				healthCertificateNotificationService.recreateNotifications(
+					for: healthCertificate,
+					completion: completion
+				)
 			}
 		}
 
@@ -507,7 +564,7 @@ class HealthCertificateService: HealthCertificateServiceServable {
 
 		Log.info("Schedule validity timer in \(fireDate.timeIntervalSinceNow) seconds")
 		nextValidityTimer = Timer.scheduledTimer(withTimeInterval: fireDate.timeIntervalSinceNow, repeats: false) { [weak self] _ in
-			self?.updateValidityStatesAndNotifications()
+			self?.updateValidityStatesAndNotifications(completion: { })
 			self?.nextValidityTimer = nil
 		}
 
@@ -555,22 +612,30 @@ class HealthCertificateService: HealthCertificateServiceServable {
 	private var healthCertifiedPersonSubscriptions = Set<AnyCancellable>()
 	private var subscriptions = Set<AnyCancellable>()
 
-	private func subscribeAppConfigUpdates() {
+	private func subscribeAppConfigUpdates(
+		completion: @escaping () -> Void
+	) {
 		// subscribe app config updates
 		appConfiguration.currentAppConfig
 			.dropFirst()
 			.sink { [weak self] _ in
-				self?.updateValidityStatesAndNotifications()
+				self?.updateValidityStatesAndNotifications(
+					completion: completion
+				)
 			}
 			.store(in: &subscriptions)
 	}
 
-	private func subscribeDSCListChanges() {
+	private func subscribeDSCListChanges(
+		completion: @escaping () -> Void
+	) {
 		// subscribe to changes of dcc certificates list
 		dscListProvider.signingCertificates
 			.dropFirst()
 			.sink { [weak self] _ in
-				self?.updateValidityStatesAndNotifications()
+				self?.updateValidityStatesAndNotifications(
+					completion: completion
+				)
 			}
 			.store(in: &subscriptions)
 	}
