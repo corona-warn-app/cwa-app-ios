@@ -118,8 +118,6 @@ class FamilyTestsHomeCell: UITableViewCell, ReuseIdentifierProviding {
 				chevronImageView.leadingAnchor.constraint(greaterThanOrEqualTo: headerLabel.trailingAnchor, constant: 14.0),
 				chevronImageView.centerYAnchor.constraint(equalTo: familyIconImageView.centerYAnchor),
 				chevronImageView.trailingAnchor.constraint(equalTo: homeCardView.trailingAnchor, constant: -24.0),
-//				chevronImageView.widthAnchor.constraint(equalToConstant: 7.0),
-//				chevronImageView.heightAnchor.constraint(equalToConstant: 12.0),
 
 				detailsLabel.leadingAnchor.constraint(equalTo: headerLabel.leadingAnchor),
 				detailsLabel.topAnchor.constraint(equalTo: headerLabel.bottomAnchor, constant: 4.0),
@@ -127,6 +125,8 @@ class FamilyTestsHomeCell: UITableViewCell, ReuseIdentifierProviding {
 				detailsLabel.bottomAnchor.constraint(equalTo: homeCardView.bottomAnchor, constant: -15.0)
 			]
 		)
+
+		accessibilityTraits = .button
 	}
 
 }

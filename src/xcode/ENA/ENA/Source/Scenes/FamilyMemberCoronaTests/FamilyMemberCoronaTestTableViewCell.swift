@@ -159,6 +159,8 @@ final class FamilyMemberCoronaTestTableViewCell: UITableViewCell {
 
 	private func setup() {
 		updateIllustration(for: traitCollection)
+
+		accessibilityTraits = .button
 	}
 
 	private func updateIllustration(for traitCollection: UITraitCollection) {
@@ -172,12 +174,6 @@ final class FamilyMemberCoronaTestTableViewCell: UITableViewCell {
 	private func clearSubscriptions() {
 		subscriptions.forEach({ $0.cancel() })
 		subscriptions.removeAll()
-	}
-
-	func setupAccessibility() {
-		cardView.accessibilityElements = [cardView as Any, button as Any]
-
-		nameLabel.accessibilityTraits = [.header, .button]
 	}
 
 	@IBAction func primaryActionTriggered() {
