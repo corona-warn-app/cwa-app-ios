@@ -36,8 +36,8 @@ class NotificationManagerTests: XCTestCase {
 			)
 		)
 		
-		_ = healthCertificateService.registerHealthCertificate(base45: vaccinationCertificate1Base45)
-		_ = healthCertificateService.registerHealthCertificate(base45: vaccinationCertificate2Base45)
+		_ = healthCertificateService.registerHealthCertificate(base45: vaccinationCertificate1Base45, completedNotificationRegistration: { })
+		_ = healthCertificateService.registerHealthCertificate(base45: vaccinationCertificate2Base45, completedNotificationRegistration: { })
 		
 		// WHEN
 		
@@ -79,8 +79,8 @@ class NotificationManagerTests: XCTestCase {
 		
 		let expectedCertificate = try XCTUnwrap(HealthCertificate(base45: vaccinationCertificate2Base45))
 		
-		_ = healthCertificateService.registerHealthCertificate(base45: vaccinationCertificate2Base45)
-		_ = healthCertificateService.registerHealthCertificate(base45: vaccinationCertificate1Base45)
+		_ = healthCertificateService.registerHealthCertificate(base45: vaccinationCertificate2Base45, completedNotificationRegistration: { })
+		_ = healthCertificateService.registerHealthCertificate(base45: vaccinationCertificate1Base45, completedNotificationRegistration: { })
 		
 		// WHEN
 		
@@ -122,8 +122,8 @@ class NotificationManagerTests: XCTestCase {
 		let expectedCertificate = try XCTUnwrap(HealthCertificate(base45: vaccinationCertificate2Base45))
 		let healthCertifiedPerson = HealthCertifiedPerson(healthCertificates: [expectedCertificate])
 		
-		_ = healthCertificateService.registerHealthCertificate(base45: vaccinationCertificate2Base45)
-		_ = healthCertificateService.registerHealthCertificate(base45: vaccinationCertificate1Base45)
+		_ = healthCertificateService.registerHealthCertificate(base45: vaccinationCertificate2Base45, completedNotificationRegistration: { })
+		_ = healthCertificateService.registerHealthCertificate(base45: vaccinationCertificate1Base45, completedNotificationRegistration: { })
 		
 		// WHEN
 		guard let personIdentifier = healthCertifiedPerson.identifier else {
@@ -171,8 +171,8 @@ class NotificationManagerTests: XCTestCase {
 		let expectedCertificate = try XCTUnwrap(HealthCertificate(base45: vaccinationCertificate2Base45))
 		let healthCertifiedPerson = HealthCertifiedPerson(healthCertificates: [expectedCertificate])
 
-		_ = healthCertificateService.registerHealthCertificate(base45: vaccinationCertificate2Base45)
-		_ = healthCertificateService.registerHealthCertificate(base45: vaccinationCertificate1Base45)
+		_ = healthCertificateService.registerHealthCertificate(base45: vaccinationCertificate2Base45, completedNotificationRegistration: { })
+		_ = healthCertificateService.registerHealthCertificate(base45: vaccinationCertificate1Base45, completedNotificationRegistration: { })
 
 		// WHEN
 		guard let personIdentifier = healthCertifiedPerson.identifier else {
