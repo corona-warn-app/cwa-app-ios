@@ -6,11 +6,44 @@ import UIKit
 
 class HomeCardView: UIView {
 
+	// MARK: - Init
+
+	override init(frame: CGRect) {
+		super.init(frame: frame)
+		setupView()
+	}
+
+	required init?(coder: NSCoder) {
+		super.init(coder: coder)
+	}
+
 	// MARK: - Overrides
 
 	override func awakeFromNib() {
 		super.awakeFromNib()
 
+		setupView()
+	}
+
+	override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+		super.traitCollectionDidChange(previousTraitCollection)
+
+		layer.shadowColor = UIColor.enaColor(for: .shadow).cgColor
+	}
+
+	// MARK: - Internal
+
+	func setHighlighted(_ highlighted: Bool, animated: Bool) {
+		highlightView.backgroundColor = highlighted ? .enaColor(for: .listHighlight) : .clear
+	}
+
+	// MARK: - Private
+
+	private let cornerRadius: CGFloat = 14.0
+
+	private let highlightView = UIView()
+
+	private func setupView() {
 		translatesAutoresizingMaskIntoConstraints = false
 		clipsToBounds = false
 		layer.cornerRadius = cornerRadius
@@ -40,23 +73,5 @@ class HomeCardView: UIView {
 			highlightView.layer.cornerCurve = .continuous
 		}
 	}
-
-	override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-		super.traitCollectionDidChange(previousTraitCollection)
-
-		layer.shadowColor = UIColor.enaColor(for: .shadow).cgColor
-	}
-
-	// MARK: - Internal
-
-	func setHighlighted(_ highlighted: Bool, animated: Bool) {
-		highlightView.backgroundColor = highlighted ? .enaColor(for: .listHighlight) : .clear
-	}
-
-	// MARK: - Private
-
-	private let cornerRadius: CGFloat = 14.0
-
-	private let highlightView = UIView()
 
 }

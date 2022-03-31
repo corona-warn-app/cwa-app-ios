@@ -277,7 +277,7 @@ class FamilyMemberCoronaTestServiceTests: CWATestCase {
 				),
 				willLoadResource: { resource in
 					guard let resource = resource as? TeleTanResource,
-						let sendModel = resource.sendResource.sendModel else {
+						  let sendModel = resource.sendResource.sendModel else {
 						XCTFail("TeleTanResource expected.")
 						return
 					}
@@ -379,7 +379,7 @@ class FamilyMemberCoronaTestServiceTests: CWATestCase {
 				),
 				willLoadResource: { resource in
 					guard let resource = resource as? TeleTanResource,
-						let sendModel = resource.sendResource.sendModel else {
+						  let sendModel = resource.sendResource.sendModel else {
 						XCTFail("TeleTanResource expected.")
 						return
 					}
@@ -684,7 +684,7 @@ class FamilyMemberCoronaTestServiceTests: CWATestCase {
 					// Ensure that the date of birth is not passed to the client for antigen tests if it is given accidentally
 
 					guard let resource = resource as? TeleTanResource,
-						let sendModel = resource.sendResource.sendModel else {
+						  let sendModel = resource.sendResource.sendModel else {
 						XCTFail("TeleTanResource expected.")
 						return
 					}
@@ -786,7 +786,7 @@ class FamilyMemberCoronaTestServiceTests: CWATestCase {
 					// Ensure that the date of birth is not passed to the client for antigen tests if it is given accidentally
 
 					guard let resource = resource as? TeleTanResource,
-						let sendModel = resource.sendResource.sendModel else {
+						  let sendModel = resource.sendResource.sendModel else {
 						XCTFail("TeleTanResource expected.")
 						return
 					}
@@ -902,7 +902,7 @@ class FamilyMemberCoronaTestServiceTests: CWATestCase {
 				),
 				willLoadResource: { resource in
 					guard let resource = resource as? TeleTanResource,
-						let sendModel = resource.sendResource.sendModel else {
+						  let sendModel = resource.sendResource.sendModel else {
 						XCTFail("TeleTanResource expected.")
 						return
 					}
@@ -1213,7 +1213,7 @@ class FamilyMemberCoronaTestServiceTests: CWATestCase {
 					// Ensure that the date of birth is not passed to the client for antigen tests if it is given accidentally
 
 					guard let resource = resource as? TeleTanResource,
-						let sendModel = resource.sendResource.sendModel else {
+						  let sendModel = resource.sendResource.sendModel else {
 						XCTFail("TeleTanResource expected.")
 						return
 					}
@@ -1315,7 +1315,7 @@ class FamilyMemberCoronaTestServiceTests: CWATestCase {
 					// Ensure that the date of birth is not passed to the client for antigen tests if it is given accidentally
 
 					guard let resource = resource as? TeleTanResource,
-						let sendModel = resource.sendResource.sendModel else {
+						  let sendModel = resource.sendResource.sendModel else {
 						XCTFail("TeleTanResource expected.")
 						return
 					}
@@ -1425,7 +1425,7 @@ class FamilyMemberCoronaTestServiceTests: CWATestCase {
 				),
 				willLoadResource: { resource in
 					guard let resource = resource as? TeleTanResource,
-						let sendModel = resource.sendResource.sendModel else {
+						  let sendModel = resource.sendResource.sendModel else {
 						XCTFail("TeleTanResource expected.")
 						return
 					}
