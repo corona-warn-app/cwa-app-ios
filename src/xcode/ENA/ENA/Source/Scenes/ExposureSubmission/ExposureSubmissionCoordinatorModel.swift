@@ -254,13 +254,15 @@ class ExposureSubmissionCoordinatorModel {
 					qrCodeHash: qrCodeHash,
 					certificateConsent: certificateConsent,
 					completion: { result in
-						isLoading(false)
-						
-						switch result {
-						case let .failure(error):
-							onError(error)
-						case let .success(testResult):
-							onSuccess(testResult)
+						DispatchQueue.main.async {
+							isLoading(false)
+
+							switch result {
+							case let .failure(error):
+								onError(error)
+							case let .success(testResult):
+								onSuccess(testResult)
+							}
 						}
 					}
 			  )
