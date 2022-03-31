@@ -87,6 +87,7 @@ class HomeTableViewModel {
 	let state: HomeState
 	let store: Store
 	let coronaTestService: CoronaTestServiceProviding
+	let familyMemberCoronaTestService: FamilyMemberCoronaTestServiceProviding
 	var isUpdating: Bool = false
 
 	@OpenCombine.Published var testResultLoadingError: Error?
@@ -98,10 +99,6 @@ class HomeTableViewModel {
 
 	var numberOfSections: Int {
 		Section.allCases.count
-	}
-
-	var familyHomeCellViewModel: FamilyTestsHomeCellViewModel {
-		FamilyTestsHomeCellViewModel(familyMemberCoronaTestService: familyMemberCoronaTestService)
 	}
 
 	func numberOfRows(in section: Int) -> Int {
@@ -206,7 +203,6 @@ class HomeTableViewModel {
 	// MARK: - Private
 
 	private let appConfiguration: AppConfigurationProviding
-	private let familyMemberCoronaTestService: FamilyMemberCoronaTestServiceProviding
 	private let onTestResultCellTap: (CoronaTestType?) -> Void
 	private let badgeWrapper: HomeBadgeWrapper
 

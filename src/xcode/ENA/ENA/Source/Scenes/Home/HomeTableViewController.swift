@@ -461,7 +461,14 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 		guard let cell = tableView.dequeueReusableCell(withIdentifier: FamilyTestsHomeCell.reuseIdentifier) as? FamilyTestsHomeCell else {
 			fatalError("Failed to get FamilyTestsHomeCell")
 		}
-		cell.configure(with: viewModel.familyHomeCellViewModel)
+		cell.configure(
+			with: FamilyTestsHomeCellViewModel(
+				familyMemberCoronaTestService: viewModel.familyMemberCoronaTestService,
+				onUpdate: { [weak self] in
+					self?.animateChanges(of: cell)
+				}
+			)
+		)
 		return cell
 	}
 
