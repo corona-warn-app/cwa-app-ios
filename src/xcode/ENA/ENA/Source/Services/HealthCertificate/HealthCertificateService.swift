@@ -16,7 +16,7 @@ protocol HealthCertificateServiceServable {
 		with newHealthCertificateString: String,
 		for person: HealthCertifiedPerson,
 		markAsNew: Bool,
-		completion: @escaping () -> Void
+		completedNotificationRegistration: @escaping () -> Void
 	) throws
 }
 
@@ -279,7 +279,7 @@ class HealthCertificateService: HealthCertificateServiceServable {
 		with newHealthCertificateString: String,
 		for person: HealthCertifiedPerson,
 		markAsNew: Bool,
-		completion: @escaping () -> Void
+		completedNotificationRegistration: @escaping () -> Void
 	) throws {
 		let newHealthCertificate = try HealthCertificate(base45: newHealthCertificateString, isNew: markAsNew)
 		guard let oldHealthCertificate = person.healthCertificate(for: oldCertificateRef) else {
@@ -312,7 +312,7 @@ class HealthCertificateService: HealthCertificateServiceServable {
 		recycleBin.moveToBin(.certificate(oldHealthCertificate))
 		
 		dispatchGroup.notify(queue: .main) {
-			completion()
+			completedNotificationRegistration()
 		}
 	}
 

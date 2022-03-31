@@ -174,7 +174,7 @@ final class HealthCertificateReissuanceConsentViewModel {
 								with: certificate.certificate,
 								for: self.certifiedPerson,
 								markAsNew: true,
-								completion: {
+								completedNotificationRegistration: {
 									completion(.success(()))
 								}
 							)
