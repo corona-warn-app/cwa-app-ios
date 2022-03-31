@@ -70,11 +70,11 @@ final class RoundedRectView: UIView {
 	private let shapeLayer = CAShapeLayer()
 
 	private func configure() {
-		shapeLayer.fillColor   = fillColor.cgColor
+		shapeLayer.fillColor = fillColor.cgColor
 		shapeLayer.strokeColor = strokeColor.cgColor
 		shapeLayer.lineWidth = lineWidth
 		shapeLayer.strokeStart = 0
-		shapeLayer.strokeEnd   = 1
+		shapeLayer.strokeEnd = 1
 	}
 
 	private func updatePath() {

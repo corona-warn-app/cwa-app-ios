@@ -51,7 +51,7 @@ class HomeTableViewModelTests: CWATestCase {
 		XCTAssertEqual(viewModel.riskAndTestResultsRows, [.risk])
 	}
 
-	func testRiskCellNotHiddenIfFamilyTestsExistAndUnreadCountIs2() {
+	func testFamilyTestCellNotHiddenIfFamilyMemberTestsExist() {
 		let store = MockTestStore()
 		var defaultAppConfig = CachedAppConfigurationMock.defaultAppConfiguration
 		defaultAppConfig.coronaTestParameters.coronaPcrtestParameters.hoursSinceTestRegistrationToShowRiskCard = 168
@@ -87,14 +87,14 @@ class HomeTableViewModelTests: CWATestCase {
 		XCTAssertEqual(viewModel.riskAndTestResultsRows, [.risk, .familyTestResults])
 	}
 
-	func testRiskCellNotHiddenIfFamilyTestsExistAndUnreadCountIsZero() {
+	func testFamilyTestCellIsHiddenIfNoFamilyMemberTestsExist() {
 		let store = MockTestStore()
 		var defaultAppConfig = CachedAppConfigurationMock.defaultAppConfiguration
 		defaultAppConfig.coronaTestParameters.coronaPcrtestParameters.hoursSinceTestRegistrationToShowRiskCard = 168
 		let appConfiguration = CachedAppConfigurationMock(with: defaultAppConfig)
 
 		let familyCoronaTestService = MockFamilyMemberCoronaTestService()
-		familyCoronaTestService.coronaTests.value = [.antigen(.mock(testResultWasShown: true) ), .pcr(.mock(testResultWasShown: true))]
+		familyCoronaTestService.coronaTests.value = []
 
 		let viewModel = HomeTableViewModel(
 			state: .init(
@@ -119,8 +119,8 @@ class HomeTableViewModelTests: CWATestCase {
 			badgeWrapper: .fake()
 		)
 
-		XCTAssertEqual(viewModel.numberOfRows(in: 1), 2)
-		XCTAssertEqual(viewModel.riskAndTestResultsRows, [.risk, .familyTestResults])
+		XCTAssertEqual(viewModel.numberOfRows(in: 1), 1)
+		XCTAssertEqual(viewModel.riskAndTestResultsRows, [.risk])
 	}
 
 	func testRiskCellNotHiddenIfPositivePCRTestResultWasNotYetShownAndLimitToShowRiskCardNotReachedAndRiskLow() {
