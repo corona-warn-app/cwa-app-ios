@@ -71,6 +71,7 @@ platform :ios do
         disable_package_automatic_updates: true,
         result_bundle: true,
         code_coverage: true,
+        concurrent_workers: 7, # 8 cores make 7 concurrent tests right? :D
         number_of_retries: 1, #take this you flaky tests
         output_style: "raw", # prevents long periods of silence which makes the CI & devs nervous
         output_types: ""
@@ -118,45 +119,45 @@ platform :ios do
     )
   end
 
-  desc "Run tests"
-  lane :test do | options |
-    begin
-      # Execute tests for given test plan
-      testPlan = options[:testplan] || "AllTests"
+  # desc "Run tests"
+  # lane :test do | options |
+  #   begin
+  #     # Execute tests for given test plan
+  #     testPlan = options[:testplan] || "AllTests"
 
-      run_tests(
-        scheme: "ENA",
-        derived_data_path: "./DerivedData",
-        test_without_building: false, #`build_for_testing` is required if this is set to `true`!
-        xcargs: "SWIFT_TREAT_WARNINGS_AS_ERRORS=NO",
-        testplan: testPlan,
-        only_test_configurations: ["DE"],
-        devices: ["iPhone 11"],
-        prelaunch_simulator: true,
-        result_bundle: true,
-        code_coverage: true,
-        concurrent_workers: 7, # 8 cores make 7 tests right? :D
-        number_of_retries: 1, #take this you flaky tests
-        output_style: "raw", # prevents long periods of silence which makes the CI & devs nervous
-        output_types: ""
-      )
-    rescue
-      UI.user_error!("Tests did fail, please check logs above or ENA.xcresult.zip")
-    ensure
-      trainer(
-        output_directory: "fastlane/test_output/",
-        path: "fastlane/test_output/",
-        extension: ".junit",
-        fail_build: false
-      )
+  #     run_tests(
+  #       scheme: "ENA",
+  #       derived_data_path: "./DerivedData",
+  #       test_without_building: false, #`build_for_testing` is required if this is set to `true`!
+  #       xcargs: "SWIFT_TREAT_WARNINGS_AS_ERRORS=NO",
+  #       testplan: testPlan,
+  #       only_test_configurations: ["DE"],
+  #       devices: ["iPhone 11"],
+  #       prelaunch_simulator: true,
+  #       result_bundle: true,
+  #       code_coverage: true,
+  #       concurrent_workers: 7, # 8 cores make 7 tests right? :D
+  #       number_of_retries: 1, #take this you flaky tests
+  #       output_style: "raw", # prevents long periods of silence which makes the CI & devs nervous
+  #       output_types: ""
+  #     )
+  #   rescue
+  #     UI.user_error!("Tests did fail, please check logs above or ENA.xcresult.zip")
+  #   ensure
+  #     trainer(
+  #       output_directory: "fastlane/test_output/",
+  #       path: "fastlane/test_output/",
+  #       extension: ".junit",
+  #       fail_build: false
+  #     )
 
-      zip(
-        path: "fastlane/test_output/ENA.xcresult",
-        output_path: "fastlane/test_output/ENA.xcresult.zip",
-        verbose: false
-      )
-    end
-  end
+  #     zip(
+  #       path: "fastlane/test_output/ENA.xcresult",
+  #       output_path: "fastlane/test_output/ENA.xcresult.zip",
+  #       verbose: false
+  #     )
+  #   end
+  # end
 
   desc "Create (localized) screenshots"
   lane :screenshot do |options|
