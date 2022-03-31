@@ -123,6 +123,10 @@ class FamilyMemberCoronaTestsViewModel {
 		}
 	}
 
+	func markAllAsSeen() {
+		familyMemberCoronaTestService.evaluateShowingAllTests()
+	}
+
 	// MARK: - Private
 
 	private let familyMemberCoronaTestService: FamilyMemberCoronaTestServiceProviding

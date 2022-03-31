@@ -84,6 +84,13 @@ class FamilyMemberCoronaTestsViewController: UITableViewController, FooterViewHa
 
 		refresh()
 	}
+
+	override func viewDidDisappear(_ animated: Bool) {
+		super.viewDidDisappear(animated)
+
+		viewModel.markAllAsSeen()
+	}
+
 	override func setEditing(_ editing: Bool, animated: Bool) {
 		super.setEditing(editing, animated: animated)
 
