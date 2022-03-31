@@ -24,6 +24,9 @@ class HealthCertificateQRCodeParser: QRCodeParsable {
 	) {
 		Log.info("Parse health certificate.")
 
+		// To speed up the process, we are not waiting for notification registration.
+		// The parsing of the certificate only happens in foreground at the moment.
+		// Its unlikly that the registration of notifications will be killed at this point.
 		let result = healthCertificateService.registerHealthCertificate(base45: qrCode, markAsNew: markAsNew, completedNotificationRegistration: {  })
 		
 		switch result {
