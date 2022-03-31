@@ -542,6 +542,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 		let footerViewController = FooterViewController(
 			FooterViewModel(
 				primaryButtonName: AppStrings.HealthCertificate.FamilyMemberConsent.primaryButton,
+				primaryIdentifier: AccessibilityIdentifiers.HealthCertificate.FamilyMemberConsent.primaryButton,
 				isSecondaryButtonEnabled: false,
 				isSecondaryButtonHidden: true
 			)

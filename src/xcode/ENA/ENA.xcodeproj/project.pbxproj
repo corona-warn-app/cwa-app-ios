@@ -6877,7 +6877,6 @@
 		85D759712457059A008175F0 /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
-				01992EC827D2731900BC16DA /* LoadingScreen */,
 				01A4DFD12653D3DE00F13432 /* AntigenTestProfile */,
 				71176E30248957B1004B0C9F /* App */,
 				EE85998B2462EFD4002E7AE2 /* AppInformation */,
@@ -6898,6 +6897,7 @@
 				BA01BA5E264423B000D906B6 /* HealthCertificates */,
 				01EA17602590E9B900E98E02 /* Home */,
 				8F873FC025E3EE8000E070CE /* HTMLViewController */,
+				01992EC827D2731900BC16DA /* LoadingScreen */,
 				7143D07424990A3100608DDE /* NavigationControllerWithFooter */,
 				51D420AF2458308400AD70CA /* Onboarding */,
 				01B7232524F8128B0064C0EB /* OptionGroup */,

@@ -740,6 +740,12 @@ enum AccessibilityIdentifiers {
 		enum FamilyMemberConsent {
 			static let imageDescription = "AppStrings.HealthCertificate.FamilyMemberConsent.imageDescription"
 			static let textInput = "HealthCertificate.FamilyMemberConsent.textInput"
+			static let primaryButton = "HealthCertificate.FamilyMemberConsent.primaryButton"
+
+			enum Legal {
+				static let acknowledgementTitle = "AccessibilityIdentifiers.HealthCertificate.FamilyMemberConsent.Legal.acknowledgementTitle"
+			}
+			static let  dataPrivacyTitle = "AccessibilityIdentifiers.HealthCertificate.FamilyMemberConsent.dataPrivacyTitle"
 		}
 
 		enum Overview {
