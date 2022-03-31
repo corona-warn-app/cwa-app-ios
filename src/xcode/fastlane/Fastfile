@@ -166,7 +166,9 @@ platform :ios do
         languages:  options[:languages],
         dark_mode: options[:mode] == "dark",
         output_directory: output_dir,
-        result_bundle: true
+        result_bundle: true,
+        skip_open_summary: false,
+        number_of_retries: 2
       )
     rescue
       UI.user_error!("Tests did fail, please check logs above or ENA.xcresult.zip")
