@@ -30,6 +30,7 @@ platform :ios do
     setup_circle_ci
 
     if is_ci
+      xcode_select("/Applications/Xcode_13_2_1.app")
       xcversion(version: "~> 13.2.0")
     end
   end
