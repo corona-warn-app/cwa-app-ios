@@ -494,6 +494,11 @@ enum AccessibilityIdentifiers {
 				static let birthdayPlaceholder = "AppStrings.ExposureSubmission.TestCertificate.Info.birthDayPlaceholder"
 				static let birthdayText = "AppStrings.ExposureSubmission.TestCertificate.Info.birthDayText"
 			}
+
+			enum Alert {
+				static let cancelRegistration = "AppStrings.ExposureSubmission.TestCertificate.Info.Alert.cancelRegistration"
+			}
+
 		}
 
 	}

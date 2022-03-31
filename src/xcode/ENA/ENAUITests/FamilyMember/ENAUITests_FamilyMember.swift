@@ -21,7 +21,6 @@ class ENAUITests_FamilyMember: CWATestCase {
 	func test_RegisterCoronaTestFromUniversalQRCodeScanner() throws {
 		app.launch()
 
-
 		app.buttons[AccessibilityIdentifiers.TabBar.scanner].waitAndTap()
 
 		/// Simulator only Alert will open where you can choose what the QRScanner should scan
@@ -58,7 +57,13 @@ class ENAUITests_FamilyMember: CWATestCase {
 
 		/// test certificate consent screen
 		XCTAssertTrue(app.images[AccessibilityIdentifiers.ExposureSubmission.TestCertificate.Info.imageDescription].waitForExistence(timeout: .short))
-		app.buttons[AccessibilityIdentifiers.General.secondaryFooterButton].waitAndTap()
+		app.buttons[AccessibilityIdentifiers.AccessibilityLabel.close].waitAndTap()
+
+		/// close alert
+		app.alerts.buttons[AccessibilityIdentifiers.ExposureSubmission.TestCertificate.Alert.cancelRegistration].waitAndTap()
+
+		/// home screen reached
+		app.cells[AccessibilityIdentifiers.Home.activateCardOffTitle].wait()
 	}
 
 }
