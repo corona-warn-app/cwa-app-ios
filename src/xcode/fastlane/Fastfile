@@ -18,7 +18,7 @@
 ENV["LC_ALL"] = "de_DE.UTF-8"
 ENV["LANG"] = "de_DE.UTF-8"
 
-ENV["FASTLANE_SKIP_UPDATE_CHECK"] = "True"
+ENV["FASTLANE_SKIP_UPDATE_CHECK"] = "true"
 
 default_platform(:ios)
 
@@ -122,7 +122,8 @@ platform :ios do
   desc "Create (localized) screenshots"
   lane :screenshot do |options|
     begin
-      output_dir = "screenshots/screenshots-#{options[:languages]}-#{options[:mode]}"
+
+     output_dir = "./screenshots/screenshots-#{options[:languages]}-#{options[:mode]}"
 
       capture_ios_screenshots(
         devices: ["iPhone 13"],
@@ -141,7 +142,10 @@ platform :ios do
         result_bundle: true,
         skip_open_summary: true,
         number_of_retries: 2,
-        test_without_building: true
+        derived_data_path: "./DerivedData",
+        test_without_building: true,
+        skip_package_dependencies_resolution: true,
+        disable_package_automatic_updates: true
       )
     rescue
       UI.user_error!("Tests did fail, please check logs above or ENA.xcresult.zip")
@@ -152,7 +156,7 @@ platform :ios do
         extension: ".junit",
         fail_build: false
       )
-      #no xcresult created, so no zip like in the other lanes
+      no xcresult created, so no zip like in the other lanes
     end
   end
 

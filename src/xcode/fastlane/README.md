@@ -55,14 +55,6 @@ Build project (Community)
 
 Lint code
 
-### ios test
-
-```sh
-[bundle exec] fastlane ios test
-```
-
-Run tests
-
 ### ios screenshot
 
 ```sh
