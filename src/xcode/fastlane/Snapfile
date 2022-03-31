@@ -33,7 +33,7 @@ clear_previous_screenshots(false)
 stop_after_first_error(true)
 
 # Keep this above zero to mitigate random failures from bugs in the testing framework!
-number_of_retries(0)
+number_of_retries(2)
 
 reinstall_app(true)
 
@@ -48,6 +48,8 @@ localize_simulator(true)
 disable_slide_to_type(true)
 
 skip_helper_version_check(true)
+
+skip_open_summary(true)
 
 # Arguments to pass to the app on launch. See https://docs.fastlane.tools/actions/snapshot/#launch-arguments
 # launch_arguments(["-favColor red"])
