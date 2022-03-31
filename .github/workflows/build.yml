@@ -262,7 +262,7 @@ jobs:
           cd src/xcode
           arch -arm64 bundle exec fastlane test_without_building testplan:UITests
 
-  runSnapshotTests:
+  runScreenshotTests:
     runs-on: self-hosted
     needs: buildForTesting
     steps:
@@ -291,7 +291,7 @@ jobs:
         with:
           path: src/xcode/fastlane/test_output
           key: ${{ runner.os }}-${{ env.cache-name }}-${{ github.sha }}                       
-      - name: Run UITests
+      - name: Run screenshot tests
         run: |
           cd src/xcode
           arch -arm64 bundle exec fastlane screenshot languages:"de-DE" mode:"light"
