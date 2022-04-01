@@ -869,6 +869,8 @@ enum AccessibilityIdentifiers {
 		static let outdatedAntigen = "AccessibilityIdentifiers.FamilyMemberCoronaTestCell.outdatedAntigen"
 		static let loadingPCR = "AccessibilityIdentifiers.FamilyMemberCoronaTestCell.loadingPCR"
 		static let loadingAntigen = "AccessibilityIdentifiers.FamilyMemberCoronaTestCell.loadingAntigen"
+		static let homeCell = "AccessibilityIdentifiers.FamilyMemberCoronaTestCell.homeCell"
+
 	}
 
 }

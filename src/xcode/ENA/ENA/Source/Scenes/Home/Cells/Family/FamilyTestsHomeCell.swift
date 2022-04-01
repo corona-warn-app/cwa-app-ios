@@ -90,6 +90,8 @@ class FamilyTestsHomeCell: UITableViewCell, ReuseIdentifierProviding {
 		backgroundColor = .clear
 		contentView.backgroundColor = .clear
 
+		accessibilityIdentifier = AccessibilityIdentifiers.FamilyMemberCoronaTestCell.homeCell
+
 		contentView.addSubview(homeCardView)
 		homeCardView.addSubview(familyIconImageView)
 		homeCardView.addSubview(badgeView)

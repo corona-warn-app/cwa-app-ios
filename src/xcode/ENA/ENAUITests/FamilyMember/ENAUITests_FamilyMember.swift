@@ -19,17 +19,20 @@ class ENAUITests_FamilyMember: CWATestCase {
 	}
 
 	func test_RegisterCoronaTestFromUniversalQRCodeScanner() throws {
-		app.launch()
+		// launch argument will make
+		app.setLaunchArgument(LaunchArguments.familyTest.pcr.testResult, to: TestResult.positive.stringValue)
+		app.setLaunchArgument(LaunchArguments.familyTest.pcr.positiveTestResultWasShown, to: true)
 
+		app.launch()
 		app.buttons[AccessibilityIdentifiers.TabBar.scanner].waitAndTap()
 
 		/// Simulator only Alert will open where you can choose what the QRScanner should scan
 		let pcrButton = try XCTUnwrap(app.buttons[AccessibilityIdentifiers.UniversalQRScanner.fakePCR])
 		pcrButton.waitAndTap()
 
-		/// Select user as test owner
-		let userButton = try XCTUnwrap(app.cells[AccessibilityIdentifiers.ExposureSubmission.TestOwnerSelection.familyMemberButton])
-		userButton.waitAndTap()
+		/// Select family member as test owner
+		let familyButton = try XCTUnwrap(app.cells[AccessibilityIdentifiers.ExposureSubmission.TestOwnerSelection.familyMemberButton])
+		familyButton.waitAndTap()
 
 		/// Exposure submission family member consent screen
 		XCTAssertTrue(app.images[AccessibilityIdentifiers.HealthCertificate.FamilyMemberConsent.imageDescription].waitForExistence(timeout: .short))
@@ -57,13 +60,14 @@ class ENAUITests_FamilyMember: CWATestCase {
 
 		/// test certificate consent screen
 		XCTAssertTrue(app.images[AccessibilityIdentifiers.ExposureSubmission.TestCertificate.Info.imageDescription].waitForExistence(timeout: .short))
+		app.buttons[AccessibilityIdentifiers.General.secondaryFooterButton].waitAndTap()
+
+		/// test certificate screen
 		app.buttons[AccessibilityIdentifiers.AccessibilityLabel.close].waitAndTap()
 
-		/// close alert
-		app.alerts.buttons[AccessibilityIdentifiers.ExposureSubmission.TestCertificate.Alert.cancelRegistration].waitAndTap()
-
 		/// home screen reached
-		app.cells[AccessibilityIdentifiers.Home.activateCardOffTitle].wait()
+		XCTAssertTrue(app.cells[AccessibilityIdentifiers.FamilyMemberCoronaTestCell.homeCell].exists)
+
 	}
 
 }
