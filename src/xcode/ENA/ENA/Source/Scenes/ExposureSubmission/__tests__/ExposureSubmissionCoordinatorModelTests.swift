@@ -612,7 +612,52 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 		waitForExpectations(timeout: .short)
 		XCTAssertEqual(isLoadingValues, expectedIsLoadingValues)
 	}
+	
+	func testGetFamilyMemberTestResultForPCRTestSucceeds() {
+		let expectedFamilyMemberCoronaTest: FamilyMemberCoronaTest = .pcr(.mock(testResult: .positive))
 
+		let coronaTestService = MockCoronaTestService()
+		let familyMemberCoronaTestService = MockFamilyMemberCoronaTestService()
+		familyMemberCoronaTestService.registerPCRTestAndGetResultResult = .success(expectedFamilyMemberCoronaTest)
+
+		let model = ExposureSubmissionCoordinatorModel(
+			exposureSubmissionService: MockExposureSubmissionService(),
+			coronaTestService: coronaTestService,
+			familyMemberCoronaTestService: familyMemberCoronaTestService,
+			eventProvider: MockEventStore()
+		)
+
+		let expectedIsLoadingValues = [true, false]
+		var isLoadingValues = [Bool]()
+
+		let isLoadingExpectation = expectation(description: "isLoading is called twice")
+		isLoadingExpectation.expectedFulfillmentCount = 2
+
+		let onSuccessExpectation = expectation(description: "onSuccess is called")
+
+		let onErrorExpectation = expectation(description: "onError is not called")
+		onErrorExpectation.isInverted = true
+		
+		model.registerFamilyMemberTestAndGetResult(
+			   for: "displayName",
+			   registrationInformation: .pcr(guid: "E1277F-E1277F24-4AD2-40BC-AFF8-CBCCCD893E4B", qrCodeHash: "qrCodeHash"),
+			   certificateConsent: .given(dateOfBirth: "2000-01-01"),
+			   isLoading: {
+				   isLoadingValues.append($0)
+				   isLoadingExpectation.fulfill()
+			   },
+			   onSuccess: { familyMemberCoronaTest in
+				   XCTAssertEqual(familyMemberCoronaTest.testResult, expectedFamilyMemberCoronaTest.testResult)
+
+				   onSuccessExpectation.fulfill()
+			   },
+			   onError: { _ in onErrorExpectation.fulfill() }
+		)
+
+		waitForExpectations(timeout: .short)
+		XCTAssertEqual(isLoadingValues, expectedIsLoadingValues)
+	}
+	
 	func testGetTestResultForPCRTestFails() {
 		let expectedError: CoronaTestServiceError = .testResultError(.invalidResponse)
 
@@ -657,6 +702,51 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 		XCTAssertEqual(isLoadingValues, expectedIsLoadingValues)
 	}
 
+	func testGetFamilyMemberTestResultForPCRTestFails() {
+		let expectedError: CoronaTestServiceError = .testResultError(.invalidResponse)
+
+		let coronaTestService = MockCoronaTestService()
+		let familyMemberCoronaTestService = MockFamilyMemberCoronaTestService()
+		familyMemberCoronaTestService.registerPCRTestAndGetResultResult = .failure(expectedError)
+
+		let model = ExposureSubmissionCoordinatorModel(
+			exposureSubmissionService: MockExposureSubmissionService(),
+			coronaTestService: coronaTestService,
+			familyMemberCoronaTestService: familyMemberCoronaTestService,
+			eventProvider: MockEventStore()
+		)
+		
+		let expectedIsLoadingValues = [true, false]
+		var isLoadingValues = [Bool]()
+
+		let isLoadingExpectation = expectation(description: "isLoading is called twice")
+		isLoadingExpectation.expectedFulfillmentCount = 2
+
+		let onSuccessExpectation = expectation(description: "onSuccess is not called")
+		onSuccessExpectation.isInverted = true
+
+		let onErrorExpectation = expectation(description: "onError is called")
+
+		model.registerFamilyMemberTestAndGetResult(
+			   for: "displayName",
+			   registrationInformation: .pcr(guid: "E1277F-E1277F24-4AD2-40BC-AFF8-CBCCCD893E4B", qrCodeHash: "qrCodeHash"),
+			   certificateConsent: .given(dateOfBirth: "2000-01-01"),
+			   isLoading: {
+				   isLoadingValues.append($0)
+				   isLoadingExpectation.fulfill()
+			   },
+			   onSuccess: { _ in onSuccessExpectation.fulfill() },
+			   onError: { error in
+				   XCTAssertEqual(error, expectedError)
+
+				   onErrorExpectation.fulfill()
+			   }
+		)
+
+		waitForExpectations(timeout: .short)
+		XCTAssertEqual(isLoadingValues, expectedIsLoadingValues)
+	}
+	
 	func testGetTestResultForPCRTestFromTeleTanSucceeds() {
 		let expectedTestResult: TestResult = .positive
 
@@ -789,6 +879,51 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 		XCTAssertEqual(isLoadingValues, expectedIsLoadingValues)
 	}
 
+	func testGetFamilyMemberTestResultForAntigenTestSucceeds() {
+		let expectedFamilyMemberCoronaTest: FamilyMemberCoronaTest = .antigen(.mock(testResult: .positive))
+
+		let coronaTestService = MockCoronaTestService()
+		let familyMemberCoronaTestService = MockFamilyMemberCoronaTestService()
+		familyMemberCoronaTestService.registerAntigenTestAndGetResultResult = .success(expectedFamilyMemberCoronaTest)
+
+		let model = ExposureSubmissionCoordinatorModel(
+			exposureSubmissionService: MockExposureSubmissionService(),
+			coronaTestService: coronaTestService,
+			familyMemberCoronaTestService: familyMemberCoronaTestService,
+			eventProvider: MockEventStore()
+		)
+
+		let expectedIsLoadingValues = [true, false]
+		var isLoadingValues = [Bool]()
+
+		let isLoadingExpectation = expectation(description: "isLoading is called twice")
+		isLoadingExpectation.expectedFulfillmentCount = 2
+
+		let onSuccessExpectation = expectation(description: "onSuccess is called")
+
+		let onErrorExpectation = expectation(description: "onError is not called")
+		onErrorExpectation.isInverted = true
+
+		model.registerFamilyMemberTestAndGetResult(
+			   for: "displayName",
+			   registrationInformation: .antigen(qrCodeInformation: .mock(), qrCodeHash: ""),
+			   certificateConsent: .given(dateOfBirth: "2000-01-01"),
+			   isLoading: {
+				   isLoadingValues.append($0)
+				   isLoadingExpectation.fulfill()
+			   },
+			   onSuccess: { familyMemberCoronaTest in
+				   XCTAssertEqual(familyMemberCoronaTest.testResult, expectedFamilyMemberCoronaTest.testResult)
+
+				   onSuccessExpectation.fulfill()
+			   },
+			   onError: { _ in onErrorExpectation.fulfill() }
+		)
+
+		waitForExpectations(timeout: .short)
+		XCTAssertEqual(isLoadingValues, expectedIsLoadingValues)
+	}
+	
 	func testGetTestResultForAntigenTestFails() {
 		let expectedError: CoronaTestServiceError = .testResultError(.invalidResponse)
 
@@ -833,6 +968,51 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 		XCTAssertEqual(isLoadingValues, expectedIsLoadingValues)
 	}
 
+	func testGetFamilyMemberTestResultForAntigenTestFails() {
+		let expectedError: CoronaTestServiceError = .testResultError(.invalidResponse)
+
+		let coronaTestService = MockCoronaTestService()
+		let familyMemberCoronaTestService = MockFamilyMemberCoronaTestService()
+		familyMemberCoronaTestService.registerAntigenTestAndGetResultResult = .failure(expectedError)
+
+		let model = ExposureSubmissionCoordinatorModel(
+			exposureSubmissionService: MockExposureSubmissionService(),
+			coronaTestService: coronaTestService,
+			familyMemberCoronaTestService: familyMemberCoronaTestService,
+			eventProvider: MockEventStore()
+		)
+
+		let expectedIsLoadingValues = [true, false]
+		var isLoadingValues = [Bool]()
+
+		let isLoadingExpectation = expectation(description: "isLoading is called twice")
+		isLoadingExpectation.expectedFulfillmentCount = 2
+
+		let onSuccessExpectation = expectation(description: "onSuccess is not called")
+		onSuccessExpectation.isInverted = true
+
+		let onErrorExpectation = expectation(description: "onError is called")
+
+		model.registerFamilyMemberTestAndGetResult(
+			   for: "displayName",
+			   registrationInformation: .antigen(qrCodeInformation: .mock(), qrCodeHash: ""),
+			   certificateConsent: .given(dateOfBirth: "2000-01-01"),
+			   isLoading: {
+				   isLoadingValues.append($0)
+				   isLoadingExpectation.fulfill()
+			   },
+			   onSuccess: { _ in onSuccessExpectation.fulfill() },
+			   onError: { error in
+				  XCTAssertEqual(error, expectedError)
+
+				  onErrorExpectation.fulfill()
+			   }
+		)
+
+		waitForExpectations(timeout: .short)
+		XCTAssertEqual(isLoadingValues, expectedIsLoadingValues)
+	}
+	
 	func testGetTestResultForRapidPCRTestSucceeds() {
 		let expectedTestResult: TestResult = .positive
 
@@ -877,6 +1057,51 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 		XCTAssertEqual(isLoadingValues, expectedIsLoadingValues)
 	}
 
+	func testGetFamilyMemberTestResultForRapidPCRTestSucceeds() {
+		let expectedFamilyMemberCoronaTest: FamilyMemberCoronaTest = .pcr(.mock(testResult: .positive))
+
+		let coronaTestService = MockCoronaTestService()
+		let familyMemberCoronaTestService = MockFamilyMemberCoronaTestService()
+		familyMemberCoronaTestService.registerRapidPCRTestAndGetResultResult = .success(expectedFamilyMemberCoronaTest)
+
+		let model = ExposureSubmissionCoordinatorModel(
+			exposureSubmissionService: MockExposureSubmissionService(),
+			coronaTestService: coronaTestService,
+			familyMemberCoronaTestService: familyMemberCoronaTestService,
+			eventProvider: MockEventStore()
+		)
+
+		let expectedIsLoadingValues = [true, false]
+		var isLoadingValues = [Bool]()
+
+		let isLoadingExpectation = expectation(description: "isLoading is called twice")
+		isLoadingExpectation.expectedFulfillmentCount = 2
+
+		let onSuccessExpectation = expectation(description: "onSuccess is called")
+
+		let onErrorExpectation = expectation(description: "onError is not called")
+		onErrorExpectation.isInverted = true
+
+		model.registerFamilyMemberTestAndGetResult(
+			for: "displayName",
+			registrationInformation: .rapidPCR(qrCodeInformation: .mock(), qrCodeHash: ""),
+			certificateConsent: .given(dateOfBirth: "2000-01-01"),
+			isLoading: {
+				isLoadingValues.append($0)
+				isLoadingExpectation.fulfill()
+			},
+		    onSuccess: { familyMemberCoronaTest in
+			   XCTAssertEqual(familyMemberCoronaTest.testResult, expectedFamilyMemberCoronaTest.testResult)
+
+			   onSuccessExpectation.fulfill()
+		    },
+			onError: { _ in onErrorExpectation.fulfill() }
+		)
+
+		waitForExpectations(timeout: .short)
+		XCTAssertEqual(isLoadingValues, expectedIsLoadingValues)
+	}
+	
 	func testGetTestResultForRapidPCRTestFails() {
 		let expectedError: CoronaTestServiceError = .testResultError(.invalidResponse)
 
@@ -921,4 +1146,48 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 		XCTAssertEqual(isLoadingValues, expectedIsLoadingValues)
 	}
 
+	func testGetFamilyMemberTestResultForRapidPCRTestFails() {
+		let expectedError: CoronaTestServiceError = .testResultError(.invalidResponse)
+
+		let coronaTestService = MockCoronaTestService()
+		let familyMemberCoronaTestService = MockFamilyMemberCoronaTestService()
+		familyMemberCoronaTestService.registerRapidPCRTestAndGetResultResult = .failure(expectedError)
+
+		let model = ExposureSubmissionCoordinatorModel(
+			exposureSubmissionService: MockExposureSubmissionService(),
+			coronaTestService: coronaTestService,
+			familyMemberCoronaTestService: familyMemberCoronaTestService,
+			eventProvider: MockEventStore()
+		)
+
+		let expectedIsLoadingValues = [true, false]
+		var isLoadingValues = [Bool]()
+
+		let isLoadingExpectation = expectation(description: "isLoading is called twice")
+		isLoadingExpectation.expectedFulfillmentCount = 2
+
+		let onSuccessExpectation = expectation(description: "onSuccess is not called")
+		onSuccessExpectation.isInverted = true
+
+		let onErrorExpectation = expectation(description: "onError is called")
+		
+		model.registerFamilyMemberTestAndGetResult(
+			for: "displayName",
+			registrationInformation: .rapidPCR(qrCodeInformation: .mock(), qrCodeHash: ""),
+			certificateConsent: .given(dateOfBirth: "2000-01-01"),
+			isLoading: {
+				isLoadingValues.append($0)
+				isLoadingExpectation.fulfill()
+			},
+			onSuccess: { _ in onSuccessExpectation.fulfill() },
+			onError: { error in
+				XCTAssertEqual(error, expectedError)
+
+				onErrorExpectation.fulfill()
+			}
+		)
+
+		waitForExpectations(timeout: .short)
+		XCTAssertEqual(isLoadingValues, expectedIsLoadingValues)
+	}
 }
