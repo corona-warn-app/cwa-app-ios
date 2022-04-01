@@ -2730,5 +2730,51 @@ enum AppStrings {
 			static let serviceProviderErrorNoMatchTitle = NSLocalizedString("TicketValidation_Error_serviceProviderErrorNoMatchTitle", comment: "")
 		}
 	}
+
+	enum FamilyMemberCoronaTest {
+		static let title = NSLocalizedString("FamilyMemberCoronaTest_title", comment: "")
+		static let deleteAllButtonTitle = NSLocalizedString("FamilyMemberCoronaTest_deleteAllButtonTitle", comment: "")
+
+		static let pcrCaption = NSLocalizedString("FamilyMemberCoronaTest_pcrCaption", comment: "")
+		static let antigenCaption = NSLocalizedString("FamilyMemberCoronaTest_antigenCaption", comment: "")
+
+		static let pcrDate = NSLocalizedString("FamilyMemberCoronaTest_pcrDate", comment: "")
+		static let antigenDate = NSLocalizedString("FamilyMemberCoronaTest_antigenDate", comment: "")
+
+		static let pendingDiagnosis = NSLocalizedString("FamilyMemberCoronaTest_pendingDiagnosis", comment: "")
+		static let pendingPCRDescription = NSLocalizedString("FamilyMemberCoronaTest_pendingPCRDescription", comment: "")
+		static let pendingAntigenDescription = NSLocalizedString("FamilyMemberCoronaTest_pendingAntigenDescription", comment: "")
+
+		static let negativeTopDiagnosis = NSLocalizedString("FamilyMemberCoronaTest_negativeTopDiagnosis", comment: "")
+		static let negativeBottomDiagnosis = NSLocalizedString("FamilyMemberCoronaTest_negativeBottomDiagnosis", comment: "")
+
+		static let positiveTopDiagnosis = NSLocalizedString("FamilyMemberCoronaTest_positiveTopDiagnosis", comment: "")
+		static let positiveBottomDiagnosis = NSLocalizedString("FamilyMemberCoronaTest_positiveBottomDiagnosis", comment: "")
+
+		static let invalidDiagnosis = NSLocalizedString("FamilyMemberCoronaTest_invalidDiagnosis", comment: "")
+		static let invalidDescription = NSLocalizedString("FamilyMemberCoronaTest_invalidDescription", comment: "")
+
+		static let outdatedDiagnosis = NSLocalizedString("FamilyMemberCoronaTest_outdatedDiagnosis", comment: "")
+		static let outdatedDescription = NSLocalizedString("FamilyMemberCoronaTest_outdatedDescription", comment: "")
+		static let outdatedButtonTitle = NSLocalizedString("FamilyMemberCoronaTest_outdatedButtonTitle", comment: "")
+
+		static let expiredDiagnosis = NSLocalizedString("FamilyMemberCoronaTest_expiredDiagnosis", comment: "")
+		static let expiredDescription = NSLocalizedString("FamilyMemberCoronaTest_expiredDescription", comment: "")
+		static let expiredButtonTitle = NSLocalizedString("FamilyMemberCoronaTest_expiredButtonTitle", comment: "")
+
+		enum DeleteOneAlert {
+			   static let title = NSLocalizedString("FamilyMemberCoronaTest_DeleteOne_AlertTitle", comment: "")
+			   static let message = NSLocalizedString("FamilyMemberCoronaTest_DeleteOne_AlertMessage", comment: "")
+			   static let confirmButtonTitle = NSLocalizedString("FamilyMemberCoronaTest_DeleteOne_AlertConfirmButtonTitle", comment: "")
+			   static let cancelButtonTitle = NSLocalizedString("FamilyMemberCoronaTest_DeleteOne_AlertCancelButtonTitle", comment: "")
+		   }
+
+		   enum DeleteAllAlert {
+			   static let title = NSLocalizedString("FamilyMemberCoronaTest_DeleteAll_AlertTitle", comment: "")
+			   static let message = NSLocalizedString("FamilyMemberCoronaTest_DeleteAll_AlertMessage", comment: "")
+			   static let confirmButtonTitle = NSLocalizedString("FamilyMemberCoronaTest_DeleteAll_AlertConfirmButtonTitle", comment: "")
+			   static let cancelButtonTitle = NSLocalizedString("FamilyMemberCoronaTest_DeleteAll_AlertCancelButtonTitle", comment: "")
+		   }
+	}
 	// swiftlint:disable:next file_length
 }

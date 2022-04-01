@@ -112,7 +112,19 @@ class MockCoronaTestService: CoronaTestServiceProviding {
 		presentNotification: Bool,
 		completion: @escaping TestResultHandler
 	) {
+		switch coronaTestType {
+		case .pcr:
+			pcrTestResultIsLoading.value = true
+		case .antigen:
+			antigenTestResultIsLoading.value = true
+		}
 		onUpdateTestResult(coronaTestType, force, presentNotification)
+		switch coronaTestType {
+		case .pcr:
+			pcrTestResultIsLoading.value = false
+		case .antigen:
+			antigenTestResultIsLoading.value = false
+		}
 		completion(updateTestResultResult ?? .failure(.noCoronaTestOfRequestedType))
 	}
 

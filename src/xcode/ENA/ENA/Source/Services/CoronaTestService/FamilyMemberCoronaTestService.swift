@@ -374,6 +374,12 @@ class FamilyMemberCoronaTestService: FamilyMemberCoronaTestServiceProviding {
 		}
 	}
 
+	func moveAllTestsToBin() {
+		for coronaTest in coronaTests.value {
+			moveTestToBin(coronaTest)
+		}
+	}
+
 	func moveTestToBin(_ coronaTest: FamilyMemberCoronaTest) {
 		Log.info("[FamilyMemberCoronaTestService] Moving test to bin (coronaTest: \(private: coronaTest)", log: .api)
 
@@ -390,11 +396,17 @@ class FamilyMemberCoronaTestService: FamilyMemberCoronaTestServiceProviding {
 		coronaTests.value.remove(at: index)
 	}
 
-	func evaluateShowing(of coronaTest: FamilyMemberCoronaTest) {
+	func evaluateShowing(of coronaTest: FamilyMemberCoronaTest, keepMarkedAsNew: Bool) {
 		Log.info("[FamilyMemberCoronaTestService] Evaluating showing test (coronaTest: \(private: coronaTest))", log: .api)
 
+		guard let updatedCoronaTest = upToDateTest(for: coronaTest) else {
+			return
+		}
+
+		let wasNew = updatedCoronaTest.isNew
+
 		coronaTests.value.modify(coronaTest) {
-			$0.isNew = false
+			$0.isNew = wasNew ? keepMarkedAsNew : false
 			$0.testResultWasShown = coronaTest.finalTestResultReceivedDate != nil
 		}
 	}
@@ -403,7 +415,7 @@ class FamilyMemberCoronaTestService: FamilyMemberCoronaTestServiceProviding {
 		Log.info("[FamilyMemberCoronaTestService] Evaluating showing all tests", log: .api)
 
 		coronaTests.value.forEach {
-			evaluateShowing(of: $0)
+			evaluateShowing(of: $0, keepMarkedAsNew: false)
 		}
 	}
 
