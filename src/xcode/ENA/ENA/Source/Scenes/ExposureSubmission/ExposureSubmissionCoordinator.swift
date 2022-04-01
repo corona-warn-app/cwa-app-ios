@@ -588,12 +588,8 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 		
 		let vc = ExposureSubmissionTestResultViewController(
 			viewModel: viewModel,
-			onDismiss: { [weak self] testResult, isLoading in
-				if testResult == TestResult.positive {
-					self?.showPositiveTestResultCancelAlert(isLoading: isLoading)
-				} else {
-					self?.dismiss()
-				}
+			onDismiss: { [weak self] _, _ in
+				self?.dismiss()
 			}
 		)
 		
