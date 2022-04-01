@@ -146,7 +146,7 @@ class FamilyMemberCoronaTestsViewModel {
 
 		coronaTestCellModels = coronaTests
 			.sorted {
-				$0.registrationDate > $1.registrationDate
+				$0.testDate > $1.testDate
 			}
 			.map { coronaTest in
 				FamilyMemberCoronaTestCellModel(
