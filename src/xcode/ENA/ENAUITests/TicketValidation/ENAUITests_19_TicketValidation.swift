@@ -74,6 +74,8 @@ class ENAUITests_19_TicketValidation: CWATestCase {
 		let ticketValidationButton = try XCTUnwrap(app.buttons[AccessibilityIdentifiers.UniversalQRScanner.fakeTicketValidation])
 		ticketValidationButton.waitAndTap()
 		
+		XCTFail()
+		
 		/// check for the content on first consent screen
 		XCTAssertTrue(app.cells[AccessibilityIdentifiers.TicketValidation.FirstConsent.legalBox].waitForExistence(timeout: .short))
 		
