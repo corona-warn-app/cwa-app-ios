@@ -100,7 +100,6 @@ class HomeStatisticsCardView: UIView {
 
 			return accessibilityElements
 		}
-		// swiftlint:disable:next unused_setter_value
 		set { }
 	}
 
