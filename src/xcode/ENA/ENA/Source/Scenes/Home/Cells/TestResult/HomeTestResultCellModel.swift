@@ -241,11 +241,11 @@ class HomeTestResultCellModel {
 		footnote = nil
 		buttonTitle = AppStrings.Home.TestResult.Button.deleteTest
 		image = UIImage(named: "Illu_Hand_with_phone-pending")
-		isDisclosureIndicatorHidden = false
+		isDisclosureIndicatorHidden = true
 		isNegativeDiagnosisHidden = true
 		isActivityIndicatorHidden = true
 		isUserInteractionEnabled = true
-		isCellTappable = true
+		isCellTappable = false
 
 		switch coronaTestType {
 		case .pcr:
@@ -260,7 +260,7 @@ class HomeTestResultCellModel {
 		description = AppStrings.Home.TestResult.Outdated.description
 		footnote = nil
 		buttonTitle = AppStrings.Home.TestResult.Button.hideTest
-		image = UIImage(named: "Illu_Hand_with_phone-pending")
+		image = UIImage(named: "Illu_Home_OutdatedTestErgebnis")
 		isDisclosureIndicatorHidden = true
 		isNegativeDiagnosisHidden = true
 		isActivityIndicatorHidden = true
