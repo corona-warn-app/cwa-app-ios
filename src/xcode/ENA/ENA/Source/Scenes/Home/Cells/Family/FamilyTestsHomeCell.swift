@@ -30,12 +30,14 @@ class FamilyTestsHomeCell: UITableViewCell, ReuseIdentifierProviding {
 
 	func configure(with viewModel: FamilyTestsHomeCellViewModel) {
 		subscriptions.removeAll()
-		viewModel.badgeCount.sink { [weak self] _ in
-			self?.badgeView.setBadge(viewModel.badgeText, animated: true)
-			self?.detailsLabel.text = viewModel.detailText
-			self?.detailsLabel.isHidden = viewModel.isDetailsHidden
-		}
-		.store(in: &subscriptions)
+		viewModel.badgeCount
+			.receive(on: DispatchQueue.main.ocombine)
+			.sink { [weak self] _ in
+				self?.badgeView.setBadge(viewModel.badgeText, animated: true)
+				self?.detailsLabel.text = viewModel.detailText
+				self?.detailsLabel.isHidden = viewModel.isDetailsHidden
+			}
+			.store(in: &subscriptions)
 	}
 
 	// MARK: - Private
