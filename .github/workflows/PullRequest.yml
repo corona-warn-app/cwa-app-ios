@@ -38,7 +38,6 @@ jobs:
             src/xcode/.bundle
           key: ${{ runner.os }}-${{ env.cache-name }}-${{ hashFiles('src/xcode/Gemfile.lock') }}
 
-          
   buildForTesting:
     runs-on: self-hosted
     needs: dependencies
@@ -92,7 +91,7 @@ jobs:
           cd src/xcode
           arch -arm64 bundle exec fastlane lint
       - name: Archive swiftlint report
-        if: always()
+        if: failure()
         uses: actions/upload-artifact@v2
         with:
           name: swiftlint-${{ github.sha }}
@@ -150,8 +149,13 @@ jobs:
         run: |
           cd src/xcode
           arch -arm64 bundle exec fastlane test_without_building testplan:UnitTests
-
-
+      - name: Archive xcresult
+        if: failure()
+        uses: actions/upload-artifact@v2
+        with:
+          name: xcresult-${{ github.sha }}
+          path: src/xcode/fastlane/test_output/ENA.xcresult.zip
+          
   runUITests:
     runs-on: self-hosted
     needs: buildForTesting
@@ -185,6 +189,12 @@ jobs:
         run: |
           cd src/xcode
           arch -arm64 bundle exec fastlane test_without_building testplan:UITests
+      - name: Archive xcresult
+        if: failure()
+        uses: actions/upload-artifact@v2
+        with:
+          name: xcresult-${{ github.sha }}
+          path: src/xcode/fastlane/test_output/ENA.xcresult.zip
 
   runScreenshotTests:
     runs-on: self-hosted
@@ -219,3 +229,9 @@ jobs:
         run: |
           cd src/xcode
           arch -arm64 bundle exec fastlane screenshot languages:"de-DE" mode:"light"
+      - name: Archive xcresult
+        if: failure()
+        uses: actions/upload-artifact@v2
+        with:
+          name: xcresult-${{ github.sha }}
+          path: src/xcode/fastlane/test_output/ENA.xcresult.zip
