@@ -146,35 +146,22 @@ class HealthCertificateService: HealthCertificateServiceServable {
 
 			self.updateGradients()
 			
-			let dispatchGroup = DispatchGroup()
-
-			dispatchGroup.enter()
-			self.subscribeAppConfigUpdates(completion: {
-				dispatchGroup.leave()
-			})
-			
-			dispatchGroup.enter()
-			self.subscribeDSCListChanges(completion: {
-				dispatchGroup.leave()
-			})
+			self.subscribeAppConfigUpdates()
+			self.subscribeDSCListChanges()
 			
 			self.scheduleTimer()
 
 			if updatingWalletInfos {
-				dispatchGroup.enter()
 				self.updateDCCWalletInfosIfNeeded {
 					Log.info("[HealthCertificateService] Setup finished including wallet info updates", log: .background)
 					self.isSetUp = true
-					dispatchGroup.leave()
+					completion()
 				}
 			} else {
 				Log.info("[HealthCertificateService] Setup finished without wallet info updates", log: .background)
 				self.isSetUp = true
-			}
-			
-			dispatchGroup.notify(queue: .main, execute: {
 				completion()
-			})
+			}
 		}
 	}
 
@@ -606,30 +593,22 @@ class HealthCertificateService: HealthCertificateServiceServable {
 	private var healthCertifiedPersonSubscriptions = Set<AnyCancellable>()
 	private var subscriptions = Set<AnyCancellable>()
 
-	private func subscribeAppConfigUpdates(
-		completion: @escaping () -> Void
-	) {
+	private func subscribeAppConfigUpdates() {
 		// subscribe app config updates
 		appConfiguration.currentAppConfig
 			.dropFirst()
 			.sink { [weak self] _ in
-				self?.updateValidityStatesAndNotifications(
-					completion: completion
-				)
+				self?.updateValidityStatesAndNotifications(completion: { })
 			}
 			.store(in: &subscriptions)
 	}
 
-	private func subscribeDSCListChanges(
-		completion: @escaping () -> Void
-	) {
+	private func subscribeDSCListChanges() {
 		// subscribe to changes of dcc certificates list
 		dscListProvider.signingCertificates
 			.dropFirst()
 			.sink { [weak self] _ in
-				self?.updateValidityStatesAndNotifications(
-					completion: completion
-				)
+				self?.updateValidityStatesAndNotifications(completion: { })
 			}
 			.store(in: &subscriptions)
 	}
