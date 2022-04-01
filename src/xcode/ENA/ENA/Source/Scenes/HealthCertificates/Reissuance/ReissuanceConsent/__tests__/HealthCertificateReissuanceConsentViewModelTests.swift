@@ -467,6 +467,7 @@ class HealthCertificateServiceSpy: HealthCertificateServiceServable {
 		completedNotificationRegistration: @escaping () -> Void
 	) throws {
 			didCallReplaceHealthCertificate = true
+			completedNotificationRegistration()
 	}
 	
 }

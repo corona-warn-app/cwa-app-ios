@@ -174,10 +174,10 @@ final class HealthCertificateReissuanceConsentViewModel {
 								with: certificate.certificate,
 								for: self.certifiedPerson,
 								markAsNew: true,
-								completedNotificationRegistration: {
-									completion(.success(()))
-								}
+								completedNotificationRegistration: { }
 							)
+							
+							completion(.success(()))
 							
 							Log.error("Certificate reissuance was successful.", log: .vaccination)
 						} catch {
