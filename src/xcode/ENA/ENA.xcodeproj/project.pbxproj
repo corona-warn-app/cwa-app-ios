@@ -274,6 +274,12 @@
 		01A636D027EB41C5001F5CB1 /* FamilyMemberCoronaTestServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A636CF27EB41C5001F5CB1 /* FamilyMemberCoronaTestServiceTests.swift */; };
 		01A636D227EB4630001F5CB1 /* MockFamilyMemberCoronaTestService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A636D127EB4630001F5CB1 /* MockFamilyMemberCoronaTestService.swift */; };
 		01A636D627EB63CC001F5CB1 /* FamilyMemberAntigenTest+Mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A636D427EB63CB001F5CB1 /* FamilyMemberAntigenTest+Mock.swift */; };
+		01A636DB27F1CB32001F5CB1 /* FamilyMemberCoronaTestTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A636D827EE0B3E001F5CB1 /* FamilyMemberCoronaTestTableViewCell.swift */; };
+		01A636DC27F1CB32001F5CB1 /* FamilyMemberCoronaTestCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A636DA27EE0B3E001F5CB1 /* FamilyMemberCoronaTestCellModel.swift */; };
+		01A636DD27F1CB32001F5CB1 /* FamilyMemberCoronaTestTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01A636D927EE0B3E001F5CB1 /* FamilyMemberCoronaTestTableViewCell.xib */; };
+		01A636E027F35B87001F5CB1 /* FamilyMemberCoronaTestsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A636DE27F35B87001F5CB1 /* FamilyMemberCoronaTestsViewController.swift */; };
+		01A636E127F35B87001F5CB1 /* FamilyMemberCoronaTestsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A636DF27F35B87001F5CB1 /* FamilyMemberCoronaTestsViewModel.swift */; };
+		01A636E327F37ACF001F5CB1 /* FamilyMemberCoronaTestsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A636E227F37ACF001F5CB1 /* FamilyMemberCoronaTestsCoordinator.swift */; };
 		01A6C2F62626DE1300B6E95A /* HomeTestRegistrationCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A6C2E82626D71700B6E95A /* HomeTestRegistrationCellModel.swift */; };
 		01A6C2FA2626DE1800B6E95A /* HomeTestRegistrationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A6C2E72626D71700B6E95A /* HomeTestRegistrationTableViewCell.swift */; };
 		01A6C2FE2626DE2200B6E95A /* HomeTestRegistrationTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01A6C2E92626D71700B6E95A /* HomeTestRegistrationTableViewCell.xib */; };
@@ -2033,6 +2039,12 @@
 		01A636D127EB4630001F5CB1 /* MockFamilyMemberCoronaTestService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockFamilyMemberCoronaTestService.swift; sourceTree = "<group>"; };
 		01A636D327EB63CB001F5CB1 /* FamilyMemberPCRTest+Mock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FamilyMemberPCRTest+Mock.swift"; sourceTree = "<group>"; };
 		01A636D427EB63CB001F5CB1 /* FamilyMemberAntigenTest+Mock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FamilyMemberAntigenTest+Mock.swift"; sourceTree = "<group>"; };
+		01A636D827EE0B3E001F5CB1 /* FamilyMemberCoronaTestTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FamilyMemberCoronaTestTableViewCell.swift; sourceTree = "<group>"; };
+		01A636D927EE0B3E001F5CB1 /* FamilyMemberCoronaTestTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FamilyMemberCoronaTestTableViewCell.xib; sourceTree = "<group>"; };
+		01A636DA27EE0B3E001F5CB1 /* FamilyMemberCoronaTestCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FamilyMemberCoronaTestCellModel.swift; sourceTree = "<group>"; };
+		01A636DE27F35B87001F5CB1 /* FamilyMemberCoronaTestsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FamilyMemberCoronaTestsViewController.swift; sourceTree = "<group>"; };
+		01A636DF27F35B87001F5CB1 /* FamilyMemberCoronaTestsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FamilyMemberCoronaTestsViewModel.swift; sourceTree = "<group>"; };
+		01A636E227F37ACF001F5CB1 /* FamilyMemberCoronaTestsCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FamilyMemberCoronaTestsCoordinator.swift; sourceTree = "<group>"; };
 		01A6C2E22626D71600B6E95A /* HomeTestResultCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTestResultCellModel.swift; sourceTree = "<group>"; };
 		01A6C2E32626D71600B6E95A /* HomeTestResultTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomeTestResultTableViewCell.xib; sourceTree = "<group>"; };
 		01A6C2E52626D71600B6E95A /* HomeTestResultCellModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTestResultCellModelTests.swift; sourceTree = "<group>"; };
@@ -4420,6 +4432,19 @@
 				BA0F6C57263186690046BA48 /* AntigenTestProfileInput */,
 			);
 			path = AntigenTestProfile;
+			sourceTree = "<group>";
+		};
+		01A636D727EE0B0D001F5CB1 /* FamilyMemberCoronaTests */ = {
+			isa = PBXGroup;
+			children = (
+				01A636E227F37ACF001F5CB1 /* FamilyMemberCoronaTestsCoordinator.swift */,
+				01A636DE27F35B87001F5CB1 /* FamilyMemberCoronaTestsViewController.swift */,
+				01A636DF27F35B87001F5CB1 /* FamilyMemberCoronaTestsViewModel.swift */,
+				01A636D827EE0B3E001F5CB1 /* FamilyMemberCoronaTestTableViewCell.swift */,
+				01A636D927EE0B3E001F5CB1 /* FamilyMemberCoronaTestTableViewCell.xib */,
+				01A636DA27EE0B3E001F5CB1 /* FamilyMemberCoronaTestCellModel.swift */,
+			);
+			path = FamilyMemberCoronaTests;
 			sourceTree = "<group>";
 		};
 		01A6C2E12626D71600B6E95A /* TestRegistration */ = {
@@ -6877,6 +6902,8 @@
 		85D759712457059A008175F0 /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
+				01A636D727EE0B0D001F5CB1 /* FamilyMemberCoronaTests */,
+				01992EC827D2731900BC16DA /* LoadingScreen */,
 				01A4DFD12653D3DE00F13432 /* AntigenTestProfile */,
 				71176E30248957B1004B0C9F /* App */,
 				EE85998B2462EFD4002E7AE2 /* AppInformation */,
@@ -10337,6 +10364,7 @@
 				01E1027A266BCD2B009ED803 /* TestCertificateRequestTableViewCell.xib in Resources */,
 				01EA17BB2591344F00E98E02 /* HomeExposureLoggingTableViewCell.xib in Resources */,
 				01B72C032583B71100A3E3BC /* DiaryEditEntriesViewController.xib in Resources */,
+				01A636DD27F1CB32001F5CB1 /* FamilyMemberCoronaTestTableViewCell.xib in Resources */,
 				01D026C2258BACCE00B6389A /* ExposureDetectionLinkCell.xib in Resources */,
 				01D02692258BA0AD00B6389A /* ExposureDetectionLongGuideCell.xib in Resources */,
 				01D026BF258BACCE00B6389A /* ExposureDetectionGuideCell.xib in Resources */,
@@ -10731,6 +10759,7 @@
 				50EE7606274685E0003DE929 /* SecondTicketValidationConsentViewController.swift in Sources */,
 				AB0246DB2716D732002668A1 /* RecycleBinRestorationHandling.swift in Sources */,
 				5015D2D627A1774B007D8763 /* CCLConfigurationResource.swift in Sources */,
+				01A636DC27F1CB32001F5CB1 /* FamilyMemberCoronaTestCellModel.swift in Sources */,
 				01DE60752744EF3F00E12FA4 /* TicketValidationInitializationData.swift in Sources */,
 				013C413D255463A400826C9F /* DMDebugRiskCalculationViewController.swift in Sources */,
 				01BB00D0274FDAD70065D1D1 /* TicketValidationConditions.swift in Sources */,
@@ -10773,6 +10802,7 @@
 				AB76C4BB2695EEFB009ADEB0 /* AntigenTestProfileInputDescriptionCell.swift in Sources */,
 				BA981AFC278DBA250057C343 /* DCCRulesResource.swift in Sources */,
 				01F2A5DD25820EE700DA96A6 /* DiaryDayViewModel.swift in Sources */,
+				01A636DB27F1CB32001F5CB1 /* FamilyMemberCoronaTestTableViewCell.swift in Sources */,
 				0197761427EA6052009C6A8A /* FamilyMemberCoronaTestServiceProviding.swift in Sources */,
 				BA3A79C42631B80600B6D6C0 /* AntigenTestProfileInformationViewController.swift in Sources */,
 				2F3D953C2518BCE9002B2C81 /* EUSettingsViewModel.swift in Sources */,
@@ -11133,6 +11163,7 @@
 				B184A380248FFCBE007180F6 /* SecureStore.swift in Sources */,
 				01E1C94B274FB5A0007FD7B3 /* TicketValidationAccessTokenSendModel.swift in Sources */,
 				8F499B092682357D0047C1A6 /* ManageStatisticsCardsViewModel.swift in Sources */,
+				01A636E027F35B87001F5CB1 /* FamilyMemberCoronaTestsViewController.swift in Sources */,
 				0138F6FA25F66E8D00A9B075 /* TraceLocationPrintVersionViewModel.swift in Sources */,
 				019E2F0726A05196000EC4AD /* HealthCertificateValidityState.swift in Sources */,
 				ABA146C927E3481F0096A44E /* DownloadedPackagesStoreV3.swift in Sources */,
@@ -11313,6 +11344,7 @@
 				AB4DA4BC27DFAA990092F42D /* UITableView+Utils.swift in Sources */,
 				347FBB752611C9F100672770 /* TraceLocationDetailsDateTimeCell.swift in Sources */,
 				BA056F1B259B89B50022B0A4 /* RiskLegendDotBodyCell.swift in Sources */,
+				01A636E127F35B87001F5CB1 /* FamilyMemberCoronaTestsViewModel.swift in Sources */,
 				BAE20FF325C8321300162966 /* DMKeyValueTableViewCell.swift in Sources */,
 				94092541254BFE6800FE61A2 /* DMWarnOthersNotificationViewController.swift in Sources */,
 				505936942625BF7000D40216 /* ExposureSubmissionSuccessViewController.swift in Sources */,
@@ -11527,6 +11559,7 @@
 				BAFC6AC026A71F7900F18BBE /* DSCListMetaData.swift in Sources */,
 				71EF33DB2497F419007B7E1B /* ENANavigationFooterItem.swift in Sources */,
 				BABAA5A826BC122F003A64AE /* AppFeatureProviding.swift in Sources */,
+				01A636E327F37ACF001F5CB1 /* FamilyMemberCoronaTestsCoordinator.swift in Sources */,
 				BAF5371B25E7D1A300C835E2 /* UIImage+Resize.swift in Sources */,
 				01F6702725FF80490069C4F9 /* CheckinsOverviewViewModel.swift in Sources */,
 				BA91611F27ECD32A0076BC6B /* FamilyTestsHomeCellViewModel.swift in Sources */,

@@ -72,13 +72,15 @@ class MockFamilyMemberCoronaTestService: FamilyMemberCoronaTestServiceProviding 
 		completion(updateTestResultResult ?? .failure(.noRegistrationToken))
 	}
 
+	func moveAllTestsToBin() {}
+
 	func moveTestToBin(_ coronaTest: FamilyMemberCoronaTest) {
 		onMoveTestToBin(coronaTest)
 	}
 
 	func removeTest(_ coronaTest: FamilyMemberCoronaTest) {}
 
-	func evaluateShowing(of coronaTest: FamilyMemberCoronaTest) {}
+	func evaluateShowing(of coronaTest: FamilyMemberCoronaTest, keepMarkedAsNew: Bool) {}
 
 	func evaluateShowingAllTests() {}
 

@@ -10,7 +10,7 @@ class FamilyTestsHomeCellViewModelTests: XCTestCase {
 	func testGIVEN_BadgeCountIsZero_WHEN_detailsText_THEN_isHidden() {
 		// GIVEN
 		let familyMemberCoronaTestService = MockFamilyMemberCoronaTestService()
-		let viewModel = FamilyTestsHomeCellViewModel(familyMemberCoronaTestService: familyMemberCoronaTestService)
+		let viewModel = FamilyTestsHomeCellViewModel(familyMemberCoronaTestService: familyMemberCoronaTestService, onUpdate: {})
 
 		// WHEN
 		let title = viewModel.titleText
@@ -29,7 +29,7 @@ class FamilyTestsHomeCellViewModelTests: XCTestCase {
 		// GIVEN
 		let familyMemberCoronaTestService = MockFamilyMemberCoronaTestService()
 		familyMemberCoronaTestService.unseenNewsCount = 10
-		let viewModel = FamilyTestsHomeCellViewModel(familyMemberCoronaTestService: familyMemberCoronaTestService)
+		let viewModel = FamilyTestsHomeCellViewModel(familyMemberCoronaTestService: familyMemberCoronaTestService, onUpdate: {})
 
 		// WHEN
 		let title = viewModel.titleText
