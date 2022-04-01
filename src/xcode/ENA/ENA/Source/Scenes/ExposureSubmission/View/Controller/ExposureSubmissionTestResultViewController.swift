@@ -11,11 +11,9 @@ class ExposureSubmissionTestResultViewController: DynamicTableViewController, Fo
 
 	init(
 		viewModel: ExposureSubmissionTestResultModeling,
-		exposureSubmissionService: ExposureSubmissionService,
 		onDismiss: @escaping (TestResult, @escaping (Bool) -> Void) -> Void
 	) {
 		self.viewModel = viewModel
-		self.exposureSubmissionService = exposureSubmissionService
 		self.onDismiss = onDismiss
 		super.init(nibName: nil, bundle: nil)
 	}
@@ -79,7 +77,6 @@ class ExposureSubmissionTestResultViewController: DynamicTableViewController, Fo
 	// MARK: - Private
 	
 	private let onDismiss: (TestResult, @escaping (Bool) -> Void) -> Void
-	private let exposureSubmissionService: ExposureSubmissionService
 	private let viewModel: ExposureSubmissionTestResultModeling
 
 	private var bindings: [AnyCancellable] = []
@@ -162,7 +159,6 @@ class ExposureSubmissionTestResultViewController: DynamicTableViewController, Fo
 			.store(in: &bindings)
 		
 		viewModel.footerViewModelPublisher
-			.dropFirst()
 			.sink { [weak self] footerViewModel in
 				guard let self = self, let footerViewModel = footerViewModel else { return }
 				guard let topBottomViewController = self.parent as? TopBottomContainerViewController<ExposureSubmissionTestResultViewController, FooterViewController> else { return }
