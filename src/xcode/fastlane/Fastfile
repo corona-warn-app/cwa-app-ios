@@ -30,7 +30,7 @@ platform :ios do
     setup_circle_ci
 
     if is_ci
-      xcode_select("/Applications/Xcode_13_2_1.app")
+      #xcode_select("/Applications/Xcode_13_2_1.app") # Uncommented until we are self hosted 100%
       xcversion(version: "~> 13.2.0")
     end
   end
