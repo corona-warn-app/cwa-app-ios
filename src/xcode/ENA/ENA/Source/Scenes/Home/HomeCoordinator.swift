@@ -332,6 +332,7 @@ class HomeCoordinator: RequiresAppDependencies {
 		familyMemberCoronaTestsCoordinator = FamilyMemberCoronaTestsCoordinator(
 			parentNavigationController: rootViewController,
 			familyMemberCoronaTestService: familyMemberCoronaTestService,
+			appConfigurationProvider: appConfigurationProvider,
 			store: store,
 			healthCertificateService: healthCertificateService,
 			healthCertificateValidationService: healthCertificateValidationService,

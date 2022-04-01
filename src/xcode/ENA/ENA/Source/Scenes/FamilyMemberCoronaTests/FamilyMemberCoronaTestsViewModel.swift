@@ -12,10 +12,12 @@ class FamilyMemberCoronaTestsViewModel {
 
 	init(
 		familyMemberCoronaTestService: FamilyMemberCoronaTestServiceProviding,
+		appConfigurationProvider: AppConfigurationProviding,
 		onCoronaTestCellTap: @escaping (FamilyMemberCoronaTest) -> Void,
 		onLastDeletion: @escaping () -> Void
 	) {
 		self.familyMemberCoronaTestService = familyMemberCoronaTestService
+		self.appConfigurationProvider = appConfigurationProvider
 		self.onCoronaTestCellTap = onCoronaTestCellTap
 
 		familyMemberCoronaTestService.coronaTests
@@ -131,6 +133,7 @@ class FamilyMemberCoronaTestsViewModel {
 	// MARK: - Private
 
 	private let familyMemberCoronaTestService: FamilyMemberCoronaTestServiceProviding
+	private let appConfigurationProvider: AppConfigurationProviding
 	private let onCoronaTestCellTap: (FamilyMemberCoronaTest) -> Void
 
 	private var subscriptions: [AnyCancellable] = []
@@ -149,6 +152,7 @@ class FamilyMemberCoronaTestsViewModel {
 				FamilyMemberCoronaTestCellModel(
 					coronaTest: coronaTest,
 					familyMemberCoronaTestService: familyMemberCoronaTestService,
+					appConfigurationProvider: appConfigurationProvider,
 					onUpdate: { [weak self] in
 						self?.onUpdate?()
 					}

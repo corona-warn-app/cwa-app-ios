@@ -13,10 +13,12 @@ class FamilyMemberCoronaTestCellModel {
 	init(
 		coronaTest: FamilyMemberCoronaTest,
 		familyMemberCoronaTestService: FamilyMemberCoronaTestServiceProviding,
+		appConfigurationProvider: AppConfigurationProviding,
 		onUpdate: @escaping () -> Void
 	) {
 		self.coronaTest = coronaTest
 		self.familyMemberCoronaTestService = familyMemberCoronaTestService
+		self.appConfigurationProvider = appConfigurationProvider
 		self.onUpdate = onUpdate
 
 		setup()
@@ -44,6 +46,7 @@ class FamilyMemberCoronaTestCellModel {
 	// MARK: - Private
 
 	private let familyMemberCoronaTestService: FamilyMemberCoronaTestServiceProviding
+	private let appConfigurationProvider: AppConfigurationProviding
 	private let onUpdate: () -> Void
 
 	private var isConfigured = false
@@ -200,7 +203,10 @@ class FamilyMemberCoronaTestCellModel {
 	private func configureTestResultOutdated() {
 		topDiagnosis = AppStrings.FamilyMemberCoronaTest.outdatedDiagnosis
 		bottomDiagnosis = nil
-		description = AppStrings.FamilyMemberCoronaTest.outdatedDescription
+		description = String(
+			format: AppStrings.FamilyMemberCoronaTest.outdatedDescription,
+			appConfigurationProvider.currentAppConfig.value.coronaTestParameters.coronaRapidAntigenTestParameters.hoursToDeemTestOutdated
+		)
 		footnote = nil
 		buttonTitle = AppStrings.FamilyMemberCoronaTest.outdatedButtonTitle
 		image = UIImage(named: "FamilyMember_CoronaTest_outdated")

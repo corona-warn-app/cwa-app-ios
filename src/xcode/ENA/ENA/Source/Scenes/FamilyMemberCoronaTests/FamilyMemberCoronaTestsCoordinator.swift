@@ -12,6 +12,7 @@ class FamilyMemberCoronaTestsCoordinator {
 	init(
 		parentNavigationController: UINavigationController,
 		familyMemberCoronaTestService: FamilyMemberCoronaTestServiceProviding,
+		appConfigurationProvider: AppConfigurationProviding,
 		store: HealthCertificateStoring,
 		healthCertificateService: HealthCertificateService,
 		healthCertificateValidationService: HealthCertificateValidationProviding,
@@ -20,6 +21,7 @@ class FamilyMemberCoronaTestsCoordinator {
 	) {
 		self.parentNavigationController = parentNavigationController
 		self.familyMemberCoronaTestService = familyMemberCoronaTestService
+		self.appConfigurationProvider = appConfigurationProvider
 		self.store = store
 		self.healthCertificateService = healthCertificateService
 		self.healthCertificateValidationService = healthCertificateValidationService
@@ -36,6 +38,7 @@ class FamilyMemberCoronaTestsCoordinator {
 	// MARK: - Private
 	
 	private let familyMemberCoronaTestService: FamilyMemberCoronaTestServiceProviding
+	private let appConfigurationProvider: AppConfigurationProviding
 	private let store: HealthCertificateStoring
 	private let healthCertificateService: HealthCertificateService
 	private let healthCertificateValidationService: HealthCertificateValidationProviding
@@ -52,6 +55,7 @@ class FamilyMemberCoronaTestsCoordinator {
 		let coronaTestsViewController = FamilyMemberCoronaTestsViewController(
 			viewModel: FamilyMemberCoronaTestsViewModel(
 				familyMemberCoronaTestService: familyMemberCoronaTestService,
+				appConfigurationProvider: appConfigurationProvider,
 				onCoronaTestCellTap: { [weak self] coronaTest in
 					self?.showTestResultScreen(coronaTest: coronaTest)
 				},
