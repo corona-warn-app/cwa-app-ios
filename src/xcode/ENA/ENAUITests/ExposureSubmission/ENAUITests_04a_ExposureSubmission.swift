@@ -603,6 +603,10 @@ class ENAUITests_04a_ExposureSubmission: CWATestCase {
 		// Simulator only Alert will open where you can choose what the QRScanner should scan, we want the PCR here.
 		let pcrButton = try XCTUnwrap(app.buttons[AccessibilityIdentifiers.UniversalQRScanner.fakePCR2])
 		pcrButton.waitAndTap()
+
+		/// Select user as test owner
+		let userButton = try XCTUnwrap(app.cells[AccessibilityIdentifiers.ExposureSubmission.TestOwnerSelection.userButton])
+		userButton.waitAndTap()
 		
 		// QR Code Info Screen
 		XCTAssertTrue(app.navigationBars[AccessibilityIdentifiers.General.exposureSubmissionNavigationControllerTitle].waitForExistence(timeout: .medium))
@@ -705,6 +709,10 @@ class ENAUITests_04a_ExposureSubmission: CWATestCase {
 		// Simulator only Alert will open where you can choose what the QRScanner should scan, we want the PCR2 here.
 		let pcrButton = try XCTUnwrap(app.buttons[AccessibilityIdentifiers.UniversalQRScanner.fakePCR2])
 		pcrButton.waitAndTap()
+
+		/// Select user as test owner
+		let userButton = try XCTUnwrap(app.cells[AccessibilityIdentifiers.ExposureSubmission.TestOwnerSelection.userButton])
+		userButton.waitAndTap()
 		
 		/// Your consent screen
 		
@@ -712,7 +720,6 @@ class ENAUITests_04a_ExposureSubmission: CWATestCase {
 		snapshot("tan_submissionflow_qr_\(String(format: "%04d", (screenshotCounter.inc() )))")
 		let continueButton = app.buttons[AccessibilityIdentifiers.ExposureSubmission.primaryButton]
 		continueButton.waitAndTap()
-
 	}
 	
 	func test_screenshot_test_result_available() {
