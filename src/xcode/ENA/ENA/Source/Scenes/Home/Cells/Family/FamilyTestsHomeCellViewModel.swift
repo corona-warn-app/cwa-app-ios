@@ -11,14 +11,21 @@ class FamilyTestsHomeCellViewModel {
 	// MARK: - Init
 
 	init(
-		familyMemberCoronaTestService: FamilyMemberCoronaTestServiceProviding
+		familyMemberCoronaTestService: FamilyMemberCoronaTestServiceProviding,
+		onUpdate: @escaping () -> Void
 	) {
 		self.familyMemberCoronaTestService = familyMemberCoronaTestService
 
-		familyMemberCoronaTestService.coronaTests.sink { [weak self] _ in
-			self?.badgeCount.value = self?.familyMemberCoronaTestService.unseenNewsCount ?? 0
-		}
-		.store(in: &subscriptions)
+		familyMemberCoronaTestService.coronaTests
+			.sink { [weak self] _ in
+				let unseenNewsCount = self?.familyMemberCoronaTestService.unseenNewsCount ?? 0
+
+				if self?.badgeCount.value != unseenNewsCount {
+					self?.badgeCount.value = unseenNewsCount
+					onUpdate()
+				}
+			}
+			.store(in: &subscriptions)
 	}
 
 	// MARK: - Internal

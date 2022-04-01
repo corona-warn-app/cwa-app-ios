@@ -133,7 +133,9 @@ class ExposureSubmissionTestResultViewModel: ExposureSubmissionTestResultModelin
 	private var primaryButtonIsLoading: Bool = false {
 		didSet {
 			footerViewModelPublisher.value?.setLoadingIndicator(primaryButtonIsLoading, disable: primaryButtonIsLoading, button: .primary)
-			footerViewModelPublisher.value?.setLoadingIndicator(false, disable: primaryButtonIsLoading, button: .secondary)
+			if let footerViewModel = footerViewModelPublisher.value, !footerViewModel.isSecondaryButtonHidden {
+				footerViewModelPublisher.value?.setLoadingIndicator(false, disable: primaryButtonIsLoading, button: .secondary)
+			}
 		}
 	}
 	
@@ -153,6 +155,12 @@ class ExposureSubmissionTestResultViewModel: ExposureSubmissionTestResultModelin
 					self?.updateForCurrentTestResult(coronaTest: .pcr(pcrTest))
 				}
 				.store(in: &subscriptions)
+
+			coronaTestService.pcrTestResultIsLoading
+				.sink { [weak self] in
+					self?.primaryButtonIsLoading = $0
+				}
+				.store(in: &subscriptions)
 		case .antigen:
 			coronaTestService.antigenTest
 				.sink { [weak self] antigenTest in
@@ -161,6 +169,12 @@ class ExposureSubmissionTestResultViewModel: ExposureSubmissionTestResultModelin
 					}
 
 					self?.updateForCurrentTestResult(coronaTest: .antigen(antigenTest))
+				}
+				.store(in: &subscriptions)
+
+			coronaTestService.antigenTestResultIsLoading
+				.sink { [weak self] in
+					self?.primaryButtonIsLoading = $0
 				}
 				.store(in: &subscriptions)
 		}
@@ -201,11 +215,8 @@ class ExposureSubmissionTestResultViewModel: ExposureSubmissionTestResultModelin
 	private func refreshTest() {
 		Log.info("Refresh test.")
 
-		primaryButtonIsLoading = true
 		coronaTestService.updateTestResult(for: coronaTestType) { [weak self] result in
 			guard let self = self else { return }
-			
-			self.primaryButtonIsLoading = false
 			
 			switch result {
 			case let .failure(error):
@@ -598,7 +609,8 @@ extension ExposureSubmissionTestResultViewModel {
 					cell.configure(
 						HealthCertificateCellViewModel(
 							healthCertificate: healthTuple.certificate,
-							healthCertifiedPerson: healthTuple.certifiedPerson
+							healthCertifiedPerson: healthTuple.certifiedPerson,
+							details: .allDetailsWithoutValidationButton
 						)
 					)
 				})
@@ -703,7 +715,8 @@ extension ExposureSubmissionTestResultViewModel {
 					cell.configure(
 						HealthCertificateCellViewModel(
 							healthCertificate: healthTuple.certificate,
-							healthCertifiedPerson: healthTuple.certifiedPerson
+							healthCertifiedPerson: healthTuple.certifiedPerson,
+							details: .allDetailsWithoutValidationButton
 						)
 					)
 				})
@@ -793,7 +806,8 @@ extension ExposureSubmissionTestResultViewModel {
 				cell.configure(
 					HealthCertificateCellViewModel(
 						healthCertificate: certificate,
-						healthCertifiedPerson: certifiedPerson
+						healthCertifiedPerson: certifiedPerson,
+						details: .allDetailsWithoutValidationButton
 					)
 				)
 			})
