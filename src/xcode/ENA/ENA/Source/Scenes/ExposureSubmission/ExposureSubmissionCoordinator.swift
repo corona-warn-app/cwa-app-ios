@@ -268,9 +268,6 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 				guard let self = self, let coronaTest = self.model.coronaTest else { return }
 
 				guard coronaTest.isSubmissionConsentGiven else {
-					self.model.coronaTestService.createCoronaTestEntryInContactDiary(
-						coronaTestType: self.model.coronaTestType
-					)
 					self.showTestResultScreen()
 					return
 				}
@@ -288,9 +285,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 					if error == .notAuthorized {
 						Log.info("OS submission authorization was declined.")
 						self.model.setSubmissionConsentGiven(false)
-						self.model.coronaTestService.createCoronaTestEntryInContactDiary(
-							coronaTestType: self.model.coronaTestType
-					 )
+
 						self.showTestResultScreen()
 					} else {
 						self.showErrorAlert(for: error)
@@ -709,9 +704,6 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 			if self?.model.coronaTest?.positiveTestResultWasShown == true {
 				self?.showThankYouScreen()
 			} else {
-				self?.model.coronaTestService.createCoronaTestEntryInContactDiary(
-					coronaTestType: self?.model.coronaTestType
-				   )
 				self?.showTestResultScreen()
 			}
 		}
@@ -1739,19 +1731,19 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 				certificateConsent: certificateConsent,
 				isLoading: isLoading,
 				onSuccess: { [weak self] testResult in
-					self?.model.coronaTestType = testQRCodeInformation.testType
-
-					switch testQRCodeInformation {
-					case .teleTAN:
-						self?.showTestResultScreen()
-					case .antigen, .pcr, .rapidPCR:
-						switch testResult {
-						case .positive:
-							self?.showTestResultAvailableScreen()
-						case .pending, .negative, .invalid, .expired:
-							self?.showTestResultScreen()
-						}
-					}
+				   self?.model.coronaTestType = testQRCodeInformation.testType
+				   
+				   switch testQRCodeInformation {
+				   case .teleTAN:
+					   self?.showTestResultScreen()
+				   case .antigen, .pcr, .rapidPCR:
+					   switch testResult {
+					   case .positive:
+						   self?.showTestResultAvailableScreen()
+					   case .pending, .negative, .invalid, .expired:
+						   self?.showTestResultScreen()
+					   }
+				   }
 				},
 				onError: { [weak self] error in
 					let alert = self?.alert(error, testQRCodeInformation: testQRCodeInformation, isLoading: isLoading) ?? defaultAlert(error)

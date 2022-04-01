@@ -31,6 +31,7 @@
         "ENAUITests_01a_Home\/test_screenshot_homescreen_positive_test_result()",
         "ENAUITests_01a_Home\/test_screenshot_homescreen_riskCardHigh_disabledExposureLogging()",
         "ENAUITests_01a_Home\/test_screenshot_homescreen_riskCardHigh_riskMultipleDays()",
+        "ENAUITests_01a_Home\/test_screenshot_homescreen_riskCardHigh_riskOneDay()",
         "ENAUITests_01a_Home\/test_screenshot_homescreen_riskCardInactive()",
         "ENAUITests_01a_Home\/test_screenshot_homescreen_riskCardLow_0days()",
         "ENAUITests_01a_Home\/test_screenshot_homescreen_riskCardLow_14days()",

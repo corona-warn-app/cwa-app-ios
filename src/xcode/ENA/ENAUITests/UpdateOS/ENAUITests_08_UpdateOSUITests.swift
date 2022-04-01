@@ -18,8 +18,6 @@ class ENAUITests_08_UpdateOS: CWATestCase {
 		app.setLaunchArgument(LaunchArguments.infoScreen.showUpdateOS, to: true)
 	}
 	
-	// MARK: - Screenshots
-
 	func test_UpdateOS() {
 		app.launch()
 		

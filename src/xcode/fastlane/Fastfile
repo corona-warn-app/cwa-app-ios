@@ -18,7 +18,7 @@
 ENV["LC_ALL"] = "de_DE.UTF-8"
 ENV["LANG"] = "de_DE.UTF-8"
 
-ENV["FASTLANE_SKIP_UPDATE_CHECK"] = "True"
+ENV["FASTLANE_SKIP_UPDATE_CHECK"] = "true"
 
 default_platform(:ios)
 
@@ -30,6 +30,7 @@ platform :ios do
     setup_circle_ci
 
     if is_ci
+      #xcode_select("/Applications/Xcode_13_2_1.app") # Uncommented until we are self hosted 100%
       xcversion(version: "~> 13.2.0")
     end
   end
@@ -70,6 +71,7 @@ platform :ios do
         disable_package_automatic_updates: true,
         result_bundle: true,
         code_coverage: true,
+        concurrent_workers: 7, # 8 cores make 7 concurrent tests right? :D
         number_of_retries: 1, #take this you flaky tests
         output_style: "raw", # prevents long periods of silence which makes the CI & devs nervous
         output_types: ""
@@ -117,55 +119,33 @@ platform :ios do
     )
   end
 
-  desc "Run tests"
-  lane :test do | options |
-    begin
-      # Execute tests for given test plan
-      testPlan = options[:testplan] || "AllTests"
-
-      run_tests(
-        scheme: "ENA",
-        derived_data_path: "./DerivedData",
-        test_without_building: false, #`build_for_testing` is required if this is set to `true`!
-        xcargs: "SWIFT_TREAT_WARNINGS_AS_ERRORS=NO",
-        testplan: testPlan,
-        only_test_configurations: ["DE"],
-        devices: ["iPhone 11"],
-        prelaunch_simulator: true,
-        result_bundle: true,
-        code_coverage: true,
-        number_of_retries: 1, #take this you flaky tests
-        output_style: "raw", # prevents long periods of silence which makes the CI & devs nervous
-        output_types: ""
-      )
-    rescue
-      UI.user_error!("Tests did fail, please check logs above or ENA.xcresult.zip")
-    ensure
-      trainer(
-        output_directory: "fastlane/test_output/",
-        path: "fastlane/test_output/",
-        extension: ".junit",
-        fail_build: false
-      )
-
-      zip(
-        path: "fastlane/test_output/ENA.xcresult",
-        output_path: "fastlane/test_output/ENA.xcresult.zip",
-        verbose: false
-      )
-    end
-  end
-
   desc "Create (localized) screenshots"
   lane :screenshot do |options|
     begin
-      output_dir = "screenshots/screenshots-#{options[:languages]}-#{options[:mode]}"
+
+     output_dir = "./screenshots/screenshots-#{options[:languages]}-#{options[:mode]}"
 
       capture_ios_screenshots(
-        languages:  options[:languages],
+        devices: ["iPhone 13"],
+        ios_version: "15.2",
+        scheme: "ENAScreenshots",
+        testplan: "Screenshots",
+        clear_previous_screenshots: true,
+        erase_simulator: true,
+        reinstall_app: true,
+        skip_helper_version_check: true,
+        localize_simulator: true,
+        disable_slide_to_type: true,
+        languages: options[:languages],
         dark_mode: options[:mode] == "dark",
         output_directory: output_dir,
-        result_bundle: true
+        result_bundle: true,
+        skip_open_summary: true,
+        number_of_retries: 2,
+        derived_data_path: "./DerivedData",
+        test_without_building: options[:test_without_building] == true,
+        skip_package_dependencies_resolution: true,
+        disable_package_automatic_updates: true
       )
     rescue
       UI.user_error!("Tests did fail, please check logs above or ENA.xcresult.zip")
@@ -225,8 +205,9 @@ platform :ios do
 
     # Trigger Tests on Mobile Device Cloud via CircleCI (cwa-app-automation)
     sh("curl -u '#{ENV["CIRCLE_API_ADMIN_TOKEN"]}': \
-      -d 'build_parameters[CIRCLE_JOB]=ios' \
-      https://circleci.com/api/v1.1/project/github/corona-warn-app/cwa-app-automation/tree/main"
+      -d '{\"branch\":\"main\",\"parameters\":{\"mobile-os\":\"ios\"}}' \
+      -H 'content-type: application/json' \
+      https://circleci.com/api/v2/project/github/corona-warn-app/cwa-app-automation/pipeline"
     )
   end
 
