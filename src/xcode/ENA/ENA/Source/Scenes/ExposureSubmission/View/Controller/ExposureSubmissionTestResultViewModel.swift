@@ -133,7 +133,9 @@ class ExposureSubmissionTestResultViewModel: ExposureSubmissionTestResultModelin
 	private var primaryButtonIsLoading: Bool = false {
 		didSet {
 			footerViewModelPublisher.value?.setLoadingIndicator(primaryButtonIsLoading, disable: primaryButtonIsLoading, button: .primary)
-			footerViewModelPublisher.value?.setLoadingIndicator(false, disable: primaryButtonIsLoading, button: .secondary)
+			if let footerViewModel = footerViewModelPublisher.value, !footerViewModel.isSecondaryButtonHidden {
+				footerViewModelPublisher.value?.setLoadingIndicator(false, disable: primaryButtonIsLoading, button: .secondary)
+			}
 		}
 	}
 	
