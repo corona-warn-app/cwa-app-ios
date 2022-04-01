@@ -73,7 +73,16 @@ class FamilyMemberCoronaTestsViewModel {
 			fatalError("didTapCoronaTestCell can only be called from the coronaTests section")
 		}
 
-		onCoronaTestCellTap(coronaTestCellModels[indexPath.row].coronaTest)
+		let coronaTest = coronaTestCellModels[indexPath.row].coronaTest
+		guard let updatedCoronaTest = familyMemberCoronaTestService.upToDateTest(for: coronaTest) else {
+			return
+		}
+
+		if updatedCoronaTest.isOutdated || updatedCoronaTest.testResult == .expired {
+			return
+		}
+
+		onCoronaTestCellTap(updatedCoronaTest)
 	}
 
 	func didTapCoronaTestCellButton(at indexPath: IndexPath) {

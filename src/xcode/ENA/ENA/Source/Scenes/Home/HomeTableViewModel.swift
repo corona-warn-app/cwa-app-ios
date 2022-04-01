@@ -135,7 +135,7 @@ class HomeTableViewModel {
 	}
 
 	func didTapTestResultCell(coronaTestType: CoronaTestType) {
-		if coronaTestType == .antigen && coronaTestService.antigenTestIsOutdated.value {
+		if coronaTestType == .antigen && coronaTestService.antigenTestIsOutdated.value || coronaTestService.coronaTest(ofType: coronaTestType)?.testResult == .expired {
 			return
 		}
 
