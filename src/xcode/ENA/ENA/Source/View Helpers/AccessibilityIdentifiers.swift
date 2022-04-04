@@ -871,6 +871,11 @@ enum AccessibilityIdentifiers {
 		static let loadingAntigen = "AccessibilityIdentifiers.FamilyMemberCoronaTestCell.loadingAntigen"
 		static let homeCell = "AccessibilityIdentifiers.FamilyMemberCoronaTestCell.homeCell"
 		static let homeCellDetailText = "AccessibilityIdentifiers.FamilyMemberCoronaTestCell.homeCellDetailText"
+
+		enum Overview {
+			static let testCell = "AccessibilityIdentifiers.FamilyMemberCoronaTestCell.Overview.testCell"
+		}
+
 	}
 
 }

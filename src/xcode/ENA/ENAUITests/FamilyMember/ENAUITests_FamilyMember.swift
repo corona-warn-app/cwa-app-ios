@@ -101,4 +101,34 @@ class ENAUITests_FamilyMember: CWATestCase {
 		XCTAssertTrue(app.staticTexts[AccessibilityIdentifiers.FamilyMemberCoronaTestCell.homeCellDetailText].waitForExistence(timeout: .short))
 	}
 
+
+	func test_familyMemberViewOverview () throws {
+		// launch argument will make
+		app.setLaunchArgument(LaunchArguments.familyTest.pcr.testResult, to: TestResult.negative.stringValue)
+		app.setLaunchArgument(LaunchArguments.familyTest.pcr.positiveTestResultWasShown, to: true)
+		app.setLaunchArgument(LaunchArguments.familyTest.antigen.testResult, to: TestResult.negative.stringValue)
+		app.setLaunchArgument(LaunchArguments.familyTest.antigen.positiveTestResultWasShown, to: true)
+
+		app.launch()
+		app.swipeUp()
+
+		// select familyMember test cell
+		app.cells[AccessibilityIdentifiers.FamilyMemberCoronaTestCell.homeCell].waitAndTap(.short)
+
+		// check if family members overview is shown
+		XCTAssertTrue(app.navigationBars[app.localized(AppStrings.FamilyMemberCoronaTest.title)].waitForExistence(timeout: .short))
+
+		// check if family members test news label is invisible
+		XCTAssertFalse(app.staticTexts[AccessibilityIdentifiers.FamilyMemberCoronaTestCell.homeCellDetailText].waitForExistence(timeout: .short))
+
+		// lookup for both tests cells
+		XCTAssertEqual(app.cells.matching(identifier: AccessibilityIdentifiers.FamilyMemberCoronaTestCell.Overview.testCell]).count, 2)
+
+		// check for title Tests von Familienmitgliedern
+
+		// cell identifier
+
+
+	}
+
 }
