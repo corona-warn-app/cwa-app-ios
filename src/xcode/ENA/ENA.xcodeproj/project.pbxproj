@@ -1239,6 +1239,9 @@
 		ABD08257260C7FE9007C4B24 /* CheckinRiskCalculationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABD08252260C7FDE007C4B24 /* CheckinRiskCalculationTests.swift */; };
 		ABD0828F260E08D6007C4B24 /* TraceWarningMatcherTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABD0828E260E08D6007C4B24 /* TraceWarningMatcherTests.swift */; };
 		ABD2F634254C533200DC1958 /* KeyPackageDownload.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABD2F633254C533200DC1958 /* KeyPackageDownload.swift */; };
+		ABD430DE27FAE78B0063666C /* revocation_kid_list.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABD430DB27FAE78B0063666C /* revocation_kid_list.pb.swift */; };
+		ABD430DF27FAE78B0063666C /* revocation_kid_type_index.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABD430DC27FAE78B0063666C /* revocation_kid_type_index.pb.swift */; };
+		ABD430E027FAE78B0063666C /* revocation_chunk.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABD430DD27FAE78B0063666C /* revocation_chunk.pb.swift */; };
 		ABDA2792251CE308006BAE84 /* DMServerEnvironmentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABDA2791251CE308006BAE84 /* DMServerEnvironmentViewController.swift */; };
 		ABDBE3632710825F007C8DA8 /* RecycleBinTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABDBE36127107E73007C8DA8 /* RecycleBinTests.swift */; };
 		ABE06E99261D958A00D98E1B /* TraceLocationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABE06E98261D958A00D98E1B /* TraceLocationTests.swift */; };
@@ -3029,6 +3032,9 @@
 		ABD08252260C7FDE007C4B24 /* CheckinRiskCalculationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckinRiskCalculationTests.swift; sourceTree = "<group>"; };
 		ABD0828E260E08D6007C4B24 /* TraceWarningMatcherTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TraceWarningMatcherTests.swift; sourceTree = "<group>"; };
 		ABD2F633254C533200DC1958 /* KeyPackageDownload.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyPackageDownload.swift; sourceTree = "<group>"; };
+		ABD430DB27FAE78B0063666C /* revocation_kid_list.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = revocation_kid_list.pb.swift; sourceTree = "<group>"; };
+		ABD430DC27FAE78B0063666C /* revocation_kid_type_index.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = revocation_kid_type_index.pb.swift; sourceTree = "<group>"; };
+		ABD430DD27FAE78B0063666C /* revocation_chunk.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = revocation_chunk.pb.swift; sourceTree = "<group>"; };
 		ABDA2791251CE308006BAE84 /* DMServerEnvironmentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMServerEnvironmentViewController.swift; sourceTree = "<group>"; };
 		ABDBE36127107E73007C8DA8 /* RecycleBinTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecycleBinTests.swift; sourceTree = "<group>"; };
 		ABE06E98261D958A00D98E1B /* TraceLocationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraceLocationTests.swift; sourceTree = "<group>"; };
@@ -4367,6 +4373,9 @@
 		01A1A25426443FBD001E8183 /* dgc */ = {
 			isa = PBXGroup;
 			children = (
+				ABD430DD27FAE78B0063666C /* revocation_chunk.pb.swift */,
+				ABD430DB27FAE78B0063666C /* revocation_kid_list.pb.swift */,
+				ABD430DC27FAE78B0063666C /* revocation_kid_type_index.pb.swift */,
 				01A1A25526443FBD001E8183 /* value_sets.pb.swift */,
 				8FEC122527551F6700C5DADC /* validation_service_allowlist.pb.swift */,
 				BA0A1E3E26A5CC090045E712 /* dsc_list.pb.swift */,
@@ -10900,6 +10909,7 @@
 				5071A87926EB76EC00B09B40 /* EmptyReceiveResource.swift in Sources */,
 				ABE9615B25F11FBC00D0F699 /* EventStoring.swift in Sources */,
 				01E0D3AC268F061B00E32CF9 /* HealthCertificateValidationCoordinator.swift in Sources */,
+				ABD430DF27FAE78B0063666C /* revocation_kid_type_index.pb.swift in Sources */,
 				EB2FDF952639A75E00B2BBF0 /* StringInterpolation+Private.swift in Sources */,
 				B10FD5F4246EAC1700E9D7F2 /* AppleFilesWriter.swift in Sources */,
 				01164CDD26C571C3007F9C3E /* OnBehalfTraceLocationSelectionViewController.swift in Sources */,
@@ -11113,6 +11123,7 @@
 				0138F70825F679AC00A9B075 /* TraceLocationConfigurationViewController.swift in Sources */,
 				017AD14625A4546400FA2B3F /* UITableViewController+Enum.swift in Sources */,
 				EBB92C72259E10ED00013B41 /* UpdateOSViewController.swift in Sources */,
+				ABD430E027FAE78B0063666C /* revocation_chunk.pb.swift in Sources */,
 				0196FE8427E4EFB200B2729E /* UserPCRTest.swift in Sources */,
 				BAF5B3CD2604E1D700DF8149 /* SelectTraceLocationTypeCell.swift in Sources */,
 				5071A87526EA662F00B09B40 /* PaddingJSONSendResource.swift in Sources */,
@@ -11619,6 +11630,7 @@
 				BA112DF7255586E9007F5712 /* WifiOnlyHTTPClient.swift in Sources */,
 				50DED23D27CE439B0035267C /* DMTextFieldTableViewCell.swift in Sources */,
 				0138F61D25EFE71B00A9B075 /* TraceLocationsCoordinator.swift in Sources */,
+				ABD430DE27FAE78B0063666C /* revocation_kid_list.pb.swift in Sources */,
 				0138F65425F1174200A9B075 /* TraceLocationsOverviewEmptyStateViewModel.swift in Sources */,
 				01E10277266BC4B1009ED803 /* TestCertificateRequestTableViewCell.swift in Sources */,
 				713EA26324798F8500AB7EE8 /* ExposureDetectionHeaderCell.swift in Sources */,
