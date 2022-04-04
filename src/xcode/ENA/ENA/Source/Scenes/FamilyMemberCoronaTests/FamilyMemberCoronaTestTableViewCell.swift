@@ -6,7 +6,7 @@ import Foundation
 import UIKit
 import OpenCombine
 
-final class HomeTestResultTableViewCell: UITableViewCell {
+final class FamilyMemberCoronaTestTableViewCell: UITableViewCell {
 
 	// MARK: - Overrides
 
@@ -41,35 +41,61 @@ final class HomeTestResultTableViewCell: UITableViewCell {
 	
 	override func prepareForReuse() {
 		super.prepareForReuse()
+
 		clearSubscriptions()
+	}
+
+	override func layoutSubviews() {
+		super.layoutSubviews()
+
+		cardView.layer.shadowOffset = .init(width: 0.0, height: 1.0)
+		cardView.layer.shadowRadius = 3
+		cardView.layer.borderColor = UIColor.enaColor(for: .cardBorder).cgColor
+		cardView.layer.borderWidth = 1
 	}
 
 	// MARK: - Internal
 
-	func configure(with cellModel: HomeTestResultCellModel, onPrimaryAction: @escaping () -> Void) {
-		
+	func configure(
+		with cellModel: FamilyMemberCoronaTestCellModel,
+		onPrimaryAction: @escaping () -> Void
+	) {
 		// clear all previous subscriptions
 		clearSubscriptions()
 		
-		cellModel.$title
-			.assign(to: \.text, on: titleLabel)
+		cellModel.$name
+			.assign(to: \.text, on: nameLabel)
 			.store(in: &subscriptions)
 
-		cellModel.$subtitle
+		cellModel.$caption
+			.assign(to: \.text, on: captionLabel)
+			.store(in: &subscriptions)
+
+		cellModel.$topDiagnosis
+			.assign(to: \.text, on: topDiagnosisLabel)
+			.store(in: &subscriptions)
+
+		cellModel.$bottomDiagnosis
 			.sink { [weak self] in
-				self?.subtitleLabel.text = $0
-				self?.subtitleLabel.isHidden = (nil == $0)
+				self?.bottomDiagnosisLabel.text = $0
+				self?.bottomDiagnosisLabel.isHidden = ($0 == nil)
 			}
+			.store(in: &subscriptions)
+		cellModel.$bottomDiagnosisColor
+			.assign(to: \.textColor, on: bottomDiagnosisLabel)
 			.store(in: &subscriptions)
 
 		cellModel.$description
-			.assign(to: \.text, on: descriptionLabel)
+			.sink { [weak self] in
+				self?.descriptionLabel.text = $0
+				self?.descriptionLabel.isHidden = ($0 == nil)
+			}
 			.store(in: &subscriptions)
 
 		cellModel.$footnote
 			.sink { [weak self] in
 				self?.footnoteLabel.text = $0
-				self?.footnoteLabel.isHidden = (nil == $0)
+				self?.footnoteLabel.isHidden = ($0 == nil)
 			}
 			.store(in: &subscriptions)
 
@@ -78,25 +104,18 @@ final class HomeTestResultTableViewCell: UITableViewCell {
 			.store(in: &subscriptions)
 
 		cellModel.$buttonTitle
-			.sink { [weak self] buttonTitle in
-				self?.button.setTitle(buttonTitle, for: .normal)
+			.sink { [weak self] in
+				self?.button.setTitle($0, for: .normal)
+				self?.button.isHidden = ($0 == nil)
 			}
+			.store(in: &subscriptions)
+
+		cellModel.$isUnseenNewsIndicatorHidden
+			.assign(to: \.isHidden, on: unseenNewsIndicator)
 			.store(in: &subscriptions)
 
 		cellModel.$isDisclosureIndicatorHidden
 			.assign(to: \.isHidden, on: disclosureIndicatorView)
-			.store(in: &subscriptions)
-
-		cellModel.$isNegativeDiagnosisHidden
-			.assign(to: \.isHidden, on: negativeDiagnosisStackView)
-			.store(in: &subscriptions)
-
-		cellModel.$isActivityIndicatorHidden
-			.assign(to: \.isHidden, on: activityIndicator)
-			.store(in: &subscriptions)
-		cellModel.$isActivityIndicatorHidden
-			.map({ !$0 })
-			.assign(to: \.isHidden, on: illustrationView)
 			.store(in: &subscriptions)
 
 		cellModel.$isUserInteractionEnabled
@@ -118,16 +137,14 @@ final class HomeTestResultTableViewCell: UITableViewCell {
 	// MARK: - Private
 
 	@IBOutlet private weak var cardView: HomeCardView!
-	@IBOutlet private weak var titleLabel: ENALabel!
+	@IBOutlet private weak var nameLabel: ENALabel!
+	@IBOutlet private weak var unseenNewsIndicator: UIView!
 	@IBOutlet private weak var disclosureIndicatorView: UIView!
-	@IBOutlet private weak var subtitleLabel: ENALabel!
 
-	@IBOutlet private weak var negativeDiagnosisStackView: UIStackView!
-	@IBOutlet private weak var negativeDiagnosisCaptionLabel: ENALabel!
-	@IBOutlet private weak var negativeDiagnosisVirusLabel: ENALabel!
-	@IBOutlet private weak var negativeDiagnosisLabel: ENALabel!
+	@IBOutlet private weak var captionLabel: ENALabel!
+	@IBOutlet private weak var topDiagnosisLabel: ENALabel!
+	@IBOutlet private weak var bottomDiagnosisLabel: ENALabel!
 
-	@IBOutlet private weak var activityIndicator: UIActivityIndicatorView!
 	@IBOutlet private weak var illustrationView: UIImageView!
 
 	@IBOutlet private weak var descriptionLabel: ENALabel!
@@ -136,16 +153,12 @@ final class HomeTestResultTableViewCell: UITableViewCell {
 	@IBOutlet private weak var button: ENAButton!
 
 	private var subscriptions = Set<AnyCancellable>()
-	private var cellModel: HomeTestResultCellModel!
+	private var cellModel: FamilyMemberCoronaTestCellModel?
 
 	private var onPrimaryAction: (() -> Void)?
 
 	private func setup() {
 		updateIllustration(for: traitCollection)
-
-		negativeDiagnosisCaptionLabel.text = AppStrings.Home.TestResult.Negative.caption
-		negativeDiagnosisVirusLabel.text = AppStrings.Home.TestResult.Negative.title
-		negativeDiagnosisLabel.text = AppStrings.Home.TestResult.Negative.titleNegative
 
 		accessibilityTraits = .button
 	}

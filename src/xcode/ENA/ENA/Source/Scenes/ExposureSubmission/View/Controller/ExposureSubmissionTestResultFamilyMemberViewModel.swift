@@ -12,11 +12,13 @@ class ExposureSubmissionTestResultFamilyMemberViewModel: ExposureSubmissionTestR
 	init(
 		familyMemberCoronaTest: FamilyMemberCoronaTest,
 		familyMemberCoronaTestService: FamilyMemberCoronaTestServiceProviding,
+		keepMarkedAsNew: Bool,
 		onTestDeleted: @escaping () -> Void,
 		onTestCertificateCellTap: @escaping(HealthCertificate, HealthCertifiedPerson) -> Void
 	) {
 		self.familyMemberCoronaTest = familyMemberCoronaTest
 		self.familyMemberCoronaTestService = familyMemberCoronaTestService
+		self.keepMarkedAsNew = keepMarkedAsNew
 		self.onTestDeleted = onTestDeleted
 		self.onTestCertificateCellTap = onTestCertificateCellTap
 
@@ -70,7 +72,7 @@ class ExposureSubmissionTestResultFamilyMemberViewModel: ExposureSubmissionTestR
 	}
 	
 	func evaluateShowing() {
-		familyMemberCoronaTestService.evaluateShowing(of: familyMemberCoronaTest)
+		familyMemberCoronaTestService.evaluateShowing(of: familyMemberCoronaTest, keepMarkedAsNew: keepMarkedAsNew)
 	}
 	
 	func updateTestResultIfPossible() {
@@ -86,6 +88,7 @@ class ExposureSubmissionTestResultFamilyMemberViewModel: ExposureSubmissionTestR
 	private var familyMemberCoronaTestService: FamilyMemberCoronaTestServiceProviding
 	private var familyMemberCoronaTest: FamilyMemberCoronaTest
 
+	private let keepMarkedAsNew: Bool
 	private let onTestDeleted: () -> Void
 	private let onTestCertificateCellTap: (HealthCertificate, HealthCertifiedPerson) -> Void
 
@@ -105,7 +108,6 @@ class ExposureSubmissionTestResultFamilyMemberViewModel: ExposureSubmissionTestR
 	private func bindToCoronaTestUpdates() {
 		familyMemberCoronaTestService.coronaTests
 			.sink { [weak self] _ in
-				
 				guard let familyMemberCoronaTest = self?.familyMemberCoronaTest, let familyMemberCoronaTest = self?.familyMemberCoronaTestService.upToDateTest(for: familyMemberCoronaTest) else {
 					return
 				}
@@ -117,8 +119,6 @@ class ExposureSubmissionTestResultFamilyMemberViewModel: ExposureSubmissionTestR
 
 	private func updateSectionsForCurrentTestResult(coronaTest: FamilyMemberCoronaTest) {
 		self.familyMemberCoronaTest = coronaTest
-
-		primaryButtonIsLoading = coronaTest.isLoading
 		
 		let sections: [DynamicSection]
 		switch coronaTest.testResult {
@@ -141,6 +141,7 @@ class ExposureSubmissionTestResultFamilyMemberViewModel: ExposureSubmissionTestR
 		dynamicTableViewModelPublisher.value = DynamicTableViewModel(sections)
 		
 		footerViewModelPublisher.value = ExposureSubmissionTestResultFamilyMemberViewModel.footerViewModel(coronaTest: coronaTest)
+		primaryButtonIsLoading = coronaTest.isLoading
 	}
 	
 	private func refreshTest() {
@@ -386,7 +387,8 @@ extension ExposureSubmissionTestResultFamilyMemberViewModel {
 					cell.configure(
 						HealthCertificateCellViewModel(
 							healthCertificate: healthTuple.certificate,
-							healthCertifiedPerson: healthTuple.certifiedPerson
+							healthCertifiedPerson: healthTuple.certifiedPerson,
+							details: .allDetailsWithoutValidationButton
 						)
 					)
 				})
@@ -434,7 +436,7 @@ extension ExposureSubmissionTestResultFamilyMemberViewModel {
 				title: AppStrings.ExposureSubmissionResult.testNegative,
 				description: AppStrings.ExposureSubmissionResult.testNegativeDesc,
 				icon: UIImage(named: "Icons_Grey_Error"),
-				hairline: .topAttached
+				hairline: .none
 			)
 		])
 
@@ -477,7 +479,8 @@ extension ExposureSubmissionTestResultFamilyMemberViewModel {
 					cell.configure(
 						HealthCertificateCellViewModel(
 							healthCertificate: healthTuple.certificate,
-							healthCertifiedPerson: healthTuple.certifiedPerson
+							healthCertifiedPerson: healthTuple.certifiedPerson,
+							details: .allDetailsWithoutValidationButton
 						)
 					)
 				})
@@ -508,7 +511,7 @@ extension ExposureSubmissionTestResultFamilyMemberViewModel {
 				title: AppStrings.ExposureSubmissionResult.testNegative,
 				description: AppStrings.ExposureSubmissionResult.Antigen.testNegativeDesc,
 				icon: UIImage(named: "Icons_Grey_Error"),
-				hairline: .topAttached
+				hairline: .none
 			)
 		])
 
@@ -577,7 +580,7 @@ extension ExposureSubmissionTestResultFamilyMemberViewModel {
 				title: AppStrings.ExposureSubmissionResult.testInvalid,
 				description: AppStrings.ExposureSubmissionResult.testInvalidDesc,
 				icon: UIImage(named: "Icons_Grey_Error"),
-				hairline: .topAttached
+				hairline: .none
 			)
 		])
 

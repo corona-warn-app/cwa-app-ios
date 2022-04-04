@@ -18,6 +18,7 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 		onInfoBarButtonItemTap: @escaping () -> Void,
 		onExposureLoggingCellTap: @escaping (ENStateHandler.State) -> Void,
 		onRiskCellTap: @escaping (HomeState) -> Void,
+		onFamilyTestResultsCellTap: @escaping () -> Void,
 		onInactiveCellButtonTap: @escaping (ENStateHandler.State) -> Void,
 		onTestRegistrationCellTap: @escaping () -> Void,
 		onStatisticsInfoButtonTap: @escaping () -> Void,
@@ -41,6 +42,7 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 		self.onInfoBarButtonItemTap = onInfoBarButtonItemTap
 		self.onExposureLoggingCellTap = onExposureLoggingCellTap
 		self.onRiskCellTap = onRiskCellTap
+		self.onFamilyTestResultsCellTap = onFamilyTestResultsCellTap
 		self.onInactiveCellButtonTap = onInactiveCellButtonTap
 		self.onTestRegistrationCellTap = onTestRegistrationCellTap
 		self.onStatisticsInfoButtonTap = onStatisticsInfoButtonTap
@@ -242,7 +244,7 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 			case .antigenTestResult:
 				viewModel.didTapTestResultCell(coronaTestType: .antigen)
 			case .familyTestResults:
-				Log.info("NYD")
+				onFamilyTestResultsCellTap()
 			}
 		case .testRegistration:
 			onTestRegistrationCellTap()
@@ -305,6 +307,7 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 	private let onInfoBarButtonItemTap: () -> Void
 	private let onExposureLoggingCellTap: (ENStateHandler.State) -> Void
 	private let onRiskCellTap: (HomeState) -> Void
+	private let onFamilyTestResultsCellTap: () -> Void
 	private let onInactiveCellButtonTap: (ENStateHandler.State) -> Void
 	private let onTestRegistrationCellTap: () -> Void
 	private let onStatisticsInfoButtonTap: () -> Void
@@ -458,7 +461,14 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 		guard let cell = tableView.dequeueReusableCell(withIdentifier: FamilyTestsHomeCell.reuseIdentifier) as? FamilyTestsHomeCell else {
 			fatalError("Failed to get FamilyTestsHomeCell")
 		}
-		cell.configure(with: viewModel.familyHomeCellViewModel)
+		cell.configure(
+			with: FamilyTestsHomeCellViewModel(
+				familyMemberCoronaTestService: viewModel.familyMemberCoronaTestService,
+				onUpdate: { [weak self] in
+					self?.animateChanges(of: cell)
+				}
+			)
+		)
 		return cell
 	}
 

@@ -179,7 +179,7 @@ class ExposureSubmissionTestResultViewModelTests: CWATestCase {
 		XCTAssertFalse(modelAfter.isPrimaryButtonHidden)
 
 		XCTAssertFalse(modelAfter.isSecondaryLoading)
-		XCTAssertTrue(modelAfter.isSecondaryButtonEnabled)
+		XCTAssertFalse(modelAfter.isSecondaryButtonEnabled)
 		XCTAssertTrue(modelAfter.isSecondaryButtonHidden)
 	}
 	

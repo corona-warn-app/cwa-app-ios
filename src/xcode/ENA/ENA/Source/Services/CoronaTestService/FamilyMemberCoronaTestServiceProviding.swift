@@ -60,11 +60,13 @@ protocol FamilyMemberCoronaTestServiceProviding {
 		completion: @escaping TestResultHandler
 	)
 
+	func moveAllTestsToBin()
+
 	func moveTestToBin(_ coronaTest: FamilyMemberCoronaTest)
 
 	func removeTest(_ coronaTest: FamilyMemberCoronaTest)
 
-	func evaluateShowing(of coronaTest: FamilyMemberCoronaTest)
+	func evaluateShowing(of coronaTest: FamilyMemberCoronaTest, keepMarkedAsNew: Bool)
 
 	func evaluateShowingAllTests()
 
