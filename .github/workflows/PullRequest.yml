@@ -1,8 +1,6 @@
 name: Checks on Pullrequests
 on:
   pull_request:
-    branches:    
-      - 'release/**' #Running only if a PR is opened with a release branch as target
       
 concurrency: 
   group: ${{ github.head_ref || github.ref }} #Cancel old runs if they have not finished yet
