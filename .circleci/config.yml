@@ -332,20 +332,6 @@ workflows:
             branches:
               ignore:
                 - /release\/.*/
-      - snapshot:
-          matrix:
-            parameters:
-              language: ["de-DE", "en-EN"]
-              displaymode: ["dark", "light"]
-          requires:
-            - dependencies
-          filters:
-            branches:
-              only:
-                - /release\/.*/
-      - collect-snapshots:
-          requires:
-            - snapshot
       - update-docs:
           requires:
             - dependencies
