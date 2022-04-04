@@ -1,6 +1,6 @@
 name: Checks on Pullrequests
 on:
-  pull_request:
+  pull_request
       
 concurrency: 
   group: ${{ github.head_ref || github.ref }} #Cancel old runs if they have not finished yet
