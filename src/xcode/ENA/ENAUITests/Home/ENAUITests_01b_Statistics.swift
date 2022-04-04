@@ -265,8 +265,7 @@ class ENAUITests_01b_Statistics: CWATestCase {
 		app.setPreferredContentSizeCategory(accessibility: .normal, size: .S)
 		app.launch()
 		app.swipeUp(velocity: .slow)
-		XCTFail()
-
+		
 		XCTAssert(app.buttons[addStatisticsButtonTitle].waitForExistence(timeout: .medium))
 		snapshot("statistics_add_local_statistics")
 		app.buttons[addStatisticsButtonTitle].waitAndTap()

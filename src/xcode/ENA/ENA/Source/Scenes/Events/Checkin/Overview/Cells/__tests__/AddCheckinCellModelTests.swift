@@ -10,9 +10,6 @@ class AddCheckinCellModelTests: CWATestCase {
 	func testGIVEN_CellModel_THEN_InitialStateIsAsExpected() {
 		// GIVEN
 		let cellViewModel = AddCheckinCellModel()
-		
-		XCTFail()
-
 
 		// THEN
 		XCTAssertEqual(cellViewModel.textColorPublisher.value, UIColor.enaColor(for: .textPrimary1))
