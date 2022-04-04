@@ -575,7 +575,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmissionDispatch_QRCodeButtonTitle" = "QR-Code scannen";
 
-"ExposureSubmissionDispatch_QRCodeButtonDescription" = "Erhalten Sie Ihr Testergebnis in der App und warnen Sie andere oder fordern Sie Ihr COVID-Testzertifikat an.";
+"ExposureSubmissionDispatch_QRCodeButtonDescription" = "Erhalten Sie Ihr Testergebnis und die Ihrer Familienmitglieder und fordern Sie Ihr COVID-Testzertifikat an.";
 
 "ExposureSubmissionDispatch_TANButtonTitle" = "TAN für PCR-Test eingeben";
 
@@ -3738,3 +3738,65 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 "TicketValidation_Result_Failed_subtitle" = "Ihr Zertifikat entspricht nicht den Anforderungen des Anbieters";
 
 "TicketValidation_Result_Failed_description" = "Bei Rückfragen wenden Sie sich bitte an den Anbieter “%@”.";
+
+/* Family Member Corona Test */
+
+"FamilyMemberCoronaTest_title" = "Tests von Familienmitgliedern";
+
+"FamilyMemberCoronaTest_deleteAllButtonTitle" = "Alle löschen";
+
+"FamilyMemberCoronaTest_pcrCaption" = "PCR-Test-Befund";
+
+"FamilyMemberCoronaTest_antigenCaption" = "Schnelltest-Befund";
+
+"FamilyMemberCoronaTest_pcrDate" = "Test hinzugefügt am %@";
+
+"FamilyMemberCoronaTest_antigenDate" = "Durchgeführt am %@";
+
+"FamilyMemberCoronaTest_pendingDiagnosis" = "Ergebnis liegt noch nicht vor";
+
+"FamilyMemberCoronaTest_pendingPCRDescription" = "Die Auswertung des PCR-Tests ist noch nicht abgeschlossen.";
+
+"FamilyMemberCoronaTest_pendingAntigenDescription" = "Die Auswertung des Schnelltests ist noch nicht abgeschlossen.";
+
+"FamilyMemberCoronaTest_negativeTopDiagnosis" = "SARS-CoV-2";
+
+"FamilyMemberCoronaTest_negativeBottomDiagnosis" = "negativ";
+
+"FamilyMemberCoronaTest_positiveTopDiagnosis" = "SARS-CoV-2";
+
+"FamilyMemberCoronaTest_positiveBottomDiagnosis" = "positiv";
+
+"FamilyMemberCoronaTest_invalidDiagnosis" = "Fehlerhafter Test";
+
+"FamilyMemberCoronaTest_invalidDescription" = "Der Test konnte nicht ausgewertet werden.";
+
+"FamilyMemberCoronaTest_outdatedDiagnosis" = "Test nicht mehr aktuell";
+
+"FamilyMemberCoronaTest_outdatedDescription" = "Der Schnelltest ist älter als %i Stunden und wird hier nicht mehr angezeigt.";
+
+"FamilyMemberCoronaTest_outdatedButtonTitle" = "Nicht mehr anzeigen";
+
+"FamilyMemberCoronaTest_expiredDiagnosis" = "Nicht mehr gültig";
+
+"FamilyMemberCoronaTest_expiredDescription" = "Der Test liegt länger als 21 Tage zurück und ist daher nicht länger relevant.";
+
+"FamilyMemberCoronaTest_expiredButtonTitle" = "Test löschen";
+
+"FamilyMemberCoronaTest_DeleteOne_AlertTitle" = "Wollen Sie das Testergebnis entfernen?";
+
+"FamilyMemberCoronaTest_DeleteOne_AlertMessage" = "Das Testergebnis wird in den Papierkorb verschoben. Den Papierkorb finden Sie auf der „Mehr“-Kachel der Status-Registerkarte.\nDort können Sie es endgültig löschen oder wiederherstellen. Nach 30 Tagen wird das Testergebnis automatisch gelöscht.";
+
+"FamilyMemberCoronaTest_DeleteOne_AlertConfirmButtonTitle" = "Testergebnis entfernen";
+
+"FamilyMemberCoronaTest_DeleteOne_AlertCancelButtonTitle" = "Abbrechen";
+
+"FamilyMemberCoronaTest_DeleteAll_AlertTitle" = "Wollen Sie die Testergebnisse entfernen?";
+
+"FamilyMemberCoronaTest_DeleteAll_AlertMessage" = "Die Testergebnisse werden in den Papierkorb verschoben. Den Papierkorb finden Sie auf der „Mehr“-Kachel der Status-Registerkarte.\nDort können Sie diese endgültig löschen oder wiederherstellen. Nach 30 Tagen werden die Testergebnisse automatisch gelöscht.";
+
+"FamilyMemberCoronaTest_DeleteAll_AlertConfirmButtonTitle" = "Testergebnisse entfernen";
+
+"FamilyMemberCoronaTest_DeleteAll_AlertCancelButtonTitle" = "Abbrechen";
+
+

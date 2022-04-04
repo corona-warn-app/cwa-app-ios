@@ -30,7 +30,6 @@ class ExposureSubmissionViewControllerTests: CWATestCase {
 				onTestDeleted: { },
 				onTestCertificateCellTap: { _, _ in }
 			),
-			exposureSubmissionService: MockExposureSubmissionService(),
 			onDismiss: { _, _ in }
 		)
 	}
