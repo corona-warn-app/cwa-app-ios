@@ -4,13 +4,6 @@
 
 import Foundation
 
-enum KIDTypeIndexResourceError: Error {
-	case DCC_RL_KID_LIST_SERVER_ERROR
-	case DCC_RL_KID_LIST_CLIENT_ERROR
-	case DCC_RL_KID_LIST_NO_NETWORK
-	case DCC_RL_KID_LIST_INVALID_SIGNATURE
-}
-
 struct KIDTypeIndexResource: Resource {
 
 	init(
