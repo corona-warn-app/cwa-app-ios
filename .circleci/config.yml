@@ -280,9 +280,6 @@ workflows:
       - build-for-testing:
           requires:
             - dependencies
-      - swiftlint:
-          requires:
-            - dependencies
       - test:
           matrix:
             parameters:
