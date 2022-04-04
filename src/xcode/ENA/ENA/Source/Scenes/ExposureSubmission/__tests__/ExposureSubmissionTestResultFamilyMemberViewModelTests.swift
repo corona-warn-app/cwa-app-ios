@@ -19,7 +19,7 @@ class ExposureSubmissionTestResultFamilyMemberViewModelTests: CWATestCase {
 		let familyMemberCoronaTestService = MockFamilyMemberCoronaTestService()
 		let postivePCRTest: FamilyMemberCoronaTest = .pcr(.mock(registrationDate: Date(), registrationToken: "regToken", qrCodeHash: "pcrQRCodeHash", testResult: .positive))
 		let negativePCRTest: FamilyMemberCoronaTest = .pcr(.mock(registrationDate: Date(), registrationToken: "regToken", qrCodeHash: "pcrQRCodeHash", testResult: .negative))
-		let invalidPCRTest: FamilyMemberCoronaTest = .pcr(.mock(registrationDate: Date(), registrationToken: "regToken", qrCodeHash: "pcrQRCodeHash", testResult: .negative))
+		let invalidPCRTest: FamilyMemberCoronaTest = .pcr(.mock(registrationDate: Date(), registrationToken: "regToken", qrCodeHash: "pcrQRCodeHash", testResult: .invalid))
 		familyMemberCoronaTestService.coronaTests.value = [postivePCRTest, negativePCRTest, invalidPCRTest]
 
 		for coronaTest in [postivePCRTest, negativePCRTest, invalidPCRTest] {
@@ -35,6 +35,7 @@ class ExposureSubmissionTestResultFamilyMemberViewModelTests: CWATestCase {
 			let model = ExposureSubmissionTestResultFamilyMemberViewModel(
 				familyMemberCoronaTest: coronaTest,
 				familyMemberCoronaTestService: familyMemberCoronaTestService,
+				keepMarkedAsNew: false,
 				onTestDeleted: { },
 				onTestCertificateCellTap: { _, _ in }
 			)
@@ -62,6 +63,7 @@ class ExposureSubmissionTestResultFamilyMemberViewModelTests: CWATestCase {
 		let model = ExposureSubmissionTestResultFamilyMemberViewModel(
 			familyMemberCoronaTest: pcrTest,
 			familyMemberCoronaTestService: familyMemberCoronaTestService,
+			keepMarkedAsNew: false,
 			onTestDeleted: { },
 			onTestCertificateCellTap: { _, _ in }
 		)
@@ -91,6 +93,7 @@ class ExposureSubmissionTestResultFamilyMemberViewModelTests: CWATestCase {
 		let model = ExposureSubmissionTestResultFamilyMemberViewModel(
 			familyMemberCoronaTest: pcrTest,
 			familyMemberCoronaTestService: familyMemberCoronaTestService,
+			keepMarkedAsNew: false,
 			onTestDeleted: { },
 			onTestCertificateCellTap: { _, _ in }
 		)
@@ -137,6 +140,7 @@ class ExposureSubmissionTestResultFamilyMemberViewModelTests: CWATestCase {
 		let model = ExposureSubmissionTestResultFamilyMemberViewModel(
 			familyMemberCoronaTest: pcrTest,
 			familyMemberCoronaTestService: familyMemberCoronaTestService,
+			keepMarkedAsNew: false,
 			onTestDeleted: { },
 			onTestCertificateCellTap: { _, _ in }
 		)
@@ -156,6 +160,7 @@ class ExposureSubmissionTestResultFamilyMemberViewModelTests: CWATestCase {
 		let model = ExposureSubmissionTestResultFamilyMemberViewModel(
 			familyMemberCoronaTest: pcrTest,
 			familyMemberCoronaTestService: familyMemberCoronaTestService,
+			keepMarkedAsNew: false,
 			onTestDeleted: { },
 			onTestCertificateCellTap: { _, _ in }
 		)
@@ -186,6 +191,7 @@ class ExposureSubmissionTestResultFamilyMemberViewModelTests: CWATestCase {
 		let model = ExposureSubmissionTestResultFamilyMemberViewModel(
 			familyMemberCoronaTest: pcrTest,
 			familyMemberCoronaTestService: familyMemberCoronaTestService,
+			keepMarkedAsNew: false,
 			onTestDeleted: {
 				onTestDeletedCalledExpectation.fulfill()
 			},
@@ -205,6 +211,7 @@ class ExposureSubmissionTestResultFamilyMemberViewModelTests: CWATestCase {
 		let model = ExposureSubmissionTestResultFamilyMemberViewModel(
 			familyMemberCoronaTest: pcrTest,
 			familyMemberCoronaTestService: familyMemberCoronaTestService,
+			keepMarkedAsNew: false,
 			onTestDeleted: { },
 			onTestCertificateCellTap: { _, _ in }
 		)
@@ -224,13 +231,14 @@ class ExposureSubmissionTestResultFamilyMemberViewModelTests: CWATestCase {
 		let familyMemberCoronaTestService = MockFamilyMemberCoronaTestService()
 		let postivePCRTest: FamilyMemberCoronaTest = .pcr(.mock(registrationDate: Date(), registrationToken: "regToken", qrCodeHash: "pcrQRCodeHash", testResult: .positive))
 		let negativePCRTest: FamilyMemberCoronaTest = .pcr(.mock(registrationDate: Date(), registrationToken: "regToken", qrCodeHash: "pcrQRCodeHash", testResult: .negative))
-		let invalidPCRTest: FamilyMemberCoronaTest = .pcr(.mock(registrationDate: Date(), registrationToken: "regToken", qrCodeHash: "pcrQRCodeHash", testResult: .negative))
+		let invalidPCRTest: FamilyMemberCoronaTest = .pcr(.mock(registrationDate: Date(), registrationToken: "regToken", qrCodeHash: "pcrQRCodeHash", testResult: .invalid))
 		familyMemberCoronaTestService.coronaTests.value = [postivePCRTest, negativePCRTest, invalidPCRTest]
 
 		for coronaTest in [postivePCRTest, negativePCRTest, invalidPCRTest] {
 			let model = ExposureSubmissionTestResultFamilyMemberViewModel(
 				familyMemberCoronaTest: coronaTest,
 				familyMemberCoronaTestService: familyMemberCoronaTestService,
+				keepMarkedAsNew: false,
 				onTestDeleted: { },
 				onTestCertificateCellTap: { _, _ in }
 			)
@@ -240,9 +248,6 @@ class ExposureSubmissionTestResultFamilyMemberViewModelTests: CWATestCase {
 			XCTAssertFalse(footerViewModel.isPrimaryLoading)
 			XCTAssertTrue(footerViewModel.isPrimaryButtonEnabled)
 			XCTAssertFalse(footerViewModel.isPrimaryButtonHidden)
-
-			XCTAssertFalse(footerViewModel.isSecondaryLoading)
-			XCTAssertFalse(footerViewModel.isSecondaryButtonEnabled)
 			XCTAssertTrue(footerViewModel.isSecondaryButtonHidden)
 		}
 	}
@@ -255,6 +260,7 @@ class ExposureSubmissionTestResultFamilyMemberViewModelTests: CWATestCase {
 		let model = ExposureSubmissionTestResultFamilyMemberViewModel(
 			familyMemberCoronaTest: pcrTest,
 			familyMemberCoronaTestService: familyMemberCoronaTestService,
+			keepMarkedAsNew: false,
 			onTestDeleted: { },
 			onTestCertificateCellTap: { _, _ in }
 		)
@@ -311,6 +317,7 @@ class ExposureSubmissionTestResultFamilyMemberViewModelTests: CWATestCase {
 		let model = ExposureSubmissionTestResultFamilyMemberViewModel(
 			familyMemberCoronaTest: pcrTest,
 			familyMemberCoronaTestService: familyMemberCoronaTestService,
+			keepMarkedAsNew: false,
 			onTestDeleted: { },
 			onTestCertificateCellTap: { _, _ in }
 		)
@@ -367,6 +374,7 @@ class ExposureSubmissionTestResultFamilyMemberViewModelTests: CWATestCase {
 		let model = ExposureSubmissionTestResultFamilyMemberViewModel(
 			familyMemberCoronaTest: pcrTest,
 			familyMemberCoronaTestService: familyMemberCoronaTestService,
+			keepMarkedAsNew: false,
 			onTestDeleted: { },
 			onTestCertificateCellTap: { _, _ in }
 		)
@@ -403,6 +411,7 @@ class ExposureSubmissionTestResultFamilyMemberViewModelTests: CWATestCase {
 		let model = ExposureSubmissionTestResultFamilyMemberViewModel(
 			familyMemberCoronaTest: pcrTest,
 			familyMemberCoronaTestService: familyMemberCoronaTestService,
+			keepMarkedAsNew: false,
 			onTestDeleted: { },
 			onTestCertificateCellTap: { _, _ in }
 		)
