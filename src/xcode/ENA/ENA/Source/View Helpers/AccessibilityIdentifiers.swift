@@ -870,7 +870,7 @@ enum AccessibilityIdentifiers {
 		static let loadingPCR = "AccessibilityIdentifiers.FamilyMemberCoronaTestCell.loadingPCR"
 		static let loadingAntigen = "AccessibilityIdentifiers.FamilyMemberCoronaTestCell.loadingAntigen"
 		static let homeCell = "AccessibilityIdentifiers.FamilyMemberCoronaTestCell.homeCell"
-
+		static let homeCellDetailText = "AccessibilityIdentifiers.FamilyMemberCoronaTestCell.homeCellDetailText"
 	}
 
 }

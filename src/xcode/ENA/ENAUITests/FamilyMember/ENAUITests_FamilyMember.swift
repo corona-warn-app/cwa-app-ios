@@ -24,6 +24,9 @@ class ENAUITests_FamilyMember: CWATestCase {
 		app.setLaunchArgument(LaunchArguments.familyTest.pcr.positiveTestResultWasShown, to: true)
 
 		app.launch()
+		app.swipeUp()
+
+		XCTAssertFalse(app.staticTexts[AccessibilityIdentifiers.FamilyMemberCoronaTestCell.homeCellDetailText].waitForExistence(timeout: .short))
 		app.buttons[AccessibilityIdentifiers.TabBar.scanner].waitAndTap()
 
 		/// Simulator only Alert will open where you can choose what the QRScanner should scan
@@ -67,6 +70,8 @@ class ENAUITests_FamilyMember: CWATestCase {
 
 		/// home screen reached
 		XCTAssertTrue(app.cells[AccessibilityIdentifiers.FamilyMemberCoronaTestCell.homeCell].exists)
+		app.swipeUp()
+		XCTAssertTrue(app.staticTexts[AccessibilityIdentifiers.FamilyMemberCoronaTestCell.homeCellDetailText].waitForExistence(timeout: .short))
 
 	}
 

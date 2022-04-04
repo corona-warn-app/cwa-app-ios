@@ -54,6 +54,7 @@ class FamilyTestsHomeCell: UITableViewCell, ReuseIdentifierProviding {
 		let detailsLabel = ENALabel(style: .body)
 		detailsLabel.translatesAutoresizingMaskIntoConstraints = false
 		detailsLabel.text = AppStrings.Home.familyTestDetail
+		detailsLabel.accessibilityIdentifier = AccessibilityIdentifiers.FamilyMemberCoronaTestCell.homeCellDetailText
 		detailsLabel.numberOfLines = 0
 		return detailsLabel
 	}()
