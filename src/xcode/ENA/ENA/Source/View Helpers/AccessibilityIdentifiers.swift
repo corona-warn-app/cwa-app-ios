@@ -323,6 +323,10 @@ enum AccessibilityIdentifiers {
 		enum Antigen {
 			static let proofDesc = "AppStrings.ExposureSubmissionResult.Antigen.proofDesc"
 		}
+
+		enum RemoveAlert {
+			static let deleteButton = "AppStrings.ExposureSubmissionResult.removeAlert_ConfirmButtonTitle"
+		}
 	}
 	
 	enum ExposureSubmissionPositiveTestResult {

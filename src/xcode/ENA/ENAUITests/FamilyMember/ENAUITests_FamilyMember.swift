@@ -101,13 +101,12 @@ class ENAUITests_FamilyMember: CWATestCase {
 		XCTAssertTrue(app.staticTexts[AccessibilityIdentifiers.FamilyMemberCoronaTestCell.homeCellDetailText].waitForExistence(timeout: .short))
 	}
 
-
 	func test_familyMemberViewOverview () throws {
 		// launch argument will make
-		app.setLaunchArgument(LaunchArguments.familyTest.pcr.testResult, to: TestResult.negative.stringValue)
-		app.setLaunchArgument(LaunchArguments.familyTest.pcr.positiveTestResultWasShown, to: true)
 		app.setLaunchArgument(LaunchArguments.familyTest.antigen.testResult, to: TestResult.negative.stringValue)
 		app.setLaunchArgument(LaunchArguments.familyTest.antigen.positiveTestResultWasShown, to: true)
+		app.setLaunchArgument(LaunchArguments.familyTest.pcr.testResult, to: TestResult.negative.stringValue)
+		app.setLaunchArgument(LaunchArguments.familyTest.pcr.positiveTestResultWasShown, to: true)
 
 		app.launch()
 		app.swipeUp()
@@ -122,13 +121,66 @@ class ENAUITests_FamilyMember: CWATestCase {
 		XCTAssertFalse(app.staticTexts[AccessibilityIdentifiers.FamilyMemberCoronaTestCell.homeCellDetailText].waitForExistence(timeout: .short))
 
 		// lookup for both tests cells
-		XCTAssertEqual(app.cells.matching(identifier: AccessibilityIdentifiers.FamilyMemberCoronaTestCell.Overview.testCell]).count, 2)
+		XCTAssertEqual(app.cells.matching(identifier: AccessibilityIdentifiers.FamilyMemberCoronaTestCell.Overview.testCell).count, 2)
 
-		// check for title Tests von Familienmitgliedern
+		// tap on second cell
+		app.cells.matching(identifier: AccessibilityIdentifiers.FamilyMemberCoronaTestCell.Overview.testCell).lastMatch.waitAndTap()
 
-		// cell identifier
+		// check for negative test of Anni
+		XCTAssertTrue(app.navigationBars["Anni"].waitForExistence(timeout: .short))
+		// Text only in valid test
+		XCTAssertTrue(app.staticTexts[AccessibilityIdentifiers.ExposureSubmissionResult.Antigen.proofDesc].waitForExistence(timeout: .short))
+		// Now delete Anni's Test
+		app.buttons[AccessibilityIdentifiers.ExposureSubmission.primaryButton].waitAndTap()
+		// Confirm delete in alert
+		app.alerts.buttons[AccessibilityIdentifiers.ExposureSubmissionResult.RemoveAlert.deleteButton].waitAndTap()
 
+		// lookup that only Pauls test is remaining
+		XCTAssertEqual(app.cells.matching(identifier: AccessibilityIdentifiers.FamilyMemberCoronaTestCell.Overview.testCell).count, 1)
 
+		// Swipe to delete for Pauls test
+		app.cells[AccessibilityIdentifiers.FamilyMemberCoronaTestCell.Overview.testCell].swipeLeft()
+		// Take first and only button, which is the system delete button
+		app.cells[AccessibilityIdentifiers.FamilyMemberCoronaTestCell.Overview.testCell].buttons.firstMatch.waitAndTap()
+		// Confirm delete in alert
+		app.alerts.buttons[AccessibilityIdentifiers.ExposureSubmissionResult.RemoveAlert.deleteButton].waitAndTap()
+
+		// check if family members test
+		XCTAssertFalse(app.cells[AccessibilityIdentifiers.FamilyMemberCoronaTestCell.homeCell].waitForExistence(timeout: .short))
 	}
 
+	func test_familyMemberViewOverviewDeleteAll() throws {
+		// launch argument will make
+		app.setLaunchArgument(LaunchArguments.familyTest.antigen.testResult, to: TestResult.negative.stringValue)
+		app.setLaunchArgument(LaunchArguments.familyTest.antigen.positiveTestResultWasShown, to: true)
+		app.setLaunchArgument(LaunchArguments.familyTest.pcr.testResult, to: TestResult.negative.stringValue)
+		app.setLaunchArgument(LaunchArguments.familyTest.pcr.positiveTestResultWasShown, to: true)
+
+		app.launch()
+		app.swipeUp()
+
+		// select familyMember test cell
+		app.cells[AccessibilityIdentifiers.FamilyMemberCoronaTestCell.homeCell].waitAndTap(.short)
+
+		// check if family members overview is shown
+		XCTAssertTrue(app.navigationBars[app.localized(AppStrings.FamilyMemberCoronaTest.title)].waitForExistence(timeout: .short))
+
+		// check if family members test news label is invisible
+		XCTAssertFalse(app.staticTexts[AccessibilityIdentifiers.FamilyMemberCoronaTestCell.homeCellDetailText].waitForExistence(timeout: .short))
+
+		// lookup for both tests cells
+		XCTAssertEqual(app.cells.matching(identifier: AccessibilityIdentifiers.FamilyMemberCoronaTestCell.Overview.testCell).count, 2)
+
+		// Tap on edit
+		app.navigationBars.buttons.lastMatch.waitAndTap()
+
+		// Tap on delete all
+		app.buttons[AccessibilityIdentifiers.General.primaryFooterButton].waitAndTap()
+
+		// Confirm delete in alert
+		app.alerts.buttons[AccessibilityIdentifiers.ExposureSubmissionResult.RemoveAlert.deleteButton].waitAndTap()
+
+		// check if family members test
+		XCTAssertFalse(app.cells[AccessibilityIdentifiers.FamilyMemberCoronaTestCell.homeCell].waitForExistence(timeout: .short))
+	}
 }
