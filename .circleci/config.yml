@@ -76,25 +76,6 @@ jobs:
           paths:
             - "src/xcode/DerivedData/**/*"
 
-  swiftlint:
-    macos:
-      xcode: *xcode_version
-    resource_class: medium
-    steps:
-      - attach_workspace:
-          at: .
-      - restore_cache:
-          key: *cache_key
-      - restore_cache:
-          key: *tools_cache_key
-      - run:
-          name: Swiftlint
-          command: |
-            swiftlint --version
-            cd src/xcode && bundle exec fastlane lint
-      - store_artifacts:
-          path: src/xcode/swiftlint.html
-
   test:
     macos:
       xcode: *xcode_version
