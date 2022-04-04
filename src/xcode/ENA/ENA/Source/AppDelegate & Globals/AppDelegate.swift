@@ -725,11 +725,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 	private var exposureDetection: ExposureDetection?
 	private let consumer = RiskConsumer()
 	private var postOnboardingRoute: Route?
-	private var route: Route? {
-		didSet {
-			Log.info("new route: \(route)")
-		}
-	}
+	private var route: Route?
 	private var didSetupUI = false
 	private var appLaunchedFromUserActivityURL = false
 
