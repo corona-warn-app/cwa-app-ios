@@ -57,9 +57,9 @@ struct KIDListResource: Resource {
 		_ statusCode: Int
 	) -> KIDListResourceError? {
 		switch statusCode {
-		case (400...409):
+		case (400...499):
 			return .DCC_RL_KID_LIST_CLIENT_ERROR
-		case (500...509):
+		case (500...599):
 			return .DCC_RL_KID_LIST_SERVER_ERROR
 		default:
 			return nil
