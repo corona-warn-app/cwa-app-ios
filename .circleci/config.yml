@@ -361,26 +361,6 @@ workflows:
                 - /^v.*/
             branches:
               ignore: /.*/
-      - snapshot:
-          matrix:
-            parameters:
-              language: ["de-DE", "en-EN"]
-              displaymode: ["dark", "light"]
-          requires:
-            - dependencies
-          filters:
-            branches:
-              only:
-                - /release\/.*/
-      - collect-snapshots:
-          requires:
-            - snapshot
-          filters:
-            tags:
-              only:
-                - /^v.*/
-            branches:
-              ignore: /.*/
       - testflight-release:
           requires:
             - dependencies
