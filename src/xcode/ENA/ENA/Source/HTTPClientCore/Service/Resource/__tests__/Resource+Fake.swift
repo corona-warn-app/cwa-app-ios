@@ -4,7 +4,7 @@
 
 @testable import ENA
 
-class ResourceFake: Resource {
+struct ResourceFake: Resource {
 	init(
 		locator: Locator = .fake(),
 		type: ServiceType = .caching(),
