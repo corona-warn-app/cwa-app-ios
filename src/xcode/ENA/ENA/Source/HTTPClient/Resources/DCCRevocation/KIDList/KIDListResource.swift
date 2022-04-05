@@ -40,8 +40,12 @@ struct KIDListResource: Resource {
 	
 	func customError(for error: ServiceError<KIDListResourceError>, responseBody: Data?) -> KIDListResourceError? {
 		switch error {
-		case .resourceError:
-			return .DCC_RL_KID_LIST_INVALID_SIGNATURE
+		case .resourceError(let error):
+			if case .signatureVerification = error {
+				return .DCC_RL_KID_LIST_INVALID_SIGNATURE
+			} else {
+				return nil
+			}
 		case .transportationError:
 			return .DCC_RL_KID_LIST_NO_NETWORK
 		case .unexpectedServerError(let statusCode):
