@@ -23,7 +23,8 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 			exposureSubmissionService: MockExposureSubmissionService(),
 			coronaTestService: coronaTestService,
 			familyMemberCoronaTestService: familyMemberCoronaTestService,
-			eventProvider: MockEventStore()
+			eventProvider: MockEventStore(),
+			recycleBin: RecycleBin(store: MockTestStore())
 		)
 
 		XCTAssertFalse(model.shouldShowOverrideTestNotice(for: .pcr))
@@ -41,7 +42,8 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 			exposureSubmissionService: MockExposureSubmissionService(),
 			coronaTestService: coronaTestService,
 			familyMemberCoronaTestService: familyMemberCoronaTestService,
-			eventProvider: MockEventStore()
+			eventProvider: MockEventStore(),
+			recycleBin: RecycleBin(store: MockTestStore())
 		)
 
 		XCTAssertTrue(model.shouldShowOverrideTestNotice(for: .pcr))
@@ -72,7 +74,8 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 			exposureSubmissionService: MockExposureSubmissionService(),
 			coronaTestService: coronaTestService,
 			familyMemberCoronaTestService: familyMemberCoronaTestService,
-			eventProvider: MockEventStore()
+			eventProvider: MockEventStore(),
+			recycleBin: RecycleBin(store: MockTestStore())
 		)
 
 		XCTAssertFalse(model.shouldShowOverrideTestNotice(for: .pcr))
@@ -107,7 +110,8 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 			exposureSubmissionService: MockExposureSubmissionService(),
 			coronaTestService: coronaTestService,
 			familyMemberCoronaTestService: familyMemberCoronaTestService,
-			eventProvider: MockEventStore()
+			eventProvider: MockEventStore(),
+			recycleBin: RecycleBin(store: MockTestStore())
 		)
 
 		XCTAssertTrue(model.shouldShowOverrideTestNotice(for: .pcr))
@@ -121,7 +125,8 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 			exposureSubmissionService: MockExposureSubmissionService(),
 			coronaTestService: MockCoronaTestService(),
 			familyMemberCoronaTestService: MockFamilyMemberCoronaTestService(),
-			eventProvider: MockEventStore()
+			eventProvider: MockEventStore(),
+			recycleBin: RecycleBin(store: MockTestStore())
 		)
 
 		XCTAssertTrue(model.shouldShowTestCertificateScreen(with: .pcr(guid: "F1EE0D-F1EE0D4D-4346-4B63-B9CF-1522D9200915", qrCodeHash: "")))
@@ -132,7 +137,8 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 			exposureSubmissionService: MockExposureSubmissionService(),
 			coronaTestService: MockCoronaTestService(),
 			familyMemberCoronaTestService: MockFamilyMemberCoronaTestService(),
-			eventProvider: MockEventStore()
+			eventProvider: MockEventStore(),
+			recycleBin: RecycleBin(store: MockTestStore())
 		)
 
 		let antigenTestQRCodeInformation = RapidTestQRCodeInformation(
@@ -154,7 +160,8 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 			exposureSubmissionService: MockExposureSubmissionService(),
 			coronaTestService: MockCoronaTestService(),
 			familyMemberCoronaTestService: MockFamilyMemberCoronaTestService(),
-			eventProvider: MockEventStore()
+			eventProvider: MockEventStore(),
+			recycleBin: RecycleBin(store: MockTestStore())
 		)
 
 		let antigenTestQRCodeInformation = RapidTestQRCodeInformation(
@@ -176,7 +183,8 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 			exposureSubmissionService: MockExposureSubmissionService(),
 			coronaTestService: MockCoronaTestService(),
 			familyMemberCoronaTestService: MockFamilyMemberCoronaTestService(),
-			eventProvider: MockEventStore()
+			eventProvider: MockEventStore(),
+			recycleBin: RecycleBin(store: MockTestStore())
 		)
 
 		let antigenTestQRCodeInformation = RapidTestQRCodeInformation(
@@ -198,7 +206,8 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 			exposureSubmissionService: MockExposureSubmissionService(),
 			coronaTestService: MockCoronaTestService(),
 			familyMemberCoronaTestService: MockFamilyMemberCoronaTestService(),
-			eventProvider: MockEventStore()
+			eventProvider: MockEventStore(),
+			recycleBin: RecycleBin(store: MockTestStore())
 		)
 
 		XCTAssertFalse(model.shouldShowTestCertificateScreen(with: .teleTAN(tan: "qwdzxcsrhe")))
@@ -211,7 +220,8 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 			exposureSubmissionService: MockExposureSubmissionService(),
 			coronaTestService: MockCoronaTestService(),
 			familyMemberCoronaTestService: MockFamilyMemberCoronaTestService(),
-			eventProvider: MockEventStore()
+			eventProvider: MockEventStore(),
+			recycleBin: RecycleBin(store: MockTestStore())
 		)
 
 		model.symptomsOptionSelected(.yes)
@@ -231,7 +241,8 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 			exposureSubmissionService: exposureSubmissionService,
 			coronaTestService: MockCoronaTestService(),
 			familyMemberCoronaTestService: MockFamilyMemberCoronaTestService(),
-			eventProvider: MockEventStore()
+			eventProvider: MockEventStore(),
+			recycleBin: RecycleBin(store: MockTestStore())
 		)
 
 		model.coronaTestType = .pcr
@@ -258,7 +269,8 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 			exposureSubmissionService: exposureSubmissionService,
 			coronaTestService: MockCoronaTestService(),
 			familyMemberCoronaTestService: MockFamilyMemberCoronaTestService(),
-			eventProvider: MockEventStore()
+			eventProvider: MockEventStore(),
+			recycleBin: RecycleBin(store: MockTestStore())
 		)
 
 		model.coronaTestType = .pcr
@@ -287,7 +299,8 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 			exposureSubmissionService: exposureSubmissionService,
 			coronaTestService: MockCoronaTestService(),
 			familyMemberCoronaTestService: MockFamilyMemberCoronaTestService(),
-			eventProvider: MockEventStore()
+			eventProvider: MockEventStore(),
+			recycleBin: RecycleBin(store: MockTestStore())
 		)
 
 		model.coronaTestType = .pcr
@@ -316,7 +329,8 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 			exposureSubmissionService: exposureSubmissionService,
 			coronaTestService: MockCoronaTestService(),
 			familyMemberCoronaTestService: MockFamilyMemberCoronaTestService(),
-			eventProvider: MockEventStore()
+			eventProvider: MockEventStore(),
+			recycleBin: RecycleBin(store: MockTestStore())
 		)
 
 		model.coronaTestType = .pcr
@@ -342,7 +356,8 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 			exposureSubmissionService: exposureSubmissionService,
 			coronaTestService: MockCoronaTestService(),
 			familyMemberCoronaTestService: MockFamilyMemberCoronaTestService(),
-			eventProvider: MockEventStore()
+			eventProvider: MockEventStore(),
+			recycleBin: RecycleBin(store: MockTestStore())
 		)
 
 		model.coronaTestType = .pcr
@@ -369,7 +384,8 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 			exposureSubmissionService: exposureSubmissionService,
 			coronaTestService: MockCoronaTestService(),
 			familyMemberCoronaTestService: MockFamilyMemberCoronaTestService(),
-			eventProvider: MockEventStore()
+			eventProvider: MockEventStore(),
+			recycleBin: RecycleBin(store: MockTestStore())
 		)
 
 		model.coronaTestType = .pcr
@@ -395,7 +411,8 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 			exposureSubmissionService: exposureSubmissionService,
 			coronaTestService: MockCoronaTestService(),
 			familyMemberCoronaTestService: MockFamilyMemberCoronaTestService(),
-			eventProvider: MockEventStore()
+			eventProvider: MockEventStore(),
+			recycleBin: RecycleBin(store: MockTestStore())
 		)
 
 		model.coronaTestType = .pcr
@@ -421,7 +438,8 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 			exposureSubmissionService: exposureSubmissionService,
 			coronaTestService: MockCoronaTestService(),
 			familyMemberCoronaTestService: MockFamilyMemberCoronaTestService(),
-			eventProvider: MockEventStore()
+			eventProvider: MockEventStore(),
+			recycleBin: RecycleBin(store: MockTestStore())
 		)
 
 		model.coronaTestType = .pcr
@@ -460,7 +478,8 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 			exposureSubmissionService: exposureSubmissionService,
 			coronaTestService: MockCoronaTestService(),
 			familyMemberCoronaTestService: MockFamilyMemberCoronaTestService(),
-			eventProvider: MockEventStore()
+			eventProvider: MockEventStore(),
+			recycleBin: RecycleBin(store: MockTestStore())
 		)
 
 		model.coronaTestType = .pcr
@@ -499,7 +518,8 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 			exposureSubmissionService: exposureSubmissionService,
 			coronaTestService: MockCoronaTestService(),
 			familyMemberCoronaTestService: MockFamilyMemberCoronaTestService(),
-			eventProvider: MockEventStore()
+			eventProvider: MockEventStore(),
+			recycleBin: RecycleBin(store: MockTestStore())
 		)
 
 		model.coronaTestType = .pcr
@@ -540,7 +560,8 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 			exposureSubmissionService: exposureSubmissionService,
 			coronaTestService: MockCoronaTestService(),
 			familyMemberCoronaTestService: MockFamilyMemberCoronaTestService(),
-			eventProvider: MockEventStore()
+			eventProvider: MockEventStore(),
+			recycleBin: RecycleBin(store: MockTestStore())
 		)
 
 		model.coronaTestType = .pcr
@@ -579,7 +600,8 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 			exposureSubmissionService: MockExposureSubmissionService(),
 			coronaTestService: coronaTestService,
 			familyMemberCoronaTestService: MockFamilyMemberCoronaTestService(),
-			eventProvider: MockEventStore()
+			eventProvider: MockEventStore(),
+			recycleBin: RecycleBin(store: MockTestStore())
 		)
 
 		let expectedIsLoadingValues = [true, false]
@@ -623,7 +645,8 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 			exposureSubmissionService: MockExposureSubmissionService(),
 			coronaTestService: coronaTestService,
 			familyMemberCoronaTestService: familyMemberCoronaTestService,
-			eventProvider: MockEventStore()
+			eventProvider: MockEventStore(),
+			recycleBin: RecycleBin(store: MockTestStore())
 		)
 
 		let expectedIsLoadingValues = [true, false]
@@ -666,7 +689,8 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 			exposureSubmissionService: MockExposureSubmissionService(),
 			coronaTestService: coronaTestService,
 			familyMemberCoronaTestService: MockFamilyMemberCoronaTestService(),
-			eventProvider: MockEventStore()
+			eventProvider: MockEventStore(),
+			recycleBin: RecycleBin(store: MockTestStore())
 		)
 
 		let expectedIsLoadingValues = [true, false]
@@ -710,7 +734,8 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 			exposureSubmissionService: MockExposureSubmissionService(),
 			coronaTestService: coronaTestService,
 			familyMemberCoronaTestService: familyMemberCoronaTestService,
-			eventProvider: MockEventStore()
+			eventProvider: MockEventStore(),
+			recycleBin: RecycleBin(store: MockTestStore())
 		)
 		
 		let expectedIsLoadingValues = [true, false]
@@ -753,7 +778,8 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 			exposureSubmissionService: MockExposureSubmissionService(),
 			coronaTestService: coronaTestService,
 			familyMemberCoronaTestService: MockFamilyMemberCoronaTestService(),
-			eventProvider: MockEventStore()
+			eventProvider: MockEventStore(),
+			recycleBin: RecycleBin(store: MockTestStore())
 		)
 
 		let expectedIsLoadingValues = [true, false]
@@ -796,7 +822,8 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 			exposureSubmissionService: MockExposureSubmissionService(),
 			coronaTestService: coronaTestService,
 			familyMemberCoronaTestService: MockFamilyMemberCoronaTestService(),
-			eventProvider: MockEventStore()
+			eventProvider: MockEventStore(),
+			recycleBin: RecycleBin(store: MockTestStore())
 		)
 
 		let expectedIsLoadingValues = [true, false]
@@ -839,7 +866,8 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 			exposureSubmissionService: MockExposureSubmissionService(),
 			coronaTestService: coronaTestService,
 			familyMemberCoronaTestService: MockFamilyMemberCoronaTestService(),
-			eventProvider: MockEventStore()
+			eventProvider: MockEventStore(),
+			recycleBin: RecycleBin(store: MockTestStore())
 		)
 
 		let expectedIsLoadingValues = [true, false]
@@ -883,7 +911,8 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 			exposureSubmissionService: MockExposureSubmissionService(),
 			coronaTestService: coronaTestService,
 			familyMemberCoronaTestService: familyMemberCoronaTestService,
-			eventProvider: MockEventStore()
+			eventProvider: MockEventStore(),
+			recycleBin: RecycleBin(store: MockTestStore())
 		)
 
 		let expectedIsLoadingValues = [true, false]
@@ -926,7 +955,8 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 			exposureSubmissionService: MockExposureSubmissionService(),
 			coronaTestService: coronaTestService,
 			familyMemberCoronaTestService: MockFamilyMemberCoronaTestService(),
-			eventProvider: MockEventStore()
+			eventProvider: MockEventStore(),
+			recycleBin: RecycleBin(store: MockTestStore())
 		)
 
 		let expectedIsLoadingValues = [true, false]
@@ -970,7 +1000,8 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 			exposureSubmissionService: MockExposureSubmissionService(),
 			coronaTestService: coronaTestService,
 			familyMemberCoronaTestService: familyMemberCoronaTestService,
-			eventProvider: MockEventStore()
+			eventProvider: MockEventStore(),
+			recycleBin: RecycleBin(store: MockTestStore())
 		)
 
 		let expectedIsLoadingValues = [true, false]
@@ -1013,7 +1044,8 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 			exposureSubmissionService: MockExposureSubmissionService(),
 			coronaTestService: coronaTestService,
 			familyMemberCoronaTestService: MockFamilyMemberCoronaTestService(),
-			eventProvider: MockEventStore()
+			eventProvider: MockEventStore(),
+			recycleBin: RecycleBin(store: MockTestStore())
 		)
 
 		let expectedIsLoadingValues = [true, false]
@@ -1057,7 +1089,8 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 			exposureSubmissionService: MockExposureSubmissionService(),
 			coronaTestService: coronaTestService,
 			familyMemberCoronaTestService: familyMemberCoronaTestService,
-			eventProvider: MockEventStore()
+			eventProvider: MockEventStore(),
+			recycleBin: RecycleBin(store: MockTestStore())
 		)
 
 		let expectedIsLoadingValues = [true, false]
@@ -1100,7 +1133,8 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 			exposureSubmissionService: MockExposureSubmissionService(),
 			coronaTestService: coronaTestService,
 			familyMemberCoronaTestService: MockFamilyMemberCoronaTestService(),
-			eventProvider: MockEventStore()
+			eventProvider: MockEventStore(),
+			recycleBin: RecycleBin(store: MockTestStore())
 		)
 
 		let expectedIsLoadingValues = [true, false]
@@ -1144,7 +1178,8 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 			exposureSubmissionService: MockExposureSubmissionService(),
 			coronaTestService: coronaTestService,
 			familyMemberCoronaTestService: familyMemberCoronaTestService,
-			eventProvider: MockEventStore()
+			eventProvider: MockEventStore(),
+			recycleBin: RecycleBin(store: MockTestStore())
 		)
 
 		let expectedIsLoadingValues = [true, false]
