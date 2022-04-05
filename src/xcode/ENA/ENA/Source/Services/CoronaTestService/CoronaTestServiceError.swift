@@ -34,7 +34,7 @@ enum CoronaTestServiceError: LocalizedError, Equatable {
 				return AppStrings.ExposureSubmissionError.noResponse
 			case .resourceError, .invalidResponse:
 				return AppStrings.ExposureSubmissionError.invalidResponse
-			case .invalidRequestError, .trustEvaluationError, .fakeResponse, .noReceiveModelToInterruptLoading:
+			case .invalidRequestError, .trustEvaluationError, .fakeResponse, .noReceiveModelToInterruptLoading, .wrongResourceType:
 				return AppStrings.ExposureSubmissionError.defaultError + "\n(\(String(describing: self)))"
 			}
 		case .registrationTokenError(let registrationTokenError):
@@ -49,7 +49,7 @@ enum CoronaTestServiceError: LocalizedError, Equatable {
 				return AppStrings.ExposureSubmissionError.noResponse
 			case .resourceError, .invalidResponse:
 				return AppStrings.ExposureSubmissionError.invalidResponse
-			case .invalidRequestError, .trustEvaluationError, .fakeResponse, .noReceiveModelToInterruptLoading:
+			case .invalidRequestError, .trustEvaluationError, .fakeResponse, .noReceiveModelToInterruptLoading, .wrongResourceType:
 				return AppStrings.ExposureSubmissionError.defaultError + "\n(\(String(describing: self)))"
 			}
 		case .testResultError(let testResultError):
