@@ -220,11 +220,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		// 'applicationDidBecomeActive' is the last delegate callback and needs to build up the UI.
 		if !didSetupUI && !appLaunchedFromUserActivityURL {
 			setupUI()
-			showUI {
-				self.appLaunchedFromUserActivityURL = false
-				self.didSetupUI = true
-				self.route = nil
-			}
+			showUI()
 		}
 
 		hidePrivacyProtectionWindow()
@@ -258,11 +254,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		// 'continue userActivity' is the last delegate callback and needs to build up the UI.
 		if !didSetupUI && appLaunchedFromUserActivityURL {
 			setupUI()
-			showUI {
-				self.appLaunchedFromUserActivityURL = false
-				self.didSetupUI = true
-				self.route = nil
-			}
+			showUI()
 		} else {
 			guard store.isOnboarded else {
 				postOnboardingRoute = route
@@ -893,7 +885,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		#endif
 	}
 
-	private func showUI(completion: @escaping () -> Void) {
+	private func showUI() {
 		coordinator.showLoadingScreen()
 
 		healthCertificateService.setup(
@@ -911,7 +903,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 						self.showOnboarding()
 					}
 
-					completion()
+					self.appLaunchedFromUserActivityURL = false
+					self.didSetupUI = true
+					self.route = nil
 				}
 			}
 		)
