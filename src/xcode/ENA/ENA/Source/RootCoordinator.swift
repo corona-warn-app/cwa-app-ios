@@ -131,10 +131,8 @@ class RootCoordinator: NSObject, RequiresAppDependencies, UITabBarControllerDele
 			else if case let .healthCertifiedPersonFromNotification(healthCertifiedPerson) = route {
 				showHealthCertifiedPersonFromNotification(for: healthCertifiedPerson)
 			}
-			// route handling to show test result from notification
-			else if case let .testResultFromNotification(testResult) = route {
-				showTestResultFromNotification(with: testResult)
-			}
+
+			// routes for user and family member test results are handled in the home coordinator and view controller
 		}
 
 		guard let delegate = delegate,
@@ -285,16 +283,11 @@ class RootCoordinator: NSObject, RequiresAppDependencies, UITabBarControllerDele
 		viewController.clearChildViewController()
 		viewController.embedViewController(childViewController: tabBarController)
 	}
-
-	func showTestResultFromNotification(with testType: CoronaTestType) {
-		homeCoordinator?.showTestResultFromNotification(with: testType)
-	}
 	
 	func showHealthCertificateFromNotification(
 		for healthCertifiedPerson: HealthCertifiedPerson,
 		with healthCertificate: HealthCertificate
 	) {
-		
 		guard let healthCertificateNavigationController = healthCertificatesTabCoordinator?.viewController,
 			  let index = tabBarController.viewControllers?.firstIndex(of: healthCertificateNavigationController) else {
 			Log.warning("Could not show certificate because i could find the corresponding navigation controller.")
