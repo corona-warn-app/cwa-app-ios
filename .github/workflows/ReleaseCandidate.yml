@@ -80,7 +80,20 @@ jobs:
           path: |
             src/xcode/vendor
             src/xcode/.bundle
-          key: ${{ runner.os }}-${{ env.cache-name }}-${{ hashFiles('src/xcode/Gemfile.lock') }}       
+          key: ${{ runner.os }}-${{ env.cache-name }}-${{ hashFiles('src/xcode/Gemfile.lock') }}
+      - name: swtich to testing environment
+        env:
+            ENVIRONMENTS_FILE_URL: '${{ secrets.ENVIRONMENTS_FILE_URL }}'
+            GITHUB_ACCESS_TOKEN: '${{ secrets.ACCESS_TOKEN_GITHUB }}'
+        run: |
+          ./scripts/switch_to_dev_env.sh           
       - name: fastlane appcenter and Mobile Device Cloud
+        env:
+            MATCH_PASSWORD: '${{ secrets.MATCH_PASSWORD }}'
+            FASTLANE_APPLE_APPLICATION_SPECIFIC_PASSWORD: '${{ secrets.FASTLANE_APPLE_APPLICATION_SPECIFIC_PASSWORD }}'
+            MATCH_GIT_BASIC_AUTHORIZATION: '${{ secrets.MATCH_GIT_BASIC_AUTHORIZATION }}'
+            TSI_CLOUD_URL: '${{ secrets.TSI_CLOUD_URL }}'
+            TSI_CLOUD_TOKEN: '${{ secrets.TSI_CLOUD_TOKEN }}'
+            CIRCLE_API_ADMIN_TOKEN: '${{ secrets.CIRCLE_API_ADMIN_TOKEN }}'
         run: |
           cd src/xcode && bundle exec fastlane adHocDistribution
