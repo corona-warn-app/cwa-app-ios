@@ -103,13 +103,15 @@ class CCLService: CCLServable {
 		
 		// InvalidationRules
 		if cclServiceMode.contains(.invalidationRules) {
-			switch restServiceProvider.cached(invalidationRulesResource) {
-			case let .success(rules):
-				self.invalidationRules = rules.rules
-			case let .failure(error):
-				Log.error("Failed to load invalidation rules from cache - init them empty", error: error)
-				self.invalidationRules = []
-			}
+			restServiceProvider.cached(invalidationRulesResource, { result in
+				switch result {
+				case let .success(rules):
+					self.invalidationRules = rules.rules
+				case let .failure(error):
+					Log.error("Failed to load invalidation rules from cache - init them empty", error: error)
+					self.invalidationRules = []
+				}
+			})
 		}
 
 		// cclConfigurations
