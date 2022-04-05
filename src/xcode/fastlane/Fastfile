@@ -141,11 +141,12 @@ platform :ios do
         output_directory: output_dir,
         result_bundle: true,
         skip_open_summary: true,
-        number_of_retries: 2,
         derived_data_path: "./DerivedData",
         test_without_building: options[:test_without_building] == true,
         skip_package_dependencies_resolution: true,
-        disable_package_automatic_updates: true
+        disable_package_automatic_updates: true,
+        number_of_retries: 0,
+        stop_after_first_error: true
       )
     rescue
       UI.user_error!("Tests did fail, please check logs above or ENA.xcresult.zip")
