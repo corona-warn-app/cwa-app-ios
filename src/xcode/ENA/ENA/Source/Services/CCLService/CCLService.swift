@@ -64,8 +64,9 @@ class CCLService: CCLServable {
 		self.appConfiguration = appConfiguration
 		self.cclServiceMode = cclServiceMode
 
-		cclConfigurationResource.receiveResource = CBORReceiveResource(signatureVerifier: signatureVerifier)
-		self.cclConfigurationResource = cclConfigurationResource
+		var mutableCclConfigurationResource = cclConfigurationResource
+		mutableCclConfigurationResource.receiveResource = CBORReceiveResource(signatureVerifier: signatureVerifier)
+		self.cclConfigurationResource = mutableCclConfigurationResource
 
 		var boosterNotificationRulesResource = DCCRulesResource(ruleType: .boosterNotification)
 		boosterNotificationRulesResource.receiveResource = CBORReceiveResource(signatureVerifier: signatureVerifier)
