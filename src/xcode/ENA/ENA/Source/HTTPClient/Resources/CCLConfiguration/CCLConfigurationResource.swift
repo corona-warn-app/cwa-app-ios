@@ -4,7 +4,7 @@
 
 import Foundation
 
-class CCLConfigurationResource: Resource {
+struct CCLConfigurationResource: Resource {
 	
 	// MARK: - Init
 	
