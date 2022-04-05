@@ -49,8 +49,12 @@ struct KIDTypeChunkResource: Resource {
 	
 	func customError(for error: ServiceError<KIDTypeChunkResourceError>, responseBody: Data?) -> KIDTypeChunkResourceError? {
 		switch error {
-		case .resourceError:
-			return .DCC_RL_KTXY_INVALID_SIGNATURE
+		case .resourceError(let error):
+			if case .signatureVerification = error {
+				return .DCC_RL_KTXY_INVALID_SIGNATURE
+			} else {
+				return nil
+			}
 		case .transportationError:
 			return .DCC_RL_KTXY_CHUNK_NO_NETWORK
 		case .unexpectedServerError(let statusCode):
