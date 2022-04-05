@@ -55,7 +55,7 @@ jobs:
         env:
             MATCH_PASSWORD: '${{ secrets.MATCH_PASSWORD }}'
             FASTLANE_APPLE_APPLICATION_SPECIFIC_PASSWORD: '${{ secrets.FASTLANE_APPLE_APPLICATION_SPECIFIC_PASSWORD }}'
-            MATCH_GIT_BASIC_AUTHORIZATION: '${{ secrets.ACCESS_TOKEN_GITHUB }}'
+            MATCH_GIT_BASIC_AUTHORIZATION: '${{ secrets.MATCH_GIT_BASIC_AUTHORIZATION }}'
 
         run: |
           cd src/xcode && bundle exec fastlane betaRelease --env TestFlight
