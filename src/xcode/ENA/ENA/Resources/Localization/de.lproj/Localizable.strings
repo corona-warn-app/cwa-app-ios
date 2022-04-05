@@ -1022,7 +1022,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmission_Antigen_Profile_Information_Description_Title" = "Legen Sie Ihre persönlichen Daten als QR-Code ab, um die Registrierung an der Teststelle zu beschleunigen.";
 
-"ExposureSubmission_Antigen_Profile_Information_DescriptionSubHeadline" = "Mit Ihrem eigenen Schnelltest-Profil müssen Sie Ihre persönlichen Daten nicht bei jedem neuen Schnelltest erneut ausfüllen.";
+"ExposureSubmission_Antigen_Profile_Information_DescriptionSubHeadline" = "Mit Ihrem eigenen Schnelltest-Profil müssen Sie Ihre persönlichen Daten nicht bei jedem neuen Schnelltest erneut ausfüllen. Sie können mehrere Schnelltest-Profile erstellen, z.B. eins für Sie selbst und weitere für Ihre Familie.";
 
 "ExposureSubmission_Antigen_Profile_Information_PrimaryButton" = "Weiter";
 
