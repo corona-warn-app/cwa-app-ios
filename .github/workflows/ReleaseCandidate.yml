@@ -50,7 +50,13 @@ jobs:
           path: |
             src/xcode/vendor
             src/xcode/.bundle
-          key: ${{ runner.os }}-${{ env.cache-name }}-${{ hashFiles('src/xcode/Gemfile.lock') }}       
+          key: ${{ runner.os }}-${{ env.cache-name }}-${{ hashFiles('src/xcode/Gemfile.lock') }}
+      - name: swtich to testing environment
+        env:
+            ENVIRONMENTS_FILE_URL: '${{ secrets.ENVIRONMENTS_FILE_URL }}'
+            GITHUB_ACCESS_TOKEN: '${{ secrets.ACCESS_TOKEN_GITHUB }}'
+        run: |
+          ./scripts/switch_to_dev_env.sh       
       - name: fastlane testflight
         env:
             MATCH_PASSWORD: '${{ secrets.MATCH_PASSWORD }}'
