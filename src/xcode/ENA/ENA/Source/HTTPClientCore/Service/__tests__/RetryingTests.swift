@@ -8,11 +8,10 @@ import XCTest
 
 class RetryingTests: XCTestCase {
 
-	func testGIVEN_RetryingResource_WHEN_RetryIsDone_THEN_SuccesAtLastRetry() throws {
+	func testGIVEN_RetryingResource_WHEN_RetryIsDoneWithSuccessAtTheEnd_THEN_SuccesAtLastRetry() throws {
 
 		let loadExpectation = expectation(description: "Retrying is done.")
-		// Should be 1 more then retries because we receive for the last call the successful answer.
-		loadExpectation.expectedFulfillmentCount = 4
+		loadExpectation.expectedFulfillmentCount = 3
 
 		var retryCount = 3
 		let defaultDummyModel = DummyResourceModel(dummyValue: "RetryModel")
@@ -73,16 +72,14 @@ class RetryingTests: XCTestCase {
 			case .failure(let error):
 				XCTFail("Test should not fail but received error: \(error)")
 			}
-			loadExpectation.fulfill()
 		})
 
 		waitForExpectations(timeout: .short)
 	}
 
-	func testGIVEN_RetryingResource_WHEN_RetryIsDone_THEN_FailureAtLastRetry() throws {
+	func testGIVEN_RetryingResourceWithoutDefaultModel_WHEN_RetryIsDoneWithoutSuccess_THEN_FailureAtLastRetry() throws {
 		let loadExpectation = expectation(description: "Retrying is done.")
-		// Should be 2 more then retries because we will receive also for the last request a failure.
-		loadExpectation.expectedFulfillmentCount = 5
+		loadExpectation.expectedFulfillmentCount = 3
 
 		var retryCount = 3
 
@@ -130,17 +127,15 @@ class RetryingTests: XCTestCase {
 			case .failure(let error):
 				XCTAssertEqual(error, ServiceError.unexpectedServerError(500))
 			}
-			loadExpectation.fulfill()
 		})
 
 		waitForExpectations(timeout: .short)
 	}
 
-	func testGIVEN_RetryingResourceWithDefaultModel_WHEN_RetryIsDone_THEN_DefaultModelIsReturnedAfterLastRetry() throws {
+	func testGIVEN_RetryingResourceWithDefaultModel_WHEN_RetryIsDoneWithoutSuccess_THEN_DefaultModelIsReturnedAfterLastRetry() throws {
 
 		let loadExpectation = expectation(description: "Retrying is done.")
-		// Should be 1 more then retries because we receive for the last call the successful answer.
-		loadExpectation.expectedFulfillmentCount = 4
+		loadExpectation.expectedFulfillmentCount = 3
 
 		var retryCount = 3
 

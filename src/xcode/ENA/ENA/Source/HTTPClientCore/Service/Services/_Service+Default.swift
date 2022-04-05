@@ -173,7 +173,7 @@ extension Service {
 		{
 		}
 
-		if resource.retryingCount > 0 {
+		if resource.retryingCount > 1 {
 			Log.debug("Retry for resource discovered. Retry counter at: \(resource.retryingCount)", log: .client)
 			var resourceCopy = resource
 			resourceCopy.retryingCount -= 1
