@@ -39,6 +39,7 @@ class QRScannerCoordinator {
 		vaccinationValueSetsProvider: VaccinationValueSetsProviding,
 		exposureSubmissionService: ExposureSubmissionService,
 		coronaTestService: CoronaTestServiceProviding,
+		familyMemberCoronaTestService: FamilyMemberCoronaTestServiceProviding,
 		recycleBin: RecycleBin
 	) {
 		self.store = store
@@ -53,6 +54,7 @@ class QRScannerCoordinator {
 		self.vaccinationValueSetsProvider = vaccinationValueSetsProvider
 		self.exposureSubmissionService = exposureSubmissionService
 		self.coronaTestService = coronaTestService
+		self.familyMemberCoronaTestService = familyMemberCoronaTestService
 		self.recycleBin = recycleBin
 	}
 	
@@ -93,6 +95,7 @@ class QRScannerCoordinator {
 	private let vaccinationValueSetsProvider: VaccinationValueSetsProviding
 	private let exposureSubmissionService: ExposureSubmissionService
 	private let coronaTestService: CoronaTestServiceProviding
+	private let familyMemberCoronaTestService: FamilyMemberCoronaTestServiceProviding
 	private let recycleBin: RecycleBin
 
 	private let activityIndicatorView = QRScannerActivityIndicatorView(title: AppStrings.FileScanner.hudText)
@@ -593,7 +596,7 @@ class QRScannerCoordinator {
 	private func showTestOverwriteNotice(
 		recycleBinItem: RecycleBinItem
 	) {
-		guard case let .coronaTest(coronaTest) = recycleBinItem.item else {
+		guard case let .userCoronaTest(coronaTest) = recycleBinItem.item else {
 			return
 		}
 
@@ -644,7 +647,7 @@ class QRScannerCoordinator {
 
 	private func restoreAndShow(recycleBinItem: RecycleBinItem) {
 		guard let parentViewController = self.parentViewController,
-			  case .coronaTest(let coronaTest) = recycleBinItem.item else {
+			  case .userCoronaTest(let coronaTest) = recycleBinItem.item else {
 			return
 		}
 
@@ -879,6 +882,7 @@ class QRScannerCoordinator {
 			parentViewController: parentViewController,
 			exposureSubmissionService: exposureSubmissionService,
 			coronaTestService: coronaTestService,
+			familyMemberCoronaTestService: familyMemberCoronaTestService,
 			healthCertificateService: healthCertificateService,
 			healthCertificateValidationService: healthCertificateValidationService,
 			eventProvider: eventStore,
@@ -897,7 +901,7 @@ class QRScannerCoordinator {
 			.antigen(qrCodeInformation: _, qrCodeHash: let qrCodeHash),
 			.rapidPCR(qrCodeInformation: _, qrCodeHash: let qrCodeHash):
 			return store.recycleBinItems.first {
-				guard case .coronaTest(let coronaTest) = $0.item else {
+				guard case .userCoronaTest(let coronaTest) = $0.item else {
 					return false
 				}
 

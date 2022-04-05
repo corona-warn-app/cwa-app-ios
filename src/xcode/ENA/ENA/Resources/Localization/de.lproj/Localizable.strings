@@ -575,7 +575,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmissionDispatch_QRCodeButtonTitle" = "QR-Code scannen";
 
-"ExposureSubmissionDispatch_QRCodeButtonDescription" = "Erhalten Sie Ihr Testergebnis in der App und warnen Sie andere oder fordern Sie Ihr COVID-Testzertifikat an.";
+"ExposureSubmissionDispatch_QRCodeButtonDescription" = "Erhalten Sie Ihr Testergebnis und die Ihrer Familienmitglieder und fordern Sie Ihr COVID-Testzertifikat an.";
 
 "ExposureSubmissionDispatch_TANButtonTitle" = "TAN für PCR-Test eingeben";
 
@@ -746,9 +746,13 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmissionResult_Procedure" = "Infos zum Ablauf:";
 
-"ExposureSubmissionResult_testAdded" = "Ihr Test wurde hinzugefügt";
+"ExposureSubmissionResult_testAdded" = "Ihr PCR-Test wurde hinzugefügt";
+
+"ExposureSubmissionResult_familyMember_testAdded" = "Der PCR-Test wurde hinzugefügt";
 
 "ExposureSubmissionResult_antigenTestAdded" = "Ihr Schnelltest wurde hinzugefügt";
+
+"ExposureSubmissionResult_familyMember_antigenTestAdded" = "Der Schnelltest wurde hinzugefügt";
 
 "ExposureSubmissionResult_antigenTestAddedDesc" = "Das Test-Ergebnis wird 48 Stunden hier angezeigt.";
 
@@ -780,12 +784,21 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmissionResult_testPending" = "Ihr Testergebnis liegt noch nicht vor";
 
+"ExposureSubmissionResult_familyMember_testPending" = "Ihr Testergebnis liegt noch nicht vor";
+
 "ExposureSubmissionResult_testPendingDesc" = "Sobald Ihr Testergebnis vorliegt, wird es Ihnen in der App angezeigt.\n\nSie bekommen Ihr Testergebnis auch außerhalb der App mitgeteilt. Falls Ihr Test positiv ist, bekommen Sie vom Gesundheitsamt eine Mitteilung.\n\nWenn Ihnen außerhalb der App ein positives Testergebnis mitgeteilt wurde, löschen Sie den aktuell in der App registrierten Test. Rufen Sie die unter „TAN anfragen” angegebene Nummer an, um eine TAN zu erhalten. Registrieren Sie dann Ihr Testergebnis mithilfe der TAN in der App.";
+
+"ExposureSubmissionResult_familyMember_testPendingDesc" = "Sobald Ihr Testergebnis vorliegt, wird es Ihnen in der App angezeigt.\nSie bekommen Ihr Testergebnis auch außerhalb der App mitgeteilt. Falls der Test positiv ist, bekommen Sie vom Gesundheitsamt eine Mitteilung.";
+
 "ExposureSubmissionResult_testCertificate_title" = "Ihr COVID-Testzertifikat";
+
+"ExposureSubmissionResult_familyMemberTestCertificate_title" = "COVID-Testzertifikat";
 
 "ExposureSubmissionResult_testCertificate_testCenterNotSupported" = "Ein offizielles digitales COVID-Testzertifikat kann nicht ausgestellt werden, da diese Teststelle die Ausstellung der Testzertifikate nicht unterstützt.";
 
 "ExposureSubmissionResult_testCertificate_Pending" = "Ihr offizielles digitales COVID-Testzertifikat liegt noch nicht vor. Sobald es vorliegt, wird es Ihnen in der App angezeigt.";
+
+"ExposureSubmissionResult_familyMemberTestCertificate_Pending" = "Das offizielle digitale COVID-Testzertifikat liegt noch nicht vor. Sobald es vorliegt, wird es Ihnen in der App angezeigt.";
 
 "ExposureSubmissionResult_testCertificate_NotRequested" = "Auf Ihren Wunsch hin wird kein offizielles digitales COVID-Testzertifikat ausgestellt.";
 
@@ -793,7 +806,11 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmissionResult_antigenTestPending" = "Ihr Testergebnis liegt noch nicht vor";
 
+"ExposureSubmissionResult_familyMember_antigenTestPending" = "Ihr Testergebnis liegt noch nicht vor";
+
 "ExposureSubmissionResult_antigenTestPendingDesc" = "Sobald Ihr Testergebnis vorliegt, wird es Ihnen in der App angezeigt.";
+
+"ExposureSubmissionResult_familyMember_antigenTestPendingDesc" = "Sobald das Testergebnis vorliegt, wird es Ihnen in der App angezeigt.";
 
 "ExposureSubmissionResult_antigenTestPendingContactJournal" = "Ihr Testergebnis wird dem Kontakt-Tagebuch hinzugefügt";
 
@@ -1034,6 +1051,20 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 "ExposureSubmission_Profile_ProfileTile_Title" = "Schnelltest-Profil";
 
 "ExposureSubmission_Profile_ProfileTile_Description" = "Sparen Sie Zeit und zeigen Sie Ihr Schnelltest-Profil an der Teststelle vor.";
+
+/* ExposureSubmission TestOwnerSelection */
+
+"ExposureSubmission_TestOwnerSelection_Title" = "Test registrieren";
+
+"ExposureSubmission_TestOwnerSelection_Description" = "Sie erhalten das Ergebnis auf Ihrem Smartphone  und können ein digitales COVID-Testzertifikat anfordern. Nur wenn es Ihr eigener Test ist, können Sie im Fall eines positiven Testergebnisses andere warnen.";
+
+"ExposureSubmission_TestOwnerSelection_User_Headline" = "Für mich";
+
+"ExposureSubmission_TestOwnerSelection_User_Subheadline" = "Ihr eigener Test";
+
+"ExposureSubmission_TestOwnerSelection_FamilyMember_Headline" = "Für andere";
+
+"ExposureSubmission_TestOwnerSelection_FamilyMember_Subheadline" = "Test eines Familienmitglieds";
 
 /* ExposureSubmission TestCertificate */
 
@@ -1312,6 +1343,12 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 "Home_resultCard_DeleteTestButton" = "Test löschen";
 
 "Home_resultCard_HideTestButton" = "Nicht mehr anzeigen";
+
+/* - Family Tets */
+
+"Home_Family_Test_Title" = "Tests von Familienmitgliedern";
+
+"Home_Family_Test_Detail" = "Es gibt Neuigkeiten";
 
 /* - Show Positive */
 
@@ -1658,31 +1695,11 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "NewVersionFeatures_Info_about_abb_information" = "Änderungen zum Release finden Sie in den App-Informationen unter dem Menüpunkt „Neue Funktionen”.";
 
-/* Version 2.20 */
+/* Version 2.21 */
 
-"NewVersionFeature_220_highRiskShortened_title" = "Anzeige erhöhten Risikos verkürzt";
+"NewVersionFeature_221_familyMembersTest_title" = "Tests für Familie verwalten";
 
-"NewVersionFeature_220_highRiskShortened_description" = "Ein erhöhtes Risiko nach einer Risikobegegnung wird nur noch für 10 anstatt für 14 Tage angezeigt.";
-
-"NewVersionFeature_220_displayRiskPositiveResult_title" = "Risikoanzeige nach positivem Testergebnis";
-
-"NewVersionFeature_220_displayRiskPositiveResult_description" = "Auch wenn Sie einen positiven Test in der Corona-Warn-App registriert haben, wird Ihnen nun nach einer Risikobegegnung die rote Kachel für ein erhöhtes Risiko eingeblendet. Sieben Tage nach dem positiven Test wird ihr Risikostatus dauerhaft wieder eingeblendet.";
-
-"NewVersionFeature_220_notificateRiskEncounter_title" = "Nachricht zu neuer Risikobegegnung";
-
-"NewVersionFeature_220_notificateRiskEncounter_description" = "Wenn Sie nach einer Risikobegegnung eine weitere Begegnung mit erhöhtem Risiko hatten, dann wird Ihnen darüber jetzt eine Benachrichtigung angezeigt.";
-
-"NewVersionFeature_220_notificationStatusChange_title" = "Nachricht über Status-Änderung";
-
-"NewVersionFeature_220_notificationStatusChange_description" = "Wenn sich Ihr Status geändert hat (z. B. durch Hinzufügen eines Zertifikats, oder weil sich die Regeln geändert haben) werden Sie auf der Zertifikate-Registerkarte darüber informiert.";
-
-"NewVersionFeature_220_recoveryCertificatesDetails_title" = "Genesenenzertifikate ohne Gültigkeitsdaten";
-
-"NewVersionFeature_220_recoveryCertificatesDetails_description" = "Für Genesenenzertifikate werden keine Gültigkeitsdaten mehr angezeigt, da die Gültigkeit von lokalen Regeln bestimmt wird. Stattdessen wird nun das Datum des ersten positiven Tests angezeigt.";
-
-"NewVersionFeature_220_removeQRCode_title" = "Doppelten QR-Code entfernt";
-
-"NewVersionFeature_220_removeQRCode_description" = "Vom Detail-Bildschirm für Personen wurde der QR-Code für das aktuell verwendete Zertifikat entfernt. Dadurch wurde Platz für Benachrichtigungen geschaffen und die Übersichtlichkeit erhöht. Der QR-Code befindet sich ebenfalls auf der Zertifikate-Übersicht, wird also auf dem Detail-Bildschirm nicht benötigt.";
+"NewVersionFeature_221_familyMembersTest_description" = "Sie können jetzt Tests für Ihre Familienmitglieder in Ihrer App registrieren und damit die Testergebnisse auf Ihrem Smartphone erhalten und digitale COVID-Testzertifikate anfordern. Im Falle eines positiven Testergebnisses können Sie jedoch andere Benutzer nicht warnen. Dies geht nur, wenn Sie den Test für sich selbst registriert haben.";
 
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Länderübergreifende Risiko-Ermittlung";
@@ -1793,6 +1810,12 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 "TestResultPositive_KeysSubmitted_PrimaryButton" = "Test löschen";
 
 /* Contact Diary*/
+
+/* Error */
+
+"ContactDiary_Overview_Error_Title" = "Fehler";
+
+"ContactDiary_Overview_Error_Description" = "Die Daten Ihres Kontakt-Tagebuchs konnten nicht geladen werden. Daher musste das Kontakt-Tagebuch zurückgesetzt werden.  Fehler: %@";
 
 /* Overview */
 "ContactDiary_Overview_Button_Title_Menu" = "Menü";
@@ -3036,6 +3059,24 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "HealthCertificate_Details_moreButtonTitle" = "Mehr";
 
+/* HealthCertificate Family Consent */
+
+"HealthCertificate_FamilyMemberConsent_Title" = "Ihr Einverständnis";
+
+"HealthCertificate_FamilyMemberConsent_ImageDescription" = "Eine Familie mit mehreren Mitgliedern; im Hintergrund ein Dokument mit QR-Code darauf.";
+
+"HealthCertificate_FamilyMemberConsent_Headline" = "Testergebnis für Familienmitglieder abrufen";
+
+"HealthCertificate_FamilyMemberConsent_InputTitle" = "Name der Person, die getestet wurde:";
+
+"HealthCertificate_FamilyMemberConsent_InputPlaceholder" = "Name";
+
+"HealthCertificate_FamilyMemberConsent_Body01" = "Sie registrieren einen Test für ein Familienmitglied. Wurden Sie selber getestet, gehen Sie bitte zurück und wählen dies aus. Nur dann können Sie andere im Falle eines positiven Testergebnisses warnen!";
+
+"HealthCertificate_FamilyMemberConsent_Body02" = "Wenn das Testergebnis Ihres Familienmitglieds negativ ist, können Sie in den folgenden Schritten ein offizielles COVID-Testzertifikat anfordern.";
+
+"HealthCertificate_FamilyMemberConsent_Primary" = "Einverstanden";
+
 /* Health Certificate Delete Alert */
 
 "HealthCertificate_Alert_deleteButton" = "Zertifikat löschen";
@@ -3304,14 +3345,6 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "HealthCertificate_Reissuance_Consent_Cancel_Notice" = "Falls Sie hier abbrechen, können Sie die Aktualisierung jederzeit in Ihrer Zertifikatsübersicht anfordern.";
 
-"HealthCertificate_Reissuance_Consent_Legal_Title" = "Ihr Einverständnis";
-
-"HealthCertificate_Reissuance_Consent_Legal_Subtitle" = "Durch Antippen von „Einverstanden“ willigen Sie in folgende Schritte ein:";
-
-"HealthCertificate_Reissuance_Consent_Legal_Bullet_1" = "Die App übermittelt das Impfzertifikat zur Überprüfung an das RKI.";
-
-"HealthCertificate_Reissuance_Consent_Legal_Bullet_2" = "Das RKI überprüft das Impfzertifikat und stellt ein aktualisiertes Zertifikat aus und übermittelt dieses an Ihre App.";
-
 "HealthCertificate_Reissuance_Consent_Bullet_Point_1" = "Die Aktualisierung des Zertifikats ist freiwillig und kostenlos.";
 
 "HealthCertificate_Reissuance_Consent_Bullet_Point_2" = "Um sicherzustellen, dass Zertifikate nur einmalig aktualisiert werden können, wird die Kennung des alten Zertifikats durch das RKI dokumentiert.";
@@ -3518,6 +3551,8 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "RecycleBin_CoronaTest_headline" = "Test";
 
+"RecycleBin_CoronaTest_familyMemberHeadline" = "Tests von Familienmitgliedern";
+
 "RecycleBin_CoronaTest_pcrTest" = "PCR-Test";
 
 "RecycleBin_CoronaTest_antigenTest" = "Schnelltest";
@@ -3703,3 +3738,65 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 "TicketValidation_Result_Failed_subtitle" = "Ihr Zertifikat entspricht nicht den Anforderungen des Anbieters";
 
 "TicketValidation_Result_Failed_description" = "Bei Rückfragen wenden Sie sich bitte an den Anbieter “%@”.";
+
+/* Family Member Corona Test */
+
+"FamilyMemberCoronaTest_title" = "Tests von Familienmitgliedern";
+
+"FamilyMemberCoronaTest_deleteAllButtonTitle" = "Alle löschen";
+
+"FamilyMemberCoronaTest_pcrCaption" = "PCR-Test-Befund";
+
+"FamilyMemberCoronaTest_antigenCaption" = "Schnelltest-Befund";
+
+"FamilyMemberCoronaTest_pcrDate" = "Test hinzugefügt am %@";
+
+"FamilyMemberCoronaTest_antigenDate" = "Durchgeführt am %@";
+
+"FamilyMemberCoronaTest_pendingDiagnosis" = "Ergebnis liegt noch nicht vor";
+
+"FamilyMemberCoronaTest_pendingPCRDescription" = "Die Auswertung des PCR-Tests ist noch nicht abgeschlossen.";
+
+"FamilyMemberCoronaTest_pendingAntigenDescription" = "Die Auswertung des Schnelltests ist noch nicht abgeschlossen.";
+
+"FamilyMemberCoronaTest_negativeTopDiagnosis" = "SARS-CoV-2";
+
+"FamilyMemberCoronaTest_negativeBottomDiagnosis" = "negativ";
+
+"FamilyMemberCoronaTest_positiveTopDiagnosis" = "SARS-CoV-2";
+
+"FamilyMemberCoronaTest_positiveBottomDiagnosis" = "positiv";
+
+"FamilyMemberCoronaTest_invalidDiagnosis" = "Fehlerhafter Test";
+
+"FamilyMemberCoronaTest_invalidDescription" = "Der Test konnte nicht ausgewertet werden.";
+
+"FamilyMemberCoronaTest_outdatedDiagnosis" = "Test nicht mehr aktuell";
+
+"FamilyMemberCoronaTest_outdatedDescription" = "Der Schnelltest ist älter als %i Stunden und wird hier nicht mehr angezeigt.";
+
+"FamilyMemberCoronaTest_outdatedButtonTitle" = "Nicht mehr anzeigen";
+
+"FamilyMemberCoronaTest_expiredDiagnosis" = "Nicht mehr gültig";
+
+"FamilyMemberCoronaTest_expiredDescription" = "Der Test liegt länger als 21 Tage zurück und ist daher nicht länger relevant.";
+
+"FamilyMemberCoronaTest_expiredButtonTitle" = "Test löschen";
+
+"FamilyMemberCoronaTest_DeleteOne_AlertTitle" = "Wollen Sie das Testergebnis entfernen?";
+
+"FamilyMemberCoronaTest_DeleteOne_AlertMessage" = "Das Testergebnis wird in den Papierkorb verschoben. Den Papierkorb finden Sie auf der „Mehr“-Kachel der Status-Registerkarte.\nDort können Sie es endgültig löschen oder wiederherstellen. Nach 30 Tagen wird das Testergebnis automatisch gelöscht.";
+
+"FamilyMemberCoronaTest_DeleteOne_AlertConfirmButtonTitle" = "Testergebnis entfernen";
+
+"FamilyMemberCoronaTest_DeleteOne_AlertCancelButtonTitle" = "Abbrechen";
+
+"FamilyMemberCoronaTest_DeleteAll_AlertTitle" = "Wollen Sie die Testergebnisse entfernen?";
+
+"FamilyMemberCoronaTest_DeleteAll_AlertMessage" = "Die Testergebnisse werden in den Papierkorb verschoben. Den Papierkorb finden Sie auf der „Mehr“-Kachel der Status-Registerkarte.\nDort können Sie diese endgültig löschen oder wiederherstellen. Nach 30 Tagen werden die Testergebnisse automatisch gelöscht.";
+
+"FamilyMemberCoronaTest_DeleteAll_AlertConfirmButtonTitle" = "Testergebnisse entfernen";
+
+"FamilyMemberCoronaTest_DeleteAll_AlertCancelButtonTitle" = "Abbrechen";
+
+

@@ -21,7 +21,8 @@ class TaskExecutionHandler: ENATaskExecutionDelegate {
 		eventCheckoutService: EventCheckoutService,
 		store: Store,
 		exposureSubmissionDependencies: ExposureSubmissionServiceDependencies,
-		healthCertificateService: HealthCertificateService
+		healthCertificateService: HealthCertificateService,
+		familyMemberCoronaTestService: FamilyMemberCoronaTestServiceProviding
 	) {
 		self.riskProvider = riskProvider
 		self.restServiceProvider = restServiceProvider
@@ -33,6 +34,7 @@ class TaskExecutionHandler: ENATaskExecutionDelegate {
 		self.store = store
 		self.dependencies = exposureSubmissionDependencies
 		self.healthCertificateService = healthCertificateService
+		self.familyMemberCoronaTestService = familyMemberCoronaTestService
 	}
 
 
@@ -69,7 +71,9 @@ class TaskExecutionHandler: ENATaskExecutionDelegate {
 			self.executeExposureDetectionRequest { _ in
 				Log.info("Done detecting Exposures…", log: .background)
 
-				self.healthCertificateService.setup(updatingWalletInfos: false) {
+				self.healthCertificateService.setup(
+					updatingWalletInfos: false
+				) {
 					group.enter()
 					DispatchQueue.global().async {
 						Log.info("Trying to submit TEKs...", log: .background)
@@ -85,6 +89,15 @@ class TaskExecutionHandler: ENATaskExecutionDelegate {
 						self.executeFetchTestResults { _ in
 							group.leave()
 							Log.info("Done fetching TestResults...", log: .background)
+						}
+					}
+
+					group.enter()
+					DispatchQueue.global().async {
+						Log.info("Trying to fetch family member TestResults...", log: .background)
+						self.executeFetchFamilyMemberTestResults { _ in
+							group.leave()
+							Log.info("Done fetching family member TestResults...", log: .background)
 						}
 					}
 
@@ -170,6 +183,7 @@ class TaskExecutionHandler: ENATaskExecutionDelegate {
 	private let eventStore: EventStoring
 	private let eventCheckoutService: EventCheckoutService
 	private let healthCertificateService: HealthCertificateService
+	private let familyMemberCoronaTestService: FamilyMemberCoronaTestServiceProviding
 	private var subscriptions = Set<AnyCancellable>()
 
 	/// This method attempts a submission of temporary exposure keys. The exposure submission service itself checks
@@ -236,6 +250,28 @@ class TaskExecutionHandler: ENATaskExecutionDelegate {
 				}
 			} else {
 				Log.info("[ENATaskExecutionDelegate] Cancel updating test results. User deactivated notification setting.", log: .riskDetection)
+				completion(false)
+			}
+		}
+	}
+
+	/// This method executes a test result fetch for family member tests, and if it is successful, and a test result is different from the one that was previously
+	/// part of the app, a local notification is shown.
+	private func executeFetchFamilyMemberTestResults(completion: @escaping ((Bool) -> Void)) {
+
+		// First check if user activated notification setting
+		UNUserNotificationCenter.current().getNotificationSettings { [weak self] settings in
+			if settings.authorizationStatus == .authorized || settings.authorizationStatus == .provisional {
+				self?.familyMemberCoronaTestService.updateTestResults(presentNotification: true) { result in
+					switch result {
+					case .success:
+						completion(true)
+					case .failure:
+						completion(false)
+					}
+				}
+			} else {
+				Log.info("[ENATaskExecutionDelegate] Cancel updating family member test results. User deactivated notification setting.", log: .riskDetection)
 				completion(false)
 			}
 		}
@@ -331,6 +367,8 @@ class TaskExecutionHandler: ENATaskExecutionDelegate {
 	}
 
 	private func checkCertificateValidityStates(completion: @escaping () -> Void) {
-		healthCertificateService.updateValidityStatesAndNotificationsWithFreshDSCList(completion: completion)
+		healthCertificateService.updateValidityStatesAndNotificationsWithFreshDSCList(
+			completion: completion
+		)
 	}
 }

@@ -88,6 +88,7 @@
     {
       "parallelizable" : true,
       "selectedTests" : [
+        "ENAUITests_13_CreateHealthCertificate\/test_AdmissionStateChanges_Then_StateChangeIndicatorIsVisible()",
         "ENAUITests_13_CreateHealthCertificate\/test_CheckinFromCertificatesTabWithInfoScreen()",
         "ENAUITests_13_CreateHealthCertificate\/test_CheckinFromCertificatesTabWithoutInfoScreen()",
         "ENAUITests_13_CreateHealthCertificate\/test_CompleteVaccinationProtectionWithTestCertificate()",

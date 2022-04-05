@@ -1,0 +1,154 @@
+name: Merge to Release Branch
+on:
+  push:
+    branches:
+      - 'release/**'
+
+jobs:
+  dependencies:
+    runs-on: self-hosted
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v2     
+      - name: Save Dependencies
+        uses: actions/cache@v2
+        id: cache-dependencies
+        env:
+          cache-name: cache-dependencies
+        with:
+          path: |
+            src/xcode/vendor
+            src/xcode/.bundle
+          key: ${{ runner.os }}-${{ env.cache-name }}-${{ hashFiles('src/xcode/Gemfile.lock') }}        
+      - name: Install dependencies
+        if: steps.cache-dependencies.outputs.cache-hit != 'true'
+        run: cd src/xcode && arch -arm64 bundle install --path=vendor
+      - name: Save Dependencies
+        uses: actions/cache@v2
+        if: steps.cache-dependencies.outputs.cache-hit != 'true'
+        env:
+          cache-name: cache-dependencies
+        with:
+          path: |
+            src/xcode/vendor
+            src/xcode/.bundle
+          key: ${{ runner.os }}-${{ env.cache-name }}-${{ hashFiles('src/xcode/Gemfile.lock') }}
+
+          
+  buildForTesting:
+    runs-on: self-hosted
+    needs: dependencies
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v2     
+      - name: Restore Dependencies
+        uses: actions/cache@v2
+        env:
+          cache-name: cache-dependencies
+        with:
+          path: |
+            src/xcode/vendor
+            src/xcode/.bundle
+          key: ${{ runner.os }}-${{ env.cache-name }}-${{ hashFiles('src/xcode/Gemfile.lock') }}     
+      - name: Build for testing
+        run: |
+          cd src/xcode && arch -arm64 bundle exec fastlane build_for_testing
+      - name: Save DerivedData folder
+        uses: actions/cache@v2
+        env:
+          cache-name: cache-derived-data
+        with:
+          path: src/xcode/DerivedData
+          key: ${{ runner.os }}-${{ env.cache-name }}-${{ github.sha }}
+      - name: Save test_output folder
+        uses: actions/cache@v2
+        env:
+          cache-name: cache-test-output
+        with:
+          path: src/xcode/fastlane/test_output
+          key: ${{ runner.os }}-${{ env.cache-name }}-${{ github.sha }}
+  
+  swiftLint:
+    runs-on: self-hosted
+    needs: dependencies
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v2       
+      - name: Restore Dependencies
+        uses: actions/cache@v2
+        env:
+          cache-name: cache-dependencies
+        with:
+          path: |
+            src/xcode/vendor
+            src/xcode/.bundle
+          key: ${{ runner.os }}-${{ env.cache-name }}-${{ hashFiles('src/xcode/Gemfile.lock') }}
+      - name: swift Lint
+        run: |
+          cd src/xcode
+          arch -arm64 bundle exec fastlane lint
+      - name: Archive swiftlint report
+        if: failure()
+        uses: actions/upload-artifact@v2
+        with:
+          name: swiftlint-${{ github.sha }}
+          path: src/xcode/swiftlint.html
+          
+  communityBuild:
+    runs-on: self-hosted
+    needs: dependencies
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v2            
+      - name: Restore Dependencies
+        uses: actions/cache@v2
+        env:
+          cache-name: cache-dependencies
+        with:
+          path: |
+            src/xcode/vendor
+            src/xcode/.bundle
+          key: ${{ runner.os }}-${{ env.cache-name }}-${{ hashFiles('src/xcode/Gemfile.lock') }}       
+      - name: Community Build
+        run: |
+          cd src/xcode && arch -arm64 bundle exec fastlane build_community
+              
+  runAllTests:
+    runs-on: self-hosted
+    needs: buildForTesting
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v2          
+      - name: Restore Dependencies
+        uses: actions/cache@v2
+        env:
+          cache-name: cache-dependencies
+        with:
+          path: |
+            src/xcode/vendor
+            src/xcode/.bundle
+          key: ${{ runner.os }}-${{ env.cache-name }}-${{ hashFiles('src/xcode/Gemfile.lock') }}
+      - name: Restore DerivedData folder
+        uses: actions/cache@v2
+        env:
+          cache-name: cache-derived-data
+        with:
+          path: src/xcode/DerivedData
+          key: ${{ runner.os }}-${{ env.cache-name }}-${{ github.sha }}
+      - name: Restore test_output folder
+        uses: actions/cache@v2
+        env:
+          cache-name: cache-test-output
+        with:
+          path: src/xcode/fastlane/test_output
+          key: ${{ runner.os }}-${{ env.cache-name }}-${{ github.sha }}                       
+      - name: Run AllTests
+        run: |
+          cd src/xcode
+          arch -arm64 bundle exec fastlane test_without_building testplan:AllTests
+      - name: Archive xcresult
+        if: failure()
+        uses: actions/upload-artifact@v2
+        with:
+          name: xcresult-${{ github.sha }}
+          path: src/xcode/fastlane/test_output/ENA.xcresult.zip

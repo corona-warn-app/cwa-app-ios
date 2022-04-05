@@ -16,6 +16,7 @@ class ExposureSubmissionCoordinatorTests: CWATestCase {
 	private var exposureSubmissionService: MockExposureSubmissionService!
 	private var store: Store!
 	private var coronaTestService: CoronaTestServiceProviding!
+	private var familyMemberCoronaTestService: FamilyMemberCoronaTestServiceProviding!
 	private var healthCertificateService: HealthCertificateService!
 	private var healthCertificateValidationService: HealthCertificateValidationService!
 	private var vaccinationValueSetsProvider: VaccinationValueSetsProvider!
@@ -39,6 +40,7 @@ class ExposureSubmissionCoordinatorTests: CWATestCase {
 		eventStore = MockEventStore()
 
 		coronaTestService = MockCoronaTestService()
+		familyMemberCoronaTestService = MockFamilyMemberCoronaTestService()
 		
 		healthCertificateService = HealthCertificateService(
 			store: store,
@@ -101,6 +103,7 @@ class ExposureSubmissionCoordinatorTests: CWATestCase {
 			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
 			exposureSubmissionService: exposureSubmissionService,
 			coronaTestService: coronaTestService,
+			familyMemberCoronaTestService: familyMemberCoronaTestService,
 			recycleBin: recycleBin
 		)
 	}
@@ -116,6 +119,7 @@ class ExposureSubmissionCoordinatorTests: CWATestCase {
 			parentViewController: parentNavigationController,
 			exposureSubmissionService: exposureSubmissionService,
 			coronaTestService: coronaTestService,
+			familyMemberCoronaTestService: familyMemberCoronaTestService,
 			healthCertificateService: healthCertificateService,
 			healthCertificateValidationService: healthCertificateValidationService,
 			eventProvider: eventStore,
@@ -173,7 +177,7 @@ class ExposureSubmissionCoordinatorTests: CWATestCase {
 			exposureSubmissionService: exposureSubmissionService
 		)
 
-		coronaTestService.pcrTest.value = PCRTest.mock(registrationToken: "asdf", testResult: .negative)
+		coronaTestService.pcrTest.value = .mock(registrationToken: "asdf", testResult: .negative)
 
 		coordinator.start(with: .pcr)
 
@@ -192,7 +196,7 @@ class ExposureSubmissionCoordinatorTests: CWATestCase {
 			exposureSubmissionService: exposureSubmissionService
 		)
 
-		coronaTestService.pcrTest.value = PCRTest.mock(registrationToken: "asdf", testResult: .positive)
+		coronaTestService.pcrTest.value = .mock(registrationToken: "asdf", testResult: .positive)
 
 		coordinator.start(with: .pcr)
 
@@ -230,7 +234,7 @@ class ExposureSubmissionCoordinatorTests: CWATestCase {
 			exposureSubmissionService: exposureSubmissionService
 		)
 
-		coronaTestService.pcrTest.value = PCRTest.mock(testResult: .positive, positiveTestResultWasShown: false)
+		coronaTestService.pcrTest.value = .mock(testResult: .positive, positiveTestResultWasShown: false)
 
 		coordinator.start(with: .pcr)
 

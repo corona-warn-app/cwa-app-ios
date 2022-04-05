@@ -14,6 +14,7 @@ class HomeTableViewModel {
 		store: Store,
 		appConfiguration: AppConfigurationProviding,
 		coronaTestService: CoronaTestServiceProviding,
+		familyMemberCoronaTestService: FamilyMemberCoronaTestServiceProviding,
 		onTestResultCellTap: @escaping (CoronaTestType?) -> Void,
 		badgeWrapper: HomeBadgeWrapper
 	) {
@@ -21,6 +22,7 @@ class HomeTableViewModel {
 		self.store = store
 		self.appConfiguration = appConfiguration
 		self.coronaTestService = coronaTestService
+		self.familyMemberCoronaTestService = familyMemberCoronaTestService
 		self.onTestResultCellTap = onTestResultCellTap
 		self.badgeWrapper = badgeWrapper
 
@@ -33,6 +35,14 @@ class HomeTableViewModel {
 			.store(in: &subscriptions)
 
 		coronaTestService.antigenTest
+			.dropFirst()
+			.sink { [weak self] _ in
+				self?.update()
+				self?.scheduleUpdateTimer()
+			}
+			.store(in: &subscriptions)
+
+		familyMemberCoronaTestService.coronaTests
 			.dropFirst()
 			.sink { [weak self] _ in
 				self?.update()
@@ -66,6 +76,7 @@ class HomeTableViewModel {
 		case risk
 		case pcrTestResult(TestResultState)
 		case antigenTestResult(TestResultState)
+		case familyTestResults
 	}
 
 	enum TestResultState: Equatable {
@@ -76,6 +87,7 @@ class HomeTableViewModel {
 	let state: HomeState
 	let store: Store
 	let coronaTestService: CoronaTestServiceProviding
+	let familyMemberCoronaTestService: FamilyMemberCoronaTestServiceProviding
 	var isUpdating: Bool = false
 
 	@OpenCombine.Published var testResultLoadingError: Error?
@@ -123,7 +135,7 @@ class HomeTableViewModel {
 	}
 
 	func didTapTestResultCell(coronaTestType: CoronaTestType) {
-		if coronaTestType == .antigen && coronaTestService.antigenTestIsOutdated.value {
+		if coronaTestType == .antigen && coronaTestService.antigenTestIsOutdated.value || coronaTestService.coronaTest(ofType: coronaTestType)?.testResult == .expired {
 			return
 		}
 
@@ -176,6 +188,12 @@ class HomeTableViewModel {
 				}
 			}
 		}
+
+		familyMemberCoronaTestService.updateTestResults(
+			presentNotification: false
+		) { _ in
+			// Errors are only handled on the family member tests screen.
+		}
 	}
 
 	func resetBadgeCount() {
@@ -216,6 +234,10 @@ class HomeTableViewModel {
 				testResultState = .default
 			}
 			riskAndTestResultsRows.append(.antigenTestResult(testResultState))
+		}
+
+		if !familyMemberCoronaTestService.coronaTests.value.isEmpty {
+			riskAndTestResultsRows.append(.familyTestResults)
 		}
 
 		return riskAndTestResultsRows

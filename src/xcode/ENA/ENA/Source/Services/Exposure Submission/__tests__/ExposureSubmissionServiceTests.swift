@@ -27,7 +27,7 @@ class ExposureSubmissionServiceTests: CWATestCase {
 		)
 		
 		let coronaTestService = MockCoronaTestService()
-		coronaTestService.pcrTest.value = PCRTest.mock(
+		coronaTestService.pcrTest.value = .mock(
 			registrationToken: "dummyRegistrationToken",
 			finalTestResultReceivedDate: Date(timeIntervalSince1970: 12345678),
 			positiveTestResultWasShown: true,
@@ -94,7 +94,7 @@ class ExposureSubmissionServiceTests: CWATestCase {
 		)
 		
 		let coronaTestService = MockCoronaTestService()
-		coronaTestService.pcrTest.value = PCRTest.mock(
+		coronaTestService.pcrTest.value = .mock(
 			registrationToken: "regToken",
 			positiveTestResultWasShown: true,
 			isSubmissionConsentGiven: true
@@ -136,7 +136,7 @@ class ExposureSubmissionServiceTests: CWATestCase {
 		)
 		
 		let coronaTestService = MockCoronaTestService()
-		coronaTestService.pcrTest.value = PCRTest.mock(
+		coronaTestService.pcrTest.value = .mock(
 			isSubmissionConsentGiven: false
 		)
 		
@@ -185,7 +185,7 @@ class ExposureSubmissionServiceTests: CWATestCase {
 		)
 		
 		let coronaTestService = MockCoronaTestService()
-		coronaTestService.pcrTest.value = PCRTest.mock(
+		coronaTestService.pcrTest.value = .mock(
 			positiveTestResultWasShown: true,
 			isSubmissionConsentGiven: true
 		)
@@ -220,7 +220,7 @@ class ExposureSubmissionServiceTests: CWATestCase {
 		let keyRetrieval = MockDiagnosisKeysRetrieval(diagnosisKeysResult: (nil, nil))
 
 		let coronaTestService = MockCoronaTestService()
-		coronaTestService.pcrTest.value = PCRTest.mock(
+		coronaTestService.pcrTest.value = .mock(
 			positiveTestResultWasShown: false,
 			isSubmissionConsentGiven: true
 		)
@@ -254,7 +254,7 @@ class ExposureSubmissionServiceTests: CWATestCase {
 		let keyRetrieval = MockDiagnosisKeysRetrieval(diagnosisKeysResult: (nil, ENError(.notAuthorized)))
 		
 		let coronaTestService = MockCoronaTestService()
-		coronaTestService.pcrTest.value = PCRTest.mock(
+		coronaTestService.pcrTest.value = .mock(
 			positiveTestResultWasShown: true,
 			isSubmissionConsentGiven: true
 		)
@@ -292,7 +292,7 @@ class ExposureSubmissionServiceTests: CWATestCase {
 		let keyRetrieval = MockDiagnosisKeysRetrieval(diagnosisKeysResult: (nil, nil))
 		
 		let coronaTestService = MockCoronaTestService()
-		coronaTestService.pcrTest.value = PCRTest.mock(
+		coronaTestService.pcrTest.value = .mock(
 			positiveTestResultWasShown: true,
 			isSubmissionConsentGiven: true
 		)
@@ -327,7 +327,7 @@ class ExposureSubmissionServiceTests: CWATestCase {
 		let keyRetrieval = MockDiagnosisKeysRetrieval(diagnosisKeysResult: ([], nil))
 		
 		let coronaTestService = MockCoronaTestService()
-		coronaTestService.pcrTest.value = PCRTest.mock(
+		coronaTestService.pcrTest.value = .mock(
 			positiveTestResultWasShown: true,
 			isSubmissionConsentGiven: true
 		)
@@ -369,7 +369,7 @@ class ExposureSubmissionServiceTests: CWATestCase {
 		)
 		
 		let coronaTestService = MockCoronaTestService()
-		coronaTestService.pcrTest.value = PCRTest.mock(
+		coronaTestService.pcrTest.value = .mock(
 			registrationToken: "asdf",
 			positiveTestResultWasShown: true,
 			isSubmissionConsentGiven: true
@@ -410,7 +410,7 @@ class ExposureSubmissionServiceTests: CWATestCase {
 		)
 		
 		let coronaTestService = MockCoronaTestService()
-		coronaTestService.pcrTest.value = PCRTest.mock(
+		coronaTestService.pcrTest.value = .mock(
 			registrationToken: nil,
 			positiveTestResultWasShown: true,
 			isSubmissionConsentGiven: true
@@ -450,7 +450,7 @@ class ExposureSubmissionServiceTests: CWATestCase {
 		)
 		
 		let coronaTestService = MockCoronaTestService()
-		coronaTestService.pcrTest.value = PCRTest.mock(
+		coronaTestService.pcrTest.value = .mock(
 			registrationToken: "dummyRegistrationToken",
 			positiveTestResultWasShown: true,
 			isSubmissionConsentGiven: true
@@ -491,7 +491,7 @@ class ExposureSubmissionServiceTests: CWATestCase {
 		)
 		
 		let coronaTestService = MockCoronaTestService()
-		coronaTestService.pcrTest.value = PCRTest.mock(
+		coronaTestService.pcrTest.value = .mock(
 			registrationToken: "dummyRegistrationToken",
 			positiveTestResultWasShown: true,
 			isSubmissionConsentGiven: true
@@ -560,7 +560,7 @@ class ExposureSubmissionServiceTests: CWATestCase {
 		])
 		
 		let coronaTestService = MockCoronaTestService()
-		coronaTestService.pcrTest.value = PCRTest.mock(
+		coronaTestService.pcrTest.value = .mock(
 			registrationToken: "dummyRegistrationToken",
 			positiveTestResultWasShown: true,
 			isSubmissionConsentGiven: true
@@ -771,7 +771,7 @@ class ExposureSubmissionServiceTests: CWATestCase {
 			recycleBin: .fake(),
 			badgeWrapper: .fake()
 		)
-		coronaTestService.pcrTest.value = PCRTest.mock(
+		coronaTestService.pcrTest.value = .mock(
 			registrationToken: "dummyRegToken",
 			positiveTestResultWasShown: true,
 			isSubmissionConsentGiven: true

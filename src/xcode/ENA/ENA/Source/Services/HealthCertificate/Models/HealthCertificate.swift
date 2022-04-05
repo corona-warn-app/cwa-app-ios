@@ -266,25 +266,7 @@ final class HealthCertificate: Codable, Equatable, Comparable, RecycleBinIdentif
 			return recoveryEntry.localDateOfFirstPositiveNAAResult
 		}
 	}()
-	
-	func isBlocked(by blockedIdentifierChunks: [SAP_Internal_V2_DGCBlockedUVCIChunk]) -> Bool {
-		blockedIdentifierChunks.contains {
-			/// Skip if at least one index would be out of bounds
-			guard $0.indices.allSatisfy({ $0 < uniqueCertificateIdentifierChunks.count }) else {
-				return false
-			}
-
-			let blockedChunks = $0.indices
-				.map { uniqueCertificateIdentifierChunks[Int($0)] }
-				.joined(separator: "/")
-
-			let hash = ENAHasher.sha256(blockedChunks)
-			let hashData = hash.dataWithHexString()
-
-			return hashData == $0.hash
-		}
-	}
-	
+		
 	func belongsToSamePerson(_ other: HealthCertificate) -> Bool {
 		// The sanitized dateOfBirth attributes are the same strings
 		guard self.trimmedDateOfBirth == other.trimmedDateOfBirth else {

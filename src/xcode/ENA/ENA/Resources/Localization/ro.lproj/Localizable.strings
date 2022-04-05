@@ -731,9 +731,13 @@
 
 "ExposureSubmissionResult_Procedure" = "Cum funcționează:";
 
-"ExposureSubmissionResult_testAdded" = "Testul dvs. a fost adăugat";
+"ExposureSubmissionResult_testAdded" = "Testul dvs. PCR a fost adăugat";
+
+"ExposureSubmissionResult_familyMember_testAdded" = "Testul PCR a fost adăugat";
 
 "ExposureSubmissionResult_antigenTestAdded" = "Testul dvs. rapid a fost adăugat";
+
+"ExposureSubmissionResult_familyMember_antigenTestAdded" = "Testul rapid a fost adăugat";
 
 "ExposureSubmissionResult_antigenTestAddedDesc" = "Rezultatul testului dvs. este afișat timp de 48 de ore.";
 
@@ -765,13 +769,21 @@
 
 "ExposureSubmissionResult_testPending" = "Rezultatul testului dvs. nu este încă disponibil";
 
+"ExposureSubmissionResult_familyMember_testPending" = "Rezultatul testului dvs. nu este încă disponibil";
+
 "ExposureSubmissionResult_testPendingDesc" = "Imediat ce devine disponibil, rezultatul testului dvs. va fi afișat în aplicație.\n\nDe asemenea, veți primi rezultatul testului în afara aplicației. Autoritățile de sănătate publică vă vor anunța dacă testul dvs. este pozitiv.\n\nDacă sunteți notificat privind un rezultat pozitiv al testului în afara aplicației, ștergeți testul curent înregistrat în aplicație. Apelați numărul indicat la „Solicitare TAN” pentru a obține un număr TAN. Apoi, puteți utiliza acest TAN pentru a vă înregistra rezultatul în aplicație și pentru a-i avertiza pe ceilalți.";
 
+"ExposureSubmissionResult_familyMember_testPendingDesc" = "Imediat ce devine disponibil, rezultatul testului dvs. va fi afișat în aplicație.\nDe asemenea, veți primi rezultatul testului dvs. în afara aplicației. Autoritățile de sănătate publică vă vor anunța dacă testul dvs. este pozitiv.";
+
 "ExposureSubmissionResult_testCertificate_title" = "Certificatul dvs. de test COVID";
+
+"ExposureSubmissionResult_familyMemberTestCertificate_title" = "Certificat de test COVID";
 
 "ExposureSubmissionResult_testCertificate_testCenterNotSupported" = "Un certificat de test COVID digital oficial nu poate fi emis deoarece acest punct de testare nu suportă emiterea de certificate de test.";
 
 "ExposureSubmissionResult_testCertificate_Pending" = "Certificatul dvs. de test COVID digital oficial nu este disponibil încă. De îndată ce devine disponibil, va fi afișat în aplicație.";
+
+"ExposureSubmissionResult_familyMemberTestCertificate_Pending" = "Certificatul de test COVID digital oficial nu este disponibil încă. De îndată ce devine disponibil, va fi afișat în aplicație.";
 
 "ExposureSubmissionResult_testCertificate_NotRequested" = "Nu va fi emis niciun certificat de test COVID digital oficial, conform cererii dvs.";
 
@@ -779,7 +791,11 @@
 
 "ExposureSubmissionResult_antigenTestPending" = "Rezultatul testului dvs. nu este încă disponibil";
 
+"ExposureSubmissionResult_familyMember_antigenTestPending" = "Rezultatul testului dvs. nu este încă disponibil";
+
 "ExposureSubmissionResult_antigenTestPendingDesc" = "Imediat ce devine disponibil, rezultatul testului dvs. va fi afișat în aplicație.";
+
+"ExposureSubmissionResult_familyMember_antigenTestPendingDesc" = "Imediat ce devine disponibil, rezultatul testului va fi afișat în aplicație.";
 
 "ExposureSubmissionResult_antigenTestPendingContactJournal" = "Rezultatul testului dvs. va fi adăugat la jurnalul dvs. de contacte";
 
@@ -1012,6 +1028,19 @@
 "ExposureSubmission_Profile_ProfileTile_Title" = "Profil de test rapid";
 
 "ExposureSubmission_Profile_ProfileTile_Description" = "Economisiți timp și prezentați profilul dvs. de test rapid la punctul de testare.";
+
+/* ExposureSubmission TestOwnerSelection */
+"ExposureSubmission_TestOwnerSelection_Title" = "Înregistrare test";
+
+"ExposureSubmission_TestOwnerSelection_Description" = "Veți primit rezultatul pe smartphone-ul dvs. și puteți solicita un certificat de test COVID digital. Îi puteți avertiza pe ceilalți doar dacă testul vă aparține și sunteți diagnosticat cu infectarea cu coronavirus.";
+
+"ExposureSubmission_TestOwnerSelection_User_Headline" = "Pentru mine";
+
+"ExposureSubmission_TestOwnerSelection_User_Subheadline" = "Testul dvs.";
+
+"ExposureSubmission_TestOwnerSelection_FamilyMember_Headline" = "Pentru alții";
+
+"ExposureSubmission_TestOwnerSelection_FamilyMember_Subheadline" = "Test pentru un membru al familiei";
 
 /* ExposureSubmission TestCertificate */
 "ExposureSubmission_TestCertificate_Information_Title" = "Certificat de test COVID";
@@ -1611,30 +1640,10 @@
 /* New Version Features */
 "NewVersionFeatures_Info_about_abb_information" = "Modificările din această versiune pot fi găsite în informațiile aplicației, la „Caracteristici noi”.";
 
-/* Version 2.20 */
-"NewVersionFeature_220_highRiskShortened_title" = "Raportul despre riscul crescut a fost scurtat";
+/* Version 2.21 */
+"NewVersionFeature_221_familyMembersTest_title" = "Gestionarea testelor familiei dvs.";
 
-"NewVersionFeature_220_highRiskShortened_description" = "Un risc crescut după o expunere este afișat acum pentru doar 10 zile, în loc de 14.";
-
-"NewVersionFeature_220_displayRiskPositiveResult_title" = "Raport de risc după un rezultat de test pozitiv";
-
-"NewVersionFeature_220_displayRiskPositiveResult_description" = "Mozaicul roșu pentru risc crescut este afișat acum după o expunere, chiar dacă ați înregistrat un test pozitiv în aplicația Corona-Warn. Starea riscului este afișată din nou la șapte zile după testul pozitiv.";
-
-"NewVersionFeature_220_notificateRiskEncounter_title" = "Mesaj pentru expunere nouă";
-
-"NewVersionFeature_220_notificateRiskEncounter_description" = "Dacă aveți o altă expunere cu risc crescut după o expunere anterioară, acum se va afișa o notificare și pentru această expunere.";
-
-"NewVersionFeature_220_notificationStatusChange_title" = "Raport despre modificarea de stare";
-
-"NewVersionFeature_220_notificationStatusChange_description" = "Dacă starea dvs. s-a modificat (deoarece, de exemplu, ați adăugat un certificat sau pentru că s-au schimbat regulile), veți fi notificat despre acest lucru pe tabul Certificate.";
-
-"NewVersionFeature_220_recoveryCertificatesDetails_title" = "Certificate de recuperare fără date de valabilitate";
-
-"NewVersionFeature_220_recoveryCertificatesDetails_description" = "Datele de valabilitate nu mai sunt afișate pentru certificatele de recuperare, deoarece valabilitatea acestora depinde de regulile locale. În schimb, acum este afișată data primului test pozitiv.";
-
-"NewVersionFeature_220_removeQRCode_title" = "Codul QR duplicat a fost eliminat";
-
-"NewVersionFeature_220_removeQRCode_description" = "Codul QR pentru certificatul utilizat în mod curent a fost eliminat din ecranul detaliat personal, ceea ce a creat mai mult spațiu pentru notificări și a făcut mai mult loc pe ecranul general. Codul QR este, de asemenea, conținut în sumarul certificatului și, astfel, nu este necesar pe ecranul detaliat.";
+"NewVersionFeature_221_familyMembersTest_description" = "Acum puteți gestiona testele pentru membrii familiei dvs. în aplicația dvs.: puteți primi rezultatele testelor acestora pe smartphone-ul dvs. și puteți solicita certificate de test COVID digitale. Însă, dacă un test al acestora este pozitiv, nu puteți avertiza alte persoane. Avertizarea este posibilă doar dacă înregistrați un test personal.";
 
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Înregistrare transnațională a expunerilor în jurnal";
@@ -1746,6 +1755,11 @@
 "TestResultPositive_KeysSubmitted_PrimaryButton" = "Ștergere test";
 
 /* Contact Diary */
+/* Error */
+"ContactDiary_Overview_Error_Title" = "Eroare";
+
+"ContactDiary_Overview_Error_Description" = "Datele din jurnalul dvs. de contacte nu au putut fi încărcate. Drept rezultat, jurnalul de contacte a trebuit resetat. Eroare: %@";
+
 /* Overview */
 "ContactDiary_Overview_Button_Title_Menu" = "Meniu";
 
@@ -2933,6 +2947,23 @@
 
 "HealthCertificate_Details_moreButtonTitle" = "Mai mult";
 
+/* HealthCertificate Family Consent */
+"HealthCertificate_FamilyMemberConsent_Title" = "Consimțământul dvs.";
+
+"HealthCertificate_FamilyMemberConsent_ImageDescription" = "O familie cu mai mulți membri. În fundal se află un document cu un cod QR.";
+
+"HealthCertificate_FamilyMemberConsent_Headline" = "Obținerea rezultatului unui test pentru un membru al familiei";
+
+"HealthCertificate_FamilyMemberConsent_InputTitle" = "Numele persoanei care a fost testată:";
+
+"HealthCertificate_FamilyMemberConsent_InputPlaceholder" = "Nume";
+
+"HealthCertificate_FamilyMemberConsent_Body01" = "Înregistrați un test pentru un membru al familiei. Dacă acest test este al dvs., întoarceți-vă și selectați „Pentru mine”. Trebuie să faceți acest lucru pentru a-i avertiza pe ceilalți în cazul în care sunteți diagnosticat cu coronavirus.";
+
+"HealthCertificate_FamilyMemberConsent_Body02" = "Dacă rezultatul testului pentru membrul familiei dvs. este negativ, puteți solicita un certificat de test COVID oficial la pașii următori.";
+
+"HealthCertificate_FamilyMemberConsent_Primary" = "Accept";
+
 /* Health Certificate Delete Alert */
 "HealthCertificate_Alert_deleteButton" = "Ștergere certificat";
 
@@ -3180,14 +3211,6 @@
 
 "HealthCertificate_Reissuance_Consent_Cancel_Notice" = "Dacă anulați acum, puteți solicita oricând o actualizare în sumarul certificatului.";
 
-"HealthCertificate_Reissuance_Consent_Legal_Title" = "Consimțământul dvs.";
-
-"HealthCertificate_Reissuance_Consent_Legal_Subtitle" = "Apăsând pe „Sunt de acord”, consimțiți cu următoarele etape:";
-
-"HealthCertificate_Reissuance_Consent_Legal_Bullet_1" = "Aplicația trimite certificatul de vaccinare la RKI pentru verificare.";
-
-"HealthCertificate_Reissuance_Consent_Legal_Bullet_2" = "RKI verifică certificatul de vaccinare, emite un certificat actualizat și îl trimite la aplicația dvs.";
-
 "HealthCertificate_Reissuance_Consent_Bullet_Point_1" = "Actualizarea certificatului dvs. este voluntară și gratuită.";
 
 "HealthCertificate_Reissuance_Consent_Bullet_Point_2" = "Pentru a vă asigura că certificatele pot fi actualizate o singură dată, identificatorul certificatului vechi este păstrat ca evidență de către RKI.";
@@ -3383,6 +3406,8 @@
 
 /* - Corona Test */
 "RecycleBin_CoronaTest_headline" = "Test";
+
+"RecycleBin_CoronaTest_familyMemberHeadline" = "Teste ale membrilor familiei";
 
 "RecycleBin_CoronaTest_pcrTest" = "Test PCR";
 

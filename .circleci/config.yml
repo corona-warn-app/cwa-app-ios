@@ -76,25 +76,6 @@ jobs:
           paths:
             - "src/xcode/DerivedData/**/*"
 
-  swiftlint:
-    macos:
-      xcode: *xcode_version
-    resource_class: medium
-    steps:
-      - attach_workspace:
-          at: .
-      - restore_cache:
-          key: *cache_key
-      - restore_cache:
-          key: *tools_cache_key
-      - run:
-          name: Swiftlint
-          command: |
-            swiftlint --version
-            cd src/xcode && bundle exec fastlane lint
-      - store_artifacts:
-          path: src/xcode/swiftlint.html
-
   test:
     macos:
       xcode: *xcode_version
@@ -204,7 +185,7 @@ jobs:
       - run:
       # Run the announce failed screenshots script only if the snapshot job failed
           name: Snapshot
-          command: cd src/xcode && bundle exec fastlane screenshot languages:<<parameters.language>> mode:<<parameters.displaymode>> || (cd /Users/distiller/project/scripts && /Users/distiller/project/scripts/announce_failing_screenshots.sh)
+          command: cd src/xcode && bundle exec fastlane screenshot languages:<<parameters.language>> mode:<<parameters.displaymode>> test_without_building:false || (cd /Users/distiller/project/scripts && /Users/distiller/project/scripts/announce_failing_screenshots.sh)
           no_output_timeout: 1h
       - store_test_results:
           # Fastlane's snapshot only defines one output path which is intended forscreenshots
@@ -225,7 +206,7 @@ jobs:
           key: *tools_cache_key
       - run:
           name: Snapshot
-          command: cd src/xcode && bundle exec fastlane screenshot languages:de-DE mode:light
+          command: cd src/xcode && bundle exec fastlane screenshot languages:de-DE mode:light test_without_building:false
           no_output_timeout: 1h
       - store_test_results:
           # Fastlane's snapshot only defines one output path which is intended forscreenshots
@@ -299,9 +280,6 @@ workflows:
       - build-for-testing:
           requires:
             - dependencies
-      - swiftlint:
-          requires:
-            - dependencies
       - test:
           matrix:
             parameters:
@@ -332,20 +310,6 @@ workflows:
             branches:
               ignore:
                 - /release\/.*/
-      - snapshot:
-          matrix:
-            parameters:
-              language: ["de-DE", "en-EN"]
-              displaymode: ["dark", "light"]
-          requires:
-            - dependencies
-          filters:
-            branches:
-              only:
-                - /release\/.*/
-      - collect-snapshots:
-          requires:
-            - snapshot
       - update-docs:
           requires:
             - dependencies
@@ -369,26 +333,6 @@ workflows:
       - test:
           requires:
             - build-for-testing
-          filters:
-            tags:
-              only:
-                - /^v.*/
-            branches:
-              ignore: /.*/
-      - snapshot:
-          matrix:
-            parameters:
-              language: ["de-DE", "en-EN"]
-              displaymode: ["dark", "light"]
-          requires:
-            - dependencies
-          filters:
-            branches:
-              only:
-                - /release\/.*/
-      - collect-snapshots:
-          requires:
-            - snapshot
           filters:
             tags:
               only:

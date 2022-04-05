@@ -14,9 +14,11 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 		viewModel: HomeTableViewModel,
 		appConfigurationProvider: AppConfigurationProviding,
 		route: Route?,
+		startupErrors: [Error],
 		onInfoBarButtonItemTap: @escaping () -> Void,
 		onExposureLoggingCellTap: @escaping (ENStateHandler.State) -> Void,
 		onRiskCellTap: @escaping (HomeState) -> Void,
+		onFamilyTestResultsCellTap: @escaping () -> Void,
 		onInactiveCellButtonTap: @escaping (ENStateHandler.State) -> Void,
 		onTestRegistrationCellTap: @escaping () -> Void,
 		onStatisticsInfoButtonTap: @escaping () -> Void,
@@ -28,6 +30,8 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 		onSettingsCellTap: @escaping (ENStateHandler.State) -> Void,
 		onRecycleBinCellTap: @escaping () -> Void,
 		showTestInformationResult: @escaping (Result<CoronaTestRegistrationInformation, QRCodeError>) -> Void,
+		showUserTestResultFromNotification: @escaping (CoronaTestType) -> Void,
+		showFamilyMemberCoronaTestsFromNotification: @escaping () -> Void,
 		onAddLocalStatisticsTap: @escaping (SelectValueTableViewController) -> Void,
 		onAddDistrict: @escaping (SelectValueTableViewController) -> Void,
 		onDismissState: @escaping () -> Void,
@@ -36,9 +40,11 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 		self.viewModel = viewModel
 		self.appConfigurationProvider = appConfigurationProvider
 		self.route = route
+		self.startupErrors = startupErrors
 		self.onInfoBarButtonItemTap = onInfoBarButtonItemTap
 		self.onExposureLoggingCellTap = onExposureLoggingCellTap
 		self.onRiskCellTap = onRiskCellTap
+		self.onFamilyTestResultsCellTap = onFamilyTestResultsCellTap
 		self.onInactiveCellButtonTap = onInactiveCellButtonTap
 		self.onTestRegistrationCellTap = onTestRegistrationCellTap
 		self.onStatisticsInfoButtonTap = onStatisticsInfoButtonTap
@@ -50,6 +56,8 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 		self.onSettingsCellTap = onSettingsCellTap
 		self.onRecycleBinCellTap = onRecycleBinCellTap
 		self.showTestInformationResult = showTestInformationResult
+		self.showUserTestResultFromNotification = showUserTestResultFromNotification
+		self.showFamilyMemberCoronaTestsFromNotification = showFamilyMemberCoronaTestsFromNotification
 		self.onAddStateButtonTap = onAddLocalStatisticsTap
 		self.onAddDistrict = onAddDistrict
 		self.onDismissState = onDismissState
@@ -127,6 +135,7 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 			antigenTestResultCell = testResultCell(forRowAt: IndexPath(row: 2, section: HomeTableViewModel.Section.riskAndTestResults.rawValue), coronaTestType: .antigen)
 			antigenTestShownPositiveResultCell = shownPositiveTestResultCell(forRowAt: IndexPath(row: 2, section: HomeTableViewModel.Section.riskAndTestResults.rawValue), coronaTestType: .antigen)
 			statisticsCell = statisticsCell(forRowAt: IndexPath(row: 0, section: HomeTableViewModel.Section.statistics.rawValue))
+			familyTestCell = familyTestCellFactory()
 		}
 
 		/** navigationbar is a shared property - so we need to trigger a resizing because others could have set it to true*/
@@ -183,6 +192,8 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 				case .positiveResultWasShown:
 					return shownPositiveTestResultCell(forRowAt: indexPath, coronaTestType: .antigen)
 				}
+			case .familyTestResults:
+				return familyTestCellFactory()
 			}
 		case .testRegistration:
 			return testRegistrationCell(forRowAt: indexPath)
@@ -236,14 +247,14 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 				viewModel.didTapTestResultCell(coronaTestType: .pcr)
 			case .antigenTestResult:
 				viewModel.didTapTestResultCell(coronaTestType: .antigen)
+			case .familyTestResults:
+				onFamilyTestResultsCellTap()
 			}
 		case .testRegistration:
 			onTestRegistrationCellTap()
-		case .statistics:
-			break
 		case .traceLocations:
 			onTraceLocationsCellTap()
-		case .moreInfo:
+		case .statistics, .moreInfo:
 			break
 		default:
 			fatalError("Invalid section")
@@ -260,6 +271,7 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 	// MARK: - Internal
 
 	var route: Route?
+	var startupErrors: [Error]
 
 	func scrollToTop(animated: Bool) {
 		tableView.setContentOffset(.zero, animated: animated)
@@ -272,22 +284,23 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 		}
 		self.deltaOnboardingIsRunning = true
 
-		self.showDeltaOnboardingIfNeeded(completion: { [weak self] in
-			self?.showInformationHowRiskDetectionWorksIfNeeded(completion: {
-				self?.showBackgroundFetchAlertIfNeeded(completion: {
-					self?.showAnotherHighExposureAlertIfNeeded(completion: {
-						self?.showRiskStatusLoweredAlertIfNeeded(completion: {
-							self?.showQRScannerTooltipIfNeeded(completion: {  [weak self] in
-								self?.showRouteIfNeeded(completion: { [weak self] in
-									self?.deltaOnboardingIsRunning = false
+		self.showStartupErrorsIfNeeded {
+			self.showDeltaOnboardingIfNeeded(completion: { [weak self] in
+				self?.showInformationHowRiskDetectionWorksIfNeeded(completion: {
+					self?.showBackgroundFetchAlertIfNeeded(completion: {
+						self?.showAnotherHighExposureAlertIfNeeded(completion: {
+							self?.showRiskStatusLoweredAlertIfNeeded(completion: {
+								self?.showQRScannerTooltipIfNeeded(completion: {  [weak self] in
+									self?.showRouteIfNeeded(completion: { [weak self] in
+										self?.deltaOnboardingIsRunning = false
+									})
 								})
 							})
 						})
 					})
 				})
 			})
-		})
-
+		}
 	}
 
 	// MARK: - Private
@@ -298,6 +311,7 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 	private let onInfoBarButtonItemTap: () -> Void
 	private let onExposureLoggingCellTap: (ENStateHandler.State) -> Void
 	private let onRiskCellTap: (HomeState) -> Void
+	private let onFamilyTestResultsCellTap: () -> Void
 	private let onInactiveCellButtonTap: (ENStateHandler.State) -> Void
 	private let onTestRegistrationCellTap: () -> Void
 	private let onStatisticsInfoButtonTap: () -> Void
@@ -309,6 +323,8 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 	private let onSettingsCellTap: (ENStateHandler.State) -> Void
 	private let onRecycleBinCellTap: () -> Void
 	private let showTestInformationResult: (Result<CoronaTestRegistrationInformation, QRCodeError>) -> Void
+	private let showUserTestResultFromNotification: (CoronaTestType) -> Void
+	private let showFamilyMemberCoronaTestsFromNotification: () -> Void
 	private var onAddStateButtonTap: (SelectValueTableViewController) -> Void
 	private var onAddDistrict: (SelectValueTableViewController) -> Void
 	private var onDismissState: () -> Void
@@ -322,6 +338,7 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 	private var antigenTestResultCell: UITableViewCell?
 	private var antigenTestShownPositiveResultCell: UITableViewCell?
 	private var statisticsCell: HomeStatisticsTableViewCell?
+	private var familyTestCell: FamilyTestsHomeCell?
 
 	private var subscriptions = Set<AnyCancellable>()
 
@@ -376,6 +393,8 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 			UINib(nibName: String(describing: HomeMoreInfoTableViewCell.self), bundle: nil),
 			forCellReuseIdentifier: String(describing: HomeMoreInfoTableViewCell.self)
 		)
+
+		tableView.register(FamilyTestsHomeCell.self, forCellReuseIdentifier: FamilyTestsHomeCell.reuseIdentifier)
 
 		tableView.separatorStyle = .none
 		tableView.rowHeight = UITableView.automaticDimension
@@ -437,6 +456,25 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 
 		riskCell = cell
 
+		return cell
+	}
+
+	private func familyTestCellFactory() -> FamilyTestsHomeCell {
+		if let familyTestCell = familyTestCell {
+			return familyTestCell
+		}
+
+		guard let cell = tableView.dequeueReusableCell(withIdentifier: FamilyTestsHomeCell.reuseIdentifier) as? FamilyTestsHomeCell else {
+			fatalError("Failed to get FamilyTestsHomeCell")
+		}
+		cell.configure(
+			with: FamilyTestsHomeCellViewModel(
+				familyMemberCoronaTestService: viewModel.familyMemberCoronaTestService,
+				onUpdate: { [weak self] in
+					self?.animateChanges(of: cell)
+				}
+			)
+		)
 		return cell
 	}
 
@@ -673,17 +711,20 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 			route = nil
 		}
 
-		// handle error -> show alert & trigger the chain
 		switch route {
 		case .rapidAntigen(let testResult), .rapidPCR(let testResult):
 			showTestInformationResult(testResult)
-		case .testResultFromNotification,
-			 .checkIn,
+		case .familyMemberTestResultFromNotification:
+			showFamilyMemberCoronaTestsFromNotification()
+		case .testResultFromNotification(let coronaTestType):
+			showUserTestResultFromNotification(coronaTestType)
+		case .checkIn,
 			 .healthCertificateFromNotification,
 			 .healthCertifiedPersonFromNotification,
 			 .none:
 			break
 		}
+
 		completion()
 	}
 
@@ -931,6 +972,41 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 		alert.addAction(cancelAction)
 
 		present(alert, animated: true, completion: nil)
+	}
+	
+	func showStartupErrorsIfNeeded(completion: @escaping () -> Void) {
+		showErrors(startupErrors) { [weak self] in
+			guard let self = self else {
+				completion()
+				return
+			}
+			self.startupErrors.removeAll()
+			completion()
+		}
+	}
+	
+	func showErrors(_ errors: [Error], completion: @escaping () -> Void) {
+		var mutableErrors = errors
+		guard let firstError = mutableErrors.first else {
+			completion()
+			return
+		}
+		mutableErrors.removeFirst()
+		
+		let alert = UIAlertController(
+			title: AppStrings.Common.alertTitleGeneral,
+			message: firstError.localizedDescription,
+			preferredStyle: .alert
+		)
+		let okAction = UIAlertAction(title: AppStrings.Common.alertActionOk, style: .default) { [weak self] _ in
+			guard let self = self else {
+				completion()
+				return
+			}
+			self.showErrors(mutableErrors, completion: completion)
+		}
+		alert.addAction(okAction)
+		self.present(alert, animated: true)
 	}
 
 	@objc

@@ -265,6 +265,7 @@ final class HealthCertifiedPersonViewModel {
 			HealthCertificateCellViewModel(
 				healthCertificate: $0,
 				healthCertifiedPerson: person,
+				details: .allDetails,
 				onValidationButtonTap: { [weak self] healthCertificate, loadingStateHandler in
 					self?.didTapValidationButton(healthCertificate, loadingStateHandler)
 				}

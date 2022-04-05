@@ -480,6 +480,11 @@ enum AccessibilityIdentifiers {
 			}
 		}
 
+		enum TestOwnerSelection {
+			static let userButton = "AppStrings.ExposureSubmission.TestOwnerSelection.userButton"
+			static let familyMemberButton = "AppStrings.ExposureSubmission.TestOwnerSelection.familyMemberButton"
+		}
+		
 		enum TestCertificate {
 			enum Info {
 				static let imageDescription = "AppStrings.ExposureSubmission.TestCertificate.Info.imageDescription"
@@ -732,6 +737,11 @@ enum AccessibilityIdentifiers {
 			}
 		}
 
+		enum FamilyMemberConsent {
+			static let imageDescription = "AppStrings.HealthCertificate.FamilyMemberConsent.imageDescription"
+			static let textInput = "HealthCertificate.FamilyMemberConsent.textInput"
+		}
+
 		enum Overview {
 			static let changeAdmissionScenarioCell =
 				"AppStrings.HealthCertificate.changeAdmissionScenarioCell"
@@ -833,4 +843,21 @@ enum AccessibilityIdentifiers {
 			static let boosterNotificationCell = "BoosterNotification.Details.boosterNotificationCell"
 		}
 	}
+
+	enum FamilyMemberCoronaTestCell {
+		static let pendingPCR = "AccessibilityIdentifiers.FamilyMemberCoronaTestCell.pendingPCR"
+		static let pendingAntigen = "AccessibilityIdentifiers.FamilyMemberCoronaTestCell.pendingAntigen"
+		static let negativePCR = "AccessibilityIdentifiers.FamilyMemberCoronaTestCell.negativePCR"
+		static let negativeAntigen = "AccessibilityIdentifiers.FamilyMemberCoronaTestCell.negativeAntigen"
+		static let availablePCR = "AccessibilityIdentifiers.FamilyMemberCoronaTestCell.availablePCR"
+		static let availableAntigen = "AccessibilityIdentifiers.FamilyMemberCoronaTestCell.availableAntigen"
+		static let invalidPCR = "AccessibilityIdentifiers.FamilyMemberCoronaTestCell.invalidPCR"
+		static let invalidAntigen = "AccessibilityIdentifiers.FamilyMemberCoronaTestCell.invalidAntigen"
+		static let expiredPCR = "AccessibilityIdentifiers.FamilyMemberCoronaTestCell.expiredPCR"
+		static let expiredAntigen = "AccessibilityIdentifiers.FamilyMemberCoronaTestCell.expiredAntigen"
+		static let outdatedAntigen = "AccessibilityIdentifiers.FamilyMemberCoronaTestCell.outdatedAntigen"
+		static let loadingPCR = "AccessibilityIdentifiers.FamilyMemberCoronaTestCell.loadingPCR"
+		static let loadingAntigen = "AccessibilityIdentifiers.FamilyMemberCoronaTestCell.loadingAntigen"
+	}
+
 }
