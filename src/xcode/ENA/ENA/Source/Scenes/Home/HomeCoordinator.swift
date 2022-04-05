@@ -312,7 +312,8 @@ class HomeCoordinator: RequiresAppDependencies {
 			antigenTestProfileStore: store,
 			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
 			healthCertificateValidationOnboardedCountriesProvider: healthCertificateValidationOnboardedCountriesProvider,
-			qrScannerCoordinator: qrScannerCoordinator
+			qrScannerCoordinator: qrScannerCoordinator,
+			recycleBin: recycleBin
 		)
 
 		if let testInformationResult = testInformationResult {

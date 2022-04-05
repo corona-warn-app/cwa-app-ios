@@ -25,16 +25,16 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 		antigenTestProfileStore: AntigenTestProfileStoring,
 		vaccinationValueSetsProvider: VaccinationValueSetsProviding,
 		healthCertificateValidationOnboardedCountriesProvider: HealthCertificateValidationOnboardedCountriesProviding,
-		qrScannerCoordinator: QRScannerCoordinator
+		qrScannerCoordinator: QRScannerCoordinator,
+		recycleBin: RecycleBin
 	) {
 		self.parentViewController = parentViewController
+		self.healthCertificateService = healthCertificateService
+		self.healthCertificateValidationService = healthCertificateValidationService
 		self.antigenTestProfileStore = antigenTestProfileStore
 		self.vaccinationValueSetsProvider = vaccinationValueSetsProvider
 		self.healthCertificateValidationOnboardedCountriesProvider = healthCertificateValidationOnboardedCountriesProvider
 		self.qrScannerCoordinator = qrScannerCoordinator
-
-		self.healthCertificateService = healthCertificateService
-		self.healthCertificateValidationService = healthCertificateValidationService
 
 		super.init()
 
@@ -42,7 +42,8 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 			exposureSubmissionService: exposureSubmissionService,
 			coronaTestService: coronaTestService,
 			familyMemberCoronaTestService: familyMemberCoronaTestService,
-			eventProvider: eventProvider
+			eventProvider: eventProvider,
+			recycleBin: recycleBin
 		)
 	}
 
@@ -56,6 +57,12 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 
 	func start(with testRegistrationInformationResult: Result<CoronaTestRegistrationInformation, QRCodeError>, markNewlyAddedCoronaTestAsUnseen: Bool = false) {
 		model.markNewlyAddedCoronaTestAsUnseen = markNewlyAddedCoronaTestAsUnseen
+
+		if case .success(let testRegistrationInformation) = testRegistrationInformationResult,
+		   let recycleBinItemToRestore = model.recycleBinItemToRestore(for: testRegistrationInformation) {
+			showTestRestoredFromBinAlert(recycleBinItem: recycleBinItemToRestore)
+			return
+		}
 
 		model.exposureSubmissionService.loadSupportedCountries(
 			isLoading: { _ in },
@@ -572,8 +579,13 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 		)
 		push(topBottomLayoutViewController)
 	}
-	
+
 	private func showTestResultScreen(for familyMemberCoronaTest: FamilyMemberCoronaTest) {
+		let familyMemberTestResultScreen = createTestResultScreen(for: familyMemberCoronaTest)
+		push(familyMemberTestResultScreen)
+	}
+	
+	private func createTestResultScreen(for familyMemberCoronaTest: FamilyMemberCoronaTest) -> UIViewController {
 		let viewModel = ExposureSubmissionTestResultFamilyMemberViewModel(
 			familyMemberCoronaTest: familyMemberCoronaTest,
 			familyMemberCoronaTestService: model.familyMemberCoronaTestService,
@@ -597,12 +609,10 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 			ExposureSubmissionTestResultFamilyMemberViewModel.footerViewModel(coronaTest: familyMemberCoronaTest)
 		)
 		
-		let topBottomContainerViewController = TopBottomContainerViewController(
+		return TopBottomContainerViewController(
 			topController: vc,
 			bottomController: footerViewController
 		)
-		
-		push(topBottomContainerViewController)
 	}
 	
 	private func showQRScreen(testRegistrationInformation: CoronaTestRegistrationInformation?, isLoading: @escaping (Bool) -> Void) {
@@ -624,6 +634,14 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 				}
 
 				DispatchQueue.main.async {
+					if let recycleBinItemToRestore = self.model.recycleBinItemToRestore(for: testRegistrationInformation) {
+						self.dismiss {
+							self.showTestRestoredFromBinAlert(recycleBinItem: recycleBinItemToRestore)
+						}
+
+						return
+					}
+
 					self.model.exposureSubmissionService.loadSupportedCountries(
 						isLoading: isLoading,
 						onSuccess: { supportedCountries in
@@ -1493,6 +1511,83 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 		
 		push(exposureSubmissionSuccessViewController)
 	}
+
+	private func restoreAndStartWithTest(from recycleBinItem: RecycleBinItem) {
+		model.recycleBin.restore(recycleBinItem)
+
+		switch recycleBinItem.item {
+		case .certificate:
+			Log.info("restoreAndShowTest only restores tests")
+			return
+		case .userCoronaTest(let coronaTest):
+			start(with: coronaTest.type)
+		case .familyMemberCoronaTest(let coronaTest):
+			let familyMemberTestResultViewController = createTestResultScreen(for: coronaTest)
+			start(with: familyMemberTestResultViewController)
+		}
+	}
+
+	private func showTestRestoredFromBinAlert(
+		recycleBinItem: RecycleBinItem
+	) {
+		let alert = UIAlertController(
+			title: AppStrings.UniversalQRScanner.testRestoredFromBinAlertTitle,
+			message: AppStrings.UniversalQRScanner.testRestoredFromBinAlertMessage,
+			preferredStyle: .alert
+		)
+		alert.addAction(
+			UIAlertAction(
+				title: AppStrings.Common.alertActionOk,
+				style: .default,
+				handler: { _ in
+					switch self.model.recycleBin.canRestore(recycleBinItem) {
+					case .success:
+						self.restoreAndStartWithTest(from: recycleBinItem)
+					case .failure(.testError(.testTypeAlreadyRegistered)):
+						self.showTestOverwriteNotice(recycleBinItem: recycleBinItem)
+					}
+				}
+			)
+		)
+
+		parentViewController?.present(alert, animated: true)
+	}
+
+	private func showTestOverwriteNotice(
+		recycleBinItem: RecycleBinItem
+	) {
+		guard case let .userCoronaTest(coronaTest) = recycleBinItem.item else {
+			return
+		}
+
+		let footerViewModel = FooterViewModel(
+			primaryButtonName: AppStrings.ExposureSubmission.OverwriteNotice.primaryButton,
+			isSecondaryButtonHidden: true
+		)
+
+		let overwriteNoticeViewController = TestOverwriteNoticeViewController(
+			testType: coronaTest.type,
+			didTapPrimaryButton: {
+				// Dismiss override notice
+				self.parentViewController?.dismiss(animated: true) {
+					self.restoreAndStartWithTest(from: recycleBinItem)
+				}
+			},
+			didTapCloseButton: {
+				self.parentViewController?.dismiss(animated: true)
+			}
+		)
+
+		let footerViewController = FooterViewController(footerViewModel)
+		let topBottomViewController = TopBottomContainerViewController(
+			topController: overwriteNoticeViewController,
+			bottomController: footerViewController
+		)
+
+		let navigationController = NavigationControllerWithLargeTitle(rootViewController: topBottomViewController)
+		parentViewController?.present(navigationController, animated: true)
+	}
+
 }
 
 extension ExposureSubmissionCoordinator: UIAdaptivePresentationControllerDelegate {
