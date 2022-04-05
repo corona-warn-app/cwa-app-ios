@@ -449,7 +449,8 @@ class HealthCertificateServiceFake: HealthCertificateServiceServable {
 		oldCertificateRef: DCCCertificateReference,
 		with newHealthCertificateString: String,
 		for person: HealthCertifiedPerson,
-		markAsNew: Bool
+		markAsNew: Bool,
+		completedNotificationRegistration: @escaping () -> Void
 	) throws { }
 	
 }
@@ -462,9 +463,11 @@ class HealthCertificateServiceSpy: HealthCertificateServiceServable {
 		oldCertificateRef: DCCCertificateReference,
 		with newHealthCertificateString: String,
 		for person: HealthCertifiedPerson,
-		markAsNew: Bool
+		markAsNew: Bool,
+		completedNotificationRegistration: @escaping () -> Void
 	) throws {
 			didCallReplaceHealthCertificate = true
+			completedNotificationRegistration()
 	}
 	
 }
@@ -475,7 +478,8 @@ class HealthCertificateServiceErrorStub: HealthCertificateServiceServable {
 		oldCertificateRef: DCCCertificateReference,
 		with newHealthCertificateString: String,
 		for person: HealthCertifiedPerson,
-		markAsNew: Bool
+		markAsNew: Bool,
+		completedNotificationRegistration: @escaping () -> Void
 	) throws {
 			throw FakeError.fake
 	}
