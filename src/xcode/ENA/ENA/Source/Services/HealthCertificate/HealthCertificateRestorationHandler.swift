@@ -8,7 +8,9 @@ struct HealthCertificateRestorationHandler: CertificateRestorationHandling {
 
 	init(service: HealthCertificateService) {
 		restore = { healthCertificate in
-			service.addHealthCertificate(healthCertificate)
+			service.addHealthCertificate(
+				healthCertificate,
+				completedNotificationRegistration: { })
 		}
 	}
 
