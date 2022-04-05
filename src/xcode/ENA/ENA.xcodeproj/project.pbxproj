@@ -1252,6 +1252,7 @@
 		ABD430F627FC6A7E0063666C /* Locator+KIDTypeChunk.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABD430F527FC6A7E0063666C /* Locator+KIDTypeChunk.swift */; };
 		ABD430FA27FC6BC20063666C /* Locator+KIDTypeChunkTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABD430F827FC6BBE0063666C /* Locator+KIDTypeChunkTests.swift */; };
 		ABD430FD27FC6C660063666C /* KIDTypeChunkResourceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABD430FB27FC6C530063666C /* KIDTypeChunkResourceTests.swift */; };
+		ABD430FF27FC7EB90063666C /* LocatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABD430FE27FC7EB90063666C /* LocatorTests.swift */; };
 		ABDA2792251CE308006BAE84 /* DMServerEnvironmentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABDA2791251CE308006BAE84 /* DMServerEnvironmentViewController.swift */; };
 		ABDBE3632710825F007C8DA8 /* RecycleBinTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABDBE36127107E73007C8DA8 /* RecycleBinTests.swift */; };
 		ABE06E99261D958A00D98E1B /* TraceLocationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABE06E98261D958A00D98E1B /* TraceLocationTests.swift */; };
@@ -3055,6 +3056,7 @@
 		ABD430F527FC6A7E0063666C /* Locator+KIDTypeChunk.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Locator+KIDTypeChunk.swift"; sourceTree = "<group>"; };
 		ABD430F827FC6BBE0063666C /* Locator+KIDTypeChunkTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Locator+KIDTypeChunkTests.swift"; sourceTree = "<group>"; };
 		ABD430FB27FC6C530063666C /* KIDTypeChunkResourceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KIDTypeChunkResourceTests.swift; sourceTree = "<group>"; };
+		ABD430FE27FC7EB90063666C /* LocatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocatorTests.swift; sourceTree = "<group>"; };
 		ABDA2791251CE308006BAE84 /* DMServerEnvironmentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMServerEnvironmentViewController.swift; sourceTree = "<group>"; };
 		ABDBE36127107E73007C8DA8 /* RecycleBinTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecycleBinTests.swift; sourceTree = "<group>"; };
 		ABE06E98261D958A00D98E1B /* TraceLocationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraceLocationTests.swift; sourceTree = "<group>"; };
@@ -9311,6 +9313,7 @@
 			isa = PBXGroup;
 			children = (
 				506BEF01276A454B0062D5D6 /* Resource+Fake.swift */,
+				ABD430FE27FC7EB90063666C /* LocatorTests.swift */,
 			);
 			path = __tests__;
 			sourceTree = "<group>";
@@ -12171,6 +12174,7 @@
 				01A6C3152626EA8000B6E95A /* HomeTestResultCellModelTests.swift in Sources */,
 				F22C6E252492082B00712A6B /* DynamicTableViewSpaceCellTests.swift in Sources */,
 				4B577C5F26C1D90500641667 /* LoggingTests.swift in Sources */,
+				ABD430FF27FC7EB90063666C /* LocatorTests.swift in Sources */,
 				BAD3199D26FA2102006E82E7 /* HealthCertificateQRCodeViewTests.swift in Sources */,
 				B1AC51D624CED8820087C35B /* DetectionModeTests.swift in Sources */,
 				8FA88FE02616692000FD36DA /* TraceLocationCheckinViewModelTests.swift in Sources */,
