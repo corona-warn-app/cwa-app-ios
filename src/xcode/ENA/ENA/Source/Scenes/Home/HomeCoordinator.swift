@@ -59,12 +59,10 @@ class HomeCoordinator: RequiresAppDependencies {
 	func showHome(enStateHandler: ENStateHandler, route: Route?, startupErrors: [Error]) {
 		guard homeController == nil else {
 			switch route {
-			case .rapidAntigen, .rapidPCR:
-				// only select tab if route is .rapidAntigen or .rapidPCR
+			case .rapidAntigen, .rapidPCR, .testResultFromNotification, .familyMemberTestResultFromNotification:
 				selectHomeTabSection(route: route)
 				return
-			case .testResultFromNotification,
-				 .checkIn,
+			case .checkIn,
 				 .healthCertificateFromNotification,
 				 .healthCertifiedPersonFromNotification,
 				 .none:
@@ -137,6 +135,12 @@ class HomeCoordinator: RequiresAppDependencies {
 			showTestInformationResult: { [weak self] testInformationResult in
 				self?.showExposureSubmission(testInformationResult: testInformationResult)
 			},
+			showUserTestResultFromNotification: { [weak self] coronaTestType in
+				self?.showTestResultFromNotification(with: coronaTestType)
+			},
+			showFamilyMemberCoronaTestsFromNotification: { [weak self] in
+				self?.showFamilyMemberTestsFromNotification()
+			},
 			onAddLocalStatisticsTap: { [weak self] selectValueViewController in
 				self?.rootViewController.present(
 					UINavigationController(rootViewController: selectValueViewController),
@@ -172,16 +176,6 @@ class HomeCoordinator: RequiresAppDependencies {
 			self.enableDeveloperMenuIfAllowed(in: homeController)
 			#endif
 		})
-	}
-
-	func showTestResultFromNotification(with testType: CoronaTestType) {
-		if let presentedViewController = rootViewController.presentedViewController {
-			presentedViewController.dismiss(animated: true) {
-				self.showExposureSubmission(testType: testType)
-			}
-		} else {
-			self.showExposureSubmission(testType: testType)
-		}
 	}
 
 	func updateDetectionMode(
@@ -478,6 +472,30 @@ class HomeCoordinator: RequiresAppDependencies {
 			NavigationControllerWithLargeTitle(rootViewController: topBottomViewController),
 			animated: true
 		)
+	}
+
+	private func showTestResultFromNotification(with testType: CoronaTestType) {
+		rootViewController.popToRootViewController(animated: false)
+
+		if let presentedViewController = rootViewController.presentedViewController {
+			presentedViewController.dismiss(animated: true) {
+				self.showExposureSubmission(testType: testType)
+			}
+		} else {
+			self.showExposureSubmission(testType: testType)
+		}
+	}
+
+	private func showFamilyMemberTestsFromNotification() {
+		rootViewController.popToRootViewController(animated: false)
+
+		if let presentedViewController = rootViewController.presentedViewController {
+			presentedViewController.dismiss(animated: true) {
+				self.showFamilyMemberCoronaTests()
+			}
+		} else {
+			self.showFamilyMemberCoronaTests()
+		}
 	}
 
 	private func addToEnStateUpdateList(_ anyObject: AnyObject?) {
