@@ -590,9 +590,6 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 
 		let onSuccessExpectation = expectation(description: "onSuccess is called")
 
-		let onErrorExpectation = expectation(description: "onError is not called")
-		onErrorExpectation.isInverted = true
-
 		model.registerTestAndGetResult(
 			for: .pcr(guid: "", qrCodeHash: ""),
 			isSubmissionConsentGiven: true,
@@ -606,7 +603,9 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 
 				onSuccessExpectation.fulfill()
 			},
-			onError: { _ in onErrorExpectation.fulfill() }
+			onError: { _ in
+				XCTFail("Success expected.")
+			}
 		)
 
 		waitForExpectations(timeout: .short)
@@ -634,9 +633,6 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 		isLoadingExpectation.expectedFulfillmentCount = 2
 
 		let onSuccessExpectation = expectation(description: "onSuccess is called")
-
-		let onErrorExpectation = expectation(description: "onError is not called")
-		onErrorExpectation.isInverted = true
 		
 		model.registerFamilyMemberTestAndGetResult(
 			   for: "displayName",
@@ -651,7 +647,9 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 
 				   onSuccessExpectation.fulfill()
 			   },
-			   onError: { _ in onErrorExpectation.fulfill() }
+			   onError: { _ in
+				   XCTFail("Success expected.")
+			   }
 		)
 
 		waitForExpectations(timeout: .short)
@@ -677,9 +675,6 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 		let isLoadingExpectation = expectation(description: "isLoading is called twice")
 		isLoadingExpectation.expectedFulfillmentCount = 2
 
-		let onSuccessExpectation = expectation(description: "onSuccess is not called")
-		onSuccessExpectation.isInverted = true
-
 		let onErrorExpectation = expectation(description: "onError is called")
 
 		model.registerTestAndGetResult(
@@ -690,7 +685,9 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 				isLoadingValues.append($0)
 				isLoadingExpectation.fulfill()
 			},
-			onSuccess: { _ in onSuccessExpectation.fulfill() },
+			onSuccess: { _ in
+				XCTFail("Error expected.")
+			},
 			onError: { error in
 				XCTAssertEqual(error, expectedError)
 
@@ -722,9 +719,6 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 		let isLoadingExpectation = expectation(description: "isLoading is called twice")
 		isLoadingExpectation.expectedFulfillmentCount = 2
 
-		let onSuccessExpectation = expectation(description: "onSuccess is not called")
-		onSuccessExpectation.isInverted = true
-
 		let onErrorExpectation = expectation(description: "onError is called")
 
 		model.registerFamilyMemberTestAndGetResult(
@@ -735,7 +729,9 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 				   isLoadingValues.append($0)
 				   isLoadingExpectation.fulfill()
 			   },
-			   onSuccess: { _ in onSuccessExpectation.fulfill() },
+			   onSuccess: { _ in
+				   XCTFail("Error expected.")
+			   },
 			   onError: { error in
 				   XCTAssertEqual(error, expectedError)
 
@@ -768,9 +764,6 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 
 		let onSuccessExpectation = expectation(description: "onSuccess is called")
 
-		let onErrorExpectation = expectation(description: "onError is not called")
-		onErrorExpectation.isInverted = true
-
 		model.registerTestAndGetResult(
 			for: .teleTAN(tan: ""),
 			isSubmissionConsentGiven: true,
@@ -784,7 +777,9 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 
 				onSuccessExpectation.fulfill()
 			},
-			onError: { _ in onErrorExpectation.fulfill() }
+			onError: { _ in
+				XCTFail("Success expected.")
+			}
 		)
 
 		waitForExpectations(timeout: .short)
@@ -810,9 +805,6 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 		let isLoadingExpectation = expectation(description: "isLoading is called twice")
 		isLoadingExpectation.expectedFulfillmentCount = 2
 
-		let onSuccessExpectation = expectation(description: "onSuccess is not called")
-		onSuccessExpectation.isInverted = true
-
 		let onErrorExpectation = expectation(description: "onError is called")
 
 		model.registerTestAndGetResult(
@@ -823,7 +815,9 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 				isLoadingValues.append($0)
 				isLoadingExpectation.fulfill()
 			},
-			onSuccess: { _ in onSuccessExpectation.fulfill() },
+			onSuccess: { _ in
+				XCTFail("Error expected.")
+			},
 			onError: { error in
 				XCTAssertEqual(error, expectedError)
 
@@ -856,9 +850,6 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 
 		let onSuccessExpectation = expectation(description: "onSuccess is called")
 
-		let onErrorExpectation = expectation(description: "onError is not called")
-		onErrorExpectation.isInverted = true
-
 		model.registerTestAndGetResult(
 			for: .antigen(qrCodeInformation: .mock(), qrCodeHash: ""),
 			isSubmissionConsentGiven: true,
@@ -872,7 +863,9 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 
 				onSuccessExpectation.fulfill()
 			},
-			onError: { _ in onErrorExpectation.fulfill() }
+			onError: { _ in
+				XCTFail("Success expected.")
+			}
 		)
 
 		waitForExpectations(timeout: .short)
@@ -901,9 +894,6 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 
 		let onSuccessExpectation = expectation(description: "onSuccess is called")
 
-		let onErrorExpectation = expectation(description: "onError is not called")
-		onErrorExpectation.isInverted = true
-
 		model.registerFamilyMemberTestAndGetResult(
 			   for: "displayName",
 			   registrationInformation: .antigen(qrCodeInformation: .mock(), qrCodeHash: ""),
@@ -917,7 +907,9 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 
 				   onSuccessExpectation.fulfill()
 			   },
-			   onError: { _ in onErrorExpectation.fulfill() }
+			   onError: { _ in
+				   XCTFail("Success expected.")
+			   }
 		)
 
 		waitForExpectations(timeout: .short)
@@ -943,9 +935,6 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 		let isLoadingExpectation = expectation(description: "isLoading is called twice")
 		isLoadingExpectation.expectedFulfillmentCount = 2
 
-		let onSuccessExpectation = expectation(description: "onSuccess is not called")
-		onSuccessExpectation.isInverted = true
-
 		let onErrorExpectation = expectation(description: "onError is called")
 
 		model.registerTestAndGetResult(
@@ -956,7 +945,9 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 				isLoadingValues.append($0)
 				isLoadingExpectation.fulfill()
 			},
-			onSuccess: { _ in onSuccessExpectation.fulfill() },
+			onSuccess: { _ in
+				XCTFail("Error expected.")
+			},
 			onError: { error in
 				XCTAssertEqual(error, expectedError)
 
@@ -988,9 +979,6 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 		let isLoadingExpectation = expectation(description: "isLoading is called twice")
 		isLoadingExpectation.expectedFulfillmentCount = 2
 
-		let onSuccessExpectation = expectation(description: "onSuccess is not called")
-		onSuccessExpectation.isInverted = true
-
 		let onErrorExpectation = expectation(description: "onError is called")
 
 		model.registerFamilyMemberTestAndGetResult(
@@ -1001,7 +989,9 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 				   isLoadingValues.append($0)
 				   isLoadingExpectation.fulfill()
 			   },
-			   onSuccess: { _ in onSuccessExpectation.fulfill() },
+			   onSuccess: { _ in
+				   XCTFail("Error expected.")
+			   },
 			   onError: { error in
 				  XCTAssertEqual(error, expectedError)
 
@@ -1034,9 +1024,6 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 
 		let onSuccessExpectation = expectation(description: "onSuccess is called")
 
-		let onErrorExpectation = expectation(description: "onError is not called")
-		onErrorExpectation.isInverted = true
-
 		model.registerTestAndGetResult(
 			for: .rapidPCR(qrCodeInformation: .mock(), qrCodeHash: ""),
 			isSubmissionConsentGiven: true,
@@ -1050,7 +1037,9 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 
 				onSuccessExpectation.fulfill()
 			},
-			onError: { _ in onErrorExpectation.fulfill() }
+			onError: { _ in
+				XCTFail("Success expected.")
+			}
 		)
 
 		waitForExpectations(timeout: .short)
@@ -1079,9 +1068,6 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 
 		let onSuccessExpectation = expectation(description: "onSuccess is called")
 
-		let onErrorExpectation = expectation(description: "onError is not called")
-		onErrorExpectation.isInverted = true
-
 		model.registerFamilyMemberTestAndGetResult(
 			for: "displayName",
 			registrationInformation: .rapidPCR(qrCodeInformation: .mock(), qrCodeHash: ""),
@@ -1095,7 +1081,9 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 
 			   onSuccessExpectation.fulfill()
 		    },
-			onError: { _ in onErrorExpectation.fulfill() }
+			onError: { _ in
+				XCTFail("Success expected.")
+			}
 		)
 
 		waitForExpectations(timeout: .short)
@@ -1121,9 +1109,6 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 		let isLoadingExpectation = expectation(description: "isLoading is called twice")
 		isLoadingExpectation.expectedFulfillmentCount = 2
 
-		let onSuccessExpectation = expectation(description: "onSuccess is not called")
-		onSuccessExpectation.isInverted = true
-
 		let onErrorExpectation = expectation(description: "onError is called")
 
 		model.registerTestAndGetResult(
@@ -1134,7 +1119,9 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 				isLoadingValues.append($0)
 				isLoadingExpectation.fulfill()
 			},
-			onSuccess: { _ in onSuccessExpectation.fulfill() },
+			onSuccess: { _ in
+				XCTFail("Error expected.")
+			},
 			onError: { error in
 				XCTAssertEqual(error, expectedError)
 
@@ -1166,9 +1153,6 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 		let isLoadingExpectation = expectation(description: "isLoading is called twice")
 		isLoadingExpectation.expectedFulfillmentCount = 2
 
-		let onSuccessExpectation = expectation(description: "onSuccess is not called")
-		onSuccessExpectation.isInverted = true
-
 		let onErrorExpectation = expectation(description: "onError is called")
 		
 		model.registerFamilyMemberTestAndGetResult(
@@ -1179,7 +1163,9 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 				isLoadingValues.append($0)
 				isLoadingExpectation.fulfill()
 			},
-			onSuccess: { _ in onSuccessExpectation.fulfill() },
+			onSuccess: { _ in
+				XCTFail("Error expected.")
+			},
 			onError: { error in
 				XCTAssertEqual(error, expectedError)
 
