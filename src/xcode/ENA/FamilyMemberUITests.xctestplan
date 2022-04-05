@@ -89,7 +89,11 @@
       "parallelizable" : true,
       "selectedTests" : [
         "ENAUITests_FamilyMember\/testExample()",
-        "ENAUITests_FamilyMember\/testLaunchPerformance()"
+        "ENAUITests_FamilyMember\/testLaunchPerformance()",
+        "ENAUITests_FamilyMember\/test_RegisterCoronaTestFromSubmitCardButton()",
+        "ENAUITests_FamilyMember\/test_RegisterCoronaTestFromUniversalQRCodeScanner()",
+        "ENAUITests_FamilyMember\/test_familyMemberViewOverview()",
+        "ENAUITests_FamilyMember\/test_familyMemberViewOverviewDeleteAll()"
       ],
       "target" : {
         "containerPath" : "container:ENA.xcodeproj",
