@@ -221,6 +221,7 @@ class NotificationManagerTests: XCTestCase {
 			healthCertificateService: healthCertificateService,
 			showHome: {},
 			showTestResultFromNotification: { _ in },
+			showFamilyMemberTests: { _ in },
 			showHealthCertificate: { _ in },
 			showHealthCertifiedPerson: { _ in }
 		)
