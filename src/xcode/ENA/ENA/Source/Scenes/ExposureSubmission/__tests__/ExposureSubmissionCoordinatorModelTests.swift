@@ -426,6 +426,110 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 		waitForExpectations(timeout: .short)
 	}
 
+	// MARK: - Recycle Bin Item To Restore
+
+	func testRecycleBinItem_UserPCRTestIsInRecycleBin() {
+		let userPCRRecycleBinItem = RecycleBinItem(
+			recycledAt: Date(),
+			item: .userCoronaTest(.pcr(.mock(qrCodeHash: "userPCRQRCodeHash")))
+		)
+
+		let store = MockTestStore()
+		store.recycleBinItems = Set([
+			RecycleBinItem(
+				recycledAt: Date(),
+				item: RecycledItem.certificate(HealthCertificate.mock())
+			),
+			userPCRRecycleBinItem
+		])
+
+		let model = ExposureSubmissionCoordinatorModel(
+			exposureSubmissionService: MockExposureSubmissionService(),
+			coronaTestService: MockCoronaTestService(),
+			familyMemberCoronaTestService: MockFamilyMemberCoronaTestService(),
+			eventProvider: MockEventStore(),
+			recycleBin: RecycleBin(store: store)
+		)
+
+		XCTAssertEqual(
+			model.recycleBinItemToRestore(for: .pcr(guid: "", qrCodeHash: "userPCRQRCodeHash")),
+			userPCRRecycleBinItem
+		)
+	}
+
+	func testRecycleBinItem_UserPCRTestIsNotInRecycleBin() {
+		let store = MockTestStore()
+		store.recycleBinItems = Set([
+			RecycleBinItem(
+				recycledAt: Date(),
+				item: RecycledItem.certificate(HealthCertificate.mock())
+			)
+		])
+
+		let model = ExposureSubmissionCoordinatorModel(
+			exposureSubmissionService: MockExposureSubmissionService(),
+			coronaTestService: MockCoronaTestService(),
+			familyMemberCoronaTestService: MockFamilyMemberCoronaTestService(),
+			eventProvider: MockEventStore(),
+			recycleBin: RecycleBin(store: store)
+		)
+
+		XCTAssertNil(
+			model.recycleBinItemToRestore(for: .pcr(guid: "", qrCodeHash: "userPCRQRCodeHash"))
+		)
+	}
+
+	func testRecycleBinItem_FamilyMemberPCRTestIsInRecycleBin() {
+		let familyMemberPCRRecycleBinItem = RecycleBinItem(
+			recycledAt: Date(),
+			item: .familyMemberCoronaTest(.pcr(.mock(qrCodeHash: "familyMemberPCRQRCodeHash")))
+		)
+
+		let store = MockTestStore()
+		store.recycleBinItems = Set([
+			RecycleBinItem(
+				recycledAt: Date(),
+				item: RecycledItem.certificate(HealthCertificate.mock())
+			),
+			familyMemberPCRRecycleBinItem
+		])
+
+		let model = ExposureSubmissionCoordinatorModel(
+			exposureSubmissionService: MockExposureSubmissionService(),
+			coronaTestService: MockCoronaTestService(),
+			familyMemberCoronaTestService: MockFamilyMemberCoronaTestService(),
+			eventProvider: MockEventStore(),
+			recycleBin: RecycleBin(store: store)
+		)
+
+		XCTAssertEqual(
+			model.recycleBinItemToRestore(for: .pcr(guid: "", qrCodeHash: "familyMemberPCRQRCodeHash")),
+			familyMemberPCRRecycleBinItem
+		)
+	}
+
+	func testRecycleBinItem_FamilyMemberPCRTestIsNotInRecycleBin() {
+		let store = MockTestStore()
+		store.recycleBinItems = Set([
+			RecycleBinItem(
+				recycledAt: Date(),
+				item: RecycledItem.certificate(HealthCertificate.mock())
+			)
+		])
+
+		let model = ExposureSubmissionCoordinatorModel(
+			exposureSubmissionService: MockExposureSubmissionService(),
+			coronaTestService: MockCoronaTestService(),
+			familyMemberCoronaTestService: MockFamilyMemberCoronaTestService(),
+			eventProvider: MockEventStore(),
+			recycleBin: RecycleBin(store: store)
+		)
+
+		XCTAssertNil(
+			model.recycleBinItemToRestore(for: .pcr(guid: "", qrCodeHash: "userPCRQRCodeHash"))
+		)
+	}
+
 	// MARK: - Submit Exposure
 
 	func testSuccessfulSubmit() {
