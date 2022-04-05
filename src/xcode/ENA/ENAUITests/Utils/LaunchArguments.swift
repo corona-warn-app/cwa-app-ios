@@ -112,7 +112,7 @@ enum LaunchArguments {
 
 	}
 
-	enum familyTest {
+	enum familyMemberTest {
 		
 		enum pcr {
 			/// Set the PCR Family Test Result
