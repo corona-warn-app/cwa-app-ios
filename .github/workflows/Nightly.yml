@@ -168,6 +168,7 @@ jobs:
       - name: Install and run sonar-scanner
         env:
              SONAR_TOKEN: '${{ secrets.SONAR_TOKEN }}'
+             SONARQUBE_SCANNER_PARAMS: '{"sonar.host.url":"https://sonarcloud.io"}'
         run: |
             SCANNER=sonar-scanner-cli-4.3.0.2102-macosx
             SCANNERDIR=~/sonar/sonar-scanner-4.3.0.2102-macosx
