@@ -168,12 +168,12 @@ extension Service {
 		_ completion: @escaping (Result<R.Receive.ReceiveModel, ServiceError<R.CustomError>>) -> Void
 	) where R: Resource {
 
-		// TODO: Check if class and if so fatalError
-		if type(of: Struct)
-		{
-		}
-
 		if resource.retryingCount > 1 {
+			guard Mirror(reflecting: resource).displayStyle == .struct else {
+				Log.error("Your resource has the wrong type. It should be a struct, not a class!", log: .client)
+				completion(.failure(.wrongResourceType))
+				return
+			}
 			Log.debug("Retry for resource discovered. Retry counter at: \(resource.retryingCount)", log: .client)
 			var resourceCopy = resource
 			resourceCopy.retryingCount -= 1
