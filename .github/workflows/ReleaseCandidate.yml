@@ -1,0 +1,73 @@
+name: Create Release Candidate
+on:
+  push:
+    tags:
+      - 'v[0-9]+.[0-9]+.[0-9]+*'
+
+jobs:
+  dependencies:
+    runs-on: self-hosted
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v2     
+      - name: Save Dependencies
+        uses: actions/cache@v2
+        id: cache-dependencies
+        env:
+          cache-name: cache-dependencies
+        with:
+          path: |
+            src/xcode/vendor
+            src/xcode/.bundle
+          key: ${{ runner.os }}-${{ env.cache-name }}-${{ hashFiles('src/xcode/Gemfile.lock') }}        
+      - name: Install dependencies
+        if: steps.cache-dependencies.outputs.cache-hit != 'true'
+        run: cd src/xcode && arch -arm64 bundle install --path=vendor
+      - name: Save Dependencies
+        uses: actions/cache@v2
+        if: steps.cache-dependencies.outputs.cache-hit != 'true'
+        env:
+          cache-name: cache-dependencies
+        with:
+          path: |
+            src/xcode/vendor
+            src/xcode/.bundle
+          key: ${{ runner.os }}-${{ env.cache-name }}-${{ hashFiles('src/xcode/Gemfile.lock') }}
+          
+  testFlight:
+    runs-on: self-hosted
+    needs: dependencies
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v2            
+      - name: Restore Dependencies
+        uses: actions/cache@v2
+        env:
+          cache-name: cache-dependencies
+        with:
+          path: |
+            src/xcode/vendor
+            src/xcode/.bundle
+          key: ${{ runner.os }}-${{ env.cache-name }}-${{ hashFiles('src/xcode/Gemfile.lock') }}       
+      - name: fastlane testflight
+        run: |
+          cd src/xcode && bundle exec fastlane betaRelease --env TestFlight
+
+  adHocDistribution:
+    runs-on: self-hosted
+    needs: dependencies
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v2            
+      - name: Restore Dependencies
+        uses: actions/cache@v2
+        env:
+          cache-name: cache-dependencies
+        with:
+          path: |
+            src/xcode/vendor
+            src/xcode/.bundle
+          key: ${{ runner.os }}-${{ env.cache-name }}-${{ hashFiles('src/xcode/Gemfile.lock') }}       
+      - name: fastlane appcenter and Mobile Device Cloud
+        run: |
+          cd src/xcode && bundle exec fastlane adHocDistribution
