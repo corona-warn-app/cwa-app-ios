@@ -3,6 +3,9 @@ on:
   workflow_dispatch:
   schedule:
     - cron: '5 20 * * 1-5' #Weekdays at 20:05
+  push:
+    branches:
+      - 'admin/finish_nightly'
       
 jobs:
   dependencies:
@@ -163,6 +166,8 @@ jobs:
               src/xcode/fastlane/test_output/ENA.xcresult > \
               src/xcode/fastlane/test_output/coverage.xml
       - name: Install and run sonar-scanner
+        env:
+             SONAR_TOKEN: '${{ secrets.SONAR_TOKEN }}'
         run: |
             SCANNER=sonar-scanner-cli-4.3.0.2102-macosx
             SCANNERDIR=~/sonar/sonar-scanner-4.3.0.2102-macosx
