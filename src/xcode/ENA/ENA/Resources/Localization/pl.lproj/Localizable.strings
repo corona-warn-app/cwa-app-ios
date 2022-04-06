@@ -561,7 +561,7 @@
 
 "ExposureSubmissionDispatch_QRCodeButtonTitle" = "Skanuj kod QR";
 
-"ExposureSubmissionDispatch_QRCodeButtonDescription" = "Odbierz wynik testu w aplikacji i ostrzegaj innych lub poproś o certyfikat testu na COVID.";
+"ExposureSubmissionDispatch_QRCodeButtonDescription" = "Odbierz wynik swojego testu oraz testów członków swojej rodziny i poproś o certyfikat testu na COVID.";
 
 "ExposureSubmissionDispatch_TANButtonTitle" = "Wpisz TAN do testu PCR";
 
@@ -1306,6 +1306,11 @@
 "Home_resultCard_DeleteTestButton" = "Usuń test";
 
 "Home_resultCard_HideTestButton" = "Nie wyświetlaj ponownie";
+
+/* - Family Tets */
+"Home_Family_Test_Title" = "Testy członków rodziny";
+
+"Home_Family_Test_Detail" = "Nowa informacja";
 
 /* - Show Positive */
 "Home_Finding_Positive_Card_Status_Title" = "Zakażenie SARS-CoV-2";
@@ -3583,4 +3588,63 @@
 "TicketValidation_Result_Failed_subtitle" = "Twój certyfikat nie spełnia wymagań dostawcy.";
 
 "TicketValidation_Result_Failed_description" = "W przypadku pytań skontaktuj się z dostawcą „%@”.";
+
+/* Family Member Corona Test */
+"FamilyMemberCoronaTest_title" = "Testy członków rodziny";
+
+"FamilyMemberCoronaTest_deleteAllButtonTitle" = "Usuń wszystkie";
+
+"FamilyMemberCoronaTest_pcrCaption" = "Diagnoza za pomocą testu PCR";
+
+"FamilyMemberCoronaTest_antigenCaption" = "Diagnoza za pomocą szybkiego testu";
+
+"FamilyMemberCoronaTest_pcrDate" = "Test dodany dnia %@";
+
+"FamilyMemberCoronaTest_antigenDate" = "Wykonany dnia %@";
+
+"FamilyMemberCoronaTest_pendingDiagnosis" = "Wynik Twojego testu nie jest jeszcze dostępny";
+
+"FamilyMemberCoronaTest_pendingPCRDescription" = "Ustalanie wyniku testu PCR jeszcze się nie zakończyło.";
+
+"FamilyMemberCoronaTest_pendingAntigenDescription" = "Ustalanie wyniku szybkiego testu jeszcze się nie zakończyło.";
+
+"FamilyMemberCoronaTest_negativeTopDiagnosis" = "SARS-CoV-2";
+
+"FamilyMemberCoronaTest_negativeBottomDiagnosis" = "Wynik negatywny";
+
+"FamilyMemberCoronaTest_positiveTopDiagnosis" = "SARS-CoV-2";
+
+"FamilyMemberCoronaTest_positiveBottomDiagnosis" = "Zakażenie";
+
+"FamilyMemberCoronaTest_invalidDiagnosis" = "Nieprawidłowy test";
+
+"FamilyMemberCoronaTest_invalidDescription" = "Ustalenie wyniku testu jest niemożliwe.";
+
+"FamilyMemberCoronaTest_outdatedDiagnosis" = "Test nie jest już aktualny";
+
+"FamilyMemberCoronaTest_outdatedDescription" = "Szybki test został wykonany ponad %i godzin(y) temu i nie będzie już tutaj wyświetlany.";
+
+"FamilyMemberCoronaTest_outdatedButtonTitle" = "Nie wyświetlaj ponownie";
+
+"FamilyMemberCoronaTest_expiredDiagnosis" = "Utrata ważności";
+
+"FamilyMemberCoronaTest_expiredDescription" = "Test został przeprowadzony ponad 21 dni temu i dlatego nie jest już aktualny.";
+
+"FamilyMemberCoronaTest_expiredButtonTitle" = "Usuń test";
+
+"FamilyMemberCoronaTest_DeleteOne_AlertTitle" = "Usunąć wynik testu?";
+
+"FamilyMemberCoronaTest_DeleteOne_AlertMessage" = "Wynik testu zostanie przeniesiony do kosza. Kosz znajduje się na kafelku „Więcej” na stronie karty statusu.\nMożesz w tym miejscu trwale usunąć wynik testu lub go odzyskać. Wynik testu zostanie automatycznie usunięty po 30 dniach.";
+
+"FamilyMemberCoronaTest_DeleteOne_AlertConfirmButtonTitle" = "Usuń wynik testu";
+
+"FamilyMemberCoronaTest_DeleteOne_AlertCancelButtonTitle" = "Anuluj";
+
+"FamilyMemberCoronaTest_DeleteAll_AlertTitle" = "Usunąć wyniki testów?";
+
+"FamilyMemberCoronaTest_DeleteAll_AlertMessage" = "Wyniki testów zostaną przeniesione do kosza. Kosz znajduje się na kafelku „Więcej” na stronie karty statusu.\nMożesz w tym miejscu trwale usunąć wyniki testów lub je odzyskać. Wyniki testów zostaną automatycznie usunięte po 30 dniach.";
+
+"FamilyMemberCoronaTest_DeleteAll_AlertConfirmButtonTitle" = "Usuń wyniki testów";
+
+"FamilyMemberCoronaTest_DeleteAll_AlertCancelButtonTitle" = "Anuluj";
 

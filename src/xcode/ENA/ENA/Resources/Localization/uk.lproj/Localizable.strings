@@ -561,7 +561,7 @@
 
 "ExposureSubmissionDispatch_QRCodeButtonTitle" = "Сканувати QR-код";
 
-"ExposureSubmissionDispatch_QRCodeButtonDescription" = "Отримайте свій результат тесту в застосунку та попередьте інших або запитайте сертифікат тесту на COVID.";
+"ExposureSubmissionDispatch_QRCodeButtonDescription" = "Отримайте свій результат тесту та результати для членів вашої родини та запитайте сертифікат тесту на COVID.";
 
 "ExposureSubmissionDispatch_TANButtonTitle" = "Введіть TAN для ПЛР-тесту";
 
@@ -1306,6 +1306,11 @@
 "Home_resultCard_DeleteTestButton" = "Видалити тест";
 
 "Home_resultCard_HideTestButton" = "Не показувати знову";
+
+/* - Family Tets */
+"Home_Family_Test_Title" = "Тести членів родини";
+
+"Home_Family_Test_Detail" = "Новини";
 
 /* - Show Positive */
 "Home_Finding_Positive_Card_Status_Title" = "SARS-CoV-2 позитивний";
@@ -3583,4 +3588,63 @@
 "TicketValidation_Result_Failed_subtitle" = "Ваш сертифікат не відповідає вимогам постачальника.";
 
 "TicketValidation_Result_Failed_description" = "Якщо у вас виникли запитання, зверніться до постачальника “%@”.";
+
+/* Family Member Corona Test */
+"FamilyMemberCoronaTest_title" = "Тести членів родини";
+
+"FamilyMemberCoronaTest_deleteAllButtonTitle" = "Видалити все";
+
+"FamilyMemberCoronaTest_pcrCaption" = "Діагноз на основі тесту ПЛР";
+
+"FamilyMemberCoronaTest_antigenCaption" = "Діагноз на основі експрес-тесту";
+
+"FamilyMemberCoronaTest_pcrDate" = "Тест додано %@";
+
+"FamilyMemberCoronaTest_antigenDate" = "Дата виконання %@";
+
+"FamilyMemberCoronaTest_pendingDiagnosis" = "Ваш результат ще недоступний";
+
+"FamilyMemberCoronaTest_pendingPCRDescription" = "Аналіз тесту ПЛР ще не виконаний.";
+
+"FamilyMemberCoronaTest_pendingAntigenDescription" = "Аналіз експрес-тесту ще не виконано.";
+
+"FamilyMemberCoronaTest_negativeTopDiagnosis" = "SARS-CoV-2";
+
+"FamilyMemberCoronaTest_negativeBottomDiagnosis" = "Негативний";
+
+"FamilyMemberCoronaTest_positiveTopDiagnosis" = "SARS-CoV-2";
+
+"FamilyMemberCoronaTest_positiveBottomDiagnosis" = "Позитивний";
+
+"FamilyMemberCoronaTest_invalidDiagnosis" = "Недійсний тест";
+
+"FamilyMemberCoronaTest_invalidDescription" = "Тест неможливо проаналізувати.";
+
+"FamilyMemberCoronaTest_outdatedDiagnosis" = "Тест більше не є актуальним";
+
+"FamilyMemberCoronaTest_outdatedDescription" = "Експрес-тесту понад %i годин, і він більше не відображатиметься тут.";
+
+"FamilyMemberCoronaTest_outdatedButtonTitle" = "Не показувати знову";
+
+"FamilyMemberCoronaTest_expiredDiagnosis" = "Більше недійсно";
+
+"FamilyMemberCoronaTest_expiredDescription" = "Тесту більше 21 дня, тому він більше не є релевантним.";
+
+"FamilyMemberCoronaTest_expiredButtonTitle" = "Видалити тест";
+
+"FamilyMemberCoronaTest_DeleteOne_AlertTitle" = "Видалити результат тесту?";
+
+"FamilyMemberCoronaTest_DeleteOne_AlertMessage" = "Результат тесту буде переміщено в кошик. Ви знайдете кошик на плитці «Більше» на сторінці закладки статусу.\nВи можете назавжди видалити результат тесту або відновити його там. Результат тесту буде автоматично видалено через 30 днів.";
+
+"FamilyMemberCoronaTest_DeleteOne_AlertConfirmButtonTitle" = "Видалити результат тесту";
+
+"FamilyMemberCoronaTest_DeleteOne_AlertCancelButtonTitle" = "Скасувати";
+
+"FamilyMemberCoronaTest_DeleteAll_AlertTitle" = "Видалити результати тестів?";
+
+"FamilyMemberCoronaTest_DeleteAll_AlertMessage" = "Результати тестів будуть переміщені в кошик. Ви знайдете кошик на плитці «Більше» на закладці статусу.\nВи можете назавжди видалити результати тестів або відновити їх там. Результати тестів будуть автоматично видалено через 30 днів.";
+
+"FamilyMemberCoronaTest_DeleteAll_AlertConfirmButtonTitle" = "Видалити результати тестів";
+
+"FamilyMemberCoronaTest_DeleteAll_AlertCancelButtonTitle" = "Скасувати";
 
