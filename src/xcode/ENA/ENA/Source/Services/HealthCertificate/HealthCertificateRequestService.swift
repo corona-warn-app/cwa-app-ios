@@ -374,7 +374,8 @@ class HealthCertificateRequestService {
 					base45: healthCertificateBase45,
 					checkSignatureUpfront: false,
 					checkMaxPersonCount: false,
-					markAsNew: true
+					markAsNew: true,
+					completedNotificationRegistration: { }
 				)
 
 				switch registerResult {

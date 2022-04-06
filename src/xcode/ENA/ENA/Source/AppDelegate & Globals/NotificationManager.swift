@@ -15,6 +15,7 @@ final class NotificationManager: NSObject, UNUserNotificationCenterDelegate {
 		healthCertificateService: HealthCertificateService,
 		showHome: @escaping () -> Void,
 		showTestResultFromNotification: @escaping (Route) -> Void,
+		showFamilyMemberTests: @escaping (Route) -> Void,
 		showHealthCertificate: @escaping (Route) -> Void,
 		showHealthCertifiedPerson: @escaping (Route) -> Void
 	) {
@@ -23,6 +24,7 @@ final class NotificationManager: NSObject, UNUserNotificationCenterDelegate {
 		self.healthCertificateService = healthCertificateService
 		self.showHome = showHome
 		self.showTestResultFromNotification = showTestResultFromNotification
+		self.showFamilyMemberTests = showFamilyMemberTests
 		self.showHealthCertificate = showHealthCertificate
 		self.showHealthCertifiedPerson = showHealthCertifiedPerson
 	}
@@ -77,6 +79,8 @@ final class NotificationManager: NSObject, UNUserNotificationCenterDelegate {
 			case .expired, .pending:
 				assertionFailure("Expired and Pending Test Results should not trigger the Local Notification")
 			}
+		case ActionableNotificationIdentifier.familyTestResult.identifier:
+			showFamilyMemberTests(.familyMemberTestResultFromNotification)
 		default:
 			// special action where we need to extract data from identifier
 			checkForLocalNotificationsActions(response.notification.request.identifier)
@@ -106,6 +110,7 @@ final class NotificationManager: NSObject, UNUserNotificationCenterDelegate {
 	private let eventCheckoutService: EventCheckoutService
 	private let healthCertificateService: HealthCertificateService
 	private let showHome: () -> Void
+	private let showFamilyMemberTests: (Route) -> Void
 	private let showTestResultFromNotification: (Route) -> Void
 	private let showHealthCertificate: (Route) -> Void
 	private let showHealthCertifiedPerson: (Route) -> Void
