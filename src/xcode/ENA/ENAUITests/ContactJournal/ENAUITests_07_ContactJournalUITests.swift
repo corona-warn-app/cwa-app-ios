@@ -57,8 +57,6 @@ class ENAUITests_07_ContactJournal: CWATestCase {
 
 		openEditPersonViaSheet()
 
-		XCTAssertEqual(app.navigationBars.element(boundBy: 0).identifier, app.localized("ContactDiary_EditEntries_ContactPersons_Title"))
-
 		app.buttons[app.localized("ContactDiary_EditEntries_ContactPersons_DeleteAllButtonTitle")].waitAndTap()
 
 		XCTAssertEqual(app.alerts.firstMatch.label, app.localized("ContactDiary_EditEntries_ContactPersons_AlertTitle"))
@@ -71,8 +69,6 @@ class ENAUITests_07_ContactJournal: CWATestCase {
 		app.setLaunchArgument(LaunchArguments.infoScreen.diaryInfoScreenShown, to: true)
 
 		openEditPersonViaSheet()
-
-		XCTAssertEqual(app.navigationBars.element(boundBy: 0).identifier, app.localized("ContactDiary_EditEntries_ContactPersons_Title"))
 
 		let personsTableView = app.tables[AccessibilityIdentifiers.ContactDiaryInformation.EditEntries.tableView]
 		XCTAssertEqual(personsTableView.cells.count, 2)
@@ -91,7 +87,7 @@ class ENAUITests_07_ContactJournal: CWATestCase {
 		let originalPerson = personsTableView.cells.firstMatch.staticTexts.firstMatch.label
 		personsTableView.cells.firstMatch.waitAndTap()
 
-		XCTAssertEqual(app.navigationBars.element(boundBy: 1).identifier, app.localized("ContactDiary_AddEditEntry_PersonTitle"))
+		XCTAssertTrue(app.navigationBars[app.localized("ContactDiary_AddEditEntry_PersonTitle")].waitForExistence(timeout: .medium))
 
 		let textField = app.textFields.firstMatch
 		textField.waitAndTap()
@@ -107,8 +103,6 @@ class ENAUITests_07_ContactJournal: CWATestCase {
 		app.setLaunchArgument(LaunchArguments.infoScreen.diaryInfoScreenShown, to: true)
 
 		openEditLocationsViaSheet()
-
-		XCTAssertEqual(app.navigationBars.element(boundBy: 0).identifier, app.localized("ContactDiary_EditEntries_Locations_Title"))
 
 		let locationsTableView = app.tables[AccessibilityIdentifiers.ContactDiaryInformation.EditEntries.tableView]
 		XCTAssertEqual(locationsTableView.cells.count, 2)
@@ -126,8 +120,9 @@ class ENAUITests_07_ContactJournal: CWATestCase {
 		// select location to edit
 		let originalLocation = locationsTableView.cells.firstMatch.staticTexts.firstMatch.label
 		locationsTableView.cells.firstMatch.waitAndTap()
-
-		XCTAssertEqual(app.navigationBars.element(boundBy: 1).identifier, app.localized("ContactDiary_AddEditEntry_LocationTitle"))
+		
+		XCTAssertTrue(app.navigationBars[app.localized("ContactDiary_AddEditEntry_LocationTitle")].waitForExistence(timeout: .medium))
+		
 		let textField = app.textFields.firstMatch
 		textField.waitAndTap()
 		textField.typeText(" Innenstadt")
@@ -377,8 +372,9 @@ class ENAUITests_07_ContactJournal: CWATestCase {
 
 		// Select diary button
 		app.buttons["AppStrings.ExposureSubmission.primaryButton"].waitAndTap()
+		
+		XCTAssertTrue(app.navigationBars[app.localized("ContactDiary_Overview_Title")].waitForExistence(timeout: .medium))
 
-		XCTAssertEqual(app.navigationBars.firstMatch.identifier, app.localized("ContactDiary_Overview_Title"))
 	}
 
 	/// Tests: ENF Risk High, Checkin Risk None
@@ -389,8 +385,8 @@ class ENAUITests_07_ContactJournal: CWATestCase {
 		navigateToJournalOverview()
 
         // check if overview is visible
-        XCTAssertEqual(app.navigationBars.firstMatch.identifier, app.localized("ContactDiary_Overview_Title"))
-
+		XCTAssertTrue(app.navigationBars[app.localized("ContactDiary_Overview_Title")].waitForExistence(timeout: .medium))
+		
 		// first cell should have the text for high risk, but none about checkin
 		let overviewCellWithEncounterRisk = app.descendants(matching: .table).firstMatch.cells.element(boundBy: 1)
 		let highRiskCell = overviewCellWithEncounterRisk.staticTexts[AccessibilityIdentifiers.ContactDiaryInformation.Overview.riskLevelLow]
@@ -414,7 +410,7 @@ class ENAUITests_07_ContactJournal: CWATestCase {
 		navigateToJournalOverview()
 
 		// check if overview is visible
-		XCTAssertEqual(app.navigationBars.firstMatch.identifier, app.localized("ContactDiary_Overview_Title"))
+		XCTAssertTrue(app.navigationBars[app.localized("ContactDiary_Overview_Title")].waitForExistence(timeout: .medium))
 
 		// first cell should have the text for high risk, but none about checkin
 		let overviewCellWithEncounterRisk = app.descendants(matching: .table).firstMatch.cells.element(boundBy: 1)
@@ -438,7 +434,7 @@ class ENAUITests_07_ContactJournal: CWATestCase {
 		navigateToJournalOverview()
 
 		// check if overview is visible
-		XCTAssertEqual(app.navigationBars.firstMatch.identifier, app.localized("ContactDiary_Overview_Title"))
+		XCTAssertTrue(app.navigationBars[app.localized("ContactDiary_Overview_Title")].waitForExistence(timeout: .medium))
 
 		// first cell should have the text for high risk, but none about checkin
 		let overviewCellWithEncounterRisk = app.descendants(matching: .table).firstMatch.cells.element(boundBy: 1)
@@ -463,7 +459,7 @@ class ENAUITests_07_ContactJournal: CWATestCase {
 		navigateToJournalOverview()
 
 		// check if overview is visible
-		XCTAssertEqual(app.navigationBars.firstMatch.identifier, app.localized("ContactDiary_Overview_Title"))
+		XCTAssertTrue(app.navigationBars[app.localized("ContactDiary_Overview_Title")].waitForExistence(timeout: .medium))
 
 		// first cell should have the text for high risk, but none about checkin
 		let overviewCellWithEncounterRisk = app.descendants(matching: .table).firstMatch.cells.element(boundBy: 1)
@@ -645,7 +641,7 @@ class ENAUITests_07_ContactJournal: CWATestCase {
 
 	private func addPersonToDayEntry(_ personName: String, phoneNumber: String = "", eMail: String = "") {
 		app.descendants(matching: .table).firstMatch.cells.firstMatch.waitAndTap()
-		XCTAssertEqual(app.navigationBars.element(boundBy: 0).identifier, app.localized("ContactDiary_AddEditEntry_PersonTitle"))
+		XCTAssertTrue(app.navigationBars[app.localized("ContactDiary_AddEditEntry_PersonTitle")].waitForExistence(timeout: .medium))
 
 		let table = app.tables.firstMatch
 		
@@ -663,7 +659,7 @@ class ENAUITests_07_ContactJournal: CWATestCase {
 		let addCell = app.descendants(matching: .table).firstMatch.cells.firstMatch
 		addCell.waitAndTap()
 
-		XCTAssertEqual(app.navigationBars.element(boundBy: 0).identifier, app.localized("ContactDiary_AddEditEntry_LocationTitle"))
+		XCTAssertTrue(app.navigationBars[app.localized("ContactDiary_AddEditEntry_LocationTitle")].waitForExistence(timeout: .medium))
 
 		let table = app.tables.firstMatch
 
@@ -706,12 +702,17 @@ class ENAUITests_07_ContactJournal: CWATestCase {
 		openInformationSheet()
 
 		app.sheets.firstMatch.buttons.element(boundBy: 2).waitAndTap()
+		
+		XCTAssertTrue(app.navigationBars[app.localized("ContactDiary_EditEntries_ContactPersons_Title")].waitForExistence(timeout: .medium))
+		
 	}
 
 	private func openEditLocationsViaSheet() {
 		openInformationSheet()
 
 		app.sheets.firstMatch.buttons.element(boundBy: 3).waitAndTap()
+		
+		XCTAssertTrue(app.navigationBars[app.localized("ContactDiary_EditEntries_Locations_Title")].waitForExistence(timeout: .medium))
 	}
 
 	private func launch() {
