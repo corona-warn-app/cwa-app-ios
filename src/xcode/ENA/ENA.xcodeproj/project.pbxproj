@@ -553,6 +553,10 @@
 		347FBB752611C9F100672770 /* TraceLocationDetailsDateTimeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 347FBB742611C9EF00672770 /* TraceLocationDetailsDateTimeCell.swift */; };
 		3484AC7C26A060E900CB0500 /* LocalStatisticsState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3484AC7B26A060E900CB0500 /* LocalStatisticsState.swift */; };
 		3494634C27EDF90800403F7A /* ExposureSubmissionTestResultModeling.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3494634B27EDF90800403F7A /* ExposureSubmissionTestResultModeling.swift */; };
+		3494635227FC937900403F7A /* AntigenTestProfileOverviewEmptyStateViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3494635127FC937900403F7A /* AntigenTestProfileOverviewEmptyStateViewModel.swift */; };
+		3494635427FC940700403F7A /* AntigenTestProfileOverviewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3494635327FC940700403F7A /* AntigenTestProfileOverviewViewModel.swift */; };
+		3494635627FC943300403F7A /* AntigenTestProfileOverviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3494635527FC943300403F7A /* AntigenTestProfileOverviewViewController.swift */; };
+		3494635A27FC9C0000403F7A /* AddAntigenTestProfileCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3494635927FC9C0000403F7A /* AddAntigenTestProfileCellModel.swift */; };
 		3494D90D261C566200EC532C /* default_qr_code_poster_template_ios.bin in Resources */ = {isa = PBXBuildFile; fileRef = 3494D90C261C566100EC532C /* default_qr_code_poster_template_ios.bin */; };
 		3494D91F261DD47C00EC532C /* DMPosterGenerationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3494D91E261DD47C00EC532C /* DMPosterGenerationViewController.swift */; };
 		3494D927261DD49100EC532C /* DMPosterGenerationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3494D926261DD49100EC532C /* DMPosterGenerationViewModel.swift */; };
@@ -2322,6 +2326,10 @@
 		347FBB742611C9EF00672770 /* TraceLocationDetailsDateTimeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraceLocationDetailsDateTimeCell.swift; sourceTree = "<group>"; };
 		3484AC7B26A060E900CB0500 /* LocalStatisticsState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalStatisticsState.swift; sourceTree = "<group>"; };
 		3494634B27EDF90800403F7A /* ExposureSubmissionTestResultModeling.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureSubmissionTestResultModeling.swift; sourceTree = "<group>"; };
+		3494635127FC937900403F7A /* AntigenTestProfileOverviewEmptyStateViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AntigenTestProfileOverviewEmptyStateViewModel.swift; sourceTree = "<group>"; };
+		3494635327FC940700403F7A /* AntigenTestProfileOverviewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AntigenTestProfileOverviewViewModel.swift; sourceTree = "<group>"; };
+		3494635527FC943300403F7A /* AntigenTestProfileOverviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AntigenTestProfileOverviewViewController.swift; sourceTree = "<group>"; };
+		3494635927FC9C0000403F7A /* AddAntigenTestProfileCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddAntigenTestProfileCellModel.swift; sourceTree = "<group>"; };
 		3494D90C261C566100EC532C /* default_qr_code_poster_template_ios.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = default_qr_code_poster_template_ios.bin; sourceTree = "<group>"; };
 		3494D91E261DD47C00EC532C /* DMPosterGenerationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMPosterGenerationViewController.swift; sourceTree = "<group>"; };
 		3494D926261DD49100EC532C /* DMPosterGenerationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMPosterGenerationViewModel.swift; sourceTree = "<group>"; };
@@ -4424,6 +4432,7 @@
 		01A4DFD12653D3DE00F13432 /* AntigenTestProfile */ = {
 			isa = PBXGroup;
 			children = (
+				3494635027FC91D100403F7A /* AntigenTestProfileOverview */,
 				BA0F6C4C26317B7F0046BA48 /* AntigenTestProfile */,
 				BA3A79C22631B7AF00B6D6C0 /* AntigenTestProfileInformation */,
 				BA0F6C57263186690046BA48 /* AntigenTestProfileInput */,
@@ -5293,6 +5302,33 @@
 				8F3167E726A5D929008F35AA /* RegionType.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		3494635027FC91D100403F7A /* AntigenTestProfileOverview */ = {
+			isa = PBXGroup;
+			children = (
+				3494635727FC9B9200403F7A /* __tests__ */,
+				3494635527FC943300403F7A /* AntigenTestProfileOverviewViewController.swift */,
+				3494635327FC940700403F7A /* AntigenTestProfileOverviewViewModel.swift */,
+				3494635127FC937900403F7A /* AntigenTestProfileOverviewEmptyStateViewModel.swift */,
+				3494635827FC9B9D00403F7A /* cells */,
+			);
+			path = AntigenTestProfileOverview;
+			sourceTree = "<group>";
+		};
+		3494635727FC9B9200403F7A /* __tests__ */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = __tests__;
+			sourceTree = "<group>";
+		};
+		3494635827FC9B9D00403F7A /* cells */ = {
+			isa = PBXGroup;
+			children = (
+				3494635927FC9C0000403F7A /* AddAntigenTestProfileCellModel.swift */,
+			);
+			path = cells;
 			sourceTree = "<group>";
 		};
 		3494D91D261DD41700EC532C /* DMPosterGeneration */ = {
@@ -10729,6 +10765,7 @@
 				ABCA884626BBC956005FF148 /* CheckinEncryption.swift in Sources */,
 				ABDA2792251CE308006BAE84 /* DMServerEnvironmentViewController.swift in Sources */,
 				3494D927261DD49100EC532C /* DMPosterGenerationViewModel.swift in Sources */,
+				3494635227FC937900403F7A /* AntigenTestProfileOverviewEmptyStateViewModel.swift in Sources */,
 				BA5B7FD526458EF400502087 /* HealthCertificateSimpleTextCell.swift in Sources */,
 				8F5B5C172648CD3800456381 /* HealthCertifiedPersonCellModel.swift in Sources */,
 				354642F8262E07840004618A /* AccessibleStackView.swift in Sources */,
@@ -10897,6 +10934,7 @@
 				ABC506BA2747DC9600698A95 /* EncryptionScheme.swift in Sources */,
 				8F95A1B225EFC5BE00506CF2 /* SendErrorLogsViewController.swift in Sources */,
 				EB6B5D882539AE9400B0ED57 /* DMNotificationsViewController.swift in Sources */,
+				3494635A27FC9C0000403F7A /* AddAntigenTestProfileCellModel.swift in Sources */,
 				5071A87926EB76EC00B09B40 /* EmptyReceiveResource.swift in Sources */,
 				ABE9615B25F11FBC00D0F699 /* EventStoring.swift in Sources */,
 				01E0D3AC268F061B00E32CF9 /* HealthCertificateValidationCoordinator.swift in Sources */,
@@ -11421,6 +11459,7 @@
 				01653FA526CD373000E21FB7 /* OnBehalfCheckinSubmissionService.swift in Sources */,
 				8F070CE925E58B9400D29344 /* HtmlInfoModel.swift in Sources */,
 				EB7D205424E6A3320089264C /* InfoBoxView.swift in Sources */,
+				3494635627FC943300403F7A /* AntigenTestProfileOverviewViewController.swift in Sources */,
 				AB190F1C25FFAF3400FBFF0D /* ContactDiaryStoreSchemaV2.swift in Sources */,
 				71CAB9D2248AACAD00F516A5 /* PixelPerfectLayoutConstraint.swift in Sources */,
 				710021E0248EAF9A001F0B63 /* ExposureSubmissionImageCardCell.swift in Sources */,
@@ -11547,6 +11586,7 @@
 				BABAA5A826BC122F003A64AE /* AppFeatureProviding.swift in Sources */,
 				01A636E327F37ACF001F5CB1 /* FamilyMemberCoronaTestsCoordinator.swift in Sources */,
 				BAF5371B25E7D1A300C835E2 /* UIImage+Resize.swift in Sources */,
+				3494635427FC940700403F7A /* AntigenTestProfileOverviewViewModel.swift in Sources */,
 				01F6702725FF80490069C4F9 /* CheckinsOverviewViewModel.swift in Sources */,
 				BA91611F27ECD32A0076BC6B /* FamilyTestsHomeCellViewModel.swift in Sources */,
 				AB190E8E25FB62F200FBFF0D /* DeleteAllTraceLocationsQuery.swift in Sources */,
