@@ -170,11 +170,10 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 			onTANButtonTap: { [weak self] in self?.showTanScreen() },
 			onHotlineButtonTap: { [weak self] in self?.showHotlineScreen() },
 			onRapidTestProfileTap: { [weak self] in
-				// later move that to the title and inject both methods - just to get flow working
-				if self?.store.antigenTestProfile == nil {
-					self?.showAntigenTestProfileInput(editMode: false)
+				if self?.store.antigenTestProfileInfoScreenShown == nil {
+					self?.showAntigenTestProfileInformation()
 				} else {
-					self?.showAntigenTestProfile()
+					self?.showAntigenTestProfileOverview()
 				}
 			},
 			antigenTestProfileStore: antigenTestProfileStore
@@ -929,7 +928,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 				}
 			},
 			didTapContinue: { [weak self] in
-				self?.showAntigenTestProfileInput(editMode: false)
+				self?.showAntigenTestProfileOverview()
 			},
 			dismiss: { [weak self] in
 				self?.dismiss()
@@ -986,6 +985,23 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 		push(topBottomContainerViewController)
 	}
 
+	private func showAntigenTestProfileOverview() {
+		let antigenTestProfileOverviewViewController = AntigenTestProfileOverviewViewController(
+			viewModel: AntigenTestProfileOverviewViewModel(
+				store: store,
+				onEntryCellTap: { _ in
+					
+				}),
+			onInfoButtonTap: { [weak self] in
+				self?.showAntigenTestProfileInformation()
+			},
+			onAddEntryCellTap: { },
+			onDismiss: { [weak self] in self?.dismiss() }
+		)
+
+		push(antigenTestProfileOverviewViewController)
+	}
+	
 	private func showAntigenTestProfile() {
 		let antigenTestProfileViewController = AntigenTestProfileViewController(
 			store: store,
