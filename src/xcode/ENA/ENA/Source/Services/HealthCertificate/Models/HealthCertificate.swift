@@ -16,7 +16,8 @@ final class HealthCertificate: Codable, Equatable, Comparable, RecycleBinIdentif
 		didShowInvalidNotification: Bool = false,
 		didShowBlockedNotification: Bool = false,
 		isNew: Bool = false,
-		isValidityStateNew: Bool = false
+		isValidityStateNew: Bool = false,
+		revocationEntries: HealthCertificateRevocationEntries? = nil
 	) throws {
 		self.base45 = base45
 		self.validityState = validityState
@@ -25,9 +26,22 @@ final class HealthCertificate: Codable, Equatable, Comparable, RecycleBinIdentif
 		self.isNew = isNew
 		self.isValidityStateNew = isValidityStateNew
 
-		cborWebTokenHeader = try Self.extractCBORWebTokenHeader(from: base45)
-		digitalCovidCertificate = try Self.extractDigitalCovidCertificate(from: base45)
-		keyIdentifier = Self.extractKeyIdentifier(from: base45)
+		let certificateComponents = try Self.extractCertificateComponents(from: base45)
+		cborWebTokenHeader = certificateComponents.header
+		digitalCovidCertificate = certificateComponents.certificate
+		keyIdentifier = certificateComponents.keyIdentifier
+		
+		if let revocationEntries = revocationEntries {
+			self.revocationEntries = revocationEntries
+		} else {
+			self.revocationEntries = HealthCertificateRevocationEntries(
+				certificate: certificateComponents.certificate,
+				header: certificateComponents.header,
+				signature: certificateComponents.signature,
+				algorithm: certificateComponents.algorithm
+			)
+		}
+
 	}
 
 	required init(from decoder: Decoder) throws {
@@ -39,10 +53,22 @@ final class HealthCertificate: Codable, Equatable, Comparable, RecycleBinIdentif
 		isNew = try container.decodeIfPresent(Bool.self, forKey: .isNew) ?? false
 		didShowInvalidNotification = try container.decodeIfPresent(Bool.self, forKey: .didShowInvalidNotification) ?? false
 		didShowBlockedNotification = try container.decodeIfPresent(Bool.self, forKey: .didShowBlockedNotification) ?? false
-
-		cborWebTokenHeader = try Self.extractCBORWebTokenHeader(from: base45)
-		digitalCovidCertificate = try Self.extractDigitalCovidCertificate(from: base45)
-		keyIdentifier = Self.extractKeyIdentifier(from: base45)
+		
+		let certificateComponents = try Self.extractCertificateComponents(from: base45)
+		cborWebTokenHeader = certificateComponents.header
+		digitalCovidCertificate = certificateComponents.certificate
+		keyIdentifier = certificateComponents.keyIdentifier
+		
+		if let revocationEntries = try container.decodeIfPresent(HealthCertificateRevocationEntries.self, forKey: .revocationEntries) {
+			self.revocationEntries = revocationEntries
+		} else {
+			self.revocationEntries = HealthCertificateRevocationEntries(
+				certificate: certificateComponents.certificate,
+				header: certificateComponents.header,
+				signature: certificateComponents.signature,
+				algorithm: certificateComponents.algorithm
+			)
+		}
 	}
 
 	// MARK: - Protocol RecycleBinIdentifiable
@@ -62,6 +88,7 @@ final class HealthCertificate: Codable, Equatable, Comparable, RecycleBinIdentif
 		case isValidityStateNew
 		case didShowInvalidNotification
 		case didShowBlockedNotification
+		case revocationEntries
 	}
 
 	func encode(to encoder: Encoder) throws {
@@ -73,6 +100,7 @@ final class HealthCertificate: Codable, Equatable, Comparable, RecycleBinIdentif
 		try container.encode(isValidityStateNew, forKey: .isValidityStateNew)
 		try container.encode(didShowInvalidNotification, forKey: .didShowInvalidNotification)
 		try container.encode(didShowBlockedNotification, forKey: .didShowBlockedNotification)
+		try container.encode(revocationEntries, forKey: .revocationEntries)
 	}
 
 	// MARK: - Protocol Equatable
@@ -108,6 +136,7 @@ final class HealthCertificate: Codable, Equatable, Comparable, RecycleBinIdentif
 	let cborWebTokenHeader: CBORWebTokenHeader
 	let digitalCovidCertificate: DigitalCovidCertificate
 	let keyIdentifier: String?
+	let revocationEntries: HealthCertificateRevocationEntries
 
 	let objectDidChange = OpenCombine.PassthroughSubject<HealthCertificate, Never>()
 
@@ -302,39 +331,16 @@ final class HealthCertificate: Codable, Equatable, Comparable, RecycleBinIdentif
 	private lazy var trimmedDateOfBirth: String = digitalCovidCertificate.dateOfBirth
 		.trimmingCharacters(in: .whitespaces)
 
-	private static func extractCBORWebTokenHeader(from base45: Base45) throws -> CBORWebTokenHeader {
-		let webTokenHeaderResult = DigitalCovidCertificateAccess().extractCBORWebTokenHeader(from: base45)
-
-		switch webTokenHeaderResult {
-		case .success(let cborWebTokenHeader):
-			return cborWebTokenHeader
+	private static func extractCertificateComponents(from base45: Base45) throws -> DigitalCovidCertificateAccess.CertificateComponents {
+		
+		let componentsResult = DigitalCovidCertificateAccess().extractCertificateComponents(from: base45)
+		
+		switch componentsResult {
+		case .success(let components):
+			return components
 		case .failure(let error):
-			Log.error("Failed to decode header of health certificate with error", log: .vaccination, error: error)
+			Log.error("Failed to decode health certificate components with error", log: .vaccination, error: error)
 			throw error
-		}
-	}
-
-	private static func extractDigitalCovidCertificate(from base45: Base45) throws -> DigitalCovidCertificate {
-		let certificateResult = DigitalCovidCertificateAccess().extractDigitalCovidCertificate(from: base45)
-
-		switch certificateResult {
-		case .success(let digitalCovidCertificate):
-			return digitalCovidCertificate
-		case .failure(let error):
-			Log.error("Failed to decode health certificate with error", log: .vaccination, error: error)
-			throw error
-		}
-	}
-
-	private static func extractKeyIdentifier(from base45: Base45) -> Base64? {
-		let certificateResult = DigitalCovidCertificateAccess().extractKeyIdentifier(from: base45)
-
-		switch certificateResult {
-		case .success(let keyIdentifier):
-			return keyIdentifier
-		case .failure(let error):
-			Log.error("Failed to decode key identifier (kid) with error", log: .vaccination, error: error)
-			return nil
 		}
 	}
 }

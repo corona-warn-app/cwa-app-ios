@@ -18,6 +18,7 @@ final class HealthCertificateDecodingContainer: Codable {
 	let didShowBlockedNotification: Bool?
 	let isNew: Bool?
 	let isValidityStateNew: Bool?
+	let revocationEntries: HealthCertificateRevocationEntries?
 }
 
 class DecodingFailedHealthCertificate: Codable, Equatable {
@@ -31,7 +32,8 @@ class DecodingFailedHealthCertificate: Codable, Equatable {
 		didShowBlockedNotification: Bool,
 		isNew: Bool,
 		isValidityStateNew: Bool,
-		error: Error?
+		error: Error?,
+		revocationEntries: HealthCertificateRevocationEntries?
 	) {
 		self.base45 = base45
 		self.validityState = validityState
@@ -40,6 +42,7 @@ class DecodingFailedHealthCertificate: Codable, Equatable {
 		self.isNew = isNew
 		self.isValidityStateNew = isValidityStateNew
 		self.error = error
+		self.revocationEntries = revocationEntries
 	}
 
 	// MARK: - Protocol Codable
@@ -52,6 +55,7 @@ class DecodingFailedHealthCertificate: Codable, Equatable {
 		case isNew
 		case isValidityStateNew
 		case error
+		case revocationEntries
 	}
 
 	required init(from decoder: Decoder) throws {
@@ -63,7 +67,7 @@ class DecodingFailedHealthCertificate: Codable, Equatable {
 		didShowBlockedNotification = try container.decode(Bool.self, forKey: .didShowBlockedNotification)
 		isNew = try container.decode(Bool.self, forKey: .isNew)
 		isValidityStateNew = try container.decode(Bool.self, forKey: .isValidityStateNew)
-
+		revocationEntries = try container.decodeIfPresent(HealthCertificateRevocationEntries.self, forKey: .revocationEntries)
 		error = nil
 	}
 
@@ -76,6 +80,7 @@ class DecodingFailedHealthCertificate: Codable, Equatable {
 		try container.encode(didShowBlockedNotification, forKey: .didShowBlockedNotification)
 		try container.encode(isNew, forKey: .isNew)
 		try container.encode(isValidityStateNew, forKey: .isValidityStateNew)
+		try container.encode(revocationEntries, forKey: .revocationEntries)
 	}
 
 	// MARK: - Protocol Equatable
@@ -93,5 +98,5 @@ class DecodingFailedHealthCertificate: Codable, Equatable {
 	let isNew: Bool
 	let isValidityStateNew: Bool
 	var error: Error?
-
+	let revocationEntries: HealthCertificateRevocationEntries?
 }
