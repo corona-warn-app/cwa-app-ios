@@ -37,7 +37,7 @@ class HealthCertificateService_GroupingAfterDeletionTests: XCTestCase {
 			certificateCombiner
 		]
 		listOfCertificates.shuffle()
-		listOfCertificates.forEach { service.registerHealthCertificate(base45: $0) }
+		listOfCertificates.forEach { service.registerHealthCertificate(base45: $0, completedNotificationRegistration: { }) }
 		
 		
 		// We should have now 2 persons. Person1 with four certificates and Person2 with one certificate.
@@ -126,7 +126,7 @@ class HealthCertificateService_GroupingAfterDeletionTests: XCTestCase {
 		]
 		
 		listOfCertificates.shuffle()
-		listOfCertificates.forEach { service.registerHealthCertificate(base45: $0) }
+		listOfCertificates.forEach { service.registerHealthCertificate(base45: $0, completedNotificationRegistration: { }) }
 		
 		// We should have now 2 persons. Person1 with four certificates and Person2 with one certificate.
 		XCTAssertEqual(service.healthCertifiedPersons.count, 2)

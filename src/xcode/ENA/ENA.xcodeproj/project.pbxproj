@@ -553,6 +553,7 @@
 		347FBB752611C9F100672770 /* TraceLocationDetailsDateTimeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 347FBB742611C9EF00672770 /* TraceLocationDetailsDateTimeCell.swift */; };
 		3484AC7C26A060E900CB0500 /* LocalStatisticsState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3484AC7B26A060E900CB0500 /* LocalStatisticsState.swift */; };
 		3494634C27EDF90800403F7A /* ExposureSubmissionTestResultModeling.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3494634B27EDF90800403F7A /* ExposureSubmissionTestResultModeling.swift */; };
+		3494634E27F498D900403F7A /* ExposureSubmissionTestResultFamilyMemberViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3494634D27F498D900403F7A /* ExposureSubmissionTestResultFamilyMemberViewModelTests.swift */; };
 		3494D90D261C566200EC532C /* default_qr_code_poster_template_ios.bin in Resources */ = {isa = PBXBuildFile; fileRef = 3494D90C261C566100EC532C /* default_qr_code_poster_template_ios.bin */; };
 		3494D91F261DD47C00EC532C /* DMPosterGenerationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3494D91E261DD47C00EC532C /* DMPosterGenerationViewController.swift */; };
 		3494D927261DD49100EC532C /* DMPosterGenerationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3494D926261DD49100EC532C /* DMPosterGenerationViewModel.swift */; };
@@ -1244,6 +1245,8 @@
 		ABD430E027FAE78B0063666C /* revocation_chunk.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABD430DD27FAE78B0063666C /* revocation_chunk.pb.swift */; };
 		ABD4310127FC83800063666C /* HealthCertificateRevocationEntries.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABD4310027FC83800063666C /* HealthCertificateRevocationEntries.swift */; };
 		ABD4310327FC8CEA0063666C /* HealthCertificateRevocationEntriesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABD4310227FC8CEA0063666C /* HealthCertificateRevocationEntriesTests.swift */; };
+		ABD430E427FAF6A10063666C /* KIDListResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABD430E327FAF6A10063666C /* KIDListResource.swift */; };
+		ABD430E627FAF6B50063666C /* Locator+KIDList.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABD430E527FAF6B50063666C /* Locator+KIDList.swift */; };
 		ABDA2792251CE308006BAE84 /* DMServerEnvironmentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABDA2791251CE308006BAE84 /* DMServerEnvironmentViewController.swift */; };
 		ABDBE3632710825F007C8DA8 /* RecycleBinTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABDBE36127107E73007C8DA8 /* RecycleBinTests.swift */; };
 		ABE06E99261D958A00D98E1B /* TraceLocationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABE06E98261D958A00D98E1B /* TraceLocationTests.swift */; };
@@ -2327,6 +2330,7 @@
 		347FBB742611C9EF00672770 /* TraceLocationDetailsDateTimeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraceLocationDetailsDateTimeCell.swift; sourceTree = "<group>"; };
 		3484AC7B26A060E900CB0500 /* LocalStatisticsState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalStatisticsState.swift; sourceTree = "<group>"; };
 		3494634B27EDF90800403F7A /* ExposureSubmissionTestResultModeling.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureSubmissionTestResultModeling.swift; sourceTree = "<group>"; };
+		3494634D27F498D900403F7A /* ExposureSubmissionTestResultFamilyMemberViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureSubmissionTestResultFamilyMemberViewModelTests.swift; sourceTree = "<group>"; };
 		3494D90C261C566100EC532C /* default_qr_code_poster_template_ios.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = default_qr_code_poster_template_ios.bin; sourceTree = "<group>"; };
 		3494D91E261DD47C00EC532C /* DMPosterGenerationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMPosterGenerationViewController.swift; sourceTree = "<group>"; };
 		3494D926261DD49100EC532C /* DMPosterGenerationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMPosterGenerationViewModel.swift; sourceTree = "<group>"; };
@@ -3039,6 +3043,8 @@
 		ABD430DD27FAE78B0063666C /* revocation_chunk.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = revocation_chunk.pb.swift; sourceTree = "<group>"; };
 		ABD4310027FC83800063666C /* HealthCertificateRevocationEntries.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthCertificateRevocationEntries.swift; sourceTree = "<group>"; };
 		ABD4310227FC8CEA0063666C /* HealthCertificateRevocationEntriesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthCertificateRevocationEntriesTests.swift; sourceTree = "<group>"; };
+		ABD430E327FAF6A10063666C /* KIDListResource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KIDListResource.swift; sourceTree = "<group>"; };
+		ABD430E527FAF6B50063666C /* Locator+KIDList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Locator+KIDList.swift"; sourceTree = "<group>"; };
 		ABDA2791251CE308006BAE84 /* DMServerEnvironmentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMServerEnvironmentViewController.swift; sourceTree = "<group>"; };
 		ABDBE36127107E73007C8DA8 /* RecycleBinTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecycleBinTests.swift; sourceTree = "<group>"; };
 		ABE06E98261D958A00D98E1B /* TraceLocationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraceLocationTests.swift; sourceTree = "<group>"; };
@@ -6209,6 +6215,7 @@
 		50BC9046279EEE530000C930 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				ABD430E127FAF6680063666C /* DCCRevocation */,
 				50BC9030279EEB4A0000C930 /* AllowList */,
 				50BC9031279EEB840000C930 /* AppConfiguration */,
 				5015D2D227A1737E007D8763 /* CCLConfiguration */,
@@ -7301,6 +7308,7 @@
 				A328425A248E8290006B1F09 /* Mock Objects */,
 				A328425B248E82B5006B1F09 /* ExposureSubmissionTestResultViewControllerTests.swift */,
 				016961AF2549630100FF92E3 /* ExposureSubmissionTestResultViewModelTests.swift */,
+				3494634D27F498D900403F7A /* ExposureSubmissionTestResultFamilyMemberViewModelTests.swift */,
 				2FD881CB2490F65C00BEC8FC /* ExposureSubmissionHotlineViewControllerTest.swift */,
 				2FD881CD249115E700BEC8FC /* ExposureSubmissionNavigationControllerTest.swift */,
 				505936B42626C36B00D40216 /* ExposureSubmissionSuccessViewControllerTest.swift */,
@@ -7987,6 +7995,23 @@
 				ABD2F633254C533200DC1958 /* KeyPackageDownload.swift */,
 			);
 			path = KeyPackageDownload;
+			sourceTree = "<group>";
+		};
+		ABD430E127FAF6680063666C /* DCCRevocation */ = {
+			isa = PBXGroup;
+			children = (
+				ABD430E227FAF6830063666C /* KIDList */,
+			);
+			path = DCCRevocation;
+			sourceTree = "<group>";
+		};
+		ABD430E227FAF6830063666C /* KIDList */ = {
+			isa = PBXGroup;
+			children = (
+				ABD430E327FAF6A10063666C /* KIDListResource.swift */,
+				ABD430E527FAF6B50063666C /* Locator+KIDList.swift */,
+			);
+			path = KIDList;
 			sourceTree = "<group>";
 		};
 		ABDBE36027107E60007C8DA8 /* __tests__ */ = {
@@ -11541,6 +11566,7 @@
 				01E102682668D83B009ED803 /* DCCRSAKeyPair.swift in Sources */,
 				AB5F84C024FE2EB3000400D4 /* DownloadedPackagesStoreV0.swift in Sources */,
 				518A69FB24687D5800444E66 /* RiskLevel.swift in Sources */,
+				ABD430E627FAF6B50063666C /* Locator+KIDList.swift in Sources */,
 				019789322746920600AAC31C /* TicketValidationFailedViewModel.swift in Sources */,
 				EBCD2412250790F400E5574C /* ExposureSubmissionSymptomsViewController.swift in Sources */,
 				AB7420B7251B69E2006666AC /* DeltaOnboardingCoordinator.swift in Sources */,
@@ -11602,6 +11628,7 @@
 				8F39D084263F63420096F4E2 /* els_otp.pb.swift in Sources */,
 				BA5B7FDC26458EF400502087 /* HealthCertifiedPersonViewController.swift in Sources */,
 				0104CBD5273EAD72009A543D /* TicketValidation.swift in Sources */,
+				ABD430E427FAF6A10063666C /* KIDListResource.swift in Sources */,
 				3494634C27EDF90800403F7A /* ExposureSubmissionTestResultModeling.swift in Sources */,
 				3558CC8725F6225500624F5E /* FileManager+FileSize.swift in Sources */,
 				CD99A3CA2461A47C00BF12AF /* AppStrings.swift in Sources */,
@@ -12092,6 +12119,7 @@
 				0144DD9725D40CC600CFB1D1 /* MockDeadmanNotificationManager.swift in Sources */,
 				BAEFB35A2656B07A00497F79 /* ContactDiaryStoreSchemaV5Tests.swift in Sources */,
 				B1FE13FE24896EF700D012E5 /* CachedAppConfigurationTests.swift in Sources */,
+				3494634E27F498D900403F7A /* ExposureSubmissionTestResultFamilyMemberViewModelTests.swift in Sources */,
 				50352C9F25C96687007193D2 /* HTTPClient+AuthorizationOTPEdusTests.swift in Sources */,
 				524C4292256587B900EBC3B0 /* ExposureSubmissionTestResultConsentViewModelTests.swift in Sources */,
 				BA6C8B51254D80DF008344F5 /* ExposureWindowTest.swift in Sources */,
