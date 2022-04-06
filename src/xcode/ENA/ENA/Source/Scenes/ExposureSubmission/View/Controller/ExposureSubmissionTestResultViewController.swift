@@ -190,7 +190,7 @@ class ExposureSubmissionTestResultViewController: DynamicTableViewController, Fo
 				self?.viewModel.deleteTest()
 			}
 		)
-
+		deleteAction.accessibilityIdentifier = AccessibilityIdentifiers.ExposureSubmissionResult.RemoveAlert.deleteButton
 		alert.addAction(deleteAction)
 		alert.addAction(cancelAction)
 
