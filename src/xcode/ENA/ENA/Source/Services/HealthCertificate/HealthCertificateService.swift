@@ -751,6 +751,7 @@ class HealthCertificateService: HealthCertificateServiceServable {
 			   $0.certificateRef.barcodeData == healthCertificate.base45
 		   }) {
 			healthCertificate.validityState = .blocked
+			healthCertificateNotificationService.createNotifications(for: healthCertificate, completion: {})
 		} else {
 			let signatureVerificationResult = dccSignatureVerifier.verify(
 				certificate: healthCertificate.base45,
