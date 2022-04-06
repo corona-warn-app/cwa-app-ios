@@ -179,3 +179,42 @@ jobs:
             chmod +x $SCANNERDIR/bin/sonar-scanner
             chmod +x $SCANNERDIR/jre/bin/java
             $SCANNERDIR/bin/sonar-scanner
+  runAllTests:
+    runs-on: self-hosted
+    needs: buildForTesting
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v2          
+      - name: Restore Dependencies
+        uses: actions/cache@v2
+        env:
+          cache-name: cache-dependencies
+        with:
+          path: |
+            src/xcode/vendor
+            src/xcode/.bundle
+          key: ${{ runner.os }}-${{ env.cache-name }}-${{ hashFiles('src/xcode/Gemfile.lock') }}
+      - name: Restore DerivedData folder
+        uses: actions/cache@v2
+        env:
+          cache-name: cache-derived-data
+        with:
+          path: src/xcode/DerivedData
+          key: ${{ runner.os }}-${{ env.cache-name }}-${{ github.sha }}
+      - name: Restore test_output folder
+        uses: actions/cache@v2
+        env:
+          cache-name: cache-test-output
+        with:
+          path: src/xcode/fastlane/test_output
+          key: ${{ runner.os }}-${{ env.cache-name }}-${{ github.sha }}                       
+      - name: Run AllTests
+        run: |
+          cd src/xcode
+          arch -arm64 bundle exec fastlane test_without_building testplan:AllTests
+      - name: Archive xcresult
+        if: failure()
+        uses: actions/upload-artifact@v2
+        with:
+          name: xcresult-${{ github.sha }}
+          path: src/xcode/fastlane/test_output/ENA.xcresult.zip
