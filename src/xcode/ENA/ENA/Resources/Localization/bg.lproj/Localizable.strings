@@ -561,7 +561,7 @@
 
 "ExposureSubmissionDispatch_QRCodeButtonTitle" = "Сканиране на QR код";
 
-"ExposureSubmissionDispatch_QRCodeButtonDescription" = "Получете резултата си в приложението и предупредете останалите потребители или заявете своя сертификат за тест за COVID.";
+"ExposureSubmissionDispatch_QRCodeButtonDescription" = "Получете резултатите от Вашия тест и тези на членовете от Вашето семейство и заявете своя сертификат за тест за COVID.";
 
 "ExposureSubmissionDispatch_TANButtonTitle" = "Въведете ТАН код за PCR тест";
 
@@ -1306,6 +1306,11 @@
 "Home_resultCard_DeleteTestButton" = "Изтриване на тест";
 
 "Home_resultCard_HideTestButton" = "Да не се показва отново";
+
+/* - Family Tets */
+"Home_Family_Test_Title" = "Тестове на членове от семейството";
+
+"Home_Family_Test_Detail" = "Има новини";
 
 /* - Show Positive */
 "Home_Finding_Positive_Card_Status_Title" = "Положителен резултат за SARS-CoV-2";
@@ -3583,4 +3588,63 @@
 "TicketValidation_Result_Failed_subtitle" = "Вашият сертификат не отговаря на изискванията на доставчика.";
 
 "TicketValidation_Result_Failed_description" = "Ако имате въпроси, моля свържете се с доставчика “%@”.";
+
+/* Family Member Corona Test */
+"FamilyMemberCoronaTest_title" = "Тестове на членове от семейството";
+
+"FamilyMemberCoronaTest_deleteAllButtonTitle" = "Изтриване на всички";
+
+"FamilyMemberCoronaTest_pcrCaption" = "Диагноза от PCR тест";
+
+"FamilyMemberCoronaTest_antigenCaption" = "Диагноза от бърз тест";
+
+"FamilyMemberCoronaTest_pcrDate" = "Тестът е добавен на %@";
+
+"FamilyMemberCoronaTest_antigenDate" = "Извършено на %@";
+
+"FamilyMemberCoronaTest_pendingDiagnosis" = "Все още няма резултат от теста Ви";
+
+"FamilyMemberCoronaTest_pendingPCRDescription" = "Резултатът от PCR теста все още не е определен.";
+
+"FamilyMemberCoronaTest_pendingAntigenDescription" = "Резултатът от бързия тест все още не е определен.";
+
+"FamilyMemberCoronaTest_negativeTopDiagnosis" = "SARS-CoV-2";
+
+"FamilyMemberCoronaTest_negativeBottomDiagnosis" = "Отрицателен";
+
+"FamilyMemberCoronaTest_positiveTopDiagnosis" = "SARS-CoV-2";
+
+"FamilyMemberCoronaTest_positiveBottomDiagnosis" = "Положителен";
+
+"FamilyMemberCoronaTest_invalidDiagnosis" = "Невалиден тест";
+
+"FamilyMemberCoronaTest_invalidDescription" = "Не може да бъде определен резултат от теста.";
+
+"FamilyMemberCoronaTest_outdatedDiagnosis" = "Тестът вече не е актуален";
+
+"FamilyMemberCoronaTest_outdatedDescription" = "Бързият тест е на повече от %i часа и вече няма да се показва тук.";
+
+"FamilyMemberCoronaTest_outdatedButtonTitle" = "Да не се показва отново";
+
+"FamilyMemberCoronaTest_expiredDiagnosis" = "Вече не е валиден";
+
+"FamilyMemberCoronaTest_expiredDescription" = "Тестът е на повече от 21 дни и затова вече не е релевантен.";
+
+"FamilyMemberCoronaTest_expiredButtonTitle" = "Изтриване на тест";
+
+"FamilyMemberCoronaTest_DeleteOne_AlertTitle" = "Изтриване на резултат от тест?";
+
+"FamilyMemberCoronaTest_DeleteOne_AlertMessage" = "Резултатът от тест ще бъде преместен в кошчето, което се намира на плочка \"Още\" от страницата на таб \"Статус\". Там можете да го изтриете за постоянно или да го възстановите. Резултатът от тест ще бъде изтрит автоматично след 30 дни.";
+
+"FamilyMemberCoronaTest_DeleteOne_AlertConfirmButtonTitle" = "Изтриване на резултат от тест";
+
+"FamilyMemberCoronaTest_DeleteOne_AlertCancelButtonTitle" = "Отказ";
+
+"FamilyMemberCoronaTest_DeleteAll_AlertTitle" = "Изтриване на резултатите от теста?";
+
+"FamilyMemberCoronaTest_DeleteAll_AlertMessage" = "Резултатите от теста ще бъдат преместени в кошчето, което се намира на плочка \"Още\" от страницата на таб \"Статус\". Там можете да ги изтриете за постоянно или да ги възстановите. Резултатите ще бъде изтрити автоматично след 30 дни.";
+
+"FamilyMemberCoronaTest_DeleteAll_AlertConfirmButtonTitle" = "Изтриване на резултати от тест";
+
+"FamilyMemberCoronaTest_DeleteAll_AlertCancelButtonTitle" = "Отказ";
 
