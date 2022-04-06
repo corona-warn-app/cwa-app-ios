@@ -274,37 +274,6 @@ jobs:
 
 workflows:
   version: 2
-  beta-release:
-    jobs:
-      - dependencies:
-          filters:
-            tags:
-              only:
-                - /^v.*/
-            branches:
-              ignore: /.*/
-      - build-for-testing:
-          requires:
-            - dependencies
-      - test:
-          requires:
-            - build-for-testing
-          filters:
-            tags:
-              only:
-                - /^v.*/
-            branches:
-              ignore: /.*/
-      - testflight-release:
-          requires:
-            - dependencies
-          filters:
-            tags:
-              only:
-                - /^v.*/
-            branches:
-              ignore: /.*/
-
   sonar-workflow:
     triggers:
       - schedule:
