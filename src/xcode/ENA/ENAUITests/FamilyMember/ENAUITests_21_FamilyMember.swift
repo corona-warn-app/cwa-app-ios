@@ -4,7 +4,7 @@
 
 import XCTest
 
-class ENAUITests_FamilyMember: CWATestCase {
+class ENAUITests_21_FamilyMember: CWATestCase {
 
 	var app: XCUIApplication!
 
