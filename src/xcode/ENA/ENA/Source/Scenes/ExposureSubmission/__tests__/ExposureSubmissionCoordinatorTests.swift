@@ -126,7 +126,8 @@ class ExposureSubmissionCoordinatorTests: CWATestCase {
 			antigenTestProfileStore: store,
 			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
 			healthCertificateValidationOnboardedCountriesProvider: healthCertificateValidationOnboardedCountriesProvider,
-			qrScannerCoordinator: qrScannerCoordinator
+			qrScannerCoordinator: qrScannerCoordinator,
+			recycleBin: RecycleBin(store: store)
 		)
 	}
 

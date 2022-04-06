@@ -14,12 +14,14 @@ class ExposureSubmissionCoordinatorModel {
 		exposureSubmissionService: ExposureSubmissionService,
 		coronaTestService: CoronaTestServiceProviding,
 		familyMemberCoronaTestService: FamilyMemberCoronaTestServiceProviding,
-		eventProvider: EventProviding
+		eventProvider: EventProviding,
+		recycleBin: RecycleBin
 	) {
 		self.exposureSubmissionService = exposureSubmissionService
 		self.familyMemberCoronaTestService = familyMemberCoronaTestService
 		self.coronaTestService = coronaTestService
 		self.eventProvider = eventProvider
+		self.recycleBin = recycleBin
 
 		// Try to load current country list initially to make it virtually impossible the user has to wait for it later.
 		exposureSubmissionService.loadSupportedCountries { _ in
@@ -35,6 +37,7 @@ class ExposureSubmissionCoordinatorModel {
 	let coronaTestService: CoronaTestServiceProviding
 	let familyMemberCoronaTestService: FamilyMemberCoronaTestServiceProviding
 	let eventProvider: EventProviding
+	let recycleBin: RecycleBin
 	
 	var coronaTestType: CoronaTestType?
 	var markNewlyAddedCoronaTestAsUnseen: Bool = false
@@ -103,6 +106,30 @@ class ExposureSubmissionCoordinatorModel {
 			exposureSubmissionService.symptomsOnset = .moreThanTwoWeeksAgo
 		case .preferNotToSay:
 			exposureSubmissionService.symptomsOnset = .symptomaticWithUnknownOnset
+		}
+	}
+
+	func recycleBinItemToRestore(
+		for testRegistrationInformation: CoronaTestRegistrationInformation
+	) -> RecycleBinItem? {
+		switch testRegistrationInformation {
+		case .pcr(guid: _, qrCodeHash: let qrCodeHash),
+			.antigen(qrCodeInformation: _, qrCodeHash: let qrCodeHash),
+			.rapidPCR(qrCodeInformation: _, qrCodeHash: let qrCodeHash):
+			return recycleBin.recycledItems.first {
+				let recycledQRCodeHash: String
+				if case .userCoronaTest(let coronaTest) = $0.item, let userQRCodeHash = coronaTest.qrCodeHash {
+					recycledQRCodeHash = userQRCodeHash
+				} else if case .familyMemberCoronaTest(let coronaTest) = $0.item {
+					recycledQRCodeHash = coronaTest.qrCodeHash
+				} else {
+					return false
+				}
+
+				return recycledQRCodeHash == qrCodeHash
+			}
+		case .teleTAN:
+			return nil
 		}
 	}
 

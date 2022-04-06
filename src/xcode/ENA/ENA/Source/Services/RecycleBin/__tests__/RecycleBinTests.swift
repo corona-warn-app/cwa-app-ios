@@ -7,6 +7,24 @@ import XCTest
 
 class RecycleBinTests: XCTestCase {
 
+	func test_recycledItems() {
+		let mockStore = MockTestStore()
+		mockStore.recycleBinItems = Set([
+			RecycleBinItem(
+				recycledAt: Date(),
+				item: RecycledItem.certificate(HealthCertificate.mock())
+			),
+			RecycleBinItem(
+				recycledAt: Date(),
+				item: .userCoronaTest(.antigen(.mock()))
+			)
+		])
+
+		let recycleBin = RecycleBin(store: mockStore)
+
+		XCTAssertEqual(recycleBin.recycledItems, mockStore.recycleBinItems)
+	}
+
 	func test_moveToBin() {
 		let mockStore = MockTestStore()
 		let recycleBin = RecycleBin(store: mockStore)
