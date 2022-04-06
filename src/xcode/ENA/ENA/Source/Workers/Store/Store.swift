@@ -198,6 +198,8 @@ protocol AntigenTestProfileStoring: AnyObject {
 	var antigenTestProfileSubject: CurrentValueSubject<AntigenTestProfile?, Never> { get }
 
 	var antigenTestProfile: AntigenTestProfile? { get set }
+	
+	var antigenTestProfiles: [AntigenTestProfile] { get set }
 
 	var antigenTestProfileInfoScreenShown: Bool { get set }
 

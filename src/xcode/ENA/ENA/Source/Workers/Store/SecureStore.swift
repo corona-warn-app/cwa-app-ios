@@ -229,6 +229,11 @@ final class SecureStore: SecureKeyValueStoring, Store, AntigenTestProfileStoring
 		}
 	}
 
+	var antigenTestProfiles: [AntigenTestProfile] {
+		get { kvStore["antigenTestProfiles"] as [AntigenTestProfile]? ?? [] }
+		set { kvStore["antigenTestProfiles"] = newValue }
+	}
+	
 	var antigenTestProfileInfoScreenShown: Bool {
 		get { kvStore["antigenTestProfileInfoScreenShown"] as Bool? ?? false }
 		set { kvStore["antigenTestProfileInfoScreenShown"] = newValue }

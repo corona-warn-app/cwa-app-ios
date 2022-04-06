@@ -148,6 +148,7 @@ final class MockTestStore: Store, PPAnalyticsData {
 			antigenTestProfileSubject.value = antigenTestProfile
 		}
 	}
+	var antigenTestProfiles: [AntigenTestProfile] = []
 	var antigenTestProfileInfoScreenShown: Bool = false
 
 	// MARK: - HealthCertificateStoring
