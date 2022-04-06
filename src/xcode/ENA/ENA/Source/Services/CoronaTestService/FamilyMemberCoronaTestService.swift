@@ -40,8 +40,11 @@ class FamilyMemberCoronaTestService: FamilyMemberCoronaTestServiceProviding {
 			self.fakeRequestService = FakeRequestService(client: client, restServiceProvider: restServiceProvider)
 			setup()
 
-			coronaTests.value = [mockPCRTest, mockAntigenTest].compactMap { $0 }
-
+			if LaunchArguments.familyMemberTest.fakeOverview.boolValue {
+				coronaTests.value = createMockedTestsForOverview()
+			} else {
+				coronaTests.value = [mockPCRTest, mockAntigenTest].compactMap { $0 }
+			}
 			return
 		}
 		#endif
@@ -836,6 +839,76 @@ class FamilyMemberCoronaTestService: FamilyMemberCoronaTestServiceProviding {
 		let certifiedPerson = self.healthCertificateService.healthCertifiedPersons[0]
 		
 		return (certificate: certificate, certifiedPerson: certifiedPerson)
+	}
+
+	func createMockedTestsForOverview() -> [FamilyMemberCoronaTest] {
+		var familyTests: [FamilyMemberCoronaTest] = []
+
+		familyTests.append(.antigen(FamilyMemberAntigenTest(
+			displayName: "Lara",
+			pointOfCareConsentDate: Date(timeIntervalSince1970: 1646588028),
+			registrationDate: Date(timeIntervalSince1970: 1646588028),
+			registrationToken: "1",
+			qrCodeHash: "mockAntigenQRCodeHash1",
+			isNew: true,
+			testResult: TestResult.pending,
+			finalTestResultReceivedDate: nil,
+			testResultWasShown: true,
+			certificateSupportedByPointOfCare: false,
+			certificateConsentGiven: false,
+			certificateRequested: false,
+			isOutdated: false,
+			isLoading: false
+		)))
+		familyTests.append(.antigen(FamilyMemberAntigenTest(
+			displayName: "Olga",
+			pointOfCareConsentDate: Date(timeIntervalSince1970: 1646588027),
+			registrationDate: Date(timeIntervalSince1970: 1646588027),
+			registrationToken: "2",
+			qrCodeHash: "mockAntigenQRCodeHash2",
+			isNew: false,
+			testResult: TestResult.negative,
+			finalTestResultReceivedDate: nil,
+			testResultWasShown: true,
+			certificateSupportedByPointOfCare: false,
+			certificateConsentGiven: false,
+			certificateRequested: false,
+			isOutdated: false,
+			isLoading: false
+		)))
+		familyTests.append(.antigen(FamilyMemberAntigenTest(
+			displayName: "Aaron",
+			pointOfCareConsentDate: Date(timeIntervalSince1970: 1646588026),
+			registrationDate: Date(timeIntervalSince1970: 1646588026),
+			registrationToken: "4",
+			qrCodeHash: "mockAntigenQRCodeHash3",
+			isNew: false,
+			testResult: TestResult.positive,
+			finalTestResultReceivedDate: nil,
+			testResultWasShown: true,
+			certificateSupportedByPointOfCare: false,
+			certificateConsentGiven: false,
+			certificateRequested: false,
+			isOutdated: false,
+			isLoading: false
+		)))
+		familyTests.append(.pcr(FamilyMemberPCRTest(
+			displayName: "Olga",
+			registrationDate: Date(timeIntervalSince1970: 1634315507),
+			registrationToken: "3",
+			qrCodeHash: "mockPCRQRCodeHash1",
+			isNew: false,
+			testResult: .positive,
+			finalTestResultReceivedDate: nil,
+			testResultWasShown: true,
+			certificateSupportedByPointOfCare: false,
+			certificateConsentGiven: false,
+			certificateRequested: false,
+			uniqueCertificateIdentifier: nil,
+			isLoading: false
+		)))
+		familyTests.sort(by: { $0.registrationDate > $1.registrationDate })
+		return familyTests
 	}
 
 	#endif

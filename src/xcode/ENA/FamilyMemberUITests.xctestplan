@@ -88,6 +88,10 @@
     {
       "parallelizable" : true,
       "selectedTests" : [
+        "ENAUITests_21_FamilyMember\/test_RegisterCoronaTestFromSubmitCardButton()",
+        "ENAUITests_21_FamilyMember\/test_familyMemberViewOverview()",
+        "ENAUITests_21_FamilyMember\/test_screenshot_RegisterCoronaTestFromUniversalQRCodeScanner()",
+        "ENAUITests_21_FamilyMember\/test_screenshot_familyMemberViewOverviewDeleteAll()",
         "ENAUITests_FamilyMember\/testExample()",
         "ENAUITests_FamilyMember\/testLaunchPerformance()",
         "ENAUITests_FamilyMember\/test_RegisterCoronaTestFromSubmitCardButton()",
