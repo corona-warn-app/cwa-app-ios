@@ -135,13 +135,20 @@ class LocalStatisticsProvider: LocalStatisticsProviding {
 			self.client.fetchLocalStatistics(
 				groupID: groupID,
 				eTag: localStatistics?.lastLocalStatisticsETag
-			) { result in
+			) { [weak self] result in
+				guard let self = self else {
+					Log.error("Could not create strong self")
+					return
+				}
 				switch result {
 				case .success(let response):
 					// removing previous data from the store
-					self.store.localStatistics.removeAll(where: { $0.groupID == groupID })
+					self.store.localStatistics.removeAll(where: {
+						$0.groupID == groupID
+					})
 					// cache
-					self.store.localStatistics.append(LocalStatisticsMetadata(with: response))
+					let localStat = LocalStatisticsMetadata(with: response)
+					self.store.localStatistics.append(localStat)
 					completion(.success(LocalStatisticsMetadata(with: response)))
 				case .failure(let error):
 					Log.error(error.localizedDescription, log: .localStatistics)
