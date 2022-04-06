@@ -726,9 +726,9 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmissionResult_Title_Antigen" = "Schnelltest";
 
-"ExposureSubmissionResult_CardSubTitle" = "Ihr PCR-Test-Befund";
+"ExposureSubmissionResult_CardSubTitle" = "PCR-Test-Befund";
 
-"ExposureSubmissionResult_CardSubTitle_Antigen" = "Ihr Schnelltest-Befund";
+"ExposureSubmissionResult_CardSubTitle_Antigen" = "Schnelltest-Befund";
 
 "ExposureSubmissionResult_CardTitle" = "SARS-CoV-2";
 
@@ -762,7 +762,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmissionResult_testNegative" = "Befund negativ";
 
-"ExposureSubmissionResult_testNegativeDesc" = "Der Labortest hat keinen Nachweis für das Coronavirus SARS-CoV-2 bei Ihnen ergeben.";
+"ExposureSubmissionResult_testNegativeDesc" = "Der Labortest hat keinen Nachweis für das Coronavirus SARS-CoV-2 ergeben.";
 
 "ExposureSubmissionResult_testNegative_furtherInfos_title" = "Weitere Infos:";
 
@@ -776,19 +776,19 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmissionResult_testInvalid" = "Test kann nicht ausgewertet werden";
 
-"ExposureSubmissionResult_testInvalidDesc" = "Es gab ein Problem bei der Auswertung Ihres Tests. Bitte kontaktieren Sie das Testcenter oder das zuständige Labor, um Informationen zum weiteren Vorgehen zu erhalten.";
+"ExposureSubmissionResult_testInvalidDesc" = "Es gab ein Problem bei der Auswertung des Tests. Bitte kontaktieren Sie das Testcenter oder das zuständige Labor, um Informationen zum weiteren Vorgehen zu erhalten.";
 
 "ExposureSubmissionResult_testExpired" = "Test kann nicht ausgewertet werden";
 
-"ExposureSubmissionResult_testExpiredDesc" = "Es gab ein Problem bei der Auswertung Ihres Tests. Ihr QR Code ist bereits abgelaufen.";
+"ExposureSubmissionResult_testExpiredDesc" = "Es gab ein Problem bei der Auswertung des Tests. Ihr QR Code ist bereits abgelaufen.";
 
-"ExposureSubmissionResult_testPending" = "Ihr Testergebnis liegt noch nicht vor";
+"ExposureSubmissionResult_testPending" = "Das Testergebnis liegt noch nicht vor";
 
 "ExposureSubmissionResult_familyMember_testPending" = "Ihr Testergebnis liegt noch nicht vor";
 
-"ExposureSubmissionResult_testPendingDesc" = "Sobald Ihr Testergebnis vorliegt, wird es Ihnen in der App angezeigt.\n\nSie bekommen Ihr Testergebnis auch außerhalb der App mitgeteilt. Falls Ihr Test positiv ist, bekommen Sie vom Gesundheitsamt eine Mitteilung.\n\nWenn Ihnen außerhalb der App ein positives Testergebnis mitgeteilt wurde, löschen Sie den aktuell in der App registrierten Test. Rufen Sie die unter „TAN anfragen” angegebene Nummer an, um eine TAN zu erhalten. Registrieren Sie dann Ihr Testergebnis mithilfe der TAN in der App.";
+"ExposureSubmissionResult_testPendingDesc" = "Sobald das Testergebnis vorliegt, wird es Ihnen in der App angezeigt.\n\nSie bekommen Ihr Testergebnis auch außerhalb der App mitgeteilt. Falls Ihr Test positiv ist, bekommen Sie vom Gesundheitsamt eine Mitteilung.\n\nWenn Ihnen außerhalb der App ein positives Testergebnis mitgeteilt wurde, löschen Sie den aktuell in der App registrierten Test. Rufen Sie die unter „TAN anfragen” angegebene Nummer an, um eine TAN zu erhalten. Registrieren Sie dann Ihr Testergebnis mithilfe der TAN in der App.";
 
-"ExposureSubmissionResult_familyMember_testPendingDesc" = "Sobald Ihr Testergebnis vorliegt, wird es Ihnen in der App angezeigt.\nSie bekommen Ihr Testergebnis auch außerhalb der App mitgeteilt. Falls der Test positiv ist, bekommen Sie vom Gesundheitsamt eine Mitteilung.";
+"ExposureSubmissionResult_familyMember_testPendingDesc" = "Sobald das Testergebnis vorliegt, wird es Ihnen in der App angezeigt.\nSie bekommen Ihr Testergebnis auch außerhalb der App mitgeteilt. Falls der Test positiv ist, bekommen Sie vom Gesundheitsamt eine Mitteilung.";
 
 "ExposureSubmissionResult_testCertificate_title" = "Ihr COVID-Testzertifikat";
 
@@ -820,7 +820,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmissionResult_pcrTestPendingContactJournalDesc" = "Sobald Ihr Testergebnis vorliegt, wird es Ihnen in der App angezeigt.";
 
-"ExposureSubmissionResult_antigenTestNegativDesc" = "Der Schnelltest hat keinen Nachweis für das Coronavirus SARS-CoV-2 bei Ihnen ergeben.";
+"ExposureSubmissionResult_antigenTestNegativDesc" = "Der Schnelltest hat keinen Nachweis für das Coronavirus SARS-CoV-2 ergeben.";
 
 "ExposureSubmissionResult_WarnOthersConsentGiven" = "Einverständnis „Andere warnen“ erteilt";
 
