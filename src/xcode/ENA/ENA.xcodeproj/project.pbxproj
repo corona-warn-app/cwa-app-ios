@@ -1413,6 +1413,7 @@
 		BA291AC1275A48A0003C42C2 /* DMTicketValidationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA291AC0275A48A0003C42C2 /* DMTicketValidationViewController.swift */; };
 		BA291AC3275A48CA003C42C2 /* DMTicketValidationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA291AC2275A48CA003C42C2 /* DMTicketValidationViewModel.swift */; };
 		BA2B393A25F7C6F700374CF1 /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA2B393925F7C6F700374CF1 /* GradientView.swift */; };
+		BA2C88E727FDC61500CE7E1E /* RevocationProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA2C88E627FDC61500CE7E1E /* RevocationProvider.swift */; };
 		BA2D4EFC2636FDBC0080FD77 /* AntigenTestProfileViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA2D4EFB2636FDBC0080FD77 /* AntigenTestProfileViewModelTests.swift */; };
 		BA2D4F05263701950080FD77 /* SimpleTextCellViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA2D4F04263701950080FD77 /* SimpleTextCellViewModelTests.swift */; };
 		BA2D4F0D2637037C0080FD77 /* QRCodeCellViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA2D4F0C2637037C0080FD77 /* QRCodeCellViewModelTests.swift */; };
@@ -3213,6 +3214,7 @@
 		BA291AC0275A48A0003C42C2 /* DMTicketValidationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMTicketValidationViewController.swift; sourceTree = "<group>"; };
 		BA291AC2275A48CA003C42C2 /* DMTicketValidationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMTicketValidationViewModel.swift; sourceTree = "<group>"; };
 		BA2B393925F7C6F700374CF1 /* GradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
+		BA2C88E627FDC61500CE7E1E /* RevocationProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RevocationProvider.swift; sourceTree = "<group>"; };
 		BA2D4EF22636C7860080FD77 /* SimpleTextCellViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SimpleTextCellViewModel.swift; sourceTree = "<group>"; };
 		BA2D4EFB2636FDBC0080FD77 /* AntigenTestProfileViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AntigenTestProfileViewModelTests.swift; sourceTree = "<group>"; };
 		BA2D4F04263701950080FD77 /* SimpleTextCellViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleTextCellViewModelTests.swift; sourceTree = "<group>"; };
@@ -6227,11 +6229,11 @@
 		50BC9046279EEE530000C930 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				ABD430E127FAF6680063666C /* DCCRevocation */,
 				50BC9030279EEB4A0000C930 /* AllowList */,
 				50BC9031279EEB840000C930 /* AppConfiguration */,
 				5015D2D227A1737E007D8763 /* CCLConfiguration */,
 				50CDFB2527BE82C700FE0793 /* DCCReissuance */,
+				ABD430E127FAF6680063666C /* DCCRevocation */,
 				50BC902C279EEA670000C930 /* DCCRules */,
 				50BC9032279EEBC20000C930 /* RegistrationToken */,
 				50BC9040279EECEB0000C930 /* ServiceIdentityDocument */,
@@ -8653,15 +8655,16 @@
 		B1FE13D92488216300D012E5 /* Provider */ = {
 			isa = PBXGroup;
 			children = (
+				B1FE13E0248824D700D012E5 /* __tests__ */,
 				BA00FECC26BC2C84009DA07F /* AppFeatures */,
 				B1FE13F724896DC400D012E5 /* Helper */,
-				B1FE13E32488253200D012E5 /* Model */,
-				B1FE13E0248824D700D012E5 /* __tests__ */,
-				B1FE13DC248821CB00D012E5 /* RiskProviding.swift */,
-				B1FE13DE248821E000D012E5 /* RiskProvider.swift */,
 				EBD2D09F25A86C2A006E4220 /* MockRiskProvider.swift */,
-				354BB49925B07DB000FBCFEE /* StatisticsProviding.swift */,
+				B1FE13E32488253200D012E5 /* Model */,
+				BA2C88E527FDC5F800CE7E1E /* Revocation */,
+				B1FE13DE248821E000D012E5 /* RiskProvider.swift */,
+				B1FE13DC248821CB00D012E5 /* RiskProviding.swift */,
 				35E121A825B1CFB00098D754 /* StatisticsProvider.swift */,
+				354BB49925B07DB000FBCFEE /* StatisticsProviding.swift */,
 				ABA146CF27EB1A840096A44E /* StatisticsProvidingFake.swift */,
 			);
 			path = Provider;
@@ -8920,6 +8923,14 @@
 				BA291AC2275A48CA003C42C2 /* DMTicketValidationViewModel.swift */,
 			);
 			path = DMTicketValidation;
+			sourceTree = "<group>";
+		};
+		BA2C88E527FDC5F800CE7E1E /* Revocation */ = {
+			isa = PBXGroup;
+			children = (
+				BA2C88E627FDC61500CE7E1E /* RevocationProvider.swift */,
+			);
+			path = Revocation;
 			sourceTree = "<group>";
 		};
 		BA2D4EFA2636FDA60080FD77 /* __tests__ */ = {
@@ -11747,6 +11758,7 @@
 				AB4DA4B927DF9F810092F42D /* DaysSinceInstallCellViewModel.swift in Sources */,
 				504E8B1425D400DF00CAFBDF /* DMPPAnalyticsViewModel.swift in Sources */,
 				01F6701225FF79830069C4F9 /* EventCellModel.swift in Sources */,
+				BA2C88E727FDC61500CE7E1E /* RevocationProvider.swift in Sources */,
 				BA9BCF6225B0875100DD7974 /* DiaryOverviewDayCellModel.swift in Sources */,
 				8FEC12242754B6C000C5DADC /* Locator+AllowList.swift in Sources */,
 				BA0887A6269F43930007B3F3 /* NSMutableAttributedString+Link.swift in Sources */,
