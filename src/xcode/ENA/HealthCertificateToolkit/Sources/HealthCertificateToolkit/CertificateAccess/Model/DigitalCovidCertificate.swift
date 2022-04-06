@@ -35,11 +35,21 @@ public struct DigitalCovidCertificate: Codable, Equatable {
         testEntries: [TestEntry]? = nil,
         recoveryEntries: [RecoveryEntry]? = nil
     ) -> DigitalCovidCertificate {
-        DigitalCovidCertificate(
+        
+        // To ensure, that the decoding does not fail, at least one of the entries has to be set.
+        var _vaccinationEntries = vaccinationEntries
+        if vaccinationEntries == nil &&
+            testEntries == nil &&
+            recoveryEntries == nil {
+            _vaccinationEntries = [
+                VaccinationEntry.fake()
+            ]
+        }
+        return DigitalCovidCertificate(
             version: version,
             name: name,
             dateOfBirth: dateOfBirth,
-            vaccinationEntries: vaccinationEntries,
+            vaccinationEntries: _vaccinationEntries,
             testEntries: testEntries,
             recoveryEntries: recoveryEntries
         )
