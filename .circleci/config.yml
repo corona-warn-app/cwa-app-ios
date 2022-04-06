@@ -76,25 +76,6 @@ jobs:
           paths:
             - "src/xcode/DerivedData/**/*"
 
-  swiftlint:
-    macos:
-      xcode: *xcode_version
-    resource_class: medium
-    steps:
-      - attach_workspace:
-          at: .
-      - restore_cache:
-          key: *cache_key
-      - restore_cache:
-          key: *tools_cache_key
-      - run:
-          name: Swiftlint
-          command: |
-            swiftlint --version
-            cd src/xcode && bundle exec fastlane lint
-      - store_artifacts:
-          path: src/xcode/swiftlint.html
-
   test:
     macos:
       xcode: *xcode_version
@@ -293,67 +274,6 @@ jobs:
 
 workflows:
   version: 2
-  build-and-test:
-    jobs:
-      - dependencies
-      - build-for-testing:
-          requires:
-            - dependencies
-      - swiftlint:
-          requires:
-            - dependencies
-      - test:
-          matrix:
-            parameters:
-              testplan: ["UnitTests", "AntigenTestProfileUITests", "AppInformationUITests", "CheckInsUITests", "ContactJournalUITests", "CreateHealthCertificateUITests", "DataDonationUITests", "DeltaOnboardingUITests", "ExposureDetectionUITests", "ExposureLoggingUITests", "ExposureSubmissionUITests", "FileScannerUITests", "HomeUITests", "OnBehalfCheckinSubmissionUITests", "OnboardingUITests", "QuickActionsUITests", "SettingsUITests", "StatisticsUITests", "TicketValidationUITests", "TraceLocationsUITests", "UniversalQRCodeScannerUITests", "UpdateOSUITests", "ValidateHealthCertificateUITests", "RecycleBinUITests", "ReissueHealthCertificateUITests"]
-          requires:
-            - build-for-testing
-          filters:
-            branches:
-              ignore:
-                - /release\/.*/
-      - test:
-          matrix:
-            parameters:
-              testplan: ["AllTests"]
-          requires:
-            - build-for-testing
-          filters:
-            branches:
-              only:
-                - /release\/.*/
-      - build-community:
-          requires:
-            - dependencies
-      - snapshot-test: # Create one set of screenshot on all branches
-          requires:
-            - dependencies
-          filters:
-            branches:
-              ignore:
-                - /release\/.*/
-      - snapshot:
-          matrix:
-            parameters:
-              language: ["de-DE", "en-EN"]
-              displaymode: ["dark", "light"]
-          requires:
-            - dependencies
-          filters:
-            branches:
-              only:
-                - /release\/.*/
-      - collect-snapshots:
-          requires:
-            - snapshot
-      - update-docs:
-          requires:
-            - dependencies
-          filters:
-            branches:
-              only:
-                - main
-
   beta-release:
     jobs:
       - dependencies:
@@ -369,26 +289,6 @@ workflows:
       - test:
           requires:
             - build-for-testing
-          filters:
-            tags:
-              only:
-                - /^v.*/
-            branches:
-              ignore: /.*/
-      - snapshot:
-          matrix:
-            parameters:
-              language: ["de-DE", "en-EN"]
-              displaymode: ["dark", "light"]
-          requires:
-            - dependencies
-          filters:
-            branches:
-              only:
-                - /release\/.*/
-      - collect-snapshots:
-          requires:
-            - snapshot
           filters:
             tags:
               only:
