@@ -568,6 +568,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 		let footerViewController = FooterViewController(
 			FooterViewModel(
 				primaryButtonName: AppStrings.HealthCertificate.FamilyMemberConsent.primaryButton,
+				primaryIdentifier: AccessibilityIdentifiers.HealthCertificate.FamilyMemberConsent.primaryButton,
 				isSecondaryButtonEnabled: false,
 				isSecondaryButtonHidden: true
 			)
@@ -1130,11 +1131,13 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 	}
 
 	private func showEndRegistrationAlert(submitAction: UIAlertAction) {
+		submitAction.accessibilityIdentifier = AccessibilityIdentifiers.ExposureSubmission.TestCertificate.Alert.cancelRegistration
 		let alert = UIAlertController(
 			title: AppStrings.ExposureSubmission.TestCertificate.Info.Alert.title,
 			message: AppStrings.ExposureSubmission.TestCertificate.Info.Alert.message,
 			preferredStyle: .alert
 		)
+		
 		alert.addAction(
 			UIAlertAction(
 				title: AppStrings.ExposureSubmission.TestCertificate.Info.Alert.continueRegistration,
