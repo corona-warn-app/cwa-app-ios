@@ -18,6 +18,15 @@ public protocol DigitalCovidCertificateAccessProtocol {
     func extractCBORWebTokenHeader(from base45: Base45) -> Result<CBORWebTokenHeader, CertificateDecodingError>
     func extractDigitalCovidCertificate(from base45: Base45) -> Result<DigitalCovidCertificate, CertificateDecodingError>
     func convertToBase45(from base64: Base64, with dataEncryptionKey: Data) -> Result<Base45, CertificateDecodingError>
+    func extractCertificateComponents(from base45: Base45) -> Result<DigitalCovidCertificateComponents, CertificateDecodingError>
+}
+
+public struct DigitalCovidCertificateComponents {
+    public let header: CBORWebTokenHeader
+    public let certificate: DigitalCovidCertificate
+    public let keyIdentifier: String
+    public let signature: Data
+    public let algorithm: DCCSecKeyAlgorithm
 }
 
 public struct DigitalCovidCertificateAccess: DigitalCovidCertificateAccessProtocol {
@@ -56,16 +65,8 @@ public struct DigitalCovidCertificateAccess: DigitalCovidCertificateAccessProtoc
             .flatMap(extractKeyIdentifier)
     }
     
-    public struct CertificateComponents {
-        public let header: CBORWebTokenHeader
-        public let certificate: DigitalCovidCertificate
-        public let keyIdentifier: String
-        public let signature: Data
-        public let algorithm: DCCSecKeyAlgorithm
-    }
-    
     // swiftlint:disable cyclomatic_complexity
-    public func extractCertificateComponents(from base45: Base45) -> Result<CertificateComponents, CertificateDecodingError> {
+    public func extractCertificateComponents(from base45: Base45) -> Result<DigitalCovidCertificateComponents, CertificateDecodingError> {
         let coseEntriesResult = removePrefix(from: base45)
             .flatMap(convertBase45ToData)
             .flatMap(decompressZLib)
@@ -73,7 +74,7 @@ public struct DigitalCovidCertificateAccess: DigitalCovidCertificateAccessProtoc
         
         guard case let .success(coseEntries) = coseEntriesResult  else {
             if case let .failure(error) = coseEntriesResult {
-                return .failure(.HC_CBOR_DECODING_FAILED(error))
+                return .failure(error)
             }
             fatalError("Success and failure where handled, this part should never be reaached.")
         }
@@ -126,7 +127,7 @@ public struct DigitalCovidCertificateAccess: DigitalCovidCertificateAccessProtoc
         }
         
         return .success(
-            CertificateComponents(
+            DigitalCovidCertificateComponents(
                 header: header,
                 certificate: certificate,
                 keyIdentifier: keyIdentifier,
@@ -419,11 +420,18 @@ public struct DigitalCovidCertificateAccess: DigitalCovidCertificateAccessProtoc
     }
 
     private func determineAlgorithm(from coseEntries: [CBOR]) -> Result<DCCSecKeyAlgorithm, CertificateDecodingError> {
-        guard case let .byteString(protectedHeaderBytes) = coseEntries[0],
-           let protectedHeaderCBOR = try? CBORDecoder(input: protectedHeaderBytes).decodeItem(),
-           case let .negativeInt(algorithmIdentifier) = protectedHeaderCBOR[1] else {
+        guard case let .byteString(protectedHeaderBytes) = coseEntries[0] else {
             return .failure(.HC_COSE_UNKNOWN_ALG)
         }
+        
+        guard let protectedHeaderCBOR = try? CBORDecoder(input: protectedHeaderBytes).decodeItem() else {
+            return .failure(.HC_COSE_UNKNOWN_ALG)
+        }
+        
+        guard case let .negativeInt(algorithmIdentifier) = protectedHeaderCBOR[1] else {
+            return .failure(.HC_COSE_UNKNOWN_ALG)
+        }
+
 
         // I know its confusing. Please see here how negative integers are handled for CBOR (Major type 1:  a negative integer.): https://datatracker.ietf.org/doc/html/rfc7049#section-2.1
         // And here some rationale for this kind of implementation: https://stackoverflow.com/questions/50584127/rationale-for-cbor-negative-integers

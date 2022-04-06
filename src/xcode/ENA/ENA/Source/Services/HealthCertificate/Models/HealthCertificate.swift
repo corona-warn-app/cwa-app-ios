@@ -331,7 +331,7 @@ final class HealthCertificate: Codable, Equatable, Comparable, RecycleBinIdentif
 	private lazy var trimmedDateOfBirth: String = digitalCovidCertificate.dateOfBirth
 		.trimmingCharacters(in: .whitespaces)
 
-	private static func extractCertificateComponents(from base45: Base45) throws -> DigitalCovidCertificateAccess.CertificateComponents {
+	private static func extractCertificateComponents(from base45: Base45) throws -> DigitalCovidCertificateComponents {
 		
 		let componentsResult = DigitalCovidCertificateAccess().extractCertificateComponents(from: base45)
 		

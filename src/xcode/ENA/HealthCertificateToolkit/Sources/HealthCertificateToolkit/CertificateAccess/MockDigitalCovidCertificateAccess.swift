@@ -11,11 +11,21 @@ public struct MockDigitalCovidCertificateAccess: DigitalCovidCertificateAccessPr
     public init() {}
 
     // MARK: - Public
-
+    
     public var extractedCBORWebTokenHeader: Result<CBORWebTokenHeader, CertificateDecodingError>?
     public var extractedDigitalCovidCertificate: Result<DigitalCovidCertificate, CertificateDecodingError>?
     public var convertedToBase45: Result<Base45, CertificateDecodingError>?
 
+    public func extractCertificateComponents(from base45: Base45) -> Result<DigitalCovidCertificateComponents, CertificateDecodingError> {
+        .success(DigitalCovidCertificateComponents(
+            header: CBORWebTokenHeader.fake(),
+            certificate: DigitalCovidCertificate.fake(),
+            keyIdentifier: "",
+            signature: Data(),
+            algorithm: .ES256
+        ))
+    }
+    
     public func extractCBORWebTokenHeader(from base45: Base45) -> Result<CBORWebTokenHeader, CertificateDecodingError> {
         guard let extractedCBORWebTokenHeader = extractedCBORWebTokenHeader else {
             return .success(CBORWebTokenHeader.fake())

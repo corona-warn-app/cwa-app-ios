@@ -31,10 +31,22 @@ public enum DigitalCovidCertificateFake {
         let cborWebTokenPayloadBytes = cborWebTokenPayload.encode()
 
         let cborWebTokenMessage = CBOR.array([
-            CBOR.null,
+            // protected header
+            CBOR.byteString(
+                CBOR.array([
+                    CBOR.null,
+                    // algorithm (ES256)
+                    CBOR.negativeInt(6),
+                    CBOR.null,
+                    CBOR.null,
+                    // key identifier
+                    CBOR.byteString([UInt8]())
+                ]).encode()
+            ),
             CBOR.null,
             CBOR.byteString(cborWebTokenPayloadBytes),
-            CBOR.null
+            // signature
+            CBOR.byteString(Data.randomBytes(length: 42)?.bytes ?? [UInt8]())
         ])
 
         let cborWebToken = CBOR.tagged(CBOR.Tag(rawValue: 18), cborWebTokenMessage)
@@ -109,4 +121,23 @@ public enum DigitalCovidCertificateFake {
         return .success(prefixedBase45CBORWebToken)
     }
 
+}
+
+extension Data {
+    
+    static func randomBytes(length: Int) -> Data? {
+        var randomData = Data(count: length)
+
+        let result: Int32? = randomData.withUnsafeMutableBytes {
+            guard let baseAddress = $0.baseAddress else {
+                return nil
+            }
+            return SecRandomCopyBytes(kSecRandomDefault, length, baseAddress)
+        }
+        if let result = result, result == errSecSuccess {
+            return randomData
+        } else {
+            return nil
+        }
+    }
 }
