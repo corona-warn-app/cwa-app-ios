@@ -121,64 +121,6 @@ jobs:
           name: screenshots-${{ github.sha }}
           path: src/xcode/screenshots
 
-  sonar:
-    runs-on: self-hosted
-    needs: buildForTesting
-    steps:
-      - name: Check out repository code
-        uses: actions/checkout@v2            
-      - name: Restore Dependencies
-        uses: actions/cache@v2
-        env:
-          cache-name: cache-dependencies
-        with:
-          path: |
-            src/xcode/vendor
-            src/xcode/.bundle
-          key: ${{ runner.os }}-${{ env.cache-name }}-${{ hashFiles('src/xcode/Gemfile.lock') }}
-      - name: Restore DerivedData folder
-        uses: actions/cache@v2
-        env:
-          cache-name: cache-derived-data
-        with:
-          path: src/xcode/DerivedData
-          key: ${{ runner.os }}-${{ env.cache-name }}-${{ github.sha }}
-      - name: Restore test_output folder
-        uses: actions/cache@v2
-        env:
-          cache-name: cache-test-output
-        with:
-          path: src/xcode/fastlane/test_output
-          key: ${{ runner.os }}-${{ env.cache-name }}-${{ github.sha }}
-      - name: Run AllTests
-        run: |
-          cd src/xcode
-          arch -arm64 bundle exec fastlane test_without_building testplan:AllTests
-      - name: Archive xcresult
-        if: failure()
-        uses: actions/upload-artifact@v2
-        with:
-          name: xcresult-${{ github.sha }}
-          path: src/xcode/fastlane/test_output/ENA.xcresult.zip
-      - name: Convert coverage information to SonarCloud format
-        run: |
-            ./scripts/cococo \
-              src/xcode/fastlane/test_output/ENA.xcresult > \
-              src/xcode/fastlane/test_output/coverage.xml
-      - name: Install and run sonar-scanner
-        env:
-             SONAR_TOKEN: '${{ secrets.SONAR_TOKEN }}'
-             SONARQUBE_SCANNER_PARAMS: '{"sonar.host.url":"https://sonarcloud.io"}'
-        run: |
-            SCANNER=sonar-scanner-cli-4.3.0.2102-macosx
-            SCANNERDIR=~/sonar/sonar-scanner-4.3.0.2102-macosx
-            if [[ ! -x "$SCANNERDIR/bin/sonar-scanner" ]]; then
-              curl -Ol https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/$SCANNER.zip
-              unzip -qq -o $SCANNER.zip -d ~/sonar/
-            fi
-            chmod +x $SCANNERDIR/bin/sonar-scanner
-            chmod +x $SCANNERDIR/jre/bin/java
-            $SCANNERDIR/bin/sonar-scanner
   runAllTests:
     runs-on: self-hosted
     needs: buildForTesting
@@ -213,8 +155,73 @@ jobs:
           cd src/xcode
           arch -arm64 bundle exec fastlane test_without_building testplan:AllTests
       - name: Archive xcresult
-        if: failure()
+        if: always()
         uses: actions/upload-artifact@v2
         with:
           name: xcresult-${{ github.sha }}
-          path: src/xcode/fastlane/test_output/ENA.xcresult.zip
+          path: src/xcode/fastlane/test_output/ENA.xcresult
+      - name: Save ENA.xcresult
+        uses: actions/cache@v2
+        env:
+          cache-name: cache-ENA.xcresult
+        with:
+          path: src/xcode/DerivedData
+          key: ${{ runner.os }}-${{ env.cache-name }}-${{ github.sha }}
+
+
+  sonar:
+    runs-on: self-hosted
+    needs: runAllTests
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v2            
+      - name: Restore Dependencies
+        uses: actions/cache@v2
+        env:
+          cache-name: cache-dependencies
+        with:
+          path: |
+            src/xcode/vendor
+            src/xcode/.bundle
+          key: ${{ runner.os }}-${{ env.cache-name }}-${{ hashFiles('src/xcode/Gemfile.lock') }}
+      - name: Restore DerivedData folder
+        uses: actions/cache@v2
+        env:
+          cache-name: cache-derived-data
+        with:
+          path: src/xcode/DerivedData
+          key: ${{ runner.os }}-${{ env.cache-name }}-${{ github.sha }}
+      - name: Restore test_output folder
+        uses: actions/cache@v2
+        env:
+          cache-name: cache-test-output
+        with:
+          path: src/xcode/fastlane/test_output
+          key: ${{ runner.os }}-${{ env.cache-name }}-${{ github.sha }}
+      - name: Restore ENA.xcresult
+        uses: actions/cache@v2
+        env:
+          cache-name: cache-ENA.xcresult
+        with:
+          path: src/xcode/DerivedData
+          key: ${{ runner.os }}-${{ env.cache-name }}-${{ github.sha }}
+      - name: Convert coverage information to SonarCloud format
+        run: |
+            ./scripts/cococo \
+              src/xcode/fastlane/test_output/ENA.xcresult > \
+              src/xcode/fastlane/test_output/coverage.xml
+      - name: Install and run sonar-scanner
+        env:
+             SONAR_TOKEN: '${{ secrets.SONAR_TOKEN }}'
+             SONARQUBE_SCANNER_PARAMS: '{"sonar.host.url":"https://sonarcloud.io"}'
+             GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN_GITHUB }}
+        run: |
+            SCANNER=sonar-scanner-cli-4.3.0.2102-macosx
+            SCANNERDIR=~/sonar/sonar-scanner-4.3.0.2102-macosx
+            if [[ ! -x "$SCANNERDIR/bin/sonar-scanner" ]]; then
+              curl -Ol https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/$SCANNER.zip
+              unzip -qq -o $SCANNER.zip -d ~/sonar/
+            fi
+            chmod +x $SCANNERDIR/bin/sonar-scanner
+            chmod +x $SCANNERDIR/jre/bin/java
+            $SCANNERDIR/bin/sonar-scanner
