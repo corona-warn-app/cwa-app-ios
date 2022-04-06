@@ -1,9 +1,9 @@
-name: Merge to Release Branch
+name: Nightly Checks and Tasks
 on:
-  push:
-    branches:
-      - 'release/**'
-
+  workflow_dispatch:
+  schedule:
+    - cron: '5 20 * * 1-5' #Weekdays at 20:05
+      
 jobs:
   dependencies:
     runs-on: self-hosted
@@ -33,8 +33,7 @@ jobs:
             src/xcode/vendor
             src/xcode/.bundle
           key: ${{ runner.os }}-${{ env.cache-name }}-${{ hashFiles('src/xcode/Gemfile.lock') }}
-
-          
+        
   buildForTesting:
     runs-on: self-hosted
     needs: dependencies
@@ -67,58 +66,17 @@ jobs:
         with:
           path: src/xcode/fastlane/test_output
           key: ${{ runner.os }}-${{ env.cache-name }}-${{ github.sha }}
-  
-  swiftLint:
-    runs-on: self-hosted
-    needs: dependencies
-    steps:
-      - name: Check out repository code
-        uses: actions/checkout@v2       
-      - name: Restore Dependencies
-        uses: actions/cache@v2
-        env:
-          cache-name: cache-dependencies
-        with:
-          path: |
-            src/xcode/vendor
-            src/xcode/.bundle
-          key: ${{ runner.os }}-${{ env.cache-name }}-${{ hashFiles('src/xcode/Gemfile.lock') }}
-      - name: swift Lint
-        run: |
-          cd src/xcode
-          arch -arm64 bundle exec fastlane lint
-      - name: Archive swiftlint report
-        if: failure()
-        uses: actions/upload-artifact@v2
-        with:
-          name: swiftlint-${{ github.sha }}
-          path: src/xcode/swiftlint.html
           
-  communityBuild:
+  snapshot:
     runs-on: self-hosted
-    needs: dependencies
+    needs: buildForTesting
+    strategy:
+      matrix:
+       language: ["de-DE", "en-EN"]
+       displaymode: ["dark", "light"]
     steps:
       - name: Check out repository code
         uses: actions/checkout@v2            
-      - name: Restore Dependencies
-        uses: actions/cache@v2
-        env:
-          cache-name: cache-dependencies
-        with:
-          path: |
-            src/xcode/vendor
-            src/xcode/.bundle
-          key: ${{ runner.os }}-${{ env.cache-name }}-${{ hashFiles('src/xcode/Gemfile.lock') }}       
-      - name: Community Build
-        run: |
-          cd src/xcode && arch -arm64 bundle exec fastlane build_community
-              
-  runAllTests:
-    runs-on: self-hosted
-    needs: buildForTesting
-    steps:
-      - name: Check out repository code
-        uses: actions/checkout@v2          
       - name: Restore Dependencies
         uses: actions/cache@v2
         env:
@@ -141,7 +99,54 @@ jobs:
           cache-name: cache-test-output
         with:
           path: src/xcode/fastlane/test_output
-          key: ${{ runner.os }}-${{ env.cache-name }}-${{ github.sha }}                       
+          key: ${{ runner.os }}-${{ env.cache-name }}-${{ github.sha }}                         
+      - name: Snapshot ${{ matrix.language }}-${{ matrix.displaymode }}
+        run: |
+          cd src/xcode && arch -arm64 bundle exec fastlane screenshot languages:${{ matrix.language }} mode:${{ matrix.displaymode }}
+      - name: Archive xcresult
+        if: failure()
+        uses: actions/upload-artifact@v2
+        with:
+          name: xcresult-${{ github.sha }}
+          path: src/xcode/fastlane/test_output/ENA.xcresult.zip
+      - name: Remove test_output folder
+        run: |
+          cd src/xcode/screenshots/screenshots-${{ matrix.language }}-${{ matrix.displaymode }}
+          rm -r test_output
+      - uses: actions/upload-artifact@v2
+        with:
+          name: screenshots-${{ github.sha }}
+          path: src/xcode/screenshots
+
+  sonar:
+    runs-on: self-hosted
+    needs: buildForTesting
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v2            
+      - name: Restore Dependencies
+        uses: actions/cache@v2
+        env:
+          cache-name: cache-dependencies
+        with:
+          path: |
+            src/xcode/vendor
+            src/xcode/.bundle
+          key: ${{ runner.os }}-${{ env.cache-name }}-${{ hashFiles('src/xcode/Gemfile.lock') }}
+      - name: Restore DerivedData folder
+        uses: actions/cache@v2
+        env:
+          cache-name: cache-derived-data
+        with:
+          path: src/xcode/DerivedData
+          key: ${{ runner.os }}-${{ env.cache-name }}-${{ github.sha }}
+      - name: Restore test_output folder
+        uses: actions/cache@v2
+        env:
+          cache-name: cache-test-output
+        with:
+          path: src/xcode/fastlane/test_output
+          key: ${{ runner.os }}-${{ env.cache-name }}-${{ github.sha }}
       - name: Run AllTests
         run: |
           cd src/xcode
@@ -152,3 +157,19 @@ jobs:
         with:
           name: xcresult-${{ github.sha }}
           path: src/xcode/fastlane/test_output/ENA.xcresult.zip
+      - name: Convert coverage information to SonarCloud format
+        run: |
+            ./scripts/cococo \
+              src/xcode/fastlane/test_output/ENA.xcresult > \
+              src/xcode/fastlane/test_output/coverage.xml
+      - name: Install and run sonar-scanner
+        run: |
+            SCANNER=sonar-scanner-cli-4.3.0.2102-macosx
+            SCANNERDIR=~/sonar/sonar-scanner-4.3.0.2102-macosx
+            if [[ ! -x "$SCANNERDIR/bin/sonar-scanner" ]]; then
+              curl -Ol https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/$SCANNER.zip
+              unzip -qq -o $SCANNER.zip -d ~/sonar/
+            fi
+            chmod +x $SCANNERDIR/bin/sonar-scanner
+            chmod +x $SCANNERDIR/jre/bin/java
+            $SCANNERDIR/bin/sonar-scanner

@@ -100,6 +100,12 @@ jobs:
       - name: Snapshot ${{ matrix.language }}-${{ matrix.displaymode }}
         run: |
           cd src/xcode && arch -arm64 bundle exec fastlane screenshot languages:${{ matrix.language }} mode:${{ matrix.displaymode }}
+      - name: Archive xcresult
+        if: failure()
+        uses: actions/upload-artifact@v2
+        with:
+          name: xcresult-${{ github.sha }}
+          path: src/xcode/fastlane/test_output/ENA.xcresult.zip
       - name: Remove test_output folder
         run: |
           cd src/xcode/screenshots/screenshots-${{ matrix.language }}-${{ matrix.displaymode }}
