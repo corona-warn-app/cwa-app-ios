@@ -785,7 +785,7 @@ class FamilyMemberCoronaTestService: FamilyMemberCoronaTestServiceProviding {
 					isNew: false,
 					testResult: testResult,
 					finalTestResultReceivedDate: testResult == .pending ? nil : Date(),
-					testResultWasShown: LaunchArguments.test.pcr.positiveTestResultWasShown.boolValue,
+					testResultWasShown: LaunchArguments.familyMemberTest.pcr.positiveTestResultWasShown.boolValue,
 					certificateSupportedByPointOfCare: true,
 					certificateConsentGiven: false,
 					certificateRequested: false,
@@ -809,7 +809,7 @@ class FamilyMemberCoronaTestService: FamilyMemberCoronaTestServiceProviding {
 					isNew: false,
 					testResult: testResult,
 					finalTestResultReceivedDate: testResult == .pending ? nil : Date(),
-					testResultWasShown: true,
+					testResultWasShown: LaunchArguments.familyMemberTest.antigen.positiveTestResultWasShown.boolValue,
 					certificateSupportedByPointOfCare: false,
 					certificateConsentGiven: false,
 					certificateRequested: false,
@@ -825,9 +825,9 @@ class FamilyMemberCoronaTestService: FamilyMemberCoronaTestServiceProviding {
 	private func mockTestResult(for coronaTestType: CoronaTestType) -> TestResult? {
 		switch coronaTestType {
 		case .pcr:
-			return LaunchArguments.test.pcr.testResult.stringValue.flatMap { TestResult(stringValue: $0, coronaTestType: .pcr) }
+			return LaunchArguments.familyMemberTest.pcr.testResult.stringValue.flatMap { TestResult(stringValue: $0, coronaTestType: .pcr) }
 		case .antigen:
-			return LaunchArguments.test.antigen.testResult.stringValue.flatMap { TestResult(stringValue: $0, coronaTestType: .antigen) }
+			return LaunchArguments.familyMemberTest.antigen.testResult.stringValue.flatMap { TestResult(stringValue: $0, coronaTestType: .antigen) }
 		}
 	}
 
