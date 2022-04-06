@@ -9,6 +9,7 @@ extension UserPCRTest {
 
 	static func mock(
 		registrationToken: String? = nil,
+		qrCodeHash: String? = nil,
 		registrationDate: Date = Date(),
 		testResult: TestResult = .pending,
 		finalTestResultReceivedDate: Date? = nil,
@@ -25,6 +26,7 @@ extension UserPCRTest {
 		UserPCRTest(
 			registrationDate: registrationDate,
 			registrationToken: registrationToken,
+			qrCodeHash: qrCodeHash,
 			testResult: testResult,
 			finalTestResultReceivedDate: finalTestResultReceivedDate,
 			positiveTestResultWasShown: positiveTestResultWasShown,
