@@ -725,6 +725,10 @@ enum AccessibilityIdentifiers {
 			static let emailAddressTextField = "AppStrings.AntigenProfile.Create.emailAddressTextFieldPlaceholder"
 			static let saveButtonTitle = "AppStrings.AntigenProfile.Create.saveButtonTitle"
 		}
+		
+		enum Overview {
+			static let tableView = "TableView.AntigenProfileOverview"
+		}
 	}
 
 	enum HealthCertificate {
