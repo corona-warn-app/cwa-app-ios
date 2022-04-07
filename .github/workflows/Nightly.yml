@@ -160,12 +160,17 @@ jobs:
         with:
           name: xcresult-${{ github.sha }}
           path: src/xcode/fastlane/test_output/ENA.xcresult.zip
-      - name: Save ENA.xcresult
+      - name: Convert coverage information to SonarCloud format
+        run: |
+            ./scripts/cococo \
+               src/xcode/fastlane/test_output/ENA.xcresult > \
+               coverage.xml
+      - name: Save coverage.xml to cache
         uses: actions/cache@v2
         env:
-          cache-name: cache-ENA.xcresult
+          cache-name: cache-coverage
         with:
-          path: src/xcode/fastlane/test_output/ENA.xcresult.zip
+          path: coverage.xml
           key: ${{ runner.os }}-${{ env.cache-name }}-${{ github.sha }}
 
 
@@ -184,19 +189,14 @@ jobs:
             src/xcode/vendor
             src/xcode/.bundle
           key: ${{ runner.os }}-${{ env.cache-name }}-${{ hashFiles('src/xcode/Gemfile.lock') }}
-      - name: Restore ENA.xcresult
+      - name: Restore coverage.xml from cache
         uses: actions/cache@v2
         env:
-          cache-name: cache-ENA.xcresult
+          cache-name: cache-coverage
         with:
-          path: ENA.xcresult.zip
+          path: cache-coverage.xml
           key: ${{ runner.os }}-${{ env.cache-name }}-${{ github.sha }}
-      - name: Convert coverage information to SonarCloud format
-        run: |
-            unzip ENA.xcresult.zip
-            ./scripts/cococo \
-              ENA.xcresult > \
-              coverage.xml
+
       - name: Install and run sonar-scanner
         env:
              SONAR_TOKEN: '${{ secrets.SONAR_TOKEN }}'
