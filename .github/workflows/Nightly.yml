@@ -165,7 +165,7 @@ jobs:
         env:
           cache-name: cache-ENA.xcresult
         with:
-          path: src/xcode/DerivedData
+          path: src/xcode/fastlane/test_output/ENA.xcresult
           key: ${{ runner.os }}-${{ env.cache-name }}-${{ github.sha }}
 
 
@@ -184,26 +184,12 @@ jobs:
             src/xcode/vendor
             src/xcode/.bundle
           key: ${{ runner.os }}-${{ env.cache-name }}-${{ hashFiles('src/xcode/Gemfile.lock') }}
-      - name: Restore DerivedData folder
-        uses: actions/cache@v2
-        env:
-          cache-name: cache-derived-data
-        with:
-          path: src/xcode/DerivedData
-          key: ${{ runner.os }}-${{ env.cache-name }}-${{ github.sha }}
-      - name: Restore test_output folder
-        uses: actions/cache@v2
-        env:
-          cache-name: cache-test-output
-        with:
-          path: src/xcode/fastlane/test_output
-          key: ${{ runner.os }}-${{ env.cache-name }}-${{ github.sha }}
       - name: Restore ENA.xcresult
         uses: actions/cache@v2
         env:
           cache-name: cache-ENA.xcresult
         with:
-          path: src/xcode/DerivedData
+          path: src/xcode/fastlane/test_output/ENA.xcresult
           key: ${{ runner.os }}-${{ env.cache-name }}-${{ github.sha }}
       - name: Convert coverage information to SonarCloud format
         run: |
