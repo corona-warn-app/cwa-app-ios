@@ -165,7 +165,7 @@ jobs:
         env:
           cache-name: cache-ENA.xcresult
         with:
-          path: src/xcode/fastlane/test_output/ENA.xcresult
+          path: src/xcode/fastlane/test_output/ENA.xcresult.zip
           key: ${{ runner.os }}-${{ env.cache-name }}-${{ github.sha }}
 
 
@@ -189,13 +189,14 @@ jobs:
         env:
           cache-name: cache-ENA.xcresult
         with:
-          path: src/xcode/fastlane/test_output/ENA.xcresult
+          path: ENA.xcresult.zip
           key: ${{ runner.os }}-${{ env.cache-name }}-${{ github.sha }}
       - name: Convert coverage information to SonarCloud format
         run: |
+            unzip ENA.xcresult.zip
             ./scripts/cococo \
-              src/xcode/fastlane/test_output/ENA.xcresult > \
-              src/xcode/fastlane/test_output/coverage.xml
+              ENA.xcresult > \
+              coverage.xml
       - name: Install and run sonar-scanner
         env:
              SONAR_TOKEN: '${{ secrets.SONAR_TOKEN }}'
