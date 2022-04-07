@@ -1,61 +1,6 @@
 {
   "configurations" : [
-    {
-      "id" : "A11977F5-134B-4CB5-B798-B2F3F30138CD",
-      "name" : "DE",
-      "options" : {
-        "defaultTestExecutionTimeAllowance" : 300,
-        "language" : "de",
-        "maximumTestExecutionTimeAllowance" : 600,
-        "region" : "DE",
-        "testTimeoutsEnabled" : true
-      }
-    },
-    {
-      "enabled" : false,
-      "id" : "1A0C143D-8EB4-4EDC-90D0-2D24EAC78C4B",
-      "name" : "EN",
-      "options" : {
-        "language" : "en",
-        "region" : "GB"
-      }
-    },
-    {
-      "enabled" : false,
-      "id" : "923744F6-0D40-4591-9147-70780A54A89E",
-      "name" : "RO",
-      "options" : {
-        "language" : "ro",
-        "region" : "RO"
-      }
-    },
-    {
-      "enabled" : false,
-      "id" : "76F58801-D234-473B-92BB-F77A906BC887",
-      "name" : "PL",
-      "options" : {
-        "language" : "pl",
-        "region" : "PL"
-      }
-    },
-    {
-      "enabled" : false,
-      "id" : "1C2ECF54-A91A-4614-823F-9F010BCC63ED",
-      "name" : "TR",
-      "options" : {
-        "language" : "tr",
-        "region" : "TR"
-      }
-    },
-    {
-      "enabled" : false,
-      "id" : "23BB78C4-766D-4EE2-87E6-E0C288E37D26",
-      "name" : "fake-Klingon",
-      "options" : {
-        "language" : "IDELaunchSchemeLanguageRLO",
-        "region" : "AS"
-      }
-    }
+
   ],
   "defaultOptions" : {
     "codeCoverage" : {
@@ -70,9 +15,14 @@
     "commandLineArgumentEntries" : [
 
     ],
+    "defaultTestExecutionTimeAllowance" : 300,
     "language" : "de",
+    "maximumTestExecutionTimeAllowance" : 600,
     "region" : "DE",
-    "testExecutionOrdering" : "random"
+    "repeatInNewRunnerProcess" : true,
+    "testExecutionOrdering" : "random",
+    "testRepetitionMode" : "retryOnFailure",
+    "testTimeoutsEnabled" : true
   },
   "testTargets" : [
     {
