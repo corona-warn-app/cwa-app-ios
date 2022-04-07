@@ -70,6 +70,8 @@
     "commandLineArgumentEntries" : [
 
     ],
+    "language" : "de",
+    "region" : "DE",
     "testExecutionOrdering" : "random"
   },
   "testTargets" : [
