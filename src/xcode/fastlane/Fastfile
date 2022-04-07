@@ -143,7 +143,7 @@ platform :ios do
         result_bundle: true,
         skip_open_summary: true,
         derived_data_path: "./DerivedData",
-        test_without_building: options[:test_without_building] == true,
+        test_without_building: true,
         skip_package_dependencies_resolution: true,
         disable_package_automatic_updates: true,
         number_of_retries: 2      
