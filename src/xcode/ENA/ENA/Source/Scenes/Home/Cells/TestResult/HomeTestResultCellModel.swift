@@ -175,6 +175,7 @@ class HomeTestResultCellModel {
 		footnote = nil
 		buttonTitle = AppStrings.Home.TestResult.Button.showResult
 		image = UIImage(named: "Illu_Hand_with_phone-error")
+		isDisclosureIndicatorHidden = false
 		isNegativeDiagnosisHidden = true
 		isActivityIndicatorHidden = true
 		isUserInteractionEnabled = true
