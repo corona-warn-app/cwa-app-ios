@@ -159,7 +159,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: xcresult-${{ github.sha }}
-          path: src/xcode/fastlane/test_output/ENA.xcresult
+          path: src/xcode/fastlane/test_output/ENA.xcresult.zip
       - name: Save ENA.xcresult
         uses: actions/cache@v2
         env:
