@@ -54,7 +54,6 @@ class FamilyMemberCoronaTestCellModel {
 
 	private func setup() {
 		familyMemberCoronaTestService.coronaTests
-			.receive(on: DispatchQueue.main.ocombine)
 			.sink { [weak self] _ in
 				guard let self = self, let updatedCoronaTest = self.familyMemberCoronaTestService.upToDateTest(for: self.coronaTest) else {
 					return

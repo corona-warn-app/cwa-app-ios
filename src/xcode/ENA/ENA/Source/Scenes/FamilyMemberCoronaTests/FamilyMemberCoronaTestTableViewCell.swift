@@ -64,28 +64,34 @@ final class FamilyMemberCoronaTestTableViewCell: UITableViewCell {
 		clearSubscriptions()
 		
 		cellModel.$name
+			.receive(on: DispatchQueue.main.ocombine)
 			.assign(to: \.text, on: nameLabel)
 			.store(in: &subscriptions)
 
 		cellModel.$caption
+			.receive(on: DispatchQueue.main.ocombine)
 			.assign(to: \.text, on: captionLabel)
 			.store(in: &subscriptions)
 
 		cellModel.$topDiagnosis
+			.receive(on: DispatchQueue.main.ocombine)
 			.assign(to: \.text, on: topDiagnosisLabel)
 			.store(in: &subscriptions)
 
 		cellModel.$bottomDiagnosis
+			.receive(on: DispatchQueue.main.ocombine)
 			.sink { [weak self] in
 				self?.bottomDiagnosisLabel.text = $0
 				self?.bottomDiagnosisLabel.isHidden = ($0 == nil)
 			}
 			.store(in: &subscriptions)
 		cellModel.$bottomDiagnosisColor
+			.receive(on: DispatchQueue.main.ocombine)
 			.assign(to: \.textColor, on: bottomDiagnosisLabel)
 			.store(in: &subscriptions)
 
 		cellModel.$description
+			.receive(on: DispatchQueue.main.ocombine)
 			.sink { [weak self] in
 				self?.descriptionLabel.text = $0
 				self?.descriptionLabel.isHidden = ($0 == nil)
@@ -93,6 +99,7 @@ final class FamilyMemberCoronaTestTableViewCell: UITableViewCell {
 			.store(in: &subscriptions)
 
 		cellModel.$footnote
+			.receive(on: DispatchQueue.main.ocombine)
 			.sink { [weak self] in
 				self?.footnoteLabel.text = $0
 				self?.footnoteLabel.isHidden = ($0 == nil)
@@ -100,10 +107,12 @@ final class FamilyMemberCoronaTestTableViewCell: UITableViewCell {
 			.store(in: &subscriptions)
 
 		cellModel.$image
+			.receive(on: DispatchQueue.main.ocombine)
 			.assign(to: \.image, on: illustrationView)
 			.store(in: &subscriptions)
 
 		cellModel.$buttonTitle
+			.receive(on: DispatchQueue.main.ocombine)
 			.sink { [weak self] in
 				self?.button.setTitle($0, for: .normal)
 				self?.button.isHidden = ($0 == nil)
@@ -111,21 +120,26 @@ final class FamilyMemberCoronaTestTableViewCell: UITableViewCell {
 			.store(in: &subscriptions)
 
 		cellModel.$isUnseenNewsIndicatorHidden
+			.receive(on: DispatchQueue.main.ocombine)
 			.assign(to: \.isHidden, on: unseenNewsIndicator)
 			.store(in: &subscriptions)
 
 		cellModel.$isDisclosureIndicatorHidden
+			.receive(on: DispatchQueue.main.ocombine)
 			.assign(to: \.isHidden, on: disclosureIndicatorView)
 			.store(in: &subscriptions)
 
 		cellModel.$isUserInteractionEnabled
+			.receive(on: DispatchQueue.main.ocombine)
 			.assign(to: \.isUserInteractionEnabled, on: self)
 			.store(in: &subscriptions)
 		cellModel.$isUserInteractionEnabled
+			.receive(on: DispatchQueue.main.ocombine)
 			.assign(to: \.isEnabled, on: button)
 			.store(in: &subscriptions)
 
 		cellModel.$accessibilityIdentifier
+			.receive(on: DispatchQueue.main.ocombine)
 			.assign(to: \.accessibilityIdentifier, on: button)
 			.store(in: &subscriptions)
 
