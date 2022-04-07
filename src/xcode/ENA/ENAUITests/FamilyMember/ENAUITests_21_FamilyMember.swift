@@ -3,6 +3,7 @@
 //
 
 import XCTest
+import ExposureNotification
 
 class ENAUITests_21_FamilyMember: CWATestCase {
 
@@ -18,9 +19,9 @@ class ENAUITests_21_FamilyMember: CWATestCase {
 		app.setLaunchArgument(LaunchArguments.onboarding.setCurrentOnboardingVersion, to: true)
 	}
 
-	func test_RegisterCoronaTestFromUniversalQRCodeScanner() throws {
+	func test_screenshot_RegisterCoronaTestFromUniversalQRCodeScanner() throws {
 		// launch argument will make
-		app.setLaunchArgument(LaunchArguments.familyMemberTest.pcr.testResult, to: TestResult.positive.stringValue)
+		app.setLaunchArgument(LaunchArguments.familyMemberTest.pcr.testResult, to: TestResult.serverResponseAsString(for: TestResult.positive, on: .pcr))
 		app.setLaunchArgument(LaunchArguments.familyMemberTest.pcr.positiveTestResultWasShown, to: true)
 
 		app.launch()
@@ -35,7 +36,7 @@ class ENAUITests_21_FamilyMember: CWATestCase {
 
 	func test_RegisterCoronaTestFromSubmitCardButton() throws {
 		// launch argument will make
-		app.setLaunchArgument(LaunchArguments.familyMemberTest.pcr.testResult, to: TestResult.positive.stringValue)
+		app.setLaunchArgument(LaunchArguments.familyMemberTest.pcr.testResult, to: TestResult.serverResponseAsString(for: TestResult.positive, on: .pcr))
 		app.setLaunchArgument(LaunchArguments.familyMemberTest.pcr.positiveTestResultWasShown, to: true)
 
 		app.launch()
@@ -60,18 +61,14 @@ class ENAUITests_21_FamilyMember: CWATestCase {
 
 		/// Select family member as test owner
 		let familyButton = try XCTUnwrap(app.cells[AccessibilityIdentifiers.ExposureSubmission.TestOwnerSelection.familyMemberButton])
+
+		snapshot("screenshot_family_member_tests_selection")
+
 		familyButton.waitAndTap()
 
 		/// Exposure submission family member consent screen
 		XCTAssertTrue(app.images[AccessibilityIdentifiers.HealthCertificate.FamilyMemberConsent.imageDescription].waitForExistence(timeout: .short))
 		XCTAssertTrue(app.cells[AccessibilityIdentifiers.HealthCertificate.FamilyMemberConsent.Legal.acknowledgementTitle].waitForExistence(timeout: .short))
-
-		/// data privacy screen
-		app.cells[AccessibilityIdentifiers.HealthCertificate.FamilyMemberConsent.dataPrivacyTitle].waitAndTap()
-		XCTAssertTrue(app.staticTexts["AppStrings.AppInformation.privacyTitle"].waitForExistence(timeout: .short))
-
-		/// back navigation
-		app.navigationBars.firstMatch.buttons.element(boundBy: 0).waitAndTap()
 
 		/// primary button
 		let primaryButton = try XCTUnwrap(app.buttons[AccessibilityIdentifiers.HealthCertificate.FamilyMemberConsent.primaryButton])
@@ -81,6 +78,22 @@ class ENAUITests_21_FamilyMember: CWATestCase {
 		let textField = try XCTUnwrap(app.textFields[AccessibilityIdentifiers.HealthCertificate.FamilyMemberConsent.textInput])
 		textField.waitAndTap(.short)
 		textField.typeText("Lara")
+
+		app.buttons["Done"].waitAndTap()
+		app.swipeDown()
+
+		snapshot("screenshot_family_member_tests_consent_1")
+
+		app.swipeUp()
+
+		snapshot("screenshot_family_member_tests_consent_2")
+
+		/// data privacy screen
+		app.cells[AccessibilityIdentifiers.HealthCertificate.FamilyMemberConsent.dataPrivacyTitle].waitAndTap()
+		XCTAssertTrue(app.staticTexts["AppStrings.AppInformation.privacyTitle"].waitForExistence(timeout: .short))
+
+		/// back navigation
+		app.navigationBars.firstMatch.buttons.element(boundBy: 0).waitAndTap()
 
 		/// primary button enabled after name was given
 		XCTAssertTrue(primaryButton.isEnabled)
@@ -103,9 +116,9 @@ class ENAUITests_21_FamilyMember: CWATestCase {
 
 	func test_familyMemberViewOverview () throws {
 		// launch argument will make
-		app.setLaunchArgument(LaunchArguments.familyMemberTest.antigen.testResult, to: TestResult.negative.stringValue)
+		app.setLaunchArgument(LaunchArguments.familyMemberTest.antigen.testResult, to: TestResult.serverResponseAsString(for: TestResult.negative, on: .antigen))
 		app.setLaunchArgument(LaunchArguments.familyMemberTest.antigen.positiveTestResultWasShown, to: true)
-		app.setLaunchArgument(LaunchArguments.familyMemberTest.pcr.testResult, to: TestResult.negative.stringValue)
+		app.setLaunchArgument(LaunchArguments.familyMemberTest.pcr.testResult, to: TestResult.serverResponseAsString(for: TestResult.negative, on: .pcr))
 		app.setLaunchArgument(LaunchArguments.familyMemberTest.pcr.positiveTestResultWasShown, to: true)
 
 		app.launch()
@@ -149,16 +162,18 @@ class ENAUITests_21_FamilyMember: CWATestCase {
 		XCTAssertFalse(app.cells[AccessibilityIdentifiers.FamilyMemberCoronaTestCell.homeCell].waitForExistence(timeout: .short))
 	}
 
-	func test_familyMemberViewOverviewDeleteAll() throws {
-		// launch argument will make
-		app.setLaunchArgument(LaunchArguments.familyMemberTest.antigen.testResult, to: TestResult.negative.stringValue)
-		app.setLaunchArgument(LaunchArguments.familyMemberTest.antigen.positiveTestResultWasShown, to: true)
-		app.setLaunchArgument(LaunchArguments.familyMemberTest.pcr.testResult, to: TestResult.negative.stringValue)
-		app.setLaunchArgument(LaunchArguments.familyMemberTest.pcr.positiveTestResultWasShown, to: true)
+	func test_screenshot_familyMemberViewOverviewDeleteAll() throws {
+		// Show for screenshots RAT negative test on home screen with active ENF
+		app.setLaunchArgument(LaunchArguments.common.ENStatus, to: ENStatus.active.stringValue)
+		app.setLaunchArgument(LaunchArguments.test.antigen.testResult, to: TestResult.serverResponseAsString(for: TestResult.negative, on: .antigen))
+		app.setLaunchArgument(LaunchArguments.test.antigen.positiveTestResultWasShown, to: false)
+		// Show for screenshots a lot of tests in the family overview
+		app.setLaunchArgument(LaunchArguments.familyMemberTest.fakeOverview, to: true)
 
 		app.launch()
+		snapshot("screenshot_family_member_tests_home_1")
 		app.swipeUp()
-
+		snapshot("screenshot_family_member_tests_home_2")
 		// select familyMember test cell
 		app.cells[AccessibilityIdentifiers.FamilyMemberCoronaTestCell.homeCell].waitAndTap(.short)
 
@@ -169,7 +184,11 @@ class ENAUITests_21_FamilyMember: CWATestCase {
 		XCTAssertFalse(app.staticTexts[AccessibilityIdentifiers.FamilyMemberCoronaTestCell.homeCellDetailText].waitForExistence(timeout: .short))
 
 		// lookup for both tests cells
-		XCTAssertEqual(app.cells.matching(identifier: AccessibilityIdentifiers.FamilyMemberCoronaTestCell.Overview.testCell).count, 2)
+		XCTAssertEqual(app.cells.matching(identifier: AccessibilityIdentifiers.FamilyMemberCoronaTestCell.Overview.testCell).count, 4)
+
+		snapshot("screenshot_family_member_tests_family_list_1")
+		app.swipeUp()
+		snapshot("screenshot_family_member_tests_family_list_2")
 
 		// Tap on edit
 		app.navigationBars.buttons.lastMatch.waitAndTap()
