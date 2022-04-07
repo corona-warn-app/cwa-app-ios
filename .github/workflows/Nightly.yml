@@ -156,23 +156,10 @@ jobs:
           arch -arm64 bundle exec fastlane test_without_building testplan:AllTests
       - name: Archive xcresult
         if: always()
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: xcresult-${{ github.sha }}
           path: src/xcode/fastlane/test_output/ENA.xcresult.zip
-      - name: Convert coverage information to SonarCloud format
-        run: |
-            ./scripts/cococo \
-               src/xcode/fastlane/test_output/ENA.xcresult > \
-               coverage.xml
-      - name: Save coverage.xml to cache
-        uses: actions/cache@v2
-        env:
-          cache-name: cache-coverage
-        with:
-          path: coverage.xml
-          key: ${{ runner.os }}-${{ env.cache-name }}-${{ github.sha }}
-
 
   sonar:
     runs-on: self-hosted
@@ -189,13 +176,19 @@ jobs:
             src/xcode/vendor
             src/xcode/.bundle
           key: ${{ runner.os }}-${{ env.cache-name }}-${{ hashFiles('src/xcode/Gemfile.lock') }}
-      - name: Restore coverage.xml from cache
-        uses: actions/cache@v2
-        env:
-          cache-name: cache-coverage
+      - name: Download xcaraksljdas
+        uses: actions/download-artifact@v3
         with:
-          path: cache-coverage.xml
-          key: ${{ runner.os }}-${{ env.cache-name }}-${{ github.sha }}
+          name: xcresult-${{ github.sha }}
+
+      - name: Convert coverage information to SonarCloud format
+        run: |
+            ls -r
+            unzip xcresult-${{ github.sha }}.zip
+            unzip ENA.xcresult.zip
+            ./scripts/cococo \
+               ENA.xcresult > \
+               coverage.xml
 
       - name: Install and run sonar-scanner
         env:
