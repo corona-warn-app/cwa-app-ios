@@ -13,9 +13,7 @@
     "defaultTestExecutionTimeAllowance" : 300,
     "mainThreadCheckerEnabled" : false,
     "maximumTestExecutionTimeAllowance" : 600,
-    "repeatInNewRunnerProcess" : true,
     "testExecutionOrdering" : "random",
-    "testRepetitionMode" : "retryOnFailure",
     "testTimeoutsEnabled" : true
   },
   "testTargets" : [

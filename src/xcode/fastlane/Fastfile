@@ -75,7 +75,8 @@ platform :ios do
         reset_simulator: true,
         concurrent_workers: 7, # 8 cores make 7 concurrent tests right? :D
         output_style: "raw", # prevents long periods of silence which makes the CI & devs nervous
-        output_types: ""
+        output_types: "",
+        number_of_retries: 2
       )
     rescue
       UI.user_error!("Tests did fail, please check logs above or ENA.xcresult.zip")
@@ -133,7 +134,6 @@ platform :ios do
         testplan: "Screenshots",
         clear_previous_screenshots: true,
         erase_simulator: true,
-        reinstall_app: true,
         skip_helper_version_check: true,
         localize_simulator: true,
         disable_slide_to_type: true,
@@ -146,9 +146,8 @@ platform :ios do
         test_without_building: options[:test_without_building] == true,
         skip_package_dependencies_resolution: true,
         disable_package_automatic_updates: true,
-        number_of_retries: 0,
-        stop_after_first_error: true
-      )
+        number_of_retries: 2      
+        )
     rescue
       UI.user_error!("Tests did fail, please check logs above or ENA.xcresult.zip")
     ensure
