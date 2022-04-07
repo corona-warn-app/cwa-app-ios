@@ -41,7 +41,7 @@ class AntigenTestProfileOverviewViewController: UITableViewController, DismissHa
 		navigationItem.title = AppStrings.AntigenProfile.Overview.title
 
 		/*
-		viewModel.$traceLocations
+		viewModel.$antigenTestProfiles
 			.receive(on: DispatchQueue.main.ocombine)
 			.sink { [weak self] _ in
 				guard let self = self, self.shouldReload else { return }
@@ -81,7 +81,7 @@ class AntigenTestProfileOverviewViewController: UITableViewController, DismissHa
 			return antigenTestProfileAddCell(forRowAt: indexPath)
 		/*
 		case .entries: break
-			return traceLocationCell(forRowAt: indexPath)
+			return antigenTestProfileCell(forRowAt: indexPath)
 	    */
 		case .none:
 			fatalError("Invalid section")
@@ -125,11 +125,12 @@ class AntigenTestProfileOverviewViewController: UITableViewController, DismissHa
 		let infoButton = UIButton(type: .infoLight)
 		infoButton.addTarget(self, action: #selector(infoButtonTapped), for: .touchUpInside)
 		navigationItem.rightBarButtonItems = [dismissHandlingCloseBarButton, UIBarButtonItem(customView: infoButton)]
-		/*
-		navigationItem.rightBarButtonItem?.isAccessibilityElement = true
-		navigationItem.rightBarButtonItem?.accessibilityLabel = AppStrings.Home.rightBarButtonDescription
-		navigationItem.rightBarButtonItem?.accessibilityIdentifier = AccessibilityIdentifiers.Home.rightBarButtonDescription
-		 */
+		navigationItem.rightBarButtonItems?[0].isAccessibilityElement = true
+		navigationItem.rightBarButtonItems?[0].accessibilityLabel = AppStrings.Home.rightBarButtonDescription
+		navigationItem.rightBarButtonItems?[0].accessibilityIdentifier = AccessibilityIdentifiers.Home.rightBarButtonDescription
+		navigationItem.rightBarButtonItems?[1].isAccessibilityElement = true
+		navigationItem.rightBarButtonItems?[1].accessibilityLabel = AppStrings.Home.rightBarButtonDescription
+		navigationItem.rightBarButtonItems?[1].accessibilityIdentifier = AccessibilityIdentifiers.Home.rightBarButtonDescription
 	}
 	
 	private func setupTableView() {
@@ -140,8 +141,8 @@ class AntigenTestProfileOverviewViewController: UITableViewController, DismissHa
 
 		/*
 		tableView.register(
-			UINib(nibName: String(describing: EventTableViewCell.self), bundle: nil),
-			forCellReuseIdentifier: String(describing: EventTableViewCell.self)
+			UINib(nibName: String(describing: AntigenTestProfileCell.self), bundle: nil),
+			forCellReuseIdentifier: String(describing: AntigenTestProfileCell.self)
 		)*/
 
 		tableView.separatorStyle = .none
@@ -171,12 +172,12 @@ class AntigenTestProfileOverviewViewController: UITableViewController, DismissHa
 	}
 
 	/*
-	private func traceLocationCell(forRowAt indexPath: IndexPath) -> UITableViewCell {
-		guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: EventTableViewCell.self), for: indexPath) as? EventTableViewCell else {
-			fatalError("Could not dequeue EventTableViewCell")
+	private func antigenTestProfileCell(forRowAt indexPath: IndexPath) -> UITableViewCell {
+		guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: AntigenTestProfileCell.self), for: indexPath) as? AntigenTestProfileCell else {
+			fatalError("Could not dequeue AntigenTestProfileCell")
 		}
 
-		let cellModel = viewModel.traceLocationCellModel(
+		let cellModel = viewModel.antigenTestProfileCellModel(
 			at: indexPath,
 			onUpdate: { [weak self] in
 				self?.animateChanges(of: cell)
@@ -201,7 +202,7 @@ class AntigenTestProfileOverviewViewController: UITableViewController, DismissHa
 		// adding the height of the button cell to the safe area (navigation bar and status bar)
 		let safeInsetTop = tableView.rectForRow(at: IndexPath(row: 0, section: 0)).maxY + tableView.adjustedContentInset.top
 		// If possible, we want to push it to a position that looks good on large and small screens and that is aligned
-		// between CheckinsOverviewViewController, TraceLocationsOverviewViewController and HealthCertificateOverviewViewController.
+		// between CheckinsOverviewViewController, TraceLocationsOverviewViewController,  HealthCertificateOverviewViewController and AntigenTestProfileOverviewViewController
 		let alignmentPadding = UIScreen.main.bounds.height / 3
 		tableView.backgroundView = viewModel.isEmpty
 			? EmptyStateView(

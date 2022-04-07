@@ -17,9 +17,9 @@ class AntigenTestProfileOverviewViewModel {
 		self.onEntryCellTap = onEntryCellTap
 
 		/*
-		store.traceLocationsPublisher
+		store.antigenTestProfilesPublisher
 			.sink { [weak self] in
-				self?.traceLocations = $0
+				self?.antigenTestProfiles = $0
 			}.store(in: &subscriptions)*/
 	}
 
@@ -30,7 +30,7 @@ class AntigenTestProfileOverviewViewModel {
 		// case entries
 	}
 
-	@OpenCombine.Published private(set) var traceLocations: [TraceLocation] = []
+	@OpenCombine.Published private(set) var antigenTestProfiles: [AntigenTestProfile] = []
 
 	var numberOfSections: Int {
 		Section.allCases.count
@@ -49,7 +49,7 @@ class AntigenTestProfileOverviewViewModel {
 			return 1
 		/*
 		case .entries:
-			return traceLocations.count
+			return antigenTestProfiles.count
 		*/
 		case .none:
 			fatalError("Invalid section")
@@ -57,13 +57,13 @@ class AntigenTestProfileOverviewViewModel {
 	}
 
 	/*
-	func traceLocationCellModel(at indexPath: IndexPath, onUpdate: @escaping () -> Void) -> TraceLocationCellModel {
+	func antigenTestProfileCellModel(at indexPath: IndexPath, onUpdate: @escaping () -> Void) -> AntigenTestProfileCellModel {
 		guard indexPath.section == Section.entries.rawValue else {
 			fatalError("Entry cell models have to used in the entries section")
 		}
 
-		return TraceLocationCellModel(
-			traceLocation: traceLocations[indexPath.row],
+		return AntigenTestProfileCellModel(
+			antigenTestProfile: antigenTestProfiles[indexPath.row],
 			eventProvider: store,
 			onUpdate: onUpdate
 		)
@@ -74,7 +74,7 @@ class AntigenTestProfileOverviewViewModel {
 			fatalError("didTapEntryCell can only be called from the entries section")
 		}
 
-		onEntryCellTap(traceLocations[indexPath.row])
+		onEntryCellTap(antigenTestProfiles[indexPath.row])
 	}
 
 	func didTapEntryCellButton(at indexPath: IndexPath) {
@@ -82,15 +82,15 @@ class AntigenTestProfileOverviewViewModel {
 			fatalError("didTapEntryCell can only be called from the entries section")
 		}
 
-		onEntryCellButtonTap(traceLocations[indexPath.row])
+		onEntryCellButtonTap(antigenTestProfiles[indexPath.row])
 	}
 
 	func removeEntry(at indexPath: IndexPath) {
-		store.deleteTraceLocation(id: traceLocations[indexPath.row].id)
+		store.deleteAntigenTestProfile(id: antigenTestProfiles[indexPath.row].id)
 	}
 
 	func removeAll() {
-		store.deleteAllTraceLocations()
+		store.deleteAllAntigenTestProfiles()
 	}
     */
 	
