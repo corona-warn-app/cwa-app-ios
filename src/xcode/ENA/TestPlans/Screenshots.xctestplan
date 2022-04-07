@@ -1,16 +1,15 @@
 {
   "configurations" : [
-    {
-      "id" : "0E0E0978-2717-4490-8723-B6BDF33AD923",
-      "name" : "Configuration 1",
-      "options" : {
 
-      }
-    }
   ],
   "defaultOptions" : {
     "codeCoverage" : false,
+    "defaultTestExecutionTimeAllowance" : 300,
     "mainThreadCheckerEnabled" : false,
+    "maximumTestExecutionTimeAllowance" : 600,
+    "repeatInNewRunnerProcess" : true,
+    "testExecutionOrdering" : "random",
+    "testRepetitionMode" : "retryOnFailure",
     "testTimeoutsEnabled" : true
   },
   "testTargets" : [
