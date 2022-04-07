@@ -176,15 +176,13 @@ jobs:
             src/xcode/vendor
             src/xcode/.bundle
           key: ${{ runner.os }}-${{ env.cache-name }}-${{ hashFiles('src/xcode/Gemfile.lock') }}
-      - name: Download xcaraksljdas
+      - name: Download xcresult
         uses: actions/download-artifact@v3
         with:
           name: xcresult-${{ github.sha }}
 
       - name: Convert coverage information to SonarCloud format
         run: |
-            ls -r
-            unzip xcresult-${{ github.sha }}.zip
             unzip ENA.xcresult.zip
             ./scripts/cococo \
                ENA.xcresult > \
