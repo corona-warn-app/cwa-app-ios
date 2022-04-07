@@ -159,6 +159,7 @@ class ExposureSubmissionTestResultViewController: DynamicTableViewController, Fo
 			.store(in: &bindings)
 		
 		viewModel.footerViewModelPublisher
+			.receive(on: DispatchQueue.main.ocombine)
 			.sink { [weak self] footerViewModel in
 				guard let self = self, let footerViewModel = footerViewModel else { return }
 				guard let topBottomViewController = self.parent as? TopBottomContainerViewController<ExposureSubmissionTestResultViewController, FooterViewController> else { return }
