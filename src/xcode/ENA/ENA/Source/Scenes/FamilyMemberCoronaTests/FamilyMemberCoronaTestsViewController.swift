@@ -38,7 +38,9 @@ class FamilyMemberCoronaTestsViewController: UITableViewController, FooterViewHa
 		tableView.reloadData()
 
 		viewModel.onUpdate = { [weak self] in
-			self?.animateCellHeightChanges()
+			DispatchQueue.main.async {
+				self?.animateCellHeightChanges()
+			}
 		}
 
 		viewModel.triggerReload

@@ -41,7 +41,7 @@ class FamilyMemberCoronaTestsViewModel {
 
 	let triggerReload = CurrentValueSubject<Bool, Never>(false)
 	let isUpdatingTestResults = CurrentValueSubject<Bool, Never>(false)
-	let testResultLoadingError = CurrentValueSubject<Error?, Never>(nil)
+	let testResultLoadingError = CurrentValueSubject<CoronaTestServiceError?, Never>(nil)
 
 	var onUpdate: (() -> Void)?
 
@@ -101,6 +101,10 @@ class FamilyMemberCoronaTestsViewModel {
 		familyMemberCoronaTestService.moveAllTestsToBin()
 	}
 
+	func markAllAsSeen() {
+		familyMemberCoronaTestService.evaluateShowingAllTests()
+	}
+
 	func updateTestResults() {
 		isUpdatingTestResults.value = true
 
@@ -133,10 +137,6 @@ class FamilyMemberCoronaTestsViewModel {
 				}
 			}
 		}
-	}
-
-	func markAllAsSeen() {
-		familyMemberCoronaTestService.evaluateShowingAllTests()
 	}
 
 	// MARK: - Private
