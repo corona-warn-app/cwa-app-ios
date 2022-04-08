@@ -44,14 +44,11 @@ final class NotificationManager: NSObject, UNUserNotificationCenterDelegate {
 		}
 	}
 
-	// swiftlint:disable:next cyclomatic_complexity
 	func userNotificationCenter(_: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
 		switch response.notification.request.identifier {
-		case DeadmanNotificationManager.deadmanNotificationIdentifier:
-			showHome()
-			
 		case ActionableNotificationIdentifier.riskDetection.identifier,
-			 ActionableNotificationIdentifier.deviceTimeCheck.identifier:
+			 ActionableNotificationIdentifier.deviceTimeCheck.identifier,
+			 DeadmanNotificationManager.deadmanNotificationIdentifier:
 			showHome()
 
 		case ActionableNotificationIdentifier.pcrWarnOthersReminder1.identifier,
