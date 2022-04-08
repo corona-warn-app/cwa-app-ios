@@ -39,7 +39,7 @@ class FamilyMemberCoronaTestCellModel {
 	@OpenCombine.Published var isDisclosureIndicatorHidden: Bool = false
 	@OpenCombine.Published var isUserInteractionEnabled: Bool = false
 	@OpenCombine.Published var isCellTappable: Bool = true
-	@OpenCombine.Published var accessibilityIdentifier: String! = AccessibilityIdentifiers.Home.TestResultCell.unconfiguredButton
+	@OpenCombine.Published var accessibilityIdentifier: String! = ""
 
 	var coronaTest: FamilyMemberCoronaTest
 
