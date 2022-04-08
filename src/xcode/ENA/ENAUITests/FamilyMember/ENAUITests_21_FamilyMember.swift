@@ -114,7 +114,7 @@ class ENAUITests_21_FamilyMember: CWATestCase {
 		XCTAssertTrue(app.staticTexts[AccessibilityIdentifiers.FamilyMemberCoronaTestCell.homeCellDetailText].waitForExistence(timeout: .short))
 	}
 
-	func test_familyMemberViewOverview () throws {
+	func test_familyMemberViewOverview() throws {
 		// launch argument will make
 		app.setLaunchArgument(LaunchArguments.familyMemberTest.antigen.testResult, to: TestResult.serverResponseAsString(for: TestResult.negative, on: .antigen))
 		app.setLaunchArgument(LaunchArguments.familyMemberTest.antigen.positiveTestResultWasShown, to: true)
