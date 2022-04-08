@@ -20,7 +20,7 @@ struct KIDListResource: Resource {
 			publicKeyHash: Environments().currentEnvironment().pinningKeyHashData
 		)
 		self.locator = .kidList
-		self.type = .caching()
+		self.type = .caching([.loadOnlyOnceADay])
 		self.sendResource = EmptySendResource()
 		self.receiveResource = ProtobufReceiveResource<SAP_Internal_Dgc_RevocationKidList>(
 			signatureVerifier: signatureVerifier
