@@ -784,7 +784,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmissionResult_testPending" = "Das Testergebnis liegt noch nicht vor";
 
-"ExposureSubmissionResult_familyMember_testPending" = "Ihr Testergebnis liegt noch nicht vor";
+"ExposureSubmissionResult_familyMember_testPending" = "Das Testergebnis liegt noch nicht vor";
 
 "ExposureSubmissionResult_testPendingDesc" = "Sobald das Testergebnis vorliegt, wird es Ihnen in der App angezeigt.\n\nSie bekommen Ihr Testergebnis auch außerhalb der App mitgeteilt. Falls Ihr Test positiv ist, bekommen Sie vom Gesundheitsamt eine Mitteilung.\n\nWenn Ihnen außerhalb der App ein positives Testergebnis mitgeteilt wurde, löschen Sie den aktuell in der App registrierten Test. Rufen Sie die unter „TAN anfragen” angegebene Nummer an, um eine TAN zu erhalten. Registrieren Sie dann Ihr Testergebnis mithilfe der TAN in der App.";
 
