@@ -41,12 +41,7 @@ final class RevocationProvider: RevocationProviding {
 
 		// 3. Update KID List
 		let resource = KIDListResource(signatureVerifier: signatureVerifier)
-		restService.load(resource) { [weak self] result in
-			guard let self = self else {
-				Log.info("Failed to get strong self")
-				return
-			}
-
+		restService.load(resource) { result in
 			switch result {
 			case .failure(let error):
 				completion(.failure(error))
@@ -79,46 +74,18 @@ final class RevocationProvider: RevocationProviding {
 					let kidTypes = kidWithTypes.types
 					for certificate in certificates {
 						for type in kidTypes {
-							var hash: String
-							switch type {
-							case "0a":
-								hash = certificate.revocationEntries.signature
-							case "0b":
-								hash = certificate.revocationEntries.uci
-							case "0c":
-								hash = certificate.revocationEntries.countryCodeUCI
-							default:
-								Log.error("Unknown type -> skip")
-								continue
-							}
-							let rlc = self.rlc(type, hash)
-							manager.insert(kid, type, rlc, certificate)
+							manager.insert(kid, type, certificate)
 						}
 					}
 				}
 			}
 
 			// 6. -> [RevocationLocationCoordinates]
-			//				let regrouped: [RevocationLocationCoordinates] =
-			//				var group: [RevocationLocationCoordinates] = []
-
 
 			Log.info("Did load KidListe")
 			completion(.success(()))
 		}
 	}
-
-	func rlc(_ type: String, _ hash: String) -> RevocationLocationCoordinates.Coordinate {
-		let data = Data(hex: hash)
-		let first = Data(bytes: [data[0]], count: 1)
-		let second = Data(bytes: [data[0]], count: 1)
-
-		return RevocationLocationCoordinates.Coordinate(
-			x: first.toHexString(),
-			y: second.toHexString()
-		)
-	}
-
 
 	// MARK: - Public
 
@@ -142,17 +109,23 @@ struct KidWithTypes {
 
 class RLCManager {
 
-	var data: [RevocationLocationCoordinates] = []
+	var data: [RevocationLocation] = []
 
-	func insert(_ kid: String, _ type: String, _ coordinate: RevocationLocationCoordinates.Coordinate, _ certificate: HealthCertificate) {
+	func insert(_ kid: String, _ type: String, _ certificate: HealthCertificate) {
+		guard let hash = hash(type, certificate) else {
+			Log.error("missing hash, type might be unknown")
+			return
+		}
+		let coordinate = rlc(type, hash)
+
 		// lookup or create entry
 		guard let entry = data.first(where: { rlc in
-			rlc.kid == kid && rlc.type == type
+			rlc.keyIdentifier == kid && rlc.type == type
 		}) else {
 			// no entry found create a new one and add
 			data.append(
-				RevocationLocationCoordinates(
-					kid: kid,
+				RevocationLocation(
+					keyIdentifier: kid,
 					type: type,
 					certificates: [coordinate: [certificate]]
 				)
@@ -166,10 +139,32 @@ class RLCManager {
 		data.replace(entry, with: updatedEntry)
 	}
 
+	private func rlc(_ type: String, _ hash: String) -> RevocationLocation.Coordinate {
+		let data = Data(hex: hash)
+		let first = Data(bytes: [data[0]], count: 1)
+		let second = Data(bytes: [data[0]], count: 1)
+
+		return RevocationLocation.Coordinate(
+			x: first.toHexString(),
+			y: second.toHexString()
+		)
+	}
+
+	private func hash(_ type: String, _ certificate: HealthCertificate) -> String? {
+		switch type {
+		case "0a":
+			return certificate.revocationEntries.signature
+		case "0b":
+			return certificate.revocationEntries.uci
+		case "0c":
+			return certificate.revocationEntries.countryCodeUCI
+		default:
+			return nil
+		}
+	}
 }
 
-
-struct RevocationLocationCoordinates: Hashable {
+struct RevocationLocation: Hashable {
 
 	struct Coordinate: Hashable {
 		let x: String
@@ -179,13 +174,13 @@ struct RevocationLocationCoordinates: Hashable {
 	// MARK: Protocol - Hashable
 
 	func hash(into hasher: inout Hasher) {
-		hasher.combine(kid)
+		hasher.combine(keyIdentifier)
 		hasher.combine(type)
 	}
 
 	// MARK: Internal
 
-	let kid: String
+	let keyIdentifier: String
 	let type: String
 	var certificates: [Coordinate: [HealthCertificate]]
 }
