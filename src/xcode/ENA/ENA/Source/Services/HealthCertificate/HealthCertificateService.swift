@@ -627,6 +627,7 @@ class HealthCertificateService: HealthCertificateServiceServable {
 
 		healthCertifiedPersons.forEach { healthCertifiedPerson in
 			healthCertifiedPerson.objectDidChange
+				.receive(on: healthCertifiedPerson.queue.ocombine)
 				.sink { [weak self] healthCertifiedPerson in
 					guard let self = self else { return }
 
