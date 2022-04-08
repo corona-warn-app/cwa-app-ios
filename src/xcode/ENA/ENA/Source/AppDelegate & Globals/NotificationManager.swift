@@ -91,18 +91,16 @@ final class NotificationManager: NSObject, UNUserNotificationCenterDelegate {
 	// MARK: - Internal
 	
 	// Internal for testing
-	func extract(_ prefix: String, from: String) -> (HealthCertifiedPerson, HealthCertificate)? {
-		guard from.hasPrefix(prefix) else {
-			return nil
-		}
-		return findHealthCertificate(String(from.dropFirst(prefix.count)))
+	func extract(_ prefix: String, from: String, completion: @escaping ((HealthCertifiedPerson, HealthCertificate)?) -> Void) {
+		findHealthCertificate(String(from.dropFirst(prefix.count)), completion: { result in
+			completion(result)
+		})
 	}
-	
-	func extractPerson(_ prefix: String, from: String) -> HealthCertifiedPerson? {
-		guard from.hasPrefix(prefix) else {
-			return nil
-		}
-			return findHealthCertifiedPerson(String(from.dropFirst(prefix.count)))
+
+	func extractPerson(_ prefix: String, from: String, completion: @escaping (HealthCertifiedPerson?) -> Void) {
+		return findHealthCertifiedPerson(String(from.dropFirst(prefix.count)), completion: { result in
+			completion(result)
+		})
 	}
 	// MARK: - Private
 	
