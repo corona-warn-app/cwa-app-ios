@@ -3,9 +3,6 @@ on:
   workflow_dispatch:
   schedule:
     - cron: '5 20 * * 1-5' #Weekdays at 20:05
-  push:
-    branches:
-      - 'admin/finish_nightly'
       
 jobs:
   dependencies:
