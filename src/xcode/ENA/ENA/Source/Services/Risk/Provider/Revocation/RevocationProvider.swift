@@ -7,7 +7,7 @@ import SwiftUI
 
 protocol RevocationProviding {
 
-	func updateCache(with certificates: [HealthCertificate], completion: @escaping (Result<Void, ServiceError<KIDListResourceError>>) -> Void)
+	func updateCache(with certificates: [HealthCertificate], completion: @escaping (Result<Void, Error>) -> Void)
 }
 
 final class RevocationProvider: RevocationProviding {
