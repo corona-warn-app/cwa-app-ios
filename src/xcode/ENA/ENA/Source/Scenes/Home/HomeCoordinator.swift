@@ -68,6 +68,7 @@ class HomeCoordinator: RequiresAppDependencies {
 				 .none:
 				rootViewController.dismiss(animated: false)
 				rootViewController.popToRootViewController(animated: false)
+				rootViewController.tabBarController?.selectedIndex = 0
 				homeController?.scrollToTop(animated: false)
 				return
 			}
