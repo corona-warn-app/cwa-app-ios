@@ -66,6 +66,12 @@ class HomeCoordinator: RequiresAppDependencies {
 				 .healthCertificateFromNotification,
 				 .healthCertifiedPersonFromNotification,
 				 .none:
+				/*
+				 .healthCertifiedPersonFromNotification .checkIn and
+				 .healthCertificateFromNotification routings are checked in the
+				 showHome function in the RootCoordinator inside the defer block.
+				 So basically here we show home THEN excute the routings in the defer
+				*/
 				rootViewController.dismiss(animated: false)
 				rootViewController.popToRootViewController(animated: false)
 				rootViewController.tabBarController?.selectedIndex = 0
