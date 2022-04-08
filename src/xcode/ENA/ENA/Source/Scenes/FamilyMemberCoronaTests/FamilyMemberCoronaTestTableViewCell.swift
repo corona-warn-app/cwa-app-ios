@@ -173,7 +173,7 @@ final class FamilyMemberCoronaTestTableViewCell: UITableViewCell {
 
 	private func setup() {
 		updateIllustration(for: traitCollection)
-
+		accessibilityIdentifier = AccessibilityIdentifiers.FamilyMemberCoronaTestCell.Overview.testCell
 		accessibilityTraits = .button
 	}
 

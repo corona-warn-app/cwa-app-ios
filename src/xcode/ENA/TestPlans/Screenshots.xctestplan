@@ -102,7 +102,9 @@
         "ENAUITests_17_FileScanner\/test_screenshot_OpenUniversalScannerAndSelectFile_CheckForSheet()",
         "ENAUITests_19_TicketValidation\/test_screenshot_ticketValidation_failed()",
         "ENAUITests_19_TicketValidation\/test_screenshot_ticketValidation_passed()",
-        "ENAUITests_20_CertificateReissuance\/test_screenshot_CertificateReissuance()"
+        "ENAUITests_20_CertificateReissuance\/test_screenshot_CertificateReissuance()",
+        "ENAUITests_21_FamilyMember\/test_screenshot_RegisterCoronaTestFromUniversalQRCodeScanner()",
+        "ENAUITests_21_FamilyMember\/test_screenshot_familyMemberViewOverviewDeleteAll()"
       ],
       "target" : {
         "containerPath" : "container:ENA.xcodeproj",

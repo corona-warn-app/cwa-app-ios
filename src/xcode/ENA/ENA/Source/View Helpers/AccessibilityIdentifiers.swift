@@ -323,6 +323,10 @@ enum AccessibilityIdentifiers {
 		enum Antigen {
 			static let proofDesc = "AppStrings.ExposureSubmissionResult.Antigen.proofDesc"
 		}
+
+		enum RemoveAlert {
+			static let deleteButton = "AppStrings.ExposureSubmissionResult.removeAlert_ConfirmButtonTitle"
+		}
 	}
 	
 	enum ExposureSubmissionPositiveTestResult {
@@ -494,6 +498,11 @@ enum AccessibilityIdentifiers {
 				static let birthdayPlaceholder = "AppStrings.ExposureSubmission.TestCertificate.Info.birthDayPlaceholder"
 				static let birthdayText = "AppStrings.ExposureSubmission.TestCertificate.Info.birthDayText"
 			}
+
+			enum Alert {
+				static let cancelRegistration = "AppStrings.ExposureSubmission.TestCertificate.Info.Alert.cancelRegistration"
+			}
+
 		}
 
 	}
@@ -740,6 +749,12 @@ enum AccessibilityIdentifiers {
 		enum FamilyMemberConsent {
 			static let imageDescription = "AppStrings.HealthCertificate.FamilyMemberConsent.imageDescription"
 			static let textInput = "HealthCertificate.FamilyMemberConsent.textInput"
+			static let primaryButton = "HealthCertificate.FamilyMemberConsent.primaryButton"
+
+			enum Legal {
+				static let acknowledgementTitle = "AccessibilityIdentifiers.HealthCertificate.FamilyMemberConsent.Legal.acknowledgementTitle"
+			}
+			static let  dataPrivacyTitle = "AccessibilityIdentifiers.HealthCertificate.FamilyMemberConsent.dataPrivacyTitle"
 		}
 
 		enum Overview {
@@ -856,6 +871,14 @@ enum AccessibilityIdentifiers {
 		static let expiredPCR = "AccessibilityIdentifiers.FamilyMemberCoronaTestCell.expiredPCR"
 		static let expiredAntigen = "AccessibilityIdentifiers.FamilyMemberCoronaTestCell.expiredAntigen"
 		static let outdatedAntigen = "AccessibilityIdentifiers.FamilyMemberCoronaTestCell.outdatedAntigen"
+
+		static let homeCell = "AccessibilityIdentifiers.FamilyMemberCoronaTestCell.homeCell"
+		static let homeCellDetailText = "AccessibilityIdentifiers.FamilyMemberCoronaTestCell.homeCellDetailText"
+
+		enum Overview {
+			static let testCell = "AccessibilityIdentifiers.FamilyMemberCoronaTestCell.Overview.testCell"
+		}
+
 	}
 
 }
