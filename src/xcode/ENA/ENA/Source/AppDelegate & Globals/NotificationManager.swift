@@ -143,7 +143,9 @@ final class NotificationManager: NSObject, UNUserNotificationCenterDelegate {
 						healthCertificate: healthCertificate
 					)
 					Log.debug("Received \(certificateIdentifier.rawValue) notification")
-					self?.showHealthCertificate(route)
+					DispatchQueue.main.async { [weak self] in
+						self?.showHealthCertificate(route)
+					}
 				}
 			})
 		case .boosterVaccination, .certificateReissuance, .admissionStateChange:
@@ -151,7 +153,9 @@ final class NotificationManager: NSObject, UNUserNotificationCenterDelegate {
 				if let certifiedPerson = result {
 					let route = Route(healthCertifiedPerson: certifiedPerson)
 					Log.debug("Received \(certificateIdentifier.rawValue) notification")
-					self?.showHealthCertifiedPerson(route)
+					DispatchQueue.main.async { [weak self] in
+						self?.showHealthCertifiedPerson(route)
+					}
 				}
 			})
 		case .checkout:
