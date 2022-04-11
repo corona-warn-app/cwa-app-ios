@@ -17,7 +17,6 @@ struct HealthCertificateRevocationEntries: Codable {
 		signature: Data,
 		algorithm: DCCSecKeyAlgorithm
 	) {
-		
 		// Calculate hash: the hash shall be calculated as the SHA-256 of ci.
 		// Determine revocationEntry: the revocationEntry shall be set to the hex-encoded representation of the first 16 bytes of the hash.
 		self.uci = Data((
@@ -49,4 +48,5 @@ struct HealthCertificateRevocationEntries: Codable {
 			.bytes[0...15])
 			.toHexString()
 	}
+
 }

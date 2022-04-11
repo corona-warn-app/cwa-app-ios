@@ -72,7 +72,7 @@ public struct DigitalCovidCertificateAccess: DigitalCovidCertificateAccessProtoc
             .flatMap(decompressZLib)
             .flatMap(decodeCOSEEntries)
         
-        guard case let .success(coseEntries) = coseEntriesResult  else {
+        guard case let .success(coseEntries) = coseEntriesResult else {
             if case let .failure(error) = coseEntriesResult {
                 return .failure(error)
             }
@@ -431,7 +431,6 @@ public struct DigitalCovidCertificateAccess: DigitalCovidCertificateAccessProtoc
         guard case let .negativeInt(algorithmIdentifier) = protectedHeaderCBOR[1] else {
             return .failure(.HC_COSE_UNKNOWN_ALG)
         }
-
 
         // I know its confusing. Please see here how negative integers are handled for CBOR (Major type 1:  a negative integer.): https://datatracker.ietf.org/doc/html/rfc7049#section-2.1
         // And here some rationale for this kind of implementation: https://stackoverflow.com/questions/50584127/rationale-for-cbor-negative-integers

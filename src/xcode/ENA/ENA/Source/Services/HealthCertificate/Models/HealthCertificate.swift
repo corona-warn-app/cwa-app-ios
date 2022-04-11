@@ -332,7 +332,6 @@ final class HealthCertificate: Codable, Equatable, Comparable, RecycleBinIdentif
 		.trimmingCharacters(in: .whitespaces)
 
 	private static func extractCertificateComponents(from base45: Base45) throws -> DigitalCovidCertificateComponents {
-		
 		let componentsResult = DigitalCovidCertificateAccess().extractCertificateComponents(from: base45)
 		
 		switch componentsResult {
@@ -343,4 +342,5 @@ final class HealthCertificate: Codable, Equatable, Comparable, RecycleBinIdentif
 			throw error
 		}
 	}
+
 }

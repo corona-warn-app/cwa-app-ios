@@ -32,8 +32,8 @@ class DecodingFailedHealthCertificate: Codable, Equatable {
 		didShowBlockedNotification: Bool,
 		isNew: Bool,
 		isValidityStateNew: Bool,
-		error: Error?,
-		revocationEntries: HealthCertificateRevocationEntries?
+		revocationEntries: HealthCertificateRevocationEntries?,
+		error: Error?
 	) {
 		self.base45 = base45
 		self.validityState = validityState
@@ -41,8 +41,8 @@ class DecodingFailedHealthCertificate: Codable, Equatable {
 		self.didShowBlockedNotification = didShowBlockedNotification
 		self.isNew = isNew
 		self.isValidityStateNew = isValidityStateNew
-		self.error = error
 		self.revocationEntries = revocationEntries
+		self.error = error
 	}
 
 	// MARK: - Protocol Codable
@@ -54,8 +54,8 @@ class DecodingFailedHealthCertificate: Codable, Equatable {
 		case didShowBlockedNotification
 		case isNew
 		case isValidityStateNew
-		case error
 		case revocationEntries
+		case error
 	}
 
 	required init(from decoder: Decoder) throws {
@@ -97,6 +97,7 @@ class DecodingFailedHealthCertificate: Codable, Equatable {
 	let didShowBlockedNotification: Bool
 	let isNew: Bool
 	let isValidityStateNew: Bool
-	var error: Error?
 	let revocationEntries: HealthCertificateRevocationEntries?
+	var error: Error?
+
 }
