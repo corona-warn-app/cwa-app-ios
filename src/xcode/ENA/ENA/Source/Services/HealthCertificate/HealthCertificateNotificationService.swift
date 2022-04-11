@@ -23,6 +23,7 @@ class HealthCertificateNotificationService {
 		completion: @escaping () -> Void
 	) {
 		guard healthCertificate.type != .test else {
+			completion()
 			return
 		}
 
