@@ -9,6 +9,7 @@ class AntigenTestProfileViewController: UIViewController, UITableViewDataSource,
 	// MARK: - Init
 
 	init(
+		antigenTestProfile: AntigenTestProfile,
 		store: AntigenTestProfileStoring,
 		didTapContinue: @escaping (@escaping (Bool) -> Void) -> Void,
 		didTapProfileInfo: @escaping () -> Void,
@@ -16,7 +17,7 @@ class AntigenTestProfileViewController: UIViewController, UITableViewDataSource,
 		didTapDeleteProfile: @escaping () -> Void,
 		dismiss: @escaping () -> Void
 	) {
-		self.viewModel = AntigenTestProfileViewModel(store: store)
+		self.viewModel = AntigenTestProfileViewModel(antigenTestProfile: antigenTestProfile, store: store)
 		self.didTapContinue = didTapContinue
 		self.didTapProfileInfo = didTapProfileInfo
 		self.didTapEditProfile = didTapEditProfile
@@ -59,7 +60,6 @@ class AntigenTestProfileViewController: UIViewController, UITableViewDataSource,
 
 		setupNavigationBar(animated: animated)
 
-		viewModel.refreshProfile()
 		tableView.reloadData()
 	}
 

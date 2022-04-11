@@ -959,11 +959,11 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 
 		let createAntigenTestProfileViewController = AntigenTestProfileInputViewController(
 			store: store,
-			didTapSave: { [weak self] in
+			didTapSave: { [weak self] antigenTestProfile in
 				if editMode {
 					self?.popViewController()
 				} else {
-					self?.showAntigenTestProfile()
+					self?.showAntigenTestProfile(antigenTestProfile: antigenTestProfile)
 				}
 			},
 			dismiss: { [weak self] in self?.dismiss() }
@@ -989,8 +989,8 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 		let antigenTestProfileOverviewViewController = AntigenTestProfileOverviewViewController(
 			viewModel: AntigenTestProfileOverviewViewModel(
 				store: store,
-				onEntryCellTap: { _ in
-					
+				onEntryCellTap: { [weak self] antigenTestProfile in
+					self?.showAntigenTestProfile(antigenTestProfile: antigenTestProfile)
 				}),
 			onInfoButtonTap: { [weak self] in
 				self?.showAntigenTestProfileInformation()
@@ -1004,9 +1004,9 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 		push(antigenTestProfileOverviewViewController)
 	}
 	
-	private func showAntigenTestProfile() {
+	private func showAntigenTestProfile(antigenTestProfile: AntigenTestProfile) {
 		let antigenTestProfileViewController = AntigenTestProfileViewController(
-			store: store,
+			antigenTestProfile: antigenTestProfile, store: store,
 			didTapContinue: { [weak self] isLoading in
 				self?.model.coronaTestType = .antigen
 				self?.showQRScreen(testRegistrationInformation: nil, isLoading: isLoading)

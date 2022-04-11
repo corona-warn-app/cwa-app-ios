@@ -78,7 +78,7 @@ class AntigenTestProfileOverviewViewController: UITableViewController, DismissHa
 		case .add:
 			return antigenTestProfileAddCell(forRowAt: indexPath)
 		case .entries:
-			return antigenTestProfileCell(forRowAt: indexPath)
+			return antigenTestPersonProfileCell(forRowAt: indexPath)
 		case .none:
 			fatalError("Invalid section")
 		}
@@ -161,9 +161,9 @@ class AntigenTestProfileOverviewViewController: UITableViewController, DismissHa
 		return cell
 	}
 
-	private func antigenTestProfileCell(forRowAt indexPath: IndexPath) -> UITableViewCell {
+	private func antigenTestPersonProfileCell(forRowAt indexPath: IndexPath) -> UITableViewCell {
 		guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: AntigenTestPersonProfileCell.self), for: indexPath) as? AntigenTestPersonProfileCell else {
-			fatalError("Could not dequeue AntigenTestProfileCell")
+			fatalError("Could not dequeue AntigenTestPersonProfileCell")
 		}
 
 		let cellModel = viewModel.antigenTestPersonProfileCellModel(

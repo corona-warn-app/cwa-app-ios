@@ -16,12 +16,15 @@ class AntigenTestProfileOverviewViewModel {
 		self.store = store
 		self.onEntryCellTap = onEntryCellTap
 		
-		/*
-		store.antigenTestProfilesPublisher
+		if let existingProfile = store.antigenTestProfile {
+			self.antigenTestProfiles = [existingProfile]
+			store.antigenTestProfile = nil
+		}
+		
+		store.antigenTestProfileSubject
 			.sink { [weak self] in
 				self?.antigenTestProfiles = $0
-			}.store(in: &subscriptions)*/
-		self.antigenTestProfiles.append(store.antigenTestProfile ?? AntigenTestProfile())
+			}.store(in: &subscriptions)
 	}
 
 	// MARK: - Internal

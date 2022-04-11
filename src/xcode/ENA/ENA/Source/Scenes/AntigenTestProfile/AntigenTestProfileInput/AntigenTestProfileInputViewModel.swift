@@ -21,7 +21,7 @@ final class AntigenTestProfileInputViewModel {
 	@OpenCombine.Published var antigenTestProfile: AntigenTestProfile
 
 	func save() {
-		store.antigenTestProfile = antigenTestProfile
+		store.antigenTestProfiles.append(antigenTestProfile)
 	}
 	
 	func update(_ text: String?, keyPath: WritableKeyPath<AntigenTestProfile, String?>) {

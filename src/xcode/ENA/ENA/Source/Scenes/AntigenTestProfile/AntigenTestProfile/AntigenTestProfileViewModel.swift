@@ -11,11 +11,9 @@ struct AntigenTestProfileViewModel {
 	// MARK: - Init
 	
 	init(
+		antigenTestProfile: AntigenTestProfile,
 		store: AntigenTestProfileStoring
 	) {
-		guard let antigenTestProfile = store.antigenTestProfile else {
-			fatalError("We can't init without a valid antigenTestProfile stored")
-		}
 		self.store = store
 		self.antigenTestProfile = antigenTestProfile
 	}
@@ -99,13 +97,6 @@ struct AntigenTestProfileViewModel {
 
 	func deleteProfile() {
 		store.antigenTestProfile = nil
-	}
-
-	mutating func refreshProfile() {
-		guard let antigenTestProfile = store.antigenTestProfile else {
-			fatalError("We can't refresh without a valid antigenTestProfile stored")
-		}
-		self.antigenTestProfile = antigenTestProfile
 	}
 
 	func numberOfItems(in section: TableViewSection) -> Int {

@@ -15,7 +15,7 @@ class AntigenTestProfileInputViewController: UITableViewController, FooterViewHa
 	
 	init(
 		store: AntigenTestProfileStoring,
-		didTapSave: @escaping () -> Void,
+		didTapSave: @escaping (AntigenTestProfile) -> Void,
 		dismiss: @escaping () -> Void
 	) {
 		self.viewModel = AntigenTestProfileInputViewModel(store: store)
@@ -117,7 +117,7 @@ class AntigenTestProfileInputViewController: UITableViewController, FooterViewHa
 			return
 		}
 		viewModel.save()
-		didTapSave()
+		didTapSave(viewModel.antigenTestProfile)
 	}
 
 	// MARK: - Protocol DismissHandling
@@ -170,7 +170,7 @@ class AntigenTestProfileInputViewController: UITableViewController, FooterViewHa
 	// MARK: - Private
 
 	private var viewModel: AntigenTestProfileInputViewModel
-	private let didTapSave: () -> Void
+	private let didTapSave: (AntigenTestProfile) -> Void
 	private let dismiss: () -> Void
 	private let dateOfBirthFormatter = AntigenTestProfileViewModel.dateOfBirthFormatter()
 	private var cancellables = [OpenCombine.AnyCancellable]()
