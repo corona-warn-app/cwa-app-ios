@@ -728,6 +728,7 @@ enum AccessibilityIdentifiers {
 		
 		enum Overview {
 			static let tableView = "TableView.AntigenProfileOverview"
+			static let antigenTestPersonProfileCell = "AppStrings.AntigenProfile.Overview.antigenTestPersonProfileCell"
 		}
 	}
 
