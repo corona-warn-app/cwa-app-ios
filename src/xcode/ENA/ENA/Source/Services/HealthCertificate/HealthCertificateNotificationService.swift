@@ -86,7 +86,7 @@ class HealthCertificateNotificationService {
 			healthCertificate.didShowBlockedNotification = true
 		}
 		
-		dispatchGroup.notify(queue: .main) {
+		dispatchGroup.notify(queue: .global()) {
 			completion()
 		}
 	}
