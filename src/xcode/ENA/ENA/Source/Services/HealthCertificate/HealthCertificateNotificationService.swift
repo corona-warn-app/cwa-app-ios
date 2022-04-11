@@ -242,6 +242,7 @@ class HealthCertificateNotificationService {
 	) {
 		guard let date = date else {
 			Log.error("Could not schedule expiring soon notification for certificate with id: \(private: healthCertificateIdentifier) because we have no expiringSoonDate.", log: .vaccination)
+			completion()
 			return
 		}
 		
