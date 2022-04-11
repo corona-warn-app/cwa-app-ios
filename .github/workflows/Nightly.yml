@@ -3,6 +3,10 @@ on:
   workflow_dispatch:
   schedule:
     - cron: '5 20 * * 1-5' #Weekdays at 20:05
+  push:
+    branches:
+      - 'fix/sonar_branch'
+
       
 jobs:
   dependencies:
@@ -188,7 +192,7 @@ jobs:
       - name: Install and run sonar-scanner
         env:
              SONAR_TOKEN: '${{ secrets.SONAR_TOKEN }}'
-             SONARQUBE_SCANNER_PARAMS: '{"sonar.host.url":"https://sonarcloud.io"}'
+             SONARQUBE_SCANNER_PARAMS: '{"sonar.host.url":"https://sonarcloud.io", "sonar.branch.name": "${GITHUB_REF##*/}"}'
              GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN_GITHUB }}
         run: |
             SCANNER=sonar-scanner-cli-4.3.0.2102-macosx
