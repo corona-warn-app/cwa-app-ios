@@ -320,7 +320,9 @@ class HealthCertificateService: HealthCertificateServiceServable {
 		}
 		
 		let isNewPersonAdded = newlyGroupedPersons.count > healthCertifiedPersons.count
-		healthCertifiedPersons = newlyGroupedPersons
+		healthCertifiedPersonsQueue.sync {
+			healthCertifiedPersons = newlyGroupedPersons
+		}
 		
 		updateValidityState(for: healthCertificate, person: healthCertifiedPerson)
 		scheduleTimer()
@@ -351,9 +353,11 @@ class HealthCertificateService: HealthCertificateServiceServable {
 				Log.info("[HealthCertificateService] Removed health certificate at index \(index)", log: .api)
 				
 				if healthCertifiedPerson.healthCertificates.isEmpty {
-					healthCertifiedPersons = healthCertifiedPersons
-						.filter { $0 != healthCertifiedPerson }
-						.sorted()
+					healthCertifiedPersonsQueue.sync {
+						healthCertifiedPersons = healthCertifiedPersons
+							.filter { $0 != healthCertifiedPerson }
+							.sorted()
+					}
 					updateGradients()
 
 					Log.info("[HealthCertificateService] Removed health certified person", log: .api)
@@ -587,6 +591,7 @@ class HealthCertificateService: HealthCertificateServiceServable {
 	private let cclService: CCLServable
 
 	private let setupQueue = DispatchQueue(label: "com.sap.HealthCertificateService.setup")
+	private let healthCertifiedPersonsQueue = DispatchQueue(label: "com.sap.HealthCertificateService.healthCertifiedPersons")
 
 	private var initialHealthCertifiedPersonsReadFromStore = false
 
@@ -627,7 +632,6 @@ class HealthCertificateService: HealthCertificateServiceServable {
 
 		healthCertifiedPersons.forEach { healthCertifiedPerson in
 			healthCertifiedPerson.objectDidChange
-				.receive(on: healthCertifiedPerson.queue.ocombine)
 				.sink { [weak self] healthCertifiedPerson in
 					guard let self = self else { return }
 
@@ -641,7 +645,9 @@ class HealthCertificateService: HealthCertificateServiceServable {
 					}
 
 					// Always trigger the publisher to inform subscribers and update store
-					self.healthCertifiedPersons = self.healthCertifiedPersons.sorted()
+					self.healthCertifiedPersonsQueue.sync {
+						self.healthCertifiedPersons = self.healthCertifiedPersons.sorted()
+					}
 					self.updateGradients()
 				}
 				.store(in: &healthCertifiedPersonSubscriptions)
@@ -813,10 +819,12 @@ class HealthCertificateService: HealthCertificateServiceServable {
 		
 		// Find person and replace it by our regroupedPersons
 		// Use a copy of healthCertifiedPersons to avoid multiple changes to healthCertifiedPersons.
-		var mutatedHealthCertifiedPersons = healthCertifiedPersons
-		mutatedHealthCertifiedPersons.remove(healthCertifiedPerson)
-		mutatedHealthCertifiedPersons.append(contentsOf: regroupedPersons)
-		healthCertifiedPersons = mutatedHealthCertifiedPersons
+		healthCertifiedPersonsQueue.sync {
+			var mutatedHealthCertifiedPersons = healthCertifiedPersons
+			mutatedHealthCertifiedPersons.remove(healthCertifiedPerson)
+			mutatedHealthCertifiedPersons.append(contentsOf: regroupedPersons)
+			healthCertifiedPersons = mutatedHealthCertifiedPersons
+		}
 		
 		// We only want to call updateDCCWalletInfo for new created persons.
 		// For the existing person it is called when the certificates changed.
