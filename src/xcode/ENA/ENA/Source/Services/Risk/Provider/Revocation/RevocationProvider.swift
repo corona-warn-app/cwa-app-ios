@@ -63,6 +63,7 @@ final class RevocationProvider: RevocationProviding {
 					.filter { kids.contains($0.key) }
 
 				// 5. calculate revocation coordinates based on kid list for ever filteredGroupedCertificates
+				// incl. 6. Group by RLC by KID Type
 				self.tmpData = []
 				for kidWithTypes in keyIdentifiersWithTypes {
 					let kid = kidWithTypes.kid
@@ -77,6 +78,9 @@ final class RevocationProvider: RevocationProviding {
 							self.insert(kid, type, certificate)
 						}
 					}
+				}
+				self.tmpData.sort { lhs, rhs in
+					lhs.type < rhs.type
 				}
 			}
 
