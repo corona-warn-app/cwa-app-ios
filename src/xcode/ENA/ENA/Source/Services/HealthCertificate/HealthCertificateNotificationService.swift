@@ -23,6 +23,7 @@ class HealthCertificateNotificationService {
 		completion: @escaping () -> Void
 	) {
 		guard healthCertificate.type != .test else {
+			completion()
 			return
 		}
 
@@ -85,7 +86,7 @@ class HealthCertificateNotificationService {
 			healthCertificate.didShowBlockedNotification = true
 		}
 		
-		dispatchGroup.notify(queue: .main) {
+		dispatchGroup.notify(queue: .global()) {
 			completion()
 		}
 	}
@@ -241,6 +242,7 @@ class HealthCertificateNotificationService {
 	) {
 		guard let date = date else {
 			Log.error("Could not schedule expiring soon notification for certificate with id: \(private: healthCertificateIdentifier) because we have no expiringSoonDate.", log: .vaccination)
+			completion()
 			return
 		}
 		
