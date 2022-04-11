@@ -995,7 +995,9 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 			onInfoButtonTap: { [weak self] in
 				self?.showAntigenTestProfileInformation()
 			},
-			onAddEntryCellTap: { },
+			onAddEntryCellTap: { [ weak self] in
+				self?.showAntigenTestProfileInput(editMode: false)
+			},
 			onDismiss: { [weak self] in self?.dismiss() }
 		)
 

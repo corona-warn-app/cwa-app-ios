@@ -1,4 +1,4 @@
-////
+//
 // 🦠 Corona-Warn-App
 //
 
@@ -122,14 +122,6 @@ class AntigenTestPersonProfileCell: UITableViewCell, ReuseIdentifierProviding {
 		return qrCodeContainerView
 	}()
 
-	private lazy var qrCodeContainerStackView: UIStackView = {
-		let stackView = UIStackView(arrangedSubviews: [qrCodeView])
-		stackView.axis = .vertical
-		stackView.spacing = 14.0
-
-		return stackView
-	}()
-
 	private let qrCodeView = UIImageView()
 	
 	private let accessoryIconView: UIImageView = {
@@ -167,8 +159,8 @@ class AntigenTestPersonProfileCell: UITableViewCell, ReuseIdentifierProviding {
 		qrCodeContainerView.translatesAutoresizingMaskIntoConstraints = false
 		cardView.addSubview(qrCodeContainerView)
 
-		qrCodeContainerStackView.translatesAutoresizingMaskIntoConstraints = false
-		qrCodeContainerView.addSubview(qrCodeContainerStackView)
+		qrCodeView.translatesAutoresizingMaskIntoConstraints = false
+		qrCodeContainerView.addSubview(qrCodeView)
 
 		updateBorderColors()
 
@@ -202,11 +194,12 @@ class AntigenTestPersonProfileCell: UITableViewCell, ReuseIdentifierProviding {
 				qrCodeContainerView.topAnchor.constraint(equalTo: titleStackView.bottomAnchor, constant: 20.0),
 				qrCodeContainerView.trailingAnchor.constraint(equalTo: cardView.trailingAnchor, constant: -16.0),
 				qrCodeContainerView.bottomAnchor.constraint(lessThanOrEqualTo: bottomView.bottomAnchor, constant: -24.0),
-
-				qrCodeContainerStackView.leadingAnchor.constraint(equalTo: qrCodeContainerView.leadingAnchor, constant: 16.0),
-				qrCodeContainerStackView.topAnchor.constraint(equalTo: qrCodeContainerView.topAnchor, constant: 16.0),
-				qrCodeContainerStackView.trailingAnchor.constraint(equalTo: qrCodeContainerView.trailingAnchor, constant: -16.0),
-				qrCodeContainerStackView.bottomAnchor.constraint(equalTo: qrCodeContainerView.bottomAnchor, constant: -16.0)
+				qrCodeContainerView.heightAnchor.constraint(equalTo: qrCodeContainerView.widthAnchor),
+				
+				qrCodeView.leadingAnchor.constraint(equalTo: qrCodeContainerView.leadingAnchor, constant: 16.0),
+				qrCodeView.topAnchor.constraint(equalTo: qrCodeContainerView.topAnchor, constant: 16.0),
+				qrCodeView.trailingAnchor.constraint(equalTo: qrCodeContainerView.trailingAnchor, constant: -16.0),
+				qrCodeView.bottomAnchor.constraint(equalTo: qrCodeContainerView.bottomAnchor, constant: -16.0)
 			]
 		)
 	}

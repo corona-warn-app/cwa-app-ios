@@ -79,10 +79,8 @@ class AntigenTestProfileOverviewViewController: UITableViewController, DismissHa
 		switch AntigenTestProfileOverviewViewModel.Section(rawValue: indexPath.section) {
 		case .add:
 			return antigenTestProfileAddCell(forRowAt: indexPath)
-		/*
-		case .entries: break
+		case .entries:
 			return antigenTestProfileCell(forRowAt: indexPath)
-	    */
 		case .none:
 			fatalError("Invalid section")
 		}
@@ -94,10 +92,8 @@ class AntigenTestProfileOverviewViewController: UITableViewController, DismissHa
 		switch AntigenTestProfileOverviewViewModel.Section(rawValue: indexPath.section) {
 		case .add:
 			onAddEntryCellTap()
-		/*
 		case .entries:
 			viewModel.didTapEntryCell(at: indexPath)
-		*/
 		case .none:
 			fatalError("Invalid section")
 		}
@@ -139,11 +135,7 @@ class AntigenTestProfileOverviewViewController: UITableViewController, DismissHa
 			forCellReuseIdentifier: String(describing: AddButtonAsTableViewCell.self)
 		)
 
-		/*
-		tableView.register(
-			UINib(nibName: String(describing: AntigenTestProfileCell.self), bundle: nil),
-			forCellReuseIdentifier: String(describing: AntigenTestProfileCell.self)
-		)*/
+		tableView.register(AntigenTestPersonProfileCell.self, forCellReuseIdentifier: AntigenTestPersonProfileCell.reuseIdentifier)
 
 		tableView.separatorStyle = .none
 		tableView.rowHeight = UITableView.automaticDimension
@@ -171,31 +163,24 @@ class AntigenTestProfileOverviewViewController: UITableViewController, DismissHa
 		return cell
 	}
 
-	/*
 	private func antigenTestProfileCell(forRowAt indexPath: IndexPath) -> UITableViewCell {
-		guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: AntigenTestProfileCell.self), for: indexPath) as? AntigenTestProfileCell else {
+		guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: AntigenTestPersonProfileCell.self), for: indexPath) as? AntigenTestPersonProfileCell else {
 			fatalError("Could not dequeue AntigenTestProfileCell")
 		}
 
-		let cellModel = viewModel.antigenTestProfileCellModel(
+		let cellModel = viewModel.antigenTestPersonProfileCellModel(
 			at: indexPath,
 			onUpdate: { [weak self] in
 				self?.animateChanges(of: cell)
 			}
 		)
+		
 		cell.configure(
-			cellModel: cellModel,
-			onButtonTap: { [weak self] in
-				guard let self = self,
-					  let currentIndexPath = self.tableView.indexPath(for: cell) else {
-					return
-				}
-				self.viewModel.didTapEntryCellButton(at: currentIndexPath)
-			}
+			with: cellModel
 		)
 
 		return cell
-	}*/
+	}
 
 	private func updateEmptyState() {
 		// Since we set the empty state view as a background view we need to push it into the visible area by
