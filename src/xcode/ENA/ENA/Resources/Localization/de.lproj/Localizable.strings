@@ -1695,11 +1695,11 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "NewVersionFeatures_Info_about_abb_information" = "Änderungen zum Release finden Sie in den App-Informationen unter dem Menüpunkt „Neue Funktionen”.";
 
-/* Version 2.21 */
+/* Version 2.22 */
 
-"NewVersionFeature_221_familyMembersTest_title" = "Tests für Familie verwalten";
+"NewVersionFeature_222_family_members_RAT_profile_Title" = "Schnelltestprofile für Familie";
 
-"NewVersionFeature_221_familyMembersTest_description" = "Sie können jetzt Tests für Ihre Familienmitglieder in Ihrer App registrieren und damit die Testergebnisse auf Ihrem Smartphone erhalten und digitale COVID-Testzertifikate anfordern. Im Falle eines positiven Testergebnisses können Sie jedoch andere Benutzer nicht warnen. Dies geht nur, wenn Sie den Test für sich selbst registriert haben.";
+"NewVersionFeature_222_family_members_RAT_profile_description" = "Sie können jetzt Schnelltestprofile für die Mitglieder Ihrer Familie anlegen. Sie können damit die Registrierung an einer Teststelle beschleunigen. Für die Erfasssung der persönlichen Daten muss dann nur der jeweilige QR-Code des Schnelltestprofils gescannt werden.";
 
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Länderübergreifende Risiko-Ermittlung";
