@@ -75,7 +75,7 @@ class ENAUITests_18_RecycleBin: CWATestCase {
 	}
 
 	func test_RecycleBinCoronaTestFlow() throws {
-		app.setLaunchArgument(LaunchArguments.test.pcr.testResult, to: TestResult.positive.stringValue)
+		app.setLaunchArgument(LaunchArguments.test.pcr.testResult, to: TestResult.serverResponseAsString(for: TestResult.positive, on: .pcr))
 		app.setLaunchArgument(LaunchArguments.test.pcr.positiveTestResultWasShown, to: true)
 		app.launch()
 
@@ -127,7 +127,7 @@ class ENAUITests_18_RecycleBin: CWATestCase {
 	}
 
 	func test_RecycleBinCoronaTestFlowWithOverwriteNotice() throws {
-		app.setLaunchArgument(LaunchArguments.test.pcr.testResult, to: TestResult.positive.stringValue)
+		app.setLaunchArgument(LaunchArguments.test.pcr.testResult, to: TestResult.serverResponseAsString(for: TestResult.positive, on: .pcr))
 		app.setLaunchArgument(LaunchArguments.test.pcr.positiveTestResultWasShown, to: true)
 		app.setLaunchArgument(LaunchArguments.recycleBin.pcrTest, to: true)
 		app.launch()

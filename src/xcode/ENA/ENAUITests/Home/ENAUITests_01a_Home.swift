@@ -103,7 +103,7 @@ class ENAUITests_01a_Home: CWATestCase {
 	
 	func test_homescreen_remove_positive_test_result() throws {
 		app.setPreferredContentSizeCategory(accessibility: .accessibility, size: .XS)
-		app.setLaunchArgument(LaunchArguments.test.pcr.testResult, to: TestResult.positive.stringValue)
+		app.setLaunchArgument(LaunchArguments.test.pcr.testResult, to: TestResult.serverResponseAsString(for: TestResult.positive, on: .pcr))
 		app.setLaunchArgument(LaunchArguments.test.pcr.positiveTestResultWasShown, to: true)
 		app.setLaunchArgument(LaunchArguments.common.ENStatus, to: ENStatus.active.stringValue)
 		app.launch()
@@ -246,8 +246,8 @@ class ENAUITests_01a_Home: CWATestCase {
 	func test_homescreen_pcr_rat_negative() throws {
 		app.setPreferredContentSizeCategory(accessibility: .accessibility, size: .XS)
 		app.setLaunchArgument(LaunchArguments.test.common.showTestResultCards, to: true)
-		app.setLaunchArgument(LaunchArguments.test.pcr.testResult, to: TestResult.negative.stringValue)
-		app.setLaunchArgument(LaunchArguments.test.antigen.testResult, to: TestResult.negative.stringValue)
+		app.setLaunchArgument(LaunchArguments.test.pcr.testResult, to: TestResult.serverResponseAsString(for: TestResult.negative, on: .pcr))
+		app.setLaunchArgument(LaunchArguments.test.antigen.testResult, to: TestResult.serverResponseAsString(for: TestResult.negative, on: .antigen))
 		app.launch()
 
 		XCTAssertTrue(app.cells.element(boundBy: 2).waitForExistence(timeout: .medium))
@@ -350,7 +350,7 @@ class ENAUITests_01a_Home: CWATestCase {
 		app.setPreferredContentSizeCategory(accessibility: .accessibility, size: .XS)
 		app.setLaunchArgument(LaunchArguments.risk.riskLevel, to: riskLevel)
 		app.setLaunchArgument(LaunchArguments.risk.numberOfDaysWithRiskLevel, to: numberOfDaysWithLowRisk)
-		app.setLaunchArgument(LaunchArguments.test.pcr.testResult, to: TestResult.invalid.stringValue)
+		app.setLaunchArgument(LaunchArguments.test.pcr.testResult, to: TestResult.serverResponseAsString(for: TestResult.invalid, on: .pcr))
 		app.setLaunchArgument(LaunchArguments.common.ENStatus, to: ENStatus.active.stringValue)
 		app.launch()
 
@@ -364,7 +364,7 @@ class ENAUITests_01a_Home: CWATestCase {
 		app.setPreferredContentSizeCategory(accessibility: .accessibility, size: .XS)
 		app.setLaunchArgument(LaunchArguments.risk.riskLevel, to: riskLevel)
 		app.setLaunchArgument(LaunchArguments.risk.numberOfDaysWithRiskLevel, to: numberOfDaysWithLowRisk)
-		app.setLaunchArgument(LaunchArguments.test.pcr.testResult, to: TestResult.pending.stringValue)
+		app.setLaunchArgument(LaunchArguments.test.pcr.testResult, to: TestResult.serverResponseAsString(for: TestResult.pending, on: .pcr))
 		app.setLaunchArgument(LaunchArguments.common.ENStatus, to: ENStatus.active.stringValue)
 		app.launch()
 
@@ -378,7 +378,7 @@ class ENAUITests_01a_Home: CWATestCase {
 		app.setPreferredContentSizeCategory(accessibility: .accessibility, size: .XS)
 		app.setLaunchArgument(LaunchArguments.risk.riskLevel, to: riskLevel)
 		app.setLaunchArgument(LaunchArguments.risk.numberOfDaysWithRiskLevel, to: numberOfDaysWithLowRisk)
-		app.setLaunchArgument(LaunchArguments.test.pcr.testResult, to: TestResult.negative.stringValue)
+		app.setLaunchArgument(LaunchArguments.test.pcr.testResult, to: TestResult.serverResponseAsString(for: TestResult.negative, on: .pcr))
 		app.setLaunchArgument(LaunchArguments.common.ENStatus, to: ENStatus.active.stringValue)
 		app.launch()
 
@@ -389,7 +389,7 @@ class ENAUITests_01a_Home: CWATestCase {
 		var screenshotCounter = 0
 		app.setPreferredContentSizeCategory(accessibility: .accessibility, size: .XS)
 		// we just need one launch argument because it is handled separately
-		app.setLaunchArgument(LaunchArguments.test.pcr.testResult, to: TestResult.positive.stringValue)
+		app.setLaunchArgument(LaunchArguments.test.pcr.testResult, to: TestResult.serverResponseAsString(for: TestResult.positive, on: .pcr))
 		app.setLaunchArgument(LaunchArguments.test.pcr.positiveTestResultWasShown, to: true)
 		app.setLaunchArgument(LaunchArguments.common.ENStatus, to: ENStatus.active.stringValue)
 		app.launch()
