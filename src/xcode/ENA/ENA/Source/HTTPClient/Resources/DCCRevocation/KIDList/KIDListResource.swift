@@ -13,14 +13,18 @@ enum KIDListResourceError: Error {
 
 struct KIDListResource: Resource {
 
-	init() {
+	init(
+		signatureVerifier: SignatureVerification = SignatureVerifier()
+	) {
 		self.trustEvaluation = DefaultTrustEvaluation(
 			publicKeyHash: Environments().currentEnvironment().pinningKeyHashData
 		)
 		self.locator = .kidList
 		self.type = .caching()
 		self.sendResource = EmptySendResource()
-		self.receiveResource = ProtobufReceiveResource<SAP_Internal_Dgc_RevocationKidList>()
+		self.receiveResource = ProtobufReceiveResource<SAP_Internal_Dgc_RevocationKidList>(
+			signatureVerifier: signatureVerifier
+		)
 	}
 	
 	// MARK: - Protocol Resource

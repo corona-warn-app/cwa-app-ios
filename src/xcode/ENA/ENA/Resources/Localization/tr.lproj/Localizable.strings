@@ -561,7 +561,7 @@
 
 "ExposureSubmissionDispatch_QRCodeButtonTitle" = "QR Kodu Tara";
 
-"ExposureSubmissionDispatch_QRCodeButtonDescription" = "Uygulamada test sonucunuzu alın ve diğer kullanıcıları uyarın ya da COVID test sertifikanızı talep edin.";
+"ExposureSubmissionDispatch_QRCodeButtonDescription" = "Test sonucunuzu ve aile üyelerinizin test sonuçlarını alın ve COVID test sertifikanızı talep edin.";
 
 "ExposureSubmissionDispatch_TANButtonTitle" = "PCR Testi için TAN girin";
 
@@ -1306,6 +1306,11 @@
 "Home_resultCard_DeleteTestButton" = "Testi Sil";
 
 "Home_resultCard_HideTestButton" = "Tekrar Görüntüleme";
+
+/* - Family Tets */
+"Home_Family_Test_Title" = "Aile üyelerinin testleri";
+
+"Home_Family_Test_Detail" = "Haberlerimiz var";
 
 /* - Show Positive */
 "Home_Finding_Positive_Card_Status_Title" = "SARS-CoV-2 pozitif";
@@ -3583,4 +3588,63 @@
 "TicketValidation_Result_Failed_subtitle" = "Sertifikanız sağlayıcı gerekliliklerini karşılamıyor.";
 
 "TicketValidation_Result_Failed_description" = "Sorularınız varsa lütfen sağlayıcı \"%@\" ile iletişime geçin.";
+
+/* Family Member Corona Test */
+"FamilyMemberCoronaTest_title" = "Aile üyelerinin testleri";
+
+"FamilyMemberCoronaTest_deleteAllButtonTitle" = "Tümünü sil";
+
+"FamilyMemberCoronaTest_pcrCaption" = "PCR testi tanısı";
+
+"FamilyMemberCoronaTest_antigenCaption" = "Hızlı test tanısı";
+
+"FamilyMemberCoronaTest_pcrDate" = "Testin eklenme tarihi: %@";
+
+"FamilyMemberCoronaTest_antigenDate" = "%@ tarihinde yapıldı";
+
+"FamilyMemberCoronaTest_pendingDiagnosis" = "Sonucunuz henüz çıkmadı";
+
+"FamilyMemberCoronaTest_pendingPCRDescription" = "PCR testine ilişkin değerlendirme henüz tamamlanmadı.";
+
+"FamilyMemberCoronaTest_pendingAntigenDescription" = "Hızlı teste ilişkin değerlendirme henüz tamamlanmadı.";
+
+"FamilyMemberCoronaTest_negativeTopDiagnosis" = "SARS-CoV-2";
+
+"FamilyMemberCoronaTest_negativeBottomDiagnosis" = "Negatif";
+
+"FamilyMemberCoronaTest_positiveTopDiagnosis" = "SARS-CoV-2";
+
+"FamilyMemberCoronaTest_positiveBottomDiagnosis" = "Pozitif";
+
+"FamilyMemberCoronaTest_invalidDiagnosis" = "Geçersiz test";
+
+"FamilyMemberCoronaTest_invalidDescription" = "Test değerlendirilemiyor.";
+
+"FamilyMemberCoronaTest_outdatedDiagnosis" = "Test Artık Geçerli Değil";
+
+"FamilyMemberCoronaTest_outdatedDescription" = "Hızlı test %i saatten eski ve artık burada görüntülenmeyecek.";
+
+"FamilyMemberCoronaTest_outdatedButtonTitle" = "Tekrar Görüntüleme";
+
+"FamilyMemberCoronaTest_expiredDiagnosis" = "Artık Geçerli Değil";
+
+"FamilyMemberCoronaTest_expiredDescription" = "Test 21 günden eski ve dolayısıyla artık geçerli değil.";
+
+"FamilyMemberCoronaTest_expiredButtonTitle" = "Testi Sil";
+
+"FamilyMemberCoronaTest_DeleteOne_AlertTitle" = "Test sonucu kaldırılsın mı?";
+
+"FamilyMemberCoronaTest_DeleteOne_AlertMessage" = "Test sonucu geri dönüşüm kutusuna taşınacak. Geri dönüşüm kutusunu, durum sekmesinde yer alan \"Daha Fazla\" kutucuğunda bulabilirsiniz.\nBurada test sonucunu kalıcı olarak silebilir veya geri yükleyebilirsiniz. Test sonucu 30 gün sonra otomatik olarak silinir.";
+
+"FamilyMemberCoronaTest_DeleteOne_AlertConfirmButtonTitle" = "Test Sonucunu Kaldır";
+
+"FamilyMemberCoronaTest_DeleteOne_AlertCancelButtonTitle" = "İptal";
+
+"FamilyMemberCoronaTest_DeleteAll_AlertTitle" = "Test sonuçları kaldırılsın mı?";
+
+"FamilyMemberCoronaTest_DeleteAll_AlertMessage" = "Test sonuçları geri dönüşüm kutusuna taşınacak. Geri dönüşüm kutusunu, durum sekmesinde yer alan \"Daha Fazla\" kutucuğunda bulabilirsiniz.\nBurada test sonuçlarını kalıcı olarak silebilir veya geri yükleyebilirsiniz. Test sonuçları 30 gün sonra otomatik olarak silinir.";
+
+"FamilyMemberCoronaTest_DeleteAll_AlertConfirmButtonTitle" = "Test Sonuçlarını Kaldır";
+
+"FamilyMemberCoronaTest_DeleteAll_AlertCancelButtonTitle" = "İptal";
 

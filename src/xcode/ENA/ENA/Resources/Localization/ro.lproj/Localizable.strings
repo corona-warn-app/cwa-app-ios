@@ -561,7 +561,7 @@
 
 "ExposureSubmissionDispatch_QRCodeButtonTitle" = "Scanare cod QR";
 
-"ExposureSubmissionDispatch_QRCodeButtonDescription" = "Primiți rezultatul testului dvs. în aplicație și avertizați-i pe ceilalți sau solicitați certificatul dvs. de test COVID.";
+"ExposureSubmissionDispatch_QRCodeButtonDescription" = "Primiți rezultatul testului dvs. și rezultatele pentru membrii familiei dvs. și solicitați certificatul dvs. de test COVID.";
 
 "ExposureSubmissionDispatch_TANButtonTitle" = "Introduceți codul TAN pentru testul PCR";
 
@@ -1306,6 +1306,11 @@
 "Home_resultCard_DeleteTestButton" = "Ștergere test";
 
 "Home_resultCard_HideTestButton" = "Nu mai afișa din nou";
+
+/* - Family Tets */
+"Home_Family_Test_Title" = "Teste ale membrilor familiei";
+
+"Home_Family_Test_Detail" = "Există noutăți";
 
 /* - Show Positive */
 "Home_Finding_Positive_Card_Status_Title" = "Pozitiv la SARS-CoV-2";
@@ -3583,4 +3588,63 @@
 "TicketValidation_Result_Failed_subtitle" = "Certificatul dvs. nu îndeplinește cerințele furnizorului.";
 
 "TicketValidation_Result_Failed_description" = "Dacă aveți întrebări, contactați furnizorul „%@”.";
+
+/* Family Member Corona Test */
+"FamilyMemberCoronaTest_title" = "Teste ale membrilor familiei";
+
+"FamilyMemberCoronaTest_deleteAllButtonTitle" = "Ștergere tot";
+
+"FamilyMemberCoronaTest_pcrCaption" = "Diagnostic test PCR";
+
+"FamilyMemberCoronaTest_antigenCaption" = "Diagnostic test rapid";
+
+"FamilyMemberCoronaTest_pcrDate" = "Test adăugat pe %@";
+
+"FamilyMemberCoronaTest_antigenDate" = "Efectuat pe %@";
+
+"FamilyMemberCoronaTest_pendingDiagnosis" = "Rezultatul dvs. nu este încă disponibil";
+
+"FamilyMemberCoronaTest_pendingPCRDescription" = "Evaluarea testului PCR nu este încă finalizată.";
+
+"FamilyMemberCoronaTest_pendingAntigenDescription" = "Evaluarea testului rapid nu este încă finalizată.";
+
+"FamilyMemberCoronaTest_negativeTopDiagnosis" = "SARS-CoV-2";
+
+"FamilyMemberCoronaTest_negativeBottomDiagnosis" = "Negativ";
+
+"FamilyMemberCoronaTest_positiveTopDiagnosis" = "SARS-CoV-2";
+
+"FamilyMemberCoronaTest_positiveBottomDiagnosis" = "Pozitiv";
+
+"FamilyMemberCoronaTest_invalidDiagnosis" = "Test nevalid";
+
+"FamilyMemberCoronaTest_invalidDescription" = "Testul nu poate fi evaluat.";
+
+"FamilyMemberCoronaTest_outdatedDiagnosis" = "Testul nu mai este de actualitate";
+
+"FamilyMemberCoronaTest_outdatedDescription" = "Testul rapid are peste %i de ore și nu va mai fi afișat aici.";
+
+"FamilyMemberCoronaTest_outdatedButtonTitle" = "Nu mai afișa din nou";
+
+"FamilyMemberCoronaTest_expiredDiagnosis" = "Nu mai este valid";
+
+"FamilyMemberCoronaTest_expiredDescription" = "Testul are peste 21 de zile și, în consecință, nu mai este relevant.";
+
+"FamilyMemberCoronaTest_expiredButtonTitle" = "Ștergere test";
+
+"FamilyMemberCoronaTest_DeleteOne_AlertTitle" = "Eliminați rezultatul testului?";
+
+"FamilyMemberCoronaTest_DeleteOne_AlertMessage" = "Rezultatul testului va fi mutat în coșul de reciclare. Veți găsi coșul de reciclare pe mozaicul „Mai mult” al paginii de tab de stare.\nPuteți șterge definitiv sau restaura de acolo rezultatul testului. Rezultatul testului va fi șters automat după 30 de zile.";
+
+"FamilyMemberCoronaTest_DeleteOne_AlertConfirmButtonTitle" = "Eliminare rezultat test";
+
+"FamilyMemberCoronaTest_DeleteOne_AlertCancelButtonTitle" = "Anulare";
+
+"FamilyMemberCoronaTest_DeleteAll_AlertTitle" = "Eliminați rezultatele testelor?";
+
+"FamilyMemberCoronaTest_DeleteAll_AlertMessage" = "Rezultatele testelor vor fi mutate în coșul de reciclare. Veți găsi coșul de reciclare pe mozaicul „Mai mult” al paginii de tab de stare.\nPuteți șterge definitiv sau restaura de acolo rezultatele testelor. Rezultatele testelor vor fi șterse automat după 30 de zile.";
+
+"FamilyMemberCoronaTest_DeleteAll_AlertConfirmButtonTitle" = "Eliminare rezultate teste";
+
+"FamilyMemberCoronaTest_DeleteAll_AlertCancelButtonTitle" = "Anulare";
 

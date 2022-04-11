@@ -28,11 +28,4 @@ extension TestResult {
 		
 		self.init(serverResponse: rawValue, coronaTestType: coronaTestType)
 	}
-
-	// MARK: - Internal
-	
-	var stringValue: String {
-		String(describing: self.rawValue)
-	}
-
 }
