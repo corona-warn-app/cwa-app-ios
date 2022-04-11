@@ -52,9 +52,9 @@
 
 "NotificationSettings_FAQLink" = "https://www.coronawarn.app/en/faq/#notification_settings";
 
-"TicketValidation_NoValidDCC_FAQLink" = "https://www.coronawarn.app/en/faq/#val_service_no_valid_dcc";
+"TicketValidation_NoValidDCC_FAQLink" = "https://www.coronawarn.app/en/faq/#val_service_basics";
 
-"TicketValidation_ServiceResult_FAQLink" = "https://www.coronawarn.app/en/faq/#val_service_result";
+"TicketValidation_ServiceResult_FAQLink" = "https://www.coronawarn.app/en/faq/#val_service_basics";
 
 "Risk_Voluntary_Self_Quarantine_FAQ_URL" = "https://www.coronawarn.app/en/faq/#voluntary_self_quarantine";
 
