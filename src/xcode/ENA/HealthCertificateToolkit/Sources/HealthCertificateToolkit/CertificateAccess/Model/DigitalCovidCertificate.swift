@@ -35,7 +35,6 @@ public struct DigitalCovidCertificate: Codable, Equatable {
         testEntries: [TestEntry]? = nil,
         recoveryEntries: [RecoveryEntry]? = nil
     ) -> DigitalCovidCertificate {
-        
         // To ensure, that the decoding does not fail, at least one of the entries has to be set.
         var _vaccinationEntries = vaccinationEntries
         if vaccinationEntries == nil &&
@@ -45,6 +44,7 @@ public struct DigitalCovidCertificate: Codable, Equatable {
                 VaccinationEntry.fake()
             ]
         }
+
         return DigitalCovidCertificate(
             version: version,
             name: name,

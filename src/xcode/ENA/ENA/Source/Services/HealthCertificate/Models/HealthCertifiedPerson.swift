@@ -85,8 +85,8 @@ class HealthCertifiedPerson: Codable, Equatable, Comparable {
 					didShowBlockedNotification: decodingContainer.didShowBlockedNotification ?? false,
 					isNew: decodingContainer.isNew ?? false,
 					isValidityStateNew: decodingContainer.isValidityStateNew ?? false,
-					error: error,
-					revocationEntries: decodingContainer.revocationEntries
+					revocationEntries: decodingContainer.revocationEntries,
+					error: error
 				)
 
 				decodingFailedHealthCertificates.append(decodingFailedHealthCertificate)
