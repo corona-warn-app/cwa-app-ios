@@ -1,8 +1,8 @@
 {
   "configurations" : [
     {
-      "id" : "0E0E0978-2717-4490-8723-B6BDF33AD923",
-      "name" : "Configuration 1",
+      "id" : "7FB0913D-90D1-4711-8EB8-852515BAE11B",
+      "name" : "Default",
       "options" : {
 
       }
@@ -10,7 +10,10 @@
   ],
   "defaultOptions" : {
     "codeCoverage" : false,
+    "defaultTestExecutionTimeAllowance" : 300,
     "mainThreadCheckerEnabled" : false,
+    "maximumTestExecutionTimeAllowance" : 600,
+    "testExecutionOrdering" : "random",
     "testTimeoutsEnabled" : true
   },
   "testTargets" : [
@@ -102,7 +105,9 @@
         "ENAUITests_17_FileScanner\/test_screenshot_OpenUniversalScannerAndSelectFile_CheckForSheet()",
         "ENAUITests_19_TicketValidation\/test_screenshot_ticketValidation_failed()",
         "ENAUITests_19_TicketValidation\/test_screenshot_ticketValidation_passed()",
-        "ENAUITests_20_CertificateReissuance\/test_screenshot_CertificateReissuance()"
+        "ENAUITests_20_CertificateReissuance\/test_screenshot_CertificateReissuance()",
+        "ENAUITests_21_FamilyMember\/test_screenshot_RegisterCoronaTestFromUniversalQRCodeScanner()",
+        "ENAUITests_21_FamilyMember\/test_screenshot_familyMemberViewOverviewDeleteAll()"
       ],
       "target" : {
         "containerPath" : "container:ENA.xcodeproj",
