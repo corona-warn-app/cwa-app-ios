@@ -499,14 +499,22 @@ class HealthCertificateService: HealthCertificateServiceServable {
 
 		attemptToRestoreDecodingFailedHealthCertificates()
 
+		let dispatchGroup = DispatchGroup()
 		healthCertifiedPersons.forEach { healthCertifiedPerson in
 			healthCertifiedPerson.healthCertificates.forEach { healthCertificate in
 				updateValidityState(for: healthCertificate, person: healthCertifiedPerson)
+				dispatchGroup.enter()
 				healthCertificateNotificationService.recreateNotifications(
 					for: healthCertificate,
-					completion: completion
+					completion: {
+						dispatchGroup.leave()
+					}
 				)
 			}
+		}
+
+		dispatchGroup.notify(queue: .global()) {
+			completion()
 		}
 
 		if shouldScheduleTimer {
