@@ -40,7 +40,6 @@ class AntigenTestProfileOverviewViewController: UITableViewController, DismissHa
 		navigationItem.largeTitleDisplayMode = .always
 		navigationItem.title = AppStrings.AntigenProfile.Overview.title
 
-		/*
 		viewModel.$antigenTestProfiles
 			.receive(on: DispatchQueue.main.ocombine)
 			.sink { [weak self] _ in
@@ -50,7 +49,6 @@ class AntigenTestProfileOverviewViewController: UITableViewController, DismissHa
 				self.updateEmptyState()
 			}
 			.store(in: &subscriptions)
-		 */
 	}
 
 	override func viewWillAppear(_ animated: Bool) {
