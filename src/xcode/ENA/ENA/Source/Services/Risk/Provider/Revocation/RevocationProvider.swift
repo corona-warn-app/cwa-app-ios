@@ -6,8 +6,7 @@ import Foundation
 import SwiftUI
 
 protocol RevocationProviding {
-
-	func updateCache(with certificates: [HealthCertificate], completion: @escaping (Result<Void, Error>) -> Void)
+	func updateCache(with certificates: [HealthCertificate], completion: @escaping (Result<Void, RevocationProvider.RevocationProviderError>) -> Void)
 }
 
 final class RevocationProvider: RevocationProviding {
@@ -22,11 +21,9 @@ final class RevocationProvider: RevocationProviding {
 		self.signatureVerifier = signatureVerifier
 	}
 
-	// MARK: - Overrides
-
 	// MARK: - Protocol RevocationProviding
 
-	func updateCache(with certificates: [HealthCertificate], completion: @escaping (Result<Void, Error>) -> Void) {
+	func updateCache(with certificates: [HealthCertificate], completion: @escaping (Result<Void, RevocationProviderError>) -> Void) {
 		// 1. Filter by certificate type
 		let filteredCertificates = certificates.filter { certificate in
 			(certificate.type == .vaccination ||
@@ -44,7 +41,7 @@ final class RevocationProvider: RevocationProviding {
 		restService.load(resource) { result in
 			switch result {
 			case .failure(let error):
-				completion(.failure(error))
+				completion(.failure(.restError(error)))
 			case .success(let kidList):
 				// helping step -> convert to KidWithTypes model to make things a bit easier
 				let keyIdentifiersWithTypes: [KidWithTypes] = kidList.items.map {
@@ -64,7 +61,7 @@ final class RevocationProvider: RevocationProviding {
 
 				// 5. calculate revocation coordinates based on kid list for ever filteredGroupedCertificates
 				// incl. 6. Group by RLC by KID Type
-				self.tmpData = []
+				self.certificateByRLC = []
 				for kidWithTypes in keyIdentifiersWithTypes {
 					let kid = kidWithTypes.kid
 					guard let certificates = filteredGroupedCertificates[kid] else {
@@ -79,21 +76,31 @@ final class RevocationProvider: RevocationProviding {
 						}
 					}
 				}
-				self.tmpData.sort { lhs, rhs in
+				self.certificateByRLC.sort { lhs, rhs in
 					lhs.type < rhs.type
 				}
 			}
 
-			// 6. -> [RevocationLocationCoordinates]
-
-			Log.info("Did load KidListe")
-			completion(.success(()))
+			self.updateKidType { result in
+				switch result {
+				case .success:
+					completion(.success(()))
+				case .failure(let error):
+					completion(.failure(error))
+				}
+			}
 		}
 	}
 
 	// MARK: - Public
 
 	// MARK: - Internal
+
+	enum RevocationProviderError: Error {
+		case internalError
+		case chunkUpdateError
+		case restError(ServiceError<KIDListResourceError>)
+	}
 
 	// MARK: - Private
 
@@ -104,26 +111,95 @@ final class RevocationProvider: RevocationProviding {
 
 	private let restService: RestServiceProvider
 	private let signatureVerifier: SignatureVerification
-//	private let queue: DispatchQueue = DispatchQueue(label: "RevocationServiceQueue")
-//
-//	/// write to store
-//	private var lastExecution: Date = Date()
 
-	private(set) var tmpData: [RevocationLocation] = []
+	private(set) var certificateByRLC: [RevocationLocation] = []
+
+	private func updateKidType(completion: @escaping(Result<Void, RevocationProviderError>) -> Void) {
+		// first we need a copy, inside the loop data of certificateByRLC will get modified
+		let copyOfCertificateByRLC = certificateByRLC
+		for rlc in copyOfCertificateByRLC {
+			// 1 update KID Types
+			updateKidTypeIndex(rlc.keyIdentifier, rlc.type) { [weak self] coordinates in
+				guard let self = self else {
+					Log.error("Failed to get strong self")
+					completion(.failure(.internalError))
+					return
+				}
+				// 2 filter for RLC
+				let effectedCertificates = rlc.certificates.filter { key, _ in
+					coordinates.contains(key)
+				}
+				// 3 update KID Type chunk
+				effectedCertificates.forEach { coordinate, _ in
+					let resource = KIDTypeChunkResource(kid: rlc.keyIdentifier, hashType: rlc.type, x: coordinate.x, y: coordinate.y)
+					self.restService.load(resource) { result in
+						switch result {
+						case .success(let kidChunk):
+							// 4 remove all certificates with matching hash
+							let hashes = kidChunk.hashes.map { $0.toHexString() }
+							hashes.forEach { hash in
+								self.removeCertificateByHash(hash)
+							}
+						case .failure(let error):
+							Log.error("failed to update kid x y chunk", error: error)
+							completion(.failure(.chunkUpdateError))
+						}
+					}
+				}
+			}
+		}
+	}
+
+	private func removeCertificateByHash(_ hash: String) {
+		var result: [RevocationLocation] = []
+		for revocationLocation in certificateByRLC {
+			let updatedCertificates = revocationLocation.certificates.map { key, values in
+				[key: values.filter({ certificate in
+					let certificateHash = self.hash(by: revocationLocation.type, certificate)
+					return certificateHash != hash
+				})]
+			}
+			guard !updatedCertificates.isEmpty else {
+				continue
+			}
+
+			result.append(revocationLocation)
+		}
+		certificateByRLC = result
+	}
+
+	private func updateKidTypeIndex(_ kid: String, _ hash: String, completion: @escaping([RevocationLocation.Coordinate]) -> Void) {
+		let resource = KIDTypeIndexResource(kid: kid, hashType: hash)
+		restService.load(resource) { result in
+			switch result {
+			case .success(let kidTypeIndices):
+				completion(
+					kidTypeIndices.items.map { item -> RevocationLocation.Coordinate in
+						RevocationLocation.Coordinate(
+							x: item.x.toHexString(),
+							y: item.y[0].toHexString()
+						)
+					}
+				)
+			case .failure(let error):
+				Log.error("Failed to load kid type indices", error: error)
+			}
+		}
+	}
 
 	private func insert(_ kid: String, _ type: String, _ certificate: HealthCertificate) {
-		guard let hash = hash(type, certificate) else {
+		guard let hash = hash(by: type, certificate) else {
 			Log.error("missing hash, type might be unknown")
 			return
 		}
-		let coordinate = rlc(type, hash)
+		let coordinate = rlc(hash)
 
 		// lookup or create entry
-		guard let entry = tmpData.first(where: { rlc in
+		guard let entry = certificateByRLC.first(where: { rlc in
 			rlc.keyIdentifier == kid && rlc.type == type
 		}) else {
 			// no entry found create a new one and add
-			tmpData.append(
+			certificateByRLC.append(
 				RevocationLocation(
 					keyIdentifier: kid,
 					type: type,
@@ -136,13 +212,13 @@ final class RevocationProvider: RevocationProviding {
 		var certificatesByCoordinate = entry.certificates[coordinate] ?? []
 		certificatesByCoordinate.append(certificate)
 		updatedEntry.certificates[coordinate] = certificatesByCoordinate
-		tmpData.replace(entry, with: updatedEntry)
+		certificateByRLC.replace(entry, with: updatedEntry)
 	}
 
-	private func rlc(_ type: String, _ hash: String) -> RevocationLocation.Coordinate {
+	private func rlc(_ hash: String) -> RevocationLocation.Coordinate {
 		let data = Data(hex: hash)
 		let first = Data(bytes: [data[0]], count: 1)
-		let second = Data(bytes: [data[0]], count: 1)
+		let second = Data(bytes: [data[1]], count: 1)
 
 		return RevocationLocation.Coordinate(
 			x: first.toHexString(),
@@ -150,7 +226,7 @@ final class RevocationProvider: RevocationProviding {
 		)
 	}
 
-	private func hash(_ type: String, _ certificate: HealthCertificate) -> String? {
+	private func hash(by type: String, _ certificate: HealthCertificate) -> String? {
 		switch type {
 		case "0a":
 			return certificate.revocationEntries.signature
@@ -161,28 +237,6 @@ final class RevocationProvider: RevocationProviding {
 		default:
 			return nil
 		}
-	}
-
-}
-
-struct RevocationLocation: Hashable {
-
-	// MARK: Protocol - Hashable
-
-	func hash(into hasher: inout Hasher) {
-		hasher.combine(keyIdentifier)
-		hasher.combine(type)
-	}
-
-	// MARK: Internal
-
-	let keyIdentifier: String
-	let type: String
-	var certificates: [Coordinate: [HealthCertificate]]
-
-	struct Coordinate: Hashable {
-		let x: String
-		let y: String
 	}
 
 }
