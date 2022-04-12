@@ -8,6 +8,10 @@
 
 "safari_corona_website" = "https://www.coronawarn.app/de/faq/";
 
+"safari_corona_social_media" = "https://www.coronawarn.app/de/community/#socialmedia";
+
+"safari_corona_accessibility" = "https://www.coronawarn.app/de/accessibility/#ios";
+
 "General_moreInfo_URL" = "https://www.coronawarn.app/de/faq/";
 
 "General_moreInfo_URL_EN5" = "https://www.coronawarn.app/de/faq/#ENError5";
@@ -42,6 +46,8 @@
 
 "HealthCertificate_Booster_FAQLink" = "https://www.coronawarn.app/de/faq/#vac_booster";
 
+"HealthCertificate_AdmissionPolicy_FAQLink" = "https://www.coronawarn.app/de/faq/#admission_policy";
+
 "CovPass_Check_FAQLink" = "https://www.coronawarn.app/de/faq/#eu_dcc_check";
 
 "NotificationSettings_FAQLink" = "https://www.coronawarn.app/de/faq/#notification_settings";
@@ -59,3 +65,5 @@
 "UniversalQRScanner_MaxPersonAmountAlert_FAQLink" = "https://www.coronawarn.app/de/faq/#eu_dcc_check";
 
 "UniversalQRScanner_MaxPersonAmountAlert_CovPassCheckLink" = "https://apps.apple.com/de/app/covpass-check/id1566140314?mt=8";
+
+"TicketValidation_CoronaWarnAppLink" = "https://apps.apple.com/de/app/corona-warn-app/id1512595757?mt=8";

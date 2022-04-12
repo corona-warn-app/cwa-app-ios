@@ -7,8 +7,8 @@ import HealthCertificateToolkit
 
 extension VaccinationEntry {
 
-	var isLastDoseInASeries: Bool {
-		doseNumber == totalSeriesOfDoses
+	var isLastDoseInASeriesOrBooster: Bool {
+		doseNumber >= totalSeriesOfDoses
 	}
 
 	var localVaccinationDate: Date? {
@@ -17,28 +17,6 @@ extension VaccinationEntry {
 
 	var doseNumberAndTotalSeriesOfDoses: String {
 		"\(doseNumber) of \(totalSeriesOfDoses)"
-	}
-
-	// if administered with one dose of AstraZeneca, Moderna or BioNTech as recovery vaccination
-	var isRecoveredVaccination: Bool {
-		switch VaccinationProductType(value: vaccineMedicinalProduct) {
-		case .biontech, .astraZeneca, .moderna:
-			return totalSeriesOfDoses == 1 && doseNumber == 1
-		case .johnsonAndJohnson, .other:
-			return false
-		}
-	}
-
-	// is booster if -> AstraZeneca, Moderna and BioNTech, dose is 3 or more, Johnson & Johnson if dose is 2 or more
-	var isBoosterVaccination: Bool {
-		switch VaccinationProductType(value: vaccineMedicinalProduct) {
-		case .biontech, .astraZeneca, .moderna:
-			return doseNumber > 2
-		case .johnsonAndJohnson:
-			return doseNumber > 1
-		case .other:
-			return false
-		}
 	}
 	
 	// swiftlint:disable:next cyclomatic_complexity

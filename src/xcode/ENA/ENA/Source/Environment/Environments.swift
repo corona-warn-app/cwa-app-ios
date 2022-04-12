@@ -13,7 +13,7 @@ struct EnvironmentData: Codable {
 	let name: String
 
 	// Hosts
-	let distributionURL, submissionURL, verificationURL, dataDonationURL, errorLogSubmissionURL, dccURL: URL
+	let distributionURL, submissionURL, verificationURL, dataDonationURL, errorLogSubmissionURL, dccURL, dccRecertifyURL: URL
 
 	/// String representation of the package validation (public) key.
 	///
@@ -24,6 +24,10 @@ struct EnvironmentData: Codable {
 
 	/// Used for certificate pinning
 	let pinningKeyHash: String
+	
+	var pinningKeyHashData: Data {
+		pinningKeyHash.dataWithHexString()
+	}
 }
 
 // MARK: - ServerEnvironment access.

@@ -11,7 +11,7 @@ class HomeShownPositiveTestResultCellModel {
 
 	init(
 		coronaTestType: CoronaTestType,
-		coronaTestService: CoronaTestService,
+		coronaTestService: CoronaTestServiceProviding,
 		onUpdate: @escaping () -> Void
 	) {
 		self.coronaTestType = coronaTestType
@@ -20,7 +20,7 @@ class HomeShownPositiveTestResultCellModel {
 		case .pcr:
 			title = AppStrings.Home.TestResult.pcrTitle
 
-			coronaTestService.$pcrTest
+			coronaTestService.pcrTest
 				.sink { [weak self] pcrTest in
 					guard let pcrTest = pcrTest else {
 						return
@@ -33,7 +33,7 @@ class HomeShownPositiveTestResultCellModel {
 		case .antigen:
 			title = AppStrings.Home.TestResult.antigenTitle
 
-			coronaTestService.$antigenTest
+			coronaTestService.antigenTest
 				.sink { [weak self] antigenTest in
 					guard let antigenTest = antigenTest else {
 						return
@@ -82,53 +82,72 @@ class HomeShownPositiveTestResultCellModel {
 
 		var homeItemViewModels = [HomeImageItemViewModel]()
 
-		if coronaTest.type == .antigen {
-			homeItemViewModels.append(
+		if coronaTest.type == .pcr {
+			homeItemViewModels.append(contentsOf: [
 				HomeImageItemViewModel(
-					title: AppStrings.Home.TestResult.ShownPositive.verifyItemTitle,
+					title: AppStrings.Home.TestResult.ShownPositive.itemPCR0,
+					titleColor: .enaColor(for: .textPrimary1),
+					iconImageName: "Icons - Home",
+					iconTintColor: .enaColor(for: .riskHigh),
+					color: .clear,
+					separatorColor: .clear,
+					containerInsets: .init(top: 10.0, left: 0.0, bottom: 10.0, right: 0),
+					stackViewAlignment: .top
+				),
+				HomeImageItemViewModel(
+					title: AppStrings.Home.TestResult.ShownPositive.itemPCR1,
+					titleColor: .enaColor(for: .textPrimary1),
+					iconImageName: "Icons - Hotline",
+					iconTintColor: .enaColor(for: .riskHigh),
+					color: .clear,
+					separatorColor: .clear,
+					containerInsets: .init(top: 10.0, left: 0.0, bottom: 10.0, right: 0),
+					stackViewAlignment: .top
+				),
+				HomeImageItemViewModel(
+					title: AppStrings.Home.TestResult.ShownPositive.itemPCR2,
+					titleColor: .enaColor(for: .textPrimary1),
+					iconImageName: "Icons - Red Plus",
+					iconTintColor: .enaColor(for: .riskHigh),
+					color: .clear,
+					separatorColor: .clear,
+					containerInsets: .init(top: 10.0, left: 0.0, bottom: 10.0, right: 0),
+					stackViewAlignment: .top
+				)
+			])
+		} else if coronaTest.type == .antigen {
+			homeItemViewModels.append(contentsOf: [
+				HomeImageItemViewModel(
+					title: AppStrings.Home.TestResult.ShownPositive.itemRAT0,
+					titleColor: .enaColor(for: .textPrimary1),
+					iconImageName: "Icons - Home",
+					iconTintColor: .enaColor(for: .riskHigh),
+					color: .clear,
+					separatorColor: .clear,
+					containerInsets: .init(top: 10.0, left: 0.0, bottom: 10.0, right: 0),
+					stackViewAlignment: .top
+				),
+				HomeImageItemViewModel(
+					title: AppStrings.Home.TestResult.ShownPositive.itemRAT1,
 					titleColor: .enaColor(for: .textPrimary1),
 					iconImageName: "Icons - Test Tube",
 					iconTintColor: .enaColor(for: .riskHigh),
 					color: .clear,
 					separatorColor: .clear,
-					containerInsets: .init(top: 10.0, left: 0.0, bottom: 10.0, right: 0)
-				)
-			)
-		}
-
-		homeItemViewModels.append(contentsOf: [
-			HomeImageItemViewModel(
-				title: AppStrings.Home.TestResult.ShownPositive.phoneItemTitle,
-				titleColor: .enaColor(for: .textPrimary1),
-				iconImageName: "Icons - Hotline",
-				iconTintColor: .enaColor(for: .riskHigh),
-				color: .clear,
-				separatorColor: .clear,
-				containerInsets: .init(top: 10.0, left: 0.0, bottom: 10.0, right: 0)
-			),
-			HomeImageItemViewModel(
-				title: AppStrings.Home.TestResult.ShownPositive.homeItemTitle,
-				titleColor: .enaColor(for: .textPrimary1),
-				iconImageName: "Icons - Home",
-				iconTintColor: .enaColor(for: .riskHigh),
-				color: .clear,
-				separatorColor: .clear,
-				containerInsets: .init(top: 10.0, left: 0.0, bottom: 10.0, right: 0)
-			)
-		])
-
-		if !coronaTest.keysSubmitted {
-			homeItemViewModels.append(
+					containerInsets: .init(top: 10.0, left: 0.0, bottom: 10.0, right: 0),
+					stackViewAlignment: .top
+				),
 				HomeImageItemViewModel(
-					title: AppStrings.Home.TestResult.ShownPositive.shareItemTitle,
+					title: AppStrings.Home.TestResult.ShownPositive.itemRAT2,
 					titleColor: .enaColor(for: .textPrimary1),
-					iconImageName: "Icons - Warnen",
+					iconImageName: "Icons - Hotline",
 					iconTintColor: .enaColor(for: .riskHigh),
 					color: .clear,
 					separatorColor: .clear,
-					containerInsets: .init(top: 10.0, left: 0.0, bottom: 10.0, right: 0)
+					containerInsets: .init(top: 10.0, left: 0.0, bottom: 10.0, right: 0),
+					stackViewAlignment: .top
 				)
-			)
+			])
 		}
 
 		self.homeItemViewModels = homeItemViewModels

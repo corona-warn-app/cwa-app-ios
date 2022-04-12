@@ -11,18 +11,21 @@ final class HealthCertificateCellViewModel {
 	init(
 		healthCertificate: HealthCertificate,
 		healthCertifiedPerson: HealthCertifiedPerson,
-		details: HealthCertificeCellDetails = .allDetails
+		details: HealthCertificateCellDetails = .allDetails,
+		onValidationButtonTap: ((HealthCertificate, @escaping (Bool) -> Void) -> Void)? = nil
 	) {
 		self.healthCertificate = healthCertificate
 		self.healthCertifiedPerson = healthCertifiedPerson
 		self.details = details
+		self.onValidationButtonTap = onValidationButtonTap
 	}
 
 	// MARK: - Internal
 	
-	enum HealthCertificeCellDetails {
+	enum HealthCertificateCellDetails {
 		case allDetails
 		case overview
+		case overviewPlusName
 	}
 	
 	let healthCertificate: HealthCertificate
@@ -32,12 +35,12 @@ final class HealthCertificateCellViewModel {
 		case .allDetails:
 			if healthCertificate.isUsable &&
 				healthCertificate == healthCertifiedPerson.mostRelevantHealthCertificate {
-				return .lightBlue(withStars: false)
+				return healthCertifiedPerson.gradientType
 			} else {
-				return .solidGrey(withStars: false)
+				return .solidGrey
 			}
-		case .overview:
-			return .lightBlue(withStars: false)
+		case .overview, .overviewPlusName:
+			return .lightBlue
 		}
 	}()
 
@@ -49,6 +52,15 @@ final class HealthCertificateCellViewModel {
 			return AppStrings.HealthCertificate.Person.TestCertificate.headline
 		case .recovery:
 			return AppStrings.HealthCertificate.Person.RecoveryCertificate.headline
+		}
+	}()
+
+	lazy var name: String? = {
+		switch details {
+		case .allDetails, .overview:
+			return nil
+		case .overviewPlusName:
+			return healthCertifiedPerson.name?.fullName
 		}
 	}()
 
@@ -89,9 +101,9 @@ final class HealthCertificateCellViewModel {
 				)
 			}
 		case .recovery(let recoveryEntry):
-			return recoveryEntry.localCertificateValidityEndDate.map {
+			return recoveryEntry.localDateOfFirstPositiveNAAResult.map {
 				String(
-					format: AppStrings.HealthCertificate.Person.RecoveryCertificate.validityDate,
+					format: AppStrings.HealthCertificate.Person.RecoveryCertificate.positiveTestFrom,
 					DateFormatter.localizedString(from: $0, dateStyle: .short, timeStyle: .none)
 				)
 			}
@@ -123,7 +135,7 @@ final class HealthCertificateCellViewModel {
 			} else {
 				return nil
 			}
-		case .overview:
+		case .overview, .overviewPlusName:
 			return nil
 		}
 	}()
@@ -134,12 +146,8 @@ final class HealthCertificateCellViewModel {
 		}
 
 		switch healthCertificate.entry {
-		case .vaccination(let vaccinationEntry) where vaccinationEntry.isLastDoseInASeries:
-			if case .completelyProtected = healthCertifiedPerson.vaccinationState {
-				return UIImage(imageLiteralResourceName: "VaccinationCertificate_CompletelyProtected_Icon")
-			} else {
-				return UIImage(imageLiteralResourceName: "VaccinationCertificate_FullyVaccinated_Icon")
-			}
+		case .vaccination(let vaccinationEntry) where vaccinationEntry.isLastDoseInASeriesOrBooster:
+			return UIImage(imageLiteralResourceName: "VaccinationCertificate_CompletelyProtected_Icon")
 		case .vaccination:
 			return UIImage(imageLiteralResourceName: "VaccinationCertificate_PartiallyVaccinated_Icon")
 		case .test:
@@ -153,8 +161,21 @@ final class HealthCertificateCellViewModel {
 		switch details {
 		case .allDetails:
 			return healthCertificate == healthCertifiedPerson.mostRelevantHealthCertificate
-		case .overview:
+		case .overview, .overviewPlusName:
 			return false
+		}
+	}()
+
+	lazy var currentlyUsedImage: UIImage? = {
+		switch gradientType {
+		case .lightBlue:
+			return UIImage(named: "Icon_CurrentlyUsedCertificate_light")
+		case .mediumBlue:
+			return UIImage(named: "Icon_CurrentlyUsedCertificate_medium")
+		case .darkBlue:
+			return UIImage(named: "Icon_CurrentlyUsedCertificate_dark")
+		case .blueRedTilted, .blueOnly, .solidGrey, .whiteToLightBlue:
+			return UIImage(named: "Icon_CurrentlyUsedCertificate_grey")
 		}
 	}()
 
@@ -162,13 +183,24 @@ final class HealthCertificateCellViewModel {
 		switch details {
 		case .allDetails:
 			return healthCertificate.isNew || healthCertificate.isValidityStateNew
-		case .overview:
+		case .overview, .overviewPlusName:
 			return false
 		}
 	}()
 
+	lazy var isValidationButtonEnabled: Bool = {
+		healthCertificate.validityState != .blocked
+	}()
+	
+	func didTapValidationButton(loadingStateHandler: @escaping (Bool) -> Void) {
+		onValidationButtonTap?(healthCertificate) { isLoading in
+			loadingStateHandler(isLoading)
+		}
+	}
+
 	// MARK: - Private
 
 	private let healthCertifiedPerson: HealthCertifiedPerson
-	private let details: HealthCertificeCellDetails
+	private let details: HealthCertificateCellDetails
+	private let onValidationButtonTap: ((HealthCertificate, @escaping (Bool) -> Void) -> Void)?
 }

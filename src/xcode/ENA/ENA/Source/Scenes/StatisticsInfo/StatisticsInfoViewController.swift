@@ -181,6 +181,15 @@ class StatisticsInfoViewController: DynamicTableViewController {
 						text: AppStrings.Statistics.Info.fullyVaccinatedText,
 						accessibilityIdentifier: nil
 					),
+					// Auffrischimpfung
+					.title2(
+						text: AppStrings.Statistics.Info.boosterVaccinationTitle,
+						accessibilityIdentifier: nil
+					) { _, cell, _ in cell.accessibilityTraits = .header },
+					.body(
+						text: AppStrings.Statistics.Info.boosterVaccinationText,
+						accessibilityIdentifier: nil
+					),
 					// Verabreichte Impfdosen
 					.title2(
 						text: AppStrings.Statistics.Info.dosesAdministeredTitle,
@@ -275,10 +284,7 @@ class StatisticsInfoViewController: DynamicTableViewController {
 					.icon(UIImage(named: "Pfeil_steigend"), text: .string(AppStrings.Statistics.Info.trendsIncreasing), iconWidth: 19),
 					.icon(UIImage(named: "Pfeil_sinkend"), text: .string(AppStrings.Statistics.Info.trendsDecreasing), iconWidth: 19),
 					.icon(UIImage(named: "Pfeil_stabil"), text: .string(AppStrings.Statistics.Info.trendsStable), iconWidth: 19),
-					.footnote(
-						text: AppStrings.Statistics.Info.trendsFootnote,
-						accessibilityIdentifier: nil
-					),
+					.body(text: AppStrings.Statistics.Info.trendsFootnote),
 					.textWithLinks(
 						text: String(
 							format: AppStrings.Statistics.Info.blogDescription,
@@ -287,7 +293,7 @@ class StatisticsInfoViewController: DynamicTableViewController {
 							AppStrings.Statistics.Info.blog: AppStrings.Links.statisticsInfoBlog
 						],
 						linksColor: .enaColor(for: .textTint),
-						style: .footnote
+						style: .body
 					)
 				]
 			)

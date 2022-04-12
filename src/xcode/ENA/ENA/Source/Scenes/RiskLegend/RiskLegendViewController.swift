@@ -4,15 +4,18 @@
 
 import Foundation
 import UIKit
+import OpenCombine
 
 class RiskLegendViewController: DynamicTableViewController {
 
 	// MARK: - Init
 
 	init(
-		onDismiss: @escaping () -> Void
+		onDismiss: @escaping () -> Void,
+		appConfigProvider: AppConfigurationProviding
 	) {
 		self.onDismiss = onDismiss
+		self.appConfigProvider = appConfigProvider
 		super.init(nibName: nil, bundle: nil)
 	}
 
@@ -36,10 +39,20 @@ class RiskLegendViewController: DynamicTableViewController {
 
 		navigationController?.navigationBar.prefersLargeTitles = true
 		navigationItem.title = AppStrings.RiskLegend.title
-
 		view.backgroundColor = .enaColor(for: .background)
 
-		dynamicTableViewModel = model
+		appConfigProvider.appConfiguration()
+			.sink { [weak self] appConfig in
+				guard let self = self else {
+					Log.debug("failed to get strong self")
+					return
+				}
+				self.dynamicTableViewModel = self.model(
+					maxEncounterAgeInDays: Int(appConfig.riskCalculationParameters.defaultedMaxEncounterAgeInDays)
+				)
+				self.tableView.reloadData()
+			}
+			.store(in: &subscriptions)
 	}
 
 	override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -56,8 +69,12 @@ class RiskLegendViewController: DynamicTableViewController {
 	}
 
 	let onDismiss: () -> Void
+	
 
 	// MARK: - Private
+
+	private let appConfigProvider: AppConfigurationProviding
+	private var subscriptions = Set<AnyCancellable>()
 
 	private func setupTableView() {
 		tableView.separatorStyle = .none
@@ -67,74 +84,23 @@ class RiskLegendViewController: DynamicTableViewController {
 		)
 	}
 
-	private var model: DynamicTableViewModel {
+	private func model(maxEncounterAgeInDays: Int) -> DynamicTableViewModel {
 		let insets: UIEdgeInsets
 		if #available(iOS 13, *) {
 			insets = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 0)
 		} else {
 			insets = UIEdgeInsets(top: 16, left: 16, bottom: 0, right: 0)
 		}
-
+		
 		return DynamicTableViewModel([
 			.navigationSubtitle(
 				text: AppStrings.RiskLegend.subtitle,
 				insets: insets,
 				accessibilityIdentifier: AccessibilityIdentifiers.RiskLegend.subtitle
 			),
-			.section(
-				header: .image(
-					UIImage(named: "Illu_Legende-Overview"),
-					accessibilityLabel: AppStrings.RiskLegend.titleImageAccLabel,
-					accessibilityIdentifier: AccessibilityIdentifiers.RiskLegend.titleImageAccLabel,
-					height: 200
-				),
-				footer: .space(height: 32),
-				cells: [
-					.icon(UIImage(named: "Icons_Ueberblick_1"), text: .string(AppStrings.RiskLegend.legend1Title), style: .title2) { _, cell, _ in cell.accessibilityTraits = .header },
-					.body(
-						text: AppStrings.RiskLegend.legend1Text,
-						accessibilityIdentifier: AccessibilityIdentifiers.RiskLegend.legend1Text
-					)
-				]
-			),
-			.section(
-				footer: .space(height: 32),
-				cells: [
-					.icon(UIImage(named: "Icons_Ueberblick_2"), text: .string(AppStrings.RiskLegend.legend2Title), style: .title2) { _, cell, _ in cell.accessibilityTraits = .header },
-					.body(
-						text: AppStrings.RiskLegend.legend2Text,
-						accessibilityIdentifier: AccessibilityIdentifiers.RiskLegend.legend2Text
-					),
-					.space(height: 8),
-					.headline(
-						text: AppStrings.RiskLegend.legend2RiskLevels,
-						accessibilityIdentifier: AccessibilityIdentifiers.RiskLegend.legend2RiskLevels
-					),
-					.space(height: 8),
-					.dotBodyCell(
-						color: .enaColor(for: .riskHigh),
-						text: AppStrings.RiskLegend.legend2High,
-						accessibilityLabelColor: AppStrings.ExposureDetection.highColorName,
-						accessibilityIdentifier: AccessibilityIdentifiers.RiskLegend.legend2High
-					),
-					.dotBodyCell(
-						color: .enaColor(for: .riskLow),
-						text: AppStrings.RiskLegend.legend2Low,
-						accessibilityLabelColor: AppStrings.ExposureDetection.lowColorName,
-						accessibilityIdentifier: AccessibilityIdentifiers.RiskLegend.legend2LowColor
-					)
-				]
-			),
-			.section(
-				footer: .separator(color: .enaColor(for: .hairline), insets: UIEdgeInsets(top: 32, left: 0, bottom: 32, right: 0)),
-				cells: [
-					.icon(UIImage(named: "Icons_Ueberblick_3"), text: .string(AppStrings.RiskLegend.legend3Title), style: .title2) { _, cell, _ in cell.accessibilityTraits = .header },
-					.body(
-						text: AppStrings.RiskLegend.legend3Text,
-						accessibilityIdentifier: AccessibilityIdentifiers.RiskLegend.legend3Text
-					)
-				]
-			),
+			legend1Section,
+			legend2Section(maxEncounterAgeInDays: maxEncounterAgeInDays),
+			legend3Section,
 			.section(
 				footer: .space(height: 8),
 				cells: [
@@ -209,6 +175,72 @@ class RiskLegendViewController: DynamicTableViewController {
 				]
 			)
 		])
+	}
+	
+	private var legend1Section: DynamicSection {
+		DynamicSection.section(
+			header: .image(
+				UIImage(named: "Illu_Legende-Overview"),
+				accessibilityLabel: AppStrings.RiskLegend.titleImageAccLabel,
+				accessibilityIdentifier: AccessibilityIdentifiers.RiskLegend.titleImageAccLabel,
+				height: 200
+			),
+			footer: .space(height: 32),
+			cells: [
+				.icon(UIImage(named: "Icons_Ueberblick_1"), text: .string(AppStrings.RiskLegend.legend1Title), style: .title2) { _, cell, _ in cell.accessibilityTraits = .header },
+				.body(
+					text: AppStrings.RiskLegend.legend1Text,
+					accessibilityIdentifier: AccessibilityIdentifiers.RiskLegend.legend1Text
+				)
+			]
+		)
+	}
+	
+	private func legend2Section(maxEncounterAgeInDays: Int) -> DynamicSection {
+		DynamicSection.section(
+			footer: .space(height: 32),
+			cells: [
+				.icon(UIImage(named: "Icons_Ueberblick_2"), text: .string(AppStrings.RiskLegend.legend2Title), style: .title2) { _, cell, _ in cell.accessibilityTraits = .header },
+				.body(
+					text: String(
+						format: AppStrings.RiskLegend.legend2Text,
+						maxEncounterAgeInDays
+					),
+					accessibilityIdentifier: AccessibilityIdentifiers.RiskLegend.legend2Text
+				),
+				.space(height: 8),
+				.headline(
+					text: AppStrings.RiskLegend.legend2RiskLevels,
+					accessibilityIdentifier: AccessibilityIdentifiers.RiskLegend.legend2RiskLevels
+				),
+				.space(height: 8),
+				.dotBodyCell(
+					color: .enaColor(for: .riskHigh),
+					text: AppStrings.RiskLegend.legend2High,
+					accessibilityLabelColor: AppStrings.ExposureDetection.highColorName,
+					accessibilityIdentifier: AccessibilityIdentifiers.RiskLegend.legend2High
+				),
+				.dotBodyCell(
+					color: .enaColor(for: .riskLow),
+					text: AppStrings.RiskLegend.legend2Low,
+					accessibilityLabelColor: AppStrings.ExposureDetection.lowColorName,
+					accessibilityIdentifier: AccessibilityIdentifiers.RiskLegend.legend2LowColor
+				)
+			]
+		)
+	}
+	
+	private var legend3Section: DynamicSection {
+		DynamicSection.section(
+			footer: .separator(color: .enaColor(for: .hairline), insets: UIEdgeInsets(top: 32, left: 0, bottom: 32, right: 0)),
+			cells: [
+				.icon(UIImage(named: "Icons_Ueberblick_3"), text: .string(AppStrings.RiskLegend.legend3Title), style: .title2) { _, cell, _ in cell.accessibilityTraits = .header },
+				.body(
+					text: AppStrings.RiskLegend.legend3Text,
+					accessibilityIdentifier: AccessibilityIdentifiers.RiskLegend.legend3Text
+				)
+			]
+		)
 	}
 }
 

@@ -10,32 +10,10 @@ import HealthCertificateToolkit
 class ExposureSubmissionTestResultConsentViewModelTests: CWATestCase {
 
 	func testCellsInSection0() {
-		let client = ClientMock()
-		let store = MockTestStore()
-		let appConfiguration = CachedAppConfigurationMock()
-
 		let viewModel = ExposureSubmissionTestResultConsentViewModel(
 			supportedCountries: [],
 			coronaTestType: .pcr,
-			coronaTestService: CoronaTestService(
-				client: client,
-				store: store,
-				eventStore: MockEventStore(),
-				diaryStore: MockDiaryStore(),
-				appConfiguration: appConfiguration,
-				healthCertificateService: HealthCertificateService(
-					store: store,
-					dccSignatureVerifier: DCCSignatureVerifyingStub(),
-					dscListProvider: MockDSCListProvider(),
-					client: client,
-					appConfiguration: appConfiguration,
-					boosterNotificationsService: BoosterNotificationsService(
-						rulesDownloadService: RulesDownloadService(store: store, client: client)
-					),
-					recycleBin: .fake()
-                ),
-                recycleBin: .fake()
-            ),
+			coronaTestService: MockCoronaTestService(),
 			testResultAvailability: .availableAndPositive,
 			dismissCompletion: nil
 		)
@@ -63,32 +41,10 @@ class ExposureSubmissionTestResultConsentViewModelTests: CWATestCase {
 	}
 	
 	func testCellsInSection1() {
-		let client = ClientMock()
-		let store = MockTestStore()
-		let appConfiguration = CachedAppConfigurationMock()
-
 		let viewModel = ExposureSubmissionTestResultConsentViewModel(
 			supportedCountries: [],
 			coronaTestType: .pcr,
-			coronaTestService: CoronaTestService(
-				client: client,
-				store: store,
-				eventStore: MockEventStore(),
-				diaryStore: MockDiaryStore(),
-				appConfiguration: appConfiguration,
-				healthCertificateService: HealthCertificateService(
-					store: store,
-					dccSignatureVerifier: DCCSignatureVerifyingStub(),
-					dscListProvider: MockDSCListProvider(),
-					client: client,
-					appConfiguration: appConfiguration,
-					boosterNotificationsService: BoosterNotificationsService(
-						rulesDownloadService: RulesDownloadService(store: store, client: client)
-					),
-					recycleBin: .fake()
-                ),
-                recycleBin: .fake()
-            ),
+			coronaTestService: MockCoronaTestService(),
 			testResultAvailability: .availableAndPositive,
 			dismissCompletion: nil
 		)
@@ -104,32 +60,10 @@ class ExposureSubmissionTestResultConsentViewModelTests: CWATestCase {
 	}
 	
 	func testCellsInSection2() {
-		let client = ClientMock()
-		let store = MockTestStore()
-		let appConfiguration = CachedAppConfigurationMock()
-
 		let viewModel = ExposureSubmissionTestResultConsentViewModel(
 			supportedCountries: [],
 			coronaTestType: .pcr,
-			coronaTestService: CoronaTestService(
-				client: client,
-				store: store,
-				eventStore: MockEventStore(),
-				diaryStore: MockDiaryStore(),
-				appConfiguration: appConfiguration,
-				healthCertificateService: HealthCertificateService(
-					store: store,
-					dccSignatureVerifier: DCCSignatureVerifyingStub(),
-					dscListProvider: MockDSCListProvider(),
-					client: client,
-					appConfiguration: appConfiguration,
-					boosterNotificationsService: BoosterNotificationsService(
-						rulesDownloadService: RulesDownloadService(store: store, client: client)
-					),
-					recycleBin: .fake()
-                ),
-                recycleBin: .fake()
-            ),
+			coronaTestService: MockCoronaTestService(),
 			testResultAvailability: .availableAndPositive,
 			dismissCompletion: nil
 		)

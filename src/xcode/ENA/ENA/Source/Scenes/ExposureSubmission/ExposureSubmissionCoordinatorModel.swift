@@ -12,7 +12,7 @@ class ExposureSubmissionCoordinatorModel {
 
 	init(
 		exposureSubmissionService: ExposureSubmissionService,
-		coronaTestService: CoronaTestService,
+		coronaTestService: CoronaTestServiceProviding,
 		eventProvider: EventProviding
 	) {
 		self.exposureSubmissionService = exposureSubmissionService
@@ -30,7 +30,7 @@ class ExposureSubmissionCoordinatorModel {
 	// MARK: - Internal
 
 	let exposureSubmissionService: ExposureSubmissionService
-	let coronaTestService: CoronaTestService
+	let coronaTestService: CoronaTestServiceProviding
 	let eventProvider: EventProviding
 	
 	var coronaTestType: CoronaTestType?
@@ -47,7 +47,7 @@ class ExposureSubmissionCoordinatorModel {
 	func shouldShowOverrideTestNotice(for coronaTestType: CoronaTestType) -> Bool {
 		if let oldTest = coronaTestService.coronaTest(ofType: coronaTestType),
 		   oldTest.testResult != .expired,
-		   !(oldTest.type == .antigen && coronaTestService.antigenTestIsOutdated) {
+		   !(oldTest.type == .antigen && coronaTestService.antigenTestIsOutdated.value) {
 			return true
 		} else {
 			return false
@@ -58,6 +58,8 @@ class ExposureSubmissionCoordinatorModel {
 		switch testRegistrationInformation {
 		case .pcr:
 			return true
+		case .rapidPCR(qrCodeInformation: let qrCodeInformation, qrCodeHash: _):
+			return qrCodeInformation.certificateSupportedByPointOfCare ?? false
 		case .antigen(qrCodeInformation: let qrCodeInformation, qrCodeHash: _):
 			return qrCodeInformation.certificateSupportedByPointOfCare ?? false
 		case .teleTAN:
@@ -137,6 +139,7 @@ class ExposureSubmissionCoordinatorModel {
 		}
 	}
 
+	// swiftlint:disable cyclomatic_complexity
 	func registerTestAndGetResult(
 		for registrationInformation: CoronaTestRegistrationInformation,
 		isSubmissionConsentGiven: Bool,
@@ -189,6 +192,29 @@ class ExposureSubmissionCoordinatorModel {
 					}
 				}
 			)
+		case let .rapidPCR(qrCodeInformation: qrCodeInformation, qrCodeHash: qrCodeHash):
+			coronaTestService.registerRapidPCRTestAndGetResult(
+				with: qrCodeInformation.hash,
+				qrCodeHash: qrCodeHash,
+				pointOfCareConsentDate: qrCodeInformation.pointOfCareConsentDate,
+				firstName: qrCodeInformation.firstName,
+				lastName: qrCodeInformation.lastName,
+				dateOfBirth: qrCodeInformation.dateOfBirthString,
+				isSubmissionConsentGiven: isSubmissionConsentGiven,
+				markAsUnseen: markNewlyAddedCoronaTestAsUnseen,
+				certificateSupportedByPointOfCare: qrCodeInformation.certificateSupportedByPointOfCare ?? false,
+				certificateConsent: certificateConsent,
+				completion: { result in
+					isLoading(false)
+					
+					switch result {
+					case let .failure(error):
+						onError(error)
+					case let .success(testResult):
+						onSuccess(testResult)
+					}
+				}
+			)
 		case .teleTAN(let teleTAN):
 			coronaTestService.registerPCRTestAndGetResult(
 				teleTAN: teleTAN,
@@ -210,12 +236,11 @@ class ExposureSubmissionCoordinatorModel {
 	func setSubmissionConsentGiven(_ isSubmissionConsentGiven: Bool) {
 		switch coronaTestType {
 		case .pcr:
-			coronaTestService.pcrTest?.isSubmissionConsentGiven = isSubmissionConsentGiven
+			coronaTestService.pcrTest.value?.isSubmissionConsentGiven = isSubmissionConsentGiven
 		case .antigen:
-			coronaTestService.antigenTest?.isSubmissionConsentGiven = isSubmissionConsentGiven
+			coronaTestService.antigenTest.value?.isSubmissionConsentGiven = isSubmissionConsentGiven
 		case .none:
 			fatalError("Cannot set submission consent, no corona test type is set")
 		}
 	}
-
 }

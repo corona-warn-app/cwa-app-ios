@@ -56,10 +56,6 @@ class QRScannerViewModel: NSObject, AVCaptureMetadataOutputObjectsDelegate {
 	var completion: ((Result<QRCodeResult, QRCodeParserError>) -> Void)
 
 	// MARK: - Internal
-
-	var dccPersonCountMax: Int {
-		appConfiguration.featureProvider.intValue(for: .dccPersonCountMax)
-	}
 	
 	/// get current torchMode by device state
 	var torchMode: TorchMode {

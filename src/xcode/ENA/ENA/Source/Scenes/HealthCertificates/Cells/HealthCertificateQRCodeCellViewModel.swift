@@ -14,18 +14,18 @@ struct HealthCertificateQRCodeCellViewModel {
 		mode: Mode,
 		healthCertificate: HealthCertificate,
 		accessibilityText: String,
-		onValidationButtonTap: ((HealthCertificate, @escaping (Bool) -> Void) -> Void)? = nil,
-		showInfoHit: @escaping () -> Void
+		onCovPassCheckInfoButtonTap: @escaping () -> Void
 	) {
 		self.mode = mode
 		self.healthCertificate = healthCertificate
-		self.onValidationButtonTap = onValidationButtonTap
 
 		self.qrCodeViewModel = HealthCertificateQRCodeViewModel(
 			healthCertificate: healthCertificate,
 			showRealQRCodeIfValidityStateBlocked: mode == .details,
+			imageAccessibilityTraits: .image,
 			accessibilityLabel: accessibilityText,
-			showInfoHit: showInfoHit
+			covPassCheckInfoPosition: .top,
+			onCovPassCheckInfoButtonTap: onCovPassCheckInfoButtonTap
 		)
 
 		if !healthCertificate.isConsideredValid {
@@ -107,6 +107,13 @@ struct HealthCertificateQRCodeCellViewModel {
 			return nil
 		}
 	}
+	
+	var titleAccessibilityText: String? {
+		guard let title = title, let subtitle = subtitle else {
+			return nil
+		}
+		return title + ", " + subtitle
+	}
 
 	var subtitle: String? {
 		if mode == .overview && (healthCertificate.validityState == .valid || healthCertificate.validityState == .expiringSoon || (healthCertificate.type == .test && healthCertificate.validityState == .expired)) {
@@ -126,9 +133,9 @@ struct HealthCertificateQRCodeCellViewModel {
 					)
 				}
 			case .recovery(let recoveryEntry):
-				return recoveryEntry.localCertificateValidityEndDate.map {
+				return recoveryEntry.localDateOfFirstPositiveNAAResult.map {
 					String(
-						format: AppStrings.HealthCertificate.Person.RecoveryCertificate.validityDate,
+						format: AppStrings.HealthCertificate.Person.RecoveryCertificate.positiveTestFrom,
 						DateFormatter.localizedString(from: $0, dateStyle: .short, timeStyle: .none)
 					)
 				}
@@ -144,24 +151,9 @@ struct HealthCertificateQRCodeCellViewModel {
 
 	let isUnseenNewsIndicatorVisible: Bool
 
-	var isValidationButtonVisible: Bool {
-		onValidationButtonTap != nil
-	}
-
-	var isValidationButtonEnabled: Bool {
-		healthCertificate.validityState != .blocked
-	}
-
-	func didTapValidationButton(loadingStateHandler: @escaping (Bool) -> Void) {
-		onValidationButtonTap?(healthCertificate) { isLoading in
-			loadingStateHandler(isLoading)
-		}
-	}
-
 	// MARK: - Private
 
 	private let mode: Mode
 	private let healthCertificate: HealthCertificate
-	private let onValidationButtonTap: ((HealthCertificate, @escaping (Bool) -> Void) -> Void)?
 
 }

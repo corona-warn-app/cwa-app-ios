@@ -128,6 +128,8 @@ struct SAP_Internal_V2_PresenceTracingRiskCalculationParameters {
 
   var normalizedTimePerDayToRiskLevelMapping: [SAP_Internal_V2_NormalizedTimeToRiskLevelMapping] = []
 
+  var maxCheckInAgeInDays: UInt32 = 0
+
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
   init() {}
@@ -341,21 +343,25 @@ extension SAP_Internal_V2_PresenceTracingParameters: SwiftProtobuf.Message, Swif
   }
 
   func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if let v = self._riskCalculationParameters {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
+    try { if let v = self._riskCalculationParameters {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-    }
-    if let v = self._submissionParameters {
+    } }()
+    try { if let v = self._submissionParameters {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
-    }
+    } }()
     if self.qrCodeErrorCorrectionLevel != .medium {
       try visitor.visitSingularEnumField(value: self.qrCodeErrorCorrectionLevel, fieldNumber: 3)
     }
     if !self.revokedTraceLocationVersions.isEmpty {
       try visitor.visitPackedUInt32Field(value: self.revokedTraceLocationVersions, fieldNumber: 4)
     }
-    if let v = self._plausibleDeniabilityParameters {
+    try { if let v = self._plausibleDeniabilityParameters {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 5)
-    }
+    } }()
     if !self.qrCodeDescriptors.isEmpty {
       try visitor.visitRepeatedMessageField(value: self.qrCodeDescriptors, fieldNumber: 6)
     }
@@ -389,6 +395,7 @@ extension SAP_Internal_V2_PresenceTracingRiskCalculationParameters: SwiftProtobu
     1: .same(proto: "transmissionRiskValueMapping"),
     2: .same(proto: "normalizedTimePerCheckInToRiskLevelMapping"),
     3: .same(proto: "normalizedTimePerDayToRiskLevelMapping"),
+    4: .same(proto: "maxCheckInAgeInDays"),
   ]
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -400,6 +407,7 @@ extension SAP_Internal_V2_PresenceTracingRiskCalculationParameters: SwiftProtobu
       case 1: try { try decoder.decodeRepeatedMessageField(value: &self.transmissionRiskValueMapping) }()
       case 2: try { try decoder.decodeRepeatedMessageField(value: &self.normalizedTimePerCheckInToRiskLevelMapping) }()
       case 3: try { try decoder.decodeRepeatedMessageField(value: &self.normalizedTimePerDayToRiskLevelMapping) }()
+      case 4: try { try decoder.decodeSingularUInt32Field(value: &self.maxCheckInAgeInDays) }()
       default: break
       }
     }
@@ -415,6 +423,9 @@ extension SAP_Internal_V2_PresenceTracingRiskCalculationParameters: SwiftProtobu
     if !self.normalizedTimePerDayToRiskLevelMapping.isEmpty {
       try visitor.visitRepeatedMessageField(value: self.normalizedTimePerDayToRiskLevelMapping, fieldNumber: 3)
     }
+    if self.maxCheckInAgeInDays != 0 {
+      try visitor.visitSingularUInt32Field(value: self.maxCheckInAgeInDays, fieldNumber: 4)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -422,6 +433,7 @@ extension SAP_Internal_V2_PresenceTracingRiskCalculationParameters: SwiftProtobu
     if lhs.transmissionRiskValueMapping != rhs.transmissionRiskValueMapping {return false}
     if lhs.normalizedTimePerCheckInToRiskLevelMapping != rhs.normalizedTimePerCheckInToRiskLevelMapping {return false}
     if lhs.normalizedTimePerDayToRiskLevelMapping != rhs.normalizedTimePerDayToRiskLevelMapping {return false}
+    if lhs.maxCheckInAgeInDays != rhs.maxCheckInAgeInDays {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -484,9 +496,13 @@ extension SAP_Internal_V2_PresenceTracingSubmissionParameters.DurationFilter: Sw
   }
 
   func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if let v = self._dropIfMinutesInRange {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
+    try { if let v = self._dropIfMinutesInRange {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-    }
+    } }()
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -520,9 +536,13 @@ extension SAP_Internal_V2_PresenceTracingSubmissionParameters.AerosoleDecayFunct
   }
 
   func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if let v = self._minutesRange {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
+    try { if let v = self._minutesRange {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-    }
+    } }()
     if self.slope != 0 {
       try visitor.visitSingularDoubleField(value: self.slope, fieldNumber: 2)
     }
@@ -628,9 +648,13 @@ extension SAP_Internal_V2_PresenceTracingPlausibleDeniabilityParameters.NumberOf
   }
 
   func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if let v = self._randomNumberRange {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
+    try { if let v = self._randomNumberRange {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-    }
+    } }()
     if self.p != 0 {
       try visitor.visitSingularDoubleField(value: self.p, fieldNumber: 2)
     }

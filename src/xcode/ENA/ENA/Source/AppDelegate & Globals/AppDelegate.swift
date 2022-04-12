@@ -33,18 +33,21 @@ protocol CoronaWarnAppDelegate: AnyObject {
 class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, RequiresAppDependencies, ENAExposureManagerObserver, CoordinatorDelegate, ExposureStateUpdating, ENStateHandlerUpdating {
 
 	// MARK: - Init
-
+	
 	override init() {
 		self.environmentProvider = Environments()
 
 		#if DEBUG
 		if isUITesting {
 			self.store = MockTestStore()
+			self.restServiceCache = KeyValueCacheFake()
 		} else {
 			self.store = SecureStore(subDirectory: "database")
+			self.restServiceCache = SecureKeyValueCache(subDirectory: "RestServiceCache", store: store)
 		}
 		#else
 		self.store = SecureStore(subDirectory: "database")
+		self.restServiceCache = SecureKeyValueCache(subDirectory: "RestServiceCache")
 		#endif
 
 		if store.appInstallationDate == nil {
@@ -52,7 +55,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 			Log.debug("App installation date: \(String(describing: store.appInstallationDate))")
 		}
 
-		self.restServiceCache = SecureKeyValueCache(subDirectory: "RestServiceCache")
 		self.restServiceProvider = RestServiceProvider(cache: restServiceCache)
 		self.client = HTTPClient(environmentProvider: environmentProvider)
 		self.wifiClient = WifiOnlyHTTPClient(environmentProvider: environmentProvider)
@@ -92,7 +94,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 			Log.warning("ELS is not set to be active at app startup.")
 		}
 		#endif
-
+		
 		// Migrate the old pcr test structure from versions older than v2.1
 		coronaTestService.migrate()
 	}
@@ -112,6 +114,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 	) -> Bool {
 		Log.info("Application did finish launching.", log: .appLifecycle)
 
+		// Save and possibly log current app version number and the timestamp.
+		logCurrentAppVersion()
+		logCurrentCensoringState()
+		
 		#if DEBUG
 		setupOnboardingForTesting()
 		setupDataDonationForTesting()
@@ -119,7 +125,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		setupAntigenTestProfileForTesting()
 		setupSelectedRegionsForTesting()
 		#endif
-
+		
 		if AppDelegate.isAppDisabled() {
 			// Show Disabled UI
 			setupUpdateOSUI()
@@ -151,7 +157,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		UNUserNotificationCenter.current().delegate = notificationManager
 
 		/// Setup DeadmanNotification after AppLaunch
-		DeadmanNotificationManager(coronaTestService: coronaTestService).scheduleDeadmanNotificationIfNeeded()
+		DeadmanNotificationManager().scheduleDeadmanNotificationIfNeeded()
 
 		consumer.didFailCalculateRisk = { [weak self] error in
 			if self?.store.isOnboarded == true {
@@ -182,6 +188,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 	}
 
 	func applicationWillEnterForeground(_ application: UIApplication) {
+		logCurrentCensoringState()
 		let detectionMode = DetectionMode.fromBackgroundStatus()
 		riskProvider.riskProvidingConfiguration.detectionMode = detectionMode
 		riskProvider.requestRisk(userInitiated: false)
@@ -189,12 +196,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		updateExposureState(state)
 		Analytics.triggerAnalyticsSubmission()
 		appUpdateChecker.checkAppVersionDialog(for: window?.rootViewController)
-		healthCertificateService.checkIfBoosterRulesShouldBeFetched(completion: { errorMessage in
-			guard let errorMessage = errorMessage else {
-				return
-			}
-			Log.error(errorMessage, log: .vaccination, error: nil)
-		})
+		healthCertificateService.updateDCCWalletInfosIfNeeded()
+	}
+	
+	func applicationWillTerminate(_ application: UIApplication) {
+		Log.info("Application will terminate.", log: .appLifecycle)
 	}
 
 	func applicationDidBecomeActive(_ application: UIApplication) {
@@ -279,7 +285,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 	var store: Store
 	let restServiceCache: KeyValueCaching
 
-	lazy var coronaTestService: CoronaTestService = {
+	lazy var coronaTestService: CoronaTestServiceProviding = {
 		return CoronaTestService(
 			client: client,
 			restServiceProvider: restServiceProvider,
@@ -288,8 +294,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 			diaryStore: contactDiaryStore,
 			appConfiguration: appConfigurationProvider,
 			healthCertificateService: healthCertificateService,
-			recycleBin: recycleBin
+			healthCertificateRequestService: healthCertificateRequestService,
+			recycleBin: recycleBin,
+			badgeWrapper: badgeWrapper
 		)
+	}()
+
+	lazy var badgeWrapper: HomeBadgeWrapper = {
+		return HomeBadgeWrapper(store)
 	}()
 
 	lazy var eventCheckoutService: EventCheckoutService = EventCheckoutService(
@@ -353,7 +365,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 			keyPackageDownload: keyPackageDownload,
 			traceWarningPackageDownload: traceWarningPackageDownload,
 			exposureDetectionExecutor: exposureDetectionExecutor,
-			coronaTestService: coronaTestService
+			coronaTestService: coronaTestService,
+			downloadedPackagesStore: downloadedPackagesStore
 		)
 		#else
 		return RiskProvider(
@@ -365,7 +378,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 			keyPackageDownload: keyPackageDownload,
 			traceWarningPackageDownload: traceWarningPackageDownload,
 			exposureDetectionExecutor: exposureDetectionExecutor,
-			coronaTestService: coronaTestService
+			coronaTestService: coronaTestService,
+			downloadedPackagesStore: downloadedPackagesStore
 		)
 		#endif
 	}()
@@ -374,16 +388,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		store: store,
 		dccSignatureVerifier: dccSignatureVerificationService,
 		dscListProvider: dscListProvider,
-		client: client,
 		appConfiguration: appConfigurationProvider,
-		boosterNotificationsService: BoosterNotificationsService(
-			rulesDownloadService: RulesDownloadService(
-				store: store,
-				client: client
-			)
-		),
+		cclService: cclService,
 		recycleBin: recycleBin
 	)
+
+	private lazy var healthCertificateRequestService = HealthCertificateRequestService(
+		store: store,
+		client: client,
+		appConfiguration: appConfigurationProvider,
+		healthCertificateService: healthCertificateService
+	)
+
+	private lazy var cclService: CCLServable = {
+		CCLService(restServiceProvider, appConfiguration: appConfigurationProvider)
+	}()
 
 	private lazy var analyticsSubmitter: PPAnalyticsSubmitting = {
 		return PPAnalyticsSubmitter(
@@ -451,7 +470,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 			return mock
 		}
 		#endif
-		let rulesDownloadService = RulesDownloadService(store: store, client: client)
+		let rulesDownloadService = RulesDownloadService(restServiceProvider: restServiceProvider)
 		return HealthCertificateValidationService(
 			store: store,
 			client: client,
@@ -463,8 +482,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 	}()
 	
 	private lazy var healthCertificateValidationOnboardedCountriesProvider: HealthCertificateValidationOnboardedCountriesProviding = HealthCertificateValidationOnboardedCountriesProvider(
-		store: store,
-		client: client
+		restService: restServiceProvider
 	)
 	
 	/// Reference to the ELS server handling error log recording & submission
@@ -542,11 +560,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 				// We don't need the Route parameter in the NotificationManager
 				self?.showHome()
 			},
-			showTestResultFromNotification: coordinator.showTestResultFromNotification,
+			showTestResultFromNotification: { [weak self] route in
+				Log.debug("Will open test result from notification")
+				guard let self = self else { return }
+
+				if self.didSetupUI {
+					Log.debug("UI is already setup, will call showHome()")
+					self.showHome(route)
+				} else {
+					Log.debug("new route is set: \(route)")
+					self.route = route
+				}
+			},
 			showHealthCertificate: { [weak self] route in
 				// We must NOT call self?.showHome(route) here because we do not target the home screen. Only set the route. The rest is done automatically by the startup process of the app.
 				// Works only for notifications tapped when the app is closed. When inside the app, the notification will trigger nothing.
-				Log.debug("new route is set: \(route)")
+				Log.debug("new route is set: \(route.routeInformation)")
 				self?.route = route
 			}, showHealthCertifiedPerson: { [weak self] route in
 				guard let self = self else { return }
@@ -559,7 +588,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 				if self.didSetupUI {
 					self.showHome(route)
 				} else {
-					Log.debug("new route is set: \(route)")
+					Log.debug("new route is set: \(route.routeInformation)")
 					self.route = route
 				}
 			}
@@ -784,13 +813,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		eventCheckoutService: eventCheckoutService,
 		otpService: otpService,
 		ppacService: ppacService,
+		cclService: cclService,
 		healthCertificateService: healthCertificateService,
+		healthCertificateRequestService: healthCertificateRequestService,
 		healthCertificateValidationService: healthCertificateValidationService,
 		healthCertificateValidationOnboardedCountriesProvider: healthCertificateValidationOnboardedCountriesProvider,
 		vaccinationValueSetsProvider: vaccinationValueSetsProvider,
 		elsService: elsService,
 		recycleBin: recycleBin,
-		restServiceProvider: restServiceProvider
+		restServiceProvider: restServiceProvider,
+		badgeWrapper: badgeWrapper,
+		cache: restServiceCache
 	)
 
 	private lazy var appUpdateChecker = AppUpdateCheckHelper(appConfigurationProvider: self.appConfigurationProvider, store: self.store)
@@ -818,12 +851,26 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 	}
 
 	private func showUI() {
-		if store.isOnboarded {
-			showHome(route)
-		} else {
-			postOnboardingRoute = route
-			showOnboarding()
-		}
+		coordinator.showLoadingScreen()
+
+		healthCertificateService.setup(
+			updatingWalletInfos: true,
+			completion: { [weak self] in
+				guard let self = self else {
+					return
+				}
+
+				DispatchQueue.main.async {
+					if self.store.isOnboarded {
+						self.showHome(self.route)
+					} else {
+						self.postOnboardingRoute = self.route
+						self.showOnboarding()
+					}
+				}
+			}
+		)
+
 	}
 
 	private func setupNavigationBarAppearance() {
@@ -847,7 +894,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 
 	func showHome(_ route: Route? = nil) {
 		// On iOS 12.5 ENManager is already activated in didFinishLaunching (https://jira-ibs.wbs.net.sap/browse/EXPOSUREAPP-8919)
-		Log.debug("showHome Flow is called with current route: \(String(describing: route))")
+		Log.debug("showHome Flow is called with current route: \(String(describing: route?.routeInformation)))")
 		if #available(iOS 13.5, *) {
 			if exposureManager.exposureManagerState.status == .unknown {
 				exposureManager.activate { [weak self] error in
@@ -894,6 +941,39 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 	@objc
 	private func backgroundRefreshStatusDidChange() {
 		coordinator.updateDetectionMode(currentDetectionMode)
+	}
+	
+	/// Checks if we should log the current app version. To avoid spam, we have two conditions: We only want to log every 24 hours or if the version number has changed (possibly also downgraded versions for testing cases). We don't need a check for ELS beeing active, because the Log is only persisted with ELS is activated in RELEASE builds.
+	/// Internal for testing purposes.
+	private func logCurrentAppVersion() {
+		let clientMetadata = ClientMetadata()
+		
+		// Check if we have some data.
+		if let version = clientMetadata.cwaVersion,
+		   let lastVersion = store.lastLoggedAppVersionNumber,
+		   let lastTimestamp = store.lastLoggedAppVersionTimestamp {
+			
+			// If we have some data, check if we should log again.
+			let lastTimestampInHours = Calendar.current.component(.hour, from: lastTimestamp)
+			if version != lastVersion || lastTimestampInHours > 24 {
+				Log.info("Current CWA version number: \(String(describing: clientMetadata.cwaVersion))")
+				store.lastLoggedAppVersionNumber = clientMetadata.cwaVersion
+				store.lastLoggedAppVersionTimestamp = Date()
+			}
+		}
+		// Otherwise, save some fresh data.
+		else {
+			Log.info("Current CWA version number: \(String(describing: clientMetadata.cwaVersion))")
+			store.lastLoggedAppVersionNumber = clientMetadata.cwaVersion
+			store.lastLoggedAppVersionTimestamp = Date()
+		}
+	}
+	
+	private func logCurrentCensoringState() {
+		#if !RELEASE
+		let isCensoring = UserDefaults.standard.bool(forKey: ErrorLogSubmissionService.keyElsLoggingCensoring)
+		Log.info("Current ELS censoring state: \(isCensoring)")
+		#endif
 	}
 
 	// MARK: Privacy Protection

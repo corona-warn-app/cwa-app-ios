@@ -3,7 +3,6 @@
 //
 
 import BackgroundTasks
-import Foundation
 import UIKit
 import HealthCertificateToolkit
 import OpenCombine
@@ -64,90 +63,92 @@ class TaskExecutionHandler: ENATaskExecutionDelegate {
 
 		group.enter()
 		DispatchQueue.global().async {
+			/// ExposureDetection should be our highest Priority if we run all other tasks simultaneously we might get killed by the Watchdog while the Detection is running.
+			/// This could leave us in a dirty state which causes the ExposureDetection to run too often. This will then lead to Error 13. (https://jira-ibs.wbs.net.sap/browse/EXPOSUREAPP-5836)
 			Log.info("Starting ExposureDetection...", log: .background)
 			self.executeExposureDetectionRequest { _ in
 				Log.info("Done detecting Exposures…", log: .background)
-				
-				/// ExposureDetection should be our highest Priority if we run all other tasks simultaneously we might get killed by the Watchdog while the Detection is running.
-				/// This could leave us in a dirty state which causes the ExposureDetection to run too often. This will then lead to Error 13. (https://jira-ibs.wbs.net.sap/browse/EXPOSUREAPP-5836)
-				group.enter()
-				DispatchQueue.global().async {
-					Log.info("Trying to submit TEKs...", log: .background)
-					self.executeSubmitTemporaryExposureKeys { _ in
-						group.leave()
-						Log.info("Done submitting TEKs...", log: .background)
-					}
-				}
 
-				group.enter()
-				DispatchQueue.global().async {
-					Log.info("Trying to fetch TestResults...", log: .background)
-					self.executeFetchTestResults { _ in
-						group.leave()
-						Log.info("Done fetching TestResults...", log: .background)
+				self.healthCertificateService.setup(updatingWalletInfos: false) {
+					group.enter()
+					DispatchQueue.global().async {
+						Log.info("Trying to submit TEKs...", log: .background)
+						self.executeSubmitTemporaryExposureKeys { _ in
+							group.leave()
+							Log.info("Done submitting TEKs...", log: .background)
+						}
 					}
-				}
 
-				group.enter()
-				DispatchQueue.global().async {
-					Log.info("Starting FakeRequests...", log: .background)
-					self.plausibleDeniabilityService.executeFakeRequests {
-						group.leave()
-						Log.info("Done sending FakeRequests...", log: .background)
+					group.enter()
+					DispatchQueue.global().async {
+						Log.info("Trying to fetch TestResults...", log: .background)
+						self.executeFetchTestResults { _ in
+							group.leave()
+							Log.info("Done fetching TestResults...", log: .background)
+						}
 					}
-				}
 
-				group.enter()
-				DispatchQueue.global().async {
-					Log.info("Cleanup contact diary store.", log: .background)
-					self.contactDiaryStore.cleanup(timeout: 10.0)
-					Log.info("Done cleaning up contact diary store.", log: .background)
-					group.leave()
-				}
-
-				group.enter()
-				DispatchQueue.global().async {
-					Log.info("Cleanup event store.", log: .background)
-					self.eventStore.cleanup(timeout: 10.0)
-					Log.info("Done cleaning up contact event store.", log: .background)
-					group.leave()
-				}
-
-				group.enter()
-				DispatchQueue.global().async {
-					Log.info("Checkout overdue checkins.", log: .background)
-					self.eventCheckoutService.checkoutOverdueCheckins()
-					Log.info("Done checkin out overdue checkins.", log: .background)
-					group.leave()
-				}
-
-				group.enter()
-				DispatchQueue.global().async {
-					Log.info("Trigger analytics submission.", log: .background)
-					self.executeAnalyticsSubmission {
-						group.leave()
-						Log.info("Done triggering analytics submission…", log: .background)
+					group.enter()
+					DispatchQueue.global().async {
+						Log.info("Starting FakeRequests...", log: .background)
+						self.plausibleDeniabilityService.executeFakeRequests {
+							group.leave()
+							Log.info("Done sending FakeRequests...", log: .background)
+						}
 					}
-				}
-				group.enter()
-				DispatchQueue.global().async {
-					Log.info("Check for invalid certificates", log: .background)
-					self.checkCertificateValidityStates {
+
+					group.enter()
+					DispatchQueue.global().async {
+						Log.info("Cleanup contact diary store.", log: .background)
+						self.contactDiaryStore.cleanup(timeout: 10.0)
+						Log.info("Done cleaning up contact diary store.", log: .background)
 						group.leave()
-						Log.info("Done checking for invalid certificates.", log: .background)
 					}
-				}
-				
-				group.enter()
-				DispatchQueue.global().async {
-					Log.info("Check if Booster Notifications need to be downloaded.", log: .background)
-					self.executeBoosterNotificationsCreation {
+
+					group.enter()
+					DispatchQueue.global().async {
+						Log.info("Cleanup event store.", log: .background)
+						self.eventStore.cleanup(timeout: 10.0)
+						Log.info("Done cleaning up contact event store.", log: .background)
 						group.leave()
-						Log.info("Done Checking if Booster Notifications should download …", log: .background)
 					}
+
+					group.enter()
+					DispatchQueue.global().async {
+						Log.info("Checkout overdue checkins.", log: .background)
+						self.eventCheckoutService.checkoutOverdueCheckins()
+						Log.info("Done checkin out overdue checkins.", log: .background)
+						group.leave()
+					}
+
+					group.enter()
+					DispatchQueue.global().async {
+						Log.info("Trigger analytics submission.", log: .background)
+						self.executeAnalyticsSubmission {
+							group.leave()
+							Log.info("Done triggering analytics submission…", log: .background)
+						}
+					}
+					group.enter()
+					DispatchQueue.global().async {
+						Log.info("Check for invalid certificates", log: .background)
+						self.checkCertificateValidityStates {
+							group.leave()
+							Log.info("Done checking for invalid certificates.", log: .background)
+						}
+					}
+
+					group.enter()
+					DispatchQueue.global().async {
+						Log.info("Check if DCC wallet infos need to be updated and booster notifications need to be triggered.", log: .background)
+						self.executeDCCWalletInfoUpdatesAndTriggerBoosterNotificationsIfNeeded {
+							group.leave()
+							Log.info("Done checking if DCC wallet infos need to be updated and booster notifications need to be triggered", log: .background)
+						}
+					}
+
+					group.leave() // Leave from the Exposure detection
 				}
-				
-				group.leave() // Leave from the Exposure detection
 			}
 		}
 		
@@ -255,11 +256,6 @@ class TaskExecutionHandler: ENATaskExecutionDelegate {
 
 			guard let self = self else { return }
 			if risk.riskLevelHasChanged {
-				UNUserNotificationCenter.current().presentNotification(
-					title: AppStrings.LocalNotifications.detectExposureTitle,
-					body: AppStrings.LocalNotifications.detectExposureBody,
-					identifier: ActionableNotificationIdentifier.riskDetection.identifier
-				)
 				Log.info("[ENATaskExecutionDelegate] Risk has changed.", log: .riskDetection)
 				completion(true)
 			} else {
@@ -328,19 +324,13 @@ class TaskExecutionHandler: ENATaskExecutionDelegate {
 			completion()
 		})
 	}
-	
-	private func executeBoosterNotificationsCreation(completion: @escaping () -> Void) {
-		Log.info("Checking if Booster rules need to be downloaded...", log: .vaccination)
-		healthCertificateService.checkIfBoosterRulesShouldBeFetched(completion: { errorMessage in
-			guard let errorMessage = errorMessage else {
-				return
-			}
-			Log.error(errorMessage, log: .vaccination, error: nil)
-		})
-		completion()
+
+	private func executeDCCWalletInfoUpdatesAndTriggerBoosterNotificationsIfNeeded(completion: @escaping () -> Void) {
+		Log.info("[ENATaskExecutionDelegate] Checking if DCC wallet infos need to be updated and booster notifications need to be triggered...", log: .vaccination)
+		healthCertificateService.updateDCCWalletInfosIfNeeded(completion: completion)
 	}
-	
+
 	private func checkCertificateValidityStates(completion: @escaping () -> Void) {
-		healthCertificateService.updateValidityStatesAndNotificationsWithFreshDSCList(shouldScheduleTimer: false, completion: completion)
+		healthCertificateService.updateValidityStatesAndNotificationsWithFreshDSCList(completion: completion)
 	}
 }

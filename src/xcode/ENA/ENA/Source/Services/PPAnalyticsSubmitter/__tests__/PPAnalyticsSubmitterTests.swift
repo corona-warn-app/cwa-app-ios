@@ -9,9 +9,9 @@ import HealthCertificateToolkit
 // swiftlint:disable file_length
 // swiftlint:disable:next type_body_length
 class PPAnalyticsSubmitterTests: CWATestCase {
-
+	
 	// MARK: - Success
-
+	
 	func testGIVEN_SubmissionIsTriggered_WHEN_EverythingIsGiven_THEN_Success() throws {
 		// GIVEN
 		let store = MockTestStore()
@@ -21,39 +21,21 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 		// probability will always succeed
 		config.privacyPreservingAnalyticsParameters.common.probabilityToSubmit = 3
 		let appConfigurationProvider = CachedAppConfigurationMock(with: config)
-		#if targetEnvironment(simulator)
+#if targetEnvironment(simulator)
 		let deviceCheck = PPACDeviceCheckMock(true, deviceToken: "iPhone")
-		#else
+#else
 		let deviceCheck = PPACDeviceCheck()
-		#endif
+#endif
 		let analyticsSubmitter = PPAnalyticsSubmitter(
 			store: store,
 			client: client,
 			appConfig: appConfigurationProvider,
-			coronaTestService: CoronaTestService(
-				client: client,
-				store: store,
-				eventStore: MockEventStore(),
-				diaryStore: MockDiaryStore(),
-				appConfiguration: appConfigurationProvider,
-				healthCertificateService: HealthCertificateService(
-					store: store,
-					dccSignatureVerifier: DCCSignatureVerifyingStub(),
-					dscListProvider: MockDSCListProvider(),
-					client: client,
-					appConfiguration: appConfigurationProvider,
-					boosterNotificationsService: BoosterNotificationsService(
-						rulesDownloadService: RulesDownloadService(store: store, client: client)
-					),
-					recycleBin: .fake()
-                ),
-                recycleBin: .fake()
-            ),
+			coronaTestService: MockCoronaTestService(),
 			ppacService: PPACService(store: store, deviceCheck: deviceCheck)
 		)
-
+		
 		let expectation = self.expectation(description: "completion handler is called without an error")
-
+		
 		store.lastSubmissionAnalytics = Calendar.current.date(byAdding: .day, value: -5, to: Date())
 		store.dateOfAcceptedPrivacyNotice = Calendar.current.date(byAdding: .day, value: -5, to: Date())
 		store.lastAppReset = Calendar.current.date(byAdding: .day, value: -5, to: Date())
@@ -88,7 +70,7 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 				XCTFail("Test should not fail. Received error: \(error)")
 			}
 		})
-
+		
 		// THEN
 		waitForExpectations(timeout: .medium)
 		
@@ -118,44 +100,26 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 		// probability will always succeed
 		config.privacyPreservingAnalyticsParameters.common.probabilityToSubmit = 3
 		let appConfigurationProvider = CachedAppConfigurationMock(with: config)
-		#if targetEnvironment(simulator)
+#if targetEnvironment(simulator)
 		let deviceCheck = PPACDeviceCheckMock(true, deviceToken: "iPhone")
-		#else
+#else
 		let deviceCheck = PPACDeviceCheck()
-		#endif
+#endif
 		let analyticsSubmitter = PPAnalyticsSubmitter(
 			store: store,
 			client: client,
 			appConfig: appConfigurationProvider,
-			coronaTestService: CoronaTestService(
-				client: client,
-				store: store,
-				eventStore: MockEventStore(),
-				diaryStore: MockDiaryStore(),
-				appConfiguration: appConfigurationProvider,
-				healthCertificateService: HealthCertificateService(
-					store: store,
-					dccSignatureVerifier: DCCSignatureVerifyingStub(),
-					dscListProvider: MockDSCListProvider(),
-					client: client,
-					appConfiguration: appConfigurationProvider,
-					boosterNotificationsService: BoosterNotificationsService(
-						rulesDownloadService: RulesDownloadService(store: store, client: client)
-					),
-					recycleBin: .fake()
-				),
-				recycleBin: .fake()
-			),
+			coronaTestService: MockCoronaTestService(),
 			ppacService: PPACService(store: store, deviceCheck: deviceCheck)
 		)
-
+		
 		store.antigenTest = .mock(testResult: .positive, keysSubmitted: true)
 		store.antigenKeySubmissionMetadata = .mock(submitted: true)
 		
 		// WHEN
 		
 		let ppaProtobuf = analyticsSubmitter.getPPADataMessage()
-
+		
 		// THEN
 		
 		XCTAssertFalse(ppaProtobuf.keySubmissionMetadataSet.isEmpty, "keySubmissionMetadataSet must not be empty")
@@ -165,50 +129,35 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 		// GIVEN
 		let store = MockTestStore()
 		store.isPrivacyPreservingAnalyticsConsentGiven = true
+
 		let client = ClientMock()
 		var config = SAP_Internal_V2_ApplicationConfigurationIOS()
 		// probability will always succeed
 		config.privacyPreservingAnalyticsParameters.common.probabilityToSubmit = 3
 		let appConfigurationProvider = CachedAppConfigurationMock(with: config)
-		#if targetEnvironment(simulator)
+#if targetEnvironment(simulator)
 		let deviceCheck = PPACDeviceCheckMock(true, deviceToken: "iPhone")
-		#else
+#else
 		let deviceCheck = PPACDeviceCheck()
-		#endif
-		
-		store.antigenTest = .mock(testResult: .positive, finalTestResultReceivedDate: Date(), keysSubmitted: true)
+#endif
+
+		let coronaTestService = MockCoronaTestService()
+		coronaTestService.antigenTest.value = .mock(testResult: .positive, finalTestResultReceivedDate: Date(), keysSubmitted: true)
+
 		store.antigenKeySubmissionMetadata = .mock()
 		
 		let analyticsSubmitter = PPAnalyticsSubmitter(
 			store: store,
 			client: client,
 			appConfig: appConfigurationProvider,
-			coronaTestService: CoronaTestService(
-				client: client,
-				store: store,
-				eventStore: MockEventStore(),
-				diaryStore: MockDiaryStore(),
-				appConfiguration: appConfigurationProvider,
-				healthCertificateService: HealthCertificateService(
-					store: store,
-					dccSignatureVerifier: DCCSignatureVerifyingStub(),
-					dscListProvider: MockDSCListProvider(),
-					client: client,
-					appConfiguration: appConfigurationProvider,
-					boosterNotificationsService: BoosterNotificationsService(
-						rulesDownloadService: RulesDownloadService(store: store, client: client)
-					),
-					recycleBin: .fake()
-				),
-				recycleBin: .fake()
-			),
+			coronaTestService: coronaTestService,
 			ppacService: PPACService(store: store, deviceCheck: deviceCheck)
 		)
 		
 		// WHEN
 		
 		let ppaProtobuf = analyticsSubmitter.getPPADataMessage()
-
+		
 		// THEN
 		
 		XCTAssertFalse(ppaProtobuf.keySubmissionMetadataSet.isEmpty, "keySubmissionMetadataSet must not be empty")
@@ -224,11 +173,11 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 		// probability will always succeed
 		config.privacyPreservingAnalyticsParameters.common.probabilityToSubmit = 3
 		let appConfigurationProvider = CachedAppConfigurationMock(with: config)
-		#if targetEnvironment(simulator)
+#if targetEnvironment(simulator)
 		let deviceCheck = PPACDeviceCheckMock(true, deviceToken: "iPhone")
-		#else
+#else
 		let deviceCheck = PPACDeviceCheck()
-		#endif
+#endif
 		
 		store.antigenTest = .mock(
 			testResult: .positive,
@@ -241,32 +190,14 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 			store: store,
 			client: client,
 			appConfig: appConfigurationProvider,
-			coronaTestService: CoronaTestService(
-				client: client,
-				store: store,
-				eventStore: MockEventStore(),
-				diaryStore: MockDiaryStore(),
-				appConfiguration: appConfigurationProvider,
-				healthCertificateService: HealthCertificateService(
-					store: store,
-					dccSignatureVerifier: DCCSignatureVerifyingStub(),
-					dscListProvider: MockDSCListProvider(),
-					client: client,
-					appConfiguration: appConfigurationProvider,
-					boosterNotificationsService: BoosterNotificationsService(
-						rulesDownloadService: RulesDownloadService(store: store, client: client)
-					),
-					recycleBin: .fake()
-				),
-				recycleBin: .fake()
-			),
+			coronaTestService: MockCoronaTestService(),
 			ppacService: PPACService(store: store, deviceCheck: deviceCheck)
 		)
 		
 		// WHEN
 		
 		let ppaProtobuf = analyticsSubmitter.getPPADataMessage()
-
+		
 		// THEN
 		
 		XCTAssertTrue(ppaProtobuf.keySubmissionMetadataSet.isEmpty, "keySubmissionMetadataSet must be empty")
@@ -282,11 +213,11 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 		// probability will always succeed
 		config.privacyPreservingAnalyticsParameters.common.probabilityToSubmit = 3
 		let appConfigurationProvider = CachedAppConfigurationMock(with: config)
-		#if targetEnvironment(simulator)
+#if targetEnvironment(simulator)
 		let deviceCheck = PPACDeviceCheckMock(true, deviceToken: "iPhone")
-		#else
+#else
 		let deviceCheck = PPACDeviceCheck()
-		#endif
+#endif
 		
 		store.antigenTest = .mock(
 			testResult: .negative,
@@ -298,79 +229,43 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 			store: store,
 			client: client,
 			appConfig: appConfigurationProvider,
-			coronaTestService: CoronaTestService(
-				client: client,
-				store: store,
-				eventStore: MockEventStore(),
-				diaryStore: MockDiaryStore(),
-				appConfiguration: appConfigurationProvider,
-				healthCertificateService: HealthCertificateService(
-					store: store,
-					dccSignatureVerifier: DCCSignatureVerifyingStub(),
-					dscListProvider: MockDSCListProvider(),
-					client: client,
-					appConfiguration: appConfigurationProvider,
-					boosterNotificationsService: BoosterNotificationsService(
-						rulesDownloadService: RulesDownloadService(store: store, client: client)
-					),
-					recycleBin: .fake()
-				),
-				recycleBin: .fake()
-			),
+			coronaTestService: MockCoronaTestService(),
 			ppacService: PPACService(store: store, deviceCheck: deviceCheck)
 		)
 		
 		// WHEN
 		
 		let ppaProtobuf = analyticsSubmitter.getPPADataMessage()
-
+		
 		// THEN
 		
 		XCTAssertTrue(ppaProtobuf.keySubmissionMetadataSet.isEmpty, "keySubmissionMetadataSet must be empty")
 	}
 	
 	// MARK: - Failures
-
+	
 	func testGIVEN_SubmissionIsTriggered_WHEN_UserConsentIsMissing_THEN_UserConsentErrorIsReturned() {
 		// GIVEN
 		let store = MockTestStore()
 		let client = ClientMock()
 		let config = SAP_Internal_V2_ApplicationConfigurationIOS()
 		let appConfigurationProvider = CachedAppConfigurationMock(with: config)
-		#if targetEnvironment(simulator)
+#if targetEnvironment(simulator)
 		let deviceCheck = PPACDeviceCheckMock(true, deviceToken: "iPhone")
-		#else
+#else
 		let deviceCheck = PPACDeviceCheck()
-		#endif
-
+#endif
+		
 		let analyticsSubmitter = PPAnalyticsSubmitter(
 			store: store,
 			client: client,
 			appConfig: appConfigurationProvider,
-			coronaTestService: CoronaTestService(
-				client: client,
-				store: store,
-				eventStore: MockEventStore(),
-				diaryStore: MockDiaryStore(),
-				appConfiguration: appConfigurationProvider,
-				healthCertificateService: HealthCertificateService(
-					store: store,
-					dccSignatureVerifier: DCCSignatureVerifyingStub(),
-					dscListProvider: MockDSCListProvider(),
-					client: client,
-					appConfiguration: appConfigurationProvider,
-					boosterNotificationsService: BoosterNotificationsService(
-						rulesDownloadService: RulesDownloadService(store: store, client: client)
-					),
-					recycleBin: .fake()
-                ),
-                recycleBin: .fake()
-            ),
+			coronaTestService: MockCoronaTestService(),
 			ppacService: PPACService(store: store, deviceCheck: deviceCheck)
 		)
-
+		
 		let expectation = self.expectation(description: "completion handler is called with an error")
-
+		
 		// WHEN
 		store.isPrivacyPreservingAnalyticsConsentGiven = false
 		
@@ -384,12 +279,12 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 				expectation.fulfill()
 			}
 		})
-
+		
 		// THEN
 		waitForExpectations(timeout: .medium)
 		XCTAssertEqual(ppasError, .userConsentError)
 	}
-
+	
 	func testGIVEN_SubmissionIsTriggered_WHEN_AppConfigIsMissing_THEN_ProbibilityErrorIsReturned() {
 		// GIVEN
 		let store = MockTestStore()
@@ -397,39 +292,21 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 		let client = ClientMock()
 		let config = SAP_Internal_V2_ApplicationConfigurationIOS()
 		let appConfigurationProvider = CachedAppConfigurationMock(with: config)
-		#if targetEnvironment(simulator)
+#if targetEnvironment(simulator)
 		let deviceCheck = PPACDeviceCheckMock(true, deviceToken: "iPhone")
-		#else
+#else
 		let deviceCheck = PPACDeviceCheck()
-		#endif
+#endif
 		let analyticsSubmitter = PPAnalyticsSubmitter(
 			store: store,
 			client: client,
 			appConfig: appConfigurationProvider,
-			coronaTestService: CoronaTestService(
-				client: client,
-				store: store,
-				eventStore: MockEventStore(),
-				diaryStore: MockDiaryStore(),
-				appConfiguration: appConfigurationProvider,
-				healthCertificateService: HealthCertificateService(
-					store: store,
-					dccSignatureVerifier: DCCSignatureVerifyingStub(),
-					dscListProvider: MockDSCListProvider(),
-					client: client,
-					appConfiguration: appConfigurationProvider,
-					boosterNotificationsService: BoosterNotificationsService(
-						rulesDownloadService: RulesDownloadService(store: store, client: client)
-					),
-					recycleBin: .fake()
-                ),
-                recycleBin: .fake()
-            ),
+			coronaTestService: MockCoronaTestService(),
 			ppacService: PPACService(store: store, deviceCheck: deviceCheck)
 		)
-
+		
 		let expectation = self.expectation(description: "completion handler is called with an error")
-
+		
 		// WHEN
 		var ppasError: PPASError?
 		analyticsSubmitter.triggerSubmitData(ppacToken: nil, completion: { result in
@@ -441,12 +318,12 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 				expectation.fulfill()
 			}
 		})
-
+		
 		// THEN
 		waitForExpectations(timeout: .medium)
 		XCTAssertEqual(ppasError, .probibilityError)
 	}
-
+	
 	func testGIVEN_SubmissionIsTriggered_WHEN_ProbabilityIsLow_THEN_ProbibilityErrorIsReturned() {
 		// GIVEN
 		let store = MockTestStore()
@@ -456,39 +333,21 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 		// probability will always fail
 		config.privacyPreservingAnalyticsParameters.common.probabilityToSubmit = -1
 		let appConfigurationProvider = CachedAppConfigurationMock(with: config)
-		#if targetEnvironment(simulator)
+#if targetEnvironment(simulator)
 		let deviceCheck = PPACDeviceCheckMock(true, deviceToken: "iPhone")
-		#else
+#else
 		let deviceCheck = PPACDeviceCheck()
-		#endif
+#endif
 		let analyticsSubmitter = PPAnalyticsSubmitter(
 			store: store,
 			client: client,
 			appConfig: appConfigurationProvider,
-			coronaTestService: CoronaTestService(
-				client: client,
-				store: store,
-				eventStore: MockEventStore(),
-				diaryStore: MockDiaryStore(),
-				appConfiguration: appConfigurationProvider,
-				healthCertificateService: HealthCertificateService(
-					store: store,
-					dccSignatureVerifier: DCCSignatureVerifyingStub(),
-					dscListProvider: MockDSCListProvider(),
-					client: client,
-					appConfiguration: appConfigurationProvider,
-					boosterNotificationsService: BoosterNotificationsService(
-						rulesDownloadService: RulesDownloadService(store: store, client: client)
-					),
-					recycleBin: .fake()
-                ),
-                recycleBin: .fake()
-            ),
+			coronaTestService: MockCoronaTestService(),
 			ppacService: PPACService(store: store, deviceCheck: deviceCheck)
 		)
-
+		
 		let expectation = self.expectation(description: "completion handler is called with an error")
-
+		
 		// WHEN
 		var ppasError: PPASError?
 		analyticsSubmitter.triggerSubmitData(ppacToken: nil, completion: { result in
@@ -500,12 +359,12 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 				expectation.fulfill()
 			}
 		})
-
+		
 		// THEN
 		waitForExpectations(timeout: .medium)
 		XCTAssertEqual(ppasError, .probibilityError)
 	}
-
+	
 	func testGIVEN_SubmissionIsTriggered_WHEN_SubmissionWas2HoursAgo_THEN_SubmissionTimeAmountUndercutErrorIsReturned() {
 		// GIVEN
 		let store = MockTestStore()
@@ -514,40 +373,22 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 		var config = SAP_Internal_V2_ApplicationConfigurationIOS()
 		config.privacyPreservingAnalyticsParameters.common.probabilityToSubmit = 3
 		let appConfigurationProvider = CachedAppConfigurationMock(with: config)
-		#if targetEnvironment(simulator)
+#if targetEnvironment(simulator)
 		let deviceCheck = PPACDeviceCheckMock(true, deviceToken: "iPhone")
-		#else
+#else
 		let deviceCheck = PPACDeviceCheck()
-		#endif
+#endif
 		let analyticsSubmitter = PPAnalyticsSubmitter(
 			store: store,
 			client: client,
 			appConfig: appConfigurationProvider,
-			coronaTestService: CoronaTestService(
-				client: client,
-				store: store,
-				eventStore: MockEventStore(),
-				diaryStore: MockDiaryStore(),
-				appConfiguration: appConfigurationProvider,
-				healthCertificateService: HealthCertificateService(
-					store: store,
-					dccSignatureVerifier: DCCSignatureVerifyingStub(),
-					dscListProvider: MockDSCListProvider(),
-					client: client,
-					appConfiguration: appConfigurationProvider,
-					boosterNotificationsService: BoosterNotificationsService(
-						rulesDownloadService: RulesDownloadService(store: store, client: client)
-					),
-					recycleBin: .fake()
-                ),
-                recycleBin: .fake()
-            ),
+			coronaTestService: MockCoronaTestService(),
 			ppacService: PPACService(store: store, deviceCheck: deviceCheck)
 		)
-
+		
 		let expectation = self.expectation(description: "completion handler is called with an error")
 		store.lastSubmissionAnalytics = Calendar.current.date(byAdding: .hour, value: -2, to: Date())
-
+		
 		// WHEN
 		var ppasError: PPASError?
 		analyticsSubmitter.triggerSubmitData(ppacToken: nil, completion: { result in
@@ -559,7 +400,7 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 				expectation.fulfill()
 			}
 		})
-
+		
 		// THEN
 		waitForExpectations(timeout: .medium)
 		XCTAssertEqual(ppasError, .submissionTimeAmountUndercutError)
@@ -573,43 +414,25 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 		var config = SAP_Internal_V2_ApplicationConfigurationIOS()
 		config.privacyPreservingAnalyticsParameters.common.probabilityToSubmit = 3
 		let appConfigurationProvider = CachedAppConfigurationMock(with: config)
-		#if targetEnvironment(simulator)
+#if targetEnvironment(simulator)
 		let deviceCheck = PPACDeviceCheckMock(true, deviceToken: "iPhone")
-		#else
+#else
 		let deviceCheck = PPACDeviceCheck()
-		#endif
+#endif
 		let analyticsSubmitter = PPAnalyticsSubmitter(
 			store: store,
 			client: client,
 			appConfig: appConfigurationProvider,
-			coronaTestService: CoronaTestService(
-				client: client,
-				store: store,
-				eventStore: MockEventStore(),
-				diaryStore: MockDiaryStore(),
-				appConfiguration: appConfigurationProvider,
-				healthCertificateService: HealthCertificateService(
-					store: store,
-					dccSignatureVerifier: DCCSignatureVerifyingStub(),
-					dscListProvider: MockDSCListProvider(),
-					client: client,
-					appConfiguration: appConfigurationProvider,
-					boosterNotificationsService: BoosterNotificationsService(
-						rulesDownloadService: RulesDownloadService(store: store, client: client)
-					),
-					recycleBin: .fake()
-                ),
-                recycleBin: .fake()
-            ),
+			coronaTestService: MockCoronaTestService(),
 			ppacService: PPACService(store: store, deviceCheck: deviceCheck)
 		)
-
+		
 		let expectation = self.expectation(description: "completion handler is called with an error")
 		// Test edge case when 2 minutes remain to submit again.
 		let twentyThreeHoursAgo = try XCTUnwrap(Calendar.current.date(byAdding: .hour, value: -23, to: Date()))
 		let twentyThreeHoursFiftyThreeMinutesAgo = Calendar.current.date(byAdding: .minute, value: -53, to: twentyThreeHoursAgo)
 		store.lastSubmissionAnalytics = twentyThreeHoursFiftyThreeMinutesAgo
-
+		
 		// WHEN
 		var ppasError: PPASError?
 		analyticsSubmitter.triggerSubmitData(ppacToken: nil, completion: { result in
@@ -621,12 +444,12 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 				expectation.fulfill()
 			}
 		})
-
+		
 		// THEN
 		waitForExpectations(timeout: .medium)
 		XCTAssertEqual(ppasError, .submissionTimeAmountUndercutError)
 	}
-
+	
 	func testGIVEN_SubmissionIsTriggered_WHEN_OnboardingWas2HoursAgo_THEN_OnboardingErrorIsReturned() throws {
 		// GIVEN
 		let store = MockTestStore()
@@ -635,37 +458,19 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 		var config = SAP_Internal_V2_ApplicationConfigurationIOS()
 		config.privacyPreservingAnalyticsParameters.common.probabilityToSubmit = 3
 		let appConfigurationProvider = CachedAppConfigurationMock(with: config)
-		#if targetEnvironment(simulator)
+#if targetEnvironment(simulator)
 		let deviceCheck = PPACDeviceCheckMock(true, deviceToken: "iPhone")
-		#else
+#else
 		let deviceCheck = PPACDeviceCheck()
-		#endif
+#endif
 		let analyticsSubmitter = PPAnalyticsSubmitter(
 			store: store,
 			client: client,
 			appConfig: appConfigurationProvider,
-			coronaTestService: CoronaTestService(
-				client: client,
-				store: store,
-				eventStore: MockEventStore(),
-				diaryStore: MockDiaryStore(),
-				appConfiguration: appConfigurationProvider,
-				healthCertificateService: HealthCertificateService(
-					store: store,
-					dccSignatureVerifier: DCCSignatureVerifyingStub(),
-					dscListProvider: MockDSCListProvider(),
-					client: client,
-					appConfiguration: appConfigurationProvider,
-					boosterNotificationsService: BoosterNotificationsService(
-						rulesDownloadService: RulesDownloadService(store: store, client: client)
-					),
-					recycleBin: .fake()
-                ),
-                recycleBin: .fake()
-            ),
+			coronaTestService: MockCoronaTestService(),
 			ppacService: PPACService(store: store, deviceCheck: deviceCheck)
 		)
-
+		
 		let expectation = self.expectation(description: "completion handler is called with an error")
 		// Test edge case when we can submit since 2 minutes.
 		let twentyThreeHoursAgo = try XCTUnwrap(Calendar.current.date(byAdding: .hour, value: -23, to: Date()))
@@ -673,7 +478,7 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 		
 		store.lastSubmissionAnalytics = twentyThreeHoursFiftySevenMinutesAgo
 		store.dateOfAcceptedPrivacyNotice = Calendar.current.date(byAdding: .hour, value: -2, to: Date())
-
+		
 		// WHEN
 		var ppasError: PPASError?
 		analyticsSubmitter.triggerSubmitData(ppacToken: nil, completion: { result in
@@ -685,12 +490,12 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 				expectation.fulfill()
 			}
 		})
-
+		
 		// THEN
 		waitForExpectations(timeout: .medium)
 		XCTAssertEqual(ppasError, .onboardingError)
 	}
-
+	
 	func testGIVEN_SubmissionIsTriggered_WHEN_AppResetWas2HoursAgo_THEN_AppResetErrorIsReturned() {
 		// GIVEN
 		let store = MockTestStore()
@@ -699,42 +504,24 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 		var config = SAP_Internal_V2_ApplicationConfigurationIOS()
 		config.privacyPreservingAnalyticsParameters.common.probabilityToSubmit = 3
 		let appConfigurationProvider = CachedAppConfigurationMock(with: config)
-		#if targetEnvironment(simulator)
+#if targetEnvironment(simulator)
 		let deviceCheck = PPACDeviceCheckMock(true, deviceToken: "iPhone")
-		#else
+#else
 		let deviceCheck = PPACDeviceCheck()
-		#endif
+#endif
 		let analyticsSubmitter = PPAnalyticsSubmitter(
 			store: store,
 			client: client,
 			appConfig: appConfigurationProvider,
-			coronaTestService: CoronaTestService(
-				client: client,
-				store: store,
-				eventStore: MockEventStore(),
-				diaryStore: MockDiaryStore(),
-				appConfiguration: appConfigurationProvider,
-				healthCertificateService: HealthCertificateService(
-					store: store,
-					dccSignatureVerifier: DCCSignatureVerifyingStub(),
-					dscListProvider: MockDSCListProvider(),
-					client: client,
-					appConfiguration: appConfigurationProvider,
-					boosterNotificationsService: BoosterNotificationsService(
-						rulesDownloadService: RulesDownloadService(store: store, client: client)
-					),
-					recycleBin: .fake()
-                ),
-                recycleBin: .fake()
-            ),
+			coronaTestService: MockCoronaTestService(),
 			ppacService: PPACService(store: store, deviceCheck: deviceCheck)
 		)
-
+		
 		let expectation = self.expectation(description: "completion handler is called with an error")
 		store.lastSubmissionAnalytics = Calendar.current.date(byAdding: .day, value: -5, to: Date())
 		store.dateOfAcceptedPrivacyNotice = Calendar.current.date(byAdding: .day, value: -5, to: Date())
 		store.lastAppReset = Calendar.current.date(byAdding: .hour, value: -2, to: Date())
-
+		
 		// WHEN
 		var ppasError: PPASError?
 		analyticsSubmitter.triggerSubmitData(ppacToken: nil, completion: { result in
@@ -746,12 +533,12 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 				expectation.fulfill()
 			}
 		})
-
+		
 		// THEN
 		waitForExpectations(timeout: .medium)
 		XCTAssertEqual(ppasError, .appResetError)
 	}
-
+	
 	func testGIVEN_SubmissionIsTriggered_WHEN_PpacCouldNotAuthorize_THEN_PpacErrorIsReturned() {
 		// GIVEN
 		let store = MockTestStore()
@@ -760,42 +547,24 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 		var config = SAP_Internal_V2_ApplicationConfigurationIOS()
 		config.privacyPreservingAnalyticsParameters.common.probabilityToSubmit = 3
 		let appConfigurationProvider = CachedAppConfigurationMock(with: config)
-		#if targetEnvironment(simulator)
+#if targetEnvironment(simulator)
 		let deviceCheck = PPACDeviceCheckMock(false, deviceToken: "iPhone")
-		#else
+#else
 		let deviceCheck = PPACDeviceCheck()
-		#endif
+#endif
 		let analyticsSubmitter = PPAnalyticsSubmitter(
 			store: store,
 			client: client,
 			appConfig: appConfigurationProvider,
-			coronaTestService: CoronaTestService(
-				client: client,
-				store: store,
-				eventStore: MockEventStore(),
-				diaryStore: MockDiaryStore(),
-				appConfiguration: appConfigurationProvider,
-				healthCertificateService: HealthCertificateService(
-					store: store,
-					dccSignatureVerifier: DCCSignatureVerifyingStub(),
-					dscListProvider: MockDSCListProvider(),
-					client: client,
-					appConfiguration: appConfigurationProvider,
-					boosterNotificationsService: BoosterNotificationsService(
-						rulesDownloadService: RulesDownloadService(store: store, client: client)
-					),
-					recycleBin: .fake()
-                ),
-                recycleBin: .fake()
-            ),
+			coronaTestService: MockCoronaTestService(),
 			ppacService: PPACService(store: store, deviceCheck: deviceCheck)
 		)
-
+		
 		let expectation = self.expectation(description: "completion handler is called with an error")
 		store.lastSubmissionAnalytics = Calendar.current.date(byAdding: .day, value: -5, to: Date())
 		store.dateOfAcceptedPrivacyNotice = Calendar.current.date(byAdding: .day, value: -5, to: Date())
 		store.lastAppReset = Calendar.current.date(byAdding: .day, value: -5, to: Date())
-
+		
 		// WHEN
 		var ppasError: PPASError?
 		analyticsSubmitter.triggerSubmitData(ppacToken: nil, completion: { result in
@@ -807,7 +576,7 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 				expectation.fulfill()
 			}
 		})
-
+		
 		// THEN
 		waitForExpectations(timeout: .medium)
 		XCTAssertEqual(ppasError, .ppacError(.generationFailed))
@@ -819,40 +588,22 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 		store.isPrivacyPreservingAnalyticsConsentGiven = true
 		let client = ClientMock()
 		let appConfigurationProvider = CachedAppConfigurationMock()
-		#if targetEnvironment(simulator)
+#if targetEnvironment(simulator)
 		let deviceCheck = PPACDeviceCheckMock(true, deviceToken: "iPhone")
-		#else
+#else
 		let deviceCheck = PPACDeviceCheck()
-		#endif
+#endif
 		let analyticsSubmitter = PPAnalyticsSubmitter(
 			store: store,
 			client: client,
 			appConfig: appConfigurationProvider,
-			coronaTestService: CoronaTestService(
-				client: client,
-				store: store,
-				eventStore: MockEventStore(),
-				diaryStore: MockDiaryStore(),
-				appConfiguration: appConfigurationProvider,
-				healthCertificateService: HealthCertificateService(
-					store: store,
-					dccSignatureVerifier: DCCSignatureVerifyingStub(),
-					dscListProvider: MockDSCListProvider(),
-					client: client,
-					appConfiguration: appConfigurationProvider,
-					boosterNotificationsService: BoosterNotificationsService(
-						rulesDownloadService: RulesDownloadService(store: store, client: client)
-					),
-					recycleBin: .fake()
-                ),
-                recycleBin: .fake()
-            ),
+			coronaTestService: MockCoronaTestService(),
 			ppacService: PPACService(store: store, deviceCheck: deviceCheck)
 		)
-
+		
 		let expectation = self.expectation(description: "completion handler is called with an error")
 		expectation.expectedFulfillmentCount = 2
-
+		
 		// WHEN
 		var ppasErrors: [PPASError] = []
 		var ppasSuccess: [Void] = []
@@ -895,39 +646,21 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 		// probability will always succeed
 		config.privacyPreservingAnalyticsParameters.common.probabilityToSubmit = 3
 		let appConfigurationProvider = CachedAppConfigurationMock(with: config)
-		#if targetEnvironment(simulator)
+#if targetEnvironment(simulator)
 		let deviceCheck = PPACDeviceCheckMock(true, deviceToken: "iPhone")
-		#else
+#else
 		let deviceCheck = PPACDeviceCheck()
-		#endif
+#endif
 		let analyticsSubmitter = PPAnalyticsSubmitter(
 			store: store,
 			client: client,
 			appConfig: appConfigurationProvider,
-			coronaTestService: CoronaTestService(
-				client: client,
-				store: store,
-				eventStore: MockEventStore(),
-				diaryStore: MockDiaryStore(),
-				appConfiguration: appConfigurationProvider,
-				healthCertificateService: HealthCertificateService(
-					store: store,
-					dccSignatureVerifier: DCCSignatureVerifyingStub(),
-					dscListProvider: MockDSCListProvider(),
-					client: client,
-					appConfiguration: appConfigurationProvider,
-					boosterNotificationsService: BoosterNotificationsService(
-						rulesDownloadService: RulesDownloadService(store: store, client: client)
-					),
-					recycleBin: .fake()
-                ),
-                recycleBin: .fake()
-            ),
+			coronaTestService: MockCoronaTestService(),
 			ppacService: PPACService(store: store, deviceCheck: deviceCheck)
 		)
-
+		
 		let expectation = self.expectation(description: "completion handler is called without an error")
-
+		
 		store.lastSubmissionAnalytics = Calendar.current.date(byAdding: .day, value: -5, to: Date())
 		store.dateOfAcceptedPrivacyNotice = Calendar.current.date(byAdding: .day, value: -5, to: Date())
 		store.lastAppReset = Calendar.current.date(byAdding: .day, value: -5, to: Date())
@@ -962,7 +695,7 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 				expectation.fulfill()
 			}
 		})
-
+		
 		// THEN
 		waitForExpectations(timeout: .medium)
 		
@@ -971,49 +704,49 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 		XCTAssertNil(store.currentCheckinRiskExposureMetadata)
 		XCTAssertNil(store.previousENFRiskExposureMetadata)
 		XCTAssertNil(store.previousCheckinRiskExposureMetadata)
-				
+		
 		let someTimeAgo = Calendar.current.date(byAdding: .second, value: -20, to: Date())
 		let someTimeAgoTimeRange = try XCTUnwrap(someTimeAgo)...Date()
 		XCTAssertFalse(someTimeAgoTimeRange.contains(try XCTUnwrap(store.lastSubmissionAnalytics)))
 	}
-
+	
 	// MARK: - Conversion to protobuf
-
+	
 	func testGIVEN_AgeGroup_WHEN_Converting_THEN_ProtobufAgeGroupIsReturned() {
 		// GIVEN
 		let ageGroup: AgeGroup = .ageBetween30And59
-
+		
 		// WHEN
 		let expectation = ageGroup.protobuf
-
+		
 		// THEN
 		XCTAssertEqual(expectation, SAP_Internal_Ppdd_PPAAgeGroup.ageGroup30To59)
 	}
-
+	
 	func testGIVEN_FederalState_WHEN_Converting_THEN_ProtobufFederalStateIsReturned() {
 		// GIVEN
 		let federalState: FederalStateName = .hessen
-
+		
 		// WHEN
 		let expectation = federalState.protobuf
-
+		
 		// THEN
 		XCTAssertEqual(expectation, SAP_Internal_Ppdd_PPAFederalState.federalStateHe)
 	}
-
+	
 	func testGIVEN_RiskLevel_WHEN_Converting_THEN_ProtobufRiskLevelIsReturned() {
 		// GIVEN
 		let riskLevel: RiskLevel = .high
-
+		
 		// WHEN
 		let expectation = riskLevel.protobuf
-
+		
 		// THEN
 		XCTAssertEqual(expectation, SAP_Internal_Ppdd_PPARiskLevel.riskLevelHigh)
 	}
-		
+	
 	// MARK: - ProtoBuf Mapping
-
+	
 	func testGatherUserMetadata() {
 		let store = MockTestStore()
 		let analyticsSubmitter = createMockSubmitter(with: store)
@@ -1021,7 +754,7 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 		
 		// Setup Collector
 		Analytics.setupMock(store: store, submitter: analyticsSubmitter)
-
+		
 		// collect userMetadata
 		let state: FederalStateName = .badenWürttemberg
 		let ageGroup: AgeGroup = .ageBelow29
@@ -1034,7 +767,7 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 		
 		let protobuf = analyticsSubmitter.gatherUserMetadata()
 		XCTAssertNotNil(store.userMetadata, "userMetadata should be allocated")
-
+		
 		XCTAssertEqual(protobuf.federalState, state.protobuf, "Wrong Registration date")
 		XCTAssertEqual(protobuf.ageGroup, ageGroup.protobuf, "Wrong Registration date")
 		XCTAssertEqual(protobuf.administrativeUnit, Int32(administrativeUnit), "Wrong Registration date")
@@ -1065,7 +798,7 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 		let store = MockTestStore()
 		store.isPrivacyPreservingAnalyticsConsentGiven = true
 		let analyticsSubmitter = createMockSubmitter(with: store)
-
+		
 		// Setup Collector
 		
 		Analytics.setupMock(store: store, submitter: analyticsSubmitter)
@@ -1099,7 +832,7 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 		let riskLevel: RiskLevel = .high
 		let differenceInHoursBetweenChangeToHighRiskAndRegistrationDate = Calendar.current.dateComponents([.hour], from: dateOfRiskChangeToHigh ?? Date(), to: registrationDate).hour
 		let differenceInHoursBetweenRegistrationDateAndTestResult = Calendar.current.dateComponents([.hour], from: registrationDate, to: today).hour
-
+		
 		let enfRiskCalculationResult = ENFRiskCalculationResult(
 			riskLevel: riskLevel,
 			minimumDistinctEncountersWithLowRisk: 6,
@@ -1159,7 +892,7 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 		XCTAssertEqual(store.pcrTestResultMetadata?.testResult, testResult, "Wrong TestResult")
 		XCTAssertEqual(store.pcrTestResultMetadata?.hoursSinceTestRegistration, differenceInHoursBetweenRegistrationDateAndTestResult, "Wrong difference hoursSinceTestRegistration")
 		XCTAssertEqual(store.pcrTestResultMetadata?.exposureWindowsUntilTestResult, mappedSubmissionExposureWindowsUntilTestResult, "Wrong exposure windows")
-
+		
 		// Mapping to protobuf
 		let protobuf = analyticsSubmitter.gatherTestResultMetadata(for: .pcr)
 		XCTAssertEqual(
@@ -1208,7 +941,7 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 		let store = MockTestStore()
 		store.isPrivacyPreservingAnalyticsConsentGiven = true
 		let analyticsSubmitter = createMockSubmitter(with: store)
-
+		
 		// Setup Collector
 		Analytics.setupMock(store: store, submitter: analyticsSubmitter)
 		
@@ -1219,7 +952,7 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 			XCTFail("Could not create mostRecentDayWithRisk")
 			return
 		}
-
+		
 		store.enfRiskCalculationResult = ENFRiskCalculationResult(
 			riskLevel: riskLevel,
 			minimumDistinctEncountersWithLowRisk: 6,
@@ -1243,7 +976,7 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 			checkinIdsWithRiskPerDate: [mostRecentDayWithRisk: [checkinIdWithRisk]],
 			riskLevelPerDate: [mostRecentDayWithRisk: riskLevel]
 		)
-
+		
 		Analytics.collect(.riskExposureMetadata(.update))
 		XCTAssertNotNil(store.currentENFRiskExposureMetadata, "riskMetadata should be allocated")
 		XCTAssertEqual(store.currentENFRiskExposureMetadata?.riskLevel, riskLevel, "Wrong riskLevel")
@@ -1272,7 +1005,7 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 		let store = MockTestStore()
 		store.isPrivacyPreservingAnalyticsConsentGiven = true
 		let analyticsSubmitter = createMockSubmitter(with: store)
-
+		
 		// Setup Collector
 		Analytics.setupMock(store: store, submitter: analyticsSubmitter)
 		
@@ -1283,7 +1016,7 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 			XCTFail("Could not create mostRecentDayWithRisk")
 			return
 		}
-
+		
 		store.enfRiskCalculationResult = ENFRiskCalculationResult(
 			riskLevel: riskLevel,
 			minimumDistinctEncountersWithLowRisk: 6,
@@ -1307,7 +1040,7 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 			checkinIdsWithRiskPerDate: [mostRecentDayWithRisk: [checkinIdWithRisk]],
 			riskLevelPerDate: [:]
 		)
-
+		
 		Analytics.collect(.riskExposureMetadata(.update))
 		XCTAssertNil(store.currentENFRiskExposureMetadata?.mostRecentDateAtRiskLevel, "should be nil as it was not set")
 		XCTAssertNil(store.currentCheckinRiskExposureMetadata?.mostRecentDateAtRiskLevel, "should be nil as it was not set")
@@ -1324,7 +1057,7 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 		let store = MockTestStore()
 		store.isPrivacyPreservingAnalyticsConsentGiven = true
 		let analyticsSubmitter = createMockSubmitter(with: store)
-
+		
 		// Setup Collector
 		Analytics.setupMock(store: store, submitter: analyticsSubmitter)
 		
@@ -1343,7 +1076,7 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 		let metadata = store.exposureWindowsMetadata
 		XCTAssertEqual(metadata?.newExposureWindowsQueue, mappedSubmissionExposureWindows, "Wrong newExposureWindowsQueue")
 		XCTAssertEqual(metadata?.reportedExposureWindowsQueue, mappedSubmissionExposureWindows, "Wrong reportedExposureWindowsQueue")
-
+		
 		// Mapping to protobuf
 		let protobuf = analyticsSubmitter.gatherNewExposureWindows()
 		
@@ -1355,7 +1088,7 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 			XCTAssertEqual(protobuf[index].exposureWindow.reportType, mappedSubmissionExposureWindows[index].exposureWindow.reportType.protobuf, "Wrong reportType")
 			XCTAssertEqual(protobuf[index].exposureWindow.date, Int64(mappedSubmissionExposureWindows[index].exposureWindow.date.timeIntervalSince1970), "Wrong date")
 			XCTAssertEqual(protobuf[index].exposureWindow.scanInstances.count, mappedSubmissionExposureWindows[index].exposureWindow.scanInstances.count, "Wrong scanInstances.count")
-
+			
 			for (scanInstancesIndex, scanInstance)  in protobuf[index].exposureWindow.scanInstances.enumerated() {
 				XCTAssertEqual(scanInstance.minAttenuation, Int32(mappedSubmissionExposureWindows[index].exposureWindow.scanInstances[scanInstancesIndex].minAttenuation), "Wrong minAttenuation")
 				XCTAssertEqual(scanInstance.secondsSinceLastScan, Int32(mappedSubmissionExposureWindows[index].exposureWindow.scanInstances[scanInstancesIndex].secondsSinceLastScan), "Wrong secondsSinceLastScan")
@@ -1369,15 +1102,24 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 		let appConfiguration = CachedAppConfigurationMock()
 		let restServiceProvider = RestServiceProviderStub(
 			results: [
-				.success(RegistrationTokenModel(registrationToken: "fake")),
-				.success(SubmissionTANModel(submissionTAN: "fake"))
+				.success(TeleTanReceiveModel(registrationToken: "fake")),
+				.success(RegistrationTokenReceiveModel(submissionTAN: "fake"))
 			]
 		)
-
+		
 		let store = MockTestStore()
 		store.isPrivacyPreservingAnalyticsConsentGiven = true
 		let analyticsSubmitter = createMockSubmitter(with: store)
 
+		let healthCertificateService = HealthCertificateService(
+			store: store,
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
+			dscListProvider: MockDSCListProvider(),
+			appConfiguration: appConfiguration,
+			cclService: FakeCCLService(),
+			recycleBin: .fake()
+		)
+		
 		let coronaTestService = CoronaTestService(
 			client: client,
 			restServiceProvider: restServiceProvider,
@@ -1385,18 +1127,15 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
 			appConfiguration: appConfiguration,
-			healthCertificateService: HealthCertificateService(
+			healthCertificateService: healthCertificateService,
+			healthCertificateRequestService: HealthCertificateRequestService(
 				store: store,
-				dccSignatureVerifier: DCCSignatureVerifyingStub(),
-				dscListProvider: MockDSCListProvider(),
 				client: client,
 				appConfiguration: appConfiguration,
-				boosterNotificationsService: BoosterNotificationsService(
-					rulesDownloadService: RulesDownloadService(store: store, client: client)
-				),
-				recycleBin: .fake()
+				healthCertificateService: healthCertificateService
 			),
-			recycleBin: .fake()
+			recycleBin: .fake(),
+			badgeWrapper: .fake()
 		)
 		coronaTestService.registerPCRTest(
 			teleTAN: "tele-tan",
@@ -1405,8 +1144,8 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 		)
 		
 		let fiveHoursBefore = Calendar.current.date(byAdding: .hour, value: -5, to: Date())
-		coronaTestService.pcrTest?.finalTestResultReceivedDate = fiveHoursBefore ?? Date()
-
+		coronaTestService.pcrTest.value?.finalTestResultReceivedDate = fiveHoursBefore ?? Date()
+		
 		Analytics.setupMock(
 			store: store,
 			submitter: analyticsSubmitter,
@@ -1441,7 +1180,7 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 		Analytics.collect(.keySubmissionMetadata(.submittedWithTeletan(false, .pcr)))
 		Analytics.collect(.keySubmissionMetadata(.lastSubmissionFlowScreen(lastScreen, .pcr)))
 		Analytics.collect(.keySubmissionMetadata(.advancedConsentGiven(true, .pcr)))
-
+		
 		let metadata = store.pcrKeySubmissionMetadata
 		XCTAssertNotNil(metadata, "pcrKeySubmissionMetadata should be allocated")
 		XCTAssertEqual(metadata?.submitted, true, "Wrong pcrKeySubmissionMetadata")
@@ -1475,38 +1214,20 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 		let client = ClientMock()
 		let config = SAP_Internal_V2_ApplicationConfigurationIOS()
 		let appConfigurationProvider = CachedAppConfigurationMock(with: config)
-		#if targetEnvironment(simulator)
+#if targetEnvironment(simulator)
 		let deviceCheck = PPACDeviceCheckMock(true, deviceToken: "iPhone")
-		#else
+#else
 		let deviceCheck = PPACDeviceCheck()
-		#endif
+#endif
 		return PPAnalyticsSubmitter(
 			store: store,
 			client: client,
 			appConfig: appConfigurationProvider,
-			coronaTestService: CoronaTestService(
-				client: client,
-				store: store,
-				eventStore: MockEventStore(),
-				diaryStore: MockDiaryStore(),
-				appConfiguration: appConfigurationProvider,
-				healthCertificateService: HealthCertificateService(
-					store: store,
-					dccSignatureVerifier: DCCSignatureVerifyingStub(),
-					dscListProvider: MockDSCListProvider(),
-					client: client,
-					appConfiguration: appConfigurationProvider,
-					boosterNotificationsService: BoosterNotificationsService(
-						rulesDownloadService: RulesDownloadService(store: store, client: client)
-					),
-					recycleBin: .fake()
-                ),
-                recycleBin: .fake()
-            ),
+			coronaTestService: MockCoronaTestService(),
 			ppacService: PPACService(store: store, deviceCheck: deviceCheck)
 		)
 	}
-
+	
 	private func generateSHA256(_ window: ExposureWindow) -> String? {
 		let encoder = JSONEncoder()
 		do {

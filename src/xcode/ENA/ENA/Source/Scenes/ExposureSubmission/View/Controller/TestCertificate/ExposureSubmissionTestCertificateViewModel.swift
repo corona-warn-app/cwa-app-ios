@@ -10,12 +10,12 @@ class ExposureSubmissionTestCertificateViewModel {
 	// MARK: - Init
 
 	init(
-		testType: CoronaTestType,
+		isRapidTest: Bool,
 		presentDisclaimer: @escaping () -> Void
 	) {
 		self.presentDisclaimer = presentDisclaimer
-		self.testType = testType
-		self.isPrimaryButtonEnabled = testType == .antigen
+		self.isRapidTest = isRapidTest
+		self.isPrimaryButtonEnabled = isRapidTest
 	}
 
 	// MARK: - Internal
@@ -51,7 +51,7 @@ class ExposureSubmissionTestCertificateViewModel {
 						text: AppStrings.ExposureSubmission.TestCertificate.Info.body,
 						accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmission.TestCertificate.Info.body
 					),
-					testType == .antigen ? nil : .birthdayDatePicker(
+					isRapidTest ? nil : .birthdayDatePicker(
 						placeholder: AppStrings.ExposureSubmission.TestCertificate.Info.birthdayPlaceholder,
 						accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmission.TestCertificate.Info.birthdayPlaceholder,
 						configure: { [weak self] _, cell, _ in
@@ -67,7 +67,7 @@ class ExposureSubmissionTestCertificateViewModel {
 							birthdayDateInputCell.dateOfBirth = self.dateOfBirth
 						}
 					),
-					testType == .antigen ? nil : .body(
+					isRapidTest ? nil : .body(
 						text: AppStrings.ExposureSubmission.TestCertificate.Info.birthdayText,
 						accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmission.TestCertificate.Info.birthdayText
 					),
@@ -99,7 +99,7 @@ class ExposureSubmissionTestCertificateViewModel {
 					bulletPoints1: [
 						NSAttributedString(string: AppStrings.ExposureSubmission.TestCertificate.Info.legalText_1),
 						NSAttributedString(string: AppStrings.ExposureSubmission.TestCertificate.Info.legalText_2),
-						testType == .antigen ? nil : NSAttributedString(string: AppStrings.ExposureSubmission.TestCertificate.Info.legalText_2a_PCR),
+						isRapidTest ? nil : NSAttributedString(string: AppStrings.ExposureSubmission.TestCertificate.Info.legalText_2a_PCR),
 						NSAttributedString(string: AppStrings.ExposureSubmission.TestCertificate.Info.legalText_3),
 						NSAttributedString(string: AppStrings.ExposureSubmission.TestCertificate.Info.legalText_4),
 						NSAttributedString(string: AppStrings.ExposureSubmission.TestCertificate.Info.legalText_5)
@@ -133,8 +133,9 @@ class ExposureSubmissionTestCertificateViewModel {
 	}
 
 	// MARK: - Private
+	
+	private let isRapidTest: Bool
 
-	private let testType: CoronaTestType
 	private let presentDisclaimer: () -> Void
 
 	private var subscriptions = Set<AnyCancellable>()

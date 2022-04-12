@@ -26,23 +26,20 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 				validityState: .valid
 			),
 			accessibilityText: "accessibilityText",
-			onValidationButtonTap: { _, _ in },
-			showInfoHit: { }
+			onCovPassCheckInfoButtonTap: { }
 		)
 
 		// THEN
 		XCTAssertEqual(viewModel.title, "Impfzertifikat")
 		XCTAssertEqual(viewModel.subtitle, "Geimpft am 01.06.21")
 		XCTAssertEqual(viewModel.qrCodeViewModel.accessibilityLabel, "accessibilityText")
+		XCTAssertEqual(viewModel.qrCodeViewModel.covPassCheckInfoPosition, .top)
 
 		XCTAssertNil(viewModel.validityStateIcon)
 		XCTAssertNil(viewModel.validityStateTitle)
 		XCTAssertNil(viewModel.validityStateDescription)
 
 		XCTAssertFalse(viewModel.isUnseenNewsIndicatorVisible)
-
-		XCTAssertTrue(viewModel.isValidationButtonVisible)
-		XCTAssertTrue(viewModel.isValidationButtonEnabled)
 
 		XCTAssertFalse(viewModel.qrCodeViewModel.shouldBlockCertificateCode)
 	}
@@ -65,23 +62,20 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 				isValidityStateNew: true
 			),
 			accessibilityText: "accessibilityText",
-			onValidationButtonTap: { _, _ in },
-			showInfoHit: { }
+			onCovPassCheckInfoButtonTap: { }
 		)
 
 		// THEN
 		XCTAssertEqual(viewModel.title, "Impfzertifikat")
 		XCTAssertEqual(viewModel.subtitle, "Geimpft am 01.06.21")
 		XCTAssertEqual(viewModel.qrCodeViewModel.accessibilityLabel, "accessibilityText")
+		XCTAssertEqual(viewModel.qrCodeViewModel.covPassCheckInfoPosition, .top)
 
 		XCTAssertNil(viewModel.validityStateIcon)
 		XCTAssertNil(viewModel.validityStateTitle)
 		XCTAssertNil(viewModel.validityStateDescription)
 
 		XCTAssertFalse(viewModel.isUnseenNewsIndicatorVisible)
-
-		XCTAssertTrue(viewModel.isValidationButtonVisible)
-		XCTAssertTrue(viewModel.isValidationButtonEnabled)
 
 		XCTAssertFalse(viewModel.qrCodeViewModel.shouldBlockCertificateCode)
 	}
@@ -101,23 +95,20 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 				validityState: .valid
 			),
 			accessibilityText: "accessibilityText",
-			onValidationButtonTap: nil,
-			showInfoHit: { }
+			onCovPassCheckInfoButtonTap: { }
 		)
 
 		// THEN
 		XCTAssertNil(viewModel.title)
 		XCTAssertNil(viewModel.subtitle)
 		XCTAssertEqual(viewModel.qrCodeViewModel.accessibilityLabel, "accessibilityText")
+		XCTAssertEqual(viewModel.qrCodeViewModel.covPassCheckInfoPosition, .top)
 
 		XCTAssertNil(viewModel.validityStateIcon)
 		XCTAssertNil(viewModel.validityStateTitle)
 		XCTAssertNil(viewModel.validityStateDescription)
 
 		XCTAssertFalse(viewModel.isUnseenNewsIndicatorVisible)
-
-		XCTAssertFalse(viewModel.isValidationButtonVisible)
-		XCTAssertTrue(viewModel.isValidationButtonEnabled)
 
 		XCTAssertFalse(viewModel.qrCodeViewModel.shouldBlockCertificateCode)
 	}
@@ -138,23 +129,20 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 				isValidityStateNew: true
 			),
 			accessibilityText: "accessibilityText",
-			onValidationButtonTap: nil,
-			showInfoHit: { }
+			onCovPassCheckInfoButtonTap: { }
 		)
 
 		// THEN
 		XCTAssertNil(viewModel.title)
 		XCTAssertNil(viewModel.subtitle)
 		XCTAssertEqual(viewModel.qrCodeViewModel.accessibilityLabel, "accessibilityText")
+		XCTAssertEqual(viewModel.qrCodeViewModel.covPassCheckInfoPosition, .top)
 
 		XCTAssertNil(viewModel.validityStateIcon)
 		XCTAssertNil(viewModel.validityStateTitle)
 		XCTAssertNil(viewModel.validityStateDescription)
 
 		XCTAssertFalse(viewModel.isUnseenNewsIndicatorVisible)
-
-		XCTAssertFalse(viewModel.isValidationButtonVisible)
-		XCTAssertTrue(viewModel.isValidationButtonEnabled)
 
 		XCTAssertFalse(viewModel.qrCodeViewModel.shouldBlockCertificateCode)
 	}
@@ -178,14 +166,14 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 				validityState: .expiringSoon
 			),
 			accessibilityText: "accessibilityText",
-			onValidationButtonTap: { _, _ in },
-			showInfoHit: { }
+			onCovPassCheckInfoButtonTap: { }
 		)
 
 		// THEN
 		XCTAssertEqual(viewModel.title, "Impfzertifikat")
 		XCTAssertEqual(viewModel.subtitle, "Geimpft am 01.06.21")
 		XCTAssertEqual(viewModel.qrCodeViewModel.accessibilityLabel, "accessibilityText")
+		XCTAssertEqual(viewModel.qrCodeViewModel.covPassCheckInfoPosition, .top)
 
 		XCTAssertEqual(viewModel.validityStateIcon, UIImage(named: "Icon_ExpiringSoon"))
 		XCTAssertEqual(
@@ -199,9 +187,6 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 		XCTAssertNil(viewModel.validityStateDescription)
 
 		XCTAssertFalse(viewModel.isUnseenNewsIndicatorVisible)
-
-		XCTAssertTrue(viewModel.isValidationButtonVisible)
-		XCTAssertTrue(viewModel.isValidationButtonEnabled)
 
 		XCTAssertFalse(viewModel.qrCodeViewModel.shouldBlockCertificateCode)
 	}
@@ -226,14 +211,14 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 				isValidityStateNew: true
 			),
 			accessibilityText: "accessibilityText",
-			onValidationButtonTap: { _, _ in },
-			showInfoHit: { }
+			onCovPassCheckInfoButtonTap: { }
 		)
 
 		// THEN
 		XCTAssertEqual(viewModel.title, "Impfzertifikat")
 		XCTAssertEqual(viewModel.subtitle, "Geimpft am 01.06.21")
 		XCTAssertEqual(viewModel.qrCodeViewModel.accessibilityLabel, "accessibilityText")
+		XCTAssertEqual(viewModel.qrCodeViewModel.covPassCheckInfoPosition, .top)
 
 		XCTAssertEqual(viewModel.validityStateIcon, UIImage(named: "Icon_ExpiringSoon"))
 		XCTAssertEqual(
@@ -247,9 +232,6 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 		XCTAssertNil(viewModel.validityStateDescription)
 
 		XCTAssertFalse(viewModel.isUnseenNewsIndicatorVisible)
-
-		XCTAssertTrue(viewModel.isValidationButtonVisible)
-		XCTAssertTrue(viewModel.isValidationButtonEnabled)
 
 		XCTAssertFalse(viewModel.qrCodeViewModel.shouldBlockCertificateCode)
 	}
@@ -271,14 +253,14 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 				validityState: .expiringSoon
 			),
 			accessibilityText: "accessibilityText",
-			onValidationButtonTap: nil,
-			showInfoHit: { }
+			onCovPassCheckInfoButtonTap: { }
 		)
 
 		// THEN
 		XCTAssertEqual(viewModel.title, "Impfzertifikat")
 		XCTAssertNil(viewModel.subtitle)
 		XCTAssertEqual(viewModel.qrCodeViewModel.accessibilityLabel, "accessibilityText")
+		XCTAssertEqual(viewModel.qrCodeViewModel.covPassCheckInfoPosition, .top)
 
 		XCTAssertEqual(viewModel.validityStateIcon, UIImage(named: "Icon_ExpiringSoon"))
 		XCTAssertEqual(
@@ -292,9 +274,6 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 		XCTAssertEqual(viewModel.validityStateDescription, "Bitte bemühen Sie sich rechtzeitig darum, einen neuen digitalen Nachweis ausstellen zu lassen.")
 
 		XCTAssertFalse(viewModel.isUnseenNewsIndicatorVisible)
-
-		XCTAssertFalse(viewModel.isValidationButtonVisible)
-		XCTAssertTrue(viewModel.isValidationButtonEnabled)
 
 		XCTAssertFalse(viewModel.qrCodeViewModel.shouldBlockCertificateCode)
 	}
@@ -317,14 +296,14 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 				isValidityStateNew: true
 			),
 			accessibilityText: "accessibilityText",
-			onValidationButtonTap: nil,
-			showInfoHit: { }
+			onCovPassCheckInfoButtonTap: { }
 		)
 
 		// THEN
 		XCTAssertEqual(viewModel.title, "Impfzertifikat")
 		XCTAssertNil(viewModel.subtitle)
 		XCTAssertEqual(viewModel.qrCodeViewModel.accessibilityLabel, "accessibilityText")
+		XCTAssertEqual(viewModel.qrCodeViewModel.covPassCheckInfoPosition, .top)
 
 		XCTAssertEqual(viewModel.validityStateIcon, UIImage(named: "Icon_ExpiringSoon"))
 		XCTAssertEqual(
@@ -338,8 +317,6 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 		XCTAssertEqual(viewModel.validityStateDescription, "Bitte bemühen Sie sich rechtzeitig darum, einen neuen digitalen Nachweis ausstellen zu lassen.")
 
 		XCTAssertTrue(viewModel.isUnseenNewsIndicatorVisible)
-
-		XCTAssertFalse(viewModel.isValidationButtonVisible)
 	}
 
 	func testGIVEN_OverviewViewModelWithExpiredVaccinationCertificate_THEN_IsInitCorrect() throws {
@@ -359,23 +336,20 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 				validityState: .expired
 			),
 			accessibilityText: "accessibilityText",
-			onValidationButtonTap: { _, _ in },
-			showInfoHit: { }
+			onCovPassCheckInfoButtonTap: { }
 		)
 
 		// THEN
 		XCTAssertEqual(viewModel.title, "Impfzertifikat")
 		XCTAssertNil(viewModel.subtitle)
 		XCTAssertEqual(viewModel.qrCodeViewModel.accessibilityLabel, "accessibilityText")
+		XCTAssertEqual(viewModel.qrCodeViewModel.covPassCheckInfoPosition, .top)
 
 		XCTAssertEqual(viewModel.validityStateIcon, UIImage(named: "Icon_ExpiredInvalid"))
 		XCTAssertEqual(viewModel.validityStateTitle, "Zertifikat abgelaufen")
 		XCTAssertNil(viewModel.validityStateDescription)
 
 		XCTAssertFalse(viewModel.isUnseenNewsIndicatorVisible)
-
-		XCTAssertTrue(viewModel.isValidationButtonVisible)
-		XCTAssertTrue(viewModel.isValidationButtonEnabled)
 
 		XCTAssertTrue(viewModel.qrCodeViewModel.shouldBlockCertificateCode)
 	}
@@ -398,23 +372,20 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 				isValidityStateNew: true
 			),
 			accessibilityText: "accessibilityText",
-			onValidationButtonTap: { _, _ in },
-			showInfoHit: { }
+			onCovPassCheckInfoButtonTap: { }
 		)
 
 		// THEN
 		XCTAssertEqual(viewModel.title, "Impfzertifikat")
 		XCTAssertNil(viewModel.subtitle)
 		XCTAssertEqual(viewModel.qrCodeViewModel.accessibilityLabel, "accessibilityText")
+		XCTAssertEqual(viewModel.qrCodeViewModel.covPassCheckInfoPosition, .top)
 
 		XCTAssertEqual(viewModel.validityStateIcon, UIImage(named: "Icon_ExpiredInvalid"))
 		XCTAssertEqual(viewModel.validityStateTitle, "Zertifikat abgelaufen")
 		XCTAssertNil(viewModel.validityStateDescription)
 
 		XCTAssertFalse(viewModel.isUnseenNewsIndicatorVisible)
-
-		XCTAssertTrue(viewModel.isValidationButtonVisible)
-		XCTAssertTrue(viewModel.isValidationButtonEnabled)
 
 		XCTAssertTrue(viewModel.qrCodeViewModel.shouldBlockCertificateCode)
 	}
@@ -434,23 +405,20 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 				validityState: .expired
 			),
 			accessibilityText: "accessibilityText",
-			onValidationButtonTap: nil,
-			showInfoHit: { }
+			onCovPassCheckInfoButtonTap: { }
 		)
 
 		// THEN
 		XCTAssertEqual(viewModel.title, "Impfzertifikat")
 		XCTAssertNil(viewModel.subtitle)
 		XCTAssertEqual(viewModel.qrCodeViewModel.accessibilityLabel, "accessibilityText")
+		XCTAssertEqual(viewModel.qrCodeViewModel.covPassCheckInfoPosition, .top)
 
 		XCTAssertEqual(viewModel.validityStateIcon, UIImage(named: "Icon_ExpiredInvalid"))
 		XCTAssertEqual(viewModel.validityStateTitle, "Zertifikat abgelaufen")
 		XCTAssertEqual(viewModel.validityStateDescription, "Das Ablaufdatum wurde überschritten. Bitte bemühen Sie sich darum, einen neuen digitalen Nachweis ausstellen zu lassen.")
 
 		XCTAssertFalse(viewModel.isUnseenNewsIndicatorVisible)
-
-		XCTAssertFalse(viewModel.isValidationButtonVisible)
-		XCTAssertTrue(viewModel.isValidationButtonEnabled)
 
 		XCTAssertTrue(viewModel.qrCodeViewModel.shouldBlockCertificateCode)
 	}
@@ -471,23 +439,20 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 				isValidityStateNew: true
 			),
 			accessibilityText: "accessibilityText",
-			onValidationButtonTap: nil,
-			showInfoHit: { }
+			onCovPassCheckInfoButtonTap: { }
 		)
 
 		// THEN
 		XCTAssertEqual(viewModel.title, "Impfzertifikat")
 		XCTAssertNil(viewModel.subtitle)
 		XCTAssertEqual(viewModel.qrCodeViewModel.accessibilityLabel, "accessibilityText")
+		XCTAssertEqual(viewModel.qrCodeViewModel.covPassCheckInfoPosition, .top)
 
 		XCTAssertEqual(viewModel.validityStateIcon, UIImage(named: "Icon_ExpiredInvalid"))
 		XCTAssertEqual(viewModel.validityStateTitle, "Zertifikat abgelaufen")
 		XCTAssertEqual(viewModel.validityStateDescription, "Das Ablaufdatum wurde überschritten. Bitte bemühen Sie sich darum, einen neuen digitalen Nachweis ausstellen zu lassen.")
 
 		XCTAssertTrue(viewModel.isUnseenNewsIndicatorVisible)
-
-		XCTAssertFalse(viewModel.isValidationButtonVisible)
-		XCTAssertTrue(viewModel.isValidationButtonEnabled)
 
 		XCTAssertTrue(viewModel.qrCodeViewModel.shouldBlockCertificateCode)
 	}
@@ -509,23 +474,20 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 				validityState: .invalid
 			),
 			accessibilityText: "accessibilityText",
-			onValidationButtonTap: { _, _ in },
-			showInfoHit: { }
+			onCovPassCheckInfoButtonTap: { }
 		)
 
 		// THEN
 		XCTAssertEqual(viewModel.title, "Impfzertifikat")
 		XCTAssertNil(viewModel.subtitle)
 		XCTAssertEqual(viewModel.qrCodeViewModel.accessibilityLabel, "accessibilityText")
+		XCTAssertEqual(viewModel.qrCodeViewModel.covPassCheckInfoPosition, .top)
 
 		XCTAssertEqual(viewModel.validityStateIcon, UIImage(named: "Icon_ExpiredInvalid"))
 		XCTAssertEqual(viewModel.validityStateTitle, "Zertifikat (Signatur) ungültig")
 		XCTAssertNil(viewModel.validityStateDescription)
 
 		XCTAssertFalse(viewModel.isUnseenNewsIndicatorVisible)
-
-		XCTAssertTrue(viewModel.isValidationButtonVisible)
-		XCTAssertTrue(viewModel.isValidationButtonEnabled)
 
 		XCTAssertTrue(viewModel.qrCodeViewModel.shouldBlockCertificateCode)
 	}
@@ -548,23 +510,20 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 				isValidityStateNew: true
 			),
 			accessibilityText: "accessibilityText",
-			onValidationButtonTap: { _, _ in },
-			showInfoHit: { }
+			onCovPassCheckInfoButtonTap: { }
 		)
 
 		// THEN
 		XCTAssertEqual(viewModel.title, "Impfzertifikat")
 		XCTAssertNil(viewModel.subtitle)
 		XCTAssertEqual(viewModel.qrCodeViewModel.accessibilityLabel, "accessibilityText")
+		XCTAssertEqual(viewModel.qrCodeViewModel.covPassCheckInfoPosition, .top)
 
 		XCTAssertEqual(viewModel.validityStateIcon, UIImage(named: "Icon_ExpiredInvalid"))
 		XCTAssertEqual(viewModel.validityStateTitle, "Zertifikat (Signatur) ungültig")
 		XCTAssertNil(viewModel.validityStateDescription)
 
 		XCTAssertFalse(viewModel.isUnseenNewsIndicatorVisible)
-
-		XCTAssertTrue(viewModel.isValidationButtonVisible)
-		XCTAssertTrue(viewModel.isValidationButtonEnabled)
 
 		XCTAssertTrue(viewModel.qrCodeViewModel.shouldBlockCertificateCode)
 	}
@@ -584,23 +543,20 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 				validityState: .invalid
 			),
 			accessibilityText: "accessibilityText",
-			onValidationButtonTap: nil,
-			showInfoHit: { }
+			onCovPassCheckInfoButtonTap: { }
 		)
 
 		// THEN
 		XCTAssertEqual(viewModel.title, "Impfzertifikat")
 		XCTAssertNil(viewModel.subtitle)
 		XCTAssertEqual(viewModel.qrCodeViewModel.accessibilityLabel, "accessibilityText")
+		XCTAssertEqual(viewModel.qrCodeViewModel.covPassCheckInfoPosition, .top)
 
 		XCTAssertEqual(viewModel.validityStateIcon, UIImage(named: "Icon_ExpiredInvalid"))
 		XCTAssertEqual(viewModel.validityStateTitle, "Zertifikat (Signatur) ungültig")
 		XCTAssertEqual(viewModel.validityStateDescription, "Das Zertifikat wurde von einer nicht autorisierten Stelle oder fehlerhaft ausgestellt. Bitte lassen Sie das Zertifikat von einer autorisierten Stelle erneut ausstellen.")
 
 		XCTAssertFalse(viewModel.isUnseenNewsIndicatorVisible)
-
-		XCTAssertFalse(viewModel.isValidationButtonVisible)
-		XCTAssertTrue(viewModel.isValidationButtonEnabled)
 
 		XCTAssertTrue(viewModel.qrCodeViewModel.shouldBlockCertificateCode)
 	}
@@ -621,23 +577,20 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 				isValidityStateNew: true
 			),
 			accessibilityText: "accessibilityText",
-			onValidationButtonTap: nil,
-			showInfoHit: { }
+			onCovPassCheckInfoButtonTap: { }
 		)
 
 		// THEN
 		XCTAssertEqual(viewModel.title, "Impfzertifikat")
 		XCTAssertNil(viewModel.subtitle)
 		XCTAssertEqual(viewModel.qrCodeViewModel.accessibilityLabel, "accessibilityText")
+		XCTAssertEqual(viewModel.qrCodeViewModel.covPassCheckInfoPosition, .top)
 
 		XCTAssertEqual(viewModel.validityStateIcon, UIImage(named: "Icon_ExpiredInvalid"))
 		XCTAssertEqual(viewModel.validityStateTitle, "Zertifikat (Signatur) ungültig")
 		XCTAssertEqual(viewModel.validityStateDescription, "Das Zertifikat wurde von einer nicht autorisierten Stelle oder fehlerhaft ausgestellt. Bitte lassen Sie das Zertifikat von einer autorisierten Stelle erneut ausstellen.")
 
 		XCTAssertTrue(viewModel.isUnseenNewsIndicatorVisible)
-
-		XCTAssertFalse(viewModel.isValidationButtonVisible)
-		XCTAssertTrue(viewModel.isValidationButtonEnabled)
 
 		XCTAssertTrue(viewModel.qrCodeViewModel.shouldBlockCertificateCode)
 	}
@@ -659,23 +612,20 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 				validityState: .blocked
 			),
 			accessibilityText: "accessibilityText",
-			onValidationButtonTap: { _, _ in },
-			showInfoHit: { }
+			onCovPassCheckInfoButtonTap: { }
 		)
 
 		// THEN
 		XCTAssertEqual(viewModel.title, "Impfzertifikat")
 		XCTAssertNil(viewModel.subtitle)
 		XCTAssertEqual(viewModel.qrCodeViewModel.accessibilityLabel, "accessibilityText")
+		XCTAssertEqual(viewModel.qrCodeViewModel.covPassCheckInfoPosition, .top)
 
 		XCTAssertEqual(viewModel.validityStateIcon, UIImage(named: "Icon_ExpiredInvalid"))
 		XCTAssertEqual(viewModel.validityStateTitle, "Zertifikat ungültig")
 		XCTAssertNil(viewModel.validityStateDescription)
 
 		XCTAssertFalse(viewModel.isUnseenNewsIndicatorVisible)
-
-		XCTAssertTrue(viewModel.isValidationButtonVisible)
-		XCTAssertFalse(viewModel.isValidationButtonEnabled)
 
 		XCTAssertTrue(viewModel.qrCodeViewModel.shouldBlockCertificateCode)
 	}
@@ -698,23 +648,20 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 				isValidityStateNew: true
 			),
 			accessibilityText: "accessibilityText",
-			onValidationButtonTap: { _, _ in },
-			showInfoHit: { }
+			onCovPassCheckInfoButtonTap: { }
 		)
 
 		// THEN
 		XCTAssertEqual(viewModel.title, "Impfzertifikat")
 		XCTAssertNil(viewModel.subtitle)
 		XCTAssertEqual(viewModel.qrCodeViewModel.accessibilityLabel, "accessibilityText")
+		XCTAssertEqual(viewModel.qrCodeViewModel.covPassCheckInfoPosition, .top)
 
 		XCTAssertEqual(viewModel.validityStateIcon, UIImage(named: "Icon_ExpiredInvalid"))
 		XCTAssertEqual(viewModel.validityStateTitle, "Zertifikat ungültig")
 		XCTAssertNil(viewModel.validityStateDescription)
 
 		XCTAssertFalse(viewModel.isUnseenNewsIndicatorVisible)
-
-		XCTAssertTrue(viewModel.isValidationButtonVisible)
-		XCTAssertFalse(viewModel.isValidationButtonEnabled)
 
 		XCTAssertTrue(viewModel.qrCodeViewModel.shouldBlockCertificateCode)
 	}
@@ -734,23 +681,20 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 				validityState: .blocked
 			),
 			accessibilityText: "accessibilityText",
-			onValidationButtonTap: nil,
-			showInfoHit: { }
+			onCovPassCheckInfoButtonTap: { }
 		)
 
 		// THEN
 		XCTAssertEqual(viewModel.title, "Impfzertifikat")
 		XCTAssertNil(viewModel.subtitle)
 		XCTAssertEqual(viewModel.qrCodeViewModel.accessibilityLabel, "accessibilityText")
+		XCTAssertEqual(viewModel.qrCodeViewModel.covPassCheckInfoPosition, .top)
 
 		XCTAssertEqual(viewModel.validityStateIcon, UIImage(named: "Icon_ExpiredInvalid"))
 		XCTAssertEqual(viewModel.validityStateTitle, "Zertifikat ungültig")
 		XCTAssertEqual(viewModel.validityStateDescription, "Das Zertifikat wurde von der ausstellenden Behörde zurückgerufen. Bitte bemühen Sie sich darum, einen neuen digitalen Nachweis ausstellen zu lassen.")
 
 		XCTAssertFalse(viewModel.isUnseenNewsIndicatorVisible)
-
-		XCTAssertFalse(viewModel.isValidationButtonVisible)
-		XCTAssertFalse(viewModel.isValidationButtonEnabled)
 
 		XCTAssertFalse(viewModel.qrCodeViewModel.shouldBlockCertificateCode)
 	}
@@ -771,23 +715,20 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 				isValidityStateNew: true
 			),
 			accessibilityText: "accessibilityText",
-			onValidationButtonTap: nil,
-			showInfoHit: { }
+			onCovPassCheckInfoButtonTap: { }
 		)
 
 		// THEN
 		XCTAssertEqual(viewModel.title, "Impfzertifikat")
 		XCTAssertNil(viewModel.subtitle)
 		XCTAssertEqual(viewModel.qrCodeViewModel.accessibilityLabel, "accessibilityText")
+		XCTAssertEqual(viewModel.qrCodeViewModel.covPassCheckInfoPosition, .top)
 
 		XCTAssertEqual(viewModel.validityStateIcon, UIImage(named: "Icon_ExpiredInvalid"))
 		XCTAssertEqual(viewModel.validityStateTitle, "Zertifikat ungültig")
 		XCTAssertEqual(viewModel.validityStateDescription, "Das Zertifikat wurde von der ausstellenden Behörde zurückgerufen. Bitte bemühen Sie sich darum, einen neuen digitalen Nachweis ausstellen zu lassen.")
 
 		XCTAssertTrue(viewModel.isUnseenNewsIndicatorVisible)
-
-		XCTAssertFalse(viewModel.isValidationButtonVisible)
-		XCTAssertFalse(viewModel.isValidationButtonEnabled)
 
 		XCTAssertFalse(viewModel.qrCodeViewModel.shouldBlockCertificateCode)
 	}
@@ -813,23 +754,20 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 				validityState: .valid
 			),
 			accessibilityText: "accessibilityText",
-			onValidationButtonTap: { _, _ in },
-			showInfoHit: { }
+			onCovPassCheckInfoButtonTap: { }
 		)
 
 		// THEN
 		XCTAssertEqual(viewModel.title, "Testzertifikat")
 		XCTAssertEqual(viewModel.subtitle, "Probenahme am \(formattedDate)")
 		XCTAssertEqual(viewModel.qrCodeViewModel.accessibilityLabel, "accessibilityText")
+		XCTAssertEqual(viewModel.qrCodeViewModel.covPassCheckInfoPosition, .top)
 
 		XCTAssertNil(viewModel.validityStateIcon)
 		XCTAssertNil(viewModel.validityStateTitle)
 		XCTAssertNil(viewModel.validityStateDescription)
 
 		XCTAssertFalse(viewModel.isUnseenNewsIndicatorVisible)
-
-		XCTAssertTrue(viewModel.isValidationButtonVisible)
-		XCTAssertTrue(viewModel.isValidationButtonEnabled)
 
 		XCTAssertFalse(viewModel.qrCodeViewModel.shouldBlockCertificateCode)
 	}
@@ -856,23 +794,20 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 				isValidityStateNew: true
 			),
 			accessibilityText: "accessibilityText",
-			onValidationButtonTap: { _, _ in },
-			showInfoHit: { }
+			onCovPassCheckInfoButtonTap: { }
 		)
 
 		// THEN
 		XCTAssertEqual(viewModel.title, "Testzertifikat")
 		XCTAssertEqual(viewModel.subtitle, "Probenahme am \(formattedDate)")
 		XCTAssertEqual(viewModel.qrCodeViewModel.accessibilityLabel, "accessibilityText")
+		XCTAssertEqual(viewModel.qrCodeViewModel.covPassCheckInfoPosition, .top)
 
 		XCTAssertNil(viewModel.validityStateIcon)
 		XCTAssertNil(viewModel.validityStateTitle)
 		XCTAssertNil(viewModel.validityStateDescription)
 
 		XCTAssertFalse(viewModel.isUnseenNewsIndicatorVisible)
-
-		XCTAssertTrue(viewModel.isValidationButtonVisible)
-		XCTAssertTrue(viewModel.isValidationButtonEnabled)
 
 		XCTAssertFalse(viewModel.qrCodeViewModel.shouldBlockCertificateCode)
 	}
@@ -892,23 +827,20 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 				validityState: .valid
 			),
 			accessibilityText: "accessibilityText",
-			onValidationButtonTap: nil,
-			showInfoHit: { }
+			onCovPassCheckInfoButtonTap: { }
 		)
 
 		// THEN
 		XCTAssertNil(viewModel.title)
 		XCTAssertNil(viewModel.subtitle)
 		XCTAssertEqual(viewModel.qrCodeViewModel.accessibilityLabel, "accessibilityText")
+		XCTAssertEqual(viewModel.qrCodeViewModel.covPassCheckInfoPosition, .top)
 
 		XCTAssertNil(viewModel.validityStateIcon)
 		XCTAssertNil(viewModel.validityStateTitle)
 		XCTAssertNil(viewModel.validityStateDescription)
 
 		XCTAssertFalse(viewModel.isUnseenNewsIndicatorVisible)
-
-		XCTAssertFalse(viewModel.isValidationButtonVisible)
-		XCTAssertTrue(viewModel.isValidationButtonEnabled)
 
 		XCTAssertFalse(viewModel.qrCodeViewModel.shouldBlockCertificateCode)
 	}
@@ -929,23 +861,20 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 				isValidityStateNew: true
 			),
 			accessibilityText: "accessibilityText",
-			onValidationButtonTap: nil,
-			showInfoHit: { }
+			onCovPassCheckInfoButtonTap: { }
 		)
 
 		// THEN
 		XCTAssertNil(viewModel.title)
 		XCTAssertNil(viewModel.subtitle)
 		XCTAssertEqual(viewModel.qrCodeViewModel.accessibilityLabel, "accessibilityText")
+		XCTAssertEqual(viewModel.qrCodeViewModel.covPassCheckInfoPosition, .top)
 
 		XCTAssertNil(viewModel.validityStateIcon)
 		XCTAssertNil(viewModel.validityStateTitle)
 		XCTAssertNil(viewModel.validityStateDescription)
 
 		XCTAssertFalse(viewModel.isUnseenNewsIndicatorVisible)
-
-		XCTAssertFalse(viewModel.isValidationButtonVisible)
-		XCTAssertTrue(viewModel.isValidationButtonEnabled)
 
 		XCTAssertFalse(viewModel.qrCodeViewModel.shouldBlockCertificateCode)
 	}
@@ -972,23 +901,20 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 				validityState: .expiringSoon
 			),
 			accessibilityText: "accessibilityText",
-			onValidationButtonTap: { _, _ in },
-			showInfoHit: { }
+			onCovPassCheckInfoButtonTap: { }
 		)
 
 		// THEN
 		XCTAssertEqual(viewModel.title, "Testzertifikat")
 		XCTAssertEqual(viewModel.subtitle, "Probenahme am \(formattedDate)")
 		XCTAssertEqual(viewModel.qrCodeViewModel.accessibilityLabel, "accessibilityText")
+		XCTAssertEqual(viewModel.qrCodeViewModel.covPassCheckInfoPosition, .top)
 
 		XCTAssertNil(viewModel.validityStateIcon)
 		XCTAssertNil(viewModel.validityStateTitle)
 		XCTAssertNil(viewModel.validityStateDescription)
 
 		XCTAssertFalse(viewModel.isUnseenNewsIndicatorVisible)
-
-		XCTAssertTrue(viewModel.isValidationButtonVisible)
-		XCTAssertTrue(viewModel.isValidationButtonEnabled)
 
 		XCTAssertFalse(viewModel.qrCodeViewModel.shouldBlockCertificateCode)
 	}
@@ -1016,23 +942,20 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 				isValidityStateNew: true
 			),
 			accessibilityText: "accessibilityText",
-			onValidationButtonTap: { _, _ in },
-			showInfoHit: { }
+			onCovPassCheckInfoButtonTap: { }
 		)
 
 		// THEN
 		XCTAssertEqual(viewModel.title, "Testzertifikat")
 		XCTAssertEqual(viewModel.subtitle, "Probenahme am \(formattedDate)")
 		XCTAssertEqual(viewModel.qrCodeViewModel.accessibilityLabel, "accessibilityText")
+		XCTAssertEqual(viewModel.qrCodeViewModel.covPassCheckInfoPosition, .top)
 
 		XCTAssertNil(viewModel.validityStateIcon)
 		XCTAssertNil(viewModel.validityStateTitle)
 		XCTAssertNil(viewModel.validityStateDescription)
 
 		XCTAssertFalse(viewModel.isUnseenNewsIndicatorVisible)
-
-		XCTAssertTrue(viewModel.isValidationButtonVisible)
-		XCTAssertTrue(viewModel.isValidationButtonEnabled)
 
 		XCTAssertFalse(viewModel.qrCodeViewModel.shouldBlockCertificateCode)
 	}
@@ -1053,23 +976,20 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 				validityState: .expiringSoon
 			),
 			accessibilityText: "accessibilityText",
-			onValidationButtonTap: nil,
-			showInfoHit: { }
+			onCovPassCheckInfoButtonTap: { }
 		)
 
 		// THEN
 		XCTAssertNil(viewModel.title)
 		XCTAssertNil(viewModel.subtitle)
 		XCTAssertEqual(viewModel.qrCodeViewModel.accessibilityLabel, "accessibilityText")
+		XCTAssertEqual(viewModel.qrCodeViewModel.covPassCheckInfoPosition, .top)
 
 		XCTAssertNil(viewModel.validityStateIcon)
 		XCTAssertNil(viewModel.validityStateTitle)
 		XCTAssertNil(viewModel.validityStateDescription)
 
 		XCTAssertFalse(viewModel.isUnseenNewsIndicatorVisible)
-
-		XCTAssertFalse(viewModel.isValidationButtonVisible)
-		XCTAssertTrue(viewModel.isValidationButtonEnabled)
 
 		XCTAssertFalse(viewModel.qrCodeViewModel.shouldBlockCertificateCode)
 	}
@@ -1091,23 +1011,20 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 				isValidityStateNew: true
 			),
 			accessibilityText: "accessibilityText",
-			onValidationButtonTap: nil,
-			showInfoHit: { }
+			onCovPassCheckInfoButtonTap: { }
 		)
 
 		// THEN
 		XCTAssertNil(viewModel.title)
 		XCTAssertNil(viewModel.subtitle)
 		XCTAssertEqual(viewModel.qrCodeViewModel.accessibilityLabel, "accessibilityText")
+		XCTAssertEqual(viewModel.qrCodeViewModel.covPassCheckInfoPosition, .top)
 
 		XCTAssertNil(viewModel.validityStateIcon)
 		XCTAssertNil(viewModel.validityStateTitle)
 		XCTAssertNil(viewModel.validityStateDescription)
 
 		XCTAssertFalse(viewModel.isUnseenNewsIndicatorVisible)
-
-		XCTAssertFalse(viewModel.isValidationButtonVisible)
-		XCTAssertTrue(viewModel.isValidationButtonEnabled)
 
 		XCTAssertFalse(viewModel.qrCodeViewModel.shouldBlockCertificateCode)
 	}
@@ -1133,23 +1050,20 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 				validityState: .expired
 			),
 			accessibilityText: "accessibilityText",
-			onValidationButtonTap: { _, _ in },
-			showInfoHit: { }
+			onCovPassCheckInfoButtonTap: { }
 		)
 
 		// THEN
 		XCTAssertEqual(viewModel.title, "Testzertifikat")
 		XCTAssertEqual(viewModel.subtitle, "Probenahme am \(formattedDate)")
 		XCTAssertEqual(viewModel.qrCodeViewModel.accessibilityLabel, "accessibilityText")
+		XCTAssertEqual(viewModel.qrCodeViewModel.covPassCheckInfoPosition, .top)
 
 		XCTAssertNil(viewModel.validityStateIcon)
 		XCTAssertNil(viewModel.validityStateTitle)
 		XCTAssertNil(viewModel.validityStateDescription)
 
 		XCTAssertFalse(viewModel.isUnseenNewsIndicatorVisible)
-
-		XCTAssertTrue(viewModel.isValidationButtonVisible)
-		XCTAssertTrue(viewModel.isValidationButtonEnabled)
 
 		XCTAssertFalse(viewModel.qrCodeViewModel.shouldBlockCertificateCode)
 	}
@@ -1176,23 +1090,20 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 				isValidityStateNew: true
 			),
 			accessibilityText: "accessibilityText",
-			onValidationButtonTap: { _, _ in },
-			showInfoHit: { }
+			onCovPassCheckInfoButtonTap: { }
 		)
 
 		// THEN
 		XCTAssertEqual(viewModel.title, "Testzertifikat")
 		XCTAssertEqual(viewModel.subtitle, "Probenahme am \(formattedDate)")
 		XCTAssertEqual(viewModel.qrCodeViewModel.accessibilityLabel, "accessibilityText")
+		XCTAssertEqual(viewModel.qrCodeViewModel.covPassCheckInfoPosition, .top)
 
 		XCTAssertNil(viewModel.validityStateIcon)
 		XCTAssertNil(viewModel.validityStateTitle)
 		XCTAssertNil(viewModel.validityStateDescription)
 
 		XCTAssertFalse(viewModel.isUnseenNewsIndicatorVisible)
-
-		XCTAssertTrue(viewModel.isValidationButtonVisible)
-		XCTAssertTrue(viewModel.isValidationButtonEnabled)
 
 		XCTAssertFalse(viewModel.qrCodeViewModel.shouldBlockCertificateCode)
 	}
@@ -1212,24 +1123,21 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 				validityState: .expired
 			),
 			accessibilityText: "accessibilityText",
-			onValidationButtonTap: nil,
-			showInfoHit: { }
+			onCovPassCheckInfoButtonTap: { }
 		)
 
 		// THEN
 		XCTAssertNil(viewModel.title)
 		XCTAssertNil(viewModel.subtitle)
 		XCTAssertEqual(viewModel.qrCodeViewModel.accessibilityLabel, "accessibilityText")
+		XCTAssertEqual(viewModel.qrCodeViewModel.covPassCheckInfoPosition, .top)
 
 		XCTAssertNil(viewModel.validityStateIcon)
 		XCTAssertNil(viewModel.validityStateTitle)
 		XCTAssertNil(viewModel.validityStateDescription)
 
 		XCTAssertFalse(viewModel.isUnseenNewsIndicatorVisible)
-
-		XCTAssertFalse(viewModel.isValidationButtonVisible)
-		XCTAssertTrue(viewModel.isValidationButtonEnabled)
-
+	
 		XCTAssertFalse(viewModel.qrCodeViewModel.shouldBlockCertificateCode)
 	}
 
@@ -1249,23 +1157,20 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 				isValidityStateNew: true
 			),
 			accessibilityText: "accessibilityText",
-			onValidationButtonTap: nil,
-			showInfoHit: { }
+			onCovPassCheckInfoButtonTap: { }
 		)
 
 		// THEN
 		XCTAssertNil(viewModel.title)
 		XCTAssertNil(viewModel.subtitle)
 		XCTAssertEqual(viewModel.qrCodeViewModel.accessibilityLabel, "accessibilityText")
+		XCTAssertEqual(viewModel.qrCodeViewModel.covPassCheckInfoPosition, .top)
 
 		XCTAssertNil(viewModel.validityStateIcon)
 		XCTAssertNil(viewModel.validityStateTitle)
 		XCTAssertNil(viewModel.validityStateDescription)
 
 		XCTAssertFalse(viewModel.isUnseenNewsIndicatorVisible)
-
-		XCTAssertFalse(viewModel.isValidationButtonVisible)
-		XCTAssertTrue(viewModel.isValidationButtonEnabled)
 
 		XCTAssertFalse(viewModel.qrCodeViewModel.shouldBlockCertificateCode)
 	}
@@ -1285,23 +1190,20 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 				validityState: .invalid
 			),
 			accessibilityText: "accessibilityText",
-			onValidationButtonTap: { _, _ in },
-			showInfoHit: { }
+			onCovPassCheckInfoButtonTap: { }
 		)
 
 		// THEN
 		XCTAssertEqual(viewModel.title, "Testzertifikat")
 		XCTAssertNil(viewModel.subtitle)
 		XCTAssertEqual(viewModel.qrCodeViewModel.accessibilityLabel, "accessibilityText")
+		XCTAssertEqual(viewModel.qrCodeViewModel.covPassCheckInfoPosition, .top)
 
 		XCTAssertEqual(viewModel.validityStateIcon, UIImage(named: "Icon_ExpiredInvalid"))
 		XCTAssertEqual(viewModel.validityStateTitle, "Zertifikat (Signatur) ungültig")
 		XCTAssertNil(viewModel.validityStateDescription)
 
 		XCTAssertFalse(viewModel.isUnseenNewsIndicatorVisible)
-
-		XCTAssertTrue(viewModel.isValidationButtonVisible)
-		XCTAssertTrue(viewModel.isValidationButtonEnabled)
 
 		XCTAssertTrue(viewModel.qrCodeViewModel.shouldBlockCertificateCode)
 	}
@@ -1322,23 +1224,20 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 				isValidityStateNew: true
 			),
 			accessibilityText: "accessibilityText",
-			onValidationButtonTap: { _, _ in },
-			showInfoHit: { }
+			onCovPassCheckInfoButtonTap: { }
 		)
 
 		// THEN
 		XCTAssertEqual(viewModel.title, "Testzertifikat")
 		XCTAssertNil(viewModel.subtitle)
 		XCTAssertEqual(viewModel.qrCodeViewModel.accessibilityLabel, "accessibilityText")
+		XCTAssertEqual(viewModel.qrCodeViewModel.covPassCheckInfoPosition, .top)
 
 		XCTAssertEqual(viewModel.validityStateIcon, UIImage(named: "Icon_ExpiredInvalid"))
 		XCTAssertEqual(viewModel.validityStateTitle, "Zertifikat (Signatur) ungültig")
 		XCTAssertNil(viewModel.validityStateDescription)
 
 		XCTAssertFalse(viewModel.isUnseenNewsIndicatorVisible)
-
-		XCTAssertTrue(viewModel.isValidationButtonVisible)
-		XCTAssertTrue(viewModel.isValidationButtonEnabled)
 
 		XCTAssertTrue(viewModel.qrCodeViewModel.shouldBlockCertificateCode)
 	}
@@ -1358,23 +1257,20 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 				validityState: .invalid
 			),
 			accessibilityText: "accessibilityText",
-			onValidationButtonTap: nil,
-			showInfoHit: { }
+			onCovPassCheckInfoButtonTap: { }
 		)
 
 		// THEN
 		XCTAssertEqual(viewModel.title, "Testzertifikat")
 		XCTAssertNil(viewModel.subtitle)
 		XCTAssertEqual(viewModel.qrCodeViewModel.accessibilityLabel, "accessibilityText")
+		XCTAssertEqual(viewModel.qrCodeViewModel.covPassCheckInfoPosition, .top)
 
 		XCTAssertEqual(viewModel.validityStateIcon, UIImage(named: "Icon_ExpiredInvalid"))
 		XCTAssertEqual(viewModel.validityStateTitle, "Zertifikat (Signatur) ungültig")
 		XCTAssertEqual(viewModel.validityStateDescription, "Das Zertifikat wurde von einer nicht autorisierten Stelle oder fehlerhaft ausgestellt. Bitte lassen Sie das Zertifikat von einer autorisierten Stelle erneut ausstellen.")
 
 		XCTAssertFalse(viewModel.isUnseenNewsIndicatorVisible)
-
-		XCTAssertFalse(viewModel.isValidationButtonVisible)
-		XCTAssertTrue(viewModel.isValidationButtonEnabled)
 
 		XCTAssertTrue(viewModel.qrCodeViewModel.shouldBlockCertificateCode)
 	}
@@ -1395,23 +1291,20 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 				isValidityStateNew: true
 			),
 			accessibilityText: "accessibilityText",
-			onValidationButtonTap: nil,
-			showInfoHit: { }
+			onCovPassCheckInfoButtonTap: { }
 		)
 
 		// THEN
 		XCTAssertEqual(viewModel.title, "Testzertifikat")
 		XCTAssertNil(viewModel.subtitle)
 		XCTAssertEqual(viewModel.qrCodeViewModel.accessibilityLabel, "accessibilityText")
+		XCTAssertEqual(viewModel.qrCodeViewModel.covPassCheckInfoPosition, .top)
 
 		XCTAssertEqual(viewModel.validityStateIcon, UIImage(named: "Icon_ExpiredInvalid"))
 		XCTAssertEqual(viewModel.validityStateTitle, "Zertifikat (Signatur) ungültig")
 		XCTAssertEqual(viewModel.validityStateDescription, "Das Zertifikat wurde von einer nicht autorisierten Stelle oder fehlerhaft ausgestellt. Bitte lassen Sie das Zertifikat von einer autorisierten Stelle erneut ausstellen.")
 
 		XCTAssertTrue(viewModel.isUnseenNewsIndicatorVisible)
-
-		XCTAssertFalse(viewModel.isValidationButtonVisible)
-		XCTAssertTrue(viewModel.isValidationButtonEnabled)
 
 		XCTAssertTrue(viewModel.qrCodeViewModel.shouldBlockCertificateCode)
 	}
@@ -1431,23 +1324,20 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 				validityState: .blocked
 			),
 			accessibilityText: "accessibilityText",
-			onValidationButtonTap: { _, _ in },
-			showInfoHit: { }
+			onCovPassCheckInfoButtonTap: { }
 		)
 
 		// THEN
 		XCTAssertEqual(viewModel.title, "Testzertifikat")
 		XCTAssertNil(viewModel.subtitle)
 		XCTAssertEqual(viewModel.qrCodeViewModel.accessibilityLabel, "accessibilityText")
+		XCTAssertEqual(viewModel.qrCodeViewModel.covPassCheckInfoPosition, .top)
 
 		XCTAssertEqual(viewModel.validityStateIcon, UIImage(named: "Icon_ExpiredInvalid"))
 		XCTAssertEqual(viewModel.validityStateTitle, "Zertifikat ungültig")
 		XCTAssertNil(viewModel.validityStateDescription)
 
 		XCTAssertFalse(viewModel.isUnseenNewsIndicatorVisible)
-
-		XCTAssertTrue(viewModel.isValidationButtonVisible)
-		XCTAssertFalse(viewModel.isValidationButtonEnabled)
 
 		XCTAssertTrue(viewModel.qrCodeViewModel.shouldBlockCertificateCode)
 	}
@@ -1468,23 +1358,20 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 				isValidityStateNew: true
 			),
 			accessibilityText: "accessibilityText",
-			onValidationButtonTap: { _, _ in },
-			showInfoHit: { }
+			onCovPassCheckInfoButtonTap: { }
 		)
 
 		// THEN
 		XCTAssertEqual(viewModel.title, "Testzertifikat")
 		XCTAssertNil(viewModel.subtitle)
 		XCTAssertEqual(viewModel.qrCodeViewModel.accessibilityLabel, "accessibilityText")
+		XCTAssertEqual(viewModel.qrCodeViewModel.covPassCheckInfoPosition, .top)
 
 		XCTAssertEqual(viewModel.validityStateIcon, UIImage(named: "Icon_ExpiredInvalid"))
 		XCTAssertEqual(viewModel.validityStateTitle, "Zertifikat ungültig")
 		XCTAssertNil(viewModel.validityStateDescription)
 
 		XCTAssertFalse(viewModel.isUnseenNewsIndicatorVisible)
-
-		XCTAssertTrue(viewModel.isValidationButtonVisible)
-		XCTAssertFalse(viewModel.isValidationButtonEnabled)
 
 		XCTAssertTrue(viewModel.qrCodeViewModel.shouldBlockCertificateCode)
 	}
@@ -1504,23 +1391,20 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 				validityState: .blocked
 			),
 			accessibilityText: "accessibilityText",
-			onValidationButtonTap: nil,
-			showInfoHit: { }
+			onCovPassCheckInfoButtonTap: { }
 		)
 
 		// THEN
 		XCTAssertEqual(viewModel.title, "Testzertifikat")
 		XCTAssertNil(viewModel.subtitle)
 		XCTAssertEqual(viewModel.qrCodeViewModel.accessibilityLabel, "accessibilityText")
+		XCTAssertEqual(viewModel.qrCodeViewModel.covPassCheckInfoPosition, .top)
 
 		XCTAssertEqual(viewModel.validityStateIcon, UIImage(named: "Icon_ExpiredInvalid"))
 		XCTAssertEqual(viewModel.validityStateTitle, "Zertifikat ungültig")
 		XCTAssertEqual(viewModel.validityStateDescription, "Das Zertifikat wurde von der ausstellenden Behörde zurückgerufen. Bitte bemühen Sie sich darum, einen neuen digitalen Nachweis ausstellen zu lassen.")
 
 		XCTAssertFalse(viewModel.isUnseenNewsIndicatorVisible)
-
-		XCTAssertFalse(viewModel.isValidationButtonVisible)
-		XCTAssertFalse(viewModel.isValidationButtonEnabled)
 
 		XCTAssertFalse(viewModel.qrCodeViewModel.shouldBlockCertificateCode)
 	}
@@ -1541,23 +1425,20 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 				isValidityStateNew: true
 			),
 			accessibilityText: "accessibilityText",
-			onValidationButtonTap: nil,
-			showInfoHit: { }
+			onCovPassCheckInfoButtonTap: { }
 		)
 
 		// THEN
 		XCTAssertEqual(viewModel.title, "Testzertifikat")
 		XCTAssertNil(viewModel.subtitle)
 		XCTAssertEqual(viewModel.qrCodeViewModel.accessibilityLabel, "accessibilityText")
+		XCTAssertEqual(viewModel.qrCodeViewModel.covPassCheckInfoPosition, .top)
 
 		XCTAssertEqual(viewModel.validityStateIcon, UIImage(named: "Icon_ExpiredInvalid"))
 		XCTAssertEqual(viewModel.validityStateTitle, "Zertifikat ungültig")
 		XCTAssertEqual(viewModel.validityStateDescription, "Das Zertifikat wurde von der ausstellenden Behörde zurückgerufen. Bitte bemühen Sie sich darum, einen neuen digitalen Nachweis ausstellen zu lassen.")
 
 		XCTAssertTrue(viewModel.isUnseenNewsIndicatorVisible)
-
-		XCTAssertFalse(viewModel.isValidationButtonVisible)
-		XCTAssertFalse(viewModel.isValidationButtonEnabled)
 
 		XCTAssertFalse(viewModel.qrCodeViewModel.shouldBlockCertificateCode)
 	}
@@ -1571,7 +1452,7 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 					from: DigitalCovidCertificate.fake(
 						recoveryEntries: [
 							RecoveryEntry.fake(
-								certificateValidUntil: "2021-12-03T07:12:45.132Z"
+								dateOfFirstPositiveNAAResult: "2022-03-01T07:12:45.132Z"
 							)
 						]
 					)
@@ -1579,23 +1460,20 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 				validityState: .valid
 			),
 			accessibilityText: "accessibilityText",
-			onValidationButtonTap: { _, _ in },
-			showInfoHit: { }
+			onCovPassCheckInfoButtonTap: { }
 		)
 
 		// THEN
 		XCTAssertEqual(viewModel.title, "Genesenenzertifikat")
-		XCTAssertEqual(viewModel.subtitle, "gültig bis 03.12.21")
+		XCTAssertEqual(viewModel.subtitle, "Positiver Test vom 01.03.22")
 		XCTAssertEqual(viewModel.qrCodeViewModel.accessibilityLabel, "accessibilityText")
+		XCTAssertEqual(viewModel.qrCodeViewModel.covPassCheckInfoPosition, .top)
 
 		XCTAssertNil(viewModel.validityStateIcon)
 		XCTAssertNil(viewModel.validityStateTitle)
 		XCTAssertNil(viewModel.validityStateDescription)
 
 		XCTAssertFalse(viewModel.isUnseenNewsIndicatorVisible)
-
-		XCTAssertTrue(viewModel.isValidationButtonVisible)
-		XCTAssertTrue(viewModel.isValidationButtonEnabled)
 
 		XCTAssertFalse(viewModel.qrCodeViewModel.shouldBlockCertificateCode)
 	}
@@ -1609,7 +1487,7 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 					from: DigitalCovidCertificate.fake(
 						recoveryEntries: [
 							RecoveryEntry.fake(
-								certificateValidUntil: "2021-12-03T07:12:45.132Z"
+								dateOfFirstPositiveNAAResult: "2022-03-01T07:12:45.132Z"
 							)
 						]
 					)
@@ -1618,23 +1496,20 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 				isValidityStateNew: true
 			),
 			accessibilityText: "accessibilityText",
-			onValidationButtonTap: { _, _ in },
-			showInfoHit: { }
+			onCovPassCheckInfoButtonTap: { }
 		)
 
 		// THEN
 		XCTAssertEqual(viewModel.title, "Genesenenzertifikat")
-		XCTAssertEqual(viewModel.subtitle, "gültig bis 03.12.21")
+		XCTAssertEqual(viewModel.subtitle, "Positiver Test vom 01.03.22")
 		XCTAssertEqual(viewModel.qrCodeViewModel.accessibilityLabel, "accessibilityText")
+		XCTAssertEqual(viewModel.qrCodeViewModel.covPassCheckInfoPosition, .top)
 
 		XCTAssertNil(viewModel.validityStateIcon)
 		XCTAssertNil(viewModel.validityStateTitle)
 		XCTAssertNil(viewModel.validityStateDescription)
 
 		XCTAssertFalse(viewModel.isUnseenNewsIndicatorVisible)
-
-		XCTAssertTrue(viewModel.isValidationButtonVisible)
-		XCTAssertTrue(viewModel.isValidationButtonEnabled)
 
 		XCTAssertFalse(viewModel.qrCodeViewModel.shouldBlockCertificateCode)
 	}
@@ -1654,23 +1529,20 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 				validityState: .valid
 			),
 			accessibilityText: "accessibilityText",
-			onValidationButtonTap: nil,
-			showInfoHit: { }
+			onCovPassCheckInfoButtonTap: { }
 		)
 
 		// THEN
 		XCTAssertNil(viewModel.title)
 		XCTAssertNil(viewModel.subtitle)
 		XCTAssertEqual(viewModel.qrCodeViewModel.accessibilityLabel, "accessibilityText")
+		XCTAssertEqual(viewModel.qrCodeViewModel.covPassCheckInfoPosition, .top)
 
 		XCTAssertNil(viewModel.validityStateIcon)
 		XCTAssertNil(viewModel.validityStateTitle)
 		XCTAssertNil(viewModel.validityStateDescription)
 
 		XCTAssertFalse(viewModel.isUnseenNewsIndicatorVisible)
-
-		XCTAssertFalse(viewModel.isValidationButtonVisible)
-		XCTAssertTrue(viewModel.isValidationButtonEnabled)
 
 		XCTAssertFalse(viewModel.qrCodeViewModel.shouldBlockCertificateCode)
 	}
@@ -1691,23 +1563,20 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 				isValidityStateNew: true
 			),
 			accessibilityText: "accessibilityText",
-			onValidationButtonTap: nil,
-			showInfoHit: { }
+			onCovPassCheckInfoButtonTap: { }
 		)
 
 		// THEN
 		XCTAssertNil(viewModel.title)
 		XCTAssertNil(viewModel.subtitle)
 		XCTAssertEqual(viewModel.qrCodeViewModel.accessibilityLabel, "accessibilityText")
+		XCTAssertEqual(viewModel.qrCodeViewModel.covPassCheckInfoPosition, .top)
 
 		XCTAssertNil(viewModel.validityStateIcon)
 		XCTAssertNil(viewModel.validityStateTitle)
 		XCTAssertNil(viewModel.validityStateDescription)
 
 		XCTAssertFalse(viewModel.isUnseenNewsIndicatorVisible)
-
-		XCTAssertFalse(viewModel.isValidationButtonVisible)
-		XCTAssertTrue(viewModel.isValidationButtonEnabled)
 
 		XCTAssertFalse(viewModel.qrCodeViewModel.shouldBlockCertificateCode)
 	}
@@ -1722,7 +1591,7 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 					from: DigitalCovidCertificate.fake(
 						recoveryEntries: [
 							.fake(
-								certificateValidUntil: "2021-12-03T07:12:45.132Z"
+								dateOfFirstPositiveNAAResult: "2022-03-01T07:12:45.132Z"
 							)
 						]
 					),
@@ -1731,14 +1600,14 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 				validityState: .expiringSoon
 			),
 			accessibilityText: "accessibilityText",
-			onValidationButtonTap: { _, _ in },
-			showInfoHit: { }
+			onCovPassCheckInfoButtonTap: { }
 		)
 
 		// THEN
 		XCTAssertEqual(viewModel.title, "Genesenenzertifikat")
-		XCTAssertEqual(viewModel.subtitle, "gültig bis 03.12.21")
+		XCTAssertEqual(viewModel.subtitle, "Positiver Test vom 01.03.22")
 		XCTAssertEqual(viewModel.qrCodeViewModel.accessibilityLabel, "accessibilityText")
+		XCTAssertEqual(viewModel.qrCodeViewModel.covPassCheckInfoPosition, .top)
 
 		XCTAssertEqual(viewModel.validityStateIcon, UIImage(named: "Icon_ExpiringSoon"))
 		XCTAssertEqual(
@@ -1752,9 +1621,6 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 		XCTAssertNil(viewModel.validityStateDescription)
 
 		XCTAssertFalse(viewModel.isUnseenNewsIndicatorVisible)
-
-		XCTAssertTrue(viewModel.isValidationButtonVisible)
-		XCTAssertTrue(viewModel.isValidationButtonEnabled)
 
 		XCTAssertFalse(viewModel.qrCodeViewModel.shouldBlockCertificateCode)
 	}
@@ -1769,7 +1635,7 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 					from: DigitalCovidCertificate.fake(
 						recoveryEntries: [
 							.fake(
-								certificateValidUntil: "2021-12-03T07:12:45.132Z"
+								dateOfFirstPositiveNAAResult: "2022-03-01T07:12:45.132Z"
 							)
 						]
 					),
@@ -1779,14 +1645,14 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 				isValidityStateNew: true
 			),
 			accessibilityText: "accessibilityText",
-			onValidationButtonTap: { _, _ in },
-			showInfoHit: { }
+			onCovPassCheckInfoButtonTap: { }
 		)
 
 		// THEN
 		XCTAssertEqual(viewModel.title, "Genesenenzertifikat")
-		XCTAssertEqual(viewModel.subtitle, "gültig bis 03.12.21")
+		XCTAssertEqual(viewModel.subtitle, "Positiver Test vom 01.03.22")
 		XCTAssertEqual(viewModel.qrCodeViewModel.accessibilityLabel, "accessibilityText")
+		XCTAssertEqual(viewModel.qrCodeViewModel.covPassCheckInfoPosition, .top)
 
 		XCTAssertEqual(viewModel.validityStateIcon, UIImage(named: "Icon_ExpiringSoon"))
 		XCTAssertEqual(
@@ -1800,8 +1666,6 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 		XCTAssertNil(viewModel.validityStateDescription)
 
 		XCTAssertFalse(viewModel.isUnseenNewsIndicatorVisible)
-
-		XCTAssertTrue(viewModel.isValidationButtonVisible)
 	}
 
 	func testGIVEN_DetailsViewModelWithSoonExpiringRecoveryCertificate_THEN_IsInitCorrect() throws {
@@ -1821,14 +1685,14 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 				validityState: .expiringSoon
 			),
 			accessibilityText: "accessibilityText",
-			onValidationButtonTap: nil,
-			showInfoHit: { }
+			onCovPassCheckInfoButtonTap: { }
 		)
 
 		// THEN
 		XCTAssertEqual(viewModel.title, "Genesenenzertifikat")
 		XCTAssertNil(viewModel.subtitle)
 		XCTAssertEqual(viewModel.qrCodeViewModel.accessibilityLabel, "accessibilityText")
+		XCTAssertEqual(viewModel.qrCodeViewModel.covPassCheckInfoPosition, .top)
 
 		XCTAssertEqual(viewModel.validityStateIcon, UIImage(named: "Icon_ExpiringSoon"))
 		XCTAssertEqual(
@@ -1842,9 +1706,6 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 		XCTAssertEqual(viewModel.validityStateDescription, "Bitte bemühen Sie sich rechtzeitig darum, einen neuen digitalen Nachweis ausstellen zu lassen.")
 
 		XCTAssertFalse(viewModel.isUnseenNewsIndicatorVisible)
-
-		XCTAssertFalse(viewModel.isValidationButtonVisible)
-		XCTAssertTrue(viewModel.isValidationButtonEnabled)
 
 		XCTAssertFalse(viewModel.qrCodeViewModel.shouldBlockCertificateCode)
 	}
@@ -1867,14 +1728,14 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 				isValidityStateNew: true
 			),
 			accessibilityText: "accessibilityText",
-			onValidationButtonTap: nil,
-			showInfoHit: { }
+			onCovPassCheckInfoButtonTap: { }
 		)
 
 		// THEN
 		XCTAssertEqual(viewModel.title, "Genesenenzertifikat")
 		XCTAssertNil(viewModel.subtitle)
 		XCTAssertEqual(viewModel.qrCodeViewModel.accessibilityLabel, "accessibilityText")
+		XCTAssertEqual(viewModel.qrCodeViewModel.covPassCheckInfoPosition, .top)
 
 		XCTAssertEqual(viewModel.validityStateIcon, UIImage(named: "Icon_ExpiringSoon"))
 		XCTAssertEqual(
@@ -1888,9 +1749,6 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 		XCTAssertEqual(viewModel.validityStateDescription, "Bitte bemühen Sie sich rechtzeitig darum, einen neuen digitalen Nachweis ausstellen zu lassen.")
 
 		XCTAssertTrue(viewModel.isUnseenNewsIndicatorVisible)
-
-		XCTAssertFalse(viewModel.isValidationButtonVisible)
-		XCTAssertTrue(viewModel.isValidationButtonEnabled)
 
 		XCTAssertFalse(viewModel.qrCodeViewModel.shouldBlockCertificateCode)
 	}
@@ -1910,23 +1768,20 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 				validityState: .expired
 			),
 			accessibilityText: "accessibilityText",
-			onValidationButtonTap: { _, _ in },
-			showInfoHit: { }
+			onCovPassCheckInfoButtonTap: { }
 		)
 
 		// THEN
 		XCTAssertEqual(viewModel.title, "Genesenenzertifikat")
 		XCTAssertNil(viewModel.subtitle)
 		XCTAssertEqual(viewModel.qrCodeViewModel.accessibilityLabel, "accessibilityText")
+		XCTAssertEqual(viewModel.qrCodeViewModel.covPassCheckInfoPosition, .top)
 
 		XCTAssertEqual(viewModel.validityStateIcon, UIImage(named: "Icon_ExpiredInvalid"))
 		XCTAssertEqual(viewModel.validityStateTitle, "Zertifikat abgelaufen")
 		XCTAssertNil(viewModel.validityStateDescription)
 
 		XCTAssertFalse(viewModel.isUnseenNewsIndicatorVisible)
-
-		XCTAssertTrue(viewModel.isValidationButtonVisible)
-		XCTAssertTrue(viewModel.isValidationButtonEnabled)
 
 		XCTAssertTrue(viewModel.qrCodeViewModel.shouldBlockCertificateCode)
 	}
@@ -1947,23 +1802,20 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 				isValidityStateNew: true
 			),
 			accessibilityText: "accessibilityText",
-			onValidationButtonTap: { _, _ in },
-			showInfoHit: { }
+			onCovPassCheckInfoButtonTap: { }
 		)
 
 		// THEN
 		XCTAssertEqual(viewModel.title, "Genesenenzertifikat")
 		XCTAssertNil(viewModel.subtitle)
 		XCTAssertEqual(viewModel.qrCodeViewModel.accessibilityLabel, "accessibilityText")
+		XCTAssertEqual(viewModel.qrCodeViewModel.covPassCheckInfoPosition, .top)
 
 		XCTAssertEqual(viewModel.validityStateIcon, UIImage(named: "Icon_ExpiredInvalid"))
 		XCTAssertEqual(viewModel.validityStateTitle, "Zertifikat abgelaufen")
 		XCTAssertNil(viewModel.validityStateDescription)
 
 		XCTAssertFalse(viewModel.isUnseenNewsIndicatorVisible)
-
-		XCTAssertTrue(viewModel.isValidationButtonVisible)
-		XCTAssertTrue(viewModel.isValidationButtonEnabled)
 
 		XCTAssertTrue(viewModel.qrCodeViewModel.shouldBlockCertificateCode)
 	}
@@ -1983,23 +1835,20 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 				validityState: .expired
 			),
 			accessibilityText: "accessibilityText",
-			onValidationButtonTap: nil,
-			showInfoHit: { }
+			onCovPassCheckInfoButtonTap: { }
 		)
 
 		// THEN
 		XCTAssertEqual(viewModel.title, "Genesenenzertifikat")
 		XCTAssertNil(viewModel.subtitle)
 		XCTAssertEqual(viewModel.qrCodeViewModel.accessibilityLabel, "accessibilityText")
+		XCTAssertEqual(viewModel.qrCodeViewModel.covPassCheckInfoPosition, .top)
 
 		XCTAssertEqual(viewModel.validityStateIcon, UIImage(named: "Icon_ExpiredInvalid"))
 		XCTAssertEqual(viewModel.validityStateTitle, "Zertifikat abgelaufen")
 		XCTAssertEqual(viewModel.validityStateDescription, "Das Ablaufdatum wurde überschritten. Bitte bemühen Sie sich darum, einen neuen digitalen Nachweis ausstellen zu lassen.")
 
 		XCTAssertFalse(viewModel.isUnseenNewsIndicatorVisible)
-
-		XCTAssertFalse(viewModel.isValidationButtonVisible)
-		XCTAssertTrue(viewModel.isValidationButtonEnabled)
 
 		XCTAssertTrue(viewModel.qrCodeViewModel.shouldBlockCertificateCode)
 	}
@@ -2020,23 +1869,20 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 				isValidityStateNew: true
 			),
 			accessibilityText: "accessibilityText",
-			onValidationButtonTap: nil,
-			showInfoHit: { }
+			onCovPassCheckInfoButtonTap: { }
 		)
 
 		// THEN
 		XCTAssertEqual(viewModel.title, "Genesenenzertifikat")
 		XCTAssertNil(viewModel.subtitle)
 		XCTAssertEqual(viewModel.qrCodeViewModel.accessibilityLabel, "accessibilityText")
+		XCTAssertEqual(viewModel.qrCodeViewModel.covPassCheckInfoPosition, .top)
 
 		XCTAssertEqual(viewModel.validityStateIcon, UIImage(named: "Icon_ExpiredInvalid"))
 		XCTAssertEqual(viewModel.validityStateTitle, "Zertifikat abgelaufen")
 		XCTAssertEqual(viewModel.validityStateDescription, "Das Ablaufdatum wurde überschritten. Bitte bemühen Sie sich darum, einen neuen digitalen Nachweis ausstellen zu lassen.")
 
 		XCTAssertTrue(viewModel.isUnseenNewsIndicatorVisible)
-
-		XCTAssertFalse(viewModel.isValidationButtonVisible)
-		XCTAssertTrue(viewModel.isValidationButtonEnabled)
 
 		XCTAssertTrue(viewModel.qrCodeViewModel.shouldBlockCertificateCode)
 	}
@@ -2056,23 +1902,20 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 				validityState: .invalid
 			),
 			accessibilityText: "accessibilityText",
-			onValidationButtonTap: { _, _ in },
-			showInfoHit: { }
+			onCovPassCheckInfoButtonTap: { }
 		)
 
 		// THEN
 		XCTAssertEqual(viewModel.title, "Genesenenzertifikat")
 		XCTAssertNil(viewModel.subtitle)
 		XCTAssertEqual(viewModel.qrCodeViewModel.accessibilityLabel, "accessibilityText")
+		XCTAssertEqual(viewModel.qrCodeViewModel.covPassCheckInfoPosition, .top)
 
 		XCTAssertEqual(viewModel.validityStateIcon, UIImage(named: "Icon_ExpiredInvalid"))
 		XCTAssertEqual(viewModel.validityStateTitle, "Zertifikat (Signatur) ungültig")
 		XCTAssertNil(viewModel.validityStateDescription)
 
 		XCTAssertFalse(viewModel.isUnseenNewsIndicatorVisible)
-
-		XCTAssertTrue(viewModel.isValidationButtonVisible)
-		XCTAssertTrue(viewModel.isValidationButtonEnabled)
 
 		XCTAssertTrue(viewModel.qrCodeViewModel.shouldBlockCertificateCode)
 	}
@@ -2093,23 +1936,20 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 				isValidityStateNew: true
 			),
 			accessibilityText: "accessibilityText",
-			onValidationButtonTap: { _, _ in },
-			showInfoHit: { }
+			onCovPassCheckInfoButtonTap: { }
 		)
 
 		// THEN
 		XCTAssertEqual(viewModel.title, "Genesenenzertifikat")
 		XCTAssertNil(viewModel.subtitle)
 		XCTAssertEqual(viewModel.qrCodeViewModel.accessibilityLabel, "accessibilityText")
+		XCTAssertEqual(viewModel.qrCodeViewModel.covPassCheckInfoPosition, .top)
 
 		XCTAssertEqual(viewModel.validityStateIcon, UIImage(named: "Icon_ExpiredInvalid"))
 		XCTAssertEqual(viewModel.validityStateTitle, "Zertifikat (Signatur) ungültig")
 		XCTAssertNil(viewModel.validityStateDescription)
 
 		XCTAssertFalse(viewModel.isUnseenNewsIndicatorVisible)
-
-		XCTAssertTrue(viewModel.isValidationButtonVisible)
-		XCTAssertTrue(viewModel.isValidationButtonEnabled)
 
 		XCTAssertTrue(viewModel.qrCodeViewModel.shouldBlockCertificateCode)
 	}
@@ -2129,23 +1969,20 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 				validityState: .invalid
 			),
 			accessibilityText: "accessibilityText",
-			onValidationButtonTap: nil,
-			showInfoHit: { }
+			onCovPassCheckInfoButtonTap: { }
 		)
 
 		// THEN
 		XCTAssertEqual(viewModel.title, "Genesenenzertifikat")
 		XCTAssertNil(viewModel.subtitle)
 		XCTAssertEqual(viewModel.qrCodeViewModel.accessibilityLabel, "accessibilityText")
+		XCTAssertEqual(viewModel.qrCodeViewModel.covPassCheckInfoPosition, .top)
 
 		XCTAssertEqual(viewModel.validityStateIcon, UIImage(named: "Icon_ExpiredInvalid"))
 		XCTAssertEqual(viewModel.validityStateTitle, "Zertifikat (Signatur) ungültig")
 		XCTAssertEqual(viewModel.validityStateDescription, "Das Zertifikat wurde von einer nicht autorisierten Stelle oder fehlerhaft ausgestellt. Bitte lassen Sie das Zertifikat von einer autorisierten Stelle erneut ausstellen.")
 
 		XCTAssertFalse(viewModel.isUnseenNewsIndicatorVisible)
-
-		XCTAssertFalse(viewModel.isValidationButtonVisible)
-		XCTAssertTrue(viewModel.isValidationButtonEnabled)
 
 		XCTAssertTrue(viewModel.qrCodeViewModel.shouldBlockCertificateCode)
 	}
@@ -2166,23 +2003,20 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 				isValidityStateNew: true
 			),
 			accessibilityText: "accessibilityText",
-			onValidationButtonTap: nil,
-			showInfoHit: { }
+			onCovPassCheckInfoButtonTap: { }
 		)
 
 		// THEN
 		XCTAssertEqual(viewModel.title, "Genesenenzertifikat")
 		XCTAssertNil(viewModel.subtitle)
 		XCTAssertEqual(viewModel.qrCodeViewModel.accessibilityLabel, "accessibilityText")
+		XCTAssertEqual(viewModel.qrCodeViewModel.covPassCheckInfoPosition, .top)
 
 		XCTAssertEqual(viewModel.validityStateIcon, UIImage(named: "Icon_ExpiredInvalid"))
 		XCTAssertEqual(viewModel.validityStateTitle, "Zertifikat (Signatur) ungültig")
 		XCTAssertEqual(viewModel.validityStateDescription, "Das Zertifikat wurde von einer nicht autorisierten Stelle oder fehlerhaft ausgestellt. Bitte lassen Sie das Zertifikat von einer autorisierten Stelle erneut ausstellen.")
 
 		XCTAssertTrue(viewModel.isUnseenNewsIndicatorVisible)
-
-		XCTAssertFalse(viewModel.isValidationButtonVisible)
-		XCTAssertTrue(viewModel.isValidationButtonEnabled)
 
 		XCTAssertTrue(viewModel.qrCodeViewModel.shouldBlockCertificateCode)
 	}
@@ -2202,23 +2036,20 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 				validityState: .blocked
 			),
 			accessibilityText: "accessibilityText",
-			onValidationButtonTap: { _, _ in },
-			showInfoHit: { }
+			onCovPassCheckInfoButtonTap: { }
 		)
 
 		// THEN
 		XCTAssertEqual(viewModel.title, "Genesenenzertifikat")
 		XCTAssertNil(viewModel.subtitle)
 		XCTAssertEqual(viewModel.qrCodeViewModel.accessibilityLabel, "accessibilityText")
+		XCTAssertEqual(viewModel.qrCodeViewModel.covPassCheckInfoPosition, .top)
 
 		XCTAssertEqual(viewModel.validityStateIcon, UIImage(named: "Icon_ExpiredInvalid"))
 		XCTAssertEqual(viewModel.validityStateTitle, "Zertifikat ungültig")
 		XCTAssertNil(viewModel.validityStateDescription)
 
 		XCTAssertFalse(viewModel.isUnseenNewsIndicatorVisible)
-
-		XCTAssertTrue(viewModel.isValidationButtonVisible)
-		XCTAssertFalse(viewModel.isValidationButtonEnabled)
 
 		XCTAssertTrue(viewModel.qrCodeViewModel.shouldBlockCertificateCode)
 	}
@@ -2239,23 +2070,20 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 				isValidityStateNew: true
 			),
 			accessibilityText: "accessibilityText",
-			onValidationButtonTap: { _, _ in },
-			showInfoHit: { }
+			onCovPassCheckInfoButtonTap: { }
 		)
 
 		// THEN
 		XCTAssertEqual(viewModel.title, "Genesenenzertifikat")
 		XCTAssertNil(viewModel.subtitle)
 		XCTAssertEqual(viewModel.qrCodeViewModel.accessibilityLabel, "accessibilityText")
+		XCTAssertEqual(viewModel.qrCodeViewModel.covPassCheckInfoPosition, .top)
 
 		XCTAssertEqual(viewModel.validityStateIcon, UIImage(named: "Icon_ExpiredInvalid"))
 		XCTAssertEqual(viewModel.validityStateTitle, "Zertifikat ungültig")
 		XCTAssertNil(viewModel.validityStateDescription)
 
 		XCTAssertFalse(viewModel.isUnseenNewsIndicatorVisible)
-
-		XCTAssertTrue(viewModel.isValidationButtonVisible)
-		XCTAssertFalse(viewModel.isValidationButtonEnabled)
 
 		XCTAssertTrue(viewModel.qrCodeViewModel.shouldBlockCertificateCode)
 	}
@@ -2275,23 +2103,20 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 				validityState: .blocked
 			),
 			accessibilityText: "accessibilityText",
-			onValidationButtonTap: nil,
-			showInfoHit: { }
+			onCovPassCheckInfoButtonTap: { }
 		)
 
 		// THEN
 		XCTAssertEqual(viewModel.title, "Genesenenzertifikat")
 		XCTAssertNil(viewModel.subtitle)
 		XCTAssertEqual(viewModel.qrCodeViewModel.accessibilityLabel, "accessibilityText")
+		XCTAssertEqual(viewModel.qrCodeViewModel.covPassCheckInfoPosition, .top)
 
 		XCTAssertEqual(viewModel.validityStateIcon, UIImage(named: "Icon_ExpiredInvalid"))
 		XCTAssertEqual(viewModel.validityStateTitle, "Zertifikat ungültig")
 		XCTAssertEqual(viewModel.validityStateDescription, "Das Zertifikat wurde von der ausstellenden Behörde zurückgerufen. Bitte bemühen Sie sich darum, einen neuen digitalen Nachweis ausstellen zu lassen.")
 
 		XCTAssertFalse(viewModel.isUnseenNewsIndicatorVisible)
-
-		XCTAssertFalse(viewModel.isValidationButtonVisible)
-		XCTAssertFalse(viewModel.isValidationButtonEnabled)
 
 		XCTAssertFalse(viewModel.qrCodeViewModel.shouldBlockCertificateCode)
 	}
@@ -2312,23 +2137,20 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 				isValidityStateNew: true
 			),
 			accessibilityText: "accessibilityText",
-			onValidationButtonTap: nil,
-			showInfoHit: { }
+			onCovPassCheckInfoButtonTap: { }
 		)
 
 		// THEN
 		XCTAssertEqual(viewModel.title, "Genesenenzertifikat")
 		XCTAssertNil(viewModel.subtitle)
 		XCTAssertEqual(viewModel.qrCodeViewModel.accessibilityLabel, "accessibilityText")
+		XCTAssertEqual(viewModel.qrCodeViewModel.covPassCheckInfoPosition, .top)
 
 		XCTAssertEqual(viewModel.validityStateIcon, UIImage(named: "Icon_ExpiredInvalid"))
 		XCTAssertEqual(viewModel.validityStateTitle, "Zertifikat ungültig")
 		XCTAssertEqual(viewModel.validityStateDescription, "Das Zertifikat wurde von der ausstellenden Behörde zurückgerufen. Bitte bemühen Sie sich darum, einen neuen digitalen Nachweis ausstellen zu lassen.")
 
 		XCTAssertTrue(viewModel.isUnseenNewsIndicatorVisible)
-
-		XCTAssertFalse(viewModel.isValidationButtonVisible)
-		XCTAssertFalse(viewModel.isValidationButtonEnabled)
 
 		XCTAssertFalse(viewModel.qrCodeViewModel.shouldBlockCertificateCode)
 	}

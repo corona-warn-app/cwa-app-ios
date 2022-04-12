@@ -4,6 +4,7 @@
 
 import UIKit
 
+// Shall be removed when every http call is ported to the new rest service.
 extension HTTPURLResponse {
 
 	var dateHeader: Date? {
@@ -25,5 +26,4 @@ extension HTTPURLResponse {
 		//  https://bugs.swift.org/browse/SR-2429?focusedCommentId=55490&page=com.atlassian.jira.plugin.system.issuetabpanels:comment-tabpanel#comment-55490
 		(allHeaderFields as NSDictionary)[headerField] as? String
 	}
-
 }

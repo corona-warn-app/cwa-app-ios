@@ -35,6 +35,8 @@ protocol StoreProtocol: AnyObject {
 
 	var checkinRiskCalculationResult: CheckinRiskCalculationResult? { get set }
 
+	var showAnotherHighExposureAlert: Bool { get set }
+
 	/// Set to true whenever a risk calculation changes the risk from .high to .low
 	var shouldShowRiskStatusLoweredAlert: Bool { get set }
 
@@ -138,6 +140,11 @@ protocol ErrorLogProviding: AnyObject {
 	var otpTokenEls: OTPToken? { get set }
 	/// Date of last otp authorization
 	var otpElsAuthorizationDate: Date? { get set }
+	/// Last logged app version number
+	var lastLoggedAppVersionNumber: Version? { get set }
+	/// Timestamp of last logged app version number
+	var lastLoggedAppVersionTimestamp: Date? { get set }
+	
 	#if !RELEASE
 	/// For DeveloperMenu - Indicates if the ELS shall be activated or not at startup
 	var elsLoggingActiveAtStartup: Bool { get set }
@@ -181,8 +188,6 @@ protocol CoronaTestStoring {
 	var pcrTest: PCRTest? { get set }
 
 	var antigenTest: AntigenTest? { get set }
-	
-	var unseenTestsCount: Int { get set }
 }
 
 protocol AntigenTestProfileStoring: AnyObject {
@@ -210,6 +215,13 @@ protocol HealthCertificateStoring: AnyObject {
 	var lastBoosterNotificationsExecutionDate: Date? { get set }
 
 	var healthCertifiedPersonsVersion: Int? { get set }
+	
+	var lastSelectedScenarioIdentifier: String? { get set }
+
+	var dccAdmissionCheckScenarios: DCCAdmissionCheckScenarios? { get set }
+
+	/// Flag to inform the user that a regroup after a migration was applied.
+	var shouldShowRegroupingAlert: Bool { get set }
 
 }
 
@@ -248,22 +260,6 @@ protocol CoronaTestStoringLegacy {
 
 }
 
-protocol HealthCertificateValidationCaching: AnyObject {
-	
-	/// The cache for the onboarded countries. Contains the eTag and the countries received before or nil, when never cached.
-	var validationOnboardedCountriesCache: HealthCertificateValidationOnboardedCountriesCache? { get set }
-	/// The cache for the acceptance rules. Contains the eTag and the acceptance rules received before or nil, when never cached.
-	var acceptanceRulesCache: ValidationRulesCache? { get set }
-	/// The cache for the invalidation rules. Contains the eTag and the invalidation rules received before or nil, when never cached.
-	var invalidationRulesCache: ValidationRulesCache? { get set }
-}
-
-protocol HealthCertificateBoosterNotificationCaching: AnyObject {
-	
-	/// The cache for the Booster notification rules. Contains the eTag and the Booster rules received before or nil, when never cached.
-	var boosterRulesCache: ValidationRulesCache? { get set }
-}
-
 protocol DSCListCaching: AnyObject {
 	// the cache for last fetched DSC List
 	var dscList: DSCListMetaData? { get set }
@@ -275,6 +271,14 @@ protocol RecycleBinStoring: AnyObject {
 	var recycleBinItems: Set<RecycleBinItem> { get set }
 }
 
+protocol HomeBadgeStoring: AnyObject {
+	var badgesData: [HomeBadgeWrapper.BadgeType: Int?] { get set }
+}
+
+protocol KeyValueCacheStoring: AnyObject {
+	var keyValueCacheVersion: Int { get set }
+}
+
 // swiftlint:disable all
 /// Wrapper protocol
 protocol Store:
@@ -282,8 +286,6 @@ protocol Store:
 	AppConfigCaching,
 	CoronaTestStoring,
 	CoronaTestStoringLegacy,
-	HealthCertificateValidationCaching,
-	HealthCertificateBoosterNotificationCaching,
 	ErrorLogProviding,
 	ErrorLogUploadHistoryProviding,
 	EventRegistrationCaching,
@@ -298,6 +300,8 @@ protocol Store:
 	DeviceTimeCheckStoring,
 	AppFeaturesStoring,
 	RecycleBinStoring,
-	TicketValidationStoring
+	TicketValidationStoring,
+	HomeBadgeStoring,
+	KeyValueCacheStoring
 {}
 // swiftlint:enable all

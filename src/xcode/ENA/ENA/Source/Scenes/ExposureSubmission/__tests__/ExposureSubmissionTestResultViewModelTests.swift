@@ -18,41 +18,18 @@ class ExposureSubmissionTestResultViewModelTests: CWATestCase {
 	}
 	
 	func testDidTapPrimaryButtonOnPositiveTestResult() {
-		let getTestResultExpectation = expectation(description: "getTestResult on client is called")
-		getTestResultExpectation.isInverted = true
-		
-		let client = ClientMock()
-		let store = MockTestStore()
-		let appConfiguration = CachedAppConfigurationMock()
-		
-		client.onGetTestResult = { _, _, _ in
-			getTestResultExpectation.fulfill()
-		}
-		
+		let updateTestResultExpectation = expectation(description: "updateTestResult on service is not called")
+		updateTestResultExpectation.isInverted = true
+
 		let onContinueWithSymptomsFlowButtonTapExpectation = expectation(
 			description: "onContinueWithSymptomsFlowButtonTap closure is called"
 		)
 		
-		let coronaTestService = CoronaTestService(
-			client: client,
-			store: store,
-			eventStore: MockEventStore(),
-			diaryStore: MockDiaryStore(),
-			appConfiguration: appConfiguration,
-			healthCertificateService: HealthCertificateService(
-				store: store,
-				dccSignatureVerifier: DCCSignatureVerifyingStub(),
-				dscListProvider: MockDSCListProvider(),
-				client: client,
-				appConfiguration: appConfiguration,
-				boosterNotificationsService: BoosterNotificationsService(
-					rulesDownloadService: RulesDownloadService(store: store, client: client)
-				),
-				recycleBin: .fake()
-			),
-			recycleBin: .fake()
-		)
-		coronaTestService.pcrTest = PCRTest.mock(testResult: .positive, isSubmissionConsentGiven: true)
+		let coronaTestService = MockCoronaTestService()
+		coronaTestService.pcrTest.value = PCRTest.mock(testResult: .positive, isSubmissionConsentGiven: true)
+		coronaTestService.onUpdateTestResult = { _, _, _ in
+			updateTestResultExpectation.fulfill()
+		}
 		
 		let model = ExposureSubmissionTestResultViewModel(
 			coronaTestType: .pcr,
@@ -79,42 +56,19 @@ class ExposureSubmissionTestResultViewModelTests: CWATestCase {
 	func testDidTapPrimaryButtonOnNegativeInvalidOrExpiredTestResult() {
 		let testResults: [TestResult] = [.negative, .invalid, .expired]
 		for testResult in testResults {
-			let getTestResultExpectation = expectation(description: "getTestResult on client is called")
-			getTestResultExpectation.isInverted = true
-			
-			let client = ClientMock()
-			let store = MockTestStore()
-			let appConfiguration = CachedAppConfigurationMock()
-			
-			client.onGetTestResult = { _, _, _ in
-				getTestResultExpectation.fulfill()
-			}
-			
+			let updateTestResultExpectation = expectation(description: "updateTestResult on service is not called")
+			updateTestResultExpectation.isInverted = true
+
 			let onContinueWithSymptomsFlowButtonTapExpectation = expectation(
 				description: "onContinueWithSymptomsFlowButtonTap closure is called"
 			)
 			onContinueWithSymptomsFlowButtonTapExpectation.isInverted = true
 			
-			let coronaTestService = CoronaTestService(
-				client: client,
-				store: store,
-				eventStore: MockEventStore(),
-				diaryStore: MockDiaryStore(),
-				appConfiguration: appConfiguration,
-				healthCertificateService: HealthCertificateService(
-					store: store,
-					dccSignatureVerifier: DCCSignatureVerifyingStub(),
-					dscListProvider: MockDSCListProvider(),
-					client: client,
-					appConfiguration: appConfiguration,
-					boosterNotificationsService: BoosterNotificationsService(
-						rulesDownloadService: RulesDownloadService(store: store, client: client)
-					),
-					recycleBin: .fake()
-				),
-				recycleBin: .fake()
-			)
-			coronaTestService.pcrTest = PCRTest.mock(testResult: testResult)
+			let coronaTestService = MockCoronaTestService()
+			coronaTestService.pcrTest.value = PCRTest.mock(testResult: testResult)
+			coronaTestService.onUpdateTestResult = { _, _, _ in
+				updateTestResultExpectation.fulfill()
+			}
 			
 			let model = ExposureSubmissionTestResultViewModel(
 				coronaTestType: .pcr,
@@ -140,41 +94,22 @@ class ExposureSubmissionTestResultViewModelTests: CWATestCase {
 	}
 	
 	func testDidTapPrimaryButtonOnPendingTestResult() {
-		let getTestResultExpectation = expectation(description: "getTestResult on client is called")
-		
-		let client = ClientMock()
-		let store = MockTestStore()
-		let appConfiguration = CachedAppConfigurationMock()
-		
-		client.onGetTestResult = { _, _, _ in
-			getTestResultExpectation.fulfill()
-		}
+		let updateTestResultExpectation = expectation(description: "updateTestResult on service is called")
 		
 		let onContinueWithSymptomsFlowButtonTapExpectation = expectation(
 			description: "onContinueWithSymptomsFlowButtonTap closure is called"
 		)
 		onContinueWithSymptomsFlowButtonTapExpectation.isInverted = true
 		
-		let coronaTestService = CoronaTestService(
-			client: client,
-			store: store,
-			eventStore: MockEventStore(),
-			diaryStore: MockDiaryStore(),
-			appConfiguration: appConfiguration,
-			healthCertificateService: HealthCertificateService(
-				store: store,
-				dccSignatureVerifier: DCCSignatureVerifyingStub(),
-				dscListProvider: MockDSCListProvider(),
-				client: client,
-				appConfiguration: appConfiguration,
-				boosterNotificationsService: BoosterNotificationsService(
-					rulesDownloadService: RulesDownloadService(store: store, client: client)
-				),
-				recycleBin: .fake()
-			),
-			recycleBin: .fake()
-		)
-		coronaTestService.pcrTest = PCRTest.mock(registrationToken: "asdf", testResult: .pending)
+		let coronaTestService = MockCoronaTestService()
+		coronaTestService.pcrTest.value = PCRTest.mock(registrationToken: "asdf", testResult: .pending)
+		coronaTestService.onUpdateTestResult = { coronaTestType, force, presentNotification in
+			XCTAssertEqual(coronaTestType, .pcr)
+			XCTAssertTrue(force)
+			XCTAssertFalse(presentNotification)
+
+			updateTestResultExpectation.fulfill()
+		}
 		
 		let model = ExposureSubmissionTestResultViewModel(
 			coronaTestType: .pcr,
@@ -198,38 +133,19 @@ class ExposureSubmissionTestResultViewModelTests: CWATestCase {
 		waitForExpectations(timeout: .short)
 	}
 	
-	func testDidTapPrimaryButtonOnPendingTestResultUpdatesButtons() {
-		let getTestResultExpectation = expectation(description: "getTestResult on client is called")
+	func testDidTapPrimaryButtonOnPendingTestResultUpdatesButtons() throws {
+		let updateTestResultExpectation = expectation(description: "updateTestResult on service is called")
 		
-		let client = ClientMock()
-		let store = MockTestStore()
-		let appConfiguration = CachedAppConfigurationMock()
-		
-		client.onGetTestResult = { _, _, completion in
-			completion(.success(.fake(testResult: TestResult.negative.rawValue)))
-			getTestResultExpectation.fulfill()
+		let coronaTestService = MockCoronaTestService()
+		coronaTestService.pcrTest.value = PCRTest.mock(registrationToken: "asdf", testResult: .pending)
+		coronaTestService.onUpdateTestResult = { coronaTestType, force, presentNotification in
+			XCTAssertEqual(coronaTestType, .pcr)
+			XCTAssertTrue(force)
+			XCTAssertFalse(presentNotification)
+
+			coronaTestService.pcrTest.value?.testResult = .negative
+			updateTestResultExpectation.fulfill()
 		}
-		
-		let coronaTestService = CoronaTestService(
-			client: client,
-			store: store,
-			eventStore: MockEventStore(),
-			diaryStore: MockDiaryStore(),
-			appConfiguration: appConfiguration,
-			healthCertificateService: HealthCertificateService(
-				store: store,
-				dccSignatureVerifier: DCCSignatureVerifyingStub(),
-				dscListProvider: MockDSCListProvider(),
-				client: client,
-				appConfiguration: appConfiguration,
-				boosterNotificationsService: BoosterNotificationsService(
-					rulesDownloadService: RulesDownloadService(store: store, client: client)
-				),
-				recycleBin: .fake()
-			),
-			recycleBin: .fake()
-		)
-		coronaTestService.pcrTest = PCRTest.mock(registrationToken: "asdf", testResult: .pending)
 		
 		let model = ExposureSubmissionTestResultViewModel(
 			coronaTestType: .pcr,
@@ -242,69 +158,44 @@ class ExposureSubmissionTestResultViewModelTests: CWATestCase {
 			onTestCertificateCellTap: { _, _ in }
 		)
 		
-		do {
-			let modelBefore = try XCTUnwrap(model.footerViewModel)
-			
-			XCTAssertFalse(modelBefore.isPrimaryLoading)
-			XCTAssertTrue(modelBefore.isPrimaryButtonEnabled)
-			XCTAssertFalse(modelBefore.isPrimaryButtonHidden)
-			
-			XCTAssertFalse(modelBefore.isSecondaryLoading)
-			XCTAssertTrue(modelBefore.isSecondaryButtonEnabled)
-			XCTAssertFalse(modelBefore.isSecondaryButtonHidden)
-			
-			model.didTapPrimaryButton()
-			
-			waitForExpectations(timeout: .short)
-			
-			let modelAfter = try XCTUnwrap(model.footerViewModel)
-			
-			XCTAssertFalse(modelAfter.isPrimaryLoading)
-			XCTAssertTrue(modelAfter.isPrimaryButtonEnabled)
-			XCTAssertFalse(modelAfter.isPrimaryButtonHidden)
-			
-			XCTAssertFalse(modelAfter.isSecondaryLoading)
-			XCTAssertTrue(modelAfter.isSecondaryButtonEnabled)
-			XCTAssertTrue(modelAfter.isSecondaryButtonHidden)
-			
-		} catch {
-			
-			XCTFail(error.localizedDescription)
-		}
+		let modelBefore = try XCTUnwrap(model.footerViewModel)
+
+		XCTAssertFalse(modelBefore.isPrimaryLoading)
+		XCTAssertTrue(modelBefore.isPrimaryButtonEnabled)
+		XCTAssertFalse(modelBefore.isPrimaryButtonHidden)
+
+		XCTAssertFalse(modelBefore.isSecondaryLoading)
+		XCTAssertTrue(modelBefore.isSecondaryButtonEnabled)
+		XCTAssertFalse(modelBefore.isSecondaryButtonHidden)
+
+		model.didTapPrimaryButton()
+
+		waitForExpectations(timeout: .short)
+
+		let modelAfter = try XCTUnwrap(model.footerViewModel)
+
+		XCTAssertFalse(modelAfter.isPrimaryLoading)
+		XCTAssertTrue(modelAfter.isPrimaryButtonEnabled)
+		XCTAssertFalse(modelAfter.isPrimaryButtonHidden)
+
+		XCTAssertFalse(modelAfter.isSecondaryLoading)
+		XCTAssertTrue(modelAfter.isSecondaryButtonEnabled)
+		XCTAssertTrue(modelAfter.isSecondaryButtonHidden)
 	}
 	
 	func testDidTapPrimaryButtonOnPendingTestResultSetsError() {
-		let getTestResultExpectation = expectation(description: "getTestResult on client is called")
-		
-		let client = ClientMock()
-		let store = MockTestStore()
-		let appConfiguration = CachedAppConfigurationMock()
-		
-		client.onGetTestResult = { _, _, completion in
-			completion(.failure(.invalidResponse))
-			getTestResultExpectation.fulfill()
+		let updateTestResultExpectation = expectation(description: "updateTestResult on service is called")
+
+		let coronaTestService = MockCoronaTestService()
+		coronaTestService.pcrTest.value = PCRTest.mock(registrationToken: "asdf", testResult: .pending)
+		coronaTestService.updateTestResultResult = .failure(.testResultError(.invalidResponse))
+		coronaTestService.onUpdateTestResult = { coronaTestType, force, presentNotification in
+			XCTAssertEqual(coronaTestType, .pcr)
+			XCTAssertTrue(force)
+			XCTAssertFalse(presentNotification)
+
+			updateTestResultExpectation.fulfill()
 		}
-		
-		let coronaTestService = CoronaTestService(
-			client: client,
-			store: store,
-			eventStore: MockEventStore(),
-			diaryStore: MockDiaryStore(),
-			appConfiguration: appConfiguration,
-			healthCertificateService: HealthCertificateService(
-				store: store,
-				dccSignatureVerifier: DCCSignatureVerifyingStub(),
-				dscListProvider: MockDSCListProvider(),
-				client: client,
-				appConfiguration: appConfiguration,
-				boosterNotificationsService: BoosterNotificationsService(
-					rulesDownloadService: RulesDownloadService(store: store, client: client)
-				),
-				recycleBin: .fake()
-			),
-			recycleBin: .fake()
-		)
-		coronaTestService.pcrTest = PCRTest.mock(registrationToken: "asdf", testResult: .pending)
 		
 		let model = ExposureSubmissionTestResultViewModel(
 			coronaTestType: .pcr,
@@ -321,37 +212,14 @@ class ExposureSubmissionTestResultViewModelTests: CWATestCase {
 		
 		waitForExpectations(timeout: .short)
 		
-		XCTAssertEqual(model.error, .responseFailure(.invalidResponse))
+		XCTAssertEqual(model.error, .testResultError(.invalidResponse))
 	}
 	
-	func testDidTapPrimaryButtonOnPendingTestResultUpdatesButtonsLoadingState() {
-		let getTestResultExpectation = expectation(description: "getTestResult on client is called")
-		getTestResultExpectation.isInverted = true
-		
-		let client = ClientMock()
-		let store = MockTestStore()
-		let appConfiguration = CachedAppConfigurationMock()
-		
-		let coronaTestService = CoronaTestService(
-			client: client,
-			store: store,
-			eventStore: MockEventStore(),
-			diaryStore: MockDiaryStore(),
-			appConfiguration: appConfiguration,
-			healthCertificateService: HealthCertificateService(
-				store: store,
-				dccSignatureVerifier: DCCSignatureVerifyingStub(),
-				dscListProvider: MockDSCListProvider(),
-				client: client,
-				appConfiguration: appConfiguration,
-				boosterNotificationsService: BoosterNotificationsService(
-					rulesDownloadService: RulesDownloadService(store: store, client: client)
-				),
-				recycleBin: .fake()
-			),
-			recycleBin: .fake()
-		)
-		coronaTestService.pcrTest = PCRTest.mock(testResult: .pending)
+	func testDidTapPrimaryButtonOnPendingTestResultUpdatesButtonsLoadingState() throws {
+		let updateTestResultExpectation = expectation(description: "updateTestResult on service is called")
+
+		let coronaTestService = MockCoronaTestService()
+		coronaTestService.pcrTest.value = PCRTest.mock(registrationToken: "asdf", testResult: .pending)
 		
 		let model = ExposureSubmissionTestResultViewModel(
 			coronaTestType: .pcr,
@@ -363,66 +231,32 @@ class ExposureSubmissionTestResultViewModelTests: CWATestCase {
 			onTestDeleted: { },
 			onTestCertificateCellTap: { _, _ in }
 		)
-		
-		client.onGetTestResult = { _, _, completion in
-			do {
-				let footerViewModel = try XCTUnwrap(model.footerViewModel)
-				
-				// Buttons should be in loading state when getTestResult is called on the exposure submission service
-				XCTAssertFalse(footerViewModel.isPrimaryButtonEnabled)
-				XCTAssertTrue(footerViewModel.isPrimaryLoading)
-				XCTAssertFalse(footerViewModel.isSecondaryButtonEnabled)
-			} catch {
-				XCTFail(error.localizedDescription)
-			}
-			
-			completion(.success(.fake(testResult: TestResult.pending.rawValue)))
-			
-			getTestResultExpectation.fulfill()
+
+		let footerViewModel = try XCTUnwrap(model.footerViewModel)
+
+		coronaTestService.onUpdateTestResult = { coronaTestType, force, presentNotification in
+			XCTAssertEqual(coronaTestType, .pcr)
+			XCTAssertTrue(force)
+			XCTAssertFalse(presentNotification)
+
+			// Buttons should be in loading state when getTestResult is called on the exposure submission service
+			XCTAssertFalse(footerViewModel.isPrimaryButtonEnabled)
+			XCTAssertTrue(footerViewModel.isPrimaryLoading)
+			XCTAssertFalse(footerViewModel.isSecondaryButtonEnabled)
+
+			// Return to pending state
+			coronaTestService.pcrTest.value?.testResult = .pending
+			updateTestResultExpectation.fulfill()
 		}
 		
 		model.didTapPrimaryButton()
-		
+
 		waitForExpectations(timeout: .short)
-		
-		do {
-			let footerViewModel = try XCTUnwrap(model.footerViewModel)
-			
-			XCTAssertTrue(footerViewModel.isPrimaryButtonEnabled)
-			XCTAssertFalse(footerViewModel.isPrimaryLoading)
-			XCTAssertTrue(footerViewModel.isSecondaryButtonEnabled)
-			
-		} catch {
-			
-			XCTFail(error.localizedDescription)
-		}
 	}
 	
 	func testDidTapSecondaryButtonOnPendingTestResult() {
-		let client = ClientMock()
-		let store = MockTestStore()
-		let appConfiguration = CachedAppConfigurationMock()
-		
-		let coronaTestService = CoronaTestService(
-			client: client,
-			store: store,
-			eventStore: MockEventStore(),
-			diaryStore: MockDiaryStore(),
-			appConfiguration: appConfiguration,
-			healthCertificateService: HealthCertificateService(
-				store: store,
-				dccSignatureVerifier: DCCSignatureVerifyingStub(),
-				dscListProvider: MockDSCListProvider(),
-				client: client,
-				appConfiguration: appConfiguration,
-				boosterNotificationsService: BoosterNotificationsService(
-					rulesDownloadService: RulesDownloadService(store: store, client: client)
-				),
-				recycleBin: .fake()
-			),
-			recycleBin: .fake()
-		)
-		coronaTestService.pcrTest = PCRTest.mock(testResult: .pending)
+		let coronaTestService = MockCoronaTestService()
+		coronaTestService.pcrTest.value = PCRTest.mock(testResult: .pending)
 		
 		let model = ExposureSubmissionTestResultViewModel(
 			coronaTestType: .pcr,
@@ -447,30 +281,8 @@ class ExposureSubmissionTestResultViewModelTests: CWATestCase {
 	func testDidTapSecondaryButtonOnNegativeInvalidOrExpiredTestResult() {
 		let testResults: [TestResult] = [.negative, .invalid, .expired]
 		for testResult in testResults {
-			let client = ClientMock()
-			let store = MockTestStore()
-			let appConfiguration = CachedAppConfigurationMock()
-			
-			let coronaTestService = CoronaTestService(
-				client: client,
-				store: store,
-				eventStore: MockEventStore(),
-				diaryStore: MockDiaryStore(),
-				appConfiguration: appConfiguration,
-				healthCertificateService: HealthCertificateService(
-					store: store,
-					dccSignatureVerifier: DCCSignatureVerifyingStub(),
-					dscListProvider: MockDSCListProvider(),
-					client: client,
-					appConfiguration: appConfiguration,
-					boosterNotificationsService: BoosterNotificationsService(
-						rulesDownloadService: RulesDownloadService(store: store, client: client)
-					),
-					recycleBin: .fake()
-				),
-				recycleBin: .fake()
-			)
-			coronaTestService.pcrTest = PCRTest.mock(testResult: testResult)
+			let coronaTestService = MockCoronaTestService()
+			coronaTestService.pcrTest.value = PCRTest.mock(testResult: testResult)
 			
 			let model = ExposureSubmissionTestResultViewModel(
 				coronaTestType: .pcr,
@@ -494,32 +306,17 @@ class ExposureSubmissionTestResultViewModelTests: CWATestCase {
 	}
 	
 	func testDeletion() {
+		let moveTestToBinExpectation = expectation(description: "moveTestToBin on service is called")
+
+		let coronaTestService = MockCoronaTestService()
+		coronaTestService.pcrTest.value = PCRTest.mock(testResult: .expired)
+		coronaTestService.onMoveTestToBin = { coronaTestType in
+			XCTAssertEqual(coronaTestType, .pcr)
+
+			moveTestToBinExpectation.fulfill()
+		}
+
 		let onTestDeletedCalledExpectation = expectation(description: "onTestDeleted closure is called")
-		
-		let client = ClientMock()
-		let store = MockTestStore()
-		let appConfiguration = CachedAppConfigurationMock()
-		
-		let coronaTestService = CoronaTestService(
-			client: client,
-			store: store,
-			eventStore: MockEventStore(),
-			diaryStore: MockDiaryStore(),
-			appConfiguration: appConfiguration,
-			healthCertificateService: HealthCertificateService(
-				store: store,
-				dccSignatureVerifier: DCCSignatureVerifyingStub(),
-				dscListProvider: MockDSCListProvider(),
-				client: client,
-				appConfiguration: appConfiguration,
-				boosterNotificationsService: BoosterNotificationsService(
-					rulesDownloadService: RulesDownloadService(store: store, client: client)
-				),
-				recycleBin: .fake()
-			),
-			recycleBin: .fake()
-		)
-		coronaTestService.pcrTest = PCRTest.mock(testResult: .expired)
 		
 		let model = ExposureSubmissionTestResultViewModel(
 			coronaTestType: .pcr,
@@ -537,37 +334,66 @@ class ExposureSubmissionTestResultViewModelTests: CWATestCase {
 		model.deleteTest()
 		
 		waitForExpectations(timeout: .short)
-		
-		XCTAssertNil(coronaTestService.pcrTest)
 	}
 	
-	func testNavigationFooterItemForPendingTestResult() {
-		do {
-			let client = ClientMock()
-			let store = MockTestStore()
-			let appConfiguration = CachedAppConfigurationMock()
-			
-			let coronaTestService = CoronaTestService(
-				client: client,
-				store: store,
-				eventStore: MockEventStore(),
-				diaryStore: MockDiaryStore(),
-				appConfiguration: appConfiguration,
-				healthCertificateService: HealthCertificateService(
-					store: store,
-					dccSignatureVerifier: DCCSignatureVerifyingStub(),
-					dscListProvider: MockDSCListProvider(),
-					client: client,
-					appConfiguration: appConfiguration,
-					boosterNotificationsService: BoosterNotificationsService(
-						rulesDownloadService: RulesDownloadService(store: store, client: client)
-					),
-					recycleBin: .fake()
-				),
-				recycleBin: .fake()
-			)
-			coronaTestService.pcrTest = PCRTest.mock(testResult: .pending)
-			
+	func testNavigationFooterItemForPendingTestResult() throws {
+		let coronaTestService = MockCoronaTestService()
+		coronaTestService.pcrTest.value = PCRTest.mock(testResult: .pending)
+
+		let model = ExposureSubmissionTestResultViewModel(
+			coronaTestType: .pcr,
+			coronaTestService: coronaTestService,
+			onSubmissionConsentCellTap: { _ in },
+			onContinueWithSymptomsFlowButtonTap: { },
+			onContinueWarnOthersButtonTap: { _ in },
+			onChangeToPositiveTestResult: { },
+			onTestDeleted: { },
+			onTestCertificateCellTap: { _, _ in }
+		)
+
+		let footerViewModel = try XCTUnwrap(model.footerViewModel)
+
+		XCTAssertFalse(footerViewModel.isPrimaryLoading)
+		XCTAssertTrue(footerViewModel.isPrimaryButtonEnabled)
+		XCTAssertFalse(footerViewModel.isPrimaryButtonHidden)
+
+		XCTAssertFalse(footerViewModel.isSecondaryLoading)
+		XCTAssertTrue(footerViewModel.isSecondaryButtonEnabled)
+		XCTAssertFalse(footerViewModel.isSecondaryButtonHidden)
+	}
+	
+	func testNavigationFooterItemForPositiveTestResult() throws {
+		let coronaTestService = MockCoronaTestService()
+		coronaTestService.pcrTest.value = PCRTest.mock(testResult: .positive)
+
+		let model = ExposureSubmissionTestResultViewModel(
+			coronaTestType: .pcr,
+			coronaTestService: coronaTestService,
+			onSubmissionConsentCellTap: { _ in },
+			onContinueWithSymptomsFlowButtonTap: { },
+			onContinueWarnOthersButtonTap: { _ in },
+			onChangeToPositiveTestResult: { },
+			onTestDeleted: { },
+			onTestCertificateCellTap: { _, _ in }
+		)
+
+		let footerViewModel = try XCTUnwrap(model.footerViewModel)
+
+		XCTAssertFalse(footerViewModel.isPrimaryLoading)
+		XCTAssertTrue(footerViewModel.isPrimaryButtonEnabled)
+		XCTAssertFalse(footerViewModel.isPrimaryButtonHidden)
+
+		XCTAssertFalse(footerViewModel.isSecondaryLoading)
+		XCTAssertTrue(footerViewModel.isSecondaryButtonEnabled)
+		XCTAssertFalse(footerViewModel.isSecondaryButtonHidden)
+	}
+	
+	func testNavigationFooterItemForNegativeInvalidOrExpiredTestResult() throws {
+		let testResults: [TestResult] = [.negative, .invalid, .expired]
+		for testResult in testResults {
+			let coronaTestService = MockCoronaTestService()
+			coronaTestService.pcrTest.value = PCRTest.mock(testResult: testResult)
+
 			let model = ExposureSubmissionTestResultViewModel(
 				coronaTestType: .pcr,
 				coronaTestService: coronaTestService,
@@ -578,160 +404,22 @@ class ExposureSubmissionTestResultViewModelTests: CWATestCase {
 				onTestDeleted: { },
 				onTestCertificateCellTap: { _, _ in }
 			)
-			
+
 			let footerViewModel = try XCTUnwrap(model.footerViewModel)
-			
+
 			XCTAssertFalse(footerViewModel.isPrimaryLoading)
 			XCTAssertTrue(footerViewModel.isPrimaryButtonEnabled)
 			XCTAssertFalse(footerViewModel.isPrimaryButtonHidden)
-			
+
 			XCTAssertFalse(footerViewModel.isSecondaryLoading)
-			XCTAssertTrue(footerViewModel.isSecondaryButtonEnabled)
-			XCTAssertFalse(footerViewModel.isSecondaryButtonHidden)
-			
-		} catch {
-			
-			XCTFail(error.localizedDescription)
+			XCTAssertFalse(footerViewModel.isSecondaryButtonEnabled)
+			XCTAssertTrue(footerViewModel.isSecondaryButtonHidden)
 		}
-	}
-	
-	func testNavigationFooterItemForPositiveTestResult() {
-		do {
-			let client = ClientMock()
-			let store = MockTestStore()
-			let appConfiguration = CachedAppConfigurationMock()
-			
-			let coronaTestService = CoronaTestService(
-				client: client,
-				store: store,
-				eventStore: MockEventStore(),
-				diaryStore: MockDiaryStore(),
-				appConfiguration: appConfiguration,
-				healthCertificateService: HealthCertificateService(
-					store: store,
-					dccSignatureVerifier: DCCSignatureVerifyingStub(),
-					dscListProvider: MockDSCListProvider(),
-					client: client,
-					appConfiguration: appConfiguration,
-					boosterNotificationsService: BoosterNotificationsService(
-						rulesDownloadService: RulesDownloadService(store: store, client: client)
-					),
-					recycleBin: .fake()
-				),
-				recycleBin: .fake()
-			)
-			coronaTestService.pcrTest = PCRTest.mock(testResult: .positive)
-			
-			let model = ExposureSubmissionTestResultViewModel(
-				coronaTestType: .pcr,
-				coronaTestService: coronaTestService,
-				onSubmissionConsentCellTap: { _ in },
-				onContinueWithSymptomsFlowButtonTap: { },
-				onContinueWarnOthersButtonTap: { _ in },
-				onChangeToPositiveTestResult: { },
-				onTestDeleted: { },
-				onTestCertificateCellTap: { _, _ in }
-			)
-			
-			let footerViewModel = try XCTUnwrap(model.footerViewModel)
-			
-			XCTAssertFalse(footerViewModel.isPrimaryLoading)
-			XCTAssertTrue(footerViewModel.isPrimaryButtonEnabled)
-			XCTAssertFalse(footerViewModel.isPrimaryButtonHidden)
-			
-			XCTAssertFalse(footerViewModel.isSecondaryLoading)
-			XCTAssertTrue(footerViewModel.isSecondaryButtonEnabled)
-			XCTAssertFalse(footerViewModel.isSecondaryButtonHidden)
-			
-		} catch {
-			
-			XCTFail(error.localizedDescription)
-		}
-	}
-	
-	func testNavigationFooterItemForNegaitveInvalidOrExpiredTestResult() {
-		do {
-			let testResults: [TestResult] = [.negative, .invalid, .expired]
-			for testResult in testResults {
-				let client = ClientMock()
-				let store = MockTestStore()
-				let appConfiguration = CachedAppConfigurationMock()
-				
-				let coronaTestService = CoronaTestService(
-					client: client,
-					store: store,
-					eventStore: MockEventStore(),
-					diaryStore: MockDiaryStore(),
-					appConfiguration: appConfiguration,
-					healthCertificateService: HealthCertificateService(
-						store: store,
-						dccSignatureVerifier: DCCSignatureVerifyingStub(),
-						dscListProvider: MockDSCListProvider(),
-						client: client,
-						appConfiguration: appConfiguration,
-						boosterNotificationsService: BoosterNotificationsService(
-							rulesDownloadService: RulesDownloadService(store: store, client: client)
-						),
-						recycleBin: .fake()
-					),
-					recycleBin: .fake()
-				)
-				coronaTestService.pcrTest = PCRTest.mock(testResult: testResult)
-				
-				let model = ExposureSubmissionTestResultViewModel(
-					coronaTestType: .pcr,
-					coronaTestService: coronaTestService,
-					onSubmissionConsentCellTap: { _ in },
-					onContinueWithSymptomsFlowButtonTap: { },
-					onContinueWarnOthersButtonTap: { _ in },
-					onChangeToPositiveTestResult: { },
-					onTestDeleted: { },
-					onTestCertificateCellTap: { _, _ in }
-				)
-				
-				let footerViewModel = try XCTUnwrap(model.footerViewModel)
-				
-				XCTAssertFalse(footerViewModel.isPrimaryLoading)
-				XCTAssertTrue(footerViewModel.isPrimaryButtonEnabled)
-				XCTAssertFalse(footerViewModel.isPrimaryButtonHidden)
-				
-				XCTAssertFalse(footerViewModel.isSecondaryLoading)
-				XCTAssertFalse(footerViewModel.isSecondaryButtonEnabled)
-				XCTAssertTrue(footerViewModel.isSecondaryButtonHidden)
-			}
-			
-		} catch {
-			
-			XCTFail(error.localizedDescription)
-		}
-		
 	}
 	
 	func testDynamicTableViewModelForPositiveTestResult() {
-		let client = ClientMock()
-		let store = MockTestStore()
-		let appConfiguration = CachedAppConfigurationMock()
-		
-		let coronaTestService = CoronaTestService(
-			client: client,
-			store: store,
-			eventStore: MockEventStore(),
-			diaryStore: MockDiaryStore(),
-			appConfiguration: appConfiguration,
-			healthCertificateService: HealthCertificateService(
-				store: store,
-				dccSignatureVerifier: DCCSignatureVerifyingStub(),
-				dscListProvider: MockDSCListProvider(),
-				client: client,
-				appConfiguration: appConfiguration,
-				boosterNotificationsService: BoosterNotificationsService(
-					rulesDownloadService: RulesDownloadService(store: store, client: client)
-				),
-				recycleBin: .fake()
-			),
-			recycleBin: .fake()
-		)
-		coronaTestService.pcrTest = PCRTest.mock(testResult: .positive)
+		let coronaTestService = MockCoronaTestService()
+		coronaTestService.pcrTest.value = PCRTest.mock(testResult: .positive)
 		
 		let model = ExposureSubmissionTestResultViewModel(
 			coronaTestType: .pcr,
@@ -769,30 +457,8 @@ class ExposureSubmissionTestResultViewModelTests: CWATestCase {
 	}
 	
 	func testDynamicTableViewModelForNegativeTestResult() {
-		let client = ClientMock()
-		let store = MockTestStore()
-		let appConfiguration = CachedAppConfigurationMock()
-		
-		let coronaTestService = CoronaTestService(
-			client: client,
-			store: store,
-			eventStore: MockEventStore(),
-			diaryStore: MockDiaryStore(),
-			appConfiguration: appConfiguration,
-			healthCertificateService: HealthCertificateService(
-				store: store,
-				dccSignatureVerifier: DCCSignatureVerifyingStub(),
-				dscListProvider: MockDSCListProvider(),
-				client: client,
-				appConfiguration: appConfiguration,
-				boosterNotificationsService: BoosterNotificationsService(
-					rulesDownloadService: RulesDownloadService(store: store, client: client)
-				),
-				recycleBin: .fake()
-			),
-			recycleBin: .fake()
-		)
-		coronaTestService.pcrTest = PCRTest.mock(testResult: .negative)
+		let coronaTestService = MockCoronaTestService()
+		coronaTestService.pcrTest.value = PCRTest.mock(testResult: .negative)
 		
 		let model = ExposureSubmissionTestResultViewModel(
 			coronaTestType: .pcr,
@@ -810,7 +476,7 @@ class ExposureSubmissionTestResultViewModelTests: CWATestCase {
 		
 		let section = model.dynamicTableViewModel.section(0)
 		let cells = section.cells
-		XCTAssertEqual(cells.count, 9)
+		XCTAssertEqual(cells.count, 10)
 		
 		let firstItem = cells[0]
 		var id = firstItem.cellReuseIdentifier
@@ -818,7 +484,7 @@ class ExposureSubmissionTestResultViewModelTests: CWATestCase {
 		
 		let secondItem = cells[1]
 		id = secondItem.cellReuseIdentifier
-		XCTAssertEqual(id.rawValue, "stepCell")
+		XCTAssertEqual(id.rawValue, "labelCell")
 		
 		let thirdItem = cells[2]
 		id = thirdItem.cellReuseIdentifier
@@ -830,15 +496,15 @@ class ExposureSubmissionTestResultViewModelTests: CWATestCase {
 		
 		let fifthItem = cells[4]
 		id = fifthItem.cellReuseIdentifier
-		XCTAssertEqual(id.rawValue, "labelCell")
+		XCTAssertEqual(id.rawValue, "stepCell")
 		
 		let sixthItem = cells[5]
 		id = sixthItem.cellReuseIdentifier
-		XCTAssertEqual(id.rawValue, "bulletPointCell")
+		XCTAssertEqual(id.rawValue, "labelCell")
 		
 		let seventhItem = cells[6]
 		id = seventhItem.cellReuseIdentifier
-		XCTAssertEqual(id.rawValue, "bulletPointCell")
+		XCTAssertEqual(id.rawValue, "labelCell")
 		
 		let eigthItem = cells[7]
 		id = eigthItem.cellReuseIdentifier
@@ -847,33 +513,15 @@ class ExposureSubmissionTestResultViewModelTests: CWATestCase {
 		let ninthItem = cells[8]
 		id = ninthItem.cellReuseIdentifier
 		XCTAssertEqual(id.rawValue, "bulletPointCell")
+		
+		let tenthItem = cells[9]
+		id = tenthItem.cellReuseIdentifier
+		XCTAssertEqual(id.rawValue, "bulletPointCell")
 	}
 	
 	func testDynamicTableViewModelForInvalidTestResult() {
-		let client = ClientMock()
-		let store = MockTestStore()
-		let appConfiguration = CachedAppConfigurationMock()
-		
-		let coronaTestService = CoronaTestService(
-			client: client,
-			store: store,
-			eventStore: MockEventStore(),
-			diaryStore: MockDiaryStore(),
-			appConfiguration: appConfiguration,
-			healthCertificateService: HealthCertificateService(
-				store: store,
-				dccSignatureVerifier: DCCSignatureVerifyingStub(),
-				dscListProvider: MockDSCListProvider(),
-				client: client,
-				appConfiguration: appConfiguration,
-				boosterNotificationsService: BoosterNotificationsService(
-					rulesDownloadService: RulesDownloadService(store: store, client: client)
-				),
-				recycleBin: .fake()
-			),
-			recycleBin: .fake()
-		)
-		coronaTestService.pcrTest = PCRTest.mock(testResult: .invalid)
+		let coronaTestService = MockCoronaTestService()
+		coronaTestService.pcrTest.value = PCRTest.mock(testResult: .invalid)
 		
 		let model = ExposureSubmissionTestResultViewModel(
 			coronaTestType: .pcr,
@@ -911,30 +559,8 @@ class ExposureSubmissionTestResultViewModelTests: CWATestCase {
 	}
 	
 	func testDynamicTableViewModelForPendingTestResult() {
-		let client = ClientMock()
-		let store = MockTestStore()
-		let appConfiguration = CachedAppConfigurationMock()
-		
-		let coronaTestService = CoronaTestService(
-			client: client,
-			store: store,
-			eventStore: MockEventStore(),
-			diaryStore: MockDiaryStore(),
-			appConfiguration: appConfiguration,
-			healthCertificateService: HealthCertificateService(
-				store: store,
-				dccSignatureVerifier: DCCSignatureVerifyingStub(),
-				dscListProvider: MockDSCListProvider(),
-				client: client,
-				appConfiguration: appConfiguration,
-				boosterNotificationsService: BoosterNotificationsService(
-					rulesDownloadService: RulesDownloadService(store: store, client: client)
-				),
-				recycleBin: .fake()
-			),
-			recycleBin: .fake()
-		)
-		coronaTestService.pcrTest = PCRTest.mock(testResult: .pending)
+		let coronaTestService = MockCoronaTestService()
+		coronaTestService.pcrTest.value = PCRTest.mock(testResult: .pending)
 		
 		let model = ExposureSubmissionTestResultViewModel(
 			coronaTestType: .pcr,
@@ -976,30 +602,8 @@ class ExposureSubmissionTestResultViewModelTests: CWATestCase {
 	}
 	
 	func testDynamicTableViewModelForExpiredTestResult() {
-		let client = ClientMock()
-		let store = MockTestStore()
-		let appConfiguration = CachedAppConfigurationMock()
-		
-		let coronaTestService = CoronaTestService(
-			client: client,
-			store: store,
-			eventStore: MockEventStore(),
-			diaryStore: MockDiaryStore(),
-			appConfiguration: appConfiguration,
-			healthCertificateService: HealthCertificateService(
-				store: store,
-				dccSignatureVerifier: DCCSignatureVerifyingStub(),
-				dscListProvider: MockDSCListProvider(),
-				client: client,
-				appConfiguration: appConfiguration,
-				boosterNotificationsService: BoosterNotificationsService(
-					rulesDownloadService: RulesDownloadService(store: store, client: client)
-				),
-				recycleBin: .fake()
-			),
-			recycleBin: .fake()
-		)
-		coronaTestService.pcrTest = PCRTest.mock(testResult: .expired)
+		let coronaTestService = MockCoronaTestService()
+		coronaTestService.pcrTest.value = PCRTest.mock(testResult: .expired)
 		
 		let model = ExposureSubmissionTestResultViewModel(
 			coronaTestType: .pcr,

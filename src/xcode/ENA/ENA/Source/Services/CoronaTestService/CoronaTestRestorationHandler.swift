@@ -6,7 +6,7 @@ struct CoronaTestRestorationHandler: TestRestorationHandling {
 
 	// MARK: - Init
 
-	init(service: CoronaTestService) {
+	init(service: CoronaTestServiceProviding) {
 		canRestore = { coronaTest in
 			if service.coronaTest(ofType: coronaTest.type) == nil {
 				return .success(())

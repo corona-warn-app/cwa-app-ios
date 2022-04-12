@@ -11,7 +11,7 @@ class ExposureSubmissionTestResultViewModel {
 	
 	init(
 		coronaTestType: CoronaTestType,
-		coronaTestService: CoronaTestService,
+		coronaTestService: CoronaTestServiceProviding,
 		onSubmissionConsentCellTap: @escaping (@escaping (Bool) -> Void) -> Void,
 		onContinueWithSymptomsFlowButtonTap: @escaping () -> Void,
 		onContinueWarnOthersButtonTap: @escaping (@escaping (Bool) -> Void) -> Void,
@@ -113,7 +113,7 @@ class ExposureSubmissionTestResultViewModel {
 	
 	// MARK: - Private
 	
-	private var coronaTestService: CoronaTestService
+	private var coronaTestService: CoronaTestServiceProviding
 
 	private let coronaTestType: CoronaTestType
 
@@ -140,7 +140,7 @@ class ExposureSubmissionTestResultViewModel {
 	private func bindToCoronaTestUpdates() {
 		switch coronaTestType {
 		case .pcr:
-			coronaTestService.$pcrTest
+			coronaTestService.pcrTest
 				.sink { [weak self] pcrTest in
 					guard let pcrTest = pcrTest else {
 						return
@@ -150,7 +150,7 @@ class ExposureSubmissionTestResultViewModel {
 				}
 				.store(in: &subscriptions)
 		case .antigen:
-			coronaTestService.$antigenTest
+			coronaTestService.antigenTest
 				.sink { [weak self] antigenTest in
 					guard let antigenTest = antigenTest else {
 						return
@@ -246,7 +246,16 @@ extension ExposureSubmissionTestResultViewModel {
 				)
 			])
 			if let test = coronaTest.pcrTest {
-				if !test.certificateConsentGiven {
+				if !test.certificateSupportedByPointOfCare {
+					cells.append(
+						ExposureSubmissionDynamicCell.stepCell(
+							title: AppStrings.ExposureSubmissionResult.testCertificateTitle,
+							description: AppStrings.ExposureSubmissionResult.Antigen.testCenterNotSupportedTitle,
+							icon: UIImage(named: "certificate-qr-light"),
+							hairline: .none
+						)
+					)
+				} else if !test.certificateConsentGiven {
 					cells.append(
 						ExposureSubmissionDynamicCell.stepCell(
 							title: AppStrings.ExposureSubmissionResult.testCertificateTitle,
@@ -455,36 +464,62 @@ extension ExposureSubmissionTestResultViewModel {
 			.title2(text: AppStrings.ExposureSubmissionPositiveTestResult.keysSubmittedTitle1)
 		]
 
-		if coronaTest.type == .antigen {
-			cells.append(
+		if coronaTest.type == .pcr {
+			cells.append(contentsOf: [
 				ExposureSubmissionDynamicCell.stepCell(
 					style: .body,
-					title: AppStrings.ExposureSubmissionPositiveTestResult.keysSubmittedInfo1,
+					title: AppStrings.ExposureSubmissionPositiveTestResult.keysSubmittedPCRInfo1,
+					icon: UIImage(named: "Icons - Home"),
+					iconTint: .enaColor(for: .riskHigh),
+					hairline: .none,
+					bottomSpacing: .medium
+				),
+				ExposureSubmissionDynamicCell.stepCell(
+					style: .body,
+					title: AppStrings.ExposureSubmissionPositiveTestResult.keysSubmittedPCRInfo2,
+					icon: UIImage(named: "Icons - Hotline"),
+					iconTint: .enaColor(for: .riskHigh),
+					hairline: .none,
+					bottomSpacing: .medium
+				),
+				ExposureSubmissionDynamicCell.stepCell(
+					style: .body,
+					title: AppStrings.ExposureSubmissionPositiveTestResult.keysSubmittedPCRInfo3,
+					icon: UIImage(named: "Icons - Red Plus"),
+					hairline: .none,
+					bottomSpacing: .medium
+				)
+			])
+		} else if coronaTest.type == .antigen {
+			cells.append(contentsOf: [
+				ExposureSubmissionDynamicCell.stepCell(
+					style: .body,
+					title: AppStrings.ExposureSubmissionPositiveTestResult.keysSubmittedRATInfo1,
+					icon: UIImage(named: "Icons - Home"),
+					iconTint: .enaColor(for: .riskHigh),
+					hairline: .none,
+					bottomSpacing: .medium
+				),
+				ExposureSubmissionDynamicCell.stepCell(
+					style: .body,
+					title: AppStrings.ExposureSubmissionPositiveTestResult.keysSubmittedRATInfo2,
 					icon: UIImage(named: "Icons - Test Tube"),
 					iconTint: .enaColor(for: .riskHigh),
 					hairline: .none,
 					bottomSpacing: .medium
+				),
+				ExposureSubmissionDynamicCell.stepCell(
+					style: .body,
+					title: AppStrings.ExposureSubmissionPositiveTestResult.keysSubmittedRATInfo3,
+					icon: UIImage(named: "Icons - Hotline"),
+					iconTint: .enaColor(for: .riskHigh),
+					hairline: .none,
+					bottomSpacing: .medium
 				)
-			)
+			])
 		}
 
 		cells.append(contentsOf: [
-			ExposureSubmissionDynamicCell.stepCell(
-				style: .body,
-				title: AppStrings.ExposureSubmissionPositiveTestResult.keysSubmittedInfo2,
-				icon: UIImage(named: "Icons - Hotline"),
-				iconTint: .enaColor(for: .riskHigh),
-				hairline: .none,
-				bottomSpacing: .medium
-			),
-			ExposureSubmissionDynamicCell.stepCell(
-				style: .body,
-				title: AppStrings.ExposureSubmissionPositiveTestResult.keysSubmittedInfo3,
-				icon: UIImage(named: "Icons - Home"),
-				iconTint: .enaColor(for: .riskHigh),
-				hairline: .none,
-				bottomSpacing: .medium
-			),
 			.title2(text: AppStrings.ExposureSubmissionPositiveTestResult.keysSubmittedTitle2),
 			.bulletPoint(
 				text: AppStrings.ExposureSubmissionPositiveTestResult.keysSubmittedFurtherInfo1,
@@ -544,8 +579,8 @@ extension ExposureSubmissionTestResultViewModel {
 		
 		var cells = [DynamicCell]()
 
+		// Health Certificate
 		if coronaTest.certificateRequested, let healthTuple = coronaTestService.healthCertificateTuple(for: coronaTest.uniqueCertificateIdentifier ?? "") {
-			
 			cells.append(DynamicCell.identifier(
 				ExposureSubmissionTestResultViewController.CustomCellReuseIdentifiers.healthCertificateCell,
 				action: .execute { _, _ in
@@ -574,6 +609,15 @@ extension ExposureSubmissionTestResultViewModel {
 		
 		#endif
 
+		// Evidence / Proof
+		cells.append(contentsOf: [
+			.body(
+				text: AppStrings.ExposureSubmissionResult.Antigen.proofDesc,
+				accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionResult.Antigen.proofDesc
+			)
+		])
+		
+		// Information on proceduce
 		cells.append(DynamicCell.title2(
 			text: AppStrings.ExposureSubmissionResult.procedure,
 			accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionResult.procedure
@@ -614,18 +658,18 @@ extension ExposureSubmissionTestResultViewModel {
 				icon: UIImage(named: "Icons_Grey_Entfernen"),
 				hairline: .none
 			)
-			
 		])
 
+		// Further Information
 		cells.append(contentsOf: [
 			.title2(
 				text: AppStrings.ExposureSubmissionResult.furtherInfos_Title,
 				accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionResult.furtherInfos_Title
 			),
+			.body(text: AppStrings.ExposureSubmissionResult.furtherInfos_Desc),
 			.bulletPoint(text: AppStrings.ExposureSubmissionResult.furtherInfos_ListItem1, spacing: .large),
 			.bulletPoint(text: AppStrings.ExposureSubmissionResult.furtherInfos_ListItem2, spacing: .large),
-			.bulletPoint(text: AppStrings.ExposureSubmissionResult.furtherInfos_ListItem3, spacing: .large),
-			.bulletPoint(text: AppStrings.ExposureSubmissionResult.furtherInfos_TestAgain, spacing: .large)
+			.bulletPoint(text: AppStrings.ExposureSubmissionResult.furtherInfos_ListItem3, spacing: .large)
 		])
 		
 		return [
@@ -640,8 +684,8 @@ extension ExposureSubmissionTestResultViewModel {
 	private func negativeAntigenTestResultSections(test: AntigenTest) -> [DynamicSection] {
 		var cells = [DynamicCell]()
 
+		// Health Certificate
 		if test.certificateRequested, let healthTuple = coronaTestService.healthCertificateTuple(for: test.uniqueCertificateIdentifier ?? "") {
-			
 			cells.append(DynamicCell.identifier(
 				ExposureSubmissionTestResultViewController.CustomCellReuseIdentifiers.healthCertificateCell,
 				action: .execute { _, _ in
@@ -670,30 +714,15 @@ extension ExposureSubmissionTestResultViewModel {
 		
 		#endif
 
-		if test.testedPerson.fullName != nil && test.testedPerson.dateOfBirth != nil {
-			cells.append(contentsOf: [
-				.title2(
-					text: AppStrings.ExposureSubmissionResult.Antigen.proofTitle,
-					accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionResult.Antigen.proofTitle
-				),
-				.body(
-					text: AppStrings.ExposureSubmissionResult.Antigen.proofDesc,
-					accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionResult.Antigen.proofDesc
-				)
-			])
-		} else {
-			cells.append(contentsOf: [
-				.title2(
-					text: AppStrings.ExposureSubmissionResult.Antigen.noProofTitle,
-					accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionResult.Antigen.proofTitle
-				),
-				.body(
-					text: AppStrings.ExposureSubmissionResult.Antigen.noProofDesc,
-					accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionResult.Antigen.proofDesc
-				)
-			])
-		}
+		// Evidence / Proof
+		cells.append(contentsOf: [
+			.body(
+				text: AppStrings.ExposureSubmissionResult.Antigen.proofDesc,
+				accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionResult.Antigen.proofDesc
+			)
+		])
 		
+		// Information on proceduce
 		cells.append(contentsOf: [
 			.title2(
 				text: AppStrings.ExposureSubmissionResult.procedure,
@@ -719,15 +748,16 @@ extension ExposureSubmissionTestResultViewModel {
 			)
 		])
 
+		// Further Information
 		cells.append(contentsOf: [
 			.title2(
 				text: AppStrings.ExposureSubmissionResult.furtherInfos_Title,
 				accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionResult.furtherInfos_Title
 			),
+			.body(text: AppStrings.ExposureSubmissionResult.furtherInfos_Desc),
 			.bulletPoint(text: AppStrings.ExposureSubmissionResult.furtherInfos_ListItem1, spacing: .large),
 			.bulletPoint(text: AppStrings.ExposureSubmissionResult.furtherInfos_ListItem2, spacing: .large),
-			.bulletPoint(text: AppStrings.ExposureSubmissionResult.furtherInfos_ListItem3, spacing: .large),
-			.bulletPoint(text: AppStrings.ExposureSubmissionResult.furtherInfos_TestAgain, spacing: .large)
+			.bulletPoint(text: AppStrings.ExposureSubmissionResult.furtherInfos_ListItem3, spacing: .large)
 		])
 
 		return [

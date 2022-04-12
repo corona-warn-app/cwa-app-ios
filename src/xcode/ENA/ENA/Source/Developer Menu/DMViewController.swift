@@ -18,11 +18,12 @@ final class DMViewController: UITableViewController, RequiresAppDependencies {
 		wifiClient: WifiOnlyHTTPClient,
 		exposureSubmissionService: ExposureSubmissionService,
 		otpService: OTPServiceProviding,
-		coronaTestService: CoronaTestService,
+		coronaTestService: CoronaTestServiceProviding,
 		eventStore: EventStoringProviding,
 		qrCodePosterTemplateProvider: QRCodePosterTemplateProviding,
 		ppacService: PrivacyPreservingAccessControl,
-		healthCertificateService: HealthCertificateService
+		healthCertificateService: HealthCertificateService,
+		cache: KeyValueCaching
 	) {
 		self.client = client
 		self.restServiceProvider = restServiceProvider
@@ -34,7 +35,7 @@ final class DMViewController: UITableViewController, RequiresAppDependencies {
 		self.qrCodePosterTemplateProvider = qrCodePosterTemplateProvider
 		self.ppacService = ppacService
 		self.healthCertificateService = healthCertificateService
-
+		self.cache = cache
 		super.init(style: .plain)
 		title = "👩🏾‍💻 Developer Menu 🧑‍💻"
 	}
@@ -83,11 +84,17 @@ final class DMViewController: UITableViewController, RequiresAppDependencies {
 		let vc: UIViewController?
 
 		switch menuItem {
+		case .healthCertificateMigration:
+			vc = DMHealthCertificateMigrationViewController(store: store)
+		case .cclConfig:
+			vc = DMCCLConfigurationViewController()
 		case .newHttp:
 			vc = DMNHCViewController(
-				store: store
+				store: store,
+				cache: cache,
+				appConfiguration: appConfigurationProvider,
+				healthCertificateService: healthCertificateService
 			)
-
 		case .ticketValidation:
 			vc = DMTicketValidationViewController(store: store)
 
@@ -189,11 +196,12 @@ final class DMViewController: UITableViewController, RequiresAppDependencies {
 	private let consumer = RiskConsumer()
 	private let exposureSubmissionService: ExposureSubmissionService
 	private let otpService: OTPServiceProviding
-	private let coronaTestService: CoronaTestService
+	private let coronaTestService: CoronaTestServiceProviding
 	private let eventStore: EventStoringProviding
 	private let qrCodePosterTemplateProvider: QRCodePosterTemplateProviding
 	private let ppacService: PrivacyPreservingAccessControl
 	private let healthCertificateService: HealthCertificateService
+	private let cache: KeyValueCaching
 
 	private var keys = [SAP_External_Exposurenotification_TemporaryExposureKey]() {
 		didSet {

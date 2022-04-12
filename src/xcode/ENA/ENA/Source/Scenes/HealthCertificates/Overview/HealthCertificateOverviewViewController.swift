@@ -11,16 +11,22 @@ class HealthCertificateOverviewViewController: UITableViewController {
 
 	init(
 		viewModel: HealthCertificateOverviewViewModel,
+		cclService: CCLServable,
 		onInfoBarButtonItemTap: @escaping () -> Void,
-		onCreateHealthCertificateTap: @escaping () -> Void,
+		onChangeAdmissionScenarioTap: @escaping () -> Void,
 		onCertifiedPersonTap: @escaping (HealthCertifiedPerson) -> Void,
-		showInfoHit: @escaping () -> Void
+		onCovPassCheckInfoButtonTap: @escaping () -> Void,
+		onTapToDelete: @escaping (DecodingFailedHealthCertificate) -> Void,
+		showAlertAfterRegroup: @escaping () -> Void
 	) {
 		self.viewModel = viewModel
+		self.cclService = cclService
 		self.onInfoBarButtonItemTap = onInfoBarButtonItemTap
-		self.onCreateHealthCertificateTap = onCreateHealthCertificateTap
+		self.onChangeAdmissionScenarioTap = onChangeAdmissionScenarioTap
 		self.onCertifiedPersonTap = onCertifiedPersonTap
-		self.showInfo = showInfoHit
+		self.onCovPassCheckInfoButtonTap = onCovPassCheckInfoButtonTap
+		self.onTapToDelete = onTapToDelete
+		self.showAlertAfterRegroup = showAlertAfterRegroup
 
 		super.init(style: .grouped)
 		
@@ -49,6 +55,13 @@ class HealthCertificateOverviewViewController: UITableViewController {
 
 				self.viewModel.testCertificateRequestError = nil
 				self.showErrorAlert(error: error)
+			}
+			.store(in: &subscriptions)
+		
+		viewModel.$changeAdmissionScenarioStatusText
+			.receive(on: DispatchQueue.OCombine(.main))
+			.sink { [weak self] _ in
+				self?.tableView.reloadData()
 			}
 			.store(in: &subscriptions)
 	}
@@ -80,12 +93,22 @@ class HealthCertificateOverviewViewController: UITableViewController {
 		navigationController?.navigationBar.prefersLargeTitles = true
 		navigationController?.navigationBar.sizeToFit()
 
-		tableView.reloadData()
+		// delay reloadData because scrolling to top may take up to 0.35 sec
+		// otherwise the contentOffSet gets broken
+		DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [tableView] in
+			tableView?.reloadData()
+		}
 	}
 
 	override func viewDidAppear(_ animated: Bool) {
 		super.viewDidAppear(animated)
+
 		updateEmptyState()
+		viewModel.attemptToRestoreDecodingFailedHealthCertificates()
+
+		if viewModel.shouldShowAlertAfterRegroup {
+			showAlertAfterRegroup()
+		}
 	}
 
 	// MARK: - Protocol UITableViewDataSource
@@ -100,12 +123,18 @@ class HealthCertificateOverviewViewController: UITableViewController {
 
 	override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		switch HealthCertificateOverviewViewModel.Section(rawValue: indexPath.section) {
-		case .createCertificate:
-			return addCertificateCell(forRowAt: indexPath)
+		case .changeAdmissionScenarioStatusLabel:
+			return changeAdmissionScenarioStatusLabelCell(forRowAt: indexPath)
+		case .changeAdmissionScenario:
+			return changeAdmissionScenarioCell(forRowAt: indexPath)
+		case .healthCertificateScanningInfoOnTop:
+			return healthCertificateScanningInfoCell(forRowAt: indexPath, textAlignment: .left)
 		case .testCertificateRequest:
 			return testCertificateRequestCell(forRowAt: indexPath)
 		case .healthCertificate:
 			return healthCertifiedPersonCell(forRowAt: indexPath)
+		case .healthCertificateScanningInfo:
+			return healthCertificateScanningInfoCell(forRowAt: indexPath, textAlignment: .center)
 		case .decodingFailedHealthCertificates:
 			return decodingFailedHealthCertificateCell(forRowAt: indexPath)
 		case .none:
@@ -117,12 +146,18 @@ class HealthCertificateOverviewViewController: UITableViewController {
 	
 	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 		switch HealthCertificateOverviewViewModel.Section(rawValue: indexPath.section) {
-		case .createCertificate:
-			onCreateHealthCertificateTap()
+		case .changeAdmissionScenarioStatusLabel:
+			break
+		case .changeAdmissionScenario:
+			onChangeAdmissionScenarioTap()
+		case .healthCertificateScanningInfoOnTop:
+			break
 		case .testCertificateRequest:
 			break
 		case .healthCertificate:
 			onCertifiedPersonTap(viewModel.healthCertifiedPersons[indexPath.row])
+		case .healthCertificateScanningInfo:
+			break
 		case .decodingFailedHealthCertificates:
 			break
 		case .none:
@@ -133,11 +168,14 @@ class HealthCertificateOverviewViewController: UITableViewController {
 	// MARK: - Private
 
 	private let viewModel: HealthCertificateOverviewViewModel
-
+	private let cclService: CCLServable
+	
 	private let onInfoBarButtonItemTap: () -> Void
-	private let onCreateHealthCertificateTap: () -> Void
+	private let onChangeAdmissionScenarioTap: () -> Void
 	private let onCertifiedPersonTap: (HealthCertifiedPerson) -> Void
-	private let showInfo: () -> Void
+	private let onCovPassCheckInfoButtonTap: () -> Void
+	private let onTapToDelete: (DecodingFailedHealthCertificate) -> Void
+	private let showAlertAfterRegroup: () -> Void
 
 	private var subscriptions = Set<AnyCancellable>()
 
@@ -155,12 +193,13 @@ class HealthCertificateOverviewViewController: UITableViewController {
 			UINib(nibName: String(describing: AddButtonAsTableViewCell.self), bundle: nil),
 			forCellReuseIdentifier: AddButtonAsTableViewCell.reuseIdentifier
 		)
-		
+
 		tableView.register(
 			UINib(nibName: String(describing: TestCertificateRequestTableViewCell.self), bundle: nil),
 			forCellReuseIdentifier: TestCertificateRequestTableViewCell.reuseIdentifier
 		)
 
+		tableView.register(OverviewLabelTableViewCell.self, forCellReuseIdentifier: OverviewLabelTableViewCell.reuseIdentifier)
 		tableView.register(HealthCertifiedPersonTableViewCell.self, forCellReuseIdentifier: HealthCertifiedPersonTableViewCell.reuseIdentifier)
 
 		tableView.separatorStyle = .none
@@ -173,13 +212,31 @@ class HealthCertificateOverviewViewController: UITableViewController {
 		tableView.estimatedRowHeight = 500
 	}
 	
-	private func addCertificateCell(forRowAt indexPath: IndexPath) -> UITableViewCell {
-		guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: AddButtonAsTableViewCell.self), for: indexPath) as? AddButtonAsTableViewCell else {
-			fatalError("Could not dequeue CreateCertificateTableViewCell")
+	private func changeAdmissionScenarioStatusLabelCell(forRowAt indexPath: IndexPath) -> UITableViewCell {
+		guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: OverviewLabelTableViewCell.self), for: indexPath) as? OverviewLabelTableViewCell else {
+			fatalError("Could not dequeue OverviewLabelTableCell")
 		}
 
-		cell.configure(cellModel: AddCertificateCellModel())
-		cell.accessibilityIdentifier = AccessibilityIdentifiers.HealthCertificate.Overview.addCertificateCell
+		cell.configure(text: viewModel.changeAdmissionScenarioStatusText?.localized(cclService: cclService) ?? AppStrings.HealthCertificate.Overview.admissionScenarioStatusLabel, noBottomInset: true, color: .enaColor(for: .textPrimary2), textAlignment: .left)
+		return cell
+	}
+	
+	private func changeAdmissionScenarioCell(forRowAt indexPath: IndexPath) -> UITableViewCell {
+		guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: AddButtonAsTableViewCell.self), for: indexPath) as? AddButtonAsTableViewCell else {
+			fatalError("Could not dequeue ChangeAdmissionScenarionCell")
+		}
+
+		cell.configure(cellModel: ChangeAdmissionScenarionCellModel(changeAdmissionScenarioButtonText: viewModel.changeAdmissionScenarioButtonText?.localized(cclService: cclService) ?? AppStrings.HealthCertificate.Overview.admissionScenarioButtonLabel))
+		cell.accessibilityIdentifier = AccessibilityIdentifiers.HealthCertificate.Overview.changeAdmissionScenarioCell
+		return cell
+	}
+	
+	private func healthCertificateScanningInfoCell(forRowAt indexPath: IndexPath, textAlignment: NSTextAlignment) -> UITableViewCell {
+		guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: OverviewLabelTableViewCell.self), for: indexPath) as? OverviewLabelTableViewCell else {
+			fatalError("Could not dequeue OverviewLabelTableCell")
+		}
+
+		cell.configure(text: AppStrings.HealthCertificate.Overview.scanningInfo, color: .enaColor(for: .textPrimary2), textAlignment: textAlignment)
 		return cell
 	}
 	
@@ -216,8 +273,9 @@ class HealthCertificateOverviewViewController: UITableViewController {
 		guard let healthCertifiedPerson = viewModel.healthCertifiedPersons[safe: indexPath.row],
 			  let cellModel = HealthCertifiedPersonCellModel(
 				healthCertifiedPerson: healthCertifiedPerson,
-				showInfoHit: { [weak self] in
-					self?.showInfo()
+				cclService: cclService,
+				onCovPassCheckInfoButtonTap: { [weak self] in
+					self?.onCovPassCheckInfoButtonTap()
 				}
 			  ) else {
 			return UITableViewCell()
@@ -236,8 +294,11 @@ class HealthCertificateOverviewViewController: UITableViewController {
 		guard let decodingFailedHealthCertificate = viewModel.decodingFailedHealthCertificates[safe: indexPath.row],
 			  let cellModel = HealthCertifiedPersonCellModel(
 				decodingFailedHealthCertificate: decodingFailedHealthCertificate,
-				showInfoHit: { [weak self] in
-					self?.showInfo()
+				onCovPassCheckInfoButtonTap: { [weak self] in
+					self?.onCovPassCheckInfoButtonTap()
+				},
+				onTapToDelete: { [weak self] decodingFailedHealthCertificate in
+					self?.onTapToDelete(decodingFailedHealthCertificate)
 				}
 			  ) else {
 			return UITableViewCell()

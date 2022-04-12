@@ -9,10 +9,12 @@ import AVFoundation
 
 enum QuickAction: String {
 	
-	/// General identifier for the 'add diary entry' shortcut action
-	case diaryNewEntry = "de.rki.coronawarnapp.shortcut.diarynewentry"
+	/// General identifiers for quick actions
+	case qrCodeScanner = "de.rki.coronawarnapp.shortcut.qrcodescanner"
+	case showCertificates = "de.rki.coronawarnapp.shortcut.certificates"
 	case eventCheckin = "de.rki.coronawarnapp.shortcut.eventcheckin"
-	
+	case diaryNewEntry = "de.rki.coronawarnapp.shortcut.diarynewentry"
+
 	static var exposureSubmissionFlowTestResult: TestResult?
 	
 	private static var willResignActiveNotification: NSObjectProtocol?
@@ -50,13 +52,19 @@ enum QuickAction: String {
 			return
 		}
 
-		var shortcutItems = [UIApplicationShortcutItem(type: QuickAction.diaryNewEntry.rawValue, localizedTitle: AppStrings.QuickActions.contactDiaryNewEntry, localizedSubtitle: nil, icon: UIApplicationShortcutIcon(templateImageName: "book.closed"))]
+		var shortcutItems = [
+			UIApplicationShortcutItem(type: QuickAction.diaryNewEntry.rawValue, localizedTitle: AppStrings.QuickActions.contactDiaryNewEntry, localizedSubtitle: nil, icon: UIApplicationShortcutIcon(templateImageName: "book.closed")),
+			UIApplicationShortcutItem(type: QuickAction.showCertificates.rawValue, localizedTitle: AppStrings.QuickActions.showCertificates, localizedSubtitle: nil, icon: UIApplicationShortcutIcon(templateImageName: "Icons_Tabbar_Certificates"))
+		]
 		
 		let status = AVCaptureDevice.authorizationStatus(for: .video)
 		if status == .authorized || status == .notDetermined {
-			// dont show event checkin action if no camera access granted
+			// dont show camera related actions if no camera access is granted
 			shortcutItems.append(
-				UIApplicationShortcutItem(type: QuickAction.eventCheckin.rawValue, localizedTitle: AppStrings.QuickActions.eventCheckin, localizedSubtitle: nil, icon: UIApplicationShortcutIcon(templateImageName: "qrcode.viewfinder"))
+				contentsOf: [
+					UIApplicationShortcutItem(type: QuickAction.eventCheckin.rawValue, localizedTitle: AppStrings.QuickActions.eventCheckin, localizedSubtitle: nil, icon: UIApplicationShortcutIcon(templateImageName: "Icons_Tabbar_Checkin")),
+					UIApplicationShortcutItem(type: QuickAction.qrCodeScanner.rawValue, localizedTitle: AppStrings.QuickActions.qrCodeScanner, localizedSubtitle: nil, icon: UIApplicationShortcutIcon(templateImageName: "qrcode.viewfinder"))
+				]
 			)
 		}
 		
@@ -104,6 +112,33 @@ extension AppDelegate {
 	func handleShortcutItem(_ shortcutItem: UIApplicationShortcutItem) {
 		Log.debug("Did open app via shortcut \(shortcutItem.type)", log: .ui)
 		switch shortcutItem.type {
+		case QuickAction.qrCodeScanner.rawValue:
+			Log.info("Shortcut: QR code scanner", log: .ui)
+			guard let tabBarController = coordinator.tabBarController else { return }
+			tabBarController.selectedIndex = 0
+			
+			// dismiss an overlaying, modally presented view controller
+			coordinator.checkinTabCoordinator?.viewController.presentedViewController?.dismiss(animated: false, completion: nil)
+			
+			// open qr code scanner for fast event checkin
+			coordinator.checkinTabCoordinator?.showQRCodeScanner()
+			
+		case QuickAction.showCertificates.rawValue:
+			Log.info("Shortcut: Certificates", log: .ui)
+			guard let tabBarController = coordinator.tabBarController else { return }
+			tabBarController.selectedIndex = 1
+			
+			// dismiss an overlaying, modally presented view controller
+			coordinator.checkinTabCoordinator?.viewController.presentedViewController?.dismiss(animated: false, completion: nil)
+			
+		case QuickAction.eventCheckin.rawValue:
+			Log.info("Shortcut: Event checkin 📷", log: .ui)
+			guard let tabBarController = coordinator.tabBarController else { return }
+			tabBarController.selectedIndex = 3
+			
+			// dismiss an overlaying, modally presented view controller
+			coordinator.checkinTabCoordinator?.viewController.presentedViewController?.dismiss(animated: false, completion: nil)
+
 		case QuickAction.diaryNewEntry.rawValue:
 			Log.info("Shortcut: Open new diary entry", log: .ui)
 			guard let tabBarController = coordinator.tabBarController else { return }
@@ -114,16 +149,7 @@ extension AppDelegate {
 
 			// let diary coordinator handle pre-checks & navigation
 			coordinator.diaryCoordinator?.showCurrentDayScreen()
-		case QuickAction.eventCheckin.rawValue:
-			Log.info("Shortcut: Event checkin 📷", log: .ui)
-			guard let tabBarController = coordinator.tabBarController else { return }
-			tabBarController.selectedIndex = 3
 			
-			// dismiss an overlaying, modally presented view controller
-			coordinator.checkinTabCoordinator?.viewController.presentedViewController?.dismiss(animated: false, completion: nil)
-			
-			// open qr code scanner for fast event checkin
-			coordinator.checkinTabCoordinator?.showQRCodeScanner()
 		default:
 			Log.warning("unhandled shortcut item type \(shortcutItem.type)", log: .ui)
 			assertionFailure("Check this!")

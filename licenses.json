@@ -89,29 +89,40 @@
     "website": "https://github.com/Digitaler-Impfnachweis/covpass-ios/blob/9fc907a6c1eed1d632795487bfa1451c10418692/Source/CovPassCommon/Sources/CovPassCommon/Encoding/ECDSA.swift",
     "license": "Apache 2.0 License",
     "licenseUrl": "https://raw.githubusercontent.com/Digitaler-Impfnachweis/covpass-ios/main/LICENSE"
-  }
-  ,
+  },
   {
     "component": "OpenSans",
     "licensor": "Google",
     "website": "https://fonts.google.com/specimen/Open+Sans",
     "license": "Apache 2.0 License",
     "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt"
-  }
-  ,
+  },
   {
     "component": "CryptoSwift",
     "licensor": "Marcin Krzyżanowski",
     "website": "https://github.com/krzyzanowskim/CryptoSwift",
     "license": "Custom",
     "licenseUrl": "https://raw.githubusercontent.com/krzyzanowskim/CryptoSwift/main/LICENSE"
-  }
-  ,
+  },
   {
     "component": "Swift-JWT",
     "licensor": "Kitura",
     "website": "https://github.com/Kitura/Swift-JWT",
     "license": "Apache 2.0 License",
     "licenseUrl": "https://raw.githubusercontent.com/Kitura/Swift-JWT/master/LICENSE"
+  },
+  {
+    "component": "swift-collections",
+    "licensor": "Apple",
+    "website": "https://github.com/apple/swift-collections",
+    "license": "Apache 2.0 License",
+    "licenseUrl": "https://raw.githubusercontent.com/apple/swift-collections/main/LICENSE.txt"
+  },
+  {
+    "component": "AnyCodable",
+    "licensor": "Read Evaluate Press",
+    "website": "https://github.com/Flight-School/AnyCodable",
+    "license": "MIT License",
+    "licenseUrl": "https://raw.githubusercontent.com/Flight-School/AnyCodable/master/LICENSE.md"
   }
 ]

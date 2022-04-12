@@ -10,11 +10,11 @@ final class NotificationManager: NSObject, UNUserNotificationCenterDelegate {
 	// MARK: - Init
 	
 	init(
-		coronaTestService: CoronaTestService,
+		coronaTestService: CoronaTestServiceProviding,
 		eventCheckoutService: EventCheckoutService,
 		healthCertificateService: HealthCertificateService,
 		showHome: @escaping () -> Void,
-		showTestResultFromNotification: @escaping (CoronaTestType) -> Void,
+		showTestResultFromNotification: @escaping (Route) -> Void,
 		showHealthCertificate: @escaping (Route) -> Void,
 		showHealthCertifiedPerson: @escaping (Route) -> Void
 	) {
@@ -34,8 +34,12 @@ final class NotificationManager: NSObject, UNUserNotificationCenterDelegate {
 		if notification.request.identifier.contains(LocalNotificationIdentifier.checkout.rawValue) {
 			eventCheckoutService.checkoutOverdueCheckins()
 		}
-
-		completionHandler([.alert, .badge, .sound])
+		
+		if #available(iOS 14.0, *) {
+			completionHandler([.banner, .alert, .badge, .sound])
+		} else {
+			completionHandler([.alert, .badge, .sound])
+		}
 	}
 
 	func userNotificationCenter(_: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
@@ -58,7 +62,7 @@ final class NotificationManager: NSObject, UNUserNotificationCenterDelegate {
 			let testTypeIdentifier = ActionableNotificationIdentifier.testResultType.identifier
 
 			guard let testResultRawValue = response.notification.request.content.userInfo[testIdentifier] as? Int,
-				  let testResult = TestResult(serverResponse: testResultRawValue),
+				  let testResult = TestResult(rawValue: testResultRawValue),
 				  let testResultTypeRawValue = response.notification.request.content.userInfo[testTypeIdentifier] as? Int,
 				  let testResultType = CoronaTestType(rawValue: testResultTypeRawValue) else {
 				showHome()
@@ -67,7 +71,7 @@ final class NotificationManager: NSObject, UNUserNotificationCenterDelegate {
 
 			switch testResult {
 			case .positive, .negative:
-				showTestResultFromNotification(testResultType)
+				showTestResultFromNotification(.testResultFromNotification(testResultType))
 			case .invalid:
 				showHome()
 			case .expired, .pending:
@@ -98,25 +102,25 @@ final class NotificationManager: NSObject, UNUserNotificationCenterDelegate {
 	}
 	// MARK: - Private
 	
-	private let coronaTestService: CoronaTestService
+	private let coronaTestService: CoronaTestServiceProviding
 	private let eventCheckoutService: EventCheckoutService
 	private let healthCertificateService: HealthCertificateService
 	private let showHome: () -> Void
-	private let showTestResultFromNotification: (CoronaTestType) -> Void
+	private let showTestResultFromNotification: (Route) -> Void
 	private let showHealthCertificate: (Route) -> Void
 	private let showHealthCertifiedPerson: (Route) -> Void
 
 	private func showPositivePCRTestResultIfNeeded() {
-		if let pcrTest = coronaTestService.pcrTest,
+		if let pcrTest = coronaTestService.pcrTest.value,
 		   pcrTest.positiveTestResultWasShown {
-			showTestResultFromNotification(.pcr)
+			showTestResultFromNotification(.testResultFromNotification(.pcr))
 		}
 	}
 
 	private func showPositiveAntigenTestResultIfNeeded() {
-		if let antigenTest = coronaTestService.antigenTest,
+		if let antigenTest = coronaTestService.antigenTest.value,
 		   antigenTest.positiveTestResultWasShown {
-			showTestResultFromNotification(.antigen)
+			showTestResultFromNotification(.testResultFromNotification(.antigen))
 		}
 	}
 
@@ -146,6 +150,14 @@ final class NotificationManager: NSObject, UNUserNotificationCenterDelegate {
 			let route = Route(healthCertifiedPerson: certifiedPerson)
 			Log.debug("Received boosterVaccination notification")
 			showHealthCertifiedPerson(route)
+		} else if let (certifiedPerson) = extractPerson(LocalNotificationIdentifier.certificateReissuance.rawValue, from: identifier) {
+			let route = Route(healthCertifiedPerson: certifiedPerson)
+			Log.debug("Received certificateReissuance notification")
+			showHealthCertifiedPerson(route)
+		} else if let (certifiedPerson) = extractPerson(LocalNotificationIdentifier.admissionStateChange.rawValue, from: identifier) {
+			let route = Route(healthCertifiedPerson: certifiedPerson)
+			Log.debug("Received admissionStateChange notification")
+			showHealthCertifiedPerson(route)
 		}
 	}
 	
@@ -160,14 +172,9 @@ final class NotificationManager: NSObject, UNUserNotificationCenterDelegate {
 	}
 	
 	private func findHealthCertifiedPerson(_ identifier: String) -> (HealthCertifiedPerson)? {
-		let matchedPerson = healthCertificateService.healthCertifiedPersons.first {
-			if let name = $0.name?.groupingStandardizedName,
-			   let dateOfBirth = $0.dateOfBirth {
-				let hashedID = ENAHasher.sha256(name + dateOfBirth)
-				return hashedID == identifier
+		return healthCertificateService.healthCertifiedPersons
+			.first {
+				$0.identifier == identifier
 			}
-			return false
-		}
-		return matchedPerson
 	}
 }

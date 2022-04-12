@@ -77,7 +77,7 @@ public extension ValidationResult {
     }
 }
 
-public var onboardedCountriesCBORDataFake: Data {
+public var onboardedCountriesCBORDataFake_DE_FR: Data {
     let cborCountries = CBOR.array(
         [
             CBOR.utf8String("DE"),
@@ -87,7 +87,17 @@ public var onboardedCountriesCBORDataFake: Data {
     return Data(cborCountries.encode())
 }
 
-public var onboardedCountriesCorruptCBORDataFake: Data {
+public var onboardedCountriesCBORDataFake_IT_UK: Data {
+    let cborCountries = CBOR.array(
+        [
+            CBOR.utf8String("IT"),
+            CBOR.utf8String("UK")
+        ]
+    )
+    return Data(cborCountries.encode())
+}
+
+public var onboardedCountriesCBORDataFake_Corrupt: Data {
     let cborCountries = CBOR.array(
         [
             CBOR.null,
@@ -95,6 +105,16 @@ public var onboardedCountriesCorruptCBORDataFake: Data {
         ]
     )
     return Data(cborCountries.encode())
+}
+
+public func rulesCBORDataFake_corrupt() throws -> Data {
+    let rules = CBOR.array(
+        [
+            CBOR.null,
+            CBOR.unsignedInt(42)
+        ]
+    )
+    return Data(rules.encode())
 }
 
 public func rulesCBORDataFake() throws -> Data {
@@ -105,4 +125,40 @@ public func rulesCBORDataFake() throws -> Data {
     ]
 
     return try CodableCBOREncoder().encode(rules)
+}
+
+public func rulesCBORDataFake2() throws -> Data {
+    let rules = [
+        Rule.fake(
+            identifier: "GR-CZ-0002",
+            type: "Acceptance",
+            version: "1.0.0",
+            schemaVersion: "1.0.0",
+            engine: "CERTLOGIC",
+            engineVersion: "1.0.0",
+            certificateType: "Test",
+            description: [.fake()],
+            validFrom: "2021-05-27T07:46:40Z",
+            validTo: "2021-06-01T07:46:40Z",
+            affectedString: ["v.0.dn", "v.0.sd"],
+            logic: JSON(""),
+            countryCode: "DE",
+            region: nil,
+            hash: nil
+        ),
+        Rule.fake(),
+        Rule.fake()
+    ]
+
+    return try CodableCBOREncoder().encode(rules)
+}
+
+public var someCBORData: Data {
+    let array = CBOR.array(
+        [
+            CBOR.utf8String("Pascal Brause"),
+            CBOR.unsignedInt(42)
+        ]
+    )
+    return Data(array.encode())
 }

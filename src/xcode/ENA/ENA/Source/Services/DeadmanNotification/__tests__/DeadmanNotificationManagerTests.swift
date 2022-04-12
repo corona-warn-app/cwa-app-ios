@@ -9,29 +9,9 @@ import HealthCertificateToolkit
 class DeadmanNotificationManagerTests: CWATestCase {
 
 	func testSchedulingDeadmanNotification() {
-		let client = ClientMock()
-		let store = MockTestStore()
-		let appConfiguration = CachedAppConfigurationMock()
 		let notificationCenter = MockUserNotificationCenter()
 
 		let manager = DeadmanNotificationManager(
-			coronaTestService: CoronaTestService(
-				client: client,
-				store: store,
-				eventStore: MockEventStore(),
-				diaryStore: MockDiaryStore(),
-				appConfiguration: appConfiguration,
-				healthCertificateService: HealthCertificateService(
-					store: store,
-					dccSignatureVerifier: DCCSignatureVerifyingStub(),
-					dscListProvider: MockDSCListProvider(),
-					client: client,
-					appConfiguration: appConfiguration,
-					boosterNotificationsService: BoosterNotificationsService(rulesDownloadService: RulesDownloadService(store: store, client: client)),
-					recycleBin: .fake()
-				),
-				recycleBin: .fake()
-			),
 			userNotificationCenter: notificationCenter
 		)
 
@@ -60,30 +40,10 @@ class DeadmanNotificationManagerTests: CWATestCase {
 	}
 
 	func testDeadmanNotificationReschedulingOnReset() {
-		let client = ClientMock()
-		let store = MockTestStore()
-		let appConfiguration = CachedAppConfigurationMock()
 		let notificationCenter = MockUserNotificationCenter()
 		notificationCenter.notificationRequests = [deadmanNotificationRequest]
 
 		let manager = DeadmanNotificationManager(
-			coronaTestService: CoronaTestService(
-				client: client,
-				store: store,
-				eventStore: MockEventStore(),
-				diaryStore: MockDiaryStore(),
-				appConfiguration: appConfiguration,
-				healthCertificateService: HealthCertificateService(
-					store: store,
-					dccSignatureVerifier: DCCSignatureVerifyingStub(),
-					dscListProvider: MockDSCListProvider(),
-					client: client,
-					appConfiguration: appConfiguration,
-					boosterNotificationsService: BoosterNotificationsService(rulesDownloadService: RulesDownloadService(store: store, client: client)),
-					recycleBin: .fake()
-				),
-				recycleBin: .fake()
-			),
 			userNotificationCenter: notificationCenter
 		)
 
@@ -95,30 +55,10 @@ class DeadmanNotificationManagerTests: CWATestCase {
 	}
 
 	func testDeadmanNotificationIsNotScheduledTwice() {
-		let client = ClientMock()
-		let store = MockTestStore()
-		let appConfiguration = CachedAppConfigurationMock()
 		let notificationCenter = MockUserNotificationCenter()
 		notificationCenter.notificationRequests = [deadmanNotificationRequest]
 
 		let manager = DeadmanNotificationManager(
-			coronaTestService: CoronaTestService(
-				client: client,
-				store: store,
-				eventStore: MockEventStore(),
-				diaryStore: MockDiaryStore(),
-				appConfiguration: appConfiguration,
-				healthCertificateService: HealthCertificateService(
-					store: store,
-					dccSignatureVerifier: DCCSignatureVerifyingStub(),
-					dscListProvider: MockDSCListProvider(),
-					client: client,
-					appConfiguration: appConfiguration,
-					boosterNotificationsService: BoosterNotificationsService(rulesDownloadService: RulesDownloadService(store: store, client: client)),
-					recycleBin: .fake()
-				),
-				recycleBin: .fake()
-			),
 			userNotificationCenter: notificationCenter
 		)
 
@@ -127,162 +67,6 @@ class DeadmanNotificationManagerTests: CWATestCase {
 		manager.scheduleDeadmanNotificationIfNeeded()
 
 		XCTAssertEqual(notificationCenter.notificationRequests.count, 1)
-	}
-
-	func testDeadmanNotificationIsNotScheduledIfPositiveTestResultWasShown() {
-		let client = ClientMock()
-		let store = MockTestStore()
-		let appConfiguration = CachedAppConfigurationMock()
-
-		store.pcrTest = PCRTest.mock(positiveTestResultWasShown: true)
-
-		let notificationCenter = MockUserNotificationCenter()
-
-		let manager = DeadmanNotificationManager(
-			coronaTestService: CoronaTestService(
-				client: client,
-				store: store,
-				eventStore: MockEventStore(),
-				diaryStore: MockDiaryStore(),
-				appConfiguration: appConfiguration,
-				healthCertificateService: HealthCertificateService(
-					store: store,
-					dccSignatureVerifier: DCCSignatureVerifyingStub(),
-					dscListProvider: MockDSCListProvider(),
-					client: client,
-					appConfiguration: appConfiguration,
-					boosterNotificationsService: BoosterNotificationsService(rulesDownloadService: RulesDownloadService(store: store, client: client)),
-					recycleBin: .fake()
-				),
-				recycleBin: .fake()
-			),
-			userNotificationCenter: notificationCenter
-		)
-
-		XCTAssertTrue(notificationCenter.notificationRequests.isEmpty)
-
-		manager.scheduleDeadmanNotificationIfNeeded()
-
-		XCTAssertTrue(notificationCenter.notificationRequests.isEmpty)
-	}
-
-	func testDeadmanNotificationIsNotRescheduledIfPositiveTestResultWasShown() {
-		let client = ClientMock()
-		let store = MockTestStore()
-		let appConfiguration = CachedAppConfigurationMock()
-
-		store.pcrTest = PCRTest.mock(positiveTestResultWasShown: true)
-
-		let notificationCenter = MockUserNotificationCenter()
-		notificationCenter.notificationRequests = [deadmanNotificationRequest]
-
-		let manager = DeadmanNotificationManager(
-			coronaTestService: CoronaTestService(
-				client: client,
-				store: store,
-				eventStore: MockEventStore(),
-				diaryStore: MockDiaryStore(),
-				appConfiguration: appConfiguration,
-				healthCertificateService: HealthCertificateService(
-					store: store,
-					dccSignatureVerifier: DCCSignatureVerifyingStub(),
-					dscListProvider: MockDSCListProvider(),
-					client: client,
-					appConfiguration: appConfiguration,
-					boosterNotificationsService: BoosterNotificationsService(
-						rulesDownloadService: RulesDownloadService(store: store, client: client)
-					),
-					recycleBin: .fake()
-				),
-				recycleBin: .fake()
-			),
-			userNotificationCenter: notificationCenter
-		)
-
-		XCTAssertFalse(notificationCenter.notificationRequests.isEmpty)
-
-		manager.resetDeadmanNotification()
-
-		XCTAssertTrue(notificationCenter.notificationRequests.isEmpty)
-	}
-
-	func testDeadmanNotificationIsNotScheduledIfKeysWereSubmitted() {
-		let client = ClientMock()
-		let store = MockTestStore()
-		let appConfiguration = CachedAppConfigurationMock()
-
-		store.pcrTest = PCRTest.mock(keysSubmitted: true)
-
-		let notificationCenter = MockUserNotificationCenter()
-
-		let manager = DeadmanNotificationManager(
-			coronaTestService: CoronaTestService(
-				client: client,
-				store: store,
-				eventStore: MockEventStore(),
-				diaryStore: MockDiaryStore(),
-				appConfiguration: appConfiguration,
-				healthCertificateService: HealthCertificateService(
-					store: store,
-					dccSignatureVerifier: DCCSignatureVerifyingStub(),
-					dscListProvider: MockDSCListProvider(),
-					client: client,
-					appConfiguration: appConfiguration,
-					boosterNotificationsService: BoosterNotificationsService(
-						rulesDownloadService: RulesDownloadService(store: store, client: client)
-					),
-					recycleBin: .fake()
-				),
-				recycleBin: .fake()
-			),
-			userNotificationCenter: notificationCenter
-		)
-
-		XCTAssertTrue(notificationCenter.notificationRequests.isEmpty)
-
-		manager.scheduleDeadmanNotificationIfNeeded()
-
-		XCTAssertTrue(notificationCenter.notificationRequests.isEmpty)
-	}
-
-	func testDeadmanNotificationIsNotRescheduledIfKeysWereSubmitted() {
-		let client = ClientMock()
-		let store = MockTestStore()
-		let appConfiguration = CachedAppConfigurationMock()
-
-		store.pcrTest = PCRTest.mock(keysSubmitted: true)
-
-		let notificationCenter = MockUserNotificationCenter()
-		notificationCenter.notificationRequests = [deadmanNotificationRequest]
-
-		let manager = DeadmanNotificationManager(
-			coronaTestService: CoronaTestService(
-				client: client,
-				store: store,
-				eventStore: MockEventStore(),
-				diaryStore: MockDiaryStore(),
-				appConfiguration: appConfiguration,
-				healthCertificateService: HealthCertificateService(
-					store: store,
-					dccSignatureVerifier: DCCSignatureVerifyingStub(),
-					dscListProvider: MockDSCListProvider(),
-					client: client,
-					appConfiguration: appConfiguration,
-					boosterNotificationsService: BoosterNotificationsService(
-						rulesDownloadService: RulesDownloadService(store: store, client: client)
-					),
-					recycleBin: .fake()
-				),
-				recycleBin: .fake()
-			),
-			userNotificationCenter: notificationCenter
-		)
-
-		XCTAssertFalse(notificationCenter.notificationRequests.isEmpty)
-
-		manager.resetDeadmanNotification()
-
-		XCTAssertTrue(notificationCenter.notificationRequests.isEmpty)
 	}
 
 	// MARK: - Private

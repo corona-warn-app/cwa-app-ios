@@ -38,20 +38,15 @@ class QRScannerViewModelTests: XCTestCase {
 
 	func test_ifValid_PCR_Test_Scanned_then_parsing_is_successful() {
 		let store = MockTestStore()
-		let client = ClientMock()
 		let appConfigurationProvider = CachedAppConfigurationMock()
 		let dscListProvider = MockDSCListProvider()
 		let dccSignatureVerifier = DCCSignatureVerifyingStub()
-		let boosterNotificationsService = BoosterNotificationsService(
-			rulesDownloadService: RulesDownloadService(store: store, client: client)
-		)
 		let healthCertificateService = HealthCertificateService(
 			store: store,
 			dccSignatureVerifier: dccSignatureVerifier,
 			dscListProvider: dscListProvider,
-			client: client,
 			appConfiguration: appConfigurationProvider,
-			boosterNotificationsService: boosterNotificationsService,
+			cclService: FakeCCLService(),
 			recycleBin: .fake()
 		)
 		let onSuccessExpectation = expectation(description: "onSuccess called")
@@ -96,20 +91,15 @@ class QRScannerViewModelTests: XCTestCase {
 	
 	func test_ifValid_Antigen_Test_Scanned_then_parsing_is_successful() {
 		let store = MockTestStore()
-		let client = ClientMock()
 		let appConfigurationProvider = CachedAppConfigurationMock()
 		let dscListProvider = MockDSCListProvider()
 		let dccSignatureVerifier = DCCSignatureVerifyingStub()
-		let boosterNotificationsService = BoosterNotificationsService(
-			rulesDownloadService: RulesDownloadService(store: store, client: client)
-		)
 		let healthCertificateService = HealthCertificateService(
 			store: store,
 			dccSignatureVerifier: dccSignatureVerifier,
 			dscListProvider: dscListProvider,
-			client: client,
 			appConfiguration: appConfigurationProvider,
-			boosterNotificationsService: boosterNotificationsService,
+			cclService: FakeCCLService(),
 			recycleBin: .fake()
 		)
 		let onSuccessExpectation = expectation(description: "onSuccess called")
@@ -140,29 +130,71 @@ class QRScannerViewModelTests: XCTestCase {
 			}
 		}
 		
-		let validNegativePcrTest = "https://s.coronawarn.app?v=1#eyJ0aW1lc3RhbXAiOjE2MzIxMzk0MzMsInNhbHQiOiJGODE4RTZFMjdDRkU0QkE2MDI1OTg3N0ZGRTZFREE4OCIsInRlc3RpZCI6IjUyOTA2NGVhLWVhZDItNGYwMC1iNzlmLTBjYjM4NDBiODkzYiIsImhhc2giOiIzNDgyMzU1NGUwNjhiODFhM2FkYWQ3Yzc5YWMzMGE4ZThkNmM4NzM3NjNkMGE1MmZiMGJjMjE3ZDUzNTI4YzgzIiwiZm4iOiJXaWxsaWUiLCJsbiI6IlVlZGEiLCJkb2IiOiIxOTkzLTA5LTI2In0"
-		let metaDataObject = FakeMetadataMachineReadableCodeObject(stringValue: validNegativePcrTest)
+		let validNegativeAntigenTest = "https://s.coronawarn.app?v=1#eyJ0aW1lc3RhbXAiOjE2MzIxMzk0MzMsInNhbHQiOiJGODE4RTZFMjdDRkU0QkE2MDI1OTg3N0ZGRTZFREE4OCIsInRlc3RpZCI6IjUyOTA2NGVhLWVhZDItNGYwMC1iNzlmLTBjYjM4NDBiODkzYiIsImhhc2giOiIzNDgyMzU1NGUwNjhiODFhM2FkYWQ3Yzc5YWMzMGE4ZThkNmM4NzM3NjNkMGE1MmZiMGJjMjE3ZDUzNTI4YzgzIiwiZm4iOiJXaWxsaWUiLCJsbiI6IlVlZGEiLCJkb2IiOiIxOTkzLTA5LTI2In0"
+		let metaDataObject = FakeMetadataMachineReadableCodeObject(stringValue: validNegativeAntigenTest)
 		viewModel.activateScanning()
 		viewModel.didScan(metadataObjects: [metaDataObject])
 		waitForExpectations(timeout: .short)
 	}
 	
-	func test_ifValid_Event_Scanned_then_parsing_is_successful() {
+	func test_ifValid_RapidPCR_Test_Scanned_then_parsing_is_successful() {
 		let store = MockTestStore()
-		let client = ClientMock()
 		let appConfigurationProvider = CachedAppConfigurationMock()
 		let dscListProvider = MockDSCListProvider()
 		let dccSignatureVerifier = DCCSignatureVerifyingStub()
-		let boosterNotificationsService = BoosterNotificationsService(
-			rulesDownloadService: RulesDownloadService(store: store, client: client)
-		)
 		let healthCertificateService = HealthCertificateService(
 			store: store,
 			dccSignatureVerifier: dccSignatureVerifier,
 			dscListProvider: dscListProvider,
-			client: client,
 			appConfiguration: appConfigurationProvider,
-			boosterNotificationsService: boosterNotificationsService,
+			cclService: FakeCCLService(),
+			recycleBin: .fake()
+		)
+		let onSuccessExpectation = expectation(description: "onSuccess called")
+		onSuccessExpectation.expectedFulfillmentCount = 1
+
+		let qrCodeParser = QRCodeParser(
+			appConfigurationProvider: appConfigurationProvider,
+			healthCertificateService: healthCertificateService,
+			markCertificateAsNew: false
+		)
+
+		let viewModel = TestQRScannerViewModel(
+			healthCertificateService: healthCertificateService,
+			appConfiguration: appConfigurationProvider,
+			qrCodeParser: qrCodeParser
+		) { result in
+			switch result {
+			case .success(let result):
+				switch result {
+				case .coronaTest(let testInformation):
+					XCTAssertEqual(testInformation.testType, .pcr, "Expected RapidPCR (i.e PCR) test")
+					onSuccessExpectation.fulfill()
+				default:
+					XCTFail("Expected a successful scan of RapidPCR test")
+				}
+			case .failure:
+				XCTFail("Expected a successful scan of RapidPCR test")
+			}
+		}
+		
+		let validNegativeRapidPCRTest = "https://p.coronawarn.app?v=1#eyJ0aW1lc3RhbXAiOjE2MzIxMzk0MzMsInNhbHQiOiJGODE4RTZFMjdDRkU0QkE2MDI1OTg3N0ZGRTZFREE4OCIsInRlc3RpZCI6IjUyOTA2NGVhLWVhZDItNGYwMC1iNzlmLTBjYjM4NDBiODkzYiIsImhhc2giOiIzNDgyMzU1NGUwNjhiODFhM2FkYWQ3Yzc5YWMzMGE4ZThkNmM4NzM3NjNkMGE1MmZiMGJjMjE3ZDUzNTI4YzgzIiwiZm4iOiJXaWxsaWUiLCJsbiI6IlVlZGEiLCJkb2IiOiIxOTkzLTA5LTI2In0"
+		let metaDataObject = FakeMetadataMachineReadableCodeObject(stringValue: validNegativeRapidPCRTest)
+		viewModel.activateScanning()
+		viewModel.didScan(metadataObjects: [metaDataObject])
+		waitForExpectations(timeout: .short)
+	}
+	func test_ifValid_Event_Scanned_then_parsing_is_successful() {
+		let store = MockTestStore()
+		let appConfigurationProvider = CachedAppConfigurationMock()
+		let dscListProvider = MockDSCListProvider()
+		let dccSignatureVerifier = DCCSignatureVerifyingStub()
+		let healthCertificateService = HealthCertificateService(
+			store: store,
+			dccSignatureVerifier: dccSignatureVerifier,
+			dscListProvider: dscListProvider,
+			appConfiguration: appConfigurationProvider,
+			cclService: FakeCCLService(),
 			recycleBin: .fake()
 		)
 		let onSuccessExpectation = expectation(description: "onSuccess called")
@@ -203,20 +235,15 @@ class QRScannerViewModelTests: XCTestCase {
 	
 	func test_ifValid_Certificate_Scanned_then_parsing_is_successful() {
 		let store = MockTestStore()
-		let client = ClientMock()
 		let appConfigurationProvider = CachedAppConfigurationMock()
 		let dscListProvider = MockDSCListProvider()
 		let dccSignatureVerifier = DCCSignatureVerifyingStub()
-		let boosterNotificationsService = BoosterNotificationsService(
-			rulesDownloadService: RulesDownloadService(store: store, client: client)
-		)
 		let healthCertificateService = HealthCertificateService(
 			store: store,
 			dccSignatureVerifier: dccSignatureVerifier,
 			dscListProvider: dscListProvider,
-			client: client,
 			appConfiguration: appConfigurationProvider,
-			boosterNotificationsService: boosterNotificationsService,
+			cclService: FakeCCLService(),
 			recycleBin: .fake()
 		)
 		let onSuccessExpectation = expectation(description: "onSuccess called")
@@ -258,20 +285,15 @@ class QRScannerViewModelTests: XCTestCase {
 	
 	func test_ifInValid_QRCode_Scanned_then_parsing_fails() {
 		let store = MockTestStore()
-		let client = ClientMock()
 		let appConfigurationProvider = CachedAppConfigurationMock()
 		let dscListProvider = MockDSCListProvider()
 		let dccSignatureVerifier = DCCSignatureVerifyingStub()
-		let boosterNotificationsService = BoosterNotificationsService(
-			rulesDownloadService: RulesDownloadService(store: store, client: client)
-		)
 		let healthCertificateService = HealthCertificateService(
 			store: store,
 			dccSignatureVerifier: dccSignatureVerifier,
 			dscListProvider: dscListProvider,
-			client: client,
 			appConfiguration: appConfigurationProvider,
-			boosterNotificationsService: boosterNotificationsService,
+			cclService: FakeCCLService(),
 			recycleBin: .fake()
 		)
 		let onFailureExpectation = expectation(description: "onFailure called")
@@ -312,20 +334,15 @@ class QRScannerViewModelTests: XCTestCase {
 
 	func testInitialUnsuccessfulScanWithSuccessfulRetry() {
 		let store = MockTestStore()
-		let client = ClientMock()
 		let appConfigurationProvider = CachedAppConfigurationMock()
 		let dscListProvider = MockDSCListProvider()
 		let dccSignatureVerifier = DCCSignatureVerifyingStub()
-		let boosterNotificationsService = BoosterNotificationsService(
-			rulesDownloadService: RulesDownloadService(store: store, client: client)
-		)
 		let healthCertificateService = HealthCertificateService(
 			store: store,
 			dccSignatureVerifier: dccSignatureVerifier,
 			dscListProvider: dscListProvider,
-			client: client,
 			appConfiguration: appConfigurationProvider,
-			boosterNotificationsService: boosterNotificationsService,
+			cclService: FakeCCLService(),
 			recycleBin: .fake()
 		)
 

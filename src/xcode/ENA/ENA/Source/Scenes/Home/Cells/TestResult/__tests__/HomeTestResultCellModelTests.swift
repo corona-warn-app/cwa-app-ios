@@ -58,7 +58,6 @@ class HomeTestResultCellModelTests: CWATestCase {
 		AccessibilityIdentifiers.Home.TestResultCell.loadingPCRButton
 	]
 
-	// swiftlint:disable:next function_body_length
 	func test_whenTestResultChanges_then_changesAreReflectedInTheSubscription() {
 		let expectationSubtitles = expectation(description: "expectationSubtitles")
 		let expectationDescription = expectation(description: "expectationDescription")
@@ -86,30 +85,8 @@ class HomeTestResultCellModelTests: CWATestCase {
 		expectationAccessibilityIdentifiers.expectedFulfillmentCount = accessibilityIdentifiersArray.count
 		expectationOnUpdate.expectedFulfillmentCount = 7
 
-		let client = ClientMock()
-		let store = MockTestStore()
-		let appConfiguration = CachedAppConfigurationMock()
-		
-		let coronaTestService = CoronaTestService(
-			client: client,
-			store: store,
-			eventStore: MockEventStore(),
-			diaryStore: MockDiaryStore(),
-			appConfiguration: appConfiguration,
-			healthCertificateService: HealthCertificateService(
-				store: store,
-				dccSignatureVerifier: DCCSignatureVerifyingStub(),
-				dscListProvider: MockDSCListProvider(),
-				client: client,
-				appConfiguration: appConfiguration,
-				boosterNotificationsService: BoosterNotificationsService(
-					rulesDownloadService: RulesDownloadService(store: store, client: client)
-				),
-				recycleBin: .fake()
-            ),
-            recycleBin: .fake()
-        )
-		coronaTestService.pcrTest = PCRTest.mock()
+		let coronaTestService = MockCoronaTestService()
+		coronaTestService.pcrTest.value = PCRTest.mock()
 
 		let cellModel = HomeTestResultCellModel(
 			coronaTestType: .pcr,
@@ -118,9 +95,9 @@ class HomeTestResultCellModelTests: CWATestCase {
 				expectationOnUpdate.fulfill()
 			}
 		)
-		
+
 		XCTAssertEqual(cellModel.title, AppStrings.Home.TestResult.pcrTitle)
-		
+
 		cellModel.$subtitle
 			.dropFirst()
 			.sink { receivedValue in
@@ -128,7 +105,7 @@ class HomeTestResultCellModelTests: CWATestCase {
 				expectationSubtitles.fulfill()
 			}
 			.store(in: &subscriptions)
-		
+
 		cellModel.$description
 			.dropFirst()
 			.sink { receivedValue in
@@ -136,7 +113,7 @@ class HomeTestResultCellModelTests: CWATestCase {
 				expectationDescription.fulfill()
 			}
 			.store(in: &subscriptions)
-		
+
 		cellModel.$buttonTitle
 			.dropFirst()
 			.sink { receivedValue in
@@ -144,7 +121,7 @@ class HomeTestResultCellModelTests: CWATestCase {
 				expectationButtonTitle.fulfill()
 			}
 			.store(in: &subscriptions)
-		
+
 		cellModel.$image
 			.dropFirst()
 			.sink { receivedValue in
@@ -152,7 +129,7 @@ class HomeTestResultCellModelTests: CWATestCase {
 				expectationButtonImage.fulfill()
 			}
 			.store(in: &subscriptions)
-		
+
 		cellModel.$isActivityIndicatorHidden
 			.dropFirst()
 			.sink { receivedValue in
@@ -160,7 +137,7 @@ class HomeTestResultCellModelTests: CWATestCase {
 				expectationIndicatorVisibility.fulfill()
 			}
 			.store(in: &subscriptions)
-		
+
 		cellModel.$isUserInteractionEnabled
 			.dropFirst()
 			.sink { receivedValue in
@@ -177,14 +154,14 @@ class HomeTestResultCellModelTests: CWATestCase {
 			}
 			.store(in: &subscriptions)
 
-		coronaTestService.pcrTest?.testResult = .negative
-		coronaTestService.pcrTest?.testResult = .invalid
-		coronaTestService.pcrTest?.testResult = .positive
-		coronaTestService.pcrTest?.testResult = .expired
-		coronaTestService.pcrTestResultIsLoading = true
-				
+		coronaTestService.pcrTest.value?.testResult = .negative
+		coronaTestService.pcrTest.value?.testResult = .invalid
+		coronaTestService.pcrTest.value?.testResult = .positive
+		coronaTestService.pcrTest.value?.testResult = .expired
+		coronaTestService.pcrTestResultIsLoading.value = true
+
 		waitForExpectations(timeout: .short, handler: nil)
-		
+
 		subscriptions.forEach({ $0.cancel() })
 
 		XCTAssertEqual(receivedSubtitles, subtitleArray)

@@ -18,7 +18,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 	init(
 		parentViewController: UIViewController,
 		exposureSubmissionService: ExposureSubmissionService,
-		coronaTestService: CoronaTestService,
+		coronaTestService: CoronaTestServiceProviding,
 		healthCertificateService: HealthCertificateService,
 		healthCertificateValidationService: HealthCertificateValidationProviding,
 		eventProvider: EventProviding,
@@ -258,6 +258,9 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 				guard let self = self, let coronaTest = self.model.coronaTest else { return }
 
 				guard coronaTest.isSubmissionConsentGiven else {
+					self.model.coronaTestService.createCoronaTestEntryInContactDiary(
+						coronaTestType: self.model.coronaTestType
+					)
 					self.showTestResultScreen()
 					return
 				}
@@ -275,6 +278,9 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 					if error == .notAuthorized {
 						Log.info("OS submission authorization was declined.")
 						self.model.setSubmissionConsentGiven(false)
+						self.model.coronaTestService.createCoronaTestEntryInContactDiary(
+							coronaTestType: self.model.coronaTestType
+					 )
 						self.showTestResultScreen()
 					} else {
 						self.showErrorAlert(for: error)
@@ -616,6 +622,9 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 			if self?.model.coronaTest?.positiveTestResultWasShown == true {
 				self?.showThankYouScreen()
 			} else {
+				self?.model.coronaTestService.createCoronaTestEntryInContactDiary(
+					coronaTestType: self?.model.coronaTestType
+				   )
 				self?.showTestResultScreen()
 			}
 		}
@@ -1228,7 +1237,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 				self?.showAntigenTestProfileInput(editMode: true)
 			},
 			didTapDeleteProfile: { [weak self] in
-				self?.navigationController?.popViewController(animated: true)
+				self?.navigationController?.popToRootViewController(animated: true)
 			}, dismiss: { [weak self] in self?.dismiss() }
 		)
 
@@ -1283,7 +1292,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 
 		let testCertificateViewController = ExposureSubmissionTestCertificateViewController(
 			ExposureSubmissionTestCertificateViewModel(
-				testType: testRegistrationInformation.testType,
+				isRapidTest: testRegistrationInformation.isRapidTest,
 				presentDisclaimer: { [weak self] in
 					self?.showDataPrivacy()
 				}
@@ -1565,7 +1574,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 				title: AppStrings.ExposureSubmissionError.qrNotExistTitle,
 				message: error.localizedDescription
 			)
-		case .serviceError(.receivedResourceError(let teleTanError)):
+		case .teleTanError(.receivedResourceError(let teleTanError)):
 			switch teleTanError {
 			case .qrAlreadyUsed:
 				alert = UIAlertController.errorAlert(
@@ -1596,9 +1605,9 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 			// don't save expired tests after registering them
 			switch testQRCodeInformation.testType {
 			case .antigen:
-				model.coronaTestService.antigenTest = nil
+				model.coronaTestService.antigenTest.value = nil
 			case .pcr:
-				model.coronaTestService.pcrTest = nil
+				model.coronaTestService.pcrTest.value = nil
 			}
 
 		default:
@@ -1642,7 +1651,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 				switch testQRCodeInformation {
 				case .teleTAN:
 					self?.showTestResultScreen()
-				case .antigen, .pcr:
+				case .antigen, .pcr, .rapidPCR:
 					switch testResult {
 					case .positive:
 						self?.showTestResultAvailableScreen()

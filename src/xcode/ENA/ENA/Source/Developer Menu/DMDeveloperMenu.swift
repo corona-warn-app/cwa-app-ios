@@ -49,12 +49,12 @@ final class DMDeveloperMenu {
 		exposureSubmissionService: ExposureSubmissionService,
 		environmentProvider: EnvironmentProviding,
 		otpService: OTPServiceProviding,
-		coronaTestService: CoronaTestService,
+		coronaTestService: CoronaTestServiceProviding,
 		eventStore: EventStoringProviding,
 		qrCodePosterTemplateProvider: QRCodePosterTemplateProviding,
 		ppacService: PrivacyPreservingAccessControl,
-		healthCertificateService: HealthCertificateService
-
+		healthCertificateService: HealthCertificateService,
+		cache: KeyValueCaching
 	) {
 		self.client = client
 		self.restServiceProvider = restServiceProvider
@@ -71,6 +71,7 @@ final class DMDeveloperMenu {
 		self.qrCodePosterTemplateProvider = qrCodePosterTemplateProvider
 		self.ppacService = ppacService
 		self.healthCertificateService = healthCertificateService
+		self.cache = cache
 	}
 
 	// MARK: - Internal
@@ -98,7 +99,8 @@ final class DMDeveloperMenu {
 			eventStore: eventStore,
 			qrCodePosterTemplateProvider: qrCodePosterTemplateProvider,
 			ppacService: ppacService,
-			healthCertificateService: healthCertificateService
+			healthCertificateService: healthCertificateService,
+			cache: cache
 		)
 		
 		let closeBarButtonItem = UIBarButtonItem(
@@ -138,10 +140,11 @@ final class DMDeveloperMenu {
 	private let developerStore: DMStore
 	private let environmentProvider: EnvironmentProviding
 	private let otpService: OTPServiceProviding
-	private let coronaTestService: CoronaTestService
+	private let coronaTestService: CoronaTestServiceProviding
 	private let qrCodePosterTemplateProvider: QRCodePosterTemplateProviding
 	private let ppacService: PrivacyPreservingAccessControl
 	private let healthCertificateService: HealthCertificateService
+	private let cache: KeyValueCaching
 
 	@objc
 	private func _showDeveloperMenu(_: UITapGestureRecognizer) {

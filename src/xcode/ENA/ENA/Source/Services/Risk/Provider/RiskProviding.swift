@@ -9,7 +9,6 @@ typealias RiskProviderResult = Result<Risk, RiskProviderError>
 
 enum RiskProviderError: Error {
 	case inactive
-	case deactivatedDueToActiveTest
 	case timeout
 	case riskProviderIsRunning
 	case missingAppConfig
@@ -36,30 +35,17 @@ enum RiskProviderError: Error {
 		return false
 	}
 
-	var shouldBeDisplayedToUser: Bool {
-		!isENError16DataInaccessible
-	}
-
-	private var isENError16DataInaccessible: Bool {
-		guard case let .failedRiskDetection(didEndPrematuralyReason) = self,
-			  case let .noExposureWindows(noExposureWindowsError, _) = didEndPrematuralyReason,
-			  let enError = noExposureWindowsError as? ENError else {
-			return false
-		}
-
-		return enError.code == .dataInaccessible
-	}
 }
 
 enum RiskProviderActivityState: Int {
 	case idle
-	case onlyDownloadsRequested
 	case riskRequested
+	case riskManuallyRequested
 	case downloading
 	case detecting
 
 	var isActive: Bool {
-		self == .downloading || self == .detecting
+		self == .downloading || self == .detecting || self == .riskManuallyRequested
 	}
 }
 

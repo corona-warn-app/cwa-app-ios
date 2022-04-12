@@ -15,14 +15,18 @@ class HomeCoordinator: RequiresAppDependencies {
 		otpService: OTPServiceProviding,
 		ppacService: PrivacyPreservingAccessControl,
 		eventStore: EventStoringProviding,
-		coronaTestService: CoronaTestService,
+		coronaTestService: CoronaTestServiceProviding,
 		healthCertificateService: HealthCertificateService,
 		healthCertificateValidationService: HealthCertificateValidationProviding,
 		elsService: ErrorLogSubmissionProviding,
 		exposureSubmissionService: ExposureSubmissionService,
 		qrScannerCoordinator: QRScannerCoordinator,
 		recycleBin: RecycleBin,
-		restServiceProvider: RestServiceProviding
+		restServiceProvider: RestServiceProviding,
+		badgeWrapper: HomeBadgeWrapper,
+		cache: KeyValueCaching,
+		cclService: CCLServable,
+		homeState: HomeState
 	) {
 		self.delegate = delegate
 		self.otpService = otpService
@@ -36,8 +40,10 @@ class HomeCoordinator: RequiresAppDependencies {
 		self.qrScannerCoordinator = qrScannerCoordinator
 		self.recycleBin = recycleBin
 		self.restServiceProvider = restServiceProvider
-
-		setupHomeBadgeCount()
+		self.badgeWrapper = badgeWrapper
+		self.cache = cache
+		self.cclService = cclService
+		self.homeState = homeState
 	}
 
 	deinit {
@@ -50,33 +56,33 @@ class HomeCoordinator: RequiresAppDependencies {
 
 	func showHome(enStateHandler: ENStateHandler, route: Route?) {
 		guard homeController == nil else {
-			guard case .rapidAntigen = route else {
+			switch route {
+			case .rapidAntigen, .rapidPCR:
+				// only select tab if route is .rapidAntigen or .rapidPCR
+				selectHomeTabSection(route: route)
+				return
+			case .testResultFromNotification,
+				 .checkIn,
+				 .healthCertificateFromNotification,
+				 .healthCertifiedPersonFromNotification,
+				 .none:
 				rootViewController.dismiss(animated: false)
 				rootViewController.popToRootViewController(animated: false)
 				homeController?.scrollToTop(animated: false)
 				return
 			}
-			// only select tab if route is .rapidAntigen
-			selectHomeTabSection(route: route)
-			return
 		}
-		let homeState = HomeState(
-			store: store,
-			riskProvider: riskProvider,
-			exposureManagerState: exposureManager.exposureManagerState,
-			enState: enStateHandler.state,
-			statisticsProvider: statisticsProvider,
-			localStatisticsProvider: localStatisticsProvider
-		)
 
 		let homeController = HomeTableViewController(
 			viewModel: HomeTableViewModel(
 				state: homeState,
 				store: store,
+				appConfiguration: appConfigurationProvider,
 				coronaTestService: coronaTestService,
 				onTestResultCellTap: { [weak self] coronaTestType in
 					self?.showExposureSubmission(testType: coronaTestType)
-				}
+				},
+				badgeWrapper: badgeWrapper
 			),
 			appConfigurationProvider: appConfigurationProvider,
 			route: route,
@@ -107,6 +113,10 @@ class HomeCoordinator: RequiresAppDependencies {
 			onFAQCellTap: { [weak self] in
 				guard let self = self else { return }
 				self.showWebPage(urlString: AppStrings.SafariView.targetURL)
+			},
+			onSocialMediaCellTap: { [weak self] in
+				guard let self = self else { return }
+				self.showWebPage(urlString: AppStrings.SafariView.socialMedia)
 			},
 			onAppInformationCellTap: { [weak self] in
 				self?.showAppInformation()
@@ -145,9 +155,9 @@ class HomeCoordinator: RequiresAppDependencies {
 			}
 		)
 
-		self.homeState = homeState
 		self.homeController = homeController
 		addToEnStateUpdateList(homeState)
+		setupHomeBadgeCount()
 
 		UIView.transition(with: rootViewController.view, duration: CATransaction.animationDuration(), options: [.transitionCrossDissolve], animations: {
 			self.rootViewController.setViewControllers([homeController], animated: false)
@@ -170,7 +180,7 @@ class HomeCoordinator: RequiresAppDependencies {
 	func updateDetectionMode(
 		_ detectionMode: DetectionMode
 	) {
-		homeState?.updateDetectionMode(detectionMode)
+		homeState.updateDetectionMode(detectionMode)
 	}
 
 	// MARK: - Private
@@ -178,7 +188,7 @@ class HomeCoordinator: RequiresAppDependencies {
 	private let ppacService: PrivacyPreservingAccessControl
 	private let otpService: OTPServiceProviding
 	private let eventStore: EventStoringProviding
-	private let coronaTestService: CoronaTestService
+	private let coronaTestService: CoronaTestServiceProviding
 	private let elsService: ErrorLogSubmissionProviding
 	private let healthCertificateService: HealthCertificateService
 	private let healthCertificateValidationService: HealthCertificateValidationProviding
@@ -186,9 +196,12 @@ class HomeCoordinator: RequiresAppDependencies {
 	private let qrScannerCoordinator: QRScannerCoordinator
 	private let recycleBin: RecycleBin
 	private let restServiceProvider: RestServiceProviding
+	private let badgeWrapper: HomeBadgeWrapper
+	private let cache: KeyValueCaching
+	private let cclService: CCLServable
 
 	private var homeController: HomeTableViewController?
-	private var homeState: HomeState?
+	private var homeState: HomeState
 	private var settingsController: SettingsViewController?
 	private var traceLocationsCoordinator: TraceLocationsCoordinator?
 	private var settingsCoordinator: SettingsCoordinator?
@@ -198,38 +211,6 @@ class HomeCoordinator: RequiresAppDependencies {
 	private var subscriptions = Set<AnyCancellable>()
 
 	private weak var delegate: CoordinatorDelegate?
-	   
-	private lazy var statisticsProvider: StatisticsProvider = {
-			#if DEBUG
-			if isUITesting {
-				return StatisticsProvider(
-					client: CachingHTTPClientMock(),
-					store: store
-				)
-			}
-			#endif
-
-			return StatisticsProvider(
-				client: CachingHTTPClient(),
-				store: store
-			)
-		}()
-	
-	private lazy var localStatisticsProvider: LocalStatisticsProviding = {
-			#if DEBUG
-			if isUITesting {
-				return LocalStatisticsProvider(
-					client: CachingHTTPClientMock(),
-					store: store
-				)
-			}
-			#endif
-
-			return LocalStatisticsProvider(
-				client: CachingHTTPClient(),
-				store: store
-			)
-		}()
 
 	private lazy var qrCodePosterTemplateProvider: QRCodePosterTemplateProvider = {
 		return QRCodePosterTemplateProvider(
@@ -247,8 +228,7 @@ class HomeCoordinator: RequiresAppDependencies {
 
 	private lazy var healthCertificateValidationOnboardedCountriesProvider: HealthCertificateValidationOnboardedCountriesProvider = {
 		return HealthCertificateValidationOnboardedCountriesProvider(
-			store: store,
-			client: client
+			restService: restServiceProvider
 		)
 	}()
 
@@ -278,7 +258,8 @@ class HomeCoordinator: RequiresAppDependencies {
 		let riskLegendViewController = RiskLegendViewController(
 			onDismiss: { [weak rootViewController] in
 				rootViewController?.dismiss(animated: true)
-			}
+			},
+			appConfigProvider: appConfigurationProvider
 		)
 
 		rootViewController.present(
@@ -301,10 +282,6 @@ class HomeCoordinator: RequiresAppDependencies {
 	}
 
 	private func showExposureDetection(state: HomeState) {
-		guard let homeState = homeState else {
-			return
-		}
-
 		exposureDetectionCoordinator = ExposureDetectionCoordinator(
 			rootViewController: rootViewController,
 			store: store,
@@ -383,7 +360,8 @@ class HomeCoordinator: RequiresAppDependencies {
 	private func showAppInformation() {
 		rootViewController.pushViewController(
 			AppInformationViewController(
-				elsService: elsService
+				elsService: elsService,
+				cclService: cclService
 			),
 			animated: true
 		)
@@ -485,10 +463,27 @@ class HomeCoordinator: RequiresAppDependencies {
 	}
 
 	private func setupHomeBadgeCount() {
-		coronaTestService.unseenTestsCount
+		// risk change might update the badge count string
+		homeState.$riskState
 			.receive(on: DispatchQueue.main.ocombine)
-			.sink { [weak self] in
-				self?.rootViewController.tabBarItem.badgeValue = $0 > 0 ? String($0) : nil
+			.sink { [weak self] riskState in
+				// check if risk level changed and if home screen tab is not selected
+				guard case let .risk(risk) = riskState,
+					  risk.riskLevelHasChanged,
+					  self?.rootViewController.tabBarController?.selectedViewController != self?.rootViewController
+				else {
+					Log.info("home screen tab is active - skipped to set tab bar badge")
+					return
+				}
+				self?.badgeWrapper.update(.riskStateChanged, value: 1)
+			}
+			.store(in: &subscriptions)
+
+		// badge count string updates gets shown inside UI
+		badgeWrapper.$stringValue
+			.receive(on: DispatchQueue.main.ocombine)
+			.sink { [weak self] badgeStringValue in
+				self?.rootViewController.tabBarItem.badgeValue = badgeStringValue
 			}
 			.store(in: &subscriptions)
 	}
@@ -513,7 +508,8 @@ class HomeCoordinator: RequiresAppDependencies {
 			eventStore: eventStore,
 			qrCodePosterTemplateProvider: qrCodePosterTemplateProvider,
 			ppacService: ppacService,
-			healthCertificateService: healthCertificateService
+			healthCertificateService: healthCertificateService,
+			cache: cache
 		)
 		developerMenu?.enableIfAllowed()
 	}
@@ -522,14 +518,14 @@ class HomeCoordinator: RequiresAppDependencies {
 
 extension HomeCoordinator: ExposureStateUpdating {
 	func updateExposureState(_ state: ExposureManagerState) {
-		homeState?.updateExposureManagerState(state)
+		homeState.updateExposureManagerState(state)
 		settingsController?.updateExposureState(state)
 	}
 }
 
 extension HomeCoordinator: ENStateHandlerUpdating {
 	func updateEnState(_ state: ENStateHandler.State) {
-		homeState?.updateEnState(state)
+		homeState.updateEnState(state)
 		updateAllState(state)
 	}
 

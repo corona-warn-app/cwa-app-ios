@@ -26,15 +26,18 @@ class RecycleBinItemCellModelTests: CWATestCase {
 			)
 		)
 
+		let deletionDate = Date()
 		let viewModel = RecycleBinItemCellModel(
-			recycleBinItem: RecycleBinItem(recycledAt: Date(), item: .certificate(healthCertificate))
+			recycleBinItem: RecycleBinItem(recycledAt: deletionDate, item: .certificate(healthCertificate))
 		)
-
+		let expirationDate = Calendar.current.date(byAdding: .day, value: 30, to: deletionDate)
+		
 		XCTAssertEqual(viewModel.iconImage, UIImage(imageLiteralResourceName: "Icons_RecycleBin_Certificate"))
 		XCTAssertEqual(viewModel.name, "Erika Dörte Schmidt-Mustermann")
 		XCTAssertEqual(viewModel.title, "Impfzertifikat")
 		XCTAssertEqual(viewModel.secondaryInfo, "Impfung 1 von 2")
 		XCTAssertEqual(viewModel.tertiaryInfo, "geimpft am 03.02.21")
+		XCTAssertEqual(viewModel.quaternaryInfo, "wird am \(DateFormatter.localizedString(from: expirationDate ?? Date(), dateStyle: .short, timeStyle: .none)) um \(DateFormatter.localizedString(from: expirationDate ?? Date(), dateStyle: .none, timeStyle: .short)) endgültig gelöscht")
 	}
 
 	func testViewModelWithPCRTestCertificate() throws {
@@ -55,15 +58,18 @@ class RecycleBinItemCellModelTests: CWATestCase {
 			)
 		)
 
+		let deletionDate = Date()
 		let viewModel = RecycleBinItemCellModel(
 			recycleBinItem: RecycleBinItem(recycledAt: Date(), item: .certificate(healthCertificate))
 		)
-
+		let expirationDate = Calendar.current.date(byAdding: .day, value: 30, to: deletionDate)
+		
 		XCTAssertEqual(viewModel.iconImage, UIImage(imageLiteralResourceName: "Icons_RecycleBin_Certificate"))
 		XCTAssertEqual(viewModel.name, "Tina Maria Schmidt-Mustermann")
 		XCTAssertEqual(viewModel.title, "Testzertifikat")
 		XCTAssertEqual(viewModel.secondaryInfo, "PCR-Test")
 		XCTAssertEqual(viewModel.tertiaryInfo, "Probenahme am 29.05.21")
+		XCTAssertEqual(viewModel.quaternaryInfo, "wird am \(DateFormatter.localizedString(from: expirationDate ?? Date(), dateStyle: .short, timeStyle: .none)) um \(DateFormatter.localizedString(from: expirationDate ?? Date(), dateStyle: .none, timeStyle: .short)) endgültig gelöscht")
 	}
 
 	func testViewModelWithAntigenTestCertificate() throws {
@@ -84,15 +90,18 @@ class RecycleBinItemCellModelTests: CWATestCase {
 			)
 		)
 
+		let deletionDate = Date()
 		let viewModel = RecycleBinItemCellModel(
 			recycleBinItem: RecycleBinItem(recycledAt: Date(), item: .certificate(healthCertificate))
 		)
+		let expirationDate = Calendar.current.date(byAdding: .day, value: 30, to: deletionDate)
 
 		XCTAssertEqual(viewModel.iconImage, UIImage(imageLiteralResourceName: "Icons_RecycleBin_Certificate"))
 		XCTAssertEqual(viewModel.name, "Tina Maria Schmidt-Mustermann")
 		XCTAssertEqual(viewModel.title, "Testzertifikat")
 		XCTAssertEqual(viewModel.secondaryInfo, "Schnelltest")
 		XCTAssertEqual(viewModel.tertiaryInfo, "Probenahme am 28.05.21")
+		XCTAssertEqual(viewModel.quaternaryInfo, "wird am \(DateFormatter.localizedString(from: expirationDate ?? Date(), dateStyle: .short, timeStyle: .none)) um \(DateFormatter.localizedString(from: expirationDate ?? Date(), dateStyle: .none, timeStyle: .short)) endgültig gelöscht")
 	}
 
 	func testViewModelWithTestCertificateOfUnknownType() throws {
@@ -134,22 +143,25 @@ class RecycleBinItemCellModelTests: CWATestCase {
 					),
 					recoveryEntries: [
 						.fake(
-							certificateValidUntil: "2022-03-18T07:12:45.132Z"
+							dateOfFirstPositiveNAAResult: "2022-03-01T07:12:45.132Z"
 						)
 					]
 				)
 			)
 		)
 
+		let deletionDate = Date()
 		let viewModel = RecycleBinItemCellModel(
 			recycleBinItem: RecycleBinItem(recycledAt: Date(), item: .certificate(healthCertificate))
 		)
+		let expirationDate = Calendar.current.date(byAdding: .day, value: 30, to: deletionDate)
 
 		XCTAssertEqual(viewModel.iconImage, UIImage(imageLiteralResourceName: "Icons_RecycleBin_Certificate"))
 		XCTAssertEqual(viewModel.name, "Erika Dörte Schmidt-Mustermann")
 		XCTAssertEqual(viewModel.title, "Genesenenzertifikat")
 		XCTAssertNil(viewModel.secondaryInfo)
-		XCTAssertEqual(viewModel.tertiaryInfo, "gültig bis 18.03.22")
+		XCTAssertEqual(viewModel.tertiaryInfo, "Positiver Test vom 01.03.22")
+		XCTAssertEqual(viewModel.quaternaryInfo, "wird am \(DateFormatter.localizedString(from: expirationDate ?? Date(), dateStyle: .short, timeStyle: .none)) um \(DateFormatter.localizedString(from: expirationDate ?? Date(), dateStyle: .none, timeStyle: .short)) endgültig gelöscht")
 	}
 
 	func testViewModelWithPCRTest() throws {

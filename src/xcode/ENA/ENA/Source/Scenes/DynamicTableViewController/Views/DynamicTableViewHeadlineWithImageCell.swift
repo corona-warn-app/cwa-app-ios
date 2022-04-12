@@ -30,6 +30,8 @@ class DynamicTableViewHeadlineWithImageCell: UITableViewCell {
 		headlineLabel.text = headline
 		backgroundImageView.image = image
 		topInsetConstraint.constant = topInset
+		imageHeightConstraint.constant = imageHeight
+		imageHeightConstraint.isActive = isDownScalingEnabled
 
 		backgroundImageView.accessibilityLabel = imageAccessibilityLabel
 		backgroundImageView.isAccessibilityElement = imageAccessibilityLabel != nil
@@ -41,9 +43,10 @@ class DynamicTableViewHeadlineWithImageCell: UITableViewCell {
 
 	private let headlineLabel = ENALabel(style: .title1)
 	private let backgroundImageView = UIImageView()
-	private let gradientView = GradientView(type: .whiteToLightBlue)
+	private let gradientView = GradientView(type: .whiteToLightBlue, withStars: false)
 
 	private var topInsetConstraint: NSLayoutConstraint!
+	private var imageHeightConstraint: NSLayoutConstraint!
 
 	private func setupView() {
 		gradientView.translatesAutoresizingMaskIntoConstraints = false
@@ -58,6 +61,7 @@ class DynamicTableViewHeadlineWithImageCell: UITableViewCell {
 		contentView.addSubview(backgroundImageView)
 
 		topInsetConstraint = headlineLabel.topAnchor.constraint(equalTo: contentView.topAnchor)
+		imageHeightConstraint = backgroundImageView.heightAnchor.constraint(equalToConstant: 100.0)
 
 		NSLayoutConstraint.activate(
 			[
@@ -73,9 +77,28 @@ class DynamicTableViewHeadlineWithImageCell: UITableViewCell {
 
 				backgroundImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
 				backgroundImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-				backgroundImageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
+				backgroundImageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+				imageHeightConstraint
 			]
 		)
 	}
 
+	/// UIImageView mode .scaleAspectFit will center the image with clear borders.
+	/// By calculation the resulting height, we can set a layout constraint, this will draw the image without borders.
+	private var imageHeight: CGFloat {
+		guard let originalSize = backgroundImageView.image?.size else {
+			Log.info("No image found - height must be 0.0")
+			return 0.0
+		}
+		let screenSize = UIScreen.main.bounds.size
+		return screenSize.width * originalSize.height / originalSize.width
+	}
+
+	private var isDownScalingEnabled: Bool {
+		guard let originalSize = backgroundImageView.image?.size,
+			  UIScreen.main.bounds.size.width < originalSize.width else {
+				  return false
+			  }
+		return true
+	}
 }

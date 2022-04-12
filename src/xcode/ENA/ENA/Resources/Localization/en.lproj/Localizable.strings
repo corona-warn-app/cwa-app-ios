@@ -116,21 +116,21 @@
 
 "ExposureDetection_Guide_Symptoms" = "Be alert for typical symptoms. Even vaccinated people and those who have recovered can develop symptoms. If you feel sick or develop any symptoms, please contact your family doctor.";
 
-"ExposureDetection_Guide_Home" = "If possible, please go home and stay at home and avoid any encounters outside of your own household..";
+"ExposureDetection_Guide_Home" = "If possible, please go home and stay at home and avoid any encounters outside of your own household.";
 
-"ExposureDetection_Guide_Hotline" = "If you have any other questions, please contact the general medical emergency service on telephone number 116 117.";
+"ExposureDetection_Guide_Hotline" = "If you have any questions, please call 116 117 (in Germany). Then, during the automated message, press 2 for the Federal Ministry of Health service point. Only press 1 (the general medical emergency service) if you have symptoms.";
 
 "ExposureDetection_Guide_Vaccination_HighRisk" = "If you have not been vaccinated yet, consult with your family doctor after you get tested.";
 
-"ExposureDetection_Guide_Title" = "Please get tested, even if you don’t have any symptoms. If you get a warning of increased risk (“red tile”), you are entitled to a test free of charge. It does not necessarily have to be a PCR test.\n";
+"ExposureDetection_Guide_Title" = "Please get tested, even if you don’t have any symptoms. If you get a warning of increased risk (“red tile”), you are entitled to a test free of charge. It does not necessarily have to be a PCR test.";
 
-"ExposureDetection_Guide_Point1" = "You can find testing possibilities here or contact your family doctor or a pharmacy.";
+"ExposureDetection_Guide_Point1" = "You can find testing possibilities here. You can also contact your family doctor or a pharmacy.";
 
-"ExposureDetection_Guide_Point1_LinkText" = "here";
+"ExposureDetection_Guide_Point1_LinkText" = "You can find testing possibilities here.";
 
 "ExposureDetection_Guide_Point2" = "More information about the testing procedure is available on our FAQ page.";
 
-"ExposureDetection_Guide_Point2_LinkText" = "FAQ";
+"ExposureDetection_Guide_Point2_LinkText" = "More information about the testing procedure is available on our FAQ page.";
 
 "ExposureDetection_Explanation_Title" = "Risk of Infection";
 
@@ -150,7 +150,7 @@
 
 "ExposureDetection_Explanation_Text_High_DateOfLastExposure" = "You have an increased risk of infection because you were exposed over a longer period of time and at close proximity to at least one person diagnosed with coronavirus.";
 
-"ExposureDetection_Explanation_Text_High" = "Therefore, your risk of infection has been ranked as increased. \nYour risk of infection is calculated from the exposure logging data (duration and proximity) locally on your smartphone. Your risk of infection cannot be seen by, or passed on to, anyone else. \nWhen you get home, please also avoid close contact with members of your family or household.";
+"ExposureDetection_Explanation_Text_High" = "Therefore, your risk of infection has been classified as increased.\nYour risk of infection is calculated from the exposure logging data (duration and proximity) locally on your device. Your risk of infection cannot be seen by, or passed on to, anyone else.";
 
 "ExposureDetection_LowRiskExposure_Title" = "Exposures with low risk";
 
@@ -186,7 +186,7 @@
 
 "ExposureDetection_Info_HygieneRules_Title" = "Hygiene Rules";
 
-"ExposureDetection_Info_HygieneRules_Point1" = "Wear a mask during encounters with other people.";
+"ExposureDetection_Info_HygieneRules_Point1" = "Wear a face mask when you encounter other people.";
 
 "ExposureDetection_Info_HygieneRules_Point2" = "Keep at least 1.5 meters distance from other people.";
 
@@ -214,13 +214,13 @@
 
 "ExposureDetection_Info_Contagion_Point5" = "Travel: Do not travel by plane or train.";
 
-"ExposureDetection_Info_Contagion_Point6" = "If you have questions about quarantine measures, please contact your public health department.";
+"ExposureDetection_Info_Contagion_Point6" = "If you have questions about quarantine measures, please contact your public health department. For further information, please see our FAQ page on quarantine measures.";
 
-"ExposureDetection_Info_Contagion_Point6_LinkText" = "questions about quarantine";
+"ExposureDetection_Info_Contagion_Point6_LinkText" = "For further information, please see our FAQ page on quarantine measures.";
 
 "ExposureDetection_Info_Contagion_Footer" = "Additional information is available on our FAQ page on voluntary self-quarantine.";
 
-"ExposureDetection_Info_Contagion_Footer_LinkText" = "FAQ page on voluntary self-quarantine";
+"ExposureDetection_Info_Contagion_Footer_LinkText" = "Additional information is available on our FAQ page on voluntary self-quarantine.";
 
 /* Survey Errors */
 "SurveyConsent_Error_Title" = "Error";
@@ -268,7 +268,7 @@
 "ExposureDetection_ActiveTracingSection_Subtitle" = "This period is included in the calculation.";
 
 /* There are two paragraphs in this section. The first one just contains text… */
-"ExposureDetection_ActiveTracingSection_Text_Paragraph0" = "Your risk of infection can be calculated only for periods during which exposure logging was active. The logging feature should therefore remain active permanently. Exposure logging covers the last 14 days.";
+"ExposureDetection_ActiveTracingSection_Text_Paragraph0" = "Your risk of infection can be calculated only for periods during which exposure logging was active. The logging feature should therefore remain active permanently. Exposure logging covers the last %u days.";
 
 "ExposureDetection_ActiveTracingSection_Text_Paragraph1b" = "If exposure logging was active at times during which you encountered other people, your risk of infection can be calculated for this period.";
 
@@ -321,7 +321,7 @@
 
 "Settings_DaysSinceInstall_SubTitle" = "This period is included in the calculation.";
 
-"Settings_DaysSinceInstall_P1" = "Your risk of infection can be calculated only for periods during which exposure logging was active. The logging feature should therefore remain active permanently. Exposure logging covers the last 14 days.";
+"Settings_DaysSinceInstall_P1" = "Your risk of infection can be calculated only for periods during which exposure logging was active. The logging feature should therefore remain active permanently. Exposure logging covers the last %u days.";
 
 "Settings_DaysSinceInstall_P2b" = "If exposure logging was active at times during which you encountered other people, your risk of infection can be calculated for this period.";
 
@@ -450,7 +450,7 @@
 
 "OnboardingInfo_togetherAgainstCoronaPage_boldText" = "More protection for you and for us all. By using the Corona-Warn-App we can break chains of infection much quicker.";
 
-"OnboardingInfo_togetherAgainstCoronaPage_normalText" = "Turn your device into a coronavirus warning system. Get an overview of your risk status and find out whether you’ve had close contact with people diagnosed with coronavirus in the last 14 days. \n\nThe app logs encounters between individuals by exchanging encrypted, random IDs between their smartphones, whereby no personal data whatsoever is accessed.\n\nIf you want, you can use the app to prove your personal infection status (a negative rapid test, for example). Please note, however, that you are under no obligation to use the app to prove your infection status. You can also prove your infection status in another manner compliant with the legal regulations at your residence.\n\nYou can also prove your personal vaccination status.\n\nThe app logs encounters between individuals by exchanging encrypted, random IDs between their smartphones, whereby no personal data whatsoever is accessed.";
+"OnboardingInfo_togetherAgainstCoronaPage_normalText" = "Turn your device into a coronavirus warning system. Get an overview of your risk status and find out whether you’ve had close contact with people diagnosed with coronavirus in the last %u days. \n\nThe app logs encounters between individuals by exchanging encrypted, random IDs between their smartphones, whereby no personal data whatsoever is accessed.\n\nIf you want, you can use the app to prove your personal infection status (a negative rapid test, for example). Please note, however, that you are under no obligation to use the app to prove your infection status. You can also prove your infection status in another manner compliant with the legal regulations at your residence.\n\nYou can also prove your personal vaccination status.\n\nThe app logs encounters between individuals by exchanging encrypted, random IDs between their smartphones, whereby no personal data whatsoever is accessed.";
 
 "OnboardingInfo_togetherAgainstCoronaPage_linkText" = "App Information in Simplified Language and Sign Language";
 
@@ -460,7 +460,7 @@
 
 "OnboardingInfo_privacyPage_boldText" = "";
 
-"OnboardingInfo_privacyPage_normalText" = "You will remain anonymous.\nYour data is fully encrypted and transmitted under a pseudonym.\n\nResponsible body: GDPR, article 4, para. 7:\n\nRobert Koch-Institute\nNordufer 20\n13353 Berlin\nPlease read our data privacy regulations.\n\nData privacy information:";
+"OnboardingInfo_privacyPage_normalText" = "You will remain anonymous.\nYour data is fully encrypted and transmitted under a pseudonym.\n\nController pursuant to GDPR, article 4 (7):\n\nRobert Koch-Institute\nNordufer 20\n13353 Berlin\nPlease read our data privacy regulations.\n\nData privacy information:";
 
 "OnboardingInfo_enableLoggingOfContactsPage_imageDescription" = "Three persons have activated exposure logging on their devices, which will log their encounters with each other.";
 
@@ -597,7 +597,7 @@
 
 "ExposureSubmission_PhoneDetailsForeign" = "For calls from outside Germany.\nThe fees from your telephone provider will apply.";
 
-"ExposureSubmission_PhoneDetailDescription" = "Our customer service is available in the following languages: \nEnglish, German, Turkish\n\nBusiness hours:\n24/7\n\nIf you have any health-related questions, please contact your general practitioner or the medical emergency service hotline; telephone: 116 117.";
+"ExposureSubmission_PhoneDetailDescription" = "Our customer service is available in the following languages: \nEnglish, German, Turkish\n\nBusiness hours:\nDaily (including weekends): 7am – 8pm (CET)\n\nIf you have any questions, please call 116 117 (in Germany). Then, during the automated message, press 2 for the Federal Ministry of Health service point. Only press 1 (the general medical emergency service) if you have symptoms.";
 
 "ExposureSubmission_SectionDescription2" = "Register your PCR test by entering the TAN in the app.";
 
@@ -616,15 +616,9 @@
 
 "ExposureSubmissionQRInfo_header_section_1" = "Retrieve Test Result";
 
-"ExposureSubmissionQRInfo_instruction1" = "Now scan the QR code for your test and retrieve your test result.";
+"ExposureSubmissionQRInfo_instruction1" = "Each test can only be scanned once. The app can manage a maximum of one rapid test and one PCR test at the same time.";
 
-"ExposureSubmissionQRInfo_instruction2" = "Each test can only be scanned once. The app can manage a maximum of one rapid test and one PCR test at the same time.";
-
-"ExposureSubmissionQRInfo_instruction2a" = "If your test result is negative, you can confirm this with an official COVID test certificate. To do so, request the test certificate in the following steps.";
-
-"ExposureSubmissionQRInfo_instruction3" = "The app can%@ manage multiple tests at the same time.";
-
-"ExposureSubmissionQRInfo_instruction3_highlightedPhrase" = "not";
+"ExposureSubmissionQRInfo_instruction2" = "If your test result is negative, you can confirm this with an official COVID test certificate. To do so, request the test certificate in the following steps.";
 
 "ExposureSubmissionQRInfo_header_section_2" = "Please help others you have encountered by warning them!";
 
@@ -667,15 +661,21 @@
 
 "ExposureSubmissionSuccess_listTitle" = "Please note:";
 
-"ExposureSubmissionSuccess_listItem0" = "Take a PCR test to verify this test result. ";
+"ExposureSubmissionSuccess_PCR_listItem0" = "There is a high probability that you are infectious. Isolate yourself from other people.";
 
-"ExposureSubmissionSuccess_listItem1" = "The public health authority may contact you within the next few days.";
+"ExposureSubmissionSuccess_PCR_listItem1" = "The public health authority may contact you within the next few days.";
 
-"ExposureSubmissionSuccess_listItem2" = "There is a high probability that you are infectious. Isolate yourself from other people.";
+"ExposureSubmissionSuccess_PCR_listItem2" = "If you have an increased risk for severe illness from COVID-19, obtain medical advice. Known risk factors include being over 60 years of age, immunosuppression, diabetes, and obesity.";
 
-"ExposureSubmissionSuccess_listItem2_1" = "Your isolation period is usually 14 days. Please monitor how your symptoms develop closely.";
+"ExposureSubmissionSuccess_RAT_listItem0" = "There is a high probability that you are infectious. Isolate yourself from other people.";
 
-"ExposureSubmissionSuccess_listItem2_2" = "You will be asked by your public health authority to create a list of people you have had contact with. This should include all people with whom you have had close contact with (less than 2 meters, face-to-face conversation) for over 15 minutes in the two days before you became ill. You can use your contact journal for this: simply export the entries and then print them out or send them via e-mail.";
+"ExposureSubmissionSuccess_RAT_listItem1" = "Take a PCR test to verify this test result.";
+
+"ExposureSubmissionSuccess_RAT_listItem2" = "The public health authority may contact you within the next few days.";
+
+"ExposureSubmissionSuccess_listItem2_1" = "Your isolation period is usually 10 days. Please monitor how your symptoms develop closely.";
+
+"ExposureSubmissionSuccess_listItem2_2" = "You will be asked by your public health authority to create a list of people you have had contact with. This should include all people with whom you have had close contact with (less than 2 meters, face-to-face conversation) for over 10 minutes in the two days before you became ill. You can use your contact journal for this: simply export the entries and then print them out or send them via e-mail.";
 
 "ExposureSubmissionSuccess_listItem2_3" = "Please particularly consider people who will not be notified directly by the app since they don’t own a smartphone, or haven’t installed the app.";
 
@@ -711,7 +711,7 @@
 
 "ExposureSubmissionResult_Title_Antigen" = "Rapid Test";
 
-"ExposureSubmissionResult_CardSubTitle" = "Your Diagnosis";
+"ExposureSubmissionResult_CardSubTitle" = "Your PCR test result";
 
 "ExposureSubmissionResult_CardSubTitle_Antigen" = "Your rapid test result";
 
@@ -747,13 +747,13 @@
 
 "ExposureSubmissionResult_testNegative_furtherInfos_title" = "Other information:";
 
-"ExposureSubmissionResult_testNegative_furtherInfos_listItem1" = "Still feeling unwell? If you feel very poorly and/or your symptoms have worsened, please contact your general practitioner.";
+"ExposureSubmissionResult_testNegative_furtherInfos_desc" = "Do you have acute symptoms anyway?";
 
-"ExposureSubmissionResult_testNegative_furtherInfos_listItem2" = "Remain at home until you feel well again. If you were to get infected with coronavirus (SARS-CoV-2) whilst weakened from another infection, this could lead to a serious illness.";
+"ExposureSubmissionResult_testNegative_furtherInfos_listItem1" = "Remain at home to the extent possible until you feel well again. Reduce your risk of being infected with coronavirus in addition to a different infection.";
 
-"ExposureSubmissionResult_testNegative_furtherInfos_listItem3" = "Do not go to work if you feel unwell to ensure you do not put other people at risk.";
+"ExposureSubmissionResult_testNegative_furtherInfos_listItem2" = "Do not go to work if you feel unwell to ensure you do not put other people at risk.";
 
-"ExposureSubmissionResult_furtherInfos_hint_testAgain" = "If your symptoms worsen, you might need another SARS-CoV-2 test.";
+"ExposureSubmissionResult_testNegative_furtherInfos_listItem3" = "If you feel very ill or your symptoms get worse, please contact your family doctor. They can also advise you whether you should take another SARS-CoV-2 test.";
 
 "ExposureSubmissionResult_testInvalid" = "Your test cannot be evaluated";
 
@@ -916,9 +916,7 @@
 
 "ExposureSubmissionResult_Timer_Title" = "Result available since";
 
-"ExposureSubmissionResult_Negative_Antigen_Proof_Title" = " ";
-
-"ExposureSubmissionResult_Negative_Antigen_Proof_Desc" = "Your test result is private, although some laws may require you to share it. When required, you may show it via any of the ways provided.";
+"ExposureSubmissionResult_Negative_Antigen_Proof_Desc" = "To verifiably prove the result displayed here, an EU Digital Covid Certificate is required. If you requested a digital test certificate when you registered your test and the testing point supports the issuing of digital certificates, you can find your digital test certificate using the link specified above. You will also find the certificate on the “Certificates” tab.\nPlease also find out about the criteria for recognition and validity of test certificates in the context of the purpose for which you need proof.";
 
 "ExposureSubmissionResult_Negative_Antigen_NoProof_Title" = "No Verification Feature";
 
@@ -1032,7 +1030,7 @@
 
 "ExposureSubmission_TestCertificate_Information_BirthdayPlaceholder" = "Date of Birth";
 
-"ExposureSubmission_TestCertificate_Information_BirthdayText" = "For security purposes, your test result is protected with your date of birth. The test result can only be issued if you specify the correct date of birth.";
+"ExposureSubmission_TestCertificate_Information_BirthdayText" = "For security purposes, your test certificate is protected with your date of birth. The test certificate can only be issued if you specify the correct date of birth.";
 
 "ExposureSubmission_TestCertificate_Information_Dataprivacy_Title" = "For more detailed information about data processing, please refer to the privacy notice.";
 
@@ -1291,13 +1289,17 @@
 
 "Home_Finding_Positive_Card_Note_Title" = "Please note:";
 
-"Home_Finding_Positive_Card_Verify_Item_Title" = "Take a PCR test to verify this test result.";
+"Home_Finding_Positive_Card_PCR_Item0" = "There is a high probability that you are infectious. Isolate yourself from other people.";
 
-"Home_Finding_Positive_Card_Phone_Item_Title" = "The public health authority may contact you within the next few days.";
+"Home_Finding_Positive_Card_PCR_Item1" = "The public health authority may contact you within the next few days.";
 
-"Home_Finding_Positive_Card_Home_Item_Title" = "There is a high probability that you are infectious. Isolate yourself from other people.";
+"Home_Finding_Positive_Card_PCR_Item2" = "If you have an increased risk for severe illness from COVID-19, obtain medical advice. Known risk factors include being over 60 years of age, immunosuppression, diabetes, and obesity.";
 
-"Home_Finding_Positive_Card_Share_Item_Title" = "Share your random IDs so that others can be warned.";
+"Home_Finding_Positive_Card_RAT_Item0" = "There is a high probability that you are infectious. Isolate yourself from other people.";
+
+"Home_Finding_Positive_Card_RAT_Item1" = "Take a PCR test to verify this test result.";
+
+"Home_Finding_Positive_Card_RAT_Item2" = "The public health authority may contact you within the next few days.";
 
 "Home_Finding_Positive_Card_Button" = "Warn Others";
 
@@ -1328,19 +1330,30 @@
 
 "Home_MoreCard_FAQTitle" = "FAQ";
 
+"Home_MoreCard_SocialMedia" = "Social Media";
+
 "Home_MoreCard_ShareTitle" = "Share";
 
 /* Home Alert Risk Lowered */
 "Home_Alert_RiskStatusLowered_Title" = "Change of Your Risk Status";
 
-"Home_Alert_RiskStatusLowered_Message" = "The last exposure that resulted in your increased risk was more than 14 days ago. Therefore, your risk of infection has been ranked as low again.\n\nWhat you should do:\n If you do not have any COVID-19 symptoms, continue to follow the prevailing rules regarding distancing and hygiene.\n If you have COVID-19 symptoms, we recommend that you visit your doctor and get tested.";
+"Home_Alert_RiskStatusLowered_Message" = "The last exposure that resulted in your increased risk was more than %i days ago. Therefore, your risk of infection has been ranked as low again.\n\nWhat you should do:\n If you do not have any COVID-19 symptoms, continue to follow the prevailing rules regarding distancing and hygiene.\n If you have COVID-19 symptoms, we recommend that you visit your doctor and get tested.";
 
 "Home_Alert_RiskStatusLowered_PrimaryButtonTitle" = "OK";
+
+/* Home Alert another high exposure */
+"Home_Alert_RiskStatusAnotherHighExposure_Title" = "New Exposure";
+
+"Home_Alert_RiskStatusAnotherHighExposure_Message" = "You have had another exposure with increased risk. You will find all your risk exposures from the last %i days in your contact journal.";
+
+"Home_Alert_RiskStatusAnotherHighExposure_PrimaryButtonTitle" = "OK";
 
 /* App Information */
 "App_Information_Title" = "App Information";
 
-"App_Information_Version" = "Version";
+"App_Information_AppVersion" = "App version: %@";
+
+"App_Information_CCLVersion" = "CCL version: %@";
 
 /* App Information - About */
 "App_Information_About_Navigation" = "About the App";
@@ -1381,7 +1394,7 @@
 
 "App_Information_Contact_Hotline_Details_Foreign" = "For calls from outside Germany.\nThe fees from your telephone provider will apply.";
 
-"App_Information_Contact_Hotline_Terms" = "Our customer service is available in the following languages: \nEnglish, German, Turkish\n\nBusiness hours:\nMo-Sa: 7:00 a.m. - 10:00 p.m. (CET)\n(except national holidays)\n\nIf you have any health-related questions, please contact your general practitioner or the medical emergency service hotline; telephone: 116 117.";
+"App_Information_Contact_Hotline_Terms" = "Our customer service is available in the following languages: \nGerman\n\nBusiness hours:\nMo-Fr: 9am – 5pm (CET)\n(except national holidays)\n\nIf you have any questions, please call 116 117 (in Germany). Then, during the automated message, press 2 for the Federal Ministry of Health service point. Only press 1 (the general medical emergency service) if you have symptoms.";
 
 /* App Information - Imprint */
 "App_Information_New_Features_Navigation" = "New Features";
@@ -1407,6 +1420,9 @@
 "App_Information_Imprint_Section4_Text" = "DE 165 893 430";
 
 "App_Information_Contact_Form_Title" = "Contact Form";
+
+/* App Information - Accessibility */
+"App_Information_Accessibility_Navigation" = "Accessibility Declaration";
 
 /* App Information - Legal */
 "App_Information_Legal_Navigation" = "Legal Notices";
@@ -1522,7 +1538,7 @@
 
 "RiskLegend_Legend2_Title" = "Risk of Infection";
 
-"RiskLegend_Legend2_Text" = "When exposure logging is active, the app calculates your personal risk of infection. It does this by measuring duration and proximity of your exposure to people who have been diagnosed with coronavirus over the last 14 days.";
+"RiskLegend_Legend2_Text" = "When exposure logging is active, the app calculates your personal risk of infection. It does this by measuring duration and proximity of your exposure to people who have been diagnosed with coronavirus over the last %u days. Exposure logging also takes your check-ins into account. You are warned if you were in the same room at the same time as a person who has been diagnosed with coronavirus, or up to 30 minutes after.";
 
 "RiskLegend_Legend2_RiskLevels" = "The following risk status can be shown:";
 
@@ -1595,10 +1611,30 @@
 /* New Version Features */
 "NewVersionFeatures_Info_about_abb_information" = "Changes in this release can be found in the app information, under “New Features”.";
 
-/* Version 2.15 */
-"NewVersionFeature_215_ticketValidation_title" = "Certificate Verification during Ticketing";
+/* Version 2.20 */
+"NewVersionFeature_220_highRiskShortened_title" = "Report of Increased Risk Shortened";
 
-"NewVersionFeature_215_ticketValidation_description" = "When you book a ticket, you can present proof that you have been vaccinated, recovered, or tested negative. To do so, scan the QR code displayed in the ticketing system and then select the right certificate in the app. The result of the certificate verification is sent to the ticketing system by the verification partner.";
+"NewVersionFeature_220_highRiskShortened_description" = "An increased risk after an exposure is now only displayed for 10 days instead of 14.";
+
+"NewVersionFeature_220_displayRiskPositiveResult_title" = "Risk Report after Positive Test Result";
+
+"NewVersionFeature_220_displayRiskPositiveResult_description" = "The red tile for increased risk is now displayed after an exposure even if you have registered a positive test in the Corona-Warn-App. Your risk status is shown again seven days after the positive test.";
+
+"NewVersionFeature_220_notificateRiskEncounter_title" = "Message for New Exposure";
+
+"NewVersionFeature_220_notificateRiskEncounter_description" = "If you have another exposure with increased risk after a previous exposure, a notification will now be displayed for this exposure as well.";
+
+"NewVersionFeature_220_notificationStatusChange_title" = "Report of Status Change";
+
+"NewVersionFeature_220_notificationStatusChange_description" = "If your status has changed (because you added a certificate, for example, or because the rules have changed), you will be notified of this on the Certificates tab.";
+
+"NewVersionFeature_220_recoveryCertificatesDetails_title" = "Certificates of Recovery without Validity Data";
+
+"NewVersionFeature_220_recoveryCertificatesDetails_description" = "Validity data is no longer displayed for certificates of recovery, because their validity depends on the local rules. The date of the first positive test is now displayed instead.";
+
+"NewVersionFeature_220_removeQRCode_title" = "Duplicate QR Code Removed";
+
+"NewVersionFeature_220_removeQRCode_description" = "The QR code for your currently used certificate has been removed from the detail screen for individuals, creating more space for notifications and decluttering the screen in general. The QR code is also contained in the certificate overview and is therefore not needed on the detail screen.";
 
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Transnational Exposure Logging";
@@ -1685,17 +1721,23 @@
 
 "TestResultPositive_KeysSubmitted_Title1" = "Please note:";
 
-"TestResultPositive_KeysSubmitted_Info1" = "Take a PCR test to verify this test result.";
+"TestResultPositive_KeysSubmitted_PCR_Info1" = "There is a high probability that you are infectious. Isolate yourself from other people.";
 
-"TestResultPositive_KeysSubmitted_Info2" = "The public health authority may contact you within the next few days.";
+"TestResultPositive_KeysSubmitted_PCR_Info2" = "The public health authority may contact you within the next few days.";
 
-"TestResultPositive_KeysSubmitted_Info3" = "There is a high probability that you are infectious. Isolate yourself from other people.";
+"TestResultPositive_KeysSubmitted_PCR_Info3" = "If you have an increased risk for severe illness from COVID-19, obtain medical advice. Known risk factors include being over 60 years of age, immunosuppression, diabetes, and obesity.";
+
+"TestResultPositive_KeysSubmitted_RAT_Info1" = "There is a high probability that you are infectious. Isolate yourself from other people.";
+
+"TestResultPositive_KeysSubmitted_RAT_Info2" = "Take a PCR test to verify this test result.";
+
+"TestResultPositive_KeysSubmitted_RAT_Info3" = "The public health authority may contact you within the next few days.";
 
 "TestResultPositive_KeysSubmitted_Title2" = "Other information:";
 
-"TestResultPositive_KeysSubmitted_FurtherInfo1" = "Your isolation period is usually 14 days. Please monitor how your symptoms develop closely.";
+"TestResultPositive_KeysSubmitted_FurtherInfo1" = "Your isolation period is usually 10 days. Please monitor how your symptoms develop closely.";
 
-"TestResultPositive_KeysSubmitted_FurtherInfo2" = "You will be asked by your public health authority to create a list of people you have had contact with. This should include all people with whom you have had close contact with (less than 2 meters, face-to-face conversation) for over 15 minutes in the two days before you became ill. You can use your contact journal for this: simply export the entries and then print them out or send them via e-mail.";
+"TestResultPositive_KeysSubmitted_FurtherInfo2" = "You will be asked by your public health authority to create a list of people you have had contact with. This should include all people with whom you have had close contact with (less than 2 meters, face-to-face conversation) for over 10 minutes in the two days before you became ill. You can use your contact journal for this: simply export the entries and then print them out or send them via e-mail.";
 
 "TestResultPositive_KeysSubmitted_FurtherInfo3" = "Please particularly consider people who will not be notified directly by the app since they don’t own a smartphone, or haven’t installed the app.";
 
@@ -1852,7 +1894,7 @@
 
 "ContactDiary_Information_DescriptionTitle" = "Keep track of your contacts.";
 
-"ContactDiary_Information_DescriptionSubHeadline" = "Create an overview of your contacts in the last 14 days, so you’ll have a complete list at hand quickly if needed. Your exposures are also displayed here.";
+"ContactDiary_Information_DescriptionSubHeadline" = "Create an overview of your contacts in the last 15 days, so you’ll have a complete list at hand quickly if needed. Your exposures are also displayed here.";
 
 "ContactDiary_Information_Item_Person_Title" = "Enter the people you have met.";
 
@@ -1933,9 +1975,9 @@
 
 "Statistics_Card_CombinedIncidence_Date" = "Up to %@";
 
-"Statistics_Card_CombinedIncidence_PrimaryLabelSubtitle" = "New Infections";
+"Statistics_Card_CombinedIncidence_PrimaryLabelSubtitle" = "new infections";
 
-"Statistics_Card_CombinedIncidence_SecondaryLabelSubtitle" = "Hospitalizations";
+"Statistics_Card_CombinedIncidence_SecondaryLabelSubtitle" = "hospitalizations";
 
 /* - Infections Card */
 "Statistics_Card_Infections_Title" = "Confirmed New Infections";
@@ -1957,11 +1999,11 @@
 
 "Statistics_Card_Region_Date" = "Up to %@";
 
-"Statistics_Card_Region_PrimaryLabelSubtitle" = "New Infections";
+"Statistics_Card_Region_PrimaryLabelSubtitle" = "new infections";
 
-"Statistics_Card_Region_SecondaryLabelSubtitle_FederalState" = "Hospitalizations";
+"Statistics_Card_Region_SecondaryLabelSubtitle_FederalState" = "hospitalizations";
 
-"Statistics_Card_Region_SecondaryLabelSubtitle_AdministrativeUnit" = "Hospitalizations in %@";
+"Statistics_Card_Region_SecondaryLabelSubtitle_AdministrativeUnit" = "hospitalizations in %@";
 
 /* - Key Submissions Card */
 "Statistics_Card_KeySubmissions_Title" = "Warnings by App Users";
@@ -2005,7 +2047,7 @@
 "Statistics_Card_AtLeastOneVaccinated_SecondarySubtitleLabel" = "of the population";
 
 /* - Fully vaccinated people card */
-"Statistics_Card_FullyVaccinated_Title" = "People Who Are Fully Vaccinated";
+"Statistics_Card_FullyVaccinated_Title" = "People Who Have Basic Immunization";
 
 "Statistics_Card_FullyVaccinated_Today" = "Up to today";
 
@@ -2019,6 +2061,21 @@
 
 "Statistics_Card_FullyVaccinated_SecondarySubtitleLabel" = "of the population";
 
+/* - Booster vaccination card */
+"Statistics_Card_BoosterVaccination_Title" = "People Who Have Received a Booster Vaccination";
+
+"Statistics_Card_BoosterVaccination_Today" = "Up to today";
+
+"Statistics_Card_BoosterVaccination_Yesterday" = "Up to yesterday";
+
+"Statistics_Card_BoosterVaccination_Date" = "Up to %@";
+
+"Statistics_Card_BoosterVaccination_SecondaryLabelTitle" = "of the population";
+
+"Statistics_Card_BoosterVaccination_TertiaryLabelTitle" = "Total";
+
+"Statistics_Card_BoosterVaccination_SecondarySubtitleLabel" = "of the population";
+
 /* - Applied vaccination dose rates card */
 "Statistics_Card_AppliedDoseRates_Title" = "Vaccine Doses Administered";
 
@@ -2028,7 +2085,7 @@
 
 "Statistics_Card_AppliedDoseRates_Date" = "%@";
 
-"Statistics_Card_AppliedDoseRates_SecondaryLabelTitle" = "7-Day Average";
+"Statistics_Card_AppliedDoseRates_SecondaryLabelTitle" = "7-day average";
 
 "Statistics_Card_AppliedDoseRates_TertiaryLabelTitle" = "Total";
 
@@ -2041,7 +2098,7 @@
 
 "Statistics_Card_IntensiveCare_Date" = "Up to %@";
 
-"Statistics_Card_IntensiveCare_SecondaryLabelTitle" = "COVID-19 Occupancy Rate of All Intensive Care Beds";
+"Statistics_Card_IntensiveCare_SecondaryLabelTitle" = "COVID-19 occupancy rate of all intensive care beds";
 
 /* Error */
 "Statistics_LoadingError" = "The statistics cannot be loaded. Please close the app and try again.";
@@ -2075,9 +2132,9 @@
 
 "Statistics_Info_KeySubmissions_Title" = "Warnings by App Users";
 
-"Statistics_Info_KeySubmissions_Text" = "Number of app users who have been diagnosed with coronavirus via PCR test and have warned others through the app.";
+"Statistics_Info_KeySubmissions_Text" = "Number of app users who have been diagnosed with coronavirus and have warned others through the app";
 
-"Statistics_Info_ReproductionNumber_Title" = "7-Day R Value";
+"Statistics_Info_ReproductionNumber_Title" = "7-day R value";
 
 "Statistics_Info_ReproductionNumber_Text" = "The reproduction figure, R, indicates how many people an average infected person has infected further. The current value takes data up to the last 5 days into account.";
 
@@ -2085,9 +2142,13 @@
 
 "Statistics_Info_AtLeastOnce_Text" = "Number of persons reported to the RKI who have received the first dose of the vaccine.";
 
-"Statistics_Info_FullyVaccinated_Title" = "People who are fully vaccinated";
+"Statistics_Info_FullyVaccinated_Title" = "People who have basic immunization";
 
-"Statistics_Info_FullyVaccinated_Text" = "Number of persons reported to the RKI who have received all the necessary vaccine doses.";
+"Statistics_Info_FullyVaccinated_Text" = "Number of persons reported to the RKI who have received all the vaccine doses necessary for basic immunization.";
+
+"Statistics_Info_BoosterVaccination_Title" = "People who have received a booster vaccination";
+
+"Statistics_Info_BoosterVaccination_Text" = "Number of persons reported to the RKI who have received a booster vaccination.";
 
 "Statistics_Info_DosesAdministered_Title" = "Vaccine doses administered";
 
@@ -2267,9 +2328,13 @@
 "Contact_Journal_Notes_Description" = "You can enter notes here that will help you to better estimate your risk of infection.\n\nWrite down additional circumstances of your encounter or stay here that could have an effect on your risk of infection, for example, how close you were to other people and what you did (examples: “sat close together”, “played sports”, “little space”, “we sang”).\n\nThese notes can help you refresh your memory later. If necessary, they will also let you warn the people you have been with at an early stage, as well as help the public health authorities trace potential chains of infection.";
 
 /* Quick Actions a.k.a. shortcuts */
-"QuickAction_newContactDiaryEntry" = "Add Journal Entry for Today";
+"QuickAction_qrCodeScanner" = "Scan QR Code";
 
-"QuickAction_eventCheckin" = "Check In";
+"QuickAction_showCertificates" = "Display certificates";
+
+"QuickAction_eventCheckin" = "Display check-ins";
+
+"QuickAction_newContactDiaryEntry" = "Add entry";
 
 /* Checkins */
 "Checkins_Overview_Title" = "My Check-Ins";
@@ -2678,42 +2743,38 @@
 
 "HealthCertificate_Validation_Info_title" = "Information";
 
-"HealthCertificate_Validation_Info_byCar" = "Select the planned local arrival time at the border of your destination country.";
+"HealthCertificate_Validation_Info_byCar" = "Enter the planned local arrival time at the border of your destination country.";
 
-"HealthCertificate_Validation_Info_byPlane" = "If you are traveling by air, select the scheduled departure time of your flight.";
+"HealthCertificate_Validation_Info_byPlane" = "If you are traveling by air, enter the scheduled departure time of your flight.";
 
 /* Health Certificate Overview */
 "HealthCertificate_Overview_title" = "Certificates";
 
-"HealthCertificate_Overview_add" = "Add Certificate";
-
 "HealthCertificate_Overview_EmptyTitle" = "No certificates available yet";
 
-"HealthCertificate_Overview_EmptyDescription" = "The saved digital vaccination certificates, certificates of recovery, and test certificates are displayed here.\n\nTo add a certificate, please scan the corresponding QR code.";
+"HealthCertificate_Overview_EmptyDescription" = "The saved digital vaccination certificates, certificates of recovery, and test certificates are displayed here.";
 
 "HealthCertificate_Overview_EmptyImageDescription" = "Certificate seal with digital certificate in the background";
 
 "HealthCertificate_Overview_Covid_Title" = "EU Digital COVID Certificate";
 
-"VaccinationCertificate_title" = "EU\n**Digital Vaccination Certificate**";
-
-"VaccinationCertificate_partiallyVaccinated" = "Vaccination incomplete";
-
-"VaccinationCertificate_vaccinationValidUntil" = "Valid through %@";
-
 "HealthCertificate_Overview_Covid_Certificate_Description" = "A QR code with the certificate";
 
+"HealthCertificate_Overview_AdmissionState_Title" = "Proof of Status";
+
+"HealthCertificate_Overview_TwoGCertificate" = "2G Certificate";
+
+"HealthCertificate_Overview_TestCertificate" = "Test Certificate";
+
+"HealthCertificate_Overview_Scanning_Info" = "To add additional certificates, use the QR code scanner in the navigation bar below.";
+
+"HealthCertificate_Admission_Scenario_Status_Label" = "Status for the following federal state";
+
+"HealthCertificate_Admission_Scenario_Button_Label" = "Federal government regulations";
+
+"HealthCertificate_Loading_Indicator_Label" = "Determining status...";
+
 "HealthCertificate_Overview_News" = "There is news about your certificates";
-
-/* - Test Certificate Info */
-"TestCertificate_Info_title" = "EU\n**Digital COVID Test Certificate**";
-
-"TestCertificate_Info_description" = "Register a test on the home screen and agree to receive a digital test certificate. As soon as the certificate is available, it is displayed here.";
-
-/* - Test Certificate */
-"TestCertificate_title" = "EU\n**Digital COVID Test Certificate**";
-
-"TestCertificate_testDate" = "Test performed on %@";
 
 /* - Test Certificate Request */
 "TestCertificateRequest_title" = "EU\n**Digital COVID Test Certificate**";
@@ -2794,17 +2855,12 @@
 /* Health Certified Person Screen */
 "HealthCertificate_unified_QR_code_notice" = "This QR code can be verified reliably with the CovPassCheck app.";
 
+"HealthCertificate_unified_QR_code_infoButton" = "Information";
+
 "HealthCertifiedPerson_title" = "EU Digital COVID Certificate";
 
-"HealthCertifiedPerson_VaccinationHint_title" = "Vaccination Status";
-
-"HealthCertifiedPerson_partiallyVaccinated" = "You have not yet received all the currently planned vaccinations. As such, your vaccination protection is not complete yet.";
-
-"HealthCertifiedPerson_completelyProtected" = "You have received all currently planned vaccinations. Your vaccination protection is complete.";
-
-"HealthCertifiedPerson_boosterRuleFAQ" = "For further information, please see our %@ page.";
-
-"HealthCertifiedPerson_boosterRuleFAQ_placeholder_FAQ" = "FAQ";
+/* Health Certified Person */
+"HealthCertifiedPerson_faq" = "For further information, please see our FAQ page.";
 
 "HealthCertifiedPerson_dateOfBirth" = "Born %@";
 
@@ -2830,7 +2886,7 @@
 
 "HealthCertifiedPerson_RecoveryCertificate_headline" = "Certificate of Recovery";
 
-"HealthCertifiedPerson_RecoveryCertificate_validityDate" = "valid to %@";
+"HealthCertifiedPerson_RecoveryCertificate_positiveTestFrom" = "Positive test from %@";
 
 "HealthCertifiedPerson_currentlyUsedCertificate" = "Currently used certificate";
 
@@ -2877,9 +2933,6 @@
 
 "HealthCertificate_Details_moreButtonTitle" = "More";
 
-/* Vaccination Certificate Details */
-"VaccinationCertificate_Details_OneOfOneHint" = "This is a vaccine that only requires one dose or a vaccine for a recovered person who only needs one dose.";
-
 /* Health Certificate Delete Alert */
 "HealthCertificate_Alert_deleteButton" = "Delete Certificate";
 
@@ -2918,6 +2971,15 @@
 
 "RecoveryCertificate_Alert_message" = "The certificate will be moved to the recycle bin. You’ll find the recycle bin on the “More” tile of the status tab page, where you can permanently delete the certificate or restore it. The certificate will be deleted automatically after 30 days.";
 
+/* Decoding Failed Health Certificate Delete Alert */
+"DecodingFailedHealthCertificate_Alert_title" = "Do you want to delete the certificate permanently?";
+
+"DecodingFailedHealthCertificate_Alert_message" = "The certificate could not be decoded, so no information can be displayed for it. If you delete it, you can no longer use it as proof.";
+
+"DecodingFailedHealthCertificate_Alert_deleteButton" = "Delete Certificate Permanently";
+
+"DecodingFailedHealthCertificate_Alert_cancelButton" = "Cancel";
+
 /* Health Certificate Print PDF */
 "HealthCertificate_PrintPdf_showPrintableVersion" = "Display Print Version";
 
@@ -2947,6 +3009,13 @@
 "HealthCertificate_PrintPdf_ErrorAlert_ValueSetsFetching_Title" = "Cannot display print version";
 
 "HealthCertificate_PrintPdf_ErrorAlert_ValueSetsFetching_Message" = "The print version of the certificate cannot be displayed because the certificate cannot be retrieved right now. Please try again later.";
+
+/* Certificate Fault Tolerant Naming */
+"HealthCertificate_FaultTolerantNaming_RegroupDone_Title" = "Certificate Assignment";
+
+"HealthCertificate_FaultTolerantNaming_RegroupDone_Message" = "The grouping of certificates has been improved. Certificates with only minor differences in the name will no longer be assigned to different people.";
+
+"HealthCertificate_FaultTolerantNaming_RegroupDone_OkayButton" = "OK";
 
 /* Health Certificate Errors */
 "HealthCertificate_Error_Title" = "Error";
@@ -3023,7 +3092,7 @@
 
 "HealthCertificate_Validation_Passed_unknownTitle" = "Certificate Cannot Be Verified";
 
-"HealthCertificate_Validation_Passed_subtitle" = "Your certificate is valid in the selected country";
+"HealthCertificate_Validation_Passed_subtitle" = "Your certificate is valid for entry into the selected country";
 
 "HealthCertificate_Validation_Passed_unknownSubtitle" = "Your certificate could not be verified";
 
@@ -3049,7 +3118,7 @@
 /* - Failed */
 "HealthCertificate_Validation_Failed_title" = "Certificate Is Not Valid";
 
-"HealthCertificate_Validation_Failed_subtitle" = "Your certificate is not valid in the selected country";
+"HealthCertificate_Validation_Failed_subtitle" = "Your certificate is not valid for entry into the selected country";
 
 "HealthCertificate_Validation_Failed_failedSectionTitle" = "Verification complete";
 
@@ -3062,7 +3131,7 @@
 /* - Technical Validation Failed */
 "HealthCertificate_Validation_TechnicalFailed_title" = "Certificate Is Not Valid";
 
-"HealthCertificate_Validation_TechnicalFailed_subtitle" = "Your certificate is not valid in the selected country";
+"HealthCertificate_Validation_TechnicalFailed_subtitle" = "Your certificate is not valid for entry into the selected country";
 
 "HealthCertificate_Validation_TechnicalFailed_failedSectionTitle" = "Technical check";
 
@@ -3092,6 +3161,52 @@
 "HealthCertificate_ValidityState_Blocked" = "Certificate Invalid";
 
 "HealthCertificate_ValidityState_Blocked_description" = "The certificate has been recalled by the issuing authority. Please get a new digital certificate.";
+
+/* Reissuance */
+/* HealthCertificate Resissuance Consent */
+"HealthCertificate_Reissuance_Consent_primaryButtonTitle" = "Accept";
+
+"HealthCertificate_Reissuance_Consent_secondaryButtonTitle" = "Cancel";
+
+"HealthCertificate_Reissuance_Consent_DefaultAlert_Title" = "Error";
+
+"HealthCertificate_Reissuance_Consent_DefaultAlert_OKButton" = "OK";
+
+"HealthCertificate_Reissuance_Consent_DefaultAlert_RetryButton" = "Repeat";
+
+"HealthCertificate_Reissuance_Consent_Title" = "Your Consent";
+
+"HealthCertificate_Reissuance_Consent_Delete_Notice" = "The old certificate will be moved automatically to the recycle bin and deleted after 30 days. The certificate can be restored at any time within these 30 days.";
+
+"HealthCertificate_Reissuance_Consent_Cancel_Notice" = "If you cancel now, you can request an update in the certificate overview at any time.";
+
+"HealthCertificate_Reissuance_Consent_Legal_Title" = "Your Consent";
+
+"HealthCertificate_Reissuance_Consent_Legal_Subtitle" = "By tapping “Agree”, you consent to the following steps:";
+
+"HealthCertificate_Reissuance_Consent_Legal_Bullet_1" = "The app sends the vaccination certificate to the RKI for verification.";
+
+"HealthCertificate_Reissuance_Consent_Legal_Bullet_2" = "The RKI checks the vaccination certificate, issues an updated certificate, and sends it to your app.";
+
+"HealthCertificate_Reissuance_Consent_Bullet_Point_1" = "Updating your certificate is voluntary and free of charge.";
+
+"HealthCertificate_Reissuance_Consent_Bullet_Point_2" = "To ensure that certificates can only be updated once, the identifier of the old certificate is documented by the RKI.";
+
+/* HealthCertificate Resissuance Succeeded */
+"HealthCertificate_Reissuance_Succeeded_Title" = "Certificate Updated";
+
+"HealthCertificate_Reissuance_Succeeded_Headline" = "Your certificate has been updated successfully";
+
+"HealthCertificate_Reissuance_Succeeded_Body" = "The updated certificate is now available on the “Certificates” tab.";
+
+/* HealthCertificate Resissuance Request Error */
+"HealthCertificate_Reissuance_Error_Contact_Support" = "An technical error has occurred. Please contact the technical hotline via App Information -> Technical Hotline.";
+
+"HealthCertificate_Reissuance_Error_No_Network" = "Your Internet connection may have been lost. Please check the connection and try again.";
+
+"HealthCertificate_Reissuance_Error_Try_Again" = "An error occurred during the update of your certificate. Please try again. If the error persists, please contact the technical hotline via App Information -> Technical Hotline.";
+
+"HealthCertificate_Reissuance_Error_Not_Supported" = "Your certificate cannot be updated. Please contact the technical hotline via App Information -> Technical Hotline.";
 
 /* Universal QR Scanner */
 "UniversalQRScanner_ScannerTitle" = "QR Code Scanner";
@@ -3132,9 +3247,9 @@
 
 "UniversalQRScanner_MaxPersonAmountAlert_errorTitle" = "Error";
 
-"UniversalQRScanner_MaxPersonAmountAlert_warningMessage" = "The Corona-Warn-App may not be used for third-party certificate verification. Use the CovPassCheck app for this purpose.\n\nYou can add certificates for up to %i people. Once this limit is reached, you cannot scan any more new certificates for additional people.\n\nYou’ll find more information about vaccination certificates on our FAQ page.";
+"UniversalQRScanner_MaxPersonAmountAlert_warningMessage" = "The Corona-Warn-App cannot be used to verify third-party certificates. Use the CovPassCheck app for this purpose.\n\nYou can add certificates for up to %i people. Once this limit is reached, you cannot scan any more new certificates for additional people.\n\nYou’ll find more information about certificate verification on our FAQ page.";
 
-"UniversalQRScanner_MaxPersonAmountAlert_errorMessage" = "The Corona-Warn-App may not be used for third-party certificate verification. Use the CovPassCheck app for this purpose.\n\nYou can add certificates for up to %i people. You cannot scan any more new certificates for additional people.\n\nYou’ll find more information about vaccination certificates on our FAQ page.";
+"UniversalQRScanner_MaxPersonAmountAlert_errorMessage" = "The Corona-Warn-App may not be used to verify third-party certificates. Use the CovPassCheck app for this purpose.\n\nYou can add certificates for up to %i people. You cannot scan any more new certificates for additional people.\n\nYou’ll find more information about certificate verification on our FAQ page.";
 
 "UniversalQRScanner_MaxPersonAmountAlert_covPassCheckButton" = "Download CovPassCheck App";
 
@@ -3243,6 +3358,8 @@
 
 "RecycleBin_deleteAllButtonTitle" = "Delete All Permanently";
 
+"RecycleBin_expirationDateTime" = "will be permanently deleted on %@ at %@";
+
 /* - Vaccination Certificate */
 "RecycleBin_VaccinationCertificate_headline" = "Vaccination Certificate";
 
@@ -3262,7 +3379,7 @@
 /* - Recovery Certificate */
 "RecycleBin_RecoveryCertificate_headline" = "Certificate of Recovery";
 
-"RecycleBin_RecoveryCertificate_validityDate" = "valid to %@";
+"RecycleBin_RecoveryCertificate_positiveTestFrom" = "Positive test from %@";
 
 /* - Corona Test */
 "RecycleBin_CoronaTest_headline" = "Test";

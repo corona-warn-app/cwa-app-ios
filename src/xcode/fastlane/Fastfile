@@ -30,7 +30,7 @@ platform :ios do
     setup_circle_ci
 
     if is_ci
-      xcversion(version: "~> 13.1.0")
+      xcversion(version: "~> 13.2.0")
     end
   end
 
@@ -98,7 +98,7 @@ platform :ios do
       skip_codesigning: true,
       export_method: "ad-hoc",
       skip_package_ipa: true,
-      destination: "platform=iOS Simulator,OS=15.0,name=iPhone 11",
+      destination: "platform=iOS Simulator,OS=15.2,name=iPhone 11",
       scheme: "ENACommunity"
     )
   end
@@ -223,12 +223,10 @@ platform :ios do
       --form 'file=@../ENA.ipa'"
     )
 
-    appcenter_upload(
-      api_token: ENV["MS_APP_CENTER_TOKEN"],
-      owner_name: "Corona-Warn-App",
-      owner_type: "organization",
-      app_name: "Corona-Warn-App",
-      file: "ENA.ipa"
+    # Trigger Tests on Mobile Device Cloud via CircleCI (cwa-app-automation)
+    sh("curl -u '#{ENV["CIRCLE_API_ADMIN_TOKEN"]}': \
+      -d 'build_parameters[CIRCLE_JOB]=ios' \
+      https://circleci.com/api/v1.1/project/github/corona-warn-app/cwa-app-automation/tree/main"
     )
   end
 

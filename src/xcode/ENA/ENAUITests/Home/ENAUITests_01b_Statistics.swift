@@ -5,6 +5,7 @@
 import XCTest
 import ExposureNotification
 
+// swiftlint:disable type_body_length
 class ENAUITests_01b_Statistics: CWATestCase {
 	var app: XCUIApplication!
 	
@@ -21,7 +22,7 @@ class ENAUITests_01b_Statistics: CWATestCase {
 	func test_AddStatisticsButton_maximumNumberOfCards() {
 		app.setLaunchArgument(LaunchArguments.statistics.maximumRegionsSelected, to: true)
 		let addButtonIdentifier = AccessibilityIdentifiers.LocalStatistics.addLocalIncidencesButton
-		let localStatisticsViewTitle = AccessibilityIdentifiers.LocalStatistics.localStatisticsCard
+		let localStatisticsViewTitle = AccessibilityIdentifiers.LocalStatistics.localStatisticsCardTitle
 		
 		app.setPreferredContentSizeCategory(accessibility: .normal, size: .S)
 		app.launch()
@@ -41,9 +42,9 @@ class ENAUITests_01b_Statistics: CWATestCase {
 	}
 	
 	func test_AddStatisticsButton_flow() {
-		let addButton = AccessibilityIdentifiers.LocalStatistics.addLocalIncidencesButton
-		let modifyButton = AccessibilityIdentifiers.LocalStatistics.modifyLocalIncidencesButton
-		let localStatisticsViewTitle = AccessibilityIdentifiers.LocalStatistics.localStatisticsCard
+		let addButtonIdentifier = AccessibilityIdentifiers.LocalStatistics.addLocalIncidencesButton
+		let modifyButtonIdentifier = AccessibilityIdentifiers.LocalStatistics.modifyLocalIncidencesButton
+		let localStatisticsCardIdentifier = AccessibilityIdentifiers.LocalStatistics.localStatisticsCard
 
 		app.setPreferredContentSizeCategory(accessibility: .normal, size: .S)
 		app.launch()
@@ -57,10 +58,10 @@ class ENAUITests_01b_Statistics: CWATestCase {
 		statisticsCell.swipeRight()
 
 		// Management card(s) pt.1 - addition
-		XCTAssertTrue(self.app.buttons[addButton].waitForExistence(timeout: .medium))
-		XCTAssertTrue(statisticsCell.buttons[addButton].isHittable)
-		XCTAssertFalse(statisticsCell.buttons[modifyButton].isHittable) // assuming empty statistics
-		statisticsCell.buttons[addButton].waitAndTap()
+		XCTAssertTrue(self.app.buttons[addButtonIdentifier].waitForExistence(timeout: .medium))
+		XCTAssertTrue(statisticsCell.buttons[addButtonIdentifier].isHittable)
+		XCTAssertFalse(statisticsCell.buttons[modifyButtonIdentifier].isHittable) // assuming empty statistics
+		statisticsCell.buttons[addButtonIdentifier].waitAndTap()
 
 		// Data selection
 		XCTAssertTrue(app.tables[AccessibilityIdentifiers.LocalStatistics.selectState].waitForExistence(timeout: .long))
@@ -73,24 +74,40 @@ class ENAUITests_01b_Statistics: CWATestCase {
 		// the Local statistics card will appear.
 		XCTAssertTrue(statisticsCell.waitForExistence(timeout: .long))
 		app.swipeDown(velocity: .slow) // glitch
+		let localStatisticCard = statisticsCell.otherElements[localStatisticsCardIdentifier]
+		XCTAssertTrue(localStatisticCard.waitForExistence(timeout: .long))
+		
+		let deleteButtonNotHittable = statisticsCell.buttons[AccessibilityIdentifiers.General.deleteButton].firstMatch
+		XCTAssertFalse(deleteButtonNotHittable.isHittable)
+	}
+
+	func test_RemoveStatisticsButton_flow() {
+		let localStatisticsViewTitle = AccessibilityIdentifiers.LocalStatistics.localStatisticsCardTitle
+		let addButtonIdentifier = AccessibilityIdentifiers.LocalStatistics.addLocalIncidencesButton
+		let modifyButtonIdentifier = AccessibilityIdentifiers.LocalStatistics.modifyLocalIncidencesButton
+		
+		app.setLaunchArgument(LaunchArguments.statistics.maximumRegionsSelected, to: true)
+		app.setPreferredContentSizeCategory(accessibility: .normal, size: .S)
+		app.launch()
+		app.swipeUp(velocity: .slow)
+		let statisticsCell = app.cells[AccessibilityIdentifiers.Statistics.General.tableViewCell]
+		XCTAssertTrue(statisticsCell.waitForExistence(timeout: .medium))
+		
 		let localStatisticCell = statisticsCell.staticTexts[localStatisticsViewTitle]
 		XCTAssertTrue(localStatisticCell.waitForExistence(timeout: .long))
+		statisticsCell.swipeRight()
+		
+		let addButton = app.buttons[addButtonIdentifier]
+		XCTAssertTrue(addButton.waitForElementToBecomeHittable(timeout: .long))
+		XCTAssertTrue(addButton.isHittable)
+		XCTAssertTrue(statisticsCell.buttons[modifyButtonIdentifier].isHittable)
+		statisticsCell.buttons[modifyButtonIdentifier].waitAndTap()
 		
 		let deleteButton = statisticsCell.buttons[AccessibilityIdentifiers.General.deleteButton].firstMatch
-		XCTAssertFalse(deleteButton.isHittable)
-		
-		// Management card(s) pt.2 - removal
-		XCTAssertTrue(statisticsCell.waitForExistence(timeout: .long))
-		statisticsCell.swipeRight() // because of ui reset
-		XCTAssertTrue(statisticsCell.buttons[addButton].isHittable)
-		XCTAssertTrue(statisticsCell.buttons[modifyButton].isHittable)
-		statisticsCell.buttons[modifyButton].waitAndTap()
-		
-		XCTAssertTrue(deleteButton.waitForExistence(timeout: .long))
+		XCTAssertTrue(deleteButton.waitForElementToBecomeHittable(timeout: .long))
 		XCTAssertTrue(deleteButton.isHittable)
 		deleteButton.waitAndTap()
-		XCTAssertFalse(localStatisticCell.isHittable)
-		XCTAssertFalse(statisticsCell.buttons[modifyButton].isHittable)
+		XCTAssertFalse(statisticsCell.buttons[modifyButtonIdentifier].isHittable)
 	}
 
 	func test_StatisticsCardTitles() throws {
@@ -103,7 +120,8 @@ class ENAUITests_01b_Statistics: CWATestCase {
 		let title5 = AccessibilityIdentifiers.Statistics.ReproductionNumber.title
 		let title6 = AccessibilityIdentifiers.Statistics.AtLeastOneVaccination.title
 		let title7 = AccessibilityIdentifiers.Statistics.FullyVaccinated.title
-		let title8 = AccessibilityIdentifiers.Statistics.Doses.title
+		let title8 = AccessibilityIdentifiers.Statistics.BoosterVaccination.title
+		let title9 = AccessibilityIdentifiers.Statistics.Doses.title
 
 		let layoutDirection = UIView.userInterfaceLayoutDirection(for: UIView().semanticContentAttribute)
 
@@ -115,6 +133,8 @@ class ENAUITests_01b_Statistics: CWATestCase {
 		// THEN
 		switch layoutDirection {
 		case .rightToLeft:
+			XCTAssertTrue(self.app.staticTexts[title9].waitForExistence(timeout: .medium))
+			app.staticTexts[title9].swipeLeft()
 			XCTAssertTrue(self.app.staticTexts[title8].waitForExistence(timeout: .medium))
 			app.staticTexts[title8].swipeLeft()
 			XCTAssertTrue(self.app.staticTexts[title7].waitForExistence(timeout: .medium))
@@ -149,6 +169,8 @@ class ENAUITests_01b_Statistics: CWATestCase {
 			app.staticTexts[title7].swipeLeft()
 			XCTAssertTrue(self.app.staticTexts[title8].waitForExistence(timeout: .medium))
 			app.staticTexts[title8].swipeLeft()
+			XCTAssertTrue(self.app.staticTexts[title9].waitForExistence(timeout: .medium))
+			app.staticTexts[title9].swipeRight()
 		}
 	}
 	
@@ -161,7 +183,9 @@ class ENAUITests_01b_Statistics: CWATestCase {
 		let title5 = AccessibilityIdentifiers.Statistics.ReproductionNumber.title
 		let title6 = AccessibilityIdentifiers.Statistics.AtLeastOneVaccination.title
 		let title7 = AccessibilityIdentifiers.Statistics.FullyVaccinated.title
-		let title8 = AccessibilityIdentifiers.Statistics.Doses.title
+		let title8 = AccessibilityIdentifiers.Statistics.BoosterVaccination.title
+		let title9 = AccessibilityIdentifiers.Statistics.Doses.title
+
 		let layoutDirection = UIView.userInterfaceLayoutDirection(for: UIView().semanticContentAttribute)
 		
 		// WHEN
@@ -172,9 +196,12 @@ class ENAUITests_01b_Statistics: CWATestCase {
 		// THEN
 		switch layoutDirection {
 		case .rightToLeft:
-			cardDosesInfoScreenTest(title8)
+			cardDosesInfoScreenTest(title9)
 			app.staticTexts[title8].swipeLeft()
 		
+			cardBoosterVaccinationInfoScreen(title8)
+			app.staticTexts[title8].swipeLeft()
+			
 			cardFullyVaccinatedInfoScreenTest(title7)
 			app.staticTexts[title7].swipeLeft()
 
@@ -219,8 +246,11 @@ class ENAUITests_01b_Statistics: CWATestCase {
 			cardFullyVaccinatedInfoScreenTest(title7)
 			app.staticTexts[title7].swipeLeft()
 			
-			cardDosesInfoScreenTest(title8)
-			app.staticTexts[title8].swipeRight()
+			cardBoosterVaccinationInfoScreen(title8)
+			app.staticTexts[title8].swipeLeft()
+			
+			cardDosesInfoScreenTest(title9)
+			app.staticTexts[title9].swipeRight()
 		}
 	}
 	
@@ -228,18 +258,13 @@ class ENAUITests_01b_Statistics: CWATestCase {
 	
 	func test_screenshot_local_statistics_card() throws {
 		// GIVEN
-		let incidenceTitle = AccessibilityIdentifiers.Statistics.Combined7DayIncidence.title
 		let addStatisticsButtonTitle = AccessibilityIdentifiers.LocalStatistics.addLocalIncidencesButton
-		let localStatisticsTitle = AccessibilityIdentifiers.LocalStatistics.localStatisticsCard
+		let localStatisticsTitle = AccessibilityIdentifiers.LocalStatistics.localStatisticsCardTitle
 
 		// WHEN
 		app.setPreferredContentSizeCategory(accessibility: .normal, size: .S)
 		app.launch()
 		app.swipeUp(velocity: .slow)
-
-
-		XCTAssert(self.app.staticTexts[incidenceTitle].waitForExistence(timeout: .medium))
-		app.staticTexts[incidenceTitle].swipeRight()
 		
 		XCTAssert(app.buttons[addStatisticsButtonTitle].waitForExistence(timeout: .medium))
 		snapshot("statistics_add_local_statistics")
@@ -275,8 +300,9 @@ class ENAUITests_01b_Statistics: CWATestCase {
 		let reproductionNumberTitle = AccessibilityIdentifiers.Statistics.ReproductionNumber.title
 		let atLeastOneVaccinationTitle = AccessibilityIdentifiers.Statistics.AtLeastOneVaccination.title
 		let fullyVaccinatedTitle = AccessibilityIdentifiers.Statistics.FullyVaccinated.title
+		let boosterVaccinationTitle = AccessibilityIdentifiers.Statistics.BoosterVaccination.title
 		let dosesTitle = AccessibilityIdentifiers.Statistics.Doses.title
-		
+
 		let layoutDirection = UIView.userInterfaceLayoutDirection(for: UIView().semanticContentAttribute)
 		var screenshotCounter = 0
 
@@ -291,6 +317,9 @@ class ENAUITests_01b_Statistics: CWATestCase {
 			XCTAssert(self.app.staticTexts[dosesTitle].waitForExistence(timeout: .medium))
 			app.staticTexts[dosesTitle].swipeLeft()
 			
+			XCTAssert(self.app.staticTexts[boosterVaccinationTitle].waitForExistence(timeout: .medium))
+			app.staticTexts[boosterVaccinationTitle].swipeLeft()
+
 			XCTAssert(self.app.staticTexts[fullyVaccinatedTitle].waitForExistence(timeout: .medium))
 			app.staticTexts[fullyVaccinatedTitle].swipeLeft()
 			
@@ -342,11 +371,15 @@ class ENAUITests_01b_Statistics: CWATestCase {
 			snapshot("statistics_fully_vaccinated")
 			app.staticTexts[fullyVaccinatedTitle].swipeLeft()
 
+			XCTAssert(self.app.staticTexts[boosterVaccinationTitle].waitForExistence(timeout: .medium))
+			snapshot("statistics_booster_vaccination")
+			app.staticTexts[boosterVaccinationTitle].swipeLeft()
+			
 			XCTAssert(self.app.staticTexts[dosesTitle].waitForExistence(timeout: .medium))
 			snapshot("statistics_doses")
 			app.staticTexts[dosesTitle].swipeRight()
 			
-			cardFullyVaccinatedTitleOpenInfoScreen(fullyVaccinatedTitle)
+			cardBoosterVaccinationOpenInfoScreen(boosterVaccinationTitle)
 			
 			snapshot("statistics_info_screen_\(String(format: "%04d", (screenshotCounter.inc() )))")
 			app.swipeUp(velocity: .slow)
@@ -404,9 +437,14 @@ class ENAUITests_01b_Statistics: CWATestCase {
 		app.buttons["AppStrings.AccessibilityLabel.close"].waitAndTap()
 	}
 	
-	private func cardFullyVaccinatedTitleOpenInfoScreen(_ title: String) {
-		XCTAssert(app.staticTexts[title].waitForExistence(timeout: .medium))
-		app.buttons[AccessibilityIdentifiers.Statistics.FullyVaccinated.infoButton].waitAndTap()
+	private func cardBoosterVaccinationInfoScreen(_ title9: String) {
+		XCTAssert(app.staticTexts[title9].waitForExistence(timeout: .medium))
+		app.buttons[AccessibilityIdentifiers.Statistics.BoosterVaccination.infoButton].waitAndTap()
+		app.buttons["AppStrings.AccessibilityLabel.close"].waitAndTap()
 	}
 
+	private func cardBoosterVaccinationOpenInfoScreen(_ title: String) {
+		XCTAssert(app.staticTexts[title].waitForExistence(timeout: .medium))
+		app.buttons[AccessibilityIdentifiers.Statistics.BoosterVaccination.infoButton].waitAndTap()
+	}
 }

@@ -6,6 +6,7 @@ import XCTest
 import HealthCertificateToolkit
 @testable import ENA
 
+// swiftlint:disable file_length
 // swiftlint:disable type_body_length
 class HealthCertifiedPersonCellModelTests: XCTestCase {
 
@@ -21,17 +22,31 @@ class HealthCertifiedPersonCellModelTests: XCTestCase {
 		)
 
 		let healthCertifiedPerson = HealthCertifiedPerson(healthCertificates: [healthCertificate])
+		healthCertifiedPerson.dccWalletInfo = .fake(
+			verification: .fake(
+				certificates: [.fake(certificateRef: .fake(barcodeData: healthCertificate.base45))]
+			)
+		)
+
+		let cclService = FakeCCLService()
 
 		let viewModel = try XCTUnwrap(
 			HealthCertifiedPersonCellModel(
 				healthCertifiedPerson: healthCertifiedPerson,
-				showInfoHit: { }
+				cclService: cclService,
+				onCovPassCheckInfoButtonTap: { }
 			)
 		)
 
 		// THEN
 		XCTAssertEqual(viewModel.title, AppStrings.HealthCertificate.Overview.covidTitle)
 		XCTAssertEqual(viewModel.name, healthCertifiedPerson.name?.fullName)
+
+		XCTAssertFalse(viewModel.isStatusTitleVisible)
+		XCTAssertNil(viewModel.shortStatus)
+
+		XCTAssertFalse(viewModel.qrCodeViewModel.shouldBlockCertificateCode)
+		XCTAssertEqual(viewModel.qrCodeViewModel.covPassCheckInfoPosition, .bottom)
 
 		XCTAssertNil(viewModel.caption)
 	}
@@ -49,18 +64,31 @@ class HealthCertifiedPersonCellModelTests: XCTestCase {
 			validityState: .expiringSoon
 		)
 
+		let cclService = FakeCCLService()
 		let healthCertifiedPerson = HealthCertifiedPerson(healthCertificates: [healthCertificate])
+		healthCertifiedPerson.dccWalletInfo = .fake(
+			verification: .fake(
+				certificates: [.fake(certificateRef: .fake(barcodeData: healthCertificate.base45))]
+			)
+		)
 
 		let viewModel = try XCTUnwrap(
 			HealthCertifiedPersonCellModel(
 				healthCertifiedPerson: healthCertifiedPerson,
-				showInfoHit: { }
+				cclService: cclService,
+				onCovPassCheckInfoButtonTap: { }
 			)
 		)
 
 		// THEN
 		XCTAssertEqual(viewModel.title, AppStrings.HealthCertificate.Overview.covidTitle)
 		XCTAssertEqual(viewModel.name, healthCertifiedPerson.name?.fullName)
+
+		XCTAssertFalse(viewModel.isStatusTitleVisible)
+		XCTAssertNil(viewModel.shortStatus)
+
+		XCTAssertFalse(viewModel.qrCodeViewModel.shouldBlockCertificateCode)
+		XCTAssertEqual(viewModel.qrCodeViewModel.covPassCheckInfoPosition, .bottom)
 
 		if case let .validityState(image: image, description: description) = viewModel.caption {
 			XCTAssertEqual(image, UIImage(named: "Icon_ExpiringSoon"))
@@ -88,18 +116,31 @@ class HealthCertifiedPersonCellModelTests: XCTestCase {
 			validityState: .expired
 		)
 
+		let cclService = FakeCCLService()
 		let healthCertifiedPerson = HealthCertifiedPerson(healthCertificates: [healthCertificate])
+		healthCertifiedPerson.dccWalletInfo = .fake(
+			verification: .fake(
+				certificates: [.fake(certificateRef: .fake(barcodeData: healthCertificate.base45))]
+			)
+		)
 
 		let viewModel = try XCTUnwrap(
 			HealthCertifiedPersonCellModel(
 				healthCertifiedPerson: healthCertifiedPerson,
-				showInfoHit: { }
+				cclService: cclService,
+				onCovPassCheckInfoButtonTap: { }
 			)
 		)
 
 		// THEN
 		XCTAssertEqual(viewModel.title, AppStrings.HealthCertificate.Overview.covidTitle)
 		XCTAssertEqual(viewModel.name, healthCertifiedPerson.name?.fullName)
+
+		XCTAssertFalse(viewModel.isStatusTitleVisible)
+		XCTAssertNil(viewModel.shortStatus)
+
+		XCTAssertTrue(viewModel.qrCodeViewModel.shouldBlockCertificateCode)
+		XCTAssertEqual(viewModel.qrCodeViewModel.covPassCheckInfoPosition, .bottom)
 
 		if case let .validityState(image: image, description: description) = viewModel.caption {
 			XCTAssertEqual(image, UIImage(named: "Icon_ExpiredInvalid"))
@@ -120,18 +161,27 @@ class HealthCertifiedPersonCellModelTests: XCTestCase {
 			validityState: .invalid
 		)
 
+		let cclService = FakeCCLService()
 		let healthCertifiedPerson = HealthCertifiedPerson(healthCertificates: [healthCertificate])
+		// Not setting dccWalletInfo.verification here to check that the fallback certificate is used if it's not set
 
 		let viewModel = try XCTUnwrap(
 			HealthCertifiedPersonCellModel(
 				healthCertifiedPerson: healthCertifiedPerson,
-				showInfoHit: { }
+				cclService: cclService,
+				onCovPassCheckInfoButtonTap: { }
 			)
 		)
 
 		// THEN
 		XCTAssertEqual(viewModel.title, AppStrings.HealthCertificate.Overview.covidTitle)
 		XCTAssertEqual(viewModel.name, healthCertifiedPerson.name?.fullName)
+
+		XCTAssertFalse(viewModel.isStatusTitleVisible)
+		XCTAssertNil(viewModel.shortStatus)
+
+		XCTAssertTrue(viewModel.qrCodeViewModel.shouldBlockCertificateCode)
+		XCTAssertEqual(viewModel.qrCodeViewModel.covPassCheckInfoPosition, .bottom)
 
 		if case let .validityState(image: image, description: description) = viewModel.caption {
 			XCTAssertEqual(image, UIImage(named: "Icon_ExpiredInvalid"))
@@ -152,18 +202,31 @@ class HealthCertifiedPersonCellModelTests: XCTestCase {
 			validityState: .blocked
 		)
 
+		let cclService = FakeCCLService()
 		let healthCertifiedPerson = HealthCertifiedPerson(healthCertificates: [healthCertificate])
+		healthCertifiedPerson.dccWalletInfo = .fake(
+			verification: .fake(
+				certificates: [.fake(certificateRef: .fake(barcodeData: healthCertificate.base45))]
+			)
+		)
 
 		let viewModel = try XCTUnwrap(
 			HealthCertifiedPersonCellModel(
 				healthCertifiedPerson: healthCertifiedPerson,
-				showInfoHit: { }
+				cclService: cclService,
+				onCovPassCheckInfoButtonTap: { }
 			)
 		)
 
 		// THEN
 		XCTAssertEqual(viewModel.title, AppStrings.HealthCertificate.Overview.covidTitle)
 		XCTAssertEqual(viewModel.name, healthCertifiedPerson.name?.fullName)
+
+		XCTAssertFalse(viewModel.isStatusTitleVisible)
+		XCTAssertNil(viewModel.shortStatus)
+
+		XCTAssertTrue(viewModel.qrCodeViewModel.shouldBlockCertificateCode)
+		XCTAssertEqual(viewModel.qrCodeViewModel.covPassCheckInfoPosition, .bottom)
 
 		if case let .validityState(image: image, description: description) = viewModel.caption {
 			XCTAssertEqual(image, UIImage(named: "Icon_ExpiredInvalid"))
@@ -184,18 +247,26 @@ class HealthCertifiedPersonCellModelTests: XCTestCase {
 			validityState: .valid
 		)
 
+		let cclService = FakeCCLService()
 		let healthCertifiedPerson = HealthCertifiedPerson(healthCertificates: [healthCertificate])
+		// Not setting dccWalletInfo.verification here to check that the fallback certificate is used if it's not set
 
 		let viewModel = try XCTUnwrap(
 			HealthCertifiedPersonCellModel(
-				healthCertifiedPerson: healthCertifiedPerson,
-				showInfoHit: { }
+				healthCertifiedPerson: healthCertifiedPerson, cclService: cclService,
+				onCovPassCheckInfoButtonTap: { }
 			)
 		)
 
 		// THEN
 		XCTAssertEqual(viewModel.title, AppStrings.HealthCertificate.Overview.covidTitle)
 		XCTAssertEqual(viewModel.name, healthCertifiedPerson.name?.fullName)
+
+		XCTAssertFalse(viewModel.isStatusTitleVisible)
+		XCTAssertNil(viewModel.shortStatus)
+
+		XCTAssertFalse(viewModel.qrCodeViewModel.shouldBlockCertificateCode)
+		XCTAssertEqual(viewModel.qrCodeViewModel.covPassCheckInfoPosition, .bottom)
 
 		XCTAssertNil(viewModel.caption)
 	}
@@ -212,18 +283,26 @@ class HealthCertifiedPersonCellModelTests: XCTestCase {
 			validityState: .expiringSoon
 		)
 
+		let cclService = FakeCCLService()
 		let healthCertifiedPerson = HealthCertifiedPerson(healthCertificates: [healthCertificate])
+		// Not setting dccWalletInfo.verification here to check that the fallback certificate is used if it's not set
 
 		let viewModel = try XCTUnwrap(
 			HealthCertifiedPersonCellModel(
-				healthCertifiedPerson: healthCertifiedPerson,
-				showInfoHit: { }
+				healthCertifiedPerson: healthCertifiedPerson, cclService: cclService,
+				onCovPassCheckInfoButtonTap: { }
 			)
 		)
 
 		// THEN
 		XCTAssertEqual(viewModel.title, AppStrings.HealthCertificate.Overview.covidTitle)
 		XCTAssertEqual(viewModel.name, healthCertifiedPerson.name?.fullName)
+
+		XCTAssertFalse(viewModel.isStatusTitleVisible)
+		XCTAssertNil(viewModel.shortStatus)
+
+		XCTAssertFalse(viewModel.qrCodeViewModel.shouldBlockCertificateCode)
+		XCTAssertEqual(viewModel.qrCodeViewModel.covPassCheckInfoPosition, .bottom)
 
 		XCTAssertNil(viewModel.caption)
 	}
@@ -239,18 +318,31 @@ class HealthCertifiedPersonCellModelTests: XCTestCase {
 			validityState: .expired
 		)
 
+		let cclService = FakeCCLService()
 		let healthCertifiedPerson = HealthCertifiedPerson(healthCertificates: [healthCertificate])
+		healthCertifiedPerson.dccWalletInfo = .fake(
+			verification: .fake(
+				certificates: [.fake(certificateRef: .fake(barcodeData: healthCertificate.base45))]
+			)
+		)
 
 		let viewModel = try XCTUnwrap(
 			HealthCertifiedPersonCellModel(
 				healthCertifiedPerson: healthCertifiedPerson,
-				showInfoHit: { }
+				cclService: cclService,
+				onCovPassCheckInfoButtonTap: { }
 			)
 		)
 
 		// THEN
 		XCTAssertEqual(viewModel.title, AppStrings.HealthCertificate.Overview.covidTitle)
 		XCTAssertEqual(viewModel.name, healthCertifiedPerson.name?.fullName)
+
+		XCTAssertFalse(viewModel.isStatusTitleVisible)
+		XCTAssertNil(viewModel.shortStatus)
+
+		XCTAssertFalse(viewModel.qrCodeViewModel.shouldBlockCertificateCode)
+		XCTAssertEqual(viewModel.qrCodeViewModel.covPassCheckInfoPosition, .bottom)
 
 		XCTAssertNil(viewModel.caption)
 	}
@@ -266,18 +358,32 @@ class HealthCertifiedPersonCellModelTests: XCTestCase {
 			validityState: .invalid
 		)
 
+		let cclService = FakeCCLService()
 		let healthCertifiedPerson = HealthCertifiedPerson(healthCertificates: [healthCertificate])
+		healthCertifiedPerson.dccWalletInfo = .fake(
+			verification: .fake(
+				certificates: [.fake(certificateRef: .fake(barcodeData: healthCertificate.base45))]
+			)
+		)
 
 		let viewModel = try XCTUnwrap(
 			HealthCertifiedPersonCellModel(
 				healthCertifiedPerson: healthCertifiedPerson,
-				showInfoHit: { }
+				cclService: cclService,
+				onCovPassCheckInfoButtonTap: { }
 			)
 		)
 
 		// THEN
 		XCTAssertEqual(viewModel.title, AppStrings.HealthCertificate.Overview.covidTitle)
 		XCTAssertEqual(viewModel.name, healthCertifiedPerson.name?.fullName)
+
+		XCTAssertFalse(viewModel.isStatusTitleVisible)
+		XCTAssertNil(viewModel.shortStatus)
+
+		XCTAssertTrue(viewModel.qrCodeViewModel.shouldBlockCertificateCode)
+		XCTAssertEqual(viewModel.qrCodeViewModel.covPassCheckInfoPosition, .bottom)
+
 		if case let .validityState(image: image, description: description) = viewModel.caption {
 			XCTAssertEqual(image, UIImage(named: "Icon_ExpiredInvalid"))
 			XCTAssertEqual(description, "Zertifikat (Signatur) ungültig")
@@ -297,18 +403,32 @@ class HealthCertifiedPersonCellModelTests: XCTestCase {
 			validityState: .blocked
 		)
 
+		let cclService = FakeCCLService()
 		let healthCertifiedPerson = HealthCertifiedPerson(healthCertificates: [healthCertificate])
+		healthCertifiedPerson.dccWalletInfo = .fake(
+			verification: .fake(
+				certificates: [.fake(certificateRef: .fake(barcodeData: healthCertificate.base45))]
+			)
+		)
 
 		let viewModel = try XCTUnwrap(
 			HealthCertifiedPersonCellModel(
 				healthCertifiedPerson: healthCertifiedPerson,
-				showInfoHit: { }
+				cclService: cclService,
+				onCovPassCheckInfoButtonTap: { }
 			)
 		)
 
 		// THEN
 		XCTAssertEqual(viewModel.title, AppStrings.HealthCertificate.Overview.covidTitle)
 		XCTAssertEqual(viewModel.name, healthCertifiedPerson.name?.fullName)
+
+		XCTAssertFalse(viewModel.isStatusTitleVisible)
+		XCTAssertNil(viewModel.shortStatus)
+
+		XCTAssertTrue(viewModel.qrCodeViewModel.shouldBlockCertificateCode)
+		XCTAssertEqual(viewModel.qrCodeViewModel.covPassCheckInfoPosition, .bottom)
+
 		if case let .validityState(image: image, description: description) = viewModel.caption {
 			XCTAssertEqual(image, UIImage(named: "Icon_ExpiredInvalid"))
 			XCTAssertEqual(description, "Zertifikat ungültig")
@@ -328,18 +448,31 @@ class HealthCertifiedPersonCellModelTests: XCTestCase {
 			validityState: .valid
 		)
 
+		let cclService = FakeCCLService()
 		let healthCertifiedPerson = HealthCertifiedPerson(healthCertificates: [healthCertificate])
+		healthCertifiedPerson.dccWalletInfo = .fake(
+			verification: .fake(
+				certificates: [.fake(certificateRef: .fake(barcodeData: healthCertificate.base45))]
+			)
+		)
 
 		let viewModel = try XCTUnwrap(
 			HealthCertifiedPersonCellModel(
 				healthCertifiedPerson: healthCertifiedPerson,
-				showInfoHit: { }
+				cclService: cclService,
+				onCovPassCheckInfoButtonTap: { }
 			)
 		)
 
 		// THEN
 		XCTAssertEqual(viewModel.title, AppStrings.HealthCertificate.Overview.covidTitle)
 		XCTAssertEqual(viewModel.name, healthCertifiedPerson.name?.fullName)
+
+		XCTAssertFalse(viewModel.isStatusTitleVisible)
+		XCTAssertNil(viewModel.shortStatus)
+
+		XCTAssertFalse(viewModel.qrCodeViewModel.shouldBlockCertificateCode)
+		XCTAssertEqual(viewModel.qrCodeViewModel.covPassCheckInfoPosition, .bottom)
 
 		XCTAssertNil(viewModel.caption)
 	}
@@ -357,18 +490,31 @@ class HealthCertifiedPersonCellModelTests: XCTestCase {
 			validityState: .expiringSoon
 		)
 
+		let cclService = FakeCCLService()
 		let healthCertifiedPerson = HealthCertifiedPerson(healthCertificates: [healthCertificate])
+		healthCertifiedPerson.dccWalletInfo = .fake(
+			verification: .fake(
+				certificates: [.fake(certificateRef: .fake(barcodeData: healthCertificate.base45))]
+			)
+		)
 
 		let viewModel = try XCTUnwrap(
 			HealthCertifiedPersonCellModel(
 				healthCertifiedPerson: healthCertifiedPerson,
-				showInfoHit: { }
+				cclService: cclService,
+				onCovPassCheckInfoButtonTap: { }
 			)
 		)
 
 		// THEN
 		XCTAssertEqual(viewModel.title, AppStrings.HealthCertificate.Overview.covidTitle)
 		XCTAssertEqual(viewModel.name, healthCertifiedPerson.name?.fullName)
+
+		XCTAssertFalse(viewModel.isStatusTitleVisible)
+		XCTAssertNil(viewModel.shortStatus)
+
+		XCTAssertFalse(viewModel.qrCodeViewModel.shouldBlockCertificateCode)
+		XCTAssertEqual(viewModel.qrCodeViewModel.covPassCheckInfoPosition, .bottom)
 
 		if case let .validityState(image: image, description: description) = viewModel.caption {
 			XCTAssertEqual(image, UIImage(named: "Icon_ExpiringSoon"))
@@ -396,18 +542,27 @@ class HealthCertifiedPersonCellModelTests: XCTestCase {
 			validityState: .expired
 		)
 
+		let cclService = FakeCCLService()
 		let healthCertifiedPerson = HealthCertifiedPerson(healthCertificates: [healthCertificate])
+		// Not setting dccWalletInfo.verification here to check that the fallback certificate is used if it's not set
 
 		let viewModel = try XCTUnwrap(
 			HealthCertifiedPersonCellModel(
 				healthCertifiedPerson: healthCertifiedPerson,
-				showInfoHit: { }
+				cclService: cclService,
+				onCovPassCheckInfoButtonTap: { }
 			)
 		)
 
 		// THEN
 		XCTAssertEqual(viewModel.title, AppStrings.HealthCertificate.Overview.covidTitle)
 		XCTAssertEqual(viewModel.name, healthCertifiedPerson.name?.fullName)
+
+		XCTAssertFalse(viewModel.isStatusTitleVisible)
+		XCTAssertNil(viewModel.shortStatus)
+
+		XCTAssertTrue(viewModel.qrCodeViewModel.shouldBlockCertificateCode)
+		XCTAssertEqual(viewModel.qrCodeViewModel.covPassCheckInfoPosition, .bottom)
 
 		if case let .validityState(image: image, description: description) = viewModel.caption {
 			XCTAssertEqual(image, UIImage(named: "Icon_ExpiredInvalid"))
@@ -428,18 +583,31 @@ class HealthCertifiedPersonCellModelTests: XCTestCase {
 			validityState: .invalid
 		)
 
+		let cclService = FakeCCLService()
 		let healthCertifiedPerson = HealthCertifiedPerson(healthCertificates: [healthCertificate])
+		healthCertifiedPerson.dccWalletInfo = .fake(
+			verification: .fake(
+				certificates: [.fake(certificateRef: .fake(barcodeData: healthCertificate.base45))]
+			)
+		)
 
 		let viewModel = try XCTUnwrap(
 			HealthCertifiedPersonCellModel(
 				healthCertifiedPerson: healthCertifiedPerson,
-				showInfoHit: { }
+				cclService: cclService,
+				onCovPassCheckInfoButtonTap: { }
 			)
 		)
 
 		// THEN
 		XCTAssertEqual(viewModel.title, AppStrings.HealthCertificate.Overview.covidTitle)
 		XCTAssertEqual(viewModel.name, healthCertifiedPerson.name?.fullName)
+
+		XCTAssertFalse(viewModel.isStatusTitleVisible)
+		XCTAssertNil(viewModel.shortStatus)
+
+		XCTAssertTrue(viewModel.qrCodeViewModel.shouldBlockCertificateCode)
+		XCTAssertEqual(viewModel.qrCodeViewModel.covPassCheckInfoPosition, .bottom)
 
 		if case let .validityState(image: image, description: description) = viewModel.caption {
 			XCTAssertEqual(image, UIImage(named: "Icon_ExpiredInvalid"))
@@ -460,18 +628,27 @@ class HealthCertifiedPersonCellModelTests: XCTestCase {
 			validityState: .blocked
 		)
 
+		let cclService = FakeCCLService()
 		let healthCertifiedPerson = HealthCertifiedPerson(healthCertificates: [healthCertificate])
+		// Not setting dccWalletInfo.verification here to check that the fallback certificate is used if it's not set
 
 		let viewModel = try XCTUnwrap(
 			HealthCertifiedPersonCellModel(
 				healthCertifiedPerson: healthCertifiedPerson,
-				showInfoHit: { }
+				cclService: cclService,
+				onCovPassCheckInfoButtonTap: { }
 			)
 		)
 
 		// THEN
 		XCTAssertEqual(viewModel.title, AppStrings.HealthCertificate.Overview.covidTitle)
 		XCTAssertEqual(viewModel.name, healthCertifiedPerson.name?.fullName)
+
+		XCTAssertFalse(viewModel.isStatusTitleVisible)
+		XCTAssertNil(viewModel.shortStatus)
+
+		XCTAssertTrue(viewModel.qrCodeViewModel.shouldBlockCertificateCode)
+		XCTAssertEqual(viewModel.qrCodeViewModel.covPassCheckInfoPosition, .bottom)
 
 		if case let .validityState(image: image, description: description) = viewModel.caption {
 			XCTAssertEqual(image, UIImage(named: "Icon_ExpiredInvalid"))
@@ -530,14 +707,21 @@ class HealthCertifiedPersonCellModelTests: XCTestCase {
 				thirdHealthCertificate,
 				fourthHealthCertificate
 			],
-			boosterRule: .fake(),
+			dccWalletInfo: .fake(
+				boosterNotification: .fake(
+					identifier: "BoosterRule"
+				)
+			),
 			isNewBoosterRule: true
 		)
+
+		let cclService = FakeCCLService()
 
 		let viewModel = try XCTUnwrap(
 			HealthCertifiedPersonCellModel(
 				healthCertifiedPerson: healthCertifiedPerson,
-				showInfoHit: { }
+				cclService: cclService,
+				onCovPassCheckInfoButtonTap: { }
 			)
 		)
 
@@ -557,10 +741,13 @@ class HealthCertifiedPersonCellModelTests: XCTestCase {
 			isNewBoosterRule: true
 		)
 
+		let cclService = FakeCCLService()
+
 		let viewModel = try XCTUnwrap(
 			HealthCertifiedPersonCellModel(
 				healthCertifiedPerson: healthCertifiedPerson,
-				showInfoHit: { }
+				cclService: cclService,
+				onCovPassCheckInfoButtonTap: { }
 			)
 		)
 
@@ -576,15 +763,304 @@ class HealthCertifiedPersonCellModelTests: XCTestCase {
 			isNewBoosterRule: false
 		)
 
+		let cclService = FakeCCLService()
+
 		let viewModel = try XCTUnwrap(
 			HealthCertifiedPersonCellModel(
 				healthCertifiedPerson: healthCertifiedPerson,
-				showInfoHit: { }
+				cclService: cclService,
+				onCovPassCheckInfoButtonTap: { }
 			)
 		)
 
 		// THEN
 		XCTAssertNil(viewModel.caption)
+	}
+
+	func testAdmissionStateWithBadgeAndOneCertificateToShow() throws {
+		let healthCertifiedPerson = HealthCertifiedPerson(
+			healthCertificates: [try testCertificate(type: .antigen)]
+		)
+		healthCertifiedPerson.dccWalletInfo = .fake(
+			admissionState: .fake(visible: true, badgeText: .fake(string: "1G+Z")),
+			verification: .fake(certificates: [])
+		)
+
+		let cclService = FakeCCLService()
+
+		let cellModel = try XCTUnwrap(
+			HealthCertifiedPersonCellModel(
+				healthCertifiedPerson: healthCertifiedPerson,
+				cclService: cclService,
+				onCovPassCheckInfoButtonTap: { }
+			)
+		)
+
+		XCTAssertEqual(cellModel.qrCodeViewModel.covPassCheckInfoPosition, .bottom)
+		XCTAssertTrue(cellModel.isStatusTitleVisible)
+		XCTAssertTrue(cellModel.switchableHealthCertificates.isEmpty)
+		XCTAssertEqual(cellModel.shortStatus, "1G+Z")
+	}
+
+	func testAdmissionStateWithBadgeAndTwoCertificatesToShow() throws {
+		let twoGCertificate = try vaccinationCertificate(daysOffset: -1, doseNumber: 2, totalSeriesOfDoses: 2)
+		let testCertificate = try testCertificate(daysOffset: -1, type: .antigen)
+
+		let healthCertifiedPerson = HealthCertifiedPerson(healthCertificates: [twoGCertificate, testCertificate])
+		healthCertifiedPerson.dccWalletInfo = .fake(
+			admissionState: .fake(visible: true, badgeText: .fake(string: "2G+Y")),
+			verification: .fake(
+				certificates: [
+					.fake(
+						buttonText: .fake(string: "2G-Zertifikat"),
+						certificateRef: .fake(barcodeData: twoGCertificate.base45)
+					),
+					.fake(
+						buttonText: .fake(string: "Testzertifikat"),
+						certificateRef: .fake(barcodeData: testCertificate.base45)
+					)
+				]
+			)
+		)
+
+		let cclService = FakeCCLService()
+
+		let cellModel = try XCTUnwrap(
+			HealthCertifiedPersonCellModel(
+				healthCertifiedPerson: healthCertifiedPerson,
+				cclService: cclService,
+				onCovPassCheckInfoButtonTap: { }
+			)
+		)
+
+		XCTAssertEqual(cellModel.qrCodeViewModel.covPassCheckInfoPosition, .bottom)
+		XCTAssertTrue(cellModel.isStatusTitleVisible)
+		XCTAssertEqual(
+			cellModel.switchableHealthCertificates,
+			["2G-Zertifikat": twoGCertificate, "Testzertifikat": testCertificate]
+		)
+		XCTAssertEqual(cellModel.shortStatus, "2G+Y")
+	}
+
+	func testAdmissionStateWithBadgeAndThreeCertificatesToShow() throws {
+		let twoGCertificate = try vaccinationCertificate(daysOffset: -1, doseNumber: 2, totalSeriesOfDoses: 2)
+		let testCertificate = try testCertificate(daysOffset: -1, type: .antigen)
+		let thirdCertificate = try vaccinationCertificate(daysOffset: -5, doseNumber: 1, totalSeriesOfDoses: 2)
+
+		let healthCertifiedPerson = HealthCertifiedPerson(healthCertificates: [twoGCertificate, testCertificate, thirdCertificate])
+		healthCertifiedPerson.dccWalletInfo = .fake(
+			admissionState: .fake(visible: true, badgeText: .fake(string: "2G+Y")),
+			verification: .fake(
+				certificates: [
+					.fake(
+						buttonText: .fake(string: "2G-Zertifikat"),
+						certificateRef: .fake(barcodeData: twoGCertificate.base45)
+					),
+					.fake(
+						buttonText: .fake(string: "Testzertifikat"),
+						certificateRef: .fake(barcodeData: testCertificate.base45)
+					),
+					.fake(
+						buttonText: .fake(string: "Drittes Zertifikat"),
+						certificateRef: .fake(barcodeData: thirdCertificate.base45)
+					)
+				]
+			)
+		)
+
+		let cclService = FakeCCLService()
+
+		let cellModel = try XCTUnwrap(
+			HealthCertifiedPersonCellModel(
+				healthCertifiedPerson: healthCertifiedPerson,
+				cclService: cclService,
+				onCovPassCheckInfoButtonTap: { }
+			)
+		)
+
+		XCTAssertEqual(cellModel.qrCodeViewModel.covPassCheckInfoPosition, .bottom)
+		XCTAssertTrue(cellModel.isStatusTitleVisible)
+		XCTAssertEqual(
+			cellModel.switchableHealthCertificates,
+			["2G-Zertifikat": twoGCertificate, "Testzertifikat": testCertificate, "Drittes Zertifikat": thirdCertificate]
+		)
+		XCTAssertEqual(cellModel.shortStatus, "2G+Y")
+	}
+
+	func testFourthCertificateIsNotShown() throws {
+		let twoGCertificate = try vaccinationCertificate(daysOffset: -1, doseNumber: 2, totalSeriesOfDoses: 2)
+		let testCertificate = try testCertificate(daysOffset: -1, type: .antigen)
+		let thirdCertificate = try vaccinationCertificate(daysOffset: -5, doseNumber: 1, totalSeriesOfDoses: 2)
+		let fourthCertificate = try vaccinationCertificate(daysOffset: -16, doseNumber: 0, totalSeriesOfDoses: 2)
+
+		let healthCertifiedPerson = HealthCertifiedPerson(healthCertificates: [twoGCertificate, testCertificate, thirdCertificate, fourthCertificate])
+		healthCertifiedPerson.dccWalletInfo = .fake(
+			admissionState: .fake(visible: true, badgeText: .fake(string: "2G+Y")),
+			verification: .fake(
+				certificates: [
+					.fake(
+						buttonText: .fake(string: "2G-Zertifikat"),
+						certificateRef: .fake(barcodeData: twoGCertificate.base45)
+					),
+					.fake(
+						buttonText: .fake(string: "Testzertifikat"),
+						certificateRef: .fake(barcodeData: testCertificate.base45)
+					),
+					.fake(
+						buttonText: .fake(string: "Drittes Zertifikat"),
+						certificateRef: .fake(barcodeData: thirdCertificate.base45)
+					),
+					.fake(
+						buttonText: .fake(string: "Viertes Zertifikat"),
+						certificateRef: .fake(barcodeData: fourthCertificate.base45)
+					)
+				]
+			)
+		)
+
+		let cclService = FakeCCLService()
+
+		let cellModel = try XCTUnwrap(
+			HealthCertifiedPersonCellModel(
+				healthCertifiedPerson: healthCertifiedPerson,
+				cclService: cclService,
+				onCovPassCheckInfoButtonTap: { }
+			)
+		)
+
+		XCTAssertEqual(cellModel.qrCodeViewModel.covPassCheckInfoPosition, .bottom)
+		XCTAssertTrue(cellModel.isStatusTitleVisible)
+		XCTAssertEqual(
+			cellModel.switchableHealthCertificates,
+			["2G-Zertifikat": twoGCertificate, "Testzertifikat": testCertificate, "Drittes Zertifikat": thirdCertificate]
+		)
+		XCTAssertEqual(cellModel.shortStatus, "2G+Y")
+	}
+
+	func testWithoutAdmissionState() throws {
+		let healthCertifiedPerson = HealthCertifiedPerson(
+			healthCertificates: [try vaccinationCertificate()]
+		)
+		healthCertifiedPerson.dccWalletInfo = .fake(
+			admissionState: .fake(visible: false),
+			verification: .fake(certificates: [])
+		)
+
+		let cclService = FakeCCLService()
+
+		let cellModel = try XCTUnwrap(
+			HealthCertifiedPersonCellModel(
+				healthCertifiedPerson: healthCertifiedPerson,
+				cclService: cclService,
+				onCovPassCheckInfoButtonTap: { }
+			)
+		)
+
+		XCTAssertEqual(cellModel.qrCodeViewModel.covPassCheckInfoPosition, .bottom)
+		XCTAssertFalse(cellModel.isStatusTitleVisible)
+		XCTAssertTrue(cellModel.switchableHealthCertificates.isEmpty)
+		XCTAssertNil(cellModel.shortStatus)
+	}
+
+	func testWithEmptyAdmissionState() throws {
+		let healthCertifiedPerson = HealthCertifiedPerson(
+			healthCertificates: [try vaccinationCertificate()]
+		)
+		healthCertifiedPerson.dccWalletInfo = .fake(
+			admissionState: .fake(visible: true, badgeText: .fake(string: "")),
+			verification: .fake(certificates: [])
+		)
+
+		let cclService = FakeCCLService()
+
+		let cellModel = try XCTUnwrap(
+			HealthCertifiedPersonCellModel(
+				healthCertifiedPerson: healthCertifiedPerson,
+				cclService: cclService,
+				onCovPassCheckInfoButtonTap: { }
+			)
+		)
+
+		XCTAssertEqual(cellModel.qrCodeViewModel.covPassCheckInfoPosition, .bottom)
+		XCTAssertFalse(cellModel.isStatusTitleVisible)
+		XCTAssertTrue(cellModel.switchableHealthCertificates.isEmpty)
+		XCTAssertNil(cellModel.shortStatus)
+	}
+
+	func testSolidGreyGradient() throws {
+		let healthCertifiedPerson = HealthCertifiedPerson(
+			healthCertificates: [try vaccinationCertificate()]
+		)
+		healthCertifiedPerson.gradientType = .solidGrey
+
+		let cclService = FakeCCLService()
+
+		let cellModel = try XCTUnwrap(
+			HealthCertifiedPersonCellModel(
+				healthCertifiedPerson: healthCertifiedPerson,
+				cclService: cclService,
+				onCovPassCheckInfoButtonTap: { }
+			)
+		)
+
+		XCTAssertEqual(cellModel.backgroundGradientType, .solidGrey)
+	}
+
+	func testLightBlueGradient() throws {
+		let healthCertifiedPerson = HealthCertifiedPerson(
+			healthCertificates: [try vaccinationCertificate()]
+		)
+		healthCertifiedPerson.gradientType = .lightBlue
+
+		let cclService = FakeCCLService()
+
+		let cellModel = try XCTUnwrap(
+			HealthCertifiedPersonCellModel(
+				healthCertifiedPerson: healthCertifiedPerson,
+				cclService: cclService,
+				onCovPassCheckInfoButtonTap: { }
+			)
+		)
+
+		XCTAssertEqual(cellModel.backgroundGradientType, .lightBlue)
+	}
+
+	func testMediumBlueGradient() throws {
+		let healthCertifiedPerson = HealthCertifiedPerson(
+			healthCertificates: [try vaccinationCertificate()]
+		)
+		healthCertifiedPerson.gradientType = .mediumBlue
+
+		let cclService = FakeCCLService()
+
+		let cellModel = try XCTUnwrap(
+			HealthCertifiedPersonCellModel(
+				healthCertifiedPerson: healthCertifiedPerson,
+				cclService: cclService,
+				onCovPassCheckInfoButtonTap: { }
+			)
+		)
+
+		XCTAssertEqual(cellModel.backgroundGradientType, .mediumBlue)
+	}
+
+	func testDarkBlueGradient() throws {
+		let healthCertifiedPerson = HealthCertifiedPerson(
+			healthCertificates: [try vaccinationCertificate()]
+		)
+		healthCertifiedPerson.gradientType = .darkBlue
+
+		let cclService = FakeCCLService()
+
+		let cellModel = try XCTUnwrap(
+			HealthCertifiedPersonCellModel(
+				healthCertifiedPerson: healthCertifiedPerson,
+				cclService: cclService,
+				onCovPassCheckInfoButtonTap: { }
+			)
+		)
+
+		XCTAssertEqual(cellModel.backgroundGradientType, .darkBlue)
 	}
 
 }

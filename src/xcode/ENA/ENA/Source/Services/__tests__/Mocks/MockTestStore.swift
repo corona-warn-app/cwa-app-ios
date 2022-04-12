@@ -9,12 +9,22 @@ import OpenCombine
 
 final class MockTestStore: Store, PPAnalyticsData {
 
+	init() {
+#if DEBUG
+		if isUITesting {
+			self.showAnotherHighExposureAlert = LaunchArguments.risk.anotherHighEncounter.boolValue
+			self.userNeedsToBeInformedAboutHowRiskDetectionWorks = LaunchArguments.infoScreen.userNeedsToBeInformedAboutHowRiskDetectionWorks.boolValue
+		}
+#endif
+	}
+
 	var firstPlaybookExecution: Date?
 	var lastBackgroundFakeRequest: Date = .init()
 	var hasSeenBackgroundFetchAlert: Bool = false
 	var referenceDateForRateLimitLogger: Date?
 	var enfRiskCalculationResult: ENFRiskCalculationResult?
 	var checkinRiskCalculationResult: CheckinRiskCalculationResult?
+	var showAnotherHighExposureAlert: Bool = false
 	var shouldShowRiskStatusLoweredAlert: Bool = false
 	var exposureActivationConsentAcceptTimestamp: Int64?
 	var exposureActivationConsentAccept: Bool = false
@@ -96,6 +106,8 @@ final class MockTestStore: Store, PPAnalyticsData {
 
 	// MARK: - ErrorLogProviding
 
+	var lastLoggedAppVersionNumber: Version?
+	var lastLoggedAppVersionTimestamp: Date?
 	var ppacApiTokenEls: TimestampedToken?
 	var otpTokenEls: OTPToken?
 	var otpElsAuthorizationDate: Date?
@@ -124,7 +136,6 @@ final class MockTestStore: Store, PPAnalyticsData {
 
 	var pcrTest: PCRTest?
 	var antigenTest: AntigenTest?
-	var unseenTestsCount: Int = 0
 
 	// MARK: - AntigenTestProfileStoring
 
@@ -147,20 +158,13 @@ final class MockTestStore: Store, PPAnalyticsData {
 	var testCertificateRequests: [TestCertificateRequest] = []
 	var lastSelectedValidationCountry: Country = .defaultCountry()
 	var lastSelectedValidationDate: Date = Date()
+	var lastSelectedScenarioIdentifier: String?
+	var dccAdmissionCheckScenarios: DCCAdmissionCheckScenarios?
+	var shouldShowRegroupingAlert: Bool = false
 
 	// MARK: - Protocol VaccinationCaching
 
 	var vaccinationCertificateValueDataSets: VaccinationValueDataSets?
-
-	// MARK: - Protocol HealthCertificateValidationCaching
-
-	var validationOnboardedCountriesCache: HealthCertificateValidationOnboardedCountriesCache?
-	var acceptanceRulesCache: ValidationRulesCache?
-	var invalidationRulesCache: ValidationRulesCache?
-
-	// MARK: - Protocol HealthCertificateBoosterNotificationCaching
-
-	var boosterRulesCache: ValidationRulesCache?
 
 	// MARK: - CoronaTestStoringLegacy
 
@@ -198,6 +202,13 @@ final class MockTestStore: Store, PPAnalyticsData {
 			recycleBinItemsSubject.value = recycleBinItems
 		}
 	}
+
+	// MARK: - HomeBadgeStoring
+	var badgesData: [HomeBadgeWrapper.BadgeType: Int?] = [:]
+
+	// MARK: - KeyValueCacheStoring
+	var keyValueCacheVersion: Int = 0
+
 }
 
 #endif

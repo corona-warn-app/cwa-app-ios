@@ -1,0 +1,15 @@
+{
+  "images" : [
+    {
+      "filename" : "Icon_CurrentlyUsedCertificate_light.pdf",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  },
+  "properties" : {
+    "preserves-vector-representation" : true
+  }
+}

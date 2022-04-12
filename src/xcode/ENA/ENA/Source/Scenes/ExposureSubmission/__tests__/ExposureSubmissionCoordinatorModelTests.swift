@@ -13,32 +13,10 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 	// MARK: - Should Show Override Test Notice
 
 	func testShouldShowOverrideTestNotice_WithoutRegisteredTests() {
-		let client = ClientMock()
-		let store = MockTestStore()
-		let appConfiguration = CachedAppConfigurationMock()
+		let coronaTestService = MockCoronaTestService()
 
-		let coronaTestService = CoronaTestService(
-			client: client,
-			store: store,
-			eventStore: MockEventStore(),
-			diaryStore: MockDiaryStore(),
-			appConfiguration: appConfiguration,
-			healthCertificateService: HealthCertificateService(
-				store: store,
-				dccSignatureVerifier: DCCSignatureVerifyingStub(),
-				dscListProvider: MockDSCListProvider(),
-				client: client,
-				appConfiguration: appConfiguration,
-				boosterNotificationsService: BoosterNotificationsService(
-					rulesDownloadService: RulesDownloadService(store: store, client: client)
-				),
-				recycleBin: .fake()
-			),
-			recycleBin: .fake()
-		)
-
-		coronaTestService.pcrTest = nil
-		coronaTestService.antigenTest = nil
+		coronaTestService.pcrTest.value = nil
+		coronaTestService.antigenTest.value = nil
 
 		let model = ExposureSubmissionCoordinatorModel(
 			exposureSubmissionService: MockExposureSubmissionService(),
@@ -51,32 +29,10 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 	}
 
 	func testShouldShowOverrideTestNotice_WithRegisteredPCRTest() {
-		let client = ClientMock()
-		let store = MockTestStore()
-		let appConfiguration = CachedAppConfigurationMock()
+		let coronaTestService = MockCoronaTestService()
 
-		let coronaTestService = CoronaTestService(
-			client: client,
-			store: store,
-			eventStore: MockEventStore(),
-			diaryStore: MockDiaryStore(),
-			appConfiguration: appConfiguration,
-			healthCertificateService: HealthCertificateService(
-				store: store,
-				dccSignatureVerifier: DCCSignatureVerifyingStub(),
-				dscListProvider: MockDSCListProvider(),
-				client: client,
-				appConfiguration: appConfiguration,
-				boosterNotificationsService: BoosterNotificationsService(
-					rulesDownloadService: RulesDownloadService(store: store, client: client)
-				),
-				recycleBin: .fake()
-			),
-			recycleBin: .fake()
-		)
-
-		coronaTestService.pcrTest = PCRTest.mock(testResult: .pending)
-		coronaTestService.antigenTest = nil
+		coronaTestService.pcrTest.value = PCRTest.mock(testResult: .pending)
+		coronaTestService.antigenTest.value = nil
 
 		let model = ExposureSubmissionCoordinatorModel(
 			exposureSubmissionService: MockExposureSubmissionService(),
@@ -87,47 +43,25 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 		XCTAssertTrue(model.shouldShowOverrideTestNotice(for: .pcr))
 		XCTAssertFalse(model.shouldShowOverrideTestNotice(for: .antigen))
 
-		coronaTestService.pcrTest?.testResult = .positive
+		coronaTestService.pcrTest.value?.testResult = .positive
 		XCTAssertTrue(model.shouldShowOverrideTestNotice(for: .pcr))
 
-		coronaTestService.pcrTest?.testResult = .negative
+		coronaTestService.pcrTest.value?.testResult = .negative
 		XCTAssertTrue(model.shouldShowOverrideTestNotice(for: .pcr))
 
-		coronaTestService.pcrTest?.testResult = .invalid
+		coronaTestService.pcrTest.value?.testResult = .invalid
 		XCTAssertTrue(model.shouldShowOverrideTestNotice(for: .pcr))
 
 		// Should not be shown for expired tests
-		coronaTestService.pcrTest?.testResult = .expired
+		coronaTestService.pcrTest.value?.testResult = .expired
 		XCTAssertFalse(model.shouldShowOverrideTestNotice(for: .pcr))
 	}
 
 	func testShouldShowOverrideTestNotice_WithRegisteredAntigenTest() {
-		let client = ClientMock()
-		let store = MockTestStore()
-		let appConfiguration = CachedAppConfigurationMock()
+		let coronaTestService = MockCoronaTestService()
 
-		let coronaTestService = CoronaTestService(
-			client: client,
-			store: store,
-			eventStore: MockEventStore(),
-			diaryStore: MockDiaryStore(),
-			appConfiguration: appConfiguration,
-			healthCertificateService: HealthCertificateService(
-				store: store,
-				dccSignatureVerifier: DCCSignatureVerifyingStub(),
-				dscListProvider: MockDSCListProvider(),
-				client: client,
-				appConfiguration: appConfiguration,
-				boosterNotificationsService: BoosterNotificationsService(
-					rulesDownloadService: RulesDownloadService(store: store, client: client)
-				),
-				recycleBin: .fake()
-			),
-			recycleBin: .fake()
-		)
-
-		coronaTestService.pcrTest = nil
-		coronaTestService.antigenTest = AntigenTest.mock(testResult: .pending)
+		coronaTestService.pcrTest.value = nil
+		coronaTestService.antigenTest.value = AntigenTest.mock(testResult: .pending)
 
 		let model = ExposureSubmissionCoordinatorModel(
 			exposureSubmissionService: MockExposureSubmissionService(),
@@ -138,51 +72,29 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 		XCTAssertFalse(model.shouldShowOverrideTestNotice(for: .pcr))
 		XCTAssertTrue(model.shouldShowOverrideTestNotice(for: .antigen))
 
-		coronaTestService.antigenTest?.testResult = .positive
+		coronaTestService.antigenTest.value?.testResult = .positive
 		XCTAssertTrue(model.shouldShowOverrideTestNotice(for: .antigen))
 
-		coronaTestService.antigenTest?.testResult = .invalid
+		coronaTestService.antigenTest.value?.testResult = .invalid
 		XCTAssertTrue(model.shouldShowOverrideTestNotice(for: .antigen))
 
 		// Should not be shown for expired tests
-		coronaTestService.antigenTest?.testResult = .expired
+		coronaTestService.antigenTest.value?.testResult = .expired
 		XCTAssertFalse(model.shouldShowOverrideTestNotice(for: .antigen))
 
-		coronaTestService.antigenTest?.testResult = .negative
+		coronaTestService.antigenTest.value?.testResult = .negative
 		XCTAssertTrue(model.shouldShowOverrideTestNotice(for: .antigen))
 
 		// Should not be shown for outdated antigen tests
-		coronaTestService.antigenTestIsOutdated = true
+		coronaTestService.antigenTestIsOutdated.value = true
 		XCTAssertFalse(model.shouldShowOverrideTestNotice(for: .antigen))
 	}
 
 	func testShouldShowOverrideTestNotice_WithRegisteredTests() {
-		let client = ClientMock()
-		let store = MockTestStore()
-		let appConfiguration = CachedAppConfigurationMock()
+		let coronaTestService = MockCoronaTestService()
 
-		let coronaTestService = CoronaTestService(
-			client: client,
-			store: store,
-			eventStore: MockEventStore(),
-			diaryStore: MockDiaryStore(),
-			appConfiguration: appConfiguration,
-			healthCertificateService: HealthCertificateService(
-				store: store,
-				dccSignatureVerifier: DCCSignatureVerifyingStub(),
-				dscListProvider: MockDSCListProvider(),
-				client: client,
-				appConfiguration: appConfiguration,
-				boosterNotificationsService: BoosterNotificationsService(
-					rulesDownloadService: RulesDownloadService(store: store, client: client)
-				),
-				recycleBin: .fake()
-			),
-			recycleBin: .fake()
-		)
-
-		coronaTestService.pcrTest = PCRTest.mock(testResult: .pending)
-		coronaTestService.antigenTest = AntigenTest.mock(testResult: .pending)
+		coronaTestService.pcrTest.value = PCRTest.mock(testResult: .pending)
+		coronaTestService.antigenTest.value = AntigenTest.mock(testResult: .pending)
 
 		let model = ExposureSubmissionCoordinatorModel(
 			exposureSubmissionService: MockExposureSubmissionService(),
@@ -197,31 +109,9 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 	// MARK: - Should Show TestCertificateScreen
 
 	func testShouldShowTestCertificateScreen_WithPCRTest() {
-		let client = ClientMock()
-		let store = MockTestStore()
-		let appConfiguration = CachedAppConfigurationMock()
-
 		let model = ExposureSubmissionCoordinatorModel(
 			exposureSubmissionService: MockExposureSubmissionService(),
-			coronaTestService: CoronaTestService(
-				client: client,
-				store: store,
-				eventStore: MockEventStore(),
-				diaryStore: MockDiaryStore(),
-				appConfiguration: appConfiguration,
-				healthCertificateService: HealthCertificateService(
-					store: store,
-					dccSignatureVerifier: DCCSignatureVerifyingStub(),
-					dscListProvider: MockDSCListProvider(),
-					client: client,
-					appConfiguration: appConfiguration,
-					boosterNotificationsService: BoosterNotificationsService(
-						rulesDownloadService: RulesDownloadService(store: store, client: client)
-					),
-					recycleBin: .fake()
-				),
-				recycleBin: .fake()
-			),
+			coronaTestService: MockCoronaTestService(),
 			eventProvider: MockEventStore()
 		)
 
@@ -229,35 +119,13 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 	}
 
 	func testShouldShowTestCertificateScreen_WithAntigenTestThatHasCertificateSupport() {
-		let client = ClientMock()
-		let store = MockTestStore()
-		let appConfiguration = CachedAppConfigurationMock()
-
 		let model = ExposureSubmissionCoordinatorModel(
 			exposureSubmissionService: MockExposureSubmissionService(),
-			coronaTestService: CoronaTestService(
-				client: client,
-				store: store,
-				eventStore: MockEventStore(),
-				diaryStore: MockDiaryStore(),
-				appConfiguration: appConfiguration,
-				healthCertificateService: HealthCertificateService(
-					store: store,
-					dccSignatureVerifier: DCCSignatureVerifyingStub(),
-					dscListProvider: MockDSCListProvider(),
-					client: client,
-					appConfiguration: appConfiguration,
-					boosterNotificationsService: BoosterNotificationsService(
-						rulesDownloadService: RulesDownloadService(store: store, client: client)
-					),
-					recycleBin: .fake()
-				),
-				recycleBin: .fake()
-			),
+			coronaTestService: MockCoronaTestService(),
 			eventProvider: MockEventStore()
 		)
 
-		let antigenTestQRCodeInformation = AntigenTestQRCodeInformation(
+		let antigenTestQRCodeInformation = RapidTestQRCodeInformation(
 			hash: "",
 			timestamp: 0,
 			firstName: nil,
@@ -272,35 +140,13 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 	}
 
 	func testShouldShowTestCertificateScreen_WithAntigenTestThatHasNoCertificateSupport() {
-		let client = ClientMock()
-		let store = MockTestStore()
-		let appConfiguration = CachedAppConfigurationMock()
-
 		let model = ExposureSubmissionCoordinatorModel(
 			exposureSubmissionService: MockExposureSubmissionService(),
-			coronaTestService: CoronaTestService(
-				client: client,
-				store: store,
-				eventStore: MockEventStore(),
-				diaryStore: MockDiaryStore(),
-				appConfiguration: appConfiguration,
-				healthCertificateService: HealthCertificateService(
-					store: store,
-					dccSignatureVerifier: DCCSignatureVerifyingStub(),
-					dscListProvider: MockDSCListProvider(),
-					client: client,
-					appConfiguration: appConfiguration,
-					boosterNotificationsService: BoosterNotificationsService(
-						rulesDownloadService: RulesDownloadService(store: store, client: client)
-					),
-					recycleBin: .fake()
-				),
-				recycleBin: .fake()
-			),
+			coronaTestService: MockCoronaTestService(),
 			eventProvider: MockEventStore()
 		)
 
-		let antigenTestQRCodeInformation = AntigenTestQRCodeInformation(
+		let antigenTestQRCodeInformation = RapidTestQRCodeInformation(
 			hash: "",
 			timestamp: 0,
 			firstName: nil,
@@ -315,35 +161,13 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 	}
 
 	func testShouldShowTestCertificateScreen_WithAntigenTestThatHasNoCertificateSupportSpecified() {
-		let client = ClientMock()
-		let store = MockTestStore()
-		let appConfiguration = CachedAppConfigurationMock()
-
 		let model = ExposureSubmissionCoordinatorModel(
 			exposureSubmissionService: MockExposureSubmissionService(),
-			coronaTestService: CoronaTestService(
-				client: client,
-				store: store,
-				eventStore: MockEventStore(),
-				diaryStore: MockDiaryStore(),
-				appConfiguration: appConfiguration,
-				healthCertificateService: HealthCertificateService(
-					store: store,
-					dccSignatureVerifier: DCCSignatureVerifyingStub(),
-					dscListProvider: MockDSCListProvider(),
-					client: client,
-					appConfiguration: appConfiguration,
-					boosterNotificationsService: BoosterNotificationsService(
-						rulesDownloadService: RulesDownloadService(store: store, client: client)
-					),
-					recycleBin: .fake()
-				),
-				recycleBin: .fake()
-			),
+			coronaTestService: MockCoronaTestService(),
 			eventProvider: MockEventStore()
 		)
 
-		let antigenTestQRCodeInformation = AntigenTestQRCodeInformation(
+		let antigenTestQRCodeInformation = RapidTestQRCodeInformation(
 			hash: "",
 			timestamp: 0,
 			firstName: nil,
@@ -358,31 +182,9 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 	}
 
 	func testShouldShowTestCertificateScreen_FromTeleTAN() {
-		let client = ClientMock()
-		let store = MockTestStore()
-		let appConfiguration = CachedAppConfigurationMock()
-
 		let model = ExposureSubmissionCoordinatorModel(
 			exposureSubmissionService: MockExposureSubmissionService(),
-			coronaTestService: CoronaTestService(
-				client: client,
-				store: store,
-				eventStore: MockEventStore(),
-				diaryStore: MockDiaryStore(),
-				appConfiguration: appConfiguration,
-				healthCertificateService: HealthCertificateService(
-					store: store,
-					dccSignatureVerifier: DCCSignatureVerifyingStub(),
-					dscListProvider: MockDSCListProvider(),
-					client: client,
-					appConfiguration: appConfiguration,
-					boosterNotificationsService: BoosterNotificationsService(
-						rulesDownloadService: RulesDownloadService(store: store, client: client)
-					),
-					recycleBin: .fake()
-				),
-				recycleBin: .fake()
-			),
+			coronaTestService: MockCoronaTestService(),
 			eventProvider: MockEventStore()
 		)
 
@@ -392,31 +194,9 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 	// MARK: - Symptoms Option Selected
 
 	func testSymptomsOptionYesSelected() {
-		let client = ClientMock()
-		let store = MockTestStore()
-		let appConfiguration = CachedAppConfigurationMock()
-
 		let model = ExposureSubmissionCoordinatorModel(
 			exposureSubmissionService: MockExposureSubmissionService(),
-			coronaTestService: CoronaTestService(
-				client: client,
-				store: store,
-				eventStore: MockEventStore(),
-				diaryStore: MockDiaryStore(),
-				appConfiguration: appConfiguration,
-				healthCertificateService: HealthCertificateService(
-					store: store,
-					dccSignatureVerifier: DCCSignatureVerifyingStub(),
-					dscListProvider: MockDSCListProvider(),
-					client: client,
-					appConfiguration: appConfiguration,
-					boosterNotificationsService: BoosterNotificationsService(
-						rulesDownloadService: RulesDownloadService(store: store, client: client)
-					),
-					recycleBin: .fake()
-				),
-				recycleBin: .fake()
-			),
+			coronaTestService: MockCoronaTestService(),
 			eventProvider: MockEventStore()
 		)
 
@@ -433,31 +213,9 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 			submissionExpectation.fulfill()
 		}
 
-		let client = ClientMock()
-		let store = MockTestStore()
-		let appConfiguration = CachedAppConfigurationMock()
-
 		let model = ExposureSubmissionCoordinatorModel(
 			exposureSubmissionService: exposureSubmissionService,
-			coronaTestService: CoronaTestService(
-				client: client,
-				store: store,
-				eventStore: MockEventStore(),
-				diaryStore: MockDiaryStore(),
-				appConfiguration: appConfiguration,
-				healthCertificateService: HealthCertificateService(
-					store: store,
-					dccSignatureVerifier: DCCSignatureVerifyingStub(),
-					dscListProvider: MockDSCListProvider(),
-					client: client,
-					appConfiguration: appConfiguration,
-					boosterNotificationsService: BoosterNotificationsService(
-						rulesDownloadService: RulesDownloadService(store: store, client: client)
-					),
-					recycleBin: .fake()
-				),
-				recycleBin: .fake()
-			),
+			coronaTestService: MockCoronaTestService(),
 			eventProvider: MockEventStore()
 		)
 
@@ -481,31 +239,9 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 			submissionExpectation.fulfill()
 		}
 
-		let client = ClientMock()
-		let store = MockTestStore()
-		let appConfiguration = CachedAppConfigurationMock()
-
 		let model = ExposureSubmissionCoordinatorModel(
 			exposureSubmissionService: exposureSubmissionService,
-			coronaTestService: CoronaTestService(
-				client: client,
-				store: store,
-				eventStore: MockEventStore(),
-				diaryStore: MockDiaryStore(),
-				appConfiguration: appConfiguration,
-				healthCertificateService: HealthCertificateService(
-					store: store,
-					dccSignatureVerifier: DCCSignatureVerifyingStub(),
-					dscListProvider: MockDSCListProvider(),
-					client: client,
-					appConfiguration: appConfiguration,
-					boosterNotificationsService: BoosterNotificationsService(
-						rulesDownloadService: RulesDownloadService(store: store, client: client)
-					),
-					recycleBin: .fake()
-				),
-				recycleBin: .fake()
-			),
+			coronaTestService: MockCoronaTestService(),
 			eventProvider: MockEventStore()
 		)
 
@@ -531,31 +267,9 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 			submissionExpectation.fulfill()
 		}
 
-		let client = ClientMock()
-		let store = MockTestStore()
-		let appConfiguration = CachedAppConfigurationMock()
-
 		let model = ExposureSubmissionCoordinatorModel(
 			exposureSubmissionService: exposureSubmissionService,
-			coronaTestService: CoronaTestService(
-				client: client,
-				store: store,
-				eventStore: MockEventStore(),
-				diaryStore: MockDiaryStore(),
-				appConfiguration: appConfiguration,
-				healthCertificateService: HealthCertificateService(
-					store: store,
-					dccSignatureVerifier: DCCSignatureVerifyingStub(),
-					dscListProvider: MockDSCListProvider(),
-					client: client,
-					appConfiguration: appConfiguration,
-					boosterNotificationsService: BoosterNotificationsService(
-						rulesDownloadService: RulesDownloadService(store: store, client: client)
-					),
-					recycleBin: .fake()
-				),
-				recycleBin: .fake()
-			),
+			coronaTestService: MockCoronaTestService(),
 			eventProvider: MockEventStore()
 		)
 
@@ -581,31 +295,9 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 			submissionExpectation.fulfill()
 		}
 
-		let client = ClientMock()
-		let store = MockTestStore()
-		let appConfiguration = CachedAppConfigurationMock()
-
 		let model = ExposureSubmissionCoordinatorModel(
 			exposureSubmissionService: exposureSubmissionService,
-			coronaTestService: CoronaTestService(
-				client: client,
-				store: store,
-				eventStore: MockEventStore(),
-				diaryStore: MockDiaryStore(),
-				appConfiguration: appConfiguration,
-				healthCertificateService: HealthCertificateService(
-					store: store,
-					dccSignatureVerifier: DCCSignatureVerifyingStub(),
-					dscListProvider: MockDSCListProvider(),
-					client: client,
-					appConfiguration: appConfiguration,
-					boosterNotificationsService: BoosterNotificationsService(
-						rulesDownloadService: RulesDownloadService(store: store, client: client)
-					),
-					recycleBin: .fake()
-				),
-				recycleBin: .fake()
-			),
+			coronaTestService: MockCoronaTestService(),
 			eventProvider: MockEventStore()
 		)
 
@@ -628,31 +320,9 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 			submissionExpectation.fulfill()
 		}
 
-		let client = ClientMock()
-		let store = MockTestStore()
-		let appConfiguration = CachedAppConfigurationMock()
-
 		let model = ExposureSubmissionCoordinatorModel(
 			exposureSubmissionService: exposureSubmissionService,
-			coronaTestService: CoronaTestService(
-				client: client,
-				store: store,
-				eventStore: MockEventStore(),
-				diaryStore: MockDiaryStore(),
-				appConfiguration: appConfiguration,
-				healthCertificateService: HealthCertificateService(
-					store: store,
-					dccSignatureVerifier: DCCSignatureVerifyingStub(),
-					dscListProvider: MockDSCListProvider(),
-					client: client,
-					appConfiguration: appConfiguration,
-					boosterNotificationsService: BoosterNotificationsService(
-						rulesDownloadService: RulesDownloadService(store: store, client: client)
-					),
-					recycleBin: .fake()
-				),
-				recycleBin: .fake()
-			),
+			coronaTestService: MockCoronaTestService(),
 			eventProvider: MockEventStore()
 		)
 
@@ -676,31 +346,9 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 			submissionExpectation.fulfill()
 		}
 
-		let client = ClientMock()
-		let store = MockTestStore()
-		let appConfiguration = CachedAppConfigurationMock()
-
 		let model = ExposureSubmissionCoordinatorModel(
 			exposureSubmissionService: exposureSubmissionService,
-			coronaTestService: CoronaTestService(
-				client: client,
-				store: store,
-				eventStore: MockEventStore(),
-				diaryStore: MockDiaryStore(),
-				appConfiguration: appConfiguration,
-				healthCertificateService: HealthCertificateService(
-					store: store,
-					dccSignatureVerifier: DCCSignatureVerifyingStub(),
-					dscListProvider: MockDSCListProvider(),
-					client: client,
-					appConfiguration: appConfiguration,
-					boosterNotificationsService: BoosterNotificationsService(
-						rulesDownloadService: RulesDownloadService(store: store, client: client)
-					),
-					recycleBin: .fake()
-				),
-				recycleBin: .fake()
-			),
+			coronaTestService: MockCoronaTestService(),
 			eventProvider: MockEventStore()
 		)
 
@@ -723,31 +371,9 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 			submissionExpectation.fulfill()
 		}
 
-		let client = ClientMock()
-		let store = MockTestStore()
-		let appConfiguration = CachedAppConfigurationMock()
-
 		let model = ExposureSubmissionCoordinatorModel(
 			exposureSubmissionService: exposureSubmissionService,
-			coronaTestService: CoronaTestService(
-				client: client,
-				store: store,
-				eventStore: MockEventStore(),
-				diaryStore: MockDiaryStore(),
-				appConfiguration: appConfiguration,
-				healthCertificateService: HealthCertificateService(
-					store: store,
-					dccSignatureVerifier: DCCSignatureVerifyingStub(),
-					dscListProvider: MockDSCListProvider(),
-					client: client,
-					appConfiguration: appConfiguration,
-					boosterNotificationsService: BoosterNotificationsService(
-						rulesDownloadService: RulesDownloadService(store: store, client: client)
-					),
-					recycleBin: .fake()
-				),
-				recycleBin: .fake()
-			),
+			coronaTestService: MockCoronaTestService(),
 			eventProvider: MockEventStore()
 		)
 
@@ -770,31 +396,9 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 			completion(nil)
 		}
 
-		let client = ClientMock()
-		let store = MockTestStore()
-		let appConfiguration = CachedAppConfigurationMock()
-
 		let model = ExposureSubmissionCoordinatorModel(
 			exposureSubmissionService: exposureSubmissionService,
-			coronaTestService: CoronaTestService(
-				client: client,
-				store: store,
-				eventStore: MockEventStore(),
-				diaryStore: MockDiaryStore(),
-				appConfiguration: appConfiguration,
-				healthCertificateService: HealthCertificateService(
-					store: store,
-					dccSignatureVerifier: DCCSignatureVerifyingStub(),
-					dscListProvider: MockDSCListProvider(),
-					client: client,
-					appConfiguration: appConfiguration,
-					boosterNotificationsService: BoosterNotificationsService(
-						rulesDownloadService: RulesDownloadService(store: store, client: client)
-					),
-					recycleBin: .fake()
-				),
-				recycleBin: .fake()
-			),
+			coronaTestService: MockCoronaTestService(),
 			eventProvider: MockEventStore()
 		)
 
@@ -830,31 +434,9 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 			completion(.noKeysCollected)
 		}
 
-		let client = ClientMock()
-		let store = MockTestStore()
-		let appConfiguration = CachedAppConfigurationMock()
-
 		let model = ExposureSubmissionCoordinatorModel(
 			exposureSubmissionService: exposureSubmissionService,
-			coronaTestService: CoronaTestService(
-				client: client,
-				store: store,
-				eventStore: MockEventStore(),
-				diaryStore: MockDiaryStore(),
-				appConfiguration: appConfiguration,
-				healthCertificateService: HealthCertificateService(
-					store: store,
-					dccSignatureVerifier: DCCSignatureVerifyingStub(),
-					dscListProvider: MockDSCListProvider(),
-					client: client,
-					appConfiguration: appConfiguration,
-					boosterNotificationsService: BoosterNotificationsService(
-						rulesDownloadService: RulesDownloadService(store: store, client: client)
-					),
-					recycleBin: .fake()
-				),
-				recycleBin: .fake()
-			),
+			coronaTestService: MockCoronaTestService(),
 			eventProvider: MockEventStore()
 		)
 
@@ -890,31 +472,9 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 			completion(.notAuthorized)
 		}
 
-		let client = ClientMock()
-		let store = MockTestStore()
-		let appConfiguration = CachedAppConfigurationMock()
-
 		let model = ExposureSubmissionCoordinatorModel(
 			exposureSubmissionService: exposureSubmissionService,
-			coronaTestService: CoronaTestService(
-				client: client,
-				store: store,
-				eventStore: MockEventStore(),
-				diaryStore: MockDiaryStore(),
-				appConfiguration: appConfiguration,
-				healthCertificateService: HealthCertificateService(
-					store: store,
-					dccSignatureVerifier: DCCSignatureVerifyingStub(),
-					dscListProvider: MockDSCListProvider(),
-					client: client,
-					appConfiguration: appConfiguration,
-					boosterNotificationsService: BoosterNotificationsService(
-						rulesDownloadService: RulesDownloadService(store: store, client: client)
-					),
-					recycleBin: .fake()
-				),
-				recycleBin: .fake()
-			),
+			coronaTestService: MockCoronaTestService(),
 			eventProvider: MockEventStore()
 		)
 
@@ -952,31 +512,9 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 			completion(.internal)
 		}
 
-		let client = ClientMock()
-		let store = MockTestStore()
-		let appConfiguration = CachedAppConfigurationMock()
-
 		let model = ExposureSubmissionCoordinatorModel(
 			exposureSubmissionService: exposureSubmissionService,
-			coronaTestService: CoronaTestService(
-				client: client,
-				store: store,
-				eventStore: MockEventStore(),
-				diaryStore: MockDiaryStore(),
-				appConfiguration: appConfiguration,
-				healthCertificateService: HealthCertificateService(
-					store: store,
-					dccSignatureVerifier: DCCSignatureVerifyingStub(),
-					dscListProvider: MockDSCListProvider(),
-					client: client,
-					appConfiguration: appConfiguration,
-					boosterNotificationsService: BoosterNotificationsService(
-						rulesDownloadService: RulesDownloadService(store: store, client: client)
-					),
-					recycleBin: .fake()
-				),
-				recycleBin: .fake()
-			),
+			coronaTestService: MockCoronaTestService(),
 			eventProvider: MockEventStore()
 		)
 
@@ -1006,45 +544,15 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 		XCTAssertEqual(isLoadingValues, expectedIsLoadingValues)
 	}
 
-	func testGetTestResultSucceeds() {
-		let restServiceProvider = RestServiceProviderStub(
-			results: [
-				.success(RegistrationTokenModel(registrationToken: "fake"))
-			]
-		)
-
+	func testGetTestResultForPCRTestSucceeds() {
 		let expectedTestResult: TestResult = .positive
 
-		let client = ClientMock()
-		client.onGetTestResult = { _, _, completion in
-			completion(.success(.fake(testResult: expectedTestResult.rawValue)))
-		}
-
-		let store = MockTestStore()
-		let appConfiguration = CachedAppConfigurationMock()
+		let coronaTestService = MockCoronaTestService()
+		coronaTestService.registerPCRTestAndGetResultResult = .success(expectedTestResult)
 
 		let model = ExposureSubmissionCoordinatorModel(
 			exposureSubmissionService: MockExposureSubmissionService(),
-			coronaTestService: CoronaTestService(
-				client: client,
-				restServiceProvider: restServiceProvider,
-				store: store,
-				eventStore: MockEventStore(),
-				diaryStore: MockDiaryStore(),
-				appConfiguration: appConfiguration,
-				healthCertificateService: HealthCertificateService(
-					store: store,
-					dccSignatureVerifier: DCCSignatureVerifyingStub(),
-					dscListProvider: MockDSCListProvider(),
-					client: client,
-					appConfiguration: appConfiguration,
-					boosterNotificationsService: BoosterNotificationsService(
-						rulesDownloadService: RulesDownloadService(store: store, client: client)
-					),
-					recycleBin: .fake()
-				),
-				recycleBin: .fake()
-			),
+			coronaTestService: coronaTestService,
 			eventProvider: MockEventStore()
 		)
 
@@ -1079,47 +587,15 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 		XCTAssertEqual(isLoadingValues, expectedIsLoadingValues)
 	}
 
-	func testGetTestResultFails() {
-		let expectedError: CoronaTestServiceError = .responseFailure(.invalidResponse)
+	func testGetTestResultForPCRTestFails() {
+		let expectedError: CoronaTestServiceError = .testResultError(.invalidResponse)
 
-		let exposureSubmissionService = MockExposureSubmissionService()
-		let restServiceProvider = RestServiceProviderStub(
-			results: [
-				.success(RegistrationTokenModel(registrationToken: "fake")),
-				.success(SubmissionTANModel(submissionTAN: "fake"))
-			]
-		)
-
-		let client = ClientMock()
-		client.onGetTestResult = { _, _, completion in
-			completion(.failure(.invalidResponse))
-		}
-
-		let store = MockTestStore()
-		let appConfiguration = CachedAppConfigurationMock()
+		let coronaTestService = MockCoronaTestService()
+		coronaTestService.registerPCRTestAndGetResultResult = .failure(expectedError)
 
 		let model = ExposureSubmissionCoordinatorModel(
-			exposureSubmissionService: exposureSubmissionService,
-			coronaTestService: CoronaTestService(
-				client: client,
-				restServiceProvider: restServiceProvider,
-				store: store,
-				eventStore: MockEventStore(),
-				diaryStore: MockDiaryStore(),
-				appConfiguration: appConfiguration,
-				healthCertificateService: HealthCertificateService(
-					store: store,
-					dccSignatureVerifier: DCCSignatureVerifyingStub(),
-					dscListProvider: MockDSCListProvider(),
-					client: client,
-					appConfiguration: appConfiguration,
-					boosterNotificationsService: BoosterNotificationsService(
-						rulesDownloadService: RulesDownloadService(store: store, client: client)
-					),
-					recycleBin: .fake()
-				),
-				recycleBin: .fake()
-			),
+			exposureSubmissionService: MockExposureSubmissionService(),
+			coronaTestService: coronaTestService,
 			eventProvider: MockEventStore()
 		)
 
@@ -1136,6 +612,264 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 
 		model.registerTestAndGetResult(
 			for: .pcr(guid: "", qrCodeHash: ""),
+			isSubmissionConsentGiven: true,
+			certificateConsent: .notGiven,
+			isLoading: {
+				isLoadingValues.append($0)
+				isLoadingExpectation.fulfill()
+			},
+			onSuccess: { _ in onSuccessExpectation.fulfill() },
+			onError: { error in
+				XCTAssertEqual(error, expectedError)
+
+				onErrorExpectation.fulfill()
+			}
+		)
+
+		waitForExpectations(timeout: .short)
+		XCTAssertEqual(isLoadingValues, expectedIsLoadingValues)
+	}
+
+	func testGetTestResultForPCRTestFromTeleTanSucceeds() {
+		let expectedTestResult: TestResult = .positive
+
+		let coronaTestService = MockCoronaTestService()
+		coronaTestService.registerPCRTestFromTeleTanAndGetResultResult = .success(expectedTestResult)
+
+		let model = ExposureSubmissionCoordinatorModel(
+			exposureSubmissionService: MockExposureSubmissionService(),
+			coronaTestService: coronaTestService,
+			eventProvider: MockEventStore()
+		)
+
+		let expectedIsLoadingValues = [true, false]
+		var isLoadingValues = [Bool]()
+
+		let isLoadingExpectation = expectation(description: "isLoading is called twice")
+		isLoadingExpectation.expectedFulfillmentCount = 2
+
+		let onSuccessExpectation = expectation(description: "onSuccess is called")
+
+		let onErrorExpectation = expectation(description: "onError is not called")
+		onErrorExpectation.isInverted = true
+
+		model.registerTestAndGetResult(
+			for: .teleTAN(tan: ""),
+			isSubmissionConsentGiven: true,
+			certificateConsent: .notGiven,
+			isLoading: {
+				isLoadingValues.append($0)
+				isLoadingExpectation.fulfill()
+			},
+			onSuccess: { testResult in
+				XCTAssertEqual(testResult, expectedTestResult)
+
+				onSuccessExpectation.fulfill()
+			},
+			onError: { _ in onErrorExpectation.fulfill() }
+		)
+
+		waitForExpectations(timeout: .short)
+		XCTAssertEqual(isLoadingValues, expectedIsLoadingValues)
+	}
+
+	func testGetTestResultForPCRTestFromTeleTanFails() {
+		let expectedError: CoronaTestServiceError = .testResultError(.invalidResponse)
+
+		let coronaTestService = MockCoronaTestService()
+		coronaTestService.registerPCRTestFromTeleTanAndGetResultResult = .failure(expectedError)
+
+		let model = ExposureSubmissionCoordinatorModel(
+			exposureSubmissionService: MockExposureSubmissionService(),
+			coronaTestService: coronaTestService,
+			eventProvider: MockEventStore()
+		)
+
+		let expectedIsLoadingValues = [true, false]
+		var isLoadingValues = [Bool]()
+
+		let isLoadingExpectation = expectation(description: "isLoading is called twice")
+		isLoadingExpectation.expectedFulfillmentCount = 2
+
+		let onSuccessExpectation = expectation(description: "onSuccess is not called")
+		onSuccessExpectation.isInverted = true
+
+		let onErrorExpectation = expectation(description: "onError is called")
+
+		model.registerTestAndGetResult(
+			for: .teleTAN(tan: ""),
+			isSubmissionConsentGiven: true,
+			certificateConsent: .notGiven,
+			isLoading: {
+				isLoadingValues.append($0)
+				isLoadingExpectation.fulfill()
+			},
+			onSuccess: { _ in onSuccessExpectation.fulfill() },
+			onError: { error in
+				XCTAssertEqual(error, expectedError)
+
+				onErrorExpectation.fulfill()
+			}
+		)
+
+		waitForExpectations(timeout: .short)
+		XCTAssertEqual(isLoadingValues, expectedIsLoadingValues)
+	}
+
+	func testGetTestResultForAntigenTestSucceeds() {
+		let expectedTestResult: TestResult = .positive
+
+		let coronaTestService = MockCoronaTestService()
+		coronaTestService.registerAntigenTestAndGetResultResult = .success(expectedTestResult)
+
+		let model = ExposureSubmissionCoordinatorModel(
+			exposureSubmissionService: MockExposureSubmissionService(),
+			coronaTestService: coronaTestService,
+			eventProvider: MockEventStore()
+		)
+
+		let expectedIsLoadingValues = [true, false]
+		var isLoadingValues = [Bool]()
+
+		let isLoadingExpectation = expectation(description: "isLoading is called twice")
+		isLoadingExpectation.expectedFulfillmentCount = 2
+
+		let onSuccessExpectation = expectation(description: "onSuccess is called")
+
+		let onErrorExpectation = expectation(description: "onError is not called")
+		onErrorExpectation.isInverted = true
+
+		model.registerTestAndGetResult(
+			for: .antigen(qrCodeInformation: .mock(), qrCodeHash: ""),
+			isSubmissionConsentGiven: true,
+			certificateConsent: .notGiven,
+			isLoading: {
+				isLoadingValues.append($0)
+				isLoadingExpectation.fulfill()
+			},
+			onSuccess: { testResult in
+				XCTAssertEqual(testResult, expectedTestResult)
+
+				onSuccessExpectation.fulfill()
+			},
+			onError: { _ in onErrorExpectation.fulfill() }
+		)
+
+		waitForExpectations(timeout: .short)
+		XCTAssertEqual(isLoadingValues, expectedIsLoadingValues)
+	}
+
+	func testGetTestResultForAntigenTestFails() {
+		let expectedError: CoronaTestServiceError = .testResultError(.invalidResponse)
+
+		let coronaTestService = MockCoronaTestService()
+		coronaTestService.registerAntigenTestAndGetResultResult = .failure(expectedError)
+
+		let model = ExposureSubmissionCoordinatorModel(
+			exposureSubmissionService: MockExposureSubmissionService(),
+			coronaTestService: coronaTestService,
+			eventProvider: MockEventStore()
+		)
+
+		let expectedIsLoadingValues = [true, false]
+		var isLoadingValues = [Bool]()
+
+		let isLoadingExpectation = expectation(description: "isLoading is called twice")
+		isLoadingExpectation.expectedFulfillmentCount = 2
+
+		let onSuccessExpectation = expectation(description: "onSuccess is not called")
+		onSuccessExpectation.isInverted = true
+
+		let onErrorExpectation = expectation(description: "onError is called")
+
+		model.registerTestAndGetResult(
+			for: .antigen(qrCodeInformation: .mock(), qrCodeHash: ""),
+			isSubmissionConsentGiven: true,
+			certificateConsent: .notGiven,
+			isLoading: {
+				isLoadingValues.append($0)
+				isLoadingExpectation.fulfill()
+			},
+			onSuccess: { _ in onSuccessExpectation.fulfill() },
+			onError: { error in
+				XCTAssertEqual(error, expectedError)
+
+				onErrorExpectation.fulfill()
+			}
+		)
+
+		waitForExpectations(timeout: .short)
+		XCTAssertEqual(isLoadingValues, expectedIsLoadingValues)
+	}
+
+	func testGetTestResultForRapidPCRTestSucceeds() {
+		let expectedTestResult: TestResult = .positive
+
+		let coronaTestService = MockCoronaTestService()
+		coronaTestService.registerRapidPCRTestAndGetResultResult = .success(expectedTestResult)
+
+		let model = ExposureSubmissionCoordinatorModel(
+			exposureSubmissionService: MockExposureSubmissionService(),
+			coronaTestService: coronaTestService,
+			eventProvider: MockEventStore()
+		)
+
+		let expectedIsLoadingValues = [true, false]
+		var isLoadingValues = [Bool]()
+
+		let isLoadingExpectation = expectation(description: "isLoading is called twice")
+		isLoadingExpectation.expectedFulfillmentCount = 2
+
+		let onSuccessExpectation = expectation(description: "onSuccess is called")
+
+		let onErrorExpectation = expectation(description: "onError is not called")
+		onErrorExpectation.isInverted = true
+
+		model.registerTestAndGetResult(
+			for: .rapidPCR(qrCodeInformation: .mock(), qrCodeHash: ""),
+			isSubmissionConsentGiven: true,
+			certificateConsent: .notGiven,
+			isLoading: {
+				isLoadingValues.append($0)
+				isLoadingExpectation.fulfill()
+			},
+			onSuccess: { testResult in
+				XCTAssertEqual(testResult, expectedTestResult)
+
+				onSuccessExpectation.fulfill()
+			},
+			onError: { _ in onErrorExpectation.fulfill() }
+		)
+
+		waitForExpectations(timeout: .short)
+		XCTAssertEqual(isLoadingValues, expectedIsLoadingValues)
+	}
+
+	func testGetTestResultForRapidPCRTestFails() {
+		let expectedError: CoronaTestServiceError = .testResultError(.invalidResponse)
+
+		let coronaTestService = MockCoronaTestService()
+		coronaTestService.registerRapidPCRTestAndGetResultResult = .failure(expectedError)
+
+		let model = ExposureSubmissionCoordinatorModel(
+			exposureSubmissionService: MockExposureSubmissionService(),
+			coronaTestService: coronaTestService,
+			eventProvider: MockEventStore()
+		)
+
+		let expectedIsLoadingValues = [true, false]
+		var isLoadingValues = [Bool]()
+
+		let isLoadingExpectation = expectation(description: "isLoading is called twice")
+		isLoadingExpectation.expectedFulfillmentCount = 2
+
+		let onSuccessExpectation = expectation(description: "onSuccess is not called")
+		onSuccessExpectation.isInverted = true
+
+		let onErrorExpectation = expectation(description: "onError is called")
+
+		model.registerTestAndGetResult(
+			for: .rapidPCR(qrCodeInformation: .mock(), qrCodeHash: ""),
 			isSubmissionConsentGiven: true,
 			certificateConsent: .notGiven,
 			isLoading: {

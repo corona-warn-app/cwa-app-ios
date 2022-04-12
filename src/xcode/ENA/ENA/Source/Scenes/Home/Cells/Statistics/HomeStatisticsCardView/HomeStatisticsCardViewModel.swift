@@ -48,6 +48,8 @@ class HomeStatisticsCardViewModel {
 			setupInfectedPeopleInIntensiveCare(for: keyFigureCard)
 		case .combinedSevenDayAndHospitalization:
 			setupCombinedSevenDayAndHospitalization(for: keyFigureCard)
+		case .boosterVaccination:
+			setupBoosterVaccination(for: keyFigureCard)
 		case .none:
 			Log.info("Statistics card ID \(keyFigureCard.header.cardID) is not supported", log: .ui)
 		}
@@ -55,7 +57,7 @@ class HomeStatisticsCardViewModel {
 	
 	init(regionStatisticsData: RegionStatisticsData) {
 		title = AppStrings.Statistics.AddCard.localCardTitle
-		titleAccessibilityIdentifier = AccessibilityIdentifiers.LocalStatistics.localStatisticsCard
+		titleAccessibilityIdentifier = AccessibilityIdentifiers.LocalStatistics.localStatisticsCardTitle
 		subtitle = regionStatisticsData.region.localizedName
 		illustrationImage = UIImage(named: "Illu_7-Tage-Lokal-Inzidenz")
 
@@ -334,6 +336,34 @@ class HomeStatisticsCardViewModel {
 			)
 			secondarySubtitle = AppStrings.Statistics.Card.Combined7DaysIncidence.secondaryLabelSubtitle
 			secondaryValueFontStyle = .title1
+		}
+	}
+	
+	private func setupBoosterVaccination(for keyFigureCard: SAP_Internal_Stats_KeyFigureCard) {
+		title = AppStrings.Statistics.Card.BoosterVaccination.title
+		subtitle = AppStrings.Statistics.Card.fromNationWide
+		titleAccessibilityIdentifier = AccessibilityIdentifiers.Statistics.BoosterVaccination.title
+		infoButtonAccessibilityIdentifier = AccessibilityIdentifiers.Statistics.BoosterVaccination.infoButton
+
+		illustrationImage = UIImage(named: "Illu_Booster_Vaccination")
+
+		if let primaryFigure = keyFigureCard.keyFigures.first(where: { $0.rank == .primary }) {
+			primaryValue = primaryFigure.formattedValueWithPercent
+			let updateDate = Date(timeIntervalSince1970: TimeInterval(keyFigureCard.header.updatedAt))
+			primaryTitle = updateDate.formatted(
+				todayString: AppStrings.Statistics.Card.BoosterVaccination.today,
+				yesterdayString: AppStrings.Statistics.Card.BoosterVaccination.yesterday,
+				otherDateString: AppStrings.Statistics.Card.BoosterVaccination.date
+			)
+		}
+		primarySubtitle = AppStrings.Statistics.Card.BoosterVaccination.primarySubtitle
+		
+		if keyFigureCard.keyFigures.contains(where: { $0.rank == .secondary }) {
+			secondaryTitle = AppStrings.Statistics.Card.BoosterVaccination.secondaryLabelTitle
+		}
+
+		if keyFigureCard.keyFigures.contains(where: { $0.rank == .tertiary }) {
+			tertiaryTitle = AppStrings.Statistics.Card.BoosterVaccination.tertiaryLabelTitle
 		}
 	}
 }

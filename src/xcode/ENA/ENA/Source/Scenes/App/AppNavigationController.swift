@@ -174,22 +174,28 @@ extension NavigationBarOpacityDelegate {
 }
 
 extension UINavigationController {
+
 	// only if on top level of the navigation hierarchy: scroll the embedded view up
 	func scrollEmbeddedViewToTop() {
-		guard !isEditing && presentedViewController == nil && viewControllers.count == 1 else {
-			return
-		}
-		if let embeddedScrollView = topViewController?.scrollView {
-			scrollViewToTop(embeddedScrollView)
-		}
-	}
+		guard !isEditing,
+			  presentedViewController == nil,
+			  viewControllers.count == 1,
+			  let embeddedScrollView = topViewController?.scrollView else {
+				  Log.info("Scroll to top stoped")
+				  return
+			  }
 
-	private func scrollViewToTop(_ scrollView: UIScrollView) {
-		scrollView.scrollRectToVisible(CGRect(x: 0, y: 0, width: 1, height: 1), animated: true)	// no large title
-		let estimatedScrollingDuration = 0.25
-		// wait till the scrolling animation is finished plus slightly longer, to be on the safe side
-		DispatchQueue.main.asyncAfter(deadline: .now() + estimatedScrollingDuration + 0.1) {
-			self.navigationBar.sizeToFit()
+		let animator = UIViewPropertyAnimator(
+			duration: 0.35,
+			curve: .easeInOut,
+			animations: {
+				embeddedScrollView.contentOffset = CGPoint(x: 0, y: -embeddedScrollView.layoutMargins.top)
+			}
+		)
+		animator.addCompletion { [weak self] _ in
+			self?.navigationBar.sizeToFit()
 		}
+
+		animator.startAnimation()
 	}
 }

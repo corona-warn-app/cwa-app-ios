@@ -48,8 +48,8 @@ class HealthCertificateViewController: UIViewController, UITableViewDataSource, 
 		setupViewModel()
 	}
 
-	override func viewDidDisappear(_ animated: Bool) {
-		super.viewDidDisappear(animated)
+	override func viewDidAppear(_ animated: Bool) {
+		super.viewDidAppear(animated)
 
 		viewModel.markAsSeen()
 	}
@@ -109,10 +109,6 @@ class HealthCertificateViewController: UIViewController, UITableViewDataSource, 
 			return cell
 		case .bottomCorner:
 			return tableView.dequeueReusableCell(cellType: HealthCertificateBottomCornerCell.self, for: indexPath)
-		case .vaccinationOneOfOneHint:
-			let cell = tableView.dequeueReusableCell(cellType: HealthCertificateSimpleTextCell.self, for: indexPath)
-			cell.configure(with: viewModel.vaccinationOneOfOneHintCellViewModel)
-			return cell
 		case .expirationDate:
 			let cell = tableView.dequeueReusableCell(cellType: HealthCertificateExpirationDateCell.self, for: indexPath)
 			cell.configure(with: viewModel.expirationDateCellViewModel)
@@ -147,7 +143,7 @@ class HealthCertificateViewController: UIViewController, UITableViewDataSource, 
 	private let didTapMoreButton: () -> Void
 
 	private let viewModel: HealthCertificateViewModel
-	private let backgroundView = GradientBackgroundView(type: .solidGrey(withStars: true))
+	private let backgroundView = GradientBackgroundView(type: .solidGrey, withStars: true)
 	private let tableView = UITableView(frame: .zero, style: .plain)
 
 	private var subscriptions = Set<AnyCancellable>()

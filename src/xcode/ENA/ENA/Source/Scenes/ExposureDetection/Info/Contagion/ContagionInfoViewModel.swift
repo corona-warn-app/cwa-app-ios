@@ -30,31 +30,37 @@ struct ContagionInfoViewModel {
 					.icon(
 						UIImage(imageLiteralResourceName: "NoMeetup"),
 						text: .string(AppStrings.ExposureDetection.contagionPoint1),
-						tintColor: .enaColor(for: .riskHigh)
+						tintColor: .enaColor(for: .riskHigh),
+						alignment: .top
 					),
 					.icon(
 						UIImage(imageLiteralResourceName: "Home Office"),
 						text: .string(AppStrings.ExposureDetection.contagionPoint2),
-						tintColor: .enaColor(for: .riskHigh)
+						tintColor: .enaColor(for: .riskHigh),
+						alignment: .top
 					),
 					.icon(
 						UIImage(imageLiteralResourceName: "Shoppiing"),
 						text: .string(AppStrings.ExposureDetection.contagionPoint3),
-						tintColor: .enaColor(for: .riskHigh)
+						tintColor: .enaColor(for: .riskHigh),
+						alignment: .top
 					),
 					.icon(
 						UIImage(imageLiteralResourceName: "Public Transport"),
 						text: .string(AppStrings.ExposureDetection.contagionPoint4),
-						tintColor: .enaColor(for: .riskHigh)
+						tintColor: .enaColor(for: .riskHigh),
+						alignment: .top
 					),
 					.icon(
 						UIImage(imageLiteralResourceName: "Travel"),
 						text: .string(AppStrings.ExposureDetection.contagionPoint5),
-						tintColor: .enaColor(for: .riskHigh)
+						tintColor: .enaColor(for: .riskHigh),
+						alignment: .top
 					),
 					.iconWithLinkText(
 						UIImage(imageLiteralResourceName: "Qarantine"), text: AppStrings.ExposureDetection.contagionPoint6,
-						links: [ENALinkedTextView.Link(text: AppStrings.ExposureDetection.contagionPoint6LinkText, link: AppStrings.Links.quarantineMeasuresFAQ)]
+						links: [ENALinkedTextView.Link(text: AppStrings.ExposureDetection.contagionPoint6LinkText, link: AppStrings.Links.quarantineMeasuresFAQ)],
+						alignment: .top
 					)
 				]
 			),

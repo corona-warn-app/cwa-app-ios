@@ -118,19 +118,19 @@
 
 "ExposureDetection_Guide_Home" = "Mümkünse lütfen eve gidin ve evde kalın ve beraber yaşadığınız kişiler haricinde başka insanlarla karşılaşmaktan kaçının.";
 
-"ExposureDetection_Guide_Hotline" = "Başka sorularınız varsa lütfen tıbbi acil servis yardım hattı ile 116 117 numaralı telefondan iletişime geçin.";
+"ExposureDetection_Guide_Hotline" = "Herhangi bir sorunuz varsa lütfen 116 117'yi (Almanya'da) arayın. Ardından otomatik mesaj sırasında, Federal Sağlık Bakanlığı hizmet noktası için 2'ye basın. Belirtileriniz varsa sadece 1'e (genel tıbbi acil servis) basın.";
 
 "ExposureDetection_Guide_Vaccination_HighRisk" = "Henüz aşı olmadıysanız test yaptırdıktan sonra aile hekiminize danışın.";
 
-"ExposureDetection_Guide_Title" = "Hiçbir belirtiniz olmasa bile lütfen test yaptırın. Daha yüksek risk uyarısı (\"kırmızı kutucuk\") alırsanız ücretsiz test yaptırma hakkınız olur. Bunun illa bir PCR testi olması gerekmez.\n";
+"ExposureDetection_Guide_Title" = "Hiçbir belirtiniz olmasa bile lütfen test yaptırın. Daha yüksek risk uyarısı (\"kırmızı kutucuk\") alırsanız ücretsiz test yaptırma hakkınız olur. Bunun illa bir PCR testi olması gerekmez.";
 
-"ExposureDetection_Guide_Point1" = "Test olanaklarını burada bulabilir ya da aile hekiminize veya bir eczaneye danışabilirsiniz.";
+"ExposureDetection_Guide_Point1" = "Test olanaklarını burada bulabilirsiniz. Aile hekiminize veya bir eczaneye de danışabilirsiniz.";
 
-"ExposureDetection_Guide_Point1_LinkText" = "burada";
+"ExposureDetection_Guide_Point1_LinkText" = "Test olanaklarını burada bulabilirsiniz.";
 
 "ExposureDetection_Guide_Point2" = "SSS sayfamızda test prosedürü hakkında daha fazla bilgi bulunmaktadır.";
 
-"ExposureDetection_Guide_Point2_LinkText" = "SSS";
+"ExposureDetection_Guide_Point2_LinkText" = "SSS sayfamızda test prosedürü hakkında daha fazla bilgi bulunmaktadır.";
 
 "ExposureDetection_Explanation_Title" = "Enfeksiyon Riski";
 
@@ -150,7 +150,7 @@
 
 "ExposureDetection_Explanation_Text_High_DateOfLastExposure" = "Koronavirüs tanısı konan en az bir kişiyle daha uzun süreyle ve yakın mesafeden maruz kalma yaşadığınız için enfeksiyon riskiniz daha yüksektir.";
 
-"ExposureDetection_Explanation_Text_High" = "Bu nedenle enfeksiyon riskiniz artmış olarak derecelendirilmiştir. \nEnfeksiyon riskiniz, akıllı telefonunuzda yerel olarak bulunan maruz kalma günlüğü verileri (süre ve mesafe) kullanılarak hesaplanır. Enfeksiyon riskiniz başkaları tarafından görüntülenemez veya başkalarına aktarılmaz. \nEve gittiğinizde lütfen aile fertleriniz veya ev arkadaşlarınızla yakın temastan kaçının.";
+"ExposureDetection_Explanation_Text_High" = "Bu nedenle enfeksiyon riskiniz daha yüksek olarak sınıflandırılmıştır.\nEnfeksiyon riskiniz, cihazınızda yerel olarak bulunan maruz kalma günlüğü verileri (süre ve mesafe) kullanılarak hesaplanır. Enfeksiyon riskiniz başkaları tarafından görüntülenemez veya başkalarına aktarılmaz.";
 
 "ExposureDetection_LowRiskExposure_Title" = "Düşük riskli maruz kalmalar";
 
@@ -186,7 +186,7 @@
 
 "ExposureDetection_Info_HygieneRules_Title" = "Hijyen Kuralları";
 
-"ExposureDetection_Info_HygieneRules_Point1" = "Başka kişilerle karşılaşmalarınız sırasında maske takın.";
+"ExposureDetection_Info_HygieneRules_Point1" = "Diğer insanlarla karşılaştığınızda yüz maskesi takın.";
 
 "ExposureDetection_Info_HygieneRules_Point2" = "Diğer insanlarla aranızda en az 1,5 metre mesafeyi koruyun.";
 
@@ -214,13 +214,13 @@
 
 "ExposureDetection_Info_Contagion_Point5" = "Seyahat: Uçak veya trenle seyahat etmeyin.";
 
-"ExposureDetection_Info_Contagion_Point6" = "Karantina önlemleri hakkında sorularınız varsa lütfen kamu sağlığı departmanınızla iletişime geçin.";
+"ExposureDetection_Info_Contagion_Point6" = "Karantina önlemleri hakkında sorularınız varsa lütfen kamu sağlığı departmanınızla iletişime geçin. Daha fazla bilgi için lütfen karantina önlemleri hakkında SSS sayfamıza bakın.";
 
-"ExposureDetection_Info_Contagion_Point6_LinkText" = "Karantina önlemleri hakkında";
+"ExposureDetection_Info_Contagion_Point6_LinkText" = "Daha fazla bilgi için lütfen karantina önlemleri hakkında SSS sayfamıza bakın.";
 
 "ExposureDetection_Info_Contagion_Footer" = "Gönüllü bireysel karantina hakkında SSS sayfamızda ek bilgiler bulunmaktadır:";
 
-"ExposureDetection_Info_Contagion_Footer_LinkText" = "Gönüllü bireysel karantina hakkında SSS";
+"ExposureDetection_Info_Contagion_Footer_LinkText" = "Gönüllü bireysel karantina hakkında SSS sayfamızda ek bilgiler bulunmaktadır:";
 
 /* Survey Errors */
 "SurveyConsent_Error_Title" = "Hata";
@@ -268,7 +268,7 @@
 "ExposureDetection_ActiveTracingSection_Subtitle" = "Bu dönem hesaplamaya dahil edildi.";
 
 /* There are two paragraphs in this section. The first one just contains text… */
-"ExposureDetection_ActiveTracingSection_Text_Paragraph0" = "Enfeksiyon riskiniz yalnızca maruz kalma günlüğünün etkin olduğu dönemler için hesaplanabilir. Bu nedenle günlüğe kaydetme özelliğinin sürekli etkin kalması gerekir. Maruz kalma günlüğü son 14 günü kapsar.";
+"ExposureDetection_ActiveTracingSection_Text_Paragraph0" = "Enfeksiyon riskiniz yalnızca maruz kalma günlüğünün etkin olduğu dönemler için hesaplanabilir. Bu nedenle günlüğe kaydetme özelliğinin sürekli etkin kalması gerekir. Maruz kalma günlüğü son %u günü kapsar.";
 
 "ExposureDetection_ActiveTracingSection_Text_Paragraph1b" = "Maruz kalma günlüğü başka insanlarla karşılaştığınız anlarda etkindiyse bu dönem için enfeksiyon riskiniz hesaplanabilir.";
 
@@ -321,7 +321,7 @@
 
 "Settings_DaysSinceInstall_SubTitle" = "Bu dönem hesaplamaya dahil edildi.";
 
-"Settings_DaysSinceInstall_P1" = "Enfeksiyon riskiniz yalnızca maruz kalma günlüğünün etkin olduğu dönemler için hesaplanabilir. Bu nedenle günlüğe kaydetme özelliğinin sürekli etkin kalması gerekir. Maruz kalma günlüğü son 14 günü kapsar.";
+"Settings_DaysSinceInstall_P1" = "Enfeksiyon riskiniz yalnızca maruz kalma günlüğünün etkin olduğu dönemler için hesaplanabilir. Bu nedenle günlüğe kaydetme özelliğinin sürekli etkin kalması gerekir. Maruz kalma günlüğü son %u günü kapsar.";
 
 "Settings_DaysSinceInstall_P2b" = "Maruz kalma günlüğü başka insanlarla karşılaştığınız anlarda etkindiyse bu dönem için enfeksiyon riskiniz hesaplanabilir.";
 
@@ -450,7 +450,7 @@
 
 "OnboardingInfo_togetherAgainstCoronaPage_boldText" = "Sizin için ve hepimiz için daha fazla koruma. Corona-Warn-App uygulamasını kullanarak enfeksiyon zincirlerini çok daha kısa süre içinde kırabiliriz.";
 
-"OnboardingInfo_togetherAgainstCoronaPage_normalText" = "Cihazınızı koronavirüs uyarı sistemine dönüştürün. Risk durumunuza ilişkin genel bir bakış elde edin ve son 14 gün içinde koronavirüs tanısı konan herhangi biri ile yakın temasa geçip geçmediğinizi öğrenin. \n\nUygulama kişilerin akıllı telefonları arasında şifrelenmiş rastgele kimlikleri paylaşarak karşılaşma günlüğü oluşturur ve bu sırada hiçbir kişisel veriye erişim sağlanmaz.\n\nDilerseniz uygulamayı kişisel enfeksiyon durumunuzu (örneğin, negatif sonuç veren bir hızlı test) kanıtlamak için kullanabilirsiniz. Ancak lütfen unutmayın; enfeksiyon durumunuzu kanıtlamak için uygulamayı kullanmak zorunda değilsiniz. Enfeksiyon durumunuzu, ikamet ettiğiniz bölgede geçerli olan yasal düzenlemeler uyarınca başka bir şekilde de kanıtlayabilirsiniz.\n\nKişisel aşı durumunuzu da kanıtlayabilirsiniz.\n\nUygulama kişilerin akıllı telefonları arasında şifrelenmiş rastgele kimlikleri paylaşarak karşılaşma günlüğü oluşturur ve bu sırada hiçbir kişisel veriye erişim sağlanmaz.";
+"OnboardingInfo_togetherAgainstCoronaPage_normalText" = "Cihazınızı koronavirüs uyarı sistemine dönüştürün. Risk durumunuza ilişkin genel bir bakış elde edin ve son %u gün içinde koronavirüs tanısı konan herhangi biri ile yakın temasa geçip geçmediğinizi öğrenin. \n\nUygulama kişilerin akıllı telefonları arasında şifrelenmiş rastgele kimlikleri paylaşarak karşılaşma günlüğü oluşturur ve bu sırada hiçbir kişisel veriye erişim sağlanmaz.\n\nDilerseniz uygulamayı kişisel enfeksiyon durumunuzu (örneğin, negatif sonuç veren bir hızlı test) kanıtlamak için kullanabilirsiniz. Ancak lütfen unutmayın; enfeksiyon durumunuzu kanıtlamak için uygulamayı kullanmak zorunda değilsiniz. Enfeksiyon durumunuzu, ikamet ettiğiniz bölgede geçerli olan yasal düzenlemeler uyarınca başka bir şekilde de kanıtlayabilirsiniz.\n\nKişisel aşı durumunuzu da kanıtlayabilirsiniz.\n\nUygulama kişilerin akıllı telefonları arasında şifrelenmiş rastgele kimlikleri paylaşarak karşılaşma günlüğü oluşturur ve bu sırada hiçbir kişisel veriye erişim sağlanmaz.";
 
 "OnboardingInfo_togetherAgainstCoronaPage_linkText" = "Basitleştirilmiş Dilde ve İşaret Dilinde Uygulama Bilgileri";
 
@@ -460,7 +460,7 @@
 
 "OnboardingInfo_privacyPage_boldText" = "";
 
-"OnboardingInfo_privacyPage_normalText" = "Kimliğiniz gizli tutulacaktır.\nVerileriniz tamamen şifrelenir ve bir takma ad altında aktarılır.\n\nSorumlu kuruluş: GDPR, 4. madde, 7. paragraf:\n\nRobert Koch-Institute\nNordufer 20\n13353 Berlin\nLütfen veri gizliliği düzenlemelerimizi okuyun.\n\nVeri gizliliği bilgileri:";
+"OnboardingInfo_privacyPage_normalText" = "Kimliğiniz gizli tutulacaktır.\nVerileriniz tamamen şifrelenir ve bir takma ad altında aktarılır.\n\nGDPR, 4. madde, 7. paragraf uyarınca denetleyici:\n\nRobert Koch-Institute\nNordufer 20\n13353 Berlin\nLütfen veri gizliliği düzenlemelerimizi okuyun.\n\nVeri gizliliği bilgileri:";
 
 "OnboardingInfo_enableLoggingOfContactsPage_imageDescription" = "Üç kişi cihazlarında maruz kalma günlüğünü etkinleştirdi ve birbirleri ile karşılaşmaları günlüğe kaydedilecektir.";
 
@@ -597,7 +597,7 @@
 
 "ExposureSubmission_PhoneDetailsForeign" = "Almanya dışından yapılan aramalar içindir.\nTelefon sağlayıcınız tarafından uygulanan ücretler geçerlidir.";
 
-"ExposureSubmission_PhoneDetailDescription" = "Müşteri hizmetlerimiz şu dillerde size yardımcı olmaya hazır: \nİngilizce, Almanca, Türkçe\n\nMesai saatleri:\n7 gün 24 saat\n\nSağlıkla ilgili tüm sorularınız için lütfen aile hekiminizle veya tıbbi acil servis yardım hattı ile iletişime geçin. Telefon: 116 117.";
+"ExposureSubmission_PhoneDetailDescription" = "Müşteri hizmetlerimiz şu dillerde size yardımcı olmaya hazır: \nİngilizce, Almanca, Türkçe\n\nMesai saatleri:\nGünlük (hafta sonları dahil): 7:00 - 20:00 (CET)\n\nHerhangi bir sorunuz varsa lütfen 116 117'yi (Almanya'da) arayın. Ardından otomatik mesaj sırasında, Federal Sağlık Bakanlığı hizmet noktası için 2'ye basın. Belirtileriniz varsa sadece 1'e (genel tıbbi acil servis) basın.";
 
 "ExposureSubmission_SectionDescription2" = "Uygulamaya TAN girerek PCR testinizi kaydedin.";
 
@@ -616,15 +616,9 @@
 
 "ExposureSubmissionQRInfo_header_section_1" = "Test Sonucunu Al";
 
-"ExposureSubmissionQRInfo_instruction1" = "Şimdi, testinizin QR kodunu tarayın ve test sonucunuzu alın.";
+"ExposureSubmissionQRInfo_instruction1" = "Her bir test yalnızca bir kez taranabilir. Uygulama tek seferde en fazla bir hızlı testi ve bir PCR testini yönetebilir.";
 
-"ExposureSubmissionQRInfo_instruction2" = "Her bir test yalnızca bir kez taranabilir. Uygulama tek seferde en fazla bir hızlı testi ve bir PCR testini yönetebilir.";
-
-"ExposureSubmissionQRInfo_instruction2a" = "Testinizin sonucu negatifse bunu resmi bir COVID test sertifikası ile onaylayabilirsiniz. Bu işlemi gerçekleştirmek için, aşağıda belirtilen adımları uygulayarak test sertifikası talebinde bulunun.";
-
-"ExposureSubmissionQRInfo_instruction3" = "Uygulama aynı anda birden çok testi %@.";
-
-"ExposureSubmissionQRInfo_instruction3_highlightedPhrase" = "yönetemez";
+"ExposureSubmissionQRInfo_instruction2" = "Testinizin sonucu negatifse bunu resmi bir COVID test sertifikası ile onaylayabilirsiniz. Bu işlemi gerçekleştirmek için, aşağıda belirtilen adımları uygulayarak test sertifikası talebinde bulunun.";
 
 "ExposureSubmissionQRInfo_header_section_2" = "Lütfen karşılaştığınız diğer kullanıcıları uyararak onlara yardımcı olun!";
 
@@ -667,15 +661,21 @@
 
 "ExposureSubmissionSuccess_listTitle" = "Lütfen unutmayın:";
 
-"ExposureSubmissionSuccess_listItem0" = "Bu test sonucunu doğrulamak için PCR testi yapın. ";
+"ExposureSubmissionSuccess_PCR_listItem0" = "Yüksek bir olasılıkla enfekte oldunuz. Kendinizi diğer insanlardan izole edin.";
 
-"ExposureSubmissionSuccess_listItem1" = "Kamu sağlığı yetkiliniz önümüzdeki birkaç gün içinde size ulaşabilir.";
+"ExposureSubmissionSuccess_PCR_listItem1" = "Kamu sağlığı yetkiliniz önümüzdeki birkaç gün içinde size ulaşabilir.";
 
-"ExposureSubmissionSuccess_listItem2" = "Yüksek bir olasılıkla enfekte oldunuz. Kendinizi diğer insanlardan izole edin.";
+"ExposureSubmissionSuccess_PCR_listItem2" = "COVID-19 kaynaklı daha yüksek ciddi hastalık riskiniz varsa doktora başvurun. Bilinen risk faktörleri arasında 60 yaşın üzerinde olmak, immünsupresyon, diyabet ve obezite bulunmaktadır.";
 
-"ExposureSubmissionSuccess_listItem2_1" = "İzolasyon süreniz genellikle 14 gündür. Lütfen belirtilerinizin nasıl geliştiğini yakından izleyin.";
+"ExposureSubmissionSuccess_RAT_listItem0" = "Yüksek bir olasılıkla enfekte oldunuz. Kendinizi diğer insanlardan izole edin.";
 
-"ExposureSubmissionSuccess_listItem2_2" = "Kamu sağlığı yetkiliniz, temasa geçtiğiniz kişilerin bir listesini oluşturmanızı isteyecektir. Bu listeye, hasta olmadan önceki iki gün içinde 15 dakikadan uzun süreyle yakın temas halinde (2 metreden kısa mesafede, yüz yüze görüşme) olduğunuz herkesi dahil etmeniz gerekir. Bunun için temas güncenizi kullanabilirsiniz: Girişleri dışa aktarmanız ve ardından yazdırmanız ya da e-posta yoluyla göndermeniz yeterlidir.";
+"ExposureSubmissionSuccess_RAT_listItem1" = "Bu test sonucunu doğrulamak için PCR testi yapın.";
+
+"ExposureSubmissionSuccess_RAT_listItem2" = "Kamu sağlığı yetkiliniz önümüzdeki birkaç gün içinde size ulaşabilir.";
+
+"ExposureSubmissionSuccess_listItem2_1" = "İzolasyon süreniz genellikle 10 gündür. Lütfen belirtilerinizin nasıl geliştiğini yakından izleyin.";
+
+"ExposureSubmissionSuccess_listItem2_2" = "Kamu sağlığı yetkiliniz, temasa geçtiğiniz kişilerin bir listesini oluşturmanızı isteyecektir. Bu listeye, hasta olmadan önceki iki gün içinde 10 dakikadan uzun süreyle yakın temas halinde (2 metreden kısa mesafede, yüz yüze görüşme) olduğunuz herkesi dahil etmeniz gerekir. Bunun için temas güncenizi kullanabilirsiniz: Girişleri dışa aktarmanız ve ardından yazdırmanız ya da e-posta yoluyla göndermeniz yeterlidir.";
 
 "ExposureSubmissionSuccess_listItem2_3" = "Lütfen özellikle akıllı telefonu olmadığı veya uygulamayı yüklemediği için doğrudan uygulamanın uyarmayacağı kişileri göz önünde bulundurun.";
 
@@ -711,7 +711,7 @@
 
 "ExposureSubmissionResult_Title_Antigen" = "Hızlı Test";
 
-"ExposureSubmissionResult_CardSubTitle" = "Tanı Sonucunuz";
+"ExposureSubmissionResult_CardSubTitle" = "PCR testinizin sonucu";
 
 "ExposureSubmissionResult_CardSubTitle_Antigen" = "Hızlı testinizin sonucu";
 
@@ -747,13 +747,13 @@
 
 "ExposureSubmissionResult_testNegative_furtherInfos_title" = "Diğer bilgiler:";
 
-"ExposureSubmissionResult_testNegative_furtherInfos_listItem1" = "Hâlâ kendinizi iyi hissetmiyor musunuz? Kendinizi kötü hissediyorsanız ve/veya belirtileriniz kötüleştiyse lütfen aile hekiminizle iletişime geçin.";
+"ExposureSubmissionResult_testNegative_furtherInfos_desc" = "Yine de akut belirtileriniz mi var?";
 
-"ExposureSubmissionResult_testNegative_furtherInfos_listItem2" = "Kendinizi yeniden iyi hissedene dek evde kalın. Başka bir enfeksiyon nedeniyle bağışıklığınız zayıflamışken koronavirüse (SARS-CoV-2) yakalanırsanız ciddi bir hastalıkla karşılaşabilirsiniz.";
+"ExposureSubmissionResult_testNegative_furtherInfos_listItem1" = "Yapabiliyorsanız kendinizi yeniden iyi hissedene dek evde kalın. Koronavirüsün yanında farklı bir enfeksiyonla enfekte olma riskinizi azaltın.";
 
-"ExposureSubmissionResult_testNegative_furtherInfos_listItem3" = "Kendinizi iyi hissetmiyorsanız diğer insanları riske atmamak için işe gitmeyin.";
+"ExposureSubmissionResult_testNegative_furtherInfos_listItem2" = "Kendinizi iyi hissetmiyorsanız diğer insanları riske atmamak için işe gitmeyin.";
 
-"ExposureSubmissionResult_furtherInfos_hint_testAgain" = "Belirtileriniz kötüleşirse başka bir SARS-CoV-2 testinin yapılması gerekebilir.";
+"ExposureSubmissionResult_testNegative_furtherInfos_listItem3" = "Çok hasta hissediyorsanız ya da belirtileriniz kötüleşirse lütfen aile hekiminizle iletişime geçin. Aile hekiminiz, başka bir SARS-CoV-2 testi yaptırmanızın gerekip gerekmediği konusunda da size tavsiyede bulunabilir.";
 
 "ExposureSubmissionResult_testInvalid" = "Testiniz değerlendirilemiyor";
 
@@ -916,9 +916,7 @@
 
 "ExposureSubmissionResult_Timer_Title" = "Sonucun çıktığı tarih:";
 
-"ExposureSubmissionResult_Negative_Antigen_Proof_Title" = " ";
-
-"ExposureSubmissionResult_Negative_Antigen_Proof_Desc" = "Test sonucunuz özeldir ancak bazı yasalar nedeniyle paylaşmanız gerekebilir. Paylaşmanız gerekirse sunulan pek çok yöntemden birini kullanarak gösterebilirsiniz.";
+"ExposureSubmissionResult_Negative_Antigen_Proof_Desc" = "Burada görüntülenen sonucunuzu doğrulanabilir şekilde kanıtlamak için AB Dijital Covid Sertifikası gereklidir. Testinizi kaydettiğinizde dijital test sertifikası talebinde bulunduysanız ve test noktası, dijital sertifika düzenlemeyi destekliyorsa yukarıda belirtilen bağlantıyı kullanarak dijital test sertifikanızı bulabilirsiniz. Sertifikayı \"Sertifikalar\" sekmesinde de bulabilirsiniz.\nKanıt gerektiren amaç bağlamında test sertifikalarının geçerliliği ve kabulüne ilişkin ölçütleri de bulabilirsiniz.";
 
 "ExposureSubmissionResult_Negative_Antigen_NoProof_Title" = "Doğrulama Özelliği Yok";
 
@@ -1032,7 +1030,7 @@
 
 "ExposureSubmission_TestCertificate_Information_BirthdayPlaceholder" = "Doğum Tarihi";
 
-"ExposureSubmission_TestCertificate_Information_BirthdayText" = "Güvenlik amaçları nedeniyle test sonucunuz doğum tarihinizle korunmaktadır. Test sonucu yalnızca doğru doğum tarihini belirtirseniz düzenlenebilir.";
+"ExposureSubmission_TestCertificate_Information_BirthdayText" = "Güvenlik amaçları nedeniyle test sertifikanız doğum tarihinizle korunmaktadır. Test sertifikası yalnızca doğru doğum tarihini belirtirseniz düzenlenebilir.";
 
 "ExposureSubmission_TestCertificate_Information_Dataprivacy_Title" = "Veri işleme hakkında daha ayrıntılı bilgi için lütfen gizlilik bildirimine başvurun.";
 
@@ -1291,13 +1289,17 @@
 
 "Home_Finding_Positive_Card_Note_Title" = "Lütfen unutmayın:";
 
-"Home_Finding_Positive_Card_Verify_Item_Title" = "Bu test sonucunu doğrulamak için PCR testi yapın.";
+"Home_Finding_Positive_Card_PCR_Item0" = "Yüksek bir olasılıkla enfekte oldunuz. Kendinizi diğer insanlardan izole edin.";
 
-"Home_Finding_Positive_Card_Phone_Item_Title" = "Kamu sağlığı yetkiliniz önümüzdeki birkaç gün içinde size ulaşabilir.";
+"Home_Finding_Positive_Card_PCR_Item1" = "Kamu sağlığı yetkiliniz önümüzdeki birkaç gün içinde size ulaşabilir.";
 
-"Home_Finding_Positive_Card_Home_Item_Title" = "Yüksek bir olasılıkla enfekte oldunuz. Kendinizi diğer insanlardan izole edin.";
+"Home_Finding_Positive_Card_PCR_Item2" = "COVID-19 kaynaklı daha yüksek ciddi hastalık riskiniz varsa doktora başvurun. Bilinen risk faktörleri arasında 60 yaşın üzerinde olmak, immünsupresyon, diyabet ve obezite bulunmaktadır.";
 
-"Home_Finding_Positive_Card_Share_Item_Title" = "Diğer kullanıcıların uyarılabilmesi için rastgele kimliklerinizi paylaşın.";
+"Home_Finding_Positive_Card_RAT_Item0" = "Yüksek bir olasılıkla enfekte oldunuz. Kendinizi diğer insanlardan izole edin.";
+
+"Home_Finding_Positive_Card_RAT_Item1" = "Bu test sonucunu doğrulamak için PCR testi yapın.";
+
+"Home_Finding_Positive_Card_RAT_Item2" = "Kamu sağlığı yetkiliniz önümüzdeki birkaç gün içinde size ulaşabilir.";
 
 "Home_Finding_Positive_Card_Button" = "Diğer Kullanıcıları Uyarın";
 
@@ -1328,19 +1330,30 @@
 
 "Home_MoreCard_FAQTitle" = "SSS";
 
+"Home_MoreCard_SocialMedia" = "Sosyal Medya";
+
 "Home_MoreCard_ShareTitle" = "Paylaş";
 
 /* Home Alert Risk Lowered */
 "Home_Alert_RiskStatusLowered_Title" = "Risk Durumunuzda Değişiklik";
 
-"Home_Alert_RiskStatusLowered_Message" = "Risk durumunuzun artmasına neden olan son maruz kalma 14 günden uzun süre önce gerçekleşti. Bu nedenle enfeksiyon riskiniz yeniden düşük olarak derecelendirildi.\n\nYapmanız gerekenler:\n Herhangi bir COVID-19 belirtiniz yoksa mesafe ve hijyen konusunda belirlenen kurallara riayet etmenizi öneririz.\n COVID-19 belirtiniz varsa doktorunuzu ziyaret edip test yaptırmanızı öneririz.";
+"Home_Alert_RiskStatusLowered_Message" = "Risk durumunuzun artmasına neden olan son maruz kalma %i günden uzun süre önce gerçekleşti. Bu nedenle enfeksiyon riskiniz yeniden düşük olarak derecelendirildi.\n\nYapmanız gerekenler:\n Herhangi bir COVID-19 belirtiniz yoksa mesafe ve hijyen konusunda belirlenen kurallara riayet etmenizi öneririz.\n COVID-19 belirtiniz varsa doktorunuzu ziyaret edip test yaptırmanızı öneririz.";
 
 "Home_Alert_RiskStatusLowered_PrimaryButtonTitle" = "Tamam";
+
+/* Home Alert another high exposure */
+"Home_Alert_RiskStatusAnotherHighExposure_Title" = "Yeni Maruz Kalma";
+
+"Home_Alert_RiskStatusAnotherHighExposure_Message" = "Artmış riskle başka bir maruz kalma yaşadınız. Son %i güne ait tüm riske maruz kalmalarınızı temas güncenizde bulabilirsiniz.";
+
+"Home_Alert_RiskStatusAnotherHighExposure_PrimaryButtonTitle" = "Tamam";
 
 /* App Information */
 "App_Information_Title" = "Uygulama Bilgileri";
 
-"App_Information_Version" = "Versiyon";
+"App_Information_AppVersion" = "Uygulama versiyonu: %@";
+
+"App_Information_CCLVersion" = "CCL versiyonu: %@";
 
 /* App Information - About */
 "App_Information_About_Navigation" = "Uygulama Hakkında";
@@ -1381,7 +1394,7 @@
 
 "App_Information_Contact_Hotline_Details_Foreign" = "Almanya dışından yapılan aramalar içindir.\nTelefon sağlayıcınız tarafından uygulanan ücretler geçerlidir.";
 
-"App_Information_Contact_Hotline_Terms" = "Müşteri hizmetlerimiz şu dillerde size yardımcı olmaya hazır: \nİngilizce, Almanca, Türkçe\n\nMesai saatleri:\nPts-Cts: 7.00 - 22.00 (CET)\n(ulusal tatiller hariçtir)\n\nSağlıkla ilgili tüm sorularınız için lütfen aile hekiminizle veya tıbbi acil servis yardım hattı ile iletişime geçin. Telefon: 116 117.";
+"App_Information_Contact_Hotline_Terms" = "Müşteri hizmetlerimiz şu dillerde size yardımcı olmaya hazır: \nAlmanca\n\nMesai saatleri:\nPt-Cu: 9:00 – 17:00 (CET)\n(resmi tatiller hariç)\n\nHerhangi bir sorunuz varsa lütfen 116 117'yi (Almanya'da) arayın. Ardından otomatik mesaj sırasında, Federal Sağlık Bakanlığı hizmet noktası için 2'ye basın. Belirtileriniz varsa sadece 1'e (genel tıbbi acil servis) basın.";
 
 /* App Information - Imprint */
 "App_Information_New_Features_Navigation" = "Yeni Özellikler";
@@ -1407,6 +1420,9 @@
 "App_Information_Imprint_Section4_Text" = "DE 165 893 430";
 
 "App_Information_Contact_Form_Title" = "İletişim Formu";
+
+/* App Information - Accessibility */
+"App_Information_Accessibility_Navigation" = "Erişilebilirlik Beyanı";
 
 /* App Information - Legal */
 "App_Information_Legal_Navigation" = "Yasal Bildirimler";
@@ -1522,7 +1538,7 @@
 
 "RiskLegend_Legend2_Title" = "Enfeksiyon Riski";
 
-"RiskLegend_Legend2_Text" = "Maruz kalma günlüğü etkin olduğunda uygulama kişisel enfeksiyon riskinizi hesaplar. Bunu, son 14 günde koronavirüs tanısı almış kişilere maruz kalma sürenizi ve yakınlığınızı ölçerek gerçekleştirir.";
+"RiskLegend_Legend2_Text" = "Maruz kalma günlüğü etkin olduğunda uygulama kişisel enfeksiyon riskinizi hesaplar. Bunu, son %u günde koronavirüs tanısı almış kişilere maruz kalma sürenizi ve yakınlığınızı ölçerek gerçekleştirir. Maruz kalma günlüğü check-in'lerinizi de hesaba katar. Koronavirüs tanısı almış bir kişiyle aynı anda ya da koronavirüs tanısı almış bir kişiden 30 dakika sonra aynı yerde bulunmuşsanız size uyarı verilir.";
 
 "RiskLegend_Legend2_RiskLevels" = "Şu risk durumu gösterilebilir:";
 
@@ -1595,10 +1611,30 @@
 /* New Version Features */
 "NewVersionFeatures_Info_about_abb_information" = "Bu sürümdeki değişiklikleri uygulama bilgilerinde “Yeni Özellikler” bölümünde bulabilirsiniz.";
 
-/* Version 2.15 */
-"NewVersionFeature_215_ticketValidation_title" = "Biletleme Sırasında Sertifika Doğrulaması";
+/* Version 2.20 */
+"NewVersionFeature_220_highRiskShortened_title" = "Artmış Risk Raporunun Süresi Kısaltıldı";
 
-"NewVersionFeature_215_ticketValidation_description" = "Bir bilet rezervasyonu yaptığınızda aşı olduğunuza, iyileştiğinize veya test sonucunuzun negatif olduğuna dair kanıt sunabilirsiniz. Bunun için, biletleme sisteminde görüntülenen QR kodu taratın ve ardından uygulamada doğru sertifikayı seçin. Sertifika doğrulama sonnucu, doğrulama ortağı tarafından biletleme sistemine gönderilir.";
+"NewVersionFeature_220_highRiskShortened_description" = "Bir maruz kalmadan sonra artmış risk raporu artık 14 yerine yalnızca 10 gün süreyle gösterilmektedir.";
+
+"NewVersionFeature_220_displayRiskPositiveResult_title" = "Pozitif Test Sonucundan Sonra Risk Raporu";
+
+"NewVersionFeature_220_displayRiskPositiveResult_description" = "Artık Corona-Warn-App uygulamasında pozitif test sonucu kaydetseniz bile bir maruz kalmadan sonra kırmızı renkli artmış risk kutucuğu görüntülenmektedir. Risk durumunuz, pozitif testten yedi gün sonra yeniden gösterilir.";
+
+"NewVersionFeature_220_notificateRiskEncounter_title" = "Yeni Maruz Kalma Mesajı";
+
+"NewVersionFeature_220_notificateRiskEncounter_description" = "Daha önceki bir maruz kalmadan sonra artmış riskli başka bir maruz kalma yaşarsanız bu maruz kalma için de bir bildirim görüntülenecektir.";
+
+"NewVersionFeature_220_notificationStatusChange_title" = "Durum Değişikliği Raporu";
+
+"NewVersionFeature_220_notificationStatusChange_description" = "Durumunuz değişmişse (örneğin, bir sertifika eklediğiniz için veya kurallar değiştiği için), Sertifikalar sekmesinde bu yönde bir bildirim gösterilecektir.";
+
+"NewVersionFeature_220_recoveryCertificatesDetails_title" = "Geçerlilik Verileri Olmayan İyileşme Sertifikaları";
+
+"NewVersionFeature_220_recoveryCertificatesDetails_description" = "Geçerlilikleri yerel kurallara bağlı olduğundan artık iyileşme sertifikaları için geçerlilik verileri görüntülenmemektedir. Bunun yerine ilk pozitif test sonucunun tarihi görüntülenmektedir.";
+
+"NewVersionFeature_220_removeQRCode_title" = "Çift QR Kod Kaldırıldı";
+
+"NewVersionFeature_220_removeQRCode_description" = "Geçerli olarak kullandığınız sertifikanızın QR kodu, bireyler için ayrıntı ekranından kaldırılarak bildirimler için daha fazla alan oluşturulmuş ve genel olarak ekran dağınıklığı giderilmiştir. QR kod, sertifikaya genel bakış bölümünde de bulunmaktadır ve bu nedenle ayrıntı ekranında bulunması gerekmez.";
 
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Uluslararası Maruz Kalma Günlüğü";
@@ -1685,17 +1721,23 @@
 
 "TestResultPositive_KeysSubmitted_Title1" = "Lütfen unutmayın:";
 
-"TestResultPositive_KeysSubmitted_Info1" = "Bu test sonucunu doğrulamak için PCR testi yapın.";
+"TestResultPositive_KeysSubmitted_PCR_Info1" = "Yüksek bir olasılıkla enfekte oldunuz. Kendinizi diğer insanlardan izole edin.";
 
-"TestResultPositive_KeysSubmitted_Info2" = "Kamu sağlığı yetkiliniz önümüzdeki birkaç gün içinde size ulaşabilir.";
+"TestResultPositive_KeysSubmitted_PCR_Info2" = "Kamu sağlığı yetkiliniz önümüzdeki birkaç gün içinde size ulaşabilir.";
 
-"TestResultPositive_KeysSubmitted_Info3" = "Yüksek bir olasılıkla enfekte oldunuz. Kendinizi diğer insanlardan izole edin.";
+"TestResultPositive_KeysSubmitted_PCR_Info3" = "COVID-19 kaynaklı daha yüksek ciddi hastalık riskiniz varsa doktora başvurun. Bilinen risk faktörleri arasında 60 yaşın üzerinde olmak, immünsupresyon, diyabet ve obezite bulunmaktadır.";
+
+"TestResultPositive_KeysSubmitted_RAT_Info1" = "Yüksek bir olasılıkla enfekte oldunuz. Kendinizi diğer insanlardan izole edin.";
+
+"TestResultPositive_KeysSubmitted_RAT_Info2" = "Bu test sonucunu doğrulamak için PCR testi yapın.";
+
+"TestResultPositive_KeysSubmitted_RAT_Info3" = "Kamu sağlığı yetkiliniz önümüzdeki birkaç gün içinde size ulaşabilir.";
 
 "TestResultPositive_KeysSubmitted_Title2" = "Diğer bilgiler:";
 
-"TestResultPositive_KeysSubmitted_FurtherInfo1" = "İzolasyon süreniz genellikle 14 gündür. Lütfen belirtilerinizin nasıl geliştiğini yakından izleyin.";
+"TestResultPositive_KeysSubmitted_FurtherInfo1" = "İzolasyon süreniz genellikle 10 gündür. Lütfen belirtilerinizin nasıl geliştiğini yakından izleyin.";
 
-"TestResultPositive_KeysSubmitted_FurtherInfo2" = "Kamu sağlığı yetkiliniz, temasa geçtiğiniz kişilerin bir listesini oluşturmanızı isteyecektir. Bu listeye, hasta olmadan önceki iki gün içinde 15 dakikadan uzun süreyle yakın temas halinde (2 metreden kısa mesafede, yüz yüze görüşme) olduğunuz herkesi dahil etmeniz gerekir. Bunun için temas güncenizi kullanabilirsiniz: Girişleri dışa aktarmanız ve ardından yazdırmanız ya da e-posta yoluyla göndermeniz yeterlidir.";
+"TestResultPositive_KeysSubmitted_FurtherInfo2" = "Kamu sağlığı yetkiliniz, temasa geçtiğiniz kişilerin bir listesini oluşturmanızı isteyecektir. Bu listeye, hasta olmadan önceki iki gün içinde 10 dakikadan uzun süreyle yakın temas halinde (2 metreden kısa mesafede, yüz yüze görüşme) olduğunuz herkesi dahil etmeniz gerekir. Bunun için temas güncenizi kullanabilirsiniz: Girişleri dışa aktarmanız ve ardından yazdırmanız ya da e-posta yoluyla göndermeniz yeterlidir.";
 
 "TestResultPositive_KeysSubmitted_FurtherInfo3" = "Lütfen özellikle akıllı telefonu olmadığı veya uygulamayı yüklemediği için doğrudan uygulamanın uyarmayacağı kişileri göz önünde bulundurun.";
 
@@ -1852,7 +1894,7 @@
 
 "ContactDiary_Information_DescriptionTitle" = "Temas kaydınızı tutun.";
 
-"ContactDiary_Information_DescriptionSubHeadline" = "İhtiyaç duyduğunuzda elinizin altında eksiksiz bir liste olması için son 14 güne ait temaslarınıza ilişkin bir genel bakış oluşturun. Maruz kalma bilgileriniz de burada görüntülenir.";
+"ContactDiary_Information_DescriptionSubHeadline" = "İhtiyaç duyduğunuzda elinizin altında eksiksiz bir liste olması için son 15 güne ait temaslarınıza ilişkin bir genel bakış oluşturun. Maruz kalma bilgileriniz de burada görüntülenir.";
 
 "ContactDiary_Information_Item_Person_Title" = "Karşılaştığınız kişileri girin.";
 
@@ -1933,9 +1975,9 @@
 
 "Statistics_Card_CombinedIncidence_Date" = "%@ tarihine kadar";
 
-"Statistics_Card_CombinedIncidence_PrimaryLabelSubtitle" = "Yeni Enfeksiyon Sayısı";
+"Statistics_Card_CombinedIncidence_PrimaryLabelSubtitle" = "yeni enfeksiyon sayısı";
 
-"Statistics_Card_CombinedIncidence_SecondaryLabelSubtitle" = "Hastaneye Yatış Sayısı";
+"Statistics_Card_CombinedIncidence_SecondaryLabelSubtitle" = "hastaneye yatış sayısı";
 
 /* - Infections Card */
 "Statistics_Card_Infections_Title" = "Onaylanan Yeni Enfeksiyon Sayısı";
@@ -1957,9 +1999,9 @@
 
 "Statistics_Card_Region_Date" = "%@ tarihine kadar";
 
-"Statistics_Card_Region_PrimaryLabelSubtitle" = "Yeni Enfeksiyon Sayısı";
+"Statistics_Card_Region_PrimaryLabelSubtitle" = "yeni enfeksiyon sayısı";
 
-"Statistics_Card_Region_SecondaryLabelSubtitle_FederalState" = "Hastaneye Yatış Sayısı";
+"Statistics_Card_Region_SecondaryLabelSubtitle_FederalState" = "hastaneye yatış sayısı";
 
 "Statistics_Card_Region_SecondaryLabelSubtitle_AdministrativeUnit" = "%@ için hastaneye yatış sayısı";
 
@@ -2005,7 +2047,7 @@
 "Statistics_Card_AtLeastOneVaccinated_SecondarySubtitleLabel" = "(popülasyona göre)";
 
 /* - Fully vaccinated people card */
-"Statistics_Card_FullyVaccinated_Title" = "Tüm Aşıları Olan Kişiler";
+"Statistics_Card_FullyVaccinated_Title" = "Temel Bağışıklığı Olan Kişiler";
 
 "Statistics_Card_FullyVaccinated_Today" = "Bugüne kadar";
 
@@ -2019,6 +2061,21 @@
 
 "Statistics_Card_FullyVaccinated_SecondarySubtitleLabel" = "(popülasyona göre)";
 
+/* - Booster vaccination card */
+"Statistics_Card_BoosterVaccination_Title" = "Hatırlatma Aşısı Olan Kişiler";
+
+"Statistics_Card_BoosterVaccination_Today" = "Bugüne kadar";
+
+"Statistics_Card_BoosterVaccination_Yesterday" = "Düne kadar";
+
+"Statistics_Card_BoosterVaccination_Date" = "%@ tarihine kadar";
+
+"Statistics_Card_BoosterVaccination_SecondaryLabelTitle" = "(popülasyona göre)";
+
+"Statistics_Card_BoosterVaccination_TertiaryLabelTitle" = "Toplam";
+
+"Statistics_Card_BoosterVaccination_SecondarySubtitleLabel" = "(popülasyona göre)";
+
 /* - Applied vaccination dose rates card */
 "Statistics_Card_AppliedDoseRates_Title" = "Uygulanan Aşı Dozları";
 
@@ -2028,7 +2085,7 @@
 
 "Statistics_Card_AppliedDoseRates_Date" = "%@";
 
-"Statistics_Card_AppliedDoseRates_SecondaryLabelTitle" = "7 Günlük Ortalama";
+"Statistics_Card_AppliedDoseRates_SecondaryLabelTitle" = "7 günlük ortalama";
 
 "Statistics_Card_AppliedDoseRates_TertiaryLabelTitle" = "Toplam";
 
@@ -2041,7 +2098,7 @@
 
 "Statistics_Card_IntensiveCare_Date" = "%@ tarihine kadar";
 
-"Statistics_Card_IntensiveCare_SecondaryLabelTitle" = "COVID-19 Nedeniyle Yatak Kullanımının Tüm Yoğun Bakım Yatakları Sayısına Oranı";
+"Statistics_Card_IntensiveCare_SecondaryLabelTitle" = "COVID-19 nedeniyle yatak kullanımının tüm yoğun bakım yatakları sayısına oranı";
 
 /* Error */
 "Statistics_LoadingError" = "İstatistikler yüklenemiyor. Lütfen uygulamayı kapatın ve tekrar deneyin.";
@@ -2075,9 +2132,9 @@
 
 "Statistics_Info_KeySubmissions_Title" = "Uygulama Kullanıcılarının Uyarıları";
 
-"Statistics_Info_KeySubmissions_Text" = "PCR testi ile koronavirüs tanısı alan ve uygulama üzerinden diğer kullanıcıları uyaran uygulama kullanıcılarının sayısı.";
+"Statistics_Info_KeySubmissions_Text" = "Koronavirüs tanısı koyulan ve uygulama üzerinden diğer kullanıcıları uyaran uygulama kullanıcılarının sayısı";
 
-"Statistics_Info_ReproductionNumber_Title" = "7 Günlük R Değeri";
+"Statistics_Info_ReproductionNumber_Title" = "7 günlük R değeri";
 
 "Statistics_Info_ReproductionNumber_Text" = "Reprodüksiyon değeri R, enfekte olan bir kişinin ortalama olarak kaç kişiyi enfekte ettiğini belirtir. Geçerli değerde, en fazla son 5 günün verileri dikkate alınır.";
 
@@ -2085,9 +2142,13 @@
 
 "Statistics_Info_AtLeastOnce_Text" = "RKI'ye aşının ilk dozunu aldıkları bildirilen kişilerin sayısı.";
 
-"Statistics_Info_FullyVaccinated_Title" = "Tüm aşıları olan kişiler";
+"Statistics_Info_FullyVaccinated_Title" = "Temel bağışıklığı olan kişiler";
 
-"Statistics_Info_FullyVaccinated_Text" = "RKI'ye gereken tüm aşı dozlarını aldıkları bildirilen kişilerin sayısı.";
+"Statistics_Info_FullyVaccinated_Text" = "RKI'ye temel bağışıklık için gereken tüm aşı dozlarını aldıkları bildirilen kişilerin sayısı.";
+
+"Statistics_Info_BoosterVaccination_Title" = "Hatırlatma aşısı olan kişiler";
+
+"Statistics_Info_BoosterVaccination_Text" = "RKI'ye hatırlatma aşısı oldukları bildirilen kişilerin sayısı.";
 
 "Statistics_Info_DosesAdministered_Title" = "Uygulanan aşı dozları";
 
@@ -2267,9 +2328,13 @@
 "Contact_Journal_Notes_Description" = "Enfeksiyon riskinizin daha iyi tahmin edilmesine yardımcı olacak notları buraya girebilirsiniz.\n\nBaşka insanlarla ne kadar yakın olduğunuz ve ne yaptığınız (örnekler: “yakın bir şekilde birlikte oturduk”, “spor yaptık”, “az mesafe vardı”, “şarkı söyledik”) gibi, karşılaşmanıza veya konaklamanıza dair enfeksiyon riskiniz üzerinde bir etkisi olabilecek ek koşulları buraya yazabilirsiniz.\n\nBu notlar daha sonra hafızanızı tazelemenize yardımcı olabilir. Gerekirse erken aşamada bir arada olduğunuz kişileri uyarmanızı sağlayacak ve kamu sağlığı yetkililerinin potansiyel enfeksiyon zincirlerini takip edebilmesine yardımcı olacaktır.";
 
 /* Quick Actions a.k.a. shortcuts */
-"QuickAction_newContactDiaryEntry" = "Bugün için Günce Girişi Ekle";
+"QuickAction_qrCodeScanner" = "QR Kodu Tara";
 
-"QuickAction_eventCheckin" = "Check In";
+"QuickAction_showCertificates" = "Sertifikaları görüntüle";
+
+"QuickAction_eventCheckin" = "Check-in'leri görüntüle";
+
+"QuickAction_newContactDiaryEntry" = "Giriş ekle";
 
 /* Checkins */
 "Checkins_Overview_Title" = "Check-In’lerim";
@@ -2678,42 +2743,38 @@
 
 "HealthCertificate_Validation_Info_title" = "Bilgi";
 
-"HealthCertificate_Validation_Info_byCar" = "Gideceğiniz ülkenin sınırına planlanan yerel varış saatini seçin.";
+"HealthCertificate_Validation_Info_byCar" = "Gideceğiniz ülkenin sınırına planlanan yerel varış saatini girin.";
 
-"HealthCertificate_Validation_Info_byPlane" = "Hava yoluyla seyahat ediyorsanız uçuşunuzun planlanan kalkış saatini seçin.";
+"HealthCertificate_Validation_Info_byPlane" = "Hava yoluyla seyahat ediyorsanız uçuşunuzun planlanan kalkış saatini girin.";
 
 /* Health Certificate Overview */
 "HealthCertificate_Overview_title" = "Sertifikalar";
 
-"HealthCertificate_Overview_add" = "Sertifika Ekle";
-
 "HealthCertificate_Overview_EmptyTitle" = "Henüz sertifika yok";
 
-"HealthCertificate_Overview_EmptyDescription" = "Kaydedilen dijital aşı sertifikaları, iyileşme sertifikaları ve test sertifikaları burada görüntülenir.\n\nSertifika eklemek için lütfen karşılık gelen QR kodu tarayın.";
+"HealthCertificate_Overview_EmptyDescription" = "Kaydedilen dijital aşı sertifikaları, iyileşme sertifikaları ve test sertifikaları burada görüntülenir.";
 
 "HealthCertificate_Overview_EmptyImageDescription" = "Arka planda dijital sertifika ve sertifika mührü";
 
 "HealthCertificate_Overview_Covid_Title" = "AB Dijital COVID Sertifikası";
 
-"VaccinationCertificate_title" = "AB\n**Dijital Aşı Sertifikası**";
-
-"VaccinationCertificate_partiallyVaccinated" = "Aşı tamamlanmadı";
-
-"VaccinationCertificate_vaccinationValidUntil" = "Son geçerlilik tarihi: %@";
-
 "HealthCertificate_Overview_Covid_Certificate_Description" = "Sertifikayı içeren bir QR kod";
 
+"HealthCertificate_Overview_AdmissionState_Title" = "Durum Kanıtı";
+
+"HealthCertificate_Overview_TwoGCertificate" = "2G Sertifikası";
+
+"HealthCertificate_Overview_TestCertificate" = "Test Sertifikası";
+
+"HealthCertificate_Overview_Scanning_Info" = "İlave sertifikalar eklemek için aşağıdaki gezinti çubuğundaki QR kod tarayıcıyı kullanın.";
+
+"HealthCertificate_Admission_Scenario_Status_Label" = "Şu eyalete ilişkin durum";
+
+"HealthCertificate_Admission_Scenario_Button_Label" = "Federal hükûmet düzenlemeleri";
+
+"HealthCertificate_Loading_Indicator_Label" = "Durum belirleniyor...";
+
 "HealthCertificate_Overview_News" = "Sertifikalarınızla ilgili gelişme var";
-
-/* - Test Certificate Info */
-"TestCertificate_Info_title" = "AB\n**Dijital COVID Test Sertifikası**";
-
-"TestCertificate_Info_description" = "Ana ekranda bir testi kaydedin ve dijital test sertifikası almayı kabul edin. Sertifika düzenlenir düzenlenmez burada görüntülenir.";
-
-/* - Test Certificate */
-"TestCertificate_title" = "AB\n**Dijital COVID Test Sertifikası**";
-
-"TestCertificate_testDate" = "Testin gerçekleştirildiği tarih: %@";
 
 /* - Test Certificate Request */
 "TestCertificateRequest_title" = "AB\n**Dijital COVID Test Sertifikası**";
@@ -2794,17 +2855,12 @@
 /* Health Certified Person Screen */
 "HealthCertificate_unified_QR_code_notice" = "Bu QR kod, CovPassCheck uygulaması ile güvenilir şekilde doğrulanabilir.";
 
+"HealthCertificate_unified_QR_code_infoButton" = "Bilgi";
+
 "HealthCertifiedPerson_title" = "AB Dijital COVID Sertifikası";
 
-"HealthCertifiedPerson_VaccinationHint_title" = "Aşı Durumu";
-
-"HealthCertifiedPerson_partiallyVaccinated" = "Henüz şu anda tüm planlanan aşıları olmadınız. Dolayısıyla aşı korumanız henüz tamamlanmadı.";
-
-"HealthCertifiedPerson_completelyProtected" = "Geçerli olarak planlanan tüm aşıları yaptırdınız. Aşı korumanız tamamlandı.";
-
-"HealthCertifiedPerson_boosterRuleFAQ" = "Daha fazla bilgi için lütfen %@ sayfamıza bakın.";
-
-"HealthCertifiedPerson_boosterRuleFAQ_placeholder_FAQ" = "SSS";
+/* Health Certified Person */
+"HealthCertifiedPerson_faq" = "Daha fazla bilgi için lütfen SSS sayfamıza bakın.";
 
 "HealthCertifiedPerson_dateOfBirth" = "Doğum tarihi: %@";
 
@@ -2830,7 +2886,7 @@
 
 "HealthCertifiedPerson_RecoveryCertificate_headline" = "İyileşme Sertifikası";
 
-"HealthCertifiedPerson_RecoveryCertificate_validityDate" = "geçerlilik sonu: %@";
+"HealthCertifiedPerson_RecoveryCertificate_positiveTestFrom" = "%@ pozitif testi";
 
 "HealthCertifiedPerson_currentlyUsedCertificate" = "Şu anda kullanılan sertifika";
 
@@ -2877,9 +2933,6 @@
 
 "HealthCertificate_Details_moreButtonTitle" = "Daha Fazla";
 
-/* Vaccination Certificate Details */
-"VaccinationCertificate_Details_OneOfOneHint" = "Bu, yalnızca bir doz uygulanması gereken bir aşıdır ya da hastalığı geçirerek yalnızca bir doza ihtiyacı olan kişiye yönelik bir aşıdır.";
-
 /* Health Certificate Delete Alert */
 "HealthCertificate_Alert_deleteButton" = "Sertifikayı Sil";
 
@@ -2918,6 +2971,15 @@
 
 "RecoveryCertificate_Alert_message" = "Sertifika geri dönüşüm kutusuna taşınacak. Geri dönüşüm kutusunu, durum sekmesinde yer alan \"Daha Fazla\" kutucuğunda bulabilirsiniz. Burada sertifikayı kalıcı olarak silebilir veya geri yükleyebilirsiniz. Sertifika 30 gün sonra otomatik olarak silinir.";
 
+/* Decoding Failed Health Certificate Delete Alert */
+"DecodingFailedHealthCertificate_Alert_title" = "Sertifikayı kalıcı olarak silmek istiyor musunuz?";
+
+"DecodingFailedHealthCertificate_Alert_message" = "Sertifikanın kodu çözülemedi, bu nedenle sertifika için hiçbir bilgi görüntülenemiyor. Silerseniz, sertifikayı artık kanıt olarak kullanamazsınız.";
+
+"DecodingFailedHealthCertificate_Alert_deleteButton" = "Sertifikayı Kalıcı Olarak Sil";
+
+"DecodingFailedHealthCertificate_Alert_cancelButton" = "İptal";
+
 /* Health Certificate Print PDF */
 "HealthCertificate_PrintPdf_showPrintableVersion" = "Basılı Versiyonu Görüntüle";
 
@@ -2947,6 +3009,13 @@
 "HealthCertificate_PrintPdf_ErrorAlert_ValueSetsFetching_Title" = "Basılı versiyon görüntülenemiyor";
 
 "HealthCertificate_PrintPdf_ErrorAlert_ValueSetsFetching_Message" = "Sertifika şu anda alınamadığı için sertifikanın basılı versiyonu görüntülenemiyor. Lütfen daha sonra tekrar deneyin.";
+
+/* Certificate Fault Tolerant Naming */
+"HealthCertificate_FaultTolerantNaming_RegroupDone_Title" = "Sertifika Ataması";
+
+"HealthCertificate_FaultTolerantNaming_RegroupDone_Message" = "Sertifikaları gruplama özelliği iyileştirildi. Yalnızca ufak ad farklılıkları olan sertifikalar artık farklı kişilere atanmayacak.";
+
+"HealthCertificate_FaultTolerantNaming_RegroupDone_OkayButton" = "Tamam";
 
 /* Health Certificate Errors */
 "HealthCertificate_Error_Title" = "Hata";
@@ -3023,7 +3092,7 @@
 
 "HealthCertificate_Validation_Passed_unknownTitle" = "Sertifika Doğrulanamıyor";
 
-"HealthCertificate_Validation_Passed_subtitle" = "Sertifikanız seçilen ülkede geçerli";
+"HealthCertificate_Validation_Passed_subtitle" = "Sertifikanız seçilen ülkeye giriş için geçerli";
 
 "HealthCertificate_Validation_Passed_unknownSubtitle" = "Sertifikanız doğrulanamadı";
 
@@ -3049,7 +3118,7 @@
 /* - Failed */
 "HealthCertificate_Validation_Failed_title" = "Sertifika Geçerli Değil";
 
-"HealthCertificate_Validation_Failed_subtitle" = "Sertifikanız seçilen ülkede geçerli değil";
+"HealthCertificate_Validation_Failed_subtitle" = "Sertifikanız seçilen ülkeye giriş için geçerli değil";
 
 "HealthCertificate_Validation_Failed_failedSectionTitle" = "Doğrulama tamamlandı";
 
@@ -3062,7 +3131,7 @@
 /* - Technical Validation Failed */
 "HealthCertificate_Validation_TechnicalFailed_title" = "Sertifika Geçerli Değil";
 
-"HealthCertificate_Validation_TechnicalFailed_subtitle" = "Sertifikanız seçilen ülkede geçerli değil";
+"HealthCertificate_Validation_TechnicalFailed_subtitle" = "Sertifikanız seçilen ülkeye giriş için geçerli değil";
 
 "HealthCertificate_Validation_TechnicalFailed_failedSectionTitle" = "Teknik kontrol";
 
@@ -3092,6 +3161,52 @@
 "HealthCertificate_ValidityState_Blocked" = "Sertifika Geçersiz";
 
 "HealthCertificate_ValidityState_Blocked_description" = "Sertifika, düzenleyen makam tarafından geri çağırıldı. Lütfen yeni bir dijital sertifika alın.";
+
+/* Reissuance */
+/* HealthCertificate Resissuance Consent */
+"HealthCertificate_Reissuance_Consent_primaryButtonTitle" = "Kabul Et";
+
+"HealthCertificate_Reissuance_Consent_secondaryButtonTitle" = "İptal";
+
+"HealthCertificate_Reissuance_Consent_DefaultAlert_Title" = "Hata";
+
+"HealthCertificate_Reissuance_Consent_DefaultAlert_OKButton" = "Tamam";
+
+"HealthCertificate_Reissuance_Consent_DefaultAlert_RetryButton" = "Tekrarla";
+
+"HealthCertificate_Reissuance_Consent_Title" = "İzniniz";
+
+"HealthCertificate_Reissuance_Consent_Delete_Notice" = "Eski sertifika otomatik olarak geri dönüşüm kutusuna taşınır ve 30 gün sonra silinir. Sertifika, bu 30 günlük süre içinde dilediğiniz zaman geri yüklenebilir.";
+
+"HealthCertificate_Reissuance_Consent_Cancel_Notice" = "Şimdi iptal ederseniz dilediğiniz zaman sertifikaya genel bakış bölümünde güncelleme talebi oluşturabilirsiniz.";
+
+"HealthCertificate_Reissuance_Consent_Legal_Title" = "İzniniz";
+
+"HealthCertificate_Reissuance_Consent_Legal_Subtitle" = "\"Kabul Et\" seçeneğine dokunduğunuzda aşağıdaki adımlara izin verirsiniz:";
+
+"HealthCertificate_Reissuance_Consent_Legal_Bullet_1" = "Uygulama, doğrulama için aşı sertifikasını RKI'ya gönderir.";
+
+"HealthCertificate_Reissuance_Consent_Legal_Bullet_2" = "RKI aşı sertifikasını kontrol eder, güncellenmiş bir sertifika düzenler ve güncellenmiş sertifikayı uygulamanıza gönderir.";
+
+"HealthCertificate_Reissuance_Consent_Bullet_Point_1" = "Sertifikanızı güncellemeniz gönüllülük esasına bağlı ve ücretsiz bir işlemdir.";
+
+"HealthCertificate_Reissuance_Consent_Bullet_Point_2" = "Sertifikaların yalnızca bir kez güncellenebilmesini sağlamak adına eski sertifikanızın tanıtıcısı RKI tarafından belgelenir.";
+
+/* HealthCertificate Resissuance Succeeded */
+"HealthCertificate_Reissuance_Succeeded_Title" = "Sertifika Güncellendi";
+
+"HealthCertificate_Reissuance_Succeeded_Headline" = "Sertifikanız başarıyla güncellendi";
+
+"HealthCertificate_Reissuance_Succeeded_Body" = "Güncellenen sertifikayı \"Sertifikalar\" sekmesinde bulabilirsiniz.";
+
+/* HealthCertificate Resissuance Request Error */
+"HealthCertificate_Reissuance_Error_Contact_Support" = "Teknik bir hata oluştu. Lütfen Uygulama Bilgileri -> Teknik Yardım Hattı üzerinden teknik yardım hattı ile iletişime geçin.";
+
+"HealthCertificate_Reissuance_Error_No_Network" = "İnternet bağlantınız kesilmiş olabilir. Lütfen bağlantıyı kontrol edin ve tekrar deneyin.";
+
+"HealthCertificate_Reissuance_Error_Try_Again" = "Sertifikanız güncellenirken bir hata oluştu. Lütfen tekrar deneyin. Hata devam ederse lütfen Uygulama Bilgileri -> Teknik Yardım Hattı üzerinden teknik yardım hattı ile iletişime geçin.";
+
+"HealthCertificate_Reissuance_Error_Not_Supported" = "Sertifikanız güncellenemiyor. Lütfen Uygulama Bilgileri -> Teknik Yardım Hattı üzerinden teknik yardım hattı ile iletişime geçin.";
 
 /* Universal QR Scanner */
 "UniversalQRScanner_ScannerTitle" = "QR Kod Tarayıcı";
@@ -3132,9 +3247,9 @@
 
 "UniversalQRScanner_MaxPersonAmountAlert_errorTitle" = "Hata";
 
-"UniversalQRScanner_MaxPersonAmountAlert_warningMessage" = "Corona-Warn-App üçüncü taraf sertifika doğrulaması için kullanılamayabilir. Bunun için CovPassCheck uygulamasını kullanın.\n\nEn fazla %i kişi için sertifika ekleyebilirsiniz. Bu limite ulaşıldığında, başka kişiler için daha fazla yeni sertifika ekleyemezsiniz.\n\nSSS sayfamızda aşı sertifikaları hakkında daha fazla bilgi bulabilirsiniz.";
+"UniversalQRScanner_MaxPersonAmountAlert_warningMessage" = "Corona-Warn-App üçüncü taraf sertifikalarını doğrulamak için kullanılamaz. Bunun için CovPassCheck uygulamasını kullanın.\n\nEn fazla %i kişi için sertifika ekleyebilirsiniz. Bu limite ulaşıldığında, başka kişiler için daha fazla yeni sertifika ekleyemezsiniz.\n\nSSS sayfamızda sertifika doğrulama hakkında daha fazla bilgi bulabilirsiniz.";
 
-"UniversalQRScanner_MaxPersonAmountAlert_errorMessage" = "Corona-Warn-App üçüncü taraf sertifika doğrulaması için kullanılamayabilir. Bunun için CovPassCheck uygulamasını kullanın.\n\nEn fazla %i kişi için sertifika ekleyebilirsiniz. Başka kişiler için daha fazla yeni sertifika ekleyemezsiniz.\n\nSSS sayfamızda aşı sertifikaları hakkında daha fazla bilgi bulabilirsiniz.";
+"UniversalQRScanner_MaxPersonAmountAlert_errorMessage" = "Corona-Warn-App üçüncü taraf sertifikalarını doğrulamak için kullanılamayabilir. Bunun için CovPassCheck uygulamasını kullanın.\n\nEn fazla %i kişi için sertifika ekleyebilirsiniz. Başka kişiler için daha fazla yeni sertifika ekleyemezsiniz.\n\nSSS sayfamızda sertifika doğrulama hakkında daha fazla bilgi bulabilirsiniz.";
 
 "UniversalQRScanner_MaxPersonAmountAlert_covPassCheckButton" = "CovPassCheck App'i İndir";
 
@@ -3243,6 +3358,8 @@
 
 "RecycleBin_deleteAllButtonTitle" = "Tümünü Kalıcı Olarak Sil";
 
+"RecycleBin_expirationDateTime" = "şu zamanda kalıcı olarak silinecek: %@, %@";
+
 /* - Vaccination Certificate */
 "RecycleBin_VaccinationCertificate_headline" = "Aşı Sertifikası";
 
@@ -3262,7 +3379,7 @@
 /* - Recovery Certificate */
 "RecycleBin_RecoveryCertificate_headline" = "İyileşme Sertifikası";
 
-"RecycleBin_RecoveryCertificate_validityDate" = "geçerlilik sonu: %@";
+"RecycleBin_RecoveryCertificate_positiveTestFrom" = "%@ pozitif testi";
 
 /* - Corona Test */
 "RecycleBin_CoronaTest_headline" = "Test";

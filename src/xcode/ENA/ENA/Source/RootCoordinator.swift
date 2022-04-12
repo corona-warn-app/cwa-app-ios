@@ -20,25 +20,30 @@ protocol CoordinatorDelegate: AnyObject {
 	Should be used as a delegate in view controllers that need to communicate with other view controllers, either for navigation, or something else (e.g. transferring state).
 	Helps to decouple different view controllers from each other and to remove navigation responsibility from view controllers.
 */
+// swiftlint:disable:next type_body_length
 class RootCoordinator: NSObject, RequiresAppDependencies, UITabBarControllerDelegate {
 
 	// MARK: - Init
 	
 	init(
 		_ delegate: CoordinatorDelegate,
-		coronaTestService: CoronaTestService,
+		coronaTestService: CoronaTestServiceProviding,
 		contactDiaryStore: DiaryStoringProviding,
 		eventStore: EventStoringProviding,
 		eventCheckoutService: EventCheckoutService,
 		otpService: OTPServiceProviding,
 		ppacService: PrivacyPreservingAccessControl,
+		cclService: CCLServable,
 		healthCertificateService: HealthCertificateService,
+		healthCertificateRequestService: HealthCertificateRequestService,
 		healthCertificateValidationService: HealthCertificateValidationProviding,
 		healthCertificateValidationOnboardedCountriesProvider: HealthCertificateValidationOnboardedCountriesProviding,
 		vaccinationValueSetsProvider: VaccinationValueSetsProviding,
 		elsService: ErrorLogSubmissionProviding,
 		recycleBin: RecycleBin,
-		restServiceProvider: RestServiceProviding
+		restServiceProvider: RestServiceProviding,
+		badgeWrapper: HomeBadgeWrapper,
+		cache: KeyValueCaching
 	) {
 		self.delegate = delegate
 		self.coronaTestService = coronaTestService
@@ -47,13 +52,17 @@ class RootCoordinator: NSObject, RequiresAppDependencies, UITabBarControllerDele
 		self.eventCheckoutService = eventCheckoutService
 		self.otpService = otpService
 		self.ppacService = ppacService
+		self.cclService = cclService
 		self.healthCertificateService = healthCertificateService
+		self.healthCertificateRequestService = healthCertificateRequestService
 		self.healthCertificateValidationService = healthCertificateValidationService
 		self.healthCertificateValidationOnboardedCountriesProvider = healthCertificateValidationOnboardedCountriesProvider
 		self.vaccinationValueSetsProvider = vaccinationValueSetsProvider
 		self.elsService = elsService
 		self.recycleBin = recycleBin
 		self.restServiceProvider = restServiceProvider
+		self.badgeWrapper = badgeWrapper
+		self.cache = cache
 	}
 
 	deinit {
@@ -94,7 +103,7 @@ class RootCoordinator: NSObject, RequiresAppDependencies, UITabBarControllerDele
 
 		return true
 	}
-	
+
 	// MARK: - Internal
 
 	let viewController: UIViewController = {
@@ -119,6 +128,10 @@ class RootCoordinator: NSObject, RequiresAppDependencies, UITabBarControllerDele
 			// route handling to show HealthCertifiedPerson from booster notification
 			else if case let .healthCertifiedPersonFromNotification(healthCertifiedPerson) = route {
 				showHealthCertifiedPersonFromNotification(for: healthCertifiedPerson)
+			}
+			// route handling to show test result from notification
+			else if case let .testResultFromNotification(testResult) = route {
+				showTestResultFromNotification(with: testResult)
 			}
 		}
 
@@ -148,6 +161,15 @@ class RootCoordinator: NSObject, RequiresAppDependencies, UITabBarControllerDele
 		)
 		self.qrScannerCoordinator = qrScannerCoordinator
 		
+		let homeState = HomeState(
+			store: store,
+			riskProvider: riskProvider,
+			exposureManagerState: exposureManager.exposureManagerState,
+			enState: enStateHandler.state,
+			statisticsProvider: statisticsProvider,
+			localStatisticsProvider: localStatisticsProvider
+		)
+		
 		let homeCoordinator = HomeCoordinator(
 			delegate,
 			otpService: otpService,
@@ -160,8 +182,15 @@ class RootCoordinator: NSObject, RequiresAppDependencies, UITabBarControllerDele
 			exposureSubmissionService: exposureSubmissionService,
 			qrScannerCoordinator: qrScannerCoordinator,
 			recycleBin: recycleBin,
-			restServiceProvider: restServiceProvider
+			restServiceProvider: restServiceProvider,
+			badgeWrapper: badgeWrapper,
+			cache: cache,
+			cclService: cclService,
+			homeState: homeState
 		)
+		
+		self.homeState = homeState
+		
 		self.homeCoordinator = homeCoordinator
 		homeCoordinator.showHome(
 			enStateHandler: enStateHandler,
@@ -170,11 +199,15 @@ class RootCoordinator: NSObject, RequiresAppDependencies, UITabBarControllerDele
 	
 		let healthCertificatesTabCoordinator = HealthCertificatesTabCoordinator(
 			store: store,
+			cclService: cclService,
 			healthCertificateService: healthCertificateService,
+			healthCertificateRequestService: healthCertificateRequestService,
 			healthCertificateValidationService: healthCertificateValidationService,
 			healthCertificateValidationOnboardedCountriesProvider: healthCertificateValidationOnboardedCountriesProvider,
 			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
-			qrScannerCoordinator: qrScannerCoordinator
+			qrScannerCoordinator: qrScannerCoordinator,
+			appConfigProvider: appConfigurationProvider,
+			restServiceProvider: restServiceProvider
 		)
 		self.healthCertificatesTabCoordinator = healthCertificatesTabCoordinator
 
@@ -292,7 +325,8 @@ class RootCoordinator: NSObject, RequiresAppDependencies, UITabBarControllerDele
 			pageType: .togetherAgainstCoronaPage,
 			exposureManager: self.exposureManager,
 			store: self.store,
-			client: self.client
+			client: self.client,
+			appConfigProvider: appConfigurationProvider
 		)
 		
 		let navigationVC = AppOnboardingNavigationController(rootViewController: onboardingVC)
@@ -308,6 +342,31 @@ class RootCoordinator: NSObject, RequiresAppDependencies, UITabBarControllerDele
 		
 		viewController.clearChildViewController()
 		viewController.embedViewController(childViewController: navigationVC)
+	}
+
+	func showLoadingScreen() {
+		let loadingScreenViewController = LoadingScreenViewController()
+
+		tabBarController.clearChildViewController()
+		tabBarController.setViewControllers([], animated: false)
+
+		homeCoordinator = nil
+		diaryCoordinator = nil
+		checkinTabCoordinator = nil
+
+		viewController.clearChildViewController()
+		viewController.embedViewController(childViewController: loadingScreenViewController)
+
+		loadingScreenViewController.view.translatesAutoresizingMaskIntoConstraints = false
+
+		NSLayoutConstraint.activate(
+			[
+				viewController.view.leadingAnchor.constraint(equalTo: loadingScreenViewController.view.leadingAnchor),
+				viewController.view.topAnchor.constraint(equalTo: loadingScreenViewController.view.topAnchor),
+				viewController.view.trailingAnchor.constraint(equalTo: loadingScreenViewController.view.trailingAnchor),
+				viewController.view.bottomAnchor.constraint(equalTo: loadingScreenViewController.view.bottomAnchor)
+			]
+		)
 	}
 
 	func showEvent(_ guid: String) {
@@ -333,20 +392,23 @@ class RootCoordinator: NSObject, RequiresAppDependencies, UITabBarControllerDele
 
 	private weak var delegate: CoordinatorDelegate?
 
-	private let coronaTestService: CoronaTestService
+	private let coronaTestService: CoronaTestServiceProviding
 	private let contactDiaryStore: DiaryStoringProviding
 	private let eventStore: EventStoringProviding
 	private let eventCheckoutService: EventCheckoutService
 	private let otpService: OTPServiceProviding
 	private let ppacService: PrivacyPreservingAccessControl
 	private let elsService: ErrorLogSubmissionProviding
+	private let cclService: CCLServable
 	private let healthCertificateService: HealthCertificateService
+	private let healthCertificateRequestService: HealthCertificateRequestService
 	private let healthCertificateValidationService: HealthCertificateValidationProviding
 	private let healthCertificateValidationOnboardedCountriesProvider: HealthCertificateValidationOnboardedCountriesProviding
 	private let vaccinationValueSetsProvider: VaccinationValueSetsProviding
 	private let recycleBin: RecycleBin
 	private let restServiceProvider: RestServiceProviding
-
+	private let badgeWrapper: HomeBadgeWrapper
+	private let cache: KeyValueCaching
 	private let tabBarController = UITabBarController()
 
 	private var homeCoordinator: HomeCoordinator?
@@ -386,6 +448,38 @@ class RootCoordinator: NSObject, RequiresAppDependencies, UITabBarControllerDele
 			coronaTestService: coronaTestService
 		)
 	}()
+	
+	private lazy var statisticsProvider: StatisticsProvider = {
+			#if DEBUG
+			if isUITesting {
+				return StatisticsProvider(
+					client: CachingHTTPClientMock(),
+					store: store
+				)
+			}
+			#endif
+
+			return StatisticsProvider(
+				client: CachingHTTPClient(),
+				store: store
+			)
+		}()
+	
+	private lazy var localStatisticsProvider: LocalStatisticsProviding = {
+			#if DEBUG
+			if isUITesting {
+				return LocalStatisticsProvider(
+					client: CachingHTTPClientMock(),
+					store: store
+				)
+			}
+			#endif
+
+			return LocalStatisticsProvider(
+				client: CachingHTTPClient(),
+				store: store
+			)
+		}()
 }
 
 // MARK: - Protocol ExposureStateUpdating

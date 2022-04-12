@@ -64,6 +64,8 @@ enum LaunchArguments {
 		static let numberOfDaysWithRiskLevel = LaunchArgument(name: "numberOfDaysWithRiskLevel")
 		/// Set the level of risk for checkin
 		static let checkinRiskLevel = LaunchArgument(name: "checkinRiskLevel")
+		/// set bool for anotherHighEncounterAlert
+		static let anotherHighEncounter = LaunchArgument(name: "anotherHighEncounter")
 	}
 	
 	enum exposureSubmission {
@@ -140,6 +142,7 @@ enum LaunchArguments {
 		static let firstAndSecondHealthCertificate = LaunchArgument(name: "firstAndSecondHealthCertificate")
 		static let secondHealthCertificate = LaunchArgument(name: "secondHealthCertificate")
 		static let hasBoosterNotification = LaunchArgument(name: "hasBoosterNotification")
+		static let hasCertificateReissuance = LaunchArgument(name: "hasCertificateReissuance")
 		static let firstAndSecondHealthCertificateIssuerDE = LaunchArgument(name: "firstAndSecondHealthCertificateIssuerDE")
 		static let isCertificateInvalid = LaunchArgument(name: "isCertificateInvalid")
 		static let isCertificateExpiring = LaunchArgument(name: "isCertificateExpiring")
@@ -150,6 +153,7 @@ enum LaunchArguments {
 		static let familyCertificates = LaunchArgument(name: "familyCertificates")
 		static let invalidCertificateCheck = LaunchArgument(name: "invalidCertificateCheck")
 		static let showTestCertificateOnTestResult = LaunchArgument(name: "showTestCertificateOnTestResult")
+		static let isDCCAdmissionCheckScenariosEnabled = LaunchArgument(name: "isDCCAdmissionCheckScenariosEnabled")
 	}
 
 	enum notifications {

@@ -51,7 +51,6 @@ final class ClientMock {
 
 	// MARK: - Configurable Mock Callbacks.
 
-	var onGetTestResult: ((String, Bool, TestResultHandler) -> Void)?
 	var onSubmitCountries: ((_ payload: SubmissionPayload, _ isFake: Bool, _ completion: @escaping KeySubmissionResponse) -> Void) = { $2(.success(())) }
 	var onSubmitOnBehalf: ((_ payload: SubmissionPayload, _ isFake: Bool, _ completion: @escaping KeySubmissionResponse) -> Void) = { $2(.success(())) }
 	var onSupportedCountries: ((@escaping CountryFetchCompletion) -> Void)?
@@ -63,9 +62,6 @@ final class ClientMock {
 	var onTraceWarningDownload: ((String, Int, @escaping TraceWarningPackageDownloadCompletionHandler) -> Void)?
 	var onDCCRegisterPublicKey: ((Bool, String, String, @escaping DCCRegistrationCompletionHandler) -> Void)?
 	var onGetDigitalCovid19Certificate: ((String, Bool, @escaping DigitalCovid19CertificateCompletionHandler) -> Void)?
-	var onValidationOnboardedCountries: ((Bool, @escaping ValidationOnboardedCountriesCompletionHandler) -> Void)?
-	var onGetDCCRules: ((Bool, HealthCertificateValidationRuleType, @escaping DCCRulesCompletionHandler) -> Void)?
-	var onGetBoosterNotificationsRules: ((Bool, @escaping BoosterRulesCompletionHandler) -> Void)?
 }
 
 extension ClientMock: ClientWifiOnly {
@@ -111,14 +107,7 @@ extension ClientMock: ClientWifiOnly {
 }
 
 extension ClientMock: Client {
-	func getBoosterNotificationRules(eTag: String?, isFake: Bool, completion: @escaping BoosterRulesCompletionHandler) {
-		guard let onGetBoosterRules = self.onGetBoosterNotificationsRules else {
-			completion(.success(downloadedPackage ?? ClientMock.dummyResponse))
-			return
-		}
-		onGetBoosterRules(isFake, completion)
-	}
-	
+
 	private static let dummyResponse = PackageDownloadResponse(package: SAPDownloadedPackage(keysBin: Data(), signature: Data()), etag: "\"etag\"")
 
 	func availableDays(forCountry country: String, completion: @escaping AvailableDaysCompletionHandler) {
@@ -151,23 +140,6 @@ extension ClientMock: Client {
 	
 	func submitOnBehalf(payload: SubmissionPayload, isFake: Bool, completion: @escaping KeySubmissionResponse) {
 		onSubmitOnBehalf(payload, isFake, completion)
-	}
-
-	func getTestResult(forDevice device: String, isFake: Bool, completion completeWith: @escaping TestResultHandler) {
-		guard let onGetTestResult = self.onGetTestResult else {
-			completeWith(
-				.success(
-					FetchTestResultResponse(
-						testResult: TestResult.positive.rawValue,
-						sc: nil,
-						labId: "SomeLabId"
-					)
-				)
-			)
-			return
-		}
-
-		onGetTestResult(device, isFake, completeWith)
 	}
 
 	func authorize(
@@ -272,31 +244,6 @@ extension ClientMock: Client {
 			return
 		}
 		onGetDigitalCovid19Certificate(token, isFake, completion)
-	}
-	
-	func validationOnboardedCountries(
-		eTag: String?,
-		isFake: Bool,
-		completion: @escaping ValidationOnboardedCountriesCompletionHandler
-	) {
-		guard let onValidationOnboardedCountries = self.onValidationOnboardedCountries else {
-			completion(.success(downloadedPackage ?? ClientMock.dummyResponse))
-			return
-		}
-		onValidationOnboardedCountries(isFake, completion)
-	}
-
-	func getDCCRules(
-		eTag: String?,
-		isFake: Bool,
-		ruleType: HealthCertificateValidationRuleType,
-		completion: @escaping DCCRulesCompletionHandler
-	) {
-		guard let onGetDCCRules = self.onGetDCCRules else {
-			completion(.success(downloadedPackage ?? ClientMock.dummyResponse))
-			return
-		}
-		onGetDCCRules(isFake, ruleType, completion)
 	}
 
 }

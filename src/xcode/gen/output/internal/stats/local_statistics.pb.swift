@@ -277,21 +277,25 @@ extension SAP_Internal_Stats_FederalStateData: SwiftProtobuf.Message, SwiftProto
   }
 
   func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
     if self.federalState != .sh {
       try visitor.visitSingularEnumField(value: self.federalState, fieldNumber: 1)
     }
     if self.updatedAt != 0 {
       try visitor.visitSingularInt64Field(value: self.updatedAt, fieldNumber: 2)
     }
-    if let v = self._sevenDayIncidence {
+    try { if let v = self._sevenDayIncidence {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 3)
-    }
+    } }()
     if self.sevenDayHospitalizationIncidenceUpdatedAt != 0 {
       try visitor.visitSingularInt64Field(value: self.sevenDayHospitalizationIncidenceUpdatedAt, fieldNumber: 4)
     }
-    if let v = self._sevenDayHospitalizationIncidence {
+    try { if let v = self._sevenDayHospitalizationIncidence {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 5)
-    }
+    } }()
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -350,15 +354,19 @@ extension SAP_Internal_Stats_AdministrativeUnitData: SwiftProtobuf.Message, Swif
   }
 
   func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
     if self.administrativeUnitShortID != 0 {
       try visitor.visitSingularUInt32Field(value: self.administrativeUnitShortID, fieldNumber: 1)
     }
     if self.updatedAt != 0 {
       try visitor.visitSingularInt64Field(value: self.updatedAt, fieldNumber: 2)
     }
-    if let v = self._sevenDayIncidence {
+    try { if let v = self._sevenDayIncidence {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 3)
-    }
+    } }()
     try unknownFields.traverse(visitor: &visitor)
   }
 

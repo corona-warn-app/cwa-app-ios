@@ -24,7 +24,7 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 		store: Store,
 		eventStore: EventStoringProviding,
 		deadmanNotificationManager: DeadmanNotificationManageable? = nil,
-		coronaTestService: CoronaTestService
+		coronaTestService: CoronaTestServiceProviding
 	) {
 		self.diagnosisKeysRetrieval = diagnosisKeysRetrieval
 		self.appConfigurationProvider = appConfigurationProvider
@@ -32,7 +32,7 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 		self.restServiceProvider = restServiceProvider
 		self.store = store
 		self.eventStore = eventStore
-		self.deadmanNotificationManager = deadmanNotificationManager ?? DeadmanNotificationManager(coronaTestService: coronaTestService)
+		self.deadmanNotificationManager = deadmanNotificationManager ?? DeadmanNotificationManager()
 		self.coronaTestService = coronaTestService
 
 		fakeRequestService = FakeRequestService(client: client, restServiceProvider: restServiceProvider)
@@ -207,7 +207,7 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 	private let store: Store
 	private let eventStore: EventStoringProviding
 	private let deadmanNotificationManager: DeadmanNotificationManageable
-	private let coronaTestService: CoronaTestService
+	private let coronaTestService: CoronaTestServiceProviding
 
 	private let fakeRequestService: FakeRequestService
 
@@ -299,11 +299,11 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 	private func submitExposureCleanup(coronaTestType: CoronaTestType) {
 		switch coronaTestType {
 		case .pcr:
-			coronaTestService.pcrTest?.keysSubmitted = true
-			coronaTestService.pcrTest?.submissionTAN = nil
+			coronaTestService.pcrTest.value?.keysSubmitted = true
+			coronaTestService.pcrTest.value?.submissionTAN = nil
 		case .antigen:
-			coronaTestService.antigenTest?.keysSubmitted = true
-			coronaTestService.antigenTest?.submissionTAN = nil
+			coronaTestService.antigenTest.value?.keysSubmitted = true
+			coronaTestService.antigenTest.value?.submissionTAN = nil
 		}
 
 		/// Deactivate deadman notification while submitted test is still present

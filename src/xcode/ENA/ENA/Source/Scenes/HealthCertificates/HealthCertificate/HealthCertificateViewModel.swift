@@ -54,7 +54,7 @@ final class HealthCertificateViewModel {
 			}
 			.store(in: &subscriptions)
 
-		healthCertifiedPerson.$mostRelevantHealthCertificate
+		healthCertifiedPerson.$dccWalletInfo
 			.dropFirst()
 			.sink { [weak self] _ in
 				self?.updateGradient()
@@ -84,7 +84,6 @@ final class HealthCertificateViewModel {
 		case topCorner
 		case details
 		case bottomCorner
-		case vaccinationOneOfOneHint
 		case expirationDate
 		case additionalInfo
 
@@ -106,7 +105,7 @@ final class HealthCertificateViewModel {
 			mode: .details,
 			healthCertificate: healthCertificate,
 			accessibilityText: AppStrings.HealthCertificate.Details.QRCodeImageDescription,
-			showInfoHit: { [weak self] in
+			onCovPassCheckInfoButtonTap: { [weak self] in
 				self?.showInfo()
 			}
 		)
@@ -121,7 +120,7 @@ final class HealthCertificateViewModel {
 		)
 	}
 
-	@DidSetPublished private(set) var gradientType: GradientView.GradientType = .lightBlue(withStars: true)
+	@DidSetPublished private(set) var gradientType: GradientView.GradientType = .lightBlue
 	@DidSetPublished private(set) var isPrimaryFooterButtonEnabled: Bool = true
 	@DidSetPublished private(set) var triggerReload: Bool = false
 	@DidSetPublished private(set) var healthCertificateKeyValueCellViewModel: [HealthCertificateKeyValueCellViewModel] = []
@@ -175,18 +174,6 @@ final class HealthCertificateViewModel {
 		)
 	}
 
-	var vaccinationOneOfOneHintCellViewModel: HealthCertificateSimpleTextCellViewModel {
-		HealthCertificateSimpleTextCellViewModel(
-			backgroundColor: .enaColor(for: .cellBackground2),
-			textAlignment: .left,
-			text: AppStrings.HealthCertificate.Details.VaccinationCertificate.oneOfOneHint,
-			topSpace: 16.0,
-			font: .enaFont(for: .body),
-			borderColor: .enaColor(for: .hairline),
-			accessibilityTraits: .staticText
-		)
-	}
-
 	/// these strings here are on purpose not localized
 	///
 	var additionalInfoCellViewModels: [HealthCertificateSimpleTextCellViewModel] {
@@ -223,8 +210,6 @@ final class HealthCertificateViewModel {
 			return healthCertificateKeyValueCellViewModel.count
 		case .topCorner, .bottomCorner:
 			return healthCertificateKeyValueCellViewModel.isEmpty ? 0 : 1
-		case .vaccinationOneOfOneHint:
-			return shouldShowVaccinationOneOfOneHint ? 1 : 0
 		case .expirationDate:
 			return 1
 		case .additionalInfo:
@@ -250,14 +235,6 @@ final class HealthCertificateViewModel {
 
 	private var valueSets: SAP_Internal_Dgc_ValueSets?
 	private var subscriptions = Set<AnyCancellable>()
-
-	private var shouldShowVaccinationOneOfOneHint: Bool {
-		guard case .vaccination(let vaccinationEntry) = healthCertificate.entry else {
-			return false
-		}
-
-		return vaccinationEntry.doseNumber == 1 && vaccinationEntry.totalSeriesOfDoses == 1
-	}
 
 	private var nameAndDateOfBirthCellViewModel: [HealthCertificateKeyValueCellViewModel] {
 		return [
@@ -371,8 +348,6 @@ final class HealthCertificateViewModel {
 			\RecoveryEntry.dateOfFirstPositiveNAAResult,
 			\RecoveryEntry.countryOfTest,
 			\RecoveryEntry.certificateIssuer,
-			\RecoveryEntry.certificateValidFrom,
-			\RecoveryEntry.certificateValidUntil,
 			\RecoveryEntry.uniqueCertificateIdentifier
 		]
 
@@ -407,7 +382,7 @@ final class HealthCertificateViewModel {
 				(healthCertificate.validityState == .expired && healthCertificate.type == .test)) {
 			gradientType = healthCertifiedPerson.gradientType
 		} else {
-			gradientType = .solidGrey(withStars: true)
+			gradientType = .solidGrey
 		}
 	}
 

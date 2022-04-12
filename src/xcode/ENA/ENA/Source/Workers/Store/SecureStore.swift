@@ -6,20 +6,24 @@ import Foundation
 import ExposureNotification
 import OpenCombine
 
-// swiftlint:disable file_length
-
 /// The `SecureStore` class implements the `Store` protocol that defines all required storage attributes.
 /// It uses an SQLite Database that still needs to be encrypted
+// swiftlint:disable file_length
 final class SecureStore: SecureKeyValueStoring, Store, AntigenTestProfileStoring {
 
 	// MARK: - Init
 
-	init(
-		at directoryURL: URL,
-		key: String
-	) throws {
+	init(at directoryURL: URL, key: String) throws {
 		self.directoryURL = directoryURL
 		self.kvStore = try SQLiteKeyValueStore(with: directoryURL, key: key)
+	}
+
+	convenience init(
+		at directoryURL: URL,
+		key: String,
+		store: KeyValueCacheStoring? = nil
+	) throws {
+		try self.init(at: directoryURL, key: key)
 	}
 
 	// MARK: - Protocol Store
@@ -124,6 +128,16 @@ final class SecureStore: SecureKeyValueStoring, Store, AntigenTestProfileStoring
 		set { kvStore["checkinRiskCalculationResult"] = newValue }
 	}
 
+	var mostRecentDateWithRiskLevel: Date? {
+		get { kvStore["mostRecentDateWithRiskLevel"] as Date? }
+		set { kvStore["mostRecentDateWithRiskLevel"] = newValue }
+	}
+
+	var showAnotherHighExposureAlert: Bool {
+		get { kvStore["showAnotherHighExposureAlert"] as Bool? ?? false }
+		set { kvStore["showAnotherHighExposureAlert"] = newValue }
+	}
+
 	var shouldShowRiskStatusLoweredAlert: Bool {
 		get { kvStore["shouldShowRiskStatusLoweredAlert"] as Bool? ?? false }
 		set { kvStore["shouldShowRiskStatusLoweredAlert"] = newValue }
@@ -203,7 +217,6 @@ final class SecureStore: SecureKeyValueStoring, Store, AntigenTestProfileStoring
 		set { kvStore["lastBoosterNotificationsExecutionDate"] = newValue }
 	}
 
-
     // MARK: - Protocol AntigenTestProfileStoring
 
 	private(set) lazy var antigenTestProfileSubject = CurrentValueSubject<AntigenTestProfile?, Never>(antigenTestProfile)
@@ -256,44 +269,26 @@ final class SecureStore: SecureKeyValueStoring, Store, AntigenTestProfileStoring
 		set { kvStore["lastSelectedValidationDate"] = newValue }
 	}
 	
+	var lastSelectedScenarioIdentifier: String? {
+		get { kvStore["lastSelectedScenarioIdentifier"] as String? ?? nil }
+		set { kvStore["lastSelectedScenarioIdentifier"] = newValue }
+	}
+	
+	var dccAdmissionCheckScenarios: DCCAdmissionCheckScenarios? {
+		get { kvStore["dccAdmissionCheckScenarios"] as DCCAdmissionCheckScenarios? ?? nil }
+		set { kvStore["dccAdmissionCheckScenarios"] = newValue }
+	}
+
+	var shouldShowRegroupingAlert: Bool {
+		get { kvStore["shouldShowRegroupingAlert"] as Bool? ?? false }
+		set { kvStore["shouldShowRegroupingAlert"] = newValue }
+	}
+		
 	// MARK: - Protocol VaccinationCaching
 
 	var vaccinationCertificateValueDataSets: VaccinationValueDataSets? {
 		get { kvStore["vaccinationCertificateValueDataSets"] as VaccinationValueDataSets? ?? nil }
 		set { kvStore["vaccinationCertificateValueDataSets"] = newValue }
-	}
-	
-	// MARK: - Protocol HealthCertificateValidationCaching
-	
-	var validationOnboardedCountriesCache: HealthCertificateValidationOnboardedCountriesCache? {
-		get {
-			let countriesCache = kvStore["validationOnboardedCountriesCache"] as HealthCertificateValidationOnboardedCountriesCache? ?? nil
-			guard let countries = countriesCache?.onboardedCountries,
-				  let eTag = countriesCache?.lastOnboardedCountriesETag
-			else {
-				return nil
-			}
-			let mappedCountries = countries.map({ Country(withCountryCodeFallback: $0.id) })
-			return HealthCertificateValidationOnboardedCountriesCache(onboardedCountries: mappedCountries, lastOnboardedCountriesETag: eTag)
-		}
-		set { kvStore["validationOnboardedCountriesCache"] = newValue }
-	}
-	
-	var acceptanceRulesCache: ValidationRulesCache? {
-		get { kvStore["acceptanceRulesCache"] as ValidationRulesCache? ?? nil }
-		set { kvStore["acceptanceRulesCache"] = newValue }
-	}
-	
-	var invalidationRulesCache: ValidationRulesCache? {
-		get { kvStore["invalidationRulesCache"] as ValidationRulesCache? ?? nil }
-		set { kvStore["invalidationRulesCache"] = newValue }
-	}
-	
-	// MARK: - Protocol HealthCertificateBoosterNotificationCaching
-	
-	var boosterRulesCache: ValidationRulesCache? {
-		get { kvStore["boosterRulesCache"] as ValidationRulesCache? ?? nil }
-		set { kvStore["boosterRulesCache"] = newValue }
 	}
 
 	// MARK: - Protocol RecycleBinStoring
@@ -311,9 +306,7 @@ final class SecureStore: SecureKeyValueStoring, Store, AntigenTestProfileStoring
 	// MARK: - Non-Release Stuff
 	
 	#if !RELEASE
-
 	// Settings from the debug menu.
-
 	var fakeSQLiteError: Int32? {
 		get { kvStore["fakeSQLiteError"] as Int32? }
 		set { kvStore["fakeSQLiteError"] = newValue }
@@ -338,7 +331,6 @@ final class SecureStore: SecureKeyValueStoring, Store, AntigenTestProfileStoring
 		get { kvStore["recentTraceLocationCheckedInto"] as DMRecentTraceLocationCheckedInto? ?? nil }
 		set { kvStore["recentTraceLocationCheckedInto"] = newValue }
 	}
-
 	#endif
 
 	// MARK: - Internal
@@ -346,7 +338,6 @@ final class SecureStore: SecureKeyValueStoring, Store, AntigenTestProfileStoring
 	static let encryptionKeyKeychainKey = "secureStoreDatabaseKey"
 	let kvStore: SQLiteKeyValueStore
 	let directoryURL: URL
-
 }
 
 extension SecureStore: EventRegistrationCaching {
@@ -492,6 +483,16 @@ extension SecureStore: PrivacyPreservingProviding {
 }
 
 extension SecureStore: ErrorLogProviding {
+
+	var lastLoggedAppVersionNumber: Version? {
+		get { kvStore["lastLoggedAppVersionNumber"] as Version? }
+		set { kvStore["lastLoggedAppVersionNumber"] = newValue }
+	}
+	
+	var lastLoggedAppVersionTimestamp: Date? {
+		get { kvStore["lastLoggedAppVersionTimestamp"] as Date? }
+		set { kvStore["lastLoggedAppVersionTimestamp"] = newValue }
+	}
 	
 	var ppacApiTokenEls: TimestampedToken? {
 		get { kvStore["ppacApiTokenEls"] as TimestampedToken? }
@@ -536,10 +537,6 @@ extension SecureStore: CoronaTestStoring {
 		set { kvStore["antigenTest"] = newValue }
 	}
 
-	var unseenTestsCount: Int {
-		get { kvStore["unseenTestsCount"] as Int? ?? 0 }
-		set { kvStore["unseenTestsCount"] = newValue }
-	}
 }
 
 extension SecureStore: CoronaTestStoringLegacy {
@@ -607,9 +604,22 @@ extension SecureStore: CoronaTestStoringLegacy {
 }
 
 extension SecureStore: DSCListCaching {
-
 	var dscList: DSCListMetaData? {
 		get { kvStore["DSCList"] as DSCListMetaData? }
 		set { kvStore["DSCList"] = newValue }
+	}
+}
+
+extension SecureStore: HomeBadgeStoring {
+	var badgesData: [HomeBadgeWrapper.BadgeType: Int?] {
+		get { kvStore["badgesData"] as [HomeBadgeWrapper.BadgeType: Int?]? ?? [:] }
+		set { kvStore["badgesData"] = newValue }
+	}
+}
+
+extension SecureStore: KeyValueCacheStoring {
+	var keyValueCacheVersion: Int {
+		get { kvStore["keyValueCacheVersion"] as Int? ?? 0 }
+		set { kvStore["keyValueCacheVersion"] = newValue }
 	}
 }

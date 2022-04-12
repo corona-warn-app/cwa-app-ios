@@ -169,26 +169,6 @@ extension HTTPClient {
 			)
 		}
 
-		var registrationURL: URL {
-			endpoints
-				.verification
-				.appending(
-					"version",
-					apiVersion,
-					"registrationToken"
-			)
-		}
-
-		var testResultURL: URL {
-			endpoints
-				.verification
-				.appending(
-					"version",
-					apiVersion,
-					"testresult"
-			)
-		}
-
 		var otpEdusAuthorizationURL: URL {
 			endpoints
 				.dataDonation
@@ -326,37 +306,6 @@ extension HTTPClient {
 					"version",
 					apiVersion,
 					"dcc"
-				)
-		}
-		
-		var validationOnboardedCountriesURL: URL {
-			endpoints
-				.distribution
-				.appending(
-					"version",
-					apiVersion,
-					"ehn-dgc",
-					"onboarded-countries"
-				)
-		}
-				
-		func dccRulesURL(rulePath: String) -> URL {
-			endpoints
-				.distribution
-				.appending(
-					"version",
-					apiVersion,
-					"ehn-dgc",
-					rulePath
-				)
-		}
-		var boosterRulesURL: URL {
-			endpoints
-				.distribution
-				.appending(
-					"version",
-					apiVersion,
-					"booster-notification-rules"
 				)
 		}
 		

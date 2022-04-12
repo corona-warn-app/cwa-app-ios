@@ -78,7 +78,7 @@ final class EventCheckoutService {
 			// This way, updated checkinEndDates will be taken into account.
 			// For completed checkins (checked out) just create journal entries, don't trigger a notification anymore.
 			// Because completed checkins where either checked out by the user manually,
-			// or they where checked out by the "automatic checkout" of checkoutOverdueCheckins().
+			// or they were checked out by the "automatic checkout" of checkoutOverdueCheckins().
 			self?.cancelAllCheckoutNotifications {
 				checkins.forEach {
 					if $0.checkinCompleted {
@@ -212,11 +212,6 @@ final class EventCheckoutService {
 
 		if !checkin.traceLocationAddress.isEmpty {
 			locationNameElements.append(checkin.traceLocationAddress)
-		}
-
-		if let startDate = checkin.traceLocationStartDate,
-		   let endDate = checkin.traceLocationEndDate {
-			locationNameElements.append(dateIntervalFormatter.string(from: startDate, to: endDate))
 		}
 
 		let addLocationResult = contactDiaryStore.addLocation(

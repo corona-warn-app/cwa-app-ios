@@ -10,16 +10,8 @@ class HealthCertificateQRCodeCell: UITableViewCell, ReuseIdentifierProviding {
 
 	override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
 		super.init(style: style, reuseIdentifier: reuseIdentifier)
+
 		setupView()
-		isAccessibilityElement = false
-
-		qrCodeView.isAccessibilityElement = true
-		titleLabel.isAccessibilityElement = true
-		subtitleLabel.isAccessibilityElement = true
-		validityStateTitleLabel.isAccessibilityElement = true
-		validityStateDescriptionLabel.isAccessibilityElement = true
-
-		accessibilityIdentifier = AccessibilityIdentifiers.HealthCertificate.qrCodeCell
 	}
 
 	@available(*, unavailable)
@@ -47,6 +39,7 @@ class HealthCertificateQRCodeCell: UITableViewCell, ReuseIdentifierProviding {
 
 		subtitleLabel.text = cellViewModel.subtitle
 		subtitleLabel.isHidden = cellViewModel.subtitle == nil
+		subtitleLabel.accessibilityLabel = cellViewModel.titleAccessibilityText
 
 		validityStateIconImageView.image = cellViewModel.validityStateIcon
 		validityStateTitleLabel.text = cellViewModel.validityStateTitle
@@ -57,8 +50,12 @@ class HealthCertificateQRCodeCell: UITableViewCell, ReuseIdentifierProviding {
 
 		unseenNewsIndicator.isHidden = !cellViewModel.isUnseenNewsIndicatorVisible
 
-		validationButton.isEnabled = cellViewModel.isValidationButtonEnabled
-		validationButton.isHidden = !cellViewModel.isValidationButtonVisible
+		setupAccessibility(
+			titleLabelIsVisible: cellViewModel.title != nil,
+			subtitleLabelIsVisible: cellViewModel.subtitle != nil,
+			validityStateTitleIsVisible: cellViewModel.validityStateTitle != nil,
+			validityStateDescriptionIsVisible: cellViewModel.validityStateDescription != nil
+		)
 	}
 
 	// MARK: - Private
@@ -151,20 +148,6 @@ class HealthCertificateQRCodeCell: UITableViewCell, ReuseIdentifierProviding {
 		return validityStateDescriptionLabel
 	}()
 
-	private lazy var validationButton: ENAButton = {
-		let validationButton = ENAButton()
-		validationButton.hasBorder = true
-		validationButton.hasBackground = false
-		validationButton.setTitle(
-			AppStrings.HealthCertificate.Person.validationButtonTitle,
-			for: .normal
-		)
-		validationButton.accessibilityIdentifier = AccessibilityIdentifiers.HealthCertificate.Person.validationButton
-		validationButton.addTarget(self, action: #selector(validationButtonTapped), for: .primaryActionTriggered)
-
-		return validationButton
-	}()
-
 	private let stackView: UIStackView = {
 		let stackView = UIStackView()
 		stackView.alignment = .fill
@@ -202,7 +185,6 @@ class HealthCertificateQRCodeCell: UITableViewCell, ReuseIdentifierProviding {
 		stackView.setCustomSpacing(12, after: validityStateStackView)
 
 		stackView.addArrangedSubview(validityStateDescriptionLabel)
-		stackView.addArrangedSubview(validationButton)
 
 		stackView.translatesAutoresizingMaskIntoConstraints = false
 		backgroundContainerView.addSubview(stackView)
@@ -223,19 +205,37 @@ class HealthCertificateQRCodeCell: UITableViewCell, ReuseIdentifierProviding {
 				unseenNewsIndicator.heightAnchor.constraint(equalToConstant: 11)
 			]
 		)
+	}
 
+	private func setupAccessibility(
+		titleLabelIsVisible: Bool,
+		subtitleLabelIsVisible: Bool,
+		validityStateTitleIsVisible: Bool,
+		validityStateDescriptionIsVisible: Bool
+	) {
+		isAccessibilityElement = false
+		accessibilityElements = [qrCodeView]
+
+		if subtitleLabelIsVisible {
+			// Subtitle label reads combined title and subtitle
+			accessibilityElements?.append(subtitleLabel)
+		} else if titleLabelIsVisible {
+			accessibilityElements?.append(titleLabel)
+		}
+
+		if validityStateTitleIsVisible {
+			accessibilityElements?.append(validityStateTitleLabel)
+		}
+
+		if validityStateDescriptionIsVisible {
+			accessibilityElements?.append(validityStateDescriptionLabel)
+		}
+
+		accessibilityIdentifier = AccessibilityIdentifiers.HealthCertificate.qrCodeCell
 	}
 
 	private func updateBorderWidth() {
 		backgroundContainerView.layer.borderWidth = traitCollection.userInterfaceStyle == .dark ? 0 : 1
-	}
-
-	@objc
-	private func validationButtonTapped() {
-		cellViewModel?.didTapValidationButton { [weak self] isLoading in
-			self?.validationButton.isLoading = isLoading
-			self?.validationButton.isEnabled = !isLoading
-		}
 	}
 
 }

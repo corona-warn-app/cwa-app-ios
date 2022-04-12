@@ -239,7 +239,7 @@ final class TicketValidation: TicketValidating {
 			return
 		}
 		
-		Log.debug("Request document of validation decorator at URL: \(url)", log: .ticketValidation)
+		Log.debug("Request document of validation decorator at URL: \(private: url)", log: .ticketValidation)
 		
 		let resource = ServiceIdentityDocumentValidationDecoratorResource(url: url)
 		restServiceProvider.load(resource) { result in
@@ -272,15 +272,18 @@ final class TicketValidation: TicketValidating {
 			return
 		}
 
-		Log.debug("Request document of service identity at URL: \(url)", log: .ticketValidation)
+		Log.debug("Request document of service identity at URL: \(private: url)", log: .ticketValidation)
 
-		let resource = ServiceIdentityDocumentResource(endpointUrl: url)
-		restServiceProvider.update(
-			AllowListEvaluationTrust(
-				allowList: allowList.validationServiceAllowList,
-				trustEvaluation: TrustEvaluation()
-			)
+		let trustEvaluation = AllowListEvaluationTrust(
+			allowList: allowList.validationServiceAllowList,
+			trustEvaluation: ENASecurity.JSONWebKeyTrustEvaluation()
 		)
+
+		let resource = ServiceIdentityDocumentResource(
+			endpointUrl: url,
+			trustEvaluation: trustEvaluation
+		)
+
 		restServiceProvider.load(resource) { [weak self] result in
 			switch result {
 			case .success(let serviceIdentityDocument):
@@ -313,34 +316,32 @@ final class TicketValidation: TicketValidating {
             return
         }
 
-		Log.debug("Request access token at URL: \(url)", log: .ticketValidation)
+		Log.debug("Request access token at URL: \(private: url)", log: .ticketValidation)
 
+		let trustEvaluation = JSONWebKeyTrustEvaluation(
+			jwkSet: accessTokenServiceJwkSet,
+			trustEvaluation: ENASecurity.JSONWebKeyTrustEvaluation()
+		)
         let resource = TicketValidationAccessTokenResource(
             accessTokenServiceURL: url,
             jwt: jwt,
             sendModel: TicketValidationAccessTokenSendModel(
                 service: validationService.id,
                 pubKey: publicKeyBase64
-            )
-        )
-
-        restServiceProvider.update(
-            DynamicEvaluateTrust(
-                jwkSet: accessTokenServiceJwkSet,
-                trustEvaluation: TrustEvaluation()
-            )
+            ),
+			trustEvaluation: trustEvaluation
         )
 
         Log.info("Ticket Validation: Requesting access token", log: .ticketValidation)
 
         restServiceProvider.load(resource) { result in
             switch result {
-            case .success(let jwtWithHeadersModel):
+            case .success(let model):
                 TicketValidationAccessTokenProcessor(jwtVerification: JWTVerification())
                     .process(
-                        jwtWithHeadersModel: jwtWithHeadersModel,
-                        accessTokenSignJwkSet: accessTokenSignJwkSet,
-                        completion: completion
+						ticketValidationModel: model,
+						accessTokenSignJwkSet: accessTokenSignJwkSet,
+						completion: completion
                     )
             case .failure(let error):
                 Log.error("Ticket Validation: Requesting access token failed", log: .ticketValidation, error: error)
@@ -372,7 +373,12 @@ final class TicketValidation: TicketValidating {
 			return
 		}
 
-		Log.debug("Request result token at URL: \(url)", log: .ticketValidation)
+		Log.debug("Request result token at URL: \(private: url)", log: .ticketValidation)
+
+		let trustEvaluation = AllowListEvaluationTrust(
+			allowList: allowList.validationServiceAllowList,
+			trustEvaluation: ENASecurity.JSONWebKeyTrustEvaluation()
+		)
 
 		let resource = TicketValidationResultTokenResource(
 			resultTokenServiceURL: url,
@@ -384,24 +390,18 @@ final class TicketValidation: TicketValidating {
 				encKey: encryptionKeyBase64,
 				encScheme: encryptionScheme.rawValue,
 				sigAlg: signatureAlgorithm
-			)
-		)
-
-		restServiceProvider.update(
-			AllowListEvaluationTrust(
-				allowList: allowList.validationServiceAllowList,
-				trustEvaluation: TrustEvaluation()
-			)
+			),
+			trustEvaluation: trustEvaluation
 		)
 
 		Log.info("Ticket Validation: Requesting result token", log: .ticketValidation)
 
 		restServiceProvider.load(resource) { result in
 			switch result {
-			case .success(let resultToken):
+			case .success(let model):
 				TicketValidationResultTokenProcessor(jwtVerification: JWTVerification())
 					.process(
-						resultToken: resultToken,
+						resultToken: model.token,
 						validationServiceSignJwkSet: validationServiceSignJwkSet,
 						completion: completion
 					)
@@ -419,29 +419,31 @@ final class TicketValidation: TicketValidating {
 			store: store
 		)
 		
-		allowListService.fetchAllowList { [weak self] result in
-			guard let self = self else {
-				Log.error("Cannot capture self in the closure", log: .ticketValidationDecorator)
-				return
-			}
-
-			switch result {
-			case .success(let allowList):
-				self.allowList = allowList
-				let result = allowListService.checkServiceIdentityAgainstServiceProviderAllowlist(
-					serviceProviderAllowlist: allowList.serviceProviderAllowList,
-					serviceIdentity: self.initializationData.serviceIdentity
-				)
+		allowListService.fetchAllowList { result in
+			DispatchQueue.main.async { [weak self] in
+				guard let self = self else {
+					Log.error("Cannot capture self in the closure", log: .ticketValidationDecorator)
+					return
+				}
+				
 				switch result {
-				case .success:
-					completion(.success(()))
+				case .success(let allowList):
+					self.allowList = allowList
+					let result = allowListService.checkServiceIdentityAgainstServiceProviderAllowlist(
+						serviceProviderAllowlist: allowList.serviceProviderAllowList,
+						serviceIdentity: self.initializationData.serviceIdentity
+					)
+					switch result {
+					case .success:
+						completion(.success(()))
+					case .failure(let error):
+						Log.error("Ticket Validation AllowList serviceIdentity check failed", log: .ticketValidationAllowList, error: error)
+						completion(.failure(error))
+					}
 				case .failure(let error):
-					Log.error("Ticket Validation AllowList serviceIdentity check failed", log: .ticketValidationAllowList, error: error)
+					Log.error("Ticket Validation AllowList fetching failed", log: .ticketValidationAllowList, error: error)
 					completion(.failure(error))
 				}
-			case .failure(let error):
-				Log.error("Ticket Validation AllowList fetching failed", log: .ticketValidationAllowList, error: error)
-				completion(.failure(error))
 			}
 		}
 	}

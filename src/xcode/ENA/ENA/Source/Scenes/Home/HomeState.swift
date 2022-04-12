@@ -34,7 +34,7 @@ class HomeState: ENStateHandlerUpdating {
 						numberOfDaysWithRiskLevel: 0,
 						calculationDate: nil
 					),
-					riskLevelHasChanged: false
+					riskLevelChange: .unchanged(.low)
 				)
 			)
 		}
@@ -182,11 +182,6 @@ class HomeState: ENStateHandlerUpdating {
 			// Don't show already running errors.
 			guard !error.isAlreadyRunningError else {
 				Log.info("[HomeTableViewModel.State] Ignore already running error.", log: .riskDetection)
-				return
-			}
-
-			guard error.shouldBeDisplayedToUser else {
-				Log.info("[HomeTableViewModel.State] Don't show error to user: \(error).", log: .riskDetection)
 				return
 			}
 

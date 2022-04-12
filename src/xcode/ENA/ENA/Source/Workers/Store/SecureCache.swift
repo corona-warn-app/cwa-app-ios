@@ -4,41 +4,51 @@
 
 import Foundation
 
-struct CacheData: Codable {
-	let data: Data
-	let eTag: String
-	let date: Date
-
-	static func fake(
-		data: Data = Data(),
-		eTag: String = "",
-		date: Date = Date()
-	) -> CacheData {
-		return CacheData(
-			data: data,
-			eTag: eTag,
-			date: date
-		)
-	}
-}
-
 protocol KeyValueCaching {
-	subscript(cacheEntryKey: Int) -> CacheData? { get set }
+	subscript(cacheEntryKey: String) -> CacheData? { get set }
 }
 
 final class SecureKeyValueCache: SecureKeyValueStoring, KeyValueCaching {
 
 	// MARK: - Init
-	
-	init(
-		at directoryURL: URL,
-		key: String
-	) throws {
+
+	init(at directoryURL: URL, key: String) throws {
 		self.directoryURL = directoryURL
 		self.kvStore = try SQLiteKeyValueStore(with: directoryURL, key: key)
 	}
 
+	convenience init(
+		at directoryURL: URL,
+		key: String,
+		store: KeyValueCacheStoring? = nil
+	) throws {
+		try self.init(at: directoryURL, key: key)
+
+		guard let store = store else {
+			Log.error("Migration only possible with KeyValueCacheStoring")
+			return
+		}
+
+		// Migration
+
+		let migrator = SerialSecureCacheMigrator(
+			latestVersion: Self.latestVersion,
+			migrations: [
+				SecureKeyValueCacheMigrationTo1(kvStore: kvStore)
+			],
+			store: store
+		)
+
+		do {
+			try migrator.migrate()
+		} catch {
+			Log.error("Migration throws am error", error: error)
+		}
+	}
+
 	// MARK: - Internal
+
+	static let latestVersion = 1
 
 	// MARK: - SecureKeyValueStoring
 
@@ -48,14 +58,14 @@ final class SecureKeyValueCache: SecureKeyValueStoring, KeyValueCaching {
 
 	// MARK: - Private
 
-	private var cache: [Int: CacheData] {
-		get { kvStore["cache"] as [Int: CacheData]? ?? [Int: CacheData]() }
+	private var cache: [String: CacheData] {
+		get { kvStore["cache"] as [String: CacheData]? ?? [String: CacheData]() }
 		set { kvStore["cache"] = newValue }
 	}
 
 	// MARK: - KeyValueCaching
 
-	subscript(cacheEntryKey: Int) -> CacheData? {
+	subscript(cacheEntryKey: String) -> CacheData? {
 		get {
 			return cache[cacheEntryKey]
 		}
@@ -71,11 +81,11 @@ final class KeyValueCacheFake: KeyValueCaching {
 
 	// MARK: - Private
 
-	private var cache = [Int: CacheData]()
+	private var cache = [String: CacheData]()
 
 	// MARK: - KeyValueCaching
 
-	subscript(cacheEntryKey: Int) -> CacheData? {
+	subscript(cacheEntryKey: String) -> CacheData? {
 		get {
 			return cache[cacheEntryKey]
 		}
