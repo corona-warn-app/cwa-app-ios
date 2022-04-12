@@ -46,9 +46,9 @@ final class NotificationManager: NSObject, UNUserNotificationCenterDelegate {
 
 	func userNotificationCenter(_: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
 		switch response.notification.request.identifier {
-		
 		case ActionableNotificationIdentifier.riskDetection.identifier,
-			 ActionableNotificationIdentifier.deviceTimeCheck.identifier:
+			 ActionableNotificationIdentifier.deviceTimeCheck.identifier,
+			 DeadmanNotificationManager.deadmanNotificationIdentifier:
 			showHome()
 
 		case ActionableNotificationIdentifier.pcrWarnOthersReminder1.identifier,

@@ -8,9 +8,6 @@ import HealthCertificateToolkit
 
 class HealthCertificateService_GroupingAfterDeletionTests: XCTestCase {
 
-	/*
-	 This test has to be fixed with: https://jira-ibs.wbs.net.sap/browse/EXPOSUREAPP-12671
-	 If this test was made runnable, re-enable listOfCertificates.shuffle() (2 occurences in this test).
 	func testGIVEN_6Certificates_WHEN_CertificateAreRegistered_THEN_GroupingCreatesTwoPersons() throws {
 
 		// GIVEN
@@ -39,12 +36,12 @@ class HealthCertificateService_GroupingAfterDeletionTests: XCTestCase {
 			certificateCombiner,
 			certificateSingleA
 		]
+		listOfCertificates.shuffle()
 		listOfCertificates.forEach { service.registerHealthCertificate(base45: $0, completedNotificationRegistration: { }) }
 
 		// We should have now 2 persons. Person1 with four certificates and Person2 with one certificate.
 		XCTAssertEqual(service.healthCertifiedPersons.count, 2)
 	}
-	*/
 	
 	func testGIVEN_PersonWith3Certificates_WHEN_CertificateIsDeleted_THEN_RemainingStaysAtSamePersons() throws {
 		
@@ -66,7 +63,7 @@ class HealthCertificateService_GroupingAfterDeletionTests: XCTestCase {
 		let certificateSingleA = try certificateSingleA()
 		let certificateCombiner = try certificateCombiner()
 		
-		let listOfCertificates = [
+		var listOfCertificates = [
 			certificateCombiner,
 			certificateSingle1,
 			certificateSingle2,
@@ -74,7 +71,7 @@ class HealthCertificateService_GroupingAfterDeletionTests: XCTestCase {
 			certificateSingle4,
 			certificateSingleA
 		]
-//		listOfCertificates.shuffle()
+		listOfCertificates.shuffle()
 		listOfCertificates.forEach { service.registerHealthCertificate(base45: $0, completedNotificationRegistration: { }) }
 		
 		
@@ -154,7 +151,7 @@ class HealthCertificateService_GroupingAfterDeletionTests: XCTestCase {
 		let certificateSingleA = try certificateSingleA()
 		let certificateCombiner = try certificateCombiner()
 		
-		let listOfCertificates = [
+		var listOfCertificates = [
 			certificateCombiner,
 			certificateSingle1,
 			certificateSingle2,
@@ -163,7 +160,7 @@ class HealthCertificateService_GroupingAfterDeletionTests: XCTestCase {
 			certificateSingleA
 		]
 		
-//		listOfCertificates.shuffle()
+		listOfCertificates.shuffle()
 		listOfCertificates.forEach { service.registerHealthCertificate(base45: $0, completedNotificationRegistration: { }) }
 		
 		// We should have now 2 persons. Person1 with four certificates and Person2 with one certificate.
