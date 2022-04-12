@@ -70,7 +70,8 @@ class HealthCertifiedPerson: Codable, Equatable, Comparable {
 					didShowInvalidNotification: decodingContainer.didShowInvalidNotification ?? false,
 					didShowBlockedNotification: decodingContainer.didShowBlockedNotification ?? false,
 					isNew: decodingContainer.isNew ?? false,
-					isValidityStateNew: decodingContainer.isValidityStateNew ?? false
+					isValidityStateNew: decodingContainer.isValidityStateNew ?? false,
+					revocationEntries: decodingContainer.revocationEntries
 				)
 
 				healthCertificates.append(healthCertificate)
@@ -84,6 +85,7 @@ class HealthCertifiedPerson: Codable, Equatable, Comparable {
 					didShowBlockedNotification: decodingContainer.didShowBlockedNotification ?? false,
 					isNew: decodingContainer.isNew ?? false,
 					isValidityStateNew: decodingContainer.isValidityStateNew ?? false,
+					revocationEntries: decodingContainer.revocationEntries,
 					error: error
 				)
 
