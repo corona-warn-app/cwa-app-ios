@@ -1502,6 +1502,7 @@
 		BA7DCA152747D923009E4557 /* _EvaluateTrust.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA7DCA142747D923009E4557 /* _EvaluateTrust.swift */; };
 		BA7DCA172747D944009E4557 /* DefaultTrustEvaluation.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA7DCA162747D944009E4557 /* DefaultTrustEvaluation.swift */; };
 		BA7DCA1A2747DA96009E4557 /* JSONWebKeyTrustEvaluation.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA7DCA192747DA96009E4557 /* JSONWebKeyTrustEvaluation.swift */; };
+		BA7DE4552805A9B90074BFE3 /* RevocationProviderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA7DE4542805A9B90074BFE3 /* RevocationProviderTests.swift */; };
 		BA7EABAD25C973FE001AA5FE /* DMKeyValueCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA7EABAC25C973FE001AA5FE /* DMKeyValueCellViewModel.swift */; };
 		BA7F15A12629D3F200CA4783 /* RouteTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA7F15A02629D3F200CA4783 /* RouteTests.swift */; };
 		BA7F15AD2629DA1000CA4783 /* RapidTestInformationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA7F15AC2629DA1000CA4783 /* RapidTestInformationTests.swift */; };
@@ -3310,6 +3311,7 @@
 		BA7DCA142747D923009E4557 /* _EvaluateTrust.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = _EvaluateTrust.swift; sourceTree = "<group>"; };
 		BA7DCA162747D944009E4557 /* DefaultTrustEvaluation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultTrustEvaluation.swift; sourceTree = "<group>"; };
 		BA7DCA192747DA96009E4557 /* JSONWebKeyTrustEvaluation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONWebKeyTrustEvaluation.swift; sourceTree = "<group>"; };
+		BA7DE4542805A9B90074BFE3 /* RevocationProviderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RevocationProviderTests.swift; sourceTree = "<group>"; };
 		BA7EABAC25C973FE001AA5FE /* DMKeyValueCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMKeyValueCellViewModel.swift; sourceTree = "<group>"; };
 		BA7F15A02629D3F200CA4783 /* RouteTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteTests.swift; sourceTree = "<group>"; };
 		BA7F15AC2629DA1000CA4783 /* RapidTestInformationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RapidTestInformationTests.swift; sourceTree = "<group>"; };
@@ -8902,6 +8904,7 @@
 		BA2C88E527FDC5F800CE7E1E /* Revocation */ = {
 			isa = PBXGroup;
 			children = (
+				BA7DE4532805A9A00074BFE3 /* __tests__ */,
 				BA2C88E627FDC61500CE7E1E /* RevocationProvider.swift */,
 				BADC5E8E280471EC00C300EB /* RevocationLocation.swift */,
 			);
@@ -9370,6 +9373,14 @@
 				ABAAE2D427C3DC3500A53AB1 /* CoronaWarnSessionTaskDelegate.swift */,
 			);
 			path = URLSessionDelegates;
+			sourceTree = "<group>";
+		};
+		BA7DE4532805A9A00074BFE3 /* __tests__ */ = {
+			isa = PBXGroup;
+			children = (
+				BA7DE4542805A9B90074BFE3 /* RevocationProviderTests.swift */,
+			);
+			path = __tests__;
 			sourceTree = "<group>";
 		};
 		BA7F15AB2629D9FA00CA4783 /* __tests_ */ = {
@@ -12065,6 +12076,7 @@
 				AB7BDF8325CC079B00E70744 /* SurveyConsentViewModelTests.swift in Sources */,
 				B1FE13ED24891D0400D012E5 /* RiskProviderTests.swift in Sources */,
 				4BAB490426C9B70A00CC4C11 /* RateLimitLoggerTests.swift in Sources */,
+				BA7DE4552805A9B90074BFE3 /* RevocationProviderTests.swift in Sources */,
 				AB7420DD251B8101006666AC /* DeltaOnboardingCoordinatorTests.swift in Sources */,
 				ABD0828F260E08D6007C4B24 /* TraceWarningMatcherTests.swift in Sources */,
 				BA18127727AD82DA000E5EDD /* CCLServiceBaseTests.swift in Sources */,
