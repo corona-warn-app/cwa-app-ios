@@ -118,12 +118,12 @@ jobs:
           name: screenshots-${{ github.sha }}
           path: src/xcode/screenshots
 
-  sonar:
+  runAllTests:
     runs-on: self-hosted
     needs: buildForTesting
     steps:
       - name: Check out repository code
-        uses: actions/checkout@v2            
+        uses: actions/checkout@v2          
       - name: Restore Dependencies
         uses: actions/cache@v2
         env:
@@ -146,23 +146,50 @@ jobs:
           cache-name: cache-test-output
         with:
           path: src/xcode/fastlane/test_output
-          key: ${{ runner.os }}-${{ env.cache-name }}-${{ github.sha }}
+          key: ${{ runner.os }}-${{ env.cache-name }}-${{ github.sha }}                       
       - name: Run AllTests
         run: |
           cd src/xcode
           arch -arm64 bundle exec fastlane test_without_building testplan:AllTests
       - name: Archive xcresult
-        if: failure()
-        uses: actions/upload-artifact@v2
+        if: always()
+        uses: actions/upload-artifact@v3
         with:
           name: xcresult-${{ github.sha }}
           path: src/xcode/fastlane/test_output/ENA.xcresult.zip
+
+  sonar:
+    runs-on: self-hosted
+    needs: runAllTests
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v2            
+      - name: Restore Dependencies
+        uses: actions/cache@v2
+        env:
+          cache-name: cache-dependencies
+        with:
+          path: |
+            src/xcode/vendor
+            src/xcode/.bundle
+          key: ${{ runner.os }}-${{ env.cache-name }}-${{ hashFiles('src/xcode/Gemfile.lock') }}
+      - name: Download xcresult
+        uses: actions/download-artifact@v3
+        with:
+          name: xcresult-${{ github.sha }}
+
       - name: Convert coverage information to SonarCloud format
         run: |
+            unzip ENA.xcresult.zip
             ./scripts/cococo \
-              src/xcode/fastlane/test_output/ENA.xcresult > \
-              src/xcode/fastlane/test_output/coverage.xml
+               ENA.xcresult > \
+               coverage.xml
+
       - name: Install and run sonar-scanner
+        env:
+             SONAR_TOKEN: '${{ secrets.SONAR_TOKEN }}'
+             SONARQUBE_SCANNER_PARAMS: '{"sonar.host.url":"https://sonarcloud.io"}'
+             GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN_GITHUB }}
         run: |
             SCANNER=sonar-scanner-cli-4.3.0.2102-macosx
             SCANNERDIR=~/sonar/sonar-scanner-4.3.0.2102-macosx

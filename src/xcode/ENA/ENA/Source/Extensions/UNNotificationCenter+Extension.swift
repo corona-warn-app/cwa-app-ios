@@ -21,7 +21,7 @@ public enum ActionableNotificationIdentifier: String {
 	}
 }
 
-public enum LocalNotificationIdentifier: String {
+public enum LocalNotificationIdentifier: String, CaseIterable {
 	case checkout = "EventCheckoutNotification"
 	case certificateExpiringSoon = "HealthCertificateNotificationExpireSoon"
 	case certificateExpired = "HealthCertificateNotificationExpired"

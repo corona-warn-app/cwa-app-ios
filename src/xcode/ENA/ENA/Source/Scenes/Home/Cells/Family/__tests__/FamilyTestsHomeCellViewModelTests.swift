@@ -13,13 +13,11 @@ class FamilyTestsHomeCellViewModelTests: XCTestCase {
 		let viewModel = FamilyTestsHomeCellViewModel(familyMemberCoronaTestService: familyMemberCoronaTestService, onUpdate: {})
 
 		// WHEN
-		let title = viewModel.titleText
 		let badgeText = viewModel.badgeText
 		let detail = viewModel.detailText
 		let isHidden = viewModel.isDetailsHidden
 
 		// THEN
-		XCTAssertEqual(title, AppStrings.Home.familyTestTitle)
 		XCTAssertNil(badgeText)
 		XCTAssertNil(detail)
 		XCTAssertTrue(isHidden)
@@ -32,13 +30,11 @@ class FamilyTestsHomeCellViewModelTests: XCTestCase {
 		let viewModel = FamilyTestsHomeCellViewModel(familyMemberCoronaTestService: familyMemberCoronaTestService, onUpdate: {})
 
 		// WHEN
-		let title = viewModel.titleText
 		let badgeText = viewModel.badgeText
 		let detail = viewModel.detailText
 		let isHidden = viewModel.isDetailsHidden
 
 		// THEN
-		XCTAssertEqual(title, AppStrings.Home.familyTestTitle)
 		XCTAssertEqual(badgeText, "10")
 		XCTAssertEqual(detail, AppStrings.Home.familyTestDetail)
 		XCTAssertFalse(isHidden)

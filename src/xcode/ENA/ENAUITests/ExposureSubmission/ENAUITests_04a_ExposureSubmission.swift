@@ -66,7 +66,7 @@ class ENAUITests_04a_ExposureSubmission: CWATestCase {
 	
 	func test_Switch_consentSubmission() {
 		app.setLaunchArgument(LaunchArguments.common.ENStatus, to: ENStatus.active.stringValue)
-		app.setLaunchArgument(LaunchArguments.test.pcr.testResult, to: TestResult.pending.stringValue)
+		app.setLaunchArgument(LaunchArguments.test.pcr.testResult, to: TestResult.serverResponseAsString(for: TestResult.pending, on: .pcr))
 		launch()
 		
 		// Open pending test result screen.
@@ -325,7 +325,7 @@ class ENAUITests_04a_ExposureSubmission: CWATestCase {
 	func test_ThankYouScreen_withWarnOthers() {
 		app.setLaunchArgument(LaunchArguments.exposureSubmission.isFetchingSubmissionTan, to: true)
 		app.setLaunchArgument(LaunchArguments.common.ENStatus, to: ENStatus.active.stringValue)
-		app.setLaunchArgument(LaunchArguments.test.pcr.testResult, to: TestResult.positive.stringValue)
+		app.setLaunchArgument(LaunchArguments.test.pcr.testResult, to: TestResult.serverResponseAsString(for: TestResult.positive, on: .pcr))
 		app.setLaunchArgument(LaunchArguments.test.pcr.positiveTestResultWasShown, to: true)
 		launch()
 		
@@ -358,7 +358,7 @@ class ENAUITests_04a_ExposureSubmission: CWATestCase {
 	func test_ThankYouScreen_WarnOthersFromAlert() {
 		app.setLaunchArgument(LaunchArguments.exposureSubmission.isFetchingSubmissionTan, to: true)
 		app.setLaunchArgument(LaunchArguments.common.ENStatus, to: ENStatus.active.stringValue)
-		app.setLaunchArgument(LaunchArguments.test.pcr.testResult, to: TestResult.positive.stringValue)
+		app.setLaunchArgument(LaunchArguments.test.pcr.testResult, to: TestResult.serverResponseAsString(for: TestResult.positive, on: .pcr))
 		launch()
 		
 		// Open Intro screen.
@@ -453,7 +453,7 @@ class ENAUITests_04a_ExposureSubmission: CWATestCase {
 	
 	func test_test_result_negative() {
 		app.setLaunchArgument(LaunchArguments.common.ENStatus, to: ENStatus.active.stringValue)
-		app.setLaunchArgument(LaunchArguments.test.pcr.testResult, to: TestResult.negative.stringValue)
+		app.setLaunchArgument(LaunchArguments.test.pcr.testResult, to: TestResult.serverResponseAsString(for: TestResult.negative, on: .pcr))
 		launch()
 
 		// Open test result screen.
@@ -724,7 +724,7 @@ class ENAUITests_04a_ExposureSubmission: CWATestCase {
 	
 	func test_screenshot_test_result_available() {
 		app.setLaunchArgument(LaunchArguments.common.ENStatus, to: ENStatus.active.stringValue)
-		app.setLaunchArgument(LaunchArguments.test.pcr.testResult, to: TestResult.positive.stringValue)
+		app.setLaunchArgument(LaunchArguments.test.pcr.testResult, to: TestResult.serverResponseAsString(for: TestResult.positive, on: .pcr))
 		launch()
 
 		// Open test result available screen.
@@ -737,7 +737,7 @@ class ENAUITests_04a_ExposureSubmission: CWATestCase {
 
 	func test_screenshot_test_result_pending() {
 		app.setLaunchArgument(LaunchArguments.common.ENStatus, to: ENStatus.active.stringValue)
-		app.setLaunchArgument(LaunchArguments.test.pcr.testResult, to: TestResult.pending.stringValue)
+		app.setLaunchArgument(LaunchArguments.test.pcr.testResult, to: TestResult.serverResponseAsString(for: TestResult.pending, on: .pcr))
 		launch()
 
 		// Open test result screen.
@@ -750,7 +750,7 @@ class ENAUITests_04a_ExposureSubmission: CWATestCase {
 	func test_screenshot_test_certificate_test_result_negative() {
 		app.setLaunchArgument(LaunchArguments.common.ENStatus, to: ENStatus.active.stringValue)
 		app.setLaunchArgument(LaunchArguments.healthCertificate.testCertificateRegistered, to: true)
-		app.setLaunchArgument(LaunchArguments.test.pcr.testResult, to: TestResult.negative.stringValue)
+		app.setLaunchArgument(LaunchArguments.test.pcr.testResult, to: TestResult.serverResponseAsString(for: TestResult.negative, on: .pcr))
 		app.setLaunchArgument(LaunchArguments.healthCertificate.showTestCertificateOnTestResult, to: true)
 		launch()
 
@@ -769,7 +769,7 @@ class ENAUITests_04a_ExposureSubmission: CWATestCase {
 		app.setLaunchArgument(LaunchArguments.common.ENStatus, to: ENStatus.active.stringValue)
 		app.setLaunchArgument(LaunchArguments.test.pcr.isSubmissionConsentGiven, to: true)
 		app.setLaunchArgument(LaunchArguments.test.pcr.positiveTestResultWasShown, to: false)
-		app.setLaunchArgument(LaunchArguments.test.pcr.testResult, to: TestResult.positive.stringValue)
+		app.setLaunchArgument(LaunchArguments.test.pcr.testResult, to: TestResult.serverResponseAsString(for: TestResult.positive, on: .pcr))
 		launch()
 
 		// Open test result screen.
@@ -836,7 +836,7 @@ extension ENAUITests_04a_ExposureSubmission {
 
 	func launchAndNavigateToSymptomsScreen() {
 		app.setLaunchArgument(LaunchArguments.common.ENStatus, to: ENStatus.active.stringValue)
-		app.setLaunchArgument(LaunchArguments.test.pcr.testResult, to: TestResult.positive.stringValue)
+		app.setLaunchArgument(LaunchArguments.test.pcr.testResult, to: TestResult.serverResponseAsString(for: TestResult.positive, on: .pcr))
 		app.setLaunchArgument(LaunchArguments.test.pcr.positiveTestResultWasShown, to: true)
 		launch()
 
