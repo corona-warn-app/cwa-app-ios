@@ -30,7 +30,7 @@ class HealthCertificateOverviewViewModelTests: XCTestCase {
 
 	func testGIVEN_HealthCertificateOverviewViewModel_WHEN_dccAdmissionCheckScenariosEnabled_THEN_SetupIsCorrect() throws {
 		// GIVEN
-		var cclService = FakeCCLService()
+		let cclService = FakeCCLService()
 		cclService.dccAdmissionCheckScenariosEnabled = true
 		
 		let viewModel = HealthCertificateOverviewViewModel(
@@ -53,7 +53,7 @@ class HealthCertificateOverviewViewModelTests: XCTestCase {
 	
 	func testGIVEN_HealthCertificateOverviewViewModel_WHEN_dccAdmissionCheckScenariosEnabled_healthCertificates_THEN_SetupIsCorrect() throws {
 		// GIVEN
-		var cclService = FakeCCLService()
+		let cclService = FakeCCLService()
 		cclService.dccAdmissionCheckScenariosEnabled = true
 		
 		let vaccinationCertificate1Base45 = try base45Fake(
