@@ -9,7 +9,7 @@ import jsonfunctions
 @testable import ENA
 import class CertLogic.Rule
 
-struct FakeCCLService: CCLServable {
+class FakeCCLService: CCLServable {
 
 	// MARK: - Protocol CCLServable
 
