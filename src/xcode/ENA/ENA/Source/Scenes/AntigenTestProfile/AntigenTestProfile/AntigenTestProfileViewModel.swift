@@ -7,7 +7,7 @@ import UIKit
 import Contacts
 import OpenCombine
 
-struct AntigenTestProfileViewModel {
+class AntigenTestProfileViewModel {
 
 	// MARK: - Init
 	
@@ -17,6 +17,17 @@ struct AntigenTestProfileViewModel {
 	) {
 		self.store = store
 		self.antigenTestProfile = antigenTestProfile
+		
+		store.antigenTestProfilesSubject
+			.sink { [weak self] profiles in
+				guard let self = self else { return }
+				guard let updatedProfile = profiles.first(where: {
+					$0.id == antigenTestProfile.id
+				}) else {
+					return
+				}
+				self.antigenTestProfile = updatedProfile
+			}.store(in: &subscriptions)
 	}
 
 	// MARK: - Internal
@@ -46,7 +57,7 @@ struct AntigenTestProfileViewModel {
 		)
 	}()
 
-	var antigenTestProfile: AntigenTestProfile
+	@OpenCombine.Published private(set) var antigenTestProfile: AntigenTestProfile
 	
 	var qrCodeCellViewModel: QRCodeCellViewModel {
 		QRCodeCellViewModel(

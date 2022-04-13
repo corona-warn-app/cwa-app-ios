@@ -3,6 +3,7 @@
 //
 
 import UIKit
+import OpenCombine
 
 class AntigenTestProfileViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, FooterViewHandling, DismissHandling {
 
@@ -24,6 +25,13 @@ class AntigenTestProfileViewController: UIViewController, UITableViewDataSource,
 		self.dismiss = dismiss
 
 		super.init(nibName: nil, bundle: nil)
+		
+		viewModel.$antigenTestProfile
+			.receive(on: DispatchQueue.main.ocombine)
+			.sink { [weak self] _ in
+				self?.tableView.reloadData()
+			}.store(in: &subscriptions)
+		
 	}
 
 	@available(*, unavailable)
@@ -170,6 +178,7 @@ class AntigenTestProfileViewController: UIViewController, UITableViewDataSource,
 	private var tableContentObserver: NSKeyValueObservation!
 	private var originalBackgroundImage: UIImage?
 	private var originalShadowImage: UIImage?
+	private var subscriptions = [AnyCancellable]()
 
 	private func setupNavigationBar(animated: Bool) {
 		let logoImage = UIImage(imageLiteralResourceName: "Corona-Warn-App").withRenderingMode(.alwaysTemplate)
