@@ -55,7 +55,7 @@ class AntigenTestProfileOverviewViewModel {
 		}
 	}
 
-	func antigenTestPersonProfileCellModel(at indexPath: IndexPath, onUpdate: @escaping () -> Void) -> AntigenTestPersonProfileCellModel {
+	func antigenTestPersonProfileCellModel(at indexPath: IndexPath) -> AntigenTestPersonProfileCellModel {
 		guard indexPath.section == Section.entries.rawValue else {
 			fatalError("Entry cell models have to used in the entries section")
 		}
