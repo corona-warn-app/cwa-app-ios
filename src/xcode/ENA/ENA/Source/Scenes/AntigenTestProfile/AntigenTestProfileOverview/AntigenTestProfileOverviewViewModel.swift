@@ -20,6 +20,7 @@ class AntigenTestProfileOverviewViewModel {
 			self.antigenTestProfiles = [existingProfile]
 			store.antigenTestProfile = nil
 		}
+		
 		refreshFromStore()
 	}
 	
