@@ -5,6 +5,7 @@
 import XCTest
 @testable import ENA
 
+/* EXPOSUREAPP-12801
 class CreateAntigenTestProfileViewModelTests: CWATestCase {
 	
 	func testGIVEN_EmptyAntigenTestProfile_THEN_SetValues() {
@@ -149,3 +150,4 @@ class CreateAntigenTestProfileViewModelTests: CWATestCase {
 	}
 
 }
+*/

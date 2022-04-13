@@ -10,7 +10,7 @@ class AntigenTestProfileViewModelTests: CWATestCase {
 	func testGIVEN_AntigenTestProfileViewModel_THEN_NumberOfSectionsIMatches() {
 		// GIVEN
 		let store = MockTestStore()
-		store.antigenTestProfile = AntigenTestProfile(
+		let antigenTestProfile = AntigenTestProfile(
 			firstName: "Max",
 			lastName: "Mustermann",
 			dateOfBirth: Date(timeIntervalSince1970: 390047238),
@@ -20,7 +20,9 @@ class AntigenTestProfileViewModelTests: CWATestCase {
 			phoneNumber: "0165434563",
 			email: "sabine.schulz@gmx.com"
 		)
-		let viewModel = AntigenTestProfileViewModel(store: store)
+		store.antigenTestProfiles = [antigenTestProfile]
+		
+		let viewModel = AntigenTestProfileViewModel(antigenTestProfile: antigenTestProfile, store: store)
 
 		// THEN
 		XCTAssertNotNil(viewModel.headerCellViewModel)
@@ -37,7 +39,7 @@ class AntigenTestProfileViewModelTests: CWATestCase {
 	func testGIVEN_AntigenTestProfileViewModel_WHEN_DeleteProfil_THEN_RemovedFromStore() {
 		// GIVEN
 		let store = MockTestStore()
-		store.antigenTestProfile = AntigenTestProfile(
+		let antigenTestProfile = AntigenTestProfile(
 			firstName: "Max",
 			lastName: "Mustermann",
 			dateOfBirth: Date(timeIntervalSince1970: 390047238),
@@ -47,7 +49,9 @@ class AntigenTestProfileViewModelTests: CWATestCase {
 			phoneNumber: "0165434563",
 			email: "sabine.schulz@gmx.com"
 		)
-		let viewModel = AntigenTestProfileViewModel(store: store)
+		store.antigenTestProfiles = [antigenTestProfile]
+		
+		let viewModel = AntigenTestProfileViewModel(antigenTestProfile: antigenTestProfile, store: store)
 
 		// WHEN
 		viewModel.deleteProfile()
