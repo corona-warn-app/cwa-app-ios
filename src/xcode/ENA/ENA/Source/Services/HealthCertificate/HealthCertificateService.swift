@@ -782,7 +782,7 @@ class HealthCertificateService: HealthCertificateServiceServable {
 
 			switch signatureVerificationResult {
 			case .success:
-				updateTimeBasedValidityState(for: healthCertificate, person: person)
+				updateTimeBasedValidityState(for: healthCertificate)
 			case .failure:
 				healthCertificate.validityState = .invalid
 			}
@@ -802,7 +802,7 @@ class HealthCertificateService: HealthCertificateServiceServable {
 		}
 	}
 
-	private func updateTimeBasedValidityState(for healthCertificate: HealthCertificate, person: HealthCertifiedPerson) {
+	private func updateTimeBasedValidityState(for healthCertificate: HealthCertificate) {
 
 		let currentAppConfiguration = appConfiguration.currentAppConfig.value
 		let expirationThresholdInDays = currentAppConfiguration.dgcParameters.expirationThresholdInDays
