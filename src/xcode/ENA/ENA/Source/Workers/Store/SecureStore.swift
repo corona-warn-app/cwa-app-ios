@@ -51,7 +51,7 @@ final class SecureStore: SecureKeyValueStoring, Store, AntigenTestProfileStoring
 	func wipeAll(key: String?) {
 		do {
 			try kvStore.wipeAll(key: key)
-			antigenTestProfileSubject.send([])
+			antigenTestProfilesSubject.send([])
 		} catch {
 			Log.error("kv store error", log: .localData, error: error)
 		}
@@ -219,7 +219,7 @@ final class SecureStore: SecureKeyValueStoring, Store, AntigenTestProfileStoring
 
     // MARK: - Protocol AntigenTestProfileStoring
 
-	private(set) lazy var antigenTestProfileSubject = CurrentValueSubject<[AntigenTestProfile], Never>(antigenTestProfiles)
+	private(set) lazy var antigenTestProfilesSubject = CurrentValueSubject<[AntigenTestProfile], Never>(antigenTestProfiles)
 
 	var antigenTestProfile: AntigenTestProfile? {
 		get { kvStore["antigenTestProfile"] as AntigenTestProfile? }
@@ -232,7 +232,7 @@ final class SecureStore: SecureKeyValueStoring, Store, AntigenTestProfileStoring
 		get { kvStore["antigenTestProfiles"] as [AntigenTestProfile]? ?? [] }
 		set {
 			kvStore["antigenTestProfiles"] = newValue
-			antigenTestProfileSubject.send(newValue)
+			antigenTestProfilesSubject.send(newValue)
 		}
 	}
 	

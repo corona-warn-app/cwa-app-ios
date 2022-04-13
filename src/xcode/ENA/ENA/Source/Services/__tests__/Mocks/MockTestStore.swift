@@ -140,13 +140,13 @@ final class MockTestStore: Store, PPAnalyticsData {
 
 	// MARK: - AntigenTestProfileStoring
 
-	lazy var antigenTestProfileSubject = {
+	lazy var antigenTestProfilesSubject = {
 		CurrentValueSubject<[AntigenTestProfile], Never>(antigenTestProfiles)
 	}()
 	var antigenTestProfile: AntigenTestProfile?
 	var antigenTestProfiles: [AntigenTestProfile] = [] {
 		didSet {
-			antigenTestProfileSubject.value = antigenTestProfiles
+			antigenTestProfilesSubject.value = antigenTestProfiles
 		}
 	}
 	var antigenTestProfileInfoScreenShown: Bool = false

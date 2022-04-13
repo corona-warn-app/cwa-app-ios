@@ -5,6 +5,7 @@
 import Foundation
 import UIKit
 import Contacts
+import OpenCombine
 
 struct AntigenTestProfileViewModel {
 
@@ -45,6 +46,8 @@ struct AntigenTestProfileViewModel {
 		)
 	}()
 
+	var antigenTestProfile: AntigenTestProfile
+	
 	var qrCodeCellViewModel: QRCodeCellViewModel {
 		QRCodeCellViewModel(
 			antigenTestProfile: antigenTestProfile,
@@ -96,9 +99,11 @@ struct AntigenTestProfileViewModel {
 	}
 
 	func deleteProfile() {
-		store.antigenTestProfile = nil
+		store.antigenTestProfiles = store.antigenTestProfiles.filter({
+			$0.id != self.antigenTestProfile.id
+		})
 	}
-
+	
 	func numberOfItems(in section: TableViewSection) -> Int {
 		switch section {
 		default:
@@ -130,8 +135,9 @@ struct AntigenTestProfileViewModel {
 
 	// MARK: - Private
 
+	private var subscriptions: [AnyCancellable] = []
+
 	private let store: AntigenTestProfileStoring
-	private var antigenTestProfile: AntigenTestProfile
 	private let dateOfBirthFormatter = AntigenTestProfileViewModel.dateOfBirthFormatter()
 	
 	private var friendlyName: String {

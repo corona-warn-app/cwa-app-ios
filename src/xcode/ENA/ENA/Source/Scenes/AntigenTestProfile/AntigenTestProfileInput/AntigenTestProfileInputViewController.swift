@@ -14,11 +14,12 @@ class AntigenTestProfileInputViewController: UITableViewController, FooterViewHa
 	}
 	
 	init(
+		viewModel: AntigenTestProfileInputViewModel,
 		store: AntigenTestProfileStoring,
 		didTapSave: @escaping (AntigenTestProfile) -> Void,
 		dismiss: @escaping () -> Void
 	) {
-		self.viewModel = AntigenTestProfileInputViewModel(store: store)
+		self.viewModel = viewModel
 		self.didTapSave = didTapSave
 		self.dismiss = dismiss
 

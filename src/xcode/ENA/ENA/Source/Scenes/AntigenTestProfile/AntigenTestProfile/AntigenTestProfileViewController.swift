@@ -9,15 +9,14 @@ class AntigenTestProfileViewController: UIViewController, UITableViewDataSource,
 	// MARK: - Init
 
 	init(
-		antigenTestProfile: AntigenTestProfile,
-		store: AntigenTestProfileStoring,
+		viewModel: AntigenTestProfileViewModel,
 		didTapContinue: @escaping (@escaping (Bool) -> Void) -> Void,
 		didTapProfileInfo: @escaping () -> Void,
-		didTapEditProfile: @escaping () -> Void,
+		didTapEditProfile: @escaping (AntigenTestProfile) -> Void,
 		didTapDeleteProfile: @escaping () -> Void,
 		dismiss: @escaping () -> Void
 	) {
-		self.viewModel = AntigenTestProfileViewModel(antigenTestProfile: antigenTestProfile, store: store)
+		self.viewModel = viewModel
 		self.didTapContinue = didTapContinue
 		self.didTapProfileInfo = didTapProfileInfo
 		self.didTapEditProfile = didTapEditProfile
@@ -81,7 +80,10 @@ class AntigenTestProfileViewController: UIViewController, UITableViewDataSource,
 			}))
 
 			let editAction = UIAlertAction(title: AppStrings.AntigenProfile.Profile.editActionTitle, style: .default, handler: { [weak self] _ in
-				self?.didTapEditProfile()
+				guard let antigenTestProfile = self?.viewModel.antigenTestProfile else {
+					return
+				}
+				self?.didTapEditProfile(antigenTestProfile)
 			})
 			editAction.accessibilityIdentifier = AccessibilityIdentifiers.ExposureSubmission.AntigenTest.Profile.editAction
 			alertController.addAction(editAction)
@@ -158,7 +160,7 @@ class AntigenTestProfileViewController: UIViewController, UITableViewDataSource,
 	private var viewModel: AntigenTestProfileViewModel
 	private let didTapContinue: (@escaping (Bool) -> Void) -> Void
 	private let didTapProfileInfo: () -> Void
-	private let didTapEditProfile: () -> Void
+	private let didTapEditProfile: (AntigenTestProfile) -> Void
 	private let didTapDeleteProfile: () -> Void
 	private let dismiss: () -> Void
 	private let backgroundView = GradientBackgroundView(type: .blueOnly)

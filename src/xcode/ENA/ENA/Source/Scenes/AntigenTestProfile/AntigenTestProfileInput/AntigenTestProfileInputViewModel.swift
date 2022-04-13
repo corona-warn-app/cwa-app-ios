@@ -10,10 +10,11 @@ final class AntigenTestProfileInputViewModel {
 	// MARK: - Init
 	
 	init(
-		store: AntigenTestProfileStoring
+		store: AntigenTestProfileStoring,
+		antigenTestProfile: AntigenTestProfile
 	) {
 		self.store = store
-		self.antigenTestProfile = store.antigenTestProfile ?? AntigenTestProfile()
+		self.antigenTestProfile = antigenTestProfile
 	}
 
 	// MARK: - Internal
@@ -21,7 +22,11 @@ final class AntigenTestProfileInputViewModel {
 	@OpenCombine.Published var antigenTestProfile: AntigenTestProfile
 
 	func save() {
-		store.antigenTestProfiles.append(antigenTestProfile)
+		if let profileIndex = store.antigenTestProfiles.firstIndex(where: { $0.id == antigenTestProfile.id }) {
+			store.antigenTestProfiles[profileIndex] = antigenTestProfile
+		} else {
+			store.antigenTestProfiles.append(antigenTestProfile)
+		}
 	}
 	
 	func update(_ text: String?, keyPath: WritableKeyPath<AntigenTestProfile, String?>) {

@@ -21,7 +21,7 @@ class AntigenTestProfileOverviewViewModel {
 			store.antigenTestProfile = nil
 		}
 		
-		store.antigenTestProfileSubject
+		store.antigenTestProfilesSubject
 			.sink { [weak self] in
 				self?.antigenTestProfiles = $0
 			}.store(in: &subscriptions)

@@ -78,20 +78,6 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 		)
 	}
 
-	private func showRATInvalidQRCode() {
-		let alert = UIAlertController(
-			title: AppStrings.ExposureSubmission.ratQRCodeInvalidAlertTitle,
-			message: AppStrings.ExposureSubmission.ratQRCodeInvalidAlertText,
-			preferredStyle: .alert)
-		alert.addAction(
-			UIAlertAction(
-				title: AppStrings.ExposureSubmission.ratQRCodeInvalidAlertButton,
-				style: .default
-			)
-		)
-		parentViewController?.present(alert, animated: true)
-	}
-
 	func dismiss(completion: (() -> Void)? = nil) {
 		navigationController?.dismiss(animated: true, completion: {
 			// used for updating (hiding) app shortcuts
@@ -170,11 +156,11 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 			onTANButtonTap: { [weak self] in self?.showTanScreen() },
 			onHotlineButtonTap: { [weak self] in self?.showHotlineScreen() },
 			onRapidTestProfileTap: { [weak self] in
-				if self?.store.antigenTestProfileInfoScreenShown == nil {
+				guard let antigenTestProfileInfoScreenShown = self?.store.antigenTestProfileInfoScreenShown, antigenTestProfileInfoScreenShown else {
 					self?.showAntigenTestProfileInformation()
-				} else {
-					self?.showAntigenTestProfileOverview()
+					return
 				}
+				self?.showAntigenTestProfileOverview()
 			},
 			antigenTestProfileStore: antigenTestProfileStore
 		)
@@ -204,6 +190,8 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 	private let healthCertificateValidationService: HealthCertificateValidationProviding
 	private var certificateCoordinator: HealthCertificateCoordinator?
 
+	private var antigenTestProfileOverviewViewController: AntigenTestProfileOverviewViewController?
+	
 	private func push(_ vc: UIViewController) {
 		navigationController?.topViewController?.view.endEditing(true)
 		navigationController?.pushViewController(vc, animated: true)
@@ -640,6 +628,20 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 
 	}
 
+	private func showRATInvalidQRCode() {
+		let alert = UIAlertController(
+			title: AppStrings.ExposureSubmission.ratQRCodeInvalidAlertTitle,
+			message: AppStrings.ExposureSubmission.ratQRCodeInvalidAlertText,
+			preferredStyle: .alert)
+		alert.addAction(
+			UIAlertAction(
+				title: AppStrings.ExposureSubmission.ratQRCodeInvalidAlertButton,
+				style: .default
+			)
+		)
+		parentViewController?.present(alert, animated: true)
+	}
+	
 	// show an overwrite notice screen if a test of given type was registered before
 	// registerTestAndGetResult will update the loading state of the primary button later
 	private func showOverrideTestNoticeIfNecessary(
@@ -951,13 +953,17 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 		push(topBottomContainerViewController)
 	}
 
-	private func showAntigenTestProfileInput(editMode: Bool) {
+	private func showAntigenTestProfileInput(editMode: Bool, antigenTestProfile: AntigenTestProfile = AntigenTestProfile()) {
 		guard store.antigenTestProfileInfoScreenShown || editMode else {
 			showAntigenTestProfileInformation()
 			return
 		}
 
 		let createAntigenTestProfileViewController = AntigenTestProfileInputViewController(
+			viewModel: AntigenTestProfileInputViewModel(
+				store: store,
+				antigenTestProfile: antigenTestProfile
+			),
 			store: store,
 			didTapSave: { [weak self] antigenTestProfile in
 				if editMode {
@@ -986,7 +992,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 	}
 
 	private func showAntigenTestProfileOverview() {
-		let antigenTestProfileOverviewViewController = AntigenTestProfileOverviewViewController(
+		let antigenTestProfileOverviewVC = AntigenTestProfileOverviewViewController(
 			viewModel: AntigenTestProfileOverviewViewModel(
 				store: store,
 				onEntryCellTap: { [weak self] antigenTestProfile in
@@ -1000,13 +1006,17 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 			},
 			onDismiss: { [weak self] in self?.dismiss() }
 		)
-
-		push(antigenTestProfileOverviewViewController)
+		
+		antigenTestProfileOverviewViewController = antigenTestProfileOverviewVC
+		push(antigenTestProfileOverviewVC)
 	}
 	
 	private func showAntigenTestProfile(antigenTestProfile: AntigenTestProfile) {
 		let antigenTestProfileViewController = AntigenTestProfileViewController(
-			antigenTestProfile: antigenTestProfile, store: store,
+			viewModel: AntigenTestProfileViewModel(
+				antigenTestProfile: antigenTestProfile,
+				store: store
+			),
 			didTapContinue: { [weak self] isLoading in
 				self?.model.coronaTestType = .antigen
 				self?.showQRScreen(testRegistrationInformation: nil, isLoading: isLoading)
@@ -1014,11 +1024,18 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 			didTapProfileInfo: { [weak self] in
 				self?.showAntigenTestProfileInformation()
 			},
-			didTapEditProfile: { [weak self] in
-				self?.showAntigenTestProfileInput(editMode: true)
+			didTapEditProfile: { [weak self] antigenTestProfile in
+				let viewControllers = [self?.antigenTestProfileOverviewViewController, self?.navigationController?.viewControllers.last].compactMap { $0 }
+				self?.navigationController?.setViewControllers(viewControllers, animated: true)
+				
+				self?.showAntigenTestProfileInput(editMode: true, antigenTestProfile: antigenTestProfile)
 			},
 			didTapDeleteProfile: { [weak self] in
-				self?.navigationController?.popToRootViewController(animated: true)
+				guard let antigenTestProfileOverviewViewController = self?.antigenTestProfileOverviewViewController else {
+					return
+				}
+				
+				self?.navigationController?.popToViewController(antigenTestProfileOverviewViewController, animated: true)
 			}, dismiss: { [weak self] in self?.dismiss() }
 		)
 

@@ -25,13 +25,6 @@ class ExposureSubmissionIntroViewModel {
 		self.onHotlineButtonTap = onHotlineButtonTap
 		self.onRapidTestProfileTap = onRapidTestProfileTap
 		self.antigenTestProfileStore = antigenTestProfileStore
-
-		antigenTestProfileStore.antigenTestProfileSubject.sink { [weak self] _ in
-			guard let self = self else { return }
-
-			self.dynamicTableModel = self.makeDynamicTableModel()
-			
-		}.store(in: &subscriptions)
 	}
 	
 	// MARK: - Internal
@@ -43,13 +36,9 @@ class ExposureSubmissionIntroViewModel {
 	let onRapidTestProfileTap: () -> Void
 	let antigenTestProfileStore: AntigenTestProfileStoring
 
-	@OpenCombine.Published var dynamicTableModel: DynamicTableViewModel = DynamicTableViewModel([])
-
 	// MARK: - Private
 
-	private var subscriptions = Set<AnyCancellable>()
-
-	private func makeDynamicTableModel() -> DynamicTableViewModel {
+	var dynamicTableModel: DynamicTableViewModel {
 		let profileCell: DynamicCell
 
 		let gradientView = GradientView()

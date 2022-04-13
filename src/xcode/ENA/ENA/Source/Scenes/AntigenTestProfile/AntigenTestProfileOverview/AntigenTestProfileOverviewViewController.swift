@@ -40,7 +40,7 @@ class AntigenTestProfileOverviewViewController: UITableViewController, DismissHa
 		navigationItem.largeTitleDisplayMode = .always
 		navigationItem.title = AppStrings.AntigenProfile.Overview.title
 
-		viewModel.$antigenTestProfiles
+		viewModel.$antigenTestProfiles.dropFirst()
 			.receive(on: DispatchQueue.main.ocombine)
 			.sink { [weak self] _ in
 				guard let self = self, self.shouldReload else { return }

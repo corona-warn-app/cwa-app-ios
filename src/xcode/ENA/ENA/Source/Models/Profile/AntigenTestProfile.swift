@@ -9,6 +9,7 @@ struct AntigenTestProfile: Codable {
 	// MARK: - Init
 
 	init(
+		id: UUID = UUID(),
 		firstName: String? = nil,
 		lastName: String? = nil,
 		dateOfBirth: Date? = nil,
@@ -18,6 +19,7 @@ struct AntigenTestProfile: Codable {
 		phoneNumber: String? = nil,
 		email: String? = nil
 	) {
+		self.id = id
 		self.firstName = firstName
 		self.lastName = lastName
 		self.dateOfBirth = dateOfBirth
@@ -32,6 +34,7 @@ struct AntigenTestProfile: Codable {
 
 	func encode(to encoder: Encoder) throws {
 		var container = encoder.container(keyedBy: CodingKeys.self)
+		try container.encode(id, forKey: .id)
 		try container.encodeIfPresent(firstName, forKey: .firstName)
 		try container.encodeIfPresent(lastName, forKey: .lastName)
 		if let dateOfBirth = dateOfBirth {
@@ -46,6 +49,11 @@ struct AntigenTestProfile: Codable {
 
 	init(from decoder: Decoder) throws {
 		let container = try decoder.container(keyedBy: CodingKeys.self)
+		if let profileId = try? container.decode(UUID.self, forKey: .id) {
+			id = profileId
+		} else {
+			id = UUID()
+		}
 		firstName = try? container.decode(String.self, forKey: .firstName)
 		lastName = try? container.decode(String.self, forKey: .lastName)
 		if let validFromString = try? container.decode(String.self, forKey: .dateOfBirth) {
@@ -61,6 +69,7 @@ struct AntigenTestProfile: Codable {
 	}
 
 	enum CodingKeys: String, CodingKey, CaseIterable {
+		case id
 		case firstName
 		case lastName
 		case dateOfBirth
@@ -73,6 +82,7 @@ struct AntigenTestProfile: Codable {
 
 	// MARK: - Internal
 
+	var id: UUID
 	var firstName: String?
 	var lastName: String?
 	var dateOfBirth: Date?
