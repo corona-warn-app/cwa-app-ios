@@ -49,16 +49,6 @@ class RevocationProviderTests: CWATestCase {
 						XCTAssertEqual(resource.locator.paths, ["version", "v1", "dcc-rl", "f5c5970c3039d8540a", "index"])
 					}
 				),
-//				LoadResource(
-//					result: .success(try kidTypeIndex(hashType: "0a")),
-//					willLoadResource: { resource in
-//						guard let resource = resource as? KIDTypeIndexResource else {
-//							XCTFail("wrong resource type")
-//							return
-//						}
-//						XCTAssertEqual(resource.locator.paths, ["version", "v1", "dcc-rl", "f5c5970c3039d8540b", "index"])
-//					}
-//				),
 				LoadResource(
 					result: .success(try revocationChunk(hashType: "0a")),
 					willLoadResource: { resource in
@@ -66,54 +56,69 @@ class RevocationProviderTests: CWATestCase {
 							XCTFail("wrong resource type, KIDTypeChunkResource expected")
 							return
 						}
-						XCTAssertEqual(resource.locator.paths, ["version", "v1", "dcc-rl", "f5c5970c3039d8540a", "x", "y", "chunk"])
+
+						XCTAssertEqual(resource.locator.paths, ["version", "v1", "dcc-rl", "f5c5970c3039d8540a", "e3", "d6", "chunk"])
 					}
 				)
 			]
 		)
-		let certificates = try getCertificates()
+
 		let revocationProvider = RevocationProvider(restService, signatureVerifier: MockVerifier())
 
 		// WHEN
+
+		let expectation = expectation(description: "success expectation")
 
 		revocationProvider.updateCache(with: certificates) { result in
 			// THEN
 			switch result {
 			case .success:
-				break
+				expectation.fulfill()
 			case .failure:
 				XCTFail("unexpected state - should be success")
 			}
 		}
 
+		waitForExpectations(timeout: .greatestFiniteMagnitude)
 	}
 
-	private func getCertificates() throws -> [HealthCertificate] {
+	lazy var certificates: [HealthCertificate] = {
 		[
-			try vaccinationCertificate(doseNumber: 1, totalSeriesOfDoses: 2, keyIdentifier: "8c4ae0ed458b67f1".dataWithHexString()),
-			try vaccinationCertificate(doseNumber: 2, totalSeriesOfDoses: 2, keyIdentifier: "f50159a32d84e89d".dataWithHexString()),
-			try testCertificate(keyIdentifier: "0123456789abcdef".dataWithHexString()),
-			try recoveryCertificate(keyIdentifier: "f5c5970c3039d854".dataWithHexString())
-		]
-	}
+			try? vaccinationCertificate(
+				doseNumber: 1,
+				totalSeriesOfDoses: 2,
+				keyIdentifier: "8c4ae0ed458b67f1".dataWithHexString(),
+				signature: "8c4ae0ed458b67f1".dataWithHexString()
+			),
+			try? vaccinationCertificate(
+				doseNumber: 2,
+				totalSeriesOfDoses: 2,
+				keyIdentifier: "f50159a32d84e89d".dataWithHexString(),
+				signature: "f50159a32d84e89d".dataWithHexString()
+			),
+			try? testCertificate(
+				keyIdentifier: "0123456789abcdef".dataWithHexString(),
+				signature: "0123456789abcdef".dataWithHexString()
+			),
+			try? recoveryCertificate(
+				keyIdentifier: "f5c5970c3039d854".dataWithHexString(),
+				signature: "f5c5970c3039d854".dataWithHexString()
+			)
+		].compactMap { $0 }
+	}()
 
 	private func kidTypeIndex(hashType: String) throws -> SAP_Internal_Dgc_RevocationKidTypeIndex {
-		let certificates = try getCertificates()
-
-		let recoveryHash = try XCTUnwrap(certificates[3].hash(by: hashType))
-		let recoveryCoordinate = RevocationCoordinate(hash: recoveryHash)
+		let recoveryCoordinate = try coordinate(for: certificates[3], hashType: hashType)
 		var item1 = SAP_Internal_Dgc_RevocationKidTypeIndexItem()
 		item1.x = recoveryCoordinate.x.dataWithHexString()
 		item1.y = [recoveryCoordinate.y.dataWithHexString(), "ad".dataWithHexString()]
 
-		let testCertificateHash = try XCTUnwrap(certificates[2].hash(by: hashType))
-		let testCertificateCoordinate = RevocationCoordinate(hash: testCertificateHash)
+		let testCertificateCoordinate = try coordinate(for: certificates[2], hashType: hashType)
 		var item2 = SAP_Internal_Dgc_RevocationKidTypeIndexItem()
 		item2.x = testCertificateCoordinate.x.dataWithHexString()
 		item2.y = [testCertificateCoordinate.y.dataWithHexString()]
 
-		let vaccinationHash = try XCTUnwrap(certificates[0].hash(by: hashType))
-		let vaccinationCoordinate = RevocationCoordinate(hash: vaccinationHash)
+		let vaccinationCoordinate = try coordinate(for: certificates[0], hashType: hashType)
 		var item3 = SAP_Internal_Dgc_RevocationKidTypeIndexItem()
 		item3.x = vaccinationCoordinate.x.dataWithHexString()
 		item3.y = [vaccinationCoordinate.y.dataWithHexString()]
@@ -130,6 +135,11 @@ class RevocationProviderTests: CWATestCase {
 			item4
 		]
 		return kidTypeIndex
+	}
+
+	private func coordinate(for certificate: HealthCertificate, hashType: String) throws -> RevocationCoordinate {
+		let recoveryHash = try XCTUnwrap(certificate.hash(by: hashType))
+		return RevocationCoordinate(hash: recoveryHash)
 	}
 
 	var revocationKidList: SAP_Internal_Dgc_RevocationKidList {
@@ -154,7 +164,6 @@ class RevocationProviderTests: CWATestCase {
 	}
 
 	func revocationChunk(hashType: String) throws -> SAP_Internal_Dgc_RevocationChunk {
-		let certificates = try getCertificates()
 		let recoveryHash = try XCTUnwrap(certificates[3].hash(by: hashType))
 		let vaccinationHash = try XCTUnwrap(certificates[1].hash(by: hashType))
 
