@@ -73,7 +73,14 @@ final class MockTestStore: Store, PPAnalyticsData {
 	
 	// MARK: - LocalStatisticsCaching
 
-	var localStatistics: [LocalStatisticsMetadata] = []
+	let localStatisticsMetadataQueue = DispatchQueue(label: "com.sap.mockstore.LocalStatisticsMetadata")
+
+	var _localStatistics = [LocalStatisticsMetadata]()
+	var localStatistics: [LocalStatisticsMetadata] {
+		get { localStatisticsMetadataQueue.sync { _localStatistics } }
+		set { localStatisticsMetadataQueue.sync { _localStatistics = newValue } }
+	}
+	
 	var selectedLocalStatisticsRegions: [LocalStatisticsRegion] = []
 
 	// MARK: - PrivacyPreservingProviding

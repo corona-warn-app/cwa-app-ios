@@ -103,6 +103,7 @@ class ExposureSubmissionTestCertificateViewController: DynamicTableViewControlle
 		tableView.separatorStyle = .none
 
 		viewModel.$isPrimaryButtonEnabled
+			.receive(on: DispatchQueue.main.ocombine)
 			.sink { [weak self] isEnabled in
 				self?.footerView?.setEnabled(isEnabled, button: .primary)
 			}

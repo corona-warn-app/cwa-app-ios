@@ -38,7 +38,9 @@ class FamilyMemberCoronaTestsViewController: UITableViewController, FooterViewHa
 		tableView.reloadData()
 
 		viewModel.onUpdate = { [weak self] in
-			self?.animateCellHeightChanges()
+			DispatchQueue.main.async {
+				self?.animateCellHeightChanges()
+			}
 		}
 
 		viewModel.triggerReload
@@ -280,15 +282,15 @@ class FamilyMemberCoronaTestsViewController: UITableViewController, FooterViewHa
 			)
 		)
 
-		alert.addAction(
-			UIAlertAction(
-				title: confirmButtonTitle,
-				style: .destructive,
-				handler: { _ in
-					confirmAction()
-				}
-			)
+		let deleteAction = UIAlertAction(
+			title: confirmButtonTitle,
+			style: .destructive,
+			handler: { _ in
+				confirmAction()
+			}
 		)
+		deleteAction.accessibilityIdentifier = AccessibilityIdentifiers.ExposureSubmissionResult.RemoveAlert.deleteButton
+		alert.addAction(deleteAction)
 
 		present(alert, animated: true, completion: nil)
 	}

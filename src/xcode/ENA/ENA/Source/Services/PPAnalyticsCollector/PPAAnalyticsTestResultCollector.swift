@@ -193,7 +193,7 @@ final class PPAAnalyticsTestResultCollector {
 		if storedTestResult == nil || storedTestResult != testResult {
 			switch testResult {
 			case .positive, .negative, .pending:
-				Log.info("update TestResultMetadata of type: \(type), with testResult: \(testResult.stringValue)", log: .ppa)
+				Log.info("update TestResultMetadata of type: \(type), with testResult: \(testResult)", log: .ppa)
 
 				persistTestResult(testResult: testResult, testType: type)
 
@@ -210,7 +210,7 @@ final class PPAAnalyticsTestResultCollector {
 				break
 			}
 		} else {
-			Log.warning("will not update same TestResultMetadata, oldResult: \(storedTestResult?.stringValue ?? "") newResult: \(testResult.stringValue) of type: \(type)", log: .ppa)
+			Log.warning("will not update same TestResultMetadata, oldResult: \(String(describing: storedTestResult)) newResult: \(testResult) of type: \(type)", log: .ppa)
 		}
 	}
 

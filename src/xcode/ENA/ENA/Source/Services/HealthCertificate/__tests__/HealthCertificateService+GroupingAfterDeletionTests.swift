@@ -7,6 +7,41 @@ import XCTest
 import HealthCertificateToolkit
 
 class HealthCertificateService_GroupingAfterDeletionTests: XCTestCase {
+
+	func testGIVEN_6Certificates_WHEN_CertificateAreRegistered_THEN_GroupingCreatesTwoPersons() throws {
+
+		// GIVEN
+
+		let store = MockTestStore()
+		let service = HealthCertificateService(
+			store: store,
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
+			dscListProvider: MockDSCListProvider(),
+			appConfiguration: CachedAppConfigurationMock(),
+			cclService: FakeCCLService(),
+			recycleBin: .fake()
+		)
+		let certificateSingle1 = try certificateSingle1()
+		let certificateSingle2 = try certificateSingle2()
+		let certificateSingle3 = try certificateSingle3()
+		let certificateSingle4 = try certificateSingle4()
+		let certificateSingleA = try certificateSingleA()
+		let certificateCombiner = try certificateCombiner()
+
+		var listOfCertificates = [
+			certificateSingle3,
+			certificateSingle1,
+			certificateSingle2,
+			certificateSingle4,
+			certificateCombiner,
+			certificateSingleA
+		]
+		listOfCertificates.shuffle()
+		listOfCertificates.forEach { service.registerHealthCertificate(base45: $0, completedNotificationRegistration: { }) }
+
+		// We should have now 2 persons. Person1 with four certificates and Person2 with one certificate.
+		XCTAssertEqual(service.healthCertifiedPersons.count, 2)
+	}
 	
 	func testGIVEN_PersonWith3Certificates_WHEN_CertificateIsDeleted_THEN_RemainingStaysAtSamePersons() throws {
 		
@@ -29,15 +64,15 @@ class HealthCertificateService_GroupingAfterDeletionTests: XCTestCase {
 		let certificateCombiner = try certificateCombiner()
 		
 		var listOfCertificates = [
+			certificateCombiner,
 			certificateSingle1,
 			certificateSingle2,
 			certificateSingle3,
 			certificateSingle4,
-			certificateSingleA,
-			certificateCombiner
+			certificateSingleA
 		]
 		listOfCertificates.shuffle()
-		listOfCertificates.forEach { service.registerHealthCertificate(base45: $0) }
+		listOfCertificates.forEach { service.registerHealthCertificate(base45: $0, completedNotificationRegistration: { }) }
 		
 		
 		// We should have now 2 persons. Person1 with four certificates and Person2 with one certificate.
@@ -117,16 +152,16 @@ class HealthCertificateService_GroupingAfterDeletionTests: XCTestCase {
 		let certificateCombiner = try certificateCombiner()
 		
 		var listOfCertificates = [
+			certificateCombiner,
 			certificateSingle1,
 			certificateSingle2,
 			certificateSingle3,
 			certificateSingle4,
-			certificateSingleA,
-			certificateCombiner
+			certificateSingleA
 		]
 		
 		listOfCertificates.shuffle()
-		listOfCertificates.forEach { service.registerHealthCertificate(base45: $0) }
+		listOfCertificates.forEach { service.registerHealthCertificate(base45: $0, completedNotificationRegistration: { }) }
 		
 		// We should have now 2 persons. Person1 with four certificates and Person2 with one certificate.
 		XCTAssertEqual(service.healthCertifiedPersons.count, 2)
