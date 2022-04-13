@@ -10,7 +10,7 @@ class RecycleBinItemCellModelTests: CWATestCase {
 	func testViewModelWithVaccinationCertificate() throws {
 		let healthCertificate = try HealthCertificate(
 			base45: try base45Fake(
-				from: .fake(
+				digitalCovidCertificate: .fake(
 					name: .fake(
 						familyName: "Schmidt-Mustermann",
 						givenName: "Erika Dörte"
@@ -43,7 +43,7 @@ class RecycleBinItemCellModelTests: CWATestCase {
 	func testViewModelWithPCRTestCertificate() throws {
 		let healthCertificate = try HealthCertificate(
 			base45: try base45Fake(
-				from: .fake(
+				digitalCovidCertificate: .fake(
 					name: .fake(
 						familyName: "Schmidt-Mustermann",
 						givenName: "Tina Maria"
@@ -75,7 +75,7 @@ class RecycleBinItemCellModelTests: CWATestCase {
 	func testViewModelWithAntigenTestCertificate() throws {
 		let healthCertificate = try HealthCertificate(
 			base45: try base45Fake(
-				from: .fake(
+				digitalCovidCertificate: .fake(
 					name: .fake(
 						familyName: "Schmidt-Mustermann",
 						givenName: "Tina Maria"
@@ -107,7 +107,7 @@ class RecycleBinItemCellModelTests: CWATestCase {
 	func testViewModelWithTestCertificateOfUnknownType() throws {
 		let healthCertificate = try HealthCertificate(
 			base45: try base45Fake(
-				from: .fake(
+				digitalCovidCertificate: .fake(
 					name: .fake(
 						familyName: "Schmidt-Mustermann",
 						givenName: "Erika Dörte"
@@ -136,7 +136,7 @@ class RecycleBinItemCellModelTests: CWATestCase {
 	func testViewModelWithRecoveryCertificate() throws {
 		let healthCertificate = try HealthCertificate(
 			base45: try base45Fake(
-				from: .fake(
+				digitalCovidCertificate: .fake(
 					name: .fake(
 						familyName: "Schmidt-Mustermann",
 						givenName: "Erika Dörte"

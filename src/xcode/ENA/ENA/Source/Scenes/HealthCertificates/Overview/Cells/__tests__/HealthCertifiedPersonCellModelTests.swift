@@ -14,7 +14,7 @@ class HealthCertifiedPersonCellModelTests: XCTestCase {
 		// GIVEN
 		let healthCertificate = try HealthCertificate(
 			base45: try base45Fake(
-				from: DigitalCovidCertificate.fake(
+				digitalCovidCertificate: DigitalCovidCertificate.fake(
 					vaccinationEntries: [.fake()]
 				)
 			),
@@ -56,10 +56,10 @@ class HealthCertifiedPersonCellModelTests: XCTestCase {
 		let expirationDate = Date(timeIntervalSince1970: 1627987295)
 		let healthCertificate = try HealthCertificate(
 			base45: try base45Fake(
-				from: DigitalCovidCertificate.fake(
+				digitalCovidCertificate: DigitalCovidCertificate.fake(
 					vaccinationEntries: [.fake()]
 				),
-				and: .fake(expirationTime: expirationDate)
+				webTokenHeader: .fake(expirationTime: expirationDate)
 			),
 			validityState: .expiringSoon
 		)
@@ -109,7 +109,7 @@ class HealthCertifiedPersonCellModelTests: XCTestCase {
 		// GIVEN
 		let healthCertificate = try HealthCertificate(
 			base45: try base45Fake(
-				from: DigitalCovidCertificate.fake(
+				digitalCovidCertificate: DigitalCovidCertificate.fake(
 					vaccinationEntries: [.fake()]
 				)
 			),
@@ -154,7 +154,7 @@ class HealthCertifiedPersonCellModelTests: XCTestCase {
 		// GIVEN
 		let healthCertificate = try HealthCertificate(
 			base45: try base45Fake(
-				from: DigitalCovidCertificate.fake(
+				digitalCovidCertificate: DigitalCovidCertificate.fake(
 					vaccinationEntries: [.fake()]
 				)
 			),
@@ -195,7 +195,7 @@ class HealthCertifiedPersonCellModelTests: XCTestCase {
 		// GIVEN
 		let healthCertificate = try HealthCertificate(
 			base45: try base45Fake(
-				from: DigitalCovidCertificate.fake(
+				digitalCovidCertificate: DigitalCovidCertificate.fake(
 					vaccinationEntries: [.fake()]
 				)
 			),
@@ -240,7 +240,7 @@ class HealthCertifiedPersonCellModelTests: XCTestCase {
 		// GIVEN
 		let healthCertificate = try HealthCertificate(
 			base45: try base45Fake(
-				from: DigitalCovidCertificate.fake(
+				digitalCovidCertificate: DigitalCovidCertificate.fake(
 					testEntries: [.fake()]
 				)
 			),
@@ -275,10 +275,10 @@ class HealthCertifiedPersonCellModelTests: XCTestCase {
 		// GIVEN
 		let healthCertificate = try HealthCertificate(
 			base45: try base45Fake(
-				from: DigitalCovidCertificate.fake(
+				digitalCovidCertificate: DigitalCovidCertificate.fake(
 					testEntries: [.fake()]
 				),
-				and: .fake(expirationTime: Date(timeIntervalSince1970: 1627987295))
+				webTokenHeader: .fake(expirationTime: Date(timeIntervalSince1970: 1627987295))
 			),
 			validityState: .expiringSoon
 		)
@@ -311,7 +311,7 @@ class HealthCertifiedPersonCellModelTests: XCTestCase {
 		// GIVEN
 		let healthCertificate = try HealthCertificate(
 			base45: try base45Fake(
-				from: DigitalCovidCertificate.fake(
+				digitalCovidCertificate: DigitalCovidCertificate.fake(
 					testEntries: [.fake()]
 				)
 			),
@@ -351,7 +351,7 @@ class HealthCertifiedPersonCellModelTests: XCTestCase {
 		// GIVEN
 		let healthCertificate = try HealthCertificate(
 			base45: try base45Fake(
-				from: DigitalCovidCertificate.fake(
+				digitalCovidCertificate: DigitalCovidCertificate.fake(
 					testEntries: [.fake()]
 				)
 			),
@@ -396,7 +396,7 @@ class HealthCertifiedPersonCellModelTests: XCTestCase {
 		// GIVEN
 		let healthCertificate = try HealthCertificate(
 			base45: try base45Fake(
-				from: DigitalCovidCertificate.fake(
+				digitalCovidCertificate: DigitalCovidCertificate.fake(
 					testEntries: [.fake()]
 				)
 			),
@@ -441,7 +441,7 @@ class HealthCertifiedPersonCellModelTests: XCTestCase {
 		// GIVEN
 		let healthCertificate = try HealthCertificate(
 			base45: try base45Fake(
-				from: DigitalCovidCertificate.fake(
+				digitalCovidCertificate: DigitalCovidCertificate.fake(
 					recoveryEntries: [.fake()]
 				)
 			),
@@ -482,10 +482,10 @@ class HealthCertifiedPersonCellModelTests: XCTestCase {
 		let expirationDate = Date(timeIntervalSince1970: 1627987295)
 		let healthCertificate = try HealthCertificate(
 			base45: try base45Fake(
-				from: DigitalCovidCertificate.fake(
+				digitalCovidCertificate: DigitalCovidCertificate.fake(
 					recoveryEntries: [.fake()]
 				),
-				and: .fake(expirationTime: expirationDate)
+				webTokenHeader: .fake(expirationTime: expirationDate)
 			),
 			validityState: .expiringSoon
 		)
@@ -535,7 +535,7 @@ class HealthCertifiedPersonCellModelTests: XCTestCase {
 		// GIVEN
 		let healthCertificate = try HealthCertificate(
 			base45: try base45Fake(
-				from: DigitalCovidCertificate.fake(
+				digitalCovidCertificate: DigitalCovidCertificate.fake(
 					recoveryEntries: [.fake()]
 				)
 			),
@@ -576,7 +576,7 @@ class HealthCertifiedPersonCellModelTests: XCTestCase {
 		// GIVEN
 		let healthCertificate = try HealthCertificate(
 			base45: try base45Fake(
-				from: DigitalCovidCertificate.fake(
+				digitalCovidCertificate: DigitalCovidCertificate.fake(
 					recoveryEntries: [.fake()]
 				)
 			),
@@ -621,7 +621,7 @@ class HealthCertifiedPersonCellModelTests: XCTestCase {
 		// GIVEN
 		let healthCertificate = try HealthCertificate(
 			base45: try base45Fake(
-				from: DigitalCovidCertificate.fake(
+				digitalCovidCertificate: DigitalCovidCertificate.fake(
 					recoveryEntries: [.fake()]
 				)
 			),
@@ -662,7 +662,7 @@ class HealthCertifiedPersonCellModelTests: XCTestCase {
 		// GIVEN
 		let firstHealthCertificate = try HealthCertificate(
 			base45: try base45Fake(
-				from: DigitalCovidCertificate.fake(
+				digitalCovidCertificate: DigitalCovidCertificate.fake(
 					vaccinationEntries: [.fake()]
 				)
 			),
@@ -671,7 +671,7 @@ class HealthCertifiedPersonCellModelTests: XCTestCase {
 
 		let secondHealthCertificate = try HealthCertificate(
 			base45: try base45Fake(
-				from: DigitalCovidCertificate.fake(
+				digitalCovidCertificate: DigitalCovidCertificate.fake(
 					vaccinationEntries: [.fake()]
 				)
 			),
@@ -681,7 +681,7 @@ class HealthCertifiedPersonCellModelTests: XCTestCase {
 
 		let thirdHealthCertificate = try HealthCertificate(
 			base45: try base45Fake(
-				from: DigitalCovidCertificate.fake(
+				digitalCovidCertificate: DigitalCovidCertificate.fake(
 					vaccinationEntries: [.fake()]
 				)
 			),
@@ -691,7 +691,7 @@ class HealthCertifiedPersonCellModelTests: XCTestCase {
 
 		let fourthHealthCertificate = try HealthCertificate(
 			base45: try base45Fake(
-				from: DigitalCovidCertificate.fake(
+				digitalCovidCertificate: DigitalCovidCertificate.fake(
 					vaccinationEntries: [.fake()]
 				)
 			),

@@ -28,7 +28,7 @@ extension CWATestCase {
 		let formattedCertificateValidityStartDate = ISO8601DateFormatter.string(from: certificateValidityStartDate, timeZone: .current, formatOptions: .withFullDate)
 
 		let base45 = try base45Fake(
-			from: DigitalCovidCertificate.fake(
+			digitalCovidCertificate: DigitalCovidCertificate.fake(
 				recoveryEntries: [
 					RecoveryEntry.fake(
 						certificateValidFrom: formattedCertificateValidityStartDate
@@ -59,7 +59,7 @@ extension CWATestCase {
 		let formattedSampleCollectionDate = ISO8601DateFormatter.string(from: sampleCollectionDate, timeZone: .current, formatOptions: .withInternetDateTime)
 
 		let base45 = try base45Fake(
-			from: DigitalCovidCertificate.fake(
+			digitalCovidCertificate: DigitalCovidCertificate.fake(
 				testEntries: [
 					TestEntry.fake(
 						typeOfTest: typeOfTest,
@@ -106,7 +106,7 @@ extension CWATestCase {
 		let formattedVaccinationDate = ISO8601DateFormatter.string(from: vaccinationDate, timeZone: .current, formatOptions: .withFullDate)
 
 		let base45 = try base45Fake(
-			from: DigitalCovidCertificate.fake(
+			digitalCovidCertificate: DigitalCovidCertificate.fake(
 				vaccinationEntries: [
 					VaccinationEntry.fake(
 						doseNumber: vaccination.doseNumber,
@@ -115,7 +115,7 @@ extension CWATestCase {
 					)
 				]
 			),
-			and: cborWebTokenHeader
+			webTokenHeader: cborWebTokenHeader
 		)
 
 		return try HealthCertificate(base45: base45, validityState: validityState)

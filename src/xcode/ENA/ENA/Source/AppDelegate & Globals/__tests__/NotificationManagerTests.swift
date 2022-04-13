@@ -17,7 +17,7 @@ class NotificationManagerTests: XCTestCase {
 		let expectedName = Name.fake(standardizedFamilyName: "BRAUSE", standardizedGivenName: "PASCAL")
 		
 		let vaccinationCertificate1Base45 = try base45Fake(
-			from: DigitalCovidCertificate.fake(
+			digitalCovidCertificate: DigitalCovidCertificate.fake(
 				name: expectedName,
 				vaccinationEntries: [VaccinationEntry.fake(
 					dateOfVaccination: "2021-09-03",
@@ -28,7 +28,7 @@ class NotificationManagerTests: XCTestCase {
 		let expectedCertificate = try XCTUnwrap(HealthCertificate(base45: vaccinationCertificate1Base45))
 		
 		let vaccinationCertificate2Base45 = try base45Fake(
-			from: DigitalCovidCertificate.fake(
+			digitalCovidCertificate: DigitalCovidCertificate.fake(
 				name: .fake(standardizedFamilyName: "TEUBER", standardizedGivenName: "KAI"),
 				vaccinationEntries: [VaccinationEntry.fake(
 					dateOfVaccination: "2021-09-06",
@@ -66,7 +66,7 @@ class NotificationManagerTests: XCTestCase {
 		let (healthCertificateService, notificationManager) = createServices(with: store)
 
 		let vaccinationCertificate1Base45 = try base45Fake(
-			from: DigitalCovidCertificate.fake(
+			digitalCovidCertificate: DigitalCovidCertificate.fake(
 				name: .fake(standardizedFamilyName: "BRAUSE", standardizedGivenName: "PASCAL"),
 				vaccinationEntries: [VaccinationEntry.fake(
 					dateOfVaccination: "2021-09-03",
@@ -78,7 +78,7 @@ class NotificationManagerTests: XCTestCase {
 		let expectedName = Name.fake(standardizedFamilyName: "TEUBER", standardizedGivenName: "KAI")
 		
 		let vaccinationCertificate2Base45 = try base45Fake(
-			from: DigitalCovidCertificate.fake(
+			digitalCovidCertificate: DigitalCovidCertificate.fake(
 				name: expectedName,
 				vaccinationEntries: [VaccinationEntry.fake(
 					dateOfVaccination: "2021-09-06",
@@ -118,7 +118,7 @@ class NotificationManagerTests: XCTestCase {
 		let (healthCertificateService, notificationManager) = createServices(with: store)
 
 		let vaccinationCertificate1Base45 = try base45Fake(
-			from: DigitalCovidCertificate.fake(
+			digitalCovidCertificate: DigitalCovidCertificate.fake(
 				name: .fake(standardizedFamilyName: "BRAUSE", standardizedGivenName: "PASCAL"),
 				vaccinationEntries: [VaccinationEntry.fake(
 					dateOfVaccination: "2021-09-03",
@@ -130,7 +130,7 @@ class NotificationManagerTests: XCTestCase {
 		let expectedName = Name.fake(standardizedFamilyName: "TEUBER", standardizedGivenName: "KAI")
 		
 		let vaccinationCertificate2Base45 = try base45Fake(
-			from: DigitalCovidCertificate.fake(
+			digitalCovidCertificate: DigitalCovidCertificate.fake(
 				name: expectedName,
 				vaccinationEntries: [VaccinationEntry.fake(
 					dateOfVaccination: "2021-09-06",
@@ -177,7 +177,7 @@ class NotificationManagerTests: XCTestCase {
 		let (healthCertificateService, notificationManager) = createServices(with: store)
 
 		let vaccinationCertificate1Base45 = try base45Fake(
-			from: DigitalCovidCertificate.fake(
+			digitalCovidCertificate: DigitalCovidCertificate.fake(
 				name: .fake(standardizedFamilyName: "BRAUSE", standardizedGivenName: "PASCAL"),
 				vaccinationEntries: [VaccinationEntry.fake(
 					dateOfVaccination: "2021-09-03",
@@ -189,7 +189,7 @@ class NotificationManagerTests: XCTestCase {
 		let expectedName = Name.fake(standardizedFamilyName: "TEUBER", standardizedGivenName: "KAI")
 
 		let vaccinationCertificate2Base45 = try base45Fake(
-			from: DigitalCovidCertificate.fake(
+			digitalCovidCertificate: DigitalCovidCertificate.fake(
 				name: expectedName,
 				vaccinationEntries: [VaccinationEntry.fake(
 					dateOfVaccination: "2021-09-06",

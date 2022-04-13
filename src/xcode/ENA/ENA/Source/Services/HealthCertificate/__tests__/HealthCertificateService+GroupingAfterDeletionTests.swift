@@ -231,7 +231,7 @@ class HealthCertificateService_GroupingAfterDeletionTests: XCTestCase {
 	
 	private func certificateCombiner() throws -> Base45 {
 		try base45Fake(
-			from: DigitalCovidCertificate.fake(
+			digitalCovidCertificate: DigitalCovidCertificate.fake(
 				name: Name.fake(
 					standardizedFamilyName: "DUCK<QUACK",
 					standardizedGivenName: "DONALD<DONNI"
@@ -245,7 +245,7 @@ class HealthCertificateService_GroupingAfterDeletionTests: XCTestCase {
 	}
 	private func certificateSingle1() throws -> Base45 {
 		try base45Fake(
-			from: DigitalCovidCertificate.fake(
+			digitalCovidCertificate: DigitalCovidCertificate.fake(
 				name: Name.fake(
 					standardizedFamilyName: "DUCK",
 					standardizedGivenName: "DONALD"
@@ -259,7 +259,7 @@ class HealthCertificateService_GroupingAfterDeletionTests: XCTestCase {
 	}
 	private func certificateSingle2() throws -> Base45 {
 		try base45Fake(
-			from: DigitalCovidCertificate.fake(
+			digitalCovidCertificate: DigitalCovidCertificate.fake(
 				name: Name.fake(
 					standardizedFamilyName: "QUACK",
 					standardizedGivenName: "DONNI"
@@ -273,7 +273,7 @@ class HealthCertificateService_GroupingAfterDeletionTests: XCTestCase {
 	}
 	private func certificateSingle3() throws -> Base45 {
 		try base45Fake(
-			from: DigitalCovidCertificate.fake(
+			digitalCovidCertificate: DigitalCovidCertificate.fake(
 				name: Name.fake(
 					standardizedFamilyName: "DUCK",
 					standardizedGivenName: "DONALD<MANFRED"
@@ -287,7 +287,7 @@ class HealthCertificateService_GroupingAfterDeletionTests: XCTestCase {
 	}
 	private func certificateSingle4() throws -> Base45 {
 		try base45Fake(
-			from: DigitalCovidCertificate.fake(
+			digitalCovidCertificate: DigitalCovidCertificate.fake(
 				name: Name.fake(
 					standardizedFamilyName: "DUCK",
 					standardizedGivenName: "DONALD<SID"
@@ -301,7 +301,7 @@ class HealthCertificateService_GroupingAfterDeletionTests: XCTestCase {
 	}
 	private func certificateSingleA() throws -> Base45 {
 		try base45Fake(
-			from: DigitalCovidCertificate.fake(
+			digitalCovidCertificate: DigitalCovidCertificate.fake(
 				name: Name.fake(
 					standardizedFamilyName: "GANS",
 					standardizedGivenName: "GUSTAV"

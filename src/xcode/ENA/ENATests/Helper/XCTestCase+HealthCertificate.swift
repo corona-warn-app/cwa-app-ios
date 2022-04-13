@@ -13,12 +13,14 @@ extension XCTestCase {
 	}
 
 	func base45Fake(
-		from digitalCovidCertificate: DigitalCovidCertificate,
-		and webTokenHeader: CBORWebTokenHeader = .fake()
+		digitalCovidCertificate: DigitalCovidCertificate,
+		webTokenHeader: CBORWebTokenHeader = .fake(),
+		keyIdentifier: Data = Data()
 	) throws -> Base45 {
 		let base45Result = DigitalCovidCertificateFake.makeBase45Fake(
 			from: digitalCovidCertificate,
-			and: webTokenHeader
+			and: webTokenHeader,
+			with: keyIdentifier
 		)
 
 		guard case let .success(base45) = base45Result else {
@@ -30,18 +32,20 @@ extension XCTestCase {
 	}
 	
 	func recoveryCertificate(
-		daysOffset: Int = 0
+		daysOffset: Int = 0,
+		keyIdentifier: Data = Data()
 	) throws -> HealthCertificate {
 		let date = Calendar.current.date(byAdding: .day, value: daysOffset, to: Date())
 		let recoveryCertificate = try HealthCertificate(
 			base45: try base45Fake(
-				from: DigitalCovidCertificate.fake(
+				digitalCovidCertificate: DigitalCovidCertificate.fake(
 					recoveryEntries: [
 						RecoveryEntry.fake(
 							dateOfFirstPositiveNAAResult: ISO8601DateFormatter.justUTCDateFormatter.string(from: try XCTUnwrap(date))
 						)
 					]
-				)
+				),
+				keyIdentifier: keyIdentifier
 			),
 			validityState: .valid
 		)
@@ -55,7 +59,8 @@ extension XCTestCase {
 		totalSeriesOfDoses: Int = 2,
 		identifier: String = "01DE/84503/1119349007/DXSGWLWL40SU8ZFKIYIBK39A3#S",
 		name: Name = .fake(),
-		dateOfBirth: String = "1942-01-01"
+		dateOfBirth: String = "1942-01-01",
+		keyIdentifier: Data = Data()
 	) throws -> HealthCertificate {
 		let date = Calendar.current.date(byAdding: .day, value: daysOffset, to: Date())
 		let vaccinationEntry = VaccinationEntry.fake(
@@ -66,13 +71,14 @@ extension XCTestCase {
 		)
 
 		let firstTestCertificateBase45 = try base45Fake(
-			from: DigitalCovidCertificate.fake(
+			digitalCovidCertificate: DigitalCovidCertificate.fake(
 				name: name,
 				dateOfBirth: dateOfBirth,
 				vaccinationEntries: [
 					vaccinationEntry
 				]
-			)
+			),
+			keyIdentifier: keyIdentifier
 		)
 
 		return try HealthCertificate(base45: firstTestCertificateBase45)
@@ -82,7 +88,8 @@ extension XCTestCase {
 		daysOffset: Int = 0,
 		type: CoronaTestType = .antigen,
 		identifier: String = "01DE/84503/1119349007/DXSGWLWL40SU8ZFKIYIBK39A4#S",
-		dateOfBirth: String = "1942-01-01"
+		dateOfBirth: String = "1942-01-01",
+		keyIdentifier: Data = Data()
 	) throws -> HealthCertificate {
 		let date = Calendar.current.date(byAdding: .day, value: daysOffset, to: Date())
 		let testEntry = TestEntry.fake(
@@ -92,12 +99,13 @@ extension XCTestCase {
 		)
 
 		let firstTestCertificateBase45 = try base45Fake(
-			from: DigitalCovidCertificate.fake(
+			digitalCovidCertificate: DigitalCovidCertificate.fake(
 				dateOfBirth: dateOfBirth,
 				testEntries: [
 					testEntry
 				]
-			)
+			),
+			keyIdentifier: keyIdentifier
 		)
 
 		return try HealthCertificate(base45: firstTestCertificateBase45)

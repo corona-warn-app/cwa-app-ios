@@ -35,13 +35,13 @@ class HealthCertificateServiceTests: CWATestCase {
 			}
 
 		let vaccinationCertificateBase45 = try base45Fake(
-			from: DigitalCovidCertificate.fake(
+			digitalCovidCertificate: DigitalCovidCertificate.fake(
 				name: .fake(standardizedFamilyName: "GUENDLING", standardizedGivenName: "NICK"),
 				vaccinationEntries: [
 					.fake(uniqueCertificateIdentifier: "0")
 				]
 			),
-			and: .fake(expirationTime: .distantPast)
+			webTokenHeader: .fake(expirationTime: .distantPast)
 		)
 		let vaccinationCertificate = try HealthCertificate(base45: vaccinationCertificateBase45, validityState: .expired, isValidityStateNew: true)
 
@@ -73,7 +73,7 @@ class HealthCertificateServiceTests: CWATestCase {
 		)
 
 		let firstTestCertificateBase45 = try base45Fake(
-			from: DigitalCovidCertificate.fake(
+			digitalCovidCertificate: DigitalCovidCertificate.fake(
 				name: .fake(standardizedFamilyName: "GUENDLING", standardizedGivenName: "NICK"),
 				testEntries: [TestEntry.fake(
 					dateTimeOfSampleCollection: "2021-05-29T22:34:17.595Z",
@@ -131,14 +131,14 @@ class HealthCertificateServiceTests: CWATestCase {
 		// Register first test certificate
 
 		let firstTestCertificateBase45 = try base45Fake(
-			from: DigitalCovidCertificate.fake(
+			digitalCovidCertificate: DigitalCovidCertificate.fake(
 				name: .fake(standardizedFamilyName: "GUENDLING", standardizedGivenName: "NICK"),
 				testEntries: [TestEntry.fake(
 					dateTimeOfSampleCollection: "2021-05-29T22:34:17.595Z",
 					uniqueCertificateIdentifier: "0"
 				)]
 			),
-			and: .fake(expirationTime: .distantFuture)
+			webTokenHeader: .fake(expirationTime: .distantFuture)
 		)
 		let firstTestCertificate = try HealthCertificate(base45: firstTestCertificateBase45)
 
@@ -177,7 +177,7 @@ class HealthCertificateServiceTests: CWATestCase {
 
 		// Try to register certificate with too many entries
 
-		let wrongCertificateBase45 = try base45Fake(from: DigitalCovidCertificate.fake(
+		let wrongCertificateBase45 = try base45Fake(digitalCovidCertificate: DigitalCovidCertificate.fake(
 			vaccinationEntries: [VaccinationEntry.fake(
 				dateOfVaccination: "2020-01-01"
 			)],
@@ -203,14 +203,14 @@ class HealthCertificateServiceTests: CWATestCase {
 		// Register second test certificate for same person
 
 		let secondTestCertificateBase45 = try base45Fake(
-			from: DigitalCovidCertificate.fake(
+			digitalCovidCertificate: DigitalCovidCertificate.fake(
 				name: .fake(standardizedFamilyName: "GUENDLING", standardizedGivenName: "NICK"),
 				testEntries: [TestEntry.fake(
 					dateTimeOfSampleCollection: "2021-05-30T22:34:17.595Z",
 					uniqueCertificateIdentifier: "1"
 				)]
 			),
-			and: .fake(expirationTime: .distantFuture)
+			webTokenHeader: .fake(expirationTime: .distantFuture)
 		)
 		let secondTestCertificate = try HealthCertificate(base45: secondTestCertificateBase45, isNew: true)
 
@@ -236,14 +236,14 @@ class HealthCertificateServiceTests: CWATestCase {
 		// Register vaccination certificate for same person
 
 		let firstVaccinationCertificateBase45 = try base45Fake(
-			from: DigitalCovidCertificate.fake(
+			digitalCovidCertificate: DigitalCovidCertificate.fake(
 				name: .fake(standardizedFamilyName: "GUENDLING", standardizedGivenName: "NICK"),
 				vaccinationEntries: [VaccinationEntry.fake(
 					dateOfVaccination: "2021-05-28",
 					uniqueCertificateIdentifier: "2"
 				)]
 			),
-			and: .fake(expirationTime: .distantFuture)
+			webTokenHeader: .fake(expirationTime: .distantFuture)
 		)
 		let firstVaccinationCertificate = try HealthCertificate(base45: firstVaccinationCertificateBase45, isNew: true)
 
@@ -270,14 +270,14 @@ class HealthCertificateServiceTests: CWATestCase {
 		// Register vaccination certificate for other person
 
 		let secondVaccinationCertificateBase45 = try base45Fake(
-			from: DigitalCovidCertificate.fake(
+			digitalCovidCertificate: DigitalCovidCertificate.fake(
 				name: .fake(standardizedFamilyName: "GUENDLING", standardizedGivenName: "MAX"),
 				vaccinationEntries: [VaccinationEntry.fake(
 					dateOfVaccination: "2021-05-14",
 					uniqueCertificateIdentifier: "3"
 				)]
 			),
-			and: .fake(expirationTime: .distantFuture)
+			webTokenHeader: .fake(expirationTime: .distantFuture)
 		)
 		let secondVaccinationCertificate = try HealthCertificate(base45: secondVaccinationCertificateBase45)
 
@@ -303,14 +303,14 @@ class HealthCertificateServiceTests: CWATestCase {
 		// Register test certificate for second person
 
 		let thirdTestCertificateBase45 = try base45Fake(
-			from: DigitalCovidCertificate.fake(
+			digitalCovidCertificate: DigitalCovidCertificate.fake(
 				name: .fake(standardizedFamilyName: "GUENDLING", standardizedGivenName: "MAX"),
 				testEntries: [TestEntry.fake(
 					dateTimeOfSampleCollection: "2021-04-30T22:34:17.595Z",
 					uniqueCertificateIdentifier: "4"
 				)]
 			),
-			and: .fake(expirationTime: .distantFuture)
+			webTokenHeader: .fake(expirationTime: .distantFuture)
 		)
 		let thirdTestCertificate = try HealthCertificate(base45: thirdTestCertificateBase45)
 
@@ -334,13 +334,13 @@ class HealthCertificateServiceTests: CWATestCase {
 		// Register expired recovery certificate for a third person to check gradients are correct
 
 		let firstRecoveryCertificateBase45 = try base45Fake(
-			from: DigitalCovidCertificate.fake(
+			digitalCovidCertificate: DigitalCovidCertificate.fake(
 				name: .fake(standardizedFamilyName: "GUENDLING", standardizedGivenName: "MICHI"),
 				recoveryEntries: [.fake(
 					uniqueCertificateIdentifier: "5"
 				)]
 			),
-			and: .fake(expirationTime: .distantPast)
+			webTokenHeader: .fake(expirationTime: .distantPast)
 		)
 		let firstRecoveryCertificate = try HealthCertificate(base45: firstRecoveryCertificateBase45, validityState: .expired, isValidityStateNew: true)
 
@@ -406,13 +406,13 @@ class HealthCertificateServiceTests: CWATestCase {
 		// Attempt to add a 4th person, max amount was set to 3
 
 		let secondRecoveryCertificateBase45 = try base45Fake(
-			from: DigitalCovidCertificate.fake(
+			digitalCovidCertificate: DigitalCovidCertificate.fake(
 				name: .fake(standardizedFamilyName: "AHMED", standardizedGivenName: "OMAR"),
 				recoveryEntries: [.fake(
 					uniqueCertificateIdentifier: "6"
 				)]
 			),
-			and: .fake(expirationTime: .distantPast)
+			webTokenHeader: .fake(expirationTime: .distantPast)
 		)
 
 		registrationResult = service.registerHealthCertificate(base45: secondRecoveryCertificateBase45, completedNotificationRegistration: { })
@@ -455,7 +455,7 @@ class HealthCertificateServiceTests: CWATestCase {
 		service.syncSetup()
 
 		let healthCertificate1 = try HealthCertificate(
-			base45: try base45Fake(from: DigitalCovidCertificate.fake(
+			base45: try base45Fake(digitalCovidCertificate: DigitalCovidCertificate.fake(
 				name: .fake(standardizedFamilyName: "MUSTERMANN", standardizedGivenName: "DORA"),
 				testEntries: [TestEntry.fake(
 					dateTimeOfSampleCollection: "2021-04-30T22:34:17.595Z",
@@ -465,7 +465,7 @@ class HealthCertificateServiceTests: CWATestCase {
 		)
 
 		let healthCertificate2 = try HealthCertificate(
-			base45: try base45Fake(from: DigitalCovidCertificate.fake(
+			base45: try base45Fake(digitalCovidCertificate: DigitalCovidCertificate.fake(
 				name: .fake(standardizedFamilyName: "MUSTERMANN", standardizedGivenName: "PHILIPP"),
 				vaccinationEntries: [VaccinationEntry.fake(
 					dateOfVaccination: "2021-05-14",
@@ -475,7 +475,7 @@ class HealthCertificateServiceTests: CWATestCase {
 		)
 
 		let healthCertificate3 = try HealthCertificate(
-			base45: try base45Fake(from: DigitalCovidCertificate.fake(
+			base45: try base45Fake(digitalCovidCertificate: DigitalCovidCertificate.fake(
 				name: .fake(standardizedFamilyName: "MUSTERMANN", standardizedGivenName: "PHILIPP"),
 				testEntries: [TestEntry.fake(
 					dateTimeOfSampleCollection: "2021-05-16T22:34:17.595Z",
@@ -565,14 +565,14 @@ class HealthCertificateServiceTests: CWATestCase {
 		// Move certificate to bin.
 
 		let firstTestCertificateBase45 = try base45Fake(
-			from: DigitalCovidCertificate.fake(
+			digitalCovidCertificate: DigitalCovidCertificate.fake(
 				name: .fake(standardizedFamilyName: "GUENDLING", standardizedGivenName: "NICK"),
 				testEntries: [TestEntry.fake(
 					dateTimeOfSampleCollection: "2021-05-29T22:34:17.595Z",
 					uniqueCertificateIdentifier: "0"
 				)]
 			),
-			and: .fake(expirationTime: .distantFuture)
+			webTokenHeader: .fake(expirationTime: .distantFuture)
 		)
 		let firstTestCertificate = try HealthCertificate(base45: firstTestCertificateBase45)
 
@@ -604,10 +604,10 @@ class HealthCertificateServiceTests: CWATestCase {
 		)
 
 		let healthCertificateBase45 = try base45Fake(
-			from: DigitalCovidCertificate.fake(
+			digitalCovidCertificate: DigitalCovidCertificate.fake(
 				recoveryEntries: [.fake()]
 			),
-			and: .fake(expirationTime: try XCTUnwrap(notYetExpiringSoonDate))
+			webTokenHeader: .fake(expirationTime: try XCTUnwrap(notYetExpiringSoonDate))
 		)
 		let healthCertificate = try HealthCertificate(base45: healthCertificateBase45)
 		XCTAssertEqual(healthCertificate.validityState, .valid)
@@ -644,10 +644,10 @@ class HealthCertificateServiceTests: CWATestCase {
 
 	func testValidityStateUpdate_InvalidSignature() throws {
 		let healthCertificateBase45 = try base45Fake(
-			from: DigitalCovidCertificate.fake(
+			digitalCovidCertificate: DigitalCovidCertificate.fake(
 				testEntries: [.fake()]
 			),
-			and: .fake(expirationTime: Date())
+			webTokenHeader: .fake(expirationTime: Date())
 		)
 		let healthCertificate = try HealthCertificate(base45: healthCertificateBase45)
 		XCTAssertEqual(healthCertificate.validityState, .valid)
@@ -677,10 +677,10 @@ class HealthCertificateServiceTests: CWATestCase {
 		)
 		
 		let healthCertificateBase45 = try base45Fake(
-			from: DigitalCovidCertificate.fake(
+			digitalCovidCertificate: DigitalCovidCertificate.fake(
 				recoveryEntries: [.fake()]
 			),
-			and: .fake(expirationTime: try XCTUnwrap(expiringDate))
+			webTokenHeader: .fake(expirationTime: try XCTUnwrap(expiringDate))
 		)
 		let healthCertificate = try HealthCertificate(base45: healthCertificateBase45)
 		XCTAssertEqual(healthCertificate.validityState, .valid)
@@ -724,10 +724,10 @@ class HealthCertificateServiceTests: CWATestCase {
 
 	func testValidityStateUpdate_JustExpired() throws {
 		let healthCertificateBase45 = try base45Fake(
-			from: DigitalCovidCertificate.fake(
+			digitalCovidCertificate: DigitalCovidCertificate.fake(
 				vaccinationEntries: [.fake()]
 			),
-			and: .fake(expirationTime: Date())
+			webTokenHeader: .fake(expirationTime: Date())
 		)
 		let healthCertificate = try HealthCertificate(base45: healthCertificateBase45)
 		XCTAssertEqual(healthCertificate.validityState, .valid)
@@ -759,10 +759,10 @@ class HealthCertificateServiceTests: CWATestCase {
 
 	func testValidityStateUpdate_LongExpired() throws {
 		let healthCertificateBase45 = try base45Fake(
-			from: DigitalCovidCertificate.fake(
+			digitalCovidCertificate: DigitalCovidCertificate.fake(
 				vaccinationEntries: [.fake()]
 			),
-			and: .fake(expirationTime: .distantPast)
+			webTokenHeader: .fake(expirationTime: .distantPast)
 		)
 		let healthCertificate = try HealthCertificate(base45: healthCertificateBase45)
 		XCTAssertEqual(healthCertificate.validityState, .valid)
@@ -801,10 +801,10 @@ class HealthCertificateServiceTests: CWATestCase {
 		)
 
 		let healthCertificateBase45 = try base45Fake(
-			from: DigitalCovidCertificate.fake(
+			digitalCovidCertificate: DigitalCovidCertificate.fake(
 				recoveryEntries: [.fake()]
 			),
-			and: .fake(expirationTime: try XCTUnwrap(expiringSoonDate))
+			webTokenHeader: .fake(expirationTime: try XCTUnwrap(expiringSoonDate))
 		)
 		let healthCertificate = try HealthCertificate(base45: healthCertificateBase45)
 		XCTAssertEqual(healthCertificate.validityState, .valid)
@@ -1120,10 +1120,10 @@ class HealthCertificateServiceTests: CWATestCase {
 		let expirationThresholdInDays = 14
 
 		let healthCertificateBase45 = try base45Fake(
-			from: DigitalCovidCertificate.fake(
+			digitalCovidCertificate: DigitalCovidCertificate.fake(
 				recoveryEntries: [.fake()]
 			),
-			and: .fake(expirationTime: Date(timeIntervalSinceNow: 10))
+			webTokenHeader: .fake(expirationTime: Date(timeIntervalSinceNow: 10))
 		)
 		let healthCertificate = try HealthCertificate(base45: healthCertificateBase45)
 		XCTAssertEqual(healthCertificate.validityState, .valid)
@@ -1175,7 +1175,7 @@ class HealthCertificateServiceTests: CWATestCase {
 		)
 		
 		let testCertificateBase45 = try base45Fake(
-			from: DigitalCovidCertificate.fake(
+			digitalCovidCertificate: DigitalCovidCertificate.fake(
 				name: .fake(standardizedFamilyName: "BRAUSE", standardizedGivenName: "PASCAL"),
 				testEntries: [TestEntry.fake(
 					dateTimeOfSampleCollection: "2021-07-22T22:22:22.225Z",
@@ -1185,7 +1185,7 @@ class HealthCertificateServiceTests: CWATestCase {
 		)
 		
 		let vaccinationCertificateBase45 = try base45Fake(
-			from: DigitalCovidCertificate.fake(
+			digitalCovidCertificate: DigitalCovidCertificate.fake(
 				name: .fake(standardizedFamilyName: "BRAUSE", standardizedGivenName: "PASCAL"),
 				vaccinationEntries: [VaccinationEntry.fake(
 					dateOfVaccination: "2021-05-28",
@@ -1195,7 +1195,7 @@ class HealthCertificateServiceTests: CWATestCase {
 		)
 		
 		let recoveryCertificateBase45 = try base45Fake(
-			from: DigitalCovidCertificate.fake(
+			digitalCovidCertificate: DigitalCovidCertificate.fake(
 				name: .fake(standardizedFamilyName: "BRAUSE", standardizedGivenName: "PASCAL"),
 				recoveryEntries: [RecoveryEntry.fake(
 					dateOfFirstPositiveNAAResult: "2021-05-28",
@@ -1228,7 +1228,7 @@ class HealthCertificateServiceTests: CWATestCase {
 		let store = MockTestStore()
 
 		let vaccinationCertificateBase45 = try base45Fake(
-			from: DigitalCovidCertificate.fake(
+			digitalCovidCertificate: DigitalCovidCertificate.fake(
 				name: .fake(standardizedFamilyName: "BRAUSE", standardizedGivenName: "PASCAL"),
 				vaccinationEntries: [VaccinationEntry.fake(
 					dateOfVaccination: "2021-09-04",
@@ -1488,7 +1488,7 @@ class HealthCertificateServiceTests: CWATestCase {
 		// Register vaccination certificate
 
 		let firstVaccinationCertificateBase45 = try base45Fake(
-			from: DigitalCovidCertificate.fake(
+			digitalCovidCertificate: DigitalCovidCertificate.fake(
 				name: .fake(standardizedFamilyName: "GUENDLING", standardizedGivenName: "NICK"),
 				vaccinationEntries: [VaccinationEntry.fake(
 					doseNumber: 2,
@@ -1497,7 +1497,7 @@ class HealthCertificateServiceTests: CWATestCase {
 					uniqueCertificateIdentifier: "2"
 				)]
 			),
-			and: .fake(expirationTime: .distantFuture)
+			webTokenHeader: .fake(expirationTime: .distantFuture)
 		)
 		let firstVaccinationCertificate = try HealthCertificate(base45: firstVaccinationCertificateBase45, isNew: true)
 
@@ -1715,7 +1715,7 @@ class HealthCertificateServiceTests: CWATestCase {
 		// Register vaccination certificate
 
 		let firstVaccinationCertificateBase45 = try base45Fake(
-			from: DigitalCovidCertificate.fake(
+			digitalCovidCertificate: DigitalCovidCertificate.fake(
 				name: .fake(standardizedFamilyName: "GUENDLING", standardizedGivenName: "NICK"),
 				vaccinationEntries: [VaccinationEntry.fake(
 					doseNumber: 2,
@@ -1724,7 +1724,7 @@ class HealthCertificateServiceTests: CWATestCase {
 					uniqueCertificateIdentifier: "3"
 				)]
 			),
-			and: .fake(expirationTime: .distantFuture)
+			webTokenHeader: .fake(expirationTime: .distantFuture)
 		)
 		let firstVaccinationCertificate = try HealthCertificate(base45: firstVaccinationCertificateBase45, isNew: true)
 
@@ -1790,7 +1790,7 @@ class HealthCertificateServiceTests: CWATestCase {
 		)
 		
 		let newCertificateBase45 = try base45Fake(
-			from: DigitalCovidCertificate.fake(
+			digitalCovidCertificate: DigitalCovidCertificate.fake(
 				vaccinationEntries: [
 					VaccinationEntry.fake(
 						uniqueCertificateIdentifier: "newCertificate"
@@ -1800,7 +1800,7 @@ class HealthCertificateServiceTests: CWATestCase {
 		)
 		
 		let oldCertificateBase45 = try base45Fake(
-			from: DigitalCovidCertificate.fake(
+			digitalCovidCertificate: DigitalCovidCertificate.fake(
 				vaccinationEntries: [
 					VaccinationEntry.fake(
 						uniqueCertificateIdentifier: "oldCertificate"
@@ -1842,7 +1842,7 @@ class HealthCertificateServiceTests: CWATestCase {
 		)
 		
 		let newCertificateBase45 = try base45Fake(
-			from: DigitalCovidCertificate.fake(
+			digitalCovidCertificate: DigitalCovidCertificate.fake(
 				vaccinationEntries: [
 					VaccinationEntry.fake(
 						uniqueCertificateIdentifier: "newCertificate"
@@ -1852,7 +1852,7 @@ class HealthCertificateServiceTests: CWATestCase {
 		)
 		
 		let oldCertificateBase45 = try base45Fake(
-			from: DigitalCovidCertificate.fake(
+			digitalCovidCertificate: DigitalCovidCertificate.fake(
 				vaccinationEntries: [
 					VaccinationEntry.fake(
 						uniqueCertificateIdentifier: "oldCertificate"

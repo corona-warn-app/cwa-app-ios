@@ -251,19 +251,19 @@ class HealthCertificateTests: XCTestCase {
 
 	func testGIVEN_MultipleCertificates_WHEN_Sorting_THEN_OrderIsCorrect() throws {
 		// GIVEN
-		let vaccinationCertificateBase45 = try base45Fake(from: DigitalCovidCertificate.fake(
+		let vaccinationCertificateBase45 = try base45Fake(digitalCovidCertificate: DigitalCovidCertificate.fake(
 			vaccinationEntries: [VaccinationEntry.fake(
 				dateOfVaccination: "2020-01-03"
 			)]
 		))
 
-		let testCertificateBase45 = try base45Fake(from: DigitalCovidCertificate.fake(
+		let testCertificateBase45 = try base45Fake(digitalCovidCertificate: DigitalCovidCertificate.fake(
 			testEntries: [TestEntry.fake(
 				dateTimeOfSampleCollection: "2020-01-02T12:00:00.000Z"
 			)]
 		))
 
-		let recoveryCertificateBase45 = try base45Fake(from: DigitalCovidCertificate.fake(
+		let recoveryCertificateBase45 = try base45Fake(digitalCovidCertificate: DigitalCovidCertificate.fake(
 			recoveryEntries: [RecoveryEntry.fake(
 				dateOfFirstPositiveNAAResult: "2020-01-01"
 			)]
@@ -563,19 +563,19 @@ class HealthCertificateTests: XCTestCase {
 
 	func testGIVEN_CertificatesWithOneEntry_WHEN_CheckingTooManyEntries_FalseIsReturned() throws {
 		// GIVEN
-		let vaccinationCertificateBase45 = try base45Fake(from: DigitalCovidCertificate.fake(
+		let vaccinationCertificateBase45 = try base45Fake(digitalCovidCertificate: DigitalCovidCertificate.fake(
 			vaccinationEntries: [VaccinationEntry.fake(
 				dateOfVaccination: "2020-01-03"
 			)]
 		))
 
-		let testCertificateBase45 = try base45Fake(from: DigitalCovidCertificate.fake(
+		let testCertificateBase45 = try base45Fake(digitalCovidCertificate: DigitalCovidCertificate.fake(
 			testEntries: [TestEntry.fake(
 				dateTimeOfSampleCollection: "2020-01-02T12:00:00.000Z"
 			)]
 		))
 
-		let recoveryCertificateBase45 = try base45Fake(from: DigitalCovidCertificate.fake(
+		let recoveryCertificateBase45 = try base45Fake(digitalCovidCertificate: DigitalCovidCertificate.fake(
 			vaccinationEntries: [VaccinationEntry.fake(
 				dateOfVaccination: "2020-01-01"
 			)]
@@ -593,7 +593,7 @@ class HealthCertificateTests: XCTestCase {
 
 	func testGIVEN_CertificatesWithMultipleEntries_WHEN_CheckingTooManyEntries_TrueIsReturned() throws {
 		// GIVEN
-		let firstWrongCertificateBase45 = try base45Fake(from: DigitalCovidCertificate.fake(
+		let firstWrongCertificateBase45 = try base45Fake(digitalCovidCertificate: DigitalCovidCertificate.fake(
 			vaccinationEntries: [VaccinationEntry.fake(
 				dateOfVaccination: "2020-01-01"
 			)],
@@ -603,7 +603,7 @@ class HealthCertificateTests: XCTestCase {
 			recoveryEntries: nil
 		))
 
-		let secondWrongCertificateBase45 = try base45Fake(from: DigitalCovidCertificate.fake(
+		let secondWrongCertificateBase45 = try base45Fake(digitalCovidCertificate: DigitalCovidCertificate.fake(
 			vaccinationEntries: [VaccinationEntry.fake(
 				dateOfVaccination: "2020-01-01"
 			)],
@@ -613,7 +613,7 @@ class HealthCertificateTests: XCTestCase {
 			)]
 		))
 
-		let thirdWrongCertificateBase45 = try base45Fake(from: DigitalCovidCertificate.fake(
+		let thirdWrongCertificateBase45 = try base45Fake(digitalCovidCertificate: DigitalCovidCertificate.fake(
 			vaccinationEntries: nil,
 			testEntries: [TestEntry.fake(
 				dateTimeOfSampleCollection: "2020-01-02T12:00:00.000Z"
@@ -623,7 +623,7 @@ class HealthCertificateTests: XCTestCase {
 			)]
 		))
 
-		let fourthWrongCertificateBase45 = try base45Fake(from: DigitalCovidCertificate.fake(
+		let fourthWrongCertificateBase45 = try base45Fake(digitalCovidCertificate: DigitalCovidCertificate.fake(
 			vaccinationEntries: [VaccinationEntry.fake(
 				dateOfVaccination: "2020-01-01"
 			)],
@@ -635,7 +635,7 @@ class HealthCertificateTests: XCTestCase {
 			)]
 		))
 
-		let fifthWrongCertificateBase45 = try base45Fake(from: DigitalCovidCertificate.fake(
+		let fifthWrongCertificateBase45 = try base45Fake(digitalCovidCertificate: DigitalCovidCertificate.fake(
 			vaccinationEntries: [
 				VaccinationEntry.fake(
 					dateOfVaccination: "2020-01-01"
@@ -666,13 +666,13 @@ class HealthCertificateTests: XCTestCase {
 
 	func testUniqueCertificateIdentifierChunks() throws {
 		let certificate1Base45 = try base45Fake(
-			from: .fake(vaccinationEntries: [.fake(uniqueCertificateIdentifier: "foo/bar::baz#999lizards")])
+			digitalCovidCertificate: .fake(vaccinationEntries: [.fake(uniqueCertificateIdentifier: "foo/bar::baz#999lizards")])
 		)
 		let certificate2Base45 = try base45Fake(
-			from: .fake(recoveryEntries: [.fake(uniqueCertificateIdentifier: "URN:UVCI:foo/bar::baz#999lizards")])
+			digitalCovidCertificate: .fake(recoveryEntries: [.fake(uniqueCertificateIdentifier: "URN:UVCI:foo/bar::baz#999lizards")])
 		)
 		let certificate3Base45 = try base45Fake(
-			from: .fake(testEntries: [.fake(uniqueCertificateIdentifier: "a::c/#/f")])
+			digitalCovidCertificate: .fake(testEntries: [.fake(uniqueCertificateIdentifier: "a::c/#/f")])
 		)
 
 		let certificate1 = try HealthCertificate(base45: certificate1Base45)

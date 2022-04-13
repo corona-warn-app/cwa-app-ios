@@ -8,7 +8,11 @@ import SwiftCBOR
 
 public enum DigitalCovidCertificateFake {
 
-    public static func makeBase45Fake(from certificate: Codable, and header: CBORWebTokenHeader) -> Result<Base45, CertificateDecodingError> {
+    public static func makeBase45Fake(
+        from certificate: Codable,
+        and header: CBORWebTokenHeader,
+        with keyIdentifier: Data = Data()
+    ) -> Result<Base45, CertificateDecodingError> {
 
         guard let cborCertificateData = try? CodableCBOREncoder().encode(certificate) else {
             return .failure(.HC_BASE45_ENCODING_FAILED)
@@ -29,7 +33,6 @@ public enum DigitalCovidCertificateFake {
         cborWebTokenPayload[6] = CBOR.unsignedInt(UInt64(header.issuedAt.timeIntervalSince1970))
 
         let cborWebTokenPayloadBytes = cborWebTokenPayload.encode()
-
         let cborWebTokenMessage = CBOR.array([
             // protected header
             CBOR.byteString(
@@ -40,7 +43,7 @@ public enum DigitalCovidCertificateFake {
                     CBOR.null,
                     CBOR.null,
                     // key identifier
-                    CBOR.byteString([UInt8]())
+                    CBOR.byteString([UInt8](keyIdentifier))
                 ]).encode()
             ),
             CBOR.null,

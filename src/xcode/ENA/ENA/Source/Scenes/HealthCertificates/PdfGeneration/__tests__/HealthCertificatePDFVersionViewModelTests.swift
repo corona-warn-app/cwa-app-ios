@@ -29,7 +29,7 @@ class HealthCertificatePDFVersionViewModelTests: XCTestCase {
 		// GIVEN
 		let healthCertificate = try HealthCertificate(
 			base45: try base45Fake(
-					  from: DigitalCovidCertificate.fake(
+					  digitalCovidCertificate: DigitalCovidCertificate.fake(
 						  name: Name.fake(
 							  familyName: "Duck", givenName: "Donald"
 						  )

@@ -29,4 +29,39 @@ class RevocationProviderTests: CWATestCase {
 		XCTAssertEqual(hexString, "c8b1cb36f4a5e36f".uppercased())
 	}
 
+
+	func testGIVEN_given_WHEN_when_THEN_then() throws {
+		// GIVEN
+		let certificates = try getCertificates()
+
+		certificates.allSatisfy { certificate in
+			!certificate.keyIdentifier.isEmpty
+		}
+
+//		let verifier = MockVerifier()
+//		let restService = RestServiceProviderStub(
+//			loadResources: [
+//				LoadResource(
+//					result: .success(<#T##Any#>),
+//					willLoadResource: <#T##((Any) -> Void)?##((Any) -> Void)?##(Any) -> Void#>)
+//
+//			]
+//		)
+
+		// WHEN
+
+		// THEN
+	}
+
+	private func getCertificates() throws -> [HealthCertificate] {
+		[
+			try vaccinationCertificate(doseNumber: 1, totalSeriesOfDoses: 2),
+			try vaccinationCertificate(doseNumber: 2, totalSeriesOfDoses: 2),
+			try testCertificate(),
+			try recoveryCertificate()
+		]
+	}
+
+
+
 }

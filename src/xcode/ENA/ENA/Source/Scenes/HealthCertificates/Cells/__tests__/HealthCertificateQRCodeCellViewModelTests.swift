@@ -15,7 +15,7 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 			mode: .overview,
 			healthCertificate: try HealthCertificate(
 				base45: try base45Fake(
-					from: DigitalCovidCertificate.fake(
+					digitalCovidCertificate: DigitalCovidCertificate.fake(
 						vaccinationEntries: [
 							.fake(
 								dateOfVaccination: "2021-06-01"
@@ -50,7 +50,7 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 			mode: .overview,
 			healthCertificate: try HealthCertificate(
 				base45: try base45Fake(
-					from: DigitalCovidCertificate.fake(
+					digitalCovidCertificate: DigitalCovidCertificate.fake(
 						vaccinationEntries: [
 							.fake(
 								dateOfVaccination: "2021-06-01"
@@ -86,7 +86,7 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 			mode: .details,
 			healthCertificate: try HealthCertificate(
 				base45: try base45Fake(
-					from: DigitalCovidCertificate.fake(
+					digitalCovidCertificate: DigitalCovidCertificate.fake(
 						vaccinationEntries: [
 							.fake()
 						]
@@ -119,7 +119,7 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 			mode: .details,
 			healthCertificate: try HealthCertificate(
 				base45: try base45Fake(
-					from: DigitalCovidCertificate.fake(
+					digitalCovidCertificate: DigitalCovidCertificate.fake(
 						vaccinationEntries: [
 							.fake()
 						]
@@ -154,14 +154,14 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 			mode: .overview,
 			healthCertificate: try HealthCertificate(
 				base45: try base45Fake(
-					from: DigitalCovidCertificate.fake(
+					digitalCovidCertificate: DigitalCovidCertificate.fake(
 						vaccinationEntries: [
 							.fake(
 								dateOfVaccination: "2021-06-01"
 							)
 						]
 					),
-					and: .fake(expirationTime: expirationDate)
+					webTokenHeader: .fake(expirationTime: expirationDate)
 				),
 				validityState: .expiringSoon
 			),
@@ -198,14 +198,14 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 			mode: .overview,
 			healthCertificate: try HealthCertificate(
 				base45: try base45Fake(
-					from: DigitalCovidCertificate.fake(
+					digitalCovidCertificate: DigitalCovidCertificate.fake(
 						vaccinationEntries: [
 							.fake(
 								dateOfVaccination: "2021-06-01"
 							)
 						]
 					),
-					and: .fake(expirationTime: expirationDate)
+					webTokenHeader: .fake(expirationTime: expirationDate)
 				),
 				validityState: .expiringSoon,
 				isValidityStateNew: true
@@ -243,12 +243,12 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 			mode: .details,
 			healthCertificate: try HealthCertificate(
 				base45: try base45Fake(
-					from: DigitalCovidCertificate.fake(
+					digitalCovidCertificate: DigitalCovidCertificate.fake(
 						vaccinationEntries: [
 							.fake()
 						]
 					),
-					and: .fake(expirationTime: expirationDate)
+					webTokenHeader: .fake(expirationTime: expirationDate)
 				),
 				validityState: .expiringSoon
 			),
@@ -285,12 +285,12 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 			mode: .details,
 			healthCertificate: try HealthCertificate(
 				base45: try base45Fake(
-					from: DigitalCovidCertificate.fake(
+					digitalCovidCertificate: DigitalCovidCertificate.fake(
 						vaccinationEntries: [
 							.fake()
 						]
 					),
-					and: .fake(expirationTime: expirationDate)
+					webTokenHeader: .fake(expirationTime: expirationDate)
 				),
 				validityState: .expiringSoon,
 				isValidityStateNew: true
@@ -325,7 +325,7 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 			mode: .overview,
 			healthCertificate: try HealthCertificate(
 				base45: try base45Fake(
-					from: DigitalCovidCertificate.fake(
+					digitalCovidCertificate: DigitalCovidCertificate.fake(
 						vaccinationEntries: [
 							.fake(
 								dateOfVaccination: "2021-06-01"
@@ -360,7 +360,7 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 			mode: .overview,
 			healthCertificate: try HealthCertificate(
 				base45: try base45Fake(
-					from: DigitalCovidCertificate.fake(
+					digitalCovidCertificate: DigitalCovidCertificate.fake(
 						vaccinationEntries: [
 							.fake(
 								dateOfVaccination: "2021-06-01"
@@ -396,7 +396,7 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 			mode: .details,
 			healthCertificate: try HealthCertificate(
 				base45: try base45Fake(
-					from: DigitalCovidCertificate.fake(
+					digitalCovidCertificate: DigitalCovidCertificate.fake(
 						vaccinationEntries: [
 							.fake()
 						]
@@ -429,7 +429,7 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 			mode: .details,
 			healthCertificate: try HealthCertificate(
 				base45: try base45Fake(
-					from: DigitalCovidCertificate.fake(
+					digitalCovidCertificate: DigitalCovidCertificate.fake(
 						vaccinationEntries: [
 							.fake()
 						]
@@ -463,7 +463,7 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 			mode: .overview,
 			healthCertificate: try HealthCertificate(
 				base45: try base45Fake(
-					from: DigitalCovidCertificate.fake(
+					digitalCovidCertificate: DigitalCovidCertificate.fake(
 						vaccinationEntries: [
 							.fake(
 								dateOfVaccination: "2021-06-01"
@@ -498,7 +498,7 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 			mode: .overview,
 			healthCertificate: try HealthCertificate(
 				base45: try base45Fake(
-					from: DigitalCovidCertificate.fake(
+					digitalCovidCertificate: DigitalCovidCertificate.fake(
 						vaccinationEntries: [
 							.fake(
 								dateOfVaccination: "2021-06-01"
@@ -534,7 +534,7 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 			mode: .details,
 			healthCertificate: try HealthCertificate(
 				base45: try base45Fake(
-					from: DigitalCovidCertificate.fake(
+					digitalCovidCertificate: DigitalCovidCertificate.fake(
 						vaccinationEntries: [
 							.fake()
 						]
@@ -567,7 +567,7 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 			mode: .details,
 			healthCertificate: try HealthCertificate(
 				base45: try base45Fake(
-					from: DigitalCovidCertificate.fake(
+					digitalCovidCertificate: DigitalCovidCertificate.fake(
 						vaccinationEntries: [
 							.fake()
 						]
@@ -601,7 +601,7 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 			mode: .overview,
 			healthCertificate: try HealthCertificate(
 				base45: try base45Fake(
-					from: DigitalCovidCertificate.fake(
+					digitalCovidCertificate: DigitalCovidCertificate.fake(
 						vaccinationEntries: [
 							.fake(
 								dateOfVaccination: "2021-06-01"
@@ -636,7 +636,7 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 			mode: .overview,
 			healthCertificate: try HealthCertificate(
 				base45: try base45Fake(
-					from: DigitalCovidCertificate.fake(
+					digitalCovidCertificate: DigitalCovidCertificate.fake(
 						vaccinationEntries: [
 							.fake(
 								dateOfVaccination: "2021-06-01"
@@ -672,7 +672,7 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 			mode: .details,
 			healthCertificate: try HealthCertificate(
 				base45: try base45Fake(
-					from: DigitalCovidCertificate.fake(
+					digitalCovidCertificate: DigitalCovidCertificate.fake(
 						vaccinationEntries: [
 							.fake()
 						]
@@ -705,7 +705,7 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 			mode: .details,
 			healthCertificate: try HealthCertificate(
 				base45: try base45Fake(
-					from: DigitalCovidCertificate.fake(
+					digitalCovidCertificate: DigitalCovidCertificate.fake(
 						vaccinationEntries: [
 							.fake()
 						]
@@ -743,7 +743,7 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 			mode: .overview,
 			healthCertificate: try HealthCertificate(
 				base45: try base45Fake(
-					from: DigitalCovidCertificate.fake(
+					digitalCovidCertificate: DigitalCovidCertificate.fake(
 						testEntries: [
 							.fake(
 								dateTimeOfSampleCollection: dateTimeOfSampleCollection
@@ -782,7 +782,7 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 			mode: .overview,
 			healthCertificate: try HealthCertificate(
 				base45: try base45Fake(
-					from: DigitalCovidCertificate.fake(
+					digitalCovidCertificate: DigitalCovidCertificate.fake(
 						testEntries: [
 							.fake(
 								dateTimeOfSampleCollection: dateTimeOfSampleCollection
@@ -818,7 +818,7 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 			mode: .details,
 			healthCertificate: try HealthCertificate(
 				base45: try base45Fake(
-					from: DigitalCovidCertificate.fake(
+					digitalCovidCertificate: DigitalCovidCertificate.fake(
 						testEntries: [
 							.fake()
 						]
@@ -851,7 +851,7 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 			mode: .details,
 			healthCertificate: try HealthCertificate(
 				base45: try base45Fake(
-					from: DigitalCovidCertificate.fake(
+					digitalCovidCertificate: DigitalCovidCertificate.fake(
 						testEntries: [
 							.fake()
 						]
@@ -889,14 +889,14 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 			mode: .overview,
 			healthCertificate: try HealthCertificate(
 				base45: try base45Fake(
-					from: DigitalCovidCertificate.fake(
+					digitalCovidCertificate: DigitalCovidCertificate.fake(
 						testEntries: [
 							.fake(
 								dateTimeOfSampleCollection: dateTimeOfSampleCollection
 							)
 						]
 					),
-					and: .fake(expirationTime: Date(timeIntervalSince1970: 1627987295))
+					webTokenHeader: .fake(expirationTime: Date(timeIntervalSince1970: 1627987295))
 				),
 				validityState: .expiringSoon
 			),
@@ -929,14 +929,14 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 			mode: .overview,
 			healthCertificate: try HealthCertificate(
 				base45: try base45Fake(
-					from: DigitalCovidCertificate.fake(
+					digitalCovidCertificate: DigitalCovidCertificate.fake(
 						testEntries: [
 							.fake(
 								dateTimeOfSampleCollection: dateTimeOfSampleCollection
 							)
 						]
 					),
-					and: .fake(expirationTime: Date(timeIntervalSince1970: 1627987295))
+					webTokenHeader: .fake(expirationTime: Date(timeIntervalSince1970: 1627987295))
 				),
 				validityState: .expiringSoon,
 				isValidityStateNew: true
@@ -966,12 +966,12 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 			mode: .details,
 			healthCertificate: try HealthCertificate(
 				base45: try base45Fake(
-					from: DigitalCovidCertificate.fake(
+					digitalCovidCertificate: DigitalCovidCertificate.fake(
 						testEntries: [
 							.fake()
 						]
 					),
-					and: .fake(expirationTime: Date(timeIntervalSince1970: 1627987295))
+					webTokenHeader: .fake(expirationTime: Date(timeIntervalSince1970: 1627987295))
 				),
 				validityState: .expiringSoon
 			),
@@ -1000,12 +1000,12 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 			mode: .details,
 			healthCertificate: try HealthCertificate(
 				base45: try base45Fake(
-					from: DigitalCovidCertificate.fake(
+					digitalCovidCertificate: DigitalCovidCertificate.fake(
 						testEntries: [
 							.fake()
 						]
 					),
-					and: .fake(expirationTime: Date(timeIntervalSince1970: 1627987295))
+					webTokenHeader: .fake(expirationTime: Date(timeIntervalSince1970: 1627987295))
 				),
 				validityState: .expiringSoon,
 				isValidityStateNew: true
@@ -1039,7 +1039,7 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 			mode: .overview,
 			healthCertificate: try HealthCertificate(
 				base45: try base45Fake(
-					from: DigitalCovidCertificate.fake(
+					digitalCovidCertificate: DigitalCovidCertificate.fake(
 						testEntries: [
 							.fake(
 								dateTimeOfSampleCollection: dateTimeOfSampleCollection
@@ -1078,7 +1078,7 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 			mode: .overview,
 			healthCertificate: try HealthCertificate(
 				base45: try base45Fake(
-					from: DigitalCovidCertificate.fake(
+					digitalCovidCertificate: DigitalCovidCertificate.fake(
 						testEntries: [
 							.fake(
 								dateTimeOfSampleCollection: dateTimeOfSampleCollection
@@ -1114,7 +1114,7 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 			mode: .details,
 			healthCertificate: try HealthCertificate(
 				base45: try base45Fake(
-					from: DigitalCovidCertificate.fake(
+					digitalCovidCertificate: DigitalCovidCertificate.fake(
 						testEntries: [
 							.fake()
 						]
@@ -1147,7 +1147,7 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 			mode: .details,
 			healthCertificate: try HealthCertificate(
 				base45: try base45Fake(
-					from: DigitalCovidCertificate.fake(
+					digitalCovidCertificate: DigitalCovidCertificate.fake(
 						testEntries: [
 							.fake()
 						]
@@ -1181,7 +1181,7 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 			mode: .overview,
 			healthCertificate: try HealthCertificate(
 				base45: try base45Fake(
-					from: DigitalCovidCertificate.fake(
+					digitalCovidCertificate: DigitalCovidCertificate.fake(
 						testEntries: [
 							.fake()
 						]
@@ -1214,7 +1214,7 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 			mode: .overview,
 			healthCertificate: try HealthCertificate(
 				base45: try base45Fake(
-					from: DigitalCovidCertificate.fake(
+					digitalCovidCertificate: DigitalCovidCertificate.fake(
 						testEntries: [
 							.fake()
 						]
@@ -1248,7 +1248,7 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 			mode: .details,
 			healthCertificate: try HealthCertificate(
 				base45: try base45Fake(
-					from: DigitalCovidCertificate.fake(
+					digitalCovidCertificate: DigitalCovidCertificate.fake(
 						testEntries: [
 							.fake()
 						]
@@ -1281,7 +1281,7 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 			mode: .details,
 			healthCertificate: try HealthCertificate(
 				base45: try base45Fake(
-					from: DigitalCovidCertificate.fake(
+					digitalCovidCertificate: DigitalCovidCertificate.fake(
 						testEntries: [
 							.fake()
 						]
@@ -1315,7 +1315,7 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 			mode: .overview,
 			healthCertificate: try HealthCertificate(
 				base45: try base45Fake(
-					from: DigitalCovidCertificate.fake(
+					digitalCovidCertificate: DigitalCovidCertificate.fake(
 						testEntries: [
 							.fake()
 						]
@@ -1348,7 +1348,7 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 			mode: .overview,
 			healthCertificate: try HealthCertificate(
 				base45: try base45Fake(
-					from: DigitalCovidCertificate.fake(
+					digitalCovidCertificate: DigitalCovidCertificate.fake(
 						testEntries: [
 							.fake()
 						]
@@ -1382,7 +1382,7 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 			mode: .details,
 			healthCertificate: try HealthCertificate(
 				base45: try base45Fake(
-					from: DigitalCovidCertificate.fake(
+					digitalCovidCertificate: DigitalCovidCertificate.fake(
 						testEntries: [
 							.fake()
 						]
@@ -1415,7 +1415,7 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 			mode: .details,
 			healthCertificate: try HealthCertificate(
 				base45: try base45Fake(
-					from: DigitalCovidCertificate.fake(
+					digitalCovidCertificate: DigitalCovidCertificate.fake(
 						testEntries: [
 							.fake()
 						]
@@ -1449,7 +1449,7 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 			mode: .overview,
 			healthCertificate: try HealthCertificate(
 				base45: try base45Fake(
-					from: DigitalCovidCertificate.fake(
+					digitalCovidCertificate: DigitalCovidCertificate.fake(
 						recoveryEntries: [
 							RecoveryEntry.fake(
 								dateOfFirstPositiveNAAResult: "2022-03-01T07:12:45.132Z"
@@ -1484,7 +1484,7 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 			mode: .overview,
 			healthCertificate: try HealthCertificate(
 				base45: try base45Fake(
-					from: DigitalCovidCertificate.fake(
+					digitalCovidCertificate: DigitalCovidCertificate.fake(
 						recoveryEntries: [
 							RecoveryEntry.fake(
 								dateOfFirstPositiveNAAResult: "2022-03-01T07:12:45.132Z"
@@ -1520,7 +1520,7 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 			mode: .details,
 			healthCertificate: try HealthCertificate(
 				base45: try base45Fake(
-					from: DigitalCovidCertificate.fake(
+					digitalCovidCertificate: DigitalCovidCertificate.fake(
 						recoveryEntries: [
 							.fake()
 						]
@@ -1553,7 +1553,7 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 			mode: .details,
 			healthCertificate: try HealthCertificate(
 				base45: try base45Fake(
-					from: DigitalCovidCertificate.fake(
+					digitalCovidCertificate: DigitalCovidCertificate.fake(
 						recoveryEntries: [
 							.fake()
 						]
@@ -1588,14 +1588,14 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 			mode: .overview,
 			healthCertificate: try HealthCertificate(
 				base45: try base45Fake(
-					from: DigitalCovidCertificate.fake(
+					digitalCovidCertificate: DigitalCovidCertificate.fake(
 						recoveryEntries: [
 							.fake(
 								dateOfFirstPositiveNAAResult: "2022-03-01T07:12:45.132Z"
 							)
 						]
 					),
-					and: .fake(expirationTime: expirationDate)
+					webTokenHeader: .fake(expirationTime: expirationDate)
 				),
 				validityState: .expiringSoon
 			),
@@ -1632,14 +1632,14 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 			mode: .overview,
 			healthCertificate: try HealthCertificate(
 				base45: try base45Fake(
-					from: DigitalCovidCertificate.fake(
+					digitalCovidCertificate: DigitalCovidCertificate.fake(
 						recoveryEntries: [
 							.fake(
 								dateOfFirstPositiveNAAResult: "2022-03-01T07:12:45.132Z"
 							)
 						]
 					),
-					and: .fake(expirationTime: expirationDate)
+					webTokenHeader: .fake(expirationTime: expirationDate)
 				),
 				validityState: .expiringSoon,
 				isValidityStateNew: true
@@ -1675,12 +1675,12 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 			mode: .details,
 			healthCertificate: try HealthCertificate(
 				base45: try base45Fake(
-					from: DigitalCovidCertificate.fake(
+					digitalCovidCertificate: DigitalCovidCertificate.fake(
 						recoveryEntries: [
 							.fake()
 						]
 					),
-					and: .fake(expirationTime: expirationDate)
+					webTokenHeader: .fake(expirationTime: expirationDate)
 				),
 				validityState: .expiringSoon
 			),
@@ -1717,12 +1717,12 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 			mode: .details,
 			healthCertificate: try HealthCertificate(
 				base45: try base45Fake(
-					from: DigitalCovidCertificate.fake(
+					digitalCovidCertificate: DigitalCovidCertificate.fake(
 						recoveryEntries: [
 							.fake()
 						]
 					),
-					and: .fake(expirationTime: expirationDate)
+					webTokenHeader: .fake(expirationTime: expirationDate)
 				),
 				validityState: .expiringSoon,
 				isValidityStateNew: true
@@ -1759,7 +1759,7 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 			mode: .overview,
 			healthCertificate: try HealthCertificate(
 				base45: try base45Fake(
-					from: DigitalCovidCertificate.fake(
+					digitalCovidCertificate: DigitalCovidCertificate.fake(
 						recoveryEntries: [
 							.fake()
 						]
@@ -1792,7 +1792,7 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 			mode: .overview,
 			healthCertificate: try HealthCertificate(
 				base45: try base45Fake(
-					from: DigitalCovidCertificate.fake(
+					digitalCovidCertificate: DigitalCovidCertificate.fake(
 						recoveryEntries: [
 							.fake()
 						]
@@ -1826,7 +1826,7 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 			mode: .details,
 			healthCertificate: try HealthCertificate(
 				base45: try base45Fake(
-					from: DigitalCovidCertificate.fake(
+					digitalCovidCertificate: DigitalCovidCertificate.fake(
 						recoveryEntries: [
 							.fake()
 						]
@@ -1859,7 +1859,7 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 			mode: .details,
 			healthCertificate: try HealthCertificate(
 				base45: try base45Fake(
-					from: DigitalCovidCertificate.fake(
+					digitalCovidCertificate: DigitalCovidCertificate.fake(
 						recoveryEntries: [
 							.fake()
 						]
@@ -1893,7 +1893,7 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 			mode: .overview,
 			healthCertificate: try HealthCertificate(
 				base45: try base45Fake(
-					from: DigitalCovidCertificate.fake(
+					digitalCovidCertificate: DigitalCovidCertificate.fake(
 						recoveryEntries: [
 							.fake()
 						]
@@ -1926,7 +1926,7 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 			mode: .overview,
 			healthCertificate: try HealthCertificate(
 				base45: try base45Fake(
-					from: DigitalCovidCertificate.fake(
+					digitalCovidCertificate: DigitalCovidCertificate.fake(
 						recoveryEntries: [
 							.fake()
 						]
@@ -1960,7 +1960,7 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 			mode: .details,
 			healthCertificate: try HealthCertificate(
 				base45: try base45Fake(
-					from: DigitalCovidCertificate.fake(
+					digitalCovidCertificate: DigitalCovidCertificate.fake(
 						recoveryEntries: [
 							.fake()
 						]
@@ -1993,7 +1993,7 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 			mode: .details,
 			healthCertificate: try HealthCertificate(
 				base45: try base45Fake(
-					from: DigitalCovidCertificate.fake(
+					digitalCovidCertificate: DigitalCovidCertificate.fake(
 						recoveryEntries: [
 							.fake()
 						]
@@ -2027,7 +2027,7 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 			mode: .overview,
 			healthCertificate: try HealthCertificate(
 				base45: try base45Fake(
-					from: DigitalCovidCertificate.fake(
+					digitalCovidCertificate: DigitalCovidCertificate.fake(
 						recoveryEntries: [
 							.fake()
 						]
@@ -2060,7 +2060,7 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 			mode: .overview,
 			healthCertificate: try HealthCertificate(
 				base45: try base45Fake(
-					from: DigitalCovidCertificate.fake(
+					digitalCovidCertificate: DigitalCovidCertificate.fake(
 						recoveryEntries: [
 							.fake()
 						]
@@ -2094,7 +2094,7 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 			mode: .details,
 			healthCertificate: try HealthCertificate(
 				base45: try base45Fake(
-					from: DigitalCovidCertificate.fake(
+					digitalCovidCertificate: DigitalCovidCertificate.fake(
 						recoveryEntries: [
 							.fake()
 						]
@@ -2127,7 +2127,7 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 			mode: .details,
 			healthCertificate: try HealthCertificate(
 				base45: try base45Fake(
-					from: DigitalCovidCertificate.fake(
+					digitalCovidCertificate: DigitalCovidCertificate.fake(
 						recoveryEntries: [
 							.fake()
 						]
