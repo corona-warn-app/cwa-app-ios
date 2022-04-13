@@ -930,7 +930,11 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 				}
 			},
 			didTapContinue: { [weak self] in
-				self?.showAntigenTestProfileOverview()
+				if let antigenTestProfileInfoScreenShown = self?.store.antigenTestProfileInfoScreenShown, antigenTestProfileInfoScreenShown {
+					self?.popViewController()
+				} else {
+					self?.showAntigenTestProfileOverview()
+				}
 			},
 			dismiss: { [weak self] in
 				self?.dismiss()

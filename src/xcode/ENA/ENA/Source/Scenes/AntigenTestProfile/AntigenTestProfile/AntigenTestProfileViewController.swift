@@ -171,8 +171,8 @@ class AntigenTestProfileViewController: UIViewController, UITableViewDataSource,
 	private var originalBackgroundImage: UIImage?
 	private var originalShadowImage: UIImage?
 
-	private func setupNavigationBar(animated: Bool) {
-		let logoImage = UIImage(imageLiteralResourceName: "Corona-Warn-App").withRenderingMode(.alwaysTemplate)
+	private func setupNavigationBar(animated: Bool) {		
+		let logoImage = UIImage(imageLiteralResourceName: "Corona-Warn-App-Small").withRenderingMode(.alwaysTemplate)
 		let logoImageView = UIImageView(image: logoImage)
 		logoImageView.tintColor = .enaColor(for: .textContrast)
 
