@@ -40,6 +40,7 @@ struct KIDTypeChunkResource: Resource {
 
 	typealias Send = EmptySendResource
 	typealias Receive = ProtobufReceiveResource<SAP_Internal_Dgc_RevocationChunk>
+	typealias CustomError = KIDTypeChunkResourceError
 
 	let trustEvaluation: TrustEvaluating
 	let locator: Locator

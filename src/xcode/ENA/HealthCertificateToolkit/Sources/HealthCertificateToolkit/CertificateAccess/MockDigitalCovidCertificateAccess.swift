@@ -45,8 +45,8 @@ public struct MockDigitalCovidCertificateAccess: DigitalCovidCertificateAccessPr
     public func convertToBase45(from base64: Base64, with dataEncryptionKey: Data) -> Result<Base45, CertificateDecodingError> {
         guard let convertedToBase45 = convertedToBase45 else {
             return DigitalCovidCertificateFake.makeBase45Fake(
-                from: DigitalCovidCertificate.fake(),
-                and: CBORWebTokenHeader.fake()
+                certificate: DigitalCovidCertificate.fake(),
+                header: CBORWebTokenHeader.fake()
             )
         }
 

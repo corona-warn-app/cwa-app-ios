@@ -18,9 +18,9 @@ extension XCTestCase {
 		keyIdentifier: Data = Data()
 	) throws -> Base45 {
 		let base45Result = DigitalCovidCertificateFake.makeBase45Fake(
-			from: digitalCovidCertificate,
-			and: webTokenHeader,
-			with: keyIdentifier
+			certificate: digitalCovidCertificate,
+			header: webTokenHeader,
+			keyIdentifier: keyIdentifier
 		)
 
 		guard case let .success(base45) = base45Result else {

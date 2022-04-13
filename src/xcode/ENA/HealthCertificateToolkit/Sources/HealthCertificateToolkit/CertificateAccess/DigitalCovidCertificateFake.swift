@@ -9,9 +9,9 @@ import SwiftCBOR
 public enum DigitalCovidCertificateFake {
 
     public static func makeBase45Fake(
-        from certificate: Codable,
-        and header: CBORWebTokenHeader,
-        with keyIdentifier: Data = Data()
+        certificate: Codable,
+        header: CBORWebTokenHeader,
+        keyIdentifier: Data = Data()
     ) -> Result<Base45, CertificateDecodingError> {
 
         guard let cborCertificateData = try? CodableCBOREncoder().encode(certificate) else {

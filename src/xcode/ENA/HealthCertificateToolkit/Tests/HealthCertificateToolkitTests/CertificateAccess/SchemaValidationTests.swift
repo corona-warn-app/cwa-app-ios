@@ -26,7 +26,7 @@ class SchemaValidationTests: XCTestCase {
             ]
         )
 
-        let base45FakeResult = DigitalCovidCertificateFake.makeBase45Fake(from: fakeCertificate, and: CBORWebTokenHeader.fake())
+        let base45FakeResult = DigitalCovidCertificateFake.makeBase45Fake(certificate: fakeCertificate, header: CBORWebTokenHeader.fake())
         guard case let .success(base45Fake) = base45FakeResult else {
             XCTFail("Success expected.")
             return
@@ -79,7 +79,7 @@ class SchemaValidationTests: XCTestCase {
             ]
         )
 
-        let base45FakeResult = DigitalCovidCertificateFake.makeBase45Fake(from: fakeCertificate, and: CBORWebTokenHeader.fake())
+        let base45FakeResult = DigitalCovidCertificateFake.makeBase45Fake(certificate: fakeCertificate, header: CBORWebTokenHeader.fake())
         guard case let .success(base45Fake) = base45FakeResult else {
             XCTFail("Success expected.")
             return
@@ -134,7 +134,7 @@ class SchemaValidationTests: XCTestCase {
             ]
         )
 
-        let base45FakeResult = DigitalCovidCertificateFake.makeBase45Fake(from: fakeCertificate, and: CBORWebTokenHeader.fake())
+        let base45FakeResult = DigitalCovidCertificateFake.makeBase45Fake(certificate: fakeCertificate, header: CBORWebTokenHeader.fake())
         guard case let .success(base45Fake) = base45FakeResult else {
             XCTFail("Success expected.")
             return
@@ -188,7 +188,7 @@ class SchemaValidationTests: XCTestCase {
                 return
             }
 
-            let base45FakeResult = DigitalCovidCertificateFake.makeBase45Fake(from: certificate, and: CBORWebTokenHeader.fake())
+            let base45FakeResult = DigitalCovidCertificateFake.makeBase45Fake(certificate: certificate, header: CBORWebTokenHeader.fake())
             guard case let .success(base45Fake) = base45FakeResult else {
                 XCTFail("Success expected.")
                 return
@@ -219,7 +219,7 @@ class SchemaValidationTests: XCTestCase {
                 return
             }
 
-            let base45FakeResult = DigitalCovidCertificateFake.makeBase45Fake(from: certificate, and: CBORWebTokenHeader.fake())
+            let base45FakeResult = DigitalCovidCertificateFake.makeBase45Fake(certificate: certificate, header: CBORWebTokenHeader.fake())
             guard case let .success(base45Fake) = base45FakeResult else {
                 XCTFail("Success expected.")
                 return

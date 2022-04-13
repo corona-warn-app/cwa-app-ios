@@ -27,11 +27,11 @@ extension HealthCertificateService {
 			registerHealthCertificate(base45: HealthCertificateMocks.firstBase45Mock, checkSignatureUpfront: shouldCheckSignatureUpfront, completedNotificationRegistration: { })
 		} else if LaunchArguments.healthCertificate.secondHealthCertificate.boolValue {
 			let secondDose = DigitalCovidCertificateFake.makeBase45Fake(
-				from: DigitalCovidCertificate.fake(
+				certificate: DigitalCovidCertificate.fake(
 					name: .fake(familyName: "Schneider", givenName: "Andrea", standardizedFamilyName: "SCHNEIDER", standardizedGivenName: "ANDREA"),
 					vaccinationEntries: [VaccinationEntry.fake(doseNumber: 2, uniqueCertificateIdentifier: "01DE/84503/1119349007/DXSGWLWL40SU8ZFKIYIBK39A3#E")]
 				),
-				and: CBORWebTokenHeader.fake(issuer: "DE", expirationTime: expirationTime)
+				header: CBORWebTokenHeader.fake(issuer: "DE", expirationTime: expirationTime)
 			)
 			if case let .success(base45) = secondDose {
 				registerHealthCertificate(base45: base45, checkSignatureUpfront: shouldCheckSignatureUpfront, completedNotificationRegistration: { })
@@ -42,22 +42,22 @@ extension HealthCertificateService {
 			let issuer = LaunchArguments.healthCertificate.firstAndSecondHealthCertificateIssuerDE.boolValue ? "DE" : "Other"
 
 			let firstDose = DigitalCovidCertificateFake.makeBase45Fake(
-				from: DigitalCovidCertificate.fake(
+				certificate: DigitalCovidCertificate.fake(
 					name: .fake(familyName: "Schneider", givenName: "Andrea", standardizedFamilyName: "SCHNEIDER", standardizedGivenName: "ANDREA"),
 					vaccinationEntries: [VaccinationEntry.fake()]
 				),
-				and: CBORWebTokenHeader.fake(issuer: issuer, expirationTime: expirationTime)
+				header: CBORWebTokenHeader.fake(issuer: issuer, expirationTime: expirationTime)
 			)
 			if case let .success(base45) = firstDose {
 				registerHealthCertificate(base45: base45, checkSignatureUpfront: shouldCheckSignatureUpfront, completedNotificationRegistration: { })
 			}
 			
 			let secondDose = DigitalCovidCertificateFake.makeBase45Fake(
-				from: DigitalCovidCertificate.fake(
+				certificate: DigitalCovidCertificate.fake(
 					name: .fake(familyName: "Schneider", givenName: "Andrea", standardizedFamilyName: "SCHNEIDER", standardizedGivenName: "ANDREA"),
 					vaccinationEntries: [VaccinationEntry.fake(doseNumber: 2, uniqueCertificateIdentifier: "01DE/84503/1119349007/DXSGWLWL40SU8ZFKIYIBK39A3#E")]
 				),
-				and: CBORWebTokenHeader.fake(issuer: issuer, expirationTime: expirationTime)
+				header: CBORWebTokenHeader.fake(issuer: issuer, expirationTime: expirationTime)
 			)
 			if case let .success(base45) = secondDose {
 				registerHealthCertificate(base45: base45, checkSignatureUpfront: shouldCheckSignatureUpfront, completedNotificationRegistration: { })
@@ -66,41 +66,41 @@ extension HealthCertificateService {
 
 		if LaunchArguments.healthCertificate.familyCertificates.boolValue {
 			let testCert1 = DigitalCovidCertificateFake.makeBase45Fake(
-				from: DigitalCovidCertificate.fake(
+				certificate: DigitalCovidCertificate.fake(
 					name: .fake(familyName: "Schneider", givenName: "Andrea", standardizedFamilyName: "SCHNEIDER", standardizedGivenName: "ANDREA"),
 					testEntries: [TestEntry.fake(dateTimeOfSampleCollection: "2021-04-12T16:01:00Z", uniqueCertificateIdentifier: "1")]
 				),
-				and: CBORWebTokenHeader.fake(expirationTime: expirationTime)
+				header: CBORWebTokenHeader.fake(expirationTime: expirationTime)
 			)
 			if case let .success(base45) = testCert1 {
 				registerHealthCertificate(base45: base45, completedNotificationRegistration: { })
 			}
 			let testCert2 = DigitalCovidCertificateFake.makeBase45Fake(
-				from: DigitalCovidCertificate.fake(
+				certificate: DigitalCovidCertificate.fake(
 					name: .fake(familyName: "Schneider", givenName: "Toni", standardizedFamilyName: "SCHNEIDER", standardizedGivenName: "TONI"),
 					testEntries: [TestEntry.fake(dateTimeOfSampleCollection: "2021-04-12T17:01:00Z", uniqueCertificateIdentifier: "2")]
 				),
-				and: CBORWebTokenHeader.fake(expirationTime: expirationTime)
+				header: CBORWebTokenHeader.fake(expirationTime: expirationTime)
 			)
 			if case let .success(base45) = testCert2 {
 				registerHealthCertificate(base45: base45, completedNotificationRegistration: { })
 			}
 			let testCert3 = DigitalCovidCertificateFake.makeBase45Fake(
-				from: DigitalCovidCertificate.fake(
+				certificate: DigitalCovidCertificate.fake(
 					name: .fake(familyName: "Schneider", givenName: "Victoria", standardizedFamilyName: "SCHNEIDER", standardizedGivenName: "VICTORIA"),
 					testEntries: [TestEntry.fake(dateTimeOfSampleCollection: "2021-04-13T18:01:00Z", uniqueCertificateIdentifier: "3")]
 				),
-				and: CBORWebTokenHeader.fake(expirationTime: expirationTime)
+				header: CBORWebTokenHeader.fake(expirationTime: expirationTime)
 			)
 			if case let .success(base45) = testCert3 {
 				registerHealthCertificate(base45: base45, completedNotificationRegistration: { })
 			}
 			let testCert4 = DigitalCovidCertificateFake.makeBase45Fake(
-				from: DigitalCovidCertificate.fake(
+				certificate: DigitalCovidCertificate.fake(
 					name: .fake(familyName: "Schneider", givenName: "Thomas", standardizedFamilyName: "SCHNEIDER", standardizedGivenName: "THOMAS"),
 					testEntries: [TestEntry.fake(dateTimeOfSampleCollection: "2021-04-15T12:01:00Z", uniqueCertificateIdentifier: "4")]
 				),
-				and: CBORWebTokenHeader.fake(expirationTime: expirationTime)
+				header: CBORWebTokenHeader.fake(expirationTime: expirationTime)
 			)
 			if case let .success(base45) = testCert4 {
 				registerHealthCertificate(base45: base45, completedNotificationRegistration: { })
@@ -109,7 +109,7 @@ extension HealthCertificateService {
 
 		if LaunchArguments.healthCertificate.testCertificateRegistered.boolValue {
 			let result = DigitalCovidCertificateFake.makeBase45Fake(
-				from: DigitalCovidCertificate.fake(
+				certificate: DigitalCovidCertificate.fake(
 					name: .fake(familyName: "Schneider", givenName: "Andrea", standardizedFamilyName: "SCHNEIDER", standardizedGivenName: "ANDREA"),
 					testEntries: [
 						.fake(
@@ -117,7 +117,7 @@ extension HealthCertificateService {
 						)
 					]
 				),
-				and: CBORWebTokenHeader.fake(expirationTime: expirationTime)
+				header: CBORWebTokenHeader.fake(expirationTime: expirationTime)
 			)
 			if case let .success(base45) = result {
 				registerHealthCertificate(base45: base45, checkSignatureUpfront: shouldCheckSignatureUpfront, completedNotificationRegistration: { })
@@ -126,11 +126,11 @@ extension HealthCertificateService {
 
 		if LaunchArguments.healthCertificate.newTestCertificateRegistered.boolValue {
 			let result = DigitalCovidCertificateFake.makeBase45Fake(
-				from: DigitalCovidCertificate.fake(
+				certificate: DigitalCovidCertificate.fake(
 					name: .fake(familyName: "Schneider", givenName: "Andrea", standardizedFamilyName: "SCHNEIDER", standardizedGivenName: "ANDREA"),
 					testEntries: [.fake(dateTimeOfSampleCollection: "2021-04-12T16:01:00Z")]
 				),
-				and: CBORWebTokenHeader.fake(expirationTime: expirationTime)
+				header: CBORWebTokenHeader.fake(expirationTime: expirationTime)
 			)
 			if case let .success(base45) = result {
 				registerHealthCertificate(base45: base45, checkSignatureUpfront: shouldCheckSignatureUpfront, markAsNew: true, completedNotificationRegistration: { })
@@ -139,7 +139,7 @@ extension HealthCertificateService {
 
 		if LaunchArguments.healthCertificate.recoveryCertificateRegistered.boolValue {
 			let result = DigitalCovidCertificateFake.makeBase45Fake(
-				from: DigitalCovidCertificate.fake(
+				certificate: DigitalCovidCertificate.fake(
 					name: .fake(familyName: "Schneider", givenName: "Andrea", standardizedFamilyName: "SCHNEIDER", standardizedGivenName: "ANDREA"),
 					recoveryEntries: [
 						.fake(
@@ -149,7 +149,7 @@ extension HealthCertificateService {
 						)
 					]
 				),
-				and: CBORWebTokenHeader.fake(expirationTime: expirationTime)
+				header: CBORWebTokenHeader.fake(expirationTime: expirationTime)
 			)
 
 			if case let .success(base45) = result {

@@ -14,7 +14,7 @@ final class RevocationProvider: RevocationProviding {
 	// MARK: - Init
 
 	init(
-		_ restService: RestServiceProvider,
+		_ restService: RestServiceProviding,
 		signatureVerifier: SignatureVerification = SignatureVerifier()
 	) {
 		self.restService = restService
@@ -77,12 +77,12 @@ final class RevocationProvider: RevocationProviding {
 					let kidTypes = kidWithTypes.types
 					for certificate in certificates {
 						for type in kidTypes {
-							guard let hash = self.hash(by: type, certificate) else {
+							guard let hash = certificate.hash(by: type) else {
 								Log.error("Missing hash value")
 								continue
 							}
 							certificateByRLC.insert(
-								coordinate: self.coordinate(for: hash),
+								coordinate: RevocationCoordinate(hash: hash),
 								kid: kid,
 								type: type,
 								certificate: certificate
@@ -116,7 +116,7 @@ final class RevocationProvider: RevocationProviding {
 	enum RevocationProviderError: Error {
 		case internalError
 		case chunkUpdateError
-		case restError(ServiceError<KIDListResourceError>)
+		case restError(ServiceError<KIDListResource.CustomError>)
 	}
 
 	// MARK: - Private
@@ -126,7 +126,7 @@ final class RevocationProvider: RevocationProviding {
 		let types: [String]
 	}
 
-	private let restService: RestServiceProvider
+	private let restService: RestServiceProviding
 	private let signatureVerifier: SignatureVerification
 
 	private func updateKidType(
@@ -138,7 +138,7 @@ final class RevocationProvider: RevocationProviding {
 		var revokedCertificateHashes: [String] = []
 		for revocationLocation in revocationLocations {
 			let coordinateHealthCertificates = revocationLocation.certificates.filter { _, certificates in
-				let certificateHashes = certificates.compactMap { self.hash(by: revocationLocation.type, $0) }
+				let certificateHashes = certificates.compactMap { $0.hash(by: revocationLocation.type) }
 				let diff = Set(certificateHashes).subtracting(Set(revokedCertificateHashes))
 				return !diff.isEmpty
 			}
@@ -164,8 +164,8 @@ final class RevocationProvider: RevocationProviding {
 					coordinates.contains(key)
 				}
 				// 3 update KID Type chunk
-				let innerDispatchGroup = DispatchGroup()
 				affectedCoordinateHealthCertificates.forEach { coordinate, _ in
+					let innerDispatchGroup = DispatchGroup()
 					innerDispatchGroup.enter()
 					let resource = KIDTypeChunkResource(
 						kid: revocationLocation.keyIdentifier,
@@ -196,7 +196,7 @@ final class RevocationProvider: RevocationProviding {
 	private func updateKidTypeIndex(
 		kid: String,
 		hashType: String,
-		completion: @escaping([RevocationLocation.Coordinate]) -> Void
+		completion: @escaping([RevocationCoordinate]) -> Void
 	) {
 		let resource = KIDTypeIndexResource(kid: kid, hashType: hashType)
 		restService.load(resource) { result in
@@ -205,7 +205,7 @@ final class RevocationProvider: RevocationProviding {
 				completion(
 					kidTypeIndices.items.flatMap({ item in
 						item.y.map { y in
-							RevocationLocation.Coordinate(
+							RevocationCoordinate(
 								x: item.x.toHexString(),
 								y: y.toHexString()
 							)
@@ -218,35 +218,27 @@ final class RevocationProvider: RevocationProviding {
 		}
 	}
 
-	private func coordinate(for hash: String) -> RevocationLocation.Coordinate {
-		let data = Data(hex: hash)
-		let first = Data(bytes: [data[0]], count: 1)
-		let second = Data(bytes: [data[1]], count: 1)
+}
 
-		return RevocationLocation.Coordinate(
-			x: first.toHexString(),
-			y: second.toHexString()
-		)
-	}
+extension HealthCertificate {
 
-	private func hash(by type: String, _ certificate: HealthCertificate) -> String? {
+	func hash(by type: String) -> String? {
 		switch type {
 		case "0a":
-			return certificate.revocationEntries.signature
+			return revocationEntries.signature
 		case "0b":
-			return certificate.revocationEntries.uci
+			return revocationEntries.uci
 		case "0c":
-			return certificate.revocationEntries.countryCodeUCI
+			return revocationEntries.countryCodeUCI
 		default:
 			return nil
 		}
 	}
-
 }
 
 private extension Array where Element == RevocationLocation {
 
-	mutating func insert(coordinate: RevocationLocation.Coordinate, kid: String, type: String, certificate: HealthCertificate) {
+	mutating func insert(coordinate: RevocationCoordinate, kid: String, type: String, certificate: HealthCertificate) {
 
 		// lookup or create entry
 		guard let entry = first(where: { rlc in
