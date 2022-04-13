@@ -11,7 +11,8 @@ public enum DigitalCovidCertificateFake {
     public static func makeBase45Fake(
         certificate: Codable,
         header: CBORWebTokenHeader,
-        keyIdentifier: Data = Data()
+        keyIdentifier: Data = Data(),
+        signature: Data? = nil
     ) -> Result<Base45, CertificateDecodingError> {
 
         guard let cborCertificateData = try? CodableCBOREncoder().encode(certificate) else {
@@ -49,7 +50,7 @@ public enum DigitalCovidCertificateFake {
             CBOR.null,
             CBOR.byteString(cborWebTokenPayloadBytes),
             // signature
-            CBOR.byteString(Data.randomBytes(length: 42)?.bytes ?? [UInt8]())
+            CBOR.byteString(signature?.bytes ?? Data.randomBytes(length: 42)?.bytes ?? [UInt8]())
         ])
 
         let cborWebToken = CBOR.tagged(CBOR.Tag(rawValue: 18), cborWebTokenMessage)
