@@ -40,11 +40,11 @@ class AntigenTestProfileOverviewViewController: UITableViewController, DismissHa
 		navigationItem.largeTitleDisplayMode = .always
 		navigationItem.title = AppStrings.AntigenProfile.Overview.title
 
-		viewModel.$antigenTestProfiles.dropFirst()
+		viewModel.$antigenTestProfiles
 			.receive(on: DispatchQueue.main.ocombine)
 			.sink { [weak self] _ in
-				guard let self = self, self.shouldReload else { return }
-
+				guard let self = self else { return }
+				
 				self.tableView.reloadData()
 				self.updateEmptyState()
 			}
@@ -112,7 +112,6 @@ class AntigenTestProfileOverviewViewController: UITableViewController, DismissHa
 
 	private var subscriptions = [AnyCancellable]()
 
-	private var shouldReload = true
 	private var addEntryCellModel = AddAntigenTestProfileCellModel()
 
 	private func setupBarButtonItems() {
@@ -141,16 +140,6 @@ class AntigenTestProfileOverviewViewController: UITableViewController, DismissHa
 		tableView.accessibilityIdentifier = AccessibilityIdentifiers.AntigenProfile.Overview.tableView
 	}
 
-	private func animateChanges(of cell: UITableViewCell) {
-		DispatchQueue.main.async { [self] in
-			guard tableView.visibleCells.contains(cell) else {
-				return
-			}
-
-			tableView.performBatchUpdates(nil, completion: nil)
-		}
-	}
-
 	private func antigenTestProfileAddCell(forRowAt indexPath: IndexPath) -> UITableViewCell {
 		guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: AddButtonAsTableViewCell.self), for: indexPath) as? AddButtonAsTableViewCell else {
 			fatalError("Could not dequeue AddButtonAsTableViewCell")
@@ -166,12 +155,7 @@ class AntigenTestProfileOverviewViewController: UITableViewController, DismissHa
 			fatalError("Could not dequeue AntigenTestPersonProfileCell")
 		}
 
-		let cellModel = viewModel.antigenTestPersonProfileCellModel(
-			at: indexPath,
-			onUpdate: { [weak self] in
-				self?.animateChanges(of: cell)
-			}
-		)
+		let cellModel = viewModel.antigenTestPersonProfileCellModel(at: indexPath)
 		
 		cell.configure(
 			with: cellModel
