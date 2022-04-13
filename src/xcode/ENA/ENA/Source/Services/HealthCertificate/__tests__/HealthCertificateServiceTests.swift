@@ -702,7 +702,7 @@ class HealthCertificateServiceTests: CWATestCase {
 		let store = MockTestStore()
 		store.healthCertifiedPersons = [healthCertifiedPerson]
 		
-		var cclService = FakeCCLService()
+		let cclService = FakeCCLService()
 		cclService.dccWalletInfoResult = .success(wallet)
 		cclService.didChange = false
 
@@ -719,7 +719,21 @@ class HealthCertificateServiceTests: CWATestCase {
 		XCTAssertEqual(healthCertificate.validityState, .blocked)
 		XCTAssertEqual(service.healthCertifiedPersons.first?.healthCertificates.first?.validityState, .blocked)
 
-		service.moveHealthCertificateToBin(healthCertificate)
+		let newWallet = DCCWalletInfo.fake(
+			certificatesRevokedByInvalidationRules: []
+		)
+		cclService.dccWalletInfoResult = .success(newWallet)
+		cclService.didChange = true
+		
+		let validExpectation = expectation(description: "validity change to valid")
+		
+		service.updateDCCWalletInfosIfNeeded(isForced: true, completion: {
+			XCTAssertEqual(healthCertificate.validityState, .valid)
+			XCTAssertEqual(service.healthCertifiedPersons.first?.healthCertificates.first?.validityState, .valid)
+			validExpectation.fulfill()
+			service.moveHealthCertificateToBin(healthCertificate)
+		})
+		waitForExpectations(timeout: .medium)
 	}
 
 	func testValidityStateUpdate_JustExpired() throws {
