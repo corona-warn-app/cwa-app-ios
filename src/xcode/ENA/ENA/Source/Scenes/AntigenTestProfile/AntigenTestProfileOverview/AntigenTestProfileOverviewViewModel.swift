@@ -20,13 +20,9 @@ class AntigenTestProfileOverviewViewModel {
 			self.antigenTestProfiles = [existingProfile]
 			store.antigenTestProfile = nil
 		}
-		
-		store.antigenTestProfilesSubject
-			.sink { [weak self] in
-				self?.antigenTestProfiles = $0
-			}.store(in: &subscriptions)
+		refreshFromStore()
 	}
-
+	
 	// MARK: - Internal
 
 	enum Section: Int, CaseIterable {
@@ -42,6 +38,10 @@ class AntigenTestProfileOverviewViewModel {
 
 	var isEmpty: Bool {
 		numberOfRows(in: Section.entries.rawValue) == 0
+	}
+
+	func refreshFromStore() {
+		self.antigenTestProfiles = store.antigenTestProfiles
 	}
 
 	func numberOfRows(in section: Int) -> Int {
