@@ -133,13 +133,11 @@ final class RevocationProvider: RevocationProviding {
 		_ revocationLocations: [RevocationLocation],
 		completion: @escaping(Result<Void, RevocationProviderError>) -> Void
 	) {
-
 		let outerDispatchGroup = DispatchGroup()
-		var revokedCertificateHashes: [String] = []
+		var revokedCertificates: [HealthCertificate] = []
 		for revocationLocation in revocationLocations {
 			let coordinateHealthCertificates = revocationLocation.certificates.filter { _, certificates in
-				let certificateHashes = certificates.compactMap { $0.hash(by: revocationLocation.type) }
-				let diff = Set(certificateHashes).subtracting(Set(revokedCertificateHashes))
+				let diff = Set(certificates).subtracting(Set(revokedCertificates))
 				return !diff.isEmpty
 			}
 
@@ -179,8 +177,19 @@ final class RevocationProvider: RevocationProviding {
 						}
 						switch result {
 						case .success(let kidChunk):
-							// 4 remove all certificates with matching hash
-							revokedCertificateHashes.append(contentsOf: kidChunk.hashes.map { $0.toHexString() })
+							// 4 collect all certificates with matching hash to skip them in later loop iterations
+							let matchingCertificates = revocationLocation.certificates
+								.flatMap {
+									$0.value
+								}
+								.filter { certificate in
+									guard let hashString = certificate.hash(by: revocationLocation.type)?.dataWithHexString() else {
+										return false
+									}
+
+									return kidChunk.hashes.contains(hashString)
+								}
+							revokedCertificates.append(contentsOf: matchingCertificates)
 						case .failure(let error):
 							Log.error("failed to update kid x y chunk", error: error)
 						}
