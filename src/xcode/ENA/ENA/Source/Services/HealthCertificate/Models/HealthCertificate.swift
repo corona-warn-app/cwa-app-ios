@@ -6,7 +6,7 @@ import Foundation
 import OpenCombine
 import HealthCertificateToolkit
 
-final class HealthCertificate: Codable, Equatable, Comparable, RecycleBinIdentifiable {
+final class HealthCertificate: Codable, Equatable, Comparable, RecycleBinIdentifiable, Hashable {
 
 	// MARK: - Init
 
@@ -116,6 +116,12 @@ final class HealthCertificate: Codable, Equatable, Comparable, RecycleBinIdentif
 			return (lhsDate, lhs.cborWebTokenHeader.issuedAt) < (rhsDate, rhs.cborWebTokenHeader.issuedAt)
 		}
 		return false
+	}
+
+	// MARK: - Protocol Hashable
+
+	func hash(into hasher: inout Hasher) {
+		hasher.combine(base45)
 	}
 
 	// MARK: - Internal
