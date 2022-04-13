@@ -559,7 +559,7 @@
 
 "ExposureSubmission_DispatchSectionHeadline2" = "Was your PCR test positive?";
 
-"ExposureSubmissionDispatch_QRCodeButtonTitle" = "Scan QR Code";
+"ExposureSubmissionDispatch_QRCodeButtonTitle" = "Scan QR code";
 
 "ExposureSubmissionDispatch_QRCodeButtonDescription" = "Receive your test result and results for your family members and request your COVID test certificate.";
 
@@ -607,7 +607,7 @@
 
 "ExposureSubmissionHotline_imageDescription" = "Hotline communicates a TAN.";
 
-/* Exposure Submission QR Code Info */
+/* Exposure Submission QR code Info */
 "ExposureSubmissionQRInfo_title" = "Your Consent";
 
 "ExposureSubmissionQRInfo_imageDescription" = "A person is holding a smartphone. A QR code on a test symbolizes the code to be scanned.";
@@ -1351,7 +1351,7 @@
 
 "Home_TraceLocationsCard_Body" = "Are you planning an event or do you run a business? Create a QR code so your guests can check in when they arrive.";
 
-"Home_TraceLocationsCard_Button" = "Create QR Code";
+"Home_TraceLocationsCard_Button" = "Create QR code";
 
 /* Home More Card */
 "Home_MoreCard_Title" = "More";
@@ -2223,7 +2223,7 @@
 
 "Tabbar_Certificates_Title" = "Certificates";
 
-"Tabbar_Scanner_Title" = "QR Code Scanner";
+"Tabbar_Scanner_Title" = "QR code Scanner";
 
 "Tabbar_Diary_Title" = "Journal";
 
@@ -2347,7 +2347,7 @@
 "Contact_Journal_Notes_Description" = "You can enter notes here that will help you to better estimate your risk of infection.\n\nWrite down additional circumstances of your encounter or stay here that could have an effect on your risk of infection, for example, how close you were to other people and what you did (examples: “sat close together”, “played sports”, “little space”, “we sang”).\n\nThese notes can help you refresh your memory later. If necessary, they will also let you warn the people you have been with at an early stage, as well as help the public health authorities trace potential chains of infection.";
 
 /* Quick Actions a.k.a. shortcuts */
-"QuickAction_qrCodeScanner" = "Scan QR Code";
+"QuickAction_qrCodeScanner" = "Scan QR code";
 
 "QuickAction_showCertificates" = "Display certificates";
 
@@ -2360,7 +2360,7 @@
 
 "Checkins_Overview_MenuButtonTitle" = "Menu";
 
-"Checkins_Overview_ScanButtonTitle" = "Scan QR Code";
+"Checkins_Overview_ScanButtonTitle" = "Scan QR code";
 
 "Checkins_Overview_EmptyTitle" = "No entries yet";
 
@@ -2402,7 +2402,7 @@
 
 "Checkins_Overview_Item_Prefix_CheckedOut" = "Checked out for %@.";
 
-"Checkin_QR_Scanner_Checkin_Error_Title" = "Invalid QR Code";
+"Checkin_QR_Scanner_Checkin_Error_Title" = "Invalid QR code";
 
 "Checkin_QR_Scanner_Error_InvalidURL" = "The scanned QR code is not valid for check-ins for an event or place. Please scan a suitable QR code (error code INVALID_URL).";
 
@@ -2419,11 +2419,11 @@
 "Checkin_QR_Scanner_Error_InvalidTimeStamps" = "Check-in prevented due to invalid QR code. The responsible party has to generate a new QR code (error code INVALID_TIMESTAMPS).";
 
 /* TraceLocations */
-"TraceLocations_Overview_Title" = "My QR Codes";
+"TraceLocations_Overview_Title" = "My QR codes";
 
 "TraceLocations_Overview_MenuButtonTitle" = "Menu";
 
-"TraceLocations_Overview_AddButtonTitle" = "Create QR Code";
+"TraceLocations_Overview_AddButtonTitle" = "Create QR code";
 
 "TraceLocations_Overview_EmptyTitle" = "No QR codes created yet";
 
@@ -2465,7 +2465,7 @@
 "TraceLocations_Details_DuplicateButtonTitle" = "Use as Template";
 
 /* Selection of a TraceLocations */
-"TraceLocations_TypeSelection_Title" = "Create QR Code";
+"TraceLocations_TypeSelection_Title" = "Create QR code";
 
 "TraceLocations_Section_Title_Permanent" = "PLACE";
 
@@ -2514,7 +2514,7 @@
 "TraceLocations_Type_Subtitle_TemporaryPrivateEvent" = "Birthday, family gathering";
 
 /* Trace Location Configuration */
-"TraceLocations_Configuration_Title" = "Create QR Code";
+"TraceLocations_Configuration_Title" = "Create QR code";
 
 "TraceLocations_Configuration_DescriptionPlaceholder" = "Description";
 
@@ -2553,7 +2553,7 @@
 
 "OnBehalfCheckinSubmission_TraceLocationSelection_Description" = "Select an event for which you want to warn others on behalf of a person who has been diagnosed with coronavirus, or restore a deleted event by scanning the QR code of that event again.";
 
-"OnBehalfCheckinSubmission_TraceLocationSelection_ScanButtonTitle" = "Scan QR Code";
+"OnBehalfCheckinSubmission_TraceLocationSelection_ScanButtonTitle" = "Scan QR code";
 
 "OnBehalfCheckinSubmission_TraceLocationSelection_PrimaryButtonTitle" = "Continue";
 
@@ -2659,7 +2659,7 @@
 "Checkins_Edit_Notice" = "The length of stay will not be adjusted automatically in your contact journal.";
 
 /* Trace Location */
-"TraceLocation_Information_Title" = "Create QR Code";
+"TraceLocation_Information_Title" = "Create QR code";
 
 "TraceLocation_Information_ImageDescription" = "One person points to a flip chart, while two people are sitting adjacent and looking at the flip chart.";
 
@@ -3237,7 +3237,7 @@
 "HealthCertificate_Reissuance_Error_Not_Supported" = "Your certificate cannot be updated. Please contact the technical hotline via App Information -> Technical Hotline.";
 
 /* Universal QR Scanner */
-"UniversalQRScanner_ScannerTitle" = "QR Code Scanner";
+"UniversalQRScanner_ScannerTitle" = "QR code Scanner";
 
 "UniversalQRScanner_InstructionTitle" = "What QR codes can you scan?";
 
@@ -3330,7 +3330,7 @@
 
 "FileScanner_PasswordError_message" = "Please enter a valid password.";
 
-"FileScanner_InvalidQRCode_title" = "No Suitable QR Code";
+"FileScanner_InvalidQRCode_title" = "No Suitable QR code";
 
 "FileScanner_InvalidQRCode_message" = "The QR code is not supported by the Corona-Warn-App. Please select a suitable QR code.";
 
@@ -3338,11 +3338,11 @@
 
 "FileScanner_FileNotReadable_message" = "The selected file may be damaged or password-protected and could not be read. Please select a suitable file.";
 
-"FileScanner_NoQRCodeFound_title" = "No QR Code Detected";
+"FileScanner_NoQRCodeFound_title" = "No QR code Detected";
 
 "FileScanner_NoQRCodeFound_message" = "No QR code was detected in the selected file. Please choose a different file.";
 
-"UniversalQRScanner_Tooltip_title" = "QR Code Scanner";
+"UniversalQRScanner_Tooltip_title" = "QR code Scanner";
 
 "UniversalQRScanner_Tooltip_description" = "Use this scanner to scan tests, certificates, and check-ins.";
 
