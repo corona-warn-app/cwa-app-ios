@@ -39,15 +39,15 @@
 			<key>zero</key>
 			<string>Keine Risiko-Begegnungen</string>
 			<key>one</key>
-			<string>Begegnungen mit niedrigem Risiko an 1 Tag</string>
+			<string>Begegnungen an 1 Tag mit niedrigem Risiko</string>
 			<key>few</key>
-			<string>Begegnungen mit niedrigem Risiko an %u Tagen</string>
+			<string>Begegnungen an %u Tagen mit niedrigem Risiko</string>
 			<key>many</key>
-			<string>Begegnungen mit niedrigem Risiko an %u Tagen</string>
+			<string>Begegnungen an %u Tagen mit niedrigem Risiko</string>
 			<key>two</key>
-			<string>Begegnungen mit niedrigem Risiko an %u Tagen</string>
+			<string>Begegnungen an %u Tagen mit niedrigem Risiko</string>
 			<key>other</key>
-			<string>Begegnungen mit niedrigem Risiko an %u Tagen</string>
+			<string>Begegnungen an %u Tagen mit niedrigem Risiko</string>
 		</dict>
 	</dict>
 	<key>Home_Risk_High_Number_Contacts_Item_Title</key>
