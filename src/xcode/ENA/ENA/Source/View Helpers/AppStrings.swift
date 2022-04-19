@@ -2247,8 +2247,9 @@ enum AppStrings {
 			static let expiredDescription = NSLocalizedString("HealthCertificate_ValidityState_Expired_description", comment: "")
 			static let invalid = NSLocalizedString("HealthCertificate_ValidityState_Invalid", comment: "")
 			static let invalidDescription = NSLocalizedString("HealthCertificate_ValidityState_Invalid_description", comment: "")
-			static let blocked = NSLocalizedString("HealthCertificate_ValidityState_Blocked", comment: "")
-			static let blockedDescription = NSLocalizedString("HealthCertificate_ValidityState_Blocked_description", comment: "")
+			static let blockedRevoked = NSLocalizedString("HealthCertificate_ValidityState_BlockedRevoked", comment: "")
+			static let blockedRevokedDescriptionDE = NSLocalizedString("HealthCertificate_ValidityState_BlockedRevoked_description_de", comment: "")
+			static let blockedRevokedDescriptionOther = NSLocalizedString("HealthCertificate_ValidityState_BlockedRevoked_description_other", comment: "")
 		}
 
 		enum FamilyMemberConsent {

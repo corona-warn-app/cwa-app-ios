@@ -66,11 +66,15 @@ struct HealthCertificateQRCodeCellViewModel {
 					self.validityStateDescription = nil
 				}
 				self.isUnseenNewsIndicatorVisible = mode == .details && healthCertificate.isValidityStateNew
-			case .blocked:
+			case .blocked, .revoked:
 				   self.validityStateIcon = UIImage(named: "Icon_ExpiredInvalid")
-				   self.validityStateTitle = AppStrings.HealthCertificate.ValidityState.blocked
+				   self.validityStateTitle = AppStrings.HealthCertificate.ValidityState.blockedRevoked
 				   if mode == .details {
-					   self.validityStateDescription = AppStrings.HealthCertificate.ValidityState.blockedDescription
+					   if healthCertificate.cborWebTokenHeader.issuer == "DE" {
+						   self.validityStateDescription = AppStrings.HealthCertificate.ValidityState.blockedRevokedDescriptionDE
+					   } else {
+						   self.validityStateDescription = AppStrings.HealthCertificate.ValidityState.blockedRevokedDescriptionOther
+					   }
 				   } else {
 					   self.validityStateDescription = nil
 				   }
