@@ -1184,10 +1184,10 @@ enum AppStrings {
 		static let generalDescription = NSLocalizedString("DeltaOnboarding_NewVersionFeatures_Description", comment: "")
 		static let aboutAppInformation = NSLocalizedString("NewVersionFeatures_Info_about_abb_information", comment: "")
 
-		/* Version 2.21 */
+		/* Version 2.22 */
 
-		static let feature221FamilyMembersTestTitle = NSLocalizedString("NewVersionFeature_221_familyMembersTest_title", comment: "")
-		static let feature221FamilyMembersTestDescription = NSLocalizedString("NewVersionFeature_221_familyMembersTest_description", comment: "")
+		static let feature222FamilyMembersRATProfileTitle = NSLocalizedString("NewVersionFeature_222_family_members_RAT_profile_Title", comment: "")
+		static let feature222FamilyMembersRATProfileDescription = NSLocalizedString("NewVersionFeature_222_family_members_RAT_profile_description", comment: "")
 	}
 
 	enum DeltaOnboarding {
