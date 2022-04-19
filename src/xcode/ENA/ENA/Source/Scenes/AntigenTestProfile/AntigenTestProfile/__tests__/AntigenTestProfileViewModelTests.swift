@@ -57,7 +57,7 @@ class AntigenTestProfileViewModelTests: CWATestCase {
 		viewModel.deleteProfile()
 
 		// THEN
-		XCTAssertNil(store.antigenTestProfile)
+		XCTAssertEqual(store.antigenTestProfiles.count, 0)
 	}
 
 }

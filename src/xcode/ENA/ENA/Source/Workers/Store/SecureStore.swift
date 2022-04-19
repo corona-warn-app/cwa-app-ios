@@ -226,7 +226,11 @@ final class SecureStore: SecureKeyValueStoring, Store, AntigenTestProfileStoring
 			var antigenTestProfiles = kvStore["antigenTestProfiles"] as [AntigenTestProfile]? ?? []
 			
 			if let existingProfile = kvStore["antigenTestProfile"] as AntigenTestProfile? {
+				// add existing profile to the list of profiles and update store
 				antigenTestProfiles.append(existingProfile)
+				kvStore["antigenTestProfiles"] = antigenTestProfiles
+				
+				// clear the existing profile from the store
 				kvStore["antigenTestProfile"] = nil
 			}
 			
