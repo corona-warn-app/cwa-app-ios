@@ -276,7 +276,7 @@ final class HealthCertificate: Codable, Equatable, Comparable, RecycleBinIdentif
 		validityState == .valid || validityState == .expiringSoon || (type == .test && validityState == .expired)
 	}
 
-	/// On test certificates only `.valid`, `.invalid`, and `.blocked` states are shown, the `.expiringSoon` and `.expired` states are considered valid as well
+	/// On test certificates only `.valid`, `.invalid`,  `.blocked`, and `.revoked` states are shown, the `.expiringSoon` and `.expired` states are considered valid as well
 	var isConsideredValid: Bool {
 		validityState == .valid || type == .test && (validityState == .expiringSoon || validityState == .expired)
 	}
