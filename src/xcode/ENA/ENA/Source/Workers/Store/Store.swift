@@ -196,8 +196,6 @@ protocol CoronaTestStoring {
 protocol AntigenTestProfileStoring: AnyObject {
 
 	var antigenTestProfilesSubject: CurrentValueSubject<[AntigenTestProfile], Never> { get }
-
-	var antigenTestProfile: AntigenTestProfile? { get set }
 	
 	var antigenTestProfiles: [AntigenTestProfile] { get set }
 

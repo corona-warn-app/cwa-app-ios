@@ -150,7 +150,6 @@ final class MockTestStore: Store, PPAnalyticsData {
 	lazy var antigenTestProfilesSubject = {
 		CurrentValueSubject<[AntigenTestProfile], Never>(antigenTestProfiles)
 	}()
-	var antigenTestProfile: AntigenTestProfile?
 	var antigenTestProfiles: [AntigenTestProfile] = [] {
 		didSet {
 			antigenTestProfilesSubject.value = antigenTestProfiles

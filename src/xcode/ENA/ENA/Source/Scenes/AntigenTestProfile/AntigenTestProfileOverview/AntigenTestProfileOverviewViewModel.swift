@@ -16,11 +16,6 @@ class AntigenTestProfileOverviewViewModel {
 		self.store = store
 		self.onEntryCellTap = onEntryCellTap
 		
-		if let existingProfile = store.antigenTestProfile {
-			self.antigenTestProfiles = [existingProfile]
-			store.antigenTestProfile = nil
-		}
-		
 		refreshFromStore()
 	}
 	
