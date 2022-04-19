@@ -133,9 +133,10 @@ final class RevocationProvider: RevocationProviding {
 		_ revocationLocations: [RevocationLocation],
 		completion: @escaping(Result<Void, RevocationProviderError>) -> Void
 	) {
-		let outerDispatchGroup = DispatchGroup()
 		var revokedCertificates: [HealthCertificate] = []
 		for revocationLocation in revocationLocations {
+			let outerDispatchGroup = DispatchGroup()
+			outerDispatchGroup.enter()
 			let coordinateHealthCertificates = revocationLocation.certificates.filter { _, certificates in
 				let diff = Set(certificates).subtracting(Set(revokedCertificates))
 				return !diff.isEmpty
@@ -146,7 +147,6 @@ final class RevocationProvider: RevocationProviding {
 			}
 
 			// 1 update KID Types
-			outerDispatchGroup.enter()
 			updateKidTypeIndex(kid: revocationLocation.keyIdentifier, hashType: revocationLocation.type) { [weak self] coordinates in
 				defer {
 					outerDispatchGroup.leave()

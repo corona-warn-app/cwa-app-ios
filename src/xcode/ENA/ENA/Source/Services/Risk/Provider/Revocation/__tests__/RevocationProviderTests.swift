@@ -40,17 +40,18 @@ class RevocationProviderTests: CWATestCase {
 					willLoadResource: nil
 				),
 				LoadResource(
-					result: .success(try kidTypeIndex(hashType: "0a")),
+					result: .success(try kidTypeIndex()),
 					willLoadResource: { resource in
 						guard let resource = resource as? KIDTypeIndexResource else {
 							XCTFail("wrong resource type")
 							return
 						}
+						// As the requests are done sorted by type, 0a should be requested first
 						XCTAssertEqual(resource.locator.paths, ["version", "v1", "dcc-rl", "\(self.recoveryCertificateKeyIdentifier)0a", "index"])
 					}
 				),
 				LoadResource(
-					result: .success(try revocationChunk(hashType: "0a")),
+					result: .success(try revocationChunk()),
 					willLoadResource: { resource in
 						guard let resource = resource as? KIDTypeChunkResource else {
 							XCTFail("wrong resource type, KIDTypeChunkResource expected")
@@ -110,18 +111,23 @@ class RevocationProviderTests: CWATestCase {
 		].compactMap { $0 }
 	}()
 
-	private func kidTypeIndex(hashType: String) throws -> SAP_Internal_Dgc_RevocationKidTypeIndex {
-		let recoveryCoordinate = try coordinate(for: certificates[3], hashType: hashType)
-		var item1 = SAP_Internal_Dgc_RevocationKidTypeIndexItem()
-		item1.x = recoveryCoordinate.x.dataWithHexString()
-		item1.y = [recoveryCoordinate.y.dataWithHexString(), "ad".dataWithHexString()]
+	private func kidTypeIndex() throws -> SAP_Internal_Dgc_RevocationKidTypeIndex {
+		let recoveryCoordinate0b = try coordinate(for: certificates[3], hashType: "0b")
+		var item0 = SAP_Internal_Dgc_RevocationKidTypeIndexItem()
+		item0.x = recoveryCoordinate0b.x.dataWithHexString()
+		item0.y = [recoveryCoordinate0b.y.dataWithHexString(), "ad".dataWithHexString()]
 
-		let testCertificateCoordinate = try coordinate(for: certificates[2], hashType: hashType)
+		let recoveryCoordinate0a = try coordinate(for: certificates[3], hashType: "0a")
+		var item1 = SAP_Internal_Dgc_RevocationKidTypeIndexItem()
+		item1.x = recoveryCoordinate0a.x.dataWithHexString()
+		item1.y = [recoveryCoordinate0a.y.dataWithHexString(), "ad".dataWithHexString()]
+
+		let testCertificateCoordinate = try coordinate(for: certificates[2], hashType: "0a")
 		var item2 = SAP_Internal_Dgc_RevocationKidTypeIndexItem()
 		item2.x = testCertificateCoordinate.x.dataWithHexString()
 		item2.y = [testCertificateCoordinate.y.dataWithHexString()]
 
-		let vaccinationCoordinate = try coordinate(for: certificates[0], hashType: hashType)
+		let vaccinationCoordinate = try coordinate(for: certificates[0], hashType: "0a")
 		var item3 = SAP_Internal_Dgc_RevocationKidTypeIndexItem()
 		item3.x = vaccinationCoordinate.x.dataWithHexString()
 		item3.y = [vaccinationCoordinate.y.dataWithHexString()]
@@ -132,11 +138,12 @@ class RevocationProviderTests: CWATestCase {
 
 		var kidTypeIndex = SAP_Internal_Dgc_RevocationKidTypeIndex()
 		kidTypeIndex.items = [
+			item0,
 			item1,
 			item2,
 			item3,
 			item4
-		]
+		].shuffled()
 		return kidTypeIndex
 	}
 
@@ -149,7 +156,7 @@ class RevocationProviderTests: CWATestCase {
 		// recoveryCertificate
 		var item1 = SAP_Internal_Dgc_RevocationKidListItem()
 		item1.kid = recoveryCertificateKeyIdentifier.dataWithHexString()
-		item1.hashTypes = ["0a".dataWithHexString(), "0b".dataWithHexString()]
+		item1.hashTypes = ["0b".dataWithHexString(), "0a".dataWithHexString()]
 
 		// dummy
 		var item2 = SAP_Internal_Dgc_RevocationKidListItem()
@@ -162,17 +169,19 @@ class RevocationProviderTests: CWATestCase {
 		item3.hashTypes = ["0a".dataWithHexString(), "0c".dataWithHexString()]
 
 		var kidList = SAP_Internal_Dgc_RevocationKidList()
-		kidList.items = [item1, item2, item3]
+		kidList.items = [item1, item2, item3].shuffled()
 		return kidList
 	}
 
-	func revocationChunk(hashType: String) throws -> SAP_Internal_Dgc_RevocationChunk {
-		let recoveryHash = try XCTUnwrap(certificates[3].hash(by: hashType))
-		let vaccinationHash = try XCTUnwrap(certificates[1].hash(by: hashType))
+	func revocationChunk() throws -> SAP_Internal_Dgc_RevocationChunk {
+		let recoveryHash0a = try XCTUnwrap(certificates[3].hash(by: "0a"))
+		let recoveryHash0b = try XCTUnwrap(certificates[3].hash(by: "0b"))
+		let vaccinationHash = try XCTUnwrap(certificates[1].hash(by: "0a"))
 
 		var revocationChunk = SAP_Internal_Dgc_RevocationChunk()
 		revocationChunk.hashes = [
-			recoveryHash.dataWithHexString(),
+			recoveryHash0a.dataWithHexString(),
+			recoveryHash0b.dataWithHexString(),
 			vaccinationHash.dataWithHexString()
 		]
 
