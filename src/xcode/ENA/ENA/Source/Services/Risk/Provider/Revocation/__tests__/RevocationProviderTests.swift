@@ -46,7 +46,7 @@ class RevocationProviderTests: CWATestCase {
 							XCTFail("wrong resource type")
 							return
 						}
-						XCTAssertEqual(resource.locator.paths, ["version", "v1", "dcc-rl", "f5c5970c3039d8540a", "index"])
+						XCTAssertEqual(resource.locator.paths, ["version", "v1", "dcc-rl", "\(self.recoveryCertificateKeyIdentifier)0a", "index"])
 					}
 				),
 				LoadResource(
@@ -57,7 +57,7 @@ class RevocationProviderTests: CWATestCase {
 							return
 						}
 
-						XCTAssertEqual(resource.locator.paths, ["version", "v1", "dcc-rl", "f5c5970c3039d8540a", "e3", "d6", "chunk"])
+						XCTAssertEqual(resource.locator.paths, ["version", "v1", "dcc-rl", "\(self.recoveryCertificateKeyIdentifier)0a", "e3", "d6", "chunk"])
 					}
 				)
 			]
@@ -82,7 +82,10 @@ class RevocationProviderTests: CWATestCase {
 		waitForExpectations(timeout: .greatestFiniteMagnitude)
 	}
 
-	lazy var certificates: [HealthCertificate] = {
+	private let testCertificateKeyIdentifier = "0123456789abcdef"
+	private let recoveryCertificateKeyIdentifier = "f5c5970c3039d854"
+
+	private lazy var certificates: [HealthCertificate] = {
 		[
 			try? vaccinationCertificate(
 				doseNumber: 1,
@@ -97,12 +100,12 @@ class RevocationProviderTests: CWATestCase {
 				signature: "f50159a32d84e89d".dataWithHexString()
 			),
 			try? testCertificate(
-				keyIdentifier: "0123456789abcdef".dataWithHexString(),
-				signature: "0123456789abcdef".dataWithHexString()
+				keyIdentifier: testCertificateKeyIdentifier.dataWithHexString(),
+				signature: testCertificateKeyIdentifier.dataWithHexString()
 			),
 			try? recoveryCertificate(
-				keyIdentifier: "f5c5970c3039d854".dataWithHexString(),
-				signature: "f5c5970c3039d854".dataWithHexString()
+				keyIdentifier: recoveryCertificateKeyIdentifier.dataWithHexString(),
+				signature: recoveryCertificateKeyIdentifier.dataWithHexString()
 			)
 		].compactMap { $0 }
 	}()
@@ -145,7 +148,7 @@ class RevocationProviderTests: CWATestCase {
 	var revocationKidList: SAP_Internal_Dgc_RevocationKidList {
 		// recoveryCertificate
 		var item1 = SAP_Internal_Dgc_RevocationKidListItem()
-		item1.kid = "f5c5970c3039d854".dataWithHexString()
+		item1.kid = recoveryCertificateKeyIdentifier.dataWithHexString()
 		item1.hashTypes = ["0a".dataWithHexString(), "0b".dataWithHexString()]
 
 		// dummy
@@ -155,7 +158,7 @@ class RevocationProviderTests: CWATestCase {
 
 		// testCertificate
 		var item3 = SAP_Internal_Dgc_RevocationKidListItem()
-		item3.kid = "0123456789abcdef".dataWithHexString()
+		item3.kid = testCertificateKeyIdentifier.dataWithHexString()
 		item3.hashTypes = ["0a".dataWithHexString(), "0c".dataWithHexString()]
 
 		var kidList = SAP_Internal_Dgc_RevocationKidList()
