@@ -6,7 +6,7 @@ import Foundation
 import SwiftUI
 
 protocol RevocationProviding {
-	func updateCache(with certificates: [HealthCertificate], completion: @escaping (Result<Void, RevocationProvider.RevocationProviderError>) -> Void)
+	func updateCache(with certificates: [HealthCertificate], completion: @escaping () -> Void)
 }
 
 final class RevocationProvider: RevocationProviding {
@@ -23,7 +23,7 @@ final class RevocationProvider: RevocationProviding {
 
 	// MARK: - Protocol RevocationProviding
 
-	func updateCache(with certificates: [HealthCertificate], completion: @escaping (Result<Void, RevocationProviderError>) -> Void) {
+	func updateCache(with certificates: [HealthCertificate], completion: @escaping () -> Void) {
 		// 1. Filter by certificate type
 		let filteredCertificates = certificates.filter { certificate in
 			(certificate.type == .vaccination ||
@@ -40,13 +40,13 @@ final class RevocationProvider: RevocationProviding {
 		restService.load(resource) { [weak self] result in
 			guard let self = self else {
 				Log.error("Failed to get strong self")
-				completion(.failure(.internalError))
 				return
 			}
 
 			switch result {
 			case .failure(let error):
-				completion(.failure(.restError(error)))
+				Log.error("failed to update kid list", error: error)
+				completion()
 			case .success(let kidList):
 				// helping step -> convert to KidWithTypes model to make things a bit easier
 				let keyIdentifiersWithTypes: [KidWithTypes] = kidList.items.map {
@@ -95,17 +95,11 @@ final class RevocationProvider: RevocationProviding {
 				}
 
 				DispatchQueue.global().async {
-					self.updateKidType(certificateByRLC) { result in
-						switch result {
-						case .success:
-							completion(.success(()))
-						case .failure(let error):
-							completion(.failure(error))
-						}
+					self.updateKidType(certificateByRLC) {
+						completion()
 					}
 				}
 			}
-
 		}
 	}
 
@@ -131,7 +125,7 @@ final class RevocationProvider: RevocationProviding {
 
 	private func updateKidType(
 		_ revocationLocations: [RevocationLocation],
-		completion: @escaping(Result<Void, RevocationProviderError>) -> Void
+		completion: @escaping() -> Void
 	) {
 		var revokedCertificates: [HealthCertificate] = []
 		for revocationLocation in revocationLocations {
@@ -153,7 +147,6 @@ final class RevocationProvider: RevocationProviding {
 				}
 				guard let self = self else {
 					Log.error("Failed to get strong self")
-					completion(.failure(.internalError))
 					return
 				}
 
@@ -199,7 +192,7 @@ final class RevocationProvider: RevocationProviding {
 			}
 			outerDispatchGroup.wait()
 		}
-		completion(.success(()))
+		completion()
 	}
 
 	private func updateKidTypeIndex(
@@ -223,6 +216,7 @@ final class RevocationProvider: RevocationProviding {
 				)
 			case .failure(let error):
 				Log.error("Failed to load kid type indices", error: error)
+				completion([])
 			}
 		}
 	}

@@ -8,8 +8,6 @@ import XCTest
 class RevocationProviderTests: CWATestCase {
 
 	func testUpdatingCacheSuccessfully() throws {
-		// GIVEN
-
 		let restService = RestServiceProviderStub(
 			loadResources: [
 				// KID list update
@@ -96,18 +94,10 @@ class RevocationProviderTests: CWATestCase {
 
 		let revocationProvider = RevocationProvider(restService, signatureVerifier: MockVerifier())
 
-		// WHEN
-
 		let expectation = expectation(description: "success expectation")
 
-		revocationProvider.updateCache(with: certificates) { result in
-			// THEN
-			switch result {
-			case .success:
-				expectation.fulfill()
-			case .failure:
-				XCTFail("unexpected state - should be success")
-			}
+		revocationProvider.updateCache(with: certificates) {
+			expectation.fulfill()
 		}
 
 		waitForExpectations(timeout: .greatestFiniteMagnitude)
