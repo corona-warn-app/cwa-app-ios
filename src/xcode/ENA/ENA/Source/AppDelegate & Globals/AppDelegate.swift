@@ -61,10 +61,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		self.recycleBin = RecycleBin(store: store)
 
 		self.downloadedPackagesStore.keyValueStore = self.store
-
+		
+		let contactDiaryStoreResult = ContactDiaryStore.make()
+		self.contactDiaryStore = contactDiaryStoreResult.store
+		
+		if let error = contactDiaryStoreResult.error {
+			startupErrors.append(error)
+		}
+				
 		super.init()
 
-		recycleBin.testRestorationHandler = CoronaTestRestorationHandler(service: coronaTestService)
+		recycleBin.userTestRestorationHandler = UserCoronaTestRestorationHandler(service: coronaTestService)
+		recycleBin.familyMemberTestRestorationHandler = FamilyMemberCoronaTestRestorationHandler(service: familyMemberCoronaTestService)
 		recycleBin.certificateRestorationHandler = HealthCertificateRestorationHandler(service: healthCertificateService)
 
 		// Make the analytics working. Should not be called later than at this moment of app initialization.
@@ -103,6 +111,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		// We are (intentionally) keeping strong references for delegates. Let's clean them up.
 		self.taskExecutionDelegate = nil
 	}
+	
+	var startupErrors: [Error] = []
 
 	// MARK: - Protocol UIApplicationDelegate
 
@@ -211,10 +221,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		if !didSetupUI && !appLaunchedFromUserActivityURL {
 			setupUI()
 			showUI()
-
-			appLaunchedFromUserActivityURL = false
-			didSetupUI = true
-			route = nil
 		}
 
 		hidePrivacyProtectionWindow()
@@ -249,10 +255,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		if !didSetupUI && appLaunchedFromUserActivityURL {
 			setupUI()
 			showUI()
-
-			appLaunchedFromUserActivityURL = false
-			didSetupUI = true
-			route = nil
 		} else {
 			guard store.isOnboarded else {
 				postOnboardingRoute = route
@@ -271,7 +273,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 	let cachingClient = CachingHTTPClient()
 	let downloadedPackagesStore: DownloadedPackagesStore = DownloadedPackagesSQLLiteStore(fileName: "packages")
 	let taskScheduler: ENATaskScheduler = ENATaskScheduler.shared
-	let contactDiaryStore: DiaryStoringProviding = ContactDiaryStore.make()
+	let contactDiaryStore: DiaryStoringProviding
 	let eventStore: EventStoringProviding = {
 		#if DEBUG
 		if isUITesting {
@@ -300,8 +302,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		)
 	}()
 
+	lazy var familyMemberCoronaTestService: FamilyMemberCoronaTestServiceProviding = {
+		FamilyMemberCoronaTestService(
+			client: client,
+			restServiceProvider: restServiceProvider,
+			store: store,
+			appConfiguration: appConfigurationProvider,
+			healthCertificateService: healthCertificateService,
+			healthCertificateRequestService: healthCertificateRequestService,
+			recycleBin: recycleBin
+		)
+	}()
+
 	lazy var badgeWrapper: HomeBadgeWrapper = {
-		return HomeBadgeWrapper(store)
+		return HomeBadgeWrapper(
+			store,
+			familyMemberCoronaTestService
+		)
 	}()
 
 	lazy var eventCheckoutService: EventCheckoutService = EventCheckoutService(
@@ -547,11 +564,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 			eventCheckoutService: self.eventCheckoutService,
 			store: self.store,
 			exposureSubmissionDependencies: self.exposureSubmissionServiceDependencies,
-			healthCertificateService: self.healthCertificateService
+			healthCertificateService: self.healthCertificateService,
+			familyMemberCoronaTestService: familyMemberCoronaTestService
 		)
 	}()
 
 	lazy var notificationManager: NotificationManager = {
+		/*
+			Notifications can be fired when the app is running (either foreground or background) or when the app is killed
+				- in case the app is running then we need to show the Home using the route of the notification
+				- in case the app is killed and then reopened then we should just set the route,
+				  as the showHome flow will begin anyway at the startup process of the app
+		*/
 		let notificationManager = NotificationManager(
 			coronaTestService: coronaTestService,
 			eventCheckoutService: eventCheckoutService,
@@ -572,19 +596,28 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 					self.route = route
 				}
 			},
+			showFamilyMemberTests: { [weak self] route in
+				guard let self = self else { return }
+
+				if self.didSetupUI {
+					self.showHome(route)
+				} else {
+					Log.debug("new route is set: \(route.routeInformation)")
+					self.route = route
+				}
+			},
 			showHealthCertificate: { [weak self] route in
-				// We must NOT call self?.showHome(route) here because we do not target the home screen. Only set the route. The rest is done automatically by the startup process of the app.
-				// Works only for notifications tapped when the app is closed. When inside the app, the notification will trigger nothing.
-				Log.debug("new route is set: \(route.routeInformation)")
-				self?.route = route
+				guard let self = self else { return }
+
+				if self.didSetupUI {
+					self.showHome(route)
+				} else {
+					Log.debug("new route is set: \(route.routeInformation)")
+					self.route = route
+				}
 			}, showHealthCertifiedPerson: { [weak self] route in
 				guard let self = self else { return }
-				/*
-					The booster notifications can be fired when the app is running (either foreground or background) or when the app is killed
-					in case the app is running then we need to show the Home using the route of the booster notifications
-					in case the app is killed and then reopened then we should just set the route into the health certified person,
-					as the showHome flow will begin anyway at the startup process of the app
-				*/
+
 				if self.didSetupUI {
 					self.showHome(route)
 				} else {
@@ -659,6 +692,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		eventStore.reset()
 
 		coronaTestService.updatePublishersFromStore()
+		familyMemberCoronaTestService.updatePublishersFromStore()
 		healthCertificateService.updatePublishersFromStore()
 	}
 
@@ -808,6 +842,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 	lazy var coordinator = RootCoordinator(
 		self,
 		coronaTestService: coronaTestService,
+		familyMemberCoronaTestService: familyMemberCoronaTestService,
 		contactDiaryStore: contactDiaryStore,
 		eventStore: eventStore,
 		eventCheckoutService: eventCheckoutService,
@@ -867,6 +902,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 						self.postOnboardingRoute = self.route
 						self.showOnboarding()
 					}
+
+					self.appLaunchedFromUserActivityURL = false
+					self.didSetupUI = true
+					self.route = nil
 				}
 			}
 		)
@@ -886,6 +925,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 			NSAttributedString.Key.font: UIFont.preferredFont(forTextStyle: .largeTitle).scaledFont(size: 28, weight: .bold),
 			NSAttributedString.Key.foregroundColor: UIColor.enaColor(for: .textPrimary1)
 		]
+
+		UILabel.appearance(whenContainedInInstancesOf: [UINavigationBar.self]).adjustsFontSizeToFitWidth = true
 	}
 
 	private func setupAlertViewAppearance() {
@@ -921,7 +962,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 			fatalError("It should not happen.")
 		}
 
-		coordinator.showHome(enStateHandler: enStateHandler, route: route)
+		coordinator.showHome(
+			enStateHandler: enStateHandler,
+			route: route,
+			startupErrors: startupErrors
+		)
+		startupErrors.removeAll()
 	}
 
 	private func showOnboarding() {

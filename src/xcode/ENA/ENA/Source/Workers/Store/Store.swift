@@ -185,9 +185,12 @@ protocol WarnOthersTimeIntervalStoring {
 
 protocol CoronaTestStoring {
 
-	var pcrTest: PCRTest? { get set }
+	var pcrTest: UserPCRTest? { get set }
 
-	var antigenTest: AntigenTest? { get set }
+	var antigenTest: UserAntigenTest? { get set }
+
+	var familyMemberTests: [FamilyMemberCoronaTest] { get set }
+
 }
 
 protocol AntigenTestProfileStoring: AnyObject {

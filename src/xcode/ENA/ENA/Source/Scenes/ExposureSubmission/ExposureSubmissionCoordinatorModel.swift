@@ -13,11 +13,15 @@ class ExposureSubmissionCoordinatorModel {
 	init(
 		exposureSubmissionService: ExposureSubmissionService,
 		coronaTestService: CoronaTestServiceProviding,
-		eventProvider: EventProviding
+		familyMemberCoronaTestService: FamilyMemberCoronaTestServiceProviding,
+		eventProvider: EventProviding,
+		recycleBin: RecycleBin
 	) {
 		self.exposureSubmissionService = exposureSubmissionService
+		self.familyMemberCoronaTestService = familyMemberCoronaTestService
 		self.coronaTestService = coronaTestService
 		self.eventProvider = eventProvider
+		self.recycleBin = recycleBin
 
 		// Try to load current country list initially to make it virtually impossible the user has to wait for it later.
 		exposureSubmissionService.loadSupportedCountries { _ in
@@ -31,12 +35,14 @@ class ExposureSubmissionCoordinatorModel {
 
 	let exposureSubmissionService: ExposureSubmissionService
 	let coronaTestService: CoronaTestServiceProviding
+	let familyMemberCoronaTestService: FamilyMemberCoronaTestServiceProviding
 	let eventProvider: EventProviding
+	let recycleBin: RecycleBin
 	
 	var coronaTestType: CoronaTestType?
 	var markNewlyAddedCoronaTestAsUnseen: Bool = false
 
-	var coronaTest: CoronaTest? {
+	var coronaTest: UserCoronaTest? {
 		guard let coronaTestType = coronaTestType else {
 			return nil
 		}
@@ -100,6 +106,30 @@ class ExposureSubmissionCoordinatorModel {
 			exposureSubmissionService.symptomsOnset = .moreThanTwoWeeksAgo
 		case .preferNotToSay:
 			exposureSubmissionService.symptomsOnset = .symptomaticWithUnknownOnset
+		}
+	}
+
+	func recycleBinItemToRestore(
+		for testRegistrationInformation: CoronaTestRegistrationInformation
+	) -> RecycleBinItem? {
+		switch testRegistrationInformation {
+		case .pcr(guid: _, qrCodeHash: let qrCodeHash),
+			.antigen(qrCodeInformation: _, qrCodeHash: let qrCodeHash),
+			.rapidPCR(qrCodeInformation: _, qrCodeHash: let qrCodeHash):
+			return recycleBin.recycledItems.first {
+				let recycledQRCodeHash: String
+				if case .userCoronaTest(let coronaTest) = $0.item, let userQRCodeHash = coronaTest.qrCodeHash {
+					recycledQRCodeHash = userQRCodeHash
+				} else if case .familyMemberCoronaTest(let coronaTest) = $0.item {
+					recycledQRCodeHash = coronaTest.qrCodeHash
+				} else {
+					return false
+				}
+
+				return recycledQRCodeHash == qrCodeHash
+			}
+		case .teleTAN:
+			return nil
 		}
 	}
 
@@ -233,6 +263,80 @@ class ExposureSubmissionCoordinatorModel {
 		}
 	}
 
+	func registerFamilyMemberTestAndGetResult(
+		for displayName: String,
+		registrationInformation: CoronaTestRegistrationInformation,
+		certificateConsent: TestCertificateConsent,
+		isLoading: @escaping (Bool) -> Void,
+		onSuccess: @escaping (FamilyMemberCoronaTest) -> Void,
+		onError: @escaping (CoronaTestServiceError) -> Void
+	) {
+		isLoading(true)
+		// QR code test fetch
+		switch registrationInformation {
+		case let .pcr(guid: guid, qrCodeHash: qrCodeHash):
+			familyMemberCoronaTestService.registerPCRTestAndGetResult(
+					for: displayName,
+					guid: guid,
+					qrCodeHash: qrCodeHash,
+					certificateConsent: certificateConsent,
+					completion: { result in
+						DispatchQueue.main.async {
+							isLoading(false)
+
+							switch result {
+							case let .failure(error):
+								onError(error)
+							case let .success(testResult):
+								onSuccess(testResult)
+							}
+						}
+					}
+			  )
+		case let .antigen(qrCodeInformation: qrCodeInformation, qrCodeHash: qrCodeHash):
+			familyMemberCoronaTestService.registerAntigenTestAndGetResult(
+				   for: displayName,
+				   with: qrCodeInformation.hash,
+				   qrCodeHash: qrCodeHash,
+				   pointOfCareConsentDate: qrCodeInformation.pointOfCareConsentDate,
+				   certificateSupportedByPointOfCare: qrCodeInformation.certificateSupportedByPointOfCare ?? false,
+				   certificateConsent: certificateConsent,
+				   completion: { result in
+					   isLoading(false)
+					   
+					   switch result {
+					   case let .failure(error):
+						   onError(error)
+					   case let .success(testResult):
+						   onSuccess(testResult)
+					   }
+				   }
+			)
+		case let .rapidPCR(qrCodeInformation: qrCodeInformation, qrCodeHash: qrCodeHash):
+			familyMemberCoronaTestService.registerRapidPCRTestAndGetResult(
+				   for: displayName,
+				   with: qrCodeInformation.hash,
+				   qrCodeHash: qrCodeHash,
+				   pointOfCareConsentDate: qrCodeInformation.pointOfCareConsentDate,
+				   certificateSupportedByPointOfCare: qrCodeInformation.certificateSupportedByPointOfCare ?? false,
+				   certificateConsent: certificateConsent,
+				   completion: { result in
+					   isLoading(false)
+					   
+					   switch result {
+					   case let .failure(error):
+						   onError(error)
+					   case let .success(testResult):
+						   onSuccess(testResult)
+					   }
+				   }
+			)
+		case .teleTAN(tan: _):
+			// we don't support type teleTAN for family members
+			break
+		}
+	}
+	
 	func setSubmissionConsentGiven(_ isSubmissionConsentGiven: Bool) {
 		switch coronaTestType {
 		case .pcr:

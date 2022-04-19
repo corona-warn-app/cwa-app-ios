@@ -70,7 +70,11 @@ class CoronaTestService: CoronaTestServiceProviding {
 		self.fakeRequestService = FakeRequestService(client: client, restServiceProvider: restServiceProvider)
 		self.warnOthersReminder = WarnOthersReminder(store: store)
 
-		healthCertificateRequestService.didRegisterTestCertificate = setUniqueCertificateIdentifier
+		healthCertificateRequestService.didRegisterTestCertificate
+			.sink { [weak self] certificateIdentifier, testCertificateRequest in
+				self?.setUniqueCertificateIdentifier(certificateIdentifier, from: testCertificateRequest)
+			}
+			.store(in: &subscriptions)
 
 		setup()
 	}
@@ -108,15 +112,15 @@ class CoronaTestService: CoronaTestServiceProviding {
 
 	// MARK: - Protocol CoronaTestServiceProviding
 
-	var pcrTest = CurrentValueSubject<PCRTest?, Never>(nil)
-	var antigenTest = CurrentValueSubject<AntigenTest?, Never>(nil)
+	var pcrTest = CurrentValueSubject<UserPCRTest?, Never>(nil)
+	var antigenTest = CurrentValueSubject<UserAntigenTest?, Never>(nil)
 
 	var antigenTestIsOutdated = CurrentValueSubject<Bool, Never>(false)
 
 	var pcrTestResultIsLoading = CurrentValueSubject<Bool, Never>(false)
 	var antigenTestResultIsLoading = CurrentValueSubject<Bool, Never>(false)
 
-	func coronaTest(ofType type: CoronaTestType) -> CoronaTest? {
+	func coronaTest(ofType type: CoronaTestType) -> UserCoronaTest? {
 		switch type {
 		case .pcr:
 			return pcrTest.value.map { .pcr($0) }
@@ -156,7 +160,7 @@ class CoronaTestService: CoronaTestServiceProviding {
 						self?.moveTestToBin(.pcr)
 					}
 
-					self?.pcrTest.value = PCRTest(
+					self?.pcrTest.value = UserPCRTest(
 						registrationDate: Date(),
 						registrationToken: registrationToken,
 						qrCodeHash: qrCodeHash,
@@ -215,7 +219,7 @@ class CoronaTestService: CoronaTestServiceProviding {
 						self?.moveTestToBin(.pcr)
 					}
 
-					 let _pcrTest = PCRTest(
+					 let _pcrTest = UserPCRTest(
 						registrationDate: Date(),
 						registrationToken: registrationToken,
 						testResult: .positive,
@@ -308,7 +312,7 @@ class CoronaTestService: CoronaTestServiceProviding {
 						certificateConsentGiven = true
 					}
 
-					self?.antigenTest.value = AntigenTest(
+					self?.antigenTest.value = UserAntigenTest(
 						pointOfCareConsentDate: pointOfCareConsentDate,
 						registrationDate: Date(),
 						registrationToken: registrationToken,
@@ -382,7 +386,7 @@ class CoronaTestService: CoronaTestServiceProviding {
 						certificateConsentGiven = true
 					}
 
-					self?.pcrTest.value = PCRTest(
+					self?.pcrTest.value = UserPCRTest(
 						registrationDate: Date(),
 						registrationToken: registrationToken,
 						qrCodeHash: qrCodeHash,
@@ -423,7 +427,7 @@ class CoronaTestService: CoronaTestServiceProviding {
 		)
 	}
 	
-	func reregister(coronaTest: CoronaTest) {
+	func reregister(coronaTest: UserCoronaTest) {
 		switch coronaTest {
 		case .pcr(let pcrTest):
 			self.pcrTest.value = pcrTest
@@ -543,7 +547,7 @@ class CoronaTestService: CoronaTestServiceProviding {
 		Log.info("[CoronaTestService] Moving test to bin (coronaTestType: \(coronaTestType)", log: .api)
 
 		if let coronaTest = coronaTest(ofType: coronaTestType) {
-			recycleBin.moveToBin(.coronaTest(coronaTest))
+			recycleBin.moveToBin(.userCoronaTest(coronaTest))
 		}
 
 		removeTest(coronaTestType)
@@ -581,7 +585,17 @@ class CoronaTestService: CoronaTestServiceProviding {
 
 		scheduleWarnOthersNotificationIfNeeded(coronaTestType: coronaTestType)
 	}
+	
+	func evaluateSavingTestToDiary(ofTestType coronaTestType: CoronaTestType) {
+		Log.info("[CoronaTestService] Evaluating saving test (coronaTestType: \(coronaTestType))", log: .api)
 
+		guard let coronaTest = coronaTest(ofType: coronaTestType), coronaTest.testResult == .positive, !coronaTest.positiveTestResultWasShown else {
+			Log.info("[CoronaTestService] will not save test to the diary (coronaTestType: \(coronaTestType))", log: .api)
+			return
+		}
+		createCoronaTestEntryInContactDiary(coronaTestType: coronaTestType)
+	}
+	
 	func updatePublishersFromStore() {
 		Log.info("[CoronaTestService] Updating publishers from store", log: .api)
 
@@ -610,7 +624,7 @@ class CoronaTestService: CoronaTestServiceProviding {
 			// from v2.1 we keep it set to true even after the submission.
 			let positiveTestResultWasShown = store.positiveTestResultWasShown || keysSubmitted
 
-			pcrTest.value = PCRTest(
+			pcrTest.value = UserPCRTest(
 				registrationDate: Date(timeIntervalSince1970: TimeInterval(testRegistrationTimestamp)),
 				registrationToken: store.registrationToken,
 				testResult: testResult,
@@ -907,7 +921,10 @@ class CoronaTestService: CoronaTestServiceProviding {
 					if case .positive = testResult, let coronaTest = self.coronaTest(ofType: coronaTestType), !coronaTest.keysSubmitted {
 						self.createKeySubmissionMetadataDefaultValues(for: coronaTest)
 					}
-
+					// for negative result we save the result directly to the diary as there is no additional UI that the user has to go through unlike the positive test result where the user sees a "Test result is available" screen first.
+					if case .negative = testResult {
+						self.createCoronaTestEntryInContactDiary(coronaTestType: coronaTestType)
+					}
 					if self.coronaTest(ofType: coronaTestType)?.finalTestResultReceivedDate == nil {
 						switch coronaTestType {
 						case .pcr:
@@ -975,7 +992,7 @@ class CoronaTestService: CoronaTestServiceProviding {
 		serialQueue.addOperation(operation)
 	}
 
-	private func setupOutdatedPublisher(for antigenTest: AntigenTest) {
+	private func setupOutdatedPublisher(for antigenTest: UserAntigenTest) {
 		// Only rapid antigen tests with a negative test result can become outdated
 		guard antigenTest.testResult == .negative else {
 			return
@@ -1009,7 +1026,7 @@ class CoronaTestService: CoronaTestServiceProviding {
 		}
 	}
 
-	private func createKeySubmissionMetadataDefaultValues(for coronaTest: CoronaTest) {
+	private func createKeySubmissionMetadataDefaultValues(for coronaTest: UserCoronaTest) {
 		let submittedAfterRapidAntigenTest: Bool
 		switch coronaTest {
 		case .pcr:
@@ -1097,9 +1114,9 @@ class CoronaTestService: CoronaTestServiceProviding {
 
 	#if DEBUG
 
-	private var mockPCRTest: PCRTest? {
+	private var mockPCRTest: UserPCRTest? {
 		if let testResult = mockTestResult(for: .pcr) {
-			return PCRTest(
+			return UserPCRTest(
 				registrationDate: Date(),
 				registrationToken: "asdf",
 				testResult: testResult,
@@ -1118,9 +1135,9 @@ class CoronaTestService: CoronaTestServiceProviding {
 		}
 	}
 
-	private var mockAntigenTest: AntigenTest? {
+	private var mockAntigenTest: UserAntigenTest? {
 		if let testResult = mockTestResult(for: .antigen) {
-			return AntigenTest(
+			return UserAntigenTest(
 				pointOfCareConsentDate: Date(),
 				registrationDate: Date(),
 				registrationToken: "zxcv",

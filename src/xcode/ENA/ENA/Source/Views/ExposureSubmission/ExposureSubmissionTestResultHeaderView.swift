@@ -21,7 +21,7 @@ class ExposureSubmissionTestResultHeaderView: DynamicTableViewHeaderFooterView {
 
 	// MARK: - DynamicTableViewHeaderFooterView methods.
 
-	func configure(coronaTest: CoronaTest) {
+	func configure(coronaTest: UserCoronaTest) {
 		barView.backgroundColor = coronaTest.testResult.color
 		imageView.image = coronaTest.testResult.image
 
@@ -45,6 +45,30 @@ class ExposureSubmissionTestResultHeaderView: DynamicTableViewHeaderFooterView {
 		}
 	}
 
+	func configure(coronaTest: FamilyMemberCoronaTest) {
+		barView.backgroundColor = coronaTest.testResult.color
+		imageView.image = coronaTest.testResult.image
+
+		let formattedTestDate = DateFormatter.localizedString(from: coronaTest.testDate, dateStyle: .medium, timeStyle: .none)
+		
+		switch coronaTest.type {
+		case .pcr:
+			subTitleLabel.text = AppStrings.ExposureSubmissionResult.PCR.card_subtitle
+			timeLabel.text = "\(AppStrings.ExposureSubmissionResult.PCR.registrationDate) \(formattedTestDate)"
+		case .antigen:
+			subTitleLabel.text = AppStrings.ExposureSubmissionResult.Antigen.card_subtitle
+			timeLabel.text = String(format: AppStrings.Home.TestResult.Negative.dateAntigen, formattedTestDate)
+		}
+		
+		switch coronaTest.testResult {
+		case .positive: titleLabel.text = "\(AppStrings.ExposureSubmissionResult.card_title)\n\(AppStrings.ExposureSubmissionResult.PCR.card_positive)"
+		case .negative: titleLabel.text = "\(AppStrings.ExposureSubmissionResult.card_title)\n\(AppStrings.ExposureSubmissionResult.PCR.card_negative)"
+		case .invalid: titleLabel.text = AppStrings.ExposureSubmissionResult.card_invalid
+		case .pending: titleLabel.text = AppStrings.ExposureSubmissionResult.card_pending
+		case .expired: titleLabel.text = AppStrings.ExposureSubmissionResult.card_invalid
+		}
+	}
+	
 	override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
 		super.traitCollectionDidChange(previousTraitCollection)
 		updateIllustration(for: traitCollection)

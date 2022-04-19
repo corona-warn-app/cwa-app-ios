@@ -183,7 +183,7 @@ class AntigenExposureSubmissionNegativeTestResultHeaderView: DynamicTableViewHea
 		
 	// MARK: - Internal
 	
-	func configure(coronaTest: AntigenTest) {
+	func configure(coronaTest: UserAntigenTest) {
 		lineView.backgroundColor = coronaTest.testResult.color
 		imageView.image = coronaTest.testResult.image
 		subtitleLabel.text = AppStrings.ExposureSubmissionResult.Antigen.card_subtitle
@@ -202,6 +202,25 @@ class AntigenExposureSubmissionNegativeTestResultHeaderView: DynamicTableViewHea
 		} else {
 			personLabel.text = nil
 		}
+		// dateLabel
+		dateLabel.text = DateFormatter.localizedString(from: coronaTest.testDate, dateStyle: .medium, timeStyle: .short)
+	}
+	
+	func configure(coronaTest: FamilyMemberAntigenTest) {
+		lineView.backgroundColor = coronaTest.testResult.color
+		imageView.image = coronaTest.testResult.image
+		subtitleLabel.text = AppStrings.ExposureSubmissionResult.Antigen.card_subtitle
+		// resultTitleLabel
+		switch coronaTest.testResult {
+		case .positive: resultTitleLabel.text = AppStrings.ExposureSubmissionResult.Antigen.card_positive
+		case .negative: resultTitleLabel.text = AppStrings.ExposureSubmissionResult.Antigen.card_negative
+		case .invalid: resultTitleLabel.text = AppStrings.ExposureSubmissionResult.card_invalid
+		case .pending: resultTitleLabel.text = AppStrings.ExposureSubmissionResult.card_pending
+		case .expired: resultTitleLabel.text = AppStrings.ExposureSubmissionResult.card_invalid
+		}
+		resultTitleLabel.textColor = coronaTest.testResult.color
+		// personLabel
+		personLabel.text = nil
 		// dateLabel
 		dateLabel.text = DateFormatter.localizedString(from: coronaTest.testDate, dateStyle: .medium, timeStyle: .short)
 	}

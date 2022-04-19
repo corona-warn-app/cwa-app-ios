@@ -7,6 +7,7 @@ import UserNotifications
 public enum ActionableNotificationIdentifier: String {
 	case testResult = "test-result"
 	case testResultType = "test-result-type"
+	case familyTestResult = "family-test-result"
 	case riskDetection = "risk-detection"
 	case deviceTimeCheck = "device-time-check"
 	case pcrWarnOthersReminder1 = "pcr-warn-others-reminder-1"
@@ -20,7 +21,7 @@ public enum ActionableNotificationIdentifier: String {
 	}
 }
 
-public enum LocalNotificationIdentifier: String {
+public enum LocalNotificationIdentifier: String, CaseIterable {
 	case checkout = "EventCheckoutNotification"
 	case certificateExpiringSoon = "HealthCertificateNotificationExpireSoon"
 	case certificateExpired = "HealthCertificateNotificationExpired"

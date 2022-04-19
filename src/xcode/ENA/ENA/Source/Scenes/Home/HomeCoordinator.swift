@@ -16,6 +16,7 @@ class HomeCoordinator: RequiresAppDependencies {
 		ppacService: PrivacyPreservingAccessControl,
 		eventStore: EventStoringProviding,
 		coronaTestService: CoronaTestServiceProviding,
+		familyMemberCoronaTestService: FamilyMemberCoronaTestServiceProviding,
 		healthCertificateService: HealthCertificateService,
 		healthCertificateValidationService: HealthCertificateValidationProviding,
 		elsService: ErrorLogSubmissionProviding,
@@ -33,6 +34,7 @@ class HomeCoordinator: RequiresAppDependencies {
 		self.ppacService = ppacService
 		self.eventStore = eventStore
 		self.coronaTestService = coronaTestService
+		self.familyMemberCoronaTestService = familyMemberCoronaTestService
 		self.healthCertificateService = healthCertificateService
 		self.healthCertificateValidationService = healthCertificateValidationService
 		self.elsService = elsService
@@ -54,20 +56,25 @@ class HomeCoordinator: RequiresAppDependencies {
 
 	let rootViewController: UINavigationController = AppNavigationController(rootViewController: UIViewController())
 
-	func showHome(enStateHandler: ENStateHandler, route: Route?) {
+	func showHome(enStateHandler: ENStateHandler, route: Route?, startupErrors: [Error]) {
 		guard homeController == nil else {
 			switch route {
-			case .rapidAntigen, .rapidPCR:
-				// only select tab if route is .rapidAntigen or .rapidPCR
+			case .rapidAntigen, .rapidPCR, .testResultFromNotification, .familyMemberTestResultFromNotification:
 				selectHomeTabSection(route: route)
 				return
-			case .testResultFromNotification,
-				 .checkIn,
+			case .checkIn,
 				 .healthCertificateFromNotification,
 				 .healthCertifiedPersonFromNotification,
 				 .none:
+				/*
+				 .healthCertifiedPersonFromNotification .checkIn and
+				 .healthCertificateFromNotification routings are checked in the
+				 showHome function in the RootCoordinator inside the defer block.
+				 So basically here we show home THEN excute the routings in the defer
+				*/
 				rootViewController.dismiss(animated: false)
 				rootViewController.popToRootViewController(animated: false)
+				rootViewController.tabBarController?.selectedIndex = 0
 				homeController?.scrollToTop(animated: false)
 				return
 			}
@@ -79,6 +86,7 @@ class HomeCoordinator: RequiresAppDependencies {
 				store: store,
 				appConfiguration: appConfigurationProvider,
 				coronaTestService: coronaTestService,
+				familyMemberCoronaTestService: familyMemberCoronaTestService,
 				onTestResultCellTap: { [weak self] coronaTestType in
 					self?.showExposureSubmission(testType: coronaTestType)
 				},
@@ -86,6 +94,7 @@ class HomeCoordinator: RequiresAppDependencies {
 			),
 			appConfigurationProvider: appConfigurationProvider,
 			route: route,
+			startupErrors: startupErrors,
 			onInfoBarButtonItemTap: { [weak self] in
 				self?.showRiskLegend()
 			},
@@ -94,6 +103,9 @@ class HomeCoordinator: RequiresAppDependencies {
 			},
 			onRiskCellTap: { [weak self] homeState in
 				self?.showExposureDetection(state: homeState)
+			},
+			onFamilyTestResultsCellTap: { [weak self] in
+				self?.showFamilyMemberCoronaTests()
 			},
 			onInactiveCellButtonTap: { [weak self] enState in
 				self?.showExposureNotificationSetting(enState: enState)
@@ -129,6 +141,12 @@ class HomeCoordinator: RequiresAppDependencies {
 			},
 			showTestInformationResult: { [weak self] testInformationResult in
 				self?.showExposureSubmission(testInformationResult: testInformationResult)
+			},
+			showUserTestResultFromNotification: { [weak self] coronaTestType in
+				self?.showTestResultFromNotification(with: coronaTestType)
+			},
+			showFamilyMemberCoronaTestsFromNotification: { [weak self] in
+				self?.showFamilyMemberTestsFromNotification()
 			},
 			onAddLocalStatisticsTap: { [weak self] selectValueViewController in
 				self?.rootViewController.present(
@@ -167,16 +185,6 @@ class HomeCoordinator: RequiresAppDependencies {
 		})
 	}
 
-	func showTestResultFromNotification(with testType: CoronaTestType) {
-		if let presentedViewController = rootViewController.presentedViewController {
-			presentedViewController.dismiss(animated: true) {
-				self.showExposureSubmission(testType: testType)
-			}
-		} else {
-			self.showExposureSubmission(testType: testType)
-		}
-	}
-
 	func updateDetectionMode(
 		_ detectionMode: DetectionMode
 	) {
@@ -189,6 +197,7 @@ class HomeCoordinator: RequiresAppDependencies {
 	private let otpService: OTPServiceProviding
 	private let eventStore: EventStoringProviding
 	private let coronaTestService: CoronaTestServiceProviding
+	private let familyMemberCoronaTestService: FamilyMemberCoronaTestServiceProviding
 	private let elsService: ErrorLogSubmissionProviding
 	private let healthCertificateService: HealthCertificateService
 	private let healthCertificateValidationService: HealthCertificateValidationProviding
@@ -203,6 +212,7 @@ class HomeCoordinator: RequiresAppDependencies {
 	private var homeController: HomeTableViewController?
 	private var homeState: HomeState
 	private var settingsController: SettingsViewController?
+	private var familyMemberCoronaTestsCoordinator: FamilyMemberCoronaTestsCoordinator?
 	private var traceLocationsCoordinator: TraceLocationsCoordinator?
 	private var settingsCoordinator: SettingsCoordinator?
 	private var exposureDetectionCoordinator: ExposureDetectionCoordinator?
@@ -302,13 +312,15 @@ class HomeCoordinator: RequiresAppDependencies {
 			parentViewController: rootViewController,
 			exposureSubmissionService: exposureSubmissionService,
 			coronaTestService: coronaTestService,
+			familyMemberCoronaTestService: familyMemberCoronaTestService,
 			healthCertificateService: healthCertificateService,
 			healthCertificateValidationService: healthCertificateValidationService,
 			eventProvider: eventStore,
 			antigenTestProfileStore: store,
 			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
 			healthCertificateValidationOnboardedCountriesProvider: healthCertificateValidationOnboardedCountriesProvider,
-			qrScannerCoordinator: qrScannerCoordinator
+			qrScannerCoordinator: qrScannerCoordinator,
+			recycleBin: recycleBin
 		)
 
 		if let testInformationResult = testInformationResult {
@@ -316,6 +328,21 @@ class HomeCoordinator: RequiresAppDependencies {
 		} else {
 			coordinator.start(with: testType)
 		}
+	}
+
+	private func showFamilyMemberCoronaTests() {
+		familyMemberCoronaTestsCoordinator = FamilyMemberCoronaTestsCoordinator(
+			parentNavigationController: rootViewController,
+			familyMemberCoronaTestService: familyMemberCoronaTestService,
+			appConfigurationProvider: appConfigurationProvider,
+			store: store,
+			healthCertificateService: healthCertificateService,
+			healthCertificateValidationService: healthCertificateValidationService,
+			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
+			healthCertificateValidationOnboardedCountriesProvider: healthCertificateValidationOnboardedCountriesProvider
+		)
+
+		familyMemberCoronaTestsCoordinator?.start()
 	}
 
 	private func showStatisticsInfo() {
@@ -423,7 +450,7 @@ class HomeCoordinator: RequiresAppDependencies {
 	private func showTestOverwriteNotice(
 		recycleBinItem: RecycleBinItem
 	) {
-		guard case let .coronaTest(coronaTest) = recycleBinItem.item else {
+		guard case let .userCoronaTest(coronaTest) = recycleBinItem.item else {
 			return
 		}
 
@@ -453,6 +480,30 @@ class HomeCoordinator: RequiresAppDependencies {
 			NavigationControllerWithLargeTitle(rootViewController: topBottomViewController),
 			animated: true
 		)
+	}
+
+	private func showTestResultFromNotification(with testType: CoronaTestType) {
+		rootViewController.popToRootViewController(animated: false)
+
+		if let presentedViewController = rootViewController.presentedViewController {
+			presentedViewController.dismiss(animated: true) {
+				self.showExposureSubmission(testType: testType)
+			}
+		} else {
+			self.showExposureSubmission(testType: testType)
+		}
+	}
+
+	private func showFamilyMemberTestsFromNotification() {
+		rootViewController.popToRootViewController(animated: false)
+
+		if let presentedViewController = rootViewController.presentedViewController {
+			presentedViewController.dismiss(animated: true) {
+				self.showFamilyMemberCoronaTests()
+			}
+		} else {
+			self.showFamilyMemberCoronaTests()
+		}
 	}
 
 	private func addToEnStateUpdateList(_ anyObject: AnyObject?) {

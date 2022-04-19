@@ -323,6 +323,10 @@ enum AccessibilityIdentifiers {
 		enum Antigen {
 			static let proofDesc = "AppStrings.ExposureSubmissionResult.Antigen.proofDesc"
 		}
+
+		enum RemoveAlert {
+			static let deleteButton = "AppStrings.ExposureSubmissionResult.removeAlert_ConfirmButtonTitle"
+		}
 	}
 	
 	enum ExposureSubmissionPositiveTestResult {
@@ -480,6 +484,11 @@ enum AccessibilityIdentifiers {
 			}
 		}
 
+		enum TestOwnerSelection {
+			static let userButton = "AppStrings.ExposureSubmission.TestOwnerSelection.userButton"
+			static let familyMemberButton = "AppStrings.ExposureSubmission.TestOwnerSelection.familyMemberButton"
+		}
+		
 		enum TestCertificate {
 			enum Info {
 				static let imageDescription = "AppStrings.ExposureSubmission.TestCertificate.Info.imageDescription"
@@ -489,6 +498,11 @@ enum AccessibilityIdentifiers {
 				static let birthdayPlaceholder = "AppStrings.ExposureSubmission.TestCertificate.Info.birthDayPlaceholder"
 				static let birthdayText = "AppStrings.ExposureSubmission.TestCertificate.Info.birthDayText"
 			}
+
+			enum Alert {
+				static let cancelRegistration = "AppStrings.ExposureSubmission.TestCertificate.Info.Alert.cancelRegistration"
+			}
+
 		}
 
 	}
@@ -732,6 +746,17 @@ enum AccessibilityIdentifiers {
 			}
 		}
 
+		enum FamilyMemberConsent {
+			static let imageDescription = "AppStrings.HealthCertificate.FamilyMemberConsent.imageDescription"
+			static let textInput = "HealthCertificate.FamilyMemberConsent.textInput"
+			static let primaryButton = "HealthCertificate.FamilyMemberConsent.primaryButton"
+
+			enum Legal {
+				static let acknowledgementTitle = "AccessibilityIdentifiers.HealthCertificate.FamilyMemberConsent.Legal.acknowledgementTitle"
+			}
+			static let  dataPrivacyTitle = "AccessibilityIdentifiers.HealthCertificate.FamilyMemberConsent.dataPrivacyTitle"
+		}
+
 		enum Overview {
 			static let changeAdmissionScenarioCell =
 				"AppStrings.HealthCertificate.changeAdmissionScenarioCell"
@@ -833,4 +858,27 @@ enum AccessibilityIdentifiers {
 			static let boosterNotificationCell = "BoosterNotification.Details.boosterNotificationCell"
 		}
 	}
+
+	enum FamilyMemberCoronaTestCell {
+		static let pendingPCR = "AccessibilityIdentifiers.FamilyMemberCoronaTestCell.pendingPCR"
+		static let pendingAntigen = "AccessibilityIdentifiers.FamilyMemberCoronaTestCell.pendingAntigen"
+		static let negativePCR = "AccessibilityIdentifiers.FamilyMemberCoronaTestCell.negativePCR"
+		static let negativeAntigen = "AccessibilityIdentifiers.FamilyMemberCoronaTestCell.negativeAntigen"
+		static let positivePCR = "AccessibilityIdentifiers.FamilyMemberCoronaTestCell.positivePCR"
+		static let positiveAntigen = "AccessibilityIdentifiers.FamilyMemberCoronaTestCell.positiveAntigen"
+		static let invalidPCR = "AccessibilityIdentifiers.FamilyMemberCoronaTestCell.invalidPCR"
+		static let invalidAntigen = "AccessibilityIdentifiers.FamilyMemberCoronaTestCell.invalidAntigen"
+		static let expiredPCR = "AccessibilityIdentifiers.FamilyMemberCoronaTestCell.expiredPCR"
+		static let expiredAntigen = "AccessibilityIdentifiers.FamilyMemberCoronaTestCell.expiredAntigen"
+		static let outdatedAntigen = "AccessibilityIdentifiers.FamilyMemberCoronaTestCell.outdatedAntigen"
+
+		static let homeCell = "AccessibilityIdentifiers.FamilyMemberCoronaTestCell.homeCell"
+		static let homeCellDetailText = "AccessibilityIdentifiers.FamilyMemberCoronaTestCell.homeCellDetailText"
+
+		enum Overview {
+			static let testCell = "AccessibilityIdentifiers.FamilyMemberCoronaTestCell.Overview.testCell"
+		}
+
+	}
+
 }

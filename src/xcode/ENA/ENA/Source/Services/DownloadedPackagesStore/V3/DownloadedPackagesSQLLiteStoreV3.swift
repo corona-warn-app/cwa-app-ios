@@ -147,7 +147,7 @@ extension DownloadedPackagesSQLLiteStoreV3: DownloadedPackagesStoreV3 {
 				try database.executeUpdate(sql, values: parameters)
 			} catch {
 				Log.error("[SQLite] (\(database.lastErrorCode()) \(database.lastErrorMessage())", log: .localData)
-				let sqliteError = SQLiteErrorCode(rawValue: database.lastErrorCode()) ?? SQLiteErrorCode.unknown
+				let sqliteError = SQLiteErrorCode(rawValue: database.lastErrorCode())
 				throw StoreError.sqliteError(sqliteError)
 			}
 		}
@@ -208,7 +208,7 @@ extension DownloadedPackagesSQLLiteStoreV3: DownloadedPackagesStoreV3 {
 			]
 			guard self.database.executeUpdate(sql, withParameterDictionary: parameters) else {
 				Log.error("[SQLite] (\(database.lastErrorCode())) \(database.lastErrorMessage())", log: .localData)
-				let sqliteError = SQLiteErrorCode(rawValue: database.lastErrorCode()) ?? SQLiteErrorCode.unknown
+				let sqliteError = SQLiteErrorCode(rawValue: database.lastErrorCode())
 				throw StoreError.sqliteError(sqliteError)
 			}
 		}
@@ -224,7 +224,7 @@ extension DownloadedPackagesSQLLiteStoreV3: DownloadedPackagesStoreV3 {
 
 		#if !RELEASE
 		if let store = keyValueStore, let errorCode = store.fakeSQLiteError {
-			let sqliteError = SQLiteErrorCode(rawValue: errorCode) ?? SQLiteErrorCode.unknown
+			let sqliteError = SQLiteErrorCode(rawValue: errorCode)
 			throw StoreError.sqliteError(sqliteError)
 		}
 		#endif
@@ -299,7 +299,7 @@ extension DownloadedPackagesSQLLiteStoreV3: DownloadedPackagesStoreV3 {
 
 			guard deleteHours(), insertDay() else {
 				Log.error("[SQLite] (\(database.lastErrorCode())) \(database.lastErrorMessage())", log: .localData)
-				let sqliteError = SQLiteErrorCode(rawValue: database.lastErrorCode()) ?? SQLiteErrorCode.unknown
+				let sqliteError = SQLiteErrorCode(rawValue: database.lastErrorCode())
 				throw StoreError.sqliteError(sqliteError)
 			}
 			self._commit()
@@ -573,7 +573,7 @@ extension DownloadedPackagesSQLLiteStoreV3: DownloadedPackagesStoreV3 {
 				try database.executeUpdate(sql, values: fingerprints)
 			} catch {
 				Log.error("[SQLite] (\(database.lastErrorCode()) \(database.lastErrorMessage())", log: .localData)
-				let sqliteError = SQLiteErrorCode(rawValue: database.lastErrorCode()) ?? SQLiteErrorCode.unknown
+				let sqliteError = SQLiteErrorCode(rawValue: database.lastErrorCode())
 				throw StoreError.sqliteError(sqliteError)
 			}
 		}

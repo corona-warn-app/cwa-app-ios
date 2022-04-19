@@ -7,6 +7,17 @@ import UIKit
 import FMDB
 import OpenCombine
 
+enum ContactDiaryStoreError: LocalizedError {
+	case sqliteError(SecureSQLStoreError)
+	
+	var errorDescription: String? {
+		switch self {
+		case .sqliteError(let error):
+			return String(format: AppStrings.ContactDiary.Error.description, error.localizedDescription)
+		}
+	}
+}
+
 protocol DateProviding {
 	var today: Date { get }
 }
@@ -44,7 +55,7 @@ class ContactDiaryStore: DiaryStoring, DiaryProviding, SecureSQLStore {
 
 	// MARK: - Init
 
-	init?(
+	init(
 		databaseQueue: FMDatabaseQueue,
 		schema: StoreSchemaProtocol,
 		key: String,
@@ -56,24 +67,7 @@ class ContactDiaryStore: DiaryStoring, DiaryProviding, SecureSQLStore {
 		self.dateProvider = dateProvider
 		self.schema = schema
 		self.migrator = migrator
-		
-		guard case .success = openAndSetup() else {
-			return nil
-		}
 
-		guard case .success = cleanup() else {
-			return nil
-		}
-
-		var updateDiaryResult: SecureSQLStore.VoidResult?
-		databaseQueue.inDatabase { database in
-			updateDiaryResult = updateDiaryDays(with: database)
-		}
-		guard case .success = updateDiaryResult else {
-			return nil
-		}
-		
-		registerToDidBecomeActiveNotification()
 	}
 	
 	// MARK: - Protocol DiaryProviding
@@ -165,7 +159,7 @@ class ContactDiaryStore: DiaryStoring, DiaryProviding, SecureSQLStore {
 				exportEntries.append(contentsOf: coronaTestEntries)
 			} catch {
 				Log.error("[ContactDiaryStore] (\(database.lastErrorCode())) \(database.lastErrorMessage())", log: .localData)
-				result = .failure(SQLiteErrorCode(rawValue: database.lastErrorCode()) ?? SQLiteErrorCode.unknown)
+				result = .failure(SQLiteErrorCode(rawValue: database.lastErrorCode()))
 			}
 
 			let entriesString = exportEntries.sorted { lfs, rhs -> Bool in
@@ -951,7 +945,7 @@ class ContactDiaryStore: DiaryStoring, DiaryProviding, SecureSQLStore {
 		return dateFormatter
 	}()
 
-	private func registerToDidBecomeActiveNotification() {
+	func registerToDidBecomeActiveNotification() {
 		NotificationCenter.default.addObserver(self, selector: #selector(didBecomeActiveNotification), name: UIApplication.didBecomeActiveNotification, object: nil)
 	}
 
@@ -1129,7 +1123,7 @@ class ContactDiaryStore: DiaryStoring, DiaryProviding, SecureSQLStore {
 	// MARK: - update
 
 	@discardableResult
-	private func updateDiaryDays(with database: FMDatabase) -> SecureSQLStore.VoidResult {
+	func updateDiaryDays(with database: FMDatabase) -> SecureSQLStore.VoidResult {
 		var diaryDays = [DiaryDay]()
 
 		for index in 0..<userVisiblePeriodInDays {

@@ -11,7 +11,7 @@ final class HealthCertificateCellViewModel {
 	init(
 		healthCertificate: HealthCertificate,
 		healthCertifiedPerson: HealthCertifiedPerson,
-		details: HealthCertificateCellDetails = .allDetails,
+		details: HealthCertificateCellDetails,
 		onValidationButtonTap: ((HealthCertificate, @escaping (Bool) -> Void) -> Void)? = nil
 	) {
 		self.healthCertificate = healthCertificate
@@ -24,6 +24,7 @@ final class HealthCertificateCellViewModel {
 	
 	enum HealthCertificateCellDetails {
 		case allDetails
+		case allDetailsWithoutValidationButton
 		case overview
 		case overviewPlusName
 	}
@@ -32,7 +33,7 @@ final class HealthCertificateCellViewModel {
 	
 	lazy var gradientType: GradientView.GradientType = {
 		switch details {
-		case .allDetails:
+		case .allDetails, .allDetailsWithoutValidationButton:
 			if healthCertificate.isUsable &&
 				healthCertificate == healthCertifiedPerson.mostRelevantHealthCertificate {
 				return healthCertifiedPerson.gradientType
@@ -57,7 +58,7 @@ final class HealthCertificateCellViewModel {
 
 	lazy var name: String? = {
 		switch details {
-		case .allDetails, .overview:
+		case .allDetails, .allDetailsWithoutValidationButton, .overview:
 			return nil
 		case .overviewPlusName:
 			return healthCertifiedPerson.name?.fullName
@@ -112,7 +113,7 @@ final class HealthCertificateCellViewModel {
 
 	lazy var validityStateInfo: String? = {
 		switch details {
-		case .allDetails:
+		case .allDetails, .allDetailsWithoutValidationButton:
 			if !healthCertificate.isConsideredValid {
 				switch healthCertificate.validityState {
 				case .valid:
@@ -159,9 +160,18 @@ final class HealthCertificateCellViewModel {
 
 	lazy var isCurrentlyUsedCertificateHintVisible: Bool = {
 		switch details {
-		case .allDetails:
+		case .allDetails, .allDetailsWithoutValidationButton:
 			return healthCertificate == healthCertifiedPerson.mostRelevantHealthCertificate
 		case .overview, .overviewPlusName:
+			return false
+		}
+	}()
+
+	lazy var isValidationButtonVisible: Bool = {
+		switch details {
+		case .allDetails:
+			return healthCertificate == healthCertifiedPerson.mostRelevantHealthCertificate
+		case .allDetailsWithoutValidationButton, .overview, .overviewPlusName:
 			return false
 		}
 	}()
@@ -181,7 +191,7 @@ final class HealthCertificateCellViewModel {
 
 	lazy var isUnseenNewsIndicatorVisible: Bool = {
 		switch details {
-		case .allDetails:
+		case .allDetails, .allDetailsWithoutValidationButton:
 			return healthCertificate.isNew || healthCertificate.isValidityStateNew
 		case .overview, .overviewPlusName:
 			return false

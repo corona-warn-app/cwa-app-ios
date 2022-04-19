@@ -14,6 +14,7 @@ struct DCCWalletInfo: Codable, Equatable {
 	let verification: DCCVerification
 	let validUntil: Date?
 	let certificateReissuance: DCCCertificateReissuance?
+	let certificatesRevokedByInvalidationRules: [DCCCertificateContainer]?
 
 }
 

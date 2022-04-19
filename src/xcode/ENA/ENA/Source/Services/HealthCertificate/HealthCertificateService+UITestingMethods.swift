@@ -24,7 +24,7 @@ extension HealthCertificateService {
 		}
 		
 		if LaunchArguments.healthCertificate.firstHealthCertificate.boolValue {
-			registerHealthCertificate(base45: HealthCertificateMocks.firstBase45Mock, checkSignatureUpfront: shouldCheckSignatureUpfront)
+			registerHealthCertificate(base45: HealthCertificateMocks.firstBase45Mock, checkSignatureUpfront: shouldCheckSignatureUpfront, completedNotificationRegistration: { })
 		} else if LaunchArguments.healthCertificate.secondHealthCertificate.boolValue {
 			let secondDose = DigitalCovidCertificateFake.makeBase45Fake(
 				from: DigitalCovidCertificate.fake(
@@ -34,7 +34,7 @@ extension HealthCertificateService {
 				and: CBORWebTokenHeader.fake(issuer: "DE", expirationTime: expirationTime)
 			)
 			if case let .success(base45) = secondDose {
-				registerHealthCertificate(base45: base45, checkSignatureUpfront: shouldCheckSignatureUpfront)
+				registerHealthCertificate(base45: base45, checkSignatureUpfront: shouldCheckSignatureUpfront, completedNotificationRegistration: { })
 			}
 		} else if LaunchArguments.healthCertificate.firstAndSecondHealthCertificate.boolValue {
 			// We need the specific case of issuer == "DE" to test the printing of health certificate.
@@ -49,7 +49,7 @@ extension HealthCertificateService {
 				and: CBORWebTokenHeader.fake(issuer: issuer, expirationTime: expirationTime)
 			)
 			if case let .success(base45) = firstDose {
-				registerHealthCertificate(base45: base45, checkSignatureUpfront: shouldCheckSignatureUpfront)
+				registerHealthCertificate(base45: base45, checkSignatureUpfront: shouldCheckSignatureUpfront, completedNotificationRegistration: { })
 			}
 			
 			let secondDose = DigitalCovidCertificateFake.makeBase45Fake(
@@ -60,7 +60,7 @@ extension HealthCertificateService {
 				and: CBORWebTokenHeader.fake(issuer: issuer, expirationTime: expirationTime)
 			)
 			if case let .success(base45) = secondDose {
-				registerHealthCertificate(base45: base45, checkSignatureUpfront: shouldCheckSignatureUpfront)
+				registerHealthCertificate(base45: base45, checkSignatureUpfront: shouldCheckSignatureUpfront, completedNotificationRegistration: { })
 			}
 		}
 
@@ -73,7 +73,7 @@ extension HealthCertificateService {
 				and: CBORWebTokenHeader.fake(expirationTime: expirationTime)
 			)
 			if case let .success(base45) = testCert1 {
-				registerHealthCertificate(base45: base45)
+				registerHealthCertificate(base45: base45, completedNotificationRegistration: { })
 			}
 			let testCert2 = DigitalCovidCertificateFake.makeBase45Fake(
 				from: DigitalCovidCertificate.fake(
@@ -83,7 +83,7 @@ extension HealthCertificateService {
 				and: CBORWebTokenHeader.fake(expirationTime: expirationTime)
 			)
 			if case let .success(base45) = testCert2 {
-				registerHealthCertificate(base45: base45)
+				registerHealthCertificate(base45: base45, completedNotificationRegistration: { })
 			}
 			let testCert3 = DigitalCovidCertificateFake.makeBase45Fake(
 				from: DigitalCovidCertificate.fake(
@@ -93,7 +93,7 @@ extension HealthCertificateService {
 				and: CBORWebTokenHeader.fake(expirationTime: expirationTime)
 			)
 			if case let .success(base45) = testCert3 {
-				registerHealthCertificate(base45: base45)
+				registerHealthCertificate(base45: base45, completedNotificationRegistration: { })
 			}
 			let testCert4 = DigitalCovidCertificateFake.makeBase45Fake(
 				from: DigitalCovidCertificate.fake(
@@ -103,7 +103,7 @@ extension HealthCertificateService {
 				and: CBORWebTokenHeader.fake(expirationTime: expirationTime)
 			)
 			if case let .success(base45) = testCert4 {
-				registerHealthCertificate(base45: base45)
+				registerHealthCertificate(base45: base45, completedNotificationRegistration: { })
 			}
 		}
 
@@ -120,7 +120,7 @@ extension HealthCertificateService {
 				and: CBORWebTokenHeader.fake(expirationTime: expirationTime)
 			)
 			if case let .success(base45) = result {
-				registerHealthCertificate(base45: base45, checkSignatureUpfront: shouldCheckSignatureUpfront)
+				registerHealthCertificate(base45: base45, checkSignatureUpfront: shouldCheckSignatureUpfront, completedNotificationRegistration: { })
 			}
 		}
 
@@ -133,7 +133,7 @@ extension HealthCertificateService {
 				and: CBORWebTokenHeader.fake(expirationTime: expirationTime)
 			)
 			if case let .success(base45) = result {
-				registerHealthCertificate(base45: base45, checkSignatureUpfront: shouldCheckSignatureUpfront, markAsNew: true)
+				registerHealthCertificate(base45: base45, checkSignatureUpfront: shouldCheckSignatureUpfront, markAsNew: true, completedNotificationRegistration: { })
 			}
 		}
 
@@ -153,7 +153,7 @@ extension HealthCertificateService {
 			)
 
 			if case let .success(base45) = result {
-				registerHealthCertificate(base45: base45, checkSignatureUpfront: shouldCheckSignatureUpfront)
+				registerHealthCertificate(base45: base45, checkSignatureUpfront: shouldCheckSignatureUpfront, completedNotificationRegistration: { })
 			}
 		}
 	}
@@ -193,7 +193,8 @@ extension HealthCertificateService {
 			mostRelevantCertificate: dccWalletInfo.mostRelevantCertificate,
 			verification: dccWalletInfo.verification,
 			validUntil: dccWalletInfo.validUntil,
-			certificateReissuance: dccWalletInfo.certificateReissuance
+			certificateReissuance: dccWalletInfo.certificateReissuance,
+			certificatesRevokedByInvalidationRules: dccWalletInfo.certificatesRevokedByInvalidationRules
 		)
 	}
 
@@ -248,7 +249,8 @@ extension HealthCertificateService {
 					certificateRef: DCCCertificateReference(barcodeData: certifiedPerson.healthCertificates.last?.base45 ?? "")
 				),
 				accompanyingCertificates: []
-			)
+			),
+			certificatesRevokedByInvalidationRules: dccWalletInfo.certificatesRevokedByInvalidationRules
 		)
 	}
 	#endif

@@ -302,7 +302,7 @@ class KeyPackageDownload: KeyPackageDownloadProtocol {
 				Log.error("KeyPackageDownload: Persistence of \(downloadMode.title) key packages failed. Storage full", log: .riskDetection, error: SQLiteErrorCode.sqlite_full)
 				return .failure(.noDiskSpace)
 			case .unknown:
-				Log.error("KeyPackageDownload: Persistence of \(downloadMode.title) key packages failed. Unknown reason.", log: .riskDetection, error: SQLiteErrorCode.unknown)
+				Log.error("KeyPackageDownload: Persistence of \(downloadMode.title) key packages failed. Unknown reason.", log: .riskDetection, error: SQLiteErrorCode.unknown(-1))
 				return .failure(.unableToWriteDiagnosisKeys)
 			}
 		} catch DownloadedPackagesSQLLiteStore.StoreError.revokedPackage {

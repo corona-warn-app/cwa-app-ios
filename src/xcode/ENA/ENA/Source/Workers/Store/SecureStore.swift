@@ -527,14 +527,19 @@ extension SecureStore: ErrorLogUploadHistoryProviding {
 
 extension SecureStore: CoronaTestStoring {
 
-	var pcrTest: PCRTest? {
-		get { kvStore["pcrTest"] as PCRTest? }
+	var pcrTest: UserPCRTest? {
+		get { kvStore["pcrTest"] as UserPCRTest? }
 		set { kvStore["pcrTest"] = newValue }
 	}
 
-	var antigenTest: AntigenTest? {
-		get { kvStore["antigenTest"] as AntigenTest? }
+	var antigenTest: UserAntigenTest? {
+		get { kvStore["antigenTest"] as UserAntigenTest? }
 		set { kvStore["antigenTest"] = newValue }
+	}
+
+	var familyMemberTests: [FamilyMemberCoronaTest] {
+		get { kvStore["familyMemberTests"] as [FamilyMemberCoronaTest]? ?? [] }
+		set { kvStore["familyMemberTests"] = newValue }
 	}
 
 }

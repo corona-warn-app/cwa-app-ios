@@ -247,3 +247,23 @@
 "TicketValidation_SecondConsent_Legal_subBulletPoint3" = "bei grenzüberschreitenden Reisen: Anforderungen des Ziellandes an das Zertifikat";
 
 "TicketValidation_SecondConsent_Legal_subBulletPoint4" = "weitere Anforderungen des Anbieters an das Zertifikat (z. B. welche Impfstoffe oder Testverfahren akzeptiert werden)";
+
+/* HealthCertificate Resissuance Consent */
+
+"HealthCertificate_Reissuance_Consent_Legal_Title" = "Ihr Einverständnis";
+
+"HealthCertificate_Reissuance_Consent_Legal_Subtitle" = "Durch Antippen von „Einverstanden“ willigen Sie in folgende Schritte ein:";
+
+"HealthCertificate_Reissuance_Consent_Legal_Bullet_1" = "Die App übermittelt das Impfzertifikat zur Überprüfung an das RKI.";
+
+"HealthCertificate_Reissuance_Consent_Legal_Bullet_2" = "Das RKI überprüft das Impfzertifikat und stellt ein aktualisiertes Zertifikat aus und übermittelt dieses an Ihre App.";
+
+/* HealthCertificate Family Consent */
+
+"HealthCertificate_FamilyMemberConsentLegal_Headline" = "Ihr Einverständnis";
+
+"HealthCertificate_FamilyMemberConsentLegal_SubHeadline" = "Durch Antippen von „Einverstanden“ willigen Sie in den folgenden Schritt ein:";
+
+"HealthCertificate_FamilyMemberConsentLegal_BulletPoint" = "Die App ruft das Testergebnis des Familienmitglieds ab.";
+
+"HealthCertificate_FamilyMemberConsentLegal_text" = "Wenn Sie es sich später anders überlegen, können Sie den Test in der App löschen.";

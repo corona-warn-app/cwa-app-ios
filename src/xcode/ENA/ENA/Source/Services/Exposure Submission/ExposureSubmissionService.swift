@@ -227,7 +227,7 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 	/// For details, check the methods `_submit()` and `_getTANForExposureSubmit()` specifically.
 	private func _submitExposure(
 		_ keys: [SAP_External_Exposurenotification_TemporaryExposureKey],
-		coronaTest: CoronaTest,
+		coronaTest: UserCoronaTest,
 		visitedCountries: [Country],
 		checkins: [SAP_Internal_Pt_CheckIn],
 		checkInProtectedReports: [SAP_Internal_Pt_CheckInProtectedReport],
@@ -256,7 +256,7 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 	/// For more information, please check _submitExposure().
 	private func _submit(
 		_ keys: [SAP_External_Exposurenotification_TemporaryExposureKey],
-		coronaTest: CoronaTest,
+		coronaTest: UserCoronaTest,
 		with tan: String,
 		visitedCountries: [Country],
 		checkins: [SAP_Internal_Pt_CheckIn],

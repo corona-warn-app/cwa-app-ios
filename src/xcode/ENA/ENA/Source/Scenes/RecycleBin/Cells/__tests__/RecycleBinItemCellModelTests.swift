@@ -165,12 +165,12 @@ class RecycleBinItemCellModelTests: CWATestCase {
 	}
 
 	func testViewModelWithPCRTest() throws {
-		let coronaTest: CoronaTest = .pcr(
+		let coronaTest: UserCoronaTest = .pcr(
 			.mock(registrationDate: Date(timeIntervalSince1970: 1634217419))
 		)
 
 		let viewModel = RecycleBinItemCellModel(
-			recycleBinItem: RecycleBinItem(recycledAt: Date(), item: .coronaTest(coronaTest))
+			recycleBinItem: RecycleBinItem(recycledAt: Date(), item: .userCoronaTest(coronaTest))
 		)
 
 		XCTAssertEqual(viewModel.iconImage, UIImage(imageLiteralResourceName: "Icons_RecycleBin_CoronaTest"))
@@ -181,12 +181,12 @@ class RecycleBinItemCellModelTests: CWATestCase {
 	}
 
 	func testViewModelWithAntigenTest() throws {
-		let coronaTest: CoronaTest = .antigen(
+		let coronaTest: UserCoronaTest = .antigen(
 			.mock(sampleCollectionDate: Date(timeIntervalSince1970: 1634217419))
 		)
 
 		let viewModel = RecycleBinItemCellModel(
-			recycleBinItem: RecycleBinItem(recycledAt: Date(), item: .coronaTest(coronaTest))
+			recycleBinItem: RecycleBinItem(recycledAt: Date(), item: .userCoronaTest(coronaTest))
 		)
 
 		XCTAssertEqual(viewModel.iconImage, UIImage(imageLiteralResourceName: "Icons_RecycleBin_CoronaTest"))

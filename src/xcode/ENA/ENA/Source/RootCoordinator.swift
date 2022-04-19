@@ -28,6 +28,7 @@ class RootCoordinator: NSObject, RequiresAppDependencies, UITabBarControllerDele
 	init(
 		_ delegate: CoordinatorDelegate,
 		coronaTestService: CoronaTestServiceProviding,
+		familyMemberCoronaTestService: FamilyMemberCoronaTestServiceProviding,
 		contactDiaryStore: DiaryStoringProviding,
 		eventStore: EventStoringProviding,
 		eventCheckoutService: EventCheckoutService,
@@ -47,6 +48,7 @@ class RootCoordinator: NSObject, RequiresAppDependencies, UITabBarControllerDele
 	) {
 		self.delegate = delegate
 		self.coronaTestService = coronaTestService
+		self.familyMemberCoronaTestService = familyMemberCoronaTestService
 		self.contactDiaryStore = contactDiaryStore
 		self.eventStore = eventStore
 		self.eventCheckoutService = eventCheckoutService
@@ -113,7 +115,7 @@ class RootCoordinator: NSObject, RequiresAppDependencies, UITabBarControllerDele
 	}()
 
 	// swiftlint:disable function_body_length
-	func showHome(enStateHandler: ENStateHandler, route: Route?) {
+	func showHome(enStateHandler: ENStateHandler, route: Route?, startupErrors: [Error]) {
 		// only create and init the whole view stack if not done before
 		// there for we check if the homeCoordinator exists
 		defer {
@@ -129,17 +131,16 @@ class RootCoordinator: NSObject, RequiresAppDependencies, UITabBarControllerDele
 			else if case let .healthCertifiedPersonFromNotification(healthCertifiedPerson) = route {
 				showHealthCertifiedPersonFromNotification(for: healthCertifiedPerson)
 			}
-			// route handling to show test result from notification
-			else if case let .testResultFromNotification(testResult) = route {
-				showTestResultFromNotification(with: testResult)
-			}
+
+			// routes for user and family member test results are handled in the home coordinator and view controller
 		}
 
 		guard let delegate = delegate,
 			  homeCoordinator == nil else {
 			homeCoordinator?.showHome(
 				enStateHandler: enStateHandler,
-				route: route
+				route: route,
+				startupErrors: startupErrors
 			)
 			return
 		}
@@ -157,6 +158,7 @@ class RootCoordinator: NSObject, RequiresAppDependencies, UITabBarControllerDele
 			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
 			exposureSubmissionService: exposureSubmissionService,
 			coronaTestService: coronaTestService,
+			familyMemberCoronaTestService: familyMemberCoronaTestService,
 			recycleBin: recycleBin
 		)
 		self.qrScannerCoordinator = qrScannerCoordinator
@@ -176,6 +178,7 @@ class RootCoordinator: NSObject, RequiresAppDependencies, UITabBarControllerDele
 			ppacService: ppacService,
 			eventStore: eventStore,
 			coronaTestService: coronaTestService,
+			familyMemberCoronaTestService: familyMemberCoronaTestService,
 			healthCertificateService: healthCertificateService,
 			healthCertificateValidationService: healthCertificateValidationService,
 			elsService: elsService,
@@ -194,7 +197,8 @@ class RootCoordinator: NSObject, RequiresAppDependencies, UITabBarControllerDele
 		self.homeCoordinator = homeCoordinator
 		homeCoordinator.showHome(
 			enStateHandler: enStateHandler,
-			route: route
+			route: route,
+			startupErrors: startupErrors
 		)
 	
 		let healthCertificatesTabCoordinator = HealthCertificatesTabCoordinator(
@@ -279,16 +283,11 @@ class RootCoordinator: NSObject, RequiresAppDependencies, UITabBarControllerDele
 		viewController.clearChildViewController()
 		viewController.embedViewController(childViewController: tabBarController)
 	}
-
-	func showTestResultFromNotification(with testType: CoronaTestType) {
-		homeCoordinator?.showTestResultFromNotification(with: testType)
-	}
 	
 	func showHealthCertificateFromNotification(
 		for healthCertifiedPerson: HealthCertifiedPerson,
 		with healthCertificate: HealthCertificate
 	) {
-		
 		guard let healthCertificateNavigationController = healthCertificatesTabCoordinator?.viewController,
 			  let index = tabBarController.viewControllers?.firstIndex(of: healthCertificateNavigationController) else {
 			Log.warning("Could not show certificate because i could find the corresponding navigation controller.")
@@ -393,6 +392,7 @@ class RootCoordinator: NSObject, RequiresAppDependencies, UITabBarControllerDele
 	private weak var delegate: CoordinatorDelegate?
 
 	private let coronaTestService: CoronaTestServiceProviding
+	private let familyMemberCoronaTestService: FamilyMemberCoronaTestServiceProviding
 	private let contactDiaryStore: DiaryStoringProviding
 	private let eventStore: EventStoringProviding
 	private let eventCheckoutService: EventCheckoutService

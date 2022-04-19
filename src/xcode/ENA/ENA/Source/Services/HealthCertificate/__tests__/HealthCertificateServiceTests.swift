@@ -45,7 +45,7 @@ class HealthCertificateServiceTests: CWATestCase {
 		)
 		let vaccinationCertificate = try HealthCertificate(base45: vaccinationCertificateBase45, validityState: .expired, isValidityStateNew: true)
 
-		let result = service.registerHealthCertificate(base45: vaccinationCertificateBase45)
+		let result = service.registerHealthCertificate(base45: vaccinationCertificateBase45, completedNotificationRegistration: { })
 
 		switch result {
 		case let .success(certificateResult):
@@ -83,7 +83,7 @@ class HealthCertificateServiceTests: CWATestCase {
 		)
 
 		// WHEN
-		let result = service.registerHealthCertificate(base45: firstTestCertificateBase45)
+		let result = service.registerHealthCertificate(base45: firstTestCertificateBase45, completedNotificationRegistration: { })
 		var invalidSignatureError: Bool = false
 		if case .failure(.invalidSignature) = result {
 			invalidSignatureError = true
@@ -142,7 +142,7 @@ class HealthCertificateServiceTests: CWATestCase {
 		)
 		let firstTestCertificate = try HealthCertificate(base45: firstTestCertificateBase45)
 
-		var registrationResult = service.registerHealthCertificate(base45: firstTestCertificateBase45)
+		var registrationResult = service.registerHealthCertificate(base45: firstTestCertificateBase45, completedNotificationRegistration: { })
 
 		var registeredFirstTestCertificate: HealthCertificate?
 		switch registrationResult {
@@ -163,7 +163,7 @@ class HealthCertificateServiceTests: CWATestCase {
 
 		// Try to register same certificate twice
 
-		registrationResult = service.registerHealthCertificate(base45: firstTestCertificateBase45, markAsNew: true)
+		registrationResult = service.registerHealthCertificate(base45: firstTestCertificateBase45, markAsNew: true, completedNotificationRegistration: { })
 
 		if case .failure(let error) = registrationResult, case .certificateAlreadyRegistered = error { } else {
 			XCTFail("Double registration of the same certificate should fail")
@@ -191,7 +191,7 @@ class HealthCertificateServiceTests: CWATestCase {
 
 		XCTAssertTrue(wrongCertificate.hasTooManyEntries)
 
-		registrationResult = service.registerHealthCertificate(base45: wrongCertificateBase45)
+		registrationResult = service.registerHealthCertificate(base45: wrongCertificateBase45, completedNotificationRegistration: { })
 
 		if case .failure(let error) = registrationResult, case .certificateHasTooManyEntries = error { } else {
 			XCTFail("Registration of a certificate with too many entries should fail")
@@ -214,7 +214,7 @@ class HealthCertificateServiceTests: CWATestCase {
 		)
 		let secondTestCertificate = try HealthCertificate(base45: secondTestCertificateBase45, isNew: true)
 
-		registrationResult = service.registerHealthCertificate(base45: secondTestCertificateBase45, markAsNew: true)
+		registrationResult = service.registerHealthCertificate(base45: secondTestCertificateBase45, markAsNew: true, completedNotificationRegistration: { })
 
 		var registeredSecondTestCertificate: HealthCertificate?
 		switch registrationResult {
@@ -247,7 +247,7 @@ class HealthCertificateServiceTests: CWATestCase {
 		)
 		let firstVaccinationCertificate = try HealthCertificate(base45: firstVaccinationCertificateBase45, isNew: true)
 
-		registrationResult = service.registerHealthCertificate(base45: firstVaccinationCertificateBase45, markAsNew: true)
+		registrationResult = service.registerHealthCertificate(base45: firstVaccinationCertificateBase45, markAsNew: true, completedNotificationRegistration: { })
 
 		var registeredFirstVaccinationCertificate: HealthCertificate?
 		switch registrationResult {
@@ -281,7 +281,7 @@ class HealthCertificateServiceTests: CWATestCase {
 		)
 		let secondVaccinationCertificate = try HealthCertificate(base45: secondVaccinationCertificateBase45)
 
-		registrationResult = service.registerHealthCertificate(base45: secondVaccinationCertificateBase45)
+		registrationResult = service.registerHealthCertificate(base45: secondVaccinationCertificateBase45, completedNotificationRegistration: { })
 
 		switch registrationResult {
 		case let .success(certificateResult):
@@ -314,7 +314,7 @@ class HealthCertificateServiceTests: CWATestCase {
 		)
 		let thirdTestCertificate = try HealthCertificate(base45: thirdTestCertificateBase45)
 
-		registrationResult = service.registerHealthCertificate(base45: thirdTestCertificateBase45)
+		registrationResult = service.registerHealthCertificate(base45: thirdTestCertificateBase45, completedNotificationRegistration: { })
 
 		switch registrationResult {
 		case let .success(certificateResult):
@@ -360,7 +360,7 @@ class HealthCertificateServiceTests: CWATestCase {
 				newsExpectation.fulfill()
 			}
 
-		registrationResult = service.registerHealthCertificate(base45: firstRecoveryCertificateBase45)
+		registrationResult = service.registerHealthCertificate(base45: firstRecoveryCertificateBase45, completedNotificationRegistration: { })
 
 		waitForExpectations(timeout: .short)
 		personsSubscription.cancel()
@@ -415,7 +415,7 @@ class HealthCertificateServiceTests: CWATestCase {
 			and: .fake(expirationTime: .distantPast)
 		)
 
-		registrationResult = service.registerHealthCertificate(base45: secondRecoveryCertificateBase45)
+		registrationResult = service.registerHealthCertificate(base45: secondRecoveryCertificateBase45, completedNotificationRegistration: { })
 
 		switch registrationResult {
 		case .success:
@@ -580,7 +580,7 @@ class HealthCertificateServiceTests: CWATestCase {
 
 		// registerHealthCertificate() should restore the certificate from bin and return .restoredFromBin error.
 
-		let registrationResult = service.registerHealthCertificate(base45: firstTestCertificateBase45)
+		let registrationResult = service.registerHealthCertificate(base45: firstTestCertificateBase45, completedNotificationRegistration: { })
 
 		guard case let .success(certificateResult) = registrationResult else {
 			XCTFail("certificateResult expected.")
@@ -661,10 +661,63 @@ class HealthCertificateServiceTests: CWATestCase {
 			recycleBin: .fake()
 		)
 
-		service.addHealthCertificate(healthCertificate)
+		service.addHealthCertificate(healthCertificate, completedNotificationRegistration: { })
 
 		XCTAssertEqual(healthCertificate.validityState, .invalid)
 		XCTAssertEqual(service.healthCertifiedPersons.first?.healthCertificates.first?.validityState, .invalid)
+
+		service.moveHealthCertificateToBin(healthCertificate)
+	}
+
+	func testValidityStateUpdate_Blocked() throws {
+		let expiringDate = Calendar.current.date(
+			byAdding: .day,
+			value: 50,
+			to: Date()
+		)
+		
+		let healthCertificateBase45 = try base45Fake(
+			from: DigitalCovidCertificate.fake(
+				recoveryEntries: [.fake()]
+			),
+			and: .fake(expirationTime: try XCTUnwrap(expiringDate))
+		)
+		let healthCertificate = try HealthCertificate(base45: healthCertificateBase45)
+		XCTAssertEqual(healthCertificate.validityState, .valid)
+		
+		let wallet = DCCWalletInfo.fake(
+			certificatesRevokedByInvalidationRules: [
+				DCCCertificateContainer.fake(
+					certificateRef: .fake(
+						barcodeData: healthCertificateBase45
+					)
+				)
+			]
+		)
+		let healthCertifiedPerson = HealthCertifiedPerson(
+			healthCertificates: [healthCertificate],
+			dccWalletInfo: nil
+		)
+
+		let store = MockTestStore()
+		store.healthCertifiedPersons = [healthCertifiedPerson]
+		
+		var cclService = FakeCCLService()
+		cclService.dccWalletInfoResult = .success(wallet)
+		cclService.didChange = false
+
+		let service = HealthCertificateService(
+			store: store,
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
+			dscListProvider: MockDSCListProvider(),
+			appConfiguration: CachedAppConfigurationMock(),
+			cclService: cclService,
+			recycleBin: .fake()
+		)
+		service.syncSetup()
+
+		XCTAssertEqual(healthCertificate.validityState, .blocked)
+		XCTAssertEqual(service.healthCertifiedPersons.first?.healthCertificates.first?.validityState, .blocked)
 
 		service.moveHealthCertificateToBin(healthCertificate)
 	}
@@ -1153,9 +1206,9 @@ class HealthCertificateServiceTests: CWATestCase {
 		let recoveryCertificate = try HealthCertificate(base45: recoveryCertificateBase45)
 		
 		// WHEN
-		_ = service.registerHealthCertificate(base45: testCertificateBase45)
-		_ = service.registerHealthCertificate(base45: vaccinationCertificateBase45)
-		_ = service.registerHealthCertificate(base45: recoveryCertificateBase45)
+		_ = service.registerHealthCertificate(base45: testCertificateBase45, completedNotificationRegistration: { })
+		_ = service.registerHealthCertificate(base45: vaccinationCertificateBase45, completedNotificationRegistration: { })
+		_ = service.registerHealthCertificate(base45: recoveryCertificateBase45, completedNotificationRegistration: { })
 		
 		// THEN
 		// There should be now 2 notifications for expireSoon and 2 for expired (One for each the vaccination and the recovery certificate). Test certificates are ignored.
@@ -1205,7 +1258,7 @@ class HealthCertificateServiceTests: CWATestCase {
 			recycleBin: .fake()
 		)
 
-		service.addHealthCertificate(healthCertificate)
+		service.addHealthCertificate(healthCertificate, completedNotificationRegistration: { })
 
 		XCTAssertEqual(service.healthCertifiedPersons.count, 1)
 
@@ -1245,7 +1298,7 @@ class HealthCertificateServiceTests: CWATestCase {
 			recycleBin: .fake()
 		)
 
-		service.addHealthCertificate(healthCertificate)
+		service.addHealthCertificate(healthCertificate, completedNotificationRegistration: { })
 
 		XCTAssertEqual(service.healthCertifiedPersons.count, 1)
 
@@ -1288,7 +1341,7 @@ class HealthCertificateServiceTests: CWATestCase {
 			recycleBin: .fake()
 		)
 
-		service.addHealthCertificate(healthCertificate)
+		service.addHealthCertificate(healthCertificate, completedNotificationRegistration: { })
 
 		XCTAssertEqual(service.healthCertifiedPersons.count, 1)
 
@@ -1448,7 +1501,7 @@ class HealthCertificateServiceTests: CWATestCase {
 		)
 		let firstVaccinationCertificate = try HealthCertificate(base45: firstVaccinationCertificateBase45, isNew: true)
 
-		let registrationResult = service.registerHealthCertificate(base45: firstVaccinationCertificateBase45, markAsNew: true)
+		let registrationResult = service.registerHealthCertificate(base45: firstVaccinationCertificateBase45, markAsNew: true, completedNotificationRegistration: { })
 
 		switch registrationResult {
 		case let .success(certificateResult):
@@ -1526,7 +1579,7 @@ class HealthCertificateServiceTests: CWATestCase {
 			recycleBin: .fake()
 		)
 
-		service.addHealthCertificate(healthCertificate)
+		service.addHealthCertificate(healthCertificate, completedNotificationRegistration: { })
 
 		XCTAssertEqual(service.healthCertifiedPersons.count, 1)
 
@@ -1569,7 +1622,7 @@ class HealthCertificateServiceTests: CWATestCase {
 			recycleBin: .fake()
 		)
 
-		service.addHealthCertificate(healthCertificate)
+		service.addHealthCertificate(healthCertificate, completedNotificationRegistration: { })
 
 		XCTAssertEqual(service.healthCertifiedPersons.count, 1)
 
@@ -1675,7 +1728,7 @@ class HealthCertificateServiceTests: CWATestCase {
 		)
 		let firstVaccinationCertificate = try HealthCertificate(base45: firstVaccinationCertificateBase45, isNew: true)
 
-		let registrationResult = service.registerHealthCertificate(base45: firstVaccinationCertificateBase45, markAsNew: true)
+		let registrationResult = service.registerHealthCertificate(base45: firstVaccinationCertificateBase45, markAsNew: true, completedNotificationRegistration: { })
 
 		switch registrationResult {
 		case let .success(certificateResult):
@@ -1767,7 +1820,8 @@ class HealthCertificateServiceTests: CWATestCase {
 			oldCertificateRef: oldCertificateRef,
 			with: newCertificateBase45,
 			for: person,
-			markAsNew: true
+			markAsNew: true,
+			completedNotificationRegistration: { }
 		)
 		
 		XCTAssertEqual(person.healthCertificates[0].vaccinationEntry?.uniqueCertificateIdentifier, "newCertificate")
@@ -1818,7 +1872,8 @@ class HealthCertificateServiceTests: CWATestCase {
 			oldCertificateRef: oldCertificateRef,
 			with: newCertificateBase45,
 			for: person,
-			markAsNew: false
+			markAsNew: false,
+			completedNotificationRegistration: { }
 		)
 		
 		XCTAssertEqual(person.healthCertificates[0].vaccinationEntry?.uniqueCertificateIdentifier, "newCertificate")
