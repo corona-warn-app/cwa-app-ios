@@ -27,6 +27,7 @@ public enum LocalNotificationIdentifier: String, CaseIterable {
 	case certificateExpired = "HealthCertificateNotificationExpired"
 	case certificateInvalid = "HealthCertificateNotificationInvalid"
 	case certificateBlocked = "HealthCertificateNotificationBlocked"
+	case certificateRevoked = "HealthCertificateNotificationRevoked"
 	case boosterVaccination = "BoosterVaccinationNotification"
 	case certificateReissuance = "CertificateReissuanceNotification"
 	case admissionStateChange = "AdmissionStateChangeNotification"
