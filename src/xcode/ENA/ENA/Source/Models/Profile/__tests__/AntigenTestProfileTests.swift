@@ -10,17 +10,15 @@ class AntigenTestProfileTests: CWATestCase {
 	let jsonEncoder = JSONEncoder()
 	let jsonDecoder = JSONDecoder()
 
-	let jsonFullString = """
-	{"zipCode":"12345","city":"Musterstadt","firstName":"Max","phoneNumber":"+49150123456789","dateOfBirth":"1971-11-01","email":"max.mustermann@coronawarn.app","addressLine":"Musterstrasse 1a","lastName":"Mustermann"}
-	"""
-
-	let jsonDateOnlyString = """
-	{"dateOfBirth":"1971-11-01"}
-	"""
+	let mockId = UUID()
 
 	func testGIVEN_RapidTestProfile_WHEN_SerializeToJson_THEN_FormateMatches() throws {
 		// GIVEN
+		let jsonFullString = """
+		{"zipCode":"12345","city":"Musterstadt","firstName":"Max","id":"\(mockId)","phoneNumber":"+49150123456789","dateOfBirth":"1971-11-01","email":"max.mustermann@coronawarn.app","addressLine":"Musterstrasse 1a","lastName":"Mustermann"}
+		"""
 		let profile = AntigenTestProfile(
+			id: mockId,
 			firstName: "Max",
 			lastName: "Mustermann",
 			dateOfBirth: Date(timeIntervalSince1970: 57801600),
@@ -41,12 +39,16 @@ class AntigenTestProfileTests: CWATestCase {
 
 	func testGIVEN_JsonString_WHEN_DecodeRapidTestProfile_THEN_ValuesAreSet() throws {
 		// GIVEN
+		let jsonFullString = """
+		{"zipCode":"12345","city":"Musterstadt","firstName":"Max","id":"\(mockId)","phoneNumber":"+49150123456789","dateOfBirth":"1971-11-01","email":"max.mustermann@coronawarn.app","addressLine":"Musterstrasse 1a","lastName":"Mustermann"}
+		"""
 		let jsonData = try XCTUnwrap(jsonFullString.data(using: .utf8))
 
 		// WHEN
 		let rapidTestProfile = try XCTUnwrap(try? jsonDecoder.decode(AntigenTestProfile.self, from: jsonData))
 
 		// THEN
+		XCTAssertEqual(rapidTestProfile.id, mockId)
 		XCTAssertEqual(rapidTestProfile.firstName, "Max")
 		XCTAssertEqual(rapidTestProfile.lastName, "Mustermann")
 		XCTAssertEqual(rapidTestProfile.dateOfBirth, Date(timeIntervalSince1970: 57801600))
@@ -59,7 +61,11 @@ class AntigenTestProfileTests: CWATestCase {
 
 	func testGIVEN_RapidTestProfileDateOnly_WHEN_SerializeToJson_THEN_FormateMatches() throws {
 		// GIVEN
+		let jsonDateOnlyString = """
+		{"id":"\(mockId)","dateOfBirth":"1971-11-01"}
+		"""
 		let profile = AntigenTestProfile(
+			id: mockId,
 			dateOfBirth: Date(timeIntervalSince1970: 57801600)
 		)
 
@@ -73,6 +79,9 @@ class AntigenTestProfileTests: CWATestCase {
 
 	func testGIVEN_JsonString_WHEN_DecodeRapidTestProfileDateOnly_THEN_ValuesAreSet() throws {
 		// GIVEN
+		let jsonDateOnlyString = """
+		{"id":"\(mockId)","dateOfBirth":"1971-11-01"}
+		"""
 		let jsonData = try XCTUnwrap(jsonDateOnlyString.data(using: .utf8))
 
 		// WHEN
