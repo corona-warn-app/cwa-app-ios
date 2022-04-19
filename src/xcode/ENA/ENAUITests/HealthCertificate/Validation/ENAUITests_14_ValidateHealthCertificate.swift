@@ -60,9 +60,8 @@ class ENAUITests_14_ValidateHealthCertificate: CWATestCase {
 		// Navigate to the person screen
 		app.cells[AccessibilityIdentifiers.HealthCertificate.Overview.healthCertifiedPersonCell].firstMatch.waitAndTap()
 
-		// Validation Button is visible but not tappable, need to swipe up
 		app.swipeUp()
-
+		
 		// Open Validation Screen
 		app.buttons[AccessibilityIdentifiers.HealthCertificate.Person.validationButton].waitAndTap(.extraLong)
 
@@ -85,8 +84,7 @@ class ENAUITests_14_ValidateHealthCertificate: CWATestCase {
 
 		// Navigate to the person screen
 		app.cells[AccessibilityIdentifiers.HealthCertificate.Overview.healthCertifiedPersonCell].waitAndTap()
-
-		// Validation Button is visible but not tappable, need to swipe up
+		
 		app.swipeUp()
 		
 		// Open Validation Screen
@@ -114,10 +112,9 @@ class ENAUITests_14_ValidateHealthCertificate: CWATestCase {
 
 		// Navigate to the person screen
 		app.cells[AccessibilityIdentifiers.HealthCertificate.Overview.healthCertifiedPersonCell].firstMatch.waitAndTap()
-
-		// Validation Button is visible but not tappable, need to swipe up
+		
 		app.swipeUp()
-
+		
 		// Open Validation Screen
 		app.buttons[AccessibilityIdentifiers.HealthCertificate.Person.validationButton].waitAndTap(.extraLong)
 
