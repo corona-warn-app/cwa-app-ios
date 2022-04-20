@@ -102,8 +102,9 @@ final class HealthCertificate: Codable, Equatable, Comparable, RecycleBinIdentif
 		try container.encode(validityState, forKey: .validityState)
 		try container.encode(isNew, forKey: .isNew)
 		try container.encode(isValidityStateNew, forKey: .isValidityStateNew)
-		try container.encode(didShowRevokedNotification, forKey: .didShowRevokedNotification)
+		try container.encode(didShowInvalidNotification, forKey: .didShowInvalidNotification)
 		try container.encode(didShowBlockedNotification, forKey: .didShowBlockedNotification)
+		try container.encode(didShowRevokedNotification, forKey: .didShowRevokedNotification)
 		try container.encode(revocationEntries, forKey: .revocationEntries)
 	}
 
