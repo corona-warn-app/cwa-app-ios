@@ -168,11 +168,15 @@ class HealthCertificateViewModelTests: CWATestCase {
 
 		XCTAssertTrue(viewModel.isPrimaryFooterButtonEnabled)
 
+		healthCertificate.validityState = .blocked
+
+		XCTAssertFalse(viewModel.isPrimaryFooterButtonEnabled)
+
 		healthCertificate.validityState = .invalid
 
 		XCTAssertTrue(viewModel.isPrimaryFooterButtonEnabled)
 
-		healthCertificate.validityState = .blocked
+		healthCertificate.validityState = .revoked
 
 		XCTAssertFalse(viewModel.isPrimaryFooterButtonEnabled)
 	}
@@ -181,6 +185,34 @@ class HealthCertificateViewModelTests: CWATestCase {
 		let healthCertificate = try HealthCertificate(
 			base45: try base45Fake(from: .fake(vaccinationEntries: [.fake()])),
 			validityState: .blocked
+		)
+
+		let certifiedPerson = HealthCertifiedPerson(healthCertificates: [healthCertificate])
+
+		let vaccinationValueSetsProvider = VaccinationValueSetsProvider(
+			client: CachingHTTPClientMock(),
+			store: MockTestStore()
+		)
+
+		let viewModel = HealthCertificateViewModel(
+			healthCertifiedPerson: certifiedPerson,
+			healthCertificate: healthCertificate,
+			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
+			markAsSeenOnDisappearance: true,
+			showInfoHit: { }
+		)
+
+		XCTAssertFalse(viewModel.isPrimaryFooterButtonEnabled)
+
+		healthCertificate.validityState = .valid
+
+		XCTAssertTrue(viewModel.isPrimaryFooterButtonEnabled)
+	}
+
+	func testIsPrimaryFooterButtonEnabledInitiallyRevoked() throws {
+		let healthCertificate = try HealthCertificate(
+			base45: try base45Fake(from: .fake(vaccinationEntries: [.fake()])),
+			validityState: .revoked
 		)
 
 		let certifiedPerson = HealthCertifiedPerson(healthCertificates: [healthCertificate])
