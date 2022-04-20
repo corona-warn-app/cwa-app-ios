@@ -2,10 +2,8 @@
 // 🦠 Corona-Warn-App
 //
 
-import Foundation
 import XCTest
 @testable import ENA
-import OpenCombine
 
 class AntigenTestProfileOverviewViewModelTests: CWATestCase {
 	
