@@ -9,6 +9,7 @@ extension UserAntigenTest {
 
 	static func mock(
 		registrationToken: String? = nil,
+		qrCodeHash: String? = nil,
 		pointOfCareConsentDate: Date = Date(),
 		sampleCollectionDate: Date? = nil,
 		registrationDate: Date? = nil,
@@ -30,6 +31,7 @@ extension UserAntigenTest {
 			sampleCollectionDate: sampleCollectionDate,
 			registrationDate: registrationDate,
 			registrationToken: registrationToken,
+			qrCodeHash: qrCodeHash,
 			testedPerson: testedPerson,
 			testResult: testResult,
 			finalTestResultReceivedDate: finalTestResultReceivedDate,

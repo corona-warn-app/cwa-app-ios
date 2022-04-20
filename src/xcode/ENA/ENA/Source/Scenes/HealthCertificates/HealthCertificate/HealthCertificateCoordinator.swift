@@ -442,8 +442,12 @@ final class HealthCertificateCoordinator {
 		
 		let healthCertificatePDFVersionViewController = HealthCertificatePDFVersionViewController(
 			viewModel: healthCertificatePDFVersionViewModel,
-			onTapPrintPdf: printPdf,
-			onTapExportPdf: exportPdf
+			onTapPrintPdf: { [weak self] data in
+				self?.showPrintPdf(pdfData: data)
+			},
+			onTapExportPdf: { [weak self] pdfItem in
+				self?.exportPdf(exportItem: pdfItem)
+			}
 		)
 		// The call of showPdfGenerationResult is made possibly in the background while generating the pdfDocument
 		DispatchQueue.main.async { [weak self] in
@@ -451,12 +455,29 @@ final class HealthCertificateCoordinator {
 		}
 	}
 	
-	private func printPdf(
+	private func showPrintPdf(
 		pdfData: Data
 	) {
-		let printController = UIPrintInteractionController.shared
-		printController.printingItem = pdfData
-		printController.present(animated: true, completionHandler: nil)
+		// swiftlint:disable:next no_plain_print
+		guard UIPrintInteractionController.canPrint(pdfData) else {
+			Log.error("UIPrintInteractionController can't print given pdf data")
+			return
+		}
+
+		DispatchQueue.main.async {
+			let printController = UIPrintInteractionController.shared
+			printController.printingItem = pdfData
+			printController.present(animated: true) { _, success, error in
+				if let error = error {
+					Log.error("Error printing pdf:", error: error)
+				}
+				if !success {
+					Log.info("Failed to print pdf file")
+				} else {
+					Log.info("Did print pdf file successfully")
+				}
+			}
+		}
 	}
 	
 	private func exportPdf(

@@ -561,7 +561,7 @@
 
 "ExposureSubmissionDispatch_QRCodeButtonTitle" = "Scan QR Code";
 
-"ExposureSubmissionDispatch_QRCodeButtonDescription" = "Receive your test result in the app and warn others or request your COVID test certificate.";
+"ExposureSubmissionDispatch_QRCodeButtonDescription" = "Receive your test result and results for your family members and request your COVID test certificate.";
 
 "ExposureSubmissionDispatch_TANButtonTitle" = "Enter TAN for PCR Test";
 
@@ -1306,6 +1306,11 @@
 "Home_resultCard_DeleteTestButton" = "Delete Test";
 
 "Home_resultCard_HideTestButton" = "Don’t Display Again";
+
+/* - Family Tets */
+"Home_Family_Test_Title" = "Tests of family members";
+
+"Home_Family_Test_Detail" = "There is news";
 
 /* - Show Positive */
 "Home_Finding_Positive_Card_Status_Title" = "SARS-CoV-2 positive";
@@ -3583,4 +3588,63 @@
 "TicketValidation_Result_Failed_subtitle" = "Your certificate does not meet the provider’s requirements.";
 
 "TicketValidation_Result_Failed_description" = "If you have questions, please contact the provider “%@”.";
+
+/* Family Member Corona Test */
+"FamilyMemberCoronaTest_title" = "Tests of family members";
+
+"FamilyMemberCoronaTest_deleteAllButtonTitle" = "Delete all";
+
+"FamilyMemberCoronaTest_pcrCaption" = "PCR test diagnosis";
+
+"FamilyMemberCoronaTest_antigenCaption" = "Rapid test diagnosis";
+
+"FamilyMemberCoronaTest_pcrDate" = "Test added on %@";
+
+"FamilyMemberCoronaTest_antigenDate" = "Carried out on %@";
+
+"FamilyMemberCoronaTest_pendingDiagnosis" = "Your result is not yet available";
+
+"FamilyMemberCoronaTest_pendingPCRDescription" = "The evaluation of the PCR test is not done yet.";
+
+"FamilyMemberCoronaTest_pendingAntigenDescription" = "The evaluation of the rapid test is not done yet.";
+
+"FamilyMemberCoronaTest_negativeTopDiagnosis" = "SARS-CoV-2";
+
+"FamilyMemberCoronaTest_negativeBottomDiagnosis" = "Negative";
+
+"FamilyMemberCoronaTest_positiveTopDiagnosis" = "SARS-CoV-2";
+
+"FamilyMemberCoronaTest_positiveBottomDiagnosis" = "Positive";
+
+"FamilyMemberCoronaTest_invalidDiagnosis" = "Invalid test";
+
+"FamilyMemberCoronaTest_invalidDescription" = "The test cannot be evaluated.";
+
+"FamilyMemberCoronaTest_outdatedDiagnosis" = "Test No Longer Current";
+
+"FamilyMemberCoronaTest_outdatedDescription" = "The rapid test is more than %i hours old and will no longer be displayed here.";
+
+"FamilyMemberCoronaTest_outdatedButtonTitle" = "Don’t Display Again";
+
+"FamilyMemberCoronaTest_expiredDiagnosis" = "No Longer Valid";
+
+"FamilyMemberCoronaTest_expiredDescription" = "The test is more than 21 days old and is therefore no longer relevant.";
+
+"FamilyMemberCoronaTest_expiredButtonTitle" = "Delete Test";
+
+"FamilyMemberCoronaTest_DeleteOne_AlertTitle" = "Remove the test result?";
+
+"FamilyMemberCoronaTest_DeleteOne_AlertMessage" = "The test result will be moved to the recycle bin. You’ll find the recycle bin on the “More” tile of the status tab page.\nYou can permanently delete the test result or restore it there. The test result will be deleted automatically after 30 days.";
+
+"FamilyMemberCoronaTest_DeleteOne_AlertConfirmButtonTitle" = "Remove Test Result";
+
+"FamilyMemberCoronaTest_DeleteOne_AlertCancelButtonTitle" = "Cancel";
+
+"FamilyMemberCoronaTest_DeleteAll_AlertTitle" = "Remove the test results?";
+
+"FamilyMemberCoronaTest_DeleteAll_AlertMessage" = "The test results will be moved to the recycle bin. You’ll find the recycle bin on the “More” tile of the status tab page.\nYou can permanently delete the test results or restore them there. The test results will be deleted automatically after 30 days.";
+
+"FamilyMemberCoronaTest_DeleteAll_AlertConfirmButtonTitle" = "Remove Test Results";
+
+"FamilyMemberCoronaTest_DeleteAll_AlertCancelButtonTitle" = "Cancel";
 

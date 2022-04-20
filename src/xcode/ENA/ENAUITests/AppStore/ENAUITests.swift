@@ -98,7 +98,7 @@ class ENAUITests: CWATestCase {
 		app.setPreferredContentSizeCategory(accessibility: .normal, size: .M)
 		app.setLaunchArgument(LaunchArguments.onboarding.isOnboarded, to: false)
 		app.setLaunchArgument(LaunchArguments.common.ENStatus, to: ENStatus.active.stringValue)
-		app.setLaunchArgument(LaunchArguments.test.pcr.testResult, to: TestResult.negative.stringValue)
+		app.setLaunchArgument(LaunchArguments.test.pcr.testResult, to: TestResult.serverResponseAsString(for: TestResult.negative, on: .pcr))
 		app.launch()
 
 		// ScreenShot_0006: Negative result

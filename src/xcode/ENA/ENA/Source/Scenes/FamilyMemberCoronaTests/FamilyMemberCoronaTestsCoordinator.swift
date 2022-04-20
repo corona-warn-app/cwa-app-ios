@@ -106,8 +106,8 @@ class FamilyMemberCoronaTestsCoordinator {
 
 		let footerViewController = FooterViewController(
 			FooterViewModel(
-				primaryButtonName: AppStrings.TraceLocations.Details.printVersionButtonTitle,
-				secondaryButtonName: AppStrings.TraceLocations.Details.duplicateButtonTitle,
+				// Name is irrelevant, because they are overriden later by publisher update for Exposure Submission FooterViewModel
+				primaryButtonName: "",
 				isPrimaryButtonHidden: false,
 				isSecondaryButtonHidden: false,
 				secondaryButtonInverted: true,

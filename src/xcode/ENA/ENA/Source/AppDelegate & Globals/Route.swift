@@ -170,6 +170,7 @@ enum Route: Equatable {
 	case healthCertificateFromNotification(HealthCertifiedPerson, HealthCertificate)
 	case healthCertifiedPersonFromNotification(HealthCertifiedPerson)
 	case testResultFromNotification(CoronaTestType)
+	case familyMemberTestResultFromNotification
 	
 	var routeInformation: RouteInformation {
 		switch self {
@@ -185,6 +186,8 @@ enum Route: Equatable {
 			return .healthCertifiedPerson
 		case .testResultFromNotification:
 			return .testResult
+		case .familyMemberTestResultFromNotification:
+			return .familyMemberTestResult
 		}
 	}
 }
@@ -195,5 +198,6 @@ enum RouteInformation: String {
 	case rapidPCRTest = "RPCR"
 	case healthCertificate = "HealthCertificate from notification"
 	case healthCertifiedPerson = "HealthCertifiedPerson from notification"
-	case testResult = "Testresult from notification"
+	case testResult = "Test result from notification"
+	case familyMemberTestResult = "Family member test result from notification"
 }

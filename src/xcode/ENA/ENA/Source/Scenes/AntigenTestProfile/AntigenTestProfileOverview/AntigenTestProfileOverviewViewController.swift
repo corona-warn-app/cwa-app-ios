@@ -53,7 +53,9 @@ class AntigenTestProfileOverviewViewController: UITableViewController, DismissHa
 
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
+		
 		viewModel.refreshFromStore()
+		
 		parent?.navigationController?.navigationBar.prefersLargeTitles = true
 		parent?.navigationController?.navigationBar.sizeToFit()
 	}
