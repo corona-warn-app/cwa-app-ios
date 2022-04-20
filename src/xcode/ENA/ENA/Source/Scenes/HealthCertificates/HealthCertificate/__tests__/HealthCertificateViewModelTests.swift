@@ -211,7 +211,7 @@ class HealthCertificateViewModelTests: CWATestCase {
 
 	func testIsPrimaryFooterButtonEnabledInitiallyRevoked() throws {
 		let healthCertificate = try HealthCertificate(
-			base45: try base45Fake(from: .fake(vaccinationEntries: [.fake()])),
+			base45: try base45Fake(digitalCovidCertificate: .fake(vaccinationEntries: [.fake()])),
 			validityState: .revoked
 		)
 
