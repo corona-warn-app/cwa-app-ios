@@ -82,7 +82,10 @@ class HealthCertifiedPersonTests: CWATestCase {
 					digitalCovidCertificate: DigitalCovidCertificate.fake(vaccinationEntries: [.fake()]
 				)
 			),
+			validityState: .valid,
 			didShowInvalidNotification: false,
+			didShowBlockedNotification: false,
+			didShowRevokedNotification: false,
 			isNew: false,
 			isValidityStateNew: false
 		)
@@ -92,7 +95,10 @@ class HealthCertifiedPersonTests: CWATestCase {
 					digitalCovidCertificate: DigitalCovidCertificate.fake(vaccinationEntries: [.fake()]
 				)
 			),
+			validityState: .invalid,
 			didShowInvalidNotification: true,
+			didShowBlockedNotification: true,
+			didShowRevokedNotification: true,
 			isNew: true,
 			isValidityStateNew: true
 		)
