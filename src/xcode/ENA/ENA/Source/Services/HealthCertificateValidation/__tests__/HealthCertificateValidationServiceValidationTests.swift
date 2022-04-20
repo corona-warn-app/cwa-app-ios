@@ -56,11 +56,11 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 		let validationClock = Date(timeIntervalSince1970: TimeInterval(0))
 		
 		let healthCertificateBase45 = DigitalCovidCertificateFake.makeBase45Fake(
-			from: DigitalCovidCertificate.fake(
+			certificate: DigitalCovidCertificate.fake(
 				name: .fake(familyName: "Brause", givenName: "Pascal", standardizedFamilyName: "BRAUSE", standardizedGivenName: "PASCAL"),
 				testEntries: [TestEntry.fake(dateTimeOfSampleCollection: "2021-06-06T06:06:06Z")]
 			),
-			and: CBORWebTokenHeader.fake(expirationTime: expirationTime)
+			header: CBORWebTokenHeader.fake(expirationTime: expirationTime)
 		)
 		
 		guard case let .success(base45) = healthCertificateBase45 else {
@@ -142,11 +142,11 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 		let validationClock = Date(timeIntervalSince1970: TimeInterval(0))
 		
 		let healthCertificateBase45 = DigitalCovidCertificateFake.makeBase45Fake(
-			from: DigitalCovidCertificate.fake(
+			certificate: DigitalCovidCertificate.fake(
 				name: .fake(familyName: "Brause", givenName: "Pascal", standardizedFamilyName: "BRAUSE", standardizedGivenName: "PASCAL"),
 				testEntries: [TestEntry.fake(dateTimeOfSampleCollection: "2021-06-06T06:06:06Z")]
 			),
-			and: CBORWebTokenHeader.fake(expirationTime: expirationTime)
+			header: CBORWebTokenHeader.fake(expirationTime: expirationTime)
 		)
 		
 		guard case let .success(base45) = healthCertificateBase45 else {
@@ -228,11 +228,11 @@ class HealthCertificateValidationServiceValidationTests: XCTestCase {
 		let validationClock = Date(timeIntervalSince1970: TimeInterval(0))
 		
 		let healthCertificateBase45 = DigitalCovidCertificateFake.makeBase45Fake(
-			from: DigitalCovidCertificate.fake(
+			certificate: DigitalCovidCertificate.fake(
 				name: .fake(familyName: "Brause", givenName: "Pascal", standardizedFamilyName: "BRAUSE", standardizedGivenName: "PASCAL"),
 				testEntries: [TestEntry.fake(dateTimeOfSampleCollection: "2021-06-06T06:06:06Z")]
 			),
-			and: CBORWebTokenHeader.fake(expirationTime: expirationTime)
+			header: CBORWebTokenHeader.fake(expirationTime: expirationTime)
 		)
 		
 		guard case let .success(base45) = healthCertificateBase45 else {

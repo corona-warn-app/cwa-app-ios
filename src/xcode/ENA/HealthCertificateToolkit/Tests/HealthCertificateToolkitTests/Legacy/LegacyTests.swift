@@ -15,7 +15,7 @@ class LegacyTest: XCTestCase {
                 TestEntry100.fake(dateTimeOfTestResult: "2021-05-29T22:34:17.595Z")
             ]
         )
-        let base45Result = DigitalCovidCertificateFake.makeBase45Fake(from: certificate, and: CBORWebTokenHeader.fake())
+        let base45Result = DigitalCovidCertificateFake.makeBase45Fake(certificate: certificate, header: CBORWebTokenHeader.fake())
 
         guard case let .success(base45) = base45Result else {
             XCTFail("Success expected.")

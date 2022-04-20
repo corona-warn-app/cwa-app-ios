@@ -14,7 +14,7 @@ struct KIDTypeIndexResource: Resource {
 			publicKeyHash: Environments().currentEnvironment().pinningKeyHashData
 		)
 		self.locator = Locator(kid: kid, hashType: hashType)
-		self.type = .caching()
+		self.type = .caching([.loadOnlyOnceADay])
 		self.sendResource = EmptySendResource()
 		self.receiveResource = ProtobufReceiveResource<SAP_Internal_Dgc_RevocationKidTypeIndex>()
 	}

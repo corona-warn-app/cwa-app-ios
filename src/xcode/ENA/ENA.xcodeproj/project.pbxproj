@@ -1244,8 +1244,6 @@
 		ABD430DE27FAE78B0063666C /* revocation_kid_list.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABD430DB27FAE78B0063666C /* revocation_kid_list.pb.swift */; };
 		ABD430DF27FAE78B0063666C /* revocation_kid_type_index.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABD430DC27FAE78B0063666C /* revocation_kid_type_index.pb.swift */; };
 		ABD430E027FAE78B0063666C /* revocation_chunk.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABD430DD27FAE78B0063666C /* revocation_chunk.pb.swift */; };
-		ABD4310127FC83800063666C /* HealthCertificateRevocationEntries.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABD4310027FC83800063666C /* HealthCertificateRevocationEntries.swift */; };
-		ABD4310327FC8CEA0063666C /* HealthCertificateRevocationEntriesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABD4310227FC8CEA0063666C /* HealthCertificateRevocationEntriesTests.swift */; };
 		ABD430E427FAF6A10063666C /* KIDListResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABD430E327FAF6A10063666C /* KIDListResource.swift */; };
 		ABD430E627FAF6B50063666C /* Locator+KIDList.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABD430E527FAF6B50063666C /* Locator+KIDList.swift */; };
 		ABD430E927FB138E0063666C /* KIDTypeIndexResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABD430E827FB138E0063666C /* KIDTypeIndexResource.swift */; };
@@ -1257,6 +1255,8 @@
 		ABD430FA27FC6BC20063666C /* Locator+KIDTypeChunkTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABD430F827FC6BBE0063666C /* Locator+KIDTypeChunkTests.swift */; };
 		ABD430FD27FC6C660063666C /* KIDTypeChunkResourceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABD430FB27FC6C530063666C /* KIDTypeChunkResourceTests.swift */; };
 		ABD430FF27FC7EB90063666C /* LocatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABD430FE27FC7EB90063666C /* LocatorTests.swift */; };
+		ABD4310127FC83800063666C /* HealthCertificateRevocationEntries.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABD4310027FC83800063666C /* HealthCertificateRevocationEntries.swift */; };
+		ABD4310327FC8CEA0063666C /* HealthCertificateRevocationEntriesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABD4310227FC8CEA0063666C /* HealthCertificateRevocationEntriesTests.swift */; };
 		ABDA2792251CE308006BAE84 /* DMServerEnvironmentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABDA2791251CE308006BAE84 /* DMServerEnvironmentViewController.swift */; };
 		ABDBE3632710825F007C8DA8 /* RecycleBinTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABDBE36127107E73007C8DA8 /* RecycleBinTests.swift */; };
 		ABE06E99261D958A00D98E1B /* TraceLocationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABE06E98261D958A00D98E1B /* TraceLocationTests.swift */; };
@@ -1416,6 +1416,7 @@
 		BA291AC1275A48A0003C42C2 /* DMTicketValidationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA291AC0275A48A0003C42C2 /* DMTicketValidationViewController.swift */; };
 		BA291AC3275A48CA003C42C2 /* DMTicketValidationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA291AC2275A48CA003C42C2 /* DMTicketValidationViewModel.swift */; };
 		BA2B393A25F7C6F700374CF1 /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA2B393925F7C6F700374CF1 /* GradientView.swift */; };
+		BA2C88E727FDC61500CE7E1E /* RevocationProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA2C88E627FDC61500CE7E1E /* RevocationProvider.swift */; };
 		BA2D4EFC2636FDBC0080FD77 /* AntigenTestProfileViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA2D4EFB2636FDBC0080FD77 /* AntigenTestProfileViewModelTests.swift */; };
 		BA2D4F05263701950080FD77 /* SimpleTextCellViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA2D4F04263701950080FD77 /* SimpleTextCellViewModelTests.swift */; };
 		BA2D4F0D2637037C0080FD77 /* QRCodeCellViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA2D4F0C2637037C0080FD77 /* QRCodeCellViewModelTests.swift */; };
@@ -1501,6 +1502,7 @@
 		BA7DCA152747D923009E4557 /* _EvaluateTrust.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA7DCA142747D923009E4557 /* _EvaluateTrust.swift */; };
 		BA7DCA172747D944009E4557 /* DefaultTrustEvaluation.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA7DCA162747D944009E4557 /* DefaultTrustEvaluation.swift */; };
 		BA7DCA1A2747DA96009E4557 /* JSONWebKeyTrustEvaluation.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA7DCA192747DA96009E4557 /* JSONWebKeyTrustEvaluation.swift */; };
+		BA7DE4552805A9B90074BFE3 /* RevocationProviderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA7DE4542805A9B90074BFE3 /* RevocationProviderTests.swift */; };
 		BA7EABAD25C973FE001AA5FE /* DMKeyValueCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA7EABAC25C973FE001AA5FE /* DMKeyValueCellViewModel.swift */; };
 		BA7F15A12629D3F200CA4783 /* RouteTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA7F15A02629D3F200CA4783 /* RouteTests.swift */; };
 		BA7F15AD2629DA1000CA4783 /* RapidTestInformationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA7F15AC2629DA1000CA4783 /* RapidTestInformationTests.swift */; };
@@ -1611,6 +1613,7 @@
 		BADBC82925D6BB6400488DB7 /* DistrictTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BADBC82825D6BB6400488DB7 /* DistrictTests.swift */; };
 		BADBC85625D6C1C500488DB7 /* BaseDataDonationViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BADBC85525D6C1C500488DB7 /* BaseDataDonationViewModelTests.swift */; };
 		BADBC86725D6C7FD00488DB7 /* SettingsDataDonationViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BADBC86625D6C7FD00488DB7 /* SettingsDataDonationViewModelTests.swift */; };
+		BADC5E8F280471EC00C300EB /* RevocationLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = BADC5E8E280471EC00C300EB /* RevocationLocation.swift */; };
 		BADD36E8260B4FBA00DD282A /* EditCheckinDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BADD36DF260B4FBA00DD282A /* EditCheckinDetailViewModel.swift */; };
 		BADD36E9260B4FBA00DD282A /* CheckInDescriptionCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BADD36E1260B4FBA00DD282A /* CheckInDescriptionCellModel.swift */; };
 		BADD36EA260B4FBA00DD282A /* CheckInDescriptionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BADD36E2260B4FBA00DD282A /* CheckInDescriptionCell.swift */; };
@@ -3051,8 +3054,6 @@
 		ABD430DB27FAE78B0063666C /* revocation_kid_list.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = revocation_kid_list.pb.swift; sourceTree = "<group>"; };
 		ABD430DC27FAE78B0063666C /* revocation_kid_type_index.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = revocation_kid_type_index.pb.swift; sourceTree = "<group>"; };
 		ABD430DD27FAE78B0063666C /* revocation_chunk.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = revocation_chunk.pb.swift; sourceTree = "<group>"; };
-		ABD4310027FC83800063666C /* HealthCertificateRevocationEntries.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthCertificateRevocationEntries.swift; sourceTree = "<group>"; };
-		ABD4310227FC8CEA0063666C /* HealthCertificateRevocationEntriesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthCertificateRevocationEntriesTests.swift; sourceTree = "<group>"; };
 		ABD430E327FAF6A10063666C /* KIDListResource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KIDListResource.swift; sourceTree = "<group>"; };
 		ABD430E527FAF6B50063666C /* Locator+KIDList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Locator+KIDList.swift"; sourceTree = "<group>"; };
 		ABD430E827FB138E0063666C /* KIDTypeIndexResource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KIDTypeIndexResource.swift; sourceTree = "<group>"; };
@@ -3064,6 +3065,8 @@
 		ABD430F827FC6BBE0063666C /* Locator+KIDTypeChunkTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Locator+KIDTypeChunkTests.swift"; sourceTree = "<group>"; };
 		ABD430FB27FC6C530063666C /* KIDTypeChunkResourceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KIDTypeChunkResourceTests.swift; sourceTree = "<group>"; };
 		ABD430FE27FC7EB90063666C /* LocatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocatorTests.swift; sourceTree = "<group>"; };
+		ABD4310027FC83800063666C /* HealthCertificateRevocationEntries.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthCertificateRevocationEntries.swift; sourceTree = "<group>"; };
+		ABD4310227FC8CEA0063666C /* HealthCertificateRevocationEntriesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthCertificateRevocationEntriesTests.swift; sourceTree = "<group>"; };
 		ABDA2791251CE308006BAE84 /* DMServerEnvironmentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMServerEnvironmentViewController.swift; sourceTree = "<group>"; };
 		ABDBE36127107E73007C8DA8 /* RecycleBinTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecycleBinTests.swift; sourceTree = "<group>"; };
 		ABE06E98261D958A00D98E1B /* TraceLocationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraceLocationTests.swift; sourceTree = "<group>"; };
@@ -3218,6 +3221,7 @@
 		BA291AC0275A48A0003C42C2 /* DMTicketValidationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMTicketValidationViewController.swift; sourceTree = "<group>"; };
 		BA291AC2275A48CA003C42C2 /* DMTicketValidationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMTicketValidationViewModel.swift; sourceTree = "<group>"; };
 		BA2B393925F7C6F700374CF1 /* GradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
+		BA2C88E627FDC61500CE7E1E /* RevocationProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RevocationProvider.swift; sourceTree = "<group>"; };
 		BA2D4EF22636C7860080FD77 /* SimpleTextCellViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SimpleTextCellViewModel.swift; sourceTree = "<group>"; };
 		BA2D4EFB2636FDBC0080FD77 /* AntigenTestProfileViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AntigenTestProfileViewModelTests.swift; sourceTree = "<group>"; };
 		BA2D4F04263701950080FD77 /* SimpleTextCellViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleTextCellViewModelTests.swift; sourceTree = "<group>"; };
@@ -3307,6 +3311,7 @@
 		BA7DCA142747D923009E4557 /* _EvaluateTrust.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = _EvaluateTrust.swift; sourceTree = "<group>"; };
 		BA7DCA162747D944009E4557 /* DefaultTrustEvaluation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultTrustEvaluation.swift; sourceTree = "<group>"; };
 		BA7DCA192747DA96009E4557 /* JSONWebKeyTrustEvaluation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONWebKeyTrustEvaluation.swift; sourceTree = "<group>"; };
+		BA7DE4542805A9B90074BFE3 /* RevocationProviderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RevocationProviderTests.swift; sourceTree = "<group>"; };
 		BA7EABAC25C973FE001AA5FE /* DMKeyValueCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMKeyValueCellViewModel.swift; sourceTree = "<group>"; };
 		BA7F15A02629D3F200CA4783 /* RouteTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteTests.swift; sourceTree = "<group>"; };
 		BA7F15AC2629DA1000CA4783 /* RapidTestInformationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RapidTestInformationTests.swift; sourceTree = "<group>"; };
@@ -3413,6 +3418,7 @@
 		BADBC82825D6BB6400488DB7 /* DistrictTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DistrictTests.swift; sourceTree = "<group>"; };
 		BADBC85525D6C1C500488DB7 /* BaseDataDonationViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseDataDonationViewModelTests.swift; sourceTree = "<group>"; };
 		BADBC86625D6C7FD00488DB7 /* SettingsDataDonationViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsDataDonationViewModelTests.swift; sourceTree = "<group>"; };
+		BADC5E8E280471EC00C300EB /* RevocationLocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RevocationLocation.swift; sourceTree = "<group>"; };
 		BADD36DF260B4FBA00DD282A /* EditCheckinDetailViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditCheckinDetailViewModel.swift; sourceTree = "<group>"; };
 		BADD36E1260B4FBA00DD282A /* CheckInDescriptionCellModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckInDescriptionCellModel.swift; sourceTree = "<group>"; };
 		BADD36E2260B4FBA00DD282A /* CheckInDescriptionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckInDescriptionCell.swift; sourceTree = "<group>"; };
@@ -6198,11 +6204,11 @@
 		50BC9046279EEE530000C930 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				ABD430E127FAF6680063666C /* DCCRevocation */,
 				50BC9030279EEB4A0000C930 /* AllowList */,
 				50BC9031279EEB840000C930 /* AppConfiguration */,
 				5015D2D227A1737E007D8763 /* CCLConfiguration */,
 				50CDFB2527BE82C700FE0793 /* DCCReissuance */,
+				ABD430E127FAF6680063666C /* DCCRevocation */,
 				50BC902C279EEA670000C930 /* DCCRules */,
 				50BC9032279EEBC20000C930 /* RegistrationToken */,
 				50BC9040279EECEB0000C930 /* ServiceIdentityDocument */,
@@ -8625,15 +8631,16 @@
 		B1FE13D92488216300D012E5 /* Provider */ = {
 			isa = PBXGroup;
 			children = (
+				B1FE13E0248824D700D012E5 /* __tests__ */,
 				BA00FECC26BC2C84009DA07F /* AppFeatures */,
 				B1FE13F724896DC400D012E5 /* Helper */,
-				B1FE13E32488253200D012E5 /* Model */,
-				B1FE13E0248824D700D012E5 /* __tests__ */,
-				B1FE13DC248821CB00D012E5 /* RiskProviding.swift */,
-				B1FE13DE248821E000D012E5 /* RiskProvider.swift */,
 				EBD2D09F25A86C2A006E4220 /* MockRiskProvider.swift */,
-				354BB49925B07DB000FBCFEE /* StatisticsProviding.swift */,
+				B1FE13E32488253200D012E5 /* Model */,
+				BA2C88E527FDC5F800CE7E1E /* Revocation */,
+				B1FE13DE248821E000D012E5 /* RiskProvider.swift */,
+				B1FE13DC248821CB00D012E5 /* RiskProviding.swift */,
 				35E121A825B1CFB00098D754 /* StatisticsProvider.swift */,
+				354BB49925B07DB000FBCFEE /* StatisticsProviding.swift */,
 				ABA146CF27EB1A840096A44E /* StatisticsProvidingFake.swift */,
 			);
 			path = Provider;
@@ -8892,6 +8899,16 @@
 				BA291AC2275A48CA003C42C2 /* DMTicketValidationViewModel.swift */,
 			);
 			path = DMTicketValidation;
+			sourceTree = "<group>";
+		};
+		BA2C88E527FDC5F800CE7E1E /* Revocation */ = {
+			isa = PBXGroup;
+			children = (
+				BA7DE4532805A9A00074BFE3 /* __tests__ */,
+				BA2C88E627FDC61500CE7E1E /* RevocationProvider.swift */,
+				BADC5E8E280471EC00C300EB /* RevocationLocation.swift */,
+			);
+			path = Revocation;
 			sourceTree = "<group>";
 		};
 		BA2D4EFA2636FDA60080FD77 /* __tests__ */ = {
@@ -9356,6 +9373,14 @@
 				ABAAE2D427C3DC3500A53AB1 /* CoronaWarnSessionTaskDelegate.swift */,
 			);
 			path = URLSessionDelegates;
+			sourceTree = "<group>";
+		};
+		BA7DE4532805A9A00074BFE3 /* __tests__ */ = {
+			isa = PBXGroup;
+			children = (
+				BA7DE4542805A9B90074BFE3 /* RevocationProviderTests.swift */,
+			);
+			path = __tests__;
 			sourceTree = "<group>";
 		};
 		BA7F15AB2629D9FA00CA4783 /* __tests_ */ = {
@@ -11680,6 +11705,7 @@
 				ABE9620925F67D2200D0F699 /* TraceWarningPackageMetadata.swift in Sources */,
 				5001DE8E26E20D76004242FA /* SubmitPPA.swift in Sources */,
 				514E81342461B97800636861 /* ExposureManager.swift in Sources */,
+				BADC5E8F280471EC00C300EB /* RevocationLocation.swift in Sources */,
 				71176E32248957C3004B0C9F /* AppNavigationController.swift in Sources */,
 				0104CBD3273EACA1009A543D /* MockTicketValidation.swift in Sources */,
 				EB43DB9B2624439D0063687D /* corona_test_parameters.pb.swift in Sources */,
@@ -11727,6 +11753,7 @@
 				AB4DA4B927DF9F810092F42D /* DaysSinceInstallCellViewModel.swift in Sources */,
 				504E8B1425D400DF00CAFBDF /* DMPPAnalyticsViewModel.swift in Sources */,
 				01F6701225FF79830069C4F9 /* EventCellModel.swift in Sources */,
+				BA2C88E727FDC61500CE7E1E /* RevocationProvider.swift in Sources */,
 				BA9BCF6225B0875100DD7974 /* DiaryOverviewDayCellModel.swift in Sources */,
 				8FEC12242754B6C000C5DADC /* Locator+AllowList.swift in Sources */,
 				BA0887A6269F43930007B3F3 /* NSMutableAttributedString+Link.swift in Sources */,
@@ -12049,6 +12076,7 @@
 				AB7BDF8325CC079B00E70744 /* SurveyConsentViewModelTests.swift in Sources */,
 				B1FE13ED24891D0400D012E5 /* RiskProviderTests.swift in Sources */,
 				4BAB490426C9B70A00CC4C11 /* RateLimitLoggerTests.swift in Sources */,
+				BA7DE4552805A9B90074BFE3 /* RevocationProviderTests.swift in Sources */,
 				AB7420DD251B8101006666AC /* DeltaOnboardingCoordinatorTests.swift in Sources */,
 				ABD0828F260E08D6007C4B24 /* TraceWarningMatcherTests.swift in Sources */,
 				BA18127727AD82DA000E5EDD /* CCLServiceBaseTests.swift in Sources */,

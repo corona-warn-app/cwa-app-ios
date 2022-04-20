@@ -37,7 +37,7 @@ class HealthCertificateRequestServiceTests: CWATestCase {
 		let appConfig = CachedAppConfigurationMock(with: config)
 
 		let base45TestCertificate = try base45Fake(
-			from: DigitalCovidCertificate.fake(
+			digitalCovidCertificate: DigitalCovidCertificate.fake(
 				testEntries: [TestEntry.fake()]
 			)
 		)
@@ -151,7 +151,7 @@ class HealthCertificateRequestServiceTests: CWATestCase {
 		let appConfig = CachedAppConfigurationMock(with: config)
 
 		let base45TestCertificate = try base45Fake(
-			from: DigitalCovidCertificate.fake(
+			digitalCovidCertificate: DigitalCovidCertificate.fake(
 				testEntries: [TestEntry.fake()]
 			)
 		)
@@ -246,7 +246,7 @@ class HealthCertificateRequestServiceTests: CWATestCase {
 		let appConfig = CachedAppConfigurationMock(with: config)
 
 		let base45TestCertificate = try base45Fake(
-			from: DigitalCovidCertificate.fake(
+			digitalCovidCertificate: DigitalCovidCertificate.fake(
 				testEntries: [TestEntry.fake()]
 			)
 		)
@@ -343,7 +343,7 @@ class HealthCertificateRequestServiceTests: CWATestCase {
 		let appConfig = CachedAppConfigurationMock(with: config)
 
 		let base45TestCertificate = try base45Fake(
-			from: DigitalCovidCertificate.fake(
+			digitalCovidCertificate: DigitalCovidCertificate.fake(
 				testEntries: [TestEntry.fake()]
 			)
 		)
@@ -511,7 +511,7 @@ class HealthCertificateRequestServiceTests: CWATestCase {
 		let appConfig = CachedAppConfigurationMock(with: config)
 
 		let base45TestCertificate = try base45Fake(
-			from: DigitalCovidCertificate.fake(
+			digitalCovidCertificate: DigitalCovidCertificate.fake(
 				testEntries: [TestEntry.fake()]
 			)
 		)
@@ -904,7 +904,7 @@ class HealthCertificateRequestServiceTests: CWATestCase {
 		let appConfig = CachedAppConfigurationMock(with: config)
 
 		let base45TestCertificate = try base45Fake(
-			from: DigitalCovidCertificate.fake(
+			digitalCovidCertificate: DigitalCovidCertificate.fake(
 				testEntries: [TestEntry.fake()]
 			)
 		)
@@ -990,7 +990,7 @@ class HealthCertificateRequestServiceTests: CWATestCase {
 		let appConfig = CachedAppConfigurationMock(with: config)
 
 		let base45TestCertificate = try base45Fake(
-			from: DigitalCovidCertificate.fake(
+			digitalCovidCertificate: DigitalCovidCertificate.fake(
 				dateOfBirth: "1970-03-26",
 				testEntries: [TestEntry.fake()]
 			)

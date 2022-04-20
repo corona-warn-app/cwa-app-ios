@@ -29,7 +29,7 @@ struct KIDTypeChunkResource: Resource {
 			x: x,
 			y: y
 		)
-		self.type = .caching()
+		self.type = .caching([.loadOnlyOnceADay])
 		self.sendResource = EmptySendResource()
 		self.receiveResource = ProtobufReceiveResource<SAP_Internal_Dgc_RevocationChunk>(
 			signatureVerifier: signatureVerifier
@@ -40,6 +40,7 @@ struct KIDTypeChunkResource: Resource {
 
 	typealias Send = EmptySendResource
 	typealias Receive = ProtobufReceiveResource<SAP_Internal_Dgc_RevocationChunk>
+	typealias CustomError = KIDTypeChunkResourceError
 
 	let trustEvaluation: TrustEvaluating
 	let locator: Locator
