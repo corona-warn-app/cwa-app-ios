@@ -199,7 +199,7 @@ final class HealthCertificateCellViewModel {
 	}()
 
 	lazy var isValidationButtonEnabled: Bool = {
-		healthCertificate.validityState != .blocked
+		healthCertificate.validityState != .blocked && healthCertificate.validityState != .revoked
 	}()
 	
 	func didTapValidationButton(loadingStateHandler: @escaping (Bool) -> Void) {
