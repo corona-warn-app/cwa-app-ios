@@ -760,6 +760,8 @@ class HealthCertificateService: HealthCertificateServiceServable {
 
 	private func updateValidityState(for healthCertificate: HealthCertificate, person: HealthCertifiedPerson) {
 		let previousValidityState = healthCertificate.validityState
+		
+		// Check against cached revocation list: the DCC shall be checked against the revocation list.
 
 		if let invalidationRules = person.dccWalletInfo?.certificatesRevokedByInvalidationRules,
 		   invalidationRules.contains(where: {
