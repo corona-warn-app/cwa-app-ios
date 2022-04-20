@@ -6,7 +6,7 @@ import Foundation
 import SwiftUI
 
 protocol RevocationProviding {
-	func updateCache(with certificates: [HealthCertificate], completion: @escaping () -> Void)
+	func updateCache(with certificates: [HealthCertificate], completion: @escaping ([HealthCertificate]) -> Void)
 }
 
 final class RevocationProvider: RevocationProviding {
@@ -23,7 +23,10 @@ final class RevocationProvider: RevocationProviding {
 
 	// MARK: - Protocol RevocationProviding
 
-	func updateCache(with certificates: [HealthCertificate], completion: @escaping () -> Void) {
+	func updateCache(
+		with certificates: [HealthCertificate],
+		completion: @escaping ([HealthCertificate]) -> Void
+	) {
 		// 1. Filter by certificate type
 		let filteredCertificates = certificates.filter { certificate in
 			(certificate.type == .vaccination ||
@@ -46,7 +49,7 @@ final class RevocationProvider: RevocationProviding {
 			switch result {
 			case .failure(let error):
 				Log.error("failed to update kid list", error: error)
-				completion()
+				completion([])
 			case .success(let kidList):
 				// helping step -> convert to KidWithTypes model to make things a bit easier
 				let keyIdentifiersWithTypes: [KidWithTypes] = kidList.items.map {
@@ -94,9 +97,8 @@ final class RevocationProvider: RevocationProviding {
 					lhs.type < rhs.type
 				}
 
-
-				self.updateKidType(certificateByRLC) {
-					completion()
+				self.updateKidType(certificateByRLC) { revokedCertificates in
+					completion(revokedCertificates)
 				}
 			}
 		}
@@ -124,7 +126,7 @@ final class RevocationProvider: RevocationProviding {
 
 	private func updateKidType(
 		_ revocationLocations: [RevocationLocation],
-		completion: @escaping() -> Void
+		completion: @escaping([HealthCertificate]) -> Void
 	) {
 		// Ensure that dispatch group does not block main thread
 		DispatchQueue.global().async {
@@ -193,7 +195,7 @@ final class RevocationProvider: RevocationProviding {
 				}
 				outerDispatchGroup.wait()
 			}
-			completion()
+			completion(revokedCertificates)
 		}
 	}
 

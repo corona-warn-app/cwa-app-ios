@@ -33,7 +33,8 @@ class HealthCertificateService: HealthCertificateServiceServable {
 		digitalCovidCertificateAccess: DigitalCovidCertificateAccessProtocol = DigitalCovidCertificateAccess(),
 		notificationCenter: UserNotificationCenter = UNUserNotificationCenter.current(),
 		cclService: CCLServable,
-		recycleBin: RecycleBin
+		recycleBin: RecycleBin,
+		revocationProvider: RevocationProviding
 	) {
 		#if DEBUG
 		if isUITesting {
@@ -51,6 +52,7 @@ class HealthCertificateService: HealthCertificateServiceServable {
 			)
 			self.cclService = cclService
 			self.recycleBin = recycleBin
+			self.revocationProvider = revocationProvider
 
 			return
 		}
@@ -67,6 +69,7 @@ class HealthCertificateService: HealthCertificateServiceServable {
 		)
 		self.cclService = cclService
 		self.recycleBin = recycleBin
+		self.revocationProvider = revocationProvider
 	}
 
 	// MARK: - Internal
@@ -340,6 +343,10 @@ class HealthCertificateService: HealthCertificateServiceServable {
 		} else {
 			Log.info("[HealthCertificateService] Successfully registered health certificate for a person with other existing certificates", log: .api)
 		}
+
+		updateRevocationStates {
+			Log.info("Finished updating revocation states.")
+		}
 		
 		Log.info("Finished adding health certificate to person.")
 		
@@ -492,6 +499,7 @@ class HealthCertificateService: HealthCertificateServiceServable {
 	}
 
 	func updateValidityStatesAndNotifications(
+		for healthCertificateTuples: [(certificate: HealthCertificate, person: HealthCertifiedPerson)]? = nil,
 		shouldScheduleTimer: Bool = true,
 		completion: @escaping () -> Void
 	) {
@@ -499,18 +507,24 @@ class HealthCertificateService: HealthCertificateServiceServable {
 
 		attemptToRestoreDecodingFailedHealthCertificates()
 
-		let dispatchGroup = DispatchGroup()
-		healthCertifiedPersons.forEach { healthCertifiedPerson in
-			healthCertifiedPerson.healthCertificates.forEach { healthCertificate in
-				updateValidityState(for: healthCertificate, person: healthCertifiedPerson)
-				dispatchGroup.enter()
-				healthCertificateNotificationService.recreateNotifications(
-					for: healthCertificate,
-					completion: {
-						dispatchGroup.leave()
-					}
-				)
+		let certificateTuples = healthCertificateTuples ?? healthCertifiedPersons
+			.map { (certificates: $0.healthCertificates, person: $0) }
+			.flatMap { personCertificateTuple in
+				personCertificateTuple.certificates.map {
+					(certificate: $0, person: personCertificateTuple.person)
+				}
 			}
+
+		let dispatchGroup = DispatchGroup()
+		certificateTuples.forEach { healthCertificateTuple in
+			updateValidityState(for: healthCertificateTuple.certificate, person: healthCertificateTuple.person)
+			dispatchGroup.enter()
+			healthCertificateNotificationService.recreateNotifications(
+				for: healthCertificateTuple.certificate,
+				completion: {
+					dispatchGroup.leave()
+				}
+			)
 		}
 
 		dispatchGroup.notify(queue: .global()) {
@@ -520,6 +534,32 @@ class HealthCertificateService: HealthCertificateServiceServable {
 		if shouldScheduleTimer {
 			scheduleTimer()
 		}
+	}
+
+	func updateRevocationStates(completion: @escaping () -> Void) {
+		let allRegisteredCertificates = healthCertifiedPersons.flatMap { $0.healthCertificates }
+
+		revocationProvider.updateCache(
+			with: allRegisteredCertificates,
+			completion: { revokedCertificates in
+				let certificatesToUpdate = revokedCertificates
+					.filter { $0.validityState != .revoked } +
+					allRegisteredCertificates
+					.filter { $0.validityState == .revoked && !revokedCertificates.contains($0) }
+
+				let certificateTuples = certificatesToUpdate.compactMap { certificate -> (certificate: HealthCertificate, person: HealthCertifiedPerson)? in
+					guard let person = self.findFirstPerson(for: certificate, from: self.healthCertifiedPersons) else {
+						return nil
+					}
+
+					return (
+						certificate: certificate,
+						person: person
+					)
+				}
+				self.updateValidityStatesAndNotifications(for: certificateTuples, completion: completion)
+			}
+		)
 	}
 
 	func validUntilDates(for healthCertificates: [HealthCertificate], signingCertificates: [DCCSigningCertificate]) -> [Date] {
@@ -597,6 +637,7 @@ class HealthCertificateService: HealthCertificateServiceServable {
 	private let healthCertificateNotificationService: HealthCertificateNotificationService
 	private let recycleBin: RecycleBin
 	private let cclService: CCLServable
+	private let revocationProvider: RevocationProviding
 
 	private let setupQueue = DispatchQueue(label: "com.sap.HealthCertificateService.setup")
 	private let healthCertifiedPersonsQueue = DispatchQueue(label: "com.sap.HealthCertificateService.healthCertifiedPersons")

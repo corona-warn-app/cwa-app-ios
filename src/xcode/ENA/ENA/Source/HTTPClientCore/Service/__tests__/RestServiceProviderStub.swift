@@ -12,7 +12,7 @@ struct LoadResource {
 class RestServiceProviderStub: RestServiceProviding {
 
 	init(
-		loadResources: [LoadResource]
+		loadResources: [LoadResource] = []
 	) {
 		self.loadResources = loadResources
 	}
