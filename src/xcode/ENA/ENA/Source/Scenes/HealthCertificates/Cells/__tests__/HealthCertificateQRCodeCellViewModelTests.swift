@@ -666,7 +666,7 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 		XCTAssertTrue(viewModel.qrCodeViewModel.shouldBlockCertificateCode)
 	}
 
-	func testGIVEN_DetailsViewModelWithBlockedVaccinationCertificate_THEN_IsInitCorrect() throws {
+	func testGIVEN_DetailsViewModelWithBlockedGermanVaccinationCertificate_THEN_IsInitCorrect() throws {
 		// GIVEN
 		let viewModel = HealthCertificateQRCodeCellViewModel(
 			mode: .details,
@@ -676,7 +676,8 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 						vaccinationEntries: [
 							.fake()
 						]
-					)
+					),
+					webTokenHeader: .fake(issuer: "DE")
 				),
 				validityState: .blocked
 			),
@@ -692,7 +693,41 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 
 		XCTAssertEqual(viewModel.validityStateIcon, UIImage(named: "Icon_ExpiredInvalid"))
 		XCTAssertEqual(viewModel.validityStateTitle, "Zertifikat ungültig")
-		XCTAssertEqual(viewModel.validityStateDescription, "Das Zertifikat wurde von der ausstellenden Behörde zurückgerufen. Bitte bemühen Sie sich darum, einen neuen digitalen Nachweis ausstellen zu lassen.")
+		XCTAssertEqual(viewModel.validityStateDescription, "Das RKI hat das Zertifikat aufgrund einer behördlichen Verfügung gesperrt. Bitte bemühen Sie sich darum, einen neuen digitalen Nachweis ausstellen zu lassen.")
+
+		XCTAssertFalse(viewModel.isUnseenNewsIndicatorVisible)
+
+		XCTAssertFalse(viewModel.qrCodeViewModel.shouldBlockCertificateCode)
+	}
+
+	func testGIVEN_DetailsViewModelWithBlockedAustrianVaccinationCertificate_THEN_IsInitCorrect() throws {
+		// GIVEN
+		let viewModel = HealthCertificateQRCodeCellViewModel(
+			mode: .details,
+			healthCertificate: try HealthCertificate(
+				base45: try base45Fake(
+					digitalCovidCertificate: DigitalCovidCertificate.fake(
+						vaccinationEntries: [
+							.fake()
+						]
+					),
+					webTokenHeader: .fake(issuer: "AT")
+				),
+				validityState: .blocked
+			),
+			accessibilityText: "accessibilityText",
+			onCovPassCheckInfoButtonTap: { }
+		)
+
+		// THEN
+		XCTAssertEqual(viewModel.title, "Impfzertifikat")
+		XCTAssertNil(viewModel.subtitle)
+		XCTAssertEqual(viewModel.qrCodeViewModel.accessibilityLabel, "accessibilityText")
+		XCTAssertEqual(viewModel.qrCodeViewModel.covPassCheckInfoPosition, .top)
+
+		XCTAssertEqual(viewModel.validityStateIcon, UIImage(named: "Icon_ExpiredInvalid"))
+		XCTAssertEqual(viewModel.validityStateTitle, "Zertifikat ungültig")
+		XCTAssertEqual(viewModel.validityStateDescription, "Das Zertifikat wurde vom Zertifikataussteller aufgrund einer behördlichen Entscheidung gesperrt. Bitte bemühen Sie sich darum, einen neuen digitalen Nachweis ausstellen zu lassen.")
 
 		XCTAssertFalse(viewModel.isUnseenNewsIndicatorVisible)
 
@@ -709,7 +744,8 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 						vaccinationEntries: [
 							.fake()
 						]
-					)
+					),
+					webTokenHeader: .fake(issuer: "DE")
 				),
 				validityState: .blocked,
 				isValidityStateNew: true
@@ -726,11 +762,185 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 
 		XCTAssertEqual(viewModel.validityStateIcon, UIImage(named: "Icon_ExpiredInvalid"))
 		XCTAssertEqual(viewModel.validityStateTitle, "Zertifikat ungültig")
-		XCTAssertEqual(viewModel.validityStateDescription, "Das Zertifikat wurde von der ausstellenden Behörde zurückgerufen. Bitte bemühen Sie sich darum, einen neuen digitalen Nachweis ausstellen zu lassen.")
+		XCTAssertEqual(viewModel.validityStateDescription, "Das RKI hat das Zertifikat aufgrund einer behördlichen Verfügung gesperrt. Bitte bemühen Sie sich darum, einen neuen digitalen Nachweis ausstellen zu lassen.")
 
 		XCTAssertTrue(viewModel.isUnseenNewsIndicatorVisible)
 
 		XCTAssertFalse(viewModel.qrCodeViewModel.shouldBlockCertificateCode)
+	}
+
+	func testGIVEN_OverviewViewModelWithRevokedVaccinationCertificate_THEN_IsInitCorrect() throws {
+		// GIVEN
+		let viewModel = HealthCertificateQRCodeCellViewModel(
+			mode: .overview,
+			healthCertificate: try HealthCertificate(
+				base45: try base45Fake(
+					digitalCovidCertificate: DigitalCovidCertificate.fake(
+						vaccinationEntries: [
+							.fake(
+								dateOfVaccination: "2021-06-01"
+							)
+						]
+					)
+				),
+				validityState: .revoked
+			),
+			accessibilityText: "accessibilityText",
+			onCovPassCheckInfoButtonTap: { }
+		)
+
+		// THEN
+		XCTAssertEqual(viewModel.title, "Impfzertifikat")
+		XCTAssertNil(viewModel.subtitle)
+		XCTAssertEqual(viewModel.qrCodeViewModel.accessibilityLabel, "accessibilityText")
+		XCTAssertEqual(viewModel.qrCodeViewModel.covPassCheckInfoPosition, .top)
+
+		XCTAssertEqual(viewModel.validityStateIcon, UIImage(named: "Icon_ExpiredInvalid"))
+		XCTAssertEqual(viewModel.validityStateTitle, "Zertifikat ungültig")
+		XCTAssertNil(viewModel.validityStateDescription)
+
+		XCTAssertFalse(viewModel.isUnseenNewsIndicatorVisible)
+
+		XCTAssertTrue(viewModel.qrCodeViewModel.shouldBlockCertificateCode)
+	}
+
+	func testGIVEN_OverviewViewModelWithNewlyRevokedVaccinationCertificate_THEN_IsInitCorrect() throws {
+		// GIVEN
+		let viewModel = HealthCertificateQRCodeCellViewModel(
+			mode: .overview,
+			healthCertificate: try HealthCertificate(
+				base45: try base45Fake(
+					digitalCovidCertificate: DigitalCovidCertificate.fake(
+						vaccinationEntries: [
+							.fake(
+								dateOfVaccination: "2021-06-01"
+							)
+						]
+					)
+				),
+				validityState: .revoked,
+				isValidityStateNew: true
+			),
+			accessibilityText: "accessibilityText",
+			onCovPassCheckInfoButtonTap: { }
+		)
+
+		// THEN
+		XCTAssertEqual(viewModel.title, "Impfzertifikat")
+		XCTAssertNil(viewModel.subtitle)
+		XCTAssertEqual(viewModel.qrCodeViewModel.accessibilityLabel, "accessibilityText")
+		XCTAssertEqual(viewModel.qrCodeViewModel.covPassCheckInfoPosition, .top)
+
+		XCTAssertEqual(viewModel.validityStateIcon, UIImage(named: "Icon_ExpiredInvalid"))
+		XCTAssertEqual(viewModel.validityStateTitle, "Zertifikat ungültig")
+		XCTAssertNil(viewModel.validityStateDescription)
+
+		XCTAssertFalse(viewModel.isUnseenNewsIndicatorVisible)
+
+		XCTAssertTrue(viewModel.qrCodeViewModel.shouldBlockCertificateCode)
+	}
+
+	func testGIVEN_DetailsViewModelWithRevokedGermanVaccinationCertificate_THEN_IsInitCorrect() throws {
+		// GIVEN
+		let viewModel = HealthCertificateQRCodeCellViewModel(
+			mode: .details,
+			healthCertificate: try HealthCertificate(
+				base45: try base45Fake(
+					digitalCovidCertificate: DigitalCovidCertificate.fake(
+						vaccinationEntries: [
+							.fake()
+						]
+					),
+					webTokenHeader: .fake(issuer: "DE")
+				),
+				validityState: .revoked
+			),
+			accessibilityText: "accessibilityText",
+			onCovPassCheckInfoButtonTap: { }
+		)
+
+		// THEN
+		XCTAssertEqual(viewModel.title, "Impfzertifikat")
+		XCTAssertNil(viewModel.subtitle)
+		XCTAssertEqual(viewModel.qrCodeViewModel.accessibilityLabel, "accessibilityText")
+		XCTAssertEqual(viewModel.qrCodeViewModel.covPassCheckInfoPosition, .top)
+
+		XCTAssertEqual(viewModel.validityStateIcon, UIImage(named: "Icon_ExpiredInvalid"))
+		XCTAssertEqual(viewModel.validityStateTitle, "Zertifikat ungültig")
+		XCTAssertEqual(viewModel.validityStateDescription, "Das RKI hat das Zertifikat aufgrund einer behördlichen Verfügung gesperrt. Bitte bemühen Sie sich darum, einen neuen digitalen Nachweis ausstellen zu lassen.")
+
+		XCTAssertFalse(viewModel.isUnseenNewsIndicatorVisible)
+
+		XCTAssertTrue(viewModel.qrCodeViewModel.shouldBlockCertificateCode)
+	}
+
+	func testGIVEN_DetailsViewModelWithRevokedAustrianVaccinationCertificate_THEN_IsInitCorrect() throws {
+		// GIVEN
+		let viewModel = HealthCertificateQRCodeCellViewModel(
+			mode: .details,
+			healthCertificate: try HealthCertificate(
+				base45: try base45Fake(
+					digitalCovidCertificate: DigitalCovidCertificate.fake(
+						vaccinationEntries: [
+							.fake()
+						]
+					),
+					webTokenHeader: .fake(issuer: "AT")
+				),
+				validityState: .revoked
+			),
+			accessibilityText: "accessibilityText",
+			onCovPassCheckInfoButtonTap: { }
+		)
+
+		// THEN
+		XCTAssertEqual(viewModel.title, "Impfzertifikat")
+		XCTAssertNil(viewModel.subtitle)
+		XCTAssertEqual(viewModel.qrCodeViewModel.accessibilityLabel, "accessibilityText")
+		XCTAssertEqual(viewModel.qrCodeViewModel.covPassCheckInfoPosition, .top)
+
+		XCTAssertEqual(viewModel.validityStateIcon, UIImage(named: "Icon_ExpiredInvalid"))
+		XCTAssertEqual(viewModel.validityStateTitle, "Zertifikat ungültig")
+		XCTAssertEqual(viewModel.validityStateDescription, "Das Zertifikat wurde vom Zertifikataussteller aufgrund einer behördlichen Entscheidung gesperrt. Bitte bemühen Sie sich darum, einen neuen digitalen Nachweis ausstellen zu lassen.")
+
+		XCTAssertFalse(viewModel.isUnseenNewsIndicatorVisible)
+
+		XCTAssertTrue(viewModel.qrCodeViewModel.shouldBlockCertificateCode)
+	}
+
+	func testGIVEN_DetailsViewModelWithNewlyRevokedVaccinationCertificate_THEN_IsInitCorrect() throws {
+		// GIVEN
+		let viewModel = HealthCertificateQRCodeCellViewModel(
+			mode: .details,
+			healthCertificate: try HealthCertificate(
+				base45: try base45Fake(
+					digitalCovidCertificate: DigitalCovidCertificate.fake(
+						vaccinationEntries: [
+							.fake()
+						]
+					),
+					webTokenHeader: .fake(issuer: "DE")
+				),
+				validityState: .revoked,
+				isValidityStateNew: true
+			),
+			accessibilityText: "accessibilityText",
+			onCovPassCheckInfoButtonTap: { }
+		)
+
+		// THEN
+		XCTAssertEqual(viewModel.title, "Impfzertifikat")
+		XCTAssertNil(viewModel.subtitle)
+		XCTAssertEqual(viewModel.qrCodeViewModel.accessibilityLabel, "accessibilityText")
+		XCTAssertEqual(viewModel.qrCodeViewModel.covPassCheckInfoPosition, .top)
+
+		XCTAssertEqual(viewModel.validityStateIcon, UIImage(named: "Icon_ExpiredInvalid"))
+		XCTAssertEqual(viewModel.validityStateTitle, "Zertifikat ungültig")
+		XCTAssertEqual(viewModel.validityStateDescription, "Das RKI hat das Zertifikat aufgrund einer behördlichen Verfügung gesperrt. Bitte bemühen Sie sich darum, einen neuen digitalen Nachweis ausstellen zu lassen.")
+
+		XCTAssertTrue(viewModel.isUnseenNewsIndicatorVisible)
+
+		XCTAssertTrue(viewModel.qrCodeViewModel.shouldBlockCertificateCode)
 	}
 
 	func testGIVEN_OverviewViewModelWithValidTestCertificate_THEN_IsInitCorrect() throws {
@@ -1376,7 +1586,7 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 		XCTAssertTrue(viewModel.qrCodeViewModel.shouldBlockCertificateCode)
 	}
 
-	func testGIVEN_DetailsViewModelWithBlockedTestCertificate_THEN_IsInitCorrect() throws {
+	func testGIVEN_DetailsViewModelWithBlockedGermanTestCertificate_THEN_IsInitCorrect() throws {
 		// GIVEN
 		let viewModel = HealthCertificateQRCodeCellViewModel(
 			mode: .details,
@@ -1386,7 +1596,8 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 						testEntries: [
 							.fake()
 						]
-					)
+					),
+					webTokenHeader: .fake(issuer: "DE")
 				),
 				validityState: .blocked
 			),
@@ -1402,7 +1613,41 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 
 		XCTAssertEqual(viewModel.validityStateIcon, UIImage(named: "Icon_ExpiredInvalid"))
 		XCTAssertEqual(viewModel.validityStateTitle, "Zertifikat ungültig")
-		XCTAssertEqual(viewModel.validityStateDescription, "Das Zertifikat wurde von der ausstellenden Behörde zurückgerufen. Bitte bemühen Sie sich darum, einen neuen digitalen Nachweis ausstellen zu lassen.")
+		XCTAssertEqual(viewModel.validityStateDescription, "Das RKI hat das Zertifikat aufgrund einer behördlichen Verfügung gesperrt. Bitte bemühen Sie sich darum, einen neuen digitalen Nachweis ausstellen zu lassen.")
+
+		XCTAssertFalse(viewModel.isUnseenNewsIndicatorVisible)
+
+		XCTAssertFalse(viewModel.qrCodeViewModel.shouldBlockCertificateCode)
+	}
+
+	func testGIVEN_DetailsViewModelWithBlockedItalianTestCertificate_THEN_IsInitCorrect() throws {
+		// GIVEN
+		let viewModel = HealthCertificateQRCodeCellViewModel(
+			mode: .details,
+			healthCertificate: try HealthCertificate(
+				base45: try base45Fake(
+					digitalCovidCertificate: DigitalCovidCertificate.fake(
+						testEntries: [
+							.fake()
+						]
+					),
+					webTokenHeader: .fake(issuer: "IT")
+				),
+				validityState: .blocked
+			),
+			accessibilityText: "accessibilityText",
+			onCovPassCheckInfoButtonTap: { }
+		)
+
+		// THEN
+		XCTAssertEqual(viewModel.title, "Testzertifikat")
+		XCTAssertNil(viewModel.subtitle)
+		XCTAssertEqual(viewModel.qrCodeViewModel.accessibilityLabel, "accessibilityText")
+		XCTAssertEqual(viewModel.qrCodeViewModel.covPassCheckInfoPosition, .top)
+
+		XCTAssertEqual(viewModel.validityStateIcon, UIImage(named: "Icon_ExpiredInvalid"))
+		XCTAssertEqual(viewModel.validityStateTitle, "Zertifikat ungültig")
+		XCTAssertEqual(viewModel.validityStateDescription, "Das Zertifikat wurde vom Zertifikataussteller aufgrund einer behördlichen Entscheidung gesperrt. Bitte bemühen Sie sich darum, einen neuen digitalen Nachweis ausstellen zu lassen.")
 
 		XCTAssertFalse(viewModel.isUnseenNewsIndicatorVisible)
 
@@ -1419,7 +1664,8 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 						testEntries: [
 							.fake()
 						]
-					)
+					),
+					webTokenHeader: .fake(issuer: "DE")
 				),
 				validityState: .blocked,
 				isValidityStateNew: true
@@ -1436,11 +1682,181 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 
 		XCTAssertEqual(viewModel.validityStateIcon, UIImage(named: "Icon_ExpiredInvalid"))
 		XCTAssertEqual(viewModel.validityStateTitle, "Zertifikat ungültig")
-		XCTAssertEqual(viewModel.validityStateDescription, "Das Zertifikat wurde von der ausstellenden Behörde zurückgerufen. Bitte bemühen Sie sich darum, einen neuen digitalen Nachweis ausstellen zu lassen.")
+		XCTAssertEqual(viewModel.validityStateDescription, "Das RKI hat das Zertifikat aufgrund einer behördlichen Verfügung gesperrt. Bitte bemühen Sie sich darum, einen neuen digitalen Nachweis ausstellen zu lassen.")
 
 		XCTAssertTrue(viewModel.isUnseenNewsIndicatorVisible)
 
 		XCTAssertFalse(viewModel.qrCodeViewModel.shouldBlockCertificateCode)
+	}
+
+	func testGIVEN_OverviewViewModelWithRevokedTestCertificate_THEN_IsInitCorrect() throws {
+		// GIVEN
+		let viewModel = HealthCertificateQRCodeCellViewModel(
+			mode: .overview,
+			healthCertificate: try HealthCertificate(
+				base45: try base45Fake(
+					digitalCovidCertificate: DigitalCovidCertificate.fake(
+						testEntries: [
+							.fake()
+						]
+					)
+				),
+				validityState: .revoked
+			),
+			accessibilityText: "accessibilityText",
+			onCovPassCheckInfoButtonTap: { }
+		)
+
+		// THEN
+		XCTAssertEqual(viewModel.title, "Testzertifikat")
+		XCTAssertNil(viewModel.subtitle)
+		XCTAssertEqual(viewModel.qrCodeViewModel.accessibilityLabel, "accessibilityText")
+		XCTAssertEqual(viewModel.qrCodeViewModel.covPassCheckInfoPosition, .top)
+
+		XCTAssertEqual(viewModel.validityStateIcon, UIImage(named: "Icon_ExpiredInvalid"))
+		XCTAssertEqual(viewModel.validityStateTitle, "Zertifikat ungültig")
+		XCTAssertNil(viewModel.validityStateDescription)
+
+		XCTAssertFalse(viewModel.isUnseenNewsIndicatorVisible)
+
+		XCTAssertTrue(viewModel.qrCodeViewModel.shouldBlockCertificateCode)
+	}
+
+	func testGIVEN_OverviewViewModelWithNewlyRevokedTestCertificate_THEN_IsInitCorrect() throws {
+		// GIVEN
+		let viewModel = HealthCertificateQRCodeCellViewModel(
+			mode: .overview,
+			healthCertificate: try HealthCertificate(
+				base45: try base45Fake(
+					digitalCovidCertificate: DigitalCovidCertificate.fake(
+						testEntries: [
+							.fake()
+						]
+					)
+				),
+				validityState: .revoked,
+				isValidityStateNew: true
+			),
+			accessibilityText: "accessibilityText",
+			onCovPassCheckInfoButtonTap: { }
+		)
+
+		// THEN
+		XCTAssertEqual(viewModel.title, "Testzertifikat")
+		XCTAssertNil(viewModel.subtitle)
+		XCTAssertEqual(viewModel.qrCodeViewModel.accessibilityLabel, "accessibilityText")
+		XCTAssertEqual(viewModel.qrCodeViewModel.covPassCheckInfoPosition, .top)
+
+		XCTAssertEqual(viewModel.validityStateIcon, UIImage(named: "Icon_ExpiredInvalid"))
+		XCTAssertEqual(viewModel.validityStateTitle, "Zertifikat ungültig")
+		XCTAssertNil(viewModel.validityStateDescription)
+
+		XCTAssertFalse(viewModel.isUnseenNewsIndicatorVisible)
+
+		XCTAssertTrue(viewModel.qrCodeViewModel.shouldBlockCertificateCode)
+	}
+
+	func testGIVEN_DetailsViewModelWithRevokedGermanTestCertificate_THEN_IsInitCorrect() throws {
+		// GIVEN
+		let viewModel = HealthCertificateQRCodeCellViewModel(
+			mode: .details,
+			healthCertificate: try HealthCertificate(
+				base45: try base45Fake(
+					digitalCovidCertificate: DigitalCovidCertificate.fake(
+						testEntries: [
+							.fake()
+						]
+					),
+					webTokenHeader: .fake(issuer: "DE")
+				),
+				validityState: .revoked
+			),
+			accessibilityText: "accessibilityText",
+			onCovPassCheckInfoButtonTap: { }
+		)
+
+		// THEN
+		XCTAssertEqual(viewModel.title, "Testzertifikat")
+		XCTAssertNil(viewModel.subtitle)
+		XCTAssertEqual(viewModel.qrCodeViewModel.accessibilityLabel, "accessibilityText")
+		XCTAssertEqual(viewModel.qrCodeViewModel.covPassCheckInfoPosition, .top)
+
+		XCTAssertEqual(viewModel.validityStateIcon, UIImage(named: "Icon_ExpiredInvalid"))
+		XCTAssertEqual(viewModel.validityStateTitle, "Zertifikat ungültig")
+		XCTAssertEqual(viewModel.validityStateDescription, "Das RKI hat das Zertifikat aufgrund einer behördlichen Verfügung gesperrt. Bitte bemühen Sie sich darum, einen neuen digitalen Nachweis ausstellen zu lassen.")
+
+		XCTAssertFalse(viewModel.isUnseenNewsIndicatorVisible)
+
+		XCTAssertTrue(viewModel.qrCodeViewModel.shouldBlockCertificateCode)
+	}
+
+	func testGIVEN_DetailsViewModelWithRevokedItalianTestCertificate_THEN_IsInitCorrect() throws {
+		// GIVEN
+		let viewModel = HealthCertificateQRCodeCellViewModel(
+			mode: .details,
+			healthCertificate: try HealthCertificate(
+				base45: try base45Fake(
+					digitalCovidCertificate: DigitalCovidCertificate.fake(
+						testEntries: [
+							.fake()
+						]
+					),
+					webTokenHeader: .fake(issuer: "IT")
+				),
+				validityState: .revoked
+			),
+			accessibilityText: "accessibilityText",
+			onCovPassCheckInfoButtonTap: { }
+		)
+
+		// THEN
+		XCTAssertEqual(viewModel.title, "Testzertifikat")
+		XCTAssertNil(viewModel.subtitle)
+		XCTAssertEqual(viewModel.qrCodeViewModel.accessibilityLabel, "accessibilityText")
+		XCTAssertEqual(viewModel.qrCodeViewModel.covPassCheckInfoPosition, .top)
+
+		XCTAssertEqual(viewModel.validityStateIcon, UIImage(named: "Icon_ExpiredInvalid"))
+		XCTAssertEqual(viewModel.validityStateTitle, "Zertifikat ungültig")
+		XCTAssertEqual(viewModel.validityStateDescription, "Das Zertifikat wurde vom Zertifikataussteller aufgrund einer behördlichen Entscheidung gesperrt. Bitte bemühen Sie sich darum, einen neuen digitalen Nachweis ausstellen zu lassen.")
+
+		XCTAssertFalse(viewModel.isUnseenNewsIndicatorVisible)
+
+		XCTAssertTrue(viewModel.qrCodeViewModel.shouldBlockCertificateCode)
+	}
+
+	func testGIVEN_DetailsViewModelWithNewlyRevokedTestCertificate_THEN_IsInitCorrect() throws {
+		// GIVEN
+		let viewModel = HealthCertificateQRCodeCellViewModel(
+			mode: .details,
+			healthCertificate: try HealthCertificate(
+				base45: try base45Fake(
+					digitalCovidCertificate: DigitalCovidCertificate.fake(
+						testEntries: [
+							.fake()
+						]
+					),
+					webTokenHeader: .fake(issuer: "DE")
+				),
+				validityState: .revoked,
+				isValidityStateNew: true
+			),
+			accessibilityText: "accessibilityText",
+			onCovPassCheckInfoButtonTap: { }
+		)
+
+		// THEN
+		XCTAssertEqual(viewModel.title, "Testzertifikat")
+		XCTAssertNil(viewModel.subtitle)
+		XCTAssertEqual(viewModel.qrCodeViewModel.accessibilityLabel, "accessibilityText")
+		XCTAssertEqual(viewModel.qrCodeViewModel.covPassCheckInfoPosition, .top)
+
+		XCTAssertEqual(viewModel.validityStateIcon, UIImage(named: "Icon_ExpiredInvalid"))
+		XCTAssertEqual(viewModel.validityStateTitle, "Zertifikat ungültig")
+		XCTAssertEqual(viewModel.validityStateDescription, "Das RKI hat das Zertifikat aufgrund einer behördlichen Verfügung gesperrt. Bitte bemühen Sie sich darum, einen neuen digitalen Nachweis ausstellen zu lassen.")
+
+		XCTAssertTrue(viewModel.isUnseenNewsIndicatorVisible)
+
+		XCTAssertTrue(viewModel.qrCodeViewModel.shouldBlockCertificateCode)
 	}
 
 	func testGIVEN_OverviewViewModelWithValidRecoveryCertificate_THEN_IsInitCorrect() throws {
@@ -2088,7 +2504,7 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 		XCTAssertTrue(viewModel.qrCodeViewModel.shouldBlockCertificateCode)
 	}
 
-	func testGIVEN_DetailsViewModelWithBlockedRecoveryCertificate_THEN_IsInitCorrect() throws {
+	func testGIVEN_DetailsViewModelWithBlockedGermanRecoveryCertificate_THEN_IsInitCorrect() throws {
 		// GIVEN
 		let viewModel = HealthCertificateQRCodeCellViewModel(
 			mode: .details,
@@ -2098,7 +2514,8 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 						recoveryEntries: [
 							.fake()
 						]
-					)
+					),
+					webTokenHeader: .fake(issuer: "DE")
 				),
 				validityState: .blocked
 			),
@@ -2114,7 +2531,41 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 
 		XCTAssertEqual(viewModel.validityStateIcon, UIImage(named: "Icon_ExpiredInvalid"))
 		XCTAssertEqual(viewModel.validityStateTitle, "Zertifikat ungültig")
-		XCTAssertEqual(viewModel.validityStateDescription, "Das Zertifikat wurde von der ausstellenden Behörde zurückgerufen. Bitte bemühen Sie sich darum, einen neuen digitalen Nachweis ausstellen zu lassen.")
+		XCTAssertEqual(viewModel.validityStateDescription, "Das RKI hat das Zertifikat aufgrund einer behördlichen Verfügung gesperrt. Bitte bemühen Sie sich darum, einen neuen digitalen Nachweis ausstellen zu lassen.")
+
+		XCTAssertFalse(viewModel.isUnseenNewsIndicatorVisible)
+
+		XCTAssertFalse(viewModel.qrCodeViewModel.shouldBlockCertificateCode)
+	}
+
+	func testGIVEN_DetailsViewModelWithBlockedDutchRecoveryCertificate_THEN_IsInitCorrect() throws {
+		// GIVEN
+		let viewModel = HealthCertificateQRCodeCellViewModel(
+			mode: .details,
+			healthCertificate: try HealthCertificate(
+				base45: try base45Fake(
+					digitalCovidCertificate: DigitalCovidCertificate.fake(
+						recoveryEntries: [
+							.fake()
+						]
+					),
+					webTokenHeader: .fake(issuer: "NL")
+				),
+				validityState: .blocked
+			),
+			accessibilityText: "accessibilityText",
+			onCovPassCheckInfoButtonTap: { }
+		)
+
+		// THEN
+		XCTAssertEqual(viewModel.title, "Genesenenzertifikat")
+		XCTAssertNil(viewModel.subtitle)
+		XCTAssertEqual(viewModel.qrCodeViewModel.accessibilityLabel, "accessibilityText")
+		XCTAssertEqual(viewModel.qrCodeViewModel.covPassCheckInfoPosition, .top)
+
+		XCTAssertEqual(viewModel.validityStateIcon, UIImage(named: "Icon_ExpiredInvalid"))
+		XCTAssertEqual(viewModel.validityStateTitle, "Zertifikat ungültig")
+		XCTAssertEqual(viewModel.validityStateDescription, "Das Zertifikat wurde vom Zertifikataussteller aufgrund einer behördlichen Entscheidung gesperrt. Bitte bemühen Sie sich darum, einen neuen digitalen Nachweis ausstellen zu lassen.")
 
 		XCTAssertFalse(viewModel.isUnseenNewsIndicatorVisible)
 
@@ -2131,7 +2582,8 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 						recoveryEntries: [
 							.fake()
 						]
-					)
+					),
+					webTokenHeader: .fake(issuer: "DE")
 				),
 				validityState: .blocked,
 				isValidityStateNew: true
@@ -2148,11 +2600,181 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 
 		XCTAssertEqual(viewModel.validityStateIcon, UIImage(named: "Icon_ExpiredInvalid"))
 		XCTAssertEqual(viewModel.validityStateTitle, "Zertifikat ungültig")
-		XCTAssertEqual(viewModel.validityStateDescription, "Das Zertifikat wurde von der ausstellenden Behörde zurückgerufen. Bitte bemühen Sie sich darum, einen neuen digitalen Nachweis ausstellen zu lassen.")
+		XCTAssertEqual(viewModel.validityStateDescription, "Das RKI hat das Zertifikat aufgrund einer behördlichen Verfügung gesperrt. Bitte bemühen Sie sich darum, einen neuen digitalen Nachweis ausstellen zu lassen.")
 
 		XCTAssertTrue(viewModel.isUnseenNewsIndicatorVisible)
 
 		XCTAssertFalse(viewModel.qrCodeViewModel.shouldBlockCertificateCode)
+	}
+
+	func testGIVEN_OverviewViewModelWithRevokedRecoveryCertificate_THEN_IsInitCorrect() throws {
+		// GIVEN
+		let viewModel = HealthCertificateQRCodeCellViewModel(
+			mode: .overview,
+			healthCertificate: try HealthCertificate(
+				base45: try base45Fake(
+					digitalCovidCertificate: DigitalCovidCertificate.fake(
+						recoveryEntries: [
+							.fake()
+						]
+					)
+				),
+				validityState: .revoked
+			),
+			accessibilityText: "accessibilityText",
+			onCovPassCheckInfoButtonTap: { }
+		)
+
+		// THEN
+		XCTAssertEqual(viewModel.title, "Genesenenzertifikat")
+		XCTAssertNil(viewModel.subtitle)
+		XCTAssertEqual(viewModel.qrCodeViewModel.accessibilityLabel, "accessibilityText")
+		XCTAssertEqual(viewModel.qrCodeViewModel.covPassCheckInfoPosition, .top)
+
+		XCTAssertEqual(viewModel.validityStateIcon, UIImage(named: "Icon_ExpiredInvalid"))
+		XCTAssertEqual(viewModel.validityStateTitle, "Zertifikat ungültig")
+		XCTAssertNil(viewModel.validityStateDescription)
+
+		XCTAssertFalse(viewModel.isUnseenNewsIndicatorVisible)
+
+		XCTAssertTrue(viewModel.qrCodeViewModel.shouldBlockCertificateCode)
+	}
+
+	func testGIVEN_OverviewViewModelWithNewlyRevokedRecoveryCertificate_THEN_IsInitCorrect() throws {
+		// GIVEN
+		let viewModel = HealthCertificateQRCodeCellViewModel(
+			mode: .overview,
+			healthCertificate: try HealthCertificate(
+				base45: try base45Fake(
+					digitalCovidCertificate: DigitalCovidCertificate.fake(
+						recoveryEntries: [
+							.fake()
+						]
+					)
+				),
+				validityState: .revoked,
+				isValidityStateNew: true
+			),
+			accessibilityText: "accessibilityText",
+			onCovPassCheckInfoButtonTap: { }
+		)
+
+		// THEN
+		XCTAssertEqual(viewModel.title, "Genesenenzertifikat")
+		XCTAssertNil(viewModel.subtitle)
+		XCTAssertEqual(viewModel.qrCodeViewModel.accessibilityLabel, "accessibilityText")
+		XCTAssertEqual(viewModel.qrCodeViewModel.covPassCheckInfoPosition, .top)
+
+		XCTAssertEqual(viewModel.validityStateIcon, UIImage(named: "Icon_ExpiredInvalid"))
+		XCTAssertEqual(viewModel.validityStateTitle, "Zertifikat ungültig")
+		XCTAssertNil(viewModel.validityStateDescription)
+
+		XCTAssertFalse(viewModel.isUnseenNewsIndicatorVisible)
+
+		XCTAssertTrue(viewModel.qrCodeViewModel.shouldBlockCertificateCode)
+	}
+
+	func testGIVEN_DetailsViewModelWithRevokedGermanRecoveryCertificate_THEN_IsInitCorrect() throws {
+		// GIVEN
+		let viewModel = HealthCertificateQRCodeCellViewModel(
+			mode: .details,
+			healthCertificate: try HealthCertificate(
+				base45: try base45Fake(
+					digitalCovidCertificate: DigitalCovidCertificate.fake(
+						recoveryEntries: [
+							.fake()
+						]
+					),
+					webTokenHeader: .fake(issuer: "DE")
+				),
+				validityState: .revoked
+			),
+			accessibilityText: "accessibilityText",
+			onCovPassCheckInfoButtonTap: { }
+		)
+
+		// THEN
+		XCTAssertEqual(viewModel.title, "Genesenenzertifikat")
+		XCTAssertNil(viewModel.subtitle)
+		XCTAssertEqual(viewModel.qrCodeViewModel.accessibilityLabel, "accessibilityText")
+		XCTAssertEqual(viewModel.qrCodeViewModel.covPassCheckInfoPosition, .top)
+
+		XCTAssertEqual(viewModel.validityStateIcon, UIImage(named: "Icon_ExpiredInvalid"))
+		XCTAssertEqual(viewModel.validityStateTitle, "Zertifikat ungültig")
+		XCTAssertEqual(viewModel.validityStateDescription, "Das RKI hat das Zertifikat aufgrund einer behördlichen Verfügung gesperrt. Bitte bemühen Sie sich darum, einen neuen digitalen Nachweis ausstellen zu lassen.")
+
+		XCTAssertFalse(viewModel.isUnseenNewsIndicatorVisible)
+
+		XCTAssertTrue(viewModel.qrCodeViewModel.shouldBlockCertificateCode)
+	}
+
+	func testGIVEN_DetailsViewModelWithRevokedDutchRecoveryCertificate_THEN_IsInitCorrect() throws {
+		// GIVEN
+		let viewModel = HealthCertificateQRCodeCellViewModel(
+			mode: .details,
+			healthCertificate: try HealthCertificate(
+				base45: try base45Fake(
+					digitalCovidCertificate: DigitalCovidCertificate.fake(
+						recoveryEntries: [
+							.fake()
+						]
+					),
+					webTokenHeader: .fake(issuer: "NL")
+				),
+				validityState: .revoked
+			),
+			accessibilityText: "accessibilityText",
+			onCovPassCheckInfoButtonTap: { }
+		)
+
+		// THEN
+		XCTAssertEqual(viewModel.title, "Genesenenzertifikat")
+		XCTAssertNil(viewModel.subtitle)
+		XCTAssertEqual(viewModel.qrCodeViewModel.accessibilityLabel, "accessibilityText")
+		XCTAssertEqual(viewModel.qrCodeViewModel.covPassCheckInfoPosition, .top)
+
+		XCTAssertEqual(viewModel.validityStateIcon, UIImage(named: "Icon_ExpiredInvalid"))
+		XCTAssertEqual(viewModel.validityStateTitle, "Zertifikat ungültig")
+		XCTAssertEqual(viewModel.validityStateDescription, "Das Zertifikat wurde vom Zertifikataussteller aufgrund einer behördlichen Entscheidung gesperrt. Bitte bemühen Sie sich darum, einen neuen digitalen Nachweis ausstellen zu lassen.")
+
+		XCTAssertFalse(viewModel.isUnseenNewsIndicatorVisible)
+
+		XCTAssertTrue(viewModel.qrCodeViewModel.shouldBlockCertificateCode)
+	}
+
+	func testGIVEN_DetailsViewModelWithNewlyRevokedRecoveryCertificate_THEN_IsInitCorrect() throws {
+		// GIVEN
+		let viewModel = HealthCertificateQRCodeCellViewModel(
+			mode: .details,
+			healthCertificate: try HealthCertificate(
+				base45: try base45Fake(
+					digitalCovidCertificate: DigitalCovidCertificate.fake(
+						recoveryEntries: [
+							.fake()
+						]
+					),
+					webTokenHeader: .fake(issuer: "DE")
+				),
+				validityState: .revoked,
+				isValidityStateNew: true
+			),
+			accessibilityText: "accessibilityText",
+			onCovPassCheckInfoButtonTap: { }
+		)
+
+		// THEN
+		XCTAssertEqual(viewModel.title, "Genesenenzertifikat")
+		XCTAssertNil(viewModel.subtitle)
+		XCTAssertEqual(viewModel.qrCodeViewModel.accessibilityLabel, "accessibilityText")
+		XCTAssertEqual(viewModel.qrCodeViewModel.covPassCheckInfoPosition, .top)
+
+		XCTAssertEqual(viewModel.validityStateIcon, UIImage(named: "Icon_ExpiredInvalid"))
+		XCTAssertEqual(viewModel.validityStateTitle, "Zertifikat ungültig")
+		XCTAssertEqual(viewModel.validityStateDescription, "Das RKI hat das Zertifikat aufgrund einer behördlichen Verfügung gesperrt. Bitte bemühen Sie sich darum, einen neuen digitalen Nachweis ausstellen zu lassen.")
+
+		XCTAssertTrue(viewModel.isUnseenNewsIndicatorVisible)
+
+		XCTAssertTrue(viewModel.qrCodeViewModel.shouldBlockCertificateCode)
 	}
 
 	// swiftlint:disable file_length
