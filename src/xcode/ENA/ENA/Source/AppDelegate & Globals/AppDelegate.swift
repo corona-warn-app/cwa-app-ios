@@ -407,7 +407,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		dscListProvider: dscListProvider,
 		appConfiguration: appConfigurationProvider,
 		cclService: cclService,
-		recycleBin: recycleBin
+		recycleBin: recycleBin,
+		healthCertificateValidator: HealthCertificateValidator(restServiceProvider: restServiceProvider)
 	)
 
 	private lazy var healthCertificateRequestService = HealthCertificateRequestService(

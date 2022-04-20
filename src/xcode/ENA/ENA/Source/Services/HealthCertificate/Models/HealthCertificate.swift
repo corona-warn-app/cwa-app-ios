@@ -15,6 +15,7 @@ final class HealthCertificate: Codable, Equatable, Comparable, RecycleBinIdentif
 		validityState: HealthCertificateValidityState = .valid,
 		didShowInvalidNotification: Bool = false,
 		didShowBlockedNotification: Bool = false,
+		didShowRevokedNotification: Bool = false,
 		isNew: Bool = false,
 		isValidityStateNew: Bool = false,
 		revocationEntries: HealthCertificateRevocationEntries? = nil
@@ -23,6 +24,7 @@ final class HealthCertificate: Codable, Equatable, Comparable, RecycleBinIdentif
 		self.validityState = validityState
 		self.didShowInvalidNotification = didShowInvalidNotification
 		self.didShowBlockedNotification = didShowBlockedNotification
+		self.didShowRevokedNotification = didShowRevokedNotification
 		self.isNew = isNew
 		self.isValidityStateNew = isValidityStateNew
 
@@ -53,6 +55,7 @@ final class HealthCertificate: Codable, Equatable, Comparable, RecycleBinIdentif
 		isNew = try container.decodeIfPresent(Bool.self, forKey: .isNew) ?? false
 		didShowInvalidNotification = try container.decodeIfPresent(Bool.self, forKey: .didShowInvalidNotification) ?? false
 		didShowBlockedNotification = try container.decodeIfPresent(Bool.self, forKey: .didShowBlockedNotification) ?? false
+		didShowRevokedNotification = try container.decodeIfPresent(Bool.self, forKey: .didShowRevokedNotification) ?? false
 		
 		let certificateComponents = try Self.extractCertificateComponents(from: base45)
 		cborWebTokenHeader = certificateComponents.header
@@ -88,6 +91,7 @@ final class HealthCertificate: Codable, Equatable, Comparable, RecycleBinIdentif
 		case isValidityStateNew
 		case didShowInvalidNotification
 		case didShowBlockedNotification
+		case didShowRevokedNotification
 		case revocationEntries
 	}
 
@@ -98,7 +102,7 @@ final class HealthCertificate: Codable, Equatable, Comparable, RecycleBinIdentif
 		try container.encode(validityState, forKey: .validityState)
 		try container.encode(isNew, forKey: .isNew)
 		try container.encode(isValidityStateNew, forKey: .isValidityStateNew)
-		try container.encode(didShowInvalidNotification, forKey: .didShowInvalidNotification)
+		try container.encode(didShowRevokedNotification, forKey: .didShowRevokedNotification)
 		try container.encode(didShowBlockedNotification, forKey: .didShowBlockedNotification)
 		try container.encode(revocationEntries, forKey: .revocationEntries)
 	}
@@ -165,6 +169,14 @@ final class HealthCertificate: Codable, Equatable, Comparable, RecycleBinIdentif
 	@DidSetPublished var didShowBlockedNotification: Bool {
 		didSet {
 			if didShowBlockedNotification != oldValue {
+				objectDidChange.send(self)
+			}
+		}
+	}
+
+	@DidSetPublished var didShowRevokedNotification: Bool {
+		didSet {
+			if didShowRevokedNotification != oldValue {
 				objectDidChange.send(self)
 			}
 		}
@@ -282,7 +294,7 @@ final class HealthCertificate: Codable, Equatable, Comparable, RecycleBinIdentif
 		validityState == .valid || validityState == .expiringSoon || (type == .test && validityState == .expired)
 	}
 
-	/// On test certificates only `.valid`, `.invalid`, and `.blocked` states are shown, the `.expiringSoon` and `.expired` states are considered valid as well
+	/// On test certificates only `.valid`, `.invalid`,  `.blocked`, and `.revoked` states are shown, the `.expiringSoon` and `.expired` states are considered valid as well
 	var isConsideredValid: Bool {
 		validityState == .valid || type == .test && (validityState == .expiringSoon || validityState == .expired)
 	}

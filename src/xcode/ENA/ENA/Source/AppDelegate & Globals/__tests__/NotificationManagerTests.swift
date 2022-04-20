@@ -17,7 +17,7 @@ class NotificationManagerTests: XCTestCase {
 		let expectedName = Name.fake(standardizedFamilyName: "BRAUSE", standardizedGivenName: "PASCAL")
 		
 		let vaccinationCertificate1Base45 = try base45Fake(
-			digitalCovidCertificate: DigitalCovidCertificate.fake(
+			digitalCovidCertificate: .fake(
 				name: expectedName,
 				vaccinationEntries: [VaccinationEntry.fake(
 					dateOfVaccination: "2021-09-03",

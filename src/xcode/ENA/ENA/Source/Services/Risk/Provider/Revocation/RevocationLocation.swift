@@ -21,7 +21,6 @@ struct RevocationLocation: Hashable {
 
 }
 
-
 struct RevocationCoordinate: Hashable {
 
 	// MARK: - Init

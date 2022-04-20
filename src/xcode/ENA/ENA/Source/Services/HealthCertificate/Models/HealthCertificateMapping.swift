@@ -17,6 +17,8 @@ extension HealthCertificateValidityState {
 			return "INVALID"
 		case .blocked:
 			return "BLOCKED"
+		case .revoked:
+			return "REVOKED"
 		}
 	}
 }

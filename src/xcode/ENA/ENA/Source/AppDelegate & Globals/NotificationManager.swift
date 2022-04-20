@@ -135,7 +135,7 @@ final class NotificationManager: NSObject, UNUserNotificationCenterDelegate {
 		}
 		
 		switch certificateIdentifier {
-		case .certificateExpired, .certificateExpiringSoon, .certificateBlocked, .certificateInvalid:
+		case .certificateExpired, .certificateExpiringSoon, .certificateBlocked, .certificateRevoked, .certificateInvalid:
 			extract(certificateIdentifier.rawValue, from: incomingIdentifier, completion: { [weak self] result in
 				if let (certifiedPerson, healthCertificate) = result {
 					let route = Route(

@@ -31,7 +31,7 @@ extension HealthCertificateService {
 					name: .fake(familyName: "Schneider", givenName: "Andrea", standardizedFamilyName: "SCHNEIDER", standardizedGivenName: "ANDREA"),
 					vaccinationEntries: [VaccinationEntry.fake(doseNumber: 2, uniqueCertificateIdentifier: "01DE/84503/1119349007/DXSGWLWL40SU8ZFKIYIBK39A3#E")]
 				),
-				header: CBORWebTokenHeader.fake(issuer: "DE", expirationTime: expirationTime)
+				header: .fake(issuer: "DE", expirationTime: expirationTime)
 			)
 			if case let .success(base45) = secondDose {
 				registerHealthCertificate(base45: base45, checkSignatureUpfront: shouldCheckSignatureUpfront, completedNotificationRegistration: { })

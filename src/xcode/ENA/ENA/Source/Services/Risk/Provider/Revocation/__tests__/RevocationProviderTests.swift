@@ -7,57 +7,86 @@ import XCTest
 
 class RevocationProviderTests: CWATestCase {
 
-	func testGIVEN_base64_WHEN_ToHexString_THEN_ResultIsValid() {
-		// GIVEN
-		let base64 = "yLHLNvSl428="
-
-		// WHEN
-		let hexString = Data(base64Encoded: base64)?.toHexString() ?? ""
-
-		// THEN
-		XCTAssertEqual(hexString, "c8b1cb36f4a5e36f")
-	}
-
-	func testGIVEN_base64_WHEN_HexEncodedString_THEN_ResultIsValid() {
-		// GIVEN
-		let base64 = "yLHLNvSl428="
-
-		// WHEN
-		let hexString = Data(base64Encoded: base64)?.hexEncodedString() ?? ""
-
-		// THEN
-		XCTAssertEqual(hexString, "c8b1cb36f4a5e36f".uppercased())
-	}
-
-
-	func testGIVEN_given_WHEN_when_THEN_then() throws {
-		// GIVEN
-
+	func testUpdatingCacheSuccessfully() throws {
 		let restService = RestServiceProviderStub(
 			loadResources: [
+				// KID list update
 				LoadResource(
 					result: .success(revocationKidList),
 					willLoadResource: nil
 				),
+				// Update KID-Type index for recovery certificate key identifier, hash type 0a
+				// As the requests are done sorted by type, 0a should be requested first
 				LoadResource(
-					result: .success(try kidTypeIndex(hashType: "0a")),
+					result: .success(try kidTypeIndex()),
 					willLoadResource: { resource in
 						guard let resource = resource as? KIDTypeIndexResource else {
 							XCTFail("wrong resource type")
 							return
 						}
-						XCTAssertEqual(resource.locator.paths, ["version", "v1", "dcc-rl", "f5c5970c3039d8540a", "index"])
+
+						XCTAssertEqual(resource.locator.paths, ["version", "v1", "dcc-rl", "\(self.recoveryCertificateKeyIdentifier)0a", "index"])
 					}
 				),
+				// Update KID-Type chunk for recovery certificate, recovery certificate is revoked
 				LoadResource(
-					result: .success(try revocationChunk(hashType: "0a")),
+					result: .success(try revocationChunk()),
 					willLoadResource: { resource in
 						guard let resource = resource as? KIDTypeChunkResource else {
 							XCTFail("wrong resource type, KIDTypeChunkResource expected")
 							return
 						}
 
-						XCTAssertEqual(resource.locator.paths, ["version", "v1", "dcc-rl", "f5c5970c3039d8540a", "e3", "d6", "chunk"])
+						XCTAssertEqual(resource.locator.paths, ["version", "v1", "dcc-rl", "\(self.recoveryCertificateKeyIdentifier)0a", "e3", "d6", "chunk"])
+					}
+				),
+				// As recovery certificate is revoked after checking with hash type 0a already, 0b KID-Type index update is skipped for recovery certificate
+				// Continue with update of KID-Type index for booster certificate key identifier, hash type 0b
+				LoadResource(
+					result: .success(try kidTypeIndex()),
+					willLoadResource: { resource in
+						guard let resource = resource as? KIDTypeIndexResource else {
+							XCTFail("wrong resource type")
+							return
+						}
+
+						XCTAssertEqual(resource.locator.paths, ["version", "v1", "dcc-rl", "\(self.boosterCertificateKeyIdentifier)0b", "index"])
+					}
+				),
+				// Update KID-Type chunk for booster certificate, booster certificate is not revoked for hash type 0b
+				LoadResource(
+					result: .success(try revocationChunk()),
+					willLoadResource: { resource in
+						guard let resource = resource as? KIDTypeChunkResource else {
+							XCTFail("wrong resource type, KIDTypeChunkResource expected")
+							return
+						}
+
+						XCTAssertEqual(resource.locator.paths, ["version", "v1", "dcc-rl", "\(self.boosterCertificateKeyIdentifier)0b", "70", "12", "chunk"])
+					}
+				),
+				// Update of KID-Type index for booster certificate key identifier, hash type 0c
+				LoadResource(
+					result: .success(try kidTypeIndex()),
+					willLoadResource: { resource in
+						guard let resource = resource as? KIDTypeIndexResource else {
+							XCTFail("wrong resource type")
+							return
+						}
+
+						XCTAssertEqual(resource.locator.paths, ["version", "v1", "dcc-rl", "\(self.boosterCertificateKeyIdentifier)0c", "index"])
+					}
+				),
+				// Update KID-Type chunk for booster certificate, booster certificate is revoked for hash type 0c
+				LoadResource(
+					result: .success(try revocationChunk()),
+					willLoadResource: { resource in
+						guard let resource = resource as? KIDTypeChunkResource else {
+							XCTFail("wrong resource type, KIDTypeChunkResource expected")
+							return
+						}
+
+						XCTAssertEqual(resource.locator.paths, ["version", "v1", "dcc-rl", "\(self.boosterCertificateKeyIdentifier)0c", "25", "89", "chunk"])
 					}
 				)
 			]
@@ -65,24 +94,22 @@ class RevocationProviderTests: CWATestCase {
 
 		let revocationProvider = RevocationProvider(restService, signatureVerifier: MockVerifier())
 
-		// WHEN
-
 		let expectation = expectation(description: "success expectation")
 
-		revocationProvider.updateCache(with: certificates) { result in
-			// THEN
-			switch result {
-			case .success:
-				expectation.fulfill()
-			case .failure:
-				XCTFail("unexpected state - should be success")
-			}
+		revocationProvider.updateCache(with: certificates) {
+			expectation.fulfill()
 		}
 
 		waitForExpectations(timeout: .greatestFiniteMagnitude)
 	}
 
-	lazy var certificates: [HealthCertificate] = {
+	// MARK: - Helpers
+
+	private let testCertificateKeyIdentifier = "0123456789abcdef"
+	private let recoveryCertificateKeyIdentifier = "f5c5970c3039d854"
+	private let boosterCertificateKeyIdentifier = "abcdef0123456789"
+
+	private lazy var certificates: [HealthCertificate] = {
 		[
 			try? vaccinationCertificate(
 				doseNumber: 1,
@@ -97,56 +124,27 @@ class RevocationProviderTests: CWATestCase {
 				signature: "f50159a32d84e89d".dataWithHexString()
 			),
 			try? testCertificate(
-				keyIdentifier: "0123456789abcdef".dataWithHexString(),
-				signature: "0123456789abcdef".dataWithHexString()
+				keyIdentifier: testCertificateKeyIdentifier.dataWithHexString(),
+				signature: testCertificateKeyIdentifier.dataWithHexString()
 			),
 			try? recoveryCertificate(
-				keyIdentifier: "f5c5970c3039d854".dataWithHexString(),
-				signature: "f5c5970c3039d854".dataWithHexString()
+				keyIdentifier: recoveryCertificateKeyIdentifier.dataWithHexString(),
+				signature: recoveryCertificateKeyIdentifier.dataWithHexString()
+			),
+			try? vaccinationCertificate(
+				doseNumber: 3,
+				totalSeriesOfDoses: 3,
+				keyIdentifier: boosterCertificateKeyIdentifier.dataWithHexString(),
+				signature: boosterCertificateKeyIdentifier.dataWithHexString()
 			)
 		].compactMap { $0 }
 	}()
 
-	private func kidTypeIndex(hashType: String) throws -> SAP_Internal_Dgc_RevocationKidTypeIndex {
-		let recoveryCoordinate = try coordinate(for: certificates[3], hashType: hashType)
-		var item1 = SAP_Internal_Dgc_RevocationKidTypeIndexItem()
-		item1.x = recoveryCoordinate.x.dataWithHexString()
-		item1.y = [recoveryCoordinate.y.dataWithHexString(), "ad".dataWithHexString()]
-
-		let testCertificateCoordinate = try coordinate(for: certificates[2], hashType: hashType)
-		var item2 = SAP_Internal_Dgc_RevocationKidTypeIndexItem()
-		item2.x = testCertificateCoordinate.x.dataWithHexString()
-		item2.y = [testCertificateCoordinate.y.dataWithHexString()]
-
-		let vaccinationCoordinate = try coordinate(for: certificates[0], hashType: hashType)
-		var item3 = SAP_Internal_Dgc_RevocationKidTypeIndexItem()
-		item3.x = vaccinationCoordinate.x.dataWithHexString()
-		item3.y = [vaccinationCoordinate.y.dataWithHexString()]
-
-		var item4 = SAP_Internal_Dgc_RevocationKidTypeIndexItem()
-		item4.x = "11".dataWithHexString()
-		item4.y = ["12".dataWithHexString()]
-
-		var kidTypeIndex = SAP_Internal_Dgc_RevocationKidTypeIndex()
-		kidTypeIndex.items = [
-			item1,
-			item2,
-			item3,
-			item4
-		]
-		return kidTypeIndex
-	}
-
-	private func coordinate(for certificate: HealthCertificate, hashType: String) throws -> RevocationCoordinate {
-		let recoveryHash = try XCTUnwrap(certificate.hash(by: hashType))
-		return RevocationCoordinate(hash: recoveryHash)
-	}
-
-	var revocationKidList: SAP_Internal_Dgc_RevocationKidList {
+	private var revocationKidList: SAP_Internal_Dgc_RevocationKidList {
 		// recoveryCertificate
 		var item1 = SAP_Internal_Dgc_RevocationKidListItem()
-		item1.kid = "f5c5970c3039d854".dataWithHexString()
-		item1.hashTypes = ["0a".dataWithHexString(), "0b".dataWithHexString()]
+		item1.kid = recoveryCertificateKeyIdentifier.dataWithHexString()
+		item1.hashTypes = ["0b".dataWithHexString(), "0a".dataWithHexString()]
 
 		// dummy
 		var item2 = SAP_Internal_Dgc_RevocationKidListItem()
@@ -155,22 +153,84 @@ class RevocationProviderTests: CWATestCase {
 
 		// testCertificate
 		var item3 = SAP_Internal_Dgc_RevocationKidListItem()
-		item3.kid = "0123456789abcdef".dataWithHexString()
+		item3.kid = testCertificateKeyIdentifier.dataWithHexString()
 		item3.hashTypes = ["0a".dataWithHexString(), "0c".dataWithHexString()]
 
+		// boosterCertificate
+		var item4 = SAP_Internal_Dgc_RevocationKidListItem()
+		item4.kid = boosterCertificateKeyIdentifier.dataWithHexString()
+		item4.hashTypes = ["0b".dataWithHexString(), "0c".dataWithHexString()]
+
 		var kidList = SAP_Internal_Dgc_RevocationKidList()
-		kidList.items = [item1, item2, item3]
+		kidList.items = [item1, item2, item3, item4].shuffled()
 		return kidList
 	}
 
-	func revocationChunk(hashType: String) throws -> SAP_Internal_Dgc_RevocationChunk {
-		let recoveryHash = try XCTUnwrap(certificates[3].hash(by: hashType))
-		let vaccinationHash = try XCTUnwrap(certificates[1].hash(by: hashType))
+	private func kidTypeIndex() throws -> SAP_Internal_Dgc_RevocationKidTypeIndex {
+		let recoveryCoordinate0b = try coordinate(for: certificates[3], hashType: "0b")
+		var item0 = SAP_Internal_Dgc_RevocationKidTypeIndexItem()
+		item0.x = recoveryCoordinate0b.x.dataWithHexString()
+		item0.y = [recoveryCoordinate0b.y.dataWithHexString(), "ad".dataWithHexString()]
+
+		let recoveryCoordinate0a = try coordinate(for: certificates[3], hashType: "0a")
+		var item1 = SAP_Internal_Dgc_RevocationKidTypeIndexItem()
+		item1.x = recoveryCoordinate0a.x.dataWithHexString()
+		item1.y = [recoveryCoordinate0a.y.dataWithHexString(), "ad".dataWithHexString()]
+
+		let testCertificateCoordinate = try coordinate(for: certificates[2], hashType: "0a")
+		var item2 = SAP_Internal_Dgc_RevocationKidTypeIndexItem()
+		item2.x = testCertificateCoordinate.x.dataWithHexString()
+		item2.y = [testCertificateCoordinate.y.dataWithHexString()]
+
+		let vaccinationCoordinate = try coordinate(for: certificates[0], hashType: "0a")
+		var item3 = SAP_Internal_Dgc_RevocationKidTypeIndexItem()
+		item3.x = vaccinationCoordinate.x.dataWithHexString()
+		item3.y = [vaccinationCoordinate.y.dataWithHexString()]
+
+		var item4 = SAP_Internal_Dgc_RevocationKidTypeIndexItem()
+		item4.x = "11".dataWithHexString()
+		item4.y = ["12".dataWithHexString()]
+
+		let boosterCoordinate0b = try coordinate(for: certificates[4], hashType: "0b")
+		var item5 = SAP_Internal_Dgc_RevocationKidTypeIndexItem()
+		item5.x = boosterCoordinate0b.x.dataWithHexString()
+		item5.y = [boosterCoordinate0b.y.dataWithHexString()]
+
+		let boosterCoordinate0c = try coordinate(for: certificates[4], hashType: "0c")
+		var item6 = SAP_Internal_Dgc_RevocationKidTypeIndexItem()
+		item6.x = boosterCoordinate0c.x.dataWithHexString()
+		item6.y = [boosterCoordinate0c.y.dataWithHexString()]
+
+		var kidTypeIndex = SAP_Internal_Dgc_RevocationKidTypeIndex()
+		kidTypeIndex.items = [
+			item0,
+			item1,
+			item2,
+			item3,
+			item4,
+			item5,
+			item6
+		].shuffled()
+		return kidTypeIndex
+	}
+
+	private func coordinate(for certificate: HealthCertificate, hashType: String) throws -> RevocationCoordinate {
+		let recoveryHash = try XCTUnwrap(certificate.hash(by: hashType))
+		return RevocationCoordinate(hash: recoveryHash)
+	}
+
+	private func revocationChunk() throws -> SAP_Internal_Dgc_RevocationChunk {
+		let recoveryHash0a = try XCTUnwrap(certificates[3].hash(by: "0a"))
+		let recoveryHash0b = try XCTUnwrap(certificates[3].hash(by: "0b"))
+		let boosterHash0c = try XCTUnwrap(certificates[3].hash(by: "0c"))
+		let vaccinationHash = try XCTUnwrap(certificates[1].hash(by: "0a"))
 
 		var revocationChunk = SAP_Internal_Dgc_RevocationChunk()
 		revocationChunk.hashes = [
-			recoveryHash.dataWithHexString(),
-			vaccinationHash.dataWithHexString()
+			recoveryHash0a.dataWithHexString(),
+			recoveryHash0b.dataWithHexString(),
+			vaccinationHash.dataWithHexString(),
+			boosterHash0c.dataWithHexString()
 		]
 
 		return revocationChunk

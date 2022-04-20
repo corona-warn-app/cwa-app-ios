@@ -52,6 +52,7 @@ class HealthCertificateService: HealthCertificateServiceServable {
 			)
 			self.cclService = cclService
 			self.recycleBin = recycleBin
+			self.healthCertificateValidator = healthCertificateValidator
 
 			return
 		}
@@ -144,7 +145,7 @@ class HealthCertificateService: HealthCertificateServiceServable {
 			}
 			#endif
 
-			self.updateTimeBasedValidityStates()
+			self.updateValidityStates()
 
 			self.updateGradients()
 			
@@ -761,19 +762,24 @@ class HealthCertificateService: HealthCertificateServiceServable {
 		}
 	}
 
-	private func updateValidityState(for healthCertificate: HealthCertificate, person: HealthCertifiedPerson) {
-		let previousValidityState = healthCertificate.validityState
-		
-		if healthCertificateValidator.isRevokedFromRevocationList(healthCertificate: healthCertificate) {
-			healthCertificate.validityState = .revoked
-		}
-		else if let invalidationRules = person.dccWalletInfo?.certificatesRevokedByInvalidationRules,
+	private func checkIfCertificateIsBlocked(for healthCertificate: HealthCertificate, person: HealthCertifiedPerson) -> Bool {
+		if let invalidationRules = person.dccWalletInfo?.certificatesRevokedByInvalidationRules,
 		   invalidationRules.contains(where: {
 			   $0.certificateRef.barcodeData == healthCertificate.base45
 		   }) {
 			healthCertificate.validityState = .blocked
 			healthCertificateNotificationService.createNotifications(for: healthCertificate, completion: {})
-		} else {
+			return true
+		}
+		return false
+	}
+	
+	private func updateValidityState(for healthCertificate: HealthCertificate, person: HealthCertifiedPerson) {
+		let previousValidityState = healthCertificate.validityState
+
+		if healthCertificateValidator.isRevokedFromRevocationList(healthCertificate: healthCertificate) {
+			healthCertificate.validityState = .revoked
+		} else if !checkIfCertificateIsBlocked(for: healthCertificate, person: person) {
 			let signatureVerificationResult = dccSignatureVerifier.verify(
 				certificate: healthCertificate.base45,
 				with: dscListProvider.signingCertificates.value,
@@ -794,19 +800,15 @@ class HealthCertificateService: HealthCertificateServiceServable {
 		}
 	}
 
-	private func updateTimeBasedValidityStates() {
+	private func updateValidityStates() {
 		healthCertifiedPersons.forEach { healthCertifiedPerson in
 			healthCertifiedPerson.healthCertificates.forEach { healthCertificate in
-				updateTimeBasedValidityState(for: healthCertificate)
+				updateValidityState(for: healthCertificate, person: healthCertifiedPerson)
 			}
 		}
 	}
 
 	private func updateTimeBasedValidityState(for healthCertificate: HealthCertificate) {
-		guard healthCertificate.validityState != .invalid && healthCertificate.validityState != .blocked else {
-			return
-		}
-
 		let currentAppConfiguration = appConfiguration.currentAppConfig.value
 		let expirationThresholdInDays = currentAppConfiguration.dgcParameters.expirationThresholdInDays
 		let expiringSoonDate = Calendar.current.date(
