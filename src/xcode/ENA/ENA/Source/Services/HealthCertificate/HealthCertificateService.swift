@@ -803,7 +803,6 @@ class HealthCertificateService: HealthCertificateServiceServable {
 	}
 
 	private func updateTimeBasedValidityState(for healthCertificate: HealthCertificate) {
-
 		let currentAppConfiguration = appConfiguration.currentAppConfig.value
 		let expirationThresholdInDays = currentAppConfiguration.dgcParameters.expirationThresholdInDays
 		let expiringSoonDate = Calendar.current.date(
