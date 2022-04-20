@@ -337,6 +337,44 @@ class HealthCertificateCellViewModelTests: XCTestCase {
 		XCTAssertFalse(viewModel.isValidationButtonEnabled)
 	}
 
+	func testAllDetailsViewModelWithRevokedIncompleteVaccinationCertificate() throws {
+		let healthCertificate = try HealthCertificate(
+			base45: try base45Fake(
+				from: DigitalCovidCertificate.fake(
+					vaccinationEntries: [
+						VaccinationEntry.fake(
+							doseNumber: 1,
+							totalSeriesOfDoses: 2,
+							dateOfVaccination: "2021-06-01"
+						)
+					]
+				)
+			),
+			validityState: .revoked,
+			isNew: true
+		)
+
+		let healthCertifiedPerson = HealthCertifiedPerson(healthCertificates: [healthCertificate])
+
+		let viewModel = HealthCertificateCellViewModel(
+			healthCertificate: healthCertificate,
+			healthCertifiedPerson: healthCertifiedPerson,
+			details: .allDetails
+		)
+
+		XCTAssertEqual(viewModel.gradientType, .solidGrey)
+		XCTAssertEqual(viewModel.headline, "Impfzertifikat")
+		XCTAssertNil(viewModel.name)
+		XCTAssertEqual(viewModel.subheadline, "Impfung 1 von 2")
+		XCTAssertEqual(viewModel.detail, "Geimpft am 01.06.21")
+		XCTAssertEqual(viewModel.validityStateInfo, "Zertifikat ungültig")
+		XCTAssertEqual(viewModel.image, UIImage(imageLiteralResourceName: "Icon_WarningTriangle_small"))
+		XCTAssertEqual(viewModel.currentlyUsedImage, UIImage(named: "Icon_CurrentlyUsedCertificate_grey"))
+		XCTAssertTrue(viewModel.isCurrentlyUsedCertificateHintVisible)
+		XCTAssertTrue(viewModel.isValidationButtonVisible)
+		XCTAssertFalse(viewModel.isValidationButtonEnabled)
+	}
+
 	func testAllDetailsViewModelWithValidPCRTestCertificate() throws {
 		let healthCertificate = try HealthCertificate(
 			base45: try base45Fake(
@@ -634,6 +672,43 @@ class HealthCertificateCellViewModelTests: XCTestCase {
 		XCTAssertFalse(viewModel.isValidationButtonEnabled)
 	}
 
+	func testAllDetailsViewModelWithRevokedAntigenTestCertificate() throws {
+		let healthCertificate = try HealthCertificate(
+			base45: try base45Fake(
+				from: DigitalCovidCertificate.fake(
+					testEntries: [
+						TestEntry.fake(
+							typeOfTest: "LP217198-3",
+							dateTimeOfSampleCollection: "2021-05-29T14:36:00.000Z"
+						)
+					]
+				)
+			),
+			validityState: .revoked,
+			isNew: true
+		)
+
+		let healthCertifiedPerson = HealthCertifiedPerson(healthCertificates: [healthCertificate])
+
+		let viewModel = HealthCertificateCellViewModel(
+			healthCertificate: healthCertificate,
+			healthCertifiedPerson: healthCertifiedPerson,
+			details: .allDetails
+		)
+
+		XCTAssertEqual(viewModel.gradientType, .solidGrey)
+		XCTAssertEqual(viewModel.headline, "Testzertifikat")
+		XCTAssertNil(viewModel.name)
+		XCTAssertEqual(viewModel.subheadline, "Schnelltest")
+		XCTAssertEqual(viewModel.detail, "Probenahme am 29.05.21")
+		XCTAssertEqual(viewModel.validityStateInfo, "Zertifikat ungültig")
+		XCTAssertEqual(viewModel.image, UIImage(imageLiteralResourceName: "Icon_WarningTriangle_small"))
+		XCTAssertEqual(viewModel.currentlyUsedImage, UIImage(named: "Icon_CurrentlyUsedCertificate_grey"))
+		XCTAssertTrue(viewModel.isCurrentlyUsedCertificateHintVisible)
+		XCTAssertTrue(viewModel.isValidationButtonVisible)
+		XCTAssertFalse(viewModel.isValidationButtonEnabled)
+	}
+
 	func testAllDetailsViewModelWithValidRecoveryCertificate() throws {
 		let healthCertificate = try HealthCertificate(
 			base45: try base45Fake(
@@ -834,6 +909,42 @@ class HealthCertificateCellViewModelTests: XCTestCase {
 				)
 			),
 			validityState: .blocked,
+			isNew: true
+		)
+
+		let healthCertifiedPerson = HealthCertifiedPerson(healthCertificates: [healthCertificate])
+
+		let viewModel = HealthCertificateCellViewModel(
+			healthCertificate: healthCertificate,
+			healthCertifiedPerson: healthCertifiedPerson,
+			details: .allDetails
+		)
+
+		XCTAssertEqual(viewModel.gradientType, .solidGrey)
+		XCTAssertEqual(viewModel.headline, "Genesenenzertifikat")
+		XCTAssertNil(viewModel.name)
+		XCTAssertNil(viewModel.subheadline)
+		XCTAssertEqual(viewModel.detail, "Positiver Test vom 01.03.22")
+		XCTAssertEqual(viewModel.validityStateInfo, "Zertifikat ungültig")
+		XCTAssertEqual(viewModel.image, UIImage(imageLiteralResourceName: "Icon_WarningTriangle_small"))
+		XCTAssertEqual(viewModel.currentlyUsedImage, UIImage(named: "Icon_CurrentlyUsedCertificate_grey"))
+		XCTAssertTrue(viewModel.isCurrentlyUsedCertificateHintVisible)
+		XCTAssertTrue(viewModel.isValidationButtonVisible)
+		XCTAssertFalse(viewModel.isValidationButtonEnabled)
+	}
+
+	func testAllDetailsViewModelWithRevokedRecoveryCertificate() throws {
+		let healthCertificate = try HealthCertificate(
+			base45: try base45Fake(
+				from: DigitalCovidCertificate.fake(
+					recoveryEntries: [
+						RecoveryEntry.fake(
+							dateOfFirstPositiveNAAResult: "2022-03-01T07:12:45.132Z"
+						)
+					]
+				)
+			),
+			validityState: .revoked,
 			isNew: true
 		)
 
@@ -1258,6 +1369,44 @@ class HealthCertificateCellViewModelTests: XCTestCase {
 		XCTAssertFalse(viewModel.isValidationButtonEnabled)
 	}
 
+	func testAllDetailsWithoutValidationButtonViewModelWithRevokedIncompleteVaccinationCertificate() throws {
+		let healthCertificate = try HealthCertificate(
+			base45: try base45Fake(
+				from: DigitalCovidCertificate.fake(
+					vaccinationEntries: [
+						VaccinationEntry.fake(
+							doseNumber: 1,
+							totalSeriesOfDoses: 2,
+							dateOfVaccination: "2021-06-01"
+						)
+					]
+				)
+			),
+			validityState: .revoked,
+			isNew: true
+		)
+
+		let healthCertifiedPerson = HealthCertifiedPerson(healthCertificates: [healthCertificate])
+
+		let viewModel = HealthCertificateCellViewModel(
+			healthCertificate: healthCertificate,
+			healthCertifiedPerson: healthCertifiedPerson,
+			details: .allDetailsWithoutValidationButton
+		)
+
+		XCTAssertEqual(viewModel.gradientType, .solidGrey)
+		XCTAssertEqual(viewModel.headline, "Impfzertifikat")
+		XCTAssertNil(viewModel.name)
+		XCTAssertEqual(viewModel.subheadline, "Impfung 1 von 2")
+		XCTAssertEqual(viewModel.detail, "Geimpft am 01.06.21")
+		XCTAssertEqual(viewModel.validityStateInfo, "Zertifikat ungültig")
+		XCTAssertEqual(viewModel.image, UIImage(imageLiteralResourceName: "Icon_WarningTriangle_small"))
+		XCTAssertEqual(viewModel.currentlyUsedImage, UIImage(named: "Icon_CurrentlyUsedCertificate_grey"))
+		XCTAssertTrue(viewModel.isCurrentlyUsedCertificateHintVisible)
+		XCTAssertFalse(viewModel.isValidationButtonVisible)
+		XCTAssertFalse(viewModel.isValidationButtonEnabled)
+	}
+
 	func testAllDetailsWithoutValidationButtonViewModelWithValidPCRTestCertificate() throws {
 		let healthCertificate = try HealthCertificate(
 			base45: try base45Fake(
@@ -1555,6 +1704,43 @@ class HealthCertificateCellViewModelTests: XCTestCase {
 		XCTAssertFalse(viewModel.isValidationButtonEnabled)
 	}
 
+	func testAllDetailsWithoutValidationButtonViewModelWithRevokedAntigenTestCertificate() throws {
+		let healthCertificate = try HealthCertificate(
+			base45: try base45Fake(
+				from: DigitalCovidCertificate.fake(
+					testEntries: [
+						TestEntry.fake(
+							typeOfTest: "LP217198-3",
+							dateTimeOfSampleCollection: "2021-05-29T14:36:00.000Z"
+						)
+					]
+				)
+			),
+			validityState: .revoked,
+			isNew: true
+		)
+
+		let healthCertifiedPerson = HealthCertifiedPerson(healthCertificates: [healthCertificate])
+
+		let viewModel = HealthCertificateCellViewModel(
+			healthCertificate: healthCertificate,
+			healthCertifiedPerson: healthCertifiedPerson,
+			details: .allDetailsWithoutValidationButton
+		)
+
+		XCTAssertEqual(viewModel.gradientType, .solidGrey)
+		XCTAssertEqual(viewModel.headline, "Testzertifikat")
+		XCTAssertNil(viewModel.name)
+		XCTAssertEqual(viewModel.subheadline, "Schnelltest")
+		XCTAssertEqual(viewModel.detail, "Probenahme am 29.05.21")
+		XCTAssertEqual(viewModel.validityStateInfo, "Zertifikat ungültig")
+		XCTAssertEqual(viewModel.image, UIImage(imageLiteralResourceName: "Icon_WarningTriangle_small"))
+		XCTAssertEqual(viewModel.currentlyUsedImage, UIImage(named: "Icon_CurrentlyUsedCertificate_grey"))
+		XCTAssertTrue(viewModel.isCurrentlyUsedCertificateHintVisible)
+		XCTAssertFalse(viewModel.isValidationButtonVisible)
+		XCTAssertFalse(viewModel.isValidationButtonEnabled)
+	}
+
 	func testAllDetailsWithoutValidationButtonViewModelWithValidRecoveryCertificate() throws {
 		let healthCertificate = try HealthCertificate(
 			base45: try base45Fake(
@@ -1755,6 +1941,42 @@ class HealthCertificateCellViewModelTests: XCTestCase {
 				)
 			),
 			validityState: .blocked,
+			isNew: true
+		)
+
+		let healthCertifiedPerson = HealthCertifiedPerson(healthCertificates: [healthCertificate])
+
+		let viewModel = HealthCertificateCellViewModel(
+			healthCertificate: healthCertificate,
+			healthCertifiedPerson: healthCertifiedPerson,
+			details: .allDetailsWithoutValidationButton
+		)
+
+		XCTAssertEqual(viewModel.gradientType, .solidGrey)
+		XCTAssertEqual(viewModel.headline, "Genesenenzertifikat")
+		XCTAssertNil(viewModel.name)
+		XCTAssertNil(viewModel.subheadline)
+		XCTAssertEqual(viewModel.detail, "Positiver Test vom 01.03.22")
+		XCTAssertEqual(viewModel.validityStateInfo, "Zertifikat ungültig")
+		XCTAssertEqual(viewModel.image, UIImage(imageLiteralResourceName: "Icon_WarningTriangle_small"))
+		XCTAssertEqual(viewModel.currentlyUsedImage, UIImage(named: "Icon_CurrentlyUsedCertificate_grey"))
+		XCTAssertTrue(viewModel.isCurrentlyUsedCertificateHintVisible)
+		XCTAssertFalse(viewModel.isValidationButtonVisible)
+		XCTAssertFalse(viewModel.isValidationButtonEnabled)
+	}
+
+	func testAllDetailsWithoutValidationButtonViewModelWithRevokedRecoveryCertificate() throws {
+		let healthCertificate = try HealthCertificate(
+			base45: try base45Fake(
+				from: DigitalCovidCertificate.fake(
+					recoveryEntries: [
+						RecoveryEntry.fake(
+							dateOfFirstPositiveNAAResult: "2022-03-01T07:12:45.132Z"
+						)
+					]
+				)
+			),
+			validityState: .revoked,
 			isNew: true
 		)
 
@@ -2155,6 +2377,42 @@ class HealthCertificateCellViewModelTests: XCTestCase {
 		XCTAssertFalse(viewModel.isValidationButtonVisible)
 	}
 
+	func testOverviewViewModelWithRevokedIncompleteVaccinationCertificate() throws {
+		let healthCertificate = try HealthCertificate(
+			base45: try base45Fake(
+				from: DigitalCovidCertificate.fake(
+					vaccinationEntries: [
+						VaccinationEntry.fake(
+							doseNumber: 1,
+							totalSeriesOfDoses: 2,
+							dateOfVaccination: "2021-06-01"
+						)
+					]
+				)
+			),
+			validityState: .revoked,
+			isNew: true
+		)
+
+		let healthCertifiedPerson = HealthCertifiedPerson(healthCertificates: [healthCertificate])
+
+		let viewModel = HealthCertificateCellViewModel(
+			healthCertificate: healthCertificate,
+			healthCertifiedPerson: healthCertifiedPerson,
+			details: .overview
+		)
+
+		XCTAssertEqual(viewModel.gradientType, .lightBlue)
+		XCTAssertEqual(viewModel.headline, "Impfzertifikat")
+		XCTAssertNil(viewModel.name)
+		XCTAssertEqual(viewModel.subheadline, "Impfung 1 von 2")
+		XCTAssertEqual(viewModel.detail, "Geimpft am 01.06.21")
+		XCTAssertNil(viewModel.validityStateInfo)
+		XCTAssertEqual(viewModel.image, UIImage(imageLiteralResourceName: "Icon_WarningTriangle_small"))
+		XCTAssertFalse(viewModel.isCurrentlyUsedCertificateHintVisible)
+		XCTAssertFalse(viewModel.isValidationButtonVisible)
+	}
+
 	func testOverviewViewModelWithValidPCRTestCertificate() throws {
 		let healthCertificate = try HealthCertificate(
 			base45: try base45Fake(
@@ -2436,6 +2694,41 @@ class HealthCertificateCellViewModelTests: XCTestCase {
 		XCTAssertFalse(viewModel.isValidationButtonVisible)
 	}
 
+	func testOverviewViewModelWithRevokedAntigenTestCertificate() throws {
+		let healthCertificate = try HealthCertificate(
+			base45: try base45Fake(
+				from: DigitalCovidCertificate.fake(
+					testEntries: [
+						TestEntry.fake(
+							typeOfTest: "LP217198-3",
+							dateTimeOfSampleCollection: "2021-05-29T14:36:00.000Z"
+						)
+					]
+				)
+			),
+			validityState: .revoked,
+			isNew: true
+		)
+
+		let healthCertifiedPerson = HealthCertifiedPerson(healthCertificates: [healthCertificate])
+
+		let viewModel = HealthCertificateCellViewModel(
+			healthCertificate: healthCertificate,
+			healthCertifiedPerson: healthCertifiedPerson,
+			details: .overview
+		)
+
+		XCTAssertEqual(viewModel.gradientType, .lightBlue)
+		XCTAssertEqual(viewModel.headline, "Testzertifikat")
+		XCTAssertNil(viewModel.name)
+		XCTAssertEqual(viewModel.subheadline, "Schnelltest")
+		XCTAssertEqual(viewModel.detail, "Probenahme am 29.05.21")
+		XCTAssertNil(viewModel.validityStateInfo)
+		XCTAssertEqual(viewModel.image, UIImage(imageLiteralResourceName: "Icon_WarningTriangle_small"))
+		XCTAssertFalse(viewModel.isCurrentlyUsedCertificateHintVisible)
+		XCTAssertFalse(viewModel.isValidationButtonVisible)
+	}
+
 	func testOverviewViewModelWithValidRecoveryCertificate() throws {
 		let healthCertificate = try HealthCertificate(
 			base45: try base45Fake(
@@ -2619,6 +2912,40 @@ class HealthCertificateCellViewModelTests: XCTestCase {
 				)
 			),
 			validityState: .blocked,
+			isNew: true
+		)
+
+		let healthCertifiedPerson = HealthCertifiedPerson(healthCertificates: [healthCertificate])
+
+		let viewModel = HealthCertificateCellViewModel(
+			healthCertificate: healthCertificate,
+			healthCertifiedPerson: healthCertifiedPerson,
+			details: .overview
+		)
+
+		XCTAssertEqual(viewModel.gradientType, .lightBlue)
+		XCTAssertEqual(viewModel.headline, "Genesenenzertifikat")
+		XCTAssertNil(viewModel.name)
+		XCTAssertNil(viewModel.subheadline)
+		XCTAssertEqual(viewModel.detail, "Positiver Test vom 01.03.22")
+		XCTAssertNil(viewModel.validityStateInfo)
+		XCTAssertEqual(viewModel.image, UIImage(imageLiteralResourceName: "Icon_WarningTriangle_small"))
+		XCTAssertFalse(viewModel.isCurrentlyUsedCertificateHintVisible)
+		XCTAssertFalse(viewModel.isValidationButtonVisible)
+	}
+
+	func testOverviewViewModelWithRevokedRecoveryCertificate() throws {
+		let healthCertificate = try HealthCertificate(
+			base45: try base45Fake(
+				from: DigitalCovidCertificate.fake(
+					recoveryEntries: [
+						RecoveryEntry.fake(
+							dateOfFirstPositiveNAAResult: "2022-03-01T07:12:45.132Z"
+						)
+					]
+				)
+			),
+			validityState: .revoked,
 			isNew: true
 		)
 
@@ -3041,6 +3368,43 @@ class HealthCertificateCellViewModelTests: XCTestCase {
 		XCTAssertFalse(viewModel.isValidationButtonVisible)
 	}
 
+	func testOverviewPlusNameViewModelWithRevokedIncompleteVaccinationCertificate() throws {
+		let healthCertificate = try HealthCertificate(
+			base45: try base45Fake(
+				from: DigitalCovidCertificate.fake(
+					name: .fake(familyName: "Scherer", givenName: "Marcus"),
+					vaccinationEntries: [
+						VaccinationEntry.fake(
+							doseNumber: 1,
+							totalSeriesOfDoses: 2,
+							dateOfVaccination: "2021-06-01"
+						)
+					]
+				)
+			),
+			validityState: .revoked,
+			isNew: true
+		)
+
+		let healthCertifiedPerson = HealthCertifiedPerson(healthCertificates: [healthCertificate])
+
+		let viewModel = HealthCertificateCellViewModel(
+			healthCertificate: healthCertificate,
+			healthCertifiedPerson: healthCertifiedPerson,
+			details: .overviewPlusName
+		)
+
+		XCTAssertEqual(viewModel.gradientType, .lightBlue)
+		XCTAssertEqual(viewModel.headline, "Impfzertifikat")
+		XCTAssertEqual(viewModel.name, "Marcus Scherer")
+		XCTAssertEqual(viewModel.subheadline, "Impfung 1 von 2")
+		XCTAssertEqual(viewModel.detail, "Geimpft am 01.06.21")
+		XCTAssertNil(viewModel.validityStateInfo)
+		XCTAssertEqual(viewModel.image, UIImage(imageLiteralResourceName: "Icon_WarningTriangle_small"))
+		XCTAssertFalse(viewModel.isCurrentlyUsedCertificateHintVisible)
+		XCTAssertFalse(viewModel.isValidationButtonVisible)
+	}
+
 	func testOverviewPlusNameViewModelWithValidPCRTestCertificate() throws {
 		let healthCertificate = try HealthCertificate(
 			base45: try base45Fake(
@@ -3330,6 +3694,42 @@ class HealthCertificateCellViewModelTests: XCTestCase {
 		XCTAssertFalse(viewModel.isValidationButtonVisible)
 	}
 
+	func testOverviewPlusNameViewModelWithRevokedAntigenTestCertificate() throws {
+		let healthCertificate = try HealthCertificate(
+			base45: try base45Fake(
+				from: DigitalCovidCertificate.fake(
+					name: .fake(familyName: "Friesen", givenName: "Artur"),
+					testEntries: [
+						TestEntry.fake(
+							typeOfTest: "LP217198-3",
+							dateTimeOfSampleCollection: "2021-05-29T14:36:00.000Z"
+						)
+					]
+				)
+			),
+			validityState: .revoked,
+			isNew: true
+		)
+
+		let healthCertifiedPerson = HealthCertifiedPerson(healthCertificates: [healthCertificate])
+
+		let viewModel = HealthCertificateCellViewModel(
+			healthCertificate: healthCertificate,
+			healthCertifiedPerson: healthCertifiedPerson,
+			details: .overviewPlusName
+		)
+
+		XCTAssertEqual(viewModel.gradientType, .lightBlue)
+		XCTAssertEqual(viewModel.headline, "Testzertifikat")
+		XCTAssertEqual(viewModel.name, "Artur Friesen")
+		XCTAssertEqual(viewModel.subheadline, "Schnelltest")
+		XCTAssertEqual(viewModel.detail, "Probenahme am 29.05.21")
+		XCTAssertNil(viewModel.validityStateInfo)
+		XCTAssertEqual(viewModel.image, UIImage(imageLiteralResourceName: "Icon_WarningTriangle_small"))
+		XCTAssertFalse(viewModel.isCurrentlyUsedCertificateHintVisible)
+		XCTAssertFalse(viewModel.isValidationButtonVisible)
+	}
+
 	func testOverviewPlusNameViewModelWithValidRecoveryCertificate() throws {
 		let healthCertificate = try HealthCertificate(
 			base45: try base45Fake(
@@ -3519,6 +3919,41 @@ class HealthCertificateCellViewModelTests: XCTestCase {
 				)
 			),
 			validityState: .blocked,
+			isNew: true
+		)
+
+		let healthCertifiedPerson = HealthCertifiedPerson(healthCertificates: [healthCertificate])
+
+		let viewModel = HealthCertificateCellViewModel(
+			healthCertificate: healthCertificate,
+			healthCertifiedPerson: healthCertifiedPerson,
+			details: .overviewPlusName
+		)
+
+		XCTAssertEqual(viewModel.gradientType, .lightBlue)
+		XCTAssertEqual(viewModel.headline, "Genesenenzertifikat")
+		XCTAssertEqual(viewModel.name, "Marcus Scherer")
+		XCTAssertNil(viewModel.subheadline)
+		XCTAssertEqual(viewModel.detail, "Positiver Test vom 01.03.22")
+		XCTAssertNil(viewModel.validityStateInfo)
+		XCTAssertEqual(viewModel.image, UIImage(imageLiteralResourceName: "Icon_WarningTriangle_small"))
+		XCTAssertFalse(viewModel.isCurrentlyUsedCertificateHintVisible)
+		XCTAssertFalse(viewModel.isValidationButtonVisible)
+	}
+
+	func testOverviewPlusNameViewModelWithRevokedRecoveryCertificate() throws {
+		let healthCertificate = try HealthCertificate(
+			base45: try base45Fake(
+				from: DigitalCovidCertificate.fake(
+					name: .fake(familyName: "Scherer", givenName: "Marcus"),
+					recoveryEntries: [
+						RecoveryEntry.fake(
+							dateOfFirstPositiveNAAResult: "2022-03-01T07:12:45.132Z"
+						)
+					]
+				)
+			),
+			validityState: .revoked,
 			isNew: true
 		)
 
