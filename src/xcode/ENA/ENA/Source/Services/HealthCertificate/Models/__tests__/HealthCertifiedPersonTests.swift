@@ -82,7 +82,10 @@ class HealthCertifiedPersonTests: CWATestCase {
 					digitalCovidCertificate: DigitalCovidCertificate.fake(vaccinationEntries: [.fake()]
 				)
 			),
+			validityState: .valid,
 			didShowInvalidNotification: false,
+			didShowBlockedNotification: false,
+			didShowRevokedNotification: false,
 			isNew: false,
 			isValidityStateNew: false
 		)
@@ -92,7 +95,10 @@ class HealthCertifiedPersonTests: CWATestCase {
 					digitalCovidCertificate: DigitalCovidCertificate.fake(vaccinationEntries: [.fake()]
 				)
 			),
+			validityState: .invalid,
 			didShowInvalidNotification: true,
+			didShowBlockedNotification: true,
+			didShowRevokedNotification: true,
 			isNew: true,
 			isValidityStateNew: true
 		)
@@ -125,6 +131,7 @@ class HealthCertifiedPersonTests: CWATestCase {
 		XCTAssertEqual(decodedHealthCertifiedPerson.healthCertificates.map { $0.isValidityStateNew }, [firstHealthCertificate, secondHealthCertificate].map { $0.isValidityStateNew })
 		XCTAssertEqual(decodedHealthCertifiedPerson.healthCertificates.map { $0.didShowInvalidNotification }, [firstHealthCertificate, secondHealthCertificate].map { $0.didShowInvalidNotification })
 		XCTAssertEqual(decodedHealthCertifiedPerson.healthCertificates.map { $0.didShowBlockedNotification }, [firstHealthCertificate, secondHealthCertificate].map { $0.didShowBlockedNotification })
+		XCTAssertEqual(decodedHealthCertifiedPerson.healthCertificates.map { $0.didShowRevokedNotification }, [firstHealthCertificate, secondHealthCertificate].map { $0.didShowRevokedNotification })
 	}
 
 }

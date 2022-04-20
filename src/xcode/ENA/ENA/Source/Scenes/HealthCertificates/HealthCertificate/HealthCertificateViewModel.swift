@@ -387,7 +387,7 @@ final class HealthCertificateViewModel {
 	}
 
 	private func updateFooterView() {
-		isPrimaryFooterButtonEnabled = healthCertificate.validityState != .blocked
+		isPrimaryFooterButtonEnabled = healthCertificate.validityState != .blocked && healthCertificate.validityState != .revoked
 	}
 
 }

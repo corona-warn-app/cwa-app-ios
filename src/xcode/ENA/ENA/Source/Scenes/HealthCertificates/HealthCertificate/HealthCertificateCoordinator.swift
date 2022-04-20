@@ -286,7 +286,7 @@ final class HealthCertificateCoordinator {
 				)
 			}
 		)
-		printAction.isEnabled = healthCertificate.validityState != .blocked
+		printAction.isEnabled = healthCertificate.validityState != .blocked && healthCertificate.validityState != .revoked
 		actionSheet.addAction(printAction)
 
 		let deleteButtonTitle: String
