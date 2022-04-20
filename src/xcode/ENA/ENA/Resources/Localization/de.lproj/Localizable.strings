@@ -3325,6 +3325,10 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "HealthCertificate_ValidityState_Blocked_description" = "Das Zertifikat wurde von der ausstellenden Behörde zurückgerufen. Bitte bemühen Sie sich darum, einen neuen digitalen Nachweis ausstellen zu lassen.";
 
+"HealthCertificate_ValidityState_Revoked" = "Zertifikat ungültig";
+
+"HealthCertificate_ValidityState_Revoked_description" = "Das Zertifikat wurde von der ausstellenden Behörde zurückgerufen. Bitte bemühen Sie sich darum, einen neuen digitalen Nachweis ausstellen zu lassen.";
+
 /* Reissuance */
 
 /* HealthCertificate Resissuance Consent */

@@ -33,7 +33,8 @@ class HealthCertificateService: HealthCertificateServiceServable {
 		digitalCovidCertificateAccess: DigitalCovidCertificateAccessProtocol = DigitalCovidCertificateAccess(),
 		notificationCenter: UserNotificationCenter = UNUserNotificationCenter.current(),
 		cclService: CCLServable,
-		recycleBin: RecycleBin
+		recycleBin: RecycleBin,
+		healthCertificateValidator: HealthCertificateValidating
 	) {
 		#if DEBUG
 		if isUITesting {
@@ -67,6 +68,7 @@ class HealthCertificateService: HealthCertificateServiceServable {
 		)
 		self.cclService = cclService
 		self.recycleBin = recycleBin
+		self.healthCertificateValidator = healthCertificateValidator
 	}
 
 	// MARK: - Internal
@@ -596,6 +598,7 @@ class HealthCertificateService: HealthCertificateServiceServable {
 	private let digitalCovidCertificateAccess: DigitalCovidCertificateAccessProtocol
 	private let healthCertificateNotificationService: HealthCertificateNotificationService
 	private let recycleBin: RecycleBin
+	private let healthCertificateValidator: HealthCertificateValidating
 	private let cclService: CCLServable
 
 	private let setupQueue = DispatchQueue(label: "com.sap.HealthCertificateService.setup")
@@ -761,9 +764,10 @@ class HealthCertificateService: HealthCertificateServiceServable {
 	private func updateValidityState(for healthCertificate: HealthCertificate, person: HealthCertifiedPerson) {
 		let previousValidityState = healthCertificate.validityState
 		
-		// Check against cached revocation list: the DCC shall be checked against the revocation list.
-
-		if let invalidationRules = person.dccWalletInfo?.certificatesRevokedByInvalidationRules,
+		if healthCertificateValidator.isRevokedFromRevocationList(healthCertificate: healthCertificate) {
+			healthCertificate.validityState = .revoked
+		}
+		else if let invalidationRules = person.dccWalletInfo?.certificatesRevokedByInvalidationRules,
 		   invalidationRules.contains(where: {
 			   $0.certificateRef.barcodeData == healthCertificate.base45
 		   }) {
