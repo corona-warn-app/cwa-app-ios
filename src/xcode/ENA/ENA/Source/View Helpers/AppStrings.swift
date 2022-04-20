@@ -126,7 +126,7 @@ enum AppStrings {
 				}
 				static let dataPrivacyTitle = NSLocalizedString("ExposureSubmission_Antigen_Profile_Information_Dataprivacy_Title", comment: "")
 			}
-
+			
 			enum Profile {
 				static let headerText = NSLocalizedString("ExposureSubmission_Antigen_Profile_Header_Text", comment: "")
 				static let QRCodeImageDescription = NSLocalizedString("ExposureSubmission_Antigen_Profile_QRCode_Image_Description", comment: "")
@@ -2032,6 +2032,14 @@ enum AppStrings {
 			static let saveButtonTitle = NSLocalizedString("AntigenProfile_Create_Save_Button_Title", comment: "")
 		}
 
+		enum Overview {
+			static let title = NSLocalizedString("ExposureSubmission_Antigen_Profile_Overview_title", comment: "")
+			static let emptyTitle = NSLocalizedString("ExposureSubmission_Antigen_Profile_Overview_EmptyTitle", comment: "")
+			static let emptyDescription = NSLocalizedString("ExposureSubmission_Antigen_Profile_Overview_EmptyDescription", comment: "")
+			static let emptyImageDescription = NSLocalizedString("ExposureSubmission_Antigen_Profile_Overview_EmptyImageDescription", comment: "")
+			static let addButtonTitle = NSLocalizedString("ExposureSubmission_Antigen_Profile_Overview_AddButtonTitle", comment: "")
+		}
+		
 		enum Profile {
 			static let infoActionTitle = NSLocalizedString("AntigenProfile_Info_Action_Title", comment: "")
 			static let editActionTitle = NSLocalizedString("AntigenProfile_Edit_Action_Title", comment: "")

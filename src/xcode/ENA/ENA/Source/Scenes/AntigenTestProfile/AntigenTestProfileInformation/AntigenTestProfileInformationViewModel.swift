@@ -39,6 +39,7 @@ struct AntigenTestProfileInformationViewModel {
 						height: 144.0
 					),
 				cells: [
+					.space(height: 15.0),
 					.title2(
 						text: AppStrings.ExposureSubmission.AntigenTest.Information.descriptionTitle,
 						accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmission.AntigenTest.Information.descriptionTitle
