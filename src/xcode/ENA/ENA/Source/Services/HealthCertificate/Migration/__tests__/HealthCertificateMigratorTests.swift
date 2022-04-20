@@ -623,7 +623,7 @@ class HealthCertificateMigratorTests: XCTestCase {
 
 	private func thomasCert01() throws -> Base45 {
 		try base45Fake(
-			from: DigitalCovidCertificate.fake(
+			digitalCovidCertificate: DigitalCovidCertificate.fake(
 				name: .fake(
 					standardizedFamilyName: "MEYER<SCHMIDT",
 					standardizedGivenName: "THOMAS<ARMIN"
@@ -636,7 +636,7 @@ class HealthCertificateMigratorTests: XCTestCase {
 
 	private func thomasCert02() throws -> Base45 {
 		try base45Fake(
-			from: DigitalCovidCertificate.fake(
+			digitalCovidCertificate: DigitalCovidCertificate.fake(
 				name: .fake(
 					standardizedFamilyName: "MEYER",
 					standardizedGivenName: "THOMAS"
@@ -649,7 +649,7 @@ class HealthCertificateMigratorTests: XCTestCase {
 
 	private func thomasCert03() throws -> Base45 {
 		try base45Fake(
-			from: DigitalCovidCertificate.fake(
+			digitalCovidCertificate: DigitalCovidCertificate.fake(
 				name: .fake(
 					standardizedFamilyName: "SCHMIDT",
 					standardizedGivenName: "ARMIN"
@@ -662,7 +662,7 @@ class HealthCertificateMigratorTests: XCTestCase {
 	
 	private func andreasCert01() throws -> Base45 {
 		try base45Fake(
-			from: DigitalCovidCertificate.fake(
+			digitalCovidCertificate: DigitalCovidCertificate.fake(
 				name: .fake(
 					standardizedFamilyName: "BECKER",
 					standardizedGivenName: "ANDREAS"
@@ -675,7 +675,7 @@ class HealthCertificateMigratorTests: XCTestCase {
 
 	private func ulrikeCert01() throws -> Base45 {
 		try base45Fake(
-			from: DigitalCovidCertificate.fake(
+			digitalCovidCertificate: DigitalCovidCertificate.fake(
 				name: .fake(
 					standardizedFamilyName: "MEYER",
 					standardizedGivenName: "ULRIKE"
@@ -688,7 +688,7 @@ class HealthCertificateMigratorTests: XCTestCase {
 	
 	private func ulrikeCert02() throws -> Base45 {
 		try base45Fake(
-			from: DigitalCovidCertificate.fake(
+			digitalCovidCertificate: DigitalCovidCertificate.fake(
 				name: .fake(
 					standardizedFamilyName: "MEYER<MÜLLER",
 					standardizedGivenName: "ULRIKE<TABEA"

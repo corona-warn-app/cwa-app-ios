@@ -111,7 +111,7 @@ class HealthCertificateReissuanceConsentViewModelTests: CWATestCase {
 
 	func test_submit_returns_success() throws {
 		let healthCertificate = try HealthCertificate(
-			base45: try base45Fake(from: .fake(vaccinationEntries: [.fake()])),
+			base45: try base45Fake(digitalCovidCertificate: .fake(vaccinationEntries: [.fake()])),
 			isNew: true,
 			isValidityStateNew: true
 		)
@@ -123,7 +123,7 @@ class HealthCertificateReissuanceConsentViewModelTests: CWATestCase {
 		)
 				
 		let healthCertificateBase45 = try base45Fake(
-			from: DigitalCovidCertificate.fake(
+			digitalCovidCertificate: DigitalCovidCertificate.fake(
 				   vaccinationEntries: [
 					   VaccinationEntry.fake(
 						   doseNumber: 1,
@@ -180,7 +180,7 @@ class HealthCertificateReissuanceConsentViewModelTests: CWATestCase {
 	
 	func test_submit_returns_error_noRelation() throws {
 		let healthCertificate = try HealthCertificate(
-			base45: try base45Fake(from: .fake(vaccinationEntries: [.fake()])),
+			base45: try base45Fake(digitalCovidCertificate: .fake(vaccinationEntries: [.fake()])),
 			isNew: true,
 			isValidityStateNew: true
 		)
@@ -192,7 +192,7 @@ class HealthCertificateReissuanceConsentViewModelTests: CWATestCase {
 		)
 				
 		let healthCertificateBase45 = try base45Fake(
-			from: DigitalCovidCertificate.fake(
+			digitalCovidCertificate: DigitalCovidCertificate.fake(
 				   vaccinationEntries: [
 					   VaccinationEntry.fake(
 						   doseNumber: 1,
@@ -249,7 +249,7 @@ class HealthCertificateReissuanceConsentViewModelTests: CWATestCase {
 	
 	func test_submit_returns_error_certificateToReissueMissing() throws {
 		let healthCertificate = try HealthCertificate(
-			base45: try base45Fake(from: .fake(vaccinationEntries: [.fake()])),
+			base45: try base45Fake(digitalCovidCertificate: .fake(vaccinationEntries: [.fake()])),
 			isNew: true,
 			isValidityStateNew: true
 		)
@@ -259,7 +259,7 @@ class HealthCertificateReissuanceConsentViewModelTests: CWATestCase {
 		person.dccWalletInfo = nil
 				
 		let healthCertificateBase45 = try base45Fake(
-			from: DigitalCovidCertificate.fake(
+			digitalCovidCertificate: DigitalCovidCertificate.fake(
 				   vaccinationEntries: [
 					   VaccinationEntry.fake(
 						   doseNumber: 1,
@@ -318,7 +318,7 @@ class HealthCertificateReissuanceConsentViewModelTests: CWATestCase {
 	
 	func test_submit_returns_replaceHealthCertificateError() throws {
 		let healthCertificate = try HealthCertificate(
-			base45: try base45Fake(from: .fake(vaccinationEntries: [.fake()])),
+			base45: try base45Fake(digitalCovidCertificate: .fake(vaccinationEntries: [.fake()])),
 			isNew: true,
 			isValidityStateNew: true
 		)
@@ -330,7 +330,7 @@ class HealthCertificateReissuanceConsentViewModelTests: CWATestCase {
 		)
 				
 		let healthCertificateBase45 = try base45Fake(
-			from: DigitalCovidCertificate.fake(
+			digitalCovidCertificate: DigitalCovidCertificate.fake(
 				   vaccinationEntries: [
 					   VaccinationEntry.fake(
 						   doseNumber: 1,
@@ -388,7 +388,7 @@ class HealthCertificateReissuanceConsentViewModelTests: CWATestCase {
 	
 	func test_submit_returns_restServiceError() throws {
 		let healthCertificate = try HealthCertificate(
-			base45: try base45Fake(from: .fake(vaccinationEntries: [.fake()])),
+			base45: try base45Fake(digitalCovidCertificate: .fake(vaccinationEntries: [.fake()])),
 			isNew: true,
 			isValidityStateNew: true
 		)
@@ -411,7 +411,7 @@ class HealthCertificateReissuanceConsentViewModelTests: CWATestCase {
 		   )
 
 		let healthCertificateBase45 = try base45Fake(
-			from: DigitalCovidCertificate.fake()
+			digitalCovidCertificate: DigitalCovidCertificate.fake()
 		)
 		
 		let healthCertificateServiceSpy = HealthCertificateServiceSpy()

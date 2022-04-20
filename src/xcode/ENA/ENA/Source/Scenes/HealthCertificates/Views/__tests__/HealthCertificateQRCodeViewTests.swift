@@ -14,7 +14,7 @@ class HealthCertificateQRCodeViewTests: XCTestCase {
 
 		let healthCertificate = try HealthCertificate(
 			base45: try base45Fake(
-				from: DigitalCovidCertificate.fake(
+				digitalCovidCertificate: DigitalCovidCertificate.fake(
 					testEntries: [.fake()]
 				)
 			),
@@ -43,7 +43,7 @@ class HealthCertificateQRCodeViewTests: XCTestCase {
 
 		let healthCertificate = try HealthCertificate(
 			base45: try base45Fake(
-				from: DigitalCovidCertificate.fake(
+				digitalCovidCertificate: DigitalCovidCertificate.fake(
 					testEntries: [.fake()]
 				)
 			),

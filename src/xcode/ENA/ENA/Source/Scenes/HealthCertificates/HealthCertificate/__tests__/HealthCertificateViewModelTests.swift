@@ -26,7 +26,7 @@ class HealthCertificateViewModelTests: CWATestCase {
 		// GIVEN
 		let healthCertificate = try HealthCertificate(
 			base45: try base45Fake(
-				from: DigitalCovidCertificate.fake(
+				digitalCovidCertificate: DigitalCovidCertificate.fake(
 					vaccinationEntries: [
 						VaccinationEntry.fake(doseNumber: 1, totalSeriesOfDoses: 2)
 					]
@@ -68,7 +68,7 @@ class HealthCertificateViewModelTests: CWATestCase {
 		// GIVEN
 		let healthCertificate = try HealthCertificate(
 			base45: try base45Fake(
-				from: DigitalCovidCertificate.fake(
+				digitalCovidCertificate: DigitalCovidCertificate.fake(
 					vaccinationEntries: [
 						VaccinationEntry.fake(doseNumber: 1, totalSeriesOfDoses: 1)
 					]
@@ -108,7 +108,7 @@ class HealthCertificateViewModelTests: CWATestCase {
 
 	func testMarkAsSeen() throws {
 		let healthCertificate = try HealthCertificate(
-			base45: try base45Fake(from: .fake(vaccinationEntries: [.fake()])),
+			base45: try base45Fake(digitalCovidCertificate: .fake(vaccinationEntries: [.fake()])),
 			isNew: true,
 			isValidityStateNew: true
 		)
@@ -139,7 +139,7 @@ class HealthCertificateViewModelTests: CWATestCase {
 
 	func testIsPrimaryFooterButtonEnabledIfInitiallyNotBlocked() throws {
 		let healthCertificate = try HealthCertificate(
-			base45: try base45Fake(from: .fake(vaccinationEntries: [.fake()])),
+			base45: try base45Fake(digitalCovidCertificate: .fake(vaccinationEntries: [.fake()])),
 			validityState: .valid
 		)
 
@@ -179,7 +179,7 @@ class HealthCertificateViewModelTests: CWATestCase {
 
 	func testIsPrimaryFooterButtonEnabledInitiallyBlocked() throws {
 		let healthCertificate = try HealthCertificate(
-			base45: try base45Fake(from: .fake(vaccinationEntries: [.fake()])),
+			base45: try base45Fake(digitalCovidCertificate: .fake(vaccinationEntries: [.fake()])),
 			validityState: .blocked
 		)
 

@@ -14,7 +14,7 @@ class HealthCertificateCellViewModelTests: XCTestCase {
 	func testAllDetailsViewModelWithValidIncompleteVaccinationCertificate() throws {
 		let healthCertificate = try HealthCertificate(
 			base45: try base45Fake(
-				from: DigitalCovidCertificate.fake(
+				digitalCovidCertificate: DigitalCovidCertificate.fake(
 					vaccinationEntries: [
 						VaccinationEntry.fake(
 							doseNumber: 1,
@@ -50,7 +50,7 @@ class HealthCertificateCellViewModelTests: XCTestCase {
 	func testAllDetailsViewModelWithNewValidIncompleteVaccinationCertificate() throws {
 		let healthCertificate = try HealthCertificate(
 			base45: try base45Fake(
-				from: DigitalCovidCertificate.fake(
+				digitalCovidCertificate: DigitalCovidCertificate.fake(
 					vaccinationEntries: [
 						VaccinationEntry.fake(
 							doseNumber: 1,
@@ -180,7 +180,7 @@ class HealthCertificateCellViewModelTests: XCTestCase {
 		let expirationDate = Date(timeIntervalSince1970: 1627987295)
 		let healthCertificate = try HealthCertificate(
 			base45: try base45Fake(
-				from: DigitalCovidCertificate.fake(
+				digitalCovidCertificate: DigitalCovidCertificate.fake(
 					vaccinationEntries: [
 						VaccinationEntry.fake(
 							doseNumber: 1,
@@ -189,7 +189,7 @@ class HealthCertificateCellViewModelTests: XCTestCase {
 						)
 					]
 				),
-				and: .fake(expirationTime: expirationDate)
+				webTokenHeader: .fake(expirationTime: expirationDate)
 			),
 			validityState: .expiringSoon,
 			isNew: true
@@ -226,7 +226,7 @@ class HealthCertificateCellViewModelTests: XCTestCase {
 	func testAllDetailsViewModelWithExpiredIncompleteVaccinationCertificate() throws {
 		let healthCertificate = try HealthCertificate(
 			base45: try base45Fake(
-				from: DigitalCovidCertificate.fake(
+				digitalCovidCertificate: DigitalCovidCertificate.fake(
 					vaccinationEntries: [
 						VaccinationEntry.fake(
 							doseNumber: 1,
@@ -264,7 +264,7 @@ class HealthCertificateCellViewModelTests: XCTestCase {
 	func testAllDetailsViewModelWithInvalidIncompleteVaccinationCertificate() throws {
 		let healthCertificate = try HealthCertificate(
 			base45: try base45Fake(
-				from: DigitalCovidCertificate.fake(
+				digitalCovidCertificate: DigitalCovidCertificate.fake(
 					vaccinationEntries: [
 						VaccinationEntry.fake(
 							doseNumber: 1,
@@ -302,7 +302,7 @@ class HealthCertificateCellViewModelTests: XCTestCase {
 	func testAllDetailsViewModelWithBlockedIncompleteVaccinationCertificate() throws {
 		let healthCertificate = try HealthCertificate(
 			base45: try base45Fake(
-				from: DigitalCovidCertificate.fake(
+				digitalCovidCertificate: DigitalCovidCertificate.fake(
 					vaccinationEntries: [
 						VaccinationEntry.fake(
 							doseNumber: 1,
@@ -340,7 +340,7 @@ class HealthCertificateCellViewModelTests: XCTestCase {
 	func testAllDetailsViewModelWithValidPCRTestCertificate() throws {
 		let healthCertificate = try HealthCertificate(
 			base45: try base45Fake(
-				from: DigitalCovidCertificate.fake(
+				digitalCovidCertificate: DigitalCovidCertificate.fake(
 					testEntries: [
 						TestEntry.fake(
 							typeOfTest: "LP6464-4",
@@ -376,7 +376,7 @@ class HealthCertificateCellViewModelTests: XCTestCase {
 	func testAllDetailsViewModelWithNewValidPCRTestCertificate() throws {
 		let healthCertificate = try HealthCertificate(
 			base45: try base45Fake(
-				from: DigitalCovidCertificate.fake(
+				digitalCovidCertificate: DigitalCovidCertificate.fake(
 					testEntries: [
 						TestEntry.fake(
 							typeOfTest: "LP6464-4",
@@ -413,7 +413,7 @@ class HealthCertificateCellViewModelTests: XCTestCase {
 	func testAllDetailsViewModelWithSoonExpiringAntigenTestCertificate() throws {
 		let healthCertificate = try HealthCertificate(
 			base45: try base45Fake(
-				from: DigitalCovidCertificate.fake(
+				digitalCovidCertificate: DigitalCovidCertificate.fake(
 					testEntries: [
 						TestEntry.fake(
 							typeOfTest: "LP217198-3",
@@ -421,7 +421,7 @@ class HealthCertificateCellViewModelTests: XCTestCase {
 						)
 					]
 				),
-				and: .fake(expirationTime: Date(timeIntervalSince1970: 1627987295))
+				webTokenHeader: .fake(expirationTime: Date(timeIntervalSince1970: 1627987295))
 			),
 			validityState: .expiringSoon,
 			isNew: false
@@ -451,7 +451,7 @@ class HealthCertificateCellViewModelTests: XCTestCase {
 	func testAllDetailsViewModelWithSoonExpiringNewAntigenTestCertificate() throws {
 		let healthCertificate = try HealthCertificate(
 			base45: try base45Fake(
-				from: DigitalCovidCertificate.fake(
+				digitalCovidCertificate: DigitalCovidCertificate.fake(
 					testEntries: [
 						TestEntry.fake(
 							typeOfTest: "LP217198-3",
@@ -459,7 +459,7 @@ class HealthCertificateCellViewModelTests: XCTestCase {
 						)
 					]
 				),
-				and: .fake(expirationTime: Date(timeIntervalSince1970: 1627987295))
+				webTokenHeader: .fake(expirationTime: Date(timeIntervalSince1970: 1627987295))
 			),
 			validityState: .expiringSoon,
 			isNew: true
@@ -489,7 +489,7 @@ class HealthCertificateCellViewModelTests: XCTestCase {
 	func testAllDetailsViewModelWithExpiredTestCertificateOfUnknownType() throws {
 		let healthCertificate = try HealthCertificate(
 			base45: try base45Fake(
-				from: DigitalCovidCertificate.fake(
+				digitalCovidCertificate: DigitalCovidCertificate.fake(
 					testEntries: [
 						TestEntry.fake(
 							typeOfTest: "LP123456-7",
@@ -526,7 +526,7 @@ class HealthCertificateCellViewModelTests: XCTestCase {
 	func testAllDetailsViewModelWithExpiredNewTestCertificateOfUnknownType() throws {
 		let healthCertificate = try HealthCertificate(
 			base45: try base45Fake(
-				from: DigitalCovidCertificate.fake(
+				digitalCovidCertificate: DigitalCovidCertificate.fake(
 					testEntries: [
 						TestEntry.fake(
 							typeOfTest: "LP123456-7",
@@ -563,7 +563,7 @@ class HealthCertificateCellViewModelTests: XCTestCase {
 	func testAllDetailsViewModelWithInvalidPCRTestCertificate() throws {
 		let healthCertificate = try HealthCertificate(
 			base45: try base45Fake(
-				from: DigitalCovidCertificate.fake(
+				digitalCovidCertificate: DigitalCovidCertificate.fake(
 					testEntries: [
 						TestEntry.fake(
 							typeOfTest: "LP6464-4",
@@ -600,7 +600,7 @@ class HealthCertificateCellViewModelTests: XCTestCase {
 	func testAllDetailsViewModelWithBlockedAntigenTestCertificate() throws {
 		let healthCertificate = try HealthCertificate(
 			base45: try base45Fake(
-				from: DigitalCovidCertificate.fake(
+				digitalCovidCertificate: DigitalCovidCertificate.fake(
 					testEntries: [
 						TestEntry.fake(
 							typeOfTest: "LP217198-3",
@@ -637,7 +637,7 @@ class HealthCertificateCellViewModelTests: XCTestCase {
 	func testAllDetailsViewModelWithValidRecoveryCertificate() throws {
 		let healthCertificate = try HealthCertificate(
 			base45: try base45Fake(
-				from: DigitalCovidCertificate.fake(
+				digitalCovidCertificate: DigitalCovidCertificate.fake(
 					recoveryEntries: [
 						RecoveryEntry.fake(
 							dateOfFirstPositiveNAAResult: "2022-03-01T07:12:45.132Z"
@@ -672,7 +672,7 @@ class HealthCertificateCellViewModelTests: XCTestCase {
 	func testAllDetailsViewModelWithNewValidRecoveryCertificate() throws {
 		let healthCertificate = try HealthCertificate(
 			base45: try base45Fake(
-				from: DigitalCovidCertificate.fake(
+				digitalCovidCertificate: DigitalCovidCertificate.fake(
 					recoveryEntries: [
 						RecoveryEntry.fake(
 							dateOfFirstPositiveNAAResult: "2022-03-01T07:12:45.132Z"
@@ -709,14 +709,14 @@ class HealthCertificateCellViewModelTests: XCTestCase {
 		let expirationDate = Date(timeIntervalSince1970: 1627987295)
 		let healthCertificate = try HealthCertificate(
 			base45: try base45Fake(
-				from: DigitalCovidCertificate.fake(
+				digitalCovidCertificate: DigitalCovidCertificate.fake(
 					recoveryEntries: [
 						RecoveryEntry.fake(
 							dateOfFirstPositiveNAAResult: "2022-03-01T07:12:45.132Z"
 						)
 					]
 				),
-				and: .fake(expirationTime: expirationDate)
+				webTokenHeader: .fake(expirationTime: expirationDate)
 			),
 			validityState: .expiringSoon,
 			isNew: true
@@ -753,7 +753,7 @@ class HealthCertificateCellViewModelTests: XCTestCase {
 	func testAllDetailsViewModelWithExpiredRecoveryCertificate() throws {
 		let healthCertificate = try HealthCertificate(
 			base45: try base45Fake(
-				from: DigitalCovidCertificate.fake(
+				digitalCovidCertificate: DigitalCovidCertificate.fake(
 					recoveryEntries: [
 						RecoveryEntry.fake(
 							dateOfFirstPositiveNAAResult: "2022-03-01T07:12:45.132Z"
@@ -789,7 +789,7 @@ class HealthCertificateCellViewModelTests: XCTestCase {
 	func testAllDetailsViewModelWithInvalidRecoveryCertificate() throws {
 		let healthCertificate = try HealthCertificate(
 			base45: try base45Fake(
-				from: DigitalCovidCertificate.fake(
+				digitalCovidCertificate: DigitalCovidCertificate.fake(
 					recoveryEntries: [
 						RecoveryEntry.fake(
 							dateOfFirstPositiveNAAResult: "2022-03-01T07:12:45.132Z"
@@ -825,7 +825,7 @@ class HealthCertificateCellViewModelTests: XCTestCase {
 	func testAllDetailsViewModelWithBlockedRecoveryCertificate() throws {
 		let healthCertificate = try HealthCertificate(
 			base45: try base45Fake(
-				from: DigitalCovidCertificate.fake(
+				digitalCovidCertificate: DigitalCovidCertificate.fake(
 					recoveryEntries: [
 						RecoveryEntry.fake(
 							dateOfFirstPositiveNAAResult: "2022-03-01T07:12:45.132Z"
@@ -860,7 +860,7 @@ class HealthCertificateCellViewModelTests: XCTestCase {
 
 	func testForAllDetailsIsUnseenNewsIndicatorVisibleFalseWithoutNews() throws {
 		let healthCertificate = try HealthCertificate(
-			base45: try base45Fake(from: .fake(vaccinationEntries: [.fake()])),
+			base45: try base45Fake(digitalCovidCertificate: .fake(vaccinationEntries: [.fake()])),
 			isNew: false,
 			isValidityStateNew: false
 		)
@@ -878,7 +878,7 @@ class HealthCertificateCellViewModelTests: XCTestCase {
 
 	func testForAllDetailsIsUnseenNewsIndicatorVisibleTrueForNewHealthCertificateWithOldValidityState() throws {
 		let healthCertificate = try HealthCertificate(
-			base45: try base45Fake(from: .fake(vaccinationEntries: [.fake()])),
+			base45: try base45Fake(digitalCovidCertificate: .fake(vaccinationEntries: [.fake()])),
 			isNew: true,
 			isValidityStateNew: false
 		)
@@ -896,7 +896,7 @@ class HealthCertificateCellViewModelTests: XCTestCase {
 
 	func testForAllDetailsIsUnseenNewsIndicatorVisibleTrueForOldHealthCertificateWithNewValidityState() throws {
 		let healthCertificate = try HealthCertificate(
-			base45: try base45Fake(from: .fake(vaccinationEntries: [.fake()])),
+			base45: try base45Fake(digitalCovidCertificate: .fake(vaccinationEntries: [.fake()])),
 			isNew: false,
 			isValidityStateNew: true
 		)
@@ -914,7 +914,7 @@ class HealthCertificateCellViewModelTests: XCTestCase {
 
 	func testForAllDetailsIsUnseenNewsIndicatorVisibleTrueForNewHealthCertificateWithNewValidityState() throws {
 		let healthCertificate = try HealthCertificate(
-			base45: try base45Fake(from: .fake(vaccinationEntries: [.fake()])),
+			base45: try base45Fake(digitalCovidCertificate: .fake(vaccinationEntries: [.fake()])),
 			isNew: true,
 			isValidityStateNew: true
 		)
@@ -935,7 +935,7 @@ class HealthCertificateCellViewModelTests: XCTestCase {
 	func testAllDetailsWithoutValidationButtonViewModelWithValidIncompleteVaccinationCertificate() throws {
 		let healthCertificate = try HealthCertificate(
 			base45: try base45Fake(
-				from: DigitalCovidCertificate.fake(
+				digitalCovidCertificate: DigitalCovidCertificate.fake(
 					vaccinationEntries: [
 						VaccinationEntry.fake(
 							doseNumber: 1,
@@ -971,7 +971,7 @@ class HealthCertificateCellViewModelTests: XCTestCase {
 	func testAllDetailsWithoutValidationButtonViewModelWithNewValidIncompleteVaccinationCertificate() throws {
 		let healthCertificate = try HealthCertificate(
 			base45: try base45Fake(
-				from: DigitalCovidCertificate.fake(
+				digitalCovidCertificate: DigitalCovidCertificate.fake(
 					vaccinationEntries: [
 						VaccinationEntry.fake(
 							doseNumber: 1,
@@ -1101,7 +1101,7 @@ class HealthCertificateCellViewModelTests: XCTestCase {
 		let expirationDate = Date(timeIntervalSince1970: 1627987295)
 		let healthCertificate = try HealthCertificate(
 			base45: try base45Fake(
-				from: DigitalCovidCertificate.fake(
+				digitalCovidCertificate: DigitalCovidCertificate.fake(
 					vaccinationEntries: [
 						VaccinationEntry.fake(
 							doseNumber: 1,
@@ -1110,7 +1110,7 @@ class HealthCertificateCellViewModelTests: XCTestCase {
 						)
 					]
 				),
-				and: .fake(expirationTime: expirationDate)
+				webTokenHeader: .fake(expirationTime: expirationDate)
 			),
 			validityState: .expiringSoon,
 			isNew: true
@@ -1147,7 +1147,7 @@ class HealthCertificateCellViewModelTests: XCTestCase {
 	func testAllDetailsWithoutValidationButtonViewModelWithExpiredIncompleteVaccinationCertificate() throws {
 		let healthCertificate = try HealthCertificate(
 			base45: try base45Fake(
-				from: DigitalCovidCertificate.fake(
+				digitalCovidCertificate: DigitalCovidCertificate.fake(
 					vaccinationEntries: [
 						VaccinationEntry.fake(
 							doseNumber: 1,
@@ -1185,7 +1185,7 @@ class HealthCertificateCellViewModelTests: XCTestCase {
 	func testAllDetailsWithoutValidationButtonViewModelWithInvalidIncompleteVaccinationCertificate() throws {
 		let healthCertificate = try HealthCertificate(
 			base45: try base45Fake(
-				from: DigitalCovidCertificate.fake(
+				digitalCovidCertificate: DigitalCovidCertificate.fake(
 					vaccinationEntries: [
 						VaccinationEntry.fake(
 							doseNumber: 1,
@@ -1223,7 +1223,7 @@ class HealthCertificateCellViewModelTests: XCTestCase {
 	func testAllDetailsWithoutValidationButtonViewModelWithBlockedIncompleteVaccinationCertificate() throws {
 		let healthCertificate = try HealthCertificate(
 			base45: try base45Fake(
-				from: DigitalCovidCertificate.fake(
+				digitalCovidCertificate: DigitalCovidCertificate.fake(
 					vaccinationEntries: [
 						VaccinationEntry.fake(
 							doseNumber: 1,
@@ -1261,7 +1261,7 @@ class HealthCertificateCellViewModelTests: XCTestCase {
 	func testAllDetailsWithoutValidationButtonViewModelWithValidPCRTestCertificate() throws {
 		let healthCertificate = try HealthCertificate(
 			base45: try base45Fake(
-				from: DigitalCovidCertificate.fake(
+				digitalCovidCertificate: DigitalCovidCertificate.fake(
 					testEntries: [
 						TestEntry.fake(
 							typeOfTest: "LP6464-4",
@@ -1297,7 +1297,7 @@ class HealthCertificateCellViewModelTests: XCTestCase {
 	func testAllDetailsWithoutValidationButtonViewModelWithNewValidPCRTestCertificate() throws {
 		let healthCertificate = try HealthCertificate(
 			base45: try base45Fake(
-				from: DigitalCovidCertificate.fake(
+				digitalCovidCertificate: DigitalCovidCertificate.fake(
 					testEntries: [
 						TestEntry.fake(
 							typeOfTest: "LP6464-4",
@@ -1334,7 +1334,7 @@ class HealthCertificateCellViewModelTests: XCTestCase {
 	func testAllDetailsWithoutValidationButtonViewModelWithSoonExpiringAntigenTestCertificate() throws {
 		let healthCertificate = try HealthCertificate(
 			base45: try base45Fake(
-				from: DigitalCovidCertificate.fake(
+				digitalCovidCertificate: DigitalCovidCertificate.fake(
 					testEntries: [
 						TestEntry.fake(
 							typeOfTest: "LP217198-3",
@@ -1342,7 +1342,7 @@ class HealthCertificateCellViewModelTests: XCTestCase {
 						)
 					]
 				),
-				and: .fake(expirationTime: Date(timeIntervalSince1970: 1627987295))
+				webTokenHeader: .fake(expirationTime: Date(timeIntervalSince1970: 1627987295))
 			),
 			validityState: .expiringSoon,
 			isNew: false
@@ -1372,7 +1372,7 @@ class HealthCertificateCellViewModelTests: XCTestCase {
 	func testAllDetailsWithoutValidationButtonViewModelWithSoonExpiringNewAntigenTestCertificate() throws {
 		let healthCertificate = try HealthCertificate(
 			base45: try base45Fake(
-				from: DigitalCovidCertificate.fake(
+				digitalCovidCertificate: DigitalCovidCertificate.fake(
 					testEntries: [
 						TestEntry.fake(
 							typeOfTest: "LP217198-3",
@@ -1380,7 +1380,7 @@ class HealthCertificateCellViewModelTests: XCTestCase {
 						)
 					]
 				),
-				and: .fake(expirationTime: Date(timeIntervalSince1970: 1627987295))
+				webTokenHeader: .fake(expirationTime: Date(timeIntervalSince1970: 1627987295))
 			),
 			validityState: .expiringSoon,
 			isNew: true
@@ -1410,7 +1410,7 @@ class HealthCertificateCellViewModelTests: XCTestCase {
 	func testAllDetailsWithoutValidationButtonViewModelWithExpiredTestCertificateOfUnknownType() throws {
 		let healthCertificate = try HealthCertificate(
 			base45: try base45Fake(
-				from: DigitalCovidCertificate.fake(
+				digitalCovidCertificate: DigitalCovidCertificate.fake(
 					testEntries: [
 						TestEntry.fake(
 							typeOfTest: "LP123456-7",
@@ -1447,7 +1447,7 @@ class HealthCertificateCellViewModelTests: XCTestCase {
 	func testAllDetailsWithoutValidationButtonViewModelWithExpiredNewTestCertificateOfUnknownType() throws {
 		let healthCertificate = try HealthCertificate(
 			base45: try base45Fake(
-				from: DigitalCovidCertificate.fake(
+				digitalCovidCertificate: DigitalCovidCertificate.fake(
 					testEntries: [
 						TestEntry.fake(
 							typeOfTest: "LP123456-7",
@@ -1484,7 +1484,7 @@ class HealthCertificateCellViewModelTests: XCTestCase {
 	func testAllDetailsWithoutValidationButtonViewModelWithInvalidPCRTestCertificate() throws {
 		let healthCertificate = try HealthCertificate(
 			base45: try base45Fake(
-				from: DigitalCovidCertificate.fake(
+				digitalCovidCertificate: DigitalCovidCertificate.fake(
 					testEntries: [
 						TestEntry.fake(
 							typeOfTest: "LP6464-4",
@@ -1521,7 +1521,7 @@ class HealthCertificateCellViewModelTests: XCTestCase {
 	func testAllDetailsWithoutValidationButtonViewModelWithBlockedAntigenTestCertificate() throws {
 		let healthCertificate = try HealthCertificate(
 			base45: try base45Fake(
-				from: DigitalCovidCertificate.fake(
+				digitalCovidCertificate: DigitalCovidCertificate.fake(
 					testEntries: [
 						TestEntry.fake(
 							typeOfTest: "LP217198-3",
@@ -1558,7 +1558,7 @@ class HealthCertificateCellViewModelTests: XCTestCase {
 	func testAllDetailsWithoutValidationButtonViewModelWithValidRecoveryCertificate() throws {
 		let healthCertificate = try HealthCertificate(
 			base45: try base45Fake(
-				from: DigitalCovidCertificate.fake(
+				digitalCovidCertificate: DigitalCovidCertificate.fake(
 					recoveryEntries: [
 						RecoveryEntry.fake(
 							dateOfFirstPositiveNAAResult: "2022-03-01T07:12:45.132Z"
@@ -1593,7 +1593,7 @@ class HealthCertificateCellViewModelTests: XCTestCase {
 	func testAllDetailsWithoutValidationButtonViewModelWithNewValidRecoveryCertificate() throws {
 		let healthCertificate = try HealthCertificate(
 			base45: try base45Fake(
-				from: DigitalCovidCertificate.fake(
+				digitalCovidCertificate: DigitalCovidCertificate.fake(
 					recoveryEntries: [
 						RecoveryEntry.fake(
 							dateOfFirstPositiveNAAResult: "2022-03-01T07:12:45.132Z"
@@ -1630,14 +1630,14 @@ class HealthCertificateCellViewModelTests: XCTestCase {
 		let expirationDate = Date(timeIntervalSince1970: 1627987295)
 		let healthCertificate = try HealthCertificate(
 			base45: try base45Fake(
-				from: DigitalCovidCertificate.fake(
+				digitalCovidCertificate: DigitalCovidCertificate.fake(
 					recoveryEntries: [
 						RecoveryEntry.fake(
 							dateOfFirstPositiveNAAResult: "2022-03-01T07:12:45.132Z"
 						)
 					]
 				),
-				and: .fake(expirationTime: expirationDate)
+				webTokenHeader: .fake(expirationTime: expirationDate)
 			),
 			validityState: .expiringSoon,
 			isNew: true
@@ -1674,7 +1674,7 @@ class HealthCertificateCellViewModelTests: XCTestCase {
 	func testAllDetailsWithoutValidationButtonViewModelWithExpiredRecoveryCertificate() throws {
 		let healthCertificate = try HealthCertificate(
 			base45: try base45Fake(
-				from: DigitalCovidCertificate.fake(
+				digitalCovidCertificate: DigitalCovidCertificate.fake(
 					recoveryEntries: [
 						RecoveryEntry.fake(
 							dateOfFirstPositiveNAAResult: "2022-03-01T07:12:45.132Z"
@@ -1710,7 +1710,7 @@ class HealthCertificateCellViewModelTests: XCTestCase {
 	func testAllDetailsWithoutValidationButtonViewModelWithInvalidRecoveryCertificate() throws {
 		let healthCertificate = try HealthCertificate(
 			base45: try base45Fake(
-				from: DigitalCovidCertificate.fake(
+				digitalCovidCertificate: DigitalCovidCertificate.fake(
 					recoveryEntries: [
 						RecoveryEntry.fake(
 							dateOfFirstPositiveNAAResult: "2022-03-01T07:12:45.132Z"
@@ -1746,7 +1746,7 @@ class HealthCertificateCellViewModelTests: XCTestCase {
 	func testAllDetailsWithoutValidationButtonViewModelWithBlockedRecoveryCertificate() throws {
 		let healthCertificate = try HealthCertificate(
 			base45: try base45Fake(
-				from: DigitalCovidCertificate.fake(
+				digitalCovidCertificate: DigitalCovidCertificate.fake(
 					recoveryEntries: [
 						RecoveryEntry.fake(
 							dateOfFirstPositiveNAAResult: "2022-03-01T07:12:45.132Z"
@@ -1781,7 +1781,7 @@ class HealthCertificateCellViewModelTests: XCTestCase {
 
 	func testForAllDetailsWithoutValidationButtonIsUnseenNewsIndicatorVisibleFalseWithoutNews() throws {
 		let healthCertificate = try HealthCertificate(
-			base45: try base45Fake(from: .fake(vaccinationEntries: [.fake()])),
+			base45: try base45Fake(digitalCovidCertificate: .fake(vaccinationEntries: [.fake()])),
 			isNew: false,
 			isValidityStateNew: false
 		)
@@ -1799,7 +1799,7 @@ class HealthCertificateCellViewModelTests: XCTestCase {
 
 	func testForAllDetailsWithoutValidationButtonIsUnseenNewsIndicatorVisibleTrueForNewHealthCertificateWithOldValidityState() throws {
 		let healthCertificate = try HealthCertificate(
-			base45: try base45Fake(from: .fake(vaccinationEntries: [.fake()])),
+			base45: try base45Fake(digitalCovidCertificate: .fake(vaccinationEntries: [.fake()])),
 			isNew: true,
 			isValidityStateNew: false
 		)
@@ -1817,7 +1817,7 @@ class HealthCertificateCellViewModelTests: XCTestCase {
 
 	func testForAllDetailsWithoutValidationButtonIsUnseenNewsIndicatorVisibleTrueForOldHealthCertificateWithNewValidityState() throws {
 		let healthCertificate = try HealthCertificate(
-			base45: try base45Fake(from: .fake(vaccinationEntries: [.fake()])),
+			base45: try base45Fake(digitalCovidCertificate: .fake(vaccinationEntries: [.fake()])),
 			isNew: false,
 			isValidityStateNew: true
 		)
@@ -1835,7 +1835,7 @@ class HealthCertificateCellViewModelTests: XCTestCase {
 
 	func testForAllDetailsWithoutValidationButtonIsUnseenNewsIndicatorVisibleTrueForNewHealthCertificateWithNewValidityState() throws {
 		let healthCertificate = try HealthCertificate(
-			base45: try base45Fake(from: .fake(vaccinationEntries: [.fake()])),
+			base45: try base45Fake(digitalCovidCertificate: .fake(vaccinationEntries: [.fake()])),
 			isNew: true,
 			isValidityStateNew: true
 		)
@@ -1856,7 +1856,7 @@ class HealthCertificateCellViewModelTests: XCTestCase {
 	func testOverviewViewModelWithValidIncompleteVaccinationCertificate() throws {
 		let healthCertificate = try HealthCertificate(
 			base45: try base45Fake(
-				from: DigitalCovidCertificate.fake(
+				digitalCovidCertificate: DigitalCovidCertificate.fake(
 					vaccinationEntries: [
 						VaccinationEntry.fake(
 							doseNumber: 1,
@@ -1891,7 +1891,7 @@ class HealthCertificateCellViewModelTests: XCTestCase {
 	func testOverviewViewModelWithNewValidIncompleteVaccinationCertificate() throws {
 		let healthCertificate = try HealthCertificate(
 			base45: try base45Fake(
-				from: DigitalCovidCertificate.fake(
+				digitalCovidCertificate: DigitalCovidCertificate.fake(
 					vaccinationEntries: [
 						VaccinationEntry.fake(
 							doseNumber: 1,
@@ -2013,7 +2013,7 @@ class HealthCertificateCellViewModelTests: XCTestCase {
 		let expirationDate = Date(timeIntervalSince1970: 1627987295)
 		let healthCertificate = try HealthCertificate(
 			base45: try base45Fake(
-				from: DigitalCovidCertificate.fake(
+				digitalCovidCertificate: DigitalCovidCertificate.fake(
 					vaccinationEntries: [
 						VaccinationEntry.fake(
 							doseNumber: 1,
@@ -2022,7 +2022,7 @@ class HealthCertificateCellViewModelTests: XCTestCase {
 						)
 					]
 				),
-				and: .fake(expirationTime: expirationDate)
+				webTokenHeader: .fake(expirationTime: expirationDate)
 			),
 			validityState: .expiringSoon,
 			isNew: true
@@ -2050,7 +2050,7 @@ class HealthCertificateCellViewModelTests: XCTestCase {
 	func testOverviewViewModelWithExpiredIncompleteVaccinationCertificate() throws {
 		let healthCertificate = try HealthCertificate(
 			base45: try base45Fake(
-				from: DigitalCovidCertificate.fake(
+				digitalCovidCertificate: DigitalCovidCertificate.fake(
 					vaccinationEntries: [
 						VaccinationEntry.fake(
 							doseNumber: 1,
@@ -2086,7 +2086,7 @@ class HealthCertificateCellViewModelTests: XCTestCase {
 	func testOverviewViewModelWithInvalidIncompleteVaccinationCertificate() throws {
 		let healthCertificate = try HealthCertificate(
 			base45: try base45Fake(
-				from: DigitalCovidCertificate.fake(
+				digitalCovidCertificate: DigitalCovidCertificate.fake(
 					vaccinationEntries: [
 						VaccinationEntry.fake(
 							doseNumber: 1,
@@ -2122,7 +2122,7 @@ class HealthCertificateCellViewModelTests: XCTestCase {
 	func testOverviewViewModelWithBlockedIncompleteVaccinationCertificate() throws {
 		let healthCertificate = try HealthCertificate(
 			base45: try base45Fake(
-				from: DigitalCovidCertificate.fake(
+				digitalCovidCertificate: DigitalCovidCertificate.fake(
 					vaccinationEntries: [
 						VaccinationEntry.fake(
 							doseNumber: 1,
@@ -2158,7 +2158,7 @@ class HealthCertificateCellViewModelTests: XCTestCase {
 	func testOverviewViewModelWithValidPCRTestCertificate() throws {
 		let healthCertificate = try HealthCertificate(
 			base45: try base45Fake(
-				from: DigitalCovidCertificate.fake(
+				digitalCovidCertificate: DigitalCovidCertificate.fake(
 					testEntries: [
 						TestEntry.fake(
 							typeOfTest: "LP6464-4",
@@ -2192,7 +2192,7 @@ class HealthCertificateCellViewModelTests: XCTestCase {
 	func testOverviewViewModelWithNewValidPCRTestCertificate() throws {
 		let healthCertificate = try HealthCertificate(
 			base45: try base45Fake(
-				from: DigitalCovidCertificate.fake(
+				digitalCovidCertificate: DigitalCovidCertificate.fake(
 					testEntries: [
 						TestEntry.fake(
 							typeOfTest: "LP6464-4",
@@ -2227,7 +2227,7 @@ class HealthCertificateCellViewModelTests: XCTestCase {
 	func testOverviewViewModelWithSoonExpiringAntigenTestCertificate() throws {
 		let healthCertificate = try HealthCertificate(
 			base45: try base45Fake(
-				from: DigitalCovidCertificate.fake(
+				digitalCovidCertificate: DigitalCovidCertificate.fake(
 					testEntries: [
 						TestEntry.fake(
 							typeOfTest: "LP217198-3",
@@ -2235,7 +2235,7 @@ class HealthCertificateCellViewModelTests: XCTestCase {
 						)
 					]
 				),
-				and: .fake(expirationTime: Date(timeIntervalSince1970: 1627987295))
+				webTokenHeader: .fake(expirationTime: Date(timeIntervalSince1970: 1627987295))
 			),
 			validityState: .expiringSoon,
 			isNew: false
@@ -2263,7 +2263,7 @@ class HealthCertificateCellViewModelTests: XCTestCase {
 	func testOverviewViewModelWithSoonExpiringNewAntigenTestCertificate() throws {
 		let healthCertificate = try HealthCertificate(
 			base45: try base45Fake(
-				from: DigitalCovidCertificate.fake(
+				digitalCovidCertificate: DigitalCovidCertificate.fake(
 					testEntries: [
 						TestEntry.fake(
 							typeOfTest: "LP217198-3",
@@ -2271,7 +2271,7 @@ class HealthCertificateCellViewModelTests: XCTestCase {
 						)
 					]
 				),
-				and: .fake(expirationTime: Date(timeIntervalSince1970: 1627987295))
+				webTokenHeader: .fake(expirationTime: Date(timeIntervalSince1970: 1627987295))
 			),
 			validityState: .expiringSoon,
 			isNew: true
@@ -2299,7 +2299,7 @@ class HealthCertificateCellViewModelTests: XCTestCase {
 	func testOverviewViewModelWithExpiredTestCertificateOfUnknownType() throws {
 		let healthCertificate = try HealthCertificate(
 			base45: try base45Fake(
-				from: DigitalCovidCertificate.fake(
+				digitalCovidCertificate: DigitalCovidCertificate.fake(
 					testEntries: [
 						TestEntry.fake(
 							typeOfTest: "LP123456-7",
@@ -2334,7 +2334,7 @@ class HealthCertificateCellViewModelTests: XCTestCase {
 	func testOverviewViewModelWithExpiredNewTestCertificateOfUnknownType() throws {
 		let healthCertificate = try HealthCertificate(
 			base45: try base45Fake(
-				from: DigitalCovidCertificate.fake(
+				digitalCovidCertificate: DigitalCovidCertificate.fake(
 					testEntries: [
 						TestEntry.fake(
 							typeOfTest: "LP123456-7",
@@ -2369,7 +2369,7 @@ class HealthCertificateCellViewModelTests: XCTestCase {
 	func testOverviewViewModelWithInvalidPCRTestCertificate() throws {
 		let healthCertificate = try HealthCertificate(
 			base45: try base45Fake(
-				from: DigitalCovidCertificate.fake(
+				digitalCovidCertificate: DigitalCovidCertificate.fake(
 					testEntries: [
 						TestEntry.fake(
 							typeOfTest: "LP6464-4",
@@ -2404,7 +2404,7 @@ class HealthCertificateCellViewModelTests: XCTestCase {
 	func testOverviewViewModelWithBlockedAntigenTestCertificate() throws {
 		let healthCertificate = try HealthCertificate(
 			base45: try base45Fake(
-				from: DigitalCovidCertificate.fake(
+				digitalCovidCertificate: DigitalCovidCertificate.fake(
 					testEntries: [
 						TestEntry.fake(
 							typeOfTest: "LP217198-3",
@@ -2439,7 +2439,7 @@ class HealthCertificateCellViewModelTests: XCTestCase {
 	func testOverviewViewModelWithValidRecoveryCertificate() throws {
 		let healthCertificate = try HealthCertificate(
 			base45: try base45Fake(
-				from: DigitalCovidCertificate.fake(
+				digitalCovidCertificate: DigitalCovidCertificate.fake(
 					recoveryEntries: [
 						RecoveryEntry.fake(
 							dateOfFirstPositiveNAAResult: "2022-03-01T07:12:45.132Z"
@@ -2472,7 +2472,7 @@ class HealthCertificateCellViewModelTests: XCTestCase {
 	func testOverviewViewModelWithNewValidRecoveryCertificate() throws {
 		let healthCertificate = try HealthCertificate(
 			base45: try base45Fake(
-				from: DigitalCovidCertificate.fake(
+				digitalCovidCertificate: DigitalCovidCertificate.fake(
 					recoveryEntries: [
 						RecoveryEntry.fake(
 							dateOfFirstPositiveNAAResult: "2022-03-01T07:12:45.132Z"
@@ -2507,14 +2507,14 @@ class HealthCertificateCellViewModelTests: XCTestCase {
 		let expirationDate = Date(timeIntervalSince1970: 1627987295)
 		let healthCertificate = try HealthCertificate(
 			base45: try base45Fake(
-				from: DigitalCovidCertificate.fake(
+				digitalCovidCertificate: DigitalCovidCertificate.fake(
 					recoveryEntries: [
 						RecoveryEntry.fake(
 							dateOfFirstPositiveNAAResult: "2022-03-01T07:12:45.132Z"
 						)
 					]
 				),
-				and: .fake(expirationTime: expirationDate)
+				webTokenHeader: .fake(expirationTime: expirationDate)
 			),
 			validityState: .expiringSoon,
 			isNew: true
@@ -2542,7 +2542,7 @@ class HealthCertificateCellViewModelTests: XCTestCase {
 	func testOverviewViewModelWithExpiredRecoveryCertificate() throws {
 		let healthCertificate = try HealthCertificate(
 			base45: try base45Fake(
-				from: DigitalCovidCertificate.fake(
+				digitalCovidCertificate: DigitalCovidCertificate.fake(
 					recoveryEntries: [
 						RecoveryEntry.fake(
 							dateOfFirstPositiveNAAResult: "2022-03-01T07:12:45.132Z"
@@ -2576,7 +2576,7 @@ class HealthCertificateCellViewModelTests: XCTestCase {
 	func testOverviewViewModelWithInvalidRecoveryCertificate() throws {
 		let healthCertificate = try HealthCertificate(
 			base45: try base45Fake(
-				from: DigitalCovidCertificate.fake(
+				digitalCovidCertificate: DigitalCovidCertificate.fake(
 					recoveryEntries: [
 						RecoveryEntry.fake(
 							dateOfFirstPositiveNAAResult: "2022-03-01T07:12:45.132Z"
@@ -2610,7 +2610,7 @@ class HealthCertificateCellViewModelTests: XCTestCase {
 	func testOverviewViewModelWithBlockedRecoveryCertificate() throws {
 		let healthCertificate = try HealthCertificate(
 			base45: try base45Fake(
-				from: DigitalCovidCertificate.fake(
+				digitalCovidCertificate: DigitalCovidCertificate.fake(
 					recoveryEntries: [
 						RecoveryEntry.fake(
 							dateOfFirstPositiveNAAResult: "2022-03-01T07:12:45.132Z"
@@ -2643,7 +2643,7 @@ class HealthCertificateCellViewModelTests: XCTestCase {
 
 	func testForOverviewIsUnseenNewsIndicatorVisibleFalseWithoutNews() throws {
 		let healthCertificate = try HealthCertificate(
-			base45: try base45Fake(from: .fake(vaccinationEntries: [.fake()])),
+			base45: try base45Fake(digitalCovidCertificate: .fake(vaccinationEntries: [.fake()])),
 			isNew: false,
 			isValidityStateNew: false
 		)
@@ -2661,7 +2661,7 @@ class HealthCertificateCellViewModelTests: XCTestCase {
 
 	func testForOverviewIsUnseenNewsIndicatorVisibleTrueForNewHealthCertificateWithOldValidityState() throws {
 		let healthCertificate = try HealthCertificate(
-			base45: try base45Fake(from: .fake(vaccinationEntries: [.fake()])),
+			base45: try base45Fake(digitalCovidCertificate: .fake(vaccinationEntries: [.fake()])),
 			isNew: true,
 			isValidityStateNew: false
 		)
@@ -2679,7 +2679,7 @@ class HealthCertificateCellViewModelTests: XCTestCase {
 
 	func testForOverviewIsUnseenNewsIndicatorVisibleTrueForOldHealthCertificateWithNewValidityState() throws {
 		let healthCertificate = try HealthCertificate(
-			base45: try base45Fake(from: .fake(vaccinationEntries: [.fake()])),
+			base45: try base45Fake(digitalCovidCertificate: .fake(vaccinationEntries: [.fake()])),
 			isNew: false,
 			isValidityStateNew: true
 		)
@@ -2697,7 +2697,7 @@ class HealthCertificateCellViewModelTests: XCTestCase {
 
 	func testForOverviewIsUnseenNewsIndicatorVisibleTrueForNewHealthCertificateWithNewValidityState() throws {
 		let healthCertificate = try HealthCertificate(
-			base45: try base45Fake(from: .fake(vaccinationEntries: [.fake()])),
+			base45: try base45Fake(digitalCovidCertificate: .fake(vaccinationEntries: [.fake()])),
 			isNew: true,
 			isValidityStateNew: true
 		)
@@ -2718,7 +2718,7 @@ class HealthCertificateCellViewModelTests: XCTestCase {
 	func testOverviewPlusNameViewModelWithValidIncompleteVaccinationCertificate() throws {
 		let healthCertificate = try HealthCertificate(
 			base45: try base45Fake(
-				from: DigitalCovidCertificate.fake(
+				digitalCovidCertificate: DigitalCovidCertificate.fake(
 					name: .fake(familyName: "Guendling", givenName: "Nick"),
 					vaccinationEntries: [
 						VaccinationEntry.fake(
@@ -2754,7 +2754,7 @@ class HealthCertificateCellViewModelTests: XCTestCase {
 	func testOverviewPlusNameViewModelWithNewValidIncompleteVaccinationCertificate() throws {
 		let healthCertificate = try HealthCertificate(
 			base45: try base45Fake(
-				from: DigitalCovidCertificate.fake(
+				digitalCovidCertificate: DigitalCovidCertificate.fake(
 					name: .fake(familyName: "Teuber", givenName: "Kai-Marcel"),
 					vaccinationEntries: [
 						VaccinationEntry.fake(
@@ -2895,7 +2895,7 @@ class HealthCertificateCellViewModelTests: XCTestCase {
 		let expirationDate = Date(timeIntervalSince1970: 1627987295)
 		let healthCertificate = try HealthCertificate(
 			base45: try base45Fake(
-				from: DigitalCovidCertificate.fake(
+				digitalCovidCertificate: DigitalCovidCertificate.fake(
 					name: .fake(familyName: "Ahmed", givenName: "Omar Abdelaziz Hanafy Abdelaziz"),
 					vaccinationEntries: [
 						VaccinationEntry.fake(
@@ -2905,7 +2905,7 @@ class HealthCertificateCellViewModelTests: XCTestCase {
 						)
 					]
 				),
-				and: .fake(expirationTime: expirationDate)
+				webTokenHeader: .fake(expirationTime: expirationDate)
 			),
 			validityState: .expiringSoon,
 			isNew: true
@@ -2933,7 +2933,7 @@ class HealthCertificateCellViewModelTests: XCTestCase {
 	func testOverviewPlusNameViewModelWithExpiredIncompleteVaccinationCertificate() throws {
 		let healthCertificate = try HealthCertificate(
 			base45: try base45Fake(
-				from: DigitalCovidCertificate.fake(
+				digitalCovidCertificate: DigitalCovidCertificate.fake(
 					name: .fake(familyName: "Guendling", givenName: "Nick"),
 					vaccinationEntries: [
 						VaccinationEntry.fake(
@@ -2970,7 +2970,7 @@ class HealthCertificateCellViewModelTests: XCTestCase {
 	func testOverviewPlusNameViewModelWithInvalidIncompleteVaccinationCertificate() throws {
 		let healthCertificate = try HealthCertificate(
 			base45: try base45Fake(
-				from: DigitalCovidCertificate.fake(
+				digitalCovidCertificate: DigitalCovidCertificate.fake(
 					name: .fake(familyName: "Teuber", givenName: "Kai-Marcel"),
 					vaccinationEntries: [
 						VaccinationEntry.fake(
@@ -3007,7 +3007,7 @@ class HealthCertificateCellViewModelTests: XCTestCase {
 	func testOverviewPlusNameViewModelWithBlockedIncompleteVaccinationCertificate() throws {
 		let healthCertificate = try HealthCertificate(
 			base45: try base45Fake(
-				from: DigitalCovidCertificate.fake(
+				digitalCovidCertificate: DigitalCovidCertificate.fake(
 					name: .fake(familyName: "Scherer", givenName: "Marcus"),
 					vaccinationEntries: [
 						VaccinationEntry.fake(
@@ -3044,7 +3044,7 @@ class HealthCertificateCellViewModelTests: XCTestCase {
 	func testOverviewPlusNameViewModelWithValidPCRTestCertificate() throws {
 		let healthCertificate = try HealthCertificate(
 			base45: try base45Fake(
-				from: DigitalCovidCertificate.fake(
+				digitalCovidCertificate: DigitalCovidCertificate.fake(
 					name: .fake(familyName: "Friesen", givenName: "Artur"),
 					testEntries: [
 						TestEntry.fake(
@@ -3079,7 +3079,7 @@ class HealthCertificateCellViewModelTests: XCTestCase {
 	func testOverviewPlusNameViewModelWithNewValidPCRTestCertificate() throws {
 		let healthCertificate = try HealthCertificate(
 			base45: try base45Fake(
-				from: DigitalCovidCertificate.fake(
+				digitalCovidCertificate: DigitalCovidCertificate.fake(
 					name: .fake(familyName: "Brause", givenName: "Pascal"),
 					testEntries: [
 						TestEntry.fake(
@@ -3115,7 +3115,7 @@ class HealthCertificateCellViewModelTests: XCTestCase {
 	func testOverviewPlusNameViewModelWithSoonExpiringAntigenTestCertificate() throws {
 		let healthCertificate = try HealthCertificate(
 			base45: try base45Fake(
-				from: DigitalCovidCertificate.fake(
+				digitalCovidCertificate: DigitalCovidCertificate.fake(
 					name: .fake(familyName: "Khalid", givenName: "Naveed"),
 					testEntries: [
 						TestEntry.fake(
@@ -3124,7 +3124,7 @@ class HealthCertificateCellViewModelTests: XCTestCase {
 						)
 					]
 				),
-				and: .fake(expirationTime: Date(timeIntervalSince1970: 1627987295))
+				webTokenHeader: .fake(expirationTime: Date(timeIntervalSince1970: 1627987295))
 			),
 			validityState: .expiringSoon,
 			isNew: false
@@ -3152,7 +3152,7 @@ class HealthCertificateCellViewModelTests: XCTestCase {
 	func testOverviewPlusNameViewModelWithSoonExpiringNewAntigenTestCertificate() throws {
 		let healthCertificate = try HealthCertificate(
 			base45: try base45Fake(
-				from: DigitalCovidCertificate.fake(
+				digitalCovidCertificate: DigitalCovidCertificate.fake(
 					name: .fake(familyName: "Ahmed", givenName: "Omar Abdelaziz Hanafy Abdelaziz"),
 					testEntries: [
 						TestEntry.fake(
@@ -3161,7 +3161,7 @@ class HealthCertificateCellViewModelTests: XCTestCase {
 						)
 					]
 				),
-				and: .fake(expirationTime: Date(timeIntervalSince1970: 1627987295))
+				webTokenHeader: .fake(expirationTime: Date(timeIntervalSince1970: 1627987295))
 			),
 			validityState: .expiringSoon,
 			isNew: true
@@ -3189,7 +3189,7 @@ class HealthCertificateCellViewModelTests: XCTestCase {
 	func testOverviewPlusNameViewModelWithExpiredTestCertificateOfUnknownType() throws {
 		let healthCertificate = try HealthCertificate(
 			base45: try base45Fake(
-				from: DigitalCovidCertificate.fake(
+				digitalCovidCertificate: DigitalCovidCertificate.fake(
 					name: .fake(familyName: "Guendling", givenName: "Nick"),
 					testEntries: [
 						TestEntry.fake(
@@ -3225,7 +3225,7 @@ class HealthCertificateCellViewModelTests: XCTestCase {
 	func testOverviewPlusNameViewModelWithExpiredNewTestCertificateOfUnknownType() throws {
 		let healthCertificate = try HealthCertificate(
 			base45: try base45Fake(
-				from: DigitalCovidCertificate.fake(
+				digitalCovidCertificate: DigitalCovidCertificate.fake(
 					name: .fake(familyName: "Teuber", givenName: "Kai-Marcel"),
 					testEntries: [
 						TestEntry.fake(
@@ -3261,7 +3261,7 @@ class HealthCertificateCellViewModelTests: XCTestCase {
 	func testOverviewPlusNameViewModelWithInvalidPCRTestCertificate() throws {
 		let healthCertificate = try HealthCertificate(
 			base45: try base45Fake(
-				from: DigitalCovidCertificate.fake(
+				digitalCovidCertificate: DigitalCovidCertificate.fake(
 					name: .fake(familyName: "Scherer", givenName: "Marcus"),
 					testEntries: [
 						TestEntry.fake(
@@ -3297,7 +3297,7 @@ class HealthCertificateCellViewModelTests: XCTestCase {
 	func testOverviewPlusNameViewModelWithBlockedAntigenTestCertificate() throws {
 		let healthCertificate = try HealthCertificate(
 			base45: try base45Fake(
-				from: DigitalCovidCertificate.fake(
+				digitalCovidCertificate: DigitalCovidCertificate.fake(
 					name: .fake(familyName: "Friesen", givenName: "Artur"),
 					testEntries: [
 						TestEntry.fake(
@@ -3333,7 +3333,7 @@ class HealthCertificateCellViewModelTests: XCTestCase {
 	func testOverviewPlusNameViewModelWithValidRecoveryCertificate() throws {
 		let healthCertificate = try HealthCertificate(
 			base45: try base45Fake(
-				from: DigitalCovidCertificate.fake(
+				digitalCovidCertificate: DigitalCovidCertificate.fake(
 					name: .fake(familyName: "Brause", givenName: "Pascal"),
 					recoveryEntries: [
 						RecoveryEntry.fake(
@@ -3367,7 +3367,7 @@ class HealthCertificateCellViewModelTests: XCTestCase {
 	func testOverviewPlusNameViewModelWithNewValidRecoveryCertificate() throws {
 		let healthCertificate = try HealthCertificate(
 			base45: try base45Fake(
-				from: DigitalCovidCertificate.fake(
+				digitalCovidCertificate: DigitalCovidCertificate.fake(
 					name: .fake(familyName: "Khalid", givenName: "Naveed"),
 					recoveryEntries: [
 						RecoveryEntry.fake(
@@ -3403,7 +3403,7 @@ class HealthCertificateCellViewModelTests: XCTestCase {
 		let expirationDate = Date(timeIntervalSince1970: 1627987295)
 		let healthCertificate = try HealthCertificate(
 			base45: try base45Fake(
-				from: DigitalCovidCertificate.fake(
+				digitalCovidCertificate: DigitalCovidCertificate.fake(
 					name: .fake(familyName: "Ahmed", givenName: "Omar Abdelaziz Hanafy Abdelaziz"),
 					recoveryEntries: [
 						RecoveryEntry.fake(
@@ -3411,7 +3411,7 @@ class HealthCertificateCellViewModelTests: XCTestCase {
 						)
 					]
 				),
-				and: .fake(expirationTime: expirationDate)
+				webTokenHeader: .fake(expirationTime: expirationDate)
 			),
 			validityState: .expiringSoon,
 			isNew: true
@@ -3439,7 +3439,7 @@ class HealthCertificateCellViewModelTests: XCTestCase {
 	func testOverviewPlusNameViewModelWithExpiredRecoveryCertificate() throws {
 		let healthCertificate = try HealthCertificate(
 			base45: try base45Fake(
-				from: DigitalCovidCertificate.fake(
+				digitalCovidCertificate: DigitalCovidCertificate.fake(
 					name: .fake(familyName: "Guendling", givenName: "Nick"),
 					recoveryEntries: [
 						RecoveryEntry.fake(
@@ -3474,7 +3474,7 @@ class HealthCertificateCellViewModelTests: XCTestCase {
 	func testOverviewPlusNameViewModelWithInvalidRecoveryCertificate() throws {
 		let healthCertificate = try HealthCertificate(
 			base45: try base45Fake(
-				from: DigitalCovidCertificate.fake(
+				digitalCovidCertificate: DigitalCovidCertificate.fake(
 					name: .fake(familyName: "Teuber", givenName: "Kai-Marcel"),
 					recoveryEntries: [
 						RecoveryEntry.fake(
@@ -3509,7 +3509,7 @@ class HealthCertificateCellViewModelTests: XCTestCase {
 	func testOverviewPlusNameViewModelWithBlockedRecoveryCertificate() throws {
 		let healthCertificate = try HealthCertificate(
 			base45: try base45Fake(
-				from: DigitalCovidCertificate.fake(
+				digitalCovidCertificate: DigitalCovidCertificate.fake(
 					name: .fake(familyName: "Scherer", givenName: "Marcus"),
 					recoveryEntries: [
 						RecoveryEntry.fake(
@@ -3543,7 +3543,7 @@ class HealthCertificateCellViewModelTests: XCTestCase {
 
 	func testForOverviewPlusNameIsUnseenNewsIndicatorVisibleFalseWithoutNews() throws {
 		let healthCertificate = try HealthCertificate(
-			base45: try base45Fake(from: .fake(vaccinationEntries: [.fake()])),
+			base45: try base45Fake(digitalCovidCertificate: .fake(vaccinationEntries: [.fake()])),
 			isNew: false,
 			isValidityStateNew: false
 		)
@@ -3561,7 +3561,7 @@ class HealthCertificateCellViewModelTests: XCTestCase {
 
 	func testForOverviewPlusNameIsUnseenNewsIndicatorVisibleTrueForNewHealthCertificateWithOldValidityState() throws {
 		let healthCertificate = try HealthCertificate(
-			base45: try base45Fake(from: .fake(vaccinationEntries: [.fake()])),
+			base45: try base45Fake(digitalCovidCertificate: .fake(vaccinationEntries: [.fake()])),
 			isNew: true,
 			isValidityStateNew: false
 		)
@@ -3579,7 +3579,7 @@ class HealthCertificateCellViewModelTests: XCTestCase {
 
 	func testForOverviewPlusNameIsUnseenNewsIndicatorVisibleTrueForOldHealthCertificateWithNewValidityState() throws {
 		let healthCertificate = try HealthCertificate(
-			base45: try base45Fake(from: .fake(vaccinationEntries: [.fake()])),
+			base45: try base45Fake(digitalCovidCertificate: .fake(vaccinationEntries: [.fake()])),
 			isNew: false,
 			isValidityStateNew: true
 		)
@@ -3597,7 +3597,7 @@ class HealthCertificateCellViewModelTests: XCTestCase {
 
 	func testForOverviewPlusNameIsUnseenNewsIndicatorVisibleTrueForNewHealthCertificateWithNewValidityState() throws {
 		let healthCertificate = try HealthCertificate(
-			base45: try base45Fake(from: .fake(vaccinationEntries: [.fake()])),
+			base45: try base45Fake(digitalCovidCertificate: .fake(vaccinationEntries: [.fake()])),
 			isNew: true,
 			isValidityStateNew: true
 		)

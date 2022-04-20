@@ -6,7 +6,7 @@ import Foundation
 import OpenCombine
 import HealthCertificateToolkit
 
-final class HealthCertificate: Codable, Equatable, Comparable, RecycleBinIdentifiable {
+final class HealthCertificate: Codable, Equatable, Comparable, RecycleBinIdentifiable, Hashable {
 
 	// MARK: - Init
 
@@ -118,6 +118,12 @@ final class HealthCertificate: Codable, Equatable, Comparable, RecycleBinIdentif
 		return false
 	}
 
+	// MARK: - Protocol Hashable
+
+	func hash(into hasher: inout Hasher) {
+		hasher.combine(base45)
+	}
+
 	// MARK: - Internal
 	
 	enum CertificateType {
@@ -135,7 +141,7 @@ final class HealthCertificate: Codable, Equatable, Comparable, RecycleBinIdentif
 	let base45: Base45
 	let cborWebTokenHeader: CBORWebTokenHeader
 	let digitalCovidCertificate: DigitalCovidCertificate
-	let keyIdentifier: String?
+	let keyIdentifier: String
 	let revocationEntries: HealthCertificateRevocationEntries
 
 	let objectDidChange = OpenCombine.PassthroughSubject<HealthCertificate, Never>()

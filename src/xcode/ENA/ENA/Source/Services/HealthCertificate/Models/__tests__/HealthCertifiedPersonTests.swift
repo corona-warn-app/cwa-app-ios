@@ -35,7 +35,7 @@ class HealthCertifiedPersonTests: CWATestCase {
 			healthCertificates: [
 				try HealthCertificate(
 					base45: try base45Fake(
-						from: DigitalCovidCertificate.fake(
+						digitalCovidCertificate: DigitalCovidCertificate.fake(
 							name: Name.fake(
 								familyName: "A", givenName: "B"
 							),
@@ -51,7 +51,7 @@ class HealthCertifiedPersonTests: CWATestCase {
 			healthCertificates: [
 				try HealthCertificate(
 					base45: try base45Fake(
-						from: DigitalCovidCertificate.fake(
+						digitalCovidCertificate: DigitalCovidCertificate.fake(
 							name: Name.fake(
 								familyName: "A", givenName: "A"
 							),
@@ -79,7 +79,7 @@ class HealthCertifiedPersonTests: CWATestCase {
 	func testGIVEN_PersonWithNewBoosterRuleAndCertificates_WHEN_EncodingAndDecoding_THEN_DataIsStillCorrect() throws {
 		let firstHealthCertificate = try HealthCertificate(
 			base45: try base45Fake(
-					from: DigitalCovidCertificate.fake(vaccinationEntries: [.fake()]
+					digitalCovidCertificate: DigitalCovidCertificate.fake(vaccinationEntries: [.fake()]
 				)
 			),
 			didShowInvalidNotification: false,
@@ -89,7 +89,7 @@ class HealthCertifiedPersonTests: CWATestCase {
 
 		let secondHealthCertificate = try HealthCertificate(
 			base45: try base45Fake(
-					from: DigitalCovidCertificate.fake(vaccinationEntries: [.fake()]
+					digitalCovidCertificate: DigitalCovidCertificate.fake(vaccinationEntries: [.fake()]
 				)
 			),
 			didShowInvalidNotification: true,
