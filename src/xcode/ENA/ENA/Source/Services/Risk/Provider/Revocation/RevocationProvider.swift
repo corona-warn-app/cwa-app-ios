@@ -142,7 +142,7 @@ final class RevocationProvider: RevocationProviding {
 				}
 
 				// 1 update KID Types
-				updateKidTypeIndex(kid: revocationLocation.keyIdentifier, hashType: revocationLocation.type) { [weak self] coordinates in
+				self.updateKidTypeIndex(kid: revocationLocation.keyIdentifier, hashType: revocationLocation.type) { [weak self] coordinates in
 					defer {
 						outerDispatchGroup.leave()
 					}
