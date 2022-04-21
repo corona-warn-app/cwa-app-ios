@@ -47,7 +47,8 @@ final class FamilyMemberConsentViewModel {
 					.title2(text: AppStrings.HealthCertificate.FamilyMemberConsent.headline),
 					.body(text: AppStrings.HealthCertificate.FamilyMemberConsent.inputTitle),
 					.textInput(
-						AppStrings.HealthCertificate.FamilyMemberConsent.inputPlaceholder,
+						text: name,
+						placeholder: AppStrings.HealthCertificate.FamilyMemberConsent.inputPlaceholder,
 						configure: { [weak self] cell in
 							guard let self = self else {
 								fatalError("Failed to get strong self")
@@ -129,7 +130,8 @@ final class FamilyMemberConsentViewModel {
 private extension DynamicCell {
 
 	static func textInput(
-		_ placeholder: String? = nil,
+		text: String? = nil,
+		placeholder: String? = nil,
 		configure: @escaping (FamilyNameTextFieldCell) -> Void
 	) -> Self {
 		let identifier = DynamicTableViewCellReuseIdentifier(
@@ -141,7 +143,7 @@ private extension DynamicCell {
 				guard let cell = cell as? FamilyNameTextFieldCell else {
 					fatalError("Failed to get FamilyNameTextFieldCell")
 				}
-				cell.configure(placeholder)
+				cell.configure(text: text, placeholder: placeholder)
 				configure(cell)
 			}
 		)

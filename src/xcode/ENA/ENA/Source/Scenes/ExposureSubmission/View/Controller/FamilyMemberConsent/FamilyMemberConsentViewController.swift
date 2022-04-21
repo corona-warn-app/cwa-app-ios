@@ -10,15 +10,15 @@ class FamilyMemberConsentViewController: DynamicTableViewController, DismissHand
 	// MARK: - Init
 
 	init(
+		viewModel: FamilyMemberConsentViewModel,
 		dismiss: @escaping () -> Void,
 		didTapDataPrivacy: @escaping () -> Void,
 		didTapSubmit: @escaping (String) -> Void
 	) {
+		self.viewModel = viewModel
 		self.dismiss = dismiss
 		self.didTapSubmit = didTapSubmit
-		self.viewModel = FamilyMemberConsentViewModel(
-			presentDisclaimer: didTapDataPrivacy
-		)
+		
 		super.init(nibName: nil, bundle: nil)
 	}
 
