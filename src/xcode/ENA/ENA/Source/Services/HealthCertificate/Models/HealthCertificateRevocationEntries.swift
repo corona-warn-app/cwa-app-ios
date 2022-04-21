@@ -48,5 +48,15 @@ struct HealthCertificateRevocationEntries: Codable {
 			.bytes[0...15])
 			.toHexString()
 	}
+	
+	init(
+		uci: String,
+		countryCodeUCI: String,
+		signature: String
+	) {
+		self.uci = uci
+		self.countryCodeUCI = countryCodeUCI
+		self.signature = signature
+	}
 
 }
