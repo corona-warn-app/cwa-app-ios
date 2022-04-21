@@ -2,7 +2,7 @@
 // 🦠 Corona-Warn-App
 //
 
-import XCTest	
+import XCTest
 import Foundation
 import HealthCertificateToolkit
 @testable import ENA
