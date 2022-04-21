@@ -12,15 +12,15 @@ class TicketValidationConditionsCertificateSelectionTests: XCTestCase {
 		let validationConditions = TicketValidationConditions.fake(fnt: "SCHNEIDER", gnt: "ANDREA", dob: "1989-12-12", type: ["v", "r"])
 		
 		let vaccinationCertificate = try HealthCertificate(
-			base45: try base45Fake(from: .fake(name: .fake(familyName: "Schneider", givenName: "Andrea", standardizedFamilyName: "SCHNEIDER", standardizedGivenName: "ANDREA"), vaccinationEntries: [.fake()]))
+			base45: try base45Fake(digitalCovidCertificate: .fake(name: .fake(familyName: "Schneider", givenName: "Andrea", standardizedFamilyName: "SCHNEIDER", standardizedGivenName: "ANDREA"), vaccinationEntries: [.fake()]))
 		)
 
 		let recoveryCertificate = try HealthCertificate(
-			base45: try base45Fake(from: .fake(name: .fake(familyName: "Schneider", givenName: "Andrea", standardizedFamilyName: "SCHNEIDER", standardizedGivenName: "ANDREA"), recoveryEntries: [.fake()]))
+			base45: try base45Fake(digitalCovidCertificate: .fake(name: .fake(familyName: "Schneider", givenName: "Andrea", standardizedFamilyName: "SCHNEIDER", standardizedGivenName: "ANDREA"), recoveryEntries: [.fake()]))
 		)
 		
 		let testCertificate = try HealthCertificate(
-			base45: try base45Fake(from: .fake(name: .fake(familyName: "Schneider", givenName: "Andrea", standardizedFamilyName: "SCHNEIDER", standardizedGivenName: "ANDREA"), testEntries: [.fake()]))
+			base45: try base45Fake(digitalCovidCertificate: .fake(name: .fake(familyName: "Schneider", givenName: "Andrea", standardizedFamilyName: "SCHNEIDER", standardizedGivenName: "ANDREA"), testEntries: [.fake()]))
 		)
 		
 		let certifiedPerson = HealthCertifiedPerson(healthCertificates: [vaccinationCertificate, recoveryCertificate, testCertificate])
@@ -35,15 +35,15 @@ class TicketValidationConditionsCertificateSelectionTests: XCTestCase {
 		let validationConditions = TicketValidationConditions.fake(fnt: "SCHNEIDER", gnt: "ANDREA", dob: "1989-12-12", type: ["t"])
 		
 		let vaccinationCertificate = try HealthCertificate(
-			base45: try base45Fake(from: .fake(name: .fake(familyName: "Schneider", givenName: "Andrea", standardizedFamilyName: "SCHNEIDER", standardizedGivenName: "ANDREA"), vaccinationEntries: [.fake()]))
+			base45: try base45Fake(digitalCovidCertificate: .fake(name: .fake(familyName: "Schneider", givenName: "Andrea", standardizedFamilyName: "SCHNEIDER", standardizedGivenName: "ANDREA"), vaccinationEntries: [.fake()]))
 		)
 
 		let recoveryCertificate = try HealthCertificate(
-			base45: try base45Fake(from: .fake(name: .fake(familyName: "Schneider", givenName: "Andrea", standardizedFamilyName: "SCHNEIDER", standardizedGivenName: "ANDREA"), recoveryEntries: [.fake()]))
+			base45: try base45Fake(digitalCovidCertificate: .fake(name: .fake(familyName: "Schneider", givenName: "Andrea", standardizedFamilyName: "SCHNEIDER", standardizedGivenName: "ANDREA"), recoveryEntries: [.fake()]))
 		)
 		
 		let testCertificate = try HealthCertificate(
-			base45: try base45Fake(from: .fake(name: .fake(familyName: "Schneider", givenName: "Andrea", standardizedFamilyName: "SCHNEIDER", standardizedGivenName: "ANDREA"), testEntries: [.fake()]))
+			base45: try base45Fake(digitalCovidCertificate: .fake(name: .fake(familyName: "Schneider", givenName: "Andrea", standardizedFamilyName: "SCHNEIDER", standardizedGivenName: "ANDREA"), testEntries: [.fake()]))
 		)
 		
 		let certifiedPerson = HealthCertifiedPerson(healthCertificates: [vaccinationCertificate, recoveryCertificate, testCertificate])
@@ -58,15 +58,15 @@ class TicketValidationConditionsCertificateSelectionTests: XCTestCase {
 		let validationConditions = TicketValidationConditions.fake(fnt: "SCHNEIDER", gnt: "ANDREA", dob: "1989-12-12", type: ["tr"])
 		
 		let vaccinationCertificate = try HealthCertificate(
-			base45: try base45Fake(from: .fake(name: .fake(familyName: "Schneider", givenName: "Andrea", standardizedFamilyName: "SCHNEIDER", standardizedGivenName: "ANDREA"), vaccinationEntries: [.fake()]))
+			base45: try base45Fake(digitalCovidCertificate: .fake(name: .fake(familyName: "Schneider", givenName: "Andrea", standardizedFamilyName: "SCHNEIDER", standardizedGivenName: "ANDREA"), vaccinationEntries: [.fake()]))
 		)
 
 		let recoveryCertificate = try HealthCertificate(
-			base45: try base45Fake(from: .fake(name: .fake(familyName: "Schneider", givenName: "Andrea", standardizedFamilyName: "SCHNEIDER", standardizedGivenName: "ANDREA"), recoveryEntries: [.fake()]))
+			base45: try base45Fake(digitalCovidCertificate: .fake(name: .fake(familyName: "Schneider", givenName: "Andrea", standardizedFamilyName: "SCHNEIDER", standardizedGivenName: "ANDREA"), recoveryEntries: [.fake()]))
 		)
 		
 		let antigenTestCertificate = try HealthCertificate(
-			base45: try base45Fake(from: .fake(name: .fake(familyName: "Schneider", givenName: "Andrea", standardizedFamilyName: "SCHNEIDER", standardizedGivenName: "ANDREA"), testEntries: [.fake(typeOfTest: TestEntry.antigenTypeString)]))
+			base45: try base45Fake(digitalCovidCertificate: .fake(name: .fake(familyName: "Schneider", givenName: "Andrea", standardizedFamilyName: "SCHNEIDER", standardizedGivenName: "ANDREA"), testEntries: [.fake(typeOfTest: TestEntry.antigenTypeString)]))
 		)
 		
 		let certifiedPerson = HealthCertifiedPerson(healthCertificates: [vaccinationCertificate, recoveryCertificate, antigenTestCertificate])
@@ -81,15 +81,15 @@ class TicketValidationConditionsCertificateSelectionTests: XCTestCase {
 		let validationConditions = TicketValidationConditions.fake(fnt: "SCHNEIDER", gnt: "ANDREA", dob: "1989-12-12", type: ["tp"])
 		
 		let vaccinationCertificate = try HealthCertificate(
-			base45: try base45Fake(from: .fake(name: .fake(familyName: "Schneider", givenName: "Andrea", standardizedFamilyName: "SCHNEIDER", standardizedGivenName: "ANDREA"), vaccinationEntries: [.fake()]))
+			base45: try base45Fake(digitalCovidCertificate: .fake(name: .fake(familyName: "Schneider", givenName: "Andrea", standardizedFamilyName: "SCHNEIDER", standardizedGivenName: "ANDREA"), vaccinationEntries: [.fake()]))
 		)
 
 		let recoveryCertificate = try HealthCertificate(
-			base45: try base45Fake(from: .fake(name: .fake(familyName: "Schneider", givenName: "Andrea", standardizedFamilyName: "SCHNEIDER", standardizedGivenName: "ANDREA"), recoveryEntries: [.fake()]))
+			base45: try base45Fake(digitalCovidCertificate: .fake(name: .fake(familyName: "Schneider", givenName: "Andrea", standardizedFamilyName: "SCHNEIDER", standardizedGivenName: "ANDREA"), recoveryEntries: [.fake()]))
 		)
 		
 		let pcrTestCertificate = try HealthCertificate(
-			base45: try base45Fake(from: .fake(name: .fake(familyName: "Schneider", givenName: "Andrea", standardizedFamilyName: "SCHNEIDER", standardizedGivenName: "ANDREA"), testEntries: [.fake(typeOfTest: TestEntry.pcrTypeString)]))
+			base45: try base45Fake(digitalCovidCertificate: .fake(name: .fake(familyName: "Schneider", givenName: "Andrea", standardizedFamilyName: "SCHNEIDER", standardizedGivenName: "ANDREA"), testEntries: [.fake(typeOfTest: TestEntry.pcrTypeString)]))
 		)
 		
 		let certifiedPerson = HealthCertifiedPerson(healthCertificates: [vaccinationCertificate, recoveryCertificate, pcrTestCertificate])
@@ -104,15 +104,15 @@ class TicketValidationConditionsCertificateSelectionTests: XCTestCase {
 		let validationConditions = TicketValidationConditions.fake(fnt: "SCHNEIDER", gnt: "ANDREA", dob: "1989-12-12", type: [])
 		
 		let vaccinationCertificate = try HealthCertificate(
-			base45: try base45Fake(from: .fake(name: .fake(familyName: "Schneider", givenName: "Andrea", standardizedFamilyName: "SCHNEIDER", standardizedGivenName: "ANDREA"), vaccinationEntries: [.fake()]))
+			base45: try base45Fake(digitalCovidCertificate: .fake(name: .fake(familyName: "Schneider", givenName: "Andrea", standardizedFamilyName: "SCHNEIDER", standardizedGivenName: "ANDREA"), vaccinationEntries: [.fake()]))
 		)
 
 		let recoveryCertificate = try HealthCertificate(
-			base45: try base45Fake(from: .fake(name: .fake(familyName: "Schneider", givenName: "Andrea", standardizedFamilyName: "SCHNEIDER", standardizedGivenName: "ANDREA"), recoveryEntries: [.fake()]))
+			base45: try base45Fake(digitalCovidCertificate: .fake(name: .fake(familyName: "Schneider", givenName: "Andrea", standardizedFamilyName: "SCHNEIDER", standardizedGivenName: "ANDREA"), recoveryEntries: [.fake()]))
 		)
 		
 		let testCertificate = try HealthCertificate(
-			base45: try base45Fake(from: .fake(name: .fake(familyName: "Schneider", givenName: "Andrea", standardizedFamilyName: "SCHNEIDER", standardizedGivenName: "ANDREA"), testEntries: [.fake()]))
+			base45: try base45Fake(digitalCovidCertificate: .fake(name: .fake(familyName: "Schneider", givenName: "Andrea", standardizedFamilyName: "SCHNEIDER", standardizedGivenName: "ANDREA"), testEntries: [.fake()]))
 		)
 		
 		let certifiedPerson = HealthCertifiedPerson(healthCertificates: [vaccinationCertificate, recoveryCertificate, testCertificate])
@@ -127,15 +127,15 @@ class TicketValidationConditionsCertificateSelectionTests: XCTestCase {
 		let validationConditions = TicketValidationConditions.fake(fnt: "SCHNEIDER", gnt: "THOMAS", dob: "1983-12-12", type: ["v", "r", "t"])
 		
 		let vaccinationCertificate = try HealthCertificate(
-			base45: try base45Fake(from: .fake(name: .fake(familyName: "Schneider", givenName: "Andrea", standardizedFamilyName: "SCHNEIDER", standardizedGivenName: "ANDREA"), vaccinationEntries: [.fake()]))
+			base45: try base45Fake(digitalCovidCertificate: .fake(name: .fake(familyName: "Schneider", givenName: "Andrea", standardizedFamilyName: "SCHNEIDER", standardizedGivenName: "ANDREA"), vaccinationEntries: [.fake()]))
 		)
 
 		let recoveryCertificate = try HealthCertificate(
-			base45: try base45Fake(from: .fake(name: .fake(familyName: "Schneider", givenName: "Andrea", standardizedFamilyName: "SCHNEIDER", standardizedGivenName: "ANDREA"), recoveryEntries: [.fake()]))
+			base45: try base45Fake(digitalCovidCertificate: .fake(name: .fake(familyName: "Schneider", givenName: "Andrea", standardizedFamilyName: "SCHNEIDER", standardizedGivenName: "ANDREA"), recoveryEntries: [.fake()]))
 		)
 		
 		let testCertificate = try HealthCertificate(
-			base45: try base45Fake(from: .fake(name: .fake(familyName: "Schneider", givenName: "Andrea", standardizedFamilyName: "SCHNEIDER", standardizedGivenName: "ANDREA"), testEntries: [.fake()]))
+			base45: try base45Fake(digitalCovidCertificate: .fake(name: .fake(familyName: "Schneider", givenName: "Andrea", standardizedFamilyName: "SCHNEIDER", standardizedGivenName: "ANDREA"), testEntries: [.fake()]))
 		)
 		
 		let certifiedPerson = HealthCertifiedPerson(healthCertificates: [vaccinationCertificate, recoveryCertificate, testCertificate])
@@ -150,15 +150,15 @@ class TicketValidationConditionsCertificateSelectionTests: XCTestCase {
 		let validationConditions = TicketValidationConditions.fake(fnt: "SCHNEIDER", gnt: "ANDREA", dob: "1989-12-12", type: ["v", "r", "t"])
 		
 		let vaccinationCertificate = try HealthCertificate(
-			base45: try base45Fake(from: .fake(name: .fake(familyName: "Schneider", givenName: "Andrea", standardizedFamilyName: "SCHNEIDER", standardizedGivenName: "ANDREA"), vaccinationEntries: [.fake()]))
+			base45: try base45Fake(digitalCovidCertificate: .fake(name: .fake(familyName: "Schneider", givenName: "Andrea", standardizedFamilyName: "SCHNEIDER", standardizedGivenName: "ANDREA"), vaccinationEntries: [.fake()]))
 		)
 
 		let recoveryCertificate = try HealthCertificate(
-			base45: try base45Fake(from: .fake(name: .fake(familyName: "Schneider", givenName: "Andrea", standardizedFamilyName: "SCHNEIDER", standardizedGivenName: "ANDREA"), recoveryEntries: [.fake()]))
+			base45: try base45Fake(digitalCovidCertificate: .fake(name: .fake(familyName: "Schneider", givenName: "Andrea", standardizedFamilyName: "SCHNEIDER", standardizedGivenName: "ANDREA"), recoveryEntries: [.fake()]))
 		)
 		
 		let testCertificate = try HealthCertificate(
-			base45: try base45Fake(from: .fake(name: .fake(familyName: "Schneider", givenName: "Andrea", standardizedFamilyName: "SCHNEIDER", standardizedGivenName: "ANDREA"), testEntries: [.fake()]))
+			base45: try base45Fake(digitalCovidCertificate: .fake(name: .fake(familyName: "Schneider", givenName: "Andrea", standardizedFamilyName: "SCHNEIDER", standardizedGivenName: "ANDREA"), testEntries: [.fake()]))
 		)
 		
 		let certifiedPerson = HealthCertifiedPerson(healthCertificates: [vaccinationCertificate, recoveryCertificate, testCertificate])
@@ -174,15 +174,15 @@ class TicketValidationConditionsCertificateSelectionTests: XCTestCase {
 		let validationConditions = TicketValidationConditions.fake(fnt: "", gnt: "ANDREA", dob: "1989-12-12", type: ["v", "r", "t"])
 		
 		let vaccinationCertificate = try HealthCertificate(
-			base45: try base45Fake(from: .fake(name: .fake(familyName: "Schneider", givenName: "Andrea", standardizedFamilyName: "", standardizedGivenName: "ANDREA"), vaccinationEntries: [.fake()]))
+			base45: try base45Fake(digitalCovidCertificate: .fake(name: .fake(familyName: "Schneider", givenName: "Andrea", standardizedFamilyName: "", standardizedGivenName: "ANDREA"), vaccinationEntries: [.fake()]))
 		)
 
 		let recoveryCertificate = try HealthCertificate(
-			base45: try base45Fake(from: .fake(name: .fake(familyName: "Schneider", givenName: "Andrea", standardizedFamilyName: "", standardizedGivenName: "ANDREA"), recoveryEntries: [.fake()]))
+			base45: try base45Fake(digitalCovidCertificate: .fake(name: .fake(familyName: "Schneider", givenName: "Andrea", standardizedFamilyName: "", standardizedGivenName: "ANDREA"), recoveryEntries: [.fake()]))
 		)
 		
 		let testCertificate = try HealthCertificate(
-			base45: try base45Fake(from: .fake(name: .fake(familyName: "Schneider", givenName: "Andrea", standardizedFamilyName: "", standardizedGivenName: "ANDREA"), testEntries: [.fake()]))
+			base45: try base45Fake(digitalCovidCertificate: .fake(name: .fake(familyName: "Schneider", givenName: "Andrea", standardizedFamilyName: "", standardizedGivenName: "ANDREA"), testEntries: [.fake()]))
 		)
 		
 		let certifiedPerson = HealthCertifiedPerson(healthCertificates: [vaccinationCertificate, recoveryCertificate, testCertificate])
@@ -198,15 +198,15 @@ class TicketValidationConditionsCertificateSelectionTests: XCTestCase {
 		let validationConditions = TicketValidationConditions.fake(fnt: "SCHNEIDER", gnt: "", dob: "1989-12-12", type: ["v", "r", "t"])
 		
 		let vaccinationCertificate = try HealthCertificate(
-			base45: try base45Fake(from: .fake(name: .fake(familyName: "Schneider", givenName: "Andrea", standardizedFamilyName: "SCHNEIDER", standardizedGivenName: ""), vaccinationEntries: [.fake()]))
+			base45: try base45Fake(digitalCovidCertificate: .fake(name: .fake(familyName: "Schneider", givenName: "Andrea", standardizedFamilyName: "SCHNEIDER", standardizedGivenName: ""), vaccinationEntries: [.fake()]))
 		)
 
 		let recoveryCertificate = try HealthCertificate(
-			base45: try base45Fake(from: .fake(name: .fake(familyName: "Schneider", givenName: "Andrea", standardizedFamilyName: "SCHNEIDER", standardizedGivenName: ""), recoveryEntries: [.fake()]))
+			base45: try base45Fake(digitalCovidCertificate: .fake(name: .fake(familyName: "Schneider", givenName: "Andrea", standardizedFamilyName: "SCHNEIDER", standardizedGivenName: ""), recoveryEntries: [.fake()]))
 		)
 		
 		let testCertificate = try HealthCertificate(
-			base45: try base45Fake(from: .fake(name: .fake(familyName: "Schneider", givenName: "Andrea", standardizedFamilyName: "SCHNEIDER", standardizedGivenName: ""), testEntries: [.fake()]))
+			base45: try base45Fake(digitalCovidCertificate: .fake(name: .fake(familyName: "Schneider", givenName: "Andrea", standardizedFamilyName: "SCHNEIDER", standardizedGivenName: ""), testEntries: [.fake()]))
 		)
 		
 		let certifiedPerson = HealthCertifiedPerson(healthCertificates: [vaccinationCertificate, recoveryCertificate, testCertificate])

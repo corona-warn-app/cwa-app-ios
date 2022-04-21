@@ -128,8 +128,8 @@ final class HealthCertificateCellViewModel {
 					return AppStrings.HealthCertificate.ValidityState.expired
 				case .invalid:
 					return AppStrings.HealthCertificate.ValidityState.invalid
-				case .blocked:
-					return AppStrings.HealthCertificate.ValidityState.blocked
+				case .blocked, .revoked:
+					return AppStrings.HealthCertificate.ValidityState.blockedRevoked
 				}
 			} else if healthCertificate.isNew {
 				return AppStrings.HealthCertificate.Person.newlyAddedCertificate
@@ -199,7 +199,7 @@ final class HealthCertificateCellViewModel {
 	}()
 
 	lazy var isValidationButtonEnabled: Bool = {
-		healthCertificate.validityState != .blocked
+		healthCertificate.validityState != .blocked && healthCertificate.validityState != .revoked
 	}()
 	
 	func didTapValidationButton(loadingStateHandler: @escaping (Bool) -> Void) {

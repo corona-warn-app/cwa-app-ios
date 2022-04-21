@@ -7,22 +7,22 @@ import HealthCertificateToolkit
 @testable import ENA
 
 final class TestQRScannerViewModel: QRScannerViewModel {
-
+	
 	private var fakeIsScanning: Bool = false
-
+	
 	override var isScanningActivated: Bool {
 		return fakeIsScanning
 	}
-
+	
 	override func activateScanning() {
 		fakeIsScanning = true
 	}
-
+	
 	override func deactivateScanning() {
 		fakeIsScanning = false
 	}
-
-	#if !targetEnvironment(simulator)
+	
+#if !targetEnvironment(simulator)
 	override func startCaptureSession() {
 		if isScanningActivated {
 			deactivateScanning()
@@ -31,11 +31,11 @@ final class TestQRScannerViewModel: QRScannerViewModel {
 		}
 	}
 	
-	#endif
+#endif
 }
 // swiftlint:disable line_length
 class QRScannerViewModelTests: XCTestCase {
-
+	
 	func test_ifValid_PCR_Test_Scanned_then_parsing_is_successful() {
 		let store = MockTestStore()
 		let appConfigurationProvider = CachedAppConfigurationMock()
@@ -47,19 +47,20 @@ class QRScannerViewModelTests: XCTestCase {
 			dscListProvider: dscListProvider,
 			appConfiguration: appConfigurationProvider,
 			cclService: FakeCCLService(),
-			recycleBin: .fake()
+			recycleBin: .fake(),
+			revocationProvider: RevocationProvider(RestServiceProviderStub())
 		)
 		let onSuccessExpectation = expectation(description: "onSuccess called")
 		onSuccessExpectation.expectedFulfillmentCount = 1
 		let onFailureExpectation = expectation(description: "onFailure called")
 		onFailureExpectation.expectedFulfillmentCount = 1
-
+		
 		let qrCodeParser = QRCodeParser(
 			appConfigurationProvider: appConfigurationProvider,
 			healthCertificateService: healthCertificateService,
 			markCertificateAsNew: false
 		)
-
+		
 		let viewModel = TestQRScannerViewModel(
 			healthCertificateService: healthCertificateService,
 			appConfiguration: appConfigurationProvider,
@@ -100,17 +101,18 @@ class QRScannerViewModelTests: XCTestCase {
 			dscListProvider: dscListProvider,
 			appConfiguration: appConfigurationProvider,
 			cclService: FakeCCLService(),
-			recycleBin: .fake()
+			recycleBin: .fake(),
+			revocationProvider: RevocationProvider(RestServiceProviderStub())
 		)
 		let onSuccessExpectation = expectation(description: "onSuccess called")
 		onSuccessExpectation.expectedFulfillmentCount = 1
-
+		
 		let qrCodeParser = QRCodeParser(
 			appConfigurationProvider: appConfigurationProvider,
 			healthCertificateService: healthCertificateService,
 			markCertificateAsNew: false
 		)
-
+		
 		let viewModel = TestQRScannerViewModel(
 			healthCertificateService: healthCertificateService,
 			appConfiguration: appConfigurationProvider,
@@ -148,17 +150,18 @@ class QRScannerViewModelTests: XCTestCase {
 			dscListProvider: dscListProvider,
 			appConfiguration: appConfigurationProvider,
 			cclService: FakeCCLService(),
-			recycleBin: .fake()
+			recycleBin: .fake(),
+			revocationProvider: RevocationProvider(RestServiceProviderStub())
 		)
 		let onSuccessExpectation = expectation(description: "onSuccess called")
 		onSuccessExpectation.expectedFulfillmentCount = 1
-
+		
 		let qrCodeParser = QRCodeParser(
 			appConfigurationProvider: appConfigurationProvider,
 			healthCertificateService: healthCertificateService,
 			markCertificateAsNew: false
 		)
-
+		
 		let viewModel = TestQRScannerViewModel(
 			healthCertificateService: healthCertificateService,
 			appConfiguration: appConfigurationProvider,
@@ -195,17 +198,18 @@ class QRScannerViewModelTests: XCTestCase {
 			dscListProvider: dscListProvider,
 			appConfiguration: appConfigurationProvider,
 			cclService: FakeCCLService(),
-			recycleBin: .fake()
+			recycleBin: .fake(),
+			revocationProvider: RevocationProvider(RestServiceProviderStub())
 		)
 		let onSuccessExpectation = expectation(description: "onSuccess called")
 		onSuccessExpectation.expectedFulfillmentCount = 1
-
+		
 		let qrCodeParser = QRCodeParser(
 			appConfigurationProvider: appConfigurationProvider,
 			healthCertificateService: healthCertificateService,
 			markCertificateAsNew: false
 		)
-
+		
 		let viewModel = TestQRScannerViewModel(
 			healthCertificateService: healthCertificateService,
 			appConfiguration: appConfigurationProvider,
@@ -244,17 +248,18 @@ class QRScannerViewModelTests: XCTestCase {
 			dscListProvider: dscListProvider,
 			appConfiguration: appConfigurationProvider,
 			cclService: FakeCCLService(),
-			recycleBin: .fake()
+			recycleBin: .fake(),
+			revocationProvider: RevocationProvider(RestServiceProviderStub())
 		)
 		let onSuccessExpectation = expectation(description: "onSuccess called")
 		onSuccessExpectation.expectedFulfillmentCount = 1
-
+		
 		let qrCodeParser = QRCodeParser(
 			appConfigurationProvider: appConfigurationProvider,
 			healthCertificateService: healthCertificateService,
 			markCertificateAsNew: false
 		)
-
+		
 		let viewModel = TestQRScannerViewModel(
 			healthCertificateService: healthCertificateService,
 			appConfiguration: appConfigurationProvider,
@@ -294,17 +299,18 @@ class QRScannerViewModelTests: XCTestCase {
 			dscListProvider: dscListProvider,
 			appConfiguration: appConfigurationProvider,
 			cclService: FakeCCLService(),
-			recycleBin: .fake()
+			recycleBin: .fake(),
+			revocationProvider: RevocationProvider(RestServiceProviderStub())
 		)
 		let onFailureExpectation = expectation(description: "onFailure called")
 		onFailureExpectation.expectedFulfillmentCount = 1
-
+		
 		let qrCodeParser = QRCodeParser(
 			appConfigurationProvider: appConfigurationProvider,
 			healthCertificateService: healthCertificateService,
 			markCertificateAsNew: false
 		)
-
+		
 		let viewModel = TestQRScannerViewModel(
 			healthCertificateService: healthCertificateService,
 			appConfiguration: appConfigurationProvider,
@@ -319,7 +325,7 @@ class QRScannerViewModelTests: XCTestCase {
 					XCTAssertEqual(generalScanningError, .codeNotFound, "Error type should be code not found")
 				default:
 					XCTFail("Expected the error type to be codeNotFound")
-
+					
 				}
 				onFailureExpectation.fulfill()
 			}
@@ -331,7 +337,7 @@ class QRScannerViewModelTests: XCTestCase {
 		viewModel.didScan(metadataObjects: [metaDataObject])
 		waitForExpectations(timeout: .short)
 	}
-
+	
 	func testInitialUnsuccessfulScanWithSuccessfulRetry() {
 		let store = MockTestStore()
 		let appConfigurationProvider = CachedAppConfigurationMock()
@@ -343,24 +349,25 @@ class QRScannerViewModelTests: XCTestCase {
 			dscListProvider: dscListProvider,
 			appConfiguration: appConfigurationProvider,
 			cclService: FakeCCLService(),
-			recycleBin: .fake()
+			recycleBin: .fake(),
+			revocationProvider: RevocationProvider(RestServiceProviderStub())
 		)
-
+		
 		let validGuid = "https://e.coronawarn.app?v=1#CAESJQgBEgpBZ3dheSBJbmMuGhExNTk0IERlZmZlIEF2ZW51ZSgAMAAadggBEmA4xNrp5hKJoO_yVbXfF1gS8Yc5nURhOIVLG3nUcSg8IPsI2e8JSIhg-FrHUymQ3RR80KUKb1lZjLQkfTUINUP16r6-jFDURwUlCQQi6NXCgI0rQw0a4MrVrKMbF4NzhQMaEPXDJZ2XSeO0SY43-KCQlQciBggBEAQYHA"
 		let emptyGuid = ""
-
+		
 		let onSuccessExpectation = expectation(description: "onSuccess called")
 		onSuccessExpectation.expectedFulfillmentCount = 1
-
+		
 		let onErrorExpectation = expectation(description: "onError called")
 		onErrorExpectation.expectedFulfillmentCount = 1
-
+		
 		let qrCodeParser = QRCodeParser(
 			appConfigurationProvider: appConfigurationProvider,
 			healthCertificateService: healthCertificateService,
 			markCertificateAsNew: false
 		)
-
+		
 		let viewModel = TestQRScannerViewModel(
 			healthCertificateService: healthCertificateService,
 			appConfiguration: appConfigurationProvider,
@@ -380,35 +387,35 @@ class QRScannerViewModelTests: XCTestCase {
 				}
 			}
 		}
-
+		
 		viewModel.activateScanning()
-
+		
 		let invalidMetaDataObject = FakeMetadataMachineReadableCodeObject(stringValue: emptyGuid)
 		viewModel.didScan(metadataObjects: [invalidMetaDataObject])
-
+		
 		wait(for: [onErrorExpectation], timeout: .short)
-
+		
 		let validMetaDataObject = FakeMetadataMachineReadableCodeObject(stringValue: validGuid)
 		viewModel.activateScanning()
 		viewModel.didScan(metadataObjects: [validMetaDataObject])
-
+		
 		wait(for: [onSuccessExpectation], timeout: .short)
 	}
-
+	
 	func testDCCPersonCountMax() {
 		var appFeature = SAP_Internal_V2_AppFeature()
 		appFeature.label = "dcc-person-count-max"
 		appFeature.value = 17
-
+		
 		var appFeatures = SAP_Internal_V2_AppFeatures()
 		appFeatures.appFeatures = [appFeature]
-
+		
 		var appConfig = SAP_Internal_V2_ApplicationConfigurationIOS()
 		appConfig.appFeatures = appFeatures
-
+		
 		let appConfigProvider = CachedAppConfigurationMock(with: appConfig, store: MockTestStore())
-
+		
 		XCTAssertEqual(appConfigProvider.featureProvider.intValue(for: .dccPersonCountMax), 17)
 	}
-
+	
 }
