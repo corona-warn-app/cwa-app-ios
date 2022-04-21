@@ -17,15 +17,7 @@ class AntigenTestPersonProfileCellModel {
 
 		title = AppStrings.AntigenProfile.Overview.title
 		
-		if let firstName = antigenTestProfile.firstName, let lastName = antigenTestProfile.lastName {
-			name = "\(firstName) \(lastName)"
-		} else if let firstName = antigenTestProfile.firstName {
-			name = firstName
-		} else if let lastName = antigenTestProfile.lastName {
-			name = lastName
-		} else {
-			name = nil
-		}
+		name = antigenTestProfile.fullName
 
 		qrCodeViewModel = QRCodeCellViewModel(
 			antigenTestProfile: antigenTestProfile,

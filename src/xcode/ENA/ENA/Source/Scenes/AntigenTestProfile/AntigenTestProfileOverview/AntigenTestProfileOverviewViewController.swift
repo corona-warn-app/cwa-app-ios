@@ -159,9 +159,7 @@ class AntigenTestProfileOverviewViewController: UITableViewController, DismissHa
 
 		let cellModel = viewModel.antigenTestPersonProfileCellModel(at: indexPath)
 		
-		cell.configure(
-			with: cellModel
-		)
+		cell.configure(with: cellModel)
 
 		return cell
 	}
