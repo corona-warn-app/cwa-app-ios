@@ -11,14 +11,14 @@ class CreateAntigenTestProfileViewModelTests: CWATestCase {
 		// GIVEN
 		let store = MockTestStore()
 		let antigenTestProfile = AntigenTestProfile(
-			firstName: "Max",
-			lastName: "Mustermann",
-			dateOfBirth: Date(timeIntervalSince1970: 390047238),
-			addressLine: "Blumenstraße 2",
-			zipCode: "43923",
-			city: "Berlin",
-			phoneNumber: "0165434563",
-			email: "sabine.schulz@gmx.com"
+			firstName: "",
+			lastName: "",
+			dateOfBirth: nil,
+			addressLine: "",
+			zipCode: "",
+			city: "",
+			phoneNumber: "",
+			email: ""
 		)
 		store.antigenTestProfiles = [antigenTestProfile]
 		let viewModel = AntigenTestProfileInputViewModel(store: store, antigenTestProfile: antigenTestProfile)
@@ -60,14 +60,14 @@ class CreateAntigenTestProfileViewModelTests: CWATestCase {
 		// GIVEN
 		let store = MockTestStore()
 		let antigenTestProfile = AntigenTestProfile(
-			firstName: "Max",
-			lastName: "Mustermann",
-			dateOfBirth: Date(timeIntervalSince1970: 390047238),
-			addressLine: "Blumenstraße 2",
-			zipCode: "43923",
-			city: "Berlin",
-			phoneNumber: "0165434563",
-			email: "sabine.schulz@gmx.com"
+			firstName: "",
+			lastName: "",
+			dateOfBirth: nil,
+			addressLine: "",
+			zipCode: "",
+			city: "",
+			phoneNumber: "",
+			email: ""
 		)
 		store.antigenTestProfiles = [antigenTestProfile]
 		let viewModel = AntigenTestProfileInputViewModel(store: store, antigenTestProfile: antigenTestProfile)
@@ -117,14 +117,14 @@ class CreateAntigenTestProfileViewModelTests: CWATestCase {
 		// GIVEN
 		let store = MockTestStore()
 		let antigenTestProfile = AntigenTestProfile(
-			firstName: "Max",
-			lastName: "Mustermann",
-			dateOfBirth: Date(timeIntervalSince1970: 390047238),
-			addressLine: "Blumenstraße 2",
-			zipCode: "43923",
-			city: "Berlin",
-			phoneNumber: "0165434563",
-			email: "sabine.schulz@gmx.com"
+			firstName: "",
+			lastName: "",
+			dateOfBirth: nil,
+			addressLine: "",
+			zipCode: "",
+			city: "",
+			phoneNumber: "",
+			email: ""
 		)
 		store.antigenTestProfiles = [antigenTestProfile]
 		let viewModel = AntigenTestProfileInputViewModel(store: store, antigenTestProfile: antigenTestProfile)
