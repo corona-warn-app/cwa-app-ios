@@ -11,7 +11,7 @@ class Locator_KidTypeIndexTests: XCTestCase {
 		let kidTypeIndexLocator = Locator(kid: "SomeKid", hashType: "SomeType")
 		XCTAssertEqual(
 			kidTypeIndexLocator.paths,
-			["version", "v1", "dcc-rl", "SomeKidSomeType", "index"]
+			["version", "v1", "dcc-rl", "SomeKidSomeType"]
 		)
 	}
 }

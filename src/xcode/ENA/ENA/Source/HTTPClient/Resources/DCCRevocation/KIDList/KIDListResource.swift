@@ -45,6 +45,13 @@ struct KIDListResource: Resource {
 	var type: ServiceType
 	let sendResource: EmptySendResource
 	let receiveResource: ProtobufReceiveResource<SAP_Internal_Dgc_RevocationKidList>
+
+#if !RELEASE
+	var defaultMockLoadResource: LoadResource? = LoadResource(
+		result: .success(SAP_Internal_Dgc_RevocationKidList()),
+		willLoadResource: nil
+	)
+#endif
 	
 	func customError(for error: ServiceError<KIDListResourceError>, responseBody: Data?) -> KIDListResourceError? {
 		switch error {

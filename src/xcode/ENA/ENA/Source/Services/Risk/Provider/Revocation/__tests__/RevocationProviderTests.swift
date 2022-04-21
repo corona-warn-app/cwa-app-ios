@@ -25,7 +25,7 @@ class RevocationProviderTests: CWATestCase {
 							return
 						}
 
-						XCTAssertEqual(resource.locator.paths, ["version", "v1", "dcc-rl", "\(self.recoveryCertificateKeyIdentifier)0a", "index"])
+						XCTAssertEqual(resource.locator.paths, ["version", "v1", "dcc-rl", "\(self.recoveryCertificateKeyIdentifier)0a"])
 					}
 				),
 				// Update KID-Type chunk for recovery certificate, recovery certificate is revoked
@@ -50,7 +50,7 @@ class RevocationProviderTests: CWATestCase {
 							return
 						}
 
-						XCTAssertEqual(resource.locator.paths, ["version", "v1", "dcc-rl", "\(self.boosterCertificateKeyIdentifier)0b", "index"])
+						XCTAssertEqual(resource.locator.paths, ["version", "v1", "dcc-rl", "\(self.boosterCertificateKeyIdentifier)0b"])
 					}
 				),
 				// Update KID-Type chunk for booster certificate, booster certificate is not revoked for hash type 0b
@@ -74,7 +74,7 @@ class RevocationProviderTests: CWATestCase {
 							return
 						}
 
-						XCTAssertEqual(resource.locator.paths, ["version", "v1", "dcc-rl", "\(self.boosterCertificateKeyIdentifier)0c", "index"])
+						XCTAssertEqual(resource.locator.paths, ["version", "v1", "dcc-rl", "\(self.boosterCertificateKeyIdentifier)0c"])
 					}
 				),
 				// Update KID-Type chunk for booster certificate, booster certificate is revoked for hash type 0c
@@ -97,7 +97,9 @@ class RevocationProviderTests: CWATestCase {
 		let expectation = expectation(description: "success expectation")
 
 		revocationProvider.updateCache(with: certificates) { revokedCertificates in
-			XCTAssertEqual(revokedCertificates, [self.certificates[3], self.certificates[4]])
+			XCTAssertEqual(revokedCertificates.count, 2)
+			XCTAssertTrue(revokedCertificates.contains(self.certificates[3]))
+			XCTAssertTrue(revokedCertificates.contains(self.certificates[4]))
 
 			expectation.fulfill()
 		}
