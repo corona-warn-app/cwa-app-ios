@@ -25,6 +25,7 @@ class ENAUITests_12_AntigenTestProfile: CWATestCase {
 	
 	// MARK: - Tests
 	
+	/* EXPOSUREAPP-12650
 	func test_FIRST_CreateAntigenTestProfile_THEN_EditProfile_THEN_DeleteProfile() throws {
 		
 		app.launch()
@@ -211,4 +212,5 @@ class ENAUITests_12_AntigenTestProfile: CWATestCase {
 
 		XCTAssertTrue(app.buttons[AccessibilityLabels.localized(AppStrings.AntigenProfile.Overview.addButtonTitle)].waitForExistence(timeout: .short))
 	}
+	*/
 }

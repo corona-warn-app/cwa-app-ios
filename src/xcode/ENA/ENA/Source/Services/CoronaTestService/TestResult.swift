@@ -86,4 +86,7 @@ enum TestResult: Int, CaseIterable, Codable {
 		}
 	}
 
+	static func serverResponseAsString(for testResult: TestResult, on coronaTestType: CoronaTestType) -> String {
+		return String(serverResponse(for: testResult, on: coronaTestType))
+	}
 }

@@ -30,8 +30,6 @@ class FamilyTestsHomeCellViewModel {
 
 	// MARK: - Internal
 
-	let titleText: String = AppStrings.Home.familyTestTitle
-
  	var badgeCount: CurrentValueSubject<Int, Never> = CurrentValueSubject(0)
 
 	var badgeText: String? {

@@ -220,16 +220,22 @@ final class SecureStore: SecureKeyValueStoring, Store, AntigenTestProfileStoring
     // MARK: - Protocol AntigenTestProfileStoring
 
 	private(set) lazy var antigenTestProfilesSubject = CurrentValueSubject<[AntigenTestProfile], Never>(antigenTestProfiles)
-
-	var antigenTestProfile: AntigenTestProfile? {
-		get { kvStore["antigenTestProfile"] as AntigenTestProfile? }
-		set {
-			kvStore["antigenTestProfile"] = newValue
-		}
-	}
-
+		
 	var antigenTestProfiles: [AntigenTestProfile] {
-		get { kvStore["antigenTestProfiles"] as [AntigenTestProfile]? ?? [] }
+		get {
+			var antigenTestProfiles = kvStore["antigenTestProfiles"] as [AntigenTestProfile]? ?? []
+			
+			if let existingProfile = kvStore["antigenTestProfile"] as AntigenTestProfile? {
+				// add existing profile to the list of profiles and update store
+				antigenTestProfiles.append(existingProfile)
+				kvStore["antigenTestProfiles"] = antigenTestProfiles
+				
+				// clear the existing profile from the store
+				kvStore["antigenTestProfile"] = nil
+			}
+			
+			return antigenTestProfiles
+		}
 		set {
 			kvStore["antigenTestProfiles"] = newValue
 			antigenTestProfilesSubject.send(newValue)

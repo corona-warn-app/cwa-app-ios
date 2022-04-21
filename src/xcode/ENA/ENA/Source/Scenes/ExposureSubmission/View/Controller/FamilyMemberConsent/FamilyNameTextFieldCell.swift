@@ -39,6 +39,11 @@ class FamilyNameTextFieldCell: UITableViewCell, UITextFieldDelegate, ReuseIdenti
 		endEditing(true)
 	}
 
+	func textFieldShouldClear(_ textField: UITextField) -> Bool {
+		model = nil
+		return true
+	}
+
 	// MARK: - Internal
 
 	@OpenCombine.Published private(set) var model: String?

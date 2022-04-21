@@ -3090,6 +3090,50 @@ class FamilyMemberCoronaTestServiceTests: CWATestCase {
 		XCTAssertEqual(store.recycleBinItemsSubject.value.count, 3)
 	}
 
+	func testMovingAllCoronaTestsToBin() {
+		let client = ClientMock()
+		let store = MockTestStore()
+		let appConfiguration = CachedAppConfigurationMock()
+		let recycleBin = RecycleBin(store: store)
+
+		let healthCertificateService = HealthCertificateService(
+			store: store,
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
+			dscListProvider: MockDSCListProvider(),
+			appConfiguration: appConfiguration,
+			cclService: FakeCCLService(),
+			recycleBin: recycleBin
+		)
+
+		let service = FamilyMemberCoronaTestService(
+			client: client,
+			store: store,
+			appConfiguration: appConfiguration,
+			healthCertificateService: healthCertificateService,
+			healthCertificateRequestService: HealthCertificateRequestService(
+				store: store,
+				client: client,
+				appConfiguration: appConfiguration,
+				healthCertificateService: healthCertificateService
+			),
+			recycleBin: recycleBin
+		)
+
+		let pcrTest: FamilyMemberCoronaTest = .pcr(.mock(registrationToken: "regToken", qrCodeHash: "pcrQRCodeHash"))
+		let antigenTest: FamilyMemberCoronaTest = .antigen(.mock(registrationToken: "regToken", qrCodeHash: "antigenQRCodeHash"))
+
+		service.coronaTests.value = [pcrTest, antigenTest]
+
+		XCTAssertTrue(store.recycleBinItems.isEmpty)
+		XCTAssertTrue(store.recycleBinItemsSubject.value.isEmpty)
+
+		service.moveAllTestsToBin()
+
+		XCTAssertEqual(service.coronaTests.value, [])
+		XCTAssertEqual(store.recycleBinItems.count, 2)
+		XCTAssertEqual(store.recycleBinItemsSubject.value.count, 2)
+	}
+
 	func testDeletingCoronaTest() {
 		let client = ClientMock()
 		let store = MockTestStore()

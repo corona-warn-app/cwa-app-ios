@@ -30,6 +30,8 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 		onSettingsCellTap: @escaping (ENStateHandler.State) -> Void,
 		onRecycleBinCellTap: @escaping () -> Void,
 		showTestInformationResult: @escaping (Result<CoronaTestRegistrationInformation, QRCodeError>) -> Void,
+		showUserTestResultFromNotification: @escaping (CoronaTestType) -> Void,
+		showFamilyMemberCoronaTestsFromNotification: @escaping () -> Void,
 		onAddLocalStatisticsTap: @escaping (SelectValueTableViewController) -> Void,
 		onAddDistrict: @escaping (SelectValueTableViewController) -> Void,
 		onDismissState: @escaping () -> Void,
@@ -54,6 +56,8 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 		self.onSettingsCellTap = onSettingsCellTap
 		self.onRecycleBinCellTap = onRecycleBinCellTap
 		self.showTestInformationResult = showTestInformationResult
+		self.showUserTestResultFromNotification = showUserTestResultFromNotification
+		self.showFamilyMemberCoronaTestsFromNotification = showFamilyMemberCoronaTestsFromNotification
 		self.onAddStateButtonTap = onAddLocalStatisticsTap
 		self.onAddDistrict = onAddDistrict
 		self.onDismissState = onDismissState
@@ -319,6 +323,8 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 	private let onSettingsCellTap: (ENStateHandler.State) -> Void
 	private let onRecycleBinCellTap: () -> Void
 	private let showTestInformationResult: (Result<CoronaTestRegistrationInformation, QRCodeError>) -> Void
+	private let showUserTestResultFromNotification: (CoronaTestType) -> Void
+	private let showFamilyMemberCoronaTestsFromNotification: () -> Void
 	private var onAddStateButtonTap: (SelectValueTableViewController) -> Void
 	private var onAddDistrict: (SelectValueTableViewController) -> Void
 	private var onDismissState: () -> Void
@@ -705,17 +711,20 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 			route = nil
 		}
 
-		// handle error -> show alert & trigger the chain
 		switch route {
 		case .rapidAntigen(let testResult), .rapidPCR(let testResult):
 			showTestInformationResult(testResult)
-		case .testResultFromNotification,
-			 .checkIn,
+		case .familyMemberTestResultFromNotification:
+			showFamilyMemberCoronaTestsFromNotification()
+		case .testResultFromNotification(let coronaTestType):
+			showUserTestResultFromNotification(coronaTestType)
+		case .checkIn,
 			 .healthCertificateFromNotification,
 			 .healthCertifiedPersonFromNotification,
 			 .none:
 			break
 		}
+
 		completion()
 	}
 

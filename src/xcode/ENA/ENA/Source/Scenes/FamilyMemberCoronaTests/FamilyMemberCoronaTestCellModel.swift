@@ -30,7 +30,7 @@ class FamilyMemberCoronaTestCellModel {
 	@OpenCombine.Published var caption: String! = ""
 	@OpenCombine.Published var topDiagnosis: String! = ""
 	@OpenCombine.Published var bottomDiagnosis: String?
-	@OpenCombine.Published var bottomDiagnosisColor: UIColor! = .enaColor(for: .riskLow)
+	@OpenCombine.Published var bottomDiagnosisColor: UIColor?
 	@OpenCombine.Published var description: String?
 	@OpenCombine.Published var footnote: String?
 	@OpenCombine.Published var buttonTitle: String?
@@ -39,7 +39,7 @@ class FamilyMemberCoronaTestCellModel {
 	@OpenCombine.Published var isDisclosureIndicatorHidden: Bool = false
 	@OpenCombine.Published var isUserInteractionEnabled: Bool = false
 	@OpenCombine.Published var isCellTappable: Bool = true
-	@OpenCombine.Published var accessibilityIdentifier: String! = AccessibilityIdentifiers.Home.TestResultCell.unconfiguredButton
+	@OpenCombine.Published var accessibilityIdentifier: String! = ""
 
 	var coronaTest: FamilyMemberCoronaTest
 
@@ -54,7 +54,6 @@ class FamilyMemberCoronaTestCellModel {
 
 	private func setup() {
 		familyMemberCoronaTestService.coronaTests
-			.receive(on: DispatchQueue.main.ocombine)
 			.sink { [weak self] _ in
 				guard let self = self, let updatedCoronaTest = self.familyMemberCoronaTestService.upToDateTest(for: self.coronaTest) else {
 					return
@@ -96,48 +95,10 @@ class FamilyMemberCoronaTestCellModel {
 		isConfigured = true
 	}
 
-	private func configureTestResultNegative() {
-		topDiagnosis = AppStrings.FamilyMemberCoronaTest.negativeTopDiagnosis
-		bottomDiagnosis = AppStrings.FamilyMemberCoronaTest.negativeBottomDiagnosis
-		bottomDiagnosisColor = .enaColor(for: .riskLow)
-		description = nil
-		footnote = formattedFootnote
-		buttonTitle = nil
-		image = UIImage(named: "FamilyMember_CoronaTest_negative")
-		isDisclosureIndicatorHidden = false
-		isUserInteractionEnabled = true
-		isCellTappable = true
-
-		switch coronaTest.type {
-		case .pcr:
-			accessibilityIdentifier = AccessibilityIdentifiers.FamilyMemberCoronaTestCell.negativePCR
-		case .antigen:
-			accessibilityIdentifier = AccessibilityIdentifiers.FamilyMemberCoronaTestCell.negativeAntigen
-		}
-	}
-
-	private func configureTestResultInvalid() {
-		topDiagnosis = AppStrings.FamilyMemberCoronaTest.invalidDiagnosis
-		bottomDiagnosis = nil
-		description = AppStrings.FamilyMemberCoronaTest.invalidDescription
-		footnote = nil
-		buttonTitle = nil
-		image = UIImage(named: "FamilyMember_CoronaTest_invalid_expired")
-		isDisclosureIndicatorHidden = false
-		isUserInteractionEnabled = true
-		isCellTappable = true
-
-		switch coronaTest.type {
-		case .pcr:
-			accessibilityIdentifier = AccessibilityIdentifiers.FamilyMemberCoronaTestCell.invalidPCR
-		case .antigen:
-			accessibilityIdentifier = AccessibilityIdentifiers.FamilyMemberCoronaTestCell.invalidAntigen
-		}
-	}
-
 	private func configureTestResultPending() {
 		topDiagnosis = AppStrings.FamilyMemberCoronaTest.pendingDiagnosis
 		bottomDiagnosis = nil
+		bottomDiagnosisColor = nil
 
 		switch coronaTest.type {
 		case .pcr:
@@ -161,6 +122,46 @@ class FamilyMemberCoronaTestCellModel {
 		}
 	}
 
+	private func configureTestResultNegative() {
+		topDiagnosis = AppStrings.FamilyMemberCoronaTest.negativeTopDiagnosis
+		bottomDiagnosis = AppStrings.FamilyMemberCoronaTest.negativeBottomDiagnosis
+		bottomDiagnosisColor = .enaColor(for: .riskLow)
+		description = nil
+		footnote = formattedFootnote
+		buttonTitle = nil
+		image = UIImage(named: "FamilyMember_CoronaTest_negative")
+		isDisclosureIndicatorHidden = false
+		isUserInteractionEnabled = true
+		isCellTappable = true
+
+		switch coronaTest.type {
+		case .pcr:
+			accessibilityIdentifier = AccessibilityIdentifiers.FamilyMemberCoronaTestCell.negativePCR
+		case .antigen:
+			accessibilityIdentifier = AccessibilityIdentifiers.FamilyMemberCoronaTestCell.negativeAntigen
+		}
+	}
+
+	private func configureTestResultInvalid() {
+		topDiagnosis = AppStrings.FamilyMemberCoronaTest.invalidDiagnosis
+		bottomDiagnosis = nil
+		bottomDiagnosisColor = nil
+		description = AppStrings.FamilyMemberCoronaTest.invalidDescription
+		footnote = nil
+		buttonTitle = nil
+		image = UIImage(named: "FamilyMember_CoronaTest_invalid_expired")
+		isDisclosureIndicatorHidden = false
+		isUserInteractionEnabled = true
+		isCellTappable = true
+
+		switch coronaTest.type {
+		case .pcr:
+			accessibilityIdentifier = AccessibilityIdentifiers.FamilyMemberCoronaTestCell.invalidPCR
+		case .antigen:
+			accessibilityIdentifier = AccessibilityIdentifiers.FamilyMemberCoronaTestCell.invalidAntigen
+		}
+	}
+
 	private func configureTestResultPositive() {
 		topDiagnosis = AppStrings.FamilyMemberCoronaTest.positiveTopDiagnosis
 		bottomDiagnosis = AppStrings.FamilyMemberCoronaTest.positiveBottomDiagnosis
@@ -175,15 +176,16 @@ class FamilyMemberCoronaTestCellModel {
 
 		switch coronaTest.type {
 		case .pcr:
-			accessibilityIdentifier = AccessibilityIdentifiers.FamilyMemberCoronaTestCell.availablePCR
+			accessibilityIdentifier = AccessibilityIdentifiers.FamilyMemberCoronaTestCell.positivePCR
 		case .antigen:
-			accessibilityIdentifier = AccessibilityIdentifiers.FamilyMemberCoronaTestCell.availableAntigen
+			accessibilityIdentifier = AccessibilityIdentifiers.FamilyMemberCoronaTestCell.positiveAntigen
 		}
 	}
 
 	private func configureTestResultExpired() {
 		topDiagnosis = AppStrings.FamilyMemberCoronaTest.expiredDiagnosis
 		bottomDiagnosis = nil
+		bottomDiagnosisColor = nil
 		description = AppStrings.FamilyMemberCoronaTest.expiredDescription
 		footnote = nil
 		buttonTitle = AppStrings.FamilyMemberCoronaTest.expiredButtonTitle
@@ -203,6 +205,7 @@ class FamilyMemberCoronaTestCellModel {
 	private func configureTestResultOutdated() {
 		topDiagnosis = AppStrings.FamilyMemberCoronaTest.outdatedDiagnosis
 		bottomDiagnosis = nil
+		bottomDiagnosisColor = nil
 		description = String(
 			format: AppStrings.FamilyMemberCoronaTest.outdatedDescription,
 			appConfigurationProvider.currentAppConfig.value.coronaTestParameters.coronaRapidAntigenTestParameters.hoursToDeemTestOutdated

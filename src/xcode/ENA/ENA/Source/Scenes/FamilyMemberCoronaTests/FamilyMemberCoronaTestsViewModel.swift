@@ -22,13 +22,11 @@ class FamilyMemberCoronaTestsViewModel {
 
 		familyMemberCoronaTestService.coronaTests
 			.sink { [weak self] in
-				guard !$0.isEmpty else {
-					self?.coronaTestCellModels = []
-					onLastDeletion()
-					return
-				}
-
 				self?.update(from: $0)
+
+				if $0.isEmpty {
+					onLastDeletion()
+				}
 			}
 			.store(in: &subscriptions)
 	}
@@ -41,7 +39,7 @@ class FamilyMemberCoronaTestsViewModel {
 
 	let triggerReload = CurrentValueSubject<Bool, Never>(false)
 	let isUpdatingTestResults = CurrentValueSubject<Bool, Never>(false)
-	let testResultLoadingError = CurrentValueSubject<Error?, Never>(nil)
+	let testResultLoadingError = CurrentValueSubject<CoronaTestServiceError?, Never>(nil)
 
 	var onUpdate: (() -> Void)?
 
@@ -101,6 +99,10 @@ class FamilyMemberCoronaTestsViewModel {
 		familyMemberCoronaTestService.moveAllTestsToBin()
 	}
 
+	func markAllAsSeen() {
+		familyMemberCoronaTestService.evaluateShowingAllTests()
+	}
+
 	func updateTestResults() {
 		isUpdatingTestResults.value = true
 
@@ -133,10 +135,6 @@ class FamilyMemberCoronaTestsViewModel {
 				}
 			}
 		}
-	}
-
-	func markAllAsSeen() {
-		familyMemberCoronaTestService.evaluateShowingAllTests()
 	}
 
 	// MARK: - Private

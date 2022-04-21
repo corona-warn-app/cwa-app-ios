@@ -61,7 +61,10 @@ class MockFamilyMemberCoronaTestService: FamilyMemberCoronaTestServiceProviding 
 	func updateTestResults(
 		presentNotification: Bool,
 		completion: @escaping VoidResultHandler
-	) {}
+	) {
+		onUpdateTestResults(presentNotification)
+		completion(updateTestResultsResult ?? .failure(.noRegistrationToken))
+	}
 
 	func updateTestResult(
 		for coronaTest: FamilyMemberCoronaTest,
@@ -72,7 +75,9 @@ class MockFamilyMemberCoronaTestService: FamilyMemberCoronaTestServiceProviding 
 		completion(updateTestResultResult ?? .failure(.noRegistrationToken))
 	}
 
-	func moveAllTestsToBin() {}
+	func moveAllTestsToBin() {
+		onMoveAllTestsToBin()
+	}
 
 	func moveTestToBin(_ coronaTest: FamilyMemberCoronaTest) {
 		onMoveTestToBin(coronaTest)
@@ -82,7 +87,9 @@ class MockFamilyMemberCoronaTestService: FamilyMemberCoronaTestServiceProviding 
 
 	func evaluateShowing(of coronaTest: FamilyMemberCoronaTest, keepMarkedAsNew: Bool) {}
 
-	func evaluateShowingAllTests() {}
+	func evaluateShowingAllTests() {
+		onEvaluateShowingAllTests()
+	}
 
 	func updatePublishersFromStore() {}
 	
@@ -122,10 +129,19 @@ class MockFamilyMemberCoronaTestService: FamilyMemberCoronaTestServiceProviding 
 		_ presentNotification: Bool
 	) -> Void = { _, _ in }
 
+	var updateTestResultsResult: Result<Void, CoronaTestServiceError>?
+	var onUpdateTestResults: (
+		_ presentNotification: Bool
+	) -> Void = { _ in }
+
 	var getSubmissionTANResult: Result<String, CoronaTestServiceError>?
 
 	var onMoveTestToBin: (
 		_ coronaTest: FamilyMemberCoronaTest
 	) -> Void = { _ in }
+
+	var onMoveAllTestsToBin: () -> Void = { }
+
+	var onEvaluateShowingAllTests: () -> Void = { }
 
 }
