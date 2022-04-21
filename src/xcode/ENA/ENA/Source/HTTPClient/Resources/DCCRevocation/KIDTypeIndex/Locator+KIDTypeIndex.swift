@@ -12,7 +12,7 @@ extension Locator {
 	) {
 		self.init(
 			endpoint: .distribution,
-			paths: ["version", "v1", "dcc-rl", "\(kid)\(hashType)", "index"],
+			paths: ["version", "v1", "dcc-rl", "\(kid)\(hashType)"],
 			method: .get
 		)
 	}
