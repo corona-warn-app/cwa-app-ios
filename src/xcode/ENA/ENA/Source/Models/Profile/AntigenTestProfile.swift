@@ -93,6 +93,8 @@ struct AntigenTestProfile: Codable {
 	var email: String?
 	
 	var fullName: String {
-		return (firstName ?? "") + " " + (lastName ?? "")
+		[firstName, lastName]
+			.compactMap { $0 }
+			.joined(separator: " ")
 	}
 }
