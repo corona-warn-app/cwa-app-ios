@@ -536,7 +536,7 @@ class HealthCertificateService: HealthCertificateServiceServable {
 		}
 	}
 
-	func updateRevocationStates(completion: @escaping () -> Void) {
+	func updateRevocationStates(completion: (() -> Void)? = nil) {
 		let allRegisteredCertificates = healthCertifiedPersons.flatMap { $0.healthCertificates }
 
 		revocationProvider.updateCache(
@@ -557,7 +557,7 @@ class HealthCertificateService: HealthCertificateServiceServable {
 						person: person
 					)
 				}
-				self.updateValidityStatesAndNotifications(for: certificateTuples, completion: completion)
+				self.updateValidityStatesAndNotifications(for: certificateTuples, completion: completion ?? {})
 			}
 		)
 	}
