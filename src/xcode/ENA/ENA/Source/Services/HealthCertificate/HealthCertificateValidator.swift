@@ -65,9 +65,7 @@ class HealthCertificateValidator: HealthCertificateValidating {
 			let revocationChunkMatches = revocationChunk.hashes.contains { chunkHash in
 				chunkHash == hash.dataWithHexString()
 			}
-			if revocationChunkMatches {
-				return true
-			}
+			return revocationChunkMatches
 		}
 		
 		return false

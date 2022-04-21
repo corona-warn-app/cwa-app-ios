@@ -24,6 +24,8 @@ extension HealthCertificateService {
 			dccSignatureVerifier: dccSignatureVerifier,
 			dscListProvider: dscListProvider,
 			appConfiguration: appConfiguration,
+			digitalCovidCertificateAccess: digitalCovidCertificateAccess,
+			notificationCenter: notificationCenter,
 			cclService: cclService,
 			recycleBin: recycleBin,
 			revocationProvider: revocationProvider,

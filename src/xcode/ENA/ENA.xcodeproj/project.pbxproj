@@ -1176,7 +1176,7 @@
 		AB82B04A28102B1600FB16A9 /* HealthCertificateValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB82B04928102B1600FB16A9 /* HealthCertificateValidator.swift */; };
 		AB82B04C28104C1700FB16A9 /* HealthCertificateValidatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB82B04B28104C1700FB16A9 /* HealthCertificateValidatorTests.swift */; };
 		AB82B04F28113FEE00FB16A9 /* HealthCertificateValidatorFake.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB82B04E28113FEE00FB16A9 /* HealthCertificateValidatorFake.swift */; };
-		AB82B0522811431600FB16A9 /* HealthCertifcateService+Inits.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB82B0512811431600FB16A9 /* HealthCertifcateService+Inits.swift */; };
+		AB82B0522811431600FB16A9 /* HealthCertificateService+Inits.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB82B0512811431600FB16A9 /* HealthCertificateService+Inits.swift */; };
 		AB86B2AA26026AB5007C77B3 /* EventCheckoutService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB86B2A926026AB5007C77B3 /* EventCheckoutService.swift */; };
 		AB86B2AF26026AC3007C77B3 /* EventCheckoutServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB86B2AE26026AC3007C77B3 /* EventCheckoutServiceTests.swift */; };
 		AB86B2B426033E74007C77B3 /* CheckinSplittingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB86B2B326033E73007C77B3 /* CheckinSplittingService.swift */; };
@@ -2988,7 +2988,7 @@
 		AB82B04928102B1600FB16A9 /* HealthCertificateValidator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthCertificateValidator.swift; sourceTree = "<group>"; };
 		AB82B04B28104C1700FB16A9 /* HealthCertificateValidatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthCertificateValidatorTests.swift; sourceTree = "<group>"; };
 		AB82B04E28113FEE00FB16A9 /* HealthCertificateValidatorFake.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthCertificateValidatorFake.swift; sourceTree = "<group>"; };
-		AB82B0512811431600FB16A9 /* HealthCertifcateService+Inits.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HealthCertifcateService+Inits.swift"; sourceTree = "<group>"; };
+		AB82B0512811431600FB16A9 /* HealthCertificateService+Inits.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HealthCertificateService+Inits.swift"; sourceTree = "<group>"; };
 		AB86B2A926026AB5007C77B3 /* EventCheckoutService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventCheckoutService.swift; sourceTree = "<group>"; };
 		AB86B2AE26026AC3007C77B3 /* EventCheckoutServiceTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventCheckoutServiceTests.swift; sourceTree = "<group>"; };
 		AB86B2B326033E73007C77B3 /* CheckinSplittingService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckinSplittingService.swift; sourceTree = "<group>"; };
@@ -7841,7 +7841,7 @@
 		AB82B050281142E200FB16A9 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				AB82B0512811431600FB16A9 /* HealthCertifcateService+Inits.swift */,
+				AB82B0512811431600FB16A9 /* HealthCertificateService+Inits.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -12192,7 +12192,7 @@
 				01DED65427ABC0EA006A958C /* DCCWalletInfo+Fake.swift in Sources */,
 				A1654EFF24B41FF600C0E115 /* DynamicCellTests.swift in Sources */,
 				BADDD82E2603922000337223 /* AddTraceLocationCellModelTests.swift in Sources */,
-				AB82B0522811431600FB16A9 /* HealthCertifcateService+Inits.swift in Sources */,
+				AB82B0522811431600FB16A9 /* HealthCertificateService+Inits.swift in Sources */,
 				500396EF268DA1A90006D448 /* HealthCertificateValidationServiceValidationTests.swift in Sources */,
 				8FD7E2C927E9EABD00E08ABB /* CCLServiceInvalidationRulesTests.swift in Sources */,
 				AB9E9E7A261308C000515408 /* RiskTests.swift in Sources */,
