@@ -12,9 +12,11 @@ struct LoadResource {
 class RestServiceProviderStub: RestServiceProviding {
 
 	init(
-		loadResources: [LoadResource]
+		loadResources: [LoadResource] = [],
+		cacheResources: [LoadResource] = []
 	) {
 		self.loadResources = loadResources
+		self.cacheResources = cacheResources
 	}
 
 	convenience init(results: [Result<Any, Error>]) {
@@ -23,9 +25,17 @@ class RestServiceProviderStub: RestServiceProviding {
 		}
 		self.init(loadResources: _loadResources)
 	}
+	
+	convenience init(cachedResults: [Result<Any, Error>]) {
+		let _loadResources = cachedResults.map {
+			LoadResource(result: $0, willLoadResource: nil)
+		}
+		self.init(cacheResources: _loadResources)
+	}
 
 	private var loadResources: [LoadResource]
-	
+	private var cacheResources: [LoadResource]
+
 	// MARK: Protocol RestServiceProviding
 
 	func load<R>(
@@ -67,8 +77,29 @@ class RestServiceProviderStub: RestServiceProviding {
 	func cached<R>(
 		_ resource: R
 	) -> Result<R.Receive.ReceiveModel, ServiceError<R.CustomError>> where R: Resource {
-		Log.info("Stub doesn't support cached model access at the moment")
-		return .failure(.resourceError(.missingCache))
+		guard let cacheResource = cacheResources.first else {
+			return .failure(.resourceError(.missingCache))
+		}
+		cacheResources.removeFirst()
+		
+		switch cacheResource.result {
+		case .success(let model):
+			guard let _model = model as? R.Receive.ReceiveModel else {
+				fatalError("Could not cast to receive model.")
+			}
+			return .success(_model)
+		case .failure(let error):
+			guard let _error = error as? ServiceError<R.CustomError> else {
+				fatalError("Could not cast to custom error.")
+			}
+			return .failure(_error)
+		}
+	}
+
+	func resetCache<R>(
+		for resource: R
+	) where R: Resource {
+		fatalError("Not supported")
 	}
 
 	func update(_ evaluateTrust: TrustEvaluating) {

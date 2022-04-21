@@ -35,7 +35,7 @@ class HealthCertifiedPersonTests: CWATestCase {
 			healthCertificates: [
 				try HealthCertificate(
 					base45: try base45Fake(
-						from: DigitalCovidCertificate.fake(
+						digitalCovidCertificate: DigitalCovidCertificate.fake(
 							name: Name.fake(
 								familyName: "A", givenName: "B"
 							),
@@ -51,7 +51,7 @@ class HealthCertifiedPersonTests: CWATestCase {
 			healthCertificates: [
 				try HealthCertificate(
 					base45: try base45Fake(
-						from: DigitalCovidCertificate.fake(
+						digitalCovidCertificate: DigitalCovidCertificate.fake(
 							name: Name.fake(
 								familyName: "A", givenName: "A"
 							),
@@ -79,20 +79,26 @@ class HealthCertifiedPersonTests: CWATestCase {
 	func testGIVEN_PersonWithNewBoosterRuleAndCertificates_WHEN_EncodingAndDecoding_THEN_DataIsStillCorrect() throws {
 		let firstHealthCertificate = try HealthCertificate(
 			base45: try base45Fake(
-					from: DigitalCovidCertificate.fake(vaccinationEntries: [.fake()]
+					digitalCovidCertificate: DigitalCovidCertificate.fake(vaccinationEntries: [.fake()]
 				)
 			),
+			validityState: .valid,
 			didShowInvalidNotification: false,
+			didShowBlockedNotification: false,
+			didShowRevokedNotification: false,
 			isNew: false,
 			isValidityStateNew: false
 		)
 
 		let secondHealthCertificate = try HealthCertificate(
 			base45: try base45Fake(
-					from: DigitalCovidCertificate.fake(vaccinationEntries: [.fake()]
+					digitalCovidCertificate: DigitalCovidCertificate.fake(vaccinationEntries: [.fake()]
 				)
 			),
+			validityState: .invalid,
 			didShowInvalidNotification: true,
+			didShowBlockedNotification: true,
+			didShowRevokedNotification: true,
 			isNew: true,
 			isValidityStateNew: true
 		)
@@ -125,6 +131,7 @@ class HealthCertifiedPersonTests: CWATestCase {
 		XCTAssertEqual(decodedHealthCertifiedPerson.healthCertificates.map { $0.isValidityStateNew }, [firstHealthCertificate, secondHealthCertificate].map { $0.isValidityStateNew })
 		XCTAssertEqual(decodedHealthCertifiedPerson.healthCertificates.map { $0.didShowInvalidNotification }, [firstHealthCertificate, secondHealthCertificate].map { $0.didShowInvalidNotification })
 		XCTAssertEqual(decodedHealthCertifiedPerson.healthCertificates.map { $0.didShowBlockedNotification }, [firstHealthCertificate, secondHealthCertificate].map { $0.didShowBlockedNotification })
+		XCTAssertEqual(decodedHealthCertifiedPerson.healthCertificates.map { $0.didShowRevokedNotification }, [firstHealthCertificate, secondHealthCertificate].map { $0.didShowRevokedNotification })
 	}
 
 }

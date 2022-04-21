@@ -142,6 +142,16 @@ class TaskExecutionHandler: ENATaskExecutionDelegate {
 							Log.info("Done triggering analytics submission…", log: .background)
 						}
 					}
+
+					group.enter()
+					DispatchQueue.global().async {
+						Log.info("Check if DCC wallet infos need to be updated and booster notifications need to be triggered.", log: .background)
+						self.executeDCCWalletInfoUpdatesAndTriggerBoosterNotificationsIfNeeded {
+							group.leave()
+							Log.info("Done checking if DCC wallet infos need to be updated and booster notifications need to be triggered", log: .background)
+						}
+					}
+
 					group.enter()
 					DispatchQueue.global().async {
 						Log.info("Check for invalid certificates", log: .background)
@@ -153,10 +163,10 @@ class TaskExecutionHandler: ENATaskExecutionDelegate {
 
 					group.enter()
 					DispatchQueue.global().async {
-						Log.info("Check if DCC wallet infos need to be updated and booster notifications need to be triggered.", log: .background)
-						self.executeDCCWalletInfoUpdatesAndTriggerBoosterNotificationsIfNeeded {
+						Log.info("Check for revoked certificates", log: .background)
+						self.checkCertificateRevocationStates {
 							group.leave()
-							Log.info("Done checking if DCC wallet infos need to be updated and booster notifications need to be triggered", log: .background)
+							Log.info("Done checking for revoked certificates.", log: .background)
 						}
 					}
 
@@ -371,4 +381,11 @@ class TaskExecutionHandler: ENATaskExecutionDelegate {
 			completion: completion
 		)
 	}
+
+	private func checkCertificateRevocationStates(completion: @escaping () -> Void) {
+		healthCertificateService.updateRevocationStates(
+			completion: completion
+		)
+	}
+
 }

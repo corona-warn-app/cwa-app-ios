@@ -29,6 +29,14 @@ enum HealthCertificateServiceError: Error {
 					return "\(AppStrings.HealthCertificate.Error.hcInvalid) (HC_COSE_MESSAGE_INVALID)"
 				case .HC_COSE_NO_KEYIDENTIFIER:
 					return "\(AppStrings.HealthCertificate.Error.hcInvalid) (HC_COSE_NO_KEYIDENTIFIER)"
+				case .HC_COSE_NO_SIGN:
+					return "\(AppStrings.HealthCertificate.Error.hcInvalid) (HC_COSE_NO_SIGN)"
+				case .HC_COSE_PH_INVALID:
+					return "\(AppStrings.HealthCertificate.Error.hcInvalid) (HC_COSE_PH_INVALID)"
+				case .HC_COSE_UNKNOWN_ALG:
+					return "\(AppStrings.HealthCertificate.Error.hcInvalid) (HC_COSE_UNKNOWN_ALG)"
+				case .HC_COSE_NO_ALG:
+					return "\(AppStrings.HealthCertificate.Error.hcInvalid) (HC_COSE_NO_ALG)"
 				case .HC_CBOR_DECODING_FAILED:
 					return "\(AppStrings.HealthCertificate.Error.hcInvalid) (HC_CBOR_DECODING_FAILED)"
 				case .HC_CBOR_TRIMMING_FAILED:
@@ -186,6 +194,14 @@ enum HealthCertificateServiceError: Error {
 					return String(format: AppStrings.HealthCertificate.Overview.TestCertificateRequest.Error.e2eErrorCallHotline, "HC_COSE_NO_KEYIDENTIFIER")
 				case .HC_COSE_MESSAGE_INVALID:
 					return String(format: AppStrings.HealthCertificate.Overview.TestCertificateRequest.Error.e2eErrorCallHotline, "DCC_COSE_MESSAGE_INVALID")
+				case .HC_COSE_NO_SIGN:
+					return String(format: AppStrings.HealthCertificate.Overview.TestCertificateRequest.Error.e2eErrorCallHotline, "HC_COSE_NO_SIGN")
+				case .HC_COSE_PH_INVALID:
+					return String(format: AppStrings.HealthCertificate.Overview.TestCertificateRequest.Error.e2eErrorCallHotline, "HC_COSE_PH_INVALID")
+				case .HC_COSE_UNKNOWN_ALG:
+					return String(format: AppStrings.HealthCertificate.Overview.TestCertificateRequest.Error.e2eErrorCallHotline, "HC_COSE_UNKNOWN_ALG")
+				case .HC_COSE_NO_ALG:
+					return String(format: AppStrings.HealthCertificate.Overview.TestCertificateRequest.Error.e2eErrorCallHotline, "HC_COSE_NO_ALG")
 				case .HC_CBOR_DECODING_FAILED:
 					return String(format: AppStrings.HealthCertificate.Overview.TestCertificateRequest.Error.tryAgain, "DCC_CBOR_DECODING_FAILED")
 				case .HC_CBOR_TRIMMING_FAILED:

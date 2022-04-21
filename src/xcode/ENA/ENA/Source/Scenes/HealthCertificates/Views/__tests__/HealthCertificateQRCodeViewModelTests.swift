@@ -15,7 +15,7 @@ class HealthCertificateQRCodeViewModelTests: XCTestCase {
 	func testValidVaccinationCertificate() throws {
 		let healthCertificate = try HealthCertificate(
 			base45: try base45Fake(
-				from: DigitalCovidCertificate.fake(
+				digitalCovidCertificate: DigitalCovidCertificate.fake(
 					vaccinationEntries: [.fake()]
 				)
 			),
@@ -45,7 +45,7 @@ class HealthCertificateQRCodeViewModelTests: XCTestCase {
 	func testSoonExpiringVaccinationCertificate() throws {
 		let healthCertificate = try HealthCertificate(
 			base45: try base45Fake(
-				from: DigitalCovidCertificate.fake(
+				digitalCovidCertificate: DigitalCovidCertificate.fake(
 					vaccinationEntries: [.fake()]
 				)
 			),
@@ -75,7 +75,7 @@ class HealthCertificateQRCodeViewModelTests: XCTestCase {
 	func testExpiredVaccinationCertificate() throws {
 		let healthCertificate = try HealthCertificate(
 			base45: try base45Fake(
-				from: DigitalCovidCertificate.fake(
+				digitalCovidCertificate: DigitalCovidCertificate.fake(
 					vaccinationEntries: [.fake()]
 				)
 			),
@@ -105,7 +105,7 @@ class HealthCertificateQRCodeViewModelTests: XCTestCase {
 	func testInvalidVaccinationCertificate() throws {
 		let healthCertificate = try HealthCertificate(
 			base45: try base45Fake(
-				from: DigitalCovidCertificate.fake(
+				digitalCovidCertificate: DigitalCovidCertificate.fake(
 					vaccinationEntries: [.fake()]
 				)
 			),
@@ -135,7 +135,7 @@ class HealthCertificateQRCodeViewModelTests: XCTestCase {
 	func testBlockedVaccinationCertificate() throws {
 		let healthCertificate = try HealthCertificate(
 			base45: try base45Fake(
-				from: DigitalCovidCertificate.fake(
+				digitalCovidCertificate: DigitalCovidCertificate.fake(
 					vaccinationEntries: [.fake()]
 				)
 			),
@@ -165,7 +165,7 @@ class HealthCertificateQRCodeViewModelTests: XCTestCase {
 	func testBlockedVaccinationCertificateShowingRealQRCode() throws {
 		let healthCertificate = try HealthCertificate(
 			base45: try base45Fake(
-				from: DigitalCovidCertificate.fake(
+				digitalCovidCertificate: DigitalCovidCertificate.fake(
 					vaccinationEntries: [.fake()]
 				)
 			),
@@ -197,7 +197,7 @@ class HealthCertificateQRCodeViewModelTests: XCTestCase {
 	func testValidTestCertificate() throws {
 		let healthCertificate = try HealthCertificate(
 			base45: try base45Fake(
-				from: DigitalCovidCertificate.fake(
+				digitalCovidCertificate: DigitalCovidCertificate.fake(
 					testEntries: [.fake()]
 				)
 			),
@@ -227,7 +227,7 @@ class HealthCertificateQRCodeViewModelTests: XCTestCase {
 	func testSoonExpiringTestCertificate() throws {
 		let healthCertificate = try HealthCertificate(
 			base45: try base45Fake(
-				from: DigitalCovidCertificate.fake(
+				digitalCovidCertificate: DigitalCovidCertificate.fake(
 					testEntries: [.fake()]
 				)
 			),
@@ -257,7 +257,7 @@ class HealthCertificateQRCodeViewModelTests: XCTestCase {
 	func testExpiredTestCertificate() throws {
 		let healthCertificate = try HealthCertificate(
 			base45: try base45Fake(
-				from: DigitalCovidCertificate.fake(
+				digitalCovidCertificate: DigitalCovidCertificate.fake(
 					testEntries: [.fake()]
 				)
 			),
@@ -287,7 +287,7 @@ class HealthCertificateQRCodeViewModelTests: XCTestCase {
 	func testInvalidTestCertificate() throws {
 		let healthCertificate = try HealthCertificate(
 			base45: try base45Fake(
-				from: DigitalCovidCertificate.fake(
+				digitalCovidCertificate: DigitalCovidCertificate.fake(
 					testEntries: [.fake()]
 				)
 			),
@@ -317,7 +317,7 @@ class HealthCertificateQRCodeViewModelTests: XCTestCase {
 	func testBlockedTestCertificate() throws {
 		let healthCertificate = try HealthCertificate(
 			base45: try base45Fake(
-				from: DigitalCovidCertificate.fake(
+				digitalCovidCertificate: DigitalCovidCertificate.fake(
 					testEntries: [.fake()]
 				)
 			),
@@ -347,7 +347,7 @@ class HealthCertificateQRCodeViewModelTests: XCTestCase {
 	func testBlockedTestCertificateShowingRealQRCode() throws {
 		let healthCertificate = try HealthCertificate(
 			base45: try base45Fake(
-				from: DigitalCovidCertificate.fake(
+				digitalCovidCertificate: DigitalCovidCertificate.fake(
 					testEntries: [.fake()]
 				)
 			),
@@ -379,7 +379,7 @@ class HealthCertificateQRCodeViewModelTests: XCTestCase {
 	func testValidRecoveryCertificate() throws {
 		let healthCertificate = try HealthCertificate(
 			base45: try base45Fake(
-				from: DigitalCovidCertificate.fake(
+				digitalCovidCertificate: DigitalCovidCertificate.fake(
 					recoveryEntries: [.fake()]
 				)
 			),
@@ -409,7 +409,7 @@ class HealthCertificateQRCodeViewModelTests: XCTestCase {
 	func testSoonExpiringRecoveryCertificate() throws {
 		let healthCertificate = try HealthCertificate(
 			base45: try base45Fake(
-				from: DigitalCovidCertificate.fake(
+				digitalCovidCertificate: DigitalCovidCertificate.fake(
 					recoveryEntries: [.fake()]
 				)
 			),
@@ -439,7 +439,7 @@ class HealthCertificateQRCodeViewModelTests: XCTestCase {
 	func testExpiredRecoveryCertificate() throws {
 		let healthCertificate = try HealthCertificate(
 			base45: try base45Fake(
-				from: DigitalCovidCertificate.fake(
+				digitalCovidCertificate: DigitalCovidCertificate.fake(
 					recoveryEntries: [.fake()]
 				)
 			),
@@ -469,7 +469,7 @@ class HealthCertificateQRCodeViewModelTests: XCTestCase {
 	func testInvalidRecoveryCertificate() throws {
 		let healthCertificate = try HealthCertificate(
 			base45: try base45Fake(
-				from: DigitalCovidCertificate.fake(
+				digitalCovidCertificate: DigitalCovidCertificate.fake(
 					recoveryEntries: [.fake()]
 				)
 			),
@@ -499,7 +499,7 @@ class HealthCertificateQRCodeViewModelTests: XCTestCase {
 	func testBlockedRecoveryCertificate() throws {
 		let healthCertificate = try HealthCertificate(
 			base45: try base45Fake(
-				from: DigitalCovidCertificate.fake(
+				digitalCovidCertificate: DigitalCovidCertificate.fake(
 					recoveryEntries: [.fake()]
 				)
 			),
@@ -529,7 +529,7 @@ class HealthCertificateQRCodeViewModelTests: XCTestCase {
 	func testBlockedRecoveryCertificateShowingRealQRCode() throws {
 		let healthCertificate = try HealthCertificate(
 			base45: try base45Fake(
-				from: DigitalCovidCertificate.fake(
+				digitalCovidCertificate: DigitalCovidCertificate.fake(
 					recoveryEntries: [.fake()]
 				)
 			),

@@ -17,6 +17,8 @@ extension HealthCertificateValidityState {
 			return "INVALID"
 		case .blocked:
 			return "BLOCKED"
+		case .revoked:
+			return "REVOKED"
 		}
 	}
 }
@@ -27,7 +29,7 @@ extension HealthCertificate {
 		DCCWalletCertificate(
 			barcodeData: base45,
 			cose: DCCWalletCertificateCose(
-				kid: keyIdentifier ?? ""
+				kid: keyIdentifier
 			),
 			cwt: cborWebTokenHeader,
 			hcert: digitalCovidCertificate,
