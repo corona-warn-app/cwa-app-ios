@@ -26,6 +26,9 @@ final class AntigenTestProfileInputViewModel {
 			store.antigenTestProfiles[profileIndex] = antigenTestProfile
 		} else {
 			store.antigenTestProfiles.append(antigenTestProfile)
+			store.antigenTestProfiles = store.antigenTestProfiles.sorted {
+				$0.fullName.localizedCompare($1.fullName) == .orderedAscending
+			}
 		}
 	}
 	

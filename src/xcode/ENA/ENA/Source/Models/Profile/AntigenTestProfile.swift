@@ -91,5 +91,10 @@ struct AntigenTestProfile: Codable {
 	var city: String?
 	var phoneNumber: String?
 	var email: String?
-
+	
+	var fullName: String {
+		[firstName, lastName]
+			.compactMap { $0 }
+			.joined(separator: " ")
+	}
 }
