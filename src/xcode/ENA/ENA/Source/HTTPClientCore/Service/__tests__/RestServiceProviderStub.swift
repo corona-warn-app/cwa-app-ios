@@ -96,6 +96,12 @@ class RestServiceProviderStub: RestServiceProviding {
 		}
 	}
 
+	func resetCache<R>(
+		for resource: R
+	) where R: Resource {
+		fatalError("Not supported")
+	}
+
 	func update(_ evaluateTrust: TrustEvaluating) {
 		Log.debug("No update supported")
 	}
