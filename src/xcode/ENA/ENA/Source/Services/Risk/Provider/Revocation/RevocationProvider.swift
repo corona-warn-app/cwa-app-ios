@@ -104,8 +104,6 @@ final class RevocationProvider: RevocationProviding {
 		}
 	}
 
-	// MARK: - Public
-
 	// MARK: - Internal
 
 	enum RevocationProviderError: Error {
@@ -113,6 +111,11 @@ final class RevocationProvider: RevocationProviding {
 		case chunkUpdateError
 		case restError(ServiceError<KIDListResource.CustomError>)
 	}
+
+#if !RELEASE
+	// Needed for dev menu force updates.
+	static let keyForceUpdateRevocationList = "keyForceUpdateRevocationList"
+#endif
 
 	// MARK: - Private
 

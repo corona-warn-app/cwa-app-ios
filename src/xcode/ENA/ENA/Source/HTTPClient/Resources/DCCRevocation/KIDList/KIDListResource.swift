@@ -21,6 +21,14 @@ struct KIDListResource: Resource {
 		)
 		self.locator = .kidList
 		self.type = .caching([.loadOnlyOnceADay])
+
+#if !RELEASE
+		// Debug menu: Force update of revocation list.
+		if UserDefaults.standard.bool(forKey: RevocationProvider.keyForceUpdateRevocationList) {
+			self.type = .default
+		}
+#endif
+
 		self.sendResource = EmptySendResource()
 		self.receiveResource = ProtobufReceiveResource<SAP_Internal_Dgc_RevocationKidList>(
 			signatureVerifier: signatureVerifier
@@ -34,7 +42,7 @@ struct KIDListResource: Resource {
 	
 	let trustEvaluation: TrustEvaluating
 	let locator: Locator
-	let type: ServiceType
+	var type: ServiceType
 	let sendResource: EmptySendResource
 	let receiveResource: ProtobufReceiveResource<SAP_Internal_Dgc_RevocationKidList>
 	

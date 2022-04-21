@@ -6,12 +6,12 @@
 
 import UIKit
 
-class DMCCLConfigurationViewController: UITableViewController {
+class DMRevocationListViewController: UITableViewController {
 
 	// MARK: - Init
 
 	init() {
-		self.viewModel = DMCCLConfigurationViewModel()
+		self.viewModel = DMRevocationListViewModel()
 
 		if #available(iOS 13.0, *) {
 			super.init(style: .insetGrouped)
@@ -63,7 +63,7 @@ class DMCCLConfigurationViewController: UITableViewController {
 
 	// MARK: - Private
 
-	private let viewModel: DMCCLConfigurationViewModel
+	private let viewModel: DMRevocationListViewModel
 
 	private func setupTableView() {
 		tableView.estimatedRowHeight = 45.0
@@ -82,7 +82,7 @@ class DMCCLConfigurationViewController: UITableViewController {
 	}
 
 	private func setupNavigationBar() {
-		title = "CCLConfiguration"
+		title = "Revocation List"
 	}
 }
 #endif
