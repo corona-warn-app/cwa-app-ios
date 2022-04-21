@@ -12,8 +12,8 @@ struct LoadResource {
 class RestServiceProviderStub: RestServiceProviding {
 
 	init(
-		loadResources: [LoadResource] = [LoadResource](),
-		cacheResources: [LoadResource] = [LoadResource]()
+		loadResources: [LoadResource] = [],
+		cacheResources: [LoadResource] = []
 	) {
 		self.loadResources = loadResources
 		self.cacheResources = cacheResources
@@ -94,6 +94,12 @@ class RestServiceProviderStub: RestServiceProviding {
 			}
 			return .failure(_error)
 		}
+	}
+
+	func resetCache<R>(
+		for resource: R
+	) where R: Resource {
+		fatalError("Not supported")
 	}
 
 	func update(_ evaluateTrust: TrustEvaluating) {

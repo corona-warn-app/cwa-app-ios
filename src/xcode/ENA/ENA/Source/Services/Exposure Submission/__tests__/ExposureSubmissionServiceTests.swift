@@ -751,7 +751,8 @@ class ExposureSubmissionServiceTests: CWATestCase {
 			dscListProvider: MockDSCListProvider(),
 			appConfiguration: appConfigurationProvider,
 			cclService: FakeCCLService(),
-			recycleBin: .fake()
+			recycleBin: .fake(),
+			revocationProvider: RevocationProvider(restServiceProvider)
 		)
 		
 		let coronaTestService = CoronaTestService(

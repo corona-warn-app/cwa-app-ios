@@ -16,7 +16,8 @@ extension HealthCertificateService {
 		digitalCovidCertificateAccess: DigitalCovidCertificateAccessProtocol = DigitalCovidCertificateAccess(),
 		notificationCenter: UserNotificationCenter = UNUserNotificationCenter.current(),
 		cclService: CCLServable,
-		recycleBin: RecycleBin
+		recycleBin: RecycleBin,
+		revocationProvider: RevocationProvider
 	) {
 		self.init(
 			store: store,
@@ -27,6 +28,7 @@ extension HealthCertificateService {
 			notificationCenter: notificationCenter,
 			cclService: cclService,
 			recycleBin: recycleBin,
+			revocationProvider: revocationProvider,
 			healthCertificateValidator: HealthCertificateValidatorFake()
 		)
 	}

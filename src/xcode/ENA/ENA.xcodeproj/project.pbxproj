@@ -173,6 +173,8 @@
 		017EE86326779E1A00CD18F6 /* RecoveryEntry+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 017EE86226779E1A00CD18F6 /* RecoveryEntry+Extension.swift */; };
 		017EE865267B302F00CD18F6 /* HealthCertificateArray+Fallback.swift in Sources */ = {isa = PBXBuildFile; fileRef = 017EE864267B302F00CD18F6 /* HealthCertificateArray+Fallback.swift */; };
 		017EE867267B4F2600CD18F6 /* CWATestCase+HealthCertificateConvenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = 017EE866267B3F0A00CD18F6 /* CWATestCase+HealthCertificateConvenience.swift */; };
+		018105D728115D1600C40268 /* DMRevocationListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018105D528115C0300C40268 /* DMRevocationListViewController.swift */; };
+		018105D828115D1900C40268 /* DMRevocationListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018105D628115C0300C40268 /* DMRevocationListViewModel.swift */; };
 		0185DDDE25B77786001FBEA7 /* HomeStatisticsCellModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0185DDDD25B77786001FBEA7 /* HomeStatisticsCellModelTests.swift */; };
 		0186FB60268F35B900872D45 /* HealthCertificateValidationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0186FB5F268F35B900872D45 /* HealthCertificateValidationViewController.swift */; };
 		0186FB62268F362200872D45 /* HealthCertificateValidationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0186FB61268F362100872D45 /* HealthCertificateValidationViewModel.swift */; };
@@ -1964,6 +1966,8 @@
 		017EE86226779E1A00CD18F6 /* RecoveryEntry+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RecoveryEntry+Extension.swift"; sourceTree = "<group>"; };
 		017EE864267B302F00CD18F6 /* HealthCertificateArray+Fallback.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HealthCertificateArray+Fallback.swift"; sourceTree = "<group>"; };
 		017EE866267B3F0A00CD18F6 /* CWATestCase+HealthCertificateConvenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CWATestCase+HealthCertificateConvenience.swift"; sourceTree = "<group>"; };
+		018105D528115C0300C40268 /* DMRevocationListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMRevocationListViewController.swift; sourceTree = "<group>"; };
+		018105D628115C0300C40268 /* DMRevocationListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMRevocationListViewModel.swift; sourceTree = "<group>"; };
 		0185DDDD25B77786001FBEA7 /* HomeStatisticsCellModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeStatisticsCellModelTests.swift; sourceTree = "<group>"; };
 		0186FB5F268F35B900872D45 /* HealthCertificateValidationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthCertificateValidationViewController.swift; sourceTree = "<group>"; };
 		0186FB61268F362100872D45 /* HealthCertificateValidationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthCertificateValidationViewModel.swift; sourceTree = "<group>"; };
@@ -4192,6 +4196,15 @@
 				AB2628E027A3F220003D39A6 /* HealthCertificateMapping.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		018105D428115BF500C40268 /* DMRevocationList */ = {
+			isa = PBXGroup;
+			children = (
+				018105D528115C0300C40268 /* DMRevocationListViewController.swift */,
+				018105D628115C0300C40268 /* DMRevocationListViewModel.swift */,
+			);
+			path = DMRevocationList;
 			sourceTree = "<group>";
 		};
 		018B852326CE30140037DD54 /* OnBehalfCheckinSubmission */ = {
@@ -8486,6 +8499,7 @@
 		B16457BC24DC3E0E002879EB /* Features */ = {
 			isa = PBXGroup;
 			children = (
+				018105D428115BF500C40268 /* DMRevocationList */,
 				50DED23527CE31E70035267C /* DMHealthCertificateMigration */,
 				50AF182527A4222500BAA9DB /* DMCCLConfiguration */,
 				50D7BD7126DE6E3F00494FB7 /* DMNewHttpCommunication */,
@@ -10936,6 +10950,7 @@
 				019789342746920600AAC31C /* TicketValidationResultViewModel.swift in Sources */,
 				50BC903F279EECCA0000C930 /* Locator+TicketValidationResultToken.swift in Sources */,
 				01734B6E255D73E400E60A8B /* ENExposureConfiguration+Convenience.swift in Sources */,
+				018105D828115D1900C40268 /* DMRevocationListViewModel.swift in Sources */,
 				017D8DAA263B03BE0009E91C /* VaccinationEntry+Extension.swift in Sources */,
 				5001DE8626E20791004242FA /* KeySubmission.swift in Sources */,
 				01B7232924F812DF0064C0EB /* OptionView.swift in Sources */,
@@ -11149,6 +11164,7 @@
 				8FB776ED26EA323C005255BB /* DMBoosterRulesViewController.swift in Sources */,
 				AB0246D92716D704002668A1 /* RecycleBinItem.swift in Sources */,
 				01EA17FE259217B100E98E02 /* HomeState.swift in Sources */,
+				018105D728115D1600C40268 /* DMRevocationListViewController.swift in Sources */,
 				2FA9E39B24D2F4A10030561C /* ExposureSubmissionService+Protocol.swift in Sources */,
 				A17366552484978A006BE209 /* OnboardingInfoViewControllerUtils.swift in Sources */,
 				B153096A24706F1000A4A1BD /* URLSession+Default.swift in Sources */,

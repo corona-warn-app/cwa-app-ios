@@ -96,7 +96,9 @@ class RevocationProviderTests: CWATestCase {
 
 		let expectation = expectation(description: "success expectation")
 
-		revocationProvider.updateCache(with: certificates) {
+		revocationProvider.updateCache(with: certificates) { revokedCertificates in
+			XCTAssertEqual(revokedCertificates, [self.certificates[3], self.certificates[4]])
+
 			expectation.fulfill()
 		}
 
@@ -222,7 +224,7 @@ class RevocationProviderTests: CWATestCase {
 	private func revocationChunk() throws -> SAP_Internal_Dgc_RevocationChunk {
 		let recoveryHash0a = try XCTUnwrap(certificates[3].hash(by: "0a"))
 		let recoveryHash0b = try XCTUnwrap(certificates[3].hash(by: "0b"))
-		let boosterHash0c = try XCTUnwrap(certificates[3].hash(by: "0c"))
+		let boosterHash0c = try XCTUnwrap(certificates[4].hash(by: "0c"))
 		let vaccinationHash = try XCTUnwrap(certificates[1].hash(by: "0a"))
 
 		var revocationChunk = SAP_Internal_Dgc_RevocationChunk()

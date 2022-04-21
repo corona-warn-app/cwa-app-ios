@@ -7,11 +7,11 @@ import XCTest
 import HealthCertificateToolkit
 
 class HealthCertificateService_GroupingAfterDeletionTests: XCTestCase {
-
+	
 	func testGIVEN_6Certificates_WHEN_CertificateAreRegistered_THEN_GroupingCreatesTwoPersons() throws {
-
+		
 		// GIVEN
-
+		
 		let store = MockTestStore()
 		let service = HealthCertificateService(
 			store: store,
@@ -19,7 +19,8 @@ class HealthCertificateService_GroupingAfterDeletionTests: XCTestCase {
 			dscListProvider: MockDSCListProvider(),
 			appConfiguration: CachedAppConfigurationMock(),
 			cclService: FakeCCLService(),
-			recycleBin: .fake()
+			recycleBin: .fake(),
+			revocationProvider: RevocationProvider(RestServiceProviderStub())
 		)
 		let certificateSingle1 = try certificateSingle1()
 		let certificateSingle2 = try certificateSingle2()
@@ -27,7 +28,7 @@ class HealthCertificateService_GroupingAfterDeletionTests: XCTestCase {
 		let certificateSingle4 = try certificateSingle4()
 		let certificateSingleA = try certificateSingleA()
 		let certificateCombiner = try certificateCombiner()
-
+		
 		var listOfCertificates = [
 			certificateSingle3,
 			certificateSingle1,
@@ -38,7 +39,7 @@ class HealthCertificateService_GroupingAfterDeletionTests: XCTestCase {
 		]
 		listOfCertificates.shuffle()
 		listOfCertificates.forEach { service.registerHealthCertificate(base45: $0, completedNotificationRegistration: { }) }
-
+		
 		// We should have now 2 persons. Person1 with four certificates and Person2 with one certificate.
 		XCTAssertEqual(service.healthCertifiedPersons.count, 2)
 	}
@@ -54,7 +55,8 @@ class HealthCertificateService_GroupingAfterDeletionTests: XCTestCase {
 			dscListProvider: MockDSCListProvider(),
 			appConfiguration: CachedAppConfigurationMock(),
 			cclService: FakeCCLService(),
-			recycleBin: .fake()
+			recycleBin: .fake(),
+			revocationProvider: RevocationProvider(RestServiceProviderStub())
 		)
 		let certificateSingle1 = try certificateSingle1()
 		let certificateSingle2 = try certificateSingle2()
@@ -82,9 +84,9 @@ class HealthCertificateService_GroupingAfterDeletionTests: XCTestCase {
 		
 		guard let person = service.healthCertifiedPersons.first,
 			  let certificateToRemove = person.healthCertificates.first(where: { $0.base45 == certificateSingle1 }) else {
-				  XCTFail("Person should not be empty")
-				  return
-			  }
+			XCTFail("Person should not be empty")
+			return
+		}
 		
 		// Remove a single-stand-alone certifcate from Person1.
 		service.moveHealthCertificateToBin(certificateToRemove)
@@ -141,7 +143,8 @@ class HealthCertificateService_GroupingAfterDeletionTests: XCTestCase {
 			dscListProvider: MockDSCListProvider(),
 			appConfiguration: CachedAppConfigurationMock(),
 			cclService: FakeCCLService(),
-			recycleBin: .fake()
+			recycleBin: .fake(),
+			revocationProvider: RevocationProvider(RestServiceProviderStub())
 		)
 		
 		let certificateSingle1 = try certificateSingle1()
@@ -170,9 +173,9 @@ class HealthCertificateService_GroupingAfterDeletionTests: XCTestCase {
 		
 		guard let originalPerson = service.healthCertifiedPersons.first,
 			  let certificateToRemove = originalPerson.healthCertificates.first(where: { $0.base45 == certificateCombiner }) else {
-				  XCTFail("Person should not be empty")
-				  return
-			  }
+			XCTFail("Person should not be empty")
+			return
+		}
 		
 		// Remove the combining certifcate from Person1.
 		service.moveHealthCertificateToBin(certificateToRemove)
@@ -186,11 +189,11 @@ class HealthCertificateService_GroupingAfterDeletionTests: XCTestCase {
 		let donald = service.healthCertifiedPersons[0]
 		let quack = service.healthCertifiedPersons[1]
 		let gustav = service.healthCertifiedPersons[2]
-
+		
 		XCTAssertEqual(donald.healthCertificates.count, 3)
 		XCTAssertEqual(gustav.healthCertificates.count, 1)
 		XCTAssertEqual(quack.healthCertificates.count, 1)
-
+		
 		// Donald does not contain the deleted certificate.
 		XCTAssertFalse(donald.healthCertificates.contains(where: {
 			$0.base45 == certificateCombiner

@@ -25,21 +25,21 @@ class HealthCertificateValidator: HealthCertificateValidating {
 		
 		// `0a` for `SIGNATURE`
 		let revocationChunkMatchesFor0a = validateChunks(
-			kid: healthCertificate.keyIdentifier,
+			kid: healthCertificate.hexKeyIdentifier,
 			hashType: "0a",
 			hash: healthCertificate.revocationEntries.signature
 		)
 		
 		// `0b` for `UCI`
 		let revocationChunkMatchesFor0b = validateChunks(
-			kid: healthCertificate.keyIdentifier,
+			kid: healthCertificate.hexKeyIdentifier,
 			hashType: "0b",
 			hash: healthCertificate.revocationEntries.uci
 		)
 		
 		// `0c` for `COUNTRYCODEUCI`
 		let revocationChunkMatchesFor0c = validateChunks(
-			kid: healthCertificate.keyIdentifier,
+			kid: healthCertificate.hexKeyIdentifier,
 			hashType: "0c",
 			hash: healthCertificate.revocationEntries.countryCodeUCI
 		)

@@ -6,7 +6,7 @@ import Foundation
 import SwiftUI
 
 protocol RevocationProviding {
-	func updateCache(with certificates: [HealthCertificate], completion: @escaping () -> Void)
+	func updateCache(with certificates: [HealthCertificate], completion: @escaping ([HealthCertificate]) -> Void)
 }
 
 final class RevocationProvider: RevocationProviding {
@@ -23,7 +23,10 @@ final class RevocationProvider: RevocationProviding {
 
 	// MARK: - Protocol RevocationProviding
 
-	func updateCache(with certificates: [HealthCertificate], completion: @escaping () -> Void) {
+	func updateCache(
+		with certificates: [HealthCertificate],
+		completion: @escaping ([HealthCertificate]) -> Void
+	) {
 		// 1. Filter by certificate type
 		let filteredCertificates = certificates.filter { certificate in
 			(certificate.type == .vaccination ||
@@ -31,8 +34,8 @@ final class RevocationProvider: RevocationProviding {
 		}
 
 		// 2. group certificates by kid
-		let groupedCertificates = Dictionary(grouping: filteredCertificates) { element in
-			Data(base64Encoded: element.keyIdentifier)?.toHexString() ?? ""
+		let groupedCertificates = Dictionary(grouping: filteredCertificates) {
+			$0.hexKeyIdentifier
 		}
 
 		// 3. Update KID List
@@ -46,7 +49,7 @@ final class RevocationProvider: RevocationProviding {
 			switch result {
 			case .failure(let error):
 				Log.error("failed to update kid list", error: error)
-				completion()
+				completion([])
 			case .success(let kidList):
 				// helping step -> convert to KidWithTypes model to make things a bit easier
 				let keyIdentifiersWithTypes: [KidWithTypes] = kidList.items.map {
@@ -94,15 +97,12 @@ final class RevocationProvider: RevocationProviding {
 					lhs.type < rhs.type
 				}
 
-
-				self.updateKidType(certificateByRLC) {
-					completion()
+				self.updateKidType(certificateByRLC) { revokedCertificates in
+					completion(revokedCertificates)
 				}
 			}
 		}
 	}
-
-	// MARK: - Public
 
 	// MARK: - Internal
 
@@ -111,6 +111,11 @@ final class RevocationProvider: RevocationProviding {
 		case chunkUpdateError
 		case restError(ServiceError<KIDListResource.CustomError>)
 	}
+
+#if !RELEASE
+	// Needed for dev menu force updates.
+	static let keyForceUpdateRevocationList = "keyForceUpdateRevocationList"
+#endif
 
 	// MARK: - Private
 
@@ -124,11 +129,11 @@ final class RevocationProvider: RevocationProviding {
 
 	private func updateKidType(
 		_ revocationLocations: [RevocationLocation],
-		completion: @escaping() -> Void
+		completion: @escaping([HealthCertificate]) -> Void
 	) {
 		// Ensure that dispatch group does not block main thread
 		DispatchQueue.global().async {
-			var revokedCertificates: [HealthCertificate] = []
+			var revokedCertificates = Set<HealthCertificate>()
 			for revocationLocation in revocationLocations {
 				let outerDispatchGroup = DispatchGroup()
 				outerDispatchGroup.enter()
@@ -143,57 +148,60 @@ final class RevocationProvider: RevocationProviding {
 
 				// 1 update KID Types
 				self.updateKidTypeIndex(kid: revocationLocation.keyIdentifier, hashType: revocationLocation.type) { [weak self] coordinates in
-					defer {
-						outerDispatchGroup.leave()
-					}
-					guard let self = self else {
-						Log.error("Failed to get strong self")
-						return
-					}
-
-					// 2 filter for RLC
-					let affectedCoordinateHealthCertificates = coordinateHealthCertificates.filter { key, _ in
-						coordinates.contains(key)
-					}
-					// 3 update KID Type chunk
-					affectedCoordinateHealthCertificates.forEach { coordinate, _ in
-						let innerDispatchGroup = DispatchGroup()
-						innerDispatchGroup.enter()
-						let resource = KIDTypeChunkResource(
-							kid: revocationLocation.keyIdentifier,
-							hashType: revocationLocation.type,
-							x: coordinate.x,
-							y: coordinate.y
-						)
-						self.restService.load(resource) { result in
-							defer {
-								innerDispatchGroup.leave()
-							}
-							switch result {
-							case .success(let kidChunk):
-								// 4 collect all certificates with matching hash to skip them in later loop iterations
-								let matchingCertificates = revocationLocation.certificates
-									.flatMap {
-										$0.value
-									}
-									.filter { certificate in
-										guard let hashString = certificate.hash(by: revocationLocation.type)?.dataWithHexString() else {
-											return false
-										}
-
-										return kidChunk.hashes.contains(hashString)
-									}
-								revokedCertificates.append(contentsOf: matchingCertificates)
-							case .failure(let error):
-								Log.error("failed to update kid x y chunk", error: error)
-							}
+					// Ensure that dispatch group does not block main thread
+					DispatchQueue.global().async {
+						defer {
+							outerDispatchGroup.leave()
 						}
-						innerDispatchGroup.wait()
+						guard let self = self else {
+							Log.error("Failed to get strong self")
+							return
+						}
+
+						// 2 filter for RLC
+						let affectedCoordinateHealthCertificates = coordinateHealthCertificates.filter { key, _ in
+							coordinates.contains(key)
+						}
+						// 3 update KID Type chunk
+						affectedCoordinateHealthCertificates.forEach { coordinate, _ in
+							let innerDispatchGroup = DispatchGroup()
+							innerDispatchGroup.enter()
+							let resource = KIDTypeChunkResource(
+								kid: revocationLocation.keyIdentifier,
+								hashType: revocationLocation.type,
+								x: coordinate.x,
+								y: coordinate.y
+							)
+							self.restService.load(resource) { result in
+								defer {
+									innerDispatchGroup.leave()
+								}
+								switch result {
+								case .success(let kidChunk):
+									// 4 collect all certificates with matching hash to skip them in later loop iterations
+									let matchingCertificates = revocationLocation.certificates
+										.flatMap {
+											$0.value
+										}
+										.filter { certificate in
+											guard let hashString = certificate.hash(by: revocationLocation.type)?.dataWithHexString() else {
+												return false
+											}
+
+											return kidChunk.hashes.contains(hashString)
+										}
+									revokedCertificates.formUnion(matchingCertificates)
+								case .failure(let error):
+									Log.error("failed to update kid x y chunk", error: error)
+								}
+							}
+							innerDispatchGroup.wait()
+						}
 					}
 				}
 				outerDispatchGroup.wait()
 			}
-			completion()
+			completion(Array(revokedCertificates))
 		}
 	}
 

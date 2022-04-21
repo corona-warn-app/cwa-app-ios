@@ -64,7 +64,7 @@ class NotificationManagerTests: XCTestCase {
 		
 		let store = MockTestStore()
 		let (healthCertificateService, notificationManager) = createServices(with: store)
-
+		
 		let vaccinationCertificate1Base45 = try base45Fake(
 			digitalCovidCertificate: DigitalCovidCertificate.fake(
 				name: .fake(standardizedFamilyName: "BRAUSE", standardizedGivenName: "PASCAL"),
@@ -92,7 +92,7 @@ class NotificationManagerTests: XCTestCase {
 		_ = healthCertificateService.registerHealthCertificate(base45: vaccinationCertificate2Base45, completedNotificationRegistration: { })
 		_ = healthCertificateService.registerHealthCertificate(base45: vaccinationCertificate1Base45, completedNotificationRegistration: { })
 		store.healthCertifiedPersons = healthCertificateService.healthCertifiedPersons
-
+		
 		// WHEN
 		
 		let expectation = expectation(description: "person and certificate are extracted")
@@ -116,7 +116,7 @@ class NotificationManagerTests: XCTestCase {
 		
 		let store = MockTestStore()
 		let (healthCertificateService, notificationManager) = createServices(with: store)
-
+		
 		let vaccinationCertificate1Base45 = try base45Fake(
 			digitalCovidCertificate: DigitalCovidCertificate.fake(
 				name: .fake(standardizedFamilyName: "BRAUSE", standardizedGivenName: "PASCAL"),
@@ -144,13 +144,13 @@ class NotificationManagerTests: XCTestCase {
 		_ = healthCertificateService.registerHealthCertificate(base45: vaccinationCertificate2Base45, completedNotificationRegistration: { })
 		_ = healthCertificateService.registerHealthCertificate(base45: vaccinationCertificate1Base45, completedNotificationRegistration: { })
 		store.healthCertifiedPersons = healthCertificateService.healthCertifiedPersons
-
+		
 		// WHEN
 		guard let personIdentifier = healthCertifiedPerson.identifier else {
 			XCTFail("Person identifier can't be nil")
 			return
 		}
-
+		
 		let notificationRawValue = LocalNotificationIdentifier.boosterVaccination.rawValue
 		let notificationIdentifier = notificationRawValue + personIdentifier
 		
@@ -168,14 +168,14 @@ class NotificationManagerTests: XCTestCase {
 		})
 		waitForExpectations(timeout: .short)
 	}
-
+	
 	func testGIVEN_HealthCertifiedPerson_WHEN_CertificateReissuanceNotificationIsTriggered_THEN_ExtractionIsCorrect() throws {
-
+		
 		// GIVEN
-
+		
 		let store = MockTestStore()
 		let (healthCertificateService, notificationManager) = createServices(with: store)
-
+		
 		let vaccinationCertificate1Base45 = try base45Fake(
 			digitalCovidCertificate: DigitalCovidCertificate.fake(
 				name: .fake(standardizedFamilyName: "BRAUSE", standardizedGivenName: "PASCAL"),
@@ -185,9 +185,9 @@ class NotificationManagerTests: XCTestCase {
 				)]
 			)
 		)
-
+		
 		let expectedName = Name.fake(standardizedFamilyName: "TEUBER", standardizedGivenName: "KAI")
-
+		
 		let vaccinationCertificate2Base45 = try base45Fake(
 			digitalCovidCertificate: DigitalCovidCertificate.fake(
 				name: expectedName,
@@ -199,17 +199,17 @@ class NotificationManagerTests: XCTestCase {
 		)
 		let expectedCertificate = try XCTUnwrap(HealthCertificate(base45: vaccinationCertificate2Base45))
 		let healthCertifiedPerson = HealthCertifiedPerson(healthCertificates: [expectedCertificate])
-
+		
 		_ = healthCertificateService.registerHealthCertificate(base45: vaccinationCertificate2Base45, completedNotificationRegistration: { })
 		_ = healthCertificateService.registerHealthCertificate(base45: vaccinationCertificate1Base45, completedNotificationRegistration: { })
 		store.healthCertifiedPersons = healthCertificateService.healthCertifiedPersons
-
+		
 		// WHEN
 		guard let personIdentifier = healthCertifiedPerson.identifier else {
 			XCTFail("Person identifier can't be nil")
 			return
 		}
-
+		
 		let notificationRawValue = LocalNotificationIdentifier.certificateReissuance.rawValue
 		let notificationIdentifier = notificationRawValue + personIdentifier
 		let expectation = expectation(description: "person and certificate are extracted")
@@ -230,7 +230,7 @@ class NotificationManagerTests: XCTestCase {
 	private func createServices(with store: MockTestStore) -> (HealthCertificateService, NotificationManager) {
 		
 		let notificationService = MockUserNotificationCenter()
-				
+		
 		let cachedAppConfig = CachedAppConfigurationMock(with: SAP_Internal_V2_ApplicationConfigurationIOS())
 		let diaryStore = MockDiaryStore()
 		let eventStore = MockEventStore()
@@ -240,7 +240,8 @@ class NotificationManagerTests: XCTestCase {
 			dscListProvider: MockDSCListProvider(),
 			appConfiguration: cachedAppConfig,
 			cclService: FakeCCLService(),
-			recycleBin: .fake()
+			recycleBin: .fake(),
+			revocationProvider: RevocationProvider(RestServiceProviderStub())
 		)
 		
 		let coronaTestService = MockCoronaTestService()
