@@ -221,6 +221,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		if !didSetupUI && !appLaunchedFromUserActivityURL {
 			setupUI()
 			showUI()
+		} else {
+			healthCertificateService.updateRevocationStates()
 		}
 
 		hidePrivacyProtectionWindow()
@@ -407,8 +409,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		dscListProvider: dscListProvider,
 		appConfiguration: appConfigurationProvider,
 		cclService: cclService,
-		recycleBin: recycleBin
+		recycleBin: recycleBin,
+		revocationProvider: revocationProvider,
+		healthCertificateValidator: HealthCertificateValidator(restServiceProvider: restServiceProvider)
 	)
+
+	private lazy var revocationProvider: RevocationProviding = RevocationProvider(restServiceProvider)
 
 	private lazy var healthCertificateRequestService = HealthCertificateRequestService(
 		store: store,
@@ -906,10 +912,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 					self.appLaunchedFromUserActivityURL = false
 					self.didSetupUI = true
 					self.route = nil
+
+					self.healthCertificateService.updateRevocationStates()
 				}
 			}
 		)
-
 	}
 
 	private func setupNavigationBarAppearance() {

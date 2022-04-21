@@ -23,7 +23,8 @@ extension HealthCertificate {
 		validityState: HealthCertificateValidityState = .valid,
 		didShowInvalidNotification: Bool = false,
 		isNew: Bool = false,
-		isValidityStateNew: Bool = false
+		isValidityStateNew: Bool = false,
+		revocationEntries: HealthCertificateRevocationEntries? = nil
 	) -> HealthCertificate {
 		do {
 			return try HealthCertificate(
@@ -31,7 +32,8 @@ extension HealthCertificate {
 				validityState: validityState,
 				didShowInvalidNotification: didShowInvalidNotification,
 				isNew: isNew,
-				isValidityStateNew: isValidityStateNew
+				isValidityStateNew: isValidityStateNew,
+				revocationEntries: revocationEntries
 			)
 		} catch {
 			fatalError("Could not decode mock base45 string: \(error.localizedDescription)")

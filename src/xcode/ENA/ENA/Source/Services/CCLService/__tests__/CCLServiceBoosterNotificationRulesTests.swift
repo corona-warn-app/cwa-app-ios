@@ -45,7 +45,7 @@ class CCLServiceBoosterNotificationRulesTests: CCLServiceBaseTests {
 		XCTAssertFalse(result)
 	}
 
-	func testGIVEN_cachedDataFromYesterDay_WHEN_200_THEN_didChangeIsTrue() throws {
+	func testGIVEN_cachedDataFromYesterday_WHEN_200_THEN_didChangeIsTrue() throws {
 		// GIVEN
 		let eTag = "DummyDataETag"
 		let boosterRulesData = try boosterRulesData()
