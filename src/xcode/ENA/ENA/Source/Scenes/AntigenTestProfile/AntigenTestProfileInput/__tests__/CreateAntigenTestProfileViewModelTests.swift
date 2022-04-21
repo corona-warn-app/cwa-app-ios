@@ -191,4 +191,63 @@ class CreateAntigenTestProfileViewModelTests: CWATestCase {
 		}
 	}
 
+	func testAntigenTestProfileSorting() {
+		// GIVEN
+		let store = MockTestStore()
+		let antigenTestProfile1 = AntigenTestProfile(
+			firstName: "Max",
+			lastName: "Mustermann",
+			dateOfBirth: Date(timeIntervalSince1970: 390047238),
+			addressLine: "Blumenstraße 2",
+			zipCode: "43923",
+			city: "Berlin",
+			phoneNumber: "0165434563",
+			email: "sabine.schulz@gmx.com"
+		)
+		
+		let antigenTestProfile2 = AntigenTestProfile(
+			firstName: "Sabine",
+			lastName: "Schulz",
+			dateOfBirth: Date(timeIntervalSince1970: 390047238),
+			addressLine: "Blumenstraße 2",
+			zipCode: "43923",
+			city: "Berlin",
+			phoneNumber: "0165434563",
+			email: "sabine.schulz@gmx.com"
+		)
+		
+		let antigenTestProfile3 = AntigenTestProfile(
+			firstName: "Anna",
+			lastName: "Schulz",
+			dateOfBirth: Date(timeIntervalSince1970: 390047238),
+			addressLine: "Blumenstraße 2",
+			zipCode: "43923",
+			city: "Berlin",
+			phoneNumber: "0165434563",
+			email: "sabine.schulz@gmx.com"
+		)
+		
+		store.antigenTestProfiles = [antigenTestProfile2, antigenTestProfile1]
+		let viewModel = AntigenTestProfileInputViewModel(store: store, antigenTestProfile: antigenTestProfile3)
+		
+		// THEN
+		viewModel.save()
+		
+		do {
+			// should be Anna
+			let storedAntigenTestProfile1 = try XCTUnwrap(store.antigenTestProfiles[0])
+			XCTAssertTrue(storedAntigenTestProfile1.fullName == antigenTestProfile3.fullName)
+			
+			// should be Max
+			let storedAntigenTestProfile2 = try XCTUnwrap(store.antigenTestProfiles[1])
+			XCTAssertTrue(storedAntigenTestProfile2.fullName == antigenTestProfile1.fullName)
+			
+			// should Sabine
+			let storedAntigenTestProfile3 = try XCTUnwrap(store.antigenTestProfiles[2])
+			XCTAssertTrue(storedAntigenTestProfile3.fullName == antigenTestProfile2.fullName)
+			
+		} catch {
+			XCTFail(error.localizedDescription)
+		}
+	}
 }

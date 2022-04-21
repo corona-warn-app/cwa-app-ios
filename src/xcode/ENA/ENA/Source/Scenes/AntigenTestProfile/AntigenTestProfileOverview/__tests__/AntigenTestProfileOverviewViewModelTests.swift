@@ -113,7 +113,18 @@ class AntigenTestProfileOverviewViewModelTests: CWATestCase {
 			email: "sabine.schulz@gmx.com"
 		)
 		
-		store.antigenTestProfiles = [antigenTestProfile1, antigenTestProfile2]
+		let antigenTestProfile3 = AntigenTestProfile(
+			firstName: "Anna",
+			lastName: "Schulz",
+			dateOfBirth: Date(timeIntervalSince1970: 390047238),
+			addressLine: "Blumenstraße 2",
+			zipCode: "43923",
+			city: "Berlin",
+			phoneNumber: "0165434563",
+			email: "sabine.schulz@gmx.com"
+		)
+		
+		store.antigenTestProfiles = [antigenTestProfile1, antigenTestProfile2, antigenTestProfile3]
 
 		let viewModel = AntigenTestProfileOverviewViewModel(
 			store: store,
@@ -122,10 +133,14 @@ class AntigenTestProfileOverviewViewModelTests: CWATestCase {
 
 		XCTAssertEqual(
 			viewModel.antigenTestPersonProfileCellModel(at: IndexPath(row: 0, section: AntigenTestProfileOverviewViewModel.Section.entries.rawValue)).name,
-			"Max Mustermann"
+			"Anna Schulz"
 		)
 		XCTAssertEqual(
 			viewModel.antigenTestPersonProfileCellModel(at: IndexPath(row: 1, section: AntigenTestProfileOverviewViewModel.Section.entries.rawValue)).name,
+			"Max Mustermann"
+		)
+		XCTAssertEqual(
+			viewModel.antigenTestPersonProfileCellModel(at: IndexPath(row: 2, section: AntigenTestProfileOverviewViewModel.Section.entries.rawValue)).name,
 			"Sabine Schulz"
 		)
 	}
