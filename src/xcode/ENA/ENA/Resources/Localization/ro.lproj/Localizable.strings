@@ -1001,11 +1001,22 @@
 
 "ExposureSubmission_Antigen_Profile_Information_Description_Title" = "Salvați datele dvs. personale sub formă de cod QR pentru a grăbi înregistrarea în punctele de testare.";
 
-"ExposureSubmission_Antigen_Profile_Information_DescriptionSubHeadline" = "Când creați un profil de test rapid nu va trebui să completați din nou datele dvs. înainte de fiecare test rapid.";
+"ExposureSubmission_Antigen_Profile_Information_DescriptionSubHeadline" = "Când creați un profil de test rapid nu trebuie să completați din nou datele dvs. personale înainte de fiecare test rapid.\nPuteți crea mai multe profiluri de test rapid, de exemplu, unul pentru dvs. și unul pentru fiecare membru al familiei.";
 
 "ExposureSubmission_Antigen_Profile_Information_PrimaryButton" = "Continuare";
 
 "ExposureSubmission_Antigen_Profile_Information_Dataprivacy_Title" = "Pentru mai multe informații, consultați înștiințarea de confidențialitate.";
+
+/* Exposure Submission AntigenTest Profile Overview */
+"ExposureSubmission_Antigen_Profile_Overview_title" = "Profiluri de test rapid";
+
+"ExposureSubmission_Antigen_Profile_Overview_EmptyTitle" = "Nu a fost creat încă niciun profil de test rapid";
+
+"ExposureSubmission_Antigen_Profile_Overview_EmptyDescription" = "Puteți crea un profil de test rapid cu datele dvs. personale, pe care îl puteți transmite prin intermediul codului QR la fiecare punct de testare participant.";
+
+"ExposureSubmission_Antigen_Profile_Overview_EmptyImageDescription" = "Sigiliu certificat cu certificat digital în fundal";
+
+"ExposureSubmission_Antigen_Profile_Overview_AddButtonTitle" = "Crearea profilului de test rapid";
 
 /* ExposureSubmission AntigenTest Profile */
 "ExposureSubmission_Antigen_Profile_Header_Text" = "Profil de test rapid";
@@ -1027,7 +1038,7 @@
 
 "ExposureSubmission_Profile_ProfileTile_Title" = "Profil de test rapid";
 
-"ExposureSubmission_Profile_ProfileTile_Description" = "Economisiți timp și prezentați profilul dvs. de test rapid la punctul de testare.";
+"ExposureSubmission_Profile_ProfileTile_Description" = "Profilul de test rapid cu datele dvs. personale, pe care îl puteți trimite la orice punct de testare participant prin intermediul codului QR.";
 
 /* ExposureSubmission TestOwnerSelection */
 "ExposureSubmission_TestOwnerSelection_Title" = "Înregistrare test";
@@ -1645,10 +1656,10 @@
 /* New Version Features */
 "NewVersionFeatures_Info_about_abb_information" = "Modificările din această versiune pot fi găsite în informațiile aplicației, la „Caracteristici noi”.";
 
-/* Version 2.21 */
-"NewVersionFeature_221_familyMembersTest_title" = "Gestionarea testelor familiei dvs.";
+/* Version 2.22 */
+"NewVersionFeature_222_family_members_RAT_profile_Title" = "Profiluri de test rapid pentru membrii familiei";
 
-"NewVersionFeature_221_familyMembersTest_description" = "Acum puteți gestiona testele pentru membrii familiei dvs. în aplicația dvs.: puteți primi rezultatele testelor acestora pe smartphone-ul dvs. și puteți solicita certificate de test COVID digitale. Însă, dacă un test al acestora este pozitiv, nu puteți avertiza alte persoane. Avertizarea este posibilă doar dacă înregistrați un test personal.";
+"NewVersionFeature_222_family_members_RAT_profile_description" = "Acum puteți crea profiluri de test rapid pentru membrii familiei dvs., pentru a grăbi înregistrarea în punctele de testare. După ce efectuați acest lucru, trebuie doar să prezentați codul QR pentru respectivul profil de test rapid, pentru a pune la dispoziție informațiile personale.";
 
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Înregistrare transnațională a expunerilor în jurnal";
