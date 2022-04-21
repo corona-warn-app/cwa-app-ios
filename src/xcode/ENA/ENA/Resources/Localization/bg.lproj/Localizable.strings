@@ -1001,11 +1001,22 @@
 
 "ExposureSubmission_Antigen_Profile_Information_Description_Title" = "Запазете личните си данни като QR код, за да ускорите регистрацията в пунктовете за тестване.";
 
-"ExposureSubmission_Antigen_Profile_Information_DescriptionSubHeadline" = "Ако си създадете профил за бързи тестове, няма да се налага да попълвате личните си данни наново при всеки антигенен тест.";
+"ExposureSubmission_Antigen_Profile_Information_DescriptionSubHeadline" = "Когато си създадете профил за бързи тестове, няма да се налага да попълвате личните си данни наново при всеки бърз тест. Може да създадете няколко профила за бързи тестове, например един за Вас и един за всеки от членове на семейството Ви.";
 
 "ExposureSubmission_Antigen_Profile_Information_PrimaryButton" = "Напред";
 
 "ExposureSubmission_Antigen_Profile_Information_Dataprivacy_Title" = "За повече информация прочетете декларацията за поверителност.";
+
+/* Exposure Submission AntigenTest Profile Overview */
+"ExposureSubmission_Antigen_Profile_Overview_title" = "Профили за бързи тестове";
+
+"ExposureSubmission_Antigen_Profile_Overview_EmptyTitle" = "Все още няма профили за бързи тестове";
+
+"ExposureSubmission_Antigen_Profile_Overview_EmptyDescription" = "Можете да създадете профил за бързи тестове с личните си данни, който да представяте чрез QR код във всеки включен пункт за тестване.";
+
+"ExposureSubmission_Antigen_Profile_Overview_EmptyImageDescription" = "Печат на сертификат на фона на цифров сертификат";
+
+"ExposureSubmission_Antigen_Profile_Overview_AddButtonTitle" = "Създаване на профил за бързи тестове";
 
 /* ExposureSubmission AntigenTest Profile */
 "ExposureSubmission_Antigen_Profile_Header_Text" = "Профил за бързи тестове";
@@ -1027,7 +1038,7 @@
 
 "ExposureSubmission_Profile_ProfileTile_Title" = "Профил за бързи тестове";
 
-"ExposureSubmission_Profile_ProfileTile_Description" = "Спестете време като представите профила си в пункта за тестване.";
+"ExposureSubmission_Profile_ProfileTile_Description" = "Профил за бързи тестове в Вашите лични данни, който може да използвате при ползване на всеки пункт за тестване чрез QR кода.";
 
 /* ExposureSubmission TestOwnerSelection */
 "ExposureSubmission_TestOwnerSelection_Title" = "Регистриране на тест";
@@ -1645,10 +1656,10 @@
 /* New Version Features */
 "NewVersionFeatures_Info_about_abb_information" = "Може да видите промените в тази версия в подраздела „Нови функции“ на информацията за приложението.";
 
-/* Version 2.21 */
-"NewVersionFeature_221_familyMembersTest_title" = "Управление на тестове за Вашето семейство";
+/* Version 2.22 */
+"NewVersionFeature_222_family_members_RAT_profile_Title" = "Профили за бързи тестове за членовете на семейството";
 
-"NewVersionFeature_221_familyMembersTest_description" = "Вече можете да управлявате тестовете за членовете на Вашето семейство в приложението: може да получите резултатите от техните тестове на Вашия смартфон и да заявите цифрови сертификати за тест за COVID. Но ако сред тях има положителен тест, няма да можете да предупредите останалите. Това ще е възможно само ако регистрирате теста за себе си.";
+"NewVersionFeature_222_family_members_RAT_profile_description" = "Вече може да създадете профили за бързи тестове за членовете на семейството си, за да ускорите регистрацията им в пунктове за тестване. След това трябва да представите QR код за всеки индивидуален бърз тест, за да предоставите лична информация.";
 
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Международно регистриране на излаганията";
