@@ -7,7 +7,7 @@ import XCTest
 
 class AntigenTestPersonProfileCellModelTests: XCTestCase {
 	
-	func testNameTitle() throws {
+	func testFullNameTitle() throws {
 		let antigenTestProfile = AntigenTestProfile(
 			firstName: "Max",
 			lastName: "Mustermann",
