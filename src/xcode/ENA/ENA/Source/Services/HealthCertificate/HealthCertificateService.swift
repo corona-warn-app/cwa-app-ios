@@ -544,11 +544,11 @@ class HealthCertificateService: HealthCertificateServiceServable {
 
 		revocationProvider.updateCache(
 			with: allRegisteredCertificates,
-			completion: { revokedCertificates in
-				let certificatesToUpdate = revokedCertificates
+			completion: { certificatesToRevoke in
+				let certificatesToUpdate = certificatesToRevoke
 					.filter { $0.validityState != .revoked } +
 					allRegisteredCertificates
-					.filter { $0.validityState == .revoked && !revokedCertificates.contains($0) }
+					.filter { $0.validityState == .revoked && !certificatesToRevoke.contains($0) }
 
 				let certificateTuples = certificatesToUpdate.compactMap { certificate -> (certificate: HealthCertificate, person: HealthCertifiedPerson)? in
 					guard let person = self.findFirstPerson(for: certificate, from: self.healthCertifiedPersons) else {
