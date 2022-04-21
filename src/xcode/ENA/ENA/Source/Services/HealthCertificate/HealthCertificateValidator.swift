@@ -54,7 +54,7 @@ class HealthCertificateValidator: HealthCertificateValidating {
 			hash: hash
 		)
 		let resource = KIDTypeChunkResource(
-			kid: kid,
+			kid: Data(base64Encoded: kid)?.toHexString() ?? "",
 			hashType: hashType,
 			x: coordinate.x,
 			y: coordinate.y
