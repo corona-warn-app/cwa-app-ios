@@ -1001,11 +1001,22 @@
 
 "ExposureSubmission_Antigen_Profile_Information_Description_Title" = "Save your personal data as a QR code to speed up registration at testing points.";
 
-"ExposureSubmission_Antigen_Profile_Information_DescriptionSubHeadline" = "When you create a rapid test profile, you will not have to fill out your personal data again before every rapid test.";
+"ExposureSubmission_Antigen_Profile_Information_DescriptionSubHeadline" = "When you create a rapid test profile, you do not have to fill out your personal data again before every rapid test. You can create several rapid test profiles, for instance, one for yourself and one each for your family members.";
 
 "ExposureSubmission_Antigen_Profile_Information_PrimaryButton" = "Continue";
 
 "ExposureSubmission_Antigen_Profile_Information_Dataprivacy_Title" = "For more information, please refer to the privacy notice.";
+
+/* Exposure Submission AntigenTest Profile Overview */
+"ExposureSubmission_Antigen_Profile_Overview_title" = "Rapid Test Profiles";
+
+"ExposureSubmission_Antigen_Profile_Overview_EmptyTitle" = "No rapid test profiles created yet";
+
+"ExposureSubmission_Antigen_Profile_Overview_EmptyDescription" = "You can create a rapid test profile with your personal data, which you can submit via QR code to every participating testing point.";
+
+"ExposureSubmission_Antigen_Profile_Overview_EmptyImageDescription" = "Certificate seal with digital certificate in the background";
+
+"ExposureSubmission_Antigen_Profile_Overview_AddButtonTitle" = "Create rapid test profile";
 
 /* ExposureSubmission AntigenTest Profile */
 "ExposureSubmission_Antigen_Profile_Header_Text" = "Rapid Test Profile";
@@ -1027,7 +1038,7 @@
 
 "ExposureSubmission_Profile_ProfileTile_Title" = "Rapid Test Profile";
 
-"ExposureSubmission_Profile_ProfileTile_Description" = "Save time and present your rapid test profile at the testing point.";
+"ExposureSubmission_Profile_ProfileTile_Description" = "Rapid test profile with your personal data, which you can submit to any participating testing point via the QR code.";
 
 /* ExposureSubmission TestOwnerSelection */
 "ExposureSubmission_TestOwnerSelection_Title" = "Register Test";
@@ -1645,10 +1656,10 @@
 /* New Version Features */
 "NewVersionFeatures_Info_about_abb_information" = "Changes in this release can be found in the app information, under “New Features”.";
 
-/* Version 2.21 */
-"NewVersionFeature_221_familyMembersTest_title" = "Manage Tests for your Family";
+/* Version 2.22 */
+"NewVersionFeature_222_family_members_RAT_profile_Title" = "Rapid Test Profiles for Family Members";
 
-"NewVersionFeature_221_familyMembersTest_description" = "You can now manage tests for your family members in your app: You can receive their test results on your smartphone and request digital COVID test certificates. If one of their tests is positive, however, you cannot warn other users. This is only possible if you register the test for yourself.";
+"NewVersionFeature_222_family_members_RAT_profile_description" = "You can now create rapid test profiles for your family members, to speed up registration at testing points. Once you do, you only have to present the QR code for the respective rapid test profile to provide the personal information.";
 
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Transnational Exposure Logging";
