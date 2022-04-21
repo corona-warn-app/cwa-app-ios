@@ -133,7 +133,7 @@ final class RevocationProvider: RevocationProviding {
 	) {
 		// Ensure that dispatch group does not block main thread
 		DispatchQueue.global().async {
-			var revokedCertificates: [HealthCertificate] = []
+			var revokedCertificates = Set<HealthCertificate>()
 			for revocationLocation in revocationLocations {
 				let outerDispatchGroup = DispatchGroup()
 				outerDispatchGroup.enter()
@@ -190,7 +190,7 @@ final class RevocationProvider: RevocationProviding {
 
 											return kidChunk.hashes.contains(hashString)
 										}
-									revokedCertificates.append(contentsOf: matchingCertificates)
+									revokedCertificates.formUnion(matchingCertificates)
 								case .failure(let error):
 									Log.error("failed to update kid x y chunk", error: error)
 								}
@@ -201,7 +201,7 @@ final class RevocationProvider: RevocationProviding {
 				}
 				outerDispatchGroup.wait()
 			}
-			completion(revokedCertificates)
+			completion(Array(revokedCertificates))
 		}
 	}
 
