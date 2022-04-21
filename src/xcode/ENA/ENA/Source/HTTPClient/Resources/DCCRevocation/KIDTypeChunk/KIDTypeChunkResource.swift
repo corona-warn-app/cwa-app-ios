@@ -34,7 +34,7 @@ struct KIDTypeChunkResource: Resource {
 #if !RELEASE
 		// Debug menu: Force update of revocation list.
 		if UserDefaults.standard.bool(forKey: RevocationProvider.keyForceUpdateRevocationList) {
-			self.type = .default
+			self.type = .caching()
 		}
 #endif
 
