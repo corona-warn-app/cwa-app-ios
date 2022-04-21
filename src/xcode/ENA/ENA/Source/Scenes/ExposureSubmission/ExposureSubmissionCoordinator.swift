@@ -424,7 +424,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 	private func createTestOwnerSelectionScreen(
 		supportedCountries: [Country],
 		testRegistrationInformation: CoronaTestRegistrationInformation,
-		temporaryAntigenTestProfile: AntigenTestProfile? = nil
+		temporaryAntigenTestProfileName: String? = nil
 	) -> ExposureSubmissionTestOwnerSelectionViewController {
 		return ExposureSubmissionTestOwnerSelectionViewController(
 			viewModel: ExposureSubmissionTestOwnerSelectionViewModel(
@@ -438,7 +438,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 					case .familyMember:
 						self?.showFamilyMemberTestConsentScreen(
 							testRegistrationInformation: testRegistrationInformation,
-							temporaryAntigenTestProfile: temporaryAntigenTestProfile
+							temporaryAntigenTestProfileName: temporaryAntigenTestProfileName
 						)
 					}
 				}
@@ -539,11 +539,11 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 
 	private func showFamilyMemberTestConsentScreen(
 		testRegistrationInformation: CoronaTestRegistrationInformation,
-		temporaryAntigenTestProfile: AntigenTestProfile? = nil
+		temporaryAntigenTestProfileName: String? = nil
 	) {
 		let familyMemberConsentViewController = FamilyMemberConsentViewController(
 			viewModel: FamilyMemberConsentViewModel(
-				temporaryAntigenTestProfile?.fullName,
+				temporaryAntigenTestProfileName,
 				presentDisclaimer: { [weak self] in
 					self?.showDataPrivacy()
 				}
@@ -616,7 +616,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 	
 	private func showQRScreen(
 		testRegistrationInformation: CoronaTestRegistrationInformation?,
-		temporaryAntigenTestProfile: AntigenTestProfile? = nil,
+		temporaryAntigenTestProfileName: String? = nil,
 		isLoading: @escaping (Bool) -> Void
 	) {
 		if let testRegistrationInformation = testRegistrationInformation {
@@ -652,7 +652,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 								self.createTestOwnerSelectionScreen(
 									supportedCountries: supportedCountries,
 									testRegistrationInformation: testRegistrationInformation,
-									temporaryAntigenTestProfile: temporaryAntigenTestProfile
+									temporaryAntigenTestProfileName: temporaryAntigenTestProfileName
 								)
 							)
 						}
@@ -1065,7 +1065,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 				self?.model.coronaTestType = .antigen
 				self?.showQRScreen(
 					testRegistrationInformation: nil,
-					temporaryAntigenTestProfile: antigenTestProfile,
+					temporaryAntigenTestProfileName: antigenTestProfile.fullName,
 					isLoading: isLoading
 				)
 			},
