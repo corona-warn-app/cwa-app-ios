@@ -5,19 +5,29 @@
 import Foundation
 import UIKit
 import Contacts
+import OpenCombine
 
-struct AntigenTestProfileViewModel {
+class AntigenTestProfileViewModel {
 
 	// MARK: - Init
 	
 	init(
+		antigenTestProfile: AntigenTestProfile,
 		store: AntigenTestProfileStoring
 	) {
-		guard let antigenTestProfile = store.antigenTestProfile else {
-			fatalError("We can't init without a valid antigenTestProfile stored")
-		}
 		self.store = store
 		self.antigenTestProfile = antigenTestProfile
+		
+		store.antigenTestProfilesSubject
+			.sink { [weak self] profiles in
+				guard let self = self else { return }
+				guard let updatedProfile = profiles.first(where: {
+					$0.id == antigenTestProfile.id
+				}) else {
+					return
+				}
+				self.antigenTestProfile = updatedProfile
+			}.store(in: &subscriptions)
 	}
 
 	// MARK: - Internal
@@ -47,6 +57,8 @@ struct AntigenTestProfileViewModel {
 		)
 	}()
 
+	@OpenCombine.Published private(set) var antigenTestProfile: AntigenTestProfile
+	
 	var qrCodeCellViewModel: QRCodeCellViewModel {
 		QRCodeCellViewModel(
 			antigenTestProfile: antigenTestProfile,
@@ -98,16 +110,11 @@ struct AntigenTestProfileViewModel {
 	}
 
 	func deleteProfile() {
-		store.antigenTestProfile = nil
+		store.antigenTestProfiles = store.antigenTestProfiles.filter({
+			$0.id != self.antigenTestProfile.id
+		})
 	}
-
-	mutating func refreshProfile() {
-		guard let antigenTestProfile = store.antigenTestProfile else {
-			fatalError("We can't refresh without a valid antigenTestProfile stored")
-		}
-		self.antigenTestProfile = antigenTestProfile
-	}
-
+	
 	func numberOfItems(in section: TableViewSection) -> Int {
 		switch section {
 		default:
@@ -139,8 +146,9 @@ struct AntigenTestProfileViewModel {
 
 	// MARK: - Private
 
+	private var subscriptions: [AnyCancellable] = []
+
 	private let store: AntigenTestProfileStoring
-	private var antigenTestProfile: AntigenTestProfile
 	private let dateOfBirthFormatter = AntigenTestProfileViewModel.dateOfBirthFormatter()
 	
 	private var friendlyName: String {

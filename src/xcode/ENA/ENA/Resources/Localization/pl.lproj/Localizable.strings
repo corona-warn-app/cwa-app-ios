@@ -1001,11 +1001,22 @@
 
 "ExposureSubmission_Antigen_Profile_Information_Description_Title" = "Zapisz swoje dane osobowe w postaci kodu QR, aby przyspieszyć rejestrację w punktach testowania.";
 
-"ExposureSubmission_Antigen_Profile_Information_DescriptionSubHeadline" = "Dzięki utworzeniu profilu szybkiego testu, nie będziesz musiał(a) ponownie wypełniać swoich danych osobowych przed wykonaniem szybkiego testu.";
+"ExposureSubmission_Antigen_Profile_Information_DescriptionSubHeadline" = "Dzięki utworzeniu profilu szybkiego testu nie musisz ponownie podawać swoich danych osobowych przed wykonaniem szybkiego testu. Możesz utworzyć kilka profili szybkich testów, np. jeden dla siebie i po jednym dla członków rodziny.";
 
 "ExposureSubmission_Antigen_Profile_Information_PrimaryButton" = "Kontynuuj";
 
 "ExposureSubmission_Antigen_Profile_Information_Dataprivacy_Title" = "Więcej informacji znajduje się w oświadczeniu o ochronie prywatności.";
+
+/* Exposure Submission AntigenTest Profile Overview */
+"ExposureSubmission_Antigen_Profile_Overview_title" = "Profile szybkich testów";
+
+"ExposureSubmission_Antigen_Profile_Overview_EmptyTitle" = "Nie utworzono jeszcze profili szybkich testów";
+
+"ExposureSubmission_Antigen_Profile_Overview_EmptyDescription" = "Możesz utworzyć profil szybkiego testu ze swoimi danymi osobowymi, który będziesz przesyłać za pomocą kodu QR do każdego uczestniczącego punktu testowania.";
+
+"ExposureSubmission_Antigen_Profile_Overview_EmptyImageDescription" = "Pieczęć certyfikatu z cyfrowym certyfikatem w tle";
+
+"ExposureSubmission_Antigen_Profile_Overview_AddButtonTitle" = "Utwórz profil szybkiego testu";
 
 /* ExposureSubmission AntigenTest Profile */
 "ExposureSubmission_Antigen_Profile_Header_Text" = "Profil szybkiego testu";
@@ -1027,7 +1038,7 @@
 
 "ExposureSubmission_Profile_ProfileTile_Title" = "Profil szybkiego testu";
 
-"ExposureSubmission_Profile_ProfileTile_Description" = "Zaoszczędź czas i przedstaw swój profil szybkiego testu w punkcie testowania.";
+"ExposureSubmission_Profile_ProfileTile_Description" = "Profil szybkiego testu z Twoimi danymi osobowymi, który możesz przesłać do dowolnego uczestniczącego punktu testowania za pomocą kodu QR.";
 
 /* ExposureSubmission TestOwnerSelection */
 "ExposureSubmission_TestOwnerSelection_Title" = "Zarejestruj test";
@@ -1645,10 +1656,10 @@
 /* New Version Features */
 "NewVersionFeatures_Info_about_abb_information" = "Dane o zmianach w tej wersji można znaleźć w informacjach o aplikacji w sekcji „Nowe funkcje”.";
 
-/* Version 2.21 */
-"NewVersionFeature_221_familyMembersTest_title" = "Zarządzaj testami swojej rodziny";
+/* Version 2.22 */
+"NewVersionFeature_222_family_members_RAT_profile_Title" = "Profile szybkich testów dla członków rodziny";
 
-"NewVersionFeature_221_familyMembersTest_description" = "Teraz możesz zarządzać testami członków swojej rodziny w aplikacji: Możesz odbierać wyniki ich testów na swoim smartfonie i prosić o cyfrowe certyfikaty testów na COVID. Jeśli jednak wynik jednego z testów będzie pozytywny, nie będziesz mieć możliwości ostrzegania innych użytkowników. Jest to możliwe tylko wtedy, gdy zarejestrujesz test dla siebie.";
+"NewVersionFeature_222_family_members_RAT_profile_description" = "Możesz teraz tworzyć profile szybkich testów dla członków swojej rodziny, aby przyspieszyć rejestrację w punktach testowania. Po utworzeniu profilu wystarczy okazać kod QR odpowiedniego profilu szybkiego testu, aby podać dane osobowe.";
 
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Rejestrowanie narażenia w różnych krajach";

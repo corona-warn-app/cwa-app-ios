@@ -878,7 +878,7 @@ class HealthCertificateServiceTests: CWATestCase {
 		let newDCCWalletInfo: DCCWalletInfo = .fake(
 			admissionState: .fake(visible: true, badgeText: .fake(string: "New Admission State"))
 		)
-		
+
 		let cclService = FakeCCLService()
 		cclService.dccWalletInfoResult = .success(newDCCWalletInfo)
 		cclService.didChange = false
@@ -926,7 +926,7 @@ class HealthCertificateServiceTests: CWATestCase {
 		let newDCCWalletInfo: DCCWalletInfo = .fake(
 			admissionState: .fake(visible: true, badgeText: .fake(string: "New Admission State"))
 		)
-		
+
 		let cclService = FakeCCLService()
 		cclService.dccWalletInfoResult = .success(newDCCWalletInfo)
 		cclService.didChange = false
@@ -970,7 +970,7 @@ class HealthCertificateServiceTests: CWATestCase {
 		
 		let store = MockTestStore()
 		store.healthCertifiedPersons = [healthCertifiedPerson]
-		
+
 		let cclService = FakeCCLService()
 		cclService.dccWalletInfoResult = .failure(.failedFunctionsEvaluation(FakeError.fake))
 		cclService.didChange = false
@@ -1018,7 +1018,7 @@ class HealthCertificateServiceTests: CWATestCase {
 		let newDCCWalletInfo: DCCWalletInfo = .fake(
 			admissionState: .fake(visible: true, badgeText: .fake(string: "New Admission State"))
 		)
-		
+
 		let cclService = FakeCCLService()
 		cclService.dccWalletInfoResult = .success(newDCCWalletInfo)
 		cclService.didChange = false
@@ -1066,7 +1066,7 @@ class HealthCertificateServiceTests: CWATestCase {
 		let newDCCWalletInfo: DCCWalletInfo = .fake(
 			admissionState: .fake(visible: true, badgeText: .fake(string: "New Admission State"))
 		)
-		
+
 		let cclService = FakeCCLService()
 		cclService.dccWalletInfoResult = .success(newDCCWalletInfo)
 		cclService.didChange = true
@@ -1115,7 +1115,7 @@ class HealthCertificateServiceTests: CWATestCase {
 		
 		let store = MockTestStore()
 		store.healthCertifiedPersons = [healthCertifiedPerson]
-		
+
 		let cclService = FakeCCLService()
 		cclService.didChange = false
 		
@@ -1310,7 +1310,7 @@ class HealthCertificateServiceTests: CWATestCase {
 		)
 		
 		let notificationCenter = MockUserNotificationCenter()
-		
+
 		let cclService = FakeCCLService()
 		cclService.dccWalletInfoResult = .success(newDCCWalletInfo)
 		cclService.didChange = false
@@ -1354,7 +1354,7 @@ class HealthCertificateServiceTests: CWATestCase {
 		)
 		
 		let notificationCenter = MockUserNotificationCenter()
-		
+
 		let cclService = FakeCCLService()
 		cclService.dccWalletInfoResult = .success(newDCCWalletInfo)
 		cclService.didChange = false
@@ -1406,7 +1406,7 @@ class HealthCertificateServiceTests: CWATestCase {
 		store.healthCertifiedPersons = [healthCertifiedPerson]
 		
 		let notificationCenter = MockUserNotificationCenter()
-		
+
 		let cclService = FakeCCLService()
 		cclService.dccWalletInfoResult = .success(dccWalletInfo)
 		cclService.didChange = true
@@ -1466,7 +1466,7 @@ class HealthCertificateServiceTests: CWATestCase {
 		store.healthCertifiedPersons = [healthCertifiedPerson]
 		
 		let notificationCenter = MockUserNotificationCenter()
-		
+
 		let cclService = FakeCCLService()
 		cclService.dccWalletInfoResult = .success(dccWalletInfo)
 		cclService.didChange = true
@@ -1596,7 +1596,7 @@ class HealthCertificateServiceTests: CWATestCase {
 		)
 		
 		let notificationCenter = MockUserNotificationCenter()
-		
+
 		let cclService = FakeCCLService()
 		cclService.dccWalletInfoResult = .success(newDCCWalletInfo)
 		cclService.didChange = false
@@ -1640,7 +1640,7 @@ class HealthCertificateServiceTests: CWATestCase {
 		)
 		
 		let notificationCenter = MockUserNotificationCenter()
-		
+
 		let cclService = FakeCCLService()
 		cclService.dccWalletInfoResult = .success(newDCCWalletInfo)
 		cclService.didChange = false
@@ -1697,7 +1697,7 @@ class HealthCertificateServiceTests: CWATestCase {
 		store.healthCertifiedPersons = [healthCertifiedPerson]
 		
 		let notificationCenter = MockUserNotificationCenter()
-		
+
 		let cclService = FakeCCLService()
 		cclService.dccWalletInfoResult = .success(dccWalletInfo)
 		cclService.didChange = true
@@ -1950,7 +1950,7 @@ class HealthCertificateServiceTests: CWATestCase {
 				badgeText: .fake(string: "2G+")
 			)
 		)
-		
+
 		let cclService = FakeCCLService()
 		cclService.dccWalletInfoResult = .success(newDCCWalletInfo)
 		cclService.didChange = false
@@ -1996,7 +1996,7 @@ class HealthCertificateServiceTests: CWATestCase {
 				badgeText: .fake(string: "2G+")
 			)
 		)
-		
+
 		let cclService = FakeCCLService()
 		cclService.dccWalletInfoResult = .success(newDCCWalletInfo)
 		cclService.didChange = false

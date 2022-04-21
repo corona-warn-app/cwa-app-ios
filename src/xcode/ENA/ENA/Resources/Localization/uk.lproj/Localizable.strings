@@ -1001,11 +1001,22 @@
 
 "ExposureSubmission_Antigen_Profile_Information_Description_Title" = "Збережіть свої особисті дані у вигляді QR-коду, щоб пришвидшити реєстрацію в пунктах тестування.";
 
-"ExposureSubmission_Antigen_Profile_Information_DescriptionSubHeadline" = "Коли ви створюєте профіль експрес-тесту, вам не доведеться знову заповнювати свої особисті дані перед кожним експрес-тестом.";
+"ExposureSubmission_Antigen_Profile_Information_DescriptionSubHeadline" = "Коли ви створюєте профіль експрес-тесту, вам не доведеться знову заповнювати свої особисті дані перед кожним експрес-тестом. Ви можете створити декілька профілів експрес-тестів, наприклад, один для себе і по одному для кожного члена вашої родини.";
 
 "ExposureSubmission_Antigen_Profile_Information_PrimaryButton" = "Продовжити";
 
 "ExposureSubmission_Antigen_Profile_Information_Dataprivacy_Title" = "Для отримання додаткової інформації дивіться сповіщення про конфіденційність.";
+
+/* Exposure Submission AntigenTest Profile Overview */
+"ExposureSubmission_Antigen_Profile_Overview_title" = "Профілі експрес-тестів";
+
+"ExposureSubmission_Antigen_Profile_Overview_EmptyTitle" = "Профілі експрес-тестів ще не створені";
+
+"ExposureSubmission_Antigen_Profile_Overview_EmptyDescription" = "Ви можете створити профіль експрес-тесту зі своїми особистими даними, які ви можете надіслати за допомогою QR-коду до кожного залученого пункту тестування.";
+
+"ExposureSubmission_Antigen_Profile_Overview_EmptyImageDescription" = "Печатка сертифіката з цифровим сертифікатом на фоні";
+
+"ExposureSubmission_Antigen_Profile_Overview_AddButtonTitle" = "Створити профіль експрес-тесту";
 
 /* ExposureSubmission AntigenTest Profile */
 "ExposureSubmission_Antigen_Profile_Header_Text" = "Профіль експрес-тесту";
@@ -1027,7 +1038,7 @@
 
 "ExposureSubmission_Profile_ProfileTile_Title" = "Профіль експрес-тесту";
 
-"ExposureSubmission_Profile_ProfileTile_Description" = "Заощаджуйте час і надавайте свій профіль експрес-тесту у пункті тестування.";
+"ExposureSubmission_Profile_ProfileTile_Description" = "Профіль експрес-тесту з вашими особистими даними, які ви можете надіслати до будь-якого пункту тестування, що приймає участь, за допомогою QR-коду.";
 
 /* ExposureSubmission TestOwnerSelection */
 "ExposureSubmission_TestOwnerSelection_Title" = "Зареєструвати тест";
@@ -1645,10 +1656,10 @@
 /* New Version Features */
 "NewVersionFeatures_Info_about_abb_information" = "Зміни у цій версії можна знайти в інформації про застосунок в розділі «Нові функції».";
 
-/* Version 2.21 */
-"NewVersionFeature_221_familyMembersTest_title" = "Керуйте тестами для вашої родини";
+/* Version 2.22 */
+"NewVersionFeature_222_family_members_RAT_profile_Title" = "Профілі експрес-тестів для членів родини";
 
-"NewVersionFeature_221_familyMembersTest_description" = "Тепер ви можете керувати тестами для членів вашої родини у своєму застосунку: ви можете отримувати їх результати тестів на свій смартфон і запитувати цифрові сертифікати тесту на COVID. Однак якщо один із їхніх тестів позитивний, ви не можете попередити інших користувачів. Це можливо, лише якщо ви зареєструєте тест для себе.";
+"NewVersionFeature_222_family_members_RAT_profile_description" = "Тепер ви можете створювати профілі експрес-тестів для членів вашої родини, щоб прискорити реєстрацію в пунктах тестування. Після цього вам потрібно лише представити QR-код для відповідного профілю експрес-тесту, щоб надати особисту інформацію.";
 
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Транснаціональна реєстрація ризику зараження";

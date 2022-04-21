@@ -25,15 +25,6 @@ class ExposureSubmissionIntroViewModel {
 		self.onHotlineButtonTap = onHotlineButtonTap
 		self.onRapidTestProfileTap = onRapidTestProfileTap
 		self.antigenTestProfileStore = antigenTestProfileStore
-
-		antigenTestProfileStore.antigenTestProfileSubject.sink { [weak self] testProfile in
-			guard let self = self else { return }
-
-			self.dynamicTableModel = self.makeDynamicTableModel(
-				testProfileAvailable: testProfile != nil
-			)
-			
-		}.store(in: &subscriptions)
 	}
 	
 	// MARK: - Internal
@@ -45,44 +36,26 @@ class ExposureSubmissionIntroViewModel {
 	let onRapidTestProfileTap: () -> Void
 	let antigenTestProfileStore: AntigenTestProfileStoring
 
-	@OpenCombine.Published var dynamicTableModel: DynamicTableViewModel = DynamicTableViewModel([])
-
 	// MARK: - Private
 
-	private var subscriptions = Set<AnyCancellable>()
-
-	private func makeDynamicTableModel(testProfileAvailable: Bool) -> DynamicTableViewModel {
+	var dynamicTableModel: DynamicTableViewModel {
 		let profileCell: DynamicCell
 
-		if testProfileAvailable {
-			let gradientView = GradientView()
-			gradientView.type = .blueOnly
+		let gradientView = GradientView()
+		gradientView.type = .blueOnly
 
-			profileCell = DynamicCell.imageCard(
-				title: AppStrings.ExposureSubmission.AntigenTest.Profile.profileTile_Title,
-				description: AppStrings.ExposureSubmission.AntigenTest.Profile.profileTile_Description,
-				image: UIImage(named: "Illu_Submission_AntigenTest_Profile"),
-				backgroundView: gradientView,
-				textColor: .enaColor(for: .textContrast),
-				action: .execute { [weak self] _, _ in
-					self?.onRapidTestProfileTap()
-				},
-				accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmission.AntigenTest.Profile.profileTile_Description,
-				tag: "AntigenTestProfileCard" // Used for unit testing.
-			)
-		} else {
-			profileCell = DynamicCell.imageCard(
-				title: AppStrings.ExposureSubmission.AntigenTest.Profile.createProfileTile_Title,
-				description: AppStrings.ExposureSubmission.AntigenTest.Profile.createProfileTile_Description,
-				image: UIImage(named: "Illu_Submission_AntigenTest_CreateProfile"),
-				imageLayout: .center,
-				action: .execute { [weak self] _, _ in
-					self?.onRapidTestProfileTap()
-				},
-				accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmission.AntigenTest.Profile.createProfileTile_Description,
-				tag: "AntigenTestCreateProfileCard" // Used for unit testing.
-			)
-		}
+		profileCell = DynamicCell.imageCard(
+			title: AppStrings.ExposureSubmission.AntigenTest.Profile.profileTile_Title,
+			description: AppStrings.ExposureSubmission.AntigenTest.Profile.profileTile_Description,
+			image: UIImage(named: "Illu_Submission_AntigenTest_Profile"),
+			backgroundView: gradientView,
+			textColor: .enaColor(for: .textContrast),
+			action: .execute { [weak self] _, _ in
+				self?.onRapidTestProfileTap()
+			},
+			accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmission.AntigenTest.Profile.profileTile_Description,
+			tag: "AntigenTestProfileCard" // Used for unit testing.
+		)
 
 		return DynamicTableViewModel.with {
 			$0.add(.section(
