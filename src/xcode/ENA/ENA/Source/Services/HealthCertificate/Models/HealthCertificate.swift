@@ -198,6 +198,10 @@ final class HealthCertificate: Codable, Equatable, Comparable, RecycleBinIdentif
 			}
 		}
 	}
+
+	var hexKeyIdentifier: String {
+		Data(base64Encoded: keyIdentifier)?.toHexString() ?? ""
+	}
 	
 	var version: String {
 		digitalCovidCertificate.version

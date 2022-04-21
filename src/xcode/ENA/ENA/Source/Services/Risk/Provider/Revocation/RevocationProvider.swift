@@ -34,8 +34,8 @@ final class RevocationProvider: RevocationProviding {
 		}
 
 		// 2. group certificates by kid
-		let groupedCertificates = Dictionary(grouping: filteredCertificates) { element in
-			Data(base64Encoded: element.keyIdentifier)?.toHexString() ?? ""
+		let groupedCertificates = Dictionary(grouping: filteredCertificates) {
+			$0.hexKeyIdentifier
 		}
 
 		// 3. Update KID List
