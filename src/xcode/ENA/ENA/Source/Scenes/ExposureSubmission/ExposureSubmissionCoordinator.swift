@@ -423,7 +423,8 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 
 	private func createTestOwnerSelectionScreen(
 		supportedCountries: [Country],
-		testRegistrationInformation: CoronaTestRegistrationInformation
+		testRegistrationInformation: CoronaTestRegistrationInformation,
+		temporaryAntigenTestProfile: AntigenTestProfile? = nil
 	) -> ExposureSubmissionTestOwnerSelectionViewController {
 		return ExposureSubmissionTestOwnerSelectionViewController(
 			viewModel: ExposureSubmissionTestOwnerSelectionViewModel(
@@ -436,7 +437,8 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 						)
 					case .familyMember:
 						self?.showFamilyMemberTestConsentScreen(
-							testRegistrationInformation: testRegistrationInformation
+							testRegistrationInformation: testRegistrationInformation,
+							temporaryAntigenTestProfile: temporaryAntigenTestProfile
 						)
 					}
 				}
@@ -535,8 +537,17 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 		push(makeQRInfoScreen(supportedCountries: supportedCountries, testRegistrationInformation: testRegistrationInformation))
 	}
 
-	private func showFamilyMemberTestConsentScreen(testRegistrationInformation: CoronaTestRegistrationInformation) {
+	private func showFamilyMemberTestConsentScreen(
+		testRegistrationInformation: CoronaTestRegistrationInformation,
+		temporaryAntigenTestProfile: AntigenTestProfile? = nil
+	) {
 		let familyMemberConsentViewController = FamilyMemberConsentViewController(
+			viewModel: FamilyMemberConsentViewModel(
+				temporaryAntigenTestProfile?.fullName,
+				presentDisclaimer: { [weak self] in
+					self?.showDataPrivacy()
+				}
+			),
 			dismiss: { [weak self] in
 				self?.dismiss()
 			}, didTapDataPrivacy: { [weak self] in
@@ -603,7 +614,11 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 		)
 	}
 	
-	private func showQRScreen(testRegistrationInformation: CoronaTestRegistrationInformation?, isLoading: @escaping (Bool) -> Void) {
+	private func showQRScreen(
+		testRegistrationInformation: CoronaTestRegistrationInformation?,
+		temporaryAntigenTestProfile: AntigenTestProfile? = nil,
+		isLoading: @escaping (Bool) -> Void
+	) {
 		if let testRegistrationInformation = testRegistrationInformation {
 			showOverrideTestNoticeIfNecessary(
 				testRegistrationInformation: testRegistrationInformation,
@@ -633,7 +648,13 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 					self.model.exposureSubmissionService.loadSupportedCountries(
 						isLoading: isLoading,
 						onSuccess: { supportedCountries in
-							self.push(self.createTestOwnerSelectionScreen(supportedCountries: supportedCountries, testRegistrationInformation: testRegistrationInformation))
+							self.push(
+								self.createTestOwnerSelectionScreen(
+									supportedCountries: supportedCountries,
+									testRegistrationInformation: testRegistrationInformation,
+									temporaryAntigenTestProfile: temporaryAntigenTestProfile
+								)
+							)
 						}
 					)
 				}
@@ -1042,7 +1063,11 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 			),
 			didTapContinue: { [weak self] isLoading in
 				self?.model.coronaTestType = .antigen
-				self?.showQRScreen(testRegistrationInformation: nil, isLoading: isLoading)
+				self?.showQRScreen(
+					testRegistrationInformation: nil,
+					temporaryAntigenTestProfile: antigenTestProfile,
+					isLoading: isLoading
+				)
 			},
 			didTapProfileInfo: { [weak self] in
 				self?.showAntigenTestProfileInformation()
