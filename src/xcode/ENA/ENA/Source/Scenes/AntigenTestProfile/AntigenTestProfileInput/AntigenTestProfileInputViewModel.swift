@@ -27,10 +27,7 @@ final class AntigenTestProfileInputViewModel {
 		} else {
 			store.antigenTestProfiles.append(antigenTestProfile)
 			store.antigenTestProfiles = store.antigenTestProfiles.sorted {
-				guard let lhsName = $0.fullName, let rhsName = $1.fullName else {
-					return true
-				}
-				return lhsName.localizedCompare(rhsName) == .orderedAscending
+				$0.fullName.localizedCompare($1.fullName) == .orderedAscending
 			}
 		}
 	}

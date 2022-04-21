@@ -92,10 +92,7 @@ struct AntigenTestProfile: Codable {
 	var phoneNumber: String?
 	var email: String?
 	
-	var fullName: String? {
-		guard let first = firstName, let last = lastName else {
-			return nil
-		}
-		return first + " " + last
+	var fullName: String {
+		return (firstName ?? "") + " " + (lastName ?? "")
 	}
 }
