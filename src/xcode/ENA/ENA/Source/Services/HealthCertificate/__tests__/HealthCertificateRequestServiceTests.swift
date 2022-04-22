@@ -53,7 +53,7 @@ class HealthCertificateRequestServiceTests: CWATestCase {
 			digitalCovidCertificateAccess: digitalCovidCertificateAccess,
 			cclService: FakeCCLService(),
 			recycleBin: .fake(),
-			revocationProvider: RevocationProvider(RestServiceProviderStub())
+			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
 		
 		let healthCertificateRequestService = HealthCertificateRequestService(
@@ -168,7 +168,7 @@ class HealthCertificateRequestServiceTests: CWATestCase {
 			digitalCovidCertificateAccess: digitalCovidCertificateAccess,
 			cclService: FakeCCLService(),
 			recycleBin: .fake(),
-			revocationProvider: RevocationProvider(RestServiceProviderStub())
+			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
 		
 		let healthCertificateRequestService = HealthCertificateRequestService(
@@ -264,7 +264,7 @@ class HealthCertificateRequestServiceTests: CWATestCase {
 			digitalCovidCertificateAccess: digitalCovidCertificateAccess,
 			cclService: FakeCCLService(),
 			recycleBin: .fake(),
-			revocationProvider: RevocationProvider(RestServiceProviderStub())
+			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
 		
 		let healthCertificateRequestService = HealthCertificateRequestService(
@@ -362,7 +362,7 @@ class HealthCertificateRequestServiceTests: CWATestCase {
 			digitalCovidCertificateAccess: digitalCovidCertificateAccess,
 			cclService: FakeCCLService(),
 			recycleBin: .fake(),
-			revocationProvider: RevocationProvider(RestServiceProviderStub())
+			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
 		
 		let healthCertificateRequestService = HealthCertificateRequestService(
@@ -446,7 +446,7 @@ class HealthCertificateRequestServiceTests: CWATestCase {
 			appConfiguration: appConfig,
 			cclService: FakeCCLService(),
 			recycleBin: .fake(),
-			revocationProvider: RevocationProvider(RestServiceProviderStub())
+			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
 		
 		let healthCertificateRequestService = HealthCertificateRequestService(
@@ -532,7 +532,7 @@ class HealthCertificateRequestServiceTests: CWATestCase {
 			digitalCovidCertificateAccess: digitalCovidCertificateAccess,
 			cclService: FakeCCLService(),
 			recycleBin: .fake(),
-			revocationProvider: RevocationProvider(RestServiceProviderStub())
+			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
 		
 		let healthCertificateRequestService = HealthCertificateRequestService(
@@ -613,7 +613,7 @@ class HealthCertificateRequestServiceTests: CWATestCase {
 			appConfiguration: appConfig,
 			cclService: FakeCCLService(),
 			recycleBin: .fake(),
-			revocationProvider: RevocationProvider(RestServiceProviderStub())
+			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
 		
 		let healthCertificateRequestService = HealthCertificateRequestService(
@@ -680,7 +680,7 @@ class HealthCertificateRequestServiceTests: CWATestCase {
 			appConfiguration: appConfig,
 			cclService: FakeCCLService(),
 			recycleBin: .fake(),
-			revocationProvider: RevocationProvider(RestServiceProviderStub())
+			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
 		
 		let healthCertificateRequestService = HealthCertificateRequestService(
@@ -746,7 +746,7 @@ class HealthCertificateRequestServiceTests: CWATestCase {
 			appConfiguration: appConfig,
 			cclService: FakeCCLService(),
 			recycleBin: .fake(),
-			revocationProvider: RevocationProvider(RestServiceProviderStub())
+			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
 		
 		let healthCertificateRequestService = HealthCertificateRequestService(
@@ -816,7 +816,7 @@ class HealthCertificateRequestServiceTests: CWATestCase {
 			digitalCovidCertificateAccess: digitalCovidCertificateAccess,
 			cclService: FakeCCLService(),
 			recycleBin: .fake(),
-			revocationProvider: RevocationProvider(RestServiceProviderStub())
+			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
 		
 		let healthCertificateRequestService = HealthCertificateRequestService(
@@ -863,7 +863,7 @@ class HealthCertificateRequestServiceTests: CWATestCase {
 			appConfiguration: appConfig,
 			cclService: FakeCCLService(),
 			recycleBin: .fake(),
-			revocationProvider: RevocationProvider(RestServiceProviderStub())
+			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
 		
 		let healthCertificateRequestService = HealthCertificateRequestService(
@@ -932,7 +932,7 @@ class HealthCertificateRequestServiceTests: CWATestCase {
 			digitalCovidCertificateAccess: digitalCovidCertificateAccess,
 			cclService: FakeCCLService(),
 			recycleBin: .fake(),
-			revocationProvider: RevocationProvider(RestServiceProviderStub())
+			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
 		
 		let healthCertificateRequestService = HealthCertificateRequestService(
@@ -1027,7 +1027,7 @@ class HealthCertificateRequestServiceTests: CWATestCase {
 			digitalCovidCertificateAccess: digitalCovidCertificateAccess,
 			cclService: FakeCCLService(),
 			recycleBin: .fake(),
-			revocationProvider: RevocationProvider(RestServiceProviderStub())
+			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
 		healthCertificateService.syncSetup()
 		

@@ -20,7 +20,7 @@ class HealthCertifiedPersonViewModelTests: XCTestCase {
 			appConfiguration: CachedAppConfigurationMock(),
 			cclService: cclService,
 			recycleBin: .fake(),
-			revocationProvider: RevocationProvider(RestServiceProviderStub())
+			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
 		
 		let viewModel = HealthCertifiedPersonViewModel(
@@ -73,7 +73,7 @@ class HealthCertifiedPersonViewModelTests: XCTestCase {
 			appConfiguration: CachedAppConfigurationMock(),
 			cclService: cclService,
 			recycleBin: .fake(),
-			revocationProvider: RevocationProvider(RestServiceProviderStub())
+			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
 		
 		let recoveryCertificate = try recoveryCertificate(daysOffset: -5)
@@ -119,7 +119,7 @@ class HealthCertifiedPersonViewModelTests: XCTestCase {
 			appConfiguration: CachedAppConfigurationMock(),
 			cclService: cclService,
 			recycleBin: .fake(),
-			revocationProvider: RevocationProvider(RestServiceProviderStub())
+			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
 		
 		let viewModel = HealthCertifiedPersonViewModel(
@@ -158,7 +158,7 @@ class HealthCertifiedPersonViewModelTests: XCTestCase {
 			appConfiguration: CachedAppConfigurationMock(),
 			cclService: cclService,
 			recycleBin: .fake(),
-			revocationProvider: RevocationProvider(RestServiceProviderStub())
+			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
 		
 		let healthCertificate = try vaccinationCertificate(daysOffset: -24, doseNumber: 1, identifier: "01DE/84503/1119349007/DXSGWLWL40SU8ZFKIYIBK39A3#S", dateOfBirth: "1988-06-07")
@@ -198,7 +198,7 @@ class HealthCertifiedPersonViewModelTests: XCTestCase {
 			appConfiguration: CachedAppConfigurationMock(),
 			cclService: cclService,
 			recycleBin: .fake(),
-			revocationProvider: RevocationProvider(RestServiceProviderStub())
+			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
 		
 		let viewModel = HealthCertifiedPersonViewModel(
@@ -234,7 +234,7 @@ class HealthCertifiedPersonViewModelTests: XCTestCase {
 			appConfiguration: CachedAppConfigurationMock(),
 			cclService: cclService,
 			recycleBin: .fake(),
-			revocationProvider: RevocationProvider(RestServiceProviderStub())
+			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
 		
 		let viewModel = HealthCertifiedPersonViewModel(
@@ -270,7 +270,7 @@ class HealthCertifiedPersonViewModelTests: XCTestCase {
 			appConfiguration: CachedAppConfigurationMock(),
 			cclService: cclService,
 			recycleBin: .fake(),
-			revocationProvider: RevocationProvider(RestServiceProviderStub())
+			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
 		
 		let viewModel = HealthCertifiedPersonViewModel(
@@ -304,7 +304,7 @@ class HealthCertifiedPersonViewModelTests: XCTestCase {
 			appConfiguration: CachedAppConfigurationMock(),
 			cclService: cclService,
 			recycleBin: .fake(),
-			revocationProvider: RevocationProvider(RestServiceProviderStub())
+			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
 		
 		let viewModel = HealthCertifiedPersonViewModel(
@@ -338,7 +338,7 @@ class HealthCertifiedPersonViewModelTests: XCTestCase {
 			appConfiguration: CachedAppConfigurationMock(),
 			cclService: cclService,
 			recycleBin: .fake(),
-			revocationProvider: RevocationProvider(RestServiceProviderStub())
+			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
 		
 		let viewModel = HealthCertifiedPersonViewModel(
@@ -372,7 +372,7 @@ class HealthCertifiedPersonViewModelTests: XCTestCase {
 			appConfiguration: CachedAppConfigurationMock(),
 			cclService: cclService,
 			recycleBin: .fake(),
-			revocationProvider: RevocationProvider(RestServiceProviderStub())
+			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
 		
 		let viewModel = HealthCertifiedPersonViewModel(
@@ -406,7 +406,7 @@ class HealthCertifiedPersonViewModelTests: XCTestCase {
 			appConfiguration: CachedAppConfigurationMock(),
 			cclService: cclService,
 			recycleBin: .fake(),
-			revocationProvider: RevocationProvider(RestServiceProviderStub())
+			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
 		
 		let viewModel = HealthCertifiedPersonViewModel(
@@ -440,7 +440,7 @@ class HealthCertifiedPersonViewModelTests: XCTestCase {
 			appConfiguration: CachedAppConfigurationMock(),
 			cclService: cclService,
 			recycleBin: .fake(),
-			revocationProvider: RevocationProvider(RestServiceProviderStub())
+			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
 		
 		let viewModel = HealthCertifiedPersonViewModel(
@@ -474,7 +474,7 @@ class HealthCertifiedPersonViewModelTests: XCTestCase {
 			appConfiguration: CachedAppConfigurationMock(),
 			cclService: cclService,
 			recycleBin: .fake(),
-			revocationProvider: RevocationProvider(RestServiceProviderStub())
+			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
 		
 		let healthCertificate = try vaccinationCertificate()
@@ -519,7 +519,7 @@ class HealthCertifiedPersonViewModelTests: XCTestCase {
 			appConfiguration: CachedAppConfigurationMock(),
 			cclService: cclService,
 			recycleBin: .fake(),
-			revocationProvider: RevocationProvider(RestServiceProviderStub())
+			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
 		
 		let healthCertificate = try vaccinationCertificate()

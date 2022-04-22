@@ -5,6 +5,7 @@
 import Foundation
 import ExposureNotification
 import OpenCombine
+import HealthCertificateToolkit
 
 protocol StoreProtocol: AnyObject {
 
@@ -228,6 +229,12 @@ protocol HealthCertificateStoring: AnyObject {
 
 }
 
+protocol RevokedCertificatesStoring: AnyObject {
+
+	var revokedCertificates: [String] { get set }
+
+}
+
 /// this section contains only deprecated stuff, please do not add new things here
 protocol CoronaTestStoringLegacy {
 
@@ -293,6 +300,7 @@ protocol Store:
 	ErrorLogUploadHistoryProviding,
 	EventRegistrationCaching,
 	HealthCertificateStoring,
+	RevokedCertificatesStoring,
 	PrivacyPreservingProviding,
 	StatisticsCaching,
 	LocalStatisticsCaching,

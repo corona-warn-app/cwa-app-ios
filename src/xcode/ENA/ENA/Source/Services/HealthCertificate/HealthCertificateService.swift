@@ -544,7 +544,12 @@ class HealthCertificateService: HealthCertificateServiceServable {
 
 		revocationProvider.updateCache(
 			with: allRegisteredCertificates,
-			completion: { certificatesToRevoke in
+			completion: { result in
+				guard case .success(let certificatesToRevoke) = result else {
+					completion?()
+					return
+				}
+
 				let certificatesToUpdate = certificatesToRevoke
 					.filter { $0.validityState != .revoked } +
 					allRegisteredCertificates

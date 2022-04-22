@@ -1118,7 +1118,7 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 			appConfiguration: appConfiguration,
 			cclService: FakeCCLService(),
 			recycleBin: .fake(),
-			revocationProvider: RevocationProvider(RestServiceProviderStub())
+			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
 		
 		let coronaTestService = CoronaTestService(

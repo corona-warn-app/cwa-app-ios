@@ -414,7 +414,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		healthCertificateValidator: HealthCertificateValidator(restServiceProvider: restServiceProvider)
 	)
 
-	private lazy var revocationProvider: RevocationProviding = RevocationProvider(restServiceProvider)
+	private lazy var revocationProvider: RevocationProviding = RevocationProvider(
+		restService: restServiceProvider,
+		store: store
+	)
 
 	private lazy var healthCertificateRequestService = HealthCertificateRequestService(
 		store: store,

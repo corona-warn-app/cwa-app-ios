@@ -92,7 +92,7 @@ class RevocationProviderTests: CWATestCase {
 			]
 		)
 
-		let revocationProvider = RevocationProvider(restService, signatureVerifier: MockVerifier())
+		let revocationProvider = RevocationProvider(restService: restService, store: MockTestStore(), signatureVerifier: MockVerifier())
 
 		let expectation = expectation(description: "success expectation")
 
