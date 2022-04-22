@@ -1061,7 +1061,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 				antigenTestProfile: antigenTestProfile,
 				store: store
 			),
-			didTapContinue: { [weak self] isLoading in
+			didTapContinue: { [weak self] isLoading, antigenTestProfile  in
 				self?.model.coronaTestType = .antigen
 				self?.showQRScreen(
 					testRegistrationInformation: nil,
