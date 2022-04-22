@@ -22,7 +22,7 @@ class CoronaTestRestorationHandlerTests: CWATestCase {
 			appConfiguration: appConfiguration,
 			cclService: FakeCCLService(),
 			recycleBin: recycleBin,
-			revocationProvider: RevocationProvider(RestServiceProviderStub())
+			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
 
 		let service = CoronaTestService(
@@ -96,7 +96,7 @@ class CoronaTestRestorationHandlerTests: CWATestCase {
 			appConfiguration: appConfiguration,
 			cclService: FakeCCLService(),
 			recycleBin: recycleBin,
-			revocationProvider: RevocationProvider(RestServiceProviderStub())
+			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
 
 		let service = CoronaTestService(
@@ -149,7 +149,7 @@ class CoronaTestRestorationHandlerTests: CWATestCase {
 			appConfiguration: appConfiguration,
 			cclService: FakeCCLService(),
 			recycleBin: recycleBin,
-			revocationProvider: RevocationProvider(RestServiceProviderStub())
+			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
 
 		let service = CoronaTestService(

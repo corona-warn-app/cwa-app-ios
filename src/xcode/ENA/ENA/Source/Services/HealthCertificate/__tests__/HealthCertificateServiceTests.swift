@@ -21,7 +21,7 @@ class HealthCertificateServiceTests: CWATestCase {
 			appConfiguration: CachedAppConfigurationMock(),
 			cclService: FakeCCLService(),
 			recycleBin: .fake(),
-			revocationProvider: RevocationProvider(RestServiceProviderStub())
+			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
 		service.syncSetup()
 		
@@ -71,7 +71,7 @@ class HealthCertificateServiceTests: CWATestCase {
 			appConfiguration: CachedAppConfigurationMock(),
 			cclService: FakeCCLService(),
 			recycleBin: .fake(),
-			revocationProvider: RevocationProvider(RestServiceProviderStub())
+			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
 		
 		let firstTestCertificateBase45 = try base45Fake(
@@ -125,7 +125,7 @@ class HealthCertificateServiceTests: CWATestCase {
 			appConfiguration: appConfigProvider,
 			cclService: FakeCCLService(),
 			recycleBin: .fake(),
-			revocationProvider: RevocationProvider(RestServiceProviderStub())
+			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
 		service.syncSetup()
 		
@@ -454,7 +454,7 @@ class HealthCertificateServiceTests: CWATestCase {
 			appConfiguration: CachedAppConfigurationMock(),
 			cclService: FakeCCLService(),
 			recycleBin: .fake(),
-			revocationProvider: RevocationProvider(RestServiceProviderStub())
+			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
 		service.syncSetup()
 		
@@ -562,7 +562,7 @@ class HealthCertificateServiceTests: CWATestCase {
 			appConfiguration: CachedAppConfigurationMock(),
 			cclService: FakeCCLService(),
 			recycleBin: recycleBin,
-			revocationProvider: RevocationProvider(RestServiceProviderStub())
+			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
 		
 		XCTAssertTrue(store.healthCertifiedPersons.isEmpty)
@@ -639,7 +639,7 @@ class HealthCertificateServiceTests: CWATestCase {
 			appConfiguration: cachedAppConfig,
 			cclService: FakeCCLService(),
 			recycleBin: .fake(),
-			revocationProvider: RevocationProvider(RestServiceProviderStub())
+			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
 		
 		XCTAssertEqual(healthCertificate.validityState, .valid)
@@ -665,7 +665,7 @@ class HealthCertificateServiceTests: CWATestCase {
 			appConfiguration: CachedAppConfigurationMock(),
 			cclService: FakeCCLService(),
 			recycleBin: .fake(),
-			revocationProvider: RevocationProvider(RestServiceProviderStub())
+			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
 		
 		service.addHealthCertificate(healthCertificate, completedNotificationRegistration: { })
@@ -720,7 +720,7 @@ class HealthCertificateServiceTests: CWATestCase {
 			appConfiguration: CachedAppConfigurationMock(),
 			cclService: cclService,
 			recycleBin: .fake(),
-			revocationProvider: RevocationProvider(RestServiceProviderStub())
+			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
 		service.syncSetup()
 		
@@ -770,7 +770,7 @@ class HealthCertificateServiceTests: CWATestCase {
 			appConfiguration: CachedAppConfigurationMock(),
 			cclService: FakeCCLService(),
 			recycleBin: .fake(),
-			revocationProvider: RevocationProvider(RestServiceProviderStub())
+			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
 		service.syncSetup()
 		
@@ -806,7 +806,7 @@ class HealthCertificateServiceTests: CWATestCase {
 			appConfiguration: CachedAppConfigurationMock(),
 			cclService: FakeCCLService(),
 			recycleBin: .fake(),
-			revocationProvider: RevocationProvider(RestServiceProviderStub())
+			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
 		service.syncSetup()
 		
@@ -855,7 +855,7 @@ class HealthCertificateServiceTests: CWATestCase {
 			appConfiguration: cachedAppConfig,
 			cclService: FakeCCLService(),
 			recycleBin: .fake(),
-			revocationProvider: RevocationProvider(RestServiceProviderStub())
+			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
 		service.syncSetup()
 		
@@ -899,7 +899,7 @@ class HealthCertificateServiceTests: CWATestCase {
 			appConfiguration: CachedAppConfigurationMock(),
 			cclService: cclService,
 			recycleBin: .fake(),
-			revocationProvider: RevocationProvider(RestServiceProviderStub())
+			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
 		service.syncSetup()
 		
@@ -947,7 +947,7 @@ class HealthCertificateServiceTests: CWATestCase {
 			appConfiguration: CachedAppConfigurationMock(),
 			cclService: cclService,
 			recycleBin: .fake(),
-			revocationProvider: RevocationProvider(RestServiceProviderStub())
+			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
 		service.syncSetup()
 		
@@ -991,7 +991,7 @@ class HealthCertificateServiceTests: CWATestCase {
 			appConfiguration: CachedAppConfigurationMock(),
 			cclService: cclService,
 			recycleBin: .fake(),
-			revocationProvider: RevocationProvider(RestServiceProviderStub())
+			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
 		service.syncSetup()
 		
@@ -1039,7 +1039,7 @@ class HealthCertificateServiceTests: CWATestCase {
 			appConfiguration: CachedAppConfigurationMock(),
 			cclService: cclService,
 			recycleBin: .fake(),
-			revocationProvider: RevocationProvider(RestServiceProviderStub())
+			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
 		service.syncSetup()
 		
@@ -1087,7 +1087,7 @@ class HealthCertificateServiceTests: CWATestCase {
 			appConfiguration: CachedAppConfigurationMock(),
 			cclService: cclService,
 			recycleBin: .fake(),
-			revocationProvider: RevocationProvider(RestServiceProviderStub())
+			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
 		service.syncSetup()
 		
@@ -1135,7 +1135,7 @@ class HealthCertificateServiceTests: CWATestCase {
 			appConfiguration: CachedAppConfigurationMock(),
 			cclService: cclService,
 			recycleBin: .fake(),
-			revocationProvider: RevocationProvider(RestServiceProviderStub())
+			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
 		
 		waitForExpectations(timeout: .short)
@@ -1181,7 +1181,7 @@ class HealthCertificateServiceTests: CWATestCase {
 			appConfiguration: cachedAppConfig,
 			cclService: FakeCCLService(),
 			recycleBin: .fake(),
-			revocationProvider: RevocationProvider(RestServiceProviderStub())
+			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
 		service.syncSetup()
 		
@@ -1204,7 +1204,7 @@ class HealthCertificateServiceTests: CWATestCase {
 			notificationCenter: notificationCenter,
 			cclService: FakeCCLService(),
 			recycleBin: .fake(),
-			revocationProvider: RevocationProvider(RestServiceProviderStub())
+			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
 		
 		let testCertificateBase45 = try base45Fake(
@@ -1289,7 +1289,7 @@ class HealthCertificateServiceTests: CWATestCase {
 			notificationCenter: notificationCenter,
 			cclService: FakeCCLService(),
 			recycleBin: .fake(),
-			revocationProvider: RevocationProvider(RestServiceProviderStub())
+			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
 		
 		service.addHealthCertificate(healthCertificate, completedNotificationRegistration: { })
@@ -1330,7 +1330,7 @@ class HealthCertificateServiceTests: CWATestCase {
 			notificationCenter: notificationCenter,
 			cclService: cclService,
 			recycleBin: .fake(),
-			revocationProvider: RevocationProvider(RestServiceProviderStub())
+			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
 		
 		service.addHealthCertificate(healthCertificate, completedNotificationRegistration: { })
@@ -1374,7 +1374,7 @@ class HealthCertificateServiceTests: CWATestCase {
 			notificationCenter: notificationCenter,
 			cclService: cclService,
 			recycleBin: .fake(),
-			revocationProvider: RevocationProvider(RestServiceProviderStub())
+			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
 		
 		service.addHealthCertificate(healthCertificate, completedNotificationRegistration: { })
@@ -1435,7 +1435,7 @@ class HealthCertificateServiceTests: CWATestCase {
 			notificationCenter: notificationCenter,
 			cclService: cclService,
 			recycleBin: .fake(),
-			revocationProvider: RevocationProvider(RestServiceProviderStub())
+			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
 		service.syncSetup()
 		
@@ -1495,7 +1495,7 @@ class HealthCertificateServiceTests: CWATestCase {
 			notificationCenter: notificationCenter,
 			cclService: cclService,
 			recycleBin: .fake(),
-			revocationProvider: RevocationProvider(RestServiceProviderStub())
+			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
 		service.syncSetup()
 		
@@ -1518,7 +1518,7 @@ class HealthCertificateServiceTests: CWATestCase {
 			appConfiguration: CachedAppConfigurationMock(),
 			cclService: FakeCCLService(),
 			recycleBin: .fake(),
-			revocationProvider: RevocationProvider(RestServiceProviderStub())
+			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
 		service.syncSetup()
 		
@@ -1616,7 +1616,7 @@ class HealthCertificateServiceTests: CWATestCase {
 			notificationCenter: notificationCenter,
 			cclService: cclService,
 			recycleBin: .fake(),
-			revocationProvider: RevocationProvider(RestServiceProviderStub())
+			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
 		
 		service.addHealthCertificate(healthCertificate, completedNotificationRegistration: { })
@@ -1660,7 +1660,7 @@ class HealthCertificateServiceTests: CWATestCase {
 			notificationCenter: notificationCenter,
 			cclService: cclService,
 			recycleBin: .fake(),
-			revocationProvider: RevocationProvider(RestServiceProviderStub())
+			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
 		
 		service.addHealthCertificate(healthCertificate, completedNotificationRegistration: { })
@@ -1726,7 +1726,7 @@ class HealthCertificateServiceTests: CWATestCase {
 			notificationCenter: notificationCenter,
 			cclService: cclService,
 			recycleBin: .fake(),
-			revocationProvider: RevocationProvider(RestServiceProviderStub())
+			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
 		service.syncSetup()
 		
@@ -1749,7 +1749,7 @@ class HealthCertificateServiceTests: CWATestCase {
 			appConfiguration: CachedAppConfigurationMock(),
 			cclService: FakeCCLService(),
 			recycleBin: .fake(),
-			revocationProvider: RevocationProvider(RestServiceProviderStub())
+			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
 		service.syncSetup()
 		
@@ -1830,7 +1830,7 @@ class HealthCertificateServiceTests: CWATestCase {
 			appConfiguration: CachedAppConfigurationMock(),
 			cclService: FakeCCLService(),
 			recycleBin: recycleBin,
-			revocationProvider: RevocationProvider(RestServiceProviderStub())
+			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
 		
 		let newCertificateBase45 = try base45Fake(
@@ -1883,7 +1883,7 @@ class HealthCertificateServiceTests: CWATestCase {
 			appConfiguration: CachedAppConfigurationMock(),
 			cclService: FakeCCLService(),
 			recycleBin: recycleBin,
-			revocationProvider: RevocationProvider(RestServiceProviderStub())
+			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
 		
 		let newCertificateBase45 = try base45Fake(
@@ -1963,7 +1963,7 @@ class HealthCertificateServiceTests: CWATestCase {
 			appConfiguration: CachedAppConfigurationMock(),
 			cclService: cclService,
 			recycleBin: .fake(),
-			revocationProvider: RevocationProvider(RestServiceProviderStub())
+			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
 		service.setup(updatingWalletInfos: true) {
 			XCTAssertTrue(healthCertifiedPerson.isAdmissionStateChanged)
@@ -2009,7 +2009,7 @@ class HealthCertificateServiceTests: CWATestCase {
 			appConfiguration: CachedAppConfigurationMock(),
 			cclService: cclService,
 			recycleBin: .fake(),
-			revocationProvider: RevocationProvider(RestServiceProviderStub())
+			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
 		service.setup(updatingWalletInfos: true) {
 			XCTAssertFalse(healthCertifiedPerson.isAdmissionStateChanged)

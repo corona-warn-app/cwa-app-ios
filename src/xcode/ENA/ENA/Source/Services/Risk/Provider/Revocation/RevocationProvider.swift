@@ -6,7 +6,12 @@ import Foundation
 import SwiftUI
 
 protocol RevocationProviding {
-	func updateCache(with certificates: [HealthCertificate], completion: @escaping ([HealthCertificate]) -> Void)
+	func updateCache(with certificates: [HealthCertificate], completion: @escaping (Result<[HealthCertificate], RevocationProviderError>) -> Void)
+	func isRevokedFromRevocationList(healthCertificate: HealthCertificate) -> Bool
+}
+
+enum RevocationProviderError: Error {
+	case requestFailed
 }
 
 final class RevocationProvider: RevocationProviding {
@@ -14,10 +19,12 @@ final class RevocationProvider: RevocationProviding {
 	// MARK: - Init
 
 	init(
-		_ restService: RestServiceProviding,
+		restService: RestServiceProviding,
+		store: RevokedCertificatesStoring,
 		signatureVerifier: SignatureVerification = SignatureVerifier()
 	) {
 		self.restService = restService
+		self.store = store
 		self.signatureVerifier = signatureVerifier
 	}
 
@@ -25,7 +32,7 @@ final class RevocationProvider: RevocationProviding {
 
 	func updateCache(
 		with certificates: [HealthCertificate],
-		completion: @escaping ([HealthCertificate]) -> Void
+		completion: @escaping (Result<[HealthCertificate], RevocationProviderError>) -> Void
 	) {
 		// 1. Filter by certificate type
 		let filteredCertificates = certificates.filter { certificate in
@@ -49,7 +56,7 @@ final class RevocationProvider: RevocationProviding {
 			switch result {
 			case .failure(let error):
 				Log.error("failed to update kid list", error: error)
-				completion([])
+				completion(.failure(.requestFailed))
 			case .success(let kidList):
 				// helping step -> convert to KidWithTypes model to make things a bit easier
 				let keyIdentifiersWithTypes: [KidWithTypes] = kidList.items.map {
@@ -97,20 +104,25 @@ final class RevocationProvider: RevocationProviding {
 					lhs.type < rhs.type
 				}
 
-				self.updateKidType(certificateByRLC) { revokedCertificates in
-					completion(revokedCertificates)
+				self.updateKidType(certificateByRLC) { result in
+					switch result {
+					case .success(let revokedCertificates):
+						self.store.revokedCertificates = revokedCertificates.map { $0.base45 }
+						completion(.success(revokedCertificates))
+					case .failure(let error):
+						completion(.failure(error))
+					}
 				}
 			}
 		}
 	}
 
-	// MARK: - Internal
-
-	enum RevocationProviderError: Error {
-		case internalError
-		case chunkUpdateError
-		case restError(ServiceError<KIDListResource.CustomError>)
+	func isRevokedFromRevocationList(healthCertificate: HealthCertificate) -> Bool {
+		store.revokedCertificates
+			.contains(healthCertificate.base45)
 	}
+
+	// MARK: - Internal
 
 #if !RELEASE
 	// Needed for dev menu force updates.
@@ -125,15 +137,17 @@ final class RevocationProvider: RevocationProviding {
 	}
 
 	private let restService: RestServiceProviding
+	private let store: RevokedCertificatesStoring
 	private let signatureVerifier: SignatureVerification
 
 	private func updateKidType(
 		_ revocationLocations: [RevocationLocation],
-		completion: @escaping([HealthCertificate]) -> Void
+		completion: @escaping(Result<[HealthCertificate], RevocationProviderError>) -> Void
 	) {
 		// Ensure that dispatch group does not block main thread
 		DispatchQueue.global().async {
 			var revokedCertificates = Set<HealthCertificate>()
+			var errorOccurred = false
 			for revocationLocation in revocationLocations {
 				let outerDispatchGroup = DispatchGroup()
 				outerDispatchGroup.enter()
@@ -147,7 +161,13 @@ final class RevocationProvider: RevocationProviding {
 				}
 
 				// 1 update KID Types
-				self.updateKidTypeIndex(kid: revocationLocation.keyIdentifier, hashType: revocationLocation.type) { [weak self] coordinates in
+				self.updateKidTypeIndex(kid: revocationLocation.keyIdentifier, hashType: revocationLocation.type) { [weak self] result in
+					guard case .success(let coordinates) = result else {
+						errorOccurred = true
+						outerDispatchGroup.leave()
+						return
+					}
+
 					// Ensure that dispatch group does not block main thread
 					DispatchQueue.global().async {
 						defer {
@@ -192,6 +212,7 @@ final class RevocationProvider: RevocationProviding {
 										}
 									revokedCertificates.formUnion(matchingCertificates)
 								case .failure(let error):
+									errorOccurred = true
 									Log.error("failed to update kid x y chunk", error: error)
 								}
 							}
@@ -201,32 +222,39 @@ final class RevocationProvider: RevocationProviding {
 				}
 				outerDispatchGroup.wait()
 			}
-			completion(Array(revokedCertificates))
+
+			if errorOccurred {
+				completion(.failure(.requestFailed))
+			} else {
+				completion(.success(Array(revokedCertificates)))
+			}
 		}
 	}
 
 	private func updateKidTypeIndex(
 		kid: String,
 		hashType: String,
-		completion: @escaping([RevocationCoordinate]) -> Void
+		completion: @escaping(Result<[RevocationCoordinate], RevocationProviderError>) -> Void
 	) {
 		let resource = KIDTypeIndexResource(kid: kid, hashType: hashType)
 		restService.load(resource) { result in
 			switch result {
 			case .success(let kidTypeIndices):
 				completion(
-					kidTypeIndices.items.flatMap({ item in
-						item.y.map { y in
-							RevocationCoordinate(
-								x: item.x.toHexString(),
-								y: y.toHexString()
-							)
-						}
-					})
+					.success(
+						kidTypeIndices.items.flatMap({ item in
+							item.y.map { y in
+								RevocationCoordinate(
+									x: item.x.toHexString(),
+									y: y.toHexString()
+								)
+							}
+						})
+					)
 				)
 			case .failure(let error):
 				Log.error("Failed to load kid type indices", error: error)
-				completion([])
+				completion(.failure(.requestFailed))
 			}
 		}
 	}

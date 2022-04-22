@@ -170,6 +170,10 @@ final class MockTestStore: Store, PPAnalyticsData {
 	var dccAdmissionCheckScenarios: DCCAdmissionCheckScenarios?
 	var shouldShowRegroupingAlert: Bool = false
 
+	// MARK: - RevokedCertificatesStoring
+
+	var revokedCertificates: [String] = []
+
 	// MARK: - Protocol VaccinationCaching
 
 	var vaccinationCertificateValueDataSets: VaccinationValueDataSets?

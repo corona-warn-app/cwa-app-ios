@@ -49,7 +49,7 @@ class ExposureSubmissionCoordinatorTests: CWATestCase {
 			appConfiguration: appConfiguration,
 			cclService: FakeCCLService(),
 			recycleBin: recycleBin,
-			revocationProvider: RevocationProvider(RestServiceProviderStub())
+			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
 		
 		vaccinationValueSetsProvider = VaccinationValueSetsProvider(

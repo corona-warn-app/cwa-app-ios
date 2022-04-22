@@ -20,7 +20,7 @@ class HealthCertificateService_GroupingAfterDeletionTests: XCTestCase {
 			appConfiguration: CachedAppConfigurationMock(),
 			cclService: FakeCCLService(),
 			recycleBin: .fake(),
-			revocationProvider: RevocationProvider(RestServiceProviderStub())
+			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
 		let certificateSingle1 = try certificateSingle1()
 		let certificateSingle2 = try certificateSingle2()
@@ -56,7 +56,7 @@ class HealthCertificateService_GroupingAfterDeletionTests: XCTestCase {
 			appConfiguration: CachedAppConfigurationMock(),
 			cclService: FakeCCLService(),
 			recycleBin: .fake(),
-			revocationProvider: RevocationProvider(RestServiceProviderStub())
+			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
 		let certificateSingle1 = try certificateSingle1()
 		let certificateSingle2 = try certificateSingle2()
@@ -144,7 +144,7 @@ class HealthCertificateService_GroupingAfterDeletionTests: XCTestCase {
 			appConfiguration: CachedAppConfigurationMock(),
 			cclService: FakeCCLService(),
 			recycleBin: .fake(),
-			revocationProvider: RevocationProvider(RestServiceProviderStub())
+			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
 		
 		let certificateSingle1 = try certificateSingle1()
