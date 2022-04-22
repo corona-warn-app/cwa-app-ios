@@ -74,10 +74,6 @@ final class RevocationProvider: RevocationProviding {
 					.filter { !$0.key.isEmpty }
 					.filter { kids.contains($0.key) }
 
-				let unrevokedCertificates = filteredCertificates
-					.filter { $0.validityState == .revoked && !kids.contains($0.hexKeyIdentifier) }
-				self.resetCache(for: unrevokedCertificates)
-
 				// 5. calculate revocation coordinates based on kid list for ever filteredGroupedCertificates
 				// incl. 6. Group by RLC by KID Type
 				var certificateByRLC: [RevocationLocation] = []
@@ -261,33 +257,6 @@ final class RevocationProvider: RevocationProviding {
 				completion(.failure(.requestFailed))
 			}
 		}
-	}
-
-	private func resetCache(for certificates: [HealthCertificate]) {
-		for certificate in certificates {
-			resetCache(for: certificate, hashType: "0a")
-			resetCache(for: certificate, hashType: "0b")
-			resetCache(for: certificate, hashType: "0c")
-		}
-	}
-
-	private func resetCache(for certificate: HealthCertificate, hashType: String) {
-		guard let hash = certificate.hash(by: hashType) else {
-			return
-		}
-
-		let coordinate = RevocationCoordinate(
-			hash: hash
-		)
-
-		let resource = KIDTypeChunkResource(
-			kid: certificate.hexKeyIdentifier,
-			hashType: hashType,
-			x: coordinate.x,
-			y: coordinate.y
-		)
-
-		restService.resetCache(for: resource)
 	}
 
 }
