@@ -1182,7 +1182,6 @@
 		AB7DE73A25C8528700C52B3F /* ExposureDetectionSurveyTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AB7DE73525C8528700C52B3F /* ExposureDetectionSurveyTableViewCell.xib */; };
 		AB7DE74F25C861A900C52B3F /* ExposureDetectionSurveyCellModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB7DE73325C8528600C52B3F /* ExposureDetectionSurveyCellModelTests.swift */; };
 		AB7E2A80255ACC06005C90F6 /* Date+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB7E2A7F255ACC06005C90F6 /* Date+Utils.swift */; };
-		AB82B04F28113FEE00FB16A9 /* HealthCertificateValidatorFake.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB82B04E28113FEE00FB16A9 /* HealthCertificateValidatorFake.swift */; };
 		AB86B2AA26026AB5007C77B3 /* EventCheckoutService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB86B2A926026AB5007C77B3 /* EventCheckoutService.swift */; };
 		AB86B2AF26026AC3007C77B3 /* EventCheckoutServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB86B2AE26026AC3007C77B3 /* EventCheckoutServiceTests.swift */; };
 		AB86B2B426033E74007C77B3 /* CheckinSplittingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB86B2B326033E73007C77B3 /* CheckinSplittingService.swift */; };
@@ -3000,7 +2999,6 @@
 		AB7DE73425C8528700C52B3F /* ExposureDetectionSurveyCellModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExposureDetectionSurveyCellModel.swift; sourceTree = "<group>"; };
 		AB7DE73525C8528700C52B3F /* ExposureDetectionSurveyTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ExposureDetectionSurveyTableViewCell.xib; sourceTree = "<group>"; };
 		AB7E2A7F255ACC06005C90F6 /* Date+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Utils.swift"; sourceTree = "<group>"; };
-		AB82B04E28113FEE00FB16A9 /* HealthCertificateValidatorFake.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthCertificateValidatorFake.swift; sourceTree = "<group>"; };
 		AB86B2A926026AB5007C77B3 /* EventCheckoutService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventCheckoutService.swift; sourceTree = "<group>"; };
 		AB86B2AE26026AC3007C77B3 /* EventCheckoutServiceTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventCheckoutServiceTests.swift; sourceTree = "<group>"; };
 		AB86B2B326033E73007C77B3 /* CheckinSplittingService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckinSplittingService.swift; sourceTree = "<group>"; };
@@ -4182,7 +4180,6 @@
 		017D8D9B263B02520009E91C /* __tests__ */ = {
 			isa = PBXGroup;
 			children = (
-				AB82B04D28113FDA00FB16A9 /* Fakes */,
 				50A24A1127B29C8C005DDB9B /* HealthCertificateService+GroupingAfterDeletionTests.swift */,
 				017D8D99263AF3730009E91C /* HealthCertificateServiceTests.swift */,
 				01D6816427C5206000FF6D18 /* HealthCertificateRequestServiceTests.swift */,
@@ -7878,14 +7875,6 @@
 				AB7DE73325C8528600C52B3F /* ExposureDetectionSurveyCellModelTests.swift */,
 			);
 			path = __tests__;
-			sourceTree = "<group>";
-		};
-		AB82B04D28113FDA00FB16A9 /* Fakes */ = {
-			isa = PBXGroup;
-			children = (
-				AB82B04E28113FEE00FB16A9 /* HealthCertificateValidatorFake.swift */,
-			);
-			path = Fakes;
 			sourceTree = "<group>";
 		};
 		AB88AAFD2698899E00BC1731 /* TestData */ = {
@@ -12146,7 +12135,6 @@
 				BADE0DD2276764F000DAE055 /* HomeBadgeWrapper+Fake.swift in Sources */,
 				5017F65F25FFC1E8003A812E /* ClientMetadataTests.swift in Sources */,
 				AB2F094F25D169DC00C16309 /* SurveyURLServiceTests.swift in Sources */,
-				AB82B04F28113FEE00FB16A9 /* HealthCertificateValidatorFake.swift in Sources */,
 				ABCA884926BBC9B4005FF148 /* CheckinEncryptionTests.swift in Sources */,
 				BAA19D652612151B00CBBDDD /* CheckInTimeModelTests.swift in Sources */,
 				01DDF4462654221A0043B4E1 /* DidSetPublishedTests.swift in Sources */,
