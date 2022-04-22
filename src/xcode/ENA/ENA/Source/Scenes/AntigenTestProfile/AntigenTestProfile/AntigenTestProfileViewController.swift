@@ -11,7 +11,7 @@ class AntigenTestProfileViewController: UIViewController, UITableViewDataSource,
 
 	init(
 		viewModel: AntigenTestProfileViewModel,
-		didTapContinue: @escaping (@escaping (Bool) -> Void) -> Void,
+		didTapContinue: @escaping ((@escaping (Bool) -> Void), AntigenTestProfile) -> Void,
 		didTapProfileInfo: @escaping () -> Void,
 		didTapEditProfile: @escaping (AntigenTestProfile) -> Void,
 		didTapDeleteProfile: @escaping () -> Void,
@@ -80,7 +80,7 @@ class AntigenTestProfileViewController: UIViewController, UITableViewDataSource,
 	func didTapFooterViewButton(_ type: FooterViewModel.ButtonType) {
 		switch type {
 		case .primary:
-			didTapContinue({ _ in Log.debug("is loading closure here") })
+			didTapContinue({ _ in Log.debug("is loading closure here") }, viewModel.antigenTestProfile)
 		case .secondary:
 			let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
 			alertController.addAction(UIAlertAction(title: AppStrings.AntigenProfile.Profile.infoActionTitle, style: .default, handler: { [weak self] _ in
@@ -166,7 +166,7 @@ class AntigenTestProfileViewController: UIViewController, UITableViewDataSource,
 	// MARK: - Private
 	
 	private var viewModel: AntigenTestProfileViewModel
-	private let didTapContinue: (@escaping (Bool) -> Void) -> Void
+	private let didTapContinue: ((@escaping (Bool) -> Void), AntigenTestProfile) -> Void
 	private let didTapProfileInfo: () -> Void
 	private let didTapEditProfile: (AntigenTestProfile) -> Void
 	private let didTapDeleteProfile: () -> Void
