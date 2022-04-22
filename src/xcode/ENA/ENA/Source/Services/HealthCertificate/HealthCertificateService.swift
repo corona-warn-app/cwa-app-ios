@@ -34,8 +34,7 @@ class HealthCertificateService: HealthCertificateServiceServable {
 		notificationCenter: UserNotificationCenter = UNUserNotificationCenter.current(),
 		cclService: CCLServable,
 		recycleBin: RecycleBin,
-		revocationProvider: RevocationProviding,
-		healthCertificateValidator: HealthCertificateValidating
+		revocationProvider: RevocationProviding
 	) {
 		#if DEBUG
 		if isUITesting {
@@ -54,7 +53,6 @@ class HealthCertificateService: HealthCertificateServiceServable {
 			self.cclService = cclService
 			self.recycleBin = recycleBin
 			self.revocationProvider = revocationProvider
-			self.healthCertificateValidator = healthCertificateValidator
 
 			return
 		}
@@ -72,7 +70,6 @@ class HealthCertificateService: HealthCertificateServiceServable {
 		self.cclService = cclService
 		self.recycleBin = recycleBin
 		self.revocationProvider = revocationProvider
-		self.healthCertificateValidator = healthCertificateValidator
 	}
 
 	// MARK: - Internal
@@ -644,7 +641,6 @@ class HealthCertificateService: HealthCertificateServiceServable {
 	private let digitalCovidCertificateAccess: DigitalCovidCertificateAccessProtocol
 	private let healthCertificateNotificationService: HealthCertificateNotificationService
 	private let recycleBin: RecycleBin
-	private let healthCertificateValidator: HealthCertificateValidating
 	private let cclService: CCLServable
 	private let revocationProvider: RevocationProviding
 
@@ -823,7 +819,7 @@ class HealthCertificateService: HealthCertificateServiceServable {
 	private func updateValidityState(for healthCertificate: HealthCertificate, person: HealthCertifiedPerson) {
 		let previousValidityState = healthCertificate.validityState
 
-		if healthCertificateValidator.isRevokedFromRevocationList(healthCertificate: healthCertificate) {
+		if revocationProvider.isRevokedFromRevocationList(healthCertificate: healthCertificate) {
 			healthCertificate.validityState = .revoked
 		} else if !checkIfCertificateIsBlocked(for: healthCertificate, person: person) {
 			let signatureVerificationResult = dccSignatureVerifier.verify(

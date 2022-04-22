@@ -96,7 +96,12 @@ class RevocationProviderTests: CWATestCase {
 
 		let expectation = expectation(description: "success expectation")
 
-		revocationProvider.updateCache(with: certificates) { revokedCertificates in
+		revocationProvider.updateCache(with: certificates) { result in
+			guard case .success(let revokedCertificates) = result else {
+				XCTFail("Expected result")
+				return
+			}
+
 			XCTAssertEqual(revokedCertificates.count, 2)
 			XCTAssertTrue(revokedCertificates.contains(self.certificates[3]))
 			XCTAssertTrue(revokedCertificates.contains(self.certificates[4]))

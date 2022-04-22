@@ -7,6 +7,7 @@ import SwiftUI
 
 protocol RevocationProviding {
 	func updateCache(with certificates: [HealthCertificate], completion: @escaping (Result<[HealthCertificate], RevocationProviderError>) -> Void)
+	func isRevokedFromRevocationList(healthCertificate: HealthCertificate) -> Bool
 }
 
 enum RevocationProviderError: Error {
@@ -118,6 +119,11 @@ final class RevocationProvider: RevocationProviding {
 				}
 			}
 		}
+	}
+
+	func isRevokedFromRevocationList(healthCertificate: HealthCertificate) -> Bool {
+		store.revokedCertificates
+			.contains(healthCertificate.base45)
 	}
 
 	// MARK: - Internal
