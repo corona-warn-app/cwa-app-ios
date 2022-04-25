@@ -573,7 +573,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 			store: self.store,
 			exposureSubmissionDependencies: self.exposureSubmissionServiceDependencies,
 			healthCertificateService: self.healthCertificateService,
-			familyMemberCoronaTestService: familyMemberCoronaTestService
+			familyMemberCoronaTestService: familyMemberCoronaTestService,
+			cclService: self.cclService
 		)
 	}()
 
@@ -895,6 +896,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 
 	private func showUI() {
 		coordinator.showLoadingScreen()
+		
+		cclService.setup()
 
 		healthCertificateService.setup(
 			updatingWalletInfos: true,

@@ -22,7 +22,8 @@ class TaskExecutionHandler: ENATaskExecutionDelegate {
 		store: Store,
 		exposureSubmissionDependencies: ExposureSubmissionServiceDependencies,
 		healthCertificateService: HealthCertificateService,
-		familyMemberCoronaTestService: FamilyMemberCoronaTestServiceProviding
+		familyMemberCoronaTestService: FamilyMemberCoronaTestServiceProviding,
+		cclService: CCLServable
 	) {
 		self.riskProvider = riskProvider
 		self.restServiceProvider = restServiceProvider
@@ -35,6 +36,7 @@ class TaskExecutionHandler: ENATaskExecutionDelegate {
 		self.dependencies = exposureSubmissionDependencies
 		self.healthCertificateService = healthCertificateService
 		self.familyMemberCoronaTestService = familyMemberCoronaTestService
+		self.cclService = cclService
 	}
 
 
@@ -70,7 +72,9 @@ class TaskExecutionHandler: ENATaskExecutionDelegate {
 			Log.info("Starting ExposureDetection...", log: .background)
 			self.executeExposureDetectionRequest { _ in
 				Log.info("Done detecting Exposures…", log: .background)
-
+				
+				self.cclService.setup()
+				
 				self.healthCertificateService.setup(
 					updatingWalletInfos: false
 				) {
@@ -194,6 +198,7 @@ class TaskExecutionHandler: ENATaskExecutionDelegate {
 	private let eventCheckoutService: EventCheckoutService
 	private let healthCertificateService: HealthCertificateService
 	private let familyMemberCoronaTestService: FamilyMemberCoronaTestServiceProviding
+	private let cclService: CCLServable
 	private var subscriptions = Set<AnyCancellable>()
 
 	/// This method attempts a submission of temporary exposure keys. The exposure submission service itself checks

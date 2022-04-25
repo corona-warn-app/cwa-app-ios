@@ -29,6 +29,11 @@ protocol CCLServable {
 	
 	var dccAdmissionCheckScenariosEnabled: Bool { get }
 	
+	func setup(
+		signatureVerifier: SignatureVerification,
+		cclConfigurationResource: CCLConfigurationResource
+	)
+	
 	func updateConfiguration(completion: @escaping (_ didChange: Bool) -> Void)
 	
 	func dccWalletInfo(for certificates: [DCCWalletCertificate], with identifier: String?) -> Swift.Result<DCCWalletInfo, DCCWalletInfoAccessError>
@@ -39,6 +44,17 @@ protocol CCLServable {
 
 }
 
+extension CCLServable {
+	func setup(
+		signatureVerifier: SignatureVerification = SignatureVerifier(),
+		cclConfigurationResource: CCLConfigurationResource = CCLConfigurationResource()
+	) {
+		self.setup(
+			signatureVerifier: signatureVerifier,
+			cclConfigurationResource: cclConfigurationResource
+		)
+	}
+}
 
 struct CCLServiceMode: OptionSet {
 	let rawValue: Int
@@ -82,6 +98,14 @@ class CCLService: CCLServable {
         signatureVerifier: SignatureVerification = SignatureVerifier(),
         cclConfigurationResource: CCLConfigurationResource = CCLConfigurationResource()
     ) {
+		guard !isSetUp else {
+			return
+		}
+		
+		defer {
+			isSetUp = true
+		}
+		
         cclConfigurationResource.receiveResource = CBORReceiveResource(signatureVerifier: signatureVerifier)
         self.cclConfigurationResource = cclConfigurationResource
 
@@ -268,6 +292,7 @@ class CCLService: CCLServable {
 
 	private var boosterNotificationRules = [Rule]()
 	private var invalidationRules = [Rule]()
+	private var isSetUp = false
 
 	#if DEBUG
 	private var mockDCCAdmissionCheckScenarios: DCCAdmissionCheckScenarios {
