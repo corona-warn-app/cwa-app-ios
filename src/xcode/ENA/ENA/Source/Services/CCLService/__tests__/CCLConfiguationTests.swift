@@ -24,7 +24,14 @@ class CCLServiceConfigurationTests: CCLServiceBaseTests {
 		)
 		
 		let restServiceProvider = RestServiceProvider(session: stack.urlSession, cache: KeyValueCacheFake())
-		let cclService = CCLService(restServiceProvider, appConfiguration: appConfiguration, cclServiceMode: [.configuration], signatureVerifier: MockVerifier())
+		let cclService = CCLService(
+			restServiceProvider,
+			appConfiguration: appConfiguration,
+			cclServiceMode: [.configuration]
+		)
+		cclService.setup(
+			signatureVerifier: MockVerifier()
+		)
 		let expectation = expectation(description: "update finished")
 
 		// WHEN
@@ -54,7 +61,14 @@ class CCLServiceConfigurationTests: CCLServiceBaseTests {
 		)
 		let cache = try cache(with: Locator.CCLConfiguration(isFake: false), eTag: eTag, date: yesterday, responseData: cclConfigurationData)
 		let restServiceProvider = RestServiceProvider(session: stack.urlSession, cache: cache)
-		let cclService = CCLService(restServiceProvider, appConfiguration: appConfiguration, cclServiceMode: [.configuration], signatureVerifier: MockVerifier())
+		let cclService = CCLService(
+			restServiceProvider,
+			appConfiguration: appConfiguration,
+			cclServiceMode: [.configuration]
+		)
+		cclService.setup(
+			signatureVerifier: MockVerifier()
+		)
 		let expectation = expectation(description: "update finished")
 
 		// WHEN
@@ -84,7 +98,14 @@ class CCLServiceConfigurationTests: CCLServiceBaseTests {
 		)
 		let cache = try cache(with: Locator.CCLConfiguration(isFake: false), eTag: eTag, date: today, responseData: cclConfigurationData)
 		let restServiceProvider = RestServiceProvider(session: stack.urlSession, cache: cache)
-		let cclService = CCLService(restServiceProvider, appConfiguration: appConfiguration, cclServiceMode: [.configuration], signatureVerifier: MockVerifier())
+		let cclService = CCLService(
+			restServiceProvider,
+			appConfiguration: appConfiguration,
+			cclServiceMode: [.configuration]
+		)
+		cclService.setup(
+			signatureVerifier: MockVerifier()
+		)
 		let expectation = expectation(description: "update finished")
 
 		// WHEN
@@ -119,11 +140,13 @@ class CCLServiceConfigurationTests: CCLServiceBaseTests {
 		let cclService = CCLService(
 			restServiceProvider,
 			appConfiguration: appConfiguration,
-			cclServiceMode: [.configuration],
+			cclServiceMode: [.configuration]
+		)
+		cclService.setup(
 			signatureVerifier: MockVerifier(),
 			cclConfigurationResource: resource
 		)
-
+		
 		// WHEN
 		let version = cclService.configurationVersion
 
@@ -152,7 +175,10 @@ class CCLServiceConfigurationTests: CCLServiceBaseTests {
 		let cclService = CCLService(
 			restServiceProvider,
 			appConfiguration: appConfiguration,
-			cclServiceMode: [.configuration],
+			cclServiceMode: [.configuration]
+		)
+		
+		cclService.setup(
 			signatureVerifier: MockVerifier(),
 			cclConfigurationResource: resource
 		)
@@ -196,7 +222,10 @@ class CCLServiceConfigurationTests: CCLServiceBaseTests {
 		let cclService = CCLService(
 			restServiceProvider,
 			appConfiguration: appConfiguration,
-			cclServiceMode: [.configuration],
+			cclServiceMode: [.configuration]
+		)
+		
+		cclService.setup(
 			signatureVerifier: MockVerifier(),
 			cclConfigurationResource: resource
 		)
@@ -228,7 +257,10 @@ class CCLServiceConfigurationTests: CCLServiceBaseTests {
 		let cclService = CCLService(
 			restServiceProvider,
 			appConfiguration: appConfiguration,
-			cclServiceMode: [.configuration],
+			cclServiceMode: [.configuration]
+		)
+		
+		cclService.setup(
 			signatureVerifier: MockVerifier(),
 			cclConfigurationResource: resource
 		)
@@ -255,7 +287,10 @@ class CCLServiceConfigurationTests: CCLServiceBaseTests {
 		let cclService = CCLService(
 			restServiceProvider,
 			appConfiguration: appConfiguration,
-			cclServiceMode: [.configuration],
+			cclServiceMode: [.configuration]
+		)
+		
+		cclService.setup(
 			signatureVerifier: MockVerifier(),
 			cclConfigurationResource: resource
 		)
@@ -288,7 +323,10 @@ class CCLServiceConfigurationTests: CCLServiceBaseTests {
 		let cclService = CCLService(
 			restServiceProvider,
 			appConfiguration: appConfiguration,
-			cclServiceMode: [.configuration],
+			cclServiceMode: [.configuration]
+		)
+		
+		cclService.setup(
 			signatureVerifier: MockVerifier(),
 			cclConfigurationResource: resource
 		)
@@ -323,7 +361,10 @@ class CCLServiceConfigurationTests: CCLServiceBaseTests {
 		let cclService = CCLService(
 			restServiceProvider,
 			appConfiguration: appConfiguration,
-			cclServiceMode: [.configuration],
+			cclServiceMode: [.configuration]
+		)
+		
+		cclService.setup(
 			signatureVerifier: MockVerifier(),
 			cclConfigurationResource: resource
 		)
@@ -402,7 +443,10 @@ class CCLServiceConfigurationTests: CCLServiceBaseTests {
 		let cclService = CCLService(
 			restServiceProvider,
 			appConfiguration: appConfiguration,
-			cclServiceMode: [.configuration],
+			cclServiceMode: [.configuration]
+		)
+		
+		cclService.setup(
 			signatureVerifier: MockVerifier(),
 			cclConfigurationResource: resource
 		)

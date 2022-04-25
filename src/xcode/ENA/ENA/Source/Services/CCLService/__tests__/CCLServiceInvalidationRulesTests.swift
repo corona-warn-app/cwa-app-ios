@@ -30,7 +30,14 @@ class CCLServiceInvalidationRulesTests: CCLServiceBaseTests {
 		)
 
 		let restServiceProvider = RestServiceProvider(session: stack.urlSession, cache: KeyValueCacheFake())
-		let cclService = CCLService(restServiceProvider, appConfiguration: appConfiguration, cclServiceMode: [.invalidationRules], signatureVerifier: MockVerifier())
+		let cclService = CCLService(
+			restServiceProvider,
+			appConfiguration: appConfiguration,
+			cclServiceMode: [.invalidationRules]
+		)
+		cclService.setup(
+			signatureVerifier: MockVerifier()
+		)
 		let expectation = expectation(description: "update finished")
 
 		// WHEN
@@ -59,7 +66,14 @@ class CCLServiceInvalidationRulesTests: CCLServiceBaseTests {
 		)
 		let cache = try cache(with: Locator.DCCRules(ruleType: .invalidation, isFake: false), eTag: eTag, date: yesterday, responseData: invalidationRulesData)
 		let restServiceProvider = RestServiceProvider(session: stack.urlSession, cache: cache)
-		let cclService = CCLService(restServiceProvider, appConfiguration: appConfiguration, cclServiceMode: [.invalidationRules], signatureVerifier: MockVerifier())
+		let cclService = CCLService(
+			restServiceProvider,
+			appConfiguration: appConfiguration,
+			cclServiceMode: [.invalidationRules]
+		)
+		cclService.setup(
+			signatureVerifier: MockVerifier()
+		)
 		let expectation = expectation(description: "update finished")
 
 		// WHEN
@@ -88,7 +102,14 @@ class CCLServiceInvalidationRulesTests: CCLServiceBaseTests {
 		)
 		let cache = try cache(with: Locator.DCCRules(ruleType: .invalidation, isFake: false), eTag: eTag, date: today, responseData: invalidationRulesData)
 		let restServiceProvider = RestServiceProvider(session: stack.urlSession, cache: cache)
-		let cclService = CCLService(restServiceProvider, appConfiguration: appConfiguration, cclServiceMode: [.invalidationRules], signatureVerifier: MockVerifier())
+		let cclService = CCLService(
+			restServiceProvider,
+			appConfiguration: appConfiguration,
+			cclServiceMode: [.invalidationRules]
+		)
+		cclService.setup(
+			signatureVerifier: MockVerifier()
+		)
 		let expectation = expectation(description: "update finished")
 
 		// WHEN
