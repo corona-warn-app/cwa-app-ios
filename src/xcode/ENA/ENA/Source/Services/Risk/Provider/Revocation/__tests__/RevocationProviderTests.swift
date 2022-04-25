@@ -92,11 +92,16 @@ class RevocationProviderTests: CWATestCase {
 			]
 		)
 
-		let revocationProvider = RevocationProvider(restService, signatureVerifier: MockVerifier())
+		let revocationProvider = RevocationProvider(restService: restService, store: MockTestStore(), signatureVerifier: MockVerifier())
 
 		let expectation = expectation(description: "success expectation")
 
-		revocationProvider.updateCache(with: certificates) { revokedCertificates in
+		revocationProvider.updateCache(with: certificates) { result in
+			guard case .success(let revokedCertificates) = result else {
+				XCTFail("Expected result")
+				return
+			}
+
 			XCTAssertEqual(revokedCertificates.count, 2)
 			XCTAssertTrue(revokedCertificates.contains(self.certificates[3]))
 			XCTAssertTrue(revokedCertificates.contains(self.certificates[4]))

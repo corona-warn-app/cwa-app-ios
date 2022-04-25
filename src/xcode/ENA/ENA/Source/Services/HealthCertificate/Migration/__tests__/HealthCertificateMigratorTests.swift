@@ -618,7 +618,7 @@ class HealthCertificateMigratorTests: XCTestCase {
 			recycleBin: RecycleBin(
 				store: store
 			),
-			revocationProvider: RevocationProvider(RestServiceProviderStub())
+			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
 	}
 	

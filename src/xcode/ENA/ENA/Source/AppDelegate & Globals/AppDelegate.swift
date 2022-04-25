@@ -410,11 +410,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		appConfiguration: appConfigurationProvider,
 		cclService: cclService,
 		recycleBin: recycleBin,
-		revocationProvider: revocationProvider,
-		healthCertificateValidator: HealthCertificateValidator(restServiceProvider: restServiceProvider)
+		revocationProvider: revocationProvider
 	)
 
-	private lazy var revocationProvider: RevocationProviding = RevocationProvider(restServiceProvider)
+	private lazy var revocationProvider: RevocationProviding = RevocationProvider(
+		restService: restServiceProvider,
+		store: store
+	)
 
 	private lazy var healthCertificateRequestService = HealthCertificateRequestService(
 		store: store,
