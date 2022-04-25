@@ -38,7 +38,7 @@ class TestHealthCertificateService: HealthCertificateService {
 			appConfiguration: appConfiguration,
 			cclService: FakeCCLService(),
 			recycleBin: .fake(),
-			revocationProvider: RevocationProvider(RestServiceProviderStub())
+			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
 		self.validUntilDates = validUntilDates
 		self.expirationDates = expirationDates
@@ -83,7 +83,7 @@ class ValidationStateServiceTests: XCTestCase {
 			appConfiguration: appConfiguration,
 			cclService: FakeCCLService(),
 			recycleBin: .fake(),
-			revocationProvider: RevocationProvider(RestServiceProviderStub())
+			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
 		service.syncSetup()
 		service.validationUpdatedHook = {
@@ -114,7 +114,7 @@ class ValidationStateServiceTests: XCTestCase {
 			appConfiguration: CachedAppConfigurationMock(),
 			cclService: FakeCCLService(),
 			recycleBin: .fake(),
-			revocationProvider: RevocationProvider(RestServiceProviderStub())
+			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
 		service.syncSetup()
 		service.validationUpdatedHook = {

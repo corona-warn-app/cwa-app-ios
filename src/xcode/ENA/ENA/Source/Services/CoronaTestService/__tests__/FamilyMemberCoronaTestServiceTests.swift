@@ -38,7 +38,7 @@ class FamilyMemberCoronaTestServiceTests: CWATestCase {
 			appConfiguration: appConfiguration,
 			cclService: FakeCCLService(),
 			recycleBin: .fake(),
-			revocationProvider: RevocationProvider(RestServiceProviderStub())
+			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
 		
 		let service = FamilyMemberCoronaTestService(
@@ -116,7 +116,7 @@ class FamilyMemberCoronaTestServiceTests: CWATestCase {
 			appConfiguration: appConfiguration,
 			cclService: FakeCCLService(),
 			recycleBin: .fake(),
-			revocationProvider: RevocationProvider(RestServiceProviderStub())
+			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
 		
 		let service = FamilyMemberCoronaTestService(
@@ -155,7 +155,7 @@ class FamilyMemberCoronaTestServiceTests: CWATestCase {
 			appConfiguration: appConfiguration,
 			cclService: FakeCCLService(),
 			recycleBin: .fake(),
-			revocationProvider: RevocationProvider(RestServiceProviderStub())
+			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
 		
 		let service = FamilyMemberCoronaTestService(
@@ -203,7 +203,7 @@ class FamilyMemberCoronaTestServiceTests: CWATestCase {
 			appConfiguration: appConfiguration,
 			cclService: FakeCCLService(),
 			recycleBin: .fake(),
-			revocationProvider: RevocationProvider(RestServiceProviderStub())
+			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
 		
 		let service = FamilyMemberCoronaTestService(
@@ -302,7 +302,7 @@ class FamilyMemberCoronaTestServiceTests: CWATestCase {
 			appConfiguration: appConfiguration,
 			cclService: FakeCCLService(),
 			recycleBin: .fake(),
-			revocationProvider: RevocationProvider(RestServiceProviderStub())
+			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
 		
 		let service = FamilyMemberCoronaTestService(
@@ -405,7 +405,7 @@ class FamilyMemberCoronaTestServiceTests: CWATestCase {
 			appConfiguration: appConfiguration,
 			cclService: FakeCCLService(),
 			recycleBin: .fake(),
-			revocationProvider: RevocationProvider(RestServiceProviderStub())
+			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
 		
 		let service = FamilyMemberCoronaTestService(
@@ -470,7 +470,7 @@ class FamilyMemberCoronaTestServiceTests: CWATestCase {
 			appConfiguration: appConfiguration,
 			cclService: FakeCCLService(),
 			recycleBin: .fake(),
-			revocationProvider: RevocationProvider(RestServiceProviderStub())
+			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
 		
 		let service = FamilyMemberCoronaTestService(
@@ -527,7 +527,7 @@ class FamilyMemberCoronaTestServiceTests: CWATestCase {
 			appConfiguration: appConfiguration,
 			cclService: FakeCCLService(),
 			recycleBin: .fake(),
-			revocationProvider: RevocationProvider(RestServiceProviderStub())
+			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
 		
 		let service = FamilyMemberCoronaTestService(
@@ -611,7 +611,7 @@ class FamilyMemberCoronaTestServiceTests: CWATestCase {
 			appConfiguration: appConfiguration,
 			cclService: FakeCCLService(),
 			recycleBin: .fake(),
-			revocationProvider: RevocationProvider(RestServiceProviderStub())
+			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
 		
 		let service = FamilyMemberCoronaTestService(
@@ -714,7 +714,7 @@ class FamilyMemberCoronaTestServiceTests: CWATestCase {
 			appConfiguration: appConfiguration,
 			cclService: FakeCCLService(),
 			recycleBin: .fake(),
-			revocationProvider: RevocationProvider(RestServiceProviderStub())
+			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
 		
 		let service = FamilyMemberCoronaTestService(
@@ -817,7 +817,7 @@ class FamilyMemberCoronaTestServiceTests: CWATestCase {
 			appConfiguration: appConfiguration,
 			cclService: FakeCCLService(),
 			recycleBin: .fake(),
-			revocationProvider: RevocationProvider(RestServiceProviderStub())
+			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
 		
 		let service = FamilyMemberCoronaTestService(
@@ -934,7 +934,7 @@ class FamilyMemberCoronaTestServiceTests: CWATestCase {
 			appConfiguration: appConfiguration,
 			cclService: FakeCCLService(),
 			recycleBin: .fake(),
-			revocationProvider: RevocationProvider(RestServiceProviderStub())
+			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
 		
 		let service = FamilyMemberCoronaTestService(
@@ -1001,7 +1001,7 @@ class FamilyMemberCoronaTestServiceTests: CWATestCase {
 			appConfiguration: appConfiguration,
 			cclService: FakeCCLService(),
 			recycleBin: .fake(),
-			revocationProvider: RevocationProvider(RestServiceProviderStub())
+			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
 		
 		let service = FamilyMemberCoronaTestService(
@@ -1060,7 +1060,7 @@ class FamilyMemberCoronaTestServiceTests: CWATestCase {
 			appConfiguration: appConfiguration,
 			cclService: FakeCCLService(),
 			recycleBin: .fake(),
-			revocationProvider: RevocationProvider(RestServiceProviderStub())
+			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
 		
 		let service = FamilyMemberCoronaTestService(
@@ -1146,7 +1146,7 @@ class FamilyMemberCoronaTestServiceTests: CWATestCase {
 			appConfiguration: appConfiguration,
 			cclService: FakeCCLService(),
 			recycleBin: .fake(),
-			revocationProvider: RevocationProvider(RestServiceProviderStub())
+			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
 		
 		let service = FamilyMemberCoronaTestService(
@@ -1249,7 +1249,7 @@ class FamilyMemberCoronaTestServiceTests: CWATestCase {
 			appConfiguration: appConfiguration,
 			cclService: FakeCCLService(),
 			recycleBin: .fake(),
-			revocationProvider: RevocationProvider(RestServiceProviderStub())
+			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
 		
 		let service = FamilyMemberCoronaTestService(
@@ -1352,7 +1352,7 @@ class FamilyMemberCoronaTestServiceTests: CWATestCase {
 			appConfiguration: appConfiguration,
 			cclService: FakeCCLService(),
 			recycleBin: .fake(),
-			revocationProvider: RevocationProvider(RestServiceProviderStub())
+			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
 		
 		let service = FamilyMemberCoronaTestService(
@@ -1463,7 +1463,7 @@ class FamilyMemberCoronaTestServiceTests: CWATestCase {
 			appConfiguration: appConfiguration,
 			cclService: FakeCCLService(),
 			recycleBin: .fake(),
-			revocationProvider: RevocationProvider(RestServiceProviderStub())
+			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
 		
 		let service = FamilyMemberCoronaTestService(
@@ -1530,7 +1530,7 @@ class FamilyMemberCoronaTestServiceTests: CWATestCase {
 			appConfiguration: appConfiguration,
 			cclService: FakeCCLService(),
 			recycleBin: .fake(),
-			revocationProvider: RevocationProvider(RestServiceProviderStub())
+			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
 		
 		let service = FamilyMemberCoronaTestService(
@@ -1589,7 +1589,7 @@ class FamilyMemberCoronaTestServiceTests: CWATestCase {
 			appConfiguration: appConfiguration,
 			cclService: FakeCCLService(),
 			recycleBin: .fake(),
-			revocationProvider: RevocationProvider(RestServiceProviderStub())
+			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
 		
 		let service = FamilyMemberCoronaTestService(
@@ -1680,7 +1680,7 @@ class FamilyMemberCoronaTestServiceTests: CWATestCase {
 			appConfiguration: appConfiguration,
 			cclService: FakeCCLService(),
 			recycleBin: .fake(),
-			revocationProvider: RevocationProvider(RestServiceProviderStub())
+			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
 		
 		let service = FamilyMemberCoronaTestService(
@@ -1755,7 +1755,7 @@ class FamilyMemberCoronaTestServiceTests: CWATestCase {
 			appConfiguration: appConfiguration,
 			cclService: FakeCCLService(),
 			recycleBin: .fake(),
-			revocationProvider: RevocationProvider(RestServiceProviderStub())
+			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
 		
 		let service = FamilyMemberCoronaTestService(
@@ -1831,7 +1831,7 @@ class FamilyMemberCoronaTestServiceTests: CWATestCase {
 			appConfiguration: appConfiguration,
 			cclService: FakeCCLService(),
 			recycleBin: .fake(),
-			revocationProvider: RevocationProvider(RestServiceProviderStub())
+			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
 		
 		let service = FamilyMemberCoronaTestService(
@@ -1892,7 +1892,7 @@ class FamilyMemberCoronaTestServiceTests: CWATestCase {
 			appConfiguration: appConfiguration,
 			cclService: FakeCCLService(),
 			recycleBin: .fake(),
-			revocationProvider: RevocationProvider(RestServiceProviderStub())
+			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
 		
 		let service = FamilyMemberCoronaTestService(
@@ -1958,7 +1958,7 @@ class FamilyMemberCoronaTestServiceTests: CWATestCase {
 			appConfiguration: appConfiguration,
 			cclService: FakeCCLService(),
 			recycleBin: .fake(),
-			revocationProvider: RevocationProvider(RestServiceProviderStub())
+			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
 		
 		let service = FamilyMemberCoronaTestService(
@@ -2022,7 +2022,7 @@ class FamilyMemberCoronaTestServiceTests: CWATestCase {
 				appConfiguration: appConfiguration,
 				cclService: FakeCCLService(),
 				recycleBin: .fake(),
-				revocationProvider: RevocationProvider(RestServiceProviderStub())
+				revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 			)
 			
 			let service = FamilyMemberCoronaTestService(
@@ -2077,7 +2077,7 @@ class FamilyMemberCoronaTestServiceTests: CWATestCase {
 			appConfiguration: appConfiguration,
 			cclService: FakeCCLService(),
 			recycleBin: .fake(),
-			revocationProvider: RevocationProvider(RestServiceProviderStub())
+			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
 		
 		let service = FamilyMemberCoronaTestService(
@@ -2142,7 +2142,7 @@ class FamilyMemberCoronaTestServiceTests: CWATestCase {
 			appConfiguration: appConfiguration,
 			cclService: FakeCCLService(),
 			recycleBin: .fake(),
-			revocationProvider: RevocationProvider(RestServiceProviderStub())
+			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
 		
 		let service = FamilyMemberCoronaTestService(
@@ -2202,7 +2202,7 @@ class FamilyMemberCoronaTestServiceTests: CWATestCase {
 			appConfiguration: appConfiguration,
 			cclService: FakeCCLService(),
 			recycleBin: .fake(),
-			revocationProvider: RevocationProvider(RestServiceProviderStub())
+			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
 		
 		let service = FamilyMemberCoronaTestService(
@@ -2249,7 +2249,7 @@ class FamilyMemberCoronaTestServiceTests: CWATestCase {
 			appConfiguration: appConfiguration,
 			cclService: FakeCCLService(),
 			recycleBin: .fake(),
-			revocationProvider: RevocationProvider(RestServiceProviderStub())
+			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
 		
 		let service = FamilyMemberCoronaTestService(
@@ -2304,7 +2304,7 @@ class FamilyMemberCoronaTestServiceTests: CWATestCase {
 			appConfiguration: appConfiguration,
 			cclService: FakeCCLService(),
 			recycleBin: .fake(),
-			revocationProvider: RevocationProvider(RestServiceProviderStub())
+			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
 		
 		let service = FamilyMemberCoronaTestService(
@@ -2371,7 +2371,7 @@ class FamilyMemberCoronaTestServiceTests: CWATestCase {
 			notificationCenter: mockNotificationCenter,
 			cclService: FakeCCLService(),
 			recycleBin: .fake(),
-			revocationProvider: RevocationProvider(RestServiceProviderStub())
+			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
 		
 		let service = FamilyMemberCoronaTestService(
@@ -2434,7 +2434,7 @@ class FamilyMemberCoronaTestServiceTests: CWATestCase {
 			appConfiguration: appConfiguration,
 			cclService: FakeCCLService(),
 			recycleBin: .fake(),
-			revocationProvider: RevocationProvider(RestServiceProviderStub())
+			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
 		
 		let service = FamilyMemberCoronaTestService(
@@ -2484,7 +2484,7 @@ class FamilyMemberCoronaTestServiceTests: CWATestCase {
 			appConfiguration: appConfiguration,
 			cclService: FakeCCLService(),
 			recycleBin: .fake(),
-			revocationProvider: RevocationProvider(RestServiceProviderStub())
+			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
 		
 		let service = FamilyMemberCoronaTestService(
@@ -2536,7 +2536,7 @@ class FamilyMemberCoronaTestServiceTests: CWATestCase {
 			appConfiguration: appConfiguration,
 			cclService: FakeCCLService(),
 			recycleBin: .fake(),
-			revocationProvider: RevocationProvider(RestServiceProviderStub())
+			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
 		
 		let service = FamilyMemberCoronaTestService(
@@ -2587,7 +2587,7 @@ class FamilyMemberCoronaTestServiceTests: CWATestCase {
 			appConfiguration: appConfiguration,
 			cclService: FakeCCLService(),
 			recycleBin: .fake(),
-			revocationProvider: RevocationProvider(RestServiceProviderStub())
+			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
 		
 		let service = FamilyMemberCoronaTestService(
@@ -2644,7 +2644,7 @@ class FamilyMemberCoronaTestServiceTests: CWATestCase {
 			appConfiguration: appConfiguration,
 			cclService: FakeCCLService(),
 			recycleBin: .fake(),
-			revocationProvider: RevocationProvider(RestServiceProviderStub())
+			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
 		
 		let service = FamilyMemberCoronaTestService(
@@ -2704,7 +2704,7 @@ class FamilyMemberCoronaTestServiceTests: CWATestCase {
 			appConfiguration: appConfiguration,
 			cclService: FakeCCLService(),
 			recycleBin: .fake(),
-			revocationProvider: RevocationProvider(RestServiceProviderStub())
+			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
 		
 		let service = FamilyMemberCoronaTestService(
@@ -2766,7 +2766,7 @@ class FamilyMemberCoronaTestServiceTests: CWATestCase {
 			appConfiguration: appConfiguration,
 			cclService: FakeCCLService(),
 			recycleBin: .fake(),
-			revocationProvider: RevocationProvider(RestServiceProviderStub())
+			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
 		
 		let service = FamilyMemberCoronaTestService(
@@ -2829,7 +2829,7 @@ class FamilyMemberCoronaTestServiceTests: CWATestCase {
 			appConfiguration: appConfiguration,
 			cclService: FakeCCLService(),
 			recycleBin: .fake(),
-			revocationProvider: RevocationProvider(RestServiceProviderStub())
+			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
 		
 		let service = FamilyMemberCoronaTestService(
@@ -2877,7 +2877,7 @@ class FamilyMemberCoronaTestServiceTests: CWATestCase {
 			appConfiguration: appConfiguration,
 			cclService: FakeCCLService(),
 			recycleBin: .fake(),
-			revocationProvider: RevocationProvider(RestServiceProviderStub())
+			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
 		
 		let service = FamilyMemberCoronaTestService(
@@ -2929,7 +2929,7 @@ class FamilyMemberCoronaTestServiceTests: CWATestCase {
 			appConfiguration: appConfiguration,
 			cclService: FakeCCLService(),
 			recycleBin: .fake(),
-			revocationProvider: RevocationProvider(RestServiceProviderStub())
+			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
 		
 		let service = FamilyMemberCoronaTestService(
@@ -2984,7 +2984,7 @@ class FamilyMemberCoronaTestServiceTests: CWATestCase {
 			appConfiguration: appConfiguration,
 			cclService: FakeCCLService(),
 			recycleBin: .fake(),
-			revocationProvider: RevocationProvider(RestServiceProviderStub())
+			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
 		
 		let service = FamilyMemberCoronaTestService(
@@ -3038,7 +3038,7 @@ class FamilyMemberCoronaTestServiceTests: CWATestCase {
 			appConfiguration: appConfiguration,
 			cclService: FakeCCLService(),
 			recycleBin: .fake(),
-			revocationProvider: RevocationProvider(RestServiceProviderStub())
+			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
 		
 		let service = FamilyMemberCoronaTestService(
@@ -3086,7 +3086,7 @@ class FamilyMemberCoronaTestServiceTests: CWATestCase {
 			appConfiguration: appConfiguration,
 			cclService: FakeCCLService(),
 			recycleBin: recycleBin,
-			revocationProvider: RevocationProvider(RestServiceProviderStub())
+			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
 		
 		let service = FamilyMemberCoronaTestService(
@@ -3148,7 +3148,7 @@ class FamilyMemberCoronaTestServiceTests: CWATestCase {
 			appConfiguration: appConfiguration,
 			cclService: FakeCCLService(),
 			recycleBin: recycleBin,
-			revocationProvider: RevocationProvider(RestServiceProviderStub())
+			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
 		
 		let service = FamilyMemberCoronaTestService(
@@ -3192,7 +3192,7 @@ class FamilyMemberCoronaTestServiceTests: CWATestCase {
 			appConfiguration: appConfiguration,
 			cclService: FakeCCLService(),
 			recycleBin: .fake(),
-			revocationProvider: RevocationProvider(RestServiceProviderStub())
+			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
 		
 		let service = FamilyMemberCoronaTestService(
@@ -3318,7 +3318,7 @@ class FamilyMemberCoronaTestServiceTests: CWATestCase {
 			appConfiguration: appConfiguration,
 			cclService: FakeCCLService(),
 			recycleBin: .fake(),
-			revocationProvider: RevocationProvider(RestServiceProviderStub())
+			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
 		
 		let service = FamilyMemberCoronaTestService(

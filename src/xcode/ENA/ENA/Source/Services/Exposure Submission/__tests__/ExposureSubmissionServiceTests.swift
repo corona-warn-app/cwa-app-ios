@@ -752,7 +752,7 @@ class ExposureSubmissionServiceTests: CWATestCase {
 			appConfiguration: appConfigurationProvider,
 			cclService: FakeCCLService(),
 			recycleBin: .fake(),
-			revocationProvider: RevocationProvider(restServiceProvider)
+			revocationProvider: RevocationProvider(restService: restServiceProvider, store: MockTestStore())
 		)
 		
 		let coronaTestService = CoronaTestService(
