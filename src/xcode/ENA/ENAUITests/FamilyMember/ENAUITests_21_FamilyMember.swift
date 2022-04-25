@@ -96,6 +96,9 @@ class ENAUITests_21_FamilyMember: CWATestCase {
 		app.navigationBars.firstMatch.buttons.element(boundBy: 0).waitAndTap()
 
 		/// primary button enabled after name was given
+	
+		app.swipeDown()
+
 		XCTAssertTrue(primaryButton.isEnabled)
 		primaryButton.waitAndTap(.short)
 
