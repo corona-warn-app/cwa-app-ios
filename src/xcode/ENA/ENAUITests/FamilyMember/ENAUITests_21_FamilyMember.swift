@@ -73,6 +73,15 @@ class ENAUITests_21_FamilyMember: CWATestCase {
 		/// primary button
 		let primaryButton = try XCTUnwrap(app.buttons[AccessibilityIdentifiers.HealthCertificate.FamilyMemberConsent.primaryButton])
 		XCTAssertFalse(primaryButton.isEnabled)
+		
+		/// data privacy screen
+		
+		app.swipeUp()
+		app.cells[AccessibilityIdentifiers.HealthCertificate.FamilyMemberConsent.dataPrivacyTitle].waitAndTap()
+		XCTAssertTrue(app.staticTexts["AppStrings.AppInformation.privacyTitle"].waitForExistence(timeout: .short))
+
+		/// back navigation
+		app.navigationBars.firstMatch.buttons.element(boundBy: 0).waitAndTap()
 
 		/// Exposure submission family member consent screen
 		let textField = try XCTUnwrap(app.textFields[AccessibilityIdentifiers.HealthCertificate.FamilyMemberConsent.textInput])
@@ -88,14 +97,8 @@ class ENAUITests_21_FamilyMember: CWATestCase {
 
 		snapshot("screenshot_family_member_tests_consent_2")
 
-		/// data privacy screen
-		app.cells[AccessibilityIdentifiers.HealthCertificate.FamilyMemberConsent.dataPrivacyTitle].waitAndTap()
-		XCTAssertTrue(app.staticTexts["AppStrings.AppInformation.privacyTitle"].waitForExistence(timeout: .short))
-
-		/// back navigation
-		app.navigationBars.firstMatch.buttons.element(boundBy: 0).waitAndTap()
-
 		/// primary button enabled after name was given
+	
 		XCTAssertTrue(primaryButton.isEnabled)
 		primaryButton.waitAndTap(.short)
 
