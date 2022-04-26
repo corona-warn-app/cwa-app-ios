@@ -743,6 +743,83 @@ class HealthCertificateServiceTests: CWATestCase {
 		})
 		waitForExpectations(timeout: .medium)
 	}
+
+	func testValidityStateUpdate_Revoked() throws {
+		let healthCertificate = try vaccinationCertificate()
+		XCTAssertEqual(healthCertificate.validityState, .valid)
+
+		let store = MockTestStore()
+		store.revokedCertificates = [healthCertificate.base45]
+
+		let revocationProvider = MockRevocationProvider()
+		revocationProvider.updateCacheResult = .success([healthCertificate])
+
+		let service = HealthCertificateService(
+			store: store,
+			dccSignatureVerifier: DCCSignatureVerifyingStub(error: .HC_COSE_NO_SIGN1),
+			dscListProvider: MockDSCListProvider(),
+			appConfiguration: CachedAppConfigurationMock(),
+			cclService: FakeCCLService(),
+			recycleBin: .fake(),
+			revocationProvider: revocationProvider
+		)
+
+		service.addHealthCertificate(healthCertificate, completedNotificationRegistration: { })
+
+		XCTAssertEqual(healthCertificate.validityState, .revoked)
+		XCTAssertEqual(service.healthCertifiedPersons.first?.healthCertificates.first?.validityState, .revoked)
+
+		service.moveHealthCertificateToBin(healthCertificate)
+	}
+
+	func testAddingCertificateUpdatesRevocationListAndValidityStateAndSchedulesNotification() throws {
+		let alreadyRevokedHealthCertificate = try vaccinationCertificate(doseNumber: 1, totalSeriesOfDoses: 2)
+		alreadyRevokedHealthCertificate.validityState = .revoked
+
+		let healthCertificateToBeUnrevoked = try vaccinationCertificate(doseNumber: 2, totalSeriesOfDoses: 2, webTokenHeader: .fake(expirationTime: .distantFuture))
+		healthCertificateToBeUnrevoked.validityState = .revoked
+
+		let healthCertificateToBeRevoked = try recoveryCertificate()
+		healthCertificateToBeRevoked.validityState = .valid
+
+		let healthCertifiedPerson = HealthCertifiedPerson(
+			healthCertificates: [alreadyRevokedHealthCertificate, healthCertificateToBeUnrevoked]
+		)
+
+		let store = MockTestStore()
+		store.healthCertifiedPersons = [healthCertifiedPerson]
+		store.revokedCertificates = [alreadyRevokedHealthCertificate.base45, healthCertificateToBeUnrevoked.base45]
+
+		let notificationCenter = MockUserNotificationCenter()
+
+		let revocationProvider = MockRevocationProvider()
+		revocationProvider.updateCacheResult = .success([alreadyRevokedHealthCertificate, healthCertificateToBeRevoked])
+
+		let service = HealthCertificateService(
+			store: store,
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
+			dscListProvider: MockDSCListProvider(),
+			appConfiguration: CachedAppConfigurationMock(),
+			notificationCenter: notificationCenter,
+			cclService: FakeCCLService(),
+			recycleBin: .fake(),
+			revocationProvider: revocationProvider
+		)
+
+		service.syncSetup()
+
+		service.addHealthCertificate(healthCertificateToBeRevoked, completedNotificationRegistration: { })
+
+		XCTAssertEqual(alreadyRevokedHealthCertificate.validityState, .revoked)
+		XCTAssertEqual(healthCertificateToBeUnrevoked.validityState, .valid)
+		XCTAssertEqual(healthCertificateToBeRevoked.validityState, .revoked)
+
+		// There should be 1 notification for revocation, 1 for expiringSoon and 1 for expired as only notifications for newly added certificates have been scheduled.
+		XCTAssertEqual(notificationCenter.notificationRequests.count, 3)
+		XCTAssertTrue(notificationCenter.notificationRequests.contains { $0.identifier.hasPrefix("HealthCertificateNotificationExpireSoon") })
+		XCTAssertTrue(notificationCenter.notificationRequests.contains { $0.identifier.hasPrefix("HealthCertificateNotificationExpired") })
+		XCTAssertTrue(notificationCenter.notificationRequests.contains { $0.identifier.hasPrefix("HealthCertificateNotificationRevoked") })
+	}
 	
 	func testValidityStateUpdate_JustExpired() throws {
 		let healthCertificateBase45 = try base45Fake(
