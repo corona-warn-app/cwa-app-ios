@@ -72,7 +72,10 @@ struct Environments: EnvironmentProviding {
 
 	init(bundle: Bundle = Bundle.main, resourceName: String = "Environments") {
 		#if !RELEASE
-		if let environment: EnvironmentData = LaunchArguments.environment.environmentBase64Json.model() {
+		if LaunchArguments.environment.environmentBase64Json.stringValue != nil {
+			guard let environment: EnvironmentData = LaunchArguments.environment.environmentBase64Json.model() else {
+				fatalError("Failed to decode environment launch argument")
+			}
 			self.environments = [environment]
 			self.launchEnvironment = environment
 			return
