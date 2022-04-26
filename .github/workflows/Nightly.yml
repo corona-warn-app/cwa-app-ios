@@ -9,7 +9,7 @@ jobs:
     runs-on: self-hosted
     steps:
       - name: Bla
-        run: echo {"sonar.host.url":"https://sonarcloud.io", "sonar.branch.name": "${{ GITHUB_REF_NAME }}"}
+        run: echo "GITHUB_REF_NAME=$GITHUB_REF_NAME"
       - name: Check out repository code
         uses: actions/checkout@v2     
       - name: Save Dependencies
