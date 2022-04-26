@@ -8,6 +8,7 @@ import ZIPFoundation
 import jsonfunctions
 @testable import ENA
 
+// swiftlint:disable type_body_length
 class CCLServiceConfigurationTests: CCLServiceBaseTests {
 
 	// MARK: - Configuration logic on CCLService Layer
