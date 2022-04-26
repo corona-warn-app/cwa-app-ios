@@ -110,14 +110,6 @@ extension ClientMock: Client {
 
 	private static let dummyResponse = PackageDownloadResponse(package: SAPDownloadedPackage(keysBin: Data(), signature: Data()), etag: "\"etag\"")
 
-	func availableDays(forCountry country: String, completion: @escaping AvailableDaysCompletionHandler) {
-		if let failure = availablePackageRequestFailure {
-			completion(.failure(failure))
-			return
-		}
-		completion(.success(availableDaysAndHours.days))
-	}
-
 	func availableHours(day: String, country: String, completion: @escaping AvailableHoursCompletionHandler) {
 		if let failure = availablePackageRequestFailure {
 			completion(.failure(failure))
