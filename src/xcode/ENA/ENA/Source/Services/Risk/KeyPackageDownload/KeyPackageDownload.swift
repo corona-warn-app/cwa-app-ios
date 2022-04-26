@@ -353,7 +353,8 @@ class KeyPackageDownload: KeyPackageDownloadProtocol {
 
 		switch downloadMode {
 		case .daily:
-			client.availableDays(forCountry: country) { result in
+			let resource = AvailableDaysResource(country: country)
+			restService.load(resource) { result in
 				switch result {
 				case let .success(days):
 					Log.info("KeyPackageDownload: Server data is available for day packages.", log: .riskDetection)
