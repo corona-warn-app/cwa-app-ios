@@ -115,7 +115,10 @@ class CCLService: CCLServable {
 			
 			self.setupBoosterNotificationRules(signatureVerifier: signatureVerifier)
 			self.setupInvalidationRules(signatureVerifier: signatureVerifier)
-			self.setupCCLConfigurations(signatureVerifier: signatureVerifier)
+			self.setupCCLConfigurations(
+				signatureVerifier: signatureVerifier,
+				cclConfigurationResource: cclConfigurationResource
+			)
 			
 			self.isSetUp = true
 
@@ -356,7 +359,10 @@ class CCLService: CCLServable {
 		}
 	}
 	
-	private func setupCCLConfigurations(signatureVerifier: SignatureVerification) {
+	private func setupCCLConfigurations(
+		signatureVerifier: SignatureVerification,
+		cclConfigurationResource: CCLConfigurationResource = CCLConfigurationResource()
+	) {
 		cclConfigurationResource.receiveResource = CBORReceiveResource(signatureVerifier: signatureVerifier)
 		self.cclConfigurationResource = cclConfigurationResource
 		
