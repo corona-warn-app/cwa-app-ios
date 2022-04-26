@@ -25,7 +25,6 @@ struct LaunchArgument {
 			  let data = Data(base64Encoded: stringValue),
 			  let model = try? decoder.decode(M.self, from: data)
 		else {
-			Log.error("Failed to decode environment model")
 			return nil
 		}
 		return model
