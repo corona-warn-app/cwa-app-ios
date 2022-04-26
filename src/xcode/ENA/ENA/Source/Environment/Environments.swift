@@ -66,7 +66,19 @@ struct Environments: EnvironmentProviding {
 
 	let environments: [EnvironmentData]
 
+	#if !RELEASE
+	private var launchEnvironment: EnvironmentData?
+	#endif
+
 	init(bundle: Bundle = Bundle.main, resourceName: String = "Environments") {
+		#if !RELEASE
+		if let environment: EnvironmentData = LaunchArguments.environment.environmentBase64Json.model() {
+			self.environments = [environment]
+			self.launchEnvironment = environment
+			return
+		}
+		#endif
+
 		guard let jsonURL = bundle.url(forResource: resourceName, withExtension: "json") else {
 			fatalError("Missing server environment.")
 		}
@@ -95,7 +107,9 @@ struct Environments: EnvironmentProviding {
 
 	func currentEnvironment() -> EnvironmentData {
 		#if !RELEASE
-		if let env = UserDefaults.standard.string(forKey: Environments.selectedEnvironmentKey) {
+		if let current = launchEnvironment {
+			return current
+		} else if let env = UserDefaults.standard.string(forKey: Environments.selectedEnvironmentKey) {
 			return environment(.custom(env))
 		} else {
 			return defaultEnvironment()
