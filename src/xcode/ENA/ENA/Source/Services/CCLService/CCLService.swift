@@ -31,7 +31,8 @@ protocol CCLServable {
 	
 	func setup(
 		signatureVerifier: SignatureVerification,
-		cclConfigurationResource: CCLConfigurationResource
+		cclConfigurationResource: CCLConfigurationResource,
+		completion: @escaping () -> Void
 	)
 	
 	func updateConfiguration(completion: @escaping (_ didChange: Bool) -> Void)
@@ -47,11 +48,13 @@ protocol CCLServable {
 extension CCLServable {
 	func setup(
 		signatureVerifier: SignatureVerification = SignatureVerifier(),
-		cclConfigurationResource: CCLConfigurationResource = CCLConfigurationResource()
+		cclConfigurationResource: CCLConfigurationResource = CCLConfigurationResource(),
+		completion: @escaping () -> Void
 	) {
 		self.setup(
 			signatureVerifier: signatureVerifier,
-			cclConfigurationResource: cclConfigurationResource
+			cclConfigurationResource: cclConfigurationResource,
+			completion: completion
 		)
 	}
 }
@@ -94,59 +97,31 @@ class CCLService: CCLServable {
 		return appConfiguration.featureProvider.boolValue(for: .dccAdmissionCheckScenariosEnabled)
 	}
     
-    func setup(
-        signatureVerifier: SignatureVerification = SignatureVerifier(),
-        cclConfigurationResource: CCLConfigurationResource = CCLConfigurationResource()
-    ) {
+	func setup(
+		signatureVerifier: SignatureVerification = SignatureVerifier(),
+		cclConfigurationResource: CCLConfigurationResource = CCLConfigurationResource(),
+		completion: @escaping () -> Void
+	) {
 		guard !isSetUp else {
+			completion()
 			return
 		}
 		
-		defer {
-			isSetUp = true
+		setupQueue.async { [weak self] in
+			guard let self = self else {
+				completion()
+				return
+			}
+			
+			self.setupBoosterNotificationRules(signatureVerifier: signatureVerifier)
+			self.setupInvalidationRules(signatureVerifier: signatureVerifier)
+			self.setupCCLConfigurations(signatureVerifier: signatureVerifier)
+			
+			self.isSetUp = true
+
+			completion()
 		}
-		
-        cclConfigurationResource.receiveResource = CBORReceiveResource(signatureVerifier: signatureVerifier)
-        self.cclConfigurationResource = cclConfigurationResource
-
-        boosterNotificationRulesResource.receiveResource = CBORReceiveResource(signatureVerifier: signatureVerifier)
-        self.boosterNotificationRulesResource = boosterNotificationRulesResource
-
-        invalidationRulesResource.receiveResource = CBORReceiveResource(signatureVerifier: signatureVerifier)
-        self.invalidationRulesResource = invalidationRulesResource
-
-        // boosterNotificationRules
-        if cclServiceMode.contains(.boosterRules) {
-            switch restServiceProvider.cached(boosterNotificationRulesResource) {
-            case let .success(rules):
-                self.boosterNotificationRules = rules.rules
-            case let .failure(error):
-                Log.error("Failed to load boosterNotification rules from cache - init them empty", error: error)
-                self.boosterNotificationRules = []
-            }
-        }
-        
-        // InvalidationRules
-        if cclServiceMode.contains(.invalidationRules) {
-            switch restServiceProvider.cached(invalidationRulesResource) {
-            case let .success(rules):
-                self.invalidationRules = rules.rules
-            case let .failure(error):
-                Log.error("Failed to load invalidation rules from cache - init them empty", error: error)
-                self.invalidationRules = []
-            }
-        }
-
-        // cclConfigurations
-        if cclServiceMode.contains(.configuration) {
-            switch restServiceProvider.cached(cclConfigurationResource) {
-            case let .success(configurations):
-                replaceCCLConfigurations(with: configurations.cclConfigurations)
-            case let .failure(error):
-                Log.error("Failed to read ccl configurations from cache", error: error)
-            }
-        }
-    }
+	}
 	
 	func updateConfiguration(
 		completion: @escaping (_ didChange: Bool) -> Void
@@ -268,6 +243,8 @@ class CCLService: CCLServable {
 	}
 
 	// MARK: - Private
+	
+	private let setupQueue = DispatchQueue(label: "com.sap.CCLService.setup")
 
 	private let restServiceProvider: RestServiceProviding
 	private let appConfiguration: AppConfigurationProviding
@@ -348,6 +325,51 @@ class CCLService: CCLServable {
 		return DCCAdmissionCheckScenarios(labelText: statusTitle, scenarioSelection: DCCScenarioSelection(titleText: buttonTitle, items: [entireCountry, bw, berlin]))
 	}
 	#endif
+	
+	private func setupBoosterNotificationRules(signatureVerifier: SignatureVerification) {
+		self.boosterNotificationRulesResource.receiveResource = CBORReceiveResource(signatureVerifier: signatureVerifier)
+
+		// boosterNotificationRules
+		if self.cclServiceMode.contains(.boosterRules) {
+			switch self.restServiceProvider.cached(self.boosterNotificationRulesResource) {
+			case let .success(rules):
+				self.boosterNotificationRules = rules.rules
+			case let .failure(error):
+				Log.error("Failed to load boosterNotification rules from cache - init them empty", error: error)
+				self.boosterNotificationRules = []
+			}
+		}
+	}
+	
+	private func setupInvalidationRules(signatureVerifier: SignatureVerification) {
+		self.invalidationRulesResource.receiveResource = CBORReceiveResource(signatureVerifier: signatureVerifier)
+		
+		// InvalidationRules
+		if self.cclServiceMode.contains(.invalidationRules) {
+			switch self.restServiceProvider.cached(self.invalidationRulesResource) {
+			case let .success(rules):
+				self.invalidationRules = rules.rules
+			case let .failure(error):
+				Log.error("Failed to load invalidation rules from cache - init them empty", error: error)
+				self.invalidationRules = []
+			}
+		}
+	}
+	
+	private func setupCCLConfigurations(signatureVerifier: SignatureVerification) {
+		cclConfigurationResource.receiveResource = CBORReceiveResource(signatureVerifier: signatureVerifier)
+		self.cclConfigurationResource = cclConfigurationResource
+		
+		// cclConfigurations
+		if self.cclServiceMode.contains(.configuration) {
+			switch self.restServiceProvider.cached(cclConfigurationResource) {
+			case let .success(configurations):
+				self.replaceCCLConfigurations(with: configurations.cclConfigurations)
+			case let .failure(error):
+				Log.error("Failed to read ccl configurations from cache", error: error)
+			}
+		}
+	}
 
 	private func getConfigurations(
 		completion: @escaping (Swift.Result<[CCLConfiguration], CCLDownloadError>) -> Void

@@ -29,9 +29,15 @@ class CCLServiceConfigurationTests: CCLServiceBaseTests {
 			appConfiguration: appConfiguration,
 			cclServiceMode: [.configuration]
 		)
+		
+		let setupExpectation = expectation(description: "setup finished")
 		cclService.setup(
 			signatureVerifier: MockVerifier()
-		)
+		) {
+			setupExpectation.fulfill()
+		}
+		waitForExpectations(timeout: .short)
+		
 		let expectation = expectation(description: "update finished")
 
 		// WHEN
@@ -66,9 +72,15 @@ class CCLServiceConfigurationTests: CCLServiceBaseTests {
 			appConfiguration: appConfiguration,
 			cclServiceMode: [.configuration]
 		)
+		
+		let setupExpectation = expectation(description: "setup finished")
 		cclService.setup(
 			signatureVerifier: MockVerifier()
-		)
+		) {
+			setupExpectation.fulfill()
+		}
+		waitForExpectations(timeout: .short)
+		
 		let expectation = expectation(description: "update finished")
 
 		// WHEN
@@ -103,9 +115,15 @@ class CCLServiceConfigurationTests: CCLServiceBaseTests {
 			appConfiguration: appConfiguration,
 			cclServiceMode: [.configuration]
 		)
+		
+		let setupExpectation = expectation(description: "setup finished")
 		cclService.setup(
 			signatureVerifier: MockVerifier()
-		)
+		) {
+			setupExpectation.fulfill()
+		}
+		waitForExpectations(timeout: .short)
+		
 		let expectation = expectation(description: "update finished")
 
 		// WHEN
@@ -142,10 +160,15 @@ class CCLServiceConfigurationTests: CCLServiceBaseTests {
 			appConfiguration: appConfiguration,
 			cclServiceMode: [.configuration]
 		)
+		
+		let setupExpectation = expectation(description: "setup finished")
 		cclService.setup(
 			signatureVerifier: MockVerifier(),
 			cclConfigurationResource: resource
-		)
+		) {
+			setupExpectation.fulfill()
+		}
+		waitForExpectations(timeout: .short)
 		
 		// WHEN
 		let version = cclService.configurationVersion
@@ -177,12 +200,16 @@ class CCLServiceConfigurationTests: CCLServiceBaseTests {
 			appConfiguration: appConfiguration,
 			cclServiceMode: [.configuration]
 		)
-		
+
+		let setupExpectation = expectation(description: "setup finished")
 		cclService.setup(
 			signatureVerifier: MockVerifier(),
 			cclConfigurationResource: resource
-		)
-
+		) {
+			setupExpectation.fulfill()
+		}
+		waitForExpectations(timeout: .short)
+		
 		// WHEN
 		let version = cclService.configurationVersion
 
@@ -225,10 +252,14 @@ class CCLServiceConfigurationTests: CCLServiceBaseTests {
 			cclServiceMode: [.configuration]
 		)
 		
+		let setupExpectation = expectation(description: "setup finished")
 		cclService.setup(
 			signatureVerifier: MockVerifier(),
 			cclConfigurationResource: resource
-		)
+		) {
+			setupExpectation.fulfill()
+		}
+		waitForExpectations(timeout: .short)
 
 		let expectation = expectation(description: "update finished")
 
@@ -260,11 +291,15 @@ class CCLServiceConfigurationTests: CCLServiceBaseTests {
 			cclServiceMode: [.configuration]
 		)
 		
+		let setupExpectation = expectation(description: "setup finished")
 		cclService.setup(
 			signatureVerifier: MockVerifier(),
 			cclConfigurationResource: resource
-		)
-
+		) {
+			setupExpectation.fulfill()
+		}
+		waitForExpectations(timeout: .short)
+		
 		// WHEN
 		let version = cclService.configurationVersion
 
@@ -290,10 +325,14 @@ class CCLServiceConfigurationTests: CCLServiceBaseTests {
 			cclServiceMode: [.configuration]
 		)
 		
+		let setupExpectation = expectation(description: "setup finished")
 		cclService.setup(
 			signatureVerifier: MockVerifier(),
 			cclConfigurationResource: resource
-		)
+		) {
+			setupExpectation.fulfill()
+		}
+		waitForExpectations(timeout: .short)
 
 		// WHEN
 		let version = cclService.configurationVersion
@@ -326,10 +365,14 @@ class CCLServiceConfigurationTests: CCLServiceBaseTests {
 			cclServiceMode: [.configuration]
 		)
 		
+		let setupExpectation = expectation(description: "setup finished")
 		cclService.setup(
 			signatureVerifier: MockVerifier(),
 			cclConfigurationResource: resource
-		)
+		) {
+			setupExpectation.fulfill()
+		}
+		waitForExpectations(timeout: .short)
 
 		// WHEN
 		let version = cclService.configurationVersion
@@ -363,11 +406,15 @@ class CCLServiceConfigurationTests: CCLServiceBaseTests {
 			appConfiguration: appConfiguration,
 			cclServiceMode: [.configuration]
 		)
-		
+
+		let setupExpectation = expectation(description: "setup finished")
 		cclService.setup(
 			signatureVerifier: MockVerifier(),
 			cclConfigurationResource: resource
-		)
+		) {
+			setupExpectation.fulfill()
+		}
+		waitForExpectations(timeout: .short)
 
 		// WHEN
 		let version = cclService.configurationVersion
@@ -446,11 +493,15 @@ class CCLServiceConfigurationTests: CCLServiceBaseTests {
 			cclServiceMode: [.configuration]
 		)
 		
+		let setupExpectation = expectation(description: "setup finished")
 		cclService.setup(
 			signatureVerifier: MockVerifier(),
 			cclConfigurationResource: resource
-		)
-
+		) {
+			setupExpectation.fulfill()
+		}
+		waitForExpectations(timeout: .short)
+		
 		// WHEN
 		let version = cclService.configurationVersion
 		let cachedReturnValue: String = try cclService.evaluateFunctionWithDefaultValues(name: "cachedFunction", parameters: [:])

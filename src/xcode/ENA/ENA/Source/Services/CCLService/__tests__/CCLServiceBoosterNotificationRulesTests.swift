@@ -35,9 +35,15 @@ class CCLServiceBoosterNotificationRulesTests: CCLServiceBaseTests {
 			appConfiguration: appConfiguration,
 			cclServiceMode: [.boosterRules]
 		)
+		
+		let setupExpectation = expectation(description: "setup finished")
 		cclService.setup(
 			signatureVerifier: MockVerifier()
-		)
+		) {
+			setupExpectation.fulfill()
+		}
+		waitForExpectations(timeout: .short)
+		
 		let expectation = expectation(description: "update finished")
 
 		// WHEN
@@ -71,9 +77,15 @@ class CCLServiceBoosterNotificationRulesTests: CCLServiceBaseTests {
 			appConfiguration: appConfiguration,
 			cclServiceMode: [.boosterRules]
 		)
+		
+		let setupExpectation = expectation(description: "setup finished")
 		cclService.setup(
 			signatureVerifier: MockVerifier()
-		)
+		) {
+			setupExpectation.fulfill()
+		}
+		waitForExpectations(timeout: .short)
+		
 		let expectation = expectation(description: "update finished")
 
 		// WHEN
@@ -107,9 +119,15 @@ class CCLServiceBoosterNotificationRulesTests: CCLServiceBaseTests {
 			appConfiguration: appConfiguration,
 			cclServiceMode: [.boosterRules]
 		)
+
+		let setupExpectation = expectation(description: "setup finished")
 		cclService.setup(
 			signatureVerifier: MockVerifier()
-		)
+		) {
+			setupExpectation.fulfill()
+		}
+		waitForExpectations(timeout: .short)
+		
 		let expectation = expectation(description: "update finished")
 
 		// WHEN
