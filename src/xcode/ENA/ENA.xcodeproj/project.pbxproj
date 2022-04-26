@@ -175,6 +175,7 @@
 		017EE867267B4F2600CD18F6 /* CWATestCase+HealthCertificateConvenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = 017EE866267B3F0A00CD18F6 /* CWATestCase+HealthCertificateConvenience.swift */; };
 		018105D728115D1600C40268 /* DMRevocationListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018105D528115C0300C40268 /* DMRevocationListViewController.swift */; };
 		018105D828115D1900C40268 /* DMRevocationListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018105D628115C0300C40268 /* DMRevocationListViewModel.swift */; };
+		018105DA2816ED8A00C40268 /* MockRevocationProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018105D92816ED8A00C40268 /* MockRevocationProvider.swift */; };
 		0185DDDE25B77786001FBEA7 /* HomeStatisticsCellModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0185DDDD25B77786001FBEA7 /* HomeStatisticsCellModelTests.swift */; };
 		0186FB60268F35B900872D45 /* HealthCertificateValidationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0186FB5F268F35B900872D45 /* HealthCertificateValidationViewController.swift */; };
 		0186FB62268F362200872D45 /* HealthCertificateValidationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0186FB61268F362100872D45 /* HealthCertificateValidationViewModel.swift */; };
@@ -1973,6 +1974,7 @@
 		017EE866267B3F0A00CD18F6 /* CWATestCase+HealthCertificateConvenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CWATestCase+HealthCertificateConvenience.swift"; sourceTree = "<group>"; };
 		018105D528115C0300C40268 /* DMRevocationListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMRevocationListViewController.swift; sourceTree = "<group>"; };
 		018105D628115C0300C40268 /* DMRevocationListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMRevocationListViewModel.swift; sourceTree = "<group>"; };
+		018105D92816ED8A00C40268 /* MockRevocationProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockRevocationProvider.swift; sourceTree = "<group>"; };
 		0185DDDD25B77786001FBEA7 /* HomeStatisticsCellModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeStatisticsCellModelTests.swift; sourceTree = "<group>"; };
 		0186FB5F268F35B900872D45 /* HealthCertificateValidationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthCertificateValidationViewController.swift; sourceTree = "<group>"; };
 		0186FB61268F362100872D45 /* HealthCertificateValidationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthCertificateValidationViewModel.swift; sourceTree = "<group>"; };
@@ -9451,6 +9453,7 @@
 		BA7DE4532805A9A00074BFE3 /* __tests__ */ = {
 			isa = PBXGroup;
 			children = (
+				018105D92816ED8A00C40268 /* MockRevocationProvider.swift */,
 				BA7DE4542805A9B90074BFE3 /* RevocationProviderTests.swift */,
 			);
 			path = __tests__;
@@ -12041,6 +12044,7 @@
 				BADBC86725D6C7FD00488DB7 /* SettingsDataDonationViewModelTests.swift in Sources */,
 				F2DC809424898CE600EDC40A /* DynamicTableViewControllerFooterTests.swift in Sources */,
 				50AF182427A3F20500BAA9DB /* CCLConfigurationResourceTests.swift in Sources */,
+				018105DA2816ED8A00C40268 /* MockRevocationProvider.swift in Sources */,
 				35358DD425A23169004FD0CB /* HTTPClientCertificatePinningTests.swift in Sources */,
 				01B72BA6258360FF00A3E3BC /* DiaryDayEmptyViewModelTest.swift in Sources */,
 				ABD430F127FB29950063666C /* KIDListResourceTests.swift in Sources */,

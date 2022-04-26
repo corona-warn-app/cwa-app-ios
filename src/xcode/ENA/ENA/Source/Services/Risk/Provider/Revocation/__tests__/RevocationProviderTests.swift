@@ -112,6 +112,25 @@ class RevocationProviderTests: CWATestCase {
 		waitForExpectations(timeout: .greatestFiniteMagnitude)
 	}
 
+	func testIsRevokedFromRevocationList() throws {
+		let revokedVaccinationCertificate = try vaccinationCertificate()
+		let revokedRecoveryCertificate = try recoveryCertificate()
+		let unrevokedCertificate = try testCertificate()
+
+		let store = MockTestStore()
+		store.revokedCertificates = [revokedVaccinationCertificate.base45, revokedRecoveryCertificate.base45]
+
+		let revocationProvider = RevocationProvider(
+			restService: RestServiceProviderStub(),
+			store: store,
+			signatureVerifier: MockVerifier()
+		)
+
+		XCTAssertTrue(revocationProvider.isRevokedFromRevocationList(healthCertificate: revokedVaccinationCertificate))
+		XCTAssertTrue(revocationProvider.isRevokedFromRevocationList(healthCertificate: revokedRecoveryCertificate))
+		XCTAssertFalse(revocationProvider.isRevokedFromRevocationList(healthCertificate: unrevokedCertificate))
+	}
+
 	// MARK: - Helpers
 
 	private let testCertificateKeyIdentifier = "0123456789abcdef"
