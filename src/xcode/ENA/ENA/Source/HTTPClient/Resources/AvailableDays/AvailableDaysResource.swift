@@ -33,4 +33,11 @@ struct AvailableDaysResource: Resource {
 	var receiveResource: JSONReceiveResource<[String]>
 	var trustEvaluation: TrustEvaluating
 
+#if !RELEASE
+	var defaultMockLoadResource: LoadResource? = LoadResource(
+		result: .success([]),
+		willLoadResource: nil
+	)
+#endif
+
 }
