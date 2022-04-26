@@ -57,12 +57,14 @@ class KeyPackageDownload: KeyPackageDownloadProtocol {
 		downloadedPackagesStore: DownloadedPackagesStore,
 		client: Client,
 		wifiClient: ClientWifiOnly,
+		restService: RestServiceProviding,
 		store: Store & AppConfigCaching,
 		countryIds: [Country.ID] = ["EUR"]
 	) {
 		self.downloadedPackagesStore = downloadedPackagesStore
 		self.client = client
 		self.wifiClient = wifiClient
+		self.restService = restService
 		self.store = store
 		self.countryIds = countryIds
 	}
@@ -128,6 +130,7 @@ class KeyPackageDownload: KeyPackageDownloadProtocol {
 	private let countryIds: [Country.ID]
 	private let downloadedPackagesStore: DownloadedPackagesStore
 	private let client: Client
+	private let restService: RestServiceProviding
 	private let wifiClient: ClientWifiOnly
 	private let store: Store & AppConfigCaching
 

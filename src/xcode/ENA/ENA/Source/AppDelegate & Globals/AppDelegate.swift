@@ -358,6 +358,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 			downloadedPackagesStore: downloadedPackagesStore,
 			client: client,
 			wifiClient: wifiClient,
+			restService: restServiceProvider,
 			store: store
 		)
 
