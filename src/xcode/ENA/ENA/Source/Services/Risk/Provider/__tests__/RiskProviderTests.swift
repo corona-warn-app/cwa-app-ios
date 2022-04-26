@@ -869,6 +869,7 @@ class RiskProviderTests: CWATestCase {
 			downloadedPackagesStore: downloadedPackagesStore,
 			client: client,
 			wifiClient: client,
+			restService: RestServiceProviderStub(),
 			store: store
 		)
 		
@@ -933,6 +934,7 @@ class RiskProviderTests: CWATestCase {
 			downloadedPackagesStore: downloadedPackagesStore,
 			client: client,
 			wifiClient: client,
+			restService: RestServiceProviderStub(),
 			store: store
 		)
 		
@@ -1011,6 +1013,7 @@ class RiskProviderTests: CWATestCase {
 			downloadedPackagesStore: downloadedPackagesStore,
 			client: client,
 			wifiClient: client,
+			restService: RestServiceProviderStub(),
 			store: store
 		)
 		
@@ -1091,6 +1094,7 @@ class RiskProviderTests: CWATestCase {
 			downloadedPackagesStore: downloadedPackagesStore,
 			client: client,
 			wifiClient: client,
+			restService: RestServiceProviderStub(),
 			store: store
 		)
 		
@@ -1169,6 +1173,7 @@ class RiskProviderTests: CWATestCase {
 			downloadedPackagesStore: downloadedPackagesStore,
 			client: client,
 			wifiClient: client,
+			restService: RestServiceProviderStub(),
 			store: store
 		)
 		
@@ -1301,6 +1306,7 @@ extension CWATestCase {
 			downloadedPackagesStore: downloadedPackagesStore,
 			client: client,
 			wifiClient: client,
+			restService: RestServiceProviderStub(),
 			store: store
 		)
 	}

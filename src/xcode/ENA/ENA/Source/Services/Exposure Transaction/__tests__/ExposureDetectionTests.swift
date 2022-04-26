@@ -49,6 +49,7 @@ final class ExposureDetectionTransactionTests: CWATestCase {
 			downloadedPackagesStore: downloadedPackagesStore,
 			client: client,
 			wifiClient: client,
+			restService: RestServiceProviderStub(),
 			store: store
 		)
 

@@ -29,6 +29,7 @@ final class DayKeyPackageDownloadTest: CWATestCase {
 			downloadedPackagesStore: packagesStore,
 			client: client,
 			wifiClient: client,
+			restService: RestServiceProviderStub(),
 			store: store,
 			countryIds: [countryId]
 		)
@@ -68,6 +69,7 @@ final class DayKeyPackageDownloadTest: CWATestCase {
 			downloadedPackagesStore: packagesStore,
 			client: client,
 			wifiClient: client,
+			restService: RestServiceProviderStub(),
 			store: store,
 			countryIds: ["IT"]
 		)
@@ -106,6 +108,7 @@ final class DayKeyPackageDownloadTest: CWATestCase {
 			downloadedPackagesStore: packagesStore,
 			client: client,
 			wifiClient: client,
+			restService: RestServiceProviderStub(),
 			store: store,
 			countryIds: ["IT"]
 		)
@@ -152,6 +155,7 @@ final class DayKeyPackageDownloadTest: CWATestCase {
 			downloadedPackagesStore: packagesStore,
 			client: client,
 			wifiClient: client,
+			restService: RestServiceProviderStub(),
 			store: store,
 			countryIds: [countryId]
 		)
@@ -188,6 +192,7 @@ final class DayKeyPackageDownloadTest: CWATestCase {
 			downloadedPackagesStore: packagesStore,
 			client: client,
 			wifiClient: client,
+			restService: RestServiceProviderStub(),
 			store: store,
 			countryIds: ["IT"]
 		)
@@ -221,6 +226,7 @@ final class DayKeyPackageDownloadTest: CWATestCase {
 			downloadedPackagesStore: packagesStore,
 			client: client,
 			wifiClient: client,
+			restService: RestServiceProviderStub(),
 			store: store
 		)
 
@@ -252,6 +258,7 @@ final class DayKeyPackageDownloadTest: CWATestCase {
 			downloadedPackagesStore: packagesStore,
 			client: client,
 			wifiClient: client,
+			restService: RestServiceProviderStub(),
 			store: store
 		)
 
@@ -282,6 +289,7 @@ final class DayKeyPackageDownloadTest: CWATestCase {
 			downloadedPackagesStore: packagesStore,
 			client: client,
 			wifiClient: client,
+			restService: RestServiceProviderStub(),
 			store: store
 		)
 
@@ -312,6 +320,7 @@ final class DayKeyPackageDownloadTest: CWATestCase {
 			downloadedPackagesStore: packagesStore,
 			client: client,
 			wifiClient: client,
+			restService: RestServiceProviderStub(),
 			store: store
 		)
 
@@ -355,6 +364,7 @@ final class DayKeyPackageDownloadTest: CWATestCase {
 			downloadedPackagesStore: packagesStore,
 			client: client,
 			wifiClient: client,
+			restService: RestServiceProviderStub(),
 			store: store,
 			countryIds: ["IT"]
 		)
@@ -396,6 +406,7 @@ final class DayKeyPackageDownloadTest: CWATestCase {
 			downloadedPackagesStore: packagesStore,
 			client: client,
 			wifiClient: client,
+			restService: RestServiceProviderStub(),
 			store: store,
 			countryIds: ["IT"]
 		)
