@@ -35,6 +35,7 @@ extension XCTestCase {
 	
 	func recoveryCertificate(
 		daysOffset: Int = 0,
+		webTokenHeader: CBORWebTokenHeader = .fake(),
 		keyIdentifier: Data = Data(),
 		signature: Data? = nil
 	) throws -> HealthCertificate {
@@ -48,6 +49,7 @@ extension XCTestCase {
 						)
 					]
 				),
+				webTokenHeader: webTokenHeader,
 				keyIdentifier: keyIdentifier,
 				signature: signature
 			),
@@ -64,6 +66,7 @@ extension XCTestCase {
 		identifier: String = "01DE/84503/1119349007/DXSGWLWL40SU8ZFKIYIBK39A3#S",
 		name: Name = .fake(),
 		dateOfBirth: String = "1942-01-01",
+		webTokenHeader: CBORWebTokenHeader = .fake(),
 		keyIdentifier: Data = Data(),
 		signature: Data? = nil
 	) throws -> HealthCertificate {
@@ -83,6 +86,7 @@ extension XCTestCase {
 					vaccinationEntry
 				]
 			),
+			webTokenHeader: webTokenHeader,
 			keyIdentifier: keyIdentifier,
 			signature: signature
 		)
@@ -95,6 +99,7 @@ extension XCTestCase {
 		type: CoronaTestType = .antigen,
 		identifier: String = "01DE/84503/1119349007/DXSGWLWL40SU8ZFKIYIBK39A4#S",
 		dateOfBirth: String = "1942-01-01",
+		webTokenHeader: CBORWebTokenHeader = .fake(),
 		keyIdentifier: Data = Data(),
 		signature: Data? = nil
 	) throws -> HealthCertificate {
@@ -112,6 +117,7 @@ extension XCTestCase {
 					testEntry
 				]
 			),
+			webTokenHeader: webTokenHeader,
 			keyIdentifier: keyIdentifier,
 			signature: signature
 		)
