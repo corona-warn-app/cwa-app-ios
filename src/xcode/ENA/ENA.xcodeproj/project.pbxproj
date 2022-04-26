@@ -1590,6 +1590,7 @@
 		BAB9FC6F26305F8000EB4E76 /* AntigenTestProfileTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAB9FC6E26305F8000EB4E76 /* AntigenTestProfileTests.swift */; };
 		BABAA5A826BC122F003A64AE /* AppFeatureProviding.swift in Sources */ = {isa = PBXBuildFile; fileRef = BABAA5A726BC122F003A64AE /* AppFeatureProviding.swift */; };
 		BABC1ED1281849000067F8E9 /* AvailableDaysResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = BABC1ED0281849000067F8E9 /* AvailableDaysResource.swift */; };
+		BABC1ED4281851C90067F8E9 /* AvailableDaysResourceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BABC1ED3281851C90067F8E9 /* AvailableDaysResourceTests.swift */; };
 		BABFBE6D270DD57000106313 /* QRCodeDetecting.swift in Sources */ = {isa = PBXBuildFile; fileRef = BABFBE6C270DD57000106313 /* QRCodeDetecting.swift */; };
 		BABFBE70270DDBD100106313 /* QRCodeDetectorFake.swift in Sources */ = {isa = PBXBuildFile; fileRef = BABFBE6E270DD90500106313 /* QRCodeDetectorFake.swift */; };
 		BAC0A4DE25768039002B5361 /* TanInputViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAC0A4DD25768039002B5361 /* TanInputViewModelTests.swift */; };
@@ -3408,6 +3409,7 @@
 		BAB9FC6E26305F8000EB4E76 /* AntigenTestProfileTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AntigenTestProfileTests.swift; sourceTree = "<group>"; };
 		BABAA5A726BC122F003A64AE /* AppFeatureProviding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppFeatureProviding.swift; sourceTree = "<group>"; };
 		BABC1ED0281849000067F8E9 /* AvailableDaysResource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvailableDaysResource.swift; sourceTree = "<group>"; };
+		BABC1ED3281851C90067F8E9 /* AvailableDaysResourceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvailableDaysResourceTests.swift; sourceTree = "<group>"; };
 		BABFBE6C270DD57000106313 /* QRCodeDetecting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRCodeDetecting.swift; sourceTree = "<group>"; };
 		BABFBE6E270DD90500106313 /* QRCodeDetectorFake.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRCodeDetectorFake.swift; sourceTree = "<group>"; };
 		BAC0A4DD25768039002B5361 /* TanInputViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TanInputViewModelTests.swift; sourceTree = "<group>"; };
@@ -9700,10 +9702,19 @@
 		BABC1ECF281848800067F8E9 /* AvailableDays */ = {
 			isa = PBXGroup;
 			children = (
+				BABC1ED2281851A60067F8E9 /* __tests__ */,
 				5001DE7B26E201FE004242FA /* AvailableDays.swift */,
 				BABC1ED0281849000067F8E9 /* AvailableDaysResource.swift */,
 			);
 			path = AvailableDays;
+			sourceTree = "<group>";
+		};
+		BABC1ED2281851A60067F8E9 /* __tests__ */ = {
+			isa = PBXGroup;
+			children = (
+				BABC1ED3281851C90067F8E9 /* AvailableDaysResourceTests.swift */,
+			);
+			path = __tests__;
 			sourceTree = "<group>";
 		};
 		BAC0A4DC25768017002B5361 /* __tests__ */ = {
@@ -11973,6 +11984,7 @@
 				ABD4310327FC8CEA0063666C /* HealthCertificateRevocationEntriesTests.swift in Sources */,
 				50842BEC274FB9150015E63F /* ServiceIdentityDocumentProcessorTests.swift in Sources */,
 				AB6887FE25D6AAEF00907465 /* ContactDiaryStoreSchemaV3Tests.swift in Sources */,
+				BABC1ED4281851C90067F8E9 /* AvailableDaysResourceTests.swift in Sources */,
 				BA16BBF527B2DAA100C21B87 /* SecureKeyValueCacheMigrationTests.swift in Sources */,
 				5081EEFE25FF9C5E004B8FDE /* CheckinsInfoScreenViewModelTest.swift in Sources */,
 				AB1885D825238DD100D39BBE /* OnboardingInfoViewControllerTests.swift in Sources */,
