@@ -768,8 +768,6 @@ class HealthCertificateServiceTests: CWATestCase {
 
 		XCTAssertEqual(healthCertificate.validityState, .revoked)
 		XCTAssertEqual(service.healthCertifiedPersons.first?.healthCertificates.first?.validityState, .revoked)
-
-		service.moveHealthCertificateToBin(healthCertificate)
 	}
 
 	func testAddingCertificateUpdatesRevocationListAndValidityStateAndSchedulesNotification() throws {
