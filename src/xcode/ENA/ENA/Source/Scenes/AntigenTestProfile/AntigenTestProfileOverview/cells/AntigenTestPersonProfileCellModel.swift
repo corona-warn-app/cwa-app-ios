@@ -15,7 +15,7 @@ class AntigenTestPersonProfileCellModel {
 	) {
 		backgroundGradientType = .blueOnly
 
-		title = AppStrings.AntigenProfile.Overview.title
+		title = AppStrings.AntigenProfile.Overview.cardTitle
 		
 		name = antigenTestProfile.fullName
 
