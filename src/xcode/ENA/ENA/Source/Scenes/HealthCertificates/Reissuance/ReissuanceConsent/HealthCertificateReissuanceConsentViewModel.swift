@@ -12,7 +12,7 @@ final class HealthCertificateReissuanceConsentViewModel {
 
 	init(
 		cclService: CCLServable,
-		certificate: HealthCertificate,
+		certificates: [HealthCertificate],
 		certifiedPerson: HealthCertifiedPerson,
 		appConfigProvider: AppConfigurationProviding,
 		restServiceProvider: RestServiceProviding,
@@ -20,7 +20,7 @@ final class HealthCertificateReissuanceConsentViewModel {
 		onDisclaimerButtonTap: @escaping () -> Void
 	) {
 		self.cclService = cclService
-		self.certificate = certificate
+		self.certificates = certificates
 		self.certifiedPerson = certifiedPerson
 		self.appConfigProvider = appConfigProvider
 		self.restServiceProvider = restServiceProvider
@@ -33,31 +33,37 @@ final class HealthCertificateReissuanceConsentViewModel {
 	let title: String = AppStrings.HealthCertificate.Reissuance.Consent.title
 
 	var dynamicTableViewModel: DynamicTableViewModel {
-		DynamicTableViewModel(
-			[
-				.section(
-					cells: [
-						.certificate(certificate, certifiedPerson: certifiedPerson),
-						titleDynamicCell,
-						subtitleDynamicCell,
-						longTextDynamicCell
-					]
+		DynamicTableViewModel.with {
+			for certificate in certificates {
+				$0.add(
+					.section(
+						cells: [
+							.certificate(certificate, certifiedPerson: certifiedPerson),
+							titleDynamicCell,
+							subtitleDynamicCell,
+							longTextDynamicCell
+						]
 						.compactMap({ $0 })
-				),
+					)
+				)
+			}
+			$0.add(
 				.section(
 					cells: [
-						.icon(
-							UIImage(imageLiteralResourceName: "more_recycle_bin"),
-							text: .string(AppStrings.HealthCertificate.Reissuance.Consent.deleteNotice),
-							alignment: .top
-						),
-						.icon(
-							UIImage(imageLiteralResourceName: "Icons_Certificates_01"),
-							text: .string(AppStrings.HealthCertificate.Reissuance.Consent.cancelNotice),
-							alignment: .top
-						)
-					]
-				),
+						   .icon(
+							   UIImage(imageLiteralResourceName: "more_recycle_bin"),
+							   text: .string(AppStrings.HealthCertificate.Reissuance.Consent.deleteNotice),
+							   alignment: .top
+						   ),
+						   .icon(
+							   UIImage(imageLiteralResourceName: "Icons_Certificates_01"),
+							   text: .string(AppStrings.HealthCertificate.Reissuance.Consent.cancelNotice),
+							   alignment: .top
+						   )
+				   ]
+			   )
+			)
+			$0.add(
 				.section(
 					cells:
 						[
@@ -77,7 +83,9 @@ final class HealthCertificateReissuanceConsentViewModel {
 							.space(height: 8.0)
 						]
 						.compactMap({ $0 })
-				),
+				)
+			)
+			$0.add(
 				.section(
 					separators: .all,
 					cells: [
@@ -96,8 +104,8 @@ final class HealthCertificateReissuanceConsentViewModel {
 						)
 					]
 				)
-			]
-		)
+			)
+		}
 	}
 
 	func markCertificateReissuanceAsSeen() {
@@ -105,6 +113,7 @@ final class HealthCertificateReissuanceConsentViewModel {
 	}
 
 	func submit(completion: @escaping (Result<Void, HealthCertificateReissuanceError>) -> Void) {
+		/*
 		Log.info("Submit certificate for reissuance...", log: .vaccination)
 
 		#if DEBUG
@@ -192,12 +201,13 @@ final class HealthCertificateReissuanceConsentViewModel {
 				}
 			}
 			.store(in: &subscriptions)
+		 */
 	}
 
 	// MARK: - Private
 
 	private let cclService: CCLServable
-	private let certificate: HealthCertificate
+	private let certificates: [HealthCertificate]
 	private let certifiedPerson: HealthCertifiedPerson
 	private let onDisclaimerButtonTap: () -> Void
 	private let appConfigProvider: AppConfigurationProviding
