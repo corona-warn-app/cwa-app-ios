@@ -1032,6 +1032,8 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmission_Antigen_Profile_Overview_title" = "Schnelltest-Profile";
 
+"ExposureSubmission_Antigen_Profile_Card_title" = "Schnelltest-Profil";
+
 "ExposureSubmission_Antigen_Profile_Overview_EmptyTitle" = "Noch kein Schnelltest-Profil erstellt";
 
 "ExposureSubmission_Antigen_Profile_Overview_EmptyDescription" = "Legen Sie ein Schnelltest-Profil mit Ihren persönlichen Daten an, das Sie per QR-Code bei jeder teilnehmenden Teststelle vorlegen können.";
