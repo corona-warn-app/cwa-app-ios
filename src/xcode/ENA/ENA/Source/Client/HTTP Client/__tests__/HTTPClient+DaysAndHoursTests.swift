@@ -33,15 +33,19 @@ final class HTTPClientDaysAndHoursTests: CWATestCase {
 			description: "expect successful result"
 		)
 
-		HTTPClient.makeWith(mock: stack).availableDays(forCountry: "IT") { result in
+		let restServiceProvider = RestServiceProvider(session: stack.urlSession, cache: KeyValueCacheFake())
+		let resource = AvailableDaysResource(country: "IT")
+
+		restServiceProvider.load(resource) { result in
 			switch result {
-			case let .success(days):
+
+			case .success(let days):
 				XCTAssertEqual(
 					days,
 					["2020-05-01", "2020-05-02"]
 				)
 				expectation.fulfill()
-			case let .failure(error):
+			case .failure(let error):
 				XCTFail("a valid response should never yiled an error like \(error)")
 			}
 		}
