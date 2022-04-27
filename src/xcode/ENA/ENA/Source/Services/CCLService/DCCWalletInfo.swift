@@ -77,6 +77,7 @@ struct DCCBoosterNotification: Codable, Equatable {
 struct DCCCertificateContainer: Codable, Equatable {
 
 	let certificateRef: DCCCertificateReference
+	let display: Bool?
 
 }
 
@@ -102,8 +103,7 @@ struct DCCCertificateReference: Codable, Equatable {
 struct DCCCertificateReissuance: Codable, Equatable {
 
 	let reissuanceDivision: DCCCertificateReissuanceDivision
-	let certificateToReissue: DCCCertificateContainer
-	let accompanyingCertificates: [DCCCertificateContainer]
+	let certificates: [DCCCertificateContainer]
 
 }
 
