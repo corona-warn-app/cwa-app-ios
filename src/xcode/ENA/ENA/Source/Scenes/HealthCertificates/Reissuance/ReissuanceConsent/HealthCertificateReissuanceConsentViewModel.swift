@@ -129,19 +129,16 @@ final class HealthCertificateReissuanceConsentViewModel {
 					certificatePosition: 0
 				)
 				
-				guard let certificateToReissue = self.certifiedPerson.dccWalletInfo?.certificateReissuance?.certificateToReissue.certificateRef.barcodeData,
-					  let certificateToReissueRef = self.certifiedPerson.dccWalletInfo?.certificateReissuance?.certificateToReissue.certificateRef else {
-						  completion(.failure(.certificateToReissueMissing))
-						  Log.error("Certificate reissuance failed: certificate to reissue is missing", log: .vaccination)
-						  return
-					  }
-				
-				let accompanyingCertificates = self.certifiedPerson.dccWalletInfo?.certificateReissuance?.accompanyingCertificates.compactMap {
+				guard let reissuanceAction = self.certifiedPerson.dccWalletInfo?.certificateReissuance?.action else {
+					Log.error("Reissuance request failed due to dccWalletInfo being nil", log: .vaccination)
+					return
+				}
+
+				let currentCertificates = self.certifiedPerson.dccWalletInfo?.certificateReissuance?.certificates.compactMap {
 					$0.certificateRef.barcodeData
 				} ?? []
 				
-				let certificates = [certificateToReissue] + accompanyingCertificates
-				let sendModel = DCCReissuanceSendModel(certificates: certificates)
+				let sendModel = DCCReissuanceSendModel(action: reissuanceAction, certificates: currentCertificates)
 				let resource = DCCReissuanceResource(
 					sendModel: sendModel,
 					trustEvaluation: trustEvaluation
@@ -156,22 +153,9 @@ final class HealthCertificateReissuanceConsentViewModel {
 					
 					switch result {
 					case .success(let certificates):
-						let certificate = certificates.first { certificate in
-							return certificate.relations.contains { relation in
-								relation.index == 0 && relation.action == "replace"
-							}
-						}
-						
-						guard let certificate = certificate else {
-							completion(.failure(.noRelation))
-							Log.error("Replacing the certificate with a reissued certificate failed, no relation found", log: .vaccination)
-							return
-						}
-						
 						do {
 							try self.healthCertificateService.replaceHealthCertificate(
-								oldCertificateRef: certificateToReissueRef,
-								with: certificate.certificate,
+								with: certificates,
 								for: self.certifiedPerson,
 								markAsNew: true,
 								completedNotificationRegistration: { }
