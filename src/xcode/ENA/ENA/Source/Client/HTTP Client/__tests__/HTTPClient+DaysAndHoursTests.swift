@@ -38,7 +38,6 @@ final class HTTPClientDaysAndHoursTests: CWATestCase {
 
 		restServiceProvider.load(resource) { result in
 			switch result {
-
 			case .success(let days):
 				XCTAssertEqual(
 					days,
@@ -65,8 +64,10 @@ final class HTTPClientDaysAndHoursTests: CWATestCase {
 		let expectation = self.expectation(
 			description: "expect error result"
 		)
+		let restServiceProvider = RestServiceProvider(session: stack.urlSession, cache: KeyValueCacheFake())
+		let resource = AvailableDaysResource(country: "IT")
 
-		HTTPClient.makeWith(mock: stack).availableDays(forCountry: "IT") { result in
+		restServiceProvider.load(resource) { result in
 			switch result {
 			case .success:
 				XCTFail("an invalid response should never yield success")
