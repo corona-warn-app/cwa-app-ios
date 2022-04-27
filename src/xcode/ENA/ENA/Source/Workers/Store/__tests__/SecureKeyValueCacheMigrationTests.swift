@@ -52,7 +52,7 @@ class SecureKeyValueCacheMigrationTests: XCTestCase {
 
 	func testGIVEN_SecureCacheLatestVersion_WHEN_AddCachedData_THEN_NewInstanceContainsCachedData() throws {
 		// GIVEN
-		/// fake version 1 to skip migration and insert cached data
+		// fake version 1 to skip migration and insert cached data
 		let store = MockTestStore()
 		store.keyValueCacheVersion = SecureKeyValueCache.latestVersion
 
@@ -68,7 +68,7 @@ class SecureKeyValueCacheMigrationTests: XCTestCase {
 
 	func testGIVEN_SecureCacheVersion_0_WHEN_InitWithMigration_THEN_DataIsCleared() throws {
 		// GIVEN
-		/// fake version 1 to skip migration and insert cached data
+		// fake version 1 to skip migration and insert cached data
 		let store = MockTestStore()
 		store.keyValueCacheVersion = 1
 

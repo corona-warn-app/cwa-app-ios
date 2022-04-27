@@ -458,7 +458,7 @@ class HourKeyPackagesDownloadTests: CWATestCase {
 		client.availableDaysAndHours = DaysAndHours(days: ["2020-10-09"], hours: [])
 		client.downloadedPackage = try XCTUnwrap(dummyDayResponse.values.first)
 
-		/// fake successful day package download
+		// fake successful day package download
 		let restServiceProvider = RestServiceProviderStub(results: [
 			.success(["2020-10-09"])
 		])
