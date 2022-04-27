@@ -80,6 +80,12 @@ struct DCCCertificateContainer: Codable, Equatable {
 
 }
 
+struct DCCCertificateContainerExtended: Codable, Equatable {
+
+	let certificateRef: DCCCertificateReference
+	let show: Bool?
+}
+
 struct DCCVerification: Codable, Equatable {
 
 	let certificates: [DCCVerificationCertificate]
@@ -102,9 +108,9 @@ struct DCCCertificateReference: Codable, Equatable {
 struct DCCCertificateReissuance: Codable, Equatable {
 
 	let reissuanceDivision: DCCCertificateReissuanceDivision
-	let certificateToReissue: DCCCertificateContainer
-	let accompanyingCertificates: [DCCCertificateContainer]
-
+	let action: String
+	let certificates: [DCCCertificateContainerExtended]
+	
 }
 
 struct DCCCertificateReissuanceDivision: Codable, Equatable {
