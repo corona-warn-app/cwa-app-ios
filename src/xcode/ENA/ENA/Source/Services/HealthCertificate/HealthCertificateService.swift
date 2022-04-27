@@ -12,8 +12,7 @@ public let kCurrentHealthCertifiedPersonsVersion = 3
 
 protocol HealthCertificateServiceServable {
 	func replaceHealthCertificate(
-		oldCertificateRef: DCCCertificateReference,
-		with newHealthCertificateString: String,
+		with newCertificates: [DCCReissuanceCertificate],
 		for person: HealthCertifiedPerson,
 		markAsNew: Bool,
 		completedNotificationRegistration: @escaping () -> Void
@@ -265,44 +264,51 @@ class HealthCertificateService: HealthCertificateServiceServable {
 	}
 	
 	func replaceHealthCertificate(
-		oldCertificateRef: DCCCertificateReference,
-		with newHealthCertificateString: String,
+		with newCertificates: [DCCReissuanceCertificate],
 		for person: HealthCertifiedPerson,
 		markAsNew: Bool,
 		completedNotificationRegistration: @escaping () -> Void
 	) throws {
-		let newHealthCertificate = try HealthCertificate(base45: newHealthCertificateString, isNew: markAsNew)
-		guard let oldHealthCertificate = person.healthCertificate(for: oldCertificateRef) else {
-			return
-		}
-		
-		person.healthCertificates.replace(oldHealthCertificate, with: newHealthCertificate)
-		
-		updateValidityState(for: newHealthCertificate, person: person)
-		scheduleTimer()
-
-		let dispatchGroup = DispatchGroup()
-		
-		dispatchGroup.enter()
-		healthCertificateNotificationService.createNotifications(
-			for: newHealthCertificate,
-			completion: {
-				dispatchGroup.leave()
+		for newCertificateRef in newCertificates {
+			let newHealthCertificate = try HealthCertificate(base45: newCertificateRef.certificate, isNew: markAsNew)
+			if !person.healthCertificates.contains(newHealthCertificate) {
+				person.healthCertificates.append(newHealthCertificate)
 			}
-		)
-		
-		dispatchGroup.enter()
-		healthCertificateNotificationService.removeAllNotifications(
-			for: oldHealthCertificate,
-			completion: {
-				dispatchGroup.leave()
+			
+			updateValidityState(for: newHealthCertificate, person: person)
+			scheduleTimer()
+			
+			let dispatchGroup = DispatchGroup()
+			
+			dispatchGroup.enter()
+			healthCertificateNotificationService.createNotifications(
+				for: newHealthCertificate,
+				   completion: {
+					   dispatchGroup.leave()
+				   }
+			)
+			
+			for relation in newCertificateRef.relations where relation.action == "replace" {
+				
+				if let certificateReferenceToBeRemoved = person.dccWalletInfo?.certificateReissuance?.certificates[relation.index],
+				   let base45 = certificateReferenceToBeRemoved.certificateRef.barcodeData {
+					let oldHealthCertificate = try HealthCertificate(base45: base45, isNew: markAsNew)
+					
+					dispatchGroup.enter()
+					healthCertificateNotificationService.removeAllNotifications(
+						for: oldHealthCertificate,
+						completion: {
+							   dispatchGroup.leave()
+						   }
+					)
+					
+					recycleBin.moveToBin(.certificate(oldHealthCertificate))
+				}
 			}
-		)
-
-		recycleBin.moveToBin(.certificate(oldHealthCertificate))
-		
-		dispatchGroup.notify(queue: .main) {
-			completedNotificationRegistration()
+			
+			dispatchGroup.notify(queue: .main) {
+				completedNotificationRegistration()
+			}
 		}
 	}
 
