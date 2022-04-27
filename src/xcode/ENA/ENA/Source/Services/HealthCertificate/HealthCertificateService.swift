@@ -283,9 +283,9 @@ class HealthCertificateService: HealthCertificateServiceServable {
 			dispatchGroup.enter()
 			healthCertificateNotificationService.createNotifications(
 				for: newHealthCertificate,
-				   completion: {
-					   dispatchGroup.leave()
-				   }
+				completion: {
+					dispatchGroup.leave()
+				}
 			)
 			
 			for relation in newCertificateRef.relations where relation.action == "replace" {
@@ -298,8 +298,8 @@ class HealthCertificateService: HealthCertificateServiceServable {
 					healthCertificateNotificationService.removeAllNotifications(
 						for: oldHealthCertificate,
 						completion: {
-							   dispatchGroup.leave()
-						   }
+							dispatchGroup.leave()
+						}
 					)
 					
 					recycleBin.moveToBin(.certificate(oldHealthCertificate))
