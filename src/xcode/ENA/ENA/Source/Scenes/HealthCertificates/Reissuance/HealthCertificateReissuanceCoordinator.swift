@@ -14,7 +14,7 @@ final class HealthCertificateReissuanceCoordinator {
 		restServiceProvider: RestServiceProviding,
 		appConfigProvider: AppConfigurationProviding,
 		healthCertifiedPerson: HealthCertifiedPerson,
-		healthCertificate: HealthCertificate,
+		certificateReissuance: DCCCertificateReissuance,
 		cclService: CCLServable
 	) {
 		self.parentViewController = parentViewController
@@ -22,7 +22,7 @@ final class HealthCertificateReissuanceCoordinator {
 		self.restServiceProvider = restServiceProvider
 		self.appConfigProvider = appConfigProvider
 		self.healthCertifiedPerson = healthCertifiedPerson
-		self.healthCertificate = healthCertificate
+		self.certificateReissuance = certificateReissuance
 		self.cclService = cclService
 	}
 	
@@ -42,18 +42,25 @@ final class HealthCertificateReissuanceCoordinator {
 	private let restServiceProvider: RestServiceProviding
 	private let appConfigProvider: AppConfigurationProviding
 	private let healthCertifiedPerson: HealthCertifiedPerson
-	private let healthCertificate: HealthCertificate
+	private let certificateReissuance: DCCCertificateReissuance
 	private let cclService: CCLServable
 
 	// MARK: Show Screens
 
 	private lazy var reissuanceScreen: UIViewController = {
+		let certificiatesToDisplay = certificateReissuance.certificates.filter({
+			$0.display != false
+		})
+		let reissuanceCertificates = certificiatesToDisplay.compactMap({
+			healthCertifiedPerson.healthCertificate(for: $0.certificateRef)
+		})
+			
 		let consentViewController = HealthCertificateReissuanceConsentViewController(
 			healthCertificateService: healthCertificateService,
 			restServiceProvider: restServiceProvider,
 			appConfigProvider: appConfigProvider,
 			cclService: cclService,
-			certificate: healthCertificate,
+			certificates: reissuanceCertificates,
 			healthCertifiedPerson: healthCertifiedPerson,
 			didTapDataPrivacy: { [weak self] in
 				self?.showDataPrivacy()
