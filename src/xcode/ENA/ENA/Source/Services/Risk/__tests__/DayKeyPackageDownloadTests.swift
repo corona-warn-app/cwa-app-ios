@@ -6,6 +6,7 @@
 import Foundation
 import XCTest
 
+// swiftlint:disable:next type_body_length
 final class DayKeyPackageDownloadTest: CWATestCase {
 
 	private lazy var dummyResponse: [String: PackageDownloadResponse] = {
