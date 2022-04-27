@@ -66,8 +66,18 @@ final class DMNHCViewModel {
 						Log.error("Could not get certificate")
 						return
 					}
-
+					guard let firstPerson = self.healthCertificateService.healthCertifiedPersons.first(where: {
+						$0.healthCertificates.contains(firstVaccinationCertificate)
+					}) else {
+						Log.error("Could not get matching person")
+						return
+					}
+					guard let action = firstPerson.dccWalletInfo?.certificateReissuance?.action else {
+						Log.error("dccWalletinfo is nil")
+						return
+					}
 					let sendModel = DCCReissuanceSendModel(
+						action: action,
 						certificates: [firstVaccinationCertificate.base45]
 					)
 
