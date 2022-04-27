@@ -244,11 +244,9 @@ extension HealthCertificateService {
 					longText: testLongText,
 					faqAnchor: "certificateReissuance"
 				),
-				// should be the second one for screenshots requirements.
-				certificateToReissue: DCCCertificateContainer(
-					certificateRef: DCCCertificateReference(barcodeData: certifiedPerson.healthCertificates.last?.base45 ?? "")
-				),
-				accompanyingCertificates: []
+				// TODO mock for tests in EXPOSUREAPP-12914
+				action: "",
+				certificates: []
 			),
 			certificatesRevokedByInvalidationRules: dccWalletInfo.certificatesRevokedByInvalidationRules
 		)
