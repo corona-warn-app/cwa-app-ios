@@ -116,6 +116,7 @@ final class DMViewController: UITableViewController, RequiresAppDependencies {
 			vc = DMSubmissionStateViewController(
 				client: client,
 				wifiClient: wifiClient,
+				restService: restServiceProvider,
 				delegate: self
 			)
 		case .appConfiguration:
