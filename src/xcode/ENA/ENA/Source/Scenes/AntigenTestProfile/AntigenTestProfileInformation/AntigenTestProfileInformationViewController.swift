@@ -41,7 +41,6 @@ class AntigenTestProfileInformationViewController: DynamicTableViewController, F
 			return
 		}
 		
-		viewModel.markScreenSeen()
 		didTapContinue()
 	}
 
