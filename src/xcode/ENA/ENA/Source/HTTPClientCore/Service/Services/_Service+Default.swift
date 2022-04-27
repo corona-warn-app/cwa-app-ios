@@ -65,6 +65,10 @@ extension Service {
 			completion(failureOrDefaultValueHandling(resource, .invalidRequestError(resourceError)))
 		case let .success(request):
 
+			#if !RELEASE
+			writeRequestToDebugMenu(request: request, resource: resource)
+			#endif
+			
 			var task: URLSessionDataTask?
 			task = session.dataTask(with: request) { bodyData, response, error in
 				
@@ -322,4 +326,13 @@ extension Service {
 			return failureOrDefaultValueHandling(resource, .unexpectedServerError(statusCode))
 		}
 	}
+	
+#if !RELEASE
+	private func writeRequestToDebugMenu<R>(request: URLRequest, resource: R) where R: Resource {
+		if resource is KeySubmissionResource {
+			 UserDefaults.standard.dmLastSubmissionRequest = request.httpBody
+		}
+	}
+#endif
+
 }
