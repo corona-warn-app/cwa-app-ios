@@ -38,13 +38,13 @@ final class HTTPClientDaysAndHoursTests: CWATestCase {
 
 		restServiceProvider.load(resource) { result in
 			switch result {
-			case .success(let days):
+			case let .success(days):
 				XCTAssertEqual(
 					days,
 					["2020-05-01", "2020-05-02"]
 				)
 				expectation.fulfill()
-			case .failure(let error):
+			case let .failure(error):
 				XCTFail("a valid response should never yiled an error like \(error)")
 			}
 		}
