@@ -1010,6 +1010,8 @@
 /* Exposure Submission AntigenTest Profile Overview */
 "ExposureSubmission_Antigen_Profile_Overview_title" = "Профили за бързи тестове";
 
+"ExposureSubmission_Antigen_Profile_Card_title" = "Профил за бързи тестове";
+
 "ExposureSubmission_Antigen_Profile_Overview_EmptyTitle" = "Все още няма профили за бързи тестове";
 
 "ExposureSubmission_Antigen_Profile_Overview_EmptyDescription" = "Можете да създадете профил за бързи тестове с личните си данни, който да представяте чрез QR код във всеки включен пункт за тестване.";
@@ -1027,7 +1029,7 @@
 
 "ExposureSubmission_Antigen_Profile_DateOfBirth_Format" = "Дата на раждане %@";
 
-"ExposureSubmission_Antigen_Profile_Primary_Button" = "Напред";
+"ExposureSubmission_Antigen_Profile_Primary_Button" = "Сканиране на тест";
 
 "ExposureSubmission_Antigen_Profile_Secondary_Button" = "Редактиране";
 
@@ -1036,7 +1038,7 @@
 
 "ExposureSubmission_Profile_CreateProfileTile_Description" = "Запазете личните си данни като QR код, за да ускорите регистрацията в пунктовете за тестване.";
 
-"ExposureSubmission_Profile_ProfileTile_Title" = "Профил за бързи тестове";
+"ExposureSubmission_Profile_ProfileTile_Title" = "Профили за бързи тестове";
 
 "ExposureSubmission_Profile_ProfileTile_Description" = "Профил за бързи тестове в Вашите лични данни, който може да използвате при ползване на всеки пункт за тестване чрез QR кода.";
 
@@ -3205,9 +3207,11 @@
 
 "HealthCertificate_ValidityState_Invalid_description" = "Сертификатът е издаден от неоторизиран орган или неправилно. Моля, заявете нов сертификат от оторизиран орган.";
 
-"HealthCertificate_ValidityState_Blocked" = "Невалиден сертификат";
+"HealthCertificate_ValidityState_BlockedRevoked" = "Невалиден сертификат";
 
-"HealthCertificate_ValidityState_Blocked_description" = "Сертификатът е изтеглен от издаващия орган. Моля, снабдете се с нов цифров сертификат.";
+"HealthCertificate_ValidityState_BlockedRevoked_description_de" = "Института „Роберт Кох“ е дезактивирал сертификата поради държавен указ. Моля, вземете нов дигитален сертификат.";
+
+"HealthCertificate_ValidityState_BlockedRevoked_description_other" = "Издаващият орган е дезактивирал сертификата поради административно решение. Моля, вземете нов дигитален сертификат.";
 
 /* Reissuance */
 /* HealthCertificate Resissuance Consent */
