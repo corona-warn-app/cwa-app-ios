@@ -19,19 +19,19 @@ struct AvailableHoursResource: Resource {
 		self.sendResource = Send()
 		self.receiveResource = Receive()
 		self.trustEvaluation = trustEvaluation
-		self.type = .default
+		self.type = .wifiOnly
 	}
 
 	// MARK: - Protocol Resource
 
 	typealias Send = EmptySendResource
-	typealias Receive = JSONReceiveResource<[String]>
+	typealias Receive = JSONReceiveResource<[Int]>
 	typealias CustomError = Error
 
 	var locator: Locator
 	var type: ServiceType
 	var sendResource: EmptySendResource
-	var receiveResource: JSONReceiveResource<[String]>
+	var receiveResource: JSONReceiveResource<[Int]>
 	var trustEvaluation: TrustEvaluating
 
 #if !RELEASE
