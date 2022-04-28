@@ -40,6 +40,7 @@ class FamilyMemberCoronaTestCellModel {
 	@OpenCombine.Published var isUserInteractionEnabled: Bool = false
 	@OpenCombine.Published var isCellTappable: Bool = true
 	@OpenCombine.Published var accessibilityIdentifier: String! = ""
+	@OpenCombine.Published var testResult: TestResult?
 
 	var coronaTest: FamilyMemberCoronaTest
 
@@ -64,6 +65,8 @@ class FamilyMemberCoronaTestCellModel {
 					self.coronaTest = updatedCoronaTest
 					self.configure()
 					self.onUpdate()
+					// required for unit testing - to confirm the update of the cell model
+					self.testResult = updatedCoronaTest.testResult
 				}
 			}
 			.store(in: &subscriptions)
