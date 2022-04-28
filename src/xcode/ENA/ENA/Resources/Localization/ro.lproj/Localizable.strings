@@ -1010,6 +1010,8 @@
 /* Exposure Submission AntigenTest Profile Overview */
 "ExposureSubmission_Antigen_Profile_Overview_title" = "Profiluri de test rapid";
 
+"ExposureSubmission_Antigen_Profile_Card_title" = "Profil de test rapid";
+
 "ExposureSubmission_Antigen_Profile_Overview_EmptyTitle" = "Nu a fost creat încă niciun profil de test rapid";
 
 "ExposureSubmission_Antigen_Profile_Overview_EmptyDescription" = "Puteți crea un profil de test rapid cu datele dvs. personale, pe care îl puteți transmite prin intermediul codului QR la fiecare punct de testare participant.";
@@ -1027,7 +1029,7 @@
 
 "ExposureSubmission_Antigen_Profile_DateOfBirth_Format" = "Născut(ă) pe %@";
 
-"ExposureSubmission_Antigen_Profile_Primary_Button" = "Continuare";
+"ExposureSubmission_Antigen_Profile_Primary_Button" = "Scanare test";
 
 "ExposureSubmission_Antigen_Profile_Secondary_Button" = "Editare";
 
@@ -1036,7 +1038,7 @@
 
 "ExposureSubmission_Profile_CreateProfileTile_Description" = "Salvați datele dvs. personale sub formă de cod QR pentru a grăbi înregistrarea în punctele de testare.";
 
-"ExposureSubmission_Profile_ProfileTile_Title" = "Profil de test rapid";
+"ExposureSubmission_Profile_ProfileTile_Title" = "Profiluri de test rapid";
 
 "ExposureSubmission_Profile_ProfileTile_Description" = "Profilul de test rapid cu datele dvs. personale, pe care îl puteți trimite la orice punct de testare participant prin intermediul codului QR.";
 
@@ -3205,9 +3207,11 @@
 
 "HealthCertificate_ValidityState_Invalid_description" = "Certificatul a fost emis de un organism neautorizat sau a fost emis incorect. Adresați-vă unui organism autorizat pentru eliberarea unui certificat nou.";
 
-"HealthCertificate_ValidityState_Blocked" = "Certificat nevalabil";
+"HealthCertificate_ValidityState_BlockedRevoked" = "Certificat nevalabil";
 
-"HealthCertificate_ValidityState_Blocked_description" = "Certificatul a fost revocat de către autoritatea emitentă. Obțineți un certificat digital nou.";
+"HealthCertificate_ValidityState_BlockedRevoked_description_de" = "RKI a dezactivat certificatul ca urmare a unui decret guvernamental. Vă rugăm să obțineți un certificat digital nou.";
+
+"HealthCertificate_ValidityState_BlockedRevoked_description_other" = "Autoritatea emitentă a dezactivat certificatul ca urmare a unei decizii administrative. Vă rugăm să obțineți un certificat digital nou.";
 
 /* Reissuance */
 /* HealthCertificate Resissuance Consent */
