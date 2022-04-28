@@ -34,6 +34,10 @@ struct AvailableHoursResource: Resource {
 	var receiveResource: JSONReceiveResource<[Int]>
 	var trustEvaluation: TrustEvaluating
 
+	var defaultModelRange: [Int] {
+		[404]
+	}
+
 	var defaultModel: [Int]? = []
 
 #if !RELEASE

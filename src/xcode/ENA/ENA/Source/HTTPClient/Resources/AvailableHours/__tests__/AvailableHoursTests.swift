@@ -106,4 +106,34 @@ class AvailableHoursTests: CWATestCase {
 		XCTAssertEqual(receivedModel, [1, 2, 3, 4, 5])
 	}
 
+	func testGIVEN_AvailableHoursRequest_WHEN_400_THEN_ResultIsAnError() {
+		// GIVEN
+		let stack = MockNetworkStack(
+			httpStatus: 400,
+			responseData: Data("".utf8)
+		)
+		let restServiceProvider = RestServiceProvider(session: stack.urlSession, cache: KeyValueCacheFake())
+		let resource = AvailableHoursResource(day: "2020-05-12", country: "IT")
+		let expectation = self.expectation(
+			description: "did finish loading"
+		)
+
+		// WHEN
+		var receivedModel: [Int]?
+		restServiceProvider.load(resource) { result in
+			switch result {
+			case let .success(model):
+				receivedModel = model
+				XCTFail("Model did succeed but shouldn't")
+
+			case .failure:
+				expectation.fulfill()
+			}
+		}
+
+		// THEN
+		waitForExpectations(timeout: .medium)
+		XCTAssertNil(receivedModel)
+	}
+
 }
