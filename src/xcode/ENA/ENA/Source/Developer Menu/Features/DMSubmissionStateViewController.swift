@@ -176,8 +176,8 @@ final class DMSubmissionStateViewController: UITableViewController {
 		var daysAndHours: DaysAndHours = .none
 
 		group.enter()
-		let resource = AvailableDaysResource(country: "DE")
-		self.restService.load(resource) { result in
+		let daysResource = AvailableDaysResource(country: "DE")
+		self.restService.load(daysResource) { result in
 			defer {
 				group.leave()
 			}
@@ -187,11 +187,14 @@ final class DMSubmissionStateViewController: UITableViewController {
 		}
 
 		group.enter()
-		wifiClient.availableHours(day: .formattedToday(), country: "DE") { result in
+		let hoursResource = AvailableHoursResource(day: .formattedToday(), country: "DE")
+		self.restService.load(hoursResource) { result in
+			defer {
+				group.leave()
+			}
 			if case let .success(hours) = result {
 				daysAndHours.hours = hours
 			}
-			group.leave()
 		}
 
 		group.notify(queue: .main) {
