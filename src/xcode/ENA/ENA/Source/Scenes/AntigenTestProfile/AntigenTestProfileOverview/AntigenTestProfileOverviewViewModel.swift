@@ -69,6 +69,10 @@ class AntigenTestProfileOverviewViewModel {
 		onEntryCellTap(antigenTestProfiles[indexPath.row])
 	}
 	
+	func markScreenSeen() {
+		store.antigenTestProfileInfoScreenShown = true
+	}
+
 	// MARK: - Private
 
 	private let store: AntigenTestProfileStoring
