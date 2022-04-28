@@ -7,7 +7,21 @@ import Foundation
 enum KeySubmissionResourceError: LocalizedError {
 	case invalidPayloadOrHeaders
 	case invalidTan
+	case requestCouldNotBeBuilt
 	case serverError(Int)
+	
+	var localizedDescription: String {
+		switch self {
+		case let .serverError(code):
+			return "\(AppStrings.ExposureSubmissionError.other)\(code)\(AppStrings.ExposureSubmissionError.otherend)"
+		case .invalidPayloadOrHeaders:
+			return "Received an invalid payload or headers."
+		case .invalidTan:
+			return AppStrings.ExposureSubmissionError.invalidTan
+		case .requestCouldNotBeBuilt:
+			return "The submission request could not be built correctly."
+		}
+	}
 }
 
 struct KeySubmissionResource: Resource {
@@ -49,6 +63,8 @@ struct KeySubmissionResource: Resource {
 
 	func customError(for error: ServiceError<KeySubmissionResourceError>, responseBody: Data?) -> KeySubmissionResourceError? {
 		switch error {
+		case .invalidRequestError:
+			return .requestCouldNotBeBuilt
 		case .unexpectedServerError(let statusCode):
 			switch statusCode {
 			case 400:
@@ -61,8 +77,6 @@ struct KeySubmissionResource: Resource {
 		default:
 			return nil
 		}
-		
-		return nil
 	}
 	
 	/// This method recreates the request body of the submit keys request with a padding that fills up to resemble

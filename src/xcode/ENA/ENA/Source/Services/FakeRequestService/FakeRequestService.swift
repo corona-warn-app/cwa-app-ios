@@ -64,8 +64,9 @@ class FakeRequestService {
 				rawValue: Int.random(in: 0...1)
 			) ?? .pcrTest
 		)
-
-		client.submit(payload: payload, isFake: true) { _ in
+		
+		let resource = KeySubmissionResource(payload: payload)
+		restServiceProvider.load(resource) { _ in
 			completion?()
 		}
 	}

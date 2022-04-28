@@ -1411,6 +1411,17 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 
 		navigationController?.present(alert, animated: true)
 	}
+	
+	private func showServiceErrorAlert(for error: ExposureSubmissionServiceError, onCompletion: (() -> Void)? = nil) {
+		Log.error("error: \(error.localizedDescription)", log: .ui)
+
+		let alert = UIAlertController.errorAlert(
+			message: error.localizedDescription,
+			completion: onCompletion
+		)
+
+		navigationController?.present(alert, animated: true)
+	}
 
 	// MARK: Test Result Helper
 
@@ -1555,7 +1566,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 					Analytics.collect(.keySubmissionMetadata(.submittedAfterCancel(false, testType)))
 					Analytics.collect(.keySubmissionMetadata(.lastSubmissionFlowScreen(.submissionFlowScreenUnknown, testType)))
 				}
-				self?.showErrorAlert(for: error) {
+				self?.showServiceErrorAlert(for: error) {
 					self?.dismiss()
 				}
 			}

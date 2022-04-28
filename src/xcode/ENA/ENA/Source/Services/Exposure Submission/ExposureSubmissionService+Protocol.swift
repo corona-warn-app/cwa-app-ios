@@ -20,7 +20,7 @@ protocol ExposureSubmissionService: AnyObject {
 
 	func loadSupportedCountries(isLoading: @escaping (Bool) -> Void, onSuccess: @escaping ([Country]) -> Void)
 	func getTemporaryExposureKeys(completion: @escaping ExposureSubmissionHandler)
-	func submitExposure(coronaTestType: CoronaTestType, completion: @escaping ExposureSubmissionHandler)
+	func submitExposure(coronaTestType: CoronaTestType, completion: @escaping (_ error: ExposureSubmissionServiceError?) -> Void)
 
 }
 

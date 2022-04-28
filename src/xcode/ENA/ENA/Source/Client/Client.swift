@@ -49,17 +49,6 @@ protocol Client {
 	)
 
 	// MARK: Submit keys
-
-	/// Submits exposure keys to the backend. This makes the local information available to the world so that the risk of others can be calculated on their local devices.
-	/// - Parameters:
-	///   - payload: A set of properties to provide during the submission process
-	///   - isFake: flag to indicate a fake request
-	///   - completion: the completion handler of the submission call
-	func submit(
-		payload: SubmissionPayload,
-		isFake: Bool,
-		completion: @escaping KeySubmissionResponse
-	)
 	
 	/// Submits Checkins to the backend on behalf.
 	/// - Parameters:

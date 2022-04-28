@@ -222,13 +222,13 @@ class TaskExecutionHandler: ENATaskExecutionDelegate {
 			group.enter()
 			service.submitExposure(coronaTestType: coronaTestType) { error in
 				switch error {
-				case .noCoronaTestOfGivenType:
+				case .preconditionError(.noCoronaTestOfGivenType):
 					Analytics.collect(.keySubmissionMetadata(.submittedInBackground(false, coronaTestType)))
 					Log.info("[ENATaskExecutionDelegate] Submission: no corona test of type \(coronaTestType) registered", log: .api)
-				case .noSubmissionConsent:
+				case .preconditionError(.noSubmissionConsent):
 					Analytics.collect(.keySubmissionMetadata(.submittedInBackground(false, coronaTestType)))
 					Log.info("[ENATaskExecutionDelegate] Submission: no consent given", log: .api)
-				case .noKeysCollected:
+				case .preconditionError(.noKeysCollected):
 					Analytics.collect(.keySubmissionMetadata(.submittedInBackground(false, coronaTestType)))
 					Log.info("[ENATaskExecutionDelegate] Submission: no keys to submit", log: .api)
 				case .some(let error):
