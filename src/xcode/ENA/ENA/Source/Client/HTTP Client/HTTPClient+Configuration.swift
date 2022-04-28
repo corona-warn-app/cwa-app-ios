@@ -88,6 +88,7 @@ extension HTTPClient {
 			)
 		}
 
+		@available(*, deprecated)
 		func availableHoursURL(day: String, country: String) -> URL {
 			endpoints
 				.distribution

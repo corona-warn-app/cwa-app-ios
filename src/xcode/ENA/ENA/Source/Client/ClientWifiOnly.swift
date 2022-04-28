@@ -8,6 +8,8 @@ import Foundation
 protocol ClientWifiOnly {
 
 	typealias HourCompletionHandler = (Result<PackageDownloadResponse, Client.Failure>) -> Void
+
+	@available(*, deprecated)
 	typealias AvailableHoursCompletionHandler = (Result<[Int], Client.Failure>) -> Void
 
 	/// Determines hours that can be downloaded for a given day.

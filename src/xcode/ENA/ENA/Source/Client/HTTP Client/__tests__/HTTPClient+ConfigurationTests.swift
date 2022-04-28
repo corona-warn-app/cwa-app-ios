@@ -77,12 +77,6 @@ final class BackendConfigurationTests: CWATestCase {
 			"http://localhost/dist/version/v1/diagnosis-keys/country/IT/date/2020-04-20/hour/14/"
 		)
 
-		// Available Hours for a given Day URL
-		XCTAssertEqual(
-			config.availableHoursURL(day: "2020-04-20", country: "IT").absoluteString,
-			"http://localhost/dist/version/v1/diagnosis-keys/country/IT/date/2020-04-20/hour/"
-		)
-
 		XCTAssertEqual(
 			config.encryptedTraceWarningPackageDiscoveryURL(country: "DE").absoluteString,
 			"http://localhost/dist/version/v2/twp/country/DE/hour/"
