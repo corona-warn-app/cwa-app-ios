@@ -765,7 +765,7 @@ class ExposureSubmissionServiceTests: CWATestCase {
 			healthCertificateService: healthCertificateService,
 			healthCertificateRequestService: HealthCertificateRequestService(
 				store: store,
-				client: client,
+				restServiceProvider: RestServiceProviderStub(),
 				appConfiguration: appConfigurationProvider,
 				healthCertificateService: healthCertificateService
 			),

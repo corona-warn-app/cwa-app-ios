@@ -10,7 +10,7 @@ extension Locator {
 	// receive:	Empty
 	// type:	default
 	// comment:	Custom error handling required
-	static func dccRegisterPublicKey(
+	static func dccPublicKeyRegistration(
 		isFake: Bool
 	) -> Locator {
 		let fake = String(isFake ? 1 : 0)

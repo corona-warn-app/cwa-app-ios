@@ -92,8 +92,8 @@ enum HealthCertificateServiceError: Error {
 	}
 
 	enum TestCertificateRequestError: LocalizedError {
-		case publicKeyRegistrationFailed(DCCErrors.RegistrationError)
-		case certificateRequestFailed(DCCErrors.DigitalCovid19CertificateError)
+		case publicKeyRegistrationFailed(ServiceError<DCCPublicKeyRegistrationError>)
+		case certificateRequestFailed(ServiceError<DigitalCovid19CertificateError>)
 		case base64DecodingFailed
 		case rsaKeyPairGenerationFailed(DCCRSAKeyPairError)
 		case decryptionFailed(Error)
@@ -106,45 +106,43 @@ enum HealthCertificateServiceError: Error {
 			switch self {
 			case .publicKeyRegistrationFailed(let registrationError):
 				switch registrationError {
-				case .badRequest:
+				case .receivedResourceError(.badRequest):
 					return String(format: AppStrings.HealthCertificate.Overview.TestCertificateRequest.Error.clientErrorCallHotline, "PKR_400")
-				case .tokenNotAllowed:
+				case .receivedResourceError(.tokenNotAllowed):
 					return String(format: AppStrings.HealthCertificate.Overview.TestCertificateRequest.Error.e2eErrorCallHotline, "PKR_403")
-				case .tokenDoesNotExist:
+				case .receivedResourceError(.tokenDoesNotExist):
 					return String(format: AppStrings.HealthCertificate.Overview.TestCertificateRequest.Error.e2eErrorCallHotline, "PKR_404")
-				case .tokenAlreadyAssigned:
+				case .receivedResourceError(.tokenAlreadyAssigned):
 					// Not returned to the user, next request is started automatically
 					return nil
-				case .internalServerError:
+				case .receivedResourceError(.internalServerError):
 					return String(format: AppStrings.HealthCertificate.Overview.TestCertificateRequest.Error.tryAgain, "PKR_500")
-				case .unhandledResponse(let code):
+				case .receivedResourceError(.unhandledResponse(let code)):
 					return String(format: AppStrings.HealthCertificate.Overview.TestCertificateRequest.Error.tryAgain, "PKR_FAILED (\(code)")
-				case .defaultServerError(let error):
-					return String(format: AppStrings.HealthCertificate.Overview.TestCertificateRequest.Error.tryAgain, "PKR_FAILED (\(error.localizedDescription)")
-				case .urlCreationFailed:
-					return String(format: AppStrings.HealthCertificate.Overview.TestCertificateRequest.Error.tryAgain, "PKR_URL_CREATION_FAILED")
-				case .noNetworkConnection:
+				case .receivedResourceError(.noNetworkConnection):
 					return String(format: AppStrings.HealthCertificate.Overview.TestCertificateRequest.Error.noNetwork, "PKR_NO_NETWORK")
+				default:
+					return String(format: AppStrings.HealthCertificate.Overview.TestCertificateRequest.Error.tryAgain, "PKR_FAILED (\(registrationError.localizedDescription)")
 				}
 			case .certificateRequestFailed(let certificateError):
 				switch certificateError {
-				case .urlCreationFailed:
+				case .receivedResourceError(.urlCreationFailed):
 					return String(format: AppStrings.HealthCertificate.Overview.TestCertificateRequest.Error.tryAgain, "DCC_COMP_URL_CREATION_FAILED")
-				case .unhandledResponse(let code):
+				case .receivedResourceError(.unhandledResponse(let code)):
 					return String(format: AppStrings.HealthCertificate.Overview.TestCertificateRequest.Error.tryAgain, "DCC_COMP_FAILED (\(code))")
-				case .jsonError:
+				case .receivedResourceError(.jsonError):
 					return String(format: AppStrings.HealthCertificate.Overview.TestCertificateRequest.Error.tryAgain, "DCC_COMP_JSON_ERROR")
-				case .dccPending:
+				case .receivedResourceError(.dccPending):
 					return String(format: AppStrings.HealthCertificate.Overview.TestCertificateRequest.Error.tryAgainDCCNotAvailableYet, "DCC_COMP_202")
-				case .badRequest:
+				case .receivedResourceError(.badRequest):
 					return String(format: AppStrings.HealthCertificate.Overview.TestCertificateRequest.Error.clientErrorCallHotline, "DCC_COMP_400")
-				case .tokenDoesNotExist:
+				case .receivedResourceError(.tokenDoesNotExist):
 					return String(format: AppStrings.HealthCertificate.Overview.TestCertificateRequest.Error.e2eErrorCallHotline, "DCC_COMP_404")
-				case .dccAlreadyCleanedUp:
+				case .receivedResourceError(.dccAlreadyCleanedUp):
 					return String(format: AppStrings.HealthCertificate.Overview.TestCertificateRequest.Error.dccExpired, "DCC_COMP_410")
-				case .testResultNotYetReceived:
+				case .receivedResourceError(.testResultNotYetReceived):
 					return String(format: AppStrings.HealthCertificate.Overview.TestCertificateRequest.Error.e2eErrorCallHotline, "DCC_COMP_412")
-				case .internalServerError(reason: let reason):
+				case .receivedResourceError(.internalServerError(reason: let reason)):
 					switch reason {
 					case "INTERNAL":
 						return String(format: AppStrings.HealthCertificate.Overview.TestCertificateRequest.Error.tryAgain, "DCC_COMP_500_INTERNAL")
@@ -159,11 +157,10 @@ enum HealthCertificateServiceError: Error {
 					case .none:
 						return String(format: AppStrings.HealthCertificate.Overview.TestCertificateRequest.Error.tryAgain, "DCC_COMP_500")
 					}
-
-				case .defaultServerError(let error):
-					return String(format: AppStrings.HealthCertificate.Overview.TestCertificateRequest.Error.tryAgain, "DCC_COMP_FAILED (\(error.localizedDescription)")
-				case .noNetworkConnection:
+				case .receivedResourceError(.noNetworkConnection):
 					return String(format: AppStrings.HealthCertificate.Overview.TestCertificateRequest.Error.noNetwork, "DGC_COMP_NO_NETWORK")
+				default:
+					return String(format: AppStrings.HealthCertificate.Overview.TestCertificateRequest.Error.tryAgain, "DCC_COMP_FAILED (\(certificateError.localizedDescription)")
 				}
 			case .base64DecodingFailed:
 				return String(format: AppStrings.HealthCertificate.Overview.TestCertificateRequest.Error.tryAgain, "DEK_DECODING_FAILED")
