@@ -7,6 +7,7 @@ import XCTest
 @testable import ENA
 import OpenCombine
 
+// swiftlint:disable type_body_length
 class FamilyMemberCoronaTestsViewModelTest: CWATestCase {
 
 	func testNumberOfSections() throws {
