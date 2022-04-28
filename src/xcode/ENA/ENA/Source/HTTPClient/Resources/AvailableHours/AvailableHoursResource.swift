@@ -34,6 +34,8 @@ struct AvailableHoursResource: Resource {
 	var receiveResource: JSONReceiveResource<[Int]>
 	var trustEvaluation: TrustEvaluating
 
+	var defaultModel: [Int]? = []
+
 #if !RELEASE
 	var defaultMockLoadResource: LoadResource? = LoadResource(
 		result: .success([]),

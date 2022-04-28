@@ -78,67 +78,6 @@ final class HTTPClientDaysAndHoursTests: CWATestCase {
 		waitForExpectations(timeout: .medium)
 	}
 
-	// The hours of a given day can be missing
-	func testAvailableHours_NotFound() {
-		let stack = MockNetworkStack(
-			httpStatus: 404,
-			responseData: Data(
-				"""
-				[1,2,3,4,5]
-				""".utf8
-			)
-		)
-
-		let expectation = self.expectation(
-			description: "expect successful result but empty"
-		)
-
-		let httpClient = WifiOnlyHTTPClient.makeWith(mock: stack)
-		httpClient.availableHours(day: "2020-05-12", country: "IT") { result in
-			switch result {
-			case let .success(hours):
-				XCTAssertEqual(
-					hours,
-					[]
-				)
-				expectation.fulfill()
-			case let .failure(error):
-				XCTFail("a valid response should never yiled an error like \(error)")
-			}
-		}
-		waitForExpectations(timeout: .medium)
-	}
-
-	func testAvailableHours_Success() {
-		let stack = MockNetworkStack(
-			httpStatus: 200,
-			responseData: Data(
-				"""
-				[1,2,3,4,5]
-				""".utf8
-			)
-		)
-
-		let expectation = self.expectation(
-			description: "expect successful result"
-		)
-
-		let httpClient = WifiOnlyHTTPClient.makeWith(mock: stack)
-		httpClient.availableHours(day: "2020-05-12", country: "IT") { result in
-			switch result {
-			case let .success(hours):
-				XCTAssertEqual(
-					hours,
-					[1, 2, 3, 4, 5]
-				)
-			case let .failure(error):
-				XCTFail("a valid response should never yield an error like \(error)")
-			}
-			expectation.fulfill()
-		}
-		waitForExpectations(timeout: .medium)
-	}
-
 	func testFetchHour_InvalidPayload() throws {
 		let stack = MockNetworkStack(
 			httpStatus: 200,

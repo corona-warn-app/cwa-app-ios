@@ -8,6 +8,8 @@ import XCTest
 
 class AvailableHoursTests: CWATestCase {
 
+	// MARK: Locator tests
+
 	func testGIVEN_Locator_WHEN_getPath_THEN_isCorrect() {
 		// GIVEN
 		let locator = Locator.availableHours(day: "2020-04-20", country: "IT")
@@ -40,6 +42,68 @@ class AvailableHoursTests: CWATestCase {
 
 		// THEN
 		XCTAssertEqual(uniqueIdentifier, knownUniqueIdentifier)
+	}
+
+	// MARK: - RestService tests
+
+	func testGIVEN_AvailableHoursRequest_WHEN_404_THEN_ResultIsEmptyArray() {
+		// GIVEN
+		let stack = MockNetworkStack(
+			httpStatus: 404,
+			responseData: Data("".utf8)
+		)
+		let restServiceProvider = RestServiceProvider(session: stack.urlSession, cache: KeyValueCacheFake())
+		let resource = AvailableHoursResource(day: "2020-05-12", country: "IT")
+		let expectation = self.expectation(
+			description: "did finish loading"
+		)
+
+		// WHEN
+		var receivedModel: [Int]?
+		restServiceProvider.load(resource) { result in
+			switch result {
+			case let .success(model):
+				receivedModel = model
+				expectation.fulfill()
+
+			case .failure:
+				XCTFail("Model did not succeed for 404 it should")
+			}
+		}
+
+		// THEN
+		waitForExpectations(timeout: .medium)
+		XCTAssertEqual(receivedModel, [])
+	}
+
+	func testGIVEN_AvailableHoursRequest_WHEN_200_THEN_ResultIsParsed() {
+		// GIVEN
+		let stack = MockNetworkStack(
+			httpStatus: 200,
+			responseData: Data("[1, 2, 3, 4, 5]".utf8)
+		)
+		let restServiceProvider = RestServiceProvider(session: stack.urlSession, cache: KeyValueCacheFake())
+		let resource = AvailableHoursResource(day: "2020-05-12", country: "IT")
+		let expectation = self.expectation(
+			description: "did finish loading"
+		)
+
+		// WHEN
+		var receivedModel: [Int]?
+		restServiceProvider.load(resource) { result in
+			switch result {
+			case let .success(model):
+				receivedModel = model
+				expectation.fulfill()
+
+			case .failure:
+				XCTFail("Model did not succeed for 404 it should")
+			}
+		}
+
+		// THEN
+		waitForExpectations(timeout: .medium)
+		XCTAssertEqual(receivedModel, [1, 2, 3, 4, 5])
 	}
 
 }
