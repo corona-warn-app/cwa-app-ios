@@ -1062,7 +1062,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmission_Profile_CreateProfileTile_Description" = "Legen Sie Ihre persönlichen Daten als QR-Code ab, um die Registrierung an der Teststelle zu beschleunigen.";
 
-"ExposureSubmission_Profile_ProfileTile_Title" = "Schnelltest-Profil";
+"ExposureSubmission_Profile_ProfileTile_Title" = "Schnelltest-Profile";
 
 "ExposureSubmission_Profile_ProfileTile_Description" = "Schnelltest-Profil mit Ihren persönlichen Daten, das Sie per QR-Code bei jeder teilnehmenden Teststelle vorlegen können.";
 
