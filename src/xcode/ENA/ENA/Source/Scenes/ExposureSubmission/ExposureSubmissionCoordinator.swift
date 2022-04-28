@@ -978,7 +978,6 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 				} else {
 					self?.showAntigenTestProfileOverview()
 				}
-				viewModel.markScreenSeen()
 			},
 			dismiss: { [weak self] in
 				self?.dismiss()
