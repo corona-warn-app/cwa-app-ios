@@ -19,6 +19,7 @@ extension Locator {
 			paths: ["version", "v1", "dcc"],
 			method: .post,
 			defaultHeaders: [
+				"Content-Type": "application/json",
 				"cwa-fake": fake,
 				"cwa-header-padding": String.getRandomString(of: 14)
 			]
