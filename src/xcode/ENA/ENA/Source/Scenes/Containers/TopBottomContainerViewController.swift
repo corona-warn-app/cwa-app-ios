@@ -21,7 +21,6 @@ class TopBottomContainerViewController<TopViewController: UIViewController, Bott
 	// MARK: - Init
 
 	deinit {
-		subscriptions.forEach { $0.cancel() }
 		keyboardSubscriptions.forEach { $0.cancel() }
 	}
 	
@@ -84,8 +83,8 @@ class TopBottomContainerViewController<TopViewController: UIViewController, Bott
 				bottomViewBottomConstraint
 			]
 		)
-		subscribeToKeyboardNotifications()
-		
+		 subscribeToKeyboardNotifications()
+
 		// if the the bottom view controller is FooterViewController we use it's viewModel here as well
 		if let viewModel = (bottomViewController as? FooterViewController)?.viewModel {
 			UIView.performWithoutAnimation {
@@ -130,10 +129,6 @@ class TopBottomContainerViewController<TopViewController: UIViewController, Bott
 		guard let footerViewController = (bottomViewController as? FooterViewController) else {
 			return
 		}
-		// clear
-		
-		subscriptions.forEach { $0.cancel() }
-		subscriptions.removeAll()
 		
 		// setup
 		
@@ -150,7 +145,6 @@ class TopBottomContainerViewController<TopViewController: UIViewController, Bott
 	private let topViewController: TopViewController
 	private let bottomViewController: BottomViewController
 
-	private var subscriptions: [AnyCancellable] = []
 	private var keyboardSubscriptions: [AnyCancellable] = []
 	private var bottomViewBottomConstraint: NSLayoutConstraint!
 	
