@@ -8,6 +8,7 @@ import HealthCertificateToolkit
 @testable import ENA
 
 // swiftlint:disable type_body_length
+// swiftlint:disable file_length
 class FamilyMemberCoronaTestCellModelTests: CWATestCase {
 
 	// swiftlint:disable function_body_length
@@ -15,6 +16,22 @@ class FamilyMemberCoronaTestCellModelTests: CWATestCase {
 		// test cases are [.pending, .negative, .invalid, .positive, .expired]
 		var subscriptions = [AnyCancellable]()
 
+		let namesArray = [
+			"pcrDisplayName",
+			"pcrDisplayName",
+			"pcrDisplayName",
+			"pcrDisplayName",
+			"pcrDisplayName"
+		]
+		
+		let captionsArray = [
+			AppStrings.FamilyMemberCoronaTest.pcrCaption,
+			AppStrings.FamilyMemberCoronaTest.pcrCaption,
+			AppStrings.FamilyMemberCoronaTest.pcrCaption,
+			AppStrings.FamilyMemberCoronaTest.pcrCaption,
+			AppStrings.FamilyMemberCoronaTest.pcrCaption
+		]
+		
 		let topDiagnosesArray = [
 			AppStrings.FamilyMemberCoronaTest.pendingDiagnosis,
 			AppStrings.FamilyMemberCoronaTest.negativeTopDiagnosis,
@@ -76,6 +93,8 @@ class FamilyMemberCoronaTestCellModelTests: CWATestCase {
 			AccessibilityIdentifiers.FamilyMemberCoronaTestCell.expiredPCR
 		]
 
+		let expectationName = expectation(description: "expectationName")
+		let expectationCaption = expectation(description: "expectationCaption")
 		let expectationTopDiagnoses = expectation(description: "expectationTopDiagnoses")
 		let expectationBottomDiagnoses = expectation(description: "expectationBottomDiagnoses")
 		let expectationBottomDiagnosisColors = expectation(description: "expectationBottomDiagnosisColors")
@@ -90,6 +109,8 @@ class FamilyMemberCoronaTestCellModelTests: CWATestCase {
 		let expectationAccessibilityIdentifiers = expectation(description: "expectationAccessibilityIdentifiers")
 		let expectationOnUpdate = expectation(description: "expectationOnUpdate")
 
+		var receivedNames = [String?]()
+		var receivedCaptions = [String?]()
 		var receivedTopDiagnoses = [String?]()
 		var receivedBottomDiagnoses = [String?]()
 		var receivedBottomDiagnosisColors = [UIColor?]()
@@ -103,6 +124,8 @@ class FamilyMemberCoronaTestCellModelTests: CWATestCase {
 		var receivedCellTappability = [Bool]()
 		var receivedAccessibilityIdentifiers = [String?]()
 		
+		expectationName.expectedFulfillmentCount = namesArray.count
+		expectationCaption.expectedFulfillmentCount = captionsArray.count
 		expectationTopDiagnoses.expectedFulfillmentCount = topDiagnosesArray.count
 		expectationBottomDiagnoses.expectedFulfillmentCount = bottomDiagnosesArray.count
 		expectationBottomDiagnosisColors.expectedFulfillmentCount = bottomDiagnosisColorsArray.count
@@ -115,7 +138,7 @@ class FamilyMemberCoronaTestCellModelTests: CWATestCase {
 		expectationUserInteraction.expectedFulfillmentCount = userInteractionArray.count
 		expectationCellTappability.expectedFulfillmentCount = cellTappableArray.count
 		expectationAccessibilityIdentifiers.expectedFulfillmentCount = accessibilityIdentifiersArray.count
-		expectationOnUpdate.expectedFulfillmentCount = 6
+		expectationOnUpdate.expectedFulfillmentCount = 5
 
 		let coronaTest: FamilyMemberCoronaTest = .pcr(.mock(displayName: "pcrDisplayName", registrationDate: Date(timeIntervalSince1970: 0)))
 
@@ -131,9 +154,22 @@ class FamilyMemberCoronaTestCellModelTests: CWATestCase {
 			}
 		)
 
-		XCTAssertEqual(cellModel.name, "pcrDisplayName")
-		XCTAssertEqual(cellModel.caption, AppStrings.FamilyMemberCoronaTest.pcrCaption)
-
+		cellModel.$name
+			.dropFirst()
+			.sink { receivedValue in
+				receivedNames.append(receivedValue)
+				expectationName.fulfill()
+			}
+			.store(in: &subscriptions)
+		
+		cellModel.$caption
+			.dropFirst()
+			.sink { receivedValue in
+				receivedCaptions.append(receivedValue)
+				expectationCaption.fulfill()
+			}
+			.store(in: &subscriptions)
+		
 		cellModel.$topDiagnosis
 			.dropFirst()
 			.sink { receivedValue in
@@ -230,16 +266,31 @@ class FamilyMemberCoronaTestCellModelTests: CWATestCase {
 			}
 			.store(in: &subscriptions)
 
-		familyMemberCoronaTestService.coronaTests.value = [.pcr(.mock(displayName: "pcrDisplayName", registrationDate: Date(timeIntervalSince1970: 0), isNew: true, testResult: .pending))]
-		familyMemberCoronaTestService.coronaTests.value = [.pcr(.mock(displayName: "pcrDisplayName", registrationDate: Date(timeIntervalSince1970: 0), testResult: .negative))]
-		familyMemberCoronaTestService.coronaTests.value = [.pcr(.mock(displayName: "pcrDisplayName", registrationDate: Date(timeIntervalSince1970: 0), isNew: true, testResult: .invalid, finalTestResultReceivedDate: Date(), testResultWasShown: false))]
-		familyMemberCoronaTestService.coronaTests.value = [.pcr(.mock(displayName: "pcrDisplayName", registrationDate: Date(timeIntervalSince1970: 0), testResult: .positive, finalTestResultReceivedDate: Date(), testResultWasShown: true))]
-		familyMemberCoronaTestService.coronaTests.value = [.pcr(.mock(displayName: "pcrDisplayName", registrationDate: Date(timeIntervalSince1970: 0), testResult: .expired))]
+		cellModel.$testResult
+			.sink { testResult in
+				switch testResult {
+				case .none:
+					familyMemberCoronaTestService.coronaTests.value = [.pcr(.mock(displayName: "pcrDisplayName", registrationDate: Date(timeIntervalSince1970: 0), isNew: true, testResult: .pending))]
+				case .pending:
+					familyMemberCoronaTestService.coronaTests.value = [.pcr(.mock(displayName: "pcrDisplayName", registrationDate: Date(timeIntervalSince1970: 0), testResult: .negative))]
+				case .negative:
+					familyMemberCoronaTestService.coronaTests.value = [.pcr(.mock(displayName: "pcrDisplayName", registrationDate: Date(timeIntervalSince1970: 0), isNew: true, testResult: .invalid, finalTestResultReceivedDate: Date(), testResultWasShown: false))]
+				case .invalid:
+					familyMemberCoronaTestService.coronaTests.value = [.pcr(.mock(displayName: "pcrDisplayName", registrationDate: Date(timeIntervalSince1970: 0), testResult: .positive, finalTestResultReceivedDate: Date(), testResultWasShown: true))]
+				case .positive:
+					familyMemberCoronaTestService.coronaTests.value = [.pcr(.mock(displayName: "pcrDisplayName", registrationDate: Date(timeIntervalSince1970: 0), testResult: .expired))]
+				case .expired:
+					break
+				}
+			}
+			.store(in: &subscriptions)
 
-		waitForExpectations(timeout: .short, handler: nil)
+		waitForExpectations(timeout: .long, handler: nil)
 
 		subscriptions.forEach({ $0.cancel() })
 
+		XCTAssertEqual(receivedNames, namesArray)
+		XCTAssertEqual(receivedCaptions, captionsArray)
 		XCTAssertEqual(receivedTopDiagnoses, topDiagnosesArray)
 		XCTAssertEqual(receivedBottomDiagnoses, bottomDiagnosesArray)
 		XCTAssertEqual(receivedBottomDiagnosisColors.map { $0?.cgColor }, bottomDiagnosisColorsArray.map { $0?.cgColor })
@@ -259,6 +310,24 @@ class FamilyMemberCoronaTestCellModelTests: CWATestCase {
 		// test cases are [.pending, .negative, .invalid, .positive, .expired, (Outdated)]
 		var subscriptions = [AnyCancellable]()
 
+		let namesArray = [
+			"antigenDisplayName",
+			"antigenDisplayName",
+			"antigenDisplayName",
+			"antigenDisplayName",
+			"antigenDisplayName",
+			"antigenDisplayName"
+		]
+		
+		let captionsArray = [
+			AppStrings.FamilyMemberCoronaTest.antigenCaption,
+			AppStrings.FamilyMemberCoronaTest.antigenCaption,
+			AppStrings.FamilyMemberCoronaTest.antigenCaption,
+			AppStrings.FamilyMemberCoronaTest.antigenCaption,
+			AppStrings.FamilyMemberCoronaTest.antigenCaption,
+			AppStrings.FamilyMemberCoronaTest.antigenCaption
+		]
+		
 		let topDiagnosesArray = [
 			AppStrings.FamilyMemberCoronaTest.pendingDiagnosis,
 			AppStrings.FamilyMemberCoronaTest.negativeTopDiagnosis,
@@ -328,6 +397,8 @@ class FamilyMemberCoronaTestCellModelTests: CWATestCase {
 			AccessibilityIdentifiers.FamilyMemberCoronaTestCell.outdatedAntigen
 		]
 
+		let expectationName = expectation(description: "expectationName")
+		let expectationCaption = expectation(description: "expectationCaption")
 		let expectationTopDiagnoses = expectation(description: "expectationTopDiagnoses")
 		let expectationBottomDiagnoses = expectation(description: "expectationBottomDiagnoses")
 		let expectationBottomDiagnosisColors = expectation(description: "expectationBottomDiagnosisColors")
@@ -342,6 +413,8 @@ class FamilyMemberCoronaTestCellModelTests: CWATestCase {
 		let expectationAccessibilityIdentifiers = expectation(description: "expectationAccessibilityIdentifiers")
 		let expectationOnUpdate = expectation(description: "expectationOnUpdate")
 
+		var receivedNames = [String?]()
+		var receivedCaptions = [String?]()
 		var receivedTopDiagnoses = [String?]()
 		var receivedBottomDiagnoses = [String?]()
 		var receivedBottomDiagnosisColors = [UIColor?]()
@@ -355,6 +428,8 @@ class FamilyMemberCoronaTestCellModelTests: CWATestCase {
 		var receivedCellTappability = [Bool]()
 		var receivedAccessibilityIdentifiers = [String?]()
 
+		expectationName.expectedFulfillmentCount = namesArray.count
+		expectationCaption.expectedFulfillmentCount = captionsArray.count
 		expectationTopDiagnoses.expectedFulfillmentCount = topDiagnosesArray.count
 		expectationBottomDiagnoses.expectedFulfillmentCount = bottomDiagnosesArray.count
 		expectationBottomDiagnosisColors.expectedFulfillmentCount = bottomDiagnosisColorsArray.count
@@ -367,7 +442,7 @@ class FamilyMemberCoronaTestCellModelTests: CWATestCase {
 		expectationUserInteraction.expectedFulfillmentCount = userInteractionArray.count
 		expectationCellTappability.expectedFulfillmentCount = cellTappableArray.count
 		expectationAccessibilityIdentifiers.expectedFulfillmentCount = accessibilityIdentifiersArray.count
-		expectationOnUpdate.expectedFulfillmentCount = 7
+		expectationOnUpdate.expectedFulfillmentCount = 6
 
 		let coronaTest: FamilyMemberCoronaTest = .antigen(.mock(displayName: "antigenDisplayName", sampleCollectionDate: Date(timeIntervalSince1970: 0)))
 
@@ -387,9 +462,22 @@ class FamilyMemberCoronaTestCellModelTests: CWATestCase {
 			}
 		)
 
-		XCTAssertEqual(cellModel.name, "antigenDisplayName")
-		XCTAssertEqual(cellModel.caption, AppStrings.FamilyMemberCoronaTest.antigenCaption)
-
+		cellModel.$name
+			.dropFirst()
+			.sink { receivedValue in
+				receivedNames.append(receivedValue)
+				expectationName.fulfill()
+			}
+			.store(in: &subscriptions)
+		
+		cellModel.$caption
+			.dropFirst()
+			.sink { receivedValue in
+				receivedCaptions.append(receivedValue)
+				expectationCaption.fulfill()
+			}
+			.store(in: &subscriptions)
+		
 		cellModel.$topDiagnosis
 			.dropFirst()
 			.sink { receivedValue in
@@ -486,17 +574,31 @@ class FamilyMemberCoronaTestCellModelTests: CWATestCase {
 			}
 			.store(in: &subscriptions)
 
-		familyMemberCoronaTestService.coronaTests.value = [.antigen(.mock(displayName: "antigenDisplayName", sampleCollectionDate: Date(timeIntervalSince1970: 0), isNew: true, testResult: .pending))]
-		familyMemberCoronaTestService.coronaTests.value = [.antigen(.mock(displayName: "antigenDisplayName", sampleCollectionDate: Date(timeIntervalSince1970: 0), testResult: .negative))]
-		familyMemberCoronaTestService.coronaTests.value = [.antigen(.mock(displayName: "antigenDisplayName", sampleCollectionDate: Date(timeIntervalSince1970: 0), isNew: true, testResult: .invalid, finalTestResultReceivedDate: Date(), testResultWasShown: false))]
-		familyMemberCoronaTestService.coronaTests.value = [.antigen(.mock(displayName: "antigenDisplayName", sampleCollectionDate: Date(timeIntervalSince1970: 0), testResult: .positive, finalTestResultReceivedDate: Date(), testResultWasShown: true))]
-		familyMemberCoronaTestService.coronaTests.value = [.antigen(.mock(displayName: "antigenDisplayName", sampleCollectionDate: Date(timeIntervalSince1970: 0), testResult: .expired))]
-		familyMemberCoronaTestService.coronaTests.value = [.antigen(.mock(displayName: "antigenDisplayName", sampleCollectionDate: Date(timeIntervalSince1970: 0), testResult: .negative, isOutdated: true))]
+		cellModel.$testResult
+			.sink { testResult in
+				switch testResult {
+				case .none:
+					familyMemberCoronaTestService.coronaTests.value = [.antigen(.mock(displayName: "antigenDisplayName", sampleCollectionDate: Date(timeIntervalSince1970: 0), isNew: true, testResult: .pending))]
+				case .pending:
+					familyMemberCoronaTestService.coronaTests.value = [.antigen(.mock(displayName: "antigenDisplayName", sampleCollectionDate: Date(timeIntervalSince1970: 0), testResult: .negative))]
+				case .negative:
+					familyMemberCoronaTestService.coronaTests.value = [.antigen(.mock(displayName: "antigenDisplayName", sampleCollectionDate: Date(timeIntervalSince1970: 0), isNew: true, testResult: .invalid, finalTestResultReceivedDate: Date(), testResultWasShown: false))]
+				case .invalid:
+					familyMemberCoronaTestService.coronaTests.value = [.antigen(.mock(displayName: "antigenDisplayName", sampleCollectionDate: Date(timeIntervalSince1970: 0), testResult: .positive, finalTestResultReceivedDate: Date(), testResultWasShown: true))]
+				case .positive:
+					familyMemberCoronaTestService.coronaTests.value = [.antigen(.mock(displayName: "antigenDisplayName", sampleCollectionDate: Date(timeIntervalSince1970: 0), testResult: .expired))]
+				case .expired:
+					familyMemberCoronaTestService.coronaTests.value = [.antigen(.mock(displayName: "antigenDisplayName", sampleCollectionDate: Date(timeIntervalSince1970: 0), testResult: .negative, isOutdated: true))]
+				}
+			}
+			.store(in: &subscriptions)
 
-		waitForExpectations(timeout: .short, handler: nil)
+		waitForExpectations(timeout: .long, handler: nil)
 
 		subscriptions.forEach({ $0.cancel() })
 
+		XCTAssertEqual(receivedNames, namesArray)
+		XCTAssertEqual(receivedCaptions, captionsArray)
 		XCTAssertEqual(receivedTopDiagnoses, topDiagnosesArray)
 		XCTAssertEqual(receivedBottomDiagnoses, bottomDiagnosesArray)
 		XCTAssertEqual(receivedBottomDiagnosisColors.map { $0?.cgColor }, bottomDiagnosisColorsArray.map { $0?.cgColor })

@@ -18,6 +18,17 @@ struct LaunchArgument {
 	var intValue: Int {
 		UserDefaults.standard.integer(forKey: name)
 	}
+
+	func model<M: Decodable>() -> M? {
+		let decoder = JSONDecoder()
+		guard let stringValue = stringValue,
+			  let data = Data(base64Encoded: stringValue),
+			  let model = try? decoder.decode(M.self, from: data)
+		else {
+			return nil
+		}
+		return model
+	}
 }
 
 /*
@@ -27,6 +38,10 @@ struct LaunchArgument {
  * Please write a comment if you introduce a new launch argument
  */
 enum LaunchArguments {
+
+	enum environment {
+		static let environmentBase64Json = LaunchArgument(name: "environmentBase64Json")
+	}
 
 	enum common {
 		/// Coming from ENF and used to set exposure notification to active
