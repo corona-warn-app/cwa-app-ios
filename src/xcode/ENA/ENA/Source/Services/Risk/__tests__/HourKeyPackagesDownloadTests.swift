@@ -35,6 +35,7 @@ class HourKeyPackagesDownloadTests: CWATestCase {
 			downloadedPackagesStore: packagesStore,
 			client: client,
 			wifiClient: client,
+			restService: RestServiceProviderStub(),
 			store: store,
 			countryIds: [countryId]
 		)
@@ -73,6 +74,7 @@ class HourKeyPackagesDownloadTests: CWATestCase {
 			downloadedPackagesStore: packagesStore,
 			client: client,
 			wifiClient: client,
+			restService: RestServiceProviderStub(),
 			store: store,
 			countryIds: ["IT"]
 		)
@@ -111,6 +113,7 @@ class HourKeyPackagesDownloadTests: CWATestCase {
 			downloadedPackagesStore: packagesStore,
 			client: client,
 			wifiClient: client,
+			restService: RestServiceProviderStub(),
 			store: store,
 			countryIds: ["IT"]
 		)
@@ -158,6 +161,7 @@ class HourKeyPackagesDownloadTests: CWATestCase {
 			downloadedPackagesStore: packagesStore,
 			client: client,
 			wifiClient: client,
+			restService: RestServiceProviderStub(),
 			store: store,
 			countryIds: [countryId]
 		)
@@ -193,6 +197,7 @@ class HourKeyPackagesDownloadTests: CWATestCase {
 			downloadedPackagesStore: packagesStore,
 			client: client,
 			wifiClient: client,
+			restService: RestServiceProviderStub(),
 			store: store,
 			countryIds: ["IT"]
 		)
@@ -226,6 +231,7 @@ class HourKeyPackagesDownloadTests: CWATestCase {
 			downloadedPackagesStore: packagesStore,
 			client: client,
 			wifiClient: client,
+			restService: RestServiceProviderStub(),
 			store: store
 		)
 
@@ -257,6 +263,7 @@ class HourKeyPackagesDownloadTests: CWATestCase {
 			downloadedPackagesStore: packagesStore,
 			client: client,
 			wifiClient: client,
+			restService: RestServiceProviderStub(),
 			store: store
 		)
 
@@ -287,6 +294,7 @@ class HourKeyPackagesDownloadTests: CWATestCase {
 			downloadedPackagesStore: packagesStore,
 			client: client,
 			wifiClient: client,
+			restService: RestServiceProviderStub(),
 			store: store
 		)
 
@@ -317,6 +325,7 @@ class HourKeyPackagesDownloadTests: CWATestCase {
 			downloadedPackagesStore: packagesStore,
 			client: client,
 			wifiClient: client,
+			restService: RestServiceProviderStub(),
 			store: store
 		)
 
@@ -362,6 +371,7 @@ class HourKeyPackagesDownloadTests: CWATestCase {
 			downloadedPackagesStore: packagesStore,
 			client: client,
 			wifiClient: client,
+			restService: RestServiceProviderStub(),
 			store: store,
 			countryIds: ["IT"]
 		)
@@ -403,6 +413,7 @@ class HourKeyPackagesDownloadTests: CWATestCase {
 			downloadedPackagesStore: packagesStore,
 			client: client,
 			wifiClient: client,
+			restService: RestServiceProviderStub(),
 			store: store,
 			countryIds: ["IT"]
 		)
@@ -447,10 +458,16 @@ class HourKeyPackagesDownloadTests: CWATestCase {
 		client.availableDaysAndHours = DaysAndHours(days: ["2020-10-09"], hours: [])
 		client.downloadedPackage = try XCTUnwrap(dummyDayResponse.values.first)
 
+		// fake successful day package download
+		let restServiceProvider = RestServiceProviderStub(results: [
+			.success(["2020-10-09"])
+		])
+
 		let keyPackageDownload = KeyPackageDownload(
 			downloadedPackagesStore: packagesStore,
 			client: client,
 			wifiClient: client,
+			restService: restServiceProvider,
 			store: store,
 			countryIds: ["IT"]
 		)

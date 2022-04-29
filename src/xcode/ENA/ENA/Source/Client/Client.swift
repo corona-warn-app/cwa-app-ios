@@ -11,7 +11,6 @@ protocol Client {
 
 	typealias Failure = URLSession.Response.Failure
 	typealias KeySubmissionResponse = (Result<Void, SubmissionError>) -> Void
-	typealias AvailableDaysCompletionHandler = (Result<[String], Failure>) -> Void
 	typealias AvailableHoursCompletionHandler = (Result<[Int], Failure>) -> Void
 	typealias TestResultHandler = (Result<FetchTestResultResponse, Failure>) -> Void
 	typealias TANHandler = (Result<String, Failure>) -> Void
@@ -26,16 +25,6 @@ protocol Client {
 	typealias DCCRegistrationCompletionHandler = (Result<Void, DCCErrors.RegistrationError>) -> Void
 
 	// MARK: Interacting with a Client
-
-	/// Determines days that can be downloaded.
-	///
-	/// - Parameters:
-	///   - country: Country code
-	///   - completion: completion callback which includes the list of available days
-	func availableDays(
-		forCountry country: String,
-		completion: @escaping AvailableDaysCompletionHandler
-	)
 
 	/// Fetches the keys for a given day and country code
 	/// - Parameters:

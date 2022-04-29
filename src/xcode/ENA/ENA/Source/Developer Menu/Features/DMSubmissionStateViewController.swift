@@ -16,14 +16,18 @@ protocol DMSubmissionStateViewControllerDelegate: AnyObject {
 
 /// This controller allows you to check if a previous submission of keys successfully ended up in the backend.
 final class DMSubmissionStateViewController: UITableViewController {
-	// MARK: Creating a submission state view controller
+
+	// MARK: - Init
+
 	init(
 		client: Client,
 		wifiClient: WifiOnlyHTTPClient,
+		restService: RestServiceProviding,
 		delegate: DMSubmissionStateViewControllerDelegate
 	) {
 		self.client = client
 		self.wifiClient = wifiClient
+		self.restService = restService
 		self.delegate = delegate
 		super.init(style: .plain)
 	}
@@ -33,7 +37,8 @@ final class DMSubmissionStateViewController: UITableViewController {
 		fatalError("init(coder:) has not been implemented")
 	}
 
-	// MARK: UIViewController
+	// MARK: - Overrides
+
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		tableView.registerKeyCell()
@@ -65,46 +70,7 @@ final class DMSubmissionStateViewController: UITableViewController {
 		super.viewWillAppear(animated)
 	}
 
-	// MARK: Properties
-	private weak var delegate: DMSubmissionStateViewControllerDelegate?
-	private let client: Client
-	private let wifiClient: WifiOnlyHTTPClient
-	private var checkResult = DMSubmittedKeysCheckResult(missingKeys: [], foundKeys: [])
-
-	// MARK: UIViewController
-	@objc
-	func performCheck() {
-		delegate?.submissionStateViewController(self, getDiagnosisKeys: { localKeys, error in
-			if let error = error {
-				fatalError("unable to get DiagnosisKeys: \(error.localizedDescription)")
-			}
-			guard let localKeys = localKeys else {
-				fatalError("unable to get local diagnosis keys")
-			}
-			self.client.fetchAllKeys(wifiClient: self.wifiClient) { downloadedPackages in
-				let allPackages = downloadedPackages.allKeyPackages
-				let allRemoteKeys = Array(allPackages.compactMap { try? $0.package?.keys() }.joined())
-
-				var foundKeys = [ENTemporaryExposureKey]()
-				var missingKeys = [ENTemporaryExposureKey]()
-
-
-				for localKey in localKeys {
-					let found = allRemoteKeys.containsKey(localKey)
-					if found {
-						foundKeys.append(localKey)
-					} else {
-						missingKeys.append(localKey)
-					}
-				}
-				self.checkResult = .init(
-					missingKeys: missingKeys,
-					foundKeys: foundKeys
-				)
-				self.tableView.reloadData()
-			}
-		})
-	}
+	// MARK: - Protocol UITableViewDatasource
 
 	override func numberOfSections(in tableView: UITableView) -> Int {
 		2
@@ -151,6 +117,104 @@ final class DMSubmissionStateViewController: UITableViewController {
 		)
 		return cell
 	}
+
+	// MARK: - Public
+
+	// MARK: - Internal
+
+	typealias AvailableDaysAndHoursCompletion = (DaysAndHours) -> Void
+
+	// MARK: - Private
+
+	private let client: Client
+	private let wifiClient: WifiOnlyHTTPClient
+	private let restService: RestServiceProviding
+
+	private var checkResult = DMSubmittedKeysCheckResult(missingKeys: [], foundKeys: [])
+	private weak var delegate: DMSubmissionStateViewControllerDelegate?
+
+	@objc
+	private func performCheck() {
+		delegate?.submissionStateViewController(self, getDiagnosisKeys: { localKeys, error in
+			if let error = error {
+				fatalError("unable to get DiagnosisKeys: \(error.localizedDescription)")
+			}
+			guard let localKeys = localKeys else {
+				fatalError("unable to get local diagnosis keys")
+			}
+			self.fetchAllKeys(wifiClient: self.wifiClient) { downloadedPackages in
+				let allPackages = downloadedPackages.allKeyPackages
+				let allRemoteKeys = Array(allPackages.compactMap { try? $0.package?.keys() }.joined())
+
+				var foundKeys = [ENTemporaryExposureKey]()
+				var missingKeys = [ENTemporaryExposureKey]()
+
+
+				for localKey in localKeys {
+					let found = allRemoteKeys.containsKey(localKey)
+					if found {
+						foundKeys.append(localKey)
+					} else {
+						missingKeys.append(localKey)
+					}
+				}
+				self.checkResult = .init(
+					missingKeys: missingKeys,
+					foundKeys: foundKeys
+				)
+				self.tableView.reloadData()
+			}
+		})
+	}
+
+	private func availableDaysAndHours(
+		wifiClient: WifiOnlyHTTPClient,
+		completion completeWith: @escaping AvailableDaysAndHoursCompletion
+	) {
+		let group = DispatchGroup()
+
+		var daysAndHours: DaysAndHours = .none
+
+		group.enter()
+		let resource = AvailableDaysResource(country: "DE")
+		self.restService.load(resource) { result in
+			defer {
+				group.leave()
+			}
+			if case let .success(days) = result {
+				daysAndHours.days = days
+			}
+		}
+
+		group.enter()
+		wifiClient.availableHours(day: .formattedToday(), country: "DE") { result in
+			if case let .success(hours) = result {
+				daysAndHours.hours = hours
+			}
+			group.leave()
+		}
+
+		group.notify(queue: .main) {
+			completeWith(daysAndHours)
+		}
+	}
+
+	private func fetchAllKeys(
+		wifiClient: WifiOnlyHTTPClient,
+		completion completeWith: @escaping (FetchedDaysAndHours) -> Void
+	) {
+		availableDaysAndHours(
+			wifiClient: wifiClient,
+			completion: { daysAndHours in
+				self.client.fetchDays(daysAndHours.days, forCountry: "DE") { daysResult in
+					wifiClient.fetchHours(daysAndHours.hours, day: .formattedToday(), country: "DE") { hoursResult in
+						completeWith(FetchedDaysAndHours(hours: hoursResult, days: daysResult))
+					}
+				}
+			}
+		)
+	}
+
 }
 
 private extension Data {
@@ -182,55 +246,6 @@ private extension Array where Element == SAP_External_Exposurenotification_Tempo
 		contains { appleKey in
 			appleKey.keyData == key.keyData
 		}
-	}
-}
-
-private extension Client {
-	typealias AvailableDaysAndHoursCompletion = (DaysAndHours) -> Void
-
-	private func availableDaysAndHours(
-		wifiClient: WifiOnlyHTTPClient,
-		completion completeWith: @escaping AvailableDaysAndHoursCompletion
-	) {
-		let group = DispatchGroup()
-
-		var daysAndHours: DaysAndHours = .none
-
-		group.enter()
-		availableDays(forCountry: "DE") { result in
-			if case let .success(days) = result {
-				daysAndHours.days = days
-			}
-			group.leave()
-		}
-
-		group.enter()
-		wifiClient.availableHours(day: .formattedToday(), country: "DE") { result in
-			if case let .success(hours) = result {
-				daysAndHours.hours = hours
-			}
-			group.leave()
-		}
-
-		group.notify(queue: .main) {
-			completeWith(daysAndHours)
-		}
-	}
-
-	func fetchAllKeys(
-		wifiClient: WifiOnlyHTTPClient,
-		completion completeWith: @escaping (FetchedDaysAndHours) -> Void
-	) {
-		availableDaysAndHours(
-			wifiClient: wifiClient,
-			completion: { daysAndHours in
-				self.fetchDays(daysAndHours.days, forCountry: "DE") { daysResult in
-					wifiClient.fetchHours(daysAndHours.hours, day: .formattedToday(), country: "DE") { hoursResult in
-						completeWith(FetchedDaysAndHours(hours: hoursResult, days: daysResult))
-					}
-				}
-			}
-		)
 	}
 }
 

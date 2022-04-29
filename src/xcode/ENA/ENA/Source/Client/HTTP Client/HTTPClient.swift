@@ -25,14 +25,6 @@ final class HTTPClient: Client {
 
 	// MARK: - Protocol Client
 
-	func availableDays(
-		forCountry country: String,
-		completion completeWith: @escaping AvailableDaysCompletionHandler
-	) {
-		let url = configuration.availableDaysURL(forCountry: country)
-		availableDays(from: url, completion: completeWith)
-	}
-
 	func fetchDay(
 		_ day: String,
 		forCountry country: String,
@@ -548,41 +540,6 @@ final class HTTPClient: Client {
 				case let .failure(error):
 					responseError = error
 					Log.error("Failed to download for URL '\(url)' due to error: \(error).", log: .api)
-				}
-			}
-		}
-	}
-	
-	private func availableDays(
-		from url: URL,
-		completion completeWith: @escaping AvailableDaysCompletionHandler
-	) {
-		session.GET(url) { [weak self] result in
-			self?.queue.async {
-				switch result {
-				case let .success(response):
-					guard let data = response.body else {
-						completeWith(.failure(.invalidResponse))
-						return
-					}
-					guard response.hasAcceptableStatusCode else {
-						completeWith(.failure(.invalidResponse))
-						return
-					}
-					do {
-						let decoder = JSONDecoder()
-						let days = try decoder
-							.decode(
-								[String].self,
-								from: data
-							)
-						completeWith(.success(days))
-					} catch {
-						completeWith(.failure(.invalidResponse))
-						return
-					}
-				case let .failure(error):
-					completeWith(.failure(error))
 				}
 			}
 		}
