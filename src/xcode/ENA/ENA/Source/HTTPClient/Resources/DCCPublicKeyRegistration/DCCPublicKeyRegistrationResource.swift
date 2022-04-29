@@ -15,7 +15,7 @@ struct DCCPublicKeyRegistrationResource: Resource {
 			publicKeyHash: Environments().currentEnvironment().pinningKeyHashData
 		)
 	) {
-		self.locator = .registrationToken(isFake: isFake)
+		self.locator = .dccPublicKeyRegistration(isFake: false)
 		self.type = .default
 		self.sendResource = PaddingJSONSendResource<DCCPublicKeyRegistrationSendModel>(sendModel)
 		self.receiveResource = EmptyReceiveResource()

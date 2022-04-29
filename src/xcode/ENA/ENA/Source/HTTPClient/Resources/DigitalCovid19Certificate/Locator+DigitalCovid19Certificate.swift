@@ -11,7 +11,6 @@ extension Locator {
 	// type:	default
 	// comment:	Custom error handling required
 	static func digitalCovid19Certificate(
-		registrationToken: String,
 		isFake: Bool
 	) -> Locator {
 		let fake = String(isFake ? 1 : 0)
