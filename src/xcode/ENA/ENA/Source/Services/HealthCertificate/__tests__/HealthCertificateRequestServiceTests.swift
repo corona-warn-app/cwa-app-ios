@@ -14,22 +14,43 @@ class HealthCertificateRequestServiceTests: CWATestCase {
 	
 	func testTestCertificateRegistrationAndExecution_Success() throws {
 		let store = MockTestStore()
-		let client = ClientMock()
-		
+
 		let registerPublicKeyExpectation = expectation(description: "dccRegisterPublicKey called")
-		client.onDCCRegisterPublicKey = { _, _, _, completion in
-			registerPublicKeyExpectation.fulfill()
-			completion(.success(()))
-		}
-		
-		var keyPair: DCCRSAKeyPair?
-		
 		let getDigitalCovid19CertificateExpectation = expectation(description: "getDigitalCovid19Certificate called")
-		client.onGetDigitalCovid19Certificate = { _, _, completion in
-			let dek = (try? keyPair?.encrypt(Data()).base64EncodedString()) ?? ""
-			getDigitalCovid19CertificateExpectation.fulfill()
-			completion(.success((DCCResponse(dek: dek, dcc: "coseObject"))))
-		}
+
+		var keyPair: DCCRSAKeyPair?
+
+		let restServiceProvider = RestServiceProviderStub(
+			loadResources: [
+				LoadResource(
+					result: .success(()),
+					willLoadResource: { resource in
+						guard resource is DCCPublicKeyRegistrationResource else {
+							XCTFail("wrong resource type")
+							return
+						}
+
+						registerPublicKeyExpectation.fulfill()
+					}
+				),
+				LoadResource(
+					result: .success(
+						DigitalCovid19CertificateReceiveModel(
+							dek: (try? keyPair?.encrypt(Data()).base64EncodedString()) ?? "",
+							dcc: "coseObject"
+						)
+					),
+					willLoadResource: { resource in
+						guard resource is DigitalCovid19CertificateResource else {
+							XCTFail("wrong resource type")
+							return
+						}
+
+						getDigitalCovid19CertificateExpectation.fulfill()
+					}
+				)
+			]
+		)
 		
 		var config = CachedAppConfigurationMock.defaultAppConfiguration
 		config.dgcParameters.testCertificateParameters.waitAfterPublicKeyRegistrationInSeconds = 1
@@ -58,7 +79,7 @@ class HealthCertificateRequestServiceTests: CWATestCase {
 		
 		let healthCertificateRequestService = HealthCertificateRequestService(
 			store: store,
-			client: client,
+			restServiceProvider: restServiceProvider,
 			appConfiguration: appConfig,
 			digitalCovidCertificateAccess: digitalCovidCertificateAccess,
 			healthCertificateService: healthCertificateService
@@ -68,6 +89,8 @@ class HealthCertificateRequestServiceTests: CWATestCase {
 			.sink {
 				if let requestWithKeyPair = $0.first(where: { $0.rsaKeyPair != nil }) {
 					keyPair = requestWithKeyPair.rsaKeyPair
+
+
 				}
 			}
 		
@@ -102,7 +125,7 @@ class HealthCertificateRequestServiceTests: CWATestCase {
 		}
 		
 		// Wait for certificate registration to succeed
-		wait(for: [completionExpectation], timeout: .medium)
+		wait(for: [completionExpectation], timeout: 10000000)
 		
 		healthCertificateService.healthCertifiedPersons.first?.healthCertificates.first?.isValidityStateNew = false
 		healthCertificateService.healthCertifiedPersons.first?.healthCertificates.first?.isNew = false
@@ -123,43 +146,64 @@ class HealthCertificateRequestServiceTests: CWATestCase {
 	
 	func testTestCertificateExecution_NewTestCertificateRequest() throws {
 		let store = MockTestStore()
-		let client = ClientMock()
-		
+
 		let testCertificateRequest = TestCertificateRequest(
 			coronaTestType: .antigen,
 			registrationToken: "registrationToken",
 			registrationDate: Date()
 		)
-		
+
 		store.testCertificateRequests = [testCertificateRequest]
-		
+
 		let registerPublicKeyExpectation = expectation(description: "dccRegisterPublicKey called")
-		client.onDCCRegisterPublicKey = { _, _, _, completion in
-			registerPublicKeyExpectation.fulfill()
-			completion(.success(()))
-		}
-		
 		let getDigitalCovid19CertificateExpectation = expectation(description: "getDigitalCovid19Certificate called")
-		client.onGetDigitalCovid19Certificate = { _, _, completion in
-			let dek = (try? testCertificateRequest.rsaKeyPair?.encrypt(Data()).base64EncodedString()) ?? ""
-			getDigitalCovid19CertificateExpectation.fulfill()
-			completion(.success((DCCResponse(dek: dek, dcc: "coseObject"))))
-		}
-		
+
+		let restServiceProvider = RestServiceProviderStub(
+			loadResources: [
+				LoadResource(
+					result: .success(()),
+					willLoadResource: { resource in
+						guard resource is DCCPublicKeyRegistrationResource else {
+							XCTFail("wrong resource type")
+							return
+						}
+
+						registerPublicKeyExpectation.fulfill()
+					}
+				),
+				LoadResource(
+					result: .success(
+						DigitalCovid19CertificateReceiveModel(
+							dek: (try? testCertificateRequest.rsaKeyPair?.encrypt(Data()).base64EncodedString()) ?? "",
+							dcc: "coseObject"
+						)
+					),
+					willLoadResource: { resource in
+						guard resource is DigitalCovid19CertificateResource else {
+							XCTFail("wrong resource type")
+							return
+						}
+
+						getDigitalCovid19CertificateExpectation.fulfill()
+					}
+				)
+			]
+		)
+
 		var config = CachedAppConfigurationMock.defaultAppConfiguration
 		config.dgcParameters.testCertificateParameters.waitAfterPublicKeyRegistrationInSeconds = 1
 		config.dgcParameters.testCertificateParameters.waitForRetryInSeconds = 1
 		let appConfig = CachedAppConfigurationMock(with: config)
-		
+
 		let base45TestCertificate = try base45Fake(
 			digitalCovidCertificate: DigitalCovidCertificate.fake(
 				testEntries: [TestEntry.fake()]
 			)
 		)
-		
+
 		var digitalCovidCertificateAccess = MockDigitalCovidCertificateAccess()
 		digitalCovidCertificateAccess.convertedToBase45 = .success(base45TestCertificate)
-		
+
 		let healthCertificateService = HealthCertificateService(
 			store: store,
 			dccSignatureVerifier: DCCSignatureVerifyingStub(),
@@ -170,15 +214,15 @@ class HealthCertificateRequestServiceTests: CWATestCase {
 			recycleBin: .fake(),
 			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
-		
+
 		let healthCertificateRequestService = HealthCertificateRequestService(
 			store: store,
-			client: client,
+			restServiceProvider: restServiceProvider,
 			appConfiguration: appConfig,
 			digitalCovidCertificateAccess: digitalCovidCertificateAccess,
 			healthCertificateService: healthCertificateService
 		)
-		
+
 		let personsExpectation = expectation(description: "Persons not empty")
 		personsExpectation.expectedFulfillmentCount = 3
 		let personsSubscription = healthCertificateService.$healthCertifiedPersons
@@ -187,7 +231,7 @@ class HealthCertificateRequestServiceTests: CWATestCase {
 					personsExpectation.fulfill()
 				}
 			}
-		
+
 		let completionExpectation = expectation(description: "completion called")
 		healthCertificateRequestService.executeTestCertificateRequest(
 			testCertificateRequest,
@@ -202,22 +246,21 @@ class HealthCertificateRequestServiceTests: CWATestCase {
 				completionExpectation.fulfill()
 			}
 		)
-		
+
 		waitForExpectations(timeout: .medium)
-		
+
 		personsSubscription.cancel()
-		
+
 		XCTAssertEqual(
 			try XCTUnwrap(healthCertificateService.healthCertifiedPersons.first).healthCertificates.first?.base45,
 			base45TestCertificate
 		)
 		XCTAssertTrue(healthCertificateRequestService.testCertificateRequests.isEmpty)
 	}
-	
+
 	func testTestCertificateExecution_ExistingUnregisteredKeyPair_Success() throws {
 		let store = MockTestStore()
-		let client = ClientMock()
-		
+
 		let keyPair = try DCCRSAKeyPair(registrationToken: "registrationToken")
 		let testCertificateRequest = TestCertificateRequest(
 			coronaTestType: .antigen,
@@ -226,36 +269,58 @@ class HealthCertificateRequestServiceTests: CWATestCase {
 			rsaKeyPair: keyPair,
 			rsaPublicKeyRegistered: false
 		)
-		
+
 		store.testCertificateRequests = [testCertificateRequest]
-		
+
 		let registerPublicKeyExpectation = expectation(description: "dccRegisterPublicKey called")
-		client.onDCCRegisterPublicKey = { _, _, _, completion in
-			registerPublicKeyExpectation.fulfill()
-			completion(.success(()))
-		}
-		
 		let getDigitalCovid19CertificateExpectation = expectation(description: "getDigitalCovid19Certificate called")
-		client.onGetDigitalCovid19Certificate = { _, _, completion in
-			let dek = (try? testCertificateRequest.rsaKeyPair?.encrypt(Data()).base64EncodedString()) ?? ""
-			getDigitalCovid19CertificateExpectation.fulfill()
-			completion(.success((DCCResponse(dek: dek, dcc: "coseObject"))))
-		}
-		
+
+		let restServiceProvider = RestServiceProviderStub(
+			loadResources: [
+				LoadResource(
+					result: .success(()),
+					willLoadResource: { resource in
+						guard resource is DCCPublicKeyRegistrationResource else {
+							XCTFail("wrong resource type")
+							return
+						}
+
+						registerPublicKeyExpectation.fulfill()
+					}
+				),
+				LoadResource(
+					result: .success(
+						DigitalCovid19CertificateReceiveModel(
+							dek: (try? testCertificateRequest.rsaKeyPair?.encrypt(Data()).base64EncodedString()) ?? "",
+							dcc: "coseObject"
+						)
+					),
+					willLoadResource: { resource in
+						guard resource is DigitalCovid19CertificateResource else {
+							XCTFail("wrong resource type")
+							return
+						}
+
+						getDigitalCovid19CertificateExpectation.fulfill()
+					}
+				)
+			]
+		)
+
 		var config = CachedAppConfigurationMock.defaultAppConfiguration
 		config.dgcParameters.testCertificateParameters.waitAfterPublicKeyRegistrationInSeconds = 1
 		config.dgcParameters.testCertificateParameters.waitForRetryInSeconds = 1
 		let appConfig = CachedAppConfigurationMock(with: config)
-		
+
 		let base45TestCertificate = try base45Fake(
 			digitalCovidCertificate: DigitalCovidCertificate.fake(
 				testEntries: [TestEntry.fake()]
 			)
 		)
-		
+
 		var digitalCovidCertificateAccess = MockDigitalCovidCertificateAccess()
 		digitalCovidCertificateAccess.convertedToBase45 = .success(base45TestCertificate)
-		
+
 		let healthCertificateService = HealthCertificateService(
 			store: store,
 			dccSignatureVerifier: DCCSignatureVerifyingStub(),
@@ -266,15 +331,15 @@ class HealthCertificateRequestServiceTests: CWATestCase {
 			recycleBin: .fake(),
 			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
-		
+
 		let healthCertificateRequestService = HealthCertificateRequestService(
 			store: store,
-			client: client,
+			restServiceProvider: restServiceProvider,
 			appConfiguration: appConfig,
 			digitalCovidCertificateAccess: digitalCovidCertificateAccess,
 			healthCertificateService: healthCertificateService
 		)
-		
+
 		let personsExpectation = expectation(description: "Persons not empty")
 		personsExpectation.expectedFulfillmentCount = 3
 		let personsSubscription = healthCertificateService.$healthCertifiedPersons
@@ -283,7 +348,7 @@ class HealthCertificateRequestServiceTests: CWATestCase {
 					personsExpectation.fulfill()
 				}
 			}
-		
+
 		let completionExpectation = expectation(description: "completion called")
 		healthCertificateRequestService.executeTestCertificateRequest(
 			testCertificateRequest,
@@ -298,24 +363,23 @@ class HealthCertificateRequestServiceTests: CWATestCase {
 				completionExpectation.fulfill()
 			}
 		)
-		
+
 		waitForExpectations(timeout: .medium)
-		
+
 		personsSubscription.cancel()
-		
+
 		XCTAssertEqual(testCertificateRequest.rsaKeyPair, keyPair)
-		
+
 		XCTAssertEqual(
 			try XCTUnwrap(healthCertificateService.healthCertifiedPersons.first).healthCertificates.first?.base45,
 			base45TestCertificate
 		)
 		XCTAssertTrue(healthCertificateRequestService.testCertificateRequests.isEmpty)
 	}
-	
+
 	func testTestCertificateExecution_ExistingUnregisteredKeyPair_AlreadyRegisteredError() throws {
 		let store = MockTestStore()
-		let client = ClientMock()
-		
+
 		let keyPair = try DCCRSAKeyPair(registrationToken: "registrationToken")
 		let testCertificateRequest = TestCertificateRequest(
 			coronaTestType: .antigen,
@@ -324,36 +388,58 @@ class HealthCertificateRequestServiceTests: CWATestCase {
 			rsaKeyPair: keyPair,
 			rsaPublicKeyRegistered: false
 		)
-		
+
 		store.testCertificateRequests = [testCertificateRequest]
-		
+
 		let registerPublicKeyExpectation = expectation(description: "dccRegisterPublicKey called")
-		client.onDCCRegisterPublicKey = { _, _, _, completion in
-			registerPublicKeyExpectation.fulfill()
-			completion(.failure(.tokenAlreadyAssigned))
-		}
-		
 		let getDigitalCovid19CertificateExpectation = expectation(description: "getDigitalCovid19Certificate called")
-		client.onGetDigitalCovid19Certificate = { _, _, completion in
-			let dek = (try? testCertificateRequest.rsaKeyPair?.encrypt(Data()).base64EncodedString()) ?? ""
-			getDigitalCovid19CertificateExpectation.fulfill()
-			completion(.success((DCCResponse(dek: dek, dcc: "coseObject"))))
-		}
-		
+
+		let restServiceProvider = RestServiceProviderStub(
+			loadResources: [
+				LoadResource(
+					result: .failure(ServiceError.receivedResourceError( DCCPublicKeyRegistrationError.tokenAlreadyAssigned)),
+					willLoadResource: { resource in
+						guard resource is DCCPublicKeyRegistrationResource else {
+							XCTFail("wrong resource type")
+							return
+						}
+
+						registerPublicKeyExpectation.fulfill()
+					}
+				),
+				LoadResource(
+					result: .success(
+						DigitalCovid19CertificateReceiveModel(
+							dek: (try? testCertificateRequest.rsaKeyPair?.encrypt(Data()).base64EncodedString()) ?? "",
+							dcc: "coseObject"
+						)
+					),
+					willLoadResource: { resource in
+						guard resource is DigitalCovid19CertificateResource else {
+							XCTFail("wrong resource type")
+							return
+						}
+
+						getDigitalCovid19CertificateExpectation.fulfill()
+					}
+				)
+			]
+		)
+
 		var config = CachedAppConfigurationMock.defaultAppConfiguration
 		config.dgcParameters.testCertificateParameters.waitAfterPublicKeyRegistrationInSeconds = 1
 		config.dgcParameters.testCertificateParameters.waitForRetryInSeconds = 1
 		let appConfig = CachedAppConfigurationMock(with: config)
-		
+
 		let base45TestCertificate = try base45Fake(
 			digitalCovidCertificate: DigitalCovidCertificate.fake(
 				testEntries: [TestEntry.fake()]
 			)
 		)
-		
+
 		var digitalCovidCertificateAccess = MockDigitalCovidCertificateAccess()
 		digitalCovidCertificateAccess.convertedToBase45 = .success(base45TestCertificate)
-		
+
 		let healthCertificateService = HealthCertificateService(
 			store: store,
 			dccSignatureVerifier: DCCSignatureVerifyingStub(),
@@ -364,15 +450,15 @@ class HealthCertificateRequestServiceTests: CWATestCase {
 			recycleBin: .fake(),
 			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
-		
+
 		let healthCertificateRequestService = HealthCertificateRequestService(
 			store: store,
-			client: client,
+			restServiceProvider: restServiceProvider,
 			appConfiguration: appConfig,
 			digitalCovidCertificateAccess: digitalCovidCertificateAccess,
 			healthCertificateService: healthCertificateService
 		)
-		
+
 		let personsExpectation = expectation(description: "Persons not empty")
 		personsExpectation.expectedFulfillmentCount = 3
 		let personsSubscription = healthCertificateService.$healthCertifiedPersons
@@ -381,7 +467,7 @@ class HealthCertificateRequestServiceTests: CWATestCase {
 					personsExpectation.fulfill()
 				}
 			}
-		
+
 		let completionExpectation = expectation(description: "completion called")
 		healthCertificateRequestService.executeTestCertificateRequest(
 			testCertificateRequest,
@@ -396,24 +482,23 @@ class HealthCertificateRequestServiceTests: CWATestCase {
 				completionExpectation.fulfill()
 			}
 		)
-		
+
 		waitForExpectations(timeout: .medium)
-		
+
 		personsSubscription.cancel()
-		
+
 		XCTAssertEqual(testCertificateRequest.rsaKeyPair, keyPair)
-		
+
 		XCTAssertEqual(
 			try XCTUnwrap(healthCertificateService.healthCertifiedPersons.first).healthCertificates.first?.base45,
 			base45TestCertificate
 		)
 		XCTAssertTrue(healthCertificateRequestService.testCertificateRequests.isEmpty)
 	}
-	
+
 	func testTestCertificateExecution_ExistingUnregisteredKeyPair_NetworkError() throws {
 		let store = MockTestStore()
-		let client = ClientMock()
-		
+
 		let keyPair = try DCCRSAKeyPair(registrationToken: "registrationToken")
 		let testCertificateRequest = TestCertificateRequest(
 			coronaTestType: .antigen,
@@ -422,23 +507,29 @@ class HealthCertificateRequestServiceTests: CWATestCase {
 			rsaKeyPair: keyPair,
 			rsaPublicKeyRegistered: false
 		)
-		
+
 		store.testCertificateRequests = [testCertificateRequest]
-		
+
 		let registerPublicKeyExpectation = expectation(description: "dccRegisterPublicKey called")
-		client.onDCCRegisterPublicKey = { _, _, _, completion in
-			registerPublicKeyExpectation.fulfill()
-			completion(.failure(.noNetworkConnection))
-		}
-		
-		let getDigitalCovid19CertificateExpectation = expectation(description: "getDigitalCovid19Certificate called")
-		getDigitalCovid19CertificateExpectation.isInverted = true
-		client.onGetDigitalCovid19Certificate = { _, _, _ in
-			getDigitalCovid19CertificateExpectation.fulfill()
-		}
-		
+
+		let restServiceProvider = RestServiceProviderStub(
+			loadResources: [
+				LoadResource(
+					result: .failure(ServiceError.receivedResourceError( DCCPublicKeyRegistrationError.noNetworkConnection)),
+					willLoadResource: { resource in
+						guard resource is DCCPublicKeyRegistrationResource else {
+							XCTFail("wrong resource type")
+							return
+						}
+
+						registerPublicKeyExpectation.fulfill()
+					}
+				)
+			]
+		)
+
 		let appConfig = CachedAppConfigurationMock()
-		
+
 		let healthCertificateService = HealthCertificateService(
 			store: store,
 			dccSignatureVerifier: DCCSignatureVerifyingStub(),
@@ -448,14 +539,14 @@ class HealthCertificateRequestServiceTests: CWATestCase {
 			recycleBin: .fake(),
 			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
-		
+
 		let healthCertificateRequestService = HealthCertificateRequestService(
 			store: store,
-			client: client,
+			restServiceProvider: restServiceProvider,
 			appConfiguration: appConfig,
 			healthCertificateService: healthCertificateService
 		)
-		
+
 		let completionExpectation = expectation(description: "completion called")
 		healthCertificateRequestService.executeTestCertificateRequest(
 			testCertificateRequest,
@@ -466,26 +557,25 @@ class HealthCertificateRequestServiceTests: CWATestCase {
 					XCTFail("Request expected to fail")
 				case .failure(let error):
 					if case .publicKeyRegistrationFailed(let publicKeyError) = error,
-					   case .noNetworkConnection = publicKeyError {} else {
+					   case .receivedResourceError(.noNetworkConnection) = publicKeyError {} else {
 						   XCTFail("No network error on public key registration expected")
 					   }
 				}
 				completionExpectation.fulfill()
 			}
 		)
-		
+
 		waitForExpectations(timeout: .medium)
-		
+
 		XCTAssertEqual(healthCertificateRequestService.testCertificateRequests.first, testCertificateRequest)
 		XCTAssertFalse(testCertificateRequest.rsaPublicKeyRegistered)
 		XCTAssertTrue(testCertificateRequest.requestExecutionFailed)
 		XCTAssertFalse(testCertificateRequest.isLoading)
 	}
-	
+
 	func testTestCertificateExecution_ExistingRegisteredKeyPair_Success() throws {
 		let store = MockTestStore()
-		let client = ClientMock()
-		
+
 		let keyPair = try DCCRSAKeyPair(registrationToken: "registrationToken")
 		let testCertificateRequest = TestCertificateRequest(
 			coronaTestType: .antigen,
@@ -494,36 +584,46 @@ class HealthCertificateRequestServiceTests: CWATestCase {
 			rsaKeyPair: keyPair,
 			rsaPublicKeyRegistered: true
 		)
-		
+
 		store.testCertificateRequests = [testCertificateRequest]
-		
-		let registerPublicKeyExpectation = expectation(description: "dccRegisterPublicKey not called")
-		registerPublicKeyExpectation.isInverted = true
-		client.onDCCRegisterPublicKey = { _, _, _, _ in
-			registerPublicKeyExpectation.fulfill()
-		}
-		
+
 		let getDigitalCovid19CertificateExpectation = expectation(description: "getDigitalCovid19Certificate called")
-		client.onGetDigitalCovid19Certificate = { _, _, completion in
-			let dek = (try? testCertificateRequest.rsaKeyPair?.encrypt(Data()).base64EncodedString()) ?? ""
-			getDigitalCovid19CertificateExpectation.fulfill()
-			completion(.success((DCCResponse(dek: dek, dcc: "coseObject"))))
-		}
-		
+
+		let restServiceProvider = RestServiceProviderStub(
+			loadResources: [
+				LoadResource(
+					result: .success(
+						DigitalCovid19CertificateReceiveModel(
+							dek: (try? testCertificateRequest.rsaKeyPair?.encrypt(Data()).base64EncodedString()) ?? "",
+							dcc: "coseObject"
+						)
+					),
+					willLoadResource: { resource in
+						guard resource is DigitalCovid19CertificateResource else {
+							XCTFail("wrong resource type")
+							return
+						}
+
+						getDigitalCovid19CertificateExpectation.fulfill()
+					}
+				)
+			]
+		)
+
 		var config = CachedAppConfigurationMock.defaultAppConfiguration
 		config.dgcParameters.testCertificateParameters.waitAfterPublicKeyRegistrationInSeconds = 1
 		config.dgcParameters.testCertificateParameters.waitForRetryInSeconds = 1
 		let appConfig = CachedAppConfigurationMock(with: config)
-		
+
 		let base45TestCertificate = try base45Fake(
 			digitalCovidCertificate: DigitalCovidCertificate.fake(
 				testEntries: [TestEntry.fake()]
 			)
 		)
-		
+
 		var digitalCovidCertificateAccess = MockDigitalCovidCertificateAccess()
 		digitalCovidCertificateAccess.convertedToBase45 = .success(base45TestCertificate)
-		
+
 		let healthCertificateService = HealthCertificateService(
 			store: store,
 			dccSignatureVerifier: DCCSignatureVerifyingStub(),
@@ -534,15 +634,15 @@ class HealthCertificateRequestServiceTests: CWATestCase {
 			recycleBin: .fake(),
 			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
-		
+
 		let healthCertificateRequestService = HealthCertificateRequestService(
 			store: store,
-			client: client,
+			restServiceProvider: restServiceProvider,
 			appConfiguration: appConfig,
 			digitalCovidCertificateAccess: digitalCovidCertificateAccess,
 			healthCertificateService: healthCertificateService
 		)
-		
+
 		let personsExpectation = expectation(description: "Persons not empty")
 		personsExpectation.expectedFulfillmentCount = 3
 		let personsSubscription = healthCertificateService.$healthCertifiedPersons
@@ -551,7 +651,7 @@ class HealthCertificateRequestServiceTests: CWATestCase {
 					personsExpectation.fulfill()
 				}
 			}
-		
+
 		let completionExpectation = expectation(description: "completion called")
 		healthCertificateRequestService.executeTestCertificateRequest(
 			testCertificateRequest,
@@ -566,24 +666,23 @@ class HealthCertificateRequestServiceTests: CWATestCase {
 				completionExpectation.fulfill()
 			}
 		)
-		
+
 		waitForExpectations(timeout: .medium)
-		
+
 		personsSubscription.cancel()
-		
+
 		XCTAssertEqual(testCertificateRequest.rsaKeyPair, keyPair)
-		
+
 		XCTAssertEqual(
 			try XCTUnwrap(healthCertificateService.healthCertifiedPersons.first).healthCertificates.first?.base45,
 			base45TestCertificate
 		)
 		XCTAssertTrue(healthCertificateRequestService.testCertificateRequests.isEmpty)
 	}
-	
+
 	func testTestCertificateExecution_GettingCertificateFailsTwiceWithPending() throws {
 		let store = MockTestStore()
-		let client = ClientMock()
-		
+
 		let keyPair = try DCCRSAKeyPair(registrationToken: "registrationToken")
 		let testCertificateRequest = TestCertificateRequest(
 			coronaTestType: .antigen,
@@ -592,20 +691,32 @@ class HealthCertificateRequestServiceTests: CWATestCase {
 			rsaKeyPair: keyPair,
 			rsaPublicKeyRegistered: true
 		)
-		
+
 		store.testCertificateRequests = [testCertificateRequest]
-		
+
 		let getDigitalCovid19CertificateExpectation = expectation(description: "getDigitalCovid19Certificate called")
 		getDigitalCovid19CertificateExpectation.expectedFulfillmentCount = 2
-		client.onGetDigitalCovid19Certificate = { _, _, completion in
-			getDigitalCovid19CertificateExpectation.fulfill()
-			completion(.failure(.dccPending))
-		}
-		
+
+		let loadResource = LoadResource(
+			result: .failure(ServiceError.receivedResourceError(DigitalCovid19CertificateError.dccPending)),
+			willLoadResource: { resource in
+				guard resource is DigitalCovid19CertificateResource else {
+					XCTFail("wrong resource type")
+					return
+				}
+
+				getDigitalCovid19CertificateExpectation.fulfill()
+			}
+		)
+
+		let restServiceProvider = RestServiceProviderStub(
+			loadResources: [loadResource, loadResource]
+		)
+
 		var config = CachedAppConfigurationMock.defaultAppConfiguration
 		config.dgcParameters.testCertificateParameters.waitForRetryInSeconds = 1
 		let appConfig = CachedAppConfigurationMock(with: config)
-		
+
 		let healthCertificateService = HealthCertificateService(
 			store: store,
 			dccSignatureVerifier: DCCSignatureVerifyingStub(),
@@ -615,14 +726,14 @@ class HealthCertificateRequestServiceTests: CWATestCase {
 			recycleBin: .fake(),
 			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
-		
+
 		let healthCertificateRequestService = HealthCertificateRequestService(
 			store: store,
-			client: client,
+			restServiceProvider: restServiceProvider,
 			appConfiguration: appConfig,
 			healthCertificateService: healthCertificateService
 		)
-		
+
 		let completionExpectation = expectation(description: "completion called")
 		healthCertificateRequestService.executeTestCertificateRequest(
 			testCertificateRequest,
@@ -633,25 +744,24 @@ class HealthCertificateRequestServiceTests: CWATestCase {
 					XCTFail("Request expected to fail")
 				case .failure(let error):
 					if case .certificateRequestFailed(let certificateRequestError) = error,
-					   case .dccPending = certificateRequestError {} else {
+					   case .receivedResourceError(.dccPending) = certificateRequestError {} else {
 						   XCTFail("DCC pending error on certificate request expected")
 					   }
 				}
 				completionExpectation.fulfill()
 			}
 		)
-		
+
 		waitForExpectations(timeout: .medium)
-		
+
 		XCTAssertEqual(healthCertificateRequestService.testCertificateRequests.first, testCertificateRequest)
 		XCTAssertTrue(testCertificateRequest.requestExecutionFailed)
 		XCTAssertFalse(testCertificateRequest.isLoading)
 	}
-	
+
 	func testTestCertificateExecution_AssemblyFails_Base64DecodingFailed() throws {
 		let store = MockTestStore()
-		let client = ClientMock()
-		
+
 		let keyPair = try DCCRSAKeyPair(registrationToken: "registrationToken")
 		let testCertificateRequest = TestCertificateRequest(
 			coronaTestType: .antigen,
@@ -662,17 +772,11 @@ class HealthCertificateRequestServiceTests: CWATestCase {
 			encryptedDEK: "dataEncryptionKey",
 			encryptedCOSE: ""
 		)
-		
+
 		store.testCertificateRequests = [testCertificateRequest]
-		
-		let getDigitalCovid19CertificateExpectation = expectation(description: "getDigitalCovid19Certificate called")
-		getDigitalCovid19CertificateExpectation.isInverted = true
-		client.onGetDigitalCovid19Certificate = { _, _, _ in
-			getDigitalCovid19CertificateExpectation.fulfill()
-		}
-		
+
 		let appConfig = CachedAppConfigurationMock()
-		
+
 		let healthCertificateService = HealthCertificateService(
 			store: store,
 			dccSignatureVerifier: DCCSignatureVerifyingStub(),
@@ -682,14 +786,14 @@ class HealthCertificateRequestServiceTests: CWATestCase {
 			recycleBin: .fake(),
 			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
-		
+
 		let healthCertificateRequestService = HealthCertificateRequestService(
 			store: store,
-			client: client,
+			restServiceProvider: RestServiceProviderStub(),
 			appConfiguration: appConfig,
 			healthCertificateService: healthCertificateService
 		)
-		
+
 		let completionExpectation = expectation(description: "completion called")
 		healthCertificateRequestService.executeTestCertificateRequest(
 			testCertificateRequest,
@@ -706,18 +810,17 @@ class HealthCertificateRequestServiceTests: CWATestCase {
 				completionExpectation.fulfill()
 			}
 		)
-		
+
 		waitForExpectations(timeout: .medium)
-		
+
 		XCTAssertEqual(healthCertificateRequestService.testCertificateRequests.first, testCertificateRequest)
 		XCTAssertTrue(testCertificateRequest.requestExecutionFailed)
 		XCTAssertFalse(testCertificateRequest.isLoading)
 	}
-	
+
 	func testTestCertificateExecution_AssemblyFails_DecryptionFailed() throws {
 		let store = MockTestStore()
-		let client = ClientMock()
-		
+
 		let keyPair = try DCCRSAKeyPair(registrationToken: "registrationToken")
 		let testCertificateRequest = TestCertificateRequest(
 			coronaTestType: .antigen,
@@ -728,17 +831,11 @@ class HealthCertificateRequestServiceTests: CWATestCase {
 			encryptedDEK: "",
 			encryptedCOSE: ""
 		)
-		
+
 		store.testCertificateRequests = [testCertificateRequest]
-		
-		let getDigitalCovid19CertificateExpectation = expectation(description: "getDigitalCovid19Certificate called")
-		getDigitalCovid19CertificateExpectation.isInverted = true
-		client.onGetDigitalCovid19Certificate = { _, _, _ in
-			getDigitalCovid19CertificateExpectation.fulfill()
-		}
-		
+
 		let appConfig = CachedAppConfigurationMock()
-		
+
 		let healthCertificateService = HealthCertificateService(
 			store: store,
 			dccSignatureVerifier: DCCSignatureVerifyingStub(),
@@ -748,14 +845,14 @@ class HealthCertificateRequestServiceTests: CWATestCase {
 			recycleBin: .fake(),
 			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
-		
+
 		let healthCertificateRequestService = HealthCertificateRequestService(
 			store: store,
-			client: client,
+			restServiceProvider: RestServiceProviderStub(),
 			appConfiguration: appConfig,
 			healthCertificateService: healthCertificateService
 		)
-		
+
 		let completionExpectation = expectation(description: "completion called")
 		healthCertificateRequestService.executeTestCertificateRequest(
 			testCertificateRequest,
@@ -772,18 +869,17 @@ class HealthCertificateRequestServiceTests: CWATestCase {
 				completionExpectation.fulfill()
 			}
 		)
-		
+
 		waitForExpectations(timeout: .medium)
-		
+
 		XCTAssertEqual(healthCertificateRequestService.testCertificateRequests.first, testCertificateRequest)
 		XCTAssertTrue(testCertificateRequest.requestExecutionFailed)
 		XCTAssertFalse(testCertificateRequest.isLoading)
 	}
-	
+
 	func testTestCertificateExecution_AssemblyFails_AssemblyFailed() throws {
 		let store = MockTestStore()
-		let client = ClientMock()
-		
+
 		let keyPair = try DCCRSAKeyPair(registrationToken: "registrationToken")
 		let testCertificateRequest = TestCertificateRequest(
 			coronaTestType: .antigen,
@@ -794,20 +890,14 @@ class HealthCertificateRequestServiceTests: CWATestCase {
 			encryptedDEK: try keyPair.encrypt(Data()).base64EncodedString(),
 			encryptedCOSE: ""
 		)
-		
+
 		store.testCertificateRequests = [testCertificateRequest]
-		
-		let getDigitalCovid19CertificateExpectation = expectation(description: "getDigitalCovid19Certificate called")
-		getDigitalCovid19CertificateExpectation.isInverted = true
-		client.onGetDigitalCovid19Certificate = { _, _, _ in
-			getDigitalCovid19CertificateExpectation.fulfill()
-		}
-		
+
 		var digitalCovidCertificateAccess = MockDigitalCovidCertificateAccess()
 		digitalCovidCertificateAccess.convertedToBase45 = .failure(.AES_DECRYPTION_FAILED)
-		
+
 		let appConfig = CachedAppConfigurationMock()
-		
+
 		let healthCertificateService = HealthCertificateService(
 			store: store,
 			dccSignatureVerifier: DCCSignatureVerifyingStub(),
@@ -818,15 +908,15 @@ class HealthCertificateRequestServiceTests: CWATestCase {
 			recycleBin: .fake(),
 			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
-		
+
 		let healthCertificateRequestService = HealthCertificateRequestService(
 			store: store,
-			client: client,
+			restServiceProvider: RestServiceProviderStub(),
 			appConfiguration: appConfig,
 			digitalCovidCertificateAccess: digitalCovidCertificateAccess,
 			healthCertificateService: healthCertificateService
 		)
-		
+
 		let completionExpectation = expectation(description: "completion called")
 		healthCertificateRequestService.executeTestCertificateRequest(
 			testCertificateRequest,
@@ -844,18 +934,18 @@ class HealthCertificateRequestServiceTests: CWATestCase {
 				completionExpectation.fulfill()
 			}
 		)
-		
+
 		waitForExpectations(timeout: .medium)
-		
+
 		XCTAssertEqual(healthCertificateRequestService.testCertificateRequests.first, testCertificateRequest)
 		XCTAssertTrue(testCertificateRequest.requestExecutionFailed)
 		XCTAssertFalse(testCertificateRequest.isLoading)
 	}
-	
+
 	func testTestCertificateExecution_PCRAndNoLabId_dgcNotSupportedByLabErrorReturned() {
 		let store = MockTestStore()
 		let appConfig = CachedAppConfigurationMock()
-		
+
 		let healthCertificateService = HealthCertificateService(
 			store: store,
 			dccSignatureVerifier: DCCSignatureVerifyingStub(),
@@ -865,14 +955,14 @@ class HealthCertificateRequestServiceTests: CWATestCase {
 			recycleBin: .fake(),
 			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
-		
+
 		let healthCertificateRequestService = HealthCertificateRequestService(
 			store: store,
-			client: ClientMock(),
+			restServiceProvider: RestServiceProviderStub(),
 			appConfiguration: appConfig,
 			healthCertificateService: healthCertificateService
 		)
-		
+
 		let completionExpectation = expectation(description: "Completion is called.")
 		healthCertificateRequestService.registerAndExecuteTestCertificateRequest(
 			coronaTestType: .pcr,
@@ -889,41 +979,67 @@ class HealthCertificateRequestServiceTests: CWATestCase {
 			}
 			completionExpectation.fulfill()
 		}
-		
+
 		waitForExpectations(timeout: .short)
-		
+
 		XCTAssertEqual(healthCertificateRequestService.testCertificateRequests.count, 1)
 		XCTAssertTrue(healthCertificateRequestService.testCertificateRequests[0].requestExecutionFailed)
 		XCTAssertFalse(healthCertificateRequestService.testCertificateRequests[0].isLoading)
 	}
-	
+
 	func testTestCertificateRegistrationAndExecution_SignatureNotCheckedOnRegistration() throws {
-		let client = ClientMock()
-		
 		var keyPair: DCCRSAKeyPair?
-		
+
+		let registerPublicKeyExpectation = expectation(description: "dccRegisterPublicKey called")
 		let getDigitalCovid19CertificateExpectation = expectation(description: "getDigitalCovid19Certificate called")
-		client.onGetDigitalCovid19Certificate = { _, _, completion in
-			let dek = (try? keyPair?.encrypt(Data()).base64EncodedString()) ?? ""
-			getDigitalCovid19CertificateExpectation.fulfill()
-			completion(.success((DCCResponse(dek: dek, dcc: "coseObject"))))
-		}
-		
+
+		let restServiceProvider = RestServiceProviderStub(
+			loadResources: [
+				LoadResource(
+					result: .success(()),
+					willLoadResource: { resource in
+						guard resource is DCCPublicKeyRegistrationResource else {
+							XCTFail("wrong resource type")
+							return
+						}
+
+						registerPublicKeyExpectation.fulfill()
+					}
+				),
+				LoadResource(
+					result: .success(
+						DigitalCovid19CertificateReceiveModel(
+							dek: (try? keyPair?.encrypt(Data()).base64EncodedString()) ?? "",
+							dcc: "coseObject"
+						)
+					),
+					willLoadResource: { resource in
+						guard resource is DigitalCovid19CertificateResource else {
+							XCTFail("wrong resource type")
+							return
+						}
+
+						getDigitalCovid19CertificateExpectation.fulfill()
+					}
+				)
+			]
+		)
+
 		var config = CachedAppConfigurationMock.defaultAppConfiguration
 		config.dgcParameters.testCertificateParameters.waitAfterPublicKeyRegistrationInSeconds = 1
 		config.dgcParameters.testCertificateParameters.waitForRetryInSeconds = 1
 		let appConfig = CachedAppConfigurationMock(with: config)
-		
+
 		let base45TestCertificate = try base45Fake(
 			digitalCovidCertificate: DigitalCovidCertificate.fake(
 				testEntries: [TestEntry.fake()]
 			)
 		)
-		
+
 		var digitalCovidCertificateAccess = MockDigitalCovidCertificateAccess()
 		digitalCovidCertificateAccess.convertedToBase45 = .success(base45TestCertificate)
 		let store = MockTestStore()
-		
+
 		let healthCertificateService = HealthCertificateService(
 			store: store,
 			dccSignatureVerifier: DCCSignatureVerifyingStub(),
@@ -934,22 +1050,22 @@ class HealthCertificateRequestServiceTests: CWATestCase {
 			recycleBin: .fake(),
 			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
-		
+
 		let healthCertificateRequestService = HealthCertificateRequestService(
 			store: store,
-			client: client,
+			restServiceProvider: restServiceProvider,
 			appConfiguration: appConfig,
 			digitalCovidCertificateAccess: digitalCovidCertificateAccess,
 			healthCertificateService: healthCertificateService
 		)
-		
+
 		let requestsSubscription = healthCertificateRequestService.$testCertificateRequests
 			.sink {
 				if let requestWithKeyPair = $0.first(where: { $0.rsaKeyPair != nil }) {
 					keyPair = requestWithKeyPair.rsaKeyPair
 				}
 			}
-		
+
 		let completionExpectation = expectation(description: "registerAndExecuteTestCertificateRequest completion called")
 		healthCertificateRequestService.registerAndExecuteTestCertificateRequest(
 			coronaTestType: .pcr,
@@ -961,56 +1077,82 @@ class HealthCertificateRequestServiceTests: CWATestCase {
 			if case .failure = result {
 				XCTFail("Success expected")
 			}
-			
+
 			completionExpectation.fulfill()
 		}
-		
+
 		waitForExpectations(timeout: .medium)
-		
+
 		requestsSubscription.cancel()
-		
+
 		XCTAssertEqual(
 			try XCTUnwrap(healthCertificateService.healthCertifiedPersons.first).healthCertificates.first?.base45,
 			base45TestCertificate
 		)
 		XCTAssertTrue(healthCertificateRequestService.testCertificateRequests.isEmpty)
 	}
-	
+
 	func testTestCertificateRegistrationAndExecution_MaxPersonCountNotConsideredOnRegistration() throws {
-		let client = ClientMock()
-		
 		var keyPair: DCCRSAKeyPair?
-		
+
+		let registerPublicKeyExpectation = expectation(description: "dccRegisterPublicKey called")
 		let getDigitalCovid19CertificateExpectation = expectation(description: "getDigitalCovid19Certificate called")
-		client.onGetDigitalCovid19Certificate = { _, _, completion in
-			let dek = (try? keyPair?.encrypt(Data()).base64EncodedString()) ?? ""
-			getDigitalCovid19CertificateExpectation.fulfill()
-			completion(.success((DCCResponse(dek: dek, dcc: "coseObject"))))
-		}
-		
+
+		let restServiceProvider = RestServiceProviderStub(
+			loadResources: [
+				LoadResource(
+					result: .success(()),
+					willLoadResource: { resource in
+						guard resource is DCCPublicKeyRegistrationResource else {
+							XCTFail("wrong resource type")
+							return
+						}
+
+						registerPublicKeyExpectation.fulfill()
+					}
+				),
+				LoadResource(
+					result: .success(
+						DigitalCovid19CertificateReceiveModel(
+							dek: (try? keyPair?.encrypt(Data()).base64EncodedString()) ?? "",
+							dcc: "coseObject"
+						)
+					),
+					willLoadResource: { resource in
+						guard resource is DigitalCovid19CertificateResource else {
+							XCTFail("wrong resource type")
+							return
+						}
+
+						getDigitalCovid19CertificateExpectation.fulfill()
+					}
+				)
+			]
+		)
+
 		var maxCountFeature = SAP_Internal_V2_AppFeature()
 		maxCountFeature.label = "dcc-person-count-max"
 		maxCountFeature.value = 1
-		
+
 		var appFeatures = SAP_Internal_V2_AppFeatures()
 		appFeatures.appFeatures = [maxCountFeature]
-		
+
 		var config = CachedAppConfigurationMock.defaultAppConfiguration
 		config.dgcParameters.testCertificateParameters.waitAfterPublicKeyRegistrationInSeconds = 1
 		config.dgcParameters.testCertificateParameters.waitForRetryInSeconds = 1
 		config.appFeatures = appFeatures
 		let appConfig = CachedAppConfigurationMock(with: config)
-		
+
 		let base45TestCertificate = try base45Fake(
 			digitalCovidCertificate: DigitalCovidCertificate.fake(
 				dateOfBirth: "1970-03-26",
 				testEntries: [TestEntry.fake()]
 			)
 		)
-		
+
 		var digitalCovidCertificateAccess = MockDigitalCovidCertificateAccess()
 		digitalCovidCertificateAccess.convertedToBase45 = .success(base45TestCertificate)
-		
+
 		let store = MockTestStore()
 		store.healthCertifiedPersons = [
 			HealthCertifiedPerson(
@@ -1018,7 +1160,7 @@ class HealthCertificateRequestServiceTests: CWATestCase {
 				boosterRule: .fake()
 			)
 		]
-		
+
 		let healthCertificateService = HealthCertificateService(
 			store: store,
 			dccSignatureVerifier: DCCSignatureVerifyingStub(),
@@ -1030,22 +1172,22 @@ class HealthCertificateRequestServiceTests: CWATestCase {
 			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
 		healthCertificateService.syncSetup()
-		
+
 		let healthCertificateRequestService = HealthCertificateRequestService(
 			store: store,
-			client: client,
+			restServiceProvider: restServiceProvider,
 			appConfiguration: appConfig,
 			digitalCovidCertificateAccess: digitalCovidCertificateAccess,
 			healthCertificateService: healthCertificateService
 		)
-		
+
 		let requestsSubscription = healthCertificateRequestService.$testCertificateRequests
 			.sink {
 				if let requestWithKeyPair = $0.first(where: { $0.rsaKeyPair != nil }) {
 					keyPair = requestWithKeyPair.rsaKeyPair
 				}
 			}
-		
+
 		let completionExpectation = expectation(description: "registerAndExecuteTestCertificateRequest completion called")
 		healthCertificateRequestService.registerAndExecuteTestCertificateRequest(
 			coronaTestType: .pcr,
@@ -1057,14 +1199,14 @@ class HealthCertificateRequestServiceTests: CWATestCase {
 			if case .failure = result {
 				XCTFail("Success expected")
 			}
-			
+
 			completionExpectation.fulfill()
 		}
-		
+
 		waitForExpectations(timeout: .medium)
-		
+
 		requestsSubscription.cancel()
-		
+
 		XCTAssertEqual(healthCertificateService.healthCertifiedPersons.count, 2)
 		XCTAssertTrue(healthCertificateRequestService.testCertificateRequests.isEmpty)
 	}
