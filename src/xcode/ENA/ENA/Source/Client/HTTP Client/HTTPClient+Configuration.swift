@@ -30,10 +30,6 @@ extension HTTPClient {
 				errorLogSubmission: .init(
 					baseURL: environmentProvider.currentEnvironment().errorLogSubmissionURL,
 					requiresTrailingSlash: false
-				),
-				dcc: .init(
-					baseURL: environmentProvider.currentEnvironment().dccURL,
-					requiresTrailingSlash: false
 				)
 			)
 
@@ -288,26 +284,6 @@ extension HTTPClient {
 					"value-sets"
 				)
 		}
-
-		var dccPublicKeyURL: URL {
-			endpoints
-				.dcc
-				.appending(
-					"version",
-					apiVersion,
-					"publicKey"
-				)
-		}
-		
-		var DCCURL: URL {
-			endpoints
-				.dcc
-				.appending(
-					"version",
-					apiVersion,
-					"dcc"
-				)
-		}
 		
 		var DSCListURL: URL {
 			endpoints
@@ -364,6 +340,5 @@ extension HTTPClient.Configuration {
 		let verification: Endpoint
 		let dataDonation: Endpoint
 		let errorLogSubmission: Endpoint
-		let dcc: Endpoint
 	}
 }
