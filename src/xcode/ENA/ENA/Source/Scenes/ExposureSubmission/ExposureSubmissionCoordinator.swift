@@ -1149,6 +1149,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 					self?.showDataPrivacy()
 				}
 			),
+			shouldHandleKeyboard: false,
 			showCancelAlert: { [weak self] in
 				self?.showEndRegistrationAlert(
 					submitAction: UIAlertAction(

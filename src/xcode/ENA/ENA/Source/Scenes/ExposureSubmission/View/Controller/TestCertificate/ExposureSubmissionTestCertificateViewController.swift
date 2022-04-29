@@ -11,6 +11,7 @@ class ExposureSubmissionTestCertificateViewController: DynamicTableViewControlle
 
 	init(
 		_ viewModel: ExposureSubmissionTestCertificateViewModel,
+		shouldHandleKeyboard: Bool,
 		showCancelAlert: @escaping () -> Void,
 		didTapPrimaryButton: @escaping (String?, @escaping (Bool) -> Void) -> Void,
 		didTapSecondaryButton: @escaping (@escaping (Bool) -> Void) -> Void
@@ -20,6 +21,8 @@ class ExposureSubmissionTestCertificateViewController: DynamicTableViewControlle
 		self.didTapPrimaryButton = didTapPrimaryButton
 		self.didTapSecondaryButton = didTapSecondaryButton
 		super.init(nibName: nil, bundle: nil)
+		
+		self.shouldHandleKeyboard = shouldHandleKeyboard
 	}
 
 	@available(*, unavailable)
