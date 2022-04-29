@@ -236,7 +236,7 @@ class HealthCertificateRequestService {
 
 			let resource = DCCPublicKeyRegistrationResource(
 				sendModel: DCCPublicKeyRegistrationSendModel(
-					token: testCertificateRequest.registrationToken,
+					registrationToken: testCertificateRequest.registrationToken,
 					publicKey: publicKey
 				)
 			)
@@ -312,7 +312,7 @@ class HealthCertificateRequestService {
 
 		let resource = DigitalCovid19CertificateResource(
 			sendModel: DigitalCovid19CertificateSendModel(
-				token: testCertificateRequest.registrationToken
+				registrationToken: testCertificateRequest.registrationToken
 			)
 		)
 		restServiceProvider.load(resource) { [weak self] result in

@@ -7,10 +7,10 @@ struct DCCPublicKeyRegistrationSendModel: PaddingResource {
 	// MARK: - Init
 
 	init(
-		token: String,
+		registrationToken: String,
 		publicKey: String
 	) {
-		self.token = token
+		self.registrationToken = registrationToken
 		self.publicKey = publicKey
 	}
 
@@ -21,7 +21,7 @@ struct DCCPublicKeyRegistrationSendModel: PaddingResource {
 	// MARK: - Internal
 
 	// Don't change these names, they are used as keys for a http request.
-	let token: String
+	let registrationToken: String
 	let publicKey: String
 
 }

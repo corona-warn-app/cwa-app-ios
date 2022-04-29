@@ -7,9 +7,9 @@ struct DigitalCovid19CertificateSendModel: PaddingResource {
 	// MARK: - Init
 
 	init(
-		token: String
+		registrationToken: String
 	) {
-		self.registrationToken = token
+		self.registrationToken = registrationToken
 	}
 
 	// MARK: - Protocol PaddingResource
@@ -20,4 +20,5 @@ struct DigitalCovid19CertificateSendModel: PaddingResource {
 
 	// Don't change these names, they are used as keys for a http request.
 	let registrationToken: String
+
 }
