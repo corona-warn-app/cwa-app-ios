@@ -13,18 +13,15 @@ final class ClientMock {
 	/// Creates a mock `Client` implementation with given default values.
 	///
 	/// - parameters:
-	///		- availableDaysAndHours: return this value when the `availableDays(_:)` or `availableHours(_:)` is called, or an error if `urlRequestFailure` is passed.
 	///		- downloadedPackage: return this value when `fetchDay(_:)` or `fetchHour(_:)` is called, or an error if `urlRequestFailure` is passed.
 	///		- submissionError: when set, `submit(_:)` will fail with this error.
 	///		- urlRequestFailure: when set, calls (see above) will fail with this error
 	init(
-		availableDaysAndHours: DaysAndHours = DaysAndHours(days: [], hours: []),
 		downloadedPackage: PackageDownloadResponse? = nil,
 		submissionError: SubmissionError? = nil,
 		availablePackageRequestFailure: Client.Failure? = nil,
 		fetchPackageRequestFailure: Client.Failure? = nil
 	) {
-		self.availableDaysAndHours = availableDaysAndHours
 		self.downloadedPackage = downloadedPackage
 		self.availablePackageRequestFailure = availablePackageRequestFailure
 		self.fetchPackageRequestFailure = fetchPackageRequestFailure
@@ -41,7 +38,6 @@ final class ClientMock {
 	var submissionResponse: KeySubmissionResponse?
 	var availablePackageRequestFailure: Client.Failure?
 	var fetchPackageRequestFailure: Client.Failure?
-	var availableDaysAndHours: DaysAndHours = DaysAndHours(days: [], hours: [])
 	var downloadedPackage: PackageDownloadResponse?
 	lazy var supportedCountries: [Country] = {
 		// provide a default list of some countries
@@ -111,11 +107,7 @@ extension ClientMock: Client {
 	private static let dummyResponse = PackageDownloadResponse(package: SAPDownloadedPackage(keysBin: Data(), signature: Data()), etag: "\"etag\"")
 
 	func availableHours(day: String, country: String, completion: @escaping AvailableHoursCompletionHandler) {
-		if let failure = availablePackageRequestFailure {
-			completion(.failure(failure))
-			return
-		}
-		completion(.success(availableDaysAndHours.hours))
+		fatalError("No longer supported - gets removed at end of stroy")
 	}
 
 	func fetchDay(_ day: String, forCountry country: String, completion: @escaping DayCompletionHandler) {
