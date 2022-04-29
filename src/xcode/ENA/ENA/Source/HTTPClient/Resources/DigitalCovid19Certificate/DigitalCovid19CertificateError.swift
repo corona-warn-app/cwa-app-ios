@@ -5,16 +5,13 @@
 import Foundation
 
 enum DigitalCovid19CertificateError: Error, Equatable {
-    case urlCreationFailed
     case unhandledResponse(Int)
-    case jsonError
     case dccPending
     case badRequest
     case tokenDoesNotExist
     case dccAlreadyCleanedUp
     case testResultNotYetReceived
     case internalServerError(reason: String?)
-    case defaultServerError(Error)
     case noNetworkConnection
 
     // MARK: - Protocol Equatable

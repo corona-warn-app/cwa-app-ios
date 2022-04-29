@@ -126,12 +126,8 @@ enum HealthCertificateServiceError: Error {
 				}
 			case .certificateRequestFailed(let certificateError):
 				switch certificateError {
-				case .receivedResourceError(.urlCreationFailed):
-					return String(format: AppStrings.HealthCertificate.Overview.TestCertificateRequest.Error.tryAgain, "DCC_COMP_URL_CREATION_FAILED")
 				case .receivedResourceError(.unhandledResponse(let code)):
 					return String(format: AppStrings.HealthCertificate.Overview.TestCertificateRequest.Error.tryAgain, "DCC_COMP_FAILED (\(code))")
-				case .receivedResourceError(.jsonError):
-					return String(format: AppStrings.HealthCertificate.Overview.TestCertificateRequest.Error.tryAgain, "DCC_COMP_JSON_ERROR")
 				case .receivedResourceError(.dccPending):
 					return String(format: AppStrings.HealthCertificate.Overview.TestCertificateRequest.Error.tryAgainDCCNotAvailableYet, "DCC_COMP_202")
 				case .receivedResourceError(.badRequest):

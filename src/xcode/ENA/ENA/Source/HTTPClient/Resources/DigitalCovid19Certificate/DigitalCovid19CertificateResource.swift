@@ -87,7 +87,7 @@ struct DigitalCovid19CertificateResource: Resource {
 		case .transportationError:
 			return .noNetworkConnection
 		default:
-			return .defaultServerError(error)
+			return nil
 		}
 	}
 
