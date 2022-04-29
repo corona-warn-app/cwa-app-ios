@@ -8,9 +8,7 @@ import OpenCombine
 
 class DynamicTableViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 	
-	var dynamicTableViewModel = DynamicTableViewModel([])
-
-	@IBOutlet private(set) lazy var tableView: UITableView! = self.view as? UITableView
+	// MARK: - Overrides
 
 	override func loadView() {
 		if nil != nibName {
@@ -48,9 +46,25 @@ class DynamicTableViewController: UIViewController, UITableViewDataSource, UITab
 		tableView.register(DynamicTableViewBulletPointCell.self, forCellReuseIdentifier: DynamicCell.CellReuseIdentifier.bulletPoint.rawValue)
 		tableView.register(DynamicTableViewHeadlineWithImageCell.self, forCellReuseIdentifier: DynamicCell.CellReuseIdentifier.headlineWithImage.rawValue)
 		tableView.register(DynamicTableViewDoubleLabelViewCell.self, forCellReuseIdentifier: DynamicCell.CellReuseIdentifier.doubleLabel.rawValue)
-
-		setupKeyboardAvoidance()
+		
+		if shouldHandleKeyboard {
+			setupKeyboardAvoidance()
+		}
 	}
+	
+	// MARK: - Internal
+	
+	var dynamicTableViewModel = DynamicTableViewModel([])
+	var shouldHandleKeyboard: Bool = true
+	
+	func removeKeyboardAvoidance() {
+		keyboardSubscriptions.forEach { $0.cancel() }
+	}
+
+	// MARK: - Private
+	
+	private var keyboardSubscriptions = Set<AnyCancellable>()
+	@IBOutlet private(set) lazy var tableView: UITableView! = self.view as? UITableView
 
 	private func setupKeyboardAvoidance() {
 		NotificationCenter.default.ocombine.publisher(for: UIApplication.keyboardWillShowNotification)
@@ -102,10 +116,6 @@ class DynamicTableViewController: UIViewController, UITableViewDataSource, UITab
 			}
 			.store(in: &keyboardSubscriptions)
 	}
-
-	// MARK: - Private
-
-	private var keyboardSubscriptions = Set<AnyCancellable>()
 
 }
 
