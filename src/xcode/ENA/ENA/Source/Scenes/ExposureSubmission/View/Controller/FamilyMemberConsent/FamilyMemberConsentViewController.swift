@@ -11,6 +11,7 @@ class FamilyMemberConsentViewController: DynamicTableViewController, DismissHand
 
 	init(
 		viewModel: FamilyMemberConsentViewModel,
+		shouldHandleKeyboard: Bool,
 		dismiss: @escaping () -> Void,
 		didTapDataPrivacy: @escaping () -> Void,
 		didTapSubmit: @escaping (String) -> Void
@@ -20,6 +21,8 @@ class FamilyMemberConsentViewController: DynamicTableViewController, DismissHand
 		self.didTapSubmit = didTapSubmit
 		
 		super.init(nibName: nil, bundle: nil)
+		
+		self.shouldHandleKeyboard = shouldHandleKeyboard
 	}
 
 	@available(*, unavailable)
