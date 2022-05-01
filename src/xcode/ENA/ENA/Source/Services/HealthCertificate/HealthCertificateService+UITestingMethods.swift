@@ -245,7 +245,6 @@ extension HealthCertificateService {
 					faqAnchor: "certificateReissuance"
 				),
 				// TODO mock for tests in EXPOSUREAPP-12914
-				action: "",
 				certificates: []
 			),
 			certificatesRevokedByInvalidationRules: dccWalletInfo.certificatesRevokedByInvalidationRules

@@ -72,10 +72,7 @@ final class DMNHCViewModel {
 						Log.error("Could not get matching person")
 						return
 					}
-					guard let action = firstPerson.dccWalletInfo?.certificateReissuance?.action else {
-						Log.error("dccWalletinfo is nil")
-						return
-					}
+					// TODO update as the new model
 					let sendModel = DCCReissuanceSendModel(
 						action: action,
 						certificates: [firstVaccinationCertificate.base45]

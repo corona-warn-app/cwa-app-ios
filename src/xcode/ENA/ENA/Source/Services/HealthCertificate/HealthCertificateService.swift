@@ -12,6 +12,7 @@ public let kCurrentHealthCertifiedPersonsVersion = 3
 
 protocol HealthCertificateServiceServable {
 	func replaceHealthCertificate(
+		requestCertificates: [String],
 		with newCertificates: [DCCReissuanceCertificate],
 		for person: HealthCertifiedPerson,
 		markAsNew: Bool,
@@ -264,13 +265,14 @@ class HealthCertificateService: HealthCertificateServiceServable {
 	}
 	
 	func replaceHealthCertificate(
-		with newCertificates: [DCCReissuanceCertificate],
+		requestCertificates: [String],
+		with responseCertificates: [DCCReissuanceCertificate],
 		for person: HealthCertifiedPerson,
 		markAsNew: Bool,
 		completedNotificationRegistration: @escaping () -> Void
 	) throws {
-		for newCertificateRef in newCertificates {
-			let newHealthCertificate = try HealthCertificate(base45: newCertificateRef.certificate, isNew: markAsNew)
+		for certificateRef in responseCertificates {
+			let newHealthCertificate = try HealthCertificate(base45: certificateRef.certificate, isNew: markAsNew)
 			if !person.healthCertificates.contains(newHealthCertificate) {
 				person.healthCertificates.append(newHealthCertificate)
 			}
@@ -288,21 +290,22 @@ class HealthCertificateService: HealthCertificateServiceServable {
 				}
 			)
 			
-			for relation in newCertificateRef.relations where relation.action == "replace" {
+			for relation in certificateRef.relations where relation.action == "replace" {
 				
-				if let certificateReferenceToBeRemoved = person.dccWalletInfo?.certificateReissuance?.certificates[relation.index],
-				   let base45 = certificateReferenceToBeRemoved.certificateRef.barcodeData {
-					let oldHealthCertificate = try HealthCertificate(base45: base45, isNew: markAsNew)
-					
+				if relation.index < requestCertificates.count {
+					let certificateBase45 = requestCertificates[relation.index]
+					let certificateToBeRemoved = try HealthCertificate(base45: certificateBase45, isNew: markAsNew)
 					dispatchGroup.enter()
 					healthCertificateNotificationService.removeAllNotifications(
-						for: oldHealthCertificate,
+						for: certificateToBeRemoved,
 						completion: {
 							dispatchGroup.leave()
 						}
 					)
 					
-					recycleBin.moveToBin(.certificate(oldHealthCertificate))
+					recycleBin.moveToBin(.certificate(certificateToBeRemoved))
+				} else {
+					Log.error("index of certificate to be deleted is out of Bounds", log: .vaccination)
 				}
 			}
 			

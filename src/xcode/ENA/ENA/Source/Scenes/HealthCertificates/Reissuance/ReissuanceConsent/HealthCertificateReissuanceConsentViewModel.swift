@@ -128,50 +128,66 @@ final class HealthCertificateReissuanceConsentViewModel {
 					publicKeyHash: appConfig.dgcParameters.reissueServicePublicKeyDigest,
 					certificatePosition: 0
 				)
-				
-				guard let reissuanceAction = self.certifiedPerson.dccWalletInfo?.certificateReissuance?.action else {
+				guard let wallet = self.certifiedPerson.dccWalletInfo else {
 					Log.error("Reissuance request failed due to dccWalletInfo being nil", log: .vaccination)
 					return
 				}
-
-				let currentCertificates = self.certifiedPerson.dccWalletInfo?.certificateReissuance?.certificates.compactMap {
-					$0.certificateRef.barcodeData
-				} ?? []
+				guard let currentCertificates = wallet.certificateReissuance?.certificates else {
+					Log.error("Reissuance request failed due to certificates being nil", log: .vaccination)
+					return
+				}
 				
-				let sendModel = DCCReissuanceSendModel(action: reissuanceAction, certificates: currentCertificates)
-				let resource = DCCReissuanceResource(
-					sendModel: sendModel,
-					trustEvaluation: trustEvaluation
-				)
-				
-				self.restServiceProvider.load(resource) { [weak self] result in
-					guard let self = self else {
-						completion(.failure(.submitFailedError))
-						Log.error("Reissuance request failed due to self being nil", log: .vaccination)
+				for certificate in currentCertificates {
+					guard let certificateToReissue = certificate.certificateToReissue.barcodeData else {
+						completion(.failure(.certificateToReissueMissing))
+						Log.error("Certificate reissuance failed: certificateToReissue.barcodeData is nil", log: .vaccination)
 						return
 					}
 					
-					switch result {
-					case .success(let certificates):
-						do {
-							try self.healthCertificateService.replaceHealthCertificate(
-								with: certificates,
-								for: self.certifiedPerson,
-								markAsNew: true,
-								completedNotificationRegistration: { }
-							)
-							
-							completion(.success(()))
-							
-							Log.error("Certificate reissuance was successful.", log: .vaccination)
-						} catch {
-							completion(.failure(.replaceHealthCertificateError(error)))
-							Log.error("Replacing the certificate with a reissued certificate failed in service", log: .vaccination, error: error)
+					let accompanyingCertificates = certificate.accompanyingCertificates.compactMap { $0.barcodeData }
+					
+					let certificates = [certificateToReissue] + accompanyingCertificates
+					let sendModel = DCCReissuanceSendModel(action: certificate.action, certificates: certificates)
+					let resource = DCCReissuanceResource(
+						sendModel: sendModel,
+						trustEvaluation: trustEvaluation
+					)
+					self.restServiceProvider.load(resource) { [weak self] result in
+						guard let self = self else {
+							completion(.failure(.submitFailedError))
+							Log.error("Reissuance request failed due to self being nil", log: .vaccination)
+							return
 						}
 						
-					case .failure(let error):
-						completion(.failure(.restServiceError(error)))
-						Log.error("Reissuance request failed", log: .vaccination, error: error)
+						switch result {
+						case .success(let certificates):
+							let certificate = certificates.first { certificate in
+								return certificate.relations.contains { relation in
+									relation.index == 0 && relation.action == "replace"
+								}
+							}
+							
+							do {
+								try self.healthCertificateService.replaceHealthCertificate(
+									requestCertificates: certificates,
+									with: certificate.certificate,
+									for: self.certifiedPerson,
+									markAsNew: true,
+									completedNotificationRegistration: { }
+								)
+								
+								completion(.success(()))
+								
+								Log.error("Certificate reissuance was successful.", log: .vaccination)
+							} catch {
+								completion(.failure(.replaceHealthCertificateError(error)))
+								Log.error("Replacing the certificate with a reissued certificate failed in service", log: .vaccination, error: error)
+							}
+							
+						case .failure(let error):
+							completion(.failure(.restServiceError(error)))
+							Log.error("Reissuance request failed", log: .vaccination, error: error)
+						}
 					}
 				}
 			}
