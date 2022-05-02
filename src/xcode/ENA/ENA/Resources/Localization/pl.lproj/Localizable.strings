@@ -1074,7 +1074,7 @@
 
 "ExposureSubmission_TestCertificate_Information_BirthdayText" = "Ze względów bezpieczeństwa certyfikat testu jest zabezpieczony za pomocą daty urodzenia. Certyfikat testu może zostać wydany tylko po podaniu prawidłowej daty urodzenia.";
 
-"ExposureSubmission_TestCertificate_Information_Dataprivacy_Title" = "Więcej informacji na temat przetwarzania danych znajduje się w oświadczeniu o ochronie prywatności.";
+"ExposureSubmission_TestCertificate_Information_Dataprivacy_Title" = "Szczegółowe informacje na temat przetwarzania danych i Twojej zgodzie";
 
 "ExposureSubmission_TestCertificate_Information_Alert_Title" = "Anuluj rejestrację";
 

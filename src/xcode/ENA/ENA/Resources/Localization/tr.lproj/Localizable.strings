@@ -1074,7 +1074,7 @@
 
 "ExposureSubmission_TestCertificate_Information_BirthdayText" = "Güvenlik amaçları nedeniyle test sertifikanız doğum tarihinizle korunmaktadır. Test sertifikası yalnızca doğru doğum tarihini belirtirseniz düzenlenebilir.";
 
-"ExposureSubmission_TestCertificate_Information_Dataprivacy_Title" = "Veri işleme hakkında daha ayrıntılı bilgi için lütfen gizlilik bildirimine başvurun.";
+"ExposureSubmission_TestCertificate_Information_Dataprivacy_Title" = "Veri İşleme ve Onayınız Hakkında Ayrıntılı Bilgiler";
 
 "ExposureSubmission_TestCertificate_Information_Alert_Title" = "Kaydı İptal Et";
 
