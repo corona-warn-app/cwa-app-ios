@@ -1010,6 +1010,8 @@
 /* Exposure Submission AntigenTest Profile Overview */
 "ExposureSubmission_Antigen_Profile_Overview_title" = "Rapid Test Profiles";
 
+"ExposureSubmission_Antigen_Profile_Card_title" = "Rapid Test Profile";
+
 "ExposureSubmission_Antigen_Profile_Overview_EmptyTitle" = "No rapid test profiles created yet";
 
 "ExposureSubmission_Antigen_Profile_Overview_EmptyDescription" = "You can create a rapid test profile with your personal data, which you can submit via QR code to every participating testing point.";
@@ -1027,7 +1029,7 @@
 
 "ExposureSubmission_Antigen_Profile_DateOfBirth_Format" = "Born %@";
 
-"ExposureSubmission_Antigen_Profile_Primary_Button" = "Continue";
+"ExposureSubmission_Antigen_Profile_Primary_Button" = "Scan Test";
 
 "ExposureSubmission_Antigen_Profile_Secondary_Button" = "Edit";
 
@@ -1036,7 +1038,7 @@
 
 "ExposureSubmission_Profile_CreateProfileTile_Description" = "Save your personal data as a QR code to speed up registration at testing points.";
 
-"ExposureSubmission_Profile_ProfileTile_Title" = "Rapid Test Profile";
+"ExposureSubmission_Profile_ProfileTile_Title" = "Rapid Test Profiles";
 
 "ExposureSubmission_Profile_ProfileTile_Description" = "Rapid test profile with your personal data, which you can submit to any participating testing point via the QR code.";
 
@@ -1072,7 +1074,7 @@
 
 "ExposureSubmission_TestCertificate_Information_BirthdayText" = "For security purposes, your test certificate is protected with your date of birth. The test certificate can only be issued if you specify the correct date of birth.";
 
-"ExposureSubmission_TestCertificate_Information_Dataprivacy_Title" = "For more detailed information about data processing, please refer to the privacy notice.";
+"ExposureSubmission_TestCertificate_Information_Dataprivacy_Title" = "Detailed Information on Data Processing and Your Consent";
 
 "ExposureSubmission_TestCertificate_Information_Alert_Title" = "Cancel Registration";
 
@@ -3205,9 +3207,11 @@
 
 "HealthCertificate_ValidityState_Invalid_description" = "The certificate was issued by an unauthorized body or was issued incorrectly. Please have an authorized body issue you a new certificate.";
 
-"HealthCertificate_ValidityState_Blocked" = "Certificate Invalid";
+"HealthCertificate_ValidityState_BlockedRevoked" = "Certificate Invalid";
 
-"HealthCertificate_ValidityState_Blocked_description" = "The certificate has been recalled by the issuing authority. Please get a new digital certificate.";
+"HealthCertificate_ValidityState_BlockedRevoked_description_de" = "The RKI has disabled the certificate as the result of a government decree. Please get a new digital certificate.";
+
+"HealthCertificate_ValidityState_BlockedRevoked_description_other" = "The issuing authority has disabled the certificate as the result of an administrative decision. Please get a new digital certificate.";
 
 /* Reissuance */
 /* HealthCertificate Resissuance Consent */

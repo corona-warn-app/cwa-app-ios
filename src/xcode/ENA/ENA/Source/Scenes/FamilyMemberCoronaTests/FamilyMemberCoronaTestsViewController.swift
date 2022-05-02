@@ -89,7 +89,7 @@ class FamilyMemberCoronaTestsViewController: UITableViewController, FooterViewHa
 
 	override func viewDidDisappear(_ animated: Bool) {
 		super.viewDidDisappear(animated)
-
+		
 		viewModel.markAllAsSeen()
 	}
 
@@ -229,7 +229,7 @@ class FamilyMemberCoronaTestsViewController: UITableViewController, FooterViewHa
 				self.viewModel.didTapCoronaTestCellButton(at: currentIndexPath)
 			}
 		)
-
+		
 		return cell
 	}
 

@@ -40,6 +40,7 @@ class FamilyMemberCoronaTestCellModel {
 	@OpenCombine.Published var isUserInteractionEnabled: Bool = false
 	@OpenCombine.Published var isCellTappable: Bool = true
 	@OpenCombine.Published var accessibilityIdentifier: String! = ""
+	@OpenCombine.Published var testResult: TestResult?
 
 	var coronaTest: FamilyMemberCoronaTest
 
@@ -54,6 +55,7 @@ class FamilyMemberCoronaTestCellModel {
 
 	private func setup() {
 		familyMemberCoronaTestService.coronaTests
+			.receive(on: DispatchQueue.main.ocombine)
 			.sink { [weak self] _ in
 				guard let self = self, let updatedCoronaTest = self.familyMemberCoronaTestService.upToDateTest(for: self.coronaTest) else {
 					return
@@ -63,6 +65,8 @@ class FamilyMemberCoronaTestCellModel {
 					self.coronaTest = updatedCoronaTest
 					self.configure()
 					self.onUpdate()
+					// required for unit testing - to confirm the update of the cell model
+					self.testResult = updatedCoronaTest.testResult
 				}
 			}
 			.store(in: &subscriptions)
