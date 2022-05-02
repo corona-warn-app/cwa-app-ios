@@ -262,8 +262,7 @@ class KeyPackageDownload: KeyPackageDownloadProtocol {
 			Log.info("KeyPackageDownload: Fetch hour packages from server.", log: .riskDetection)
 
 			let hourKeys = packageKeys.compactMap { Int($0) }
-
-			self.fetchHours(hourKeys, day: dayKey, country: country) { hoursResult in
+			fetchHours(hourKeys, day: dayKey, country: country) { hoursResult in
 				if hoursResult.errors.isEmpty {
 					let keyPackages = Dictionary(
 						uniqueKeysWithValues: hoursResult.bucketsByHour.map { key, value in (String(key), value) }
@@ -276,8 +275,9 @@ class KeyPackageDownload: KeyPackageDownloadProtocol {
 		}
 	}
 
-	// wrapper to collect hour downloads, moved over from old wifiCnlyClient
-
+	/// wrapper to collect hour downloads as one method
+	/// moved over from old wifiCnlyClient
+	///
 	private func fetchHours(
 		_ hours: [Int],
 		day: String,
