@@ -1074,7 +1074,7 @@
 
 "ExposureSubmission_TestCertificate_Information_BirthdayText" = "С цел сигурност, Вашият сертификат за направен тест е защитен с датата Ви на раждане. Той може да бъде издаден само ако посочите правилната дата.";
 
-"ExposureSubmission_TestCertificate_Information_Dataprivacy_Title" = "За повече информация относно обработката на данни, прочетете декларацията за поверителност.";
+"ExposureSubmission_TestCertificate_Information_Dataprivacy_Title" = "Подробна информация за обработването на данни и Вашето съгласие";
 
 "ExposureSubmission_TestCertificate_Information_Alert_Title" = "Отмяна на регистрация";
 

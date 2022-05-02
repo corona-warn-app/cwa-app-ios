@@ -1074,7 +1074,7 @@
 
 "ExposureSubmission_TestCertificate_Information_BirthdayText" = "For security purposes, your test certificate is protected with your date of birth. The test certificate can only be issued if you specify the correct date of birth.";
 
-"ExposureSubmission_TestCertificate_Information_Dataprivacy_Title" = "For more detailed information about data processing, please refer to the privacy notice.";
+"ExposureSubmission_TestCertificate_Information_Dataprivacy_Title" = "Detailed Information on Data Processing and Your Consent";
 
 "ExposureSubmission_TestCertificate_Information_Alert_Title" = "Cancel Registration";
 
