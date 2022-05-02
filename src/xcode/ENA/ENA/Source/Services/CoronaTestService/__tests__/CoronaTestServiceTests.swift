@@ -4016,48 +4016,51 @@ class CoronaTestServiceTests: CWATestCase {
 
 		// Initialize.
 
-		let restServiceProvider = RestServiceProviderStub(loadResources: [
-			LoadResource(
-				result: .success(
-					TeleTanReceiveModel(registrationToken: "dummyRegToken")
-				),
-				willLoadResource: { resource in
-					guard let resource = resource as? TeleTanResource  else {
-						XCTFail("TeleTanResource expected.")
-						return
+		let restServiceProvider = RestServiceProviderStub(
+			loadResources: [
+				LoadResource(
+					result: .success(
+						TeleTanReceiveModel(registrationToken: "dummyRegToken")
+					),
+					willLoadResource: { resource in
+						guard let resource = resource as? TeleTanResource  else {
+							XCTFail("TeleTanResource expected.")
+							return
+						}
+						expectation.fulfill()
+						
+						XCTAssertFalse(resource.locator.isFake)
+						XCTAssertEqual(count, 0)
+						
+						count += 1
 					}
-					expectation.fulfill()
-					
-					XCTAssertFalse(resource.locator.isFake)
-					XCTAssertEqual(count, 0)
-					
-					count += 1
-				}
-			),
-			LoadResource(
-				result: .success(
-					RegistrationTokenReceiveModel(submissionTAN: "fake")
 				),
-				willLoadResource: { _ in
-					expectation.fulfill()
-					XCTAssertEqual(count, 1)
-					count += 1
-				}),
-			// Key submission result.
-			LoadResource(
-				result: .success(()),
-				willLoadResource: { resource in
-					guard let submissionResource = resource as? KeySubmissionResource else {
-						XCTFail("KeySubmissionResource expected.")
-						return
+				LoadResource(
+					result: .success(
+						RegistrationTokenReceiveModel(submissionTAN: "fake")
+					),
+					willLoadResource: { _ in
+						expectation.fulfill()
+						XCTAssertEqual(count, 1)
+						count += 1
+					}),
+				// Key submission result.
+				LoadResource(
+					result: .success(()),
+					willLoadResource: { resource in
+						guard let submissionResource = resource as? KeySubmissionResource else {
+							XCTFail("KeySubmissionResource expected.")
+							return
+						}
+						expectation.fulfill()
+						XCTAssertTrue(submissionResource.locator.isFake)
+						XCTAssertEqual(count, 2)
+						count += 1
 					}
-					expectation.fulfill()
-					XCTAssertTrue(submissionResource.locator.isFake)
-					XCTAssertEqual(count, 2)
-					count += 1
-				}
-			)
-		])
+				)
+			],
+			isFakeResourceLoadingActive: true
+		)
 
 		// Run test.
 
@@ -4147,50 +4150,54 @@ class CoronaTestServiceTests: CWATestCase {
 
 		let store = MockTestStore()
 		let appConfiguration = CachedAppConfigurationMock()
-		let restServiceProvider = RestServiceProviderStub(loadResources: [
-			LoadResource(
-				result: .success(TestResultReceiveModel(testResult: TestResult.serverResponse(for: testResult, on: coronaTestType), sc: nil, labId: nil)),
-				willLoadResource: { resource in
-					guard let resource = resource as? TestResultResource  else {
-						XCTFail("TestResultResource expected.")
-						return
+		let restServiceProvider = RestServiceProviderStub(
+			loadResources: [
+				LoadResource(
+					result: .success(TestResultReceiveModel(testResult: TestResult.serverResponse(for: testResult, on: coronaTestType), sc: nil, labId: nil)),
+					willLoadResource: { resource in
+						guard let resource = resource as? TestResultResource  else {
+							XCTFail("TestResultResource expected.")
+							return
+						}
+						expectation.fulfill()
+						XCTAssertFalse(resource.locator.isFake)
+						XCTAssertEqual(count, 0)
+						count += 1
 					}
-					expectation.fulfill()
-					XCTAssertFalse(resource.locator.isFake)
-					XCTAssertEqual(count, 0)
-					count += 1
-				}
-			),
-			LoadResource(
-				result: .success(
-					RegistrationTokenReceiveModel(submissionTAN: "fake")
 				),
-				willLoadResource: { resource in
-					guard let resource = resource as? RegistrationTokenResource  else {
-						XCTFail("RegistrationTokenResource expected.")
-						return
+				LoadResource(
+					result: .success(
+						RegistrationTokenReceiveModel(submissionTAN: "fake")
+					),
+					willLoadResource: { resource in
+						guard let resource = resource as? RegistrationTokenResource  else {
+							XCTFail("RegistrationTokenResource expected.")
+							return
+						}
+						expectation.fulfill()
+						
+						XCTAssertTrue(resource.locator.isFake)
+						XCTAssertEqual(count, 1)
+						count += 1
+					}),
+				// Key submission result.
+				LoadResource(
+					result: .success(()),
+					willLoadResource: { resource in
+						guard let submissionResource = resource as? KeySubmissionResource else {
+							XCTFail("KeySubmissionResource expected.")
+							return
+						}
+						expectation.fulfill()
+						XCTAssertTrue(submissionResource.locator.isFake)
+						XCTAssertEqual(count, 2)
+						count += 1
 					}
-					expectation.fulfill()
-					
-					XCTAssertTrue(resource.locator.isFake)
-					XCTAssertEqual(count, 1)
-					count += 1
-				}),
-			// Key submission result.
-			LoadResource(
-				result: .success(()),
-				willLoadResource: { resource in
-					guard let submissionResource = resource as? KeySubmissionResource else {
-						XCTFail("KeySubmissionResource expected.")
-						return
-					}
-					expectation.fulfill()
-					XCTAssertTrue(submissionResource.locator.isFake)
-					XCTAssertEqual(count, 2)
-					count += 1
-				}
-			)
-		])
+				)
+			],
+			isFakeResourceLoadingActive: true
+		)
+		
 		let healthCertificateService = HealthCertificateService(
 			store: store,
 			dccSignatureVerifier: DCCSignatureVerifyingStub(),

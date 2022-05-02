@@ -26,50 +26,53 @@ class FakeRequestServiceTests: CWATestCase {
 
 		// Initialize.
 
-		let restServiceProvider = RestServiceProviderStub(loadResources: [
-			LoadResource(
-				result: .success(
-					RegistrationTokenReceiveModel(submissionTAN: "fake")
-				),
-				willLoadResource: { resource in
-					guard let resource = resource as? RegistrationTokenResource else {
-						XCTFail("RegistrationTokenResource expected.")
-						return
+		let restServiceProvider = RestServiceProviderStub(
+			loadResources: [
+				LoadResource(
+					result: .success(
+						RegistrationTokenReceiveModel(submissionTAN: "fake")
+					),
+					willLoadResource: { resource in
+						guard let resource = resource as? RegistrationTokenResource else {
+							XCTFail("RegistrationTokenResource expected.")
+							return
+						}
+						
+						expectation.fulfill()
+						XCTAssertTrue(resource.locator.isFake)
+						count += 1
+					}),
+				LoadResource(
+					result: .success(
+						RegistrationTokenReceiveModel(submissionTAN: "fake")
+					),
+					willLoadResource: { resource in
+						guard let resource = resource as? RegistrationTokenResource else {
+							XCTFail("RegistrationTokenResource expected.")
+							return
+						}
+						
+						expectation.fulfill()
+						XCTAssertTrue(resource.locator.isFake)
+						count += 1
+					}),
+				// Key submission result.
+				LoadResource(
+					result: .success(()),
+					willLoadResource: { resource in
+						guard let submissionResource = resource as? KeySubmissionResource else {
+							XCTFail("KeySubmissionResource expected.")
+							return
+						}
+						expectation.fulfill()
+						XCTAssertTrue(submissionResource.locator.isFake)
+						XCTAssertEqual(count, 2)
+						count += 1
 					}
-
-					expectation.fulfill()
-					XCTAssertTrue(resource.locator.isFake)
-					count += 1
-				}),
-			LoadResource(
-				result: .success(
-					RegistrationTokenReceiveModel(submissionTAN: "fake")
-				),
-				willLoadResource: { resource in
-					guard let resource = resource as? RegistrationTokenResource else {
-						XCTFail("RegistrationTokenResource expected.")
-						return
-					}
-
-					expectation.fulfill()
-					XCTAssertTrue(resource.locator.isFake)
-					count += 1
-				}),
-			// Key submission result.
-			LoadResource(
-				result: .success(()),
-				willLoadResource: { resource in
-					guard let submissionResource = resource as? KeySubmissionResource else {
-						XCTFail("KeySubmissionResource expected.")
-						return
-					}
-					expectation.fulfill()
-					XCTAssertTrue(submissionResource.locator.isFake)
-					XCTAssertEqual(count, 2)
-					count += 1
-				}
-			)
-		])
+				)
+			],
+			isFakeResourceLoadingActive: true
+		)
 
 		let fakeRequestService = FakeRequestService(restServiceProvider: restServiceProvider)
 
@@ -85,35 +88,38 @@ class FakeRequestServiceTests: CWATestCase {
 
 		// Initialize.
 
-		let restServiceProvider = RestServiceProviderStub(loadResources: [
-			LoadResource(
-				result: .success(
-					RegistrationTokenReceiveModel(submissionTAN: "fake")
-				),
-				willLoadResource: { resource in
-					guard let resource = resource as? RegistrationTokenResource  else {
-						XCTFail("RegistrationTokenResource expected.")
-						return
-					}
-
-					expectation.fulfill()
-					XCTAssertTrue(resource.locator.isFake)
-				}),
-			LoadResource(
-				result: .success(
-					RegistrationTokenReceiveModel(submissionTAN: "fake")
-				),
-				willLoadResource: { resource in
-					guard let resource = resource as? RegistrationTokenResource  else {
-						XCTFail("RegistrationTokenResource expected.")
-						return
-					}
-
-					expectation.fulfill()
-					XCTAssertTrue(resource.locator.isFake)
-				})
-
-		])
+		let restServiceProvider = RestServiceProviderStub(
+			loadResources: [
+				LoadResource(
+					result: .success(
+						RegistrationTokenReceiveModel(submissionTAN: "fake")
+					),
+					willLoadResource: { resource in
+						guard let resource = resource as? RegistrationTokenResource  else {
+							XCTFail("RegistrationTokenResource expected.")
+							return
+						}
+						
+						expectation.fulfill()
+						XCTAssertTrue(resource.locator.isFake)
+					}),
+				LoadResource(
+					result: .success(
+						RegistrationTokenReceiveModel(submissionTAN: "fake")
+					),
+					willLoadResource: { resource in
+						guard let resource = resource as? RegistrationTokenResource  else {
+							XCTFail("RegistrationTokenResource expected.")
+							return
+						}
+						
+						expectation.fulfill()
+						XCTAssertTrue(resource.locator.isFake)
+					})
+				
+			],
+			isFakeResourceLoadingActive: true
+		)
 
 		let fakeRequestService = FakeRequestService(restServiceProvider: restServiceProvider)
 
@@ -127,20 +133,23 @@ class FakeRequestServiceTests: CWATestCase {
 	func testFakeSubmissionServerRequest() {
 		let expectation = self.expectation(description: "Execute fake submission.")
 
-		let restServiceProvider = RestServiceProviderStub(loadResources: [
-			// Key submission result.
-			LoadResource(
-				result: .success(()),
-				willLoadResource: { resource in
-					guard let submissionResource = resource as? KeySubmissionResource else {
-						XCTFail("KeySubmissionResource expected.")
-						return
+		let restServiceProvider = RestServiceProviderStub(
+			loadResources: [
+				// Key submission result.
+				LoadResource(
+					result: .success(()),
+					willLoadResource: { resource in
+						guard let submissionResource = resource as? KeySubmissionResource else {
+							XCTFail("KeySubmissionResource expected.")
+							return
+						}
+						XCTAssertTrue(submissionResource.locator.isFake)
+						expectation.fulfill()
 					}
-					XCTAssertTrue(submissionResource.locator.isFake)
-					expectation.fulfill()
-				}
-			)
-		])
+				)
+			],
+			isFakeResourceLoadingActive: true
+		)
 	
 		let fakeRequestService = FakeRequestService(restServiceProvider: restServiceProvider)
 
@@ -158,37 +167,40 @@ class FakeRequestServiceTests: CWATestCase {
 		expectation.expectedFulfillmentCount = 2
 
 		// Initialize.
-		let restServiceProvider = RestServiceProviderStub(loadResources: [
-			LoadResource(
-				result: .success(
-					RegistrationTokenReceiveModel(submissionTAN: "fake")
-				),
-				willLoadResource: { resource in
-					guard let resource = resource as? RegistrationTokenResource  else {
-						XCTFail("RegistrationTokenResource expected.")
-						return
+		let restServiceProvider = RestServiceProviderStub(
+			loadResources: [
+				LoadResource(
+					result: .success(
+						RegistrationTokenReceiveModel(submissionTAN: "fake")
+					),
+					willLoadResource: { resource in
+						guard let resource = resource as? RegistrationTokenResource  else {
+							XCTFail("RegistrationTokenResource expected.")
+							return
+						}
+						
+						expectation.fulfill()
+						XCTAssertTrue(resource.locator.isFake)
+						count += 1
+					}),
+				// Key submission result.
+				LoadResource(
+					result: .success(()),
+					willLoadResource: { resource in
+						guard let submissionResource = resource as? KeySubmissionResource else {
+							XCTFail("KeySubmissionResource expected.")
+							return
+						}
+						expectation.fulfill()
+						XCTAssertTrue(submissionResource.locator.isFake)
+						XCTAssertEqual(count, 1)
+						count += 1
 					}
-
-					expectation.fulfill()
-					XCTAssertTrue(resource.locator.isFake)
-					count += 1
-				}),
-			// Key submission result.
-			LoadResource(
-				result: .success(()),
-				willLoadResource: { resource in
-					guard let submissionResource = resource as? KeySubmissionResource else {
-						XCTFail("KeySubmissionResource expected.")
-						return
-					}
-					expectation.fulfill()
-					XCTAssertTrue(submissionResource.locator.isFake)
-					XCTAssertEqual(count, 1)
-					count += 1
-				}
-			)
-			
-		])
+				)
+				
+			],
+			isFakeResourceLoadingActive: true
+		)
 
 		let fakeRequestService = FakeRequestService(restServiceProvider: restServiceProvider)
 
