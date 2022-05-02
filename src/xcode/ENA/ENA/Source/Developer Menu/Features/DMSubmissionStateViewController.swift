@@ -29,6 +29,7 @@ final class DMSubmissionStateViewController: UITableViewController {
 		self.wifiClient = wifiClient
 		self.restService = restService
 		self.delegate = delegate
+		self.fetchHoursServiceHelper = FetchHoursServiceHelper(restService: restService)
 		super.init(style: .plain)
 	}
 
@@ -129,6 +130,7 @@ final class DMSubmissionStateViewController: UITableViewController {
 	private let client: Client
 	private let wifiClient: WifiOnlyHTTPClient
 	private let restService: RestServiceProviding
+	private let fetchHoursServiceHelper: FetchHoursServiceHelper
 
 	private var checkResult = DMSubmittedKeysCheckResult(missingKeys: [], foundKeys: [])
 	private weak var delegate: DMSubmissionStateViewControllerDelegate?
@@ -142,7 +144,7 @@ final class DMSubmissionStateViewController: UITableViewController {
 			guard let localKeys = localKeys else {
 				fatalError("unable to get local diagnosis keys")
 			}
-			self.fetchAllKeys(wifiClient: self.wifiClient) { downloadedPackages in
+			self.fetchAllKeys { downloadedPackages in
 				let allPackages = downloadedPackages.allKeyPackages
 				let allRemoteKeys = Array(allPackages.compactMap { try? $0.package?.keys() }.joined())
 
@@ -168,7 +170,6 @@ final class DMSubmissionStateViewController: UITableViewController {
 	}
 
 	private func availableDaysAndHours(
-		wifiClient: WifiOnlyHTTPClient,
 		completion completeWith: @escaping AvailableDaysAndHoursCompletion
 	) {
 		let group = DispatchGroup()
@@ -203,14 +204,12 @@ final class DMSubmissionStateViewController: UITableViewController {
 	}
 
 	private func fetchAllKeys(
-		wifiClient: WifiOnlyHTTPClient,
 		completion completeWith: @escaping (FetchedDaysAndHours) -> Void
 	) {
 		availableDaysAndHours(
-			wifiClient: wifiClient,
 			completion: { daysAndHours in
 				self.client.fetchDays(daysAndHours.days, forCountry: "DE") { daysResult in
-					wifiClient.fetchHours(daysAndHours.hours, day: .formattedToday(), country: "DE") { hoursResult in
+					self.fetchHoursServiceHelper.fetchHours(daysAndHours.hours, day: .formattedToday(), country: "DE") { hoursResult in
 						completeWith(FetchedDaysAndHours(hours: hoursResult, days: daysResult))
 					}
 				}

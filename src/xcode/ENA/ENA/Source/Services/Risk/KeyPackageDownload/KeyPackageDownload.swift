@@ -67,6 +67,7 @@ class KeyPackageDownload: KeyPackageDownloadProtocol {
 		self.restService = restService
 		self.store = store
 		self.countryIds = countryIds
+		self.fetchHoursServiceHelper = FetchHoursServiceHelper(restService: restService)
 	}
 
 	// MARK: - Protocol KeyPackageDownloadProtocol
@@ -133,6 +134,8 @@ class KeyPackageDownload: KeyPackageDownloadProtocol {
 	private let restService: RestServiceProviding
 	private let wifiClient: ClientWifiOnly
 	private let store: Store & AppConfigCaching
+
+	private let fetchHoursServiceHelper: FetchHoursServiceHelper
 
 	private var status: KeyPackageDownloadStatus = .idle {
 		didSet {
@@ -262,7 +265,7 @@ class KeyPackageDownload: KeyPackageDownloadProtocol {
 			Log.info("KeyPackageDownload: Fetch hour packages from server.", log: .riskDetection)
 
 			let hourKeys = packageKeys.compactMap { Int($0) }
-			fetchHours(hourKeys, day: dayKey, country: country) { hoursResult in
+			fetchHoursServiceHelper.fetchHours(hourKeys, day: dayKey, country: country) { hoursResult in
 				if hoursResult.errors.isEmpty {
 					let keyPackages = Dictionary(
 						uniqueKeysWithValues: hoursResult.bucketsByHour.map { key, value in (String(key), value) }
@@ -272,59 +275,6 @@ class KeyPackageDownload: KeyPackageDownloadProtocol {
 					completion(.failure(.uncompletedPackages))
 				}
 			}
-		}
-	}
-
-	/// wrapper to collect hour downloads as one method
-	/// moved over from old wifiCnlyClient
-	///
-	private func fetchHours(
-		_ hours: [Int],
-		day: String,
-		country: String,
-		completion completeWith: @escaping (HoursResult) -> Void
-	) {
-		var errors = [Client.Failure]()
-		var buckets = [Int: PackageDownloadResponse]()
-		let group = DispatchGroup()
-
-		hours.forEach { hour in
-			group.enter()
-			let resource = FetchHourResource(day: day, country: country, hour: hour)
-			restService.load(resource) { result in
-				defer {
-					group.leave()
-				}
-				switch result {
-				case let .success(hourBucket):
-					buckets[hour] = hourBucket
-				case let .failure(error):
-					switch error {
-					case .transportationError:
-						errors.append(.invalidResponse)
-					case .unexpectedServerError:
-						errors.append(.invalidResponse)
-					case .resourceError:
-						errors.append(.invalidResponse)
-					case .receivedResourceError:
-						errors.append(.noResponse)
-					case .invalidResponse:
-						errors.append(.noResponse)
-					case .invalidResponseType:
-						errors.append(.noResponse)
-					case .fakeResponse:
-						errors.append(.fakeResponse)
-					default:
-						Log.error("Unhandled error", error: error)
-					}
-				}
-			}
-		}
-
-		group.notify(queue: .main) {
-			completeWith(
-				HoursResult(errors: errors, bucketsByHour: buckets, day: day)
-			)
 		}
 	}
 
