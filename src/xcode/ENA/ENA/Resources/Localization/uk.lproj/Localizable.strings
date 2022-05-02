@@ -1074,7 +1074,7 @@
 
 "ExposureSubmission_TestCertificate_Information_BirthdayText" = "З міркувань безпеки ваш сертифікат тесту захищений датою вашого народження. Сертифікат тесту може бути виданий тільки за умови правильної дати народження.";
 
-"ExposureSubmission_TestCertificate_Information_Dataprivacy_Title" = "Щоб отримати детальнішу інформацію про обробку даних, див. Сповіщення про конфіденційність.";
+"ExposureSubmission_TestCertificate_Information_Dataprivacy_Title" = "Докладна інформація про обробку даних та вашу згоду";
 
 "ExposureSubmission_TestCertificate_Information_Alert_Title" = "Скасувати реєстрацію";
 

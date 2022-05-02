@@ -1074,7 +1074,7 @@
 
 "ExposureSubmission_TestCertificate_Information_BirthdayText" = "În scop de securitate, certificatul dvs. de test este protejat cu data nașterii dvs. Certificatul de test poate fi emis doar dacă specificați data corectă a nașterii.";
 
-"ExposureSubmission_TestCertificate_Information_Dataprivacy_Title" = "Pentru mai multe informații despre prelucrarea datelor, consultați înștiințarea de confidențialitate.";
+"ExposureSubmission_TestCertificate_Information_Dataprivacy_Title" = "Informații detaliate privind prelucrarea datelor și consimțământul dvs.";
 
 "ExposureSubmission_TestCertificate_Information_Alert_Title" = "Anulare înregistrare";
 
