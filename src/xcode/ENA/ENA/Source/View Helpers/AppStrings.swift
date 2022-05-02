@@ -2034,6 +2034,7 @@ enum AppStrings {
 
 		enum Overview {
 			static let title = NSLocalizedString("ExposureSubmission_Antigen_Profile_Overview_title", comment: "")
+			static let cardTitle = NSLocalizedString("ExposureSubmission_Antigen_Profile_Card_title", comment: "")
 			static let emptyTitle = NSLocalizedString("ExposureSubmission_Antigen_Profile_Overview_EmptyTitle", comment: "")
 			static let emptyDescription = NSLocalizedString("ExposureSubmission_Antigen_Profile_Overview_EmptyDescription", comment: "")
 			static let emptyImageDescription = NSLocalizedString("ExposureSubmission_Antigen_Profile_Overview_EmptyImageDescription", comment: "")

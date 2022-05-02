@@ -961,14 +961,17 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 
 	private func showAntigenTestProfileInformation() {
 		var antigenTestProfileInformationViewController: AntigenTestProfileInformationViewController!
-		antigenTestProfileInformationViewController = AntigenTestProfileInformationViewController(
+		let viewModel = AntigenTestProfileInformationViewModel(
 			store: store,
-			didTapDataPrivacy: {
+			showDisclaimer: {
 				// please check if we really wanna use it that way
 				if case let .execute(block) = DynamicAction.push(htmlModel: AppInformationModel.privacyModel, withTitle: AppStrings.AppInformation.privacyTitle) {
 					block(antigenTestProfileInformationViewController, nil)
 				}
-			},
+			}
+		)
+		antigenTestProfileInformationViewController = AntigenTestProfileInformationViewController(
+			viewModel: viewModel,
 			didTapContinue: { [weak self] in
 				if let antigenTestProfileInfoScreenShown = self?.store.antigenTestProfileInfoScreenShown, antigenTestProfileInfoScreenShown {
 					self?.popViewController()

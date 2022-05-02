@@ -32,14 +32,15 @@ class AntigenTestProfileOverviewViewController: UITableViewController, DismissHa
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
-
+		
 		view.backgroundColor = .enaColor(for: .darkBackground)
-
-		setupBarButtonItems()
-		setupTableView()
 		navigationItem.largeTitleDisplayMode = .always
 		navigationItem.title = AppStrings.AntigenProfile.Overview.title
 
+		setupBarButtonItems()
+		setupTableView()
+		
+		viewModel.markScreenSeen()
 		viewModel.$antigenTestProfiles
 			.receive(on: DispatchQueue.main.ocombine)
 			.sink { [weak self] _ in
