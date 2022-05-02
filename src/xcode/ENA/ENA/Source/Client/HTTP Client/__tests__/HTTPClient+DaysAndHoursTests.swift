@@ -84,22 +84,29 @@ final class HTTPClientDaysAndHoursTests: CWATestCase {
 			responseData: Data("hello world".utf8)
 		)
 
-		let failureExpectation = expectation(
+		let expectation = expectation(
 			description: "expect error result"
 		)
 
-		let httpClient = WifiOnlyHTTPClient.makeWith(mock: stack)
-		httpClient.fetchHour(1, day: "2020-05-01", country: "IT") { result in
+		let restService = RestServiceProvider(session: stack.urlSession, cache: KeyValueCacheFake())
+		let resource = FetchHourResource(day: "2020-05-01", country: "IT", hour: 1)
+		restService.load(resource) { result in
+			defer {
+				expectation.fulfill()
+			}
 			switch result {
 			case .success:
 				XCTFail("an invalid response should never cause success")
-			case .failure:
-				failureExpectation.fulfill()
+			case let .failure(error):
+				if case let .resourceError(detailError) = error,
+				   case .packageCreation = detailError {
+				} else {
+					XCTFail("wrong error given, packageCreation expected")
+				}
 			}
 		}
 		waitForExpectations(timeout: .medium)
 	}
-
 	func testFetchHour_Success() throws {
 		// swiftlint:disable:next force_unwrapping
 		let url = Bundle(for: type(of: self)).url(forResource: "api-response-day-2020-05-16", withExtension: nil)!
