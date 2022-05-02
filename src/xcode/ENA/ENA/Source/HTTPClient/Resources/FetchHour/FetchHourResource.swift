@@ -7,6 +7,7 @@ import Foundation
 struct FetchHourResource: Resource {
 
 	// MARK: - Init
+
 	init(
 		day: String,
 		country: String,
