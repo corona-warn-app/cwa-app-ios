@@ -1546,6 +1546,7 @@
 		BA8D5724281FF85E008209C8 /* Locator+DiagnosisKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA8D5723281FF85E008209C8 /* Locator+DiagnosisKeys.swift */; };
 		BA8D5726282001E0008209C8 /* PackageDownloadReceiveResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA8D5725282001E0008209C8 /* PackageDownloadReceiveResource.swift */; };
 		BA8D572828201256008209C8 /* FetchHoursServiceHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA8D572728201256008209C8 /* FetchHoursServiceHelper.swift */; };
+		BA8D572B28201542008209C8 /* FetchHourTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA8D572A28201542008209C8 /* FetchHourTests.swift */; };
 		BA904C9E25769D1800692110 /* TanInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA904C9D25769D1800692110 /* TanInputView.swift */; };
 		BA904CA62576A0B900692110 /* ENAInputLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA904CA52576A0B900692110 /* ENAInputLabel.swift */; };
 		BA91611D27ECD3190076BC6B /* FamilyTestsHomeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA91611C27ECD3190076BC6B /* FamilyTestsHomeCell.swift */; };
@@ -3374,6 +3375,7 @@
 		BA8D5723281FF85E008209C8 /* Locator+DiagnosisKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Locator+DiagnosisKeys.swift"; sourceTree = "<group>"; };
 		BA8D5725282001E0008209C8 /* PackageDownloadReceiveResource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackageDownloadReceiveResource.swift; sourceTree = "<group>"; };
 		BA8D572728201256008209C8 /* FetchHoursServiceHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchHoursServiceHelper.swift; sourceTree = "<group>"; };
+		BA8D572A28201542008209C8 /* FetchHourTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchHourTests.swift; sourceTree = "<group>"; };
 		BA904C9D25769D1800692110 /* TanInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TanInputView.swift; sourceTree = "<group>"; };
 		BA904CA52576A0B900692110 /* ENAInputLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ENAInputLabel.swift; sourceTree = "<group>"; };
 		BA91611C27ECD3190076BC6B /* FamilyTestsHomeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FamilyTestsHomeCell.swift; sourceTree = "<group>"; };
@@ -9552,11 +9554,20 @@
 		BA8D5720281FF6FA008209C8 /* FetchHour */ = {
 			isa = PBXGroup;
 			children = (
+				BA8D572928201511008209C8 /* __tests__ */,
 				BA8D5721281FF725008209C8 /* FetchHourResource.swift */,
-				BA8D5723281FF85E008209C8 /* Locator+DiagnosisKeys.swift */,
 				BA8D572728201256008209C8 /* FetchHoursServiceHelper.swift */,
+				BA8D5723281FF85E008209C8 /* Locator+DiagnosisKeys.swift */,
 			);
 			path = FetchHour;
+			sourceTree = "<group>";
+		};
+		BA8D572928201511008209C8 /* __tests__ */ = {
+			isa = PBXGroup;
+			children = (
+				BA8D572A28201542008209C8 /* FetchHourTests.swift */,
+			);
+			path = __tests__;
 			sourceTree = "<group>";
 		};
 		BA91611B27ECD2D10076BC6B /* Family */ = {
@@ -12355,6 +12366,7 @@
 				ABD430FF27FC7EB90063666C /* LocatorTests.swift in Sources */,
 				BAD3199D26FA2102006E82E7 /* HealthCertificateQRCodeViewTests.swift in Sources */,
 				B1AC51D624CED8820087C35B /* DetectionModeTests.swift in Sources */,
+				BA8D572B28201542008209C8 /* FetchHourTests.swift in Sources */,
 				8FA88FE02616692000FD36DA /* TraceLocationCheckinViewModelTests.swift in Sources */,
 				01D6816527C5206000FF6D18 /* HealthCertificateRequestServiceTests.swift in Sources */,
 				ABE17DE527AC30A600E9EA2D /* HealthCertificate+BelongsToSamePersonTests.swift in Sources */,

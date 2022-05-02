@@ -72,22 +72,6 @@ extension HTTPClient {
 
 		}
 
-		func diagnosisKeysURL(day: String, hour: Int, forCountry country: String) -> URL {
-			endpoints
-				.distribution
-				.appending(
-					"version",
-					apiVersion,
-					"diagnosis-keys",
-					"country",
-					country,
-					"date",
-					day,
-					"hour",
-					String(hour)
-			)
-		}
-
 		var configurationURL: URL {
 			endpoints
 				.distribution
