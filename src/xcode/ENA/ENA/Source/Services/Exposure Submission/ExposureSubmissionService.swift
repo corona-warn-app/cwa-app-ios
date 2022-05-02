@@ -32,11 +32,11 @@ enum ExposureSubmissionServiceError: LocalizedError, Equatable {
 	var errorDescription: String? {
 		switch self {
 		case .coronaTestServiceError(let error):
-			return error.localizedDescription
+			return error.errorDescription
 		case .keySubmissionError(let error):
-			return error.localizedDescription
+			return error.errorDescription
 		case .preconditionError(let error):
-			return error.localizedDescription
+			return error.errorDescription
 		}
 	}
 }
