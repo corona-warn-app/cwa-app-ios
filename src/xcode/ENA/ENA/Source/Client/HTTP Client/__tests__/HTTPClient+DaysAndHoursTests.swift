@@ -6,7 +6,6 @@
 import ExposureNotification
 import XCTest
 
-// swiftlint:disable:next type_body_length
 final class HTTPClientDaysAndHoursTests: CWATestCase {
 	let binFileSize = 501
 	let sigFileSize = 144
@@ -84,9 +83,7 @@ final class HTTPClientDaysAndHoursTests: CWATestCase {
 			responseData: Data("hello world".utf8)
 		)
 
-		let expectation = expectation(
-			description: "expect error result"
-		)
+		let expectation = expectation(description: "expect error result")
 
 		let restService = RestServiceProvider(session: stack.urlSession, cache: KeyValueCacheFake())
 		let resource = FetchHourResource(day: "2020-05-01", country: "IT", hour: 1)
@@ -107,25 +104,26 @@ final class HTTPClientDaysAndHoursTests: CWATestCase {
 		}
 		waitForExpectations(timeout: .medium)
 	}
+
 	func testFetchHour_Success() throws {
-		// swiftlint:disable:next force_unwrapping
-		let url = Bundle(for: type(of: self)).url(forResource: "api-response-day-2020-05-16", withExtension: nil)!
+		let url = try XCTUnwrap(Bundle(for: type(of: self)).url(forResource: "api-response-day-2020-05-16", withExtension: nil))
 		let stack = MockNetworkStack(
 			httpStatus: 200,
 			headerFields: ["etAg": "\"SomeEtag\""],
 			responseData: try Data(contentsOf: url)
 		)
 
-		let successExpectation = expectation(
-			description: "expect error result"
-		)
-
-		let httpClient = WifiOnlyHTTPClient.makeWith(mock: stack)
-		httpClient.fetchHour(1, day: "2020-05-01", country: "IT") { result in
-			defer { successExpectation.fulfill() }
+		let expectation = expectation(description: "expect error result")
+		let restService = RestServiceProvider(session: stack.urlSession, cache: KeyValueCacheFake())
+		let resource = FetchHourResource(day: "2020-05-01", country: "IT", hour: 1, signatureVerifier: MockVerifier())
+		restService.load(resource) { result in
+			defer {
+				expectation.fulfill()
+			}
 			switch result {
 			case let .success(sapPackage):
 				self.assertPackageFormat(for: sapPackage)
+
 			case let .failure(error):
 				XCTFail("a valid response should never yield and error like: \(error)")
 			}
@@ -134,8 +132,7 @@ final class HTTPClientDaysAndHoursTests: CWATestCase {
 	}
 
 	func testFetchDay_Success() throws {
-		// swiftlint:disable:next force_unwrapping
-		let url = Bundle(for: type(of: self)).url(forResource: "api-response-day-2020-05-16", withExtension: nil)!
+		let url = try XCTUnwrap(Bundle(for: type(of: self)).url(forResource: "api-response-day-2020-05-16", withExtension: nil))
 		let stack = MockNetworkStack(
 			httpStatus: 200,
 			headerFields: ["etAg": "\"SomeEtag\""],
