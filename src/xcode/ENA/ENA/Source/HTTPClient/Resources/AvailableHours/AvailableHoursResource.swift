@@ -34,6 +34,9 @@ struct AvailableHoursResource: Resource {
 	var receiveResource: JSONReceiveResource<[Int]>
 	var trustEvaluation: TrustEvaluating
 
+	// We accept 404 responses since this can happen in case there
+	// have not been any new cases reported on that day.
+	// We don't report this as an error to simplify things for the consumer.
 	var defaultModelRange: [Int] {
 		[404]
 	}
