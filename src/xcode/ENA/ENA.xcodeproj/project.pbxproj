@@ -1542,6 +1542,9 @@
 		BA8A9FC627BFFC9C001DBB4B /* HealthCertificateReissuanceSucceededViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA8A9FC527BFFC9C001DBB4B /* HealthCertificateReissuanceSucceededViewController.swift */; };
 		BA8A9FC827BFFCAD001DBB4B /* HealthCertificateReissuanceSucceededViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA8A9FC727BFFCAD001DBB4B /* HealthCertificateReissuanceSucceededViewModel.swift */; };
 		BA8BBA08255A90690034D4BC /* WifiHTTPClientTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA8BBA07255A90690034D4BC /* WifiHTTPClientTests.swift */; };
+		BA8D5722281FF725008209C8 /* FetchHourResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA8D5721281FF725008209C8 /* FetchHourResource.swift */; };
+		BA8D5724281FF85E008209C8 /* Locator+DiagnosisKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA8D5723281FF85E008209C8 /* Locator+DiagnosisKeys.swift */; };
+		BA8D5726282001E0008209C8 /* PackageDownloadReceiveResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA8D5725282001E0008209C8 /* PackageDownloadReceiveResource.swift */; };
 		BA904C9E25769D1800692110 /* TanInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA904C9D25769D1800692110 /* TanInputView.swift */; };
 		BA904CA62576A0B900692110 /* ENAInputLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA904CA52576A0B900692110 /* ENAInputLabel.swift */; };
 		BA91611D27ECD3190076BC6B /* FamilyTestsHomeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA91611C27ECD3190076BC6B /* FamilyTestsHomeCell.swift */; };
@@ -3366,6 +3369,9 @@
 		BA8A9FC527BFFC9C001DBB4B /* HealthCertificateReissuanceSucceededViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthCertificateReissuanceSucceededViewController.swift; sourceTree = "<group>"; };
 		BA8A9FC727BFFCAD001DBB4B /* HealthCertificateReissuanceSucceededViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthCertificateReissuanceSucceededViewModel.swift; sourceTree = "<group>"; };
 		BA8BBA07255A90690034D4BC /* WifiHTTPClientTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WifiHTTPClientTests.swift; sourceTree = "<group>"; };
+		BA8D5721281FF725008209C8 /* FetchHourResource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchHourResource.swift; sourceTree = "<group>"; };
+		BA8D5723281FF85E008209C8 /* Locator+DiagnosisKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Locator+DiagnosisKeys.swift"; sourceTree = "<group>"; };
+		BA8D5725282001E0008209C8 /* PackageDownloadReceiveResource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackageDownloadReceiveResource.swift; sourceTree = "<group>"; };
 		BA904C9D25769D1800692110 /* TanInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TanInputView.swift; sourceTree = "<group>"; };
 		BA904CA52576A0B900692110 /* ENAInputLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ENAInputLabel.swift; sourceTree = "<group>"; };
 		BA91611C27ECD3190076BC6B /* FamilyTestsHomeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FamilyTestsHomeCell.swift; sourceTree = "<group>"; };
@@ -6288,6 +6294,7 @@
 		50BC9046279EEE530000C930 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				BA8D5720281FF6FA008209C8 /* FetchHour */,
 				50BC9030279EEB4A0000C930 /* AllowList */,
 				50BC9031279EEB840000C930 /* AppConfiguration */,
 				BABC1ECF281848800067F8E9 /* AvailableDays */,
@@ -9105,10 +9112,11 @@
 		BA52A69A26EA1A2400AA0732 /* ReceiveResources */ = {
 			isa = PBXGroup;
 			children = (
+				5013523127884C0D00511ADF /* CBORReceiveResource.swift */,
 				5071A87826EB76EC00B09B40 /* EmptyReceiveResource.swift */,
 				5071A87226EA662400B09B40 /* JSONReceiveResource.swift */,
+				BA8D5725282001E0008209C8 /* PackageDownloadReceiveResource.swift */,
 				BA52A69B26EA1A4F00AA0732 /* ProtobufReceiveResource.swift */,
-				5013523127884C0D00511ADF /* CBORReceiveResource.swift */,
 				010A476B27551596000AA80E /* StringReceiveResource.swift */,
 			);
 			path = ReceiveResources;
@@ -9537,6 +9545,15 @@
 				BA8A9FC727BFFCAD001DBB4B /* HealthCertificateReissuanceSucceededViewModel.swift */,
 			);
 			path = ReissuanceSucceeded;
+			sourceTree = "<group>";
+		};
+		BA8D5720281FF6FA008209C8 /* FetchHour */ = {
+			isa = PBXGroup;
+			children = (
+				BA8D5721281FF725008209C8 /* FetchHourResource.swift */,
+				BA8D5723281FF85E008209C8 /* Locator+DiagnosisKeys.swift */,
+			);
+			path = FetchHour;
 			sourceTree = "<group>";
 		};
 		BA91611B27ECD2D10076BC6B /* Family */ = {
@@ -10776,6 +10793,7 @@
 				50AF181F27A2E85B00BAA9DB /* Locator+RegistrationToken.swift in Sources */,
 				BA41016426F8D8F60073F28D /* CovPassCheckInformationViewModel.swift in Sources */,
 				B1A89F3B24819CE800DA1CEC /* SettingsLabelCell.swift in Sources */,
+				BA8D5726282001E0008209C8 /* PackageDownloadReceiveResource.swift in Sources */,
 				01164CE226C573A2007F9C3E /* TraceLocationCheckinSelectionCellModel.swift in Sources */,
 				EB855EFD25EED0C900FEE17C /* CGPDFDocument+EmbedImage.swift in Sources */,
 				8F39D066263C41990096F4E2 /* VaccinationValueSetsProviding.swift in Sources */,
@@ -11127,6 +11145,7 @@
 				2F26CE2E248B9C4F00BE30EE /* UIViewController+BackButton.swift in Sources */,
 				01D0271B258BC78100B6389A /* SettingsCoordinator.swift in Sources */,
 				ABC506BA2747DC9600698A95 /* EncryptionScheme.swift in Sources */,
+				BA8D5724281FF85E008209C8 /* Locator+DiagnosisKeys.swift in Sources */,
 				8F95A1B225EFC5BE00506CF2 /* SendErrorLogsViewController.swift in Sources */,
 				EB6B5D882539AE9400B0ED57 /* DMNotificationsViewController.swift in Sources */,
 				3494635A27FC9C0000403F7A /* AddAntigenTestProfileCellModel.swift in Sources */,
@@ -11642,6 +11661,7 @@
 				8FEC1231275656AC00C5DADC /* TicketValidationAllowList.swift in Sources */,
 				017D8DAC263BEF920009E91C /* HealthCertificateServiceError.swift in Sources */,
 				503ACBFB26F36D1700C31352 /* HealthCertificateCoordinator.swift in Sources */,
+				BA8D5722281FF725008209C8 /* FetchHourResource.swift in Sources */,
 				2E190D98265D05A500AA95D5 /* TANErrorCell.swift in Sources */,
 				ABD430F427FC69BC0063666C /* KIDTypeChunkResource.swift in Sources */,
 				EBDE11BB255EC34C008C0F51 /* DMDeviceTimeCheckViewModel.swift in Sources */,
