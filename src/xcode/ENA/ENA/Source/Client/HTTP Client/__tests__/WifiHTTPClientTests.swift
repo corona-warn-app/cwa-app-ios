@@ -48,25 +48,4 @@ class WifiHTTPClientTest: CWATestCase {
 		XCTAssertFalse(wifiClient.disableHourlyDownload)
 	}
 
-	func testGIVEN_WifiOnlyClient_WHEN_DisableHourlyDownloadIsTrue_THEN_NoRequestIsSent() throws {
-		let stack = MockNetworkStack( httpStatus: 200, responseData: nil)
-		let wifiOnlyHTTPClient = WifiOnlyHTTPClient.makeWith(mock: stack)
-		let successExpectation = expectation(description: "ignore request")
-
-		// WHEN
-		wifiOnlyHTTPClient.disableHourlyDownload = true
-
-		// THEN
-		wifiOnlyHTTPClient.fetchHour(12, day: .formattedToday(), country: "DE") { result in
-			defer { successExpectation.fulfill() }
-			switch result {
-			case .success:
-				XCTFail("request wasn't ignored but this was expected")
-			case .failure:
-				break
-			}
-		}
-		waitForExpectations(timeout: .medium)
-	}
-
 }
