@@ -26,15 +26,13 @@ class FakeRequestServiceTests: CWATestCase {
 
 		// Initialize.
 
-		let client = ClientMock()
-
 		let restServiceProvider = RestServiceProviderStub(loadResources: [
 			LoadResource(
 				result: .success(
 					RegistrationTokenReceiveModel(submissionTAN: "fake")
 				),
 				willLoadResource: { resource in
-					guard let resource = resource as? RegistrationTokenResource  else {
+					guard let resource = resource as? RegistrationTokenResource else {
 						XCTFail("RegistrationTokenResource expected.")
 						return
 					}
@@ -48,7 +46,7 @@ class FakeRequestServiceTests: CWATestCase {
 					RegistrationTokenReceiveModel(submissionTAN: "fake")
 				),
 				willLoadResource: { resource in
-					guard let resource = resource as? RegistrationTokenResource  else {
+					guard let resource = resource as? RegistrationTokenResource else {
 						XCTFail("RegistrationTokenResource expected.")
 						return
 					}
@@ -56,18 +54,24 @@ class FakeRequestServiceTests: CWATestCase {
 					expectation.fulfill()
 					XCTAssertTrue(resource.locator.isFake)
 					count += 1
-				})
+				}),
+			// Key submission result.
+			LoadResource(
+				result: .success(()),
+				willLoadResource: { resource in
+					guard let submissionResource = resource as? KeySubmissionResource else {
+						XCTFail("KeySubmissionResource expected.")
+						return
+					}
+					expectation.fulfill()
+					XCTAssertTrue(submissionResource.locator.isFake)
+					XCTAssertEqual(count, 2)
+					count += 1
+				}
+			)
 		])
 
-		client.onSubmitCountries = { _, isFake, completion in
-			expectation.fulfill()
-			XCTAssertTrue(isFake)
-			XCTAssertEqual(count, 2)
-			count += 1
-			completion(.success(()))
-		}
-
-		let fakeRequestService = FakeRequestService(client: client, restServiceProvider: restServiceProvider)
+		let fakeRequestService = FakeRequestService(restServiceProvider: restServiceProvider)
 
 		// Run test.
 
@@ -81,7 +85,6 @@ class FakeRequestServiceTests: CWATestCase {
 
 		// Initialize.
 
-		let client = ClientMock()
 		let restServiceProvider = RestServiceProviderStub(loadResources: [
 			LoadResource(
 				result: .success(
@@ -112,7 +115,7 @@ class FakeRequestServiceTests: CWATestCase {
 
 		])
 
-		let fakeRequestService = FakeRequestService(client: client, restServiceProvider: restServiceProvider)
+		let fakeRequestService = FakeRequestService(restServiceProvider: restServiceProvider)
 
 		// Run test.
 
@@ -122,23 +125,28 @@ class FakeRequestServiceTests: CWATestCase {
 	}
 
 	func testFakeSubmissionServerRequest() {
-		let expectation = self.expectation(description: "onSubmitCountries called")
+		let expectation = self.expectation(description: "Execute fake submission.")
 
-		// Initialize.
-
-		let client = ClientMock()
-
-		client.onSubmitCountries = { _, isFake, _ in
-			XCTAssertTrue(isFake)
-			expectation.fulfill()
-		}
-
-		let fakeRequestService = FakeRequestService(client: client, restServiceProvider: .fake())
+		let restServiceProvider = RestServiceProviderStub(loadResources: [
+			// Key submission result.
+			LoadResource(
+				result: .success(()),
+				willLoadResource: { resource in
+					guard let submissionResource = resource as? KeySubmissionResource else {
+						XCTFail("KeySubmissionResource expected.")
+						return
+					}
+					XCTAssertTrue(submissionResource.locator.isFake)
+					expectation.fulfill()
+				}
+			)
+		])
+	
+		let fakeRequestService = FakeRequestService(restServiceProvider: restServiceProvider)
 
 		// Run test.
 
 		fakeRequestService.fakeSubmissionServerRequest()
-
 		waitForExpectations(timeout: .short)
 	}
 
@@ -164,20 +172,25 @@ class FakeRequestServiceTests: CWATestCase {
 					expectation.fulfill()
 					XCTAssertTrue(resource.locator.isFake)
 					count += 1
-				})
+				}),
+			// Key submission result.
+			LoadResource(
+				result: .success(()),
+				willLoadResource: { resource in
+					guard let submissionResource = resource as? KeySubmissionResource else {
+						XCTFail("KeySubmissionResource expected.")
+						return
+					}
+					expectation.fulfill()
+					XCTAssertTrue(submissionResource.locator.isFake)
+					XCTAssertEqual(count, 1)
+					count += 1
+				}
+			)
 			
 		])
 
-		let client = ClientMock()
-		client.onSubmitCountries = { _, isFake, completion in
-			expectation.fulfill()
-			XCTAssertTrue(isFake)
-			XCTAssertEqual(count, 1)
-			count += 1
-			completion(.success(()))
-		}
-
-		let fakeRequestService = FakeRequestService(client: client, restServiceProvider: restServiceProvider)
+		let fakeRequestService = FakeRequestService(restServiceProvider: restServiceProvider)
 
 		// Run test.
 

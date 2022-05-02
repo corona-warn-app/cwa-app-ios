@@ -4,7 +4,7 @@
 
 import Foundation
 
-enum KeySubmissionResourceError: LocalizedError {
+enum KeySubmissionResourceError: LocalizedError, Equatable {
 	case invalidPayloadOrHeaders
 	case invalidTan
 	case requestCouldNotBeBuilt

@@ -3271,14 +3271,6 @@ class FamilyMemberCoronaTestServiceTests: CWATestCase {
 		
 		let client = ClientMock()
 		
-		client.onSubmitCountries = { _, isFake, completion in
-			expectation.fulfill()
-			XCTAssertTrue(isFake)
-			XCTAssertEqual(count, 2)
-			count += 1
-			completion(.success(()))
-		}
-		
 		let store = MockTestStore()
 		let appConfiguration = CachedAppConfigurationMock()
 		let restServiceProvider = RestServiceProviderStub(loadResources: [
@@ -3309,7 +3301,21 @@ class FamilyMemberCoronaTestServiceTests: CWATestCase {
 					XCTAssertTrue(resource.locator.isFake)
 					XCTAssertEqual(count, 1)
 					count += 1
-				})
+				}),
+			// Key submission result.
+			LoadResource(
+				result: .success(()),
+				willLoadResource: { resource in
+					guard let submissionResource = resource as? KeySubmissionResource else {
+						XCTFail("KeySubmissionResource expected.")
+						return
+					}
+					expectation.fulfill()
+					XCTAssertTrue(submissionResource.locator.isFake)
+					XCTAssertEqual(count, 2)
+					count += 1
+				}
+			)
 		])
 		let healthCertificateService = HealthCertificateService(
 			store: store,

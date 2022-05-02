@@ -28,7 +28,6 @@ class CoronaTestServiceTests: CWATestCase {
 		)
 
 		let service = CoronaTestService(
-			client: client,
 			store: store,
 			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
@@ -75,7 +74,6 @@ class CoronaTestServiceTests: CWATestCase {
 		)
 
 		let service = CoronaTestService(
-			client: client,
 			store: store,
 			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
@@ -135,7 +133,6 @@ class CoronaTestServiceTests: CWATestCase {
 		)
 
 		let service = CoronaTestService(
-			client: client,
 			store: store,
 			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
@@ -197,7 +194,6 @@ class CoronaTestServiceTests: CWATestCase {
 		)
 
 		let service = CoronaTestService(
-			client: client,
 			store: store,
 			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
@@ -257,7 +253,6 @@ class CoronaTestServiceTests: CWATestCase {
 		)
 
 		let service = CoronaTestService(
-			client: client,
 			store: store,
 			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
@@ -321,7 +316,6 @@ class CoronaTestServiceTests: CWATestCase {
 		)
 
 		let service = CoronaTestService(
-			client: client,
 			store: store,
 			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
@@ -390,7 +384,6 @@ class CoronaTestServiceTests: CWATestCase {
 		)
 
 		let service = CoronaTestService(
-			client: client,
 			store: store,
 			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
@@ -461,7 +454,6 @@ class CoronaTestServiceTests: CWATestCase {
 			)
 
 			let service = CoronaTestService(
-				client: client,
 				store: store,
 				eventStore: MockEventStore(),
 				diaryStore: MockDiaryStore(),
@@ -518,7 +510,6 @@ class CoronaTestServiceTests: CWATestCase {
 		)
 
 		let service = CoronaTestService(
-			client: client,
 			store: store,
 			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
@@ -576,7 +567,6 @@ class CoronaTestServiceTests: CWATestCase {
 		)
 
 		let service = CoronaTestService(
-			client: client,
 			restServiceProvider: restServiceProvider,
 			store: store,
 			eventStore: MockEventStore(),
@@ -684,7 +674,6 @@ class CoronaTestServiceTests: CWATestCase {
 		)
 
 		let service = CoronaTestService(
-			client: client,
 			restServiceProvider: restServiceProvider,
 			store: store,
 			eventStore: MockEventStore(),
@@ -813,7 +802,6 @@ class CoronaTestServiceTests: CWATestCase {
 		)
 
 		let service = CoronaTestService(
-			client: client,
 			restServiceProvider: restServiceProvider,
 			store: store,
 			eventStore: MockEventStore(),
@@ -915,7 +903,6 @@ class CoronaTestServiceTests: CWATestCase {
 		)
 
 		let service = CoronaTestService(
-			client: client,
 			restServiceProvider: restServiceProvider,
 			store: store,
 			eventStore: MockEventStore(),
@@ -990,7 +977,6 @@ class CoronaTestServiceTests: CWATestCase {
 		)
 
 		let service = CoronaTestService(
-			client: client,
 			restServiceProvider: restServiceProvider,
 			store: store,
 			eventStore: MockEventStore(),
@@ -1064,7 +1050,6 @@ class CoronaTestServiceTests: CWATestCase {
 		)
 
 		let service = CoronaTestService(
-			client: client,
 			restServiceProvider: restServiceProvider,
 			store: store,
 			eventStore: MockEventStore(),
@@ -1159,7 +1144,6 @@ class CoronaTestServiceTests: CWATestCase {
 		)
 
 		let service = CoronaTestService(
-			client: client,
 			restServiceProvider: restServiceProvider,
 			store: store,
 			eventStore: eventStore,
@@ -1256,7 +1240,6 @@ class CoronaTestServiceTests: CWATestCase {
 		)
 
 		let service = CoronaTestService(
-			client: client,
 			restServiceProvider: restServiceProvider,
 			store: store,
 			eventStore: MockEventStore(),
@@ -1343,7 +1326,6 @@ class CoronaTestServiceTests: CWATestCase {
 		)
 
 		let service = CoronaTestService(
-			client: client,
 			restServiceProvider: restServiceProvider,
 			store: store,
 			eventStore: MockEventStore(),
@@ -1420,7 +1402,6 @@ class CoronaTestServiceTests: CWATestCase {
 		)
 
 		let service = CoronaTestService(
-			client: client,
 			restServiceProvider: restServiceProvider,
 			store: store,
 			eventStore: MockEventStore(),
@@ -1513,7 +1494,6 @@ class CoronaTestServiceTests: CWATestCase {
 		)
 
 		let service = CoronaTestService(
-			client: client,
 			restServiceProvider: restServiceProvider,
 			store: store,
 			eventStore: MockEventStore(),
@@ -1637,7 +1617,6 @@ class CoronaTestServiceTests: CWATestCase {
 		)
 
 		let service = CoronaTestService(
-			client: client,
 			restServiceProvider: restServiceProvider,
 			store: store,
 			eventStore: MockEventStore(),
@@ -1726,7 +1705,6 @@ class CoronaTestServiceTests: CWATestCase {
 		)
 
 		let service = CoronaTestService(
-			client: client,
 			restServiceProvider: restServiceProvider,
 			store: store,
 			eventStore: MockEventStore(),
@@ -1796,7 +1774,6 @@ class CoronaTestServiceTests: CWATestCase {
 		)
 
 		let service = CoronaTestService(
-			client: client,
 			restServiceProvider: restServiceProvider,
 			store: store,
 			eventStore: MockEventStore(),
@@ -1900,7 +1877,6 @@ class CoronaTestServiceTests: CWATestCase {
 		)
 
 		let service = CoronaTestService(
-			client: client,
 			restServiceProvider: restServiceProvider,
 			store: store,
 			eventStore: MockEventStore(),
@@ -2001,7 +1977,6 @@ class CoronaTestServiceTests: CWATestCase {
 		)
 
 		let service = CoronaTestService(
-			client: client,
 			restServiceProvider: restServiceProvider,
 			store: store,
 			eventStore: MockEventStore(),
@@ -2130,7 +2105,6 @@ class CoronaTestServiceTests: CWATestCase {
 		)
 
 		let service = CoronaTestService(
-			client: client,
 			restServiceProvider: restServiceProvider,
 			store: store,
 			eventStore: MockEventStore(),
@@ -2218,7 +2192,6 @@ class CoronaTestServiceTests: CWATestCase {
 		)
 
 		let service = CoronaTestService(
-			client: client,
 			restServiceProvider: restServiceProvider,
 			store: store,
 			eventStore: MockEventStore(),
@@ -2292,7 +2265,6 @@ class CoronaTestServiceTests: CWATestCase {
 		)
 
 		let service = CoronaTestService(
-			client: client,
 			restServiceProvider: restServiceProvider,
 			store: store,
 			eventStore: MockEventStore(),
@@ -2385,7 +2357,6 @@ class CoronaTestServiceTests: CWATestCase {
 		)
 
 		let service = CoronaTestService(
-			client: client,
 			restServiceProvider: restServiceProvider,
 			store: store,
 			eventStore: MockEventStore(),
@@ -2451,7 +2422,6 @@ class CoronaTestServiceTests: CWATestCase {
 		)
 
 		let service = CoronaTestService(
-			client: client,
 			restServiceProvider: restServiceProvider,
 			store: store,
 			eventStore: MockEventStore(),
@@ -2512,7 +2482,6 @@ class CoronaTestServiceTests: CWATestCase {
 		)
 
 		let service = CoronaTestService(
-			client: client,
 			store: store,
 			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
@@ -2560,7 +2529,6 @@ class CoronaTestServiceTests: CWATestCase {
 		)
 
 		let service = CoronaTestService(
-			client: client,
 			store: store,
 			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
@@ -2608,7 +2576,6 @@ class CoronaTestServiceTests: CWATestCase {
 		)
 
 		let service = CoronaTestService(
-			client: client,
 			store: store,
 			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
@@ -2664,7 +2631,6 @@ class CoronaTestServiceTests: CWATestCase {
 		)
 
 		let service = CoronaTestService(
-			client: client,
 			store: store,
 			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
@@ -2733,7 +2699,6 @@ class CoronaTestServiceTests: CWATestCase {
 		)
 
 		let testService = CoronaTestService(
-			client: client,
 			restServiceProvider: restServiceProvider,
 			store: store,
 			eventStore: MockEventStore(),
@@ -2796,7 +2761,6 @@ class CoronaTestServiceTests: CWATestCase {
 		)
 
 		let testService = CoronaTestService(
-			client: client,
 			restServiceProvider: restServiceProvider,
 			store: store,
 			eventStore: MockEventStore(),
@@ -2846,7 +2810,6 @@ class CoronaTestServiceTests: CWATestCase {
 		)
 
 		let testService = CoronaTestService(
-			client: client,
 			restServiceProvider: restServiceProvider,
 			store: store,
 			eventStore: MockEventStore(),
@@ -2898,7 +2861,6 @@ class CoronaTestServiceTests: CWATestCase {
 		)
 
 		let testService = CoronaTestService(
-			client: client,
 			restServiceProvider: restServiceProvider,
 			store: store,
 			eventStore: MockEventStore(),
@@ -2991,7 +2953,6 @@ class CoronaTestServiceTests: CWATestCase {
 		)
 
 		return CoronaTestService(
-			client: client,
 			restServiceProvider: restServiceProvider,
 			store: store,
 			eventStore: MockEventStore(),
@@ -3067,7 +3028,6 @@ class CoronaTestServiceTests: CWATestCase {
 		)
 
 		let testService = CoronaTestService(
-			client: client,
 			restServiceProvider: restServiceProvider,
 			store: store,
 			eventStore: MockEventStore(),
@@ -3108,7 +3068,7 @@ class CoronaTestServiceTests: CWATestCase {
 		testService.updateTestResults(presentNotification: true) { _ in
 			completionExpectation.fulfill()
 		}
-		waitForExpectations(timeout: .short)
+		waitForExpectations(timeout: .extraLong)
 		
 		testService.createCoronaTestEntryInContactDiary(coronaTestType: .pcr)
 		testService.createCoronaTestEntryInContactDiary(coronaTestType: .antigen)
@@ -3169,7 +3129,6 @@ class CoronaTestServiceTests: CWATestCase {
 		)
 
 		let testService = CoronaTestService(
-			client: client,
 			restServiceProvider: restServiceProvider,
 			store: store,
 			eventStore: MockEventStore(),
@@ -3228,7 +3187,6 @@ class CoronaTestServiceTests: CWATestCase {
 		)
 
 		let testService = CoronaTestService(
-			client: client,
 			restServiceProvider: restServiceProvider,
 			store: store,
 			eventStore: MockEventStore(),
@@ -3294,7 +3252,6 @@ class CoronaTestServiceTests: CWATestCase {
 		)
 
 		let testService = CoronaTestService(
-			client: client,
 			restServiceProvider: restServiceProvider,
 			store: store,
 			eventStore: MockEventStore(),
@@ -3362,7 +3319,6 @@ class CoronaTestServiceTests: CWATestCase {
 		)
 
 		let testService = CoronaTestService(
-			client: client,
 			restServiceProvider: restServiceProvider,
 			store: store,
 			eventStore: MockEventStore(),
@@ -3424,7 +3380,6 @@ class CoronaTestServiceTests: CWATestCase {
 		)
 
 		let testService = CoronaTestService(
-			client: client,
 			restServiceProvider: restServiceProvider,
 			store: store,
 			eventStore: MockEventStore(),
@@ -3491,7 +3446,6 @@ class CoronaTestServiceTests: CWATestCase {
 		)
 
 		let testService = CoronaTestService(
-			client: client,
 			restServiceProvider: restServiceProvider,
 			store: store,
 			eventStore: MockEventStore(),
@@ -3554,7 +3508,6 @@ class CoronaTestServiceTests: CWATestCase {
 		)
 
 		let testService = CoronaTestService(
-			client: client,
 			restServiceProvider: restServiceProvider,
 			store: store,
 			eventStore: MockEventStore(),
@@ -3605,7 +3558,6 @@ class CoronaTestServiceTests: CWATestCase {
 		)
 
 		let testService = CoronaTestService(
-			client: client,
 			restServiceProvider: restServiceProvider,
 			store: store,
 			eventStore: MockEventStore(),
@@ -3661,7 +3613,6 @@ class CoronaTestServiceTests: CWATestCase {
 		)
 
 		let testService = CoronaTestService(
-			client: client,
 			restServiceProvider: restServiceProvider,
 			store: store,
 			eventStore: MockEventStore(),
@@ -3720,7 +3671,6 @@ class CoronaTestServiceTests: CWATestCase {
 		)
 
 		let testService = CoronaTestService(
-			client: client,
 			restServiceProvider: restServiceProvider,
 			store: store,
 			eventStore: MockEventStore(),
@@ -3779,7 +3729,6 @@ class CoronaTestServiceTests: CWATestCase {
 		)
 
 		let testService = CoronaTestService(
-			client: client,
 			restServiceProvider: restServiceProvider,
 			store: store,
 			eventStore: MockEventStore(),
@@ -3838,7 +3787,6 @@ class CoronaTestServiceTests: CWATestCase {
 		)
 
 		let testService = CoronaTestService(
-			client: client,
 			restServiceProvider: restServiceProvider,
 			store: store,
 			eventStore: MockEventStore(),
@@ -3897,7 +3845,6 @@ class CoronaTestServiceTests: CWATestCase {
 		)
 
 		let testService = CoronaTestService(
-			client: client,
 			restServiceProvider: restServiceProvider,
 			store: store,
 			eventStore: MockEventStore(),
@@ -3950,7 +3897,6 @@ class CoronaTestServiceTests: CWATestCase {
 		)
 
 		let service = CoronaTestService(
-			client: client,
 			store: store,
 			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
@@ -4017,7 +3963,6 @@ class CoronaTestServiceTests: CWATestCase {
 		)
 
 		let service = CoronaTestService(
-			client: client,
 			store: store,
 			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
@@ -4097,18 +4042,22 @@ class CoronaTestServiceTests: CWATestCase {
 					expectation.fulfill()
 					XCTAssertEqual(count, 1)
 					count += 1
-				})
+				}),
+			// Key submission result.
+			LoadResource(
+				result: .success(()),
+				willLoadResource: { resource in
+					guard let submissionResource = resource as? KeySubmissionResource else {
+						XCTFail("KeySubmissionResource expected.")
+						return
+					}
+					expectation.fulfill()
+					XCTAssertTrue(submissionResource.locator.isFake)
+					XCTAssertEqual(count, 2)
+					count += 1
+				}
+			)
 		])
-
-		let client = ClientMock()
-
-		client.onSubmitCountries = { _, isFake, completion in
-			expectation.fulfill()
-			XCTAssertTrue(isFake)
-			XCTAssertEqual(count, 2)
-			count += 1
-			completion(.success(()))
-		}
 
 		// Run test.
 
@@ -4126,7 +4075,6 @@ class CoronaTestServiceTests: CWATestCase {
 		)
 
 		let service = CoronaTestService(
-			client: client,
 			restServiceProvider: restServiceProvider,
 			store: store,
 			eventStore: MockEventStore(),
@@ -4135,7 +4083,7 @@ class CoronaTestServiceTests: CWATestCase {
 			healthCertificateService: healthCertificateService,
 			healthCertificateRequestService: HealthCertificateRequestService(
 				store: store,
-				client: client,
+				client: ClientMock(),
 				appConfiguration: appConfiguration,
 				healthCertificateService: healthCertificateService
 			),
@@ -4197,16 +4145,6 @@ class CoronaTestServiceTests: CWATestCase {
 
 		// Initialize.
 
-		let client = ClientMock()
-
-		client.onSubmitCountries = { _, isFake, completion in
-			expectation.fulfill()
-			XCTAssertTrue(isFake)
-			XCTAssertEqual(count, 2)
-			count += 1
-			completion(.success(()))
-		}
-
 		let store = MockTestStore()
 		let appConfiguration = CachedAppConfigurationMock()
 		let restServiceProvider = RestServiceProviderStub(loadResources: [
@@ -4237,7 +4175,21 @@ class CoronaTestServiceTests: CWATestCase {
 					XCTAssertTrue(resource.locator.isFake)
 					XCTAssertEqual(count, 1)
 					count += 1
-				})
+				}),
+			// Key submission result.
+			LoadResource(
+				result: .success(()),
+				willLoadResource: { resource in
+					guard let submissionResource = resource as? KeySubmissionResource else {
+						XCTFail("KeySubmissionResource expected.")
+						return
+					}
+					expectation.fulfill()
+					XCTAssertTrue(submissionResource.locator.isFake)
+					XCTAssertEqual(count, 2)
+					count += 1
+				}
+			)
 		])
 		let healthCertificateService = HealthCertificateService(
 			store: store,
@@ -4250,7 +4202,6 @@ class CoronaTestServiceTests: CWATestCase {
 		)
 
 		let service = CoronaTestService(
-			client: client,
 			restServiceProvider: restServiceProvider,
 			store: store,
 			eventStore: MockEventStore(),
@@ -4259,7 +4210,7 @@ class CoronaTestServiceTests: CWATestCase {
 			healthCertificateService: healthCertificateService,
 			healthCertificateRequestService: HealthCertificateRequestService(
 				store: store,
-				client: client,
+				client: ClientMock(),
 				appConfiguration: appConfiguration,
 				healthCertificateService: healthCertificateService
 			),

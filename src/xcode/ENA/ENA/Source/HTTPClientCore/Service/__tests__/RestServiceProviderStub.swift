@@ -46,6 +46,7 @@ class RestServiceProviderStub: RestServiceProviding {
 			Log.debug("Fake detected no response given", log: .client)
 			if let loadResource = loadResources.first {
 				loadResource.willLoadResource?(resource)
+				loadResources.removeFirst()
 			}
 			completion(.failure(.fakeResponse))
 			return

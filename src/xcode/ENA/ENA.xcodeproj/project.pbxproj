@@ -1304,6 +1304,7 @@
 		ABF574E425C405710098E315 /* ExposureDetectionCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABF574E325C405710098E315 /* ExposureDetectionCoordinator.swift */; };
 		ABFCE98A255C32EF0075FF13 /* AppConfigMetadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABFCE989255C32EE0075FF13 /* AppConfigMetadata.swift */; };
 		ABFDBEFA281933A000A11FA8 /* KeySubmissionResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABFDBEF9281933A000A11FA8 /* KeySubmissionResource.swift */; };
+		ABFDBEFD281AD7C000A11FA8 /* KeySubmissionResourceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABFDBEFC281AD7C000A11FA8 /* KeySubmissionResourceTests.swift */; };
 		B103193224E18A0A00DD02EF /* DMMenuItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = B103193124E18A0A00DD02EF /* DMMenuItem.swift */; };
 		B10F9B8B249961BC00C418F4 /* DynamicTypeLabelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10F9B89249961B500C418F4 /* DynamicTypeLabelTests.swift */; };
 		B10F9B8C249961CE00C418F4 /* UIFont+DynamicTypeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B163D11424993F64001A322C /* UIFont+DynamicTypeTests.swift */; };
@@ -3127,6 +3128,7 @@
 		ABF574E325C405710098E315 /* ExposureDetectionCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureDetectionCoordinator.swift; sourceTree = "<group>"; };
 		ABFCE989255C32EE0075FF13 /* AppConfigMetadata.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConfigMetadata.swift; sourceTree = "<group>"; };
 		ABFDBEF9281933A000A11FA8 /* KeySubmissionResource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeySubmissionResource.swift; sourceTree = "<group>"; };
+		ABFDBEFC281AD7C000A11FA8 /* KeySubmissionResourceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeySubmissionResourceTests.swift; sourceTree = "<group>"; };
 		B102BDC22460410600CD55A2 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		B103193124E18A0A00DD02EF /* DMMenuItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMMenuItem.swift; sourceTree = "<group>"; };
 		B10F9B89249961B500C418F4 /* DynamicTypeLabelTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DynamicTypeLabelTests.swift; sourceTree = "<group>"; };
@@ -8287,9 +8289,18 @@
 		ABFDBEF82819333000A11FA8 /* KeySubmission */ = {
 			isa = PBXGroup;
 			children = (
+				ABFDBEFB281AD7A500A11FA8 /* __tests__ */,
 				ABFDBEF9281933A000A11FA8 /* KeySubmissionResource.swift */,
 			);
 			path = KeySubmission;
+			sourceTree = "<group>";
+		};
+		ABFDBEFB281AD7A500A11FA8 /* __tests__ */ = {
+			isa = PBXGroup;
+			children = (
+				ABFDBEFC281AD7C000A11FA8 /* KeySubmissionResourceTests.swift */,
+			);
+			path = __tests__;
 			sourceTree = "<group>";
 		};
 		B102BDC12460405F00CD55A2 /* Backend */ = {
@@ -11935,6 +11946,7 @@
 				019DDEDF26F1E48C00390509 /* VaccinationStateCellModelTests.swift in Sources */,
 				0156F05C25D2DA2300543640 /* DeadmanNotificationManagerTests.swift in Sources */,
 				2E4C3FE4263A91FD00E9FAFF /* CreateAntigenTestProfileViewModelTests.swift in Sources */,
+				ABFDBEFD281AD7C000A11FA8 /* KeySubmissionResourceTests.swift in Sources */,
 				506D881227A2D3F3006297FE /* DCCRulesResourceTests.swift in Sources */,
 				BA9BCF7725B09B5500DD7974 /* DiaryOverviewDayCellModelTests.swift in Sources */,
 				A1E419582495A8F90016E52A /* TeleTanResourceTests.swift in Sources */,

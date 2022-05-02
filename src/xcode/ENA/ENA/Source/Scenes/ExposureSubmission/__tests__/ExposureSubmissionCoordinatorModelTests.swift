@@ -575,7 +575,47 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 	func testSuccessfulSubmitWithoutKeys() {
 		let exposureSubmissionService = MockExposureSubmissionService()
 		exposureSubmissionService.submitExposureCallback = { completion in
-			completion(.noKeysCollected)
+			completion(.preconditionError(.noKeysCollected))
+		}
+
+		let model = ExposureSubmissionCoordinatorModel(
+			exposureSubmissionService: exposureSubmissionService,
+			coronaTestService: MockCoronaTestService(),
+			familyMemberCoronaTestService: MockFamilyMemberCoronaTestService(),
+			eventProvider: MockEventStore(),
+			recycleBin: RecycleBin(store: MockTestStore())
+		)
+
+		model.coronaTestType = .pcr
+
+		let expectedIsLoadingValues = [true, false]
+		var isLoadingValues = [Bool]()
+
+		let isLoadingExpectation = expectation(description: "isLoading is called twice")
+		isLoadingExpectation.expectedFulfillmentCount = 2
+
+		let onSuccessExpectation = expectation(description: "onSuccess is called")
+
+		let onErrorExpectation = expectation(description: "onError is not called")
+		onErrorExpectation.isInverted = true
+
+		model.submitExposure(
+			isLoading: {
+				isLoadingValues.append($0)
+				isLoadingExpectation.fulfill()
+			},
+			onSuccess: { onSuccessExpectation.fulfill() },
+			onError: { _ in onErrorExpectation.fulfill() }
+		)
+
+		waitForExpectations(timeout: .short)
+		XCTAssertEqual(isLoadingValues, expectedIsLoadingValues)
+	}
+	
+	func testSuccessfulSubmitNoSubmissionConsent() {
+		let exposureSubmissionService = MockExposureSubmissionService()
+		exposureSubmissionService.submitExposureCallback = { completion in
+			completion(.preconditionError(.noSubmissionConsent))
 		}
 
 		let model = ExposureSubmissionCoordinatorModel(
@@ -612,52 +652,10 @@ class ExposureSubmissionCoordinatorModelTests: CWATestCase {
 		XCTAssertEqual(isLoadingValues, expectedIsLoadingValues)
 	}
 
-	func testFailingSubmitWithNotAuthorizedError() {
+	func testFailingSubmitWithKeysNotSharedError() {
 		let exposureSubmissionService = MockExposureSubmissionService()
 		exposureSubmissionService.submitExposureCallback = { completion in
-			completion(.notAuthorized)
-		}
-
-		let model = ExposureSubmissionCoordinatorModel(
-			exposureSubmissionService: exposureSubmissionService,
-			coronaTestService: MockCoronaTestService(),
-			familyMemberCoronaTestService: MockFamilyMemberCoronaTestService(),
-			eventProvider: MockEventStore(),
-			recycleBin: RecycleBin(store: MockTestStore())
-		)
-
-		model.coronaTestType = .pcr
-
-		let expectedIsLoadingValues = [true, false]
-		var isLoadingValues = [Bool]()
-
-		let isLoadingExpectation = expectation(description: "isLoading is called twice")
-		isLoadingExpectation.expectedFulfillmentCount = 2
-
-		let onSuccessExpectation = expectation(description: "onSuccess is not called")
-		onSuccessExpectation.isInverted = true
-
-		// .notAuthorized should not trigger an error
-		let onErrorExpectation = expectation(description: "onError is not called")
-		onErrorExpectation.isInverted = true
-
-		model.submitExposure(
-			isLoading: {
-				isLoadingValues.append($0)
-				isLoadingExpectation.fulfill()
-			},
-			onSuccess: { onSuccessExpectation.fulfill() },
-			onError: { _ in onErrorExpectation.fulfill() }
-		)
-
-		waitForExpectations(timeout: .short)
-		XCTAssertEqual(isLoadingValues, expectedIsLoadingValues)
-	}
-
-	func testFailingSubmitWithInternalError() {
-		let exposureSubmissionService = MockExposureSubmissionService()
-		exposureSubmissionService.submitExposureCallback = { completion in
-			completion(.internal)
+			completion(.preconditionError(.keysNotShared))
 		}
 
 		let model = ExposureSubmissionCoordinatorModel(

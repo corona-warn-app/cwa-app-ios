@@ -6,7 +6,7 @@ import ExposureNotification
 import Foundation
 import OpenCombine
 
-enum ExposureSubmissionServicePreconditionError: LocalizedError {
+enum ExposureSubmissionServicePreconditionError: LocalizedError, Equatable {
 	case noCoronaTestOfGivenType
 	case noSubmissionConsent
 	case positiveTestResultNotShown
@@ -24,7 +24,7 @@ enum ExposureSubmissionServicePreconditionError: LocalizedError {
 	}
 }
 
-enum ExposureSubmissionServiceError: LocalizedError {
+enum ExposureSubmissionServiceError: LocalizedError, Equatable {
 	case coronaTestServiceError(CoronaTestServiceError)
 	case keySubmissionError(ServiceError<KeySubmissionResourceError>)
 	case preconditionError(ExposureSubmissionServicePreconditionError)
@@ -54,7 +54,6 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 	init(
 		diagnosisKeysRetrieval: DiagnosisKeysRetrieval,
 		appConfigurationProvider: AppConfigurationProviding,
-		client: Client,
 		restServiceProvider: RestServiceProviding,
 		store: Store,
 		eventStore: EventStoringProviding,
@@ -63,21 +62,19 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 	) {
 		self.diagnosisKeysRetrieval = diagnosisKeysRetrieval
 		self.appConfigurationProvider = appConfigurationProvider
-		self.client = client
 		self.restServiceProvider = restServiceProvider
 		self.store = store
 		self.eventStore = eventStore
 		self.deadmanNotificationManager = deadmanNotificationManager ?? DeadmanNotificationManager()
 		self.coronaTestService = coronaTestService
 
-		fakeRequestService = FakeRequestService(client: client, restServiceProvider: restServiceProvider)
+		fakeRequestService = FakeRequestService(restServiceProvider: restServiceProvider)
 	}
 
 	convenience init(dependencies: ExposureSubmissionServiceDependencies) {
 		self.init(
 			diagnosisKeysRetrieval: dependencies.exposureManager,
 			appConfigurationProvider: dependencies.appConfigurationProvider,
-			client: dependencies.client,
 			restServiceProvider: dependencies.restServiceProvider,
 			store: dependencies.store,
 			eventStore: dependencies.eventStore,
@@ -237,7 +234,6 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 
 	private let diagnosisKeysRetrieval: DiagnosisKeysRetrieval
 	private let appConfigurationProvider: AppConfigurationProviding
-	private let client: Client
 	private let restServiceProvider: RestServiceProviding
 	private let store: Store
 	private let eventStore: EventStoringProviding

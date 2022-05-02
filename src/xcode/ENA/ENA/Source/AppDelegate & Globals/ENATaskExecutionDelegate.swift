@@ -209,7 +209,6 @@ class TaskExecutionHandler: ENATaskExecutionDelegate {
 		let service = ENAExposureSubmissionService(
 			diagnosisKeysRetrieval: dependencies.exposureManager,
 			appConfigurationProvider: dependencies.appConfigurationProvider,
-			client: dependencies.client,
 			restServiceProvider: restServiceProvider,
 			store: dependencies.store,
 			eventStore: dependencies.eventStore,
