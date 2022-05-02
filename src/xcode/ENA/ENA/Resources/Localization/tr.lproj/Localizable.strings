@@ -1010,6 +1010,8 @@
 /* Exposure Submission AntigenTest Profile Overview */
 "ExposureSubmission_Antigen_Profile_Overview_title" = "Hızlı Test Profilleri";
 
+"ExposureSubmission_Antigen_Profile_Card_title" = "Hızlı Test Profili";
+
 "ExposureSubmission_Antigen_Profile_Overview_EmptyTitle" = "Henüz hiçbir hızlı test profili oluşturulmadı";
 
 "ExposureSubmission_Antigen_Profile_Overview_EmptyDescription" = "Kişisel verilerinizle bir hızlı test profili oluşturabilir ve her katılan test noktasına QR kod aracılığıyla gönderebilirsiniz.";
@@ -1027,7 +1029,7 @@
 
 "ExposureSubmission_Antigen_Profile_DateOfBirth_Format" = "Doğum tarihi: %@";
 
-"ExposureSubmission_Antigen_Profile_Primary_Button" = "Devam Et";
+"ExposureSubmission_Antigen_Profile_Primary_Button" = "Testi Tara";
 
 "ExposureSubmission_Antigen_Profile_Secondary_Button" = "Düzenle";
 
@@ -1036,7 +1038,7 @@
 
 "ExposureSubmission_Profile_CreateProfileTile_Description" = "Test noktalarında kaydınızı hızlandırmak için kişisel verilerinizi bir QR kod olarak kaydedin.";
 
-"ExposureSubmission_Profile_ProfileTile_Title" = "Hızlı Test Profili";
+"ExposureSubmission_Profile_ProfileTile_Title" = "Hızlı Test Profilleri";
 
 "ExposureSubmission_Profile_ProfileTile_Description" = "QR kod ile dilediğiniz katılımcı test noktasına gönderebileceğiniz, kişisel verilerinizi içeren hızlı test profili.";
 
@@ -1072,7 +1074,7 @@
 
 "ExposureSubmission_TestCertificate_Information_BirthdayText" = "Güvenlik amaçları nedeniyle test sertifikanız doğum tarihinizle korunmaktadır. Test sertifikası yalnızca doğru doğum tarihini belirtirseniz düzenlenebilir.";
 
-"ExposureSubmission_TestCertificate_Information_Dataprivacy_Title" = "Veri işleme hakkında daha ayrıntılı bilgi için lütfen gizlilik bildirimine başvurun.";
+"ExposureSubmission_TestCertificate_Information_Dataprivacy_Title" = "Veri İşleme ve Onayınız Hakkında Ayrıntılı Bilgiler";
 
 "ExposureSubmission_TestCertificate_Information_Alert_Title" = "Kaydı İptal Et";
 
@@ -3205,9 +3207,11 @@
 
 "HealthCertificate_ValidityState_Invalid_description" = "Sertifika onaylanmamış bir kuruluş tarafından veya yanlış düzenlenmiş. Lütfen onaylanmış bir kuruluşa yeni bir sertifika düzenletin.";
 
-"HealthCertificate_ValidityState_Blocked" = "Sertifika Geçersiz";
+"HealthCertificate_ValidityState_BlockedRevoked" = "Sertifika Geçersiz";
 
-"HealthCertificate_ValidityState_Blocked_description" = "Sertifika, düzenleyen makam tarafından geri çağırıldı. Lütfen yeni bir dijital sertifika alın.";
+"HealthCertificate_ValidityState_BlockedRevoked_description_de" = "RKI, hükûmet kararnamesi doğrultusunda sertifikayı devre dışı bıraktı. Lütfen yeni bir dijital sertifika alın.";
+
+"HealthCertificate_ValidityState_BlockedRevoked_description_other" = "Düzenleyen yetkili merci, idari karar doğrultusunda sertifikayı devre dışı bıraktı. Lütfen yeni bir dijital sertifika alın.";
 
 /* Reissuance */
 /* HealthCertificate Resissuance Consent */
