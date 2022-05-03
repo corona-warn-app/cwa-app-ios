@@ -68,7 +68,7 @@ extension ClientMock: Client {
 		fatalError("No longer supported - gets removed at end of stroy")
 	}
 
-	func fetchDay(_ day: String, forCountry country: String, completion: @escaping DayCompletionHandler) {
+	func fetchDay(_ day: String, forCountry country: String, completion: @escaping (Result<PackageDownloadResponse, Failure>) -> Void) {
 		if let failure = fetchPackageRequestFailure {
 			completion(.failure(failure))
 			return
