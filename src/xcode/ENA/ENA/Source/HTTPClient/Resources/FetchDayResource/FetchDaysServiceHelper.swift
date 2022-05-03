@@ -4,16 +4,14 @@
 
 import Foundation
 
-struct HoursResult {
+struct DaysResult {
 	let errors: [Client.Failure]
-	let bucketsByHour: [Int: PackageDownloadResponse]
-	let day: String
+	let bucketsByDay: [String: PackageDownloadResponse]
 }
 
-struct FetchHoursServiceHelper {
+struct FetchDayServiceHelper {
 
 	// MARK: - Init
-
 	init(
 		restService: RestServiceProviding
 	) {
@@ -22,26 +20,26 @@ struct FetchHoursServiceHelper {
 
 	// MARK: - Internal
 
-	func fetchHours(
-		_ hours: [Int],
-		day: String,
-		country: String,
-		completion completeWith: @escaping (HoursResult) -> Void
+	func fetchDays(
+			_ days: [String],
+			forCountry country: String,
+			completion completeWith: @escaping (DaysResult) -> Void
 	) {
 		var errors = [Client.Failure]()
-		var buckets = [Int: PackageDownloadResponse]()
-		let group = DispatchGroup()
+		var buckets = [String: PackageDownloadResponse]()
 
-		hours.forEach { hour in
+		let group = DispatchGroup()
+		days.forEach { day in
 			group.enter()
-			let resource = FetchHourResource(day: day, country: country, hour: hour)
+
+			let resource = FetchDayResource(day: day, country: country)
 			restService.load(resource) { result in
 				defer {
 					group.leave()
 				}
 				switch result {
-				case let .success(hourBucket):
-					buckets[hour] = hourBucket
+				case let .success(bucket):
+					buckets[day] = bucket
 				case let .failure(error):
 					switch error {
 					case .transportationError:
@@ -67,13 +65,17 @@ struct FetchHoursServiceHelper {
 
 		group.notify(queue: .main) {
 			completeWith(
-				HoursResult(errors: errors, bucketsByHour: buckets, day: day)
+				DaysResult(
+					errors: errors,
+					bucketsByDay: buckets
+				)
 			)
 		}
-	}
 
+	}
 
 	// MARK: - Private
 
 	private let restService: RestServiceProviding
+
 }

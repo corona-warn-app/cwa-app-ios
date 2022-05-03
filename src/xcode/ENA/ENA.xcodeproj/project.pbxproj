@@ -351,7 +351,6 @@
 		01CBB824265E74FF0094CF8B /* HealthCertificateOverviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01CBB821265E730F0094CF8B /* HealthCertificateOverviewViewController.swift */; };
 		01CBB82C2660F3690094CF8B /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01CBB82B2660F3690094CF8B /* CardView.swift */; };
 		01CBD880261B3C6800158B3E /* MockTestStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = B15382E3248273DC0010F007 /* MockTestStore.swift */; };
-		01CBD884261B3CF700158B3E /* ClientMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD678F6C246C43EE00B6A0F8 /* ClientMock.swift */; };
 		01CF95DD253083B2007B72F7 /* CodableExposureDetectionSummary+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01CF95DC25308346007B72F7 /* CodableExposureDetectionSummary+Helpers.swift */; };
 		01D02626258A769200B6389A /* HTTPURLResponse+Header.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D02625258A769200B6389A /* HTTPURLResponse+Header.swift */; };
 		01D0262E258A791C00B6389A /* OnboardingInfoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01D0262D258A791C00B6389A /* OnboardingInfoViewController.xib */; };
@@ -662,7 +661,6 @@
 		5001DE7826E2016E004242FA /* DSCList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5001DE7726E2016D004242FA /* DSCList.swift */; };
 		5001DE7A26E2019A004242FA /* LocalStatistics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5001DE7926E2019A004242FA /* LocalStatistics.swift */; };
 		5001DE7C26E201FE004242FA /* Locator+AvailableDays.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5001DE7B26E201FE004242FA /* Locator+AvailableDays.swift */; };
-		5001DE7E26E20257004242FA /* DiagnosisKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5001DE7D26E20257004242FA /* DiagnosisKeys.swift */; };
 		5001DE8226E2057C004242FA /* Locator+TestResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5001DE8126E2057C004242FA /* Locator+TestResult.swift */; };
 		5001DE8626E20791004242FA /* KeySubmission.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5001DE8526E20791004242FA /* KeySubmission.swift */; };
 		5001DE8826E20903004242FA /* SubmitOnBehalf.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5001DE8726E20903004242FA /* SubmitOnBehalf.swift */; };
@@ -1540,7 +1538,7 @@
 		BA8A9FC627BFFC9C001DBB4B /* HealthCertificateReissuanceSucceededViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA8A9FC527BFFC9C001DBB4B /* HealthCertificateReissuanceSucceededViewController.swift */; };
 		BA8A9FC827BFFCAD001DBB4B /* HealthCertificateReissuanceSucceededViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA8A9FC727BFFCAD001DBB4B /* HealthCertificateReissuanceSucceededViewModel.swift */; };
 		BA8D5722281FF725008209C8 /* FetchHourResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA8D5721281FF725008209C8 /* FetchHourResource.swift */; };
-		BA8D5724281FF85E008209C8 /* Locator+DiagnosisKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA8D5723281FF85E008209C8 /* Locator+DiagnosisKeys.swift */; };
+		BA8D5724281FF85E008209C8 /* Locator+DiagnosisKeysHour.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA8D5723281FF85E008209C8 /* Locator+DiagnosisKeysHour.swift */; };
 		BA8D5726282001E0008209C8 /* PackageDownloadReceiveResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA8D5725282001E0008209C8 /* PackageDownloadReceiveResource.swift */; };
 		BA8D572828201256008209C8 /* FetchHoursServiceHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA8D572728201256008209C8 /* FetchHoursServiceHelper.swift */; };
 		BA8D572B28201542008209C8 /* FetchHourTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA8D572A28201542008209C8 /* FetchHourTests.swift */; };
@@ -1647,6 +1645,10 @@
 		BADE51EE272B058000CBAA63 /* CachedRestService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BADE51ED272B058000CBAA63 /* CachedRestService.swift */; };
 		BADE51EF272B05FA00CBAA63 /* _Service+Default.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5071A88326EB810D00B09B40 /* _Service+Default.swift */; };
 		BAE106E426710E19002D91FB /* HealthCertifiedPersonViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAE106E326710E19002D91FB /* HealthCertifiedPersonViewModelTests.swift */; };
+		BAE11F5328217D5500CA2790 /* Locator+DiagnosisKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAE11F5228217D5500CA2790 /* Locator+DiagnosisKeys.swift */; };
+		BAE11F5528217E1E00CA2790 /* FetchDayResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAE11F5428217E1E00CA2790 /* FetchDayResource.swift */; };
+		BAE11F5728217F0100CA2790 /* FetchDaysServiceHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAE11F5628217F0100CA2790 /* FetchDaysServiceHelper.swift */; };
+		BAE11F5B2821807700CA2790 /* ClientMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD678F6C246C43EE00B6A0F8 /* ClientMock.swift */; };
 		BAE20FF325C8321300162966 /* DMKeyValueTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAE20FF125C8321300162966 /* DMKeyValueTableViewCell.swift */; };
 		BAE2101025C8460900162966 /* PPACDeviceCheck.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAE2100125C83E4400162966 /* PPACDeviceCheck.swift */; };
 		BAE2101B25C8463400162966 /* PPACDeviceCheckMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAE2101A25C8463400162966 /* PPACDeviceCheckMock.swift */; };
@@ -2470,7 +2472,6 @@
 		5001DE7726E2016D004242FA /* DSCList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DSCList.swift; sourceTree = "<group>"; };
 		5001DE7926E2019A004242FA /* LocalStatistics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalStatistics.swift; sourceTree = "<group>"; };
 		5001DE7B26E201FE004242FA /* Locator+AvailableDays.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Locator+AvailableDays.swift"; sourceTree = "<group>"; };
-		5001DE7D26E20257004242FA /* DiagnosisKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiagnosisKeys.swift; sourceTree = "<group>"; };
 		5001DE7F26E202B3004242FA /* Locator+TeleTan.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Locator+TeleTan.swift"; sourceTree = "<group>"; };
 		5001DE8126E2057C004242FA /* Locator+TestResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Locator+TestResult.swift"; sourceTree = "<group>"; };
 		5001DE8326E206AB004242FA /* Locator+RegistrationToken.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Locator+RegistrationToken.swift"; sourceTree = "<group>"; };
@@ -3366,7 +3367,7 @@
 		BA8A9FC527BFFC9C001DBB4B /* HealthCertificateReissuanceSucceededViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthCertificateReissuanceSucceededViewController.swift; sourceTree = "<group>"; };
 		BA8A9FC727BFFCAD001DBB4B /* HealthCertificateReissuanceSucceededViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthCertificateReissuanceSucceededViewModel.swift; sourceTree = "<group>"; };
 		BA8D5721281FF725008209C8 /* FetchHourResource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchHourResource.swift; sourceTree = "<group>"; };
-		BA8D5723281FF85E008209C8 /* Locator+DiagnosisKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Locator+DiagnosisKeys.swift"; sourceTree = "<group>"; };
+		BA8D5723281FF85E008209C8 /* Locator+DiagnosisKeysHour.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Locator+DiagnosisKeysHour.swift"; sourceTree = "<group>"; };
 		BA8D5725282001E0008209C8 /* PackageDownloadReceiveResource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackageDownloadReceiveResource.swift; sourceTree = "<group>"; };
 		BA8D572728201256008209C8 /* FetchHoursServiceHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchHoursServiceHelper.swift; sourceTree = "<group>"; };
 		BA8D572A28201542008209C8 /* FetchHourTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchHourTests.swift; sourceTree = "<group>"; };
@@ -3470,6 +3471,9 @@
 		BADE38222608F20900E07890 /* SelectTraceLocationTypeHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectTraceLocationTypeHeaderView.swift; sourceTree = "<group>"; };
 		BADE51ED272B058000CBAA63 /* CachedRestService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CachedRestService.swift; sourceTree = "<group>"; };
 		BAE106E326710E19002D91FB /* HealthCertifiedPersonViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthCertifiedPersonViewModelTests.swift; sourceTree = "<group>"; };
+		BAE11F5228217D5500CA2790 /* Locator+DiagnosisKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Locator+DiagnosisKeys.swift"; sourceTree = "<group>"; };
+		BAE11F5428217E1E00CA2790 /* FetchDayResource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchDayResource.swift; sourceTree = "<group>"; };
+		BAE11F5628217F0100CA2790 /* FetchDaysServiceHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchDaysServiceHelper.swift; sourceTree = "<group>"; };
 		BAE20FF125C8321300162966 /* DMKeyValueTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMKeyValueTableViewCell.swift; sourceTree = "<group>"; };
 		BAE2100125C83E4400162966 /* PPACDeviceCheck.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PPACDeviceCheck.swift; sourceTree = "<group>"; };
 		BAE2101A25C8463400162966 /* PPACDeviceCheckMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PPACDeviceCheckMock.swift; sourceTree = "<group>"; };
@@ -6292,7 +6296,6 @@
 		50BC9046279EEE530000C930 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				BA8D5720281FF6FA008209C8 /* FetchHour */,
 				50BC9030279EEB4A0000C930 /* AllowList */,
 				50BC9031279EEB840000C930 /* AppConfiguration */,
 				BABC1ECF281848800067F8E9 /* AvailableDays */,
@@ -6301,6 +6304,8 @@
 				50CDFB2527BE82C700FE0793 /* DCCReissuance */,
 				ABD430E127FAF6680063666C /* DCCRevocation */,
 				50BC902C279EEA670000C930 /* DCCRules */,
+				BAE11F5128217D3300CA2790 /* FetchDayResource */,
+				BA8D5720281FF6FA008209C8 /* FetchHour */,
 				50BC9032279EEBC20000C930 /* RegistrationToken */,
 				50BC9040279EECEB0000C930 /* ServiceIdentityDocument */,
 				50BC9044279EED6B0000C930 /* ServiceIdentityDocumentValidationDecorator */,
@@ -9548,7 +9553,7 @@
 				BA8D572928201511008209C8 /* __tests__ */,
 				BA8D5721281FF725008209C8 /* FetchHourResource.swift */,
 				BA8D572728201256008209C8 /* FetchHoursServiceHelper.swift */,
-				BA8D5723281FF85E008209C8 /* Locator+DiagnosisKeys.swift */,
+				BA8D5723281FF85E008209C8 /* Locator+DiagnosisKeysHour.swift */,
 			);
 			path = FetchHour;
 			sourceTree = "<group>";
@@ -10040,6 +10045,16 @@
 			path = __tests__;
 			sourceTree = "<group>";
 		};
+		BAE11F5128217D3300CA2790 /* FetchDayResource */ = {
+			isa = PBXGroup;
+			children = (
+				BAE11F5228217D5500CA2790 /* Locator+DiagnosisKeys.swift */,
+				BAE11F5428217E1E00CA2790 /* FetchDayResource.swift */,
+				BAE11F5628217F0100CA2790 /* FetchDaysServiceHelper.swift */,
+			);
+			path = FetchDayResource;
+			sourceTree = "<group>";
+		};
 		BAE54F44269728F30011DE4A /* __tests__ */ = {
 			isa = PBXGroup;
 			children = (
@@ -10132,7 +10147,6 @@
 				5001DE8926E20AC6004242FA /* AuthorizeOtpEdus.swift */,
 				5001DE8B26E20C4B004242FA /* AuthorizeOtpEls.swift */,
 				5001DE9326E2114F004242FA /* DCCRegisterPublicKey.swift */,
-				5001DE7D26E20257004242FA /* DiagnosisKeys.swift */,
 				5001DE9726E2137D004242FA /* DigitalCovid19Certificate.swift */,
 				5001DE7726E2016D004242FA /* DSCList.swift */,
 				5001DE8526E20791004242FA /* KeySubmission.swift */,
@@ -10803,7 +10817,6 @@
 				EB855EFD25EED0C900FEE17C /* CGPDFDocument+EmbedImage.swift in Sources */,
 				8F39D066263C41990096F4E2 /* VaccinationValueSetsProviding.swift in Sources */,
 				50B5057D25CAEF5C00EEA380 /* OTPToken.swift in Sources */,
-				01CBD884261B3CF700158B3E /* ClientMock.swift in Sources */,
 				B1A89F3924819CC200DA1CEC /* ExposureStateUpdating.swift in Sources */,
 				01DE60792744EFF000E12FA4 /* TicketValidationQRScannerError.swift in Sources */,
 				50CDFB2E27BE84E800FE0793 /* Locator+DCCReissuance.swift in Sources */,
@@ -10865,6 +10878,8 @@
 				71C0BEDD2498DD07009A17A0 /* ENANavigationFooterView.swift in Sources */,
 				010A47662754C74F000AA80E /* TicketValidationResultTokenResource.swift in Sources */,
 				2FA9E39524D2F2B00030561C /* ExposureSubmission+DeviceRegistrationKey.swift in Sources */,
+				BAE11F5528217E1E00CA2790 /* FetchDayResource.swift in Sources */,
+				BAE11F5328217D5500CA2790 /* Locator+DiagnosisKeys.swift in Sources */,
 				EB08F17E2541CE3300D11FA9 /* app_version_config.pb.swift in Sources */,
 				0138F54B25ECD44300A9B075 /* semantic_version.pb.swift in Sources */,
 				A3FF84EC247BFAF00053E947 /* ENAHasher.swift in Sources */,
@@ -11150,7 +11165,7 @@
 				2F26CE2E248B9C4F00BE30EE /* UIViewController+BackButton.swift in Sources */,
 				01D0271B258BC78100B6389A /* SettingsCoordinator.swift in Sources */,
 				ABC506BA2747DC9600698A95 /* EncryptionScheme.swift in Sources */,
-				BA8D5724281FF85E008209C8 /* Locator+DiagnosisKeys.swift in Sources */,
+				BA8D5724281FF85E008209C8 /* Locator+DiagnosisKeysHour.swift in Sources */,
 				8F95A1B225EFC5BE00506CF2 /* SendErrorLogsViewController.swift in Sources */,
 				EB6B5D882539AE9400B0ED57 /* DMNotificationsViewController.swift in Sources */,
 				3494635A27FC9C0000403F7A /* AddAntigenTestProfileCellModel.swift in Sources */,
@@ -11165,6 +11180,7 @@
 				019C9F2D258951B700B26392 /* ContactPersonEncounter.swift in Sources */,
 				35E121DC25B273280098D754 /* key_figure_card.pb.swift in Sources */,
 				711EFCC72492EE31005FEF21 /* ENAFooterView.swift in Sources */,
+				BAE11F5728217F0100CA2790 /* FetchDaysServiceHelper.swift in Sources */,
 				AB7DE73925C8528700C52B3F /* ExposureDetectionSurveyCellModel.swift in Sources */,
 				BA258CB2281AB8CC002C56D4 /* AvailableHoursResource.swift in Sources */,
 				016E264C25B0327B0077C64C /* HomeStatisticsCardViewModel.swift in Sources */,
@@ -11361,6 +11377,7 @@
 				EBDE11B2255EC2C4008C0F51 /* DMDeviceTimeCheckViewController.swift in Sources */,
 				341DC333268243470003E6BA /* LocalStatisticsMetadata.swift in Sources */,
 				5081EF0625FFB7E0004B8FDE /* CheckinsInfoScreenViewController.swift in Sources */,
+				BAE11F5B2821807700CA2790 /* ClientMock.swift in Sources */,
 				5001DE7326E200DC004242FA /* QRPosterTemplate.swift in Sources */,
 				B1A31F6924DAE6C000E263DF /* DMKeyCell.swift in Sources */,
 				50AA525425FB9ACA000C77BB /* TraceWarningDiscovery.swift in Sources */,
@@ -11901,7 +11918,6 @@
 				FEDCE50B4AC5E24D4E11AA52 /* RequiresAppDependencies.swift in Sources */,
 				ABC506BF2747DF8B00698A95 /* Data+Random.swift in Sources */,
 				8F7AB89F25F106A50043A3C8 /* SendErrorLogsViewModel.swift in Sources */,
-				5001DE7E26E20257004242FA /* DiagnosisKeys.swift in Sources */,
 				BA6C8AD4254D6552008344F5 /* TrlFilter.swift in Sources */,
 				01164CE826C57F07007F9C3E /* OnBehalfScanQRCodeCellModel.swift in Sources */,
 				BA00FED926BC357F009DA07F /* DMAppFeaturesViewController.swift in Sources */,

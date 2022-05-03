@@ -24,19 +24,6 @@ protocol Client {
 	typealias DigitalCovid19CertificateCompletionHandler = (Result<DCCResponse, DCCErrors.DigitalCovid19CertificateError>) -> Void
 	typealias DCCRegistrationCompletionHandler = (Result<Void, DCCErrors.RegistrationError>) -> Void
 
-	// MARK: Interacting with a Client
-
-	/// Fetches the keys for a given day and country code
-	/// - Parameters:
-	///   - day: The day that the keys belong to
-	///   - country: It should be country code, like DE stands for Germany
-	///   - completion: Once the request is done, the completion is called.
-	func fetchDay(
-		_ day: String,
-		forCountry country: String,
-		completion: @escaping DayCompletionHandler
-	)
-
 	// MARK: Submit keys
 
 	/// Submits exposure keys to the backend. This makes the local information available to the world so that the risk of others can be calculated on their local devices.
@@ -268,61 +255,10 @@ struct SubmissionPayload {
 	let submissionType: SAP_Internal_SubmissionPayload.SubmissionType
 }
 
-struct DaysResult {
-	let errors: [Client.Failure]
-	let bucketsByDay: [String: PackageDownloadResponse]
-}
-
-struct HoursResult {
-	let errors: [Client.Failure]
-	let bucketsByHour: [Int: PackageDownloadResponse]
-	let day: String
-}
-
 struct FetchedDaysAndHours {
 	let hours: HoursResult
 	let days: DaysResult
 	var allKeyPackages: [PackageDownloadResponse] {
 		Array(hours.bucketsByHour.values) + Array(days.bucketsByDay.values)
 	}
-}
-
-extension Client {
-	typealias FetchDaysCompletionHandler = (DaysResult) -> Void
-	typealias FetchHoursCompletionHandler = (HoursResult) -> Void
-
-	/// Fetch the keys with the given days and country code
-	func fetchDays(
-			_ days: [String],
-			forCountry country: String,
-			completion completeWith: @escaping FetchDaysCompletionHandler
-	) {
-		var errors = [Client.Failure]()
-		var buckets = [String: PackageDownloadResponse]()
-
-		let group = DispatchGroup()
-		for day in days {
-			group.enter()
-
-			fetchDay(day, forCountry: country) { result in
-				switch result {
-				case let .success(bucket):
-					buckets[day] = bucket
-				case let .failure(error):
-					errors.append(error)
-				}
-				group.leave()
-			}
-		}
-
-		group.notify(queue: .main) {
-			completeWith(
-				DaysResult(
-					errors: errors,
-					bucketsByDay: buckets
-				)
-			)
-		}
-	}
-
 }

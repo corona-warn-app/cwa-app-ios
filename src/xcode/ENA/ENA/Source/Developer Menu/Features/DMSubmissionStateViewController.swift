@@ -205,11 +205,13 @@ final class DMSubmissionStateViewController: UITableViewController {
 	) {
 		availableDaysAndHours(
 			completion: { daysAndHours in
+				/*
 				self.client.fetchDays(daysAndHours.days, forCountry: "DE") { daysResult in
 					self.fetchHoursServiceHelper.fetchHours(daysAndHours.hours, day: .formattedToday(), country: "DE") { hoursResult in
 						completeWith(FetchedDaysAndHours(hours: hoursResult, days: daysResult))
 					}
 				}
+				 */
 			}
 		)
 	}
