@@ -17,7 +17,7 @@ protocol Service {
 
 	init(
 		environment: EnvironmentProviding,
-		session: URLSession?
+		optionalSession: URLSession?
 	)
 
 	var session: URLSession { get }
@@ -27,6 +27,9 @@ protocol Service {
 	/// can be used to implement special caching behaviors
 	/// by default it will return nil - no interruption
 	func receiveModelToInterruptLoading<R>(_ resource: R) -> R.Receive.ReceiveModel? where R: Resource
+
+	/// hook to check before loading if a resource loading is diabled
+	func isDisabled(_ identifier: String) -> Bool
 
 	/// loads a ReceiveModel from an external endpoint via http call.
 	///

@@ -20,9 +20,9 @@ class RestServiceProvider: RestServiceProviding {
 		self.environment = environment
 		self.optionalSession = session
 
-		self.standardRestService = StandardRestService(environment: environment, session: session)
+		self.standardRestService = StandardRestService(environment: environment, optionalSession: session)
 		self.cachedRestService = CachedRestService(environment: environment, session: session, cache: cache)
-		self.wifiOnlyRestService = WifiOnlyRestService(environment: environment, session: session)
+		self.wifiOnlyRestService = WifiOnlyRestService(environment: environment, optionalSession: session)
 	}
 
 	func load<R>(
@@ -72,6 +72,29 @@ class RestServiceProvider: RestServiceProviding {
 			Log.error("Cache is not supported by that type of restService")
 		}
 	}
+
+#if !RELEASE
+	var isWifiOnlyActive: Bool {
+		wifiOnlyRestService.isWifiOnlyActive
+	}
+
+	func updateWiFiSession(wifiOnly: Bool) {
+		wifiOnlyRestService.updateSession(wifiOnly: wifiOnly)
+	}
+
+	func isDisabled(_ identifier: String) -> Bool {
+		wifiOnlyRestService.isDisabled(identifier)
+	}
+
+	func disable(_ identifier: String) {
+		wifiOnlyRestService.disable(identifier)
+	}
+
+	func enable(_ identifier: String) {
+		wifiOnlyRestService.enable(identifier)
+	}
+
+#endif
 
 	// MARK: - Private
 

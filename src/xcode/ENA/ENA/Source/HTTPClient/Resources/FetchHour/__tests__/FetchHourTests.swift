@@ -44,4 +44,29 @@ class FetchHourTests: CWATestCase {
 		XCTAssertEqual(uniqueIdentifier, knownUniqueIdentifier)
 	}
 
+	func testGIVEN_Resource_WHEN_DisableHourlyDownloadIsTrue_THEN_NoRequestIsSent() throws {
+		let stack = MockNetworkStack( httpStatus: 200, responseData: nil)
+		let expectation = expectation(description: "ignore request")
+
+		// WHEN
+		let resource = FetchHourResource(day: "2020-05-01", country: "IT", hour: 1, signatureVerifier: MockVerifier())
+		let restService = RestServiceProvider(session: stack.urlSession, cache: KeyValueCacheFake())
+		restService.disable(FetchHourResource.identifier)
+
+		// THEN
+		restService.load(resource) { result in
+			defer { expectation.fulfill() }
+			switch result {
+			case .success:
+				XCTFail("request succeeded expected")
+			case let .failure(error):
+				guard error == .invalidResponse else {
+					XCTFail("wrong error given, invalidResponse expected")
+					return
+				}
+			}
+		}
+		waitForExpectations(timeout: .medium)
+	}
+
 }

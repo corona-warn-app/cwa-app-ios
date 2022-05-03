@@ -21,12 +21,10 @@ final class DMSubmissionStateViewController: UITableViewController {
 
 	init(
 		client: Client,
-		wifiClient: WifiOnlyHTTPClient,
 		restService: RestServiceProviding,
 		delegate: DMSubmissionStateViewControllerDelegate
 	) {
 		self.client = client
-		self.wifiClient = wifiClient
 		self.restService = restService
 		self.delegate = delegate
 		self.fetchHoursServiceHelper = FetchHoursServiceHelper(restService: restService)
@@ -128,7 +126,6 @@ final class DMSubmissionStateViewController: UITableViewController {
 	// MARK: - Private
 
 	private let client: Client
-	private let wifiClient: WifiOnlyHTTPClient
 	private let restService: RestServiceProviding
 	private let fetchHoursServiceHelper: FetchHoursServiceHelper
 

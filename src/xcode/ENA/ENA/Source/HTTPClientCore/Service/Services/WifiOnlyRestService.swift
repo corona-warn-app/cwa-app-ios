@@ -12,27 +12,61 @@ class WifiOnlyRestService: Service {
 
 	required init(
 		environment: EnvironmentProviding = Environments(),
-		session: URLSession? = nil
+		optionalSession: URLSession? = nil
 	) {
 		self.environment = environment
-		self.optionalSession = session
+		self.session = Self.makeSession(wifiOnly: true, optionalSession: optionalSession)
 	}
-
-	// MARK: - Overrides
 
 	// MARK: - Protocol Service
 
 	let environment: EnvironmentProviding
-
-	lazy var session: URLSession = {
-		optionalSession ??
-		.coronaWarnSession(
-			configuration: .coronaWarnSessionConfigurationWifiOnly()
-		)
-	}()
+	private(set) var session: URLSession
 
 	// MARK: - Private
 
-	private let optionalSession: URLSession?
+	private static func makeSession(wifiOnly: Bool, optionalSession: URLSession?) -> URLSession {
+		if let optionalSession = optionalSession {
+			return optionalSession
+		}
+		let configuration: URLSessionConfiguration = wifiOnly ?
+			.coronaWarnSessionConfigurationWifiOnly() :
+			.coronaWarnSessionConfiguration()
 
+		return URLSession(configuration: configuration)
+	}
+
+	private var disabled = Set<String>()
+
+	func isDisabled(_ identifier: String) -> Bool {
+		disabled.contains(identifier)
+	}
+
+#if !RELEASE
+
+	var isWifiOnlyActive: Bool {
+		let wifiOnlyConfiguration = URLSessionConfiguration.coronaWarnSessionConfigurationWifiOnly()
+		if #available(iOS 13.0, *) {
+			return session.configuration.allowsCellularAccess == wifiOnlyConfiguration.allowsCellularAccess &&
+				session.configuration.allowsExpensiveNetworkAccess == wifiOnlyConfiguration.allowsExpensiveNetworkAccess &&
+				session.configuration.allowsConstrainedNetworkAccess == wifiOnlyConfiguration.allowsConstrainedNetworkAccess
+		} else {
+			return session.configuration.allowsCellularAccess == wifiOnlyConfiguration.allowsCellularAccess
+		}
+	}
+
+	func updateSession(wifiOnly: Bool) {
+		session.invalidateAndCancel()
+		session = Self.makeSession(wifiOnly: wifiOnly, optionalSession: nil)
+	}
+
+	func disable(_ identifier: String) {
+		disabled.insert(identifier)
+	}
+
+	func enable(_ identifier: String) {
+		disabled.remove(identifier)
+	}
+
+#endif
 }

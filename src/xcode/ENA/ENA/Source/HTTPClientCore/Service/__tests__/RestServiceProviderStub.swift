@@ -33,6 +33,8 @@ class RestServiceProviderStub: RestServiceProviding {
 		self.init(cacheResources: _loadResources)
 	}
 
+	let isWifiOnlyActive: Bool = true
+
 	private var loadResources: [LoadResource]
 	private var cacheResources: [LoadResource]
 
@@ -105,7 +107,24 @@ class RestServiceProviderStub: RestServiceProviding {
 	func update(_ evaluateTrust: TrustEvaluating) {
 		Log.debug("No update supported")
 	}
-	
+
+	func updateWiFiSession(wifiOnly: Bool) {
+		Log.debug("not supported in stub")
+	}
+
+	func isDisabled(_ identifier: String) -> Bool {
+		Log.debug("not supported in stub")
+		return false
+	}
+
+	func disable(_ identifier: String) {
+		Log.debug("not supported in stub")
+	}
+
+	func enable(_ identifier: String) {
+		Log.debug("not supported in stub")
+	}
+
 	// MARK: Private
 	
 	private func fallBackToDefaultMockLoadResource<R>(
