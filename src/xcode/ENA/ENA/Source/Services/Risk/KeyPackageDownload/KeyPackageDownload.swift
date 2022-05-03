@@ -66,6 +66,7 @@ class KeyPackageDownload: KeyPackageDownloadProtocol {
 		self.store = store
 		self.countryIds = countryIds
 		self.fetchHoursServiceHelper = FetchHoursServiceHelper(restService: restService)
+		self.fetchDayServiceHelper = FetchDayServiceHelper(restService: restService)
 	}
 
 	// MARK: - Protocol KeyPackageDownloadProtocol
@@ -132,6 +133,7 @@ class KeyPackageDownload: KeyPackageDownloadProtocol {
 	private let restService: RestServiceProviding
 	private let store: Store & AppConfigCaching
 
+	private let fetchDayServiceHelper: FetchDayServiceHelper
 	private let fetchHoursServiceHelper: FetchHoursServiceHelper
 
 	private var status: KeyPackageDownloadStatus = .idle {
@@ -246,8 +248,7 @@ class KeyPackageDownload: KeyPackageDownloadProtocol {
 		switch downloadMode {
 		case .daily:
 			Log.info("KeyPackageDownload: Fetch day packages from server.", log: .riskDetection)
-
-			client.fetchDays(
+			fetchDayServiceHelper.fetchDays(
 				packageKeys,
 				forCountry: country,
 				completion: { daysResult in

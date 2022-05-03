@@ -24,10 +24,10 @@ final class DMSubmissionStateViewController: UITableViewController {
 		restService: RestServiceProviding,
 		delegate: DMSubmissionStateViewControllerDelegate
 	) {
-		self.client = client
 		self.restService = restService
 		self.delegate = delegate
 		self.fetchHoursServiceHelper = FetchHoursServiceHelper(restService: restService)
+		self.fetchDayServiceHelper = FetchDayServiceHelper(restService: restService)
 		super.init(style: .plain)
 	}
 
@@ -125,9 +125,9 @@ final class DMSubmissionStateViewController: UITableViewController {
 
 	// MARK: - Private
 
-	private let client: Client
 	private let restService: RestServiceProviding
 	private let fetchHoursServiceHelper: FetchHoursServiceHelper
+	private let fetchDayServiceHelper: FetchDayServiceHelper
 
 	private var checkResult = DMSubmittedKeysCheckResult(missingKeys: [], foundKeys: [])
 	private weak var delegate: DMSubmissionStateViewControllerDelegate?
@@ -205,7 +205,7 @@ final class DMSubmissionStateViewController: UITableViewController {
 	) {
 		availableDaysAndHours(
 			completion: { daysAndHours in
-				self.client.fetchDays(daysAndHours.days, forCountry: "DE") { daysResult in
+				self.fetchDayServiceHelper.fetchDays(daysAndHours.days, forCountry: "DE") { daysResult in
 					self.fetchHoursServiceHelper.fetchHours(daysAndHours.hours, day: .formattedToday(), country: "DE") { hoursResult in
 						completeWith(FetchedDaysAndHours(hours: hoursResult, days: daysResult))
 					}
