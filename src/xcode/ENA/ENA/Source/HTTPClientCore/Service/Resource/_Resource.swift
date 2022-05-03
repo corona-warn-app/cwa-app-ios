@@ -37,6 +37,13 @@ protocol Resource {
 
 extension Resource {
 
+	// Default implemention with empty setter to avoid implementing it in every resouce.
+	var retryingCount: Int {
+		get { 0 }
+		// swiftlint:disable unused_setter_value
+		set { }
+	}
+
 	var defaultModel: Receive.ReceiveModel? {
 		nil
 	}

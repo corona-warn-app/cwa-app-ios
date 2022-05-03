@@ -44,7 +44,6 @@ struct CCLConfigurationResource: Resource {
 	var type: ServiceType
 	var sendResource: EmptySendResource
 	var receiveResource: CBORReceiveResource<CCLConfigurationReceiveModel>
-	var retryingCount: Int = 0
 	lazy var defaultModel: CCLConfigurationReceiveModel? = bundledDefaultModel
 
 	// MARK: - Internal

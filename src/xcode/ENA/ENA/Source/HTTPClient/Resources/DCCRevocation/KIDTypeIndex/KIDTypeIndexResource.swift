@@ -38,6 +38,4 @@ struct KIDTypeIndexResource: Resource {
 	var type: ServiceType
 	let sendResource: EmptySendResource
 	let receiveResource: ProtobufReceiveResource<SAP_Internal_Dgc_RevocationKidTypeIndex>
-	var retryingCount: Int = 0
-	
 }

@@ -84,7 +84,6 @@ struct DCCReissuanceResource: Resource {
 	var type: ServiceType
 	var sendResource: JSONSendResource<DCCReissuanceSendModel>
 	var receiveResource: JSONReceiveResource<DCCReissuanceReceiveModel>
-	var retryingCount: Int = 0
 
 	func customError(for error: ServiceError<DCCReissuanceResourceError>, responseBody: Data?) -> DCCReissuanceResourceError? {
 		switch error {

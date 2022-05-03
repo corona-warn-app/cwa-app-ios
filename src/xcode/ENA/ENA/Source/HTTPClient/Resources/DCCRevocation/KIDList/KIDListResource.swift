@@ -45,7 +45,6 @@ struct KIDListResource: Resource {
 	var type: ServiceType
 	let sendResource: EmptySendResource
 	let receiveResource: ProtobufReceiveResource<SAP_Internal_Dgc_RevocationKidList>
-	var retryingCount: Int = 0
 
 #if !RELEASE
 	var defaultMockLoadResource: LoadResource? = LoadResource(

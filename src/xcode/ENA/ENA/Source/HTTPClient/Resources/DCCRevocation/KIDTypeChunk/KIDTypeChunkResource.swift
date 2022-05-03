@@ -55,7 +55,6 @@ struct KIDTypeChunkResource: Resource {
 	var type: ServiceType
 	let sendResource: EmptySendResource
 	let receiveResource: ProtobufReceiveResource<SAP_Internal_Dgc_RevocationChunk>
-	var retryingCount: Int = 0
 	
 	func customError(for error: ServiceError<KIDTypeChunkResourceError>, responseBody: Data?) -> KIDTypeChunkResourceError? {
 		switch error {

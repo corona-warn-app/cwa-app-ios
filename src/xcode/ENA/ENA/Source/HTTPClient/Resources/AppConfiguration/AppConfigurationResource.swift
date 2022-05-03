@@ -32,5 +32,4 @@ struct AppConfigurationResource: Resource {
 	var type: ServiceType
 	var sendResource: EmptySendResource
 	var receiveResource: ProtobufReceiveResource<SAP_Internal_V2_ApplicationConfigurationIOS>
-	var retryingCount: Int = 0
 }

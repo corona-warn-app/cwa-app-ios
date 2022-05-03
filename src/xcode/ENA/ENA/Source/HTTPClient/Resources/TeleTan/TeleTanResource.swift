@@ -35,7 +35,6 @@ struct TeleTanResource: Resource {
 	var type: ServiceType
 	var sendResource: PaddingJSONSendResource<TeleTanSendModel>
 	var receiveResource: JSONReceiveResource<TeleTanReceiveModel>
-	var retryingCount: Int = 0
 
 	func customError(
 		for error: ServiceError<TeleTanError>,
