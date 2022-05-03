@@ -34,5 +34,19 @@ struct FetchHourResource: Resource {
 	var receiveResource: PackageDownloadReceiveResource
 	var trustEvaluation: TrustEvaluating
 	var isDisabled: Bool = false
-	
+
+#if !RELEASE
+	var defaultMockLoadResource: LoadResource? = LoadResource(
+		result: .success(
+			PackageDownloadResponse(
+				package: SAPDownloadedPackage(
+					keysBin: Data(),
+					signature: Data()
+				),
+				etag: "\"tinfoil\"")
+		),
+		willLoadResource: nil
+	)
+#endif
+
 }

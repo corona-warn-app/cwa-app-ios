@@ -235,9 +235,12 @@ class HourKeyPackagesDownloadTests: CWATestCase {
 		let client = ClientMock()
 		client.fetchPackageRequestFailure = .noResponse
 
-		// fake successful hours package download
+		// fake responsed
+		// .success available hours package
+		// .failure on hour package download
 		let restServiceProvider = RestServiceProviderStub(results: [
-			.success([1])
+			.success([1]),
+			.failure(ServiceError<Error>.invalidResponse)
 		])
 
 		let keyPackageDownload = KeyPackageDownload(
@@ -250,12 +253,12 @@ class HourKeyPackagesDownloadTests: CWATestCase {
 		let failureExpectation = expectation(description: "Package download failed.")
 
 		keyPackageDownload.startHourPackagesDownload { result in
+			defer { failureExpectation.fulfill() }
 			switch result {
 			case .success:
 				XCTFail("Success result is not expected.")
 			case .failure(let error):
 				XCTAssertEqual(error, .uncompletedPackages)
-				failureExpectation.fulfill()
 			}
 		}
 
