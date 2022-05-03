@@ -202,6 +202,15 @@ extension HealthCertificateService {
 		dccWalletInfo: DCCWalletInfo,
 		certifiedPerson: HealthCertifiedPerson
 	) -> DCCWalletInfo {
+		let listTitleText = DCCUIText(
+			type: "string",
+			quantity: nil,
+			quantityParameterIndex: nil,
+			functionName: nil,
+			localizedText: ["de": "Zu erneuernde Zertifikate:"],
+			parameters: []
+		)
+		
 		let titleText = DCCUIText(
 			type: "string",
 			quantity: nil,
@@ -239,7 +248,9 @@ extension HealthCertificateService {
 			certificateReissuance: DCCCertificateReissuance(
 				reissuanceDivision: DCCCertificateReissuanceDivision(
 					visible: true,
+					listTitleText: listTitleText,
 					titleText: titleText,
+					consentSubtitleText: subtitleText,
 					subtitleText: subtitleText,
 					longText: testLongText,
 					faqAnchor: "certificateReissuance"

@@ -110,7 +110,9 @@ struct DCCCertificateReissuance: Codable, Equatable {
 struct DCCCertificateReissuanceDivision: Codable, Equatable {
 
 	let visible: Bool
+	let listTitleText: DCCUIText?
 	let titleText: DCCUIText?
+	let consentSubtitleText: DCCUIText?
 	let subtitleText: DCCUIText?
 	let longText: DCCUIText?
 	let faqAnchor: String?

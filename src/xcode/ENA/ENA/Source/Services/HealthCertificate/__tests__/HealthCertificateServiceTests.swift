@@ -1679,7 +1679,7 @@ class HealthCertificateServiceTests: CWATestCase {
 		let healthCertificate: HealthCertificate = try vaccinationCertificate(type: .incomplete, ageInDays: 180)
 		
 		let dccWalletInfo: DCCWalletInfo = .fake(
-			validUntil: Date(timeIntervalSinceNow: 100),			
+			validUntil: Date(timeIntervalSinceNow: 100),
 			certificateReissuance: .fake(
 				reissuanceDivision: .fake(),
 				certificates: [.fake(certificateRef: .fake(barcodeData: healthCertificate.base45))]
