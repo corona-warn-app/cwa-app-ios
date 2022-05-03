@@ -60,6 +60,22 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 		deadmanNotificationManager: DeadmanNotificationManageable? = nil,
 		coronaTestService: CoronaTestServiceProviding
 	) {
+		
+		#if DEBUG
+		if isUITesting {
+			self.diagnosisKeysRetrieval = diagnosisKeysRetrieval
+			self.appConfigurationProvider = appConfigurationProvider
+			self.restServiceProvider = .exposureSubmissionServiceProvider
+			self.store = store
+			self.eventStore = eventStore
+			self.deadmanNotificationManager = deadmanNotificationManager ?? DeadmanNotificationManager()
+			self.coronaTestService = coronaTestService
+			
+			fakeRequestService = FakeRequestService(restServiceProvider: restServiceProvider)
+			return
+		}
+		#endif
+		
 		self.diagnosisKeysRetrieval = diagnosisKeysRetrieval
 		self.appConfigurationProvider = appConfigurationProvider
 		self.restServiceProvider = restServiceProvider
@@ -67,7 +83,7 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 		self.eventStore = eventStore
 		self.deadmanNotificationManager = deadmanNotificationManager ?? DeadmanNotificationManager()
 		self.coronaTestService = coronaTestService
-
+		
 		fakeRequestService = FakeRequestService(restServiceProvider: restServiceProvider)
 	}
 

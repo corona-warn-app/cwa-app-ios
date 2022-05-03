@@ -25,7 +25,7 @@ class FamilyMemberCoronaTestService: FamilyMemberCoronaTestServiceProviding {
 		if isUITesting {
 			self.client = ClientMock()
 			if LaunchArguments.exposureSubmission.isFetchingSubmissionTan.boolValue {
-				self.restServiceProvider = .exposureSubmissionServiceProvider
+				self.restServiceProvider = .registrationTokenServiceProvider
 			} else {
 				self.restServiceProvider = .coronaTestServiceProvider
 			}

@@ -26,7 +26,7 @@ class CoronaTestService: CoronaTestServiceProviding {
 		#if DEBUG
 		if isUITesting {
 			if LaunchArguments.exposureSubmission.isFetchingSubmissionTan.boolValue {
-				self.restServiceProvider = .exposureSubmissionServiceProvider
+				self.restServiceProvider = .registrationTokenServiceProvider
 			} else {
 				self.restServiceProvider = .coronaTestServiceProvider
 			}
