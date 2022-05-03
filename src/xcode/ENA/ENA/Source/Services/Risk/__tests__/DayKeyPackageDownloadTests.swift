@@ -233,7 +233,8 @@ final class DayKeyPackageDownloadTest: CWATestCase {
 
 		// fake successful day package download
 		let restServiceProvider = RestServiceProviderStub(results: [
-			.success(["2020-10-02"])
+			.success(["2020-10-02"]),
+			.failure(ServiceError<Error>.invalidResponseType)
 		])
 
 		let keyPackageDownload = KeyPackageDownload(
