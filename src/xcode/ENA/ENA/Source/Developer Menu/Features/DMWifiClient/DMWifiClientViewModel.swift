@@ -33,11 +33,16 @@ final class DMWifiClientViewModel {
 			return DMSwitchCellViewModel(
 				labelText: "Disable hourly packages download",
 				isOn: { [restService] in
-					return true
-//					wifiClient.disableHourlyDownload
+					restService.isDisabled(FetchHourResource.identifier)
 				}, toggle: { [restService] in
-//					wifiClient.disableHourlyDownload = !wifiClient.disableHourlyDownload
-//					Log.info("Hourly packages download: \(wifiClient.disableHourlyDownload ? "disabled" :"enabled")")
+					let identifier = FetchHourResource.identifier
+					if restService.isDisabled(FetchHourResource.identifier) {
+						restService.enable(identifier)
+						Log.info("Hourly packages download: enabled")
+					} else {
+						restService.disable(identifier)
+						Log.info("Hourly packages download: disabled")
+					}
 				})
 
 		case .disableClient:

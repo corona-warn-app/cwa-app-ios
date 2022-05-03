@@ -81,6 +81,19 @@ class RestServiceProvider: RestServiceProviding {
 	func updateWiFiSession(wifiOnly: Bool) {
 		wifiOnlyRestService.updateSession(wifiOnly: wifiOnly)
 	}
+
+	func isDisabled(_ identifier: String) -> Bool {
+		wifiOnlyRestService.isDisabled(identifier)
+	}
+
+	func disable(_ identifier: String) {
+		wifiOnlyRestService.disable(identifier)
+	}
+
+	func enable(_ identifier: String) {
+		wifiOnlyRestService.enable(identifier)
+	}
+
 #endif
 
 	// MARK: - Private

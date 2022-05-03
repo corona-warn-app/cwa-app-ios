@@ -46,18 +46,20 @@ extension Service {
 		nil
 	}
 
+	func isDisabled(_ identifier: String) -> Bool { false }
+
     // swiftlint:disable cyclomatic_complexity
 	func load<R>(
 		_ resource: R,
 		_ completion: @escaping (Result<R.Receive.ReceiveModel, ServiceError<R.CustomError>>) -> Void
 	) where R: Resource {
 
-		// if resource is disabled stop loading
-		if resource.isDisabled {
+		// check if resource loading might be disabled
+		if isDisabled(R.identifier) {
 			completion(.failure(.invalidResponse))
 			return
 		}
-		
+
 		// if an optional model is given we will return that one and stop loading
 		if let receiveModel = receiveModelToInterruptLoading(resource) {
 			completion(.success(receiveModel))

@@ -36,7 +36,14 @@ class WifiOnlyRestService: Service {
 		return URLSession(configuration: configuration)
 	}
 
+	private var disabled = Set<String>()
+
+	func isDisabled(_ identifier: String) -> Bool {
+		disabled.contains(identifier)
+	}
+
 #if !RELEASE
+
 	var isWifiOnlyActive: Bool {
 		let wifiOnlyConfiguration = URLSessionConfiguration.coronaWarnSessionConfigurationWifiOnly()
 		if #available(iOS 13.0, *) {
@@ -52,5 +59,14 @@ class WifiOnlyRestService: Service {
 		session.invalidateAndCancel()
 		session = Self.makeSession(wifiOnly: wifiOnly, optionalSession: nil)
 	}
+
+	func disable(_ identifier: String) {
+		disabled.insert(identifier)
+	}
+
+	func enable(_ identifier: String) {
+		disabled.remove(identifier)
+	}
+
 #endif
 }

@@ -21,13 +21,12 @@ protocol Resource {
 	// define the range of status codes when the default model will get used
 	var defaultModelRange: [Int] { get }
 
-	// flag to disable loading of resource
-	var isDisabled: Bool { get }
+	static var identifier: String { get }
+
+	var trustEvaluation: TrustEvaluating { get }
 
 	func useFallBack(_ statusCode: Int) -> Bool
-	
-	var trustEvaluation: TrustEvaluating { get }
-	
+
 	func customError(for error: ServiceError<CustomError>, responseBody: Data?) -> CustomError?
 	
 #if !RELEASE
@@ -51,7 +50,9 @@ extension Resource {
 		nil
 	}
 
-	var isDisabled: Bool { false }
+	static var identifier: String {
+		return String(describing: self)
+	}
 
 	// if no default model range is give we always is the default model
 	func useFallBack(_ statusCode: Int) -> Bool {
