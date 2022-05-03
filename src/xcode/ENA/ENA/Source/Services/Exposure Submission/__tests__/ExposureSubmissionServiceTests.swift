@@ -21,8 +21,8 @@ class ExposureSubmissionServiceTests: CWATestCase {
 		let store = MockTestStore()
 		let restServiceProvider = RestServiceProviderStub(
 			results: [
-				.success(RegistrationTokenReceiveModel(submissionTAN: "fake")),
-				.success(RegistrationTokenReceiveModel(submissionTAN: "fake"))
+				// Key submission result.
+				.success(())
 			]
 		)
 		
@@ -87,8 +87,8 @@ class ExposureSubmissionServiceTests: CWATestCase {
 		eventStore.createCheckin(Checkin.mock())
 		let restServiceProvider = RestServiceProviderStub(
 			results: [
-				.success(RegistrationTokenReceiveModel(submissionTAN: "fake")),
-				.success(RegistrationTokenReceiveModel(submissionTAN: "fake"))
+				// Key submission result.
+				.success(())
 			]
 		)
 		
@@ -354,8 +354,6 @@ class ExposureSubmissionServiceTests: CWATestCase {
 		let keyRetrieval = MockDiagnosisKeysRetrieval(diagnosisKeysResult: (keys, nil))
 		let restServiceProvider = RestServiceProviderStub(
 			results: [
-				.success(RegistrationTokenReceiveModel(submissionTAN: "fake")),
-				.success(RegistrationTokenReceiveModel(submissionTAN: "fake")),
 				.failure(ServiceError<KeySubmissionResourceError>.receivedResourceError(.invalidPayloadOrHeaders))
 			]
 		)
@@ -433,8 +431,6 @@ class ExposureSubmissionServiceTests: CWATestCase {
 		let keyRetrieval = MockDiagnosisKeysRetrieval(diagnosisKeysResult: (keys, nil))
 		let restServiceProvider = RestServiceProviderStub(
 			results: [
-				.success(RegistrationTokenReceiveModel(submissionTAN: "fake")),
-				.success(RegistrationTokenReceiveModel(submissionTAN: "fake")),
 				// Key submission result.
 				.failure(ServiceError<KeySubmissionResourceError>.receivedResourceError(.requestCouldNotBeBuilt))
 			]
@@ -474,8 +470,6 @@ class ExposureSubmissionServiceTests: CWATestCase {
 		let keyRetrieval = MockDiagnosisKeysRetrieval(diagnosisKeysResult: (keys, nil))
 		let restServiceProvider = RestServiceProviderStub(
 			results: [
-				.success(RegistrationTokenReceiveModel(submissionTAN: "fake")),
-				.success(RegistrationTokenReceiveModel(submissionTAN: "fake")),
 				// Key submission result.
 				.failure(ServiceError<KeySubmissionResourceError>.receivedResourceError(.invalidPayloadOrHeaders))
 			]
@@ -517,39 +511,14 @@ class ExposureSubmissionServiceTests: CWATestCase {
 	func test_partialSubmissionFailure() {
 		let keyRetrieval = MockDiagnosisKeysRetrieval(diagnosisKeysResult: (keys, nil))
 
-		var count = 0
-		let getTANExpectation = self.expectation(description: "should be called twice one fake and one not")
-		getTANExpectation.expectedFulfillmentCount = 2
-		let restServiceProvider = RestServiceProviderStub(loadResources: [
-			LoadResource(
-				result: .success(
-					RegistrationTokenReceiveModel(submissionTAN: "fake")
-				),
-				willLoadResource: { resource in
-					guard let resource = resource as? RegistrationTokenResource else {
-						XCTFail("RegistrationTokenResource expected.")
-						return
-					}
-					if resource.locator.isFake {
-						count += 1
-						getTANExpectation.fulfill()
-					} else {
-						count += 0
-						getTANExpectation.fulfill()
-					}
-				}
-			),
-			LoadResource(
-				result: .failure(
-					ServiceError<RegistrationTokenError>.unexpectedServerError(400)
-				),
-				willLoadResource: nil
-			),
-			// 1. Key submission result.
-			LoadResource(result: .failure(ServiceError<KeySubmissionResourceError>.unexpectedServerError(500)), willLoadResource: nil),
-			// 2. Key submission result (retry).
-			LoadResource(result: .success(()), willLoadResource: nil)
-		])
+		let restServiceProvider = RestServiceProviderStub(
+			loadResources: [
+				// 1. Failed key submission result.
+				LoadResource(result: .failure(ServiceError<KeySubmissionResourceError>.unexpectedServerError(500)), willLoadResource: nil),
+				// 2. Successful key submission result (retry).
+				LoadResource(result: .success(()), willLoadResource: nil)
+			]
+		)
 		
 		let coronaTestService = MockCoronaTestService()
 		coronaTestService.pcrTest.value = .mock(
@@ -700,42 +669,55 @@ class ExposureSubmissionServiceTests: CWATestCase {
 		let store = MockTestStore()
 		let client = ClientMock()
 		
-		let restServiceProvider = RestServiceProviderStub(loadResources: [
-			LoadResource(
-				result: .success(
-					RegistrationTokenReceiveModel(submissionTAN: "fake")
-				),
-				willLoadResource: { resource in
-					expectation.fulfill()
-					guard let resource = resource as? RegistrationTokenResource else {
-						XCTFail("RegistrationTokenResource expected.")
-						return
-					}
-					if resource.locator.isFake {
+		let restServiceProvider = RestServiceProviderStub(
+			loadResources: [
+				LoadResource(
+					result: .success(
+						RegistrationTokenReceiveModel(submissionTAN: "fake")
+					),
+					willLoadResource: { resource in
+						expectation.fulfill()
+						guard let resource = resource as? RegistrationTokenResource else {
+							XCTFail("RegistrationTokenResource expected.")
+							return
+						}
+						
+						XCTAssertTrue(resource.locator.isFake)
 						XCTAssertEqual(count, 0)
 						count += 1
+					}
+				),
+				LoadResource(
+					result: .success(
+						RegistrationTokenReceiveModel(submissionTAN: "fake")
+					),
+					willLoadResource: { resource in
+						expectation.fulfill()
+						guard let resource = resource as? RegistrationTokenResource else {
+							XCTFail("RegistrationTokenResource expected.")
+							return
+						}
 						
-					} else {
+						XCTAssertFalse(resource.locator.isFake)
 						XCTAssertEqual(count, 1)
 						count += 1
-						
 					}
-				}
-			),
-			// Key submission result.
-			LoadResource(
-				result: .success(()),
-				willLoadResource: { resource in
-					guard let submissionResource = resource as? KeySubmissionResource else {
-						XCTFail("KeySubmissionResource expected.")
-						return
+				),
+				// Key submission result.
+				LoadResource(
+					result: .success(()),
+					willLoadResource: { resource in
+						guard let submissionResource = resource as? KeySubmissionResource else {
+							XCTFail("KeySubmissionResource expected.")
+							return
+						}
+						expectation.fulfill()
+						XCTAssertFalse(submissionResource.locator.isFake)
+						XCTAssertEqual(count, 2)
+						count += 1
 					}
-					expectation.fulfill()
-					XCTAssertFalse(submissionResource.locator.isFake)
-					XCTAssertEqual(count, 2)
-					count += 1
-				}
-			)]
+				)],
+			isFakeResourceLoadingActive: true
 		)
 
 		let healthCertificateService = HealthCertificateService(

@@ -19,7 +19,7 @@ enum KeySubmissionResourceError: LocalizedError, Equatable {
 		case .invalidTan:
 			return AppStrings.ExposureSubmissionError.invalidTan
 		case .requestCouldNotBeBuilt:
-			return "The submission request could not be built correctly."
+			return "\(AppStrings.ExposureSubmissionError.errorPrefix) - The submission request could not be built correctly."
 		}
 	}
 }
