@@ -4,29 +4,42 @@
 
 import XCTest
 
+@testable import ENA
+
 class FetchDayTests: CWATestCase {
 
-    override func setUpWithError() throws {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
-    }
+	// MARK: Locator tests
 
-    override func tearDownWithError() throws {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
-    }
+	func testGIVEN_Locator_WHEN_getPath_THEN_isCorrect() {
+		// GIVEN
+		let locator = Locator.diagnosisKeys(day: "2020-04-20", country: "IT")
 
-    func testExample() throws {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-        // Any test you write for XCTest can be annotated as throws and async.
-        // Mark your test throws to produce an unexpected failure when your test encounters an uncaught error.
-        // Mark your test async to allow awaiting for asynchronous code to complete. Check the results with assertions afterwards.
-    }
+		// WHEN
+		let paths = locator.paths
 
-    func testPerformanceExample() throws {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
-        }
-    }
+		// THEN
+		XCTAssertEqual(
+			[
+				"version",
+				"v1",
+				"diagnosis-keys",
+				"country",
+				"IT",
+				"date",
+				"2020-04-20"
+			], paths)
+	}
+
+	func testGIVEN_Locator_WHEN_getUniqueIdentifier_THEN_IsSameAsKnownidentifier() {
+		// GIVEN
+		let knownUniqueIdentifier = "ca88626aeba6b7be1fff6b501d78608e4734e1f9703a0de6311137e1c535db9d"
+		let locator = Locator.diagnosisKeys(day: "2020-04-22", country: "IT")
+
+		// WHEN
+		let uniqueIdentifier = locator.uniqueIdentifier
+
+		// THEN
+		XCTAssertEqual(uniqueIdentifier, knownUniqueIdentifier)
+	}
 
 }
