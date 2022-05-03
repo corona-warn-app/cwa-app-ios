@@ -23,7 +23,7 @@ class AntigenTestPersonProfileCellModelTests: XCTestCase {
 			AntigenTestPersonProfileCellModel(antigenTestProfile: antigenTestProfile)
 		)
 
-		XCTAssertEqual(cellModel.title, AppStrings.AntigenProfile.Overview.title)
+		XCTAssertEqual(cellModel.title, AppStrings.AntigenProfile.Overview.cardTitle)
 		XCTAssertEqual(cellModel.name, "Max Mustermann")
 	}
 	
