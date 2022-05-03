@@ -176,9 +176,7 @@ extension Service {
 
 		if resource.retryingCount > 1 {
 			guard Mirror(reflecting: resource).displayStyle == .struct else {
-				Log.error("Your resource has the wrong type. It should be a struct, not a class!", log: .client)
-				completion(.failure(.wrongResourceType))
-				return
+				fatalError("Your resource has the wrong type. It should be a struct, not a class!")
 			}
 			Log.debug("Retry for resource discovered. Retry counter at: \(resource.retryingCount)", log: .client)
 			var resourceCopy = resource

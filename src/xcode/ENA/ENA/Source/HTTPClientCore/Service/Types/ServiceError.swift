@@ -19,7 +19,6 @@ enum ServiceError<RE>: LocalizedError, Equatable where RE: Error {
 	case invalidResponseType
 	case fakeResponse
 	case noReceiveModelToInterruptLoading
-	case wrongResourceType
 
 	// MARK: - Protocol LocalizedError
 
@@ -45,8 +44,6 @@ enum ServiceError<RE>: LocalizedError, Equatable where RE: Error {
 			return "fakeResponse"
 		case .noReceiveModelToInterruptLoading:
 			return "noReceiveModelToInterruptLoading"
-		case .wrongResourceType:
-			return "Wrong resource type defined - try a struct instead of a class"
 		}
 	}
 
@@ -102,11 +99,6 @@ enum ServiceError<RE>: LocalizedError, Equatable where RE: Error {
 		case (.noReceiveModelToInterruptLoading, .noReceiveModelToInterruptLoading):
 			return true
 		case (.noReceiveModelToInterruptLoading, _):
-			return false
-			
-		case (.wrongResourceType, .wrongResourceType):
-			return true
-		case (.wrongResourceType, _):
 			return false
 		}
 	}
