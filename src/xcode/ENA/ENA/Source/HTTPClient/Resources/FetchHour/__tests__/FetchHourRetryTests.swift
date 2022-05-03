@@ -7,7 +7,7 @@ import XCTest
 @testable import ENA
 
 class FetchHourRetryTests: CWATestCase {
-/*
+
 	func testDownloadRetry_hourPackage_failing() throws {
 		let expectation = self.expectation(description: "http request")
 		expectation.expectedFulfillmentCount = 4 // initial request + 3 retries
@@ -155,5 +155,5 @@ class FetchHourRetryTests: CWATestCase {
 
 		waitForExpectations(timeout: 10, handler: nil)
 	}
-*/
+
 }
