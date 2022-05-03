@@ -156,7 +156,8 @@ extension DCCCertificateContainer {
 		certificateRef: DCCCertificateReference = .fake()
 	) -> DCCCertificateContainer {
 		DCCCertificateContainer(
-			certificateRef: certificateRef
+			certificateRef: certificateRef,
+			display: true
 		)
 	}
 
@@ -204,13 +205,11 @@ extension DCCCertificateReissuance {
 
 	static func fake(
 		reissuanceDivision: DCCCertificateReissuanceDivision = .fake(),
-		certificateToReissue: DCCCertificateContainer = .fake(),
-		accompanyingCertificates: [DCCCertificateContainer] = []
+		certificates: [DCCCertificateContainer] = [.fake()]
 	) -> DCCCertificateReissuance {
 		DCCCertificateReissuance(
 			reissuanceDivision: reissuanceDivision,
-			certificateToReissue: certificateToReissue,
-			accompanyingCertificates: accompanyingCertificates
+			certificates: certificates
 		)
 	}
 
