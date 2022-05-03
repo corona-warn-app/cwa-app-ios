@@ -127,6 +127,12 @@ class CachedRestService: Service {
 		return cache[resource.locator.uniqueIdentifier] != nil
 	}
 
+	func resetCache<R>(
+		for resource: R
+	) where R: Resource {
+		cache[resource.locator.uniqueIdentifier] = nil
+	}
+
 	func customHeaders<R>(
 		_ receiveResource: R,
 		_ locator: Locator

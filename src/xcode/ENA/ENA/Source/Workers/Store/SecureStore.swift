@@ -9,7 +9,7 @@ import OpenCombine
 /// The `SecureStore` class implements the `Store` protocol that defines all required storage attributes.
 /// It uses an SQLite Database that still needs to be encrypted
 // swiftlint:disable file_length
-final class SecureStore: SecureKeyValueStoring, Store, AntigenTestProfileStoring {
+final class SecureStore: SecureKeyValueStoring, Store {
 
 	// MARK: - Init
 
@@ -51,7 +51,7 @@ final class SecureStore: SecureKeyValueStoring, Store, AntigenTestProfileStoring
 	func wipeAll(key: String?) {
 		do {
 			try kvStore.wipeAll(key: key)
-			antigenTestProfileSubject.send(nil)
+			antigenTestProfilesSubject.send([])
 		} catch {
 			Log.error("kv store error", log: .localData, error: error)
 		}
@@ -219,16 +219,29 @@ final class SecureStore: SecureKeyValueStoring, Store, AntigenTestProfileStoring
 
     // MARK: - Protocol AntigenTestProfileStoring
 
-	private(set) lazy var antigenTestProfileSubject = CurrentValueSubject<AntigenTestProfile?, Never>(antigenTestProfile)
-
-	var antigenTestProfile: AntigenTestProfile? {
-		get { kvStore["antigenTestProfile"] as AntigenTestProfile? }
+	private(set) lazy var antigenTestProfilesSubject = CurrentValueSubject<[AntigenTestProfile], Never>(antigenTestProfiles)
+		
+	var antigenTestProfiles: [AntigenTestProfile] {
+		get {
+			var antigenTestProfiles = kvStore["antigenTestProfiles"] as [AntigenTestProfile]? ?? []
+			
+			if let existingProfile = kvStore["antigenTestProfile"] as AntigenTestProfile? {
+				// add existing profile to the list of profiles and update store
+				antigenTestProfiles.append(existingProfile)
+				kvStore["antigenTestProfiles"] = antigenTestProfiles
+				
+				// clear the existing profile from the store
+				kvStore["antigenTestProfile"] = nil
+			}
+			
+			return antigenTestProfiles
+		}
 		set {
-			kvStore["antigenTestProfile"] = newValue
-			antigenTestProfileSubject.send(newValue)
+			kvStore["antigenTestProfiles"] = newValue
+			antigenTestProfilesSubject.send(newValue)
 		}
 	}
-
+	
 	var antigenTestProfileInfoScreenShown: Bool {
 		get { kvStore["antigenTestProfileInfoScreenShown"] as Bool? ?? false }
 		set { kvStore["antigenTestProfileInfoScreenShown"] = newValue }
@@ -282,6 +295,13 @@ final class SecureStore: SecureKeyValueStoring, Store, AntigenTestProfileStoring
 	var shouldShowRegroupingAlert: Bool {
 		get { kvStore["shouldShowRegroupingAlert"] as Bool? ?? false }
 		set { kvStore["shouldShowRegroupingAlert"] = newValue }
+	}
+
+	// MARK: - Protocol RevokedCertificatesStoring
+
+	var revokedCertificates: [String] {
+		get { kvStore["revokedCertificates"] as [String]? ?? [] }
+		set { kvStore["revokedCertificates"] = newValue }
 	}
 		
 	// MARK: - Protocol VaccinationCaching

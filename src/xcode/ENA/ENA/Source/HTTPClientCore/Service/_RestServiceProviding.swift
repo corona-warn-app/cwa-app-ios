@@ -19,4 +19,8 @@ protocol RestServiceProviding {
 		_ resource: R,
 		_ completion: @escaping (Result<R.Receive.ReceiveModel, ServiceError<R.CustomError>>) -> Void
 	) where R: Resource
+
+	func resetCache<R>(
+		for resource: R
+	) where R: Resource
 }

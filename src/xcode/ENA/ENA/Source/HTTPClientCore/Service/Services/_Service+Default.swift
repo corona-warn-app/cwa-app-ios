@@ -116,6 +116,12 @@ extension Service {
 		retryOrDefaultValueOrFailureHandling(resource, .resourceError(.notModified), nil, completion)
 	}
 
+	func resetCache<R>(
+		for resource: R
+	) where R: Resource {
+		Log.info("No caching allowed for current service.", log: .client)
+	}
+
 	func hasCachedData<R>(
 		_ resource: R
 	) -> Bool where R: Resource {

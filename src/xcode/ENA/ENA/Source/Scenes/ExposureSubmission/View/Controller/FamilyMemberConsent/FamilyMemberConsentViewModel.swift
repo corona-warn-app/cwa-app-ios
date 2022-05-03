@@ -47,7 +47,8 @@ final class FamilyMemberConsentViewModel {
 					.title2(text: AppStrings.HealthCertificate.FamilyMemberConsent.headline),
 					.body(text: AppStrings.HealthCertificate.FamilyMemberConsent.inputTitle),
 					.textInput(
-						AppStrings.HealthCertificate.FamilyMemberConsent.inputPlaceholder,
+						text: name,
+						placeholder: AppStrings.HealthCertificate.FamilyMemberConsent.inputPlaceholder,
 						configure: { [weak self] cell in
 							guard let self = self else {
 								fatalError("Failed to get strong self")
@@ -78,7 +79,7 @@ final class FamilyMemberConsentViewModel {
 							)
 						],
 						subheadline2: nil,
-						accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmission.TestCertificate.Info.acknowledgementTitle,
+						accessibilityIdentifier: AccessibilityIdentifiers.HealthCertificate.FamilyMemberConsent.Legal.acknowledgementTitle,
 						configure: { _, cell, _ in
 							cell.backgroundColor = .enaColor(for: .background)
 						}
@@ -92,7 +93,7 @@ final class FamilyMemberConsentViewModel {
 					.body(
 						text: AppStrings.ExposureSubmission.TestCertificate.Info.dataPrivacyTitle,
 						style: DynamicCell.TextCellStyle.label,
-						accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmission.TestCertificate.Info.dataPrivacyTitle,
+						accessibilityIdentifier: AccessibilityIdentifiers.HealthCertificate.FamilyMemberConsent.dataPrivacyTitle,
 						accessibilityTraits: UIAccessibilityTraits.link,
 						action: .execute { [weak self] _, _ in
 							self?.presentDisclaimer()
@@ -129,7 +130,8 @@ final class FamilyMemberConsentViewModel {
 private extension DynamicCell {
 
 	static func textInput(
-		_ placeholder: String? = nil,
+		text: String? = nil,
+		placeholder: String? = nil,
 		configure: @escaping (FamilyNameTextFieldCell) -> Void
 	) -> Self {
 		let identifier = DynamicTableViewCellReuseIdentifier(
@@ -141,7 +143,7 @@ private extension DynamicCell {
 				guard let cell = cell as? FamilyNameTextFieldCell else {
 					fatalError("Failed to get FamilyNameTextFieldCell")
 				}
-				cell.configure(placeholder)
+				cell.configure(text: text, placeholder: placeholder)
 				configure(cell)
 			}
 		)

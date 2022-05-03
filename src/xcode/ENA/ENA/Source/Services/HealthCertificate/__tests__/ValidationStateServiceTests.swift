@@ -7,22 +7,22 @@ import HealthCertificateToolkit
 @testable import ENA
 
 extension HealthCertificateService {
-
+	
 	func syncSetup() {
 		let dispatchGroup = DispatchGroup()
-
+		
 		dispatchGroup.enter()
 		setup(updatingWalletInfos: true) {
 			dispatchGroup.leave()
 		}
-
+		
 		dispatchGroup.wait()
 	}
-
+	
 }
 
 class TestHealthCertificateService: HealthCertificateService {
-
+	
 	convenience init(
 		store: HealthCertificateStoring,
 		dccSignatureVerifier: DCCSignatureVerifying,
@@ -37,38 +37,43 @@ class TestHealthCertificateService: HealthCertificateService {
 			dscListProvider: dscListProvider,
 			appConfiguration: appConfiguration,
 			cclService: FakeCCLService(),
-			recycleBin: .fake()
+			recycleBin: .fake(),
+			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
 		self.validUntilDates = validUntilDates
 		self.expirationDates = expirationDates
 	}
-
+	
 	// inject some test data helpers
 	var validationUpdatedHook: () -> Void = {}
 	var validUntilDates: [Date] = []
 	var expirationDates: [Date] = []
-
-	override func updateValidityStatesAndNotifications(shouldScheduleTimer: Bool = true, completion: @escaping () -> Void) {
-		super.updateValidityStatesAndNotifications(shouldScheduleTimer: shouldScheduleTimer, completion: completion)
+	
+	override func updateValidityStatesAndNotifications(
+		for healthCertificateTuples: [(certificate: HealthCertificate, person: HealthCertifiedPerson)]? = nil,
+		shouldScheduleTimer: Bool = true,
+		completion: @escaping () -> Void
+	) {
+		super.updateValidityStatesAndNotifications(for: healthCertificateTuples, shouldScheduleTimer: shouldScheduleTimer, completion: completion)
 		validationUpdatedHook()
 	}
-
+	
 	override func validUntilDates(for healthCertificates: [HealthCertificate], signingCertificates: [DCCSigningCertificate]) -> [Date] {
 		return validUntilDates
 	}
-
+	
 	override func expirationDates(for healthCertificates: [HealthCertificate]) -> [Date] {
 		return expirationDates
 	}
-
+	
 }
 
 class ValidationStateServiceTests: XCTestCase {
-
+	
 	func test_AppConfigDidUpdate_THEN_UpdateGetsCalled() {
 		// GIVEN
 		let validationStateServiceExpectation = expectation(description: "ValidationStateService updated")
-
+		
 		let appConfiguration = CachedAppConfigurationMock()
 		let store = MockTestStore()
 		let service = TestHealthCertificateService(
@@ -77,25 +82,26 @@ class ValidationStateServiceTests: XCTestCase {
 			dscListProvider: MockDSCListProvider(),
 			appConfiguration: appConfiguration,
 			cclService: FakeCCLService(),
-			recycleBin: .fake()
+			recycleBin: .fake(),
+			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
 		service.syncSetup()
 		service.validationUpdatedHook = {
 			validationStateServiceExpectation.fulfill()
 		}
-
+		
 		// WHEN
 		let originalConfiguration = appConfiguration.currentAppConfig.value
 		var config = SAP_Internal_V2_ApplicationConfigurationIOS()
 		config.supportedCountries = ["DE"]
 		appConfiguration.currentAppConfig.value = config
-
+		
 		// THEN
 		waitForExpectations(timeout: .short)
 		XCTAssertNotEqual(config, originalConfiguration)
 		XCTAssertNil(service.nextValidityTimer)
 	}
-
+	
 	func test_DSCListChanges_THEN_UpdateGetsCalled() {
 		// GIVEN
 		let validationStateServiceExpectation = expectation(description: "ValidationStateService updated")
@@ -107,23 +113,24 @@ class ValidationStateServiceTests: XCTestCase {
 			dscListProvider: dscListProvider,
 			appConfiguration: CachedAppConfigurationMock(),
 			cclService: FakeCCLService(),
-			recycleBin: .fake()
+			recycleBin: .fake(),
+			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
 		service.syncSetup()
 		service.validationUpdatedHook = {
 			validationStateServiceExpectation.fulfill()
 		}
-
+		
 		// WHEN
-
+		
 		let fakeDCCSigningCertificate = DCCSigningCertificate(kid: Data(), data: Data())
 		dscListProvider.signingCertificates.value = [fakeDCCSigningCertificate]
-
+		
 		// THEN
 		waitForExpectations(timeout: .short)
 		XCTAssertNil(service.nextValidityTimer)
 	}
-
+	
 	struct DateHelpers {
 		let minus2Days = Date(timeIntervalSinceNow: 60 * 60 * 24 * -2)
 		let minus1Day = Date(timeIntervalSinceNow: 60 * 60 * 24 * -1)
@@ -131,17 +138,17 @@ class ValidationStateServiceTests: XCTestCase {
 		let plus5Seconds = Date(timeIntervalSinceNow: .short)
 		let plus1Day = Date(timeIntervalSinceNow: 60 * 60 * 24 * 1)
 		let plus2Days = Date(timeIntervalSinceNow: 60 * 60 * 24 * 2)
-
+		
 		var orderDates: [Date] {
 			[minus2Days, minus1Day, now, plus5Seconds, plus1Day, plus2Days]
 		}
-
+		
 		var futureDates: [Date] {
 			[plus5Seconds, plus1Day, plus2Days]
 		}
 	}
-
-	func test_processNextFireTimestamp_THEN_isNearestFuturedate() throws {
+	
+	func test_processNextFireTimestamp_THEN_isNearestFutureDate() throws {
 		// GIVEN
 		let dateHelper = DateHelpers()
 		let service = TestHealthCertificateService(
@@ -152,13 +159,13 @@ class ValidationStateServiceTests: XCTestCase {
 			validUntilDates: dateHelper.orderDates.shuffled(),
 			expirationDates: dateHelper.futureDates.shuffled()
 		)
-
+		
 		// WHEN
 		let nextDate = try XCTUnwrap(service.nextFireDate)
 		// THEN
 		XCTAssertEqual(dateHelper.plus5Seconds, nextDate)
 	}
-
+	
 	func test_scheduleTimer_THEN_TriggersUpdateAndGetsReset() throws {
 		// GIVEN
 		let dateHelper = DateHelpers()
@@ -170,19 +177,19 @@ class ValidationStateServiceTests: XCTestCase {
 			validUntilDates: dateHelper.orderDates.shuffled(),
 			expirationDates: dateHelper.futureDates.shuffled()
 		)
-
+		
 		let validationStateServiceExpectation = expectation(description: "ValidationStateService updated")
 		service.validationUpdatedHook = {
 			validationStateServiceExpectation.fulfill()
 		}
-
+		
 		// WHEN
 		service.scheduleTimer()
 		XCTAssertNotNil(service.nextValidityTimer)
-
+		
 		// THEN
 		waitForExpectations(timeout: .short)
 		XCTAssertNil(service.nextValidityTimer)
 	}
-
+	
 }

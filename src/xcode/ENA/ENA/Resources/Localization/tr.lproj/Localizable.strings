@@ -561,7 +561,7 @@
 
 "ExposureSubmissionDispatch_QRCodeButtonTitle" = "QR Kodu Tara";
 
-"ExposureSubmissionDispatch_QRCodeButtonDescription" = "Uygulamada test sonucunuzu alın ve diğer kullanıcıları uyarın ya da COVID test sertifikanızı talep edin.";
+"ExposureSubmissionDispatch_QRCodeButtonDescription" = "Test sonucunuzu ve aile üyelerinizin test sonuçlarını alın ve COVID test sertifikanızı talep edin.";
 
 "ExposureSubmissionDispatch_TANButtonTitle" = "PCR Testi için TAN girin";
 
@@ -1001,11 +1001,24 @@
 
 "ExposureSubmission_Antigen_Profile_Information_Description_Title" = "Test noktalarında kaydınızı hızlandırmak için kişisel verilerinizi bir QR kod olarak kaydedin.";
 
-"ExposureSubmission_Antigen_Profile_Information_DescriptionSubHeadline" = "Hızlı test profili oluşturduğunuzda her hızlı testten önce kişisel verilerinizi yeniden doldurmanız gerekmez.";
+"ExposureSubmission_Antigen_Profile_Information_DescriptionSubHeadline" = "Hızlı test profili oluşturduğunuzda her hızlı testten önce kişisel verilerinizi yeniden doldurmanız gerekmez. Birden fazla hızlı test profili oluşturabilirsiniz, ör. bir tane kendiniz için ve birer tane her aile üyeniz için.";
 
 "ExposureSubmission_Antigen_Profile_Information_PrimaryButton" = "Devam Et";
 
 "ExposureSubmission_Antigen_Profile_Information_Dataprivacy_Title" = "Daha fazla bilgi için lütfen gizlilik bildirimine başvurun.";
+
+/* Exposure Submission AntigenTest Profile Overview */
+"ExposureSubmission_Antigen_Profile_Overview_title" = "Hızlı Test Profilleri";
+
+"ExposureSubmission_Antigen_Profile_Card_title" = "Hızlı Test Profili";
+
+"ExposureSubmission_Antigen_Profile_Overview_EmptyTitle" = "Henüz hiçbir hızlı test profili oluşturulmadı";
+
+"ExposureSubmission_Antigen_Profile_Overview_EmptyDescription" = "Kişisel verilerinizle bir hızlı test profili oluşturabilir ve her katılan test noktasına QR kod aracılığıyla gönderebilirsiniz.";
+
+"ExposureSubmission_Antigen_Profile_Overview_EmptyImageDescription" = "Arka planda dijital sertifika ve sertifika mührü";
+
+"ExposureSubmission_Antigen_Profile_Overview_AddButtonTitle" = "Hızlı test profili oluştur";
 
 /* ExposureSubmission AntigenTest Profile */
 "ExposureSubmission_Antigen_Profile_Header_Text" = "Hızlı Test Profili";
@@ -1016,7 +1029,7 @@
 
 "ExposureSubmission_Antigen_Profile_DateOfBirth_Format" = "Doğum tarihi: %@";
 
-"ExposureSubmission_Antigen_Profile_Primary_Button" = "Devam Et";
+"ExposureSubmission_Antigen_Profile_Primary_Button" = "Testi Tara";
 
 "ExposureSubmission_Antigen_Profile_Secondary_Button" = "Düzenle";
 
@@ -1025,9 +1038,9 @@
 
 "ExposureSubmission_Profile_CreateProfileTile_Description" = "Test noktalarında kaydınızı hızlandırmak için kişisel verilerinizi bir QR kod olarak kaydedin.";
 
-"ExposureSubmission_Profile_ProfileTile_Title" = "Hızlı Test Profili";
+"ExposureSubmission_Profile_ProfileTile_Title" = "Hızlı Test Profilleri";
 
-"ExposureSubmission_Profile_ProfileTile_Description" = "Zamandan tasarruf edip test noktasında hızlı test profilinizi sunabilirsiniz.";
+"ExposureSubmission_Profile_ProfileTile_Description" = "QR kod ile dilediğiniz katılımcı test noktasına gönderebileceğiniz, kişisel verilerinizi içeren hızlı test profili.";
 
 /* ExposureSubmission TestOwnerSelection */
 "ExposureSubmission_TestOwnerSelection_Title" = "Testi Kaydet";
@@ -1061,7 +1074,7 @@
 
 "ExposureSubmission_TestCertificate_Information_BirthdayText" = "Güvenlik amaçları nedeniyle test sertifikanız doğum tarihinizle korunmaktadır. Test sertifikası yalnızca doğru doğum tarihini belirtirseniz düzenlenebilir.";
 
-"ExposureSubmission_TestCertificate_Information_Dataprivacy_Title" = "Veri işleme hakkında daha ayrıntılı bilgi için lütfen gizlilik bildirimine başvurun.";
+"ExposureSubmission_TestCertificate_Information_Dataprivacy_Title" = "Veri İşleme ve Onayınız Hakkında Ayrıntılı Bilgiler";
 
 "ExposureSubmission_TestCertificate_Information_Alert_Title" = "Kaydı İptal Et";
 
@@ -1306,6 +1319,11 @@
 "Home_resultCard_DeleteTestButton" = "Testi Sil";
 
 "Home_resultCard_HideTestButton" = "Tekrar Görüntüleme";
+
+/* - Family Tets */
+"Home_Family_Test_Title" = "Aile üyelerinin testleri";
+
+"Home_Family_Test_Detail" = "Haberlerimiz var";
 
 /* - Show Positive */
 "Home_Finding_Positive_Card_Status_Title" = "SARS-CoV-2 pozitif";
@@ -1640,10 +1658,10 @@
 /* New Version Features */
 "NewVersionFeatures_Info_about_abb_information" = "Bu sürümdeki değişiklikleri uygulama bilgilerinde “Yeni Özellikler” bölümünde bulabilirsiniz.";
 
-/* Version 2.21 */
-"NewVersionFeature_221_familyMembersTest_title" = "Aileniz için Testleri Yönetin";
+/* Version 2.22 */
+"NewVersionFeature_222_family_members_RAT_profile_Title" = "Aile Üyeleri için Hızlı Test Profilleri";
 
-"NewVersionFeature_221_familyMembersTest_description" = "Artık uygulamanızda aile üyelerinizin testlerini yönetebilirsiniz. Test sonuçlarını akıllı telefonunuza alabilir ve dijital COVID test sertifikaları talep edebilirsiniz. Ancak testlerinden biri pozitif sonuç verirse diğer kullanıcıları uyaramazsınız. Bu işlev yalnızca testi kendiniz için kaydettiğinizde kullanılabilir.";
+"NewVersionFeature_222_family_members_RAT_profile_description" = "Test noktalarında kaydınızı hızlandırmak amacıyla artık aile üyeleriniz için hızlı test profilleri oluşturabilirsiniz. Test profilleri oluşturduktan sonra kişisel bilgileri sunmak için yalnızca ilgili hızlı test profiline ilişkin QR kodu sağlamanız gerekir.";
 
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Uluslararası Maruz Kalma Günlüğü";
@@ -3189,9 +3207,11 @@
 
 "HealthCertificate_ValidityState_Invalid_description" = "Sertifika onaylanmamış bir kuruluş tarafından veya yanlış düzenlenmiş. Lütfen onaylanmış bir kuruluşa yeni bir sertifika düzenletin.";
 
-"HealthCertificate_ValidityState_Blocked" = "Sertifika Geçersiz";
+"HealthCertificate_ValidityState_BlockedRevoked" = "Sertifika Geçersiz";
 
-"HealthCertificate_ValidityState_Blocked_description" = "Sertifika, düzenleyen makam tarafından geri çağırıldı. Lütfen yeni bir dijital sertifika alın.";
+"HealthCertificate_ValidityState_BlockedRevoked_description_de" = "RKI, hükûmet kararnamesi doğrultusunda sertifikayı devre dışı bıraktı. Lütfen yeni bir dijital sertifika alın.";
+
+"HealthCertificate_ValidityState_BlockedRevoked_description_other" = "Düzenleyen yetkili merci, idari karar doğrultusunda sertifikayı devre dışı bıraktı. Lütfen yeni bir dijital sertifika alın.";
 
 /* Reissuance */
 /* HealthCertificate Resissuance Consent */
@@ -3583,4 +3603,63 @@
 "TicketValidation_Result_Failed_subtitle" = "Sertifikanız sağlayıcı gerekliliklerini karşılamıyor.";
 
 "TicketValidation_Result_Failed_description" = "Sorularınız varsa lütfen sağlayıcı \"%@\" ile iletişime geçin.";
+
+/* Family Member Corona Test */
+"FamilyMemberCoronaTest_title" = "Aile üyelerinin testleri";
+
+"FamilyMemberCoronaTest_deleteAllButtonTitle" = "Tümünü sil";
+
+"FamilyMemberCoronaTest_pcrCaption" = "PCR testi tanısı";
+
+"FamilyMemberCoronaTest_antigenCaption" = "Hızlı test tanısı";
+
+"FamilyMemberCoronaTest_pcrDate" = "Testin eklenme tarihi: %@";
+
+"FamilyMemberCoronaTest_antigenDate" = "%@ tarihinde yapıldı";
+
+"FamilyMemberCoronaTest_pendingDiagnosis" = "Sonucunuz henüz çıkmadı";
+
+"FamilyMemberCoronaTest_pendingPCRDescription" = "PCR testine ilişkin değerlendirme henüz tamamlanmadı.";
+
+"FamilyMemberCoronaTest_pendingAntigenDescription" = "Hızlı teste ilişkin değerlendirme henüz tamamlanmadı.";
+
+"FamilyMemberCoronaTest_negativeTopDiagnosis" = "SARS-CoV-2";
+
+"FamilyMemberCoronaTest_negativeBottomDiagnosis" = "Negatif";
+
+"FamilyMemberCoronaTest_positiveTopDiagnosis" = "SARS-CoV-2";
+
+"FamilyMemberCoronaTest_positiveBottomDiagnosis" = "Pozitif";
+
+"FamilyMemberCoronaTest_invalidDiagnosis" = "Geçersiz test";
+
+"FamilyMemberCoronaTest_invalidDescription" = "Test değerlendirilemiyor.";
+
+"FamilyMemberCoronaTest_outdatedDiagnosis" = "Test Artık Geçerli Değil";
+
+"FamilyMemberCoronaTest_outdatedDescription" = "Hızlı test %i saatten eski ve artık burada görüntülenmeyecek.";
+
+"FamilyMemberCoronaTest_outdatedButtonTitle" = "Tekrar Görüntüleme";
+
+"FamilyMemberCoronaTest_expiredDiagnosis" = "Artık Geçerli Değil";
+
+"FamilyMemberCoronaTest_expiredDescription" = "Test 21 günden eski ve dolayısıyla artık geçerli değil.";
+
+"FamilyMemberCoronaTest_expiredButtonTitle" = "Testi Sil";
+
+"FamilyMemberCoronaTest_DeleteOne_AlertTitle" = "Test sonucu kaldırılsın mı?";
+
+"FamilyMemberCoronaTest_DeleteOne_AlertMessage" = "Test sonucu geri dönüşüm kutusuna taşınacak. Geri dönüşüm kutusunu, durum sekmesinde yer alan \"Daha Fazla\" kutucuğunda bulabilirsiniz.\nBurada test sonucunu kalıcı olarak silebilir veya geri yükleyebilirsiniz. Test sonucu 30 gün sonra otomatik olarak silinir.";
+
+"FamilyMemberCoronaTest_DeleteOne_AlertConfirmButtonTitle" = "Test Sonucunu Kaldır";
+
+"FamilyMemberCoronaTest_DeleteOne_AlertCancelButtonTitle" = "İptal";
+
+"FamilyMemberCoronaTest_DeleteAll_AlertTitle" = "Test sonuçları kaldırılsın mı?";
+
+"FamilyMemberCoronaTest_DeleteAll_AlertMessage" = "Test sonuçları geri dönüşüm kutusuna taşınacak. Geri dönüşüm kutusunu, durum sekmesinde yer alan \"Daha Fazla\" kutucuğunda bulabilirsiniz.\nBurada test sonuçlarını kalıcı olarak silebilir veya geri yükleyebilirsiniz. Test sonuçları 30 gün sonra otomatik olarak silinir.";
+
+"FamilyMemberCoronaTest_DeleteAll_AlertConfirmButtonTitle" = "Test Sonuçlarını Kaldır";
+
+"FamilyMemberCoronaTest_DeleteAll_AlertCancelButtonTitle" = "İptal";
 

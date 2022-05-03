@@ -30,8 +30,6 @@ struct CCLConfigurationResource: Resource {
 		self.sendResource = EmptySendResource()
 		self.receiveResource = CBORReceiveResource<CCLConfigurationReceiveModel>()
 		self.trustEvaluation = trustEvaluation
-
-		self.defaultModel = bundledDefaultModel
 	}
 	
 	// MARK: - Protocol Resource
@@ -46,9 +44,9 @@ struct CCLConfigurationResource: Resource {
 	var type: ServiceType
 	var sendResource: EmptySendResource
 	var receiveResource: CBORReceiveResource<CCLConfigurationReceiveModel>
-	var defaultModel: CCLConfigurationReceiveModel?
 	var retryingCount: Int = 0
-	
+	lazy var defaultModel: CCLConfigurationReceiveModel? = bundledDefaultModel
+
 	// MARK: - Internal
 	
 	#if !RELEASE

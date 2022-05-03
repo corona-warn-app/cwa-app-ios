@@ -39,12 +39,20 @@ class FamilyNameTextFieldCell: UITableViewCell, UITextFieldDelegate, ReuseIdenti
 		endEditing(true)
 	}
 
+	func textFieldShouldClear(_ textField: UITextField) -> Bool {
+		model = nil
+		return true
+	}
+
 	// MARK: - Internal
 
 	@OpenCombine.Published private(set) var model: String?
 
-	func configure(_ placeholder: String? = nil) {
+	func configure(text: String? = nil, placeholder: String? = nil) {
+		textField.text = text
 		textField.placeholder = placeholder
+		
+		model = textField.text
 	}
 
 	// MARK: - Private

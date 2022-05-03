@@ -1,4 +1,4 @@
-git_url("git@github.com:corona-warn-app/cwa-certificates.git")
+git_url("https://github.com/corona-warn-app/cwa-certificates.git")
 
 storage_mode("git")
 

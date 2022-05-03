@@ -26,6 +26,10 @@ class RecycleBin {
 	var familyMemberTestRestorationHandler: FamilyMemberTestRestorationHandling!
 	var certificateRestorationHandler: CertificateRestorationHandling!
 
+	var recycledItems: Set<RecycleBinItem> {
+		store.recycleBinItems
+	}
+
 	/// This function moves an item into the bin.
 	///
 	/// - Parameter item: The item which needs to be moved into the bin.

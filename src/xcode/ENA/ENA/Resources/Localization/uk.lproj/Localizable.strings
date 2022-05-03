@@ -561,7 +561,7 @@
 
 "ExposureSubmissionDispatch_QRCodeButtonTitle" = "Сканувати QR-код";
 
-"ExposureSubmissionDispatch_QRCodeButtonDescription" = "Отримайте свій результат тесту в застосунку та попередьте інших або запитайте сертифікат тесту на COVID.";
+"ExposureSubmissionDispatch_QRCodeButtonDescription" = "Отримайте свій результат тесту та результати для членів вашої родини та запитайте сертифікат тесту на COVID.";
 
 "ExposureSubmissionDispatch_TANButtonTitle" = "Введіть TAN для ПЛР-тесту";
 
@@ -1001,11 +1001,24 @@
 
 "ExposureSubmission_Antigen_Profile_Information_Description_Title" = "Збережіть свої особисті дані у вигляді QR-коду, щоб пришвидшити реєстрацію в пунктах тестування.";
 
-"ExposureSubmission_Antigen_Profile_Information_DescriptionSubHeadline" = "Коли ви створюєте профіль експрес-тесту, вам не доведеться знову заповнювати свої особисті дані перед кожним експрес-тестом.";
+"ExposureSubmission_Antigen_Profile_Information_DescriptionSubHeadline" = "Коли ви створюєте профіль експрес-тесту, вам не доведеться знову заповнювати свої особисті дані перед кожним експрес-тестом. Ви можете створити декілька профілів експрес-тестів, наприклад, один для себе і по одному для кожного члена вашої родини.";
 
 "ExposureSubmission_Antigen_Profile_Information_PrimaryButton" = "Продовжити";
 
 "ExposureSubmission_Antigen_Profile_Information_Dataprivacy_Title" = "Для отримання додаткової інформації дивіться сповіщення про конфіденційність.";
+
+/* Exposure Submission AntigenTest Profile Overview */
+"ExposureSubmission_Antigen_Profile_Overview_title" = "Профілі експрес-тестів";
+
+"ExposureSubmission_Antigen_Profile_Card_title" = "Профіль експрес-тесту";
+
+"ExposureSubmission_Antigen_Profile_Overview_EmptyTitle" = "Профілі експрес-тестів ще не створені";
+
+"ExposureSubmission_Antigen_Profile_Overview_EmptyDescription" = "Ви можете створити профіль експрес-тесту зі своїми особистими даними, які ви можете надіслати за допомогою QR-коду до кожного залученого пункту тестування.";
+
+"ExposureSubmission_Antigen_Profile_Overview_EmptyImageDescription" = "Печатка сертифіката з цифровим сертифікатом на фоні";
+
+"ExposureSubmission_Antigen_Profile_Overview_AddButtonTitle" = "Створити профіль експрес-тесту";
 
 /* ExposureSubmission AntigenTest Profile */
 "ExposureSubmission_Antigen_Profile_Header_Text" = "Профіль експрес-тесту";
@@ -1016,7 +1029,7 @@
 
 "ExposureSubmission_Antigen_Profile_DateOfBirth_Format" = "Народився %@";
 
-"ExposureSubmission_Antigen_Profile_Primary_Button" = "Продовжити";
+"ExposureSubmission_Antigen_Profile_Primary_Button" = "Сканувати тест";
 
 "ExposureSubmission_Antigen_Profile_Secondary_Button" = "Редагувати";
 
@@ -1025,9 +1038,9 @@
 
 "ExposureSubmission_Profile_CreateProfileTile_Description" = "Збережіть свої особисті дані у вигляді QR-коду, щоб пришвидшити реєстрацію в пунктах тестування.";
 
-"ExposureSubmission_Profile_ProfileTile_Title" = "Профіль експрес-тесту";
+"ExposureSubmission_Profile_ProfileTile_Title" = "Профілі експрес-тестів";
 
-"ExposureSubmission_Profile_ProfileTile_Description" = "Заощаджуйте час і надавайте свій профіль експрес-тесту у пункті тестування.";
+"ExposureSubmission_Profile_ProfileTile_Description" = "Профіль експрес-тесту з вашими особистими даними, які ви можете надіслати до будь-якого пункту тестування, що приймає участь, за допомогою QR-коду.";
 
 /* ExposureSubmission TestOwnerSelection */
 "ExposureSubmission_TestOwnerSelection_Title" = "Зареєструвати тест";
@@ -1061,7 +1074,7 @@
 
 "ExposureSubmission_TestCertificate_Information_BirthdayText" = "З міркувань безпеки ваш сертифікат тесту захищений датою вашого народження. Сертифікат тесту може бути виданий тільки за умови правильної дати народження.";
 
-"ExposureSubmission_TestCertificate_Information_Dataprivacy_Title" = "Щоб отримати детальнішу інформацію про обробку даних, див. Сповіщення про конфіденційність.";
+"ExposureSubmission_TestCertificate_Information_Dataprivacy_Title" = "Докладна інформація про обробку даних та вашу згоду";
 
 "ExposureSubmission_TestCertificate_Information_Alert_Title" = "Скасувати реєстрацію";
 
@@ -1306,6 +1319,11 @@
 "Home_resultCard_DeleteTestButton" = "Видалити тест";
 
 "Home_resultCard_HideTestButton" = "Не показувати знову";
+
+/* - Family Tets */
+"Home_Family_Test_Title" = "Тести членів родини";
+
+"Home_Family_Test_Detail" = "Новини";
 
 /* - Show Positive */
 "Home_Finding_Positive_Card_Status_Title" = "SARS-CoV-2 позитивний";
@@ -1640,10 +1658,10 @@
 /* New Version Features */
 "NewVersionFeatures_Info_about_abb_information" = "Зміни у цій версії можна знайти в інформації про застосунок в розділі «Нові функції».";
 
-/* Version 2.21 */
-"NewVersionFeature_221_familyMembersTest_title" = "Керуйте тестами для вашої родини";
+/* Version 2.22 */
+"NewVersionFeature_222_family_members_RAT_profile_Title" = "Профілі експрес-тестів для членів родини";
 
-"NewVersionFeature_221_familyMembersTest_description" = "Тепер ви можете керувати тестами для членів вашої родини у своєму застосунку: ви можете отримувати їх результати тестів на свій смартфон і запитувати цифрові сертифікати тесту на COVID. Однак якщо один із їхніх тестів позитивний, ви не можете попередити інших користувачів. Це можливо, лише якщо ви зареєструєте тест для себе.";
+"NewVersionFeature_222_family_members_RAT_profile_description" = "Тепер ви можете створювати профілі експрес-тестів для членів вашої родини, щоб прискорити реєстрацію в пунктах тестування. Після цього вам потрібно лише представити QR-код для відповідного профілю експрес-тесту, щоб надати особисту інформацію.";
 
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Транснаціональна реєстрація ризику зараження";
@@ -3189,9 +3207,11 @@
 
 "HealthCertificate_ValidityState_Invalid_description" = "Довідка видана неуповноваженим органом або була видана неправильно. Попросіть уповноважений орган видати вам новий сертифікат.";
 
-"HealthCertificate_ValidityState_Blocked" = "Сертифікат недійсний";
+"HealthCertificate_ValidityState_BlockedRevoked" = "Сертифікат недійсний";
 
-"HealthCertificate_ValidityState_Blocked_description" = "Сертифікат було відкликано органом, який його видав. Отримайте новий цифровий сертифікат.";
+"HealthCertificate_ValidityState_BlockedRevoked_description_de" = "RKI деактивував сертифікат в результаті постанови уряду. Отримайте новий цифровий сертифікат.";
+
+"HealthCertificate_ValidityState_BlockedRevoked_description_other" = "Орган, який видав свідоцтво, деактивував сертифікат внаслідок адміністративного рішення. Отримайте новий цифровий сертифікат.";
 
 /* Reissuance */
 /* HealthCertificate Resissuance Consent */
@@ -3583,4 +3603,63 @@
 "TicketValidation_Result_Failed_subtitle" = "Ваш сертифікат не відповідає вимогам постачальника.";
 
 "TicketValidation_Result_Failed_description" = "Якщо у вас виникли запитання, зверніться до постачальника “%@”.";
+
+/* Family Member Corona Test */
+"FamilyMemberCoronaTest_title" = "Тести членів родини";
+
+"FamilyMemberCoronaTest_deleteAllButtonTitle" = "Видалити все";
+
+"FamilyMemberCoronaTest_pcrCaption" = "Діагноз на основі тесту ПЛР";
+
+"FamilyMemberCoronaTest_antigenCaption" = "Діагноз на основі експрес-тесту";
+
+"FamilyMemberCoronaTest_pcrDate" = "Тест додано %@";
+
+"FamilyMemberCoronaTest_antigenDate" = "Дата виконання %@";
+
+"FamilyMemberCoronaTest_pendingDiagnosis" = "Ваш результат ще недоступний";
+
+"FamilyMemberCoronaTest_pendingPCRDescription" = "Аналіз тесту ПЛР ще не виконаний.";
+
+"FamilyMemberCoronaTest_pendingAntigenDescription" = "Аналіз експрес-тесту ще не виконано.";
+
+"FamilyMemberCoronaTest_negativeTopDiagnosis" = "SARS-CoV-2";
+
+"FamilyMemberCoronaTest_negativeBottomDiagnosis" = "Негативний";
+
+"FamilyMemberCoronaTest_positiveTopDiagnosis" = "SARS-CoV-2";
+
+"FamilyMemberCoronaTest_positiveBottomDiagnosis" = "Позитивний";
+
+"FamilyMemberCoronaTest_invalidDiagnosis" = "Недійсний тест";
+
+"FamilyMemberCoronaTest_invalidDescription" = "Тест неможливо проаналізувати.";
+
+"FamilyMemberCoronaTest_outdatedDiagnosis" = "Тест більше не є актуальним";
+
+"FamilyMemberCoronaTest_outdatedDescription" = "Експрес-тесту понад %i годин, і він більше не відображатиметься тут.";
+
+"FamilyMemberCoronaTest_outdatedButtonTitle" = "Не показувати знову";
+
+"FamilyMemberCoronaTest_expiredDiagnosis" = "Більше недійсно";
+
+"FamilyMemberCoronaTest_expiredDescription" = "Тесту більше 21 дня, тому він більше не є релевантним.";
+
+"FamilyMemberCoronaTest_expiredButtonTitle" = "Видалити тест";
+
+"FamilyMemberCoronaTest_DeleteOne_AlertTitle" = "Видалити результат тесту?";
+
+"FamilyMemberCoronaTest_DeleteOne_AlertMessage" = "Результат тесту буде переміщено в кошик. Ви знайдете кошик на плитці «Більше» на сторінці закладки статусу.\nВи можете назавжди видалити результат тесту або відновити його там. Результат тесту буде автоматично видалено через 30 днів.";
+
+"FamilyMemberCoronaTest_DeleteOne_AlertConfirmButtonTitle" = "Видалити результат тесту";
+
+"FamilyMemberCoronaTest_DeleteOne_AlertCancelButtonTitle" = "Скасувати";
+
+"FamilyMemberCoronaTest_DeleteAll_AlertTitle" = "Видалити результати тестів?";
+
+"FamilyMemberCoronaTest_DeleteAll_AlertMessage" = "Результати тестів будуть переміщені в кошик. Ви знайдете кошик на плитці «Більше» на закладці статусу.\nВи можете назавжди видалити результати тестів або відновити їх там. Результати тестів будуть автоматично видалено через 30 днів.";
+
+"FamilyMemberCoronaTest_DeleteAll_AlertConfirmButtonTitle" = "Видалити результати тестів";
+
+"FamilyMemberCoronaTest_DeleteAll_AlertCancelButtonTitle" = "Скасувати";
 

@@ -161,10 +161,10 @@ class HealthCertifiedPersonCellModel {
 				image: UIImage(named: "Icon_ExpiredInvalid"),
 				description: AppStrings.HealthCertificate.ValidityState.invalid
 			)
-		case .blocked:
+		case .blocked, .revoked:
 			return .validityState(
 				image: UIImage(named: "Icon_ExpiredInvalid"),
-				description: AppStrings.HealthCertificate.ValidityState.blocked
+				description: AppStrings.HealthCertificate.ValidityState.blockedRevoked
 			)
 		}
 	}

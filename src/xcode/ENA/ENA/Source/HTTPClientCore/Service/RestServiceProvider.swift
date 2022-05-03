@@ -37,8 +37,6 @@ class RestServiceProvider: RestServiceProviding {
 			cachedRestService.load(resource, completion)
 		case .wifiOnly:
 			wifiOnlyRestService.load(resource, completion)
-		case .retrying:
-			Log.error("Not yet implemented")
 		}
 	}
 	
@@ -53,9 +51,19 @@ class RestServiceProvider: RestServiceProviding {
 			cachedRestService.cached(resource, completion)
 		case .wifiOnly:
 			wifiOnlyRestService.cached(resource, completion)
-		default:
-			Log.error("Cache is not supported by that type of restService")
-			return completion(.failure(.resourceError(.missingCache)))
+		}
+	}
+
+	func resetCache<R>(
+		for resource: R
+	) where R: Resource {
+		switch resource.type {
+		case .default:
+			standardRestService.resetCache(for: resource)
+		case .caching:
+			cachedRestService.resetCache(for: resource)
+		case .wifiOnly:
+			wifiOnlyRestService.resetCache(for: resource)
 		}
 	}
 

@@ -22,7 +22,8 @@ class TaskExecutionHandler: ENATaskExecutionDelegate {
 		store: Store,
 		exposureSubmissionDependencies: ExposureSubmissionServiceDependencies,
 		healthCertificateService: HealthCertificateService,
-		familyMemberCoronaTestService: FamilyMemberCoronaTestServiceProviding
+		familyMemberCoronaTestService: FamilyMemberCoronaTestServiceProviding,
+		cclService: CCLServable
 	) {
 		self.riskProvider = riskProvider
 		self.restServiceProvider = restServiceProvider
@@ -35,6 +36,7 @@ class TaskExecutionHandler: ENATaskExecutionDelegate {
 		self.dependencies = exposureSubmissionDependencies
 		self.healthCertificateService = healthCertificateService
 		self.familyMemberCoronaTestService = familyMemberCoronaTestService
+		self.cclService = cclService
 	}
 
 
@@ -53,16 +55,16 @@ class TaskExecutionHandler: ENATaskExecutionDelegate {
 	///         when the OS calls the expiration handler before all tasks were able to finish.
 	func executeENABackgroundTask(completion: @escaping ((Bool) -> Void)) {
 		Log.info("Starting background task...", log: .background)
-
+		
 		guard store.isOnboarded else {
 			Log.info("Cancelling background task because user is not onboarded yet.", log: .background)
-
+			
 			completion(true)
 			return
 		}
-
+		
 		let group = DispatchGroup()
-
+		
 		group.enter()
 		DispatchQueue.global().async {
 			/// ExposureDetection should be our highest Priority if we run all other tasks simultaneously we might get killed by the Watchdog while the Detection is running.
@@ -70,97 +72,109 @@ class TaskExecutionHandler: ENATaskExecutionDelegate {
 			Log.info("Starting ExposureDetection...", log: .background)
 			self.executeExposureDetectionRequest { _ in
 				Log.info("Done detecting Exposures…", log: .background)
-
-				self.healthCertificateService.setup(
-					updatingWalletInfos: false
-				) {
-					group.enter()
-					DispatchQueue.global().async {
-						Log.info("Trying to submit TEKs...", log: .background)
-						self.executeSubmitTemporaryExposureKeys { _ in
-							group.leave()
-							Log.info("Done submitting TEKs...", log: .background)
+				
+				self.cclService.setup {
+					self.healthCertificateService.setup(
+						updatingWalletInfos: false
+					) {
+						group.enter()
+						DispatchQueue.global().async {
+							Log.info("Trying to submit TEKs...", log: .background)
+							self.executeSubmitTemporaryExposureKeys { _ in
+								group.leave()
+								Log.info("Done submitting TEKs...", log: .background)
+							}
 						}
-					}
-
-					group.enter()
-					DispatchQueue.global().async {
-						Log.info("Trying to fetch TestResults...", log: .background)
-						self.executeFetchTestResults { _ in
-							group.leave()
-							Log.info("Done fetching TestResults...", log: .background)
+						
+						group.enter()
+						DispatchQueue.global().async {
+							Log.info("Trying to fetch TestResults...", log: .background)
+							self.executeFetchTestResults { _ in
+								group.leave()
+								Log.info("Done fetching TestResults...", log: .background)
+							}
 						}
-					}
-
-					group.enter()
-					DispatchQueue.global().async {
-						Log.info("Trying to fetch family member TestResults...", log: .background)
-						self.executeFetchFamilyMemberTestResults { _ in
-							group.leave()
-							Log.info("Done fetching family member TestResults...", log: .background)
+						
+						group.enter()
+						DispatchQueue.global().async {
+							Log.info("Trying to fetch family member TestResults...", log: .background)
+							self.executeFetchFamilyMemberTestResults { _ in
+								group.leave()
+								Log.info("Done fetching family member TestResults...", log: .background)
+							}
 						}
-					}
-
-					group.enter()
-					DispatchQueue.global().async {
-						Log.info("Starting FakeRequests...", log: .background)
-						self.plausibleDeniabilityService.executeFakeRequests {
-							group.leave()
-							Log.info("Done sending FakeRequests...", log: .background)
+						
+						group.enter()
+						DispatchQueue.global().async {
+							Log.info("Starting FakeRequests...", log: .background)
+							self.plausibleDeniabilityService.executeFakeRequests {
+								group.leave()
+								Log.info("Done sending FakeRequests...", log: .background)
+							}
 						}
-					}
-
-					group.enter()
-					DispatchQueue.global().async {
-						Log.info("Cleanup contact diary store.", log: .background)
-						self.contactDiaryStore.cleanup(timeout: 10.0)
-						Log.info("Done cleaning up contact diary store.", log: .background)
-						group.leave()
-					}
-
-					group.enter()
-					DispatchQueue.global().async {
-						Log.info("Cleanup event store.", log: .background)
-						self.eventStore.cleanup(timeout: 10.0)
-						Log.info("Done cleaning up contact event store.", log: .background)
-						group.leave()
-					}
-
-					group.enter()
-					DispatchQueue.global().async {
-						Log.info("Checkout overdue checkins.", log: .background)
-						self.eventCheckoutService.checkoutOverdueCheckins()
-						Log.info("Done checkin out overdue checkins.", log: .background)
-						group.leave()
-					}
-
-					group.enter()
-					DispatchQueue.global().async {
-						Log.info("Trigger analytics submission.", log: .background)
-						self.executeAnalyticsSubmission {
+						
+						group.enter()
+						DispatchQueue.global().async {
+							Log.info("Cleanup contact diary store.", log: .background)
+							self.contactDiaryStore.cleanup(timeout: 10.0)
+							Log.info("Done cleaning up contact diary store.", log: .background)
 							group.leave()
-							Log.info("Done triggering analytics submission…", log: .background)
 						}
-					}
-					group.enter()
-					DispatchQueue.global().async {
-						Log.info("Check for invalid certificates", log: .background)
-						self.checkCertificateValidityStates {
+						
+						group.enter()
+						DispatchQueue.global().async {
+							Log.info("Cleanup event store.", log: .background)
+							self.eventStore.cleanup(timeout: 10.0)
+							Log.info("Done cleaning up contact event store.", log: .background)
 							group.leave()
-							Log.info("Done checking for invalid certificates.", log: .background)
 						}
-					}
-
-					group.enter()
-					DispatchQueue.global().async {
-						Log.info("Check if DCC wallet infos need to be updated and booster notifications need to be triggered.", log: .background)
-						self.executeDCCWalletInfoUpdatesAndTriggerBoosterNotificationsIfNeeded {
+						
+						group.enter()
+						DispatchQueue.global().async {
+							Log.info("Checkout overdue checkins.", log: .background)
+							self.eventCheckoutService.checkoutOverdueCheckins()
+							Log.info("Done checkin out overdue checkins.", log: .background)
 							group.leave()
-							Log.info("Done checking if DCC wallet infos need to be updated and booster notifications need to be triggered", log: .background)
 						}
+						
+						group.enter()
+						DispatchQueue.global().async {
+							Log.info("Trigger analytics submission.", log: .background)
+							self.executeAnalyticsSubmission {
+								group.leave()
+								Log.info("Done triggering analytics submission…", log: .background)
+							}
+						}
+						
+						group.enter()
+						DispatchQueue.global().async {
+							Log.info("Check if DCC wallet infos need to be updated and booster notifications need to be triggered.", log: .background)
+							self.executeDCCWalletInfoUpdatesAndTriggerBoosterNotificationsIfNeeded {
+								group.leave()
+								Log.info("Done checking if DCC wallet infos need to be updated and booster notifications need to be triggered", log: .background)
+							}
+						}
+						
+						group.enter()
+						DispatchQueue.global().async {
+							Log.info("Check for invalid certificates", log: .background)
+							self.checkCertificateValidityStates {
+								group.leave()
+								Log.info("Done checking for invalid certificates.", log: .background)
+							}
+						}
+						
+						group.enter()
+						DispatchQueue.global().async {
+							Log.info("Check for revoked certificates", log: .background)
+							self.checkCertificateRevocationStates {
+								group.leave()
+								Log.info("Done checking for revoked certificates.", log: .background)
+							}
+						}
+						
+						group.leave() // Leave from the Exposure detection
 					}
-
-					group.leave() // Leave from the Exposure detection
 				}
 			}
 		}
@@ -184,6 +198,7 @@ class TaskExecutionHandler: ENATaskExecutionDelegate {
 	private let eventCheckoutService: EventCheckoutService
 	private let healthCertificateService: HealthCertificateService
 	private let familyMemberCoronaTestService: FamilyMemberCoronaTestServiceProviding
+	private let cclService: CCLServable
 	private var subscriptions = Set<AnyCancellable>()
 
 	/// This method attempts a submission of temporary exposure keys. The exposure submission service itself checks
@@ -371,4 +386,11 @@ class TaskExecutionHandler: ENATaskExecutionDelegate {
 			completion: completion
 		)
 	}
+
+	private func checkCertificateRevocationStates(completion: @escaping () -> Void) {
+		healthCertificateService.updateRevocationStates(
+			completion: completion
+		)
+	}
+
 }

@@ -52,10 +52,12 @@ final class HomeTestResultTableViewCell: UITableViewCell {
 		clearSubscriptions()
 		
 		cellModel.$title
+			.receive(on: DispatchQueue.main.ocombine)
 			.assign(to: \.text, on: titleLabel)
 			.store(in: &subscriptions)
 
 		cellModel.$subtitle
+			.receive(on: DispatchQueue.main.ocombine)
 			.sink { [weak self] in
 				self?.subtitleLabel.text = $0
 				self?.subtitleLabel.isHidden = (nil == $0)
@@ -63,10 +65,12 @@ final class HomeTestResultTableViewCell: UITableViewCell {
 			.store(in: &subscriptions)
 
 		cellModel.$description
+			.receive(on: DispatchQueue.main.ocombine)
 			.assign(to: \.text, on: descriptionLabel)
 			.store(in: &subscriptions)
 
 		cellModel.$footnote
+			.receive(on: DispatchQueue.main.ocombine)
 			.sink { [weak self] in
 				self?.footnoteLabel.text = $0
 				self?.footnoteLabel.isHidden = (nil == $0)
@@ -74,39 +78,48 @@ final class HomeTestResultTableViewCell: UITableViewCell {
 			.store(in: &subscriptions)
 
 		cellModel.$image
+			.receive(on: DispatchQueue.main.ocombine)
 			.assign(to: \.image, on: illustrationView)
 			.store(in: &subscriptions)
 
 		cellModel.$buttonTitle
+			.receive(on: DispatchQueue.main.ocombine)
 			.sink { [weak self] buttonTitle in
 				self?.button.setTitle(buttonTitle, for: .normal)
 			}
 			.store(in: &subscriptions)
 
 		cellModel.$isDisclosureIndicatorHidden
+			.receive(on: DispatchQueue.main.ocombine)
 			.assign(to: \.isHidden, on: disclosureIndicatorView)
 			.store(in: &subscriptions)
 
 		cellModel.$isNegativeDiagnosisHidden
+			.receive(on: DispatchQueue.main.ocombine)
 			.assign(to: \.isHidden, on: negativeDiagnosisStackView)
 			.store(in: &subscriptions)
 
 		cellModel.$isActivityIndicatorHidden
+			.receive(on: DispatchQueue.main.ocombine)
 			.assign(to: \.isHidden, on: activityIndicator)
 			.store(in: &subscriptions)
 		cellModel.$isActivityIndicatorHidden
+			.receive(on: DispatchQueue.main.ocombine)
 			.map({ !$0 })
 			.assign(to: \.isHidden, on: illustrationView)
 			.store(in: &subscriptions)
 
 		cellModel.$isUserInteractionEnabled
+			.receive(on: DispatchQueue.main.ocombine)
 			.assign(to: \.isUserInteractionEnabled, on: self)
 			.store(in: &subscriptions)
 		cellModel.$isUserInteractionEnabled
+			.receive(on: DispatchQueue.main.ocombine)
 			.assign(to: \.isEnabled, on: button)
 			.store(in: &subscriptions)
 
 		cellModel.$accessibilityIdentifier
+			.receive(on: DispatchQueue.main.ocombine)
 			.assign(to: \.accessibilityIdentifier, on: button)
 			.store(in: &subscriptions)
 

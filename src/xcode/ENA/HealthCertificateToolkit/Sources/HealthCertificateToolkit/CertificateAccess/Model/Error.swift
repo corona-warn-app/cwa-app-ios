@@ -49,6 +49,10 @@ public enum CertificateDecodingError: Error, Equatable {
     case HC_COSE_TAG_OR_ARRAY_INVALID
     case HC_COSE_MESSAGE_INVALID
     case HC_COSE_NO_KEYIDENTIFIER
+    case HC_COSE_NO_SIGN
+    case HC_COSE_PH_INVALID
+    case HC_COSE_UNKNOWN_ALG
+    case HC_COSE_NO_ALG
     case HC_CBOR_DECODING_FAILED(Error?)
     case HC_CBOR_TRIMMING_FAILED
     // HC_CWT_NO_ISS

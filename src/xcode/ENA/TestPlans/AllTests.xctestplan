@@ -4,11 +4,10 @@
       "id" : "A11977F5-134B-4CB5-B798-B2F3F30138CD",
       "name" : "DE",
       "options" : {
-        "defaultTestExecutionTimeAllowance" : 300,
+        "defaultTestExecutionTimeAllowance" : null,
         "language" : "de",
-        "maximumTestExecutionTimeAllowance" : 600,
-        "region" : "DE",
-        "testTimeoutsEnabled" : true
+        "maximumTestExecutionTimeAllowance" : null,
+        "region" : "DE"
       }
     },
     {
@@ -70,7 +69,10 @@
     "commandLineArgumentEntries" : [
 
     ],
-    "testExecutionOrdering" : "random"
+    "defaultTestExecutionTimeAllowance" : 300,
+    "maximumTestExecutionTimeAllowance" : 600,
+    "testExecutionOrdering" : "random",
+    "testTimeoutsEnabled" : true
   },
   "testTargets" : [
     {

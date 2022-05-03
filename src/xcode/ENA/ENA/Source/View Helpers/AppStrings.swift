@@ -126,7 +126,7 @@ enum AppStrings {
 				}
 				static let dataPrivacyTitle = NSLocalizedString("ExposureSubmission_Antigen_Profile_Information_Dataprivacy_Title", comment: "")
 			}
-
+			
 			enum Profile {
 				static let headerText = NSLocalizedString("ExposureSubmission_Antigen_Profile_Header_Text", comment: "")
 				static let QRCodeImageDescription = NSLocalizedString("ExposureSubmission_Antigen_Profile_QRCode_Image_Description", comment: "")
@@ -1184,10 +1184,10 @@ enum AppStrings {
 		static let generalDescription = NSLocalizedString("DeltaOnboarding_NewVersionFeatures_Description", comment: "")
 		static let aboutAppInformation = NSLocalizedString("NewVersionFeatures_Info_about_abb_information", comment: "")
 
-		/* Version 2.21 */
+		/* Version 2.22 */
 
-		static let feature221FamilyMembersTestTitle = NSLocalizedString("NewVersionFeature_221_familyMembersTest_title", comment: "")
-		static let feature221FamilyMembersTestDescription = NSLocalizedString("NewVersionFeature_221_familyMembersTest_description", comment: "")
+		static let feature222FamilyMembersRATProfileTitle = NSLocalizedString("NewVersionFeature_222_family_members_RAT_profile_Title", comment: "")
+		static let feature222FamilyMembersRATProfileDescription = NSLocalizedString("NewVersionFeature_222_family_members_RAT_profile_description", comment: "")
 	}
 
 	enum DeltaOnboarding {
@@ -2032,6 +2032,15 @@ enum AppStrings {
 			static let saveButtonTitle = NSLocalizedString("AntigenProfile_Create_Save_Button_Title", comment: "")
 		}
 
+		enum Overview {
+			static let title = NSLocalizedString("ExposureSubmission_Antigen_Profile_Overview_title", comment: "")
+			static let cardTitle = NSLocalizedString("ExposureSubmission_Antigen_Profile_Card_title", comment: "")
+			static let emptyTitle = NSLocalizedString("ExposureSubmission_Antigen_Profile_Overview_EmptyTitle", comment: "")
+			static let emptyDescription = NSLocalizedString("ExposureSubmission_Antigen_Profile_Overview_EmptyDescription", comment: "")
+			static let emptyImageDescription = NSLocalizedString("ExposureSubmission_Antigen_Profile_Overview_EmptyImageDescription", comment: "")
+			static let addButtonTitle = NSLocalizedString("ExposureSubmission_Antigen_Profile_Overview_AddButtonTitle", comment: "")
+		}
+		
 		enum Profile {
 			static let infoActionTitle = NSLocalizedString("AntigenProfile_Info_Action_Title", comment: "")
 			static let editActionTitle = NSLocalizedString("AntigenProfile_Edit_Action_Title", comment: "")
@@ -2247,8 +2256,9 @@ enum AppStrings {
 			static let expiredDescription = NSLocalizedString("HealthCertificate_ValidityState_Expired_description", comment: "")
 			static let invalid = NSLocalizedString("HealthCertificate_ValidityState_Invalid", comment: "")
 			static let invalidDescription = NSLocalizedString("HealthCertificate_ValidityState_Invalid_description", comment: "")
-			static let blocked = NSLocalizedString("HealthCertificate_ValidityState_Blocked", comment: "")
-			static let blockedDescription = NSLocalizedString("HealthCertificate_ValidityState_Blocked_description", comment: "")
+			static let blockedRevoked = NSLocalizedString("HealthCertificate_ValidityState_BlockedRevoked", comment: "")
+			static let blockedRevokedDescriptionDE = NSLocalizedString("HealthCertificate_ValidityState_BlockedRevoked_description_de", comment: "")
+			static let blockedRevokedDescriptionOther = NSLocalizedString("HealthCertificate_ValidityState_BlockedRevoked_description_other", comment: "")
 		}
 
 		enum FamilyMemberConsent {

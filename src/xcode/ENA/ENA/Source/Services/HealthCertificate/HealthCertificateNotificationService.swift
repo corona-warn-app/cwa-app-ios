@@ -23,6 +23,7 @@ class HealthCertificateNotificationService {
 		completion: @escaping () -> Void
 	) {
 		guard healthCertificate.type != .test else {
+			completion()
 			return
 		}
 
@@ -74,7 +75,6 @@ class HealthCertificateNotificationService {
 
 		// Schedule a 'blocked' notification, if it was not scheduled before.
 		if healthCertificate.validityState == .blocked && !healthCertificate.didShowBlockedNotification {
-			
 			dispatchGroup.enter()
 			scheduleBlockedNotification(
 				healthCertificateIdentifier: healthCertificateIdentifier,
@@ -84,8 +84,20 @@ class HealthCertificateNotificationService {
 			)
 			healthCertificate.didShowBlockedNotification = true
 		}
+
+		// Schedule a 'revoked' notification, if it was not scheduled before.
+		if healthCertificate.validityState == .revoked && !healthCertificate.didShowRevokedNotification {
+			dispatchGroup.enter()
+			scheduleRevokedNotification(
+				healthCertificateIdentifier: healthCertificateIdentifier,
+				completion: {
+					dispatchGroup.leave()
+				}
+			)
+			healthCertificate.didShowRevokedNotification = true
+		}
 		
-		dispatchGroup.notify(queue: .main) {
+		dispatchGroup.notify(queue: .global()) {
 			completion()
 		}
 	}
@@ -241,6 +253,7 @@ class HealthCertificateNotificationService {
 	) {
 		guard let date = date else {
 			Log.error("Could not schedule expiring soon notification for certificate with id: \(private: healthCertificateIdentifier) because we have no expiringSoonDate.", log: .vaccination)
+			completion()
 			return
 		}
 		
@@ -337,6 +350,29 @@ class HealthCertificateNotificationService {
 
 		let request = UNNotificationRequest(
 			identifier: LocalNotificationIdentifier.certificateBlocked.rawValue + "\(healthCertificateIdentifier)",
+			content: content,
+			trigger: nil
+		)
+
+		addNotification(
+			request: request,
+			completion: completion
+		)
+	}
+
+	private func scheduleRevokedNotification(
+		healthCertificateIdentifier: String,
+		completion: @escaping () -> Void
+	) {
+		Log.info("Schedule revoked notification for certificate with id: \(private: healthCertificateIdentifier)", log: .vaccination)
+
+		let content = UNMutableNotificationContent()
+		content.title = AppStrings.LocalNotifications.certificateGenericTitle
+		content.body = AppStrings.LocalNotifications.certificateValidityBody
+		content.sound = .default
+
+		let request = UNNotificationRequest(
+			identifier: LocalNotificationIdentifier.certificateRevoked.rawValue + "\(healthCertificateIdentifier)",
 			content: content,
 			trigger: nil
 		)

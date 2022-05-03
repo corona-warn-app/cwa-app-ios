@@ -23,7 +23,8 @@ class CoronaTestServiceTests: CWATestCase {
 			dscListProvider: MockDSCListProvider(),
 			appConfiguration: appConfiguration,
 			cclService: FakeCCLService(),
-			recycleBin: .fake()
+			recycleBin: .fake(),
+			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
 
 		let service = CoronaTestService(
@@ -69,7 +70,8 @@ class CoronaTestServiceTests: CWATestCase {
 			dscListProvider: MockDSCListProvider(),
 			appConfiguration: appConfiguration,
 			cclService: FakeCCLService(),
-			recycleBin: .fake()
+			recycleBin: .fake(),
+			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
 
 		let service = CoronaTestService(
@@ -128,7 +130,8 @@ class CoronaTestServiceTests: CWATestCase {
 			dscListProvider: MockDSCListProvider(),
 			appConfiguration: appConfiguration,
 			cclService: FakeCCLService(),
-			recycleBin: .fake()
+			recycleBin: .fake(),
+			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
 
 		let service = CoronaTestService(
@@ -189,7 +192,8 @@ class CoronaTestServiceTests: CWATestCase {
 			dscListProvider: MockDSCListProvider(),
 			appConfiguration: appConfiguration,
 			cclService: FakeCCLService(),
-			recycleBin: .fake()
+			recycleBin: .fake(),
+			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
 
 		let service = CoronaTestService(
@@ -248,7 +252,8 @@ class CoronaTestServiceTests: CWATestCase {
 			dscListProvider: MockDSCListProvider(),
 			appConfiguration: appConfiguration,
 			cclService: FakeCCLService(),
-			recycleBin: .fake()
+			recycleBin: .fake(),
+			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
 
 		let service = CoronaTestService(
@@ -311,7 +316,8 @@ class CoronaTestServiceTests: CWATestCase {
 			dscListProvider: MockDSCListProvider(),
 			appConfiguration: appConfiguration,
 			cclService: FakeCCLService(),
-			recycleBin: .fake()
+			recycleBin: .fake(),
+			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
 
 		let service = CoronaTestService(
@@ -379,7 +385,8 @@ class CoronaTestServiceTests: CWATestCase {
 			dscListProvider: MockDSCListProvider(),
 			appConfiguration: appConfiguration,
 			cclService: FakeCCLService(),
-			recycleBin: .fake()
+			recycleBin: .fake(),
+			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
 
 		let service = CoronaTestService(
@@ -449,7 +456,8 @@ class CoronaTestServiceTests: CWATestCase {
 				dscListProvider: MockDSCListProvider(),
 				appConfiguration: appConfiguration,
 				cclService: FakeCCLService(),
-				recycleBin: .fake()
+				recycleBin: .fake(),
+				revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 			)
 
 			let service = CoronaTestService(
@@ -505,7 +513,8 @@ class CoronaTestServiceTests: CWATestCase {
 			dscListProvider: MockDSCListProvider(),
 			appConfiguration: appConfiguration,
 			cclService: FakeCCLService(),
-			recycleBin: .fake()
+			recycleBin: .fake(),
+			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
 
 		let service = CoronaTestService(
@@ -562,7 +571,8 @@ class CoronaTestServiceTests: CWATestCase {
 			dscListProvider: MockDSCListProvider(),
 			appConfiguration: appConfiguration,
 			cclService: FakeCCLService(),
-			recycleBin: .fake()
+			recycleBin: .fake(),
+			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
 
 		let service = CoronaTestService(
@@ -648,7 +658,7 @@ class CoronaTestServiceTests: CWATestCase {
 				),
 				willLoadResource: { resource in
 					guard let resource = resource as? TeleTanResource,
-						let sendModel = resource.sendResource.sendModel else {
+						  let sendModel = resource.sendResource.sendModel else {
 						XCTFail("TeleTanResource expected.")
 						return
 					}
@@ -669,7 +679,8 @@ class CoronaTestServiceTests: CWATestCase {
 			dscListProvider: MockDSCListProvider(),
 			appConfiguration: appConfiguration,
 			cclService: FakeCCLService(),
-			recycleBin: .fake()
+			recycleBin: .fake(),
+			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
 
 		let service = CoronaTestService(
@@ -776,7 +787,7 @@ class CoronaTestServiceTests: CWATestCase {
 				),
 				willLoadResource: { resource in
 					guard let resource = resource as? TeleTanResource,
-						let sendModel = resource.sendResource.sendModel else {
+						  let sendModel = resource.sendResource.sendModel else {
 						XCTFail("TeleTanResource expected.")
 						return
 					}
@@ -797,7 +808,8 @@ class CoronaTestServiceTests: CWATestCase {
 			dscListProvider: MockDSCListProvider(),
 			appConfiguration: appConfiguration,
 			cclService: FakeCCLService(),
-			recycleBin: .fake()
+			recycleBin: .fake(),
+			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
 
 		let service = CoronaTestService(
@@ -877,7 +889,7 @@ class CoronaTestServiceTests: CWATestCase {
 				),
 				willLoadResource: { resource in
 					guard let resource = resource as? TeleTanResource,
-						let sendModel = resource.sendResource.sendModel else {
+						  let sendModel = resource.sendResource.sendModel else {
 						XCTFail("TeleTanResource expected.")
 						return
 					}
@@ -898,7 +910,8 @@ class CoronaTestServiceTests: CWATestCase {
 			dscListProvider: MockDSCListProvider(),
 			appConfiguration: appConfiguration,
 			cclService: FakeCCLService(),
-			recycleBin: .fake()
+			recycleBin: .fake(),
+			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
 
 		let service = CoronaTestService(
@@ -972,7 +985,8 @@ class CoronaTestServiceTests: CWATestCase {
 			dscListProvider: MockDSCListProvider(),
 			appConfiguration: appConfiguration,
 			cclService: FakeCCLService(),
-			recycleBin: .fake()
+			recycleBin: .fake(),
+			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
 
 		let service = CoronaTestService(
@@ -1045,7 +1059,8 @@ class CoronaTestServiceTests: CWATestCase {
 			dscListProvider: MockDSCListProvider(),
 			appConfiguration: appConfiguration,
 			cclService: FakeCCLService(),
-			recycleBin: .fake()
+			recycleBin: .fake(),
+			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
 
 		let service = CoronaTestService(
@@ -1139,7 +1154,8 @@ class CoronaTestServiceTests: CWATestCase {
 			dscListProvider: MockDSCListProvider(),
 			appConfiguration: appConfiguration,
 			cclService: FakeCCLService(),
-			recycleBin: .fake()
+			recycleBin: .fake(),
+			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
 
 		let service = CoronaTestService(
@@ -1235,7 +1251,8 @@ class CoronaTestServiceTests: CWATestCase {
 			dscListProvider: MockDSCListProvider(),
 			appConfiguration: appConfiguration,
 			cclService: FakeCCLService(),
-			recycleBin: .fake()
+			recycleBin: .fake(),
+			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
 
 		let service = CoronaTestService(
@@ -1321,7 +1338,8 @@ class CoronaTestServiceTests: CWATestCase {
 			dscListProvider: MockDSCListProvider(),
 			appConfiguration: appConfiguration,
 			cclService: FakeCCLService(),
-			recycleBin: .fake()
+			recycleBin: .fake(),
+			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
 
 		let service = CoronaTestService(
@@ -1375,7 +1393,7 @@ class CoronaTestServiceTests: CWATestCase {
 					// Ensure that the date of birth is not passed to the client for antigen tests if it is given accidentally
 
 					guard let resource = resource as? TeleTanResource,
-						let sendModel = resource.sendResource.sendModel else {
+						  let sendModel = resource.sendResource.sendModel else {
 						XCTFail("TeleTanResource expected.")
 						return
 					}
@@ -1397,7 +1415,8 @@ class CoronaTestServiceTests: CWATestCase {
 			dscListProvider: MockDSCListProvider(),
 			appConfiguration: appConfiguration,
 			cclService: FakeCCLService(),
-			recycleBin: .fake()
+			recycleBin: .fake(),
+			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
 
 		let service = CoronaTestService(
@@ -1489,7 +1508,8 @@ class CoronaTestServiceTests: CWATestCase {
 			dscListProvider: MockDSCListProvider(),
 			appConfiguration: appConfiguration,
 			cclService: FakeCCLService(),
-			recycleBin: .fake()
+			recycleBin: .fake(),
+			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
 
 		let service = CoronaTestService(
@@ -1590,7 +1610,7 @@ class CoronaTestServiceTests: CWATestCase {
 				),
 				willLoadResource: { resource in
 					guard let resource = resource as? TeleTanResource,
-						let sendModel = resource.sendResource.sendModel else {
+						  let sendModel = resource.sendResource.sendModel else {
 						XCTFail("TeleTanResource expected.")
 						return
 					}
@@ -1598,7 +1618,7 @@ class CoronaTestServiceTests: CWATestCase {
 				}
 			),
 			LoadResource(
-				   result: .success(TestResultReceiveModel(testResult: TestResult.serverResponse(for: .negative, on: .antigen), sc: nil, labId: nil)), willLoadResource: nil
+				result: .success(TestResultReceiveModel(testResult: TestResult.serverResponse(for: .negative, on: .antigen), sc: nil, labId: nil)), willLoadResource: nil
 			)
 		])
 
@@ -1612,7 +1632,8 @@ class CoronaTestServiceTests: CWATestCase {
 			dscListProvider: MockDSCListProvider(),
 			appConfiguration: appConfiguration,
 			cclService: FakeCCLService(),
-			recycleBin: .fake()
+			recycleBin: .fake(),
+			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
 
 		let service = CoronaTestService(
@@ -1700,7 +1721,8 @@ class CoronaTestServiceTests: CWATestCase {
 			dscListProvider: MockDSCListProvider(),
 			appConfiguration: appConfiguration,
 			cclService: FakeCCLService(),
-			recycleBin: .fake()
+			recycleBin: .fake(),
+			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
 
 		let service = CoronaTestService(
@@ -1769,7 +1791,8 @@ class CoronaTestServiceTests: CWATestCase {
 			dscListProvider: MockDSCListProvider(),
 			appConfiguration: appConfiguration,
 			cclService: FakeCCLService(),
-			recycleBin: .fake()
+			recycleBin: .fake(),
+			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
 
 		let service = CoronaTestService(
@@ -1846,7 +1869,7 @@ class CoronaTestServiceTests: CWATestCase {
 					// Ensure that the date of birth is not passed to the client for rapid PCR tests if it is given accidentally
 
 					guard let resource = resource as? TeleTanResource,
-						let sendModel = resource.sendResource.sendModel else {
+						  let sendModel = resource.sendResource.sendModel else {
 						XCTFail("TeleTanResource expected.")
 						return
 					}
@@ -1872,7 +1895,8 @@ class CoronaTestServiceTests: CWATestCase {
 			dscListProvider: MockDSCListProvider(),
 			appConfiguration: appConfiguration,
 			cclService: FakeCCLService(),
-			recycleBin: .fake()
+			recycleBin: .fake(),
+			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
 
 		let service = CoronaTestService(
@@ -1972,7 +1996,8 @@ class CoronaTestServiceTests: CWATestCase {
 			dscListProvider: MockDSCListProvider(),
 			appConfiguration: appConfiguration,
 			cclService: FakeCCLService(),
-			recycleBin: .fake()
+			recycleBin: .fake(),
+			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
 
 		let service = CoronaTestService(
@@ -2078,7 +2103,7 @@ class CoronaTestServiceTests: CWATestCase {
 				),
 				willLoadResource: { resource in
 					guard let resource = resource as? TeleTanResource,
-						let sendModel = resource.sendResource.sendModel else {
+						  let sendModel = resource.sendResource.sendModel else {
 						XCTFail("TeleTanResource expected.")
 						return
 					}
@@ -2086,7 +2111,7 @@ class CoronaTestServiceTests: CWATestCase {
 				}
 			),
 			LoadResource(
-				   result: .success(TestResultReceiveModel(testResult: TestResult.serverResponse(for: .negative, on: .pcr), sc: nil, labId: nil)), willLoadResource: nil
+				result: .success(TestResultReceiveModel(testResult: TestResult.serverResponse(for: .negative, on: .pcr), sc: nil, labId: nil)), willLoadResource: nil
 			)
 		])
 
@@ -2100,7 +2125,8 @@ class CoronaTestServiceTests: CWATestCase {
 			dscListProvider: MockDSCListProvider(),
 			appConfiguration: appConfiguration,
 			cclService: FakeCCLService(),
-			recycleBin: .fake()
+			recycleBin: .fake(),
+			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
 
 		let service = CoronaTestService(
@@ -2187,7 +2213,8 @@ class CoronaTestServiceTests: CWATestCase {
 			dscListProvider: MockDSCListProvider(),
 			appConfiguration: appConfiguration,
 			cclService: FakeCCLService(),
-			recycleBin: .fake()
+			recycleBin: .fake(),
+			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
 
 		let service = CoronaTestService(
@@ -2260,7 +2287,8 @@ class CoronaTestServiceTests: CWATestCase {
 			dscListProvider: MockDSCListProvider(),
 			appConfiguration: appConfiguration,
 			cclService: FakeCCLService(),
-			recycleBin: .fake()
+			recycleBin: .fake(),
+			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
 
 		let service = CoronaTestService(
@@ -2352,7 +2380,8 @@ class CoronaTestServiceTests: CWATestCase {
 			dscListProvider: MockDSCListProvider(),
 			appConfiguration: appConfiguration,
 			cclService: FakeCCLService(),
-			recycleBin: .fake()
+			recycleBin: .fake(),
+			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
 
 		let service = CoronaTestService(
@@ -2417,7 +2446,8 @@ class CoronaTestServiceTests: CWATestCase {
 			dscListProvider: MockDSCListProvider(),
 			appConfiguration: appConfiguration,
 			cclService: FakeCCLService(),
-			recycleBin: .fake()
+			recycleBin: .fake(),
+			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
 
 		let service = CoronaTestService(
@@ -2477,7 +2507,8 @@ class CoronaTestServiceTests: CWATestCase {
 			dscListProvider: MockDSCListProvider(),
 			appConfiguration: appConfiguration,
 			cclService: FakeCCLService(),
-			recycleBin: .fake()
+			recycleBin: .fake(),
+			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
 
 		let service = CoronaTestService(
@@ -2524,7 +2555,8 @@ class CoronaTestServiceTests: CWATestCase {
 			dscListProvider: MockDSCListProvider(),
 			appConfiguration: appConfiguration,
 			cclService: FakeCCLService(),
-			recycleBin: .fake()
+			recycleBin: .fake(),
+			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
 
 		let service = CoronaTestService(
@@ -2571,7 +2603,8 @@ class CoronaTestServiceTests: CWATestCase {
 			dscListProvider: MockDSCListProvider(),
 			appConfiguration: appConfiguration,
 			cclService: FakeCCLService(),
-			recycleBin: .fake()
+			recycleBin: .fake(),
+			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
 
 		let service = CoronaTestService(
@@ -2626,7 +2659,8 @@ class CoronaTestServiceTests: CWATestCase {
 			dscListProvider: MockDSCListProvider(),
 			appConfiguration: appConfiguration,
 			cclService: FakeCCLService(),
-			recycleBin: .fake()
+			recycleBin: .fake(),
+			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
 
 		let service = CoronaTestService(
@@ -2694,7 +2728,8 @@ class CoronaTestServiceTests: CWATestCase {
 			appConfiguration: appConfiguration,
 			notificationCenter: mockNotificationCenter,
 			cclService: FakeCCLService(),
-			recycleBin: .fake()
+			recycleBin: .fake(),
+			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
 
 		let testService = CoronaTestService(
@@ -2756,7 +2791,8 @@ class CoronaTestServiceTests: CWATestCase {
 			dscListProvider: MockDSCListProvider(),
 			appConfiguration: appConfiguration,
 			cclService: FakeCCLService(),
-			recycleBin: .fake()
+			recycleBin: .fake(),
+			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
 
 		let testService = CoronaTestService(
@@ -2805,7 +2841,8 @@ class CoronaTestServiceTests: CWATestCase {
 			dscListProvider: MockDSCListProvider(),
 			appConfiguration: appConfiguration,
 			cclService: FakeCCLService(),
-			recycleBin: .fake()
+			recycleBin: .fake(),
+			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
 
 		let testService = CoronaTestService(
@@ -2856,7 +2893,8 @@ class CoronaTestServiceTests: CWATestCase {
 			dscListProvider: MockDSCListProvider(),
 			appConfiguration: appConfiguration,
 			cclService: FakeCCLService(),
-			recycleBin: .fake()
+			recycleBin: .fake(),
+			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
 
 		let testService = CoronaTestService(
@@ -2948,7 +2986,8 @@ class CoronaTestServiceTests: CWATestCase {
 			dscListProvider: MockDSCListProvider(),
 			appConfiguration: appConfiguration,
 			cclService: FakeCCLService(),
-			recycleBin: .fake()
+			recycleBin: .fake(),
+			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
 
 		return CoronaTestService(
@@ -3023,7 +3062,8 @@ class CoronaTestServiceTests: CWATestCase {
 			dscListProvider: MockDSCListProvider(),
 			appConfiguration: appConfiguration,
 			cclService: FakeCCLService(),
-			recycleBin: .fake()
+			recycleBin: .fake(),
+			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
 
 		let testService = CoronaTestService(
@@ -3124,7 +3164,8 @@ class CoronaTestServiceTests: CWATestCase {
 			dscListProvider: MockDSCListProvider(),
 			appConfiguration: appConfiguration,
 			cclService: FakeCCLService(),
-			recycleBin: .fake()
+			recycleBin: .fake(),
+			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
 
 		let testService = CoronaTestService(
@@ -3182,7 +3223,8 @@ class CoronaTestServiceTests: CWATestCase {
 			dscListProvider: MockDSCListProvider(),
 			appConfiguration: appConfiguration,
 			cclService: FakeCCLService(),
-			recycleBin: .fake()
+			recycleBin: .fake(),
+			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
 
 		let testService = CoronaTestService(
@@ -3247,7 +3289,8 @@ class CoronaTestServiceTests: CWATestCase {
 			dscListProvider: MockDSCListProvider(),
 			appConfiguration: appConfiguration,
 			cclService: FakeCCLService(),
-			recycleBin: .fake()
+			recycleBin: .fake(),
+			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
 
 		let testService = CoronaTestService(
@@ -3314,7 +3357,8 @@ class CoronaTestServiceTests: CWATestCase {
 			dscListProvider: MockDSCListProvider(),
 			appConfiguration: appConfiguration,
 			cclService: FakeCCLService(),
-			recycleBin: .fake()
+			recycleBin: .fake(),
+			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
 
 		let testService = CoronaTestService(
@@ -3375,7 +3419,8 @@ class CoronaTestServiceTests: CWATestCase {
 			dscListProvider: MockDSCListProvider(),
 			appConfiguration: appConfiguration,
 			cclService: FakeCCLService(),
-			recycleBin: .fake()
+			recycleBin: .fake(),
+			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
 
 		let testService = CoronaTestService(
@@ -3441,7 +3486,8 @@ class CoronaTestServiceTests: CWATestCase {
 			dscListProvider: MockDSCListProvider(),
 			appConfiguration: appConfiguration,
 			cclService: FakeCCLService(),
-			recycleBin: .fake()
+			recycleBin: .fake(),
+			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
 
 		let testService = CoronaTestService(
@@ -3503,7 +3549,8 @@ class CoronaTestServiceTests: CWATestCase {
 			dscListProvider: MockDSCListProvider(),
 			appConfiguration: appConfiguration,
 			cclService: FakeCCLService(),
-			recycleBin: .fake()
+			recycleBin: .fake(),
+			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
 
 		let testService = CoronaTestService(
@@ -3553,7 +3600,8 @@ class CoronaTestServiceTests: CWATestCase {
 			dscListProvider: MockDSCListProvider(),
 			appConfiguration: appConfiguration,
 			cclService: FakeCCLService(),
-			recycleBin: .fake()
+			recycleBin: .fake(),
+			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
 
 		let testService = CoronaTestService(
@@ -3608,7 +3656,8 @@ class CoronaTestServiceTests: CWATestCase {
 			dscListProvider: MockDSCListProvider(),
 			appConfiguration: appConfiguration,
 			cclService: FakeCCLService(),
-			recycleBin: .fake()
+			recycleBin: .fake(),
+			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
 
 		let testService = CoronaTestService(
@@ -3666,7 +3715,8 @@ class CoronaTestServiceTests: CWATestCase {
 			dscListProvider: MockDSCListProvider(),
 			appConfiguration: appConfiguration,
 			cclService: FakeCCLService(),
-			recycleBin: .fake()
+			recycleBin: .fake(),
+			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
 
 		let testService = CoronaTestService(
@@ -3724,7 +3774,8 @@ class CoronaTestServiceTests: CWATestCase {
 			dscListProvider: MockDSCListProvider(),
 			appConfiguration: appConfiguration,
 			cclService: FakeCCLService(),
-			recycleBin: .fake()
+			recycleBin: .fake(),
+			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
 
 		let testService = CoronaTestService(
@@ -3782,7 +3833,8 @@ class CoronaTestServiceTests: CWATestCase {
 			dscListProvider: MockDSCListProvider(),
 			appConfiguration: appConfiguration,
 			cclService: FakeCCLService(),
-			recycleBin: .fake()
+			recycleBin: .fake(),
+			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
 
 		let testService = CoronaTestService(
@@ -3840,7 +3892,8 @@ class CoronaTestServiceTests: CWATestCase {
 			dscListProvider: MockDSCListProvider(),
 			appConfiguration: appConfiguration,
 			cclService: FakeCCLService(),
-			recycleBin: .fake()
+			recycleBin: .fake(),
+			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
 
 		let testService = CoronaTestService(
@@ -3892,7 +3945,8 @@ class CoronaTestServiceTests: CWATestCase {
 			dscListProvider: MockDSCListProvider(),
 			appConfiguration: appConfiguration,
 			cclService: FakeCCLService(),
-			recycleBin: recycleBin
+			recycleBin: recycleBin,
+			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
 
 		let service = CoronaTestService(
@@ -3958,7 +4012,8 @@ class CoronaTestServiceTests: CWATestCase {
 			dscListProvider: MockDSCListProvider(),
 			appConfiguration: appConfiguration,
 			cclService: FakeCCLService(),
-			recycleBin: .fake()
+			recycleBin: .fake(),
+			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
 
 		let service = CoronaTestService(
@@ -4066,7 +4121,8 @@ class CoronaTestServiceTests: CWATestCase {
 			dscListProvider: MockDSCListProvider(),
 			appConfiguration: appConfiguration,
 			cclService: FakeCCLService(),
-			recycleBin: .fake()
+			recycleBin: .fake(),
+			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
 
 		let service = CoronaTestService(
@@ -4189,7 +4245,8 @@ class CoronaTestServiceTests: CWATestCase {
 			dscListProvider: MockDSCListProvider(),
 			appConfiguration: appConfiguration,
 			cclService: FakeCCLService(),
-			recycleBin: .fake()
+			recycleBin: .fake(),
+			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
 
 		let service = CoronaTestService(
