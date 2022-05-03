@@ -2853,7 +2853,7 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 /* Antigen Profile */
 
-"AntigenProfile_Info_Action_Title" = "Information";
+"AntigenProfile_Info_Action_Title" = "Informationen";
 
 "AntigenProfile_Edit_Action_Title" = "Schnelltest-Profil bearbeiten";
 
