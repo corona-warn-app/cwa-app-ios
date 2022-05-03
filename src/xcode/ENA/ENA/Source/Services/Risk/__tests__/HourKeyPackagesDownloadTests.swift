@@ -37,7 +37,6 @@ class HourKeyPackagesDownloadTests: CWATestCase {
 		let keyPackageDownload = KeyPackageDownload(
 			downloadedPackagesStore: packagesStore,
 			client: client,
-			wifiClient: client,
 			restService: restServiceProvider,
 			store: store,
 			countryIds: [countryId]
@@ -80,7 +79,6 @@ class HourKeyPackagesDownloadTests: CWATestCase {
 		let keyPackageDownload = KeyPackageDownload(
 			downloadedPackagesStore: packagesStore,
 			client: client,
-			wifiClient: client,
 			restService: restServiceProvider,
 			store: store,
 			countryIds: ["IT"]
@@ -122,7 +120,6 @@ class HourKeyPackagesDownloadTests: CWATestCase {
 		let keyPackageDownload = KeyPackageDownload(
 			downloadedPackagesStore: packagesStore,
 			client: client,
-			wifiClient: client,
 			restService: restServiceProvider,
 			store: store,
 			countryIds: ["IT"]
@@ -170,7 +167,6 @@ class HourKeyPackagesDownloadTests: CWATestCase {
 		let keyPackageDownload = KeyPackageDownload(
 			downloadedPackagesStore: packagesStore,
 			client: client,
-			wifiClient: client,
 			restService: RestServiceProviderStub(),
 			store: store,
 			countryIds: [countryId]
@@ -210,7 +206,6 @@ class HourKeyPackagesDownloadTests: CWATestCase {
 		let keyPackageDownload = KeyPackageDownload(
 			downloadedPackagesStore: packagesStore,
 			client: client,
-			wifiClient: client,
 			restService: restServiceProvider,
 			store: store,
 			countryIds: ["IT"]
@@ -248,7 +243,6 @@ class HourKeyPackagesDownloadTests: CWATestCase {
 		let keyPackageDownload = KeyPackageDownload(
 			downloadedPackagesStore: packagesStore,
 			client: client,
-			wifiClient: client,
 			restService: restServiceProvider,
 			store: store
 		)
@@ -283,7 +277,6 @@ class HourKeyPackagesDownloadTests: CWATestCase {
 		let keyPackageDownload = KeyPackageDownload(
 			downloadedPackagesStore: packagesStore,
 			client: client,
-			wifiClient: client,
 			restService: restServiceProvider,
 			store: store
 		)
@@ -318,7 +311,6 @@ class HourKeyPackagesDownloadTests: CWATestCase {
 		let keyPackageDownload = KeyPackageDownload(
 			downloadedPackagesStore: packagesStore,
 			client: client,
-			wifiClient: client,
 			restService: restServiceProvider,
 			store: store
 		)
@@ -353,7 +345,6 @@ class HourKeyPackagesDownloadTests: CWATestCase {
 		let keyPackageDownload = KeyPackageDownload(
 			downloadedPackagesStore: packagesStore,
 			client: client,
-			wifiClient: client,
 			restService: restServiceProvider,
 			store: store
 		)
@@ -403,7 +394,6 @@ class HourKeyPackagesDownloadTests: CWATestCase {
 		let keyPackageDownload = KeyPackageDownload(
 			downloadedPackagesStore: packagesStore,
 			client: client,
-			wifiClient: client,
 			restService: restServiceProvider,
 			store: store,
 			countryIds: ["IT"]
@@ -449,13 +439,12 @@ class HourKeyPackagesDownloadTests: CWATestCase {
 		let keyPackageDownload = KeyPackageDownload(
 			downloadedPackagesStore: packagesStore,
 			client: client,
-			wifiClient: client,
 			restService: restServiceProvider,
 			store: store,
 			countryIds: ["IT"]
 		)
 		
-		let statusDidChangeExpectation = expectation(description: "Status statusDidChange called three times. 1. dheckingForNewPackages, 2. downloading, 3. idle")
+		let statusDidChangeExpectation = expectation(description: "Status statusDidChange called three times. 1. checkingForNewPackages, 2. downloading, 3. idle")
 		statusDidChangeExpectation.expectedFulfillmentCount = 3
 		var numberOfStatusChanges = 0
 
@@ -502,7 +491,6 @@ class HourKeyPackagesDownloadTests: CWATestCase {
 		let keyPackageDownload = KeyPackageDownload(
 			downloadedPackagesStore: packagesStore,
 			client: client,
-			wifiClient: client,
 			restService: restServiceProvider,
 			store: store,
 			countryIds: ["IT"]
