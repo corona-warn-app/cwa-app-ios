@@ -15,7 +15,6 @@ final class DMViewController: UITableViewController, RequiresAppDependencies {
 	init(
 		client: Client,
 		restServiceProvider: RestServiceProviding,
-		wifiClient: WifiOnlyHTTPClient,
 		exposureSubmissionService: ExposureSubmissionService,
 		otpService: OTPServiceProviding,
 		coronaTestService: CoronaTestServiceProviding,
@@ -27,7 +26,6 @@ final class DMViewController: UITableViewController, RequiresAppDependencies {
 	) {
 		self.client = client
 		self.restServiceProvider = restServiceProvider
-		self.wifiClient = wifiClient
 		self.exposureSubmissionService = exposureSubmissionService
 		self.otpService = otpService
 		self.coronaTestService = coronaTestService
@@ -115,7 +113,6 @@ final class DMViewController: UITableViewController, RequiresAppDependencies {
 		case .checkSubmittedKeys:
 			vc = DMSubmissionStateViewController(
 				client: client,
-				wifiClient: wifiClient,
 				restService: restServiceProvider,
 				delegate: self
 			)
@@ -190,10 +187,7 @@ final class DMViewController: UITableViewController, RequiresAppDependencies {
 	// MARK: - Public
 	
 	// MARK: - Internal
-	
-	// internal because of protocol RequiresAppDependencies
-	let wifiClient: WifiOnlyHTTPClient
-	
+		
 	// MARK: - Private
 	
 	private let client: Client
