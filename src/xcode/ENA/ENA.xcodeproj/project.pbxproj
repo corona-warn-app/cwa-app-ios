@@ -6059,6 +6059,7 @@
 		50AF181D27A2E5E000BAA9DB /* HTTPClient */ = {
 			isa = PBXGroup;
 			children = (
+				BAE11F6128218B9E00CA2790 /* __tests__ */,
 				BAF640EF26DFA08E00B3A18E /* LocatorsNotYetUsed */,
 				50BC9046279EEE530000C930 /* Resources */,
 			);
@@ -8696,7 +8697,6 @@
 			isa = PBXGroup;
 			children = (
 				B1D431C7246C69F300E728AD /* HTTPClient+ConfigurationTests.swift */,
-				CDF27BD4246ADBF30044D32B /* HTTPClient+DaysAndHoursTests.swift */,
 				A32C046424D96348005BEA61 /* HTTPClient+PlausibeDeniabilityTests.swift */,
 				A1E41947249548260016E52A /* HTTPClient+SubmitTests.swift */,
 				50352C9725C9665A007193D2 /* HTTPClient+AuthorizationOTPEdusTests.swift */,
@@ -10064,6 +10064,14 @@
 				BAE11F5D2821896D00CA2790 /* FetchDayTests.swift */,
 			);
 			path = __tests_;
+			sourceTree = "<group>";
+		};
+		BAE11F6128218B9E00CA2790 /* __tests__ */ = {
+			isa = PBXGroup;
+			children = (
+				CDF27BD4246ADBF30044D32B /* HTTPClient+DaysAndHoursTests.swift */,
+			);
+			path = __tests__;
 			sourceTree = "<group>";
 		};
 		BAE54F44269728F30011DE4A /* __tests__ */ = {
