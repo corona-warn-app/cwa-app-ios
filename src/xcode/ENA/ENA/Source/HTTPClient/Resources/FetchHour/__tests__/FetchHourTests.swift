@@ -49,9 +49,9 @@ class FetchHourTests: CWATestCase {
 		let expectation = expectation(description: "ignore request")
 
 		// WHEN
-		var resource = FetchHourResource(day: "2020-05-01", country: "IT", hour: 1, signatureVerifier: MockVerifier())
-		resource.isDisabled = true
+		let resource = FetchHourResource(day: "2020-05-01", country: "IT", hour: 1, signatureVerifier: MockVerifier())
 		let restService = RestServiceProvider(session: stack.urlSession, cache: KeyValueCacheFake())
+		restService.disable(FetchHourResource.identifier)
 
 		// THEN
 		restService.load(resource) { result in
@@ -68,6 +68,5 @@ class FetchHourTests: CWATestCase {
 		}
 		waitForExpectations(timeout: .medium)
 	}
-
 
 }
