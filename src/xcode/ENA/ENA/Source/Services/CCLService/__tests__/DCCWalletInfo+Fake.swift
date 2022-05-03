@@ -219,14 +219,18 @@ extension DCCCertificateReissuanceDivision {
 
 	static func fake(
 		visible: Bool = false,
+		listTitleText: DCCUIText? = nil,
 		titleText: DCCUIText? = nil,
+		consentSubtitleText: DCCUIText? = nil,
 		subtitleText: DCCUIText? = nil,
 		longText: DCCUIText? = nil,
 		faqAnchor: String? = nil
 	) -> DCCCertificateReissuanceDivision {
 		DCCCertificateReissuanceDivision(
 			visible: visible,
+			listTitleText: listTitleText,
 			titleText: titleText,
+			consentSubtitleText: consentSubtitleText,
 			subtitleText: subtitleText,
 			longText: longText,
 			faqAnchor: faqAnchor
