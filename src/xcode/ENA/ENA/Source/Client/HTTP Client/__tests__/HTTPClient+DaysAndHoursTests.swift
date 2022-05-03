@@ -143,8 +143,9 @@ final class HTTPClientDaysAndHoursTests: CWATestCase {
 			description: "expect error result"
 		)
 
-		let httpClient = HTTPClient.makeWith(mock: stack)
-		httpClient.fetchDay("2020-05-01", forCountry: "IT") { result in
+		let resource = FetchDayResource(day: "2020-05-01", country: "IT", signatureVerifier: MockVerifier())
+		let restService = RestServiceProvider(session: stack.urlSession, cache: KeyValueCacheFake())
+		restService.load(resource) { result in
 			defer { successExpectation.fulfill() }
 			switch result {
 			case let .success(sapPackage):
@@ -166,18 +167,19 @@ final class HTTPClientDaysAndHoursTests: CWATestCase {
 			description: "expect error result"
 		)
 
-		let httpClient = HTTPClient.makeWith(mock: stack)
-		httpClient.fetchDay("2020-05-01", forCountry: "IT") { result in
+		let resource = FetchDayResource(day: "2020-05-01", country: "IT")
+		let restService = RestServiceProvider(session: stack.urlSession, cache: KeyValueCacheFake())
+		restService.load(resource) { result in
 			defer { successExpectation.fulfill() }
 			switch result {
 			case .success:
 				XCTFail("An invalid server response should not result in success!")
 			case let .failure(error):
 				switch error {
-				case .invalidResponse:
+				case .resourceError:
 					break
 				default:
-					XCTFail("Incorrect error type \(error) received, expected .invalidResponse")
+					XCTFail("Incorrect error type \(error) received, expected .resourceError")
 				}
 			}
 		}
@@ -201,12 +203,14 @@ final class HTTPClientDaysAndHoursTests: CWATestCase {
 		}
 
 		let stack = MockNetworkStack(mockSession: session)
-		let client = HTTPClient.makeWith(mock: stack)
+
 		// We mock the connection, no need for read data!
-		client.fetchDay("2020-0-0", forCountry: "XXX") { result in
+		let resource = FetchDayResource(day: "2020-0-0", country: "XXX", signatureVerifier: MockVerifier())
+		let restService = RestServiceProvider(session: stack.urlSession, cache: KeyValueCacheFake())
+		restService.load(resource) { result in
 			switch result {
 			case .failure(let error):
-				if case .noResponse = error {
+				if case ServiceError<Error>.unexpectedServerError(500) = error {
 					break // ok
 				} else {
 					XCTFail("expected `.noResponse` error, got \(error)")
@@ -255,14 +259,15 @@ final class HTTPClientDaysAndHoursTests: CWATestCase {
 				session.nextResponse = successfulResponse
 			}
 		}
-
 		let stack = MockNetworkStack(mockSession: session)
-		let client = HTTPClient.makeWith(mock: stack)
+
 		// We mock the connection, no need for read data!
-		client.fetchDay("2020-0-0", forCountry: "XXX") { result in
+		let resource = FetchDayResource(day: "2020-0-0", country: "XXX")
+		let restService = RestServiceProvider(session: stack.urlSession, cache: KeyValueCacheFake())
+		restService.load(resource) { result in
 			switch result {
 			case .failure(let error):
-				if case .invalidResponse = error {
+				if case ServiceError<Error>.invalidResponse = error {
 					break // ok
 				} else {
 					XCTFail("expected `.invalidResponse` error, got \(error)")
@@ -318,9 +323,10 @@ final class HTTPClientDaysAndHoursTests: CWATestCase {
 		}
 
 		let stack = MockNetworkStack(mockSession: session)
-		let client = HTTPClient.makeWith(mock: stack)
 		// We mock the connection, no need for read data!
-		client.fetchDay("2020-0-0", forCountry: "XXX") { result in
+		let resource = FetchDayResource(day: "2020-0-0", country: "XXX")
+		let restService = RestServiceProvider(session: stack.urlSession, cache: KeyValueCacheFake())
+		restService.load(resource) { result in
 			switch result {
 			case .failure(let error):
 				XCTFail("expected no error, got \(error)")
