@@ -54,7 +54,8 @@ extension Resource {
 		return String(describing: self)
 	}
 
-	// if no default model range is give we always is the default model
+	// if no default model range is give we always use the default model
+
 	func useFallBack(_ statusCode: Int) -> Bool {
 		if defaultModelRange.isEmpty {
 			return true
