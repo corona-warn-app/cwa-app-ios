@@ -88,21 +88,6 @@ extension HTTPClient {
 			)
 		}
 
-		func availableHoursURL(day: String, country: String) -> URL {
-			endpoints
-				.distribution
-				.appending(
-					"version",
-					apiVersion,
-					"diagnosis-keys",
-					"country",
-					country,
-					"date",
-					day,
-					"hour"
-			)
-		}
-
 		var configurationURL: URL {
 			endpoints
 				.distribution

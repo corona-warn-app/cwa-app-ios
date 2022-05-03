@@ -132,6 +132,20 @@ extension Service {
 				case 304:
 					completion(cached(resource))
 				default:
+					guard resource.useFallBack(response.statusCode) else {
+						// We don't want a default value handling. And now check if we want to override the error by a custom error defined in the resource
+						Log.error("No default value handling allowed by resource, will fail now.", log: .client, error: error)
+						completion(
+							.failure(
+								customError(
+									in: resource,
+									for: .unexpectedServerError(response.statusCode),
+									bodyData
+								)
+							)
+						)
+						return
+					}
 					completion(failureOrDefaultValueHandling(resource, .unexpectedServerError(response.statusCode), bodyData))
 				}
 			}

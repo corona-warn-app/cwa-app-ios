@@ -17,6 +17,11 @@ protocol Resource {
 	
 	// Defines a default value for no network cases as the specific receive model (for resources like e.g. AppConfig, AllowList)
 	var defaultModel: Receive.ReceiveModel? { get }
+
+	// define the range of status codes when the default model will get used
+	var defaultModelRange: [Int] { get }
+
+	func useFallBack(_ statusCode: Int) -> Bool
 	
 	var trustEvaluation: TrustEvaluating { get }
 	
@@ -32,9 +37,23 @@ protocol Resource {
 // Custom error handling & caching support
 
 extension Resource {
-	
+
+	// empty default model range
+	var defaultModelRange: [Int] {
+		[]
+	}
+
+	// empty default model
 	var defaultModel: Receive.ReceiveModel? {
 		nil
+	}
+
+	// if no default model range is give we always use the default model
+	func useFallBack(_ statusCode: Int) -> Bool {
+		if defaultModelRange.isEmpty {
+			return true
+		}
+		return defaultModelRange.contains(statusCode)
 	}
 
 	func customError(for error: ServiceError<CustomError>, responseBody: Data?) -> CustomError? {

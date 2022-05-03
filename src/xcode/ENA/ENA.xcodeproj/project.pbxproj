@@ -661,7 +661,7 @@
 		5001DE7526E20118004242FA /* VaccinationValueSets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5001DE7426E20118004242FA /* VaccinationValueSets.swift */; };
 		5001DE7826E2016E004242FA /* DSCList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5001DE7726E2016D004242FA /* DSCList.swift */; };
 		5001DE7A26E2019A004242FA /* LocalStatistics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5001DE7926E2019A004242FA /* LocalStatistics.swift */; };
-		5001DE7C26E201FE004242FA /* AvailableDays.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5001DE7B26E201FE004242FA /* AvailableDays.swift */; };
+		5001DE7C26E201FE004242FA /* Locator+AvailableDays.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5001DE7B26E201FE004242FA /* Locator+AvailableDays.swift */; };
 		5001DE7E26E20257004242FA /* DiagnosisKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5001DE7D26E20257004242FA /* DiagnosisKeys.swift */; };
 		5001DE8226E2057C004242FA /* Locator+TestResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5001DE8126E2057C004242FA /* Locator+TestResult.swift */; };
 		5001DE8626E20791004242FA /* KeySubmission.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5001DE8526E20791004242FA /* KeySubmission.swift */; };
@@ -1422,6 +1422,9 @@
 		BA19978B2715B006009FEC00 /* Name+ExtensionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA19978A2715B006009FEC00 /* Name+ExtensionTests.swift */; };
 		BA1FC82C26E251FD00CCCC17 /* DMLocalNotificationsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA1FC82A26E250E800CCCC17 /* DMLocalNotificationsViewController.swift */; };
 		BA1FC82D26E2520000CCCC17 /* DMNotificationsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA1FC82B26E250E800CCCC17 /* DMNotificationsViewModel.swift */; };
+		BA258CB0281AB7A3002C56D4 /* Locator+AvailableHours.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA258CAF281AB7A3002C56D4 /* Locator+AvailableHours.swift */; };
+		BA258CB2281AB8CC002C56D4 /* AvailableHoursResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA258CB1281AB8CC002C56D4 /* AvailableHoursResource.swift */; };
+		BA258CB4281AB992002C56D4 /* AvailableHoursTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA258CB3281AB992002C56D4 /* AvailableHoursTests.swift */; };
 		BA27993B255995E100C3B64D /* DMWifiClientViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA27993A255995E100C3B64D /* DMWifiClientViewController.swift */; };
 		BA27DBC4270C824D00544ECB /* FileScannerErrorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA27DBC3270C824D00544ECB /* FileScannerErrorTests.swift */; };
 		BA288AF42582616E0071009A /* DiaryInfoViewModelTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA288AF32582616E0071009A /* DiaryInfoViewModelTest.swift */; };
@@ -2464,7 +2467,7 @@
 		5001DE7426E20118004242FA /* VaccinationValueSets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaccinationValueSets.swift; sourceTree = "<group>"; };
 		5001DE7726E2016D004242FA /* DSCList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DSCList.swift; sourceTree = "<group>"; };
 		5001DE7926E2019A004242FA /* LocalStatistics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalStatistics.swift; sourceTree = "<group>"; };
-		5001DE7B26E201FE004242FA /* AvailableDays.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvailableDays.swift; sourceTree = "<group>"; };
+		5001DE7B26E201FE004242FA /* Locator+AvailableDays.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Locator+AvailableDays.swift"; sourceTree = "<group>"; };
 		5001DE7D26E20257004242FA /* DiagnosisKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiagnosisKeys.swift; sourceTree = "<group>"; };
 		5001DE7F26E202B3004242FA /* Locator+TeleTan.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Locator+TeleTan.swift"; sourceTree = "<group>"; };
 		5001DE8126E2057C004242FA /* Locator+TestResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Locator+TestResult.swift"; sourceTree = "<group>"; };
@@ -3241,6 +3244,9 @@
 		BA19978A2715B006009FEC00 /* Name+ExtensionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Name+ExtensionTests.swift"; sourceTree = "<group>"; };
 		BA1FC82A26E250E800CCCC17 /* DMLocalNotificationsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMLocalNotificationsViewController.swift; sourceTree = "<group>"; };
 		BA1FC82B26E250E800CCCC17 /* DMNotificationsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMNotificationsViewModel.swift; sourceTree = "<group>"; };
+		BA258CAF281AB7A3002C56D4 /* Locator+AvailableHours.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Locator+AvailableHours.swift"; sourceTree = "<group>"; };
+		BA258CB1281AB8CC002C56D4 /* AvailableHoursResource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvailableHoursResource.swift; sourceTree = "<group>"; };
+		BA258CB3281AB992002C56D4 /* AvailableHoursTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvailableHoursTests.swift; sourceTree = "<group>"; };
 		BA27993A255995E100C3B64D /* DMWifiClientViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMWifiClientViewController.swift; sourceTree = "<group>"; };
 		BA27DBC3270C824D00544ECB /* FileScannerErrorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileScannerErrorTests.swift; sourceTree = "<group>"; };
 		BA288AF32582616E0071009A /* DiaryInfoViewModelTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryInfoViewModelTest.swift; sourceTree = "<group>"; };
@@ -6285,6 +6291,7 @@
 				50BC9030279EEB4A0000C930 /* AllowList */,
 				50BC9031279EEB840000C930 /* AppConfiguration */,
 				BABC1ECF281848800067F8E9 /* AvailableDays */,
+				BA258CAD281AB769002C56D4 /* AvailableHours */,
 				5015D2D227A1737E007D8763 /* CCLConfiguration */,
 				50CDFB2527BE82C700FE0793 /* DCCReissuance */,
 				ABD430E127FAF6680063666C /* DCCRevocation */,
@@ -8964,6 +8971,24 @@
 			path = DMNotifications;
 			sourceTree = "<group>";
 		};
+		BA258CAD281AB769002C56D4 /* AvailableHours */ = {
+			isa = PBXGroup;
+			children = (
+				BA258CAE281AB77C002C56D4 /* __tests__ */,
+				BA258CAF281AB7A3002C56D4 /* Locator+AvailableHours.swift */,
+				BA258CB1281AB8CC002C56D4 /* AvailableHoursResource.swift */,
+			);
+			path = AvailableHours;
+			sourceTree = "<group>";
+		};
+		BA258CAE281AB77C002C56D4 /* __tests__ */ = {
+			isa = PBXGroup;
+			children = (
+				BA258CB3281AB992002C56D4 /* AvailableHoursTests.swift */,
+			);
+			path = __tests__;
+			sourceTree = "<group>";
+		};
 		BA288AEF25825D5B0071009A /* __tests__ */ = {
 			isa = PBXGroup;
 			children = (
@@ -9706,7 +9731,7 @@
 			isa = PBXGroup;
 			children = (
 				BABC1ED2281851A60067F8E9 /* __tests__ */,
-				5001DE7B26E201FE004242FA /* AvailableDays.swift */,
+				5001DE7B26E201FE004242FA /* Locator+AvailableDays.swift */,
 				BABC1ED0281849000067F8E9 /* AvailableDaysResource.swift */,
 			);
 			path = AvailableDays;
@@ -10082,22 +10107,22 @@
 		BAF640EF26DFA08E00B3A18E /* LocatorsNotYetUsed */ = {
 			isa = PBXGroup;
 			children = (
-				5001DE7D26E20257004242FA /* DiagnosisKeys.swift */,
-				5001DE7726E2016D004242FA /* DSCList.swift */,
-				5001DE7926E2019A004242FA /* LocalStatistics.swift */,
-				5001DE7226E200DC004242FA /* QRPosterTemplate.swift */,
-				5001DE7026E1FFB4004242FA /* Statistics.swift */,
-				5001DE8F26E20E52004242FA /* TWPDiscovery.swift */,
-				5001DE9126E20F64004242FA /* TWPDownload.swift */,
-				5001DE7426E20118004242FA /* VaccinationValueSets.swift */,
 				5001DE8926E20AC6004242FA /* AuthorizeOtpEdus.swift */,
 				5001DE8B26E20C4B004242FA /* AuthorizeOtpEls.swift */,
 				5001DE9326E2114F004242FA /* DCCRegisterPublicKey.swift */,
+				5001DE7D26E20257004242FA /* DiagnosisKeys.swift */,
 				5001DE9726E2137D004242FA /* DigitalCovid19Certificate.swift */,
+				5001DE7726E2016D004242FA /* DSCList.swift */,
 				5001DE8526E20791004242FA /* KeySubmission.swift */,
+				5001DE7926E2019A004242FA /* LocalStatistics.swift */,
+				5001DE7226E200DC004242FA /* QRPosterTemplate.swift */,
+				5001DE7026E1FFB4004242FA /* Statistics.swift */,
 				5001DE9526E21272004242FA /* SubmitELS.swift */,
 				5001DE8726E20903004242FA /* SubmitOnBehalf.swift */,
 				5001DE8D26E20D76004242FA /* SubmitPPA.swift */,
+				5001DE8F26E20E52004242FA /* TWPDiscovery.swift */,
+				5001DE9126E20F64004242FA /* TWPDownload.swift */,
+				5001DE7426E20118004242FA /* VaccinationValueSets.swift */,
 			);
 			path = LocatorsNotYetUsed;
 			sourceTree = "<group>";
@@ -10867,7 +10892,7 @@
 				50C5C1BA258920AD00C4817A /* DynamicLegalExtendedCell.swift in Sources */,
 				EB91288B257FBD1E00241D3E /* DiaryInfoViewController.swift in Sources */,
 				011E13AE24680A4000973467 /* HTTPClient.swift in Sources */,
-				5001DE7C26E201FE004242FA /* AvailableDays.swift in Sources */,
+				5001DE7C26E201FE004242FA /* Locator+AvailableDays.swift in Sources */,
 				01F3323727148336005CE21E /* RecycleBinItemTableViewCell.swift in Sources */,
 				A1C683FA24AEC57400B90D12 /* DynamicTableViewTextViewCell.swift in Sources */,
 				01164CF126C65B33007F9C3E /* OnBehalfDateSelectionCell.swift in Sources */,
@@ -11093,6 +11118,7 @@
 				714194EA247A65C60072A090 /* DynamicTableViewHeaderSeparatorView.swift in Sources */,
 				50FA072B26023784003C1E46 /* TraceWarningPackageDownload.swift in Sources */,
 				BA16BBF327B2BFD700C21B87 /* SerialSecureCacheMigrator.swift in Sources */,
+				BA258CB0281AB7A3002C56D4 /* Locator+AvailableHours.swift in Sources */,
 				50690CB32696FA0300127CB2 /* HealthCertificateValidationOnboardedCountriesProvider.swift in Sources */,
 				50C0298825E4067400460FA4 /* AgeGroup.swift in Sources */,
 				01992ECB27D2735600BC16DA /* LoadingScreenViewController.swift in Sources */,
@@ -11116,6 +11142,7 @@
 				35E121DC25B273280098D754 /* key_figure_card.pb.swift in Sources */,
 				711EFCC72492EE31005FEF21 /* ENAFooterView.swift in Sources */,
 				AB7DE73925C8528700C52B3F /* ExposureDetectionSurveyCellModel.swift in Sources */,
+				BA258CB2281AB8CC002C56D4 /* AvailableHoursResource.swift in Sources */,
 				016E264C25B0327B0077C64C /* HomeStatisticsCardViewModel.swift in Sources */,
 				0138F54925ECD44300A9B075 /* ppdd_edus_parameters.pb.swift in Sources */,
 				5071A87D26EB803F00B09B40 /* ServiceType.swift in Sources */,
@@ -11998,6 +12025,7 @@
 				B10F9B8B249961BC00C418F4 /* DynamicTypeLabelTests.swift in Sources */,
 				BA9E4B0125B5DFCB00F284EF /* RiskLevelPerDay.swift in Sources */,
 				CD678F6F246C43FC00B6A0F8 /* MockURLSession.swift in Sources */,
+				BA258CB4281AB992002C56D4 /* AvailableHoursTests.swift in Sources */,
 				50C5204025ADACBB008DF2F4 /* HomeShownPositiveTestResultCellModelTest.swift in Sources */,
 				A3E851B524ADDAC000402485 /* CountdownTimerTests.swift in Sources */,
 				BA9DD53F2567BDAC00C326FF /* TestResultAvailableViewModelTest.swift in Sources */,

@@ -6,7 +6,6 @@
 import Foundation
 import XCTest
 
-// swiftlint:disable:next type_body_length
 final class DayKeyPackageDownloadTest: CWATestCase {
 
 	private lazy var dummyResponse: [String: PackageDownloadResponse] = {
@@ -22,8 +21,6 @@ final class DayKeyPackageDownloadTest: CWATestCase {
 		let packagesStore: DownloadedPackagesSQLLiteStore = .inMemory()
 		packagesStore.open()
 		let client = ClientMock()
-
-		client.availableDaysAndHours = DaysAndHours(days: [], hours: [1, 2])
 
 		// fake successful day package download
 		let restServiceProvider = RestServiceProviderStub(results: [
@@ -68,7 +65,6 @@ final class DayKeyPackageDownloadTest: CWATestCase {
 		try packagesStore.addFetchedDays(dummyResponse, country: countryId)
 
 		let client = ClientMock()
-		client.availableDaysAndHours = DaysAndHours(days: [], hours: [1, 2])
 		client.downloadedPackage = try XCTUnwrap(dummyResponse.values.first)
 
 		// fake successful day package download
@@ -112,7 +108,6 @@ final class DayKeyPackageDownloadTest: CWATestCase {
 		try packagesStore.addFetchedDays(dummyResponse, country: countryId)
 
 		let client = ClientMock()
-		client.availableDaysAndHours = DaysAndHours(days: [], hours: [1, 2])
 		client.downloadedPackage = try XCTUnwrap(dummyResponse.values.first)
 
 		// fake successful day package download
@@ -201,7 +196,6 @@ final class DayKeyPackageDownloadTest: CWATestCase {
 		try packagesStore.addFetchedDays(dummyResponse, country: countryId)
 
 		let client = ClientMock()
-		client.availableDaysAndHours = DaysAndHours(days: [], hours: [1, 2])
 		client.downloadedPackage = try XCTUnwrap(dummyResponse.values.first)
 
 		// fake successful day package download
@@ -240,7 +234,6 @@ final class DayKeyPackageDownloadTest: CWATestCase {
 		let packagesStore: DownloadedPackagesSQLLiteStore = .inMemory()
 
 		let client = ClientMock()
-		client.availableDaysAndHours = DaysAndHours(days: ["2020-10-02"], hours: [1])
 		client.fetchPackageRequestFailure = .noResponse
 
 		// fake successful day package download
@@ -277,7 +270,6 @@ final class DayKeyPackageDownloadTest: CWATestCase {
 		let packagesStore: DownloadedPackagesSQLLiteStore = .inMemory()
 
 		let client = ClientMock()
-		client.availableDaysAndHours = DaysAndHours(days: ["2020-10-02"], hours: [1])
 		client.availablePackageRequestFailure = .noResponse
 
 		// fake invalid response error on day package download
@@ -314,7 +306,6 @@ final class DayKeyPackageDownloadTest: CWATestCase {
 		let packagesStore = DownloadedPackagesStoreErrorStub(error: DownloadedPackagesSQLLiteStore.StoreError.sqliteError(.unknown(42)))
 
 		let client = ClientMock()
-		client.availableDaysAndHours = DaysAndHours(days: ["2020-10-02"], hours: [1])
 
 		// fake successful day package download
 		let restServiceProvider = RestServiceProviderStub(results: [
@@ -350,7 +341,6 @@ final class DayKeyPackageDownloadTest: CWATestCase {
 		let packagesStore = DownloadedPackagesStoreErrorStub(error: DownloadedPackagesSQLLiteStore.StoreError.sqliteError(.sqlite_full))
 
 		let client = ClientMock()
-		client.availableDaysAndHours = DaysAndHours(days: ["2020-10-02"], hours: [1])
 
 		// fake successful day package download
 		let restServiceProvider = RestServiceProviderStub(results: [
@@ -398,7 +388,6 @@ final class DayKeyPackageDownloadTest: CWATestCase {
 		try packagesStore.addFetchedDays([yesterdayKeyString: dummyResponse], country: countryId)
 
 		let client = ClientMock()
-		client.availableDaysAndHours = DaysAndHours(days: [yesterdayKeyString], hours: [1, 2])
 		client.downloadedPackage = dummyResponse
 
 		let keyPackageDownload = KeyPackageDownload(
@@ -440,7 +429,6 @@ final class DayKeyPackageDownloadTest: CWATestCase {
 		let dummyResponse = PackageDownloadResponse(package: dummyPackage, etag: "\"etag\"")
 
 		let client = ClientMock()
-		client.availableDaysAndHours = DaysAndHours(days: [], hours: [1, 2])
 		client.downloadedPackage = dummyResponse
 
 		// fake successful day package download

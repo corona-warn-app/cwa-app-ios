@@ -365,9 +365,10 @@ class KeyPackageDownload: KeyPackageDownloadProtocol {
 				}
 			}
 		case .hourly(let dayKey):
-			wifiClient.availableHours(day: dayKey, country: country) { result in
+			let resource = AvailableHoursResource(day: dayKey, country: country)
+			restService.load(resource) { result in
 				switch result {
-				case .success(let hours):
+				case let .success(hours):
 					Log.info("KeyPackageDownload: Server data is available for hour packages.", log: .riskDetection)
 					let packageKeys = hours.map { String($0) }
 					completion(.success(packageKeys))
