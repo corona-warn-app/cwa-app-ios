@@ -11,13 +11,11 @@ final class DMWifiClientViewModel {
 
 	// MARK: - Init
 
-	init(wifiClient: WifiOnlyHTTPClient) {
-		self.wifiClient = wifiClient
+	init(
+		restService: RestServiceProviding
+	) {
+		self.restService = restService
 	}
-
-	// MARK: - Overrides
-
-	// MARK: - Public
 
 	// MARK: - Internal
 
@@ -34,23 +32,24 @@ final class DMWifiClientViewModel {
 		case .wifiMode:
 			return DMSwitchCellViewModel(
 				labelText: "Disable hourly packages download",
-				isOn: { [wifiClient] in
-					wifiClient.disableHourlyDownload
-				}, toggle: { [wifiClient] in
-					wifiClient.disableHourlyDownload = !wifiClient.disableHourlyDownload
-					Log.info("Hourly packages download: \(wifiClient.disableHourlyDownload ? "disabled" :"enabled")")
+				isOn: { [restService] in
+					return true
+//					wifiClient.disableHourlyDownload
+				}, toggle: { [restService] in
+//					wifiClient.disableHourlyDownload = !wifiClient.disableHourlyDownload
+//					Log.info("Hourly packages download: \(wifiClient.disableHourlyDownload ? "disabled" :"enabled")")
 				})
 
 		case .disableClient:
 			return DMSwitchCellViewModel(
 				labelText: "Hourly packages over WiFi only",
-				isOn: { [wifiClient] in
-					return wifiClient.isWifiOnlyActive
+				isOn: { [restService] in
+					return restService.isWifiOnlyActive
 				},
-				toggle: { [wifiClient] in
-					let newState = !wifiClient.isWifiOnlyActive
-					wifiClient.updateSession(wifiOnly: newState)
-					Log.info("HTTP Client mode changed to: \(wifiClient.isWifiOnlyActive ? "wifi only" : "all networks")")
+				toggle: { [restService] in
+					let newState = !restService.isWifiOnlyActive
+					restService.updateWiFiSession(wifiOnly: newState)
+					Log.info("HTTP Client mode changed to: \(restService.isWifiOnlyActive ? "wifi only" : "all networks")")
 				}
 			)
 		}
@@ -58,7 +57,7 @@ final class DMWifiClientViewModel {
 
 	// MARK: - Private
 
-	private let wifiClient: WifiOnlyHTTPClient
+	private let restService: RestServiceProviding
 
 	private enum menuItems: Int, CaseIterable {
 		case wifiMode

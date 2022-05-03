@@ -17,7 +17,7 @@ protocol Service {
 
 	init(
 		environment: EnvironmentProviding,
-		session: URLSession?
+		optionalSession: URLSession?
 	)
 
 	var session: URLSession { get }

@@ -105,7 +105,13 @@ class RestServiceProviderStub: RestServiceProviding {
 	func update(_ evaluateTrust: TrustEvaluating) {
 		Log.debug("No update supported")
 	}
-	
+
+	let isWifiOnlyActive: Bool = true
+
+	func updateWiFiSession(wifiOnly: Bool) {
+		Log.debug("not supported in stub")
+	}
+
 	// MARK: Private
 	
 	private func fallBackToDefaultMockLoadResource<R>(
