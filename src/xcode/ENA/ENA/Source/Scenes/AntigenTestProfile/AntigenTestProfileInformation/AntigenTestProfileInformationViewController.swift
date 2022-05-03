@@ -9,12 +9,11 @@ class AntigenTestProfileInformationViewController: DynamicTableViewController, F
 	// MARK: - Init
 
 	init(
-		store: AntigenTestProfileStoring,
-		didTapDataPrivacy: @escaping () -> Void,
+		viewModel: AntigenTestProfileInformationViewModel,
 		didTapContinue: @escaping () -> Void,
 		dismiss: @escaping () -> Void
 	) {
-		self.viewModel = AntigenTestProfileInformationViewModel(store: store, showDisclaimer: didTapDataPrivacy)
+		self.viewModel = viewModel
 		self.didTapContinue = didTapContinue
 		self.dismiss = dismiss
 		super.init(nibName: nil, bundle: nil)
@@ -42,7 +41,6 @@ class AntigenTestProfileInformationViewController: DynamicTableViewController, F
 			return
 		}
 		
-		viewModel.markScreenSeen()
 		didTapContinue()
 	}
 
