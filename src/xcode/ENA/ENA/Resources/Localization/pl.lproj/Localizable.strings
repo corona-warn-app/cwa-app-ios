@@ -1010,6 +1010,8 @@
 /* Exposure Submission AntigenTest Profile Overview */
 "ExposureSubmission_Antigen_Profile_Overview_title" = "Profile szybkich testów";
 
+"ExposureSubmission_Antigen_Profile_Card_title" = "Profil szybkiego testu";
+
 "ExposureSubmission_Antigen_Profile_Overview_EmptyTitle" = "Nie utworzono jeszcze profili szybkich testów";
 
 "ExposureSubmission_Antigen_Profile_Overview_EmptyDescription" = "Możesz utworzyć profil szybkiego testu ze swoimi danymi osobowymi, który będziesz przesyłać za pomocą kodu QR do każdego uczestniczącego punktu testowania.";
@@ -1027,7 +1029,7 @@
 
 "ExposureSubmission_Antigen_Profile_DateOfBirth_Format" = "Data urodzenia %@";
 
-"ExposureSubmission_Antigen_Profile_Primary_Button" = "Kontynuuj";
+"ExposureSubmission_Antigen_Profile_Primary_Button" = "Skanuj test";
 
 "ExposureSubmission_Antigen_Profile_Secondary_Button" = "Edytuj";
 
@@ -1036,7 +1038,7 @@
 
 "ExposureSubmission_Profile_CreateProfileTile_Description" = "Zapisz swoje dane osobowe w postaci kodu QR, aby przyspieszyć rejestrację w punktach testowania.";
 
-"ExposureSubmission_Profile_ProfileTile_Title" = "Profil szybkiego testu";
+"ExposureSubmission_Profile_ProfileTile_Title" = "Profile szybkich testów";
 
 "ExposureSubmission_Profile_ProfileTile_Description" = "Profil szybkiego testu z Twoimi danymi osobowymi, który możesz przesłać do dowolnego uczestniczącego punktu testowania za pomocą kodu QR.";
 
@@ -1072,7 +1074,7 @@
 
 "ExposureSubmission_TestCertificate_Information_BirthdayText" = "Ze względów bezpieczeństwa certyfikat testu jest zabezpieczony za pomocą daty urodzenia. Certyfikat testu może zostać wydany tylko po podaniu prawidłowej daty urodzenia.";
 
-"ExposureSubmission_TestCertificate_Information_Dataprivacy_Title" = "Więcej informacji na temat przetwarzania danych znajduje się w oświadczeniu o ochronie prywatności.";
+"ExposureSubmission_TestCertificate_Information_Dataprivacy_Title" = "Szczegółowe informacje na temat przetwarzania danych i Twojej zgodzie";
 
 "ExposureSubmission_TestCertificate_Information_Alert_Title" = "Anuluj rejestrację";
 
@@ -3205,9 +3207,11 @@
 
 "HealthCertificate_ValidityState_Invalid_description" = "Certyfikat został wydany przez nieuprawniony organ lub wydanie przebiegło nieprawidłowo. Zwróć się do uprawnionego organu o wydanie nowego certyfikatu.";
 
-"HealthCertificate_ValidityState_Blocked" = "Certyfikat nieważny";
+"HealthCertificate_ValidityState_BlockedRevoked" = "Certyfikat nieważny";
 
-"HealthCertificate_ValidityState_Blocked_description" = "Certyfikat został wycofany przez urząd wydający. Zdobądź nowy cyfrowy certyfikat.";
+"HealthCertificate_ValidityState_BlockedRevoked_description_de" = "Instytut RKI zablokował certyfikat z powodu dekretu rządowego. Uzyskaj nowy certyfikat cyfrowy.";
+
+"HealthCertificate_ValidityState_BlockedRevoked_description_other" = "Organ wydający zablokował certyfikat w wyniku decyzji administracyjnej. Uzyskaj nowy certyfikat cyfrowy.";
 
 /* Reissuance */
 /* HealthCertificate Resissuance Consent */
