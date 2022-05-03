@@ -10,12 +10,12 @@ enum KeySubmissionResourceError: LocalizedError, Equatable {
 	case requestCouldNotBeBuilt
 	case serverError(Int)
 	
-	var errorDescription: String {
+	var errorDescription: String? {
 		switch self {
 		case let .serverError(code):
 			return "\(AppStrings.ExposureSubmissionError.other)\(code) \(AppStrings.ExposureSubmissionError.otherend)"
 		case .invalidPayloadOrHeaders:
-			return "Received an invalid payload or headers."
+			return "\(AppStrings.ExposureSubmissionError.errorPrefix) - Received an invalid payload or headers."
 		case .invalidTan:
 			return AppStrings.ExposureSubmissionError.invalidTan
 		case .requestCouldNotBeBuilt:
@@ -53,8 +53,6 @@ struct KeySubmissionResource: Resource {
 	}
 	
 	// MARK: - Protocol Resource
-
-	typealias CustomError = KeySubmissionResourceError
 
 	let trustEvaluation: TrustEvaluating
 

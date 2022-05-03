@@ -21,7 +21,7 @@ enum ServiceError<RE>: LocalizedError, Equatable where RE: Error {
 
 	// MARK: - Protocol LocalizedError
 
-	var errorDescription: String {
+	var errorDescription: String? {
 		switch self {
 		case .invalidRequestError(let resourceError):
 			return "invalidRequestError(\(resourceError))"
@@ -34,7 +34,7 @@ enum ServiceError<RE>: LocalizedError, Equatable where RE: Error {
 		case .resourceError(let resourceError):
 			return "resourceError(\(String(describing: resourceError)))"
 		case .receivedResourceError(let resourceError):
-			return "\(resourceError)"
+			return resourceError.localizedDescription
 		case .invalidResponse:
 			return AppStrings.ExposureSubmissionError.invalidResponse
 		case .invalidResponseType:
