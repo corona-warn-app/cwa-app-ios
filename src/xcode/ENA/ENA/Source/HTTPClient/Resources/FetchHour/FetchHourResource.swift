@@ -33,6 +33,7 @@ struct FetchHourResource: Resource {
 	var sendResource: EmptySendResource
 	var receiveResource: PackageDownloadReceiveResource
 	var trustEvaluation: TrustEvaluating
+	let retryingCount: Int = 3
 
 #if !RELEASE
 	var defaultMockLoadResource: LoadResource? = LoadResource(
