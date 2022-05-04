@@ -4,24 +4,11 @@
 
 import Foundation
 
-enum OnBehalfSubmissionResourceError: LocalizedError, Equatable {
+enum OnBehalfSubmissionResourceError: Error, Equatable {
 	case invalidPayloadOrHeaders
 	case invalidTan
 	case requestCouldNotBeBuilt
 	case serverError(Int)
-	
-	var errorDescription: String? {
-		switch self {
-		case let .serverError(code):
-			return "\(AppStrings.ExposureSubmissionError.other)\(code) \(AppStrings.ExposureSubmissionError.otherend)"
-		case .invalidPayloadOrHeaders:
-			return "\(AppStrings.ExposureSubmissionError.errorPrefix) - Received an invalid payload or headers."
-		case .invalidTan:
-			return AppStrings.ExposureSubmissionError.invalidTan
-		case .requestCouldNotBeBuilt:
-			return "\(AppStrings.ExposureSubmissionError.errorPrefix) - The submission request could not be built correctly."
-		}
-	}
 }
 
 struct OnBehalfSubmissionResource: Resource {
