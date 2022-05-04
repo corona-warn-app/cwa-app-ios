@@ -20,9 +20,9 @@ class RestServiceProvider: RestServiceProviding {
 		self.environment = environment
 		self.optionalSession = session
 
-		self.standardRestService = StandardRestService(environment: environment, optionalSession: session)
+		self.standardRestService = StandardRestService(environment: environment, session: session)
 		self.cachedRestService = CachedRestService(environment: environment, session: session, cache: cache)
-		self.wifiOnlyRestService = WifiOnlyRestService(environment: environment, optionalSession: session)
+		self.wifiOnlyRestService = WifiOnlyRestService(environment: environment, session: session)
 	}
 
 	func load<R>(
@@ -37,24 +37,20 @@ class RestServiceProvider: RestServiceProviding {
 			cachedRestService.load(resource, completion)
 		case .wifiOnly:
 			wifiOnlyRestService.load(resource, completion)
-		case .retrying:
-			Log.error("Not yet implemented")
 		}
 	}
 	
 	func cached<R>(
-		_ resource: R
-	) -> Result<R.Receive.ReceiveModel, ServiceError<R.CustomError>> where R: Resource {
+		_ resource: R,
+		_ completion: @escaping (Result<R.Receive.ReceiveModel, ServiceError<R.CustomError>>) -> Void
+	) where R: Resource {
 		switch resource.type {
 		case .default:
-			return standardRestService.cached(resource)
+			standardRestService.cached(resource, completion)
 		case .caching:
-			return cachedRestService.cached(resource)
+			cachedRestService.cached(resource, completion)
 		case .wifiOnly:
-			return wifiOnlyRestService.cached(resource)
-		case .retrying:
-			Log.error("Cache is not supported by that type of restService")
-			return .failure(.resourceError(.missingCache))
+			wifiOnlyRestService.cached(resource, completion)
 		}
 	}
 
@@ -68,8 +64,6 @@ class RestServiceProvider: RestServiceProviding {
 			cachedRestService.resetCache(for: resource)
 		case .wifiOnly:
 			wifiOnlyRestService.resetCache(for: resource)
-		case .retrying:
-			Log.error("Cache is not supported by that type of restService")
 		}
 	}
 

@@ -32,7 +32,7 @@ struct ServiceIdentityDocumentResource: Resource {
 	var type: ServiceType
 	var sendResource: EmptySendResource
 	var receiveResource: JSONReceiveResource<TicketValidationServiceIdentityDocument>
-	
+
 	func customError(
 		for error: ServiceError<ServiceIdentityDocumentResourceError>,
 		responseBody: Data? = nil

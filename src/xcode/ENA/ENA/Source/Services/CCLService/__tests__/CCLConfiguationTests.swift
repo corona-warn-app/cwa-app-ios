@@ -153,7 +153,7 @@ class CCLServiceConfigurationTests: CCLServiceBaseTests {
 
 		let cache = try cache(with: Locator.CCLConfiguration(isFake: false), eTag: eTag, date: today, responseData: cclConfigurationData)
 		let restServiceProvider = RestServiceProvider(session: MockNetworkStack().urlSession, cache: cache)
-		let resource = CCLConfigurationResource()
+		var resource = CCLConfigurationResource()
 		resource.defaultModel = CCLConfigurationReceiveModel([])
 
 		let cclService = CCLService(
@@ -193,7 +193,7 @@ class CCLServiceConfigurationTests: CCLServiceBaseTests {
 
 		let cache = try cache(with: Locator.CCLConfiguration(isFake: false), eTag: eTag, date: today, responseData: cclConfigurationData)
 		let restServiceProvider = RestServiceProvider(session: MockNetworkStack().urlSession, cache: cache)
-		let resource = CCLConfigurationResource()
+		var resource = CCLConfigurationResource()
 		resource.defaultModel = CCLConfigurationReceiveModel([])
 
 		let cclService = CCLService(
@@ -244,7 +244,7 @@ class CCLServiceConfigurationTests: CCLServiceBaseTests {
 		)
 		let cache = try cache(with: Locator.CCLConfiguration(isFake: false), eTag: eTag, date: yesterday, responseData: oldCCLConfigurationData)
 		let restServiceProvider = RestServiceProvider(session: stack.urlSession, cache: cache)
-		let resource = CCLConfigurationResource()
+		var resource = CCLConfigurationResource()
 		resource.defaultModel = CCLConfigurationReceiveModel([])
 
 		let cclService = CCLService(
@@ -281,7 +281,7 @@ class CCLServiceConfigurationTests: CCLServiceBaseTests {
 		let cache = try cache()
 		let restServiceProvider = RestServiceProvider(session: MockNetworkStack().urlSession, cache: cache)
 
-		let resource = CCLConfigurationResource()
+		var resource = CCLConfigurationResource()
 		resource.defaultModel = CCLConfigurationReceiveModel([
 			.fake(identifier: "CCL-Default-Configuration", version: "DefaultVersion-1.0.0")
 		])
@@ -314,7 +314,7 @@ class CCLServiceConfigurationTests: CCLServiceBaseTests {
 		let cache = try cache()
 		let restServiceProvider = RestServiceProvider(session: MockNetworkStack().urlSession, cache: cache)
 
-		let resource = CCLConfigurationResource()
+		var resource = CCLConfigurationResource()
 		resource.defaultModel = CCLConfigurationReceiveModel([
 			.fake(identifier: "Second-CCL-Default-Configuration", version: "AnotherDefaultVersion-2.5.0alpha"),
 			.fake(identifier: "CCL-Default-Configuration", version: "DefaultVersion-1.0.0")
@@ -355,7 +355,7 @@ class CCLServiceConfigurationTests: CCLServiceBaseTests {
 		let cache = try cache(with: Locator.CCLConfiguration(isFake: false), eTag: eTag, date: today, responseData: cclConfigurationData)
 		let restServiceProvider = RestServiceProvider(session: MockNetworkStack().urlSession, cache: cache)
 
-		let resource = CCLConfigurationResource()
+		var resource = CCLConfigurationResource()
 		resource.defaultModel = CCLConfigurationReceiveModel([
 			.fake(identifier: "CCL-Default-Configuration", version: "DefaultVersion-1.0.0")
 		])
@@ -396,7 +396,7 @@ class CCLServiceConfigurationTests: CCLServiceBaseTests {
 		let cache = try cache(with: Locator.CCLConfiguration(isFake: false), eTag: eTag, date: today, responseData: cclConfigurationData)
 		let restServiceProvider = RestServiceProvider(session: MockNetworkStack().urlSession, cache: cache)
 
-		let resource = CCLConfigurationResource()
+		var resource = CCLConfigurationResource()
 		resource.defaultModel = CCLConfigurationReceiveModel([
 			.fake(identifier: "Second-CCL-Default-Configuration", version: "AnotherDefaultVersion-2.5.0alpha"),
 			.fake(identifier: "CCL-Default-Configuration", version: "DefaultVersion-1.0.0")
@@ -478,7 +478,7 @@ class CCLServiceConfigurationTests: CCLServiceBaseTests {
 
 		let defaultFunctionDescriptor = try JSONDecoder().decode(JsonFunctionDescriptor.self, from: Data(defaultFunctionDescriptorString.utf8))
 
-		let resource = CCLConfigurationResource()
+		var resource = CCLConfigurationResource()
 		resource.defaultModel = CCLConfigurationReceiveModel([
 			.fake(
 				identifier: "Second-CCL-Default-Configuration",
