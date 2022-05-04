@@ -75,10 +75,12 @@ class RestServiceProviderStub: RestServiceProviding {
 	}
 
 	func cached<R>(
-		_ resource: R
-	) -> Result<R.Receive.ReceiveModel, ServiceError<R.CustomError>> where R: Resource {
+		_ resource: R,
+		_ completion: @escaping (Result<R.Receive.ReceiveModel, ServiceError<R.CustomError>>) -> Void
+	) where R: Resource {
 		guard let cacheResource = cacheResources.first else {
-			return .failure(.resourceError(.missingCache))
+			completion(.failure(.resourceError(.missingCache)))
+			return
 		}
 		cacheResources.removeFirst()
 		
@@ -87,12 +89,12 @@ class RestServiceProviderStub: RestServiceProviding {
 			guard let _model = model as? R.Receive.ReceiveModel else {
 				fatalError("Could not cast to receive model.")
 			}
-			return .success(_model)
+			return completion(.success(_model))
 		case .failure(let error):
 			guard let _error = error as? ServiceError<R.CustomError> else {
 				fatalError("Could not cast to custom error.")
 			}
-			return .failure(_error)
+			return completion(.failure(_error))
 		}
 	}
 
