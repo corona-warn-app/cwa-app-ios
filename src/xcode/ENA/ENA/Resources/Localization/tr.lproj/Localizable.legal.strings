@@ -249,13 +249,13 @@
 
 /* HealthCertificate Resissuance Consent */
 
-"HealthCertificate_Reissuance_Consent_Legal_Title" = "Onayınız";
+"HealthCertificate_Reissuance_Consent_Legal_Title" = "Rıza beyanınız";
 
-"HealthCertificate_Reissuance_Consent_Legal_Subtitle" = "„Onay“ üzerine tıklayarak aşağıdaki adımları kabul edersiniz:";
+"HealthCertificate_Reissuance_Consent_Legal_Subtitle" = "Kabul ediyorum” seçeneğine tıklayarak, şu adımlara onay vermiş olursunuz:";
 
-"HealthCertificate_Reissuance_Consent_Legal_Bullet_1" = "Uygulama, kontrol amaçlı olarak aşı sertifikasını RKI’ya iletir.";
+"HealthCertificate_Reissuance_Consent_Legal_Bullet_1" = "Uygulama, belirtilen sertifikaları doğrulama için RKI'ye iletir.";
 
-"HealthCertificate_Reissuance_Consent_Legal_Bullet_2" = "RKI aşı sertifikasını kontrol eder ve güncel bir sertifika oluşturur ve bunu uygulamanıza aktarır.";
+"HealthCertificate_Reissuance_Consent_Legal_Bullet_2" = "RKI, sertifikaları kontrol eder, yenilenen sertifikaları işleme alır ve bunları uygulamanıza iletir.";
 
 /* HealthCertificate Family Consent */
 

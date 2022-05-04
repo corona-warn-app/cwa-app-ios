@@ -1032,6 +1032,8 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmission_Antigen_Profile_Overview_title" = "Schnelltest-Profile";
 
+"ExposureSubmission_Antigen_Profile_Card_title" = "Schnelltest-Profil";
+
 "ExposureSubmission_Antigen_Profile_Overview_EmptyTitle" = "Noch kein Schnelltest-Profil erstellt";
 
 "ExposureSubmission_Antigen_Profile_Overview_EmptyDescription" = "Legen Sie ein Schnelltest-Profil mit Ihren persönlichen Daten an, das Sie per QR-Code bei jeder teilnehmenden Teststelle vorlegen können.";
@@ -1050,7 +1052,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmission_Antigen_Profile_DateOfBirth_Format" = "Geboren %@";
 
-"ExposureSubmission_Antigen_Profile_Primary_Button" = "Weiter";
+"ExposureSubmission_Antigen_Profile_Primary_Button" = "Test scannen";
 
 "ExposureSubmission_Antigen_Profile_Secondary_Button" = "Bearbeiten";
 
@@ -1060,7 +1062,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmission_Profile_CreateProfileTile_Description" = "Legen Sie Ihre persönlichen Daten als QR-Code ab, um die Registrierung an der Teststelle zu beschleunigen.";
 
-"ExposureSubmission_Profile_ProfileTile_Title" = "Schnelltest-Profil";
+"ExposureSubmission_Profile_ProfileTile_Title" = "Schnelltest-Profile";
 
 "ExposureSubmission_Profile_ProfileTile_Description" = "Schnelltest-Profil mit Ihren persönlichen Daten, das Sie per QR-Code bei jeder teilnehmenden Teststelle vorlegen können.";
 
@@ -1098,7 +1100,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmission_TestCertificate_Information_BirthdayText" = "Zur Sicherheit wird Ihr Testzertifikat mit Ihrem Geburtsdatum geschützt. Das Testzertifikat kann nur bei korrekt angegebenem Geburtsdatum zugestellt werden.";
 
-"ExposureSubmission_TestCertificate_Information_Dataprivacy_Title" = "Ausführliche Hinweise zur Datenverarbeitung finden Sie in der Datenschutzerklärung";
+"ExposureSubmission_TestCertificate_Information_Dataprivacy_Title" = "Ausführliche Informationen zur Datenverarbeitung und Ihrem Einverständnis.";
 
 "ExposureSubmission_TestCertificate_Information_Alert_Title" = "Registrierung abbrechen";
 
@@ -1709,9 +1711,9 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 /* Version 2.22 */
 
-"NewVersionFeature_222_family_members_RAT_profile_Title" = "Schnelltestprofile für Familie";
+"NewVersionFeature_222_family_members_RAT_profile_Title" = "Schnelltest-Profile für Familie";
 
-"NewVersionFeature_222_family_members_RAT_profile_description" = "Sie können jetzt Schnelltestprofile für die Mitglieder Ihrer Familie anlegen. Sie können damit die Registrierung an einer Teststelle beschleunigen. Für die Erfasssung der persönlichen Daten muss dann nur der jeweilige QR-Code des Schnelltestprofils gescannt werden.";
+"NewVersionFeature_222_family_members_RAT_profile_description" = "Sie können jetzt Schnelltest-Profile für die Mitglieder Ihrer Familie anlegen. Sie können damit die Registrierung an einer Teststelle beschleunigen. Für die Erfasssung der persönlichen Daten muss dann nur der jeweilige QR-Code des Schnelltest-Profils gescannt werden.";
 
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Länderübergreifende Risiko-Ermittlung";
@@ -2851,7 +2853,7 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 /* Antigen Profile */
 
-"AntigenProfile_Info_Action_Title" = "Info";
+"AntigenProfile_Info_Action_Title" = "Informationen";
 
 "AntigenProfile_Edit_Action_Title" = "Schnelltest-Profil bearbeiten";
 
@@ -3355,13 +3357,13 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "HealthCertificate_Reissuance_Consent_Title" = "Ihr Einverständnis";
 
-"HealthCertificate_Reissuance_Consent_Delete_Notice" = "Das alte Zertifikat wird automatisch in den Papierkorb verschoben und nach 30 Tagen gelöscht. Das Zertifikat kann innerhalb der 30 Tage jederzeit wiederhergestellt werden.";
+"HealthCertificate_Reissuance_Consent_Delete_Notice" = "Alte Zertifikate werden automatisch in den Papierkorb verschoben und nach 30 Tagen gelöscht. Die Zertifikate können innerhalb der 30 Tage jederzeit wiederhergestellt werden.";
 
-"HealthCertificate_Reissuance_Consent_Cancel_Notice" = "Falls Sie hier abbrechen, können Sie die Aktualisierung jederzeit in Ihrer Zertifikatsübersicht anfordern.";
+"HealthCertificate_Reissuance_Consent_Cancel_Notice" = "Falls Sie hier abbrechen, können Sie die Erneuerung in Ihrer Zertifikatsübersicht anfordern.";
 
-"HealthCertificate_Reissuance_Consent_Bullet_Point_1" = "Die Aktualisierung des Zertifikats ist freiwillig und kostenlos.";
+"HealthCertificate_Reissuance_Consent_Bullet_Point_1" = "Die Erneuerung der Zertifikate ist freiwillig und kostenlos.";
 
-"HealthCertificate_Reissuance_Consent_Bullet_Point_2" = "Um sicherzustellen, dass Zertifikate nur einmalig aktualisiert werden können, wird die Kennung des alten Zertifikats durch das RKI dokumentiert.";
+"HealthCertificate_Reissuance_Consent_Bullet_Point_2" = "Um sicherzustellen, dass Zertifikate nur einmalig erneuert werden können, werden jeweils die Kennung des alten und des erneuerten Zertifikats durch das RKI dokumentiert. Die weiteren Daten zu Ihren Zertifikaten werden nach der Erneuerung beim RKI sofort gelöscht.";
 
 /* HealthCertificate Resissuance Succeeded */
 

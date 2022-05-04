@@ -74,7 +74,7 @@ final class DMNHCViewModel {
 					}
 					// TODO update as the new model
 					let sendModel = DCCReissuanceSendModel(
-						action: action,
+						action: "",
 						certificates: [firstVaccinationCertificate.base45]
 					)
 

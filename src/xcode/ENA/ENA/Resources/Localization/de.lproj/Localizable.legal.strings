@@ -254,9 +254,9 @@
 
 "HealthCertificate_Reissuance_Consent_Legal_Subtitle" = "Durch Antippen von „Einverstanden“ willigen Sie in folgende Schritte ein:";
 
-"HealthCertificate_Reissuance_Consent_Legal_Bullet_1" = "Die App übermittelt das Impfzertifikat zur Überprüfung an das RKI.";
+"HealthCertificate_Reissuance_Consent_Legal_Bullet_1" = "Die App übermittelt die genannten Zertifikate zur Überprüfung an das RKI.";
 
-"HealthCertificate_Reissuance_Consent_Legal_Bullet_2" = "Das RKI überprüft das Impfzertifikat und stellt ein aktualisiertes Zertifikat aus und übermittelt dieses an Ihre App.";
+"HealthCertificate_Reissuance_Consent_Legal_Bullet_2" = "Das RKI überprüft die Zertifikate, stellt erneuerte Zertifikate aus und übermittelt diese an Ihre App.";
 
 /* HealthCertificate Family Consent */
 

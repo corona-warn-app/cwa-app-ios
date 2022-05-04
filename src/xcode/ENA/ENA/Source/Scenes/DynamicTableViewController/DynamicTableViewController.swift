@@ -49,6 +49,10 @@ class DynamicTableViewController: UIViewController, UITableViewDataSource, UITab
 		tableView.register(DynamicTableViewHeadlineWithImageCell.self, forCellReuseIdentifier: DynamicCell.CellReuseIdentifier.headlineWithImage.rawValue)
 		tableView.register(DynamicTableViewDoubleLabelViewCell.self, forCellReuseIdentifier: DynamicCell.CellReuseIdentifier.doubleLabel.rawValue)
 
+		// Only set up the keyboard notifications when this class is not embedded into a TopBottomContainerViewController, because the TopBottomContainerViewController is also registering for keyboard notifications.
+		if parent is ComparableTopBottomContainerViewControlling {
+			return
+		}
 		setupKeyboardAvoidance()
 	}
 

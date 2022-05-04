@@ -15,6 +15,7 @@ final class DCCReissuanceResourceTests: CWATestCase {
 		// GIVEN
 
 		let sendModel = DCCReissuanceSendModel(
+			action: "",
 			certificates: [
 				"one"
 			]
@@ -68,6 +69,7 @@ final class DCCReissuanceResourceTests: CWATestCase {
 		)
 
 		let sendModel = DCCReissuanceSendModel(
+			action: "",
 			certificates: [
 				"one"
 			]
@@ -106,6 +108,7 @@ final class DCCReissuanceResourceTests: CWATestCase {
 		)
 
 		let sendModel = DCCReissuanceSendModel(
+			action: "",
 			certificates: [
 				"one"
 			]
@@ -145,6 +148,7 @@ final class DCCReissuanceResourceTests: CWATestCase {
 		)
 
 		let sendModel = DCCReissuanceSendModel(
+			action: "",
 			certificates: [
 				"one"
 			]
@@ -187,6 +191,7 @@ final class DCCReissuanceResourceTests: CWATestCase {
 		)
 
 		let sendModel = DCCReissuanceSendModel(
+			action: "",
 			certificates: [
 				"one"
 			]
@@ -225,6 +230,7 @@ final class DCCReissuanceResourceTests: CWATestCase {
 		)
 
 		let sendModel = DCCReissuanceSendModel(
+			action: "",
 			certificates: [
 				"one"
 			]
@@ -263,6 +269,7 @@ final class DCCReissuanceResourceTests: CWATestCase {
 		)
 
 		let sendModel = DCCReissuanceSendModel(
+			action: "",
 			certificates: [
 				"one"
 			]
@@ -301,6 +308,7 @@ final class DCCReissuanceResourceTests: CWATestCase {
 		)
 
 		let sendModel = DCCReissuanceSendModel(
+			action: "",
 			certificates: [
 				"one"
 			]
@@ -339,6 +347,7 @@ final class DCCReissuanceResourceTests: CWATestCase {
 		)
 
 		let sendModel = DCCReissuanceSendModel(
+			action: "",
 			certificates: [
 				"one"
 			]
@@ -377,11 +386,11 @@ final class DCCReissuanceResourceTests: CWATestCase {
 		)
 
 		let sendModel = DCCReissuanceSendModel(
+			action: "",
 			certificates: [
 				"one"
 			]
 		)
-
 		let resource = DCCReissuanceResource(
 			sendModel: sendModel,
 			trustEvaluation: .fake()
@@ -415,6 +424,7 @@ final class DCCReissuanceResourceTests: CWATestCase {
 		)
 
 		let sendModel = DCCReissuanceSendModel(
+			action: "",
 			certificates: [
 				"one"
 			]
@@ -453,6 +463,7 @@ final class DCCReissuanceResourceTests: CWATestCase {
 		)
 
 		let sendModel = DCCReissuanceSendModel(
+			action: "",
 			certificates: [
 				"one"
 			]

@@ -12,7 +12,7 @@ final class HealthCertificateReissuanceConsentViewModel {
 
 	init(
 		cclService: CCLServable,
-		certificate: HealthCertificate,
+		certificates: [HealthCertificate],
 		certifiedPerson: HealthCertifiedPerson,
 		appConfigProvider: AppConfigurationProviding,
 		restServiceProvider: RestServiceProviding,
@@ -20,7 +20,7 @@ final class HealthCertificateReissuanceConsentViewModel {
 		onDisclaimerButtonTap: @escaping () -> Void
 	) {
 		self.cclService = cclService
-		self.certificate = certificate
+		self.certificates = certificates
 		self.certifiedPerson = certifiedPerson
 		self.appConfigProvider = appConfigProvider
 		self.restServiceProvider = restServiceProvider
@@ -33,19 +33,31 @@ final class HealthCertificateReissuanceConsentViewModel {
 	let title: String = AppStrings.HealthCertificate.Reissuance.Consent.title
 
 	var dynamicTableViewModel: DynamicTableViewModel {
-		DynamicTableViewModel(
-			[
+		DynamicTableViewModel.with {
+			$0.add(
 				.section(
 					cells: [
-						.certificate(certificate, certifiedPerson: certifiedPerson),
+						listTitleDynamicCell
+					]
+					.compactMap({ $0 })
+				)
+			)
+			for certificate in certificates {
+				$0.add(
+					.section(
+						cells: [
+							.certificate(certificate, certifiedPerson: certifiedPerson)
+						]
+						.compactMap({ $0 })
+					)
+				)
+			}
+			$0.add(
+				.section(
+					cells: [
 						titleDynamicCell,
 						subtitleDynamicCell,
-						longTextDynamicCell
-					]
-						.compactMap({ $0 })
-				),
-				.section(
-					cells: [
+						longTextDynamicCell,
 						.icon(
 							UIImage(imageLiteralResourceName: "more_recycle_bin"),
 							text: .string(AppStrings.HealthCertificate.Reissuance.Consent.deleteNotice),
@@ -56,28 +68,32 @@ final class HealthCertificateReissuanceConsentViewModel {
 							text: .string(AppStrings.HealthCertificate.Reissuance.Consent.cancelNotice),
 							alignment: .top
 						)
-					]
-				),
+				    ]
+				    .compactMap({ $0 })
+			   )
+			)
+			$0.add(
 				.section(
-					cells:
-						[
-							.legalExtended(
-								title: NSAttributedString(string: AppStrings.HealthCertificate.Reissuance.Consent.legalTitle),
-								subheadline1: attributedStringWithRegularText(text: AppStrings.HealthCertificate.Reissuance.Consent.legalSubtitle),
-								bulletPoints1: [
-									attributedStringWithBoldText(text: AppStrings.HealthCertificate.Reissuance.Consent.legalBullet1),
-									attributedStringWithBoldText(text: AppStrings.HealthCertificate.Reissuance.Consent.legalBullet2)
-								],
-								subheadline2: nil
-							),
-							.bulletPoint(text: AppStrings.HealthCertificate.Reissuance.Consent.bulletPoint_1),
-							.bulletPoint(text: AppStrings.HealthCertificate.Reissuance.Consent.bulletPoint_2),
-							.space(height: 8.0),
-							faqLinkDynamicCell,
-							.space(height: 8.0)
-						]
-						.compactMap({ $0 })
-				),
+					cells: [
+						.legalExtended(
+							title: NSAttributedString(string: AppStrings.HealthCertificate.Reissuance.Consent.legalTitle),
+							subheadline1: attributedStringWithRegularText(text: AppStrings.HealthCertificate.Reissuance.Consent.legalSubtitle),
+							bulletPoints1: [
+								attributedStringWithBoldText(text: AppStrings.HealthCertificate.Reissuance.Consent.legalBullet1),
+								attributedStringWithBoldText(text: AppStrings.HealthCertificate.Reissuance.Consent.legalBullet2)
+							],
+							subheadline2: nil
+						),
+						.bulletPoint(text: AppStrings.HealthCertificate.Reissuance.Consent.bulletPoint_1),
+						.bulletPoint(text: AppStrings.HealthCertificate.Reissuance.Consent.bulletPoint_2),
+						.space(height: 8.0),
+						faqLinkDynamicCell,
+						.space(height: 8.0)
+					]
+					.compactMap({ $0 })
+				)
+			)
+			$0.add(
 				.section(
 					separators: .all,
 					cells: [
@@ -96,8 +112,8 @@ final class HealthCertificateReissuanceConsentViewModel {
 						)
 					]
 				)
-			]
-		)
+			)
+		}
 	}
 
 	func markCertificateReissuanceAsSeen() {
@@ -105,6 +121,7 @@ final class HealthCertificateReissuanceConsentViewModel {
 	}
 
 	func submit(completion: @escaping (Result<Void, HealthCertificateReissuanceError>) -> Void) {
+		/*
 		Log.info("Submit certificate for reissuance...", log: .vaccination)
 
 		#if DEBUG
@@ -192,12 +209,13 @@ final class HealthCertificateReissuanceConsentViewModel {
 				}
 			}
 			.store(in: &subscriptions)
+		 */
 	}
 
 	// MARK: - Private
 
 	private let cclService: CCLServable
-	private let certificate: HealthCertificate
+	private let certificates: [HealthCertificate]
 	private let certifiedPerson: HealthCertifiedPerson
 	private let onDisclaimerButtonTap: () -> Void
 	private let appConfigProvider: AppConfigurationProviding
@@ -221,6 +239,17 @@ final class HealthCertificateReissuanceConsentViewModel {
 		return NSMutableAttributedString(string: "\(text)", attributes: boldTextAttribute)
 	}
 
+	private var listTitleDynamicCell: DynamicCell? {
+		guard let listTitle = certifiedPerson.dccWalletInfo?.certificateReissuance?.reissuanceDivision.listTitleText?.localized(cclService: cclService) else {
+			Log.info("listTitle missing")
+			return nil
+		}
+		return DynamicCell.body(text: listTitle, color: .enaColor(for: .textPrimary2)) { _, cell, _ in
+			cell.contentView.preservesSuperviewLayoutMargins = false
+			cell.contentView.layoutMargins = .zero
+		}
+	}
+	
 	private var titleDynamicCell: DynamicCell? {
 		guard let title = certifiedPerson.dccWalletInfo?.certificateReissuance?.reissuanceDivision.titleText?.localized(cclService: cclService) else {
 			Log.info("title missing")
@@ -230,11 +259,19 @@ final class HealthCertificateReissuanceConsentViewModel {
 	}
 
 	private var subtitleDynamicCell: DynamicCell? {
-		guard let subtitle = certifiedPerson.dccWalletInfo?.certificateReissuance?.reissuanceDivision.subtitleText?.localized(cclService: cclService) else {
-			Log.info("subtitle missing")
+		if let consentSubtitleText = certifiedPerson.dccWalletInfo?.certificateReissuance?.reissuanceDivision.consentSubtitleText?.localized(cclService: cclService) {
+			return DynamicCell.subheadline(text: consentSubtitleText, color: .enaColor(for: .textPrimary2)) { _, cell, _ in
+				cell.contentView.preservesSuperviewLayoutMargins = false
+				cell.contentView.layoutMargins = .zero
+			}
+		} else if let subtitle = certifiedPerson.dccWalletInfo?.certificateReissuance?.reissuanceDivision.subtitleText?.localized(cclService: cclService) {
+			return DynamicCell.subheadline(text: subtitle, color: .enaColor(for: .textPrimary2)) { _, cell, _ in
+				cell.contentView.preservesSuperviewLayoutMargins = false
+				cell.contentView.layoutMargins = .zero
+			}
+		} else {
 			return nil
 		}
-		return DynamicCell.subheadline(text: subtitle, color: .enaColor(for: .textPrimary2))
 	}
 
 	private var longTextDynamicCell: DynamicCell? {

@@ -150,6 +150,10 @@ final class HealthCertifiedPersonCoordinator {
 	private func showCertificateReissuanceFlow(
 		for person: HealthCertifiedPerson
 	) {
+		guard let dccCertificateReissuance = person.dccWalletInfo?.certificateReissuance, !dccCertificateReissuance.certificates.isEmpty else {
+			Log.error("CertificateReissuance not found or certificates are empty - stop here")
+			return
+		}
 
 		reissuanceCoordinator = HealthCertificateReissuanceCoordinator(
 			parentViewController: navigationController,
@@ -157,8 +161,7 @@ final class HealthCertifiedPersonCoordinator {
 			restServiceProvider: restServiceProvider,
 			appConfigProvider: appConfigProvider,
 			healthCertifiedPerson: person,
-			// TODO should be updated in EXPOSUREAPP-12922 to pass an array of certificates
-			healthCertificate: certificate,
+			certificateReissuance: dccCertificateReissuance,
 			cclService: cclService
 		)
 

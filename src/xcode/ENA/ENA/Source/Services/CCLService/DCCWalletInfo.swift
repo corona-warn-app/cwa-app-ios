@@ -78,13 +78,14 @@ struct DCCCertificateContainer: Codable, Equatable {
 
 	let certificateRef: DCCCertificateReference
 
-}
+ }
 
 struct DCCCertificateContainerExtended: Codable, Equatable {
 
-	let certificateToReissue: DCCCertificateReference
-	let accompanyingCertificates: [DCCCertificateReference]
+	let certificateToReissue: DCCCertificateContainer
+	let accompanyingCertificates: [DCCCertificateContainer]
 	let action: String
+
 }
 
 struct DCCVerification: Codable, Equatable {
@@ -109,7 +110,12 @@ struct DCCCertificateReference: Codable, Equatable {
 struct DCCCertificateReissuance: Codable, Equatable {
 
 	let reissuanceDivision: DCCCertificateReissuanceDivision
- 	let certificates: [DCCCertificateContainerExtended]?
+	// legacy from CCL config-v2
+	let certificateToReissue: DCCCertificateContainer?
+	// legacy from CCL config-v2
+	let accompanyingCertificates: [DCCCertificateContainer]?
+	let certificates: [DCCCertificateContainerExtended]
+
 }
 
 struct DCCCertificateReissuanceDivision: Codable, Equatable {
@@ -119,5 +125,8 @@ struct DCCCertificateReissuanceDivision: Codable, Equatable {
 	let subtitleText: DCCUIText?
 	let longText: DCCUIText?
 	let faqAnchor: String?
+	let identifier: String?
+	let listTitleText: DCCUIText?
+	let consentSubtitleText: DCCUIText?
 
 }
