@@ -16,7 +16,7 @@ class CachedRestService: Service {
 
 	required init(
 		environment: EnvironmentProviding = Environments(),
-		optionalSession: URLSession? = nil
+		session: URLSession? = nil
 	) {
 		fatalError("CachedRestService cannot be used without a cache. Please use the other init and provide a cache.")
 	}

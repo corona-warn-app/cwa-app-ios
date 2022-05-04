@@ -20,9 +20,9 @@ class RestServiceProvider: RestServiceProviding {
 		self.environment = environment
 		self.optionalSession = session
 
-		self.standardRestService = StandardRestService(environment: environment, optionalSession: session)
+		self.standardRestService = StandardRestService(environment: environment, session: session)
 		self.cachedRestService = CachedRestService(environment: environment, session: session, cache: cache)
-		self.wifiOnlyRestService = WifiOnlyRestService(environment: environment, optionalSession: session)
+		self.wifiOnlyRestService = WifiOnlyRestService(environment: environment, session: session)
 	}
 
 	func load<R>(

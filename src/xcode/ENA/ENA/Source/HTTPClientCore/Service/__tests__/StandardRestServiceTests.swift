@@ -19,7 +19,7 @@ class StandardRestServiceTests: XCTestCase {
 		)
 		
 		let standardService = StandardRestService(
-			optionalSession: stack.urlSession
+			session: stack.urlSession
 		)
 		
 		let resource = ResourceFake(defaultModel: dummyModel)

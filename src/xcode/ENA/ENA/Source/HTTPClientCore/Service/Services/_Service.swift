@@ -17,7 +17,7 @@ protocol Service: AnyObject {
 
 	init(
 		environment: EnvironmentProviding,
-		optionalSession: URLSession?
+		session: URLSession?
 	)
 
 	var session: URLSession { get }

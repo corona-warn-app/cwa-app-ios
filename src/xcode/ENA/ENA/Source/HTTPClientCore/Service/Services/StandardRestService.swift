@@ -15,10 +15,10 @@ class StandardRestService: Service {
 
 	required init(
 		environment: EnvironmentProviding = Environments(),
-		optionalSession: URLSession? = nil
+		session: URLSession? = nil
 	) {
 		self.environment = environment
-		self.optionalSession = optionalSession
+		self.optionalSession = session
 	}
 
 	// MARK: - Protocol Service
