@@ -4,7 +4,6 @@
 
 import Foundation
 
-
 struct TeleTanResource: Resource {
 
 	// MARK: - Init
