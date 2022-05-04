@@ -5,6 +5,9 @@
 import UIKit
 import OpenCombine
 
+// Just a dummy protocol to compare TopBottomContainerViewController without the generics
+protocol ComparableTopBottomContainerViewControlling {}
+
 protocol FooterViewUpdating {
 	var footerViewHandler: FooterViewHandling? { get }
 
@@ -16,7 +19,7 @@ protocol FooterViewUpdating {
 
 /** a simple container view controller to combine to view controllers vertically (top / bottom) */
 
-class TopBottomContainerViewController<TopViewController: UIViewController, BottomViewController: UIViewController>: UIViewController, DismissHandling, FooterViewUpdating {
+class TopBottomContainerViewController<TopViewController: UIViewController, BottomViewController: UIViewController>: UIViewController, ComparableTopBottomContainerViewControlling, DismissHandling, FooterViewUpdating {
 
 	// MARK: - Init
 

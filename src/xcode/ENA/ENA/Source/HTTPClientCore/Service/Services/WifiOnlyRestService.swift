@@ -12,10 +12,10 @@ class WifiOnlyRestService: Service {
 
 	required init(
 		environment: EnvironmentProviding = Environments(),
-		optionalSession: URLSession? = nil
+		session: URLSession? = nil
 	) {
 		self.environment = environment
-		self.session = Self.makeSession(wifiOnly: true, optionalSession: optionalSession)
+		self.session = Self.makeSession(wifiOnly: true, optionalSession: session)
 	}
 
 	// MARK: - Protocol Service
