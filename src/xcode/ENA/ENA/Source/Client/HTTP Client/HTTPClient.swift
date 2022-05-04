@@ -717,59 +717,6 @@ final class HTTPClient: Client {
 
 private extension URLRequest {
 
-	static func keySubmissionRequest(
-		configuration: HTTPClient.Configuration,
-		payload: SubmissionPayload,
-		isFake: Bool
-	) throws -> URLRequest {
-		// construct the request
-		let submPayload = SAP_Internal_SubmissionPayload.with {
-			$0.requestPadding = self.getSubmissionPadding(for: payload.exposureKeys)
-			$0.keys = payload.exposureKeys
-			$0.checkIns = payload.checkins
-			/// Consent needs always set to be true
-			$0.consentToFederation = true
-			$0.visitedCountries = payload.visitedCountries.map { $0.id }
-			$0.submissionType = payload.submissionType
-			$0.checkInProtectedReports = payload.checkinProtectedReports
-		}
-		let payloadData = try submPayload.serializedData()
-		let url = configuration.submissionURL
-		var request = URLRequest(url: url)
-
-		// headers
-		request.setValue(
-			payload.tan,
-			// TAN code associated with this diagnosis key submission.
-			forHTTPHeaderField: "cwa-authorization"
-		)
-		
-		request.setValue(
-			isFake ? "1" : "0",
-			// Requests with a value of "0" will be fully processed.
-			// Any other value indicates that this request shall be
-			// handled as a fake request." ,
-			forHTTPHeaderField: "cwa-fake"
-		)
-		
-		// Add header padding for the GUID, in case it is
-		// a fake request, otherwise leave empty.
-		request.setValue(
-			isFake ? String.getRandomString(of: 36) : "",
-			forHTTPHeaderField: "cwa-header-padding"
-		)
-		
-		request.setValue(
-			"application/x-protobuf",
-			forHTTPHeaderField: "Content-Type"
-		)
-		
-		request.httpMethod = HttpMethod.post
-		request.httpBody = payloadData
-		
-		return request
-	}
-	
 	static func onBehalfCheckinSubmissionRequest(
 		configuration: HTTPClient.Configuration,
 		payload: SubmissionPayload,
