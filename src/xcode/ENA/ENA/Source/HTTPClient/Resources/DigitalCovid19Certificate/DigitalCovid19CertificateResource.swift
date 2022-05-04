@@ -15,7 +15,7 @@ struct DigitalCovid19CertificateResource: Resource {
 			publicKeyHash: Environments().currentEnvironment().pinningKeyHashData
 		)
 	) {
-		self.locator = .digitalCovid19Certificate(isFake: false)
+		self.locator = .digitalCovid19Certificate(isFake: isFake)
 		self.type = .default
 		self.sendResource = PaddingJSONSendResource<DigitalCovid19CertificateSendModel>(sendModel)
 		self.receiveResource = JSONReceiveResource<DigitalCovid19CertificateReceiveModel>()
