@@ -240,7 +240,7 @@ final class HealthCertificateReissuanceConsentViewModel {
 	}
 
 	private var listTitleDynamicCell: DynamicCell? {
-		guard let listTitle = certifiedPerson.dccWalletInfo?.certificateReissuance?.reissuanceDivision.titleText?.localized(cclService: cclService) else {
+		guard let listTitle = certifiedPerson.dccWalletInfo?.certificateReissuance?.reissuanceDivision.listTitleText?.localized(cclService: cclService) else {
 			Log.info("listTitle missing")
 			return nil
 		}
