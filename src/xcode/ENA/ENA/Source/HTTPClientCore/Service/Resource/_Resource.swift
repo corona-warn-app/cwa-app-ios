@@ -32,8 +32,6 @@ protocol Resource {
 	// resource identifier
 	static var identifier: String { get }
 
-	func useFallBack(_ statusCode: Int) -> Bool
-
 	func customError(for error: ServiceError<CustomError>, responseBody: Data?) -> CustomError?
 	
 #if !RELEASE
@@ -67,14 +65,6 @@ extension Resource {
 	// default implementation to create an identifier for resource
 	static var identifier: String {
 		return String(describing: self)
-	}
-
-	// if no default model range is give we always use the default model
-	func useFallBack(_ statusCode: Int) -> Bool {
-		if defaultModelRange.isEmpty {
-			return true
-		}
-		return defaultModelRange.contains(statusCode)
 	}
 
 	func customError(for error: ServiceError<CustomError>, responseBody: Data?) -> CustomError? {
