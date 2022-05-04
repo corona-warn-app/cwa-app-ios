@@ -6313,7 +6313,7 @@
 				50CDFB2527BE82C700FE0793 /* DCCReissuance */,
 				ABD430E127FAF6680063666C /* DCCRevocation */,
 				50BC902C279EEA670000C930 /* DCCRules */,
-				BAE11F5128217D3300CA2790 /* FetchDayResource */,
+				BAE11F5128217D3300CA2790 /* FetchDay */,
 				BA8D5720281FF6FA008209C8 /* FetchHour */,
 				50BC9032279EEBC20000C930 /* RegistrationToken */,
 				50BC9040279EECEB0000C930 /* ServiceIdentityDocument */,
@@ -10055,7 +10055,7 @@
 			path = __tests__;
 			sourceTree = "<group>";
 		};
-		BAE11F5128217D3300CA2790 /* FetchDayResource */ = {
+		BAE11F5128217D3300CA2790 /* FetchDay */ = {
 			isa = PBXGroup;
 			children = (
 				BAE11F5C2821894F00CA2790 /* __tests_ */,
@@ -10063,7 +10063,7 @@
 				BAE11F5428217E1E00CA2790 /* FetchDayResource.swift */,
 				BAE11F5628217F0100CA2790 /* FetchDaysServiceHelper.swift */,
 			);
-			path = FetchDayResource;
+			path = FetchDay;
 			sourceTree = "<group>";
 		};
 		BAE11F5C2821894F00CA2790 /* __tests_ */ = {
