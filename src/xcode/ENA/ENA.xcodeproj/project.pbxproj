@@ -1543,7 +1543,6 @@
 		BA8D5726282001E0008209C8 /* PackageDownloadReceiveResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA8D5725282001E0008209C8 /* PackageDownloadReceiveResource.swift */; };
 		BA8D572828201256008209C8 /* FetchHoursServiceHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA8D572728201256008209C8 /* FetchHoursServiceHelper.swift */; };
 		BA8D572B28201542008209C8 /* FetchHourTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA8D572A28201542008209C8 /* FetchHourTests.swift */; };
-		BA8D572D28202787008209C8 /* FetchHourRetryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA8D572C28202787008209C8 /* FetchHourRetryTests.swift */; };
 		BA904C9E25769D1800692110 /* TanInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA904C9D25769D1800692110 /* TanInputView.swift */; };
 		BA904CA62576A0B900692110 /* ENAInputLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA904CA52576A0B900692110 /* ENAInputLabel.swift */; };
 		BA91611D27ECD3190076BC6B /* FamilyTestsHomeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA91611C27ECD3190076BC6B /* FamilyTestsHomeCell.swift */; };
@@ -1652,7 +1651,6 @@
 		BAE11F5728217F0100CA2790 /* FetchDaysServiceHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAE11F5628217F0100CA2790 /* FetchDaysServiceHelper.swift */; };
 		BAE11F5B2821807700CA2790 /* ClientMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD678F6C246C43EE00B6A0F8 /* ClientMock.swift */; };
 		BAE11F5E2821896D00CA2790 /* FetchDayTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAE11F5D2821896D00CA2790 /* FetchDayTests.swift */; };
-		BAE11F60282189BA00CA2790 /* FetchDayRetryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAE11F5F282189BA00CA2790 /* FetchDayRetryTests.swift */; };
 		BAE20FF325C8321300162966 /* DMKeyValueTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAE20FF125C8321300162966 /* DMKeyValueTableViewCell.swift */; };
 		BAE2101025C8460900162966 /* PPACDeviceCheck.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAE2100125C83E4400162966 /* PPACDeviceCheck.swift */; };
 		BAE2101B25C8463400162966 /* PPACDeviceCheckMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAE2101A25C8463400162966 /* PPACDeviceCheckMock.swift */; };
@@ -3376,7 +3374,6 @@
 		BA8D5725282001E0008209C8 /* PackageDownloadReceiveResource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackageDownloadReceiveResource.swift; sourceTree = "<group>"; };
 		BA8D572728201256008209C8 /* FetchHoursServiceHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchHoursServiceHelper.swift; sourceTree = "<group>"; };
 		BA8D572A28201542008209C8 /* FetchHourTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchHourTests.swift; sourceTree = "<group>"; };
-		BA8D572C28202787008209C8 /* FetchHourRetryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchHourRetryTests.swift; sourceTree = "<group>"; };
 		BA904C9D25769D1800692110 /* TanInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TanInputView.swift; sourceTree = "<group>"; };
 		BA904CA52576A0B900692110 /* ENAInputLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ENAInputLabel.swift; sourceTree = "<group>"; };
 		BA91611C27ECD3190076BC6B /* FamilyTestsHomeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FamilyTestsHomeCell.swift; sourceTree = "<group>"; };
@@ -3481,7 +3478,6 @@
 		BAE11F5428217E1E00CA2790 /* FetchDayResource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchDayResource.swift; sourceTree = "<group>"; };
 		BAE11F5628217F0100CA2790 /* FetchDaysServiceHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchDaysServiceHelper.swift; sourceTree = "<group>"; };
 		BAE11F5D2821896D00CA2790 /* FetchDayTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchDayTests.swift; sourceTree = "<group>"; };
-		BAE11F5F282189BA00CA2790 /* FetchDayRetryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchDayRetryTests.swift; sourceTree = "<group>"; };
 		BAE20FF125C8321300162966 /* DMKeyValueTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMKeyValueTableViewCell.swift; sourceTree = "<group>"; };
 		BAE2100125C83E4400162966 /* PPACDeviceCheck.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PPACDeviceCheck.swift; sourceTree = "<group>"; };
 		BAE2101A25C8463400162966 /* PPACDeviceCheckMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PPACDeviceCheckMock.swift; sourceTree = "<group>"; };
@@ -9570,7 +9566,6 @@
 		BA8D572928201511008209C8 /* __tests__ */ = {
 			isa = PBXGroup;
 			children = (
-				BA8D572C28202787008209C8 /* FetchHourRetryTests.swift */,
 				BA8D572A28201542008209C8 /* FetchHourTests.swift */,
 			);
 			path = __tests__;
@@ -10070,7 +10065,6 @@
 			isa = PBXGroup;
 			children = (
 				BAE11F5D2821896D00CA2790 /* FetchDayTests.swift */,
-				BAE11F5F282189BA00CA2790 /* FetchDayRetryTests.swift */,
 			);
 			path = __tests_;
 			sourceTree = "<group>";
@@ -12088,7 +12082,6 @@
 				AB1885D825238DD100D39BBE /* OnboardingInfoViewControllerTests.swift in Sources */,
 				B16177E824802F9B006E435A /* DownloadedPackagesSQLLiteStoreTests.swift in Sources */,
 				B1175216248A9F9600C3325C /* ConvertingKeysTests.swift in Sources */,
-				BA8D572D28202787008209C8 /* FetchHourRetryTests.swift in Sources */,
 				AB536A1F27D64D2400992D69 /* GetWalletInfoInputTests.swift in Sources */,
 				EBD2D0A725A86C68006E4220 /* MockRiskProvider.swift in Sources */,
 				B10F9B8B249961BC00C418F4 /* DynamicTypeLabelTests.swift in Sources */,
@@ -12102,7 +12095,6 @@
 				ABE06E99261D958A00D98E1B /* TraceLocationTests.swift in Sources */,
 				502AB79926E64E5B00536DD2 /* NotificationManagerTests.swift in Sources */,
 				01B605CE258A38330093DB8E /* DiaryEntryTest.swift in Sources */,
-				BAE11F60282189BA00CA2790 /* FetchDayRetryTests.swift in Sources */,
 				BA821E9326B41F81008DA362 /* ValidationStateServiceTests.swift in Sources */,
 				BAE11F5E2821896D00CA2790 /* FetchDayTests.swift in Sources */,
 				AB68884225DACD8C00907465 /* MigrationStub.swift in Sources */,

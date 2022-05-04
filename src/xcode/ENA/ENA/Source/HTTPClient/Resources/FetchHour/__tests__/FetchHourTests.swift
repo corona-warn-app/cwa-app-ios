@@ -58,7 +58,7 @@ class FetchHourTests: CWATestCase {
 			defer { expectation.fulfill() }
 			switch result {
 			case .success:
-				XCTFail("request succeeded expected")
+				XCTFail("request succeeded unexpected")
 			case let .failure(error):
 				guard error == .invalidResponse else {
 					XCTFail("wrong error given, invalidResponse expected")
