@@ -37,6 +37,7 @@ struct AllowListResource: Resource {
 	var type: ServiceType
 	var sendResource: EmptySendResource
 	var receiveResource: ProtobufReceiveResource<SAP_Internal_Dgc_ValidationServiceAllowlist>
+
 	
 	// Tech spec says that the default is an empty set
 	var defaultModel: SAP_Internal_Dgc_ValidationServiceAllowlist? {

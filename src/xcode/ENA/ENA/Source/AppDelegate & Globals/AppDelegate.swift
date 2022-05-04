@@ -896,6 +896,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 
 	private func showUI() {
 		coordinator.showLoadingScreen()
+
+		appLaunchedFromUserActivityURL = false
+		didSetupUI = true
 		
 		cclService.setup { [weak self] in
 			guard let self = self else {
@@ -917,8 +920,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 							self.showOnboarding()
 						}
 
-						self.appLaunchedFromUserActivityURL = false
-						self.didSetupUI = true
 						self.route = nil
 
 						self.healthCertificateService.updateRevocationStates()
