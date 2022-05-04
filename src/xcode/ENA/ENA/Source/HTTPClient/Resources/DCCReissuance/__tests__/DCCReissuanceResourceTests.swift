@@ -391,6 +391,7 @@ final class DCCReissuanceResourceTests: CWATestCase {
 				"one"
 			]
 		)
+
 		let resource = DCCReissuanceResource(
 			sendModel: sendModel,
 			trustEvaluation: .fake()

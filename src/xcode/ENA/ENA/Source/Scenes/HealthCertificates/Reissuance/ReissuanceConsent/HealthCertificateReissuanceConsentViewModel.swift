@@ -155,13 +155,13 @@ final class HealthCertificateReissuanceConsentViewModel {
 				}
 				
 				for certificate in currentCertificates {
-					guard let certificateToReissue = certificate.certificateToReissue.barcodeData else {
+					guard let certificateToReissue = certificate.certificateToReissue.certificateRef.barcodeData else {
 						completion(.failure(.certificateToReissueMissing))
 						Log.error("Certificate reissuance failed: certificateToReissue.barcodeData is nil", log: .vaccination)
 						return
 					}
 					
-					let accompanyingCertificates = certificate.accompanyingCertificates.compactMap { $0.barcodeData }
+					let accompanyingCertificates = certificate.accompanyingCertificates.compactMap { $0.certificateRef.barcodeData }
 					
 					let certificates = [certificateToReissue] + accompanyingCertificates
 					let sendModel = DCCReissuanceSendModel(action: certificate.action, certificates: certificates)
