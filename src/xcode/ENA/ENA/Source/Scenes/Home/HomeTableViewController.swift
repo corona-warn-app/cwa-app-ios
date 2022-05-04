@@ -119,7 +119,7 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 		tableView.backgroundColor = .enaColor(for: .darkBackground)
 
 		NotificationCenter.default.addObserver(self, selector: #selector(refreshUIAfterResumingFromBackground), name: UIApplication.willEnterForegroundNotification, object: nil)
-		NotificationCenter.default.addObserver(self, selector: #selector(refreshUI), name: NSNotification.Name.NSCalendarDayChanged, object: nil)
+		NotificationCenter.default.addObserver(self, selector: #selector(updateStatistics), name: NSNotification.Name.NSCalendarDayChanged, object: nil)
 
 		refreshUI()
 	}
@@ -1015,7 +1015,6 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 		showDeltaOnboardingAndAlertsIfNeeded()
 	}
 	
-	@objc
 	private func refreshUI() {
 		Log.info("Refresh UI.")
 
@@ -1024,5 +1023,15 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 			self?.viewModel.state.updateStatistics()
 		}
 	}
+
+	@objc
+	private func updateStatistics() {
+		Log.info("Update statistics")
+
+		DispatchQueue.main.async { [weak self] in
+			self?.viewModel.state.updateStatistics()
+		}
+	}
+
 	// swiftlint:disable:next file_length
 }
