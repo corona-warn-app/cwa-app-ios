@@ -10,7 +10,6 @@ protocol Client {
 	// MARK: Types
 
 	typealias Failure = URLSession.Response.Failure
-	typealias KeySubmissionResponse = (Result<Void, SubmissionError>) -> Void
 	typealias AvailableDaysCompletionHandler = (Result<[String], Failure>) -> Void
 	typealias AvailableHoursCompletionHandler = (Result<[Int], Failure>) -> Void
 	typealias TestResultHandler = (Result<FetchTestResultResponse, Failure>) -> Void
@@ -46,19 +45,6 @@ protocol Client {
 		_ day: String,
 		forCountry country: String,
 		completion: @escaping DayCompletionHandler
-	)
-
-	// MARK: Submit keys
-	
-	/// Submits Checkins to the backend on behalf.
-	/// - Parameters:
-	///   - payload: A set of properties to provide during the submission process
-	///   - isFake: flag to indicate a fake request
-	///   - completion: the completion handler of the submission call
-	func submitOnBehalf(
-		payload: SubmissionPayload,
-		isFake: Bool,
-		completion: @escaping KeySubmissionResponse
 	)
 	
 	// MARK: OTP Authorization
@@ -172,15 +158,6 @@ protocol Client {
 	
 }
 
-enum SubmissionError: Error, Equatable {
-	case other(URLSession.Response.Failure)
-	case invalidPayloadOrHeaders
-	case invalidTan
-	case serverError(Int)
-	case requestCouldNotBeBuilt
-	case simpleError(String)
-}
-
 // Do not edit this cases as they are decoded as they are from the server.
 enum PPAServerErrorCode: String, Codable {
 	case API_TOKEN_ALREADY_ISSUED
@@ -196,25 +173,6 @@ enum PPAServerErrorCode: String, Codable {
 	case JWS_SIGNATURE_VERIFICATION_FAILED
 	case NONCE_MISMATCH
 	case SALT_REDEEMED
-}
-
-extension SubmissionError: LocalizedError {
-	var localizedDescription: String {
-		switch self {
-		case let .serverError(code):
-			return "\(AppStrings.ExposureSubmissionError.other)\(code)\(AppStrings.ExposureSubmissionError.otherend)"
-		case .invalidPayloadOrHeaders:
-			return "Received an invalid payload or headers."
-		case .invalidTan:
-			return AppStrings.ExposureSubmissionError.invalidTan
-		case .requestCouldNotBeBuilt:
-			return "The submission request could not be built correctly."
-		case let .simpleError(errorString):
-			return errorString
-		case let .other(error):
-			return error.localizedDescription
-		}
-	}
 }
 
 struct FetchTestResultResponse: Codable {

@@ -4,7 +4,7 @@
 
 import Foundation
 
-enum KeySubmissionResourceError: LocalizedError, Equatable {
+enum OnBehalfSubmissionResourceError: LocalizedError, Equatable {
 	case invalidPayloadOrHeaders
 	case invalidTan
 	case requestCouldNotBeBuilt
@@ -24,7 +24,7 @@ enum KeySubmissionResourceError: LocalizedError, Equatable {
 	}
 }
 
-struct KeySubmissionResource: Resource {
+struct OnBehalfSubmissionResource: Resource {
 
 	init(
 		payload: SubmissionPayload,
@@ -33,7 +33,7 @@ struct KeySubmissionResource: Resource {
 			publicKeyHash: Environments().currentEnvironment().pinningKeyHashData
 		)
 	) {
-		self.locator = .keySubmission(payload: payload, isFake: isFake)
+		self.locator = .submitOnBehalf(payload: payload, isFake: isFake)
 		self.type = .default
 		self.receiveResource = EmptyReceiveResource()
 		self.trustEvaluation = trustEvaluation
@@ -41,11 +41,8 @@ struct KeySubmissionResource: Resource {
 		self.sendResource = ProtobufSendResource(
 			SAP_Internal_SubmissionPayload.with {
 				$0.requestPadding = payload.exposureKeys.submissionPadding
-				$0.keys = payload.exposureKeys
 				$0.checkIns = payload.checkins
-				// Consent needs always set to be true
-				$0.consentToFederation = true
-				$0.visitedCountries = payload.visitedCountries.map { $0.id }
+				$0.consentToFederation = false
 				$0.submissionType = payload.submissionType
 				$0.checkInProtectedReports = payload.checkinProtectedReports
 			}
@@ -61,7 +58,7 @@ struct KeySubmissionResource: Resource {
 	var sendResource: ProtobufSendResource<SAP_Internal_SubmissionPayload>
 	var receiveResource: EmptyReceiveResource
 
-	func customError(for error: ServiceError<KeySubmissionResourceError>, responseBody: Data?) -> KeySubmissionResourceError? {
+	func customError(for error: ServiceError<OnBehalfSubmissionResourceError>, responseBody: Data?) -> OnBehalfSubmissionResourceError? {
 		switch error {
 		case .invalidRequestError:
 			return .requestCouldNotBeBuilt
@@ -78,5 +75,5 @@ struct KeySubmissionResource: Resource {
 			return nil
 		}
 	}
-	
+
 }
