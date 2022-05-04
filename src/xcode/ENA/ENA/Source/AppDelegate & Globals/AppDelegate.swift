@@ -703,6 +703,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		coronaTestService.updatePublishersFromStore()
 		familyMemberCoronaTestService.updatePublishersFromStore()
 		healthCertificateService.updatePublishersFromStore()
+		healthCertificateRequestService.updatePublishersFromStore()
 	}
 
 	// MARK: - Protocol ExposureStateUpdating
