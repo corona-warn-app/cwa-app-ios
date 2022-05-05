@@ -18,8 +18,8 @@ final class ClientMock {
 	///		- urlRequestFailure: when set, calls (see above) will fail with this error
 	init(
 		downloadedPackage: PackageDownloadResponse? = nil,
-		availablePackageRequestFailure: Client.Failure? = nil,
-		fetchPackageRequestFailure: Client.Failure? = nil
+		availablePackageRequestFailure: URLSession.Response.Failure? = nil,
+		fetchPackageRequestFailure: URLSession.Response.Failure? = nil
 	) {
 		self.downloadedPackage = downloadedPackage
 		self.availablePackageRequestFailure = availablePackageRequestFailure
