@@ -6059,6 +6059,7 @@
 		50AF181D27A2E5E000BAA9DB /* HTTPClient */ = {
 			isa = PBXGroup;
 			children = (
+				BAA777902823FFDC00259EE8 /* __tests__ */,
 				BAF640EF26DFA08E00B3A18E /* LocatorsNotYetUsed */,
 				50BC9046279EEE530000C930 /* Resources */,
 			);
@@ -9661,6 +9662,13 @@
 				BADD36DE260B4FBA00DD282A /* EditCheckInTime */,
 			);
 			path = Checkin;
+			sourceTree = "<group>";
+		};
+		BAA777902823FFDC00259EE8 /* __tests__ */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = __tests__;
 			sourceTree = "<group>";
 		};
 		BAA8558927C82A7800D0EA26 /* __tests__ */ = {
