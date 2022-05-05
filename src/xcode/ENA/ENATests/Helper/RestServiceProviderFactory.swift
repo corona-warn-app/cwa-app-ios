@@ -9,11 +9,17 @@ import UIKit
 
 extension RestServiceProviding where Self == RestServiceProviderStub {
 
-	static var exposureSubmissionServiceProvider: RestServiceProviderStub {
+	static var registrationTokenServiceProvider: RestServiceProviderStub {
 		RestServiceProviderStub(results: [
 			.success(
 				RegistrationTokenReceiveModel(submissionTAN: "registrationToken")
 			)
+		])
+	}
+	
+	static var exposureSubmissionServiceProvider: RestServiceProviderStub {
+		RestServiceProviderStub(results: [
+			.success(())
 		])
 	}
 
