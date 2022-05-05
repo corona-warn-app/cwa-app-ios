@@ -140,6 +140,13 @@ class HealthCertificateRequestService {
 		}
 	}
 
+	func updatePublishersFromStore() {
+		Log.info("[HealthCertificateService] Updating publishers from store", log: .api)
+
+		testCertificateRequests = store.testCertificateRequests
+		initialTestCertificateRequestsReadFromStore = true
+	}
+
 	// MARK: - Private
 
 	private let store: HealthCertificateStoring
@@ -156,13 +163,6 @@ class HealthCertificateRequestService {
 	private func setup() {
 		updatePublishersFromStore()
 		subscribeToNotifications()
-	}
-
-	private func updatePublishersFromStore() {
-		Log.info("[HealthCertificateService] Updating publishers from store", log: .api)
-
-		testCertificateRequests = store.testCertificateRequests
-		initialTestCertificateRequestsReadFromStore = true
 	}
 
 	private func updateTestCertificateRequestSubscriptions(for testCertificateRequests: [TestCertificateRequest]) {
