@@ -22,61 +22,6 @@ final class HTTPClientDaysAndHoursTests: CWATestCase {
 		return [key]
 	}
 
-	func testAvailableDays_Success() {
-		let stack = MockNetworkStack(
-			httpStatus: 200,
-			responseData: Data("[\"2020-05-01\", \"2020-05-02\"]".utf8)
-		)
-
-		let expectation = self.expectation(
-			description: "expect successful result"
-		)
-
-		let restServiceProvider = RestServiceProvider(session: stack.urlSession, cache: KeyValueCacheFake())
-		let resource = AvailableDaysResource(country: "IT")
-
-		restServiceProvider.load(resource) { result in
-			switch result {
-			case let .success(days):
-				XCTAssertEqual(
-					days,
-					["2020-05-01", "2020-05-02"]
-				)
-				expectation.fulfill()
-			case let .failure(error):
-				XCTFail("a valid response should never yiled an error like \(error)")
-			}
-		}
-		waitForExpectations(timeout: .medium)
-	}
-
-	func testAvailableDays_StatusCodeNotAccepted() {
-		let stack = MockNetworkStack(
-			httpStatus: 500,
-			responseData: Data(
-				"""
-				["2020-05-01", "2020-05-02"]
-				""".utf8
-			)
-		)
-
-		let expectation = self.expectation(
-			description: "expect error result"
-		)
-		let restServiceProvider = RestServiceProvider(session: stack.urlSession, cache: KeyValueCacheFake())
-		let resource = AvailableDaysResource(country: "IT")
-
-		restServiceProvider.load(resource) { result in
-			switch result {
-			case .success:
-				XCTFail("an invalid response should never yield success")
-			case .failure:
-				expectation.fulfill()
-			}
-		}
-		waitForExpectations(timeout: .medium)
-	}
-
 	func testFetchDay_Success() throws {
 		let url = try XCTUnwrap(Bundle(for: type(of: self)).url(forResource: "api-response-day-2020-05-16", withExtension: nil))
 		let stack = MockNetworkStack(
