@@ -8,6 +8,7 @@ import OpenCombine
 
 enum ExposureSubmissionServicePreconditionError: LocalizedError, Equatable {
 	case noCoronaTestOfGivenType
+	case noCoronaTestTypeGiven
 	case noSubmissionConsent
 	case positiveTestResultNotShown
 	case keysNotShared
