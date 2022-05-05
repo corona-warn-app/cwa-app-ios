@@ -144,16 +144,6 @@ extension HTTPClient {
 					"local_stats_\(groupID)"
 			)
 		}
-
-		var submissionURL: URL {
-			endpoints
-				.submission
-				.appending(
-					"version",
-					apiVersion,
-					"diagnosis-keys"
-			)
-		}
 		
 		var onBehalfCheckinSubmissionURL: URL {
 			endpoints

@@ -26,7 +26,6 @@ class CoronaTestRestorationHandlerTests: CWATestCase {
 		)
 
 		let service = CoronaTestService(
-			client: client,
 			store: store,
 			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
@@ -100,7 +99,6 @@ class CoronaTestRestorationHandlerTests: CWATestCase {
 		)
 
 		let service = CoronaTestService(
-			client: client,
 			store: store,
 			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
@@ -153,7 +151,6 @@ class CoronaTestRestorationHandlerTests: CWATestCase {
 		)
 
 		let service = CoronaTestService(
-			client: client,
 			store: store,
 			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),

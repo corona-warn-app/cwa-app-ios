@@ -54,12 +54,6 @@ final class BackendConfigurationTests: CWATestCase {
 			"http://localhost/dist/version/v2/app_config_ios/"
 		)
 
-		// Submission URL
-		XCTAssertEqual(
-			config.submissionURL.absoluteString,
-			"http://localhost/submit/version/v1/diagnosis-keys/"
-		)
-
 		// Available Days URL
 		XCTAssertEqual(
 				config.availableDaysURL(forCountry: "IT").absoluteString,

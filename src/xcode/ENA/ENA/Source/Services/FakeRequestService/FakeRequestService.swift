@@ -10,10 +10,8 @@ class FakeRequestService {
 	// MARK: - Init
 
 	init(
-		client: Client,
 		restServiceProvider: RestServiceProviding
 	) {
-		self.client = client
 		self.restServiceProvider = restServiceProvider
 	}
 
@@ -64,8 +62,12 @@ class FakeRequestService {
 				rawValue: Int.random(in: 0...1)
 			) ?? .pcrTest
 		)
-
-		client.submit(payload: payload, isFake: true) { _ in
+		
+		let resource = KeySubmissionResource(
+			payload: payload,
+			isFake: true
+		)
+		restServiceProvider.load(resource) { _ in
 			completion?()
 		}
 	}
@@ -87,6 +89,5 @@ class FakeRequestService {
 
 	// MARK: - Private
 
-	private let client: Client
 	private let restServiceProvider: RestServiceProviding
 }

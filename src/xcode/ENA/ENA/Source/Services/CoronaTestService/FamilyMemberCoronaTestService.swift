@@ -25,7 +25,7 @@ class FamilyMemberCoronaTestService: FamilyMemberCoronaTestServiceProviding {
 		if isUITesting {
 			self.client = ClientMock()
 			if LaunchArguments.exposureSubmission.isFetchingSubmissionTan.boolValue {
-				self.restServiceProvider = .exposureSubmissionServiceProvider
+				self.restServiceProvider = .registrationTokenServiceProvider
 			} else {
 				self.restServiceProvider = .coronaTestServiceProvider
 			}
@@ -37,7 +37,7 @@ class FamilyMemberCoronaTestService: FamilyMemberCoronaTestServiceProviding {
 			self.notificationCenter = notificationCenter
 			self.recycleBin = recycleBin
 
-			self.fakeRequestService = FakeRequestService(client: client, restServiceProvider: restServiceProvider)
+			self.fakeRequestService = FakeRequestService(restServiceProvider: restServiceProvider)
 			setup()
 
 			if LaunchArguments.familyMemberTest.fakeOverview.boolValue {
@@ -58,7 +58,7 @@ class FamilyMemberCoronaTestService: FamilyMemberCoronaTestServiceProviding {
 		self.notificationCenter = notificationCenter
 		self.recycleBin = recycleBin
 
-		self.fakeRequestService = FakeRequestService(client: client, restServiceProvider: restServiceProvider)
+		self.fakeRequestService = FakeRequestService(restServiceProvider: restServiceProvider)
 
 		healthCertificateRequestService.didRegisterTestCertificate
 			.sink { [weak self] certificateIdentifier, testCertificateRequest in
