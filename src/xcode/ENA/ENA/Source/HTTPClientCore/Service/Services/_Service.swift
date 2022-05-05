@@ -113,6 +113,7 @@ protocol Service: AnyObject {
 		_ statusCode: Int
 	) -> Bool where R: Resource
 
+#if !RELEASE
 	/// check if loading is disabled for a resource given by identifier
 	///
 	/// - Parameters:
@@ -121,5 +122,5 @@ protocol Service: AnyObject {
 	func isDisabled(
 		_ identifier: String
 	) -> Bool
-
+#endif
 }

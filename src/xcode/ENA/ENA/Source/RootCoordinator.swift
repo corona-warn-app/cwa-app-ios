@@ -429,7 +429,6 @@ class RootCoordinator: NSObject, RequiresAppDependencies, UITabBarControllerDele
 			return ENAExposureSubmissionService(
 				diagnosisKeysRetrieval: exposureManager,
 				appConfigurationProvider: CachedAppConfigurationMock(with: CachedAppConfigurationMock.screenshotConfiguration, store: store),
-				client: ClientMock(),
 				restServiceProvider: restServiceProvider,
 				store: store,
 				eventStore: eventStore,
@@ -441,7 +440,6 @@ class RootCoordinator: NSObject, RequiresAppDependencies, UITabBarControllerDele
 		return ENAExposureSubmissionService(
 			diagnosisKeysRetrieval: exposureManager,
 			appConfigurationProvider: appConfigurationProvider,
-			client: client,
 			restServiceProvider: restServiceProvider,
 			store: store,
 			eventStore: eventStore,

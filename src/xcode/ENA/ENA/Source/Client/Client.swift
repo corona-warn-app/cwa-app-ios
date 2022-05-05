@@ -9,12 +9,11 @@ import Foundation
 protocol Client {
 	// MARK: Types
 
-	typealias Failure = URLSession.Response.Failure
 	typealias KeySubmissionResponse = (Result<Void, SubmissionError>) -> Void
-	typealias AvailableHoursCompletionHandler = (Result<[Int], Failure>) -> Void
-	typealias TestResultHandler = (Result<FetchTestResultResponse, Failure>) -> Void
-	typealias TANHandler = (Result<String, Failure>) -> Void
-	typealias CountryFetchCompletion = (Result<[Country], Failure>) -> Void
+	typealias TestResultHandler = (Result<FetchTestResultResponse, URLSession.Response.Failure>) -> Void
+	typealias TANHandler = (Result<String, URLSession.Response.Failure>) -> Void
+	typealias DayCompletionHandler = (Result<PackageDownloadResponse, URLSession.Response.Failure>) -> Void
+	typealias CountryFetchCompletion = (Result<[Country], URLSession.Response.Failure>) -> Void
 	typealias OTPAuthorizationCompletionHandler = (Result<Date, OTPError>) -> Void
 	typealias PPAnalyticsSubmitionCompletionHandler = (Result<Void, PPASError>) -> Void
 	typealias TraceWarningPackageDiscoveryCompletionHandler = (Result<TraceWarningDiscovery, TraceWarningError>) -> Void
@@ -23,17 +22,6 @@ protocol Client {
 	typealias DCCRegistrationCompletionHandler = (Result<Void, DCCErrors.RegistrationError>) -> Void
 
 	// MARK: Submit keys
-
-	/// Submits exposure keys to the backend. This makes the local information available to the world so that the risk of others can be calculated on their local devices.
-	/// - Parameters:
-	///   - payload: A set of properties to provide during the submission process
-	///   - isFake: flag to indicate a fake request
-	///   - completion: the completion handler of the submission call
-	func submit(
-		payload: SubmissionPayload,
-		isFake: Bool,
-		completion: @escaping KeySubmissionResponse
-	)
 	
 	/// Submits Checkins to the backend on behalf.
 	/// - Parameters:
@@ -251,12 +239,4 @@ struct SubmissionPayload {
 	let tan: String
 
 	let submissionType: SAP_Internal_SubmissionPayload.SubmissionType
-}
-
-struct FetchedDaysAndHours {
-	let hours: HoursResult
-	let days: DaysResult
-	var allKeyPackages: [PackageDownloadResponse] {
-		Array(hours.bucketsByHour.values) + Array(days.bucketsByDay.values)
-	}
 }

@@ -18,17 +18,12 @@ final class ClientMock {
 	///		- urlRequestFailure: when set, calls (see above) will fail with this error
 	init(
 		downloadedPackage: PackageDownloadResponse? = nil,
-		submissionError: SubmissionError? = nil,
 		availablePackageRequestFailure: Client.Failure? = nil,
 		fetchPackageRequestFailure: Client.Failure? = nil
 	) {
 		self.downloadedPackage = downloadedPackage
 		self.availablePackageRequestFailure = availablePackageRequestFailure
 		self.fetchPackageRequestFailure = fetchPackageRequestFailure
-
-		if let error = submissionError {
-			onSubmitCountries = { $2(.failure(error)) }
-		}
 	}
 
 	init() {}
@@ -36,8 +31,8 @@ final class ClientMock {
 	// MARK: - Properties.
 
 	var submissionResponse: KeySubmissionResponse?
-	var availablePackageRequestFailure: Client.Failure?
-	var fetchPackageRequestFailure: Client.Failure?
+	var availablePackageRequestFailure: URLSession.Response.Failure?
+	var fetchPackageRequestFailure: URLSession.Response.Failure?
 	var downloadedPackage: PackageDownloadResponse?
 	lazy var supportedCountries: [Country] = {
 		// provide a default list of some countries
@@ -47,7 +42,6 @@ final class ClientMock {
 
 	// MARK: - Configurable Mock Callbacks.
 
-	var onSubmitCountries: ((_ payload: SubmissionPayload, _ isFake: Bool, _ completion: @escaping KeySubmissionResponse) -> Void) = { $2(.success(())) }
 	var onSubmitOnBehalf: ((_ payload: SubmissionPayload, _ isFake: Bool, _ completion: @escaping KeySubmissionResponse) -> Void) = { $2(.success(())) }
 	var onSupportedCountries: ((@escaping CountryFetchCompletion) -> Void)?
 	var onGetOTPEdus: ((String, PPACToken, Bool, @escaping OTPAuthorizationCompletionHandler) -> Void)?
@@ -74,10 +68,6 @@ extension ClientMock: Client {
 			return
 		}
 		completion(.success(downloadedPackage ?? ClientMock.dummyResponse))
-	}
-
-	func submit(payload: SubmissionPayload, isFake: Bool, completion: @escaping KeySubmissionResponse) {
-		onSubmitCountries(payload, isFake, completion)
 	}
 	
 	func submitOnBehalf(payload: SubmissionPayload, isFake: Bool, completion: @escaping KeySubmissionResponse) {
