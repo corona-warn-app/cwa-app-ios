@@ -214,6 +214,14 @@ final class DMSubmissionStateViewController: UITableViewController {
 		)
 	}
 
+	private struct FetchedDaysAndHours {
+		let hours: HoursResult
+		let days: DaysResult
+		var allKeyPackages: [PackageDownloadResponse] {
+			Array(hours.bucketsByHour.values) + Array(days.bucketsByDay.values)
+		}
+	}
+
 }
 
 private extension Data {
