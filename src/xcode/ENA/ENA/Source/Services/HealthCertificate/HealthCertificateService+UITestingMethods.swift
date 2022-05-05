@@ -256,6 +256,8 @@ extension HealthCertificateService {
 					listTitleText: listTitleText,
 					consentSubtitleText: subtitleText
 				),
+				certificateToReissue: nil,
+				accompanyingCertificates: nil,
 				certificates: [ DCCCertificateContainerExtended(
 					certificateToReissue: DCCCertificateContainer(certificateRef: DCCCertificateReference(barcodeData: certifiedPerson.healthCertificates.last?.base45 ?? "")),
 					accompanyingCertificates: [],

@@ -110,7 +110,11 @@ struct DCCCertificateReference: Codable, Equatable {
 struct DCCCertificateReissuance: Codable, Equatable {
 
 	let reissuanceDivision: DCCCertificateReissuanceDivision
-	let certificates: [DCCCertificateContainerExtended]
+	// legacy from CCL config-v2 - needed for backward compatibility
+	let certificateToReissue: DCCCertificateContainer?
+	// legacy from CCL config-v2 - needed for backward compatibility
+	let accompanyingCertificates: [DCCCertificateContainer]?
+	let certificates: [DCCCertificateContainerExtended]?
 
 }
 

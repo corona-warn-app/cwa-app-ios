@@ -246,7 +246,7 @@ final class HealthCertificateReissuanceConsentViewModel {
 		}
 		return DynamicCell.body(text: listTitle, color: .enaColor(for: .textPrimary2)) { _, cell, _ in
 			cell.contentView.preservesSuperviewLayoutMargins = false
-			cell.contentView.layoutMargins = .zero
+			cell.contentView.layoutMargins.top = 0
 		}
 	}
 	
@@ -262,12 +262,12 @@ final class HealthCertificateReissuanceConsentViewModel {
 		if let consentSubtitleText = certifiedPerson.dccWalletInfo?.certificateReissuance?.reissuanceDivision.consentSubtitleText?.localized(cclService: cclService) {
 			return DynamicCell.subheadline(text: consentSubtitleText, color: .enaColor(for: .textPrimary2)) { _, cell, _ in
 				cell.contentView.preservesSuperviewLayoutMargins = false
-				cell.contentView.layoutMargins = .zero
+				cell.contentView.layoutMargins.top = 0
 			}
 		} else if let subtitle = certifiedPerson.dccWalletInfo?.certificateReissuance?.reissuanceDivision.subtitleText?.localized(cclService: cclService) {
 			return DynamicCell.subheadline(text: subtitle, color: .enaColor(for: .textPrimary2)) { _, cell, _ in
 				cell.contentView.preservesSuperviewLayoutMargins = false
-				cell.contentView.layoutMargins = .zero
+				cell.contentView.layoutMargins.top = 0
 			}
 		} else {
 			return nil

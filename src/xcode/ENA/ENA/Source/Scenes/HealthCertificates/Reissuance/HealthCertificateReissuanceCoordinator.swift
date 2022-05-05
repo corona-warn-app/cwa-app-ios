@@ -48,7 +48,7 @@ final class HealthCertificateReissuanceCoordinator {
 	// MARK: Show Screens
 
 	private lazy var reissuanceScreen: UIViewController = {
-		let reissuanceCertificates = certificateReissuance.certificates.compactMap({
+		let reissuanceCertificates = certificateReissuance.certificates?.compactMap({
 			healthCertifiedPerson.healthCertificate(for: $0.certificateToReissue.certificateRef)
 		})
 			
@@ -57,7 +57,7 @@ final class HealthCertificateReissuanceCoordinator {
 			restServiceProvider: restServiceProvider,
 			appConfigProvider: appConfigProvider,
 			cclService: cclService,
-			certificates: reissuanceCertificates,
+			certificates: reissuanceCertificates ?? [],
 			healthCertifiedPerson: healthCertifiedPerson,
 			didTapDataPrivacy: { [weak self] in
 				self?.showDataPrivacy()

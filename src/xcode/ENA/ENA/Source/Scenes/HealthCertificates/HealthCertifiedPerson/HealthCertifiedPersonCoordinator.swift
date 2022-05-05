@@ -150,7 +150,7 @@ final class HealthCertifiedPersonCoordinator {
 	private func showCertificateReissuanceFlow(
 		for person: HealthCertifiedPerson
 	) {
-		guard let dccCertificateReissuance = person.dccWalletInfo?.certificateReissuance, !dccCertificateReissuance.certificates.isEmpty else {
+		guard let dccCertificateReissuance = person.dccWalletInfo?.certificateReissuance, let certificates = dccCertificateReissuance.certificates, !certificates.isEmpty else {
 			Log.error("CertificateReissuance not found or certificates are empty - stop here")
 			return
 		}
