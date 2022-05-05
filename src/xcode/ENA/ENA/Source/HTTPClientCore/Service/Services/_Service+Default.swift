@@ -47,12 +47,14 @@ extension Service {
 		_ completion: @escaping (Result<R.Receive.ReceiveModel, ServiceError<R.CustomError>>) -> Void
 	) where R: Resource {
 
+#if !RELEASE
 		// check if resource loading might be disabled
 		if isDisabled(R.identifier) {
 			completion(.failure(.invalidResponse))
 			return
 		}
-
+#endif
+		
 		// Check if we can interrupt loading and return directly a model wich is stored in our cache.
 		receiveModelToInterruptLoading(resource, { [weak self] result in
 			guard let self = self else {
@@ -148,10 +150,12 @@ extension Service {
 		return false
 	}
 
+#if !RELEASE
 	func isDisabled(_ identifier: String) -> Bool {
 		return false
 	}
-	
+#endif
+
 	// MARK: - Internal
 	
 	/// Before returning the original error, we look up in the resource if there is some customized error cases.

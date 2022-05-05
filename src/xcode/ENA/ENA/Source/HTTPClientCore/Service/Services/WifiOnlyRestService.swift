@@ -36,12 +36,6 @@ class WifiOnlyRestService: Service {
 		return URLSession(configuration: configuration)
 	}
 
-	private var disabled = Set<String>()
-
-	func isDisabled(_ identifier: String) -> Bool {
-		disabled.contains(identifier)
-	}
-
 #if !RELEASE
 
 	var isWifiOnlyActive: Bool {
@@ -53,6 +47,12 @@ class WifiOnlyRestService: Service {
 		} else {
 			return session.configuration.allowsCellularAccess == wifiOnlyConfiguration.allowsCellularAccess
 		}
+	}
+
+	private var disabled = Set<String>()
+
+	func isDisabled(_ identifier: String) -> Bool {
+		disabled.contains(identifier)
 	}
 
 	func updateSession(wifiOnly: Bool) {
