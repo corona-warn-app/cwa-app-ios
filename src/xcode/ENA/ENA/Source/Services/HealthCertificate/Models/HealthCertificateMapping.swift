@@ -25,7 +25,6 @@ extension HealthCertificateValidityState {
 
 extension HealthCertificate {
 	
-	
 	var dccWalletCertificate: DCCWalletCertificate {
 		DCCWalletCertificate(
 			barcodeData: base45,
