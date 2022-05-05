@@ -112,7 +112,7 @@ extension Service {
 			}
 		case .failure(let resourceError):
 			Log.error("Decoding for receive resource failed.", log: .client)
-			retryOrDefaultValueOrFailureHandling(resource, 0, .resourceError(resourceError), nil, completion)
+			retryOrDefaultValueOrFailureHandling(resource, .resourceError(resourceError), nil, completion)
 		}
 	}
 
@@ -121,7 +121,7 @@ extension Service {
 		_ completion: @escaping (Result<R.Receive.ReceiveModel, ServiceError<R.CustomError>>) -> Void
 	) where R: Resource {
 		Log.info("No caching allowed for current service.", log: .client)
-		retryOrDefaultValueOrFailureHandling(resource, 0, .resourceError(.notModified), nil, completion)
+		retryOrDefaultValueOrFailureHandling(resource, .resourceError(.notModified), nil, completion)
 	}
 
 	func resetCache<R>(
@@ -183,7 +183,7 @@ extension Service {
 	///   - completion: Swift-Result of loading. If successful, it contains the concrete object of our call.
 	func retryOrDefaultValueOrFailureHandling<R>(
 		_ resource: R,
-		_ statusCode: Int = 0,
+		statusCode: Int = 0,
 		_ error: ServiceError<R.CustomError>,
 		_ responseData: Data? = nil,
 		_ completion: @escaping (Result<R.Receive.ReceiveModel, ServiceError<R.CustomError>>) -> Void
@@ -242,7 +242,7 @@ extension Service {
 		switch urlRequest(resource.locator, resource.sendResource, resource.receiveResource) {
 		case let .failure(resourceError):
 			Log.error("Creating url request failed.", log: .client)
-			retryOrDefaultValueOrFailureHandling(resource, 0, .invalidRequestError(resourceError), nil, completion)
+			retryOrDefaultValueOrFailureHandling(resource, .invalidRequestError(resourceError), nil, completion)
 		case let .success(request):
 			// Now fetch the data from the server
 			fetchFromServer(resource, request, completion)
@@ -282,7 +282,7 @@ extension Service {
 			   let task = task,
 			   let trustEvaluationError = coronaSessionDelegate.trustEvaluations[task.taskIdentifier]?.trustEvaluationError {
 				Log.error("TrustEvaluation failed.", log: .client)
-				self.retryOrDefaultValueOrFailureHandling(resource, 0, .trustEvaluationError(trustEvaluationError), nil, completion)
+				self.retryOrDefaultValueOrFailureHandling(resource, .trustEvaluationError(trustEvaluationError), nil, completion)
 				return
 			}
 
@@ -295,14 +295,14 @@ extension Service {
 			// case we have a fake.
 			guard !resource.locator.isFake else {
 				Log.info("Fake detected no response given", log: .client)
-				self.retryOrDefaultValueOrFailureHandling(resource, 0, .fakeResponse, nil, completion)
+				self.retryOrDefaultValueOrFailureHandling(resource, .fakeResponse, nil, completion)
 				return
 			}
 
 			// case we have an invalid response.
 			guard let response = response as? HTTPURLResponse else {
 				Log.error("Invalid response.", log: .client, error: error)
-				self.retryOrDefaultValueOrFailureHandling(resource, 0, .invalidResponseType, nil, completion)
+				self.retryOrDefaultValueOrFailureHandling(resource, .invalidResponseType, nil, completion)
 				return
 			}
 
@@ -355,14 +355,14 @@ extension Service {
 		case 204:
 			guard resource.receiveResource is EmptyReceiveResource else {
 				Log.error("This is not an EmptyReceiveResource", log: .client)
-				self.retryOrDefaultValueOrFailureHandling(resource, response.statusCode, .invalidResponse, nil, completion)
+				self.retryOrDefaultValueOrFailureHandling(resource, statusCode: response.statusCode, .invalidResponse, nil, completion)
 				return
 			}
 			self.decodeModel(resource, bodyData, response.allHeaderFields, false, completion)
 		case 304:
 			self.cached(resource, completion)
 		default:
-			self.retryOrDefaultValueOrFailureHandling(resource, response.statusCode, .unexpectedServerError(response.statusCode), bodyData, completion)
+			self.retryOrDefaultValueOrFailureHandling(resource, statusCode: response.statusCode, .unexpectedServerError(response.statusCode), bodyData, completion)
 		}
 	}
 
@@ -383,7 +383,7 @@ extension Service {
 			  policies.contains(.noNetwork) else {
 			// Otherwise, fall back to the default
 			Log.info("No cache policy .noNetwork found.", log: .client)
-			retryOrDefaultValueOrFailureHandling(resource, 0, .transportationError(error), nil, completion)
+			retryOrDefaultValueOrFailureHandling(resource, .transportationError(error), nil, completion)
 			return
 		}
 		
@@ -395,7 +395,7 @@ extension Service {
 		// If not, we will fail with the original error
 		else {
 			Log.info("Found nothing cached.")
-			retryOrDefaultValueOrFailureHandling(resource, 0, .transportationError(error), nil, completion)
+			retryOrDefaultValueOrFailureHandling(resource, .transportationError(error), nil, completion)
 		}
 	}
 
@@ -421,7 +421,7 @@ extension Service {
 		// If not, we will fail with the original error
 		else {
 			Log.info("Found nothing cached.")
-			retryOrDefaultValueOrFailureHandling(resource, statusCode, .unexpectedServerError(statusCode), nil, completion)
+			retryOrDefaultValueOrFailureHandling(resource, statusCode: statusCode, .unexpectedServerError(statusCode), nil, completion)
 		}
 	}
 }
