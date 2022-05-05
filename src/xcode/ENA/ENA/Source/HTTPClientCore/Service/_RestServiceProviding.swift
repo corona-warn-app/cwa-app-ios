@@ -16,8 +16,9 @@ protocol RestServiceProviding {
 	
 	// get ReceiveModel if it's available inside a cache
 	func cached<R>(
-		_ resource: R
-	) -> Result<R.Receive.ReceiveModel, ServiceError<R.CustomError>> where R: Resource
+		_ resource: R,
+		_ completion: @escaping (Result<R.Receive.ReceiveModel, ServiceError<R.CustomError>>) -> Void
+	) where R: Resource
 
 	func resetCache<R>(
 		for resource: R

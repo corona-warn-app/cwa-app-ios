@@ -7,5 +7,4 @@ enum ServiceType {
 	case `default`
 	case caching(Set<CacheUsePolicy> = [])
 	case wifiOnly
-	case retrying
 }
