@@ -210,7 +210,7 @@ final class DMViewController: UITableViewController, RequiresAppDependencies {
 
 	@objc
 	private func sendFakeRequest() {
-		FakeRequestService(client: client, restServiceProvider: restServiceProvider).fakeRequest {
+		FakeRequestService(restServiceProvider: restServiceProvider).fakeRequest {
 			let alert = self.setupErrorAlert(title: "Info", message: "Fake request was sent.")
 			self.present(alert, animated: true) {}
 		}

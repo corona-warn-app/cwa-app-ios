@@ -105,7 +105,7 @@ class CachedRestService: Service {
 			}
 		case .failure(let error):
 			Log.error("Decoding for receive resource failed.", log: .client, error: error)
-			retryOrDefaultValueOrFailureHandling(resource, 0, .resourceError(error), nil, completion)
+			retryOrDefaultValueOrFailureHandling(resource, .resourceError(error), nil, completion)
 		}
 	}
 
@@ -115,7 +115,7 @@ class CachedRestService: Service {
 	) where R: Resource {
 		guard let cachedModel = cache[resource.locator.uniqueIdentifier] else {
 			Log.error("No data found in cache", log: .client)
-			retryOrDefaultValueOrFailureHandling(resource, 0, .resourceError(.missingCache), nil, completion)
+			retryOrDefaultValueOrFailureHandling(resource, .resourceError(.missingCache), nil, completion)
 			return
 		}
 		decodeModel(resource, cachedModel.data, ["ETag": cachedModel.eTag], true, completion)
