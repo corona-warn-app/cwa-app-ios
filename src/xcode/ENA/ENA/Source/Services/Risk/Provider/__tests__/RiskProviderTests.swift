@@ -927,7 +927,7 @@ class RiskProviderTests: CWATestCase {
 		downloadedPackagesStore.open()
 		
 		let client = ClientMock()
-		client.fetchPackageRequestFailure = Client.Failure.noResponse
+		client.fetchPackageRequestFailure = URLSession.Response.Failure.noResponse
 		
 		let keyPackageDownload = KeyPackageDownload(
 			downloadedPackagesStore: downloadedPackagesStore,
@@ -1090,7 +1090,7 @@ class RiskProviderTests: CWATestCase {
 		downloadedPackagesStore.open()
 		
 		let client = ClientMock()
-		client.fetchPackageRequestFailure = Client.Failure.noResponse
+		client.fetchPackageRequestFailure = URLSession.Response.Failure.noResponse
 		
 		let keyPackageDownload = KeyPackageDownload(
 			downloadedPackagesStore: downloadedPackagesStore,

@@ -8353,7 +8353,6 @@
 				B12995E8246C344100854AD0 /* HTTPClient+Configuration.swift */,
 				50AA521C25FA590D000C77BB /* HTTPMethod.swift */,
 				B1A9E710246D782F0024CC12 /* SAPDownloadedPackage.swift */,
-				B1EAEC8A24711884003BE9A2 /* URLSession+Convenience.swift */,
 				50BD141F260B73CC0013983A /* Verification.swift */,
 			);
 			path = "HTTP Client";
@@ -9249,6 +9248,7 @@
 				BAF640ED26DF86BF00B3A18E /* Endpoint.swift */,
 				5071A87F26EB808A00B09B40 /* HTTP+Method.swift */,
 				BA83C19627171AFD0039D504 /* URLSessionConfiguration+Default.swift */,
+				B1EAEC8A24711884003BE9A2 /* URLSession+Convenience.swift */,
 				B1CD333F2486AA5F00B06E9B /* Security */,
 				BAF640E926DF862800B3A18E /* Service */,
 			);

@@ -19,8 +19,8 @@ final class ClientMock {
 	init(
 		downloadedPackage: PackageDownloadResponse? = nil,
 		submissionError: SubmissionError? = nil,
-		availablePackageRequestFailure: Client.Failure? = nil,
-		fetchPackageRequestFailure: Client.Failure? = nil
+		availablePackageRequestFailure: URLSession.Response.Failure? = nil,
+		fetchPackageRequestFailure: URLSession.Response.Failure? = nil
 	) {
 		self.downloadedPackage = downloadedPackage
 		self.availablePackageRequestFailure = availablePackageRequestFailure
@@ -36,8 +36,8 @@ final class ClientMock {
 	// MARK: - Properties.
 
 	var submissionResponse: KeySubmissionResponse?
-	var availablePackageRequestFailure: Client.Failure?
-	var fetchPackageRequestFailure: Client.Failure?
+	var availablePackageRequestFailure: URLSession.Response.Failure?
+	var fetchPackageRequestFailure: URLSession.Response.Failure?
 	var downloadedPackage: PackageDownloadResponse?
 	lazy var supportedCountries: [Country] = {
 		// provide a default list of some countries

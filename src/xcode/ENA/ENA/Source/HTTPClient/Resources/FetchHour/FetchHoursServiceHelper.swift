@@ -22,7 +22,7 @@ struct FetchHoursServiceHelper {
 		country: String,
 		completion completeWith: @escaping (HoursResult) -> Void
 	) {
-		var errors = [Client.Failure]()
+		var errors = [URLSession.Response.Failure]()
 		var buckets = [Int: PackageDownloadResponse]()
 		let group = DispatchGroup()
 
