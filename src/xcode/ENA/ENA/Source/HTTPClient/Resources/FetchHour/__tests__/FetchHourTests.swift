@@ -116,7 +116,10 @@ class FetchHourTests: CWATestCase {
 			}
 			switch result {
 			case let .success(sapPackage):
-				self.assertPackageFormat(for: sapPackage)
+				XCTAssertFalse(sapPackage.isEmpty)
+				XCTAssertNotNil(sapPackage.etag)
+				XCTAssertEqual(sapPackage.package?.bin.count, 501)
+				XCTAssertEqual(sapPackage.package?.signature.count, 144)
 
 			case let .failure(error):
 				XCTFail("a valid response should never yield and error like: \(error)")
@@ -124,6 +127,5 @@ class FetchHourTests: CWATestCase {
 		}
 		waitForExpectations(timeout: .medium)
 	}
-
 
 }

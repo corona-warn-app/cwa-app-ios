@@ -18,8 +18,8 @@ final class ClientMock {
 	///		- urlRequestFailure: when set, calls (see above) will fail with this error
 	init(
 		downloadedPackage: PackageDownloadResponse? = nil,
-		availablePackageRequestFailure: Client.Failure? = nil,
-		fetchPackageRequestFailure: Client.Failure? = nil
+		availablePackageRequestFailure: URLSession.Response.Failure? = nil,
+		fetchPackageRequestFailure: URLSession.Response.Failure? = nil
 	) {
 		self.downloadedPackage = downloadedPackage
 		self.availablePackageRequestFailure = availablePackageRequestFailure
@@ -58,18 +58,6 @@ extension ClientMock: Client {
 
 	private static let dummyResponse = PackageDownloadResponse(package: SAPDownloadedPackage(keysBin: Data(), signature: Data()), etag: "\"etag\"")
 
-	func availableHours(day: String, country: String, completion: @escaping AvailableHoursCompletionHandler) {
-		fatalError("No longer supported - gets removed at end of stroy")
-	}
-
-	func fetchDay(_ day: String, forCountry country: String, completion: @escaping (Result<PackageDownloadResponse, Failure>) -> Void) {
-		if let failure = fetchPackageRequestFailure {
-			completion(.failure(failure))
-			return
-		}
-		completion(.success(downloadedPackage ?? ClientMock.dummyResponse))
-	}
-	
 	func submitOnBehalf(payload: SubmissionPayload, isFake: Bool, completion: @escaping KeySubmissionResponse) {
 		onSubmitOnBehalf(payload, isFake, completion)
 	}

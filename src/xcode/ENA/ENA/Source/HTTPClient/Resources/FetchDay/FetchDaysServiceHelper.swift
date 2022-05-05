@@ -5,7 +5,7 @@
 import Foundation
 
 struct DaysResult {
-	let errors: [Client.Failure]
+	let errors: [URLSession.Response.Failure]
 	let bucketsByDay: [String: PackageDownloadResponse]
 }
 
@@ -25,7 +25,7 @@ struct FetchDayServiceHelper {
 			forCountry country: String,
 			completion completeWith: @escaping (DaysResult) -> Void
 	) {
-		var errors = [Client.Failure]()
+		var errors = [URLSession.Response.Failure]()
 		var buckets = [String: PackageDownloadResponse]()
 
 		let group = DispatchGroup()

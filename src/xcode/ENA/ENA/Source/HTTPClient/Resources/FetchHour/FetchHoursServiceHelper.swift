@@ -5,7 +5,7 @@
 import Foundation
 
 struct HoursResult {
-	let errors: [Client.Failure]
+	let errors: [URLSession.Response.Failure]
 	let bucketsByHour: [Int: PackageDownloadResponse]
 	let day: String
 }
