@@ -123,7 +123,7 @@ class HealthCertificateRequestServiceTests: CWATestCase {
 		}
 		
 		// Wait for certificate registration to succeed
-		wait(for: [completionExpectation], timeout: 10000000)
+		wait(for: [completionExpectation], timeout: .medium)
 		
 		healthCertificateService.healthCertifiedPersons.first?.healthCertificates.first?.isValidityStateNew = false
 		healthCertificateService.healthCertifiedPersons.first?.healthCertificates.first?.isNew = false
