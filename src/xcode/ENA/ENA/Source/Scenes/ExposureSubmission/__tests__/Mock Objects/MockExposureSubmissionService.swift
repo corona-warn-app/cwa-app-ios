@@ -12,7 +12,7 @@ class MockExposureSubmissionService: ExposureSubmissionService {
 
 	var loadSupportedCountriesCallback: (((@escaping (Bool) -> Void), (@escaping ([Country]) -> Void)) -> Void)?
 	var getTemporaryExposureKeysCallback: ((@escaping ExposureSubmissionHandler) -> Void)?
-	var submitExposureCallback: ((@escaping ExposureSubmissionHandler) -> Void)?
+	var submitExposureCallback: ((@escaping (ExposureSubmissionServiceError?) -> Void) -> Void)?
 
 	// MARK: - ExposureSubmissionService properties.
 
@@ -34,7 +34,7 @@ class MockExposureSubmissionService: ExposureSubmissionService {
 		getTemporaryExposureKeysCallback?(completion)
 	}
 
-	func submitExposure(coronaTestType: CoronaTestType, completion: @escaping ExposureSubmissionHandler) {
+	func submitExposure(coronaTestType: CoronaTestType, completion: @escaping (ExposureSubmissionServiceError?) -> Void) {
 		submitExposureCallback?(completion)
 	}
 

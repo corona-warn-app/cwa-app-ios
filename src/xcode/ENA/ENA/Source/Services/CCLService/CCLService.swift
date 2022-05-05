@@ -102,13 +102,13 @@ class CCLService: CCLServable {
 		cclConfigurationResource: CCLConfigurationResource = CCLConfigurationResource(),
 		completion: @escaping () -> Void
 	) {
-		guard !isSetUp else {
-			completion()
-			return
-		}
-		
 		setupQueue.async { [weak self] in
 			guard let self = self else {
+				completion()
+				return
+			}
+
+			guard !self.isSetUp else {
 				completion()
 				return
 			}

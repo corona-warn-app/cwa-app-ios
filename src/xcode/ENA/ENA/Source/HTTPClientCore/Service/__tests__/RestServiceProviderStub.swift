@@ -13,10 +13,12 @@ class RestServiceProviderStub: RestServiceProviding {
 
 	init(
 		loadResources: [LoadResource] = [],
-		cacheResources: [LoadResource] = []
+		cacheResources: [LoadResource] = [],
+		isFakeResourceLoadingActive: Bool = false
 	) {
 		self.loadResources = loadResources
 		self.cacheResources = cacheResources
+		self.isFakeResourceLoadingActive = isFakeResourceLoadingActive
 	}
 
 	convenience init(results: [Result<Any, Error>]) {
@@ -37,6 +39,7 @@ class RestServiceProviderStub: RestServiceProviding {
 
 	private var loadResources: [LoadResource]
 	private var cacheResources: [LoadResource]
+	private var isFakeResourceLoadingActive: Bool
 
 	// MARK: Protocol RestServiceProviding
 
@@ -46,8 +49,10 @@ class RestServiceProviderStub: RestServiceProviding {
 	) where R: Resource {
 		guard !resource.locator.isFake else {
 			Log.debug("Fake detected no response given", log: .client)
-			if let loadResource = loadResources.first {
+			if let loadResource = loadResources.first,
+			   isFakeResourceLoadingActive {
 				loadResource.willLoadResource?(resource)
+				loadResources.removeFirst()
 			}
 			completion(.failure(.fakeResponse))
 			return
