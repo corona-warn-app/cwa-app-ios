@@ -1122,7 +1122,6 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 		)
 		
 		let coronaTestService = CoronaTestService(
-			client: client,
 			restServiceProvider: restServiceProvider,
 			store: store,
 			eventStore: MockEventStore(),

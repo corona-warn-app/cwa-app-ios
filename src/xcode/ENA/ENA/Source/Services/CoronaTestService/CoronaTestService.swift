@@ -12,7 +12,6 @@ class CoronaTestService: CoronaTestServiceProviding {
 	// MARK: - Init
 
 	init(
-		client: Client,
 		restServiceProvider: RestServiceProviding,
 		store: CoronaTestStoring & CoronaTestStoringLegacy & WarnOthersTimeIntervalStoring,
 		eventStore: EventStoringProviding,
@@ -26,9 +25,8 @@ class CoronaTestService: CoronaTestServiceProviding {
 	) {
 		#if DEBUG
 		if isUITesting {
-			self.client = ClientMock()
 			if LaunchArguments.exposureSubmission.isFetchingSubmissionTan.boolValue {
-				self.restServiceProvider = .exposureSubmissionServiceProvider
+				self.restServiceProvider = .registrationTokenServiceProvider
 			} else {
 				self.restServiceProvider = .coronaTestServiceProvider
 			}
@@ -43,7 +41,7 @@ class CoronaTestService: CoronaTestServiceProviding {
 			self.recycleBin = recycleBin
 			self.badgeWrapper = badgeWrapper
 
-			self.fakeRequestService = FakeRequestService(client: client, restServiceProvider: restServiceProvider)
+			self.fakeRequestService = FakeRequestService(restServiceProvider: restServiceProvider)
 			self.warnOthersReminder = WarnOthersReminder(store: store)
 
 			setup()
@@ -55,7 +53,6 @@ class CoronaTestService: CoronaTestServiceProviding {
 		}
 		#endif
 
-		self.client = client
 		self.restServiceProvider = restServiceProvider
 		self.store = store
 		self.eventStore = eventStore
@@ -67,7 +64,7 @@ class CoronaTestService: CoronaTestServiceProviding {
 		self.recycleBin = recycleBin
 		self.badgeWrapper = badgeWrapper
 
-		self.fakeRequestService = FakeRequestService(client: client, restServiceProvider: restServiceProvider)
+		self.fakeRequestService = FakeRequestService(restServiceProvider: restServiceProvider)
 		self.warnOthersReminder = WarnOthersReminder(store: store)
 
 		healthCertificateRequestService.didRegisterTestCertificate
@@ -82,7 +79,6 @@ class CoronaTestService: CoronaTestServiceProviding {
 	#if DEBUG
 
 	convenience init(
-		client: Client,
 		store: CoronaTestStoring & CoronaTestStoringLegacy & WarnOthersTimeIntervalStoring,
 		eventStore: EventStoringProviding,
 		diaryStore: DiaryStoring,
@@ -94,7 +90,6 @@ class CoronaTestService: CoronaTestServiceProviding {
 		badgeWrapper: HomeBadgeWrapper
 	) {
 		self.init(
-			client: client,
 			restServiceProvider: .coronaTestServiceProvider,
 			store: store,
 			eventStore: eventStore,
@@ -700,7 +695,6 @@ class CoronaTestService: CoronaTestServiceProviding {
 	
 	// MARK: - Private
 
-	private let client: Client
 	private let restServiceProvider: RestServiceProviding
 	private var store: CoronaTestStoring & CoronaTestStoringLegacy
 	private let eventStore: EventStoringProviding

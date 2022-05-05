@@ -20,7 +20,6 @@ final class ClientMock {
 	init(
 		availableDaysAndHours: DaysAndHours = DaysAndHours(days: [], hours: []),
 		downloadedPackage: PackageDownloadResponse? = nil,
-		submissionError: SubmissionError? = nil,
 		availablePackageRequestFailure: Client.Failure? = nil,
 		fetchPackageRequestFailure: Client.Failure? = nil
 	) {
@@ -28,10 +27,6 @@ final class ClientMock {
 		self.downloadedPackage = downloadedPackage
 		self.availablePackageRequestFailure = availablePackageRequestFailure
 		self.fetchPackageRequestFailure = fetchPackageRequestFailure
-
-		if let error = submissionError {
-			onSubmitCountries = { $2(.failure(error)) }
-		}
 	}
 
 	init() {}
@@ -51,7 +46,6 @@ final class ClientMock {
 
 	// MARK: - Configurable Mock Callbacks.
 
-	var onSubmitCountries: ((_ payload: SubmissionPayload, _ isFake: Bool, _ completion: @escaping KeySubmissionResponse) -> Void) = { $2(.success(())) }
 	var onSubmitOnBehalf: ((_ payload: SubmissionPayload, _ isFake: Bool, _ completion: @escaping KeySubmissionResponse) -> Void) = { $2(.success(())) }
 	var onSupportedCountries: ((@escaping CountryFetchCompletion) -> Void)?
 	var onGetOTPEdus: ((String, PPACToken, Bool, @escaping OTPAuthorizationCompletionHandler) -> Void)?
@@ -132,10 +126,6 @@ extension ClientMock: Client {
 			return
 		}
 		completion(.success(downloadedPackage ?? ClientMock.dummyResponse))
-	}
-
-	func submit(payload: SubmissionPayload, isFake: Bool, completion: @escaping KeySubmissionResponse) {
-		onSubmitCountries(payload, isFake, completion)
 	}
 	
 	func submitOnBehalf(payload: SubmissionPayload, isFake: Bool, completion: @escaping KeySubmissionResponse) {
