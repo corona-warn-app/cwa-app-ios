@@ -46,7 +46,7 @@ struct RegistrationTokenResource: Resource {
 	var type: ServiceType
 	var sendResource: PaddingJSONSendResource<RegistrationTokenSendModel>
 	var receiveResource: JSONReceiveResource<RegistrationTokenReceiveModel>
-	
+
 	func customError(
 		for error: ServiceError<RegistrationTokenError>,
 		responseBody: Data? = nil

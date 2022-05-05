@@ -149,16 +149,6 @@ extension HTTPClient {
 			)
 		}
 
-		var submissionURL: URL {
-			endpoints
-				.submission
-				.appending(
-					"version",
-					apiVersion,
-					"diagnosis-keys"
-			)
-		}
-
 		var otpEdusAuthorizationURL: URL {
 			endpoints
 				.dataDonation
