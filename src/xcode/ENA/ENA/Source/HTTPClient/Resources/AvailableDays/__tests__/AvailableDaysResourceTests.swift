@@ -8,7 +8,7 @@ import XCTest
 
 class AvailableDaysResourceTests: CWATestCase {
 
-	// MARK: -  Locator
+	// MARK: - Locator
 
 	func testGIVEN_Locator_WHEN_getPath_THEN_isCorrect() {
 		// GIVEN
