@@ -89,8 +89,6 @@ class HealthCertificateRequestServiceTests: CWATestCase {
 			.sink {
 				if let requestWithKeyPair = $0.first(where: { $0.rsaKeyPair != nil }) {
 					keyPair = requestWithKeyPair.rsaKeyPair
-
-
 				}
 			}
 		
