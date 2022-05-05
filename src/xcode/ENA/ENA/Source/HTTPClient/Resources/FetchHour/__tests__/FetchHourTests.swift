@@ -69,4 +69,61 @@ class FetchHourTests: CWATestCase {
 		waitForExpectations(timeout: .medium)
 	}
 
+	// MARK: - Logic Tests
+
+	func testFetchHour_InvalidPayload() throws {
+		let stack = MockNetworkStack(
+			httpStatus: 200,
+			responseData: Data("hello world".utf8)
+		)
+
+		let expectation = expectation(description: "expect error result")
+
+		let restService = RestServiceProvider(session: stack.urlSession, cache: KeyValueCacheFake())
+		let resource = FetchHourResource(day: "2020-05-01", country: "IT", hour: 1)
+		restService.load(resource) { result in
+			defer {
+				expectation.fulfill()
+			}
+			switch result {
+			case .success:
+				XCTFail("an invalid response should never cause success")
+			case let .failure(error):
+				if case let .resourceError(detailError) = error,
+				   case .packageCreation = detailError {
+				} else {
+					XCTFail("wrong error given, packageCreation expected")
+				}
+			}
+		}
+		waitForExpectations(timeout: .medium)
+	}
+
+	func testFetchHour_Success() throws {
+		let url = try XCTUnwrap(Bundle(for: type(of: self)).url(forResource: "api-response-day-2020-05-16", withExtension: nil))
+		let stack = MockNetworkStack(
+			httpStatus: 200,
+			headerFields: ["etAg": "\"SomeEtag\""],
+			responseData: try Data(contentsOf: url)
+		)
+
+		let expectation = expectation(description: "expect error result")
+		let restService = RestServiceProvider(session: stack.urlSession, cache: KeyValueCacheFake())
+		let resource = FetchHourResource(day: "2020-05-01", country: "IT", hour: 1, signatureVerifier: MockVerifier())
+		restService.load(resource) { result in
+			defer {
+				expectation.fulfill()
+			}
+			switch result {
+			case let .success(sapPackage):
+				self.assertPackageFormat(for: sapPackage)
+
+			case let .failure(error):
+				XCTFail("a valid response should never yield and error like: \(error)")
+			}
+		}
+		waitForExpectations(timeout: .medium)
+	}
+
+
 }
