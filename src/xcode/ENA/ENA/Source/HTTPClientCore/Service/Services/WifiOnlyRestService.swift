@@ -23,21 +23,9 @@ class WifiOnlyRestService: Service {
 	let environment: EnvironmentProviding
 	private(set) var session: URLSession
 
-	// MARK: - Private
-
-	private static func makeSession(wifiOnly: Bool, optionalSession: URLSession?) -> URLSession {
-		if let optionalSession = optionalSession {
-			return optionalSession
-		}
-		let configuration: URLSessionConfiguration = wifiOnly ?
-			.coronaWarnSessionConfigurationWifiOnly() :
-			.coronaWarnSessionConfiguration()
-
-		return URLSession(configuration: configuration)
-	}
+	// MARK: - Internal
 
 #if !RELEASE
-
 	var isWifiOnlyActive: Bool {
 		let wifiOnlyConfiguration = URLSessionConfiguration.coronaWarnSessionConfigurationWifiOnly()
 		if #available(iOS 13.0, *) {
@@ -48,8 +36,6 @@ class WifiOnlyRestService: Service {
 			return session.configuration.allowsCellularAccess == wifiOnlyConfiguration.allowsCellularAccess
 		}
 	}
-
-	private var disabled = Set<String>()
 
 	func isDisabled(_ identifier: String) -> Bool {
 		disabled.contains(identifier)
@@ -67,6 +53,23 @@ class WifiOnlyRestService: Service {
 	func enable(_ identifier: String) {
 		disabled.remove(identifier)
 	}
-
 #endif
+
+	// MARK: - Private
+
+	private static func makeSession(wifiOnly: Bool, optionalSession: URLSession?) -> URLSession {
+		if let optionalSession = optionalSession {
+			return optionalSession
+		}
+		let configuration: URLSessionConfiguration = wifiOnly ?
+			.coronaWarnSessionConfigurationWifiOnly() :
+			.coronaWarnSessionConfiguration()
+
+		return URLSession(configuration: configuration)
+	}
+
+#if !RELEASE
+	private var disabled = Set<String>()
+#endif
+
 }
