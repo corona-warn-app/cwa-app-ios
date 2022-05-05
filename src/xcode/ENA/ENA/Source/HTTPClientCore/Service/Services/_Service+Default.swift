@@ -244,6 +244,10 @@ extension Service {
 		_ completion: @escaping (Result<R.Receive.ReceiveModel, ServiceError<R.CustomError>>) -> Void
 	) where R: Resource {
 
+		#if !RELEASE
+		writeRequestToDebugMenu(request: request, resource: resource)
+		#endif
+		
 		var task: URLSessionDataTask?
 		task = self.session.dataTask(with: request) { [weak self] bodyData, response, error in
 
@@ -421,4 +425,13 @@ extension Service {
 			retryOrDefaultValueOrFailureHandling(resource, .unexpectedServerError(statusCode), nil, completion)
 		}
 	}
+	
+#if !RELEASE
+	private func writeRequestToDebugMenu<R>(request: URLRequest, resource: R) where R: Resource {
+		if resource is KeySubmissionResource {
+			 UserDefaults.standard.dmLastSubmissionRequest = request.httpBody
+		}
+	}
+#endif
+
 }
