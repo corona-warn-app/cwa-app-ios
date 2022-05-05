@@ -240,16 +240,3 @@ struct SubmissionPayload {
 
 	let submissionType: SAP_Internal_SubmissionPayload.SubmissionType
 }
-
-struct FetchedDaysAndHours {
-	let hours: HoursResult
-	let days: DaysResult
-	var allKeyPackages: [PackageDownloadResponse] {
-		Array(hours.bucketsByHour.values) + Array(days.bucketsByDay.values)
-	}
-}
-
-extension Client {
-	typealias FetchDaysCompletionHandler = (DaysResult) -> Void
-	typealias FetchHoursCompletionHandler = (HoursResult) -> Void
-}
