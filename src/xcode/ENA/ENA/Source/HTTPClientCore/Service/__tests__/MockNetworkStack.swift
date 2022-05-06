@@ -51,13 +51,6 @@ extension HTTPClient {
 }
 
 // @available(*, deprecated)
-extension WifiOnlyHTTPClient {
-	static func makeWith(mock stack: MockNetworkStack) -> WifiOnlyHTTPClient {
-		WifiOnlyHTTPClient(session: stack.urlSession)
-	}
-}
-
-// @available(*, deprecated)
 enum TestError: Error {
 	case error
 }

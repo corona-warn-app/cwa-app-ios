@@ -9,14 +9,13 @@ import Foundation
 protocol Client {
 	// MARK: Types
 
-	typealias Failure = URLSession.Response.Failure
 	typealias KeySubmissionResponse = (Result<Void, SubmissionError>) -> Void
-	typealias AvailableHoursCompletionHandler = (Result<[Int], Failure>) -> Void
-	typealias TestResultHandler = (Result<FetchTestResultResponse, Failure>) -> Void
-	typealias TANHandler = (Result<String, Failure>) -> Void
-	typealias DayCompletionHandler = (Result<PackageDownloadResponse, Failure>) -> Void
-	typealias HourCompletionHandler = (Result<PackageDownloadResponse, Failure>) -> Void
-	typealias CountryFetchCompletion = (Result<[Country], Failure>) -> Void
+	typealias AvailableHoursCompletionHandler = (Result<[Int], URLSession.Response.Failure>) -> Void
+	typealias TestResultHandler = (Result<FetchTestResultResponse, URLSession.Response.Failure>) -> Void
+	typealias TANHandler = (Result<String, URLSession.Response.Failure>) -> Void
+	typealias DayCompletionHandler = (Result<PackageDownloadResponse, URLSession.Response.Failure>) -> Void
+	typealias HourCompletionHandler = (Result<PackageDownloadResponse, URLSession.Response.Failure>) -> Void
+	typealias CountryFetchCompletion = (Result<[Country], URLSession.Response.Failure>) -> Void
 	typealias OTPAuthorizationCompletionHandler = (Result<Date, OTPError>) -> Void
 	typealias PPAnalyticsSubmitionCompletionHandler = (Result<Void, PPASError>) -> Void
 	typealias TraceWarningPackageDiscoveryCompletionHandler = (Result<TraceWarningDiscovery, TraceWarningError>) -> Void
@@ -258,12 +257,12 @@ struct SubmissionPayload {
 }
 
 struct DaysResult {
-	let errors: [Client.Failure]
+	let errors: [URLSession.Response.Failure]
 	let bucketsByDay: [String: PackageDownloadResponse]
 }
 
 struct HoursResult {
-	let errors: [Client.Failure]
+	let errors: [URLSession.Response.Failure]
 	let bucketsByHour: [Int: PackageDownloadResponse]
 	let day: String
 }
@@ -286,7 +285,7 @@ extension Client {
 			forCountry country: String,
 			completion completeWith: @escaping FetchDaysCompletionHandler
 	) {
-		var errors = [Client.Failure]()
+		var errors = [URLSession.Response.Failure]()
 		var buckets = [String: PackageDownloadResponse]()
 
 		let group = DispatchGroup()

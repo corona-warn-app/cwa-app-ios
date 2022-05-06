@@ -471,7 +471,7 @@ final class HTTPClient: Client {
 	private func fetchDay(
 		from url: URL,
 		completion completeWith: @escaping DayCompletionHandler) {
-		var responseError: Failure?
+		var responseError: URLSession.Response.Failure?
 
 		session.GET(url) { [weak self] result in
 			self?.queue.async {

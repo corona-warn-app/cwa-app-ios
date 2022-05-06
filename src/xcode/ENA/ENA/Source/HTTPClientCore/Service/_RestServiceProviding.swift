@@ -23,4 +23,19 @@ protocol RestServiceProviding {
 	func resetCache<R>(
 		for resource: R
 	) where R: Resource
+
+#if !RELEASE
+	// helpers for the developer menu
+	var isWifiOnlyActive: Bool { get }
+
+	func updateWiFiSession(wifiOnly: Bool)
+
+	func isDisabled(_ identifier: String) -> Bool
+
+	func disable(_ identifier: String)
+
+	func enable(_ identifier: String)
+
+#endif
+
 }

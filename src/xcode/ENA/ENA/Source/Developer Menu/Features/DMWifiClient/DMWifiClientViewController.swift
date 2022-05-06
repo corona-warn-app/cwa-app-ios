@@ -10,8 +10,10 @@ final class DMWifiClientViewController: UITableViewController {
 
 	// MARK: - Init
 
-	init(wifiClient: WifiOnlyHTTPClient) {
-		self.viewModel = DMWifiClientViewModel(wifiClient: wifiClient)
+	init(
+		restService: RestServiceProviding
+	) {
+		self.viewModel = DMWifiClientViewModel(restService: restService)
 		if #available(iOS 13.0, *) {
 			super.init(style: .insetGrouped)
 		} else {

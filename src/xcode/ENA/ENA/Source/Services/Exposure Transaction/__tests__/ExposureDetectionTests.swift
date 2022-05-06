@@ -48,7 +48,6 @@ final class ExposureDetectionTransactionTests: CWATestCase {
 		let keyPackageDownload = KeyPackageDownload(
 			downloadedPackagesStore: downloadedPackagesStore,
 			client: client,
-			wifiClient: client,
 			restService: RestServiceProviderStub(),
 			store: store
 		)

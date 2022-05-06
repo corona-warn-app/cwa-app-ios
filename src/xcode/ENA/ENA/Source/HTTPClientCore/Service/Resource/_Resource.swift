@@ -29,7 +29,8 @@ protocol Resource {
 	// NOTE: Compete logically with defaultModel: When setting both, we will first exhaust all retries and then when still failing we will return the defaultModel.
 	var retryingCount: Int { get set }
 
-	func useFallBack(_ statusCode: Int) -> Bool
+	// resource identifier
+	static var identifier: String { get }
 
 	func customError(for error: ServiceError<CustomError>, responseBody: Data?) -> CustomError?
 	
@@ -61,12 +62,9 @@ extension Resource {
 		set { }
 	}
 
-	// if no default model range is give we always use the default model
-	func useFallBack(_ statusCode: Int) -> Bool {
-		if defaultModelRange.isEmpty {
-			return true
-		}
-		return defaultModelRange.contains(statusCode)
+	// default implementation to create an identifier for resource
+	static var identifier: String {
+		return String(describing: self)
 	}
 
 	func customError(for error: ServiceError<CustomError>, responseBody: Data?) -> CustomError? {

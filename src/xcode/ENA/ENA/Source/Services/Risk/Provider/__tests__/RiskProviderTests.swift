@@ -868,7 +868,6 @@ class RiskProviderTests: CWATestCase {
 		let keyPackageDownload = KeyPackageDownload(
 			downloadedPackagesStore: downloadedPackagesStore,
 			client: client,
-			wifiClient: client,
 			restService: RestServiceProviderStub(),
 			store: store
 		)
@@ -928,12 +927,11 @@ class RiskProviderTests: CWATestCase {
 		downloadedPackagesStore.open()
 		
 		let client = ClientMock()
-		client.fetchPackageRequestFailure = Client.Failure.noResponse
+		client.fetchPackageRequestFailure = URLSession.Response.Failure.noResponse
 		
 		let keyPackageDownload = KeyPackageDownload(
 			downloadedPackagesStore: downloadedPackagesStore,
 			client: client,
-			wifiClient: client,
 			restService: RestServiceProviderStub(),
 			store: store
 		)
@@ -1017,7 +1015,6 @@ class RiskProviderTests: CWATestCase {
 		let keyPackageDownload = KeyPackageDownload(
 			downloadedPackagesStore: downloadedPackagesStore,
 			client: client,
-			wifiClient: client,
 			restService: restServiceProvider,
 			store: store
 		)
@@ -1093,12 +1090,11 @@ class RiskProviderTests: CWATestCase {
 		downloadedPackagesStore.open()
 		
 		let client = ClientMock()
-		client.fetchPackageRequestFailure = Client.Failure.noResponse
+		client.fetchPackageRequestFailure = URLSession.Response.Failure.noResponse
 		
 		let keyPackageDownload = KeyPackageDownload(
 			downloadedPackagesStore: downloadedPackagesStore,
 			client: client,
-			wifiClient: client,
 			restService: RestServiceProviderStub(),
 			store: store
 		)
@@ -1175,7 +1171,6 @@ class RiskProviderTests: CWATestCase {
 		let keyPackageDownload = KeyPackageDownload(
 			downloadedPackagesStore: downloadedPackagesStore,
 			client: client,
-			wifiClient: client,
 			restService: RestServiceProviderStub(),
 			store: store
 		)
@@ -1315,7 +1310,6 @@ extension CWATestCase {
 		return KeyPackageDownload(
 			downloadedPackagesStore: downloadedPackagesStore,
 			client: client,
-			wifiClient: client,
 			restService: restServiceProvider,
 			store: store
 		)

@@ -18,8 +18,8 @@ final class ClientMock {
 	///		- urlRequestFailure: when set, calls (see above) will fail with this error
 	init(
 		downloadedPackage: PackageDownloadResponse? = nil,
-		availablePackageRequestFailure: Client.Failure? = nil,
-		fetchPackageRequestFailure: Client.Failure? = nil
+		availablePackageRequestFailure: URLSession.Response.Failure? = nil,
+		fetchPackageRequestFailure: URLSession.Response.Failure? = nil
 	) {
 		self.downloadedPackage = downloadedPackage
 		self.availablePackageRequestFailure = availablePackageRequestFailure
@@ -31,8 +31,8 @@ final class ClientMock {
 	// MARK: - Properties.
 
 	var submissionResponse: KeySubmissionResponse?
-	var availablePackageRequestFailure: Client.Failure?
-	var fetchPackageRequestFailure: Client.Failure?
+	var availablePackageRequestFailure: URLSession.Response.Failure?
+	var fetchPackageRequestFailure: URLSession.Response.Failure?
 	var downloadedPackage: PackageDownloadResponse?
 	lazy var supportedCountries: [Country] = {
 		// provide a default list of some countries
@@ -52,48 +52,6 @@ final class ClientMock {
 	var onTraceWarningDownload: ((String, Int, @escaping TraceWarningPackageDownloadCompletionHandler) -> Void)?
 	var onDCCRegisterPublicKey: ((Bool, String, String, @escaping DCCRegistrationCompletionHandler) -> Void)?
 	var onGetDigitalCovid19Certificate: ((String, Bool, @escaping DigitalCovid19CertificateCompletionHandler) -> Void)?
-}
-
-extension ClientMock: ClientWifiOnly {
-
-	func fetchHours(
-		_ hours: [Int],
-		day: String,
-		country: String,
-		completion completeWith: @escaping (HoursResult) -> Void
-	) {
-		var errors = [Client.Failure]()
-		var buckets = [Int: PackageDownloadResponse]()
-		let group = DispatchGroup()
-
-		hours.forEach { hour in
-			group.enter()
-			fetchHour(hour, day: day, country: country) { result in
-				switch result {
-				case let .success(hourBucket):
-					buckets[hour] = hourBucket
-				case let .failure(error):
-					errors.append(error)
-				}
-				group.leave()
-			}
-		}
-
-		group.notify(queue: .main) {
-			completeWith(
-				HoursResult(errors: errors, bucketsByHour: buckets, day: day)
-			)
-		}
-	}
-
-	func fetchHour(_ hour: Int, day: String, country: String, completion: @escaping HourCompletionHandler) {
-		if let failure = fetchPackageRequestFailure {
-			completion(.failure(failure))
-			return
-		}
-		completion(.success(downloadedPackage ?? ClientMock.dummyResponse))
-	}
-
 }
 
 extension ClientMock: Client {

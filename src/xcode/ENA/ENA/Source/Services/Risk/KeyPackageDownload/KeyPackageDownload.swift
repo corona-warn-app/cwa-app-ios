@@ -56,17 +56,16 @@ class KeyPackageDownload: KeyPackageDownloadProtocol {
 	init(
 		downloadedPackagesStore: DownloadedPackagesStore,
 		client: Client,
-		wifiClient: ClientWifiOnly,
 		restService: RestServiceProviding,
 		store: Store & AppConfigCaching,
 		countryIds: [Country.ID] = ["EUR"]
 	) {
 		self.downloadedPackagesStore = downloadedPackagesStore
 		self.client = client
-		self.wifiClient = wifiClient
 		self.restService = restService
 		self.store = store
 		self.countryIds = countryIds
+		self.fetchHoursServiceHelper = FetchHoursServiceHelper(restService: restService)
 	}
 
 	// MARK: - Protocol KeyPackageDownloadProtocol
@@ -131,8 +130,9 @@ class KeyPackageDownload: KeyPackageDownloadProtocol {
 	private let downloadedPackagesStore: DownloadedPackagesStore
 	private let client: Client
 	private let restService: RestServiceProviding
-	private let wifiClient: ClientWifiOnly
 	private let store: Store & AppConfigCaching
+
+	private let fetchHoursServiceHelper: FetchHoursServiceHelper
 
 	private var status: KeyPackageDownloadStatus = .idle {
 		didSet {
@@ -262,8 +262,7 @@ class KeyPackageDownload: KeyPackageDownloadProtocol {
 			Log.info("KeyPackageDownload: Fetch hour packages from server.", log: .riskDetection)
 
 			let hourKeys = packageKeys.compactMap { Int($0) }
-
-			wifiClient.fetchHours(hourKeys, day: dayKey, country: country) { hoursResult in
+			fetchHoursServiceHelper.fetchHours(hourKeys, day: dayKey, country: country) { hoursResult in
 				if hoursResult.errors.isEmpty {
 					let keyPackages = Dictionary(
 						uniqueKeysWithValues: hoursResult.bucketsByHour.map { key, value in (String(key), value) }
