@@ -137,7 +137,7 @@ class HealthCertificateOverviewViewModelTests: XCTestCase {
 	private lazy var requestService: HealthCertificateRequestService = {
 		HealthCertificateRequestService(
 			store: MockTestStore(),
-			client: ClientMock(),
+			restServiceProvider: RestServiceProviderStub(),
 			appConfiguration: CachedAppConfigurationMock(),
 			healthCertificateService: service
 		)
