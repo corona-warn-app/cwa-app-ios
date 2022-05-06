@@ -5,7 +5,16 @@
 #if !RELEASE
 
 struct LoadResource {
-	let result: Result<Any, Error>
+
+	init(
+		result: @escaping @autoclosure () throws -> Result<Any, Error>,
+		willLoadResource: ((Any) -> Void)?
+	) {
+		self.result = result
+		self.willLoadResource = willLoadResource
+	}
+
+	let result: () throws -> Result<Any, Error>
 	let willLoadResource: ((Any) -> Void)?
 }
 
@@ -59,7 +68,7 @@ class RestServiceProviderStub: RestServiceProviding {
 		}
 		if let loadResource = loadResources.first {
 			loadResource.willLoadResource?(resource)
-			switch loadResource.result {
+			switch try? loadResource.result() {
 			case .success(let model):
 				guard let _model = model as? R.Receive.ReceiveModel else {
 					fallBackToDefaultMockLoadResource(resource: resource, completion: completion)
@@ -75,6 +84,8 @@ class RestServiceProviderStub: RestServiceProviding {
 				}
 				loadResources.removeFirst()
 				completion(.failure(_error))
+			case .none:
+				fatalError("Resource must provide result")
 			}
 		} else {
 			fallBackToDefaultMockLoadResource(resource: resource, completion: completion)
@@ -91,7 +102,7 @@ class RestServiceProviderStub: RestServiceProviding {
 		}
 		cacheResources.removeFirst()
 		
-		switch cacheResource.result {
+		switch try? cacheResource.result() {
 		case .success(let model):
 			guard let _model = model as? R.Receive.ReceiveModel else {
 				fatalError("Could not cast to receive model.")
@@ -102,6 +113,8 @@ class RestServiceProviderStub: RestServiceProviding {
 				fatalError("Could not cast to custom error.")
 			}
 			return completion(.failure(_error))
+		case .none:
+			fatalError("Resource must provide result")
 		}
 	}
 
@@ -141,7 +154,7 @@ class RestServiceProviderStub: RestServiceProviding {
 		guard let mockedLoadResponse = resource.defaultMockLoadResource else {
 			fatalError("no default to fallback to")
 		}
-		switch mockedLoadResponse.result {
+		switch try? mockedLoadResponse.result() {
 		case .success(let model):
 			guard let model = model as? R.Receive.ReceiveModel else {
 				fatalError("model does not have the correct type.")
@@ -152,6 +165,8 @@ class RestServiceProviderStub: RestServiceProviding {
 				fatalError("error does not have the correct type.")
 			}
 			completion(.failure(error))
+		case .none:
+			fatalError("Resource must provide result")
 		}
 	}
 }

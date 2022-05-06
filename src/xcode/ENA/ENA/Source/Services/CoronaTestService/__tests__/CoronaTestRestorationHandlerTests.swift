@@ -33,7 +33,7 @@ class CoronaTestRestorationHandlerTests: CWATestCase {
 			healthCertificateService: healthCertificateService,
 			healthCertificateRequestService: HealthCertificateRequestService(
 				store: store,
-				client: client,
+				restServiceProvider: RestServiceProviderStub(),
 				appConfiguration: appConfiguration,
 				healthCertificateService: healthCertificateService
 			),
@@ -106,7 +106,7 @@ class CoronaTestRestorationHandlerTests: CWATestCase {
 			healthCertificateService: healthCertificateService,
 			healthCertificateRequestService: HealthCertificateRequestService(
 				store: store,
-				client: client,
+				restServiceProvider: RestServiceProviderStub(),
 				appConfiguration: appConfiguration,
 				healthCertificateService: healthCertificateService
 			),
@@ -158,7 +158,7 @@ class CoronaTestRestorationHandlerTests: CWATestCase {
 			healthCertificateService: healthCertificateService,
 			healthCertificateRequestService: HealthCertificateRequestService(
 				store: store,
-				client: client,
+				restServiceProvider: RestServiceProviderStub(),
 				appConfiguration: appConfiguration,
 				healthCertificateService: healthCertificateService
 			),

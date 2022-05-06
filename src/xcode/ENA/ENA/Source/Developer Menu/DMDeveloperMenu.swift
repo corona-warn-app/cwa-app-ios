@@ -84,6 +84,12 @@ final class DMDeveloperMenu {
 		let showDeveloperMenuGesture = UITapGestureRecognizer(target: self, action: #selector(_showDeveloperMenu(_:)))
 		showDeveloperMenuGesture.numberOfTapsRequired = 3
 		presentingViewController.view.addGestureRecognizer(showDeveloperMenuGesture)
+
+		if let homeTableViewController = presentingViewController as? HomeTableViewController,
+		   let navigationBarImage = homeTableViewController.navigationItem.leftBarButtonItem?.customView {
+			let showDeveloperMenuTap = UITapGestureRecognizer(target: self, action: #selector(_showDeveloperMenu(_:)))
+			navigationBarImage.addGestureRecognizer(showDeveloperMenuTap)
+		}
 	}
 	
 	func showDeveloperMenu() {
