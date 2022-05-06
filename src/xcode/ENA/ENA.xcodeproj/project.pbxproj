@@ -1634,6 +1634,7 @@
 		BAD507A22825685700FE07D2 /* TraceWarningDiscoveryResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAD507A12825685700FE07D2 /* TraceWarningDiscoveryResource.swift */; };
 		BAD507A62825753900FE07D2 /* HTTPClient+TraceWarningPackageDiscoveryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50AA526725FBA0CC000C77BB /* HTTPClient+TraceWarningPackageDiscoveryTests.swift */; };
 		BAD507A72825754C00FE07D2 /* TraceWarningPackageDownloadTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50FA07832609EC80003C1E46 /* TraceWarningPackageDownloadTests.swift */; };
+		BAD507A92825768700FE07D2 /* TraceWarningDiscoveryResourceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAD507A82825768700FE07D2 /* TraceWarningDiscoveryResourceTests.swift */; };
 		BAD962FB25668F4000FAB615 /* TestResultAvailableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAD962FA25668F4000FAB615 /* TestResultAvailableViewController.swift */; };
 		BAD9630025668F8E00FAB615 /* TestResultAvailableViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAD962FF25668F8E00FAB615 /* TestResultAvailableViewModel.swift */; };
 		BADA5B51266574B900D76C1C /* BirthdayDatePickerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BADA5B50266574B900D76C1C /* BirthdayDatePickerCell.swift */; };
@@ -3472,6 +3473,7 @@
 		BAD3CCD4271EEB5A004C06AD /* _PaddingResource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = _PaddingResource.swift; sourceTree = "<group>"; };
 		BAD3CCD7271EF973004C06AD /* TeleTanResource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeleTanResource.swift; sourceTree = "<group>"; };
 		BAD507A12825685700FE07D2 /* TraceWarningDiscoveryResource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraceWarningDiscoveryResource.swift; sourceTree = "<group>"; };
+		BAD507A82825768700FE07D2 /* TraceWarningDiscoveryResourceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraceWarningDiscoveryResourceTests.swift; sourceTree = "<group>"; };
 		BAD962FA25668F4000FAB615 /* TestResultAvailableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestResultAvailableViewController.swift; sourceTree = "<group>"; };
 		BAD962FF25668F8E00FAB615 /* TestResultAvailableViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestResultAvailableViewModel.swift; sourceTree = "<group>"; };
 		BADA5B50266574B900D76C1C /* BirthdayDatePickerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BirthdayDatePickerCell.swift; sourceTree = "<group>"; };
@@ -10023,8 +10025,9 @@
 		BAD507A4282573EB00FE07D2 /* __tests__ */ = {
 			isa = PBXGroup;
 			children = (
-				50FA07832609EC80003C1E46 /* TraceWarningPackageDownloadTests.swift */,
 				50AA526725FBA0CC000C77BB /* HTTPClient+TraceWarningPackageDiscoveryTests.swift */,
+				BAD507A82825768700FE07D2 /* TraceWarningDiscoveryResourceTests.swift */,
+				50FA07832609EC80003C1E46 /* TraceWarningPackageDownloadTests.swift */,
 			);
 			path = __tests__;
 			sourceTree = "<group>";
@@ -12314,6 +12317,7 @@
 				BA11D5BA2588D590005DCD6B /* DiaryAddAndEditEntryViewModelTest.swift in Sources */,
 				507685D325E8EA040039B7B6 /* UserMetadataTests.swift in Sources */,
 				F2DC809224898B1800EDC40A /* DynamicTableViewControllerHeaderTests.swift in Sources */,
+				BAD507A92825768700FE07D2 /* TraceWarningDiscoveryResourceTests.swift in Sources */,
 				01F52FFC2552E6F600997A26 /* ENARangeTest.swift in Sources */,
 				BAC0A4DE25768039002B5361 /* TanInputViewModelTests.swift in Sources */,
 				BA53FD31270B519E00CF8475 /* FileScannerCoordinatorViewModelTests.swift in Sources */,
