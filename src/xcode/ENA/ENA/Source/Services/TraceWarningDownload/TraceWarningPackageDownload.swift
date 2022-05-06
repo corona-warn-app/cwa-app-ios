@@ -27,12 +27,14 @@ class TraceWarningPackageDownload: TraceWarningPackageDownloading {
 	
 	init(
 		client: Client,
+		restServiceProvider: RestServiceProviding,
 		store: Store,
 		eventStore: EventStoringProviding,
 		countries: [Country.ID] = ["DE"],
 		signatureVerifier: SignatureVerification = SignatureVerifier()
 	) {
 		self.client = client
+		self.restServiceProvider = restServiceProvider
 		self.store = store
 		self.eventStore = eventStore
 		self.countries = countries
@@ -152,6 +154,7 @@ class TraceWarningPackageDownload: TraceWarningPackageDownloading {
 	// MARK: - Private
 	
 	private let client: Client
+	private let restServiceProvider: RestServiceProviding
 	private let store: Store
 	private let eventStore: EventStoringProviding
 	private let countries: [Country.ID]

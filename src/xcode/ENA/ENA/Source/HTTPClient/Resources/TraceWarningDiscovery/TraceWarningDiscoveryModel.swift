@@ -4,7 +4,6 @@
 
 import Foundation
 
-@available(*, deprecated)
 struct TraceWarningDiscoveryModel: Decodable, MetaDataProviding {
 
 	// MARK: - init

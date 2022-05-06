@@ -7,7 +7,7 @@ import Foundation
 import XCTest
 
 final class HTTPClientTraceWarningPackageDiscoveryTests: CWATestCase {
-
+/*
 	let expectationsTimeout: TimeInterval = 2
 
 	func testGIVEN_Country_WHEN_HappyCase_THEN_TraceWarningDiscoveryIsReturned() throws {
@@ -143,5 +143,5 @@ final class HTTPClientTraceWarningPackageDiscoveryTests: CWATestCase {
 		XCTAssertEqual(response.latest, -1)
 		XCTAssertTrue(response.availablePackagesOnCDN.isEmpty)
 	}
-
+*/
 }

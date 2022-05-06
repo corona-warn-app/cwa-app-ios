@@ -799,7 +799,6 @@
 		50AA521D25FA590D000C77BB /* HTTPMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50AA521C25FA590D000C77BB /* HTTPMethod.swift */; };
 		50AA522725FA5AAD000C77BB /* TraceWarningError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50AA522625FA5AAD000C77BB /* TraceWarningError.swift */; };
 		50AA525425FB9ACA000C77BB /* TraceWarningDiscoveryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50AA525325FB9ACA000C77BB /* TraceWarningDiscoveryModel.swift */; };
-		50AA526825FBA0CC000C77BB /* HTTPClient+TraceWarningPackageDiscoveryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50AA526725FBA0CC000C77BB /* HTTPClient+TraceWarningPackageDiscoveryTests.swift */; };
 		50AF181F27A2E85B00BAA9DB /* Locator+RegistrationToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5001DE8326E206AB004242FA /* Locator+RegistrationToken.swift */; };
 		50AF182127A2F5DF00BAA9DB /* ccl-configuration.bin in Resources */ = {isa = PBXBuildFile; fileRef = 50AF182027A2F5DF00BAA9DB /* ccl-configuration.bin */; };
 		50AF182427A3F20500BAA9DB /* CCLConfigurationResourceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50AF182327A3F20500BAA9DB /* CCLConfigurationResourceTests.swift */; };
@@ -871,7 +870,6 @@
 		50F9130D253F1D7800DFE683 /* OnboardingPageType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50F9130C253F1D7800DFE683 /* OnboardingPageType.swift */; };
 		50FA071126021180003C1E46 /* api-response-traceWarning in Resources */ = {isa = PBXBuildFile; fileRef = 50FA071026021180003C1E46 /* api-response-traceWarning */; };
 		50FA072B26023784003C1E46 /* TraceWarningPackageDownload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50FA072A26023784003C1E46 /* TraceWarningPackageDownload.swift */; };
-		50FA07882609ECB3003C1E46 /* TraceWarningPackageDownloadTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50FA07832609EC80003C1E46 /* TraceWarningPackageDownloadTests.swift */; };
 		50FE680B2615C9BF00A2B2E7 /* DMRecentCreatedEventViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50FE680A2615C9BF00A2B2E7 /* DMRecentCreatedEventViewController.swift */; };
 		50FE68132615C9C800A2B2E7 /* DMRecentCreatedEventViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50FE68122615C9C800A2B2E7 /* DMRecentCreatedEventViewModel.swift */; };
 		50FEB18A26580B1B005C3322 /* DMPPAActualDataViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 506AB74A265800C7004AE743 /* DMPPAActualDataViewController.swift */; };
@@ -1634,6 +1632,8 @@
 		BAD3CCD5271EEB5A004C06AD /* _PaddingResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAD3CCD4271EEB5A004C06AD /* _PaddingResource.swift */; };
 		BAD3CCD8271EF973004C06AD /* TeleTanResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAD3CCD7271EF973004C06AD /* TeleTanResource.swift */; };
 		BAD507A22825685700FE07D2 /* TraceWarningDiscoveryResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAD507A12825685700FE07D2 /* TraceWarningDiscoveryResource.swift */; };
+		BAD507A3282573E800FE07D2 /* HTTPClient+TraceWarningPackageDiscoveryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50AA526725FBA0CC000C77BB /* HTTPClient+TraceWarningPackageDiscoveryTests.swift */; };
+		BAD507A52825744A00FE07D2 /* TraceWarningPackageDownloadTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50FA07832609EC80003C1E46 /* TraceWarningPackageDownloadTests.swift */; };
 		BAD962FB25668F4000FAB615 /* TestResultAvailableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAD962FA25668F4000FAB615 /* TestResultAvailableViewController.swift */; };
 		BAD9630025668F8E00FAB615 /* TestResultAvailableViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAD962FF25668F8E00FAB615 /* TestResultAvailableViewModel.swift */; };
 		BADA5B51266574B900D76C1C /* BirthdayDatePickerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BADA5B50266574B900D76C1C /* BirthdayDatePickerCell.swift */; };
@@ -6583,7 +6583,6 @@
 			isa = PBXGroup;
 			children = (
 				ABD0828E260E08D6007C4B24 /* TraceWarningMatcherTests.swift */,
-				50FA07832609EC80003C1E46 /* TraceWarningPackageDownloadTests.swift */,
 			);
 			path = __tests__;
 			sourceTree = "<group>";
@@ -8800,7 +8799,6 @@
 				5089F9572632D3AB00E722D2 /* HTTPClient+AuthorizationOTPElsTests.swift */,
 				50C51CB525CDEA4300D4C33A /* HTTPClient+SubmitAnalyticsDataTests.swift */,
 				5089F9692632D4CB00E722D2 /* HTTPClient+SubmitErrorLogFileTests.swift */,
-				50AA526725FBA0CC000C77BB /* HTTPClient+TraceWarningPackageDiscoveryTests.swift */,
 				50373EC825FBD08A000109AE /* HTTPClient+TraceWarningPackageDownloadTests.swift */,
 				A1877CA9248F247D006FEFC0 /* SAPDownloadedPackageTests.swift */,
 				B1EAEC8D247118CB003BE9A2 /* URLSession+ConvenienceTests.swift */,
@@ -10014,11 +10012,21 @@
 		BAD507A02825673B00FE07D2 /* TraceWarningDiscovery */ = {
 			isa = PBXGroup;
 			children = (
+				BAD507A4282573EB00FE07D2 /* __tests__ */,
 				5001DE8F26E20E52004242FA /* Locator+TraceWarningDiscovery.swift */,
 				50AA525325FB9ACA000C77BB /* TraceWarningDiscoveryModel.swift */,
 				BAD507A12825685700FE07D2 /* TraceWarningDiscoveryResource.swift */,
 			);
 			path = TraceWarningDiscovery;
+			sourceTree = "<group>";
+		};
+		BAD507A4282573EB00FE07D2 /* __tests__ */ = {
+			isa = PBXGroup;
+			children = (
+				50FA07832609EC80003C1E46 /* TraceWarningPackageDownloadTests.swift */,
+				50AA526725FBA0CC000C77BB /* HTTPClient+TraceWarningPackageDiscoveryTests.swift */,
+			);
+			path = __tests__;
 			sourceTree = "<group>";
 		};
 		BAD962F925668E5D00FAB615 /* TestResultAvailable */ = {
@@ -11928,6 +11936,7 @@
 				01E1026A26690CCF009ED803 /* local_statistics.pb.swift in Sources */,
 				BAF2DD5725C9BAF700D7DFB7 /* DMButtonCellViewModel.swift in Sources */,
 				EB67B5E7262AD6A100218EC7 /* TraceLocationCheckinSelectionTableViewCell.swift in Sources */,
+				BAD507A52825744A00FE07D2 /* TraceWarningPackageDownloadTests.swift in Sources */,
 				B1741B492462C207006275D9 /* Client.swift in Sources */,
 				BAA8BAE225CAD8B000E29CFE /* DMStaticTextCellViewModel.swift in Sources */,
 				347E3CAE27A9A20D00895277 /* BoosterDetailsViewModel.swift in Sources */,
@@ -12071,6 +12080,7 @@
 				504A46582702FD3E007AA09D /* DeltaOnboardingNotificationRework.swift in Sources */,
 				94F594622521CBF50077681B /* DeltaOnboardingCrossCountrySupportViewModel.swift in Sources */,
 				8F3905922715BF4C00A90E79 /* HomeMoreItem.swift in Sources */,
+				BAD507A3282573E800FE07D2 /* HTTPClient+TraceWarningPackageDiscoveryTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -12333,7 +12343,6 @@
 				BAFAED5726A8489700AC1DD6 /* DSCListProviderTests.swift in Sources */,
 				3598D99A24FE280700483F1F /* CountryTests.swift in Sources */,
 				ABBB8AC327D2241200CCA3F1 /* SystemTimeTests.swift in Sources */,
-				50AA526825FBA0CC000C77BB /* HTTPClient+TraceWarningPackageDiscoveryTests.swift in Sources */,
 				B163D1102499068D001A322C /* SettingsViewModelTests.swift in Sources */,
 				BADE0DD2276764F000DAE055 /* HomeBadgeWrapper+Fake.swift in Sources */,
 				5017F65F25FFC1E8003A812E /* ClientMetadataTests.swift in Sources */,
@@ -12412,7 +12421,6 @@
 				0154EAD827FDD87C00F1D8D5 /* FamilyMemberCoronaTestsViewModelTest.swift in Sources */,
 				A32842612490E2AC006B1F09 /* ExposureSubmissionWarnOthersViewControllerTests.swift in Sources */,
 				BAF6A46E27A15DDC008DFAF5 /* CachePolicyTests.swift in Sources */,
-				50FA07882609ECB3003C1E46 /* TraceWarningPackageDownloadTests.swift in Sources */,
 				AB5F84B424F8FA26000400D4 /* SerialMigratorTests.swift in Sources */,
 				01A1FA3826F0E91C0047B4CC /* CertLogicRule+LocalizedDescriptionTests.swift in Sources */,
 				01992ECF27DA2B5E00BC16DA /* ENFRiskCalculationResult+Fake.swift in Sources */,
