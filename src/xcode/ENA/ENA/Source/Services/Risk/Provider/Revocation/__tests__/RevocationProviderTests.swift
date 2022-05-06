@@ -12,13 +12,13 @@ class RevocationProviderTests: CWATestCase {
 			loadResources: [
 				// KID list update
 				LoadResource(
-					result: .success(revocationKidList),
+					result: .success(self.revocationKidList),
 					willLoadResource: nil
 				),
 				// Update KID-Type index for recovery certificate key identifier, hash type 0a
 				// As the requests are done sorted by type, 0a should be requested first
 				LoadResource(
-					result: .success(try kidTypeIndex()),
+					result: .success(try self.kidTypeIndex()),
 					willLoadResource: { resource in
 						guard let resource = resource as? KIDTypeIndexResource else {
 							XCTFail("wrong resource type")
@@ -30,7 +30,7 @@ class RevocationProviderTests: CWATestCase {
 				),
 				// Update KID-Type chunk for recovery certificate, recovery certificate is revoked
 				LoadResource(
-					result: .success(try revocationChunk()),
+					result: .success(try self.revocationChunk()),
 					willLoadResource: { resource in
 						guard let resource = resource as? KIDTypeChunkResource else {
 							XCTFail("wrong resource type, KIDTypeChunkResource expected")
@@ -43,7 +43,7 @@ class RevocationProviderTests: CWATestCase {
 				// As recovery certificate is revoked after checking with hash type 0a already, 0b KID-Type index update is skipped for recovery certificate
 				// Continue with update of KID-Type index for booster certificate key identifier, hash type 0b
 				LoadResource(
-					result: .success(try kidTypeIndex()),
+					result: .success(try self.kidTypeIndex()),
 					willLoadResource: { resource in
 						guard let resource = resource as? KIDTypeIndexResource else {
 							XCTFail("wrong resource type")
@@ -55,7 +55,7 @@ class RevocationProviderTests: CWATestCase {
 				),
 				// Update KID-Type chunk for booster certificate, booster certificate is not revoked for hash type 0b
 				LoadResource(
-					result: .success(try revocationChunk()),
+					result: .success(try self.revocationChunk()),
 					willLoadResource: { resource in
 						guard let resource = resource as? KIDTypeChunkResource else {
 							XCTFail("wrong resource type, KIDTypeChunkResource expected")
@@ -67,7 +67,7 @@ class RevocationProviderTests: CWATestCase {
 				),
 				// Update of KID-Type index for booster certificate key identifier, hash type 0c
 				LoadResource(
-					result: .success(try kidTypeIndex()),
+					result: .success(try self.kidTypeIndex()),
 					willLoadResource: { resource in
 						guard let resource = resource as? KIDTypeIndexResource else {
 							XCTFail("wrong resource type")
@@ -79,7 +79,7 @@ class RevocationProviderTests: CWATestCase {
 				),
 				// Update KID-Type chunk for booster certificate, booster certificate is revoked for hash type 0c
 				LoadResource(
-					result: .success(try revocationChunk()),
+					result: .success(try self.revocationChunk()),
 					willLoadResource: { resource in
 						guard let resource = resource as? KIDTypeChunkResource else {
 							XCTFail("wrong resource type, KIDTypeChunkResource expected")
