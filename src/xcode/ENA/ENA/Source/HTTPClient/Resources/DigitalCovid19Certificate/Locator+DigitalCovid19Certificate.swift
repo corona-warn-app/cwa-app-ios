@@ -7,16 +7,16 @@ import Foundation
 extension Locator {
 
 	// send:	JSON
-	// receive:	Empty
+	// receive:	JSON
 	// type:	default
 	// comment:	Custom error handling required
-	static func dccRegisterPublicKey(
+	static func digitalCovid19Certificate(
 		isFake: Bool
 	) -> Locator {
 		let fake = String(isFake ? 1 : 0)
 		return Locator(
 			endpoint: .dcc,
-			paths: ["version", "v1", "publicKey"],
+			paths: ["version", "v1", "dcc"],
 			method: .post,
 			defaultHeaders: [
 				"Content-Type": "application/json",
