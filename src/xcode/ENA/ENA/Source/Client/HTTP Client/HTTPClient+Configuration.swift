@@ -15,10 +15,6 @@ extension HTTPClient {
 					baseURL: environmentProvider.currentEnvironment().distributionURL,
 					requiresTrailingSlash: false
 				),
-				submission: .init(
-					baseURL: environmentProvider.currentEnvironment().submissionURL,
-					requiresTrailingSlash: false
-				),
 				verification: .init(
 					baseURL: environmentProvider.currentEnvironment().verificationURL,
 					requiresTrailingSlash: false
@@ -95,16 +91,6 @@ extension HTTPClient {
 					"version",
 					apiVersion,
 					"local_stats_\(groupID)"
-			)
-		}
-		
-		var onBehalfCheckinSubmissionURL: URL {
-			endpoints
-				.submission
-				.appending(
-					"version",
-					apiVersion,
-					"submission-on-behalf"
 			)
 		}
 
@@ -279,7 +265,6 @@ extension HTTPClient.Configuration {
 extension HTTPClient.Configuration {
 	struct Endpoints {
 		let distribution: Endpoint
-		let submission: Endpoint
 		let verification: Endpoint
 		let dataDonation: Endpoint
 		let errorLogSubmission: Endpoint

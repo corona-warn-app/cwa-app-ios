@@ -9,7 +9,6 @@ import Foundation
 protocol Client {
 	// MARK: Types
 
-	typealias KeySubmissionResponse = (Result<Void, SubmissionError>) -> Void
 	typealias TestResultHandler = (Result<FetchTestResultResponse, URLSession.Response.Failure>) -> Void
 	typealias TANHandler = (Result<String, URLSession.Response.Failure>) -> Void
 	typealias DayCompletionHandler = (Result<PackageDownloadResponse, URLSession.Response.Failure>) -> Void
@@ -117,15 +116,6 @@ protocol Client {
 	
 }
 
-enum SubmissionError: Error, Equatable {
-	case other(URLSession.Response.Failure)
-	case invalidPayloadOrHeaders
-	case invalidTan
-	case serverError(Int)
-	case requestCouldNotBeBuilt
-	case simpleError(String)
-}
-
 // Do not edit this cases as they are decoded as they are from the server.
 enum PPAServerErrorCode: String, Codable {
 	case API_TOKEN_ALREADY_ISSUED
@@ -141,25 +131,6 @@ enum PPAServerErrorCode: String, Codable {
 	case JWS_SIGNATURE_VERIFICATION_FAILED
 	case NONCE_MISMATCH
 	case SALT_REDEEMED
-}
-
-extension SubmissionError: LocalizedError {
-	var localizedDescription: String {
-		switch self {
-		case let .serverError(code):
-			return "\(AppStrings.ExposureSubmissionError.other)\(code)\(AppStrings.ExposureSubmissionError.otherend)"
-		case .invalidPayloadOrHeaders:
-			return "Received an invalid payload or headers."
-		case .invalidTan:
-			return AppStrings.ExposureSubmissionError.invalidTan
-		case .requestCouldNotBeBuilt:
-			return "The submission request could not be built correctly."
-		case let .simpleError(errorString):
-			return errorString
-		case let .other(error):
-			return error.localizedDescription
-		}
-	}
 }
 
 struct FetchTestResultResponse: Codable {
