@@ -10,11 +10,9 @@ protocol Client {
 	// MARK: Types
 
 	typealias KeySubmissionResponse = (Result<Void, SubmissionError>) -> Void
-	typealias AvailableHoursCompletionHandler = (Result<[Int], URLSession.Response.Failure>) -> Void
 	typealias TestResultHandler = (Result<FetchTestResultResponse, URLSession.Response.Failure>) -> Void
 	typealias TANHandler = (Result<String, URLSession.Response.Failure>) -> Void
 	typealias DayCompletionHandler = (Result<PackageDownloadResponse, URLSession.Response.Failure>) -> Void
-	typealias HourCompletionHandler = (Result<PackageDownloadResponse, URLSession.Response.Failure>) -> Void
 	typealias CountryFetchCompletion = (Result<[Country], URLSession.Response.Failure>) -> Void
 	typealias OTPAuthorizationCompletionHandler = (Result<Date, OTPError>) -> Void
 	typealias PPAnalyticsSubmitionCompletionHandler = (Result<Void, PPASError>) -> Void
@@ -22,19 +20,6 @@ protocol Client {
 	typealias TraceWarningPackageDownloadCompletionHandler = (Result<PackageDownloadResponse, TraceWarningError>) -> Void
 	typealias DigitalCovid19CertificateCompletionHandler = (Result<DCCResponse, DCCErrors.DigitalCovid19CertificateError>) -> Void
 	typealias DCCRegistrationCompletionHandler = (Result<Void, DCCErrors.RegistrationError>) -> Void
-
-	// MARK: Interacting with a Client
-
-	/// Fetches the keys for a given day and country code
-	/// - Parameters:
-	///   - day: The day that the keys belong to
-	///   - country: It should be country code, like DE stands for Germany
-	///   - completion: Once the request is done, the completion is called.
-	func fetchDay(
-		_ day: String,
-		forCountry country: String,
-		completion: @escaping DayCompletionHandler
-	)
 
 	// MARK: Submit keys
 	
@@ -254,63 +239,4 @@ struct SubmissionPayload {
 	let tan: String
 
 	let submissionType: SAP_Internal_SubmissionPayload.SubmissionType
-}
-
-struct DaysResult {
-	let errors: [URLSession.Response.Failure]
-	let bucketsByDay: [String: PackageDownloadResponse]
-}
-
-struct HoursResult {
-	let errors: [URLSession.Response.Failure]
-	let bucketsByHour: [Int: PackageDownloadResponse]
-	let day: String
-}
-
-struct FetchedDaysAndHours {
-	let hours: HoursResult
-	let days: DaysResult
-	var allKeyPackages: [PackageDownloadResponse] {
-		Array(hours.bucketsByHour.values) + Array(days.bucketsByDay.values)
-	}
-}
-
-extension Client {
-	typealias FetchDaysCompletionHandler = (DaysResult) -> Void
-	typealias FetchHoursCompletionHandler = (HoursResult) -> Void
-
-	/// Fetch the keys with the given days and country code
-	func fetchDays(
-			_ days: [String],
-			forCountry country: String,
-			completion completeWith: @escaping FetchDaysCompletionHandler
-	) {
-		var errors = [URLSession.Response.Failure]()
-		var buckets = [String: PackageDownloadResponse]()
-
-		let group = DispatchGroup()
-		for day in days {
-			group.enter()
-
-			fetchDay(day, forCountry: country) { result in
-				switch result {
-				case let .success(bucket):
-					buckets[day] = bucket
-				case let .failure(error):
-					errors.append(error)
-				}
-				group.leave()
-			}
-		}
-
-		group.notify(queue: .main) {
-			completeWith(
-				DaysResult(
-					errors: errors,
-					bucketsByDay: buckets
-				)
-			)
-		}
-	}
-
 }
