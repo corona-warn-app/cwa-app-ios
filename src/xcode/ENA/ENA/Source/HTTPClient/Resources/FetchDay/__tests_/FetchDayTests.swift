@@ -43,7 +43,7 @@ class FetchDayTests: CWATestCase {
 	}
 
 	// MARK: - Logic
-	
+
 	func testFetchDay_Success() throws {
 		let url = try XCTUnwrap(Bundle(for: type(of: self)).url(forResource: "api-response-day-2020-05-16", withExtension: nil))
 		let stack = MockNetworkStack(
@@ -56,12 +56,18 @@ class FetchDayTests: CWATestCase {
 			description: "expect error result"
 		)
 
-		let httpClient = HTTPClient.makeWith(mock: stack)
-		httpClient.fetchDay("2020-05-01", forCountry: "IT") { result in
-			defer { successExpectation.fulfill() }
+		let resource = FetchDayResource(day: "2020-05-01", country: "IT", signatureVerifier: MockVerifier())
+		let restService = RestServiceProvider(session: stack.urlSession, cache: KeyValueCacheFake())
+		restService.load(resource) { result in
+			defer {
+				successExpectation.fulfill()
+			}
 			switch result {
 			case let .success(sapPackage):
-				self.assertPackageFormat(for: sapPackage)
+				XCTAssertFalse(sapPackage.isEmpty)
+				XCTAssertNotNil(sapPackage.etag)
+				XCTAssertEqual(sapPackage.package?.bin.count, 501)
+				XCTAssertEqual(sapPackage.package?.signature.count, 144)
 			case let .failure(error):
 				XCTFail("a valid response should never yield and error like: \(error)")
 			}
@@ -79,17 +85,19 @@ class FetchDayTests: CWATestCase {
 			description: "expect error result"
 		)
 
-		let httpClient = HTTPClient.makeWith(mock: stack)
-		httpClient.fetchDay("2020-05-01", forCountry: "IT") { result in
-			defer { successExpectation.fulfill() }
+		let resource = FetchDayResource(day: "2020-05-01", country: "IT", signatureVerifier: MockVerifier())
+		let restService = RestServiceProvider(session: stack.urlSession, cache: KeyValueCacheFake())
+		restService.load(resource) { result in
+			defer {
+				successExpectation.fulfill()
+			}
 			switch result {
 			case .success:
 				XCTFail("An invalid server response should not result in success!")
 			case let .failure(error):
-				switch error {
-				case .invalidResponse:
-					break
-				default:
+				if case let .resourceError(resourceError) = error,
+				   case .packageCreation = resourceError {
+				} else {
 					XCTFail("Incorrect error type \(error) received, expected .invalidResponse")
 				}
 			}
