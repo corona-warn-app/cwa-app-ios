@@ -9,14 +9,10 @@ struct TraceWarningDiscoveryModel: Decodable, MetaDataProviding {
 
 	// MARK: - init
 
-	init(oldest: Int, latest: Int, eTag: String?) {
+	init(oldest: Int, latest: Int) {
 		self.oldest = oldest
 		self.latest = latest
 		self.metaData = MetaData()
-		// store optional eTag
-		if let eTag = eTag {
-			metaData.headers.updateValue(eTag, forKey: "ETag")
-		}
 	}
 
 	// MARK: - Protocol Decodable
@@ -41,10 +37,6 @@ struct TraceWarningDiscoveryModel: Decodable, MetaDataProviding {
 
 	let oldest: Int
 	let latest: Int
-
-	var eTag: String? {
-		metaData.headers.value(caseInsensitiveKey: "ETag")
-	}
 
 	var availablePackagesOnCDN: [Int] {
 		return latest < oldest ? [] : Array(oldest...latest)

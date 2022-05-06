@@ -23,7 +23,7 @@ final class HTTPClientTraceWarningPackageDiscoveryTests: CWATestCase {
 			responseData: encoded
 		)
 		let expectation = self.expectation(description: "completion handler is called without an error")
-		let expectedResponse = TraceWarningDiscoveryModel(oldest: oldest, latest: latest, eTag: "FakeETag")
+		let expectedResponse = TraceWarningDiscoveryModel(oldest: oldest, latest: latest)
 		
 		// WHEN
 		var response: TraceWarningDiscoveryModel?
@@ -84,7 +84,7 @@ final class HTTPClientTraceWarningPackageDiscoveryTests: CWATestCase {
 			responseData: encoded
 		)
 		let expectation = self.expectation(description: "completion handler is called without an error")
-		let expectedResponse = TraceWarningDiscoveryModel(oldest: oldest, latest: latest, eTag: "FakeETag")
+		let expectedResponse = TraceWarningDiscoveryModel(oldest: oldest, latest: latest)
 		
 		// WHEN
 		var response: TraceWarningDiscoveryModel?

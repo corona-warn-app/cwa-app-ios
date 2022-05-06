@@ -149,7 +149,7 @@ class TraceWarningPackageDownloadTests: CWATestCase {
 		// GIVEN
 		let client = ClientMock()
 		client.onTraceWarningDiscovery = { _, completion in
-			let emptyAvailablePackagesResponse = TraceWarningDiscoveryModel(oldest: 12345, latest: 12344, eTag: "FakeEtag")
+			let emptyAvailablePackagesResponse = TraceWarningDiscoveryModel(oldest: 12345, latest: 12344)
 			completion(.success(emptyAvailablePackagesResponse))
 		}
 		let eventStore = MockEventStore()
@@ -750,8 +750,7 @@ class TraceWarningPackageDownloadTests: CWATestCase {
 	private lazy var dummyResponseDiscovery: TraceWarningDiscoveryModel = {
 		let response = TraceWarningDiscoveryModel(
 			oldest: (startAsId - 5),
-			latest: (endAsId + 5),
-			eTag: "FakeEtag"
+			latest: (endAsId + 5)
 		)
 		return response
 	}()
