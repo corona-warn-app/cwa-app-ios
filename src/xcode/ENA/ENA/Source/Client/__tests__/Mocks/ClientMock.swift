@@ -30,7 +30,6 @@ final class ClientMock {
 
 	// MARK: - Properties.
 
-	var submissionResponse: KeySubmissionResponse?
 	var availablePackageRequestFailure: URLSession.Response.Failure?
 	var fetchPackageRequestFailure: URLSession.Response.Failure?
 	var downloadedPackage: PackageDownloadResponse?
@@ -54,10 +53,6 @@ final class ClientMock {
 extension ClientMock: Client {
 
 	private static let dummyResponse = PackageDownloadResponse(package: SAPDownloadedPackage(keysBin: Data(), signature: Data()), etag: "\"etag\"")
-
-	func submitOnBehalf(payload: SubmissionPayload, isFake: Bool, completion: @escaping KeySubmissionResponse) {
-		onSubmitOnBehalf(payload, isFake, completion)
-	}
 
 	func authorize(
 		otpEdus: String,

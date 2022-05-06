@@ -25,31 +25,6 @@ final class HTTPClient: Client {
 
 	// MARK: - Protocol Client
 
-	func submitOnBehalf(payload: SubmissionPayload, isFake: Bool, completion: @escaping KeySubmissionResponse) {
-		guard let request = try? URLRequest.onBehalfCheckinSubmissionRequest(configuration: configuration, payload: payload, isFake: isFake) else {
-			completion(.failure(SubmissionError.requestCouldNotBeBuilt))
-			return
-		}
-
-		session.response(for: request, isFake: isFake) { result in
-			#if !RELEASE
-			UserDefaults.standard.dmLastOnBehalfCheckinSubmissionRequest = request.httpBody
-			#endif
-
-			switch result {
-			case let .success(response):
-				switch response.statusCode {
-				case 200..<300: completion(.success(()))
-				case 400: completion(.failure(SubmissionError.invalidPayloadOrHeaders))
-				case 403: completion(.failure(SubmissionError.invalidTan))
-				default: completion(.failure(SubmissionError.serverError(response.statusCode)))
-				}
-			case let .failure(error):
-				completion(.failure(SubmissionError.other(error)))
-			}
-		}
-	}
-
 	func authorize(
 		otpEdus: String,
 		ppacToken: PPACToken,
