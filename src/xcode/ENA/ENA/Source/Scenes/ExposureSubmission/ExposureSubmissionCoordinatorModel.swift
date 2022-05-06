@@ -139,7 +139,7 @@ class ExposureSubmissionCoordinatorModel {
 		onError: @escaping (ExposureSubmissionServiceError) -> Void
 	) {
 		guard let coronaTestType = coronaTestType else {
-			onError(.preconditionError(.noCoronaTestOfGivenType))
+			onError(.preconditionError(.noCoronaTestTypeGiven))
 			return
 		}
 
