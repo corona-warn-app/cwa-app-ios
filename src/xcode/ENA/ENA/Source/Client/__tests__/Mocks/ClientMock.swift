@@ -101,7 +101,7 @@ extension ClientMock: Client {
 		completion: @escaping TraceWarningPackageDiscoveryCompletionHandler
 	) {
 		guard let onTraceWarningDiscovery = self.onTraceWarningDiscovery else {
-			completion(.success((TraceWarningDiscovery(oldest: 448163, latest: 448522, eTag: "FakeETag"))))
+			completion(.success((TraceWarningDiscoveryModel(oldest: 448163, latest: 448522, eTag: "FakeETag"))))
 			return
 		}
 		onTraceWarningDiscovery(country, completion)

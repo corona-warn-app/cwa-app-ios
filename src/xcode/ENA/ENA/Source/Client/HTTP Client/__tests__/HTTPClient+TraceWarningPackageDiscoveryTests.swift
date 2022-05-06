@@ -23,10 +23,10 @@ final class HTTPClientTraceWarningPackageDiscoveryTests: CWATestCase {
 			responseData: encoded
 		)
 		let expectation = self.expectation(description: "completion handler is called without an error")
-		let expectedResponse = TraceWarningDiscovery(oldest: oldest, latest: latest, eTag: "FakeETag")
+		let expectedResponse = TraceWarningDiscoveryModel(oldest: oldest, latest: latest, eTag: "FakeETag")
 		
 		// WHEN
-		var response: TraceWarningDiscovery?
+		var response: TraceWarningDiscoveryModel?
 		HTTPClient.makeWith(mock: stack).traceWarningPackageDiscovery(unencrypted: true, country: "DE", completion: { result in
 			switch result {
 			case let .success(traceWarningDiscovery):
@@ -84,10 +84,10 @@ final class HTTPClientTraceWarningPackageDiscoveryTests: CWATestCase {
 			responseData: encoded
 		)
 		let expectation = self.expectation(description: "completion handler is called without an error")
-		let expectedResponse = TraceWarningDiscovery(oldest: oldest, latest: latest, eTag: "FakeETag")
+		let expectedResponse = TraceWarningDiscoveryModel(oldest: oldest, latest: latest, eTag: "FakeETag")
 		
 		// WHEN
-		var response: TraceWarningDiscovery?
+		var response: TraceWarningDiscoveryModel?
 		HTTPClient.makeWith(mock: stack).traceWarningPackageDiscovery(unencrypted: true, country: "DE", completion: { result in
 			switch result {
 			case let .success(traceWarningDiscovery):
@@ -121,7 +121,7 @@ final class HTTPClientTraceWarningPackageDiscoveryTests: CWATestCase {
 		let expectation = self.expectation(description: "completion handler is called without an error")
 		
 		// WHEN
-		var expectedResponse: TraceWarningDiscovery?
+		var expectedResponse: TraceWarningDiscoveryModel?
 		HTTPClient.makeWith(mock: stack).traceWarningPackageDiscovery(unencrypted: true, country: "DE", completion: { result in
 			switch result {
 			case let .success(traceWarningDiscovery):

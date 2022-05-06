@@ -199,11 +199,11 @@ final class HTTPClient: Client {
 							  let latest = decodedResponse.latest else {
 							Log.info("Successfully discovered that there are no availablePackagesOnCDN", log: .api)
 							// create false package with latest < oldest, then computed property availablePackagesOnCDN will be empty for the downloading check later.
-							completion(.success(TraceWarningDiscovery(oldest: 0, latest: -1, eTag: eTag)))
+							completion(.success(TraceWarningDiscoveryModel(oldest: 0, latest: -1, eTag: eTag)))
 							return
 						}
 
-						let traceWarningDiscovery = TraceWarningDiscovery(oldest: oldest, latest: latest, eTag: eTag)
+						let traceWarningDiscovery = TraceWarningDiscoveryModel(oldest: oldest, latest: latest, eTag: eTag)
 						Log.info("Successfully downloaded availablePackagesOnCDN", log: .api)
 						completion(.success(traceWarningDiscovery))
 					} catch {
@@ -632,6 +632,7 @@ private extension URLRequest {
 		return request
 	}
 
+	@available(*, deprecated)
 	static func traceWarningPackageDiscovery(
 		unencrypted: Bool,
 		configuration: HTTPClient.Configuration,

@@ -270,7 +270,7 @@ class TraceWarningPackageDownload: TraceWarningPackageDownloading {
 	}
 	
 	private func processDiscoverdPackages(
-		_ discoveredTraceWarnings: TraceWarningDiscovery,
+		_ discoveredTraceWarnings: TraceWarningDiscoveryModel,
 		country: Country.ID,
 		unencrypted: Bool,
 		completion: @escaping (Result<TraceWarningSuccess, TraceWarningError>) -> Void
