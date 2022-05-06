@@ -419,7 +419,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 
 	private lazy var healthCertificateRequestService = HealthCertificateRequestService(
 		store: store,
-		client: client,
+		restServiceProvider: restServiceProvider,
 		appConfiguration: appConfigurationProvider,
 		healthCertificateService: healthCertificateService
 	)

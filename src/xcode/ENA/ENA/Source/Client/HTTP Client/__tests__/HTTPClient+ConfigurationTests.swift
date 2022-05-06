@@ -32,18 +32,13 @@ final class BackendConfigurationTests: CWATestCase {
 			baseURL: URL(staticString: "http://localhost/errorLogSubmission"),
 			requiresTrailingSlash: true
 		)
-		let dcc = Endpoint(
-			baseURL: URL(staticString: "http://localhost/dcc"),
-			requiresTrailingSlash: true
-		)
 
 		let endpoints = Configuration.Endpoints(
 			distribution: distribution,
 			submission: submission,
 			verification: verification,
 			dataDonation: dataDonation,
-			errorLogSubmission: errorLogSubmission,
-			dcc: dcc
+			errorLogSubmission: errorLogSubmission
 		)
 
 		let config = Configuration(

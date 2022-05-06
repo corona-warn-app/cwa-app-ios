@@ -6,12 +6,31 @@ import Foundation
 
 // MARK: - Digital COVID Certificate
 
-enum DCCRSAKeyPairError: Error {
+enum DCCRSAKeyPairError: LocalizedError {
+
 	case keyPairGenerationFailed(String)
 	case keychainRetrievalFailed(String)
 	case gettingDataRepresentationFailed(Error?)
 	case encryptionFailed(Error?)
 	case decryptionFailed(Error?)
+
+	// MARK: - Protocol LocalizedError
+
+	var errorDescription: String? {
+		switch self {
+		case .keyPairGenerationFailed(let error):
+			return String(format: AppStrings.HealthCertificate.Overview.TestCertificateRequest.Error.e2eErrorCallHotline, "RSA_KP_GENERATION_FAILED: \(error)")
+		case .keychainRetrievalFailed(let error):
+			return String(format: AppStrings.HealthCertificate.Overview.TestCertificateRequest.Error.tryAgain, "RSA_KP_RETRIEVAL_FAILED: \(error)")
+		case .gettingDataRepresentationFailed(let error):
+			return String(format: AppStrings.HealthCertificate.Overview.TestCertificateRequest.Error.tryAgain, "RSA_KP_GETTING_DATA_FAILED: \(String(describing: error?.localizedDescription))")
+		case .decryptionFailed(let error):
+			return String(format: AppStrings.HealthCertificate.Overview.TestCertificateRequest.Error.e2eErrorCallHotline, "RSA_DECRYPTION_FAILED: \(String(describing: error?.localizedDescription)))")
+		case .encryptionFailed(let error):
+			return String(format: AppStrings.HealthCertificate.Overview.TestCertificateRequest.Error.e2eErrorCallHotline, "RSA_ENCRYPTION_FAILED: \(String(describing: error?.localizedDescription)))")
+		}
+	}
+
 }
 
 struct DCCRSAKeyPair: Codable, Equatable {
