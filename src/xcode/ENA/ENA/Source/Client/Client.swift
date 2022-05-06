@@ -17,19 +17,6 @@ protocol Client {
 	typealias PPAnalyticsSubmitionCompletionHandler = (Result<Void, PPASError>) -> Void
 	typealias TraceWarningPackageDiscoveryCompletionHandler = (Result<TraceWarningDiscovery, TraceWarningError>) -> Void
 	typealias TraceWarningPackageDownloadCompletionHandler = (Result<PackageDownloadResponse, TraceWarningError>) -> Void
-
-	// MARK: Submit keys
-	
-	/// Submits Checkins to the backend on behalf.
-	/// - Parameters:
-	///   - payload: A set of properties to provide during the submission process
-	///   - isFake: flag to indicate a fake request
-	///   - completion: the completion handler of the submission call
-	func submitOnBehalf(
-		payload: SubmissionPayload,
-		isFake: Bool,
-		completion: @escaping KeySubmissionResponse
-	)
 	
 	// MARK: OTP Authorization
 
