@@ -33,7 +33,6 @@ final class ClientMock {
 
 	// MARK: - Properties.
 
-	var submissionResponse: KeySubmissionResponse?
 	var availablePackageRequestFailure: Client.Failure?
 	var fetchPackageRequestFailure: Client.Failure?
 	var availableDaysAndHours: DaysAndHours = DaysAndHours(days: [], hours: [])
@@ -46,7 +45,6 @@ final class ClientMock {
 
 	// MARK: - Configurable Mock Callbacks.
 
-	var onSubmitOnBehalf: ((_ payload: SubmissionPayload, _ isFake: Bool, _ completion: @escaping KeySubmissionResponse) -> Void) = { $2(.success(())) }
 	var onSupportedCountries: ((@escaping CountryFetchCompletion) -> Void)?
 	var onGetOTPEdus: ((String, PPACToken, Bool, @escaping OTPAuthorizationCompletionHandler) -> Void)?
 	var onGetOTPEls: ((String, PPACToken, @escaping OTPAuthorizationCompletionHandler) -> Void)?
@@ -124,10 +122,6 @@ extension ClientMock: Client {
 			return
 		}
 		completion(.success(downloadedPackage ?? ClientMock.dummyResponse))
-	}
-	
-	func submitOnBehalf(payload: SubmissionPayload, isFake: Bool, completion: @escaping KeySubmissionResponse) {
-		onSubmitOnBehalf(payload, isFake, completion)
 	}
 
 	func authorize(

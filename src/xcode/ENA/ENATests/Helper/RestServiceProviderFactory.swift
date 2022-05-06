@@ -41,7 +41,9 @@ extension RestServiceProviding where Self == RestServiceProviderStub {
 			),
 			.success(
 				RegistrationTokenReceiveModel(submissionTAN: "registrationToken")
-			)
+			),
+			// Submission result.
+			.success(())
 		])
 	}
 }

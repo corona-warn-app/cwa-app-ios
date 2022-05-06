@@ -8,6 +8,7 @@ import OpenCombine
 
 enum ExposureSubmissionServicePreconditionError: LocalizedError, Equatable {
 	case noCoronaTestOfGivenType
+	case noCoronaTestTypeGiven
 	case noSubmissionConsent
 	case positiveTestResultNotShown
 	case keysNotShared
@@ -133,8 +134,13 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 
 		diagnosisKeysRetrieval.accessDiagnosisKeys { [weak self] keys, error in
 			if let error = error {
-				Log.error("Error while retrieving temporary exposure keys: \(error.localizedDescription)", log: .api)
-				completion(self?.parseError(error))
+				if let enError = error as? ENError {
+					Log.error("Error while retrieving temporary exposure keys: \(error.localizedDescription)", log: .api)
+					completion(enError.toExposureSubmissionError())
+				} else {
+					Log.error("Error while retrieving temporary exposure keys: unknown", log: .api)
+					completion(.unknown)
+				}
 
 				return
 			}

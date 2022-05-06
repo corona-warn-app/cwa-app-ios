@@ -15,11 +15,6 @@ final class BackendConfigurationTests: CWATestCase {
 			baseURL: URL(staticString: "http://localhost/dist"),
 			requiresTrailingSlash: true
 		)
-
-		let submission = Endpoint(
-			baseURL: URL(staticString: "http://localhost/submit"),
-			requiresTrailingSlash: true
-		)
 		let verification = Endpoint(
 			baseURL: URL(staticString: "http://localhost/verification"),
 			requiresTrailingSlash: true
@@ -35,7 +30,6 @@ final class BackendConfigurationTests: CWATestCase {
 
 		let endpoints = Configuration.Endpoints(
 			distribution: distribution,
-			submission: submission,
 			verification: verification,
 			dataDonation: dataDonation,
 			errorLogSubmission: errorLogSubmission
