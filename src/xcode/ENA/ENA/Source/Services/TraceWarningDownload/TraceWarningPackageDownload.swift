@@ -249,27 +249,28 @@ class TraceWarningPackageDownload: TraceWarningPackageDownloading {
 		// 3. Clean up revoked Packages.
 		let revokedPackages = appConfig.keyDownloadParameters.revokedTraceWarningPackages
 		removeRevokedTraceWarningMetadataPackages(revokedPackages)
-		
-		// 4. Determine availablePackagesOnCDN (http discovery)
-		client.traceWarningPackageDiscovery(
-			unencrypted: unencrypted,
-			country: country,
-			completion: { [weak self] result in
-				switch result {
-				case let .success(traceWarningDiscovery):
-					self?.processDiscoverdPackages(
-						traceWarningDiscovery,
-						country: country,
-						unencrypted: unencrypted,
-						completion: completion
-					)
 
-				case let .failure(error):
-					Log.error("Error at discovery trace warning packages.", log: .checkin, error: error)
-					completion(.failure(error))
+		// 4. Determine availablePackagesOnCDN (http discovery)
+		let resource = TraceWarningDiscoveryResource(unencrypted: unencrypted, country: country)
+		restServiceProvider.load(resource) { [weak self] result in
+			switch result {
+			case let .success(traceWarningDiscovery):
+				self?.processDiscoverdPackages(
+					traceWarningDiscovery,
+					country: country,
+					unencrypted: unencrypted,
+					completion: completion
+				)
+
+			case let .failure(error):
+				Log.error("Error at discovery trace warning packages.", log: .checkin, error: error)
+				guard let traceWarningError = resource.customError(for: error) else {
+					completion(.failure(.generalError))
+					return
 				}
+				completion(.failure(traceWarningError))
 			}
-		)
+		}
 	}
 	
 	private func processDiscoverdPackages(

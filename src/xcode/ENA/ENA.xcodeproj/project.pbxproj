@@ -6113,7 +6113,6 @@
 			isa = PBXGroup;
 			children = (
 				50AA51FA25FA4D89000C77BB /* TraceWarningDiscoveryResponse.swift */,
-				50AA522625FA5AAD000C77BB /* TraceWarningError.swift */,
 				50BD1405260A1E840013983A /* TraceWarningSuccess.swift */,
 			);
 			path = Model;
@@ -10017,6 +10016,7 @@
 				BAD507A4282573EB00FE07D2 /* __tests__ */,
 				5001DE8F26E20E52004242FA /* Locator+TraceWarningDiscovery.swift */,
 				50AA525325FB9ACA000C77BB /* TraceWarningDiscoveryModel.swift */,
+				50AA522625FA5AAD000C77BB /* TraceWarningError.swift */,
 				BAD507A12825685700FE07D2 /* TraceWarningDiscoveryResource.swift */,
 			);
 			path = TraceWarningDiscovery;

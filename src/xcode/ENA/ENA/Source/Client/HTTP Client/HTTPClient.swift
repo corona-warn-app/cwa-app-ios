@@ -355,7 +355,7 @@ final class HTTPClient: Client {
 					case 200:
 						guard let body = response.body else {
 							Log.error("Failed to unpack response body of trace warning download with http status code: \(String(response.statusCode))", log: .api)
-							responseError = .invalidResponseError(response.statusCode)
+							responseError = .invalidResponseError
 							return
 						}
 						let eTag = response.httpResponse.value(forCaseInsensitiveHeaderField: "ETag")
@@ -369,7 +369,7 @@ final class HTTPClient: Client {
 						} else {
 							guard let package = SAPDownloadedPackage(compressedData: body) else {
 								Log.error("Failed to create signed package for trace warning download", log: .api)
-								responseError = .invalidResponseError(response.statusCode)
+								responseError = .invalidResponseError
 								return
 							}
 							let downloadedZippedPackage = PackageDownloadResponse(package: package, etag: eTag)
@@ -378,7 +378,7 @@ final class HTTPClient: Client {
 						}
 					default:
 						Log.error("Error in response with status code: \(String(response.statusCode))", log: .api)
-						responseError = .invalidResponseError(response.statusCode)
+						responseError = .invalidResponseError
 					}
 				case let .failure(error):
 					Log.error("Error in response body", log: .api, error: error)
