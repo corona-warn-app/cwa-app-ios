@@ -5,7 +5,6 @@
 import ExposureNotification
 import Foundation
 
-// swiftlint:disable:next type_body_length
 final class HTTPClient: Client {
 
 	// MARK: - Init
@@ -159,63 +158,6 @@ final class HTTPClient: Client {
 			case let .failure(error):
 				Log.error("Error in response body: \(error)", log: .api)
 				completion(.failure(.serverFailure(error)))
-			}
-		})
-	}
-	
-	func traceWarningPackageDiscovery(
-		unencrypted: Bool,
-		country: String,
-		completion: @escaping TraceWarningPackageDiscoveryCompletionHandler
-	) {
-		guard let request = try? URLRequest.traceWarningPackageDiscovery(
-				unencrypted: unencrypted,
-				configuration: configuration,
-				country: country) else {
-			completion(.failure(.requestCreationError))
-			return
-		}
-
-		session.response(for: request, completion: { result in
-			switch result {
-			case let .success(response):
-				switch response.statusCode {
-				case 200:
-					guard let body = response.body else {
-						Log.error("Failed to unpack response body of trace warning discovery with http status code: \(String(response.statusCode))", log: .api)
-						completion(.failure(.invalidResponseError(response.statusCode)))
-						return
-					}
-
-					do {
-						let decoder = JSONDecoder()
-						let decodedResponse = try decoder.decode(
-							TraceWarningDiscoveryResponse.self,
-							from: body
-						)
-
-						guard let oldest = decodedResponse.oldest,
-							  let latest = decodedResponse.latest else {
-							Log.info("Successfully discovered that there are no availablePackagesOnCDN", log: .api)
-							// create false package with latest < oldest, then computed property availablePackagesOnCDN will be empty for the downloading check later.
-							completion(.success(TraceWarningDiscoveryModel(oldest: 0, latest: -1)))
-							return
-						}
-
-						let traceWarningDiscovery = TraceWarningDiscoveryModel(oldest: oldest, latest: latest)
-						Log.info("Successfully downloaded availablePackagesOnCDN", log: .api)
-						completion(.success(traceWarningDiscovery))
-					} catch {
-						Log.error("Failed to decode response json", log: .api)
-						completion(.failure(.decodingJsonError(response.statusCode)))
-					}
-				default:
-					Log.error("Wrong http status code: \(String(response.statusCode))", log: .api)
-					completion(.failure(.invalidResponseError(response.statusCode)))
-				}
-			case let .failure(error):
-				Log.error("Error in response body", log: .api, error: error)
-				completion(.failure(.defaultServerError(error)))
 			}
 		})
 	}
