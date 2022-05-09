@@ -347,7 +347,7 @@ class TraceWarningPackageDownloadTests: CWATestCase {
 		
 		// THEN
 		waitForExpectations(timeout: .medium)
-		XCTAssertEqual(responseCodeError, .invalidResponseError(404))
+		XCTAssertEqual(responseCodeError, .invalidResponseError)
 		XCTAssertTrue(eventStore.traceWarningPackageMetadatasPublisher.value.isEmpty)
 		XCTAssertTrue(eventStore.traceTimeIntervalMatchesPublisher.value.isEmpty)
 		XCTAssertFalse(eventStore.checkinsPublisher.value.isEmpty)
@@ -421,7 +421,7 @@ class TraceWarningPackageDownloadTests: CWATestCase {
 		 */
 		
 		client.onTraceWarningDownload = { _, _, completion in
-			completion(.failure(.invalidResponseError(999)))
+			completion(.failure(.invalidResponseError))
 		}
 		
 		let eventStore = MockEventStore()
@@ -453,7 +453,7 @@ class TraceWarningPackageDownloadTests: CWATestCase {
 		
 		// THEN
 		waitForExpectations(timeout: .medium)
-		XCTAssertEqual(responseCodeError, .invalidResponseError(999))
+		XCTAssertEqual(responseCodeError, .invalidResponseError)
 		XCTAssertTrue(eventStore.traceWarningPackageMetadatasPublisher.value.isEmpty)
 		XCTAssertTrue(eventStore.traceTimeIntervalMatchesPublisher.value.isEmpty)
 		XCTAssertFalse(eventStore.checkinsPublisher.value.isEmpty)
