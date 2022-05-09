@@ -7,11 +7,8 @@ import Foundation
 import XCTest
 
 final class HTTPClientTraceWarningPackageDiscoveryTests: CWATestCase {
-/*
-	let expectationsTimeout: TimeInterval = 2
 
 	func testGIVEN_Country_WHEN_HappyCase_THEN_TraceWarningDiscoveryIsReturned() throws {
-
 		// GIVEN
 		let oldest = 448520
 		let latest = 448522
@@ -26,51 +23,52 @@ final class HTTPClientTraceWarningPackageDiscoveryTests: CWATestCase {
 		let expectedResponse = TraceWarningDiscoveryModel(oldest: oldest, latest: latest)
 		
 		// WHEN
-		var response: TraceWarningDiscoveryModel?
-		HTTPClient.makeWith(mock: stack).traceWarningPackageDiscovery(unencrypted: true, country: "DE", completion: { result in
+		let restService = RestServiceProvider(session: stack.urlSession, cache: KeyValueCacheFake())
+		let resource = TraceWarningDiscoveryResource(unencrypted: true, country: "DE")
+		restService.load(resource) { result in
+			defer { expectation.fulfill() }
 			switch result {
 			case let .success(traceWarningDiscovery):
-				response = traceWarningDiscovery
-				expectation.fulfill()
+				XCTAssertEqual(traceWarningDiscovery.oldest, expectedResponse.oldest)
+				XCTAssertEqual(traceWarningDiscovery.latest, expectedResponse.latest)
+				XCTAssertEqual(traceWarningDiscovery.availablePackagesOnCDN, expectedResponse.availablePackagesOnCDN)
 			case let .failure(error):
 				XCTFail("Test should not fail with error: \(error)")
 			}
-		})
+		}
 
 		// THEN
 		waitForExpectations(timeout: .short)
-		XCTAssertNotNil(response)
-		XCTAssertEqual(response?.oldest, expectedResponse.oldest)
-		XCTAssertEqual(response?.latest, expectedResponse.latest)
-		XCTAssertEqual(response?.availablePackagesOnCDN, expectedResponse.availablePackagesOnCDN)
 	}
-	
-	func testGIVEN_Country_WHEN_ResponseIsMissing_THEN_DefaultServerErrorIsReturned() throws {
 
+	func testGIVEN_Country_WHEN_ResponseIsMissing_THEN_DefaultServerErrorIsReturned() throws {
 		// GIVEN
 		let stack = MockNetworkStack(
 			httpStatus: 200,
 			responseData: nil
 		)
 		let expectation = self.expectation(description: "completion handler is called without an error")
-		
+		let restService = RestServiceProvider(session: stack.urlSession, cache: KeyValueCacheFake())
+		let resource = TraceWarningDiscoveryResource(unencrypted: true, country: "DE")
+		restService.load(resource) { result in
 		// WHEN
-		var responseError: TraceWarningError?
-		HTTPClient.makeWith(mock: stack).traceWarningPackageDiscovery(unencrypted: true, country: "DE", completion: { result in
+			defer { expectation.fulfill() }
 			switch result {
 			case .success:
 				XCTFail("Test should not succeed")
 			case let .failure(error):
-				responseError = error
-				expectation.fulfill()
+				guard case let .receivedResourceError(receivedResourceError) = error,
+					  case .invalidResponseError = receivedResourceError else {
+					XCTFail("Wrong error: \(error)")
+					return
+				}
 			}
-		})
+		}
 
 		// THEN
 		waitForExpectations(timeout: .short)
-		XCTAssertEqual(responseError, TraceWarningError.defaultServerError(URLSession.Response.Failure.noResponse))
 	}
-	
+/*
 	func testGIVEN_Country_WHEN_OldestLatestAreNil_THEN_OneAvailablePackagesOnCDNAreReturned() throws {
 
 		// GIVEN
