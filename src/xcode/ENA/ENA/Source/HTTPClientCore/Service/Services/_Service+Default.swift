@@ -47,6 +47,14 @@ extension Service {
 		_ completion: @escaping (Result<R.Receive.ReceiveModel, ServiceError<R.CustomError>>) -> Void
 	) where R: Resource {
 
+#if !RELEASE
+		// check if resource loading might be disabled
+		if isDisabled(R.identifier) {
+			completion(.failure(.invalidResponse))
+			return
+		}
+#endif
+		
 		// Check if we can interrupt loading and return directly a model wich is stored in our cache.
 		receiveModelToInterruptLoading(resource, { [weak self] result in
 			guard let self = self else {
@@ -62,7 +70,7 @@ extension Service {
 					// This is a "normal" case and we ignore the previous failure and continue loading. Equals a not found model.
 					self.createUrlRequest(resource, completion)
 				} else {
-					// We found a model to return but while loading from cache, there occured an error (e.g. while decoding).
+					// We found a model to return but while loading from cache, there occurred an error (e.g. while decoding).
 					completion(.failure(serviceError))
 					return
 				}
@@ -141,7 +149,13 @@ extension Service {
 	) -> Bool where R: Resource {
 		return false
 	}
-	
+
+#if !RELEASE
+	func isDisabled(_ identifier: String) -> Bool {
+		return false
+	}
+#endif
+
 	// MARK: - Internal
 	
 	/// Before returning the original error, we look up in the resource if there is some customized error cases.
@@ -169,6 +183,7 @@ extension Service {
 	///   - completion: Swift-Result of loading. If successful, it contains the concrete object of our call.
 	func retryOrDefaultValueOrFailureHandling<R>(
 		_ resource: R,
+		statusCode: Int = 0,
 		_ error: ServiceError<R.CustomError>,
 		_ responseData: Data? = nil,
 		_ completion: @escaping (Result<R.Receive.ReceiveModel, ServiceError<R.CustomError>>) -> Void
@@ -185,7 +200,9 @@ extension Service {
 			load(resourceCopy, completion)
 		} else {
 			// Now after all retries exhausted (or we did not had any retry), we check if we can return a default value or not. If so, return it independent which error we had
-			if let defaultModel = resource.defaultModel {
+			// check if a defaultModel range was given
+			if let defaultModel = resource.defaultModel,
+			   (resource.defaultModelRange.isEmpty || resource.defaultModelRange.contains(statusCode)) {
 				Log.info("Found some default value", log: .client)
 				guard var modelWithMetadata = defaultModel as? MetaDataProviding else {
 					completion(.success(defaultModel))
@@ -342,14 +359,14 @@ extension Service {
 		case 204:
 			guard resource.receiveResource is EmptyReceiveResource else {
 				Log.error("This is not an EmptyReceiveResource", log: .client)
-				self.retryOrDefaultValueOrFailureHandling(resource, .invalidResponse, nil, completion)
+				self.retryOrDefaultValueOrFailureHandling(resource, statusCode: response.statusCode, .invalidResponse, nil, completion)
 				return
 			}
 			self.decodeModel(resource, bodyData, response.allHeaderFields, false, completion)
 		case 304:
 			self.cached(resource, completion)
 		default:
-			self.retryOrDefaultValueOrFailureHandling(resource, .unexpectedServerError(response.statusCode), bodyData, completion)
+			self.retryOrDefaultValueOrFailureHandling(resource, statusCode: response.statusCode, .unexpectedServerError(response.statusCode), bodyData, completion)
 		}
 	}
 
@@ -408,7 +425,7 @@ extension Service {
 		// If not, we will fail with the original error
 		else {
 			Log.info("Found nothing cached.")
-			retryOrDefaultValueOrFailureHandling(resource, .unexpectedServerError(statusCode), nil, completion)
+			retryOrDefaultValueOrFailureHandling(resource, statusCode: statusCode, .unexpectedServerError(statusCode), nil, completion)
 		}
 	}
 	

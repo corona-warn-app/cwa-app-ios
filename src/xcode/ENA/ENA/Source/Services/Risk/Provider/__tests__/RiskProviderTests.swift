@@ -868,7 +868,7 @@ class RiskProviderTests: CWATestCase {
 		let keyPackageDownload = KeyPackageDownload(
 			downloadedPackagesStore: downloadedPackagesStore,
 			client: client,
-			wifiClient: client,
+			restService: RestServiceProviderStub(),
 			store: store
 		)
 		
@@ -927,12 +927,12 @@ class RiskProviderTests: CWATestCase {
 		downloadedPackagesStore.open()
 		
 		let client = ClientMock()
-		client.fetchPackageRequestFailure = Client.Failure.noResponse
+		client.fetchPackageRequestFailure = URLSession.Response.Failure.noResponse
 		
 		let keyPackageDownload = KeyPackageDownload(
 			downloadedPackagesStore: downloadedPackagesStore,
 			client: client,
-			wifiClient: client,
+			restService: RestServiceProviderStub(),
 			store: store
 		)
 		
@@ -1005,12 +1005,17 @@ class RiskProviderTests: CWATestCase {
 		downloadedPackagesStore.open()
 		
 		let client = ClientMock()
-		client.availableDaysAndHours = DaysAndHours(days: ["2020-10-02", "2020-10-01", "2020-10-03", "2020-10-04"], hours: [1, 2])
-		
+		let restServiceProvider = RestServiceProviderStub(
+			results: [
+				.success(["2020-10-02", "2020-10-01", "2020-10-03", "2020-10-04"]),
+				.success([1, 2])
+			]
+		)
+
 		let keyPackageDownload = KeyPackageDownload(
 			downloadedPackagesStore: downloadedPackagesStore,
 			client: client,
-			wifiClient: client,
+			restService: restServiceProvider,
 			store: store
 		)
 		
@@ -1085,12 +1090,12 @@ class RiskProviderTests: CWATestCase {
 		downloadedPackagesStore.open()
 		
 		let client = ClientMock()
-		client.fetchPackageRequestFailure = Client.Failure.noResponse
+		client.fetchPackageRequestFailure = URLSession.Response.Failure.noResponse
 		
 		let keyPackageDownload = KeyPackageDownload(
 			downloadedPackagesStore: downloadedPackagesStore,
 			client: client,
-			wifiClient: client,
+			restService: RestServiceProviderStub(),
 			store: store
 		)
 		
@@ -1163,12 +1168,10 @@ class RiskProviderTests: CWATestCase {
 		downloadedPackagesStore.open()
 		
 		let client = ClientMock()
-		client.availableDaysAndHours = DaysAndHours(days: ["2020-10-02", "2020-10-01", "2020-10-03", "2020-10-04"], hours: [1, 2])
-		
 		let keyPackageDownload = KeyPackageDownload(
 			downloadedPackagesStore: downloadedPackagesStore,
 			client: client,
-			wifiClient: client,
+			restService: RestServiceProviderStub(),
 			store: store
 		)
 		
@@ -1296,11 +1299,18 @@ extension CWATestCase {
 		let downloadedPackagesStore: DownloadedPackagesStore = DownloadedPackagesSQLLiteStore.inMemory()
 		downloadedPackagesStore.open()
 
-		let client = ClientMock(availableDaysAndHours: DaysAndHours(days: ["day"], hours: [0]))
+		let client = ClientMock()
+		let restServiceProvider = RestServiceProviderStub(
+				results: [
+					.success(["day"]),
+					.success([0])
+				])
+
+
 		return KeyPackageDownload(
 			downloadedPackagesStore: downloadedPackagesStore,
 			client: client,
-			wifiClient: client,
+			restService: restServiceProvider,
 			store: store
 		)
 	}

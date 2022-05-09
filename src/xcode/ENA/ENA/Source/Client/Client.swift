@@ -9,41 +9,14 @@ import Foundation
 protocol Client {
 	// MARK: Types
 
-	typealias Failure = URLSession.Response.Failure
-	typealias AvailableDaysCompletionHandler = (Result<[String], Failure>) -> Void
-	typealias AvailableHoursCompletionHandler = (Result<[Int], Failure>) -> Void
-	typealias TestResultHandler = (Result<FetchTestResultResponse, Failure>) -> Void
-	typealias TANHandler = (Result<String, Failure>) -> Void
-	typealias DayCompletionHandler = (Result<PackageDownloadResponse, Failure>) -> Void
-	typealias HourCompletionHandler = (Result<PackageDownloadResponse, Failure>) -> Void
-	typealias CountryFetchCompletion = (Result<[Country], Failure>) -> Void
+	typealias TestResultHandler = (Result<FetchTestResultResponse, URLSession.Response.Failure>) -> Void
+	typealias TANHandler = (Result<String, URLSession.Response.Failure>) -> Void
+	typealias DayCompletionHandler = (Result<PackageDownloadResponse, URLSession.Response.Failure>) -> Void
+	typealias CountryFetchCompletion = (Result<[Country], URLSession.Response.Failure>) -> Void
 	typealias OTPAuthorizationCompletionHandler = (Result<Date, OTPError>) -> Void
 	typealias PPAnalyticsSubmitionCompletionHandler = (Result<Void, PPASError>) -> Void
 	typealias TraceWarningPackageDiscoveryCompletionHandler = (Result<TraceWarningDiscovery, TraceWarningError>) -> Void
 	typealias TraceWarningPackageDownloadCompletionHandler = (Result<PackageDownloadResponse, TraceWarningError>) -> Void
-
-	// MARK: Interacting with a Client
-
-	/// Determines days that can be downloaded.
-	///
-	/// - Parameters:
-	///   - country: Country code
-	///   - completion: completion callback which includes the list of available days
-	func availableDays(
-		forCountry country: String,
-		completion: @escaping AvailableDaysCompletionHandler
-	)
-
-	/// Fetches the keys for a given day and country code
-	/// - Parameters:
-	///   - day: The day that the keys belong to
-	///   - country: It should be country code, like DE stands for Germany
-	///   - completion: Once the request is done, the completion is called.
-	func fetchDay(
-		_ day: String,
-		forCountry country: String,
-		completion: @escaping DayCompletionHandler
-	)
 	
 	// MARK: OTP Authorization
 
@@ -196,63 +169,4 @@ struct SubmissionPayload {
 	let tan: String
 
 	let submissionType: SAP_Internal_SubmissionPayload.SubmissionType
-}
-
-struct DaysResult {
-	let errors: [Client.Failure]
-	let bucketsByDay: [String: PackageDownloadResponse]
-}
-
-struct HoursResult {
-	let errors: [Client.Failure]
-	let bucketsByHour: [Int: PackageDownloadResponse]
-	let day: String
-}
-
-struct FetchedDaysAndHours {
-	let hours: HoursResult
-	let days: DaysResult
-	var allKeyPackages: [PackageDownloadResponse] {
-		Array(hours.bucketsByHour.values) + Array(days.bucketsByDay.values)
-	}
-}
-
-extension Client {
-	typealias FetchDaysCompletionHandler = (DaysResult) -> Void
-	typealias FetchHoursCompletionHandler = (HoursResult) -> Void
-
-	/// Fetch the keys with the given days and country code
-	func fetchDays(
-			_ days: [String],
-			forCountry country: String,
-			completion completeWith: @escaping FetchDaysCompletionHandler
-	) {
-		var errors = [Client.Failure]()
-		var buckets = [String: PackageDownloadResponse]()
-
-		let group = DispatchGroup()
-		for day in days {
-			group.enter()
-
-			fetchDay(day, forCountry: country) { result in
-				switch result {
-				case let .success(bucket):
-					buckets[day] = bucket
-				case let .failure(error):
-					errors.append(error)
-				}
-				group.leave()
-			}
-		}
-
-		group.notify(queue: .main) {
-			completeWith(
-				DaysResult(
-					errors: errors,
-					bucketsByDay: buckets
-				)
-			)
-		}
-	}
-
 }

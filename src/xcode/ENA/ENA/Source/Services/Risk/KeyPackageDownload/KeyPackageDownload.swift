@@ -56,15 +56,17 @@ class KeyPackageDownload: KeyPackageDownloadProtocol {
 	init(
 		downloadedPackagesStore: DownloadedPackagesStore,
 		client: Client,
-		wifiClient: ClientWifiOnly,
+		restService: RestServiceProviding,
 		store: Store & AppConfigCaching,
 		countryIds: [Country.ID] = ["EUR"]
 	) {
 		self.downloadedPackagesStore = downloadedPackagesStore
 		self.client = client
-		self.wifiClient = wifiClient
+		self.restService = restService
 		self.store = store
 		self.countryIds = countryIds
+		self.fetchHoursServiceHelper = FetchHoursServiceHelper(restService: restService)
+		self.fetchDayServiceHelper = FetchDayServiceHelper(restService: restService)
 	}
 
 	// MARK: - Protocol KeyPackageDownloadProtocol
@@ -128,8 +130,11 @@ class KeyPackageDownload: KeyPackageDownloadProtocol {
 	private let countryIds: [Country.ID]
 	private let downloadedPackagesStore: DownloadedPackagesStore
 	private let client: Client
-	private let wifiClient: ClientWifiOnly
+	private let restService: RestServiceProviding
 	private let store: Store & AppConfigCaching
+
+	private let fetchDayServiceHelper: FetchDayServiceHelper
+	private let fetchHoursServiceHelper: FetchHoursServiceHelper
 
 	private var status: KeyPackageDownloadStatus = .idle {
 		didSet {
@@ -243,8 +248,7 @@ class KeyPackageDownload: KeyPackageDownloadProtocol {
 		switch downloadMode {
 		case .daily:
 			Log.info("KeyPackageDownload: Fetch day packages from server.", log: .riskDetection)
-
-			client.fetchDays(
+			fetchDayServiceHelper.fetchDays(
 				packageKeys,
 				forCountry: country,
 				completion: { daysResult in
@@ -259,8 +263,7 @@ class KeyPackageDownload: KeyPackageDownloadProtocol {
 			Log.info("KeyPackageDownload: Fetch hour packages from server.", log: .riskDetection)
 
 			let hourKeys = packageKeys.compactMap { Int($0) }
-
-			wifiClient.fetchHours(hourKeys, day: dayKey, country: country) { hoursResult in
+			fetchHoursServiceHelper.fetchHours(hourKeys, day: dayKey, country: country) { hoursResult in
 				if hoursResult.errors.isEmpty {
 					let keyPackages = Dictionary(
 						uniqueKeysWithValues: hoursResult.bucketsByHour.map { key, value in (String(key), value) }
@@ -350,7 +353,8 @@ class KeyPackageDownload: KeyPackageDownloadProtocol {
 
 		switch downloadMode {
 		case .daily:
-			client.availableDays(forCountry: country) { result in
+			let resource = AvailableDaysResource(country: country)
+			restService.load(resource) { result in
 				switch result {
 				case let .success(days):
 					Log.info("KeyPackageDownload: Server data is available for day packages.", log: .riskDetection)
@@ -361,9 +365,10 @@ class KeyPackageDownload: KeyPackageDownloadProtocol {
 				}
 			}
 		case .hourly(let dayKey):
-			wifiClient.availableHours(day: dayKey, country: country) { result in
+			let resource = AvailableHoursResource(day: dayKey, country: country)
+			restService.load(resource) { result in
 				switch result {
-				case .success(let hours):
+				case let .success(hours):
 					Log.info("KeyPackageDownload: Server data is available for hour packages.", log: .riskDetection)
 					let packageKeys = hours.map { String($0) }
 					completion(.success(packageKeys))

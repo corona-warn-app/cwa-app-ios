@@ -25,23 +25,6 @@ final class HTTPClient: Client {
 
 	// MARK: - Protocol Client
 
-	func availableDays(
-		forCountry country: String,
-		completion completeWith: @escaping AvailableDaysCompletionHandler
-	) {
-		let url = configuration.availableDaysURL(forCountry: country)
-		availableDays(from: url, completion: completeWith)
-	}
-
-	func fetchDay(
-		_ day: String,
-		forCountry country: String,
-		completion completeWith: @escaping DayCompletionHandler
-	) {
-		let url = configuration.diagnosisKeysURL(day: day, forCountry: country)
-		fetchDay(from: url, completion: completeWith)
-	}
-
 	func authorize(
 		otpEdus: String,
 		ppacToken: PPACToken,
@@ -316,93 +299,6 @@ final class HTTPClient: Client {
 
 	private var fetchDayRetries: [URL: Int] = [:]
 	private var traceWarningPackageDownloadRetries: [URL: Int] = [:]
-
-	private func fetchDay(
-		from url: URL,
-		completion completeWith: @escaping DayCompletionHandler) {
-		var responseError: Failure?
-
-		session.GET(url) { [weak self] result in
-			self?.queue.async {
-				guard let self = self else {
-					completeWith(.failure(.noResponse))
-					return
-				}
-
-				defer {
-					// no guard in defer!
-					if let error = responseError {
-						let retryCount = self.fetchDayRetries[url] ?? 0
-						if retryCount > 2 {
-							completeWith(.failure(error))
-						} else {
-							self.fetchDayRetries[url] = retryCount.advanced(by: 1)
-							Log.debug("\(url) received: \(error) – retry (\(retryCount.advanced(by: 1)) of 3)", log: .api)
-							self.fetchDay(from: url, completion: completeWith)
-						}
-					} else {
-						// no error, no retry - clean up
-						self.fetchDayRetries[url] = nil
-					}
-				}
-
-				switch result {
-				case let .success(response):
-					guard let dayData = response.body else {
-						responseError = .invalidResponse
-						Log.error("Failed to download for URL '\(url)': invalid response", log: .api)
-						return
-					}
-					guard let package = SAPDownloadedPackage(compressedData: dayData) else {
-						Log.error("Failed to create signed package. For URL: \(url)", log: .api)
-						responseError = .invalidResponse
-						return
-					}
-					let etag = response.httpResponse.value(forCaseInsensitiveHeaderField: "ETag")
-					let payload = PackageDownloadResponse(package: package, etag: etag)
-					completeWith(.success(payload))
-				case let .failure(error):
-					responseError = error
-					Log.error("Failed to download for URL '\(url)' due to error: \(error).", log: .api)
-				}
-			}
-		}
-	}
-	
-	private func availableDays(
-		from url: URL,
-		completion completeWith: @escaping AvailableDaysCompletionHandler
-	) {
-		session.GET(url) { [weak self] result in
-			self?.queue.async {
-				switch result {
-				case let .success(response):
-					guard let data = response.body else {
-						completeWith(.failure(.invalidResponse))
-						return
-					}
-					guard response.hasAcceptableStatusCode else {
-						completeWith(.failure(.invalidResponse))
-						return
-					}
-					do {
-						let decoder = JSONDecoder()
-						let days = try decoder
-							.decode(
-								[String].self,
-								from: data
-							)
-						completeWith(.success(days))
-					} catch {
-						completeWith(.failure(.invalidResponse))
-						return
-					}
-				case let .failure(error):
-					completeWith(.failure(error))
-				}
-			}
-		}
-	}
 
 	private func otpAuthorizationSuccessHandler(
 		for response: URLSession.Response,
