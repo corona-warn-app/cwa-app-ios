@@ -68,9 +68,8 @@ final class HTTPClientTraceWarningPackageDiscoveryTests: CWATestCase {
 		// THEN
 		waitForExpectations(timeout: .short)
 	}
-/*
-	func testGIVEN_Country_WHEN_OldestLatestAreNil_THEN_OneAvailablePackagesOnCDNAreReturned() throws {
 
+	func testGIVEN_Country_WHEN_OldestLatestAreNil_THEN_OneAvailablePackagesOnCDNAreReturned() throws {
 		// GIVEN
 		let oldest = 448520
 		let latest = 448520
@@ -85,26 +84,26 @@ final class HTTPClientTraceWarningPackageDiscoveryTests: CWATestCase {
 		let expectedResponse = TraceWarningDiscoveryModel(oldest: oldest, latest: latest)
 		
 		// WHEN
-		var response: TraceWarningDiscoveryModel?
-		HTTPClient.makeWith(mock: stack).traceWarningPackageDiscovery(unencrypted: true, country: "DE", completion: { result in
+		let restService = RestServiceProvider(session: stack.urlSession, cache: KeyValueCacheFake())
+		let resource = TraceWarningDiscoveryResource(unencrypted: true, country: "DE")
+		restService.load(resource) { result in
+			defer { expectation.fulfill() }
 			switch result {
 			case let .success(traceWarningDiscovery):
-				response = traceWarningDiscovery
-				expectation.fulfill()
+				XCTAssertEqual(traceWarningDiscovery.oldest, expectedResponse.oldest)
+				XCTAssertEqual(traceWarningDiscovery.latest, expectedResponse.latest)
+				XCTAssertEqual(traceWarningDiscovery.availablePackagesOnCDN, expectedResponse.availablePackagesOnCDN)
+				XCTAssertEqual(traceWarningDiscovery.availablePackagesOnCDN.count, 1)
 			case let .failure(error):
 				XCTFail("Test should not fail with error: \(error)")
 			}
-		})
+		}
 
 		// THEN
 		waitForExpectations(timeout: .short)
-		XCTAssertNotNil(response)
-		XCTAssertEqual(response?.oldest, expectedResponse.oldest)
-		XCTAssertEqual(response?.latest, expectedResponse.latest)
-		XCTAssertEqual(response?.availablePackagesOnCDN, expectedResponse.availablePackagesOnCDN)
-		XCTAssertEqual(response?.availablePackagesOnCDN.count, 1)
 	}
-	
+
+/*
 	func testGIVEN_Country_WHEN_OldestLatestAreNil_THEN_EmptyAvailablePackagesOnCDNAreReturned() throws {
 
 		// GIVEN
