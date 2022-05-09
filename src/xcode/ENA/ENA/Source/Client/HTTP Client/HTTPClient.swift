@@ -573,27 +573,6 @@ private extension URLRequest {
 		return request
 	}
 
-	@available(*, deprecated)
-	static func traceWarningPackageDiscovery(
-		unencrypted: Bool,
-		configuration: HTTPClient.Configuration,
-		country: String
-	) throws -> URLRequest {
-		if unencrypted {
-			Log.info("unencrypted traceWarningPackageDiscovery", log: .api)
-		} else {
-			Log.info("encrypted traceWarningPackageDiscovery", log: .api)
-		}
-		let url = unencrypted ?
-			configuration.traceWarningPackageDiscoveryURL(country: country) :
-			configuration.encryptedTraceWarningPackageDiscoveryURL(country: country)
-		var request = URLRequest(url: url)
-
-		request.httpMethod = HttpMethod.get
-		
-		return request
-	}
-
 	static func dscListRequest(
 		configuration: HTTPClient.Configuration,
 		eTag: String?,
