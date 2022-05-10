@@ -121,7 +121,6 @@ final class HealthCertificateReissuanceConsentViewModel {
 	}
 
 	func submit(completion: @escaping (Result<Void, HealthCertificateReissuanceError>) -> Void) {
-		/*
 		Log.info("Submit certificate for reissuance...", log: .vaccination)
 
 		#if DEBUG
@@ -163,8 +162,8 @@ final class HealthCertificateReissuanceConsentViewModel {
 					
 					let accompanyingCertificates = certificate.accompanyingCertificates.compactMap { $0.certificateRef.barcodeData }
 					
-					let certificates = [certificateToReissue] + accompanyingCertificates
-					let sendModel = DCCReissuanceSendModel(action: certificate.action, certificates: certificates)
+					let requestCertificates = [certificateToReissue] + accompanyingCertificates
+					let sendModel = DCCReissuanceSendModel(action: certificate.action, certificates: requestCertificates)
 					let resource = DCCReissuanceResource(
 						sendModel: sendModel,
 						trustEvaluation: trustEvaluation
@@ -178,16 +177,10 @@ final class HealthCertificateReissuanceConsentViewModel {
 						
 						switch result {
 						case .success(let certificates):
-							let certificate = certificates.first { certificate in
-								return certificate.relations.contains { relation in
-									relation.index == 0 && relation.action == "replace"
-								}
-							}
-							
 							do {
 								try self.healthCertificateService.replaceHealthCertificate(
-									requestCertificates: certificates,
-									with: certificate.certificate,
+									requestCertificates: requestCertificates,
+									with: certificates,
 									for: self.certifiedPerson,
 									markAsNew: true,
 									completedNotificationRegistration: { }
@@ -209,7 +202,6 @@ final class HealthCertificateReissuanceConsentViewModel {
 				}
 			}
 			.store(in: &subscriptions)
-		 */
 	}
 
 	// MARK: - Private

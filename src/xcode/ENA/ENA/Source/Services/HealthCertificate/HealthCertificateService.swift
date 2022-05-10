@@ -294,16 +294,19 @@ class HealthCertificateService: HealthCertificateServiceServable {
 				
 				if relation.index < requestCertificates.count {
 					let certificateBase45 = requestCertificates[relation.index]
-					let certificateToBeRemoved = try HealthCertificate(base45: certificateBase45, isNew: markAsNew)
-					dispatchGroup.enter()
-					healthCertificateNotificationService.removeAllNotifications(
-						for: certificateToBeRemoved,
-						completion: {
-							dispatchGroup.leave()
-						}
-					)
 					
-					recycleBin.moveToBin(.certificate(certificateToBeRemoved))
+					if let certificateToBeRemoved = person.healthCertificates.first(where: {
+						certificateBase45 == $0.base45
+					}) {
+						dispatchGroup.enter()
+						healthCertificateNotificationService.removeAllNotifications(
+							for: certificateToBeRemoved,
+							   completion: { dispatchGroup.leave() }
+						)
+						recycleBin.moveToBin(.certificate(certificateToBeRemoved))
+					} else {
+						Log.error("The certified person does not contain the indexed certificate", log: .vaccination)
+					}
 				} else {
 					Log.error("index of certificate to be deleted is out of Bounds", log: .vaccination)
 				}
