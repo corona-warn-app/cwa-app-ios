@@ -8806,7 +8806,6 @@
 				5089F9572632D3AB00E722D2 /* HTTPClient+AuthorizationOTPElsTests.swift */,
 				50C51CB525CDEA4300D4C33A /* HTTPClient+SubmitAnalyticsDataTests.swift */,
 				5089F9692632D4CB00E722D2 /* HTTPClient+SubmitErrorLogFileTests.swift */,
-				50373EC825FBD08A000109AE /* HTTPClient+TraceWarningPackageDownloadTests.swift */,
 				A1877CA9248F247D006FEFC0 /* SAPDownloadedPackageTests.swift */,
 				B1EAEC8D247118CB003BE9A2 /* URLSession+ConvenienceTests.swift */,
 			);
@@ -9982,10 +9981,20 @@
 		BAD25053282A88110042F45D /* TraceWarningDownload */ = {
 			isa = PBXGroup;
 			children = (
+				BAD25058282AB8B20042F45D /* __tests__ */,
 				5001DE9126E20F64004242FA /* Locatro+TraceWarningDownload.swift */,
 				BAD25054282A88300042F45D /* TraceWarningDownloadResource.swift */,
 			);
 			path = TraceWarningDownload;
+			sourceTree = "<group>";
+		};
+		BAD25058282AB8B20042F45D /* __tests__ */ = {
+			isa = PBXGroup;
+			children = (
+				50373EC825FBD08A000109AE /* HTTPClient+TraceWarningPackageDownloadTests.swift */,
+				50FA07832609EC80003C1E46 /* TraceWarningPackageDownloadTests.swift */,
+			);
+			path = __tests__;
 			sourceTree = "<group>";
 		};
 		BAD3199726FA0E8F006E82E7 /* __tests__ */ = {
@@ -10042,7 +10051,6 @@
 			children = (
 				50AA526725FBA0CC000C77BB /* HTTPClient+TraceWarningPackageDiscoveryTests.swift */,
 				BAD507A82825768700FE07D2 /* TraceWarningDiscoveryResourceTests.swift */,
-				50FA07832609EC80003C1E46 /* TraceWarningPackageDownloadTests.swift */,
 			);
 			path = __tests__;
 			sourceTree = "<group>";

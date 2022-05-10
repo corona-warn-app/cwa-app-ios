@@ -25,13 +25,7 @@ struct PackageDownloadReceiveResource: ReceiveResource {
 		guard let data = data else {
 			return .failure(.missingData)
 		}
-		guard let package = SAPDownloadedPackage(compressedData: data) else {
-			return .failure(.packageCreation)
-		}
-		guard signatureVerifier.verify(package) else {
-			return .failure(.signatureVerification)
-		}
-
+		let package = SAPDownloadedPackage(compressedData: data)
 		let payload = PackageDownloadResponse(package: package)
 		return .success(payload)
 	}

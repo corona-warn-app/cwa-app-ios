@@ -11,7 +11,6 @@ final class HTTPClientTraceWarningPackageDownloadTests: CWATestCase {
 	// MARK: - Tests
 	
 	func testGIVEN_CountryAndPackageId_WHEN_HappyCase_THEN_TraceWarningPackageIsReturned() throws {
-
 		// GIVEN
 		let packageId = Date().unixTimestampInHours
 		let url = Bundle(for: type(of: self)).url(forResource: "api-response-traceWarning", withExtension: nil)
@@ -21,29 +20,28 @@ final class HTTPClientTraceWarningPackageDownloadTests: CWATestCase {
 			responseData: try Data(contentsOf: XCTUnwrap(url))
 		)
 
-		let expectation = self.expectation(description: "completion handler is called without an error")
+		let expectation = expectation(description: "completion handler is called without an error")
 
 		// WHEN
-		var response: PackageDownloadResponse?
-		let httpClient = HTTPClient.makeWith(mock: stack)
-		httpClient.traceWarningPackageDownload(unencrypted: true, country: "DE", packageId: packageId, completion: { result in
+		let restService = RestServiceProvider(session: stack.urlSession, cache: KeyValueCacheFake())
+		let resource = TraceWarningDownloadResource(unencrypted: true, country: "DE", packageId: packageId, signatureVerifier: MockVerifier())
+		restService.load(resource) { result in
+			defer { expectation.fulfill() }
 			switch result {
 			case let .success(package):
-				response = package
-				expectation.fulfill()
+				self.assertPackageFormat(for: package)
+
 			case let .failure(error):
 				XCTFail("Test should not fail with error: \(error)")
 			}
-		})
+
+		}
 
 		// THEN
 		waitForExpectations(timeout: .medium)
-		XCTAssertNotNil(response)
-		self.assertPackageFormat(for: try XCTUnwrap(response))
 	}
 	
 	func testGIVEN_CountryAndPackageId_WHEN_EmptyContentHeaderIsSend_THEN_EmptyTraceWarningPackageIsReturned() throws {
-		
 		// GIVEN
 		let packageId = Date().unixTimestampInHours
 		let stack = MockNetworkStack(
@@ -52,26 +50,24 @@ final class HTTPClientTraceWarningPackageDownloadTests: CWATestCase {
 			responseData: Data()
 		)
 
-		let expectation = self.expectation(description: "completion handler is called without an error")
+		let expectation = expectation(description: "completion handler is called without an error")
 
 		// WHEN
-		var response: PackageDownloadResponse?
-		let httpClient = HTTPClient.makeWith(mock: stack)
-		httpClient.traceWarningPackageDownload(unencrypted: true, country: "DE", packageId: packageId, completion: { result in
+		let restService = RestServiceProvider(session: stack.urlSession, cache: KeyValueCacheFake())
+		let resource = TraceWarningDownloadResource(unencrypted: true, country: "DE", packageId: packageId, signatureVerifier: MockVerifier())
+		restService.load(resource) { result in
+			defer { expectation.fulfill() }
 			switch result {
 			case let .success(package):
-				response = package
-				expectation.fulfill()
+				XCTAssertNotNil(package)
+				XCTAssertTrue(package.isEmpty)
 			case let .failure(error):
 				XCTFail("Test should not fail with error: \(error)")
 			}
-		})
+		}
 
 		// THEN
 		waitForExpectations(timeout: .medium)
-		XCTAssertNotNil(response)
-		XCTAssertTrue(try XCTUnwrap(response).isEmpty)
-		XCTAssertNil(response?.package)
 	}
 	
 	func testGIVEN_CountryAndPackageId_WHEN_ReferenceIsKilled_THEN_DownloadErrorIsReturned() {
@@ -88,6 +84,7 @@ final class HTTPClientTraceWarningPackageDownloadTests: CWATestCase {
 
 		// WHEN
 		var response: TraceWarningError?
+		/*
 		HTTPClient.makeWith(mock: stack).traceWarningPackageDownload(unencrypted: true, country: "DE", packageId: packageId, completion: { result in
 			switch result {
 			case .success:
@@ -97,6 +94,7 @@ final class HTTPClientTraceWarningPackageDownloadTests: CWATestCase {
 				expectation.fulfill()
 			}
 		})
+		 */
 
 		// THEN
 		waitForExpectations(timeout: .short)
@@ -117,6 +115,7 @@ final class HTTPClientTraceWarningPackageDownloadTests: CWATestCase {
 
 		// WHEN
 		var response: TraceWarningError?
+		/*
 		let httpClientMock = HTTPClient.makeWith(mock: stack)
 		httpClientMock.traceWarningPackageDownload(unencrypted: true, country: "DE", packageId: packageId, completion: { result in
 			switch result {
@@ -127,6 +126,7 @@ final class HTTPClientTraceWarningPackageDownloadTests: CWATestCase {
 				expectation.fulfill()
 			}
 		})
+		 */
 
 		// THEN
 		waitForExpectations(timeout: .medium)
@@ -147,6 +147,7 @@ final class HTTPClientTraceWarningPackageDownloadTests: CWATestCase {
 
 		// WHEN
 		var response: TraceWarningError?
+		/*
 		let httpClientMock = HTTPClient.makeWith(mock: stack)
 		httpClientMock.traceWarningPackageDownload(unencrypted: true, country: "DE", packageId: packageId, completion: { result in
 			switch result {
@@ -157,6 +158,7 @@ final class HTTPClientTraceWarningPackageDownloadTests: CWATestCase {
 				expectation.fulfill()
 			}
 		})
+		 */
 
 		// THEN
 		waitForExpectations(timeout: .medium)
