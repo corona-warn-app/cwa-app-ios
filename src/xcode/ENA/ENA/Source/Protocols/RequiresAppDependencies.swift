@@ -10,7 +10,6 @@ typealias DownloadedPackagesSQLLiteStore = DownloadedPackagesSQLLiteStoreV3
 
 protocol RequiresAppDependencies {
 	var client: HTTPClient { get }
-	var wifiClient: WifiOnlyHTTPClient { get }
 	var store: Store { get }
 	var taskScheduler: ENATaskScheduler { get }
 	var downloadedPackagesStore: DownloadedPackagesStore { get }
@@ -22,10 +21,6 @@ protocol RequiresAppDependencies {
 extension RequiresAppDependencies {
 	var client: HTTPClient {
 		UIApplication.coronaWarnDelegate().client
-	}
-
-	var wifiClient: WifiOnlyHTTPClient {
-		UIApplication.coronaWarnDelegate().wifiClient
 	}
 
 	var downloadedPackagesStore: DownloadedPackagesStore {

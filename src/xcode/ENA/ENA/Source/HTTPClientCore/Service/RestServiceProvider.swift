@@ -67,6 +67,29 @@ class RestServiceProvider: RestServiceProviding {
 		}
 	}
 
+#if !RELEASE
+	var isWifiOnlyActive: Bool {
+		wifiOnlyRestService.isWifiOnlyActive
+	}
+
+	func updateWiFiSession(wifiOnly: Bool) {
+		wifiOnlyRestService.updateSession(wifiOnly: wifiOnly)
+	}
+
+	func isDisabled(_ identifier: String) -> Bool {
+		wifiOnlyRestService.isDisabled(identifier)
+	}
+
+	func disable(_ identifier: String) {
+		wifiOnlyRestService.disable(identifier)
+	}
+
+	func enable(_ identifier: String) {
+		wifiOnlyRestService.enable(identifier)
+	}
+
+#endif
+
 	// MARK: - Private
 
 	private let environment: EnvironmentProviding

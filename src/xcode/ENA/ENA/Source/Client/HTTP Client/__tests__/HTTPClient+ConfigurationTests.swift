@@ -48,28 +48,10 @@ final class BackendConfigurationTests: CWATestCase {
 			"http://localhost/dist/version/v2/app_config_ios/"
 		)
 
-		// Available Days URL
-		XCTAssertEqual(
-				config.availableDaysURL(forCountry: "IT").absoluteString,
-				"http://localhost/dist/version/v1/diagnosis-keys/country/IT/date/"
-		)
-
 		// Day URL
 		XCTAssertEqual(
 				config.diagnosisKeysURL(day: "2020-04-20", forCountry: "IT").absoluteString,
 				"http://localhost/dist/version/v1/diagnosis-keys/country/IT/date/2020-04-20/"
-		)
-
-		// Hour URL
-		XCTAssertEqual(
-			config.diagnosisKeysURL(day: "2020-04-20", hour: 14, forCountry: "IT").absoluteString,
-			"http://localhost/dist/version/v1/diagnosis-keys/country/IT/date/2020-04-20/hour/14/"
-		)
-
-		// Available Hours for a given Day URL
-		XCTAssertEqual(
-			config.availableHoursURL(day: "2020-04-20", country: "IT").absoluteString,
-			"http://localhost/dist/version/v1/diagnosis-keys/country/IT/date/2020-04-20/hour/"
 		)
 
 		XCTAssertEqual(
