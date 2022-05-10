@@ -20,7 +20,6 @@ struct PackageDownloadResponse: MetaDataProviding {
 		return package == nil
 	}
 
-
 	// MARK: - MetaDataProviding
 
 	var metaData: MetaData = MetaData()
