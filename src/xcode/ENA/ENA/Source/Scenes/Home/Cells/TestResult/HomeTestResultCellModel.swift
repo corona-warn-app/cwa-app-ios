@@ -37,6 +37,9 @@ class HomeTestResultCellModel {
 	@OpenCombine.Published var isCellTappable: Bool = true
 	@OpenCombine.Published var accessibilityIdentifier: String! = AccessibilityIdentifiers.Home.TestResultCell.unconfiguredButton
 
+	@OpenCombine.Published var testResult: TestResult?
+	@OpenCombine.Published var antigenTestIsOutdated: Bool = false
+
 	// MARK: - Private
 
 	private let coronaTestType: CoronaTestType
@@ -60,6 +63,9 @@ class HomeTestResultCellModel {
 
 					self?.configure(for: pcrTest.testResult)
 					self?.onUpdate()
+
+					// required for unit testing - to confirm the update of the cell model
+					self?.testResult = pcrTest.testResult
 				}
 				.store(in: &subscriptions)
 
@@ -92,6 +98,9 @@ class HomeTestResultCellModel {
 
 					self.configure(for: antigenTest.testResult)
 					self.onUpdate()
+
+					// required for unit testing - to confirm the update of the cell model
+					self.testResult = antigenTest.testResult
 				}
 				.store(in: &subscriptions)
 
@@ -113,11 +122,15 @@ class HomeTestResultCellModel {
 				.receive(on: DispatchQueue.main.ocombine)
 				.sink { [weak self] antigenTestIsOutdated in
 					guard antigenTestIsOutdated else {
+						self?.antigenTestIsOutdated = false
 						return
 					}
 
 					self?.configureTestResultOutdated()
 					self?.onUpdate()
+
+					// required for unit testing - to confirm the update of the cell model
+					self?.antigenTestIsOutdated = true
 				}
 				.store(in: &subscriptions)
 		}
