@@ -4,7 +4,7 @@
 
 import Foundation
 import AnyCodable
-import jsonlogic
+import JsonLogic
 
 enum ParameterType {
 	static let number = "number"
