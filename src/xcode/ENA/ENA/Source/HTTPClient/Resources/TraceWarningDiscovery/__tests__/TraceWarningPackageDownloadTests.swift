@@ -229,7 +229,6 @@ class TraceWarningPackageDownloadTests: CWATestCase {
 	// MARK: - Errors
 	
 	func testGIVEN_TraceWarningDownload_WHEN_DownloadIsAlreadyInProgress_THEN_DownloadIsRunning() {
-		
 		// GIVEN
 		let eventStore = MockEventStore()
 		let checkInMock = Checkin.mock()
@@ -283,9 +282,7 @@ class TraceWarningPackageDownloadTests: CWATestCase {
 	}
 	
 	func testGIVEN_TraceWarningDownload_WHEN_DiscoveryIsFailing_THEN_InvalidResponseError() throws {
-		
 		// GIVEN
-		let client = ClientMock()
 		let store = MockTestStore()
 		let eventStore = MockEventStore()
 		let checkInMock = Checkin.mock()
@@ -322,12 +319,8 @@ class TraceWarningPackageDownloadTests: CWATestCase {
 	}
 	
 	func testGIVEN_TraceWarningDownload_WHEN_NoEarliestPackageFound_THEN_NoEarliestRelevantPackageError() {
-		
 		// GIVEN
-		
 		let eventStore = MockEventStore()
-		let client = ClientMock()
-
 		let loadResource = LoadResource(result: .success(self.dummyResponseDiscovery)) { _ in
 			eventStore.deleteAllCheckins()
 		}
@@ -367,14 +360,7 @@ class TraceWarningPackageDownloadTests: CWATestCase {
 	}
 	
 	func testGIVEN_TraceWarningDownload_WHEN_DownloadIsFailing_THEN_InvalidResponseError() {
-		
 		// GIVEN
-		let client = ClientMock()
-
-		client.onTraceWarningDownload = { _, _, completion in
-			completion(.failure(.invalidResponseError))
-		}
-		
 		let eventStore = MockEventStore()
 		let checkInMock = Checkin.mock(checkinStartDate: startAsDate, checkinEndDate: endAsDate)
 		eventStore.createCheckin(checkInMock)
@@ -382,7 +368,19 @@ class TraceWarningPackageDownloadTests: CWATestCase {
 		
 		let store = MockTestStore()
 		let traceWarningPackageDownload = TraceWarningPackageDownload(
-			restServiceProvider: RestServiceProviderStub(results: [.success(dummyResponseDiscovery)]),
+			restServiceProvider: RestServiceProviderStub(
+				results: [
+					.success(dummyResponseDiscovery),
+					.failure(ServiceError<TraceWarningError>.invalidResponse),
+					.failure(ServiceError<TraceWarningError>.invalidResponse),
+					.failure(ServiceError<TraceWarningError>.invalidResponse),
+					.failure(ServiceError<TraceWarningError>.invalidResponse),
+					.failure(ServiceError<TraceWarningError>.invalidResponse),
+					.failure(ServiceError<TraceWarningError>.invalidResponse),
+					.failure(ServiceError<TraceWarningError>.invalidResponse),
+					.failure(ServiceError<TraceWarningError>.invalidResponse)
+				]
+			),
 			store: store,
 			eventStore: eventStore
 		)
@@ -411,7 +409,6 @@ class TraceWarningPackageDownloadTests: CWATestCase {
 	}
 	
 	func testGIVEN_TraceWarningDownload_WHEN_EtagMissing_THEN_IdenticationError() {
-		
 		// GIVEN
 		let client = ClientMock()
 		client.onTraceWarningDownload = { _, _, completion in

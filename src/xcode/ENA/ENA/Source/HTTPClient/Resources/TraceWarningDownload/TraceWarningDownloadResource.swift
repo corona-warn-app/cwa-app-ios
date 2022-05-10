@@ -45,6 +45,8 @@ struct TraceWarningDownloadResource: Resource {
 
 		case let .resourceError(resourceError):
 			return handleResourceError(resourceError)
+		case .invalidResponse:
+			return .invalidResponseError
 		default:
 			return nil
 		}
