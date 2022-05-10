@@ -1627,6 +1627,7 @@
 		BACF839E26A08C8800E5876C /* HealthCertificateExpirationDateCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BACF839D26A08C8800E5876C /* HealthCertificateExpirationDateCell.swift */; };
 		BACF83A026A08DE000E5876C /* HealthCertificateExpirationDateCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BACF839F26A08DE000E5876C /* HealthCertificateExpirationDateCellViewModel.swift */; };
 		BAD25055282A88300042F45D /* TraceWarningDownloadResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAD25054282A88300042F45D /* TraceWarningDownloadResource.swift */; };
+		BAD25057282A93AB0042F45D /* PackageDownloadResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAD25056282A93AB0042F45D /* PackageDownloadResponse.swift */; };
 		BAD3199926FA0EB2006E82E7 /* CovPassCheckInformationViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAD3199826FA0EB2006E82E7 /* CovPassCheckInformationViewModelTests.swift */; };
 		BAD3199D26FA2102006E82E7 /* HealthCertificateQRCodeViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAD3199C26FA2102006E82E7 /* HealthCertificateQRCodeViewTests.swift */; };
 		BAD3CCD3271EEB2C004C06AD /* TeleTanSendModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAD3CCD2271EEB2C004C06AD /* TeleTanSendModel.swift */; };
@@ -3469,6 +3470,7 @@
 		BACF839D26A08C8800E5876C /* HealthCertificateExpirationDateCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthCertificateExpirationDateCell.swift; sourceTree = "<group>"; };
 		BACF839F26A08DE000E5876C /* HealthCertificateExpirationDateCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthCertificateExpirationDateCellViewModel.swift; sourceTree = "<group>"; };
 		BAD25054282A88300042F45D /* TraceWarningDownloadResource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraceWarningDownloadResource.swift; sourceTree = "<group>"; };
+		BAD25056282A93AB0042F45D /* PackageDownloadResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackageDownloadResponse.swift; sourceTree = "<group>"; };
 		BAD3199826FA0EB2006E82E7 /* CovPassCheckInformationViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CovPassCheckInformationViewModelTests.swift; sourceTree = "<group>"; };
 		BAD3199C26FA2102006E82E7 /* HealthCertificateQRCodeViewTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthCertificateQRCodeViewTests.swift; sourceTree = "<group>"; };
 		BAD3CCD2271EEB2C004C06AD /* TeleTanSendModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeleTanSendModel.swift; sourceTree = "<group>"; };
@@ -6362,6 +6364,7 @@
 		50BC9046279EEE530000C930 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				BAD25056282A93AB0042F45D /* PackageDownloadResponse.swift */,
 				BAD25053282A88110042F45D /* TraceWarningDownload */,
 				BAD507A02825673B00FE07D2 /* TraceWarningDiscovery */,
 				50BC9030279EEB4A0000C930 /* AllowList */,
@@ -11124,6 +11127,7 @@
 				AB51906126CEA7B800E2E4EE /* HealthCertificate+PDF.swift in Sources */,
 				85E33444247EB357006E74EC /* CircularProgressView.swift in Sources */,
 				AB1886D1252DE51E00D39BBE /* Bundle+Identifier.swift in Sources */,
+				BAD25057282A93AB0042F45D /* PackageDownloadResponse.swift in Sources */,
 				BA7D17B725D59373006B9EBF /* SettingsDataDonationViewModel.swift in Sources */,
 				BA00FED226BC2F35009DA07F /* AppFeatureUnencryptedEventsDecorator.swift in Sources */,
 				01E1C949274FB3CB007FD7B3 /* Locator+TicketValidationAccessToken.swift in Sources */,
