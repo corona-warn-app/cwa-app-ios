@@ -126,36 +126,8 @@ extension HTTPClient {
 					"dat"
 				)
 		}
-		
-		func traceWarningPackageDownloadURL(country: String, packageId: Int) -> URL {
-			endpoints
-				.distribution
-				.appending(
-					"version",
-					apiVersion,
-					"twp",
-					"country",
-					country,
-					"hour",
-					String(packageId)
-				)
-		}
-
 
 		/// API for Encrypted Hour Package Download
-		func encryptedTraceWarningPackageDownloadURL(country: String, packageId: Int) -> URL {
-			endpoints
-				.distribution
-				.appending(
-					"version",
-					encryptedApiVersion,
-					"twp",
-					"country",
-					country,
-					"hour",
-					String(packageId)
-				)
-		}
 
 		var qrCodePosterTemplateURL: URL {
 			endpoints

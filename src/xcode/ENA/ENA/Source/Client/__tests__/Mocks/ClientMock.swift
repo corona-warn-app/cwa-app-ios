@@ -46,7 +46,6 @@ final class ClientMock {
 	var onGetOTPEls: ((String, PPACToken, @escaping OTPAuthorizationCompletionHandler) -> Void)?
 	var onSubmitErrorLog: ((Data, @escaping ErrorLogSubmitting.ELSSubmissionResponse) -> Void)?
 	var onSubmitAnalytics: ((SAP_Internal_Ppdd_PPADataIOS, PPACToken, Bool, @escaping PPAnalyticsSubmitionCompletionHandler) -> Void)?
-	var onTraceWarningDownload: ((String, Int, @escaping TraceWarningPackageDownloadCompletionHandler) -> Void)?
 }
 
 extension ClientMock: Client {
@@ -92,19 +91,6 @@ extension ClientMock: Client {
 			return
 		}
 		onSubmitAnalytics(payload, ppacToken, isFake, completion)
-	}
-
-	func traceWarningPackageDownload(
-		unencrypted: Bool,
-		country: String,
-		packageId: Int,
-		completion: @escaping TraceWarningPackageDownloadCompletionHandler
-	) {
-		guard let onTraceWarningDownload = self.onTraceWarningDownload else {
-			completion(.success(downloadedPackage ?? ClientMock.dummyResponse))
-			return
-		}
-		onTraceWarningDownload(country, packageId, completion)
 	}
 
 	func submit(
