@@ -588,7 +588,7 @@ extension ExposureSubmissionTestResultFamilyMemberViewModel {
 		cells.append(contentsOf: [
 			ExposureSubmissionDynamicCell.stepCell(
 				title: AppStrings.ExposureSubmissionResult.testInvalid,
-				description: AppStrings.ExposureSubmissionResult.testInvalidDesc,
+				description: AppStrings.ExposureSubmissionResult.familyMemberTestInvalidDesc,
 				icon: UIImage(named: "Icons_Grey_Error"),
 				hairline: .none
 			)
