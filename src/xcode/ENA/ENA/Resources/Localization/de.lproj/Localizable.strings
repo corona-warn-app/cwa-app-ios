@@ -3313,7 +3313,7 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "HealthCertificate_Validation_TechnicalFailed_failedSectionDescription" = "Folgende Regeln sind nicht erfüllt:";
 
-"HealthCertificate_Validation_TechnicalFailed_certificateNotValid" = "Die Signatur des Zertifikates muss gültig sein.";
+"HealthCertificate_Validation_TechnicalFailed_certificateNotValid" = "Die Signatur des Zertifikats muss gültig sein.";
 
 "HealthCertificate_Validation_TechnicalFailed_technicalExpirationDatePassed" = "Das technische Ablaufdatum darf nicht überschritten sein.";
 
