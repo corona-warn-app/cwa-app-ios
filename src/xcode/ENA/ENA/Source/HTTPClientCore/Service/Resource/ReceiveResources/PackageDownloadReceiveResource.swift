@@ -32,8 +32,7 @@ struct PackageDownloadReceiveResource: ReceiveResource {
 			return .failure(.signatureVerification)
 		}
 
-		let etag = headers.value(caseInsensitiveKey: "ETag")
-		let payload = PackageDownloadResponse(package: package, etag: etag)
+		let payload = PackageDownloadResponse(package: package)
 		return .success(payload)
 	}
 

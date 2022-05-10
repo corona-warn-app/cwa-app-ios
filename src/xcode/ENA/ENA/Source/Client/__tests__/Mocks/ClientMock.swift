@@ -50,7 +50,7 @@ final class ClientMock {
 
 extension ClientMock: Client {
 
-	private static let dummyResponse = PackageDownloadResponse(package: SAPDownloadedPackage(keysBin: Data(), signature: Data()), etag: "\"etag\"")
+	private static let dummyResponse = PackageDownloadResponse(package: SAPDownloadedPackage(keysBin: Data(), signature: Data()))
 
 	func authorize(
 		otpEdus: String,

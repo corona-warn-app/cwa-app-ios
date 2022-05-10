@@ -76,7 +76,7 @@ protocol Client {
 		otpEls: String,
 		completion: @escaping ErrorLogSubmitting.ELSSubmissionResponse
 	)
-	
+
 }
 
 // Do not edit this cases as they are decoded as they are from the server.
@@ -115,17 +115,26 @@ struct FetchTestResultResponse: Codable {
 }
 
 /// A container for a downloaded `SAPDownloadedPackage` and its corresponding `ETag`, if given.
-struct PackageDownloadResponse {
+struct PackageDownloadResponse: MetaDataProviding {
+
 	let package: SAPDownloadedPackage?
 
 	/// The response ETag
 	///
 	/// This is used to identify and revoke packages.
-	let etag: String?
+	var etag: String? {
+		return metaData.headers.value(caseInsensitiveKey: "ETag")
+	}
 	
 	var isEmpty: Bool {
 		return package == nil
 	}
+
+
+	// MARK: - MetaDataProviding
+
+	var metaData: MetaData = MetaData()
+
 }
 
 /// Combined model for a submit keys request
