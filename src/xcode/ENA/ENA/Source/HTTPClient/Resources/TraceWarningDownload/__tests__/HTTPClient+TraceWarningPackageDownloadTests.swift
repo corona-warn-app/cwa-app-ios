@@ -71,7 +71,6 @@ final class HTTPClientTraceWarningPackageDownloadTests: CWATestCase {
 	}
 	
 	func testGIVEN_CountryAndPackageId_WHEN_ReferenceIsKilled_THEN_DownloadErrorIsReturned() {
-		
 		// GIVEN
 		let packageId = Date().unixTimestampInHours
 		let stack = MockNetworkStack(
@@ -83,22 +82,23 @@ final class HTTPClientTraceWarningPackageDownloadTests: CWATestCase {
 		let expectation = self.expectation(description: "completion handler is called without an error")
 
 		// WHEN
-		var response: TraceWarningError?
-		/*
-		HTTPClient.makeWith(mock: stack).traceWarningPackageDownload(unencrypted: true, country: "DE", packageId: packageId, completion: { result in
+		let restService = RestServiceProvider(session: stack.urlSession, cache: KeyValueCacheFake())
+		let resource = TraceWarningDownloadResource(unencrypted: true, country: "DE", packageId: packageId, signatureVerifier: MockVerifier())
+		restService.load(resource) { result in
+			defer { expectation.fulfill() }
 			switch result {
 			case .success:
 				XCTFail("Test should not success!")
 			case let .failure(error):
-				response = error
-				expectation.fulfill()
+				if let customError = resource.customError(for: error),
+				   customError == .generalError {
+					XCTAssertTrue(true)
+				}
 			}
-		})
-		 */
+		}
 
 		// THEN
 		waitForExpectations(timeout: .short)
-		XCTAssertEqual(response, .generalError)
 	}
 	
 	func testGIVEN_CountryAndPackageId_WHEN_PackageIsInvalid_THEN_InvalidResponseErrorIsReturned() {

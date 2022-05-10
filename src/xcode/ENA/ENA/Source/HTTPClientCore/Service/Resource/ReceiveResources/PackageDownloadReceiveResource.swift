@@ -22,10 +22,24 @@ struct PackageDownloadReceiveResource: ReceiveResource {
 	typealias ReceiveModel = PackageDownloadResponse
 
 	func decode(_ data: Data?, headers: [AnyHashable: Any]) -> Result<ReceiveModel, ResourceError> {
+		guard let stringValue = headers.value(caseInsensitiveKey: "content-length"),
+			  let contentSize = Int(stringValue),
+			  contentSize > 0 else {
+			Log.info("Successfully downloaded empty traceWarningPackage", log: .api)
+			let payload = PackageDownloadResponse(package: nil)
+			return .success(payload)
+		}
+
 		guard let data = data else {
 			return .failure(.missingData)
 		}
-		let package = SAPDownloadedPackage(compressedData: data)
+		guard let package = SAPDownloadedPackage(compressedData: data) else {
+			return .failure(.packageCreation)
+		}
+		guard signatureVerifier.verify(package) else {
+			return .failure(.signatureVerification)
+		}
+		
 		let payload = PackageDownloadResponse(package: package)
 		return .success(payload)
 	}
