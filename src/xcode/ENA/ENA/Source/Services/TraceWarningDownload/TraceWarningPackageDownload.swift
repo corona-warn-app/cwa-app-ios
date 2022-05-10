@@ -393,40 +393,44 @@ class TraceWarningPackageDownload: TraceWarningPackageDownloading {
 					return
 				}
 
-				defer {
-					// store package in the end
-					let traceWarningPackageMetadata = TraceWarningPackageMetadata(
-						id: packageId,
-						region: country,
-						eTag: eTag
-					)
-					self.eventStore.createTraceWarningPackageMetadata(traceWarningPackageMetadata)
-					Log.info("Storing of packageId: \(packageId) done.")
-				}
-
+				// 9. Verify signature for every not-empty package.
 				guard !packageDownloadResponse.isEmpty,
 					  let sapDownloadedPackage = packageDownloadResponse.package else {
 					Log.info("PackageId: \(packageId) is empty and was discarded.")
-					completion(.success(.emptySinglePackage))
-					return
+					// Also empty one should be stored because if not, download is triggered every time again because nothing could be cleaned up before but should be cleaned up to prevent new start of download.
+					   let traceWarningPackageMetadata = TraceWarningPackageMetadata(
+						   id: packageId,
+						   region: country,
+						   eTag: eTag
+					   )
+					   self.eventStore.createTraceWarningPackageMetadata(traceWarningPackageMetadata)
+					   Log.info("Storing of empty packageId: \(packageId) done.")
+					   completion(.success(.emptySinglePackage))
+					   return
 				}
 
-				/* verification is already done by client !?
 				guard self.signatureVerifier.verify(sapDownloadedPackage) else {
 					Log.warning("Verification of packageId: \(packageId) failed. Discard package but complete download as success.")
 					completion(.failure(.verificationError))
 					return
 				}
-				Log.info("Verification of packageId: \(packageId) successful. Proceed with matching and storing the package. unencryptedCheckinsEnabled:\(unencrypted)")
-				 */
 
-				// 10.+ 11. Match the verified package and store them.
+				Log.info("Verification of packageId: \(packageId) successful. Proceed with matching and storing the package. unencryptedCheckinsEnabled:\(unencrypted)")
+				// 10. + 11. Match the verified package and store them.
 				self.matcher.matchAndStore(
 					package: sapDownloadedPackage,
 					encrypted: !unencrypted
 				)
 
 				Log.info("Matching of packageId: \(packageId) done. Proceed with storing the package.")
+				// 12. Store downloaded and verified
+				let traceWarningPackageMetadata = TraceWarningPackageMetadata(
+					id: packageId,
+					region: country,
+					eTag: eTag
+				)
+				self.eventStore.createTraceWarningPackageMetadata(traceWarningPackageMetadata)
+
 				Log.info("Storing of packageId: \(packageId) done.")
 				completion(.success(.success))
 

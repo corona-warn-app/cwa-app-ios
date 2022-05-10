@@ -410,13 +410,6 @@ class TraceWarningPackageDownloadTests: CWATestCase {
 	
 	func testGIVEN_TraceWarningDownload_WHEN_EtagMissing_THEN_IdenticationError() {
 		// GIVEN
-		let client = ClientMock()
-		client.onTraceWarningDownload = { _, _, completion in
-			let package = SAPDownloadedPackage(keysBin: Data(), signature: Data())
-			let response = PackageDownloadResponse(package: package)
-			completion(.success(response))
-		}
-		
 		let eventStore = MockEventStore()
 		let checkInMock = Checkin.mock(checkinStartDate: startAsDate, checkinEndDate: endAsDate)
 		eventStore.createCheckin(checkInMock)
@@ -424,7 +417,19 @@ class TraceWarningPackageDownloadTests: CWATestCase {
 		
 		let store = MockTestStore()
 		let traceWarningPackageDownload = TraceWarningPackageDownload(
-			restServiceProvider: RestServiceProviderStub(results: [.success(dummyResponseDiscovery)]),
+			restServiceProvider: RestServiceProviderStub(
+				results: [
+					.success(dummyResponseDiscovery),
+					.success(PackageDownloadResponse(package: SAPDownloadedPackage(keysBin: Data(), signature: Data()))), // packages with no etag
+					.success(PackageDownloadResponse(package: SAPDownloadedPackage(keysBin: Data(), signature: Data()))),
+					.success(PackageDownloadResponse(package: SAPDownloadedPackage(keysBin: Data(), signature: Data()))),
+					.success(PackageDownloadResponse(package: SAPDownloadedPackage(keysBin: Data(), signature: Data()))),
+					.success(PackageDownloadResponse(package: SAPDownloadedPackage(keysBin: Data(), signature: Data()))),
+					.success(PackageDownloadResponse(package: SAPDownloadedPackage(keysBin: Data(), signature: Data()))),
+					.success(PackageDownloadResponse(package: SAPDownloadedPackage(keysBin: Data(), signature: Data()))),
+					.success(PackageDownloadResponse(package: SAPDownloadedPackage(keysBin: Data(), signature: Data())))
+				]
+			),
 			store: store,
 			eventStore: eventStore
 		)
@@ -453,25 +458,27 @@ class TraceWarningPackageDownloadTests: CWATestCase {
 	}
 	
 	func testGIVEN_TraceWarningDownload_WHEN_VerificationFails_THEN_VerificationError() {
-		
 		// GIVEN
-		let client = ClientMock()
-		client.onTraceWarningDownload = { _, _, completion in
-			let package = SAPDownloadedPackage(keysBin: Data(), signature: Data())
-			let response = PackageDownloadResponse(package: package)
-			completion(.success(response))
-		}
-		
 		let eventStore = MockEventStore()
-		
-		
 		let checkInMock = Checkin.mock(checkinStartDate: startAsDate, checkinEndDate: endAsDate)
 		eventStore.createCheckin(checkInMock)
 		let appConfig = SAP_Internal_V2_ApplicationConfigurationIOS()
 		
 		let store = MockTestStore()
 		let traceWarningPackageDownload = TraceWarningPackageDownload(
-			restServiceProvider: RestServiceProviderStub(results: [.success(dummyResponseDiscovery)]),
+			restServiceProvider: RestServiceProviderStub(
+				results: [
+					.success(dummyResponseDiscovery),
+					.success(brokenSignatureResponseDownload),
+					.success(brokenSignatureResponseDownload),
+					.success(brokenSignatureResponseDownload),
+					.success(brokenSignatureResponseDownload),
+					.success(brokenSignatureResponseDownload),
+					.success(brokenSignatureResponseDownload),
+					.success(brokenSignatureResponseDownload),
+					.success(brokenSignatureResponseDownload)
+				]
+			),
 			store: store,
 			eventStore: eventStore
 		)
@@ -721,6 +728,12 @@ class TraceWarningPackageDownloadTests: CWATestCase {
 
 	private lazy var emptyResponseDownload: PackageDownloadResponse = {
 		var response = PackageDownloadResponse(package: nil)
+		response.metaData.headers["ETag"] = "SomeETag"
+		return response
+	}()
+
+	private lazy var brokenSignatureResponseDownload: PackageDownloadResponse = {
+		var response = PackageDownloadResponse(package: SAPDownloadedPackage(keysBin: Data(), signature: Data()))
 		response.metaData.headers["ETag"] = "SomeETag"
 		return response
 	}()
