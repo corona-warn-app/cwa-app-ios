@@ -10,7 +10,7 @@ final class DayKeyPackageDownloadTest: CWATestCase {
 
 	private lazy var dummyResponse: [String: PackageDownloadResponse] = {
 		let dummyPackage = SAPDownloadedPackage(keysBin: Data(), signature: Data())
-		let dummyResponse = PackageDownloadResponse(package: dummyPackage, etag: "\"tinfoil\"")
+		let dummyResponse = PackageDownloadResponse(package: dummyPackage)
 		return ["2020-10-04": dummyResponse, "2020-10-01": dummyResponse]
 	}()
 	
@@ -30,7 +30,6 @@ final class DayKeyPackageDownloadTest: CWATestCase {
 		let countryId = "IT"
 		let keyPackageDownload = KeyPackageDownload(
 			downloadedPackagesStore: packagesStore,
-			client: client,
 			restService: restServiceProvider,
 			store: store,
 			countryIds: [countryId]
@@ -73,7 +72,6 @@ final class DayKeyPackageDownloadTest: CWATestCase {
 
 		let keyPackageDownload = KeyPackageDownload(
 			downloadedPackagesStore: packagesStore,
-			client: client,
 			restService: restServiceProvider,
 			store: store,
 			countryIds: ["IT"]
@@ -115,7 +113,6 @@ final class DayKeyPackageDownloadTest: CWATestCase {
 
 		let keyPackageDownload = KeyPackageDownload(
 			downloadedPackagesStore: packagesStore,
-			client: client,
 			restService: restServiceProvider,
 			store: store,
 			countryIds: ["IT"]
@@ -150,7 +147,7 @@ final class DayKeyPackageDownloadTest: CWATestCase {
 		let countryId = "IT"
 
 		let dummyPackage = SAPDownloadedPackage(keysBin: Data(), signature: Data())
-		let dummyResponse = PackageDownloadResponse(package: dummyPackage, etag: "\"etag\"")
+		let dummyResponse = PackageDownloadResponse(package: dummyPackage)
 
 		let packagesStore: DownloadedPackagesSQLLiteStore = .inMemory()
 		packagesStore.open()
@@ -161,7 +158,6 @@ final class DayKeyPackageDownloadTest: CWATestCase {
 
 		let keyPackageDownload = KeyPackageDownload(
 			downloadedPackagesStore: packagesStore,
-			client: client,
 			restService: RestServiceProviderStub(),
 			store: store,
 			countryIds: [countryId]
@@ -201,7 +197,6 @@ final class DayKeyPackageDownloadTest: CWATestCase {
 
 		let keyPackageDownload = KeyPackageDownload(
 			downloadedPackagesStore: packagesStore,
-			client: client,
 			restService: restServiceProvider,
 			store: store,
 			countryIds: ["IT"]
@@ -239,7 +234,6 @@ final class DayKeyPackageDownloadTest: CWATestCase {
 
 		let keyPackageDownload = KeyPackageDownload(
 			downloadedPackagesStore: packagesStore,
-			client: client,
 			restService: restServiceProvider,
 			store: store
 		)
@@ -274,7 +268,6 @@ final class DayKeyPackageDownloadTest: CWATestCase {
 
 		let keyPackageDownload = KeyPackageDownload(
 			downloadedPackagesStore: packagesStore,
-			client: client,
 			restService: restServiceProvider,
 			store: store
 		)
@@ -308,7 +301,6 @@ final class DayKeyPackageDownloadTest: CWATestCase {
 
 		let keyPackageDownload = KeyPackageDownload(
 			downloadedPackagesStore: packagesStore,
-			client: client,
 			restService: restServiceProvider,
 			store: store
 		)
@@ -342,7 +334,6 @@ final class DayKeyPackageDownloadTest: CWATestCase {
 
 		let keyPackageDownload = KeyPackageDownload(
 			downloadedPackagesStore: packagesStore,
-			client: client,
 			restService: restServiceProvider,
 			store: store
 		)
@@ -376,7 +367,7 @@ final class DayKeyPackageDownloadTest: CWATestCase {
 		packagesStore.open()
 
 		let dummyPackage = SAPDownloadedPackage(keysBin: Data(), signature: Data())
-		let dummyResponse = PackageDownloadResponse(package: dummyPackage, etag: "\"etag\"")
+		let dummyResponse = PackageDownloadResponse(package: dummyPackage)
 		try packagesStore.addFetchedDays([yesterdayKeyString: dummyResponse], country: countryId)
 
 		let client = ClientMock()
@@ -384,7 +375,6 @@ final class DayKeyPackageDownloadTest: CWATestCase {
 
 		let keyPackageDownload = KeyPackageDownload(
 			downloadedPackagesStore: packagesStore,
-			client: client,
 			restService: RestServiceProviderStub(),
 			store: store,
 			countryIds: ["IT"]
@@ -417,7 +407,7 @@ final class DayKeyPackageDownloadTest: CWATestCase {
 		packagesStore.open()
 
 		let dummyPackage = SAPDownloadedPackage(keysBin: Data(), signature: Data())
-		let dummyResponse = PackageDownloadResponse(package: dummyPackage, etag: "\"etag\"")
+		let dummyResponse = PackageDownloadResponse(package: dummyPackage)
 
 		let client = ClientMock()
 		client.downloadedPackage = dummyResponse
@@ -429,7 +419,6 @@ final class DayKeyPackageDownloadTest: CWATestCase {
 
 		let keyPackageDownload = KeyPackageDownload(
 			downloadedPackagesStore: packagesStore,
-			client: client,
 			restService: restServiceProvider,
 			store: store,
 			countryIds: ["IT"]

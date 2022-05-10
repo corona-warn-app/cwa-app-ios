@@ -30,7 +30,6 @@ class RiskProviderTests: CWATestCase {
 		
 		let eventStore = MockEventStore()
 		let traceWarningPackageDownload = TraceWarningPackageDownload(
-			client: client,
 			restServiceProvider: RestServiceProviderStub(),
 			store: store,
 			eventStore: eventStore
@@ -107,7 +106,6 @@ class RiskProviderTests: CWATestCase {
 		
 		let eventStore = MockEventStore()
 		let traceWarningPackageDownload = TraceWarningPackageDownload(
-			client: client,
 			restServiceProvider: RestServiceProviderStub(),
 			store: store,
 			eventStore: eventStore
@@ -185,7 +183,6 @@ class RiskProviderTests: CWATestCase {
 		
 		let eventStore = MockEventStore()
 		let traceWarningPackageDownload = TraceWarningPackageDownload(
-			client: client,
 			restServiceProvider: RestServiceProviderStub(),
 			store: store,
 			eventStore: eventStore
@@ -870,7 +867,6 @@ class RiskProviderTests: CWATestCase {
 		let client = ClientMock()
 		let keyPackageDownload = KeyPackageDownload(
 			downloadedPackagesStore: downloadedPackagesStore,
-			client: client,
 			restService: RestServiceProviderStub(),
 			store: store
 		)
@@ -934,7 +930,6 @@ class RiskProviderTests: CWATestCase {
 		
 		let keyPackageDownload = KeyPackageDownload(
 			downloadedPackagesStore: downloadedPackagesStore,
-			client: client,
 			restService: RestServiceProviderStub(),
 			store: store
 		)
@@ -1017,7 +1012,6 @@ class RiskProviderTests: CWATestCase {
 
 		let keyPackageDownload = KeyPackageDownload(
 			downloadedPackagesStore: downloadedPackagesStore,
-			client: client,
 			restService: restServiceProvider,
 			store: store
 		)
@@ -1097,7 +1091,6 @@ class RiskProviderTests: CWATestCase {
 		
 		let keyPackageDownload = KeyPackageDownload(
 			downloadedPackagesStore: downloadedPackagesStore,
-			client: client,
 			restService: RestServiceProviderStub(),
 			store: store
 		)
@@ -1173,7 +1166,6 @@ class RiskProviderTests: CWATestCase {
 		let client = ClientMock()
 		let keyPackageDownload = KeyPackageDownload(
 			downloadedPackagesStore: downloadedPackagesStore,
-			client: client,
 			restService: RestServiceProviderStub(),
 			store: store
 		)
@@ -1312,7 +1304,6 @@ extension CWATestCase {
 
 		return KeyPackageDownload(
 			downloadedPackagesStore: downloadedPackagesStore,
-			client: client,
 			restService: restServiceProvider,
 			store: store
 		)
@@ -1322,7 +1313,6 @@ extension CWATestCase {
 		let mockEventStore = MockEventStore()
 		let client = ClientMock()
 		return TraceWarningPackageDownload(
-			client: client,
 			restServiceProvider: RestServiceProviderStub(),
 			store: store,
 			eventStore: mockEventStore

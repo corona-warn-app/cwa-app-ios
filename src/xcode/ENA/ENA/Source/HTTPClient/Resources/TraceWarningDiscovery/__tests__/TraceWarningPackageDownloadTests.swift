@@ -31,7 +31,6 @@ class TraceWarningPackageDownloadTests: CWATestCase {
 		let appConfig = SAP_Internal_V2_ApplicationConfigurationIOS()
 		
 		let traceWarningPackageDownload = TraceWarningPackageDownload(
-			client: client,
 			restServiceProvider: RestServiceProviderStub(results: [.success(self.dummyResponseDiscovery)]),
 			store: store,
 			eventStore: eventStore,
@@ -70,7 +69,6 @@ class TraceWarningPackageDownloadTests: CWATestCase {
 		let eventStore = MockEventStore()
 		let store = MockTestStore()
 		let traceWarningPackageDownload = TraceWarningPackageDownload(
-			client: ClientMock(),
 			restServiceProvider: RestServiceProviderStub(),
 			store: store,
 			eventStore: eventStore
@@ -110,7 +108,6 @@ class TraceWarningPackageDownloadTests: CWATestCase {
 		eventStore.createCheckin(checkin)
 		let store = MockTestStore()
 		let traceWarningPackageDownload = TraceWarningPackageDownload(
-			client: ClientMock(),
 			restServiceProvider: RestServiceProviderStub(results: [.success(self.dummyResponseDiscovery)]),
 			store: store,
 			eventStore: eventStore
@@ -151,7 +148,6 @@ class TraceWarningPackageDownloadTests: CWATestCase {
 		let appConfig = SAP_Internal_V2_ApplicationConfigurationIOS()
 		let store = MockTestStore()
 		let traceWarningPackageDownload = TraceWarningPackageDownload(
-			client: client,
 			restServiceProvider: RestServiceProviderStub(results: [.success(TraceWarningDiscoveryModel(oldest: 12345, latest: 12344))]),
 			store: store,
 			eventStore: eventStore
@@ -186,7 +182,7 @@ class TraceWarningPackageDownloadTests: CWATestCase {
 		// GIVEN
 		let client = ClientMock()
 		client.onTraceWarningDownload = { _, _, completion in
-			let emptyPackage = PackageDownloadResponse(package: nil, etag: "FakeEtag")
+			let emptyPackage = PackageDownloadResponse(package: nil)
 			completion(.success(emptyPackage))
 		}
 		
@@ -197,7 +193,6 @@ class TraceWarningPackageDownloadTests: CWATestCase {
 		
 		let store = MockTestStore()
 		let traceWarningPackageDownload = TraceWarningPackageDownload(
-			client: client,
 			restServiceProvider: RestServiceProviderStub(results: [.success(self.dummyResponseDiscovery)]),
 			store: store,
 			eventStore: eventStore
@@ -240,7 +235,6 @@ class TraceWarningPackageDownloadTests: CWATestCase {
 		
 		let store = MockTestStore()
 		let traceWarningPackageDownload = TraceWarningPackageDownload(
-			client: ClientMock(),
 			restServiceProvider: RestServiceProviderStub(results: [.success(self.dummyResponseDiscovery)]),
 			store: store,
 			eventStore: eventStore
@@ -296,7 +290,6 @@ class TraceWarningPackageDownloadTests: CWATestCase {
 		let appConfig = SAP_Internal_V2_ApplicationConfigurationIOS()
 		
 		let traceWarningPackageDownload = TraceWarningPackageDownload(
-			client: client,
 			restServiceProvider: RestServiceProviderStub(results: [.failure(ServiceError<TraceWarningError>.invalidResponse)]),
 			store: store,
 			eventStore: eventStore
@@ -342,7 +335,6 @@ class TraceWarningPackageDownloadTests: CWATestCase {
 		
 		let store = MockTestStore()
 		let traceWarningPackageDownload = TraceWarningPackageDownload(
-			client: client,
 			restServiceProvider: RestServiceProviderStub(loadResources: [loadResource]),
 			store: store,
 			eventStore: eventStore
@@ -387,7 +379,6 @@ class TraceWarningPackageDownloadTests: CWATestCase {
 		
 		let store = MockTestStore()
 		let traceWarningPackageDownload = TraceWarningPackageDownload(
-			client: client,
 			restServiceProvider: RestServiceProviderStub(results: [.success(self.dummyResponseDiscovery)]),
 			store: store,
 			eventStore: eventStore
@@ -422,7 +413,7 @@ class TraceWarningPackageDownloadTests: CWATestCase {
 		let client = ClientMock()
 		client.onTraceWarningDownload = { _, _, completion in
 			let package = SAPDownloadedPackage(keysBin: Data(), signature: Data())
-			let response = PackageDownloadResponse(package: package, etag: nil)
+			let response = PackageDownloadResponse(package: package)
 			completion(.success(response))
 		}
 		
@@ -433,7 +424,6 @@ class TraceWarningPackageDownloadTests: CWATestCase {
 		
 		let store = MockTestStore()
 		let traceWarningPackageDownload = TraceWarningPackageDownload(
-			client: client,
 			restServiceProvider: RestServiceProviderStub(results: [.success(self.dummyResponseDiscovery)]),
 			store: store,
 			eventStore: eventStore
@@ -468,7 +458,7 @@ class TraceWarningPackageDownloadTests: CWATestCase {
 		let client = ClientMock()
 		client.onTraceWarningDownload = { _, _, completion in
 			let package = SAPDownloadedPackage(keysBin: Data(), signature: Data())
-			let response = PackageDownloadResponse(package: package, etag: "FakeEtag")
+			let response = PackageDownloadResponse(package: package)
 			completion(.success(response))
 		}
 		
@@ -481,7 +471,6 @@ class TraceWarningPackageDownloadTests: CWATestCase {
 		
 		let store = MockTestStore()
 		let traceWarningPackageDownload = TraceWarningPackageDownload(
-			client: client,
 			restServiceProvider: RestServiceProviderStub(results: [.success(self.dummyResponseDiscovery)]),
 			store: store,
 			eventStore: eventStore
@@ -519,7 +508,6 @@ class TraceWarningPackageDownloadTests: CWATestCase {
 		
 		// WHEN
 		let traceWarningPackageDownload = TraceWarningPackageDownload(
-			client: ClientMock(),
 			restServiceProvider: RestServiceProviderStub(),
 			store: store,
 			eventStore: MockEventStore()
@@ -543,7 +531,6 @@ class TraceWarningPackageDownloadTests: CWATestCase {
 		}
 		eventStore.createTraceWarningPackageMetadata(TraceWarningPackageMetadata(id: lastHourDate.unixTimestampInHours, region: "DE", eTag: "FakeETag"))
 		let traceWarningPackageDownload = TraceWarningPackageDownload(
-			client: ClientMock(),
 			restServiceProvider: RestServiceProviderStub(),
 			store: store,
 			eventStore: eventStore
@@ -570,7 +557,6 @@ class TraceWarningPackageDownloadTests: CWATestCase {
 		]
 		let store = MockTestStore()
 		let traceWarningPackageDownload = TraceWarningPackageDownload(
-			client: ClientMock(),
 			restServiceProvider: RestServiceProviderStub(),
 			store: store,
 			eventStore: eventStore
@@ -600,7 +586,6 @@ class TraceWarningPackageDownloadTests: CWATestCase {
 
 		let store = MockTestStore()
 		let traceWarningPackageDownload = TraceWarningPackageDownload(
-			client: ClientMock(),
 			restServiceProvider: RestServiceProviderStub(),
 			store: store,
 			eventStore: eventStore
@@ -634,7 +619,6 @@ class TraceWarningPackageDownloadTests: CWATestCase {
 
 		let store = MockTestStore()
 		let traceWarningPackageDownload = TraceWarningPackageDownload(
-			client: ClientMock(),
 			restServiceProvider: RestServiceProviderStub(),
 			store: store,
 			eventStore: eventStore
@@ -670,7 +654,6 @@ class TraceWarningPackageDownloadTests: CWATestCase {
 		
 		let store = MockTestStore()
 		let traceWarningPackageDownload = TraceWarningPackageDownload(
-			client: ClientMock(),
 			restServiceProvider: RestServiceProviderStub(),
 			store: store,
 			eventStore: eventStore
@@ -730,8 +713,7 @@ class TraceWarningPackageDownloadTests: CWATestCase {
 			signature: Data()
 		)
 		let response = PackageDownloadResponse(
-			package: package,
-			etag: "FakeEtag"
+			package: package
 		)
 		return response
 	}()
