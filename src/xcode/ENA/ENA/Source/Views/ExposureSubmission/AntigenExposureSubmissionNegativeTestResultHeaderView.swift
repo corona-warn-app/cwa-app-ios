@@ -64,10 +64,9 @@ class AntigenExposureSubmissionNegativeTestResultHeaderView: DynamicTableViewHea
 		personLabel.translatesAutoresizingMaskIntoConstraints = false
 		wrapperView.addSubview(personLabel)
 		
-		let descriptionLabel = ENALabel()
+		descriptionLabel = ENALabel()
 		descriptionLabel.style = .subheadline
 		descriptionLabel.textColor = .enaColor(for: .textPrimary1)
-		descriptionLabel.text = AppStrings.ExposureSubmissionResult.Antigen.testNegativeDesc
 		descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
 		descriptionLabel.numberOfLines = 0
 		wrapperView.addSubview(descriptionLabel)
@@ -187,6 +186,7 @@ class AntigenExposureSubmissionNegativeTestResultHeaderView: DynamicTableViewHea
 		lineView.backgroundColor = coronaTest.testResult.color
 		imageView.image = coronaTest.testResult.image
 		subtitleLabel.text = AppStrings.ExposureSubmissionResult.Antigen.card_subtitle
+		descriptionLabel.text = AppStrings.ExposureSubmissionResult.Antigen.testNegativeDesc
 		// resultTitleLabel
 		switch coronaTest.testResult {
 		case .positive: resultTitleLabel.text = AppStrings.ExposureSubmissionResult.Antigen.card_positive
@@ -209,7 +209,8 @@ class AntigenExposureSubmissionNegativeTestResultHeaderView: DynamicTableViewHea
 	func configure(coronaTest: FamilyMemberAntigenTest) {
 		lineView.backgroundColor = coronaTest.testResult.color
 		imageView.image = coronaTest.testResult.image
-		subtitleLabel.text = AppStrings.ExposureSubmissionResult.Antigen.card_subtitle
+		subtitleLabel.text = AppStrings.FamilyMemberCoronaTest.antigenCaption
+		descriptionLabel.text = AppStrings.ExposureSubmissionResult.Antigen.familyMemberTestNegativeDesc
 		// resultTitleLabel
 		switch coronaTest.testResult {
 		case .positive: resultTitleLabel.text = AppStrings.ExposureSubmissionResult.Antigen.card_positive
@@ -230,6 +231,7 @@ class AntigenExposureSubmissionNegativeTestResultHeaderView: DynamicTableViewHea
 	private var lineView: UIView!
 	private var imageView: UIImageView!
 	private var subtitleLabel: ENALabel!
+	private var descriptionLabel: ENALabel!
 	private var resultTitleLabel: ENALabel!
 	private var personLabel: ENALabel!
 	private var dateLabel: ENALabel!
