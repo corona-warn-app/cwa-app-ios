@@ -52,6 +52,7 @@ class HomeTestResultCellModel {
 			title = AppStrings.Home.TestResult.pcrTitle
 
 			coronaTestService.pcrTest
+				.receive(on: DispatchQueue.main.ocombine)
 				.sink { [weak self] pcrTest in
 					guard let pcrTest = pcrTest else {
 						return
@@ -63,6 +64,7 @@ class HomeTestResultCellModel {
 				.store(in: &subscriptions)
 
 			coronaTestService.pcrTestResultIsLoading
+				.receive(on: DispatchQueue.main.ocombine)
 				.sink { [weak self] testResultIsLoading in
 					if self?.coronaTestService.pcrTest.value?.finalTestResultReceivedDate == nil {
 						if testResultIsLoading {
@@ -78,6 +80,7 @@ class HomeTestResultCellModel {
 			title = AppStrings.Home.TestResult.antigenTitle
 
 			coronaTestService.antigenTest
+				.receive(on: DispatchQueue.main.ocombine)
 				.sink { [weak self] antigenTest in
 					guard
 						let self = self,
@@ -93,6 +96,7 @@ class HomeTestResultCellModel {
 				.store(in: &subscriptions)
 
 			coronaTestService.antigenTestResultIsLoading
+				.receive(on: DispatchQueue.main.ocombine)
 				.sink { [weak self] testResultIsLoading in
 					if self?.coronaTestService.antigenTest.value?.finalTestResultReceivedDate == nil {
 						if testResultIsLoading {
@@ -106,6 +110,7 @@ class HomeTestResultCellModel {
 				.store(in: &subscriptions)
 
 			coronaTestService.antigenTestIsOutdated
+				.receive(on: DispatchQueue.main.ocombine)
 				.sink { [weak self] antigenTestIsOutdated in
 					guard antigenTestIsOutdated else {
 						return
