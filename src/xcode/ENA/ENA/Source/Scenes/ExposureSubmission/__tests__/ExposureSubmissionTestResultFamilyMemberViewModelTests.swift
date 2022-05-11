@@ -327,7 +327,7 @@ class ExposureSubmissionTestResultFamilyMemberViewModelTests: CWATestCase {
 		
 		let section = model.dynamicTableViewModelPublisher.value.section(0)
 		let cells = section.cells
-		XCTAssertEqual(cells.count, 9)
+		XCTAssertEqual(cells.count, 10)
 		
 		let firstItem = cells[0]
 		var id = firstItem.cellReuseIdentifier
@@ -339,7 +339,7 @@ class ExposureSubmissionTestResultFamilyMemberViewModelTests: CWATestCase {
 		
 		let thirdItem = cells[2]
 		id = thirdItem.cellReuseIdentifier
-		XCTAssertEqual(id.rawValue, "stepCell")
+		XCTAssertEqual(id.rawValue, "labelCell")
 		
 		let fourthItem = cells[3]
 		id = fourthItem.cellReuseIdentifier
@@ -347,7 +347,7 @@ class ExposureSubmissionTestResultFamilyMemberViewModelTests: CWATestCase {
 		
 		let fifthItem = cells[4]
 		id = fifthItem.cellReuseIdentifier
-		XCTAssertEqual(id.rawValue, "labelCell")
+		XCTAssertEqual(id.rawValue, "stepCell")
 		
 		let sixthItem = cells[5]
 		id = sixthItem.cellReuseIdentifier
@@ -355,7 +355,7 @@ class ExposureSubmissionTestResultFamilyMemberViewModelTests: CWATestCase {
 		
 		let seventhItem = cells[6]
 		id = seventhItem.cellReuseIdentifier
-		XCTAssertEqual(id.rawValue, "bulletPointCell")
+		XCTAssertEqual(id.rawValue, "labelCell")
 		
 		let eigthItem = cells[7]
 		id = eigthItem.cellReuseIdentifier
@@ -363,6 +363,10 @@ class ExposureSubmissionTestResultFamilyMemberViewModelTests: CWATestCase {
 		
 		let ninthItem = cells[8]
 		id = ninthItem.cellReuseIdentifier
+		XCTAssertEqual(id.rawValue, "bulletPointCell")
+
+		let tenthItem = cells[9]
+		id = tenthItem.cellReuseIdentifier
 		XCTAssertEqual(id.rawValue, "bulletPointCell")
 	}
 	
