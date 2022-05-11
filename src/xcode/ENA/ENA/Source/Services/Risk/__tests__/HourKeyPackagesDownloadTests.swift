@@ -26,7 +26,6 @@ class HourKeyPackagesDownloadTests: CWATestCase {
 		let store = MockTestStore()
 		let packagesStore: DownloadedPackagesSQLLiteStore = .inMemory()
 		packagesStore.open()
-		let client = ClientMock()
 
 		// fake successful hours package download
 		let restServiceProvider = RestServiceProviderStub(results: [
@@ -159,8 +158,6 @@ class HourKeyPackagesDownloadTests: CWATestCase {
 		packagesStore.open()
 		try packagesStore.addFetchedHours([lastHourKey: dummyPackage], day: .formattedToday(), country: countryId)
 
-		let client = ClientMock()
-
 		let keyPackageDownload = KeyPackageDownload(
 			downloadedPackagesStore: packagesStore,
 			restService: RestServiceProviderStub(),
@@ -264,8 +261,6 @@ class HourKeyPackagesDownloadTests: CWATestCase {
 
 		let packagesStore: DownloadedPackagesSQLLiteStore = .inMemory()
 
-		let client = ClientMock()
-
 		// fake successful hours package download
 		let restServiceProvider = RestServiceProviderStub(results: [
 			.failure(ServiceError<Error>.invalidResponse)
@@ -297,8 +292,6 @@ class HourKeyPackagesDownloadTests: CWATestCase {
 
 		let packagesStore = DownloadedPackagesStoreErrorStub(error: DownloadedPackagesSQLLiteStore.StoreError.sqliteError(.unknown(42)))
 
-		let client = ClientMock()
-
 		// fake successful hours package download
 		let restServiceProvider = RestServiceProviderStub(results: [
 			.success([1])
@@ -329,8 +322,6 @@ class HourKeyPackagesDownloadTests: CWATestCase {
 		let store = MockTestStore()
 
 		let packagesStore = DownloadedPackagesStoreErrorStub(error: DownloadedPackagesSQLLiteStore.StoreError.sqliteError(.sqlite_full))
-
-		let client = ClientMock()
 
 		// fake successful hours package download
 		let restServiceProvider = RestServiceProviderStub(results: [

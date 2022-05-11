@@ -40,7 +40,6 @@ final class ExposureDetectionTransactionTests: CWATestCase {
 		let startCompletionCalled = expectation(description: "start completion called")
 
 		let store = MockTestStore()
-		let client = ClientMock()
 
 		let downloadedPackagesStore: DownloadedPackagesStore = DownloadedPackagesSQLLiteStore.inMemory()
 		downloadedPackagesStore.open()

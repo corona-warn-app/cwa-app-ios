@@ -14,8 +14,7 @@ class RiskProviderTests: CWATestCase {
 	func testGIVEN_RiskCalculation_WHEN_ENFRiskHighAndCheckinRiskLow_THEN_RiskConsumerReturnsRiskHigh() {
 		// GIVEN
 		let store = MockTestStore()
-		let client = ClientMock()
-		
+
 		let duration = DateComponents(day: 1)
 		
 		store.enfRiskCalculationResult = nil
@@ -90,8 +89,7 @@ class RiskProviderTests: CWATestCase {
 	func testGIVEN_RiskCalculation_WHEN_ENFRiskLowAndCheckinRiskHigh_THEN_RiskConsumerReturnsRiskHigh() {
 		// GIVEN
 		let store = MockTestStore()
-		let client = ClientMock()
-		
+
 		let duration = DateComponents(day: 1)
 		
 		store.enfRiskCalculationResult = nil
@@ -167,8 +165,7 @@ class RiskProviderTests: CWATestCase {
 	func testGIVEN_RiskCalculation_WHEN_ENFRiskLowAndCheckinRiskLow_THEN_RiskConsumerReturnsRiskLow() {
 		// GIVEN
 		let store = MockTestStore()
-		let client = ClientMock()
-		
+
 		let duration = DateComponents(day: 1)
 		
 		store.enfRiskCalculationResult = nil
@@ -864,7 +861,6 @@ class RiskProviderTests: CWATestCase {
 		
 		let downloadedPackagesStore: DownloadedPackagesStore = DownloadedPackagesSQLLiteStore .inMemory()
 		downloadedPackagesStore.open()
-		let client = ClientMock()
 		let keyPackageDownload = KeyPackageDownload(
 			downloadedPackagesStore: downloadedPackagesStore,
 			restService: RestServiceProviderStub(),
@@ -1002,7 +998,6 @@ class RiskProviderTests: CWATestCase {
 		let downloadedPackagesStore: DownloadedPackagesStore = DownloadedPackagesSQLLiteStore .inMemory()
 		downloadedPackagesStore.open()
 		
-		let client = ClientMock()
 		let restServiceProvider = RestServiceProviderStub(
 			results: [
 				.success(["2020-10-02", "2020-10-01", "2020-10-03", "2020-10-04"]),
@@ -1163,7 +1158,6 @@ class RiskProviderTests: CWATestCase {
 		let downloadedPackagesStore: DownloadedPackagesStore = DownloadedPackagesSQLLiteStore .inMemory()
 		downloadedPackagesStore.open()
 		
-		let client = ClientMock()
 		let keyPackageDownload = KeyPackageDownload(
 			downloadedPackagesStore: downloadedPackagesStore,
 			restService: RestServiceProviderStub(),
@@ -1294,7 +1288,6 @@ extension CWATestCase {
 		let downloadedPackagesStore: DownloadedPackagesStore = DownloadedPackagesSQLLiteStore.inMemory()
 		downloadedPackagesStore.open()
 
-		let client = ClientMock()
 		let restServiceProvider = RestServiceProviderStub(
 				results: [
 					.success(["day"]),
@@ -1311,7 +1304,6 @@ extension CWATestCase {
 
 	func makeTraceWarningPackageDownloadMock(with store: Store, appConfig: CachedAppConfigurationMock) -> TraceWarningPackageDownload {
 		let mockEventStore = MockEventStore()
-		let client = ClientMock()
 		return TraceWarningPackageDownload(
 			restServiceProvider: RestServiceProviderStub(),
 			store: store,

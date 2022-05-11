@@ -20,7 +20,6 @@ final class DayKeyPackageDownloadTest: CWATestCase {
 
 		let packagesStore: DownloadedPackagesSQLLiteStore = .inMemory()
 		packagesStore.open()
-		let client = ClientMock()
 
 		// fake successful day package download
 		let restServiceProvider = RestServiceProviderStub(results: [
@@ -153,8 +152,6 @@ final class DayKeyPackageDownloadTest: CWATestCase {
 		packagesStore.open()
 
 		try packagesStore.addFetchedDays(["2020-10-04": dummyResponse, yesterdayKeyString: dummyResponse], country: countryId)
-
-		let client = ClientMock()
 
 		let keyPackageDownload = KeyPackageDownload(
 			downloadedPackagesStore: packagesStore,
@@ -292,8 +289,6 @@ final class DayKeyPackageDownloadTest: CWATestCase {
 
 		let packagesStore = DownloadedPackagesStoreErrorStub(error: DownloadedPackagesSQLLiteStore.StoreError.sqliteError(.unknown(42)))
 
-		let client = ClientMock()
-
 		// fake successful day package download
 		let restServiceProvider = RestServiceProviderStub(results: [
 			.success(["2020-10-02"])
@@ -324,8 +319,6 @@ final class DayKeyPackageDownloadTest: CWATestCase {
 		let store = MockTestStore()
 
 		let packagesStore = DownloadedPackagesStoreErrorStub(error: DownloadedPackagesSQLLiteStore.StoreError.sqliteError(.sqlite_full))
-
-		let client = ClientMock()
 
 		// fake successful day package download
 		let restServiceProvider = RestServiceProviderStub(results: [
