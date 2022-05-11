@@ -53,10 +53,10 @@ class ExposureSubmissionTestResultHeaderView: DynamicTableViewHeaderFooterView {
 		
 		switch coronaTest.type {
 		case .pcr:
-			subTitleLabel.text = AppStrings.ExposureSubmissionResult.PCR.card_subtitle
+			subTitleLabel.text = AppStrings.FamilyMemberCoronaTest.pcrCaption
 			timeLabel.text = "\(AppStrings.ExposureSubmissionResult.PCR.registrationDate) \(formattedTestDate)"
 		case .antigen:
-			subTitleLabel.text = AppStrings.ExposureSubmissionResult.Antigen.card_subtitle
+			subTitleLabel.text = AppStrings.FamilyMemberCoronaTest.antigenCaption
 			timeLabel.text = String(format: AppStrings.Home.TestResult.Negative.dateAntigen, formattedTestDate)
 		}
 		
