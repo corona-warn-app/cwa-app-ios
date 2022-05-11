@@ -1905,53 +1905,69 @@ class HealthCertificateServiceTests: CWATestCase {
 			recycleBin: recycleBin,
 			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
-		
-		let newCertificateBase45 = try base45Fake(
+		let firstNewCertificateBase45 = try base45Fake(
 			digitalCovidCertificate: DigitalCovidCertificate.fake(
 				vaccinationEntries: [
 					VaccinationEntry.fake(
-						uniqueCertificateIdentifier: "newCertificate"
+						uniqueCertificateIdentifier: "firstNewCertificate"
 					)
 				]
 			)
 		)
-		
-		let oldCertificateBase45 = try base45Fake(
+		let secondNewCertificateBase45 = try base45Fake(
 			digitalCovidCertificate: DigitalCovidCertificate.fake(
 				vaccinationEntries: [
 					VaccinationEntry.fake(
-						uniqueCertificateIdentifier: "oldCertificate"
+						uniqueCertificateIdentifier: "secondNewCertificate"
 					)
 				]
 			)
 		)
+		let firstNewCertificate = DCCReissuanceCertificate(certificate: firstNewCertificateBase45, relations: [DCCReissuanceRelation(index: 1, action: "replace")])
+		let secondNewCertificate = DCCReissuanceCertificate(certificate: secondNewCertificateBase45, relations: [DCCReissuanceRelation(index: 0, action: "replace")])
+		
+		let firstOldCertificateBase45 = try base45Fake(
+			digitalCovidCertificate: DigitalCovidCertificate.fake(
+				vaccinationEntries: [
+					VaccinationEntry.fake(
+						uniqueCertificateIdentifier: "firstOldCertificate"
+					)
+				]
+			)
+		)
+		let secondOldCertificateBase45 = try base45Fake(
+			digitalCovidCertificate: DigitalCovidCertificate.fake(
+				vaccinationEntries: [
+					VaccinationEntry.fake(
+						uniqueCertificateIdentifier: "secondOldCertificate"
+					)
+				]
+			)
+		)
+
 		let person = HealthCertifiedPerson(
 			healthCertificates: [
-				try HealthCertificate(base45: oldCertificateBase45)
+				try HealthCertificate(base45: firstOldCertificateBase45),
+				try HealthCertificate(base45: secondOldCertificateBase45)
 			]
 		)
 		
-		let oldCertificateRef = DCCCertificateReference(barcodeData: oldCertificateBase45)
+		store.healthCertifiedPersons = [person]
+		service.updatePublishersFromStore()
 		
 		try service.replaceHealthCertificate(
-			oldCertificateRef: oldCertificateRef,
-			with: newCertificateBase45,
+			requestCertificates: [firstOldCertificateBase45, secondOldCertificateBase45],
+			with: [firstNewCertificate, secondNewCertificate],
 			for: person,
 			markAsNew: true,
 			completedNotificationRegistration: { }
 		)
 		
-		try service.replaceHealthCertificate(
-			requestCertificates: <#T##[String]#>,
-			with: <#T##[DCCReissuanceCertificate]#>,
-			for: person,
-			markAsNew: true,
-			completedNotificationRegistration: { }
-		)
-		
-		XCTAssertEqual(person.healthCertificates[0].vaccinationEntry?.uniqueCertificateIdentifier, "newCertificate")
+		XCTAssertEqual(person.healthCertificates[0].vaccinationEntry?.uniqueCertificateIdentifier, "firstNewCertificate")
+		XCTAssertEqual(person.healthCertificates[1].vaccinationEntry?.uniqueCertificateIdentifier, "secondNewCertificate")
 		XCTAssertTrue(person.healthCertificates[0].isNew)
-		XCTAssertEqual(store.recycleBinItems.count, 1)
+		XCTAssertTrue(person.healthCertificates[1].isNew)
+		XCTAssertEqual(store.recycleBinItems.count, 2)
 	}
 	
 	func test_replaceHealthCertificate_markAsNewIsFalse() throws {
@@ -1966,53 +1982,69 @@ class HealthCertificateServiceTests: CWATestCase {
 			recycleBin: recycleBin,
 			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
-		
-		let newCertificateBase45 = try base45Fake(
+		let firstNewCertificateBase45 = try base45Fake(
 			digitalCovidCertificate: DigitalCovidCertificate.fake(
 				vaccinationEntries: [
 					VaccinationEntry.fake(
-						uniqueCertificateIdentifier: "newCertificate"
+						uniqueCertificateIdentifier: "firstNewCertificate"
 					)
 				]
 			)
 		)
-		
-		let oldCertificateBase45 = try base45Fake(
+		let secondNewCertificateBase45 = try base45Fake(
 			digitalCovidCertificate: DigitalCovidCertificate.fake(
 				vaccinationEntries: [
 					VaccinationEntry.fake(
-						uniqueCertificateIdentifier: "oldCertificate"
+						uniqueCertificateIdentifier: "secondNewCertificate"
 					)
 				]
 			)
 		)
+		let firstNewCertificate = DCCReissuanceCertificate(certificate: firstNewCertificateBase45, relations: [DCCReissuanceRelation(index: 1, action: "replace")])
+		let secondNewCertificate = DCCReissuanceCertificate(certificate: secondNewCertificateBase45, relations: [DCCReissuanceRelation(index: 0, action: "replace")])
+		
+		let firstOldCertificateBase45 = try base45Fake(
+			digitalCovidCertificate: DigitalCovidCertificate.fake(
+				vaccinationEntries: [
+					VaccinationEntry.fake(
+						uniqueCertificateIdentifier: "firstOldCertificate"
+					)
+				]
+			)
+		)
+		let secondOldCertificateBase45 = try base45Fake(
+			digitalCovidCertificate: DigitalCovidCertificate.fake(
+				vaccinationEntries: [
+					VaccinationEntry.fake(
+						uniqueCertificateIdentifier: "secondOldCertificate"
+					)
+				]
+			)
+		)
+
 		let person = HealthCertifiedPerson(
 			healthCertificates: [
-				try HealthCertificate(base45: oldCertificateBase45)
+				try HealthCertificate(base45: firstOldCertificateBase45),
+				try HealthCertificate(base45: secondOldCertificateBase45)
 			]
 		)
 		
-		let oldCertificateRef = DCCCertificateReference(barcodeData: oldCertificateBase45)
+		store.healthCertifiedPersons = [person]
+		service.updatePublishersFromStore()
 		
 		try service.replaceHealthCertificate(
-			oldCertificateRef: oldCertificateRef,
-			with: newCertificateBase45,
+			requestCertificates: [firstOldCertificateBase45, secondOldCertificateBase45],
+			with: [firstNewCertificate, secondNewCertificate],
 			for: person,
-			markAsNew: false,
+			markAsNew: true,
 			completedNotificationRegistration: { }
 		)
 		
-		try service.replaceHealthCertificate(
-			requestCertificates: <#T##[String]#>,
-			with: <#T##[DCCReissuanceCertificate]#>,
-			for: person,
-			markAsNew: false,
-			completedNotificationRegistration: { }
-		)
-		
-		XCTAssertEqual(person.healthCertificates[0].vaccinationEntry?.uniqueCertificateIdentifier, "newCertificate")
+		XCTAssertEqual(person.healthCertificates[0].vaccinationEntry?.uniqueCertificateIdentifier, "firstNewCertificate")
+		XCTAssertEqual(person.healthCertificates[1].vaccinationEntry?.uniqueCertificateIdentifier, "secondNewCertificate")
 		XCTAssertFalse(person.healthCertificates[0].isNew)
-		XCTAssertEqual(store.recycleBinItems.count, 1)
+		XCTAssertFalse(person.healthCertificates[1].isNew)
+		XCTAssertEqual(store.recycleBinItems.count, 2)
 	}
 
 	func testDCCAdmissionStateChanged_Then_flagIsSetInHealthCertifiedPerson() throws {
