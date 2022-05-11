@@ -15,8 +15,6 @@ protocol Client {
 	typealias CountryFetchCompletion = (Result<[Country], URLSession.Response.Failure>) -> Void
 	typealias OTPAuthorizationCompletionHandler = (Result<Date, OTPError>) -> Void
 	typealias PPAnalyticsSubmitionCompletionHandler = (Result<Void, PPASError>) -> Void
-
-//	typealias TraceWarningPackageDownloadCompletionHandler = (Result<PackageDownloadResponse, TraceWarningError>) -> Void
 	
 	// MARK: OTP Authorization
 
