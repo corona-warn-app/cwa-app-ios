@@ -72,30 +72,45 @@ final class DMNHCViewModel {
 						Log.error("Could not get matching person")
 						return
 					}
-					// TODO update as the new model
-					let sendModel = DCCReissuanceSendModel(
-						action: "",
-						certificates: [firstVaccinationCertificate.base45]
-					)
+					guard let wallet = firstPerson.dccWalletInfo else {
+						Log.error("Reissuance request failed due to dccWalletInfo being nil", log: .vaccination)
+						return
+					}
+					guard let currentCertificates = wallet.certificateReissuance?.certificates else {
+						Log.error("Reissuance request failed due to certificates being nil", log: .vaccination)
+						return
+					}
 
-					let appConfig = self.appConfiguration.currentAppConfig.value
-					let publicKeyHash = appConfig.dgcParameters.reissueServicePublicKeyDigest
-					let trust = DefaultTrustEvaluation(
-						publicKeyHash: publicKeyHash,
-						certificatePosition: 0
-					)
-					let resource = DCCReissuanceResource(
-						sendModel: sendModel,
-						trustEvaluation: trust
-					)
-					self.restService.load(resource) { result in
-						DispatchQueue.main.async {
-							switch result {
-							case let .success(model):
-								Log.info("DCC Reissuance successfull called.")
-								Log.info("DCC Reissuance response: \(model)")
-							case let .failure(error):
-								Log.error("DCC Reissuance call failure with: \(error)", error: error)
+					for certificate in currentCertificates {
+						// Prepare the request certificates
+						guard let certificateToReissue = certificate.certificateToReissue.certificateRef.barcodeData else {
+							Log.error("Certificate reissuance failed: certificateToReissue.barcodeData is nil", log: .vaccination)
+							return
+						}
+						let accompanyingCertificates = certificate.accompanyingCertificates.compactMap { $0.certificateRef.barcodeData }
+						let requestCertificates = [certificateToReissue] + accompanyingCertificates
+					
+						// Prepare the resource
+						let sendModel = DCCReissuanceSendModel(action: certificate.action, certificates: requestCertificates)
+						let appConfig = self.appConfiguration.currentAppConfig.value
+						let publicKeyHash = appConfig.dgcParameters.reissueServicePublicKeyDigest
+						let trustEvaluation = DefaultTrustEvaluation(
+							publicKeyHash: publicKeyHash,
+							certificatePosition: 0
+						)
+						let resource = DCCReissuanceResource(
+							sendModel: sendModel,
+							trustEvaluation: trustEvaluation
+						)
+						self.restService.load(resource) { result in
+							DispatchQueue.main.async {
+								switch result {
+								case let .success(model):
+									Log.info("DCC Reissuance successfull called.")
+									Log.info("DCC Reissuance response: \(model)")
+								case let .failure(error):
+									Log.error("DCC Reissuance call failure with: \(error)", error: error)
+								}
 							}
 						}
 					}
