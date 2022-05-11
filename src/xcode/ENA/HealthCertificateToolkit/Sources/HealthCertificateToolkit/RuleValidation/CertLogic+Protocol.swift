@@ -10,4 +10,8 @@ public protocol CertLogicEnginable {
     func validate(filter: FilterParameter, external: ExternalParameter, payload: String) -> [ValidationResult]
 }
 
-extension CertLogicEngine: CertLogicEnginable { }
+extension CertLogicEngine: CertLogicEnginable {
+    public func validate(filter: FilterParameter, external: ExternalParameter, payload: String) -> [ValidationResult] {
+        return validate(filter: filter, external: external, payload: payload, validationType: .all)
+    }
+}
