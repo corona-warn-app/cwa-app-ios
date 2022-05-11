@@ -764,6 +764,8 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmissionResult_testNegativeDesc" = "Der Labortest hat keinen Nachweis für das Coronavirus SARS-CoV-2 bei Ihnen ergeben.";
 
+"ExposureSubmissionResult_familyMember_testNegativeDesc" = "Der Labortest hat keinen Nachweis für das Coronavirus SARS-CoV-2 bei dem Test ergeben.";
+
 "ExposureSubmissionResult_testNegative_furtherInfos_title" = "Weitere Infos:";
 
 "ExposureSubmissionResult_testNegative_furtherInfos_desc" = "Sie haben trotzdem akute gesundheitliche Beschwerden?";
@@ -777,6 +779,8 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 "ExposureSubmissionResult_testInvalid" = "Test kann nicht ausgewertet werden";
 
 "ExposureSubmissionResult_testInvalidDesc" = "Es gab ein Problem bei der Auswertung Ihres Tests. Bitte kontaktieren Sie das Testcenter oder das zuständige Labor, um Informationen zum weiteren Vorgehen zu erhalten.";
+
+"ExposureSubmissionResult_familyMember_testInvalidDesc" = "Es gab ein Problem bei der Auswertung des Tests. Bitte kontaktieren Sie das Testcenter oder das zuständige Labor, um Informationen zum weiteren Vorgehen zu erhalten.";
 
 "ExposureSubmissionResult_testExpired" = "Test kann nicht ausgewertet werden";
 
@@ -821,6 +825,8 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 "ExposureSubmissionResult_pcrTestPendingContactJournalDesc" = "Sobald Ihr Testergebnis vorliegt, wird es Ihnen in der App angezeigt.";
 
 "ExposureSubmissionResult_antigenTestNegativDesc" = "Der Schnelltest hat keinen Nachweis für das Coronavirus SARS-CoV-2 bei Ihnen ergeben.";
+
+"ExposureSubmissionResult_familyMember_antigenTestNegativDesc" = "Der Schnelltest hat keinen Nachweis für das Coronavirus SARS-CoV-2 bei dem Test ergeben.";
 
 "ExposureSubmissionResult_WarnOthersConsentGiven" = "Einverständnis „Andere warnen“ erteilt";
 
@@ -951,6 +957,8 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 "ExposureSubmissionResult_Timer_Title" = "Ergebnis liegt vor seit";
 
 "ExposureSubmissionResult_Negative_Antigen_Proof_Desc" = "Um den hier angezeigten Befund überprüfbar nachzuweisen, ist ein Digitales Testzertifikat der EU notwendig. Wenn Sie bei der Registrierung des Tests ein Digitales Testzertifikat angefordert haben und die Teststelle deren Ausstellung unterstützt, können Sie Ihr Digitales Testzertifikat anhand des oben angegebenen Links anzeigen. Sie finden das Zertifikat außerdem im Bereich „Zertifikate“.\nInformieren Sie sich bitte auch über die Kriterien zur Anerkennung und Gültigkeit von Test-Zertifikaten in Bezug auf den Zweck für den Sie den Nachweis benötigen.";
+
+"ExposureSubmissionResult_familyMember_Negative_Antigen_NoProof_Title" = "Nachweis-Funktion";
 
 "ExposureSubmissionResult_Negative_Antigen_NoProof_Title" = "Keine Nachweis-Funktion";
 

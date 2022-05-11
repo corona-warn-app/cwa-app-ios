@@ -250,6 +250,7 @@ enum AppStrings {
 			static let testPendingContactJournal = NSLocalizedString("ExposureSubmissionResult_antigenTestPendingContactJournal", comment: "")
 			static let testPendingContactJournalDesc = NSLocalizedString("ExposureSubmissionResult_antigenTestPendingContactJournalDesc", comment: "")
 			static let testNegativeDesc = NSLocalizedString("ExposureSubmissionResult_antigenTestNegativDesc", comment: "")
+			static let familyMemberTestNegativeDesc = NSLocalizedString("ExposureSubmissionResult_familyMember_antigenTestNegativDesc", comment: "")
 			static let testAdded = NSLocalizedString("ExposureSubmissionResult_antigenTestAdded", comment: "")
 			static let familyMemberTestAdded = NSLocalizedString("ExposureSubmissionResult_familyMember_antigenTestAdded", comment: "")
 			static let testAddedDesc = NSLocalizedString("ExposureSubmissionResult_antigenTestAddedDesc", comment: "")
@@ -279,8 +280,10 @@ enum AppStrings {
 		static let warnOthers = NSLocalizedString("ExposureSubmissionResult_warnOthers", comment: "")
 		static let testNegative = NSLocalizedString("ExposureSubmissionResult_testNegative", comment: "")
 		static let testNegativeDesc = NSLocalizedString("ExposureSubmissionResult_testNegativeDesc", comment: "")
+		static let familyMemberTestNegativeDesc = NSLocalizedString("ExposureSubmissionResult_familyMember_testNegativeDesc", comment: "")
 		static let testInvalid = NSLocalizedString("ExposureSubmissionResult_testInvalid", comment: "")
 		static let testInvalidDesc = NSLocalizedString("ExposureSubmissionResult_testInvalidDesc", comment: "")
+		static let familyMemberTestInvalidDesc = NSLocalizedString("ExposureSubmissionResult_familyMember_testInvalidDesc", comment: "")
 		static let testExpired = NSLocalizedString("ExposureSubmissionResult_testExpired", comment: "")
 		static let testExpiredDesc = NSLocalizedString("ExposureSubmissionResult_testExpiredDesc", comment: "")
 		static let warnOthersConsentGiven = NSLocalizedString("ExposureSubmissionResult_WarnOthersConsentGiven", comment: "")
@@ -301,6 +304,7 @@ enum AppStrings {
 		static let removeAlert_Text = NSLocalizedString("ExposureSubmissionResult_RemoveAlert_Text", comment: "")
 		static let removeAlert_ConfirmButtonTitle = NSLocalizedString("ExposureSubmissionResult_RemoveAlert_ConfirmButtonTitle", comment: "")
 		static let registrationDateUnknown = NSLocalizedString("ExposureSubmissionResult_RegistrationDateUnknown", comment: "")
+		static let proofTitleFamilyMember = NSLocalizedString("ExposureSubmissionResult_familyMember_Negative_Antigen_NoProof_Title", comment: "")
 	}
 
 	enum ExposureSubmissionDispatch {
