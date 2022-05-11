@@ -676,7 +676,7 @@
 		5001DE8C26E20C4B004242FA /* AuthorizeOtpEls.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5001DE8B26E20C4B004242FA /* AuthorizeOtpEls.swift */; };
 		5001DE8E26E20D76004242FA /* SubmitPPA.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5001DE8D26E20D76004242FA /* SubmitPPA.swift */; };
 		5001DE9026E20E52004242FA /* Locator+TraceWarningDiscovery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5001DE8F26E20E52004242FA /* Locator+TraceWarningDiscovery.swift */; };
-		5001DE9226E20F64004242FA /* Locatro+TraceWarningDownload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5001DE9126E20F64004242FA /* Locatro+TraceWarningDownload.swift */; };
+		5001DE9226E20F64004242FA /* Location+TraceWarningDownload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5001DE9126E20F64004242FA /* Location+TraceWarningDownload.swift */; };
 		5001DE9426E2114F004242FA /* Locator+DCCPublicKeyRegistration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5001DE9326E2114F004242FA /* Locator+DCCPublicKeyRegistration.swift */; };
 		5001DE9626E21272004242FA /* SubmitELS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5001DE9526E21272004242FA /* SubmitELS.swift */; };
 		5001DE9A26E2146E004242FA /* Locator+ValidationOnboardedCountries.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5001DE9926E2146E004242FA /* Locator+ValidationOnboardedCountries.swift */; };
@@ -2503,7 +2503,7 @@
 		5001DE8B26E20C4B004242FA /* AuthorizeOtpEls.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizeOtpEls.swift; sourceTree = "<group>"; };
 		5001DE8D26E20D76004242FA /* SubmitPPA.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubmitPPA.swift; sourceTree = "<group>"; };
 		5001DE8F26E20E52004242FA /* Locator+TraceWarningDiscovery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Locator+TraceWarningDiscovery.swift"; sourceTree = "<group>"; };
-		5001DE9126E20F64004242FA /* Locatro+TraceWarningDownload.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Locatro+TraceWarningDownload.swift"; sourceTree = "<group>"; };
+		5001DE9126E20F64004242FA /* Location+TraceWarningDownload.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Location+TraceWarningDownload.swift"; sourceTree = "<group>"; };
 		5001DE9326E2114F004242FA /* Locator+DCCPublicKeyRegistration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Locator+DCCPublicKeyRegistration.swift"; sourceTree = "<group>"; };
 		5001DE9526E21272004242FA /* SubmitELS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubmitELS.swift; sourceTree = "<group>"; };
 		5001DE9926E2146E004242FA /* Locator+ValidationOnboardedCountries.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Locator+ValidationOnboardedCountries.swift"; sourceTree = "<group>"; };
@@ -9982,7 +9982,7 @@
 			isa = PBXGroup;
 			children = (
 				BAD25058282AB8B20042F45D /* __tests__ */,
-				5001DE9126E20F64004242FA /* Locatro+TraceWarningDownload.swift */,
+				5001DE9126E20F64004242FA /* Location+TraceWarningDownload.swift */,
 				BAD25054282A88300042F45D /* TraceWarningDownloadResource.swift */,
 			);
 			path = TraceWarningDownload;
@@ -10966,7 +10966,7 @@
 				01C5F302279EB20100F60047 /* DCCWalletInfo.swift in Sources */,
 				01B72B6525821CD200A3E3BC /* EmptyStateView.swift in Sources */,
 				0186FB62268F362200872D45 /* HealthCertificateValidationViewModel.swift in Sources */,
-				5001DE9226E20F64004242FA /* Locatro+TraceWarningDownload.swift in Sources */,
+				5001DE9226E20F64004242FA /* Location+TraceWarningDownload.swift in Sources */,
 				01E1C945274BA2FE007FD7B3 /* QRScannerInfoViewController.swift in Sources */,
 				0138F54C25ECD44300A9B075 /* ppdd_ppa_parameters.pb.swift in Sources */,
 				8FEC122A27564C7A00C5DADC /* AllowListService.swift in Sources */,
