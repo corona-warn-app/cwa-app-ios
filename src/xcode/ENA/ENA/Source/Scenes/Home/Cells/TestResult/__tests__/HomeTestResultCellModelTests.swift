@@ -107,7 +107,7 @@ class HomeTestResultCellModelTests: CWATestCase {
 		expectationUserInteraction.expectedFulfillmentCount = userInteractionArray.count
 		expectationCellTappability.expectedFulfillmentCount = cellTappableArray.count
 		expectationAccessibilityIdentifiers.expectedFulfillmentCount = accessibilityIdentifiersArray.count
-		expectationOnUpdate.expectedFulfillmentCount = 8
+		expectationOnUpdate.expectedFulfillmentCount = 7
 
 		let coronaTestService = MockCoronaTestService()
 		coronaTestService.pcrTest.value = .mock(registrationDate: Date(timeIntervalSince1970: 0))
@@ -210,12 +210,25 @@ class HomeTestResultCellModelTests: CWATestCase {
 			}
 			.store(in: &subscriptions)
 
-		coronaTestService.pcrTest.value?.testResult = .pending
-		coronaTestService.pcrTest.value?.testResult = .negative
-		coronaTestService.pcrTest.value?.testResult = .invalid
-		coronaTestService.pcrTest.value?.testResult = .positive
-		coronaTestService.pcrTest.value?.testResult = .expired
-		coronaTestService.pcrTestResultIsLoading.value = true
+		cellModel.$testResult
+			.dropFirst()
+			.sink { testResult in
+				switch testResult {
+				case .pending:
+					coronaTestService.pcrTest.value?.testResult = .negative
+				case .negative:
+					coronaTestService.pcrTest.value?.testResult = .invalid
+				case .invalid:
+					coronaTestService.pcrTest.value?.testResult = .positive
+				case .positive:
+					coronaTestService.pcrTest.value?.testResult = .expired
+				case .expired:
+					coronaTestService.pcrTestResultIsLoading.value = true
+				case .none:
+					break
+				}
+			}
+			.store(in: &subscriptions)
 
 		waitForExpectations(timeout: .short, handler: nil)
 
@@ -336,7 +349,7 @@ class HomeTestResultCellModelTests: CWATestCase {
 		expectationUserInteraction.expectedFulfillmentCount = userInteractionArray.count
 		expectationCellTappability.expectedFulfillmentCount = cellTappableArray.count
 		expectationAccessibilityIdentifiers.expectedFulfillmentCount = accessibilityIdentifiersArray.count
-		expectationOnUpdate.expectedFulfillmentCount = 9
+		expectationOnUpdate.expectedFulfillmentCount = 8
 
 		let coronaTestService = MockCoronaTestService()
 		coronaTestService.antigenTest.value = .mock(sampleCollectionDate: Date(timeIntervalSince1970: 0))
@@ -439,13 +452,32 @@ class HomeTestResultCellModelTests: CWATestCase {
 			}
 			.store(in: &subscriptions)
 
-		coronaTestService.antigenTest.value?.testResult = .pending
-		coronaTestService.antigenTest.value?.testResult = .negative
-		coronaTestService.antigenTest.value?.testResult = .invalid
-		coronaTestService.antigenTest.value?.testResult = .positive
-		coronaTestService.antigenTest.value?.testResult = .expired
-		coronaTestService.antigenTestIsOutdated.value = true
-		coronaTestService.antigenTestResultIsLoading.value = true
+		cellModel.$testResult
+			.dropFirst()
+			.sink { testResult in
+				switch testResult {
+				case .pending:
+					coronaTestService.antigenTest.value?.testResult = .negative
+				case .negative:
+					coronaTestService.antigenTest.value?.testResult = .invalid
+				case .invalid:
+					coronaTestService.antigenTest.value?.testResult = .positive
+				case .positive:
+					coronaTestService.antigenTest.value?.testResult = .expired
+				case .expired:
+					coronaTestService.antigenTestIsOutdated.value = true
+				case .none:
+					break
+				}
+			}
+			.store(in: &subscriptions)
+
+		cellModel.$antigenTestIsOutdated
+			.filter { $0 }
+			.sink { _ in
+				coronaTestService.antigenTestResultIsLoading.value = true
+			}
+			.store(in: &subscriptions)
 
 		waitForExpectations(timeout: .short, handler: nil)
 
