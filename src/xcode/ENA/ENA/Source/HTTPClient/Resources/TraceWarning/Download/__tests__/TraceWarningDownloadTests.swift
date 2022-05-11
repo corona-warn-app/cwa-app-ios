@@ -10,8 +10,6 @@ import XCTest
 // swiftlint:disable:next type_body_length
 class TraceWarningPackageDownloadTests: CWATestCase {
 	
-	// MARK: - Success
-	
 	func testGIVEN_TraceWarningDownload_WHEN_HappyCase_THEN_Success() throws {
 		// GIVEN
 		let store = MockTestStore()
