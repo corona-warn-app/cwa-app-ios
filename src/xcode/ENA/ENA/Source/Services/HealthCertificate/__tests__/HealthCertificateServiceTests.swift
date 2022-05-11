@@ -2036,7 +2036,7 @@ class HealthCertificateServiceTests: CWATestCase {
 			requestCertificates: [firstOldCertificateBase45, secondOldCertificateBase45],
 			with: [firstNewCertificate, secondNewCertificate],
 			for: person,
-			markAsNew: true,
+			markAsNew: false,
 			completedNotificationRegistration: { }
 		)
 		
