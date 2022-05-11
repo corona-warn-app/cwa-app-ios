@@ -1667,6 +1667,7 @@
 		BAE20FF325C8321300162966 /* DMKeyValueTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAE20FF125C8321300162966 /* DMKeyValueTableViewCell.swift */; };
 		BAE2101025C8460900162966 /* PPACDeviceCheck.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAE2100125C83E4400162966 /* PPACDeviceCheck.swift */; };
 		BAE2101B25C8463400162966 /* PPACDeviceCheckMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAE2101A25C8463400162966 /* PPACDeviceCheckMock.swift */; };
+		BAE3EC3C282BFECD000FB795 /* TraceWarningDownloadResourceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAE3EC3B282BFECD000FB795 /* TraceWarningDownloadResourceTests.swift */; };
 		BAE54F462697290A0011DE4A /* ValidationInformationViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAE54F452697290A0011DE4A /* ValidationInformationViewModelTests.swift */; };
 		BAEB174025E561120012FEF9 /* FooterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAEB173F25E561120012FEF9 /* FooterViewController.swift */; };
 		BAEB174525E567830012FEF9 /* FooterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAEB174425E567830012FEF9 /* FooterViewModel.swift */; };
@@ -3506,6 +3507,7 @@
 		BAE20FF125C8321300162966 /* DMKeyValueTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMKeyValueTableViewCell.swift; sourceTree = "<group>"; };
 		BAE2100125C83E4400162966 /* PPACDeviceCheck.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PPACDeviceCheck.swift; sourceTree = "<group>"; };
 		BAE2101A25C8463400162966 /* PPACDeviceCheckMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PPACDeviceCheckMock.swift; sourceTree = "<group>"; };
+		BAE3EC3B282BFECD000FB795 /* TraceWarningDownloadResourceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraceWarningDownloadResourceTests.swift; sourceTree = "<group>"; };
 		BAE54F452697290A0011DE4A /* ValidationInformationViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidationInformationViewModelTests.swift; sourceTree = "<group>"; };
 		BAEB173F25E561120012FEF9 /* FooterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FooterViewController.swift; sourceTree = "<group>"; };
 		BAEB174425E567830012FEF9 /* FooterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FooterViewModel.swift; sourceTree = "<group>"; };
@@ -9993,6 +9995,7 @@
 			children = (
 				50373EC825FBD08A000109AE /* TraceWarningPackageDownloadTests_old.swift */,
 				50FA07832609EC80003C1E46 /* TraceWarningPackageDownloadTests.swift */,
+				BAE3EC3B282BFECD000FB795 /* TraceWarningDownloadResourceTests.swift */,
 			);
 			path = __tests__;
 			sourceTree = "<group>";
@@ -12315,6 +12318,7 @@
 				AB1EEC1026382BC20001D1DB /* ExposureSubmissionIntroViewModelTests.swift in Sources */,
 				01BA07202620921400237DD8 /* CheckinTestCase.swift in Sources */,
 				01A23685251A23740043D9F8 /* ExposureSubmissionQRInfoModelTests.swift in Sources */,
+				BAE3EC3C282BFECD000FB795 /* TraceWarningDownloadResourceTests.swift in Sources */,
 				ABD430FA27FC6BC20063666C /* Locator+KIDTypeChunkTests.swift in Sources */,
 				2FD881CC2490F65C00BEC8FC /* ExposureSubmissionHotlineViewControllerTest.swift in Sources */,
 				01A97DD12506768F00C07C37 /* DatePickerOptionViewModelTests.swift in Sources */,
