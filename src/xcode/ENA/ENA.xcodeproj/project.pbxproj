@@ -1634,8 +1634,8 @@
 		BAD3CCD5271EEB5A004C06AD /* _PaddingResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAD3CCD4271EEB5A004C06AD /* _PaddingResource.swift */; };
 		BAD3CCD8271EF973004C06AD /* TeleTanResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAD3CCD7271EF973004C06AD /* TeleTanResource.swift */; };
 		BAD507A22825685700FE07D2 /* TraceWarningDiscoveryResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAD507A12825685700FE07D2 /* TraceWarningDiscoveryResource.swift */; };
-		BAD507A62825753900FE07D2 /* HTTPClient+TraceWarningPackageDiscoveryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50AA526725FBA0CC000C77BB /* HTTPClient+TraceWarningPackageDiscoveryTests.swift */; };
-		BAD507A72825754C00FE07D2 /* TraceWarningPackageDownloadTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50FA07832609EC80003C1E46 /* TraceWarningPackageDownloadTests.swift */; };
+		BAD507A62825753900FE07D2 /* TraceWarningDiscoveryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50AA526725FBA0CC000C77BB /* TraceWarningDiscoveryTests.swift */; };
+		BAD507A72825754C00FE07D2 /* TraceWarningDownloadTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50FA07832609EC80003C1E46 /* TraceWarningDownloadTests.swift */; };
 		BAD507A92825768700FE07D2 /* TraceWarningDiscoveryResourceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAD507A82825768700FE07D2 /* TraceWarningDiscoveryResourceTests.swift */; };
 		BAD962FB25668F4000FAB615 /* TestResultAvailableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAD962FA25668F4000FAB615 /* TestResultAvailableViewController.swift */; };
 		BAD9630025668F8E00FAB615 /* TestResultAvailableViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAD962FF25668F8E00FAB615 /* TestResultAvailableViewModel.swift */; };
@@ -2630,7 +2630,7 @@
 		50AA521C25FA590D000C77BB /* HTTPMethod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPMethod.swift; sourceTree = "<group>"; };
 		50AA522625FA5AAD000C77BB /* TraceWarningError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraceWarningError.swift; sourceTree = "<group>"; };
 		50AA525325FB9ACA000C77BB /* TraceWarningDiscoveryModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraceWarningDiscoveryModel.swift; sourceTree = "<group>"; };
-		50AA526725FBA0CC000C77BB /* HTTPClient+TraceWarningPackageDiscoveryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HTTPClient+TraceWarningPackageDiscoveryTests.swift"; sourceTree = "<group>"; };
+		50AA526725FBA0CC000C77BB /* TraceWarningDiscoveryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraceWarningDiscoveryTests.swift; sourceTree = "<group>"; };
 		50AF182027A2F5DF00BAA9DB /* ccl-configuration.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = "ccl-configuration.bin"; sourceTree = "<group>"; };
 		50AF182327A3F20500BAA9DB /* CCLConfigurationResourceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CCLConfigurationResourceTests.swift; sourceTree = "<group>"; };
 		50AF182627A4229000BAA9DB /* DMNHCViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMNHCViewController.swift; sourceTree = "<group>"; };
@@ -2697,7 +2697,7 @@
 		50F9130C253F1D7800DFE683 /* OnboardingPageType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingPageType.swift; sourceTree = "<group>"; };
 		50FA071026021180003C1E46 /* api-response-traceWarning */ = {isa = PBXFileReference; lastKnownFileType = file; path = "api-response-traceWarning"; sourceTree = "<group>"; };
 		50FA072A26023784003C1E46 /* TraceWarningPackageDownload.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraceWarningPackageDownload.swift; sourceTree = "<group>"; };
-		50FA07832609EC80003C1E46 /* TraceWarningPackageDownloadTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraceWarningPackageDownloadTests.swift; sourceTree = "<group>"; };
+		50FA07832609EC80003C1E46 /* TraceWarningDownloadTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraceWarningDownloadTests.swift; sourceTree = "<group>"; };
 		50FE67D226149C5F00A2B2E7 /* AccessibleStackView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccessibleStackView.swift; sourceTree = "<group>"; };
 		50FE680A2615C9BF00A2B2E7 /* DMRecentCreatedEventViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMRecentCreatedEventViewController.swift; sourceTree = "<group>"; };
 		50FE68122615C9C800A2B2E7 /* DMRecentCreatedEventViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMRecentCreatedEventViewModel.swift; sourceTree = "<group>"; };
@@ -6366,9 +6366,6 @@
 		50BC9046279EEE530000C930 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				BAD25056282A93AB0042F45D /* PackageDownloadResponse.swift */,
-				BAD25053282A88110042F45D /* TraceWarningDownload */,
-				BAD507A02825673B00FE07D2 /* TraceWarningDiscovery */,
 				50BC9030279EEB4A0000C930 /* AllowList */,
 				50BC9031279EEB840000C930 /* AppConfiguration */,
 				BABC1ECF281848800067F8E9 /* AvailableDays */,
@@ -6390,6 +6387,7 @@
 				50BC9042279EED380000C930 /* TestResult */,
 				50BC903A279EEC760000C930 /* TicketValidationAccessToken */,
 				50BC903C279EECAB0000C930 /* TicketValidationResult */,
+				BAE3EC3E282C027D000FB795 /* TraceWarning */,
 				AB06F76128225D4000E757EE /* Utils */,
 				50BC902E279EEB190000C930 /* ValidationOnboardedCountries */,
 			);
@@ -9980,22 +9978,22 @@
 			path = __tests__;
 			sourceTree = "<group>";
 		};
-		BAD25053282A88110042F45D /* TraceWarningDownload */ = {
+		BAD25053282A88110042F45D /* Download */ = {
 			isa = PBXGroup;
 			children = (
 				BAD25058282AB8B20042F45D /* __tests__ */,
 				5001DE9126E20F64004242FA /* Location+TraceWarningDownload.swift */,
 				BAD25054282A88300042F45D /* TraceWarningDownloadResource.swift */,
 			);
-			path = TraceWarningDownload;
+			path = Download;
 			sourceTree = "<group>";
 		};
 		BAD25058282AB8B20042F45D /* __tests__ */ = {
 			isa = PBXGroup;
 			children = (
-				50373EC825FBD08A000109AE /* TraceWarningPackageDownloadTests_old.swift */,
-				50FA07832609EC80003C1E46 /* TraceWarningPackageDownloadTests.swift */,
 				BAE3EC3B282BFECD000FB795 /* TraceWarningDownloadResourceTests.swift */,
+				50FA07832609EC80003C1E46 /* TraceWarningDownloadTests.swift */,
+				50373EC825FBD08A000109AE /* TraceWarningPackageDownloadTests_old.swift */,
 			);
 			path = __tests__;
 			sourceTree = "<group>";
@@ -10037,23 +10035,22 @@
 			path = GenericModels;
 			sourceTree = "<group>";
 		};
-		BAD507A02825673B00FE07D2 /* TraceWarningDiscovery */ = {
+		BAD507A02825673B00FE07D2 /* Discovery */ = {
 			isa = PBXGroup;
 			children = (
 				BAD507A4282573EB00FE07D2 /* __tests__ */,
 				5001DE8F26E20E52004242FA /* Locator+TraceWarningDiscovery.swift */,
 				50AA525325FB9ACA000C77BB /* TraceWarningDiscoveryModel.swift */,
-				50AA522625FA5AAD000C77BB /* TraceWarningError.swift */,
 				BAD507A12825685700FE07D2 /* TraceWarningDiscoveryResource.swift */,
 			);
-			path = TraceWarningDiscovery;
+			path = Discovery;
 			sourceTree = "<group>";
 		};
 		BAD507A4282573EB00FE07D2 /* __tests__ */ = {
 			isa = PBXGroup;
 			children = (
-				50AA526725FBA0CC000C77BB /* HTTPClient+TraceWarningPackageDiscoveryTests.swift */,
 				BAD507A82825768700FE07D2 /* TraceWarningDiscoveryResourceTests.swift */,
+				50AA526725FBA0CC000C77BB /* TraceWarningDiscoveryTests.swift */,
 			);
 			path = __tests__;
 			sourceTree = "<group>";
@@ -10191,6 +10188,25 @@
 				BAE11F5D2821896D00CA2790 /* FetchDayTests.swift */,
 			);
 			path = __tests_;
+			sourceTree = "<group>";
+		};
+		BAE3EC3D282C024E000FB795 /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+				50AA522625FA5AAD000C77BB /* TraceWarningError.swift */,
+				BAD25056282A93AB0042F45D /* PackageDownloadResponse.swift */,
+			);
+			path = Shared;
+			sourceTree = "<group>";
+		};
+		BAE3EC3E282C027D000FB795 /* TraceWarning */ = {
+			isa = PBXGroup;
+			children = (
+				BAE3EC3D282C024E000FB795 /* Shared */,
+				BAD507A02825673B00FE07D2 /* Discovery */,
+				BAD25053282A88110042F45D /* Download */,
+			);
+			path = TraceWarning;
 			sourceTree = "<group>";
 		};
 		BAE54F44269728F30011DE4A /* __tests__ */ = {
@@ -12300,7 +12316,7 @@
 				BAA8558B27C82A9C00D0EA26 /* HealthCertificateReissuanceConsentViewModelTests.swift in Sources */,
 				50BD1425260B74C20013983A /* VerificationMock.swift in Sources */,
 				BAB2583827A94CA300DF347B /* FakeCCLService.swift in Sources */,
-				BAD507A62825753900FE07D2 /* HTTPClient+TraceWarningPackageDiscoveryTests.swift in Sources */,
+				BAD507A62825753900FE07D2 /* TraceWarningDiscoveryTests.swift in Sources */,
 				BA02641325E6A0800019CD55 /* FooterViewModelTests.swift in Sources */,
 				0123D5992501385200A91838 /* ExposureSubmissionErrorTests.swift in Sources */,
 				8FEC7DB52795CFC800D5558C /* HealthCertificateArray+FallbackTests.swift in Sources */,
@@ -12427,7 +12443,7 @@
 				01AD1D78274FC82E00BCE687 /* TicketValidationAccessTokenResourceTests.swift in Sources */,
 				A1BABD0E24A57CFC000ED515 /* ENTemporaryExposureKey+ProcessingTests.swift in Sources */,
 				012A067E262DE814008614CF /* CoronaTestServiceTests.swift in Sources */,
-				BAD507A72825754C00FE07D2 /* TraceWarningPackageDownloadTests.swift in Sources */,
+				BAD507A72825754C00FE07D2 /* TraceWarningDownloadTests.swift in Sources */,
 				EE22DB8F247FB46C001B0A71 /* ENStateTests.swift in Sources */,
 				EBE0F96727870D30001F20E8 /* TestResultsResourceTests.swift in Sources */,
 				EB54936B25F7CC0400A3C459 /* CGPDFDocument+EmbedImageTests.swift in Sources */,
