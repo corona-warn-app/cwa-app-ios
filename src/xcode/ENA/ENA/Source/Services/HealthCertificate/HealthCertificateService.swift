@@ -301,9 +301,12 @@ class HealthCertificateService: HealthCertificateServiceServable {
 						dispatchGroup.enter()
 						healthCertificateNotificationService.removeAllNotifications(
 							for: certificateToBeRemoved,
-							   completion: { dispatchGroup.leave() }
+							completion: {
+								dispatchGroup.leave()
+							}
 						)
-						recycleBin.moveToBin(.certificate(certificateToBeRemoved))
+						moveHealthCertificateToBin(certificateToBeRemoved)
+						
 					} else {
 						Log.error("The certified person does not contain the indexed certificate", log: .vaccination)
 					}
