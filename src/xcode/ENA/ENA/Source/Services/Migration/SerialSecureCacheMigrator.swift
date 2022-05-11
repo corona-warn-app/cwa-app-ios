@@ -3,7 +3,7 @@
 //
 
 import Foundation
-import jsonlogic
+import JsonLogic
 
 class SerialSecureCacheMigrator: SerialMigratorProtocol {
 
