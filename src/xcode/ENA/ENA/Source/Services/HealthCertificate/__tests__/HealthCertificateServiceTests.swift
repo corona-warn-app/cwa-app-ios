@@ -1893,7 +1893,6 @@ class HealthCertificateServiceTests: CWATestCase {
 		XCTAssertEqual(service.unseenNewsCount.value, 0)
 	}
 	
-	/*
 	func test_replaceHealthCertificate_markAsNewIsTrue() throws {
 		let store = MockTestStore()
 		let recycleBin = RecycleBin.fake(store: store)
@@ -2015,7 +2014,6 @@ class HealthCertificateServiceTests: CWATestCase {
 		XCTAssertFalse(person.healthCertificates[0].isNew)
 		XCTAssertEqual(store.recycleBinItems.count, 1)
 	}
-	*/
 
 	func testDCCAdmissionStateChanged_Then_flagIsSetInHealthCertifiedPerson() throws {
 		let vaccinationHealthCertificate: HealthCertificate = try vaccinationCertificate(type: .seriesCompletingOrBooster, ageInDays: 2)
