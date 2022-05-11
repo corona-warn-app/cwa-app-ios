@@ -42,7 +42,6 @@ struct TraceWarningDownloadResource: Resource {
 		responseBody: Data? = nil
 	) -> CustomError? {
 		switch error {
-
 		case let .resourceError(resourceError):
 			return handleResourceError(resourceError)
 		case .invalidResponse:

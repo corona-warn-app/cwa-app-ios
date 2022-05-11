@@ -712,7 +712,7 @@
 		502B60FC276CB7B60049CC60 /* Error+Fake.swift in Sources */ = {isa = PBXBuildFile; fileRef = 502B60FA276CB7640049CC60 /* Error+Fake.swift */; };
 		50352C8B25C94961007193D2 /* OTPServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50352C8A25C94961007193D2 /* OTPServiceTests.swift */; };
 		50352C9F25C96687007193D2 /* HTTPClient+AuthorizationOTPEdusTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50352C9725C9665A007193D2 /* HTTPClient+AuthorizationOTPEdusTests.swift */; };
-		50373EC925FBD08A000109AE /* HTTPClient+TraceWarningPackageDownloadTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50373EC825FBD08A000109AE /* HTTPClient+TraceWarningPackageDownloadTests.swift */; };
+		50373EC925FBD08A000109AE /* TraceWarningPackageDownloadTests_old.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50373EC825FBD08A000109AE /* TraceWarningPackageDownloadTests_old.swift */; };
 		5039B3E826A1AD5B00ECA6DE /* ValidationResultCellModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5039B3E726A1AD5B00ECA6DE /* ValidationResultCellModelTests.swift */; };
 		503ACBFB26F36D1700C31352 /* HealthCertificateCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 503ACBFA26F36D1700C31352 /* HealthCertificateCoordinator.swift */; };
 		503ACBFD26F36F5B00C31352 /* HealthCertificatesTabCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 503ACBFC26F36F5A00C31352 /* HealthCertificatesTabCoordinator.swift */; };
@@ -2536,7 +2536,7 @@
 		502B60FA276CB7640049CC60 /* Error+Fake.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Error+Fake.swift"; sourceTree = "<group>"; };
 		50352C8A25C94961007193D2 /* OTPServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OTPServiceTests.swift; sourceTree = "<group>"; };
 		50352C9725C9665A007193D2 /* HTTPClient+AuthorizationOTPEdusTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HTTPClient+AuthorizationOTPEdusTests.swift"; sourceTree = "<group>"; };
-		50373EC825FBD08A000109AE /* HTTPClient+TraceWarningPackageDownloadTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HTTPClient+TraceWarningPackageDownloadTests.swift"; sourceTree = "<group>"; };
+		50373EC825FBD08A000109AE /* TraceWarningPackageDownloadTests_old.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraceWarningPackageDownloadTests_old.swift; sourceTree = "<group>"; };
 		5039B3E726A1AD5B00ECA6DE /* ValidationResultCellModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidationResultCellModelTests.swift; sourceTree = "<group>"; };
 		503ACBFA26F36D1700C31352 /* HealthCertificateCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HealthCertificateCoordinator.swift; sourceTree = "<group>"; };
 		503ACBFC26F36F5A00C31352 /* HealthCertificatesTabCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HealthCertificatesTabCoordinator.swift; sourceTree = "<group>"; };
@@ -9991,7 +9991,7 @@
 		BAD25058282AB8B20042F45D /* __tests__ */ = {
 			isa = PBXGroup;
 			children = (
-				50373EC825FBD08A000109AE /* HTTPClient+TraceWarningPackageDownloadTests.swift */,
+				50373EC825FBD08A000109AE /* TraceWarningPackageDownloadTests_old.swift */,
 				50FA07832609EC80003C1E46 /* TraceWarningPackageDownloadTests.swift */,
 			);
 			path = __tests__;
@@ -12291,7 +12291,7 @@
 				ABC506C6274BA87A00698A95 /* TicketValidationInitializationData+Fake.swift in Sources */,
 				F25247312484456800C5556B /* DynamicTableViewModelTests.swift in Sources */,
 				B15382E7248290BB0010F007 /* AppleFilesWriterTests.swift in Sources */,
-				50373EC925FBD08A000109AE /* HTTPClient+TraceWarningPackageDownloadTests.swift in Sources */,
+				50373EC925FBD08A000109AE /* TraceWarningPackageDownloadTests_old.swift in Sources */,
 				3421AFDB28104C4B0059802B /* AntigenTestPersonProfileCellModelTests.swift in Sources */,
 				AB1FCBD42521FC47005930BA /* EnvironmentTests.swift in Sources */,
 				BAA8558B27C82A9C00D0EA26 /* HealthCertificateReissuanceConsentViewModelTests.swift in Sources */,
