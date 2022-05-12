@@ -22,9 +22,9 @@ struct PackageDownloadReceiveResource: ReceiveResource {
 	typealias ReceiveModel = PackageDownloadResponse
 
 	func decode(_ data: Data?, headers: [AnyHashable: Any]) -> Result<ReceiveModel, ResourceError> {
-		guard let stringValue = headers.value(caseInsensitiveKey: "content-length"),
+		if let stringValue = headers.value(caseInsensitiveKey: "content-length"),
 			  let contentSize = Int(stringValue),
-			  contentSize > 0 else {
+			  contentSize <= 0 {
 			Log.info("Successfully downloaded empty traceWarningPackage", log: .api)
 			let payload = PackageDownloadResponse(package: nil)
 			return .success(payload)
