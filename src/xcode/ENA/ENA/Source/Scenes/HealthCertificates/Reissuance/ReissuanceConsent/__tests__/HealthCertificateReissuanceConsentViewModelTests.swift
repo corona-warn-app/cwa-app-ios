@@ -282,7 +282,30 @@ class HealthCertificateReissuanceConsentViewModelTests: CWATestCase {
 
 		let person = HealthCertifiedPerson(healthCertificates: [healthCertificate])
 		
-		person.dccWalletInfo = nil
+		person.dccWalletInfo = .fake(
+			certificateReissuance: DCCCertificateReissuance(
+				reissuanceDivision: DCCCertificateReissuanceDivision(
+					visible: true,
+					titleText: titleText,
+					subtitleText: subtitleText,
+					longText: .fake(),
+					faqAnchor: "certificateReissuance",
+					identifier: "renew",
+					listTitleText: listTitleText,
+					consentSubtitleText: subtitleText
+				),
+				certificateToReissue: nil,
+				accompanyingCertificates: nil,
+				certificates: [ DCCCertificateContainerExtended(
+					certificateToReissue: DCCCertificateContainer(
+						certificateRef: DCCCertificateReference(barcodeData: nil)
+					),
+					accompanyingCertificates: [],
+					action: "renew"
+				)]
+			)
+		)
+
 				
 		let healthCertificateBase45 = try base45Fake(
 			digitalCovidCertificate: DigitalCovidCertificate.fake(

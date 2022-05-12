@@ -168,37 +168,11 @@ final class HealthCertificateReissuanceConsentViewModel {
 						sendModel: sendModel,
 						trustEvaluation: trustEvaluation
 					)
-					self.restServiceProvider.load(resource) { [weak self] result in
-						guard let self = self else {
-							completion(.failure(.submitFailedError))
-							Log.error("Reissuance request failed due to self being nil", log: .vaccination)
-							return
-						}
-						
-						switch result {
-						case .success(let certificates):
-							do {
-								try self.healthCertificateService.replaceHealthCertificate(
-									requestCertificates: requestCertificates,
-									with: certificates,
-									for: self.certifiedPerson,
-									markAsNew: true,
-									completedNotificationRegistration: { }
-								)
-								
-								completion(.success(()))
-								
-								Log.error("Certificate reissuance was successful.", log: .vaccination)
-							} catch {
-								completion(.failure(.replaceHealthCertificateError(error)))
-								Log.error("Replacing the certificate with a reissued certificate failed in service", log: .vaccination, error: error)
-							}
-							
-						case .failure(let error):
-							completion(.failure(.restServiceError(error)))
-							Log.error("Reissuance request failed", log: .vaccination, error: error)
-						}
-					}
+					self.submit(
+						with: resource,
+						requestCertificates: requestCertificates,
+						completion: completion
+					)
 				}
 			}
 			.store(in: &subscriptions)
@@ -214,6 +188,44 @@ final class HealthCertificateReissuanceConsentViewModel {
 	private let restServiceProvider: RestServiceProviding
 	private let healthCertificateService: HealthCertificateServiceServable
 	private var subscriptions = Set<AnyCancellable>()
+	
+	private func submit(
+		with resource: DCCReissuanceResource,
+		requestCertificates: [String],
+		completion: @escaping (Result<Void, HealthCertificateReissuanceError>) -> Void
+	) {
+		self.restServiceProvider.load(resource) { [weak self] result in
+			guard let self = self else {
+				completion(.failure(.submitFailedError))
+				Log.error("Reissuance request failed due to self being nil", log: .vaccination)
+				return
+			}
+			
+			switch result {
+			case .success(let certificates):
+				do {
+					try self.healthCertificateService.replaceHealthCertificate(
+						requestCertificates: requestCertificates,
+						with: certificates,
+						for: self.certifiedPerson,
+						markAsNew: true,
+						completedNotificationRegistration: { }
+					)
+					
+					completion(.success(()))
+					
+					Log.error("Certificate reissuance was successful.", log: .vaccination)
+				} catch {
+					completion(.failure(.replaceHealthCertificateError(error)))
+					Log.error("Replacing the certificate with a reissued certificate failed in service", log: .vaccination, error: error)
+				}
+				
+			case .failure(let error):
+				completion(.failure(.restServiceError(error)))
+				Log.error("Reissuance request failed", log: .vaccination, error: error)
+			}
+		}
+	}
 	
 	private let normalTextAttribute: [NSAttributedString.Key: Any] = [
 		NSAttributedString.Key.font: UIFont.enaFont(for: .body)

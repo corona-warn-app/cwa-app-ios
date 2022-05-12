@@ -59,7 +59,6 @@ final class DMNHCViewModel {
 						Log.error("Could not create strong self")
 						return
 					}
-
 					let certificates = self.healthCertificateService.healthCertifiedPersons.flatMap { $0.healthCertificates }
 
 					guard let firstVaccinationCertificate = certificates.first(where: { $0.type == .vaccination }) else {
@@ -80,17 +79,13 @@ final class DMNHCViewModel {
 						Log.error("Reissuance request failed due to certificates being nil", log: .vaccination)
 						return
 					}
-
 					for certificate in currentCertificates {
-						// Prepare the request certificates
 						guard let certificateToReissue = certificate.certificateToReissue.certificateRef.barcodeData else {
 							Log.error("Certificate reissuance failed: certificateToReissue.barcodeData is nil", log: .vaccination)
 							return
 						}
 						let accompanyingCertificates = certificate.accompanyingCertificates.compactMap { $0.certificateRef.barcodeData }
 						let requestCertificates = [certificateToReissue] + accompanyingCertificates
-					
-						// Prepare the resource
 						let sendModel = DCCReissuanceSendModel(action: certificate.action, certificates: requestCertificates)
 						let appConfig = self.appConfiguration.currentAppConfig.value
 						let publicKeyHash = appConfig.dgcParameters.reissueServicePublicKeyDigest
@@ -102,17 +97,7 @@ final class DMNHCViewModel {
 							sendModel: sendModel,
 							trustEvaluation: trustEvaluation
 						)
-						self.restService.load(resource) { result in
-							DispatchQueue.main.async {
-								switch result {
-								case let .success(model):
-									Log.info("DCC Reissuance successfull called.")
-									Log.info("DCC Reissuance response: \(model)")
-								case let .failure(error):
-									Log.error("DCC Reissuance call failure with: \(error)", error: error)
-								}
-							}
-						}
+						self.submitReissuance(resource: resource)
 					}
 				}
 			)
@@ -214,6 +199,20 @@ final class DMNHCViewModel {
 	private let appConfiguration: AppConfigurationProviding
 	private let healthCertificateService: HealthCertificateService
 
+	private func submitReissuance(resource: DCCReissuanceResource) {
+		self.restService.load(resource) { result in
+			DispatchQueue.main.async {
+				switch result {
+				case let .success(model):
+					Log.info("DCC Reissuance successfull called.")
+					Log.info("DCC Reissuance response: \(model)")
+				case let .failure(error):
+					Log.error("DCC Reissuance call failure with: \(error)", error: error)
+				}
+			}
+		}
+	}
+	
 	private func showDCCRulesSheetAndSubmit() {
 		let sheet = UIAlertController(title: "Type", message: "select ruletype", preferredStyle: .actionSheet)
 		HealthCertificateValidationRuleType.allCases.forEach { ruleType in
