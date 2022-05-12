@@ -31,6 +31,7 @@ class RiskProviderTests: CWATestCase {
 		let eventStore = MockEventStore()
 		let traceWarningPackageDownload = TraceWarningPackageDownload(
 			client: client,
+			restServiceProvider: RestServiceProviderStub(),
 			store: store,
 			eventStore: eventStore
 		)
@@ -107,6 +108,7 @@ class RiskProviderTests: CWATestCase {
 		let eventStore = MockEventStore()
 		let traceWarningPackageDownload = TraceWarningPackageDownload(
 			client: client,
+			restServiceProvider: RestServiceProviderStub(),
 			store: store,
 			eventStore: eventStore
 		)
@@ -184,6 +186,7 @@ class RiskProviderTests: CWATestCase {
 		let eventStore = MockEventStore()
 		let traceWarningPackageDownload = TraceWarningPackageDownload(
 			client: client,
+			restServiceProvider: RestServiceProviderStub(),
 			store: store,
 			eventStore: eventStore
 		)
@@ -1320,6 +1323,7 @@ extension CWATestCase {
 		let client = ClientMock()
 		return TraceWarningPackageDownload(
 			client: client,
+			restServiceProvider: RestServiceProviderStub(),
 			store: store,
 			eventStore: mockEventStore
 		)

@@ -667,7 +667,6 @@ class ExposureSubmissionServiceTests: CWATestCase {
 		let keyRetrieval = MockDiagnosisKeysRetrieval(diagnosisKeysResult: (keys, nil))
 		let appConfigurationProvider = CachedAppConfigurationMock()
 		let store = MockTestStore()
-		let client = ClientMock()
 		
 		let restServiceProvider = RestServiceProviderStub(
 			loadResources: [

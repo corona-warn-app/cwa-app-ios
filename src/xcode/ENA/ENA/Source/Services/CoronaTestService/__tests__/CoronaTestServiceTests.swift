@@ -13,7 +13,6 @@ class CoronaTestServiceTests: CWATestCase {
 
 	func testGIVEN_Service_WHEN_getRegistrationToken_THEN_MallFormattedDOB() {
 		// GIVEN
-		let client = ClientMock()
 		let store = MockTestStore()
 		let appConfiguration = CachedAppConfigurationMock()
 
@@ -60,7 +59,6 @@ class CoronaTestServiceTests: CWATestCase {
 		defaultAppConfig.coronaTestParameters.coronaRapidAntigenTestParameters.hoursToDeemTestOutdated = 48
 		let appConfiguration = CachedAppConfigurationMock(with: defaultAppConfig)
 
-		let client = ClientMock()
 		let store = MockTestStore()
 
 		let healthCertificateService = HealthCertificateService(
@@ -119,7 +117,6 @@ class CoronaTestServiceTests: CWATestCase {
 		defaultAppConfig.coronaTestParameters.coronaRapidAntigenTestParameters.hoursToDeemTestOutdated = 48
 		let appConfiguration = CachedAppConfigurationMock(with: defaultAppConfig)
 
-		let client = ClientMock()
 		let store = MockTestStore()
 
 		let healthCertificateService = HealthCertificateService(
@@ -180,7 +177,6 @@ class CoronaTestServiceTests: CWATestCase {
 		defaultAppConfig.coronaTestParameters.coronaRapidAntigenTestParameters.hoursToDeemTestOutdated = 48
 		let appConfiguration = CachedAppConfigurationMock(with: defaultAppConfig)
 
-		let client = ClientMock()
 		let store = MockTestStore()
 
 		let healthCertificateService = HealthCertificateService(
@@ -239,7 +235,6 @@ class CoronaTestServiceTests: CWATestCase {
 		defaultAppConfig.coronaTestParameters.coronaRapidAntigenTestParameters.hoursToDeemTestOutdated = 48
 		let appConfiguration = CachedAppConfigurationMock(with: defaultAppConfig)
 
-		let client = ClientMock()
 		let store = MockTestStore()
 
 		let healthCertificateService = HealthCertificateService(
@@ -302,7 +297,6 @@ class CoronaTestServiceTests: CWATestCase {
 		defaultAppConfig.coronaTestParameters.coronaRapidAntigenTestParameters.hoursToDeemTestOutdated = 48
 		let appConfiguration = CachedAppConfigurationMock(with: defaultAppConfig)
 
-		let client = ClientMock()
 		let store = MockTestStore()
 
 		let healthCertificateService = HealthCertificateService(
@@ -370,7 +364,6 @@ class CoronaTestServiceTests: CWATestCase {
 		defaultAppConfig.coronaTestParameters.coronaRapidAntigenTestParameters.hoursToDeemTestOutdated = 48
 		let appConfiguration = CachedAppConfigurationMock(with: defaultAppConfig)
 
-		let client = ClientMock()
 		let store = MockTestStore()
 
 		let healthCertificateService = HealthCertificateService(
@@ -440,8 +433,7 @@ class CoronaTestServiceTests: CWATestCase {
 			defaultAppConfig.coronaTestParameters.coronaRapidAntigenTestParameters.hoursToDeemTestOutdated = 48
 			let appConfiguration = CachedAppConfigurationMock(with: defaultAppConfig)
 
-			let client = ClientMock()
-			let store = MockTestStore()
+				let store = MockTestStore()
 
 			let healthCertificateService = HealthCertificateService(
 				store: store,
@@ -495,7 +487,6 @@ class CoronaTestServiceTests: CWATestCase {
 	}
 
 	func testCoronaTestOfType() {
-		let client = ClientMock()
 		let store = MockTestStore()
 		let appConfiguration = CachedAppConfigurationMock()
 
@@ -552,7 +543,6 @@ class CoronaTestServiceTests: CWATestCase {
 
 		])
 
-		let client = ClientMock()
 
 		let appConfiguration = CachedAppConfigurationMock()
 
@@ -659,7 +649,6 @@ class CoronaTestServiceTests: CWATestCase {
 				result: .success(TestResultReceiveModel(testResult: TestResult.serverResponse(for: .negative, on: .pcr), sc: nil, labId: nil)), willLoadResource: nil)
 		])
 
-		let client = ClientMock()
 
 		let appConfiguration = CachedAppConfigurationMock()
 		let badgeWrapper = HomeBadgeWrapper.fake()
@@ -787,7 +776,6 @@ class CoronaTestServiceTests: CWATestCase {
 				result: .success(TestResultReceiveModel(testResult: TestResult.serverResponse(for: .negative, on: .pcr), sc: nil, labId: nil)), willLoadResource: nil)
 		])
 
-		let client = ClientMock()
 
 		let appConfiguration = CachedAppConfigurationMock()
 		let badgeWrapper = HomeBadgeWrapper.fake()
@@ -888,7 +876,6 @@ class CoronaTestServiceTests: CWATestCase {
 				result: .success(TestResultReceiveModel(testResult: TestResult.serverResponse(for: .negative, on: .pcr), sc: nil, labId: nil)), willLoadResource: nil)
 		])
 
-		let client = ClientMock()
 
 		let appConfiguration = CachedAppConfigurationMock()
 
@@ -962,7 +949,6 @@ class CoronaTestServiceTests: CWATestCase {
 			.success(RegistrationTokenReceiveModel(submissionTAN: "fake"))
 		])
 
-		let client = ClientMock()
 
 		let appConfiguration = CachedAppConfigurationMock()
 
@@ -1035,7 +1021,6 @@ class CoronaTestServiceTests: CWATestCase {
 			.success(RegistrationTokenReceiveModel(submissionTAN: "fake"))
 		])
 
-		let client = ClientMock()
 
 		let appConfiguration = CachedAppConfigurationMock()
 
@@ -1129,7 +1114,6 @@ class CoronaTestServiceTests: CWATestCase {
 			.success(RegistrationTokenReceiveModel(submissionTAN: "fake"))
 		])
 
-		let client = ClientMock()
 		let appConfiguration = CachedAppConfigurationMock()
 		let diaryStore = MockDiaryStore()
 
@@ -1224,7 +1208,6 @@ class CoronaTestServiceTests: CWATestCase {
 			.success(RegistrationTokenReceiveModel(submissionTAN: "fake"))
 		])
 
-		let client = ClientMock()
 
 		let appConfiguration = CachedAppConfigurationMock()
 		let diaryStore = MockDiaryStore()
@@ -1312,7 +1295,6 @@ class CoronaTestServiceTests: CWATestCase {
 			.success(RegistrationTokenReceiveModel(submissionTAN: "fake"))
 		])
 
-		let client = ClientMock()
 		let appConfiguration = CachedAppConfigurationMock()
 		let diaryStore = MockDiaryStore()
 		let healthCertificateService = HealthCertificateService(
@@ -1386,7 +1368,6 @@ class CoronaTestServiceTests: CWATestCase {
 				result: .success(TestResultReceiveModel(testResult: TestResult.serverResponse(for: .pending, on: .antigen), sc: 123456789, labId: "SomeLabId")), willLoadResource: nil)
 		])
 
-		let client = ClientMock()
 
 		let store = MockTestStore()
 		let appConfiguration = CachedAppConfigurationMock()
@@ -1478,7 +1459,6 @@ class CoronaTestServiceTests: CWATestCase {
 			.success(RegistrationTokenReceiveModel(submissionTAN: "fake"))
 		])
 
-		let client = ClientMock()
 
 		let store = MockTestStore()
 		let appConfiguration = CachedAppConfigurationMock()
@@ -1602,7 +1582,6 @@ class CoronaTestServiceTests: CWATestCase {
 			)
 		])
 
-		let client = ClientMock()
 
 		let appConfiguration = CachedAppConfigurationMock()
 		let badgeWrapper = HomeBadgeWrapper.fake()
@@ -1684,7 +1663,6 @@ class CoronaTestServiceTests: CWATestCase {
 	}
 
 	func testRegisterAntigenTestAndGetResult_RegistrationFails() {
-		let client = ClientMock()
 
 		let restServiceProvider = RestServiceProviderStub(results: [
 			.failure(ServiceError<TeleTanError>.receivedResourceError(.qrAlreadyUsed)),
@@ -1751,7 +1729,6 @@ class CoronaTestServiceTests: CWATestCase {
 	}
 
 	func testRegisterAntigenTestAndGetResult_RegistrationSucceedsGettingTestResultFails() {
-		let client = ClientMock()
 
 		let restServiceProvider = RestServiceProviderStub(results: [
 			.success(TeleTanReceiveModel(registrationToken: "registrationToken")),
@@ -1857,7 +1834,6 @@ class CoronaTestServiceTests: CWATestCase {
 				result: .success(TestResultReceiveModel(testResult: TestResult.serverResponse(for: .pending, on: .pcr), sc: 123456789, labId: "SomeLabId")), willLoadResource: nil)
 		])
 
-		let client = ClientMock()
 
 		let store = MockTestStore()
 		store.enfRiskCalculationResult = .fake()
@@ -1957,7 +1933,6 @@ class CoronaTestServiceTests: CWATestCase {
 			.success(RegistrationTokenReceiveModel(submissionTAN: "fake"))
 		])
 
-		let client = ClientMock()
 
 		let store = MockTestStore()
 		store.enfRiskCalculationResult = .fake()
@@ -2090,7 +2065,6 @@ class CoronaTestServiceTests: CWATestCase {
 			)
 		])
 
-		let client = ClientMock()
 
 		let appConfiguration = CachedAppConfigurationMock()
 		let badgeWrapper = HomeBadgeWrapper.fake()
@@ -2171,7 +2145,6 @@ class CoronaTestServiceTests: CWATestCase {
 	}
 
 	func testRegisterRapidPCRTestAndGetResult_RegistrationFails() {
-		let client = ClientMock()
 
 		let restServiceProvider = RestServiceProviderStub(results: [
 			.failure(ServiceError<TeleTanError>.receivedResourceError(.qrAlreadyUsed)),
@@ -2238,7 +2211,6 @@ class CoronaTestServiceTests: CWATestCase {
 	}
 
 	func testRegisterRapidPCRTestAndGetResult_RegistrationSucceedsGettingTestResultFails() {
-		let client = ClientMock()
 
 		let restServiceProvider = RestServiceProviderStub(results: [
 			.success(TeleTanReceiveModel(registrationToken: "registrationToken")),
@@ -2342,7 +2314,6 @@ class CoronaTestServiceTests: CWATestCase {
 			.success(RegistrationTokenReceiveModel(submissionTAN: "fake"))
 		])
 
-		let client = ClientMock()
 		let store = MockTestStore()
 		let appConfiguration = CachedAppConfigurationMock()
 
@@ -2407,7 +2378,6 @@ class CoronaTestServiceTests: CWATestCase {
 			.success(RegistrationTokenReceiveModel(submissionTAN: "fake"))
 		])
 		
-		let client = ClientMock()
 		let store = MockTestStore()
 		let appConfiguration = CachedAppConfigurationMock()
 		
@@ -2467,7 +2437,6 @@ class CoronaTestServiceTests: CWATestCase {
 	}
 
 	func testUpdatePCRTestResult_noCoronaTestOfRequestedType() {
-		let client = ClientMock()
 		let store = MockTestStore()
 		let appConfiguration = CachedAppConfigurationMock()
 
@@ -2514,7 +2483,6 @@ class CoronaTestServiceTests: CWATestCase {
 	}
 
 	func testUpdateAntigenTestResult_noCoronaTestOfRequestedType() {
-		let client = ClientMock()
 		let store = MockTestStore()
 		let appConfiguration = CachedAppConfigurationMock()
 
@@ -2561,7 +2529,6 @@ class CoronaTestServiceTests: CWATestCase {
 	}
 
 	func testUpdatePCRTestResult_noRegistrationToken() {
-		let client = ClientMock()
 		let store = MockTestStore()
 		let appConfiguration = CachedAppConfigurationMock()
 
@@ -2616,7 +2583,6 @@ class CoronaTestServiceTests: CWATestCase {
 	}
 
 	func testUpdateAntigenTestResult_noRegistrationToken() {
-		let client = ClientMock()
 		let store = MockTestStore()
 		let appConfiguration = CachedAppConfigurationMock()
 
@@ -2672,8 +2638,7 @@ class CoronaTestServiceTests: CWATestCase {
 
 	func test_When_UpdatePresentNotificationTrue_Then_NotificationShouldBePresented() {
 		let mockNotificationCenter = MockUserNotificationCenter()
-		let client = ClientMock()
-		
+
 		let store = MockTestStore()
 		let appConfiguration = CachedAppConfigurationMock()
 		let restServiceProvider = RestServiceProviderStub(results: [
@@ -2740,7 +2705,6 @@ class CoronaTestServiceTests: CWATestCase {
 
 	func test_When_UpdatePresentNotificationFalse_Then_NotificationShouldNOTBePresented() {
 		let mockNotificationCenter = MockUserNotificationCenter()
-		let client = ClientMock()
 
 		let restServiceProvider = RestServiceProviderStub(results: [
 			.success(TestResultReceiveModel(testResult: TestResult.serverResponse(for: .positive, on: .pcr), sc: nil, labId: "SomeLabId")),
@@ -2789,8 +2753,7 @@ class CoronaTestServiceTests: CWATestCase {
 	}
 
 	func test_When_UpdateTestResultsFails_Then_ErrorIsReturned() {
-		let client = ClientMock()
-		
+
 		let restServiceProvider = RestServiceProviderStub(results: [
 			.failure(ServiceError<TestResultError>.invalidResponse),
 			.success(TeleTanReceiveModel(registrationToken: "token"))
@@ -2840,8 +2803,7 @@ class CoronaTestServiceTests: CWATestCase {
 
 	func test_When_UpdateTestResultsSuccessWithPending_Then_NoNotificationIsShown() {
 		let mockNotificationCenter = MockUserNotificationCenter()
-		let client = ClientMock()
-		
+
 		let restServiceProvider = RestServiceProviderStub(results: [
 			.success(TestResultReceiveModel(testResult: TestResult.serverResponse(for: .pending, on: .pcr), sc: nil, labId: "SomeLabId")),
 			.success(TestResultReceiveModel(testResult: TestResult.serverResponse(for: .pending, on: .antigen), sc: nil, labId: "SomeLabId"))
@@ -2927,7 +2889,6 @@ class CoronaTestServiceTests: CWATestCase {
 	}
 
 	private func createCoronaTestService(forTestResult testResult: TestResult, sampleCollectionDate: Date? = nil, diaryStore: DiaryStoring = MockDiaryStore()) -> CoronaTestService {
-		let client = ClientMock()
 		let sampleTimeInterval: Int?
 		if let sampleCollectionDate = sampleCollectionDate {
 			sampleTimeInterval = Int(sampleCollectionDate.timeIntervalSince1970)
@@ -3006,7 +2967,6 @@ class CoronaTestServiceTests: CWATestCase {
 	}
 
 	func test_When_UpdateTestResultSuccessWithInvalid_Then_ContactJournalHasNoEntry() throws {
-		let client = ClientMock()
 
 		let restServiceProvider = RestServiceProviderStub(results: [
 			.success(TestResultReceiveModel(testResult: TestResult.serverResponse(for: .invalid, on: .pcr), sc: nil, labId: nil)),
@@ -3094,7 +3054,6 @@ class CoronaTestServiceTests: CWATestCase {
 	}
 
 	func test_When_UpdateWithForce_And_FinalTestResultExist_Then_ClientIsCalled() {
-		let client = ClientMock()
 		let store = MockTestStore()
 		let appConfiguration = CachedAppConfigurationMock()
 		
@@ -3159,7 +3118,6 @@ class CoronaTestServiceTests: CWATestCase {
 	}
 
 	func test_When_UpdateWithoutForce_And_FinalTestResultExist_Then_ClientIsNotCalled() {
-		let client = ClientMock()
 		let store = MockTestStore()
 		let appConfiguration = CachedAppConfigurationMock()
 		
@@ -3217,7 +3175,6 @@ class CoronaTestServiceTests: CWATestCase {
 	}
 
 	func test_When_UpdateWithoutForce_And_NoFinalTestResultExist_Then_ClientIsCalled() {
-		let client = ClientMock()
 		let store = MockTestStore()
 		let appConfiguration = CachedAppConfigurationMock()
 
@@ -3282,7 +3239,6 @@ class CoronaTestServiceTests: CWATestCase {
 	}
 
 	func test_When_UpdatingExpiredTestResultOlderThan21Days_Then_ClientIsNotCalled() throws {
-		let client = ClientMock()
 		let store = MockTestStore()
 		let appConfiguration = CachedAppConfigurationMock()
 
@@ -3351,7 +3307,6 @@ class CoronaTestServiceTests: CWATestCase {
 	}
 
 	func test_When_UpdatingExpiredAntigenTestResultWithoutRegistrationDateButPointOfCareConsentDateOlderThan21Days_Then_ClientIsNotCalled() throws {
-		let client = ClientMock()
 		let store = MockTestStore()
 		let appConfiguration = CachedAppConfigurationMock()
 		
@@ -3408,7 +3363,6 @@ class CoronaTestServiceTests: CWATestCase {
 	}
 
 	func test_When_UpdatingExpiredTestResultYoungerThan21Days_Then_ClientIsCalled() throws {
-		let client = ClientMock()
 		let store = MockTestStore()
 		let appConfiguration = CachedAppConfigurationMock()
 
@@ -3478,7 +3432,6 @@ class CoronaTestServiceTests: CWATestCase {
 	}
 
 	func test_When_UpdatingExpiredAntigenTestResultWithoutRegistrationDateAndPointOfCareConsentDateYoungerThan21Days_Then_ClientIsCalled() throws {
-		let client = ClientMock()
 		let store = MockTestStore()
 		let appConfiguration = CachedAppConfigurationMock()
 
@@ -3535,8 +3488,7 @@ class CoronaTestServiceTests: CWATestCase {
 	}
 
 	func test_When_UpdatingPCRTestResultWithErrorCode400_And_RegistrationDateOlderThan21Days_Then_ExpiredTestResultIsSetAndReturnedWithoutError() throws {
-		let client = ClientMock()
-		
+
 		let restServiceProvider = RestServiceProviderStub(results: [
 			.failure(ServiceError<TestResultError>.receivedResourceError(.qrDoesNotExist)),
 			.success(RegistrationTokenReceiveModel(submissionTAN: "fake"))
@@ -3591,7 +3543,6 @@ class CoronaTestServiceTests: CWATestCase {
 	}
 
 	func test_When_UpdatingPCRTestResultWithErrorCode400_And_RegistrationDateYoungerThan21Days_Then_ExpiredTestResultIsSetAndErrorReturned() throws {
-		let client = ClientMock()
 
 		let restServiceProvider = RestServiceProviderStub(results: [
 			.failure(ServiceError<TestResultError>.receivedResourceError(.qrDoesNotExist)),
@@ -3646,7 +3597,6 @@ class CoronaTestServiceTests: CWATestCase {
 	}
 
 	func test_When_UpdatingAntigenTestResultWithErrorCode400_And_RegistrationDateOlderThan21Days_Then_ExpiredTestResultIsSetAndReturnedWithoutError() throws {
-		let client = ClientMock()
 
 		let restServiceProvider = RestServiceProviderStub(results: [
 			.failure(ServiceError<TestResultError>.receivedResourceError(.qrDoesNotExist)),
@@ -3705,7 +3655,6 @@ class CoronaTestServiceTests: CWATestCase {
 	}
 
 	func test_When_UpdatingAntigenTestResultWithErrorCode400_And_RegistrationDateYoungerThan21Days_Then_ExpiredTestResultIsSetAndErrorReturned() throws {
-		let client = ClientMock()
 
 		let restServiceProvider = RestServiceProviderStub(results: [
 			.failure(ServiceError<TestResultError>.receivedResourceError(.qrDoesNotExist)),
@@ -3763,8 +3712,7 @@ class CoronaTestServiceTests: CWATestCase {
 	}
 
 	func test_When_UpdatingAntigenTestResultWithErrorCode400_And_PointOfCareConsentDateOlderThan21Days_Then_ExpiredTestResultIsSetAndReturnedWithoutError() throws {
-		let client = ClientMock()
-		
+
 		
 		let restServiceProvider = RestServiceProviderStub(results: [
 			.failure(ServiceError<TestResultError>.receivedResourceError(.qrDoesNotExist)),
@@ -3821,7 +3769,6 @@ class CoronaTestServiceTests: CWATestCase {
 	}
 
 	func test_When_UpdatingAntigenTestResultWithErrorCode400_And_PointOfCareConsentDateYoungerThan21Days_Then_ExpiredTestResultIsSetAndErrorReturned() throws {
-		let client = ClientMock()
 
 		let restServiceProvider = RestServiceProviderStub(results: [
 			.failure(ServiceError<TestResultError>.receivedResourceError(.qrDoesNotExist)),
@@ -3881,7 +3828,6 @@ class CoronaTestServiceTests: CWATestCase {
 	// MARK: - Test Removal
 
 	func testMovingCoronaTestToBin() {
-		let client = ClientMock()
 		let store = MockTestStore()
 		let appConfiguration = CachedAppConfigurationMock()
 		let recycleBin = RecycleBin(store: store)
@@ -3948,7 +3894,6 @@ class CoronaTestServiceTests: CWATestCase {
 	}
 
 	func testDeletingCoronaTest() {
-		let client = ClientMock()
 		let store = MockTestStore()
 		let appConfiguration = CachedAppConfigurationMock()
 

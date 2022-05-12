@@ -55,11 +55,6 @@ final class BackendConfigurationTests: CWATestCase {
 		)
 
 		XCTAssertEqual(
-			config.encryptedTraceWarningPackageDiscoveryURL(country: "DE").absoluteString,
-			"http://localhost/dist/version/v2/twp/country/DE/hour/"
-		)
-
-		XCTAssertEqual(
 			config.encryptedTraceWarningPackageDownloadURL(country: "DE", packageId: 12345).absoluteString,
 			"http://localhost/dist/version/v2/twp/country/DE/hour/12345/"
 		)

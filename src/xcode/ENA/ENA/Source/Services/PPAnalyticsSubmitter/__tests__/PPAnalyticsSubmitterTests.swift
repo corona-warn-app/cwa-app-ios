@@ -1098,7 +1098,6 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 	}
 	
 	func testGatherKeySubmissionMetadata() {
-		let client = ClientMock()
 		let appConfiguration = CachedAppConfigurationMock()
 		let restServiceProvider = RestServiceProviderStub(
 			results: [

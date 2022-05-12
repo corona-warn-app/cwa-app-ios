@@ -8,8 +8,8 @@ enum TraceWarningError: Error {
 	case generalError
 	case defaultServerError(Error)
 	case requestCreationError
-	case invalidResponseError(Int)
-	case decodingJsonError(Int)
+	case invalidResponseError
+	case decodingJsonError
 	case noEarliestRelevantPackage
 	case downloadIsRunning
 	case identicationError

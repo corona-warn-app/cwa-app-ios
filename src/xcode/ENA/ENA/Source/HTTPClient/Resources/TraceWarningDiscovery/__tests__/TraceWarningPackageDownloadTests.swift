@@ -16,14 +16,7 @@ class TraceWarningPackageDownloadTests: CWATestCase {
 		
 		// GIVEN
 		let client = ClientMock()
-		client.onTraceWarningDiscovery = { [weak self] _, completion in
-			guard let self = self else {
-				XCTFail("Could not create strong self")
-				return
-			}
-			completion(.success(self.dummyResponseDiscovery))
-		}
-		
+
 		client.onTraceWarningDownload = { [weak self] _, _, completion in
 			guard let self = self else {
 				XCTFail("Could not create strong self")
@@ -39,6 +32,7 @@ class TraceWarningPackageDownloadTests: CWATestCase {
 		
 		let traceWarningPackageDownload = TraceWarningPackageDownload(
 			client: client,
+			restServiceProvider: RestServiceProviderStub(results: [.success(self.dummyResponseDiscovery)]),
 			store: store,
 			eventStore: eventStore,
 			signatureVerifier: MockVerifier()
@@ -77,6 +71,7 @@ class TraceWarningPackageDownloadTests: CWATestCase {
 		let store = MockTestStore()
 		let traceWarningPackageDownload = TraceWarningPackageDownload(
 			client: ClientMock(),
+			restServiceProvider: RestServiceProviderStub(),
 			store: store,
 			eventStore: eventStore
 		)
@@ -116,6 +111,7 @@ class TraceWarningPackageDownloadTests: CWATestCase {
 		let store = MockTestStore()
 		let traceWarningPackageDownload = TraceWarningPackageDownload(
 			client: ClientMock(),
+			restServiceProvider: RestServiceProviderStub(results: [.success(self.dummyResponseDiscovery)]),
 			store: store,
 			eventStore: eventStore
 		)
@@ -148,10 +144,7 @@ class TraceWarningPackageDownloadTests: CWATestCase {
 		
 		// GIVEN
 		let client = ClientMock()
-		client.onTraceWarningDiscovery = { _, completion in
-			let emptyAvailablePackagesResponse = TraceWarningDiscovery(oldest: 12345, latest: 12344, eTag: "FakeEtag")
-			completion(.success(emptyAvailablePackagesResponse))
-		}
+
 		let eventStore = MockEventStore()
 		let checkInMock = Checkin.mock()
 		eventStore.createCheckin(checkInMock)
@@ -159,6 +152,7 @@ class TraceWarningPackageDownloadTests: CWATestCase {
 		let store = MockTestStore()
 		let traceWarningPackageDownload = TraceWarningPackageDownload(
 			client: client,
+			restServiceProvider: RestServiceProviderStub(results: [.success(TraceWarningDiscoveryModel(oldest: 12345, latest: 12344))]),
 			store: store,
 			eventStore: eventStore
 		)
@@ -191,14 +185,6 @@ class TraceWarningPackageDownloadTests: CWATestCase {
 		
 		// GIVEN
 		let client = ClientMock()
-		client.onTraceWarningDiscovery = { [weak self] _, completion in
-			guard let self = self else {
-				XCTFail("Could not create strong self")
-				return
-			}
-			completion(.success(self.dummyResponseDiscovery))
-		}
-		
 		client.onTraceWarningDownload = { _, _, completion in
 			let emptyPackage = PackageDownloadResponse(package: nil, etag: "FakeEtag")
 			completion(.success(emptyPackage))
@@ -212,6 +198,7 @@ class TraceWarningPackageDownloadTests: CWATestCase {
 		let store = MockTestStore()
 		let traceWarningPackageDownload = TraceWarningPackageDownload(
 			client: client,
+			restServiceProvider: RestServiceProviderStub(results: [.success(self.dummyResponseDiscovery)]),
 			store: store,
 			eventStore: eventStore
 		)
@@ -254,6 +241,7 @@ class TraceWarningPackageDownloadTests: CWATestCase {
 		let store = MockTestStore()
 		let traceWarningPackageDownload = TraceWarningPackageDownload(
 			client: ClientMock(),
+			restServiceProvider: RestServiceProviderStub(results: [.success(self.dummyResponseDiscovery)]),
 			store: store,
 			eventStore: eventStore
 		)
@@ -301,9 +289,6 @@ class TraceWarningPackageDownloadTests: CWATestCase {
 		
 		// GIVEN
 		let client = ClientMock()
-		client.onTraceWarningDiscovery = { _, completion in
-			completion(.failure(.invalidResponseError(404)))
-		}
 		let store = MockTestStore()
 		let eventStore = MockEventStore()
 		let checkInMock = Checkin.mock()
@@ -312,6 +297,7 @@ class TraceWarningPackageDownloadTests: CWATestCase {
 		
 		let traceWarningPackageDownload = TraceWarningPackageDownload(
 			client: client,
+			restServiceProvider: RestServiceProviderStub(results: [.failure(ServiceError<TraceWarningError>.invalidResponse)]),
 			store: store,
 			eventStore: eventStore
 		)
@@ -332,7 +318,7 @@ class TraceWarningPackageDownloadTests: CWATestCase {
 		
 		// THEN
 		waitForExpectations(timeout: .medium)
-		XCTAssertEqual(responseCodeError, .invalidResponseError(404))
+		XCTAssertEqual(responseCodeError, .generalError)
 		XCTAssertTrue(eventStore.traceWarningPackageMetadatasPublisher.value.isEmpty)
 		XCTAssertTrue(eventStore.traceTimeIntervalMatchesPublisher.value.isEmpty)
 		XCTAssertFalse(eventStore.checkinsPublisher.value.isEmpty)
@@ -345,16 +331,11 @@ class TraceWarningPackageDownloadTests: CWATestCase {
 		
 		let eventStore = MockEventStore()
 		let client = ClientMock()
-		client.onTraceWarningDiscovery = { [weak self] _, completion in
-			guard let self = self else {
-				XCTFail("Could not create strong self")
-				return
-			}
-			// meanwhile the checkins are deleted.
+
+		let loadResource = LoadResource(result: .success(self.dummyResponseDiscovery)) { _ in
 			eventStore.deleteAllCheckins()
-			completion(.success(self.dummyResponseDiscovery))
 		}
-		
+
 		let checkInMock = Checkin.mock(checkinStartDate: startAsDate, checkinEndDate: endAsDate)
 		eventStore.createCheckin(checkInMock)
 		let appConfig = SAP_Internal_V2_ApplicationConfigurationIOS()
@@ -362,6 +343,7 @@ class TraceWarningPackageDownloadTests: CWATestCase {
 		let store = MockTestStore()
 		let traceWarningPackageDownload = TraceWarningPackageDownload(
 			client: client,
+			restServiceProvider: RestServiceProviderStub(loadResources: [loadResource]),
 			store: store,
 			eventStore: eventStore
 		)
@@ -393,16 +375,9 @@ class TraceWarningPackageDownloadTests: CWATestCase {
 		
 		// GIVEN
 		let client = ClientMock()
-		client.onTraceWarningDiscovery = { [weak self] _, completion in
-			guard let self = self else {
-				XCTFail("Could not create strong self")
-				return
-			}
-			completion(.success(self.dummyResponseDiscovery))
-		}
-		
+
 		client.onTraceWarningDownload = { _, _, completion in
-			completion(.failure(.invalidResponseError(999)))
+			completion(.failure(.invalidResponseError))
 		}
 		
 		let eventStore = MockEventStore()
@@ -413,6 +388,7 @@ class TraceWarningPackageDownloadTests: CWATestCase {
 		let store = MockTestStore()
 		let traceWarningPackageDownload = TraceWarningPackageDownload(
 			client: client,
+			restServiceProvider: RestServiceProviderStub(results: [.success(self.dummyResponseDiscovery)]),
 			store: store,
 			eventStore: eventStore
 		)
@@ -433,7 +409,7 @@ class TraceWarningPackageDownloadTests: CWATestCase {
 		
 		// THEN
 		waitForExpectations(timeout: .medium)
-		XCTAssertEqual(responseCodeError, .invalidResponseError(999))
+		XCTAssertEqual(responseCodeError, .invalidResponseError)
 		XCTAssertTrue(eventStore.traceWarningPackageMetadatasPublisher.value.isEmpty)
 		XCTAssertTrue(eventStore.traceTimeIntervalMatchesPublisher.value.isEmpty)
 		XCTAssertFalse(eventStore.checkinsPublisher.value.isEmpty)
@@ -444,13 +420,6 @@ class TraceWarningPackageDownloadTests: CWATestCase {
 		
 		// GIVEN
 		let client = ClientMock()
-		client.onTraceWarningDiscovery = { [weak self] _, completion in
-			guard let self = self else {
-				XCTFail("Could not create strong self")
-				return
-			}
-			completion(.success(self.dummyResponseDiscovery))
-		}
 		client.onTraceWarningDownload = { _, _, completion in
 			let package = SAPDownloadedPackage(keysBin: Data(), signature: Data())
 			let response = PackageDownloadResponse(package: package, etag: nil)
@@ -465,6 +434,7 @@ class TraceWarningPackageDownloadTests: CWATestCase {
 		let store = MockTestStore()
 		let traceWarningPackageDownload = TraceWarningPackageDownload(
 			client: client,
+			restServiceProvider: RestServiceProviderStub(results: [.success(self.dummyResponseDiscovery)]),
 			store: store,
 			eventStore: eventStore
 		)
@@ -496,13 +466,6 @@ class TraceWarningPackageDownloadTests: CWATestCase {
 		
 		// GIVEN
 		let client = ClientMock()
-		client.onTraceWarningDiscovery = { [weak self] _, completion in
-			guard let self = self else {
-				XCTFail("Could not create strong self")
-				return
-			}
-			completion(.success(self.dummyResponseDiscovery))
-		}
 		client.onTraceWarningDownload = { _, _, completion in
 			let package = SAPDownloadedPackage(keysBin: Data(), signature: Data())
 			let response = PackageDownloadResponse(package: package, etag: "FakeEtag")
@@ -519,6 +482,7 @@ class TraceWarningPackageDownloadTests: CWATestCase {
 		let store = MockTestStore()
 		let traceWarningPackageDownload = TraceWarningPackageDownload(
 			client: client,
+			restServiceProvider: RestServiceProviderStub(results: [.success(self.dummyResponseDiscovery)]),
 			store: store,
 			eventStore: eventStore
 		)
@@ -549,7 +513,6 @@ class TraceWarningPackageDownloadTests: CWATestCase {
 	// MARK: - TraceWarningDownload Helper Tests
 	
 	func testGIVEN_ShouldStartPackageDownload_WHEN_RecentDownloadWasNotSuccessful_THEN_ReturnTrue() {
-		
 		// GIVEN
 		let store = MockTestStore()
 		store.wasRecentTraceWarningDownloadSuccessful = false
@@ -557,6 +520,7 @@ class TraceWarningPackageDownloadTests: CWATestCase {
 		// WHEN
 		let traceWarningPackageDownload = TraceWarningPackageDownload(
 			client: ClientMock(),
+			restServiceProvider: RestServiceProviderStub(),
 			store: store,
 			eventStore: MockEventStore()
 		)
@@ -580,6 +544,7 @@ class TraceWarningPackageDownloadTests: CWATestCase {
 		eventStore.createTraceWarningPackageMetadata(TraceWarningPackageMetadata(id: lastHourDate.unixTimestampInHours, region: "DE", eTag: "FakeETag"))
 		let traceWarningPackageDownload = TraceWarningPackageDownload(
 			client: ClientMock(),
+			restServiceProvider: RestServiceProviderStub(),
 			store: store,
 			eventStore: eventStore
 		)
@@ -606,6 +571,7 @@ class TraceWarningPackageDownloadTests: CWATestCase {
 		let store = MockTestStore()
 		let traceWarningPackageDownload = TraceWarningPackageDownload(
 			client: ClientMock(),
+			restServiceProvider: RestServiceProviderStub(),
 			store: store,
 			eventStore: eventStore
 		)
@@ -635,6 +601,7 @@ class TraceWarningPackageDownloadTests: CWATestCase {
 		let store = MockTestStore()
 		let traceWarningPackageDownload = TraceWarningPackageDownload(
 			client: ClientMock(),
+			restServiceProvider: RestServiceProviderStub(),
 			store: store,
 			eventStore: eventStore
 		)
@@ -668,6 +635,7 @@ class TraceWarningPackageDownloadTests: CWATestCase {
 		let store = MockTestStore()
 		let traceWarningPackageDownload = TraceWarningPackageDownload(
 			client: ClientMock(),
+			restServiceProvider: RestServiceProviderStub(),
 			store: store,
 			eventStore: eventStore
 		)
@@ -703,6 +671,7 @@ class TraceWarningPackageDownloadTests: CWATestCase {
 		let store = MockTestStore()
 		let traceWarningPackageDownload = TraceWarningPackageDownload(
 			client: ClientMock(),
+			restServiceProvider: RestServiceProviderStub(),
 			store: store,
 			eventStore: eventStore
 		)
@@ -747,11 +716,10 @@ class TraceWarningPackageDownloadTests: CWATestCase {
 	}
 	
 	// Set oldest little less then startAsId and set latest little more then endAsId
-	private lazy var dummyResponseDiscovery: TraceWarningDiscovery = {
-		let response = TraceWarningDiscovery(
+	private lazy var dummyResponseDiscovery: TraceWarningDiscoveryModel = {
+		let response = TraceWarningDiscoveryModel(
 			oldest: (startAsId - 5),
-			latest: (endAsId + 5),
-			eTag: "FakeEtag"
+			latest: (endAsId + 5)
 		)
 		return response
 	}()
