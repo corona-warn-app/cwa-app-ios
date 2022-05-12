@@ -2437,6 +2437,7 @@ enum AppStrings {
 				static let noNetwork = NSLocalizedString("HealthCertificate_Reissuance_Error_No_Network", comment: "")
 				static let tryAgain = NSLocalizedString("HealthCertificate_Reissuance_Error_Try_Again", comment: "")
 				static let notSupported = NSLocalizedString("HealthCertificate_Reissuance_Error_Not_Supported", comment: "")
+				static let rateLimit = NSLocalizedString("HealthCertificate_Reissuance_Error_Rate_Limit", comment: "")
 			}
 		}
 	}

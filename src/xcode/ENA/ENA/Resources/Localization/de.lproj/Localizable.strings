@@ -3381,6 +3381,8 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "HealthCertificate_Reissuance_Error_Try_Again" = "Es ist ein Fehler bei der Aktualisierung Ihres Zertifikats aufgetreten. Bitte versuchen Sie es erneut. Wenn der Fehler weiterhin auftritt, kontaktieren Sie bitte die technische Hotline über App-Informationen -> Technische Hotline.";
 
+"HealthCertificate_Reissuance_Error_Rate_Limit" = "Das Zertifikat wurde bereits drei mal neu ausgestellt. Eine weitere Neuausstellung ist nicht möglich.\nWir empfehlen, Ihr bereits erneut ausgestelltes Zertifikat als PDF zu exportieren und auszudrucken. Damit können Sie es jederzeit erneut einscannen.";
+
 "HealthCertificate_Reissuance_Error_Not_Supported" = "Ihr Zertifikat kann nicht aktualisiert werden. Bitte kontaktieren Sie die technische Hotline über App-Informationen -> Technische Hotline.";
 
 
