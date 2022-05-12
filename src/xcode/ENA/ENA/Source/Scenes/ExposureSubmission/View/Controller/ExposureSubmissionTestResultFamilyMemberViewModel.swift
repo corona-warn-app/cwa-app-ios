@@ -395,6 +395,11 @@ extension ExposureSubmissionTestResultFamilyMemberViewModel {
 			)
 		}
 
+		// Information on proceduce
+		cells.append(DynamicCell.title2(
+			text: AppStrings.ExposureSubmissionResult.proofTitleFamilyMember
+		))
+
 		// Evidence / Proof
 		cells.append(contentsOf: [
 			.body(
@@ -434,7 +439,7 @@ extension ExposureSubmissionTestResultFamilyMemberViewModel {
 		cells.append(contentsOf: [
 			ExposureSubmissionDynamicCell.stepCell(
 				title: AppStrings.ExposureSubmissionResult.testNegative,
-				description: AppStrings.ExposureSubmissionResult.testNegativeDesc,
+				description: AppStrings.ExposureSubmissionResult.familyMemberTestNegativeDesc,
 				icon: UIImage(named: "Icons_Grey_Error"),
 				hairline: .none
 			)
@@ -487,6 +492,11 @@ extension ExposureSubmissionTestResultFamilyMemberViewModel {
 			)
 		}
 
+		// Information on proceduce
+		cells.append(DynamicCell.title2(
+			text: AppStrings.ExposureSubmissionResult.proofTitleFamilyMember
+		))
+
 		// Evidence / Proof
 		cells.append(contentsOf: [
 			.body(
@@ -509,7 +519,7 @@ extension ExposureSubmissionTestResultFamilyMemberViewModel {
 			),
 			ExposureSubmissionDynamicCell.stepCell(
 				title: AppStrings.ExposureSubmissionResult.testNegative,
-				description: AppStrings.ExposureSubmissionResult.Antigen.testNegativeDesc,
+				description: AppStrings.ExposureSubmissionResult.Antigen.familyMemberTestNegativeDesc,
 				icon: UIImage(named: "Icons_Grey_Error"),
 				hairline: .none
 			)
@@ -578,7 +588,7 @@ extension ExposureSubmissionTestResultFamilyMemberViewModel {
 		cells.append(contentsOf: [
 			ExposureSubmissionDynamicCell.stepCell(
 				title: AppStrings.ExposureSubmissionResult.testInvalid,
-				description: AppStrings.ExposureSubmissionResult.testInvalidDesc,
+				description: AppStrings.ExposureSubmissionResult.familyMemberTestInvalidDesc,
 				icon: UIImage(named: "Icons_Grey_Error"),
 				hairline: .none
 			)
