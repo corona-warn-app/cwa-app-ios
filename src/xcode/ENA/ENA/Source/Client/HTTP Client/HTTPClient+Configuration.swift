@@ -127,8 +127,6 @@ extension HTTPClient {
 				)
 		}
 
-		/// API for Encrypted Hour Package Download
-
 		var qrCodePosterTemplateURL: URL {
 			endpoints
 				.distribution

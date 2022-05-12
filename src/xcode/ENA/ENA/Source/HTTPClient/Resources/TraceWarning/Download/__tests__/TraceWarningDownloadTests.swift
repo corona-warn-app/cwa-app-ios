@@ -680,8 +680,6 @@ class TraceWarningPackageDownloadTests: CWATestCase {
 		XCTAssertTrue(packagesToDownload.contains(where: { $0 == earliestPackageIdPlusFour }))
 	}
 
-	// previous httpclient tests
-	
 	func testGIVEN_CountryAndPackageId_WHEN_HappyCase_THEN_TraceWarningPackageIsReturned() throws {
 		// GIVEN
 		let packageId = Date().unixTimestampInHours
