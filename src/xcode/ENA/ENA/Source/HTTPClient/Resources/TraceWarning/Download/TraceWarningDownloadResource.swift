@@ -60,8 +60,6 @@ struct TraceWarningDownloadResource: Resource {
 		switch error {
 		case .missingData, .packageCreation:
 			return .invalidResponseError
-		case .decoding:
-			return .decodingJsonError
 		default:
 			return .invalidResponseError
 		}
