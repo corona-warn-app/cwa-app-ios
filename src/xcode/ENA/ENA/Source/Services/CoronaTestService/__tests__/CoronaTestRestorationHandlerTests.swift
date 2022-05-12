@@ -10,7 +10,6 @@ import XCTest
 class CoronaTestRestorationHandlerTests: CWATestCase {
 
 	func testCanRestore() {
-		let client = ClientMock()
 		let store = MockTestStore()
 		let appConfiguration = CachedAppConfigurationMock()
 		let recycleBin = RecycleBin(store: store)
@@ -83,7 +82,6 @@ class CoronaTestRestorationHandlerTests: CWATestCase {
 	}
 
 	func testRestoringPCRTest() {
-		let client = ClientMock()
 		let store = MockTestStore()
 		let appConfiguration = CachedAppConfigurationMock()
 		let recycleBin = RecycleBin(store: store)
@@ -135,7 +133,6 @@ class CoronaTestRestorationHandlerTests: CWATestCase {
 	}
 
 	func testRestoringAntigenTest() {
-		let client = ClientMock()
 		let store = MockTestStore()
 		let appConfiguration = CachedAppConfigurationMock()
 		let recycleBin = RecycleBin(store: store)

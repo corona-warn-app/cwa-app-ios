@@ -10,7 +10,7 @@ extension Locator {
 	// receive:	SAPDownloadedPackage
 	// type:	default - eTag got read but was never stored inside a cache
 	// comment: we need to look how we will handle PackageDownloadResponse
-	static func traceWarningPackageDiscovery(
+	static func traceWarningDiscovery(
 		unencrypted: Bool,
 		country: String,
 		isFake: Bool

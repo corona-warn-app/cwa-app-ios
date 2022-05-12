@@ -5,7 +5,6 @@
 import ExposureNotification
 import Foundation
 
-// swiftlint:disable:next type_body_length
 final class HTTPClient: Client {
 
 	// MARK: - Init
@@ -159,64 +158,6 @@ final class HTTPClient: Client {
 			case let .failure(error):
 				Log.error("Error in response body: \(error)", log: .api)
 				completion(.failure(.serverFailure(error)))
-			}
-		})
-	}
-	
-	func traceWarningPackageDiscovery(
-		unencrypted: Bool,
-		country: String,
-		completion: @escaping TraceWarningPackageDiscoveryCompletionHandler
-	) {
-		guard let request = try? URLRequest.traceWarningPackageDiscovery(
-				unencrypted: unencrypted,
-				configuration: configuration,
-				country: country) else {
-			completion(.failure(.requestCreationError))
-			return
-		}
-
-		session.response(for: request, completion: { result in
-			switch result {
-			case let .success(response):
-				switch response.statusCode {
-				case 200:
-					guard let body = response.body else {
-						Log.error("Failed to unpack response body of trace warning discovery with http status code: \(String(response.statusCode))", log: .api)
-						completion(.failure(.invalidResponseError(response.statusCode)))
-						return
-					}
-
-					do {
-						let decoder = JSONDecoder()
-						let decodedResponse = try decoder.decode(
-							TraceWarningDiscoveryResponse.self,
-							from: body
-						)
-						let eTag = response.httpResponse.value(forCaseInsensitiveHeaderField: "ETag")
-
-						guard let oldest = decodedResponse.oldest,
-							  let latest = decodedResponse.latest else {
-							Log.info("Successfully discovered that there are no availablePackagesOnCDN", log: .api)
-							// create false package with latest < oldest, then computed property availablePackagesOnCDN will be empty for the downloading check later.
-							completion(.success(TraceWarningDiscovery(oldest: 0, latest: -1, eTag: eTag)))
-							return
-						}
-
-						let traceWarningDiscovery = TraceWarningDiscovery(oldest: oldest, latest: latest, eTag: eTag)
-						Log.info("Successfully downloaded availablePackagesOnCDN", log: .api)
-						completion(.success(traceWarningDiscovery))
-					} catch {
-						Log.error("Failed to decode response json", log: .api)
-						completion(.failure(.decodingJsonError(response.statusCode)))
-					}
-				default:
-					Log.error("Wrong http status code: \(String(response.statusCode))", log: .api)
-					completion(.failure(.invalidResponseError(response.statusCode)))
-				}
-			case let .failure(error):
-				Log.error("Error in response body", log: .api, error: error)
-				completion(.failure(.defaultServerError(error)))
 			}
 		})
 	}
@@ -414,7 +355,7 @@ final class HTTPClient: Client {
 					case 200:
 						guard let body = response.body else {
 							Log.error("Failed to unpack response body of trace warning download with http status code: \(String(response.statusCode))", log: .api)
-							responseError = .invalidResponseError(response.statusCode)
+							responseError = .invalidResponseError
 							return
 						}
 						let eTag = response.httpResponse.value(forCaseInsensitiveHeaderField: "ETag")
@@ -428,7 +369,7 @@ final class HTTPClient: Client {
 						} else {
 							guard let package = SAPDownloadedPackage(compressedData: body) else {
 								Log.error("Failed to create signed package for trace warning download", log: .api)
-								responseError = .invalidResponseError(response.statusCode)
+								responseError = .invalidResponseError
 								return
 							}
 							let downloadedZippedPackage = PackageDownloadResponse(package: package, etag: eTag)
@@ -437,7 +378,7 @@ final class HTTPClient: Client {
 						}
 					default:
 						Log.error("Error in response with status code: \(String(response.statusCode))", log: .api)
-						responseError = .invalidResponseError(response.statusCode)
+						responseError = .invalidResponseError
 					}
 				case let .failure(error):
 					Log.error("Error in response body", log: .api, error: error)
@@ -628,26 +569,6 @@ private extension URLRequest {
 			"\(body.count)",
 			forHTTPHeaderField: "Content-Length"
 		)
-		
-		return request
-	}
-
-	static func traceWarningPackageDiscovery(
-		unencrypted: Bool,
-		configuration: HTTPClient.Configuration,
-		country: String
-	) throws -> URLRequest {
-		if unencrypted {
-			Log.info("unencrypted traceWarningPackageDiscovery", log: .api)
-		} else {
-			Log.info("encrypted traceWarningPackageDiscovery", log: .api)
-		}
-		let url = unencrypted ?
-			configuration.traceWarningPackageDiscoveryURL(country: country) :
-			configuration.encryptedTraceWarningPackageDiscoveryURL(country: country)
-		var request = URLRequest(url: url)
-
-		request.httpMethod = HttpMethod.get
 		
 		return request
 	}

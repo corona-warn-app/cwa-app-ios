@@ -127,19 +127,6 @@ extension HTTPClient {
 				)
 		}
 		
-		func traceWarningPackageDiscoveryURL(country: String) -> URL {
-			endpoints
-				.distribution
-				.appending(
-					"version",
-					apiVersion,
-					"twp",
-					"country",
-					country,
-					"hour"
-				)
-		}
-		
 		func traceWarningPackageDownloadURL(country: String, packageId: Int) -> URL {
 			endpoints
 				.distribution
@@ -154,19 +141,6 @@ extension HTTPClient {
 				)
 		}
 
-		/// API for Encrypted Hour Package Discovery
-		func encryptedTraceWarningPackageDiscoveryURL(country: String) -> URL {
-			endpoints
-				.distribution
-				.appending(
-					"version",
-					encryptedApiVersion,
-					"twp",
-					"country",
-					country,
-					"hour"
-				)
-		}
 
 		/// API for Encrypted Hour Package Download
 		func encryptedTraceWarningPackageDownloadURL(country: String, packageId: Int) -> URL {

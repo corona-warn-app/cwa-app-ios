@@ -359,6 +359,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 
 		let traceWarningPackageDownload = TraceWarningPackageDownload(
 			client: client,
+			restServiceProvider: restServiceProvider,
 			store: store,
 			eventStore: eventStore
 		)
