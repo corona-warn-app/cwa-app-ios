@@ -8,6 +8,7 @@ import ZIPFoundation
 import jsonfunctions
 @testable import ENA
 
+// swiftlint:disable type_body_length
 class CCLServiceConfigurationTests: CCLServiceBaseTests {
 
 	// MARK: - Configuration logic on CCLService Layer
@@ -24,7 +25,20 @@ class CCLServiceConfigurationTests: CCLServiceBaseTests {
 		)
 		
 		let restServiceProvider = RestServiceProvider(session: stack.urlSession, cache: KeyValueCacheFake())
-		let cclService = CCLService(restServiceProvider, appConfiguration: appConfiguration, cclServiceMode: [.configuration], signatureVerifier: MockVerifier())
+		let cclService = CCLService(
+			restServiceProvider,
+			appConfiguration: appConfiguration,
+			cclServiceMode: [.configuration]
+		)
+		
+		let setupExpectation = expectation(description: "setup finished")
+		cclService.setup(
+			signatureVerifier: MockVerifier()
+		) {
+			setupExpectation.fulfill()
+		}
+		waitForExpectations(timeout: .short)
+		
 		let expectation = expectation(description: "update finished")
 
 		// WHEN
@@ -54,7 +68,20 @@ class CCLServiceConfigurationTests: CCLServiceBaseTests {
 		)
 		let cache = try cache(with: Locator.CCLConfiguration(isFake: false), eTag: eTag, date: yesterday, responseData: cclConfigurationData)
 		let restServiceProvider = RestServiceProvider(session: stack.urlSession, cache: cache)
-		let cclService = CCLService(restServiceProvider, appConfiguration: appConfiguration, cclServiceMode: [.configuration], signatureVerifier: MockVerifier())
+		let cclService = CCLService(
+			restServiceProvider,
+			appConfiguration: appConfiguration,
+			cclServiceMode: [.configuration]
+		)
+		
+		let setupExpectation = expectation(description: "setup finished")
+		cclService.setup(
+			signatureVerifier: MockVerifier()
+		) {
+			setupExpectation.fulfill()
+		}
+		waitForExpectations(timeout: .short)
+		
 		let expectation = expectation(description: "update finished")
 
 		// WHEN
@@ -84,7 +111,20 @@ class CCLServiceConfigurationTests: CCLServiceBaseTests {
 		)
 		let cache = try cache(with: Locator.CCLConfiguration(isFake: false), eTag: eTag, date: today, responseData: cclConfigurationData)
 		let restServiceProvider = RestServiceProvider(session: stack.urlSession, cache: cache)
-		let cclService = CCLService(restServiceProvider, appConfiguration: appConfiguration, cclServiceMode: [.configuration], signatureVerifier: MockVerifier())
+		let cclService = CCLService(
+			restServiceProvider,
+			appConfiguration: appConfiguration,
+			cclServiceMode: [.configuration]
+		)
+		
+		let setupExpectation = expectation(description: "setup finished")
+		cclService.setup(
+			signatureVerifier: MockVerifier()
+		) {
+			setupExpectation.fulfill()
+		}
+		waitForExpectations(timeout: .short)
+		
 		let expectation = expectation(description: "update finished")
 
 		// WHEN
@@ -113,17 +153,24 @@ class CCLServiceConfigurationTests: CCLServiceBaseTests {
 
 		let cache = try cache(with: Locator.CCLConfiguration(isFake: false), eTag: eTag, date: today, responseData: cclConfigurationData)
 		let restServiceProvider = RestServiceProvider(session: MockNetworkStack().urlSession, cache: cache)
-		let resource = CCLConfigurationResource()
+		var resource = CCLConfigurationResource()
 		resource.defaultModel = CCLConfigurationReceiveModel([])
 
 		let cclService = CCLService(
 			restServiceProvider,
 			appConfiguration: appConfiguration,
-			cclServiceMode: [.configuration],
+			cclServiceMode: [.configuration]
+		)
+		
+		let setupExpectation = expectation(description: "setup finished")
+		cclService.setup(
 			signatureVerifier: MockVerifier(),
 			cclConfigurationResource: resource
-		)
-
+		) {
+			setupExpectation.fulfill()
+		}
+		waitForExpectations(timeout: .short)
+		
 		// WHEN
 		let version = cclService.configurationVersion
 
@@ -146,17 +193,24 @@ class CCLServiceConfigurationTests: CCLServiceBaseTests {
 
 		let cache = try cache(with: Locator.CCLConfiguration(isFake: false), eTag: eTag, date: today, responseData: cclConfigurationData)
 		let restServiceProvider = RestServiceProvider(session: MockNetworkStack().urlSession, cache: cache)
-		let resource = CCLConfigurationResource()
+		var resource = CCLConfigurationResource()
 		resource.defaultModel = CCLConfigurationReceiveModel([])
 
 		let cclService = CCLService(
 			restServiceProvider,
 			appConfiguration: appConfiguration,
-			cclServiceMode: [.configuration],
-			signatureVerifier: MockVerifier(),
-			cclConfigurationResource: resource
+			cclServiceMode: [.configuration]
 		)
 
+		let setupExpectation = expectation(description: "setup finished")
+		cclService.setup(
+			signatureVerifier: MockVerifier(),
+			cclConfigurationResource: resource
+		) {
+			setupExpectation.fulfill()
+		}
+		waitForExpectations(timeout: .short)
+		
 		// WHEN
 		let version = cclService.configurationVersion
 
@@ -190,16 +244,23 @@ class CCLServiceConfigurationTests: CCLServiceBaseTests {
 		)
 		let cache = try cache(with: Locator.CCLConfiguration(isFake: false), eTag: eTag, date: yesterday, responseData: oldCCLConfigurationData)
 		let restServiceProvider = RestServiceProvider(session: stack.urlSession, cache: cache)
-		let resource = CCLConfigurationResource()
+		var resource = CCLConfigurationResource()
 		resource.defaultModel = CCLConfigurationReceiveModel([])
 
 		let cclService = CCLService(
 			restServiceProvider,
 			appConfiguration: appConfiguration,
-			cclServiceMode: [.configuration],
+			cclServiceMode: [.configuration]
+		)
+		
+		let setupExpectation = expectation(description: "setup finished")
+		cclService.setup(
 			signatureVerifier: MockVerifier(),
 			cclConfigurationResource: resource
-		)
+		) {
+			setupExpectation.fulfill()
+		}
+		waitForExpectations(timeout: .short)
 
 		let expectation = expectation(description: "update finished")
 
@@ -220,7 +281,7 @@ class CCLServiceConfigurationTests: CCLServiceBaseTests {
 		let cache = try cache()
 		let restServiceProvider = RestServiceProvider(session: MockNetworkStack().urlSession, cache: cache)
 
-		let resource = CCLConfigurationResource()
+		var resource = CCLConfigurationResource()
 		resource.defaultModel = CCLConfigurationReceiveModel([
 			.fake(identifier: "CCL-Default-Configuration", version: "DefaultVersion-1.0.0")
 		])
@@ -228,11 +289,18 @@ class CCLServiceConfigurationTests: CCLServiceBaseTests {
 		let cclService = CCLService(
 			restServiceProvider,
 			appConfiguration: appConfiguration,
-			cclServiceMode: [.configuration],
+			cclServiceMode: [.configuration]
+		)
+		
+		let setupExpectation = expectation(description: "setup finished")
+		cclService.setup(
 			signatureVerifier: MockVerifier(),
 			cclConfigurationResource: resource
-		)
-
+		) {
+			setupExpectation.fulfill()
+		}
+		waitForExpectations(timeout: .short)
+		
 		// WHEN
 		let version = cclService.configurationVersion
 
@@ -246,7 +314,7 @@ class CCLServiceConfigurationTests: CCLServiceBaseTests {
 		let cache = try cache()
 		let restServiceProvider = RestServiceProvider(session: MockNetworkStack().urlSession, cache: cache)
 
-		let resource = CCLConfigurationResource()
+		var resource = CCLConfigurationResource()
 		resource.defaultModel = CCLConfigurationReceiveModel([
 			.fake(identifier: "Second-CCL-Default-Configuration", version: "AnotherDefaultVersion-2.5.0alpha"),
 			.fake(identifier: "CCL-Default-Configuration", version: "DefaultVersion-1.0.0")
@@ -255,10 +323,17 @@ class CCLServiceConfigurationTests: CCLServiceBaseTests {
 		let cclService = CCLService(
 			restServiceProvider,
 			appConfiguration: appConfiguration,
-			cclServiceMode: [.configuration],
+			cclServiceMode: [.configuration]
+		)
+		
+		let setupExpectation = expectation(description: "setup finished")
+		cclService.setup(
 			signatureVerifier: MockVerifier(),
 			cclConfigurationResource: resource
-		)
+		) {
+			setupExpectation.fulfill()
+		}
+		waitForExpectations(timeout: .short)
 
 		// WHEN
 		let version = cclService.configurationVersion
@@ -280,7 +355,7 @@ class CCLServiceConfigurationTests: CCLServiceBaseTests {
 		let cache = try cache(with: Locator.CCLConfiguration(isFake: false), eTag: eTag, date: today, responseData: cclConfigurationData)
 		let restServiceProvider = RestServiceProvider(session: MockNetworkStack().urlSession, cache: cache)
 
-		let resource = CCLConfigurationResource()
+		var resource = CCLConfigurationResource()
 		resource.defaultModel = CCLConfigurationReceiveModel([
 			.fake(identifier: "CCL-Default-Configuration", version: "DefaultVersion-1.0.0")
 		])
@@ -288,10 +363,17 @@ class CCLServiceConfigurationTests: CCLServiceBaseTests {
 		let cclService = CCLService(
 			restServiceProvider,
 			appConfiguration: appConfiguration,
-			cclServiceMode: [.configuration],
+			cclServiceMode: [.configuration]
+		)
+		
+		let setupExpectation = expectation(description: "setup finished")
+		cclService.setup(
 			signatureVerifier: MockVerifier(),
 			cclConfigurationResource: resource
-		)
+		) {
+			setupExpectation.fulfill()
+		}
+		waitForExpectations(timeout: .short)
 
 		// WHEN
 		let version = cclService.configurationVersion
@@ -314,7 +396,7 @@ class CCLServiceConfigurationTests: CCLServiceBaseTests {
 		let cache = try cache(with: Locator.CCLConfiguration(isFake: false), eTag: eTag, date: today, responseData: cclConfigurationData)
 		let restServiceProvider = RestServiceProvider(session: MockNetworkStack().urlSession, cache: cache)
 
-		let resource = CCLConfigurationResource()
+		var resource = CCLConfigurationResource()
 		resource.defaultModel = CCLConfigurationReceiveModel([
 			.fake(identifier: "Second-CCL-Default-Configuration", version: "AnotherDefaultVersion-2.5.0alpha"),
 			.fake(identifier: "CCL-Default-Configuration", version: "DefaultVersion-1.0.0")
@@ -323,10 +405,17 @@ class CCLServiceConfigurationTests: CCLServiceBaseTests {
 		let cclService = CCLService(
 			restServiceProvider,
 			appConfiguration: appConfiguration,
-			cclServiceMode: [.configuration],
+			cclServiceMode: [.configuration]
+		)
+
+		let setupExpectation = expectation(description: "setup finished")
+		cclService.setup(
 			signatureVerifier: MockVerifier(),
 			cclConfigurationResource: resource
-		)
+		) {
+			setupExpectation.fulfill()
+		}
+		waitForExpectations(timeout: .short)
 
 		// WHEN
 		let version = cclService.configurationVersion
@@ -389,7 +478,7 @@ class CCLServiceConfigurationTests: CCLServiceBaseTests {
 
 		let defaultFunctionDescriptor = try JSONDecoder().decode(JsonFunctionDescriptor.self, from: Data(defaultFunctionDescriptorString.utf8))
 
-		let resource = CCLConfigurationResource()
+		var resource = CCLConfigurationResource()
 		resource.defaultModel = CCLConfigurationReceiveModel([
 			.fake(
 				identifier: "Second-CCL-Default-Configuration",
@@ -402,11 +491,18 @@ class CCLServiceConfigurationTests: CCLServiceBaseTests {
 		let cclService = CCLService(
 			restServiceProvider,
 			appConfiguration: appConfiguration,
-			cclServiceMode: [.configuration],
+			cclServiceMode: [.configuration]
+		)
+		
+		let setupExpectation = expectation(description: "setup finished")
+		cclService.setup(
 			signatureVerifier: MockVerifier(),
 			cclConfigurationResource: resource
-		)
-
+		) {
+			setupExpectation.fulfill()
+		}
+		waitForExpectations(timeout: .short)
+		
 		// WHEN
 		let version = cclService.configurationVersion
 		let cachedReturnValue: String = try cclService.evaluateFunctionWithDefaultValues(name: "cachedFunction", parameters: [:])

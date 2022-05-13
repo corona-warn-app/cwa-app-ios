@@ -212,7 +212,7 @@
 
 "ExposureSubmission_TestCertificate_Information_Legal_Text_2" = "To create your test certificate, data is transmitted once in encrypted form to the RKI. The RKI signs this data electronically to confirm its validity. The RKI will not store the data.";
 
-"ExposureSubmission_TestCertificate_Information_Legal_Text_2a_PCR" = "To ensure that no one with your QR code can retrieve your test result, it is protected with your date of birth. Your date of birth is transmitted in encrypted form to the laboratory in order to retrieve the test result.";
+"ExposureSubmission_TestCertificate_Information_Legal_Text_2a_PCR" = "To ensure that no one with your QR code can retrieve your test certificate, it is protected with your date of birth. Your date of birth is transmitted in encrypted form to the laboratory in order to retrieve the test certificate.";
 
 "ExposureSubmission_TestCertificate_Information_Legal_Text_3" = "The COVID test certificate contains the data about your coronavirus test. In cases where you are required by law to prove a negative test result, it is sufficient to show the QR code in the app. Do not provide the test certificate to anyone if you do not want the data to be read.";
 
@@ -248,3 +248,22 @@
 
 "TicketValidation_SecondConsent_Legal_subBulletPoint4" = "Further certificate requirements on the part of the provider (e.g. which vaccines or test procedures are accepted)";
 
+/* HealthCertificate Resissuance Consent */
+
+"HealthCertificate_Reissuance_Consent_Legal_Title" = "Your consent";
+
+"HealthCertificate_Reissuance_Consent_Legal_Subtitle" = "By tapping on “Accept”, you consent to the following steps:";
+
+"HealthCertificate_Reissuance_Consent_Legal_Bullet_1" = "The app will transmit the vaccination certificate to the RKI for verification.";
+
+"HealthCertificate_Reissuance_Consent_Legal_Bullet_2" = "The RKI will check the certificates, issue renewed certificates and send these to your app.";
+
+/* HealthCertificate Family Consent */
+
+"HealthCertificate_FamilyMemberConsentLegal_Headline" = "Your consent";
+
+"HealthCertificate_FamilyMemberConsentLegal_SubHeadline" = "By tapping on “Accept”, you consent to the following step:";
+
+"HealthCertificate_FamilyMemberConsentLegal_BulletPoint" = "The app will retrieve the family member’s test result.";
+
+"HealthCertificate_FamilyMemberConsentLegal_text" = "If you change your mind later, you can delete the test in the app.";

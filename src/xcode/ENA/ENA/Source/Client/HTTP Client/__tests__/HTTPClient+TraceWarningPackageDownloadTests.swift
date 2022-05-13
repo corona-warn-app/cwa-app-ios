@@ -130,7 +130,7 @@ final class HTTPClientTraceWarningPackageDownloadTests: CWATestCase {
 
 		// THEN
 		waitForExpectations(timeout: .medium)
-		XCTAssertEqual(response, .invalidResponseError(200))
+		XCTAssertEqual(response, .invalidResponseError)
 	}
 	
 	func testGIVEN_CountryAndPackageId_WHEN_EmptyResponse_THEN_InvalidResponseErrorIsReturned() {

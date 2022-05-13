@@ -147,7 +147,7 @@ final class HomeTestResultTableViewCell: UITableViewCell {
 		negativeDiagnosisVirusLabel.text = AppStrings.Home.TestResult.Negative.title
 		negativeDiagnosisLabel.text = AppStrings.Home.TestResult.Negative.titleNegative
 
-		setupAccessibility()
+		accessibilityTraits = .button
 	}
 
 	private func updateIllustration(for traitCollection: UITraitCollection) {
@@ -161,12 +161,6 @@ final class HomeTestResultTableViewCell: UITableViewCell {
 	private func clearSubscriptions() {
 		subscriptions.forEach({ $0.cancel() })
 		subscriptions.removeAll()
-	}
-
-	func setupAccessibility() {
-		cardView.accessibilityElements = [titleLabel as Any, subtitleLabel as Any, descriptionLabel as Any, button as Any]
-
-		titleLabel.accessibilityTraits = [.header, .button]
 	}
 
 	@IBAction func primaryActionTriggered() {

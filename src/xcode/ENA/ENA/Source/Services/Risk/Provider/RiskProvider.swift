@@ -429,7 +429,7 @@ final class RiskProvider: RiskProviding {
 			guard riskLevel == .high,
 				  let mostRecentDateWithRiskLevel = risk.details.mostRecentDateWithRiskLevel,
 				  let previousMostRecentDateWithRiskLevel = previousRisk?.details.mostRecentDateWithRiskLevel,
-				  mostRecentDateWithRiskLevel > previousMostRecentDateWithRiskLevel
+				  mostRecentDateWithRiskLevel.ageInDays ?? 0 < previousMostRecentDateWithRiskLevel.ageInDays ?? 0
 			else {
 				Log.info("Missing mostRecentDateWithRiskLevel - do not trigger anything")
 				return
@@ -489,7 +489,7 @@ final class RiskProvider: RiskProviding {
     }
 
 	private func successOnTargetQueue(risk: Risk) {
-		Log.info("RiskProvider: Risk detection and calculation was successful.", log: .riskDetection)
+		Log.info("RiskProvider: Risk detection and calculation was successful. Provide risk to consumers: \(risk)", log: .riskDetection)
 
 		updateActivityState(.idle)
 

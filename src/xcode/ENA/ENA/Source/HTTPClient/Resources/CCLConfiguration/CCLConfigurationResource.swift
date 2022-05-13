@@ -4,7 +4,7 @@
 
 import Foundation
 
-class CCLConfigurationResource: Resource {
+struct CCLConfigurationResource: Resource {
 	
 	// MARK: - Init
 	
@@ -30,8 +30,6 @@ class CCLConfigurationResource: Resource {
 		self.sendResource = EmptySendResource()
 		self.receiveResource = CBORReceiveResource<CCLConfigurationReceiveModel>()
 		self.trustEvaluation = trustEvaluation
-
-		self.defaultModel = bundledDefaultModel
 	}
 	
 	// MARK: - Protocol Resource
@@ -46,8 +44,8 @@ class CCLConfigurationResource: Resource {
 	var type: ServiceType
 	var sendResource: EmptySendResource
 	var receiveResource: CBORReceiveResource<CCLConfigurationReceiveModel>
-	var defaultModel: CCLConfigurationReceiveModel?
-	
+	var defaultModel: CCLConfigurationReceiveModel? = bundledDefaultModel
+
 	// MARK: - Internal
 	
 	#if !RELEASE
@@ -57,7 +55,7 @@ class CCLConfigurationResource: Resource {
 
 	// MARK: - Private
 
-	private var bundledDefaultModel: CCLConfigurationReceiveModel? {
+	private static var bundledDefaultModel: CCLConfigurationReceiveModel? {
 		guard let url = Bundle.main.url(forResource: "ccl-configuration", withExtension: "bin"),
 			  let fallbackBin = try? Data(contentsOf: url) else {
 			Log.error("Creating the default model failed due to loading default bin from disc", log: .client)

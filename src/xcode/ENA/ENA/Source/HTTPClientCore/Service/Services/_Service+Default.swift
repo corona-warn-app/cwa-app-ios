@@ -12,7 +12,7 @@ This is the default implementation of a service and serves not only as default i
 When a service wants a more specific handling, it can just implements the protocols functions and inherits from start the implementation of here.
 */
 extension Service {
-	
+
 	func urlRequest<S, R>(
 		_ locator: Locator,
 		_ sendResource: S,
@@ -42,119 +42,56 @@ extension Service {
 		return .success(urlRequest)
 	}
 
-	func receiveModelToInterruptLoading<R>(_ resource: R) -> R.Receive.ReceiveModel? where R: Resource {
-		nil
-	}
-
-    // swiftlint:disable cyclomatic_complexity
 	func load<R>(
 		_ resource: R,
 		_ completion: @escaping (Result<R.Receive.ReceiveModel, ServiceError<R.CustomError>>) -> Void
 	) where R: Resource {
-		
-		// if an optional model is given we will return that one and stop loading
-		if let receiveModel = receiveModelToInterruptLoading(resource) {
-			completion(.success(receiveModel))
+
+#if !RELEASE
+		// check if resource loading might be disabled
+		if isDisabled(R.identifier) {
+			completion(.failure(.invalidResponse))
 			return
 		}
+#endif
 		
-		// load data from the server
-		switch urlRequest(resource.locator, resource.sendResource, resource.receiveResource) {
-		case let .failure(resourceError):
-			Log.error("Creating url request failed.", log: .client)
-			completion(failureOrDefaultValueHandling(resource, .invalidRequestError(resourceError)))
-		case let .success(request):
-
-			var task: URLSessionDataTask?
-			task = session.dataTask(with: request) { bodyData, response, error in
-				
-				defer {
-					   if let coronaSessionDelegate = session.delegate as? CoronaWarnSessionTaskDelegate,
-						  let task = task {
-						   coronaSessionDelegate.trustEvaluations[task.taskIdentifier] = nil
-					   }
-				}
-				
-				// If there is a transportation error, check if the underlying error is a trust evaluation error and possibly return it.
-				if error != nil,
-				   let coronaSessionDelegate = session.delegate as? CoronaWarnSessionTaskDelegate,
-				   let task = task,
-				   let trustEvaluationError = coronaSessionDelegate.trustEvaluations[task.taskIdentifier]?.trustEvaluationError {
-					Log.error("TrustEvaluation failed.", log: .client)
-					completion(failureOrDefaultValueHandling(resource, .trustEvaluationError(trustEvaluationError)))
+		// Check if we can interrupt loading and return directly a model wich is stored in our cache.
+		receiveModelToInterruptLoading(resource, { [weak self] result in
+			guard let self = self else {
+				Log.error("Could not create strong self", log: .client)
+				return
+			}
+			switch result {
+			case .success(let receiveModel):
+				completion(.success(receiveModel))
+				return
+			case .failure(let serviceError):
+				if case .noReceiveModelToInterruptLoading = serviceError {
+					// This is a "normal" case and we ignore the previous failure and continue loading. Equals a not found model.
+					self.createUrlRequest(resource, completion)
+				} else {
+					// We found a model to return but while loading from cache, there occurred an error (e.g. while decoding).
+					completion(.failure(serviceError))
 					return
-				}
-				
-				// case we have no network.
-				if let error = error {
-					completion(handleNoNetworkCachePolicy(error, resource))
-					return
-				}
-								
-				// case we have a fake.
-				guard !resource.locator.isFake else {
-					Log.info("Fake detected no response given", log: .client)
-					completion(failureOrDefaultValueHandling(resource, .fakeResponse))
-					return
-				}
-
-				// case we have an invalid response.
-				guard let response = response as? HTTPURLResponse else {
-					Log.error("Invalid response.", log: .client, error: error)
-					completion(failureOrDefaultValueHandling(resource, .invalidResponseType))
-					return
-				}
-				
-				// Now we have a response and a valid status code.
-
-				#if DEBUG
-				Log.debug("URL Response \(response.statusCode)", log: .client)
-				#endif
-
-				// override status code by cache policy and handle it on other way.
-				if hasStatusCodeCachePolicy(resource, response.statusCode) {
-					completion(handleStatusCodeCachePolicy(response.statusCode, resource))
-					return
-				}
-				
-				// Normal status code handling
-				// The codes here are in sync with the one in hasStatusCodeCachePolicy in the CachedRestService - do always sync them!
-				switch response.statusCode {
-				case 200, 201:
-					completion(decodeModel(resource, bodyData, response.allHeaderFields, false))
-				case 204:
-					guard resource.receiveResource is EmptyReceiveResource else {
-						Log.error("This is not an EmptyReceiveResource", log: .client)
-						completion(failureOrDefaultValueHandling(resource, .invalidResponse))
-						return
-					}
-					completion(decodeModel(resource, bodyData, response.allHeaderFields, false))
-				case 304:
-					completion(cached(resource))
-				default:
-					completion(failureOrDefaultValueHandling(resource, .unexpectedServerError(response.statusCode), bodyData))
 				}
 			}
-			
-			guard let task = task else {
-				fatalError("Task cannot be nil at this point.")
-			}
-			
-			// Set the trust evaluation which is executed during the request on the CoronaWarnSessionTaskDelegate.
-			if let coronaSessionDelegate = session.delegate as? CoronaWarnSessionTaskDelegate {
-				coronaSessionDelegate.trustEvaluations[task.taskIdentifier] = resource.trustEvaluation
-			}
-						
-			task.resume()
-		}
+		})
+	}
+
+	func receiveModelToInterruptLoading<R>(
+		_ resource: R,
+		_ completion: @escaping (Result<R.Receive.ReceiveModel, ServiceError<R.CustomError>>) -> Void
+	) where R: Resource {
+		completion(.failure(ServiceError.noReceiveModelToInterruptLoading))
 	}
 
 	func decodeModel<R>(
 		_ resource: R,
 		_ bodyData: Data?,
 		_ headers: [AnyHashable: Any],
-		_ isCachedData: Bool
-	) -> Result<R.Receive.ReceiveModel, ServiceError<R.CustomError>>where R: Resource {
+		_ isCachedData: Bool,
+		_ completion: @escaping (Result<R.Receive.ReceiveModel, ServiceError<R.CustomError>>) -> Void
+	) where R: Resource {
 		switch resource.receiveResource.decode(bodyData, headers: headers) {
 		case .success(let model):
 			// Proofs if we can add the metadata to our model.
@@ -164,26 +101,33 @@ extension Service {
 				modelWithMetadata.metaData.loadedFromCache = isCachedData
 				if let originalModelWithMetadata = modelWithMetadata as? R.Receive.ReceiveModel {
 					Log.debug("Returning now the original model with metadata", log: .client)
-					return .success(originalModelWithMetadata)
+					completion(.success(originalModelWithMetadata))
 				} else {
 					Log.warning("Cast back to R.Receive.ReceiveModel failed. Returning the model without metadata.", log: .client)
-					return .success(model)
+					completion(.success(model))
 				}
 			} else {
 				Log.debug("This model does not conforms to MetaDataProviding. Returning plain model.", log: .client)
-				return .success(model)
+				completion(.success(model))
 			}
 		case .failure(let resourceError):
 			Log.error("Decoding for receive resource failed.", log: .client)
-			return failureOrDefaultValueHandling(resource, .resourceError(resourceError))
+			retryOrDefaultValueOrFailureHandling(resource, .resourceError(resourceError), nil, completion)
 		}
 	}
 
 	func cached<R>(
-		_ resource: R
-	) -> Result<R.Receive.ReceiveModel, ServiceError<R.CustomError>> where R: Resource {
+		_ resource: R,
+		_ completion: @escaping (Result<R.Receive.ReceiveModel, ServiceError<R.CustomError>>) -> Void
+	) where R: Resource {
 		Log.info("No caching allowed for current service.", log: .client)
-		return failureOrDefaultValueHandling(resource, .resourceError(.notModified))
+		retryOrDefaultValueOrFailureHandling(resource, .resourceError(.notModified), nil, completion)
+	}
+
+	func resetCache<R>(
+		for resource: R
+	) where R: Resource {
+		Log.info("No caching allowed for current service.", log: .client)
 	}
 
 	func hasCachedData<R>(
@@ -205,7 +149,13 @@ extension Service {
 	) -> Bool where R: Resource {
 		return false
 	}
-	
+
+#if !RELEASE
+	func isDisabled(_ identifier: String) -> Bool {
+		return false
+	}
+#endif
+
 	// MARK: - Internal
 	
 	/// Before returning the original error, we look up in the resource if there is some customized error cases.
@@ -231,33 +181,194 @@ extension Service {
 	///   - resource: Generic ("R") object and normally of type ReceiveResource.
 	///   - error: The error that would be thrown with the fail.
 	///   - completion: Swift-Result of loading. If successful, it contains the concrete object of our call.
-	func failureOrDefaultValueHandling<R>(
+	func retryOrDefaultValueOrFailureHandling<R>(
 		_ resource: R,
+		statusCode: Int = 0,
 		_ error: ServiceError<R.CustomError>,
-		_ responseData: Data? = nil
-	) -> Result<R.Receive.ReceiveModel, ServiceError<R.CustomError>> where R: Resource {
-		// Check if we have default value. If so, return it independent wich error we had
-		if let defaultModel = resource.defaultModel {
-			Log.info("Found some default value", log: .client)
-			guard var modelWithMetadata = defaultModel as? MetaDataProviding else {
-				return .success(defaultModel)
+		_ responseData: Data? = nil,
+		_ completion: @escaping (Result<R.Receive.ReceiveModel, ServiceError<R.CustomError>>) -> Void
+	) where R: Resource {
+
+		if resource.retryingCount > 1 {
+			guard Mirror(reflecting: resource).displayStyle == .struct else {
+				fatalError("Your resource has the wrong type. It should be a struct, not a class!")
 			}
-			Log.info("Found a defaultModel which conforms to MetaDataProviding. Adding metadata now.", log: .client)
-			modelWithMetadata.metaData.loadedFromDefault = true
-			guard let originalModelWithMetadata = modelWithMetadata as? R.Receive.ReceiveModel else {
-				Log.warning("Cast back to R.Receive.ReceiveModel failed. Returning the model without metadata.", log: .client)
-				return .success(defaultModel)
-			}
-			Log.debug("Returning now the original model with metadata", log: .client)
-			return .success(originalModelWithMetadata)
+			Log.debug("Retry for resource discovered. Retry counter at: \(resource.retryingCount)", log: .client)
+			var resourceCopy = resource
+			resourceCopy.retryingCount -= 1
+			Log.debug("Remaining retries now: \(resourceCopy.retryingCount)", log: .client)
+			load(resourceCopy, completion)
 		} else {
-			// We don't have a default value. And now check if we want to override the error by a custom error defined in the resource
-			Log.error("Found no default value. Will fail now.", log: .client, error: error)
-			return .failure(customError(in: resource, for: error, responseData))
+			// Now after all retries exhausted (or we did not had any retry), we check if we can return a default value or not. If so, return it independent which error we had
+			// check if a defaultModel range was given
+			if let defaultModel = resource.defaultModel,
+			   (resource.defaultModelRange.isEmpty || resource.defaultModelRange.contains(statusCode)) {
+				Log.info("Found some default value", log: .client)
+				guard var modelWithMetadata = defaultModel as? MetaDataProviding else {
+					completion(.success(defaultModel))
+					return
+				}
+				Log.info("Found a defaultModel which conforms to MetaDataProviding. Adding metadata now.", log: .client)
+				modelWithMetadata.metaData.loadedFromDefault = true
+				guard let originalModelWithMetadata = modelWithMetadata as? R.Receive.ReceiveModel else {
+					Log.warning("Cast back to R.Receive.ReceiveModel failed. Returning the model without metadata.", log: .client)
+					completion(.success(defaultModel))
+					return
+				}
+				Log.debug("Returning now the original model with metadata", log: .client)
+				completion(.success(originalModelWithMetadata))
+			} else {
+				// We don't have a default value. And now check if we want to override the error by a custom error defined in the resource
+				Log.error("Found no default value. Will fail now.", log: .client, error: error)
+				// cleanup the retryCount dictionary
+				completion(.failure(customError(in: resource, for: error, responseData)))
+			}
 		}
 	}
 	
 	// MARK: - Private
+
+	/// Creates the url request and if succesfull, calls the fetch.
+	///
+	/// - Parameters:
+	///   - resource: Generic ("R") object and normally of type ReceiveResource.
+	///   - completion: Swift-Result of loading. If successful, it contains the concrete object of our call.
+	private func createUrlRequest<R>(
+		_ resource: R,
+		_ completion: @escaping (Result<R.Receive.ReceiveModel, ServiceError<R.CustomError>>) -> Void
+	) where R: Resource {
+
+		// Create the url request
+		switch urlRequest(resource.locator, resource.sendResource, resource.receiveResource) {
+		case let .failure(resourceError):
+			Log.error("Creating url request failed.", log: .client)
+			retryOrDefaultValueOrFailureHandling(resource, .invalidRequestError(resourceError), nil, completion)
+		case let .success(request):
+			// Now fetch the data from the server
+			fetchFromServer(resource, request, completion)
+		}
+	}
+
+	/// The real fetch call to load data from the server. Handles all error cases and also the trust evaluation logic with the data task. If successfull, delegates all to the status code handling.
+	///
+	/// - Parameters:
+	///   - resource: Generic ("R") object and normally of type ReceiveResource.
+	///   - request: The URLRequest
+	///   - completion: Swift-Result of loading. If successful, it contains the concrete object of our call.
+	private func fetchFromServer<R>(
+		_ resource: R,
+		_ request: URLRequest,
+		_ completion: @escaping (Result<R.Receive.ReceiveModel, ServiceError<R.CustomError>>) -> Void
+	) where R: Resource {
+
+		#if !RELEASE
+		writeRequestToDebugMenu(request: request, resource: resource)
+		#endif
+		
+		var task: URLSessionDataTask?
+		task = self.session.dataTask(with: request) { [weak self] bodyData, response, error in
+
+			guard let self = self else {
+				Log.error("Could not create strong self", log: .client)
+				return
+			}
+
+			defer {
+				if let coronaSessionDelegate = self.session.delegate as? CoronaWarnSessionTaskDelegate,
+					  let task = task {
+					   coronaSessionDelegate.trustEvaluations[task.taskIdentifier] = nil
+				   }
+			}
+
+			// If there is a transportation error, check if the underlying error is a trust evaluation error and possibly return it.
+			if error != nil,
+			   let coronaSessionDelegate = self.session.delegate as? CoronaWarnSessionTaskDelegate,
+			   let task = task,
+			   let trustEvaluationError = coronaSessionDelegate.trustEvaluations[task.taskIdentifier]?.trustEvaluationError {
+				Log.error("TrustEvaluation failed.", log: .client)
+				self.retryOrDefaultValueOrFailureHandling(resource, .trustEvaluationError(trustEvaluationError), nil, completion)
+				return
+			}
+
+			// case we have no network.
+			if let error = error {
+				self.handleNoNetworkCachePolicy(resource, error, completion)
+				return
+			}
+
+			// case we have a fake.
+			guard !resource.locator.isFake else {
+				Log.info("Fake detected no response given", log: .client)
+				self.retryOrDefaultValueOrFailureHandling(resource, .fakeResponse, nil, completion)
+				return
+			}
+
+			// case we have an invalid response.
+			guard let response = response as? HTTPURLResponse else {
+				Log.error("Invalid response.", log: .client, error: error)
+				self.retryOrDefaultValueOrFailureHandling(resource, .invalidResponseType, nil, completion)
+				return
+			}
+
+			// Now we have a response and a valid status code.
+
+			#if DEBUG
+			Log.debug("URL Response \(response.statusCode)", log: .client)
+			#endif
+
+			// override status code by cache policy and handle it on other way.
+			if self.hasStatusCodeCachePolicy(resource, response.statusCode) {
+				self.handleStatusCodeCachePolicy(resource, response.statusCode, completion)
+				return
+			}
+
+			// Normal status code handling
+			self.handleStatusCodes(resource, response, bodyData, completion)
+		}
+
+		guard let task = task else {
+			fatalError("Task cannot be nil at this point.")
+		}
+
+		// Set the trust evaluation which is executed during the request on the CoronaWarnSessionTaskDelegate.
+		if let coronaSessionDelegate = self.session.delegate as? CoronaWarnSessionTaskDelegate {
+			coronaSessionDelegate.trustEvaluations[task.taskIdentifier] = resource.trustEvaluation
+		}
+
+		task.resume()
+	}
+
+	/// Handles the normal http status codes. Calls the decoding or cached funcs to get the model and returns it if successful.
+	///
+	/// - Parameters:
+	///   - resource: Generic ("R") object and normally of type ReceiveResource.
+	///   - response: The HTTPURLResponse
+	///   - bodyData: The responses body Data
+	///   - completion: Swift-Result of loading. If successful, it contains the concrete object of our call.
+	private func handleStatusCodes<R>(
+		_ resource: R,
+		_ response: HTTPURLResponse,
+		_ bodyData: Data?,
+		_ completion: @escaping (Result<R.Receive.ReceiveModel, ServiceError<R.CustomError>>) -> Void
+	) where R: Resource {
+
+		// The codes here are in sync with the one in hasStatusCodeCachePolicy in the CachedRestService - do always sync them!
+		switch response.statusCode {
+		case 200, 201:
+			self.decodeModel(resource, bodyData, response.allHeaderFields, false, completion)
+		case 204:
+			guard resource.receiveResource is EmptyReceiveResource else {
+				Log.error("This is not an EmptyReceiveResource", log: .client)
+				self.retryOrDefaultValueOrFailureHandling(resource, statusCode: response.statusCode, .invalidResponse, nil, completion)
+				return
+			}
+			self.decodeModel(resource, bodyData, response.allHeaderFields, false, completion)
+		case 304:
+			self.cached(resource, completion)
+		default:
+			self.retryOrDefaultValueOrFailureHandling(resource, statusCode: response.statusCode, .unexpectedServerError(response.statusCode), bodyData, completion)
+		}
+	}
 
 	/// Handles the noNetwork cache policy: Checks first, if the cache policy is defined. If not, proceed with the transportation error. Otherwise, try to load the cached data. If this fails, we fall back to the the transportation error.
 	///
@@ -266,31 +377,31 @@ extension Service {
 	///   - resource: Generic ("R") object and normally of type ReceiveResource.
 	///   - completion: Swift-Result of loading. If successful, it contains the concrete object of our call.
 	private func handleNoNetworkCachePolicy<R>(
+		_ resource: R,
 		_ error: Error,
-		_ resource: R
-	) -> Result<R.Receive.ReceiveModel, ServiceError<R.CustomError>> where R: Resource {
+		_ completion: @escaping (Result<R.Receive.ReceiveModel, ServiceError<R.CustomError>>) -> Void
+	) where R: Resource {
 		
 		// Check if we can handle caching policy noNetwork
 		guard case let .caching(policies) = resource.type,
 			  policies.contains(.noNetwork) else {
-				  // Otherwise, fall back to the default
-				  Log.info("No cache policy .noNetwork found.", log: .client)
-				  return failureOrDefaultValueHandling(resource, .transportationError(error))
+			// Otherwise, fall back to the default
+			Log.info("No cache policy .noNetwork found.", log: .client)
+			retryOrDefaultValueOrFailureHandling(resource, .transportationError(error), nil, completion)
+			return
 		}
 		
 		// If so, first we check if we have something cached
 		if hasCachedData(resource) {
 			Log.info("Found some cached data.", log: .client)
-			return cached(resource)
+			cached(resource, completion)
 		}
 		// If not, we will fail with the original error
 		else {
 			Log.info("Found nothing cached.")
-			return failureOrDefaultValueHandling(resource, .transportationError(error))
+			retryOrDefaultValueOrFailureHandling(resource, .transportationError(error), nil, completion)
 		}
 	}
-	
-	// MARK: - Private
 
 	/// Handles the statusCode cache policy. Checks first, if the cache policy is defined. If not, proceed with the invalidResponse error. Otherwise, try to load the cached data. If this fails, we fall back to the the invalidResponse error.
 	///
@@ -299,21 +410,31 @@ extension Service {
 	///   - resource: Generic ("R") object and normally of type ReceiveResource.
 	///   - completion: Swift-Result of loading. If successful, it contains the concrete object of our call.
 	private func handleStatusCodeCachePolicy<R>(
+		_ resource: R,
 		_ statusCode: Int,
-		_ resource: R
-	) -> Result<R.Receive.ReceiveModel, ServiceError<R.CustomError>> where R: Resource {
+		_ completion: @escaping (Result<R.Receive.ReceiveModel, ServiceError<R.CustomError>>) -> Void
+	) where R: Resource {
 		
 		// We do not need to check here if the policy is supported, because we do it already right before the call if this function (see hasStatusCodeCachePolicy).
 		
 		// First we check if have something cached
 		if hasCachedData(resource) {
 			Log.info("Found some cached data", log: .client)
-			return cached(resource)
+			cached(resource, completion)
 		}
 		// If not, we will fail with the original error
 		else {
 			Log.info("Found nothing cached.")
-			return failureOrDefaultValueHandling(resource, .unexpectedServerError(statusCode))
+			retryOrDefaultValueOrFailureHandling(resource, statusCode: statusCode, .unexpectedServerError(statusCode), nil, completion)
 		}
 	}
+	
+#if !RELEASE
+	private func writeRequestToDebugMenu<R>(request: URLRequest, resource: R) where R: Resource {
+		if resource is KeySubmissionResource {
+			 UserDefaults.standard.dmLastSubmissionRequest = request.httpBody
+		}
+	}
+#endif
+
 }

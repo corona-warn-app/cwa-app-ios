@@ -38,7 +38,7 @@ class MockEventStore: EventStoring, EventProviding {
 	@discardableResult
 	func updateCheckin(_ checkin: Checkin) -> SecureSQLStore.VoidResult {
 		guard let oldCheckin = (checkinsPublisher.value.first { $0.id == checkin.id }) else {
-			return .failure(.database(.unknown))
+			return .failure(.database(.unknown(-1)))
 		}
 		let updatedCheckin = oldCheckin.updatedWith(checkin: checkin)
 		checkinsPublisher.value = appendCheckInAndSort(updatedCheckin)

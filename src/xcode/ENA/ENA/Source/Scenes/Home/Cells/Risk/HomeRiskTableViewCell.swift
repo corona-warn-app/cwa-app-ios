@@ -39,7 +39,6 @@ final class HomeRiskTableViewCell: UITableViewCell {
 
 			return accessibilityElements
 		}
-		// swiftlint:disable:next unused_setter_value
 		set { }
 	}
 

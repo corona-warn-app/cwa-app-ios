@@ -150,7 +150,7 @@ final class HealthCertificatesTabCoordinator {
 			}
 		)
 	}()
-	
+
 	private func presentCovPassInfoScreen(rootViewController: UIViewController? = nil) {
 		let presentViewController = rootViewController ?? viewController
 		let covPassInformationViewController = CovPassCheckInformationViewController(

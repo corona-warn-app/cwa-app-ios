@@ -561,7 +561,7 @@
 
 "ExposureSubmissionDispatch_QRCodeButtonTitle" = "Scan QR Code";
 
-"ExposureSubmissionDispatch_QRCodeButtonDescription" = "Receive your test result in the app and warn others or request your COVID test certificate.";
+"ExposureSubmissionDispatch_QRCodeButtonDescription" = "Receive your test result and results for your family members and request your COVID test certificate.";
 
 "ExposureSubmissionDispatch_TANButtonTitle" = "Enter TAN for PCR Test";
 
@@ -731,9 +731,13 @@
 
 "ExposureSubmissionResult_Procedure" = "How this works:";
 
-"ExposureSubmissionResult_testAdded" = "Your test was added";
+"ExposureSubmissionResult_testAdded" = "Your PCR test was added";
+
+"ExposureSubmissionResult_familyMember_testAdded" = "The PCR test was added";
 
 "ExposureSubmissionResult_antigenTestAdded" = "Your rapid test was added";
+
+"ExposureSubmissionResult_familyMember_antigenTestAdded" = "The rapid test was added";
 
 "ExposureSubmissionResult_antigenTestAddedDesc" = "The test result is displayed here for 48 hours.";
 
@@ -765,13 +769,21 @@
 
 "ExposureSubmissionResult_testPending" = "Your test result is not available yet";
 
+"ExposureSubmissionResult_familyMember_testPending" = "Your test result is not available yet";
+
 "ExposureSubmissionResult_testPendingDesc" = "As soon as your test result becomes available, it will be displayed in the app.\n\nYou will also receive your test result outside of the app. The public health authorities will notify you, should your test be positive.\n\nIf you are notified of a positive test result outside the app, please delete the test currently registered in the app. Call the number shown under “Request TAN” to get a TAN. You can then use this TAN to register your result in the app and warn others.";
 
+"ExposureSubmissionResult_familyMember_testPendingDesc" = "As soon as your test result becomes available, it will be displayed in the app.\nYou will also receive your test result outside of the app. The public health authorities will notify you, should your test be positive.";
+
 "ExposureSubmissionResult_testCertificate_title" = "Your COVID Test Certificate";
+
+"ExposureSubmissionResult_familyMemberTestCertificate_title" = "COVID Test Certificate";
 
 "ExposureSubmissionResult_testCertificate_testCenterNotSupported" = "An official digital COVID test certificate cannot be issued because this testing point does not support the issuing of test certificates.";
 
 "ExposureSubmissionResult_testCertificate_Pending" = "Your official digital COVID test certificate is not available yet. As soon as it becomes available, it will be displayed in your app.";
+
+"ExposureSubmissionResult_familyMemberTestCertificate_Pending" = "The official digital COVID test certificate is not available yet. As soon as it becomes available, it will be displayed in the app.";
 
 "ExposureSubmissionResult_testCertificate_NotRequested" = "No official digital COVID test certificate will be issued, as per your request.";
 
@@ -779,7 +791,11 @@
 
 "ExposureSubmissionResult_antigenTestPending" = "Your Test Result Is Not Available Yet";
 
+"ExposureSubmissionResult_familyMember_antigenTestPending" = "Your Test Result Is Not Available Yet";
+
 "ExposureSubmissionResult_antigenTestPendingDesc" = "As soon as your test result becomes available, it will be displayed in the app.";
+
+"ExposureSubmissionResult_familyMember_antigenTestPendingDesc" = "As soon as the test result becomes available, it will be displayed in the app.";
 
 "ExposureSubmissionResult_antigenTestPendingContactJournal" = "Your Test Result Will Be Added to Your Contact Journal";
 
@@ -985,11 +1001,24 @@
 
 "ExposureSubmission_Antigen_Profile_Information_Description_Title" = "Save your personal data as a QR code to speed up registration at testing points.";
 
-"ExposureSubmission_Antigen_Profile_Information_DescriptionSubHeadline" = "When you create a rapid test profile, you will not have to fill out your personal data again before every rapid test.";
+"ExposureSubmission_Antigen_Profile_Information_DescriptionSubHeadline" = "When you create a rapid test profile, you do not have to fill out your personal data again before every rapid test. You can create several rapid test profiles, for instance, one for yourself and one each for your family members.";
 
 "ExposureSubmission_Antigen_Profile_Information_PrimaryButton" = "Continue";
 
 "ExposureSubmission_Antigen_Profile_Information_Dataprivacy_Title" = "For more information, please refer to the privacy notice.";
+
+/* Exposure Submission AntigenTest Profile Overview */
+"ExposureSubmission_Antigen_Profile_Overview_title" = "Rapid Test Profiles";
+
+"ExposureSubmission_Antigen_Profile_Card_title" = "Rapid Test Profile";
+
+"ExposureSubmission_Antigen_Profile_Overview_EmptyTitle" = "No rapid test profiles created yet";
+
+"ExposureSubmission_Antigen_Profile_Overview_EmptyDescription" = "You can create a rapid test profile with your personal data, which you can submit via QR code to every participating testing point.";
+
+"ExposureSubmission_Antigen_Profile_Overview_EmptyImageDescription" = "Certificate seal with digital certificate in the background";
+
+"ExposureSubmission_Antigen_Profile_Overview_AddButtonTitle" = "Create rapid test profile";
 
 /* ExposureSubmission AntigenTest Profile */
 "ExposureSubmission_Antigen_Profile_Header_Text" = "Rapid Test Profile";
@@ -1000,7 +1029,7 @@
 
 "ExposureSubmission_Antigen_Profile_DateOfBirth_Format" = "Born %@";
 
-"ExposureSubmission_Antigen_Profile_Primary_Button" = "Continue";
+"ExposureSubmission_Antigen_Profile_Primary_Button" = "Scan Test";
 
 "ExposureSubmission_Antigen_Profile_Secondary_Button" = "Edit";
 
@@ -1009,9 +1038,22 @@
 
 "ExposureSubmission_Profile_CreateProfileTile_Description" = "Save your personal data as a QR code to speed up registration at testing points.";
 
-"ExposureSubmission_Profile_ProfileTile_Title" = "Rapid Test Profile";
+"ExposureSubmission_Profile_ProfileTile_Title" = "Rapid Test Profiles";
 
-"ExposureSubmission_Profile_ProfileTile_Description" = "Save time and present your rapid test profile at the testing point.";
+"ExposureSubmission_Profile_ProfileTile_Description" = "Rapid test profile with your personal data, which you can submit to any participating testing point via the QR code.";
+
+/* ExposureSubmission TestOwnerSelection */
+"ExposureSubmission_TestOwnerSelection_Title" = "Register Test";
+
+"ExposureSubmission_TestOwnerSelection_Description" = "You will receive the result on your smartphone and can request a digital COVID test certificate. You can only warn others if the test is yours and you are diagnosed with a coronavirus infection.";
+
+"ExposureSubmission_TestOwnerSelection_User_Headline" = "For me";
+
+"ExposureSubmission_TestOwnerSelection_User_Subheadline" = "Your test";
+
+"ExposureSubmission_TestOwnerSelection_FamilyMember_Headline" = "For others";
+
+"ExposureSubmission_TestOwnerSelection_FamilyMember_Subheadline" = "Test for a family member";
 
 /* ExposureSubmission TestCertificate */
 "ExposureSubmission_TestCertificate_Information_Title" = "COVID Test Certificate";
@@ -1032,7 +1074,7 @@
 
 "ExposureSubmission_TestCertificate_Information_BirthdayText" = "For security purposes, your test certificate is protected with your date of birth. The test certificate can only be issued if you specify the correct date of birth.";
 
-"ExposureSubmission_TestCertificate_Information_Dataprivacy_Title" = "For more detailed information about data processing, please refer to the privacy notice.";
+"ExposureSubmission_TestCertificate_Information_Dataprivacy_Title" = "Detailed Information on Data Processing and Your Consent";
 
 "ExposureSubmission_TestCertificate_Information_Alert_Title" = "Cancel Registration";
 
@@ -1277,6 +1319,11 @@
 "Home_resultCard_DeleteTestButton" = "Delete Test";
 
 "Home_resultCard_HideTestButton" = "Don’t Display Again";
+
+/* - Family Tets */
+"Home_Family_Test_Title" = "Tests of family members";
+
+"Home_Family_Test_Detail" = "There is news";
 
 /* - Show Positive */
 "Home_Finding_Positive_Card_Status_Title" = "SARS-CoV-2 positive";
@@ -1611,30 +1658,10 @@
 /* New Version Features */
 "NewVersionFeatures_Info_about_abb_information" = "Changes in this release can be found in the app information, under “New Features”.";
 
-/* Version 2.20 */
-"NewVersionFeature_220_highRiskShortened_title" = "Report of Increased Risk Shortened";
+/* Version 2.22 */
+"NewVersionFeature_222_family_members_RAT_profile_Title" = "Rapid Test Profiles for Family Members";
 
-"NewVersionFeature_220_highRiskShortened_description" = "An increased risk after an exposure is now only displayed for 10 days instead of 14.";
-
-"NewVersionFeature_220_displayRiskPositiveResult_title" = "Risk Report after Positive Test Result";
-
-"NewVersionFeature_220_displayRiskPositiveResult_description" = "The red tile for increased risk is now displayed after an exposure even if you have registered a positive test in the Corona-Warn-App. Your risk status is shown again seven days after the positive test.";
-
-"NewVersionFeature_220_notificateRiskEncounter_title" = "Message for New Exposure";
-
-"NewVersionFeature_220_notificateRiskEncounter_description" = "If you have another exposure with increased risk after a previous exposure, a notification will now be displayed for this exposure as well.";
-
-"NewVersionFeature_220_notificationStatusChange_title" = "Report of Status Change";
-
-"NewVersionFeature_220_notificationStatusChange_description" = "If your status has changed (because you added a certificate, for example, or because the rules have changed), you will be notified of this on the Certificates tab.";
-
-"NewVersionFeature_220_recoveryCertificatesDetails_title" = "Certificates of Recovery without Validity Data";
-
-"NewVersionFeature_220_recoveryCertificatesDetails_description" = "Validity data is no longer displayed for certificates of recovery, because their validity depends on the local rules. The date of the first positive test is now displayed instead.";
-
-"NewVersionFeature_220_removeQRCode_title" = "Duplicate QR Code Removed";
-
-"NewVersionFeature_220_removeQRCode_description" = "The QR code for your currently used certificate has been removed from the detail screen for individuals, creating more space for notifications and decluttering the screen in general. The QR code is also contained in the certificate overview and is therefore not needed on the detail screen.";
+"NewVersionFeature_222_family_members_RAT_profile_description" = "You can now create rapid test profiles for your family members, to speed up registration at testing points. Once you do, you only have to present the QR code for the respective rapid test profile to provide the personal information.";
 
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Transnational Exposure Logging";
@@ -1746,6 +1773,11 @@
 "TestResultPositive_KeysSubmitted_PrimaryButton" = "Delete Test";
 
 /* Contact Diary */
+/* Error */
+"ContactDiary_Overview_Error_Title" = "Error";
+
+"ContactDiary_Overview_Error_Description" = "The data from your contact journal could not be loaded. The contact journal had to be reset as a result. Error: %@";
+
 /* Overview */
 "ContactDiary_Overview_Button_Title_Menu" = "Menu";
 
@@ -2933,6 +2965,23 @@
 
 "HealthCertificate_Details_moreButtonTitle" = "More";
 
+/* HealthCertificate Family Consent */
+"HealthCertificate_FamilyMemberConsent_Title" = "Your Consent";
+
+"HealthCertificate_FamilyMemberConsent_ImageDescription" = "A family with several members; there is a document with a QR code in the background.";
+
+"HealthCertificate_FamilyMemberConsent_Headline" = "Retrieve test result for a family member";
+
+"HealthCertificate_FamilyMemberConsent_InputTitle" = "Name of the person who was tested:";
+
+"HealthCertificate_FamilyMemberConsent_InputPlaceholder" = "Name";
+
+"HealthCertificate_FamilyMemberConsent_Body01" = "You are registering a test for a family member. If this is your test, please go back and select “For me”. You must do this to warn others in case you are diagnosed with coronavirus.";
+
+"HealthCertificate_FamilyMemberConsent_Body02" = "If your family member’s test result is negative, you can request an official COVID test certificate in the next steps.";
+
+"HealthCertificate_FamilyMemberConsent_Primary" = "Accept";
+
 /* Health Certificate Delete Alert */
 "HealthCertificate_Alert_deleteButton" = "Delete Certificate";
 
@@ -3158,9 +3207,11 @@
 
 "HealthCertificate_ValidityState_Invalid_description" = "The certificate was issued by an unauthorized body or was issued incorrectly. Please have an authorized body issue you a new certificate.";
 
-"HealthCertificate_ValidityState_Blocked" = "Certificate Invalid";
+"HealthCertificate_ValidityState_BlockedRevoked" = "Certificate Invalid";
 
-"HealthCertificate_ValidityState_Blocked_description" = "The certificate has been recalled by the issuing authority. Please get a new digital certificate.";
+"HealthCertificate_ValidityState_BlockedRevoked_description_de" = "The RKI has disabled the certificate as the result of a government decree. Please get a new digital certificate.";
+
+"HealthCertificate_ValidityState_BlockedRevoked_description_other" = "The issuing authority has disabled the certificate as the result of an administrative decision. Please get a new digital certificate.";
 
 /* Reissuance */
 /* HealthCertificate Resissuance Consent */
@@ -3179,14 +3230,6 @@
 "HealthCertificate_Reissuance_Consent_Delete_Notice" = "The old certificate will be moved automatically to the recycle bin and deleted after 30 days. The certificate can be restored at any time within these 30 days.";
 
 "HealthCertificate_Reissuance_Consent_Cancel_Notice" = "If you cancel now, you can request an update in the certificate overview at any time.";
-
-"HealthCertificate_Reissuance_Consent_Legal_Title" = "Your Consent";
-
-"HealthCertificate_Reissuance_Consent_Legal_Subtitle" = "By tapping “Agree”, you consent to the following steps:";
-
-"HealthCertificate_Reissuance_Consent_Legal_Bullet_1" = "The app sends the vaccination certificate to the RKI for verification.";
-
-"HealthCertificate_Reissuance_Consent_Legal_Bullet_2" = "The RKI checks the vaccination certificate, issues an updated certificate, and sends it to your app.";
 
 "HealthCertificate_Reissuance_Consent_Bullet_Point_1" = "Updating your certificate is voluntary and free of charge.";
 
@@ -3384,6 +3427,8 @@
 /* - Corona Test */
 "RecycleBin_CoronaTest_headline" = "Test";
 
+"RecycleBin_CoronaTest_familyMemberHeadline" = "Tests of family members";
+
 "RecycleBin_CoronaTest_pcrTest" = "PCR Test";
 
 "RecycleBin_CoronaTest_antigenTest" = "Rapid Test";
@@ -3558,4 +3603,63 @@
 "TicketValidation_Result_Failed_subtitle" = "Your certificate does not meet the provider’s requirements.";
 
 "TicketValidation_Result_Failed_description" = "If you have questions, please contact the provider “%@”.";
+
+/* Family Member Corona Test */
+"FamilyMemberCoronaTest_title" = "Tests of family members";
+
+"FamilyMemberCoronaTest_deleteAllButtonTitle" = "Delete all";
+
+"FamilyMemberCoronaTest_pcrCaption" = "PCR test diagnosis";
+
+"FamilyMemberCoronaTest_antigenCaption" = "Rapid test diagnosis";
+
+"FamilyMemberCoronaTest_pcrDate" = "Test added on %@";
+
+"FamilyMemberCoronaTest_antigenDate" = "Carried out on %@";
+
+"FamilyMemberCoronaTest_pendingDiagnosis" = "Your result is not yet available";
+
+"FamilyMemberCoronaTest_pendingPCRDescription" = "The evaluation of the PCR test is not done yet.";
+
+"FamilyMemberCoronaTest_pendingAntigenDescription" = "The evaluation of the rapid test is not done yet.";
+
+"FamilyMemberCoronaTest_negativeTopDiagnosis" = "SARS-CoV-2";
+
+"FamilyMemberCoronaTest_negativeBottomDiagnosis" = "Negative";
+
+"FamilyMemberCoronaTest_positiveTopDiagnosis" = "SARS-CoV-2";
+
+"FamilyMemberCoronaTest_positiveBottomDiagnosis" = "Positive";
+
+"FamilyMemberCoronaTest_invalidDiagnosis" = "Invalid test";
+
+"FamilyMemberCoronaTest_invalidDescription" = "The test cannot be evaluated.";
+
+"FamilyMemberCoronaTest_outdatedDiagnosis" = "Test No Longer Current";
+
+"FamilyMemberCoronaTest_outdatedDescription" = "The rapid test is more than %i hours old and will no longer be displayed here.";
+
+"FamilyMemberCoronaTest_outdatedButtonTitle" = "Don’t Display Again";
+
+"FamilyMemberCoronaTest_expiredDiagnosis" = "No Longer Valid";
+
+"FamilyMemberCoronaTest_expiredDescription" = "The test is more than 21 days old and is therefore no longer relevant.";
+
+"FamilyMemberCoronaTest_expiredButtonTitle" = "Delete Test";
+
+"FamilyMemberCoronaTest_DeleteOne_AlertTitle" = "Remove the test result?";
+
+"FamilyMemberCoronaTest_DeleteOne_AlertMessage" = "The test result will be moved to the recycle bin. You’ll find the recycle bin on the “More” tile of the status tab page.\nYou can permanently delete the test result or restore it there. The test result will be deleted automatically after 30 days.";
+
+"FamilyMemberCoronaTest_DeleteOne_AlertConfirmButtonTitle" = "Remove Test Result";
+
+"FamilyMemberCoronaTest_DeleteOne_AlertCancelButtonTitle" = "Cancel";
+
+"FamilyMemberCoronaTest_DeleteAll_AlertTitle" = "Remove the test results?";
+
+"FamilyMemberCoronaTest_DeleteAll_AlertMessage" = "The test results will be moved to the recycle bin. You’ll find the recycle bin on the “More” tile of the status tab page.\nYou can permanently delete the test results or restore them there. The test results will be deleted automatically after 30 days.";
+
+"FamilyMemberCoronaTest_DeleteAll_AlertConfirmButtonTitle" = "Remove Test Results";
+
+"FamilyMemberCoronaTest_DeleteAll_AlertCancelButtonTitle" = "Cancel";
 

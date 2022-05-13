@@ -15,7 +15,6 @@ class TraceLocationsCoordinator {
 		appConfig: AppConfigurationProviding,
 		qrCodePosterTemplateProvider: QRCodePosterTemplateProviding,
 		eventStore: EventStoringProviding,
-		client: Client,
 		parentNavigationController: UINavigationController,
 		qrScannerCoordinator: QRScannerCoordinator
 	) {
@@ -24,7 +23,6 @@ class TraceLocationsCoordinator {
 		self.appConfig = appConfig
 		self.qrCodePosterTemplateProvider = qrCodePosterTemplateProvider
 		self.eventStore = eventStore
-		self.client = client
 		self.parentNavigationController = parentNavigationController
 		self.qrScannerCoordinator = qrScannerCoordinator
 	}
@@ -52,7 +50,6 @@ class TraceLocationsCoordinator {
 	private let appConfig: AppConfigurationProviding
 	private let qrCodePosterTemplateProvider: QRCodePosterTemplateProviding
 	private let eventStore: EventStoringProviding
-	private let client: Client
 	private let qrScannerCoordinator: QRScannerCoordinator
 
 	private weak var parentNavigationController: UINavigationController!
@@ -292,7 +289,6 @@ class TraceLocationsCoordinator {
 			restServiceProvider: restServiceProvider,
 			appConfiguration: appConfig,
 			eventStore: eventStore,
-			client: client,
 			qrScannerCoordinator: qrScannerCoordinator
 		)
 

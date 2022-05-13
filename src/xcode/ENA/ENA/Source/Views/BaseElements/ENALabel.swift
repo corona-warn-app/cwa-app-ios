@@ -110,6 +110,7 @@ extension ENALabel {
 		case body
 		case subheadline
 		case footnote
+		case badge
 	}
 }
 
@@ -123,6 +124,7 @@ extension ENALabel.Style {
 		case .body: return 17
 		case .subheadline: return 15
 		case .footnote: return 13
+		case .badge: return 10
 		}
 	}
 	
@@ -134,6 +136,7 @@ extension ENALabel.Style {
 		case .body: return "regular"
 		case .subheadline: return "regular"
 		case .footnote: return "regular"
+		case .badge: return "bold"
 		}
 	}
 	
@@ -145,6 +148,7 @@ extension ENALabel.Style {
 		case .body: return .body
 		case .subheadline: return .subheadline
 		case .footnote: return .footnote
+		case .badge: return .caption1
 		}
 	}
 
@@ -156,6 +160,7 @@ extension ENALabel.Style {
 		case .body: return .regular
 		case .subheadline: return .regular
 		case .footnote: return .regular
+		case .badge: return .light
 		}
 	}
 
@@ -167,6 +172,7 @@ extension ENALabel.Style {
 		case .body: return .bold
 		case .subheadline: return .bold
 		case .footnote: return .bold
+		case .badge: return .bold
 		}
 	}
 
@@ -182,6 +188,7 @@ extension ENAFont {
 		case .body: return .body
 		case .subheadline: return .subheadline
 		case .footnote: return .footnote
+		case .badge: return .badge
 		}
 	}
 }

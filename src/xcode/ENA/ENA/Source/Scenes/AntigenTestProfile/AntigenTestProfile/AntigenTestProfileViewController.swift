@@ -3,20 +3,21 @@
 //
 
 import UIKit
+import OpenCombine
 
 class AntigenTestProfileViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, FooterViewHandling, DismissHandling {
 
 	// MARK: - Init
 
 	init(
-		store: AntigenTestProfileStoring,
-		didTapContinue: @escaping (@escaping (Bool) -> Void) -> Void,
+		viewModel: AntigenTestProfileViewModel,
+		didTapContinue: @escaping ((@escaping (Bool) -> Void), AntigenTestProfile) -> Void,
 		didTapProfileInfo: @escaping () -> Void,
-		didTapEditProfile: @escaping () -> Void,
+		didTapEditProfile: @escaping (AntigenTestProfile) -> Void,
 		didTapDeleteProfile: @escaping () -> Void,
 		dismiss: @escaping () -> Void
 	) {
-		self.viewModel = AntigenTestProfileViewModel(store: store)
+		self.viewModel = viewModel
 		self.didTapContinue = didTapContinue
 		self.didTapProfileInfo = didTapProfileInfo
 		self.didTapEditProfile = didTapEditProfile
@@ -24,6 +25,13 @@ class AntigenTestProfileViewController: UIViewController, UITableViewDataSource,
 		self.dismiss = dismiss
 
 		super.init(nibName: nil, bundle: nil)
+		
+		viewModel.$antigenTestProfile
+			.receive(on: DispatchQueue.main.ocombine)
+			.sink { [weak self] _ in
+				self?.tableView.reloadData()
+			}.store(in: &subscriptions)
+		
 	}
 
 	@available(*, unavailable)
@@ -59,7 +67,6 @@ class AntigenTestProfileViewController: UIViewController, UITableViewDataSource,
 
 		setupNavigationBar(animated: animated)
 
-		viewModel.refreshProfile()
 		tableView.reloadData()
 	}
 
@@ -73,7 +80,7 @@ class AntigenTestProfileViewController: UIViewController, UITableViewDataSource,
 	func didTapFooterViewButton(_ type: FooterViewModel.ButtonType) {
 		switch type {
 		case .primary:
-			didTapContinue({ _ in Log.debug("is loading closure here") })
+			didTapContinue({ _ in Log.debug("is loading closure here") }, viewModel.antigenTestProfile)
 		case .secondary:
 			let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
 			alertController.addAction(UIAlertAction(title: AppStrings.AntigenProfile.Profile.infoActionTitle, style: .default, handler: { [weak self] _ in
@@ -81,7 +88,10 @@ class AntigenTestProfileViewController: UIViewController, UITableViewDataSource,
 			}))
 
 			let editAction = UIAlertAction(title: AppStrings.AntigenProfile.Profile.editActionTitle, style: .default, handler: { [weak self] _ in
-				self?.didTapEditProfile()
+				guard let antigenTestProfile = self?.viewModel.antigenTestProfile else {
+					return
+				}
+				self?.didTapEditProfile(antigenTestProfile)
 			})
 			editAction.accessibilityIdentifier = AccessibilityIdentifiers.ExposureSubmission.AntigenTest.Profile.editAction
 			alertController.addAction(editAction)
@@ -156,9 +166,9 @@ class AntigenTestProfileViewController: UIViewController, UITableViewDataSource,
 	// MARK: - Private
 	
 	private var viewModel: AntigenTestProfileViewModel
-	private let didTapContinue: (@escaping (Bool) -> Void) -> Void
+	private let didTapContinue: ((@escaping (Bool) -> Void), AntigenTestProfile) -> Void
 	private let didTapProfileInfo: () -> Void
-	private let didTapEditProfile: () -> Void
+	private let didTapEditProfile: (AntigenTestProfile) -> Void
 	private let didTapDeleteProfile: () -> Void
 	private let dismiss: () -> Void
 	private let backgroundView = GradientBackgroundView(type: .blueOnly)
@@ -168,9 +178,10 @@ class AntigenTestProfileViewController: UIViewController, UITableViewDataSource,
 	private var tableContentObserver: NSKeyValueObservation!
 	private var originalBackgroundImage: UIImage?
 	private var originalShadowImage: UIImage?
-
+	private var subscriptions = [AnyCancellable]()
+	
 	private func setupNavigationBar(animated: Bool) {
-		let logoImage = UIImage(imageLiteralResourceName: "Corona-Warn-App").withRenderingMode(.alwaysTemplate)
+		let logoImage = UIImage(imageLiteralResourceName: "Corona-Warn-App-Small").withRenderingMode(.alwaysTemplate)
 		let logoImageView = UIImageView(image: logoImage)
 		logoImageView.tintColor = .enaColor(for: .textContrast)
 

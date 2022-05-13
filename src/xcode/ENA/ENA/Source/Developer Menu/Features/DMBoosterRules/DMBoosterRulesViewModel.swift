@@ -64,7 +64,8 @@ final class DMBoosterRulesViewModel {
 						mostRelevantCertificate: dccWalletInfo.mostRelevantCertificate,
 						verification: dccWalletInfo.verification,
 						validUntil: dccWalletInfo.validUntil,
-						certificateReissuance: dccWalletInfo.certificateReissuance
+						certificateReissuance: dccWalletInfo.certificateReissuance,
+						certificatesRevokedByInvalidationRules: dccWalletInfo.certificatesRevokedByInvalidationRules
 					)
 					self.refreshTableView([TableViewSections.cachedPassedBoosterRule.rawValue])
 				}

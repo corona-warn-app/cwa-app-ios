@@ -1055,7 +1055,7 @@ class ContactDiaryStoreTests: CWATestCase {
 
 	func test_when_storeIsCorrupted_then_makeDeletesAndRecreatesStore() throws {
 		let tempDatabaseURL = try makeTempDatabaseURL()
-		let store = ContactDiaryStore.make(url: tempDatabaseURL)
+		let store = ContactDiaryStore.make(url: tempDatabaseURL).store
 		_ = store.addContactPerson(name: "Some Name")
 		let daysVisible = store.userVisiblePeriodInDays
 
@@ -1070,7 +1070,7 @@ class ContactDiaryStoreTests: CWATestCase {
 			XCTFail("Error is not expected: \(error)")
 		}
 
-		let storeAfterRescue = ContactDiaryStore.make(url: tempDatabaseURL)
+		let storeAfterRescue = ContactDiaryStore.make(url: tempDatabaseURL).store
 		_ = storeAfterRescue.addContactPerson(name: "Some Name")
 		let numberOfEntriesAfterRescue = storeAfterRescue.diaryDaysPublisher.value.reduce(0) { $0 + $1.entries.count }
 		XCTAssertEqual(numberOfEntriesAfterRescue, daysVisible)
@@ -1341,15 +1341,20 @@ class ContactDiaryStoreTests: CWATestCase {
 			_migrator = SerialDatabaseQueueMigrator(queue: databaseQueue, latestVersion: 5, migrations: [])
 		}
 
-		guard let store = ContactDiaryStore(
+		let store = ContactDiaryStore(
 			databaseQueue: databaseQueue,
 			schema: _schema,
 			key: "Dummy",
 			dateProvider: dateProvider,
 			migrator: _migrator
-		) else {
-			fatalError("Could not create content diary store.")
+		)
+		
+		_ = store.openAndSetup()
+		store.cleanup()
+		store.databaseQueue.inDatabase { database in
+			store.updateDiaryDays(with: database)
 		}
+		store.registerToDidBecomeActiveNotification()
 
 		return store
 	}

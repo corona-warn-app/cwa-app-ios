@@ -9,15 +9,15 @@ class TicketValidationCertificateSelectionViewModelTests: XCTestCase {
 
 	func testGIVEN_Certificates_WHEN_CertificateSelectionModelIsCreatedWithTwoTypes_THEN_ModelIsSetupCorrectly() throws {
 		let vaccinationCertificate = try HealthCertificate(
-			base45: try base45Fake(from: .fake(name: .fake(familyName: "Schneider", givenName: "Andrea", standardizedFamilyName: "SCHNEIDER", standardizedGivenName: "ANDREA"), vaccinationEntries: [.fake()]))
+			base45: try base45Fake(digitalCovidCertificate: .fake(name: .fake(familyName: "Schneider", givenName: "Andrea", standardizedFamilyName: "SCHNEIDER", standardizedGivenName: "ANDREA"), vaccinationEntries: [.fake()]))
 		)
 
 		let recoveryCertificate = try HealthCertificate(
-			base45: try base45Fake(from: .fake(name: .fake(familyName: "Schneider", givenName: "Andrea", standardizedFamilyName: "SCHNEIDER", standardizedGivenName: "ANDREA"), recoveryEntries: [.fake()]))
+			base45: try base45Fake(digitalCovidCertificate: .fake(name: .fake(familyName: "Schneider", givenName: "Andrea", standardizedFamilyName: "SCHNEIDER", standardizedGivenName: "ANDREA"), recoveryEntries: [.fake()]))
 		)
 		
 		let testCertificate = try HealthCertificate(
-			base45: try base45Fake(from: .fake(name: .fake(familyName: "Schneider", givenName: "Andrea", standardizedFamilyName: "SCHNEIDER", standardizedGivenName: "ANDREA"), testEntries: [.fake()]))
+			base45: try base45Fake(digitalCovidCertificate: .fake(name: .fake(familyName: "Schneider", givenName: "Andrea", standardizedFamilyName: "SCHNEIDER", standardizedGivenName: "ANDREA"), testEntries: [.fake()]))
 		)
 		
 		let certifiedPerson = HealthCertifiedPerson(healthCertificates: [vaccinationCertificate, recoveryCertificate, testCertificate])
@@ -34,15 +34,15 @@ class TicketValidationCertificateSelectionViewModelTests: XCTestCase {
 	
 	func testGIVEN_Certificates_WHEN_CertificateSelectionModelIsCreatedWithOneType_THEN_ModelIsSetupCorrectly() throws {
 		let vaccinationCertificate = try HealthCertificate(
-			base45: try base45Fake(from: .fake(name: .fake(familyName: "Schneider", givenName: "Andrea", standardizedFamilyName: "SCHNEIDER", standardizedGivenName: "ANDREA"), vaccinationEntries: [.fake()]))
+			base45: try base45Fake(digitalCovidCertificate: .fake(name: .fake(familyName: "Schneider", givenName: "Andrea", standardizedFamilyName: "SCHNEIDER", standardizedGivenName: "ANDREA"), vaccinationEntries: [.fake()]))
 		)
 
 		let recoveryCertificate = try HealthCertificate(
-			base45: try base45Fake(from: .fake(name: .fake(familyName: "Schneider", givenName: "Andrea", standardizedFamilyName: "SCHNEIDER", standardizedGivenName: "ANDREA"), recoveryEntries: [.fake()]))
+			base45: try base45Fake(digitalCovidCertificate: .fake(name: .fake(familyName: "Schneider", givenName: "Andrea", standardizedFamilyName: "SCHNEIDER", standardizedGivenName: "ANDREA"), recoveryEntries: [.fake()]))
 		)
 		
 		let testCertificate = try HealthCertificate(
-			base45: try base45Fake(from: .fake(name: .fake(familyName: "Schneider", givenName: "Andrea", standardizedFamilyName: "SCHNEIDER", standardizedGivenName: "ANDREA"), testEntries: [.fake()]))
+			base45: try base45Fake(digitalCovidCertificate: .fake(name: .fake(familyName: "Schneider", givenName: "Andrea", standardizedFamilyName: "SCHNEIDER", standardizedGivenName: "ANDREA"), testEntries: [.fake()]))
 		)
 		
 		let certifiedPerson = HealthCertifiedPerson(healthCertificates: [vaccinationCertificate, recoveryCertificate, testCertificate])
@@ -59,15 +59,15 @@ class TicketValidationCertificateSelectionViewModelTests: XCTestCase {
 
 	func testGIVEN_Certificates_WHEN_CertificateSelectionModelIsCreatedWithNoType_THEN_ModelIsSetupCorrectly() throws {
 		let vaccinationCertificate = try HealthCertificate(
-			base45: try base45Fake(from: .fake(name: .fake(familyName: "Schneider", givenName: "Andrea", standardizedFamilyName: "SCHNEIDER", standardizedGivenName: "ANDREA"), vaccinationEntries: [.fake()]))
+			base45: try base45Fake(digitalCovidCertificate: .fake(name: .fake(familyName: "Schneider", givenName: "Andrea", standardizedFamilyName: "SCHNEIDER", standardizedGivenName: "ANDREA"), vaccinationEntries: [.fake()]))
 		)
 
 		let recoveryCertificate = try HealthCertificate(
-			base45: try base45Fake(from: .fake(name: .fake(familyName: "Schneider", givenName: "Andrea", standardizedFamilyName: "SCHNEIDER", standardizedGivenName: "ANDREA"), recoveryEntries: [.fake()]))
+			base45: try base45Fake(digitalCovidCertificate: .fake(name: .fake(familyName: "Schneider", givenName: "Andrea", standardizedFamilyName: "SCHNEIDER", standardizedGivenName: "ANDREA"), recoveryEntries: [.fake()]))
 		)
 		
 		let testCertificate = try HealthCertificate(
-			base45: try base45Fake(from: .fake(name: .fake(familyName: "Schneider", givenName: "Andrea", standardizedFamilyName: "SCHNEIDER", standardizedGivenName: "ANDREA"), testEntries: [.fake()]))
+			base45: try base45Fake(digitalCovidCertificate: .fake(name: .fake(familyName: "Schneider", givenName: "Andrea", standardizedFamilyName: "SCHNEIDER", standardizedGivenName: "ANDREA"), testEntries: [.fake()]))
 		)
 		
 		let certifiedPerson = HealthCertifiedPerson(healthCertificates: [vaccinationCertificate, recoveryCertificate, testCertificate])
@@ -84,15 +84,15 @@ class TicketValidationCertificateSelectionViewModelTests: XCTestCase {
 	
 	func testGIVEN_Certificates_WHEN_CertificateSelectionModelIsCreatedWithDifferentPerson_THEN_ModelIsSetupCorrectly() throws {
 		let vaccinationCertificate = try HealthCertificate(
-			base45: try base45Fake(from: .fake(name: .fake(familyName: "Schneider", givenName: "Andrea", standardizedFamilyName: "SCHNEIDER", standardizedGivenName: "ANDREA"), vaccinationEntries: [.fake()]))
+			base45: try base45Fake(digitalCovidCertificate: .fake(name: .fake(familyName: "Schneider", givenName: "Andrea", standardizedFamilyName: "SCHNEIDER", standardizedGivenName: "ANDREA"), vaccinationEntries: [.fake()]))
 		)
 
 		let recoveryCertificate = try HealthCertificate(
-			base45: try base45Fake(from: .fake(name: .fake(familyName: "Schneider", givenName: "Andrea", standardizedFamilyName: "SCHNEIDER", standardizedGivenName: "ANDREA"), recoveryEntries: [.fake()]))
+			base45: try base45Fake(digitalCovidCertificate: .fake(name: .fake(familyName: "Schneider", givenName: "Andrea", standardizedFamilyName: "SCHNEIDER", standardizedGivenName: "ANDREA"), recoveryEntries: [.fake()]))
 		)
 		
 		let testCertificate = try HealthCertificate(
-			base45: try base45Fake(from: .fake(name: .fake(familyName: "Schneider", givenName: "Andrea", standardizedFamilyName: "SCHNEIDER", standardizedGivenName: "ANDREA"), testEntries: [.fake()]))
+			base45: try base45Fake(digitalCovidCertificate: .fake(name: .fake(familyName: "Schneider", givenName: "Andrea", standardizedFamilyName: "SCHNEIDER", standardizedGivenName: "ANDREA"), testEntries: [.fake()]))
 		)
 		
 		let certifiedPerson = HealthCertifiedPerson(healthCertificates: [vaccinationCertificate, recoveryCertificate, testCertificate])

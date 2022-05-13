@@ -12,7 +12,7 @@ final class HealthCertificateReissuanceConsentViewModel {
 
 	init(
 		cclService: CCLServable,
-		certificate: HealthCertificate,
+		certificates: [HealthCertificate],
 		certifiedPerson: HealthCertifiedPerson,
 		appConfigProvider: AppConfigurationProviding,
 		restServiceProvider: RestServiceProviding,
@@ -20,7 +20,7 @@ final class HealthCertificateReissuanceConsentViewModel {
 		onDisclaimerButtonTap: @escaping () -> Void
 	) {
 		self.cclService = cclService
-		self.certificate = certificate
+		self.certificates = certificates
 		self.certifiedPerson = certifiedPerson
 		self.appConfigProvider = appConfigProvider
 		self.restServiceProvider = restServiceProvider
@@ -33,19 +33,31 @@ final class HealthCertificateReissuanceConsentViewModel {
 	let title: String = AppStrings.HealthCertificate.Reissuance.Consent.title
 
 	var dynamicTableViewModel: DynamicTableViewModel {
-		DynamicTableViewModel(
-			[
+		DynamicTableViewModel.with {
+			$0.add(
 				.section(
 					cells: [
-						.certificate(certificate, certifiedPerson: certifiedPerson),
+						listTitleDynamicCell
+					]
+					.compactMap({ $0 })
+				)
+			)
+			for certificate in certificates {
+				$0.add(
+					.section(
+						cells: [
+							.certificate(certificate, certifiedPerson: certifiedPerson)
+						]
+						.compactMap({ $0 })
+					)
+				)
+			}
+			$0.add(
+				.section(
+					cells: [
 						titleDynamicCell,
 						subtitleDynamicCell,
-						longTextDynamicCell
-					]
-						.compactMap({ $0 })
-				),
-				.section(
-					cells: [
+						longTextDynamicCell,
 						.icon(
 							UIImage(imageLiteralResourceName: "more_recycle_bin"),
 							text: .string(AppStrings.HealthCertificate.Reissuance.Consent.deleteNotice),
@@ -56,28 +68,32 @@ final class HealthCertificateReissuanceConsentViewModel {
 							text: .string(AppStrings.HealthCertificate.Reissuance.Consent.cancelNotice),
 							alignment: .top
 						)
-					]
-				),
+				    ]
+				    .compactMap({ $0 })
+			   )
+			)
+			$0.add(
 				.section(
-					cells:
-						[
-							.legalExtended(
-								title: NSAttributedString(string: AppStrings.HealthCertificate.Reissuance.Consent.legalTitle),
-								subheadline1: attributedStringWithRegularText(text: AppStrings.HealthCertificate.Reissuance.Consent.legalSubtitle),
-								bulletPoints1: [
-									attributedStringWithBoldText(text: AppStrings.HealthCertificate.Reissuance.Consent.legalBullet1),
-									attributedStringWithBoldText(text: AppStrings.HealthCertificate.Reissuance.Consent.legalBullet2)
-								],
-								subheadline2: nil
-							),
-							.bulletPoint(text: AppStrings.HealthCertificate.Reissuance.Consent.bulletPoint_1),
-							.bulletPoint(text: AppStrings.HealthCertificate.Reissuance.Consent.bulletPoint_2),
-							.space(height: 8.0),
-							faqLinkDynamicCell,
-							.space(height: 8.0)
-						]
-						.compactMap({ $0 })
-				),
+					cells: [
+						.legalExtended(
+							title: NSAttributedString(string: AppStrings.HealthCertificate.Reissuance.Consent.legalTitle),
+							subheadline1: attributedStringWithRegularText(text: AppStrings.HealthCertificate.Reissuance.Consent.legalSubtitle),
+							bulletPoints1: [
+								attributedStringWithBoldText(text: AppStrings.HealthCertificate.Reissuance.Consent.legalBullet1),
+								attributedStringWithBoldText(text: AppStrings.HealthCertificate.Reissuance.Consent.legalBullet2)
+							],
+							subheadline2: nil
+						),
+						.bulletPoint(text: AppStrings.HealthCertificate.Reissuance.Consent.bulletPoint_1),
+						.bulletPoint(text: AppStrings.HealthCertificate.Reissuance.Consent.bulletPoint_2),
+						.space(height: 8.0),
+						faqLinkDynamicCell,
+						.space(height: 8.0)
+					]
+					.compactMap({ $0 })
+				)
+			)
+			$0.add(
 				.section(
 					separators: .all,
 					cells: [
@@ -96,8 +112,8 @@ final class HealthCertificateReissuanceConsentViewModel {
 						)
 					]
 				)
-			]
-		)
+			)
+		}
 	}
 
 	func markCertificateReissuanceAsSeen() {
@@ -128,65 +144,35 @@ final class HealthCertificateReissuanceConsentViewModel {
 					publicKeyHash: appConfig.dgcParameters.reissueServicePublicKeyDigest,
 					certificatePosition: 0
 				)
+				guard let wallet = self.certifiedPerson.dccWalletInfo else {
+					Log.error("Reissuance request failed due to dccWalletInfo being nil", log: .vaccination)
+					return
+				}
+				guard let currentCertificates = wallet.certificateReissuance?.certificates else {
+					Log.error("Reissuance request failed due to certificates being nil", log: .vaccination)
+					return
+				}
 				
-				guard let certificateToReissue = self.certifiedPerson.dccWalletInfo?.certificateReissuance?.certificateToReissue.certificateRef.barcodeData,
-					  let certificateToReissueRef = self.certifiedPerson.dccWalletInfo?.certificateReissuance?.certificateToReissue.certificateRef else {
-						  completion(.failure(.certificateToReissueMissing))
-						  Log.error("Certificate reissuance failed: certificate to reissue is missing", log: .vaccination)
-						  return
-					  }
-				
-				let accompanyingCertificates = self.certifiedPerson.dccWalletInfo?.certificateReissuance?.accompanyingCertificates.compactMap {
-					$0.certificateRef.barcodeData
-				} ?? []
-				
-				let certificates = [certificateToReissue] + accompanyingCertificates
-				let sendModel = DCCReissuanceSendModel(certificates: certificates)
-				let resource = DCCReissuanceResource(
-					sendModel: sendModel,
-					trustEvaluation: trustEvaluation
-				)
-				
-				self.restServiceProvider.load(resource) { [weak self] result in
-					guard let self = self else {
-						completion(.failure(.submitFailedError))
-						Log.error("Reissuance request failed due to self being nil", log: .vaccination)
+				for certificate in currentCertificates {
+					guard let certificateToReissue = certificate.certificateToReissue.certificateRef.barcodeData else {
+						completion(.failure(.certificateToReissueMissing))
+						Log.error("Certificate reissuance failed: certificateToReissue.barcodeData is nil", log: .vaccination)
 						return
 					}
 					
-					switch result {
-					case .success(let certificates):
-						let certificate = certificates.first { certificate in
-							return certificate.relations.contains { relation in
-								relation.index == 0 && relation.action == "replace"
-							}
-						}
-						
-						guard let certificate = certificate else {
-							completion(.failure(.noRelation))
-							Log.error("Replacing the certificate with a reissued certificate failed, no relation found", log: .vaccination)
-							return
-						}
-						
-						do {
-							try self.healthCertificateService.replaceHealthCertificate(
-								oldCertificateRef: certificateToReissueRef,
-								with: certificate.certificate,
-								for: self.certifiedPerson,
-								markAsNew: true
-							)
-							
-							Log.error("Certificate reissuance was successful.", log: .vaccination)
-							completion(.success(()))
-						} catch {
-							completion(.failure(.replaceHealthCertificateError(error)))
-							Log.error("Replacing the certificate with a reissued certificate failed in service", log: .vaccination, error: error)
-						}
-						
-					case .failure(let error):
-						completion(.failure(.restServiceError(error)))
-						Log.error("Reissuance request failed", log: .vaccination, error: error)
-					}
+					let accompanyingCertificates = certificate.accompanyingCertificates.compactMap { $0.certificateRef.barcodeData }
+					
+					let requestCertificates = [certificateToReissue] + accompanyingCertificates
+					let sendModel = DCCReissuanceSendModel(action: certificate.action, certificates: requestCertificates)
+					let resource = DCCReissuanceResource(
+						sendModel: sendModel,
+						trustEvaluation: trustEvaluation
+					)
+					self.submit(
+						with: resource,
+						requestCertificates: requestCertificates,
+						completion: completion
+					)
 				}
 			}
 			.store(in: &subscriptions)
@@ -195,13 +181,51 @@ final class HealthCertificateReissuanceConsentViewModel {
 	// MARK: - Private
 
 	private let cclService: CCLServable
-	private let certificate: HealthCertificate
+	private let certificates: [HealthCertificate]
 	private let certifiedPerson: HealthCertifiedPerson
 	private let onDisclaimerButtonTap: () -> Void
 	private let appConfigProvider: AppConfigurationProviding
 	private let restServiceProvider: RestServiceProviding
 	private let healthCertificateService: HealthCertificateServiceServable
 	private var subscriptions = Set<AnyCancellable>()
+	
+	private func submit(
+		with resource: DCCReissuanceResource,
+		requestCertificates: [String],
+		completion: @escaping (Result<Void, HealthCertificateReissuanceError>) -> Void
+	) {
+		self.restServiceProvider.load(resource) { [weak self] result in
+			guard let self = self else {
+				completion(.failure(.submitFailedError))
+				Log.error("Reissuance request failed due to self being nil", log: .vaccination)
+				return
+			}
+			
+			switch result {
+			case .success(let certificates):
+				do {
+					try self.healthCertificateService.replaceHealthCertificate(
+						requestCertificates: requestCertificates,
+						with: certificates,
+						for: self.certifiedPerson,
+						markAsNew: true,
+						completedNotificationRegistration: { }
+					)
+					
+					completion(.success(()))
+					
+					Log.error("Certificate reissuance was successful.", log: .vaccination)
+				} catch {
+					completion(.failure(.replaceHealthCertificateError(error)))
+					Log.error("Replacing the certificate with a reissued certificate failed in service", log: .vaccination, error: error)
+				}
+				
+			case .failure(let error):
+				completion(.failure(.restServiceError(error)))
+				Log.error("Reissuance request failed", log: .vaccination, error: error)
+			}
+		}
+	}
 	
 	private let normalTextAttribute: [NSAttributedString.Key: Any] = [
 		NSAttributedString.Key.font: UIFont.enaFont(for: .body)
@@ -219,6 +243,17 @@ final class HealthCertificateReissuanceConsentViewModel {
 		return NSMutableAttributedString(string: "\(text)", attributes: boldTextAttribute)
 	}
 
+	private var listTitleDynamicCell: DynamicCell? {
+		guard let listTitle = certifiedPerson.dccWalletInfo?.certificateReissuance?.reissuanceDivision.listTitleText?.localized(cclService: cclService) else {
+			Log.info("listTitle missing")
+			return nil
+		}
+		return DynamicCell.body(text: listTitle, color: .enaColor(for: .textPrimary2)) { _, cell, _ in
+			cell.contentView.preservesSuperviewLayoutMargins = false
+			cell.contentView.layoutMargins.top = 0
+		}
+	}
+	
 	private var titleDynamicCell: DynamicCell? {
 		guard let title = certifiedPerson.dccWalletInfo?.certificateReissuance?.reissuanceDivision.titleText?.localized(cclService: cclService) else {
 			Log.info("title missing")
@@ -228,11 +263,19 @@ final class HealthCertificateReissuanceConsentViewModel {
 	}
 
 	private var subtitleDynamicCell: DynamicCell? {
-		guard let subtitle = certifiedPerson.dccWalletInfo?.certificateReissuance?.reissuanceDivision.subtitleText?.localized(cclService: cclService) else {
-			Log.info("subtitle missing")
+		if let consentSubtitleText = certifiedPerson.dccWalletInfo?.certificateReissuance?.reissuanceDivision.consentSubtitleText?.localized(cclService: cclService) {
+			return DynamicCell.subheadline(text: consentSubtitleText, color: .enaColor(for: .textPrimary2)) { _, cell, _ in
+				cell.contentView.preservesSuperviewLayoutMargins = false
+				cell.contentView.layoutMargins.top = 0
+			}
+		} else if let subtitle = certifiedPerson.dccWalletInfo?.certificateReissuance?.reissuanceDivision.subtitleText?.localized(cclService: cclService) {
+			return DynamicCell.subheadline(text: subtitle, color: .enaColor(for: .textPrimary2)) { _, cell, _ in
+				cell.contentView.preservesSuperviewLayoutMargins = false
+				cell.contentView.layoutMargins.top = 0
+			}
+		} else {
 			return nil
 		}
-		return DynamicCell.subheadline(text: subtitle, color: .enaColor(for: .textPrimary2))
 	}
 
 	private var longTextDynamicCell: DynamicCell? {

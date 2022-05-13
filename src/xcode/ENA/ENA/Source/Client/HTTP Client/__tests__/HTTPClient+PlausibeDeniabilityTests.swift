@@ -84,36 +84,37 @@ class HTTPClientPlausibleDeniabilityTests: CWATestCase {
 	}
 
 	private func compareSubmitRequestPadding(for keys: [ENTemporaryExposureKey]) {
-
 		// Setup.
 		var realRequestBodySize = Int.max
 		var fakeRequestBodySize = Int.min
 
-		let expectation = self.expectation(description: "all callbacks called")
-		expectation.expectedFulfillmentCount = 4
-
-		let realSession = MockUrlSession(data: nil, nextResponse: nil, error: nil) { request in
-			expectation.fulfill()
-			realRequestBodySize = request.httpBody?.count ?? 1
-		}
-
-		let fakeSession = MockUrlSession(data: nil, nextResponse: nil, error: nil) { request in
-			expectation.fulfill()
-			fakeRequestBodySize = request.httpBody?.count ?? -1
-		}
-
-		let realStack = MockNetworkStack(mockSession: realSession)
-		let fakeStack = MockNetworkStack(mockSession: fakeSession)
-
-		let realClient = HTTPClient.makeWith(mock: realStack)
-		let fakeClient = HTTPClient.makeWith(mock: fakeStack)
-
 		// Test.
 		let payload = SubmissionPayload(exposureKeys: [], visitedCountries: [], checkins: [], checkinProtectedReports: [], tan: "dummyTan", submissionType: .pcrTest)
-		realClient.submit(payload: payload, isFake: false, completion: { _ in expectation.fulfill() })
-		fakeClient.submit(payload: payload, isFake: true, completion: { _ in expectation.fulfill() })
+		
+		let resource = KeySubmissionResource(payload: payload)
+		if case let .success(bodyData) = resource.sendResource.encode() {
+			do {
+				let data = try XCTUnwrap(bodyData)
+				realRequestBodySize = data.count
+			} catch {
+				XCTFail("Should unwrap data object \(error.localizedDescription)")
+			}
+		} else {
+			XCTFail("Wrong padding body size")
+		}
+		
+		let fakeResource = KeySubmissionResource(payload: payload, isFake: true)
+		if case let .success(bodyData) = fakeResource.sendResource.encode() {
+			do {
+				let data = try XCTUnwrap(bodyData)
+				fakeRequestBodySize = data.count
+			} catch {
+				XCTFail("Should unwrap data object \(error.localizedDescription)")
+			}
+		} else {
+			XCTFail("Wrong padding body size")
+		}
 
-		waitForExpectations(timeout: .short)
 		XCTAssertEqual(realRequestBodySize, fakeRequestBodySize)
 	}
 }

@@ -8,6 +8,7 @@ import Foundation
 
 enum DMMenuItem: Int, CaseIterable {
 	case healthCertificateMigration = 0
+	case revocationList
 	case cclConfig
 	case newHttp
 	case ticketValidation
@@ -43,6 +44,7 @@ enum DMMenuItem: Int, CaseIterable {
 	case dscLists
 	case notifications
 	case boosterRules
+	case crashApp
 }
 
 extension DMMenuItem {
@@ -61,6 +63,7 @@ extension DMMenuItem {
 		switch self {
 		case .healthCertificateMigration: return "HealthCertificates migration"
 		case .cclConfig: return "CCL Configuration"
+		case .revocationList: return "Revocation List"
 		case .newHttp: return "New RestService - Only for DEVs"
 		case .ticketValidation: return "Ticket validation service"
 		case .keys: return "Keys"
@@ -95,12 +98,14 @@ extension DMMenuItem {
 		case .dscLists: return "DSC Lists"
 		case .notifications: return "Trigger Notifications"
 		case .boosterRules: return "Download Booster rules"
+		case .crashApp: return "Crash App"
 		}
 	}
 	var subtitle: String {
 		switch self {
 		case .healthCertificateMigration: return "Set migration version number"
 		case .cclConfig: return "Download forced or not the ccl configuration"
+		case .revocationList: return "Force update the revocation list"
 		case .newHttp: return "New RestService - Only for DEVs"
 		case .ticketValidation: return "Configure ticket validation service"
 		case .keys: return "View local Keys & generate test Keys"
@@ -135,6 +140,7 @@ extension DMMenuItem {
 		case .dscLists: return "Change DSC Lists"
 		case .notifications: return "Trigger Certificate notifications only"
 		case .boosterRules: return "Download Booster rules and trigger the notification"
+		case .crashApp: return "Crash the App to test crash reporting."
 		}
 	}
 }

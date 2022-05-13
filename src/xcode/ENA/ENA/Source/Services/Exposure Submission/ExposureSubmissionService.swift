@@ -6,6 +6,42 @@ import ExposureNotification
 import Foundation
 import OpenCombine
 
+enum ExposureSubmissionServicePreconditionError: LocalizedError, Equatable {
+	case noCoronaTestOfGivenType
+	case noCoronaTestTypeGiven
+	case noSubmissionConsent
+	case positiveTestResultNotShown
+	case keysNotShared
+	case noKeysCollected
+	
+	var errorDescription: String? {
+		switch self {
+		case .noKeysCollected:
+			return AppStrings.ExposureSubmissionError.noKeysCollected
+		default:
+			Log.error("\(self)", log: .api)
+			return AppStrings.ExposureSubmissionError.defaultError + "\n(\(String(describing: self)))"
+		}
+	}
+}
+
+enum ExposureSubmissionServiceError: LocalizedError, Equatable {
+	case coronaTestServiceError(CoronaTestServiceError)
+	case keySubmissionError(ServiceError<KeySubmissionResourceError>)
+	case preconditionError(ExposureSubmissionServicePreconditionError)
+	
+	var errorDescription: String? {
+		switch self {
+		case .coronaTestServiceError(let error):
+			return error.errorDescription
+		case .keySubmissionError(let error):
+			return error.errorDescription
+		case .preconditionError(let error):
+			return error.errorDescription
+		}
+	}
+}
+
 /// The `ENASubmissionSubmission Service` provides functions and attributes to access relevant information
 /// around the exposure submission process.
 /// Especially, when it comes to the `submissionConsent`, then only this service should be used to modify (change) the value of the current
@@ -19,30 +55,43 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 	init(
 		diagnosisKeysRetrieval: DiagnosisKeysRetrieval,
 		appConfigurationProvider: AppConfigurationProviding,
-		client: Client,
 		restServiceProvider: RestServiceProviding,
 		store: Store,
 		eventStore: EventStoringProviding,
 		deadmanNotificationManager: DeadmanNotificationManageable? = nil,
 		coronaTestService: CoronaTestServiceProviding
 	) {
+		
+		#if DEBUG
+		if isUITesting {
+			self.diagnosisKeysRetrieval = diagnosisKeysRetrieval
+			self.appConfigurationProvider = appConfigurationProvider
+			self.restServiceProvider = .exposureSubmissionServiceProvider
+			self.store = store
+			self.eventStore = eventStore
+			self.deadmanNotificationManager = deadmanNotificationManager ?? DeadmanNotificationManager()
+			self.coronaTestService = coronaTestService
+			
+			fakeRequestService = FakeRequestService(restServiceProvider: restServiceProvider)
+			return
+		}
+		#endif
+		
 		self.diagnosisKeysRetrieval = diagnosisKeysRetrieval
 		self.appConfigurationProvider = appConfigurationProvider
-		self.client = client
 		self.restServiceProvider = restServiceProvider
 		self.store = store
 		self.eventStore = eventStore
 		self.deadmanNotificationManager = deadmanNotificationManager ?? DeadmanNotificationManager()
 		self.coronaTestService = coronaTestService
-
-		fakeRequestService = FakeRequestService(client: client, restServiceProvider: restServiceProvider)
+		
+		fakeRequestService = FakeRequestService(restServiceProvider: restServiceProvider)
 	}
 
 	convenience init(dependencies: ExposureSubmissionServiceDependencies) {
 		self.init(
 			diagnosisKeysRetrieval: dependencies.exposureManager,
 			appConfigurationProvider: dependencies.appConfigurationProvider,
-			client: dependencies.client,
 			restServiceProvider: dependencies.restServiceProvider,
 			store: dependencies.store,
 			eventStore: dependencies.eventStore,
@@ -85,8 +134,13 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 
 		diagnosisKeysRetrieval.accessDiagnosisKeys { [weak self] keys, error in
 			if let error = error {
-				Log.error("Error while retrieving temporary exposure keys: \(error.localizedDescription)", log: .api)
-				completion(self?.parseError(error))
+				if let enError = error as? ENError {
+					Log.error("Error while retrieving temporary exposure keys: \(error.localizedDescription)", log: .api)
+					completion(enError.toExposureSubmissionError())
+				} else {
+					Log.error("Error while retrieving temporary exposure keys: unknown", log: .api)
+					completion(.unknown)
+				}
 
 				return
 			}
@@ -103,37 +157,37 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 	/// We prepend a fake request in order to guarantee the V+V+S sequence. Please kindly check `getTestResult` for more information.
 	func submitExposure(
 		coronaTestType: CoronaTestType,
-		completion: @escaping ExposureSubmissionHandler
+		completion: @escaping (_ error: ExposureSubmissionServiceError?) -> Void
 	) {
 		Log.info("Started exposure submission...", log: .api)
 
 		guard let coronaTest = coronaTestService.coronaTest(ofType: coronaTestType) else {
 			Log.info("Cancelled submission: No corona test of given type registered.", log: .api)
-			completion(.noCoronaTestOfGivenType)
+			completion(.preconditionError(.noCoronaTestOfGivenType))
 			return
 		}
 
 		guard coronaTest.isSubmissionConsentGiven else {
 			Log.info("Cancelled submission: Submission consent not given.", log: .api)
-			completion(.noSubmissionConsent)
+			completion(.preconditionError(.noSubmissionConsent))
 			return
 		}
 		
 		guard coronaTest.positiveTestResultWasShown else {
 			Log.info("Cancelled submission: User has never seen their positive test result", log: .api)
-			completion(.positiveTestResultNotShown)
+			completion(.preconditionError(.positiveTestResultNotShown))
 			return
 		}
 
 		guard let keys = temporaryExposureKeys else {
 			Log.info("Cancelled submission: No temporary exposure keys to submit.", log: .api)
-			completion(.keysNotShared)
+			completion(.preconditionError(.keysNotShared))
 			return
 		}
 
 		guard !keys.isEmpty || !checkins.isEmpty else {
 			Log.info("Cancelled submission: No temporary exposure keys or checkins to submit.", log: .api)
-			completion(.noKeysCollected)
+			completion(.preconditionError(.noKeysCollected))
 
 			// We perform a cleanup in order to set the correct
 			// timestamps, despite not having communicated with the backend,
@@ -202,7 +256,6 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 
 	private let diagnosisKeysRetrieval: DiagnosisKeysRetrieval
 	private let appConfigurationProvider: AppConfigurationProviding
-	private let client: Client
 	private let restServiceProvider: RestServiceProviding
 	private let store: Store
 	private let eventStore: EventStoringProviding
@@ -227,11 +280,11 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 	/// For details, check the methods `_submit()` and `_getTANForExposureSubmit()` specifically.
 	private func _submitExposure(
 		_ keys: [SAP_External_Exposurenotification_TemporaryExposureKey],
-		coronaTest: CoronaTest,
+		coronaTest: UserCoronaTest,
 		visitedCountries: [Country],
 		checkins: [SAP_Internal_Pt_CheckIn],
 		checkInProtectedReports: [SAP_Internal_Pt_CheckInProtectedReport],
-		completion: @escaping ExposureSubmissionHandler
+		completion: @escaping (_ error: ExposureSubmissionServiceError?) -> Void
 	) {
 		coronaTestService.getSubmissionTAN(for: coronaTest.type) { result in
 			switch result {
@@ -244,9 +297,14 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 					with: tan,
 					visitedCountries: visitedCountries,
 					checkins: checkins,
-					checkInProtectedReports: checkInProtectedReports,
-					completion: completion
-				)
+					checkInProtectedReports: checkInProtectedReports
+				) { error in
+					if let error = error {
+						completion(.keySubmissionError(error))
+					} else {
+						completion(nil)
+					}
+				}
 			}
 		}
 	}
@@ -256,12 +314,12 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 	/// For more information, please check _submitExposure().
 	private func _submit(
 		_ keys: [SAP_External_Exposurenotification_TemporaryExposureKey],
-		coronaTest: CoronaTest,
+		coronaTest: UserCoronaTest,
 		with tan: String,
 		visitedCountries: [Country],
 		checkins: [SAP_Internal_Pt_CheckIn],
 		checkInProtectedReports: [SAP_Internal_Pt_CheckInProtectedReport],
-		completion: @escaping ExposureSubmissionHandler
+		completion: @escaping (_ error: ServiceError<KeySubmissionResourceError>?) -> Void
 	) {
 		let payload = SubmissionPayload(
 			exposureKeys: keys,
@@ -271,10 +329,12 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 			tan: tan,
 			submissionType: coronaTest.protobufType
 		)
-		client.submit(payload: payload, isFake: false) { result in
+				
+		let resource = KeySubmissionResource(payload: payload)
+		restServiceProvider.load(resource) { result in
+			
 			switch result {
 			case .success:
-
 				Analytics.collect(.keySubmissionMetadata(.submittedAfterRapidAntigenTest(coronaTest.type)))
 				Analytics.collect(.keySubmissionMetadata(.setHoursSinceTestResult(coronaTest.type)))
 				Analytics.collect(.keySubmissionMetadata(.setHoursSinceTestRegistration(coronaTest.type)))
@@ -285,12 +345,13 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 				}
 
 				self.submitExposureCleanup(coronaTestType: coronaTest.type)
-				
+
 				Log.info("Successfully completed exposure submission.", log: .api)
 				completion(nil)
 			case .failure(let error):
 				Log.error("Error while submitting diagnosis keys: \(error.localizedDescription)", log: .api)
-				completion(self.parseError(error))
+				
+				completion(error)
 			}
 		}
 	}

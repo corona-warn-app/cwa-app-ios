@@ -10,8 +10,8 @@ class DigitalCovidCertificateFakeTests: XCTestCase {
     func test_When_makeFake_Then_CorrectFakeIsReturned() {
         let certificateAccess = DigitalCovidCertificateAccess()
         let result = DigitalCovidCertificateFake.makeBase45Fake(
-            from: testCertificate,
-            and: testHeader
+            certificate: testCertificate,
+            header: testHeader
         )
         
         guard case .success(let base45) = result else {

@@ -37,26 +37,58 @@ class RestServiceProvider: RestServiceProviding {
 			cachedRestService.load(resource, completion)
 		case .wifiOnly:
 			wifiOnlyRestService.load(resource, completion)
-		case .retrying:
-			Log.error("Not yet implemented")
 		}
 	}
 	
 	func cached<R>(
-		_ resource: R
-	) -> Result<R.Receive.ReceiveModel, ServiceError<R.CustomError>> where R: Resource {
+		_ resource: R,
+		_ completion: @escaping (Result<R.Receive.ReceiveModel, ServiceError<R.CustomError>>) -> Void
+	) where R: Resource {
 		switch resource.type {
 		case .default:
-			return standardRestService.cached(resource)
+			standardRestService.cached(resource, completion)
 		case .caching:
-			return cachedRestService.cached(resource)
+			cachedRestService.cached(resource, completion)
 		case .wifiOnly:
-			return wifiOnlyRestService.cached(resource)
-		default:
-			Log.error("Cache is not supported by that type of restService")
-			return .failure(.resourceError(.missingCache))
+			wifiOnlyRestService.cached(resource, completion)
 		}
 	}
+
+	func resetCache<R>(
+		for resource: R
+	) where R: Resource {
+		switch resource.type {
+		case .default:
+			standardRestService.resetCache(for: resource)
+		case .caching:
+			cachedRestService.resetCache(for: resource)
+		case .wifiOnly:
+			wifiOnlyRestService.resetCache(for: resource)
+		}
+	}
+
+#if !RELEASE
+	var isWifiOnlyActive: Bool {
+		wifiOnlyRestService.isWifiOnlyActive
+	}
+
+	func updateWiFiSession(wifiOnly: Bool) {
+		wifiOnlyRestService.updateSession(wifiOnly: wifiOnly)
+	}
+
+	func isDisabled(_ identifier: String) -> Bool {
+		wifiOnlyRestService.isDisabled(identifier)
+	}
+
+	func disable(_ identifier: String) {
+		wifiOnlyRestService.disable(identifier)
+	}
+
+	func enable(_ identifier: String) {
+		wifiOnlyRestService.enable(identifier)
+	}
+
+#endif
 
 	// MARK: - Private
 

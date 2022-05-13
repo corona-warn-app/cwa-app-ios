@@ -64,10 +64,9 @@ class AntigenExposureSubmissionNegativeTestResultHeaderView: DynamicTableViewHea
 		personLabel.translatesAutoresizingMaskIntoConstraints = false
 		wrapperView.addSubview(personLabel)
 		
-		let descriptionLabel = ENALabel()
+		descriptionLabel = ENALabel()
 		descriptionLabel.style = .subheadline
 		descriptionLabel.textColor = .enaColor(for: .textPrimary1)
-		descriptionLabel.text = AppStrings.ExposureSubmissionResult.Antigen.testNegativeDesc
 		descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
 		descriptionLabel.numberOfLines = 0
 		wrapperView.addSubview(descriptionLabel)
@@ -183,10 +182,11 @@ class AntigenExposureSubmissionNegativeTestResultHeaderView: DynamicTableViewHea
 		
 	// MARK: - Internal
 	
-	func configure(coronaTest: AntigenTest) {
+	func configure(coronaTest: UserAntigenTest) {
 		lineView.backgroundColor = coronaTest.testResult.color
 		imageView.image = coronaTest.testResult.image
 		subtitleLabel.text = AppStrings.ExposureSubmissionResult.Antigen.card_subtitle
+		descriptionLabel.text = AppStrings.ExposureSubmissionResult.Antigen.testNegativeDesc
 		// resultTitleLabel
 		switch coronaTest.testResult {
 		case .positive: resultTitleLabel.text = AppStrings.ExposureSubmissionResult.Antigen.card_positive
@@ -206,11 +206,32 @@ class AntigenExposureSubmissionNegativeTestResultHeaderView: DynamicTableViewHea
 		dateLabel.text = DateFormatter.localizedString(from: coronaTest.testDate, dateStyle: .medium, timeStyle: .short)
 	}
 	
+	func configure(coronaTest: FamilyMemberAntigenTest) {
+		lineView.backgroundColor = coronaTest.testResult.color
+		imageView.image = coronaTest.testResult.image
+		subtitleLabel.text = AppStrings.FamilyMemberCoronaTest.antigenCaption
+		descriptionLabel.text = AppStrings.ExposureSubmissionResult.Antigen.familyMemberTestNegativeDesc
+		// resultTitleLabel
+		switch coronaTest.testResult {
+		case .positive: resultTitleLabel.text = AppStrings.ExposureSubmissionResult.Antigen.card_positive
+		case .negative: resultTitleLabel.text = AppStrings.ExposureSubmissionResult.Antigen.card_negative
+		case .invalid: resultTitleLabel.text = AppStrings.ExposureSubmissionResult.card_invalid
+		case .pending: resultTitleLabel.text = AppStrings.ExposureSubmissionResult.card_pending
+		case .expired: resultTitleLabel.text = AppStrings.ExposureSubmissionResult.card_invalid
+		}
+		resultTitleLabel.textColor = coronaTest.testResult.color
+		// personLabel
+		personLabel.text = nil
+		// dateLabel
+		dateLabel.text = DateFormatter.localizedString(from: coronaTest.testDate, dateStyle: .medium, timeStyle: .short)
+	}
+	
 	// MARK: - Private
 	
 	private var lineView: UIView!
 	private var imageView: UIImageView!
 	private var subtitleLabel: ENALabel!
+	private var descriptionLabel: ENALabel!
 	private var resultTitleLabel: ENALabel!
 	private var personLabel: ENALabel!
 	private var dateLabel: ENALabel!

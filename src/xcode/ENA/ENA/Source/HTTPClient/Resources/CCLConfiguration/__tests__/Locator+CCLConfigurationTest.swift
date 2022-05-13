@@ -9,7 +9,7 @@ class Locator_CCLConfigurationTest: XCTestCase {
 
 	func testGIVEN_Locator_WHEN_getUniqueIdentifier_THEN_IsSameAsKnowUniqueIdentifier() {
 		// GIVEN
-		let knownUniqueIdentifier = "6945f9d05c93e022e25c7efcb1f0f0428bca355841b2d1a85622515dfce67db6"
+		let knownUniqueIdentifier = "0f24d96b87439f0b817b573407bc175f6a6c257991b02d87a3e1e53ef75ad11f"
 		let locator = Locator.CCLConfiguration(isFake: false)
 
 		// WHEN

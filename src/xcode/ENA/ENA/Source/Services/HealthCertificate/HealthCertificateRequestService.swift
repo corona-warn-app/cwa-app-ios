@@ -12,7 +12,7 @@ class HealthCertificateRequestService {
 
 	init(
 		store: HealthCertificateStoring,
-		client: Client,
+		restServiceProvider: RestServiceProviding,
 		appConfiguration: AppConfigurationProviding,
 		digitalCovidCertificateAccess: DigitalCovidCertificateAccessProtocol = DigitalCovidCertificateAccess(),
 		healthCertificateService: HealthCertificateService
@@ -22,7 +22,7 @@ class HealthCertificateRequestService {
 			let store = MockTestStore()
 
 			self.store = store
-			self.client = ClientMock()
+			self.restServiceProvider = RestServiceProviderStub()
 			self.appConfiguration = CachedAppConfigurationMock(store: store)
 			self.digitalCovidCertificateAccess = digitalCovidCertificateAccess
 			self.healthCertificateService = healthCertificateService
@@ -34,7 +34,7 @@ class HealthCertificateRequestService {
 		#endif
 
 		self.store = store
-		self.client = client
+		self.restServiceProvider = restServiceProvider
 		self.appConfiguration = appConfiguration
 		self.digitalCovidCertificateAccess = digitalCovidCertificateAccess
 		self.healthCertificateService = healthCertificateService
@@ -56,7 +56,7 @@ class HealthCertificateRequestService {
 		}
 	}
 
-	var didRegisterTestCertificate: ((String, TestCertificateRequest) -> Void)?
+	let didRegisterTestCertificate = PassthroughSubject<(String, TestCertificateRequest), Never>()
 
 	func registerAndExecuteTestCertificateRequest(
 		coronaTestType: CoronaTestType,
@@ -140,10 +140,17 @@ class HealthCertificateRequestService {
 		}
 	}
 
+	func updatePublishersFromStore() {
+		Log.info("[HealthCertificateService] Updating publishers from store", log: .api)
+
+		testCertificateRequests = store.testCertificateRequests
+		initialTestCertificateRequestsReadFromStore = true
+	}
+
 	// MARK: - Private
 
 	private let store: HealthCertificateStoring
-	private let client: Client
+	private let restServiceProvider: RestServiceProviding
 	private let appConfiguration: AppConfigurationProviding
 	private let digitalCovidCertificateAccess: DigitalCovidCertificateAccessProtocol
 	private let healthCertificateService: HealthCertificateService
@@ -156,13 +163,6 @@ class HealthCertificateRequestService {
 	private func setup() {
 		updatePublishersFromStore()
 		subscribeToNotifications()
-	}
-
-	private func updatePublishersFromStore() {
-		Log.info("[HealthCertificateService] Updating publishers from store", log: .api)
-
-		testCertificateRequests = store.testCertificateRequests
-		initialTestCertificateRequestsReadFromStore = true
 	}
 
 	private func updateTestCertificateRequestSubscriptions(for testCertificateRequests: [TestCertificateRequest]) {
@@ -234,32 +234,21 @@ class HealthCertificateRequestService {
 		if !testCertificateRequest.rsaPublicKeyRegistered {
 			Log.info("[HealthCertificateService] Registering public key …", log: .api)
 
-			client.dccRegisterPublicKey(
-				isFake: false,
-				token: testCertificateRequest.registrationToken,
-				publicKey: publicKey,
-				completion: { [weak self] result in
-					guard let self = self else { return }
+			let resource = DCCPublicKeyRegistrationResource(
+				sendModel: DCCPublicKeyRegistrationSendModel(
+					registrationToken: testCertificateRequest.registrationToken,
+					publicKey: publicKey
+				)
+			)
+			restServiceProvider.load(resource) { [weak self] result in
+				guard let self = self else { return }
 
-					switch result {
-					case .success:
-						Log.info("[HealthCertificateService] Public key successfully registered", log: .api)
+				switch result {
+				case .success:
+					Log.info("[HealthCertificateService] Public key successfully registered", log: .api)
 
-						testCertificateRequest.rsaPublicKeyRegistered = true
-						DispatchQueue.global().asyncAfter(deadline: .now() + waitAfterPublicKeyRegistrationInSeconds) {
-							self.requestDigitalCovidCertificate(
-								for: testCertificateRequest,
-								rsaKeyPair: rsaKeyPair,
-								retryIfCertificateIsPending: retryIfCertificateIsPending,
-								waitForRetryInSeconds: waitForRetryInSeconds,
-								completion: completion
-							)
-						}
-					case .failure(let registrationError) where registrationError == .tokenAlreadyAssigned:
-						Log.info("[HealthCertificateService] Public key was already registered.", log: .api)
-
-						testCertificateRequest.rsaPublicKeyRegistered = true
-						testCertificateRequest.isLoading = false
+					testCertificateRequest.rsaPublicKeyRegistered = true
+					DispatchQueue.global().asyncAfter(deadline: .now() + waitAfterPublicKeyRegistrationInSeconds) {
 						self.requestDigitalCovidCertificate(
 							for: testCertificateRequest,
 							rsaKeyPair: rsaKeyPair,
@@ -267,15 +256,27 @@ class HealthCertificateRequestService {
 							waitForRetryInSeconds: waitForRetryInSeconds,
 							completion: completion
 						)
-					case .failure(let registrationError):
-						Log.error("[HealthCertificateService] Public key registration failed: \(registrationError.localizedDescription)", log: .api)
-
-						testCertificateRequest.requestExecutionFailed = true
-						testCertificateRequest.isLoading = false
-						completion?(.failure(.publicKeyRegistrationFailed(registrationError)))
 					}
+				case .failure(let registrationError) where registrationError == .receivedResourceError(.tokenAlreadyAssigned):
+					Log.info("[HealthCertificateService] Public key was already registered.", log: .api)
+
+					testCertificateRequest.rsaPublicKeyRegistered = true
+					testCertificateRequest.isLoading = false
+					self.requestDigitalCovidCertificate(
+						for: testCertificateRequest,
+						rsaKeyPair: rsaKeyPair,
+						retryIfCertificateIsPending: retryIfCertificateIsPending,
+						waitForRetryInSeconds: waitForRetryInSeconds,
+						completion: completion
+					)
+				case .failure(let registrationError):
+					Log.error("[HealthCertificateService] Public key registration failed: \(registrationError.localizedDescription)", log: .api)
+
+					testCertificateRequest.requestExecutionFailed = true
+					testCertificateRequest.isLoading = false
+					completion?(.failure(.publicKeyRegistrationFailed(registrationError)))
 				}
-			)
+			}
 		} else if let encryptedDEK = testCertificateRequest.encryptedDEK,
 				  let encryptedCOSE = testCertificateRequest.encryptedCOSE {
 			Log.info("[HealthCertificateService] Encrypted COSE and DEK already exist, immediately assembling certificate.", log: .api)
@@ -309,10 +310,12 @@ class HealthCertificateRequestService {
 	) {
 		Log.info("[HealthCertificateService] Requesting certificate…", log: .api)
 
-		client.getDigitalCovid19Certificate(
-			registrationToken: testCertificateRequest.registrationToken,
-			isFake: false
-		) { [weak self] result in
+		let resource = DigitalCovid19CertificateResource(
+			sendModel: DigitalCovid19CertificateSendModel(
+				registrationToken: testCertificateRequest.registrationToken
+			)
+		)
+		restServiceProvider.load(resource) { [weak self] result in
 			switch result {
 			case .success(let dccResponse):
 				Log.info("[HealthCertificateService] Certificate request succeeded", log: .api)
@@ -324,7 +327,7 @@ class HealthCertificateRequestService {
 					encryptedCOSE: dccResponse.dcc,
 					completion: completion
 				)
-			case .failure(let error) where error == .dccPending && retryIfCertificateIsPending:
+			case .failure(let error) where error == .receivedResourceError(.dccPending) && retryIfCertificateIsPending:
 				DispatchQueue.global().asyncAfter(deadline: .now() + waitForRetryInSeconds) {
 					Log.info("[HealthCertificateService] Certificate request failed with .dccPending, retrying.", log: .api)
 
@@ -374,14 +377,15 @@ class HealthCertificateRequestService {
 					base45: healthCertificateBase45,
 					checkSignatureUpfront: false,
 					checkMaxPersonCount: false,
-					markAsNew: true
+					markAsNew: true,
+					completedNotificationRegistration: { }
 				)
 
 				switch registerResult {
 				case .success(let certificateResult):
 					Log.info("[HealthCertificateService] Certificate assembly succeeded", log: .api)
 					
-					didRegisterTestCertificate?(certificateResult.certificate.uniqueCertificateIdentifier, testCertificateRequest)
+					didRegisterTestCertificate.send((certificateResult.certificate.uniqueCertificateIdentifier, testCertificateRequest))
 					
 					remove(testCertificateRequest: testCertificateRequest)
 					completion?(.success(()))

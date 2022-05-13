@@ -21,13 +21,13 @@ class ExposureSubmissionServiceTests: CWATestCase {
 		let store = MockTestStore()
 		let restServiceProvider = RestServiceProviderStub(
 			results: [
-				.success(RegistrationTokenReceiveModel(submissionTAN: "fake")),
-				.success(RegistrationTokenReceiveModel(submissionTAN: "fake"))
+				// Key submission result.
+				.success(())
 			]
 		)
 		
 		let coronaTestService = MockCoronaTestService()
-		coronaTestService.pcrTest.value = PCRTest.mock(
+		coronaTestService.pcrTest.value = .mock(
 			registrationToken: "dummyRegistrationToken",
 			finalTestResultReceivedDate: Date(timeIntervalSince1970: 12345678),
 			positiveTestResultWasShown: true,
@@ -46,7 +46,6 @@ class ExposureSubmissionServiceTests: CWATestCase {
 		let service = ENAExposureSubmissionService(
 			diagnosisKeysRetrieval: keyRetrieval,
 			appConfigurationProvider: appConfigurationProvider,
-			client: ClientMock(),
 			restServiceProvider: restServiceProvider,
 			store: store,
 			eventStore: MockEventStore(),
@@ -88,13 +87,13 @@ class ExposureSubmissionServiceTests: CWATestCase {
 		eventStore.createCheckin(Checkin.mock())
 		let restServiceProvider = RestServiceProviderStub(
 			results: [
-				.success(RegistrationTokenReceiveModel(submissionTAN: "fake")),
-				.success(RegistrationTokenReceiveModel(submissionTAN: "fake"))
+				// Key submission result.
+				.success(())
 			]
 		)
 		
 		let coronaTestService = MockCoronaTestService()
-		coronaTestService.pcrTest.value = PCRTest.mock(
+		coronaTestService.pcrTest.value = .mock(
 			registrationToken: "regToken",
 			positiveTestResultWasShown: true,
 			isSubmissionConsentGiven: true
@@ -106,7 +105,6 @@ class ExposureSubmissionServiceTests: CWATestCase {
 		let checkinSubmissionService = ENAExposureSubmissionService(
 			diagnosisKeysRetrieval: keysRetrievalMock,
 			appConfigurationProvider: CachedAppConfigurationMock(),
-			client: ClientMock(),
 			restServiceProvider: restServiceProvider,
 			store: store,
 			eventStore: eventStore,
@@ -136,14 +134,13 @@ class ExposureSubmissionServiceTests: CWATestCase {
 		)
 		
 		let coronaTestService = MockCoronaTestService()
-		coronaTestService.pcrTest.value = PCRTest.mock(
+		coronaTestService.pcrTest.value = .mock(
 			isSubmissionConsentGiven: false
 		)
 		
 		let service = ENAExposureSubmissionService(
 			diagnosisKeysRetrieval: keyRetrieval,
 			appConfigurationProvider: CachedAppConfigurationMock(),
-			client: ClientMock(),
 			restServiceProvider: restServiceProvider,
 			store: store,
 			eventStore: MockEventStore(),
@@ -155,7 +152,7 @@ class ExposureSubmissionServiceTests: CWATestCase {
 		// Act
 		service.getTemporaryExposureKeys { _ in
 			service.submitExposure(coronaTestType: .pcr) { error in
-				XCTAssertEqual(error, .noSubmissionConsent)
+				XCTAssertEqual(error, .preconditionError(.noSubmissionConsent))
 				expectation.fulfill()
 			}
 		}
@@ -185,7 +182,7 @@ class ExposureSubmissionServiceTests: CWATestCase {
 		)
 		
 		let coronaTestService = MockCoronaTestService()
-		coronaTestService.pcrTest.value = PCRTest.mock(
+		coronaTestService.pcrTest.value = .mock(
 			positiveTestResultWasShown: true,
 			isSubmissionConsentGiven: true
 		)
@@ -193,7 +190,6 @@ class ExposureSubmissionServiceTests: CWATestCase {
 		let service = ENAExposureSubmissionService(
 			diagnosisKeysRetrieval: keyRetrieval,
 			appConfigurationProvider: CachedAppConfigurationMock(),
-			client: ClientMock(),
 			restServiceProvider: restServiceProvider,
 			store: MockTestStore(),
 			eventStore: MockEventStore(),
@@ -204,7 +200,7 @@ class ExposureSubmissionServiceTests: CWATestCase {
 		
 		// Act
 		service.submitExposure(coronaTestType: .pcr) { error in
-			XCTAssertEqual(error, .keysNotShared)
+			XCTAssertEqual(error, .preconditionError(.keysNotShared))
 			expectation.fulfill()
 		}
 		
@@ -220,7 +216,7 @@ class ExposureSubmissionServiceTests: CWATestCase {
 		let keyRetrieval = MockDiagnosisKeysRetrieval(diagnosisKeysResult: (nil, nil))
 
 		let coronaTestService = MockCoronaTestService()
-		coronaTestService.pcrTest.value = PCRTest.mock(
+		coronaTestService.pcrTest.value = .mock(
 			positiveTestResultWasShown: false,
 			isSubmissionConsentGiven: true
 		)
@@ -228,7 +224,6 @@ class ExposureSubmissionServiceTests: CWATestCase {
 		let service = ENAExposureSubmissionService(
 			diagnosisKeysRetrieval: keyRetrieval,
 			appConfigurationProvider: CachedAppConfigurationMock(),
-			client: ClientMock(),
 			restServiceProvider: .fake(),
 			store: MockTestStore(),
 			eventStore: MockEventStore(),
@@ -239,7 +234,7 @@ class ExposureSubmissionServiceTests: CWATestCase {
 		
 		// Act
 		service.submitExposure(coronaTestType: .pcr) { error in
-			XCTAssertEqual(error, .positiveTestResultNotShown)
+			XCTAssertEqual(error, .preconditionError(.positiveTestResultNotShown))
 			expectation.fulfill()
 		}
 		
@@ -254,7 +249,7 @@ class ExposureSubmissionServiceTests: CWATestCase {
 		let keyRetrieval = MockDiagnosisKeysRetrieval(diagnosisKeysResult: (nil, ENError(.notAuthorized)))
 		
 		let coronaTestService = MockCoronaTestService()
-		coronaTestService.pcrTest.value = PCRTest.mock(
+		coronaTestService.pcrTest.value = .mock(
 			positiveTestResultWasShown: true,
 			isSubmissionConsentGiven: true
 		)
@@ -262,7 +257,6 @@ class ExposureSubmissionServiceTests: CWATestCase {
 		let service = ENAExposureSubmissionService(
 			diagnosisKeysRetrieval: keyRetrieval,
 			appConfigurationProvider: CachedAppConfigurationMock(),
-			client: ClientMock(),
 			restServiceProvider: .fake(),
 			store: MockTestStore(),
 			eventStore: MockEventStore(),
@@ -276,7 +270,7 @@ class ExposureSubmissionServiceTests: CWATestCase {
 			XCTAssertEqual(error, .notAuthorized)
 			
 			service.submitExposure(coronaTestType: .pcr) { error in
-				XCTAssertEqual(error, .keysNotShared)
+				XCTAssertEqual(error, .preconditionError(.keysNotShared))
 				expectation.fulfill()
 			}
 		}
@@ -292,7 +286,7 @@ class ExposureSubmissionServiceTests: CWATestCase {
 		let keyRetrieval = MockDiagnosisKeysRetrieval(diagnosisKeysResult: (nil, nil))
 		
 		let coronaTestService = MockCoronaTestService()
-		coronaTestService.pcrTest.value = PCRTest.mock(
+		coronaTestService.pcrTest.value = .mock(
 			positiveTestResultWasShown: true,
 			isSubmissionConsentGiven: true
 		)
@@ -300,7 +294,6 @@ class ExposureSubmissionServiceTests: CWATestCase {
 		let service = ENAExposureSubmissionService(
 			diagnosisKeysRetrieval: keyRetrieval,
 			appConfigurationProvider: CachedAppConfigurationMock(),
-			client: ClientMock(),
 			restServiceProvider: .fake(),
 			store: MockTestStore(),
 			eventStore: MockEventStore(),
@@ -312,7 +305,7 @@ class ExposureSubmissionServiceTests: CWATestCase {
 		// Act
 		service.getTemporaryExposureKeys { _ in
 			service.submitExposure(coronaTestType: .pcr) { error in
-				XCTAssertEqual(error, .noKeysCollected)
+				XCTAssertEqual(error, .preconditionError(.noKeysCollected))
 				expectation.fulfill()
 			}
 		}
@@ -327,7 +320,7 @@ class ExposureSubmissionServiceTests: CWATestCase {
 		let keyRetrieval = MockDiagnosisKeysRetrieval(diagnosisKeysResult: ([], nil))
 		
 		let coronaTestService = MockCoronaTestService()
-		coronaTestService.pcrTest.value = PCRTest.mock(
+		coronaTestService.pcrTest.value = .mock(
 			positiveTestResultWasShown: true,
 			isSubmissionConsentGiven: true
 		)
@@ -335,7 +328,6 @@ class ExposureSubmissionServiceTests: CWATestCase {
 		let service = ENAExposureSubmissionService(
 			diagnosisKeysRetrieval: keyRetrieval,
 			appConfigurationProvider: CachedAppConfigurationMock(),
-			client: ClientMock(),
 			restServiceProvider: .fake(),
 			store: MockTestStore(),
 			eventStore: MockEventStore(),
@@ -347,7 +339,7 @@ class ExposureSubmissionServiceTests: CWATestCase {
 		// Act
 		service.getTemporaryExposureKeys { _ in
 			service.submitExposure(coronaTestType: .pcr) { error in
-				XCTAssertEqual(error, .noKeysCollected)
+				XCTAssertEqual(error, .preconditionError(.noKeysCollected))
 				expectation.fulfill()
 			}
 		}
@@ -360,16 +352,14 @@ class ExposureSubmissionServiceTests: CWATestCase {
 	func testExposureSubmission_InvalidPayloadOrHeaders() {
 		// Arrange
 		let keyRetrieval = MockDiagnosisKeysRetrieval(diagnosisKeysResult: (keys, nil))
-		let client = ClientMock(submissionError: .invalidPayloadOrHeaders)
 		let restServiceProvider = RestServiceProviderStub(
 			results: [
-				.success(RegistrationTokenReceiveModel(submissionTAN: "fake")),
-				.success(RegistrationTokenReceiveModel(submissionTAN: "fake"))
+				.failure(ServiceError<KeySubmissionResourceError>.receivedResourceError(.invalidPayloadOrHeaders))
 			]
 		)
 		
 		let coronaTestService = MockCoronaTestService()
-		coronaTestService.pcrTest.value = PCRTest.mock(
+		coronaTestService.pcrTest.value = .mock(
 			registrationToken: "asdf",
 			positiveTestResultWasShown: true,
 			isSubmissionConsentGiven: true
@@ -378,7 +368,6 @@ class ExposureSubmissionServiceTests: CWATestCase {
 		let service = ENAExposureSubmissionService(
 			diagnosisKeysRetrieval: keyRetrieval,
 			appConfigurationProvider: CachedAppConfigurationMock(),
-			client: client,
 			restServiceProvider: restServiceProvider,
 			store: MockTestStore(),
 			eventStore: MockEventStore(),
@@ -390,7 +379,7 @@ class ExposureSubmissionServiceTests: CWATestCase {
 		// Act
 		service.getTemporaryExposureKeys { _ in
 			service.submitExposure(coronaTestType: .pcr) { error in
-				XCTAssertEqual(error, .invalidPayloadOrHeaders)
+				XCTAssertEqual(error, .keySubmissionError(.receivedResourceError(.invalidPayloadOrHeaders)))
 				expectation.fulfill()
 			}
 		}
@@ -410,7 +399,7 @@ class ExposureSubmissionServiceTests: CWATestCase {
 		)
 		
 		let coronaTestService = MockCoronaTestService()
-		coronaTestService.pcrTest.value = PCRTest.mock(
+		coronaTestService.pcrTest.value = .mock(
 			registrationToken: nil,
 			positiveTestResultWasShown: true,
 			isSubmissionConsentGiven: true
@@ -420,7 +409,6 @@ class ExposureSubmissionServiceTests: CWATestCase {
 		let service = ENAExposureSubmissionService(
 			diagnosisKeysRetrieval: keyRetrieval,
 			appConfigurationProvider: CachedAppConfigurationMock(),
-			client: ClientMock(),
 			restServiceProvider: restServiceProvider,
 			store: MockTestStore(),
 			eventStore: MockEventStore(),
@@ -441,16 +429,15 @@ class ExposureSubmissionServiceTests: CWATestCase {
 	
 	func testCorrectErrorForRequestCouldNotBeBuilt() {
 		let keyRetrieval = MockDiagnosisKeysRetrieval(diagnosisKeysResult: (keys, nil))
-		let client = ClientMock(submissionError: .requestCouldNotBeBuilt)
 		let restServiceProvider = RestServiceProviderStub(
 			results: [
-				.success(RegistrationTokenReceiveModel(submissionTAN: "fake")),
-				.success(RegistrationTokenReceiveModel(submissionTAN: "fake"))
+				// Key submission result.
+				.failure(ServiceError<KeySubmissionResourceError>.receivedResourceError(.requestCouldNotBeBuilt))
 			]
 		)
 		
 		let coronaTestService = MockCoronaTestService()
-		coronaTestService.pcrTest.value = PCRTest.mock(
+		coronaTestService.pcrTest.value = .mock(
 			registrationToken: "dummyRegistrationToken",
 			positiveTestResultWasShown: true,
 			isSubmissionConsentGiven: true
@@ -460,7 +447,6 @@ class ExposureSubmissionServiceTests: CWATestCase {
 		let service = ENAExposureSubmissionService(
 			diagnosisKeysRetrieval: keyRetrieval,
 			appConfigurationProvider: CachedAppConfigurationMock(),
-			client: client,
 			restServiceProvider: restServiceProvider,
 			store: MockTestStore(),
 			eventStore: MockEventStore(),
@@ -482,16 +468,15 @@ class ExposureSubmissionServiceTests: CWATestCase {
 	func testCorrectErrorForInvalidPayloadOrHeaders() {
 		// Initialize.
 		let keyRetrieval = MockDiagnosisKeysRetrieval(diagnosisKeysResult: (keys, nil))
-		let client = ClientMock(submissionError: .invalidPayloadOrHeaders)
 		let restServiceProvider = RestServiceProviderStub(
 			results: [
-				.success(RegistrationTokenReceiveModel(submissionTAN: "fake")),
-				.success(RegistrationTokenReceiveModel(submissionTAN: "fake"))
+				// Key submission result.
+				.failure(ServiceError<KeySubmissionResourceError>.receivedResourceError(.invalidPayloadOrHeaders))
 			]
 		)
 		
 		let coronaTestService = MockCoronaTestService()
-		coronaTestService.pcrTest.value = PCRTest.mock(
+		coronaTestService.pcrTest.value = .mock(
 			registrationToken: "dummyRegistrationToken",
 			positiveTestResultWasShown: true,
 			isSubmissionConsentGiven: true
@@ -501,7 +486,6 @@ class ExposureSubmissionServiceTests: CWATestCase {
 		let service = ENAExposureSubmissionService(
 			diagnosisKeysRetrieval: keyRetrieval,
 			appConfigurationProvider: CachedAppConfigurationMock(),
-			client: client,
 			restServiceProvider: restServiceProvider,
 			store: MockTestStore(),
 			eventStore: MockEventStore(),
@@ -527,40 +511,17 @@ class ExposureSubmissionServiceTests: CWATestCase {
 	func test_partialSubmissionFailure() {
 		let keyRetrieval = MockDiagnosisKeysRetrieval(diagnosisKeysResult: (keys, nil))
 
-		// Force submission error. (Which should result in a 4xx, not a 5xx!)
-		let client = ClientMock(submissionError: .serverError(500))
-		var count = 0
-		let getTANExpectation = self.expectation(description: "should be called twice one fake and one not")
-		getTANExpectation.expectedFulfillmentCount = 2
-		let restServiceProvider = RestServiceProviderStub(loadResources: [
-			LoadResource(
-				result: .success(
-					RegistrationTokenReceiveModel(submissionTAN: "fake")
-				),
-				willLoadResource: { resource in
-					guard let resource = resource as? RegistrationTokenResource else {
-						XCTFail("RegistrationTokenResource expected.")
-						return
-					}
-					if resource.locator.isFake {
-						count += 1
-						getTANExpectation.fulfill()
-					} else {
-						count += 0
-						getTANExpectation.fulfill()
-					}
-				}
-			),
-			LoadResource(
-				result: .failure(
-					ServiceError<RegistrationTokenError>.unexpectedServerError(400)
-				),
-				willLoadResource: nil
-			)
-		])
+		let restServiceProvider = RestServiceProviderStub(
+			loadResources: [
+				// 1. Failed key submission result.
+				LoadResource(result: .failure(ServiceError<KeySubmissionResourceError>.unexpectedServerError(500)), willLoadResource: nil),
+				// 2. Successful key submission result (retry).
+				LoadResource(result: .success(()), willLoadResource: nil)
+			]
+		)
 		
 		let coronaTestService = MockCoronaTestService()
-		coronaTestService.pcrTest.value = PCRTest.mock(
+		coronaTestService.pcrTest.value = .mock(
 			registrationToken: "dummyRegistrationToken",
 			positiveTestResultWasShown: true,
 			isSubmissionConsentGiven: true
@@ -569,7 +530,6 @@ class ExposureSubmissionServiceTests: CWATestCase {
 		let service = ENAExposureSubmissionService(
 			diagnosisKeysRetrieval: keyRetrieval,
 			appConfigurationProvider: CachedAppConfigurationMock(),
-			client: client,
 			restServiceProvider: restServiceProvider,
 			store: MockTestStore(),
 			eventStore: MockEventStore(),
@@ -587,7 +547,6 @@ class ExposureSubmissionServiceTests: CWATestCase {
 				XCTAssertNotNil(result)
 				
 				// Retry.
-				client.onSubmitCountries = { $2(.success(())) }
 				service.submitExposure(coronaTestType: .pcr) { result in
 					expectation.fulfill()
 					XCTAssertNil(result)
@@ -608,7 +567,6 @@ class ExposureSubmissionServiceTests: CWATestCase {
 		let service = ENAExposureSubmissionService(
 			diagnosisKeysRetrieval: MockDiagnosisKeysRetrieval(diagnosisKeysResult: ([], nil)),
 			appConfigurationProvider: appConfiguration,
-			client: ClientMock(),
 			restServiceProvider: .fake(),
 			store: MockTestStore(),
 			eventStore: MockEventStore(),
@@ -646,7 +604,6 @@ class ExposureSubmissionServiceTests: CWATestCase {
 		let service = ENAExposureSubmissionService(
 			diagnosisKeysRetrieval: MockDiagnosisKeysRetrieval(diagnosisKeysResult: ([], nil)),
 			appConfigurationProvider: appConfiguration,
-			client: ClientMock(),
 			restServiceProvider: .fake(),
 			store: MockTestStore(),
 			eventStore: MockEventStore(),
@@ -687,7 +644,6 @@ class ExposureSubmissionServiceTests: CWATestCase {
 				exposureManagerState: exposureManagerState
 			),
 			appConfigurationProvider: CachedAppConfigurationMock(),
-			client: ClientMock(),
 			restServiceProvider: .fake(),
 			store: MockTestStore(),
 			eventStore: MockEventStore(),
@@ -711,39 +667,57 @@ class ExposureSubmissionServiceTests: CWATestCase {
 		let keyRetrieval = MockDiagnosisKeysRetrieval(diagnosisKeysResult: (keys, nil))
 		let appConfigurationProvider = CachedAppConfigurationMock()
 		let store = MockTestStore()
-		let client = ClientMock()
 		
-		let restServiceProvider = RestServiceProviderStub(loadResources: [
-			LoadResource(
-				result: .success(
-					RegistrationTokenReceiveModel(submissionTAN: "fake")
-				),
-				willLoadResource: { resource in
-					expectation.fulfill()
-					guard let resource = resource as? RegistrationTokenResource else {
-						XCTFail("RegistrationTokenResource expected.")
-						return
-					}
-					if resource.locator.isFake {
+		let restServiceProvider = RestServiceProviderStub(
+			loadResources: [
+				LoadResource(
+					result: .success(
+						RegistrationTokenReceiveModel(submissionTAN: "fake")
+					),
+					willLoadResource: { resource in
+						expectation.fulfill()
+						guard let resource = resource as? RegistrationTokenResource else {
+							XCTFail("RegistrationTokenResource expected.")
+							return
+						}
+						
+						XCTAssertTrue(resource.locator.isFake)
 						XCTAssertEqual(count, 0)
 						count += 1
+					}
+				),
+				LoadResource(
+					result: .success(
+						RegistrationTokenReceiveModel(submissionTAN: "fake")
+					),
+					willLoadResource: { resource in
+						expectation.fulfill()
+						guard let resource = resource as? RegistrationTokenResource else {
+							XCTFail("RegistrationTokenResource expected.")
+							return
+						}
 						
-					} else {
+						XCTAssertFalse(resource.locator.isFake)
 						XCTAssertEqual(count, 1)
 						count += 1
-						
 					}
-				}
-			)]
+				),
+				// Key submission result.
+				LoadResource(
+					result: .success(()),
+					willLoadResource: { resource in
+						guard let submissionResource = resource as? KeySubmissionResource else {
+							XCTFail("KeySubmissionResource expected.")
+							return
+						}
+						expectation.fulfill()
+						XCTAssertFalse(submissionResource.locator.isFake)
+						XCTAssertEqual(count, 2)
+						count += 1
+					}
+				)],
+			isFakeResourceLoadingActive: true
 		)
-		
-		client.onSubmitCountries = { _, isFake, completion in
-			expectation.fulfill()
-			XCTAssertFalse(isFake)
-			XCTAssertEqual(count, 2)
-			count += 1
-			completion(.success(()))
-		}
 
 		let healthCertificateService = HealthCertificateService(
 			store: store,
@@ -751,11 +725,11 @@ class ExposureSubmissionServiceTests: CWATestCase {
 			dscListProvider: MockDSCListProvider(),
 			appConfiguration: appConfigurationProvider,
 			cclService: FakeCCLService(),
-			recycleBin: .fake()
+			recycleBin: .fake(),
+			revocationProvider: RevocationProvider(restService: restServiceProvider, store: MockTestStore())
 		)
 		
 		let coronaTestService = CoronaTestService(
-			client: client,
 			restServiceProvider: restServiceProvider,
 			store: store,
 			eventStore: MockEventStore(),
@@ -764,14 +738,14 @@ class ExposureSubmissionServiceTests: CWATestCase {
 			healthCertificateService: healthCertificateService,
 			healthCertificateRequestService: HealthCertificateRequestService(
 				store: store,
-				client: client,
+				restServiceProvider: RestServiceProviderStub(),
 				appConfiguration: appConfigurationProvider,
 				healthCertificateService: healthCertificateService
 			),
 			recycleBin: .fake(),
 			badgeWrapper: .fake()
 		)
-		coronaTestService.pcrTest.value = PCRTest.mock(
+		coronaTestService.pcrTest.value = .mock(
 			registrationToken: "dummyRegToken",
 			positiveTestResultWasShown: true,
 			isSubmissionConsentGiven: true
@@ -782,7 +756,6 @@ class ExposureSubmissionServiceTests: CWATestCase {
 		let service = ENAExposureSubmissionService(
 			diagnosisKeysRetrieval: keyRetrieval,
 			appConfigurationProvider: CachedAppConfigurationMock(),
-			client: client,
 			restServiceProvider: restServiceProvider,
 			store: MockTestStore(),
 			eventStore: MockEventStore(),

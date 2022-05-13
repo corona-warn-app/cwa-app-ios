@@ -37,6 +37,9 @@ class HomeTestResultCellModel {
 	@OpenCombine.Published var isCellTappable: Bool = true
 	@OpenCombine.Published var accessibilityIdentifier: String! = AccessibilityIdentifiers.Home.TestResultCell.unconfiguredButton
 
+	@OpenCombine.Published var testResult: TestResult?
+	@OpenCombine.Published var antigenTestIsOutdated: Bool = false
+
 	// MARK: - Private
 
 	private let coronaTestType: CoronaTestType
@@ -52,7 +55,7 @@ class HomeTestResultCellModel {
 			title = AppStrings.Home.TestResult.pcrTitle
 
 			coronaTestService.pcrTest
-				.receive(on: DispatchQueue.OCombine(.main))
+				.receive(on: DispatchQueue.main.ocombine)
 				.sink { [weak self] pcrTest in
 					guard let pcrTest = pcrTest else {
 						return
@@ -60,11 +63,14 @@ class HomeTestResultCellModel {
 
 					self?.configure(for: pcrTest.testResult)
 					self?.onUpdate()
+
+					// required for unit testing - to confirm the update of the cell model
+					self?.testResult = pcrTest.testResult
 				}
 				.store(in: &subscriptions)
 
 			coronaTestService.pcrTestResultIsLoading
-				.receive(on: DispatchQueue.OCombine(.main))
+				.receive(on: DispatchQueue.main.ocombine)
 				.sink { [weak self] testResultIsLoading in
 					if self?.coronaTestService.pcrTest.value?.finalTestResultReceivedDate == nil {
 						if testResultIsLoading {
@@ -80,7 +86,7 @@ class HomeTestResultCellModel {
 			title = AppStrings.Home.TestResult.antigenTitle
 
 			coronaTestService.antigenTest
-				.receive(on: DispatchQueue.OCombine(.main))
+				.receive(on: DispatchQueue.main.ocombine)
 				.sink { [weak self] antigenTest in
 					guard
 						let self = self,
@@ -92,11 +98,14 @@ class HomeTestResultCellModel {
 
 					self.configure(for: antigenTest.testResult)
 					self.onUpdate()
+
+					// required for unit testing - to confirm the update of the cell model
+					self.testResult = antigenTest.testResult
 				}
 				.store(in: &subscriptions)
 
 			coronaTestService.antigenTestResultIsLoading
-				.receive(on: DispatchQueue.OCombine(.main))
+				.receive(on: DispatchQueue.main.ocombine)
 				.sink { [weak self] testResultIsLoading in
 					if self?.coronaTestService.antigenTest.value?.finalTestResultReceivedDate == nil {
 						if testResultIsLoading {
@@ -110,14 +119,18 @@ class HomeTestResultCellModel {
 				.store(in: &subscriptions)
 
 			coronaTestService.antigenTestIsOutdated
-				.receive(on: DispatchQueue.OCombine(.main))
+				.receive(on: DispatchQueue.main.ocombine)
 				.sink { [weak self] antigenTestIsOutdated in
 					guard antigenTestIsOutdated else {
+						self?.antigenTestIsOutdated = false
 						return
 					}
 
 					self?.configureTestResultOutdated()
 					self?.onUpdate()
+
+					// required for unit testing - to confirm the update of the cell model
+					self?.antigenTestIsOutdated = true
 				}
 				.store(in: &subscriptions)
 		}
@@ -175,6 +188,7 @@ class HomeTestResultCellModel {
 		footnote = nil
 		buttonTitle = AppStrings.Home.TestResult.Button.showResult
 		image = UIImage(named: "Illu_Hand_with_phone-error")
+		isDisclosureIndicatorHidden = false
 		isNegativeDiagnosisHidden = true
 		isActivityIndicatorHidden = true
 		isUserInteractionEnabled = true
@@ -241,11 +255,11 @@ class HomeTestResultCellModel {
 		footnote = nil
 		buttonTitle = AppStrings.Home.TestResult.Button.deleteTest
 		image = UIImage(named: "Illu_Hand_with_phone-pending")
-		isDisclosureIndicatorHidden = false
+		isDisclosureIndicatorHidden = true
 		isNegativeDiagnosisHidden = true
 		isActivityIndicatorHidden = true
 		isUserInteractionEnabled = true
-		isCellTappable = true
+		isCellTappable = false
 
 		switch coronaTestType {
 		case .pcr:
@@ -260,7 +274,7 @@ class HomeTestResultCellModel {
 		description = AppStrings.Home.TestResult.Outdated.description
 		footnote = nil
 		buttonTitle = AppStrings.Home.TestResult.Button.hideTest
-		image = UIImage(named: "Illu_Hand_with_phone-pending")
+		image = UIImage(named: "Illu_Home_OutdatedTestErgebnis")
 		isDisclosureIndicatorHidden = true
 		isNegativeDiagnosisHidden = true
 		isActivityIndicatorHidden = true

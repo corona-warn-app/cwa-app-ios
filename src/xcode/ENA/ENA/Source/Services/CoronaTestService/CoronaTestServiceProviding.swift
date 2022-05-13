@@ -11,18 +11,18 @@ protocol CoronaTestServiceProviding {
 	typealias VoidResultHandler = (Result<Void, CoronaTestServiceError>) -> Void
 	typealias RegistrationResultHandler = (Result<String, CoronaTestServiceError>) -> Void
 	typealias TestResultHandler = (Result<TestResult, CoronaTestServiceError>) -> Void
-	typealias CoronaTestHandler = (Result<CoronaTest, CoronaTestServiceError>) -> Void
+	typealias CoronaTestHandler = (Result<UserCoronaTest, CoronaTestServiceError>) -> Void
 	typealias SubmissionTANResultHandler = (Result<String, CoronaTestServiceError>) -> Void
 
-	var pcrTest: CurrentValueSubject<PCRTest?, Never> { get set }
-	var antigenTest: CurrentValueSubject<AntigenTest?, Never> { get set }
+	var pcrTest: CurrentValueSubject<UserPCRTest?, Never> { get set }
+	var antigenTest: CurrentValueSubject<UserAntigenTest?, Never> { get set }
 
 	var antigenTestIsOutdated: CurrentValueSubject<Bool, Never> { get }
 
 	var pcrTestResultIsLoading: CurrentValueSubject<Bool, Never> { get }
 	var antigenTestResultIsLoading: CurrentValueSubject<Bool, Never> { get }
 
-	func coronaTest(ofType type: CoronaTestType) -> CoronaTest?
+	func coronaTest(ofType type: CoronaTestType) -> UserCoronaTest?
 	
 	// This function is responsible to register a PCR test from QR Code
 	func registerPCRTestAndGetResult(
@@ -77,7 +77,7 @@ protocol CoronaTestServiceProviding {
 		completion: @escaping TestResultHandler
 	)
 	
-	func reregister(coronaTest: CoronaTest)
+	func reregister(coronaTest: UserCoronaTest)
 
 	func updateTestResults(force: Bool, presentNotification: Bool, completion: @escaping VoidResultHandler)
 
@@ -96,6 +96,8 @@ protocol CoronaTestServiceProviding {
 
 	func evaluateShowingTest(ofType coronaTestType: CoronaTestType)
 
+	func evaluateSavingTestToDiary(ofTestType coronaTestType: CoronaTestType)
+	
 	func updatePublishersFromStore()
 
 	func migrate()

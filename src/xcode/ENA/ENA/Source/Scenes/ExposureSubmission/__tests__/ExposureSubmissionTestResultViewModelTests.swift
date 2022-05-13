@@ -26,7 +26,7 @@ class ExposureSubmissionTestResultViewModelTests: CWATestCase {
 		)
 		
 		let coronaTestService = MockCoronaTestService()
-		coronaTestService.pcrTest.value = PCRTest.mock(testResult: .positive, isSubmissionConsentGiven: true)
+		coronaTestService.pcrTest.value = .mock(testResult: .positive, isSubmissionConsentGiven: true)
 		coronaTestService.onUpdateTestResult = { _, _, _ in
 			updateTestResultExpectation.fulfill()
 		}
@@ -44,11 +44,11 @@ class ExposureSubmissionTestResultViewModelTests: CWATestCase {
 			onTestCertificateCellTap: { _, _ in }
 		)
 		
-		XCTAssertFalse(model.shouldShowDeletionConfirmationAlert)
+		XCTAssertFalse(model.shouldShowDeletionConfirmationAlertPublisher.value)
 		
 		model.didTapPrimaryButton()
 		
-		XCTAssertFalse(model.shouldShowDeletionConfirmationAlert)
+		XCTAssertFalse(model.shouldShowDeletionConfirmationAlertPublisher.value)
 		
 		waitForExpectations(timeout: .short)
 	}
@@ -65,7 +65,7 @@ class ExposureSubmissionTestResultViewModelTests: CWATestCase {
 			onContinueWithSymptomsFlowButtonTapExpectation.isInverted = true
 			
 			let coronaTestService = MockCoronaTestService()
-			coronaTestService.pcrTest.value = PCRTest.mock(testResult: testResult)
+			coronaTestService.pcrTest.value = .mock(testResult: testResult)
 			coronaTestService.onUpdateTestResult = { _, _, _ in
 				updateTestResultExpectation.fulfill()
 			}
@@ -83,11 +83,11 @@ class ExposureSubmissionTestResultViewModelTests: CWATestCase {
 				onTestCertificateCellTap: { _, _ in }
 			)
 			
-			XCTAssertFalse(model.shouldShowDeletionConfirmationAlert)
+			XCTAssertFalse(model.shouldShowDeletionConfirmationAlertPublisher.value)
 			
 			model.didTapPrimaryButton()
 			
-			XCTAssertTrue(model.shouldShowDeletionConfirmationAlert)
+			XCTAssertTrue(model.shouldShowDeletionConfirmationAlertPublisher.value)
 			
 			waitForExpectations(timeout: .short)
 		}
@@ -102,7 +102,7 @@ class ExposureSubmissionTestResultViewModelTests: CWATestCase {
 		onContinueWithSymptomsFlowButtonTapExpectation.isInverted = true
 		
 		let coronaTestService = MockCoronaTestService()
-		coronaTestService.pcrTest.value = PCRTest.mock(registrationToken: "asdf", testResult: .pending)
+		coronaTestService.pcrTest.value = .mock(registrationToken: "asdf", testResult: .pending)
 		coronaTestService.onUpdateTestResult = { coronaTestType, force, presentNotification in
 			XCTAssertEqual(coronaTestType, .pcr)
 			XCTAssertTrue(force)
@@ -124,11 +124,11 @@ class ExposureSubmissionTestResultViewModelTests: CWATestCase {
 			onTestCertificateCellTap: { _, _ in }
 		)
 		
-		XCTAssertFalse(model.shouldShowDeletionConfirmationAlert)
+		XCTAssertFalse(model.shouldShowDeletionConfirmationAlertPublisher.value)
 		
 		model.didTapPrimaryButton()
 		
-		XCTAssertFalse(model.shouldShowDeletionConfirmationAlert)
+		XCTAssertFalse(model.shouldShowDeletionConfirmationAlertPublisher.value)
 		
 		waitForExpectations(timeout: .short)
 	}
@@ -137,7 +137,7 @@ class ExposureSubmissionTestResultViewModelTests: CWATestCase {
 		let updateTestResultExpectation = expectation(description: "updateTestResult on service is called")
 		
 		let coronaTestService = MockCoronaTestService()
-		coronaTestService.pcrTest.value = PCRTest.mock(registrationToken: "asdf", testResult: .pending)
+		coronaTestService.pcrTest.value = .mock(registrationToken: "asdf", testResult: .pending)
 		coronaTestService.onUpdateTestResult = { coronaTestType, force, presentNotification in
 			XCTAssertEqual(coronaTestType, .pcr)
 			XCTAssertTrue(force)
@@ -158,7 +158,7 @@ class ExposureSubmissionTestResultViewModelTests: CWATestCase {
 			onTestCertificateCellTap: { _, _ in }
 		)
 		
-		let modelBefore = try XCTUnwrap(model.footerViewModel)
+		let modelBefore = try XCTUnwrap(model.footerViewModelPublisher.value)
 
 		XCTAssertFalse(modelBefore.isPrimaryLoading)
 		XCTAssertTrue(modelBefore.isPrimaryButtonEnabled)
@@ -172,14 +172,14 @@ class ExposureSubmissionTestResultViewModelTests: CWATestCase {
 
 		waitForExpectations(timeout: .short)
 
-		let modelAfter = try XCTUnwrap(model.footerViewModel)
+		let modelAfter = try XCTUnwrap(model.footerViewModelPublisher.value)
 
 		XCTAssertFalse(modelAfter.isPrimaryLoading)
 		XCTAssertTrue(modelAfter.isPrimaryButtonEnabled)
 		XCTAssertFalse(modelAfter.isPrimaryButtonHidden)
 
 		XCTAssertFalse(modelAfter.isSecondaryLoading)
-		XCTAssertTrue(modelAfter.isSecondaryButtonEnabled)
+		XCTAssertFalse(modelAfter.isSecondaryButtonEnabled)
 		XCTAssertTrue(modelAfter.isSecondaryButtonHidden)
 	}
 	
@@ -187,7 +187,7 @@ class ExposureSubmissionTestResultViewModelTests: CWATestCase {
 		let updateTestResultExpectation = expectation(description: "updateTestResult on service is called")
 
 		let coronaTestService = MockCoronaTestService()
-		coronaTestService.pcrTest.value = PCRTest.mock(registrationToken: "asdf", testResult: .pending)
+		coronaTestService.pcrTest.value = .mock(registrationToken: "asdf", testResult: .pending)
 		coronaTestService.updateTestResultResult = .failure(.testResultError(.invalidResponse))
 		coronaTestService.onUpdateTestResult = { coronaTestType, force, presentNotification in
 			XCTAssertEqual(coronaTestType, .pcr)
@@ -212,14 +212,14 @@ class ExposureSubmissionTestResultViewModelTests: CWATestCase {
 		
 		waitForExpectations(timeout: .short)
 		
-		XCTAssertEqual(model.error, .testResultError(.invalidResponse))
+		XCTAssertEqual(model.errorPublisher.value, .testResultError(.invalidResponse))
 	}
 	
 	func testDidTapPrimaryButtonOnPendingTestResultUpdatesButtonsLoadingState() throws {
 		let updateTestResultExpectation = expectation(description: "updateTestResult on service is called")
 
 		let coronaTestService = MockCoronaTestService()
-		coronaTestService.pcrTest.value = PCRTest.mock(registrationToken: "asdf", testResult: .pending)
+		coronaTestService.pcrTest.value = .mock(registrationToken: "asdf", testResult: .pending)
 		
 		let model = ExposureSubmissionTestResultViewModel(
 			coronaTestType: .pcr,
@@ -232,7 +232,7 @@ class ExposureSubmissionTestResultViewModelTests: CWATestCase {
 			onTestCertificateCellTap: { _, _ in }
 		)
 
-		let footerViewModel = try XCTUnwrap(model.footerViewModel)
+		let footerViewModel = try XCTUnwrap(model.footerViewModelPublisher.value)
 
 		coronaTestService.onUpdateTestResult = { coronaTestType, force, presentNotification in
 			XCTAssertEqual(coronaTestType, .pcr)
@@ -256,7 +256,7 @@ class ExposureSubmissionTestResultViewModelTests: CWATestCase {
 	
 	func testDidTapSecondaryButtonOnPendingTestResult() {
 		let coronaTestService = MockCoronaTestService()
-		coronaTestService.pcrTest.value = PCRTest.mock(testResult: .pending)
+		coronaTestService.pcrTest.value = .mock(testResult: .pending)
 		
 		let model = ExposureSubmissionTestResultViewModel(
 			coronaTestType: .pcr,
@@ -269,20 +269,20 @@ class ExposureSubmissionTestResultViewModelTests: CWATestCase {
 			onTestCertificateCellTap: { _, _ in }
 		)
 		
-		XCTAssertFalse(model.shouldShowDeletionConfirmationAlert)
-		XCTAssertFalse(model.shouldAttemptToDismiss)
+		XCTAssertFalse(model.shouldShowDeletionConfirmationAlertPublisher.value)
+		XCTAssertFalse(model.shouldAttemptToDismissPublisher.value)
 		
 		model.didTapSecondaryButton()
 		
-		XCTAssertTrue(model.shouldShowDeletionConfirmationAlert)
-		XCTAssertFalse(model.shouldAttemptToDismiss)
+		XCTAssertTrue(model.shouldShowDeletionConfirmationAlertPublisher.value)
+		XCTAssertFalse(model.shouldAttemptToDismissPublisher.value)
 	}
 	
 	func testDidTapSecondaryButtonOnNegativeInvalidOrExpiredTestResult() {
 		let testResults: [TestResult] = [.negative, .invalid, .expired]
 		for testResult in testResults {
 			let coronaTestService = MockCoronaTestService()
-			coronaTestService.pcrTest.value = PCRTest.mock(testResult: testResult)
+			coronaTestService.pcrTest.value = .mock(testResult: testResult)
 			
 			let model = ExposureSubmissionTestResultViewModel(
 				coronaTestType: .pcr,
@@ -295,13 +295,13 @@ class ExposureSubmissionTestResultViewModelTests: CWATestCase {
 				onTestCertificateCellTap: { _, _ in }
 			)
 			
-			XCTAssertFalse(model.shouldShowDeletionConfirmationAlert)
-			XCTAssertFalse(model.shouldAttemptToDismiss)
+			XCTAssertFalse(model.shouldShowDeletionConfirmationAlertPublisher.value)
+			XCTAssertFalse(model.shouldAttemptToDismissPublisher.value)
 			
 			model.didTapSecondaryButton()
 			
-			XCTAssertFalse(model.shouldShowDeletionConfirmationAlert)
-			XCTAssertFalse(model.shouldAttemptToDismiss)
+			XCTAssertFalse(model.shouldShowDeletionConfirmationAlertPublisher.value)
+			XCTAssertFalse(model.shouldAttemptToDismissPublisher.value)
 		}
 	}
 	
@@ -309,7 +309,7 @@ class ExposureSubmissionTestResultViewModelTests: CWATestCase {
 		let moveTestToBinExpectation = expectation(description: "moveTestToBin on service is called")
 
 		let coronaTestService = MockCoronaTestService()
-		coronaTestService.pcrTest.value = PCRTest.mock(testResult: .expired)
+		coronaTestService.pcrTest.value = .mock(testResult: .expired)
 		coronaTestService.onMoveTestToBin = { coronaTestType in
 			XCTAssertEqual(coronaTestType, .pcr)
 
@@ -338,7 +338,7 @@ class ExposureSubmissionTestResultViewModelTests: CWATestCase {
 	
 	func testNavigationFooterItemForPendingTestResult() throws {
 		let coronaTestService = MockCoronaTestService()
-		coronaTestService.pcrTest.value = PCRTest.mock(testResult: .pending)
+		coronaTestService.pcrTest.value = .mock(testResult: .pending)
 
 		let model = ExposureSubmissionTestResultViewModel(
 			coronaTestType: .pcr,
@@ -351,7 +351,7 @@ class ExposureSubmissionTestResultViewModelTests: CWATestCase {
 			onTestCertificateCellTap: { _, _ in }
 		)
 
-		let footerViewModel = try XCTUnwrap(model.footerViewModel)
+		let footerViewModel = try XCTUnwrap(model.footerViewModelPublisher.value)
 
 		XCTAssertFalse(footerViewModel.isPrimaryLoading)
 		XCTAssertTrue(footerViewModel.isPrimaryButtonEnabled)
@@ -364,7 +364,7 @@ class ExposureSubmissionTestResultViewModelTests: CWATestCase {
 	
 	func testNavigationFooterItemForPositiveTestResult() throws {
 		let coronaTestService = MockCoronaTestService()
-		coronaTestService.pcrTest.value = PCRTest.mock(testResult: .positive)
+		coronaTestService.pcrTest.value = .mock(testResult: .positive)
 
 		let model = ExposureSubmissionTestResultViewModel(
 			coronaTestType: .pcr,
@@ -377,7 +377,7 @@ class ExposureSubmissionTestResultViewModelTests: CWATestCase {
 			onTestCertificateCellTap: { _, _ in }
 		)
 
-		let footerViewModel = try XCTUnwrap(model.footerViewModel)
+		let footerViewModel = try XCTUnwrap(model.footerViewModelPublisher.value)
 
 		XCTAssertFalse(footerViewModel.isPrimaryLoading)
 		XCTAssertTrue(footerViewModel.isPrimaryButtonEnabled)
@@ -392,7 +392,7 @@ class ExposureSubmissionTestResultViewModelTests: CWATestCase {
 		let testResults: [TestResult] = [.negative, .invalid, .expired]
 		for testResult in testResults {
 			let coronaTestService = MockCoronaTestService()
-			coronaTestService.pcrTest.value = PCRTest.mock(testResult: testResult)
+			coronaTestService.pcrTest.value = .mock(testResult: testResult)
 
 			let model = ExposureSubmissionTestResultViewModel(
 				coronaTestType: .pcr,
@@ -405,7 +405,7 @@ class ExposureSubmissionTestResultViewModelTests: CWATestCase {
 				onTestCertificateCellTap: { _, _ in }
 			)
 
-			let footerViewModel = try XCTUnwrap(model.footerViewModel)
+			let footerViewModel = try XCTUnwrap(model.footerViewModelPublisher.value)
 
 			XCTAssertFalse(footerViewModel.isPrimaryLoading)
 			XCTAssertTrue(footerViewModel.isPrimaryButtonEnabled)
@@ -419,7 +419,7 @@ class ExposureSubmissionTestResultViewModelTests: CWATestCase {
 	
 	func testDynamicTableViewModelForPositiveTestResult() {
 		let coronaTestService = MockCoronaTestService()
-		coronaTestService.pcrTest.value = PCRTest.mock(testResult: .positive)
+		coronaTestService.pcrTest.value = .mock(testResult: .positive)
 		
 		let model = ExposureSubmissionTestResultViewModel(
 			coronaTestType: .pcr,
@@ -432,10 +432,10 @@ class ExposureSubmissionTestResultViewModelTests: CWATestCase {
 			onTestCertificateCellTap: { _, _ in }
 		)
 		
-		XCTAssertEqual(model.dynamicTableViewModel.numberOfSection, 1)
-		XCTAssertNotNil(model.dynamicTableViewModel.section(0).header)
+		XCTAssertEqual(model.dynamicTableViewModelPublisher.value.numberOfSection, 1)
+		XCTAssertNotNil(model.dynamicTableViewModelPublisher.value.section(0).header)
 		
-		let section = model.dynamicTableViewModel.section(0)
+		let section = model.dynamicTableViewModelPublisher.value.section(0)
 		let cells = section.cells
 		XCTAssertEqual(cells.count, 4)
 		
@@ -458,7 +458,7 @@ class ExposureSubmissionTestResultViewModelTests: CWATestCase {
 	
 	func testDynamicTableViewModelForNegativeTestResult() {
 		let coronaTestService = MockCoronaTestService()
-		coronaTestService.pcrTest.value = PCRTest.mock(testResult: .negative)
+		coronaTestService.pcrTest.value = .mock(testResult: .negative)
 		
 		let model = ExposureSubmissionTestResultViewModel(
 			coronaTestType: .pcr,
@@ -471,10 +471,10 @@ class ExposureSubmissionTestResultViewModelTests: CWATestCase {
 			onTestCertificateCellTap: { _, _ in }
 		)
 		
-		XCTAssertEqual(model.dynamicTableViewModel.numberOfSection, 1)
-		XCTAssertNotNil(model.dynamicTableViewModel.section(0).header)
+		XCTAssertEqual(model.dynamicTableViewModelPublisher.value.numberOfSection, 1)
+		XCTAssertNotNil(model.dynamicTableViewModelPublisher.value.section(0).header)
 		
-		let section = model.dynamicTableViewModel.section(0)
+		let section = model.dynamicTableViewModelPublisher.value.section(0)
 		let cells = section.cells
 		XCTAssertEqual(cells.count, 10)
 		
@@ -521,7 +521,7 @@ class ExposureSubmissionTestResultViewModelTests: CWATestCase {
 	
 	func testDynamicTableViewModelForInvalidTestResult() {
 		let coronaTestService = MockCoronaTestService()
-		coronaTestService.pcrTest.value = PCRTest.mock(testResult: .invalid)
+		coronaTestService.pcrTest.value = .mock(testResult: .invalid)
 		
 		let model = ExposureSubmissionTestResultViewModel(
 			coronaTestType: .pcr,
@@ -534,10 +534,10 @@ class ExposureSubmissionTestResultViewModelTests: CWATestCase {
 			onTestCertificateCellTap: { _, _ in }
 		)
 		
-		XCTAssertEqual(model.dynamicTableViewModel.numberOfSection, 1)
-		XCTAssertNotNil(model.dynamicTableViewModel.section(0).header)
+		XCTAssertEqual(model.dynamicTableViewModelPublisher.value.numberOfSection, 1)
+		XCTAssertNotNil(model.dynamicTableViewModelPublisher.value.section(0).header)
 		
-		let section = model.dynamicTableViewModel.section(0)
+		let section = model.dynamicTableViewModelPublisher.value.section(0)
 		let cells = section.cells
 		XCTAssertEqual(cells.count, 4)
 		
@@ -560,7 +560,7 @@ class ExposureSubmissionTestResultViewModelTests: CWATestCase {
 	
 	func testDynamicTableViewModelForPendingTestResult() {
 		let coronaTestService = MockCoronaTestService()
-		coronaTestService.pcrTest.value = PCRTest.mock(testResult: .pending)
+		coronaTestService.pcrTest.value = .mock(testResult: .pending)
 		
 		let model = ExposureSubmissionTestResultViewModel(
 			coronaTestType: .pcr,
@@ -573,10 +573,10 @@ class ExposureSubmissionTestResultViewModelTests: CWATestCase {
 			onTestCertificateCellTap: { _, _ in }
 		)
 		
-		XCTAssertEqual(model.dynamicTableViewModel.numberOfSection, 2)
-		XCTAssertNotNil(model.dynamicTableViewModel.section(0).header)
+		XCTAssertEqual(model.dynamicTableViewModelPublisher.value.numberOfSection, 2)
+		XCTAssertNotNil(model.dynamicTableViewModelPublisher.value.section(0).header)
 		
-		let section = model.dynamicTableViewModel.section(0)
+		let section = model.dynamicTableViewModelPublisher.value.section(0)
 		let cells = section.cells
 		XCTAssertEqual(cells.count, 5)
 		
@@ -592,7 +592,7 @@ class ExposureSubmissionTestResultViewModelTests: CWATestCase {
 		id = thirdItem.cellReuseIdentifier
 		XCTAssertEqual(id.rawValue, "stepCell")
 		
-		let section2 = model.dynamicTableViewModel.section(1)
+		let section2 = model.dynamicTableViewModelPublisher.value.section(1)
 		let iconCell = section2.cells
 		XCTAssertEqual(iconCell.count, 1)
 		
@@ -603,7 +603,7 @@ class ExposureSubmissionTestResultViewModelTests: CWATestCase {
 	
 	func testDynamicTableViewModelForExpiredTestResult() {
 		let coronaTestService = MockCoronaTestService()
-		coronaTestService.pcrTest.value = PCRTest.mock(testResult: .expired)
+		coronaTestService.pcrTest.value = .mock(testResult: .expired)
 		
 		let model = ExposureSubmissionTestResultViewModel(
 			coronaTestType: .pcr,
@@ -616,10 +616,10 @@ class ExposureSubmissionTestResultViewModelTests: CWATestCase {
 			onTestCertificateCellTap: { _, _ in }
 		)
 		
-		XCTAssertEqual(model.dynamicTableViewModel.numberOfSection, 1)
-		XCTAssertNotNil(model.dynamicTableViewModel.section(0).header)
+		XCTAssertEqual(model.dynamicTableViewModelPublisher.value.numberOfSection, 1)
+		XCTAssertNotNil(model.dynamicTableViewModelPublisher.value.section(0).header)
 		
-		let section = model.dynamicTableViewModel.section(0)
+		let section = model.dynamicTableViewModelPublisher.value.section(0)
 		let cells = section.cells
 		XCTAssertEqual(cells.count, 4)
 		

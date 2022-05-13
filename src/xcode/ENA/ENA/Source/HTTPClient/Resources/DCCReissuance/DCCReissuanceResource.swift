@@ -40,7 +40,7 @@ enum DCCReissuanceResourceError: LocalizedError {
 			return "\(AppStrings.HealthCertificate.Reissuance.Errors.tryAgain) (DCC_RI_406)" + description
 		case .DCC_RI_429(let errorCode):
 			let description = errorCode?.description ?? ""
-			return "\(AppStrings.HealthCertificate.Reissuance.Errors.tryAgain) (DCC_RI_429)" + description
+			return "\(AppStrings.HealthCertificate.Reissuance.Errors.rateLimit) (DCC_RI_429)" + description
 		case .DCC_RI_500(let errorCode):
 			let description = errorCode?.description ?? ""
 			return "\(AppStrings.HealthCertificate.Reissuance.Errors.tryAgain) (DCC_RI_500)" + description
