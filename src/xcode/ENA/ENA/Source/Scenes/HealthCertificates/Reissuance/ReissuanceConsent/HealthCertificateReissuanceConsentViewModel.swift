@@ -12,20 +12,28 @@ final class HealthCertificateReissuanceConsentViewModel {
 
 	init(
 		cclService: CCLServable,
-		certificates: [HealthCertificate],
+		certificates: [DCCCertificateContainerExtended],
 		certifiedPerson: HealthCertifiedPerson,
 		appConfigProvider: AppConfigurationProviding,
 		restServiceProvider: RestServiceProviding,
 		healthCertificateService: HealthCertificateServiceServable,
-		onDisclaimerButtonTap: @escaping () -> Void
+		onDisclaimerButtonTap: @escaping () -> Void,
+		onAccompanyingCertificatesButtonTap: @escaping ([HealthCertificate]) -> Void
 	) {
 		self.cclService = cclService
-		self.certificates = certificates
 		self.certifiedPerson = certifiedPerson
 		self.appConfigProvider = appConfigProvider
 		self.restServiceProvider = restServiceProvider
 		self.healthCertificateService = healthCertificateService
 		self.onDisclaimerButtonTap = onDisclaimerButtonTap
+		self.onAccompanyingCertificatesButtonTap = onAccompanyingCertificatesButtonTap
+		self.reissuanceCertificates = certificates.compactMap({
+			certifiedPerson.healthCertificate(for: $0.certificateToReissue.certificateRef)
+		})
+		self.filteredAccompanyingCertificates = filterAccompanyingCertificates(
+			certificates: certificates,
+			certifiedPerson: certifiedPerson
+		)
 	}
 
 	// MARK: - Internal
@@ -42,13 +50,38 @@ final class HealthCertificateReissuanceConsentViewModel {
 					.compactMap({ $0 })
 				)
 			)
-			for certificate in certificates {
+			for certificate in reissuanceCertificates {
 				$0.add(
 					.section(
 						cells: [
 							.certificate(certificate, certifiedPerson: certifiedPerson)
 						]
 						.compactMap({ $0 })
+					)
+				)
+			}
+			$0.add(.section(cells: [.space(height: 5)]))
+			if !filteredAccompanyingCertificates.isEmpty {
+				$0.add(
+					.section(
+						separators: .all,
+						cells: [
+							.space(height: 4),
+							.body(
+								text: AppStrings.HealthCertificate.Reissuance.Consent.accompanyingCertificatesTitle,
+								style: DynamicCell.TextCellStyle.label,
+								accessibilityIdentifier: AccessibilityIdentifiers.HealthCertificate.Reissuance.accompanyingCertificatesTitle,
+								accessibilityTraits: UIAccessibilityTraits.link,
+								action: .execute { [weak self] _, _ in
+									self?.onAccompanyingCertificatesButtonTap(self?.filteredAccompanyingCertificates.sorted(by: <) ?? [])
+								},
+								configure: { _, cell, _ in
+									cell.accessoryType = .disclosureIndicator
+									cell.selectionStyle = .default
+								}
+							),
+							.space(height: 4)
+						]
 					)
 				)
 			}
@@ -181,14 +214,16 @@ final class HealthCertificateReissuanceConsentViewModel {
 	// MARK: - Private
 
 	private let cclService: CCLServable
-	private let certificates: [HealthCertificate]
+	private let reissuanceCertificates: [HealthCertificate]
 	private let certifiedPerson: HealthCertifiedPerson
 	private let onDisclaimerButtonTap: () -> Void
+	private let onAccompanyingCertificatesButtonTap: ([HealthCertificate]) -> Void
 	private let appConfigProvider: AppConfigurationProviding
 	private let restServiceProvider: RestServiceProviding
 	private let healthCertificateService: HealthCertificateServiceServable
 	private var subscriptions = Set<AnyCancellable>()
-	
+	private var filteredAccompanyingCertificates = [HealthCertificate]()
+
 	private func submit(
 		with resource: DCCReissuanceResource,
 		requestCertificates: [String],
