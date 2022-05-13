@@ -204,7 +204,7 @@ final class DMNHCViewModel {
 			DispatchQueue.main.async {
 				switch result {
 				case let .success(model):
-					Log.info("DCC Reissuance successfull called.")
+					Log.info("DCC Reissuance successfully called.")
 					Log.info("DCC Reissuance response: \(model)")
 				case let .failure(error):
 					Log.error("DCC Reissuance call failure with: \(error)", error: error)
