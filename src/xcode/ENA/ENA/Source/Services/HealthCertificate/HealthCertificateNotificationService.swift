@@ -188,7 +188,7 @@ class HealthCertificateNotificationService {
 			return
 		}
 		
-		 if newIdentifier != previousCertificateReissuance?.reissuanceDivision.identifier {
+		 if newIdentifier != previousCertificateReissuance?.reissuanceDivision.identifier ?? "renew" {
 			guard let personIdentifier = person.identifier else {
 				Log.error("Person identifier is nil, will not trigger certificate reissuance notification", log: .vaccination)
 				completion()
