@@ -1098,7 +1098,6 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 	}
 	
 	func testGatherKeySubmissionMetadata() {
-		let client = ClientMock()
 		let appConfiguration = CachedAppConfigurationMock()
 		let restServiceProvider = RestServiceProviderStub(
 			results: [
@@ -1122,7 +1121,6 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 		)
 		
 		let coronaTestService = CoronaTestService(
-			client: client,
 			restServiceProvider: restServiceProvider,
 			store: store,
 			eventStore: MockEventStore(),
@@ -1131,7 +1129,7 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 			healthCertificateService: healthCertificateService,
 			healthCertificateRequestService: HealthCertificateRequestService(
 				store: store,
-				client: client,
+				restServiceProvider: RestServiceProviderStub(),
 				appConfiguration: appConfiguration,
 				healthCertificateService: healthCertificateService
 			),

@@ -8,7 +8,7 @@ import OpenCombine
 enum OnBehalfCheckinSubmissionError: LocalizedError, Equatable {
 	case teleTanError(ServiceError<TeleTanError>)
 	case registrationTokenError(ServiceError<RegistrationTokenError>)
-	case submissionError(SubmissionError)
+	case submissionError(ServiceError<OnBehalfSubmissionResourceError>)
 
 	var errorDescription: String? {
 		switch self {
@@ -51,20 +51,23 @@ enum OnBehalfCheckinSubmissionError: LocalizedError, Equatable {
 			default:
 				return "\(AppStrings.OnBehalfCheckinSubmission.Error.tryAgain) (\(failure))"
 			}
-		case .submissionError(let submissionError):
-			switch submissionError {
-			case .invalidPayloadOrHeaders, .invalidTan:
-				return "\(AppStrings.OnBehalfCheckinSubmission.Error.failed) (SUBMISSION_OB_CLIENT_ERROR)"
-			case .serverError(let statusCode) where (400...409).contains(statusCode),
-				 .other(.serverError(let statusCode)) where (400...409).contains(statusCode):
-				return "\(AppStrings.OnBehalfCheckinSubmission.Error.failed) (SUBMISSION_OB_CLIENT_ERROR)"
-			case .serverError(let statusCode) where (500...509).contains(statusCode),
-				 .other(.serverError(let statusCode)) where (500...509).contains(statusCode):
-				return "\(AppStrings.OnBehalfCheckinSubmission.Error.tryAgain) (SUBMISSION_OB_SERVER_ERROR)"
-			case .other(.noNetworkConnection):
+		case .submissionError(let failure):
+			switch failure {
+			case .receivedResourceError(let submissionResourceError):
+				switch submissionResourceError {
+				case .invalidPayloadOrHeaders, .invalidTan:
+					return "\(AppStrings.OnBehalfCheckinSubmission.Error.failed) (SUBMISSION_OB_CLIENT_ERROR)"
+				case .serverError(let statusCode) where (400...409).contains(statusCode):
+					return "\(AppStrings.OnBehalfCheckinSubmission.Error.failed) (SUBMISSION_OB_CLIENT_ERROR)"
+				case .serverError(let statusCode) where (500...509).contains(statusCode):
+					return "\(AppStrings.OnBehalfCheckinSubmission.Error.tryAgain) (SUBMISSION_OB_SERVER_ERROR)"
+				case .requestCouldNotBeBuilt, .serverError:
+					return "\(AppStrings.OnBehalfCheckinSubmission.Error.tryAgain) (\(failure))"
+				}
+			case .transportationError:
 				return "\(AppStrings.OnBehalfCheckinSubmission.Error.noNetwork) (SUBMISSION_OB_NO_NETWORK)"
 			default:
-				return "\(AppStrings.OnBehalfCheckinSubmission.Error.tryAgain) (\(submissionError))"
+				return "\(AppStrings.OnBehalfCheckinSubmission.Error.tryAgain) (\(failure))"
 			}
 		}
 	}

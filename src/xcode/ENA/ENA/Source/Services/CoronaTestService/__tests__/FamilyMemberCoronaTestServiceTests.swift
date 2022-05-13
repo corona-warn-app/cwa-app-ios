@@ -48,7 +48,7 @@ class FamilyMemberCoronaTestServiceTests: CWATestCase {
 			healthCertificateService: healthCertificateService,
 			healthCertificateRequestService: HealthCertificateRequestService(
 				store: store,
-				client: client,
+				restServiceProvider: RestServiceProviderStub(),
 				appConfiguration: appConfiguration,
 				healthCertificateService: healthCertificateService
 			),
@@ -126,7 +126,7 @@ class FamilyMemberCoronaTestServiceTests: CWATestCase {
 			healthCertificateService: healthCertificateService,
 			healthCertificateRequestService: HealthCertificateRequestService(
 				store: store,
-				client: client,
+				restServiceProvider: RestServiceProviderStub(),
 				appConfiguration: appConfiguration,
 				healthCertificateService: healthCertificateService
 			),
@@ -165,7 +165,7 @@ class FamilyMemberCoronaTestServiceTests: CWATestCase {
 			healthCertificateService: healthCertificateService,
 			healthCertificateRequestService: HealthCertificateRequestService(
 				store: store,
-				client: client,
+				restServiceProvider: RestServiceProviderStub(),
 				appConfiguration: appConfiguration,
 				healthCertificateService: healthCertificateService
 			),
@@ -214,7 +214,7 @@ class FamilyMemberCoronaTestServiceTests: CWATestCase {
 			healthCertificateService: healthCertificateService,
 			healthCertificateRequestService: HealthCertificateRequestService(
 				store: store,
-				client: client,
+				restServiceProvider: RestServiceProviderStub(),
 				appConfiguration: appConfiguration,
 				healthCertificateService: healthCertificateService
 			),
@@ -313,7 +313,7 @@ class FamilyMemberCoronaTestServiceTests: CWATestCase {
 			healthCertificateService: healthCertificateService,
 			healthCertificateRequestService: HealthCertificateRequestService(
 				store: store,
-				client: client,
+				restServiceProvider: RestServiceProviderStub(),
 				appConfiguration: appConfiguration,
 				healthCertificateService: healthCertificateService
 			),
@@ -416,7 +416,7 @@ class FamilyMemberCoronaTestServiceTests: CWATestCase {
 			healthCertificateService: healthCertificateService,
 			healthCertificateRequestService: HealthCertificateRequestService(
 				store: store,
-				client: client,
+				restServiceProvider: RestServiceProviderStub(),
 				appConfiguration: appConfiguration,
 				healthCertificateService: healthCertificateService
 			),
@@ -481,7 +481,7 @@ class FamilyMemberCoronaTestServiceTests: CWATestCase {
 			healthCertificateService: healthCertificateService,
 			healthCertificateRequestService: HealthCertificateRequestService(
 				store: store,
-				client: client,
+				restServiceProvider: RestServiceProviderStub(),
 				appConfiguration: appConfiguration,
 				healthCertificateService: healthCertificateService
 			),
@@ -538,7 +538,7 @@ class FamilyMemberCoronaTestServiceTests: CWATestCase {
 			healthCertificateService: healthCertificateService,
 			healthCertificateRequestService: HealthCertificateRequestService(
 				store: store,
-				client: client,
+				restServiceProvider: RestServiceProviderStub(),
 				appConfiguration: appConfiguration,
 				healthCertificateService: healthCertificateService
 			),
@@ -622,7 +622,7 @@ class FamilyMemberCoronaTestServiceTests: CWATestCase {
 			healthCertificateService: healthCertificateService,
 			healthCertificateRequestService: HealthCertificateRequestService(
 				store: store,
-				client: client,
+				restServiceProvider: RestServiceProviderStub(),
 				appConfiguration: appConfiguration,
 				healthCertificateService: healthCertificateService
 			),
@@ -725,7 +725,7 @@ class FamilyMemberCoronaTestServiceTests: CWATestCase {
 			healthCertificateService: healthCertificateService,
 			healthCertificateRequestService: HealthCertificateRequestService(
 				store: store,
-				client: client,
+				restServiceProvider: RestServiceProviderStub(),
 				appConfiguration: appConfiguration,
 				healthCertificateService: healthCertificateService
 			),
@@ -828,7 +828,7 @@ class FamilyMemberCoronaTestServiceTests: CWATestCase {
 			healthCertificateService: healthCertificateService,
 			healthCertificateRequestService: HealthCertificateRequestService(
 				store: store,
-				client: client,
+				restServiceProvider: RestServiceProviderStub(),
 				appConfiguration: appConfiguration,
 				healthCertificateService: healthCertificateService
 			),
@@ -945,7 +945,7 @@ class FamilyMemberCoronaTestServiceTests: CWATestCase {
 			healthCertificateService: healthCertificateService,
 			healthCertificateRequestService: HealthCertificateRequestService(
 				store: store,
-				client: client,
+				restServiceProvider: RestServiceProviderStub(),
 				appConfiguration: appConfiguration,
 				healthCertificateService: healthCertificateService
 			),
@@ -1012,7 +1012,7 @@ class FamilyMemberCoronaTestServiceTests: CWATestCase {
 			healthCertificateService: healthCertificateService,
 			healthCertificateRequestService: HealthCertificateRequestService(
 				store: store,
-				client: client,
+				restServiceProvider: RestServiceProviderStub(),
 				appConfiguration: appConfiguration,
 				healthCertificateService: healthCertificateService
 			),
@@ -1071,7 +1071,7 @@ class FamilyMemberCoronaTestServiceTests: CWATestCase {
 			healthCertificateService: healthCertificateService,
 			healthCertificateRequestService: HealthCertificateRequestService(
 				store: store,
-				client: client,
+				restServiceProvider: RestServiceProviderStub(),
 				appConfiguration: appConfiguration,
 				healthCertificateService: healthCertificateService
 			),
@@ -1157,7 +1157,7 @@ class FamilyMemberCoronaTestServiceTests: CWATestCase {
 			healthCertificateService: healthCertificateService,
 			healthCertificateRequestService: HealthCertificateRequestService(
 				store: store,
-				client: client,
+				restServiceProvider: RestServiceProviderStub(),
 				appConfiguration: appConfiguration,
 				healthCertificateService: healthCertificateService
 			),
@@ -1260,7 +1260,7 @@ class FamilyMemberCoronaTestServiceTests: CWATestCase {
 			healthCertificateService: healthCertificateService,
 			healthCertificateRequestService: HealthCertificateRequestService(
 				store: store,
-				client: client,
+				restServiceProvider: RestServiceProviderStub(),
 				appConfiguration: appConfiguration,
 				healthCertificateService: healthCertificateService
 			),
@@ -1363,7 +1363,7 @@ class FamilyMemberCoronaTestServiceTests: CWATestCase {
 			healthCertificateService: healthCertificateService,
 			healthCertificateRequestService: HealthCertificateRequestService(
 				store: store,
-				client: client,
+				restServiceProvider: RestServiceProviderStub(),
 				appConfiguration: appConfiguration,
 				healthCertificateService: healthCertificateService
 			),
@@ -1474,7 +1474,7 @@ class FamilyMemberCoronaTestServiceTests: CWATestCase {
 			healthCertificateService: healthCertificateService,
 			healthCertificateRequestService: HealthCertificateRequestService(
 				store: store,
-				client: client,
+				restServiceProvider: RestServiceProviderStub(),
 				appConfiguration: appConfiguration,
 				healthCertificateService: healthCertificateService
 			),
@@ -1541,7 +1541,7 @@ class FamilyMemberCoronaTestServiceTests: CWATestCase {
 			healthCertificateService: healthCertificateService,
 			healthCertificateRequestService: HealthCertificateRequestService(
 				store: store,
-				client: client,
+				restServiceProvider: RestServiceProviderStub(),
 				appConfiguration: appConfiguration,
 				healthCertificateService: healthCertificateService
 			),
@@ -1600,7 +1600,7 @@ class FamilyMemberCoronaTestServiceTests: CWATestCase {
 			healthCertificateService: healthCertificateService,
 			healthCertificateRequestService: HealthCertificateRequestService(
 				store: store,
-				client: client,
+				restServiceProvider: RestServiceProviderStub(),
 				appConfiguration: appConfiguration,
 				healthCertificateService: healthCertificateService
 			),
@@ -1691,7 +1691,7 @@ class FamilyMemberCoronaTestServiceTests: CWATestCase {
 			healthCertificateService: healthCertificateService,
 			healthCertificateRequestService: HealthCertificateRequestService(
 				store: store,
-				client: client,
+				restServiceProvider: RestServiceProviderStub(),
 				appConfiguration: appConfiguration,
 				healthCertificateService: healthCertificateService
 			),
@@ -1766,7 +1766,7 @@ class FamilyMemberCoronaTestServiceTests: CWATestCase {
 			healthCertificateService: healthCertificateService,
 			healthCertificateRequestService: HealthCertificateRequestService(
 				store: store,
-				client: client,
+				restServiceProvider: RestServiceProviderStub(),
 				appConfiguration: appConfiguration,
 				healthCertificateService: healthCertificateService
 			),
@@ -1841,7 +1841,7 @@ class FamilyMemberCoronaTestServiceTests: CWATestCase {
 			healthCertificateService: healthCertificateService,
 			healthCertificateRequestService: HealthCertificateRequestService(
 				store: store,
-				client: client,
+				restServiceProvider: RestServiceProviderStub(),
 				appConfiguration: appConfiguration,
 				healthCertificateService: healthCertificateService
 			),
@@ -1902,7 +1902,7 @@ class FamilyMemberCoronaTestServiceTests: CWATestCase {
 			healthCertificateService: healthCertificateService,
 			healthCertificateRequestService: HealthCertificateRequestService(
 				store: store,
-				client: client,
+				restServiceProvider: RestServiceProviderStub(),
 				appConfiguration: appConfiguration,
 				healthCertificateService: healthCertificateService
 			),
@@ -1968,7 +1968,7 @@ class FamilyMemberCoronaTestServiceTests: CWATestCase {
 			healthCertificateService: healthCertificateService,
 			healthCertificateRequestService: HealthCertificateRequestService(
 				store: store,
-				client: client,
+				restServiceProvider: RestServiceProviderStub(),
 				appConfiguration: appConfiguration,
 				healthCertificateService: healthCertificateService
 			),
@@ -2032,7 +2032,7 @@ class FamilyMemberCoronaTestServiceTests: CWATestCase {
 				healthCertificateService: healthCertificateService,
 				healthCertificateRequestService: HealthCertificateRequestService(
 					store: store,
-					client: client,
+					restServiceProvider: RestServiceProviderStub(),
 					appConfiguration: appConfiguration,
 					healthCertificateService: healthCertificateService
 				),
@@ -2088,7 +2088,7 @@ class FamilyMemberCoronaTestServiceTests: CWATestCase {
 			healthCertificateService: healthCertificateService,
 			healthCertificateRequestService: HealthCertificateRequestService(
 				store: store,
-				client: client,
+				restServiceProvider: RestServiceProviderStub(),
 				appConfiguration: appConfiguration,
 				healthCertificateService: healthCertificateService
 			),
@@ -2153,7 +2153,7 @@ class FamilyMemberCoronaTestServiceTests: CWATestCase {
 			healthCertificateService: healthCertificateService,
 			healthCertificateRequestService: HealthCertificateRequestService(
 				store: store,
-				client: client,
+				restServiceProvider: RestServiceProviderStub(),
 				appConfiguration: appConfiguration,
 				healthCertificateService: healthCertificateService
 			),
@@ -2212,7 +2212,7 @@ class FamilyMemberCoronaTestServiceTests: CWATestCase {
 			healthCertificateService: healthCertificateService,
 			healthCertificateRequestService: HealthCertificateRequestService(
 				store: store,
-				client: client,
+				restServiceProvider: RestServiceProviderStub(),
 				appConfiguration: appConfiguration,
 				healthCertificateService: healthCertificateService
 			),
@@ -2259,7 +2259,7 @@ class FamilyMemberCoronaTestServiceTests: CWATestCase {
 			healthCertificateService: healthCertificateService,
 			healthCertificateRequestService: HealthCertificateRequestService(
 				store: store,
-				client: client,
+				restServiceProvider: RestServiceProviderStub(),
 				appConfiguration: appConfiguration,
 				healthCertificateService: healthCertificateService
 			),
@@ -2314,7 +2314,7 @@ class FamilyMemberCoronaTestServiceTests: CWATestCase {
 			healthCertificateService: healthCertificateService,
 			healthCertificateRequestService: HealthCertificateRequestService(
 				store: store,
-				client: client,
+				restServiceProvider: RestServiceProviderStub(),
 				appConfiguration: appConfiguration,
 				healthCertificateService: healthCertificateService
 			),
@@ -2382,7 +2382,7 @@ class FamilyMemberCoronaTestServiceTests: CWATestCase {
 			healthCertificateService: healthCertificateService,
 			healthCertificateRequestService: HealthCertificateRequestService(
 				store: store,
-				client: client,
+				restServiceProvider: RestServiceProviderStub(),
 				appConfiguration: appConfiguration,
 				healthCertificateService: healthCertificateService
 			),
@@ -2445,7 +2445,7 @@ class FamilyMemberCoronaTestServiceTests: CWATestCase {
 			healthCertificateService: healthCertificateService,
 			healthCertificateRequestService: HealthCertificateRequestService(
 				store: store,
-				client: client,
+				restServiceProvider: RestServiceProviderStub(),
 				appConfiguration: appConfiguration,
 				healthCertificateService: healthCertificateService
 			),
@@ -2495,7 +2495,7 @@ class FamilyMemberCoronaTestServiceTests: CWATestCase {
 			healthCertificateService: healthCertificateService,
 			healthCertificateRequestService: HealthCertificateRequestService(
 				store: store,
-				client: client,
+				restServiceProvider: RestServiceProviderStub(),
 				appConfiguration: appConfiguration,
 				healthCertificateService: healthCertificateService
 			),
@@ -2547,7 +2547,7 @@ class FamilyMemberCoronaTestServiceTests: CWATestCase {
 			healthCertificateService: healthCertificateService,
 			healthCertificateRequestService: HealthCertificateRequestService(
 				store: store,
-				client: client,
+				restServiceProvider: RestServiceProviderStub(),
 				appConfiguration: appConfiguration,
 				healthCertificateService: healthCertificateService
 			),
@@ -2598,7 +2598,7 @@ class FamilyMemberCoronaTestServiceTests: CWATestCase {
 			healthCertificateService: healthCertificateService,
 			healthCertificateRequestService: HealthCertificateRequestService(
 				store: store,
-				client: client,
+				restServiceProvider: RestServiceProviderStub(),
 				appConfiguration: appConfiguration,
 				healthCertificateService: healthCertificateService
 			),
@@ -2655,7 +2655,7 @@ class FamilyMemberCoronaTestServiceTests: CWATestCase {
 			healthCertificateService: healthCertificateService,
 			healthCertificateRequestService: HealthCertificateRequestService(
 				store: store,
-				client: client,
+				restServiceProvider: RestServiceProviderStub(),
 				appConfiguration: appConfiguration,
 				healthCertificateService: healthCertificateService
 			),
@@ -2715,7 +2715,7 @@ class FamilyMemberCoronaTestServiceTests: CWATestCase {
 			healthCertificateService: healthCertificateService,
 			healthCertificateRequestService: HealthCertificateRequestService(
 				store: store,
-				client: client,
+				restServiceProvider: RestServiceProviderStub(),
 				appConfiguration: appConfiguration,
 				healthCertificateService: healthCertificateService
 			),
@@ -2777,7 +2777,7 @@ class FamilyMemberCoronaTestServiceTests: CWATestCase {
 			healthCertificateService: healthCertificateService,
 			healthCertificateRequestService: HealthCertificateRequestService(
 				store: store,
-				client: client,
+				restServiceProvider: RestServiceProviderStub(),
 				appConfiguration: appConfiguration,
 				healthCertificateService: healthCertificateService
 			),
@@ -2840,7 +2840,7 @@ class FamilyMemberCoronaTestServiceTests: CWATestCase {
 			healthCertificateService: healthCertificateService,
 			healthCertificateRequestService: HealthCertificateRequestService(
 				store: store,
-				client: client,
+				restServiceProvider: RestServiceProviderStub(),
 				appConfiguration: appConfiguration,
 				healthCertificateService: healthCertificateService
 			),
@@ -2888,7 +2888,7 @@ class FamilyMemberCoronaTestServiceTests: CWATestCase {
 			healthCertificateService: healthCertificateService,
 			healthCertificateRequestService: HealthCertificateRequestService(
 				store: store,
-				client: client,
+				restServiceProvider: RestServiceProviderStub(),
 				appConfiguration: appConfiguration,
 				healthCertificateService: healthCertificateService
 			),
@@ -2940,7 +2940,7 @@ class FamilyMemberCoronaTestServiceTests: CWATestCase {
 			healthCertificateService: healthCertificateService,
 			healthCertificateRequestService: HealthCertificateRequestService(
 				store: store,
-				client: client,
+				restServiceProvider: RestServiceProviderStub(),
 				appConfiguration: appConfiguration,
 				healthCertificateService: healthCertificateService
 			),
@@ -2995,7 +2995,7 @@ class FamilyMemberCoronaTestServiceTests: CWATestCase {
 			healthCertificateService: healthCertificateService,
 			healthCertificateRequestService: HealthCertificateRequestService(
 				store: store,
-				client: client,
+				restServiceProvider: RestServiceProviderStub(),
 				appConfiguration: appConfiguration,
 				healthCertificateService: healthCertificateService
 			),
@@ -3049,7 +3049,7 @@ class FamilyMemberCoronaTestServiceTests: CWATestCase {
 			healthCertificateService: healthCertificateService,
 			healthCertificateRequestService: HealthCertificateRequestService(
 				store: store,
-				client: client,
+				restServiceProvider: RestServiceProviderStub(),
 				appConfiguration: appConfiguration,
 				healthCertificateService: healthCertificateService
 			),
@@ -3096,7 +3096,7 @@ class FamilyMemberCoronaTestServiceTests: CWATestCase {
 			healthCertificateService: healthCertificateService,
 			healthCertificateRequestService: HealthCertificateRequestService(
 				store: store,
-				client: client,
+				restServiceProvider: RestServiceProviderStub(),
 				appConfiguration: appConfiguration,
 				healthCertificateService: healthCertificateService
 			),
@@ -3158,7 +3158,7 @@ class FamilyMemberCoronaTestServiceTests: CWATestCase {
 			healthCertificateService: healthCertificateService,
 			healthCertificateRequestService: HealthCertificateRequestService(
 				store: store,
-				client: client,
+				restServiceProvider: RestServiceProviderStub(),
 				appConfiguration: appConfiguration,
 				healthCertificateService: healthCertificateService
 			),
@@ -3202,7 +3202,7 @@ class FamilyMemberCoronaTestServiceTests: CWATestCase {
 			healthCertificateService: healthCertificateService,
 			healthCertificateRequestService: HealthCertificateRequestService(
 				store: store,
-				client: client,
+				restServiceProvider: RestServiceProviderStub(),
 				appConfiguration: appConfiguration,
 				healthCertificateService: healthCertificateService
 			),
@@ -3271,46 +3271,56 @@ class FamilyMemberCoronaTestServiceTests: CWATestCase {
 		
 		let client = ClientMock()
 		
-		client.onSubmitCountries = { _, isFake, completion in
-			expectation.fulfill()
-			XCTAssertTrue(isFake)
-			XCTAssertEqual(count, 2)
-			count += 1
-			completion(.success(()))
-		}
-		
 		let store = MockTestStore()
 		let appConfiguration = CachedAppConfigurationMock()
-		let restServiceProvider = RestServiceProviderStub(loadResources: [
-			LoadResource(
-				result: .success(TestResultReceiveModel(testResult: TestResult.serverResponse(for: testResult, on: coronaTestType), sc: nil, labId: nil)),
-				willLoadResource: { resource in
-					guard let resource = resource as? TestResultResource  else {
-						XCTFail("TestResultResource expected.")
-						return
+		let restServiceProvider = RestServiceProviderStub(
+			loadResources: [
+				LoadResource(
+					result: .success(TestResultReceiveModel(testResult: TestResult.serverResponse(for: testResult, on: coronaTestType), sc: nil, labId: nil)),
+					willLoadResource: { resource in
+						guard let resource = resource as? TestResultResource  else {
+							XCTFail("TestResultResource expected.")
+							return
+						}
+						expectation.fulfill()
+						XCTAssertFalse(resource.locator.isFake)
+						XCTAssertEqual(count, 0)
+						count += 1
 					}
-					expectation.fulfill()
-					XCTAssertFalse(resource.locator.isFake)
-					XCTAssertEqual(count, 0)
-					count += 1
-				}
-			),
-			LoadResource(
-				result: .success(
-					RegistrationTokenReceiveModel(submissionTAN: "fake")
 				),
-				willLoadResource: { resource in
-					guard let resource = resource as? RegistrationTokenResource  else {
-						XCTFail("RegistrationTokenResource expected.")
-						return
+				LoadResource(
+					result: .success(
+						RegistrationTokenReceiveModel(submissionTAN: "fake")
+					),
+					willLoadResource: { resource in
+						guard let resource = resource as? RegistrationTokenResource  else {
+							XCTFail("RegistrationTokenResource expected.")
+							return
+						}
+						expectation.fulfill()
+						
+						XCTAssertTrue(resource.locator.isFake)
+						XCTAssertEqual(count, 1)
+						count += 1
+					}),
+				// Key submission result.
+				LoadResource(
+					result: .success(()),
+					willLoadResource: { resource in
+						guard let submissionResource = resource as? KeySubmissionResource else {
+							XCTFail("KeySubmissionResource expected.")
+							return
+						}
+						expectation.fulfill()
+						XCTAssertTrue(submissionResource.locator.isFake)
+						XCTAssertEqual(count, 2)
+						count += 1
 					}
-					expectation.fulfill()
-					
-					XCTAssertTrue(resource.locator.isFake)
-					XCTAssertEqual(count, 1)
-					count += 1
-				})
-		])
+				)
+			],
+			isFakeResourceLoadingActive: true
+		)
+		
 		let healthCertificateService = HealthCertificateService(
 			store: store,
 			dccSignatureVerifier: DCCSignatureVerifyingStub(),
@@ -3329,7 +3339,7 @@ class FamilyMemberCoronaTestServiceTests: CWATestCase {
 			healthCertificateService: healthCertificateService,
 			healthCertificateRequestService: HealthCertificateRequestService(
 				store: store,
-				client: client,
+				restServiceProvider: RestServiceProviderStub(),
 				appConfiguration: appConfiguration,
 				healthCertificateService: healthCertificateService
 			),

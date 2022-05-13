@@ -10,7 +10,6 @@ import XCTest
 class CoronaTestRestorationHandlerTests: CWATestCase {
 
 	func testCanRestore() {
-		let client = ClientMock()
 		let store = MockTestStore()
 		let appConfiguration = CachedAppConfigurationMock()
 		let recycleBin = RecycleBin(store: store)
@@ -26,7 +25,6 @@ class CoronaTestRestorationHandlerTests: CWATestCase {
 		)
 
 		let service = CoronaTestService(
-			client: client,
 			store: store,
 			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
@@ -34,7 +32,7 @@ class CoronaTestRestorationHandlerTests: CWATestCase {
 			healthCertificateService: healthCertificateService,
 			healthCertificateRequestService: HealthCertificateRequestService(
 				store: store,
-				client: client,
+				restServiceProvider: RestServiceProviderStub(),
 				appConfiguration: appConfiguration,
 				healthCertificateService: healthCertificateService
 			),
@@ -84,7 +82,6 @@ class CoronaTestRestorationHandlerTests: CWATestCase {
 	}
 
 	func testRestoringPCRTest() {
-		let client = ClientMock()
 		let store = MockTestStore()
 		let appConfiguration = CachedAppConfigurationMock()
 		let recycleBin = RecycleBin(store: store)
@@ -100,7 +97,6 @@ class CoronaTestRestorationHandlerTests: CWATestCase {
 		)
 
 		let service = CoronaTestService(
-			client: client,
 			store: store,
 			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
@@ -108,7 +104,7 @@ class CoronaTestRestorationHandlerTests: CWATestCase {
 			healthCertificateService: healthCertificateService,
 			healthCertificateRequestService: HealthCertificateRequestService(
 				store: store,
-				client: client,
+				restServiceProvider: RestServiceProviderStub(),
 				appConfiguration: appConfiguration,
 				healthCertificateService: healthCertificateService
 			),
@@ -137,7 +133,6 @@ class CoronaTestRestorationHandlerTests: CWATestCase {
 	}
 
 	func testRestoringAntigenTest() {
-		let client = ClientMock()
 		let store = MockTestStore()
 		let appConfiguration = CachedAppConfigurationMock()
 		let recycleBin = RecycleBin(store: store)
@@ -153,7 +148,6 @@ class CoronaTestRestorationHandlerTests: CWATestCase {
 		)
 
 		let service = CoronaTestService(
-			client: client,
 			store: store,
 			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
@@ -161,7 +155,7 @@ class CoronaTestRestorationHandlerTests: CWATestCase {
 			healthCertificateService: healthCertificateService,
 			healthCertificateRequestService: HealthCertificateRequestService(
 				store: store,
-				client: client,
+				restServiceProvider: RestServiceProviderStub(),
 				appConfiguration: appConfiguration,
 				healthCertificateService: healthCertificateService
 			),

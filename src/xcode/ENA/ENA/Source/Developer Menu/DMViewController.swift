@@ -15,7 +15,6 @@ final class DMViewController: UITableViewController, RequiresAppDependencies {
 	init(
 		client: Client,
 		restServiceProvider: RestServiceProviding,
-		wifiClient: WifiOnlyHTTPClient,
 		exposureSubmissionService: ExposureSubmissionService,
 		otpService: OTPServiceProviding,
 		coronaTestService: CoronaTestServiceProviding,
@@ -27,7 +26,6 @@ final class DMViewController: UITableViewController, RequiresAppDependencies {
 	) {
 		self.client = client
 		self.restServiceProvider = restServiceProvider
-		self.wifiClient = wifiClient
 		self.exposureSubmissionService = exposureSubmissionService
 		self.otpService = otpService
 		self.coronaTestService = coronaTestService
@@ -111,11 +109,11 @@ final class DMViewController: UITableViewController, RequiresAppDependencies {
 		case .boosterRules:
 			vc = DMBoosterChoosePersonViewController(store: store, healthCertificateService: healthCertificateService)
 		case .wifiClient:
-			vc = DMWifiClientViewController(wifiClient: wifiClient)
+			vc = DMWifiClientViewController(restService: restServiceProvider)
 		case .checkSubmittedKeys:
 			vc = DMSubmissionStateViewController(
 				client: client,
-				wifiClient: wifiClient,
+				restService: restServiceProvider,
 				delegate: self
 			)
 		case .appConfiguration:
@@ -189,10 +187,7 @@ final class DMViewController: UITableViewController, RequiresAppDependencies {
 	// MARK: - Public
 	
 	// MARK: - Internal
-	
-	// internal because of protocol RequiresAppDependencies
-	let wifiClient: WifiOnlyHTTPClient
-	
+		
 	// MARK: - Private
 	
 	private let client: Client
@@ -215,7 +210,7 @@ final class DMViewController: UITableViewController, RequiresAppDependencies {
 
 	@objc
 	private func sendFakeRequest() {
-		FakeRequestService(client: client, restServiceProvider: restServiceProvider).fakeRequest {
+		FakeRequestService(restServiceProvider: restServiceProvider).fakeRequest {
 			let alert = self.setupErrorAlert(title: "Info", message: "Fake request was sent.")
 			self.present(alert, animated: true) {}
 		}

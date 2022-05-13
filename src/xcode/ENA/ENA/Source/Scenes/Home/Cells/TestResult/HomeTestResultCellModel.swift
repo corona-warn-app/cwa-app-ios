@@ -37,6 +37,9 @@ class HomeTestResultCellModel {
 	@OpenCombine.Published var isCellTappable: Bool = true
 	@OpenCombine.Published var accessibilityIdentifier: String! = AccessibilityIdentifiers.Home.TestResultCell.unconfiguredButton
 
+	@OpenCombine.Published var testResult: TestResult?
+	@OpenCombine.Published var antigenTestIsOutdated: Bool = false
+
 	// MARK: - Private
 
 	private let coronaTestType: CoronaTestType
@@ -52,6 +55,7 @@ class HomeTestResultCellModel {
 			title = AppStrings.Home.TestResult.pcrTitle
 
 			coronaTestService.pcrTest
+				.receive(on: DispatchQueue.main.ocombine)
 				.sink { [weak self] pcrTest in
 					guard let pcrTest = pcrTest else {
 						return
@@ -59,10 +63,14 @@ class HomeTestResultCellModel {
 
 					self?.configure(for: pcrTest.testResult)
 					self?.onUpdate()
+
+					// required for unit testing - to confirm the update of the cell model
+					self?.testResult = pcrTest.testResult
 				}
 				.store(in: &subscriptions)
 
 			coronaTestService.pcrTestResultIsLoading
+				.receive(on: DispatchQueue.main.ocombine)
 				.sink { [weak self] testResultIsLoading in
 					if self?.coronaTestService.pcrTest.value?.finalTestResultReceivedDate == nil {
 						if testResultIsLoading {
@@ -78,6 +86,7 @@ class HomeTestResultCellModel {
 			title = AppStrings.Home.TestResult.antigenTitle
 
 			coronaTestService.antigenTest
+				.receive(on: DispatchQueue.main.ocombine)
 				.sink { [weak self] antigenTest in
 					guard
 						let self = self,
@@ -89,10 +98,14 @@ class HomeTestResultCellModel {
 
 					self.configure(for: antigenTest.testResult)
 					self.onUpdate()
+
+					// required for unit testing - to confirm the update of the cell model
+					self.testResult = antigenTest.testResult
 				}
 				.store(in: &subscriptions)
 
 			coronaTestService.antigenTestResultIsLoading
+				.receive(on: DispatchQueue.main.ocombine)
 				.sink { [weak self] testResultIsLoading in
 					if self?.coronaTestService.antigenTest.value?.finalTestResultReceivedDate == nil {
 						if testResultIsLoading {
@@ -106,13 +119,18 @@ class HomeTestResultCellModel {
 				.store(in: &subscriptions)
 
 			coronaTestService.antigenTestIsOutdated
+				.receive(on: DispatchQueue.main.ocombine)
 				.sink { [weak self] antigenTestIsOutdated in
 					guard antigenTestIsOutdated else {
+						self?.antigenTestIsOutdated = false
 						return
 					}
 
 					self?.configureTestResultOutdated()
 					self?.onUpdate()
+
+					// required for unit testing - to confirm the update of the cell model
+					self?.antigenTestIsOutdated = true
 				}
 				.store(in: &subscriptions)
 		}

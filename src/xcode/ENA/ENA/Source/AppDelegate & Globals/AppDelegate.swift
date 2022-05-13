@@ -15,7 +15,6 @@ import CertLogic
 protocol CoronaWarnAppDelegate: AnyObject {
 
 	var client: HTTPClient { get }
-	var wifiClient: WifiOnlyHTTPClient { get }
 	var downloadedPackagesStore: DownloadedPackagesStore { get }
 	var store: Store { get }
 	var appConfigurationProvider: AppConfigurationProviding { get }
@@ -57,7 +56,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 
 		self.restServiceProvider = RestServiceProvider(cache: restServiceCache)
 		self.client = HTTPClient(environmentProvider: environmentProvider)
-		self.wifiClient = WifiOnlyHTTPClient(environmentProvider: environmentProvider)
 		self.recycleBin = RecycleBin(store: store)
 
 		self.downloadedPackagesStore.keyValueStore = self.store
@@ -271,7 +269,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 	// MARK: - Protocol CoronaWarnAppDelegate
 
 	let client: HTTPClient
-	let wifiClient: WifiOnlyHTTPClient
 	let cachingClient = CachingHTTPClient()
 	let downloadedPackagesStore: DownloadedPackagesStore = DownloadedPackagesSQLLiteStore(fileName: "packages")
 	let taskScheduler: ENATaskScheduler = ENATaskScheduler.shared
@@ -291,7 +288,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 
 	lazy var coronaTestService: CoronaTestServiceProviding = {
 		return CoronaTestService(
-			client: client,
 			restServiceProvider: restServiceProvider,
 			store: store,
 			eventStore: eventStore,
@@ -357,12 +353,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		let keyPackageDownload = KeyPackageDownload(
 			downloadedPackagesStore: downloadedPackagesStore,
 			client: client,
-			wifiClient: wifiClient,
+			restService: restServiceProvider,
 			store: store
 		)
 
 		let traceWarningPackageDownload = TraceWarningPackageDownload(
 			client: client,
+			restServiceProvider: restServiceProvider,
 			store: store,
 			eventStore: eventStore
 		)
@@ -420,7 +417,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 
 	private lazy var healthCertificateRequestService = HealthCertificateRequestService(
 		store: store,
-		client: client,
+		restServiceProvider: restServiceProvider,
 		appConfiguration: appConfigurationProvider,
 		healthCertificateService: healthCertificateService
 	)
@@ -545,7 +542,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		ExposureSubmissionServiceDependencies(
 			exposureManager: self.exposureManager,
 			appConfigurationProvider: self.appConfigurationProvider,
-			client: self.client,
 			restServiceProvider: self.restServiceProvider,
 			store: self.store,
 			eventStore: self.eventStore,
@@ -703,6 +699,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		coronaTestService.updatePublishersFromStore()
 		familyMemberCoronaTestService.updatePublishersFromStore()
 		healthCertificateService.updatePublishersFromStore()
+		healthCertificateRequestService.updatePublishersFromStore()
 	}
 
 	// MARK: - Protocol ExposureStateUpdating

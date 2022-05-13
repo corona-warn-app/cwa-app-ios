@@ -27,12 +27,14 @@ class TraceWarningPackageDownload: TraceWarningPackageDownloading {
 	
 	init(
 		client: Client,
+		restServiceProvider: RestServiceProviding,
 		store: Store,
 		eventStore: EventStoringProviding,
 		countries: [Country.ID] = ["DE"],
 		signatureVerifier: SignatureVerification = SignatureVerifier()
 	) {
 		self.client = client
+		self.restServiceProvider = restServiceProvider
 		self.store = store
 		self.eventStore = eventStore
 		self.countries = countries
@@ -152,6 +154,7 @@ class TraceWarningPackageDownload: TraceWarningPackageDownloading {
 	// MARK: - Private
 	
 	private let client: Client
+	private let restServiceProvider: RestServiceProviding
 	private let store: Store
 	private let eventStore: EventStoringProviding
 	private let countries: [Country.ID]
@@ -246,31 +249,32 @@ class TraceWarningPackageDownload: TraceWarningPackageDownloading {
 		// 3. Clean up revoked Packages.
 		let revokedPackages = appConfig.keyDownloadParameters.revokedTraceWarningPackages
 		removeRevokedTraceWarningMetadataPackages(revokedPackages)
-		
-		// 4. Determine availablePackagesOnCDN (http discovery)
-		client.traceWarningPackageDiscovery(
-			unencrypted: unencrypted,
-			country: country,
-			completion: { [weak self] result in
-				switch result {
-				case let .success(traceWarningDiscovery):
-					self?.processDiscoverdPackages(
-						traceWarningDiscovery,
-						country: country,
-						unencrypted: unencrypted,
-						completion: completion
-					)
 
-				case let .failure(error):
-					Log.error("Error at discovery trace warning packages.", log: .checkin, error: error)
-					completion(.failure(error))
+		// 4. Determine availablePackagesOnCDN (http discovery)
+		let resource = TraceWarningDiscoveryResource(unencrypted: unencrypted, country: country)
+		restServiceProvider.load(resource) { [weak self] result in
+			switch result {
+			case let .success(traceWarningDiscovery):
+				self?.processDiscoverdPackages(
+					traceWarningDiscovery,
+					country: country,
+					unencrypted: unencrypted,
+					completion: completion
+				)
+
+			case let .failure(error):
+				Log.error("Error at discovery trace warning packages.", log: .checkin, error: error)
+				guard let traceWarningError = resource.customError(for: error) else {
+					completion(.failure(.generalError))
+					return
 				}
+				completion(.failure(traceWarningError))
 			}
-		)
+		}
 	}
 	
 	private func processDiscoverdPackages(
-		_ discoveredTraceWarnings: TraceWarningDiscovery,
+		_ discoveredTraceWarnings: TraceWarningDiscoveryModel,
 		country: Country.ID,
 		unencrypted: Bool,
 		completion: @escaping (Result<TraceWarningSuccess, TraceWarningError>) -> Void

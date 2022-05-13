@@ -215,9 +215,9 @@
 
 "ExposureDetection_Info_Contagion_Point5" = "Reisen: Verzichten Sie auf Flug- und Zugreisen.";
 
-"ExposureDetection_Info_Contagion_Point6" = "Bei Fragen zu Quarantäne-Maßnahmen wenden Sie sich bitte an Ihr Gesundheitsamt. Weitere Informationen finden Sie in den FAQ zu Quarantäne-Maßnahmen.";
+"ExposureDetection_Info_Contagion_Point6" = "Bei Fragen zu Quarantäne-Maßnahmen wenden Sie sich bitte an Ihr Gesundheitsamt. Mehr Informationen finden Sie in den FAQ zu Quarantäne-Maßnahmen.";
 
-"ExposureDetection_Info_Contagion_Point6_LinkText" = "Weitere Informationen finden Sie in den FAQ zu Quarantäne-Maßnahmen.";
+"ExposureDetection_Info_Contagion_Point6_LinkText" = "Mehr Informationen finden Sie in den FAQ zu Quarantäne-Maßnahmen.";
 
 "ExposureDetection_Info_Contagion_Footer" = "Weitere Hinweise finden Sie in den FAQ zur freiwilligen Selbstquarantäne.";
 
@@ -764,6 +764,8 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmissionResult_testNegativeDesc" = "Der Labortest hat keinen Nachweis für das Coronavirus SARS-CoV-2 bei Ihnen ergeben.";
 
+"ExposureSubmissionResult_familyMember_testNegativeDesc" = "Der Labortest hat keinen Nachweis für das Coronavirus SARS-CoV-2 bei dem Test ergeben.";
+
 "ExposureSubmissionResult_testNegative_furtherInfos_title" = "Weitere Infos:";
 
 "ExposureSubmissionResult_testNegative_furtherInfos_desc" = "Sie haben trotzdem akute gesundheitliche Beschwerden?";
@@ -778,17 +780,19 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmissionResult_testInvalidDesc" = "Es gab ein Problem bei der Auswertung Ihres Tests. Bitte kontaktieren Sie das Testcenter oder das zuständige Labor, um Informationen zum weiteren Vorgehen zu erhalten.";
 
+"ExposureSubmissionResult_familyMember_testInvalidDesc" = "Es gab ein Problem bei der Auswertung des Tests. Bitte kontaktieren Sie das Testcenter oder das zuständige Labor, um Informationen zum weiteren Vorgehen zu erhalten.";
+
 "ExposureSubmissionResult_testExpired" = "Test kann nicht ausgewertet werden";
 
 "ExposureSubmissionResult_testExpiredDesc" = "Es gab ein Problem bei der Auswertung Ihres Tests. Ihr QR Code ist bereits abgelaufen.";
 
 "ExposureSubmissionResult_testPending" = "Ihr Testergebnis liegt noch nicht vor";
 
-"ExposureSubmissionResult_familyMember_testPending" = "Ihr Testergebnis liegt noch nicht vor";
+"ExposureSubmissionResult_familyMember_testPending" = "Das Testergebnis liegt noch nicht vor";
 
 "ExposureSubmissionResult_testPendingDesc" = "Sobald Ihr Testergebnis vorliegt, wird es Ihnen in der App angezeigt.\n\nSie bekommen Ihr Testergebnis auch außerhalb der App mitgeteilt. Falls Ihr Test positiv ist, bekommen Sie vom Gesundheitsamt eine Mitteilung.\n\nWenn Ihnen außerhalb der App ein positives Testergebnis mitgeteilt wurde, löschen Sie den aktuell in der App registrierten Test. Rufen Sie die unter „TAN anfragen” angegebene Nummer an, um eine TAN zu erhalten. Registrieren Sie dann Ihr Testergebnis mithilfe der TAN in der App.";
 
-"ExposureSubmissionResult_familyMember_testPendingDesc" = "Sobald Ihr Testergebnis vorliegt, wird es Ihnen in der App angezeigt.\nSie bekommen Ihr Testergebnis auch außerhalb der App mitgeteilt. Falls der Test positiv ist, bekommen Sie vom Gesundheitsamt eine Mitteilung.";
+"ExposureSubmissionResult_familyMember_testPendingDesc" = "Sobald das Testergebnis vorliegt, wird es Ihnen in der App angezeigt.\nSie bekommen das Testergebnis auch außerhalb der App mitgeteilt. Falls der Test positiv ist, bekommen Sie vom Gesundheitsamt eine Mitteilung.";
 
 "ExposureSubmissionResult_testCertificate_title" = "Ihr COVID-Testzertifikat";
 
@@ -806,7 +810,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmissionResult_antigenTestPending" = "Ihr Testergebnis liegt noch nicht vor";
 
-"ExposureSubmissionResult_familyMember_antigenTestPending" = "Ihr Testergebnis liegt noch nicht vor";
+"ExposureSubmissionResult_familyMember_antigenTestPending" = "Das Testergebnis liegt noch nicht vor";
 
 "ExposureSubmissionResult_antigenTestPendingDesc" = "Sobald Ihr Testergebnis vorliegt, wird es Ihnen in der App angezeigt.";
 
@@ -821,6 +825,8 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 "ExposureSubmissionResult_pcrTestPendingContactJournalDesc" = "Sobald Ihr Testergebnis vorliegt, wird es Ihnen in der App angezeigt.";
 
 "ExposureSubmissionResult_antigenTestNegativDesc" = "Der Schnelltest hat keinen Nachweis für das Coronavirus SARS-CoV-2 bei Ihnen ergeben.";
+
+"ExposureSubmissionResult_familyMember_antigenTestNegativDesc" = "Der Schnelltest hat keinen Nachweis für das Coronavirus SARS-CoV-2 bei dem Test ergeben.";
 
 "ExposureSubmissionResult_WarnOthersConsentGiven" = "Einverständnis „Andere warnen“ erteilt";
 
@@ -950,7 +956,9 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmissionResult_Timer_Title" = "Ergebnis liegt vor seit";
 
-"ExposureSubmissionResult_Negative_Antigen_Proof_Desc" = "Um den hier angezeigten Befund überprüfbar nachzuweisen, ist ein Digitales Testzertifikat der EU notwendig. Wenn Sie bei der Registrierung des Tests ein Digitales Testzertifikat angefordert haben und die Teststelle deren Ausstellung unterstützt, können Sie Ihr Digitales Testzertifikat anhand des oben angegebenen Links anzeigen. Sie finden das Zertifikat außerdem im Bereich „Zertifikate“.\nInformieren Sie sich diesbezüglich bitte auch über die Kriterien zur Anerkennung und Gültigkeit von Test-Zertifikaten in Bezug auf den Zweck für den Sie den Nachweis benötigen.";
+"ExposureSubmissionResult_Negative_Antigen_Proof_Desc" = "Um den hier angezeigten Befund überprüfbar nachzuweisen, ist ein Digitales Testzertifikat der EU notwendig. Wenn Sie bei der Registrierung des Tests ein Digitales Testzertifikat angefordert haben und die Teststelle deren Ausstellung unterstützt, können Sie Ihr Digitales Testzertifikat anhand des oben angegebenen Links anzeigen. Sie finden das Zertifikat außerdem im Bereich „Zertifikate“.\nInformieren Sie sich bitte auch über die Kriterien zur Anerkennung und Gültigkeit von Test-Zertifikaten in Bezug auf den Zweck für den Sie den Nachweis benötigen.";
+
+"ExposureSubmissionResult_familyMember_Negative_Antigen_NoProof_Title" = "Nachweis-Funktion";
 
 "ExposureSubmissionResult_Negative_Antigen_NoProof_Title" = "Keine Nachweis-Funktion";
 
@@ -3313,7 +3321,7 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "HealthCertificate_Validation_TechnicalFailed_failedSectionDescription" = "Folgende Regeln sind nicht erfüllt:";
 
-"HealthCertificate_Validation_TechnicalFailed_certificateNotValid" = "Die Signatur des Zertifikates muss gültig sein.";
+"HealthCertificate_Validation_TechnicalFailed_certificateNotValid" = "Die Signatur des Zertifikats muss gültig sein.";
 
 "HealthCertificate_Validation_TechnicalFailed_technicalExpirationDatePassed" = "Das technische Ablaufdatum darf nicht überschritten sein.";
 
@@ -3325,7 +3333,7 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "HealthCertificate_ValidityState_ExpiringSoon" = "Zertifikat läuft am %@ um %@ ab";
 
-"HealthCertificate_ValidityState_ExpiringSoon_description" = "Bitte bemühen Sie sich rechtzeitig darum, einen neuen digitalen Nachweis ausstellen zu lassen.";
+"HealthCertificate_ValidityState_ExpiringSoon_description" = "Wenn dies Ihr aktuell verwendetes Zertifikat ist, bemühen Sie sich bitte rechtzeitig darum, es zu erneuern. Ab 28 Tage vor Ablauf können Sie solche Zertifikate direkt über die App erneuern lassen. Sie finden die Option \"Zertifikate erneuern\" dann in Ihrer Zertifikatsübersicht unter der Kachel \"Status-Nachweis\".";
 
 "HealthCertificate_ValidityState_Expired" = "Zertifikat abgelaufen";
 
