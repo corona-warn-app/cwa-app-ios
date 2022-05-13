@@ -180,14 +180,15 @@ class HealthCertificateNotificationService {
 		completion: @escaping () -> Void
 	) {
 		let name = person.name?.standardizedName
-		guard let newCertificateReissuance = person.dccWalletInfo?.certificateReissuance else {
+		guard let newCertificateReissuance = person.dccWalletInfo?.certificateReissuance,
+			  let newIdentifier = newCertificateReissuance.reissuanceDivision.identifier else {
 			Log.info("No certificate reissuance found for person \(private: String(describing: name))", log: .vaccination)
 			completion()
 
 			return
 		}
-
-		if newCertificateReissuance != previousCertificateReissuance {
+		
+		 if newIdentifier != previousCertificateReissuance?.reissuanceDivision.identifier {
 			guard let personIdentifier = person.identifier else {
 				Log.error("Person identifier is nil, will not trigger certificate reissuance notification", log: .vaccination)
 				completion()
