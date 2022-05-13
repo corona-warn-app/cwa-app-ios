@@ -13,9 +13,10 @@ class HealthCertificateReissuanceConsentViewController: DynamicTableViewControll
 		restServiceProvider: RestServiceProviding,
 		appConfigProvider: AppConfigurationProviding,
 		cclService: CCLServable,
-		certificates: [HealthCertificate],
+		certificates: [DCCCertificateContainerExtended],
 		healthCertifiedPerson: HealthCertifiedPerson,
 		didTapDataPrivacy: @escaping () -> Void,
+		didTapAccompanyingCertificate: @escaping ([HealthCertificate]) -> Void,
 		onError: @escaping (HealthCertificateReissuanceError) -> Void,
 		onReissuanceSuccess: @escaping () -> Void,
 		dismiss: @escaping () -> Void
@@ -28,7 +29,8 @@ class HealthCertificateReissuanceConsentViewController: DynamicTableViewControll
 			appConfigProvider: appConfigProvider,
 			restServiceProvider: restServiceProvider,
 			healthCertificateService: healthCertificateService,
-			onDisclaimerButtonTap: didTapDataPrivacy
+			onDisclaimerButtonTap: didTapDataPrivacy,
+			onAccompanyingCertificatesButtonTap: didTapAccompanyingCertificate
 		)
 
 		self.onError = onError
