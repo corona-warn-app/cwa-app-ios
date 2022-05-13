@@ -279,7 +279,7 @@ final class HealthCertificateReissuanceConsentViewModel {
 		}
 		return finalArray.compactMap({
 			certifiedPerson.healthCertificate(for: $0.certificateRef)
-		}).sorted(by: <)
+		}).sorted(by: >)
 	}
 	
 	private let normalTextAttribute: [NSAttributedString.Key: Any] = [
