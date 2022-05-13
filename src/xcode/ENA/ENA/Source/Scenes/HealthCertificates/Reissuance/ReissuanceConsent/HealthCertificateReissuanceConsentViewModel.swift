@@ -262,6 +262,24 @@ final class HealthCertificateReissuanceConsentViewModel {
 		}
 	}
 	
+	private func filterAccompanyingCertificates(
+		certificates: [DCCCertificateContainerExtended],
+		certifiedPerson: HealthCertifiedPerson
+	) -> [HealthCertificate] {
+		var finalArray = [DCCCertificateContainer]()
+		let reissuanceCertificates = certificates.compactMap({ $0.certificateToReissue })
+		for certificate in certificates {
+			for accompanyingCertificate in certificate.accompanyingCertificates {
+				if !reissuanceCertificates.contains(accompanyingCertificate) && !finalArray.contains(accompanyingCertificate) {
+					finalArray.append(accompanyingCertificate)
+				}
+			}
+		}
+		return finalArray.compactMap({
+			certifiedPerson.healthCertificate(for: $0.certificateRef)
+		})
+	}
+	
 	private let normalTextAttribute: [NSAttributedString.Key: Any] = [
 		NSAttributedString.Key.font: UIFont.enaFont(for: .body)
 	]
