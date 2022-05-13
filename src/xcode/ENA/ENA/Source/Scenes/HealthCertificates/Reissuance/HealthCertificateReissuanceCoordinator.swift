@@ -57,10 +57,20 @@ final class HealthCertificateReissuanceCoordinator {
 			restServiceProvider: restServiceProvider,
 			appConfigProvider: appConfigProvider,
 			cclService: cclService,
-			certificates: reissuanceCertificates ?? [],
+			certificates: certificateReissuance.certificates ?? [],
 			healthCertifiedPerson: healthCertifiedPerson,
 			didTapDataPrivacy: { [weak self] in
 				self?.showDataPrivacy()
+			}, didTapAccompanyingCertificate: { [weak self] certificates in
+				guard let self = self else { return }
+				let accompanyingCertificatesViewController = AccompanyingCertificatesViewController(
+					certificates: certificates,
+					certifiedPerson: self.healthCertifiedPerson,
+					dismiss: { [weak self] in
+						self?.parentViewController.dismiss(animated: true)
+					}
+				)
+				self.navigationController.pushViewController(accompanyingCertificatesViewController, animated: true)
 			},
 			onError: { [weak self] error in
 				self?.showReissuanceError(error)
