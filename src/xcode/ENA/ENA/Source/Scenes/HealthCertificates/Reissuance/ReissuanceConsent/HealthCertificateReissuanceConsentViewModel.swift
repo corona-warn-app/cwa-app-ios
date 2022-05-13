@@ -144,13 +144,26 @@ final class HealthCertificateReissuanceConsentViewModel {
 					publicKeyHash: appConfig.dgcParameters.reissueServicePublicKeyDigest,
 					certificatePosition: 0
 				)
-				guard let wallet = self.certifiedPerson.dccWalletInfo else {
-					Log.error("Reissuance request failed due to dccWalletInfo being nil", log: .vaccination)
+				guard let certificateReissuance = self.certifiedPerson.dccWalletInfo?.certificateReissuance else {
+					Log.error("Reissuance request failed due to dccWalletInfo.certificateReissuance being nil", log: .vaccination)
 					return
 				}
-				guard let currentCertificates = wallet.certificateReissuance?.certificates else {
+				let currentCertificates: [DCCCertificateContainerExtended]
+				if let certificates = certificateReissuance.certificates {
+					Log.debug("Reissuance request use updated CCL parameters", log: .vaccination)
+					currentCertificates = certificates
+				} else if let reissuanceCertificate = certificateReissuance.certificateToReissue,
+						  let accompanyingCertificates = certificateReissuance.accompanyingCertificates {
+					Log.debug("Reissuance request Fall back to old CCL parameters", log: .vaccination)
+					let certificate = DCCCertificateContainerExtended(
+						certificateToReissue: reissuanceCertificate,
+						accompanyingCertificates: accompanyingCertificates,
+						action: "renew"
+					)
+					currentCertificates = [certificate]
+				} else {
+					currentCertificates = []
 					Log.error("Reissuance request failed due to certificates being nil", log: .vaccination)
-					return
 				}
 				
 				for certificate in currentCertificates {
