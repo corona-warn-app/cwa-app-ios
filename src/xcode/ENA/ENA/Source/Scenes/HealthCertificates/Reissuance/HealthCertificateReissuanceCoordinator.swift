@@ -70,6 +70,7 @@ final class HealthCertificateReissuanceCoordinator {
 						self?.parentViewController.dismiss(animated: true)
 					}
 				)
+				accompanyingCertificatesViewController.navigationItem.largeTitleDisplayMode = .never
 				self.navigationController.pushViewController(accompanyingCertificatesViewController, animated: true)
 			},
 			onError: { [weak self] error in
