@@ -73,7 +73,7 @@ final class HealthCertificateReissuanceConsentViewModel {
 								accessibilityIdentifier: AccessibilityIdentifiers.HealthCertificate.Reissuance.accompanyingCertificatesTitle,
 								accessibilityTraits: UIAccessibilityTraits.link,
 								action: .execute { [weak self] _, _ in
-									self?.onAccompanyingCertificatesButtonTap(self?.filteredAccompanyingCertificates.sorted(by: <) ?? [])
+									self?.onAccompanyingCertificatesButtonTap(self?.filteredAccompanyingCertificates ?? [])
 								},
 								configure: { _, cell, _ in
 									cell.accessoryType = .disclosureIndicator
@@ -277,7 +277,7 @@ final class HealthCertificateReissuanceConsentViewModel {
 		}
 		return finalArray.compactMap({
 			certifiedPerson.healthCertificate(for: $0.certificateRef)
-		})
+		}).sorted(by: <)
 	}
 	
 	private let normalTextAttribute: [NSAttributedString.Key: Any] = [
