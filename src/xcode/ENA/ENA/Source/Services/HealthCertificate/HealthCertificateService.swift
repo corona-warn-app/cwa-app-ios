@@ -311,7 +311,7 @@ class HealthCertificateService: HealthCertificateServiceServable {
 						Log.error("The certified person does not contain the indexed certificate", log: .vaccination)
 					}
 				} else {
-					Log.error("index of certificate to be deleted is out of Bounds", log: .vaccination)
+					Log.error("Index of certificate to be deleted is out of bounds", log: .vaccination)
 				}
 			}
 			
