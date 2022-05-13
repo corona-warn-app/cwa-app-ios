@@ -3374,6 +3374,10 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "HealthCertificate_Reissuance_Consent_Bullet_Point_2" = "Um sicherzustellen, dass Zertifikate nur einmalig erneuert werden können, werden jeweils die Kennung des alten und des erneuerten Zertifikats durch das RKI dokumentiert. Die weiteren Daten zu Ihren Zertifikaten werden nach der Erneuerung beim RKI sofort gelöscht.";
 
+"HealthCertificate_Reissuance_Consent_Bullet_Point_3" = "Stellen Sie bitte bei der Erneuerung von Zertifikaten von Familienmitgliedern sicher, dass die betreffende Person einverstanden ist.";
+
+"HealthCertificate_Reissuance_Consent_Bullet_Point_4" = "In bestimmten Fällen werden zusätzlich zu dem zu erneuernden Zertifikat weitere Zertifikate übermittelt. Dies ist erforderlich, um die bisherige Abfolge der Impfungen und Genesungen im neuen Zertifikat aufnehmen zu können.";
+
 "HealthCertificate_Reissuance_AccompanyingCertificates_Cell" = "Zusätzlich übermittelte Zertifikate";
 
 /* HealthCertificate Resissuance Additional Certificates */

@@ -119,6 +119,8 @@ final class HealthCertificateReissuanceConsentViewModel {
 						),
 						.bulletPoint(text: AppStrings.HealthCertificate.Reissuance.Consent.bulletPoint_1),
 						.bulletPoint(text: AppStrings.HealthCertificate.Reissuance.Consent.bulletPoint_2),
+						.bulletPoint(text: AppStrings.HealthCertificate.Reissuance.Consent.bulletPoint_3),
+						.bulletPoint(text: AppStrings.HealthCertificate.Reissuance.Consent.bulletPoint_4),
 						.space(height: 8.0),
 						faqLinkDynamicCell,
 						.space(height: 8.0)

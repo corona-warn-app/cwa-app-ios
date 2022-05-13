@@ -254,7 +254,7 @@
 
 "HealthCertificate_Reissuance_Consent_Legal_Subtitle" = "By tapping on “Accept”, you consent to the following steps:";
 
-"HealthCertificate_Reissuance_Consent_Legal_Bullet_1" = "The app will transmit the vaccination certificate to the RKI for verification.";
+"HealthCertificate_Reissuance_Consent_Legal_Bullet_1" = "The app will transmit the aforementioned certificates to the RKI for verification.";
 
 "HealthCertificate_Reissuance_Consent_Legal_Bullet_2" = "The RKI will check the certificates, issue renewed certificates and send these to your app.";
 
