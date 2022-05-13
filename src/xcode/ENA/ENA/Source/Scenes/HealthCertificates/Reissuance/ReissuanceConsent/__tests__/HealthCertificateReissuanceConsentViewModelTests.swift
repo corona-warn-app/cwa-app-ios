@@ -6,14 +6,24 @@ import XCTest
 @testable import ENA
 import HealthCertificateToolkit
 
+// swiftlint:disable type_body_length
 class HealthCertificateReissuanceConsentViewModelTests: CWATestCase {
 
+	let listTitleText = DCCUIText(
+		type: "string",
+		quantity: nil,
+		quantityParameterIndex: nil,
+		functionName: nil,
+		localizedText: ["de": "Zu erneuernde Zertifikate:"],
+		parameters: []
+	)
+	
 	let titleText = DCCUIText(
 		type: "string",
 		quantity: nil,
 		quantityParameterIndex: nil,
 		functionName: nil,
-		localizedText: ["de": "Zertifikat aktualisieren"],
+		localizedText: ["de": "Zertifikate erneuern"],
 		parameters: []
 	)
 
@@ -22,7 +32,7 @@ class HealthCertificateReissuanceConsentViewModelTests: CWATestCase {
 		quantity: nil,
 		quantityParameterIndex: nil,
 		functionName: nil,
-		localizedText: ["de": "Neuausstellung direkt über die App vornehmen"],
+		localizedText: ["de": "Erneuerung direkt über die App vornehmen"],
 		parameters: []
 	)
 
@@ -31,16 +41,16 @@ class HealthCertificateReissuanceConsentViewModelTests: CWATestCase {
 		quantity: nil,
 		quantityParameterIndex: nil,
 		functionName: nil,
-		localizedText: ["de": "Die Spezifikationen der EU für Zertifikate von Auffrischimpfungen wurden geändert. Dieses Zertifikat entspricht nicht den aktuellen Spezifikationen. Das Impfzertifikat ist zwar weiterhin gültig, es kann jedoch sein, dass bei einer Prüfung die Auffrischimpfung nicht erkannt wird. Bitte lassen Sie sich daher ein neues Impfzertifikat ausstellen. Sie können ein neues Impfzertifikat direkt kostenlos über die App anfordern. Hierfür ist Ihr Einverständnis erforderlich."],
+		localizedText: ["de": "Für mindestens ein Zertifikat ist die Gültigkeit abgelaufen oder läuft in Kürze ab. Mit einem abgelaufenen Zertifikat können Sie Ihren Status nicht mehr nachweisen.\n\nIm Zeitraum von 28 Tagen vor Ablauf und bis zu 3 Monate nach Ablauf der Gültigkeit können Sie sich neue Zertifikate direkt kostenlos über die App ausstellen lassen. Hierfür ist Ihr Einverständnis erforderlich."],
 		parameters: []
 	)
-
+	
 	func testGIVEN_ViewModel_WHEN_AllTextsArePresent_THEN_NumberOfCellsMatches() throws {
 		// GIVEN
 		let certificate = HealthCertificate.mock()
 		let viewModel = HealthCertificateReissuanceConsentViewModel(
 			cclService: FakeCCLService(),
-			certificate: certificate,
+			certificates: [certificate],
 			certifiedPerson: HealthCertifiedPerson(
 				healthCertificates: [certificate],
 				isPreferredPerson: true,
@@ -48,7 +58,48 @@ class HealthCertificateReissuanceConsentViewModelTests: CWATestCase {
 					certificateReissuance: .fake(
 						reissuanceDivision: .fake(
 							visible: true,
+							listTitleText: listTitleText,
 							titleText: titleText,
+							consentSubtitleText: subtitleText,
+							longText: bodyText
+						)
+					)
+				)
+			),
+			appConfigProvider: CachedAppConfigurationMock(),
+			restServiceProvider: RestServiceProviderStub(loadResources: []),
+			healthCertificateService: HealthCertificateServiceFake(),
+			onDisclaimerButtonTap: { }
+		)
+
+		// WHEN
+		let sectionsCount = viewModel.dynamicTableViewModel.numberOfSection
+
+		// THEN
+		XCTAssertEqual(sectionsCount, 5)
+		XCTAssertEqual(viewModel.dynamicTableViewModel.numberOfRows(section: 0), 1)
+		XCTAssertEqual(viewModel.dynamicTableViewModel.numberOfRows(section: 1), 1)
+		XCTAssertEqual(viewModel.dynamicTableViewModel.numberOfRows(section: 2), 5)
+		XCTAssertEqual(viewModel.dynamicTableViewModel.numberOfRows(section: 3), 5)
+		XCTAssertEqual(viewModel.dynamicTableViewModel.numberOfRows(section: 4), 1)
+	}
+	
+	func testGIVEN_ViewModel_WHEN_AllTextsArePresentWithoutConsentSubtitleText_THEN_NumberOfCellsMatches() throws {
+		// GIVEN
+		let certificate = HealthCertificate.mock()
+		let viewModel = HealthCertificateReissuanceConsentViewModel(
+			cclService: FakeCCLService(),
+			certificates: [certificate],
+			certifiedPerson: HealthCertifiedPerson(
+				healthCertificates: [certificate],
+				isPreferredPerson: true,
+				dccWalletInfo: .fake(
+					certificateReissuance: .fake(
+						reissuanceDivision: .fake(
+							visible: true,
+							listTitleText: listTitleText,
+							titleText: titleText,
+							consentSubtitleText: nil,
 							subtitleText: subtitleText,
 							longText: bodyText
 						)
@@ -65,19 +116,20 @@ class HealthCertificateReissuanceConsentViewModelTests: CWATestCase {
 		let sectionsCount = viewModel.dynamicTableViewModel.numberOfSection
 
 		// THEN
-		XCTAssertEqual(sectionsCount, 4)
-		XCTAssertEqual(viewModel.dynamicTableViewModel.numberOfRows(section: 0), 4)
-		XCTAssertEqual(viewModel.dynamicTableViewModel.numberOfRows(section: 1), 2)
+		XCTAssertEqual(sectionsCount, 5)
+		XCTAssertEqual(viewModel.dynamicTableViewModel.numberOfRows(section: 0), 1)
+		XCTAssertEqual(viewModel.dynamicTableViewModel.numberOfRows(section: 1), 1)
 		XCTAssertEqual(viewModel.dynamicTableViewModel.numberOfRows(section: 2), 5)
-		XCTAssertEqual(viewModel.dynamicTableViewModel.numberOfRows(section: 3), 1)
+		XCTAssertEqual(viewModel.dynamicTableViewModel.numberOfRows(section: 3), 5)
+		XCTAssertEqual(viewModel.dynamicTableViewModel.numberOfRows(section: 4), 1)
 	}
 
-	func testGIVEN_ViewModel_WHEN_OnlyOneTextIsPresent_THEN_NumberOfCellsMatches() throws {
+	func testGIVEN_ViewModel_WHEN_AllTextsArePresentWithoutBothSubtitles_THEN_NumberOfCellsMatches() throws {
 		// GIVEN
 		let certificate = HealthCertificate.mock()
 		let viewModel = HealthCertificateReissuanceConsentViewModel(
 			cclService: FakeCCLService(),
-			certificate: certificate,
+			certificates: [certificate],
 			certifiedPerson: HealthCertifiedPerson(
 				healthCertificates: [certificate],
 				isPreferredPerson: true,
@@ -85,6 +137,47 @@ class HealthCertificateReissuanceConsentViewModelTests: CWATestCase {
 					certificateReissuance: .fake(
 						reissuanceDivision: .fake(
 							visible: true,
+							listTitleText: listTitleText,
+							titleText: titleText,
+							consentSubtitleText: nil,
+							subtitleText: nil,
+							longText: bodyText
+						)
+					)
+				)
+			),
+			appConfigProvider: CachedAppConfigurationMock(),
+			restServiceProvider: RestServiceProviderStub(loadResources: []),
+			healthCertificateService: HealthCertificateServiceFake(),
+			onDisclaimerButtonTap: { }
+		)
+
+		// WHEN
+		let sectionsCount = viewModel.dynamicTableViewModel.numberOfSection
+
+		// THEN
+		XCTAssertEqual(sectionsCount, 5)
+		XCTAssertEqual(viewModel.dynamicTableViewModel.numberOfRows(section: 0), 1)
+		XCTAssertEqual(viewModel.dynamicTableViewModel.numberOfRows(section: 1), 1)
+		XCTAssertEqual(viewModel.dynamicTableViewModel.numberOfRows(section: 2), 4)
+		XCTAssertEqual(viewModel.dynamicTableViewModel.numberOfRows(section: 3), 5)
+		XCTAssertEqual(viewModel.dynamicTableViewModel.numberOfRows(section: 4), 1)
+	}
+	
+	func testGIVEN_ViewModel_WHEN_OnlyOneTextIsPresent_THEN_NumberOfCellsMatches() throws {
+		// GIVEN
+		let certificate = HealthCertificate.mock()
+		let viewModel = HealthCertificateReissuanceConsentViewModel(
+			cclService: FakeCCLService(),
+			certificates: [certificate],
+			certifiedPerson: HealthCertifiedPerson(
+				healthCertificates: [certificate],
+				isPreferredPerson: true,
+				dccWalletInfo: .fake(
+					certificateReissuance: .fake(
+						reissuanceDivision: .fake(
+							visible: true,
+							listTitleText: nil,
 							titleText: nil,
 							subtitleText: subtitleText,
 							longText: nil
@@ -102,11 +195,12 @@ class HealthCertificateReissuanceConsentViewModelTests: CWATestCase {
 		let sectionsCount = viewModel.dynamicTableViewModel.numberOfSection
 
 		// THEN
-		XCTAssertEqual(sectionsCount, 4)
-		XCTAssertEqual(viewModel.dynamicTableViewModel.numberOfRows(section: 0), 2)
-		XCTAssertEqual(viewModel.dynamicTableViewModel.numberOfRows(section: 1), 2)
-		XCTAssertEqual(viewModel.dynamicTableViewModel.numberOfRows(section: 2), 5)
-		XCTAssertEqual(viewModel.dynamicTableViewModel.numberOfRows(section: 3), 1)
+		XCTAssertEqual(sectionsCount, 5)
+		XCTAssertEqual(viewModel.dynamicTableViewModel.numberOfRows(section: 0), 0)
+		XCTAssertEqual(viewModel.dynamicTableViewModel.numberOfRows(section: 1), 1)
+		XCTAssertEqual(viewModel.dynamicTableViewModel.numberOfRows(section: 2), 3)
+		XCTAssertEqual(viewModel.dynamicTableViewModel.numberOfRows(section: 3), 5)
+		XCTAssertEqual(viewModel.dynamicTableViewModel.numberOfRows(section: 4), 1)
 	}
 
 	func test_submit_returns_success() throws {
@@ -154,9 +248,10 @@ class HealthCertificateReissuanceConsentViewModelTests: CWATestCase {
 
 		let healthCertificateServiceSpy = HealthCertificateServiceSpy()
 		let appConfigMock = CachedAppConfigurationMock()
+		let certificate = try HealthCertificate(base45: healthCertificateBase45)
 		let viewModel = HealthCertificateReissuanceConsentViewModel(
 			cclService: FakeCCLService(),
-			certificate: try .init(base45: healthCertificateBase45),
+			certificates: [certificate],
 			certifiedPerson: person,
 			appConfigProvider: appConfigMock,
 			restServiceProvider: restServiceProvider,
@@ -177,76 +272,7 @@ class HealthCertificateReissuanceConsentViewModelTests: CWATestCase {
 		waitForExpectations(timeout: .short)
 		XCTAssertTrue(healthCertificateServiceSpy.didCallReplaceHealthCertificate)
 	}
-	
-	func test_submit_returns_error_noRelation() throws {
-		let healthCertificate = try HealthCertificate(
-			base45: try base45Fake(digitalCovidCertificate: .fake(vaccinationEntries: [.fake()])),
-			isNew: true,
-			isValidityStateNew: true
-		)
 
-		let person = HealthCertifiedPerson(healthCertificates: [healthCertificate])
-		
-		person.dccWalletInfo = .fake(
-			certificateReissuance: .fake()
-		)
-				
-		let healthCertificateBase45 = try base45Fake(
-			digitalCovidCertificate: DigitalCovidCertificate.fake(
-				   vaccinationEntries: [
-					   VaccinationEntry.fake(
-						   doseNumber: 1,
-						   totalSeriesOfDoses: 2,
-						   dateOfVaccination: "2021-06-01"
-					   )
-				   ]
-			   )
-		   )
-		
-		let restServiceProvider = RestServiceProviderStub(
-			loadResources: [
-				   LoadResource(
-					   result: .success(
-						   [
-							   DCCReissuanceCertificate(
-								   certificate: healthCertificateBase45,
-								   relations: []
-							   )
-						   ]
-					   ),
-					   willLoadResource: nil
-				   )
-			   ]
-		   )
-
-		let healthCertificateServiceSpy = HealthCertificateServiceSpy()
-		let appConfigMock = CachedAppConfigurationMock()
-		let viewModel = HealthCertificateReissuanceConsentViewModel(
-			cclService: FakeCCLService(),
-			certificate: try .init(base45: healthCertificateBase45),
-			certifiedPerson: person,
-			appConfigProvider: appConfigMock,
-			restServiceProvider: restServiceProvider,
-			healthCertificateService: healthCertificateServiceSpy,
-			onDisclaimerButtonTap: { }
-		)
-		
-		let submitExpectation = expectation(description: "Submit completion is called.")
-		viewModel.submit { result in
-			guard case .failure(let error) = result,
-				  case .noRelation = error else {
-				XCTFail("noRelation error was expected")
-				submitExpectation.fulfill()
-				return
-			}
-			
-			submitExpectation.fulfill()
-		}
-			
-		waitForExpectations(timeout: .short)
-		XCTAssertFalse(healthCertificateServiceSpy.didCallReplaceHealthCertificate)
-	}
-	
 	func test_submit_returns_error_certificateToReissueMissing() throws {
 		let healthCertificate = try HealthCertificate(
 			base45: try base45Fake(digitalCovidCertificate: .fake(vaccinationEntries: [.fake()])),
@@ -256,7 +282,30 @@ class HealthCertificateReissuanceConsentViewModelTests: CWATestCase {
 
 		let person = HealthCertifiedPerson(healthCertificates: [healthCertificate])
 		
-		person.dccWalletInfo = nil
+		person.dccWalletInfo = .fake(
+			certificateReissuance: DCCCertificateReissuance(
+				reissuanceDivision: DCCCertificateReissuanceDivision(
+					visible: true,
+					titleText: titleText,
+					subtitleText: subtitleText,
+					longText: .fake(),
+					faqAnchor: "certificateReissuance",
+					identifier: "renew",
+					listTitleText: listTitleText,
+					consentSubtitleText: subtitleText
+				),
+				certificateToReissue: nil,
+				accompanyingCertificates: nil,
+				certificates: [ DCCCertificateContainerExtended(
+					certificateToReissue: DCCCertificateContainer(
+						certificateRef: DCCCertificateReference(barcodeData: nil)
+					),
+					accompanyingCertificates: [],
+					action: "renew"
+				)]
+			)
+		)
+
 				
 		let healthCertificateBase45 = try base45Fake(
 			digitalCovidCertificate: DigitalCovidCertificate.fake(
@@ -290,9 +339,10 @@ class HealthCertificateReissuanceConsentViewModelTests: CWATestCase {
 
 		let healthCertificateServiceSpy = HealthCertificateServiceSpy()
 		let appConfigMock = CachedAppConfigurationMock()
+		let certificate = try HealthCertificate(base45: healthCertificateBase45)
 		let viewModel = HealthCertificateReissuanceConsentViewModel(
 			cclService: FakeCCLService(),
-			certificate: try .init(base45: healthCertificateBase45),
+			certificates: [certificate],
 			certifiedPerson: person,
 			appConfigProvider: appConfigMock,
 			restServiceProvider: restServiceProvider,
@@ -361,9 +411,10 @@ class HealthCertificateReissuanceConsentViewModelTests: CWATestCase {
 
 		let healthCertificateServiceErrorStub = HealthCertificateServiceErrorStub()
 		let appConfigMock = CachedAppConfigurationMock()
+		let certificate = try HealthCertificate(base45: healthCertificateBase45)
 		let viewModel = HealthCertificateReissuanceConsentViewModel(
 			cclService: FakeCCLService(),
-			certificate: try .init(base45: healthCertificateBase45),
+			certificates: [certificate],
 			certifiedPerson: person,
 			appConfigProvider: appConfigMock,
 			restServiceProvider: restServiceProvider,
@@ -416,9 +467,10 @@ class HealthCertificateReissuanceConsentViewModelTests: CWATestCase {
 		
 		let healthCertificateServiceSpy = HealthCertificateServiceSpy()
 		let appConfigMock = CachedAppConfigurationMock()
+		let certificate = try HealthCertificate(base45: healthCertificateBase45)
 		let viewModel = HealthCertificateReissuanceConsentViewModel(
 			cclService: FakeCCLService(),
-			certificate: try .init(base45: healthCertificateBase45),
+			certificates: [certificate],
 			certifiedPerson: person,
 			appConfigProvider: appConfigMock,
 			restServiceProvider: restServiceProvider,
@@ -446,8 +498,8 @@ class HealthCertificateReissuanceConsentViewModelTests: CWATestCase {
 class HealthCertificateServiceFake: HealthCertificateServiceServable {
 	
 	func replaceHealthCertificate(
-		oldCertificateRef: DCCCertificateReference,
-		with newHealthCertificateString: String,
+		requestCertificates: [String],
+		with newCertificates: [DCCReissuanceCertificate],
 		for person: HealthCertifiedPerson,
 		markAsNew: Bool,
 		completedNotificationRegistration: @escaping () -> Void
@@ -460,14 +512,14 @@ class HealthCertificateServiceSpy: HealthCertificateServiceServable {
 	var didCallReplaceHealthCertificate = false
 	
 	func replaceHealthCertificate(
-		oldCertificateRef: DCCCertificateReference,
-		with newHealthCertificateString: String,
+		requestCertificates: [String],
+		with newCertificates: [DCCReissuanceCertificate],
 		for person: HealthCertifiedPerson,
 		markAsNew: Bool,
 		completedNotificationRegistration: @escaping () -> Void
 	) throws {
-			didCallReplaceHealthCertificate = true
-			completedNotificationRegistration()
+		didCallReplaceHealthCertificate = true
+		completedNotificationRegistration()
 	}
 	
 }
@@ -475,13 +527,13 @@ class HealthCertificateServiceSpy: HealthCertificateServiceServable {
 class HealthCertificateServiceErrorStub: HealthCertificateServiceServable {
 	
 	func replaceHealthCertificate(
-		oldCertificateRef: DCCCertificateReference,
-		with newHealthCertificateString: String,
+		requestCertificates: [String],
+		with newCertificates: [DCCReissuanceCertificate],
 		for person: HealthCertifiedPerson,
 		markAsNew: Bool,
 		completedNotificationRegistration: @escaping () -> Void
 	) throws {
-			throw FakeError.fake
+		throw FakeError.fake
 	}
-	
+
 }

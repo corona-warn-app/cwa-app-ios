@@ -18,7 +18,7 @@ struct DCCWalletCertificate: Codable {
 	
 	let barcodeData: String
 	let cose: DCCWalletCertificateCose
-	let cwt: CBORWebTokenHeader
+	let cwt: HealthCertificateWebTokenHeader
 	let hcert: DigitalCovidCertificate
 	let validityState: String
 }
