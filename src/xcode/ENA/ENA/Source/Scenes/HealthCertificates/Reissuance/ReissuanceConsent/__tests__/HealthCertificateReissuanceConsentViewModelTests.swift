@@ -221,7 +221,7 @@ class HealthCertificateReissuanceConsentViewModelTests: CWATestCase {
 		)
 				
 		let healthCertificateBase45 = try base45Fake(
-			digitalCovidCertificate: DigitalCovidCertificate.fake(
+			digitalCovidCertificate: .fake(
 				   vaccinationEntries: [
 					   VaccinationEntry.fake(
 						   doseNumber: 1,
@@ -279,9 +279,9 @@ class HealthCertificateReissuanceConsentViewModelTests: CWATestCase {
 	
 	func test_filtering_accompanying_certifcates() throws {
 		let first = try base45Fake(
-			digitalCovidCertificate: DigitalCovidCertificate.fake(
+			digitalCovidCertificate: .fake(
 				name: .fake(standardizedFamilyName: "Ahmed", standardizedGivenName: "OMAR"),
-				vaccinationEntries: [VaccinationEntry.fake(
+				vaccinationEntries: [.fake(
 					dateOfVaccination: "2021-05-14",
 					uniqueCertificateIdentifier: "1"
 				)]
@@ -289,9 +289,9 @@ class HealthCertificateReissuanceConsentViewModelTests: CWATestCase {
 			webTokenHeader: .fake(expirationTime: .distantFuture)
 		)
 		let second = try base45Fake(
-			digitalCovidCertificate: DigitalCovidCertificate.fake(
+			digitalCovidCertificate: .fake(
 				name: .fake(standardizedFamilyName: "Ahmed", standardizedGivenName: "OMAR"),
-				vaccinationEntries: [VaccinationEntry.fake(
+				vaccinationEntries: [.fake(
 					dateOfVaccination: "2021-07-14",
 					uniqueCertificateIdentifier: "2"
 				)]
@@ -299,9 +299,9 @@ class HealthCertificateReissuanceConsentViewModelTests: CWATestCase {
 			webTokenHeader: .fake(expirationTime: .distantFuture)
 		)
 		let third = try base45Fake(
-			digitalCovidCertificate: DigitalCovidCertificate.fake(
+			digitalCovidCertificate: .fake(
 				name: .fake(standardizedFamilyName: "Ahmed", standardizedGivenName: "OMAR"),
-				vaccinationEntries: [VaccinationEntry.fake(
+				vaccinationEntries: [.fake(
 					dateOfVaccination: "2021-03-14",
 					uniqueCertificateIdentifier: "3"
 				)]
@@ -309,9 +309,9 @@ class HealthCertificateReissuanceConsentViewModelTests: CWATestCase {
 			webTokenHeader: .fake(expirationTime: .distantFuture)
 		)
 		let forth = try base45Fake(
-			digitalCovidCertificate: DigitalCovidCertificate.fake(
+			digitalCovidCertificate: .fake(
 				name: .fake(standardizedFamilyName: "Ahmed", standardizedGivenName: "OMAR"),
-				vaccinationEntries: [VaccinationEntry.fake(
+				vaccinationEntries: [.fake(
 					dateOfVaccination: "2021-09-14",
 					uniqueCertificateIdentifier: "4"
 				)]
@@ -364,7 +364,7 @@ class HealthCertificateReissuanceConsentViewModelTests: CWATestCase {
 		let thirdHealthCertificate = try HealthCertificate(base45: third)
 		let forthHealthCertificate = try HealthCertificate(base45: forth)
 		let fifthHealthCertificate = try HealthCertificate(base45: third)
-
+		
 		let person = HealthCertifiedPerson(
 			healthCertificates: [
 				firstHealthCertificate,
@@ -384,7 +384,7 @@ class HealthCertificateReissuanceConsentViewModelTests: CWATestCase {
 			onDisclaimerButtonTap: { },
 			onAccompanyingCertificatesButtonTap: { _ in }
 		)
-		XCTAssertEqual(viewModel.filteredAccompanyingCertificates.map({$0.uniqueCertificateIdentifier}), ["4", "3"])
+		XCTAssertEqual(viewModel.filteredAccompanyingCertificates.map({ $0.uniqueCertificateIdentifier }), ["4", "3"])
 	}
 
 	func test_submit_returns_error_certificateToReissueMissing() throws {
