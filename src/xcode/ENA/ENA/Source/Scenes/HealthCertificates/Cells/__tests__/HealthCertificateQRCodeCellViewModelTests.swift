@@ -271,7 +271,7 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 				DateFormatter.localizedString(from: expirationDate, dateStyle: .none, timeStyle: .short)
 			)
 		)
-		XCTAssertEqual(viewModel.validityStateDescription, "Bitte bemühen Sie sich rechtzeitig darum, einen neuen digitalen Nachweis ausstellen zu lassen.")
+		XCTAssertEqual(viewModel.validityStateDescription, "Wenn dies Ihr aktuell verwendetes Zertifikat ist, bemühen Sie sich bitte rechtzeitig darum, es zu erneuern. Ab 28 Tage vor Ablauf können Sie solche Zertifikate direkt über die App erneuern lassen. Sie finden die Option \"Zertifikate erneuern\" dann in Ihrer Zertifikatsübersicht unter der Kachel \"Status-Nachweis\".")
 
 		XCTAssertFalse(viewModel.isUnseenNewsIndicatorVisible)
 
@@ -314,7 +314,7 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 				DateFormatter.localizedString(from: expirationDate, dateStyle: .none, timeStyle: .short)
 			)
 		)
-		XCTAssertEqual(viewModel.validityStateDescription, "Bitte bemühen Sie sich rechtzeitig darum, einen neuen digitalen Nachweis ausstellen zu lassen.")
+		XCTAssertEqual(viewModel.validityStateDescription, "Wenn dies Ihr aktuell verwendetes Zertifikat ist, bemühen Sie sich bitte rechtzeitig darum, es zu erneuern. Ab 28 Tage vor Ablauf können Sie solche Zertifikate direkt über die App erneuern lassen. Sie finden die Option \"Zertifikate erneuern\" dann in Ihrer Zertifikatsübersicht unter der Kachel \"Status-Nachweis\".")
 
 		XCTAssertTrue(viewModel.isUnseenNewsIndicatorVisible)
 	}
@@ -416,7 +416,7 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 
 		XCTAssertEqual(viewModel.validityStateIcon, UIImage(named: "Icon_ExpiredInvalid"))
 		XCTAssertEqual(viewModel.validityStateTitle, "Zertifikat abgelaufen")
-		XCTAssertEqual(viewModel.validityStateDescription, "Das Ablaufdatum wurde überschritten. Bitte bemühen Sie sich darum, einen neuen digitalen Nachweis ausstellen zu lassen.")
+		XCTAssertEqual(viewModel.validityStateDescription, "Das Ablaufdatum wurde überschritten. Bitte errneuern sie das Zertifikat. Sie können die Erneuerung bis maximal 3 Monate nach Ablauf über den Hinweis in Ihrer Zertifikatsübersicht anfordern.")
 
 		XCTAssertFalse(viewModel.isUnseenNewsIndicatorVisible)
 
@@ -450,7 +450,7 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 
 		XCTAssertEqual(viewModel.validityStateIcon, UIImage(named: "Icon_ExpiredInvalid"))
 		XCTAssertEqual(viewModel.validityStateTitle, "Zertifikat abgelaufen")
-		XCTAssertEqual(viewModel.validityStateDescription, "Das Ablaufdatum wurde überschritten. Bitte bemühen Sie sich darum, einen neuen digitalen Nachweis ausstellen zu lassen.")
+		XCTAssertEqual(viewModel.validityStateDescription, "Das Ablaufdatum wurde überschritten. Bitte errneuern sie das Zertifikat. Sie können die Erneuerung bis maximal 3 Monate nach Ablauf über den Hinweis in Ihrer Zertifikatsübersicht anfordern.")
 
 		XCTAssertTrue(viewModel.isUnseenNewsIndicatorVisible)
 
@@ -2119,7 +2119,7 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 				DateFormatter.localizedString(from: expirationDate, dateStyle: .none, timeStyle: .short)
 			)
 		)
-		XCTAssertEqual(viewModel.validityStateDescription, "Bitte bemühen Sie sich rechtzeitig darum, einen neuen digitalen Nachweis ausstellen zu lassen.")
+		XCTAssertEqual(viewModel.validityStateDescription, "Wenn dies Ihr aktuell verwendetes Zertifikat ist, bemühen Sie sich bitte rechtzeitig darum, es zu erneuern. Ab 28 Tage vor Ablauf können Sie solche Zertifikate direkt über die App erneuern lassen. Sie finden die Option \"Zertifikate erneuern\" dann in Ihrer Zertifikatsübersicht unter der Kachel \"Status-Nachweis\".")
 
 		XCTAssertFalse(viewModel.isUnseenNewsIndicatorVisible)
 
@@ -2162,7 +2162,7 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 				DateFormatter.localizedString(from: expirationDate, dateStyle: .none, timeStyle: .short)
 			)
 		)
-		XCTAssertEqual(viewModel.validityStateDescription, "Bitte bemühen Sie sich rechtzeitig darum, einen neuen digitalen Nachweis ausstellen zu lassen.")
+		XCTAssertEqual(viewModel.validityStateDescription, "Wenn dies Ihr aktuell verwendetes Zertifikat ist, bemühen Sie sich bitte rechtzeitig darum, es zu erneuern. Ab 28 Tage vor Ablauf können Sie solche Zertifikate direkt über die App erneuern lassen. Sie finden die Option \"Zertifikate erneuern\" dann in Ihrer Zertifikatsübersicht unter der Kachel \"Status-Nachweis\".")
 
 		XCTAssertTrue(viewModel.isUnseenNewsIndicatorVisible)
 
@@ -2262,7 +2262,7 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 
 		XCTAssertEqual(viewModel.validityStateIcon, UIImage(named: "Icon_ExpiredInvalid"))
 		XCTAssertEqual(viewModel.validityStateTitle, "Zertifikat abgelaufen")
-		XCTAssertEqual(viewModel.validityStateDescription, "Das Ablaufdatum wurde überschritten. Bitte bemühen Sie sich darum, einen neuen digitalen Nachweis ausstellen zu lassen.")
+		XCTAssertEqual(viewModel.validityStateDescription, "Das Ablaufdatum wurde überschritten. Bitte errneuern sie das Zertifikat. Sie können die Erneuerung bis maximal 3 Monate nach Ablauf über den Hinweis in Ihrer Zertifikatsübersicht anfordern.")
 
 		XCTAssertFalse(viewModel.isUnseenNewsIndicatorVisible)
 
@@ -2296,7 +2296,7 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 
 		XCTAssertEqual(viewModel.validityStateIcon, UIImage(named: "Icon_ExpiredInvalid"))
 		XCTAssertEqual(viewModel.validityStateTitle, "Zertifikat abgelaufen")
-		XCTAssertEqual(viewModel.validityStateDescription, "Das Ablaufdatum wurde überschritten. Bitte bemühen Sie sich darum, einen neuen digitalen Nachweis ausstellen zu lassen.")
+		XCTAssertEqual(viewModel.validityStateDescription, "Das Ablaufdatum wurde überschritten. Bitte errneuern sie das Zertifikat. Sie können die Erneuerung bis maximal 3 Monate nach Ablauf über den Hinweis in Ihrer Zertifikatsübersicht anfordern.")
 
 		XCTAssertTrue(viewModel.isUnseenNewsIndicatorVisible)
 

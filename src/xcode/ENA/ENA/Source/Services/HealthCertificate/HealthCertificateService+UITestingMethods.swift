@@ -202,12 +202,21 @@ extension HealthCertificateService {
 		dccWalletInfo: DCCWalletInfo,
 		certifiedPerson: HealthCertifiedPerson
 	) -> DCCWalletInfo {
+		let listTitleText = DCCUIText(
+			type: "string",
+			quantity: nil,
+			quantityParameterIndex: nil,
+			functionName: nil,
+			localizedText: ["de": "Zu erneuernde Zertifikate:"],
+			parameters: []
+		)
+		
 		let titleText = DCCUIText(
 			type: "string",
 			quantity: nil,
 			quantityParameterIndex: nil,
 			functionName: nil,
-			localizedText: ["de": "Zertifikat aktualisieren"],
+			localizedText: ["de": "Zertifikate erneuern"],
 			parameters: []
 		)
 
@@ -216,16 +225,16 @@ extension HealthCertificateService {
 			quantity: nil,
 			quantityParameterIndex: nil,
 			functionName: nil,
-			localizedText: ["de": "Neuausstellung direkt über die App vornehmen"],
+			localizedText: ["de": "Erneuerung direkt über die App vornehmen"],
 			parameters: []
 		)
 
-		let testLongText = DCCUIText(
+		let longText = DCCUIText(
 			type: "string",
 			quantity: nil,
 			quantityParameterIndex: nil,
 			functionName: nil,
-			localizedText: ["de": "Die Spezifikationen der EU für Booster-Impfzertifikate wurden geändert. Dieses Zertifikat entspricht nicht den aktuellen Spezifikationen. Das Impfzertifikat ist zwar weiterhin gültig, es kann jedoch sein, dass bei einer Prüfung die Booster-Impfung nicht erkannt wird. Bitte lassen Sie sich daher ein neues Impfzertifikat ausstellen.\n\nSie können ein neues Impfzertifikat direkt kostenlos über die App anfordern. Hierfür ist Ihr Einverständnis erforderlich."],
+			localizedText: ["de": "Für mindestens ein Zertifikat ist die Gültigkeit abgelaufen oder läuft in Kürze ab. Mit einem abgelaufenen Zertifikat können Sie Ihren Status nicht mehr nachweisen.\n\nIm Zeitraum von 28 Tagen vor Ablauf und bis zu 3 Monate nach Ablauf der Gültigkeit können Sie sich neue Zertifikate direkt kostenlos über die App ausstellen lassen. Hierfür ist Ihr Einverständnis erforderlich."],
 			parameters: []
 		)
 
@@ -241,14 +250,19 @@ extension HealthCertificateService {
 					visible: true,
 					titleText: titleText,
 					subtitleText: subtitleText,
-					longText: testLongText,
-					faqAnchor: "certificateReissuance"
+					longText: longText,
+					faqAnchor: "certificateReissuance",
+					identifier: "renew",
+					listTitleText: listTitleText,
+					consentSubtitleText: subtitleText
 				),
-				// should be the second one for screenshots requirements.
-				certificateToReissue: DCCCertificateContainer(
-					certificateRef: DCCCertificateReference(barcodeData: certifiedPerson.healthCertificates.last?.base45 ?? "")
-				),
-				accompanyingCertificates: []
+				certificateToReissue: nil,
+				accompanyingCertificates: nil,
+				certificates: [ DCCCertificateContainerExtended(
+					certificateToReissue: DCCCertificateContainer(certificateRef: DCCCertificateReference(barcodeData: certifiedPerson.healthCertificates.last?.base45 ?? "")),
+					accompanyingCertificates: [],
+					action: "renew"
+				)]
 			),
 			certificatesRevokedByInvalidationRules: dccWalletInfo.certificatesRevokedByInvalidationRules
 		)

@@ -162,6 +162,22 @@ extension DCCCertificateContainer {
 
 }
 
+extension DCCCertificateContainerExtended {
+
+	static func fake(
+		certificateToReissue: DCCCertificateContainer = .fake(),
+		accompanyingCertificates: [DCCCertificateContainer] = [.fake()],
+		action: String = "renew"
+	) -> DCCCertificateContainerExtended {
+		DCCCertificateContainerExtended(
+			certificateToReissue: certificateToReissue,
+			accompanyingCertificates: accompanyingCertificates,
+			action: action
+		)
+	}
+
+}
+
 extension DCCVerification {
 
 	static func fake(
@@ -205,12 +221,14 @@ extension DCCCertificateReissuance {
 	static func fake(
 		reissuanceDivision: DCCCertificateReissuanceDivision = .fake(),
 		certificateToReissue: DCCCertificateContainer = .fake(),
-		accompanyingCertificates: [DCCCertificateContainer] = []
+		accompanyingCertificates: [DCCCertificateContainer] = [.fake()],
+		certificates: [DCCCertificateContainerExtended] = [.fake()]
 	) -> DCCCertificateReissuance {
 		DCCCertificateReissuance(
 			reissuanceDivision: reissuanceDivision,
 			certificateToReissue: certificateToReissue,
-			accompanyingCertificates: accompanyingCertificates
+			accompanyingCertificates: accompanyingCertificates,
+			certificates: certificates
 		)
 	}
 
@@ -220,7 +238,10 @@ extension DCCCertificateReissuanceDivision {
 
 	static func fake(
 		visible: Bool = false,
+		identifier: String? = nil,
+		listTitleText: DCCUIText? = nil,
 		titleText: DCCUIText? = nil,
+		consentSubtitleText: DCCUIText? = nil,
 		subtitleText: DCCUIText? = nil,
 		longText: DCCUIText? = nil,
 		faqAnchor: String? = nil
@@ -230,7 +251,10 @@ extension DCCCertificateReissuanceDivision {
 			titleText: titleText,
 			subtitleText: subtitleText,
 			longText: longText,
-			faqAnchor: faqAnchor
+			faqAnchor: faqAnchor,
+			identifier: identifier,
+			listTitleText: listTitleText,
+			consentSubtitleText: consentSubtitleText
 		)
 	}
 

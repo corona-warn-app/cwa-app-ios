@@ -10,7 +10,6 @@ enum HealthCertificateReissuanceError: LocalizedError {
 
 	case submitFailedError
 	case replaceHealthCertificateError(Error)
-	case noRelation
 	case certificateToReissueMissing
 	case restServiceError(ServiceError<DCCReissuanceResourceError>)
 
@@ -20,8 +19,6 @@ enum HealthCertificateReissuanceError: LocalizedError {
 			return "\(AppStrings.HealthCertificate.Reissuance.Errors.tryAgain) (submitFailedError)"
 		case .replaceHealthCertificateError:
 			return "\(AppStrings.HealthCertificate.Reissuance.Errors.tryAgain) (replaceHealthCertificateError)"
-		case .noRelation:
-			return "\(AppStrings.HealthCertificate.Reissuance.Errors.contactSupport) (DCC_RI_NO_RELATION)"
 		case .certificateToReissueMissing:
 			return "\(AppStrings.HealthCertificate.Reissuance.Errors.tryAgain) (certificateToReissueMissing)"
 		case .restServiceError(let serviceError):

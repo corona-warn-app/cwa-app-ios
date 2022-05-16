@@ -585,6 +585,8 @@
 		34C40E3227A2FCC00098C6ED /* ccl-text-descriptor-test-cases.json in Resources */ = {isa = PBXBuildFile; fileRef = 34C40E3127A2FCB30098C6ED /* ccl-text-descriptor-test-cases.json */; };
 		34C40E3627A2FE3A0098C6ED /* TestCases.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34C40E3427A2FE150098C6ED /* TestCases.swift */; };
 		34CF3B1F2615C1D1004A9435 /* QRCodeErrorCorrectionLevelType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34CF3B1E2615C1D1004A9435 /* QRCodeErrorCorrectionLevelType.swift */; };
+		34E03F822823BEF8001A352B /* ccl-configuration.bin in Resources */ = {isa = PBXBuildFile; fileRef = 34E03F812823BEF8001A352B /* ccl-configuration.bin */; };
+		34E03F842823ED29001A352B /* HealthCertificateWebTokenHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34E03F832823ED29001A352B /* HealthCertificateWebTokenHeader.swift */; };
 		34FE156A26010A840002CB69 /* TraceLocation+GenerateQRCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34FE156926010A830002CB69 /* TraceLocation+GenerateQRCode.swift */; };
 		34FE15A02604B1880002CB69 /* QRCodePosterTemplateProviderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34FE159B2604B1800002CB69 /* QRCodePosterTemplateProviderTests.swift */; };
 		34FE15A82604F99E0002CB69 /* UIColor+HEX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34FE15A72604F99D0002CB69 /* UIColor+HEX.swift */; };
@@ -800,7 +802,6 @@
 		50AA522725FA5AAD000C77BB /* TraceWarningError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50AA522625FA5AAD000C77BB /* TraceWarningError.swift */; };
 		50AA525425FB9ACA000C77BB /* TraceWarningDiscoveryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50AA525325FB9ACA000C77BB /* TraceWarningDiscoveryModel.swift */; };
 		50AF181F27A2E85B00BAA9DB /* Locator+RegistrationToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5001DE8326E206AB004242FA /* Locator+RegistrationToken.swift */; };
-		50AF182127A2F5DF00BAA9DB /* ccl-configuration.bin in Resources */ = {isa = PBXBuildFile; fileRef = 50AF182027A2F5DF00BAA9DB /* ccl-configuration.bin */; };
 		50AF182427A3F20500BAA9DB /* CCLConfigurationResourceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50AF182327A3F20500BAA9DB /* CCLConfigurationResourceTests.swift */; };
 		50AF182827A4236A00BAA9DB /* DMNHCViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50AF182727A4229000BAA9DB /* DMNHCViewModel.swift */; };
 		50AF182927A4236A00BAA9DB /* DMNHCViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50AF182627A4229000BAA9DB /* DMNHCViewController.swift */; };
@@ -2410,6 +2411,8 @@
 		34C40E3127A2FCB30098C6ED /* ccl-text-descriptor-test-cases.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "ccl-text-descriptor-test-cases.json"; sourceTree = "<group>"; };
 		34C40E3427A2FE150098C6ED /* TestCases.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestCases.swift; sourceTree = "<group>"; };
 		34CF3B1E2615C1D1004A9435 /* QRCodeErrorCorrectionLevelType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRCodeErrorCorrectionLevelType.swift; sourceTree = "<group>"; };
+		34E03F812823BEF8001A352B /* ccl-configuration.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = "ccl-configuration.bin"; sourceTree = "<group>"; };
+		34E03F832823ED29001A352B /* HealthCertificateWebTokenHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthCertificateWebTokenHeader.swift; sourceTree = "<group>"; };
 		34FE156926010A830002CB69 /* TraceLocation+GenerateQRCode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TraceLocation+GenerateQRCode.swift"; sourceTree = "<group>"; };
 		34FE156E26010FBD0002CB69 /* TraceLocation+GenerateQRCodeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TraceLocation+GenerateQRCodeTests.swift"; sourceTree = "<group>"; };
 		34FE1580260126080002CB69 /* QRCodePosterTemplateProviding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRCodePosterTemplateProviding.swift; sourceTree = "<group>"; };
@@ -2628,7 +2631,6 @@
 		50AA522625FA5AAD000C77BB /* TraceWarningError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraceWarningError.swift; sourceTree = "<group>"; };
 		50AA525325FB9ACA000C77BB /* TraceWarningDiscoveryModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraceWarningDiscoveryModel.swift; sourceTree = "<group>"; };
 		50AA526725FBA0CC000C77BB /* HTTPClient+TraceWarningPackageDiscoveryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HTTPClient+TraceWarningPackageDiscoveryTests.swift"; sourceTree = "<group>"; };
-		50AF182027A2F5DF00BAA9DB /* ccl-configuration.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = "ccl-configuration.bin"; sourceTree = "<group>"; };
 		50AF182327A3F20500BAA9DB /* CCLConfigurationResourceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CCLConfigurationResourceTests.swift; sourceTree = "<group>"; };
 		50AF182627A4229000BAA9DB /* DMNHCViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMNHCViewController.swift; sourceTree = "<group>"; };
 		50AF182727A4229000BAA9DB /* DMNHCViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMNHCViewModel.swift; sourceTree = "<group>"; };
@@ -4244,6 +4246,7 @@
 				017D8DA3263B02F30009E91C /* HealthCertifiedPerson.swift */,
 				01E102652668D40E009ED803 /* TestCertificateRequest.swift */,
 				AB2628E027A3F220003D39A6 /* HealthCertificateMapping.swift */,
+				34E03F832823ED29001A352B /* HealthCertificateWebTokenHeader.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -5785,7 +5788,7 @@
 			isa = PBXGroup;
 			children = (
 				50AF182227A3E22E00BAA9DB /* __tests__ */,
-				50AF182027A2F5DF00BAA9DB /* ccl-configuration.bin */,
+				34E03F812823BEF8001A352B /* ccl-configuration.bin */,
 				5015D2D327A17391007D8763 /* Locator+CCLConfiguration.swift */,
 				5015D2D527A1774B007D8763 /* CCLConfigurationResource.swift */,
 				5015D2D727A17951007D8763 /* CCLConfigurationReceiveModel.swift */,
@@ -10696,6 +10699,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				34E03F822823BEF8001A352B /* ccl-configuration.bin in Resources */,
 				01F2A5BA2581181A00DA96A6 /* DiaryDayAddTableViewCell.xib in Resources */,
 				341DC33A26849E3A0003E6BA /* default_local_statistics.bin in Resources */,
 				01F2A59725803D2600DA96A6 /* DiaryOverviewDescriptionTableViewCell.xib in Resources */,
@@ -10729,7 +10733,6 @@
 				01D026BF258BACCE00B6389A /* ExposureDetectionGuideCell.xib in Resources */,
 				01A4DCE225926931007D5794 /* HomeLoadingItemView.xib in Resources */,
 				01D0275D258BD56F00B6389A /* SettingsLabelCell.xib in Resources */,
-				50AF182127A2F5DF00BAA9DB /* ccl-configuration.bin in Resources */,
 				351E630D256C5B9C00D89B29 /* LabeledCountriesCell.xib in Resources */,
 				EE92A33E245D96DA006B97B0 /* Localizable.stringsdict in Resources */,
 				01D0268D258B9CF800B6389A /* ExposureDetectionRiskCell.xib in Resources */,
@@ -11006,6 +11009,7 @@
 				01887D3B25DAB4E400FCAFB2 /* DiarySegmentedControl.swift in Sources */,
 				347FBB6A2610DDBD00672770 /* TraceLocationDetailsQRCodeCell.swift in Sources */,
 				340AC9BA2747E5870028DE11 /* TicketValidationNoSupportedCertificateCellModel.swift in Sources */,
+				34E03F842823ED29001A352B /* HealthCertificateWebTokenHeader.swift in Sources */,
 				0190987D257E64C70065D050 /* DiaryCoordinator.swift in Sources */,
 				CD99A3A9245C272400BF12AF /* ExposureSubmissionService.swift in Sources */,
 				018105E32819400500C40268 /* DCCPublicKeyRegistrationSendModel.swift in Sources */,
@@ -13749,7 +13753,7 @@
 			repositoryURL = "https://github.com/Flight-School/AnyCodable";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 0.6.2;
+                minimumVersion = 0.6.2;
 			};
 		};
 		B10FB02E246036F3004CA11E /* XCRemoteSwiftPackageReference "swift-protobuf" */ = {

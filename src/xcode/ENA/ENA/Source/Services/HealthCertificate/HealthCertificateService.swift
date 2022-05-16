@@ -12,8 +12,8 @@ public let kCurrentHealthCertifiedPersonsVersion = 3
 
 protocol HealthCertificateServiceServable {
 	func replaceHealthCertificate(
-		oldCertificateRef: DCCCertificateReference,
-		with newHealthCertificateString: String,
+		requestCertificates: [String],
+		with newCertificates: [DCCReissuanceCertificate],
 		for person: HealthCertifiedPerson,
 		markAsNew: Bool,
 		completedNotificationRegistration: @escaping () -> Void
@@ -265,44 +265,59 @@ class HealthCertificateService: HealthCertificateServiceServable {
 	}
 	
 	func replaceHealthCertificate(
-		oldCertificateRef: DCCCertificateReference,
-		with newHealthCertificateString: String,
+		requestCertificates: [String],
+		with responseCertificates: [DCCReissuanceCertificate],
 		for person: HealthCertifiedPerson,
 		markAsNew: Bool,
 		completedNotificationRegistration: @escaping () -> Void
 	) throws {
-		let newHealthCertificate = try HealthCertificate(base45: newHealthCertificateString, isNew: markAsNew)
-		guard let oldHealthCertificate = person.healthCertificate(for: oldCertificateRef) else {
-			return
-		}
-		
-		person.healthCertificates.replace(oldHealthCertificate, with: newHealthCertificate)
-		
-		updateValidityState(for: newHealthCertificate, person: person)
-		scheduleTimer()
-
-		let dispatchGroup = DispatchGroup()
-		
-		dispatchGroup.enter()
-		healthCertificateNotificationService.createNotifications(
-			for: newHealthCertificate,
-			completion: {
-				dispatchGroup.leave()
+		for certificateRef in responseCertificates {
+			let newHealthCertificate = try HealthCertificate(base45: certificateRef.certificate, isNew: markAsNew)
+			if !person.healthCertificates.contains(newHealthCertificate) {
+				person.healthCertificates.append(newHealthCertificate)
 			}
-		)
-		
-		dispatchGroup.enter()
-		healthCertificateNotificationService.removeAllNotifications(
-			for: oldHealthCertificate,
-			completion: {
-				dispatchGroup.leave()
+			
+			updateValidityState(for: newHealthCertificate, person: person)
+			scheduleTimer()
+			
+			let dispatchGroup = DispatchGroup()
+			
+			dispatchGroup.enter()
+			healthCertificateNotificationService.createNotifications(
+				for: newHealthCertificate,
+				completion: {
+					dispatchGroup.leave()
+				}
+			)
+			
+			for relation in certificateRef.relations where relation.action == "replace" {
+				
+				if relation.index < requestCertificates.count {
+					let certificateBase45 = requestCertificates[relation.index]
+					
+					if let certificateToBeRemoved = person.healthCertificates.first(where: {
+						certificateBase45 == $0.base45
+					}) {
+						dispatchGroup.enter()
+						healthCertificateNotificationService.removeAllNotifications(
+							for: certificateToBeRemoved,
+							completion: {
+								dispatchGroup.leave()
+							}
+						)
+						moveHealthCertificateToBin(certificateToBeRemoved)
+						
+					} else {
+						Log.error("The certified person does not contain the indexed certificate", log: .vaccination)
+					}
+				} else {
+					Log.error("Index of certificate to be deleted is out of bounds", log: .vaccination)
+				}
 			}
-		)
-
-		recycleBin.moveToBin(.certificate(oldHealthCertificate))
-		
-		dispatchGroup.notify(queue: .main) {
-			completedNotificationRegistration()
+			
+			dispatchGroup.notify(queue: .main) {
+				completedNotificationRegistration()
+			}
 		}
 	}
 
