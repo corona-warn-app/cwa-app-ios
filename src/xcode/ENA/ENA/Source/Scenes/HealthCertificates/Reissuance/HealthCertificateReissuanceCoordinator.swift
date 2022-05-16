@@ -91,7 +91,7 @@ final class HealthCertificateReissuanceCoordinator {
 	private func showAccompanyingCertificates(certificates: [HealthCertificate]) {
 		let accompanyingCertificatesViewController = AccompanyingCertificatesViewController(
 			certificates: certificates,
-			certifiedPerson: self.healthCertifiedPerson,
+			certifiedPerson: healthCertifiedPerson,
 			dismiss: { [weak self] in
 				self?.parentViewController.dismiss(animated: true)
 			}
