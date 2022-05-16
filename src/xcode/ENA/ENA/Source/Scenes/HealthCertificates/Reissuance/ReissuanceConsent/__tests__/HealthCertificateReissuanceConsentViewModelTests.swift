@@ -7,6 +7,7 @@ import XCTest
 import HealthCertificateToolkit
 
 // swiftlint:disable type_body_length
+// swiftlint:disable file_length
 class HealthCertificateReissuanceConsentViewModelTests: CWATestCase {
 
 	let listTitleText = DCCUIText(
@@ -585,7 +586,7 @@ class HealthCertificateReissuanceConsentViewModelTests: CWATestCase {
 			restServiceProvider: restServiceProvider,
 			healthCertificateService: healthCertificateServiceSpy,
 			onDisclaimerButtonTap: { },
-			onAccompanyingCertificatesButtonTap: {_ in }
+			onAccompanyingCertificatesButtonTap: { _ in }
 		)
 		
 		let submitExpectation = expectation(description: "Submit completion is called.")
