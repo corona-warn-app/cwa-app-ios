@@ -81,7 +81,7 @@ class HealthCertificateReissuanceConsentViewModelTests: CWATestCase {
 		XCTAssertEqual(sectionsCount, 5)
 		XCTAssertEqual(viewModel.dynamicTableViewModel.numberOfRows(section: 0), 1)
 		XCTAssertEqual(viewModel.dynamicTableViewModel.numberOfRows(section: 1), 1)
-		XCTAssertEqual(viewModel.dynamicTableViewModel.numberOfRows(section: 2), 5)
+		XCTAssertEqual(viewModel.dynamicTableViewModel.numberOfRows(section: 2), 6)
 		XCTAssertEqual(viewModel.dynamicTableViewModel.numberOfRows(section: 3), 7)
 		XCTAssertEqual(viewModel.dynamicTableViewModel.numberOfRows(section: 4), 1)
 	}
@@ -122,7 +122,7 @@ class HealthCertificateReissuanceConsentViewModelTests: CWATestCase {
 		XCTAssertEqual(sectionsCount, 5)
 		XCTAssertEqual(viewModel.dynamicTableViewModel.numberOfRows(section: 0), 1)
 		XCTAssertEqual(viewModel.dynamicTableViewModel.numberOfRows(section: 1), 1)
-		XCTAssertEqual(viewModel.dynamicTableViewModel.numberOfRows(section: 2), 5)
+		XCTAssertEqual(viewModel.dynamicTableViewModel.numberOfRows(section: 2), 6)
 		XCTAssertEqual(viewModel.dynamicTableViewModel.numberOfRows(section: 3), 7)
 		XCTAssertEqual(viewModel.dynamicTableViewModel.numberOfRows(section: 4), 1)
 	}
@@ -163,7 +163,7 @@ class HealthCertificateReissuanceConsentViewModelTests: CWATestCase {
 		XCTAssertEqual(sectionsCount, 5)
 		XCTAssertEqual(viewModel.dynamicTableViewModel.numberOfRows(section: 0), 1)
 		XCTAssertEqual(viewModel.dynamicTableViewModel.numberOfRows(section: 1), 1)
-		XCTAssertEqual(viewModel.dynamicTableViewModel.numberOfRows(section: 2), 4)
+		XCTAssertEqual(viewModel.dynamicTableViewModel.numberOfRows(section: 2), 5)
 		XCTAssertEqual(viewModel.dynamicTableViewModel.numberOfRows(section: 3), 7)
 		XCTAssertEqual(viewModel.dynamicTableViewModel.numberOfRows(section: 4), 1)
 	}
@@ -203,7 +203,7 @@ class HealthCertificateReissuanceConsentViewModelTests: CWATestCase {
 		XCTAssertEqual(sectionsCount, 5)
 		XCTAssertEqual(viewModel.dynamicTableViewModel.numberOfRows(section: 0), 0)
 		XCTAssertEqual(viewModel.dynamicTableViewModel.numberOfRows(section: 1), 1)
-		XCTAssertEqual(viewModel.dynamicTableViewModel.numberOfRows(section: 2), 3)
+		XCTAssertEqual(viewModel.dynamicTableViewModel.numberOfRows(section: 2), 4)
 		XCTAssertEqual(viewModel.dynamicTableViewModel.numberOfRows(section: 3), 7)
 		XCTAssertEqual(viewModel.dynamicTableViewModel.numberOfRows(section: 4), 1)
 	}
