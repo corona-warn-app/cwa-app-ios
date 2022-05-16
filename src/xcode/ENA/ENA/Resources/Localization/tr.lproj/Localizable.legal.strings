@@ -211,7 +211,7 @@
 
 "ExposureSubmission_TestCertificate_Information_Legal_Text_2" = "Verileriniz, test sertifikanızı oluşturmak üzere bir kez şifrelenir ve RKI’ye aktarılır. RKI, bu verilerin geçerliliğini onaylamak için onları elektronik olarak imzalar. Veriler RKI’de saklanmaz.";
 
-"ExposureSubmission_TestCertificate_Information_Legal_Text_2a_PCR" = "Hiç kimsenin QR kodunuz üzerinden test sonucunuza erişememesi için test sonucunuz, doğum tarihinizle korunur. Doğum tarihiniz şifrelenir ve test sonucunu çağırmak üzere ilgili laboratuvara gönderilir.";
+"ExposureSubmission_TestCertificate_Information_Legal_Text_2a_PCR" = "Hiç kimsenin QR kodunuz üzerinden test sertifikasına erişememesi için, doğum tarihinizle korunur. Doğum tarihiniz şifrelenir ve test sertifikatı çağırmak üzere ilgili laboratuvara gönderilir.";
 
 "ExposureSubmission_TestCertificate_Information_Legal_Text_3" = "COVID test sertifikası, yaptırdığınız Korona testinize ilişkin verileri içerir. Yasal açıdan zorunlu durumlarda ilgili test sonucunu kanıtlamak için, Uygulamadaki QR kodu göstermeniz yeterli olacaktır. Söz konusu verilerin okunmasını istemiyorsanız, test sertifikasını hiç kimseye göstermeyin.";
 
@@ -249,13 +249,13 @@
 
 /* HealthCertificate Resissuance Consent */
 
-"HealthCertificate_Reissuance_Consent_Legal_Title" = "Onayınız";
+"HealthCertificate_Reissuance_Consent_Legal_Title" = "Rıza beyanınız";
 
-"HealthCertificate_Reissuance_Consent_Legal_Subtitle" = "„Onay“ üzerine tıklayarak aşağıdaki adımları kabul edersiniz:";
+"HealthCertificate_Reissuance_Consent_Legal_Subtitle" = "Kabul ediyorum” seçeneğine tıklayarak, şu adımlara onay vermiş olursunuz:";
 
-"HealthCertificate_Reissuance_Consent_Legal_Bullet_1" = "Uygulama, kontrol amaçlı olarak aşı sertifikasını RKI’ya iletir.";
+"HealthCertificate_Reissuance_Consent_Legal_Bullet_1" = "Uygulama, belirtilen sertifikaları doğrulama için RKI'ye iletir.";
 
-"HealthCertificate_Reissuance_Consent_Legal_Bullet_2" = "RKI aşı sertifikasını kontrol eder ve güncel bir sertifika oluşturur ve bunu uygulamanıza aktarır.";
+"HealthCertificate_Reissuance_Consent_Legal_Bullet_2" = "RKI, sertifikaları kontrol eder, yenilenen sertifikaları işleme alır ve bunları uygulamanıza iletir.";
 
 /* HealthCertificate Family Consent */
 

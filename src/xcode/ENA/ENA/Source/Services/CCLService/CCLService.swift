@@ -224,7 +224,7 @@ class CCLService: CCLServable {
 			invalidationRules: invalidationRules,
 			identifier: identifer
 		)
-		
+
 		do {
 			let walletInfo: DCCWalletInfo = try jsonFunctions.evaluateFunction(
 				name: "getDccWalletInfo",
