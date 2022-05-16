@@ -48,7 +48,7 @@ class TraceWarningDiscoveryResourceTests: CWATestCase {
 			], paths)
 	}
 
-	func testGIVEN_Locator_WHEN_getUniqueIdentifier_THEN_IsSameAsKnownidentifier() {
+	func testGIVEN_Locator_WHEN_getUniqueIdentifier_THEN_IsSameAsKnownIdentifier() {
 		// GIVEN
 		let knownUniqueIdentifier01 = "d6ec2715571f3bdaf55562dfa9ebf75766229f04f707c65bcf11669cec3da65e"
 		let knownUniqueIdentifier02 = "cabbfc3ebad59462315431c97532c72c7226d30b7bfa1c00df92fb5827f793af"

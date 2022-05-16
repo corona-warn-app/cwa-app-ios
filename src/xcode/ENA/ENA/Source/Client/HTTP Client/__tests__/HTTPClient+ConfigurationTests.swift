@@ -54,10 +54,5 @@ final class BackendConfigurationTests: CWATestCase {
 				"http://localhost/dist/version/v1/diagnosis-keys/country/IT/date/2020-04-20/"
 		)
 
-		XCTAssertEqual(
-			config.encryptedTraceWarningPackageDownloadURL(country: "DE", packageId: 12345).absoluteString,
-			"http://localhost/dist/version/v2/twp/country/DE/hour/12345/"
-		)
-
 	}
 }

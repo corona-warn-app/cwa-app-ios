@@ -55,13 +55,11 @@ class KeyPackageDownload: KeyPackageDownloadProtocol {
 
 	init(
 		downloadedPackagesStore: DownloadedPackagesStore,
-		client: Client,
 		restService: RestServiceProviding,
 		store: Store & AppConfigCaching,
 		countryIds: [Country.ID] = ["EUR"]
 	) {
 		self.downloadedPackagesStore = downloadedPackagesStore
-		self.client = client
 		self.restService = restService
 		self.store = store
 		self.countryIds = countryIds
@@ -129,7 +127,6 @@ class KeyPackageDownload: KeyPackageDownloadProtocol {
 
 	private let countryIds: [Country.ID]
 	private let downloadedPackagesStore: DownloadedPackagesStore
-	private let client: Client
 	private let restService: RestServiceProviding
 	private let store: Store & AppConfigCaching
 
