@@ -1717,11 +1717,11 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "NewVersionFeatures_Info_about_abb_information" = "Änderungen zum Release finden Sie in den App-Informationen unter dem Menüpunkt „Neue Funktionen”.";
 
-/* Version 2.22 */
+/* Version 2.23 */
 
-"NewVersionFeature_222_family_members_RAT_profile_Title" = "Schnelltest-Profile für Familie";
+"NewVersionFeature_223_reissue_certificates_title" = "Erneuerung von Zertifikaten";
 
-"NewVersionFeature_222_family_members_RAT_profile_description" = "Sie können jetzt Schnelltest-Profile für die Mitglieder Ihrer Familie anlegen. Sie können damit die Registrierung an einer Teststelle beschleunigen. Für die Erfasssung der persönlichen Daten muss dann nur der jeweilige QR-Code des Schnelltest-Profils gescannt werden.";
+"NewVersionFeature_223_reissue_certificates_description" = "Die Gültigkeit von Impfzertifikaten ist technisch auf 365 Tage begrenzt. Sie können in der App jedoch ein neues Zertifikat anfordern. Die Erneuerung kann 28 Tage vor Ablauf der Gültigkeit und bis zu 90 Tage nach Ablauf der Gültigkeit vorgenommen werden. In der App finden Sie einen Hinweis, der Sie über den Ablauf der Gültigkeit Ihres Zertifikats informiert.";
 
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Länderübergreifende Risiko-Ermittlung";

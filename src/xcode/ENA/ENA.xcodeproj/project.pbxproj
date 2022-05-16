@@ -7079,7 +7079,6 @@
 		85D759712457059A008175F0 /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
-				01A636D727EE0B0D001F5CB1 /* FamilyMemberCoronaTests */,
 				01A4DFD12653D3DE00F13432 /* AntigenTestProfile */,
 				71176E30248957B1004B0C9F /* App */,
 				EE85998B2462EFD4002E7AE2 /* AppInformation */,
@@ -7094,6 +7093,7 @@
 				ABE9615825F11FA000D0F699 /* Events */,
 				514E81312461946E00636861 /* ExposureDetection */,
 				CD99A398245B229F00BF12AF /* ExposureSubmission */,
+				01A636D727EE0B0D001F5CB1 /* FamilyMemberCoronaTests */,
 				BA9CD38026FC801400CB1C51 /* FileScanner */,
 				BA63815925E69D1E00A642BB /* FooterViewController */,
 				EE278B2E245F2C58008B06F9 /* FriendsInvite */,
