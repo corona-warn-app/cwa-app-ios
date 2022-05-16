@@ -2,7 +2,6 @@
 // 🦠 Corona-Warn-App
 //
 
-import Foundation
 import UIKit
 import OpenCombine
 
@@ -12,7 +11,7 @@ final class HealthCertificateReissuanceConsentViewModel {
 
 	init(
 		cclService: CCLServable,
-		certificates: [DCCCertificateContainerExtended],
+		certificates: [DCCReissuanceCertificateContainer],
 		certifiedPerson: HealthCertifiedPerson,
 		appConfigProvider: AppConfigurationProviding,
 		restServiceProvider: RestServiceProviding,
@@ -60,13 +59,19 @@ final class HealthCertificateReissuanceConsentViewModel {
 					)
 				)
 			}
-			$0.add(.section(cells: [.space(height: 5)]))
+			$0.add(
+				.section(
+					cells: [
+						.space(height: 14)
+					]
+				)
+			)
+					
 			if !filteredAccompanyingCertificates.isEmpty {
 				$0.add(
 					.section(
 						separators: .all,
 						cells: [
-							.space(height: 4),
 							.body(
 								text: AppStrings.HealthCertificate.Reissuance.Consent.accompanyingCertificatesTitle,
 								style: DynamicCell.TextCellStyle.label,
@@ -79,8 +84,7 @@ final class HealthCertificateReissuanceConsentViewModel {
 									cell.accessoryType = .disclosureIndicator
 									cell.selectionStyle = .default
 								}
-							),
-							.space(height: 4)
+							)
 						]
 					)
 				)
@@ -224,7 +228,7 @@ final class HealthCertificateReissuanceConsentViewModel {
 	private let restServiceProvider: RestServiceProviding
 	private let healthCertificateService: HealthCertificateServiceServable
 	private var subscriptions = Set<AnyCancellable>()
-	private var filteredAccompanyingCertificates = [HealthCertificate]()
+	private (set) var filteredAccompanyingCertificates = [HealthCertificate]()
 
 	private func submit(
 		with resource: DCCReissuanceResource,
@@ -265,11 +269,11 @@ final class HealthCertificateReissuanceConsentViewModel {
 	}
 	
 	private func filterAccompanyingCertificates(
-		certificates: [DCCCertificateContainerExtended],
+		certificates: [DCCReissuanceCertificateContainer],
 		certifiedPerson: HealthCertifiedPerson
 	) -> [HealthCertificate] {
 		var finalArray = [DCCCertificateContainer]()
-		let reissuanceCertificates = certificates.compactMap({ $0.certificateToReissue })
+		let reissuanceCertificates = certificates.map({ $0.certificateToReissue })
 		for certificate in certificates {
 			for accompanyingCertificate in certificate.accompanyingCertificates {
 				if !reissuanceCertificates.contains(accompanyingCertificate) && !finalArray.contains(accompanyingCertificate) {

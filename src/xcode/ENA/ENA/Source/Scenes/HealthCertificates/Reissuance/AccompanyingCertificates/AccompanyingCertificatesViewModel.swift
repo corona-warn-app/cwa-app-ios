@@ -23,7 +23,7 @@ final class AccompanyingCertificatesViewModel {
 			$0.add(
 				.section(
 					cells: [
-						.title2(text: AppStrings.HealthCertificate.Reissuance.AccompanyingCertificates.title),
+						.title1(text: AppStrings.HealthCertificate.Reissuance.AccompanyingCertificates.title),
 						.body(text: AppStrings.HealthCertificate.Reissuance.AccompanyingCertificates.description)
 					]
 					.compactMap({ $0 })
