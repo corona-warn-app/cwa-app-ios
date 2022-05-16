@@ -162,14 +162,14 @@ extension DCCCertificateContainer {
 
 }
 
-extension DCCCertificateContainerExtended {
+extension DCCReissuanceCertificateContainer {
 
 	static func fake(
 		certificateToReissue: DCCCertificateContainer = .fake(),
 		accompanyingCertificates: [DCCCertificateContainer] = [.fake()],
 		action: String = "renew"
-	) -> DCCCertificateContainerExtended {
-		DCCCertificateContainerExtended(
+	) -> DCCReissuanceCertificateContainer {
+		DCCReissuanceCertificateContainer(
 			certificateToReissue: certificateToReissue,
 			accompanyingCertificates: accompanyingCertificates,
 			action: action
@@ -222,7 +222,7 @@ extension DCCCertificateReissuance {
 		reissuanceDivision: DCCCertificateReissuanceDivision = .fake(),
 		certificateToReissue: DCCCertificateContainer = .fake(),
 		accompanyingCertificates: [DCCCertificateContainer] = [.fake()],
-		certificates: [DCCCertificateContainerExtended] = [.fake()]
+		certificates: [DCCReissuanceCertificateContainer] = [.fake()]
 	) -> DCCCertificateReissuance {
 		DCCCertificateReissuance(
 			reissuanceDivision: reissuanceDivision,
