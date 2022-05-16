@@ -181,23 +181,23 @@ class HealthCertificateNotificationService {
 	) {
 		let name = person.name?.standardizedName
 		guard let newCertificateReissuance = person.dccWalletInfo?.certificateReissuance,
-			  let newIdentifier = newCertificateReissuance.reissuanceDivision.identifier else {
+			  let newIdentifier = newCertificateReissuance.reissuanceDivision.identifier,
+			  let personIdentifier = person.identifier else {
 			Log.info("No certificate reissuance found for person \(private: String(describing: name))", log: .vaccination)
 			completion()
+			
+			return
+		}
+		
+		guard let oldReissuance = previousCertificateReissuance else {
+			Log.info("First time Scheduling reissuance notification for \(private: String(describing: name))", log: .vaccination)
+			self.scheduleCertificateReissuanceNotification(personIdentifier: personIdentifier, completion: completion)
 
 			return
 		}
 		
-		 if newIdentifier != previousCertificateReissuance?.reissuanceDivision.identifier ?? "renew" {
-			guard let personIdentifier = person.identifier else {
-				Log.error("Person identifier is nil, will not trigger certificate reissuance notification", log: .vaccination)
-				completion()
-
-				return
-			}
-
+		if newIdentifier != oldReissuance.reissuanceDivision.identifier ?? "renew" {
 			Log.info("Scheduling reissuance notification for \(private: String(describing: name))", log: .vaccination)
-
 			self.scheduleCertificateReissuanceNotification(personIdentifier: personIdentifier, completion: completion)
 		} else {
 			Log.debug("Certificate reissuance \(private: newCertificateReissuance) unchanged, no reissuance notification scheduled", log: .vaccination)
