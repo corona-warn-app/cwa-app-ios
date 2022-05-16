@@ -161,7 +161,7 @@ extension Risk {
 		return details
 	}
 	
-	// Merge the results from both risk calculation. For each date, the higher risk level is used.
+	// Merge the results from both risk calculation. For each date, the highest risk level is used.
 	private static func mergedRiskLevelPerDate(
 		enfRiskCalculationResult: ENFRiskCalculationResult,
 		checkinCalculationResult: CheckinRiskCalculationResult
