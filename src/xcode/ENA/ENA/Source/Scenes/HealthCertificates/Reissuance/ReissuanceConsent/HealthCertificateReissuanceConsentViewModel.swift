@@ -66,7 +66,6 @@ final class HealthCertificateReissuanceConsentViewModel {
 					]
 				)
 			)
-					
 			if !filteredAccompanyingCertificates.isEmpty {
 				$0.add(
 					.section(
@@ -92,6 +91,7 @@ final class HealthCertificateReissuanceConsentViewModel {
 			$0.add(
 				.section(
 					cells: [
+						.space(height: 10),
 						titleDynamicCell,
 						subtitleDynamicCell,
 						longTextDynamicCell,
