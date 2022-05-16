@@ -1664,7 +1664,7 @@ class HealthCertificateServiceTests: CWATestCase {
 		
 		let newDCCWalletInfo: DCCWalletInfo = .fake(
 			certificateReissuance: .fake(
-				reissuanceDivision: .fake(),
+				reissuanceDivision: .fake(identifier: "test"),
 				certificates: [.fake()]
 			)
 		)
