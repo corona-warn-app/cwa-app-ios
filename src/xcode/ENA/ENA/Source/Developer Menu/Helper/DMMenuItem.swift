@@ -20,6 +20,7 @@ enum DMMenuItem: Int, CaseIterable {
 	case lastSubmissionRequest
 	case lastOnBehalfSubmissionRequest
 	case manuallyRequestRisk
+	case deleteRiskFilesAndRequestRisk
 	case debugRiskCalculation
 	case errorLog
 	case els
@@ -74,6 +75,7 @@ extension DMMenuItem {
 		case .lastSubmissionRequest: return "Last Submission Request"
 		case .lastOnBehalfSubmissionRequest: return "Last on behalf Submission"
 		case .manuallyRequestRisk: return "Manually Request Risk"
+		case .deleteRiskFilesAndRequestRisk: return "Purge Cache and Download and request Risk"
 		case .debugRiskCalculation: return "Debug Risk Calculation"
 		case .errorLog: return "Error Log"
 		case .els: return "ELS Options"
@@ -116,6 +118,7 @@ extension DMMenuItem {
 		case .lastSubmissionRequest: return "Export the last executed submission request"
 		case .lastOnBehalfSubmissionRequest: return "Export the last executed submission ob behalf request"
 		case .manuallyRequestRisk: return "Manually requests the current risk"
+		case .deleteRiskFilesAndRequestRisk: return "Manually delete risk files and requests the current risk"
 		case .debugRiskCalculation: return "See the most recent risk calculation values"
 		case .errorLog: return "View all errors logged by the app"
 		case .els: return "Some options to control ELS settings"

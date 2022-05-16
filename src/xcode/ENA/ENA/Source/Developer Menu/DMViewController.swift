@@ -136,6 +136,9 @@ final class DMViewController: UITableViewController, RequiresAppDependencies {
 		case .manuallyRequestRisk:
 			vc = nil
 			manuallyRequestRisk()
+		case .deleteRiskFilesAndRequestRisk:
+			vc = nil
+			deleteRiskFilesAndRequestRisk()
 		case .debugRiskCalculation:
 			vc = DMDebugRiskCalculationViewController(store: store)
 		case .onboardingVersion:
@@ -243,6 +246,43 @@ final class DMViewController: UITableViewController, RequiresAppDependencies {
 		)
 		present(alert, animated: true, completion: nil)
 	}
+	
+	private func deleteRiskFilesAndRequestRisk() {
+		let alert = UIAlertController(
+			title: "Manually delete downloaded files and request risk?",
+			message: "⚠️⚠️⚠️ WARNING ⚠️⚠️⚠️\n\n This deletes the last calculated risk, downloded key packages and trace warnings from the store.",
+			preferredStyle: .alert
+		)
+		alert.addAction(
+			UIAlertAction(
+				title: "Cancel",
+				style: .cancel
+			) { _ in
+				alert.dismiss(animated: true, completion: nil)
+			}
+		)
+
+		alert.addAction(
+			UIAlertAction(
+				title: "Delete current risk data and request risk",
+				style: .destructive
+			) { _ in
+				self.store.enfRiskCalculationResult = nil
+				self.store.checkinRiskCalculationResult = nil
+				
+				// Reset packages store
+				self.downloadedPackagesStore.reset()
+				self.downloadedPackagesStore.open()
+				
+				// Reset event store
+				self.eventStore.reset()
+				
+				self.riskProvider.requestRisk(userInitiated: true)
+			}
+		)
+		present(alert, animated: true, completion: nil)
+	}
+
 
 	private func makeOnboardingVersionViewController() -> DMDeltaOnboardingViewController {
 		return DMDeltaOnboardingViewController(store: store)
