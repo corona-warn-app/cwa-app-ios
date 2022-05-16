@@ -1634,7 +1634,6 @@
 		BAD3CCD5271EEB5A004C06AD /* _PaddingResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAD3CCD4271EEB5A004C06AD /* _PaddingResource.swift */; };
 		BAD3CCD8271EF973004C06AD /* TeleTanResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAD3CCD7271EF973004C06AD /* TeleTanResource.swift */; };
 		BAD507A22825685700FE07D2 /* TraceWarningDiscoveryResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAD507A12825685700FE07D2 /* TraceWarningDiscoveryResource.swift */; };
-		BAD507A62825753900FE07D2 /* TraceWarningDiscoveryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50AA526725FBA0CC000C77BB /* TraceWarningDiscoveryTests.swift */; };
 		BAD507A72825754C00FE07D2 /* TraceWarningDownloadTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50FA07832609EC80003C1E46 /* TraceWarningDownloadTests.swift */; };
 		BAD507A92825768700FE07D2 /* TraceWarningDiscoveryResourceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAD507A82825768700FE07D2 /* TraceWarningDiscoveryResourceTests.swift */; };
 		BAD962FB25668F4000FAB615 /* TestResultAvailableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAD962FA25668F4000FAB615 /* TestResultAvailableViewController.swift */; };
@@ -2631,9 +2630,6 @@
 		50AA521C25FA590D000C77BB /* HTTPMethod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPMethod.swift; sourceTree = "<group>"; };
 		50AA522625FA5AAD000C77BB /* TraceWarningError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraceWarningError.swift; sourceTree = "<group>"; };
 		50AA525325FB9ACA000C77BB /* TraceWarningDiscoveryModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraceWarningDiscoveryModel.swift; sourceTree = "<group>"; };
-		50AA526725FBA0CC000C77BB /* TraceWarningDiscoveryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraceWarningDiscoveryTests.swift; sourceTree = "<group>"; };
-		50AF182027A2F5DF00BAA9DB /* ccl-configuration.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = "ccl-configuration.bin"; sourceTree = "<group>"; };
-		50AA526725FBA0CC000C77BB /* HTTPClient+TraceWarningPackageDiscoveryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HTTPClient+TraceWarningPackageDiscoveryTests.swift"; sourceTree = "<group>"; };
 		50AF182327A3F20500BAA9DB /* CCLConfigurationResourceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CCLConfigurationResourceTests.swift; sourceTree = "<group>"; };
 		50AF182627A4229000BAA9DB /* DMNHCViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMNHCViewController.swift; sourceTree = "<group>"; };
 		50AF182727A4229000BAA9DB /* DMNHCViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMNHCViewModel.swift; sourceTree = "<group>"; };
@@ -10052,7 +10048,6 @@
 			isa = PBXGroup;
 			children = (
 				BAD507A82825768700FE07D2 /* TraceWarningDiscoveryResourceTests.swift */,
-				50AA526725FBA0CC000C77BB /* TraceWarningDiscoveryTests.swift */,
 			);
 			path = __tests__;
 			sourceTree = "<group>";
@@ -12318,7 +12313,6 @@
 				BAA8558B27C82A9C00D0EA26 /* HealthCertificateReissuanceConsentViewModelTests.swift in Sources */,
 				50BD1425260B74C20013983A /* VerificationMock.swift in Sources */,
 				BAB2583827A94CA300DF347B /* FakeCCLService.swift in Sources */,
-				BAD507A62825753900FE07D2 /* TraceWarningDiscoveryTests.swift in Sources */,
 				BA02641325E6A0800019CD55 /* FooterViewModelTests.swift in Sources */,
 				0123D5992501385200A91838 /* ExposureSubmissionErrorTests.swift in Sources */,
 				8FEC7DB52795CFC800D5558C /* HealthCertificateArray+FallbackTests.swift in Sources */,
@@ -13795,7 +13789,7 @@
 			repositoryURL = "https://github.com/Flight-School/AnyCodable";
 			requirement = {
 				kind = upToNextMajorVersion;
-                minimumVersion = 0.6.2;
+				minimumVersion = 0.6.2;
 			};
 		};
 		B10FB02E246036F3004CA11E /* XCRemoteSwiftPackageReference "swift-protobuf" */ = {
