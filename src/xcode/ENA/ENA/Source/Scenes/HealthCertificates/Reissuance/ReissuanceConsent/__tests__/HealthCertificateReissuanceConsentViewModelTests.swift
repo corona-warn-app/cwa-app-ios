@@ -50,7 +50,7 @@ class HealthCertificateReissuanceConsentViewModelTests: CWATestCase {
 		let certificate = HealthCertificate.mock()
 		let viewModel = HealthCertificateReissuanceConsentViewModel(
 			cclService: FakeCCLService(),
-			certificates: [certificate],
+			certificates: [DCCCertificateContainerExtended.fake()],
 			certifiedPerson: HealthCertifiedPerson(
 				healthCertificates: [certificate],
 				isPreferredPerson: true,
@@ -69,7 +69,8 @@ class HealthCertificateReissuanceConsentViewModelTests: CWATestCase {
 			appConfigProvider: CachedAppConfigurationMock(),
 			restServiceProvider: RestServiceProviderStub(loadResources: []),
 			healthCertificateService: HealthCertificateServiceFake(),
-			onDisclaimerButtonTap: { }
+			onDisclaimerButtonTap: { },
+			onAccompanyingCertificatesButtonTap: { _ in }
 		)
 
 		// WHEN
@@ -80,7 +81,7 @@ class HealthCertificateReissuanceConsentViewModelTests: CWATestCase {
 		XCTAssertEqual(viewModel.dynamicTableViewModel.numberOfRows(section: 0), 1)
 		XCTAssertEqual(viewModel.dynamicTableViewModel.numberOfRows(section: 1), 1)
 		XCTAssertEqual(viewModel.dynamicTableViewModel.numberOfRows(section: 2), 5)
-		XCTAssertEqual(viewModel.dynamicTableViewModel.numberOfRows(section: 3), 5)
+		XCTAssertEqual(viewModel.dynamicTableViewModel.numberOfRows(section: 3), 7)
 		XCTAssertEqual(viewModel.dynamicTableViewModel.numberOfRows(section: 4), 1)
 	}
 	
@@ -89,7 +90,7 @@ class HealthCertificateReissuanceConsentViewModelTests: CWATestCase {
 		let certificate = HealthCertificate.mock()
 		let viewModel = HealthCertificateReissuanceConsentViewModel(
 			cclService: FakeCCLService(),
-			certificates: [certificate],
+			certificates: [DCCCertificateContainerExtended.fake()],
 			certifiedPerson: HealthCertifiedPerson(
 				healthCertificates: [certificate],
 				isPreferredPerson: true,
@@ -109,7 +110,8 @@ class HealthCertificateReissuanceConsentViewModelTests: CWATestCase {
 			appConfigProvider: CachedAppConfigurationMock(),
 			restServiceProvider: RestServiceProviderStub(loadResources: []),
 			healthCertificateService: HealthCertificateServiceFake(),
-			onDisclaimerButtonTap: { }
+			onDisclaimerButtonTap: { },
+			onAccompanyingCertificatesButtonTap: { _ in }
 		)
 
 		// WHEN
@@ -120,7 +122,7 @@ class HealthCertificateReissuanceConsentViewModelTests: CWATestCase {
 		XCTAssertEqual(viewModel.dynamicTableViewModel.numberOfRows(section: 0), 1)
 		XCTAssertEqual(viewModel.dynamicTableViewModel.numberOfRows(section: 1), 1)
 		XCTAssertEqual(viewModel.dynamicTableViewModel.numberOfRows(section: 2), 5)
-		XCTAssertEqual(viewModel.dynamicTableViewModel.numberOfRows(section: 3), 5)
+		XCTAssertEqual(viewModel.dynamicTableViewModel.numberOfRows(section: 3), 7)
 		XCTAssertEqual(viewModel.dynamicTableViewModel.numberOfRows(section: 4), 1)
 	}
 
@@ -129,7 +131,7 @@ class HealthCertificateReissuanceConsentViewModelTests: CWATestCase {
 		let certificate = HealthCertificate.mock()
 		let viewModel = HealthCertificateReissuanceConsentViewModel(
 			cclService: FakeCCLService(),
-			certificates: [certificate],
+			certificates: [DCCCertificateContainerExtended.fake()],
 			certifiedPerson: HealthCertifiedPerson(
 				healthCertificates: [certificate],
 				isPreferredPerson: true,
@@ -149,7 +151,8 @@ class HealthCertificateReissuanceConsentViewModelTests: CWATestCase {
 			appConfigProvider: CachedAppConfigurationMock(),
 			restServiceProvider: RestServiceProviderStub(loadResources: []),
 			healthCertificateService: HealthCertificateServiceFake(),
-			onDisclaimerButtonTap: { }
+			onDisclaimerButtonTap: { },
+			onAccompanyingCertificatesButtonTap: { _ in }
 		)
 
 		// WHEN
@@ -160,7 +163,7 @@ class HealthCertificateReissuanceConsentViewModelTests: CWATestCase {
 		XCTAssertEqual(viewModel.dynamicTableViewModel.numberOfRows(section: 0), 1)
 		XCTAssertEqual(viewModel.dynamicTableViewModel.numberOfRows(section: 1), 1)
 		XCTAssertEqual(viewModel.dynamicTableViewModel.numberOfRows(section: 2), 4)
-		XCTAssertEqual(viewModel.dynamicTableViewModel.numberOfRows(section: 3), 5)
+		XCTAssertEqual(viewModel.dynamicTableViewModel.numberOfRows(section: 3), 7)
 		XCTAssertEqual(viewModel.dynamicTableViewModel.numberOfRows(section: 4), 1)
 	}
 	
@@ -169,7 +172,7 @@ class HealthCertificateReissuanceConsentViewModelTests: CWATestCase {
 		let certificate = HealthCertificate.mock()
 		let viewModel = HealthCertificateReissuanceConsentViewModel(
 			cclService: FakeCCLService(),
-			certificates: [certificate],
+			certificates: [DCCCertificateContainerExtended.fake()],
 			certifiedPerson: HealthCertifiedPerson(
 				healthCertificates: [certificate],
 				isPreferredPerson: true,
@@ -188,7 +191,8 @@ class HealthCertificateReissuanceConsentViewModelTests: CWATestCase {
 			appConfigProvider: CachedAppConfigurationMock(),
 			restServiceProvider: RestServiceProviderStub(loadResources: []),
 			healthCertificateService: HealthCertificateServiceFake(),
-			onDisclaimerButtonTap: { }
+			onDisclaimerButtonTap: { },
+			onAccompanyingCertificatesButtonTap: { _ in }
 		)
 
 		// WHEN
@@ -199,7 +203,7 @@ class HealthCertificateReissuanceConsentViewModelTests: CWATestCase {
 		XCTAssertEqual(viewModel.dynamicTableViewModel.numberOfRows(section: 0), 0)
 		XCTAssertEqual(viewModel.dynamicTableViewModel.numberOfRows(section: 1), 1)
 		XCTAssertEqual(viewModel.dynamicTableViewModel.numberOfRows(section: 2), 3)
-		XCTAssertEqual(viewModel.dynamicTableViewModel.numberOfRows(section: 3), 5)
+		XCTAssertEqual(viewModel.dynamicTableViewModel.numberOfRows(section: 3), 7)
 		XCTAssertEqual(viewModel.dynamicTableViewModel.numberOfRows(section: 4), 1)
 	}
 
@@ -248,15 +252,15 @@ class HealthCertificateReissuanceConsentViewModelTests: CWATestCase {
 
 		let healthCertificateServiceSpy = HealthCertificateServiceSpy()
 		let appConfigMock = CachedAppConfigurationMock()
-		let certificate = try HealthCertificate(base45: healthCertificateBase45)
 		let viewModel = HealthCertificateReissuanceConsentViewModel(
 			cclService: FakeCCLService(),
-			certificates: [certificate],
+			certificates: [DCCCertificateContainerExtended.fake()],
 			certifiedPerson: person,
 			appConfigProvider: appConfigMock,
 			restServiceProvider: restServiceProvider,
 			healthCertificateService: healthCertificateServiceSpy,
-			onDisclaimerButtonTap: { }
+			onDisclaimerButtonTap: { },
+			onAccompanyingCertificatesButtonTap: { _ in }
 		)
 		
 		let submitExpectation = expectation(description: "Submit completion is called.")
@@ -339,15 +343,15 @@ class HealthCertificateReissuanceConsentViewModelTests: CWATestCase {
 
 		let healthCertificateServiceSpy = HealthCertificateServiceSpy()
 		let appConfigMock = CachedAppConfigurationMock()
-		let certificate = try HealthCertificate(base45: healthCertificateBase45)
 		let viewModel = HealthCertificateReissuanceConsentViewModel(
 			cclService: FakeCCLService(),
-			certificates: [certificate],
+			certificates: [DCCCertificateContainerExtended.fake()],
 			certifiedPerson: person,
 			appConfigProvider: appConfigMock,
 			restServiceProvider: restServiceProvider,
 			healthCertificateService: healthCertificateServiceSpy,
-			onDisclaimerButtonTap: { }
+			onDisclaimerButtonTap: { },
+			onAccompanyingCertificatesButtonTap: { _ in }
 		)
 		
 		let submitExpectation = expectation(description: "Submit completion is called.")
@@ -411,15 +415,15 @@ class HealthCertificateReissuanceConsentViewModelTests: CWATestCase {
 
 		let healthCertificateServiceErrorStub = HealthCertificateServiceErrorStub()
 		let appConfigMock = CachedAppConfigurationMock()
-		let certificate = try HealthCertificate(base45: healthCertificateBase45)
 		let viewModel = HealthCertificateReissuanceConsentViewModel(
 			cclService: FakeCCLService(),
-			certificates: [certificate],
+			certificates: [DCCCertificateContainerExtended.fake()],
 			certifiedPerson: person,
 			appConfigProvider: appConfigMock,
 			restServiceProvider: restServiceProvider,
 			healthCertificateService: healthCertificateServiceErrorStub,
-			onDisclaimerButtonTap: { }
+			onDisclaimerButtonTap: { },
+			onAccompanyingCertificatesButtonTap: { _ in }
 		)
 		
 		let submitExpectation = expectation(description: "Submit completion is called.")
@@ -461,21 +465,17 @@ class HealthCertificateReissuanceConsentViewModelTests: CWATestCase {
 			   ]
 		   )
 
-		let healthCertificateBase45 = try base45Fake(
-			digitalCovidCertificate: DigitalCovidCertificate.fake()
-		)
-		
 		let healthCertificateServiceSpy = HealthCertificateServiceSpy()
 		let appConfigMock = CachedAppConfigurationMock()
-		let certificate = try HealthCertificate(base45: healthCertificateBase45)
 		let viewModel = HealthCertificateReissuanceConsentViewModel(
 			cclService: FakeCCLService(),
-			certificates: [certificate],
+			certificates: [DCCCertificateContainerExtended.fake()],
 			certifiedPerson: person,
 			appConfigProvider: appConfigMock,
 			restServiceProvider: restServiceProvider,
 			healthCertificateService: healthCertificateServiceSpy,
-			onDisclaimerButtonTap: { }
+			onDisclaimerButtonTap: { },
+			onAccompanyingCertificatesButtonTap: {_ in }
 		)
 		
 		let submitExpectation = expectation(description: "Submit completion is called.")
