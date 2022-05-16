@@ -10,20 +10,8 @@ import XCTest
 // swiftlint:disable:next type_body_length
 class TraceWarningPackageDownloadTests: CWATestCase {
 	
-	// MARK: - Success
-	
 	func testGIVEN_TraceWarningDownload_WHEN_HappyCase_THEN_Success() throws {
-		
 		// GIVEN
-		let client = ClientMock()
-
-		client.onTraceWarningDownload = { [weak self] _, _, completion in
-			guard let self = self else {
-				XCTFail("Could not create strong self")
-				return
-			}
-			completion(.success(self.dummyResponseDownload))
-		}
 		let store = MockTestStore()
 		let eventStore = MockEventStore()
 		let checkInMock = Checkin.mock(checkinStartDate: startAsDate, checkinEndDate: endAsDate)
@@ -31,8 +19,19 @@ class TraceWarningPackageDownloadTests: CWATestCase {
 		let appConfig = SAP_Internal_V2_ApplicationConfigurationIOS()
 		
 		let traceWarningPackageDownload = TraceWarningPackageDownload(
-			client: client,
-			restServiceProvider: RestServiceProviderStub(results: [.success(self.dummyResponseDiscovery)]),
+			restServiceProvider: RestServiceProviderStub(
+				results: [
+					.success(dummyResponseDiscovery),
+					.success(dummyResponseDownload),
+					.success(dummyResponseDownload),
+					.success(dummyResponseDownload),
+					.success(dummyResponseDownload),
+					.success(dummyResponseDownload),
+					.success(dummyResponseDownload),
+					.success(dummyResponseDownload),
+					.success(dummyResponseDownload)
+				]
+			),
 			store: store,
 			eventStore: eventStore,
 			signatureVerifier: MockVerifier()
@@ -44,14 +43,12 @@ class TraceWarningPackageDownloadTests: CWATestCase {
 		var responseCode: TraceWarningSuccess?
 		traceWarningPackageDownload.startTraceWarningPackageDownload(with: appConfig, completion: { result in
 			switch result {
-			
 			case let .success(success):
 				responseCode = success
 				successExpectation.fulfill()
 			case let .failure(error):
 				XCTFail("Test should not fail but did with error: \(error)")
 			}
-			
 		})
 		
 		// THEN
@@ -64,13 +61,11 @@ class TraceWarningPackageDownloadTests: CWATestCase {
 	}
 	
 	func testGIVEN_TraceWarningDownload_WHEN_CheckInDatabaseIsEmpty_THEN_Success() {
-		
 		// GIVEN
 		let appConfig = SAP_Internal_V2_ApplicationConfigurationIOS()
 		let eventStore = MockEventStore()
 		let store = MockTestStore()
 		let traceWarningPackageDownload = TraceWarningPackageDownload(
-			client: ClientMock(),
 			restServiceProvider: RestServiceProviderStub(),
 			store: store,
 			eventStore: eventStore
@@ -82,7 +77,6 @@ class TraceWarningPackageDownloadTests: CWATestCase {
 		var responseCode: TraceWarningSuccess?
 		traceWarningPackageDownload.startTraceWarningPackageDownload(with: appConfig, completion: { result in
 			switch result {
-			
 			case let .success(success):
 				responseCode = success
 				successExpectation.fulfill()
@@ -101,7 +95,6 @@ class TraceWarningPackageDownloadTests: CWATestCase {
 	}
 	
 	func testGIVEN_TraceWarningDownload_WHEN_CheckInDatabaseIsNotEmpty_THEN_Success() {
-		
 		// GIVEN
 		let appConfig = SAP_Internal_V2_ApplicationConfigurationIOS()
 		let eventStore = MockEventStore()
@@ -110,8 +103,11 @@ class TraceWarningPackageDownloadTests: CWATestCase {
 		eventStore.createCheckin(checkin)
 		let store = MockTestStore()
 		let traceWarningPackageDownload = TraceWarningPackageDownload(
-			client: ClientMock(),
-			restServiceProvider: RestServiceProviderStub(results: [.success(self.dummyResponseDiscovery)]),
+			restServiceProvider: RestServiceProviderStub(
+				results: [
+					.success(dummyResponseDiscovery)
+				]
+			),
 			store: store,
 			eventStore: eventStore
 		)
@@ -122,7 +118,6 @@ class TraceWarningPackageDownloadTests: CWATestCase {
 		var responseCode: TraceWarningSuccess?
 		traceWarningPackageDownload.startTraceWarningPackageDownload(with: appConfig, completion: { result in
 			switch result {
-			
 			case let .success(success):
 				responseCode = success
 				successExpectation.fulfill()
@@ -141,18 +136,18 @@ class TraceWarningPackageDownloadTests: CWATestCase {
 	}
 	
 	func testGIVEN_TraceWarningDownload_WHEN_AvailablePackagesOnCDNAreEmpty_THEN_Success() {
-		
 		// GIVEN
-		let client = ClientMock()
-
 		let eventStore = MockEventStore()
 		let checkInMock = Checkin.mock()
 		eventStore.createCheckin(checkInMock)
 		let appConfig = SAP_Internal_V2_ApplicationConfigurationIOS()
 		let store = MockTestStore()
 		let traceWarningPackageDownload = TraceWarningPackageDownload(
-			client: client,
-			restServiceProvider: RestServiceProviderStub(results: [.success(TraceWarningDiscoveryModel(oldest: 12345, latest: 12344))]),
+			restServiceProvider: RestServiceProviderStub(
+				results: [
+					.success(TraceWarningDiscoveryModel(oldest: 12345, latest: 12344))
+				]
+			),
 			store: store,
 			eventStore: eventStore
 		)
@@ -163,7 +158,6 @@ class TraceWarningPackageDownloadTests: CWATestCase {
 		var responseCode: TraceWarningSuccess?
 		traceWarningPackageDownload.startTraceWarningPackageDownload(with: appConfig, completion: { result in
 			switch result {
-			
 			case let .success(success):
 				responseCode = success
 				successExpectation.fulfill()
@@ -182,14 +176,7 @@ class TraceWarningPackageDownloadTests: CWATestCase {
 		XCTAssertTrue(eventStore.traceLocationsPublisher.value.isEmpty)	}
 	
 	func testGIVEN_TraceWarningDownload_WHEN_SinglePackageIsEmpty_THEN_Success() throws {
-		
 		// GIVEN
-		let client = ClientMock()
-		client.onTraceWarningDownload = { _, _, completion in
-			let emptyPackage = PackageDownloadResponse(package: nil, etag: "FakeEtag")
-			completion(.success(emptyPackage))
-		}
-		
 		let eventStore = MockEventStore()
 		let checkInMock = Checkin.mock(checkinStartDate: startAsDate, checkinEndDate: endAsDate)
 		eventStore.createCheckin(checkInMock)
@@ -197,8 +184,19 @@ class TraceWarningPackageDownloadTests: CWATestCase {
 		
 		let store = MockTestStore()
 		let traceWarningPackageDownload = TraceWarningPackageDownload(
-			client: client,
-			restServiceProvider: RestServiceProviderStub(results: [.success(self.dummyResponseDiscovery)]),
+			restServiceProvider: RestServiceProviderStub(
+				results: [
+					.success(dummyResponseDiscovery),
+					.success(emptyResponseDownload),
+					.success(emptyResponseDownload),
+					.success(emptyResponseDownload),
+					.success(emptyResponseDownload),
+					.success(emptyResponseDownload),
+					.success(emptyResponseDownload),
+					.success(emptyResponseDownload),
+					.success(emptyResponseDownload)
+				]
+			),
 			store: store,
 			eventStore: eventStore
 		)
@@ -209,14 +207,12 @@ class TraceWarningPackageDownloadTests: CWATestCase {
 		var responseCode: TraceWarningSuccess?
 		traceWarningPackageDownload.startTraceWarningPackageDownload(with: appConfig, completion: { result in
 			switch result {
-			
 			case let .success(success):
 				responseCode = success
 				successExpectation.fulfill()
 			case let .failure(error):
 				XCTFail("Test should not fail but did with error: \(error)")
 			}
-			
 		})
 		
 		// THEN
@@ -231,7 +227,6 @@ class TraceWarningPackageDownloadTests: CWATestCase {
 	// MARK: - Errors
 	
 	func testGIVEN_TraceWarningDownload_WHEN_DownloadIsAlreadyInProgress_THEN_DownloadIsRunning() {
-		
 		// GIVEN
 		let eventStore = MockEventStore()
 		let checkInMock = Checkin.mock()
@@ -240,8 +235,7 @@ class TraceWarningPackageDownloadTests: CWATestCase {
 		
 		let store = MockTestStore()
 		let traceWarningPackageDownload = TraceWarningPackageDownload(
-			client: ClientMock(),
-			restServiceProvider: RestServiceProviderStub(results: [.success(self.dummyResponseDiscovery)]),
+			restServiceProvider: RestServiceProviderStub(results: [.success(dummyResponseDiscovery)]),
 			store: store,
 			eventStore: eventStore
 		)
@@ -286,9 +280,7 @@ class TraceWarningPackageDownloadTests: CWATestCase {
 	}
 	
 	func testGIVEN_TraceWarningDownload_WHEN_DiscoveryIsFailing_THEN_InvalidResponseError() throws {
-		
 		// GIVEN
-		let client = ClientMock()
 		let store = MockTestStore()
 		let eventStore = MockEventStore()
 		let checkInMock = Checkin.mock()
@@ -296,7 +288,6 @@ class TraceWarningPackageDownloadTests: CWATestCase {
 		let appConfig = SAP_Internal_V2_ApplicationConfigurationIOS()
 		
 		let traceWarningPackageDownload = TraceWarningPackageDownload(
-			client: client,
 			restServiceProvider: RestServiceProviderStub(results: [.failure(ServiceError<TraceWarningError>.invalidResponse)]),
 			store: store,
 			eventStore: eventStore
@@ -326,12 +317,8 @@ class TraceWarningPackageDownloadTests: CWATestCase {
 	}
 	
 	func testGIVEN_TraceWarningDownload_WHEN_NoEarliestPackageFound_THEN_NoEarliestRelevantPackageError() {
-		
 		// GIVEN
-		
 		let eventStore = MockEventStore()
-		let client = ClientMock()
-
 		let loadResource = LoadResource(result: .success(self.dummyResponseDiscovery)) { _ in
 			eventStore.deleteAllCheckins()
 		}
@@ -342,7 +329,6 @@ class TraceWarningPackageDownloadTests: CWATestCase {
 		
 		let store = MockTestStore()
 		let traceWarningPackageDownload = TraceWarningPackageDownload(
-			client: client,
 			restServiceProvider: RestServiceProviderStub(loadResources: [loadResource]),
 			store: store,
 			eventStore: eventStore
@@ -372,14 +358,7 @@ class TraceWarningPackageDownloadTests: CWATestCase {
 	}
 	
 	func testGIVEN_TraceWarningDownload_WHEN_DownloadIsFailing_THEN_InvalidResponseError() {
-		
 		// GIVEN
-		let client = ClientMock()
-
-		client.onTraceWarningDownload = { _, _, completion in
-			completion(.failure(.invalidResponseError))
-		}
-		
 		let eventStore = MockEventStore()
 		let checkInMock = Checkin.mock(checkinStartDate: startAsDate, checkinEndDate: endAsDate)
 		eventStore.createCheckin(checkInMock)
@@ -387,8 +366,19 @@ class TraceWarningPackageDownloadTests: CWATestCase {
 		
 		let store = MockTestStore()
 		let traceWarningPackageDownload = TraceWarningPackageDownload(
-			client: client,
-			restServiceProvider: RestServiceProviderStub(results: [.success(self.dummyResponseDiscovery)]),
+			restServiceProvider: RestServiceProviderStub(
+				results: [
+					.success(dummyResponseDiscovery),
+					.failure(ServiceError<TraceWarningError>.invalidResponse),
+					.failure(ServiceError<TraceWarningError>.invalidResponse),
+					.failure(ServiceError<TraceWarningError>.invalidResponse),
+					.failure(ServiceError<TraceWarningError>.invalidResponse),
+					.failure(ServiceError<TraceWarningError>.invalidResponse),
+					.failure(ServiceError<TraceWarningError>.invalidResponse),
+					.failure(ServiceError<TraceWarningError>.invalidResponse),
+					.failure(ServiceError<TraceWarningError>.invalidResponse)
+				]
+			),
 			store: store,
 			eventStore: eventStore
 		)
@@ -417,15 +407,7 @@ class TraceWarningPackageDownloadTests: CWATestCase {
 	}
 	
 	func testGIVEN_TraceWarningDownload_WHEN_EtagMissing_THEN_IdenticationError() {
-		
 		// GIVEN
-		let client = ClientMock()
-		client.onTraceWarningDownload = { _, _, completion in
-			let package = SAPDownloadedPackage(keysBin: Data(), signature: Data())
-			let response = PackageDownloadResponse(package: package, etag: nil)
-			completion(.success(response))
-		}
-		
 		let eventStore = MockEventStore()
 		let checkInMock = Checkin.mock(checkinStartDate: startAsDate, checkinEndDate: endAsDate)
 		eventStore.createCheckin(checkInMock)
@@ -433,8 +415,19 @@ class TraceWarningPackageDownloadTests: CWATestCase {
 		
 		let store = MockTestStore()
 		let traceWarningPackageDownload = TraceWarningPackageDownload(
-			client: client,
-			restServiceProvider: RestServiceProviderStub(results: [.success(self.dummyResponseDiscovery)]),
+			restServiceProvider: RestServiceProviderStub(
+				results: [
+					.success(dummyResponseDiscovery),
+					.success(PackageDownloadResponse(package: SAPDownloadedPackage(keysBin: Data(), signature: Data()))), // packages with no etag
+					.success(PackageDownloadResponse(package: SAPDownloadedPackage(keysBin: Data(), signature: Data()))),
+					.success(PackageDownloadResponse(package: SAPDownloadedPackage(keysBin: Data(), signature: Data()))),
+					.success(PackageDownloadResponse(package: SAPDownloadedPackage(keysBin: Data(), signature: Data()))),
+					.success(PackageDownloadResponse(package: SAPDownloadedPackage(keysBin: Data(), signature: Data()))),
+					.success(PackageDownloadResponse(package: SAPDownloadedPackage(keysBin: Data(), signature: Data()))),
+					.success(PackageDownloadResponse(package: SAPDownloadedPackage(keysBin: Data(), signature: Data()))),
+					.success(PackageDownloadResponse(package: SAPDownloadedPackage(keysBin: Data(), signature: Data())))
+				]
+			),
 			store: store,
 			eventStore: eventStore
 		)
@@ -463,26 +456,27 @@ class TraceWarningPackageDownloadTests: CWATestCase {
 	}
 	
 	func testGIVEN_TraceWarningDownload_WHEN_VerificationFails_THEN_VerificationError() {
-		
 		// GIVEN
-		let client = ClientMock()
-		client.onTraceWarningDownload = { _, _, completion in
-			let package = SAPDownloadedPackage(keysBin: Data(), signature: Data())
-			let response = PackageDownloadResponse(package: package, etag: "FakeEtag")
-			completion(.success(response))
-		}
-		
 		let eventStore = MockEventStore()
-		
-		
 		let checkInMock = Checkin.mock(checkinStartDate: startAsDate, checkinEndDate: endAsDate)
 		eventStore.createCheckin(checkInMock)
 		let appConfig = SAP_Internal_V2_ApplicationConfigurationIOS()
 		
 		let store = MockTestStore()
 		let traceWarningPackageDownload = TraceWarningPackageDownload(
-			client: client,
-			restServiceProvider: RestServiceProviderStub(results: [.success(self.dummyResponseDiscovery)]),
+			restServiceProvider: RestServiceProviderStub(
+				results: [
+					.success(dummyResponseDiscovery),
+					.success(brokenSignatureResponseDownload),
+					.success(brokenSignatureResponseDownload),
+					.success(brokenSignatureResponseDownload),
+					.success(brokenSignatureResponseDownload),
+					.success(brokenSignatureResponseDownload),
+					.success(brokenSignatureResponseDownload),
+					.success(brokenSignatureResponseDownload),
+					.success(brokenSignatureResponseDownload)
+				]
+			),
 			store: store,
 			eventStore: eventStore
 		)
@@ -519,7 +513,6 @@ class TraceWarningPackageDownloadTests: CWATestCase {
 		
 		// WHEN
 		let traceWarningPackageDownload = TraceWarningPackageDownload(
-			client: ClientMock(),
 			restServiceProvider: RestServiceProviderStub(),
 			store: store,
 			eventStore: MockEventStore()
@@ -543,7 +536,6 @@ class TraceWarningPackageDownloadTests: CWATestCase {
 		}
 		eventStore.createTraceWarningPackageMetadata(TraceWarningPackageMetadata(id: lastHourDate.unixTimestampInHours, region: "DE", eTag: "FakeETag"))
 		let traceWarningPackageDownload = TraceWarningPackageDownload(
-			client: ClientMock(),
 			restServiceProvider: RestServiceProviderStub(),
 			store: store,
 			eventStore: eventStore
@@ -570,7 +562,6 @@ class TraceWarningPackageDownloadTests: CWATestCase {
 		]
 		let store = MockTestStore()
 		let traceWarningPackageDownload = TraceWarningPackageDownload(
-			client: ClientMock(),
 			restServiceProvider: RestServiceProviderStub(),
 			store: store,
 			eventStore: eventStore
@@ -600,7 +591,6 @@ class TraceWarningPackageDownloadTests: CWATestCase {
 
 		let store = MockTestStore()
 		let traceWarningPackageDownload = TraceWarningPackageDownload(
-			client: ClientMock(),
 			restServiceProvider: RestServiceProviderStub(),
 			store: store,
 			eventStore: eventStore
@@ -634,7 +624,6 @@ class TraceWarningPackageDownloadTests: CWATestCase {
 
 		let store = MockTestStore()
 		let traceWarningPackageDownload = TraceWarningPackageDownload(
-			client: ClientMock(),
 			restServiceProvider: RestServiceProviderStub(),
 			store: store,
 			eventStore: eventStore
@@ -670,7 +659,6 @@ class TraceWarningPackageDownloadTests: CWATestCase {
 		
 		let store = MockTestStore()
 		let traceWarningPackageDownload = TraceWarningPackageDownload(
-			client: ClientMock(),
 			restServiceProvider: RestServiceProviderStub(),
 			store: store,
 			eventStore: eventStore
@@ -692,9 +680,138 @@ class TraceWarningPackageDownloadTests: CWATestCase {
 		XCTAssertTrue(packagesToDownload.contains(where: { $0 == earliestPackageIdPlusFour }))
 	}
 
-	
+	func testGIVEN_CountryAndPackageId_WHEN_HappyCase_THEN_TraceWarningPackageIsReturned() throws {
+		// GIVEN
+		let packageId = Date().unixTimestampInHours
+		let url = Bundle(for: type(of: self)).url(forResource: "api-response-traceWarning", withExtension: nil)
+		let stack = MockNetworkStack(
+			httpStatus: 200,
+			headerFields: ["etAg": "\"SomeEtag\"", "content-length": "1"],
+			responseData: try Data(contentsOf: XCTUnwrap(url))
+		)
+
+		let expectation = expectation(description: "completion handler is called without an error")
+
+		// WHEN
+		let restService = RestServiceProvider(session: stack.urlSession, cache: KeyValueCacheFake())
+		let resource = TraceWarningDownloadResource(unencrypted: true, country: "DE", packageId: packageId, signatureVerifier: MockVerifier())
+		restService.load(resource) { result in
+			defer { expectation.fulfill() }
+			switch result {
+			case let .success(package):
+				self.assertPackageFormat(for: package)
+
+			case let .failure(error):
+				XCTFail("Test should not fail with error: \(error)")
+			}
+
+		}
+
+		// THEN
+		waitForExpectations(timeout: .medium)
+	}
+
+	func testGIVEN_CountryAndPackageId_WHEN_EmptyContentHeaderIsSend_THEN_EmptyTraceWarningPackageIsReturned() throws {
+		// GIVEN
+		let packageId = Date().unixTimestampInHours
+		let stack = MockNetworkStack(
+			httpStatus: 200,
+			headerFields: ["etAg": "\"SomeEtag\"", "content-length": "0"],
+			responseData: Data()
+		)
+
+		let expectation = expectation(description: "completion handler is called without an error")
+
+		// WHEN
+		let restService = RestServiceProvider(session: stack.urlSession, cache: KeyValueCacheFake())
+		let resource = TraceWarningDownloadResource(unencrypted: true, country: "DE", packageId: packageId, signatureVerifier: MockVerifier())
+		restService.load(resource) { result in
+			defer { expectation.fulfill() }
+			switch result {
+			case let .success(package):
+				XCTAssertNotNil(package)
+				XCTAssertTrue(package.isEmpty)
+			case let .failure(error):
+				XCTFail("Test should not fail with error: \(error)")
+			}
+		}
+
+		// THEN
+		waitForExpectations(timeout: .medium)
+	}
+
+	func testGIVEN_CountryAndPackageId_WHEN_PackageIsInvalid_THEN_InvalidResponseErrorIsReturned() {
+		// GIVEN
+		let packageId = Date().unixTimestampInHours
+		let stack = MockNetworkStack(
+			httpStatus: 200,
+			headerFields: ["etAg": "\"SomeEtag\"", "content-length": "1"],
+			responseData: Data(bytes: [0xA, 0xB] as [UInt8], count: 2)
+		)
+
+		let expectation = self.expectation(description: "completion handler is called without an error")
+
+		// WHEN
+		let restService = RestServiceProvider(session: stack.urlSession, cache: KeyValueCacheFake())
+		let resource = TraceWarningDownloadResource(unencrypted: true, country: "DE", packageId: packageId, signatureVerifier: MockVerifier())
+		restService.load(resource) { result in
+			defer { expectation.fulfill() }
+			switch result {
+			case .success:
+				XCTFail("Test should not success!")
+			case let .failure(error):
+				// THEN
+				if case let .receivedResourceError(traceWarningError) = error,
+				   traceWarningError == .invalidResponseError {
+					XCTAssertTrue(true)
+				} else {
+					XCTFail("unexpected error case")
+				}
+			}
+		}
+		waitForExpectations(timeout: .medium)
+	}
+
+	func testGIVEN_CountryAndPackageId_WHEN_EmptyResponse_THEN_InvalidResponseErrorIsReturned() {
+		// GIVEN
+		let packageId = Date().unixTimestampInHours
+		let stack = MockNetworkStack(
+			httpStatus: 200,
+			headerFields: ["etAg": "\"SomeEtag\"", "content-length": "1"],
+			responseData: nil
+		)
+
+		let expectation = self.expectation(description: "completion handler is called without an error")
+
+		// WHEN
+		let restService = RestServiceProvider(session: stack.urlSession, cache: KeyValueCacheFake())
+		let resource = TraceWarningDownloadResource(unencrypted: true, country: "DE", packageId: packageId, signatureVerifier: MockVerifier())
+		restService.load(resource) { result in
+			defer { expectation.fulfill() }
+			switch result {
+			case .success:
+				XCTFail("Test should not success!")
+			case let .failure(error):
+				// THEN
+				if case let .receivedResourceError(traceWarningError) = error,
+				   traceWarningError == .invalidResponseError {
+					XCTAssertTrue(true)
+				} else {
+					XCTFail("unexpected error case")
+				}
+			}
+		}
+
+		// THEN
+		waitForExpectations(timeout: .medium)
+	}
+
 	// MARK: - Private
-	
+
+	private let binFileSize = 50
+	private let sigFileSize = 138
+	private let expectationsTimeout: TimeInterval = 2
+
 	// Mar 24 2021 09:00:00 == 1616400000
 	private var startAsDate: Date {
 		return Date(timeIntervalSince1970: 1616400000)
@@ -729,10 +846,31 @@ class TraceWarningPackageDownloadTests: CWATestCase {
 			keysBin: Data(),
 			signature: Data()
 		)
-		let response = PackageDownloadResponse(
-			package: package,
-			etag: "FakeEtag"
+		var response = PackageDownloadResponse(
+			package: package
 		)
+		response.metaData.headers["ETag"] = "SomeETag"
 		return response
 	}()
+
+	private lazy var emptyResponseDownload: PackageDownloadResponse = {
+		var response = PackageDownloadResponse(package: nil)
+		response.metaData.headers["ETag"] = "SomeETag"
+		return response
+	}()
+
+	private lazy var brokenSignatureResponseDownload: PackageDownloadResponse = {
+		var response = PackageDownloadResponse(package: SAPDownloadedPackage(keysBin: Data(), signature: Data()))
+		response.metaData.headers["ETag"] = "SomeETag"
+		return response
+	}()
+
+	private func assertPackageFormat(for response: PackageDownloadResponse, isEmpty: Bool = false) {
+		// Packages for trace warnings can be empty if special http header is send.
+		isEmpty ? XCTAssertTrue(response.isEmpty) : XCTAssertFalse(response.isEmpty)
+		XCTAssertNotNil(response.etag)
+		XCTAssertEqual(response.package?.bin.count, binFileSize)
+		XCTAssertEqual(response.package?.signature.count, sigFileSize)
+	}
+
 }

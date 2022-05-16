@@ -11,13 +11,13 @@ class HourKeyPackagesDownloadTests: CWATestCase {
 
 	private lazy var dummyHourResponse: [Int: PackageDownloadResponse] = {
 		let dummyPackage = SAPDownloadedPackage(keysBin: Data(), signature: Data())
-		let dummyResponse = PackageDownloadResponse(package: dummyPackage, etag: "\"tinfoil\"")
+		let dummyResponse = PackageDownloadResponse(package: dummyPackage)
 		return [2: dummyResponse, 3: dummyResponse]
 	}()
 	
 	private lazy var dummyDayResponse: [String: PackageDownloadResponse] = {
 		let dummyPackage = SAPDownloadedPackage(keysBin: Data(), signature: Data())
-		let dummyResponse = PackageDownloadResponse(package: dummyPackage, etag: "\"tinfoil\"")
+		let dummyResponse = PackageDownloadResponse(package: dummyPackage)
 		return ["placeholderDate": dummyResponse]
 	}()
 	
@@ -26,7 +26,6 @@ class HourKeyPackagesDownloadTests: CWATestCase {
 		let store = MockTestStore()
 		let packagesStore: DownloadedPackagesSQLLiteStore = .inMemory()
 		packagesStore.open()
-		let client = ClientMock()
 
 		// fake successful hours package download
 		let restServiceProvider = RestServiceProviderStub(results: [
@@ -36,7 +35,6 @@ class HourKeyPackagesDownloadTests: CWATestCase {
 		let countryId = "IT"
 		let keyPackageDownload = KeyPackageDownload(
 			downloadedPackagesStore: packagesStore,
-			client: client,
 			restService: restServiceProvider,
 			store: store,
 			countryIds: [countryId]
@@ -78,7 +76,6 @@ class HourKeyPackagesDownloadTests: CWATestCase {
 
 		let keyPackageDownload = KeyPackageDownload(
 			downloadedPackagesStore: packagesStore,
-			client: client,
 			restService: restServiceProvider,
 			store: store,
 			countryIds: ["IT"]
@@ -119,7 +116,6 @@ class HourKeyPackagesDownloadTests: CWATestCase {
 		])
 		let keyPackageDownload = KeyPackageDownload(
 			downloadedPackagesStore: packagesStore,
-			client: client,
 			restService: restServiceProvider,
 			store: store,
 			countryIds: ["IT"]
@@ -156,17 +152,14 @@ class HourKeyPackagesDownloadTests: CWATestCase {
 		}
 		
 		let countryId = "IT"
-		let dummyPackage = PackageDownloadResponse(package: SAPDownloadedPackage(keysBin: Data(), signature: Data()), etag: "\"etag\"")
+		let dummyPackage = PackageDownloadResponse(package: SAPDownloadedPackage(keysBin: Data(), signature: Data()))
 
 		let packagesStore: DownloadedPackagesSQLLiteStore = .inMemory()
 		packagesStore.open()
 		try packagesStore.addFetchedHours([lastHourKey: dummyPackage], day: .formattedToday(), country: countryId)
 
-		let client = ClientMock()
-
 		let keyPackageDownload = KeyPackageDownload(
 			downloadedPackagesStore: packagesStore,
-			client: client,
 			restService: RestServiceProviderStub(),
 			store: store,
 			countryIds: [countryId]
@@ -191,7 +184,7 @@ class HourKeyPackagesDownloadTests: CWATestCase {
 
 		let packagesStore: DownloadedPackagesSQLLiteStore = .inMemory()
 		packagesStore.open()
-		let dummyPackage = PackageDownloadResponse(package: SAPDownloadedPackage(keysBin: Data(), signature: Data()), etag: "\"etag\"")
+		let dummyPackage = PackageDownloadResponse(package: SAPDownloadedPackage(keysBin: Data(), signature: Data()))
 		let countryId = "IT"
 		try packagesStore.addFetchedDays(["2020-10-04": dummyPackage, "2020-10-01": dummyPackage], country: countryId)
 
@@ -205,7 +198,6 @@ class HourKeyPackagesDownloadTests: CWATestCase {
 
 		let keyPackageDownload = KeyPackageDownload(
 			downloadedPackagesStore: packagesStore,
-			client: client,
 			restService: restServiceProvider,
 			store: store,
 			countryIds: ["IT"]
@@ -245,7 +237,6 @@ class HourKeyPackagesDownloadTests: CWATestCase {
 
 		let keyPackageDownload = KeyPackageDownload(
 			downloadedPackagesStore: packagesStore,
-			client: client,
 			restService: restServiceProvider,
 			store: store
 		)
@@ -270,8 +261,6 @@ class HourKeyPackagesDownloadTests: CWATestCase {
 
 		let packagesStore: DownloadedPackagesSQLLiteStore = .inMemory()
 
-		let client = ClientMock()
-
 		// fake successful hours package download
 		let restServiceProvider = RestServiceProviderStub(results: [
 			.failure(ServiceError<Error>.invalidResponse)
@@ -279,7 +268,6 @@ class HourKeyPackagesDownloadTests: CWATestCase {
 
 		let keyPackageDownload = KeyPackageDownload(
 			downloadedPackagesStore: packagesStore,
-			client: client,
 			restService: restServiceProvider,
 			store: store
 		)
@@ -304,8 +292,6 @@ class HourKeyPackagesDownloadTests: CWATestCase {
 
 		let packagesStore = DownloadedPackagesStoreErrorStub(error: DownloadedPackagesSQLLiteStore.StoreError.sqliteError(.unknown(42)))
 
-		let client = ClientMock()
-
 		// fake successful hours package download
 		let restServiceProvider = RestServiceProviderStub(results: [
 			.success([1])
@@ -313,7 +299,6 @@ class HourKeyPackagesDownloadTests: CWATestCase {
 
 		let keyPackageDownload = KeyPackageDownload(
 			downloadedPackagesStore: packagesStore,
-			client: client,
 			restService: restServiceProvider,
 			store: store
 		)
@@ -338,8 +323,6 @@ class HourKeyPackagesDownloadTests: CWATestCase {
 
 		let packagesStore = DownloadedPackagesStoreErrorStub(error: DownloadedPackagesSQLLiteStore.StoreError.sqliteError(.sqlite_full))
 
-		let client = ClientMock()
-
 		// fake successful hours package download
 		let restServiceProvider = RestServiceProviderStub(results: [
 			.success([1])
@@ -347,7 +330,6 @@ class HourKeyPackagesDownloadTests: CWATestCase {
 
 		let keyPackageDownload = KeyPackageDownload(
 			downloadedPackagesStore: packagesStore,
-			client: client,
 			restService: restServiceProvider,
 			store: store
 		)
@@ -379,7 +361,7 @@ class HourKeyPackagesDownloadTests: CWATestCase {
 		}
 
 		let dummyPackage = SAPDownloadedPackage(keysBin: Data(), signature: Data())
-		let dummyResponse = PackageDownloadResponse(package: dummyPackage, etag: "\"etag\"")
+		let dummyResponse = PackageDownloadResponse(package: dummyPackage)
 
 		let packagesStore: DownloadedPackagesSQLLiteStoreV3 = .inMemory()
 		packagesStore.open()
@@ -396,7 +378,6 @@ class HourKeyPackagesDownloadTests: CWATestCase {
 
 		let keyPackageDownload = KeyPackageDownload(
 			downloadedPackagesStore: packagesStore,
-			client: client,
 			restService: restServiceProvider,
 			store: store,
 			countryIds: ["IT"]
@@ -429,7 +410,7 @@ class HourKeyPackagesDownloadTests: CWATestCase {
 		packagesStore.open()
 
 		let dummyPackage = SAPDownloadedPackage(keysBin: Data(), signature: Data())
-		let dummyResponse = PackageDownloadResponse(package: dummyPackage, etag: "\"etag\"")
+		let dummyResponse = PackageDownloadResponse(package: dummyPackage)
 
 		let client = ClientMock()
 		client.downloadedPackage = dummyResponse
@@ -441,7 +422,6 @@ class HourKeyPackagesDownloadTests: CWATestCase {
 
 		let keyPackageDownload = KeyPackageDownload(
 			downloadedPackagesStore: packagesStore,
-			client: client,
 			restService: restServiceProvider,
 			store: store,
 			countryIds: ["IT"]
@@ -493,7 +473,6 @@ class HourKeyPackagesDownloadTests: CWATestCase {
 
 		let keyPackageDownload = KeyPackageDownload(
 			downloadedPackagesStore: packagesStore,
-			client: client,
 			restService: restServiceProvider,
 			store: store,
 			countryIds: ["IT"]

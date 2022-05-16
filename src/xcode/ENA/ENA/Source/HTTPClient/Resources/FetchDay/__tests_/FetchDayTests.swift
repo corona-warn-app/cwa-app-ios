@@ -52,7 +52,7 @@ class FetchDayTests: CWATestCase {
 			responseData: try Data(contentsOf: url)
 		)
 
-		let successExpectation = expectation(
+		let expectation = expectation(
 			description: "expect error result"
 		)
 
@@ -60,7 +60,7 @@ class FetchDayTests: CWATestCase {
 		let restService = RestServiceProvider(session: stack.urlSession, cache: KeyValueCacheFake())
 		restService.load(resource) { result in
 			defer {
-				successExpectation.fulfill()
+				expectation.fulfill()
 			}
 			switch result {
 			case let .success(sapPackage):
@@ -81,7 +81,7 @@ class FetchDayTests: CWATestCase {
 			responseData: Data(bytes: [0xA, 0xB] as [UInt8], count: 2)
 		)
 
-		let successExpectation = expectation(
+		let expectation = expectation(
 			description: "expect error result"
 		)
 
@@ -89,7 +89,7 @@ class FetchDayTests: CWATestCase {
 		let restService = RestServiceProvider(session: stack.urlSession, cache: KeyValueCacheFake())
 		restService.load(resource) { result in
 			defer {
-				successExpectation.fulfill()
+				expectation.fulfill()
 			}
 			switch result {
 			case .success:
