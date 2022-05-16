@@ -50,7 +50,7 @@ class HealthCertificateReissuanceConsentViewModelTests: CWATestCase {
 		let certificate = HealthCertificate.mock()
 		let viewModel = HealthCertificateReissuanceConsentViewModel(
 			cclService: FakeCCLService(),
-			certificates: [DCCReissuanceCertificateContainer.fake()],
+			certificates: [.fake()],
 			certifiedPerson: HealthCertifiedPerson(
 				healthCertificates: [certificate],
 				isPreferredPerson: true,
