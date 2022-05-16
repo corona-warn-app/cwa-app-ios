@@ -50,7 +50,7 @@ class HealthCertificateReissuanceConsentViewModelTests: CWATestCase {
 		let certificate = HealthCertificate.mock()
 		let viewModel = HealthCertificateReissuanceConsentViewModel(
 			cclService: FakeCCLService(),
-			certificates: [DCCCertificateContainerExtended.fake()],
+			certificates: [DCCReissuanceCertificateContainer.fake()],
 			certifiedPerson: HealthCertifiedPerson(
 				healthCertificates: [certificate],
 				isPreferredPerson: true,
@@ -90,7 +90,7 @@ class HealthCertificateReissuanceConsentViewModelTests: CWATestCase {
 		let certificate = HealthCertificate.mock()
 		let viewModel = HealthCertificateReissuanceConsentViewModel(
 			cclService: FakeCCLService(),
-			certificates: [DCCCertificateContainerExtended.fake()],
+			certificates: [DCCReissuanceCertificateContainer.fake()],
 			certifiedPerson: HealthCertifiedPerson(
 				healthCertificates: [certificate],
 				isPreferredPerson: true,
@@ -131,7 +131,7 @@ class HealthCertificateReissuanceConsentViewModelTests: CWATestCase {
 		let certificate = HealthCertificate.mock()
 		let viewModel = HealthCertificateReissuanceConsentViewModel(
 			cclService: FakeCCLService(),
-			certificates: [DCCCertificateContainerExtended.fake()],
+			certificates: [DCCReissuanceCertificateContainer.fake()],
 			certifiedPerson: HealthCertifiedPerson(
 				healthCertificates: [certificate],
 				isPreferredPerson: true,
@@ -172,7 +172,7 @@ class HealthCertificateReissuanceConsentViewModelTests: CWATestCase {
 		let certificate = HealthCertificate.mock()
 		let viewModel = HealthCertificateReissuanceConsentViewModel(
 			cclService: FakeCCLService(),
-			certificates: [DCCCertificateContainerExtended.fake()],
+			certificates: [DCCReissuanceCertificateContainer.fake()],
 			certifiedPerson: HealthCertifiedPerson(
 				healthCertificates: [certificate],
 				isPreferredPerson: true,
@@ -254,7 +254,7 @@ class HealthCertificateReissuanceConsentViewModelTests: CWATestCase {
 		let appConfigMock = CachedAppConfigurationMock()
 		let viewModel = HealthCertificateReissuanceConsentViewModel(
 			cclService: FakeCCLService(),
-			certificates: [DCCCertificateContainerExtended.fake()],
+			certificates: [DCCReissuanceCertificateContainer.fake()],
 			certifiedPerson: person,
 			appConfigProvider: appConfigMock,
 			restServiceProvider: restServiceProvider,
@@ -275,6 +275,116 @@ class HealthCertificateReissuanceConsentViewModelTests: CWATestCase {
 			
 		waitForExpectations(timeout: .short)
 		XCTAssertTrue(healthCertificateServiceSpy.didCallReplaceHealthCertificate)
+	}
+	
+	func test_filtering_accompanying_certifcates() throws {
+		let first = try base45Fake(
+			digitalCovidCertificate: DigitalCovidCertificate.fake(
+				name: .fake(standardizedFamilyName: "Ahmed", standardizedGivenName: "OMAR"),
+				vaccinationEntries: [VaccinationEntry.fake(
+					dateOfVaccination: "2021-05-14",
+					uniqueCertificateIdentifier: "1"
+				)]
+			),
+			webTokenHeader: .fake(expirationTime: .distantFuture)
+		)
+		let second = try base45Fake(
+			digitalCovidCertificate: DigitalCovidCertificate.fake(
+				name: .fake(standardizedFamilyName: "Ahmed", standardizedGivenName: "OMAR"),
+				vaccinationEntries: [VaccinationEntry.fake(
+					dateOfVaccination: "2021-07-14",
+					uniqueCertificateIdentifier: "2"
+				)]
+			),
+			webTokenHeader: .fake(expirationTime: .distantFuture)
+		)
+		let third = try base45Fake(
+			digitalCovidCertificate: DigitalCovidCertificate.fake(
+				name: .fake(standardizedFamilyName: "Ahmed", standardizedGivenName: "OMAR"),
+				vaccinationEntries: [VaccinationEntry.fake(
+					dateOfVaccination: "2021-03-14",
+					uniqueCertificateIdentifier: "3"
+				)]
+			),
+			webTokenHeader: .fake(expirationTime: .distantFuture)
+		)
+		let forth = try base45Fake(
+			digitalCovidCertificate: DigitalCovidCertificate.fake(
+				name: .fake(standardizedFamilyName: "Ahmed", standardizedGivenName: "OMAR"),
+				vaccinationEntries: [VaccinationEntry.fake(
+					dateOfVaccination: "2021-09-14",
+					uniqueCertificateIdentifier: "4"
+				)]
+			),
+			webTokenHeader: .fake(expirationTime: .distantFuture)
+		)
+		// create 2 DCCReissuanceCertificateContainer that include each other in the accompanyingCertificates and have duplicate accompanyingCertificates
+		let firstCertificate = DCCReissuanceCertificateContainer(
+			certificateToReissue:
+				DCCCertificateContainer(
+					certificateRef: DCCCertificateReference(barcodeData: first)
+				),
+			accompanyingCertificates: [
+				DCCCertificateContainer(
+					certificateRef: DCCCertificateReference(barcodeData: second)
+				),
+				DCCCertificateContainer(
+					certificateRef: DCCCertificateReference(barcodeData: third)
+				),
+				DCCCertificateContainer(
+					certificateRef: DCCCertificateReference(barcodeData: forth)
+				)
+			],
+			action: "Replace"
+		)
+		let secondCertificate = DCCReissuanceCertificateContainer(
+			certificateToReissue:
+				DCCCertificateContainer(
+					certificateRef: DCCCertificateReference(barcodeData: second)
+				),
+			accompanyingCertificates: [
+				DCCCertificateContainer(
+					certificateRef: DCCCertificateReference(barcodeData: first)
+				),
+				DCCCertificateContainer(
+					certificateRef: DCCCertificateReference(barcodeData: third)
+				),
+				DCCCertificateContainer(
+					certificateRef: DCCCertificateReference(barcodeData: forth)
+				),
+				DCCCertificateContainer(
+					certificateRef: DCCCertificateReference(barcodeData: third)
+				)
+			],
+			action: "Replace"
+		)
+		
+		let firstHealthCertificate = try HealthCertificate(base45: first)
+		let secondHealthCertificate = try HealthCertificate(base45: second)
+		let thirdHealthCertificate = try HealthCertificate(base45: third)
+		let forthHealthCertificate = try HealthCertificate(base45: forth)
+		let fifthHealthCertificate = try HealthCertificate(base45: third)
+
+		let person = HealthCertifiedPerson(
+			healthCertificates: [
+				firstHealthCertificate,
+				secondHealthCertificate,
+				thirdHealthCertificate,
+				forthHealthCertificate,
+				fifthHealthCertificate
+			]
+		)
+		let viewModel = HealthCertificateReissuanceConsentViewModel(
+			cclService: FakeCCLService(),
+			certificates: [firstCertificate, secondCertificate],
+			certifiedPerson: person,
+			appConfigProvider: CachedAppConfigurationMock(),
+			restServiceProvider: RestServiceProviderStub(),
+			healthCertificateService: HealthCertificateServiceSpy(),
+			onDisclaimerButtonTap: { },
+			onAccompanyingCertificatesButtonTap: { _ in }
+		)
+		XCTAssertEqual(viewModel.filteredAccompanyingCertificates.map({$0.uniqueCertificateIdentifier}), ["4", "3"])
 	}
 
 	func test_submit_returns_error_certificateToReissueMissing() throws {
@@ -300,7 +410,7 @@ class HealthCertificateReissuanceConsentViewModelTests: CWATestCase {
 				),
 				certificateToReissue: nil,
 				accompanyingCertificates: nil,
-				certificates: [ DCCCertificateContainerExtended(
+				certificates: [ DCCReissuanceCertificateContainer(
 					certificateToReissue: DCCCertificateContainer(
 						certificateRef: DCCCertificateReference(barcodeData: nil)
 					),
@@ -345,7 +455,7 @@ class HealthCertificateReissuanceConsentViewModelTests: CWATestCase {
 		let appConfigMock = CachedAppConfigurationMock()
 		let viewModel = HealthCertificateReissuanceConsentViewModel(
 			cclService: FakeCCLService(),
-			certificates: [DCCCertificateContainerExtended.fake()],
+			certificates: [DCCReissuanceCertificateContainer.fake()],
 			certifiedPerson: person,
 			appConfigProvider: appConfigMock,
 			restServiceProvider: restServiceProvider,
@@ -417,7 +527,7 @@ class HealthCertificateReissuanceConsentViewModelTests: CWATestCase {
 		let appConfigMock = CachedAppConfigurationMock()
 		let viewModel = HealthCertificateReissuanceConsentViewModel(
 			cclService: FakeCCLService(),
-			certificates: [DCCCertificateContainerExtended.fake()],
+			certificates: [DCCReissuanceCertificateContainer.fake()],
 			certifiedPerson: person,
 			appConfigProvider: appConfigMock,
 			restServiceProvider: restServiceProvider,
@@ -469,7 +579,7 @@ class HealthCertificateReissuanceConsentViewModelTests: CWATestCase {
 		let appConfigMock = CachedAppConfigurationMock()
 		let viewModel = HealthCertificateReissuanceConsentViewModel(
 			cclService: FakeCCLService(),
-			certificates: [DCCCertificateContainerExtended.fake()],
+			certificates: [DCCReissuanceCertificateContainer.fake()],
 			certifiedPerson: person,
 			appConfigProvider: appConfigMock,
 			restServiceProvider: restServiceProvider,
