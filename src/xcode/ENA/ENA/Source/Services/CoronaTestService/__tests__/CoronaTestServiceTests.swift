@@ -3950,6 +3950,65 @@ class CoronaTestServiceTests: CWATestCase {
 		XCTAssertNil(service.antigenTest.value)
 	}
 
+	// MARK: - Evaluate Showing of Test
+
+	func testEvaluateShowingOfPositivePCRTestUpdatesTestAndSchedulesWarnOthersReminder() throws {
+		let mockNotificationCenter = MockUserNotificationCenter()
+
+		let store = MockTestStore()
+		let appConfiguration = CachedAppConfigurationMock()
+
+		let healthCertificateService = HealthCertificateService(
+			store: store,
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
+			dscListProvider: MockDSCListProvider(),
+			appConfiguration: appConfiguration,
+			cclService: FakeCCLService(),
+			recycleBin: .fake(),
+			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
+		)
+
+		let service = CoronaTestService(
+			store: store,
+			eventStore: MockEventStore(),
+			diaryStore: MockDiaryStore(),
+			appConfiguration: appConfiguration,
+			healthCertificateService: healthCertificateService,
+			healthCertificateRequestService: HealthCertificateRequestService(
+				store: store,
+				restServiceProvider: RestServiceProviderStub(),
+				appConfiguration: appConfiguration,
+				healthCertificateService: healthCertificateService
+			),
+			recycleBin: .fake(),
+			badgeWrapper: .fake()
+		)
+
+		service.pcrTest.value = .mock(
+			registrationToken: "pcrRegistrationToken",
+			testResult: .positive,
+			positiveTestResultWasShown: false,
+			isSubmissionConsentGiven: false,
+			keysSubmitted: false
+		)
+
+		XCTAssertTrue(mockNotificationCenter.notificationRequests.isEmpty)
+
+		service.evaluateShowingTest(ofType: .pcr)
+
+		XCTAssertTrue(service.pcrTest.value.positiveTestResultWasShown)
+
+		XCTAssertEqual(mockNotificationCenter.notificationRequests.count, 2)
+		XCTAssertEqual(
+			mockNotificationCenter.notificationRequests[0].identifier,
+			ActionableNotificationIdentifier.pcrWarnOthersReminder1.identifier
+		)
+		XCTAssertEqual(
+			mockNotificationCenter.notificationRequests[1].identifier,
+			ActionableNotificationIdentifier.pcrWarnOthersReminder2.identifier
+		)
+	}
+
 	// MARK: - Plausible Deniability
 
 	func test_registerPCRTestAndGetResultPlaybook() {
