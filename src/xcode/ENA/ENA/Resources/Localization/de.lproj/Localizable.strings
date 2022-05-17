@@ -3338,7 +3338,7 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "HealthCertificate_ValidityState_Expired" = "Zertifikat abgelaufen";
 
-"HealthCertificate_ValidityState_Expired_description" = "Das Ablaufdatum wurde überschritten. Bitte errneuern sie das Zertifikat. Sie können die Erneuerung bis maximal 3 Monate nach Ablauf über den Hinweis in Ihrer Zertifikatsübersicht anfordern.";
+"HealthCertificate_ValidityState_Expired_description" = "Das Ablaufdatum wurde überschritten. Bitte erneuern Sie das Zertifikat. Sie können die Erneuerung bis maximal 90 Tage nach Ablauf über den Hinweis in Ihrer Zertifikatsübersicht anfordern.";
 
 "HealthCertificate_ValidityState_Invalid" = "Zertifikat (Signatur) ungültig";
 
