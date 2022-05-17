@@ -2423,11 +2423,16 @@ enum AppStrings {
 				static let legalSubtitle = NSLocalizedString("HealthCertificate_Reissuance_Consent_Legal_Subtitle", tableName: "Localizable.legal", comment: "")
 				static let legalBullet1 = NSLocalizedString("HealthCertificate_Reissuance_Consent_Legal_Bullet_1", tableName: "Localizable.legal", comment: "")
 				static let legalBullet2 = NSLocalizedString("HealthCertificate_Reissuance_Consent_Legal_Bullet_2", tableName: "Localizable.legal", comment: "")
-
 				static let bulletPoint_1 = NSLocalizedString("HealthCertificate_Reissuance_Consent_Bullet_Point_1", comment: "")
 				static let bulletPoint_2 = NSLocalizedString("HealthCertificate_Reissuance_Consent_Bullet_Point_2", comment: "")
-
-
+				static let bulletPoint_3 = NSLocalizedString("HealthCertificate_Reissuance_Consent_Bullet_Point_3", comment: "")
+				static let bulletPoint_4 = NSLocalizedString("HealthCertificate_Reissuance_Consent_Bullet_Point_4", comment: "")
+				static let accompanyingCertificatesTitle = NSLocalizedString("HealthCertificate_Reissuance_AccompanyingCertificates_Cell", comment: "")
+			}
+			
+			enum AccompanyingCertificates {
+				static let title = NSLocalizedString("HealthCertificate_Reissuance_AccompanyingCertificates_Title", comment: "")
+				static let description = NSLocalizedString("HealthCertificate_Reissuance_AccompanyingCertificates_Description", comment: "")
 			}
 
 			enum Succeeded {

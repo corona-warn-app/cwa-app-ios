@@ -352,13 +352,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 	lazy var riskProvider: RiskProvider = {
 		let keyPackageDownload = KeyPackageDownload(
 			downloadedPackagesStore: downloadedPackagesStore,
-			client: client,
 			restService: restServiceProvider,
 			store: store
 		)
 
 		let traceWarningPackageDownload = TraceWarningPackageDownload(
-			client: client,
 			restServiceProvider: restServiceProvider,
 			store: store,
 			eventStore: eventStore

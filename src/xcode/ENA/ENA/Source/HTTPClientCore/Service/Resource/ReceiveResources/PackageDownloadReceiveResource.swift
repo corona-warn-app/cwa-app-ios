@@ -22,6 +22,14 @@ struct PackageDownloadReceiveResource: ReceiveResource {
 	typealias ReceiveModel = PackageDownloadResponse
 
 	func decode(_ data: Data?, headers: [AnyHashable: Any]) -> Result<ReceiveModel, ResourceError> {
+		if let stringValue = headers.value(caseInsensitiveKey: "content-length"),
+			  let contentSize = Int(stringValue),
+			  contentSize <= 0 {
+			Log.info("Successfully downloaded empty traceWarningPackage", log: .api)
+			let payload = PackageDownloadResponse(package: nil)
+			return .success(payload)
+		}
+
 		guard let data = data else {
 			return .failure(.missingData)
 		}
@@ -31,9 +39,8 @@ struct PackageDownloadReceiveResource: ReceiveResource {
 		guard signatureVerifier.verify(package) else {
 			return .failure(.signatureVerification)
 		}
-
-		let etag = headers.value(caseInsensitiveKey: "ETag")
-		let payload = PackageDownloadResponse(package: package, etag: etag)
+		
+		let payload = PackageDownloadResponse(package: package)
 		return .success(payload)
 	}
 

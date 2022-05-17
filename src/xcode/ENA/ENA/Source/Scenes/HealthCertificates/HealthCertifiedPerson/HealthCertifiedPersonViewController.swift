@@ -98,6 +98,11 @@ class HealthCertifiedPersonViewController: UIViewController, UITableViewDataSour
 			cell.configure(with: viewModel.headerCellViewModel)
 			return cell
 
+		case .admissionState:
+			let cell = tableView.dequeueReusableCell(cellType: AdmissionStateTableViewCell.self, for: indexPath)
+			cell.configure(with: viewModel.admissionStateCellModel)
+			return cell
+
 		case .certificateReissuance:
 			let cell = tableView.dequeueReusableCell(cellType: CertificateReissuanceTableViewCell.self, for: indexPath)
 			cell.configure(with: viewModel.certificateReissuanceCellModel)
@@ -106,11 +111,6 @@ class HealthCertifiedPersonViewController: UIViewController, UITableViewDataSour
 		case .boosterNotification:
 			let cell = tableView.dequeueReusableCell(cellType: BoosterNotificationTableViewCell.self, for: indexPath)
 			cell.configure(with: viewModel.boosterNotificationCellModel)
-			return cell
-
-		case .admissionState:
-			let cell = tableView.dequeueReusableCell(cellType: AdmissionStateTableViewCell.self, for: indexPath)
-			cell.configure(with: viewModel.admissionStateCellModel)
 			return cell
 
 		case .vaccinationState:
@@ -202,17 +202,17 @@ class HealthCertifiedPersonViewController: UIViewController, UITableViewDataSour
 			tableView.performBatchUpdates({
 				var deleteIndexPaths = [indexPath]
 				var insertIndexPaths = [IndexPath]()
-
-				if vaccinationStateWasVisible && !self.viewModel.vaccinationStateIsVisible {
-					deleteIndexPaths.append(IndexPath(row: 0, section: HealthCertifiedPersonViewModel.TableViewSection.vaccinationState.rawValue))
-				} else if !vaccinationStateWasVisible && self.viewModel.vaccinationStateIsVisible {
-					insertIndexPaths.append(IndexPath(row: 0, section: HealthCertifiedPersonViewModel.TableViewSection.vaccinationState.rawValue))
-				}
 				
 				if admissionStateWasVisible && !self.viewModel.admissionStateIsVisible {
 					deleteIndexPaths.append(IndexPath(row: 0, section: HealthCertifiedPersonViewModel.TableViewSection.admissionState.rawValue))
 				} else if !admissionStateWasVisible && self.viewModel.admissionStateIsVisible {
 					insertIndexPaths.append(IndexPath(row: 0, section: HealthCertifiedPersonViewModel.TableViewSection.admissionState.rawValue))
+				}
+
+				if certificateReissuanceWasVisible && !self.viewModel.certificateReissuanceIsVisible {
+					deleteIndexPaths.append(IndexPath(row: 0, section: HealthCertifiedPersonViewModel.TableViewSection.certificateReissuance.rawValue))
+				} else if !certificateReissuanceWasVisible && self.viewModel.certificateReissuanceIsVisible {
+					insertIndexPaths.append(IndexPath(row: 0, section: HealthCertifiedPersonViewModel.TableViewSection.certificateReissuance.rawValue))
 				}
 
 				if boosterNotificationWasVisible && !self.viewModel.boosterNotificationIsVisible {
@@ -221,10 +221,10 @@ class HealthCertifiedPersonViewController: UIViewController, UITableViewDataSour
 					insertIndexPaths.append(IndexPath(row: 0, section: HealthCertifiedPersonViewModel.TableViewSection.boosterNotification.rawValue))
 				}
 
-				if certificateReissuanceWasVisible && !self.viewModel.certificateReissuanceIsVisible {
-					deleteIndexPaths.append(IndexPath(row: 0, section: HealthCertifiedPersonViewModel.TableViewSection.certificateReissuance.rawValue))
-				} else if !certificateReissuanceWasVisible && self.viewModel.certificateReissuanceIsVisible {
-					insertIndexPaths.append(IndexPath(row: 0, section: HealthCertifiedPersonViewModel.TableViewSection.certificateReissuance.rawValue))
+				if vaccinationStateWasVisible && !self.viewModel.vaccinationStateIsVisible {
+					deleteIndexPaths.append(IndexPath(row: 0, section: HealthCertifiedPersonViewModel.TableViewSection.vaccinationState.rawValue))
+				} else if !vaccinationStateWasVisible && self.viewModel.vaccinationStateIsVisible {
+					insertIndexPaths.append(IndexPath(row: 0, section: HealthCertifiedPersonViewModel.TableViewSection.vaccinationState.rawValue))
 				}
 
 				// For the case that a person splits after deleting a certificate, there could be some more certificates to be removed (because they are moved into a new person).
@@ -321,16 +321,16 @@ class HealthCertifiedPersonViewController: UIViewController, UITableViewDataSour
 			forCellReuseIdentifier: HealthCertificateSimpleTextCell.reuseIdentifier
 		)
 		tableView.register(
+			AdmissionStateTableViewCell.self,
+			forCellReuseIdentifier: AdmissionStateTableViewCell.reuseIdentifier
+		)
+		tableView.register(
 			CertificateReissuanceTableViewCell.self,
 			forCellReuseIdentifier: CertificateReissuanceTableViewCell.reuseIdentifier
 		)
 		tableView.register(
 			BoosterNotificationTableViewCell.self,
 			forCellReuseIdentifier: BoosterNotificationTableViewCell.reuseIdentifier
-		)
-		tableView.register(
-			AdmissionStateTableViewCell.self,
-			forCellReuseIdentifier: AdmissionStateTableViewCell.reuseIdentifier
 		)
 		tableView.register(
 			VaccinationStateTableViewCell.self,
