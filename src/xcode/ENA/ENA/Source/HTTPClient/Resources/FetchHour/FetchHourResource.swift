@@ -42,8 +42,8 @@ struct FetchHourResource: Resource {
 				package: SAPDownloadedPackage(
 					keysBin: Data(),
 					signature: Data()
-				),
-				etag: "\"tinfoil\"")
+				)
+			)
 		),
 		willLoadResource: nil
 	)

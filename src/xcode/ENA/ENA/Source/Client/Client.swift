@@ -15,7 +15,6 @@ protocol Client {
 	typealias CountryFetchCompletion = (Result<[Country], URLSession.Response.Failure>) -> Void
 	typealias OTPAuthorizationCompletionHandler = (Result<Date, OTPError>) -> Void
 	typealias PPAnalyticsSubmitionCompletionHandler = (Result<Void, PPASError>) -> Void
-	typealias TraceWarningPackageDownloadCompletionHandler = (Result<PackageDownloadResponse, TraceWarningError>) -> Void
 	
 	// MARK: OTP Authorization
 
@@ -76,20 +75,6 @@ protocol Client {
 		completion: @escaping ErrorLogSubmitting.ELSSubmissionResponse
 	)
 
-	// MARK: Event / Check-In (aka traceWarning)
-	
-	/// GET call to load the package to the corresponding ID of a traceWarning from CDN. It returns the downloaded package. But it can also be empty. This is indicates by a specific http header field and is mapped into a property of the PackageDownloadResponse.
-	/// - Parameters:
-	///   - country: The country.ID for which country we want the IDs.
-	///   - packageId: The packageID for the package we want to download
-	///   - completion: The completion handler of the get call, which contains a PackageDownloadResponse
-	func traceWarningPackageDownload(
-		unencrypted: Bool,
-		country: String,
-		packageId: Int,
-		completion: @escaping TraceWarningPackageDownloadCompletionHandler
-	)
-	
 }
 
 // Do not edit this cases as they are decoded as they are from the server.
@@ -124,20 +109,6 @@ struct FetchTestResultResponse: Codable {
 			sc: sc,
 			labId: labId
 		)
-	}
-}
-
-/// A container for a downloaded `SAPDownloadedPackage` and its corresponding `ETag`, if given.
-struct PackageDownloadResponse {
-	let package: SAPDownloadedPackage?
-
-	/// The response ETag
-	///
-	/// This is used to identify and revoke packages.
-	let etag: String?
-	
-	var isEmpty: Bool {
-		return package == nil
 	}
 }
 

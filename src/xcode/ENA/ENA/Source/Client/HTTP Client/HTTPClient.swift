@@ -162,23 +162,6 @@ final class HTTPClient: Client {
 		})
 	}
 
-	func traceWarningPackageDownload(
-		unencrypted: Bool,
-		country: String,
-		packageId: Int,
-		completion: @escaping TraceWarningPackageDownloadCompletionHandler
-	) {
-		if unencrypted {
-			Log.info("unencrypted traceWarningPackageDownload", log: .api)
-		} else {
-			Log.info("encrypted traceWarningPackageDownload", log: .api)
-		}
-		let url = unencrypted ?
-			configuration.traceWarningPackageDownloadURL(country: country, packageId: packageId) :
-			configuration.encryptedTraceWarningPackageDownloadURL(country: country, packageId: packageId)
-		traceWarningPackageDownload(country: country, packageId: packageId, url: url, completion: completion)
-	}
-
 	func submit(
 		errorLogFile: Data,
 		otpEls: String,
@@ -312,80 +295,6 @@ final class HTTPClient: Client {
 		} catch {
 			Log.error("Failed to get errorCode because json could not be decoded", log: .api, error: error)
 			completion(.failure(.invalidResponseError))
-		}
-	}
-	
-	private func traceWarningPackageDownload(
-		country: String,
-		packageId: Int,
-		url: URL,
-		completion: @escaping TraceWarningPackageDownloadCompletionHandler
-	) {
-		var responseError: TraceWarningError?
-		
-		session.GET(url) { [weak self] result in
-			self?.queue.async {
-				
-				guard let self = self else {
-					Log.error("TraceWarningDownload failed due to strong self creation", log: .api)
-					completion(.failure(.generalError))
-					return
-				}
-				
-				defer {
-					// no guard in defer!
-					if let error = responseError {
-						let retryCount = self.traceWarningPackageDownloadRetries[url] ?? 0
-						if retryCount > 2 {
-							completion(.failure(error))
-						} else {
-							self.traceWarningPackageDownloadRetries[url] = retryCount.advanced(by: 1)
-							Log.debug("TraceWarningDownload url: \(url) received: \(error) – retry (\(retryCount.advanced(by: 1)) of 3)", log: .api)
-							self.traceWarningPackageDownload(country: country, packageId: packageId, url: url, completion: completion)
-						}
-					} else {
-						// no error, no retry - clean up
-						self.traceWarningPackageDownloadRetries[url] = nil
-					}
-				}
-				
-				switch result {
-				case let .success(response):
-					switch response.statusCode {
-					case 200:
-						guard let body = response.body else {
-							Log.error("Failed to unpack response body of trace warning download with http status code: \(String(response.statusCode))", log: .api)
-							responseError = .invalidResponseError
-							return
-						}
-						let eTag = response.httpResponse.value(forCaseInsensitiveHeaderField: "ETag")
-						
-						// First look if the response is empty. (i.e. no zip file, to extract).
-						// "expectedContentLength" will be -1 if the "content-length" header field is missing.
-						if response.httpResponse.expectedContentLength <= 0 {
-							let emptyPackage = PackageDownloadResponse(package: nil, etag: eTag)
-							Log.info("Successfully downloaded empty traceWarningPackage", log: .api)
-							completion(.success(emptyPackage))
-						} else {
-							guard let package = SAPDownloadedPackage(compressedData: body) else {
-								Log.error("Failed to create signed package for trace warning download", log: .api)
-								responseError = .invalidResponseError
-								return
-							}
-							let downloadedZippedPackage = PackageDownloadResponse(package: package, etag: eTag)
-							Log.info("Successfully downloaded zipped traceWarningPackage", log: .api)
-							completion(.success(downloadedZippedPackage))
-						}
-					default:
-						Log.error("Error in response with status code: \(String(response.statusCode))", log: .api)
-						responseError = .invalidResponseError
-					}
-				case let .failure(error):
-					Log.error("Error in response body", log: .api, error: error)
-					responseError = .defaultServerError(error)
-				}
-				
-			}
 		}
 	}
 
@@ -636,5 +545,4 @@ private extension URLRequest {
 		return data
 	}
 
-	// swiftlint:disable:next file_length
 }

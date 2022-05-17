@@ -2,7 +2,6 @@
 // 🦠 Corona-Warn-App
 //
 
-import Foundation
 import UIKit
 import OpenCombine
 
@@ -12,20 +11,28 @@ final class HealthCertificateReissuanceConsentViewModel {
 
 	init(
 		cclService: CCLServable,
-		certificates: [HealthCertificate],
+		certificates: [DCCReissuanceCertificateContainer],
 		certifiedPerson: HealthCertifiedPerson,
 		appConfigProvider: AppConfigurationProviding,
 		restServiceProvider: RestServiceProviding,
 		healthCertificateService: HealthCertificateServiceServable,
-		onDisclaimerButtonTap: @escaping () -> Void
+		onDisclaimerButtonTap: @escaping () -> Void,
+		onAccompanyingCertificatesButtonTap: @escaping ([HealthCertificate]) -> Void
 	) {
 		self.cclService = cclService
-		self.certificates = certificates
 		self.certifiedPerson = certifiedPerson
 		self.appConfigProvider = appConfigProvider
 		self.restServiceProvider = restServiceProvider
 		self.healthCertificateService = healthCertificateService
 		self.onDisclaimerButtonTap = onDisclaimerButtonTap
+		self.onAccompanyingCertificatesButtonTap = onAccompanyingCertificatesButtonTap
+		self.reissuanceCertificates = certificates.compactMap({
+			certifiedPerson.healthCertificate(for: $0.certificateToReissue.certificateRef)
+		})
+		self.filteredAccompanyingCertificates = filterAccompanyingCertificates(
+			certificates: certificates,
+			certifiedPerson: certifiedPerson
+		)
 	}
 
 	// MARK: - Internal
@@ -42,7 +49,7 @@ final class HealthCertificateReissuanceConsentViewModel {
 					.compactMap({ $0 })
 				)
 			)
-			for certificate in certificates {
+			for certificate in reissuanceCertificates {
 				$0.add(
 					.section(
 						cells: [
@@ -55,6 +62,36 @@ final class HealthCertificateReissuanceConsentViewModel {
 			$0.add(
 				.section(
 					cells: [
+						.space(height: 14)
+					]
+				)
+			)
+			if !filteredAccompanyingCertificates.isEmpty {
+				$0.add(
+					.section(
+						separators: .all,
+						cells: [
+							.body(
+								text: AppStrings.HealthCertificate.Reissuance.Consent.accompanyingCertificatesTitle,
+								style: DynamicCell.TextCellStyle.label,
+								accessibilityIdentifier: AccessibilityIdentifiers.HealthCertificate.Reissuance.accompanyingCertificatesTitle,
+								accessibilityTraits: UIAccessibilityTraits.link,
+								action: .execute { [weak self] _, _ in
+									self?.onAccompanyingCertificatesButtonTap(self?.filteredAccompanyingCertificates ?? [])
+								},
+								configure: { _, cell, _ in
+									cell.accessoryType = .disclosureIndicator
+									cell.selectionStyle = .default
+								}
+							)
+						]
+					)
+				)
+			}
+			$0.add(
+				.section(
+					cells: [
+						.space(height: 10),
 						titleDynamicCell,
 						subtitleDynamicCell,
 						longTextDynamicCell,
@@ -86,6 +123,8 @@ final class HealthCertificateReissuanceConsentViewModel {
 						),
 						.bulletPoint(text: AppStrings.HealthCertificate.Reissuance.Consent.bulletPoint_1),
 						.bulletPoint(text: AppStrings.HealthCertificate.Reissuance.Consent.bulletPoint_2),
+						.bulletPoint(text: AppStrings.HealthCertificate.Reissuance.Consent.bulletPoint_3),
+						.bulletPoint(text: AppStrings.HealthCertificate.Reissuance.Consent.bulletPoint_4),
 						.space(height: 8.0),
 						faqLinkDynamicCell,
 						.space(height: 8.0)
@@ -144,13 +183,26 @@ final class HealthCertificateReissuanceConsentViewModel {
 					publicKeyHash: appConfig.dgcParameters.reissueServicePublicKeyDigest,
 					certificatePosition: 0
 				)
-				guard let wallet = self.certifiedPerson.dccWalletInfo else {
-					Log.error("Reissuance request failed due to dccWalletInfo being nil", log: .vaccination)
+				guard let certificateReissuance = self.certifiedPerson.dccWalletInfo?.certificateReissuance else {
+					Log.error("Reissuance request failed due to dccWalletInfo.certificateReissuance being nil", log: .vaccination)
 					return
 				}
-				guard let currentCertificates = wallet.certificateReissuance?.certificates else {
+				let currentCertificates: [DCCReissuanceCertificateContainer]
+				if let certificates = certificateReissuance.certificates {
+					Log.debug("Reissuance request use updated CCL parameters", log: .vaccination)
+					currentCertificates = certificates
+				} else if let reissuanceCertificate = certificateReissuance.certificateToReissue,
+						  let accompanyingCertificates = certificateReissuance.accompanyingCertificates {
+					Log.debug("Reissuance request Fall back to old CCL parameters", log: .vaccination)
+					let certificate = DCCReissuanceCertificateContainer(
+						certificateToReissue: reissuanceCertificate,
+						accompanyingCertificates: accompanyingCertificates,
+						action: "renew"
+					)
+					currentCertificates = [certificate]
+				} else {
+					currentCertificates = []
 					Log.error("Reissuance request failed due to certificates being nil", log: .vaccination)
-					return
 				}
 				
 				for certificate in currentCertificates {
@@ -181,14 +233,16 @@ final class HealthCertificateReissuanceConsentViewModel {
 	// MARK: - Private
 
 	private let cclService: CCLServable
-	private let certificates: [HealthCertificate]
+	private let reissuanceCertificates: [HealthCertificate]
 	private let certifiedPerson: HealthCertifiedPerson
 	private let onDisclaimerButtonTap: () -> Void
+	private let onAccompanyingCertificatesButtonTap: ([HealthCertificate]) -> Void
 	private let appConfigProvider: AppConfigurationProviding
 	private let restServiceProvider: RestServiceProviding
 	private let healthCertificateService: HealthCertificateServiceServable
 	private var subscriptions = Set<AnyCancellable>()
-	
+	private (set) var filteredAccompanyingCertificates = [HealthCertificate]()
+
 	private func submit(
 		with resource: DCCReissuanceResource,
 		requestCertificates: [String],
@@ -225,6 +279,24 @@ final class HealthCertificateReissuanceConsentViewModel {
 				Log.error("Reissuance request failed", log: .vaccination, error: error)
 			}
 		}
+	}
+	
+	private func filterAccompanyingCertificates(
+		certificates: [DCCReissuanceCertificateContainer],
+		certifiedPerson: HealthCertifiedPerson
+	) -> [HealthCertificate] {
+		var finalArray = [DCCCertificateContainer]()
+		let reissuanceCertificates = certificates.map({ $0.certificateToReissue })
+		for certificate in certificates {
+			for accompanyingCertificate in certificate.accompanyingCertificates {
+				if !reissuanceCertificates.contains(accompanyingCertificate) && !finalArray.contains(accompanyingCertificate) {
+					finalArray.append(accompanyingCertificate)
+				}
+			}
+		}
+		return finalArray.compactMap({
+			certifiedPerson.healthCertificate(for: $0.certificateRef)
+		}).sorted(by: >)
 	}
 	
 	private let normalTextAttribute: [NSAttributedString.Key: Any] = [
