@@ -1011,7 +1011,7 @@ class CoronaTestService: CoronaTestServiceProviding {
 	}
 
 	private func scheduleWarnOthersNotificationIfNeeded(coronaTestType: CoronaTestType) {
-		if let coronaTest = coronaTest(ofType: coronaTestType), coronaTest.positiveTestResultWasShown {
+		if let coronaTest = coronaTest(ofType: coronaTestType), coronaTest.testResult == .positive, coronaTest.positiveTestResultWasShown {
 			DeadmanNotificationManager().resetDeadmanNotification()
 
 			if !coronaTest.isSubmissionConsentGiven, !coronaTest.keysSubmitted {
