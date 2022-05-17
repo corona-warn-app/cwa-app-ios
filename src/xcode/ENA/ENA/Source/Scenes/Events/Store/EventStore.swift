@@ -225,9 +225,27 @@ class EventStore: SecureSQLStore, EventStoringProviding {
 		var result: SecureSQLStore.VoidResult?
 
 		databaseQueue.inDatabase { database in
-			Log.info("[EventStore] Remove all TraceTimeIntervalMatches.", log: .localData)
+			Log.info("[EventStore] Remove TraceTimeIntervalMatch with id: \(id).", log: .localData)
 
 			let query = DeleteTraceTimeIntervalMatchQuery(id: id)
+			result = executeTraceTimeIntervalMatchQuery(query, in: database)
+		}
+
+		guard let _result = result else {
+			fatalError("[EventStore] Result should not be nil.")
+		}
+
+		return _result
+	}
+	
+	@discardableResult
+	func deleteAllTraceTimeIntervalMatches() -> SecureSQLStore.VoidResult {
+		var result: SecureSQLStore.VoidResult?
+
+		databaseQueue.inDatabase { database in
+			Log.info("[EventStore] Remove all TraceTimeIntervalMatches.", log: .localData)
+
+			let query = DeleteAllTraceTimeIntervalMatchQuery()
 			result = executeTraceTimeIntervalMatchQuery(query, in: database)
 		}
 
@@ -803,6 +821,6 @@ class EventStore: SecureSQLStore, EventStoringProviding {
 
 		return _result
 	}
-
+	
 	// swiftlint:disable:next file_length
 }
