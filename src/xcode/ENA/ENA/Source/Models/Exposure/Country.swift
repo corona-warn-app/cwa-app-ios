@@ -8,6 +8,11 @@ import UIKit
 /// A simple data container representing a country or political region.
 struct Country: Equatable, Codable {
 
+	// MARK: - Protocol Equatable
+	static func == (lhs: Country, rhs: Country) -> Bool {
+		return lhs.id == rhs.id
+	}
+
 	typealias ID = String
 
 	/// The country identifier. Equals the initializing country code.
