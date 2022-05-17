@@ -130,7 +130,9 @@ final class RiskProvider: RiskProviding {
 		set { consumersQueue.sync { _consumers = newValue } }
 	}
 
-	private var previousRisk: Risk? {
+	private var currentRisk: Risk? {
+		Log.info("RiskProvider: Create current risk.", log: .riskDetection)
+
 		guard let enfRiskCalculationResult = store.enfRiskCalculationResult,
 			  let checkinRiskCalculationResult = store.checkinRiskCalculationResult else {
 				  return nil
@@ -291,6 +293,8 @@ final class RiskProvider: RiskProviding {
 
 				switch result {
 				case .success(let exposureWindows):
+					Log.info("RiskProvider: Filter exposure windows by defaultedMaxEncounterAgeInDays: \(appConfiguration.riskCalculationParameters.defaultedMaxEncounterAgeInDays)", log: .riskDetection)
+
 					let windowsFilteredByAge = exposureWindows.filteredByAge(maxEncounterAgeInDays: appConfiguration.riskCalculationParameters.defaultedMaxEncounterAgeInDays)
 
 					self.calculateRiskLevel(
@@ -321,7 +325,7 @@ final class RiskProvider: RiskProviding {
 		Log.info("RiskProvider: Precondition fulfilled for fresh risk detection: shouldDetectExposureBecauseOfNewPackagesConsideringDetectionMode = \(shouldDetectExposureBecauseOfNewPackagesConsideringDetectionMode)", log: .riskDetection)
 		
 		if !enoughTimeHasPassed || !shouldDetectExposures || !shouldDetectExposureBecauseOfNewPackagesConsideringDetectionMode,
-		   let previousRisk = previousRisk {
+		   let previousRisk = currentRisk {
 			Log.info("RiskProvider: Not calculating new risk, using result of most recent risk calculation", log: .riskDetection)
 			return previousRisk
 		}
@@ -390,7 +394,7 @@ final class RiskProvider: RiskProviding {
 			previousCheckinCalculationResult: store.checkinRiskCalculationResult
 		)
 
-		let previousRisk = previousRisk
+		let previousRisk = currentRisk
 		store.enfRiskCalculationResult = enfRiskCalculationResult
 		store.checkinRiskCalculationResult = checkinRiskCalculationResult
 
@@ -511,7 +515,7 @@ final class RiskProvider: RiskProviding {
 			let enError = reason as? ENError,
 			enError.code == .rateLimited || enError.code == .dataInaccessible,
 			/// only if a previous risk exists we can try to give a fallback
-			let previousRisk = previousRisk,
+			let previousRisk = currentRisk,
 			/// if previous risk is 48h old it's a valid fallback
 			let calculationDate = previousRisk.details.calculationDate,
 			let validityDate = Calendar.current.date(byAdding: riskProvidingConfiguration.exposureDetectionValidityDuration, to: calculationDate),
