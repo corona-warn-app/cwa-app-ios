@@ -1464,7 +1464,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "App_Information_About_Title" = "Gemeinsam Corona bekämpfen";
 
-"App_Information_About_Description" = "Das Robert Koch-Institut (RKI) als zentrale Einrichtung des Bundes im Bereich der Öffentlichen Gesundheit und als nationales Public-Health-Institut veröffentlicht die Corona-Warn-App im Auftrag der Bundesregierung. Die App ist die digitale Ergänzung zu Abstandhalten, Hygiene und Alltagsmaske.";
+"App_Information_About_Description" = "Das Robert Koch-Institut (RKI) als zentrale Einrichtung des Bundes im Bereich der Öffentlichen Gesundheit und als nationales Public-Health-Institut veröffentlicht die Corona-Warn-App im Auftrag der Bundesregierung. Die App ist die digitale Ergänzung zu den Hygieneregeln, wie z. B. das Tragen einer Maske oder Abstandhalten.";
 
 "App_Information_About_Text" = "Wer sie nutzt, hilft, Infektionsketten schnell nachzuverfolgen und zu durchbrechen. Die App speichert dezentral – auf Ihrem Smartphone – Begegnungen mit anderen. Sie werden informiert, wenn Sie Begegnungen mit nachweislich infizierten Personen hatten. Ihre Privatsphäre bleibt dabei bestens geschützt.";
 
@@ -1717,11 +1717,11 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "NewVersionFeatures_Info_about_abb_information" = "Änderungen zum Release finden Sie in den App-Informationen unter dem Menüpunkt „Neue Funktionen”.";
 
-/* Version 2.22 */
+/* Version 2.23 */
 
-"NewVersionFeature_222_family_members_RAT_profile_Title" = "Schnelltest-Profile für Familie";
+"NewVersionFeature_223_reissue_certificates_title" = "Erneuerung von Zertifikaten";
 
-"NewVersionFeature_222_family_members_RAT_profile_description" = "Sie können jetzt Schnelltest-Profile für die Mitglieder Ihrer Familie anlegen. Sie können damit die Registrierung an einer Teststelle beschleunigen. Für die Erfasssung der persönlichen Daten muss dann nur der jeweilige QR-Code des Schnelltest-Profils gescannt werden.";
+"NewVersionFeature_223_reissue_certificates_description" = "Die Gültigkeit von Impfzertifikaten ist technisch auf 365 Tage begrenzt. Sie können in der App jedoch ein neues Zertifikat anfordern. Die Erneuerung kann 28 Tage vor Ablauf der Gültigkeit und bis zu 90 Tage nach Ablauf der Gültigkeit vorgenommen werden. In der App finden Sie einen Hinweis, der Sie über den Ablauf der Gültigkeit Ihres Zertifikats informiert.";
 
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Länderübergreifende Risiko-Ermittlung";
@@ -3338,7 +3338,7 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "HealthCertificate_ValidityState_Expired" = "Zertifikat abgelaufen";
 
-"HealthCertificate_ValidityState_Expired_description" = "Das Ablaufdatum wurde überschritten. Bitte errneuern sie das Zertifikat. Sie können die Erneuerung bis maximal 3 Monate nach Ablauf über den Hinweis in Ihrer Zertifikatsübersicht anfordern.";
+"HealthCertificate_ValidityState_Expired_description" = "Das Ablaufdatum wurde überschritten. Bitte erneuern Sie das Zertifikat. Sie können die Erneuerung bis maximal 90 Tage nach Ablauf über den Hinweis in Ihrer Zertifikatsübersicht anfordern.";
 
 "HealthCertificate_ValidityState_Invalid" = "Zertifikat (Signatur) ungültig";
 
