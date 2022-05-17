@@ -3980,6 +3980,7 @@ class CoronaTestServiceTests: CWATestCase {
 				appConfiguration: appConfiguration,
 				healthCertificateService: healthCertificateService
 			),
+			notificationCenter: mockNotificationCenter,
 			recycleBin: .fake(),
 			badgeWrapper: .fake()
 		)
@@ -3996,7 +3997,7 @@ class CoronaTestServiceTests: CWATestCase {
 
 		service.evaluateShowingTest(ofType: .pcr)
 
-		XCTAssertTrue(service.pcrTest.value.positiveTestResultWasShown)
+		XCTAssertTrue(try XCTUnwrap(service.pcrTest.value?.positiveTestResultWasShown))
 
 		XCTAssertEqual(mockNotificationCenter.notificationRequests.count, 2)
 		XCTAssertEqual(
