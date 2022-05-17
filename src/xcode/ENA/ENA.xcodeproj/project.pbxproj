@@ -1090,6 +1090,7 @@
 		AB0246E327230F5F002668A1 /* TeleTanReceiveModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB0246E227230F5E002668A1 /* TeleTanReceiveModel.swift */; };
 		AB06F76028225C2400E757EE /* OnBehalfSubmissionResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB06F75F28225C2400E757EE /* OnBehalfSubmissionResource.swift */; };
 		AB06F76328225D6C00E757EE /* SubmissionPadding.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB06F76228225D6C00E757EE /* SubmissionPadding.swift */; };
+		AB0BD6DB28339F6100EB3744 /* DeleteAllTraceTimeIntervalMatchQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB0BD6DA28339F6100EB3744 /* DeleteAllTraceTimeIntervalMatchQuery.swift */; };
 		AB124E202604EC34009004B3 /* DeleteAllTraceWarningPackageMetadataQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB124E1F2604EC34009004B3 /* DeleteAllTraceWarningPackageMetadataQuery.swift */; };
 		AB126873254C05A7006E9194 /* ENAFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB126872254C05A7006E9194 /* ENAFormatter.swift */; };
 		AB182012275A2F0A0054B873 /* ENALinkedTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB182011275A2F0A0054B873 /* ENALinkedTextView.swift */; };
@@ -2940,6 +2941,7 @@
 		AB0246E227230F5E002668A1 /* TeleTanReceiveModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TeleTanReceiveModel.swift; sourceTree = "<group>"; };
 		AB06F75F28225C2400E757EE /* OnBehalfSubmissionResource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnBehalfSubmissionResource.swift; sourceTree = "<group>"; };
 		AB06F76228225D6C00E757EE /* SubmissionPadding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubmissionPadding.swift; sourceTree = "<group>"; };
+		AB0BD6DA28339F6100EB3744 /* DeleteAllTraceTimeIntervalMatchQuery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteAllTraceTimeIntervalMatchQuery.swift; sourceTree = "<group>"; };
 		AB124E1F2604EC34009004B3 /* DeleteAllTraceWarningPackageMetadataQuery.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeleteAllTraceWarningPackageMetadataQuery.swift; sourceTree = "<group>"; };
 		AB126872254C05A7006E9194 /* ENAFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ENAFormatter.swift; sourceTree = "<group>"; };
 		AB182011275A2F0A0054B873 /* ENALinkedTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ENALinkedTextView.swift; sourceTree = "<group>"; };
@@ -7702,6 +7704,7 @@
 			children = (
 				AB190EA825FB705500FBFF0D /* CreateTraceTimeIntervalMatchQuery.swift */,
 				AB190EB025FB71FF00FBFF0D /* DeleteTraceTimeIntervalMatchQuery.swift */,
+				AB0BD6DA28339F6100EB3744 /* DeleteAllTraceTimeIntervalMatchQuery.swift */,
 			);
 			path = TraceTimeIntervalMatch;
 			sourceTree = "<group>";
@@ -11225,6 +11228,7 @@
 				50D3493D274E85E400F00493 /* String+Regex.swift in Sources */,
 				01D319D426C18B9B008698D8 /* HealthCertificateDecodingContainer.swift in Sources */,
 				50068E0527E4AE620069ED80 /* UIStackView+Background.swift in Sources */,
+				AB0BD6DB28339F6100EB3744 /* DeleteAllTraceTimeIntervalMatchQuery.swift in Sources */,
 				BA1FC82D26E2520000CCCC17 /* DMNotificationsViewModel.swift in Sources */,
 				3439C4042804536F001A20A8 /* AntigenTestPersonProfileCellModel.swift in Sources */,
 				BAB8F2EF2695C4A500AF68A3 /* ValidationInformationViewController.swift in Sources */,
