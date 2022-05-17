@@ -1188,10 +1188,9 @@ enum AppStrings {
 		static let generalDescription = NSLocalizedString("DeltaOnboarding_NewVersionFeatures_Description", comment: "")
 		static let aboutAppInformation = NSLocalizedString("NewVersionFeatures_Info_about_abb_information", comment: "")
 
-		/* Version 2.22 */
-
-		static let feature222FamilyMembersRATProfileTitle = NSLocalizedString("NewVersionFeature_222_family_members_RAT_profile_Title", comment: "")
-		static let feature222FamilyMembersRATProfileDescription = NSLocalizedString("NewVersionFeature_222_family_members_RAT_profile_description", comment: "")
+		/* Version 2.23 */
+		static let feature223ReissueCertificatesTitle = NSLocalizedString("NewVersionFeature_223_reissue_certificates_title", comment: "")
+		static let feature223ReissueCertificatesDescription = NSLocalizedString("NewVersionFeature_223_reissue_certificates_description", comment: "")
 	}
 
 	enum DeltaOnboarding {
