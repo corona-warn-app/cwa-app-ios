@@ -89,7 +89,7 @@ extension Risk {
 		let details = Self.riskDetails(
 			enfRiskCalculationResult: enfRiskCalculationResult,
 			checkinCalculationResult: checkinCalculationResult,
-			risk: totalRiskLevel
+			riskLevel: totalRiskLevel
 		)
 		
 		Log.debug("[Risk] details: \(details)", log: .riskDetection)
@@ -126,7 +126,7 @@ extension Risk {
 	private static func riskDetails(
 		enfRiskCalculationResult: ENFRiskCalculationResult,
 		checkinCalculationResult: CheckinRiskCalculationResult,
-		risk: RiskLevel
+		riskLevel: RiskLevel
 	) -> Details {
 		
 		let mergedRiskLevelPerDate = Self.mergedRiskLevelPerDate(
@@ -137,7 +137,7 @@ extension Risk {
 		// 1. Filter for the desired risk.
 		// 2. Select the maximum by date (the most current).
 		let mostRecentDateWithRiskLevel = mergedRiskLevelPerDate.filter {
-			$1 == risk
+			$1 == riskLevel
 		}.max(by: {
 			$0.key < $1.key
 		})?.key
@@ -145,7 +145,7 @@ extension Risk {
 		Log.debug("[Risk] mostRecentDateWithRiskLevel: \(String(describing: mostRecentDateWithRiskLevel))", log: .riskDetection)
 
 		let numberOfDaysWithRiskLevel = mergedRiskLevelPerDate.filter {
-			$1 == risk
+			$1 == riskLevel
 		}.count
 
 		Log.debug("[Risk] numberOfDaysWithRiskLevel: \(numberOfDaysWithRiskLevel)", log: .riskDetection)
@@ -168,6 +168,9 @@ extension Risk {
 	) -> [Date: RiskLevel] {
 		let tracingRiskLevelPerDate = enfRiskCalculationResult.riskLevelPerDate
 		let checkinRiskLevelPerDate = checkinCalculationResult.riskLevelPerDate
+		
+		Log.debug("[Risk] tracingRiskLevelPerDate: \(tracingRiskLevelPerDate)", log: .riskDetection)
+		Log.debug("[Risk] checkinRiskLevelPerDate: \(checkinRiskLevelPerDate)", log: .riskDetection)
 		
 		// Merge the results from both risk calculation. For each date, the higher risk level is used.
 		let mergedRiskLevelPerDate = tracingRiskLevelPerDate.merging(checkinRiskLevelPerDate) { lhs, rhs -> RiskLevel in

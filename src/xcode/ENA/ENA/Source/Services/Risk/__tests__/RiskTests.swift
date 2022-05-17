@@ -115,7 +115,7 @@ class RiskTests: CWATestCase {
 		XCTAssertEqual(risk.details.numberOfDaysWithRiskLevel, 1)
 	}
 	
-	func test_Given_PreviousENFRiskLow_And_PreviousCheckinRiskLow_When_ENFRiskHigh_And_CheckinRiskLow_Then_ChangeIsIncreased() {
+	func test_RiskChangeWithAllRiskCombinations() {
 		
 		struct RiskCombination {
 			let currentENFRisk: RiskLevel
