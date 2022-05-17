@@ -587,6 +587,28 @@ class EventStoreTests: CWATestCase {
 
 		waitForExpectations(timeout: .medium)
 	}
+	
+	func test_When_deleteAllTraceTimeIntervalMatches_Then_AllTraceTimeIntervalMatchesWereDeleted_And_PublisherWasUpdated() {
+		let store = makeStore(with: makeDatabaseQueue())
+
+		store.createTraceTimeIntervalMatch(makeTraceTimeIntervalMatch(id: 1))
+		store.createTraceTimeIntervalMatch(makeTraceTimeIntervalMatch(id: 2))
+
+		let sinkExpectation = expectation(description: "Sink is called once.")
+		sinkExpectation.expectedFulfillmentCount = 1
+
+		store.traceTimeIntervalMatchesPublisher
+			.dropFirst()
+			.sink { traceWarningPackageMetadatas in
+				XCTAssertEqual(traceWarningPackageMetadatas.count, 0)
+				sinkExpectation.fulfill()
+			}
+			.store(in: &subscriptions)
+
+		store.deleteAllTraceTimeIntervalMatches()
+
+		waitForExpectations(timeout: .medium)
+	}
 
 	func test_When_createTraceWarningPackageMetadata_Then_TraceWarningPackageMetadataWasCreated_And_PublisherWasUpdated() {
 		let store = makeStore(with: makeDatabaseQueue())
