@@ -65,7 +65,7 @@ class CoronaTestService: CoronaTestServiceProviding {
 		self.badgeWrapper = badgeWrapper
 
 		self.fakeRequestService = FakeRequestService(restServiceProvider: restServiceProvider)
-		self.warnOthersReminder = WarnOthersReminder(store: store)
+		self.warnOthersReminder = WarnOthersReminder(store: store, userNotificationCenter: notificationCenter)
 
 		healthCertificateRequestService.didRegisterTestCertificate
 			.sink { [weak self] certificateIdentifier, testCertificateRequest in
