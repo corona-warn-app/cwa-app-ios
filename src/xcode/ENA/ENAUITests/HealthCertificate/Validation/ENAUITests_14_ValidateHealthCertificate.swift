@@ -98,7 +98,6 @@ class ENAUITests_14_ValidateHealthCertificate: CWATestCase {
 		snapshot("screenshot_certificate_validation_country_selection")
 
 		// Select Country
-
 		let regionCode = try XCTUnwrap(Locale.current.regionCode)
 		let country = try XCTUnwrap(Locale.current.localizedString(forRegionCode: regionCode))
 		app.pickerWheels.element.adjust(toPickerWheelValue: country)
