@@ -1188,10 +1188,9 @@ enum AppStrings {
 		static let generalDescription = NSLocalizedString("DeltaOnboarding_NewVersionFeatures_Description", comment: "")
 		static let aboutAppInformation = NSLocalizedString("NewVersionFeatures_Info_about_abb_information", comment: "")
 
-		/* Version 2.22 */
-
-		static let feature222FamilyMembersRATProfileTitle = NSLocalizedString("NewVersionFeature_222_family_members_RAT_profile_Title", comment: "")
-		static let feature222FamilyMembersRATProfileDescription = NSLocalizedString("NewVersionFeature_222_family_members_RAT_profile_description", comment: "")
+		/* Version 2.23 */
+		static let feature223ReissueCertificatesTitle = NSLocalizedString("NewVersionFeature_223_reissue_certificates_title", comment: "")
+		static let feature223ReissueCertificatesDescription = NSLocalizedString("NewVersionFeature_223_reissue_certificates_description", comment: "")
 	}
 
 	enum DeltaOnboarding {
@@ -2423,11 +2422,16 @@ enum AppStrings {
 				static let legalSubtitle = NSLocalizedString("HealthCertificate_Reissuance_Consent_Legal_Subtitle", tableName: "Localizable.legal", comment: "")
 				static let legalBullet1 = NSLocalizedString("HealthCertificate_Reissuance_Consent_Legal_Bullet_1", tableName: "Localizable.legal", comment: "")
 				static let legalBullet2 = NSLocalizedString("HealthCertificate_Reissuance_Consent_Legal_Bullet_2", tableName: "Localizable.legal", comment: "")
-
 				static let bulletPoint_1 = NSLocalizedString("HealthCertificate_Reissuance_Consent_Bullet_Point_1", comment: "")
 				static let bulletPoint_2 = NSLocalizedString("HealthCertificate_Reissuance_Consent_Bullet_Point_2", comment: "")
-
-
+				static let bulletPoint_3 = NSLocalizedString("HealthCertificate_Reissuance_Consent_Bullet_Point_3", comment: "")
+				static let bulletPoint_4 = NSLocalizedString("HealthCertificate_Reissuance_Consent_Bullet_Point_4", comment: "")
+				static let accompanyingCertificatesTitle = NSLocalizedString("HealthCertificate_Reissuance_AccompanyingCertificates_Cell", comment: "")
+			}
+			
+			enum AccompanyingCertificates {
+				static let title = NSLocalizedString("HealthCertificate_Reissuance_AccompanyingCertificates_Title", comment: "")
+				static let description = NSLocalizedString("HealthCertificate_Reissuance_AccompanyingCertificates_Description", comment: "")
 			}
 
 			enum Succeeded {

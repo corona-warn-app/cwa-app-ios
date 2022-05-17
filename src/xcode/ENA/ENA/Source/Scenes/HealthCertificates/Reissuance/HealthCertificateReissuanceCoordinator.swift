@@ -48,19 +48,18 @@ final class HealthCertificateReissuanceCoordinator {
 	// MARK: Show Screens
 
 	private lazy var reissuanceScreen: UIViewController = {
-		let reissuanceCertificates = certificateReissuance.certificates?.compactMap({
-			healthCertifiedPerson.healthCertificate(for: $0.certificateToReissue.certificateRef)
-		})
-			
 		let consentViewController = HealthCertificateReissuanceConsentViewController(
 			healthCertificateService: healthCertificateService,
 			restServiceProvider: restServiceProvider,
 			appConfigProvider: appConfigProvider,
 			cclService: cclService,
-			certificates: reissuanceCertificates ?? [],
+			certificates: certificateReissuance.certificates ?? [],
 			healthCertifiedPerson: healthCertifiedPerson,
 			didTapDataPrivacy: { [weak self] in
 				self?.showDataPrivacy()
+			},
+			didTapAccompanyingCertificatesButton: { [weak self] certificates in
+				self?.showAccompanyingCertificates(certificates: certificates)
 			},
 			onError: { [weak self] error in
 				self?.showReissuanceError(error)
@@ -88,6 +87,18 @@ final class HealthCertificateReissuanceCoordinator {
 			bottomController: footerViewController
 		)
 	}()
+	
+	private func showAccompanyingCertificates(certificates: [HealthCertificate]) {
+		let accompanyingCertificatesViewController = AccompanyingCertificatesViewController(
+			certificates: certificates,
+			certifiedPerson: healthCertifiedPerson,
+			dismiss: { [weak self] in
+				self?.parentViewController.dismiss(animated: true)
+			}
+		)
+		accompanyingCertificatesViewController.navigationItem.largeTitleDisplayMode = .never
+		self.navigationController.pushViewController(accompanyingCertificatesViewController, animated: true)
+	}
 
 	private func showDataPrivacy() {
 		let detailViewController = HTMLViewController(model: AppInformationModel.privacyModel)
