@@ -3950,6 +3950,456 @@ class CoronaTestServiceTests: CWATestCase {
 		XCTAssertNil(service.antigenTest.value)
 	}
 
+	// MARK: - Re-Register
+
+	func testReregisteringShownPositivePCRTestSchedulesWarnOthersReminder() throws {
+		let mockNotificationCenter = MockUserNotificationCenter()
+
+		let store = MockTestStore()
+		let appConfiguration = CachedAppConfigurationMock()
+
+		let healthCertificateService = HealthCertificateService(
+			store: store,
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
+			dscListProvider: MockDSCListProvider(),
+			appConfiguration: appConfiguration,
+			cclService: FakeCCLService(),
+			recycleBin: .fake(),
+			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
+		)
+
+		let service = CoronaTestService(
+			store: store,
+			eventStore: MockEventStore(),
+			diaryStore: MockDiaryStore(),
+			appConfiguration: appConfiguration,
+			healthCertificateService: healthCertificateService,
+			healthCertificateRequestService: HealthCertificateRequestService(
+				store: store,
+				restServiceProvider: RestServiceProviderStub(),
+				appConfiguration: appConfiguration,
+				healthCertificateService: healthCertificateService
+			),
+			notificationCenter: mockNotificationCenter,
+			recycleBin: .fake(),
+			badgeWrapper: .fake()
+		)
+
+		let pcrTest: UserPCRTest = .mock(
+			registrationToken: "registrationToken",
+			testResult: .positive,
+			positiveTestResultWasShown: true,
+			isSubmissionConsentGiven: false,
+			keysSubmitted: false
+		)
+
+		XCTAssertNil(service.pcrTest.value)
+		XCTAssertTrue(mockNotificationCenter.notificationRequests.isEmpty)
+
+		service.reregister(coronaTest: .pcr(pcrTest))
+
+		XCTAssertEqual(service.pcrTest.value, pcrTest)
+
+		XCTAssertEqual(mockNotificationCenter.notificationRequests.count, 2)
+		XCTAssertEqual(
+			mockNotificationCenter.notificationRequests[0].identifier,
+			ActionableNotificationIdentifier.pcrWarnOthersReminder1.identifier
+		)
+		XCTAssertEqual(
+			mockNotificationCenter.notificationRequests[1].identifier,
+			ActionableNotificationIdentifier.pcrWarnOthersReminder2.identifier
+		)
+	}
+
+	func testReregisteringFormerShownPositivePCRTestDoesNotScheduleWarnOthersReminder() throws {
+		let testResults: [TestResult] = [.pending, .negative, .invalid, .expired]
+
+		for testResult in testResults {
+			let mockNotificationCenter = MockUserNotificationCenter()
+
+			let store = MockTestStore()
+			let appConfiguration = CachedAppConfigurationMock()
+
+			let healthCertificateService = HealthCertificateService(
+				store: store,
+				dccSignatureVerifier: DCCSignatureVerifyingStub(),
+				dscListProvider: MockDSCListProvider(),
+				appConfiguration: appConfiguration,
+				cclService: FakeCCLService(),
+				recycleBin: .fake(),
+				revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
+			)
+
+			let service = CoronaTestService(
+				store: store,
+				eventStore: MockEventStore(),
+				diaryStore: MockDiaryStore(),
+				appConfiguration: appConfiguration,
+				healthCertificateService: healthCertificateService,
+				healthCertificateRequestService: HealthCertificateRequestService(
+					store: store,
+					restServiceProvider: RestServiceProviderStub(),
+					appConfiguration: appConfiguration,
+					healthCertificateService: healthCertificateService
+				),
+				notificationCenter: mockNotificationCenter,
+				recycleBin: .fake(),
+				badgeWrapper: .fake()
+			)
+
+			let pcrTest: UserPCRTest = .mock(
+				registrationToken: "registrationToken",
+				testResult: testResult,
+				positiveTestResultWasShown: true,
+				isSubmissionConsentGiven: false,
+				keysSubmitted: false
+			)
+
+			XCTAssertNil(service.pcrTest.value)
+			XCTAssertTrue(mockNotificationCenter.notificationRequests.isEmpty)
+
+			service.reregister(coronaTest: .pcr(pcrTest))
+
+			XCTAssertEqual(service.pcrTest.value, pcrTest)
+			XCTAssertTrue(mockNotificationCenter.notificationRequests.isEmpty)
+		}
+	}
+
+	func testReregisteringPositiveAntigenTestSchedulesWarnOthersReminder() throws {
+		let mockNotificationCenter = MockUserNotificationCenter()
+
+		let store = MockTestStore()
+		let appConfiguration = CachedAppConfigurationMock()
+
+		let healthCertificateService = HealthCertificateService(
+			store: store,
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
+			dscListProvider: MockDSCListProvider(),
+			appConfiguration: appConfiguration,
+			cclService: FakeCCLService(),
+			recycleBin: .fake(),
+			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
+		)
+
+		let service = CoronaTestService(
+			store: store,
+			eventStore: MockEventStore(),
+			diaryStore: MockDiaryStore(),
+			appConfiguration: appConfiguration,
+			healthCertificateService: healthCertificateService,
+			healthCertificateRequestService: HealthCertificateRequestService(
+				store: store,
+				restServiceProvider: RestServiceProviderStub(),
+				appConfiguration: appConfiguration,
+				healthCertificateService: healthCertificateService
+			),
+			notificationCenter: mockNotificationCenter,
+			recycleBin: .fake(),
+			badgeWrapper: .fake()
+		)
+
+		let antigenTest: UserAntigenTest = .mock(
+			registrationToken: "registrationToken",
+			testResult: .positive,
+			positiveTestResultWasShown: true,
+			isSubmissionConsentGiven: false,
+			keysSubmitted: false
+		)
+
+		XCTAssertNil(service.antigenTest.value)
+		XCTAssertTrue(mockNotificationCenter.notificationRequests.isEmpty)
+
+		service.reregister(coronaTest: .antigen(antigenTest))
+
+		XCTAssertEqual(service.antigenTest.value, antigenTest)
+
+		XCTAssertEqual(mockNotificationCenter.notificationRequests.count, 2)
+		XCTAssertEqual(
+			mockNotificationCenter.notificationRequests[0].identifier,
+			ActionableNotificationIdentifier.antigenWarnOthersReminder1.identifier
+		)
+		XCTAssertEqual(
+			mockNotificationCenter.notificationRequests[1].identifier,
+			ActionableNotificationIdentifier.antigenWarnOthersReminder2.identifier
+		)
+	}
+
+	func testReregisteringShownPositiveAntigenTestDoesNotScheduleWarnOthersReminder() throws {
+		let testResults: [TestResult] = [.pending, .negative, .invalid, .expired]
+
+		for testResult in testResults {
+			let mockNotificationCenter = MockUserNotificationCenter()
+
+			let store = MockTestStore()
+			let appConfiguration = CachedAppConfigurationMock()
+
+			let healthCertificateService = HealthCertificateService(
+				store: store,
+				dccSignatureVerifier: DCCSignatureVerifyingStub(),
+				dscListProvider: MockDSCListProvider(),
+				appConfiguration: appConfiguration,
+				cclService: FakeCCLService(),
+				recycleBin: .fake(),
+				revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
+			)
+
+			let service = CoronaTestService(
+				store: store,
+				eventStore: MockEventStore(),
+				diaryStore: MockDiaryStore(),
+				appConfiguration: appConfiguration,
+				healthCertificateService: healthCertificateService,
+				healthCertificateRequestService: HealthCertificateRequestService(
+					store: store,
+					restServiceProvider: RestServiceProviderStub(),
+					appConfiguration: appConfiguration,
+					healthCertificateService: healthCertificateService
+				),
+				notificationCenter: mockNotificationCenter,
+				recycleBin: .fake(),
+				badgeWrapper: .fake()
+			)
+
+			let antigenTest: UserAntigenTest = .mock(
+				registrationToken: "registrationToken",
+				testResult: testResult,
+				positiveTestResultWasShown: true,
+				isSubmissionConsentGiven: false,
+				keysSubmitted: false
+			)
+
+			XCTAssertNil(service.antigenTest.value)
+			XCTAssertTrue(mockNotificationCenter.notificationRequests.isEmpty)
+
+			service.reregister(coronaTest: .antigen(antigenTest))
+
+			XCTAssertEqual(service.antigenTest.value, antigenTest)
+			XCTAssertTrue(mockNotificationCenter.notificationRequests.isEmpty)
+		}
+	}
+
+	// MARK: - Evaluate Showing of Test
+
+	func testEvaluateShowingOfPositivePCRTestUpdatesTestAndSchedulesWarnOthersReminder() throws {
+		let mockNotificationCenter = MockUserNotificationCenter()
+
+		let store = MockTestStore()
+		let appConfiguration = CachedAppConfigurationMock()
+
+		let healthCertificateService = HealthCertificateService(
+			store: store,
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
+			dscListProvider: MockDSCListProvider(),
+			appConfiguration: appConfiguration,
+			cclService: FakeCCLService(),
+			recycleBin: .fake(),
+			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
+		)
+
+		let service = CoronaTestService(
+			store: store,
+			eventStore: MockEventStore(),
+			diaryStore: MockDiaryStore(),
+			appConfiguration: appConfiguration,
+			healthCertificateService: healthCertificateService,
+			healthCertificateRequestService: HealthCertificateRequestService(
+				store: store,
+				restServiceProvider: RestServiceProviderStub(),
+				appConfiguration: appConfiguration,
+				healthCertificateService: healthCertificateService
+			),
+			notificationCenter: mockNotificationCenter,
+			recycleBin: .fake(),
+			badgeWrapper: .fake()
+		)
+
+		service.pcrTest.value = .mock(
+			registrationToken: "registrationToken",
+			testResult: .positive,
+			positiveTestResultWasShown: false,
+			isSubmissionConsentGiven: false,
+			keysSubmitted: false
+		)
+
+		XCTAssertTrue(mockNotificationCenter.notificationRequests.isEmpty)
+
+		service.evaluateShowingTest(ofType: .pcr)
+
+		XCTAssertTrue(try XCTUnwrap(service.pcrTest.value?.positiveTestResultWasShown))
+
+		XCTAssertEqual(mockNotificationCenter.notificationRequests.count, 2)
+		XCTAssertEqual(
+			mockNotificationCenter.notificationRequests[0].identifier,
+			ActionableNotificationIdentifier.pcrWarnOthersReminder1.identifier
+		)
+		XCTAssertEqual(
+			mockNotificationCenter.notificationRequests[1].identifier,
+			ActionableNotificationIdentifier.pcrWarnOthersReminder2.identifier
+		)
+	}
+
+	func testEvaluateShowingOfFormerShownPositivePCRTestDoesNotScheduleWarnOthersReminder() throws {
+		let testResults: [TestResult] = [.pending, .negative, .invalid, .expired]
+
+		for testResult in testResults {
+			let mockNotificationCenter = MockUserNotificationCenter()
+
+			let store = MockTestStore()
+			let appConfiguration = CachedAppConfigurationMock()
+
+			let healthCertificateService = HealthCertificateService(
+				store: store,
+				dccSignatureVerifier: DCCSignatureVerifyingStub(),
+				dscListProvider: MockDSCListProvider(),
+				appConfiguration: appConfiguration,
+				cclService: FakeCCLService(),
+				recycleBin: .fake(),
+				revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
+			)
+
+			let service = CoronaTestService(
+				store: store,
+				eventStore: MockEventStore(),
+				diaryStore: MockDiaryStore(),
+				appConfiguration: appConfiguration,
+				healthCertificateService: healthCertificateService,
+				healthCertificateRequestService: HealthCertificateRequestService(
+					store: store,
+					restServiceProvider: RestServiceProviderStub(),
+					appConfiguration: appConfiguration,
+					healthCertificateService: healthCertificateService
+				),
+				notificationCenter: mockNotificationCenter,
+				recycleBin: .fake(),
+				badgeWrapper: .fake()
+			)
+
+			service.pcrTest.value = .mock(
+				registrationToken: "registrationToken",
+				testResult: testResult,
+				positiveTestResultWasShown: true,
+				isSubmissionConsentGiven: false,
+				keysSubmitted: false
+			)
+
+			XCTAssertTrue(mockNotificationCenter.notificationRequests.isEmpty)
+
+			service.evaluateShowingTest(ofType: .pcr)
+
+			XCTAssertTrue(mockNotificationCenter.notificationRequests.isEmpty)
+		}
+	}
+
+	func testEvaluateShowingOfPositiveAntigenTestUpdatesTestAndSchedulesWarnOthersReminder() throws {
+		let mockNotificationCenter = MockUserNotificationCenter()
+
+		let store = MockTestStore()
+		let appConfiguration = CachedAppConfigurationMock()
+
+		let healthCertificateService = HealthCertificateService(
+			store: store,
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
+			dscListProvider: MockDSCListProvider(),
+			appConfiguration: appConfiguration,
+			cclService: FakeCCLService(),
+			recycleBin: .fake(),
+			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
+		)
+
+		let service = CoronaTestService(
+			store: store,
+			eventStore: MockEventStore(),
+			diaryStore: MockDiaryStore(),
+			appConfiguration: appConfiguration,
+			healthCertificateService: healthCertificateService,
+			healthCertificateRequestService: HealthCertificateRequestService(
+				store: store,
+				restServiceProvider: RestServiceProviderStub(),
+				appConfiguration: appConfiguration,
+				healthCertificateService: healthCertificateService
+			),
+			notificationCenter: mockNotificationCenter,
+			recycleBin: .fake(),
+			badgeWrapper: .fake()
+		)
+
+		service.antigenTest.value = .mock(
+			registrationToken: "registrationToken",
+			testResult: .positive,
+			positiveTestResultWasShown: false,
+			isSubmissionConsentGiven: false,
+			keysSubmitted: false
+		)
+
+		XCTAssertTrue(mockNotificationCenter.notificationRequests.isEmpty)
+
+		service.evaluateShowingTest(ofType: .antigen)
+
+		XCTAssertTrue(try XCTUnwrap(service.antigenTest.value?.positiveTestResultWasShown))
+
+		XCTAssertEqual(mockNotificationCenter.notificationRequests.count, 2)
+		XCTAssertEqual(
+			mockNotificationCenter.notificationRequests[0].identifier,
+			ActionableNotificationIdentifier.antigenWarnOthersReminder1.identifier
+		)
+		XCTAssertEqual(
+			mockNotificationCenter.notificationRequests[1].identifier,
+			ActionableNotificationIdentifier.antigenWarnOthersReminder2.identifier
+		)
+	}
+
+	func testEvaluateShowingOfFormerShownPositiveAntigenTestDoesNotScheduleWarnOthersReminder() throws {
+		let testResults: [TestResult] = [.pending, .negative, .invalid, .expired]
+
+		for testResult in testResults {
+			let mockNotificationCenter = MockUserNotificationCenter()
+
+			let store = MockTestStore()
+			let appConfiguration = CachedAppConfigurationMock()
+
+			let healthCertificateService = HealthCertificateService(
+				store: store,
+				dccSignatureVerifier: DCCSignatureVerifyingStub(),
+				dscListProvider: MockDSCListProvider(),
+				appConfiguration: appConfiguration,
+				cclService: FakeCCLService(),
+				recycleBin: .fake(),
+				revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
+			)
+
+			let service = CoronaTestService(
+				store: store,
+				eventStore: MockEventStore(),
+				diaryStore: MockDiaryStore(),
+				appConfiguration: appConfiguration,
+				healthCertificateService: healthCertificateService,
+				healthCertificateRequestService: HealthCertificateRequestService(
+					store: store,
+					restServiceProvider: RestServiceProviderStub(),
+					appConfiguration: appConfiguration,
+					healthCertificateService: healthCertificateService
+				),
+				notificationCenter: mockNotificationCenter,
+				recycleBin: .fake(),
+				badgeWrapper: .fake()
+			)
+
+			service.antigenTest.value = .mock(
+				registrationToken: "registrationToken",
+				testResult: testResult,
+				positiveTestResultWasShown: false,
+				isSubmissionConsentGiven: false,
+				keysSubmitted: false
+			)
+
+			XCTAssertTrue(mockNotificationCenter.notificationRequests.isEmpty)
+
+			service.evaluateShowingTest(ofType: .antigen)
+
+			XCTAssertTrue(mockNotificationCenter.notificationRequests.isEmpty)
+		}
+	}
+
 	// MARK: - Plausible Deniability
 
 	func test_registerPCRTestAndGetResultPlaybook() {
