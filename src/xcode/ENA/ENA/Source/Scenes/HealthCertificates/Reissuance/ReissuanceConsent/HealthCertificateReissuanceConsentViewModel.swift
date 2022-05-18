@@ -205,7 +205,10 @@ final class HealthCertificateReissuanceConsentViewModel {
 					Log.error("Reissuance request failed due to certificates being nil", log: .vaccination)
 				}
 				
+				let dispatchGroup = DispatchGroup()
+
 				for certificate in currentCertificates {
+					dispatchGroup.enter()
 					guard let certificateToReissue = certificate.certificateToReissue.certificateRef.barcodeData else {
 						completion(.failure(.certificateToReissueMissing))
 						Log.error("Certificate reissuance failed: certificateToReissue.barcodeData is nil", log: .vaccination)
@@ -223,9 +226,18 @@ final class HealthCertificateReissuanceConsentViewModel {
 					self.submit(
 						with: resource,
 						requestCertificates: requestCertificates,
+						dispatchGroup: dispatchGroup,
 						completion: completion
 					)
 				}
+				dispatchGroup.notify(queue: .main) { [weak self] in
+					if let error = self?.submissionErrors.first {
+						completion(.failure(error))
+					} else {
+						completion(.success(()))
+					}
+				}
+
 			}
 			.store(in: &subscriptions)
 	}
@@ -241,11 +253,13 @@ final class HealthCertificateReissuanceConsentViewModel {
 	private let restServiceProvider: RestServiceProviding
 	private let healthCertificateService: HealthCertificateServiceServable
 	private var subscriptions = Set<AnyCancellable>()
+	private var submissionErrors = [HealthCertificateReissuanceError]()
 	private (set) var filteredAccompanyingCertificates = [HealthCertificate]()
 
 	private func submit(
 		with resource: DCCReissuanceResource,
 		requestCertificates: [String],
+		dispatchGroup: DispatchGroup,
 		completion: @escaping (Result<Void, HealthCertificateReissuanceError>) -> Void
 	) {
 		self.restServiceProvider.load(resource) { [weak self] result in
@@ -265,19 +279,17 @@ final class HealthCertificateReissuanceConsentViewModel {
 						markAsNew: true,
 						completedNotificationRegistration: { }
 					)
-					
-					completion(.success(()))
-					
-					Log.error("Certificate reissuance was successful.", log: .vaccination)
+					Log.debug("Certificate reissuance was successful.", log: .vaccination)
 				} catch {
-					completion(.failure(.replaceHealthCertificateError(error)))
+					self.submissionErrors.append(.replaceHealthCertificateError(error))
 					Log.error("Replacing the certificate with a reissued certificate failed in service", log: .vaccination, error: error)
 				}
 				
 			case .failure(let error):
-				completion(.failure(.restServiceError(error)))
+				self.submissionErrors.append(.restServiceError(error))
 				Log.error("Reissuance request failed", log: .vaccination, error: error)
 			}
+			dispatchGroup.leave()
 		}
 	}
 	
