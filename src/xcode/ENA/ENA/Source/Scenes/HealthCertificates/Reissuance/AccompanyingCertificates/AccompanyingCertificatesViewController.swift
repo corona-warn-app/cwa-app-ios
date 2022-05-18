@@ -33,7 +33,8 @@ class AccompanyingCertificatesViewController: DynamicTableViewController, Dismis
 		super.viewDidLoad()
 
 		navigationItem.rightBarButtonItem = dismissHandlingCloseBarButton
-		
+		navigationItem.rightBarButtonItem?.accessibilityIdentifier = AccessibilityIdentifiers.HealthCertificate.Reissuance.accompanyingCertificatesCloseButton
+
 		setupView()
 	}
 
