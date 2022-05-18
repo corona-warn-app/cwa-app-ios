@@ -3203,7 +3203,7 @@
 "HealthCertificate_Validation_TechnicalFailed_expirationDate" = "Valabil până la %@";
 
 /* Health Certificate Validity State */
-"HealthCertificate_ValidityState_ExpiringSoon" = "Certificatul expiră pe %@ la %@";
+"HealthCertificate_ValidityState_ExpiringSoon" = "expiră pe %@ la %@";
 
 "HealthCertificate_ValidityState_ExpiringSoon_description" = "Dacă acesta este certificatul pe care îl utilizați în prezent, aveți grijă să îl reînnoiți la timp. Puteți reînnoi astfel de certificate direct în aplicație, dacă vor expira în următoarele 28 de zile. În acest caz, opțiunea „Reînnoire certificate” apare în sumarul certificatului, sub mozaicul „Dovada stării”.";
 

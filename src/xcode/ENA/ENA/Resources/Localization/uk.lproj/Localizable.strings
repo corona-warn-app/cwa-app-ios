@@ -3203,7 +3203,7 @@
 "HealthCertificate_Validation_TechnicalFailed_expirationDate" = "Дійсно до %@";
 
 /* Health Certificate Validity State */
-"HealthCertificate_ValidityState_ExpiringSoon" = "Дата %@ час %@ завершення строку дії сертифіката";
+"HealthCertificate_ValidityState_ExpiringSoon" = "Дата %@ час %@ завершення строку дії";
 
 "HealthCertificate_ValidityState_ExpiringSoon_description" = "Якщо ви зараз користуєтеся цим сертифікатом, не забудьте вчасно поновити його. Ви можете поновити такі сертифікати безпосередньо в застосунку, якщо строк їх дії закінчиться протягом наступних 28 днів. У цьому випадку опція «Поновити сертифікати» з’явиться в огляді вашого сертифіката під плиткою «Підтвердження статусу».";
 

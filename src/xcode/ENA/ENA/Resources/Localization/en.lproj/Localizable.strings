@@ -3203,7 +3203,7 @@
 "HealthCertificate_Validation_TechnicalFailed_expirationDate" = "Valid until %@";
 
 /* Health Certificate Validity State */
-"HealthCertificate_ValidityState_ExpiringSoon" = "Certificate expires on %@ at %@";
+"HealthCertificate_ValidityState_ExpiringSoon" = "expires on %@ at %@";
 
 "HealthCertificate_ValidityState_ExpiringSoon_description" = "If this is the certificate you currently use, please be sure to renew it on time. You can renew such certificates directly in the app if they will expire within the next 28 days. In this case, the “Renew Certificates” option appears in your certificate overview, below the “Proof of Status” tile.";
 
