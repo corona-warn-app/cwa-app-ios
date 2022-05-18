@@ -65,7 +65,7 @@ class CoronaTestService: CoronaTestServiceProviding {
 		self.badgeWrapper = badgeWrapper
 
 		self.fakeRequestService = FakeRequestService(restServiceProvider: restServiceProvider)
-		self.warnOthersReminder = WarnOthersReminder(store: store)
+		self.warnOthersReminder = WarnOthersReminder(store: store, userNotificationCenter: notificationCenter)
 
 		healthCertificateRequestService.didRegisterTestCertificate
 			.sink { [weak self] certificateIdentifier, testCertificateRequest in
@@ -1011,7 +1011,7 @@ class CoronaTestService: CoronaTestServiceProviding {
 	}
 
 	private func scheduleWarnOthersNotificationIfNeeded(coronaTestType: CoronaTestType) {
-		if let coronaTest = coronaTest(ofType: coronaTestType), coronaTest.positiveTestResultWasShown {
+		if let coronaTest = coronaTest(ofType: coronaTestType), coronaTest.testResult == .positive, coronaTest.positiveTestResultWasShown {
 			DeadmanNotificationManager().resetDeadmanNotification()
 
 			if !coronaTest.isSubmissionConsentGiven, !coronaTest.keysSubmitted {
