@@ -3388,11 +3388,11 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 /* HealthCertificate Resissuance Succeeded */
 
-"HealthCertificate_Reissuance_Succeeded_Title" = "Zertifikat aktualisiert";
+"HealthCertificate_Reissuance_Succeeded_Title" = "Zertifikate erneuert";
 
-"HealthCertificate_Reissuance_Succeeded_Headline" = "Ihr Zertifikat wurde erfolgreich aktualisiert";
+"HealthCertificate_Reissuance_Succeeded_Headline" = "Ihre Zertifikate wurden erfolgreich erneuert";
 
-"HealthCertificate_Reissuance_Succeeded_Body" = "Sie finden das aktualisierte Zertifikat nun in der Zertifikate-Registerkarte.";
+"HealthCertificate_Reissuance_Succeeded_Body" = "Sie finden die erneuerten Zertifikate nun in der Zertifikate-Registerkarte.";
 
 /* HealthCertificate Resissuance Request Error */
 
