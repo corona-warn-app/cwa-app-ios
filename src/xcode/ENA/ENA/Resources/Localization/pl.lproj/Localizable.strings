@@ -460,7 +460,7 @@
 
 "OnboardingInfo_privacyPage_boldText" = "";
 
-"OnboardingInfo_privacyPage_normalText" = "Zachowasz anonimowość.\nTwoje dane są w pełni zaszyfrowane i przesyłane pod pseudonimem.\n\nAdministrator zgodnie z RODO, artykuł 4, (7):\n\nRobert Koch-Institute\nNordufer 20\n13353 Berlin\nZapoznaj się z naszymi przepisami o prywatności danych.\n\nInformacje o prywatności danych:";
+"OnboardingInfo_privacyPage_normalText" = "Zachowasz anonimowość.\nTwoje dane są w pełni zaszyfrowane i przesyłane pod pseudonimem.\n\nAdministrator zgodnie z RODO, artykuł 4, (7):\n\nRobert Koch-Institute\nNordufer 20\n13353 Berlin, Niemcy\nZapoznaj się z naszymi przepisami o prywatności danych.\n\nInformacje o prywatności danych:";
 
 "OnboardingInfo_enableLoggingOfContactsPage_imageDescription" = "Trzy osoby aktywowały rejestrowanie narażenia na swoich urządzeniach, które będą rejestrować ich wzajemne kontakty.";
 
@@ -749,6 +749,8 @@
 
 "ExposureSubmissionResult_testNegativeDesc" = "Wynik laboratoryjny nie potwierdza, że masz koronawirusa SARS-CoV-2.";
 
+"ExposureSubmissionResult_familyMember_testNegativeDesc" = "Wynik testu laboratoryjnego nie wskazuje, że testowana osoba jest nosicielem koronawirusa SARS-CoV-2.";
+
 "ExposureSubmissionResult_testNegative_furtherInfos_title" = "Inne informacje:";
 
 "ExposureSubmissionResult_testNegative_furtherInfos_desc" = "Czy masz ostre objawy?";
@@ -763,13 +765,15 @@
 
 "ExposureSubmissionResult_testInvalidDesc" = "Wystąpił problem z ustaleniem wyniku Twojego testu. Skontaktuj się z odpowiednim ośrodkiem wykonującym testy lub laboratorium, aby dowiedzieć się, jak dalej postępować.";
 
+"ExposureSubmissionResult_familyMember_testInvalidDesc" = "Wystąpił problem z ustaleniem wyniku testu. Skontaktuj się z odpowiednim punktem wykonującym testy lub laboratorium, aby dowiedzieć się, jak dalej postępować.";
+
 "ExposureSubmissionResult_testExpired" = "Ustalenie wyniku Twojego testu jest niemożliwe";
 
 "ExposureSubmissionResult_testExpiredDesc" = "Podczas ustalania wyniku testu pojawił się błąd. Twój kod QR wygasł.";
 
 "ExposureSubmissionResult_testPending" = "Wynik Twojego testu nie jest jeszcze dostępny";
 
-"ExposureSubmissionResult_familyMember_testPending" = "Wynik Twojego testu nie jest jeszcze dostępny";
+"ExposureSubmissionResult_familyMember_testPending" = "Wynik testu nie jest jeszcze dostępny";
 
 "ExposureSubmissionResult_testPendingDesc" = "Wynik testu zostanie wyświetlony w aplikacji, jak tylko będzie dostępny.\n\nWynik testu otrzymasz również poza aplikacją. Organ ds. zdrowia publicznego powiadomi Cię, jeśli wynik testu będzie pozytywny.\n\nJeśli otrzymasz powiadomienie o pozytywnym wyniku testu poza aplikacją, usuń test aktualnie zarejestrowany w aplikacji. Zadzwoń na numer podany w sekcji „Poproś o TAN”, aby otrzymać numer TAN. Będziesz mieć wówczas możliwość zarejestrowania swojego wyniku w aplikacji za pomocą tego numeru, aby ostrzegać innych.";
 
@@ -791,7 +795,7 @@
 
 "ExposureSubmissionResult_antigenTestPending" = "Wynik Twojego testu nie jest jeszcze dostępny";
 
-"ExposureSubmissionResult_familyMember_antigenTestPending" = "Wynik Twojego testu nie jest jeszcze dostępny";
+"ExposureSubmissionResult_familyMember_antigenTestPending" = "Wynik testu nie jest jeszcze dostępny";
 
 "ExposureSubmissionResult_antigenTestPendingDesc" = "Wynik testu zostanie wyświetlony w aplikacji, jak tylko będzie dostępny.";
 
@@ -805,7 +809,9 @@
 
 "ExposureSubmissionResult_pcrTestPendingContactJournalDesc" = "Wynik testu zostanie wyświetlony w aplikacji, jak tylko będzie dostępny.";
 
-"ExposureSubmissionResult_antigenTestNegativDesc" = "Szybki test nie dostarczył dowodów na to, że masz koronawirusa SARS-CoV-2.";
+"ExposureSubmissionResult_antigenTestNegativDesc" = "Szybki test nie wykazał, że jesteś nosicielem koronawirusa SARS-CoV-2.";
+
+"ExposureSubmissionResult_familyMember_antigenTestNegativDesc" = "Szybki test nie wykazał, że testowana osoba jest nosicielem koronawirusa SARS-CoV-2.";
 
 "ExposureSubmissionResult_WarnOthersConsentGiven" = "Zgoda na „Ostrzeganie innych” udzielona";
 
@@ -933,6 +939,8 @@
 "ExposureSubmissionResult_Timer_Title" = "Wynik dostępny od";
 
 "ExposureSubmissionResult_Negative_Antigen_Proof_Desc" = "Do rzetelnej weryfikacji wyświetlanego tutaj wyniku wymagany jest unijny cyfrowy certyfikat Covid. Jeśli podczas rejestracji testu zażądałeś(-aś) cyfrowego certyfikatu testu, a punkt testowy wydaje cyfrowe certyfikaty, możesz znaleźć swój cyfrowy certyfikat testu, korzystając z linku podanego powyżej. Znajdziesz go również na karcie „Certyfikaty”.\nProsimy również o zapoznanie się z kryteriami uznawania i ważności certyfikatów testów w kontekście celu, dla którego potrzebujesz dowodu.";
+
+"ExposureSubmissionResult_familyMember_Negative_Antigen_NoProof_Title" = "Funkcja weryfikacji";
 
 "ExposureSubmissionResult_Negative_Antigen_NoProof_Title" = "Brak funkcji weryfikacji";
 
@@ -1409,7 +1417,7 @@
 
 "App_Information_About_Title" = "Razem pokonajmy koronawirusa";
 
-"App_Information_About_Description" = "Instytut Roberta Kocha (RKI) to niemiecka federalna instytucja zdrowia publicznego. RKI publikuje aplikację Corona-Warn-App w imieniu rządu federalnego. Aplikacja ta służy jako cyfrowe uzupełnienie już wprowadzonych środków ochrony zdrowia publicznego, takich jak zachowanie dystansu społecznego, dbanie o higienę oraz noszenie maseczek.";
+"App_Information_About_Description" = "Instytut Roberta Kocha (RKI) to niemiecka federalna instytucja zdrowia publicznego. RKI publikuje aplikację Corona-Warn-App w imieniu rządu federalnego. Aplikacja ta służy jako cyfrowe uzupełnienie już wprowadzonych środków higienicznych, takich jak noszenie maseczek i zachowywanie dystansu społecznego.";
 
 "App_Information_About_Text" = "Osoby korzystające z aplikacji pomagają w śledzeniu i przerwaniu łańcuchów zakażeń. Aplikacja zapisuje kontakty z innymi osobami lokalnie na Twoim urządzeniu. Otrzymasz powiadomienie, jeśli okaże się, że u osób, z którymi miałeś(-aś) kontakt, zdiagnozowano później koronawirusa. Twoja tożsamość i prywatność są zawsze chronione.";
 
@@ -1456,7 +1464,7 @@
 
 "App_Information_Imprint_Section2_Title" = "Robert Koch Institute";
 
-"App_Information_Imprint_Section2_Text" = "Nordufer 20\n13353 Berlin\n\nreprezentowany przez prezesa";
+"App_Information_Imprint_Section2_Text" = "Nordufer 20\n13353 Berlin, Niemcy\nreprezentowany przez prezesa";
 
 "App_Information_Imprint_Section3_Title" = "Kontakt";
 
@@ -1658,10 +1666,10 @@
 /* New Version Features */
 "NewVersionFeatures_Info_about_abb_information" = "Dane o zmianach w tej wersji można znaleźć w informacjach o aplikacji w sekcji „Nowe funkcje”.";
 
-/* Version 2.22 */
-"NewVersionFeature_222_family_members_RAT_profile_Title" = "Profile szybkich testów dla członków rodziny";
+/* Version 2.23 */
+"NewVersionFeature_223_reissue_certificates_title" = "Odnowienie certyfikatu";
 
-"NewVersionFeature_222_family_members_RAT_profile_description" = "Możesz teraz tworzyć profile szybkich testów dla członków swojej rodziny, aby przyspieszyć rejestrację w punktach testowania. Po utworzeniu profilu wystarczy okazać kod QR odpowiedniego profilu szybkiego testu, aby podać dane osobowe.";
+"NewVersionFeature_223_reissue_certificates_description" = "Ze względów technicznych ważność certyfikatów szczepień jest ograniczona do 365 dni, ale możesz poprosić o nowy certyfikat w aplikacji. Certyfikat może zostać odnowiony do 28 dni przed upływem jego ważności i do 90 dni po tym terminie. Aplikacja zawiera informację o tym, że ważność certyfikatu wkrótce wygaśnie lub czy już wygasła.";
 
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Rejestrowanie narażenia w różnych krajach";
@@ -3197,11 +3205,11 @@
 /* Health Certificate Validity State */
 "HealthCertificate_ValidityState_ExpiringSoon" = "Certyfikat wygasa dnia %@ o godzinie %@";
 
-"HealthCertificate_ValidityState_ExpiringSoon_description" = "Pamiętaj o terminowym pobraniu nowego certyfikatu cyfrowego.";
+"HealthCertificate_ValidityState_ExpiringSoon_description" = "Jeśli jest to certyfikat, którego obecnie używasz, pamiętaj o odnowieniu go na czas. Możesz odnowić takie certyfikaty bezpośrednio w aplikacji, jeśli wygasną w ciągu najbliższych 28 dni. W takim przypadku opcja „Odnów certyfikaty” pojawia się w przeglądzie certyfikatów, pod kafelkiem „Dowód statusu”.";
 
 "HealthCertificate_ValidityState_Expired" = "Certyfikat wygasł";
 
-"HealthCertificate_ValidityState_Expired_description" = "Data wygaśnięcia upłynęła. Pobierz nowy certyfikat cyfrowy.";
+"HealthCertificate_ValidityState_Expired_description" = "Minęła data ważności. Odnów certyfikat. Możesz poprosić o odnowienie do 90 dni po wygaśnięciu certyfikatu, klikając notatkę w przeglądzie certyfikatu.";
 
 "HealthCertificate_ValidityState_Invalid" = "Certyfikat (podpis) jest nieprawidłowy";
 
@@ -3227,13 +3235,24 @@
 
 "HealthCertificate_Reissuance_Consent_Title" = "Twoja zgoda";
 
-"HealthCertificate_Reissuance_Consent_Delete_Notice" = "Stary certyfikat zostanie automatycznie przeniesiony do kosza i usunięty po 30 dniach. Certyfikat można odzyskać w dowolnym momencie w ciągu tych 30 dni.";
+"HealthCertificate_Reissuance_Consent_Delete_Notice" = "Stare certyfikaty zostaną automatycznie przeniesione do kosza i usunięte po 30 dniach. Certyfikaty można odzyskać w dowolnym momencie w ciągu tych 30 dni.";
 
-"HealthCertificate_Reissuance_Consent_Cancel_Notice" = "Jeśli teraz zrezygnujesz, możesz w każdej chwili zażądać aktualizacji w przeglądzie certyfikatów.";
+"HealthCertificate_Reissuance_Consent_Cancel_Notice" = "Jeśli teraz zrezygnujesz, możesz w każdej chwili zażądać odnowienia w przeglądzie certyfikatów.";
 
-"HealthCertificate_Reissuance_Consent_Bullet_Point_1" = "Aktualizacja certyfikatu jest dobrowolna i bezpłatna.";
+"HealthCertificate_Reissuance_Consent_Bullet_Point_1" = "Odnowienie certyfikatu jest dobrowolne i bezpłatne.";
 
-"HealthCertificate_Reissuance_Consent_Bullet_Point_2" = "W celu zapewnienia, by certyfikaty mogły być aktualizowane tylko raz, identyfikator starego certyfikatu jest dokumentowany przez RKI.";
+"HealthCertificate_Reissuance_Consent_Bullet_Point_2" = "Aby certyfikaty mogły być odnawiane tylko raz, identyfikatory starych i nowych certyfikatów są dokumentowane przez RKI. Pozostałe dane z certyfikatów są usuwane przez RKI natychmiast po odnowieniu.";
+
+"HealthCertificate_Reissuance_Consent_Bullet_Point_3" = "Przed odnowieniem certyfikatów dla członków rodziny upewnij się, że dana osoba wyraża na to zgodę.";
+
+"HealthCertificate_Reissuance_Consent_Bullet_Point_4" = "W niektórych przypadkach dodatkowo oprócz certyfikatu do odnowienia wydawane są dodatkowe certyfikaty. Jest to konieczne, aby w nowym certyfikacie zawarte zostały informacje o wcześniejszych szczepieniach i przebyciu choroby.";
+
+"HealthCertificate_Reissuance_AccompanyingCertificates_Cell" = "Inne wydawane certyfikaty";
+
+/* HealthCertificate Resissuance Additional Certificates */
+"HealthCertificate_Reissuance_AccompanyingCertificates_Title" = "Inne wydawane certyfikaty";
+
+"HealthCertificate_Reissuance_AccompanyingCertificates_Description" = "Następujące certyfikaty będą wydawane w trakcie odnawiania certyfikatu jako uzupełnienie w celu odnotowania w nowym certyfikacie wcześniejszych szczepień i przebycia choroby. Certyfikaty nie podlegają odnawianiu.";
 
 /* HealthCertificate Resissuance Succeeded */
 "HealthCertificate_Reissuance_Succeeded_Title" = "Zaktualizowano certyfikat";
@@ -3248,6 +3267,8 @@
 "HealthCertificate_Reissuance_Error_No_Network" = "Połączenie internetowe mogło zostać utracone. Sprawdź połączenie i spróbuj ponownie.";
 
 "HealthCertificate_Reissuance_Error_Try_Again" = "Podczas aktualizacji certyfikatu wystąpił błąd. Spróbuj ponownie. Jeśli błąd będzie nadal występował, skontaktuj się z infolinią techniczną, korzystając z opcji: Informacje o aplikacji -> Infolinia techniczna.";
+
+"HealthCertificate_Reissuance_Error_Rate_Limit" = "Certyfikat był już wydawany trzykrotnie. Nie można go ponownie wydać.\nZalecamy wyeksportowanie ponownie wydanego certyfikatu do pliku PDF i wydrukowanie go. Wówczas można go będzie zeskanować ponownie w dowolnym momencie.";
 
 "HealthCertificate_Reissuance_Error_Not_Supported" = "Nie można aktualizować certyfikatu. Skontaktuj się z infolinią techniczną, wybierając opcje: Informacje o aplikacji -> Infolinia techniczna.";
 
