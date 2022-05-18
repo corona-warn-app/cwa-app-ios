@@ -255,7 +255,7 @@ class HomeTableViewModel {
 	}
 
 	private var pcrRiskCardRevealDate: Date? {
-		guard let pcrTest = coronaTestService.pcrTest.value, pcrTest.positiveTestResultWasShown else {
+		guard let pcrTest = coronaTestService.pcrTest.value, pcrTest.testResult == .positive, pcrTest.positiveTestResultWasShown else {
 			return nil
 		}
 
@@ -267,7 +267,7 @@ class HomeTableViewModel {
 	}
 
 	private var antigenRiskCardRevealDate: Date? {
-		guard let antigenTest = coronaTestService.antigenTest.value, antigenTest.positiveTestResultWasShown else {
+		guard let antigenTest = coronaTestService.antigenTest.value, antigenTest.testResult == .positive, antigenTest.positiveTestResultWasShown else {
 			return nil
 		}
 
