@@ -158,7 +158,8 @@ final class HealthCertificateReissuanceConsentViewModel {
 	func markCertificateReissuanceAsSeen() {
 		certifiedPerson.isNewCertificateReissuance = false
 	}
-
+	
+	// swiftlint:disable cyclomatic_complexity
 	func submit(completion: @escaping (Result<Void, HealthCertificateReissuanceError>) -> Void) {
 		Log.info("Submit certificate for reissuance...", log: .vaccination)
 
@@ -204,9 +205,14 @@ final class HealthCertificateReissuanceConsentViewModel {
 					currentCertificates = []
 					Log.error("Reissuance request failed due to certificates being nil", log: .vaccination)
 				}
-				
+				/*
+				 We need a dispatchGroup since we iterate async over an array of
+				 certificates and the completion result will trigger a UI change "push a new screen"
+				 if we don't do this a screen will be pushed multiple times with each closure call
+				*/
 				let dispatchGroup = DispatchGroup()
-
+				var submissionErrors = [HealthCertificateReissuanceError]()
+				
 				for certificate in currentCertificates {
 					dispatchGroup.enter()
 					guard let certificateToReissue = certificate.certificateToReissue.certificateRef.barcodeData else {
@@ -226,12 +232,19 @@ final class HealthCertificateReissuanceConsentViewModel {
 					self.submit(
 						with: resource,
 						requestCertificates: requestCertificates,
-						dispatchGroup: dispatchGroup,
-						completion: completion
+						completion: { result in
+							switch result {
+							case.success:
+								break
+							case .failure(let error):
+								submissionErrors.append(error)
+							}
+							dispatchGroup.leave()
+						}
 					)
 				}
-				dispatchGroup.notify(queue: .main) { [weak self] in
-					if let error = self?.submissionErrors.first {
+				dispatchGroup.notify(queue: .main) {
+					if let error = submissionErrors.first {
 						completion(.failure(error))
 					} else {
 						completion(.success(()))
@@ -253,13 +266,11 @@ final class HealthCertificateReissuanceConsentViewModel {
 	private let restServiceProvider: RestServiceProviding
 	private let healthCertificateService: HealthCertificateServiceServable
 	private var subscriptions = Set<AnyCancellable>()
-	private var submissionErrors = [HealthCertificateReissuanceError]()
 	private (set) var filteredAccompanyingCertificates = [HealthCertificate]()
 
 	private func submit(
 		with resource: DCCReissuanceResource,
 		requestCertificates: [String],
-		dispatchGroup: DispatchGroup,
 		completion: @escaping (Result<Void, HealthCertificateReissuanceError>) -> Void
 	) {
 		self.restServiceProvider.load(resource) { [weak self] result in
@@ -279,17 +290,17 @@ final class HealthCertificateReissuanceConsentViewModel {
 						markAsNew: true,
 						completedNotificationRegistration: { }
 					)
+					completion(.success(()))
 					Log.debug("Certificate reissuance was successful.", log: .vaccination)
 				} catch {
-					self.submissionErrors.append(.replaceHealthCertificateError(error))
+					completion(.failure(.replaceHealthCertificateError(error)))
 					Log.error("Replacing the certificate with a reissued certificate failed in service", log: .vaccination, error: error)
 				}
 				
 			case .failure(let error):
-				self.submissionErrors.append(.restServiceError(error))
+				completion(.failure(.restServiceError(error)))
 				Log.error("Reissuance request failed", log: .vaccination, error: error)
 			}
-			dispatchGroup.leave()
 		}
 	}
 	
