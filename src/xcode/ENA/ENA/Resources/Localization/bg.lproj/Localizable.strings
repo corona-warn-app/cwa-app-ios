@@ -3203,7 +3203,7 @@
 "HealthCertificate_Validation_TechnicalFailed_expirationDate" = "Валидно до %@";
 
 /* Health Certificate Validity State */
-"HealthCertificate_ValidityState_ExpiringSoon" = "изтича на %@ в %@";
+"HealthCertificate_ValidityState_ExpiringSoon" = "Сертификатът изтича на %@ в %@";
 
 "HealthCertificate_ValidityState_ExpiringSoon_description" = "Ако това е сертификатът, който използвате в момента, погрижете се да бъде подновен навреме. Можете да подновявате подобни сертификати директно в приложението, ако изтичат в следващите 28 дни. В такъв случай в прегледа на сертификата ви се показва опцията “Подновяване на сертификата”, под плочка “Доказателство за статус”.";
 
