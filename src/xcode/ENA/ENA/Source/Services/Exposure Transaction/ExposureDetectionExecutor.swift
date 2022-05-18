@@ -65,16 +65,30 @@ final class ExposureDetectionExecutor: ExposureDetectionDelegate {
 		writtenPackages: WrittenPackages,
 		completion: @escaping (Result<[ENExposureWindow], Error>) -> Void
 	) -> Progress {
-		let progress = Progress(totalUnitCount: Int64.max)
-
+		
+		// Total unit count is 2 because we have 2 child progresses which both have a unit count of 1.
+		// To get a finished state for this progress after the child progress is finished or canceled, totalUnitCount has to be 2.
+		let progress = Progress(totalUnitCount: 2)
+		
 		let detectExposuresProgress = exposureDetector.detectExposures(
 			configuration: configuration,
 			diagnosisKeyURLs: writtenPackages.urls
 		) { [weak self] summary, error in
 			guard let self = self else { return }
-
+			
+			// Usually this would not be needed. The count would be implicitly added after the sub progress finished.
+			// But unfortunately the ENF does not take care of the unit count of its progress.
+			// To allow our root progress to behave gracefully and reach the finish state we need to set it manually.
+			progress.completedUnitCount += 1
+			
 			if let summary = summary {
 				let exposureWindowsProgress = self.exposureDetector.getExposureWindows(summary: summary) { exposureWindows, error in
+					
+					// Usually this would not be needed. The count would be implicitly added after the sub progress finished.
+					// But unfortunately the ENF does not take care of the unit count of its progress.
+					// To allow our root progress to behave gracefully and reach the finish state we need to set it manually.
+					progress.completedUnitCount += 1
+					
 					if let exposureWindows = exposureWindows {
 						completion(.success(exposureWindows))
 					} else if let error = error {
@@ -84,8 +98,11 @@ final class ExposureDetectionExecutor: ExposureDetectionDelegate {
 				}
 				
 				// Prevent adding a child which is perhaps already finished or cancelled because this would crash the app.
-				guard !exposureWindowsProgress.isFinished, !exposureWindowsProgress.isCancelled else {
-					Log.info("Not adding a child due to already finished or cancelled exposureWindowsProgress", log: .riskDetection)
+				guard !exposureWindowsProgress.isFinished,
+					  !exposureWindowsProgress.isCancelled,
+					  !progress.isFinished,
+					  !progress.isCancelled else {
+					Log.info("Not adding a child due to already finished or cancelled exposureWindowsProgress or progress", log: .riskDetection)
 					completion(.failure(ExposureDetectionError.isAlreadyRunning))
 					return
 				}
@@ -97,16 +114,19 @@ final class ExposureDetectionExecutor: ExposureDetectionDelegate {
 				completion(.failure(error))
 			}
 		}
-		
+
 		// Prevent adding a child which is perhaps already finished or cancelled because this would crash the app.
-		guard !detectExposuresProgress.isFinished, !detectExposuresProgress.isCancelled else {
-			Log.info("Not adding a child due to already finished or cancelled detectExposuresProgress", log: .riskDetection)
+		guard !detectExposuresProgress.isFinished,
+			  !detectExposuresProgress.isCancelled,
+			  !progress.isFinished,
+			  !progress.isCancelled else {
+			Log.info("Not adding a child due to already finished or cancelled detectExposuresProgress or progress", log: .riskDetection)
 			return progress
 		}
-
+		
 		Log.info("1st child added to progress", log: .riskDetection)
 		progress.addChild(detectExposuresProgress, withPendingUnitCount: 1)
-
+		
 		return progress
 	}
 
