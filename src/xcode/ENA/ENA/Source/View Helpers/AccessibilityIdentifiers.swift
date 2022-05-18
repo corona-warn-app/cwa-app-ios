@@ -822,6 +822,7 @@ enum AccessibilityIdentifiers {
 			static let cell = "AppStrings.HealthCertificate.Reissuance.cell"
 			static let successTitle = "AppStrings.HealthCertificate.Reissuance.successTitle"
 			static let accompanyingCertificatesTitle = "AppStrings.HealthCertificate.Reissuance.accompanyingCertificatesTitle"
+			static let accompanyingCertificatesCloseButton = "AppStrings.HealthCertificate.Reissuance.accompanyingCertificatesCloseButton"
 		}
 	}
 	
