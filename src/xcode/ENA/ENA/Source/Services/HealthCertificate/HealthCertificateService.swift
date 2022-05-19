@@ -577,7 +577,25 @@ class HealthCertificateService: HealthCertificateServiceServable {
 						person: person
 					)
 				}
-				self.updateValidityStatesAndNotifications(for: certificateTuples, completion: completion ?? {})
+				self.updateValidityStatesAndNotifications(
+					for: certificateTuples,
+					completion: { [weak self] in
+						guard let self = self else { return }
+						
+						let dispatchGroup = DispatchGroup()
+						
+						for tuple in certificateTuples {
+							dispatchGroup.enter()
+							self.updateDCCWalletInfo(for: tuple.person) {
+								dispatchGroup.leave()
+							}
+						}
+						
+						dispatchGroup.notify(queue: .main, execute: {
+							completion?()
+						})
+					}
+				)
 			}
 		)
 	}
