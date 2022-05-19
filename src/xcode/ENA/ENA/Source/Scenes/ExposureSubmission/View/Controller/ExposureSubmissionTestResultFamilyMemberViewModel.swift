@@ -234,6 +234,7 @@ extension ExposureSubmissionTestResultFamilyMemberViewModel {
 		}
 
 		return [
+			.section(cells: [.title1(text: title)]),
 			.section(
 				header: .identifier(
 					ExposureSubmissionTestResultViewController.HeaderReuseIdentifier.pcrTestResult,
@@ -332,6 +333,7 @@ extension ExposureSubmissionTestResultFamilyMemberViewModel {
 		])
 
 		return [
+			.section(cells: [.title1(text: title)]),
 			.section(
 				header: .identifier(
 					ExposureSubmissionTestResultViewController.HeaderReuseIdentifier.pcrTestResult,
@@ -458,6 +460,7 @@ extension ExposureSubmissionTestResultFamilyMemberViewModel {
 		])
 		
 		return [
+			.section(cells: [.title1(text: title)]),
 			.section(
 				header: header,
 				separators: .none,
@@ -538,6 +541,7 @@ extension ExposureSubmissionTestResultFamilyMemberViewModel {
 		])
 
 		return [
+			.section(cells: [.title1(text: title)]),
 			.section(
 				header: .identifier(
 					ExposureSubmissionTestResultViewController.HeaderReuseIdentifier.antigenTestResult,
@@ -595,6 +599,7 @@ extension ExposureSubmissionTestResultFamilyMemberViewModel {
 		])
 
 		return [
+			.section(cells: [.title1(text: title)]),
 			.section(
 				header: .identifier(
 					ExposureSubmissionTestResultViewController.HeaderReuseIdentifier.pcrTestResult,

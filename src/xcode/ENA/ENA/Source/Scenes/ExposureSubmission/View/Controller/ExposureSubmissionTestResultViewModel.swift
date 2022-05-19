@@ -345,6 +345,7 @@ extension ExposureSubmissionTestResultViewModel {
 		}
 		
 		return [
+			.section(cells: [.title1(text: title)]),
 			.section(
 				header: .identifier(
 					ExposureSubmissionTestResultViewController.HeaderReuseIdentifier.pcrTestResult,
@@ -398,6 +399,7 @@ extension ExposureSubmissionTestResultViewModel {
 	/// has NOT GIVEN submission consent to share the positive test result with others
 	private var positiveTestResultSectionsWithoutSubmissionConsent: [DynamicSection] {
 		[
+			.section(cells: [.title1(text: title)]),
 			.section(
 				header: .identifier(
 					ExposureSubmissionTestResultViewController.HeaderReuseIdentifier.pcrTestResult,
@@ -445,6 +447,7 @@ extension ExposureSubmissionTestResultViewModel {
 	/// has GIVEN submission consent to share the positive test result with others
 	private var positiveTestResultSectionsWithSubmissionConsent: [DynamicSection] {
 		[
+			.section(cells: [.title1(text: title)]),
 			.section(
 				header: .identifier(
 					ExposureSubmissionTestResultViewController.HeaderReuseIdentifier.pcrTestResult,
@@ -555,6 +558,7 @@ extension ExposureSubmissionTestResultViewModel {
 		])
 
 		return [
+			.section(cells: [.title1(text: title)]),
 			.section(
 				header: .identifier(
 					ExposureSubmissionTestResultViewController.HeaderReuseIdentifier.pcrTestResult,
@@ -689,6 +693,7 @@ extension ExposureSubmissionTestResultViewModel {
 		])
 		
 		return [
+			.section(cells: [.title1(text: title)]),
 			.section(
 				header: header,
 				separators: .none,
@@ -778,6 +783,7 @@ extension ExposureSubmissionTestResultViewModel {
 		])
 
 		return [
+			.section(cells: [.title1(text: title)]),
 			.section(
 				header: .identifier(
 					ExposureSubmissionTestResultViewController.HeaderReuseIdentifier.antigenTestResult,
@@ -865,6 +871,7 @@ extension ExposureSubmissionTestResultViewModel {
 		])
 
 		return [
+			.section(cells: [.title1(text: title)]),
 			.section(
 				header: .identifier(
 					ExposureSubmissionTestResultViewController.HeaderReuseIdentifier.pcrTestResult,
@@ -929,6 +936,7 @@ extension ExposureSubmissionTestResultViewModel {
 		])
 
 		return [
+			.section(cells: [.title1(text: title)]),
 			.section(
 				header: .identifier(
 					ExposureSubmissionTestResultViewController.HeaderReuseIdentifier.pcrTestResult,
