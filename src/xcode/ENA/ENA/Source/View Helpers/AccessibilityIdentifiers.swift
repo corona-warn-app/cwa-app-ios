@@ -5,7 +5,7 @@
 // swiftlint:disable file_length
 // swiftlint:disable:next type_body_length
 enum AccessibilityIdentifiers {
-	
+
 	enum ExposureNotificationSetting {
 		static let descriptionTitleInactive = "AppStrings.ExposureNotificationSetting.descriptionTitleInactive"
 		static let descriptionTitle = "AppStrings.ExposureNotificationSetting.descriptionTitle"
@@ -517,6 +517,15 @@ enum AccessibilityIdentifiers {
 	
 	enum Reset {
 		static let imageDescription = "AppString.Reset.imageDescription"
+		enum Footer {
+			static let confirm = "AppStrings.Reset.resetButton"
+			static let cancel = "AppStrings.Reset.discardButton"
+		}
+		enum AlertActions {
+			static let confirm = "AppStrings.Reset.confirmDialogConfirm"
+			static let cancel = "AppStrings.Reset.confirmDialogCancel"
+		}
+
 	}
 	
 	enum AccessibilityLabel {
