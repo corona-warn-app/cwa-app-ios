@@ -315,6 +315,7 @@ enum AccessibilityIdentifiers {
 	}
 	
 	enum ExposureSubmissionResult {
+		static let testedPersonName = "AppStrings.ExposureSubmissionResult.testedPersonName"
 		static let procedure = "AppStrings.ExposureSubmissionResult.procedure"
 		static let furtherInfos_Title = "AppStrings.ExposureSubmissionResult.furtherInfos_Title"
 		static let warnOthersConsentGivenCell = "AppStrings.ExposureSubmissionResult.warnOthersConsentGiven"
