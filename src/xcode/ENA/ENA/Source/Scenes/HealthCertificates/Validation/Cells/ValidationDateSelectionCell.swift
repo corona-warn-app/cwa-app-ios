@@ -117,6 +117,7 @@ final class ValidationDateSelectionCell: UITableViewCell {
 		datePicker.translatesAutoresizingMaskIntoConstraints = false
 		datePicker.datePickerMode = .dateAndTime
 		datePicker.tintColor = .enaColor(for: .tint)
+		datePicker.minimumDate = Date()
 
 		if #available(iOS 14.0, *) {
 			datePicker.preferredDatePickerStyle = .inline
