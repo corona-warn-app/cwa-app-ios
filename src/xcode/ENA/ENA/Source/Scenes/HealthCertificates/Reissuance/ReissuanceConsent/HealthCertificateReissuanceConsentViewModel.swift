@@ -11,7 +11,6 @@ final class HealthCertificateReissuanceConsentViewModel {
 
 	init(
 		cclService: CCLServable,
-		certificates: [DCCReissuanceCertificateContainer],
 		certifiedPerson: HealthCertifiedPerson,
 		appConfigProvider: AppConfigurationProviding,
 		restServiceProvider: RestServiceProviding,
@@ -26,13 +25,23 @@ final class HealthCertificateReissuanceConsentViewModel {
 		self.healthCertificateService = healthCertificateService
 		self.onDisclaimerButtonTap = onDisclaimerButtonTap
 		self.onAccompanyingCertificatesButtonTap = onAccompanyingCertificatesButtonTap
-		self.reissuanceCertificates = certificates.compactMap({
-			certifiedPerson.healthCertificate(for: $0.certificateToReissue.certificateRef)
-		})
-		self.filteredAccompanyingCertificates = filterAccompanyingCertificates(
-			certificates: certificates,
-			certifiedPerson: certifiedPerson
-		)
+		
+		certifiedPerson.$dccWalletInfo
+		.sink { [weak self] wallet in
+			guard let self = self else { return }
+			guard let certificates = wallet?.certificateReissuance?.certificates else {
+				Log.error("CertificateReissuance not found - stop here")
+				return
+			}
+			self.filteredAccompanyingCertificates = self.filterAccompanyingCertificates(
+				certificates: certificates,
+				certifiedPerson: certifiedPerson
+			)
+			self.reissuanceCertificates = certificates.compactMap({
+				certifiedPerson.healthCertificate(for: $0.certificateToReissue.certificateRef)
+			})
+		}
+		.store(in: &subscriptions)
 	}
 
 	// MARK: - Internal
@@ -254,11 +263,12 @@ final class HealthCertificateReissuanceConsentViewModel {
 			}
 			.store(in: &subscriptions)
 	}
+	
+	@OpenCombine.Published private(set) var reissuanceCertificates = [HealthCertificate]()
 
 	// MARK: - Private
 
 	private let cclService: CCLServable
-	private let reissuanceCertificates: [HealthCertificate]
 	private let certifiedPerson: HealthCertifiedPerson
 	private let onDisclaimerButtonTap: () -> Void
 	private let onAccompanyingCertificatesButtonTap: ([HealthCertificate]) -> Void
