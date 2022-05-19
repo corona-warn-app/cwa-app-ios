@@ -67,6 +67,8 @@ enum AccessibilityIdentifiers {
 			static let loadingPCRButton = "AccessibilityIdentifiers.Home.loadingPCRButton"
 			static let loadingAntigenButton = "AccessibilityIdentifiers.Home.loadingAntigenButton"
 			static let unconfiguredButton = "AccessibilityIdentifiers.Home.unconfiguredButton"
+
+			static let titleLabel = "AccessibilityIdentifiers.Home.titleLabel"
 			static let subtitleLabel = "AccessibilityIdentifiers.Home.subtitleLabel"
 			static let negativeDiagnosisCaptionLabel = "AccessibilityIdentifiers.Home.negativeDiagnosisCaptionLabel"
 			static let negativeDiagnosisVirusLabel = "AccessibilityIdentifiers.Home.negativeDiagnosisVirusLabel"
