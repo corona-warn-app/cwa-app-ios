@@ -27,21 +27,21 @@ final class HealthCertificateReissuanceConsentViewModel {
 		self.onAccompanyingCertificatesButtonTap = onAccompanyingCertificatesButtonTap
 		
 		certifiedPerson.$dccWalletInfo
-		.sink { [weak self] wallet in
-			guard let self = self else { return }
-			guard let certificates = wallet?.certificateReissuance?.certificates else {
-				Log.error("CertificateReissuance not found - stop here")
-				return
+			.sink { [weak self] wallet in
+				guard let self = self else { return }
+				guard let certificates = wallet?.certificateReissuance?.certificates else {
+					Log.error("CertificateReissuance not found - stop here")
+					return
+				}
+				self.filteredAccompanyingCertificates = self.filterAccompanyingCertificates(
+					certificates: certificates,
+					certifiedPerson: certifiedPerson
+				)
+				self.reissuanceCertificates = certificates.compactMap({
+					certifiedPerson.healthCertificate(for: $0.certificateToReissue.certificateRef)
+				})
 			}
-			self.filteredAccompanyingCertificates = self.filterAccompanyingCertificates(
-				certificates: certificates,
-				certifiedPerson: certifiedPerson
-			)
-			self.reissuanceCertificates = certificates.compactMap({
-				certifiedPerson.healthCertificate(for: $0.certificateToReissue.certificateRef)
-			})
-		}
-		.store(in: &subscriptions)
+			.store(in: &subscriptions)
 	}
 
 	// MARK: - Internal
