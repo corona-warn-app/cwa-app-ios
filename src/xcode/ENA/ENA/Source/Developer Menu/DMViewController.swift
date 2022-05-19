@@ -270,12 +270,13 @@ final class DMViewController: UITableViewController, RequiresAppDependencies {
 				self.store.enfRiskCalculationResult = nil
 				self.store.checkinRiskCalculationResult = nil
 				
-				// Reset packages store
+				// Reset packages store.
 				self.downloadedPackagesStore.reset()
 				self.downloadedPackagesStore.open()
 				
-				// Reset event store
-				self.eventStore.reset()
+				// Reset downloaded data from event store.
+				self.eventStore.deleteAllTraceWarningPackageMetadata()
+				self.eventStore.deleteAllTraceTimeIntervalMatches()
 				
 				self.riskProvider.requestRisk(userInitiated: true)
 			}

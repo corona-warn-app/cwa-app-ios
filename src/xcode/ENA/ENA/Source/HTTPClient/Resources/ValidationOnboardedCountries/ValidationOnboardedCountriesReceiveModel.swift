@@ -16,9 +16,9 @@ struct ValidationOnboardedCountriesReceiveModel: CBORDecodable {
 			let countries = countryCodes.compactMap {
 				Country(withCountryCodeFallback: $0)
 			}
-			return Result.success(ValidationOnboardedCountriesReceiveModel(countries: countries))
+			return .success(ValidationOnboardedCountriesReceiveModel(countries: countries))
 		case .failure(let error):
-			return Result.failure(.CBOR_DECODING_ONBOARDED_COUNTRIES(error))
+			return .failure(.CBOR_DECODING_ONBOARDED_COUNTRIES(error))
 		}
 	}
 	
