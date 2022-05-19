@@ -23,7 +23,7 @@ class SelectTraceLocationTypeCell: UITableViewCell, ReuseIdentifierProviding {
 	func configure(cellModel: TraceLocationType) {
 		titleLabel.text = cellModel.title
 		subtitleLabel.text = cellModel.subtitle
-		accessibilityIdentifier = cellModel.accessibilityIdentifier
+
 		subtitleLabel.isHidden = cellModel.subtitle == nil
 	}
 

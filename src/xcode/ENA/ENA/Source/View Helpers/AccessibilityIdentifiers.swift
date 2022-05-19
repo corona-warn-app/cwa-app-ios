@@ -652,22 +652,6 @@ enum AccessibilityIdentifiers {
 		
 		static let agreeAndSendButton = "AccessibilityIdentifiers.ErrorReport.agreeAndSendButton"
 	}
-
-	enum TraceLocations {
-		static let unspecified = "AppStrings.TraceLocations.unspecified.title"
-		static let permanentOther = "AppStrings.TraceLocations.permanent.title.other"
-		static let temporaryOther = "AppStrings.TraceLocations.temporary.title.other"
-		static let permanentRetail = "AppStrings.TraceLocations.permanent.title.retail"
-		static let permanentFoodService = "AppStrings.TraceLocations.permanent.title.foodService"
-		static let permanentCraft = "AppStrings.TraceLocations.permanent.title.craft"
-		static let permanentWorkplace = "AppStrings.TraceLocations.permanent.title.workplace"
-		static let permanentEducationalInstitution = "AppStrings.TraceLocations.permanent.title.educationalInstitution"
-		static let permanentPublicBuilding = "AppStrings.TraceLocations.permanent.title.publicBuilding"
-		static let temporaryCulturalEvent = "AppStrings.TraceLocations.temporary.title.culturalEvent"
-		static let temporaryClubActivity = "AppStrings.TraceLocations.temporary.title.clubActivity"
-		static let temporaryPrivateEvent = "AppStrings.TraceLocations.temporary.title.privateEvent"
-		static let temporaryWorshipService = "AppStrings.TraceLocations.temporary.title.worshipService"
-	}
 	
 	enum TraceLocation {
 		static let imageDescription = "AppStrings.TraceLocations.imageDescription"

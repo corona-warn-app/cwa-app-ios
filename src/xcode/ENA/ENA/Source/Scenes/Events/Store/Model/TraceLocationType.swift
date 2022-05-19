@@ -24,37 +24,6 @@ enum TraceLocationType: Int, Codable {
 	case locationTypeTemporaryPrivateEvent = 11
 	case locationTypeTemporaryWorshipService = 12
 
-	var accessibilityIdentifier: String {
-		switch self {
-		case .locationTypeUnspecified:
-			return AccessibilityIdentifiers.TraceLocations.unspecified
-		case .locationTypePermanentOther:
-			return AccessibilityIdentifiers.TraceLocations.permanentOther
-		case .locationTypeTemporaryOther:
-			return AccessibilityIdentifiers.TraceLocations.temporaryOther
-		case .locationTypePermanentRetail:
-			return AccessibilityIdentifiers.TraceLocations.permanentRetail
-		case .locationTypePermanentFoodService:
-			return AccessibilityIdentifiers.TraceLocations.permanentFoodService
-		case .locationTypePermanentCraft:
-			return AccessibilityIdentifiers.TraceLocations.permanentCraft
-		case .locationTypePermanentWorkplace:
-			return AccessibilityIdentifiers.TraceLocations.permanentWorkplace
-		case .locationTypePermanentEducationalInstitution:
-			return AccessibilityIdentifiers.TraceLocations.permanentEducationalInstitution
-		case .locationTypePermanentPublicBuilding:
-			return AccessibilityIdentifiers.TraceLocations.permanentPublicBuilding
-		case .locationTypeTemporaryCulturalEvent:
-			return AccessibilityIdentifiers.TraceLocations.temporaryCulturalEvent
-		case .locationTypeTemporaryClubActivity:
-			return AccessibilityIdentifiers.TraceLocations.temporaryClubActivity
-		case .locationTypeTemporaryPrivateEvent:
-			return AccessibilityIdentifiers.TraceLocations.temporaryPrivateEvent
-		case .locationTypeTemporaryWorshipService:
-			return AccessibilityIdentifiers.TraceLocations.temporaryWorshipService
-		}
-	}
-
 	var title: String {
 		switch self {
 		case .locationTypeUnspecified:
