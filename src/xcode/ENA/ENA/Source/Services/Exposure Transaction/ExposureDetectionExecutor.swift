@@ -103,7 +103,6 @@ final class ExposureDetectionExecutor: ExposureDetectionDelegate {
 					  !progress.isFinished,
 					  !progress.isCancelled else {
 					Log.info("Not adding a child due to already finished or cancelled exposureWindowsProgress or progress", log: .riskDetection)
-					completion(.failure(ExposureDetectionError.isAlreadyRunning))
 					return
 				}
 				
