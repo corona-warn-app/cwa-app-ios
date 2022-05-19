@@ -34,6 +34,12 @@ class RestServiceProvider: RestServiceProviding {
 		case .default:
 			standardRestService.load(resource, completion)
 		case .caching:
+			#if !RELEASE
+			if isUITesting {
+				standardRestService.load(resource, completion)
+				return
+			}
+			#endif
 			cachedRestService.load(resource, completion)
 		case .wifiOnly:
 			wifiOnlyRestService.load(resource, completion)
