@@ -51,7 +51,6 @@ class HealthCertificateReissuanceConsentViewModelTests: CWATestCase {
 		let certificate = HealthCertificate.mock()
 		let viewModel = HealthCertificateReissuanceConsentViewModel(
 			cclService: FakeCCLService(),
-			certificates: [.fake()],
 			certifiedPerson: HealthCertifiedPerson(
 				healthCertificates: [certificate],
 				isPreferredPerson: true,
@@ -91,7 +90,6 @@ class HealthCertificateReissuanceConsentViewModelTests: CWATestCase {
 		let certificate = HealthCertificate.mock()
 		let viewModel = HealthCertificateReissuanceConsentViewModel(
 			cclService: FakeCCLService(),
-			certificates: [DCCReissuanceCertificateContainer.fake()],
 			certifiedPerson: HealthCertifiedPerson(
 				healthCertificates: [certificate],
 				isPreferredPerson: true,
@@ -132,7 +130,6 @@ class HealthCertificateReissuanceConsentViewModelTests: CWATestCase {
 		let certificate = HealthCertificate.mock()
 		let viewModel = HealthCertificateReissuanceConsentViewModel(
 			cclService: FakeCCLService(),
-			certificates: [DCCReissuanceCertificateContainer.fake()],
 			certifiedPerson: HealthCertifiedPerson(
 				healthCertificates: [certificate],
 				isPreferredPerson: true,
@@ -173,7 +170,6 @@ class HealthCertificateReissuanceConsentViewModelTests: CWATestCase {
 		let certificate = HealthCertificate.mock()
 		let viewModel = HealthCertificateReissuanceConsentViewModel(
 			cclService: FakeCCLService(),
-			certificates: [DCCReissuanceCertificateContainer.fake()],
 			certifiedPerson: HealthCertifiedPerson(
 				healthCertificates: [certificate],
 				isPreferredPerson: true,
@@ -255,7 +251,6 @@ class HealthCertificateReissuanceConsentViewModelTests: CWATestCase {
 		let appConfigMock = CachedAppConfigurationMock()
 		let viewModel = HealthCertificateReissuanceConsentViewModel(
 			cclService: FakeCCLService(),
-			certificates: [DCCReissuanceCertificateContainer.fake()],
 			certifiedPerson: person,
 			appConfigProvider: appConfigMock,
 			restServiceProvider: restServiceProvider,
@@ -377,7 +372,6 @@ class HealthCertificateReissuanceConsentViewModelTests: CWATestCase {
 		)
 		let viewModel = HealthCertificateReissuanceConsentViewModel(
 			cclService: FakeCCLService(),
-			certificates: [firstCertificate, secondCertificate],
 			certifiedPerson: person,
 			appConfigProvider: CachedAppConfigurationMock(),
 			restServiceProvider: RestServiceProviderStub(),
@@ -456,7 +450,6 @@ class HealthCertificateReissuanceConsentViewModelTests: CWATestCase {
 		let appConfigMock = CachedAppConfigurationMock()
 		let viewModel = HealthCertificateReissuanceConsentViewModel(
 			cclService: FakeCCLService(),
-			certificates: [DCCReissuanceCertificateContainer.fake()],
 			certifiedPerson: person,
 			appConfigProvider: appConfigMock,
 			restServiceProvider: restServiceProvider,
@@ -528,7 +521,6 @@ class HealthCertificateReissuanceConsentViewModelTests: CWATestCase {
 		let appConfigMock = CachedAppConfigurationMock()
 		let viewModel = HealthCertificateReissuanceConsentViewModel(
 			cclService: FakeCCLService(),
-			certificates: [DCCReissuanceCertificateContainer.fake()],
 			certifiedPerson: person,
 			appConfigProvider: appConfigMock,
 			restServiceProvider: restServiceProvider,
@@ -580,7 +572,6 @@ class HealthCertificateReissuanceConsentViewModelTests: CWATestCase {
 		let appConfigMock = CachedAppConfigurationMock()
 		let viewModel = HealthCertificateReissuanceConsentViewModel(
 			cclService: FakeCCLService(),
-			certificates: [DCCReissuanceCertificateContainer.fake()],
 			certifiedPerson: person,
 			appConfigProvider: appConfigMock,
 			restServiceProvider: restServiceProvider,
