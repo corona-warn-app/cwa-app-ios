@@ -5,11 +5,12 @@
 import XCTest
 @testable import ENA
 import HealthCertificateToolkit
+import OpenCombine
 
 // swiftlint:disable type_body_length
 // swiftlint:disable file_length
 class HealthCertificateReissuanceConsentViewModelTests: CWATestCase {
-
+	
 	let listTitleText = DCCUIText(
 		type: "string",
 		quantity: nil,
@@ -355,6 +356,16 @@ class HealthCertificateReissuanceConsentViewModelTests: CWATestCase {
 			action: "Replace"
 		)
 		
+		var subscriptions = [AnyCancellable]()
+		let wallet = DCCWalletInfo.fake(
+			certificateReissuance: .fake(
+				reissuanceDivision: .fake(),
+				certificateToReissue: .fake(),
+				accompanyingCertificates: [],
+				certificates: [firstCertificate, secondCertificate]
+			)
+		)
+		
 		let firstHealthCertificate = try HealthCertificate(base45: first)
 		let secondHealthCertificate = try HealthCertificate(base45: second)
 		let thirdHealthCertificate = try HealthCertificate(base45: third)
@@ -368,17 +379,27 @@ class HealthCertificateReissuanceConsentViewModelTests: CWATestCase {
 				thirdHealthCertificate,
 				forthHealthCertificate,
 				fifthHealthCertificate
-			]
+			],
+			dccWalletInfo: wallet
 		)
 		let viewModel = HealthCertificateReissuanceConsentViewModel(
 			cclService: FakeCCLService(),
 			certifiedPerson: person,
 			appConfigProvider: CachedAppConfigurationMock(),
 			restServiceProvider: RestServiceProviderStub(),
-			healthCertificateService: HealthCertificateServiceSpy(),
+			healthCertificateService: HealthCertificateServiceFake(),
 			onDisclaimerButtonTap: { },
 			onAccompanyingCertificatesButtonTap: { _ in }
 		)
+		let submitExpectation = expectation(description: "Submit completion is called.")
+		person.$dccWalletInfo
+			.sink { _ in
+				submitExpectation.fulfill()
+			}
+			.store(in: &subscriptions)
+		
+		
+		waitForExpectations(timeout: .medium)
 		XCTAssertEqual(viewModel.filteredAccompanyingCertificates.map({ $0.uniqueCertificateIdentifier }), ["4", "3"])
 	}
 
