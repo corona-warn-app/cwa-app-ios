@@ -3,6 +3,7 @@
 //
 
 import UIKit
+import OpenCombine
 
 class HealthCertificateReissuanceConsentViewController: DynamicTableViewController, DismissHandling, FooterViewHandling {
 
@@ -36,6 +37,16 @@ class HealthCertificateReissuanceConsentViewController: DynamicTableViewControll
 		self.dismiss = dismiss
 		
 		super.init(nibName: nil, bundle: nil)
+		
+		viewModel.$reissuanceCertificates
+			.receive(on: DispatchQueue.main.ocombine)
+			.sink { [weak self] _ in
+				guard let self = self else { return }
+				
+				self.tableView.reloadData()
+			}
+			.store(in: &subscriptions)
+
 	}
 
 	@available(*, unavailable)
@@ -101,6 +112,7 @@ class HealthCertificateReissuanceConsentViewController: DynamicTableViewControll
 	private let onReissuanceSuccess: () -> Void
 	private let dismiss: () -> Void
 	private let viewModel: HealthCertificateReissuanceConsentViewModel
+	private var subscriptions = Set<AnyCancellable>()
 
 	private func setupView() {
 		view.backgroundColor = .enaColor(for: .background)
