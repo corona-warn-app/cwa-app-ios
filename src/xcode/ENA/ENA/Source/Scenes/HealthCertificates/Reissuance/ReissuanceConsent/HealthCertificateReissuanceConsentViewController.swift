@@ -43,6 +43,7 @@ class HealthCertificateReissuanceConsentViewController: DynamicTableViewControll
 			.sink { [weak self] _ in
 				guard let self = self else { return }
 				
+				self.dynamicTableViewModel = self.viewModel.dynamicTableViewModel
 				self.tableView.reloadData()
 			}
 			.store(in: &subscriptions)
