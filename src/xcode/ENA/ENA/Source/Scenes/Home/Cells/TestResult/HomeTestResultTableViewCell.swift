@@ -147,6 +147,14 @@ final class HomeTestResultTableViewCell: UITableViewCell {
 		negativeDiagnosisVirusLabel.text = AppStrings.Home.TestResult.Negative.title
 		negativeDiagnosisLabel.text = AppStrings.Home.TestResult.Negative.titleNegative
 
+		titleLabel.accessibilityIdentifier = AccessibilityIdentifiers.Home.TestResultCell.titleLabel
+		subtitleLabel.accessibilityIdentifier = AccessibilityIdentifiers.Home.TestResultCell.subtitleLabel
+		negativeDiagnosisCaptionLabel.accessibilityIdentifier = AccessibilityIdentifiers.Home.TestResultCell.negativeDiagnosisCaptionLabel
+		negativeDiagnosisVirusLabel.accessibilityIdentifier = AccessibilityIdentifiers.Home.TestResultCell.negativeDiagnosisVirusLabel
+		negativeDiagnosisLabel.accessibilityIdentifier = AccessibilityIdentifiers.Home.TestResultCell.negativeDiagnosisLabel
+		descriptionLabel.accessibilityIdentifier = AccessibilityIdentifiers.Home.TestResultCell.descriptionLabel
+		footnoteLabel.accessibilityIdentifier = AccessibilityIdentifiers.Home.TestResultCell.footnoteLabel
+
 		accessibilityTraits = .button
 	}
 
