@@ -11,7 +11,6 @@ final class HealthCertificateReissuanceConsentViewModel {
 
 	init(
 		cclService: CCLServable,
-		certificates: [DCCReissuanceCertificateContainer],
 		certifiedPerson: HealthCertifiedPerson,
 		appConfigProvider: AppConfigurationProviding,
 		restServiceProvider: RestServiceProviding,
@@ -26,13 +25,23 @@ final class HealthCertificateReissuanceConsentViewModel {
 		self.healthCertificateService = healthCertificateService
 		self.onDisclaimerButtonTap = onDisclaimerButtonTap
 		self.onAccompanyingCertificatesButtonTap = onAccompanyingCertificatesButtonTap
-		self.reissuanceCertificates = certificates.compactMap({
-			certifiedPerson.healthCertificate(for: $0.certificateToReissue.certificateRef)
-		})
-		self.filteredAccompanyingCertificates = filterAccompanyingCertificates(
-			certificates: certificates,
-			certifiedPerson: certifiedPerson
-		)
+		
+		certifiedPerson.$dccWalletInfo
+			.sink { [weak self] wallet in
+				guard let self = self else { return }
+				guard let certificates = wallet?.certificateReissuance?.certificates else {
+					Log.error("CertificateReissuance not found - stop here")
+					return
+				}
+				self.filteredAccompanyingCertificates = self.filterAccompanyingCertificates(
+					certificates: certificates,
+					certifiedPerson: certifiedPerson
+				)
+				self.reissuanceCertificates = certificates.compactMap({
+					certifiedPerson.healthCertificate(for: $0.certificateToReissue.certificateRef)
+				})
+			}
+			.store(in: &subscriptions)
 	}
 
 	// MARK: - Internal
@@ -158,7 +167,8 @@ final class HealthCertificateReissuanceConsentViewModel {
 	func markCertificateReissuanceAsSeen() {
 		certifiedPerson.isNewCertificateReissuance = false
 	}
-
+	
+	// swiftlint:disable cyclomatic_complexity
 	func submit(completion: @escaping (Result<Void, HealthCertificateReissuanceError>) -> Void) {
 		Log.info("Submit certificate for reissuance...", log: .vaccination)
 
@@ -204,8 +214,16 @@ final class HealthCertificateReissuanceConsentViewModel {
 					currentCertificates = []
 					Log.error("Reissuance request failed due to certificates being nil", log: .vaccination)
 				}
+				/*
+				 We need a dispatchGroup since we iterate async over an array of
+				 certificates and the completion result will trigger a UI change "push a new screen"
+				 if we don't do this a screen will be pushed multiple times with each closure call
+				*/
+				let dispatchGroup = DispatchGroup()
+				var submissionErrors = [HealthCertificateReissuanceError]()
 				
 				for certificate in currentCertificates {
+					dispatchGroup.enter()
 					guard let certificateToReissue = certificate.certificateToReissue.certificateRef.barcodeData else {
 						completion(.failure(.certificateToReissueMissing))
 						Log.error("Certificate reissuance failed: certificateToReissue.barcodeData is nil", log: .vaccination)
@@ -223,17 +241,34 @@ final class HealthCertificateReissuanceConsentViewModel {
 					self.submit(
 						with: resource,
 						requestCertificates: requestCertificates,
-						completion: completion
+						completion: { result in
+							switch result {
+							case.success:
+								break
+							case .failure(let error):
+								submissionErrors.append(error)
+							}
+							dispatchGroup.leave()
+						}
 					)
 				}
+				dispatchGroup.notify(queue: .main) {
+					if let error = submissionErrors.first {
+						completion(.failure(error))
+					} else {
+						completion(.success(()))
+					}
+				}
+
 			}
 			.store(in: &subscriptions)
 	}
+	
+	@OpenCombine.Published private(set) var reissuanceCertificates = [HealthCertificate]()
 
 	// MARK: - Private
 
 	private let cclService: CCLServable
-	private let reissuanceCertificates: [HealthCertificate]
 	private let certifiedPerson: HealthCertifiedPerson
 	private let onDisclaimerButtonTap: () -> Void
 	private let onAccompanyingCertificatesButtonTap: ([HealthCertificate]) -> Void
@@ -265,10 +300,8 @@ final class HealthCertificateReissuanceConsentViewModel {
 						markAsNew: true,
 						completedNotificationRegistration: { }
 					)
-					
 					completion(.success(()))
-					
-					Log.error("Certificate reissuance was successful.", log: .vaccination)
+					Log.debug("Certificate reissuance was successful.", log: .vaccination)
 				} catch {
 					completion(.failure(.replaceHealthCertificateError(error)))
 					Log.error("Replacing the certificate with a reissued certificate failed in service", log: .vaccination, error: error)
