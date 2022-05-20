@@ -166,7 +166,6 @@ final class HealthCertifiedPersonCoordinator {
 			restServiceProvider: restServiceProvider,
 			appConfigProvider: appConfigProvider,
 			healthCertifiedPerson: person,
-			certificateReissuance: dccCertificateReissuance,
 			cclService: cclService
 		)
 
