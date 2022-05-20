@@ -145,6 +145,17 @@ class HealthCertificateService: HealthCertificateServiceServable {
 			}
 			#endif
 
+			let dispatchGroup = DispatchGroup()
+
+			if !self.store.expiringSoonAndExpiredNotificationsRemoved {
+				dispatchGroup.enter()
+				self.healthCertificateNotificationService
+					.removeAllExpiringSoonAndExpiredNotifications {
+						self.store.expiringSoonAndExpiredNotificationsRemoved = true
+						dispatchGroup.leave()
+					}
+			}
+
 			self.updateValidityStates()
 
 			self.updateGradients()
@@ -155,16 +166,19 @@ class HealthCertificateService: HealthCertificateServiceServable {
 			self.scheduleTimer()
 
 			if updatingWalletInfos {
+				dispatchGroup.enter()
 				self.updateDCCWalletInfosIfNeeded {
 					Log.info("[HealthCertificateService] Setup finished including wallet info updates", log: .background)
 					self.isSetUp = true
-					completion()
+					dispatchGroup.leave()
 				}
 			} else {
 				Log.info("[HealthCertificateService] Setup finished without wallet info updates", log: .background)
 				self.isSetUp = true
-				completion()
 			}
+
+			dispatchGroup.wait()
+			completion()
 		}
 	}
 
@@ -291,22 +305,13 @@ class HealthCertificateService: HealthCertificateServiceServable {
 			)
 			
 			for relation in certificateRef.relations where relation.action == "replace" {
-				
 				if relation.index < requestCertificates.count {
 					let certificateBase45 = requestCertificates[relation.index]
 					
 					if let certificateToBeRemoved = person.healthCertificates.first(where: {
 						certificateBase45 == $0.base45
 					}) {
-						dispatchGroup.enter()
-						healthCertificateNotificationService.removeAllNotifications(
-							for: certificateToBeRemoved,
-							completion: {
-								dispatchGroup.leave()
-							}
-						)
 						moveHealthCertificateToBin(certificateToBeRemoved)
-						
 					} else {
 						Log.error("The certified person does not contain the indexed certificate", log: .vaccination)
 					}
@@ -390,8 +395,6 @@ class HealthCertificateService: HealthCertificateServiceServable {
 				break
 			}
 		}
-		// we do not have to wait here, so we leave the completion empty
-		healthCertificateNotificationService.removeAllNotifications(for: healthCertificate, completion: { })
 
 		// Move HealthCertificate to the recycle-bin
 		recycleBin.moveToBin(.certificate(healthCertificate))
@@ -931,7 +934,6 @@ class HealthCertificateService: HealthCertificateServiceServable {
 	private func regroup(
 		healthCertifiedPerson: HealthCertifiedPerson
 	) -> [HealthCertifiedPerson] {
-		
 		let allCertificates = healthCertifiedPerson.healthCertificates
 		// Create now from every remaining certificate of the person a new person
 		let splittedPersons = allCertificates.map { HealthCertifiedPerson(healthCertificates: [$0]) }

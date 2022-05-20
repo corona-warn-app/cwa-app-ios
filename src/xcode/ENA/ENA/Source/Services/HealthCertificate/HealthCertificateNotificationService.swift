@@ -74,21 +74,13 @@ class HealthCertificateNotificationService {
 		}
 	}
 	
-	func removeAllNotifications(
-		for healthCertificate: HealthCertificate,
+	func removeAllExpiringSoonAndExpiredNotifications(
 		completion: @escaping () -> Void
 	) {
-		guard healthCertificate.type != .test else {
-			completion()
-			return
-		}
+		Log.info("Cancel all expiring soon and expired notifications", log: .vaccination)
 		
-		let healthCertificateIdentifier = healthCertificate.uniqueCertificateIdentifier
-		
-		Log.info("Cancel all notifications for certificate with id: \(private: healthCertificateIdentifier).", log: .vaccination)
-		
-		let expiringSoonId = LocalNotificationIdentifier.certificateExpiringSoon.rawValue + "\(healthCertificateIdentifier)"
-		let expiredId = LocalNotificationIdentifier.certificateExpired.rawValue + "\(healthCertificateIdentifier)"
+		let expiringSoonId = LocalNotificationIdentifier.certificateExpiringSoon.rawValue
+		let expiredId = LocalNotificationIdentifier.certificateExpired.rawValue
 
 		notificationCenter.getPendingNotificationRequests { [weak self] requests in
 			let notificationIds = requests.map {
