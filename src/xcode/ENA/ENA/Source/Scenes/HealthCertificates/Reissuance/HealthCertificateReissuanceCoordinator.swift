@@ -14,7 +14,6 @@ final class HealthCertificateReissuanceCoordinator {
 		restServiceProvider: RestServiceProviding,
 		appConfigProvider: AppConfigurationProviding,
 		healthCertifiedPerson: HealthCertifiedPerson,
-		certificateReissuance: DCCCertificateReissuance,
 		cclService: CCLServable
 	) {
 		self.parentViewController = parentViewController
@@ -22,7 +21,6 @@ final class HealthCertificateReissuanceCoordinator {
 		self.restServiceProvider = restServiceProvider
 		self.appConfigProvider = appConfigProvider
 		self.healthCertifiedPerson = healthCertifiedPerson
-		self.certificateReissuance = certificateReissuance
 		self.cclService = cclService
 	}
 	
@@ -42,7 +40,6 @@ final class HealthCertificateReissuanceCoordinator {
 	private let restServiceProvider: RestServiceProviding
 	private let appConfigProvider: AppConfigurationProviding
 	private let healthCertifiedPerson: HealthCertifiedPerson
-	private let certificateReissuance: DCCCertificateReissuance
 	private let cclService: CCLServable
 
 	// MARK: Show Screens
@@ -53,7 +50,6 @@ final class HealthCertificateReissuanceCoordinator {
 			restServiceProvider: restServiceProvider,
 			appConfigProvider: appConfigProvider,
 			cclService: cclService,
-			certificates: certificateReissuance.certificates ?? [],
 			healthCertifiedPerson: healthCertifiedPerson,
 			didTapDataPrivacy: { [weak self] in
 				self?.showDataPrivacy()
