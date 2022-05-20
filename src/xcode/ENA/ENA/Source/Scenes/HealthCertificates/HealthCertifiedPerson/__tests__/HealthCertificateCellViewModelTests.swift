@@ -3131,7 +3131,7 @@ class HealthCertificateCellViewModelTests: XCTestCase {
 			details: .overviewPlusName
 		)
 
-		XCTAssertEqual(viewModel.gradientType, .lightBlue)
+		XCTAssertEqual(viewModel.gradientType, .darkBlue)
 		XCTAssertEqual(viewModel.headline, "Impfzertifikat")
 		XCTAssertEqual(viewModel.name, "Marcus Scherer")
 		XCTAssertEqual(viewModel.subheadline, "Impfung 3 von 3")
@@ -3157,7 +3157,7 @@ class HealthCertificateCellViewModelTests: XCTestCase {
 			details: .overviewPlusName
 		)
 
-		XCTAssertEqual(viewModel.gradientType, .lightBlue)
+		XCTAssertEqual(viewModel.gradientType, .darkBlue)
 		XCTAssertEqual(viewModel.headline, "Impfzertifikat")
 		XCTAssertEqual(viewModel.name, "Artur Friesen")
 		XCTAssertEqual(viewModel.subheadline, "Impfung 2 von 1")
@@ -3283,7 +3283,7 @@ class HealthCertificateCellViewModelTests: XCTestCase {
 			details: .overviewPlusName
 		)
 
-		XCTAssertEqual(viewModel.gradientType, .lightBlue)
+		XCTAssertEqual(viewModel.gradientType, .solidGrey)
 		XCTAssertEqual(viewModel.headline, "Impfzertifikat")
 		XCTAssertEqual(viewModel.name, "Nick Guendling")
 		XCTAssertEqual(viewModel.subheadline, "Impfung 1 von 2")
@@ -3320,7 +3320,7 @@ class HealthCertificateCellViewModelTests: XCTestCase {
 			details: .overviewPlusName
 		)
 
-		XCTAssertEqual(viewModel.gradientType, .lightBlue)
+		XCTAssertEqual(viewModel.gradientType, .solidGrey)
 		XCTAssertEqual(viewModel.headline, "Impfzertifikat")
 		XCTAssertEqual(viewModel.name, "Kai-Marcel Teuber")
 		XCTAssertEqual(viewModel.subheadline, "Impfung 1 von 2")
@@ -3357,7 +3357,7 @@ class HealthCertificateCellViewModelTests: XCTestCase {
 			details: .overviewPlusName
 		)
 
-		XCTAssertEqual(viewModel.gradientType, .lightBlue)
+		XCTAssertEqual(viewModel.gradientType, .solidGrey)
 		XCTAssertEqual(viewModel.headline, "Impfzertifikat")
 		XCTAssertEqual(viewModel.name, "Marcus Scherer")
 		XCTAssertEqual(viewModel.subheadline, "Impfung 1 von 2")
@@ -3394,7 +3394,7 @@ class HealthCertificateCellViewModelTests: XCTestCase {
 			details: .overviewPlusName
 		)
 
-		XCTAssertEqual(viewModel.gradientType, .lightBlue)
+		XCTAssertEqual(viewModel.gradientType, .solidGrey)
 		XCTAssertEqual(viewModel.headline, "Impfzertifikat")
 		XCTAssertEqual(viewModel.name, "Marcus Scherer")
 		XCTAssertEqual(viewModel.subheadline, "Impfung 1 von 2")
@@ -3647,7 +3647,7 @@ class HealthCertificateCellViewModelTests: XCTestCase {
 			details: .overviewPlusName
 		)
 
-		XCTAssertEqual(viewModel.gradientType, .lightBlue)
+		XCTAssertEqual(viewModel.gradientType, .solidGrey)
 		XCTAssertEqual(viewModel.headline, "Testzertifikat")
 		XCTAssertEqual(viewModel.name, "Marcus Scherer")
 		XCTAssertEqual(viewModel.subheadline, "PCR-Test")
@@ -3683,7 +3683,7 @@ class HealthCertificateCellViewModelTests: XCTestCase {
 			details: .overviewPlusName
 		)
 
-		XCTAssertEqual(viewModel.gradientType, .lightBlue)
+		XCTAssertEqual(viewModel.gradientType, .solidGrey)
 		XCTAssertEqual(viewModel.headline, "Testzertifikat")
 		XCTAssertEqual(viewModel.name, "Artur Friesen")
 		XCTAssertEqual(viewModel.subheadline, "Schnelltest")
@@ -3719,7 +3719,7 @@ class HealthCertificateCellViewModelTests: XCTestCase {
 			details: .overviewPlusName
 		)
 
-		XCTAssertEqual(viewModel.gradientType, .lightBlue)
+		XCTAssertEqual(viewModel.gradientType, .solidGrey)
 		XCTAssertEqual(viewModel.headline, "Testzertifikat")
 		XCTAssertEqual(viewModel.name, "Artur Friesen")
 		XCTAssertEqual(viewModel.subheadline, "Schnelltest")
@@ -3860,7 +3860,7 @@ class HealthCertificateCellViewModelTests: XCTestCase {
 			details: .overviewPlusName
 		)
 
-		XCTAssertEqual(viewModel.gradientType, .lightBlue)
+		XCTAssertEqual(viewModel.gradientType, .solidGrey)
 		XCTAssertEqual(viewModel.headline, "Genesenenzertifikat")
 		XCTAssertEqual(viewModel.name, "Nick Guendling")
 		XCTAssertNil(viewModel.subheadline)
@@ -3895,7 +3895,7 @@ class HealthCertificateCellViewModelTests: XCTestCase {
 			details: .overviewPlusName
 		)
 
-		XCTAssertEqual(viewModel.gradientType, .lightBlue)
+		XCTAssertEqual(viewModel.gradientType, .solidGrey)
 		XCTAssertEqual(viewModel.headline, "Genesenenzertifikat")
 		XCTAssertEqual(viewModel.name, "Kai-Marcel Teuber")
 		XCTAssertNil(viewModel.subheadline)
@@ -3930,7 +3930,7 @@ class HealthCertificateCellViewModelTests: XCTestCase {
 			details: .overviewPlusName
 		)
 
-		XCTAssertEqual(viewModel.gradientType, .lightBlue)
+		XCTAssertEqual(viewModel.gradientType, .solidGrey)
 		XCTAssertEqual(viewModel.headline, "Genesenenzertifikat")
 		XCTAssertEqual(viewModel.name, "Marcus Scherer")
 		XCTAssertNil(viewModel.subheadline)
@@ -3965,7 +3965,7 @@ class HealthCertificateCellViewModelTests: XCTestCase {
 			details: .overviewPlusName
 		)
 
-		XCTAssertEqual(viewModel.gradientType, .lightBlue)
+		XCTAssertEqual(viewModel.gradientType, .solidGrey)
 		XCTAssertEqual(viewModel.headline, "Genesenenzertifikat")
 		XCTAssertEqual(viewModel.name, "Marcus Scherer")
 		XCTAssertNil(viewModel.subheadline)
