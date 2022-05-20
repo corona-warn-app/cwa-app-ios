@@ -285,6 +285,8 @@ class HealthCertificateService: HealthCertificateServiceServable {
 		markAsNew: Bool,
 		completedNotificationRegistration: @escaping () -> Void
 	) throws {
+		let dispatchGroup = DispatchGroup()
+
 		for certificateRef in responseCertificates {
 			let newHealthCertificate = try HealthCertificate(base45: certificateRef.certificate, isNew: markAsNew)
 			if !person.healthCertificates.contains(newHealthCertificate) {
@@ -293,8 +295,6 @@ class HealthCertificateService: HealthCertificateServiceServable {
 			
 			updateValidityState(for: newHealthCertificate, person: person)
 			scheduleTimer()
-			
-			let dispatchGroup = DispatchGroup()
 			
 			dispatchGroup.enter()
 			healthCertificateNotificationService.createNotifications(
@@ -319,10 +319,10 @@ class HealthCertificateService: HealthCertificateServiceServable {
 					Log.error("Index of certificate to be deleted is out of bounds", log: .vaccination)
 				}
 			}
-			
-			dispatchGroup.notify(queue: .main) {
-				completedNotificationRegistration()
-			}
+		}
+
+		dispatchGroup.notify(queue: .main) {
+			completedNotificationRegistration()
 		}
 	}
 
