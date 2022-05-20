@@ -585,7 +585,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 	}
 	
 	private func createTestResultScreen(for familyMemberCoronaTest: FamilyMemberCoronaTest) -> UIViewController {
-			let viewModel = ExposureSubmissionTestResultFamilyMemberViewModel(
+		let viewModel = ExposureSubmissionTestResultFamilyMemberViewModel(
 			familyMemberCoronaTest: familyMemberCoronaTest,
 			familyMemberCoronaTestService: model.familyMemberCoronaTestService,
 			keepMarkedAsNew: true,
