@@ -71,11 +71,13 @@ final class ResetViewController: UIViewController {
 				self.dismiss(animated: true, completion: nil)
 			}
 		)
+		delete.accessibilityIdentifier = AccessibilityIdentifiers.Reset.AlertActions.confirm
 
 		let cancel = UIAlertAction(
 			title: AppStrings.Reset.confirmDialogCancel,
 			style: .cancel
 		)
+		cancel.accessibilityIdentifier = AccessibilityIdentifiers.Reset.AlertActions.cancel
 
 		alertController.addAction(delete)
 		alertController.addAction(cancel)
@@ -108,7 +110,10 @@ final class ResetViewController: UIViewController {
 		infoDescriptionLabel.text = AppStrings.Reset.infoDescription
 
 		resetButton.setTitle(AppStrings.Reset.resetButton, for: .normal)
+		resetButton.accessibilityIdentifier = AccessibilityIdentifiers.Reset.Footer.confirm
+
 		discardButton.setTitle(AppStrings.Reset.discardButton, for: .normal)
+		discardButton.accessibilityIdentifier = AccessibilityIdentifiers.Reset.Footer.cancel
 
 		navigationItem.rightBarButtonItem = CloseBarButtonItem(onTap: { [weak self] in
 			self?.onDismiss()
