@@ -72,11 +72,17 @@ final class ExposureDetection {
 		}
 	}
 
-	private func detectExposureWindows(_ keyPackageDownload: KeyPackageDownloadProtocol, writtenPackages: WrittenPackages, exposureConfiguration: ENExposureConfiguration) {
-		if progress != nil {
+	private func detectExposureWindows(
+		_ keyPackageDownload: KeyPackageDownloadProtocol,
+		writtenPackages: WrittenPackages,
+		exposureConfiguration: ENExposureConfiguration
+	) {
+		if let progress = progress, progress.isCancellable && !progress.isFinished {
 			Log.error("previous running progress found, will try to cancel", log: .riskDetection)
-			progress?.cancel()
+			
+			progress.cancel()
 		}
+		
 		progress = delegate?.detectExposureWindows(
 			self,
 			detectSummaryWithConfiguration: exposureConfiguration,
