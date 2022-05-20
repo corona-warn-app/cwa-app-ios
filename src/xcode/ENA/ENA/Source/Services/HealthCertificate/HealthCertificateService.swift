@@ -534,7 +534,7 @@ class HealthCertificateService: HealthCertificateServiceServable {
 		certificateTuples.forEach { healthCertificateTuple in
 			updateValidityState(for: healthCertificateTuple.certificate, person: healthCertificateTuple.person)
 			dispatchGroup.enter()
-			healthCertificateNotificationService.recreateNotifications(
+			healthCertificateNotificationService.createNotifications(
 				for: healthCertificateTuple.certificate,
 				completion: {
 					dispatchGroup.leave()
