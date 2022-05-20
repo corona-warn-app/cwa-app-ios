@@ -585,7 +585,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 	}
 	
 	private func createTestResultScreen(for familyMemberCoronaTest: FamilyMemberCoronaTest) -> UIViewController {
-		let viewModel = ExposureSubmissionTestResultFamilyMemberViewModel(
+			let viewModel = ExposureSubmissionTestResultFamilyMemberViewModel(
 			familyMemberCoronaTest: familyMemberCoronaTest,
 			familyMemberCoronaTestService: model.familyMemberCoronaTestService,
 			keepMarkedAsNew: true,
@@ -1467,15 +1467,6 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 					self?.dismiss()
 				}
 			)
-
-			// don't save expired tests after registering them
-			switch testQRCodeInformation.testType {
-			case .antigen:
-				model.coronaTestService.antigenTest.value = nil
-			case .pcr:
-				model.coronaTestService.pcrTest.value = nil
-			}
-
 		default:
 			break
 		}
@@ -1529,6 +1520,13 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 				   }
 				},
 				onError: { [weak self] error in
+					if error == .testExpired {
+						self?.removeExpiredTestAfterRegistration(
+							testOwner: .user,
+							testQRCodeInformation: testQRCodeInformation
+						)
+					}
+
 					let alert = self?.alert(error, testQRCodeInformation: testQRCodeInformation, isLoading: isLoading) ?? defaultAlert(error)
 					self?.navigationController?.present(alert, animated: true, completion: nil)
 					Log.error("An error occurred during result fetching: \(error)", log: .ui)
@@ -1544,6 +1542,13 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 					self?.showTestResultScreen(for: familyMemberCoronaTest)
 				},
 				onError: { [weak self] error in
+					if error == .testExpired {
+						self?.removeExpiredTestAfterRegistration(
+							testOwner: .familyMember(displayName: displayName),
+							testQRCodeInformation: testQRCodeInformation
+						)
+					}
+
 					let alert = self?.alert(error, testQRCodeInformation: testQRCodeInformation, isLoading: isLoading) ?? defaultAlert(error)
 					self?.navigationController?.present(alert, animated: true, completion: nil)
 					Log.error("An error occurred during fetching result for a family member: \(error)", log: .ui)
@@ -1667,6 +1672,43 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 
 		let navigationController = NavigationControllerWithLargeTitle(rootViewController: topBottomViewController)
 		parentViewController?.present(navigationController, animated: true)
+	}
+
+	private func removeExpiredTestAfterRegistration(
+		testOwner: TestOwner,
+		testQRCodeInformation: CoronaTestRegistrationInformation
+	) {
+		// We don't want to save expired tests after registering them
+		switch testOwner {
+		case .user:
+			switch testQRCodeInformation.testType {
+			case .antigen:
+				model.coronaTestService.antigenTest.value = nil
+			case .pcr:
+				model.coronaTestService.pcrTest.value = nil
+			}
+		case .familyMember:
+
+			let qrCodeHash: String = {
+				switch testQRCodeInformation {
+				case let .pcr(_, qrCodeHash):
+					return qrCodeHash
+				case let .rapidPCR(_, qrCodeHash):
+					return qrCodeHash
+				case let .antigen(_, qrCodeHash):
+					return qrCodeHash
+				case .teleTAN:
+					// There should be never this case so we return a string which will never match to any registered family test
+					return "No Teletan qrCode"
+				}
+			}()
+
+			guard let index = model.familyMemberCoronaTestService.coronaTests.value.firstIndex(where: { $0.qrCodeHash == qrCodeHash }) else {
+				return
+			}
+
+			model.familyMemberCoronaTestService.coronaTests.value.remove(at: index)
+		}
 	}
 
 }
