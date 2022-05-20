@@ -34,7 +34,7 @@ class RestServiceProvider: RestServiceProviding {
 		case .default:
 			standardRestService.load(resource, completion)
 		case .caching:
-			#if !RELEASE
+			#if DEBUG
 			if isUITesting {
 				standardRestService.load(resource, completion)
 				return
