@@ -5,7 +5,7 @@
 // swiftlint:disable file_length
 // swiftlint:disable:next type_body_length
 enum AccessibilityIdentifiers {
-	
+
 	enum ExposureNotificationSetting {
 		static let descriptionTitleInactive = "AppStrings.ExposureNotificationSetting.descriptionTitleInactive"
 		static let descriptionTitle = "AppStrings.ExposureNotificationSetting.descriptionTitle"
@@ -67,6 +67,14 @@ enum AccessibilityIdentifiers {
 			static let loadingPCRButton = "AccessibilityIdentifiers.Home.loadingPCRButton"
 			static let loadingAntigenButton = "AccessibilityIdentifiers.Home.loadingAntigenButton"
 			static let unconfiguredButton = "AccessibilityIdentifiers.Home.unconfiguredButton"
+
+			static let titleLabel = "AccessibilityIdentifiers.Home.titleLabel"
+			static let subtitleLabel = "AccessibilityIdentifiers.Home.subtitleLabel"
+			static let negativeDiagnosisCaptionLabel = "AccessibilityIdentifiers.Home.negativeDiagnosisCaptionLabel"
+			static let negativeDiagnosisVirusLabel = "AccessibilityIdentifiers.Home.negativeDiagnosisVirusLabel"
+			static let negativeDiagnosisLabel = "AccessibilityIdentifiers.Home.negativeDiagnosisLabel"
+			static let descriptionLabel = "AccessibilityIdentifiers.Home.descriptionLabel"
+			static let footnoteLabel = "AccessibilityIdentifiers.Home.footnoteLabel"
 		}
 
 		enum ShownPositiveTestResultCell {
@@ -517,6 +525,15 @@ enum AccessibilityIdentifiers {
 	
 	enum Reset {
 		static let imageDescription = "AppString.Reset.imageDescription"
+		enum Footer {
+			static let confirm = "AppStrings.Reset.resetButton"
+			static let cancel = "AppStrings.Reset.discardButton"
+		}
+		enum AlertActions {
+			static let confirm = "AppStrings.Reset.confirmDialogConfirm"
+			static let cancel = "AppStrings.Reset.confirmDialogCancel"
+		}
+
 	}
 	
 	enum AccessibilityLabel {
@@ -645,6 +662,22 @@ enum AccessibilityIdentifiers {
 		static let detailedInformationContent2 = "AccessibilityIdentifiers.ErrorReport.detailedInformationContent2"
 		
 		static let agreeAndSendButton = "AccessibilityIdentifiers.ErrorReport.agreeAndSendButton"
+	}
+
+	enum TraceLocations {
+		static let unspecified = "AppStrings.TraceLocations.unspecified.title"
+		static let permanentOther = "AppStrings.TraceLocations.permanent.title.other"
+		static let temporaryOther = "AppStrings.TraceLocations.temporary.title.other"
+		static let permanentRetail = "AppStrings.TraceLocations.permanent.title.retail"
+		static let permanentFoodService = "AppStrings.TraceLocations.permanent.title.foodService"
+		static let permanentCraft = "AppStrings.TraceLocations.permanent.title.craft"
+		static let permanentWorkplace = "AppStrings.TraceLocations.permanent.title.workplace"
+		static let permanentEducationalInstitution = "AppStrings.TraceLocations.permanent.title.educationalInstitution"
+		static let permanentPublicBuilding = "AppStrings.TraceLocations.permanent.title.publicBuilding"
+		static let temporaryCulturalEvent = "AppStrings.TraceLocations.temporary.title.culturalEvent"
+		static let temporaryClubActivity = "AppStrings.TraceLocations.temporary.title.clubActivity"
+		static let temporaryPrivateEvent = "AppStrings.TraceLocations.temporary.title.privateEvent"
+		static let temporaryWorshipService = "AppStrings.TraceLocations.temporary.title.worshipService"
 	}
 	
 	enum TraceLocation {
@@ -822,6 +855,7 @@ enum AccessibilityIdentifiers {
 			static let cell = "AppStrings.HealthCertificate.Reissuance.cell"
 			static let successTitle = "AppStrings.HealthCertificate.Reissuance.successTitle"
 			static let accompanyingCertificatesTitle = "AppStrings.HealthCertificate.Reissuance.accompanyingCertificatesTitle"
+			static let accompanyingCertificatesCloseButton = "AppStrings.HealthCertificate.Reissuance.accompanyingCertificatesCloseButton"
 		}
 	}
 	
