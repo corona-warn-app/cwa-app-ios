@@ -1688,7 +1688,6 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 				model.coronaTestService.pcrTest.value = nil
 			}
 		case .familyMember:
-
 			let qrCodeHash: String = {
 				switch testQRCodeInformation {
 				case let .pcr(_, qrCodeHash):
@@ -1702,15 +1701,12 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 					return "No Teletan qrCode"
 				}
 			}()
-
 			guard let index = model.familyMemberCoronaTestService.coronaTests.value.firstIndex(where: { $0.qrCodeHash == qrCodeHash }) else {
 				return
 			}
-
 			model.familyMemberCoronaTestService.coronaTests.value.remove(at: index)
 		}
 	}
-
 }
 
 extension ExposureSubmissionCoordinator: UIAdaptivePresentationControllerDelegate {
