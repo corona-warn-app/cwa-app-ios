@@ -201,9 +201,6 @@ class HealthCertificateOverviewViewController: UITableViewController {
 
 		tableView.sectionHeaderHeight = 0
 		tableView.sectionFooterHeight = 0
-
-		// Overestimate to fix auto layout warnings and fix a problem that showed the test cell behind other cells when opening app from the background in manual mode
-		tableView.estimatedRowHeight = 500
 	}
 	
 	private func changeAdmissionScenarioStatusLabelCell(forRowAt indexPath: IndexPath) -> UITableViewCell {

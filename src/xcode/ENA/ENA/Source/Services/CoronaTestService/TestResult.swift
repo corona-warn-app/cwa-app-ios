@@ -34,7 +34,7 @@ enum TestResult: Int, CaseIterable, Codable {
 			self = .positive
 		case (3, .pcr):
 			self = .invalid
-		case (4, .pcr):
+		case (4, _):
 			self = .expired
 		case (5, .antigen):
 			self = .pending

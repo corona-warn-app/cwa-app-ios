@@ -25,7 +25,7 @@ class ENAUITests_12_AntigenTestProfile: CWATestCase {
 	
 	// MARK: - Tests
 	
-	/* EXPOSUREAPP-12650
+	// swiftlint:disable function_body_length
 	func test_FIRST_CreateAntigenTestProfile_THEN_EditProfile_THEN_DeleteProfile() throws {
 		
 		app.launch()
@@ -39,12 +39,16 @@ class ENAUITests_12_AntigenTestProfile: CWATestCase {
 		
 		// don't take this swipe up otherwise this test will fail!
 		app.swipeUp(velocity: .slow)
-
+		
+		snapshot("rapidTest_Profile_Tile")
+		
 		let createProfileButton = try XCTUnwrap(app.buttons[AccessibilityIdentifiers.ExposureSubmission.AntigenTest.Profile.profileTile_Description])
 		createProfileButton.waitAndTap()
 		
 		/// Antigen Test Information Screen
 		
+		snapshot("rapidTest_Profile_Information_Screen")
+
 		// header image exists
 		XCTAssertTrue(app.images[AccessibilityIdentifiers.ExposureSubmission.AntigenTest.Information.imageDescription].waitForExistence(timeout: .long))
 		// title exists
@@ -78,12 +82,14 @@ class ENAUITests_12_AntigenTestProfile: CWATestCase {
 		continueButton.waitAndTap()
 
 		/// Add Antigen Test Profile
-
-		createProfileButton.waitAndTap()
 		
+		snapshot("rapidTest_Profile_Empty_Profiles_Screen")
+
 		app.buttons[AccessibilityLabels.localized(AppStrings.AntigenProfile.Overview.addButtonTitle)].waitAndTap()
 
 		/// Create Antigen Test Profile Screen
+		///
+		snapshot("rapidTest_Profile_Empty_Data_Screen")
 
 		let saveProfileButton = try XCTUnwrap(app.buttons[AccessibilityIdentifiers.ExposureSubmission.AntigenTest.Create.saveButton])
 		XCTAssertTrue(saveProfileButton.waitForExistence(timeout: .short))
@@ -127,6 +133,9 @@ class ENAUITests_12_AntigenTestProfile: CWATestCase {
 		/// Antigen Test Profile Screen
 
 		// continues button exists
+		
+		snapshot("rapidTest_Profile_QRCode_Screen")
+
 		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.ExposureSubmission.AntigenTest.Profile.continueButton].waitForExistence(timeout: .long))
 		// edit profile button exists
 		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.ExposureSubmission.AntigenTest.Profile.editButton].waitForExistence(timeout: .long))
@@ -212,5 +221,4 @@ class ENAUITests_12_AntigenTestProfile: CWATestCase {
 
 		XCTAssertTrue(app.buttons[AccessibilityLabels.localized(AppStrings.AntigenProfile.Overview.addButtonTitle)].waitForExistence(timeout: .short))
 	}
-	*/
 }
