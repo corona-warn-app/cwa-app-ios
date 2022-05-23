@@ -124,6 +124,8 @@ class ENAUITests_12_AntigenTestProfile: CWATestCase {
 		phoneNumberTextField.typeText("089123456")
 		
 		let emailAddressTextField = try XCTUnwrap(app.cells.textFields[AccessibilityIdentifiers.AntigenProfile.Create.emailAddressTextField])
+		
+		app.swipeUp()
 		emailAddressTextField.waitAndTap()
 		emailAddressTextField.typeText("bastian@bastian.codes")
 
