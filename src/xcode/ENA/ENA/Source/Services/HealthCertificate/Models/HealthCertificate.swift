@@ -304,6 +304,15 @@ final class HealthCertificate: Codable, Equatable, Comparable, RecycleBinIdentif
 		validityState == .valid || type == .test && (validityState == .expiringSoon || validityState == .expired)
 	}
 
+	var validityStateIsConsideredNewsworthy: Bool {
+		switch validityState {
+		case .valid, .expiringSoon, .expired:
+			return false
+		case .invalid, .blocked, .revoked:
+			return true
+		}
+	}
+
 	lazy var uniqueCertificateIdentifierChunks: [String] = uniqueCertificateIdentifier
 			.dropPrefix("URN:UVCI:")
 			.components(separatedBy: CharacterSet(charactersIn: "/#:"))
