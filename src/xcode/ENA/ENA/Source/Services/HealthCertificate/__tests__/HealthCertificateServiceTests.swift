@@ -2061,5 +2061,71 @@ class HealthCertificateServiceTests: CWATestCase {
 		// To keep service in memory until expectation is fulfilled
 		service.moveHealthCertificateToBin(vaccinationHealthCertificate)
 	}
+
+	func testSetupRemovesExpiringSoonAndExpiredNotifications() throws {
+		let store = MockTestStore()
+		store.expiringSoonAndExpiredNotificationsRemoved = false
+
+		let notificationCenter = MockUserNotificationCenter()
+		notificationCenter.notificationRequests = [
+			UNNotificationRequest(
+				identifier: "OtherNotification",
+				content: UNNotificationContent(),
+				trigger: nil
+			),
+			UNNotificationRequest(
+				identifier: "HealthCertificateNotificationExpireSoonBlaBlaBla",
+				content: UNNotificationContent(),
+				trigger: nil
+			),
+			UNNotificationRequest(
+				identifier: "HealthCertificateNotificationExpiredBlaBlaBla",
+				content: UNNotificationContent(),
+				trigger: nil
+			),
+			UNNotificationRequest(
+				identifier: "HealthCertificateNotificationExpireSoon13746978374-2345-5432",
+				content: UNNotificationContent(),
+				trigger: nil
+			),
+			UNNotificationRequest(
+				identifier: "HealthCertificateNotificationOther",
+				content: UNNotificationContent(),
+				trigger: nil
+			),
+			UNNotificationRequest(
+				identifier: "HealthCertificateNotificationExpired13746978374-2345-5432",
+				content: UNNotificationContent(),
+				trigger: nil
+			),
+			UNNotificationRequest(
+				identifier: "OtherNotification2",
+				content: UNNotificationContent(),
+				trigger: nil
+			)
+		]
+
+		let service = HealthCertificateService(
+			store: store,
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
+			dscListProvider: MockDSCListProvider(),
+			appConfiguration: CachedAppConfigurationMock(),
+			notificationCenter: notificationCenter,
+			cclService: FakeCCLService(),
+			recycleBin: .fake(),
+			revocationProvider: RevocationProvider(
+				restService: RestServiceProviderStub(),
+				store: store
+			)
+		)
+
+		service.syncSetup()
+
+		XCTAssertTrue(store.expiringSoonAndExpiredNotificationsRemoved)
+		XCTAssertEqual(
+			notificationCenter.notificationRequests.map { $0.identifier },
+			["OtherNotification", "HealthCertificateNotificationOther", "OtherNotification2"]
+		)
+	}
 	
 }
