@@ -40,8 +40,10 @@ final class HealthCertificateCellViewModel {
 			} else {
 				return .solidGrey
 			}
-		case .overview, .overviewPlusName:
+		case .overview:
 			return .lightBlue
+		case .overviewPlusName:
+			return healthCertificate.isUsable ? healthCertifiedPerson.gradientType : .solidGrey
 		}
 	}()
 
