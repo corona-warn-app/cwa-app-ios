@@ -27,7 +27,6 @@ class ENAUITests_12_AntigenTestProfile: CWATestCase {
 	
 	// swiftlint:disable function_body_length
 	func test_FIRST_CreateAntigenTestProfile_THEN_EditProfile_THEN_DeleteProfile() throws {
-		
 		app.launch()
 		
 		/// Home Screen
