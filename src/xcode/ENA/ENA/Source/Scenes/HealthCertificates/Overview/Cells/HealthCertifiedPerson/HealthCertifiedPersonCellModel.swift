@@ -142,7 +142,7 @@ class HealthCertifiedPersonCellModel {
 			return nil
 		case .expiringSoon:
 			let validityStateTitle = String(
-				format: AppStrings.HealthCertificate.ValidityState.expiringSoon,
+				format: AppStrings.HealthCertificate.ValidityState.expiringSoonShort,
 				DateFormatter.localizedString(from: certificate.expirationDate, dateStyle: .short, timeStyle: .none),
 				DateFormatter.localizedString(from: certificate.expirationDate, dateStyle: .none, timeStyle: .short)
 			)
