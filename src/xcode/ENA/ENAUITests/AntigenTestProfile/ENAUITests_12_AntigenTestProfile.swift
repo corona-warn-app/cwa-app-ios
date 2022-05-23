@@ -129,8 +129,6 @@ class ENAUITests_12_AntigenTestProfile: CWATestCase {
 		/// Antigen Test Profile Screen
 
 		// continues button exists
-		
-		snapshot("rapidTest_Profile_QRCode_Screen")
 
 		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.ExposureSubmission.AntigenTest.Profile.continueButton].waitForExistence(timeout: .long))
 		// edit profile button exists
@@ -149,6 +147,8 @@ class ENAUITests_12_AntigenTestProfile: CWATestCase {
 		
 		let testProfileButton = try XCTUnwrap(app.buttons[AccessibilityIdentifiers.ExposureSubmission.AntigenTest.Profile.profileTile_Description])
 		testProfileButton.waitAndTap()
+
+		snapshot("rapidTest_Profile_QRCode_Screen")
 
 		app.buttons[AccessibilityLabels.localized(AppStrings.AntigenProfile.Overview.addButtonTitle)].waitAndTap()
 
