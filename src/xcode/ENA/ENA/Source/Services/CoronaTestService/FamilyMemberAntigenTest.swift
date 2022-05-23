@@ -15,9 +15,10 @@ struct FamilyMemberAntigenTest: Equatable, Hashable, Codable {
 		registrationDate: Date,
 		registrationToken: String? = nil,
 		qrCodeHash: String,
-		isNew: Bool, testResult: TestResult,
+		isNew: Bool,
+		testResultIsNew: Bool = false,
+		testResult: TestResult,
 		finalTestResultReceivedDate: Date? = nil,
-		testResultWasShown: Bool,
 		certificateSupportedByPointOfCare: Bool,
 		certificateConsentGiven: Bool,
 		certificateRequested: Bool,
@@ -32,9 +33,9 @@ struct FamilyMemberAntigenTest: Equatable, Hashable, Codable {
 		self.registrationToken = registrationToken
 		self.qrCodeHash = qrCodeHash
 		self.isNew = isNew
+		self.testResultIsNew = testResultIsNew
 		self.testResult = testResult
 		self.finalTestResultReceivedDate = finalTestResultReceivedDate
-		self.testResultWasShown = testResultWasShown
 		self.certificateSupportedByPointOfCare = certificateSupportedByPointOfCare
 		self.certificateConsentGiven = certificateConsentGiven
 		self.certificateRequested = certificateRequested
@@ -53,18 +54,23 @@ struct FamilyMemberAntigenTest: Equatable, Hashable, Codable {
 		case registrationToken
 		case qrCodeHash
 		case isNew
+		case testResultIsNew
 		case testResult
 		case finalTestResultReceivedDate
-		case testResultWasShown
 		case certificateSupportedByPointOfCare
 		case certificateConsentGiven
 		case certificateRequested
 		case uniqueCertificateIdentifier
 		case isOutdated
 	}
+	
+	enum LegacyCodingKeys: String, CodingKey {
+		case testResultWasShown
+	}
 
 	init(from decoder: Decoder) throws {
 		let container = try decoder.container(keyedBy: CodingKeys.self)
+		let legacyContainer = try decoder.container(keyedBy: LegacyCodingKeys.self)
 
 		displayName = try container.decode(String.self, forKey: .displayName)
 
@@ -77,8 +83,14 @@ struct FamilyMemberAntigenTest: Equatable, Hashable, Codable {
 
 		testResult = try container.decode(TestResult.self, forKey: .testResult)
 		finalTestResultReceivedDate = try container.decodeIfPresent(Date.self, forKey: .finalTestResultReceivedDate)
-		testResultWasShown = try container.decode(Bool.self, forKey: .testResultWasShown)
 
+		// To migrate state, derive the value of testResultIsNew from legacy value testResultWasShown if its present.
+		if let testResultWasShown = try legacyContainer.decodeIfPresent(Bool.self, forKey: .testResultWasShown) {
+			testResultIsNew = try container.decodeIfPresent(Bool.self, forKey: .testResultIsNew) ?? (!testResultWasShown && finalTestResultReceivedDate != nil)
+		} else {
+			testResultIsNew = try container.decodeIfPresent(Bool.self, forKey: .testResultIsNew) ?? false
+		}
+		
 		certificateSupportedByPointOfCare = try container.decodeIfPresent(Bool.self, forKey: .certificateSupportedByPointOfCare) ?? false
 		certificateConsentGiven = try container.decodeIfPresent(Bool.self, forKey: .certificateConsentGiven) ?? false
 		certificateRequested = try container.decodeIfPresent(Bool.self, forKey: .certificateRequested) ?? false
@@ -102,10 +114,10 @@ struct FamilyMemberAntigenTest: Equatable, Hashable, Codable {
 	var registrationToken: String?
 	var qrCodeHash: String
 	var isNew: Bool
+	var testResultIsNew: Bool = false
 
 	var testResult: TestResult
 	var finalTestResultReceivedDate: Date?
-	var testResultWasShown: Bool
 
 	var certificateSupportedByPointOfCare: Bool
 	var certificateConsentGiven: Bool

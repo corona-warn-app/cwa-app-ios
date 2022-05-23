@@ -77,6 +77,27 @@ enum FamilyMemberCoronaTest: Equatable, Codable, Hashable, RecycleBinIdentifiabl
 			}
 		}
 	}
+	
+	var testResultIsNew: Bool {
+		get {
+			switch self {
+			case .pcr(let pcrTest):
+				return pcrTest.testResultIsNew
+			case .antigen(let antigenTest):
+				return antigenTest.testResultIsNew
+			}
+		}
+		set {
+			switch self {
+			case .pcr(var pcrTest):
+				pcrTest.testResultIsNew = newValue
+				self = .pcr(pcrTest)
+			case .antigen(var antigenTest):
+				antigenTest.testResultIsNew = newValue
+				self = .antigen(antigenTest)
+			}
+		}
+	}
 
 	var testResult: TestResult {
 		get {
@@ -144,27 +165,6 @@ enum FamilyMemberCoronaTest: Equatable, Codable, Hashable, RecycleBinIdentifiabl
 				self = .pcr(pcrTest)
 			case .antigen(var antigenTest):
 				antigenTest.finalTestResultReceivedDate = newValue
-				self = .antigen(antigenTest)
-			}
-		}
-	}
-
-	var testResultWasShown: Bool {
-		get {
-			switch self {
-			case .pcr(let pcrTest):
-				return pcrTest.testResultWasShown
-			case .antigen(let antigenTest):
-				return antigenTest.testResultWasShown
-			}
-		}
-		set {
-			switch self {
-			case .pcr(var pcrTest):
-				pcrTest.testResultWasShown = newValue
-				self = .pcr(pcrTest)
-			case .antigen(var antigenTest):
-				antigenTest.testResultWasShown = newValue
 				self = .antigen(antigenTest)
 			}
 		}
@@ -299,7 +299,7 @@ enum FamilyMemberCoronaTest: Equatable, Codable, Hashable, RecycleBinIdentifiabl
 	}
 
 	var hasUnseenNews: Bool {
-		isNew || (!testResultWasShown && finalTestResultReceivedDate != nil)
+		isNew || testResultIsNew
 	}
 
 	// MARK: - Protocol RecycleBinIdentifiable

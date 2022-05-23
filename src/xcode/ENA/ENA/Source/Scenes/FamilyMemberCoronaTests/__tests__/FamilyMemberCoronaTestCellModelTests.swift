@@ -274,9 +274,9 @@ class FamilyMemberCoronaTestCellModelTests: CWATestCase {
 				case .pending:
 					familyMemberCoronaTestService.coronaTests.value = [.pcr(.mock(displayName: "pcrDisplayName", registrationDate: Date(timeIntervalSince1970: 0), testResult: .negative))]
 				case .negative:
-					familyMemberCoronaTestService.coronaTests.value = [.pcr(.mock(displayName: "pcrDisplayName", registrationDate: Date(timeIntervalSince1970: 0), isNew: true, testResult: .invalid, finalTestResultReceivedDate: Date(), testResultWasShown: false))]
+					familyMemberCoronaTestService.coronaTests.value = [.pcr(.mock(displayName: "pcrDisplayName", registrationDate: Date(timeIntervalSince1970: 0), isNew: true, testResultIsNew: true, testResult: .invalid, finalTestResultReceivedDate: Date()))]
 				case .invalid:
-					familyMemberCoronaTestService.coronaTests.value = [.pcr(.mock(displayName: "pcrDisplayName", registrationDate: Date(timeIntervalSince1970: 0), testResult: .positive, finalTestResultReceivedDate: Date(), testResultWasShown: true))]
+					familyMemberCoronaTestService.coronaTests.value = [.pcr(.mock(displayName: "pcrDisplayName", registrationDate: Date(timeIntervalSince1970: 0), testResultIsNew: false, testResult: .positive, finalTestResultReceivedDate: Date()))]
 				case .positive:
 					familyMemberCoronaTestService.coronaTests.value = [.pcr(.mock(displayName: "pcrDisplayName", registrationDate: Date(timeIntervalSince1970: 0), testResult: .expired))]
 				case .expired:
@@ -582,9 +582,9 @@ class FamilyMemberCoronaTestCellModelTests: CWATestCase {
 				case .pending:
 					familyMemberCoronaTestService.coronaTests.value = [.antigen(.mock(displayName: "antigenDisplayName", sampleCollectionDate: Date(timeIntervalSince1970: 0), testResult: .negative))]
 				case .negative:
-					familyMemberCoronaTestService.coronaTests.value = [.antigen(.mock(displayName: "antigenDisplayName", sampleCollectionDate: Date(timeIntervalSince1970: 0), isNew: true, testResult: .invalid, finalTestResultReceivedDate: Date(), testResultWasShown: false))]
+					familyMemberCoronaTestService.coronaTests.value = [.antigen(.mock(displayName: "antigenDisplayName", sampleCollectionDate: Date(timeIntervalSince1970: 0), isNew: true, testResultIsNew: true, testResult: .invalid, finalTestResultReceivedDate: Date()))]
 				case .invalid:
-					familyMemberCoronaTestService.coronaTests.value = [.antigen(.mock(displayName: "antigenDisplayName", sampleCollectionDate: Date(timeIntervalSince1970: 0), testResult: .positive, finalTestResultReceivedDate: Date(), testResultWasShown: true))]
+					familyMemberCoronaTestService.coronaTests.value = [.antigen(.mock(displayName: "antigenDisplayName", sampleCollectionDate: Date(timeIntervalSince1970: 0), testResultIsNew: false, testResult: .positive, finalTestResultReceivedDate: Date()))]
 				case .positive:
 					familyMemberCoronaTestService.coronaTests.value = [.antigen(.mock(displayName: "antigenDisplayName", sampleCollectionDate: Date(timeIntervalSince1970: 0), testResult: .expired))]
 				case .expired:
