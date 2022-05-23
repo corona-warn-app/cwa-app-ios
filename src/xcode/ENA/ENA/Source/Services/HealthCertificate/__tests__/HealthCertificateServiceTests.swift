@@ -26,8 +26,8 @@ class HealthCertificateServiceTests: CWATestCase {
 		service.syncSetup()
 		
 		let healthCertifiedPersonsExpectation = expectation(description: "healthCertifiedPersons publisher updated")
-		// One for registration, one for the validity state update, one for is validity state new update and one for the wallet info update
-		healthCertifiedPersonsExpectation.expectedFulfillmentCount = 4
+		// One for registration, one for the validity state update, and one for the wallet info update
+		healthCertifiedPersonsExpectation.expectedFulfillmentCount = 3
 		
 		let subscription = service.$healthCertifiedPersons
 			.dropFirst()
@@ -44,7 +44,7 @@ class HealthCertificateServiceTests: CWATestCase {
 			),
 			webTokenHeader: .fake(expirationTime: .distantPast)
 		)
-		let vaccinationCertificate = try HealthCertificate(base45: vaccinationCertificateBase45, validityState: .expired, isValidityStateNew: true)
+		let vaccinationCertificate = try HealthCertificate(base45: vaccinationCertificateBase45, validityState: .expired, isValidityStateNew: false)
 		
 		let result = service.registerHealthCertificate(base45: vaccinationCertificateBase45, completedNotificationRegistration: { })
 		
@@ -345,18 +345,18 @@ class HealthCertificateServiceTests: CWATestCase {
 			),
 			webTokenHeader: .fake(expirationTime: .distantPast)
 		)
-		let firstRecoveryCertificate = try HealthCertificate(base45: firstRecoveryCertificateBase45, validityState: .expired, isValidityStateNew: true)
+		let firstRecoveryCertificate = try HealthCertificate(base45: firstRecoveryCertificateBase45, validityState: .expired, isValidityStateNew: false)
 		
 		let personsExpectation = expectation(description: "healthCertifiedPersons publisher triggered")
-		personsExpectation.expectedFulfillmentCount = 5
+		personsExpectation.expectedFulfillmentCount = 4
 		
 		let personsSubscription = service.$healthCertifiedPersons
 			.sink { _ in
 				personsExpectation.fulfill()
 			}
 		
-		let newsExpectation = expectation(description: "healthCertifiedPersons publisher triggered")
-		newsExpectation.expectedFulfillmentCount = 2
+		let newsExpectation = expectation(description: "unseenNewsCount publisher triggered")
+		newsExpectation.expectedFulfillmentCount = 1
 		
 		let newsSubscription = service.unseenNewsCount
 			.sink { _ in
@@ -383,11 +383,11 @@ class HealthCertificateServiceTests: CWATestCase {
 		
 		XCTAssertEqual(store.healthCertifiedPersons[safe: 1]?.healthCertificates.map { $0.base45 }, [firstRecoveryCertificate.base45])
 		XCTAssertEqual(service.healthCertifiedPersons[safe: 1]?.gradientType, .solidGrey)
-		XCTAssertEqual(try XCTUnwrap(store.healthCertifiedPersons[safe: 1]).unseenNewsCount, 1)
+		XCTAssertEqual(try XCTUnwrap(store.healthCertifiedPersons[safe: 1]).unseenNewsCount, 0)
 		
-		// Expired state increases unseen news count
-		XCTAssertEqual(service.unseenNewsCount.value, 3)
-		XCTAssertTrue(try XCTUnwrap(store.healthCertifiedPersons[safe: 1]?.healthCertificates[safe: 0]).isValidityStateNew)
+		// Expired state does not increase unseen news count
+		XCTAssertEqual(service.unseenNewsCount.value, 2)
+		XCTAssertFalse(try XCTUnwrap(store.healthCertifiedPersons[safe: 1]?.healthCertificates[safe: 0]).isValidityStateNew)
 		
 		XCTAssertEqual(store.healthCertifiedPersons[safe: 2]?.healthCertificates.map { $0.base45 }, [firstVaccinationCertificate, firstTestCertificate, secondTestCertificate].map { $0.base45 })
 		XCTAssertEqual(service.healthCertifiedPersons[safe: 2]?.gradientType, .darkBlue)
@@ -812,10 +812,7 @@ class HealthCertificateServiceTests: CWATestCase {
 		XCTAssertEqual(healthCertificateToBeUnrevoked.validityState, .valid)
 		XCTAssertEqual(healthCertificateToBeRevoked.validityState, .revoked)
 
-		// There should be 1 notification for revocation, 1 for expiringSoon and 1 for expired as only notifications for newly added certificates have been scheduled.
-		XCTAssertEqual(notificationCenter.notificationRequests.count, 3)
-		XCTAssertTrue(notificationCenter.notificationRequests.contains { $0.identifier.hasPrefix("HealthCertificateNotificationExpireSoon") })
-		XCTAssertTrue(notificationCenter.notificationRequests.contains { $0.identifier.hasPrefix("HealthCertificateNotificationExpired") })
+		XCTAssertEqual(notificationCenter.notificationRequests.count, 1)
 		XCTAssertTrue(notificationCenter.notificationRequests.contains { $0.identifier.hasPrefix("HealthCertificateNotificationRevoked") })
 	}
 	
@@ -1266,70 +1263,6 @@ class HealthCertificateServiceTests: CWATestCase {
 		service.moveHealthCertificateToBin(healthCertificate)
 	}
 	
-	func testGIVEN_HealthCertificate_WHEN_CertificatesAreAddedAndRemoved_THEN_NotificationsShouldBeCreatedAndRemoved() throws {
-		// GIVEN
-		let store = MockTestStore()
-		let notificationCenter = MockUserNotificationCenter()
-		let service = HealthCertificateService(
-			store: store,
-			dccSignatureVerifier: DCCSignatureVerifyingStub(),
-			dscListProvider: MockDSCListProvider(),
-			appConfiguration: CachedAppConfigurationMock(),
-			digitalCovidCertificateAccess: MockDigitalCovidCertificateAccess(),
-			notificationCenter: notificationCenter,
-			cclService: FakeCCLService(),
-			recycleBin: .fake(),
-			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
-		)
-		
-		let testCertificateBase45 = try base45Fake(
-			digitalCovidCertificate: DigitalCovidCertificate.fake(
-				name: .fake(standardizedFamilyName: "BRAUSE", standardizedGivenName: "PASCAL"),
-				testEntries: [TestEntry.fake(
-					dateTimeOfSampleCollection: "2021-07-22T22:22:22.225Z",
-					uniqueCertificateIdentifier: "0"
-				)]
-			)
-		)
-		
-		let vaccinationCertificateBase45 = try base45Fake(
-			digitalCovidCertificate: DigitalCovidCertificate.fake(
-				name: .fake(standardizedFamilyName: "BRAUSE", standardizedGivenName: "PASCAL"),
-				vaccinationEntries: [VaccinationEntry.fake(
-					dateOfVaccination: "2021-05-28",
-					uniqueCertificateIdentifier: "1"
-				)]
-			)
-		)
-		
-		let recoveryCertificateBase45 = try base45Fake(
-			digitalCovidCertificate: DigitalCovidCertificate.fake(
-				name: .fake(standardizedFamilyName: "BRAUSE", standardizedGivenName: "PASCAL"),
-				recoveryEntries: [RecoveryEntry.fake(
-					dateOfFirstPositiveNAAResult: "2021-05-28",
-					uniqueCertificateIdentifier: "2"
-				)]
-			)
-		)
-		let recoveryCertificate = try HealthCertificate(base45: recoveryCertificateBase45)
-		
-		// WHEN
-		_ = service.registerHealthCertificate(base45: testCertificateBase45, completedNotificationRegistration: { })
-		_ = service.registerHealthCertificate(base45: vaccinationCertificateBase45, completedNotificationRegistration: { })
-		_ = service.registerHealthCertificate(base45: recoveryCertificateBase45, completedNotificationRegistration: { })
-		
-		// THEN
-		// There should be now 2 notifications for expireSoon and 2 for expired (One for each the vaccination and the recovery certificate). Test certificates are ignored.
-		XCTAssertEqual(notificationCenter.notificationRequests.count, 4)
-		
-		// WHEN
-		service.moveHealthCertificateToBin(recoveryCertificate)
-		
-		// THEN
-		// There should be now 1 notifications for expireSoon and 1 for expired. Test certificates are ignored. The recovery is now removed. Remains the two notifications for the vaccination certificate.
-		XCTAssertEqual(notificationCenter.notificationRequests.count, 2)
-	}
-	
 	func testGIVEN_HealthCertificate_WHEN_CertificatesIsInvalid_THEN_NotificationForInvalidShouldBeCreated() throws {
 		// GIVEN
 		let notificationCenter = MockUserNotificationCenter()
@@ -1347,7 +1280,7 @@ class HealthCertificateServiceTests: CWATestCase {
 		let healthCertificate = HealthCertificate.mock(base45: vaccinationCertificateBase45, validityState: .invalid)
 		
 		let expectation = expectation(description: "notificationRequests changed")
-		expectation.expectedFulfillmentCount = 3
+		expectation.expectedFulfillmentCount = 1
 		
 		notificationCenter.onAdding = { _ in
 			expectation.fulfill()
@@ -1373,8 +1306,8 @@ class HealthCertificateServiceTests: CWATestCase {
 		
 		waitForExpectations(timeout: .medium)
 		
-		// There should be now 1 notification for invalid, 1 for expireSoon and 1 for expired.
-		XCTAssertEqual(notificationCenter.notificationRequests.count, 3)
+		XCTAssertEqual(notificationCenter.notificationRequests.count, 1)
+		XCTAssertTrue(notificationCenter.notificationRequests.contains { $0.identifier.hasPrefix("HealthCertificateNotificationInvalid") })
 	}
 	
 	func testBoosterNotificationTriggeredFromDCCWalletInfo() throws {
@@ -1391,7 +1324,7 @@ class HealthCertificateServiceTests: CWATestCase {
 		cclService.didChange = false
 		
 		let expectation = expectation(description: "notificationRequests changed")
-		expectation.expectedFulfillmentCount = 3
+		expectation.expectedFulfillmentCount = 1
 		
 		notificationCenter.onAdding = { _ in
 			expectation.fulfill()
@@ -1414,10 +1347,7 @@ class HealthCertificateServiceTests: CWATestCase {
 		
 		waitForExpectations(timeout: .medium)
 		
-		// There should be now 1 notification for booster, 1 for expireSoon and 1 for expired.
-		XCTAssertEqual(notificationCenter.notificationRequests.count, 3)
-		XCTAssertTrue(notificationCenter.notificationRequests.contains { $0.identifier.hasPrefix("HealthCertificateNotificationExpireSoon") })
-		XCTAssertTrue(notificationCenter.notificationRequests.contains { $0.identifier.hasPrefix("HealthCertificateNotificationExpired") })
+		XCTAssertEqual(notificationCenter.notificationRequests.count, 1)
 		XCTAssertTrue(notificationCenter.notificationRequests.contains { $0.identifier.hasPrefix("BoosterVaccinationNotification") })
 	}
 	
@@ -1435,7 +1365,7 @@ class HealthCertificateServiceTests: CWATestCase {
 		cclService.didChange = false
 		
 		let expectation = expectation(description: "notificationRequests changed")
-		expectation.expectedFulfillmentCount = 2
+		expectation.isInverted = true
 		
 		notificationCenter.onAdding = { _ in
 			expectation.fulfill()
@@ -1456,13 +1386,9 @@ class HealthCertificateServiceTests: CWATestCase {
 		
 		XCTAssertEqual(service.healthCertifiedPersons.count, 1)
 		
-		waitForExpectations(timeout: .medium)
+		waitForExpectations(timeout: .short)
 		
-		// There should be now 1 notification for expireSoon and 1 for expired.
-		XCTAssertEqual(notificationCenter.notificationRequests.count, 2)
-		XCTAssertTrue(notificationCenter.notificationRequests.contains { $0.identifier.hasPrefix("HealthCertificateNotificationExpireSoon") })
-		XCTAssertTrue(notificationCenter.notificationRequests.contains { $0.identifier.hasPrefix("HealthCertificateNotificationExpired") })
-		XCTAssertFalse(notificationCenter.notificationRequests.contains { $0.identifier.hasPrefix("BoosterVaccinationNotification") })
+		XCTAssertEqual(notificationCenter.notificationRequests.count, 0)
 	}
 	
 	func testNoDuplicateBoosterNotificationTriggeredFromDCCWalletInfo() throws {
@@ -1676,7 +1602,7 @@ class HealthCertificateServiceTests: CWATestCase {
 		cclService.didChange = false
 		
 		let expectation = expectation(description: "notificationRequests changed")
-		expectation.expectedFulfillmentCount = 3
+		expectation.expectedFulfillmentCount = 1
 		
 		notificationCenter.onAdding = { _ in
 			expectation.fulfill()
@@ -1698,11 +1624,8 @@ class HealthCertificateServiceTests: CWATestCase {
 		XCTAssertEqual(service.healthCertifiedPersons.count, 1)
 		
 		waitForExpectations(timeout: .medium)
-		
-		// There should be now 1 notification for certificate reissuance, 1 for expireSoon and 1 for expired.
-		XCTAssertEqual(notificationCenter.notificationRequests.count, 3)
-		XCTAssertTrue(notificationCenter.notificationRequests.contains { $0.identifier.hasPrefix("HealthCertificateNotificationExpireSoon") })
-		XCTAssertTrue(notificationCenter.notificationRequests.contains { $0.identifier.hasPrefix("HealthCertificateNotificationExpired") })
+
+		XCTAssertEqual(notificationCenter.notificationRequests.count, 1)
 		XCTAssertTrue(notificationCenter.notificationRequests.contains { $0.identifier.hasPrefix("CertificateReissuanceNotification") })
 	}
 	
@@ -1720,7 +1643,7 @@ class HealthCertificateServiceTests: CWATestCase {
 		cclService.didChange = false
 		
 		let expectation = expectation(description: "notificationRequests changed")
-		expectation.expectedFulfillmentCount = 2
+		expectation.isInverted = true
 		
 		notificationCenter.onAdding = { _ in
 			expectation.fulfill()
@@ -1741,13 +1664,9 @@ class HealthCertificateServiceTests: CWATestCase {
 		
 		XCTAssertEqual(service.healthCertifiedPersons.count, 1)
 		
-		waitForExpectations(timeout: .medium)
+		waitForExpectations(timeout: .short)
 		
-		// There should be now 1 notification for expireSoon and 1 for expired.
-		XCTAssertEqual(notificationCenter.notificationRequests.count, 2)
-		XCTAssertTrue(notificationCenter.notificationRequests.contains { $0.identifier.hasPrefix("HealthCertificateNotificationExpireSoon") })
-		XCTAssertTrue(notificationCenter.notificationRequests.contains { $0.identifier.hasPrefix("HealthCertificateNotificationExpired") })
-		XCTAssertFalse(notificationCenter.notificationRequests.contains { $0.identifier.hasPrefix("CertificateReissuanceNotification") })
+		XCTAssertEqual(notificationCenter.notificationRequests.count, 0)
 	}
 	
 	func testNoDuplicateCertificateReissuanceNotificationTriggeredFromDCCWalletInfo() throws {
