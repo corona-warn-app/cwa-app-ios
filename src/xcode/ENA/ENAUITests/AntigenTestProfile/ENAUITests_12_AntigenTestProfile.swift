@@ -97,31 +97,31 @@ class ENAUITests_12_AntigenTestProfile: CWATestCase {
 		
 		let firstNameTextField = try XCTUnwrap(app.cells.textFields[AccessibilityIdentifiers.AntigenProfile.Create.firstNameTextField])
 		firstNameTextField.waitAndTap()
-		firstNameTextField.typeText("Bastian")
+		firstNameTextField.typeText("Andrea")
 		
 		let lastNameTextField = try XCTUnwrap(app.cells.textFields[AccessibilityIdentifiers.AntigenProfile.Create.lastNameTextField])
 		lastNameTextField.waitAndTap()
-		lastNameTextField.typeText("Kohlbauer")
+		lastNameTextField.typeText("Schneider")
 		
 		let birthDateTextField = try XCTUnwrap(app.cells.textFields[AccessibilityIdentifiers.AntigenProfile.Create.birthDateTextField])
 		birthDateTextField.waitAndTap()
-		birthDateTextField.typeText("15-12-1986")
+		birthDateTextField.typeText("01-01-1980")
 		
 		let streetTextField = try XCTUnwrap(app.cells.textFields[AccessibilityIdentifiers.AntigenProfile.Create.streetTextField])
 		streetTextField.waitAndTap()
-		streetTextField.typeText("Herr Bastian Kohlbauer Str. 1")
+		streetTextField.typeText("Teststraße 123")
 		
 		let postalCodeTextField = try XCTUnwrap(app.cells.textFields[AccessibilityIdentifiers.AntigenProfile.Create.postalCodeTextField])
 		postalCodeTextField.waitAndTap()
-		postalCodeTextField.typeText("80639")
+		postalCodeTextField.typeText("12345")
 		
 		let cityTextField = try XCTUnwrap(app.cells.textFields[AccessibilityIdentifiers.AntigenProfile.Create.cityTextField])
 		cityTextField.waitAndTap()
-		cityTextField.typeText("München")
+		cityTextField.typeText("Testort")
 		
 		let phoneNumberTextField = try XCTUnwrap(app.cells.textFields[AccessibilityIdentifiers.AntigenProfile.Create.phoneNumberTextField])
 		phoneNumberTextField.waitAndTap()
-		phoneNumberTextField.typeText("089123456")
+		phoneNumberTextField.typeText("012 3456789")
 
 		XCTAssertTrue(saveProfileButton.isEnabled)
 		saveProfileButton.waitAndTap()
@@ -138,7 +138,7 @@ class ENAUITests_12_AntigenTestProfile: CWATestCase {
 
 		app.swipeUp(velocity: .slow)
 
-		let personSimpleText = app.staticTexts["Bastian Kohlbauer Herr Bastian Kohlbauer Str. 1 München 80639 089123456 bastian@bastian.codes"]
+		let personSimpleText = app.staticTexts["Andrea Schneider Teststraße 123 Testort 12345 012 3456789"]
 		XCTAssertTrue(personSimpleText.exists)
 				
 		let closeButton = try XCTUnwrap(app.navigationBars.buttons.element(boundBy: 1))
