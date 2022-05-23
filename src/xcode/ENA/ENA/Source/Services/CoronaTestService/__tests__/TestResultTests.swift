@@ -21,7 +21,7 @@ class TestResultTests: CWATestCase {
 		XCTAssertEqual(TestResult(serverResponse: 3, coronaTestType: .antigen), .invalid)
 
 		XCTAssertEqual(TestResult(serverResponse: 4, coronaTestType: .pcr), .expired)
-		XCTAssertEqual(TestResult(serverResponse: 4, coronaTestType: .antigen), .invalid)
+		XCTAssertEqual(TestResult(serverResponse: 4, coronaTestType: .antigen), .expired)
 
 		XCTAssertEqual(TestResult(serverResponse: 5, coronaTestType: .pcr), .invalid)
 		XCTAssertEqual(TestResult(serverResponse: 5, coronaTestType: .antigen), .pending)
