@@ -122,10 +122,6 @@ class ENAUITests_12_AntigenTestProfile: CWATestCase {
 		let phoneNumberTextField = try XCTUnwrap(app.cells.textFields[AccessibilityIdentifiers.AntigenProfile.Create.phoneNumberTextField])
 		phoneNumberTextField.waitAndTap()
 		phoneNumberTextField.typeText("089123456")
-		
-		let emailAddressTextField = try XCTUnwrap(app.cells.textFields[AccessibilityIdentifiers.AntigenProfile.Create.emailAddressTextField])
-		emailAddressTextField.waitAndTap()
-		emailAddressTextField.typeText("bastian@bastian.codes")
 
 		XCTAssertTrue(saveProfileButton.isEnabled)
 		saveProfileButton.waitAndTap()
