@@ -134,7 +134,7 @@ class ENAUITests_12_AntigenTestProfile: CWATestCase {
 
 		app.swipeUp(velocity: .slow)
 
-		let personSimpleText = app.staticTexts["Andrea Schneider Teststraße 123 Testort 12345 012 3456789"]
+		let personSimpleText = app.staticTexts["Andrea Schneider Teststraße 123 12345 Testort 012 3456789"]
 		XCTAssertTrue(personSimpleText.exists)
 				
 		let closeButton = try XCTUnwrap(app.navigationBars.buttons.element(boundBy: 1))
