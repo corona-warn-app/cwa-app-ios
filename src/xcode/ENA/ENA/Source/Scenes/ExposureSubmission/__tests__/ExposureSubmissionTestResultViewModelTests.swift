@@ -432,10 +432,10 @@ class ExposureSubmissionTestResultViewModelTests: CWATestCase {
 			onTestCertificateCellTap: { _, _ in }
 		)
 		
-		XCTAssertEqual(model.dynamicTableViewModelPublisher.value.numberOfSection, 1)
-		XCTAssertNotNil(model.dynamicTableViewModelPublisher.value.section(0).header)
+		XCTAssertEqual(model.dynamicTableViewModelPublisher.value.numberOfSection, 2)
+		XCTAssertNotNil(model.dynamicTableViewModelPublisher.value.section(1).header)
 		
-		let section = model.dynamicTableViewModelPublisher.value.section(0)
+		let section = model.dynamicTableViewModelPublisher.value.section(1)
 		let cells = section.cells
 		XCTAssertEqual(cells.count, 4)
 		
@@ -471,10 +471,10 @@ class ExposureSubmissionTestResultViewModelTests: CWATestCase {
 			onTestCertificateCellTap: { _, _ in }
 		)
 		
-		XCTAssertEqual(model.dynamicTableViewModelPublisher.value.numberOfSection, 1)
-		XCTAssertNotNil(model.dynamicTableViewModelPublisher.value.section(0).header)
+		XCTAssertEqual(model.dynamicTableViewModelPublisher.value.numberOfSection, 2)
+		XCTAssertNotNil(model.dynamicTableViewModelPublisher.value.section(1).header)
 		
-		let section = model.dynamicTableViewModelPublisher.value.section(0)
+		let section = model.dynamicTableViewModelPublisher.value.section(1)
 		let cells = section.cells
 		XCTAssertEqual(cells.count, 10)
 		
@@ -534,10 +534,10 @@ class ExposureSubmissionTestResultViewModelTests: CWATestCase {
 			onTestCertificateCellTap: { _, _ in }
 		)
 		
-		XCTAssertEqual(model.dynamicTableViewModelPublisher.value.numberOfSection, 1)
-		XCTAssertNotNil(model.dynamicTableViewModelPublisher.value.section(0).header)
+		XCTAssertEqual(model.dynamicTableViewModelPublisher.value.numberOfSection, 2)
+		XCTAssertNotNil(model.dynamicTableViewModelPublisher.value.section(1).header)
 		
-		let section = model.dynamicTableViewModelPublisher.value.section(0)
+		let section = model.dynamicTableViewModelPublisher.value.section(1)
 		let cells = section.cells
 		XCTAssertEqual(cells.count, 4)
 		
@@ -573,10 +573,10 @@ class ExposureSubmissionTestResultViewModelTests: CWATestCase {
 			onTestCertificateCellTap: { _, _ in }
 		)
 		
-		XCTAssertEqual(model.dynamicTableViewModelPublisher.value.numberOfSection, 2)
-		XCTAssertNotNil(model.dynamicTableViewModelPublisher.value.section(0).header)
+		XCTAssertEqual(model.dynamicTableViewModelPublisher.value.numberOfSection, 3)
+		XCTAssertNotNil(model.dynamicTableViewModelPublisher.value.section(1).header)
 		
-		let section = model.dynamicTableViewModelPublisher.value.section(0)
+		let section = model.dynamicTableViewModelPublisher.value.section(1)
 		let cells = section.cells
 		XCTAssertEqual(cells.count, 5)
 		
@@ -592,7 +592,7 @@ class ExposureSubmissionTestResultViewModelTests: CWATestCase {
 		id = thirdItem.cellReuseIdentifier
 		XCTAssertEqual(id.rawValue, "stepCell")
 		
-		let section2 = model.dynamicTableViewModelPublisher.value.section(1)
+		let section2 = model.dynamicTableViewModelPublisher.value.section(2)
 		let iconCell = section2.cells
 		XCTAssertEqual(iconCell.count, 1)
 		
@@ -616,10 +616,10 @@ class ExposureSubmissionTestResultViewModelTests: CWATestCase {
 			onTestCertificateCellTap: { _, _ in }
 		)
 		
-		XCTAssertEqual(model.dynamicTableViewModelPublisher.value.numberOfSection, 1)
-		XCTAssertNotNil(model.dynamicTableViewModelPublisher.value.section(0).header)
+		XCTAssertEqual(model.dynamicTableViewModelPublisher.value.numberOfSection, 2)
+		XCTAssertNotNil(model.dynamicTableViewModelPublisher.value.section(1).header)
 		
-		let section = model.dynamicTableViewModelPublisher.value.section(0)
+		let section = model.dynamicTableViewModelPublisher.value.section(1)
 		let cells = section.cells
 		XCTAssertEqual(cells.count, 4)
 		

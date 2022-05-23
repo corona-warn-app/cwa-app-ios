@@ -346,6 +346,16 @@ extension ExposureSubmissionTestResultViewModel {
 		
 		return [
 			.section(
+				cells: [
+					.title1(
+						text: title,
+						configure: { _, cell, _ in
+							cell.accessibilityIdentifier = AccessibilityIdentifiers.ExposureSubmissionResult.testedPersonName
+						}
+					)
+				]
+			),
+			.section(
 				header: .identifier(
 					ExposureSubmissionTestResultViewController.HeaderReuseIdentifier.pcrTestResult,
 					configure: { view, _ in
@@ -399,6 +409,16 @@ extension ExposureSubmissionTestResultViewModel {
 	private var positiveTestResultSectionsWithoutSubmissionConsent: [DynamicSection] {
 		[
 			.section(
+				cells: [
+					.title1(
+						text: title,
+						configure: { _, cell, _ in
+							cell.accessibilityIdentifier = AccessibilityIdentifiers.ExposureSubmissionResult.testedPersonName
+						}
+					)
+				]
+			),
+			.section(
 				header: .identifier(
 					ExposureSubmissionTestResultViewController.HeaderReuseIdentifier.pcrTestResult,
 					configure: { view, _ in
@@ -445,6 +465,16 @@ extension ExposureSubmissionTestResultViewModel {
 	/// has GIVEN submission consent to share the positive test result with others
 	private var positiveTestResultSectionsWithSubmissionConsent: [DynamicSection] {
 		[
+			.section(
+				cells: [
+					.title1(
+						text: title,
+						configure: { _, cell, _ in
+							cell.accessibilityIdentifier = AccessibilityIdentifiers.ExposureSubmissionResult.testedPersonName
+						}
+					)
+				]
+			),
 			.section(
 				header: .identifier(
 					ExposureSubmissionTestResultViewController.HeaderReuseIdentifier.pcrTestResult,
@@ -555,6 +585,16 @@ extension ExposureSubmissionTestResultViewModel {
 		])
 
 		return [
+			.section(
+				cells: [
+					.title1(
+						text: title,
+						configure: { _, cell, _ in
+							cell.accessibilityIdentifier = AccessibilityIdentifiers.ExposureSubmissionResult.testedPersonName
+						}
+					)
+				]
+			),
 			.section(
 				header: .identifier(
 					ExposureSubmissionTestResultViewController.HeaderReuseIdentifier.pcrTestResult,
@@ -690,6 +730,16 @@ extension ExposureSubmissionTestResultViewModel {
 		
 		return [
 			.section(
+				cells: [
+					.title1(
+						text: title,
+						configure: { _, cell, _ in
+							cell.accessibilityIdentifier = AccessibilityIdentifiers.ExposureSubmissionResult.testedPersonName
+						}
+					)
+				]
+			),
+			.section(
 				header: header,
 				separators: .none,
 				cells: cells
@@ -779,6 +829,16 @@ extension ExposureSubmissionTestResultViewModel {
 
 		return [
 			.section(
+				cells: [
+					.title1(
+						text: title,
+						configure: { _, cell, _ in
+							cell.accessibilityIdentifier = AccessibilityIdentifiers.ExposureSubmissionResult.testedPersonName
+						}
+					)
+				]
+			),
+			.section(
 				header: .identifier(
 					ExposureSubmissionTestResultViewController.HeaderReuseIdentifier.antigenTestResult,
 					configure: { view, _ in
@@ -866,6 +926,16 @@ extension ExposureSubmissionTestResultViewModel {
 
 		return [
 			.section(
+				cells: [
+					.title1(
+						text: title,
+						configure: { _, cell, _ in
+							cell.accessibilityIdentifier = AccessibilityIdentifiers.ExposureSubmissionResult.testedPersonName
+						}
+					)
+				]
+			),
+			.section(
 				header: .identifier(
 					ExposureSubmissionTestResultViewController.HeaderReuseIdentifier.pcrTestResult,
 					configure: { view, _ in
@@ -929,6 +999,16 @@ extension ExposureSubmissionTestResultViewModel {
 		])
 
 		return [
+			.section(
+				cells: [
+					.title1(
+						text: title,
+						configure: { _, cell, _ in
+							cell.accessibilityIdentifier = AccessibilityIdentifiers.ExposureSubmissionResult.testedPersonName
+						}
+					)
+				]
+			),
 			.section(
 				header: .identifier(
 					ExposureSubmissionTestResultViewController.HeaderReuseIdentifier.pcrTestResult,
