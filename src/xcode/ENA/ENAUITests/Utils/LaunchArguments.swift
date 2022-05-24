@@ -132,13 +132,11 @@ enum LaunchArguments {
 		enum pcr {
 			/// Set the PCR Family Test Result
 			static let testResult = LaunchArgument(name: "pcrTestResult")
-			/// Flag to set if positive result was shown for PCR, set it to true for positive PCR
 		}
 		
 		enum antigen {
 			/// Set the Antigen Family Test Result
 			static let testResult = LaunchArgument(name: "antigenTestResult")
-			/// Flag to set if positive result was shown for PCR, set it to true for positive PCR
 		}
 
 		/// Show in family member overview some fake tests for screenshots
