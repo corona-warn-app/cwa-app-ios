@@ -2208,13 +2208,11 @@ enum AppStrings {
 
 			enum TestCertificate {
 				static let title = NSLocalizedString("TestCertificate_Details_title", comment: "")
-				static let subtitle = NSLocalizedString("TestCertificate_Details_subtitle", comment: "")
 				static let primaryButton = NSLocalizedString("TestCertificate_Details_primaryButton", comment: "")
 			}
 
 			enum RecoveryCertificate {
 				static let title = NSLocalizedString("RecoveryCertificate_Details_title", comment: "")
-				static let subtitle = NSLocalizedString("RecoveryCertificate_Details_subtitle", comment: "")
 				static let primaryButton = NSLocalizedString("RecoveryCertificate_Details_primaryButton", comment: "")
 			}
 		}
