@@ -938,7 +938,11 @@ class HealthCertificateServiceTests: CWATestCase {
 	}
 	
 	func testDCCWalletInfoUpdate_InitialWithoutDCCWalletInfo() throws {
-		let healthCertificate: HealthCertificate = try vaccinationCertificate(type: .seriesCompletingOrBooster, ageInDays: 2)
+		let healthCertificate: HealthCertificate = try vaccinationCertificate(
+			type: .seriesCompletingOrBooster,
+			ageInDays: 2,
+			cborWebTokenHeader: .fake(expirationTime: .distantFuture)
+		)
 		let healthCertifiedPerson = HealthCertifiedPerson(
 			healthCertificates: [healthCertificate],
 			dccWalletInfo: nil
@@ -985,7 +989,11 @@ class HealthCertificateServiceTests: CWATestCase {
 	}
 	
 	func testDCCWalletInfoUpdate_StillValidButMostRecentWalletInfoUpdateFailed() throws {
-		let healthCertificate: HealthCertificate = try vaccinationCertificate(type: .seriesCompletingOrBooster, ageInDays: 2)
+		let healthCertificate: HealthCertificate = try vaccinationCertificate(
+			type: .seriesCompletingOrBooster,
+			ageInDays: 2,
+			cborWebTokenHeader: .fake(expirationTime: .distantFuture)
+		)
 		let healthCertifiedPerson = HealthCertifiedPerson(
 			healthCertificates: [healthCertificate],
 			dccWalletInfo: .fake(validUntil: Date(timeIntervalSinceNow: 100)),
@@ -1033,7 +1041,11 @@ class HealthCertificateServiceTests: CWATestCase {
 	}
 	
 	func testDCCWalletInfoUpdate_MostRecentWalletInfoUpdateFailedIsSet() throws {
-		let healthCertificate: HealthCertificate = try vaccinationCertificate(type: .seriesCompletingOrBooster, ageInDays: 2)
+		let healthCertificate: HealthCertificate = try vaccinationCertificate(
+			type: .seriesCompletingOrBooster,
+			ageInDays: 2,
+			cborWebTokenHeader: .fake(expirationTime: .distantFuture)
+		)
 		let healthCertifiedPerson = HealthCertifiedPerson(
 			healthCertificates: [healthCertificate],
 			dccWalletInfo: nil,
@@ -1077,7 +1089,11 @@ class HealthCertificateServiceTests: CWATestCase {
 	}
 	
 	func testDCCWalletInfoUpdate_ExpiredWalletInfo() throws {
-		let healthCertificate: HealthCertificate = try vaccinationCertificate(type: .seriesCompletingOrBooster, ageInDays: 2)
+		let healthCertificate: HealthCertificate = try vaccinationCertificate(
+			type: .seriesCompletingOrBooster,
+			ageInDays: 2,
+			cborWebTokenHeader: .fake(expirationTime: .distantFuture)
+		)
 		let healthCertifiedPerson = HealthCertifiedPerson(
 			healthCertificates: [healthCertificate],
 			dccWalletInfo: .fake(validUntil: Date(timeIntervalSinceNow: -100)),
@@ -1125,7 +1141,11 @@ class HealthCertificateServiceTests: CWATestCase {
 	}
 	
 	func testDCCWalletInfoUpdate_ConfigurationDidChange() throws {
-		let healthCertificate: HealthCertificate = try vaccinationCertificate(type: .seriesCompletingOrBooster, ageInDays: 2)
+		let healthCertificate: HealthCertificate = try vaccinationCertificate(
+			type: .seriesCompletingOrBooster,
+			ageInDays: 2,
+			cborWebTokenHeader: .fake(expirationTime: .distantFuture)
+		)
 		let healthCertifiedPerson = HealthCertifiedPerson(
 			healthCertificates: [healthCertificate],
 			dccWalletInfo: .fake(validUntil: Date(timeIntervalSinceNow: 100)),
@@ -1397,7 +1417,11 @@ class HealthCertificateServiceTests: CWATestCase {
 			validUntil: Date(timeIntervalSinceNow: 100)
 		)
 		
-		let healthCertificate: HealthCertificate = try vaccinationCertificate(type: .incomplete, ageInDays: 180)
+		let healthCertificate: HealthCertificate = try vaccinationCertificate(
+			type: .incomplete,
+			ageInDays: 180,
+			cborWebTokenHeader: .fake(expirationTime: .distantFuture)
+		)
 		let healthCertifiedPerson = HealthCertifiedPerson(
 			healthCertificates: [healthCertificate],
 			dccWalletInfo: dccWalletInfo
@@ -1456,7 +1480,11 @@ class HealthCertificateServiceTests: CWATestCase {
 			validUntil: Date(timeIntervalSinceNow: 100)
 		)
 		
-		let healthCertificate: HealthCertificate = try vaccinationCertificate(type: .incomplete, ageInDays: 180)
+		let healthCertificate: HealthCertificate = try vaccinationCertificate(
+			type: .incomplete,
+			ageInDays: 180,
+			cborWebTokenHeader: .fake(expirationTime: .distantFuture)
+		)
 		let healthCertifiedPerson = HealthCertifiedPerson(
 			healthCertificates: [healthCertificate],
 			dccWalletInfo: nil,
@@ -1670,7 +1698,11 @@ class HealthCertificateServiceTests: CWATestCase {
 	}
 	
 	func testNoDuplicateCertificateReissuanceNotificationTriggeredFromDCCWalletInfo() throws {
-		let healthCertificate: HealthCertificate = try vaccinationCertificate(type: .incomplete, ageInDays: 180)
+		let healthCertificate: HealthCertificate = try vaccinationCertificate(
+			type: .incomplete,
+			ageInDays: 180,
+			cborWebTokenHeader: .fake(expirationTime: .distantFuture)
+		)
 		
 		let dccWalletInfo: DCCWalletInfo = .fake(
 			validUntil: Date(timeIntervalSinceNow: 100),
