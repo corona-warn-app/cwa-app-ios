@@ -3328,7 +3328,9 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 /* Health Certificate Validity State */
 
-"HealthCertificate_ValidityState_ExpiringSoon" = "läuft am %@ um %@ ab";
+"HealthCertificate_ValidityState_ExpiringSoon_long" = "Zertifikat läuft am %@ um %@ ab";
+
+"HealthCertificate_ValidityState_ExpiringSoon_short" = "läuft am %@ um %@ ab";
 
 "HealthCertificate_ValidityState_ExpiringSoon_description" = "Wenn dies Ihr aktuell verwendetes Zertifikat ist, bemühen Sie sich bitte rechtzeitig darum, es zu erneuern. Ab 28 Tage vor Ablauf können Sie solche Zertifikate direkt über die App erneuern lassen. Sie finden die Option \"Zertifikate erneuern\" dann in Ihrer Zertifikatsübersicht unter der Kachel \"Status-Nachweis\". Sollte dies nicht Ihr aktuell verwendetes Zertifikat sein, müssen Sie nichts weiter tun.";
 

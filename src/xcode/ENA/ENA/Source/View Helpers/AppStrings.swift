@@ -2251,7 +2251,8 @@ enum AppStrings {
 		}
 
 		enum ValidityState {
-			static let expiringSoon = NSLocalizedString("HealthCertificate_ValidityState_ExpiringSoon", comment: "")
+			static let expiringSoonLong = NSLocalizedString("HealthCertificate_ValidityState_ExpiringSoon_long", comment: "")
+			static let expiringSoonShort = NSLocalizedString("HealthCertificate_ValidityState_ExpiringSoon_short", comment: "")
 			static let expiringSoonDescription = NSLocalizedString("HealthCertificate_ValidityState_ExpiringSoon_description", comment: "")
 			static let expired = NSLocalizedString("HealthCertificate_ValidityState_Expired", comment: "")
 			static let expiredDescription = NSLocalizedString("HealthCertificate_ValidityState_Expired_description", comment: "")

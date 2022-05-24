@@ -179,7 +179,7 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 		XCTAssertEqual(
 			viewModel.validityStateTitle,
 			String(
-				format: "läuft am %@ um %@ ab",
+				format: "Zertifikat läuft am %@ um %@ ab",
 				DateFormatter.localizedString(from: expirationDate, dateStyle: .short, timeStyle: .none),
 				DateFormatter.localizedString(from: expirationDate, dateStyle: .none, timeStyle: .short)
 			)
@@ -224,7 +224,7 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 		XCTAssertEqual(
 			viewModel.validityStateTitle,
 			String(
-				format: "läuft am %@ um %@ ab",
+				format: "Zertifikat läuft am %@ um %@ ab",
 				DateFormatter.localizedString(from: expirationDate, dateStyle: .short, timeStyle: .none),
 				DateFormatter.localizedString(from: expirationDate, dateStyle: .none, timeStyle: .short)
 			)
@@ -266,7 +266,7 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 		XCTAssertEqual(
 			viewModel.validityStateTitle,
 			String(
-				format: "läuft am %@ um %@ ab",
+				format: "Zertifikat läuft am %@ um %@ ab",
 				DateFormatter.localizedString(from: expirationDate, dateStyle: .short, timeStyle: .none),
 				DateFormatter.localizedString(from: expirationDate, dateStyle: .none, timeStyle: .short)
 			)
@@ -309,7 +309,7 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 		XCTAssertEqual(
 			viewModel.validityStateTitle,
 			String(
-				format: "läuft am %@ um %@ ab",
+				format: "Zertifikat läuft am %@ um %@ ab",
 				DateFormatter.localizedString(from: expirationDate, dateStyle: .short, timeStyle: .none),
 				DateFormatter.localizedString(from: expirationDate, dateStyle: .none, timeStyle: .short)
 			)
@@ -2029,7 +2029,7 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 		XCTAssertEqual(
 			viewModel.validityStateTitle,
 			String(
-				format: "läuft am %@ um %@ ab",
+				format: "Zertifikat läuft am %@ um %@ ab",
 				DateFormatter.localizedString(from: expirationDate, dateStyle: .short, timeStyle: .none),
 				DateFormatter.localizedString(from: expirationDate, dateStyle: .none, timeStyle: .short)
 			)
@@ -2074,7 +2074,7 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 		XCTAssertEqual(
 			viewModel.validityStateTitle,
 			String(
-				format: "läuft am %@ um %@ ab",
+				format: "Zertifikat läuft am %@ um %@ ab",
 				DateFormatter.localizedString(from: expirationDate, dateStyle: .short, timeStyle: .none),
 				DateFormatter.localizedString(from: expirationDate, dateStyle: .none, timeStyle: .short)
 			)
@@ -2114,7 +2114,7 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 		XCTAssertEqual(
 			viewModel.validityStateTitle,
 			String(
-				format: "läuft am %@ um %@ ab",
+				format: "Zertifikat läuft am %@ um %@ ab",
 				DateFormatter.localizedString(from: expirationDate, dateStyle: .short, timeStyle: .none),
 				DateFormatter.localizedString(from: expirationDate, dateStyle: .none, timeStyle: .short)
 			)
@@ -2157,7 +2157,7 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 		XCTAssertEqual(
 			viewModel.validityStateTitle,
 			String(
-				format: "läuft am %@ um %@ ab",
+				format: "Zertifikat läuft am %@ um %@ ab",
 				DateFormatter.localizedString(from: expirationDate, dateStyle: .short, timeStyle: .none),
 				DateFormatter.localizedString(from: expirationDate, dateStyle: .none, timeStyle: .short)
 			)
