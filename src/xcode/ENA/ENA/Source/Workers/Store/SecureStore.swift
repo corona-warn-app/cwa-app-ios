@@ -297,6 +297,11 @@ final class SecureStore: SecureKeyValueStoring, Store {
 		set { kvStore["shouldShowRegroupingAlert"] = newValue }
 	}
 
+	var expiringSoonAndExpiredNotificationsRemoved: Bool {
+		get { kvStore["expiringSoonAndExpiredNotificationsRemoved"] as Bool? ?? false }
+		set { kvStore["expiringSoonAndExpiredNotificationsRemoved"] = newValue }
+	}
+
 	// MARK: - Protocol RevokedCertificatesStoring
 
 	var revokedCertificates: [String] {

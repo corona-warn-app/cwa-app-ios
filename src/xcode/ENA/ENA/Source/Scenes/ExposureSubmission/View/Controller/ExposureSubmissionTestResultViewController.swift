@@ -38,13 +38,7 @@ class ExposureSubmissionTestResultViewController: DynamicTableViewController, Fo
 		viewModel.evaluateShowing()
 		viewModel.updateTestResultIfPossible()
 	}
-	
-	override func viewWillAppear(_ animated: Bool) {
-		super.viewWillAppear(animated)
 		
-		setUpNavigationBarAppearance()
-	}
-	
 	override func viewWillDisappear(_ animated: Bool) {
 		super.viewWillDisappear(animated)
 		
@@ -82,21 +76,14 @@ class ExposureSubmissionTestResultViewController: DynamicTableViewController, Fo
 	private var bindings: [AnyCancellable] = []
 
 	private func setUpView() {
-		
-		navigationItem.title = viewModel.title
+		navigationController?.navigationBar.backgroundView?.backgroundColor = .enaColor(for: .background)
 		navigationItem.rightBarButtonItem = dismissHandlingCloseBarButton
 		navigationItem.hidesBackButton = true
-		navigationItem.largeTitleDisplayMode = .always
+		navigationItem.largeTitleDisplayMode = .never
 		
 		view.backgroundColor = .enaColor(for: .background)
 
 		setUpDynamicTableView()
-	}
-
-	private func setUpNavigationBarAppearance() {
-		navigationController?.navigationBar.backgroundView?.backgroundColor = .enaColor(for: .background)
-		navigationController?.navigationBar.prefersLargeTitles = true
-		navigationItem.largeTitleDisplayMode = .always
 	}
 	
 	private func setUpDynamicTableView() {
