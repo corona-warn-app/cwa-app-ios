@@ -38,7 +38,7 @@ struct HealthCertificateQRCodeCellViewModel {
 			case .expiringSoon:
 				self.validityStateIcon = UIImage(named: "Icon_ExpiringSoon")
 				self.validityStateTitle = String(
-					format: AppStrings.HealthCertificate.ValidityState.expiringSoon,
+					format: AppStrings.HealthCertificate.ValidityState.expiringSoonLong,
 					DateFormatter.localizedString(from: healthCertificate.expirationDate, dateStyle: .short, timeStyle: .none),
 					DateFormatter.localizedString(from: healthCertificate.expirationDate, dateStyle: .none, timeStyle: .short)
 				)
