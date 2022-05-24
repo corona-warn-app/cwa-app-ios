@@ -169,6 +169,7 @@ final class MockTestStore: Store, PPAnalyticsData {
 	var lastSelectedScenarioIdentifier: String?
 	var dccAdmissionCheckScenarios: DCCAdmissionCheckScenarios?
 	var shouldShowRegroupingAlert: Bool = false
+	var expiringSoonAndExpiredNotificationsRemoved: Bool = false
 
 	// MARK: - RevokedCertificatesStoring
 
