@@ -143,7 +143,7 @@ class ENAUITests_21_FamilyMember: CWATestCase {
 		app.cells.matching(identifier: AccessibilityIdentifiers.FamilyMemberCoronaTestCell.Overview.testCell).lastMatch.waitAndTap()
 
 		// check for negative test of Anni
-		XCTAssertTrue(app.navigationBars["Anni"].waitForExistence(timeout: .short))
+		XCTAssertTrue(app.staticTexts[AccessibilityIdentifiers.ExposureSubmissionResult.testedPersonName].waitForExistence(timeout: .short))
 		// Text only in valid test
 		XCTAssertTrue(app.staticTexts[AccessibilityIdentifiers.ExposureSubmissionResult.Antigen.proofDesc].waitForExistence(timeout: .short))
 		// Now delete Anni's Test
