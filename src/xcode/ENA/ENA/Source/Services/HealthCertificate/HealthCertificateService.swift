@@ -580,25 +580,7 @@ class HealthCertificateService: HealthCertificateServiceServable {
 						person: person
 					)
 				}
-				self.updateValidityStatesAndNotifications(
-					for: certificateTuples,
-					completion: { [weak self] in
-						guard let self = self else { return }
-						
-						let dispatchGroup = DispatchGroup()
-						
-						for tuple in certificateTuples {
-							dispatchGroup.enter()
-							self.updateDCCWalletInfo(for: tuple.person) {
-								dispatchGroup.leave()
-							}
-						}
-						
-						dispatchGroup.notify(queue: .main, execute: {
-							completion?()
-						})
-					}
-				)
+				self.updateValidityStatesAndNotifications(for: certificateTuples, completion: completion ?? {})
 			}
 		)
 	}
@@ -875,6 +857,7 @@ class HealthCertificateService: HealthCertificateServiceServable {
 		if healthCertificate.validityState != previousValidityState {
 			// Only validity states that are considered newsworthy (and trigger a notification) should be marked as new for the user.
 			healthCertificate.isValidityStateNew = healthCertificate.validityStateIsConsideredNewsworthy
+			updateDCCWalletInfo(for: person)
 		}
 	}
 
