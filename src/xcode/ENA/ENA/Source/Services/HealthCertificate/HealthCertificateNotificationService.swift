@@ -31,38 +31,10 @@ class HealthCertificateNotificationService {
 
 		let healthCertificateIdentifier = healthCertificate.uniqueCertificateIdentifier
 
-		let expirationThresholdInDays = appConfiguration.currentAppConfig.value.dgcParameters.expirationThresholdInDays
-		let expiringSoonDate = Calendar.current.date(
-			byAdding: .day,
-			value: -Int(expirationThresholdInDays),
-			to: healthCertificate.expirationDate
-		)
-
 		let dispatchGroup = DispatchGroup()
-		
-		let expirationDate = healthCertificate.expirationDate
-		
-		dispatchGroup.enter()
-		scheduleNotificationForExpiringSoon(
-			healthCertificateIdentifier: healthCertificateIdentifier,
-			date: expiringSoonDate,
-			completion: {
-				dispatchGroup.leave()
-			}
-		)
-		
-		dispatchGroup.enter()
-		scheduleNotificationForExpired(
-			healthCertificateIdentifier: healthCertificateIdentifier,
-			date: expirationDate,
-			completion: {
-				dispatchGroup.leave()
-			}
-		)
 
 		// Schedule an 'invalid' notification, if it was not scheduled before.
 		if healthCertificate.validityState == .invalid && !healthCertificate.didShowInvalidNotification {
-			
 			dispatchGroup.enter()
 			scheduleInvalidNotification(
 				healthCertificateIdentifier: healthCertificateIdentifier,
@@ -102,21 +74,13 @@ class HealthCertificateNotificationService {
 		}
 	}
 	
-	func removeAllNotifications(
-		for healthCertificate: HealthCertificate,
+	func removeAllExpiringSoonAndExpiredNotifications(
 		completion: @escaping () -> Void
 	) {
-		guard healthCertificate.type != .test else {
-			completion()
-			return
-		}
+		Log.info("Cancel all expiring soon and expired notifications", log: .vaccination)
 		
-		let healthCertificateIdentifier = healthCertificate.uniqueCertificateIdentifier
-		
-		Log.info("Cancel all notifications for certificate with id: \(private: healthCertificateIdentifier).", log: .vaccination)
-		
-		let expiringSoonId = LocalNotificationIdentifier.certificateExpiringSoon.rawValue + "\(healthCertificateIdentifier)"
-		let expiredId = LocalNotificationIdentifier.certificateExpired.rawValue + "\(healthCertificateIdentifier)"
+		let expiringSoonId = LocalNotificationIdentifier.certificateExpiringSoon.rawValue
+		let expiredId = LocalNotificationIdentifier.certificateExpired.rawValue
 
 		notificationCenter.getPendingNotificationRequests { [weak self] requests in
 			let notificationIds = requests.map {
@@ -129,19 +93,6 @@ class HealthCertificateNotificationService {
 			self?.notificationCenter.removePendingNotificationRequests(withIdentifiers: notificationIds)
 			completion()
 		}
-	}
-
-	func recreateNotifications(
-		for healthCertificate: HealthCertificate,
-		completion: @escaping () -> Void
-	) {
-		// No notifications for test certificates
-		removeAllNotifications(for: healthCertificate, completion: { [weak self] in
-			self?.createNotifications(
-				for: healthCertificate,
-				completion: completion
-			)
-		})
 	}
 
 	func scheduleBoosterNotificationIfNeeded(
@@ -246,74 +197,6 @@ class HealthCertificateNotificationService {
 
 	private let appConfiguration: AppConfigurationProviding
 	private let notificationCenter: UserNotificationCenter
-	
-	private func scheduleNotificationForExpiringSoon(
-		healthCertificateIdentifier: String,
-		date: Date?,
-		completion: @escaping () -> Void
-	) {
-		guard let date = date else {
-			Log.error("Could not schedule expiring soon notification for certificate with id: \(private: healthCertificateIdentifier) because we have no expiringSoonDate.", log: .vaccination)
-			completion()
-			return
-		}
-		
-		Log.info("Schedule expiring soon notification for certificate with id: \(private: healthCertificateIdentifier) with expiringSoonDate: \(date)", log: .vaccination)
-
-		let content = UNMutableNotificationContent()
-		content.title = AppStrings.LocalNotifications.certificateGenericTitle
-		content.body = AppStrings.LocalNotifications.certificateValidityBody
-		content.sound = .default
-
-		let expiringSoonDateComponents = Calendar.current.dateComponents(
-			[.year, .month, .day, .hour, .minute, .second],
-			from: date
-		)
-
-		let trigger = UNCalendarNotificationTrigger(dateMatching: expiringSoonDateComponents, repeats: false)
-
-		let request = UNNotificationRequest(
-			identifier: LocalNotificationIdentifier.certificateExpiringSoon.rawValue + "\(healthCertificateIdentifier)",
-			content: content,
-			trigger: trigger
-		)
-
-		addNotification(
-			request: request,
-			completion: completion
-		)
-	}
-	
-	private func scheduleNotificationForExpired(
-		healthCertificateIdentifier: String,
-		date: Date,
-		completion: @escaping () -> Void
-	) {
-		Log.info("Schedule expired notification for certificate with id: \(private: healthCertificateIdentifier) with expirationDate: \(date)", log: .vaccination)
-
-		let content = UNMutableNotificationContent()
-		content.title = AppStrings.LocalNotifications.certificateGenericTitle
-		content.body = AppStrings.LocalNotifications.certificateValidityBody
-		content.sound = .default
-
-		let expiredDateComponents = Calendar.current.dateComponents(
-			[.year, .month, .day, .hour, .minute, .second],
-			from: date
-		)
-
-		let trigger = UNCalendarNotificationTrigger(dateMatching: expiredDateComponents, repeats: false)
-
-		let request = UNNotificationRequest(
-			identifier: LocalNotificationIdentifier.certificateExpired.rawValue + "\(healthCertificateIdentifier)",
-			content: content,
-			trigger: trigger
-		)
-
-		addNotification(
-			request: request,
-			completion: completion
-		)
-	}
 
 	private func scheduleInvalidNotification(
 		healthCertificateIdentifier: String,

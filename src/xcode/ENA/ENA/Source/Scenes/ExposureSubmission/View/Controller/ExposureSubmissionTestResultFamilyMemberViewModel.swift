@@ -235,6 +235,16 @@ extension ExposureSubmissionTestResultFamilyMemberViewModel {
 
 		return [
 			.section(
+				cells: [
+					.title1(
+						text: title,
+						configure: { _, cell, _ in
+							cell.accessibilityIdentifier = AccessibilityIdentifiers.ExposureSubmissionResult.testedPersonName
+						}
+					)
+				]
+			),
+			.section(
 				header: .identifier(
 					ExposureSubmissionTestResultViewController.HeaderReuseIdentifier.pcrTestResult,
 					configure: { view, _ in
@@ -332,6 +342,16 @@ extension ExposureSubmissionTestResultFamilyMemberViewModel {
 		])
 
 		return [
+			.section(
+				cells: [
+					.title1(
+						text: title,
+						configure: { _, cell, _ in
+							cell.accessibilityIdentifier = AccessibilityIdentifiers.ExposureSubmissionResult.testedPersonName
+						}
+					)
+				]
+			),
 			.section(
 				header: .identifier(
 					ExposureSubmissionTestResultViewController.HeaderReuseIdentifier.pcrTestResult,
@@ -459,6 +479,16 @@ extension ExposureSubmissionTestResultFamilyMemberViewModel {
 		
 		return [
 			.section(
+				cells: [
+					.title1(
+						text: title,
+						configure: { _, cell, _ in
+							cell.accessibilityIdentifier = AccessibilityIdentifiers.ExposureSubmissionResult.testedPersonName
+						}
+					)
+				]
+			),
+			.section(
 				header: header,
 				separators: .none,
 				cells: cells
@@ -539,6 +569,16 @@ extension ExposureSubmissionTestResultFamilyMemberViewModel {
 
 		return [
 			.section(
+				cells: [
+					.title1(
+						text: title,
+						configure: { _, cell, _ in
+							cell.accessibilityIdentifier = AccessibilityIdentifiers.ExposureSubmissionResult.testedPersonName
+						}
+					)
+				]
+			),
+			.section(
 				header: .identifier(
 					ExposureSubmissionTestResultViewController.HeaderReuseIdentifier.antigenTestResult,
 					configure: { view, _ in
@@ -595,6 +635,16 @@ extension ExposureSubmissionTestResultFamilyMemberViewModel {
 		])
 
 		return [
+			.section(
+				cells: [
+					.title1(
+						text: title,
+						configure: { _, cell, _ in
+							cell.accessibilityIdentifier = AccessibilityIdentifiers.ExposureSubmissionResult.testedPersonName
+						}
+					)
+				]
+			),
 			.section(
 				header: .identifier(
 					ExposureSubmissionTestResultViewController.HeaderReuseIdentifier.pcrTestResult,

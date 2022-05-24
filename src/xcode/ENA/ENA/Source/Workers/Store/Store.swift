@@ -227,6 +227,8 @@ protocol HealthCertificateStoring: AnyObject {
 	/// Flag to inform the user that a regroup after a migration was applied.
 	var shouldShowRegroupingAlert: Bool { get set }
 
+	var expiringSoonAndExpiredNotificationsRemoved: Bool { get set }
+
 }
 
 protocol RevokedCertificatesStoring: AnyObject {
