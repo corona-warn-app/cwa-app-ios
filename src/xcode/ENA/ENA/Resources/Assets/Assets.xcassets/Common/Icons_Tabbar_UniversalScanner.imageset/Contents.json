@@ -1,17 +1,7 @@
 {
   "images" : [
     {
-      "filename" : "Scanner.pdf",
-      "idiom" : "universal"
-    },
-    {
-      "appearances" : [
-        {
-          "appearance" : "contrast",
-          "value" : "high"
-        }
-      ],
-      "filename" : "Scanner_darker.pdf",
+      "filename" : "Scanner_black.pdf",
       "idiom" : "universal"
     }
   ],
@@ -21,6 +11,6 @@
   },
   "properties" : {
     "preserves-vector-representation" : true,
-    "template-rendering-intent" : "original"
+    "template-rendering-intent" : "template"
   }
 }

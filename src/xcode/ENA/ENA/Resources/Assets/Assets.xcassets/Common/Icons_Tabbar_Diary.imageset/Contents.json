@@ -1,17 +1,7 @@
 {
   "images" : [
     {
-      "filename" : "Diary.pdf",
-      "idiom" : "universal"
-    },
-    {
-      "appearances" : [
-        {
-          "appearance" : "contrast",
-          "value" : "high"
-        }
-      ],
-      "filename" : "Diary_darker.pdf",
+      "filename" : "Diary_black.pdf",
       "idiom" : "universal"
     }
   ],
@@ -21,6 +11,6 @@
   },
   "properties" : {
     "preserves-vector-representation" : true,
-    "template-rendering-intent" : "original"
+    "template-rendering-intent" : "template"
   }
 }
