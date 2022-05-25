@@ -1669,7 +1669,7 @@
 /* Version 2.23 */
 "NewVersionFeature_223_reissue_certificates_title" = "Reînnoire certificat";
 
-"NewVersionFeature_223_reissue_certificates_description" = "Din motive tehnice, valabilitatea certificatelor de vaccinare este limitată la 365 de zile, dar puteți solicita un certificat nou din aplicație. Un certificat poate fi reînnoit cu maximum 28 de zile înainte de expirarea valabilității și în decurs de cel mult 90 de zile de la expirare. Aplicația conține o notă care vă anunță dacă valabilitatea certificatului va expira în curând sau dacă a expirat deja.";
+"NewVersionFeature_223_reissue_certificates_description" = "Din motive tehnice, valabilitatea certificatului de vaccinare utilizat în prezent este limitată la 365 de zile. Dacă certificatul dvs. curent expiră, aplicația vă permite să îl reînnoiți. Un certificat poate fi reînnoit cu maximum 28 de zile înainte de expirarea valabilității și în decurs de cel mult 90 de zile de la expirare. Dacă aplicația nu vă oferă opțiunea de a vă reînnoi certificatul, acesta nu trebuie prelungit și nu este necesară nicio altă acțiune din partea dvs.";
 
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Înregistrare transnațională a expunerilor în jurnal";
@@ -2694,6 +2694,8 @@
 
 "TraceLocation_Information_Item_RenewQRCode" = "Dacă doriți să utilizați un cod QR pe termen lung, generați-l din nou în fiecare zi, în afara programului dvs. de lucru.";
 
+"TraceLocation_Information_Item_Group" = "Vă puteți avertiza invitații în numele cuiva care a fost diagnosticat cu coronavirus și care a participat la eveniment, dar care nu a făcut check-inul în Corona-Warn-App.";
+
 "TraceLocation_Information_PrimaryButton_Title" = "Înainte";
 
 /* Checkout */
@@ -3203,9 +3205,11 @@
 "HealthCertificate_Validation_TechnicalFailed_expirationDate" = "Valabil până la %@";
 
 /* Health Certificate Validity State */
-"HealthCertificate_ValidityState_ExpiringSoon" = "Certificatul expiră pe %@ la %@";
+"HealthCertificate_ValidityState_ExpiringSoon_long" = "Certificatul expiră pe %@ la %@";
 
-"HealthCertificate_ValidityState_ExpiringSoon_description" = "Dacă acesta este certificatul pe care îl utilizați în prezent, aveți grijă să îl reînnoiți la timp. Puteți reînnoi astfel de certificate direct în aplicație, dacă vor expira în următoarele 28 de zile. În acest caz, opțiunea „Reînnoire certificate” apare în sumarul certificatului, sub mozaicul „Dovada stării”.";
+"HealthCertificate_ValidityState_ExpiringSoon_short" = "Expiră pe %@ la %@";
+
+"HealthCertificate_ValidityState_ExpiringSoon_description" = "Dacă acesta este certificatul pe care îl utilizați în prezent, aveți grijă să îl reînnoiți la timp. Puteți reînnoi astfel de certificate direct în aplicație, dacă vor expira în următoarele 28 de zile. În acest caz, opțiunea „Reînnoire certificate” apare în sumarul certificatului dvs., sub mozaicul „Dovada stării”. Dacă acesta nu este certificatul pe care îl utilizați în prezent, nu trebuie să îl prelungiți și nu este necesară nicio acțiune din partea dvs.";
 
 "HealthCertificate_ValidityState_Expired" = "Certificat expirat";
 
@@ -3235,17 +3239,17 @@
 
 "HealthCertificate_Reissuance_Consent_Title" = "Consimțământul dvs.";
 
-"HealthCertificate_Reissuance_Consent_Delete_Notice" = "Certificatele vechi vor fi mutate automat în coșul de reciclare și vor fi șterse după 30 de zile. Certificatele poate fi restaurate oricând în aceste 30 de zile.";
+"HealthCertificate_Reissuance_Consent_Delete_Notice" = "Certificatele vechi vor fi mutate automat în coșul de reciclare și vor fi șterse după 30 de zile. Certificatele pot fi restaurate oricând în aceste 30 de zile.";
 
 "HealthCertificate_Reissuance_Consent_Cancel_Notice" = "Dacă anulați acum, puteți solicita oricând o reînnoire în sumarul certificatului.";
 
-"HealthCertificate_Reissuance_Consent_Bullet_Point_1" = "Reînnoirea certificatului dvs. este voluntară și gratuită.";
+"HealthCertificate_Reissuance_Consent_Bullet_Point_1" = "Reînnoirea certificatelor dvs. este voluntară și gratuită.";
 
 "HealthCertificate_Reissuance_Consent_Bullet_Point_2" = "Pentru a se asigura că certificatele pot fi reînnoite o singură dată, identificatorii certificatului vechi și ai certificatului nou sunt păstrați ca evidență de către RKI. Celelalte date din certificatele dvs. sunt șterse de RKI imediat după reînnoire.";
 
 "HealthCertificate_Reissuance_Consent_Bullet_Point_3" = "Înainte de reînnoirea certificatelor membrilor familiei, asigurați-vă că persoana implicată își dă consimțământul.";
 
-"HealthCertificate_Reissuance_Consent_Bullet_Point_4" = "În anumite cazuri, sunt emise alte certificate pe lângă certificatele de reînnoire. Acest lucru este necesar pentru a prelua secvențele anterioare ale vaccinărilor și recuperărilor după boală în certificatul nou.";
+"HealthCertificate_Reissuance_Consent_Bullet_Point_4" = "În anumite cazuri, sunt emise alte certificate pe lângă certificatele de reînnoire. Acest lucru este necesar pentru a prelua secvențele anterioare ale vaccinărilor și recuperărilor după boală în certificatele noi.";
 
 "HealthCertificate_Reissuance_AccompanyingCertificates_Cell" = "Alte certificate emise";
 
@@ -3255,11 +3259,11 @@
 "HealthCertificate_Reissuance_AccompanyingCertificates_Description" = "Următoarele certificate vor fi emise în timpul reînnoirii ca informații suplimentare, pentru a prelua secvența anterioară de vaccinări și recuperări după boală în certificatul nou. Aceste certificate nu vor fi reînnoite.";
 
 /* HealthCertificate Resissuance Succeeded */
-"HealthCertificate_Reissuance_Succeeded_Title" = "Certificat actualizat";
+"HealthCertificate_Reissuance_Succeeded_Title" = "Certificate reînnoite";
 
-"HealthCertificate_Reissuance_Succeeded_Headline" = "Certificatul dvs. a fost actualizat cu succes";
+"HealthCertificate_Reissuance_Succeeded_Headline" = "Certificatele dvs. au fost reînnoite cu succes";
 
-"HealthCertificate_Reissuance_Succeeded_Body" = "Certificatul actualizat este disponibil acum pe tabul „Certificate”.";
+"HealthCertificate_Reissuance_Succeeded_Body" = "Certificatele reînnoite sunt disponibile acum pe tabul „Certificate”.";
 
 /* HealthCertificate Resissuance Request Error */
 "HealthCertificate_Reissuance_Error_Contact_Support" = "A apărut o eroare tehnică. Contactați hotline-ul tehnic prin Informații aplicație -> Hotline tehnic.";
