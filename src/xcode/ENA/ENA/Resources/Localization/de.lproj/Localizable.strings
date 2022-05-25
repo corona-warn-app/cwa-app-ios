@@ -3117,8 +3117,6 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "TestCertificate_Details_title" = "Testzertifikat";
 
-"TestCertificate_Details_subtitle" = "negativer SARS-CoV-2-Test";
-
 "TestCertificate_Details_primaryButton" = "Testzertifikat löschen";
 
 "TestCertificate_Error_FAQ_Description" = "\n\nWeitere Informationen zum Erhalt Ihres Testzertifikats finden Sie in den FAQ.";
@@ -3134,8 +3132,6 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 /* Recovery Certificate Details */
 
 "RecoveryCertificate_Details_title" = "Genesenenzertifikat";
-
-"RecoveryCertificate_Details_subtitle" = "Digitales COVID-Zertifikat der EU";
 
 "RecoveryCertificate_Details_primaryButton" = "Genesenenzertifikat löschen";
 
