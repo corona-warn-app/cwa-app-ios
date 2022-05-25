@@ -52,6 +52,7 @@ final class SecureStore: SecureKeyValueStoring, Store {
 		do {
 			try kvStore.wipeAll(key: key)
 			antigenTestProfilesSubject.send([])
+			recycleBinItemsSubject.send([])
 		} catch {
 			Log.error("kv store error", log: .localData, error: error)
 		}
