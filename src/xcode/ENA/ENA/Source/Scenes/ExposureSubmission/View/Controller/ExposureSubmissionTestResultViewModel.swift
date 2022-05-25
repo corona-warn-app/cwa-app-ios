@@ -107,6 +107,8 @@ class ExposureSubmissionTestResultViewModel: ExposureSubmissionTestResultModelin
 	}
 	
 	func updateTestResultIfPossible() {
+		updateTableViewAndFooterModel(coronaTest: self.coronaTest)
+
 		guard coronaTest.testResult == .pending else {
 			Log.info("Not refreshing test because status is not pending")
 			return
@@ -152,7 +154,7 @@ class ExposureSubmissionTestResultViewModel: ExposureSubmissionTestResultModelin
 						return
 					}
 
-					self?.updateForCurrentTestResult(coronaTest: .pcr(pcrTest))
+					self?.updateTableViewAndFooterModel(coronaTest: .pcr(pcrTest))
 				}
 				.store(in: &subscriptions)
 
@@ -168,7 +170,7 @@ class ExposureSubmissionTestResultViewModel: ExposureSubmissionTestResultModelin
 						return
 					}
 
-					self?.updateForCurrentTestResult(coronaTest: .antigen(antigenTest))
+					self?.updateTableViewAndFooterModel(coronaTest: .antigen(antigenTest))
 				}
 				.store(in: &subscriptions)
 
@@ -180,7 +182,7 @@ class ExposureSubmissionTestResultViewModel: ExposureSubmissionTestResultModelin
 		}
 	}
 
-	private func updateForCurrentTestResult(coronaTest: UserCoronaTest) {
+	private func updateTableViewAndFooterModel(coronaTest: UserCoronaTest) {
 		// Positive test results are not shown immediately
 		if coronaTest.testResult == .positive && self.coronaTest.testResult != .positive {
 			self.onChangeToPositiveTestResult()
