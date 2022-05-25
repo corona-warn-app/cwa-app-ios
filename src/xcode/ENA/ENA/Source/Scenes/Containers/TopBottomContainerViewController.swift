@@ -202,7 +202,10 @@ class TopBottomContainerViewController<TopViewController: UIViewController, Bott
 					  let keyboardFrame = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect else {
 					return
 				}
-				self.footerViewHandler?.didShowKeyboard(keyboardFrame)
+				// add height of footer view to keyboard frame
+				var bottomFrame = self.bottomViewController.view.frame
+				bottomFrame.size.height += keyboardFrame.height
+				self.footerViewHandler?.didShowKeyboard(bottomFrame)
 			}
 			.store(in: &keyboardSubscriptions)
 		
