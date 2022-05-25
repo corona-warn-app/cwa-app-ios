@@ -1981,6 +1981,7 @@ enum AppStrings {
 
 		enum TraceLocationSelection {
 			static let title = NSLocalizedString("OnBehalfCheckinSubmission_TraceLocationSelection_Title", comment: "")
+			static let emptyDescription = NSLocalizedString("OnBehalfCheckinSubmission_TraceLocationSelection_EmptyDescription", comment: "")
 			static let description = NSLocalizedString("OnBehalfCheckinSubmission_TraceLocationSelection_Description", comment: "")
 			static let scanButtonTitle = NSLocalizedString("OnBehalfCheckinSubmission_TraceLocationSelection_ScanButtonTitle", comment: "")
 			static let primaryButtonTitle = NSLocalizedString("OnBehalfCheckinSubmission_TraceLocationSelection_PrimaryButtonTitle", comment: "")
