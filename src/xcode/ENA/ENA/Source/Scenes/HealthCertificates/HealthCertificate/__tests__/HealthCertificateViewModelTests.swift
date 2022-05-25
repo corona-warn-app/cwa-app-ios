@@ -46,13 +46,14 @@ class HealthCertificateViewModelTests: CWATestCase {
 		)
 
 		// THEN
-		XCTAssertNil(viewModel.headlineCellViewModel.text)
-		XCTAssertNotNil(viewModel.headlineCellViewModel.attributedText)
+		XCTAssertEqual(viewModel.headlineCellViewModel.text, "Digitales COVID-Zertifikat der EU\nImpfzertifikat")
+		XCTAssertNil(viewModel.headlineCellViewModel.attributedText)
 
 		XCTAssertEqual(viewModel.headlineCellViewModel.backgroundColor, .clear)
 		XCTAssertEqual(viewModel.headlineCellViewModel.textAlignment, .center)
 		XCTAssertEqual(viewModel.headlineCellViewModel.topSpace, 16.0)
-		XCTAssertEqual(viewModel.headlineCellViewModel.font, .enaFont(for: .headline))
+		XCTAssertEqual(viewModel.headlineCellViewModel.textColor, .enaColor(for: .textContrast))
+		XCTAssertEqual(viewModel.headlineCellViewModel.font, .enaFont(for: .body))
 		XCTAssertEqual(viewModel.headlineCellViewModel.accessibilityTraits, .staticText)
 		XCTAssertEqual(viewModel.numberOfItems(in: .headline), 1)
 		XCTAssertEqual(viewModel.numberOfItems(in: .qrCode), 1)
@@ -88,13 +89,14 @@ class HealthCertificateViewModelTests: CWATestCase {
 		)
 
 		// THEN
-		XCTAssertNil(viewModel.headlineCellViewModel.text)
-		XCTAssertNotNil(viewModel.headlineCellViewModel.attributedText)
+		XCTAssertEqual(viewModel.headlineCellViewModel.text, "Digitales COVID-Zertifikat der EU\nImpfzertifikat")
+		XCTAssertNil(viewModel.headlineCellViewModel.attributedText)
 
 		XCTAssertEqual(viewModel.headlineCellViewModel.backgroundColor, .clear)
 		XCTAssertEqual(viewModel.headlineCellViewModel.textAlignment, .center)
 		XCTAssertEqual(viewModel.headlineCellViewModel.topSpace, 16.0)
-		XCTAssertEqual(viewModel.headlineCellViewModel.font, .enaFont(for: .headline))
+		XCTAssertEqual(viewModel.headlineCellViewModel.textColor, .enaColor(for: .textContrast))
+		XCTAssertEqual(viewModel.headlineCellViewModel.font, .enaFont(for: .body))
 		XCTAssertEqual(viewModel.headlineCellViewModel.accessibilityTraits, .staticText)
 		XCTAssertEqual(viewModel.numberOfItems(in: .headline), 1)
 		XCTAssertEqual(viewModel.numberOfItems(in: .qrCode), 1)
