@@ -22,7 +22,6 @@ class ENAUITests_21_FamilyMember: CWATestCase {
 	func test_screenshot_RegisterCoronaTestFromUniversalQRCodeScanner() throws {
 		// launch argument will make
 		app.setLaunchArgument(LaunchArguments.familyMemberTest.pcr.testResult, to: TestResult.serverResponseAsString(for: TestResult.positive, on: .pcr))
-		app.setLaunchArgument(LaunchArguments.familyMemberTest.pcr.positiveTestResultWasShown, to: true)
 
 		app.launch()
 		app.swipeUp()
@@ -37,7 +36,6 @@ class ENAUITests_21_FamilyMember: CWATestCase {
 	func test_RegisterCoronaTestFromSubmitCardButton() throws {
 		// launch argument will make
 		app.setLaunchArgument(LaunchArguments.familyMemberTest.pcr.testResult, to: TestResult.serverResponseAsString(for: TestResult.positive, on: .pcr))
-		app.setLaunchArgument(LaunchArguments.familyMemberTest.pcr.positiveTestResultWasShown, to: true)
 
 		app.launch()
 		app.swipeUp()
@@ -120,9 +118,7 @@ class ENAUITests_21_FamilyMember: CWATestCase {
 	func test_familyMemberViewOverview() throws {
 		// launch argument will make
 		app.setLaunchArgument(LaunchArguments.familyMemberTest.antigen.testResult, to: TestResult.serverResponseAsString(for: TestResult.negative, on: .antigen))
-		app.setLaunchArgument(LaunchArguments.familyMemberTest.antigen.positiveTestResultWasShown, to: true)
 		app.setLaunchArgument(LaunchArguments.familyMemberTest.pcr.testResult, to: TestResult.serverResponseAsString(for: TestResult.negative, on: .pcr))
-		app.setLaunchArgument(LaunchArguments.familyMemberTest.pcr.positiveTestResultWasShown, to: true)
 
 		app.launch()
 		app.swipeUp()
