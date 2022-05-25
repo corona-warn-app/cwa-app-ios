@@ -1669,7 +1669,7 @@
 /* Version 2.23 */
 "NewVersionFeature_223_reissue_certificates_title" = "Подновяване на сертификат";
 
-"NewVersionFeature_223_reissue_certificates_description" = "По технически причини валидността на сертификатите за ваксинация е ограничена до 365 дни, но можете да заявите нов сертификат в приложението. Сертификатът може да бъде подновен до 28 дни преди изтичането на срока на валидност и до 90 дни след това. Приложението съдържа бележка, която ви информира дали валидността на сертификата ви изтича скоро или вече е изтекла.";
+"NewVersionFeature_223_reissue_certificates_description" = "По технически причини валидността на текущия сертификат за ваксинация е ограничена до 365 дни. Ако тя изтече приложението Ви позволява да я подновите. Сертификатът може да бъде подновен до 28 дни преди изтичането на срока на валидност и до 90 дни след това. Ако приложението не Ви предлага да подновите сертификата си, значи няма нужда да го подновявате.";
 
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Международно регистриране на излаганията";
@@ -2694,6 +2694,8 @@
 
 "TraceLocation_Information_Item_RenewQRCode" = "Ако желаете да използвате QR код дългосрочно, трябва да генерирате такъв ежедневно извън работно време.";
 
+"TraceLocation_Information_Item_Group" = "Можете да предупредите гостите си от името на лице, което е било диагностицирано с коронавирус и е посетило събитието, но не се е регистрирало в приложението Corona-Warn-App.";
+
 "TraceLocation_Information_PrimaryButton_Title" = "Напред";
 
 /* Checkout */
@@ -3203,9 +3205,11 @@
 "HealthCertificate_Validation_TechnicalFailed_expirationDate" = "Валидно до %@";
 
 /* Health Certificate Validity State */
-"HealthCertificate_ValidityState_ExpiringSoon" = "Сертификатът изтича на %@ в %@";
+"HealthCertificate_ValidityState_ExpiringSoon_long" = "Сертификатът изтича на %@ в %@";
 
-"HealthCertificate_ValidityState_ExpiringSoon_description" = "Ако това е сертификатът, който използвате в момента, погрижете се да бъде подновен навреме. Можете да подновявате подобни сертификати директно в приложението, ако изтичат в следващите 28 дни. В такъв случай в прегледа на сертификата ви се показва опцията “Подновяване на сертификата”, под плочка “Доказателство за статус”.";
+"HealthCertificate_ValidityState_ExpiringSoon_short" = "изтича на %@ в %@";
+
+"HealthCertificate_ValidityState_ExpiringSoon_description" = "Ако това е сертификатът, който използвате в момента, погрижете се да бъде подновен навреме. Можете да подновявате подобни сертификати директно в приложението, ако изтичат в следващите 28 дни. В такъв случай в прегледа на сертификата ви се показва опцията “Подновяване на сертификата”, под плочка “Доказателство за статус”. Ако това не е текущият Ви сертификат то той не трябва да бъде подновяван и няма нужда да правите нищо.";
 
 "HealthCertificate_ValidityState_Expired" = "Сертификатът е изтекъл";
 
@@ -3239,13 +3243,13 @@
 
 "HealthCertificate_Reissuance_Consent_Cancel_Notice" = "Ако откажете сега, може да заявите подновяване в прегледа за сертификата по всяко време.";
 
-"HealthCertificate_Reissuance_Consent_Bullet_Point_1" = "Подновяването на вашия сертификат е доброволно и безплатно.";
+"HealthCertificate_Reissuance_Consent_Bullet_Point_1" = "Подновяването на вашите сертификати е доброволно и безплатно.";
 
 "HealthCertificate_Reissuance_Consent_Bullet_Point_2" = "За да се гарантира, че сертификатът може да се поднови само веднъж, идентификаторите на стария и новия сертификат се документират от института „Роберт Кох“. Останалите данни от вашите сертификати се изтриват от института веднага след подновяването.";
 
 "HealthCertificate_Reissuance_Consent_Bullet_Point_3" = "Преди подновяването на сертификати на членове от семейството, уверете се, че лицето, за което се отнася, е съгласно.";
 
-"HealthCertificate_Reissuance_Consent_Bullet_Point_4" = "В определени случаи се издават допълнителни сертификати в добавка към сертификата за подновяване. Това е необходимо за приемане на предходната поредица ваксинации и преболедувания в новия сертификат.";
+"HealthCertificate_Reissuance_Consent_Bullet_Point_4" = "В определени случаи се издават допълнителни сертификати в добавка към сертификата за подновяване. Това е необходимо за приемане на предходната поредица ваксинации и преболедувания в новия сертификати.";
 
 "HealthCertificate_Reissuance_AccompanyingCertificates_Cell" = "Други издавани сертификати";
 
@@ -3255,11 +3259,11 @@
 "HealthCertificate_Reissuance_AccompanyingCertificates_Description" = "Следните сертификати ще бъдат издадени като допълнителна информация при подновяването, за приемане на предходната поредица ваксинации и преболедувания в новия сертификат. Тези сертификати няма да бъдат подновени.";
 
 /* HealthCertificate Resissuance Succeeded */
-"HealthCertificate_Reissuance_Succeeded_Title" = "Сертификатът е актуализиран";
+"HealthCertificate_Reissuance_Succeeded_Title" = "Сертификатите са подновени";
 
-"HealthCertificate_Reissuance_Succeeded_Headline" = "Сертификатът Ви е успешно актуализиран";
+"HealthCertificate_Reissuance_Succeeded_Headline" = "Сертификатите Ви са успешно подновени";
 
-"HealthCertificate_Reissuance_Succeeded_Body" = "Актуализираният сертификат вече е наличен в таб „Сертификати“.";
+"HealthCertificate_Reissuance_Succeeded_Body" = "Подновените сертификати са вече налични в таб „Сертификати“.";
 
 /* HealthCertificate Resissuance Request Error */
 "HealthCertificate_Reissuance_Error_Contact_Support" = "Възникна техническа грешка. Моля, свържете се с горещата линия за технически проблеми, посочена в „Информация за приложението“ -> „Технически въпроси“.";
