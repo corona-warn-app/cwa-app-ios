@@ -1894,6 +1894,7 @@ enum AppStrings {
 			static let itemCheckinRiskStatus = NSLocalizedString("TraceLocation_Information_Item_RiskStatus", comment: "")
 			static let itemCheckinTitle = NSLocalizedString("TraceLocation_Information_Item_Checkin", comment: "")
 			static let itemContactTitle = NSLocalizedString("TraceLocation_Information_Item_RenewQRCode", comment: "")
+			static let itemGroupTitle = NSLocalizedString("TraceLocation_Information_Item_Group", comment: "")
 			static let legalHeadline = NSLocalizedString("TraceLocation_Information_Legal_Headline_1", tableName: "Localizable.legal", comment: "")
 
 			static let legalText01 = NSLocalizedString("TraceLocation_Information_Legal_Text_1", tableName: "Localizable.legal", comment: "")
@@ -2208,13 +2209,11 @@ enum AppStrings {
 
 			enum TestCertificate {
 				static let title = NSLocalizedString("TestCertificate_Details_title", comment: "")
-				static let subtitle = NSLocalizedString("TestCertificate_Details_subtitle", comment: "")
 				static let primaryButton = NSLocalizedString("TestCertificate_Details_primaryButton", comment: "")
 			}
 
 			enum RecoveryCertificate {
 				static let title = NSLocalizedString("RecoveryCertificate_Details_title", comment: "")
-				static let subtitle = NSLocalizedString("RecoveryCertificate_Details_subtitle", comment: "")
 				static let primaryButton = NSLocalizedString("RecoveryCertificate_Details_primaryButton", comment: "")
 			}
 		}

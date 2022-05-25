@@ -131,11 +131,6 @@ class ENAUITests_12_AntigenTestProfile: CWATestCase {
 		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.ExposureSubmission.AntigenTest.Profile.continueButton].waitForExistence(timeout: .long))
 		// edit profile button exists
 		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.ExposureSubmission.AntigenTest.Profile.editButton].waitForExistence(timeout: .long))
-
-		app.swipeUp(velocity: .slow)
-
-		let personSimpleText = app.staticTexts["Andrea Schneider Teststraße 123 12345 Testort 012 3456789"]
-		XCTAssertTrue(personSimpleText.exists)
 				
 		let closeButton = try XCTUnwrap(app.navigationBars.buttons.element(boundBy: 1))
 		closeButton.waitAndTap()
