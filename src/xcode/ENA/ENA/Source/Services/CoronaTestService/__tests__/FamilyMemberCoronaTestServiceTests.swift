@@ -18,18 +18,22 @@ class FamilyMemberCoronaTestServiceTests: CWATestCase {
 		let client = ClientMock()
 		let store = MockTestStore()
 		
-		let antigenTest1: FamilyMemberCoronaTest = .antigen(.mock(qrCodeHash: "antigenQRCodeHash1", isNew: true, testResultWasShown: true))
-		let antigenTest2: FamilyMemberCoronaTest = .antigen(.mock(qrCodeHash: "antigenQRCodeHash2", isNew: true, testResultWasShown: false))
-		let antigenTest3: FamilyMemberCoronaTest = .antigen(.mock(qrCodeHash: "antigenQRCodeHash3", isNew: false, testResultWasShown: true))
-		let antigenTest4: FamilyMemberCoronaTest = .antigen(.mock(qrCodeHash: "antigenQRCodeHash4", isNew: false, finalTestResultReceivedDate: nil, testResultWasShown: false))
-		let antigenTest5: FamilyMemberCoronaTest = .antigen(.mock(qrCodeHash: "antigenQRCodeHash5", isNew: false, finalTestResultReceivedDate: Date(), testResultWasShown: false))
-		let pcrTest1: FamilyMemberCoronaTest = .pcr(.mock(qrCodeHash: "pcrQRCodeHash1", isNew: true, testResultWasShown: true))
-		let pcrTest2: FamilyMemberCoronaTest = .pcr(.mock(qrCodeHash: "pcrQRCodeHash2", isNew: true, testResultWasShown: false))
-		let pcrTest3: FamilyMemberCoronaTest = .pcr(.mock(qrCodeHash: "pcrQRCodeHash3", isNew: false, testResultWasShown: true))
-		let pcrTest4: FamilyMemberCoronaTest = .pcr(.mock(qrCodeHash: "pcrQRCodeHash4", isNew: false, finalTestResultReceivedDate: nil, testResultWasShown: false))
-		let pcrTest5: FamilyMemberCoronaTest = .pcr(.mock(qrCodeHash: "pcrQRCodeHash5", isNew: false, finalTestResultReceivedDate: Date(), testResultWasShown: false))
+		let antigenTest1: FamilyMemberCoronaTest = .antigen(.mock(qrCodeHash: "antigenQRCodeHash1", isNew: true, testResultIsNew: false))
+		let antigenTest2: FamilyMemberCoronaTest = .antigen(.mock(qrCodeHash: "antigenQRCodeHash2", isNew: true, testResultIsNew: true))
+		let antigenTest3: FamilyMemberCoronaTest = .antigen(.mock(qrCodeHash: "antigenQRCodeHash3", isNew: false, testResultIsNew: false))
+		let antigenTest4: FamilyMemberCoronaTest = .antigen(.mock(qrCodeHash: "antigenQRCodeHash4", isNew: false, testResultIsNew: true, finalTestResultReceivedDate: nil))
+		let antigenTest5: FamilyMemberCoronaTest = .antigen(.mock(qrCodeHash: "antigenQRCodeHash5", isNew: false, testResultIsNew: false, finalTestResultReceivedDate: nil))
+		let antigenTest6: FamilyMemberCoronaTest = .antigen(.mock(qrCodeHash: "antigenQRCodeHash6", isNew: false, testResultIsNew: true, finalTestResultReceivedDate: Date()))
+		let antigenTest7: FamilyMemberCoronaTest = .antigen(.mock(qrCodeHash: "antigenQRCodeHash7", isNew: false, testResultIsNew: false, finalTestResultReceivedDate: Date()))
+		let pcrTest1: FamilyMemberCoronaTest = .pcr(.mock(qrCodeHash: "pcrQRCodeHash1", isNew: true, testResultIsNew: false))
+		let pcrTest2: FamilyMemberCoronaTest = .pcr(.mock(qrCodeHash: "pcrQRCodeHash2", isNew: true, testResultIsNew: true))
+		let pcrTest3: FamilyMemberCoronaTest = .pcr(.mock(qrCodeHash: "pcrQRCodeHash3", isNew: false, testResultIsNew: false))
+		let pcrTest4: FamilyMemberCoronaTest = .pcr(.mock(qrCodeHash: "pcrQRCodeHash4", isNew: false, testResultIsNew: true, finalTestResultReceivedDate: nil))
+		let pcrTest5: FamilyMemberCoronaTest = .pcr(.mock(qrCodeHash: "pcrQRCodeHash5", isNew: false, testResultIsNew: false, finalTestResultReceivedDate: nil))
+		let pcrTest6: FamilyMemberCoronaTest = .pcr(.mock(qrCodeHash: "pcrQRCodeHash6", isNew: false, testResultIsNew: true, finalTestResultReceivedDate: Date()))
+		let pcrTest7: FamilyMemberCoronaTest = .pcr(.mock(qrCodeHash: "pcrQRCodeHash7", isNew: false, testResultIsNew: false, finalTestResultReceivedDate: Date()))
 		
-		store.familyMemberTests = [antigenTest1, antigenTest2, antigenTest3, antigenTest4, antigenTest5, pcrTest1, pcrTest2, pcrTest3, pcrTest4, pcrTest5]
+		store.familyMemberTests = [antigenTest1, antigenTest2, antigenTest3, antigenTest4, antigenTest5, antigenTest6, antigenTest7, pcrTest1, pcrTest2, pcrTest3, pcrTest4, pcrTest5, pcrTest6, pcrTest7]
 		
 		let healthCertificateService = HealthCertificateService(
 			store: store,
@@ -55,39 +59,51 @@ class FamilyMemberCoronaTestServiceTests: CWATestCase {
 			recycleBin: .fake()
 		)
 		
-		XCTAssertEqual(service.unseenNewsCount, 6)
+		XCTAssertEqual(service.unseenNewsCount, 8)
 		
 		service.evaluateShowing(of: antigenTest1, keepMarkedAsNew: false)
-		XCTAssertEqual(service.unseenNewsCount, 5)
+		XCTAssertEqual(service.unseenNewsCount, 7)
 		
 		service.evaluateShowing(of: antigenTest2, keepMarkedAsNew: true)
-		XCTAssertEqual(service.unseenNewsCount, 5)
+		XCTAssertEqual(service.unseenNewsCount, 7)
 		
 		service.evaluateShowing(of: antigenTest2, keepMarkedAsNew: false)
-		XCTAssertEqual(service.unseenNewsCount, 4)
+		XCTAssertEqual(service.unseenNewsCount, 6)
 		
 		service.evaluateShowing(of: antigenTest3, keepMarkedAsNew: false)
-		XCTAssertEqual(service.unseenNewsCount, 4)
+		XCTAssertEqual(service.unseenNewsCount, 6)
 		
 		service.evaluateShowing(of: antigenTest4, keepMarkedAsNew: false)
-		XCTAssertEqual(service.unseenNewsCount, 4)
+		XCTAssertEqual(service.unseenNewsCount, 5)
 		
 		service.evaluateShowing(of: antigenTest5, keepMarkedAsNew: false)
-		XCTAssertEqual(service.unseenNewsCount, 3)
+		XCTAssertEqual(service.unseenNewsCount, 5)
+		
+		service.evaluateShowing(of: antigenTest6, keepMarkedAsNew: false)
+		XCTAssertEqual(service.unseenNewsCount, 4)
+		
+		service.evaluateShowing(of: antigenTest7, keepMarkedAsNew: false)
+		XCTAssertEqual(service.unseenNewsCount, 4)
 		
 		service.evaluateShowing(of: pcrTest1, keepMarkedAsNew: false)
-		XCTAssertEqual(service.unseenNewsCount, 2)
+		XCTAssertEqual(service.unseenNewsCount, 3)
 		
 		service.evaluateShowing(of: pcrTest2, keepMarkedAsNew: false)
-		XCTAssertEqual(service.unseenNewsCount, 1)
+		XCTAssertEqual(service.unseenNewsCount, 2)
 		
 		service.evaluateShowing(of: pcrTest3, keepMarkedAsNew: false)
-		XCTAssertEqual(service.unseenNewsCount, 1)
+		XCTAssertEqual(service.unseenNewsCount, 2)
 		
 		service.evaluateShowing(of: pcrTest4, keepMarkedAsNew: false)
 		XCTAssertEqual(service.unseenNewsCount, 1)
 		
 		service.evaluateShowing(of: pcrTest5, keepMarkedAsNew: false)
+		XCTAssertEqual(service.unseenNewsCount, 1)
+		
+		service.evaluateShowing(of: pcrTest6, keepMarkedAsNew: false)
+		XCTAssertEqual(service.unseenNewsCount, 0)
+		
+		service.evaluateShowing(of: pcrTest7, keepMarkedAsNew: false)
 		XCTAssertEqual(service.unseenNewsCount, 0)
 	}
 	
@@ -96,18 +112,22 @@ class FamilyMemberCoronaTestServiceTests: CWATestCase {
 		let client = ClientMock()
 		let store = MockTestStore()
 		
-		let antigenTest1: FamilyMemberCoronaTest = .antigen(.mock(qrCodeHash: "antigenQRCodeHash1", isNew: true, testResultWasShown: true))
-		let antigenTest2: FamilyMemberCoronaTest = .antigen(.mock(qrCodeHash: "antigenQRCodeHash2", isNew: true, testResultWasShown: false))
-		let antigenTest3: FamilyMemberCoronaTest = .antigen(.mock(qrCodeHash: "antigenQRCodeHash3", isNew: false, testResultWasShown: true))
-		let antigenTest4: FamilyMemberCoronaTest = .antigen(.mock(qrCodeHash: "antigenQRCodeHash4", isNew: false, finalTestResultReceivedDate: nil, testResultWasShown: false))
-		let antigenTest5: FamilyMemberCoronaTest = .antigen(.mock(qrCodeHash: "antigenQRCodeHash5", isNew: false, finalTestResultReceivedDate: Date(), testResultWasShown: false))
-		let pcrTest1: FamilyMemberCoronaTest = .pcr(.mock(qrCodeHash: "pcrQRCodeHash1", isNew: true, testResultWasShown: true))
-		let pcrTest2: FamilyMemberCoronaTest = .pcr(.mock(qrCodeHash: "pcrQRCodeHash2", isNew: true, testResultWasShown: false))
-		let pcrTest3: FamilyMemberCoronaTest = .pcr(.mock(qrCodeHash: "pcrQRCodeHash3", isNew: false, testResultWasShown: true))
-		let pcrTest4: FamilyMemberCoronaTest = .pcr(.mock(qrCodeHash: "pcrQRCodeHash4", isNew: false, finalTestResultReceivedDate: nil, testResultWasShown: false))
-		let pcrTest5: FamilyMemberCoronaTest = .pcr(.mock(qrCodeHash: "pcrQRCodeHash5", isNew: false, finalTestResultReceivedDate: Date(), testResultWasShown: false))
+		let antigenTest1: FamilyMemberCoronaTest = .antigen(.mock(qrCodeHash: "antigenQRCodeHash1", isNew: true, testResultIsNew: false))
+		let antigenTest2: FamilyMemberCoronaTest = .antigen(.mock(qrCodeHash: "antigenQRCodeHash2", isNew: true, testResultIsNew: true))
+		let antigenTest3: FamilyMemberCoronaTest = .antigen(.mock(qrCodeHash: "antigenQRCodeHash3", isNew: false, testResultIsNew: false))
+		let antigenTest4: FamilyMemberCoronaTest = .antigen(.mock(qrCodeHash: "antigenQRCodeHash4", isNew: false, testResultIsNew: true, finalTestResultReceivedDate: nil))
+		let antigenTest5: FamilyMemberCoronaTest = .antigen(.mock(qrCodeHash: "antigenQRCodeHash5", isNew: false, testResultIsNew: false, finalTestResultReceivedDate: nil))
+		let antigenTest6: FamilyMemberCoronaTest = .antigen(.mock(qrCodeHash: "antigenQRCodeHash6", isNew: false, testResultIsNew: true, finalTestResultReceivedDate: Date()))
+		let antigenTest7: FamilyMemberCoronaTest = .antigen(.mock(qrCodeHash: "antigenQRCodeHash7", isNew: false, testResultIsNew: false, finalTestResultReceivedDate: Date()))
+		let pcrTest1: FamilyMemberCoronaTest = .pcr(.mock(qrCodeHash: "pcrQRCodeHash1", isNew: true, testResultIsNew: false))
+		let pcrTest2: FamilyMemberCoronaTest = .pcr(.mock(qrCodeHash: "pcrQRCodeHash2", isNew: true, testResultIsNew: true))
+		let pcrTest3: FamilyMemberCoronaTest = .pcr(.mock(qrCodeHash: "pcrQRCodeHash3", isNew: false, testResultIsNew: false))
+		let pcrTest4: FamilyMemberCoronaTest = .pcr(.mock(qrCodeHash: "pcrQRCodeHash4", isNew: false, testResultIsNew: true, finalTestResultReceivedDate: nil))
+		let pcrTest5: FamilyMemberCoronaTest = .pcr(.mock(qrCodeHash: "pcrQRCodeHash5", isNew: false, testResultIsNew: false, finalTestResultReceivedDate: nil))
+		let pcrTest6: FamilyMemberCoronaTest = .pcr(.mock(qrCodeHash: "pcrQRCodeHash6", isNew: false, testResultIsNew: true, finalTestResultReceivedDate: Date()))
+		let pcrTest7: FamilyMemberCoronaTest = .pcr(.mock(qrCodeHash: "pcrQRCodeHash7", isNew: false, testResultIsNew: false, finalTestResultReceivedDate: Date()))
 		
-		store.familyMemberTests = [antigenTest1, antigenTest2, antigenTest3, antigenTest4, antigenTest5, pcrTest1, pcrTest2, pcrTest3, pcrTest4, pcrTest5]
+		store.familyMemberTests = [antigenTest1, antigenTest2, antigenTest3, antigenTest4, antigenTest5, antigenTest6, antigenTest7, pcrTest1, pcrTest2, pcrTest3, pcrTest4, pcrTest5, pcrTest6, pcrTest7]
 		
 		let healthCertificateService = HealthCertificateService(
 			store: store,
@@ -133,7 +153,7 @@ class FamilyMemberCoronaTestServiceTests: CWATestCase {
 			recycleBin: .fake()
 		)
 		
-		XCTAssertEqual(service.unseenNewsCount, 6)
+		XCTAssertEqual(service.unseenNewsCount, 8)
 		
 		service.evaluateShowingAllTests()
 		
@@ -264,7 +284,8 @@ class FamilyMemberCoronaTestServiceTests: CWATestCase {
 		XCTAssertNil(pcrTest.sampleCollectionDate)
 		XCTAssertEqual(pcrTest.testResult, .pending)
 		XCTAssertNil(pcrTest.finalTestResultReceivedDate)
-		XCTAssertFalse(pcrTest.testResultWasShown)
+		XCTAssertTrue(pcrTest.isNew)
+		XCTAssertFalse(pcrTest.testResultIsNew)
 		XCTAssertTrue(pcrTest.certificateSupportedByPointOfCare)
 		XCTAssertFalse(pcrTest.certificateConsentGiven)
 		XCTAssertFalse(pcrTest.certificateRequested)
@@ -321,7 +342,7 @@ class FamilyMemberCoronaTestServiceTests: CWATestCase {
 		)
 		
 		let testsUpdateExpectation = expectation(description: "Corona tests updated")
-		testsUpdateExpectation.expectedFulfillmentCount = 7
+		testsUpdateExpectation.expectedFulfillmentCount = 8
 		
 		let testsSubscription = service.coronaTests
 			.sink { _ in
@@ -367,7 +388,7 @@ class FamilyMemberCoronaTestServiceTests: CWATestCase {
 			Date().timeIntervalSince1970,
 			accuracy: 10
 		)
-		XCTAssertFalse(pcrTest.testResultWasShown)
+		XCTAssertTrue(pcrTest.testResultIsNew)
 		XCTAssertTrue(pcrTest.certificateSupportedByPointOfCare)
 		XCTAssertTrue(pcrTest.certificateConsentGiven)
 		XCTAssertTrue(pcrTest.certificateRequested)
@@ -586,7 +607,8 @@ class FamilyMemberCoronaTestServiceTests: CWATestCase {
 		XCTAssertNil(pcrTest.sampleCollectionDate)
 		XCTAssertEqual(pcrTest.testResult, .pending)
 		XCTAssertNil(pcrTest.finalTestResultReceivedDate)
-		XCTAssertFalse(pcrTest.testResultWasShown)
+		XCTAssertTrue(pcrTest.isNew)
+		XCTAssertFalse(pcrTest.testResultIsNew)
 		XCTAssertTrue(pcrTest.certificateSupportedByPointOfCare)
 		XCTAssertFalse(pcrTest.certificateConsentGiven)
 		XCTAssertFalse(pcrTest.certificateRequested)
@@ -674,7 +696,8 @@ class FamilyMemberCoronaTestServiceTests: CWATestCase {
 		XCTAssertNil(antigenTest.sampleCollectionDate)
 		XCTAssertEqual(antigenTest.testResult, .pending)
 		XCTAssertNil(antigenTest.finalTestResultReceivedDate)
-		XCTAssertFalse(antigenTest.testResultWasShown)
+		XCTAssertTrue(antigenTest.isNew)
+		XCTAssertFalse(antigenTest.testResultIsNew)
 		XCTAssertFalse(antigenTest.certificateSupportedByPointOfCare)
 		XCTAssertFalse(antigenTest.certificateConsentGiven)
 		XCTAssertFalse(antigenTest.certificateRequested)
@@ -777,7 +800,8 @@ class FamilyMemberCoronaTestServiceTests: CWATestCase {
 		XCTAssertNil(antigenTest.sampleCollectionDate)
 		XCTAssertEqual(antigenTest.testResult, .pending)
 		XCTAssertNil(antigenTest.finalTestResultReceivedDate)
-		XCTAssertFalse(antigenTest.testResultWasShown)
+		XCTAssertTrue(antigenTest.isNew)
+		XCTAssertFalse(antigenTest.testResultIsNew)
 		XCTAssertTrue(antigenTest.certificateSupportedByPointOfCare)
 		XCTAssertFalse(antigenTest.certificateConsentGiven)
 		XCTAssertFalse(antigenTest.certificateRequested)
@@ -836,7 +860,7 @@ class FamilyMemberCoronaTestServiceTests: CWATestCase {
 		)
 		
 		let testsUpdateExpectation = expectation(description: "Corona tests updated")
-		testsUpdateExpectation.expectedFulfillmentCount = 7
+		testsUpdateExpectation.expectedFulfillmentCount = 8
 		
 		let testsSubscription = service.coronaTests
 			.sink { _ in
@@ -896,7 +920,7 @@ class FamilyMemberCoronaTestServiceTests: CWATestCase {
 			Date().timeIntervalSince1970,
 			accuracy: 10
 		)
-		XCTAssertFalse(antigenTest.testResultWasShown)
+		XCTAssertTrue(antigenTest.testResultIsNew)
 		XCTAssertTrue(antigenTest.certificateSupportedByPointOfCare)
 		XCTAssertTrue(antigenTest.certificateConsentGiven)
 		XCTAssertTrue(antigenTest.certificateRequested)
@@ -1121,7 +1145,8 @@ class FamilyMemberCoronaTestServiceTests: CWATestCase {
 		XCTAssertNil(antigenTest.sampleCollectionDate)
 		XCTAssertEqual(antigenTest.testResult, .pending)
 		XCTAssertNil(antigenTest.finalTestResultReceivedDate)
-		XCTAssertFalse(antigenTest.testResultWasShown)
+		XCTAssertTrue(antigenTest.isNew)
+		XCTAssertFalse(antigenTest.testResultIsNew)
 		XCTAssertTrue(antigenTest.certificateSupportedByPointOfCare)
 		XCTAssertFalse(antigenTest.certificateConsentGiven)
 		XCTAssertFalse(antigenTest.certificateRequested)
@@ -1209,7 +1234,8 @@ class FamilyMemberCoronaTestServiceTests: CWATestCase {
 		XCTAssertNil(rapidPCRTest.sampleCollectionDate)
 		XCTAssertEqual(rapidPCRTest.testResult, .pending)
 		XCTAssertNil(rapidPCRTest.finalTestResultReceivedDate)
-		XCTAssertFalse(rapidPCRTest.testResultWasShown)
+		XCTAssertTrue(rapidPCRTest.isNew)
+		XCTAssertFalse(rapidPCRTest.testResultIsNew)
 		XCTAssertFalse(rapidPCRTest.certificateSupportedByPointOfCare)
 		XCTAssertFalse(rapidPCRTest.certificateConsentGiven)
 		XCTAssertFalse(rapidPCRTest.certificateRequested)
@@ -1312,7 +1338,8 @@ class FamilyMemberCoronaTestServiceTests: CWATestCase {
 		XCTAssertNil(rapidPCRTest.sampleCollectionDate)
 		XCTAssertEqual(rapidPCRTest.testResult, .pending)
 		XCTAssertNil(rapidPCRTest.finalTestResultReceivedDate)
-		XCTAssertFalse(rapidPCRTest.testResultWasShown)
+		XCTAssertTrue(rapidPCRTest.isNew)
+		XCTAssertFalse(rapidPCRTest.testResultIsNew)
 		XCTAssertTrue(rapidPCRTest.certificateSupportedByPointOfCare)
 		XCTAssertFalse(rapidPCRTest.certificateConsentGiven)
 		XCTAssertFalse(rapidPCRTest.certificateRequested)
@@ -1371,8 +1398,8 @@ class FamilyMemberCoronaTestServiceTests: CWATestCase {
 		)
 		
 		let testsUpdateExpectation = expectation(description: "Corona tests updated")
-		testsUpdateExpectation.expectedFulfillmentCount = 7
-		
+		testsUpdateExpectation.expectedFulfillmentCount = 8
+
 		let testsSubscription = service.coronaTests
 			.sink { _ in
 				testsUpdateExpectation.fulfill()
@@ -1425,7 +1452,7 @@ class FamilyMemberCoronaTestServiceTests: CWATestCase {
 			Date().timeIntervalSince1970,
 			accuracy: 10
 		)
-		XCTAssertFalse(rapidPCRTest.testResultWasShown)
+		XCTAssertTrue(rapidPCRTest.testResultIsNew)
 		XCTAssertTrue(rapidPCRTest.certificateSupportedByPointOfCare)
 		XCTAssertTrue(rapidPCRTest.certificateConsentGiven)
 		XCTAssertTrue(rapidPCRTest.certificateRequested)
@@ -1650,7 +1677,8 @@ class FamilyMemberCoronaTestServiceTests: CWATestCase {
 		XCTAssertNil(rapidPCRTest.sampleCollectionDate)
 		XCTAssertEqual(rapidPCRTest.testResult, .pending)
 		XCTAssertNil(rapidPCRTest.finalTestResultReceivedDate)
-		XCTAssertFalse(rapidPCRTest.testResultWasShown)
+		XCTAssertTrue(rapidPCRTest.isNew)
+		XCTAssertFalse(rapidPCRTest.testResultIsNew)
 		XCTAssertTrue(rapidPCRTest.certificateSupportedByPointOfCare)
 		XCTAssertFalse(rapidPCRTest.certificateConsentGiven)
 		XCTAssertFalse(rapidPCRTest.certificateRequested)
@@ -1699,7 +1727,7 @@ class FamilyMemberCoronaTestServiceTests: CWATestCase {
 		)
 		
 		let publisherExpectation = expectation(description: "corona tests published")
-		publisherExpectation.expectedFulfillmentCount = 8
+		publisherExpectation.expectedFulfillmentCount = 9
 		
 		let subscription = service.coronaTests
 			.sink { _ in
@@ -1774,7 +1802,7 @@ class FamilyMemberCoronaTestServiceTests: CWATestCase {
 		)
 		
 		let publisherExpectation = expectation(description: "corona tests published")
-		publisherExpectation.expectedFulfillmentCount = 8
+		publisherExpectation.expectedFulfillmentCount = 9
 		
 		let subscription = service.coronaTests
 			.sink { _ in
