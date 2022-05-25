@@ -95,7 +95,7 @@ class HealthCertifiedPersonCellModelTests: XCTestCase {
 			XCTAssertEqual(
 				description,
 				String(
-					format: "läuft am %@ um %@ ab",
+					format: "Zertifikat läuft am %@ um %@ ab",
 					DateFormatter.localizedString(from: expirationDate, dateStyle: .short, timeStyle: .none),
 					DateFormatter.localizedString(from: expirationDate, dateStyle: .none, timeStyle: .short)
 				)
@@ -611,7 +611,7 @@ class HealthCertifiedPersonCellModelTests: XCTestCase {
 			XCTAssertEqual(
 				description,
 				String(
-					format: "läuft am %@ um %@ ab",
+					format: "Zertifikat läuft am %@ um %@ ab",
 					DateFormatter.localizedString(from: expirationDate, dateStyle: .short, timeStyle: .none),
 					DateFormatter.localizedString(from: expirationDate, dateStyle: .none, timeStyle: .short)
 				)

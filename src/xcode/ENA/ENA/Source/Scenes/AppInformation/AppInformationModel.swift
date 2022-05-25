@@ -28,7 +28,7 @@ enum AppInformationModel {
 					text: AppStrings.AppInformation.aboutText,
 					accessibilityIdentifier: AccessibilityIdentifiers.AppInformation.aboutText
 				),
-				.link(placeholder: isGerman() ? AppStrings.AppInformation.aboutLinkText : "", link: AppStrings.AppInformation.aboutLink, font: .subheadline, style: .subheadline, accessibilityIdentifier: AccessibilityIdentifiers.AppInformation.aboutLinkText)
+				.link(placeholder: AppStrings.AppInformation.aboutLinkText, link: AppStrings.AppInformation.aboutLink, font: .subheadline, style: .subheadline, accessibilityIdentifier: AccessibilityIdentifiers.AppInformation.aboutLinkText)
 			]
 		)
 	])
@@ -98,8 +98,4 @@ enum AppInformationModel {
 		imageAccessabliltyLabel: AppStrings.AppInformation.termsImageDescription,
 		urlResourceName: "usage"
 	)
-}
-
-private func isGerman() -> Bool {
-	return Bundle.main.preferredLocalizations.first == "de"
 }

@@ -122,7 +122,7 @@ final class HealthCertificateCellViewModel {
 					return nil
 				case .expiringSoon:
 					return String(
-						format: AppStrings.HealthCertificate.ValidityState.expiringSoon,
+						format: AppStrings.HealthCertificate.ValidityState.expiringSoonShort,
 						DateFormatter.localizedString(from: healthCertificate.expirationDate, dateStyle: .short, timeStyle: .none),
 						DateFormatter.localizedString(from: healthCertificate.expirationDate, dateStyle: .none, timeStyle: .short)
 					)
