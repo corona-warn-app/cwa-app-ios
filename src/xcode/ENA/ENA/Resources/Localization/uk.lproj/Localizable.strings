@@ -1669,7 +1669,7 @@
 /* Version 2.23 */
 "NewVersionFeature_223_reissue_certificates_title" = "Поновлення сертифіката";
 
-"NewVersionFeature_223_reissue_certificates_description" = "Через технічні причини строк дії сертифікатів про вакцинацію обмежений 365 днями, але ви можете запросити новий сертифікат у застосунку. Сертифікат можна поновити за 28 днів до закінчення строку його дії та до 90 днів після цього. Застосунок містить нотатку, яка сповіщає вас, якщо строк дії вашого сертифіката скоро закінчиться або вже минув.";
+"NewVersionFeature_223_reissue_certificates_description" = "Через технічні причини строк дії сертифіката, що використовується на даний момент, обмежений 365 днями. Якщо строк дії вашого поточного сертифіката закінчується, застосунок дає змогу продовжити його. Сертифікат можна поновити за 28 днів до завершення строку його дії та до 90 днів після цього. Якщо застосунок не пропонує поновити ваш сертифікат, його не потрібно продовжувати, і вам не потрібно нічого робити.";
 
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Транснаціональна реєстрація ризику зараження";
@@ -2694,6 +2694,8 @@
 
 "TraceLocation_Information_Item_RenewQRCode" = "Якщо ви хочете використовувати QR-код протягом тривалого періоду, вам слід генерувати його знову щодня, поза межами робочого часу.";
 
+"TraceLocation_Information_Item_Group" = "Ви можете попередити своїх гостей від імені когось, у кого був діагностований коронавірус і який відвідав захід, але не був зареєстрований при вході за допомогою Corona-Warn-App.";
+
 "TraceLocation_Information_PrimaryButton_Title" = "Далі";
 
 /* Checkout */
@@ -3203,9 +3205,11 @@
 "HealthCertificate_Validation_TechnicalFailed_expirationDate" = "Дійсно до %@";
 
 /* Health Certificate Validity State */
-"HealthCertificate_ValidityState_ExpiringSoon" = "Дата %@ час %@ завершення строку дії сертифіката";
+"HealthCertificate_ValidityState_ExpiringSoon_long" = "Дата %@ час %@ завершення строку дії сертифіката";
 
-"HealthCertificate_ValidityState_ExpiringSoon_description" = "Якщо ви зараз користуєтеся цим сертифікатом, не забудьте вчасно поновити його. Ви можете поновити такі сертифікати безпосередньо в застосунку, якщо строк їх дії закінчиться протягом наступних 28 днів. У цьому випадку опція «Поновити сертифікати» з’явиться в огляді вашого сертифіката під плиткою «Підтвердження статусу».";
+"HealthCertificate_ValidityState_ExpiringSoon_short" = "Дата %@ час %@завершення строку дії";
+
+"HealthCertificate_ValidityState_ExpiringSoon_description" = "Якщо ви зараз користуєтеся цим сертифікатом, не забудьте вчасно поновити його. Ви можете поновити такі сертифікати безпосередньо в застосунку, якщо строк їх дії закінчиться протягом наступних 28 днів. У цьому випадку опція «Поновити сертифікати» з’явиться в огляді вашого сертифіката під плиткою «Підтвердження статусу». Якщо це не той сертифікат, яким ви зараз користуєтеся, його не потрібно продовжувати, і з вашого боку не потрібно нічого робити.";
 
 "HealthCertificate_ValidityState_Expired" = "Строк дії сертифіката минув";
 
@@ -3239,13 +3243,13 @@
 
 "HealthCertificate_Reissuance_Consent_Cancel_Notice" = "Якщо ви скасуєте зараз, ви можете будь-коли подати запит на поновлення в огляді сертифіката.";
 
-"HealthCertificate_Reissuance_Consent_Bullet_Point_1" = "Поновлення сертифіката є добровільним і безкоштовним.";
+"HealthCertificate_Reissuance_Consent_Bullet_Point_1" = "Поновлення ваших сертифікатів є добровільним і безкоштовним.";
 
 "HealthCertificate_Reissuance_Consent_Bullet_Point_2" = "Щоб гарантувати, що сертифікати можуть бути поновлені лише один раз, ідентифікатори старих і нових сертифікатів документуються RKI. Інші дані з ваших сертифікатів видаляються RKI відразу після поновлення.";
 
 "HealthCertificate_Reissuance_Consent_Bullet_Point_3" = "Перш ніж поновити сертифікати членів сім’ї, переконайтеся, що залучена особа дає згоду.";
 
-"HealthCertificate_Reissuance_Consent_Bullet_Point_4" = "У деяких випадках на додаток до сертифіката для поновлення видаються додаткові сертифікати. Це необхідно для прийняття попередньої послідовності щеплень та оздоровлення в новому сертифікаті.";
+"HealthCertificate_Reissuance_Consent_Bullet_Point_4" = "У деяких випадках на додаток до сертифікатів для поновлення видаються додаткові сертифікати. Це необхідно для прийняття попередньої послідовності щеплень та оздоровлення в нових сертифікатах.";
 
 "HealthCertificate_Reissuance_AccompanyingCertificates_Cell" = "Інші видані сертифікати";
 
@@ -3255,11 +3259,11 @@
 "HealthCertificate_Reissuance_AccompanyingCertificates_Description" = "Наступні сертифікати будуть видані під час поновлення як додаткова інформація, щоб прийняти попередню послідовність щеплень та одужання в новому сертифікаті. Ці сертифікати не поновлюються.";
 
 /* HealthCertificate Resissuance Succeeded */
-"HealthCertificate_Reissuance_Succeeded_Title" = "Сертифікат оновлено";
+"HealthCertificate_Reissuance_Succeeded_Title" = "Сертифікати оновлено";
 
-"HealthCertificate_Reissuance_Succeeded_Headline" = "Ваш сертифікат успішно оновлено";
+"HealthCertificate_Reissuance_Succeeded_Headline" = "Ваші сертифікати успішно оновлені";
 
-"HealthCertificate_Reissuance_Succeeded_Body" = "Оновлений сертифікат тепер доступний на вкладці «Сертифікати».";
+"HealthCertificate_Reissuance_Succeeded_Body" = "Оновлені сертифікати тепер доступні на вкладці «Сертифікати».";
 
 /* HealthCertificate Resissuance Request Error */
 "HealthCertificate_Reissuance_Error_Contact_Support" = "Сталася технічна помилка. Зв’яжіться з технічною гарячою лінією через Інформація про застосунок -> Технічна гаряча лінія.";
