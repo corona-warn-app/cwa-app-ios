@@ -142,7 +142,6 @@ class FamilyMemberCoronaTestService: FamilyMemberCoronaTestServiceProviding {
 							isNew: true,
 							testResult: .pending,
 							finalTestResultReceivedDate: nil,
-							testResultWasShown: false,
 							certificateSupportedByPointOfCare: true,
 							certificateConsentGiven: certificateConsentGiven,
 							certificateRequested: false,
@@ -210,7 +209,6 @@ class FamilyMemberCoronaTestService: FamilyMemberCoronaTestServiceProviding {
 							isNew: true,
 							testResult: .pending,
 							finalTestResultReceivedDate: nil,
-							testResultWasShown: false,
 							certificateSupportedByPointOfCare: certificateSupportedByPointOfCare,
 							certificateConsentGiven: certificateConsentGiven,
 							certificateRequested: false,
@@ -281,7 +279,6 @@ class FamilyMemberCoronaTestService: FamilyMemberCoronaTestServiceProviding {
 							isNew: true,
 							testResult: .pending,
 							finalTestResultReceivedDate: nil,
-							testResultWasShown: false,
 							certificateSupportedByPointOfCare: certificateSupportedByPointOfCare,
 							certificateConsentGiven: certificateConsentGiven,
 							certificateRequested: false,
@@ -410,7 +407,7 @@ class FamilyMemberCoronaTestService: FamilyMemberCoronaTestServiceProviding {
 
 		coronaTests.value.modify(coronaTest) {
 			$0.isNew = wasNew ? keepMarkedAsNew : false
-			$0.testResultWasShown = coronaTest.finalTestResultReceivedDate != nil
+			$0.testResultIsNew = false
 		}
 	}
 
@@ -650,6 +647,12 @@ class FamilyMemberCoronaTestService: FamilyMemberCoronaTestServiceProviding {
 								$0.finalTestResultReceivedDate = Date()
 							}
 						}
+						
+						if testResult != previousTestResult {
+							self.coronaTests.value.modify(coronaTest) {
+								$0.testResultIsNew = true
+							}
+						}
 
 						if testResult == .negative && coronaTest.certificateConsentGiven && !coronaTest.certificateRequested {
 							self.healthCertificateRequestService.registerAndExecuteTestCertificateRequest(
@@ -788,7 +791,6 @@ class FamilyMemberCoronaTestService: FamilyMemberCoronaTestServiceProviding {
 					isNew: false,
 					testResult: testResult,
 					finalTestResultReceivedDate: testResult == .pending ? nil : Date(),
-					testResultWasShown: LaunchArguments.familyMemberTest.pcr.positiveTestResultWasShown.boolValue,
 					certificateSupportedByPointOfCare: true,
 					certificateConsentGiven: false,
 					certificateRequested: false,
@@ -812,7 +814,6 @@ class FamilyMemberCoronaTestService: FamilyMemberCoronaTestServiceProviding {
 					isNew: false,
 					testResult: testResult,
 					finalTestResultReceivedDate: testResult == .pending ? nil : Date(),
-					testResultWasShown: LaunchArguments.familyMemberTest.antigen.positiveTestResultWasShown.boolValue,
 					certificateSupportedByPointOfCare: false,
 					certificateConsentGiven: false,
 					certificateRequested: false,
@@ -853,7 +854,6 @@ class FamilyMemberCoronaTestService: FamilyMemberCoronaTestServiceProviding {
 			isNew: true,
 			testResult: TestResult.pending,
 			finalTestResultReceivedDate: nil,
-			testResultWasShown: true,
 			certificateSupportedByPointOfCare: false,
 			certificateConsentGiven: false,
 			certificateRequested: false,
@@ -869,7 +869,6 @@ class FamilyMemberCoronaTestService: FamilyMemberCoronaTestServiceProviding {
 			isNew: false,
 			testResult: TestResult.negative,
 			finalTestResultReceivedDate: nil,
-			testResultWasShown: true,
 			certificateSupportedByPointOfCare: false,
 			certificateConsentGiven: false,
 			certificateRequested: false,
@@ -885,7 +884,6 @@ class FamilyMemberCoronaTestService: FamilyMemberCoronaTestServiceProviding {
 			isNew: false,
 			testResult: TestResult.positive,
 			finalTestResultReceivedDate: nil,
-			testResultWasShown: true,
 			certificateSupportedByPointOfCare: false,
 			certificateConsentGiven: false,
 			certificateRequested: false,
@@ -900,7 +898,6 @@ class FamilyMemberCoronaTestService: FamilyMemberCoronaTestServiceProviding {
 			isNew: false,
 			testResult: .positive,
 			finalTestResultReceivedDate: nil,
-			testResultWasShown: true,
 			certificateSupportedByPointOfCare: false,
 			certificateConsentGiven: false,
 			certificateRequested: false,
