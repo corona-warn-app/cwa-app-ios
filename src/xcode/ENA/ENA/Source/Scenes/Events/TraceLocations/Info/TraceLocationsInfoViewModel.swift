@@ -70,7 +70,17 @@ struct TraceLocationsInfoViewModel {
 					.space(
 						height: 15.0,
 						color: .enaColor(for: .background)
+					),
+					.icon(
+						UIImage(imageLiteralResourceName: "Icons_Group"),
+						text: .string(AppStrings.TraceLocations.Information.itemGroupTitle),
+						alignment: .top
+					),
+					.space(
+						height: 15.0,
+						color: .enaColor(for: .background)
 					)
+
 				]
 			),
 			// Legal text

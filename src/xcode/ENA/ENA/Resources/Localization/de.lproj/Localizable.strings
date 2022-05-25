@@ -2787,6 +2787,8 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "TraceLocation_Information_Item_RenewQRCode" = "Wenn Sie dauerhaft einen QR-Code verwenden, sollten Sie diesen einmal täglich außerhalb der Öffnungszeiten neu erstellen.";
 
+"TraceLocation_Information_Item_Group" = "Sie können Ihre Gäste in Vertretung für eine positiv getestete Person warnen, die am Event teilgenommen hat, aber nicht über die Corona-Warn-App eingecheckt war.";
+
 "TraceLocation_Information_PrimaryButton_Title" = "Weiter";
 
 /* Checkout */
