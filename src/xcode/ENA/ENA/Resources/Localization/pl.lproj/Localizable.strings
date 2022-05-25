@@ -1669,7 +1669,7 @@
 /* Version 2.23 */
 "NewVersionFeature_223_reissue_certificates_title" = "Odnowienie certyfikatu";
 
-"NewVersionFeature_223_reissue_certificates_description" = "Ze względów technicznych ważność certyfikatów szczepień jest ograniczona do 365 dni, ale możesz poprosić o nowy certyfikat w aplikacji. Certyfikat może zostać odnowiony do 28 dni przed upływem jego ważności i do 90 dni po tym terminie. Aplikacja zawiera informację o tym, że ważność certyfikatu wkrótce wygaśnie lub czy już wygasła.";
+"NewVersionFeature_223_reissue_certificates_description" = "Ze względów technicznych okres ważności aktualnie używanego certyfikatu jest ograniczony do 365 dni. Jeśli Twój aktualny certyfikat wygaśnie, aplikacja umożliwi Ci jego odnowienie. Certyfikat można odnowić do 28 dni przed upływem jego ważności i do 90 dni po tym terminie. Jeśli aplikacja nie oferuje możliwości odnowienia certyfikatu, nie trzeba go przedłużać i nie musisz wykonywać żadnych dodatkowych działań.";
 
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Rejestrowanie narażenia w różnych krajach";
@@ -2694,6 +2694,8 @@
 
 "TraceLocation_Information_Item_RenewQRCode" = "Używając kodu QR przez dłuższy czas, musisz generować go ponownie każdego dnia poza godzinami pracy.";
 
+"TraceLocation_Information_Item_Group" = "Możesz ostrzec swoich gości w imieniu osoby, u której zdiagnozowano koronawirusa i która uczestniczyła w wydarzeniu, ale nie zameldowała się za pomocą aplikacji Corona-Warn-App.";
+
 "TraceLocation_Information_PrimaryButton_Title" = "Dalej";
 
 /* Checkout */
@@ -3203,9 +3205,11 @@
 "HealthCertificate_Validation_TechnicalFailed_expirationDate" = "Ważny do %@";
 
 /* Health Certificate Validity State */
-"HealthCertificate_ValidityState_ExpiringSoon" = "Certyfikat wygasa dnia %@ o godzinie %@";
+"HealthCertificate_ValidityState_ExpiringSoon_long" = "Certyfikat wygasa dnia %@ o godzinie %@";
 
-"HealthCertificate_ValidityState_ExpiringSoon_description" = "Jeśli jest to certyfikat, którego obecnie używasz, pamiętaj o odnowieniu go na czas. Możesz odnowić takie certyfikaty bezpośrednio w aplikacji, jeśli wygasną w ciągu najbliższych 28 dni. W takim przypadku opcja „Odnów certyfikaty” pojawia się w przeglądzie certyfikatów, pod kafelkiem „Dowód statusu”.";
+"HealthCertificate_ValidityState_ExpiringSoon_short" = "Wygasa dnia %@ o godzinie %@";
+
+"HealthCertificate_ValidityState_ExpiringSoon_description" = "Jeśli jest to certyfikat, którego obecnie używasz, pamiętaj o odnowieniu go na czas. Możesz odnowić takie certyfikaty bezpośrednio w aplikacji, jeśli wygasną w ciągu najbliższych 28 dni. W takim przypadku opcja „Odnów certyfikaty” pojawia się w przeglądzie certyfikatów, pod kafelkiem „Dowód statusu”. Jeśli nie jest to certyfikat, którego obecnie używasz, nie trzeba go przedłużać i nie musisz podejmować żadnych działań.";
 
 "HealthCertificate_ValidityState_Expired" = "Certyfikat wygasł";
 
@@ -3239,13 +3243,13 @@
 
 "HealthCertificate_Reissuance_Consent_Cancel_Notice" = "Jeśli teraz zrezygnujesz, możesz w każdej chwili zażądać odnowienia w przeglądzie certyfikatów.";
 
-"HealthCertificate_Reissuance_Consent_Bullet_Point_1" = "Odnowienie certyfikatu jest dobrowolne i bezpłatne.";
+"HealthCertificate_Reissuance_Consent_Bullet_Point_1" = "Odnawianie certyfikatów jest dobrowolne i bezpłatne.";
 
 "HealthCertificate_Reissuance_Consent_Bullet_Point_2" = "Aby certyfikaty mogły być odnawiane tylko raz, identyfikatory starych i nowych certyfikatów są dokumentowane przez RKI. Pozostałe dane z certyfikatów są usuwane przez RKI natychmiast po odnowieniu.";
 
 "HealthCertificate_Reissuance_Consent_Bullet_Point_3" = "Przed odnowieniem certyfikatów dla członków rodziny upewnij się, że dana osoba wyraża na to zgodę.";
 
-"HealthCertificate_Reissuance_Consent_Bullet_Point_4" = "W niektórych przypadkach dodatkowo oprócz certyfikatu do odnowienia wydawane są dodatkowe certyfikaty. Jest to konieczne, aby w nowym certyfikacie zawarte zostały informacje o wcześniejszych szczepieniach i przebyciu choroby.";
+"HealthCertificate_Reissuance_Consent_Bullet_Point_4" = "W niektórych przypadkach oprócz certyfikatów do odnowienia wydawane są dodatkowe certyfikaty. Jest to konieczne, aby w nowych certyfikatach zawarte zostały informacje o wcześniejszych szczepieniach i przebyciu choroby.";
 
 "HealthCertificate_Reissuance_AccompanyingCertificates_Cell" = "Inne wydawane certyfikaty";
 
@@ -3255,11 +3259,11 @@
 "HealthCertificate_Reissuance_AccompanyingCertificates_Description" = "Następujące certyfikaty będą wydawane w trakcie odnawiania certyfikatu jako uzupełnienie w celu odnotowania w nowym certyfikacie wcześniejszych szczepień i przebycia choroby. Certyfikaty nie podlegają odnawianiu.";
 
 /* HealthCertificate Resissuance Succeeded */
-"HealthCertificate_Reissuance_Succeeded_Title" = "Zaktualizowano certyfikat";
+"HealthCertificate_Reissuance_Succeeded_Title" = "Odnowiono certyfikaty";
 
-"HealthCertificate_Reissuance_Succeeded_Headline" = "Twój certyfikat został pomyślnie zaktualizowany";
+"HealthCertificate_Reissuance_Succeeded_Headline" = "Twoje certyfikaty zostały pomyślnie odnowione";
 
-"HealthCertificate_Reissuance_Succeeded_Body" = "Zaktualizowany certyfikat jest teraz dostępny w karcie „Certyfikaty”.";
+"HealthCertificate_Reissuance_Succeeded_Body" = "Odnowione certyfikaty są teraz dostępne w karcie „Certyfikaty”.";
 
 /* HealthCertificate Resissuance Request Error */
 "HealthCertificate_Reissuance_Error_Contact_Support" = "Wystąpił błąd techniczny. Skontaktuj się z infolinią techniczną, korzystając z opcji: Informacje o aplikacji -> Infolinia techniczna.";
