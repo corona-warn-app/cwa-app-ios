@@ -44,7 +44,7 @@ class FamilyMemberCoronaTestsViewController: UITableViewController, FooterViewHa
 		}
 
 		viewModel.triggerReload
-			.receive(on: DispatchQueue.main.ocombine)
+			.debounce(for: 0.5, scheduler: DispatchQueue.main.ocombine)
 			.sink { [weak self] triggerReload in
 				guard let self = self, triggerReload else { return }
 
