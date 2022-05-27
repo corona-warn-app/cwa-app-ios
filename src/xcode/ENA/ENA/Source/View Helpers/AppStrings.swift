@@ -1131,9 +1131,6 @@ enum AppStrings {
 		static let aboutText = NSLocalizedString("App_Information_About_Text", comment: "")
 		static let aboutLink = NSLocalizedString("App_Information_About_Link", tableName: "Localizable.links", comment: "")
 		static let aboutLinkText = NSLocalizedString("App_Information_About_LinkText", comment: "")
-
-		static let faqNavigation = NSLocalizedString("App_Information_FAQ_Navigation", comment: "")
-
 		static let contactNavigation = NSLocalizedString("App_Information_Contact_Navigation", comment: "")
 		static let contactImageDescription = NSLocalizedString("App_Information_Contact_ImageDescription", comment: "")
 		static let contactTitle = NSLocalizedString("App_Information_Contact_Title", comment: "")
