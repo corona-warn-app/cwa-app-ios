@@ -255,6 +255,59 @@ class ENAUITests_01a_Home: CWATestCase {
 
 	// MARK: - Screenshots
 
+	func test_screenshot_homescreen_riskCardLow_DetailsScreen() throws {
+		var screenshotCounter = 0
+		let riskLevel = "low"
+		let numberOfDaysWithLowRisk = "1"
+		app.setPreferredContentSizeCategory(accessibility: .accessibility, size: .XS)
+		app.setLaunchArgument(LaunchArguments.risk.riskLevel, to: riskLevel)
+		app.setLaunchArgument(LaunchArguments.risk.numberOfDaysWithRiskLevel, to: numberOfDaysWithLowRisk)
+		app.setLaunchArgument(LaunchArguments.common.ENStatus, to: ENStatus.active.stringValue)
+		app.launch()
+
+		// Low Risk details screen
+				
+		let riskCell = app.cells.element(boundBy: 1)
+		riskCell.waitAndTap()
+		
+		snapshot("homescreenrisk_level_\(riskLevel)_risk_one_day_Details_\(String(format: "%04d", (screenshotCounter.inc() )))")
+		app.swipeUp()
+
+		snapshot("homescreenrisk_level_\(riskLevel)_risk_one_day_Details_\(String(format: "%04d", (screenshotCounter.inc() )))")
+		app.swipeUp(velocity: .fast)
+		
+		snapshot("homescreenrisk_level_\(riskLevel)_risk_one_day_Details_\(String(format: "%04d", (screenshotCounter.inc() )))")
+
+	}
+	
+	func test_screenshot_homescreen_riskCardHigh_DetailsScreen() throws {
+		var screenshotCounter = 0
+		let riskLevel = "high"
+		let numberOfDaysWithHighRisk = "1"
+		app.setPreferredContentSizeCategory(accessibility: .accessibility, size: .XS)
+		app.setLaunchArgument(LaunchArguments.risk.riskLevel, to: riskLevel)
+		app.setLaunchArgument(LaunchArguments.risk.numberOfDaysWithRiskLevel, to: numberOfDaysWithHighRisk)
+		app.setLaunchArgument(LaunchArguments.common.ENStatus, to: ENStatus.active.stringValue)
+		app.launch()
+
+		// High Risk details screen
+		
+		let riskCell = app.cells.element(boundBy: 1)
+		riskCell.waitAndTap()
+		
+		snapshot("homescreenrisk_level_\(riskLevel)_risk_one_day_Details_\(String(format: "%04d", (screenshotCounter.inc() )))")
+		app.swipeUp()
+		
+		snapshot("homescreenrisk_level_\(riskLevel)_risk_one_day_Details_\(String(format: "%04d", (screenshotCounter.inc() )))")
+		app.swipeUp(velocity: .fast)
+		
+		snapshot("homescreenrisk_level_\(riskLevel)_risk_one_day_Details_\(String(format: "%04d", (screenshotCounter.inc() )))")
+		app.swipeUp()
+		
+		snapshot("homescreenrisk_level_\(riskLevel)_risk_one_day_Details_\(String(format: "%04d", (screenshotCounter.inc() )))")
+
+	}
+
 	func test_screenshot_homescreen_riskCardHigh_riskOneDay() throws {
 		var screenshotCounter = 0
 		let riskLevel = "high"
