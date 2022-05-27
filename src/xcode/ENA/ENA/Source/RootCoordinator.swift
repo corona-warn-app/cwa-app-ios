@@ -277,6 +277,7 @@ class RootCoordinator: NSObject, RequiresAppDependencies, UITabBarControllerDele
 		diaryCoordinator.viewController.tabBarItem = diaryTabBarItem
 
 		tabBarController.tabBar.tintColor = .enaColor(for: .tint)
+		tabBarController.tabBar.unselectedItemTintColor = .enaColor(for: .textPrimary2)
 		tabBarController.delegate = self
 		tabBarController.setViewControllers([homeCoordinator.rootViewController, healthCertificatesTabCoordinator.viewController, universalScannerDummyViewController, checkinTabCoordinator.viewController, diaryCoordinator.viewController], animated: false)
 
