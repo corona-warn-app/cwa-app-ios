@@ -618,6 +618,8 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmission_CallButtonTitle" = "Anrufen";
 
+"ExposureSubmission_CallButtonTitle_Format" = "Anrufen %@";
+
 "ExposureSubmission_TANInputButtonTitle" = "TAN eingeben";
 
 "ExposureSubmissionHotline_imageDescription" = "Hotline teilt eine TAN mit.";
