@@ -32,6 +32,12 @@ class DMBoosterRulesViewController: UITableViewController {
 				self?.present(alert, animated: true)
 			}
 		}
+		
+		viewModel.onClose = {
+			DispatchQueue.main.async { [weak self] in
+				self?.dismiss(animated: true)
+			}
+		}
 	}
 
 	required init?(coder: NSCoder) {
@@ -96,6 +102,16 @@ class DMBoosterRulesViewController: UITableViewController {
 
 	private func setupNavigationBar() {
 		title = "Booster rules actions 🎩"
+		if #available(iOS 13.0, *) {
+			navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .close, target: self, action: #selector(didTapCloseBarButton))
+		} else {
+			navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Close", style: .done, target: self, action: #selector(didTapCloseBarButton))
+		}
+	}
+	
+	@objc
+	func didTapCloseBarButton() {
+		viewModel.onClose()
 	}
 }
 #endif
