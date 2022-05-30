@@ -123,6 +123,17 @@ class AntigenTestProfileInputCell: UITableViewCell, ReuseIdentifierProviding {
 			emailAddressTextField.topAnchor.constraint(equalTo: phoneNumberTextField.bottomAnchor, constant: 7),
 			emailAddressTextField.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -inset)
 		])
+		
+		accessibilityElements = [
+			firstNameTextField,
+			lastNameTextField,
+			birthDateNameTextField,
+			addressLineTextField,
+			postalCodeTextField,
+			cityTextField,
+			phoneNumberTextField,
+			emailAddressTextField
+		]
 	}
 
 	// MARK: - Internal
