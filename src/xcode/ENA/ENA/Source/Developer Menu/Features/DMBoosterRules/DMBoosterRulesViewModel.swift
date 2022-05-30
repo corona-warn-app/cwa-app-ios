@@ -23,6 +23,7 @@ final class DMBoosterRulesViewModel {
 	// MARK: - Internal
 	
 	var showAlert: (UIAlertController) -> Void = { _ in }
+	var onClose: () -> Void = {}
 	var refreshTableView: (IndexSet) -> Void = { _ in }
 	var numberOfSections: Int {
 		TableViewSections.allCases.count
