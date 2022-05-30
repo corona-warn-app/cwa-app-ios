@@ -20,6 +20,16 @@ class SimpleTextCell: UITableViewCell, ReuseIdentifierProviding {
 		fatalError("init(coder:) has not been implemented")
 	}
 
+	override func prepareForReuse() {
+		super.prepareForReuse()
+		contentTextLabel.text = nil
+		contentTextLabel.attributedText = nil
+		contentTextLabel.textAlignment = .natural
+		contentTextLabel.accessibilityTraits = .none
+		contentTextLabel.textColor = nil
+		contentTextLabel.font = nil
+	}
+
 	// MARK: - Internal
 
 	func configure(with cellViewModel: SimpleTextCellViewModel) {

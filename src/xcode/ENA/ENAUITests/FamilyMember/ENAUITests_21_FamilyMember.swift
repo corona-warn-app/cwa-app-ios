@@ -22,7 +22,6 @@ class ENAUITests_21_FamilyMember: CWATestCase {
 	func test_screenshot_RegisterCoronaTestFromUniversalQRCodeScanner() throws {
 		// launch argument will make
 		app.setLaunchArgument(LaunchArguments.familyMemberTest.pcr.testResult, to: TestResult.serverResponseAsString(for: TestResult.positive, on: .pcr))
-		app.setLaunchArgument(LaunchArguments.familyMemberTest.pcr.positiveTestResultWasShown, to: true)
 
 		app.launch()
 		app.swipeUp()
@@ -37,7 +36,6 @@ class ENAUITests_21_FamilyMember: CWATestCase {
 	func test_RegisterCoronaTestFromSubmitCardButton() throws {
 		// launch argument will make
 		app.setLaunchArgument(LaunchArguments.familyMemberTest.pcr.testResult, to: TestResult.serverResponseAsString(for: TestResult.positive, on: .pcr))
-		app.setLaunchArgument(LaunchArguments.familyMemberTest.pcr.positiveTestResultWasShown, to: true)
 
 		app.launch()
 		app.swipeUp()
@@ -120,9 +118,7 @@ class ENAUITests_21_FamilyMember: CWATestCase {
 	func test_familyMemberViewOverview() throws {
 		// launch argument will make
 		app.setLaunchArgument(LaunchArguments.familyMemberTest.antigen.testResult, to: TestResult.serverResponseAsString(for: TestResult.negative, on: .antigen))
-		app.setLaunchArgument(LaunchArguments.familyMemberTest.antigen.positiveTestResultWasShown, to: true)
 		app.setLaunchArgument(LaunchArguments.familyMemberTest.pcr.testResult, to: TestResult.serverResponseAsString(for: TestResult.negative, on: .pcr))
-		app.setLaunchArgument(LaunchArguments.familyMemberTest.pcr.positiveTestResultWasShown, to: true)
 
 		app.launch()
 		app.swipeUp()
@@ -152,7 +148,10 @@ class ENAUITests_21_FamilyMember: CWATestCase {
 		app.alerts.buttons[AccessibilityIdentifiers.ExposureSubmissionResult.RemoveAlert.deleteButton].waitAndTap()
 
 		// lookup that only Pauls test is remaining
-		XCTAssertEqual(app.cells.matching(identifier: AccessibilityIdentifiers.FamilyMemberCoronaTestCell.Overview.testCell).count, 1)
+		let countPredicate = NSPredicate(format: "count == 1")
+		let testCellQuery = app.cells.matching(identifier: AccessibilityIdentifiers.FamilyMemberCoronaTestCell.Overview.testCell)
+		expectation(for: countPredicate, evaluatedWith: testCellQuery)
+		waitForExpectations(timeout: .medium)
 
 		// Swipe to delete for Pauls test
 		app.cells[AccessibilityIdentifiers.FamilyMemberCoronaTestCell.Overview.testCell].swipeLeft()

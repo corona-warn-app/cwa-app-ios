@@ -359,6 +359,7 @@ enum AppStrings {
 		static let iconAccessibilityLabel2 = NSLocalizedString("ExposureSubmissionHotline_iconAccessibilityLabel2", comment: "")
 		static let sectionDescription2 = NSLocalizedString("ExposureSubmission_SectionDescription2", comment: "")
 		static let callButtonTitle = NSLocalizedString("ExposureSubmission_CallButtonTitle", comment: "")
+		static let callButtonTitleFormat = NSLocalizedString("ExposureSubmission_CallButtonTitle_Format", comment: "")
 		static let tanInputButtonTitle = NSLocalizedString("ExposureSubmission_TANInputButtonTitle", comment: "")
 		static let phoneNumberDomestic = NSLocalizedString("ExposureSubmission_PhoneNumberDomestic", comment: "")
 		static let phoneDetailsDomestic = NSLocalizedString("ExposureSubmission_PhoneDetailsDomestic", comment: "")
@@ -1894,6 +1895,7 @@ enum AppStrings {
 			static let itemCheckinRiskStatus = NSLocalizedString("TraceLocation_Information_Item_RiskStatus", comment: "")
 			static let itemCheckinTitle = NSLocalizedString("TraceLocation_Information_Item_Checkin", comment: "")
 			static let itemContactTitle = NSLocalizedString("TraceLocation_Information_Item_RenewQRCode", comment: "")
+			static let itemGroupTitle = NSLocalizedString("TraceLocation_Information_Item_Group", comment: "")
 			static let legalHeadline = NSLocalizedString("TraceLocation_Information_Legal_Headline_1", tableName: "Localizable.legal", comment: "")
 
 			static let legalText01 = NSLocalizedString("TraceLocation_Information_Legal_Text_1", tableName: "Localizable.legal", comment: "")
@@ -2208,13 +2210,11 @@ enum AppStrings {
 
 			enum TestCertificate {
 				static let title = NSLocalizedString("TestCertificate_Details_title", comment: "")
-				static let subtitle = NSLocalizedString("TestCertificate_Details_subtitle", comment: "")
 				static let primaryButton = NSLocalizedString("TestCertificate_Details_primaryButton", comment: "")
 			}
 
 			enum RecoveryCertificate {
 				static let title = NSLocalizedString("RecoveryCertificate_Details_title", comment: "")
-				static let subtitle = NSLocalizedString("RecoveryCertificate_Details_subtitle", comment: "")
 				static let primaryButton = NSLocalizedString("RecoveryCertificate_Details_primaryButton", comment: "")
 			}
 		}
@@ -2253,7 +2253,8 @@ enum AppStrings {
 		}
 
 		enum ValidityState {
-			static let expiringSoon = NSLocalizedString("HealthCertificate_ValidityState_ExpiringSoon", comment: "")
+			static let expiringSoonLong = NSLocalizedString("HealthCertificate_ValidityState_ExpiringSoon_long", comment: "")
+			static let expiringSoonShort = NSLocalizedString("HealthCertificate_ValidityState_ExpiringSoon_short", comment: "")
 			static let expiringSoonDescription = NSLocalizedString("HealthCertificate_ValidityState_ExpiringSoon_description", comment: "")
 			static let expired = NSLocalizedString("HealthCertificate_ValidityState_Expired", comment: "")
 			static let expiredDescription = NSLocalizedString("HealthCertificate_ValidityState_Expired_description", comment: "")

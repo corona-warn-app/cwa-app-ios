@@ -1669,7 +1669,7 @@
 /* Version 2.23 */
 "NewVersionFeature_223_reissue_certificates_title" = "Sertifika Yenileme";
 
-"NewVersionFeature_223_reissue_certificates_description" = "Teknik nedenlerle aşı sertifikalarının geçerliliği 365 günle sınırlıdır ancak uygulama içinde yeni sertifika talebi oluşturabilirsiniz. Sertifikanın geçerlilik süresi sona ermeden 28 gün öncesine ve sona erdikten 90 gün sonrasına dek sertifika yenilenebilir. Uygulama, sertifikanızın geçerlilik süresinin sona ermek üzere olduğuna ya da sona erdiğine dair bir bildirim içerir.";
+"NewVersionFeature_223_reissue_certificates_description" = "Teknik nedenlerle şu anda kullanılan sertifikanın geçerliliği 365 günle sınırlıdır. Güncel sertifikanızın süresi dolarsa uygulama sertifikanızı yenilemenize olanak sağlar. Sertifikanın geçerlilik süresi sona ermeden 28 gün öncesine ve sona erdikten 90 gün sonrasına dek sertifika yenilenebilir. Uygulamada sertifikanızın yenilenmesi teklif edilmiyorsa sertifikanın uzatılmasına gerek yoktur ve başka bir işlem yapmanız gerekmez.";
 
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Uluslararası Maruz Kalma Günlüğü";
@@ -2694,6 +2694,8 @@
 
 "TraceLocation_Information_Item_RenewQRCode" = "QR kodu uzun süreli olarak kullanmak istiyorsanız mesai saatlerinizin dışında her gün yeniden QR kod oluşturmanız gerekir.";
 
+"TraceLocation_Information_Item_Group" = "Koronavirüs tanısı almış ve etkinliğe katılmış ancak Corona-Warn-App ile check-in yapmamış başka kişiler adına misafirlerinizi uyarabilirsiniz.";
+
 "TraceLocation_Information_PrimaryButton_Title" = "Sonraki";
 
 /* Checkout */
@@ -3203,9 +3205,11 @@
 "HealthCertificate_Validation_TechnicalFailed_expirationDate" = "Geçerlilik bitişi: %@";
 
 /* Health Certificate Validity State */
-"HealthCertificate_ValidityState_ExpiringSoon" = "Sertifikanın süresi %@, %@ tarihinde dolacak";
+"HealthCertificate_ValidityState_ExpiringSoon_long" = "Sertifikanın süresi %@, %@ tarihinde dolacak";
 
-"HealthCertificate_ValidityState_ExpiringSoon_description" = "Bu, şu anda kullandığınız sertifikaysa lütfen zamanında yenilediğinizden emin olun. Önümüzdeki 28 gün içinde süreleri sona ererse bu sertifikaları doğrudan uygulama içinde yenileyebilirsiniz. Böyle bir durumda, \"Durum Kanıtı\" kutucuğunun altında, sertifikaya genel bakış kısmında \"Sertifikaları Yenile\" seçeneği görüntülenir.";
+"HealthCertificate_ValidityState_ExpiringSoon_short" = "Süresi %@, %@ tarihinde dolacak";
+
+"HealthCertificate_ValidityState_ExpiringSoon_description" = "Bu, şu anda kullandığınız sertifikaysa lütfen zamanında yenilediğinizden emin olun. Önümüzdeki 28 gün içinde süreleri sona ererse bu sertifikaları doğrudan uygulama içinde yenileyebilirsiniz. Böyle bir durumda, \"Durum Kanıtı\" kutucuğunun altında, sertifikaya genel bakış kısmında \"Sertifikaları Yenile\" seçeneği görüntülenir. Bu, şu anda kullandığınız sertifika değilse uzatılmasına gerek yoktur ve herhangi bir işlem yapmanız gerekmez.";
 
 "HealthCertificate_ValidityState_Expired" = "Sertifikanın Süresi Doldu";
 
@@ -3239,7 +3243,7 @@
 
 "HealthCertificate_Reissuance_Consent_Cancel_Notice" = "Şimdi iptal ederseniz dilediğiniz zaman sertifikaya genel bakış bölümünde yenileme talebi oluşturabilirsiniz.";
 
-"HealthCertificate_Reissuance_Consent_Bullet_Point_1" = "Sertifikanızı yenilemeniz gönüllülük esasına bağlı ve ücretsiz bir işlemdir.";
+"HealthCertificate_Reissuance_Consent_Bullet_Point_1" = "Sertifikalarınızı yenilemeniz gönüllülük esasına bağlı ve ücretsiz bir işlemdir.";
 
 "HealthCertificate_Reissuance_Consent_Bullet_Point_2" = "Sertifikaların yalnızca bir kez güncellenebilmesini sağlamak adına eski ve yeni sertifikalarınızın tanıtıcısı RKI tarafından belgelenir. Sertifikalarınıza ilişkin diğer veriler, yenileme işleminin hemen ardından RKI tarafından silinir.";
 
@@ -3255,11 +3259,11 @@
 "HealthCertificate_Reissuance_AccompanyingCertificates_Description" = "Önceki aşı ve iyileşme sırasını yeni sertifikaya dahil etmek için yenileme sırasında ek bilgi olarak aşağıdaki sertifikalar düzenlenecektir. Bu sertifikalar yenilenmeyecektir.";
 
 /* HealthCertificate Resissuance Succeeded */
-"HealthCertificate_Reissuance_Succeeded_Title" = "Sertifika Güncellendi";
+"HealthCertificate_Reissuance_Succeeded_Title" = "Yenilenen Sertifikalar";
 
-"HealthCertificate_Reissuance_Succeeded_Headline" = "Sertifikanız başarıyla güncellendi";
+"HealthCertificate_Reissuance_Succeeded_Headline" = "Sertifikalarınız başarıyla yenilendi";
 
-"HealthCertificate_Reissuance_Succeeded_Body" = "Güncellenen sertifikayı \"Sertifikalar\" sekmesinde bulabilirsiniz.";
+"HealthCertificate_Reissuance_Succeeded_Body" = "Yenilenen sertifikaları \"Sertifikalar\" sekmesinde bulabilirsiniz.";
 
 /* HealthCertificate Resissuance Request Error */
 "HealthCertificate_Reissuance_Error_Contact_Support" = "Teknik bir hata oluştu. Lütfen Uygulama Bilgileri -> Teknik Yardım Hattı üzerinden teknik yardım hattı ile iletişime geçin.";

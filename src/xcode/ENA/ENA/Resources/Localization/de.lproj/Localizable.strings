@@ -618,6 +618,8 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmission_CallButtonTitle" = "Anrufen";
 
+"ExposureSubmission_CallButtonTitle_Format" = "Anrufen %@";
+
 "ExposureSubmission_TANInputButtonTitle" = "TAN eingeben";
 
 "ExposureSubmissionHotline_imageDescription" = "Hotline teilt eine TAN mit.";
@@ -1721,7 +1723,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "NewVersionFeature_223_reissue_certificates_title" = "Erneuerung von Zertifikaten";
 
-"NewVersionFeature_223_reissue_certificates_description" = "Die Gültigkeit von Impfzertifikaten ist technisch auf 365 Tage begrenzt. Sie können in der App jedoch ein neues Zertifikat anfordern. Die Erneuerung kann 28 Tage vor Ablauf der Gültigkeit und bis zu 90 Tage nach Ablauf der Gültigkeit vorgenommen werden. In der App finden Sie einen Hinweis, der Sie über den Ablauf der Gültigkeit Ihres Zertifikats informiert.";
+"NewVersionFeature_223_reissue_certificates_description" = "Die Gültigkeit von Ihrem aktuell genutzten Zertifikat ist technisch auf 365 Tage begrenzt. Falls Ihr aktuell genutztes Zertifikat abläuft bietet die App Ihnen eine Erneuerung an. Die Erneuerung kann 28 Tage vor Ablauf der Gültigkeit und bis zu 90 Tage nach Ablauf der Gültigkeit vorgenommen werden. Falls Ihnen keine Erneuerung angeboten wird dann muss das Zertifikat nicht verlängert werden und keine weiteren Schritten Ihrerseits werden benötigt.";
 
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Länderübergreifende Risiko-Ermittlung";
@@ -2787,6 +2789,8 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "TraceLocation_Information_Item_RenewQRCode" = "Wenn Sie dauerhaft einen QR-Code verwenden, sollten Sie diesen einmal täglich außerhalb der Öffnungszeiten neu erstellen.";
 
+"TraceLocation_Information_Item_Group" = "Sie können Ihre Gäste in Vertretung für eine positiv getestete Person warnen, die am Event teilgenommen hat, aber nicht über die Corona-Warn-App eingecheckt war.";
+
 "TraceLocation_Information_PrimaryButton_Title" = "Weiter";
 
 /* Checkout */
@@ -3115,8 +3119,6 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "TestCertificate_Details_title" = "Testzertifikat";
 
-"TestCertificate_Details_subtitle" = "negativer SARS-CoV-2-Test";
-
 "TestCertificate_Details_primaryButton" = "Testzertifikat löschen";
 
 "TestCertificate_Error_FAQ_Description" = "\n\nWeitere Informationen zum Erhalt Ihres Testzertifikats finden Sie in den FAQ.";
@@ -3132,8 +3134,6 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 /* Recovery Certificate Details */
 
 "RecoveryCertificate_Details_title" = "Genesenenzertifikat";
-
-"RecoveryCertificate_Details_subtitle" = "Digitales COVID-Zertifikat der EU";
 
 "RecoveryCertificate_Details_primaryButton" = "Genesenenzertifikat löschen";
 
@@ -3332,9 +3332,11 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 /* Health Certificate Validity State */
 
-"HealthCertificate_ValidityState_ExpiringSoon" = "läuft am %@ um %@ ab";
+"HealthCertificate_ValidityState_ExpiringSoon_long" = "Zertifikat läuft am %@ um %@ ab";
 
-"HealthCertificate_ValidityState_ExpiringSoon_description" = "Wenn dies Ihr aktuell verwendetes Zertifikat ist, bemühen Sie sich bitte rechtzeitig darum, es zu erneuern. Ab 28 Tage vor Ablauf können Sie solche Zertifikate direkt über die App erneuern lassen. Sie finden die Option \"Zertifikate erneuern\" dann in Ihrer Zertifikatsübersicht unter der Kachel \"Status-Nachweis\". Sollte dies nicht Ihr aktuell verwendetes Zertifikat sein, müssen Sie nichts weiter tun.";
+"HealthCertificate_ValidityState_ExpiringSoon_short" = "läuft am %@ um %@ ab";
+
+"HealthCertificate_ValidityState_ExpiringSoon_description" = "Wenn dies Ihr aktuell verwendetes Zertifikat ist, bemühen Sie sich bitte rechtzeitig darum, es zu erneuern. Ab 28 Tage vor Ablauf können Sie solche Zertifikate direkt über die App erneuern lassen. Sie finden die Option \"Zertifikate erneuern\" dann in Ihrer Zertifikatsübersicht unter der Kachel \"Status-Nachweis\". Sollte dies nicht Ihr aktuell verwendetes Zertifikat sein, muss es nicht verlängert werden und Sie müssen nichts weiter tun.";
 
 "HealthCertificate_ValidityState_Expired" = "Zertifikat abgelaufen";
 

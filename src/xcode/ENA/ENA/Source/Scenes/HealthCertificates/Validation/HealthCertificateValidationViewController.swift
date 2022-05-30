@@ -59,6 +59,19 @@ class HealthCertificateValidationViewController: DynamicTableViewController, Foo
 		viewModel.validate()
 	}
 
+	func didShowKeyboard(_ size: CGRect) {
+		guard let selectedPickerFrame = view.subviews.first(where: { $0 is ValidationDateSelectionCell })?.frame else {
+			return
+		}
+		tableView.contentInset = UIEdgeInsets(top: 0.0, left: 0.0, bottom: size.height, right: 0.0)
+		tableView.scrollIndicatorInsets = UIEdgeInsets(top: 0.0, left: 0.0, bottom: size.height, right: 0.0)
+		tableView.scrollRectToVisible(selectedPickerFrame, animated: true)
+	}
+
+	func didHideKeyboard() {
+		tableView.scrollIndicatorInsets = .zero
+	}
+
 	// MARK: - Protocol DismissHandling
 
 	func wasAttemptedToBeDismissed() {
