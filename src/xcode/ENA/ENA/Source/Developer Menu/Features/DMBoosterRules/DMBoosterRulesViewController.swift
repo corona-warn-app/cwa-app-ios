@@ -109,7 +109,8 @@ class DMBoosterRulesViewController: UITableViewController {
 		}
 	}
 	
-	@objc func didTapCloseBarButton() {
+	@objc
+	func didTapCloseBarButton() {
 		viewModel.onClose()
 	}
 }
