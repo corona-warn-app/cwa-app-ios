@@ -436,7 +436,7 @@ final class RiskProvider: RiskProviding {
 				Log.info("Missing mostRecentDateWithRiskLevel - do not trigger anything")
 				return
 			}
-			triggerHighRiskNotification()
+			triggerRiskChangeNotification()
 			// store a flag so we know an alert is required
 			switch UIApplication.shared.applicationState {
 			case .active:
