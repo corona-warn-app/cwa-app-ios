@@ -416,9 +416,11 @@ final class RiskProvider: RiskProviding {
 		/// Triggers a notification for every risk level change.
 		switch risk.riskLevelChange {
 		case .decreased:
-			Log.info("decrease risk change state won't trigger a high risk notification")
+			Log.info("Trigger notification about decreased risk level", log: .riskDetection)
+			triggerRiskChangeNotification()
 		case .increased:
-			triggerHighRiskNotification()
+			Log.info("Trigger notification about increased risk level", log: .riskDetection)
+			triggerRiskChangeNotification()
 		case let .unchanged(riskLevel):
 			guard riskLevel == .high,
 				  let mostRecentDateWithRiskLevel = risk.details.mostRecentDateWithRiskLevel,
@@ -428,7 +430,7 @@ final class RiskProvider: RiskProviding {
 				Log.info("Missing mostRecentDateWithRiskLevel - do not trigger anything")
 				return
 			}
-			triggerHighRiskNotification()
+			triggerRiskChangeNotification()
 			// store a flag so we know an alert is required
 			switch UIApplication.shared.applicationState {
 			case .active:
@@ -441,8 +443,7 @@ final class RiskProvider: RiskProviding {
 		}
 	}
 
-	private func triggerHighRiskNotification() {
-		Log.info("Trigger notification about high risk level", log: .riskDetection)
+	private func triggerRiskChangeNotification() {
 		UNUserNotificationCenter.current().presentNotification(
 			title: AppStrings.LocalNotifications.detectExposureTitle,
 			body: AppStrings.LocalNotifications.detectExposureBody,
