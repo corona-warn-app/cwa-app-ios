@@ -144,7 +144,7 @@ class OnBehalfTraceLocationSelectionViewController: UITableViewController, Dismi
 		}
 
 		cell.configure(
-			text: AppStrings.OnBehalfCheckinSubmission.TraceLocationSelection.description,
+			text: viewModel.description,
 			color: .enaColor(for: .textPrimary2)
 		)
 

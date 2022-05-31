@@ -38,6 +38,12 @@ class OnBehalfTraceLocationSelectionViewModel {
 	var isEmptyStateVisible: Bool {
 		traceLocationCellModels.isEmpty
 	}
+
+	var description: String {
+		traceLocationCellModels.isEmpty ?
+			AppStrings.OnBehalfCheckinSubmission.TraceLocationSelection.emptyDescription :
+			AppStrings.OnBehalfCheckinSubmission.TraceLocationSelection.description
+	}
 	
 	var selectedTraceLocation: TraceLocation?
 	
