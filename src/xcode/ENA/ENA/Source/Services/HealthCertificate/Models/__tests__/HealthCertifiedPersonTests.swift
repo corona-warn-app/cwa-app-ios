@@ -134,4 +134,169 @@ class HealthCertifiedPersonTests: CWATestCase {
 		XCTAssertEqual(decodedHealthCertifiedPerson.healthCertificates.map { $0.didShowRevokedNotification }, [firstHealthCertificate, secondHealthCertificate].map { $0.didShowRevokedNotification })
 	}
 
+	// MARK: - isNewCertificateReissuance
+
+	func testIsNewCertificateReissuanceIsTrueIfWalletInfoWasNil() throws {
+		let person = HealthCertifiedPerson(healthCertificates: [], dccWalletInfo: nil)
+
+		XCTAssertFalse(person.isNewCertificateReissuance)
+
+		person.dccWalletInfo = .fake(
+			certificateReissuance: .fake(
+				reissuanceDivision: .fake(
+					visible: true,
+					identifier: "identifier"
+				)
+			)
+		)
+
+		XCTAssertTrue(person.isNewCertificateReissuance)
+	}
+
+	func testIsNewCertificateReissuanceIsFalseIfReissuanceDivisionBecomesInvisible() throws {
+		let person = HealthCertifiedPerson(
+			healthCertificates: [],
+			dccWalletInfo: .fake(
+				certificateReissuance: .fake(
+					reissuanceDivision: .fake(
+						visible: true,
+						identifier: "identifier"
+					)
+				)
+			),
+			isNewCertificateReissuance: false
+		)
+
+		XCTAssertFalse(person.isNewCertificateReissuance)
+
+		person.dccWalletInfo = .fake(
+			certificateReissuance: .fake(
+				reissuanceDivision: .fake(
+					visible: false,
+					identifier: "identifier"
+				)
+			)
+		)
+
+		XCTAssertFalse(person.isNewCertificateReissuance)
+	}
+
+	func testIsNewCertificateReissuanceIsFalseIfReissuanceDivisionIdentifierIsUnchanged() throws {
+		let person = HealthCertifiedPerson(
+			healthCertificates: [],
+			dccWalletInfo: .fake(
+				certificateReissuance: .fake(
+					reissuanceDivision: .fake(
+						visible: true,
+						identifier: "identifier",
+						titleText: .fake(string: "oldTitleText")
+					)
+				)
+			),
+			isNewCertificateReissuance: false
+		)
+
+		XCTAssertFalse(person.isNewCertificateReissuance)
+
+		person.dccWalletInfo = .fake(
+			certificateReissuance: .fake(
+				reissuanceDivision: .fake(
+					visible: true,
+					identifier: "identifier",
+					titleText: .fake(string: "newTitleText")
+				)
+			)
+		)
+
+		XCTAssertFalse(person.isNewCertificateReissuance)
+	}
+
+	func testIsNewCertificateReissuanceIsTrueIfReissuanceDivisionIdentifierIsChanged() throws {
+		let person = HealthCertifiedPerson(
+			healthCertificates: [],
+			dccWalletInfo: .fake(
+				certificateReissuance: .fake(
+					reissuanceDivision: .fake(
+						visible: true,
+						identifier: "oldIdentifier"
+					)
+				)
+			),
+			isNewCertificateReissuance: false
+		)
+
+		XCTAssertFalse(person.isNewCertificateReissuance)
+
+		person.dccWalletInfo = .fake(
+			certificateReissuance: .fake(
+				reissuanceDivision: .fake(
+					visible: true,
+					identifier: "newIdentifier"
+				)
+			)
+		)
+
+		XCTAssertTrue(person.isNewCertificateReissuance)
+	}
+
+	func testIsNewCertificateReissuanceIsFalseIfReissuanceDivisionIdentifierWasNilAndIsRenew() throws {
+		let person = HealthCertifiedPerson(
+			healthCertificates: [],
+			dccWalletInfo: .fake(
+				certificateReissuance: .fake(
+					reissuanceDivision: .fake(
+						visible: true,
+						identifier: nil,
+						titleText: .fake(string: "oldTitleText")
+					)
+				)
+			),
+			isNewCertificateReissuance: false
+		)
+
+		XCTAssertFalse(person.isNewCertificateReissuance)
+
+		person.dccWalletInfo = .fake(
+			certificateReissuance: .fake(
+				reissuanceDivision: .fake(
+					visible: true,
+					identifier: "renew",
+					titleText: .fake(string: "newTitleText")
+				)
+			)
+		)
+
+		XCTAssertFalse(person.isNewCertificateReissuance)
+	}
+
+	func testIsNewCertificateReissuanceIsFalseIfReissuanceDivisionIdentifierWasNilAndIsNotRenew() throws {
+		let person = HealthCertifiedPerson(
+			healthCertificates: [],
+			dccWalletInfo: .fake(
+				certificateReissuance: .fake(
+					reissuanceDivision: .fake(
+						visible: true,
+						identifier: nil,
+						titleText: .fake(string: "oldTitleText")
+					)
+				)
+			),
+			isNewCertificateReissuance: false
+		)
+
+		XCTAssertFalse(person.isNewCertificateReissuance)
+
+		person.dccWalletInfo = .fake(
+			certificateReissuance: .fake(
+				reissuanceDivision: .fake(
+					visible: true,
+					identifier: "notrenew",
+					titleText: .fake(string: "newTitleText")
+				)
+			)
+		)
+
+		XCTAssertTrue(person.isNewCertificateReissuance)
+	}
+
 }
