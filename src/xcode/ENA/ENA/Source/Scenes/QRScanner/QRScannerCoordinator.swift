@@ -70,9 +70,7 @@ class QRScannerCoordinator {
 		self.parentViewController = parentViewController
 		self.presenter = presenter
 
-		let qrScannerViewController = qrScannerViewController(
-			markCertificateAsNew: presenter != .certificateTab && presenter != .universalScanner(.certificates)
-		)
+		let qrScannerViewController = newQRScannerViewController()
 		self.qrScannerViewController = qrScannerViewController
 
 		let navigationController = UINavigationController(
@@ -110,13 +108,10 @@ class QRScannerCoordinator {
 	private var ticketValidationCoordinator: TicketValidationCoordinator?
 	private var fileScannerCoordinator: FileScannerCoordinator?
 
-	private func qrScannerViewController(
-		markCertificateAsNew: Bool
-	) -> QRScannerViewController {
+	private func newQRScannerViewController() -> QRScannerViewController {
 		let qrCodeParser = QRCodeParser(
 			appConfigurationProvider: appConfiguration,
-			healthCertificateService: healthCertificateService,
-			markCertificateAsNew: markCertificateAsNew
+			healthCertificateService: healthCertificateService
 		)
 
 		let qrCodeDetector = QRCodeDetector()
@@ -125,7 +120,6 @@ class QRScannerCoordinator {
 		qrScannerViewController = QRScannerViewController(
 			healthCertificateService: healthCertificateService,
 			appConfiguration: appConfiguration,
-			markCertificateAsNew: markCertificateAsNew,
 			didScan: { [weak self] qrCodeResult in
 				self?.showQRCodeResult(qrCodeResult: qrCodeResult)
 			},
