@@ -416,7 +416,7 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 
 		XCTAssertEqual(viewModel.validityStateIcon, UIImage(named: "Icon_ExpiredInvalid"))
 		XCTAssertEqual(viewModel.validityStateTitle, "Zertifikat abgelaufen")
-		XCTAssertEqual(viewModel.validityStateDescription, "Das Ablaufdatum wurde überschritten. Bitte erneuern Sie das Zertifikat. Sie können die Erneuerung bis maximal 90 Tage nach Ablauf über den Hinweis in Ihrer Zertifikatsübersicht anfordern.")
+		XCTAssertEqual(viewModel.validityStateDescription, "Wenn dies Ihr aktuell verwendetes Zertifikat ist, bemühen Sie sich bitte rechtzeitig darum, es zu erneuern. Ab 28 Tage vor Ablauf können Sie solche Zertifikate direkt über die App erneuern lassen. Sie finden die Option \"Zertifikate erneuern\" dann in Ihrer Zertifikatsübersicht unter der Kachel \"Status-Nachweis\". Sollte dies nicht Ihr aktuell verwendetes Zertifikat sein, muss es nicht verlängert werden und Sie müssen nichts weiter tun.")
 
 		XCTAssertFalse(viewModel.isUnseenNewsIndicatorVisible)
 
@@ -450,7 +450,7 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 
 		XCTAssertEqual(viewModel.validityStateIcon, UIImage(named: "Icon_ExpiredInvalid"))
 		XCTAssertEqual(viewModel.validityStateTitle, "Zertifikat abgelaufen")
-		XCTAssertEqual(viewModel.validityStateDescription, "Das Ablaufdatum wurde überschritten. Bitte erneuern Sie das Zertifikat. Sie können die Erneuerung bis maximal 90 Tage nach Ablauf über den Hinweis in Ihrer Zertifikatsübersicht anfordern.")
+		XCTAssertEqual(viewModel.validityStateDescription, "Wenn dies Ihr aktuell verwendetes Zertifikat ist, bemühen Sie sich bitte rechtzeitig darum, es zu erneuern. Ab 28 Tage vor Ablauf können Sie solche Zertifikate direkt über die App erneuern lassen. Sie finden die Option \"Zertifikate erneuern\" dann in Ihrer Zertifikatsübersicht unter der Kachel \"Status-Nachweis\". Sollte dies nicht Ihr aktuell verwendetes Zertifikat sein, muss es nicht verlängert werden und Sie müssen nichts weiter tun.")
 
 		XCTAssertTrue(viewModel.isUnseenNewsIndicatorVisible)
 
@@ -2262,7 +2262,7 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 
 		XCTAssertEqual(viewModel.validityStateIcon, UIImage(named: "Icon_ExpiredInvalid"))
 		XCTAssertEqual(viewModel.validityStateTitle, "Zertifikat abgelaufen")
-		XCTAssertEqual(viewModel.validityStateDescription, "Das Ablaufdatum wurde überschritten. Bitte erneuern Sie das Zertifikat. Sie können die Erneuerung bis maximal 90 Tage nach Ablauf über den Hinweis in Ihrer Zertifikatsübersicht anfordern.")
+		XCTAssertEqual(viewModel.validityStateDescription, "Wenn dies Ihr aktuell verwendetes Zertifikat ist, bemühen Sie sich bitte rechtzeitig darum, es zu erneuern. Ab 28 Tage vor Ablauf können Sie solche Zertifikate direkt über die App erneuern lassen. Sie finden die Option \"Zertifikate erneuern\" dann in Ihrer Zertifikatsübersicht unter der Kachel \"Status-Nachweis\". Sollte dies nicht Ihr aktuell verwendetes Zertifikat sein, muss es nicht verlängert werden und Sie müssen nichts weiter tun.")
 
 		XCTAssertFalse(viewModel.isUnseenNewsIndicatorVisible)
 
@@ -2296,7 +2296,7 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 
 		XCTAssertEqual(viewModel.validityStateIcon, UIImage(named: "Icon_ExpiredInvalid"))
 		XCTAssertEqual(viewModel.validityStateTitle, "Zertifikat abgelaufen")
-		XCTAssertEqual(viewModel.validityStateDescription, "Das Ablaufdatum wurde überschritten. Bitte erneuern Sie das Zertifikat. Sie können die Erneuerung bis maximal 90 Tage nach Ablauf über den Hinweis in Ihrer Zertifikatsübersicht anfordern.")
+		XCTAssertEqual(viewModel.validityStateDescription, "Wenn dies Ihr aktuell verwendetes Zertifikat ist, bemühen Sie sich bitte rechtzeitig darum, es zu erneuern. Ab 28 Tage vor Ablauf können Sie solche Zertifikate direkt über die App erneuern lassen. Sie finden die Option \"Zertifikate erneuern\" dann in Ihrer Zertifikatsübersicht unter der Kachel \"Status-Nachweis\". Sollte dies nicht Ihr aktuell verwendetes Zertifikat sein, muss es nicht verlängert werden und Sie müssen nichts weiter tun.")
 
 		XCTAssertTrue(viewModel.isUnseenNewsIndicatorVisible)
 
