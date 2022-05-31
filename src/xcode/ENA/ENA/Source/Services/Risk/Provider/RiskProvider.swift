@@ -182,21 +182,15 @@ final class RiskProvider: RiskProviding {
 					switch result {
 					case .success:
 						// If key download succeeds, continue with the download of the trace warning packages
-						self.downloadTraceWarningPackages(with: appConfiguration, completion: { result in
-							switch result {
-							case .success:
-								// And only if both downloads succeeds, we can determine a risk.
-								self.determineRisk(userInitiated: userInitiated, appConfiguration: appConfiguration) { result in
-									switch result {
-									case .success(let risk):
-										self.successOnTargetQueue(risk: risk)
-									case .failure(let error):
-										self.failOnTargetQueue(error: error)
-									}
-									group.leave()
+						self.downloadTraceWarningPackages(with: appConfiguration, completion: { _ in
+							// The download of TraceWarningPackages may not interrupt or prevent the download of Diagnosis Keys. It may also not interrupt or prevent Exposure Detection from running.
+							self.determineRisk(userInitiated: userInitiated, appConfiguration: appConfiguration) { result in
+								switch result {
+								case .success(let risk):
+									self.successOnTargetQueue(risk: risk)
+								case .failure(let error):
+									self.failOnTargetQueue(error: error)
 								}
-							case .failure(let error):
-								self.failOnTargetQueue(error: error)
 								group.leave()
 							}
 						})
