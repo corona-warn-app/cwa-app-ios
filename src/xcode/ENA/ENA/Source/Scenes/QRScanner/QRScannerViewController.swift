@@ -12,7 +12,6 @@ class QRScannerViewController: UIViewController {
 	init(
 		healthCertificateService: HealthCertificateService,
 		appConfiguration: AppConfigurationProviding,
-		markCertificateAsNew: Bool,
 		didScan: @escaping (QRCodeResult) -> Void,
 		dismiss: @escaping () -> Void,
 		presentFileScanner: @escaping () -> Void,
@@ -28,8 +27,7 @@ class QRScannerViewController: UIViewController {
 
 		let qrCodeParser = QRCodeParser(
 			appConfigurationProvider: appConfiguration,
-			healthCertificateService: healthCertificateService,
-			markCertificateAsNew: markCertificateAsNew
+			healthCertificateService: healthCertificateService
 		)
 		
 		viewModel = QRScannerViewModel(
