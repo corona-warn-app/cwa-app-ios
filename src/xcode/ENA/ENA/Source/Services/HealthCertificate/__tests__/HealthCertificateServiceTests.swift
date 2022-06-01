@@ -1809,12 +1809,12 @@ class HealthCertificateServiceTests: CWATestCase {
 		XCTAssertTrue(try XCTUnwrap(store.healthCertifiedPersons.first?.healthCertificates.first).isNew)
 		
 		// Setting certificate reissuance increases unseen news count
-		store.healthCertifiedPersons.first?.dccWalletInfo = .fake(certificateReissuance: .fake(reissuanceDivision: .fake(visible: true)))
+		store.healthCertifiedPersons.first?.dccWalletInfo = .fake(certificateReissuance: .fake(reissuanceDivision: .fake(visible: true, identifier: "identifier")))
 		XCTAssertEqual(store.healthCertifiedPersons.first?.unseenNewsCount, 2)
 		XCTAssertEqual(service.unseenNewsCount.value, 2)
 		
 		// Setting to same certificate reissuance leaves unseen news count unchanged
-		store.healthCertifiedPersons.first?.dccWalletInfo = .fake(certificateReissuance: .fake(reissuanceDivision: .fake(visible: true)))
+		store.healthCertifiedPersons.first?.dccWalletInfo = .fake(certificateReissuance: .fake(reissuanceDivision: .fake(visible: true, identifier: "identifier")))
 		XCTAssertEqual(store.healthCertifiedPersons.first?.unseenNewsCount, 2)
 		XCTAssertEqual(service.unseenNewsCount.value, 2)
 		
@@ -1824,12 +1824,12 @@ class HealthCertificateServiceTests: CWATestCase {
 		XCTAssertEqual(service.unseenNewsCount.value, 1)
 		
 		// Setting invisible certificate reissuance does not increase unseen news count
-		store.healthCertifiedPersons.first?.dccWalletInfo = .fake(certificateReissuance: .fake(reissuanceDivision: .fake(visible: false)))
+		store.healthCertifiedPersons.first?.dccWalletInfo = .fake(certificateReissuance: .fake(reissuanceDivision: .fake(visible: false, identifier: "identifier")))
 		XCTAssertEqual(store.healthCertifiedPersons.first?.unseenNewsCount, 1)
 		XCTAssertEqual(service.unseenNewsCount.value, 1)
 		
 		// Setting certificate reissuance increases unseen news count
-		store.healthCertifiedPersons.first?.dccWalletInfo = .fake(certificateReissuance: .fake(reissuanceDivision: .fake(visible: true)))
+		store.healthCertifiedPersons.first?.dccWalletInfo = .fake(certificateReissuance: .fake(reissuanceDivision: .fake(visible: true, identifier: "newidentifier")))
 		XCTAssertEqual(store.healthCertifiedPersons.first?.unseenNewsCount, 2)
 		XCTAssertEqual(service.unseenNewsCount.value, 2)
 		

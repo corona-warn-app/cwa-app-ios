@@ -180,9 +180,14 @@ class HealthCertifiedPerson: Codable, Equatable, Comparable {
 				isNewBoosterRule = dccWalletInfo?.boosterNotification.identifier != nil
 			}
 
-			if dccWalletInfo?.certificateReissuance != oldValue?.certificateReissuance {
+			var oldReissuanceIdentifier = oldValue?.certificateReissuance?.reissuanceDivision.identifier
+			if let oldCertificateReissuance = oldValue?.certificateReissuance, oldCertificateReissuance.reissuanceDivision.identifier == nil {
+				oldReissuanceIdentifier = "renew"
+			}
+			if dccWalletInfo?.certificateReissuance?.reissuanceDivision.identifier != oldReissuanceIdentifier {
 				isNewCertificateReissuance = dccWalletInfo?.certificateReissuance?.reissuanceDivision.visible == true
 			}
+
 			if oldValue?.admissionState.identifier != nil && dccWalletInfo?.admissionState.identifier != oldValue?.admissionState.identifier {
 				isAdmissionStateChanged = dccWalletInfo?.admissionState.identifier != nil
 			}
