@@ -21,11 +21,6 @@ class AppInformationViewController: DynamicTableViewController, NavigationBarOpa
 				accessibilityIdentifier: AccessibilityIdentifiers.AppInformation.aboutNavigation,
 				action: .push(model: AppInformationModel.aboutModel, withTitle: AppStrings.AppInformation.aboutNavigation)
 			),
-			.faq: AppInformationCellModel(
-				text: AppStrings.AppInformation.faqNavigation,
-				accessibilityIdentifier: AccessibilityIdentifiers.AppInformation.faqNavigation,
-				action: .safariFAQs
-			),
 			.terms: AppInformationCellModel(
 				text: AppStrings.AppInformation.termsTitle,
 				accessibilityIdentifier: AccessibilityIdentifiers.AppInformation.termsNavigation,
