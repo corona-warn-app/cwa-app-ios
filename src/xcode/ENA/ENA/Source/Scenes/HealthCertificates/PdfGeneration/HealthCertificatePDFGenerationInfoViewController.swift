@@ -50,6 +50,13 @@ class HealthCertificatePDFGenerationInfoViewController: DynamicTableViewControll
 		if let dismissHandlingNC = navigationController as? DismissHandlingNavigationController {
 			dismissHandlingNC.setupTransparentNavigationBar()
 		}
+		
+		if #unavailable(iOS 13.0) {
+			guard let statusBarView = UIApplication.shared.value(forKeyPath: "statusBarWindow.statusBar") as? UIView else {
+				return
+			}
+			statusBarView.backgroundColor = UIColor.white
+		}
 	}
 
 	override func viewWillDisappear(_ animated: Bool) {
@@ -57,6 +64,13 @@ class HealthCertificatePDFGenerationInfoViewController: DynamicTableViewControll
 
 		if let dismissHandlingNC = navigationController as? DismissHandlingNavigationController {
 			dismissHandlingNC.restoreOriginalNavigationBar()
+		}
+		
+		if #unavailable(iOS 13.0) {
+			guard let statusBarView = UIApplication.shared.value(forKeyPath: "statusBarWindow.statusBar") as? UIView else {
+				return
+			}
+			statusBarView.backgroundColor = UIColor.clear
 		}
 	}
 	

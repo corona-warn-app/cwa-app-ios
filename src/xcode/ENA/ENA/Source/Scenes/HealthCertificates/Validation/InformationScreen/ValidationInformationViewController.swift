@@ -29,6 +29,28 @@ class ValidationInformationViewController: DynamicTableViewController, DismissHa
 		setupView()
 	}
 
+	override func viewWillAppear(_ animated: Bool) {
+		super.viewWillAppear(animated)
+		
+		if #unavailable(iOS 13.0) {
+			guard let statusBarView = UIApplication.shared.value(forKeyPath: "statusBarWindow.statusBar") as? UIView else {
+				return
+			}
+			statusBarView.backgroundColor = UIColor.white
+		}
+	}
+	
+	override func viewWillDisappear(_ animated: Bool) {
+		super.viewWillDisappear(animated)
+
+		if #unavailable(iOS 13.0) {
+			guard let statusBarView = UIApplication.shared.value(forKeyPath: "statusBarWindow.statusBar") as? UIView else {
+					return
+				}
+			statusBarView.backgroundColor = UIColor.clear
+		}
+	}
+	
 	// MARK: - Protocol DismissHandling
 
 	func wasAttemptedToBeDismissed() {

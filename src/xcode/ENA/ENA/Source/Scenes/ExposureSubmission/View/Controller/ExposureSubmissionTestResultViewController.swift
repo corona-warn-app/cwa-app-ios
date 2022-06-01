@@ -24,6 +24,21 @@ class ExposureSubmissionTestResultViewController: DynamicTableViewController, Fo
 	}
 
 	// MARK: - Overrides
+	
+	override func viewWillAppear(_ animated: Bool) {
+		super.viewWillAppear(animated)
+		
+		if #unavailable(iOS 13.0) {
+			navigationController?.navigationBar.backgroundColor = .enaColor(for: .backgroundLightGray)
+			navigationController?.navigationBar.barTintColor = .enaColor(for: .backgroundLightGray)
+			navigationController?.navigationBar.shadowImage = nil
+			
+			guard let statusBarView = UIApplication.shared.value(forKeyPath: "statusBarWindow.statusBar") as? UIView else {
+				return
+			}
+			statusBarView.backgroundColor = .enaColor(for: .backgroundLightGray)
+		}
+	}
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
@@ -31,18 +46,23 @@ class ExposureSubmissionTestResultViewController: DynamicTableViewController, Fo
 		setUpView()
 		setUpBindings()
 	}
-	
+
 	override func viewDidAppear(_ animated: Bool) {
 		super.viewDidAppear(animated)
 		
 		viewModel.evaluateShowing()
 		viewModel.updateTestResultIfPossible()
 	}
-		
+	
 	override func viewWillDisappear(_ animated: Bool) {
 		super.viewWillDisappear(animated)
-		
-		navigationController?.navigationBar.backgroundView?.backgroundColor = .clear
+
+		if #unavailable(iOS 13.0) {
+			guard let statusBarView = UIApplication.shared.value(forKeyPath: "statusBarWindow.statusBar") as? UIView else {
+					return
+				}
+			statusBarView.backgroundColor = UIColor.clear
+		}
 	}
 	
 	// MARK: - Protocol ENANavigationControllerWithFooterChild

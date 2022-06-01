@@ -44,11 +44,25 @@ class HealthCertificateValidationResultViewController: DynamicTableViewControlle
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
 		navigationController?.setupTransparentNavigationBar()
+		
+		if #unavailable(iOS 13.0) {
+			guard let statusBarView = UIApplication.shared.value(forKeyPath: "statusBarWindow.statusBar") as? UIView else {
+				return
+			}
+			statusBarView.backgroundColor = UIColor.white
+		}
 	}
 
 	override func viewWillDisappear(_ animated: Bool) {
 		super.viewWillDisappear(animated)
 		navigationController?.restoreOriginalNavigationBar()
+		
+		if #unavailable(iOS 13.0) {
+			guard let statusBarView = UIApplication.shared.value(forKeyPath: "statusBarWindow.statusBar") as? UIView else {
+				return
+			}
+			statusBarView.backgroundColor = UIColor.clear
+		}
 	}
 
 	// MARK: - DismissHandling
