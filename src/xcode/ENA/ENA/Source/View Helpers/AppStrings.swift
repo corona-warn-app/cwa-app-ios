@@ -1979,6 +1979,7 @@ enum AppStrings {
 
 		enum TraceLocationSelection {
 			static let title = NSLocalizedString("OnBehalfCheckinSubmission_TraceLocationSelection_Title", comment: "")
+			static let emptyDescription = NSLocalizedString("OnBehalfCheckinSubmission_TraceLocationSelection_EmptyDescription", comment: "")
 			static let description = NSLocalizedString("OnBehalfCheckinSubmission_TraceLocationSelection_Description", comment: "")
 			static let scanButtonTitle = NSLocalizedString("OnBehalfCheckinSubmission_TraceLocationSelection_ScanButtonTitle", comment: "")
 			static let primaryButtonTitle = NSLocalizedString("OnBehalfCheckinSubmission_TraceLocationSelection_PrimaryButtonTitle", comment: "")
@@ -2254,7 +2255,7 @@ enum AppStrings {
 			static let expiringSoonShort = NSLocalizedString("HealthCertificate_ValidityState_ExpiringSoon_short", comment: "")
 			static let expiringSoonDescription = NSLocalizedString("HealthCertificate_ValidityState_ExpiringSoon_description", comment: "")
 			static let expired = NSLocalizedString("HealthCertificate_ValidityState_Expired", comment: "")
-			static let expiredDescription = NSLocalizedString("HealthCertificate_ValidityState_Expired_description", comment: "")
+			static let expiredDescription = NSLocalizedString("HealthCertificate_ValidityState_ExpiringSoon_description", comment: "")
 			static let invalid = NSLocalizedString("HealthCertificate_ValidityState_Invalid", comment: "")
 			static let invalidDescription = NSLocalizedString("HealthCertificate_ValidityState_Invalid_description", comment: "")
 			static let blockedRevoked = NSLocalizedString("HealthCertificate_ValidityState_BlockedRevoked", comment: "")

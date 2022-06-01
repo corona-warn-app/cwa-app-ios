@@ -46,7 +46,7 @@ final class DMBoosterChoosePersonViewModel {
 			action: { [weak self] in
 				guard let self = self else { return }
 				let viewController = DMBoosterRulesViewController(store: self.store, healthCertificateService: self.healthCertificateService, healthCertifiedPerson: person)
-				self.showViewController(viewController)
+				self.showViewController(UINavigationController(rootViewController: viewController))
 			}
 		)
 	}

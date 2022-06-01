@@ -123,6 +123,8 @@ class AntigenTestProfileInputCell: UITableViewCell, ReuseIdentifierProviding {
 			emailAddressTextField.topAnchor.constraint(equalTo: phoneNumberTextField.bottomAnchor, constant: 7),
 			emailAddressTextField.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -inset)
 		])
+		
+		setVoiceOverOrderOfInputFields()
 	}
 
 	// MARK: - Internal
@@ -167,5 +169,18 @@ class AntigenTestProfileInputCell: UITableViewCell, ReuseIdentifierProviding {
 		textField.translatesAutoresizingMaskIntoConstraints = false
 		textField.heightAnchor.constraint(equalToConstant: 40.0).isActive = true
 		return textField
+	}
+	
+	private func setVoiceOverOrderOfInputFields() {
+		accessibilityElements = [
+			firstNameTextField,
+			lastNameTextField,
+			birthDateNameTextField,
+			addressLineTextField,
+			postalCodeTextField,
+			cityTextField,
+			phoneNumberTextField,
+			emailAddressTextField
+		].compactMap { $0 }
 	}
 }
