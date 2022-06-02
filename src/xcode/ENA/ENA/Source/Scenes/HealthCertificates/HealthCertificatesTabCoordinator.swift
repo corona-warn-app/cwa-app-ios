@@ -124,6 +124,10 @@ final class HealthCertificatesTabCoordinator {
 			onInfoBarButtonItemTap: { [weak self] in
 				self?.presentInfoScreen()
 			},
+			onExportBarButtonItemTap: { [weak self] in
+				print("show export VC")
+				self?.presentExportCertificatesInfoScreen()
+			},
 			onChangeAdmissionScenarioTap: { [weak self] in
 				self?.showAdmissionScenarios()
 			},
@@ -204,6 +208,30 @@ final class HealthCertificatesTabCoordinator {
 		)
 		return topBottomContainerViewController
 	}
+	
+	private func exportAllCertificatesScreen(
+		dismissAction: @escaping CompletionBool
+	) -> TopBottomContainerViewController<HealthCertificateExportCertificatesInfoViewController, FooterViewController> {
+		let consentScreen = HealthCertificateExportCertificatesInfoViewController(
+			viewModel: .init(),
+			onDismiss: dismissAction
+		)
+		
+		let footerViewController = FooterViewController(
+			FooterViewModel(
+				primaryButtonName: "Weiter", // TODO: localize
+				isPrimaryButtonEnabled: true,
+				isSecondaryButtonEnabled: false,
+				isSecondaryButtonHidden: true,
+				backgroundColor: .enaColor(for: .background)
+			)
+		)
+		
+		return TopBottomContainerViewController(
+			topController: consentScreen,
+			bottomController: footerViewController
+		)
+	}
 
 	private func presentInfoScreen() {
 		// Promise the navigation view controller will be available,
@@ -221,6 +249,18 @@ final class HealthCertificatesTabCoordinator {
 		// We need to use UINavigationController(rootViewController: UIViewController) here,
 		// otherwise the inset of the navigation title is wrong
 		navigationController = UINavigationController(rootViewController: infoVC)
+		viewController.present(navigationController, animated: true)
+	}
+	
+	private func presentExportCertificatesInfoScreen() {
+		var navigationController: UINavigationController!
+		let vc = exportAllCertificatesScreen(
+			dismissAction: { animated in
+				navigationController.dismiss(animated: animated)
+			}
+		)
+		
+		navigationController = UINavigationController(rootViewController: vc)
 		viewController.present(navigationController, animated: true)
 	}
 	
