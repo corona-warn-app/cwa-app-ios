@@ -28,7 +28,7 @@ class ExposureSubmissionTestResultViewController: DynamicTableViewController, Fo
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
 		
-		if #unavailable(iOS 13.0) {
+		guard #available(iOS 13, *) else {
 			navigationController?.navigationBar.backgroundColor = .enaColor(for: .backgroundLightGray)
 			navigationController?.navigationBar.barTintColor = .enaColor(for: .backgroundLightGray)
 			navigationController?.navigationBar.shadowImage = nil
@@ -37,6 +37,7 @@ class ExposureSubmissionTestResultViewController: DynamicTableViewController, Fo
 				return
 			}
 			statusBarView.backgroundColor = .enaColor(for: .backgroundLightGray)
+			return
 		}
 	}
 
@@ -57,11 +58,12 @@ class ExposureSubmissionTestResultViewController: DynamicTableViewController, Fo
 	override func viewWillDisappear(_ animated: Bool) {
 		super.viewWillDisappear(animated)
 
-		if #unavailable(iOS 13.0) {
+		guard #available(iOS 13, *) else {
 			guard let statusBarView = UIApplication.shared.value(forKeyPath: "statusBarWindow.statusBar") as? UIView else {
 					return
 				}
 			statusBarView.backgroundColor = UIColor.clear
+			return
 		}
 	}
 	

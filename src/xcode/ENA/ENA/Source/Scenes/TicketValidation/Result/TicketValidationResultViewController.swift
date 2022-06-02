@@ -44,11 +44,12 @@ class TicketValidationResultViewController: DynamicTableViewController, DismissH
 
 		navigationController?.setupTransparentNavigationBar()
 		
-		if #unavailable(iOS 13.0) {
+		guard #available(iOS 13, *) else {
 			guard let statusBarView = UIApplication.shared.value(forKeyPath: "statusBarWindow.statusBar") as? UIView else {
 				return
 			}
 			statusBarView.backgroundColor = UIColor.white
+			return
 		}
 	}
 
@@ -57,11 +58,12 @@ class TicketValidationResultViewController: DynamicTableViewController, DismissH
 
 		navigationController?.restoreOriginalNavigationBar()
 		
-		if #unavailable(iOS 13.0) {
+		guard #available(iOS 13, *) else {
 			guard let statusBarView = UIApplication.shared.value(forKeyPath: "statusBarWindow.statusBar") as? UIView else {
 				return
 			}
 			statusBarView.backgroundColor = UIColor.clear
+			return
 		}
 	}
 
