@@ -7,6 +7,7 @@ import XCTest
 import HealthCertificateToolkit
 
 // swiftlint:disable type_body_length
+// swiftlint:disable line_length
 class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 
 	func testGIVEN_OverviewViewModelWithValidVaccinationCertificate_THEN_IsInitCorrect() throws {
