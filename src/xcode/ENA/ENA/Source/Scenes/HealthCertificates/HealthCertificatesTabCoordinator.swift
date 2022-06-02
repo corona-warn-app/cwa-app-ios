@@ -109,6 +109,8 @@ final class HealthCertificatesTabCoordinator {
 		get { store.healthCertificateInfoScreenShown }
 		set { store.healthCertificateInfoScreenShown = newValue }
 	}
+	
+	private var printNavigationController: UINavigationController!
 
 	// MARK: Show Screens
 
@@ -226,11 +228,14 @@ final class HealthCertificatesTabCoordinator {
 				backgroundColor: .enaColor(for: .background)
 			)
 		)
+
 		
-		return TopBottomContainerViewController(
+		let topBottomContainerViewController = TopBottomContainerViewController(
 			topController: consentScreen,
 			bottomController: footerViewController
 		)
+		
+		return topBottomContainerViewController
 	}
 
 	private func presentInfoScreen() {
@@ -260,7 +265,7 @@ final class HealthCertificatesTabCoordinator {
 			}
 		)
 		
-		navigationController = UINavigationController(rootViewController: vc)
+		navigationController = DismissHandlingNavigationController(rootViewController: vc, transparent: true)
 		viewController.present(navigationController, animated: true)
 	}
 	
