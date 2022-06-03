@@ -76,16 +76,20 @@ extension Risk {
 		}
 		
 		Log.debug("[Risk] previousTotalRiskLevel: \(previousTotalRiskLevel)", log: .riskDetection)
-
+		
 		let riskLevelChange: RiskLevelChange
-		if previousTotalRiskLevel == totalRiskLevel {
-			riskLevelChange = .unchanged(totalRiskLevel)
+		if let previousTotalRiskLevel = previousTotalRiskLevel {
+			if previousTotalRiskLevel == totalRiskLevel {
+				riskLevelChange = .unchanged(totalRiskLevel)
+			} else {
+				riskLevelChange = previousTotalRiskLevel > totalRiskLevel ? .decreased : .increased
+			}
 		} else {
-			riskLevelChange = previousTotalRiskLevel > totalRiskLevel ? .decreased : .increased
+			riskLevelChange = .unchanged(totalRiskLevel)
 		}
 		
 		Log.debug("[Risk] riskLevelChange: \(riskLevelChange)", log: .riskDetection)
-
+		
 		let details = Self.riskDetails(
 			enfRiskCalculationResult: enfRiskCalculationResult,
 			checkinCalculationResult: checkinCalculationResult,
