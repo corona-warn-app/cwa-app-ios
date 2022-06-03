@@ -7,6 +7,7 @@ import XCTest
 import HealthCertificateToolkit
 
 // swiftlint:disable type_body_length
+// swiftlint:disable line_length
 class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 
 	func testGIVEN_OverviewViewModelWithValidVaccinationCertificate_THEN_IsInitCorrect() throws {
@@ -271,7 +272,7 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 				DateFormatter.localizedString(from: expirationDate, dateStyle: .none, timeStyle: .short)
 			)
 		)
-		XCTAssertEqual(viewModel.validityStateDescription, "Wenn dies Ihr aktuell verwendetes Zertifikat ist, bemühen Sie sich bitte rechtzeitig darum, es zu erneuern. Ab 28 Tage vor Ablauf können Sie solche Zertifikate direkt über die App erneuern lassen. Sie finden die Option \"Zertifikate erneuern\" dann in Ihrer Zertifikatsübersicht unter der Kachel \"Status-Nachweis\". Sollte dies nicht Ihr aktuell verwendetes Zertifikat sein, muss es nicht verlängert werden und Sie müssen nichts weiter tun.")
+		XCTAssertEqual(viewModel.validityStateDescription, "Wenn dies eines Ihrer aktuell verwendeten Zertifikate ist, bemühen Sie sich bitte rechtzeitig darum, es zu erneuern. Im Zeitraum von 28 Tagen vor und bis zu 90 Tagen nach Ablauf können Sie es direkt über die App erneuern lassen, sofern es in Deutschland ausgestellt wurde. Sie finden die Option \"Zertifikate erneuern\" dann in Ihrer Zertifikatsübersicht unter der Kachel \"Status-Nachweis\". Sollte dies nicht eines Ihrer aktuell verwendeten Zertifikate sein, muss es nicht verlängert werden und Sie müssen nichts weiter tun.")
 
 		XCTAssertFalse(viewModel.isUnseenNewsIndicatorVisible)
 
@@ -314,7 +315,7 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 				DateFormatter.localizedString(from: expirationDate, dateStyle: .none, timeStyle: .short)
 			)
 		)
-		XCTAssertEqual(viewModel.validityStateDescription, "Wenn dies Ihr aktuell verwendetes Zertifikat ist, bemühen Sie sich bitte rechtzeitig darum, es zu erneuern. Ab 28 Tage vor Ablauf können Sie solche Zertifikate direkt über die App erneuern lassen. Sie finden die Option \"Zertifikate erneuern\" dann in Ihrer Zertifikatsübersicht unter der Kachel \"Status-Nachweis\". Sollte dies nicht Ihr aktuell verwendetes Zertifikat sein, muss es nicht verlängert werden und Sie müssen nichts weiter tun.")
+		XCTAssertEqual(viewModel.validityStateDescription, "Wenn dies eines Ihrer aktuell verwendeten Zertifikate ist, bemühen Sie sich bitte rechtzeitig darum, es zu erneuern. Im Zeitraum von 28 Tagen vor und bis zu 90 Tagen nach Ablauf können Sie es direkt über die App erneuern lassen, sofern es in Deutschland ausgestellt wurde. Sie finden die Option \"Zertifikate erneuern\" dann in Ihrer Zertifikatsübersicht unter der Kachel \"Status-Nachweis\". Sollte dies nicht eines Ihrer aktuell verwendeten Zertifikate sein, muss es nicht verlängert werden und Sie müssen nichts weiter tun.")
 
 		XCTAssertTrue(viewModel.isUnseenNewsIndicatorVisible)
 	}
@@ -416,7 +417,7 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 
 		XCTAssertEqual(viewModel.validityStateIcon, UIImage(named: "Icon_ExpiredInvalid"))
 		XCTAssertEqual(viewModel.validityStateTitle, "Zertifikat abgelaufen")
-		XCTAssertEqual(viewModel.validityStateDescription, "Wenn dies Ihr aktuell verwendetes Zertifikat ist, bemühen Sie sich bitte rechtzeitig darum, es zu erneuern. Ab 28 Tage vor Ablauf können Sie solche Zertifikate direkt über die App erneuern lassen. Sie finden die Option \"Zertifikate erneuern\" dann in Ihrer Zertifikatsübersicht unter der Kachel \"Status-Nachweis\". Sollte dies nicht Ihr aktuell verwendetes Zertifikat sein, muss es nicht verlängert werden und Sie müssen nichts weiter tun.")
+		XCTAssertEqual(viewModel.validityStateDescription, "Wenn dies eines Ihrer aktuell verwendeten Zertifikate ist, bemühen Sie sich bitte rechtzeitig darum, es zu erneuern. Im Zeitraum von 28 Tagen vor und bis zu 90 Tagen nach Ablauf können Sie es direkt über die App erneuern lassen, sofern es in Deutschland ausgestellt wurde. Sie finden die Option \"Zertifikate erneuern\" dann in Ihrer Zertifikatsübersicht unter der Kachel \"Status-Nachweis\". Sollte dies nicht eines Ihrer aktuell verwendeten Zertifikate sein, muss es nicht verlängert werden und Sie müssen nichts weiter tun.")
 
 		XCTAssertFalse(viewModel.isUnseenNewsIndicatorVisible)
 
@@ -450,7 +451,7 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 
 		XCTAssertEqual(viewModel.validityStateIcon, UIImage(named: "Icon_ExpiredInvalid"))
 		XCTAssertEqual(viewModel.validityStateTitle, "Zertifikat abgelaufen")
-		XCTAssertEqual(viewModel.validityStateDescription, "Wenn dies Ihr aktuell verwendetes Zertifikat ist, bemühen Sie sich bitte rechtzeitig darum, es zu erneuern. Ab 28 Tage vor Ablauf können Sie solche Zertifikate direkt über die App erneuern lassen. Sie finden die Option \"Zertifikate erneuern\" dann in Ihrer Zertifikatsübersicht unter der Kachel \"Status-Nachweis\". Sollte dies nicht Ihr aktuell verwendetes Zertifikat sein, muss es nicht verlängert werden und Sie müssen nichts weiter tun.")
+		XCTAssertEqual(viewModel.validityStateDescription, "Wenn dies eines Ihrer aktuell verwendeten Zertifikate ist, bemühen Sie sich bitte rechtzeitig darum, es zu erneuern. Im Zeitraum von 28 Tagen vor und bis zu 90 Tagen nach Ablauf können Sie es direkt über die App erneuern lassen, sofern es in Deutschland ausgestellt wurde. Sie finden die Option \"Zertifikate erneuern\" dann in Ihrer Zertifikatsübersicht unter der Kachel \"Status-Nachweis\". Sollte dies nicht eines Ihrer aktuell verwendeten Zertifikate sein, muss es nicht verlängert werden und Sie müssen nichts weiter tun.")
 
 		XCTAssertTrue(viewModel.isUnseenNewsIndicatorVisible)
 
@@ -2119,7 +2120,7 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 				DateFormatter.localizedString(from: expirationDate, dateStyle: .none, timeStyle: .short)
 			)
 		)
-		XCTAssertEqual(viewModel.validityStateDescription, "Wenn dies Ihr aktuell verwendetes Zertifikat ist, bemühen Sie sich bitte rechtzeitig darum, es zu erneuern. Ab 28 Tage vor Ablauf können Sie solche Zertifikate direkt über die App erneuern lassen. Sie finden die Option \"Zertifikate erneuern\" dann in Ihrer Zertifikatsübersicht unter der Kachel \"Status-Nachweis\". Sollte dies nicht Ihr aktuell verwendetes Zertifikat sein, muss es nicht verlängert werden und Sie müssen nichts weiter tun.")
+		XCTAssertEqual(viewModel.validityStateDescription, "Wenn dies eines Ihrer aktuell verwendeten Zertifikate ist, bemühen Sie sich bitte rechtzeitig darum, es zu erneuern. Im Zeitraum von 28 Tagen vor und bis zu 90 Tagen nach Ablauf können Sie es direkt über die App erneuern lassen, sofern es in Deutschland ausgestellt wurde. Sie finden die Option \"Zertifikate erneuern\" dann in Ihrer Zertifikatsübersicht unter der Kachel \"Status-Nachweis\". Sollte dies nicht eines Ihrer aktuell verwendeten Zertifikate sein, muss es nicht verlängert werden und Sie müssen nichts weiter tun.")
 
 		XCTAssertFalse(viewModel.isUnseenNewsIndicatorVisible)
 
@@ -2162,7 +2163,7 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 				DateFormatter.localizedString(from: expirationDate, dateStyle: .none, timeStyle: .short)
 			)
 		)
-		XCTAssertEqual(viewModel.validityStateDescription, "Wenn dies Ihr aktuell verwendetes Zertifikat ist, bemühen Sie sich bitte rechtzeitig darum, es zu erneuern. Ab 28 Tage vor Ablauf können Sie solche Zertifikate direkt über die App erneuern lassen. Sie finden die Option \"Zertifikate erneuern\" dann in Ihrer Zertifikatsübersicht unter der Kachel \"Status-Nachweis\". Sollte dies nicht Ihr aktuell verwendetes Zertifikat sein, muss es nicht verlängert werden und Sie müssen nichts weiter tun.")
+		XCTAssertEqual(viewModel.validityStateDescription, "Wenn dies eines Ihrer aktuell verwendeten Zertifikate ist, bemühen Sie sich bitte rechtzeitig darum, es zu erneuern. Im Zeitraum von 28 Tagen vor und bis zu 90 Tagen nach Ablauf können Sie es direkt über die App erneuern lassen, sofern es in Deutschland ausgestellt wurde. Sie finden die Option \"Zertifikate erneuern\" dann in Ihrer Zertifikatsübersicht unter der Kachel \"Status-Nachweis\". Sollte dies nicht eines Ihrer aktuell verwendeten Zertifikate sein, muss es nicht verlängert werden und Sie müssen nichts weiter tun.")
 
 		XCTAssertTrue(viewModel.isUnseenNewsIndicatorVisible)
 
@@ -2262,7 +2263,7 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 
 		XCTAssertEqual(viewModel.validityStateIcon, UIImage(named: "Icon_ExpiredInvalid"))
 		XCTAssertEqual(viewModel.validityStateTitle, "Zertifikat abgelaufen")
-		XCTAssertEqual(viewModel.validityStateDescription, "Wenn dies Ihr aktuell verwendetes Zertifikat ist, bemühen Sie sich bitte rechtzeitig darum, es zu erneuern. Ab 28 Tage vor Ablauf können Sie solche Zertifikate direkt über die App erneuern lassen. Sie finden die Option \"Zertifikate erneuern\" dann in Ihrer Zertifikatsübersicht unter der Kachel \"Status-Nachweis\". Sollte dies nicht Ihr aktuell verwendetes Zertifikat sein, muss es nicht verlängert werden und Sie müssen nichts weiter tun.")
+		XCTAssertEqual(viewModel.validityStateDescription, "Wenn dies eines Ihrer aktuell verwendeten Zertifikate ist, bemühen Sie sich bitte rechtzeitig darum, es zu erneuern. Im Zeitraum von 28 Tagen vor und bis zu 90 Tagen nach Ablauf können Sie es direkt über die App erneuern lassen, sofern es in Deutschland ausgestellt wurde. Sie finden die Option \"Zertifikate erneuern\" dann in Ihrer Zertifikatsübersicht unter der Kachel \"Status-Nachweis\". Sollte dies nicht eines Ihrer aktuell verwendeten Zertifikate sein, muss es nicht verlängert werden und Sie müssen nichts weiter tun.")
 
 		XCTAssertFalse(viewModel.isUnseenNewsIndicatorVisible)
 
@@ -2296,7 +2297,7 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 
 		XCTAssertEqual(viewModel.validityStateIcon, UIImage(named: "Icon_ExpiredInvalid"))
 		XCTAssertEqual(viewModel.validityStateTitle, "Zertifikat abgelaufen")
-		XCTAssertEqual(viewModel.validityStateDescription, "Wenn dies Ihr aktuell verwendetes Zertifikat ist, bemühen Sie sich bitte rechtzeitig darum, es zu erneuern. Ab 28 Tage vor Ablauf können Sie solche Zertifikate direkt über die App erneuern lassen. Sie finden die Option \"Zertifikate erneuern\" dann in Ihrer Zertifikatsübersicht unter der Kachel \"Status-Nachweis\". Sollte dies nicht Ihr aktuell verwendetes Zertifikat sein, muss es nicht verlängert werden und Sie müssen nichts weiter tun.")
+		XCTAssertEqual(viewModel.validityStateDescription, "Wenn dies eines Ihrer aktuell verwendeten Zertifikate ist, bemühen Sie sich bitte rechtzeitig darum, es zu erneuern. Im Zeitraum von 28 Tagen vor und bis zu 90 Tagen nach Ablauf können Sie es direkt über die App erneuern lassen, sofern es in Deutschland ausgestellt wurde. Sie finden die Option \"Zertifikate erneuern\" dann in Ihrer Zertifikatsübersicht unter der Kachel \"Status-Nachweis\". Sollte dies nicht eines Ihrer aktuell verwendeten Zertifikate sein, muss es nicht verlängert werden und Sie müssen nichts weiter tun.")
 
 		XCTAssertTrue(viewModel.isUnseenNewsIndicatorVisible)
 
