@@ -2146,6 +2146,14 @@ enum AppStrings {
 			static let disclaimer = NSLocalizedString("HealthCertificate_Info_disclaimer", tableName: "Localizable.legal", comment: "")
 			static let primaryButton = NSLocalizedString("HealthCertificate_Info_primaryButton", comment: "")
 		}
+		
+		enum ExportCertificatesInfo {
+			static let title = NSLocalizedString("HealthCertificate_ExportCertificatesInfo_Title", comment: "")
+			static let hint01 = NSLocalizedString("HealthCertificate_ExportCertificatesInfo_Copy01", comment: "")
+			static let hint02 = NSLocalizedString("HealthCertificate_ExportCertificatesInfo_Copy02", comment: "")
+			static let hint03 = NSLocalizedString("HealthCertificate_ExportCertificatesInfo_Copy03", comment: "")
+			static let primaryButton = NSLocalizedString("HealthCertificate_ExportCertificatesInfo_PrimaryButton", comment: "")
+		}
 
 		enum Person {
 			static let title = NSLocalizedString("HealthCertifiedPerson_title", comment: "")

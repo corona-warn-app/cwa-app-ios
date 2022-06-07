@@ -65,7 +65,7 @@ class HealthCertificateExportCertificatesInfoViewModel {
 	
 	// MARK: - Internal
 	
-	let title: String = "Zertifikate exportieren" // TODO: localize
+	let title: String = AppStrings.HealthCertificate.ExportCertificatesInfo.title
 	var hidesCloseButton: Bool = false
 	
 	var dynamicTableViewModel: DynamicTableViewModel {
@@ -73,22 +73,22 @@ class HealthCertificateExportCertificatesInfoViewModel {
 			.section(
 				cells: [
 					.headlineWithImage(
-						headerText: "Zertifikate exportieren", // TODO: localize
+						headerText: AppStrings.HealthCertificate.ExportCertificatesInfo.title,
 						image: UIImage(imageLiteralResourceName: "Illu_Certificate_Export")
 					),
 					.icon(
 						UIImage(imageLiteralResourceName: "Icons_Certificates_04"),
-						text: .string("Sie können in einem Schritt alle in Ihrer App vorhandenen Zertifikate in einem gemeinsamen PDF-Dokument speichern. Auf das PDF-Dokument haben zunächst nur Sie Zugriff. Sie können im Anschluss entscheiden, ob Sie es auf Ihrem Smartphone speichern oder in andere Apps importieren möchten."), // TODO: localize,
+						text: .string(AppStrings.HealthCertificate.ExportCertificatesInfo.hint01),
 						alignment: .top
 					),
 					.icon(
 						UIImage(imageLiteralResourceName: "Icons_Lock2"),
-						text: .string("Beachten Sie, dass das PDF-Dokument sensible Informationen enthält. Wir empfehlen Ihnen, hiermit sorgsam umzugehen und es nur Personen vorzuzeigen, denen Sie vertrauen und die zur Prüfung des Nachweises berechtigt sind."), // TODO: localize
+						text: .string(AppStrings.HealthCertificate.ExportCertificatesInfo.hint02),
 						alignment: .top
 					),
 					.icon(
 						UIImage(imageLiteralResourceName: "Icons - Smartphone"),
-						text: .string("Wir empfehlen, das PDF-Dokument nicht zu veröffentlichen und nicht per E-Mail zu versenden oder über andere Apps zu teilen."), // TODO: localize
+						text: .string(AppStrings.HealthCertificate.ExportCertificatesInfo.hint03),
 						alignment: .top
 					)
 				])

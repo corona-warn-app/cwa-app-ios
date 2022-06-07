@@ -221,7 +221,7 @@ final class HealthCertificatesTabCoordinator {
 		
 		let footerViewController = FooterViewController(
 			FooterViewModel(
-				primaryButtonName: "Weiter", // TODO: localize
+				primaryButtonName: AppStrings.HealthCertificate.ExportCertificatesInfo.primaryButton,
 				isPrimaryButtonEnabled: true,
 				isSecondaryButtonEnabled: false,
 				isSecondaryButtonHidden: true,
