@@ -861,6 +861,10 @@ enum AccessibilityIdentifiers {
 			static let accompanyingCertificatesTitle = "AppStrings.HealthCertificate.Reissuance.accompanyingCertificatesTitle"
 			static let accompanyingCertificatesCloseButton = "AppStrings.HealthCertificate.Reissuance.accompanyingCertificatesCloseButton"
 		}
+		
+		enum Navigation {
+			static let rightBarButtonExport = "AppStrings.HealthCertificate.Navigation.rightBarButtonExport"
+		}
 	}
 	
 	enum TicketValidation {

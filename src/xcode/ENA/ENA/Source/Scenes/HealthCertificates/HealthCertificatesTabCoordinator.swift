@@ -265,8 +265,7 @@ final class HealthCertificatesTabCoordinator {
 				dismissHandlingNavigationController.dismiss(animated: animated)
 			},
 			nextAction: {
-				// TODO: Handle next button in separate story
-				print("\(#function): TODO: Handle next button in separate story")
+				Log.info("\(#function): TODO: Handle next button in separate story")
 			}
 		)
 		

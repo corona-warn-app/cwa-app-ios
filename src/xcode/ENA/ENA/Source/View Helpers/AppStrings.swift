@@ -2073,6 +2073,10 @@ enum AppStrings {
 			static let notice = NSLocalizedString("HealthCertificate_unified_QR_code_notice", comment: "")
 			static let infoButton = NSLocalizedString("HealthCertificate_unified_QR_code_infoButton", comment: "")
 		}
+		
+		enum Navigation {
+			static let rightBarButtonExportDescription = NSLocalizedString("HealthCertificate_Navigation_RightBarButtonExportDescription", comment: "")
+		}
 
 		enum Overview {
 			static let title = NSLocalizedString("HealthCertificate_Overview_title", comment: "")
@@ -2189,7 +2193,6 @@ enum AppStrings {
 				static let headline = NSLocalizedString("HealthCertifiedPerson_RecoveryCertificate_headline", comment: "")
 				static let positiveTestFrom = NSLocalizedString("HealthCertifiedPerson_RecoveryCertificate_positiveTestFrom", comment: "")
 			}
-
 		}
 
 		enum Details {
