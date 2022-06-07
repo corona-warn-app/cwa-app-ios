@@ -2992,7 +2992,7 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "HealthCertificate_ExportCertificatesInfo_Title" = "Zertifikare exportieren";
 
-"HealthCertificate_ExportCertificatesInfo_HeaderImageDescription" = "TBD";
+"HealthCertificate_ExportCertificatesInfo_HeaderImageDescription" = "Von einem Smartphone wird ein digitales Zertifikat an einen Drucker übertragen";
 
 "HealthCertificate_ExportCertificatesInfo_Copy01" = "Sie können in einem Schritt alle in Ihrer App vorhandenen Zertifikate in einem gemeinsamen PDF-Dokument speichern. Auf das PDF-Dokument haben zunächst nur Sie Zugriff. Sie können im Anschluss entscheiden, ob Sie es auf Ihrem Smartphone speichern oder in andere Apps importieren möchten.";
 
