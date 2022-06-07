@@ -2149,6 +2149,7 @@ enum AppStrings {
 		
 		enum ExportCertificatesInfo {
 			static let title = NSLocalizedString("HealthCertificate_ExportCertificatesInfo_Title", comment: "")
+			static let headerImageDescription = NSLocalizedString("HealthCertificate_ExportCertificatesInfo_HeaderImageDescription", comment: "")
 			static let hint01 = NSLocalizedString("HealthCertificate_ExportCertificatesInfo_Copy01", comment: "")
 			static let hint02 = NSLocalizedString("HealthCertificate_ExportCertificatesInfo_Copy02", comment: "")
 			static let hint03 = NSLocalizedString("HealthCertificate_ExportCertificatesInfo_Copy03", comment: "")

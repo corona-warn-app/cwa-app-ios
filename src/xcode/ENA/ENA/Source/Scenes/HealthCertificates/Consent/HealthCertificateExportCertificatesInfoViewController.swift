@@ -74,7 +74,9 @@ class HealthCertificateExportCertificatesInfoViewModel {
 				cells: [
 					.headlineWithImage(
 						headerText: AppStrings.HealthCertificate.ExportCertificatesInfo.title,
-						image: UIImage(imageLiteralResourceName: "Illu_Certificate_Export")
+						image: UIImage(imageLiteralResourceName: "Illu_Certificate_Export"),
+						imageAccessibilityLabel: AppStrings.HealthCertificate.ExportCertificatesInfo.headerImageDescription,
+						imageAccessibilityIdentifier: AccessibilityIdentifiers.HealthCertificate.ExportCertificatesInfo.headerImage
 					),
 					.icon(
 						UIImage(imageLiteralResourceName: "Icons_Certificates_04"),
