@@ -9,12 +9,9 @@ class HealthCertificateExportCertificatesInfoViewController: DynamicTableViewCon
 	// MARK: - Init
 	
 	init(
-		viewModel: HealthCertificateExportCertificatesInfoViewModel,
-		onDismiss: @escaping CompletionBool
+		viewModel: HealthCertificateExportCertificatesInfoViewModel
 	) {
 		self.viewModel = viewModel
-		self.onDismiss = onDismiss
-		
 		super.init(nibName: nil, bundle: nil)
 	}
 	
@@ -37,20 +34,22 @@ class HealthCertificateExportCertificatesInfoViewController: DynamicTableViewCon
 	// MARK: - Protocol DismissHandling
 
 	func wasAttemptedToBeDismissed() {
-		onDismiss(true)
+		viewModel.onDismiss(true)
 	}
 	
 	// MARK: - Protocol FooterViewHandling
 
 	func didTapFooterViewButton(_ type: FooterViewModel.ButtonType) {
-		// TODO: handle tap footer
-		print(#function)
+		switch type {
+		case .primary:
+			viewModel.onNext()
+		default: break
+		}
 	}
 	
 	// MARK: - Private
 	
 	private let viewModel: HealthCertificateExportCertificatesInfoViewModel
-	private let onDismiss: CompletionBool
 	
 	private func setupView() {
 		dynamicTableViewModel = viewModel.dynamicTableViewModel

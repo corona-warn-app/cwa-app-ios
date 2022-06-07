@@ -127,7 +127,6 @@ final class HealthCertificatesTabCoordinator {
 				self?.presentInfoScreen()
 			},
 			onExportBarButtonItemTap: { [weak self] in
-				print("show export VC")
 				self?.presentExportCertificatesInfoScreen()
 			},
 			onChangeAdmissionScenarioTap: { [weak self] in
@@ -212,11 +211,14 @@ final class HealthCertificatesTabCoordinator {
 	}
 	
 	private func exportAllCertificatesScreen(
-		dismissAction: @escaping CompletionBool
+		dismissAction: @escaping CompletionBool,
+		nextAction: @escaping CompletionVoid
 	) -> TopBottomContainerViewController<HealthCertificateExportCertificatesInfoViewController, FooterViewController> {
-		let consentScreen = HealthCertificateExportCertificatesInfoViewController(
-			viewModel: .init(),
-			onDismiss: dismissAction
+		let healthCertificateExportCertificatesInfoViewController = HealthCertificateExportCertificatesInfoViewController(
+			viewModel: .init(
+				onDismiss: dismissAction,
+				onNext: nextAction
+			)
 		)
 		
 		let footerViewController = FooterViewController(
@@ -228,10 +230,9 @@ final class HealthCertificatesTabCoordinator {
 				backgroundColor: .enaColor(for: .background)
 			)
 		)
-
 		
 		let topBottomContainerViewController = TopBottomContainerViewController(
-			topController: consentScreen,
+			topController: healthCertificateExportCertificatesInfoViewController,
 			bottomController: footerViewController
 		)
 		
@@ -258,15 +259,22 @@ final class HealthCertificatesTabCoordinator {
 	}
 	
 	private func presentExportCertificatesInfoScreen() {
-		var navigationController: UINavigationController!
-		let vc = exportAllCertificatesScreen(
+		var dismissHandlingNavigationController: DismissHandlingNavigationController!
+		let topBottomContainerViewController = exportAllCertificatesScreen(
 			dismissAction: { animated in
-				navigationController.dismiss(animated: animated)
+				dismissHandlingNavigationController.dismiss(animated: animated)
+			},
+			nextAction: {
+				// TODO: Handle next button in separate story
+				print("\(#function): TODO: Handle next button in separate story")
 			}
 		)
 		
-		navigationController = DismissHandlingNavigationController(rootViewController: vc, transparent: true)
-		viewController.present(navigationController, animated: true)
+		dismissHandlingNavigationController = DismissHandlingNavigationController(
+			rootViewController: topBottomContainerViewController,
+			transparent: true
+		)
+		viewController.present(dismissHandlingNavigationController, animated: true)
 	}
 	
 	private func showActivityIndicator(from view: UIView) {

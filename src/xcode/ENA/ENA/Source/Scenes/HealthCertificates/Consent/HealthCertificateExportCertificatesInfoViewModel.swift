@@ -11,6 +11,9 @@ class HealthCertificateExportCertificatesInfoViewModel {
 	let title: String = AppStrings.HealthCertificate.ExportCertificatesInfo.title
 	var hidesCloseButton: Bool = false
 	
+	let onDismiss: CompletionBool
+	let onNext: CompletionVoid
+	
 	var dynamicTableViewModel: DynamicTableViewModel {
 		.init([
 			.section(
@@ -38,5 +41,15 @@ class HealthCertificateExportCertificatesInfoViewModel {
 					)
 				])
 		])
+	}
+	
+	// MARK: Initialize
+	
+	init(
+		onDismiss: @escaping CompletionBool,
+		onNext: @escaping CompletionVoid
+	) {
+		self.onDismiss = onDismiss
+		self.onNext = onNext
 	}
 }
