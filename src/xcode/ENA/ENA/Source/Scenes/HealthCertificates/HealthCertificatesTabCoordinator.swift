@@ -260,7 +260,7 @@ final class HealthCertificatesTabCoordinator {
 	
 	private func presentExportCertificatesInfoScreen() {
 		var dismissHandlingNavigationController: DismissHandlingNavigationController!
-		let topBottomContainerViewController = exportCertificatesInfoScreen(
+		let exportCertificatesInfoScreen = exportCertificatesInfoScreen(
 			dismissAction: { animated in
 				dismissHandlingNavigationController.dismiss(animated: animated)
 			},
@@ -270,7 +270,7 @@ final class HealthCertificatesTabCoordinator {
 		)
 		
 		dismissHandlingNavigationController = DismissHandlingNavigationController(
-			rootViewController: topBottomContainerViewController,
+			rootViewController: exportCertificatesInfoScreen,
 			transparent: true
 		)
 		viewController.present(dismissHandlingNavigationController, animated: true)
