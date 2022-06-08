@@ -43,28 +43,14 @@ class TicketValidationResultViewController: DynamicTableViewController, DismissH
 		super.viewWillAppear(animated)
 
 		navigationController?.setupTransparentNavigationBar()
-		
-		guard #available(iOS 13, *) else {
-			guard let statusBarView = UIApplication.shared.value(forKeyPath: "statusBarWindow.statusBar") as? UIView else {
-				return
-			}
-			statusBarView.backgroundColor = UIColor.white
-			return
-		}
+		setupStatusBarViewBackgroundColorIfNeeded()
 	}
 
 	override func viewWillDisappear(_ animated: Bool) {
 		super.viewWillDisappear(animated)
 
 		navigationController?.restoreOriginalNavigationBar()
-		
-		guard #available(iOS 13, *) else {
-			guard let statusBarView = UIApplication.shared.value(forKeyPath: "statusBarWindow.statusBar") as? UIView else {
-				return
-			}
-			statusBarView.backgroundColor = UIColor.clear
-			return
-		}
+		revertStatusBarViewBackgroundColorIfNeeded()
 	}
 
 	// MARK: - DismissHandling

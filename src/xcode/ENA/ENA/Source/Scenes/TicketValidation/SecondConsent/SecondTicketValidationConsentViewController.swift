@@ -37,26 +37,13 @@ class SecondTicketValidationConsentViewController: DynamicTableViewController, D
 		super.viewWillAppear(animated)
 
 		navigationController?.navigationBar.prefersLargeTitles = true
-		
-		guard #available(iOS 13, *) else {
-			guard let statusBarView = UIApplication.shared.value(forKeyPath: "statusBarWindow.statusBar") as? UIView else {
-				return
-			}
-			statusBarView.backgroundColor = UIColor.white
-			return
-		}
+		setupStatusBarViewBackgroundColorIfNeeded()
 	}
 	
 	override func viewWillDisappear(_ animated: Bool) {
 		super.viewWillDisappear(animated)
 		
-		guard #available(iOS 13, *) else {
-			guard let statusBarView = UIApplication.shared.value(forKeyPath: "statusBarWindow.statusBar") as? UIView else {
-				return
-			}
-			statusBarView.backgroundColor = UIColor.clear
-			return
-		}
+		revertStatusBarViewBackgroundColorIfNeeded()
 	}
 	
 	// MARK: - Cell reuse identifiers.

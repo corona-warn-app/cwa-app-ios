@@ -37,25 +37,13 @@ class CovPassCheckInformationViewController: DynamicTableViewController, Dismiss
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
 		
-		guard #available(iOS 13, *) else {
-			guard let statusBarView = UIApplication.shared.value(forKeyPath: "statusBarWindow.statusBar") as? UIView else {
-				return
-			}
-			statusBarView.backgroundColor = UIColor.white
-			return
-		}
+		setupStatusBarViewBackgroundColorIfNeeded()
 	}
 	
 	override func viewWillDisappear(_ animated: Bool) {
 		super.viewWillDisappear(animated)
 
-		guard #available(iOS 13, *) else {
-			guard let statusBarView = UIApplication.shared.value(forKeyPath: "statusBarWindow.statusBar") as? UIView else {
-					return
-				}
-			statusBarView.backgroundColor = UIColor.clear
-			return
-		}
+		revertStatusBarViewBackgroundColorIfNeeded()
 	}
 	
 	// MARK: - Protocol DismissHandling

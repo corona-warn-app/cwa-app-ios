@@ -43,13 +43,7 @@ class QRScannerInfoViewController: DynamicTableViewController, DismissHandling {
 			dismissHandlingNC.setupTransparentNavigationBar()
 		}
 		
-		guard #available(iOS 13, *) else {
-			guard let statusBarView = UIApplication.shared.value(forKeyPath: "statusBarWindow.statusBar") as? UIView else {
-				return
-			}
-			statusBarView.backgroundColor = UIColor.white
-			return
-		}
+		setupStatusBarViewBackgroundColorIfNeeded()
 	}
 
 	override func viewWillDisappear(_ animated: Bool) {
@@ -59,13 +53,7 @@ class QRScannerInfoViewController: DynamicTableViewController, DismissHandling {
 			dismissHandlingNC.restoreOriginalNavigationBar()
 		}
 		
-		guard #available(iOS 13, *) else {
-			guard let statusBarView = UIApplication.shared.value(forKeyPath: "statusBarWindow.statusBar") as? UIView else {
-				return
-			}
-			statusBarView.backgroundColor = UIColor.clear
-			return
-		}
+		revertStatusBarViewBackgroundColorIfNeeded()
 	}
 
 	// MARK: - DismissHandling

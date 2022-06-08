@@ -58,13 +58,7 @@ class ExposureSubmissionTestResultViewController: DynamicTableViewController, Fo
 	override func viewWillDisappear(_ animated: Bool) {
 		super.viewWillDisappear(animated)
 
-		guard #available(iOS 13, *) else {
-			guard let statusBarView = UIApplication.shared.value(forKeyPath: "statusBarWindow.statusBar") as? UIView else {
-					return
-				}
-			statusBarView.backgroundColor = UIColor.clear
-			return
-		}
+		revertStatusBarViewBackgroundColorIfNeeded()
 	}
 	
 	// MARK: - Protocol ENANavigationControllerWithFooterChild
