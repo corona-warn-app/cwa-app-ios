@@ -3,6 +3,8 @@
 //
 
 import UIKit
+import PDFKit
+import OpenCombine
 
 class HealthCertificateExportCertificatesInfoViewController: DynamicTableViewController, FooterViewHandling, DismissHandling {
 	
@@ -10,10 +12,14 @@ class HealthCertificateExportCertificatesInfoViewController: DynamicTableViewCon
 	
 	init(
 		viewModel: HealthCertificateExportCertificatesInfoViewModel,
-		onDismiss: @escaping CompletionBool
+		onDismiss: @escaping CompletionBool,
+		onTapContinue: @escaping (PDFDocument) -> Void,
+		showErrorAlert: @escaping (HealthCertificatePDFGenerationError) -> Void
 	) {
 		self.viewModel = viewModel
 		self.onDismiss = onDismiss
+		self.onTapContinue = onTapContinue
+		self.showErrorAlert = showErrorAlert
 		
 		super.init(nibName: nil, bundle: nil)
 	}
@@ -31,17 +37,42 @@ class HealthCertificateExportCertificatesInfoViewController: DynamicTableViewCon
 	// MARK: - Protocol FooterViewHandling
 
 	func didTapFooterViewButton(_ type: FooterViewModel.ButtonType) {
-		// TODO: handle tap footer
-		print(#function)
+		if type == .primary {
+			footerView?.setLoadingIndicator(true, disable: true, button: .primary)
+			viewModel.generatePDFData { result in
+				DispatchQueue.main.async { [weak self] in
+					self?.footerView?.setLoadingIndicator(false, disable: false, button: .primary)
+
+					switch result {
+					case let .success(pdfDocument):
+						self?.onTapContinue(pdfDocument)
+					case let .failure(error):
+						self?.showErrorAlert(error)
+					}
+				}
+			}
+		}
 	}
-	
+
 	// MARK: - Private
 	
 	private let viewModel: HealthCertificateExportCertificatesInfoViewModel
 	private let onDismiss: CompletionBool
+	private let onTapContinue: (PDFDocument) -> Void
+	private let showErrorAlert: (HealthCertificatePDFGenerationError) -> Void
 }
 
 class HealthCertificateExportCertificatesInfoViewModel {
+	
+	// MARK: - Init
+	
+	init(
+		healthCertificateService: HealthCertificateService,
+		vaccinationValueSetsProvider: VaccinationValueSetsProviding
+	) {
+		self.healthCertificateService = healthCertificateService
+		self.vaccinationValueSetsProvider = vaccinationValueSetsProvider
+	}
 	
 	// MARK: - Internal
 	
@@ -68,4 +99,76 @@ class HealthCertificateExportCertificatesInfoViewModel {
 				])
 		])
 	}
+	
+	func generatePDFData(
+		completion: @escaping (Result<PDFDocument, HealthCertificatePDFGenerationError>) -> Void
+	) {
+		vaccinationValueSetsProvider.latestVaccinationCertificateValueSets()
+			.sink(
+				receiveCompletion: { result in
+					switch result {
+					case .finished:
+						break
+					case .failure(let error):
+						if case CachingHTTPClient.CacheError.dataVerificationError = error {
+							Log.error("Signature verification error.", log: .vaccination, error: error)
+						}
+						Log.error("Could not fetch value sets and so failed to create pdf view of all filtered health certificates with error: \(error)")
+						completion(.failure(.fetchValueSets))
+					}
+				}, receiveValue: { [weak self] valueSets in
+					guard let self = self else {
+						completion(.failure(.createStrongPointer))
+						return
+					}
+					do {
+						let mergedPDFDocument = PDFDocument()
+						let selectedHealthCertificates = self.filteredHealthCertificates(healthCertifiedPersons: self.healthCertificateService.healthCertifiedPersons.sorted())
+						for (index, healthCertificate) in selectedHealthCertificates.enumerated() {
+							let pdfDocument = try healthCertificate.pdfDocument(with: valueSets)
+							
+							guard let pdfPage = pdfDocument.page(at: 0) else {
+								return
+							}
+							
+							mergedPDFDocument.insert(pdfPage, at: index)
+						}
+						completion(.success(mergedPDFDocument))
+					} catch {
+						Log.error("Could not create pdf view of all filtered health certificates with error: \(error)")
+						completion(.failure(.pdfGenerationFailed))
+					}
+				}
+			)
+			.store(in: &subscriptions)
+	}
+	
+	func filteredHealthCertificates(healthCertifiedPersons: [HealthCertifiedPerson]) -> [HealthCertificate] {
+		var allFilteredHealthCertificates: [HealthCertificate] = []
+		for healthCertifiedPerson in healthCertifiedPersons {
+			/*
+			 * Filter by validity state:
+			 * - DCCs shall be filtered for those DCCs where the validty state is one of VALID, EXPIRING_SOON, EXPIRED, or INVALID.
+			 * Filter by type-specific criteria:
+			 * - for Test Certificates, the time difference between the time represented by t[0].sc and the current device time is <= 72 hours
+			 * - for other certificate types, no additional filter criteria applies (i.e. all certificates pass the filter)
+			 */
+			var filteredHealthCertificates = healthCertifiedPerson.healthCertificates.filter {
+				$0.isValidityStateConsiderableForExporting && $0.isTypeSpecificCriteriaValid
+			}
+			
+			// sorting on the basis of certificate type
+			filteredHealthCertificates = filteredHealthCertificates.sorted(by: >)
+			
+			allFilteredHealthCertificates.append(contentsOf: filteredHealthCertificates)
+		}
+		return allFilteredHealthCertificates
+	}
+	
+	// MARK: - Private
+	
+	private let healthCertificateService: HealthCertificateService
+	private let vaccinationValueSetsProvider: VaccinationValueSetsProviding
+	private var subscriptions = Set<AnyCancellable>()
+
 }
