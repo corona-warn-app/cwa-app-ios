@@ -87,6 +87,7 @@ class HealthCertificateOverviewViewController: UITableViewController {
 		
 		tableView.reloadData()
 		title = AppStrings.HealthCertificate.Overview.title
+		
 	}
 
 	override func viewWillAppear(_ animated: Bool) {
@@ -105,6 +106,8 @@ class HealthCertificateOverviewViewController: UITableViewController {
 		if viewModel.shouldShowAlertAfterRegroup {
 			showAlertAfterRegroup()
 		}
+
+		showExportCertificatesTooltipIfNeeded(exportCertificatesBarButtonItem)
 	}
 
 	// MARK: - Protocol UITableViewDataSource
@@ -196,7 +199,7 @@ class HealthCertificateOverviewViewController: UITableViewController {
 	}()
 
 	private func setupBarButtonItems() {
-		navigationItem.rightBarButtonItems = [exportCertificatesBarButtonItem, infoBarButtonItem, exportCertificatesBarButtonItem]
+		navigationItem.rightBarButtonItems = [exportCertificatesBarButtonItem, infoBarButtonItem]
 	}
 
 	private func setupTableView() {
@@ -426,5 +429,23 @@ class HealthCertificateOverviewViewController: UITableViewController {
 				alignmentPadding: alignmentPadding
 			)
 			: nil
+	}
+	
+	private func showExportCertificatesTooltipIfNeeded(_ barButtonItem: UIBarButtonItem) {
+		let tooltipViewController = TooltipViewController(
+			viewModel: .init(
+				for: .exportCertificates,
+				onClose: {
+					Log.info("Close popup ... ")
+				}
+			)
+		)
+		
+		tooltipViewController.popoverPresentationController?.barButtonItem = barButtonItem
+		tooltipViewController.popoverPresentationController?.permittedArrowDirections = .up
+
+		DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [weak self] in
+			self?.present(tooltipViewController, animated: true)
+		}
 	}
 }
