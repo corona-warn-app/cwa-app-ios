@@ -13,6 +13,7 @@ class HealthCertificateOverviewViewController: UITableViewController {
 		viewModel: HealthCertificateOverviewViewModel,
 		cclService: CCLServable,
 		onInfoBarButtonItemTap: @escaping () -> Void,
+		onExportBarButtonItemTap: @escaping CompletionVoid,
 		onChangeAdmissionScenarioTap: @escaping () -> Void,
 		onCertifiedPersonTap: @escaping (HealthCertifiedPerson) -> Void,
 		onCovPassCheckInfoButtonTap: @escaping () -> Void,
@@ -22,6 +23,7 @@ class HealthCertificateOverviewViewController: UITableViewController {
 		self.viewModel = viewModel
 		self.cclService = cclService
 		self.onInfoBarButtonItemTap = onInfoBarButtonItemTap
+		self.onExportBarButtonItemTap = onExportBarButtonItemTap
 		self.onChangeAdmissionScenarioTap = onChangeAdmissionScenarioTap
 		self.onCertifiedPersonTap = onCertifiedPersonTap
 		self.onCovPassCheckInfoButtonTap = onCovPassCheckInfoButtonTap
@@ -165,6 +167,7 @@ class HealthCertificateOverviewViewController: UITableViewController {
 	private let cclService: CCLServable
 	
 	private let onInfoBarButtonItemTap: () -> Void
+	private let onExportBarButtonItemTap: CompletionVoid
 	private let onChangeAdmissionScenarioTap: () -> Void
 	private let onCertifiedPersonTap: (HealthCertifiedPerson) -> Void
 	private let onCovPassCheckInfoButtonTap: () -> Void
@@ -172,14 +175,28 @@ class HealthCertificateOverviewViewController: UITableViewController {
 	private let showAlertAfterRegroup: () -> Void
 
 	private var subscriptions = Set<AnyCancellable>()
+	
+	private lazy var infoBarButtonItem: UIBarButtonItem = {
+		let button = UIButton(type: .infoLight)
+		button.addTarget(self, action: #selector(infoButtonTapped), for: .touchUpInside)
+		button.isAccessibilityElement = true
+		button.accessibilityLabel = AppStrings.Home.rightBarButtonDescription
+		button.accessibilityIdentifier = AccessibilityIdentifiers.Home.rightBarButtonDescription
+		return UIBarButtonItem(customView: button)
+	}()
+	
+	private lazy var exportCertificatesBarButtonItem: UIBarButtonItem = {
+		let button = UIButton(type: .custom)
+		button.setImage(UIImage(imageLiteralResourceName: "Icons_Share"), for: .normal)
+		button.addTarget(self, action: #selector(exportButtonTapped), for: .touchUpInside)
+		button.isAccessibilityElement = true
+		button.accessibilityLabel = AppStrings.HealthCertificate.Navigation.rightBarButtonExportDescription
+		button.accessibilityIdentifier = AccessibilityIdentifiers.HealthCertificate.Navigation.rightBarButtonExport
+		return UIBarButtonItem(customView: button)
+	}()
 
 	private func setupBarButtonItems() {
-		let infoButton = UIButton(type: .infoLight)
-		infoButton.addTarget(self, action: #selector(infoButtonTapped), for: .touchUpInside)
-		navigationItem.rightBarButtonItem = UIBarButtonItem(customView: infoButton)
-		navigationItem.rightBarButtonItem?.isAccessibilityElement = true
-		navigationItem.rightBarButtonItem?.accessibilityLabel = AppStrings.Home.rightBarButtonDescription
-		navigationItem.rightBarButtonItem?.accessibilityIdentifier = AccessibilityIdentifiers.Home.rightBarButtonDescription
+		navigationItem.rightBarButtonItems = [exportCertificatesBarButtonItem, infoBarButtonItem, exportCertificatesBarButtonItem]
 	}
 
 	private func setupTableView() {
@@ -302,6 +319,11 @@ class HealthCertificateOverviewViewController: UITableViewController {
 
 	@IBAction private func infoButtonTapped() {
 		onInfoBarButtonItemTap()
+	}
+	
+	@objc
+	private func exportButtonTapped() {
+		onExportBarButtonItemTap()
 	}
 
 	private func animateChanges(of cell: UITableViewCell) {

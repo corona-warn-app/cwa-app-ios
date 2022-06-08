@@ -2073,6 +2073,10 @@ enum AppStrings {
 			static let notice = NSLocalizedString("HealthCertificate_unified_QR_code_notice", comment: "")
 			static let infoButton = NSLocalizedString("HealthCertificate_unified_QR_code_infoButton", comment: "")
 		}
+		
+		enum Navigation {
+			static let rightBarButtonExportDescription = NSLocalizedString("HealthCertificate_Navigation_RightBarButtonExportDescription", comment: "")
+		}
 
 		enum Overview {
 			static let title = NSLocalizedString("HealthCertificate_Overview_title", comment: "")
@@ -2146,6 +2150,15 @@ enum AppStrings {
 			static let disclaimer = NSLocalizedString("HealthCertificate_Info_disclaimer", tableName: "Localizable.legal", comment: "")
 			static let primaryButton = NSLocalizedString("HealthCertificate_Info_primaryButton", comment: "")
 		}
+		
+		enum ExportCertificatesInfo {
+			static let title = NSLocalizedString("HealthCertificate_ExportCertificatesInfo_Title", comment: "")
+			static let headerImageDescription = NSLocalizedString("HealthCertificate_ExportCertificatesInfo_HeaderImageDescription", comment: "")
+			static let hint01 = NSLocalizedString("HealthCertificate_ExportCertificatesInfo_Copy01", comment: "")
+			static let hint02 = NSLocalizedString("HealthCertificate_ExportCertificatesInfo_Copy02", comment: "")
+			static let hint03 = NSLocalizedString("HealthCertificate_ExportCertificatesInfo_Copy03", comment: "")
+			static let primaryButton = NSLocalizedString("HealthCertificate_ExportCertificatesInfo_PrimaryButton", comment: "")
+		}
 
 		enum Person {
 			static let title = NSLocalizedString("HealthCertifiedPerson_title", comment: "")
@@ -2180,7 +2193,6 @@ enum AppStrings {
 				static let headline = NSLocalizedString("HealthCertifiedPerson_RecoveryCertificate_headline", comment: "")
 				static let positiveTestFrom = NSLocalizedString("HealthCertifiedPerson_RecoveryCertificate_positiveTestFrom", comment: "")
 			}
-
 		}
 
 		enum Details {
