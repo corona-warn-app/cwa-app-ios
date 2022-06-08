@@ -2064,6 +2064,7 @@ enum AppStrings {
 			static let section01 = NSLocalizedString("CovPass_Check_Info_text01", comment: "")
 			static let section02 = NSLocalizedString("CovPass_Check_Info_text02", comment: "")
 			static let section03 = NSLocalizedString("CovPass_Check_Info_text03", comment: "")
+			static let section04 = NSLocalizedString("CovPass_Check_Info_text04", comment: "")
 		}
 	}
 
