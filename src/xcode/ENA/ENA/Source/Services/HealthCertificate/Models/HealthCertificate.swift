@@ -313,6 +313,27 @@ final class HealthCertificate: Codable, Equatable, Comparable, RecycleBinIdentif
 		}
 	}
 
+	var isValidityStateConsiderableForExporting: Bool {
+		switch validityState {
+		case .valid, .expiringSoon, .expired, .invalid:
+			return true
+		case .blocked, .revoked:
+			return false
+		}
+	}
+	
+	var isTypeSpecificCriteriaValid: Bool {
+		switch entry {
+		case .vaccination, .recovery:
+			return true
+		case .test:
+			guard let ageInHours = ageInHours else {
+				return false
+			}
+			return ageInHours <= 72 ? true : false
+		}
+	}
+	
 	lazy var uniqueCertificateIdentifierChunks: [String] = uniqueCertificateIdentifier
 			.dropPrefix("URN:UVCI:")
 			.components(separatedBy: CharacterSet(charactersIn: "/#:"))
