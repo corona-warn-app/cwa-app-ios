@@ -18,8 +18,8 @@ class TooltipViewModel {
 		switch info {
 		case .exportCertificates:
 			return AppStrings.Tooltip.ExportCertificates.description
-		case let .custom(title, _):
-			return title
+		case let .custom(_, description):
+			return description
 		}
 	}
 	
