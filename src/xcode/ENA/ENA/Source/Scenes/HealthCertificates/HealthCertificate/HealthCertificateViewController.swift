@@ -170,6 +170,7 @@ class HealthCertificateViewController: UIViewController, UITableViewDataSource, 
 		navigationController?.navigationBar.setBackgroundImage(emptyImage, for: .default)
 		navigationController?.navigationBar.shadowImage = emptyImage
 		navigationController?.navigationBar.isTranslucent = true
+		navigationController?.navigationBar.backgroundColor = .clear
 		navigationController?.view.backgroundColor = .clear
 
 		navigationController?.navigationBar.prefersLargeTitles = false
@@ -289,5 +290,4 @@ class HealthCertificateViewController: UIViewController, UITableViewDataSource, 
 			}
 			.store(in: &subscriptions)
 	}
-
 }
