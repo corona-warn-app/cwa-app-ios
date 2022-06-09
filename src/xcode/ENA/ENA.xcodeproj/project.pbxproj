@@ -1715,6 +1715,8 @@
 		CDA262F824AB808800612E15 /* HomeCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDA262F724AB808800612E15 /* HomeCoordinator.swift */; };
 		CDCE11D6247D644100F30825 /* NotificationSettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDCE11D5247D644100F30825 /* NotificationSettingsViewModel.swift */; };
 		CDD87C56247556DE007CE6CA /* MainSettingsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDD87C54247556DE007CE6CA /* MainSettingsCell.swift */; };
+		DC7002D9284F6B7900B164AC /* HealthCertificateExportCertificatesInfoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC7002D8284F6B7900B164AC /* HealthCertificateExportCertificatesInfoViewModel.swift */; };
+		DC7002DB284F8BA100B164AC /* HealthCertificateExportCertificatesInfoViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC7002DA284F8BA100B164AC /* HealthCertificateExportCertificatesInfoViewModelTests.swift */; };
 		DCEDBD5628479ECB00D34E7A /* Alias.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCEDBD5528479ECB00D34E7A /* Alias.swift */; };
 		DCEDBD582847A0AF00D34E7A /* HealthCertificateExportCertificatesInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCEDBD572847A0AF00D34E7A /* HealthCertificateExportCertificatesInfoViewController.swift */; };
 		EB08F1782541CE3300D11FA9 /* risk_score_classification.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB08F1702541CE3200D11FA9 /* risk_score_classification.pb.swift */; };
@@ -3565,6 +3567,8 @@
 		CDD87C54247556DE007CE6CA /* MainSettingsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainSettingsCell.swift; sourceTree = "<group>"; };
 		CDD87C5C247559E3007CE6CA /* SettingsLabelCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsLabelCell.swift; sourceTree = "<group>"; };
 		CDF27BD2246ADBA70044D32B /* ExposureSubmissionServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureSubmissionServiceTests.swift; sourceTree = "<group>"; };
+		DC7002D8284F6B7900B164AC /* HealthCertificateExportCertificatesInfoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthCertificateExportCertificatesInfoViewModel.swift; sourceTree = "<group>"; };
+		DC7002DA284F8BA100B164AC /* HealthCertificateExportCertificatesInfoViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthCertificateExportCertificatesInfoViewModelTests.swift; sourceTree = "<group>"; };
 		DCEDBD5528479ECB00D34E7A /* Alias.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alias.swift; sourceTree = "<group>"; };
 		DCEDBD572847A0AF00D34E7A /* HealthCertificateExportCertificatesInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthCertificateExportCertificatesInfoViewController.swift; sourceTree = "<group>"; };
 		EB08F1702541CE3200D11FA9 /* risk_score_classification.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = risk_score_classification.pb.swift; path = ../../../gen/output/internal/risk_score_classification.pb.swift; sourceTree = "<group>"; };
@@ -8990,6 +8994,7 @@
 				BA01BA60264423CF00D906B6 /* Cells */,
 				BA01BA62264423CF00D906B6 /* HealthCertificateInfoViewController.swift */,
 				DCEDBD572847A0AF00D34E7A /* HealthCertificateExportCertificatesInfoViewController.swift */,
+				DC7002D8284F6B7900B164AC /* HealthCertificateExportCertificatesInfoViewModel.swift */,
 				BA01BA63264423CF00D906B6 /* HealthCertificateInfoViewModel.swift */,
 			);
 			path = Consent;
@@ -9007,6 +9012,7 @@
 			isa = PBXGroup;
 			children = (
 				BA01BA6A2644284100D906B6 /* HealthCertificateConsentViewModelTests.swift */,
+				DC7002DA284F8BA100B164AC /* HealthCertificateExportCertificatesInfoViewModelTests.swift */,
 			);
 			path = __tests__;
 			sourceTree = "<group>";
@@ -11575,6 +11581,7 @@
 				ABD4310127FC83800063666C /* HealthCertificateRevocationEntries.swift in Sources */,
 				017AD14625A4546400FA2B3F /* UITableViewController+Enum.swift in Sources */,
 				EBB92C72259E10ED00013B41 /* UpdateOSViewController.swift in Sources */,
+				DC7002D9284F6B7900B164AC /* HealthCertificateExportCertificatesInfoViewModel.swift in Sources */,
 				ABD430E027FAE78B0063666C /* revocation_chunk.pb.swift in Sources */,
 				0196FE8427E4EFB200B2729E /* UserPCRTest.swift in Sources */,
 				BAF5B3CD2604E1D700DF8149 /* SelectTraceLocationTypeCell.swift in Sources */,
@@ -12323,6 +12330,7 @@
 				506D881427A2D40D006297FE /* RegistrationTokenResourceTests.swift in Sources */,
 				35BDAB2E25F1148E004DFE32 /* ELSServiceTests.swift in Sources */,
 				B1E23B8624FE4DD3006BCDA6 /* PublicKeyProviderTests.swift in Sources */,
+				DC7002DB284F8BA100B164AC /* HealthCertificateExportCertificatesInfoViewModelTests.swift in Sources */,
 				01B605D9258A49E70093DB8E /* DiaryLocationTest.swift in Sources */,
 				500120F625E3FA1C00EDF3A5 /* PPAnalyticsCollectorTests.swift in Sources */,
 				BADBC86725D6C7FD00488DB7 /* SettingsDataDonationViewModelTests.swift in Sources */,
@@ -12875,7 +12883,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.23.1;
+				MARKETING_VERSION = 2.23.2;
 				OTHER_CFLAGS = (
 					"-DSQLITE_HAS_CODEC",
 					"-DSQLITE_TEMP_STORE=3",
@@ -13025,7 +13033,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.23.1;
+				MARKETING_VERSION = 2.23.2;
 				OTHER_CFLAGS = (
 					"-DSQLITE_HAS_CODEC",
 					"-DSQLITE_TEMP_STORE=3",
@@ -13204,7 +13212,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.23.1;
+				MARKETING_VERSION = 2.23.2;
 				OTHER_CFLAGS = (
 					"-DSQLITE_HAS_CODEC",
 					"-DSQLITE_TEMP_STORE=3",
@@ -13450,7 +13458,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.23.1;
+				MARKETING_VERSION = 2.23.2;
 				OTHER_CFLAGS = (
 					"-DSQLITE_HAS_CODEC",
 					"-DSQLITE_TEMP_STORE=3",
@@ -13485,7 +13493,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.23.1;
+				MARKETING_VERSION = 2.23.2;
 				OTHER_CFLAGS = (
 					"-DSQLITE_HAS_CODEC",
 					"-DSQLITE_TEMP_STORE=3",

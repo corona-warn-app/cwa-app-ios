@@ -2918,6 +2918,8 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "HealthCertificate_Overview_News" = "Es gibt Neuigkeiten zu Ihren Zertifikaten";
 
+"HealthCertificate_Navigation_RightBarButtonExportDescription" = "Zertifikate exportieren";
+
 /* - Test Certificate Request */
 
 "TestCertificateRequest_title" = "Digitales\n**COVID-Testzertifikat der EU**";
@@ -2985,6 +2987,20 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 "HealthCertificate_Info_section04" = "Fügen Sie existierende Zertifikate für sich und Ihre Familienmitglieder hinzu.";
 
 "HealthCertificate_Info_primaryButton" = "Weiter";
+
+/* Health Certificate Export Certificates Information */
+
+"HealthCertificate_ExportCertificatesInfo_Title" = "Zertifikare exportieren";
+
+"HealthCertificate_ExportCertificatesInfo_HeaderImageDescription" = "Von einem Smartphone wird ein digitales Zertifikat an einen Drucker übertragen";
+
+"HealthCertificate_ExportCertificatesInfo_Copy01" = "Sie können in einem Schritt alle in Ihrer App vorhandenen Zertifikate in einem gemeinsamen PDF-Dokument speichern. Auf das PDF-Dokument haben zunächst nur Sie Zugriff. Sie können im Anschluss entscheiden, ob Sie es auf Ihrem Smartphone speichern oder in andere Apps importieren möchten.";
+
+"HealthCertificate_ExportCertificatesInfo_Copy02" = "Beachten Sie, dass das PDF-Dokument sensible Informationen enthält. Wir empfehlen Ihnen, hiermit sorgsam umzugehen und es nur Personen vorzuzeigen, denen Sie vertrauen und die zur Prüfung des Nachweises berechtigt sind.";
+
+"HealthCertificate_ExportCertificatesInfo_Copy03" = "Wir empfehlen, das PDF-Dokument nicht zu veröffentlichen und nicht per E-Mail zu versenden oder über andere Apps zu teilen.";
+
+"HealthCertificate_ExportCertificatesInfo_PrimaryButton" = "Weiter";
 
 /* CovPass Info Screen */
 
@@ -3335,7 +3351,7 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "HealthCertificate_ValidityState_ExpiringSoon_short" = "läuft am %@ um %@ ab";
 
-"HealthCertificate_ValidityState_ExpiringSoon_description" = "Wenn dies Ihr aktuell verwendetes Zertifikat ist, bemühen Sie sich bitte rechtzeitig darum, es zu erneuern. Ab 28 Tage vor Ablauf können Sie solche Zertifikate direkt über die App erneuern lassen. Sie finden die Option \"Zertifikate erneuern\" dann in Ihrer Zertifikatsübersicht unter der Kachel \"Status-Nachweis\". Sollte dies nicht Ihr aktuell verwendetes Zertifikat sein, muss es nicht verlängert werden und Sie müssen nichts weiter tun.";
+"HealthCertificate_ValidityState_ExpiringSoon_description" = "Wenn dies eines Ihrer aktuell verwendeten Zertifikate ist, bemühen Sie sich bitte rechtzeitig darum, es zu erneuern. Im Zeitraum von 28 Tagen vor und bis zu 90 Tagen nach Ablauf können Sie es direkt über die App erneuern lassen, sofern es in Deutschland ausgestellt wurde. Sie finden die Option \"Zertifikate erneuern\" dann in Ihrer Zertifikatsübersicht unter der Kachel \"Status-Nachweis\". Sollte dies nicht eines Ihrer aktuell verwendeten Zertifikate sein, muss es nicht verlängert werden und Sie müssen nichts weiter tun.";
 
 "HealthCertificate_ValidityState_Expired" = "Zertifikat abgelaufen";
 

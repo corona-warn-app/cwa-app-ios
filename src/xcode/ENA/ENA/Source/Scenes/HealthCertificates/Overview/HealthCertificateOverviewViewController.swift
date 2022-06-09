@@ -175,20 +175,28 @@ class HealthCertificateOverviewViewController: UITableViewController {
 	private let showAlertAfterRegroup: () -> Void
 
 	private var subscriptions = Set<AnyCancellable>()
+	
+	private lazy var infoBarButtonItem: UIBarButtonItem = {
+		let button = UIButton(type: .infoLight)
+		button.addTarget(self, action: #selector(infoButtonTapped), for: .touchUpInside)
+		button.isAccessibilityElement = true
+		button.accessibilityLabel = AppStrings.Home.rightBarButtonDescription
+		button.accessibilityIdentifier = AccessibilityIdentifiers.Home.rightBarButtonDescription
+		return UIBarButtonItem(customView: button)
+	}()
+	
+	private lazy var exportCertificatesBarButtonItem: UIBarButtonItem = {
+		let button = UIButton(type: .custom)
+		button.setImage(UIImage(imageLiteralResourceName: "Icons_Share"), for: .normal)
+		button.addTarget(self, action: #selector(exportButtonTapped), for: .touchUpInside)
+		button.isAccessibilityElement = true
+		button.accessibilityLabel = AppStrings.HealthCertificate.Navigation.rightBarButtonExportDescription
+		button.accessibilityIdentifier = AccessibilityIdentifiers.HealthCertificate.Navigation.rightBarButtonExport
+		return UIBarButtonItem(customView: button)
+	}()
 
 	private func setupBarButtonItems() {
-		let infoButton = UIButton(type: .infoLight)
-		infoButton.addTarget(self, action: #selector(infoButtonTapped), for: .touchUpInside)
-		infoButton.isAccessibilityElement = true
-		infoButton.accessibilityLabel = AppStrings.Home.rightBarButtonDescription
-		infoButton.accessibilityIdentifier = AccessibilityIdentifiers.Home.rightBarButtonDescription
-		
-		let exportButton = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(exportButtonTapped))
-		exportButton.isAccessibilityElement = true
-		exportButton.accessibilityLabel = "TBD: some..."
-		exportButton.accessibilityIdentifier = "TBD: 20220601"
-		
-		navigationItem.rightBarButtonItems = [exportButton, UIBarButtonItem(customView: infoButton)]
+		navigationItem.rightBarButtonItems = [exportCertificatesBarButtonItem, infoBarButtonItem, exportCertificatesBarButtonItem]
 	}
 
 	private func setupTableView() {

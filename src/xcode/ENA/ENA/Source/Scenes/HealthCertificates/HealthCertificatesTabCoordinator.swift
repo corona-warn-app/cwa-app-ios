@@ -127,7 +127,6 @@ final class HealthCertificatesTabCoordinator {
 				self?.presentInfoScreen()
 			},
 			onExportBarButtonItemTap: { [weak self] in
-				print("show export VC")
 				self?.presentExportCertificatesInfoScreen()
 			},
 			onChangeAdmissionScenarioTap: { [weak self] in
@@ -211,10 +210,10 @@ final class HealthCertificatesTabCoordinator {
 		return topBottomContainerViewController
 	}
 	
-	private func exportAllCertificatesScreen(
+	private func exportCertificatesInfoScreen(
 		dismissAction: @escaping CompletionBool
 	) -> TopBottomContainerViewController<HealthCertificateExportCertificatesInfoViewController, FooterViewController> {
-		let consentScreen = HealthCertificateExportCertificatesInfoViewController(
+		let healthCertificateExportCertificatesInfoViewController = HealthCertificateExportCertificatesInfoViewController(
 			viewModel: HealthCertificateExportCertificatesInfoViewModel(
 				healthCertificateService: healthCertificateService,
 				vaccinationValueSetsProvider: vaccinationValueSetsProvider
@@ -235,7 +234,7 @@ final class HealthCertificatesTabCoordinator {
 		
 		let footerViewController = FooterViewController(
 			FooterViewModel(
-				primaryButtonName: "Weiter", // TODO: localize
+				primaryButtonName: AppStrings.HealthCertificate.ExportCertificatesInfo.primaryButton,
 				isPrimaryButtonEnabled: true,
 				isSecondaryButtonEnabled: false,
 				isSecondaryButtonHidden: true,
@@ -243,10 +242,12 @@ final class HealthCertificatesTabCoordinator {
 			)
 		)
 		
-		return TopBottomContainerViewController(
-			topController: consentScreen,
+		let topBottomContainerViewController = TopBottomContainerViewController(
+			topController: healthCertificateExportCertificatesInfoViewController,
 			bottomController: footerViewController
 		)
+		
+		return topBottomContainerViewController
 	}
 
 	private func presentInfoScreen() {
@@ -269,16 +270,17 @@ final class HealthCertificatesTabCoordinator {
 	}
 	
 	private func presentExportCertificatesInfoScreen() {
-		let exportAllCertificatesScreen = exportAllCertificatesScreen(
+		let exportCertificatesInfoScreen = exportCertificatesInfoScreen(
 			dismissAction: { [weak self] animated in
 				self?.viewController.dismiss(animated: animated)
 			}
 		)
 		
 		printNavigationController = DismissHandlingNavigationController(
-			rootViewController: exportAllCertificatesScreen,
+			rootViewController: exportCertificatesInfoScreen,
 			transparent: true
 		)
+		
 		viewController.present(printNavigationController, animated: true)
 	}
 	
