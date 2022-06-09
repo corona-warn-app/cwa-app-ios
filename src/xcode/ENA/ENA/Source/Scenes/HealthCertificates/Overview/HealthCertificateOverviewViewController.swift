@@ -437,12 +437,11 @@ class HealthCertificateOverviewViewController: UITableViewController {
 		}
 
 		let tooltipViewController = TooltipViewController(
-			viewModel: .init(
-				for: .exportCertificates,
-				onClose: {
-					Log.info("Close popup ... ")
-				}
-			)
+			viewModel: .init(for: .exportCertificates),
+			onClose: { [weak self] in
+				guard let tooltipViewController = self?.presentedViewController as? TooltipViewController else { return }
+				tooltipViewController.dismiss(animated: true)
+			}
 		)
 		
 		tooltipViewController.popoverPresentationController?.barButtonItem = barButtonItem

@@ -55,8 +55,12 @@ class TooltipViewController: UIViewController, UIPopoverPresentationControllerDe
 
 	let viewModel: TooltipViewModel
 
-	init(viewModel: TooltipViewModel) {
+	init(
+		viewModel: TooltipViewModel,
+		onClose: @escaping CompletionVoid
+	) {
 		self.viewModel = viewModel
+		self.onClose = onClose
 		super.init(nibName: nil, bundle: nil)
 
 		modalPresentationStyle = .popover
@@ -95,14 +99,14 @@ class TooltipViewController: UIViewController, UIPopoverPresentationControllerDe
 	}
 
 	func presentationControllerDidDismiss(_ presentationController: UIPresentationController) {
-		viewModel.onClose()
+		onClose()
 	}
 
 	// MARK: - Private
 
 	@objc
 	private func closeButtonTapped() {
-		viewModel.onClose()
+		onClose()
 	}
 	
 	private func setupLayout() {
@@ -127,4 +131,6 @@ class TooltipViewController: UIViewController, UIPopoverPresentationControllerDe
 		titleLabel.text = viewModel.title
 		descriptionLabel.text = viewModel.description
 	}
+	
+	private let onClose: CompletionVoid
 }

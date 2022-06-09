@@ -22,17 +22,11 @@ class TooltipViewModel {
 			return title
 		}
 	}
-
-	let onClose: CompletionVoid
 	
 	var info: TooltipInfo
 	
-	init(
-		for info: TooltipInfo,
-		onClose: @escaping CompletionVoid
-	) {
+	init(for info: TooltipInfo) {
 		self.info = info
-		self.onClose = onClose
 	}
 	
 	enum TooltipInfo {
