@@ -10,7 +10,7 @@ class HealthCertificateExportCertificatesInfoViewModelTests: XCTestCase {
 	var sut: HealthCertificateExportCertificatesInfoViewModel!
 
     override func setUpWithError() throws {
-		sut = HealthCertificateExportCertificatesInfoViewModel(onDismiss: {_ in }, onNext: {})
+		sut = HealthCertificateExportCertificatesInfoViewModel(onDismiss: { _ in }, onNext: {})
     }
 
     override func tearDownWithError() throws {
