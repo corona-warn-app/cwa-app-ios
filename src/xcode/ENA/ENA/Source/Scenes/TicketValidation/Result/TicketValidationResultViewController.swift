@@ -43,12 +43,14 @@ class TicketValidationResultViewController: DynamicTableViewController, DismissH
 		super.viewWillAppear(animated)
 
 		navigationController?.setupTransparentNavigationBar()
+		setupStatusBarViewBackgroundColorIfNeeded()
 	}
 
 	override func viewWillDisappear(_ animated: Bool) {
 		super.viewWillDisappear(animated)
 
 		navigationController?.restoreOriginalNavigationBar()
+		revertStatusBarViewBackgroundColorIfNeeded()
 	}
 
 	// MARK: - DismissHandling
