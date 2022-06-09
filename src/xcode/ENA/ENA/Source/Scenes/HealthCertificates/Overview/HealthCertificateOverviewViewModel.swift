@@ -138,7 +138,7 @@ class HealthCertificateOverviewViewModel {
 	
 	// MARK: - Private
 
-	private let store: HealthCertificateStoring
+	private(set) var store: HealthCertificateStoring
 	private let healthCertificateService: HealthCertificateService
 	private let healthCertificateRequestService: HealthCertificateRequestService
 	private let cclService: CCLServable

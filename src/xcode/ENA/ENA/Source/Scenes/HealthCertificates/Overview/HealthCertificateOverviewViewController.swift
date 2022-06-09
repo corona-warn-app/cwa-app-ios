@@ -432,6 +432,10 @@ class HealthCertificateOverviewViewController: UITableViewController {
 	}
 	
 	private func showExportCertificatesTooltipIfNeeded(_ barButtonItem: UIBarButtonItem) {
+		guard viewModel.store.shouldShowExportCertificatesTooltip else {
+			return
+		}
+
 		let tooltipViewController = TooltipViewController(
 			viewModel: .init(
 				for: .exportCertificates,
@@ -445,7 +449,9 @@ class HealthCertificateOverviewViewController: UITableViewController {
 		tooltipViewController.popoverPresentationController?.permittedArrowDirections = .up
 
 		DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [weak self] in
-			self?.present(tooltipViewController, animated: true)
+			self?.present(tooltipViewController, animated: true) { [weak self] in
+				self?.viewModel.store.shouldShowExportCertificatesTooltip = false
+			}
 		}
 	}
 }
