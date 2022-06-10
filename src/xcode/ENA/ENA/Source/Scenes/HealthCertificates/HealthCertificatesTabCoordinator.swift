@@ -6,6 +6,7 @@ import UIKit
 import OpenCombine
 import PDFKit
 
+// swiftlint:disable type_body_length
 final class HealthCertificatesTabCoordinator {
 	
 	// MARK: - Init
@@ -109,6 +110,8 @@ final class HealthCertificatesTabCoordinator {
 		get { store.healthCertificateInfoScreenShown }
 		set { store.healthCertificateInfoScreenShown = newValue }
 	}
+	
+	private var printNavigationController: UINavigationController!
 
 	// MARK: Show Screens
 
@@ -123,6 +126,9 @@ final class HealthCertificatesTabCoordinator {
 			cclService: cclService,
 			onInfoBarButtonItemTap: { [weak self] in
 				self?.presentInfoScreen()
+			},
+			onExportBarButtonItemTap: { [weak self] in
+				self?.presentExportCertificatesInfoScreen()
 			},
 			onChangeAdmissionScenarioTap: { [weak self] in
 				self?.showAdmissionScenarios()
@@ -204,6 +210,35 @@ final class HealthCertificatesTabCoordinator {
 		)
 		return topBottomContainerViewController
 	}
+	
+	private func exportCertificatesInfoScreen(
+		dismissAction: @escaping CompletionBool,
+		nextAction: @escaping CompletionVoid
+	) -> TopBottomContainerViewController<HealthCertificateExportCertificatesInfoViewController, FooterViewController> {
+		let healthCertificateExportCertificatesInfoViewController = HealthCertificateExportCertificatesInfoViewController(
+			viewModel: .init(
+				onDismiss: dismissAction,
+				onNext: nextAction
+			)
+		)
+		
+		let footerViewController = FooterViewController(
+			FooterViewModel(
+				primaryButtonName: AppStrings.HealthCertificate.ExportCertificatesInfo.primaryButton,
+				isPrimaryButtonEnabled: true,
+				isSecondaryButtonEnabled: false,
+				isSecondaryButtonHidden: true,
+				backgroundColor: .enaColor(for: .background)
+			)
+		)
+		
+		let topBottomContainerViewController = TopBottomContainerViewController(
+			topController: healthCertificateExportCertificatesInfoViewController,
+			bottomController: footerViewController
+		)
+		
+		return topBottomContainerViewController
+	}
 
 	private func presentInfoScreen() {
 		// Promise the navigation view controller will be available,
@@ -222,6 +257,24 @@ final class HealthCertificatesTabCoordinator {
 		// otherwise the inset of the navigation title is wrong
 		navigationController = UINavigationController(rootViewController: infoVC)
 		viewController.present(navigationController, animated: true)
+	}
+	
+	private func presentExportCertificatesInfoScreen() {
+		var dismissHandlingNavigationController: DismissHandlingNavigationController!
+		let exportCertificatesInfoScreen = exportCertificatesInfoScreen(
+			dismissAction: { animated in
+				dismissHandlingNavigationController.dismiss(animated: animated)
+			},
+			nextAction: {
+				Log.info("\(#function): TODO: Handle next button in separate story")
+			}
+		)
+		
+		dismissHandlingNavigationController = DismissHandlingNavigationController(
+			rootViewController: exportCertificatesInfoScreen,
+			transparent: true
+		)
+		viewController.present(dismissHandlingNavigationController, animated: true)
 	}
 	
 	private func showActivityIndicator(from view: UIView) {
