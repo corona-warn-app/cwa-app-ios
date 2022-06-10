@@ -330,7 +330,7 @@ final class HealthCertificate: Codable, Equatable, Comparable, RecycleBinIdentif
 			guard let ageInHours = ageInHours else {
 				return false
 			}
-			return ageInHours <= 72 ? true : false
+			return ageInHours <= 72
 		}
 	}
 	
