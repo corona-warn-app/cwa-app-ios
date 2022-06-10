@@ -66,6 +66,12 @@ class HealthCertificateOverviewViewController: UITableViewController {
 				self?.tableView.reloadData()
 			}
 			.store(in: &subscriptions)
+		
+		#if DEBUG
+		if isUITesting {
+			viewModel.store.shouldShowExportCertificatesTooltip = LaunchArguments.healthCertificate.shouldShowExportCertificatesTooltip.boolValue
+		}
+		#endif
 	}
 
 	@available(*, unavailable)
