@@ -214,7 +214,7 @@ final class HealthCertificatesTabCoordinator {
 		dismissAction: @escaping CompletionBool
 	) -> TopBottomContainerViewController<HealthCertificateExportCertificatesInfoViewController, FooterViewController> {
 		let healthCertificateExportCertificatesInfoViewController = HealthCertificateExportCertificatesInfoViewController(
-			viewModel: HealthCertificateExportCertificatesInfoViewModel(
+			viewModel: .init(
 				healthCertificateService: healthCertificateService,
 				vaccinationValueSetsProvider: vaccinationValueSetsProvider
 			),
