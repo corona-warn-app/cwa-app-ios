@@ -196,7 +196,7 @@ class HealthCertificateOverviewViewController: UITableViewController {
 	}()
 
 	private func setupBarButtonItems() {
-		navigationItem.rightBarButtonItems = [exportCertificatesBarButtonItem, infoBarButtonItem, exportCertificatesBarButtonItem]
+		navigationItem.rightBarButtonItems = [exportCertificatesBarButtonItem, infoBarButtonItem]
 	}
 
 	private func setupTableView() {

@@ -8,7 +8,6 @@ class HealthCertificateExportCertificatesInfoViewModel {
 	
 	// MARK: - Internal
 	
-	let title: String = AppStrings.HealthCertificate.ExportCertificatesInfo.title
 	var hidesCloseButton: Bool = false
 	
 	let onDismiss: CompletionBool
