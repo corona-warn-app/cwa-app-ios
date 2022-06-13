@@ -29,6 +29,18 @@ class ValidationInformationViewController: DynamicTableViewController, DismissHa
 		setupView()
 	}
 
+	override func viewWillAppear(_ animated: Bool) {
+		super.viewWillAppear(animated)
+		
+		setupStatusBarViewBackgroundColorIfNeeded()
+	}
+	
+	override func viewWillDisappear(_ animated: Bool) {
+		super.viewWillDisappear(animated)
+
+		revertStatusBarViewBackgroundColorIfNeeded()
+	}
+	
 	// MARK: - Protocol DismissHandling
 
 	func wasAttemptedToBeDismissed() {
