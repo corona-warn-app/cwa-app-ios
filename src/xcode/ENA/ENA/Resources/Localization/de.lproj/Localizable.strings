@@ -2996,9 +2996,9 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "HealthCertificate_ExportCertificatesInfo_Copy01" = "Sie können in einem Schritt alle in Ihrer App vorhandenen Zertifikate in einem gemeinsamen PDF-Dokument speichern. Auf das PDF-Dokument haben zunächst nur Sie Zugriff. Sie können im Anschluss entscheiden, ob Sie es auf Ihrem Smartphone speichern oder in andere Apps importieren möchten.";
 
-"HealthCertificate_ExportCertificatesInfo_Copy02" = "Beachten Sie, dass das PDF-Dokument sensible Informationen enthält. Wir empfehlen Ihnen, hiermit sorgsam umzugehen und es nur Personen vorzuzeigen, denen Sie vertrauen und die zur Prüfung des Nachweises berechtigt sind.";
+"HealthCertificate_ExportCertificatesInfo_Copy02" = "Beachten Sie, dass das PDF-Dokument sensible Informationen enthält. Es wird empfohlen, hiermit sorgsam umzugehen und es nur Personen vorzuzeigen, denen Sie vertrauen und die zur Prüfung des Nachweises berechtigt sind.";
 
-"HealthCertificate_ExportCertificatesInfo_Copy03" = "Wir empfehlen, das PDF-Dokument nicht zu veröffentlichen und nicht per E-Mail zu versenden oder über andere Apps zu teilen.";
+"HealthCertificate_ExportCertificatesInfo_Copy03" = "Es wird empfohlen, das PDF-Dokument nicht zu veröffentlichen und nicht per E-Mail zu versenden oder über andere Apps zu teilen.";
 
 "HealthCertificate_ExportCertificatesInfo_PrimaryButton" = "Weiter";
 
@@ -3855,4 +3855,8 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "FamilyMemberCoronaTest_DeleteAll_AlertCancelButtonTitle" = "Abbrechen";
 
+/* Tooltip */
 
+"Tooltip_ExportCertificates_Title" = "Zertifikate exportieren";
+
+"Tooltip_ExportCertificates_Description" = "In einem Schritt alle Ihre Zertifikate in einem gemeinsamen PDF-Dokument speichern";

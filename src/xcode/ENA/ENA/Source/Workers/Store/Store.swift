@@ -228,6 +228,10 @@ protocol HealthCertificateStoring: AnyObject {
 	var shouldShowRegroupingAlert: Bool { get set }
 
 	var expiringSoonAndExpiredNotificationsRemoved: Bool { get set }
+	
+	/// `true` if the user needs to be shown the Export-Certificates tooltip.
+	/// We only show it once. By default the value of this property is `true`.
+	var shouldShowExportCertificatesTooltip: Bool { get set }
 
 }
 

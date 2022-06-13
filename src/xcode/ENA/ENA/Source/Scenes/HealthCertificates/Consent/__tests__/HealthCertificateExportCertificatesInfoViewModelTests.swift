@@ -30,14 +30,6 @@ class HealthCertificateExportCertificatesInfoViewModelTests: CWATestCase {
 		XCTAssertEqual(dynamicTableViewModel.numberOfRows(section: 0), 4)
 	}
 	
-	func testGIVEN_Title_THEN_AreCorrect() {
-		// GIVEN
-		let title = sut.title
-		
-		// THEN
-		XCTAssertEqual(title, AppStrings.HealthCertificate.ExportCertificatesInfo.title)
-	}
-	
 	func testGIVEN_HidesCloseButton_THEN_ShouldBeFalse() {
 		// GIVEN
 		let hidesCloseButton = sut.hidesCloseButton
