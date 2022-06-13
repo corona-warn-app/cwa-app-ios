@@ -4,57 +4,10 @@
 
 import UIKit
 
-class TooltipViewController: UIViewController, UIPopoverPresentationControllerDelegate {
-
-	let containerStackView: UIStackView = {
-		let stackview = UIStackView()
-		stackview.distribution = .fillProportionally
-		stackview.axis = .vertical
-		stackview.alignment = .fill
-		stackview.translatesAutoresizingMaskIntoConstraints = false
-		return stackview
-	}()
-
-	let headerStackView: UIStackView = {
-		let stackview = UIStackView()
-		stackview.distribution = .equalSpacing
-		stackview.axis = .horizontal
-		stackview.spacing = 16
-		stackview.translatesAutoresizingMaskIntoConstraints = false
-		return stackview
-	}()
-
-	lazy var closeButton: UIButton = {
-		let button = UIButton(type: .custom)
-		let closeIcon = UIImage(imageLiteralResourceName: "Icons_Tooltip_Close")
-		button.setImage(closeIcon, for: .normal)
-		button.tintColor = .enaColor(for: .darkBackground)
-		button.translatesAutoresizingMaskIntoConstraints = false
-		button.addTarget(self, action: #selector(closeButtonTapped), for: .touchUpInside)
-		return button
-	}()
-
-	let titleLabel: ENALabel = {
-		let enaLabel = ENALabel()
-		enaLabel.style = .headline
-		enaLabel.textColor = .enaColor(for: .darkBackground)
-		enaLabel.numberOfLines = 1
-		enaLabel.translatesAutoresizingMaskIntoConstraints = false
-		return enaLabel
-	}()
-
-	let descriptionLabel: ENALabel = {
-		let enaLabel = ENALabel()
-		enaLabel.style = .body
-		enaLabel.textColor = .enaColor(for: .darkBackground)
-		enaLabel.numberOfLines = 0
-		enaLabel.lineBreakMode = .byWordWrapping
-		enaLabel.translatesAutoresizingMaskIntoConstraints = false
-		return enaLabel
-	}()
-
-	let viewModel: TooltipViewModel
-
+class TooltipViewController: UIViewController {
+	
+	// MARK: - Init
+	
 	init(
 		viewModel: TooltipViewModel,
 		onClose: @escaping CompletionVoid
@@ -70,6 +23,8 @@ class TooltipViewController: UIViewController, UIPopoverPresentationControllerDe
 	required init?(coder: NSCoder) {
 		fatalError("init(coder:) has not been implemented")
 	}
+	
+	// MARK: - Overrides
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
@@ -92,18 +47,59 @@ class TooltipViewController: UIViewController, UIPopoverPresentationControllerDe
 		preferredContentSize = view.systemLayoutSizeFitting(UIView.layoutFittingExpandedSize)
 	}
 
-	// MARK: - Protocol UIPopoverPresentationControllerDelegate
-
-	func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
-		return  .none
-	}
-
-	func presentationControllerDidDismiss(_ presentationController: UIPresentationController) {
-		onClose()
-	}
-
 	// MARK: - Private
 
+	private let viewModel: TooltipViewModel
+	
+	private let containerStackView: UIStackView = {
+		let stackview = UIStackView()
+		stackview.distribution = .fillProportionally
+		stackview.axis = .vertical
+		stackview.alignment = .fill
+		stackview.translatesAutoresizingMaskIntoConstraints = false
+		return stackview
+	}()
+
+	private let headerStackView: UIStackView = {
+		let stackview = UIStackView()
+		stackview.distribution = .equalSpacing
+		stackview.axis = .horizontal
+		stackview.spacing = 16
+		stackview.translatesAutoresizingMaskIntoConstraints = false
+		return stackview
+	}()
+
+	private lazy var closeButton: UIButton = {
+		let button = UIButton(type: .custom)
+		let closeIcon = UIImage(imageLiteralResourceName: "Icons_Tooltip_Close")
+		button.setImage(closeIcon, for: .normal)
+		button.tintColor = .enaColor(for: .darkBackground)
+		button.translatesAutoresizingMaskIntoConstraints = false
+		button.addTarget(self, action: #selector(closeButtonTapped), for: .touchUpInside)
+		return button
+	}()
+
+	private let titleLabel: ENALabel = {
+		let enaLabel = ENALabel()
+		enaLabel.style = .headline
+		enaLabel.textColor = .enaColor(for: .darkBackground)
+		enaLabel.numberOfLines = 1
+		enaLabel.translatesAutoresizingMaskIntoConstraints = false
+		return enaLabel
+	}()
+
+	private let descriptionLabel: ENALabel = {
+		let enaLabel = ENALabel()
+		enaLabel.style = .body
+		enaLabel.textColor = .enaColor(for: .darkBackground)
+		enaLabel.numberOfLines = 0
+		enaLabel.lineBreakMode = .byWordWrapping
+		enaLabel.translatesAutoresizingMaskIntoConstraints = false
+		return enaLabel
+	}()
+	
+	private let onClose: CompletionVoid
+	
 	@objc
 	private func closeButtonTapped() {
 		onClose()
@@ -131,6 +127,16 @@ class TooltipViewController: UIViewController, UIPopoverPresentationControllerDe
 		titleLabel.text = viewModel.title
 		descriptionLabel.text = viewModel.description
 	}
-	
-	private let onClose: CompletionVoid
+}
+
+// MARK: - Protocol UIPopoverPresentationControllerDelegate
+
+extension TooltipViewController: UIPopoverPresentationControllerDelegate {
+	func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
+		return  .none
+	}
+
+	func presentationControllerDidDismiss(_ presentationController: UIPresentationController) {
+		onClose()
+	}
 }

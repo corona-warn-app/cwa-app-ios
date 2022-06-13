@@ -5,6 +5,15 @@
 import UIKit
 
 class TooltipViewModel {
+	
+	// MARK: - Init
+	
+	init(for info: TooltipInfo) {
+		self.info = info
+	}
+	
+	// MARK: - Internal
+
 	var title: String {
 		switch info {
 		case .exportCertificates:
@@ -23,12 +32,12 @@ class TooltipViewModel {
 		}
 	}
 	
-	var info: TooltipInfo
+	// MARK: - Private
 	
-	init(for info: TooltipInfo) {
-		self.info = info
-	}
-	
+	private let info: TooltipInfo
+}
+
+extension TooltipViewModel {
 	enum TooltipInfo {
 		case exportCertificates
 		case custom(title: String, description: String)
