@@ -3855,4 +3855,8 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "FamilyMemberCoronaTest_DeleteAll_AlertCancelButtonTitle" = "Abbrechen";
 
+/* Tooltip */
 
+"Tooltip_ExportCertificates_Title" = "Zertifikate exportieren";
+
+"Tooltip_ExportCertificates_Description" = "In einem Schritt alle Ihre Zertifikate in einem gemeinsamen PDF-Dokument speichern";
