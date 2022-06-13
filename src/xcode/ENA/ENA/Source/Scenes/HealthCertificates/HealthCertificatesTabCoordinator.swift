@@ -215,7 +215,7 @@ final class HealthCertificatesTabCoordinator {
 	) -> TopBottomContainerViewController<HealthCertificateExportCertificatesInfoViewController, FooterViewController> {
 		let healthCertificateExportCertificatesInfoViewController = HealthCertificateExportCertificatesInfoViewController(
 			viewModel: .init(
-				healthCertificateService: healthCertificateService,
+				healthCertifiedPersons: healthCertificateService.healthCertifiedPersons,
 				vaccinationValueSetsProvider: vaccinationValueSetsProvider
 			),
 			onDismiss: dismissAction,
@@ -531,7 +531,7 @@ final class HealthCertificatesTabCoordinator {
 		exportItem: PDFExportItem
 	) {
 		let activityViewController = UIActivityViewController(activityItems: [exportItem], applicationActivities: nil)
-		viewController.present(activityViewController, animated: true, completion: nil)
+		self.printNavigationController.present(activityViewController, animated: true, completion: nil)
 	}
 	
 	private func showPdfPrintErrorAlert() {
@@ -561,6 +561,6 @@ final class HealthCertificatesTabCoordinator {
 		okayAction.accessibilityIdentifier = AccessibilityIdentifiers.HealthCertificate.PrintPdf.okAction
 		alert.addAction(okayAction)
 
-		viewController.present(alert, animated: true, completion: nil)
+		self.printNavigationController.present(alert, animated: true, completion: nil)
 	}
 }
