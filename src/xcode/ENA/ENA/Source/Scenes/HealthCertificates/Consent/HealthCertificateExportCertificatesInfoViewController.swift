@@ -3,15 +3,23 @@
 //
 
 import UIKit
+import PDFKit
 
 class HealthCertificateExportCertificatesInfoViewController: DynamicTableViewController, FooterViewHandling, DismissHandling {
 	
 	// MARK: - Init
 	
 	init(
-		viewModel: HealthCertificateExportCertificatesInfoViewModel
+		viewModel: HealthCertificateExportCertificatesInfoViewModel,
+		onDismiss: @escaping CompletionBool,
+		onTapContinue: @escaping (PDFDocument) -> Void,
+		showErrorAlert: @escaping (HealthCertificatePDFGenerationError) -> Void
 	) {
 		self.viewModel = viewModel
+		self.onDismiss = onDismiss
+		self.onTapContinue = onTapContinue
+		self.showErrorAlert = showErrorAlert
+
 		super.init(nibName: nil, bundle: nil)
 	}
 	
@@ -31,25 +39,50 @@ class HealthCertificateExportCertificatesInfoViewController: DynamicTableViewCon
 		setupView()
 	}
 	
+	override func viewWillAppear(_ animated: Bool) {
+		super.viewWillAppear(animated)
+		
+		setupStatusBarViewBackgroundColorIfNeeded()
+	}
+	
+	override func viewWillDisappear(_ animated: Bool) {
+		super.viewWillDisappear(animated)
+
+		revertStatusBarViewBackgroundColorIfNeeded()
+	}
+
 	// MARK: - Protocol DismissHandling
 
 	func wasAttemptedToBeDismissed() {
-		viewModel.onDismiss(true)
+		onDismiss(true)
 	}
 	
 	// MARK: - Protocol FooterViewHandling
 
 	func didTapFooterViewButton(_ type: FooterViewModel.ButtonType) {
-		switch type {
-		case .primary:
-			viewModel.onNext()
-		default: break
+		if type == .primary {
+			footerView?.setLoadingIndicator(true, disable: true, button: .primary)
+			viewModel.generatePDFData { result in
+				DispatchQueue.main.async { [weak self] in
+					self?.footerView?.setLoadingIndicator(false, disable: false, button: .primary)
+
+					switch result {
+					case let .success(pdfDocument):
+						self?.onTapContinue(pdfDocument)
+					case let .failure(error):
+						self?.showErrorAlert(error)
+					}
+				}
+			}
 		}
 	}
-	
+
 	// MARK: - Private
 	
 	private let viewModel: HealthCertificateExportCertificatesInfoViewModel
+	private let onDismiss: CompletionBool
+	private let onTapContinue: (PDFDocument) -> Void
+	private let showErrorAlert: (HealthCertificatePDFGenerationError) -> Void
 	
 	private func setupView() {
 		dynamicTableViewModel = viewModel.dynamicTableViewModel

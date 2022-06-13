@@ -11,7 +11,7 @@ class HealthCertificatePDFVersionViewModel {
 	// MARK: - Init
 
 	init(
-		healthCertificate: HealthCertificate,
+		healthCertificate: HealthCertificate?,
 		pdfDocument: PDFDocument
 	) {
 		self.healthCertificate = healthCertificate
@@ -20,11 +20,11 @@ class HealthCertificatePDFVersionViewModel {
 
 	// MARK: - Internal
 
-	let healthCertificate: HealthCertificate
+	let healthCertificate: HealthCertificate?
 	let pdfDocument: PDFDocument
 
 	var certificatePersonName: String {
-		return healthCertificate.name.fullName
+		return healthCertificate?.name.fullName ?? ""
 	}
 	
 	var shareTitle: String {

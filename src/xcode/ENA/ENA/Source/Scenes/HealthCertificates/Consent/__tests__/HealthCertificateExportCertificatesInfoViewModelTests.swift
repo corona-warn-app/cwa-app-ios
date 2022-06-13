@@ -3,6 +3,8 @@
 //
 
 import XCTest
+import HealthCertificateToolkit
+
 @testable import ENA
 
 class HealthCertificateExportCertificatesInfoViewModelTests: XCTestCase {
@@ -10,7 +12,19 @@ class HealthCertificateExportCertificatesInfoViewModelTests: XCTestCase {
 	var sut: HealthCertificateExportCertificatesInfoViewModel!
 
     override func setUpWithError() throws {
-		sut = HealthCertificateExportCertificatesInfoViewModel(onDismiss: { _ in }, onNext: {})
+		let healthCertificateService = HealthCertificateService(
+			store: MockTestStore(),
+			dccSignatureVerifier: DCCSignatureVerifyingStub(),
+			dscListProvider: MockDSCListProvider(),
+			appConfiguration: CachedAppConfigurationMock(),
+			cclService: FakeCCLService(),
+			recycleBin: .fake(),
+			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
+		)
+		
+		let vaccinationValueSetsProvider = VaccinationValueSetsProvider(client: CachingHTTPClientMock(), store: MockTestStore())
+		
+		sut = HealthCertificateExportCertificatesInfoViewModel(healthCertificateService: healthCertificateService, vaccinationValueSetsProvider: vaccinationValueSetsProvider)
     }
 
     override func tearDownWithError() throws {
