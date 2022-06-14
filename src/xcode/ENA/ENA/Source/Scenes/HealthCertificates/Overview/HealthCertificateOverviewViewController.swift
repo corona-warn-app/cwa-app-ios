@@ -37,6 +37,7 @@ class HealthCertificateOverviewViewController: UITableViewController {
 			.sink { [weak self] _ in
 				self?.tableView.reloadData()
 				self?.updateEmptyState()
+				self?.setupBarButtonItems()
 			}
 			.store(in: &subscriptions)
 
@@ -84,8 +85,8 @@ class HealthCertificateOverviewViewController: UITableViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 
-		setupBarButtonItems()
 		setupTableView()
+		setupBarButtonItems()
 
 		navigationItem.largeTitleDisplayMode = .automatic
 		navigationItem.setHidesBackButton(true, animated: false)
@@ -205,7 +206,11 @@ class HealthCertificateOverviewViewController: UITableViewController {
 	}()
 
 	private func setupBarButtonItems() {
-		navigationItem.rightBarButtonItems = [exportCertificatesBarButtonItem, infoBarButtonItem]
+		if viewModel.healthCertifiedPersons.isEmpty {
+			navigationItem.rightBarButtonItems = [infoBarButtonItem]
+		} else {
+			navigationItem.rightBarButtonItems = [exportCertificatesBarButtonItem, infoBarButtonItem]
+		}
 	}
 
 	private func setupTableView() {

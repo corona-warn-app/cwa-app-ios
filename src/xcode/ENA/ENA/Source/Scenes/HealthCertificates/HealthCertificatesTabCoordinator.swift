@@ -225,10 +225,12 @@ final class HealthCertificatesTabCoordinator {
 			showErrorAlert: { [weak self] error in
 				guard let self = self else { return }
 				
-				self.showErrorAlert(
-					title: AppStrings.HealthCertificate.PrintPDF.ErrorAlert.fetchValueSets.title,
-					error: error
-				)
+				switch error {
+				case .fetchValueSets, .createStrongPointer:
+					self.showFetchValueSetsErrorAlert()
+				case .pdfGenerationFailed:
+					self.showPdfPrintErrorAlert()
+				}
 			}
 		)
 		
@@ -537,7 +539,7 @@ final class HealthCertificatesTabCoordinator {
 	private func showPdfPrintErrorAlert() {
 		let alert = UIAlertController(
 			title: AppStrings.HealthCertificate.PrintPDF.ErrorAlert.pdfGeneration.title,
-			message: AppStrings.HealthCertificate.PrintPDF.ErrorAlert.pdfGeneration.message,
+			message: AppStrings.HealthCertificate.PrintPDF.ErrorAlert.pdfGeneration.shortMessage,
 			preferredStyle: .alert
 		)
 		
@@ -545,7 +547,7 @@ final class HealthCertificatesTabCoordinator {
 			title: AppStrings.HealthCertificate.PrintPDF.ErrorAlert.pdfGeneration.faq,
 			style: .default,
 			handler: { _ in
-				LinkHelper.open(urlString: AppStrings.Links.healthCertificatePrintFAQ)
+				LinkHelper.open(urlString: AppStrings.Links.healthCertificatePrintAllFAQ)
 			}
 		)
 		faqAction.accessibilityIdentifier = AccessibilityIdentifiers.HealthCertificate.PrintPdf.faqAction
@@ -554,13 +556,32 @@ final class HealthCertificatesTabCoordinator {
 		let okayAction = UIAlertAction(
 			title: AppStrings.HealthCertificate.PrintPDF.ErrorAlert.pdfGeneration.ok,
 			style: .cancel,
-			handler: { _ in
-				alert.dismiss(animated: true)
+			handler: { [weak self] _ in
+				self?.printNavigationController.dismiss(animated: true)
 			}
 		)
 		okayAction.accessibilityIdentifier = AccessibilityIdentifiers.HealthCertificate.PrintPdf.okAction
 		alert.addAction(okayAction)
 
-		viewController.present(alert, animated: true, completion: nil)
+		self.printNavigationController.present(alert, animated: true, completion: nil)
+	}
+	
+	private func showFetchValueSetsErrorAlert() {
+		let alert = UIAlertController(
+			title: AppStrings.HealthCertificate.PrintPDF.ErrorAlert.fetchValueSets.title,
+			message: AppStrings.HealthCertificate.PrintPDF.ErrorAlert.fetchValueSets.message,
+			preferredStyle: .alert
+		)
+
+		let okayAction = UIAlertAction(
+			title: AppStrings.Common.alertActionOk,
+			style: .cancel,
+			handler: { [weak self] _ in
+				self?.printNavigationController.dismiss(animated: true)
+			}
+		)
+		alert.addAction(okayAction)
+		
+		self.printNavigationController.present(alert, animated: true, completion: nil)
 	}
 }
