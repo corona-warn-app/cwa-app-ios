@@ -22,6 +22,8 @@ class HealthCertificateExportCertificatesInfoViewModel {
 	
 	var hidesCloseButton: Bool = false
 	
+	var onChangeGeneratePDFDataProgess: ((_ pageInProgress: Int, _ numberOfPages: Int) -> Void)?
+	
 	var dynamicTableViewModel: DynamicTableViewModel {
 		.init([
 			.section(
@@ -54,47 +56,59 @@ class HealthCertificateExportCertificatesInfoViewModel {
 	func generatePDFData(
 		completion: @escaping (Result<PDFDocument, HealthCertificatePDFGenerationError>) -> Void
 	) {
-		vaccinationValueSetsProvider.latestVaccinationCertificateValueSets()
-			.sink(
-				receiveCompletion: { result in
-					switch result {
-					case .finished:
-						break
-					case .failure(let error):
-						if case CachingHTTPClient.CacheError.dataVerificationError = error {
-							Log.error("Signature verification error.", log: .vaccination, error: error)
+		// Delay to give user a chance to see the content on info alert or cancel the process 
+		DispatchQueue.main.asyncAfter(deadline: .now() + 2, execute: {
+			self.vaccinationValueSetsProvider.latestVaccinationCertificateValueSets()
+				.sink(
+					receiveCompletion: { result in
+						switch result {
+						case .finished:
+							break
+						case .failure(let error):
+							if case CachingHTTPClient.CacheError.dataVerificationError = error {
+								Log.error("Signature verification error.", log: .vaccination, error: error)
+							}
+							Log.error("Could not fetch value sets and so failed to create pdf view of all filtered health certificates with error: \(error)")
+							completion(.failure(.fetchValueSets))
 						}
-						Log.error("Could not fetch value sets and so failed to create pdf view of all filtered health certificates with error: \(error)")
-						completion(.failure(.fetchValueSets))
-					}
-				}, receiveValue: { [weak self] valueSets in
-					guard let self = self else {
-						completion(.failure(.createStrongPointer))
-						return
-					}
-					do {
-						let mergedPDFDocument = PDFDocument()
+					}, receiveValue: { [weak self] valueSets in
+						guard let self = self else {
+							completion(.failure(.createStrongPointer))
+							return
+						}
 						
-						// DCCs shall be sorted ascending by the name of the holder
-						let selectedHealthCertificates = self.filteredHealthCertificates(healthCertifiedPersons: self.healthCertifiedPersons.sorted())
-
-						for (index, healthCertificate) in selectedHealthCertificates.enumerated() {
-							let pdfDocument = try healthCertificate.pdfDocument(with: valueSets)
+						do {
+							let mergedPDFDocument = PDFDocument()
 							
-							guard let pdfPage = pdfDocument.page(at: 0) else {
-								return
+							// DCCs shall be sorted ascending by the name of the holder
+							let selectedHealthCertificates = self.filteredHealthCertificates(healthCertifiedPersons: self.healthCertifiedPersons.sorted())
+							
+							self.onChangeGeneratePDFDataProgess?(0, selectedHealthCertificates.count)
+							
+							for (index, healthCertificate) in selectedHealthCertificates.enumerated() {
+								let pdfDocument = try healthCertificate.pdfDocument(with: valueSets)
+								
+								guard let pdfPage = pdfDocument.page(at: 0) else {
+									return
+								}
+								
+								self.onChangeGeneratePDFDataProgess?(index + 1, selectedHealthCertificates.count)
+								mergedPDFDocument.insert(pdfPage, at: index)
 							}
 							
-							mergedPDFDocument.insert(pdfPage, at: index)
+							completion(.success(mergedPDFDocument))
+						} catch {
+							Log.error("Could not create pdf view of all filtered health certificates with error: \(error)")
+							completion(.failure(.pdfGenerationFailed))
 						}
-						completion(.success(mergedPDFDocument))
-					} catch {
-						Log.error("Could not create pdf view of all filtered health certificates with error: \(error)")
-						completion(.failure(.pdfGenerationFailed))
 					}
-				}
-			)
-			.store(in: &subscriptions)
+				)
+				.store(in: &self.subscriptions)
+		})
+	}
+	
+	func removeAllSubscriptions() {
+		subscriptions.removeAll()
 	}
 	
 	func filteredHealthCertificates(healthCertifiedPersons: [HealthCertifiedPerson]) -> [HealthCertificate] {

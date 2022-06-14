@@ -2158,6 +2158,10 @@ enum AppStrings {
 			static let hint02 = NSLocalizedString("HealthCertificate_ExportCertificatesInfo_Copy02", comment: "")
 			static let hint03 = NSLocalizedString("HealthCertificate_ExportCertificatesInfo_Copy03", comment: "")
 			static let primaryButton = NSLocalizedString("HealthCertificate_ExportCertificatesInfo_PrimaryButton", comment: "")
+			static let generatePDFProgressTitle = NSLocalizedString("HealthCertificate_ExportCertificatesInfo_GeneratePDFAlert_Title", comment: "")
+			static let generatePDFProgressMessageInitial = NSLocalizedString("HealthCertificate_ExportCertificatesInfo_GeneratePDFAlert_Message_Initial", comment: "")
+			static let generatePDFProgressMessage = NSLocalizedString("HealthCertificate_ExportCertificatesInfo_GeneratePDFAlert_Message", comment: "")
+			static let generatePDFProgressCancelButton = NSLocalizedString("HealthCertificate_ExportCertificatesInfo_GeneratePDFAlert_Cancel", comment: "")
 		}
 
 		enum Person {
