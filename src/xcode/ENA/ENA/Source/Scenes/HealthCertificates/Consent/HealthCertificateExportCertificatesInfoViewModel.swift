@@ -24,6 +24,10 @@ class HealthCertificateExportCertificatesInfoViewModel {
 	
 	var onChangeGeneratePDFDataProgess: ((_ pageInProgress: Int, _ numberOfPages: Int) -> Void)?
 	
+	var numberOfExportableCertificates: Int {
+		return filteredHealthCertificates(healthCertifiedPersons: healthCertifiedPersons).count
+	}
+	
 	var dynamicTableViewModel: DynamicTableViewModel {
 		.init([
 			.section(
@@ -99,7 +103,7 @@ class HealthCertificateExportCertificatesInfoViewModel {
 							completion(.success(mergedPDFDocument))
 						} catch {
 							Log.error("Could not create pdf view of all filtered health certificates with error: \(error)")
-							completion(.failure(.pdfGenerationFailed))
+							completion(.failure(.batchPDFGenerationFailed))
 						}
 					}
 				)

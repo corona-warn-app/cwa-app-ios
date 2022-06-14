@@ -2259,6 +2259,10 @@ enum AppStrings {
 					static let title = NSLocalizedString("HealthCertificate_PrintPdf_ErrorAlert_ValueSetsFetching_Title", comment: "")
 					static let message = NSLocalizedString("HealthCertificate_PrintPdf_ErrorAlert_ValueSetsFetching_Message", comment: "")
 				}
+				enum noExportableCertificate {
+					static let title = NSLocalizedString("HealthCertificate_PrintPdf_ErrorAlert_NoExportableCertificate_Title", comment: "")
+					static let message = NSLocalizedString("HealthCertificate_PrintPdf_ErrorAlert_NoExportableCertificate_Message", comment: "")
+				}
 			}
 		}
 

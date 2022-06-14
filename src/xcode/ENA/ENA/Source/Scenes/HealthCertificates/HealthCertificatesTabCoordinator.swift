@@ -227,9 +227,17 @@ final class HealthCertificatesTabCoordinator {
 				
 				switch error {
 				case .fetchValueSets, .createStrongPointer:
-					self.showFetchValueSetsErrorAlert()
-				case .pdfGenerationFailed:
-					self.showPdfPrintErrorAlert()
+					self.showPDFErrorAlert(
+						title: AppStrings.HealthCertificate.PrintPDF.ErrorAlert.fetchValueSets.title,
+						error: error)
+				case .pdfGenerationFailed, .batchPDFGenerationFailed:
+					self.showPDFErrorAlert(
+						title: AppStrings.HealthCertificate.PrintPDF.ErrorAlert.pdfGeneration.title,
+						error: error)
+				case .noExportabeCertificate:
+					self.showPDFErrorAlert(
+						title: AppStrings.HealthCertificate.PrintPDF.ErrorAlert.noExportableCertificate.title,
+						error: error)
 				}
 			}
 		)
@@ -536,25 +544,30 @@ final class HealthCertificatesTabCoordinator {
 		self.printNavigationController.present(activityViewController, animated: true, completion: nil)
 	}
 	
-	private func showPdfPrintErrorAlert() {
+	private func showPDFErrorAlert(
+		title: String,
+		error: HealthCertificatePDFGenerationError
+	) {
 		let alert = UIAlertController(
-			title: AppStrings.HealthCertificate.PrintPDF.ErrorAlert.pdfGeneration.title,
-			message: AppStrings.HealthCertificate.PrintPDF.ErrorAlert.pdfGeneration.shortMessage,
+			title: title,
+			message: error.localizedDescription,
 			preferredStyle: .alert
 		)
 		
-		let faqAction = UIAlertAction(
-			title: AppStrings.HealthCertificate.PrintPDF.ErrorAlert.pdfGeneration.faq,
-			style: .default,
-			handler: { _ in
-				LinkHelper.open(urlString: AppStrings.Links.healthCertificatePrintAllFAQ)
-			}
-		)
-		faqAction.accessibilityIdentifier = AccessibilityIdentifiers.HealthCertificate.PrintPdf.faqAction
-		alert.addAction(faqAction)
+		if error == .batchPDFGenerationFailed {
+			let faqAction = UIAlertAction(
+				title: AppStrings.HealthCertificate.PrintPDF.ErrorAlert.pdfGeneration.faq,
+				style: .default,
+				handler: { _ in
+					LinkHelper.open(urlString: AppStrings.Links.healthCertificatePrintAllFAQ)
+				}
+			)
+			faqAction.accessibilityIdentifier = AccessibilityIdentifiers.HealthCertificate.PrintPdf.faqAction
+			alert.addAction(faqAction)
+		}
 		
 		let okayAction = UIAlertAction(
-			title: AppStrings.HealthCertificate.PrintPDF.ErrorAlert.pdfGeneration.ok,
+			title: AppStrings.Common.alertActionOk,
 			style: .cancel,
 			handler: { [weak self] _ in
 				self?.printNavigationController.dismiss(animated: true)
@@ -563,25 +576,6 @@ final class HealthCertificatesTabCoordinator {
 		okayAction.accessibilityIdentifier = AccessibilityIdentifiers.HealthCertificate.PrintPdf.okAction
 		alert.addAction(okayAction)
 
-		self.printNavigationController.present(alert, animated: true, completion: nil)
-	}
-	
-	private func showFetchValueSetsErrorAlert() {
-		let alert = UIAlertController(
-			title: AppStrings.HealthCertificate.PrintPDF.ErrorAlert.fetchValueSets.title,
-			message: AppStrings.HealthCertificate.PrintPDF.ErrorAlert.fetchValueSets.message,
-			preferredStyle: .alert
-		)
-
-		let okayAction = UIAlertAction(
-			title: AppStrings.Common.alertActionOk,
-			style: .cancel,
-			handler: { [weak self] _ in
-				self?.printNavigationController.dismiss(animated: true)
-			}
-		)
-		alert.addAction(okayAction)
-		
 		self.printNavigationController.present(alert, animated: true, completion: nil)
 	}
 }
