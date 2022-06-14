@@ -206,6 +206,7 @@ class HealthCertificateOverviewViewController: UITableViewController {
 	}()
 
 	private func setupBarButtonItems() {
+		// Don't show share button if list of healthCertifiedPersons is empty
 		if viewModel.healthCertifiedPersons.isEmpty {
 			navigationItem.rightBarButtonItems = [infoBarButtonItem]
 		} else {
