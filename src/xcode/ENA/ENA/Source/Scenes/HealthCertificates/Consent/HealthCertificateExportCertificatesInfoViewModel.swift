@@ -56,7 +56,7 @@ class HealthCertificateExportCertificatesInfoViewModel {
 	func generatePDFData(
 		completion: @escaping (Result<PDFDocument, HealthCertificatePDFGenerationError>) -> Void
 	) {
-		// Delay to give user a chance to see the content on info alert or cancel the process 
+		// Delay to give user a chance to see the content on info alert or cancel the process
 		DispatchQueue.main.asyncAfter(deadline: .now() + 2, execute: {
 			self.vaccinationValueSetsProvider.latestVaccinationCertificateValueSets()
 				.sink(
