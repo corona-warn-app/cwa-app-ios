@@ -111,7 +111,13 @@ class HealthCertificatePDFVersionViewController: DynamicTableViewController, UIA
 			return
 		}
 		let temporaryFolder = FileManager.default.temporaryDirectory
-		let pdfFileName = "healthCertificate_\(viewModel.certificatePersonName).pdf"
+		
+		var pdfFileName = "healthCertificates.pdf"
+		
+		if !viewModel.certificatePersonName.isEmpty {
+			pdfFileName = "healthCertificate_\(viewModel.certificatePersonName).pdf"
+		}
+
 		let pdfFileURL = temporaryFolder.appendingPathComponent(pdfFileName)
 		
 		do {

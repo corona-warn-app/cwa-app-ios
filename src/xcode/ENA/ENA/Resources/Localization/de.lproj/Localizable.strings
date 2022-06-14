@@ -3002,6 +3002,14 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "HealthCertificate_ExportCertificatesInfo_PrimaryButton" = "Weiter";
 
+"HealthCertificate_ExportCertificatesInfo_GeneratePDFAlert_Title" = "PDF wird erstellt";
+
+"HealthCertificate_ExportCertificatesInfo_GeneratePDFAlert_Message_Initial" = "Dies kann einige Minuten dauern.";
+
+"HealthCertificate_ExportCertificatesInfo_GeneratePDFAlert_Message" = "Dies kann einige Minuten dauern.\nSeite %@ von %@.";
+
+"HealthCertificate_ExportCertificatesInfo_GeneratePDFAlert_Cancel" = "Abbrechen";
+
 /* CovPass Info Screen */
 
 "CovPass_Check_Info_Title" = "Zertifikatsprüfung durch Dritte";
