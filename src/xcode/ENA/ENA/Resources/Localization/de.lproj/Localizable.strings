@@ -3200,6 +3200,8 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "HealthCertificate_PrintPdf_ErrorAlert_Message" = "Die Druckversion des Zertifikats kann nicht angezeigt werden, da das Zertifikat nicht in Deutschland ausgestellt wurde.";
 
+"HealthCertificate_ExportAll_PrintPdf_ErrorAlert_Message" = "Die Druckversion der Zertifikate kann nicht angezeigt werden.";
+
 "HealthCertificate_PrintPdf_ErrorAlert_FAQ" = "FAQ zur Druckversion";
 
 "HealthCertificate_PrintPdf_ErrorAlert_OK" = "OK";
@@ -3207,6 +3209,10 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 "HealthCertificate_PrintPdf_ErrorAlert_ValueSetsFetching_Title" = "Druckversion anzeigen nicht möglich";
 
 "HealthCertificate_PrintPdf_ErrorAlert_ValueSetsFetching_Message" = "Die Druckversion des Zertifikats kann nicht angezeigt werden, da das Zertifikat momentan nicht abgerufen werden kann. Bitte versuchen Sie es später noch einmal.";
+
+"HealthCertificate_PrintPdf_ErrorAlert_NoExportableCertificate_Title" = "Zertifikate können nicht exportiert werden";
+
+"HealthCertificate_PrintPdf_ErrorAlert_NoExportableCertificate_Message" = "Die vorhandenen Zertifikate können nicht exportiert werden, da sie nicht mehr gültig sind.";
 
 /* Certificate Fault Tolerant Naming */
 

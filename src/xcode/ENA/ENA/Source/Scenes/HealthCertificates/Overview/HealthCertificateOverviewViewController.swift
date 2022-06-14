@@ -35,6 +35,7 @@ class HealthCertificateOverviewViewController: UITableViewController {
 		viewModel.$healthCertifiedPersons
 			.receive(on: DispatchQueue.OCombine(.main))
 			.sink { [weak self] _ in
+				self?.setupBarButtonItems()
 				self?.tableView.reloadData()
 				self?.updateEmptyState()
 			}
@@ -84,8 +85,8 @@ class HealthCertificateOverviewViewController: UITableViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 
-		setupBarButtonItems()
 		setupTableView()
+		setupBarButtonItems()
 
 		navigationItem.largeTitleDisplayMode = .automatic
 		navigationItem.setHidesBackButton(true, animated: false)
@@ -205,7 +206,12 @@ class HealthCertificateOverviewViewController: UITableViewController {
 	}()
 
 	private func setupBarButtonItems() {
-		navigationItem.rightBarButtonItems = [exportCertificatesBarButtonItem, infoBarButtonItem]
+		// Don't show share button if list of healthCertifiedPersons is empty
+		if viewModel.healthCertifiedPersons.isEmpty {
+			navigationItem.rightBarButtonItems = [infoBarButtonItem]
+		} else {
+			navigationItem.rightBarButtonItems = [exportCertificatesBarButtonItem, infoBarButtonItem]
+		}
 	}
 
 	private func setupTableView() {
@@ -438,7 +444,8 @@ class HealthCertificateOverviewViewController: UITableViewController {
 	}
 	
 	private func showExportCertificatesTooltipIfNeeded(_ barButtonItem: UIBarButtonItem) {
-		guard viewModel.store.shouldShowExportCertificatesTooltip else {
+		// Don't show tooltip if list of healthCertifiedPersons is empty
+		guard viewModel.store.shouldShowExportCertificatesTooltip && !viewModel.healthCertifiedPersons.isEmpty else {
 			return
 		}
 

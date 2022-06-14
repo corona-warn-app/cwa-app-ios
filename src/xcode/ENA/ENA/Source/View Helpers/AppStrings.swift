@@ -49,6 +49,7 @@ enum AppStrings {
 		static let invalidSignatureFAQ = NSLocalizedString("HealthCertificate_InvalidSignature_FAQLink", tableName: "Localizable.links", comment: "")
 		static let statisticsInfoBlog = NSLocalizedString("Statistics_Info_Blog_Link", tableName: "Localizable.links", comment: "")
 		static let healthCertificatePrintFAQ = NSLocalizedString("HealthCertificate_Print_FAQ_Link", tableName: "Localizable.links", comment: "")
+		static let healthCertificatePrintAllFAQ = NSLocalizedString("HealthCertificate_PrintAll_FAQ_Link", tableName: "Localizable.links", comment: "")
 		static let healthCertificateBoosterFAQ = NSLocalizedString("HealthCertificate_Booster_FAQLink", tableName: "Localizable.links", comment: "")
 		static let notificationSettingsFAQ = NSLocalizedString("NotificationSettings_FAQLink", tableName: "Localizable.links", comment: "")
 		static let ticketValidationNoValidDCCFAQ = NSLocalizedString("TicketValidation_NoValidDCC_FAQLink", tableName: "Localizable.links", comment: "")
@@ -2250,12 +2251,17 @@ enum AppStrings {
 				enum pdfGeneration {
 					static let title = NSLocalizedString("HealthCertificate_PrintPdf_ErrorAlert_Title", comment: "")
 					static let message = NSLocalizedString("HealthCertificate_PrintPdf_ErrorAlert_Message", comment: "")
+					static let shortMessage = NSLocalizedString("HealthCertificate_ExportAll_PrintPdf_ErrorAlert_Message", comment: "")
 					static let faq = NSLocalizedString("HealthCertificate_PrintPdf_ErrorAlert_FAQ", comment: "")
 					static let ok = NSLocalizedString("HealthCertificate_PrintPdf_ErrorAlert_OK", comment: "")
 				}
 				enum fetchValueSets {
 					static let title = NSLocalizedString("HealthCertificate_PrintPdf_ErrorAlert_ValueSetsFetching_Title", comment: "")
 					static let message = NSLocalizedString("HealthCertificate_PrintPdf_ErrorAlert_ValueSetsFetching_Message", comment: "")
+				}
+				enum noExportableCertificate {
+					static let title = NSLocalizedString("HealthCertificate_PrintPdf_ErrorAlert_NoExportableCertificate_Title", comment: "")
+					static let message = NSLocalizedString("HealthCertificate_PrintPdf_ErrorAlert_NoExportableCertificate_Message", comment: "")
 				}
 			}
 		}

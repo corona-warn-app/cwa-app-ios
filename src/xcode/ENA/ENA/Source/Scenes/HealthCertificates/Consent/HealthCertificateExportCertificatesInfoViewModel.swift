@@ -24,6 +24,10 @@ class HealthCertificateExportCertificatesInfoViewModel {
 	
 	var onChangeGeneratePDFDataProgess: ((_ pageInProgress: Int, _ numberOfPages: Int) -> Void)?
 	
+	var numberOfExportableCertificates: Int {
+		return filteredHealthCertificates(healthCertifiedPersons: healthCertifiedPersons).count
+	}
+	
 	var dynamicTableViewModel: DynamicTableViewModel {
 		.init([
 			.section(
@@ -56,7 +60,7 @@ class HealthCertificateExportCertificatesInfoViewModel {
 	func generatePDFData(
 		completion: @escaping (Result<PDFDocument, HealthCertificatePDFGenerationError>) -> Void
 	) {
-		// Delay to give user a chance to see the content on info alert or cancel the process 
+		// Delay to give user a chance to see the content on info alert or cancel the process
 		DispatchQueue.main.asyncAfter(deadline: .now() + 2, execute: {
 			self.vaccinationValueSetsProvider.latestVaccinationCertificateValueSets()
 				.sink(
@@ -99,7 +103,7 @@ class HealthCertificateExportCertificatesInfoViewModel {
 							completion(.success(mergedPDFDocument))
 						} catch {
 							Log.error("Could not create pdf view of all filtered health certificates with error: \(error)")
-							completion(.failure(.pdfGenerationFailed))
+							completion(.failure(.batchPDFGenerationFailed))
 						}
 					}
 				)

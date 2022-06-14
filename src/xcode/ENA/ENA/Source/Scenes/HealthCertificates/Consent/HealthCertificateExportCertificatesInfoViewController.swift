@@ -66,6 +66,14 @@ class HealthCertificateExportCertificatesInfoViewController: DynamicTableViewCon
 	func didTapFooterViewButton(_ type: FooterViewModel.ButtonType) {
 		if type == .primary {
 			footerView?.setLoadingIndicator(true, disable: true, button: .primary)
+			
+			// if the filtered `set of DCCs` is empty, an info message shall be displayed to the user to inform them that there are no certificates to be exported.
+			if viewModel.numberOfExportableCertificates == 0 {
+				self.footerView?.setLoadingIndicator(false, disable: false, button: .primary)
+				self.showErrorAlert(.noExportabeCertificate)
+				return
+			}
+			
 			showPDFDataAlert()
 			viewModel.generatePDFData { result in
 				DispatchQueue.main.async { [weak self] in
