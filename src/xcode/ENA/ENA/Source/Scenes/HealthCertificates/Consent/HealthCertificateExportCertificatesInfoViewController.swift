@@ -37,7 +37,7 @@ class HealthCertificateExportCertificatesInfoViewController: DynamicTableViewCon
 		}
 		
 		viewModel.onChangeGeneratePDFDataProgess = { [weak self] pageInProgress, numberOfPages in
-			self?.updateGeneratePDFDataAlertMessage(pageInProgress: pageInProgress, numberOfPages: numberOfPages)
+			self?.updatePDFDataAlertMessage(pageInProgress: pageInProgress, numberOfPages: numberOfPages)
 		}
 
 		setupView()
@@ -66,14 +66,14 @@ class HealthCertificateExportCertificatesInfoViewController: DynamicTableViewCon
 	func didTapFooterViewButton(_ type: FooterViewModel.ButtonType) {
 		if type == .primary {
 			footerView?.setLoadingIndicator(true, disable: true, button: .primary)
-			showGeneratePDFDataAlert()
+			showPDFDataAlert()
 			viewModel.generatePDFData { result in
 				DispatchQueue.main.async { [weak self] in
 					self?.footerView?.setLoadingIndicator(false, disable: false, button: .primary)
 
 					switch result {
 					case let .success(pdfDocument):
-						self?.hideGeneratePDFDataAlert(completion: { [weak self] in
+						self?.hidePDFDataAlert(completion: { [weak self] in
 							self?.onTapContinue(pdfDocument)
 						})
 					case let .failure(error):
@@ -99,7 +99,7 @@ class HealthCertificateExportCertificatesInfoViewController: DynamicTableViewCon
 		tableView.allowsSelection = false
 	}
 	
-	lazy var generatePDFDataAlertController: UIAlertController = {
+	lazy var pdfDataAlertController: UIAlertController = {
 		let alert = UIAlertController(
 			title: AppStrings.HealthCertificate.ExportCertificatesInfo.generatePDFProgressTitle,
 			message: AppStrings.HealthCertificate.ExportCertificatesInfo.generatePDFProgressMessageInitial,
@@ -118,18 +118,18 @@ class HealthCertificateExportCertificatesInfoViewController: DynamicTableViewCon
 		return alert
 	}()
 	
-	private func showGeneratePDFDataAlert() {
-		generatePDFDataAlertController.message = AppStrings.HealthCertificate.ExportCertificatesInfo.generatePDFProgressMessageInitial
-		present(generatePDFDataAlertController, animated: true)
+	private func showPDFDataAlert() {
+		pdfDataAlertController.message = AppStrings.HealthCertificate.ExportCertificatesInfo.generatePDFProgressMessageInitial
+		present(pdfDataAlertController, animated: true)
 	}
 	
-	private func hideGeneratePDFDataAlert(completion: @escaping CompletionVoid) {
-		generatePDFDataAlertController.dismiss(animated: true) {
+	private func hidePDFDataAlert(completion: @escaping CompletionVoid) {
+		pdfDataAlertController.dismiss(animated: true) {
 			completion()
 		}
 	}
 	
-	private func updateGeneratePDFDataAlertMessage(pageInProgress: Int, numberOfPages: Int) {
+	private func updatePDFDataAlertMessage(pageInProgress: Int, numberOfPages: Int) {
 		let message = String(
 			format: AppStrings.HealthCertificate.ExportCertificatesInfo.generatePDFProgressMessage,
 			String(pageInProgress),
@@ -137,7 +137,7 @@ class HealthCertificateExportCertificatesInfoViewController: DynamicTableViewCon
 		)
 
 		DispatchQueue.main.async { [weak self] in
-			self?.generatePDFDataAlertController.message = message
+			self?.pdfDataAlertController.message = message
 		}
 	}
 }
