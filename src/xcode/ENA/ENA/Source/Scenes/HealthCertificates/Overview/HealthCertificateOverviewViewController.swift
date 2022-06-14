@@ -35,9 +35,9 @@ class HealthCertificateOverviewViewController: UITableViewController {
 		viewModel.$healthCertifiedPersons
 			.receive(on: DispatchQueue.OCombine(.main))
 			.sink { [weak self] _ in
+				self?.setupBarButtonItems()
 				self?.tableView.reloadData()
 				self?.updateEmptyState()
-				self?.setupBarButtonItems()
 			}
 			.store(in: &subscriptions)
 
@@ -444,7 +444,8 @@ class HealthCertificateOverviewViewController: UITableViewController {
 	}
 	
 	private func showExportCertificatesTooltipIfNeeded(_ barButtonItem: UIBarButtonItem) {
-		guard viewModel.store.shouldShowExportCertificatesTooltip else {
+		// Don't show tooltip if list of healthCertifiedPersons is empty
+		guard viewModel.store.shouldShowExportCertificatesTooltip && !viewModel.healthCertifiedPersons.isEmpty else {
 			return
 		}
 
