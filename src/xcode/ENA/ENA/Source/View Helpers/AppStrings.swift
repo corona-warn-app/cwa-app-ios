@@ -2810,5 +2810,12 @@ enum AppStrings {
 			   static let cancelButtonTitle = NSLocalizedString("FamilyMemberCoronaTest_DeleteAll_AlertCancelButtonTitle", comment: "")
 		   }
 	}
+	
+	enum Tooltip {
+		enum ExportCertificates {
+			static let title = NSLocalizedString("Tooltip_ExportCertificates_Title", comment: "")
+			static let description = NSLocalizedString("Tooltip_ExportCertificates_Description", comment: "")
+		}
+	}
 	// swiftlint:disable:next file_length
 }

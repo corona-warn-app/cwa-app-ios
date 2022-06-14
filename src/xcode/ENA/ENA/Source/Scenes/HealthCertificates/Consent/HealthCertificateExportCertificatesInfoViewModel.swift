@@ -11,10 +11,10 @@ class HealthCertificateExportCertificatesInfoViewModel {
 	// MARK: - Init
 	
 	init(
-		healthCertificateService: HealthCertificateService,
+		healthCertifiedPersons: [HealthCertifiedPerson],
 		vaccinationValueSetsProvider: VaccinationValueSetsProviding
 	) {
-		self.healthCertificateService = healthCertificateService
+		self.healthCertifiedPersons = healthCertifiedPersons
 		self.vaccinationValueSetsProvider = vaccinationValueSetsProvider
 	}
 	
@@ -81,7 +81,7 @@ class HealthCertificateExportCertificatesInfoViewModel {
 							let mergedPDFDocument = PDFDocument()
 							
 							// DCCs shall be sorted ascending by the name of the holder
-							let selectedHealthCertificates = self.filteredHealthCertificates(healthCertifiedPersons: self.healthCertificateService.healthCertifiedPersons.sorted())
+							let selectedHealthCertificates = self.filteredHealthCertificates(healthCertifiedPersons: self.healthCertifiedPersons.sorted())
 							
 							self.onChangeGeneratePDFDataProgess?(0, selectedHealthCertificates.count)
 							
@@ -125,7 +125,7 @@ class HealthCertificateExportCertificatesInfoViewModel {
 				$0.isValidityStateConsiderableForExporting && $0.isTypeSpecificCriteriaValid
 			}
 			
-			// DCCs shall be sorted ascending by the date attributes depending on the type of the DCC:
+			// DCCs shall be sorted ascending by the date attributes depending on the type of the DCC
 			filteredHealthCertificates = filteredHealthCertificates.sorted(by: >)
 			
 			allFilteredHealthCertificates.append(contentsOf: filteredHealthCertificates)
@@ -135,7 +135,7 @@ class HealthCertificateExportCertificatesInfoViewModel {
 	
 	// MARK: - Private
 	
-	private let healthCertificateService: HealthCertificateService
+	private let healthCertifiedPersons: [HealthCertifiedPerson]
 	private let vaccinationValueSetsProvider: VaccinationValueSetsProviding
 	private var subscriptions = Set<AnyCancellable>()
 }
