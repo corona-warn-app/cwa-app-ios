@@ -1716,11 +1716,11 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "NewVersionFeatures_Info_about_abb_information" = "Änderungen zum Release finden Sie in den App-Informationen unter dem Menüpunkt „Neue Funktionen”.";
 
-/* Version 2.23 */
+/* Version 2.24 */
 
-"NewVersionFeature_223_reissue_certificates_title" = "Erneuerung von Zertifikaten";
+"NewVersionFeature_224_batch_export_title" = "Zertifikate exportieren";
 
-"NewVersionFeature_223_reissue_certificates_description" = "Die Gültigkeit von Ihrem aktuell genutzten Zertifikat ist technisch auf 365 Tage begrenzt. Falls Ihr aktuell genutztes Zertifikat abläuft, bietet die App Ihnen eine Erneuerung an. Die Erneuerung kann 28 Tage vor Ablauf der Gültigkeit und bis zu 90 Tage nach Ablauf der Gültigkeit vorgenommen werden. Falls Ihnen keine Erneuerung angeboten wird, muss das Zertifikat nicht verlängert werden und keine weiteren Schritte Ihrerseits werden benötigt.";
+"NewVersionFeature_224_batch_export_description" = "Sie können in einem Schritt alle in Ihrer App vorhandenen Zertifikate in einem gemeinsamen PDF-Dokument speichern.";
 
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Länderübergreifende Risiko-Ermittlung";
