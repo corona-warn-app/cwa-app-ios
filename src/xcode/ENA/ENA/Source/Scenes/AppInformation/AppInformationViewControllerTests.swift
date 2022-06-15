@@ -10,21 +10,21 @@ class AppInformationViewControllerTests: XCTestCase {
 	
 	private var sut: AppInformationViewController!
 	private var errorLogSubmissionProvidingMock: ErrorLogSubmissionProvidingMock!
-	private var cclServableMock: CCLServableMock!
+	private var fakeCCSService: FakeCCLService!
 
     override func setUpWithError() throws {
 		errorLogSubmissionProvidingMock = ErrorLogSubmissionProvidingMock()
-		cclServableMock = CCLServableMock()
+		fakeCCSService = FakeCCLService()
         sut = AppInformationViewController(
 			elsService: errorLogSubmissionProvidingMock,
-			cclService: cclServableMock
+			cclService: fakeCCSService
 		)
     }
 
     override func tearDownWithError() throws {
 		sut = nil
 		errorLogSubmissionProvidingMock = nil
-		cclServableMock = nil
+		fakeCCSService = nil
     }
 
     func testModel_WHEN_modelEntries_THEN_equalCategoryCount() throws {

@@ -1714,9 +1714,7 @@
 		CDCE11D6247D644100F30825 /* NotificationSettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDCE11D5247D644100F30825 /* NotificationSettingsViewModel.swift */; };
 		CDD87C56247556DE007CE6CA /* MainSettingsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDD87C54247556DE007CE6CA /* MainSettingsCell.swift */; };
 		DC7003042858947F00B164AC /* AppInformationViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC7003032858947F00B164AC /* AppInformationViewControllerTests.swift */; };
-		DC7003072858A7EB00B164AC /* CCLServableMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC7003062858A7EB00B164AC /* CCLServableMock.swift */; };
 		DC7003092858A83800B164AC /* ErrorLogSubmissionProvidingMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC7003082858A83800B164AC /* ErrorLogSubmissionProvidingMock.swift */; };
-		DC70030B2858A86200B164AC /* DecodableMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC70030A2858A86200B164AC /* DecodableMock.swift */; };
 		EB08F1782541CE3300D11FA9 /* risk_score_classification.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB08F1702541CE3200D11FA9 /* risk_score_classification.pb.swift */; };
 		EB08F1792541CE3300D11FA9 /* attenuation_duration.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB08F1712541CE3200D11FA9 /* attenuation_duration.pb.swift */; };
 		EB08F17A2541CE3300D11FA9 /* risk_level.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB08F1722541CE3200D11FA9 /* risk_level.pb.swift */; };
@@ -3564,9 +3562,7 @@
 		CDD87C5C247559E3007CE6CA /* SettingsLabelCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsLabelCell.swift; sourceTree = "<group>"; };
 		CDF27BD2246ADBA70044D32B /* ExposureSubmissionServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureSubmissionServiceTests.swift; sourceTree = "<group>"; };
 		DC7003032858947F00B164AC /* AppInformationViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppInformationViewControllerTests.swift; sourceTree = "<group>"; };
-		DC7003062858A7EB00B164AC /* CCLServableMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CCLServableMock.swift; sourceTree = "<group>"; };
 		DC7003082858A83800B164AC /* ErrorLogSubmissionProvidingMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorLogSubmissionProvidingMock.swift; sourceTree = "<group>"; };
-		DC70030A2858A86200B164AC /* DecodableMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DecodableMock.swift; sourceTree = "<group>"; };
 		EB08F1702541CE3200D11FA9 /* risk_score_classification.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = risk_score_classification.pb.swift; path = ../../../gen/output/internal/risk_score_classification.pb.swift; sourceTree = "<group>"; };
 		EB08F1712541CE3200D11FA9 /* attenuation_duration.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = attenuation_duration.pb.swift; path = ../../../gen/output/internal/attenuation_duration.pb.swift; sourceTree = "<group>"; };
 		EB08F1722541CE3200D11FA9 /* risk_level.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = risk_level.pb.swift; path = ../../../gen/output/internal/risk_level.pb.swift; sourceTree = "<group>"; };
@@ -10379,9 +10375,7 @@
 		DC7003052858A7D200B164AC /* Mocks */ = {
 			isa = PBXGroup;
 			children = (
-				DC7003062858A7EB00B164AC /* CCLServableMock.swift */,
 				DC7003082858A83800B164AC /* ErrorLogSubmissionProvidingMock.swift */,
-				DC70030A2858A86200B164AC /* DecodableMock.swift */,
 			);
 			name = Mocks;
 			sourceTree = "<group>";
@@ -12291,7 +12285,6 @@
 				EBD1D7B4275E4BA60046A1C3 /* KeySubmissionMetadata+Mock.swift in Sources */,
 				ABA146D527EB219D0096A44E /* HomeStateFake.swift in Sources */,
 				018B852826CE99A70037DD54 /* OnBehalfCheckinSubmissionServiceTests.swift in Sources */,
-				DC7003072858A7EB00B164AC /* CCLServableMock.swift in Sources */,
 				50101D75270739FA006F8B0F /* NotificationSettingsViewModelTests.swift in Sources */,
 				BAF5E41027B166F9001DF172 /* Locator+AppConfigurationTests.swift in Sources */,
 				BAA4D72225E9501E00821B5C /* EUSettingsViewModelTests.swift in Sources */,
@@ -12348,7 +12341,6 @@
 				F25247312484456800C5556B /* DynamicTableViewModelTests.swift in Sources */,
 				B15382E7248290BB0010F007 /* AppleFilesWriterTests.swift in Sources */,
 				3421AFDB28104C4B0059802B /* AntigenTestPersonProfileCellModelTests.swift in Sources */,
-				DC70030B2858A86200B164AC /* DecodableMock.swift in Sources */,
 				AB1FCBD42521FC47005930BA /* EnvironmentTests.swift in Sources */,
 				BAA8558B27C82A9C00D0EA26 /* HealthCertificateReissuanceConsentViewModelTests.swift in Sources */,
 				50BD1425260B74C20013983A /* VerificationMock.swift in Sources */,
