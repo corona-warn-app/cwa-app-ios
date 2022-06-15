@@ -224,7 +224,7 @@ class HealthCertificateOverviewViewController: UITableViewController {
 		if viewModel.healthCertifiedPersons.isEmpty {
 			navigationItem.rightBarButtonItems = [infoBarButtonItem]
 		} else {
-			navigationItem.rightBarButtonItems = [exportCertificatesBarButtonItem, infoBarButtonItem]
+			navigationItem.rightBarButtonItems = [infoBarButtonItem, exportCertificatesBarButtonItem]
 		}
 	}
 
