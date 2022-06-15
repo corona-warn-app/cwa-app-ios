@@ -2990,7 +2990,7 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 /* Health Certificate Export Certificates Information */
 
-"HealthCertificate_ExportCertificatesInfo_Title" = "Zertifikare exportieren";
+"HealthCertificate_ExportCertificatesInfo_Title" = "Zertifikate exportieren";
 
 "HealthCertificate_ExportCertificatesInfo_HeaderImageDescription" = "Von einem Smartphone wird ein digitales Zertifikat an einen Drucker übertragen";
 
