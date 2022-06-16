@@ -54,6 +54,7 @@ jobs:
       - name: Build for testing
         run: |
           cd src/xcode && arch -arm64 bundle exec fastlane build_for_testing
+          fastlane run reset_simulator_contents
       - name: Save DerivedData folder
         uses: actions/cache@v2
         env:
@@ -112,7 +113,8 @@ jobs:
           key: ${{ runner.os }}-${{ env.cache-name }}-${{ hashFiles('src/xcode/Gemfile.lock') }}       
       - name: Community Build
         run: |
-          cd src/xcode && arch -arm64 bundle exec fastlane build_community && run reset_simulator_contents
+          fastlane run reset_simulator_contents
+          cd src/xcode && arch -arm64 bundle exec fastlane build_community
 
   runUnitTests:
     runs-on: self-hosted
@@ -146,7 +148,7 @@ jobs:
       - name: Run UnitTests
         run: |
           cd src/xcode
-          arch -arm64 bundle exec fastlane test_without_building testplan:UnitTests  && run reset_simulator_contents
+          arch -arm64 bundle exec fastlane test_without_building testplan:UnitTests
       - name: Archive xcresult
         if: failure()
         uses: actions/upload-artifact@v2
