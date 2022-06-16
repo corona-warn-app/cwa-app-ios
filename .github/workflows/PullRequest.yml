@@ -112,7 +112,7 @@ jobs:
           key: ${{ runner.os }}-${{ env.cache-name }}-${{ hashFiles('src/xcode/Gemfile.lock') }}       
       - name: Community Build
         run: |
-          cd src/xcode && arch -arm64 bundle exec fastlane build_community
+          cd src/xcode && arch -arm64 bundle exec fastlane build_community reset_simulators --force
 
   runUnitTests:
     runs-on: self-hosted
