@@ -146,7 +146,7 @@ jobs:
       - name: Run UnitTests
         run: |
           cd src/xcode
-          arch -arm64 bundle exec fastlane test_without_building testplan:UnitTests
+          arch -arm64 bundle exec fastlane test_without_building testplan:UnitTests reset_simulators --force
       - name: Archive xcresult
         if: failure()
         uses: actions/upload-artifact@v2
