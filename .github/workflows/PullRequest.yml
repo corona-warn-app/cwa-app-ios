@@ -112,7 +112,7 @@ jobs:
           key: ${{ runner.os }}-${{ env.cache-name }}-${{ hashFiles('src/xcode/Gemfile.lock') }}       
       - name: Community Build
         run: |
-          cd src/xcode && arch -arm64 bundle exec fastlane build_community reset_simulators --force
+          cd src/xcode && arch -arm64 bundle exec fastlane build_community reset_simulators
 
   runUnitTests:
     runs-on: self-hosted
@@ -146,7 +146,7 @@ jobs:
       - name: Run UnitTests
         run: |
           cd src/xcode
-          arch -arm64 bundle exec fastlane test_without_building testplan:UnitTests reset_simulators --force
+          arch -arm64 bundle exec fastlane test_without_building testplan:UnitTests reset_simulators
       - name: Archive xcresult
         if: failure()
         uses: actions/upload-artifact@v2
