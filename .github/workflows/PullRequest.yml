@@ -54,7 +54,6 @@ jobs:
       - name: Build for testing
         run: |
           cd src/xcode && arch -arm64 bundle exec fastlane build_for_testing
-          fastlane run reset_simulator_contents
       - name: Save DerivedData folder
         uses: actions/cache@v2
         env:
@@ -113,7 +112,6 @@ jobs:
           key: ${{ runner.os }}-${{ env.cache-name }}-${{ hashFiles('src/xcode/Gemfile.lock') }}       
       - name: Community Build
         run: |
-          fastlane run reset_simulator_contents
           cd src/xcode && arch -arm64 bundle exec fastlane build_community
 
   runUnitTests:
