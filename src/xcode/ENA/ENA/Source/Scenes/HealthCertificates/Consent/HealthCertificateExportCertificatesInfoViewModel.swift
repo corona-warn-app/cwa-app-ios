@@ -22,10 +22,30 @@ class HealthCertificateExportCertificatesInfoViewModel {
 	
 	var hidesCloseButton: Bool = false
 	
-	var onChangeGeneratePDFDataProgess: ((_ pageInProgress: Int, _ numberOfPages: Int) -> Void)?
+	var onChangeGeneratePDFDataProgess: ((_ pageInProgress: Int, _ ofTotal: Int) -> Void)?
 	
 	var numberOfExportableCertificates: Int {
-		return filteredHealthCertificates(healthCertifiedPersons: healthCertifiedPersons).count
+		filteredHealthCertificates(healthCertifiedPersons: healthCertifiedPersons).count
+	}
+	
+	var noCertificatesExportable: Bool {
+		numberOfExportableCertificates == 0
+	}
+	
+	var shouldShowPDFDataResultAlert: Bool {
+		numberOfNotExportableCertificates > 0 && numberOfNotExportableCertificates < numberOfCertificates
+	}
+	
+	var exportableCertificatesStatus: ExportableCertificatesStatus {
+		if numberOfNotExportableCertificates > 1, !noCertificatesExportable {
+			return .someCertificatesNotExportable(amount: numberOfExportableCertificates, ofTotalCertificates: numberOfCertificates)
+			
+		} else if numberOfNotExportableCertificates == 1, !noCertificatesExportable {
+			return .oneCertificateNotExportable(totalCertificates: numberOfCertificates)
+
+		} else {
+			return .noCertificatesExportable
+		}
 	}
 	
 	var dynamicTableViewModel: DynamicTableViewModel {
@@ -96,7 +116,7 @@ class HealthCertificateExportCertificatesInfoViewModel {
 									return
 								}
 								
-								self.onChangeGeneratePDFDataProgess?(index + 1, selectedHealthCertificates.count)
+								self.onChangeGeneratePDFDataProgess?(index + 1, self.numberOfCertificates)
 								mergedPDFDocument.insert(pdfPage, at: index)
 							}
 							
@@ -142,4 +162,51 @@ class HealthCertificateExportCertificatesInfoViewModel {
 	private let healthCertifiedPersons: [HealthCertifiedPerson]
 	private let vaccinationValueSetsProvider: VaccinationValueSetsProviding
 	private var subscriptions = Set<AnyCancellable>()
+	
+	private var numberOfCertificates: Int {
+		healthCertifiedPersons.flatMap { $0.healthCertificates }.count
+	}
+	
+	private var numberOfNotExportableCertificates: Int {
+		numberOfCertificates - numberOfExportableCertificates
+	}
+}
+
+extension HealthCertificateExportCertificatesInfoViewModel {
+	enum ExportableCertificatesStatus {
+		case someCertificatesNotExportable(amount: Int, ofTotalCertificates: Int)
+		case oneCertificateNotExportable(totalCertificates: Int)
+		case noCertificatesExportable
+		
+		var title: String {
+			switch self {
+			case .someCertificatesNotExportable, .oneCertificateNotExportable:
+				return AppStrings.HealthCertificate.ExportCertificatesInfo.alertPDFResultTitleOneOrSomeCertificatesNotExportable
+			case .noCertificatesExportable:
+				return AppStrings.HealthCertificate.ExportCertificatesInfo.alertPDFResulTitleNoCertificatesExportable
+			}
+		}
+		
+		var message: String {
+			switch self {
+			case let .someCertificatesNotExportable(amount, ofTotalCertificates):
+				return String(
+					format: AppStrings.HealthCertificate.ExportCertificatesInfo.alertPDFResultMessageSomeCertificatesNotExportable,
+					String(amount),
+					String(ofTotalCertificates)
+				)
+			case let .oneCertificateNotExportable(totalCertificates):
+				return String(
+					format: AppStrings.HealthCertificate.ExportCertificatesInfo.alertPDFResultMessageOneCertificateNotExportable,
+					String(totalCertificates)
+				)
+			case .noCertificatesExportable:
+				return AppStrings.HealthCertificate.ExportCertificatesInfo.alertPDFResultMessageNoCertificatesExportable
+			}
+		}
+		
+		var actionTitle: String {
+			AppStrings.HealthCertificate.ExportCertificatesInfo.alertPDFResultOkayButton
+		}
+	}
 }

@@ -37,7 +37,7 @@ class HealthCertificateExportCertificatesInfoViewController: DynamicTableViewCon
 		}
 		
 		viewModel.onChangeGeneratePDFDataProgess = { [weak self] pageInProgress, numberOfPages in
-			self?.updatePDFDataAlertMessage(pageInProgress: pageInProgress, numberOfPages: numberOfPages)
+			self?.updatePDFDataProgressAlertMessage(pageInProgress: pageInProgress, numberOfPages: numberOfPages)
 		}
 
 		setupView()
@@ -68,21 +68,29 @@ class HealthCertificateExportCertificatesInfoViewController: DynamicTableViewCon
 			footerView?.setLoadingIndicator(true, disable: true, button: .primary)
 			
 			// if the filtered `set of DCCs` is empty, an info message shall be displayed to the user to inform them that there are no certificates to be exported.
-			if viewModel.numberOfExportableCertificates == 0 {
+			if viewModel.noCertificatesExportable {
 				self.footerView?.setLoadingIndicator(false, disable: false, button: .primary)
 				self.showErrorAlert(.noExportabeCertificate)
 				return
 			}
 			
-			showPDFDataAlert()
+			showPDFDataProgressAlert()
 			viewModel.generatePDFData { result in
 				DispatchQueue.main.async { [weak self] in
 					self?.footerView?.setLoadingIndicator(false, disable: false, button: .primary)
 
 					switch result {
 					case let .success(pdfDocument):
-						self?.hidePDFDataAlert(completion: { [weak self] in
-							self?.onTapContinue(pdfDocument)
+						self?.hidePDFDataProgressAlert(completion: { [weak self] in
+							guard let self = self else { return }
+							
+							if self.viewModel.shouldShowPDFDataResultAlert {
+								self.createPDFDataResultAlertController(pdfDocument: pdfDocument) {
+									self.showPDFDataResultAlert()
+								}
+							} else {
+								self.onTapContinue(pdfDocument)
+							}
 						})
 					case let .failure(error):
 						self?.showErrorAlert(error)
@@ -107,7 +115,8 @@ class HealthCertificateExportCertificatesInfoViewController: DynamicTableViewCon
 		tableView.allowsSelection = false
 	}
 	
-	lazy var pdfDataAlertController: UIAlertController = {
+	/// Alert informs the user about the pdf creation progress
+	lazy var pdfDataProgressAlertController: UIAlertController = {
 		let alert = UIAlertController(
 			title: AppStrings.HealthCertificate.ExportCertificatesInfo.generatePDFProgressTitle,
 			message: AppStrings.HealthCertificate.ExportCertificatesInfo.generatePDFProgressMessageInitial,
@@ -126,18 +135,22 @@ class HealthCertificateExportCertificatesInfoViewController: DynamicTableViewCon
 		return alert
 	}()
 	
-	private func showPDFDataAlert() {
-		pdfDataAlertController.message = AppStrings.HealthCertificate.ExportCertificatesInfo.generatePDFProgressMessageInitial
-		present(pdfDataAlertController, animated: true)
+	/// Alert informs the user that not all available certificates could be exported.
+	private var pdfDataResultAlertController: UIAlertController?
+	
+	private func showPDFDataProgressAlert() {
+		pdfDataProgressAlertController.message = AppStrings.HealthCertificate.ExportCertificatesInfo.generatePDFProgressMessageInitial
+		present(pdfDataProgressAlertController, animated: true)
 	}
 	
-	private func hidePDFDataAlert(completion: @escaping CompletionVoid) {
-		pdfDataAlertController.dismiss(animated: true) {
+	private func hidePDFDataProgressAlert(completion: @escaping CompletionVoid) {
+		pdfDataProgressAlertController.dismiss(animated: true) {
 			completion()
 		}
 	}
 	
-	private func updatePDFDataAlertMessage(pageInProgress: Int, numberOfPages: Int) {
+	/// Updates the progress alert message, with the current pdf page that is creating at the time.
+	private func updatePDFDataProgressAlertMessage(pageInProgress: Int, numberOfPages: Int) {
 		let message = String(
 			format: AppStrings.HealthCertificate.ExportCertificatesInfo.generatePDFProgressMessage,
 			String(pageInProgress),
@@ -145,7 +158,45 @@ class HealthCertificateExportCertificatesInfoViewController: DynamicTableViewCon
 		)
 
 		DispatchQueue.main.async { [weak self] in
-			self?.pdfDataAlertController.message = message
+			self?.pdfDataProgressAlertController.message = message
+		}
+	}
+	
+	private func createPDFDataResultAlertController(pdfDocument: PDFDocument, completion: CompletionVoid) {
+		let alert = UIAlertController(
+			title: viewModel.exportableCertificatesStatus.title,
+			message: viewModel.exportableCertificatesStatus.message,
+			preferredStyle: .alert
+		)
+		
+		alert.addAction(.init(
+			title: viewModel.exportableCertificatesStatus.actionTitle,
+			style: .default,
+			handler: { [weak self] _ in
+				guard let self = self else { return }
+				
+				switch self.viewModel.exportableCertificatesStatus {
+				case .noCertificatesExportable:
+					self.dismiss(animated: true)
+				default:
+					self.onTapContinue(pdfDocument)
+				}
+			}
+		))
+		
+		pdfDataResultAlertController = alert
+		
+		completion()
+	}
+	
+	private func showPDFDataResultAlert() {
+		guard let pdfDataResultAlertController = pdfDataResultAlertController else { return }
+		present(pdfDataResultAlertController, animated: true)
+	}
+	
+	private func hidePDFDataResultAlert(completion: @escaping CompletionVoid) {
+		pdfDataResultAlertController?.dismiss(animated: true) {
+			completion()
 		}
 	}
 }

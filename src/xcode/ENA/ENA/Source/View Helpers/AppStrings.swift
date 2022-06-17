@@ -2163,6 +2163,13 @@ enum AppStrings {
 			static let generatePDFProgressMessageInitial = NSLocalizedString("HealthCertificate_ExportCertificatesInfo_GeneratePDFAlert_Message_Initial", comment: "")
 			static let generatePDFProgressMessage = NSLocalizedString("HealthCertificate_ExportCertificatesInfo_GeneratePDFAlert_Message", comment: "")
 			static let generatePDFProgressCancelButton = NSLocalizedString("HealthCertificate_ExportCertificatesInfo_GeneratePDFAlert_Cancel", comment: "")
+			
+			static let alertPDFResultTitleOneOrSomeCertificatesNotExportable = NSLocalizedString("HealthCertificate_ExportCertificatesInfo_PDFDataResultAlert_Title_OneOrSomeCertificatesNotExportable", comment: "")
+			static let alertPDFResulTitleNoCertificatesExportable = NSLocalizedString("HealthCertificate_ExportCertificatesInfo_PDFDataResultAlert_Title_NoCertificatesExportable", comment: "")
+			static let alertPDFResultMessageSomeCertificatesNotExportable = NSLocalizedString("HealthCertificate_ExportCertificatesInfo_PDFDataResultAlert_Message_SomeCertificatesNotExportable", comment: "")
+			static let alertPDFResultMessageOneCertificateNotExportable = NSLocalizedString("HealthCertificate_ExportCertificatesInfo_PDFDataResultAlert_Message_OneCertificateNotExportable", comment: "")
+			static let alertPDFResultMessageNoCertificatesExportable = NSLocalizedString("HealthCertificate_ExportCertificatesInfo_PDFDataResultAlert_Message_NoCertificatesExportable", comment: "")
+			static let alertPDFResultOkayButton = NSLocalizedString("HealthCertificate_ExportCertificatesInfo_PDFDataResultAlert_OK", comment: "")
 		}
 
 		enum Person {

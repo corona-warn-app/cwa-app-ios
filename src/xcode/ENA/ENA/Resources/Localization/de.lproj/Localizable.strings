@@ -3010,6 +3010,18 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "HealthCertificate_ExportCertificatesInfo_GeneratePDFAlert_Cancel" = "Abbrechen";
 
+"HealthCertificate_ExportCertificatesInfo_PDFDataResultAlert_Title_OneOrSomeCertificatesNotExportable" = "Nicht alle Zertifikate exportiert";
+
+"HealthCertificate_ExportCertificatesInfo_PDFDataResultAlert_Title_NoCertificatesExportable" = "Zertifikate können nicht exportiert werden";
+
+"HealthCertificate_ExportCertificatesInfo_PDFDataResultAlert_Message_SomeCertificatesNotExportable" = "%@ von %@ vorhandenen Zertifikate wurden nicht exportiert, da sie nicht mehr gültig sind.\n\nAlle gültigen Zertifikate befinden sich im PDF.";
+
+"HealthCertificate_ExportCertificatesInfo_PDFDataResultAlert_Message_OneCertificateNotExportable" = "1 der %@ vorhandenen Zertifikate wurde nicht exportiert, da es nicht mehr gültig ist.\n\nAlle gültigen Zertifikate befinden sich im PDF.";
+
+"HealthCertificate_ExportCertificatesInfo_PDFDataResultAlert_Message_NoCertificatesExportable" = "Die vorhandenen Zertifikate können nicht exportiert werden, da sie nicht mehr gültig sind.";
+
+"HealthCertificate_ExportCertificatesInfo_PDFDataResultAlert_OK" = "OK";
+
 /* CovPass Info Screen */
 
 "CovPass_Check_Info_Title" = "Zertifikatsprüfung durch Dritte";
