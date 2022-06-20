@@ -50,7 +50,8 @@ platform :ios do
       output_xctestrun: true,
       clean: true,
       scheme: "ENA",
-      destination: "generic/platform=iOS",
+      destination: "platform=iOS Simulator,OS=15.2,name=iPhone 11",
+      reset_simulator: true,
       derived_data_path: "./DerivedData"
     )
   end
@@ -103,7 +104,7 @@ platform :ios do
       skip_codesigning: true,
       export_method: "ad-hoc",
       skip_package_ipa: true,
-      destination: "generic/platform=iOS",
+      destination: "platform=iOS Simulator,OS=15.2,name=iPhone 11",
       scheme: "ENACommunity"
     )
   end
