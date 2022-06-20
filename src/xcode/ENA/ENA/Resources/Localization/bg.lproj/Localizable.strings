@@ -603,6 +603,8 @@
 
 "ExposureSubmission_CallButtonTitle" = "Обаждане";
 
+"ExposureSubmission_CallButtonTitle_Format" = "Обаждане %@";
+
 "ExposureSubmission_TANInputButtonTitle" = "Въведете ТАН код";
 
 "ExposureSubmissionHotline_imageDescription" = "След като се обадите на горещата линия, ще получите ТАН код.";
@@ -727,7 +729,7 @@
 
 "ExposureSubmissionResult_CardInvalid" = "Не може да бъде определен резултат";
 
-"ExposureSubmissionResult_CardPending" = "Все още няма резултат от теста Ви";
+"ExposureSubmissionResult_CardPending" = "Все още няма резултат от теста";
 
 "ExposureSubmissionResult_Procedure" = "Как работи:";
 
@@ -1275,7 +1277,7 @@
 "Home_resultCard_LoadingErrorTitle" = "Резултатът от Вашия тест не може да бъде зареден.";
 
 /* - Pending */
-"Home_resultCard_ResultUnvailableTitle" = "Все още няма резултат от теста Ви";
+"Home_resultCard_ResultUnvailableTitle" = "Все още няма резултат от теста";
 
 "Home_resultCard_Pending_PCR_Desc" = "Резултатът от Вашия PCR тест все още не е определен.";
 
@@ -1422,9 +1424,6 @@
 "App_Information_About_Text" = "Хората, които използват приложението, помагат за проследяване и прекъсване на веригите на заразяване. Приложението запазва във Вашето устройство данните за контактите Ви с други хора. Получавате известие, ако сте били в контакт с лица, които впоследствие са били диагностицирани с коронавирус. Вашата самоличност и неприкосновеността на данните Ви са защитени по всяко време.";
 
 "App_Information_About_LinkText" = "Информация за приложението на опростен и жестомимичен език.";
-
-/* App Information - FAQ */
-"App_Information_FAQ_Navigation" = "ЧЗВ";
 
 /* App Information - Contact */
 "App_Information_Contact_Navigation" = "Технически въпроси";
@@ -1666,10 +1665,10 @@
 /* New Version Features */
 "NewVersionFeatures_Info_about_abb_information" = "Може да видите промените в тази версия в подраздела „Нови функции“ на информацията за приложението.";
 
-/* Version 2.23 */
-"NewVersionFeature_223_reissue_certificates_title" = "Подновяване на сертификат";
+/* Version 2.24 */
+"NewVersionFeature_224_batch_export_title" = "Експорт на сертификати";
 
-"NewVersionFeature_223_reissue_certificates_description" = "По технически причини валидността на текущия сертификат за ваксинация е ограничена до 365 дни. Ако тя изтече приложението Ви позволява да я подновите. Сертификатът може да бъде подновен до 28 дни преди изтичането на срока на валидност и до 90 дни след това. Ако приложението не Ви предлага да подновите сертификата си, значи няма нужда да го подновявате.";
+"NewVersionFeature_224_batch_export_description" = "Може да запазите всичките си сертификати от приложението в един PDF документ само с една единствена стъпка.";
 
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Международно регистриране на излаганията";
@@ -2572,6 +2571,8 @@
 /* - Trace Location Selection */
 "OnBehalfCheckinSubmission_TraceLocationSelection_Title" = "Предупреждение за другите";
 
+"OnBehalfCheckinSubmission_TraceLocationSelection_EmptyDescription" = "Изберете събитие, за което искате да изпратите предупреждения до другите от името на лице, което е било диагностицирано с коронавирус.";
+
 "OnBehalfCheckinSubmission_TraceLocationSelection_Description" = "Изберете събитие, за което искате да изпратите предупреждения до другите от името на лице, което е диагностицирано с коронавирус или възстановете изтрито събитие като сканирате QR кода му отново.";
 
 "OnBehalfCheckinSubmission_TraceLocationSelection_ScanButtonTitle" = "Сканиране на QR код";
@@ -2818,6 +2819,8 @@
 
 "HealthCertificate_Overview_News" = "Има новини относно сертификатите Ви";
 
+"HealthCertificate_Navigation_RightBarButtonExportDescription" = "Експорт на сертификати";
+
 /* - Test Certificate Request */
 "TestCertificateRequest_title" = "ЕС\n**Цифров сертификат за тест за COVID**";
 
@@ -2880,6 +2883,27 @@
 "HealthCertificate_Info_section04" = "Добавете сертификати за Вас и Вашето семейство.";
 
 "HealthCertificate_Info_primaryButton" = "Напред";
+
+/* Health Certificate Export Certificates Information */
+"HealthCertificate_ExportCertificatesInfo_Title" = "Експорт на сертификати";
+
+"HealthCertificate_ExportCertificatesInfo_HeaderImageDescription" = "Дигитален сертификат е изпратен към принтера от смартфона.";
+
+"HealthCertificate_ExportCertificatesInfo_Copy01" = "Можете да запазите всички сертификати във Вашето приложение в един PDF документ само с една стъпка. В началото само Вие ще имате достъп до него. По-късно можете да решите дали да го запазите на устройството си или да го импортирате в други приложения.";
+
+"HealthCertificate_ExportCertificatesInfo_Copy02" = "Моля, имайте предвид, че PDF документът съдържа поверителна информация. Препоръчваме да внимавате с него и да го показвате само на лица, на които имате доверие и са упълномощени да го проверяват.";
+
+"HealthCertificate_ExportCertificatesInfo_Copy03" = "Препоръчваме да не го публикувате, изпращате по имейл или да го споделяте чрез други приложения.";
+
+"HealthCertificate_ExportCertificatesInfo_PrimaryButton" = "Напред";
+
+"HealthCertificate_ExportCertificatesInfo_GeneratePDFAlert_Title" = "Генериране на PDF";
+
+"HealthCertificate_ExportCertificatesInfo_GeneratePDFAlert_Message_Initial" = "Може да отнеме няколко минути.";
+
+"HealthCertificate_ExportCertificatesInfo_GeneratePDFAlert_Message" = "Може да отнеме няколко минути.\nСтраница %@ от %@.";
+
+"HealthCertificate_ExportCertificatesInfo_GeneratePDFAlert_Cancel" = "Отказ";
 
 /* CovPass Info Screen */
 "CovPass_Check_Info_Title" = "Проверка на сертификат от трети лица";
@@ -3005,8 +3029,6 @@
 /* Test Certificate Details */
 "TestCertificate_Details_title" = "Сертификат за тест";
 
-"TestCertificate_Details_subtitle" = "Отрицателен тест за SARS-CoV-2";
-
 "TestCertificate_Details_primaryButton" = "Изтриване на сертификата за тестване";
 
 "TestCertificate_Error_FAQ_Description" = "\n\nЗа да разберете как можете да се сдобиете със сертификат за извършен тест, вижте страницата ни с често задавани въпроси (ЧЗВ).";
@@ -3020,8 +3042,6 @@
 
 /* Recovery Certificate Details */
 "RecoveryCertificate_Details_title" = "Сертификат за възстановяване";
-
-"RecoveryCertificate_Details_subtitle" = "Цифров сертификат за COVID на ЕС";
 
 "RecoveryCertificate_Details_primaryButton" = "Сертификат за възстановяване";
 
@@ -3061,6 +3081,8 @@
 
 "HealthCertificate_PrintPdf_ErrorAlert_Message" = "Версията за печат на сертификата не може да бъде показана, защото той не е издаден в Германия";
 
+"HealthCertificate_ExportAll_PrintPdf_ErrorAlert_Message" = "Версия за печат на сертификатите не може да се покаже.";
+
 "HealthCertificate_PrintPdf_ErrorAlert_FAQ" = "ЧЗВ за версия за печат";
 
 "HealthCertificate_PrintPdf_ErrorAlert_OK" = "ОК";
@@ -3068,6 +3090,10 @@
 "HealthCertificate_PrintPdf_ErrorAlert_ValueSetsFetching_Title" = "Невъзможно показване на версия за печат";
 
 "HealthCertificate_PrintPdf_ErrorAlert_ValueSetsFetching_Message" = "Версията за печат на сертификата не може да бъде показана, защото в момента той не може да бъде извлечен. Моля, опитайте отново по-късно.";
+
+"HealthCertificate_PrintPdf_ErrorAlert_NoExportableCertificate_Title" = "Тези сертификати не може да се експортират.";
+
+"HealthCertificate_PrintPdf_ErrorAlert_NoExportableCertificate_Message" = "Наличните сертификати не може да се експортират, защото са с изтекла валидност.";
 
 /* Certificate Fault Tolerant Naming */
 "HealthCertificate_FaultTolerantNaming_RegroupDone_Title" = "Присъединяване на сертификат";
@@ -3209,7 +3235,7 @@
 
 "HealthCertificate_ValidityState_ExpiringSoon_short" = "изтича на %@ в %@";
 
-"HealthCertificate_ValidityState_ExpiringSoon_description" = "Ако това е сертификатът, който използвате в момента, погрижете се да бъде подновен навреме. Можете да подновявате подобни сертификати директно в приложението, ако изтичат в следващите 28 дни. В такъв случай в прегледа на сертификата ви се показва опцията “Подновяване на сертификата”, под плочка “Доказателство за статус”. Ако това не е текущият Ви сертификат то той не трябва да бъде подновяван и няма нужда да правите нищо.";
+"HealthCertificate_ValidityState_ExpiringSoon_description" = "Ако това е един от сертификатите, които използвате в момента, погрижете се да бъде подновен навреме. Можете да подновявате подобни сертификати директно в приложението, ако изтичат в следващите 28 дни или са изтекли в последните 90 дни, стига да са издадени в Германия. В такъв случай в прегледа на сертификата ви се показва опцията “Подновяване на сертификата”, под плочка “Доказателство за статус”. Ако това не е един от сертификатите, които използвате, то той не трябва да бъде подновяван и няма нужда да правите нищо.";
 
 "HealthCertificate_ValidityState_Expired" = "Сертификатът е изтекъл";
 
@@ -3642,7 +3668,7 @@
 
 "FamilyMemberCoronaTest_antigenDate" = "Извършено на %@";
 
-"FamilyMemberCoronaTest_pendingDiagnosis" = "Все още няма резултат от теста Ви";
+"FamilyMemberCoronaTest_pendingDiagnosis" = "Все още няма резултат от теста";
 
 "FamilyMemberCoronaTest_pendingPCRDescription" = "Резултатът от PCR теста все още не е определен.";
 
@@ -3687,4 +3713,9 @@
 "FamilyMemberCoronaTest_DeleteAll_AlertConfirmButtonTitle" = "Изтриване на резултати от тест";
 
 "FamilyMemberCoronaTest_DeleteAll_AlertCancelButtonTitle" = "Отказ";
+
+/* Tooltip */
+"Tooltip_ExportCertificates_Title" = "Експорт на сертификати";
+
+"Tooltip_ExportCertificates_Description" = "Запазете всичките си сертификати в един PDF документ само с една единствена стъпка.";
 

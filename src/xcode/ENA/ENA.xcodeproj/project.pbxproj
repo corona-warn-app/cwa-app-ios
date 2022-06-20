@@ -1726,6 +1726,8 @@
 		DC7002E12851EC7F00B164AC /* TooltipViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC7002E02851EC7F00B164AC /* TooltipViewModelTests.swift */; };
 		DCEDBD5628479ECB00D34E7A /* Alias.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCEDBD5528479ECB00D34E7A /* Alias.swift */; };
 		DCEDBD582847A0AF00D34E7A /* HealthCertificateExportCertificatesInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCEDBD572847A0AF00D34E7A /* HealthCertificateExportCertificatesInfoViewController.swift */; };
+		DC7003042858947F00B164AC /* AppInformationViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC7003032858947F00B164AC /* AppInformationViewControllerTests.swift */; };
+		DC7003092858A83800B164AC /* ErrorLogSubmissionProvidingMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC7003082858A83800B164AC /* ErrorLogSubmissionProvidingMock.swift */; };
 		EB08F1782541CE3300D11FA9 /* risk_score_classification.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB08F1702541CE3200D11FA9 /* risk_score_classification.pb.swift */; };
 		EB08F1792541CE3300D11FA9 /* attenuation_duration.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB08F1712541CE3200D11FA9 /* attenuation_duration.pb.swift */; };
 		EB08F17A2541CE3300D11FA9 /* risk_level.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB08F1722541CE3200D11FA9 /* risk_level.pb.swift */; };
@@ -3582,6 +3584,8 @@
 		DC7002E02851EC7F00B164AC /* TooltipViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TooltipViewModelTests.swift; sourceTree = "<group>"; };
 		DCEDBD5528479ECB00D34E7A /* Alias.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alias.swift; sourceTree = "<group>"; };
 		DCEDBD572847A0AF00D34E7A /* HealthCertificateExportCertificatesInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthCertificateExportCertificatesInfoViewController.swift; sourceTree = "<group>"; };
+		DC7003032858947F00B164AC /* AppInformationViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppInformationViewControllerTests.swift; sourceTree = "<group>"; };
+		DC7003082858A83800B164AC /* ErrorLogSubmissionProvidingMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorLogSubmissionProvidingMock.swift; sourceTree = "<group>"; };
 		EB08F1702541CE3200D11FA9 /* risk_score_classification.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = risk_score_classification.pb.swift; path = ../../../gen/output/internal/risk_score_classification.pb.swift; sourceTree = "<group>"; };
 		EB08F1712541CE3200D11FA9 /* attenuation_duration.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = attenuation_duration.pb.swift; path = ../../../gen/output/internal/attenuation_duration.pb.swift; sourceTree = "<group>"; };
 		EB08F1722541CE3200D11FA9 /* risk_level.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = risk_level.pb.swift; path = ../../../gen/output/internal/risk_level.pb.swift; sourceTree = "<group>"; };
@@ -6423,8 +6427,10 @@
 		50BD2E6724FE26F300932566 /* __tests__ */ = {
 			isa = PBXGroup;
 			children = (
+				DC7003052858A7D200B164AC /* Mocks */,
 				50BD2E6F24FE26F300932566 /* AppInformationImprintTest.swift */,
 				50DC527A24FEB5CA00F6D8EB /* AppInformationModelTest.swift */,
+				DC7003032858947F00B164AC /* AppInformationViewControllerTests.swift */,
 			);
 			name = __tests__;
 			sourceTree = "<group>";
@@ -10399,6 +10405,14 @@
 			path = Cells;
 			sourceTree = "<group>";
 		};
+		DC7003052858A7D200B164AC /* Mocks */ = {
+			isa = PBXGroup;
+			children = (
+				DC7003082858A83800B164AC /* ErrorLogSubmissionProvidingMock.swift */,
+			);
+			name = Mocks;
+			sourceTree = "<group>";
+		};
 		EB0F740A25E93C65003BFAE7 /* Event Registration */ = {
 			isa = PBXGroup;
 			children = (
@@ -12339,6 +12353,7 @@
 				AB68883A25DACD5B00907465 /* SerialDatabaseQueueMigratorTests.swift in Sources */,
 				01EBC9BE25B706AF0003496F /* HomeStatisticsCardViewModelTests.swift in Sources */,
 				BA288AF42582616E0071009A /* DiaryInfoViewModelTest.swift in Sources */,
+				DC7003042858947F00B164AC /* AppInformationViewControllerTests.swift in Sources */,
 				BAA4D71825E94BBB00821B5C /* Sequence+NSAttributedTextTests.swift in Sources */,
 				A173665324844F41006BE209 /* SQLiteKeyValueStoreTests.swift in Sources */,
 				A1877CAB248F2532006FEFC0 /* SAPDownloadedPackageTests.swift in Sources */,
@@ -12627,6 +12642,7 @@
 				506BEF03276A45690062D5D6 /* Resource+Fake.swift in Sources */,
 				BA18127327AD5D54000E5EDD /* CCLConfiguationTests.swift in Sources */,
 				2FC0356F24B342FA00E234AC /* UIViewcontroller+AlertTest.swift in Sources */,
+				DC7003092858A83800B164AC /* ErrorLogSubmissionProvidingMock.swift in Sources */,
 				BAF5E42027B17785001DF172 /* Locator+TicketValidationAccessTokenTests.swift in Sources */,
 				F2DC809024898A9400EDC40A /* DynamicTableViewControllerNumberOfRowsAndSectionsTests.swift in Sources */,
 				AB5F84BD24F92E92000400D4 /* SerialMigratorFake.swift in Sources */,

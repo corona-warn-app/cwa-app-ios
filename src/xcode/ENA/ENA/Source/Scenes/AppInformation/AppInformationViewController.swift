@@ -111,7 +111,7 @@ class AppInformationViewController: DynamicTableViewController, NavigationBarOpa
 			let accessibilityIdentifier = model[category]?.accessibilityIdentifier {
 			cell.accessibilityIdentifier = accessibilityIdentifier
 			switch category {
-			case .faq, .accessibility:
+			case .accessibility:
 				let imageView = UIImageView(image: UIImage(named: "icons_safari_link"))
 				imageView.adjustsImageSizeForAccessibilityContentSizeCategory = true
 				imageView.contentMode = .scaleAspectFill
@@ -138,9 +138,7 @@ class AppInformationViewController: DynamicTableViewController, NavigationBarOpa
 	// MARK: - Internal
 	
 	enum Category: Int, Hashable, CaseIterable {
-		case versionInfo
 		case about
-		case faq
 		case terms
 		case accessibility
 		case privacy
@@ -148,6 +146,7 @@ class AppInformationViewController: DynamicTableViewController, NavigationBarOpa
 		case contact
 		case errorReport
 		case imprint
+		case versionInfo
 	}
 	
 	var preferredLargeTitleBackgroundColor: UIColor? { .enaColor(for: .background) }
