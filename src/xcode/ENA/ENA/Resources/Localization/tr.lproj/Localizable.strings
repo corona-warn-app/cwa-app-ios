@@ -2971,8 +2971,6 @@
 
 "HealthCertificate_Details_expirationDatePlaceholder" = "Geçerlilik bitişi %@";
 
-"HealthCertificate_Details_expirationDateDetails" = "Lütfen zamanında yeni bir dijital sertifika aldığınızdan emin olun.";
-
 "HealthCertificate_Details_moreButtonTitle" = "Daha Fazla";
 
 /* HealthCertificate Family Consent */

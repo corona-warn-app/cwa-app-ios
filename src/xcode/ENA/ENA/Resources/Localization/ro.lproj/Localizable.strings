@@ -2971,8 +2971,6 @@
 
 "HealthCertificate_Details_expirationDatePlaceholder" = "Valabil până la %@";
 
-"HealthCertificate_Details_expirationDateDetails" = "Asigurați-vă că obțineți un certificat digital nou la timp.";
-
 "HealthCertificate_Details_moreButtonTitle" = "Mai mult";
 
 /* HealthCertificate Family Consent */

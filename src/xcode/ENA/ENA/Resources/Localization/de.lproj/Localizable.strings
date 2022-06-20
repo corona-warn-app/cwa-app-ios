@@ -3080,8 +3080,6 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "HealthCertificate_Details_expirationDatePlaceholder" = "Gültig bis %@";
 
-"HealthCertificate_Details_expirationDateDetails" = "Bitte bemühen Sie sich rechtzeitig darum, einen neuen digitalen Nachweis ausstellen zu lassen.";
-
 "HealthCertificate_Details_moreButtonTitle" = "Mehr";
 
 /* HealthCertificate Family Consent */
