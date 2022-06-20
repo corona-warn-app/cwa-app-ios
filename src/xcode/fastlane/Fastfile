@@ -50,6 +50,7 @@ platform :ios do
       output_xctestrun: true,
       clean: true,
       scheme: "ENA",
+      reset_simulator: true,
       derived_data_path: "./DerivedData"
     )
   end
