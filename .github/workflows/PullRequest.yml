@@ -16,7 +16,7 @@ jobs:
         uses: actions/cache@v2
         id: cache-dependencies
         env:
-          cache-name: cache-dependencies
+          cache-name: cache-dependencies-v2
         with:
           path: |
             src/xcode/vendor
@@ -29,7 +29,7 @@ jobs:
         uses: actions/cache@v2
         if: steps.cache-dependencies.outputs.cache-hit != 'true'
         env:
-          cache-name: cache-dependencies
+          cache-name: cache-dependencies-v2
         with:
           path: |
             src/xcode/vendor
@@ -45,7 +45,7 @@ jobs:
       - name: Restore Dependencies
         uses: actions/cache@v2
         env:
-          cache-name: cache-dependencies
+          cache-name: cache-dependencies-v2
         with:
           path: |
             src/xcode/vendor
@@ -57,14 +57,14 @@ jobs:
       - name: Save DerivedData folder
         uses: actions/cache@v2
         env:
-          cache-name: cache-derived-data
+          cache-name: cache-derived-data-v2
         with:
           path: src/xcode/DerivedData
           key: ${{ runner.os }}-${{ env.cache-name }}-${{ github.sha }}
       - name: Save test_output folder
         uses: actions/cache@v2
         env:
-          cache-name: cache-test-output
+          cache-name: cache-test-output-v2
         with:
           path: src/xcode/fastlane/test_output
           key: ${{ runner.os }}-${{ env.cache-name }}-${{ github.sha }}
@@ -78,7 +78,7 @@ jobs:
       - name: Restore Dependencies
         uses: actions/cache@v2
         env:
-          cache-name: cache-dependencies
+          cache-name: cache-dependencies-v2
         with:
           path: |
             src/xcode/vendor
@@ -104,7 +104,7 @@ jobs:
       - name: Restore Dependencies
         uses: actions/cache@v2
         env:
-          cache-name: cache-dependencies
+          cache-name: cache-dependencies-v2
         with:
           path: |
             src/xcode/vendor
@@ -123,7 +123,7 @@ jobs:
       - name: Restore Dependencies
         uses: actions/cache@v2
         env:
-          cache-name: cache-dependencies
+          cache-name: cache-dependencies-v2
         with:
           path: |
             src/xcode/vendor
@@ -132,14 +132,14 @@ jobs:
       - name: Restore DerivedData folder
         uses: actions/cache@v2
         env:
-          cache-name: cache-derived-data
+          cache-name: cache-derived-data-v2
         with:
           path: src/xcode/DerivedData
           key: ${{ runner.os }}-${{ env.cache-name }}-${{ github.sha }}
       - name: Restore test_output folder
         uses: actions/cache@v2
         env:
-          cache-name: cache-test-output
+          cache-name: cache-test-output-v2
         with:
           path: src/xcode/fastlane/test_output
           key: ${{ runner.os }}-${{ env.cache-name }}-${{ github.sha }}
@@ -163,7 +163,7 @@ jobs:
       - name: Restore Dependencies
         uses: actions/cache@v2
         env:
-          cache-name: cache-dependencies
+          cache-name: cache-dependencies-v2
         with:
           path: |
             src/xcode/vendor
@@ -172,14 +172,14 @@ jobs:
       - name: Restore DerivedData folder
         uses: actions/cache@v2
         env:
-          cache-name: cache-derived-data
+          cache-name: cache-derived-data-v2
         with:
           path: src/xcode/DerivedData
           key: ${{ runner.os }}-${{ env.cache-name }}-${{ github.sha }}
       - name: Restore test_output folder
         uses: actions/cache@v2
         env:
-          cache-name: cache-test-output
+          cache-name: cache-test-output-v2
         with:
           path: src/xcode/fastlane/test_output
           key: ${{ runner.os }}-${{ env.cache-name }}-${{ github.sha }}
@@ -203,7 +203,7 @@ jobs:
       - name: Restore Dependencies
         uses: actions/cache@v2
         env:
-          cache-name: cache-dependencies
+          cache-name: cache-dependencies-v2
         with:
           path: |
             src/xcode/vendor
@@ -212,14 +212,14 @@ jobs:
       - name: Restore DerivedData folder
         uses: actions/cache@v2
         env:
-          cache-name: cache-derived-data
+          cache-name: cache-derived-data-v2
         with:
           path: src/xcode/DerivedData
           key: ${{ runner.os }}-${{ env.cache-name }}-${{ github.sha }}
       - name: Restore test_output folder
         uses: actions/cache@v2
         env:
-          cache-name: cache-test-output
+          cache-name: cache-test-output-v2
         with:
           path: src/xcode/fastlane/test_output
           key: ${{ runner.os }}-${{ env.cache-name }}-${{ github.sha }}
