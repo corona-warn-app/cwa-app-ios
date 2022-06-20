@@ -102,7 +102,7 @@ platform :ios do
       skip_codesigning: true,
       export_method: "ad-hoc",
       skip_package_ipa: true,
-      destination: "platform=iOS Simulator,OS=15.5,name=iPhone 13",
+      destination: "platform=iOS Simulator,OS=15.2,name=iPhone 13",
       scheme: "ENACommunity"
     )
   end
