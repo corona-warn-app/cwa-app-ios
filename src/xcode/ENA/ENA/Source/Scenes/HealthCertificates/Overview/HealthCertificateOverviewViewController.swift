@@ -12,6 +12,7 @@ class HealthCertificateOverviewViewController: UITableViewController {
 	init(
 		viewModel: HealthCertificateOverviewViewModel,
 		cclService: CCLServable,
+		notificationCenter: NotificationCenter = NotificationCenter.default,
 		onInfoBarButtonItemTap: @escaping () -> Void,
 		onExportBarButtonItemTap: @escaping CompletionVoid,
 		onChangeAdmissionScenarioTap: @escaping () -> Void,
@@ -22,6 +23,7 @@ class HealthCertificateOverviewViewController: UITableViewController {
 	) {
 		self.viewModel = viewModel
 		self.cclService = cclService
+		self.notificationCenter = notificationCenter
 		self.onInfoBarButtonItemTap = onInfoBarButtonItemTap
 		self.onExportBarButtonItemTap = onExportBarButtonItemTap
 		self.onChangeAdmissionScenarioTap = onChangeAdmissionScenarioTap
@@ -68,6 +70,13 @@ class HealthCertificateOverviewViewController: UITableViewController {
 			}
 			.store(in: &subscriptions)
 		
+		notificationCenter.addObserver(
+			self,
+			selector: #selector(onShowExportCertificatesTooltipIfNeeded),
+			name: .showExportCertificatesTooltipIfNeeded,
+			object: nil
+		)
+		
 		#if DEBUG
 		if isUITesting {
 			viewModel.store.shouldShowExportCertificatesTooltip = LaunchArguments.healthCertificate.shouldShowExportCertificatesTooltip.boolValue
@@ -78,6 +87,10 @@ class HealthCertificateOverviewViewController: UITableViewController {
 	@available(*, unavailable)
 	required init?(coder _: NSCoder) {
 		fatalError("init(coder:) has intentionally not been implemented")
+	}
+	
+	deinit {
+		notificationCenter.removeObserver(self, name: .showExportCertificatesTooltipIfNeeded, object: nil)
 	}
 
 	// MARK: - Overrides
@@ -114,7 +127,7 @@ class HealthCertificateOverviewViewController: UITableViewController {
 			showAlertAfterRegroup()
 		}
 
-		showExportCertificatesTooltipIfNeeded(exportCertificatesBarButtonItem)
+		onShowExportCertificatesTooltipIfNeeded()
 	}
 
 	// MARK: - Protocol UITableViewDataSource
@@ -175,6 +188,7 @@ class HealthCertificateOverviewViewController: UITableViewController {
 
 	private let viewModel: HealthCertificateOverviewViewModel
 	private let cclService: CCLServable
+	private let notificationCenter: NotificationCenter
 	
 	private let onInfoBarButtonItemTap: () -> Void
 	private let onExportBarButtonItemTap: CompletionVoid
@@ -210,7 +224,7 @@ class HealthCertificateOverviewViewController: UITableViewController {
 		if viewModel.healthCertifiedPersons.isEmpty {
 			navigationItem.rightBarButtonItems = [infoBarButtonItem]
 		} else {
-			navigationItem.rightBarButtonItems = [exportCertificatesBarButtonItem, infoBarButtonItem]
+			navigationItem.rightBarButtonItems = [infoBarButtonItem, exportCertificatesBarButtonItem]
 		}
 	}
 
@@ -443,9 +457,10 @@ class HealthCertificateOverviewViewController: UITableViewController {
 			: nil
 	}
 	
-	private func showExportCertificatesTooltipIfNeeded(_ barButtonItem: UIBarButtonItem) {
+	@objc
+	private func onShowExportCertificatesTooltipIfNeeded() {
 		// Don't show tooltip if list of healthCertifiedPersons is empty
-		guard viewModel.store.shouldShowExportCertificatesTooltip && !viewModel.healthCertifiedPersons.isEmpty else {
+		guard viewModel.store.shouldShowExportCertificatesTooltip, !viewModel.healthCertifiedPersons.isEmpty else {
 			return
 		}
 
@@ -457,7 +472,7 @@ class HealthCertificateOverviewViewController: UITableViewController {
 			}
 		)
 		
-		tooltipViewController.popoverPresentationController?.barButtonItem = barButtonItem
+		tooltipViewController.popoverPresentationController?.barButtonItem = exportCertificatesBarButtonItem
 		tooltipViewController.popoverPresentationController?.permittedArrowDirections = .up
 
 		DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [weak self] in
