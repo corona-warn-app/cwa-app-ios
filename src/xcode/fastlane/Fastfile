@@ -50,6 +50,7 @@ platform :ios do
       output_xctestrun: true,
       clean: true,
       scheme: "ENA",
+      destination: "platform=iOS Simulator,OS=15.2,name=iPhone 13",
       derived_data_path: "./DerivedData"
     )
   end
