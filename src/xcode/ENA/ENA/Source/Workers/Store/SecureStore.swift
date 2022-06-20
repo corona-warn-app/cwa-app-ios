@@ -302,6 +302,11 @@ final class SecureStore: SecureKeyValueStoring, Store {
 		get { kvStore["expiringSoonAndExpiredNotificationsRemoved"] as Bool? ?? false }
 		set { kvStore["expiringSoonAndExpiredNotificationsRemoved"] = newValue }
 	}
+	
+	var shouldShowExportCertificatesTooltip: Bool {
+		get { kvStore["shouldShowExportCertificatesTooltip"] as Bool? ?? true }
+		set { kvStore["shouldShowExportCertificatesTooltip"] = newValue }
+	}
 
 	// MARK: - Protocol RevokedCertificatesStoring
 

@@ -813,6 +813,10 @@ enum AccessibilityIdentifiers {
 			static let disclaimer = "AppStrings.HealthCertificate.Info.disclaimer"
 			static let acknowledgementTitle = "HealthCertificate.Info.acknowledgement"
 		}
+		
+		enum ExportCertificatesInfo {
+			static let headerImage = "AppStrings.HealthCertificate.ExportCertificatesInfo.headerImage"
+		}
 
 		enum Person {
 			static let certificateCell = "HealthCertificate.Person.cell"
@@ -856,6 +860,10 @@ enum AccessibilityIdentifiers {
 			static let successTitle = "AppStrings.HealthCertificate.Reissuance.successTitle"
 			static let accompanyingCertificatesTitle = "AppStrings.HealthCertificate.Reissuance.accompanyingCertificatesTitle"
 			static let accompanyingCertificatesCloseButton = "AppStrings.HealthCertificate.Reissuance.accompanyingCertificatesCloseButton"
+		}
+		
+		enum Navigation {
+			static let rightBarButtonExport = "AppStrings.HealthCertificate.Navigation.rightBarButtonExport"
 		}
 	}
 	

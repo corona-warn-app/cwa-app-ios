@@ -4,7 +4,7 @@
 
 import XCTest
 
-// swiftlint:disable type_body_length
+// swiftlint:disable type_body_length file_length
 class ENAUITests_13_CreateHealthCertificate: CWATestCase {
 
 	// MARK: - Overrides
@@ -17,6 +17,7 @@ class ENAUITests_13_CreateHealthCertificate: CWATestCase {
 		app.setDefaults()
 		app.setLaunchArgument(LaunchArguments.onboarding.isOnboarded, to: true)
 		app.setLaunchArgument(LaunchArguments.onboarding.setCurrentOnboardingVersion, to: true)
+		app.setLaunchArgument(LaunchArguments.healthCertificate.shouldShowExportCertificatesTooltip, to: false)
 	}
 
 	// MARK: - Internal
@@ -585,5 +586,18 @@ class ENAUITests_13_CreateHealthCertificate: CWATestCase {
 		app.cells[AccessibilityIdentifiers.HealthCertificate.Overview.healthCertifiedPersonCell].waitAndTap(.long)
 
 		XCTAssertTrue(app.otherElements[AccessibilityIdentifiers.HealthCertificate.AdmissionState.unseenNewsIndicator].waitForExistence(timeout: .long))
+	}
+	
+	func test_screenshot_ExportCertificatesTooltip() throws {
+		app.setLaunchArgument(LaunchArguments.infoScreen.healthCertificateInfoScreenShown, to: true)
+		app.setLaunchArgument(LaunchArguments.healthCertificate.recoveryCertificateRegistered, to: true)
+		app.setLaunchArgument(LaunchArguments.healthCertificate.shouldShowExportCertificatesTooltip, to: true)
+		app.launch()
+
+		// Navigate to Certificates Tab.
+		app.buttons[AccessibilityIdentifiers.TabBar.certificates].waitAndTap()
+		
+		XCTAssertTrue(app.staticTexts[AccessibilityLabels.localized(AppStrings.Tooltip.ExportCertificates.title)].waitForExistence(timeout: .medium))
+		XCTAssertTrue(app.staticTexts[AccessibilityLabels.localized(AppStrings.Tooltip.ExportCertificates.description)].waitForExistence(timeout: .short))
 	}
 }

@@ -49,11 +49,11 @@ extension HealthCertificate {
 		let templateName: String
 		switch type {
 		case .vaccination:
-			templateName = "VaccinationCertificateTemplate_v4.1"
+			templateName = cborWebTokenHeader.issuer == "DE" ? "VaccinationCertificateTemplate_v4.1" : "NonDE_VaccinationCertificateTemplate_v4.1"
 		case .test:
-			templateName = "TestCertificateTemplate_v4.1"
+			templateName = cborWebTokenHeader.issuer == "DE" ? "TestCertificateTemplate_v4.1" : "NonDE_TestCertificateTemplate_v4.1"
 		case .recovery:
-			templateName = "RecoveryCertificateTemplate_v4.1"
+			templateName = cborWebTokenHeader.issuer == "DE" ? "RecoveryCertificateTemplate_v4.1" : "NonDE_RecoveryCertificateTemplate_v4.1"
 		}
 
 		guard let templateURL = bundle.url(forResource: templateName, withExtension: "pdf"),

@@ -19,6 +19,7 @@ class ENAUITests_18_RecycleBin: CWATestCase {
 
 	func test_RecycleBinCertificateFlow() throws {
 		app.setLaunchArgument(LaunchArguments.infoScreen.healthCertificateInfoScreenShown, to: true)
+		app.setLaunchArgument(LaunchArguments.healthCertificate.shouldShowExportCertificatesTooltip, to: false)
 		app.launch()
 
 		/// Wait until Home Screen is ready
