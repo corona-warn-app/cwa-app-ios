@@ -16,6 +16,11 @@ class AppInformationViewController: DynamicTableViewController, NavigationBarOpa
 		self.cclService = cclService
 
 		self.model = [
+			.versionInfo: AppInformationCellModel(
+				text: AppStrings.AppInformation.newFeaturesNavigation,
+				accessibilityIdentifier: AccessibilityIdentifiers.AppInformation.newFeaturesNavigation,
+				action: .push(viewController: DeltaOnboardingNewVersionFeaturesViewController(hasCloseButton: false))
+			),
 			.about: AppInformationCellModel(
 				text: AppStrings.AppInformation.aboutNavigation,
 				accessibilityIdentifier: AccessibilityIdentifiers.AppInformation.aboutNavigation,
@@ -57,11 +62,6 @@ class AppInformationViewController: DynamicTableViewController, NavigationBarOpa
 				text: AppStrings.AppInformation.imprintNavigation,
 				accessibilityIdentifier: AccessibilityIdentifiers.AppInformation.imprintNavigation,
 				action: .push(model: imprintViewModel.dynamicTable, withTitle: AppStrings.AppInformation.imprintNavigation)
-			),
-			.versionInfo: AppInformationCellModel(
-				text: AppStrings.AppInformation.newFeaturesNavigation,
-				accessibilityIdentifier: AccessibilityIdentifiers.AppInformation.newFeaturesNavigation,
-				action: .push(viewController: DeltaOnboardingNewVersionFeaturesViewController(hasCloseButton: false))
 			)
 		]
 		
@@ -138,6 +138,7 @@ class AppInformationViewController: DynamicTableViewController, NavigationBarOpa
 	// MARK: - Internal
 	
 	enum Category: Int, Hashable, CaseIterable {
+		case versionInfo
 		case about
 		case terms
 		case accessibility
@@ -146,7 +147,6 @@ class AppInformationViewController: DynamicTableViewController, NavigationBarOpa
 		case contact
 		case errorReport
 		case imprint
-		case versionInfo
 	}
 	
 	var preferredLargeTitleBackgroundColor: UIColor? { .enaColor(for: .background) }
