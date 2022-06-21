@@ -38,39 +38,31 @@ struct HealthCertificateQRCodeCellViewModel {
 			case .expiringSoon:
 				self.validityStateIcon = UIImage(named: "Icon_ExpiringSoon")
 				self.validityStateTitle = String(
-					format: AppStrings.HealthCertificate.ValidityState.expiringSoon,
+					format: AppStrings.HealthCertificate.ValidityState.expiringSoonLong,
 					DateFormatter.localizedString(from: healthCertificate.expirationDate, dateStyle: .short, timeStyle: .none),
 					DateFormatter.localizedString(from: healthCertificate.expirationDate, dateStyle: .none, timeStyle: .short)
 				)
-				if mode == .details {
-					self.validityStateDescription = AppStrings.HealthCertificate.ValidityState.expiringSoonDescription
-				} else {
-					self.validityStateDescription = nil
-				}
+				self.validityStateDescription = mode == .details ? AppStrings.HealthCertificate.ValidityState.expiringSoonDescription : nil
 				self.isUnseenNewsIndicatorVisible = mode == .details && healthCertificate.isValidityStateNew
 			case .expired:
 				self.validityStateIcon = UIImage(named: "Icon_ExpiredInvalid")
 				self.validityStateTitle = AppStrings.HealthCertificate.ValidityState.expired
-				if mode == .details {
-					self.validityStateDescription = AppStrings.HealthCertificate.ValidityState.expiredDescription
-				} else {
-					self.validityStateDescription = nil
-				}
+				self.validityStateDescription = mode == .details ? AppStrings.HealthCertificate.ValidityState.expiredDescription : nil
 				self.isUnseenNewsIndicatorVisible = mode == .details && healthCertificate.isValidityStateNew
 			case .invalid:
 				self.validityStateIcon = UIImage(named: "Icon_ExpiredInvalid")
 				self.validityStateTitle = AppStrings.HealthCertificate.ValidityState.invalid
-				if mode == .details {
-					self.validityStateDescription = AppStrings.HealthCertificate.ValidityState.invalidDescription
-				} else {
-					self.validityStateDescription = nil
-				}
+				self.validityStateDescription = mode == .details ? AppStrings.HealthCertificate.ValidityState.invalidDescription : nil
 				self.isUnseenNewsIndicatorVisible = mode == .details && healthCertificate.isValidityStateNew
-			case .blocked:
+			case .blocked, .revoked:
 				   self.validityStateIcon = UIImage(named: "Icon_ExpiredInvalid")
-				   self.validityStateTitle = AppStrings.HealthCertificate.ValidityState.blocked
+				   self.validityStateTitle = AppStrings.HealthCertificate.ValidityState.blockedRevoked
 				   if mode == .details {
-					   self.validityStateDescription = AppStrings.HealthCertificate.ValidityState.blockedDescription
+					   if healthCertificate.cborWebTokenHeader.issuer == "DE" {
+						   self.validityStateDescription = AppStrings.HealthCertificate.ValidityState.blockedRevokedDescriptionDE
+					   } else {
+						   self.validityStateDescription = AppStrings.HealthCertificate.ValidityState.blockedRevokedDescriptionOther
+					   }
 				   } else {
 					   self.validityStateDescription = nil
 				   }

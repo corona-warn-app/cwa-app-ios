@@ -12,8 +12,8 @@ public let kCurrentHealthCertifiedPersonsVersion = 3
 
 protocol HealthCertificateServiceServable {
 	func replaceHealthCertificate(
-		oldCertificateRef: DCCCertificateReference,
-		with newHealthCertificateString: String,
+		requestCertificates: [String],
+		with newCertificates: [DCCReissuanceCertificate],
 		for person: HealthCertifiedPerson,
 		markAsNew: Bool,
 		completedNotificationRegistration: @escaping () -> Void
@@ -33,7 +33,8 @@ class HealthCertificateService: HealthCertificateServiceServable {
 		digitalCovidCertificateAccess: DigitalCovidCertificateAccessProtocol = DigitalCovidCertificateAccess(),
 		notificationCenter: UserNotificationCenter = UNUserNotificationCenter.current(),
 		cclService: CCLServable,
-		recycleBin: RecycleBin
+		recycleBin: RecycleBin,
+		revocationProvider: RevocationProviding
 	) {
 		#if DEBUG
 		if isUITesting {
@@ -51,6 +52,7 @@ class HealthCertificateService: HealthCertificateServiceServable {
 			)
 			self.cclService = cclService
 			self.recycleBin = recycleBin
+			self.revocationProvider = revocationProvider
 
 			return
 		}
@@ -67,6 +69,7 @@ class HealthCertificateService: HealthCertificateServiceServable {
 		)
 		self.cclService = cclService
 		self.recycleBin = recycleBin
+		self.revocationProvider = revocationProvider
 	}
 
 	// MARK: - Internal
@@ -142,6 +145,17 @@ class HealthCertificateService: HealthCertificateServiceServable {
 			}
 			#endif
 
+			let dispatchGroup = DispatchGroup()
+
+			if !self.store.expiringSoonAndExpiredNotificationsRemoved {
+				dispatchGroup.enter()
+				self.healthCertificateNotificationService
+					.removeAllExpiringSoonAndExpiredNotifications {
+						self.store.expiringSoonAndExpiredNotificationsRemoved = true
+						dispatchGroup.leave()
+					}
+			}
+
 			self.updateValidityStates()
 
 			self.updateGradients()
@@ -152,16 +166,19 @@ class HealthCertificateService: HealthCertificateServiceServable {
 			self.scheduleTimer()
 
 			if updatingWalletInfos {
+				dispatchGroup.enter()
 				self.updateDCCWalletInfosIfNeeded {
 					Log.info("[HealthCertificateService] Setup finished including wallet info updates", log: .background)
 					self.isSetUp = true
-					completion()
+					dispatchGroup.leave()
 				}
 			} else {
 				Log.info("[HealthCertificateService] Setup finished without wallet info updates", log: .background)
 				self.isSetUp = true
-				completion()
 			}
+
+			dispatchGroup.wait()
+			completion()
 		}
 	}
 
@@ -262,42 +279,48 @@ class HealthCertificateService: HealthCertificateServiceServable {
 	}
 	
 	func replaceHealthCertificate(
-		oldCertificateRef: DCCCertificateReference,
-		with newHealthCertificateString: String,
+		requestCertificates: [String],
+		with responseCertificates: [DCCReissuanceCertificate],
 		for person: HealthCertifiedPerson,
 		markAsNew: Bool,
 		completedNotificationRegistration: @escaping () -> Void
 	) throws {
-		let newHealthCertificate = try HealthCertificate(base45: newHealthCertificateString, isNew: markAsNew)
-		guard let oldHealthCertificate = person.healthCertificate(for: oldCertificateRef) else {
-			return
-		}
-		
-		person.healthCertificates.replace(oldHealthCertificate, with: newHealthCertificate)
-		
-		updateValidityState(for: newHealthCertificate, person: person)
-		scheduleTimer()
-
 		let dispatchGroup = DispatchGroup()
-		
-		dispatchGroup.enter()
-		healthCertificateNotificationService.createNotifications(
-			for: newHealthCertificate,
-			completion: {
-				dispatchGroup.leave()
-			}
-		)
-		
-		dispatchGroup.enter()
-		healthCertificateNotificationService.removeAllNotifications(
-			for: oldHealthCertificate,
-			completion: {
-				dispatchGroup.leave()
-			}
-		)
 
-		recycleBin.moveToBin(.certificate(oldHealthCertificate))
-		
+		for certificateRef in responseCertificates {
+			let newHealthCertificate = try HealthCertificate(base45: certificateRef.certificate, isNew: markAsNew)
+			if !person.healthCertificates.contains(newHealthCertificate) {
+				person.healthCertificates.append(newHealthCertificate)
+			}
+			
+			updateValidityState(for: newHealthCertificate, person: person)
+			scheduleTimer()
+			
+			dispatchGroup.enter()
+			healthCertificateNotificationService.createNotifications(
+				for: newHealthCertificate,
+				completion: {
+					dispatchGroup.leave()
+				}
+			)
+			
+			for relation in certificateRef.relations where relation.action == "replace" {
+				if relation.index < requestCertificates.count {
+					let certificateBase45 = requestCertificates[relation.index]
+					
+					if let certificateToBeRemoved = person.healthCertificates.first(where: {
+						certificateBase45 == $0.base45
+					}) {
+						moveHealthCertificateToBin(certificateToBeRemoved)
+					} else {
+						Log.error("The certified person does not contain the indexed certificate", log: .vaccination)
+					}
+				} else {
+					Log.error("Index of certificate to be deleted is out of bounds", log: .vaccination)
+				}
+			}
+		}
+
 		dispatchGroup.notify(queue: .main) {
 			completedNotificationRegistration()
 		}
@@ -340,6 +363,10 @@ class HealthCertificateService: HealthCertificateServiceServable {
 		} else {
 			Log.info("[HealthCertificateService] Successfully registered health certificate for a person with other existing certificates", log: .api)
 		}
+
+		updateRevocationStates {
+			Log.info("Finished updating revocation states.")
+		}
 		
 		Log.info("Finished adding health certificate to person.")
 		
@@ -368,8 +395,6 @@ class HealthCertificateService: HealthCertificateServiceServable {
 				break
 			}
 		}
-		// we do not have to wait here, so we leave the completion empty
-		healthCertificateNotificationService.removeAllNotifications(for: healthCertificate, completion: { })
 
 		// Move HealthCertificate to the recycle-bin
 		recycleBin.moveToBin(.certificate(healthCertificate))
@@ -492,6 +517,7 @@ class HealthCertificateService: HealthCertificateServiceServable {
 	}
 
 	func updateValidityStatesAndNotifications(
+		for healthCertificateTuples: [(certificate: HealthCertificate, person: HealthCertifiedPerson)]? = nil,
 		shouldScheduleTimer: Bool = true,
 		completion: @escaping () -> Void
 	) {
@@ -499,18 +525,24 @@ class HealthCertificateService: HealthCertificateServiceServable {
 
 		attemptToRestoreDecodingFailedHealthCertificates()
 
-		let dispatchGroup = DispatchGroup()
-		healthCertifiedPersons.forEach { healthCertifiedPerson in
-			healthCertifiedPerson.healthCertificates.forEach { healthCertificate in
-				updateValidityState(for: healthCertificate, person: healthCertifiedPerson)
-				dispatchGroup.enter()
-				healthCertificateNotificationService.recreateNotifications(
-					for: healthCertificate,
-					completion: {
-						dispatchGroup.leave()
-					}
-				)
+		let certificateTuples = healthCertificateTuples ?? healthCertifiedPersons
+			.map { (certificates: $0.healthCertificates, person: $0) }
+			.flatMap { personCertificateTuple in
+				personCertificateTuple.certificates.map {
+					(certificate: $0, person: personCertificateTuple.person)
+				}
 			}
+
+		let dispatchGroup = DispatchGroup()
+		certificateTuples.forEach { healthCertificateTuple in
+			updateValidityState(for: healthCertificateTuple.certificate, person: healthCertificateTuple.person)
+			dispatchGroup.enter()
+			healthCertificateNotificationService.createNotifications(
+				for: healthCertificateTuple.certificate,
+				completion: {
+					dispatchGroup.leave()
+				}
+			)
 		}
 
 		dispatchGroup.notify(queue: .global()) {
@@ -520,6 +552,37 @@ class HealthCertificateService: HealthCertificateServiceServable {
 		if shouldScheduleTimer {
 			scheduleTimer()
 		}
+	}
+
+	func updateRevocationStates(completion: (() -> Void)? = nil) {
+		let allRegisteredCertificates = healthCertifiedPersons.flatMap { $0.healthCertificates }
+
+		revocationProvider.updateCache(
+			with: allRegisteredCertificates,
+			completion: { result in
+				guard case .success(let certificatesToRevoke) = result else {
+					completion?()
+					return
+				}
+
+				let certificatesToUpdate = certificatesToRevoke
+					.filter { $0.validityState != .revoked } +
+					allRegisteredCertificates
+					.filter { $0.validityState == .revoked && !certificatesToRevoke.contains($0) }
+
+				let certificateTuples = certificatesToUpdate.compactMap { certificate -> (certificate: HealthCertificate, person: HealthCertifiedPerson)? in
+					guard let person = self.findFirstPerson(for: certificate, from: self.healthCertifiedPersons) else {
+						return nil
+					}
+
+					return (
+						certificate: certificate,
+						person: person
+					)
+				}
+				self.updateValidityStatesAndNotifications(for: certificateTuples, completion: completion ?? {})
+			}
+		)
 	}
 
 	func validUntilDates(for healthCertificates: [HealthCertificate], signingCertificates: [DCCSigningCertificate]) -> [Date] {
@@ -597,6 +660,7 @@ class HealthCertificateService: HealthCertificateServiceServable {
 	private let healthCertificateNotificationService: HealthCertificateNotificationService
 	private let recycleBin: RecycleBin
 	private let cclService: CCLServable
+	private let revocationProvider: RevocationProviding
 
 	private let setupQueue = DispatchQueue(label: "com.sap.HealthCertificateService.setup")
 	private let healthCertifiedPersonsQueue = DispatchQueue(label: "com.sap.HealthCertificateService.healthCertifiedPersons")
@@ -773,7 +837,9 @@ class HealthCertificateService: HealthCertificateServiceServable {
 	private func updateValidityState(for healthCertificate: HealthCertificate, person: HealthCertifiedPerson) {
 		let previousValidityState = healthCertificate.validityState
 
-		if !checkIfCertificateIsBlocked(for: healthCertificate, person: person) {
+		if revocationProvider.isRevokedFromRevocationList(healthCertificate: healthCertificate) {
+			healthCertificate.validityState = .revoked
+		} else if !checkIfCertificateIsBlocked(for: healthCertificate, person: person) {
 			let signatureVerificationResult = dccSignatureVerifier.verify(
 				certificate: healthCertificate.base45,
 				with: dscListProvider.signingCertificates.value,
@@ -789,8 +855,9 @@ class HealthCertificateService: HealthCertificateServiceServable {
 		}
 
 		if healthCertificate.validityState != previousValidityState {
-			// Only validity states that are not shown as `.valid` should be marked as new for the user.
-			healthCertificate.isValidityStateNew = !healthCertificate.isConsideredValid
+			// Only validity states that are considered newsworthy (and trigger a notification) should be marked as new for the user.
+			healthCertificate.isValidityStateNew = healthCertificate.validityStateIsConsideredNewsworthy
+			updateDCCWalletInfo(for: person)
 		}
 	}
 
@@ -803,7 +870,6 @@ class HealthCertificateService: HealthCertificateServiceServable {
 	}
 
 	private func updateTimeBasedValidityState(for healthCertificate: HealthCertificate) {
-
 		let currentAppConfiguration = appConfiguration.currentAppConfig.value
 		let expirationThresholdInDays = currentAppConfiguration.dgcParameters.expirationThresholdInDays
 		let expiringSoonDate = Calendar.current.date(
@@ -851,7 +917,6 @@ class HealthCertificateService: HealthCertificateServiceServable {
 	private func regroup(
 		healthCertifiedPerson: HealthCertifiedPerson
 	) -> [HealthCertifiedPerson] {
-		
 		let allCertificates = healthCertifiedPerson.healthCertificates
 		// Create now from every remaining certificate of the person a new person
 		let splittedPersons = allCertificates.map { HealthCertifiedPerson(healthCertificates: [$0]) }

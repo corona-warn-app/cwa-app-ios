@@ -13,18 +13,15 @@ final class OnBehalfCheckinSubmissionCoordinator {
 		restServiceProvider: RestServiceProviding,
 		appConfiguration: AppConfigurationProviding,
 		eventStore: EventStoringProviding,
-		client: Client,
 		qrScannerCoordinator: QRScannerCoordinator
 	) {
 		self.parentViewController = parentViewController
 		self.appConfiguration = appConfiguration
 		self.eventStore = eventStore
-		self.client = client
 		self.qrScannerCoordinator = qrScannerCoordinator
 
 		self.checkinSubmissionService = OnBehalfCheckinSubmissionService(
 			restServiceProvider: restServiceProvider,
-			client: client,
 			appConfigurationProvider: appConfiguration
 		)
 	}
@@ -45,7 +42,6 @@ final class OnBehalfCheckinSubmissionCoordinator {
 
 	private let appConfiguration: AppConfigurationProviding
 	private let eventStore: EventStoringProviding
-	private let client: Client
 	private let checkinSubmissionService: OnBehalfCheckinSubmissionService
 	private let qrScannerCoordinator: QRScannerCoordinator
 

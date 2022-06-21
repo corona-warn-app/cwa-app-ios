@@ -71,4 +71,16 @@ class CountryTests: CWATestCase {
 		}
 	}
 
+	func testSameCountryDifferentLocalizations_ResultIsEqual() throws {
+		let german = Country(id: "DE", localizedName: "Deutschland")
+		let english = Country(id: "DE", localizedName: "Germany")
+		XCTAssertEqual(german, english)
+	}
+
+	func testDifferentCountriesButSameLocalization_ResultIsNotEqual() throws {
+		let france = Country(id: "FR", localizedName: "notImportant")
+		let germany = Country(id: "DE", localizedName: "notImportant")
+		XCTAssertNotEqual(france, germany)
+	}
+
 }

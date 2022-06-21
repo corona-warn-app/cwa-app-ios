@@ -136,10 +136,10 @@ class ExposureSubmissionCoordinatorModel {
 	func submitExposure(
 		isLoading: @escaping (Bool) -> Void,
 		onSuccess: @escaping () -> Void,
-		onError: @escaping (ExposureSubmissionError) -> Void
+		onError: @escaping (ExposureSubmissionServiceError) -> Void
 	) {
 		guard let coronaTestType = coronaTestType else {
-			onError(.noCoronaTestTypeGiven)
+			onError(.preconditionError(.noCoronaTestTypeGiven))
 			return
 		}
 
@@ -149,16 +149,13 @@ class ExposureSubmissionCoordinatorModel {
 			isLoading(false)
 
 			switch error {
-			// If the user doesn`t allow the TEKs to be shared with the app, we stay on the screen (https://jira.itc.sap.com/browse/EXPOSUREAPP-2293)
-			case .notAuthorized:
-				return
 
 			// We continue the regular flow even if there are no keys collected.
-			case .none, .noKeysCollected:
+			case .none, .preconditionError(.noKeysCollected):
 				onSuccess()
 
 			// We don't show an error if the submission consent was not given, because we assume that the submission already happened in the background.
-			case .noSubmissionConsent:
+			case .preconditionError(.noSubmissionConsent):
 				Log.info("Consent Not Given", log: .ui)
 				onSuccess()
 

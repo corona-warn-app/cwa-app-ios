@@ -12,10 +12,10 @@ class HealthCertificate_PDFTests: XCTestCase {
 		let testBundle = Bundle(for: type(of: self))
 
 		let base45Result = DigitalCovidCertificateFake.makeBase45Fake(
-			from: DigitalCovidCertificate.fake(
+			certificate: DigitalCovidCertificate.fake(
 				vaccinationEntries: [VaccinationEntry.fake()]
 			),
-			and: CBORWebTokenHeader.fake()
+			header: CBORWebTokenHeader.fake()
 		)
 
 		guard case let .success(base45) = base45Result,
@@ -34,10 +34,10 @@ class HealthCertificate_PDFTests: XCTestCase {
 		let testBundle = Bundle(for: type(of: self))
 
 		let base45Result = DigitalCovidCertificateFake.makeBase45Fake(
-			from: DigitalCovidCertificate.fake(
+			certificate: DigitalCovidCertificate.fake(
 				testEntries: [TestEntry.fake()]
 			),
-			and: CBORWebTokenHeader.fake()
+			header: CBORWebTokenHeader.fake()
 		)
 
 		guard case let .success(base45) = base45Result,
@@ -56,10 +56,10 @@ class HealthCertificate_PDFTests: XCTestCase {
 		let testBundle = Bundle(for: type(of: self))
 
 		let base45Result = DigitalCovidCertificateFake.makeBase45Fake(
-			from: DigitalCovidCertificate.fake(
+			certificate: DigitalCovidCertificate.fake(
 				recoveryEntries: [RecoveryEntry.fake()]
 			),
-			and: CBORWebTokenHeader.fake()
+			header: CBORWebTokenHeader.fake()
 		)
 
 		guard case let .success(base45) = base45Result,

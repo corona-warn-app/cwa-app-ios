@@ -20,10 +20,6 @@ struct AntigenTestProfileInformationViewModel {
 
 	let title: String = AppStrings.ExposureSubmission.AntigenTest.Information.title
 
-	func markScreenSeen() {
-		store.antigenTestProfileInfoScreenShown = true
-	}
-
 	var dynamicTableViewModel: DynamicTableViewModel {
 		DynamicTableViewModel([
 
@@ -39,6 +35,7 @@ struct AntigenTestProfileInformationViewModel {
 						height: 144.0
 					),
 				cells: [
+					.space(height: 15.0),
 					.title2(
 						text: AppStrings.ExposureSubmission.AntigenTest.Information.descriptionTitle,
 						accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmission.AntigenTest.Information.descriptionTitle

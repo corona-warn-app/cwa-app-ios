@@ -5,6 +5,7 @@
 import Foundation
 import ExposureNotification
 import OpenCombine
+import HealthCertificateToolkit
 
 protocol StoreProtocol: AnyObject {
 
@@ -195,9 +196,9 @@ protocol CoronaTestStoring {
 
 protocol AntigenTestProfileStoring: AnyObject {
 
-	var antigenTestProfileSubject: CurrentValueSubject<AntigenTestProfile?, Never> { get }
-
-	var antigenTestProfile: AntigenTestProfile? { get set }
+	var antigenTestProfilesSubject: CurrentValueSubject<[AntigenTestProfile], Never> { get }
+	
+	var antigenTestProfiles: [AntigenTestProfile] { get set }
 
 	var antigenTestProfileInfoScreenShown: Bool { get set }
 
@@ -225,6 +226,14 @@ protocol HealthCertificateStoring: AnyObject {
 
 	/// Flag to inform the user that a regroup after a migration was applied.
 	var shouldShowRegroupingAlert: Bool { get set }
+
+	var expiringSoonAndExpiredNotificationsRemoved: Bool { get set }
+
+}
+
+protocol RevokedCertificatesStoring: AnyObject {
+
+	var revokedCertificates: [String] { get set }
 
 }
 
@@ -293,6 +302,7 @@ protocol Store:
 	ErrorLogUploadHistoryProviding,
 	EventRegistrationCaching,
 	HealthCertificateStoring,
+	RevokedCertificatesStoring,
 	PrivacyPreservingProviding,
 	StatisticsCaching,
 	LocalStatisticsCaching,

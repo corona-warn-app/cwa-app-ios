@@ -134,41 +134,23 @@ final class HealthCertificateViewModel {
 		let subtitle: String
 		switch healthCertificate.type {
 		case .vaccination:
-			title = AppStrings.HealthCertificate.Details.vaccinationCertificate
-			subtitle = AppStrings.HealthCertificate.Details.euCovidCertificate
+			title = AppStrings.HealthCertificate.Details.euCovidCertificate
+			subtitle = AppStrings.HealthCertificate.Details.vaccinationCertificate
 		case .test:
-			title = AppStrings.HealthCertificate.Details.TestCertificate.title
-			subtitle = AppStrings.HealthCertificate.Details.euCovidCertificate
+			title = AppStrings.HealthCertificate.Details.euCovidCertificate
+			subtitle = AppStrings.HealthCertificate.Details.TestCertificate.title
 		case .recovery:
-			title = AppStrings.HealthCertificate.Details.RecoveryCertificate.title
-			subtitle = AppStrings.HealthCertificate.Details.RecoveryCertificate.subtitle
+			title = AppStrings.HealthCertificate.Details.euCovidCertificate
+			subtitle = AppStrings.HealthCertificate.Details.RecoveryCertificate.title
 		}
-
-		let attributedTitle = NSAttributedString(
-			string: title,
-			attributes: [
-				.font: UIFont.enaFont(for: .headline),
-				.foregroundColor: UIColor.enaColor(for: .textContrast),
-				.paragraphStyle: centerParagraphStyle
-			]
-		)
-
-		let attributedSubtitle = NSAttributedString(
-			string: subtitle,
-			attributes: [
-				.font: UIFont.enaFont(for: .body),
-				.foregroundColor: UIColor.enaColor(for: .textContrast),
-				.paragraphStyle: centerParagraphStyle
-			]
-		)
 
 		return HealthCertificateSimpleTextCellViewModel(
 			backgroundColor: .clear,
+			textColor: .enaColor(for: .textContrast),
 			textAlignment: .center,
-			attributedText: [attributedTitle, attributedSubtitle]
-				.joined(with: "\n"),
+			text: title + "\n" + subtitle,
 			topSpace: 16.0,
-			font: .enaFont(for: .headline),
+			font: .enaFont(for: .body),
 			accessibilityTraits: .staticText,
 			accessibilityIdentifier: AccessibilityIdentifiers.HealthCertificate.Certificate.headline
 		)
@@ -387,7 +369,7 @@ final class HealthCertificateViewModel {
 	}
 
 	private func updateFooterView() {
-		isPrimaryFooterButtonEnabled = healthCertificate.validityState != .blocked
+		isPrimaryFooterButtonEnabled = healthCertificate.validityState != .blocked && healthCertificate.validityState != .revoked
 	}
 
 }

@@ -191,4 +191,5 @@ private class CBORReceiveTestResource: Resource {
 	let sendResource: EmptySendResource
 	var receiveResource: CBORReceiveResource<CBORDecodingTestModel>
 	var trustEvaluation: TrustEvaluating
+	var retryingCount: Int = 0
 }

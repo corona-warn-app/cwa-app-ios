@@ -142,7 +142,7 @@ class HealthCertifiedPersonCellModel {
 			return nil
 		case .expiringSoon:
 			let validityStateTitle = String(
-				format: AppStrings.HealthCertificate.ValidityState.expiringSoon,
+				format: AppStrings.HealthCertificate.ValidityState.expiringSoonLong,
 				DateFormatter.localizedString(from: certificate.expirationDate, dateStyle: .short, timeStyle: .none),
 				DateFormatter.localizedString(from: certificate.expirationDate, dateStyle: .none, timeStyle: .short)
 			)
@@ -161,10 +161,10 @@ class HealthCertifiedPersonCellModel {
 				image: UIImage(named: "Icon_ExpiredInvalid"),
 				description: AppStrings.HealthCertificate.ValidityState.invalid
 			)
-		case .blocked:
+		case .blocked, .revoked:
 			return .validityState(
 				image: UIImage(named: "Icon_ExpiredInvalid"),
-				description: AppStrings.HealthCertificate.ValidityState.blocked
+				description: AppStrings.HealthCertificate.ValidityState.blockedRevoked
 			)
 		}
 	}

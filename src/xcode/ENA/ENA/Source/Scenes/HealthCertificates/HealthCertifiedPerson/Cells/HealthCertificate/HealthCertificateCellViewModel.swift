@@ -40,8 +40,10 @@ final class HealthCertificateCellViewModel {
 			} else {
 				return .solidGrey
 			}
-		case .overview, .overviewPlusName:
+		case .overview:
 			return .lightBlue
+		case .overviewPlusName:
+			return healthCertificate.isUsable ? healthCertifiedPerson.gradientType : .solidGrey
 		}
 	}()
 
@@ -120,7 +122,7 @@ final class HealthCertificateCellViewModel {
 					return nil
 				case .expiringSoon:
 					return String(
-						format: AppStrings.HealthCertificate.ValidityState.expiringSoon,
+						format: AppStrings.HealthCertificate.ValidityState.expiringSoonShort,
 						DateFormatter.localizedString(from: healthCertificate.expirationDate, dateStyle: .short, timeStyle: .none),
 						DateFormatter.localizedString(from: healthCertificate.expirationDate, dateStyle: .none, timeStyle: .short)
 					)
@@ -128,8 +130,8 @@ final class HealthCertificateCellViewModel {
 					return AppStrings.HealthCertificate.ValidityState.expired
 				case .invalid:
 					return AppStrings.HealthCertificate.ValidityState.invalid
-				case .blocked:
-					return AppStrings.HealthCertificate.ValidityState.blocked
+				case .blocked, .revoked:
+					return AppStrings.HealthCertificate.ValidityState.blockedRevoked
 				}
 			} else if healthCertificate.isNew {
 				return AppStrings.HealthCertificate.Person.newlyAddedCertificate
@@ -199,7 +201,7 @@ final class HealthCertificateCellViewModel {
 	}()
 
 	lazy var isValidationButtonEnabled: Bool = {
-		healthCertificate.validityState != .blocked
+		healthCertificate.validityState != .blocked && healthCertificate.validityState != .revoked
 	}()
 	
 	func didTapValidationButton(loadingStateHandler: @escaping (Bool) -> Void) {

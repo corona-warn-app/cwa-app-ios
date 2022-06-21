@@ -265,10 +265,10 @@ class ExposureSubmissionTestResultFamilyMemberViewModelTests: CWATestCase {
 			onTestCertificateCellTap: { _, _ in }
 		)
 		
-		XCTAssertEqual(model.dynamicTableViewModelPublisher.value.numberOfSection, 1)
-		XCTAssertNotNil(model.dynamicTableViewModelPublisher.value.section(0).header)
+		XCTAssertEqual(model.dynamicTableViewModelPublisher.value.numberOfSection, 2)
+		XCTAssertNotNil(model.dynamicTableViewModelPublisher.value.section(1).header)
 		
-		let section = model.dynamicTableViewModelPublisher.value.section(0)
+		let section = model.dynamicTableViewModelPublisher.value.section(1)
 		let cells = section.cells
 		XCTAssertEqual(cells.count, 9)
 		
@@ -322,12 +322,12 @@ class ExposureSubmissionTestResultFamilyMemberViewModelTests: CWATestCase {
 			onTestCertificateCellTap: { _, _ in }
 		)
 		
-		XCTAssertEqual(model.dynamicTableViewModelPublisher.value.numberOfSection, 1)
-		XCTAssertNotNil(model.dynamicTableViewModelPublisher.value.section(0).header)
+		XCTAssertEqual(model.dynamicTableViewModelPublisher.value.numberOfSection, 2)
+		XCTAssertNotNil(model.dynamicTableViewModelPublisher.value.section(1).header)
 		
-		let section = model.dynamicTableViewModelPublisher.value.section(0)
+		let section = model.dynamicTableViewModelPublisher.value.section(1)
 		let cells = section.cells
-		XCTAssertEqual(cells.count, 9)
+		XCTAssertEqual(cells.count, 10)
 		
 		let firstItem = cells[0]
 		var id = firstItem.cellReuseIdentifier
@@ -339,7 +339,7 @@ class ExposureSubmissionTestResultFamilyMemberViewModelTests: CWATestCase {
 		
 		let thirdItem = cells[2]
 		id = thirdItem.cellReuseIdentifier
-		XCTAssertEqual(id.rawValue, "stepCell")
+		XCTAssertEqual(id.rawValue, "labelCell")
 		
 		let fourthItem = cells[3]
 		id = fourthItem.cellReuseIdentifier
@@ -347,7 +347,7 @@ class ExposureSubmissionTestResultFamilyMemberViewModelTests: CWATestCase {
 		
 		let fifthItem = cells[4]
 		id = fifthItem.cellReuseIdentifier
-		XCTAssertEqual(id.rawValue, "labelCell")
+		XCTAssertEqual(id.rawValue, "stepCell")
 		
 		let sixthItem = cells[5]
 		id = sixthItem.cellReuseIdentifier
@@ -355,7 +355,7 @@ class ExposureSubmissionTestResultFamilyMemberViewModelTests: CWATestCase {
 		
 		let seventhItem = cells[6]
 		id = seventhItem.cellReuseIdentifier
-		XCTAssertEqual(id.rawValue, "bulletPointCell")
+		XCTAssertEqual(id.rawValue, "labelCell")
 		
 		let eigthItem = cells[7]
 		id = eigthItem.cellReuseIdentifier
@@ -363,6 +363,10 @@ class ExposureSubmissionTestResultFamilyMemberViewModelTests: CWATestCase {
 		
 		let ninthItem = cells[8]
 		id = ninthItem.cellReuseIdentifier
+		XCTAssertEqual(id.rawValue, "bulletPointCell")
+
+		let tenthItem = cells[9]
+		id = tenthItem.cellReuseIdentifier
 		XCTAssertEqual(id.rawValue, "bulletPointCell")
 	}
 	
@@ -379,10 +383,10 @@ class ExposureSubmissionTestResultFamilyMemberViewModelTests: CWATestCase {
 			onTestCertificateCellTap: { _, _ in }
 		)
 		
-		XCTAssertEqual(model.dynamicTableViewModelPublisher.value.numberOfSection, 1)
-		XCTAssertNotNil(model.dynamicTableViewModelPublisher.value.section(0).header)
+		XCTAssertEqual(model.dynamicTableViewModelPublisher.value.numberOfSection, 2)
+		XCTAssertNotNil(model.dynamicTableViewModelPublisher.value.section(1).header)
 		
-		let section = model.dynamicTableViewModelPublisher.value.section(0)
+		let section = model.dynamicTableViewModelPublisher.value.section(1)
 		let cells = section.cells
 		XCTAssertEqual(cells.count, 4)
 		
@@ -416,10 +420,10 @@ class ExposureSubmissionTestResultFamilyMemberViewModelTests: CWATestCase {
 			onTestCertificateCellTap: { _, _ in }
 		)
 		
-		XCTAssertEqual(model.dynamicTableViewModelPublisher.value.numberOfSection, 1)
-		XCTAssertNotNil(model.dynamicTableViewModelPublisher.value.section(0).header)
+		XCTAssertEqual(model.dynamicTableViewModelPublisher.value.numberOfSection, 2)
+		XCTAssertNotNil(model.dynamicTableViewModelPublisher.value.section(1).header)
 		
-		let section = model.dynamicTableViewModelPublisher.value.section(0)
+		let section = model.dynamicTableViewModelPublisher.value.section(1)
 		let cells = section.cells
 		XCTAssertEqual(cells.count, 3)
 		

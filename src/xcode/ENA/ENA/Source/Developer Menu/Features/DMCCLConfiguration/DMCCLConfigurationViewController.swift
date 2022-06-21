@@ -36,7 +36,7 @@ class DMCCLConfigurationViewController: UITableViewController {
 	// MARK: - Protocol UITableViewDataSource
 
 	override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-		// by help of a protocol for cellViewModel we might simplyfiy this even more
+		// by help of a protocol for cellViewModel we might simplify this even more
 		let cellViewModel = viewModel.cellViewModel(by: indexPath)
 		if cellViewModel is DMStaticTextCellViewModel {
 			let cell = tableView.dequeueReusableCell(cellType: DMStaticTextTableViewCell.self, for: indexPath)
@@ -49,7 +49,7 @@ class DMCCLConfigurationViewController: UITableViewController {
 			cell.configure(cellViewModel: cellViewModel)
 			return cell
 		} else {
-			fatalError("unsopported cellViewModel - can't find a matching cell")
+			fatalError("unsupported cellViewModel - can't find a matching cell")
 		}
 	}
 	
@@ -82,7 +82,7 @@ class DMCCLConfigurationViewController: UITableViewController {
 	}
 
 	private func setupNavigationBar() {
-		title = "CLLConfiguration"
+		title = "CCLConfiguration"
 	}
 }
 #endif

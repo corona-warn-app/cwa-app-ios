@@ -15,7 +15,6 @@ import CertLogic
 protocol CoronaWarnAppDelegate: AnyObject {
 
 	var client: HTTPClient { get }
-	var wifiClient: WifiOnlyHTTPClient { get }
 	var downloadedPackagesStore: DownloadedPackagesStore { get }
 	var store: Store { get }
 	var appConfigurationProvider: AppConfigurationProviding { get }
@@ -57,7 +56,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 
 		self.restServiceProvider = RestServiceProvider(cache: restServiceCache)
 		self.client = HTTPClient(environmentProvider: environmentProvider)
-		self.wifiClient = WifiOnlyHTTPClient(environmentProvider: environmentProvider)
 		self.recycleBin = RecycleBin(store: store)
 
 		self.downloadedPackagesStore.keyValueStore = self.store
@@ -221,6 +219,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		if !didSetupUI && !appLaunchedFromUserActivityURL {
 			setupUI()
 			showUI()
+		} else {
+			healthCertificateService.updateRevocationStates()
 		}
 
 		hidePrivacyProtectionWindow()
@@ -269,7 +269,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 	// MARK: - Protocol CoronaWarnAppDelegate
 
 	let client: HTTPClient
-	let wifiClient: WifiOnlyHTTPClient
 	let cachingClient = CachingHTTPClient()
 	let downloadedPackagesStore: DownloadedPackagesStore = DownloadedPackagesSQLLiteStore(fileName: "packages")
 	let taskScheduler: ENATaskScheduler = ENATaskScheduler.shared
@@ -289,7 +288,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 
 	lazy var coronaTestService: CoronaTestServiceProviding = {
 		return CoronaTestService(
-			client: client,
 			restServiceProvider: restServiceProvider,
 			store: store,
 			eventStore: eventStore,
@@ -354,13 +352,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 	lazy var riskProvider: RiskProvider = {
 		let keyPackageDownload = KeyPackageDownload(
 			downloadedPackagesStore: downloadedPackagesStore,
-			client: client,
-			wifiClient: wifiClient,
+			restService: restServiceProvider,
 			store: store
 		)
 
 		let traceWarningPackageDownload = TraceWarningPackageDownload(
-			client: client,
+			restServiceProvider: restServiceProvider,
 			store: store,
 			eventStore: eventStore
 		)
@@ -407,12 +404,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		dscListProvider: dscListProvider,
 		appConfiguration: appConfigurationProvider,
 		cclService: cclService,
-		recycleBin: recycleBin
+		recycleBin: recycleBin,
+		revocationProvider: revocationProvider
+	)
+
+	private lazy var revocationProvider: RevocationProviding = RevocationProvider(
+		restService: restServiceProvider,
+		store: store
 	)
 
 	private lazy var healthCertificateRequestService = HealthCertificateRequestService(
 		store: store,
-		client: client,
+		restServiceProvider: restServiceProvider,
 		appConfiguration: appConfigurationProvider,
 		healthCertificateService: healthCertificateService
 	)
@@ -537,7 +540,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		ExposureSubmissionServiceDependencies(
 			exposureManager: self.exposureManager,
 			appConfigurationProvider: self.appConfigurationProvider,
-			client: self.client,
 			restServiceProvider: self.restServiceProvider,
 			store: self.store,
 			eventStore: self.eventStore,
@@ -565,7 +567,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 			store: self.store,
 			exposureSubmissionDependencies: self.exposureSubmissionServiceDependencies,
 			healthCertificateService: self.healthCertificateService,
-			familyMemberCoronaTestService: familyMemberCoronaTestService
+			familyMemberCoronaTestService: familyMemberCoronaTestService,
+			cclService: self.cclService
 		)
 	}()
 
@@ -694,6 +697,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		coronaTestService.updatePublishersFromStore()
 		familyMemberCoronaTestService.updatePublishersFromStore()
 		healthCertificateService.updatePublishersFromStore()
+		healthCertificateRequestService.updatePublishersFromStore()
 	}
 
 	// MARK: - Protocol ExposureStateUpdating
@@ -888,28 +892,36 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 	private func showUI() {
 		coordinator.showLoadingScreen()
 
-		healthCertificateService.setup(
-			updatingWalletInfos: true,
-			completion: { [weak self] in
-				guard let self = self else {
-					return
-				}
-
-				DispatchQueue.main.async {
-					if self.store.isOnboarded {
-						self.showHome(self.route)
-					} else {
-						self.postOnboardingRoute = self.route
-						self.showOnboarding()
+		appLaunchedFromUserActivityURL = false
+		didSetupUI = true
+		
+		cclService.setup { [weak self] in
+			guard let self = self else {
+				return
+			}
+			
+			self.healthCertificateService.setup(
+				updatingWalletInfos: true,
+				completion: { [weak self] in
+					guard let self = self else {
+						return
 					}
 
-					self.appLaunchedFromUserActivityURL = false
-					self.didSetupUI = true
-					self.route = nil
-				}
-			}
-		)
+					DispatchQueue.main.async {
+						if self.store.isOnboarded {
+							self.showHome(self.route)
+						} else {
+							self.postOnboardingRoute = self.route
+							self.showOnboarding()
+						}
 
+						self.route = nil
+
+						self.healthCertificateService.updateRevocationStates()
+					}
+				}
+			)
+		}
 	}
 
 	private func setupNavigationBarAppearance() {

@@ -10,7 +10,6 @@ import XCTest
 class CoronaTestRestorationHandlerTests: CWATestCase {
 
 	func testCanRestore() {
-		let client = ClientMock()
 		let store = MockTestStore()
 		let appConfiguration = CachedAppConfigurationMock()
 		let recycleBin = RecycleBin(store: store)
@@ -21,11 +20,11 @@ class CoronaTestRestorationHandlerTests: CWATestCase {
 			dscListProvider: MockDSCListProvider(),
 			appConfiguration: appConfiguration,
 			cclService: FakeCCLService(),
-			recycleBin: recycleBin
+			recycleBin: recycleBin,
+			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
 
 		let service = CoronaTestService(
-			client: client,
 			store: store,
 			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
@@ -33,7 +32,7 @@ class CoronaTestRestorationHandlerTests: CWATestCase {
 			healthCertificateService: healthCertificateService,
 			healthCertificateRequestService: HealthCertificateRequestService(
 				store: store,
-				client: client,
+				restServiceProvider: RestServiceProviderStub(),
 				appConfiguration: appConfiguration,
 				healthCertificateService: healthCertificateService
 			),
@@ -83,7 +82,6 @@ class CoronaTestRestorationHandlerTests: CWATestCase {
 	}
 
 	func testRestoringPCRTest() {
-		let client = ClientMock()
 		let store = MockTestStore()
 		let appConfiguration = CachedAppConfigurationMock()
 		let recycleBin = RecycleBin(store: store)
@@ -94,11 +92,11 @@ class CoronaTestRestorationHandlerTests: CWATestCase {
 			dscListProvider: MockDSCListProvider(),
 			appConfiguration: appConfiguration,
 			cclService: FakeCCLService(),
-			recycleBin: recycleBin
+			recycleBin: recycleBin,
+			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
 
 		let service = CoronaTestService(
-			client: client,
 			store: store,
 			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
@@ -106,7 +104,7 @@ class CoronaTestRestorationHandlerTests: CWATestCase {
 			healthCertificateService: healthCertificateService,
 			healthCertificateRequestService: HealthCertificateRequestService(
 				store: store,
-				client: client,
+				restServiceProvider: RestServiceProviderStub(),
 				appConfiguration: appConfiguration,
 				healthCertificateService: healthCertificateService
 			),
@@ -135,7 +133,6 @@ class CoronaTestRestorationHandlerTests: CWATestCase {
 	}
 
 	func testRestoringAntigenTest() {
-		let client = ClientMock()
 		let store = MockTestStore()
 		let appConfiguration = CachedAppConfigurationMock()
 		let recycleBin = RecycleBin(store: store)
@@ -146,11 +143,11 @@ class CoronaTestRestorationHandlerTests: CWATestCase {
 			dscListProvider: MockDSCListProvider(),
 			appConfiguration: appConfiguration,
 			cclService: FakeCCLService(),
-			recycleBin: recycleBin
+			recycleBin: recycleBin,
+			revocationProvider: RevocationProvider(restService: RestServiceProviderStub(), store: MockTestStore())
 		)
 
 		let service = CoronaTestService(
-			client: client,
 			store: store,
 			eventStore: MockEventStore(),
 			diaryStore: MockDiaryStore(),
@@ -158,7 +155,7 @@ class CoronaTestRestorationHandlerTests: CWATestCase {
 			healthCertificateService: healthCertificateService,
 			healthCertificateRequestService: HealthCertificateRequestService(
 				store: store,
-				client: client,
+				restServiceProvider: RestServiceProviderStub(),
 				appConfiguration: appConfiguration,
 				healthCertificateService: healthCertificateService
 			),

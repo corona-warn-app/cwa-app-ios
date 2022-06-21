@@ -215,9 +215,9 @@
 
 "ExposureDetection_Info_Contagion_Point5" = "Reisen: Verzichten Sie auf Flug- und Zugreisen.";
 
-"ExposureDetection_Info_Contagion_Point6" = "Bei Fragen zu Quarantäne-Maßnahmen wenden Sie sich bitte an Ihr Gesundheitsamt. Weitere Informationen finden Sie in den FAQ zu Quarantäne-Maßnahmen.";
+"ExposureDetection_Info_Contagion_Point6" = "Bei Fragen zu Quarantäne-Maßnahmen wenden Sie sich bitte an Ihr Gesundheitsamt. Mehr Informationen finden Sie in den FAQ zu Quarantäne-Maßnahmen.";
 
-"ExposureDetection_Info_Contagion_Point6_LinkText" = "Weitere Informationen finden Sie in den FAQ zu Quarantäne-Maßnahmen.";
+"ExposureDetection_Info_Contagion_Point6_LinkText" = "Mehr Informationen finden Sie in den FAQ zu Quarantäne-Maßnahmen.";
 
 "ExposureDetection_Info_Contagion_Footer" = "Weitere Hinweise finden Sie in den FAQ zur freiwilligen Selbstquarantäne.";
 
@@ -764,6 +764,8 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmissionResult_testNegativeDesc" = "Der Labortest hat keinen Nachweis für das Coronavirus SARS-CoV-2 bei Ihnen ergeben.";
 
+"ExposureSubmissionResult_familyMember_testNegativeDesc" = "Der Labortest hat keinen Nachweis für das Coronavirus SARS-CoV-2 bei dem Test ergeben.";
+
 "ExposureSubmissionResult_testNegative_furtherInfos_title" = "Weitere Infos:";
 
 "ExposureSubmissionResult_testNegative_furtherInfos_desc" = "Sie haben trotzdem akute gesundheitliche Beschwerden?";
@@ -778,17 +780,19 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmissionResult_testInvalidDesc" = "Es gab ein Problem bei der Auswertung Ihres Tests. Bitte kontaktieren Sie das Testcenter oder das zuständige Labor, um Informationen zum weiteren Vorgehen zu erhalten.";
 
+"ExposureSubmissionResult_familyMember_testInvalidDesc" = "Es gab ein Problem bei der Auswertung des Tests. Bitte kontaktieren Sie das Testcenter oder das zuständige Labor, um Informationen zum weiteren Vorgehen zu erhalten.";
+
 "ExposureSubmissionResult_testExpired" = "Test kann nicht ausgewertet werden";
 
 "ExposureSubmissionResult_testExpiredDesc" = "Es gab ein Problem bei der Auswertung Ihres Tests. Ihr QR Code ist bereits abgelaufen.";
 
 "ExposureSubmissionResult_testPending" = "Ihr Testergebnis liegt noch nicht vor";
 
-"ExposureSubmissionResult_familyMember_testPending" = "Ihr Testergebnis liegt noch nicht vor";
+"ExposureSubmissionResult_familyMember_testPending" = "Das Testergebnis liegt noch nicht vor";
 
 "ExposureSubmissionResult_testPendingDesc" = "Sobald Ihr Testergebnis vorliegt, wird es Ihnen in der App angezeigt.\n\nSie bekommen Ihr Testergebnis auch außerhalb der App mitgeteilt. Falls Ihr Test positiv ist, bekommen Sie vom Gesundheitsamt eine Mitteilung.\n\nWenn Ihnen außerhalb der App ein positives Testergebnis mitgeteilt wurde, löschen Sie den aktuell in der App registrierten Test. Rufen Sie die unter „TAN anfragen” angegebene Nummer an, um eine TAN zu erhalten. Registrieren Sie dann Ihr Testergebnis mithilfe der TAN in der App.";
 
-"ExposureSubmissionResult_familyMember_testPendingDesc" = "Sobald Ihr Testergebnis vorliegt, wird es Ihnen in der App angezeigt.\nSie bekommen Ihr Testergebnis auch außerhalb der App mitgeteilt. Falls der Test positiv ist, bekommen Sie vom Gesundheitsamt eine Mitteilung.";
+"ExposureSubmissionResult_familyMember_testPendingDesc" = "Sobald das Testergebnis vorliegt, wird es Ihnen in der App angezeigt.\nSie bekommen das Testergebnis auch außerhalb der App mitgeteilt. Falls der Test positiv ist, bekommen Sie vom Gesundheitsamt eine Mitteilung.";
 
 "ExposureSubmissionResult_testCertificate_title" = "Ihr COVID-Testzertifikat";
 
@@ -806,7 +810,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmissionResult_antigenTestPending" = "Ihr Testergebnis liegt noch nicht vor";
 
-"ExposureSubmissionResult_familyMember_antigenTestPending" = "Ihr Testergebnis liegt noch nicht vor";
+"ExposureSubmissionResult_familyMember_antigenTestPending" = "Das Testergebnis liegt noch nicht vor";
 
 "ExposureSubmissionResult_antigenTestPendingDesc" = "Sobald Ihr Testergebnis vorliegt, wird es Ihnen in der App angezeigt.";
 
@@ -821,6 +825,8 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 "ExposureSubmissionResult_pcrTestPendingContactJournalDesc" = "Sobald Ihr Testergebnis vorliegt, wird es Ihnen in der App angezeigt.";
 
 "ExposureSubmissionResult_antigenTestNegativDesc" = "Der Schnelltest hat keinen Nachweis für das Coronavirus SARS-CoV-2 bei Ihnen ergeben.";
+
+"ExposureSubmissionResult_familyMember_antigenTestNegativDesc" = "Der Schnelltest hat keinen Nachweis für das Coronavirus SARS-CoV-2 bei dem Test ergeben.";
 
 "ExposureSubmissionResult_WarnOthersConsentGiven" = "Einverständnis „Andere warnen“ erteilt";
 
@@ -950,7 +956,9 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmissionResult_Timer_Title" = "Ergebnis liegt vor seit";
 
-"ExposureSubmissionResult_Negative_Antigen_Proof_Desc" = "Um den hier angezeigten Befund überprüfbar nachzuweisen, ist ein Digitales Testzertifikat der EU notwendig. Wenn Sie bei der Registrierung des Tests ein Digitales Testzertifikat angefordert haben und die Teststelle deren Ausstellung unterstützt, können Sie Ihr Digitales Testzertifikat anhand des oben angegebenen Links anzeigen. Sie finden das Zertifikat außerdem im Bereich „Zertifikate“.\nInformieren Sie sich diesbezüglich bitte auch über die Kriterien zur Anerkennung und Gültigkeit von Test-Zertifikaten in Bezug auf den Zweck für den Sie den Nachweis benötigen.";
+"ExposureSubmissionResult_Negative_Antigen_Proof_Desc" = "Um den hier angezeigten Befund überprüfbar nachzuweisen, ist ein Digitales Testzertifikat der EU notwendig. Wenn Sie bei der Registrierung des Tests ein Digitales Testzertifikat angefordert haben und die Teststelle deren Ausstellung unterstützt, können Sie Ihr Digitales Testzertifikat anhand des oben angegebenen Links anzeigen. Sie finden das Zertifikat außerdem im Bereich „Zertifikate“.\nInformieren Sie sich bitte auch über die Kriterien zur Anerkennung und Gültigkeit von Test-Zertifikaten in Bezug auf den Zweck für den Sie den Nachweis benötigen.";
+
+"ExposureSubmissionResult_familyMember_Negative_Antigen_NoProof_Title" = "Nachweis-Funktion";
 
 "ExposureSubmissionResult_Negative_Antigen_NoProof_Title" = "Keine Nachweis-Funktion";
 
@@ -1022,11 +1030,25 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmission_Antigen_Profile_Information_Description_Title" = "Legen Sie Ihre persönlichen Daten als QR-Code ab, um die Registrierung an der Teststelle zu beschleunigen.";
 
-"ExposureSubmission_Antigen_Profile_Information_DescriptionSubHeadline" = "Mit Ihrem eigenen Schnelltest-Profil müssen Sie Ihre persönlichen Daten nicht bei jedem neuen Schnelltest erneut ausfüllen.";
+"ExposureSubmission_Antigen_Profile_Information_DescriptionSubHeadline" = "Mit Ihrem eigenen Schnelltest-Profil müssen Sie Ihre persönlichen Daten nicht bei jedem neuen Schnelltest erneut ausfüllen. Sie können mehrere Schnelltest-Profile erstellen, z.B. eins für Sie selbst und weitere für Ihre Familie.";
 
 "ExposureSubmission_Antigen_Profile_Information_PrimaryButton" = "Weiter";
 
 "ExposureSubmission_Antigen_Profile_Information_Dataprivacy_Title" = "Weitere Hinweise finden Sie in der Datenschutzerklärung.";
+
+/* Exposure Submission AntigenTest Profile Overview */
+
+"ExposureSubmission_Antigen_Profile_Overview_title" = "Schnelltest-Profile";
+
+"ExposureSubmission_Antigen_Profile_Card_title" = "Schnelltest-Profil";
+
+"ExposureSubmission_Antigen_Profile_Overview_EmptyTitle" = "Noch kein Schnelltest-Profil erstellt";
+
+"ExposureSubmission_Antigen_Profile_Overview_EmptyDescription" = "Legen Sie ein Schnelltest-Profil mit Ihren persönlichen Daten an, das Sie per QR-Code bei jeder teilnehmenden Teststelle vorlegen können.";
+
+"ExposureSubmission_Antigen_Profile_Overview_EmptyImageDescription" = "Zertifikatssiegel mit digitalem Zertifikat im Hintergrund";
+
+"ExposureSubmission_Antigen_Profile_Overview_AddButtonTitle" = "Schnelltest-Profil erstellen";
 
 /* ExposureSubmission AntigenTest Profile */
 
@@ -1038,7 +1060,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmission_Antigen_Profile_DateOfBirth_Format" = "Geboren %@";
 
-"ExposureSubmission_Antigen_Profile_Primary_Button" = "Weiter";
+"ExposureSubmission_Antigen_Profile_Primary_Button" = "Test scannen";
 
 "ExposureSubmission_Antigen_Profile_Secondary_Button" = "Bearbeiten";
 
@@ -1048,9 +1070,9 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmission_Profile_CreateProfileTile_Description" = "Legen Sie Ihre persönlichen Daten als QR-Code ab, um die Registrierung an der Teststelle zu beschleunigen.";
 
-"ExposureSubmission_Profile_ProfileTile_Title" = "Schnelltest-Profil";
+"ExposureSubmission_Profile_ProfileTile_Title" = "Schnelltest-Profile";
 
-"ExposureSubmission_Profile_ProfileTile_Description" = "Sparen Sie Zeit und zeigen Sie Ihr Schnelltest-Profil an der Teststelle vor.";
+"ExposureSubmission_Profile_ProfileTile_Description" = "Schnelltest-Profil mit Ihren persönlichen Daten, das Sie per QR-Code bei jeder teilnehmenden Teststelle vorlegen können.";
 
 /* ExposureSubmission TestOwnerSelection */
 
@@ -1086,7 +1108,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmission_TestCertificate_Information_BirthdayText" = "Zur Sicherheit wird Ihr Testzertifikat mit Ihrem Geburtsdatum geschützt. Das Testzertifikat kann nur bei korrekt angegebenem Geburtsdatum zugestellt werden.";
 
-"ExposureSubmission_TestCertificate_Information_Dataprivacy_Title" = "Ausführliche Hinweise zur Datenverarbeitung finden Sie in der Datenschutzerklärung";
+"ExposureSubmission_TestCertificate_Information_Dataprivacy_Title" = "Ausführliche Informationen zur Datenverarbeitung und Ihrem Einverständnis.";
 
 "ExposureSubmission_TestCertificate_Information_Alert_Title" = "Registrierung abbrechen";
 
@@ -1442,7 +1464,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "App_Information_About_Title" = "Gemeinsam Corona bekämpfen";
 
-"App_Information_About_Description" = "Das Robert Koch-Institut (RKI) als zentrale Einrichtung des Bundes im Bereich der Öffentlichen Gesundheit und als nationales Public-Health-Institut veröffentlicht die Corona-Warn-App im Auftrag der Bundesregierung. Die App ist die digitale Ergänzung zu Abstandhalten, Hygiene und Alltagsmaske.";
+"App_Information_About_Description" = "Das Robert Koch-Institut (RKI) als zentrale Einrichtung des Bundes im Bereich der Öffentlichen Gesundheit und als nationales Public-Health-Institut veröffentlicht die Corona-Warn-App im Auftrag der Bundesregierung. Die App ist die digitale Ergänzung zu den Hygieneregeln, wie z. B. das Tragen einer Maske oder Abstandhalten.";
 
 "App_Information_About_Text" = "Wer sie nutzt, hilft, Infektionsketten schnell nachzuverfolgen und zu durchbrechen. Die App speichert dezentral – auf Ihrem Smartphone – Begegnungen mit anderen. Sie werden informiert, wenn Sie Begegnungen mit nachweislich infizierten Personen hatten. Ihre Privatsphäre bleibt dabei bestens geschützt.";
 
@@ -1695,11 +1717,11 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "NewVersionFeatures_Info_about_abb_information" = "Änderungen zum Release finden Sie in den App-Informationen unter dem Menüpunkt „Neue Funktionen”.";
 
-/* Version 2.21 */
+/* Version 2.23 */
 
-"NewVersionFeature_221_familyMembersTest_title" = "Tests für Familie verwalten";
+"NewVersionFeature_223_reissue_certificates_title" = "Erneuerung von Zertifikaten";
 
-"NewVersionFeature_221_familyMembersTest_description" = "Sie können jetzt Tests für Ihre Familienmitglieder in Ihrer App registrieren und damit die Testergebnisse auf Ihrem Smartphone erhalten und digitale COVID-Testzertifikate anfordern. Im Falle eines positiven Testergebnisses können Sie jedoch andere Benutzer nicht warnen. Dies geht nur, wenn Sie den Test für sich selbst registriert haben.";
+"NewVersionFeature_223_reissue_certificates_description" = "Die Gültigkeit von Ihrem aktuell genutzten Zertifikat ist technisch auf 365 Tage begrenzt. Falls Ihr aktuell genutztes Zertifikat abläuft, bietet die App Ihnen eine Erneuerung an. Die Erneuerung kann 28 Tage vor Ablauf der Gültigkeit und bis zu 90 Tage nach Ablauf der Gültigkeit vorgenommen werden. Falls Ihnen keine Erneuerung angeboten wird, muss das Zertifikat nicht verlängert werden und keine weiteren Schritte Ihrerseits werden benötigt.";
 
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Länderübergreifende Risiko-Ermittlung";
@@ -2765,6 +2787,8 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "TraceLocation_Information_Item_RenewQRCode" = "Wenn Sie dauerhaft einen QR-Code verwenden, sollten Sie diesen einmal täglich außerhalb der Öffnungszeiten neu erstellen.";
 
+"TraceLocation_Information_Item_Group" = "Sie können Ihre Gäste in Vertretung für eine positiv getestete Person warnen, die am Event teilgenommen hat, aber nicht über die Corona-Warn-App eingecheckt war.";
+
 "TraceLocation_Information_PrimaryButton_Title" = "Weiter";
 
 /* Checkout */
@@ -2839,7 +2863,7 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 /* Antigen Profile */
 
-"AntigenProfile_Info_Action_Title" = "Info";
+"AntigenProfile_Info_Action_Title" = "Informationen";
 
 "AntigenProfile_Edit_Action_Title" = "Schnelltest-Profil bearbeiten";
 
@@ -3093,8 +3117,6 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "TestCertificate_Details_title" = "Testzertifikat";
 
-"TestCertificate_Details_subtitle" = "negativer SARS-CoV-2-Test";
-
 "TestCertificate_Details_primaryButton" = "Testzertifikat löschen";
 
 "TestCertificate_Error_FAQ_Description" = "\n\nWeitere Informationen zum Erhalt Ihres Testzertifikats finden Sie in den FAQ.";
@@ -3110,8 +3132,6 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 /* Recovery Certificate Details */
 
 "RecoveryCertificate_Details_title" = "Genesenenzertifikat";
-
-"RecoveryCertificate_Details_subtitle" = "Digitales COVID-Zertifikat der EU";
 
 "RecoveryCertificate_Details_primaryButton" = "Genesenenzertifikat löschen";
 
@@ -3231,6 +3251,7 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "HealthCertificate_Validation_Body4" = "Ausführliche Hinweise zur Datenverarbeitung finden Sie in der Datenschutzerklärung";
 
+
 "HealthCertificate_Validation_ButtonTitle" = "Prüfen";
 
 /* Health Certificate Validation Result */
@@ -3299,7 +3320,7 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "HealthCertificate_Validation_TechnicalFailed_failedSectionDescription" = "Folgende Regeln sind nicht erfüllt:";
 
-"HealthCertificate_Validation_TechnicalFailed_certificateNotValid" = "Die Signatur des Zertifikates muss gültig sein.";
+"HealthCertificate_Validation_TechnicalFailed_certificateNotValid" = "Die Signatur des Zertifikats muss gültig sein.";
 
 "HealthCertificate_Validation_TechnicalFailed_technicalExpirationDatePassed" = "Das technische Ablaufdatum darf nicht überschritten sein.";
 
@@ -3309,21 +3330,25 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 /* Health Certificate Validity State */
 
-"HealthCertificate_ValidityState_ExpiringSoon" = "Zertifikat läuft am %@ um %@ ab";
+"HealthCertificate_ValidityState_ExpiringSoon_long" = "Zertifikat läuft am %@ um %@ ab";
 
-"HealthCertificate_ValidityState_ExpiringSoon_description" = "Bitte bemühen Sie sich rechtzeitig darum, einen neuen digitalen Nachweis ausstellen zu lassen.";
+"HealthCertificate_ValidityState_ExpiringSoon_short" = "läuft am %@ um %@ ab";
+
+"HealthCertificate_ValidityState_ExpiringSoon_description" = "Wenn dies Ihr aktuell verwendetes Zertifikat ist, bemühen Sie sich bitte rechtzeitig darum, es zu erneuern. Ab 28 Tage vor Ablauf können Sie solche Zertifikate direkt über die App erneuern lassen. Sie finden die Option \"Zertifikate erneuern\" dann in Ihrer Zertifikatsübersicht unter der Kachel \"Status-Nachweis\". Sollte dies nicht Ihr aktuell verwendetes Zertifikat sein, muss es nicht verlängert werden und Sie müssen nichts weiter tun.";
 
 "HealthCertificate_ValidityState_Expired" = "Zertifikat abgelaufen";
 
-"HealthCertificate_ValidityState_Expired_description" = "Das Ablaufdatum wurde überschritten. Bitte bemühen Sie sich darum, einen neuen digitalen Nachweis ausstellen zu lassen.";
+"HealthCertificate_ValidityState_Expired_description" = "Das Ablaufdatum wurde überschritten. Bitte erneuern Sie das Zertifikat. Sie können die Erneuerung bis maximal 90 Tage nach Ablauf über den Hinweis in Ihrer Zertifikatsübersicht anfordern.";
 
 "HealthCertificate_ValidityState_Invalid" = "Zertifikat (Signatur) ungültig";
 
 "HealthCertificate_ValidityState_Invalid_description" = "Das Zertifikat wurde von einer nicht autorisierten Stelle oder fehlerhaft ausgestellt. Bitte lassen Sie das Zertifikat von einer autorisierten Stelle erneut ausstellen.";
 
-"HealthCertificate_ValidityState_Blocked" = "Zertifikat ungültig";
+"HealthCertificate_ValidityState_BlockedRevoked" = "Zertifikat ungültig";
 
-"HealthCertificate_ValidityState_Blocked_description" = "Das Zertifikat wurde von der ausstellenden Behörde zurückgerufen. Bitte bemühen Sie sich darum, einen neuen digitalen Nachweis ausstellen zu lassen.";
+"HealthCertificate_ValidityState_BlockedRevoked_description_de" = "Das RKI hat das Zertifikat aufgrund einer behördlichen Verfügung gesperrt. Bitte bemühen Sie sich darum, einen neuen digitalen Nachweis ausstellen zu lassen.";
+
+"HealthCertificate_ValidityState_BlockedRevoked_description_other" = "Das Zertifikat wurde vom Zertifikataussteller aufgrund einer behördlichen Entscheidung gesperrt. Bitte bemühen Sie sich darum, einen neuen digitalen Nachweis ausstellen zu lassen.";
 
 /* Reissuance */
 
@@ -3341,21 +3366,33 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "HealthCertificate_Reissuance_Consent_Title" = "Ihr Einverständnis";
 
-"HealthCertificate_Reissuance_Consent_Delete_Notice" = "Das alte Zertifikat wird automatisch in den Papierkorb verschoben und nach 30 Tagen gelöscht. Das Zertifikat kann innerhalb der 30 Tage jederzeit wiederhergestellt werden.";
+"HealthCertificate_Reissuance_Consent_Delete_Notice" = "Alte Zertifikate werden automatisch in den Papierkorb verschoben und nach 30 Tagen gelöscht. Die Zertifikate können innerhalb der 30 Tage jederzeit wiederhergestellt werden.";
 
-"HealthCertificate_Reissuance_Consent_Cancel_Notice" = "Falls Sie hier abbrechen, können Sie die Aktualisierung jederzeit in Ihrer Zertifikatsübersicht anfordern.";
+"HealthCertificate_Reissuance_Consent_Cancel_Notice" = "Falls Sie hier abbrechen, können Sie die Erneuerung in Ihrer Zertifikatsübersicht anfordern.";
 
-"HealthCertificate_Reissuance_Consent_Bullet_Point_1" = "Die Aktualisierung des Zertifikats ist freiwillig und kostenlos.";
+"HealthCertificate_Reissuance_Consent_Bullet_Point_1" = "Die Erneuerung der Zertifikate ist freiwillig und kostenlos.";
 
-"HealthCertificate_Reissuance_Consent_Bullet_Point_2" = "Um sicherzustellen, dass Zertifikate nur einmalig aktualisiert werden können, wird die Kennung des alten Zertifikats durch das RKI dokumentiert.";
+"HealthCertificate_Reissuance_Consent_Bullet_Point_2" = "Um sicherzustellen, dass Zertifikate nur einmalig erneuert werden können, werden jeweils die Kennung des alten und des erneuerten Zertifikats durch das RKI dokumentiert. Die weiteren Daten zu Ihren Zertifikaten werden nach der Erneuerung beim RKI sofort gelöscht.";
+
+"HealthCertificate_Reissuance_Consent_Bullet_Point_3" = "Stellen Sie bitte bei der Erneuerung von Zertifikaten von Familienmitgliedern sicher, dass die betreffende Person einverstanden ist.";
+
+"HealthCertificate_Reissuance_Consent_Bullet_Point_4" = "In bestimmten Fällen werden zusätzlich zu den zu erneuernden Zertifikaten weitere Zertifikate übermittelt. Dies ist erforderlich, um die bisherige Abfolge der Impfungen und Genesungen in den neuen Zertifikaten aufnehmen zu können.";
+
+"HealthCertificate_Reissuance_AccompanyingCertificates_Cell" = "Zusätzlich übermittelte Zertifikate";
+
+/* HealthCertificate Resissuance Additional Certificates */
+
+"HealthCertificate_Reissuance_AccompanyingCertificates_Title" = "Zusätzlich übermittelte Zertifikate";
+
+"HealthCertificate_Reissuance_AccompanyingCertificates_Description" = "Folgende Zertifikate werden bei der Erneuerung als Zusatzinformation übermittelt, damit die bisherige Abfolge der Impfungen und Genesungen im neuen Zertifikat aufgenommen werden kann. Diese Zertifikate werden nicht erneuert.";
 
 /* HealthCertificate Resissuance Succeeded */
 
-"HealthCertificate_Reissuance_Succeeded_Title" = "Zertifikat aktualisiert";
+"HealthCertificate_Reissuance_Succeeded_Title" = "Zertifikate erneuert";
 
-"HealthCertificate_Reissuance_Succeeded_Headline" = "Ihr Zertifikat wurde erfolgreich aktualisiert";
+"HealthCertificate_Reissuance_Succeeded_Headline" = "Ihre Zertifikate wurden erfolgreich erneuert";
 
-"HealthCertificate_Reissuance_Succeeded_Body" = "Sie finden das aktualisierte Zertifikat nun in der Zertifikate-Registerkarte.";
+"HealthCertificate_Reissuance_Succeeded_Body" = "Sie finden die erneuerten Zertifikate nun in der Zertifikate-Registerkarte.";
 
 /* HealthCertificate Resissuance Request Error */
 
@@ -3364,6 +3401,8 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 "HealthCertificate_Reissuance_Error_No_Network" = "Möglicherweise wurde Ihre Internet-Verbindung unterbrochen. Bitte prüfen Sie die Verbindung und versuchen Sie es erneut.";
 
 "HealthCertificate_Reissuance_Error_Try_Again" = "Es ist ein Fehler bei der Aktualisierung Ihres Zertifikats aufgetreten. Bitte versuchen Sie es erneut. Wenn der Fehler weiterhin auftritt, kontaktieren Sie bitte die technische Hotline über App-Informationen -> Technische Hotline.";
+
+"HealthCertificate_Reissuance_Error_Rate_Limit" = "Das Zertifikat wurde bereits drei mal neu ausgestellt. Eine weitere Neuausstellung ist nicht möglich.\nWir empfehlen, Ihr bereits erneut ausgestelltes Zertifikat als PDF zu exportieren und auszudrucken. Damit können Sie es jederzeit erneut einscannen.";
 
 "HealthCertificate_Reissuance_Error_Not_Supported" = "Ihr Zertifikat kann nicht aktualisiert werden. Bitte kontaktieren Sie die technische Hotline über App-Informationen -> Technische Hotline.";
 

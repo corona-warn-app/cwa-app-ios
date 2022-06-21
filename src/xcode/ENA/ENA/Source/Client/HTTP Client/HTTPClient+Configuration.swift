@@ -15,10 +15,6 @@ extension HTTPClient {
 					baseURL: environmentProvider.currentEnvironment().distributionURL,
 					requiresTrailingSlash: false
 				),
-				submission: .init(
-					baseURL: environmentProvider.currentEnvironment().submissionURL,
-					requiresTrailingSlash: false
-				),
 				verification: .init(
 					baseURL: environmentProvider.currentEnvironment().verificationURL,
 					requiresTrailingSlash: false
@@ -29,10 +25,6 @@ extension HTTPClient {
 				),
 				errorLogSubmission: .init(
 					baseURL: environmentProvider.currentEnvironment().errorLogSubmissionURL,
-					requiresTrailingSlash: false
-				),
-				dcc: .init(
-					baseURL: environmentProvider.currentEnvironment().dccURL,
 					requiresTrailingSlash: false
 				)
 			)
@@ -52,22 +44,6 @@ extension HTTPClient {
 		let country: String
 		let endpoints: Endpoints
 
-		/// Generate the URL for getting all available days
-		/// - Parameter country: country code
-		/// - Returns: URL to get all available days that server can deliver
-		func availableDaysURL(forCountry country: String) -> URL {
-			endpoints
-				.distribution
-				.appending(
-					"version",
-					apiVersion,
-					"diagnosis-keys",
-					"country",
-					country,
-					"date"
-			)
-		}
-
 		/// Generate the URL to get the day package with given parameters
 		/// - Parameters:
 		///   - day: The day format should confirms to: yyyy-MM-dd
@@ -86,37 +62,6 @@ extension HTTPClient {
 					day
 			)
 
-		}
-
-		func diagnosisKeysURL(day: String, hour: Int, forCountry country: String) -> URL {
-			endpoints
-				.distribution
-				.appending(
-					"version",
-					apiVersion,
-					"diagnosis-keys",
-					"country",
-					country,
-					"date",
-					day,
-					"hour",
-					String(hour)
-			)
-		}
-
-		func availableHoursURL(day: String, country: String) -> URL {
-			endpoints
-				.distribution
-				.appending(
-					"version",
-					apiVersion,
-					"diagnosis-keys",
-					"country",
-					country,
-					"date",
-					day,
-					"hour"
-			)
 		}
 
 		var configurationURL: URL {
@@ -146,26 +91,6 @@ extension HTTPClient {
 					"version",
 					apiVersion,
 					"local_stats_\(groupID)"
-			)
-		}
-
-		var submissionURL: URL {
-			endpoints
-				.submission
-				.appending(
-					"version",
-					apiVersion,
-					"diagnosis-keys"
-			)
-		}
-		
-		var onBehalfCheckinSubmissionURL: URL {
-			endpoints
-				.submission
-				.appending(
-					"version",
-					apiVersion,
-					"submission-on-behalf"
 			)
 		}
 
@@ -201,62 +126,6 @@ extension HTTPClient {
 					"dat"
 				)
 		}
-		
-		func traceWarningPackageDiscoveryURL(country: String) -> URL {
-			endpoints
-				.distribution
-				.appending(
-					"version",
-					apiVersion,
-					"twp",
-					"country",
-					country,
-					"hour"
-				)
-		}
-		
-		func traceWarningPackageDownloadURL(country: String, packageId: Int) -> URL {
-			endpoints
-				.distribution
-				.appending(
-					"version",
-					apiVersion,
-					"twp",
-					"country",
-					country,
-					"hour",
-					String(packageId)
-				)
-		}
-
-		/// API for Encrypted Hour Package Discovery
-		func encryptedTraceWarningPackageDiscoveryURL(country: String) -> URL {
-			endpoints
-				.distribution
-				.appending(
-					"version",
-					encryptedApiVersion,
-					"twp",
-					"country",
-					country,
-					"hour"
-				)
-		}
-
-		/// API for Encrypted Hour Package Download
-		func encryptedTraceWarningPackageDownloadURL(country: String, packageId: Int) -> URL {
-			endpoints
-				.distribution
-				.appending(
-					"version",
-					encryptedApiVersion,
-					"twp",
-					"country",
-					country,
-					"hour",
-					String(packageId)
-				)
-		}
 
 		var qrCodePosterTemplateURL: URL {
 			endpoints
@@ -286,26 +155,6 @@ extension HTTPClient {
 					"ehn-dgc",
 					Locale.current.languageCodeIfSupported ?? "en",
 					"value-sets"
-				)
-		}
-
-		var dccPublicKeyURL: URL {
-			endpoints
-				.dcc
-				.appending(
-					"version",
-					apiVersion,
-					"publicKey"
-				)
-		}
-		
-		var DCCURL: URL {
-			endpoints
-				.dcc
-				.appending(
-					"version",
-					apiVersion,
-					"dcc"
 				)
 		}
 		
@@ -360,10 +209,8 @@ extension HTTPClient.Configuration {
 extension HTTPClient.Configuration {
 	struct Endpoints {
 		let distribution: Endpoint
-		let submission: Endpoint
 		let verification: Endpoint
 		let dataDonation: Endpoint
 		let errorLogSubmission: Endpoint
-		let dcc: Endpoint
 	}
 }

@@ -214,9 +214,9 @@
 
 "ExposureDetection_Info_Contagion_Point5" = "Travel: Do not travel by plane or train.";
 
-"ExposureDetection_Info_Contagion_Point6" = "If you have questions about quarantine measures, please contact your public health department. For further information, please see our FAQ page on quarantine measures.";
+"ExposureDetection_Info_Contagion_Point6" = "If you have questions about quarantine measures, please contact your public health department. For more information, please see our FAQ page on quarantine measures.";
 
-"ExposureDetection_Info_Contagion_Point6_LinkText" = "For further information, please see our FAQ page on quarantine measures.";
+"ExposureDetection_Info_Contagion_Point6_LinkText" = "For more information, please see our FAQ page on quarantine measures.";
 
 "ExposureDetection_Info_Contagion_Footer" = "Additional information is available on our FAQ page on voluntary self-quarantine.";
 
@@ -460,7 +460,7 @@
 
 "OnboardingInfo_privacyPage_boldText" = "";
 
-"OnboardingInfo_privacyPage_normalText" = "You will remain anonymous.\nYour data is fully encrypted and transmitted under a pseudonym.\n\nController pursuant to GDPR, article 4 (7):\n\nRobert Koch-Institute\nNordufer 20\n13353 Berlin\nPlease read our data privacy regulations.\n\nData privacy information:";
+"OnboardingInfo_privacyPage_normalText" = "You will remain anonymous.\nYour data is fully encrypted and transmitted under a pseudonym.\n\nController pursuant to GDPR, article 4 (7):\n\nRobert Koch-Institute\nNordufer 20\n13353 Berlin, Germany\nPlease read our data privacy regulations.\n\nData privacy information:";
 
 "OnboardingInfo_enableLoggingOfContactsPage_imageDescription" = "Three persons have activated exposure logging on their devices, which will log their encounters with each other.";
 
@@ -749,6 +749,8 @@
 
 "ExposureSubmissionResult_testNegativeDesc" = "The laboratory result indicates no verification that you have coronavirus SARS-CoV-2.";
 
+"ExposureSubmissionResult_familyMember_testNegativeDesc" = "The laboratory result indicates no verification that the tested person has coronavirus SARS-CoV-2.";
+
 "ExposureSubmissionResult_testNegative_furtherInfos_title" = "Other information:";
 
 "ExposureSubmissionResult_testNegative_furtherInfos_desc" = "Do you have acute symptoms anyway?";
@@ -763,17 +765,19 @@
 
 "ExposureSubmissionResult_testInvalidDesc" = "There was a problem evaluating your test. Please contact the testing center or laboratory involved to find out how to proceed.";
 
+"ExposureSubmissionResult_familyMember_testInvalidDesc" = "There was a problem evaluating the test. Please contact the testing center or laboratory involved to find out how to proceed.";
+
 "ExposureSubmissionResult_testExpired" = "Your test cannot be evaluated";
 
 "ExposureSubmissionResult_testExpiredDesc" = "There was a problem evaluating your test. Your QR code has already expired.";
 
 "ExposureSubmissionResult_testPending" = "Your test result is not available yet";
 
-"ExposureSubmissionResult_familyMember_testPending" = "Your test result is not available yet";
+"ExposureSubmissionResult_familyMember_testPending" = "The Test Result Is Not Available Yet";
 
 "ExposureSubmissionResult_testPendingDesc" = "As soon as your test result becomes available, it will be displayed in the app.\n\nYou will also receive your test result outside of the app. The public health authorities will notify you, should your test be positive.\n\nIf you are notified of a positive test result outside the app, please delete the test currently registered in the app. Call the number shown under “Request TAN” to get a TAN. You can then use this TAN to register your result in the app and warn others.";
 
-"ExposureSubmissionResult_familyMember_testPendingDesc" = "As soon as your test result becomes available, it will be displayed in the app.\nYou will also receive your test result outside of the app. The public health authorities will notify you, should your test be positive.";
+"ExposureSubmissionResult_familyMember_testPendingDesc" = "As soon as the test result becomes available, it will be displayed in the app.\nYou will also receive the test result outside of the app. The public health authorities will notify you, should the test be positive.";
 
 "ExposureSubmissionResult_testCertificate_title" = "Your COVID Test Certificate";
 
@@ -791,7 +795,7 @@
 
 "ExposureSubmissionResult_antigenTestPending" = "Your Test Result Is Not Available Yet";
 
-"ExposureSubmissionResult_familyMember_antigenTestPending" = "Your Test Result Is Not Available Yet";
+"ExposureSubmissionResult_familyMember_antigenTestPending" = "The Test Result Is Not Available Yet";
 
 "ExposureSubmissionResult_antigenTestPendingDesc" = "As soon as your test result becomes available, it will be displayed in the app.";
 
@@ -806,6 +810,8 @@
 "ExposureSubmissionResult_pcrTestPendingContactJournalDesc" = "As soon as your test result becomes available, it will be displayed in the app.";
 
 "ExposureSubmissionResult_antigenTestNegativDesc" = "The rapid test provided no evidence that you have coronavirus SARS-CoV-2.";
+
+"ExposureSubmissionResult_familyMember_antigenTestNegativDesc" = "The rapid test provided no evidence that tested person has coronavirus SARS-CoV-2.";
 
 "ExposureSubmissionResult_WarnOthersConsentGiven" = "Consent “Warn others” granted";
 
@@ -934,6 +940,8 @@
 
 "ExposureSubmissionResult_Negative_Antigen_Proof_Desc" = "To verifiably prove the result displayed here, an EU Digital Covid Certificate is required. If you requested a digital test certificate when you registered your test and the testing point supports the issuing of digital certificates, you can find your digital test certificate using the link specified above. You will also find the certificate on the “Certificates” tab.\nPlease also find out about the criteria for recognition and validity of test certificates in the context of the purpose for which you need proof.";
 
+"ExposureSubmissionResult_familyMember_Negative_Antigen_NoProof_Title" = "Verification Feature";
+
 "ExposureSubmissionResult_Negative_Antigen_NoProof_Title" = "No Verification Feature";
 
 "ExposureSubmissionResult_Negative_Antigen_NoProof_Desc" = "Because the finding here is anonymized, it cannot be used as proof of a negative rapid test result.";
@@ -1001,11 +1009,24 @@
 
 "ExposureSubmission_Antigen_Profile_Information_Description_Title" = "Save your personal data as a QR code to speed up registration at testing points.";
 
-"ExposureSubmission_Antigen_Profile_Information_DescriptionSubHeadline" = "When you create a rapid test profile, you will not have to fill out your personal data again before every rapid test.";
+"ExposureSubmission_Antigen_Profile_Information_DescriptionSubHeadline" = "When you create a rapid test profile, you do not have to fill out your personal data again before every rapid test. You can create several rapid test profiles, for instance, one for yourself and one each for your family members.";
 
 "ExposureSubmission_Antigen_Profile_Information_PrimaryButton" = "Continue";
 
 "ExposureSubmission_Antigen_Profile_Information_Dataprivacy_Title" = "For more information, please refer to the privacy notice.";
+
+/* Exposure Submission AntigenTest Profile Overview */
+"ExposureSubmission_Antigen_Profile_Overview_title" = "Rapid Test Profiles";
+
+"ExposureSubmission_Antigen_Profile_Card_title" = "Rapid Test Profile";
+
+"ExposureSubmission_Antigen_Profile_Overview_EmptyTitle" = "No rapid test profiles created yet";
+
+"ExposureSubmission_Antigen_Profile_Overview_EmptyDescription" = "You can create a rapid test profile with your personal data, which you can submit via QR code to every participating testing point.";
+
+"ExposureSubmission_Antigen_Profile_Overview_EmptyImageDescription" = "Certificate seal with digital certificate in the background";
+
+"ExposureSubmission_Antigen_Profile_Overview_AddButtonTitle" = "Create rapid test profile";
 
 /* ExposureSubmission AntigenTest Profile */
 "ExposureSubmission_Antigen_Profile_Header_Text" = "Rapid Test Profile";
@@ -1016,7 +1037,7 @@
 
 "ExposureSubmission_Antigen_Profile_DateOfBirth_Format" = "Born %@";
 
-"ExposureSubmission_Antigen_Profile_Primary_Button" = "Continue";
+"ExposureSubmission_Antigen_Profile_Primary_Button" = "Scan Test";
 
 "ExposureSubmission_Antigen_Profile_Secondary_Button" = "Edit";
 
@@ -1025,9 +1046,9 @@
 
 "ExposureSubmission_Profile_CreateProfileTile_Description" = "Save your personal data as a QR code to speed up registration at testing points.";
 
-"ExposureSubmission_Profile_ProfileTile_Title" = "Rapid Test Profile";
+"ExposureSubmission_Profile_ProfileTile_Title" = "Rapid Test Profiles";
 
-"ExposureSubmission_Profile_ProfileTile_Description" = "Save time and present your rapid test profile at the testing point.";
+"ExposureSubmission_Profile_ProfileTile_Description" = "Rapid test profile with your personal data, which you can submit to any participating testing point via the QR code.";
 
 /* ExposureSubmission TestOwnerSelection */
 "ExposureSubmission_TestOwnerSelection_Title" = "Register Test";
@@ -1061,7 +1082,7 @@
 
 "ExposureSubmission_TestCertificate_Information_BirthdayText" = "For security purposes, your test certificate is protected with your date of birth. The test certificate can only be issued if you specify the correct date of birth.";
 
-"ExposureSubmission_TestCertificate_Information_Dataprivacy_Title" = "For more detailed information about data processing, please refer to the privacy notice.";
+"ExposureSubmission_TestCertificate_Information_Dataprivacy_Title" = "Detailed Information on Data Processing and Your Consent";
 
 "ExposureSubmission_TestCertificate_Information_Alert_Title" = "Cancel Registration";
 
@@ -1396,7 +1417,7 @@
 
 "App_Information_About_Title" = "Let’s fight coronavirus together";
 
-"App_Information_About_Description" = "Robert Koch Institute (RKI) is Germany’s federal public health body. The RKI publishes the Corona-Warn-App on behalf of the Federal Government. The app is intended as a digital complement to public health measures already introduced: social distancing, hygiene, and face masks.";
+"App_Information_About_Description" = "The Robert Koch Institute (RKI) is Germany’s federal public health body. The RKI publishes the Corona-Warn-App on behalf of the Federal Government. The app is intended as a digital complement to hygiene measures, such as wearing face masks and social distancing.";
 
 "App_Information_About_Text" = "People who use the app help to trace and break chains of infection. The app saves encounters with other people locally on your device. You are notified if you have encountered people who were later diagnosed with coronavirus. Your identity and privacy are always protected.";
 
@@ -1443,7 +1464,7 @@
 
 "App_Information_Imprint_Section2_Title" = "Robert Koch Institute";
 
-"App_Information_Imprint_Section2_Text" = "Nordufer 20\n13353 Berlin\nrepresented by its president";
+"App_Information_Imprint_Section2_Text" = "Nordufer 20\n13353 Berlin, Germany\nrepresented by its president";
 
 "App_Information_Imprint_Section3_Title" = "Contact";
 
@@ -1645,10 +1666,10 @@
 /* New Version Features */
 "NewVersionFeatures_Info_about_abb_information" = "Changes in this release can be found in the app information, under “New Features”.";
 
-/* Version 2.21 */
-"NewVersionFeature_221_familyMembersTest_title" = "Manage Tests for your Family";
+/* Version 2.23 */
+"NewVersionFeature_223_reissue_certificates_title" = "Certificate Renewal";
 
-"NewVersionFeature_221_familyMembersTest_description" = "You can now manage tests for your family members in your app: You can receive their test results on your smartphone and request digital COVID test certificates. If one of their tests is positive, however, you cannot warn other users. This is only possible if you register the test for yourself.";
+"NewVersionFeature_223_reissue_certificates_description" = "Due to technical reasons, the validity of the currently used certificate is limited to 365 days. If your current certificate expires, the app enables you to renew it. A certificate can be renewed up to 28 days before its validity expires and up to 90 days afterwards. If the app does not offer to renew your certificate, it does not need to be extended and no further action is required on your part.";
 
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Transnational Exposure Logging";
@@ -2673,6 +2694,8 @@
 
 "TraceLocation_Information_Item_RenewQRCode" = "If you want to use a QR code for the long term, you should generate it again each day, outside of your operating hours.";
 
+"TraceLocation_Information_Item_Group" = "You can warn your guests on behalf of someone who has been diagnosed with coronavirus and who attended the event, but was not checked in with the Corona-Warn-App.";
+
 "TraceLocation_Information_PrimaryButton_Title" = "Next";
 
 /* Checkout */
@@ -3182,21 +3205,25 @@
 "HealthCertificate_Validation_TechnicalFailed_expirationDate" = "Valid until %@";
 
 /* Health Certificate Validity State */
-"HealthCertificate_ValidityState_ExpiringSoon" = "Certificate expires on %@ at %@";
+"HealthCertificate_ValidityState_ExpiringSoon_long" = "Certificate expires on %@ at %@";
 
-"HealthCertificate_ValidityState_ExpiringSoon_description" = "Please make sure to get a new digital certificate in time.";
+"HealthCertificate_ValidityState_ExpiringSoon_short" = "Expires on %@ at %@";
+
+"HealthCertificate_ValidityState_ExpiringSoon_description" = "If this is the certificate you currently use, please be sure to renew it on time. You can renew such certificates directly in the app if they will expire within the next 28 days. In this case, the “Renew Certificates” option appears in your certificate overview, below the “Proof of Status” tile. If this is not the certificate you currently use, it does not have to be extended and no action is required on your part.";
 
 "HealthCertificate_ValidityState_Expired" = "Certificate Expired";
 
-"HealthCertificate_ValidityState_Expired_description" = "The expiration date has passed. Please get a new digital certificate.";
+"HealthCertificate_ValidityState_Expired_description" = "The expiration date has passed. Please renew the certificate. You can request a renewal up to 90 days after a certificate expires, by clicking the note in your certificate overview.";
 
 "HealthCertificate_ValidityState_Invalid" = "Certificate (Signature) Invalid";
 
 "HealthCertificate_ValidityState_Invalid_description" = "The certificate was issued by an unauthorized body or was issued incorrectly. Please have an authorized body issue you a new certificate.";
 
-"HealthCertificate_ValidityState_Blocked" = "Certificate Invalid";
+"HealthCertificate_ValidityState_BlockedRevoked" = "Certificate Invalid";
 
-"HealthCertificate_ValidityState_Blocked_description" = "The certificate has been recalled by the issuing authority. Please get a new digital certificate.";
+"HealthCertificate_ValidityState_BlockedRevoked_description_de" = "The RKI has disabled the certificate as the result of a government decree. Please get a new digital certificate.";
+
+"HealthCertificate_ValidityState_BlockedRevoked_description_other" = "The issuing authority has disabled the certificate as the result of an administrative decision. Please get a new digital certificate.";
 
 /* Reissuance */
 /* HealthCertificate Resissuance Consent */
@@ -3212,20 +3239,31 @@
 
 "HealthCertificate_Reissuance_Consent_Title" = "Your Consent";
 
-"HealthCertificate_Reissuance_Consent_Delete_Notice" = "The old certificate will be moved automatically to the recycle bin and deleted after 30 days. The certificate can be restored at any time within these 30 days.";
+"HealthCertificate_Reissuance_Consent_Delete_Notice" = "Old certificates will be moved automatically to the recycle bin and deleted after 30 days. Certificates can be restored at any time within these 30 days.";
 
-"HealthCertificate_Reissuance_Consent_Cancel_Notice" = "If you cancel now, you can request an update in the certificate overview at any time.";
+"HealthCertificate_Reissuance_Consent_Cancel_Notice" = "If you cancel now, you can request a renewal in the certificate overview at any time.";
 
-"HealthCertificate_Reissuance_Consent_Bullet_Point_1" = "Updating your certificate is voluntary and free of charge.";
+"HealthCertificate_Reissuance_Consent_Bullet_Point_1" = "Renewing your certificates is voluntary and free of charge.";
 
-"HealthCertificate_Reissuance_Consent_Bullet_Point_2" = "To ensure that certificates can only be updated once, the identifier of the old certificate is documented by the RKI.";
+"HealthCertificate_Reissuance_Consent_Bullet_Point_2" = "To ensure that certificates can only be renewed once, the identifiers of the old and new certificates are documented by the RKI. The other data from your certificates is deleted by the RKI immediately after the renewal.";
+
+"HealthCertificate_Reissuance_Consent_Bullet_Point_3" = "Before renewing certificates of family members, please make sure that the person involved consents.";
+
+"HealthCertificate_Reissuance_Consent_Bullet_Point_4" = "In certain cases, further certificates are issued in addition to the certificates for renewal. This is necessary to adopt the previous sequence of vaccinations and recoveries in the new certificates.";
+
+"HealthCertificate_Reissuance_AccompanyingCertificates_Cell" = "Other Certificates Issued";
+
+/* HealthCertificate Resissuance Additional Certificates */
+"HealthCertificate_Reissuance_AccompanyingCertificates_Title" = "Other Certificates Issued";
+
+"HealthCertificate_Reissuance_AccompanyingCertificates_Description" = "The following certificates will be issued during the renewal as additional information, to adopt the previous sequence of vaccinations and recoveries in the new certificate. These certificates will not be renewed.";
 
 /* HealthCertificate Resissuance Succeeded */
-"HealthCertificate_Reissuance_Succeeded_Title" = "Certificate Updated";
+"HealthCertificate_Reissuance_Succeeded_Title" = "Certificates Renewed";
 
-"HealthCertificate_Reissuance_Succeeded_Headline" = "Your certificate has been updated successfully";
+"HealthCertificate_Reissuance_Succeeded_Headline" = "Your certificates have been renewed successfully";
 
-"HealthCertificate_Reissuance_Succeeded_Body" = "The updated certificate is now available on the “Certificates” tab.";
+"HealthCertificate_Reissuance_Succeeded_Body" = "The renewed certificates are now available on the “Certificates” tab.";
 
 /* HealthCertificate Resissuance Request Error */
 "HealthCertificate_Reissuance_Error_Contact_Support" = "An technical error has occurred. Please contact the technical hotline via App Information -> Technical Hotline.";
@@ -3233,6 +3271,8 @@
 "HealthCertificate_Reissuance_Error_No_Network" = "Your Internet connection may have been lost. Please check the connection and try again.";
 
 "HealthCertificate_Reissuance_Error_Try_Again" = "An error occurred during the update of your certificate. Please try again. If the error persists, please contact the technical hotline via App Information -> Technical Hotline.";
+
+"HealthCertificate_Reissuance_Error_Rate_Limit" = "The certificate has already been reissued three times. It cannot be reissued again.\nWe recommend exporting your reissued certificate as a PDF and printing it out. You can then scan it again at any time.";
 
 "HealthCertificate_Reissuance_Error_Not_Supported" = "Your certificate cannot be updated. Please contact the technical hotline via App Information -> Technical Hotline.";
 

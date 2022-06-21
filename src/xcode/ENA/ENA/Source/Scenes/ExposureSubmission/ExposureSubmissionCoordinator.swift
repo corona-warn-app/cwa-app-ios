@@ -85,20 +85,6 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 		)
 	}
 
-	private func showRATInvalidQRCode() {
-		let alert = UIAlertController(
-			title: AppStrings.ExposureSubmission.ratQRCodeInvalidAlertTitle,
-			message: AppStrings.ExposureSubmission.ratQRCodeInvalidAlertText,
-			preferredStyle: .alert)
-		alert.addAction(
-			UIAlertAction(
-				title: AppStrings.ExposureSubmission.ratQRCodeInvalidAlertButton,
-				style: .default
-			)
-		)
-		parentViewController?.present(alert, animated: true)
-	}
-
 	func dismiss(completion: (() -> Void)? = nil) {
 		navigationController?.dismiss(animated: true, completion: {
 			// used for updating (hiding) app shortcuts
@@ -177,12 +163,11 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 			onTANButtonTap: { [weak self] in self?.showTanScreen() },
 			onHotlineButtonTap: { [weak self] in self?.showHotlineScreen() },
 			onRapidTestProfileTap: { [weak self] in
-				// later move that to the title and inject both methods - just to get flow working
-				if self?.store.antigenTestProfile == nil {
-					self?.showAntigenTestProfileInput(editMode: false)
-				} else {
-					self?.showAntigenTestProfile()
+				guard let antigenTestProfileInfoScreenShown = self?.store.antigenTestProfileInfoScreenShown, antigenTestProfileInfoScreenShown else {
+					self?.showAntigenTestProfileInformation()
+					return
 				}
+				self?.showAntigenTestProfileOverview()
 			},
 			antigenTestProfileStore: antigenTestProfileStore
 		)
@@ -212,6 +197,8 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 	private let healthCertificateValidationService: HealthCertificateValidationProviding
 	private var certificateCoordinator: HealthCertificateCoordinator?
 
+	private var antigenTestProfileOverviewViewController: AntigenTestProfileOverviewViewController?
+	
 	private func push(_ vc: UIViewController) {
 		navigationController?.topViewController?.view.endEditing(true)
 		navigationController?.pushViewController(vc, animated: true)
@@ -436,7 +423,8 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 
 	private func createTestOwnerSelectionScreen(
 		supportedCountries: [Country],
-		testRegistrationInformation: CoronaTestRegistrationInformation
+		testRegistrationInformation: CoronaTestRegistrationInformation,
+		temporaryAntigenTestProfileName: String? = nil
 	) -> ExposureSubmissionTestOwnerSelectionViewController {
 		return ExposureSubmissionTestOwnerSelectionViewController(
 			viewModel: ExposureSubmissionTestOwnerSelectionViewModel(
@@ -449,7 +437,8 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 						)
 					case .familyMember:
 						self?.showFamilyMemberTestConsentScreen(
-							testRegistrationInformation: testRegistrationInformation
+							testRegistrationInformation: testRegistrationInformation,
+							temporaryAntigenTestProfileName: temporaryAntigenTestProfileName
 						)
 					}
 				}
@@ -548,8 +537,17 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 		push(makeQRInfoScreen(supportedCountries: supportedCountries, testRegistrationInformation: testRegistrationInformation))
 	}
 
-	private func showFamilyMemberTestConsentScreen(testRegistrationInformation: CoronaTestRegistrationInformation) {
+	private func showFamilyMemberTestConsentScreen(
+		testRegistrationInformation: CoronaTestRegistrationInformation,
+		temporaryAntigenTestProfileName: String? = nil
+	) {
 		let familyMemberConsentViewController = FamilyMemberConsentViewController(
+			viewModel: FamilyMemberConsentViewModel(
+				temporaryAntigenTestProfileName,
+				presentDisclaimer: { [weak self] in
+					self?.showDataPrivacy()
+				}
+			),
 			dismiss: { [weak self] in
 				self?.dismiss()
 			}, didTapDataPrivacy: { [weak self] in
@@ -616,7 +614,11 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 		)
 	}
 	
-	private func showQRScreen(testRegistrationInformation: CoronaTestRegistrationInformation?, isLoading: @escaping (Bool) -> Void) {
+	private func showQRScreen(
+		testRegistrationInformation: CoronaTestRegistrationInformation?,
+		temporaryAntigenTestProfileName: String? = nil,
+		isLoading: @escaping (Bool) -> Void
+	) {
 		if let testRegistrationInformation = testRegistrationInformation {
 			showOverrideTestNoticeIfNecessary(
 				testRegistrationInformation: testRegistrationInformation,
@@ -646,7 +648,13 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 					self.model.exposureSubmissionService.loadSupportedCountries(
 						isLoading: isLoading,
 						onSuccess: { supportedCountries in
-							self.push(self.createTestOwnerSelectionScreen(supportedCountries: supportedCountries, testRegistrationInformation: testRegistrationInformation))
+							self.push(
+								self.createTestOwnerSelectionScreen(
+									supportedCountries: supportedCountries,
+									testRegistrationInformation: testRegistrationInformation,
+									temporaryAntigenTestProfileName: temporaryAntigenTestProfileName
+								)
+							)
 						}
 					)
 				}
@@ -660,6 +668,20 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 
 	}
 
+	private func showRATInvalidQRCode() {
+		let alert = UIAlertController(
+			title: AppStrings.ExposureSubmission.ratQRCodeInvalidAlertTitle,
+			message: AppStrings.ExposureSubmission.ratQRCodeInvalidAlertText,
+			preferredStyle: .alert)
+		alert.addAction(
+			UIAlertAction(
+				title: AppStrings.ExposureSubmission.ratQRCodeInvalidAlertButton,
+				style: .default
+			)
+		)
+		parentViewController?.present(alert, animated: true)
+	}
+	
 	// show an overwrite notice screen if a test of given type was registered before
 	// registerTestAndGetResult will update the loading state of the primary button later
 	private func showOverrideTestNoticeIfNecessary(
@@ -939,16 +961,23 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 
 	private func showAntigenTestProfileInformation() {
 		var antigenTestProfileInformationViewController: AntigenTestProfileInformationViewController!
-		antigenTestProfileInformationViewController = AntigenTestProfileInformationViewController(
+		let viewModel = AntigenTestProfileInformationViewModel(
 			store: store,
-			didTapDataPrivacy: {
+			showDisclaimer: {
 				// please check if we really wanna use it that way
 				if case let .execute(block) = DynamicAction.push(htmlModel: AppInformationModel.privacyModel, withTitle: AppStrings.AppInformation.privacyTitle) {
 					block(antigenTestProfileInformationViewController, nil)
 				}
-			},
+			}
+		)
+		antigenTestProfileInformationViewController = AntigenTestProfileInformationViewController(
+			viewModel: viewModel,
 			didTapContinue: { [weak self] in
-				self?.showAntigenTestProfileInput(editMode: false)
+				if let antigenTestProfileInfoScreenShown = self?.store.antigenTestProfileInfoScreenShown, antigenTestProfileInfoScreenShown {
+					self?.popViewController()
+				} else {
+					self?.showAntigenTestProfileOverview()
+				}
 			},
 			dismiss: { [weak self] in
 				self?.dismiss()
@@ -971,19 +1000,23 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 		push(topBottomContainerViewController)
 	}
 
-	private func showAntigenTestProfileInput(editMode: Bool) {
+	private func showAntigenTestProfileInput(editMode: Bool, antigenTestProfile: AntigenTestProfile = AntigenTestProfile()) {
 		guard store.antigenTestProfileInfoScreenShown || editMode else {
 			showAntigenTestProfileInformation()
 			return
 		}
 
 		let createAntigenTestProfileViewController = AntigenTestProfileInputViewController(
+			viewModel: AntigenTestProfileInputViewModel(
+				store: store,
+				antigenTestProfile: antigenTestProfile
+			),
 			store: store,
-			didTapSave: { [weak self] in
+			didTapSave: { [weak self] antigenTestProfile in
 				if editMode {
 					self?.popViewController()
 				} else {
-					self?.showAntigenTestProfile()
+					self?.showAntigenTestProfile(antigenTestProfile: antigenTestProfile)
 				}
 			},
 			dismiss: { [weak self] in self?.dismiss() }
@@ -1005,21 +1038,55 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 		push(topBottomContainerViewController)
 	}
 
-	private func showAntigenTestProfile() {
+	private func showAntigenTestProfileOverview() {
+		let antigenTestProfileOverviewVC = AntigenTestProfileOverviewViewController(
+			viewModel: AntigenTestProfileOverviewViewModel(
+				store: store,
+				onEntryCellTap: { [weak self] antigenTestProfile in
+					self?.showAntigenTestProfile(antigenTestProfile: antigenTestProfile)
+				}),
+			onInfoButtonTap: { [weak self] in
+				self?.showAntigenTestProfileInformation()
+			},
+			onAddEntryCellTap: { [ weak self] in
+				self?.showAntigenTestProfileInput(editMode: false)
+			},
+			onDismiss: { [weak self] in self?.dismiss() }
+		)
+		
+		antigenTestProfileOverviewViewController = antigenTestProfileOverviewVC
+		push(antigenTestProfileOverviewVC)
+	}
+	
+	private func showAntigenTestProfile(antigenTestProfile: AntigenTestProfile) {
 		let antigenTestProfileViewController = AntigenTestProfileViewController(
-			store: store,
-			didTapContinue: { [weak self] isLoading in
+			viewModel: AntigenTestProfileViewModel(
+				antigenTestProfile: antigenTestProfile,
+				store: store
+			),
+			didTapContinue: { [weak self] isLoading, antigenTestProfile  in
 				self?.model.coronaTestType = .antigen
-				self?.showQRScreen(testRegistrationInformation: nil, isLoading: isLoading)
+				self?.showQRScreen(
+					testRegistrationInformation: nil,
+					temporaryAntigenTestProfileName: antigenTestProfile.fullName,
+					isLoading: isLoading
+				)
 			},
 			didTapProfileInfo: { [weak self] in
 				self?.showAntigenTestProfileInformation()
 			},
-			didTapEditProfile: { [weak self] in
-				self?.showAntigenTestProfileInput(editMode: true)
+			didTapEditProfile: { [weak self] antigenTestProfile in
+				let viewControllers = [self?.antigenTestProfileOverviewViewController, self?.navigationController?.viewControllers.last].compactMap { $0 }
+				self?.navigationController?.setViewControllers(viewControllers, animated: true)
+				
+				self?.showAntigenTestProfileInput(editMode: true, antigenTestProfile: antigenTestProfile)
 			},
 			didTapDeleteProfile: { [weak self] in
-				self?.navigationController?.popToRootViewController(animated: true)
+				guard let antigenTestProfileOverviewViewController = self?.antigenTestProfileOverviewViewController else {
+					return
+				}
+				
+				self?.navigationController?.popToViewController(antigenTestProfileOverviewViewController, animated: true)
 			}, dismiss: { [weak self] in self?.dismiss() }
 		)
 
@@ -1347,6 +1414,17 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 
 		navigationController?.present(alert, animated: true)
 	}
+	
+	private func showServiceErrorAlert(for error: ExposureSubmissionServiceError, onCompletion: (() -> Void)? = nil) {
+		Log.error("error: \(error.localizedDescription)", log: .ui)
+
+		let alert = UIAlertController.errorAlert(
+			message: error.localizedDescription,
+			completion: onCompletion
+		)
+
+		navigationController?.present(alert, animated: true)
+	}
 
 	// MARK: Test Result Helper
 
@@ -1389,15 +1467,6 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 					self?.dismiss()
 				}
 			)
-
-			// don't save expired tests after registering them
-			switch testQRCodeInformation.testType {
-			case .antigen:
-				model.coronaTestService.antigenTest.value = nil
-			case .pcr:
-				model.coronaTestService.pcrTest.value = nil
-			}
-
 		default:
 			break
 		}
@@ -1451,6 +1520,13 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 				   }
 				},
 				onError: { [weak self] error in
+					if error == .testExpired {
+						self?.removeExpiredTestAfterRegistration(
+							testOwner: .user,
+							testQRCodeInformation: testQRCodeInformation
+						)
+					}
+
 					let alert = self?.alert(error, testQRCodeInformation: testQRCodeInformation, isLoading: isLoading) ?? defaultAlert(error)
 					self?.navigationController?.present(alert, animated: true, completion: nil)
 					Log.error("An error occurred during result fetching: \(error)", log: .ui)
@@ -1466,6 +1542,13 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 					self?.showTestResultScreen(for: familyMemberCoronaTest)
 				},
 				onError: { [weak self] error in
+					if error == .testExpired {
+						self?.removeExpiredTestAfterRegistration(
+							testOwner: .familyMember(displayName: displayName),
+							testQRCodeInformation: testQRCodeInformation
+						)
+					}
+
 					let alert = self?.alert(error, testQRCodeInformation: testQRCodeInformation, isLoading: isLoading) ?? defaultAlert(error)
 					self?.navigationController?.present(alert, animated: true, completion: nil)
 					Log.error("An error occurred during fetching result for a family member: \(error)", log: .ui)
@@ -1491,7 +1574,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 					Analytics.collect(.keySubmissionMetadata(.submittedAfterCancel(false, testType)))
 					Analytics.collect(.keySubmissionMetadata(.lastSubmissionFlowScreen(.submissionFlowScreenUnknown, testType)))
 				}
-				self?.showErrorAlert(for: error) {
+				self?.showServiceErrorAlert(for: error) {
 					self?.dismiss()
 				}
 			}
@@ -1591,6 +1674,39 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 		parentViewController?.present(navigationController, animated: true)
 	}
 
+	private func removeExpiredTestAfterRegistration(
+		testOwner: TestOwner,
+		testQRCodeInformation: CoronaTestRegistrationInformation
+	) {
+		// We don't want to save expired tests after registering them
+		switch testOwner {
+		case .user:
+			switch testQRCodeInformation.testType {
+			case .antigen:
+				model.coronaTestService.antigenTest.value = nil
+			case .pcr:
+				model.coronaTestService.pcrTest.value = nil
+			}
+		case .familyMember:
+			let qrCodeHash: String = {
+				switch testQRCodeInformation {
+				case let .pcr(_, qrCodeHash):
+					return qrCodeHash
+				case let .rapidPCR(_, qrCodeHash):
+					return qrCodeHash
+				case let .antigen(_, qrCodeHash):
+					return qrCodeHash
+				case .teleTAN:
+					// There should be never this case so we return a string which will never match to any registered family test
+					return "No Teletan qrCode"
+				}
+			}()
+			guard let index = model.familyMemberCoronaTestService.coronaTests.value.firstIndex(where: { $0.qrCodeHash == qrCodeHash }) else {
+				return
+			}
+			model.familyMemberCoronaTestService.coronaTests.value.remove(at: index)
+		}
+	}
 }
 
 extension ExposureSubmissionCoordinator: UIAdaptivePresentationControllerDelegate {

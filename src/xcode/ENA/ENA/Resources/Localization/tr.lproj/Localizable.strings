@@ -460,7 +460,7 @@
 
 "OnboardingInfo_privacyPage_boldText" = "";
 
-"OnboardingInfo_privacyPage_normalText" = "Kimliğiniz gizli tutulacaktır.\nVerileriniz tamamen şifrelenir ve bir takma ad altında aktarılır.\n\nGDPR, 4. madde, 7. paragraf uyarınca denetleyici:\n\nRobert Koch-Institute\nNordufer 20\n13353 Berlin\nLütfen veri gizliliği düzenlemelerimizi okuyun.\n\nVeri gizliliği bilgileri:";
+"OnboardingInfo_privacyPage_normalText" = "Kimliğiniz gizli tutulacaktır.\nVerileriniz tamamen şifrelenir ve bir takma ad altında aktarılır.\n\nGDPR, 4. madde, 7. paragraf uyarınca denetleyici:\n\nRobert Koch-Institute\nNordufer 20\n13353 Berlin, Almanya\nLütfen veri gizliliği düzenlemelerimizi okuyun.\n\nVeri gizliliği bilgileri:";
 
 "OnboardingInfo_enableLoggingOfContactsPage_imageDescription" = "Üç kişi cihazlarında maruz kalma günlüğünü etkinleştirdi ve birbirleri ile karşılaşmaları günlüğe kaydedilecektir.";
 
@@ -749,6 +749,8 @@
 
 "ExposureSubmissionResult_testNegativeDesc" = "Laboratuvar sonucuna göre koronavirüs SARS-CoV-2 olduğunuza dair bir doğrulama yok.";
 
+"ExposureSubmissionResult_familyMember_testNegativeDesc" = "Laboratuvar sonucuna göre test edilen kişinin koronavirüs SARS-CoV-2 olduğuna dair bir doğrulama yok.";
+
 "ExposureSubmissionResult_testNegative_furtherInfos_title" = "Diğer bilgiler:";
 
 "ExposureSubmissionResult_testNegative_furtherInfos_desc" = "Yine de akut belirtileriniz mi var?";
@@ -763,17 +765,19 @@
 
 "ExposureSubmissionResult_testInvalidDesc" = "Testinizi değerlendirirken bir problem oluştu. Lütfen sonraki adımlarınız için test merkezi veya laboratuvar ile görüşün.";
 
+"ExposureSubmissionResult_familyMember_testInvalidDesc" = "Testi değerlendirirken bir problem oluştu. Lütfen sonraki adımlarınız için test merkezi veya laboratuvar ile görüşün.";
+
 "ExposureSubmissionResult_testExpired" = "Testiniz değerlendirilemiyor";
 
 "ExposureSubmissionResult_testExpiredDesc" = "Testinizi değerlendirirken bir problem oluştu. QR kodunuzun süresi dolmuş.";
 
 "ExposureSubmissionResult_testPending" = "Test sonucunuz henüz çıkmadı";
 
-"ExposureSubmissionResult_familyMember_testPending" = "Test sonucunuz henüz çıkmadı";
+"ExposureSubmissionResult_familyMember_testPending" = "Test Sonucu Henüz Çıkmadı";
 
 "ExposureSubmissionResult_testPendingDesc" = "Test sonucunuz çıkar çıkmaz uygulamada görüntülenecektir.\n\nTest sonucunuz uygulama dışından da tarafınıza iletilecektir. Testinizin pozitif sonuç vermesi halinde kamu sağlığı yetkilileri sizi bilgilendirecektir.\n\nUygulama dışından bir pozitif test sonucu aldıysanız lütfen uygulamaya kayıtlı testi silin. TAN almak için \"TAN Talebi\" başlığının altında gösterilen numarayı arayın. Ardından bu TAN'yi kullanarak sonucunuzu uygulamaya kaydedin ve diğer kullanıcıları uyarın.";
 
-"ExposureSubmissionResult_familyMember_testPendingDesc" = "Test sonucunuz çıkar çıkmaz uygulamada görüntülenecektir.\nTest sonucunuz uygulama dışından da tarafınıza iletilecektir. Testinizin pozitif sonuç vermesi halinde kamu sağlığı yetkilileri sizi bilgilendirecektir.";
+"ExposureSubmissionResult_familyMember_testPendingDesc" = "Test sonucu çıkar çıkmaz uygulamada görüntülenecektir.\nTest sonucu uygulama dışından da tarafınıza iletilecektir. Testin pozitif sonuç vermesi halinde kamu sağlığı yetkilileri sizi bilgilendirecektir.";
 
 "ExposureSubmissionResult_testCertificate_title" = "COVID Test Sertifikanız";
 
@@ -791,7 +795,7 @@
 
 "ExposureSubmissionResult_antigenTestPending" = "Test Sonucunuz Henüz Çıkmadı";
 
-"ExposureSubmissionResult_familyMember_antigenTestPending" = "Test Sonucunuz Henüz Çıkmadı";
+"ExposureSubmissionResult_familyMember_antigenTestPending" = "Test Sonucu Henüz Çıkmadı";
 
 "ExposureSubmissionResult_antigenTestPendingDesc" = "Test sonucunuz çıkar çıkmaz uygulamada görüntülenecektir.";
 
@@ -806,6 +810,8 @@
 "ExposureSubmissionResult_pcrTestPendingContactJournalDesc" = "Test sonucunuz çıkar çıkmaz uygulamada görüntülenecektir.";
 
 "ExposureSubmissionResult_antigenTestNegativDesc" = "Hızlı test, koronavirüs SARS-CoV-2’ye yakalandığınıza dair hiçbir kanıt sağlamadı.";
+
+"ExposureSubmissionResult_familyMember_antigenTestNegativDesc" = "Hızlı test, test edilen kişinin koronavirüs SARS-CoV-2’ye yakalandığına dair hiçbir kanıt sağlamadı.";
 
 "ExposureSubmissionResult_WarnOthersConsentGiven" = "“Diğer kullanıcıları uyar” onayı verildi";
 
@@ -934,6 +940,8 @@
 
 "ExposureSubmissionResult_Negative_Antigen_Proof_Desc" = "Burada görüntülenen sonucunuzu doğrulanabilir şekilde kanıtlamak için AB Dijital Covid Sertifikası gereklidir. Testinizi kaydettiğinizde dijital test sertifikası talebinde bulunduysanız ve test noktası, dijital sertifika düzenlemeyi destekliyorsa yukarıda belirtilen bağlantıyı kullanarak dijital test sertifikanızı bulabilirsiniz. Sertifikayı \"Sertifikalar\" sekmesinde de bulabilirsiniz.\nKanıt gerektiren amaç bağlamında test sertifikalarının geçerliliği ve kabulüne ilişkin ölçütleri de bulabilirsiniz.";
 
+"ExposureSubmissionResult_familyMember_Negative_Antigen_NoProof_Title" = "Doğrulama Özelliği";
+
 "ExposureSubmissionResult_Negative_Antigen_NoProof_Title" = "Doğrulama Özelliği Yok";
 
 "ExposureSubmissionResult_Negative_Antigen_NoProof_Desc" = "Buradaki bulgu anonimleştirildiğinden hızlı test sonucunun negatif olduğunun kanıtı olarak kullanılamaz.";
@@ -1001,11 +1009,24 @@
 
 "ExposureSubmission_Antigen_Profile_Information_Description_Title" = "Test noktalarında kaydınızı hızlandırmak için kişisel verilerinizi bir QR kod olarak kaydedin.";
 
-"ExposureSubmission_Antigen_Profile_Information_DescriptionSubHeadline" = "Hızlı test profili oluşturduğunuzda her hızlı testten önce kişisel verilerinizi yeniden doldurmanız gerekmez.";
+"ExposureSubmission_Antigen_Profile_Information_DescriptionSubHeadline" = "Hızlı test profili oluşturduğunuzda her hızlı testten önce kişisel verilerinizi yeniden doldurmanız gerekmez. Birden fazla hızlı test profili oluşturabilirsiniz, ör. bir tane kendiniz için ve birer tane her aile üyeniz için.";
 
 "ExposureSubmission_Antigen_Profile_Information_PrimaryButton" = "Devam Et";
 
 "ExposureSubmission_Antigen_Profile_Information_Dataprivacy_Title" = "Daha fazla bilgi için lütfen gizlilik bildirimine başvurun.";
+
+/* Exposure Submission AntigenTest Profile Overview */
+"ExposureSubmission_Antigen_Profile_Overview_title" = "Hızlı Test Profilleri";
+
+"ExposureSubmission_Antigen_Profile_Card_title" = "Hızlı Test Profili";
+
+"ExposureSubmission_Antigen_Profile_Overview_EmptyTitle" = "Henüz hiçbir hızlı test profili oluşturulmadı";
+
+"ExposureSubmission_Antigen_Profile_Overview_EmptyDescription" = "Kişisel verilerinizle bir hızlı test profili oluşturabilir ve her katılan test noktasına QR kod aracılığıyla gönderebilirsiniz.";
+
+"ExposureSubmission_Antigen_Profile_Overview_EmptyImageDescription" = "Arka planda dijital sertifika ve sertifika mührü";
+
+"ExposureSubmission_Antigen_Profile_Overview_AddButtonTitle" = "Hızlı test profili oluştur";
 
 /* ExposureSubmission AntigenTest Profile */
 "ExposureSubmission_Antigen_Profile_Header_Text" = "Hızlı Test Profili";
@@ -1016,7 +1037,7 @@
 
 "ExposureSubmission_Antigen_Profile_DateOfBirth_Format" = "Doğum tarihi: %@";
 
-"ExposureSubmission_Antigen_Profile_Primary_Button" = "Devam Et";
+"ExposureSubmission_Antigen_Profile_Primary_Button" = "Testi Tara";
 
 "ExposureSubmission_Antigen_Profile_Secondary_Button" = "Düzenle";
 
@@ -1025,9 +1046,9 @@
 
 "ExposureSubmission_Profile_CreateProfileTile_Description" = "Test noktalarında kaydınızı hızlandırmak için kişisel verilerinizi bir QR kod olarak kaydedin.";
 
-"ExposureSubmission_Profile_ProfileTile_Title" = "Hızlı Test Profili";
+"ExposureSubmission_Profile_ProfileTile_Title" = "Hızlı Test Profilleri";
 
-"ExposureSubmission_Profile_ProfileTile_Description" = "Zamandan tasarruf edip test noktasında hızlı test profilinizi sunabilirsiniz.";
+"ExposureSubmission_Profile_ProfileTile_Description" = "QR kod ile dilediğiniz katılımcı test noktasına gönderebileceğiniz, kişisel verilerinizi içeren hızlı test profili.";
 
 /* ExposureSubmission TestOwnerSelection */
 "ExposureSubmission_TestOwnerSelection_Title" = "Testi Kaydet";
@@ -1061,7 +1082,7 @@
 
 "ExposureSubmission_TestCertificate_Information_BirthdayText" = "Güvenlik amaçları nedeniyle test sertifikanız doğum tarihinizle korunmaktadır. Test sertifikası yalnızca doğru doğum tarihini belirtirseniz düzenlenebilir.";
 
-"ExposureSubmission_TestCertificate_Information_Dataprivacy_Title" = "Veri işleme hakkında daha ayrıntılı bilgi için lütfen gizlilik bildirimine başvurun.";
+"ExposureSubmission_TestCertificate_Information_Dataprivacy_Title" = "Veri İşleme ve Onayınız Hakkında Ayrıntılı Bilgiler";
 
 "ExposureSubmission_TestCertificate_Information_Alert_Title" = "Kaydı İptal Et";
 
@@ -1396,7 +1417,7 @@
 
 "App_Information_About_Title" = "Koronavirüs ile birlikte mücadele edelim";
 
-"App_Information_About_Description" = "Robert Koch Institute (RKI), Almanya'nın federal kamu sağlığı kurumudur. RKI, Federal Hükûmet adına Corona-Warn-App uygulamasını yayınlamaktadır. Uygulama, daha önce açıklanan kamu sağlığı önlemlerine ilişkin dijital bir tamamlayıcı niteliğindedir: sosyal mesafe, hijyen uygulamaları ve yüz maskeleri.";
+"App_Information_About_Description" = "Robert Koch Institute (RKI), Almanya'nın federal kamu sağlığı kurumudur. RKI, Federal Hükûmet adına Corona-Warn-App uygulamasını yayınlamaktadır. Uygulama, yüz maskeleri takma ve sosyal mesafe uygulama gibi hijyen önlemlerine ilişkin dijital bir tamamlayıcı niteliğindedir.";
 
 "App_Information_About_Text" = "Uygulamayı kullanan kişiler, enfeksiyon zincirlerinin takip edilmesine ve kırılmasına yardımcı olur. Uygulama, diğer kişilerle karşılaşmaları cihazınızda yerel olarak kaydeder. Daha sonra koronavirüs tanısı konan kişilerle karşılaşmışsanız size bildirim gönderilir. Kimliğiniz ve gizliliğiniz daima koruma altındadır.";
 
@@ -1443,7 +1464,7 @@
 
 "App_Information_Imprint_Section2_Title" = "Robert Koch Institute";
 
-"App_Information_Imprint_Section2_Text" = "Nordufer 20\n13353 Berlin\nbaşkan tarafından temsil edilir";
+"App_Information_Imprint_Section2_Text" = "Nordufer 20\n13353 Berlin, Almanya\nbaşkanı tarafından temsil edilir";
 
 "App_Information_Imprint_Section3_Title" = "İletişim";
 
@@ -1645,10 +1666,10 @@
 /* New Version Features */
 "NewVersionFeatures_Info_about_abb_information" = "Bu sürümdeki değişiklikleri uygulama bilgilerinde “Yeni Özellikler” bölümünde bulabilirsiniz.";
 
-/* Version 2.21 */
-"NewVersionFeature_221_familyMembersTest_title" = "Aileniz için Testleri Yönetin";
+/* Version 2.23 */
+"NewVersionFeature_223_reissue_certificates_title" = "Sertifika Yenileme";
 
-"NewVersionFeature_221_familyMembersTest_description" = "Artık uygulamanızda aile üyelerinizin testlerini yönetebilirsiniz. Test sonuçlarını akıllı telefonunuza alabilir ve dijital COVID test sertifikaları talep edebilirsiniz. Ancak testlerinden biri pozitif sonuç verirse diğer kullanıcıları uyaramazsınız. Bu işlev yalnızca testi kendiniz için kaydettiğinizde kullanılabilir.";
+"NewVersionFeature_223_reissue_certificates_description" = "Teknik nedenlerle şu anda kullanılan sertifikanın geçerliliği 365 günle sınırlıdır. Güncel sertifikanızın süresi dolarsa uygulama sertifikanızı yenilemenize olanak sağlar. Sertifikanın geçerlilik süresi sona ermeden 28 gün öncesine ve sona erdikten 90 gün sonrasına dek sertifika yenilenebilir. Uygulamada sertifikanızın yenilenmesi teklif edilmiyorsa sertifikanın uzatılmasına gerek yoktur ve başka bir işlem yapmanız gerekmez.";
 
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Uluslararası Maruz Kalma Günlüğü";
@@ -2673,6 +2694,8 @@
 
 "TraceLocation_Information_Item_RenewQRCode" = "QR kodu uzun süreli olarak kullanmak istiyorsanız mesai saatlerinizin dışında her gün yeniden QR kod oluşturmanız gerekir.";
 
+"TraceLocation_Information_Item_Group" = "Koronavirüs tanısı almış ve etkinliğe katılmış ancak Corona-Warn-App ile check-in yapmamış başka kişiler adına misafirlerinizi uyarabilirsiniz.";
+
 "TraceLocation_Information_PrimaryButton_Title" = "Sonraki";
 
 /* Checkout */
@@ -3182,21 +3205,25 @@
 "HealthCertificate_Validation_TechnicalFailed_expirationDate" = "Geçerlilik bitişi: %@";
 
 /* Health Certificate Validity State */
-"HealthCertificate_ValidityState_ExpiringSoon" = "Sertifikanın süresi %@, %@ tarihinde dolacak";
+"HealthCertificate_ValidityState_ExpiringSoon_long" = "Sertifikanın süresi %@, %@ tarihinde dolacak";
 
-"HealthCertificate_ValidityState_ExpiringSoon_description" = "Lütfen zamanında yeni bir dijital sertifika aldığınızdan emin olun.";
+"HealthCertificate_ValidityState_ExpiringSoon_short" = "Süresi %@, %@ tarihinde dolacak";
+
+"HealthCertificate_ValidityState_ExpiringSoon_description" = "Bu, şu anda kullandığınız sertifikaysa lütfen zamanında yenilediğinizden emin olun. Önümüzdeki 28 gün içinde süreleri sona ererse bu sertifikaları doğrudan uygulama içinde yenileyebilirsiniz. Böyle bir durumda, \"Durum Kanıtı\" kutucuğunun altında, sertifikaya genel bakış kısmında \"Sertifikaları Yenile\" seçeneği görüntülenir. Bu, şu anda kullandığınız sertifika değilse uzatılmasına gerek yoktur ve herhangi bir işlem yapmanız gerekmez.";
 
 "HealthCertificate_ValidityState_Expired" = "Sertifikanın Süresi Doldu";
 
-"HealthCertificate_ValidityState_Expired_description" = "Sona erme tarihi dolmadı. Lütfen yeni bir dijital sertifika alın.";
+"HealthCertificate_ValidityState_Expired_description" = "Sona erme tarihi geçti. Lütfen sertifikayı yenileyin. Bir sertifikanın süresi sona erdikten sonraki 90 güne kadar sertifikaya genel bakış kısmında nota tıklayarak yenileme talebinde bulunabilirsiniz.";
 
 "HealthCertificate_ValidityState_Invalid" = "Sertifika (İmza) Geçersiz";
 
 "HealthCertificate_ValidityState_Invalid_description" = "Sertifika onaylanmamış bir kuruluş tarafından veya yanlış düzenlenmiş. Lütfen onaylanmış bir kuruluşa yeni bir sertifika düzenletin.";
 
-"HealthCertificate_ValidityState_Blocked" = "Sertifika Geçersiz";
+"HealthCertificate_ValidityState_BlockedRevoked" = "Sertifika Geçersiz";
 
-"HealthCertificate_ValidityState_Blocked_description" = "Sertifika, düzenleyen makam tarafından geri çağırıldı. Lütfen yeni bir dijital sertifika alın.";
+"HealthCertificate_ValidityState_BlockedRevoked_description_de" = "RKI, hükûmet kararnamesi doğrultusunda sertifikayı devre dışı bıraktı. Lütfen yeni bir dijital sertifika alın.";
+
+"HealthCertificate_ValidityState_BlockedRevoked_description_other" = "Düzenleyen yetkili merci, idari karar doğrultusunda sertifikayı devre dışı bıraktı. Lütfen yeni bir dijital sertifika alın.";
 
 /* Reissuance */
 /* HealthCertificate Resissuance Consent */
@@ -3212,20 +3239,31 @@
 
 "HealthCertificate_Reissuance_Consent_Title" = "İzniniz";
 
-"HealthCertificate_Reissuance_Consent_Delete_Notice" = "Eski sertifika otomatik olarak geri dönüşüm kutusuna taşınır ve 30 gün sonra silinir. Sertifika, bu 30 günlük süre içinde dilediğiniz zaman geri yüklenebilir.";
+"HealthCertificate_Reissuance_Consent_Delete_Notice" = "Eski sertifikalar otomatik olarak geri dönüşüm kutusuna taşınır ve 30 gün sonra silinir. Sertifikalar, bu 30 günlük süre içinde dilediğiniz zaman geri yüklenebilir.";
 
-"HealthCertificate_Reissuance_Consent_Cancel_Notice" = "Şimdi iptal ederseniz dilediğiniz zaman sertifikaya genel bakış bölümünde güncelleme talebi oluşturabilirsiniz.";
+"HealthCertificate_Reissuance_Consent_Cancel_Notice" = "Şimdi iptal ederseniz dilediğiniz zaman sertifikaya genel bakış bölümünde yenileme talebi oluşturabilirsiniz.";
 
-"HealthCertificate_Reissuance_Consent_Bullet_Point_1" = "Sertifikanızı güncellemeniz gönüllülük esasına bağlı ve ücretsiz bir işlemdir.";
+"HealthCertificate_Reissuance_Consent_Bullet_Point_1" = "Sertifikalarınızı yenilemeniz gönüllülük esasına bağlı ve ücretsiz bir işlemdir.";
 
-"HealthCertificate_Reissuance_Consent_Bullet_Point_2" = "Sertifikaların yalnızca bir kez güncellenebilmesini sağlamak adına eski sertifikanızın tanıtıcısı RKI tarafından belgelenir.";
+"HealthCertificate_Reissuance_Consent_Bullet_Point_2" = "Sertifikaların yalnızca bir kez güncellenebilmesini sağlamak adına eski ve yeni sertifikalarınızın tanıtıcısı RKI tarafından belgelenir. Sertifikalarınıza ilişkin diğer veriler, yenileme işleminin hemen ardından RKI tarafından silinir.";
+
+"HealthCertificate_Reissuance_Consent_Bullet_Point_3" = "Aile üyelerine ait sertifikaları yenilemeden önce lütfen ilgili kişilerin izin verdiğinden emin olun.";
+
+"HealthCertificate_Reissuance_Consent_Bullet_Point_4" = "Bazı durumlarda yenileme için sertifikaya ek olarak ilave sertifikalar düzenlenir. Bu işlem, önceki aşı ve iyileşme sırasını yeni sertifikaya dahil etmek için gereklidir.";
+
+"HealthCertificate_Reissuance_AccompanyingCertificates_Cell" = "Düzenlenen Diğer Sertifikalar";
+
+/* HealthCertificate Resissuance Additional Certificates */
+"HealthCertificate_Reissuance_AccompanyingCertificates_Title" = "Düzenlenen Diğer Sertifikalar";
+
+"HealthCertificate_Reissuance_AccompanyingCertificates_Description" = "Önceki aşı ve iyileşme sırasını yeni sertifikaya dahil etmek için yenileme sırasında ek bilgi olarak aşağıdaki sertifikalar düzenlenecektir. Bu sertifikalar yenilenmeyecektir.";
 
 /* HealthCertificate Resissuance Succeeded */
-"HealthCertificate_Reissuance_Succeeded_Title" = "Sertifika Güncellendi";
+"HealthCertificate_Reissuance_Succeeded_Title" = "Yenilenen Sertifikalar";
 
-"HealthCertificate_Reissuance_Succeeded_Headline" = "Sertifikanız başarıyla güncellendi";
+"HealthCertificate_Reissuance_Succeeded_Headline" = "Sertifikalarınız başarıyla yenilendi";
 
-"HealthCertificate_Reissuance_Succeeded_Body" = "Güncellenen sertifikayı \"Sertifikalar\" sekmesinde bulabilirsiniz.";
+"HealthCertificate_Reissuance_Succeeded_Body" = "Yenilenen sertifikaları \"Sertifikalar\" sekmesinde bulabilirsiniz.";
 
 /* HealthCertificate Resissuance Request Error */
 "HealthCertificate_Reissuance_Error_Contact_Support" = "Teknik bir hata oluştu. Lütfen Uygulama Bilgileri -> Teknik Yardım Hattı üzerinden teknik yardım hattı ile iletişime geçin.";
@@ -3233,6 +3271,8 @@
 "HealthCertificate_Reissuance_Error_No_Network" = "İnternet bağlantınız kesilmiş olabilir. Lütfen bağlantıyı kontrol edin ve tekrar deneyin.";
 
 "HealthCertificate_Reissuance_Error_Try_Again" = "Sertifikanız güncellenirken bir hata oluştu. Lütfen tekrar deneyin. Hata devam ederse lütfen Uygulama Bilgileri -> Teknik Yardım Hattı üzerinden teknik yardım hattı ile iletişime geçin.";
+
+"HealthCertificate_Reissuance_Error_Rate_Limit" = "Sertifika zaten üç kez yeniden düzenlenmiş. Tekrar yeniden düzenlenemez.\nYeniden düzenlenen sertifikanızı PDF olarak dışa aktarıp yazdırmanızı öneririz. Ardından dilediğiniz zaman tarayabilirsiniz.";
 
 "HealthCertificate_Reissuance_Error_Not_Supported" = "Sertifikanız güncellenemiyor. Lütfen Uygulama Bilgileri -> Teknik Yardım Hattı üzerinden teknik yardım hattı ile iletişime geçin.";
 

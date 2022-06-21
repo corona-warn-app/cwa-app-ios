@@ -15,7 +15,7 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 			mode: .overview,
 			healthCertificate: try HealthCertificate(
 				base45: try base45Fake(
-					from: DigitalCovidCertificate.fake(
+					digitalCovidCertificate: DigitalCovidCertificate.fake(
 						vaccinationEntries: [
 							.fake(
 								dateOfVaccination: "2021-06-01"
@@ -50,7 +50,7 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 			mode: .overview,
 			healthCertificate: try HealthCertificate(
 				base45: try base45Fake(
-					from: DigitalCovidCertificate.fake(
+					digitalCovidCertificate: DigitalCovidCertificate.fake(
 						vaccinationEntries: [
 							.fake(
 								dateOfVaccination: "2021-06-01"
@@ -86,7 +86,7 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 			mode: .details,
 			healthCertificate: try HealthCertificate(
 				base45: try base45Fake(
-					from: DigitalCovidCertificate.fake(
+					digitalCovidCertificate: DigitalCovidCertificate.fake(
 						vaccinationEntries: [
 							.fake()
 						]
@@ -119,7 +119,7 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 			mode: .details,
 			healthCertificate: try HealthCertificate(
 				base45: try base45Fake(
-					from: DigitalCovidCertificate.fake(
+					digitalCovidCertificate: DigitalCovidCertificate.fake(
 						vaccinationEntries: [
 							.fake()
 						]
@@ -154,14 +154,14 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 			mode: .overview,
 			healthCertificate: try HealthCertificate(
 				base45: try base45Fake(
-					from: DigitalCovidCertificate.fake(
+					digitalCovidCertificate: DigitalCovidCertificate.fake(
 						vaccinationEntries: [
 							.fake(
 								dateOfVaccination: "2021-06-01"
 							)
 						]
 					),
-					and: .fake(expirationTime: expirationDate)
+					webTokenHeader: .fake(expirationTime: expirationDate)
 				),
 				validityState: .expiringSoon
 			),
@@ -198,14 +198,14 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 			mode: .overview,
 			healthCertificate: try HealthCertificate(
 				base45: try base45Fake(
-					from: DigitalCovidCertificate.fake(
+					digitalCovidCertificate: DigitalCovidCertificate.fake(
 						vaccinationEntries: [
 							.fake(
 								dateOfVaccination: "2021-06-01"
 							)
 						]
 					),
-					and: .fake(expirationTime: expirationDate)
+					webTokenHeader: .fake(expirationTime: expirationDate)
 				),
 				validityState: .expiringSoon,
 				isValidityStateNew: true
@@ -243,12 +243,12 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 			mode: .details,
 			healthCertificate: try HealthCertificate(
 				base45: try base45Fake(
-					from: DigitalCovidCertificate.fake(
+					digitalCovidCertificate: DigitalCovidCertificate.fake(
 						vaccinationEntries: [
 							.fake()
 						]
 					),
-					and: .fake(expirationTime: expirationDate)
+					webTokenHeader: .fake(expirationTime: expirationDate)
 				),
 				validityState: .expiringSoon
 			),
@@ -271,7 +271,7 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 				DateFormatter.localizedString(from: expirationDate, dateStyle: .none, timeStyle: .short)
 			)
 		)
-		XCTAssertEqual(viewModel.validityStateDescription, "Bitte bemühen Sie sich rechtzeitig darum, einen neuen digitalen Nachweis ausstellen zu lassen.")
+		XCTAssertEqual(viewModel.validityStateDescription, "Wenn dies Ihr aktuell verwendetes Zertifikat ist, bemühen Sie sich bitte rechtzeitig darum, es zu erneuern. Ab 28 Tage vor Ablauf können Sie solche Zertifikate direkt über die App erneuern lassen. Sie finden die Option \"Zertifikate erneuern\" dann in Ihrer Zertifikatsübersicht unter der Kachel \"Status-Nachweis\". Sollte dies nicht Ihr aktuell verwendetes Zertifikat sein, muss es nicht verlängert werden und Sie müssen nichts weiter tun.")
 
 		XCTAssertFalse(viewModel.isUnseenNewsIndicatorVisible)
 
@@ -285,12 +285,12 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 			mode: .details,
 			healthCertificate: try HealthCertificate(
 				base45: try base45Fake(
-					from: DigitalCovidCertificate.fake(
+					digitalCovidCertificate: DigitalCovidCertificate.fake(
 						vaccinationEntries: [
 							.fake()
 						]
 					),
-					and: .fake(expirationTime: expirationDate)
+					webTokenHeader: .fake(expirationTime: expirationDate)
 				),
 				validityState: .expiringSoon,
 				isValidityStateNew: true
@@ -314,7 +314,7 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 				DateFormatter.localizedString(from: expirationDate, dateStyle: .none, timeStyle: .short)
 			)
 		)
-		XCTAssertEqual(viewModel.validityStateDescription, "Bitte bemühen Sie sich rechtzeitig darum, einen neuen digitalen Nachweis ausstellen zu lassen.")
+		XCTAssertEqual(viewModel.validityStateDescription, "Wenn dies Ihr aktuell verwendetes Zertifikat ist, bemühen Sie sich bitte rechtzeitig darum, es zu erneuern. Ab 28 Tage vor Ablauf können Sie solche Zertifikate direkt über die App erneuern lassen. Sie finden die Option \"Zertifikate erneuern\" dann in Ihrer Zertifikatsübersicht unter der Kachel \"Status-Nachweis\". Sollte dies nicht Ihr aktuell verwendetes Zertifikat sein, muss es nicht verlängert werden und Sie müssen nichts weiter tun.")
 
 		XCTAssertTrue(viewModel.isUnseenNewsIndicatorVisible)
 	}
@@ -325,7 +325,7 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 			mode: .overview,
 			healthCertificate: try HealthCertificate(
 				base45: try base45Fake(
-					from: DigitalCovidCertificate.fake(
+					digitalCovidCertificate: DigitalCovidCertificate.fake(
 						vaccinationEntries: [
 							.fake(
 								dateOfVaccination: "2021-06-01"
@@ -360,7 +360,7 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 			mode: .overview,
 			healthCertificate: try HealthCertificate(
 				base45: try base45Fake(
-					from: DigitalCovidCertificate.fake(
+					digitalCovidCertificate: DigitalCovidCertificate.fake(
 						vaccinationEntries: [
 							.fake(
 								dateOfVaccination: "2021-06-01"
@@ -396,7 +396,7 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 			mode: .details,
 			healthCertificate: try HealthCertificate(
 				base45: try base45Fake(
-					from: DigitalCovidCertificate.fake(
+					digitalCovidCertificate: DigitalCovidCertificate.fake(
 						vaccinationEntries: [
 							.fake()
 						]
@@ -416,7 +416,7 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 
 		XCTAssertEqual(viewModel.validityStateIcon, UIImage(named: "Icon_ExpiredInvalid"))
 		XCTAssertEqual(viewModel.validityStateTitle, "Zertifikat abgelaufen")
-		XCTAssertEqual(viewModel.validityStateDescription, "Das Ablaufdatum wurde überschritten. Bitte bemühen Sie sich darum, einen neuen digitalen Nachweis ausstellen zu lassen.")
+		XCTAssertEqual(viewModel.validityStateDescription, "Wenn dies Ihr aktuell verwendetes Zertifikat ist, bemühen Sie sich bitte rechtzeitig darum, es zu erneuern. Ab 28 Tage vor Ablauf können Sie solche Zertifikate direkt über die App erneuern lassen. Sie finden die Option \"Zertifikate erneuern\" dann in Ihrer Zertifikatsübersicht unter der Kachel \"Status-Nachweis\". Sollte dies nicht Ihr aktuell verwendetes Zertifikat sein, muss es nicht verlängert werden und Sie müssen nichts weiter tun.")
 
 		XCTAssertFalse(viewModel.isUnseenNewsIndicatorVisible)
 
@@ -429,7 +429,7 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 			mode: .details,
 			healthCertificate: try HealthCertificate(
 				base45: try base45Fake(
-					from: DigitalCovidCertificate.fake(
+					digitalCovidCertificate: DigitalCovidCertificate.fake(
 						vaccinationEntries: [
 							.fake()
 						]
@@ -450,7 +450,7 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 
 		XCTAssertEqual(viewModel.validityStateIcon, UIImage(named: "Icon_ExpiredInvalid"))
 		XCTAssertEqual(viewModel.validityStateTitle, "Zertifikat abgelaufen")
-		XCTAssertEqual(viewModel.validityStateDescription, "Das Ablaufdatum wurde überschritten. Bitte bemühen Sie sich darum, einen neuen digitalen Nachweis ausstellen zu lassen.")
+		XCTAssertEqual(viewModel.validityStateDescription, "Wenn dies Ihr aktuell verwendetes Zertifikat ist, bemühen Sie sich bitte rechtzeitig darum, es zu erneuern. Ab 28 Tage vor Ablauf können Sie solche Zertifikate direkt über die App erneuern lassen. Sie finden die Option \"Zertifikate erneuern\" dann in Ihrer Zertifikatsübersicht unter der Kachel \"Status-Nachweis\". Sollte dies nicht Ihr aktuell verwendetes Zertifikat sein, muss es nicht verlängert werden und Sie müssen nichts weiter tun.")
 
 		XCTAssertTrue(viewModel.isUnseenNewsIndicatorVisible)
 
@@ -463,7 +463,7 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 			mode: .overview,
 			healthCertificate: try HealthCertificate(
 				base45: try base45Fake(
-					from: DigitalCovidCertificate.fake(
+					digitalCovidCertificate: DigitalCovidCertificate.fake(
 						vaccinationEntries: [
 							.fake(
 								dateOfVaccination: "2021-06-01"
@@ -498,7 +498,7 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 			mode: .overview,
 			healthCertificate: try HealthCertificate(
 				base45: try base45Fake(
-					from: DigitalCovidCertificate.fake(
+					digitalCovidCertificate: DigitalCovidCertificate.fake(
 						vaccinationEntries: [
 							.fake(
 								dateOfVaccination: "2021-06-01"
@@ -534,7 +534,7 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 			mode: .details,
 			healthCertificate: try HealthCertificate(
 				base45: try base45Fake(
-					from: DigitalCovidCertificate.fake(
+					digitalCovidCertificate: DigitalCovidCertificate.fake(
 						vaccinationEntries: [
 							.fake()
 						]
@@ -567,7 +567,7 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 			mode: .details,
 			healthCertificate: try HealthCertificate(
 				base45: try base45Fake(
-					from: DigitalCovidCertificate.fake(
+					digitalCovidCertificate: DigitalCovidCertificate.fake(
 						vaccinationEntries: [
 							.fake()
 						]
@@ -601,7 +601,7 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 			mode: .overview,
 			healthCertificate: try HealthCertificate(
 				base45: try base45Fake(
-					from: DigitalCovidCertificate.fake(
+					digitalCovidCertificate: DigitalCovidCertificate.fake(
 						vaccinationEntries: [
 							.fake(
 								dateOfVaccination: "2021-06-01"
@@ -636,7 +636,7 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 			mode: .overview,
 			healthCertificate: try HealthCertificate(
 				base45: try base45Fake(
-					from: DigitalCovidCertificate.fake(
+					digitalCovidCertificate: DigitalCovidCertificate.fake(
 						vaccinationEntries: [
 							.fake(
 								dateOfVaccination: "2021-06-01"
@@ -666,17 +666,18 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 		XCTAssertTrue(viewModel.qrCodeViewModel.shouldBlockCertificateCode)
 	}
 
-	func testGIVEN_DetailsViewModelWithBlockedVaccinationCertificate_THEN_IsInitCorrect() throws {
+	func testGIVEN_DetailsViewModelWithBlockedGermanVaccinationCertificate_THEN_IsInitCorrect() throws {
 		// GIVEN
 		let viewModel = HealthCertificateQRCodeCellViewModel(
 			mode: .details,
 			healthCertificate: try HealthCertificate(
 				base45: try base45Fake(
-					from: DigitalCovidCertificate.fake(
+					digitalCovidCertificate: DigitalCovidCertificate.fake(
 						vaccinationEntries: [
 							.fake()
 						]
-					)
+					),
+					webTokenHeader: .fake(issuer: "DE")
 				),
 				validityState: .blocked
 			),
@@ -692,7 +693,41 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 
 		XCTAssertEqual(viewModel.validityStateIcon, UIImage(named: "Icon_ExpiredInvalid"))
 		XCTAssertEqual(viewModel.validityStateTitle, "Zertifikat ungültig")
-		XCTAssertEqual(viewModel.validityStateDescription, "Das Zertifikat wurde von der ausstellenden Behörde zurückgerufen. Bitte bemühen Sie sich darum, einen neuen digitalen Nachweis ausstellen zu lassen.")
+		XCTAssertEqual(viewModel.validityStateDescription, "Das RKI hat das Zertifikat aufgrund einer behördlichen Verfügung gesperrt. Bitte bemühen Sie sich darum, einen neuen digitalen Nachweis ausstellen zu lassen.")
+
+		XCTAssertFalse(viewModel.isUnseenNewsIndicatorVisible)
+
+		XCTAssertFalse(viewModel.qrCodeViewModel.shouldBlockCertificateCode)
+	}
+
+	func testGIVEN_DetailsViewModelWithBlockedAustrianVaccinationCertificate_THEN_IsInitCorrect() throws {
+		// GIVEN
+		let viewModel = HealthCertificateQRCodeCellViewModel(
+			mode: .details,
+			healthCertificate: try HealthCertificate(
+				base45: try base45Fake(
+					digitalCovidCertificate: DigitalCovidCertificate.fake(
+						vaccinationEntries: [
+							.fake()
+						]
+					),
+					webTokenHeader: .fake(issuer: "AT")
+				),
+				validityState: .blocked
+			),
+			accessibilityText: "accessibilityText",
+			onCovPassCheckInfoButtonTap: { }
+		)
+
+		// THEN
+		XCTAssertEqual(viewModel.title, "Impfzertifikat")
+		XCTAssertNil(viewModel.subtitle)
+		XCTAssertEqual(viewModel.qrCodeViewModel.accessibilityLabel, "accessibilityText")
+		XCTAssertEqual(viewModel.qrCodeViewModel.covPassCheckInfoPosition, .top)
+
+		XCTAssertEqual(viewModel.validityStateIcon, UIImage(named: "Icon_ExpiredInvalid"))
+		XCTAssertEqual(viewModel.validityStateTitle, "Zertifikat ungültig")
+		XCTAssertEqual(viewModel.validityStateDescription, "Das Zertifikat wurde vom Zertifikataussteller aufgrund einer behördlichen Entscheidung gesperrt. Bitte bemühen Sie sich darum, einen neuen digitalen Nachweis ausstellen zu lassen.")
 
 		XCTAssertFalse(viewModel.isUnseenNewsIndicatorVisible)
 
@@ -705,11 +740,12 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 			mode: .details,
 			healthCertificate: try HealthCertificate(
 				base45: try base45Fake(
-					from: DigitalCovidCertificate.fake(
+					digitalCovidCertificate: DigitalCovidCertificate.fake(
 						vaccinationEntries: [
 							.fake()
 						]
-					)
+					),
+					webTokenHeader: .fake(issuer: "DE")
 				),
 				validityState: .blocked,
 				isValidityStateNew: true
@@ -726,11 +762,185 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 
 		XCTAssertEqual(viewModel.validityStateIcon, UIImage(named: "Icon_ExpiredInvalid"))
 		XCTAssertEqual(viewModel.validityStateTitle, "Zertifikat ungültig")
-		XCTAssertEqual(viewModel.validityStateDescription, "Das Zertifikat wurde von der ausstellenden Behörde zurückgerufen. Bitte bemühen Sie sich darum, einen neuen digitalen Nachweis ausstellen zu lassen.")
+		XCTAssertEqual(viewModel.validityStateDescription, "Das RKI hat das Zertifikat aufgrund einer behördlichen Verfügung gesperrt. Bitte bemühen Sie sich darum, einen neuen digitalen Nachweis ausstellen zu lassen.")
 
 		XCTAssertTrue(viewModel.isUnseenNewsIndicatorVisible)
 
 		XCTAssertFalse(viewModel.qrCodeViewModel.shouldBlockCertificateCode)
+	}
+
+	func testGIVEN_OverviewViewModelWithRevokedVaccinationCertificate_THEN_IsInitCorrect() throws {
+		// GIVEN
+		let viewModel = HealthCertificateQRCodeCellViewModel(
+			mode: .overview,
+			healthCertificate: try HealthCertificate(
+				base45: try base45Fake(
+					digitalCovidCertificate: DigitalCovidCertificate.fake(
+						vaccinationEntries: [
+							.fake(
+								dateOfVaccination: "2021-06-01"
+							)
+						]
+					)
+				),
+				validityState: .revoked
+			),
+			accessibilityText: "accessibilityText",
+			onCovPassCheckInfoButtonTap: { }
+		)
+
+		// THEN
+		XCTAssertEqual(viewModel.title, "Impfzertifikat")
+		XCTAssertNil(viewModel.subtitle)
+		XCTAssertEqual(viewModel.qrCodeViewModel.accessibilityLabel, "accessibilityText")
+		XCTAssertEqual(viewModel.qrCodeViewModel.covPassCheckInfoPosition, .top)
+
+		XCTAssertEqual(viewModel.validityStateIcon, UIImage(named: "Icon_ExpiredInvalid"))
+		XCTAssertEqual(viewModel.validityStateTitle, "Zertifikat ungültig")
+		XCTAssertNil(viewModel.validityStateDescription)
+
+		XCTAssertFalse(viewModel.isUnseenNewsIndicatorVisible)
+
+		XCTAssertTrue(viewModel.qrCodeViewModel.shouldBlockCertificateCode)
+	}
+
+	func testGIVEN_OverviewViewModelWithNewlyRevokedVaccinationCertificate_THEN_IsInitCorrect() throws {
+		// GIVEN
+		let viewModel = HealthCertificateQRCodeCellViewModel(
+			mode: .overview,
+			healthCertificate: try HealthCertificate(
+				base45: try base45Fake(
+					digitalCovidCertificate: DigitalCovidCertificate.fake(
+						vaccinationEntries: [
+							.fake(
+								dateOfVaccination: "2021-06-01"
+							)
+						]
+					)
+				),
+				validityState: .revoked,
+				isValidityStateNew: true
+			),
+			accessibilityText: "accessibilityText",
+			onCovPassCheckInfoButtonTap: { }
+		)
+
+		// THEN
+		XCTAssertEqual(viewModel.title, "Impfzertifikat")
+		XCTAssertNil(viewModel.subtitle)
+		XCTAssertEqual(viewModel.qrCodeViewModel.accessibilityLabel, "accessibilityText")
+		XCTAssertEqual(viewModel.qrCodeViewModel.covPassCheckInfoPosition, .top)
+
+		XCTAssertEqual(viewModel.validityStateIcon, UIImage(named: "Icon_ExpiredInvalid"))
+		XCTAssertEqual(viewModel.validityStateTitle, "Zertifikat ungültig")
+		XCTAssertNil(viewModel.validityStateDescription)
+
+		XCTAssertFalse(viewModel.isUnseenNewsIndicatorVisible)
+
+		XCTAssertTrue(viewModel.qrCodeViewModel.shouldBlockCertificateCode)
+	}
+
+	func testGIVEN_DetailsViewModelWithRevokedGermanVaccinationCertificate_THEN_IsInitCorrect() throws {
+		// GIVEN
+		let viewModel = HealthCertificateQRCodeCellViewModel(
+			mode: .details,
+			healthCertificate: try HealthCertificate(
+				base45: try base45Fake(
+					digitalCovidCertificate: DigitalCovidCertificate.fake(
+						vaccinationEntries: [
+							.fake()
+						]
+					),
+					webTokenHeader: .fake(issuer: "DE")
+				),
+				validityState: .revoked
+			),
+			accessibilityText: "accessibilityText",
+			onCovPassCheckInfoButtonTap: { }
+		)
+
+		// THEN
+		XCTAssertEqual(viewModel.title, "Impfzertifikat")
+		XCTAssertNil(viewModel.subtitle)
+		XCTAssertEqual(viewModel.qrCodeViewModel.accessibilityLabel, "accessibilityText")
+		XCTAssertEqual(viewModel.qrCodeViewModel.covPassCheckInfoPosition, .top)
+
+		XCTAssertEqual(viewModel.validityStateIcon, UIImage(named: "Icon_ExpiredInvalid"))
+		XCTAssertEqual(viewModel.validityStateTitle, "Zertifikat ungültig")
+		XCTAssertEqual(viewModel.validityStateDescription, "Das RKI hat das Zertifikat aufgrund einer behördlichen Verfügung gesperrt. Bitte bemühen Sie sich darum, einen neuen digitalen Nachweis ausstellen zu lassen.")
+
+		XCTAssertFalse(viewModel.isUnseenNewsIndicatorVisible)
+
+		XCTAssertTrue(viewModel.qrCodeViewModel.shouldBlockCertificateCode)
+	}
+
+	func testGIVEN_DetailsViewModelWithRevokedAustrianVaccinationCertificate_THEN_IsInitCorrect() throws {
+		// GIVEN
+		let viewModel = HealthCertificateQRCodeCellViewModel(
+			mode: .details,
+			healthCertificate: try HealthCertificate(
+				base45: try base45Fake(
+					digitalCovidCertificate: DigitalCovidCertificate.fake(
+						vaccinationEntries: [
+							.fake()
+						]
+					),
+					webTokenHeader: .fake(issuer: "AT")
+				),
+				validityState: .revoked
+			),
+			accessibilityText: "accessibilityText",
+			onCovPassCheckInfoButtonTap: { }
+		)
+
+		// THEN
+		XCTAssertEqual(viewModel.title, "Impfzertifikat")
+		XCTAssertNil(viewModel.subtitle)
+		XCTAssertEqual(viewModel.qrCodeViewModel.accessibilityLabel, "accessibilityText")
+		XCTAssertEqual(viewModel.qrCodeViewModel.covPassCheckInfoPosition, .top)
+
+		XCTAssertEqual(viewModel.validityStateIcon, UIImage(named: "Icon_ExpiredInvalid"))
+		XCTAssertEqual(viewModel.validityStateTitle, "Zertifikat ungültig")
+		XCTAssertEqual(viewModel.validityStateDescription, "Das Zertifikat wurde vom Zertifikataussteller aufgrund einer behördlichen Entscheidung gesperrt. Bitte bemühen Sie sich darum, einen neuen digitalen Nachweis ausstellen zu lassen.")
+
+		XCTAssertFalse(viewModel.isUnseenNewsIndicatorVisible)
+
+		XCTAssertTrue(viewModel.qrCodeViewModel.shouldBlockCertificateCode)
+	}
+
+	func testGIVEN_DetailsViewModelWithNewlyRevokedVaccinationCertificate_THEN_IsInitCorrect() throws {
+		// GIVEN
+		let viewModel = HealthCertificateQRCodeCellViewModel(
+			mode: .details,
+			healthCertificate: try HealthCertificate(
+				base45: try base45Fake(
+					digitalCovidCertificate: DigitalCovidCertificate.fake(
+						vaccinationEntries: [
+							.fake()
+						]
+					),
+					webTokenHeader: .fake(issuer: "DE")
+				),
+				validityState: .revoked,
+				isValidityStateNew: true
+			),
+			accessibilityText: "accessibilityText",
+			onCovPassCheckInfoButtonTap: { }
+		)
+
+		// THEN
+		XCTAssertEqual(viewModel.title, "Impfzertifikat")
+		XCTAssertNil(viewModel.subtitle)
+		XCTAssertEqual(viewModel.qrCodeViewModel.accessibilityLabel, "accessibilityText")
+		XCTAssertEqual(viewModel.qrCodeViewModel.covPassCheckInfoPosition, .top)
+
+		XCTAssertEqual(viewModel.validityStateIcon, UIImage(named: "Icon_ExpiredInvalid"))
+		XCTAssertEqual(viewModel.validityStateTitle, "Zertifikat ungültig")
+		XCTAssertEqual(viewModel.validityStateDescription, "Das RKI hat das Zertifikat aufgrund einer behördlichen Verfügung gesperrt. Bitte bemühen Sie sich darum, einen neuen digitalen Nachweis ausstellen zu lassen.")
+
+		XCTAssertTrue(viewModel.isUnseenNewsIndicatorVisible)
+
+		XCTAssertTrue(viewModel.qrCodeViewModel.shouldBlockCertificateCode)
 	}
 
 	func testGIVEN_OverviewViewModelWithValidTestCertificate_THEN_IsInitCorrect() throws {
@@ -743,7 +953,7 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 			mode: .overview,
 			healthCertificate: try HealthCertificate(
 				base45: try base45Fake(
-					from: DigitalCovidCertificate.fake(
+					digitalCovidCertificate: DigitalCovidCertificate.fake(
 						testEntries: [
 							.fake(
 								dateTimeOfSampleCollection: dateTimeOfSampleCollection
@@ -782,7 +992,7 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 			mode: .overview,
 			healthCertificate: try HealthCertificate(
 				base45: try base45Fake(
-					from: DigitalCovidCertificate.fake(
+					digitalCovidCertificate: DigitalCovidCertificate.fake(
 						testEntries: [
 							.fake(
 								dateTimeOfSampleCollection: dateTimeOfSampleCollection
@@ -818,7 +1028,7 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 			mode: .details,
 			healthCertificate: try HealthCertificate(
 				base45: try base45Fake(
-					from: DigitalCovidCertificate.fake(
+					digitalCovidCertificate: DigitalCovidCertificate.fake(
 						testEntries: [
 							.fake()
 						]
@@ -851,7 +1061,7 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 			mode: .details,
 			healthCertificate: try HealthCertificate(
 				base45: try base45Fake(
-					from: DigitalCovidCertificate.fake(
+					digitalCovidCertificate: DigitalCovidCertificate.fake(
 						testEntries: [
 							.fake()
 						]
@@ -889,14 +1099,14 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 			mode: .overview,
 			healthCertificate: try HealthCertificate(
 				base45: try base45Fake(
-					from: DigitalCovidCertificate.fake(
+					digitalCovidCertificate: DigitalCovidCertificate.fake(
 						testEntries: [
 							.fake(
 								dateTimeOfSampleCollection: dateTimeOfSampleCollection
 							)
 						]
 					),
-					and: .fake(expirationTime: Date(timeIntervalSince1970: 1627987295))
+					webTokenHeader: .fake(expirationTime: Date(timeIntervalSince1970: 1627987295))
 				),
 				validityState: .expiringSoon
 			),
@@ -929,14 +1139,14 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 			mode: .overview,
 			healthCertificate: try HealthCertificate(
 				base45: try base45Fake(
-					from: DigitalCovidCertificate.fake(
+					digitalCovidCertificate: DigitalCovidCertificate.fake(
 						testEntries: [
 							.fake(
 								dateTimeOfSampleCollection: dateTimeOfSampleCollection
 							)
 						]
 					),
-					and: .fake(expirationTime: Date(timeIntervalSince1970: 1627987295))
+					webTokenHeader: .fake(expirationTime: Date(timeIntervalSince1970: 1627987295))
 				),
 				validityState: .expiringSoon,
 				isValidityStateNew: true
@@ -966,12 +1176,12 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 			mode: .details,
 			healthCertificate: try HealthCertificate(
 				base45: try base45Fake(
-					from: DigitalCovidCertificate.fake(
+					digitalCovidCertificate: DigitalCovidCertificate.fake(
 						testEntries: [
 							.fake()
 						]
 					),
-					and: .fake(expirationTime: Date(timeIntervalSince1970: 1627987295))
+					webTokenHeader: .fake(expirationTime: Date(timeIntervalSince1970: 1627987295))
 				),
 				validityState: .expiringSoon
 			),
@@ -1000,12 +1210,12 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 			mode: .details,
 			healthCertificate: try HealthCertificate(
 				base45: try base45Fake(
-					from: DigitalCovidCertificate.fake(
+					digitalCovidCertificate: DigitalCovidCertificate.fake(
 						testEntries: [
 							.fake()
 						]
 					),
-					and: .fake(expirationTime: Date(timeIntervalSince1970: 1627987295))
+					webTokenHeader: .fake(expirationTime: Date(timeIntervalSince1970: 1627987295))
 				),
 				validityState: .expiringSoon,
 				isValidityStateNew: true
@@ -1039,7 +1249,7 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 			mode: .overview,
 			healthCertificate: try HealthCertificate(
 				base45: try base45Fake(
-					from: DigitalCovidCertificate.fake(
+					digitalCovidCertificate: DigitalCovidCertificate.fake(
 						testEntries: [
 							.fake(
 								dateTimeOfSampleCollection: dateTimeOfSampleCollection
@@ -1078,7 +1288,7 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 			mode: .overview,
 			healthCertificate: try HealthCertificate(
 				base45: try base45Fake(
-					from: DigitalCovidCertificate.fake(
+					digitalCovidCertificate: DigitalCovidCertificate.fake(
 						testEntries: [
 							.fake(
 								dateTimeOfSampleCollection: dateTimeOfSampleCollection
@@ -1114,7 +1324,7 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 			mode: .details,
 			healthCertificate: try HealthCertificate(
 				base45: try base45Fake(
-					from: DigitalCovidCertificate.fake(
+					digitalCovidCertificate: DigitalCovidCertificate.fake(
 						testEntries: [
 							.fake()
 						]
@@ -1147,7 +1357,7 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 			mode: .details,
 			healthCertificate: try HealthCertificate(
 				base45: try base45Fake(
-					from: DigitalCovidCertificate.fake(
+					digitalCovidCertificate: DigitalCovidCertificate.fake(
 						testEntries: [
 							.fake()
 						]
@@ -1181,7 +1391,7 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 			mode: .overview,
 			healthCertificate: try HealthCertificate(
 				base45: try base45Fake(
-					from: DigitalCovidCertificate.fake(
+					digitalCovidCertificate: DigitalCovidCertificate.fake(
 						testEntries: [
 							.fake()
 						]
@@ -1214,7 +1424,7 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 			mode: .overview,
 			healthCertificate: try HealthCertificate(
 				base45: try base45Fake(
-					from: DigitalCovidCertificate.fake(
+					digitalCovidCertificate: DigitalCovidCertificate.fake(
 						testEntries: [
 							.fake()
 						]
@@ -1248,7 +1458,7 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 			mode: .details,
 			healthCertificate: try HealthCertificate(
 				base45: try base45Fake(
-					from: DigitalCovidCertificate.fake(
+					digitalCovidCertificate: DigitalCovidCertificate.fake(
 						testEntries: [
 							.fake()
 						]
@@ -1281,7 +1491,7 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 			mode: .details,
 			healthCertificate: try HealthCertificate(
 				base45: try base45Fake(
-					from: DigitalCovidCertificate.fake(
+					digitalCovidCertificate: DigitalCovidCertificate.fake(
 						testEntries: [
 							.fake()
 						]
@@ -1315,7 +1525,7 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 			mode: .overview,
 			healthCertificate: try HealthCertificate(
 				base45: try base45Fake(
-					from: DigitalCovidCertificate.fake(
+					digitalCovidCertificate: DigitalCovidCertificate.fake(
 						testEntries: [
 							.fake()
 						]
@@ -1348,7 +1558,7 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 			mode: .overview,
 			healthCertificate: try HealthCertificate(
 				base45: try base45Fake(
-					from: DigitalCovidCertificate.fake(
+					digitalCovidCertificate: DigitalCovidCertificate.fake(
 						testEntries: [
 							.fake()
 						]
@@ -1376,17 +1586,18 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 		XCTAssertTrue(viewModel.qrCodeViewModel.shouldBlockCertificateCode)
 	}
 
-	func testGIVEN_DetailsViewModelWithBlockedTestCertificate_THEN_IsInitCorrect() throws {
+	func testGIVEN_DetailsViewModelWithBlockedGermanTestCertificate_THEN_IsInitCorrect() throws {
 		// GIVEN
 		let viewModel = HealthCertificateQRCodeCellViewModel(
 			mode: .details,
 			healthCertificate: try HealthCertificate(
 				base45: try base45Fake(
-					from: DigitalCovidCertificate.fake(
+					digitalCovidCertificate: DigitalCovidCertificate.fake(
 						testEntries: [
 							.fake()
 						]
-					)
+					),
+					webTokenHeader: .fake(issuer: "DE")
 				),
 				validityState: .blocked
 			),
@@ -1402,7 +1613,41 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 
 		XCTAssertEqual(viewModel.validityStateIcon, UIImage(named: "Icon_ExpiredInvalid"))
 		XCTAssertEqual(viewModel.validityStateTitle, "Zertifikat ungültig")
-		XCTAssertEqual(viewModel.validityStateDescription, "Das Zertifikat wurde von der ausstellenden Behörde zurückgerufen. Bitte bemühen Sie sich darum, einen neuen digitalen Nachweis ausstellen zu lassen.")
+		XCTAssertEqual(viewModel.validityStateDescription, "Das RKI hat das Zertifikat aufgrund einer behördlichen Verfügung gesperrt. Bitte bemühen Sie sich darum, einen neuen digitalen Nachweis ausstellen zu lassen.")
+
+		XCTAssertFalse(viewModel.isUnseenNewsIndicatorVisible)
+
+		XCTAssertFalse(viewModel.qrCodeViewModel.shouldBlockCertificateCode)
+	}
+
+	func testGIVEN_DetailsViewModelWithBlockedItalianTestCertificate_THEN_IsInitCorrect() throws {
+		// GIVEN
+		let viewModel = HealthCertificateQRCodeCellViewModel(
+			mode: .details,
+			healthCertificate: try HealthCertificate(
+				base45: try base45Fake(
+					digitalCovidCertificate: DigitalCovidCertificate.fake(
+						testEntries: [
+							.fake()
+						]
+					),
+					webTokenHeader: .fake(issuer: "IT")
+				),
+				validityState: .blocked
+			),
+			accessibilityText: "accessibilityText",
+			onCovPassCheckInfoButtonTap: { }
+		)
+
+		// THEN
+		XCTAssertEqual(viewModel.title, "Testzertifikat")
+		XCTAssertNil(viewModel.subtitle)
+		XCTAssertEqual(viewModel.qrCodeViewModel.accessibilityLabel, "accessibilityText")
+		XCTAssertEqual(viewModel.qrCodeViewModel.covPassCheckInfoPosition, .top)
+
+		XCTAssertEqual(viewModel.validityStateIcon, UIImage(named: "Icon_ExpiredInvalid"))
+		XCTAssertEqual(viewModel.validityStateTitle, "Zertifikat ungültig")
+		XCTAssertEqual(viewModel.validityStateDescription, "Das Zertifikat wurde vom Zertifikataussteller aufgrund einer behördlichen Entscheidung gesperrt. Bitte bemühen Sie sich darum, einen neuen digitalen Nachweis ausstellen zu lassen.")
 
 		XCTAssertFalse(viewModel.isUnseenNewsIndicatorVisible)
 
@@ -1415,11 +1660,12 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 			mode: .details,
 			healthCertificate: try HealthCertificate(
 				base45: try base45Fake(
-					from: DigitalCovidCertificate.fake(
+					digitalCovidCertificate: DigitalCovidCertificate.fake(
 						testEntries: [
 							.fake()
 						]
-					)
+					),
+					webTokenHeader: .fake(issuer: "DE")
 				),
 				validityState: .blocked,
 				isValidityStateNew: true
@@ -1436,11 +1682,181 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 
 		XCTAssertEqual(viewModel.validityStateIcon, UIImage(named: "Icon_ExpiredInvalid"))
 		XCTAssertEqual(viewModel.validityStateTitle, "Zertifikat ungültig")
-		XCTAssertEqual(viewModel.validityStateDescription, "Das Zertifikat wurde von der ausstellenden Behörde zurückgerufen. Bitte bemühen Sie sich darum, einen neuen digitalen Nachweis ausstellen zu lassen.")
+		XCTAssertEqual(viewModel.validityStateDescription, "Das RKI hat das Zertifikat aufgrund einer behördlichen Verfügung gesperrt. Bitte bemühen Sie sich darum, einen neuen digitalen Nachweis ausstellen zu lassen.")
 
 		XCTAssertTrue(viewModel.isUnseenNewsIndicatorVisible)
 
 		XCTAssertFalse(viewModel.qrCodeViewModel.shouldBlockCertificateCode)
+	}
+
+	func testGIVEN_OverviewViewModelWithRevokedTestCertificate_THEN_IsInitCorrect() throws {
+		// GIVEN
+		let viewModel = HealthCertificateQRCodeCellViewModel(
+			mode: .overview,
+			healthCertificate: try HealthCertificate(
+				base45: try base45Fake(
+					digitalCovidCertificate: DigitalCovidCertificate.fake(
+						testEntries: [
+							.fake()
+						]
+					)
+				),
+				validityState: .revoked
+			),
+			accessibilityText: "accessibilityText",
+			onCovPassCheckInfoButtonTap: { }
+		)
+
+		// THEN
+		XCTAssertEqual(viewModel.title, "Testzertifikat")
+		XCTAssertNil(viewModel.subtitle)
+		XCTAssertEqual(viewModel.qrCodeViewModel.accessibilityLabel, "accessibilityText")
+		XCTAssertEqual(viewModel.qrCodeViewModel.covPassCheckInfoPosition, .top)
+
+		XCTAssertEqual(viewModel.validityStateIcon, UIImage(named: "Icon_ExpiredInvalid"))
+		XCTAssertEqual(viewModel.validityStateTitle, "Zertifikat ungültig")
+		XCTAssertNil(viewModel.validityStateDescription)
+
+		XCTAssertFalse(viewModel.isUnseenNewsIndicatorVisible)
+
+		XCTAssertTrue(viewModel.qrCodeViewModel.shouldBlockCertificateCode)
+	}
+
+	func testGIVEN_OverviewViewModelWithNewlyRevokedTestCertificate_THEN_IsInitCorrect() throws {
+		// GIVEN
+		let viewModel = HealthCertificateQRCodeCellViewModel(
+			mode: .overview,
+			healthCertificate: try HealthCertificate(
+				base45: try base45Fake(
+					digitalCovidCertificate: DigitalCovidCertificate.fake(
+						testEntries: [
+							.fake()
+						]
+					)
+				),
+				validityState: .revoked,
+				isValidityStateNew: true
+			),
+			accessibilityText: "accessibilityText",
+			onCovPassCheckInfoButtonTap: { }
+		)
+
+		// THEN
+		XCTAssertEqual(viewModel.title, "Testzertifikat")
+		XCTAssertNil(viewModel.subtitle)
+		XCTAssertEqual(viewModel.qrCodeViewModel.accessibilityLabel, "accessibilityText")
+		XCTAssertEqual(viewModel.qrCodeViewModel.covPassCheckInfoPosition, .top)
+
+		XCTAssertEqual(viewModel.validityStateIcon, UIImage(named: "Icon_ExpiredInvalid"))
+		XCTAssertEqual(viewModel.validityStateTitle, "Zertifikat ungültig")
+		XCTAssertNil(viewModel.validityStateDescription)
+
+		XCTAssertFalse(viewModel.isUnseenNewsIndicatorVisible)
+
+		XCTAssertTrue(viewModel.qrCodeViewModel.shouldBlockCertificateCode)
+	}
+
+	func testGIVEN_DetailsViewModelWithRevokedGermanTestCertificate_THEN_IsInitCorrect() throws {
+		// GIVEN
+		let viewModel = HealthCertificateQRCodeCellViewModel(
+			mode: .details,
+			healthCertificate: try HealthCertificate(
+				base45: try base45Fake(
+					digitalCovidCertificate: DigitalCovidCertificate.fake(
+						testEntries: [
+							.fake()
+						]
+					),
+					webTokenHeader: .fake(issuer: "DE")
+				),
+				validityState: .revoked
+			),
+			accessibilityText: "accessibilityText",
+			onCovPassCheckInfoButtonTap: { }
+		)
+
+		// THEN
+		XCTAssertEqual(viewModel.title, "Testzertifikat")
+		XCTAssertNil(viewModel.subtitle)
+		XCTAssertEqual(viewModel.qrCodeViewModel.accessibilityLabel, "accessibilityText")
+		XCTAssertEqual(viewModel.qrCodeViewModel.covPassCheckInfoPosition, .top)
+
+		XCTAssertEqual(viewModel.validityStateIcon, UIImage(named: "Icon_ExpiredInvalid"))
+		XCTAssertEqual(viewModel.validityStateTitle, "Zertifikat ungültig")
+		XCTAssertEqual(viewModel.validityStateDescription, "Das RKI hat das Zertifikat aufgrund einer behördlichen Verfügung gesperrt. Bitte bemühen Sie sich darum, einen neuen digitalen Nachweis ausstellen zu lassen.")
+
+		XCTAssertFalse(viewModel.isUnseenNewsIndicatorVisible)
+
+		XCTAssertTrue(viewModel.qrCodeViewModel.shouldBlockCertificateCode)
+	}
+
+	func testGIVEN_DetailsViewModelWithRevokedItalianTestCertificate_THEN_IsInitCorrect() throws {
+		// GIVEN
+		let viewModel = HealthCertificateQRCodeCellViewModel(
+			mode: .details,
+			healthCertificate: try HealthCertificate(
+				base45: try base45Fake(
+					digitalCovidCertificate: DigitalCovidCertificate.fake(
+						testEntries: [
+							.fake()
+						]
+					),
+					webTokenHeader: .fake(issuer: "IT")
+				),
+				validityState: .revoked
+			),
+			accessibilityText: "accessibilityText",
+			onCovPassCheckInfoButtonTap: { }
+		)
+
+		// THEN
+		XCTAssertEqual(viewModel.title, "Testzertifikat")
+		XCTAssertNil(viewModel.subtitle)
+		XCTAssertEqual(viewModel.qrCodeViewModel.accessibilityLabel, "accessibilityText")
+		XCTAssertEqual(viewModel.qrCodeViewModel.covPassCheckInfoPosition, .top)
+
+		XCTAssertEqual(viewModel.validityStateIcon, UIImage(named: "Icon_ExpiredInvalid"))
+		XCTAssertEqual(viewModel.validityStateTitle, "Zertifikat ungültig")
+		XCTAssertEqual(viewModel.validityStateDescription, "Das Zertifikat wurde vom Zertifikataussteller aufgrund einer behördlichen Entscheidung gesperrt. Bitte bemühen Sie sich darum, einen neuen digitalen Nachweis ausstellen zu lassen.")
+
+		XCTAssertFalse(viewModel.isUnseenNewsIndicatorVisible)
+
+		XCTAssertTrue(viewModel.qrCodeViewModel.shouldBlockCertificateCode)
+	}
+
+	func testGIVEN_DetailsViewModelWithNewlyRevokedTestCertificate_THEN_IsInitCorrect() throws {
+		// GIVEN
+		let viewModel = HealthCertificateQRCodeCellViewModel(
+			mode: .details,
+			healthCertificate: try HealthCertificate(
+				base45: try base45Fake(
+					digitalCovidCertificate: DigitalCovidCertificate.fake(
+						testEntries: [
+							.fake()
+						]
+					),
+					webTokenHeader: .fake(issuer: "DE")
+				),
+				validityState: .revoked,
+				isValidityStateNew: true
+			),
+			accessibilityText: "accessibilityText",
+			onCovPassCheckInfoButtonTap: { }
+		)
+
+		// THEN
+		XCTAssertEqual(viewModel.title, "Testzertifikat")
+		XCTAssertNil(viewModel.subtitle)
+		XCTAssertEqual(viewModel.qrCodeViewModel.accessibilityLabel, "accessibilityText")
+		XCTAssertEqual(viewModel.qrCodeViewModel.covPassCheckInfoPosition, .top)
+
+		XCTAssertEqual(viewModel.validityStateIcon, UIImage(named: "Icon_ExpiredInvalid"))
+		XCTAssertEqual(viewModel.validityStateTitle, "Zertifikat ungültig")
+		XCTAssertEqual(viewModel.validityStateDescription, "Das RKI hat das Zertifikat aufgrund einer behördlichen Verfügung gesperrt. Bitte bemühen Sie sich darum, einen neuen digitalen Nachweis ausstellen zu lassen.")
+
+		XCTAssertTrue(viewModel.isUnseenNewsIndicatorVisible)
+
+		XCTAssertTrue(viewModel.qrCodeViewModel.shouldBlockCertificateCode)
 	}
 
 	func testGIVEN_OverviewViewModelWithValidRecoveryCertificate_THEN_IsInitCorrect() throws {
@@ -1449,7 +1865,7 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 			mode: .overview,
 			healthCertificate: try HealthCertificate(
 				base45: try base45Fake(
-					from: DigitalCovidCertificate.fake(
+					digitalCovidCertificate: DigitalCovidCertificate.fake(
 						recoveryEntries: [
 							RecoveryEntry.fake(
 								dateOfFirstPositiveNAAResult: "2022-03-01T07:12:45.132Z"
@@ -1484,7 +1900,7 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 			mode: .overview,
 			healthCertificate: try HealthCertificate(
 				base45: try base45Fake(
-					from: DigitalCovidCertificate.fake(
+					digitalCovidCertificate: DigitalCovidCertificate.fake(
 						recoveryEntries: [
 							RecoveryEntry.fake(
 								dateOfFirstPositiveNAAResult: "2022-03-01T07:12:45.132Z"
@@ -1520,7 +1936,7 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 			mode: .details,
 			healthCertificate: try HealthCertificate(
 				base45: try base45Fake(
-					from: DigitalCovidCertificate.fake(
+					digitalCovidCertificate: DigitalCovidCertificate.fake(
 						recoveryEntries: [
 							.fake()
 						]
@@ -1553,7 +1969,7 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 			mode: .details,
 			healthCertificate: try HealthCertificate(
 				base45: try base45Fake(
-					from: DigitalCovidCertificate.fake(
+					digitalCovidCertificate: DigitalCovidCertificate.fake(
 						recoveryEntries: [
 							.fake()
 						]
@@ -1588,14 +2004,14 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 			mode: .overview,
 			healthCertificate: try HealthCertificate(
 				base45: try base45Fake(
-					from: DigitalCovidCertificate.fake(
+					digitalCovidCertificate: DigitalCovidCertificate.fake(
 						recoveryEntries: [
 							.fake(
 								dateOfFirstPositiveNAAResult: "2022-03-01T07:12:45.132Z"
 							)
 						]
 					),
-					and: .fake(expirationTime: expirationDate)
+					webTokenHeader: .fake(expirationTime: expirationDate)
 				),
 				validityState: .expiringSoon
 			),
@@ -1632,14 +2048,14 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 			mode: .overview,
 			healthCertificate: try HealthCertificate(
 				base45: try base45Fake(
-					from: DigitalCovidCertificate.fake(
+					digitalCovidCertificate: DigitalCovidCertificate.fake(
 						recoveryEntries: [
 							.fake(
 								dateOfFirstPositiveNAAResult: "2022-03-01T07:12:45.132Z"
 							)
 						]
 					),
-					and: .fake(expirationTime: expirationDate)
+					webTokenHeader: .fake(expirationTime: expirationDate)
 				),
 				validityState: .expiringSoon,
 				isValidityStateNew: true
@@ -1675,12 +2091,12 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 			mode: .details,
 			healthCertificate: try HealthCertificate(
 				base45: try base45Fake(
-					from: DigitalCovidCertificate.fake(
+					digitalCovidCertificate: DigitalCovidCertificate.fake(
 						recoveryEntries: [
 							.fake()
 						]
 					),
-					and: .fake(expirationTime: expirationDate)
+					webTokenHeader: .fake(expirationTime: expirationDate)
 				),
 				validityState: .expiringSoon
 			),
@@ -1703,7 +2119,7 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 				DateFormatter.localizedString(from: expirationDate, dateStyle: .none, timeStyle: .short)
 			)
 		)
-		XCTAssertEqual(viewModel.validityStateDescription, "Bitte bemühen Sie sich rechtzeitig darum, einen neuen digitalen Nachweis ausstellen zu lassen.")
+		XCTAssertEqual(viewModel.validityStateDescription, "Wenn dies Ihr aktuell verwendetes Zertifikat ist, bemühen Sie sich bitte rechtzeitig darum, es zu erneuern. Ab 28 Tage vor Ablauf können Sie solche Zertifikate direkt über die App erneuern lassen. Sie finden die Option \"Zertifikate erneuern\" dann in Ihrer Zertifikatsübersicht unter der Kachel \"Status-Nachweis\". Sollte dies nicht Ihr aktuell verwendetes Zertifikat sein, muss es nicht verlängert werden und Sie müssen nichts weiter tun.")
 
 		XCTAssertFalse(viewModel.isUnseenNewsIndicatorVisible)
 
@@ -1717,12 +2133,12 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 			mode: .details,
 			healthCertificate: try HealthCertificate(
 				base45: try base45Fake(
-					from: DigitalCovidCertificate.fake(
+					digitalCovidCertificate: DigitalCovidCertificate.fake(
 						recoveryEntries: [
 							.fake()
 						]
 					),
-					and: .fake(expirationTime: expirationDate)
+					webTokenHeader: .fake(expirationTime: expirationDate)
 				),
 				validityState: .expiringSoon,
 				isValidityStateNew: true
@@ -1746,7 +2162,7 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 				DateFormatter.localizedString(from: expirationDate, dateStyle: .none, timeStyle: .short)
 			)
 		)
-		XCTAssertEqual(viewModel.validityStateDescription, "Bitte bemühen Sie sich rechtzeitig darum, einen neuen digitalen Nachweis ausstellen zu lassen.")
+		XCTAssertEqual(viewModel.validityStateDescription, "Wenn dies Ihr aktuell verwendetes Zertifikat ist, bemühen Sie sich bitte rechtzeitig darum, es zu erneuern. Ab 28 Tage vor Ablauf können Sie solche Zertifikate direkt über die App erneuern lassen. Sie finden die Option \"Zertifikate erneuern\" dann in Ihrer Zertifikatsübersicht unter der Kachel \"Status-Nachweis\". Sollte dies nicht Ihr aktuell verwendetes Zertifikat sein, muss es nicht verlängert werden und Sie müssen nichts weiter tun.")
 
 		XCTAssertTrue(viewModel.isUnseenNewsIndicatorVisible)
 
@@ -1759,7 +2175,7 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 			mode: .overview,
 			healthCertificate: try HealthCertificate(
 				base45: try base45Fake(
-					from: DigitalCovidCertificate.fake(
+					digitalCovidCertificate: DigitalCovidCertificate.fake(
 						recoveryEntries: [
 							.fake()
 						]
@@ -1792,7 +2208,7 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 			mode: .overview,
 			healthCertificate: try HealthCertificate(
 				base45: try base45Fake(
-					from: DigitalCovidCertificate.fake(
+					digitalCovidCertificate: DigitalCovidCertificate.fake(
 						recoveryEntries: [
 							.fake()
 						]
@@ -1826,7 +2242,7 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 			mode: .details,
 			healthCertificate: try HealthCertificate(
 				base45: try base45Fake(
-					from: DigitalCovidCertificate.fake(
+					digitalCovidCertificate: DigitalCovidCertificate.fake(
 						recoveryEntries: [
 							.fake()
 						]
@@ -1846,7 +2262,7 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 
 		XCTAssertEqual(viewModel.validityStateIcon, UIImage(named: "Icon_ExpiredInvalid"))
 		XCTAssertEqual(viewModel.validityStateTitle, "Zertifikat abgelaufen")
-		XCTAssertEqual(viewModel.validityStateDescription, "Das Ablaufdatum wurde überschritten. Bitte bemühen Sie sich darum, einen neuen digitalen Nachweis ausstellen zu lassen.")
+		XCTAssertEqual(viewModel.validityStateDescription, "Wenn dies Ihr aktuell verwendetes Zertifikat ist, bemühen Sie sich bitte rechtzeitig darum, es zu erneuern. Ab 28 Tage vor Ablauf können Sie solche Zertifikate direkt über die App erneuern lassen. Sie finden die Option \"Zertifikate erneuern\" dann in Ihrer Zertifikatsübersicht unter der Kachel \"Status-Nachweis\". Sollte dies nicht Ihr aktuell verwendetes Zertifikat sein, muss es nicht verlängert werden und Sie müssen nichts weiter tun.")
 
 		XCTAssertFalse(viewModel.isUnseenNewsIndicatorVisible)
 
@@ -1859,7 +2275,7 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 			mode: .details,
 			healthCertificate: try HealthCertificate(
 				base45: try base45Fake(
-					from: DigitalCovidCertificate.fake(
+					digitalCovidCertificate: DigitalCovidCertificate.fake(
 						recoveryEntries: [
 							.fake()
 						]
@@ -1880,7 +2296,7 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 
 		XCTAssertEqual(viewModel.validityStateIcon, UIImage(named: "Icon_ExpiredInvalid"))
 		XCTAssertEqual(viewModel.validityStateTitle, "Zertifikat abgelaufen")
-		XCTAssertEqual(viewModel.validityStateDescription, "Das Ablaufdatum wurde überschritten. Bitte bemühen Sie sich darum, einen neuen digitalen Nachweis ausstellen zu lassen.")
+		XCTAssertEqual(viewModel.validityStateDescription, "Wenn dies Ihr aktuell verwendetes Zertifikat ist, bemühen Sie sich bitte rechtzeitig darum, es zu erneuern. Ab 28 Tage vor Ablauf können Sie solche Zertifikate direkt über die App erneuern lassen. Sie finden die Option \"Zertifikate erneuern\" dann in Ihrer Zertifikatsübersicht unter der Kachel \"Status-Nachweis\". Sollte dies nicht Ihr aktuell verwendetes Zertifikat sein, muss es nicht verlängert werden und Sie müssen nichts weiter tun.")
 
 		XCTAssertTrue(viewModel.isUnseenNewsIndicatorVisible)
 
@@ -1893,7 +2309,7 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 			mode: .overview,
 			healthCertificate: try HealthCertificate(
 				base45: try base45Fake(
-					from: DigitalCovidCertificate.fake(
+					digitalCovidCertificate: DigitalCovidCertificate.fake(
 						recoveryEntries: [
 							.fake()
 						]
@@ -1926,7 +2342,7 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 			mode: .overview,
 			healthCertificate: try HealthCertificate(
 				base45: try base45Fake(
-					from: DigitalCovidCertificate.fake(
+					digitalCovidCertificate: DigitalCovidCertificate.fake(
 						recoveryEntries: [
 							.fake()
 						]
@@ -1960,7 +2376,7 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 			mode: .details,
 			healthCertificate: try HealthCertificate(
 				base45: try base45Fake(
-					from: DigitalCovidCertificate.fake(
+					digitalCovidCertificate: DigitalCovidCertificate.fake(
 						recoveryEntries: [
 							.fake()
 						]
@@ -1993,7 +2409,7 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 			mode: .details,
 			healthCertificate: try HealthCertificate(
 				base45: try base45Fake(
-					from: DigitalCovidCertificate.fake(
+					digitalCovidCertificate: DigitalCovidCertificate.fake(
 						recoveryEntries: [
 							.fake()
 						]
@@ -2027,7 +2443,7 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 			mode: .overview,
 			healthCertificate: try HealthCertificate(
 				base45: try base45Fake(
-					from: DigitalCovidCertificate.fake(
+					digitalCovidCertificate: DigitalCovidCertificate.fake(
 						recoveryEntries: [
 							.fake()
 						]
@@ -2060,7 +2476,7 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 			mode: .overview,
 			healthCertificate: try HealthCertificate(
 				base45: try base45Fake(
-					from: DigitalCovidCertificate.fake(
+					digitalCovidCertificate: DigitalCovidCertificate.fake(
 						recoveryEntries: [
 							.fake()
 						]
@@ -2088,17 +2504,18 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 		XCTAssertTrue(viewModel.qrCodeViewModel.shouldBlockCertificateCode)
 	}
 
-	func testGIVEN_DetailsViewModelWithBlockedRecoveryCertificate_THEN_IsInitCorrect() throws {
+	func testGIVEN_DetailsViewModelWithBlockedGermanRecoveryCertificate_THEN_IsInitCorrect() throws {
 		// GIVEN
 		let viewModel = HealthCertificateQRCodeCellViewModel(
 			mode: .details,
 			healthCertificate: try HealthCertificate(
 				base45: try base45Fake(
-					from: DigitalCovidCertificate.fake(
+					digitalCovidCertificate: DigitalCovidCertificate.fake(
 						recoveryEntries: [
 							.fake()
 						]
-					)
+					),
+					webTokenHeader: .fake(issuer: "DE")
 				),
 				validityState: .blocked
 			),
@@ -2114,7 +2531,41 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 
 		XCTAssertEqual(viewModel.validityStateIcon, UIImage(named: "Icon_ExpiredInvalid"))
 		XCTAssertEqual(viewModel.validityStateTitle, "Zertifikat ungültig")
-		XCTAssertEqual(viewModel.validityStateDescription, "Das Zertifikat wurde von der ausstellenden Behörde zurückgerufen. Bitte bemühen Sie sich darum, einen neuen digitalen Nachweis ausstellen zu lassen.")
+		XCTAssertEqual(viewModel.validityStateDescription, "Das RKI hat das Zertifikat aufgrund einer behördlichen Verfügung gesperrt. Bitte bemühen Sie sich darum, einen neuen digitalen Nachweis ausstellen zu lassen.")
+
+		XCTAssertFalse(viewModel.isUnseenNewsIndicatorVisible)
+
+		XCTAssertFalse(viewModel.qrCodeViewModel.shouldBlockCertificateCode)
+	}
+
+	func testGIVEN_DetailsViewModelWithBlockedDutchRecoveryCertificate_THEN_IsInitCorrect() throws {
+		// GIVEN
+		let viewModel = HealthCertificateQRCodeCellViewModel(
+			mode: .details,
+			healthCertificate: try HealthCertificate(
+				base45: try base45Fake(
+					digitalCovidCertificate: DigitalCovidCertificate.fake(
+						recoveryEntries: [
+							.fake()
+						]
+					),
+					webTokenHeader: .fake(issuer: "NL")
+				),
+				validityState: .blocked
+			),
+			accessibilityText: "accessibilityText",
+			onCovPassCheckInfoButtonTap: { }
+		)
+
+		// THEN
+		XCTAssertEqual(viewModel.title, "Genesenenzertifikat")
+		XCTAssertNil(viewModel.subtitle)
+		XCTAssertEqual(viewModel.qrCodeViewModel.accessibilityLabel, "accessibilityText")
+		XCTAssertEqual(viewModel.qrCodeViewModel.covPassCheckInfoPosition, .top)
+
+		XCTAssertEqual(viewModel.validityStateIcon, UIImage(named: "Icon_ExpiredInvalid"))
+		XCTAssertEqual(viewModel.validityStateTitle, "Zertifikat ungültig")
+		XCTAssertEqual(viewModel.validityStateDescription, "Das Zertifikat wurde vom Zertifikataussteller aufgrund einer behördlichen Entscheidung gesperrt. Bitte bemühen Sie sich darum, einen neuen digitalen Nachweis ausstellen zu lassen.")
 
 		XCTAssertFalse(viewModel.isUnseenNewsIndicatorVisible)
 
@@ -2127,11 +2578,12 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 			mode: .details,
 			healthCertificate: try HealthCertificate(
 				base45: try base45Fake(
-					from: DigitalCovidCertificate.fake(
+					digitalCovidCertificate: DigitalCovidCertificate.fake(
 						recoveryEntries: [
 							.fake()
 						]
-					)
+					),
+					webTokenHeader: .fake(issuer: "DE")
 				),
 				validityState: .blocked,
 				isValidityStateNew: true
@@ -2148,11 +2600,181 @@ class HealthCertificateQRCodeCellViewModelTests: XCTestCase {
 
 		XCTAssertEqual(viewModel.validityStateIcon, UIImage(named: "Icon_ExpiredInvalid"))
 		XCTAssertEqual(viewModel.validityStateTitle, "Zertifikat ungültig")
-		XCTAssertEqual(viewModel.validityStateDescription, "Das Zertifikat wurde von der ausstellenden Behörde zurückgerufen. Bitte bemühen Sie sich darum, einen neuen digitalen Nachweis ausstellen zu lassen.")
+		XCTAssertEqual(viewModel.validityStateDescription, "Das RKI hat das Zertifikat aufgrund einer behördlichen Verfügung gesperrt. Bitte bemühen Sie sich darum, einen neuen digitalen Nachweis ausstellen zu lassen.")
 
 		XCTAssertTrue(viewModel.isUnseenNewsIndicatorVisible)
 
 		XCTAssertFalse(viewModel.qrCodeViewModel.shouldBlockCertificateCode)
+	}
+
+	func testGIVEN_OverviewViewModelWithRevokedRecoveryCertificate_THEN_IsInitCorrect() throws {
+		// GIVEN
+		let viewModel = HealthCertificateQRCodeCellViewModel(
+			mode: .overview,
+			healthCertificate: try HealthCertificate(
+				base45: try base45Fake(
+					digitalCovidCertificate: DigitalCovidCertificate.fake(
+						recoveryEntries: [
+							.fake()
+						]
+					)
+				),
+				validityState: .revoked
+			),
+			accessibilityText: "accessibilityText",
+			onCovPassCheckInfoButtonTap: { }
+		)
+
+		// THEN
+		XCTAssertEqual(viewModel.title, "Genesenenzertifikat")
+		XCTAssertNil(viewModel.subtitle)
+		XCTAssertEqual(viewModel.qrCodeViewModel.accessibilityLabel, "accessibilityText")
+		XCTAssertEqual(viewModel.qrCodeViewModel.covPassCheckInfoPosition, .top)
+
+		XCTAssertEqual(viewModel.validityStateIcon, UIImage(named: "Icon_ExpiredInvalid"))
+		XCTAssertEqual(viewModel.validityStateTitle, "Zertifikat ungültig")
+		XCTAssertNil(viewModel.validityStateDescription)
+
+		XCTAssertFalse(viewModel.isUnseenNewsIndicatorVisible)
+
+		XCTAssertTrue(viewModel.qrCodeViewModel.shouldBlockCertificateCode)
+	}
+
+	func testGIVEN_OverviewViewModelWithNewlyRevokedRecoveryCertificate_THEN_IsInitCorrect() throws {
+		// GIVEN
+		let viewModel = HealthCertificateQRCodeCellViewModel(
+			mode: .overview,
+			healthCertificate: try HealthCertificate(
+				base45: try base45Fake(
+					digitalCovidCertificate: DigitalCovidCertificate.fake(
+						recoveryEntries: [
+							.fake()
+						]
+					)
+				),
+				validityState: .revoked,
+				isValidityStateNew: true
+			),
+			accessibilityText: "accessibilityText",
+			onCovPassCheckInfoButtonTap: { }
+		)
+
+		// THEN
+		XCTAssertEqual(viewModel.title, "Genesenenzertifikat")
+		XCTAssertNil(viewModel.subtitle)
+		XCTAssertEqual(viewModel.qrCodeViewModel.accessibilityLabel, "accessibilityText")
+		XCTAssertEqual(viewModel.qrCodeViewModel.covPassCheckInfoPosition, .top)
+
+		XCTAssertEqual(viewModel.validityStateIcon, UIImage(named: "Icon_ExpiredInvalid"))
+		XCTAssertEqual(viewModel.validityStateTitle, "Zertifikat ungültig")
+		XCTAssertNil(viewModel.validityStateDescription)
+
+		XCTAssertFalse(viewModel.isUnseenNewsIndicatorVisible)
+
+		XCTAssertTrue(viewModel.qrCodeViewModel.shouldBlockCertificateCode)
+	}
+
+	func testGIVEN_DetailsViewModelWithRevokedGermanRecoveryCertificate_THEN_IsInitCorrect() throws {
+		// GIVEN
+		let viewModel = HealthCertificateQRCodeCellViewModel(
+			mode: .details,
+			healthCertificate: try HealthCertificate(
+				base45: try base45Fake(
+					digitalCovidCertificate: DigitalCovidCertificate.fake(
+						recoveryEntries: [
+							.fake()
+						]
+					),
+					webTokenHeader: .fake(issuer: "DE")
+				),
+				validityState: .revoked
+			),
+			accessibilityText: "accessibilityText",
+			onCovPassCheckInfoButtonTap: { }
+		)
+
+		// THEN
+		XCTAssertEqual(viewModel.title, "Genesenenzertifikat")
+		XCTAssertNil(viewModel.subtitle)
+		XCTAssertEqual(viewModel.qrCodeViewModel.accessibilityLabel, "accessibilityText")
+		XCTAssertEqual(viewModel.qrCodeViewModel.covPassCheckInfoPosition, .top)
+
+		XCTAssertEqual(viewModel.validityStateIcon, UIImage(named: "Icon_ExpiredInvalid"))
+		XCTAssertEqual(viewModel.validityStateTitle, "Zertifikat ungültig")
+		XCTAssertEqual(viewModel.validityStateDescription, "Das RKI hat das Zertifikat aufgrund einer behördlichen Verfügung gesperrt. Bitte bemühen Sie sich darum, einen neuen digitalen Nachweis ausstellen zu lassen.")
+
+		XCTAssertFalse(viewModel.isUnseenNewsIndicatorVisible)
+
+		XCTAssertTrue(viewModel.qrCodeViewModel.shouldBlockCertificateCode)
+	}
+
+	func testGIVEN_DetailsViewModelWithRevokedDutchRecoveryCertificate_THEN_IsInitCorrect() throws {
+		// GIVEN
+		let viewModel = HealthCertificateQRCodeCellViewModel(
+			mode: .details,
+			healthCertificate: try HealthCertificate(
+				base45: try base45Fake(
+					digitalCovidCertificate: DigitalCovidCertificate.fake(
+						recoveryEntries: [
+							.fake()
+						]
+					),
+					webTokenHeader: .fake(issuer: "NL")
+				),
+				validityState: .revoked
+			),
+			accessibilityText: "accessibilityText",
+			onCovPassCheckInfoButtonTap: { }
+		)
+
+		// THEN
+		XCTAssertEqual(viewModel.title, "Genesenenzertifikat")
+		XCTAssertNil(viewModel.subtitle)
+		XCTAssertEqual(viewModel.qrCodeViewModel.accessibilityLabel, "accessibilityText")
+		XCTAssertEqual(viewModel.qrCodeViewModel.covPassCheckInfoPosition, .top)
+
+		XCTAssertEqual(viewModel.validityStateIcon, UIImage(named: "Icon_ExpiredInvalid"))
+		XCTAssertEqual(viewModel.validityStateTitle, "Zertifikat ungültig")
+		XCTAssertEqual(viewModel.validityStateDescription, "Das Zertifikat wurde vom Zertifikataussteller aufgrund einer behördlichen Entscheidung gesperrt. Bitte bemühen Sie sich darum, einen neuen digitalen Nachweis ausstellen zu lassen.")
+
+		XCTAssertFalse(viewModel.isUnseenNewsIndicatorVisible)
+
+		XCTAssertTrue(viewModel.qrCodeViewModel.shouldBlockCertificateCode)
+	}
+
+	func testGIVEN_DetailsViewModelWithNewlyRevokedRecoveryCertificate_THEN_IsInitCorrect() throws {
+		// GIVEN
+		let viewModel = HealthCertificateQRCodeCellViewModel(
+			mode: .details,
+			healthCertificate: try HealthCertificate(
+				base45: try base45Fake(
+					digitalCovidCertificate: DigitalCovidCertificate.fake(
+						recoveryEntries: [
+							.fake()
+						]
+					),
+					webTokenHeader: .fake(issuer: "DE")
+				),
+				validityState: .revoked,
+				isValidityStateNew: true
+			),
+			accessibilityText: "accessibilityText",
+			onCovPassCheckInfoButtonTap: { }
+		)
+
+		// THEN
+		XCTAssertEqual(viewModel.title, "Genesenenzertifikat")
+		XCTAssertNil(viewModel.subtitle)
+		XCTAssertEqual(viewModel.qrCodeViewModel.accessibilityLabel, "accessibilityText")
+		XCTAssertEqual(viewModel.qrCodeViewModel.covPassCheckInfoPosition, .top)
+
+		XCTAssertEqual(viewModel.validityStateIcon, UIImage(named: "Icon_ExpiredInvalid"))
+		XCTAssertEqual(viewModel.validityStateTitle, "Zertifikat ungültig")
+		XCTAssertEqual(viewModel.validityStateDescription, "Das RKI hat das Zertifikat aufgrund einer behördlichen Verfügung gesperrt. Bitte bemühen Sie sich darum, einen neuen digitalen Nachweis ausstellen zu lassen.")
+
+		XCTAssertTrue(viewModel.isUnseenNewsIndicatorVisible)
+
+		XCTAssertTrue(viewModel.qrCodeViewModel.shouldBlockCertificateCode)
 	}
 
 	// swiftlint:disable file_length

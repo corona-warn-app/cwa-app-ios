@@ -7,6 +7,7 @@ import XCTest
 @testable import ENA
 import OpenCombine
 
+// swiftlint:disable type_body_length
 class FamilyMemberCoronaTestsViewModelTest: CWATestCase {
 
 	func testNumberOfSections() throws {
@@ -94,6 +95,8 @@ class FamilyMemberCoronaTestsViewModelTest: CWATestCase {
 	}
 
 	func testCellModels() throws {
+		var subscriptions = [AnyCancellable]()
+		
 		let familyMemberCoronaTestService = MockFamilyMemberCoronaTestService()
 		familyMemberCoronaTestService.coronaTests.value = [
 			.pcr(.mock(displayName: "asdf", registrationDate: Date(timeIntervalSinceNow: 3), qrCodeHash: "1")),
@@ -108,18 +111,34 @@ class FamilyMemberCoronaTestsViewModelTest: CWATestCase {
 			onLastDeletion: { }
 		)
 
-		XCTAssertEqual(
-			viewModel.coronaTestCellModels[0].name,
-			"asdf"
-		)
-		XCTAssertEqual(
-			viewModel.coronaTestCellModels[1].name,
-			"qwer"
-		)
-		XCTAssertEqual(
-			viewModel.coronaTestCellModels[2].name,
-			"zxcv"
-		)
+		let correctValuesExpectation = expectation(description: "correctValuesExpectation")
+		correctValuesExpectation.expectedFulfillmentCount = 3
+		
+		viewModel.coronaTestCellModels[0].$name
+			.dropFirst()
+			.sink { receivedValue in
+				XCTAssertEqual(receivedValue, "asdf")
+				correctValuesExpectation.fulfill()
+			}
+			.store(in: &subscriptions)
+		
+		viewModel.coronaTestCellModels[1].$name
+			.dropFirst()
+			.sink { receivedValue in
+				XCTAssertEqual(receivedValue, "qwer")
+				correctValuesExpectation.fulfill()
+			}
+			.store(in: &subscriptions)
+		
+		viewModel.coronaTestCellModels[2].$name
+			.dropFirst()
+			.sink { receivedValue in
+				XCTAssertEqual(receivedValue, "zxcv")
+				correctValuesExpectation.fulfill()
+			}
+			.store(in: &subscriptions)
+		
+		waitForExpectations(timeout: .medium)
 	}
 
 	func testTriggerReloadIsSetIfTestIsAdded() throws {

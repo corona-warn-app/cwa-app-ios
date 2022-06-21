@@ -460,7 +460,7 @@
 
 "OnboardingInfo_privacyPage_boldText" = "";
 
-"OnboardingInfo_privacyPage_normalText" = "Vă este păstrată anonimitatea.\nDatele dvs. sunt criptate integral și sunt transmise sub pseudonim.\n\nOperator de date conform GDPR, articolul 4 (7):\n\nRobert Koch-Institute\nNordufer 20\n13353 Berlin\nConsultați reglementările noastre privind confidențialitatea datelor.\n\nInformații despre confidențialitatea datelor:";
+"OnboardingInfo_privacyPage_normalText" = "Vă este păstrată anonimitatea.\nDatele dvs. sunt criptate integral și sunt transmise sub pseudonim.\n\nOperator de date conform GDPR, articolul 4 (7):\n\nRobert Koch-Institute\nNordufer 20\n13353 Berlin, Germania\nConsultați reglementările noastre privind confidențialitatea datelor.\n\nInformații despre confidențialitatea datelor:";
 
 "OnboardingInfo_enableLoggingOfContactsPage_imageDescription" = "Trei persoane și-au activat pe dispozitiv înregistrarea în jurnal a expunerilor, ceea ce va duce la înregistrarea întâlnirilor lor.";
 
@@ -749,6 +749,8 @@
 
 "ExposureSubmissionResult_testNegativeDesc" = "Rezultatul de laborator nu indică o confirmare a infecției cu coronavirusul SARS-CoV-2.";
 
+"ExposureSubmissionResult_familyMember_testNegativeDesc" = "Rezultatul de laborator nu indică o confirmare a infecției cu coronavirusul SARS-CoV-2 la persoana testată.";
+
 "ExposureSubmissionResult_testNegative_furtherInfos_title" = "Alte informații:";
 
 "ExposureSubmissionResult_testNegative_furtherInfos_desc" = "Aveți totuși simptome acute?";
@@ -763,17 +765,19 @@
 
 "ExposureSubmissionResult_testInvalidDesc" = "A apărut o problemă la evaluarea testului dvs. Contactați centrul sau laboratorul de testare implicat pentru a afla pașii următori.";
 
+"ExposureSubmissionResult_familyMember_testInvalidDesc" = "A apărut o problemă la evaluarea testului. Contactați centrul sau laboratorul de testare implicat pentru a afla pașii următori.";
+
 "ExposureSubmissionResult_testExpired" = "Testul dvs. nu poate fi evaluat";
 
 "ExposureSubmissionResult_testExpiredDesc" = "A apărut o problemă la evaluarea testului dvs. Codul dvs. QR a expirat deja.";
 
 "ExposureSubmissionResult_testPending" = "Rezultatul testului dvs. nu este încă disponibil";
 
-"ExposureSubmissionResult_familyMember_testPending" = "Rezultatul testului dvs. nu este încă disponibil";
+"ExposureSubmissionResult_familyMember_testPending" = "Rezultatul testului nu este încă disponibil";
 
 "ExposureSubmissionResult_testPendingDesc" = "Imediat ce devine disponibil, rezultatul testului dvs. va fi afișat în aplicație.\n\nDe asemenea, veți primi rezultatul testului în afara aplicației. Autoritățile de sănătate publică vă vor anunța dacă testul dvs. este pozitiv.\n\nDacă sunteți notificat privind un rezultat pozitiv al testului în afara aplicației, ștergeți testul curent înregistrat în aplicație. Apelați numărul indicat la „Solicitare TAN” pentru a obține un număr TAN. Apoi, puteți utiliza acest TAN pentru a vă înregistra rezultatul în aplicație și pentru a-i avertiza pe ceilalți.";
 
-"ExposureSubmissionResult_familyMember_testPendingDesc" = "Imediat ce devine disponibil, rezultatul testului dvs. va fi afișat în aplicație.\nDe asemenea, veți primi rezultatul testului dvs. în afara aplicației. Autoritățile de sănătate publică vă vor anunța dacă testul dvs. este pozitiv.";
+"ExposureSubmissionResult_familyMember_testPendingDesc" = "Imediat ce devine disponibil, rezultatul testului va fi afișat în aplicație.\nDe asemenea, veți primi rezultatul testului în afara aplicației. Autoritățile de sănătate publică vă vor anunța dacă testul este pozitiv.";
 
 "ExposureSubmissionResult_testCertificate_title" = "Certificatul dvs. de test COVID";
 
@@ -791,7 +795,7 @@
 
 "ExposureSubmissionResult_antigenTestPending" = "Rezultatul testului dvs. nu este încă disponibil";
 
-"ExposureSubmissionResult_familyMember_antigenTestPending" = "Rezultatul testului dvs. nu este încă disponibil";
+"ExposureSubmissionResult_familyMember_antigenTestPending" = "Rezultatul testului nu este încă disponibil";
 
 "ExposureSubmissionResult_antigenTestPendingDesc" = "Imediat ce devine disponibil, rezultatul testului dvs. va fi afișat în aplicație.";
 
@@ -805,7 +809,9 @@
 
 "ExposureSubmissionResult_pcrTestPendingContactJournalDesc" = "Imediat ce devine disponibil, rezultatul testului dvs. va fi afișat în aplicație.";
 
-"ExposureSubmissionResult_antigenTestNegativDesc" = "Testul rapid furnizat nu a făcut dovada că aveți coronavirusul SARS-CoV-2.";
+"ExposureSubmissionResult_antigenTestNegativDesc" = "Testul rapid nu a făcut dovada că aveți coronavirusul SARS-CoV-2.";
+
+"ExposureSubmissionResult_familyMember_antigenTestNegativDesc" = "Testul rapid nu a făcut dovada că persoana testată are coronavirusul SARS-CoV-2.";
 
 "ExposureSubmissionResult_WarnOthersConsentGiven" = "Consimțământ „Avertizați-i pe ceilalți” acordat";
 
@@ -934,6 +940,8 @@
 
 "ExposureSubmissionResult_Negative_Antigen_Proof_Desc" = "Pentru a dovedi într-un mod verificabil rezultatul afișat aici, este nevoie de un Certificat covid digital UE. Dacă ați solicitat un certificat de test digital când v-ați înregistrat testul și dacă punctul de testare suportă emiterea certificatelor digitale, puteți găsi certificatul dvs. de test digital utilizând legătura specificată mai sus. De asemenea, veți găsi certificatul dvs. pe tabul „Certificate”.\nVă rugăm să consultați și criteriile pentru recunoașterea și valabilitatea certificatelor de test în funcție de scopul pentru care vă este necesară dovada.";
 
+"ExposureSubmissionResult_familyMember_Negative_Antigen_NoProof_Title" = "Caracteristica de verificare";
+
 "ExposureSubmissionResult_Negative_Antigen_NoProof_Title" = "Caracteristica fără verificare";
 
 "ExposureSubmissionResult_Negative_Antigen_NoProof_Desc" = "Deoarece rezultatul de aici este anonimizat, nu poate fi utilizat ca dovadă a unui rezultat de test rapid negativ.";
@@ -1001,11 +1009,24 @@
 
 "ExposureSubmission_Antigen_Profile_Information_Description_Title" = "Salvați datele dvs. personale sub formă de cod QR pentru a grăbi înregistrarea în punctele de testare.";
 
-"ExposureSubmission_Antigen_Profile_Information_DescriptionSubHeadline" = "Când creați un profil de test rapid nu va trebui să completați din nou datele dvs. înainte de fiecare test rapid.";
+"ExposureSubmission_Antigen_Profile_Information_DescriptionSubHeadline" = "Când creați un profil de test rapid nu trebuie să completați din nou datele dvs. personale înainte de fiecare test rapid.\nPuteți crea mai multe profiluri de test rapid, de exemplu, unul pentru dvs. și unul pentru fiecare membru al familiei.";
 
 "ExposureSubmission_Antigen_Profile_Information_PrimaryButton" = "Continuare";
 
 "ExposureSubmission_Antigen_Profile_Information_Dataprivacy_Title" = "Pentru mai multe informații, consultați înștiințarea de confidențialitate.";
+
+/* Exposure Submission AntigenTest Profile Overview */
+"ExposureSubmission_Antigen_Profile_Overview_title" = "Profiluri de test rapid";
+
+"ExposureSubmission_Antigen_Profile_Card_title" = "Profil de test rapid";
+
+"ExposureSubmission_Antigen_Profile_Overview_EmptyTitle" = "Nu a fost creat încă niciun profil de test rapid";
+
+"ExposureSubmission_Antigen_Profile_Overview_EmptyDescription" = "Puteți crea un profil de test rapid cu datele dvs. personale, pe care îl puteți transmite prin intermediul codului QR la fiecare punct de testare participant.";
+
+"ExposureSubmission_Antigen_Profile_Overview_EmptyImageDescription" = "Sigiliu certificat cu certificat digital în fundal";
+
+"ExposureSubmission_Antigen_Profile_Overview_AddButtonTitle" = "Crearea profilului de test rapid";
 
 /* ExposureSubmission AntigenTest Profile */
 "ExposureSubmission_Antigen_Profile_Header_Text" = "Profil de test rapid";
@@ -1016,7 +1037,7 @@
 
 "ExposureSubmission_Antigen_Profile_DateOfBirth_Format" = "Născut(ă) pe %@";
 
-"ExposureSubmission_Antigen_Profile_Primary_Button" = "Continuare";
+"ExposureSubmission_Antigen_Profile_Primary_Button" = "Scanare test";
 
 "ExposureSubmission_Antigen_Profile_Secondary_Button" = "Editare";
 
@@ -1025,9 +1046,9 @@
 
 "ExposureSubmission_Profile_CreateProfileTile_Description" = "Salvați datele dvs. personale sub formă de cod QR pentru a grăbi înregistrarea în punctele de testare.";
 
-"ExposureSubmission_Profile_ProfileTile_Title" = "Profil de test rapid";
+"ExposureSubmission_Profile_ProfileTile_Title" = "Profiluri de test rapid";
 
-"ExposureSubmission_Profile_ProfileTile_Description" = "Economisiți timp și prezentați profilul dvs. de test rapid la punctul de testare.";
+"ExposureSubmission_Profile_ProfileTile_Description" = "Profilul de test rapid cu datele dvs. personale, pe care îl puteți trimite la orice punct de testare participant prin intermediul codului QR.";
 
 /* ExposureSubmission TestOwnerSelection */
 "ExposureSubmission_TestOwnerSelection_Title" = "Înregistrare test";
@@ -1061,7 +1082,7 @@
 
 "ExposureSubmission_TestCertificate_Information_BirthdayText" = "În scop de securitate, certificatul dvs. de test este protejat cu data nașterii dvs. Certificatul de test poate fi emis doar dacă specificați data corectă a nașterii.";
 
-"ExposureSubmission_TestCertificate_Information_Dataprivacy_Title" = "Pentru mai multe informații despre prelucrarea datelor, consultați înștiințarea de confidențialitate.";
+"ExposureSubmission_TestCertificate_Information_Dataprivacy_Title" = "Informații detaliate privind prelucrarea datelor și consimțământul dvs.";
 
 "ExposureSubmission_TestCertificate_Information_Alert_Title" = "Anulare înregistrare";
 
@@ -1396,7 +1417,7 @@
 
 "App_Information_About_Title" = "Să combatem împreună COVID-19";
 
-"App_Information_About_Description" = "Robert Koch Institute (RKI) este un organism federal de sănătate publică din Germania. RKI a publicat aplicația Corona-Warn în numele Guvernului Federal. Aplicația are drept scop să completeze sub formă digitală măsurile de sănătate publică deja introduse: distanțarea socială, igiena și purtarea măștii.";
+"App_Information_About_Description" = "Robert Koch Institute (RKI) este un organism federal de sănătate publică din Germania. RKI a publicat aplicația Corona-Warn în numele Guvernului Federal. Aplicația are drept scop să completeze sub formă digitală măsurile de igienă, precum purtarea măștii faciale și distanțarea socială.";
 
 "App_Information_About_Text" = "Persoanele care utilizează aplicația ajută la urmărirea și întreruperea lanțurilor de infectare. Aplicația salvează local, pe dispozitivul dvs., întâlnirile cu alte persoane. Sunteți notificat dacă ați întâlnit persoane care au fost diagnosticate ulterior cu coronavirus. Identitatea și confidențialitatea dvs. sunt protejate întotdeauna.";
 
@@ -1443,7 +1464,7 @@
 
 "App_Information_Imprint_Section2_Title" = "Robert Koch Institute";
 
-"App_Information_Imprint_Section2_Text" = "Nordufer 20\n13353 Berlin\nreprezentată de președintele său";
+"App_Information_Imprint_Section2_Text" = "Nordufer 20\n13353 Berlin, Germania\nreprezentată de președintele său";
 
 "App_Information_Imprint_Section3_Title" = "Contact";
 
@@ -1645,10 +1666,10 @@
 /* New Version Features */
 "NewVersionFeatures_Info_about_abb_information" = "Modificările din această versiune pot fi găsite în informațiile aplicației, la „Caracteristici noi”.";
 
-/* Version 2.21 */
-"NewVersionFeature_221_familyMembersTest_title" = "Gestionarea testelor familiei dvs.";
+/* Version 2.23 */
+"NewVersionFeature_223_reissue_certificates_title" = "Reînnoire certificat";
 
-"NewVersionFeature_221_familyMembersTest_description" = "Acum puteți gestiona testele pentru membrii familiei dvs. în aplicația dvs.: puteți primi rezultatele testelor acestora pe smartphone-ul dvs. și puteți solicita certificate de test COVID digitale. Însă, dacă un test al acestora este pozitiv, nu puteți avertiza alte persoane. Avertizarea este posibilă doar dacă înregistrați un test personal.";
+"NewVersionFeature_223_reissue_certificates_description" = "Din motive tehnice, valabilitatea certificatului de vaccinare utilizat în prezent este limitată la 365 de zile. Dacă certificatul dvs. curent expiră, aplicația vă permite să îl reînnoiți. Un certificat poate fi reînnoit cu maximum 28 de zile înainte de expirarea valabilității și în decurs de cel mult 90 de zile de la expirare. Dacă aplicația nu vă oferă opțiunea de a vă reînnoi certificatul, acesta nu trebuie prelungit și nu este necesară nicio altă acțiune din partea dvs.";
 
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Înregistrare transnațională a expunerilor în jurnal";
@@ -2673,6 +2694,8 @@
 
 "TraceLocation_Information_Item_RenewQRCode" = "Dacă doriți să utilizați un cod QR pe termen lung, generați-l din nou în fiecare zi, în afara programului dvs. de lucru.";
 
+"TraceLocation_Information_Item_Group" = "Vă puteți avertiza invitații în numele cuiva care a fost diagnosticat cu coronavirus și care a participat la eveniment, dar care nu a făcut check-inul în Corona-Warn-App.";
+
 "TraceLocation_Information_PrimaryButton_Title" = "Înainte";
 
 /* Checkout */
@@ -3182,21 +3205,25 @@
 "HealthCertificate_Validation_TechnicalFailed_expirationDate" = "Valabil până la %@";
 
 /* Health Certificate Validity State */
-"HealthCertificate_ValidityState_ExpiringSoon" = "Certificatul expiră pe %@ la %@";
+"HealthCertificate_ValidityState_ExpiringSoon_long" = "Certificatul expiră pe %@ la %@";
 
-"HealthCertificate_ValidityState_ExpiringSoon_description" = "Asigurați-vă că obțineți un certificat digital nou la timp.";
+"HealthCertificate_ValidityState_ExpiringSoon_short" = "Expiră pe %@ la %@";
+
+"HealthCertificate_ValidityState_ExpiringSoon_description" = "Dacă acesta este certificatul pe care îl utilizați în prezent, aveți grijă să îl reînnoiți la timp. Puteți reînnoi astfel de certificate direct în aplicație, dacă vor expira în următoarele 28 de zile. În acest caz, opțiunea „Reînnoire certificate” apare în sumarul certificatului dvs., sub mozaicul „Dovada stării”. Dacă acesta nu este certificatul pe care îl utilizați în prezent, nu trebuie să îl prelungiți și nu este necesară nicio acțiune din partea dvs.";
 
 "HealthCertificate_ValidityState_Expired" = "Certificat expirat";
 
-"HealthCertificate_ValidityState_Expired_description" = "Data de expirare a trecut. Obțineți un certificat digital nou.";
+"HealthCertificate_ValidityState_Expired_description" = "Data de expirare a trecut. Vă rugăm să vă reînnoiți certificatul. Puteți solicita o reînnoire în decurs de maximum 90 de zile de la expirarea certificatului, făcând click pe nota din sumarul certificatului dvs.";
 
 "HealthCertificate_ValidityState_Invalid" = "Certificat (Semnătură) nevalabil(ă)";
 
 "HealthCertificate_ValidityState_Invalid_description" = "Certificatul a fost emis de un organism neautorizat sau a fost emis incorect. Adresați-vă unui organism autorizat pentru eliberarea unui certificat nou.";
 
-"HealthCertificate_ValidityState_Blocked" = "Certificat nevalabil";
+"HealthCertificate_ValidityState_BlockedRevoked" = "Certificat nevalabil";
 
-"HealthCertificate_ValidityState_Blocked_description" = "Certificatul a fost revocat de către autoritatea emitentă. Obțineți un certificat digital nou.";
+"HealthCertificate_ValidityState_BlockedRevoked_description_de" = "RKI a dezactivat certificatul ca urmare a unui decret guvernamental. Vă rugăm să obțineți un certificat digital nou.";
+
+"HealthCertificate_ValidityState_BlockedRevoked_description_other" = "Autoritatea emitentă a dezactivat certificatul ca urmare a unei decizii administrative. Vă rugăm să obțineți un certificat digital nou.";
 
 /* Reissuance */
 /* HealthCertificate Resissuance Consent */
@@ -3212,20 +3239,31 @@
 
 "HealthCertificate_Reissuance_Consent_Title" = "Consimțământul dvs.";
 
-"HealthCertificate_Reissuance_Consent_Delete_Notice" = "Certificatul vechi va fi mutat automat în coșul de reciclare și va fi șters după 30 de zile. Certificatul poate fi restaurat oricând în aceste 30 de zile.";
+"HealthCertificate_Reissuance_Consent_Delete_Notice" = "Certificatele vechi vor fi mutate automat în coșul de reciclare și vor fi șterse după 30 de zile. Certificatele pot fi restaurate oricând în aceste 30 de zile.";
 
-"HealthCertificate_Reissuance_Consent_Cancel_Notice" = "Dacă anulați acum, puteți solicita oricând o actualizare în sumarul certificatului.";
+"HealthCertificate_Reissuance_Consent_Cancel_Notice" = "Dacă anulați acum, puteți solicita oricând o reînnoire în sumarul certificatului.";
 
-"HealthCertificate_Reissuance_Consent_Bullet_Point_1" = "Actualizarea certificatului dvs. este voluntară și gratuită.";
+"HealthCertificate_Reissuance_Consent_Bullet_Point_1" = "Reînnoirea certificatelor dvs. este voluntară și gratuită.";
 
-"HealthCertificate_Reissuance_Consent_Bullet_Point_2" = "Pentru a vă asigura că certificatele pot fi actualizate o singură dată, identificatorul certificatului vechi este păstrat ca evidență de către RKI.";
+"HealthCertificate_Reissuance_Consent_Bullet_Point_2" = "Pentru a se asigura că certificatele pot fi reînnoite o singură dată, identificatorii certificatului vechi și ai certificatului nou sunt păstrați ca evidență de către RKI. Celelalte date din certificatele dvs. sunt șterse de RKI imediat după reînnoire.";
+
+"HealthCertificate_Reissuance_Consent_Bullet_Point_3" = "Înainte de reînnoirea certificatelor membrilor familiei, asigurați-vă că persoana implicată își dă consimțământul.";
+
+"HealthCertificate_Reissuance_Consent_Bullet_Point_4" = "În anumite cazuri, sunt emise alte certificate pe lângă certificatele de reînnoire. Acest lucru este necesar pentru a prelua secvențele anterioare ale vaccinărilor și recuperărilor după boală în certificatele noi.";
+
+"HealthCertificate_Reissuance_AccompanyingCertificates_Cell" = "Alte certificate emise";
+
+/* HealthCertificate Resissuance Additional Certificates */
+"HealthCertificate_Reissuance_AccompanyingCertificates_Title" = "Alte certificate emise";
+
+"HealthCertificate_Reissuance_AccompanyingCertificates_Description" = "Următoarele certificate vor fi emise în timpul reînnoirii ca informații suplimentare, pentru a prelua secvența anterioară de vaccinări și recuperări după boală în certificatul nou. Aceste certificate nu vor fi reînnoite.";
 
 /* HealthCertificate Resissuance Succeeded */
-"HealthCertificate_Reissuance_Succeeded_Title" = "Certificat actualizat";
+"HealthCertificate_Reissuance_Succeeded_Title" = "Certificate reînnoite";
 
-"HealthCertificate_Reissuance_Succeeded_Headline" = "Certificatul dvs. a fost actualizat cu succes";
+"HealthCertificate_Reissuance_Succeeded_Headline" = "Certificatele dvs. au fost reînnoite cu succes";
 
-"HealthCertificate_Reissuance_Succeeded_Body" = "Certificatul actualizat este disponibil acum pe tabul „Certificate”.";
+"HealthCertificate_Reissuance_Succeeded_Body" = "Certificatele reînnoite sunt disponibile acum pe tabul „Certificate”.";
 
 /* HealthCertificate Resissuance Request Error */
 "HealthCertificate_Reissuance_Error_Contact_Support" = "A apărut o eroare tehnică. Contactați hotline-ul tehnic prin Informații aplicație -> Hotline tehnic.";
@@ -3233,6 +3271,8 @@
 "HealthCertificate_Reissuance_Error_No_Network" = "Conexiunea dvs. la internet se poate să fi fost pierdută. Verificați conexiunea și încercați din nou.";
 
 "HealthCertificate_Reissuance_Error_Try_Again" = "A apărut o eroare la actualizarea certificatului dvs. Încercați din nou. Dacă eroarea persistă, contactați hotline-ul tehnic prin Informații aplicație -> Hotline tehnic.";
+
+"HealthCertificate_Reissuance_Error_Rate_Limit" = "Certificatul a fost deja reemis de trei ori. Nu poate fi emis din nou.\nVă recomandăm să exportați certificatul reemis ca PDF și să îl tipăriți. Apoi îl puteți scana din nou oricând.";
 
 "HealthCertificate_Reissuance_Error_Not_Supported" = "Certificatul dvs. nu poate fi actualizat. Contactați hotline-ul tehnic accesând Informații aplicație -> Hotline tehnic.";
 

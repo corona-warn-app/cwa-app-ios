@@ -11,12 +11,10 @@ class OnBehalfCheckinSubmissionService {
 
 	init(
 		restServiceProvider: RestServiceProviding,
-		client: Client,
 		appConfigurationProvider: AppConfigurationProviding
 	) {
 		#if DEBUG
 		if isUITesting {
-			self.client = ClientMock()
 			self.appConfigurationProvider = CachedAppConfigurationMock()
 			self.restServiceProvider = .onBehalfCheckinSubmissionServiceProviderStub
 
@@ -24,7 +22,6 @@ class OnBehalfCheckinSubmissionService {
 		}
 		#endif
 
-		self.client = client
 		self.appConfigurationProvider = appConfigurationProvider
 		self.restServiceProvider = restServiceProvider
 	}
@@ -81,7 +78,6 @@ class OnBehalfCheckinSubmissionService {
 	// MARK: - Private
 
 	private let restServiceProvider: RestServiceProviding
-	private let client: Client
 	private let appConfigurationProvider: AppConfigurationProviding
 
 	private var subscriptions = Set<AnyCancellable>()
@@ -129,7 +125,7 @@ class OnBehalfCheckinSubmissionService {
 	private func submit(
 		checkin: Checkin,
 		submissionTAN: String,
-		completion: @escaping (Result<Void, SubmissionError>) -> Void
+		completion: @escaping (Result<Void, ServiceError<OnBehalfSubmissionResourceError>>) -> Void
 	) {
 		appConfigurationProvider
 			.appConfiguration()
@@ -152,8 +148,8 @@ class OnBehalfCheckinSubmissionService {
 					appConfig: appConfig,
 					transmissionRiskLevelSource: .fixedValue(5)
 				)
-
-				self.client.submitOnBehalf(
+				
+				let resource = OnBehalfSubmissionResource(
 					payload: SubmissionPayload(
 						exposureKeys: [],
 						visitedCountries: [],
@@ -161,10 +157,14 @@ class OnBehalfCheckinSubmissionService {
 						checkinProtectedReports: checkinProtectedReports,
 						tan: submissionTAN,
 						submissionType: .hostWarning
-					),
-					isFake: false
-				) { result in
-					completion(result)
+					)
+				)
+				
+				self.restServiceProvider.load(resource) { result in
+					let voidResult = result.flatMap { _ in
+						Result.success(())
+					}
+					completion(voidResult)
 				}
 
 			}

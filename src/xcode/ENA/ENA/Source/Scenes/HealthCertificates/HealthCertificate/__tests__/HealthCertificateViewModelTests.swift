@@ -26,7 +26,7 @@ class HealthCertificateViewModelTests: CWATestCase {
 		// GIVEN
 		let healthCertificate = try HealthCertificate(
 			base45: try base45Fake(
-				from: DigitalCovidCertificate.fake(
+				digitalCovidCertificate: DigitalCovidCertificate.fake(
 					vaccinationEntries: [
 						VaccinationEntry.fake(doseNumber: 1, totalSeriesOfDoses: 2)
 					]
@@ -46,13 +46,14 @@ class HealthCertificateViewModelTests: CWATestCase {
 		)
 
 		// THEN
-		XCTAssertNil(viewModel.headlineCellViewModel.text)
-		XCTAssertNotNil(viewModel.headlineCellViewModel.attributedText)
+		XCTAssertEqual(viewModel.headlineCellViewModel.text, "Digitales COVID-Zertifikat der EU\nImpfzertifikat")
+		XCTAssertNil(viewModel.headlineCellViewModel.attributedText)
 
 		XCTAssertEqual(viewModel.headlineCellViewModel.backgroundColor, .clear)
 		XCTAssertEqual(viewModel.headlineCellViewModel.textAlignment, .center)
 		XCTAssertEqual(viewModel.headlineCellViewModel.topSpace, 16.0)
-		XCTAssertEqual(viewModel.headlineCellViewModel.font, .enaFont(for: .headline))
+		XCTAssertEqual(viewModel.headlineCellViewModel.textColor, .enaColor(for: .textContrast))
+		XCTAssertEqual(viewModel.headlineCellViewModel.font, .enaFont(for: .body))
 		XCTAssertEqual(viewModel.headlineCellViewModel.accessibilityTraits, .staticText)
 		XCTAssertEqual(viewModel.numberOfItems(in: .headline), 1)
 		XCTAssertEqual(viewModel.numberOfItems(in: .qrCode), 1)
@@ -68,7 +69,7 @@ class HealthCertificateViewModelTests: CWATestCase {
 		// GIVEN
 		let healthCertificate = try HealthCertificate(
 			base45: try base45Fake(
-				from: DigitalCovidCertificate.fake(
+				digitalCovidCertificate: DigitalCovidCertificate.fake(
 					vaccinationEntries: [
 						VaccinationEntry.fake(doseNumber: 1, totalSeriesOfDoses: 1)
 					]
@@ -88,13 +89,14 @@ class HealthCertificateViewModelTests: CWATestCase {
 		)
 
 		// THEN
-		XCTAssertNil(viewModel.headlineCellViewModel.text)
-		XCTAssertNotNil(viewModel.headlineCellViewModel.attributedText)
+		XCTAssertEqual(viewModel.headlineCellViewModel.text, "Digitales COVID-Zertifikat der EU\nImpfzertifikat")
+		XCTAssertNil(viewModel.headlineCellViewModel.attributedText)
 
 		XCTAssertEqual(viewModel.headlineCellViewModel.backgroundColor, .clear)
 		XCTAssertEqual(viewModel.headlineCellViewModel.textAlignment, .center)
 		XCTAssertEqual(viewModel.headlineCellViewModel.topSpace, 16.0)
-		XCTAssertEqual(viewModel.headlineCellViewModel.font, .enaFont(for: .headline))
+		XCTAssertEqual(viewModel.headlineCellViewModel.textColor, .enaColor(for: .textContrast))
+		XCTAssertEqual(viewModel.headlineCellViewModel.font, .enaFont(for: .body))
 		XCTAssertEqual(viewModel.headlineCellViewModel.accessibilityTraits, .staticText)
 		XCTAssertEqual(viewModel.numberOfItems(in: .headline), 1)
 		XCTAssertEqual(viewModel.numberOfItems(in: .qrCode), 1)
@@ -108,7 +110,7 @@ class HealthCertificateViewModelTests: CWATestCase {
 
 	func testMarkAsSeen() throws {
 		let healthCertificate = try HealthCertificate(
-			base45: try base45Fake(from: .fake(vaccinationEntries: [.fake()])),
+			base45: try base45Fake(digitalCovidCertificate: .fake(vaccinationEntries: [.fake()])),
 			isNew: true,
 			isValidityStateNew: true
 		)
@@ -139,7 +141,7 @@ class HealthCertificateViewModelTests: CWATestCase {
 
 	func testIsPrimaryFooterButtonEnabledIfInitiallyNotBlocked() throws {
 		let healthCertificate = try HealthCertificate(
-			base45: try base45Fake(from: .fake(vaccinationEntries: [.fake()])),
+			base45: try base45Fake(digitalCovidCertificate: .fake(vaccinationEntries: [.fake()])),
 			validityState: .valid
 		)
 
@@ -168,19 +170,51 @@ class HealthCertificateViewModelTests: CWATestCase {
 
 		XCTAssertTrue(viewModel.isPrimaryFooterButtonEnabled)
 
+		healthCertificate.validityState = .blocked
+
+		XCTAssertFalse(viewModel.isPrimaryFooterButtonEnabled)
+
 		healthCertificate.validityState = .invalid
 
 		XCTAssertTrue(viewModel.isPrimaryFooterButtonEnabled)
 
-		healthCertificate.validityState = .blocked
+		healthCertificate.validityState = .revoked
 
 		XCTAssertFalse(viewModel.isPrimaryFooterButtonEnabled)
 	}
 
 	func testIsPrimaryFooterButtonEnabledInitiallyBlocked() throws {
 		let healthCertificate = try HealthCertificate(
-			base45: try base45Fake(from: .fake(vaccinationEntries: [.fake()])),
+			base45: try base45Fake(digitalCovidCertificate: .fake(vaccinationEntries: [.fake()])),
 			validityState: .blocked
+		)
+
+		let certifiedPerson = HealthCertifiedPerson(healthCertificates: [healthCertificate])
+
+		let vaccinationValueSetsProvider = VaccinationValueSetsProvider(
+			client: CachingHTTPClientMock(),
+			store: MockTestStore()
+		)
+
+		let viewModel = HealthCertificateViewModel(
+			healthCertifiedPerson: certifiedPerson,
+			healthCertificate: healthCertificate,
+			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
+			markAsSeenOnDisappearance: true,
+			showInfoHit: { }
+		)
+
+		XCTAssertFalse(viewModel.isPrimaryFooterButtonEnabled)
+
+		healthCertificate.validityState = .valid
+
+		XCTAssertTrue(viewModel.isPrimaryFooterButtonEnabled)
+	}
+
+	func testIsPrimaryFooterButtonEnabledInitiallyRevoked() throws {
+		let healthCertificate = try HealthCertificate(
+			base45: try base45Fake(digitalCovidCertificate: .fake(vaccinationEntries: [.fake()])),
+			validityState: .revoked
 		)
 
 		let certifiedPerson = HealthCertifiedPerson(healthCertificates: [healthCertificate])

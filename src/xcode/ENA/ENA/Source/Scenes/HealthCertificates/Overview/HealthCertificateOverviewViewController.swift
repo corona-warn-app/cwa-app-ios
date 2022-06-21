@@ -92,12 +92,6 @@ class HealthCertificateOverviewViewController: UITableViewController {
 
 		navigationController?.navigationBar.prefersLargeTitles = true
 		navigationController?.navigationBar.sizeToFit()
-
-		// delay reloadData because scrolling to top may take up to 0.35 sec
-		// otherwise the contentOffSet gets broken
-		DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [tableView] in
-			tableView?.reloadData()
-		}
 	}
 
 	override func viewDidAppear(_ animated: Bool) {
@@ -207,9 +201,6 @@ class HealthCertificateOverviewViewController: UITableViewController {
 
 		tableView.sectionHeaderHeight = 0
 		tableView.sectionFooterHeight = 0
-
-		// Overestimate to fix auto layout warnings and fix a problem that showed the test cell behind other cells when opening app from the background in manual mode
-		tableView.estimatedRowHeight = 500
 	}
 	
 	private func changeAdmissionScenarioStatusLabelCell(forRowAt indexPath: IndexPath) -> UITableViewCell {

@@ -235,6 +235,16 @@ extension ExposureSubmissionTestResultFamilyMemberViewModel {
 
 		return [
 			.section(
+				cells: [
+					.title1(
+						text: title,
+						configure: { _, cell, _ in
+							cell.accessibilityIdentifier = AccessibilityIdentifiers.ExposureSubmissionResult.testedPersonName
+						}
+					)
+				]
+			),
+			.section(
 				header: .identifier(
 					ExposureSubmissionTestResultViewController.HeaderReuseIdentifier.pcrTestResult,
 					configure: { view, _ in
@@ -333,6 +343,16 @@ extension ExposureSubmissionTestResultFamilyMemberViewModel {
 
 		return [
 			.section(
+				cells: [
+					.title1(
+						text: title,
+						configure: { _, cell, _ in
+							cell.accessibilityIdentifier = AccessibilityIdentifiers.ExposureSubmissionResult.testedPersonName
+						}
+					)
+				]
+			),
+			.section(
 				header: .identifier(
 					ExposureSubmissionTestResultViewController.HeaderReuseIdentifier.pcrTestResult,
 					configure: { view, _ in
@@ -395,6 +415,11 @@ extension ExposureSubmissionTestResultFamilyMemberViewModel {
 			)
 		}
 
+		// Information on proceduce
+		cells.append(DynamicCell.title2(
+			text: AppStrings.ExposureSubmissionResult.proofTitleFamilyMember
+		))
+
 		// Evidence / Proof
 		cells.append(contentsOf: [
 			.body(
@@ -434,7 +459,7 @@ extension ExposureSubmissionTestResultFamilyMemberViewModel {
 		cells.append(contentsOf: [
 			ExposureSubmissionDynamicCell.stepCell(
 				title: AppStrings.ExposureSubmissionResult.testNegative,
-				description: AppStrings.ExposureSubmissionResult.testNegativeDesc,
+				description: AppStrings.ExposureSubmissionResult.familyMemberTestNegativeDesc,
 				icon: UIImage(named: "Icons_Grey_Error"),
 				hairline: .none
 			)
@@ -453,6 +478,16 @@ extension ExposureSubmissionTestResultFamilyMemberViewModel {
 		])
 		
 		return [
+			.section(
+				cells: [
+					.title1(
+						text: title,
+						configure: { _, cell, _ in
+							cell.accessibilityIdentifier = AccessibilityIdentifiers.ExposureSubmissionResult.testedPersonName
+						}
+					)
+				]
+			),
 			.section(
 				header: header,
 				separators: .none,
@@ -487,6 +522,11 @@ extension ExposureSubmissionTestResultFamilyMemberViewModel {
 			)
 		}
 
+		// Information on proceduce
+		cells.append(DynamicCell.title2(
+			text: AppStrings.ExposureSubmissionResult.proofTitleFamilyMember
+		))
+
 		// Evidence / Proof
 		cells.append(contentsOf: [
 			.body(
@@ -509,7 +549,7 @@ extension ExposureSubmissionTestResultFamilyMemberViewModel {
 			),
 			ExposureSubmissionDynamicCell.stepCell(
 				title: AppStrings.ExposureSubmissionResult.testNegative,
-				description: AppStrings.ExposureSubmissionResult.Antigen.testNegativeDesc,
+				description: AppStrings.ExposureSubmissionResult.Antigen.familyMemberTestNegativeDesc,
 				icon: UIImage(named: "Icons_Grey_Error"),
 				hairline: .none
 			)
@@ -528,6 +568,16 @@ extension ExposureSubmissionTestResultFamilyMemberViewModel {
 		])
 
 		return [
+			.section(
+				cells: [
+					.title1(
+						text: title,
+						configure: { _, cell, _ in
+							cell.accessibilityIdentifier = AccessibilityIdentifiers.ExposureSubmissionResult.testedPersonName
+						}
+					)
+				]
+			),
 			.section(
 				header: .identifier(
 					ExposureSubmissionTestResultViewController.HeaderReuseIdentifier.antigenTestResult,
@@ -578,13 +628,23 @@ extension ExposureSubmissionTestResultFamilyMemberViewModel {
 		cells.append(contentsOf: [
 			ExposureSubmissionDynamicCell.stepCell(
 				title: AppStrings.ExposureSubmissionResult.testInvalid,
-				description: AppStrings.ExposureSubmissionResult.testInvalidDesc,
+				description: AppStrings.ExposureSubmissionResult.familyMemberTestInvalidDesc,
 				icon: UIImage(named: "Icons_Grey_Error"),
 				hairline: .none
 			)
 		])
 
 		return [
+			.section(
+				cells: [
+					.title1(
+						text: title,
+						configure: { _, cell, _ in
+							cell.accessibilityIdentifier = AccessibilityIdentifiers.ExposureSubmissionResult.testedPersonName
+						}
+					)
+				]
+			),
 			.section(
 				header: .identifier(
 					ExposureSubmissionTestResultViewController.HeaderReuseIdentifier.pcrTestResult,

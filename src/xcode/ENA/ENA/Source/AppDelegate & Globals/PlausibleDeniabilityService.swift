@@ -24,7 +24,7 @@ struct PlausibleDeniabilityService: PlausibleDeniability {
 		self.store = store
 		self.coronaTestService = coronaTestService
 
-		fakeRequestService = FakeRequestService(client: client, restServiceProvider: restServiceProvider)
+		fakeRequestService = FakeRequestService(restServiceProvider: restServiceProvider)
 	}
 
 	// MARK: - Internal

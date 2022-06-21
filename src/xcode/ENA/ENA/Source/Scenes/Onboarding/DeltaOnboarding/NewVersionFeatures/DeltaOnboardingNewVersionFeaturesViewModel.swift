@@ -13,11 +13,11 @@ struct DeltaOnboardingNewVersionFeaturesViewModel {
 		
 		// ADD NEW FEATURES HERE
 		
-		self.featureVersion = "2.21"
+		self.featureVersion = "2.23"
 		
 		self.newVersionFeatures.append(
-			// Family members test
-			NewVersionFeature(title: AppStrings.NewVersionFeatures.feature221FamilyMembersTestTitle, description: AppStrings.NewVersionFeatures.feature221FamilyMembersTestDescription)
+			// reissue certificates
+			NewVersionFeature(title: AppStrings.NewVersionFeatures.feature223ReissueCertificatesTitle, description: AppStrings.NewVersionFeatures.feature223ReissueCertificatesDescription)
 		)
 	}
 

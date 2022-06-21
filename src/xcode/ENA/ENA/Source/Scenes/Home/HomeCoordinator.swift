@@ -365,7 +365,6 @@ class HomeCoordinator: RequiresAppDependencies {
 			appConfig: appConfigurationProvider,
 			qrCodePosterTemplateProvider: qrCodePosterTemplateProvider,
 			eventStore: eventStore,
-			client: client,
 			parentNavigationController: rootViewController,
 			qrScannerCoordinator: qrScannerCoordinator
 		)
@@ -548,7 +547,6 @@ class HomeCoordinator: RequiresAppDependencies {
 			presentingViewController: controller,
 			client: client,
 			restServiceProvider: restServiceProvider,
-			wifiClient: wifiClient,
 			store: store,
 			exposureManager: exposureManager,
 			developerStore: UserDefaults.standard,
