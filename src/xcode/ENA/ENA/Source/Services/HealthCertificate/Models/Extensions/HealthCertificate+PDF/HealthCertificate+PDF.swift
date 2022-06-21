@@ -148,7 +148,7 @@ extension HealthCertificate {
 				upsideDown: false
 			),
 			PDFText(
-				text: entry.uniqueCertificateIdentifier.removingURNPrefix(),
+				text: entry.uniqueCertificateIdentifier,
 				color: textColor,
 				font: HealthCertificate.openSansFont,
 				rect: CGRect(x: 28, y: 785, width: 266, height: 23),
@@ -237,7 +237,7 @@ extension HealthCertificate {
 				upsideDown: false
 			),
 			PDFText(
-				text: entry.uniqueCertificateIdentifier.removingURNPrefix(),
+				text: entry.uniqueCertificateIdentifier,
 				color: textColor,
 				font: HealthCertificate.openSansFont,
 				rect: CGRect(x: 29, y: 785, width: 266, height: 23),
@@ -306,7 +306,7 @@ extension HealthCertificate {
 				upsideDown: false
 			),
 			PDFText(
-				text: entry.uniqueCertificateIdentifier.removingURNPrefix(),
+				text: entry.uniqueCertificateIdentifier,
 				color: textColor,
 				font: HealthCertificate.openSansFont,
 				rect: CGRect(x: 28, y: 785, width: 266, height: 23),
@@ -324,12 +324,5 @@ extension HealthCertificate {
 
 	private var textColor: UIColor {
 		.enaColor(for: .certificatePDFBlue)
-	}
-}
-
-private extension String {
-
-	func removingURNPrefix() -> String {
-		return replacingOccurrences(of: "URN:UVCI:", with: "")
 	}
 }
