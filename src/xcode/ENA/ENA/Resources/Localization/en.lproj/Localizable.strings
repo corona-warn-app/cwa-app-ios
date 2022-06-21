@@ -603,6 +603,8 @@
 
 "ExposureSubmission_CallButtonTitle" = "Call";
 
+"ExposureSubmission_CallButtonTitle_Format" = "Call %@";
+
 "ExposureSubmission_TANInputButtonTitle" = "Enter TAN";
 
 "ExposureSubmissionHotline_imageDescription" = "Hotline communicates a TAN.";
@@ -727,7 +729,7 @@
 
 "ExposureSubmissionResult_CardInvalid" = "Evaluation not possible";
 
-"ExposureSubmissionResult_CardPending" = "Your result is not yet available";
+"ExposureSubmissionResult_CardPending" = "The result is not available yet";
 
 "ExposureSubmissionResult_Procedure" = "How this works:";
 
@@ -1275,7 +1277,7 @@
 "Home_resultCard_LoadingErrorTitle" = "Your test result cannot be loaded.";
 
 /* - Pending */
-"Home_resultCard_ResultUnvailableTitle" = "Your result is not yet available";
+"Home_resultCard_ResultUnvailableTitle" = "The result is not available yet";
 
 "Home_resultCard_Pending_PCR_Desc" = "The evaluation of your PCR test is not done yet.";
 
@@ -1422,9 +1424,6 @@
 "App_Information_About_Text" = "People who use the app help to trace and break chains of infection. The app saves encounters with other people locally on your device. You are notified if you have encountered people who were later diagnosed with coronavirus. Your identity and privacy are always protected.";
 
 "App_Information_About_LinkText" = "App Information in Simplified Language and Sign Language";
-
-/* App Information - FAQ */
-"App_Information_FAQ_Navigation" = "FAQ";
 
 /* App Information - Contact */
 "App_Information_Contact_Navigation" = "Technical Hotline";
@@ -1666,10 +1665,10 @@
 /* New Version Features */
 "NewVersionFeatures_Info_about_abb_information" = "Changes in this release can be found in the app information, under “New Features”.";
 
-/* Version 2.23 */
-"NewVersionFeature_223_reissue_certificates_title" = "Certificate Renewal";
+/* Version 2.24 */
+"NewVersionFeature_224_batch_export_title" = "Export Certificates";
 
-"NewVersionFeature_223_reissue_certificates_description" = "Due to technical reasons, the validity of the currently used certificate is limited to 365 days. If your current certificate expires, the app enables you to renew it. A certificate can be renewed up to 28 days before its validity expires and up to 90 days afterwards. If the app does not offer to renew your certificate, it does not need to be extended and no further action is required on your part.";
+"NewVersionFeature_224_batch_export_description" = "You can save all of the certificates in your app in one PDF document in a single step.";
 
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Transnational Exposure Logging";
@@ -2572,6 +2571,8 @@
 /* - Trace Location Selection */
 "OnBehalfCheckinSubmission_TraceLocationSelection_Title" = "Warn for Others";
 
+"OnBehalfCheckinSubmission_TraceLocationSelection_EmptyDescription" = "Select an event for which you want to warn others on behalf of a person who has been diagnosed with coronavirus.";
+
 "OnBehalfCheckinSubmission_TraceLocationSelection_Description" = "Select an event for which you want to warn others on behalf of a person who has been diagnosed with coronavirus, or restore a deleted event by scanning the QR code of that event again.";
 
 "OnBehalfCheckinSubmission_TraceLocationSelection_ScanButtonTitle" = "Scan QR Code";
@@ -2818,6 +2819,8 @@
 
 "HealthCertificate_Overview_News" = "There is news about your certificates";
 
+"HealthCertificate_Navigation_RightBarButtonExportDescription" = "Export Certificates";
+
 /* - Test Certificate Request */
 "TestCertificateRequest_title" = "EU\n**Digital COVID Test Certificate**";
 
@@ -2880,6 +2883,27 @@
 "HealthCertificate_Info_section04" = "Add existing certificates for yourself and your family members.";
 
 "HealthCertificate_Info_primaryButton" = "Continue";
+
+/* Health Certificate Export Certificates Information */
+"HealthCertificate_ExportCertificatesInfo_Title" = "Export Certificates";
+
+"HealthCertificate_ExportCertificatesInfo_HeaderImageDescription" = "A digital certificate is sent to a printer from a smartphone";
+
+"HealthCertificate_ExportCertificatesInfo_Copy01" = "You can save all of the certificates in your app in one PDF document in a single step. You are the only one who can access this PDF document at first. You can then decide whether you want to save it on your smartphone or import it into other apps.";
+
+"HealthCertificate_ExportCertificatesInfo_Copy02" = "Please note that the PDF document contains sensitive information. We recommend handling it carefully and only showing it to people who you trust and who are authorized to check the certificate.";
+
+"HealthCertificate_ExportCertificatesInfo_Copy03" = "We recommend that you not publish the PDF document, send it via e-mail, or share it through other apps.";
+
+"HealthCertificate_ExportCertificatesInfo_PrimaryButton" = "Continue";
+
+"HealthCertificate_ExportCertificatesInfo_GeneratePDFAlert_Title" = "Generating PDF";
+
+"HealthCertificate_ExportCertificatesInfo_GeneratePDFAlert_Message_Initial" = "This may take a few minutes.";
+
+"HealthCertificate_ExportCertificatesInfo_GeneratePDFAlert_Message" = "This may take a few minutes.\nPage %@ of %@.";
+
+"HealthCertificate_ExportCertificatesInfo_GeneratePDFAlert_Cancel" = "Cancel";
 
 /* CovPass Info Screen */
 "CovPass_Check_Info_Title" = "Certificate Verification by Third Parties";
@@ -3003,8 +3027,6 @@
 /* Test Certificate Details */
 "TestCertificate_Details_title" = "Test Certificate";
 
-"TestCertificate_Details_subtitle" = "Negative SARS-CoV-2 test";
-
 "TestCertificate_Details_primaryButton" = "Delete Test Certificate";
 
 "TestCertificate_Error_FAQ_Description" = "\n\nFor more information about how to receive your test certificate, please see our FAQ page.";
@@ -3018,8 +3040,6 @@
 
 /* Recovery Certificate Details */
 "RecoveryCertificate_Details_title" = "Certificate of Recovery";
-
-"RecoveryCertificate_Details_subtitle" = "EU Digital COVID Certificate";
 
 "RecoveryCertificate_Details_primaryButton" = "Delete Certificate of Recovery";
 
@@ -3059,6 +3079,8 @@
 
 "HealthCertificate_PrintPdf_ErrorAlert_Message" = "The print version of the certificate cannot be displayed because the certificate was not issued in Germany";
 
+"HealthCertificate_ExportAll_PrintPdf_ErrorAlert_Message" = "The print version of the certificates cannot be displayed.";
+
 "HealthCertificate_PrintPdf_ErrorAlert_FAQ" = "FAQ for Print Version";
 
 "HealthCertificate_PrintPdf_ErrorAlert_OK" = "OK";
@@ -3066,6 +3088,10 @@
 "HealthCertificate_PrintPdf_ErrorAlert_ValueSetsFetching_Title" = "Cannot display print version";
 
 "HealthCertificate_PrintPdf_ErrorAlert_ValueSetsFetching_Message" = "The print version of the certificate cannot be displayed because the certificate cannot be retrieved right now. Please try again later.";
+
+"HealthCertificate_PrintPdf_ErrorAlert_NoExportableCertificate_Title" = "The certificates cannot be exported";
+
+"HealthCertificate_PrintPdf_ErrorAlert_NoExportableCertificate_Message" = "The available certificates cannot be exported because they are no longer valid.";
 
 /* Certificate Fault Tolerant Naming */
 "HealthCertificate_FaultTolerantNaming_RegroupDone_Title" = "Certificate Assignment";
@@ -3207,7 +3233,7 @@
 
 "HealthCertificate_ValidityState_ExpiringSoon_short" = "Expires on %@ at %@";
 
-"HealthCertificate_ValidityState_ExpiringSoon_description" = "If this is the certificate you currently use, please be sure to renew it on time. You can renew such certificates directly in the app if they will expire within the next 28 days. In this case, the “Renew Certificates” option appears in your certificate overview, below the “Proof of Status” tile. If this is not the certificate you currently use, it does not have to be extended and no action is required on your part.";
+"HealthCertificate_ValidityState_ExpiringSoon_description" = "If this is one of the certificates you currently use, please be sure to renew it on time. You can renew such certificates directly in the app if they will expire within the next 28 days or expired within the last 90 days, provided they were issued in Germany. In this case, the “Renew Certificates” option appears in your certificate overview, below the “Proof of Status” tile. If this is not one of the certificates you currently use, it does not have to be extended and no action is required on your part.";
 
 "HealthCertificate_ValidityState_Expired" = "Certificate Expired";
 
@@ -3640,7 +3666,7 @@
 
 "FamilyMemberCoronaTest_antigenDate" = "Carried out on %@";
 
-"FamilyMemberCoronaTest_pendingDiagnosis" = "Your result is not yet available";
+"FamilyMemberCoronaTest_pendingDiagnosis" = "The result is not available yet";
 
 "FamilyMemberCoronaTest_pendingPCRDescription" = "The evaluation of the PCR test is not done yet.";
 
@@ -3685,4 +3711,9 @@
 "FamilyMemberCoronaTest_DeleteAll_AlertConfirmButtonTitle" = "Remove Test Results";
 
 "FamilyMemberCoronaTest_DeleteAll_AlertCancelButtonTitle" = "Cancel";
+
+/* Tooltip */
+"Tooltip_ExportCertificates_Title" = "Export Certificates";
+
+"Tooltip_ExportCertificates_Description" = "Save all of your certificates in one PDF document in a single step";
 

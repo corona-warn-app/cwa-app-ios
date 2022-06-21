@@ -44,6 +44,8 @@
 
 "HealthCertificate_Print_FAQ_Link" = "https://www.coronawarn.app/en/faq/#eu_dcc_export";
 
+"HealthCertificate_PrintAll_FAQ_Link" = "https://www.coronawarn.app/en/faq/#eu_dcc_export_error";
+
 "HealthCertificate_Booster_FAQLink" = "https://www.coronawarn.app/en/faq/#vac_booster";
 
 "HealthCertificate_AdmissionPolicy_FAQLink" = "https://www.coronawarn.app/en/faq/#admission_policy";

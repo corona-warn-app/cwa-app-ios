@@ -603,6 +603,8 @@
 
 "ExposureSubmission_CallButtonTitle" = "Ara";
 
+"ExposureSubmission_CallButtonTitle_Format" = "Ara %@";
+
 "ExposureSubmission_TANInputButtonTitle" = "TAN gir";
 
 "ExposureSubmissionHotline_imageDescription" = "Yardım hattı size bir TAN iletecektir.";
@@ -727,7 +729,7 @@
 
 "ExposureSubmissionResult_CardInvalid" = "Değerlendirme yapılamaz";
 
-"ExposureSubmissionResult_CardPending" = "Sonucunuz henüz çıkmadı";
+"ExposureSubmissionResult_CardPending" = "Sonuç henüz çıkmadı";
 
 "ExposureSubmissionResult_Procedure" = "Nasıl çalışır?";
 
@@ -1275,7 +1277,7 @@
 "Home_resultCard_LoadingErrorTitle" = "Test sonucunuz yüklenemiyor.";
 
 /* - Pending */
-"Home_resultCard_ResultUnvailableTitle" = "Sonucunuz henüz çıkmadı";
+"Home_resultCard_ResultUnvailableTitle" = "Sonuç henüz çıkmadı";
 
 "Home_resultCard_Pending_PCR_Desc" = "PCR testinize ilişkin değerlendirme henüz tamamlanmadı.";
 
@@ -1422,9 +1424,6 @@
 "App_Information_About_Text" = "Uygulamayı kullanan kişiler, enfeksiyon zincirlerinin takip edilmesine ve kırılmasına yardımcı olur. Uygulama, diğer kişilerle karşılaşmaları cihazınızda yerel olarak kaydeder. Daha sonra koronavirüs tanısı konan kişilerle karşılaşmışsanız size bildirim gönderilir. Kimliğiniz ve gizliliğiniz daima koruma altındadır.";
 
 "App_Information_About_LinkText" = "Basitleştirilmiş Dilde ve İşaret Dilinde Uygulama Bilgileri";
-
-/* App Information - FAQ */
-"App_Information_FAQ_Navigation" = "SSS";
 
 /* App Information - Contact */
 "App_Information_Contact_Navigation" = "Teknik Yardım Hattı";
@@ -1666,10 +1665,10 @@
 /* New Version Features */
 "NewVersionFeatures_Info_about_abb_information" = "Bu sürümdeki değişiklikleri uygulama bilgilerinde “Yeni Özellikler” bölümünde bulabilirsiniz.";
 
-/* Version 2.23 */
-"NewVersionFeature_223_reissue_certificates_title" = "Sertifika Yenileme";
+/* Version 2.24 */
+"NewVersionFeature_224_batch_export_title" = "Sertifikaları Dışa Aktar";
 
-"NewVersionFeature_223_reissue_certificates_description" = "Teknik nedenlerle şu anda kullanılan sertifikanın geçerliliği 365 günle sınırlıdır. Güncel sertifikanızın süresi dolarsa uygulama sertifikanızı yenilemenize olanak sağlar. Sertifikanın geçerlilik süresi sona ermeden 28 gün öncesine ve sona erdikten 90 gün sonrasına dek sertifika yenilenebilir. Uygulamada sertifikanızın yenilenmesi teklif edilmiyorsa sertifikanın uzatılmasına gerek yoktur ve başka bir işlem yapmanız gerekmez.";
+"NewVersionFeature_224_batch_export_description" = "Tüm sertifikalarınızı tek adımda bir PDF belgesi halinde uygulamanıza kaydedebilirsiniz.";
 
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Uluslararası Maruz Kalma Günlüğü";
@@ -2572,6 +2571,8 @@
 /* - Trace Location Selection */
 "OnBehalfCheckinSubmission_TraceLocationSelection_Title" = "Diğer Kullanıcılara Uyarı";
 
+"OnBehalfCheckinSubmission_TraceLocationSelection_EmptyDescription" = "Koronavirüs tanısı almış bir kişi adına diğer kullanıcıları uyarmak istediğiniz bir etkinliği seçin.";
+
 "OnBehalfCheckinSubmission_TraceLocationSelection_Description" = "Koronavirüs tanısı almış bir kişi adına diğer kullanıcıları uyarmak istediğiniz bir etkinliği seçin ya da tekrar etkinliğin QR kodunu tarayarak silinmiş bir etkinliği geri yükleyin.";
 
 "OnBehalfCheckinSubmission_TraceLocationSelection_ScanButtonTitle" = "QR Kodu Tara";
@@ -2818,6 +2819,8 @@
 
 "HealthCertificate_Overview_News" = "Sertifikalarınızla ilgili gelişme var";
 
+"HealthCertificate_Navigation_RightBarButtonExportDescription" = "Sertifikaları Dışa Aktar";
+
 /* - Test Certificate Request */
 "TestCertificateRequest_title" = "AB\n**Dijital COVID Test Sertifikası**";
 
@@ -2880,6 +2883,27 @@
 "HealthCertificate_Info_section04" = "Size ve aile üyelerinize ait mevcut sertifikaları ekleyin.";
 
 "HealthCertificate_Info_primaryButton" = "Devam Et";
+
+/* Health Certificate Export Certificates Information */
+"HealthCertificate_ExportCertificatesInfo_Title" = "Sertifikaları Dışa Aktar";
+
+"HealthCertificate_ExportCertificatesInfo_HeaderImageDescription" = "Bir dijital sertifika akıllı telefondan yazıcıya gönderilir";
+
+"HealthCertificate_ExportCertificatesInfo_Copy01" = "Tüm sertifikalarınızı tek adımda bir PDF belgesi halinde uygulamanıza kaydedebilirsiniz. Bu PDF belgesine ilk kez yalnızca siz erişebilirsiniz. Ardından akıllı telefonunuza kaydetmeyi ya da başka uygulamalara içe aktarmayı seçebilirsiniz.";
+
+"HealthCertificate_ExportCertificatesInfo_Copy02" = "Lütfen PDF belgesinin hassas bilgiler içerdiğini unutmayın. Belgeyi dikkatle kullanmanızı ve yalnızca güvendiğiniz ve sertifikayı kontrol etme yetkisi olan kişilere göstermenizi öneririz.";
+
+"HealthCertificate_ExportCertificatesInfo_Copy03" = "PDF belgesini yayınlamamanızı, e-postayla göndermemenizi ya da başka uygulamalar üzerinden paylaşmamanızı öneririz.";
+
+"HealthCertificate_ExportCertificatesInfo_PrimaryButton" = "Devam Et";
+
+"HealthCertificate_ExportCertificatesInfo_GeneratePDFAlert_Title" = "PDF Oluşturuluyor";
+
+"HealthCertificate_ExportCertificatesInfo_GeneratePDFAlert_Message_Initial" = "Bu işlem birkaç dakika sürebilir.";
+
+"HealthCertificate_ExportCertificatesInfo_GeneratePDFAlert_Message" = "Bu işlem birkaç dakika sürebilir.\nSayfa %@/%@.";
+
+"HealthCertificate_ExportCertificatesInfo_GeneratePDFAlert_Cancel" = "İptal";
 
 /* CovPass Info Screen */
 "CovPass_Check_Info_Title" = "Üçüncü Taraflarca Sertifika Doğrulaması";
@@ -3003,8 +3027,6 @@
 /* Test Certificate Details */
 "TestCertificate_Details_title" = "Test Sertifikası";
 
-"TestCertificate_Details_subtitle" = "Negatif SARS-CoV-2 testi";
-
 "TestCertificate_Details_primaryButton" = "Test Sertifikasını Sil";
 
 "TestCertificate_Error_FAQ_Description" = "\n\nTest sertifikanızı nasıl alacağınız hakkında daha fazla bilgi için lütfen SSS sayfamıza bakın.";
@@ -3018,8 +3040,6 @@
 
 /* Recovery Certificate Details */
 "RecoveryCertificate_Details_title" = "İyileşme Sertifikası";
-
-"RecoveryCertificate_Details_subtitle" = "AB Dijital COVID Sertifikası";
 
 "RecoveryCertificate_Details_primaryButton" = "İyileşme Sertifikasını Sil";
 
@@ -3059,6 +3079,8 @@
 
 "HealthCertificate_PrintPdf_ErrorAlert_Message" = "Sertifika Almanya'da düzenlenmediği için sertifikanın basılı versiyonu görüntülenemiyor";
 
+"HealthCertificate_ExportAll_PrintPdf_ErrorAlert_Message" = "Sertifikaların basılı versiyonu görüntülenemiyor.";
+
 "HealthCertificate_PrintPdf_ErrorAlert_FAQ" = "Basılı Versiyon için SSS";
 
 "HealthCertificate_PrintPdf_ErrorAlert_OK" = "Tamam";
@@ -3066,6 +3088,10 @@
 "HealthCertificate_PrintPdf_ErrorAlert_ValueSetsFetching_Title" = "Basılı versiyon görüntülenemiyor";
 
 "HealthCertificate_PrintPdf_ErrorAlert_ValueSetsFetching_Message" = "Sertifika şu anda alınamadığı için sertifikanın basılı versiyonu görüntülenemiyor. Lütfen daha sonra tekrar deneyin.";
+
+"HealthCertificate_PrintPdf_ErrorAlert_NoExportableCertificate_Title" = "Sertifikalar dışa aktarılamıyor";
+
+"HealthCertificate_PrintPdf_ErrorAlert_NoExportableCertificate_Message" = "Mevcut sertifikalar artık geçerli olmadıklarından dışa aktarılamıyor.";
 
 /* Certificate Fault Tolerant Naming */
 "HealthCertificate_FaultTolerantNaming_RegroupDone_Title" = "Sertifika Ataması";
@@ -3207,7 +3233,7 @@
 
 "HealthCertificate_ValidityState_ExpiringSoon_short" = "Süresi %@, %@ tarihinde dolacak";
 
-"HealthCertificate_ValidityState_ExpiringSoon_description" = "Bu, şu anda kullandığınız sertifikaysa lütfen zamanında yenilediğinizden emin olun. Önümüzdeki 28 gün içinde süreleri sona ererse bu sertifikaları doğrudan uygulama içinde yenileyebilirsiniz. Böyle bir durumda, \"Durum Kanıtı\" kutucuğunun altında, sertifikaya genel bakış kısmında \"Sertifikaları Yenile\" seçeneği görüntülenir. Bu, şu anda kullandığınız sertifika değilse uzatılmasına gerek yoktur ve herhangi bir işlem yapmanız gerekmez.";
+"HealthCertificate_ValidityState_ExpiringSoon_description" = "Bu, şu anda kullandığınız sertifikalardan biriyse lütfen zamanında yenilediğinizden emin olun. Önümüzdeki 28 gün içinde süreleri sona ererse veya son 90 gün içinde süreleri sona ermişse Almanya'da düzenlenmiş olmaları koşuluyla bu sertifikaları doğrudan uygulama içinde yenileyebilirsiniz. Böyle bir durumda, \"Durum Kanıtı\" kutucuğunun altında, sertifikaya genel bakış kısmında \"Sertifikaları Yenile\" seçeneği görüntülenir. Bu, şu anda kullandığınız sertifikalardan biri değilse uzatılmasına gerek yoktur ve herhangi bir işlem yapmanız gerekmez.";
 
 "HealthCertificate_ValidityState_Expired" = "Sertifikanın Süresi Doldu";
 
@@ -3640,7 +3666,7 @@
 
 "FamilyMemberCoronaTest_antigenDate" = "%@ tarihinde yapıldı";
 
-"FamilyMemberCoronaTest_pendingDiagnosis" = "Sonucunuz henüz çıkmadı";
+"FamilyMemberCoronaTest_pendingDiagnosis" = "Sonuç henüz çıkmadı";
 
 "FamilyMemberCoronaTest_pendingPCRDescription" = "PCR testine ilişkin değerlendirme henüz tamamlanmadı.";
 
@@ -3685,4 +3711,9 @@
 "FamilyMemberCoronaTest_DeleteAll_AlertConfirmButtonTitle" = "Test Sonuçlarını Kaldır";
 
 "FamilyMemberCoronaTest_DeleteAll_AlertCancelButtonTitle" = "İptal";
+
+/* Tooltip */
+"Tooltip_ExportCertificates_Title" = "Sertifikaları Dışa Aktar";
+
+"Tooltip_ExportCertificates_Description" = "Tüm sertifikalarınızı tek adımda bir PDF belgesi halinde kaydedin";
 

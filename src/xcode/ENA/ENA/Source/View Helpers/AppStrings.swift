@@ -49,6 +49,7 @@ enum AppStrings {
 		static let invalidSignatureFAQ = NSLocalizedString("HealthCertificate_InvalidSignature_FAQLink", tableName: "Localizable.links", comment: "")
 		static let statisticsInfoBlog = NSLocalizedString("Statistics_Info_Blog_Link", tableName: "Localizable.links", comment: "")
 		static let healthCertificatePrintFAQ = NSLocalizedString("HealthCertificate_Print_FAQ_Link", tableName: "Localizable.links", comment: "")
+		static let healthCertificatePrintAllFAQ = NSLocalizedString("HealthCertificate_PrintAll_FAQ_Link", tableName: "Localizable.links", comment: "")
 		static let healthCertificateBoosterFAQ = NSLocalizedString("HealthCertificate_Booster_FAQLink", tableName: "Localizable.links", comment: "")
 		static let notificationSettingsFAQ = NSLocalizedString("NotificationSettings_FAQLink", tableName: "Localizable.links", comment: "")
 		static let ticketValidationNoValidDCCFAQ = NSLocalizedString("TicketValidation_NoValidDCC_FAQLink", tableName: "Localizable.links", comment: "")
@@ -2073,6 +2074,10 @@ enum AppStrings {
 			static let notice = NSLocalizedString("HealthCertificate_unified_QR_code_notice", comment: "")
 			static let infoButton = NSLocalizedString("HealthCertificate_unified_QR_code_infoButton", comment: "")
 		}
+		
+		enum Navigation {
+			static let rightBarButtonExportDescription = NSLocalizedString("HealthCertificate_Navigation_RightBarButtonExportDescription", comment: "")
+		}
 
 		enum Overview {
 			static let title = NSLocalizedString("HealthCertificate_Overview_title", comment: "")
@@ -2146,6 +2151,19 @@ enum AppStrings {
 			static let disclaimer = NSLocalizedString("HealthCertificate_Info_disclaimer", tableName: "Localizable.legal", comment: "")
 			static let primaryButton = NSLocalizedString("HealthCertificate_Info_primaryButton", comment: "")
 		}
+		
+		enum ExportCertificatesInfo {
+			static let title = NSLocalizedString("HealthCertificate_ExportCertificatesInfo_Title", comment: "")
+			static let headerImageDescription = NSLocalizedString("HealthCertificate_ExportCertificatesInfo_HeaderImageDescription", comment: "")
+			static let hint01 = NSLocalizedString("HealthCertificate_ExportCertificatesInfo_Copy01", comment: "")
+			static let hint02 = NSLocalizedString("HealthCertificate_ExportCertificatesInfo_Copy02", comment: "")
+			static let hint03 = NSLocalizedString("HealthCertificate_ExportCertificatesInfo_Copy03", comment: "")
+			static let primaryButton = NSLocalizedString("HealthCertificate_ExportCertificatesInfo_PrimaryButton", comment: "")
+			static let generatePDFProgressTitle = NSLocalizedString("HealthCertificate_ExportCertificatesInfo_GeneratePDFAlert_Title", comment: "")
+			static let generatePDFProgressMessageInitial = NSLocalizedString("HealthCertificate_ExportCertificatesInfo_GeneratePDFAlert_Message_Initial", comment: "")
+			static let generatePDFProgressMessage = NSLocalizedString("HealthCertificate_ExportCertificatesInfo_GeneratePDFAlert_Message", comment: "")
+			static let generatePDFProgressCancelButton = NSLocalizedString("HealthCertificate_ExportCertificatesInfo_GeneratePDFAlert_Cancel", comment: "")
+		}
 
 		enum Person {
 			static let title = NSLocalizedString("HealthCertifiedPerson_title", comment: "")
@@ -2180,7 +2198,6 @@ enum AppStrings {
 				static let headline = NSLocalizedString("HealthCertifiedPerson_RecoveryCertificate_headline", comment: "")
 				static let positiveTestFrom = NSLocalizedString("HealthCertifiedPerson_RecoveryCertificate_positiveTestFrom", comment: "")
 			}
-
 		}
 
 		enum Details {
@@ -2233,12 +2250,17 @@ enum AppStrings {
 				enum pdfGeneration {
 					static let title = NSLocalizedString("HealthCertificate_PrintPdf_ErrorAlert_Title", comment: "")
 					static let message = NSLocalizedString("HealthCertificate_PrintPdf_ErrorAlert_Message", comment: "")
+					static let shortMessage = NSLocalizedString("HealthCertificate_ExportAll_PrintPdf_ErrorAlert_Message", comment: "")
 					static let faq = NSLocalizedString("HealthCertificate_PrintPdf_ErrorAlert_FAQ", comment: "")
 					static let ok = NSLocalizedString("HealthCertificate_PrintPdf_ErrorAlert_OK", comment: "")
 				}
 				enum fetchValueSets {
 					static let title = NSLocalizedString("HealthCertificate_PrintPdf_ErrorAlert_ValueSetsFetching_Title", comment: "")
 					static let message = NSLocalizedString("HealthCertificate_PrintPdf_ErrorAlert_ValueSetsFetching_Message", comment: "")
+				}
+				enum noExportableCertificate {
+					static let title = NSLocalizedString("HealthCertificate_PrintPdf_ErrorAlert_NoExportableCertificate_Title", comment: "")
+					static let message = NSLocalizedString("HealthCertificate_PrintPdf_ErrorAlert_NoExportableCertificate_Message", comment: "")
 				}
 			}
 		}
@@ -2792,6 +2814,13 @@ enum AppStrings {
 			   static let confirmButtonTitle = NSLocalizedString("FamilyMemberCoronaTest_DeleteAll_AlertConfirmButtonTitle", comment: "")
 			   static let cancelButtonTitle = NSLocalizedString("FamilyMemberCoronaTest_DeleteAll_AlertCancelButtonTitle", comment: "")
 		   }
+	}
+	
+	enum Tooltip {
+		enum ExportCertificates {
+			static let title = NSLocalizedString("Tooltip_ExportCertificates_Title", comment: "")
+			static let description = NSLocalizedString("Tooltip_ExportCertificates_Description", comment: "")
+		}
 	}
 	// swiftlint:disable:next file_length
 }
