@@ -2995,8 +2995,6 @@
 
 "HealthCertificate_Details_expirationDatePlaceholder" = "Ważny do %@";
 
-"HealthCertificate_Details_expirationDateDetails" = "Pamiętaj o terminowym pobraniu nowego certyfikatu cyfrowego.";
-
 "HealthCertificate_Details_moreButtonTitle" = "Więcej";
 
 /* HealthCertificate Family Consent */

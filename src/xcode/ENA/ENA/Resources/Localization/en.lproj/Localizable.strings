@@ -2995,8 +2995,6 @@
 
 "HealthCertificate_Details_expirationDatePlaceholder" = "Valid until %@";
 
-"HealthCertificate_Details_expirationDateDetails" = "Please make sure to get a new digital certificate in time.";
-
 "HealthCertificate_Details_moreButtonTitle" = "More";
 
 /* HealthCertificate Family Consent */

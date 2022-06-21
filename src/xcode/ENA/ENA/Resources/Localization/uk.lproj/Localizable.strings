@@ -2995,8 +2995,6 @@
 
 "HealthCertificate_Details_expirationDatePlaceholder" = "Дійсно до %@";
 
-"HealthCertificate_Details_expirationDateDetails" = "Не забудьте вчасно отримати новий цифровий сертифікат.";
-
 "HealthCertificate_Details_moreButtonTitle" = "Більше";
 
 /* HealthCertificate Family Consent */
