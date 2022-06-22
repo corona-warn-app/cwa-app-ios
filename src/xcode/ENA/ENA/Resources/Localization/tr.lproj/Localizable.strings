@@ -3265,7 +3265,7 @@
 
 "HealthCertificate_Reissuance_Consent_Delete_Notice" = "Eski sertifikalar otomatik olarak geri dönüşüm kutusuna taşınır ve 30 gün sonra silinir. Sertifikalar, bu 30 günlük süre içinde dilediğiniz zaman geri yüklenebilir.";
 
-"HealthCertificate_Reissuance_Consent_Cancel_Notice" = "Şimdi iptal ederseniz dilediğiniz zaman sertifikaya genel bakış bölümünde yenileme talebi oluşturabilirsiniz.";
+"HealthCertificate_Reissuance_Consent_Cancel_Notice" = "Şimdi iptal ederseniz, sertifika genel bakışınızda yenileme talebi oluşturabilirsiniz.";
 
 "HealthCertificate_Reissuance_Consent_Bullet_Point_1" = "Sertifikalarınızı yenilemeniz gönüllülük esasına bağlı ve ücretsiz bir işlemdir.";
 
