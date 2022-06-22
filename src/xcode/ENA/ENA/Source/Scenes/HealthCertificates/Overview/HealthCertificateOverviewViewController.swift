@@ -202,24 +202,21 @@ class HealthCertificateOverviewViewController: UITableViewController {
 	private var isExportCertificatesBarButtonItemSetup = false
 	
 	private lazy var infoBarButtonItem: UIBarButtonItem = {
-		let button = UIButton(type: .infoLight)
-		button.addTarget(self, action: #selector(infoButtonTapped), for: .touchUpInside)
-		button.isAccessibilityElement = true
-		button.accessibilityLabel = AppStrings.Home.rightBarButtonDescription
-		button.accessibilityIdentifier = AccessibilityIdentifiers.Home.rightBarButtonDescription
-		return UIBarButtonItem(customView: button)
+		let infoBarButton = UIBarButtonItem(image: UIImage(named: "Icons_Info"), style: .plain, target: self, action: #selector(infoButtonTapped))
+		infoBarButton.isAccessibilityElement = true
+		infoBarButton.accessibilityLabel = AppStrings.Home.rightBarButtonDescription
+		infoBarButton.accessibilityIdentifier = AccessibilityIdentifiers.Home.rightBarButtonDescription
+		return infoBarButton
 	}()
 	
 	private lazy var exportCertificatesBarButtonItem: UIBarButtonItem = {
-		let button = UIButton(type: .custom)
-		button.setImage(UIImage(imageLiteralResourceName: "Icons_Share"), for: .normal)
-		button.addTarget(self, action: #selector(exportButtonTapped), for: .touchUpInside)
-		button.isAccessibilityElement = true
-		button.accessibilityLabel = AppStrings.HealthCertificate.Navigation.rightBarButtonExportDescription
-		button.accessibilityIdentifier = AccessibilityIdentifiers.HealthCertificate.Navigation.rightBarButtonExport
-		return UIBarButtonItem(customView: button)
+		let shareBarButton = UIBarButtonItem(image: UIImage(named: "Icons_Share"), style: .plain, target: self, action: #selector(exportButtonTapped))
+		shareBarButton.isAccessibilityElement = true
+		shareBarButton.accessibilityLabel = AppStrings.HealthCertificate.Navigation.rightBarButtonExportDescription
+		shareBarButton.accessibilityIdentifier = AccessibilityIdentifiers.HealthCertificate.Navigation.rightBarButtonExport
+		return shareBarButton
 	}()
-
+	
 	private func setupBarButtonItems() {
 		// Don't show share button if list of healthCertifiedPersons is empty
 		if viewModel.healthCertifiedPersons.isEmpty {
@@ -484,7 +481,6 @@ class HealthCertificateOverviewViewController: UITableViewController {
 		DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [weak self] in
 			guard
 				let self = self,
-				let items = self.navigationItem.rightBarButtonItems, items.contains(self.exportCertificatesBarButtonItem),
 				let view = self.viewIfLoaded, view.window != nil
 			else {
 				return
