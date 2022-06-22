@@ -209,12 +209,21 @@ class HealthCertificateOverviewViewController: UITableViewController {
 		return infoBarButton
 	}()
 	
+	private lazy var spacer: UIBarButtonItem = {
+		let spacer = UIBarButtonItem(barButtonSystemItem: .fixedSpace, target: nil, action: nil)
+		spacer.width = 16
+		return spacer
+	}()
+	
 	private lazy var exportCertificatesBarButtonItem: UIBarButtonItem = {
-		let shareBarButton = UIBarButtonItem(image: UIImage(named: "Icons_Share"), style: .plain, target: self, action: #selector(exportButtonTapped))
-		shareBarButton.isAccessibilityElement = true
-		shareBarButton.accessibilityLabel = AppStrings.HealthCertificate.Navigation.rightBarButtonExportDescription
-		shareBarButton.accessibilityIdentifier = AccessibilityIdentifiers.HealthCertificate.Navigation.rightBarButtonExport
-		return shareBarButton
+		/// Neccesary to use button as custom view, to get `customView` property in `UIBarButtonItem`. Without that, the tooltip cannot be anchored correctly.
+		let button = UIButton(type: .custom)
+		button.setImage(UIImage(imageLiteralResourceName: "Icons_Share"), for: .normal)
+		button.addTarget(self, action: #selector(exportButtonTapped), for: .touchUpInside)
+		button.isAccessibilityElement = true
+		button.accessibilityLabel = AppStrings.HealthCertificate.Navigation.rightBarButtonExportDescription
+		button.accessibilityIdentifier = AccessibilityIdentifiers.HealthCertificate.Navigation.rightBarButtonExport
+		return UIBarButtonItem(customView: button)
 	}()
 	
 	private func setupBarButtonItems() {
@@ -222,7 +231,7 @@ class HealthCertificateOverviewViewController: UITableViewController {
 		if viewModel.healthCertifiedPersons.isEmpty {
 			navigationItem.rightBarButtonItems = [infoBarButtonItem]
 		} else {
-			navigationItem.rightBarButtonItems = [infoBarButtonItem, exportCertificatesBarButtonItem]
+			navigationItem.rightBarButtonItems = [infoBarButtonItem, spacer, exportCertificatesBarButtonItem]
 			isExportCertificatesBarButtonItemSetup = true
 			showExportCertificatesTooltipIfNeeded()
 		}
