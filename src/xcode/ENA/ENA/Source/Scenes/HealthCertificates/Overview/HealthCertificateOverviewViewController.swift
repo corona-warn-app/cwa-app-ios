@@ -73,7 +73,7 @@ class HealthCertificateOverviewViewController: UITableViewController {
 		
 		notificationCenter.addObserver(
 			self,
-			selector: #selector(onShowExportCertificatesTooltipIfNeeded),
+			selector: #selector(showExportCertificatesTooltipIfNeeded),
 			name: .showExportCertificatesTooltipIfNeeded,
 			object: nil
 		)
@@ -227,7 +227,7 @@ class HealthCertificateOverviewViewController: UITableViewController {
 		} else {
 			navigationItem.rightBarButtonItems = [infoBarButtonItem, exportCertificatesBarButtonItem]
 			isExportCertificatesBarButtonItemSetup = true
-			onShowExportCertificatesTooltipIfNeeded()
+			showExportCertificatesTooltipIfNeeded()
 		}
 	}
 
@@ -461,7 +461,7 @@ class HealthCertificateOverviewViewController: UITableViewController {
 	}
 	
 	@objc
-	private func onShowExportCertificatesTooltipIfNeeded() {
+	private func showExportCertificatesTooltipIfNeeded() {
 		// Don't show tooltip if list of healthCertifiedPersons is empty
 		guard
 			viewModel.store.shouldShowExportCertificatesTooltip,
