@@ -20,6 +20,7 @@ ENV["LANG"] = "de_DE.UTF-8"
 
 ENV["FASTLANE_SKIP_UPDATE_CHECK"] = "true"
 
+
 default_platform(:ios)
 
 platform :ios do
