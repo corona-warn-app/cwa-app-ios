@@ -2995,8 +2995,6 @@
 
 "HealthCertificate_Details_expirationDatePlaceholder" = "Валидно до %@";
 
-"HealthCertificate_Details_expirationDateDetails" = "Моля, снабдете се с нов цифров сертификат навреме.";
-
 "HealthCertificate_Details_moreButtonTitle" = "Повече";
 
 /* HealthCertificate Family Consent */
@@ -3267,7 +3265,7 @@
 
 "HealthCertificate_Reissuance_Consent_Delete_Notice" = "Старите сертификати ще бъдат автоматично преместени в кошчето и изтрити след 30 дни. Те могат да бъдат възстановени по всяко време в рамките на тези 30 дни.";
 
-"HealthCertificate_Reissuance_Consent_Cancel_Notice" = "Ако откажете сега, може да заявите подновяване в прегледа за сертификата по всяко време.";
+"HealthCertificate_Reissuance_Consent_Cancel_Notice" = "Ако откажете сега, можете да заявите подновяване във вашия преглед за сертификат.";
 
 "HealthCertificate_Reissuance_Consent_Bullet_Point_1" = "Подновяването на вашите сертификати е доброволно и безплатно.";
 

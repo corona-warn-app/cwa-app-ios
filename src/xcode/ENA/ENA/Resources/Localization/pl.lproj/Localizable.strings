@@ -2995,8 +2995,6 @@
 
 "HealthCertificate_Details_expirationDatePlaceholder" = "Ważny do %@";
 
-"HealthCertificate_Details_expirationDateDetails" = "Pamiętaj o terminowym pobraniu nowego certyfikatu cyfrowego.";
-
 "HealthCertificate_Details_moreButtonTitle" = "Więcej";
 
 /* HealthCertificate Family Consent */
@@ -3267,7 +3265,7 @@
 
 "HealthCertificate_Reissuance_Consent_Delete_Notice" = "Stare certyfikaty zostaną automatycznie przeniesione do kosza i usunięte po 30 dniach. Certyfikaty można odzyskać w dowolnym momencie w ciągu tych 30 dni.";
 
-"HealthCertificate_Reissuance_Consent_Cancel_Notice" = "Jeśli teraz zrezygnujesz, możesz w każdej chwili zażądać odnowienia w przeglądzie certyfikatów.";
+"HealthCertificate_Reissuance_Consent_Cancel_Notice" = "Jeśli teraz zrezygnujesz, możesz zażądać odnowienia w przeglądzie certyfikatów.";
 
 "HealthCertificate_Reissuance_Consent_Bullet_Point_1" = "Odnawianie certyfikatów jest dobrowolne i bezpłatne.";
 

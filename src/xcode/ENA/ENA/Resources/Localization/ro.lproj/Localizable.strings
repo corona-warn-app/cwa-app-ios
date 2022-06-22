@@ -2995,8 +2995,6 @@
 
 "HealthCertificate_Details_expirationDatePlaceholder" = "Valabil până la %@";
 
-"HealthCertificate_Details_expirationDateDetails" = "Asigurați-vă că obțineți un certificat digital nou la timp.";
-
 "HealthCertificate_Details_moreButtonTitle" = "Mai mult";
 
 /* HealthCertificate Family Consent */
@@ -3267,7 +3265,7 @@
 
 "HealthCertificate_Reissuance_Consent_Delete_Notice" = "Certificatele vechi vor fi mutate automat în coșul de reciclare și vor fi șterse după 30 de zile. Certificatele pot fi restaurate oricând în aceste 30 de zile.";
 
-"HealthCertificate_Reissuance_Consent_Cancel_Notice" = "Dacă anulați acum, puteți solicita oricând o reînnoire în sumarul certificatului.";
+"HealthCertificate_Reissuance_Consent_Cancel_Notice" = "Dacă anulați acum, puteți solicita o reînnoire în sumarul certificatului dvs.";
 
 "HealthCertificate_Reissuance_Consent_Bullet_Point_1" = "Reînnoirea certificatelor dvs. este voluntară și gratuită.";
 

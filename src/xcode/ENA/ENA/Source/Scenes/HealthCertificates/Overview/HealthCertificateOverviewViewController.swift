@@ -5,6 +5,7 @@
 import UIKit
 import OpenCombine
 
+// swiftlint:disable type_body_length
 class HealthCertificateOverviewViewController: UITableViewController {
 
 	// MARK: - Init
@@ -12,6 +13,7 @@ class HealthCertificateOverviewViewController: UITableViewController {
 	init(
 		viewModel: HealthCertificateOverviewViewModel,
 		cclService: CCLServable,
+		notificationCenter: NotificationCenter = NotificationCenter.default,
 		onInfoBarButtonItemTap: @escaping () -> Void,
 		onExportBarButtonItemTap: @escaping CompletionVoid,
 		onChangeAdmissionScenarioTap: @escaping () -> Void,
@@ -22,6 +24,7 @@ class HealthCertificateOverviewViewController: UITableViewController {
 	) {
 		self.viewModel = viewModel
 		self.cclService = cclService
+		self.notificationCenter = notificationCenter
 		self.onInfoBarButtonItemTap = onInfoBarButtonItemTap
 		self.onExportBarButtonItemTap = onExportBarButtonItemTap
 		self.onChangeAdmissionScenarioTap = onChangeAdmissionScenarioTap
@@ -68,6 +71,13 @@ class HealthCertificateOverviewViewController: UITableViewController {
 			}
 			.store(in: &subscriptions)
 		
+		notificationCenter.addObserver(
+			self,
+			selector: #selector(showExportCertificatesTooltipIfNeeded),
+			name: .showExportCertificatesTooltipIfNeeded,
+			object: nil
+		)
+		
 		#if DEBUG
 		if isUITesting {
 			viewModel.store.shouldShowExportCertificatesTooltip = LaunchArguments.healthCertificate.shouldShowExportCertificatesTooltip.boolValue
@@ -79,6 +89,10 @@ class HealthCertificateOverviewViewController: UITableViewController {
 	required init?(coder _: NSCoder) {
 		fatalError("init(coder:) has intentionally not been implemented")
 	}
+	
+	deinit {
+		notificationCenter.removeObserver(self, name: .showExportCertificatesTooltipIfNeeded, object: nil)
+	}
 
 	// MARK: - Overrides
 
@@ -86,19 +100,17 @@ class HealthCertificateOverviewViewController: UITableViewController {
 		super.viewDidLoad()
 
 		setupTableView()
-		setupBarButtonItems()
 
 		navigationItem.largeTitleDisplayMode = .automatic
 		navigationItem.setHidesBackButton(true, animated: false)
 		tableView.backgroundColor = .enaColor(for: .darkBackground)
 		
 		tableView.reloadData()
-		title = AppStrings.HealthCertificate.Overview.title
-		
 	}
 
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
+		title = AppStrings.HealthCertificate.Overview.title
 
 		navigationController?.navigationBar.prefersLargeTitles = true
 		navigationController?.navigationBar.sizeToFit()
@@ -114,7 +126,7 @@ class HealthCertificateOverviewViewController: UITableViewController {
 			showAlertAfterRegroup()
 		}
 
-		showExportCertificatesTooltipIfNeeded(exportCertificatesBarButtonItem)
+		setupBarButtonItems()
 	}
 
 	// MARK: - Protocol UITableViewDataSource
@@ -175,6 +187,7 @@ class HealthCertificateOverviewViewController: UITableViewController {
 
 	private let viewModel: HealthCertificateOverviewViewModel
 	private let cclService: CCLServable
+	private let notificationCenter: NotificationCenter
 	
 	private let onInfoBarButtonItemTap: () -> Void
 	private let onExportBarButtonItemTap: CompletionVoid
@@ -186,16 +199,24 @@ class HealthCertificateOverviewViewController: UITableViewController {
 
 	private var subscriptions = Set<AnyCancellable>()
 	
+	private var isExportCertificatesBarButtonItemSetup = false
+	
 	private lazy var infoBarButtonItem: UIBarButtonItem = {
-		let button = UIButton(type: .infoLight)
-		button.addTarget(self, action: #selector(infoButtonTapped), for: .touchUpInside)
-		button.isAccessibilityElement = true
-		button.accessibilityLabel = AppStrings.Home.rightBarButtonDescription
-		button.accessibilityIdentifier = AccessibilityIdentifiers.Home.rightBarButtonDescription
-		return UIBarButtonItem(customView: button)
+		let infoBarButton = UIBarButtonItem(image: UIImage(named: "Icons_Info"), style: .plain, target: self, action: #selector(infoButtonTapped))
+		infoBarButton.isAccessibilityElement = true
+		infoBarButton.accessibilityLabel = AppStrings.Home.rightBarButtonDescription
+		infoBarButton.accessibilityIdentifier = AccessibilityIdentifiers.Home.rightBarButtonDescription
+		return infoBarButton
+	}()
+	
+	private lazy var spacer: UIBarButtonItem = {
+		let spacer = UIBarButtonItem(barButtonSystemItem: .fixedSpace, target: nil, action: nil)
+		spacer.width = 16
+		return spacer
 	}()
 	
 	private lazy var exportCertificatesBarButtonItem: UIBarButtonItem = {
+		// Necesary to use button as custom view, to get `customView` property in `UIBarButtonItem`. Without that, the tooltip cannot be anchored correctly.
 		let button = UIButton(type: .custom)
 		button.setImage(UIImage(imageLiteralResourceName: "Icons_Share"), for: .normal)
 		button.addTarget(self, action: #selector(exportButtonTapped), for: .touchUpInside)
@@ -204,13 +225,15 @@ class HealthCertificateOverviewViewController: UITableViewController {
 		button.accessibilityIdentifier = AccessibilityIdentifiers.HealthCertificate.Navigation.rightBarButtonExport
 		return UIBarButtonItem(customView: button)
 	}()
-
+	
 	private func setupBarButtonItems() {
 		// Don't show share button if list of healthCertifiedPersons is empty
 		if viewModel.healthCertifiedPersons.isEmpty {
 			navigationItem.rightBarButtonItems = [infoBarButtonItem]
 		} else {
-			navigationItem.rightBarButtonItems = [exportCertificatesBarButtonItem, infoBarButtonItem]
+			navigationItem.rightBarButtonItems = [infoBarButtonItem, spacer, exportCertificatesBarButtonItem]
+			isExportCertificatesBarButtonItemSetup = true
+			showExportCertificatesTooltipIfNeeded()
 		}
 	}
 
@@ -443,9 +466,13 @@ class HealthCertificateOverviewViewController: UITableViewController {
 			: nil
 	}
 	
-	private func showExportCertificatesTooltipIfNeeded(_ barButtonItem: UIBarButtonItem) {
+	@objc
+	private func showExportCertificatesTooltipIfNeeded() {
 		// Don't show tooltip if list of healthCertifiedPersons is empty
-		guard viewModel.store.shouldShowExportCertificatesTooltip && !viewModel.healthCertifiedPersons.isEmpty else {
+		guard
+			viewModel.store.shouldShowExportCertificatesTooltip,
+			!viewModel.healthCertifiedPersons.isEmpty,
+			isExportCertificatesBarButtonItemSetup else {
 			return
 		}
 
@@ -457,11 +484,18 @@ class HealthCertificateOverviewViewController: UITableViewController {
 			}
 		)
 		
-		tooltipViewController.popoverPresentationController?.barButtonItem = barButtonItem
+		tooltipViewController.popoverPresentationController?.barButtonItem = exportCertificatesBarButtonItem
 		tooltipViewController.popoverPresentationController?.permittedArrowDirections = .up
 
 		DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [weak self] in
-			self?.present(tooltipViewController, animated: true) { [weak self] in
+			guard
+				let self = self,
+				let view = self.viewIfLoaded, view.window != nil
+			else {
+				return
+			}
+			
+			self.present(tooltipViewController, animated: true) { [weak self] in
 				self?.viewModel.store.shouldShowExportCertificatesTooltip = false
 			}
 		}
