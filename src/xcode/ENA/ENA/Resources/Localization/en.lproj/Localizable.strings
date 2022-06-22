@@ -3265,7 +3265,7 @@
 
 "HealthCertificate_Reissuance_Consent_Delete_Notice" = "Old certificates will be moved automatically to the recycle bin and deleted after 30 days. Certificates can be restored at any time within these 30 days.";
 
-"HealthCertificate_Reissuance_Consent_Cancel_Notice" = "If you cancel now, you can request a renewal in the certificate overview at any time.";
+"HealthCertificate_Reissuance_Consent_Cancel_Notice" = "If you cancel now, you can request a renewal in your certificate overview.";
 
 "HealthCertificate_Reissuance_Consent_Bullet_Point_1" = "Renewing your certificates is voluntary and free of charge.";
 
