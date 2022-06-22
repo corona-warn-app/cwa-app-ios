@@ -99,19 +99,17 @@ class HealthCertificateOverviewViewController: UITableViewController {
 		super.viewDidLoad()
 
 		setupTableView()
-		setupBarButtonItems()
 
 		navigationItem.largeTitleDisplayMode = .automatic
 		navigationItem.setHidesBackButton(true, animated: false)
 		tableView.backgroundColor = .enaColor(for: .darkBackground)
 		
 		tableView.reloadData()
-		title = AppStrings.HealthCertificate.Overview.title
-		
 	}
 
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
+		title = AppStrings.HealthCertificate.Overview.title
 
 		navigationController?.navigationBar.prefersLargeTitles = true
 		navigationController?.navigationBar.sizeToFit()
@@ -127,7 +125,7 @@ class HealthCertificateOverviewViewController: UITableViewController {
 			showAlertAfterRegroup()
 		}
 
-		onShowExportCertificatesTooltipIfNeeded()
+		setupBarButtonItems()
 	}
 
 	// MARK: - Protocol UITableViewDataSource
@@ -200,6 +198,8 @@ class HealthCertificateOverviewViewController: UITableViewController {
 
 	private var subscriptions = Set<AnyCancellable>()
 	
+	private var isExportCertificatesBarButtonItemSetup = false
+	
 	private lazy var infoBarButtonItem: UIBarButtonItem = {
 		let button = UIButton(type: .infoLight)
 		button.addTarget(self, action: #selector(infoButtonTapped), for: .touchUpInside)
@@ -225,6 +225,8 @@ class HealthCertificateOverviewViewController: UITableViewController {
 			navigationItem.rightBarButtonItems = [infoBarButtonItem]
 		} else {
 			navigationItem.rightBarButtonItems = [infoBarButtonItem, exportCertificatesBarButtonItem]
+			isExportCertificatesBarButtonItemSetup = true
+			onShowExportCertificatesTooltipIfNeeded()
 		}
 	}
 
@@ -460,7 +462,10 @@ class HealthCertificateOverviewViewController: UITableViewController {
 	@objc
 	private func onShowExportCertificatesTooltipIfNeeded() {
 		// Don't show tooltip if list of healthCertifiedPersons is empty
-		guard viewModel.store.shouldShowExportCertificatesTooltip, !viewModel.healthCertifiedPersons.isEmpty else {
+		guard
+			viewModel.store.shouldShowExportCertificatesTooltip,
+			!viewModel.healthCertifiedPersons.isEmpty,
+			isExportCertificatesBarButtonItemSetup else {
 			return
 		}
 
@@ -476,7 +481,15 @@ class HealthCertificateOverviewViewController: UITableViewController {
 		tooltipViewController.popoverPresentationController?.permittedArrowDirections = .up
 
 		DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [weak self] in
-			self?.present(tooltipViewController, animated: true) { [weak self] in
+			guard
+				let self = self,
+				let items = self.navigationItem.rightBarButtonItems, items.contains(self.exportCertificatesBarButtonItem),
+				let view = self.viewIfLoaded, view.window != nil
+			else {
+				return
+			}
+			
+			self.present(tooltipViewController, animated: true) { [weak self] in
 				self?.viewModel.store.shouldShowExportCertificatesTooltip = false
 			}
 		}

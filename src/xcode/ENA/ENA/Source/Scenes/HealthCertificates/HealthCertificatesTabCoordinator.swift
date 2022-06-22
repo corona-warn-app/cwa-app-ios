@@ -54,9 +54,7 @@ final class HealthCertificatesTabCoordinator {
 					dismissAction: { [weak self] animated in
 						guard let self = self else { return }
 						
-						if animated {
-							self.viewController.pushViewController(self.overviewScreen, animated: true)
-						}
+						self.viewController.pushViewController(self.overviewScreen, animated: animated)
 
 						// Set Overview as the only Controller on the navigation stack to avoid back gesture etc.
 						self.viewController.setViewControllers([self.overviewScreen], animated: false)
