@@ -216,7 +216,7 @@ class HealthCertificateOverviewViewController: UITableViewController {
 	}()
 	
 	private lazy var exportCertificatesBarButtonItem: UIBarButtonItem = {
-		/// Neccesary to use button as custom view, to get `customView` property in `UIBarButtonItem`. Without that, the tooltip cannot be anchored correctly.
+		// Necesary to use button as custom view, to get `customView` property in `UIBarButtonItem`. Without that, the tooltip cannot be anchored correctly.
 		let button = UIButton(type: .custom)
 		button.setImage(UIImage(imageLiteralResourceName: "Icons_Share"), for: .normal)
 		button.addTarget(self, action: #selector(exportButtonTapped), for: .touchUpInside)
