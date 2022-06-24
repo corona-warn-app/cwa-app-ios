@@ -6,6 +6,7 @@ import UIKit
 import OpenCombine
 import PDFKit
 
+// swiftlint:disable type_body_length
 final class HealthCertificatesTabCoordinator {
 	
 	// MARK: - Init
@@ -53,9 +54,7 @@ final class HealthCertificatesTabCoordinator {
 					dismissAction: { [weak self] animated in
 						guard let self = self else { return }
 						
-						if animated {
-							self.viewController.pushViewController(self.overviewScreen, animated: true)
-						}
+						self.viewController.pushViewController(self.overviewScreen, animated: animated)
 
 						// Set Overview as the only Controller on the navigation stack to avoid back gesture etc.
 						self.viewController.setViewControllers([self.overviewScreen], animated: false)
@@ -104,7 +103,8 @@ final class HealthCertificatesTabCoordinator {
 	private var healthCertifiedPersonCoordinator: HealthCertifiedPersonCoordinator?
 
 	private var subscriptions = Set<AnyCancellable>()
-
+	private var printNavigationController: UINavigationController!
+	
 	private var infoScreenShown: Bool {
 		get { store.healthCertificateInfoScreenShown }
 		set { store.healthCertificateInfoScreenShown = newValue }
@@ -123,6 +123,9 @@ final class HealthCertificatesTabCoordinator {
 			cclService: cclService,
 			onInfoBarButtonItemTap: { [weak self] in
 				self?.presentInfoScreen()
+			},
+			onExportBarButtonItemTap: { [weak self] in
+				self?.presentExportCertificatesInfoScreen()
 			},
 			onChangeAdmissionScenarioTap: { [weak self] in
 				self?.showAdmissionScenarios()
@@ -204,6 +207,56 @@ final class HealthCertificatesTabCoordinator {
 		)
 		return topBottomContainerViewController
 	}
+	
+	private func exportCertificatesInfoScreen(
+		dismissAction: @escaping CompletionBool
+	) -> TopBottomContainerViewController<HealthCertificateExportCertificatesInfoViewController, FooterViewController> {
+		let healthCertificateExportCertificatesInfoViewController = HealthCertificateExportCertificatesInfoViewController(
+			viewModel: .init(
+				healthCertifiedPersons: healthCertificateService.healthCertifiedPersons,
+				vaccinationValueSetsProvider: vaccinationValueSetsProvider
+			),
+			onDismiss: dismissAction,
+			onTapContinue: { [weak self] pdfDocument in
+				self?.showPdfGenerationResult(pdfDocument: pdfDocument)
+			},
+			showErrorAlert: { [weak self] error in
+				guard let self = self else { return }
+				
+				switch error {
+				case .fetchValueSets, .createStrongPointer:
+					self.showPDFErrorAlert(
+						title: AppStrings.HealthCertificate.PrintPDF.ErrorAlert.fetchValueSets.title,
+						error: error)
+				case .pdfGenerationFailed, .batchPDFGenerationFailed:
+					self.showPDFErrorAlert(
+						title: AppStrings.HealthCertificate.PrintPDF.ErrorAlert.pdfGeneration.title,
+						error: error)
+				case .noExportabeCertificate:
+					self.showPDFErrorAlert(
+						title: AppStrings.HealthCertificate.PrintPDF.ErrorAlert.noExportableCertificate.title,
+						error: error)
+				}
+			}
+		)
+		
+		let footerViewController = FooterViewController(
+			FooterViewModel(
+				primaryButtonName: AppStrings.HealthCertificate.ExportCertificatesInfo.primaryButton,
+				isPrimaryButtonEnabled: true,
+				isSecondaryButtonEnabled: false,
+				isSecondaryButtonHidden: true,
+				backgroundColor: .enaColor(for: .background)
+			)
+		)
+		
+		let topBottomContainerViewController = TopBottomContainerViewController(
+			topController: healthCertificateExportCertificatesInfoViewController,
+			bottomController: footerViewController
+		)
+		
+		return topBottomContainerViewController
+	}
 
 	private func presentInfoScreen() {
 		// Promise the navigation view controller will be available,
@@ -222,6 +275,21 @@ final class HealthCertificatesTabCoordinator {
 		// otherwise the inset of the navigation title is wrong
 		navigationController = UINavigationController(rootViewController: infoVC)
 		viewController.present(navigationController, animated: true)
+	}
+	
+	private func presentExportCertificatesInfoScreen() {
+		let exportCertificatesInfoScreen = exportCertificatesInfoScreen(
+			dismissAction: { [weak self] animated in
+				self?.viewController.dismiss(animated: animated)
+			}
+		)
+		
+		printNavigationController = DismissHandlingNavigationController(
+			rootViewController: exportCertificatesInfoScreen,
+			transparent: true
+		)
+		
+		viewController.present(printNavigationController, animated: true)
 	}
 	
 	private func showActivityIndicator(from view: UIView) {
@@ -420,5 +488,92 @@ final class HealthCertificatesTabCoordinator {
 		case .failure(let error):
 			self.showErrorAlert(title: AppStrings.HealthCertificate.Error.title, error: error)
 		}
+	}
+	
+	private func showPdfGenerationResult(pdfDocument: PDFDocument) {
+		let healthCertificatePDFVersionViewModel = HealthCertificatePDFVersionViewModel(
+			healthCertificate: nil, pdfDocument: pdfDocument
+		)
+		
+		let healthCertificatePDFVersionViewController = HealthCertificatePDFVersionViewController(
+			viewModel: healthCertificatePDFVersionViewModel,
+			onTapPrintPdf: { [weak self] data in
+				self?.showPrintPdf(pdfData: data)
+			},
+			onTapExportPdf: { [weak self] pdfItem in
+				self?.exportPdf(exportItem: pdfItem)
+			}
+		)
+		// The call of showPdfGenerationResult is made possibly in the background while generating the pdfDocument
+		DispatchQueue.main.async { [weak self] in
+			self?.printNavigationController.pushViewController(healthCertificatePDFVersionViewController, animated: true)
+		}
+	}
+	
+	private func showPrintPdf(
+		pdfData: Data
+	) {
+		// swiftlint:disable:next no_plain_print
+		guard UIPrintInteractionController.canPrint(pdfData) else {
+			Log.error("UIPrintInteractionController can't print given pdf data")
+			return
+		}
+
+		DispatchQueue.main.async {
+			let printController = UIPrintInteractionController.shared
+			printController.printingItem = pdfData
+			printController.present(animated: true) { _, success, error in
+				if let error = error {
+					Log.error("Error printing pdf:", error: error)
+				}
+				if !success {
+					Log.info("Failed to print pdf file")
+				} else {
+					Log.info("Did print pdf file successfully")
+				}
+			}
+		}
+	}
+	
+	private func exportPdf(
+		exportItem: PDFExportItem
+	) {
+		let activityViewController = UIActivityViewController(activityItems: [exportItem], applicationActivities: nil)
+		self.printNavigationController.present(activityViewController, animated: true, completion: nil)
+	}
+	
+	private func showPDFErrorAlert(
+		title: String,
+		error: HealthCertificatePDFGenerationError
+	) {
+		let alert = UIAlertController(
+			title: title,
+			message: error.localizedDescription,
+			preferredStyle: .alert
+		)
+		
+		if error == .batchPDFGenerationFailed {
+			let faqAction = UIAlertAction(
+				title: AppStrings.HealthCertificate.PrintPDF.ErrorAlert.pdfGeneration.faq,
+				style: .default,
+				handler: { _ in
+					LinkHelper.open(urlString: AppStrings.Links.healthCertificatePrintAllFAQ)
+				}
+			)
+			faqAction.accessibilityIdentifier = AccessibilityIdentifiers.HealthCertificate.PrintPdf.faqAction
+			alert.addAction(faqAction)
+		}
+		
+		let okayAction = UIAlertAction(
+			title: AppStrings.Common.alertActionOk,
+			style: .cancel,
+			handler: { [weak self] _ in
+				self?.printNavigationController.dismiss(animated: true)
+			}
+		)
+		okayAction.accessibilityIdentifier = AccessibilityIdentifiers.HealthCertificate.PrintPdf.okAction
+		alert.addAction(okayAction)
+
+		self.printNavigationController.present(alert, animated: true, completion: nil)
 	}
 }

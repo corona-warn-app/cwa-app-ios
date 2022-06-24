@@ -99,7 +99,7 @@ jobs:
     needs: dependencies
     steps:
       - name: Check out repository code
-        uses: actions/checkout@v2            
+        uses: actions/checkout@v2
       - name: Restore Dependencies
         uses: actions/cache@v2
         env:
@@ -108,17 +108,17 @@ jobs:
           path: |
             src/xcode/vendor
             src/xcode/.bundle
-          key: ${{ runner.os }}-${{ env.cache-name }}-${{ hashFiles('src/xcode/Gemfile.lock') }}       
+          key: ${{ runner.os }}-${{ env.cache-name }}-${{ hashFiles('src/xcode/Gemfile.lock') }}
       - name: Community Build
         run: |
           cd src/xcode && arch -arm64 bundle exec fastlane build_community
-              
+
   runAllTests:
     runs-on: self-hosted
     needs: buildForTesting
     steps:
       - name: Check out repository code
-        uses: actions/checkout@v2          
+        uses: actions/checkout@v2
       - name: Restore Dependencies
         uses: actions/cache@v2
         env:
@@ -141,7 +141,7 @@ jobs:
           cache-name: cache-test-output
         with:
           path: src/xcode/fastlane/test_output
-          key: ${{ runner.os }}-${{ env.cache-name }}-${{ github.sha }}                       
+          key: ${{ runner.os }}-${{ env.cache-name }}-${{ github.sha }}
       - name: Run AllTests
         run: |
           cd src/xcode
@@ -152,3 +152,4 @@ jobs:
         with:
           name: xcresult-${{ github.sha }}
           path: src/xcode/fastlane/test_output/ENA.xcresult.zip
+

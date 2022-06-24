@@ -16,6 +16,11 @@ class AppInformationViewController: DynamicTableViewController, NavigationBarOpa
 		self.cclService = cclService
 
 		self.model = [
+			.versionInfo: AppInformationCellModel(
+				text: AppStrings.AppInformation.newFeaturesNavigation,
+				accessibilityIdentifier: AccessibilityIdentifiers.AppInformation.newFeaturesNavigation,
+				action: .push(viewController: DeltaOnboardingNewVersionFeaturesViewController(hasCloseButton: false))
+			),
 			.about: AppInformationCellModel(
 				text: AppStrings.AppInformation.aboutNavigation,
 				accessibilityIdentifier: AccessibilityIdentifiers.AppInformation.aboutNavigation,
@@ -57,11 +62,6 @@ class AppInformationViewController: DynamicTableViewController, NavigationBarOpa
 				text: AppStrings.AppInformation.imprintNavigation,
 				accessibilityIdentifier: AccessibilityIdentifiers.AppInformation.imprintNavigation,
 				action: .push(model: imprintViewModel.dynamicTable, withTitle: AppStrings.AppInformation.imprintNavigation)
-			),
-			.versionInfo: AppInformationCellModel(
-				text: AppStrings.AppInformation.newFeaturesNavigation,
-				accessibilityIdentifier: AccessibilityIdentifiers.AppInformation.newFeaturesNavigation,
-				action: .push(viewController: DeltaOnboardingNewVersionFeaturesViewController(hasCloseButton: false))
 			)
 		]
 		
@@ -111,7 +111,7 @@ class AppInformationViewController: DynamicTableViewController, NavigationBarOpa
 			let accessibilityIdentifier = model[category]?.accessibilityIdentifier {
 			cell.accessibilityIdentifier = accessibilityIdentifier
 			switch category {
-			case .faq, .accessibility:
+			case .accessibility:
 				let imageView = UIImageView(image: UIImage(named: "icons_safari_link"))
 				imageView.adjustsImageSizeForAccessibilityContentSizeCategory = true
 				imageView.contentMode = .scaleAspectFill
@@ -140,7 +140,6 @@ class AppInformationViewController: DynamicTableViewController, NavigationBarOpa
 	enum Category: Int, Hashable, CaseIterable {
 		case versionInfo
 		case about
-		case faq
 		case terms
 		case accessibility
 		case privacy

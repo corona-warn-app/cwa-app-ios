@@ -603,6 +603,8 @@
 
 "ExposureSubmission_CallButtonTitle" = "Зателефонувати";
 
+"ExposureSubmission_CallButtonTitle_Format" = "Зателефонувати %@";
+
 "ExposureSubmission_TANInputButtonTitle" = "Ввести TAN";
 
 "ExposureSubmissionHotline_imageDescription" = "Гаряча лінія повідомляє TAN.";
@@ -727,7 +729,7 @@
 
 "ExposureSubmissionResult_CardInvalid" = "Аналіз неможливий";
 
-"ExposureSubmissionResult_CardPending" = "Ваш результат ще недоступний";
+"ExposureSubmissionResult_CardPending" = "Результат ще недоступний";
 
 "ExposureSubmissionResult_Procedure" = "Як це працює:";
 
@@ -1275,7 +1277,7 @@
 "Home_resultCard_LoadingErrorTitle" = "Неможливо завантажити ваш результат тесту.";
 
 /* - Pending */
-"Home_resultCard_ResultUnvailableTitle" = "Ваш результат ще недоступний";
+"Home_resultCard_ResultUnvailableTitle" = "Результат ще недоступний";
 
 "Home_resultCard_Pending_PCR_Desc" = "Аналіз вашого ПЛР-тесту ще не виконаний.";
 
@@ -1422,9 +1424,6 @@
 "App_Information_About_Text" = "Люди, які користуються застосунком, допомагають відстежувати та розривати ланцюжки зараження. Застосунок зберігає зустрічі з іншими людьми локально на вашому пристрої. Ви отримаєте сповіщення, якщо ви зустрілися з людьми, у яких пізніше був діагностований коронавірус. Ваша особистість і конфіденційність завжди захищені.";
 
 "App_Information_About_LinkText" = "Інформація про застосунок спрощеною мовою та мовою жестів";
-
-/* App Information - FAQ */
-"App_Information_FAQ_Navigation" = "ЗіВ";
 
 /* App Information - Contact */
 "App_Information_Contact_Navigation" = "Технічна гаряча лінія";
@@ -1666,10 +1665,10 @@
 /* New Version Features */
 "NewVersionFeatures_Info_about_abb_information" = "Зміни у цій версії можна знайти в інформації про застосунок в розділі «Нові функції».";
 
-/* Version 2.23 */
-"NewVersionFeature_223_reissue_certificates_title" = "Поновлення сертифіката";
+/* Version 2.24 */
+"NewVersionFeature_224_batch_export_title" = "Експортувати сертифікати";
 
-"NewVersionFeature_223_reissue_certificates_description" = "Через технічні причини строк дії сертифіката, що використовується на даний момент, обмежений 365 днями. Якщо строк дії вашого поточного сертифіката закінчується, застосунок дає змогу продовжити його. Сертифікат можна поновити за 28 днів до завершення строку його дії та до 90 днів після цього. Якщо застосунок не пропонує поновити ваш сертифікат, його не потрібно продовжувати, і вам не потрібно нічого робити.";
+"NewVersionFeature_224_batch_export_description" = "Ви можете зберегти всі сертифікати у своєму застосунку в одному документі PDF за один крок.";
 
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Транснаціональна реєстрація ризику зараження";
@@ -2572,6 +2571,8 @@
 /* - Trace Location Selection */
 "OnBehalfCheckinSubmission_TraceLocationSelection_Title" = "Попереджати для інших";
 
+"OnBehalfCheckinSubmission_TraceLocationSelection_EmptyDescription" = "Виберіть захід, про який ви хочете попередити інших від імені людини, у якої діагностовано коронавірус.";
+
 "OnBehalfCheckinSubmission_TraceLocationSelection_Description" = "Виберіть захід, про який ви хочете попередити інших від імені людини, у якої діагностовано коронавірус, або відновіть видалений захід, знову відсканувавши QR-код цього заходу.";
 
 "OnBehalfCheckinSubmission_TraceLocationSelection_ScanButtonTitle" = "Сканувати QR-код";
@@ -2818,6 +2819,8 @@
 
 "HealthCertificate_Overview_News" = "Є новини про ваші сертифікати";
 
+"HealthCertificate_Navigation_RightBarButtonExportDescription" = "Експортувати сертифікати";
+
 /* - Test Certificate Request */
 "TestCertificateRequest_title" = "ЄС\n**Цифровий сертифікат тесту на COVID**";
 
@@ -2880,6 +2883,27 @@
 "HealthCertificate_Info_section04" = "Додайте ніснуючі сертифікати для себе та членів вашої родини.";
 
 "HealthCertificate_Info_primaryButton" = "Продовжити";
+
+/* Health Certificate Export Certificates Information */
+"HealthCertificate_ExportCertificatesInfo_Title" = "Експортувати сертифікати";
+
+"HealthCertificate_ExportCertificatesInfo_HeaderImageDescription" = "Цифровий сертифікат надсилається на принтер зі смартфона";
+
+"HealthCertificate_ExportCertificatesInfo_Copy01" = "Ви можете зберегти всі сертифікати у своєму застосунку в одному документі PDF за один крок. Ви єдиний, хто має спочатку доступ до цього PDF-документа. Потім ви можете вирішити, чи хочете ви зберегти його на своєму смартфоні або імпортувати в інші застосунки.";
+
+"HealthCertificate_ExportCertificatesInfo_Copy02" = "Зверніть увагу, що PDF-документ містить конфіденційну інформацію. Ми рекомендуємо поводитися з ним обережно і показувати його лише тим людям, яким ви довіряєте і які уповноважені перевіряти сертифікат.";
+
+"HealthCertificate_ExportCertificatesInfo_Copy03" = "Ми рекомендуємо не публікувати PDF-документ, не надсилати його електронною поштою та не ділитися ним через інші застосунки.";
+
+"HealthCertificate_ExportCertificatesInfo_PrimaryButton" = "Продовжити";
+
+"HealthCertificate_ExportCertificatesInfo_GeneratePDFAlert_Title" = "Генерація PDF";
+
+"HealthCertificate_ExportCertificatesInfo_GeneratePDFAlert_Message_Initial" = "Це може зайняти кілька хвилин.";
+
+"HealthCertificate_ExportCertificatesInfo_GeneratePDFAlert_Message" = "Це може зайняти кілька хвилин.\nСторінка %@ of %@.";
+
+"HealthCertificate_ExportCertificatesInfo_GeneratePDFAlert_Cancel" = "Скасувати";
 
 /* CovPass Info Screen */
 "CovPass_Check_Info_Title" = "Перевірка сертифіката третіми сторонами";
@@ -2971,8 +2995,6 @@
 
 "HealthCertificate_Details_expirationDatePlaceholder" = "Дійсно до %@";
 
-"HealthCertificate_Details_expirationDateDetails" = "Не забудьте вчасно отримати новий цифровий сертифікат.";
-
 "HealthCertificate_Details_moreButtonTitle" = "Більше";
 
 /* HealthCertificate Family Consent */
@@ -3005,8 +3027,6 @@
 /* Test Certificate Details */
 "TestCertificate_Details_title" = "Сертифікат тесту";
 
-"TestCertificate_Details_subtitle" = "Негативний тест SARS-CoV-2";
-
 "TestCertificate_Details_primaryButton" = "Видалити сертифікат тесту";
 
 "TestCertificate_Error_FAQ_Description" = "\n\nДля отримання додаткової інформації про те, як отримати сертифікат тесту, перегляньте нашу сторінку ЗіВ.";
@@ -3020,8 +3040,6 @@
 
 /* Recovery Certificate Details */
 "RecoveryCertificate_Details_title" = "Сертифікат одужання";
-
-"RecoveryCertificate_Details_subtitle" = "Цифровий COVID-сертифікат ЄС";
 
 "RecoveryCertificate_Details_primaryButton" = "Видалити сертифікат про одужання";
 
@@ -3061,6 +3079,8 @@
 
 "HealthCertificate_PrintPdf_ErrorAlert_Message" = "Версію для друку сертифіката неможливо відобразити, оскільки сертифікат виданий не в Німеччині";
 
+"HealthCertificate_ExportAll_PrintPdf_ErrorAlert_Message" = "Неможливо відобразити версію для друку сертифікатів.";
+
 "HealthCertificate_PrintPdf_ErrorAlert_FAQ" = "ЗіВ щодо версії для друку";
 
 "HealthCertificate_PrintPdf_ErrorAlert_OK" = "OK";
@@ -3068,6 +3088,10 @@
 "HealthCertificate_PrintPdf_ErrorAlert_ValueSetsFetching_Title" = "Неможливо відобразити версію для друку";
 
 "HealthCertificate_PrintPdf_ErrorAlert_ValueSetsFetching_Message" = "Версію для друку сертифіката неможливо відобразити, оскільки зараз неможливо отримати сертифікат. Спробуйте пізніше.";
+
+"HealthCertificate_PrintPdf_ErrorAlert_NoExportableCertificate_Title" = "Сертифікати не можна експортувати";
+
+"HealthCertificate_PrintPdf_ErrorAlert_NoExportableCertificate_Message" = "Неможливо експортувати доступні сертифікати, оскільки вони більше не дійсні.";
 
 /* Certificate Fault Tolerant Naming */
 "HealthCertificate_FaultTolerantNaming_RegroupDone_Title" = "Присвоювання сертифіката";
@@ -3209,7 +3233,7 @@
 
 "HealthCertificate_ValidityState_ExpiringSoon_short" = "Дата %@ час %@завершення строку дії";
 
-"HealthCertificate_ValidityState_ExpiringSoon_description" = "Якщо ви зараз користуєтеся цим сертифікатом, не забудьте вчасно поновити його. Ви можете поновити такі сертифікати безпосередньо в застосунку, якщо строк їх дії закінчиться протягом наступних 28 днів. У цьому випадку опція «Поновити сертифікати» з’явиться в огляді вашого сертифіката під плиткою «Підтвердження статусу». Якщо це не той сертифікат, яким ви зараз користуєтеся, його не потрібно продовжувати, і з вашого боку не потрібно нічого робити.";
+"HealthCertificate_ValidityState_ExpiringSoon_description" = "Якщо це один із сертифікатів, які ви зараз використовуєте, не забудьте вчасно поновити його. Ви можете поновити такі сертифікати безпосередньо в застосунку, якщо строк їх дії закінчиться протягом наступних 28 днів або закінчився протягом останніх 90 днів, за умови, що вони були видані в Німеччині. У цьому випадку опція «Поновити сертифікати» з’явиться в огляді вашого сертифіката під плиткою «Підтвердження статусу». Якщо це не один із сертифікатів, які ви зараз використовуєте, його не потрібно продовжувати, і з вашого боку не потрібно нічого робити.";
 
 "HealthCertificate_ValidityState_Expired" = "Строк дії сертифіката минув";
 
@@ -3241,7 +3265,7 @@
 
 "HealthCertificate_Reissuance_Consent_Delete_Notice" = "Старі сертифікати будуть автоматично переміщені в кошик і видалено через 30 днів. Сертифікати можна відновити в будь-який час протягом цих 30 днів.";
 
-"HealthCertificate_Reissuance_Consent_Cancel_Notice" = "Якщо ви скасуєте зараз, ви можете будь-коли подати запит на поновлення в огляді сертифіката.";
+"HealthCertificate_Reissuance_Consent_Cancel_Notice" = "Якщо ви скасуєте зараз, ви можете подати запит на поновлення в огляді вашого сертифіката.";
 
 "HealthCertificate_Reissuance_Consent_Bullet_Point_1" = "Поновлення ваших сертифікатів є добровільним і безкоштовним.";
 
@@ -3642,7 +3666,7 @@
 
 "FamilyMemberCoronaTest_antigenDate" = "Дата виконання %@";
 
-"FamilyMemberCoronaTest_pendingDiagnosis" = "Ваш результат ще недоступний";
+"FamilyMemberCoronaTest_pendingDiagnosis" = "Результат ще недоступний";
 
 "FamilyMemberCoronaTest_pendingPCRDescription" = "Аналіз тесту ПЛР ще не виконаний.";
 
@@ -3687,4 +3711,9 @@
 "FamilyMemberCoronaTest_DeleteAll_AlertConfirmButtonTitle" = "Видалити результати тестів";
 
 "FamilyMemberCoronaTest_DeleteAll_AlertCancelButtonTitle" = "Скасувати";
+
+/* Tooltip */
+"Tooltip_ExportCertificates_Title" = "Експортувати сертифікати";
+
+"Tooltip_ExportCertificates_Description" = "Збережіть усі свої сертифікати в одному документі PDF за один крок";
 

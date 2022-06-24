@@ -31,11 +31,6 @@ class HealthCertificateInfoViewController: DynamicTableViewController, FooterVie
 	override func viewDidLoad() {
 		super.viewDidLoad()
 
-		if !viewModel.hidesCloseButton {
-			navigationItem.rightBarButtonItem = dismissHandlingCloseBarButton
-		}
-
-		navigationItem.title = viewModel.title
 		setupView()
 	}
 	
@@ -44,6 +39,12 @@ class HealthCertificateInfoViewController: DynamicTableViewController, FooterVie
 
 		if store.healthCertificateInfoScreenShown && !onDemand {
 			dismiss(false)
+		} else {
+			if !viewModel.hidesCloseButton {
+				navigationItem.rightBarButtonItem = dismissHandlingCloseBarButton
+			}
+			
+			navigationItem.title = viewModel.title
 		}
 	}
 
