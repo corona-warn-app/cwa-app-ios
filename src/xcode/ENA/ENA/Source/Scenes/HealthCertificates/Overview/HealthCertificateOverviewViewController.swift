@@ -202,7 +202,7 @@ class HealthCertificateOverviewViewController: UITableViewController {
 	private var isExportCertificatesBarButtonItemSetup = false
 	
 	private lazy var infoBarButtonItem: UIBarButtonItem = {
-		let infoBarButton = UIBarButtonItem(image: UIImage(named: "Icons_Info"), style: .plain, target: self, action: #selector(infoButtonTapped))
+		let infoBarButton = UIBarButtonItem(image: UIImage(imageLiteralResourceName: "Icons_Info"), style: .plain, target: self, action: #selector(infoButtonTapped))
 		infoBarButton.isAccessibilityElement = true
 		infoBarButton.accessibilityLabel = AppStrings.Home.rightBarButtonDescription
 		infoBarButton.accessibilityIdentifier = AccessibilityIdentifiers.Home.rightBarButtonDescription
