@@ -2918,6 +2918,8 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "HealthCertificate_Overview_News" = "Es gibt Neuigkeiten zu Ihren Zertifikaten";
 
+"HealthCertificate_Navigation_RightBarButtonExportDescription" = "Zertifikate exportieren";
+
 /* - Test Certificate Request */
 
 "TestCertificateRequest_title" = "Digitales\n**COVID-Testzertifikat der EU**";
@@ -2985,6 +2987,28 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 "HealthCertificate_Info_section04" = "Fügen Sie existierende Zertifikate für sich und Ihre Familienmitglieder hinzu.";
 
 "HealthCertificate_Info_primaryButton" = "Weiter";
+
+/* Health Certificate Export Certificates Information */
+
+"HealthCertificate_ExportCertificatesInfo_Title" = "Zertifikate exportieren";
+
+"HealthCertificate_ExportCertificatesInfo_HeaderImageDescription" = "Von einem Smartphone wird ein digitales Zertifikat an einen Drucker übertragen";
+
+"HealthCertificate_ExportCertificatesInfo_Copy01" = "Sie können in einem Schritt alle in Ihrer App vorhandenen Zertifikate in einem gemeinsamen PDF-Dokument speichern. Auf das PDF-Dokument haben zunächst nur Sie Zugriff. Sie können im Anschluss entscheiden, ob Sie es auf Ihrem Smartphone speichern oder in andere Apps importieren möchten.";
+
+"HealthCertificate_ExportCertificatesInfo_Copy02" = "Beachten Sie, dass das PDF-Dokument sensible Informationen enthält. Wir empfehlen, hiermit sorgsam umzugehen und es nur Personen vorzuzeigen, denen Sie vertrauen und die zur Prüfung des Nachweises berechtigt sind.";
+
+"HealthCertificate_ExportCertificatesInfo_Copy03" = "Wir empfehlen, das PDF-Dokument nicht zu veröffentlichen und nicht per E-Mail zu versenden oder über andere Apps zu teilen.";
+
+"HealthCertificate_ExportCertificatesInfo_PrimaryButton" = "Weiter";
+
+"HealthCertificate_ExportCertificatesInfo_GeneratePDFAlert_Title" = "PDF wird erstellt";
+
+"HealthCertificate_ExportCertificatesInfo_GeneratePDFAlert_Message_Initial" = "Dies kann einige Minuten dauern.";
+
+"HealthCertificate_ExportCertificatesInfo_GeneratePDFAlert_Message" = "Dies kann einige Minuten dauern.\nSeite %@ von %@.";
+
+"HealthCertificate_ExportCertificatesInfo_GeneratePDFAlert_Cancel" = "Abbrechen";
 
 /* CovPass Info Screen */
 
@@ -3082,8 +3106,6 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "HealthCertificate_Details_expirationDatePlaceholder" = "Gültig bis %@";
 
-"HealthCertificate_Details_expirationDateDetails" = "Bitte bemühen Sie sich rechtzeitig darum, einen neuen digitalen Nachweis ausstellen zu lassen.";
-
 "HealthCertificate_Details_moreButtonTitle" = "Mehr";
 
 /* HealthCertificate Family Consent */
@@ -3178,6 +3200,8 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "HealthCertificate_PrintPdf_ErrorAlert_Message" = "Die Druckversion des Zertifikats kann nicht angezeigt werden, da das Zertifikat nicht in Deutschland ausgestellt wurde.";
 
+"HealthCertificate_ExportAll_PrintPdf_ErrorAlert_Message" = "Die Druckversion der Zertifikate kann nicht angezeigt werden.";
+
 "HealthCertificate_PrintPdf_ErrorAlert_FAQ" = "FAQ zur Druckversion";
 
 "HealthCertificate_PrintPdf_ErrorAlert_OK" = "OK";
@@ -3185,6 +3209,10 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 "HealthCertificate_PrintPdf_ErrorAlert_ValueSetsFetching_Title" = "Druckversion anzeigen nicht möglich";
 
 "HealthCertificate_PrintPdf_ErrorAlert_ValueSetsFetching_Message" = "Die Druckversion des Zertifikats kann nicht angezeigt werden, da das Zertifikat momentan nicht abgerufen werden kann. Bitte versuchen Sie es später noch einmal.";
+
+"HealthCertificate_PrintPdf_ErrorAlert_NoExportableCertificate_Title" = "Zertifikate können nicht exportiert werden";
+
+"HealthCertificate_PrintPdf_ErrorAlert_NoExportableCertificate_Message" = "Die vorhandenen Zertifikate können nicht exportiert werden, da sie nicht mehr gültig sind.";
 
 /* Certificate Fault Tolerant Naming */
 
@@ -3841,4 +3869,8 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "FamilyMemberCoronaTest_DeleteAll_AlertCancelButtonTitle" = "Abbrechen";
 
+/* Tooltip */
 
+"Tooltip_ExportCertificates_Title" = "Zertifikate exportieren";
+
+"Tooltip_ExportCertificates_Description" = "In einem Schritt alle Ihre Zertifikate in einem gemeinsamen PDF-Dokument speichern";

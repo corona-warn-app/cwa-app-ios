@@ -1,7 +1,7 @@
 {
   "images" : [
     {
-      "filename" : "export_light mode.pdf",
+      "filename" : "i_light mode.pdf",
       "idiom" : "universal"
     },
     {
@@ -11,7 +11,7 @@
           "value" : "dark"
         }
       ],
-      "filename" : "export_dark mode.pdf",
+      "filename" : "i_dark mode.pdf",
       "idiom" : "universal"
     }
   ],

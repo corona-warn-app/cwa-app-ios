@@ -26,6 +26,7 @@ final class HealthCertificateCoordinator {
 		healthCertificateValidationService: HealthCertificateValidationProviding,
 		healthCertificateValidationOnboardedCountriesProvider: HealthCertificateValidationOnboardedCountriesProviding,
 		vaccinationValueSetsProvider: VaccinationValueSetsProviding,
+		notificationCenter: NotificationCenter = NotificationCenter.default,
 		markAsSeenOnDisappearance: Bool
 	) {
 		self.parentingViewController = parentingViewController
@@ -36,6 +37,7 @@ final class HealthCertificateCoordinator {
 		self.healthCertificateValidationService = healthCertificateValidationService
 		self.healthCertificateValidationOnboardedCountriesProvider = healthCertificateValidationOnboardedCountriesProvider
 		self.vaccinationValueSetsProvider = vaccinationValueSetsProvider
+		self.notificationCenter = notificationCenter
 
 		self.markAsSeenOnDisappearance = markAsSeenOnDisappearance
 
@@ -97,6 +99,7 @@ final class HealthCertificateCoordinator {
 	private let healthCertificateValidationService: HealthCertificateValidationProviding
 	private let healthCertificateValidationOnboardedCountriesProvider: HealthCertificateValidationOnboardedCountriesProviding
 	private let vaccinationValueSetsProvider: VaccinationValueSetsProviding
+	private let notificationCenter: NotificationCenter
 
 	private let markAsSeenOnDisappearance: Bool
 	
@@ -129,7 +132,9 @@ final class HealthCertificateCoordinator {
 			vaccinationValueSetsProvider: vaccinationValueSetsProvider,
 			markAsSeenOnDisappearance: markAsSeenOnDisappearance,
 			dismiss: {
-				self.navigationController.dismiss(animated: true)
+				self.navigationController.dismiss(animated: true) { [weak self] in
+					self?.notificationCenter.post(name: .showExportCertificatesTooltipIfNeeded, object: nil)
+				}
 			},
 			didTapValidationButton: { [weak self] in
 				guard let self = self else {
