@@ -130,7 +130,7 @@ class HealthCertificateExportCertificatesInfoViewModel {
 			}
 			
 			// DCCs shall be sorted ascending by the date attributes depending on the type of the DCC
-			filteredHealthCertificates = filteredHealthCertificates.sorted(by: >)
+			filteredHealthCertificates = filteredHealthCertificates.sorted(by: <)
 			
 			allFilteredHealthCertificates.append(contentsOf: filteredHealthCertificates)
 		}

@@ -37,8 +37,16 @@ class HygieneRulesInfoViewController: DynamicTableViewController {
 
 		navigationController?.navigationBar.prefersLargeTitles = false
 		navigationController?.navigationBar.sizeToFit()
+		
+		setupStatusBarViewBackgroundColorIfNeeded()
 	}
 	
+	override func viewWillDisappear(_ animated: Bool) {
+		super.viewWillDisappear(animated)
+
+		revertStatusBarViewBackgroundColorIfNeeded()
+	}
+
 	// MARK: - Private
 
 	private let dismiss: () -> Void

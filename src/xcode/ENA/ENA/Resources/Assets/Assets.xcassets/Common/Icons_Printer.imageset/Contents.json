@@ -1,7 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "icon_print.pdf",
+      "filename" : "printer_light.pdf",
+      "idiom" : "universal"
+    },
+    {
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "dark"
+        }
+      ],
+      "filename" : "printer_dark.pdf",
       "idiom" : "universal"
     }
   ],

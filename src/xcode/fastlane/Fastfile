@@ -20,6 +20,7 @@ ENV["LANG"] = "de_DE.UTF-8"
 
 ENV["FASTLANE_SKIP_UPDATE_CHECK"] = "true"
 
+
 default_platform(:ios)
 
 platform :ios do
@@ -30,8 +31,8 @@ platform :ios do
     setup_circle_ci
 
     if is_ci
-      xcode_select("/Applications/Xcode_13_2_1.app") # Uncommented until we are self hosted 100%
-      xcversion(version: "~> 13.2.1")
+      xcode_select("/Applications/Xcode_13_4_1.app") # Uncommented until we are self hosted 100%
+      xcversion(version: "~> 13.4.1")
     end
   end
 
@@ -50,7 +51,6 @@ platform :ios do
       output_xctestrun: true,
       clean: true,
       scheme: "ENA",
-      destination: "platform=iOS Simulator,OS=15.2,name=iPhone 11",
       reset_simulator: true,
       derived_data_path: "./DerivedData"
     )
@@ -104,7 +104,6 @@ platform :ios do
       skip_codesigning: true,
       export_method: "ad-hoc",
       skip_package_ipa: true,
-      destination: "platform=iOS Simulator,OS=15.2,name=iPhone 11",
       scheme: "ENACommunity"
     )
   end
