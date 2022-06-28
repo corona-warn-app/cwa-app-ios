@@ -263,7 +263,7 @@ enum FamilyMemberCoronaTest: Equatable, Codable, Hashable, RecycleBinIdentifiabl
 			case .pcr:
 				return false
 			case .antigen(let antigenTest):
-				return true // antigenTest.isOutdated
+				return antigenTest.isOutdated
 			}
 		}
 		set {
@@ -271,7 +271,7 @@ enum FamilyMemberCoronaTest: Equatable, Codable, Hashable, RecycleBinIdentifiabl
 			case .pcr:
 				break
 			case .antigen(var antigenTest):
-				antigenTest.isOutdated = true // newValue
+				antigenTest.isOutdated = newValue
 				self = .antigen(antigenTest)
 			}
 		}
