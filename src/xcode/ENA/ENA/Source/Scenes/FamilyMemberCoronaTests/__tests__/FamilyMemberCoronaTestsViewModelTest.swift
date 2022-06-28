@@ -297,20 +297,20 @@ class FamilyMemberCoronaTestsViewModelTest: CWATestCase {
 	}
 
 	func testDidTapCoronaTestCellButton_moveTestToBin() throws {
-		let testToMoveToTrashBin: FamilyMemberCoronaTest = .pcr(.mock(displayName: "qwer", registrationDate: Date(timeIntervalSinceNow: 1), qrCodeHash: "1"))
+		let testToMoveToRecycleBin: FamilyMemberCoronaTest = .pcr(.mock(displayName: "qwer", registrationDate: Date(timeIntervalSinceNow: 1), qrCodeHash: "1"))
 
 		let familyMemberCoronaTestService = MockFamilyMemberCoronaTestService()
 		familyMemberCoronaTestService.coronaTests.value = [
 			.pcr(.mock(displayName: "asdf", registrationDate: Date(timeIntervalSinceNow: 0), qrCodeHash: "0")),
-			testToMoveToTrashBin,
+			testToMoveToRecycleBin,
 			.antigen(.mock(displayName: "zxcv", sampleCollectionDate: Date(timeIntervalSinceNow: 3), qrCodeHash: "3"))
 		]
 
-		let moveTestToBinExpectation = expectation(description: "onCoronaTestCellTap called")
+		let moveTestToRecycleBinExpectation = expectation(description: "onCoronaTestCellTap called")
 
 		familyMemberCoronaTestService.onMoveTestToBin = {
-			XCTAssertEqual($0, testToMoveToTrashBin)
-			moveTestToBinExpectation.fulfill()
+			XCTAssertEqual($0, testToMoveToRecycleBin)
+			moveTestToRecycleBinExpectation.fulfill()
 		}
 
 		let viewModel = FamilyMemberCoronaTestsViewModel(
