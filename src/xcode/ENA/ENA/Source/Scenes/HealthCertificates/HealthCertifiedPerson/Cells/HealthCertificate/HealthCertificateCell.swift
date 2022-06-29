@@ -103,6 +103,8 @@ class HealthCertificateCell: UITableViewCell, ReuseIdentifierProviding {
 		return validationButton
 	}()
 	
+	private var _preventCellSelectionInOuterTableView = false
+	
 	private func setupView() {
 		backgroundColor = .clear
 		contentView.backgroundColor = .clear
@@ -273,5 +275,32 @@ class HealthCertificateCell: UITableViewCell, ReuseIdentifierProviding {
 			self?.validationButton.isLoading = isLoading
 			self?.validationButton.isEnabled = !isLoading
 		}
+	}
+}
+
+// MARK: - Touches, Presses and Gestures: UIResponder
+
+extension HealthCertificateCell {
+	var preventCellSelectionInOuterTableView: Bool { _preventCellSelectionInOuterTableView }
+	
+	override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+		// Guard validation button is disabled, else ignore.
+		guard !validationButton.isEnabled else {
+			_preventCellSelectionInOuterTableView = false
+			super.touchesBegan(touches, with: event)
+			return
+		}
+		
+		// Check wether touch point hits validation button
+		if let touch = touches.first {
+			let touchPoint = touch.location(in: validationButton)
+			
+			if validationButton.bounds.contains(touchPoint) {
+				_preventCellSelectionInOuterTableView = true
+			} else {
+				_preventCellSelectionInOuterTableView = false
+			}
+		}
+		super.touchesBegan(touches, with: event)
 	}
 }

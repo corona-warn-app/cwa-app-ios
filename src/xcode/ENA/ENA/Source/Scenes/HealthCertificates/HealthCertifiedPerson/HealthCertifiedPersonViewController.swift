@@ -171,6 +171,12 @@ class HealthCertifiedPersonViewController: UIViewController, UITableViewDataSour
 		case .boosterNotification:
 			viewModel.didTapBoosterNotificationCell()
 		case .certificates:
+			/// Prevent cell selection if needed.
+			guard let cell = tableView.cellForRow(at: indexPath) as? HealthCertificateCell,
+				  !cell.preventCellSelectionInOuterTableView else {
+				return
+			}
+			
 			if let healthCertificate = viewModel.healthCertificate(for: indexPath) {
 				didTapHealthCertificate(healthCertificate)
 			}
