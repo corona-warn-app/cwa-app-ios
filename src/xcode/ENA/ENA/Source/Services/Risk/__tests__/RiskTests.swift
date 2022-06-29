@@ -18,11 +18,14 @@ class RiskTests: CWATestCase {
 			]
 		)
 
-		let tracingRiskResult = makeRiskCalculationResult(
+		guard let tracingRiskResult = makeRiskCalculationResult(
 			riskLevelPerDate: [
 				today: .high
 			]
-		)
+		) else {
+			XCTFail("Should return a calculated result")
+			return
+		}
 
 		let risk = Risk(
 			enfRiskCalculationResult: tracingRiskResult,
@@ -45,11 +48,14 @@ class RiskTests: CWATestCase {
 			]
 		)
 
-		let tracingRiskResult = makeRiskCalculationResult(
+		guard let tracingRiskResult = makeRiskCalculationResult(
 			riskLevelPerDate: [
 				today: .low
 			]
-		)
+		) else {
+			XCTFail("Should return a calculated result")
+			return
+		}
 
 		let risk = Risk(
 			enfRiskCalculationResult: tracingRiskResult,
@@ -72,11 +78,14 @@ class RiskTests: CWATestCase {
 			]
 		)
 
-		let tracingRiskResult = makeRiskCalculationResult(
+		guard let tracingRiskResult = makeRiskCalculationResult(
 			riskLevelPerDate: [
 				today: .low
 			]
-		)
+		) else {
+			XCTFail("Should return a calculated result")
+			return
+		}
 
 		let risk = Risk(
 			enfRiskCalculationResult: tracingRiskResult,
@@ -99,11 +108,14 @@ class RiskTests: CWATestCase {
 			]
 		)
 
-		let tracingRiskResult = makeRiskCalculationResult(
+		guard let tracingRiskResult = makeRiskCalculationResult(
 			riskLevelPerDate: [
 				today: .high
 			]
-		)
+		) else {
+			XCTFail("Should return a calculated result")
+			return
+		}
 
 		let risk = Risk(
 			enfRiskCalculationResult: tracingRiskResult,
@@ -119,9 +131,9 @@ class RiskTests: CWATestCase {
 		
 		struct RiskCombination {
 			let currentENFRisk: RiskLevel
-			let previousENFRisk: RiskLevel
+			let previousENFRisk: RiskLevel?
 			let currentCheckinRisk: RiskLevel
-			let previousCheckinRisk: RiskLevel
+			let previousCheckinRisk: RiskLevel?
 			let expectedChange: Risk.RiskLevelChange
 			let description: String
 		}
@@ -142,40 +154,105 @@ class RiskTests: CWATestCase {
 			RiskCombination(currentENFRisk: .high, previousENFRisk: .high, currentCheckinRisk: .low, previousCheckinRisk: .low, expectedChange: .unchanged(.high), description: "13"),
 			RiskCombination(currentENFRisk: .high, previousENFRisk: .high, currentCheckinRisk: .low, previousCheckinRisk: .high, expectedChange: .unchanged(.high), description: "14"),
 			RiskCombination(currentENFRisk: .high, previousENFRisk: .high, currentCheckinRisk: .high, previousCheckinRisk: .low, expectedChange: .unchanged(.high), description: "15"),
-			RiskCombination(currentENFRisk: .high, previousENFRisk: .high, currentCheckinRisk: .high, previousCheckinRisk: .high, expectedChange: .unchanged(.high), description: "16")
+			RiskCombination(currentENFRisk: .high, previousENFRisk: .high, currentCheckinRisk: .high, previousCheckinRisk: .high, expectedChange: .unchanged(.high), description: "16"),
+			
+			RiskCombination(currentENFRisk: .high, previousENFRisk: nil, currentCheckinRisk: .high, previousCheckinRisk: nil, expectedChange: .unchanged(.high), description: "17"),
+			RiskCombination(currentENFRisk: .high, previousENFRisk: .high, currentCheckinRisk: .high, previousCheckinRisk: .high, expectedChange: .unchanged(.high), description: "18")
 		]
 		
 		let today = Calendar.utcCalendar.startOfDay(for: Date())
 		
 		for riskCombination in combinations {
-			let risk = Risk(
-				enfRiskCalculationResult: makeRiskCalculationResult(
-					riskLevel: riskCombination.currentENFRisk,
-					riskLevelPerDate: [
-						today: riskCombination.currentENFRisk
-					]
-				),
-				previousENFRiskCalculationResult: makeRiskCalculationResult(
-					riskLevel: riskCombination.previousENFRisk,
-					riskLevelPerDate: [
-						today: riskCombination.previousENFRisk
-					]
-				),
-				checkinCalculationResult: CheckinRiskCalculationResult(
-					calculationDate: Date(),
-					checkinIdsWithRiskPerDate: [:],
-					riskLevelPerDate: [
-						today: riskCombination.currentCheckinRisk
-					]
-				),
-				previousCheckinCalculationResult: CheckinRiskCalculationResult(
-					calculationDate: Date(),
-					checkinIdsWithRiskPerDate: [:],
-					riskLevelPerDate: [
-						today: riskCombination.previousCheckinRisk
-					]
+			
+			guard let enfRiskCalculationResult = makeRiskCalculationResult(
+				riskLevel: riskCombination.currentENFRisk,
+				riskLevelPerDate: [
+					today: riskCombination.currentENFRisk
+				]
+			) else {
+				XCTFail("enfRiskCalculationResult cant be nil")
+				return
+			}
+			
+			var risk: Risk
+			
+			if let previousENFRisk = riskCombination.previousENFRisk,
+			   let previousCheckinRisk = riskCombination.previousCheckinRisk {
+				risk = Risk(
+					enfRiskCalculationResult: enfRiskCalculationResult,
+					previousENFRiskCalculationResult: makeRiskCalculationResult(
+						riskLevel: riskCombination.previousENFRisk,
+						riskLevelPerDate: [
+							today: previousENFRisk
+						]
+					),
+					checkinCalculationResult: CheckinRiskCalculationResult(
+						calculationDate: Date(),
+						checkinIdsWithRiskPerDate: [:],
+						riskLevelPerDate: [
+							today: riskCombination.currentCheckinRisk
+						]
+					),
+					previousCheckinCalculationResult: CheckinRiskCalculationResult(
+						calculationDate: Date(),
+						checkinIdsWithRiskPerDate: [:],
+						riskLevelPerDate: [
+							today: previousCheckinRisk
+						]
+					)
 				)
-			)
+				
+			} else if let previousENFRisk = riskCombination.previousENFRisk {
+				risk = Risk(
+					enfRiskCalculationResult: enfRiskCalculationResult,
+					previousENFRiskCalculationResult: makeRiskCalculationResult(
+						riskLevel: riskCombination.previousENFRisk,
+						riskLevelPerDate: [
+							today: previousENFRisk
+						]
+					),
+					checkinCalculationResult: CheckinRiskCalculationResult(
+						calculationDate: Date(),
+						checkinIdsWithRiskPerDate: [:],
+						riskLevelPerDate: [
+							today: riskCombination.currentCheckinRisk
+						]
+					),
+					previousCheckinCalculationResult: nil
+				)
+			} else if let previousCheckinRisk = riskCombination.previousCheckinRisk {
+				risk = Risk(
+					enfRiskCalculationResult: enfRiskCalculationResult,
+					previousENFRiskCalculationResult: nil,
+					checkinCalculationResult: CheckinRiskCalculationResult(
+						calculationDate: Date(),
+						checkinIdsWithRiskPerDate: [:],
+						riskLevelPerDate: [
+							today: riskCombination.currentCheckinRisk
+						]
+					),
+					previousCheckinCalculationResult: CheckinRiskCalculationResult(
+						calculationDate: Date(),
+						checkinIdsWithRiskPerDate: [:],
+						riskLevelPerDate: [
+							today: previousCheckinRisk
+						]
+					)
+				)
+			} else {
+				risk = Risk(
+					enfRiskCalculationResult: enfRiskCalculationResult,
+					previousENFRiskCalculationResult: nil,
+					checkinCalculationResult: CheckinRiskCalculationResult(
+						calculationDate: Date(),
+						checkinIdsWithRiskPerDate: [:],
+						riskLevelPerDate: [
+							today: riskCombination.currentCheckinRisk
+						]
+					),
+					previousCheckinCalculationResult: nil
+				)
+			}
 			
 			XCTAssertEqual(risk.riskLevelChange, riskCombination.expectedChange, riskCombination.description)
 		}
@@ -197,12 +274,15 @@ class RiskTests: CWATestCase {
 			]
 		)
 
-		let tracingRiskResult = makeRiskCalculationResult(
+		guard let tracingRiskResult = makeRiskCalculationResult(
 			riskLevelPerDate: [
 				today: .high
 			]
-		)
-
+		) else {
+			XCTFail("Should return a calculated result")
+			return
+		}
+		
 		let risk = Risk(
 			enfRiskCalculationResult: tracingRiskResult,
 			checkinCalculationResult: checkinRiskResult
@@ -228,11 +308,14 @@ class RiskTests: CWATestCase {
 			]
 		)
 
-		let tracingRiskResult = makeRiskCalculationResult(
+		guard let tracingRiskResult = makeRiskCalculationResult(
 			riskLevelPerDate: [
 				today: .low
 			]
-		)
+		) else {
+			XCTFail("Should return a calculated result")
+			return
+		}
 
 		let risk = Risk(
 			enfRiskCalculationResult: tracingRiskResult,
@@ -245,11 +328,15 @@ class RiskTests: CWATestCase {
 	}
 
 	private func makeRiskCalculationResult(
-		riskLevel: RiskLevel = .low,
-		riskLevelPerDate: [Date: RiskLevel]
-	) -> ENFRiskCalculationResult {
-		
-		ENFRiskCalculationResult(
+		riskLevel: RiskLevel? = .low,
+		riskLevelPerDate: [Date: RiskLevel]?
+	) -> ENFRiskCalculationResult? {
+		guard let riskLevel = riskLevel,
+			  let riskLevelPerDate = riskLevelPerDate
+		else {
+			return nil
+		}
+		return ENFRiskCalculationResult(
 			riskLevel: riskLevel,
 			minimumDistinctEncountersWithLowRisk: 0,
 			minimumDistinctEncountersWithHighRisk: 0,
