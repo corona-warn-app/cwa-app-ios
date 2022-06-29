@@ -116,7 +116,7 @@ final class HealthCertificateViewModel {
 		return HealthCertificateExpirationDateCellViewModel(
 			headline: AppStrings.HealthCertificate.Details.expirationDateTitle,
 			expirationDate: String(format: AppStrings.HealthCertificate.Details.expirationDatePlaceholder, formattedDate) ,
-			content: AppStrings.HealthCertificate.Details.expirationDateDetails
+			content: nil
 		)
 	}
 
@@ -143,14 +143,31 @@ final class HealthCertificateViewModel {
 			title = AppStrings.HealthCertificate.Details.euCovidCertificate
 			subtitle = AppStrings.HealthCertificate.Details.RecoveryCertificate.title
 		}
+		let attributedTitle = NSAttributedString(
+			string: title,
+			attributes: [
+				.font: UIFont.enaFont(for: .body),
+				.foregroundColor: UIColor.enaColor(for: .textContrast),
+				.paragraphStyle: centerParagraphStyle
+			]
+		)
 
+		let attributedSubtitle = NSAttributedString(
+			string: subtitle,
+			attributes: [
+				.font: UIFont.enaFont(for: .headline),
+				.foregroundColor: UIColor.enaColor(for: .textContrast),
+				.paragraphStyle: centerParagraphStyle
+			]
+		)
 		return HealthCertificateSimpleTextCellViewModel(
 			backgroundColor: .clear,
 			textColor: .enaColor(for: .textContrast),
 			textAlignment: .center,
-			text: title + "\n" + subtitle,
+			attributedText: [attributedTitle, attributedSubtitle]
+				.joined(with: "\n"),
 			topSpace: 16.0,
-			font: .enaFont(for: .body),
+			font: .enaFont(for: .headline),
 			accessibilityTraits: .staticText,
 			accessibilityIdentifier: AccessibilityIdentifiers.HealthCertificate.Certificate.headline
 		)

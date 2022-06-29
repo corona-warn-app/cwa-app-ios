@@ -9,11 +9,9 @@ class HealthCertificateQRCodeParser: QRCodeParsable {
 	// MARK: - Init
 
 	init(
-		healthCertificateService: HealthCertificateService,
-		markAsNew: Bool
+		healthCertificateService: HealthCertificateService
 	) {
 		self.healthCertificateService = healthCertificateService
-		self.markAsNew = markAsNew
 	}
 
 	// MARK: - Protocol QRCodeParsable
@@ -27,7 +25,7 @@ class HealthCertificateQRCodeParser: QRCodeParsable {
 		// To speed up the process, we are not waiting for notification registration.
 		// The parsing of the certificate only happens in foreground at the moment.
 		// Its unlikly that the registration of notifications will be killed at this point.
-		let result = healthCertificateService.registerHealthCertificate(base45: qrCode, markAsNew: markAsNew, completedNotificationRegistration: {  })
+		let result = healthCertificateService.registerHealthCertificate(base45: qrCode, markAsNew: true, completedNotificationRegistration: {  })
 		
 		switch result {
 		case let .success(certificateResult):
@@ -43,6 +41,5 @@ class HealthCertificateQRCodeParser: QRCodeParsable {
 	// MARK: - Private
 
 	private let healthCertificateService: HealthCertificateService
-	private let markAsNew: Bool
 
 }

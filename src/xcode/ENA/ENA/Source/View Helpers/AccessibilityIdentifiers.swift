@@ -206,7 +206,6 @@ enum AccessibilityIdentifiers {
 	enum AppInformation {
 		static let newFeaturesNavigation = "AppStrings.AppInformation.newFeaturesNavigation"
 		static let aboutNavigation = "AppStrings.AppInformation.aboutNavigation"
-		static let faqNavigation = "AppStrings.AppInformation.faqNavigation"
 		static let termsNavigation = "AppStrings.AppInformation.termsNavigation"
 		static let accessibilityNavigation = "AppStrings.AppInformation.accessibility"
 		static let privacyNavigation = "AppStrings.AppInformation.privacyNavigation"
@@ -814,6 +813,10 @@ enum AccessibilityIdentifiers {
 			static let disclaimer = "AppStrings.HealthCertificate.Info.disclaimer"
 			static let acknowledgementTitle = "HealthCertificate.Info.acknowledgement"
 		}
+		
+		enum ExportCertificatesInfo {
+			static let headerImage = "AppStrings.HealthCertificate.ExportCertificatesInfo.headerImage"
+		}
 
 		enum Person {
 			static let certificateCell = "HealthCertificate.Person.cell"
@@ -857,6 +860,10 @@ enum AccessibilityIdentifiers {
 			static let successTitle = "AppStrings.HealthCertificate.Reissuance.successTitle"
 			static let accompanyingCertificatesTitle = "AppStrings.HealthCertificate.Reissuance.accompanyingCertificatesTitle"
 			static let accompanyingCertificatesCloseButton = "AppStrings.HealthCertificate.Reissuance.accompanyingCertificatesCloseButton"
+		}
+		
+		enum Navigation {
+			static let rightBarButtonExport = "AppStrings.HealthCertificate.Navigation.rightBarButtonExport"
 		}
 	}
 	

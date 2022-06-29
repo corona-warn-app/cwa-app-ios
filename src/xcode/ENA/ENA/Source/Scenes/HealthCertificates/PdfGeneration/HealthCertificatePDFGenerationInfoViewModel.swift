@@ -10,11 +10,19 @@ enum HealthCertificatePDFGenerationError: LocalizedError {
 	case fetchValueSets
 	case createStrongPointer
 	case pdfGenerationFailed
+	case batchPDFGenerationFailed
+	case noExportabeCertificate
 	
 	var errorDescription: String? {
 		switch self {
-		case .fetchValueSets, .createStrongPointer, .pdfGenerationFailed:
+		case .fetchValueSets, .createStrongPointer:
 			return "\(AppStrings.HealthCertificate.PrintPDF.ErrorAlert.fetchValueSets.message)"
+		case .pdfGenerationFailed:
+			return "\(AppStrings.HealthCertificate.PrintPDF.ErrorAlert.pdfGeneration.message)"
+		case .batchPDFGenerationFailed:
+			return "\(AppStrings.HealthCertificate.PrintPDF.ErrorAlert.pdfGeneration.shortMessage)"
+		case .noExportabeCertificate:
+			return "\(AppStrings.HealthCertificate.PrintPDF.ErrorAlert.noExportableCertificate.message)"
 		}
 	}
 }

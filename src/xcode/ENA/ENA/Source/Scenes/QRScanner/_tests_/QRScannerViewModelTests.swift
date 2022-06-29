@@ -57,8 +57,7 @@ class QRScannerViewModelTests: XCTestCase {
 		
 		let qrCodeParser = QRCodeParser(
 			appConfigurationProvider: appConfigurationProvider,
-			healthCertificateService: healthCertificateService,
-			markCertificateAsNew: false
+			healthCertificateService: healthCertificateService
 		)
 		
 		let viewModel = TestQRScannerViewModel(
@@ -109,8 +108,7 @@ class QRScannerViewModelTests: XCTestCase {
 		
 		let qrCodeParser = QRCodeParser(
 			appConfigurationProvider: appConfigurationProvider,
-			healthCertificateService: healthCertificateService,
-			markCertificateAsNew: false
+			healthCertificateService: healthCertificateService
 		)
 		
 		let viewModel = TestQRScannerViewModel(
@@ -158,8 +156,7 @@ class QRScannerViewModelTests: XCTestCase {
 		
 		let qrCodeParser = QRCodeParser(
 			appConfigurationProvider: appConfigurationProvider,
-			healthCertificateService: healthCertificateService,
-			markCertificateAsNew: false
+			healthCertificateService: healthCertificateService
 		)
 		
 		let viewModel = TestQRScannerViewModel(
@@ -206,8 +203,7 @@ class QRScannerViewModelTests: XCTestCase {
 		
 		let qrCodeParser = QRCodeParser(
 			appConfigurationProvider: appConfigurationProvider,
-			healthCertificateService: healthCertificateService,
-			markCertificateAsNew: false
+			healthCertificateService: healthCertificateService
 		)
 		
 		let viewModel = TestQRScannerViewModel(
@@ -256,8 +252,7 @@ class QRScannerViewModelTests: XCTestCase {
 		
 		let qrCodeParser = QRCodeParser(
 			appConfigurationProvider: appConfigurationProvider,
-			healthCertificateService: healthCertificateService,
-			markCertificateAsNew: false
+			healthCertificateService: healthCertificateService
 		)
 		
 		let viewModel = TestQRScannerViewModel(
@@ -307,8 +302,7 @@ class QRScannerViewModelTests: XCTestCase {
 		
 		let qrCodeParser = QRCodeParser(
 			appConfigurationProvider: appConfigurationProvider,
-			healthCertificateService: healthCertificateService,
-			markCertificateAsNew: false
+			healthCertificateService: healthCertificateService
 		)
 		
 		let viewModel = TestQRScannerViewModel(
@@ -364,8 +358,7 @@ class QRScannerViewModelTests: XCTestCase {
 		
 		let qrCodeParser = QRCodeParser(
 			appConfigurationProvider: appConfigurationProvider,
-			healthCertificateService: healthCertificateService,
-			markCertificateAsNew: false
+			healthCertificateService: healthCertificateService
 		)
 		
 		let viewModel = TestQRScannerViewModel(

@@ -42,6 +42,8 @@ class QRScannerInfoViewController: DynamicTableViewController, DismissHandling {
 		if let dismissHandlingNC = navigationController as? DismissHandlingNavigationController {
 			dismissHandlingNC.setupTransparentNavigationBar()
 		}
+		
+		setupStatusBarViewBackgroundColorIfNeeded()
 	}
 
 	override func viewWillDisappear(_ animated: Bool) {
@@ -50,6 +52,8 @@ class QRScannerInfoViewController: DynamicTableViewController, DismissHandling {
 		if let dismissHandlingNC = navigationController as? DismissHandlingNavigationController {
 			dismissHandlingNC.restoreOriginalNavigationBar()
 		}
+		
+		revertStatusBarViewBackgroundColorIfNeeded()
 	}
 
 	// MARK: - DismissHandling

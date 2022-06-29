@@ -603,6 +603,8 @@
 
 "ExposureSubmission_CallButtonTitle" = "Apelare";
 
+"ExposureSubmission_CallButtonTitle_Format" = "Apelare %@";
+
 "ExposureSubmission_TANInputButtonTitle" = "Introduceți TAN";
 
 "ExposureSubmissionHotline_imageDescription" = "Serviciul hotline vă comunică un cod TAN.";
@@ -727,7 +729,7 @@
 
 "ExposureSubmissionResult_CardInvalid" = "Evaluarea nu este posibilă";
 
-"ExposureSubmissionResult_CardPending" = "Rezultatul dvs. nu este încă disponibil";
+"ExposureSubmissionResult_CardPending" = "Rezultatul nu este încă disponibil";
 
 "ExposureSubmissionResult_Procedure" = "Cum funcționează:";
 
@@ -1275,7 +1277,7 @@
 "Home_resultCard_LoadingErrorTitle" = "Rezultatul testului dvs. nu poate fi încărcat.";
 
 /* - Pending */
-"Home_resultCard_ResultUnvailableTitle" = "Rezultatul dvs. nu este încă disponibil";
+"Home_resultCard_ResultUnvailableTitle" = "Rezultatul nu este încă disponibil";
 
 "Home_resultCard_Pending_PCR_Desc" = "Evaluarea testului dvs. PCR nu este încă finalizată.";
 
@@ -1422,9 +1424,6 @@
 "App_Information_About_Text" = "Persoanele care utilizează aplicația ajută la urmărirea și întreruperea lanțurilor de infectare. Aplicația salvează local, pe dispozitivul dvs., întâlnirile cu alte persoane. Sunteți notificat dacă ați întâlnit persoane care au fost diagnosticate ulterior cu coronavirus. Identitatea și confidențialitatea dvs. sunt protejate întotdeauna.";
 
 "App_Information_About_LinkText" = "Informații despre aplicație în limbaj simplificat și în limbajul semnelor";
-
-/* App Information - FAQ */
-"App_Information_FAQ_Navigation" = "Întrebări frecvente";
 
 /* App Information - Contact */
 "App_Information_Contact_Navigation" = "Hotline tehnic";
@@ -1666,10 +1665,10 @@
 /* New Version Features */
 "NewVersionFeatures_Info_about_abb_information" = "Modificările din această versiune pot fi găsite în informațiile aplicației, la „Caracteristici noi”.";
 
-/* Version 2.23 */
-"NewVersionFeature_223_reissue_certificates_title" = "Reînnoire certificat";
+/* Version 2.24 */
+"NewVersionFeature_224_batch_export_title" = "Exportare certificate";
 
-"NewVersionFeature_223_reissue_certificates_description" = "Din motive tehnice, valabilitatea certificatului de vaccinare utilizat în prezent este limitată la 365 de zile. Dacă certificatul dvs. curent expiră, aplicația vă permite să îl reînnoiți. Un certificat poate fi reînnoit cu maximum 28 de zile înainte de expirarea valabilității și în decurs de cel mult 90 de zile de la expirare. Dacă aplicația nu vă oferă opțiunea de a vă reînnoi certificatul, acesta nu trebuie prelungit și nu este necesară nicio altă acțiune din partea dvs.";
+"NewVersionFeature_224_batch_export_description" = "Puteți salva toate certificatele din aplicația dvs. într-un document PDF într-o singură etapă.";
 
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Înregistrare transnațională a expunerilor în jurnal";
@@ -2572,6 +2571,8 @@
 /* - Trace Location Selection */
 "OnBehalfCheckinSubmission_TraceLocationSelection_Title" = "Avertizarea altor persoane";
 
+"OnBehalfCheckinSubmission_TraceLocationSelection_EmptyDescription" = "Selectați un eveniment pentru care doriți să avertizați alte persoane în numele unei persoane care a fost diagnosticată cu coronavirus.";
+
 "OnBehalfCheckinSubmission_TraceLocationSelection_Description" = "Selectați un eveniment pentru care doriți să avertizați alte persoane în numele unei persoane care a fost diagnosticată cu coronavirus sau să restaurați un eveniment șters scanând din nou codul QR al evenimentului respectiv.";
 
 "OnBehalfCheckinSubmission_TraceLocationSelection_ScanButtonTitle" = "Scanare cod QR";
@@ -2818,6 +2819,8 @@
 
 "HealthCertificate_Overview_News" = "Există noutăți despre certificatele dvs.";
 
+"HealthCertificate_Navigation_RightBarButtonExportDescription" = "Exportare certificate";
+
 /* - Test Certificate Request */
 "TestCertificateRequest_title" = "**Certificat de test COVID digital**\nUE";
 
@@ -2880,6 +2883,27 @@
 "HealthCertificate_Info_section04" = "Adăugați certificatele existente pentru dvs. și membrii familiei dvs.";
 
 "HealthCertificate_Info_primaryButton" = "Continuare";
+
+/* Health Certificate Export Certificates Information */
+"HealthCertificate_ExportCertificatesInfo_Title" = "Exportare certificate";
+
+"HealthCertificate_ExportCertificatesInfo_HeaderImageDescription" = "Un certificat digital este trimis la o imprimantă de pe un smartphone";
+
+"HealthCertificate_ExportCertificatesInfo_Copy01" = "Puteți salva toate certificatele din aplicația dvs. într-un document PDF într-o singură etapă. Dvs. sunteți singura persoană care poate accesa inițial acest document PDF. Apoi puteți decide dacă doriți să îl salvați pe smartphone-ul dvs. sau dacă doriți să îl importați în alte aplicații.";
+
+"HealthCertificate_ExportCertificatesInfo_Copy02" = "Vă rugăm să rețineți că documentul PDF conține informații sensibile. Vă recomandăm să îl utilizați cu atenție și să îl arătați doar persoanelor în care aveți încredere și care sunt autorizate să verifice certificatul.";
+
+"HealthCertificate_ExportCertificatesInfo_Copy03" = "Vă recomandăm să nu publicați documentul PDF, să nu îl transmiteți prin e-mail și să nu îl partajați prin alte aplicații.";
+
+"HealthCertificate_ExportCertificatesInfo_PrimaryButton" = "Continuare";
+
+"HealthCertificate_ExportCertificatesInfo_GeneratePDFAlert_Title" = "Se generează fișierul PDF";
+
+"HealthCertificate_ExportCertificatesInfo_GeneratePDFAlert_Message_Initial" = "Această acțiune poate dura câteva minute.";
+
+"HealthCertificate_ExportCertificatesInfo_GeneratePDFAlert_Message" = "Această acțiune poate dura câteva minute.\nPagina %@ din %@.";
+
+"HealthCertificate_ExportCertificatesInfo_GeneratePDFAlert_Cancel" = "Anulare";
 
 /* CovPass Info Screen */
 "CovPass_Check_Info_Title" = "Verificare certificat de către parteneri (terți)";
@@ -2971,8 +2995,6 @@
 
 "HealthCertificate_Details_expirationDatePlaceholder" = "Valabil până la %@";
 
-"HealthCertificate_Details_expirationDateDetails" = "Asigurați-vă că obțineți un certificat digital nou la timp.";
-
 "HealthCertificate_Details_moreButtonTitle" = "Mai mult";
 
 /* HealthCertificate Family Consent */
@@ -3005,8 +3027,6 @@
 /* Test Certificate Details */
 "TestCertificate_Details_title" = "Certificat de test";
 
-"TestCertificate_Details_subtitle" = "Test SARS-CoV-2 negativ";
-
 "TestCertificate_Details_primaryButton" = "Ștergere certificat de test";
 
 "TestCertificate_Error_FAQ_Description" = "\n\nPentru mai multe informații despre modul în care puteți primi certificatul dvs. de test, consultați pagina noastră de întrebări frecvente.";
@@ -3020,8 +3040,6 @@
 
 /* Recovery Certificate Details */
 "RecoveryCertificate_Details_title" = "Certificat de recuperare";
-
-"RecoveryCertificate_Details_subtitle" = "Certificat COVID digital UE";
 
 "RecoveryCertificate_Details_primaryButton" = "Ștergere certificat de recuperare";
 
@@ -3061,6 +3079,8 @@
 
 "HealthCertificate_PrintPdf_ErrorAlert_Message" = "Versiunea de tipărire a certificatului nu poate fi afișată deoarece certificatul nu a fost emis în Germania";
 
+"HealthCertificate_ExportAll_PrintPdf_ErrorAlert_Message" = "Versiunea de tipărire a certificatelor nu poate fi afișată.";
+
 "HealthCertificate_PrintPdf_ErrorAlert_FAQ" = "Întrebări frecvente despre versiunea de tipărire";
 
 "HealthCertificate_PrintPdf_ErrorAlert_OK" = "OK";
@@ -3068,6 +3088,10 @@
 "HealthCertificate_PrintPdf_ErrorAlert_ValueSetsFetching_Title" = "Imposibil de afișat versiunea de tipărire";
 
 "HealthCertificate_PrintPdf_ErrorAlert_ValueSetsFetching_Message" = "Versiunea de tipărire a certificatului nu poate fi afișată deoarece certificatul nu poate fi obținut în acest moment. Încercați din nou mai târziu.";
+
+"HealthCertificate_PrintPdf_ErrorAlert_NoExportableCertificate_Title" = "Certificatele nu pot fi exportate";
+
+"HealthCertificate_PrintPdf_ErrorAlert_NoExportableCertificate_Message" = "Certificatele disponibile nu pot fi exportate deoarece nu mai sunt valabile.";
 
 /* Certificate Fault Tolerant Naming */
 "HealthCertificate_FaultTolerantNaming_RegroupDone_Title" = "Atribuirea certificatului";
@@ -3209,7 +3233,7 @@
 
 "HealthCertificate_ValidityState_ExpiringSoon_short" = "Expiră pe %@ la %@";
 
-"HealthCertificate_ValidityState_ExpiringSoon_description" = "Dacă acesta este certificatul pe care îl utilizați în prezent, aveți grijă să îl reînnoiți la timp. Puteți reînnoi astfel de certificate direct în aplicație, dacă vor expira în următoarele 28 de zile. În acest caz, opțiunea „Reînnoire certificate” apare în sumarul certificatului dvs., sub mozaicul „Dovada stării”. Dacă acesta nu este certificatul pe care îl utilizați în prezent, nu trebuie să îl prelungiți și nu este necesară nicio acțiune din partea dvs.";
+"HealthCertificate_ValidityState_ExpiringSoon_description" = "Dacă acesta este unul dintre certificatele pe care le utilizați în prezent, aveți grijă să îl reînnoiți la timp. Puteți reînnoi astfel de certificate direct în aplicație, dacă vor expira în următoarele 28 de zile sau dacă au expirat în ultimele 90 de zile, cu condiția să fi fost emise în Germania. În acest caz, opțiunea „Reînnoire certificate” apare în sumarul certificatului dvs., sub mozaicul „Dovada stării”. Dacă acesta nu este unul dintre certificatele pe care le utilizați în prezent, nu trebuie să îl prelungiți și nu este necesară nicio acțiune din partea dvs.";
 
 "HealthCertificate_ValidityState_Expired" = "Certificat expirat";
 
@@ -3241,7 +3265,7 @@
 
 "HealthCertificate_Reissuance_Consent_Delete_Notice" = "Certificatele vechi vor fi mutate automat în coșul de reciclare și vor fi șterse după 30 de zile. Certificatele pot fi restaurate oricând în aceste 30 de zile.";
 
-"HealthCertificate_Reissuance_Consent_Cancel_Notice" = "Dacă anulați acum, puteți solicita oricând o reînnoire în sumarul certificatului.";
+"HealthCertificate_Reissuance_Consent_Cancel_Notice" = "Dacă anulați acum, puteți solicita o reînnoire în sumarul certificatului dvs.";
 
 "HealthCertificate_Reissuance_Consent_Bullet_Point_1" = "Reînnoirea certificatelor dvs. este voluntară și gratuită.";
 
@@ -3642,7 +3666,7 @@
 
 "FamilyMemberCoronaTest_antigenDate" = "Efectuat pe %@";
 
-"FamilyMemberCoronaTest_pendingDiagnosis" = "Rezultatul dvs. nu este încă disponibil";
+"FamilyMemberCoronaTest_pendingDiagnosis" = "Rezultatul nu este încă disponibil";
 
 "FamilyMemberCoronaTest_pendingPCRDescription" = "Evaluarea testului PCR nu este încă finalizată.";
 
@@ -3687,4 +3711,9 @@
 "FamilyMemberCoronaTest_DeleteAll_AlertConfirmButtonTitle" = "Eliminare rezultate teste";
 
 "FamilyMemberCoronaTest_DeleteAll_AlertCancelButtonTitle" = "Anulare";
+
+/* Tooltip */
+"Tooltip_ExportCertificates_Title" = "Exportare certificate";
+
+"Tooltip_ExportCertificates_Description" = "Salvați toate certificatele dvs. într-un document PDF într-o singură etapă.";
 

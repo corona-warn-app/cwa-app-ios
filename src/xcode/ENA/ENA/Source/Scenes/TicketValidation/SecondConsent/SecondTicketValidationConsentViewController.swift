@@ -37,6 +37,13 @@ class SecondTicketValidationConsentViewController: DynamicTableViewController, D
 		super.viewWillAppear(animated)
 
 		navigationController?.navigationBar.prefersLargeTitles = true
+		setupStatusBarViewBackgroundColorIfNeeded()
+	}
+	
+	override func viewWillDisappear(_ animated: Bool) {
+		super.viewWillDisappear(animated)
+		
+		revertStatusBarViewBackgroundColorIfNeeded()
 	}
 	
 	// MARK: - Cell reuse identifiers.
