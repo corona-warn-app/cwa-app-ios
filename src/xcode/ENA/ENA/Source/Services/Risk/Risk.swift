@@ -59,8 +59,8 @@ extension Risk {
 			checkinCalculationResult: checkinCalculationResult
 		)
 		Log.debug("[Risk] totalRiskLevel: \(totalRiskLevel)", log: .riskDetection)
-		
-		var previousTotalRiskLevel: RiskLevel = .low
+				
+		var previousTotalRiskLevel: RiskLevel?
 
 		if let previousENFRiskLevel = previousENFRiskCalculationResult,
 		   let previousCheckinRiskLevel = previousCheckinCalculationResult {
@@ -75,17 +75,21 @@ extension Risk {
 			previousTotalRiskLevel = previousCheckinRiskLevel.riskLevel
 		}
 		
-		Log.debug("[Risk] previousTotalRiskLevel: \(previousTotalRiskLevel)", log: .riskDetection)
-
+		Log.debug("[Risk] previousTotalRiskLevel: \(String(describing: previousTotalRiskLevel))", log: .riskDetection)
+		
 		let riskLevelChange: RiskLevelChange
-		if previousTotalRiskLevel == totalRiskLevel {
-			riskLevelChange = .unchanged(totalRiskLevel)
+		if let previousTotalRiskLevel = previousTotalRiskLevel {
+			if previousTotalRiskLevel == totalRiskLevel {
+				riskLevelChange = .unchanged(totalRiskLevel)
+			} else {
+				riskLevelChange = previousTotalRiskLevel > totalRiskLevel ? .decreased : .increased
+			}
 		} else {
-			riskLevelChange = previousTotalRiskLevel > totalRiskLevel ? .decreased : .increased
+			riskLevelChange = .unchanged(totalRiskLevel)
 		}
 		
 		Log.debug("[Risk] riskLevelChange: \(riskLevelChange)", log: .riskDetection)
-
+		
 		let details = Self.riskDetails(
 			enfRiskCalculationResult: enfRiskCalculationResult,
 			checkinCalculationResult: checkinCalculationResult,
