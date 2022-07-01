@@ -53,7 +53,13 @@ class HealthCertificateViewController: UIViewController, UITableViewDataSource, 
 
 		viewModel.markAsSeen()
 	}
-
+	
+	override func viewWillDisappear(_ animated: Bool) {
+		super.viewDidDisappear(animated)
+		
+		parent?.navigationController?.navigationBar.backgroundAlpha = 1.0
+	}
+	
 	override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
 		super.traitCollectionDidChange(previousTraitCollection)
 		didCalculateGradientHeight = false
