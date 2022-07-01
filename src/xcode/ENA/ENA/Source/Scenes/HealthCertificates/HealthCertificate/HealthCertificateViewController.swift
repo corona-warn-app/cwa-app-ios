@@ -155,6 +155,7 @@ class HealthCertificateViewController: UIViewController, UITableViewDataSource, 
 		let logoImageView = UIImageView(image: logoImage)
 
 		parent?.navigationController?.navigationBar.tintColor = .white
+		parent?.navigationController?.navigationBar.backgroundAlpha = 0
 
 		// check is we are the first one on the navigation stack
 		if navigationController?.viewControllers.count == 1 {
