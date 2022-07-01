@@ -122,7 +122,7 @@
 
 "ExposureDetection_Guide_Vaccination_HighRisk" = "Dacă încă nu v-ați vaccinat, consultați telefonic medicul de familie după ce vă testați.";
 
-"ExposureDetection_Guide_Title" = "Vă rugăm să vă testați, chiar dacă nu aveți simptome. Dacă primiți o avertizare de risc crescut („un mozaic roșu”), aveți dreptul la un test gratuit. Nu este obligatoriu să fie un test PCR.";
+"ExposureDetection_Guide_Title" = "Vă rugăm să vă testați oficial, de exemplu, cu un test antigen rapid sau să vă autotestați - preferabil de mai multe ori pe parcursul a două zile. Dacă un test este pozitiv, faceți un test PCR pentru a confirma rezultatul.";
 
 "ExposureDetection_Guide_Point1" = "Puteți găsi aici posibilitățile de testare. De asemenea, puteți contacta medicul de familie sau o farmacie.";
 
@@ -675,7 +675,7 @@
 
 "ExposureSubmissionSuccess_RAT_listItem2" = "Autoritatea de sănătate publică vă poate contacta în următoarele zile.";
 
-"ExposureSubmissionSuccess_listItem2_1" = "Perioada de izolare este de obicei de 10 zile. Monitorizați cu atenție modul în care evoluează simptomele dvs.";
+"ExposureSubmissionSuccess_listItem2_1" = "Monitorizați cu atenție modul în care evoluează simptomele dvs.";
 
 "ExposureSubmissionSuccess_listItem2_2" = "Autoritatea dvs. de sănătate publică vă va solicita să întocmiți o listă a persoanelor cu care ați intrat în contact. Aceasta trebuie să cuprindă toate persoanele cu care ați avut contact strâns (mai puțin de 2 metri, conversații față în față) timp de peste 10 minute începând cu două zile înainte de a vă îmbolnăvi. Puteți utiliza jurnalul de contacte în acest scop: trebuie doar să exportați intrările și apoi să le tipăriți sau să le expediați pe e-mail.";
 
@@ -1769,7 +1769,7 @@
 
 "TestResultPositive_KeysSubmitted_Title2" = "Alte informații:";
 
-"TestResultPositive_KeysSubmitted_FurtherInfo1" = "Perioada de izolare este de obicei de 10 zile. Monitorizați cu atenție modul în care evoluează simptomele dvs.";
+"TestResultPositive_KeysSubmitted_FurtherInfo1" = "Monitorizați cu atenție modul în care evoluează simptomele dvs.";
 
 "TestResultPositive_KeysSubmitted_FurtherInfo2" = "Autoritatea dvs. de sănătate publică vă va solicita să întocmiți o listă a persoanelor cu care ați intrat în contact. Aceasta trebuie să cuprindă toate persoanele cu care ați avut contact strâns (mai puțin de 2 metri, conversații față în față) timp de peste 10 minute începând cu două zile înainte de a vă îmbolnăvi. Puteți utiliza jurnalul de contacte în acest scop: trebuie doar să exportați intrările și apoi să le tipăriți sau să le expediați pe e-mail.";
 
@@ -2895,7 +2895,7 @@
 
 "HealthCertificate_ExportCertificatesInfo_Copy03" = "Vă recomandăm să nu publicați documentul PDF, să nu îl transmiteți prin e-mail și să nu îl partajați prin alte aplicații.";
 
-"HealthCertificate_ExportCertificatesInfo_PrimaryButton" = "Continuare";
+"HealthCertificate_ExportCertificatesInfo_PrimaryButton" = "Înainte";
 
 "HealthCertificate_ExportCertificatesInfo_GeneratePDFAlert_Title" = "Se generează fișierul PDF";
 
