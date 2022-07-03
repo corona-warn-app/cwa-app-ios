@@ -122,7 +122,7 @@
 
 "ExposureDetection_Guide_Vaccination_HighRisk" = "Henüz aşı olmadıysanız test yaptırdıktan sonra aile hekiminize danışın.";
 
-"ExposureDetection_Guide_Title" = "Hiçbir belirtiniz olmasa bile lütfen test yaptırın. Daha yüksek risk uyarısı (\"kırmızı kutucuk\") alırsanız ücretsiz test yaptırma hakkınız olur. Bunun illa bir PCR testi olması gerekmez.";
+"ExposureDetection_Guide_Title" = "Tercihen iki günde birkaç kez olmak üzere, örneğin hızlı antijen testiyle ya da kendi kendine testleri (self testleri) kullanarak lütfen test yapın. Pozitif sonuç alırsanız sonucu doğrulamak için PCR testi yaptırın.";
 
 "ExposureDetection_Guide_Point1" = "Test olanaklarını burada bulabilirsiniz. Aile hekiminize veya bir eczaneye de danışabilirsiniz.";
 
@@ -675,7 +675,7 @@
 
 "ExposureSubmissionSuccess_RAT_listItem2" = "Kamu sağlığı yetkiliniz önümüzdeki birkaç gün içinde size ulaşabilir.";
 
-"ExposureSubmissionSuccess_listItem2_1" = "İzolasyon süreniz genellikle 10 gündür. Lütfen belirtilerinizin nasıl geliştiğini yakından izleyin.";
+"ExposureSubmissionSuccess_listItem2_1" = "Lütfen belirtilerinizin nasıl geliştiğini yakından izleyin.";
 
 "ExposureSubmissionSuccess_listItem2_2" = "Kamu sağlığı yetkiliniz, temasa geçtiğiniz kişilerin bir listesini oluşturmanızı isteyecektir. Bu listeye, hasta olmadan önceki iki gün içinde 10 dakikadan uzun süreyle yakın temas halinde (2 metreden kısa mesafede, yüz yüze görüşme) olduğunuz herkesi dahil etmeniz gerekir. Bunun için temas güncenizi kullanabilirsiniz: Girişleri dışa aktarmanız ve ardından yazdırmanız ya da e-posta yoluyla göndermeniz yeterlidir.";
 
@@ -1769,7 +1769,7 @@
 
 "TestResultPositive_KeysSubmitted_Title2" = "Diğer bilgiler:";
 
-"TestResultPositive_KeysSubmitted_FurtherInfo1" = "İzolasyon süreniz genellikle 10 gündür. Lütfen belirtilerinizin nasıl geliştiğini yakından izleyin.";
+"TestResultPositive_KeysSubmitted_FurtherInfo1" = "Lütfen belirtilerinizin nasıl geliştiğini yakından izleyin.";
 
 "TestResultPositive_KeysSubmitted_FurtherInfo2" = "Kamu sağlığı yetkiliniz, temasa geçtiğiniz kişilerin bir listesini oluşturmanızı isteyecektir. Bu listeye, hasta olmadan önceki iki gün içinde 10 dakikadan uzun süreyle yakın temas halinde (2 metreden kısa mesafede, yüz yüze görüşme) olduğunuz herkesi dahil etmeniz gerekir. Bunun için temas güncenizi kullanabilirsiniz: Girişleri dışa aktarmanız ve ardından yazdırmanız ya da e-posta yoluyla göndermeniz yeterlidir.";
 
@@ -2895,7 +2895,7 @@
 
 "HealthCertificate_ExportCertificatesInfo_Copy03" = "PDF belgesini yayınlamamanızı, e-postayla göndermemenizi ya da başka uygulamalar üzerinden paylaşmamanızı öneririz.";
 
-"HealthCertificate_ExportCertificatesInfo_PrimaryButton" = "Devam Et";
+"HealthCertificate_ExportCertificatesInfo_PrimaryButton" = "Sonraki";
 
 "HealthCertificate_ExportCertificatesInfo_GeneratePDFAlert_Title" = "PDF Oluşturuluyor";
 
