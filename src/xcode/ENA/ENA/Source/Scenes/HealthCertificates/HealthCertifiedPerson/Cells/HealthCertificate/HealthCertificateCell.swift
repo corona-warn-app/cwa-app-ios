@@ -103,7 +103,7 @@ class HealthCertificateCell: UITableViewCell, ReuseIdentifierProviding {
 		return validationButton
 	}()
 	
-	private var isCellSelectionInOuterTableViewEnabled = false
+	private var isCellSelectionInOuterTableViewDisabled = false
 	
 	private func setupView() {
 		backgroundColor = .clear
@@ -281,12 +281,12 @@ class HealthCertificateCell: UITableViewCell, ReuseIdentifierProviding {
 // MARK: - Touches, Presses and Gestures: UIResponder
 
 extension HealthCertificateCell {
-	var preventCellSelectionInOuterTableView: Bool { isCellSelectionInOuterTableViewEnabled }
+	var preventCellSelectionInOuterTableView: Bool { isCellSelectionInOuterTableViewDisabled }
 	
 	override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
 		// Guard validation button is disabled, else ignore.
 		guard !validationButton.isEnabled else {
-			isCellSelectionInOuterTableViewEnabled = false
+			isCellSelectionInOuterTableViewDisabled = false
 			super.touchesBegan(touches, with: event)
 			return
 		}
@@ -296,9 +296,9 @@ extension HealthCertificateCell {
 			let touchPoint = touch.location(in: validationButton)
 			
 			if validationButton.bounds.contains(touchPoint) {
-				isCellSelectionInOuterTableViewEnabled = true
+				isCellSelectionInOuterTableViewDisabled = true
 			} else {
-				isCellSelectionInOuterTableViewEnabled = false
+				isCellSelectionInOuterTableViewDisabled = false
 			}
 		}
 		super.touchesBegan(touches, with: event)
