@@ -16,7 +16,7 @@ class CovPassCheckInformationViewModelTests: XCTestCase {
 
 		// THEN
 		XCTAssertEqual(dataSource.numberOfSection, 1)
-		XCTAssertEqual(dataSource.numberOfRows(section: 0), 9)
+		XCTAssertEqual(dataSource.numberOfRows(section: 0), 11)
 	}
 
 }
