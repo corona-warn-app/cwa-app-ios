@@ -48,18 +48,29 @@ class HealthCertificateViewController: UIViewController, UITableViewDataSource, 
 		setupViewModel()
 	}
 
+	override func viewWillAppear(_ animated: Bool) {
+		super.viewWillAppear(animated)
+		
+		parent?.navigationController?.navigationBar.backgroundAlpha = 0.0
+	}
 	override func viewDidAppear(_ animated: Bool) {
 		super.viewDidAppear(animated)
-
+				
 		viewModel.markAsSeen()
+
 	}
+//		override func viewDidDisappear(_ animated: Bool) {
+//		super.viewDidDisappear(animated)
+//
+//		parent?.navigationController?.navigationBar.backgroundAlpha = 1.0
+//	}
 	
 	override func viewWillDisappear(_ animated: Bool) {
-		super.viewDidDisappear(animated)
-		
-		parent?.navigationController?.navigationBar.backgroundAlpha = 1.0
+	super.viewWillDisappear(animated)
+
+	parent?.navigationController?.navigationBar.backgroundAlpha = 1.0
 	}
-	
+
 	override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
 		super.traitCollectionDidChange(previousTraitCollection)
 		didCalculateGradientHeight = false
@@ -69,6 +80,9 @@ class HealthCertificateViewController: UIViewController, UITableViewDataSource, 
 
 	func wasAttemptedToBeDismissed() {
 		dismiss()
+		
+		parent?.navigationController?.navigationBar.backgroundAlpha = 1.0
+
 	}
 
 	// MARK: - Protocol FooterViewHandling
@@ -161,7 +175,6 @@ class HealthCertificateViewController: UIViewController, UITableViewDataSource, 
 		let logoImageView = UIImageView(image: logoImage)
 
 		parent?.navigationController?.navigationBar.tintColor = .white
-		parent?.navigationController?.navigationBar.backgroundAlpha = 0
 
 		// check is we are the first one on the navigation stack
 		if navigationController?.viewControllers.count == 1 {
