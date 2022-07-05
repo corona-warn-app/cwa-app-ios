@@ -122,7 +122,7 @@
 
 "ExposureDetection_Guide_Vaccination_HighRisk" = "If you have not been vaccinated yet, consult with your family doctor after you get tested.";
 
-"ExposureDetection_Guide_Title" = "Please get tested, even if you don’t have any symptoms. If you get a warning of increased risk (“red tile”), you are entitled to a test free of charge. It does not necessarily have to be a PCR test.";
+"ExposureDetection_Guide_Title" = "Please get tested, for example, with a rapid antigen test, or use self-tests - preferably several times, taking a test every two days. If a test is positive, take a PCR test to confirm the result.";
 
 "ExposureDetection_Guide_Point1" = "You can find testing possibilities here. You can also contact your family doctor or a pharmacy.";
 
@@ -675,7 +675,7 @@
 
 "ExposureSubmissionSuccess_RAT_listItem2" = "The public health authority may contact you within the next few days.";
 
-"ExposureSubmissionSuccess_listItem2_1" = "Your isolation period is usually 10 days. Please monitor how your symptoms develop closely.";
+"ExposureSubmissionSuccess_listItem2_1" = "Please monitor how your symptoms develop closely.";
 
 "ExposureSubmissionSuccess_listItem2_2" = "You will be asked by your public health authority to create a list of people you have had contact with. This should include all people with whom you have had close contact with (less than 2 meters, face-to-face conversation) for over 10 minutes in the two days before you became ill. You can use your contact journal for this: simply export the entries and then print them out or send them via e-mail.";
 
@@ -1769,7 +1769,7 @@
 
 "TestResultPositive_KeysSubmitted_Title2" = "Other information:";
 
-"TestResultPositive_KeysSubmitted_FurtherInfo1" = "Your isolation period is usually 10 days. Please monitor how your symptoms develop closely.";
+"TestResultPositive_KeysSubmitted_FurtherInfo1" = "Please monitor how your symptoms develop closely.";
 
 "TestResultPositive_KeysSubmitted_FurtherInfo2" = "You will be asked by your public health authority to create a list of people you have had contact with. This should include all people with whom you have had close contact with (less than 2 meters, face-to-face conversation) for over 10 minutes in the two days before you became ill. You can use your contact journal for this: simply export the entries and then print them out or send them via e-mail.";
 
@@ -2895,7 +2895,7 @@
 
 "HealthCertificate_ExportCertificatesInfo_Copy03" = "We recommend that you not publish the PDF document, send it via e-mail, or share it through other apps.";
 
-"HealthCertificate_ExportCertificatesInfo_PrimaryButton" = "Continue";
+"HealthCertificate_ExportCertificatesInfo_PrimaryButton" = "Next";
 
 "HealthCertificate_ExportCertificatesInfo_GeneratePDFAlert_Title" = "Generating PDF";
 
