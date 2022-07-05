@@ -48,10 +48,27 @@ class HealthCertificateViewController: UIViewController, UITableViewDataSource, 
 		setupViewModel()
 	}
 
+	override func viewWillAppear(_ animated: Bool) {
+		super.viewWillAppear(animated)
+		
+		parent?.navigationController?.navigationBar.backgroundAlpha = 0.0
+	}
 	override func viewDidAppear(_ animated: Bool) {
 		super.viewDidAppear(animated)
-
+				
 		viewModel.markAsSeen()
+
+	}
+//		override func viewDidDisappear(_ animated: Bool) {
+//		super.viewDidDisappear(animated)
+//
+//		parent?.navigationController?.navigationBar.backgroundAlpha = 1.0
+//	}
+	
+	override func viewWillDisappear(_ animated: Bool) {
+	super.viewWillDisappear(animated)
+
+	parent?.navigationController?.navigationBar.backgroundAlpha = 1.0
 	}
 
 	override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
@@ -63,6 +80,9 @@ class HealthCertificateViewController: UIViewController, UITableViewDataSource, 
 
 	func wasAttemptedToBeDismissed() {
 		dismiss()
+		
+		parent?.navigationController?.navigationBar.backgroundAlpha = 1.0
+
 	}
 
 	// MARK: - Protocol FooterViewHandling
