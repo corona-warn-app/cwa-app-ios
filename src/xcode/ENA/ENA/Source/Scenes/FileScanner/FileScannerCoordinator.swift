@@ -182,20 +182,7 @@ class FileScannerCoordinator: NSObject, UIImagePickerControllerDelegate, UINavig
         return action
 	}()
 
-	private func presentPhotoPicker() {
-		guard viewModel.authorizationStatus == .authorized else {
-			if case .notDetermined = viewModel.authorizationStatus {
-				viewModel.requestPhotoAccess { [weak self] _ in
-					DispatchQueue.main.async { [weak self] in
-						self?.presentPhotoPicker()
-					}
-				}
-			} else {
-				presentPhotoAccessAlert()
-			}
-			return
-		}
-		
+	private func presentPhotoPicker() {		
 		DispatchQueue.main.async { [weak self] in
 			guard let self = self else {
 				Log.error("Failed to get strong self", log: .fileScanner)
