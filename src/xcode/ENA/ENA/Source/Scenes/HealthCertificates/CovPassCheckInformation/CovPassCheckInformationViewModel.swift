@@ -32,6 +32,11 @@ final class CovPassCheckInformationViewModel {
 					.space(height: 12.0),
 					.bulletPoint(
 						text: AppStrings.CovPass.Information.section03
+						
+					),
+					.space(height: 12.0),
+					.bulletPoint(
+						text: AppStrings.CovPass.Information.section04
 					)
 				]
 			)
