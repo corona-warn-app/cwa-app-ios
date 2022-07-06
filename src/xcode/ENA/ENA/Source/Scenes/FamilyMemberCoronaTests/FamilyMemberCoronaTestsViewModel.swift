@@ -83,12 +83,17 @@ class FamilyMemberCoronaTestsViewModel {
 		onCoronaTestCellTap(updatedCoronaTest)
 	}
 
-	func didTapCoronaTestCellButton(at indexPath: IndexPath) {
+	func didTapCoronaTestCellButton(at indexPath: IndexPath, action: CoronaTestCellButtonAction) {
 		guard indexPath.section == Section.coronaTests.rawValue else {
 			fatalError("didTapEntryCell can only be called from the coronaTests section")
 		}
 
-		familyMemberCoronaTestService.moveTestToBin(coronaTestCellModels[indexPath.row].coronaTest)
+		switch action {
+		case .moveTestToBin:
+			familyMemberCoronaTestService.moveTestToBin(coronaTestCellModels[indexPath.row].coronaTest)
+		case .removeTest:
+			familyMemberCoronaTestService.removeTest(coronaTestCellModels[indexPath.row].coronaTest)
+		}
 	}
 
 	func removeEntry(at indexPath: IndexPath) {
@@ -169,4 +174,11 @@ class FamilyMemberCoronaTestsViewModel {
 		triggerReload.value = true
 	}
 
+}
+
+extension FamilyMemberCoronaTestsViewModel {
+	enum CoronaTestCellButtonAction {
+		case moveTestToBin
+		case removeTest
+	}
 }

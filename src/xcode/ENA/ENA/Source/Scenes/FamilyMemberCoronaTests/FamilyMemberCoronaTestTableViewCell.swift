@@ -58,7 +58,7 @@ final class FamilyMemberCoronaTestTableViewCell: UITableViewCell {
 
 	func configure(
 		with cellModel: FamilyMemberCoronaTestCellModel,
-		onPrimaryAction: @escaping () -> Void
+		onPrimaryAction: @escaping CompletionBool
 	) {
 		// clear all previous subscriptions
 		clearSubscriptions()
@@ -155,7 +155,8 @@ final class FamilyMemberCoronaTestTableViewCell: UITableViewCell {
 	private var subscriptions = Set<AnyCancellable>()
 	private var cellModel: FamilyMemberCoronaTestCellModel?
 
-	private var onPrimaryAction: (() -> Void)?
+	/// Gives a boolean flag that is `true`, when corona-test is outdated
+	private var onPrimaryAction: CompletionBool?
 
 	private func setup() {
 		updateIllustration(for: traitCollection)
@@ -177,7 +178,11 @@ final class FamilyMemberCoronaTestTableViewCell: UITableViewCell {
 	}
 
 	@IBAction func primaryActionTriggered() {
-		onPrimaryAction?()
+		guard let cellModel = cellModel else {
+			onPrimaryAction?(false)
+			return
+		}
+		onPrimaryAction?(cellModel.coronaTest.isOutdated)
 	}
 
 }
