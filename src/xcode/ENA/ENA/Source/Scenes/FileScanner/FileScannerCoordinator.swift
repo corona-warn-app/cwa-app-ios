@@ -182,7 +182,7 @@ class FileScannerCoordinator: NSObject, UIImagePickerControllerDelegate, UINavig
         return action
 	}()
 
-	private func presentPhotoPicker() {		
+	private func presentPhotoPicker() {
 		DispatchQueue.main.async { [weak self] in
 			guard let self = self else {
 				Log.error("Failed to get strong self", log: .fileScanner)
