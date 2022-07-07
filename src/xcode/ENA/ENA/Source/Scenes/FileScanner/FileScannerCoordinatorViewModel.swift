@@ -66,9 +66,6 @@ protocol FileScannerProcessing {
 	var processingFailed: ((FileScannerError?) -> Void)? { get set }
 	var missingPasswordForPDF: ((@escaping (String) -> Void) -> Void)? { get set }
 
-	var authorizationStatus: PHAuthorizationStatus { get }
-
-	func requestPhotoAccess(_ completion: @escaping (PHAuthorizationStatus) -> Void)
 	func scan(_ image: UIImage)
 	func scan(_ pdfDocument: PDFDocument)
 	func unlockAndScan(_ pdfDocument: PDFDocument)
