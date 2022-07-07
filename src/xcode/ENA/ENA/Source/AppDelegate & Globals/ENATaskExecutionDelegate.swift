@@ -115,6 +115,15 @@ class TaskExecutionHandler: ENATaskExecutionDelegate {
 						
 						group.enter()
 						DispatchQueue.global().async {
+							Log.info("Check for invalid certificates", log: .background)
+							self.checkCertificateValidityStates {
+								group.leave()
+								Log.info("Done checking for invalid certificates.", log: .background)
+							}
+						}
+						
+						group.enter()
+						DispatchQueue.global().async {
 							Log.info("Cleanup contact diary store.", log: .background)
 							self.contactDiaryStore.cleanup(timeout: 10.0)
 							Log.info("Done cleaning up contact diary store.", log: .background)
@@ -152,15 +161,6 @@ class TaskExecutionHandler: ENATaskExecutionDelegate {
 							self.executeDCCWalletInfoUpdatesAndTriggerBoosterNotificationsIfNeeded {
 								group.leave()
 								Log.info("Done checking if DCC wallet infos need to be updated and booster notifications need to be triggered", log: .background)
-							}
-						}
-						
-						group.enter()
-						DispatchQueue.global().async {
-							Log.info("Check for invalid certificates", log: .background)
-							self.checkCertificateValidityStates {
-								group.leave()
-								Log.info("Done checking for invalid certificates.", log: .background)
 							}
 						}
 						
