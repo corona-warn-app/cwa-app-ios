@@ -97,28 +97,6 @@ class FileScannerCoordinatorViewModel: FileScannerProcessing {
 	var processingFailed: ((FileScannerError?) -> Void)?
 	var missingPasswordForPDF: ((@escaping (String) -> Void) -> Void)?
 
-	var authorizationStatus: PHAuthorizationStatus {
-		if #available(iOS 14, *) {
-			let status = PHPhotoLibrary.authorizationStatus(for: .readWrite)
-			// a special case on iOS 14 (and above) that won't impact anything at the moment
-			if case .limited = status {
-				return .authorized
-			} else {
-				return status
-			}
-		} else {
-			return PHPhotoLibrary.authorizationStatus()
-		}
-	}
-
-	func requestPhotoAccess(_ completion: @escaping (PHAuthorizationStatus) -> Void) {
-		if #available(iOS 14, *) {
-			PHPhotoLibrary.requestAuthorization(for: .readWrite, handler: completion)
-		} else {
-			PHPhotoLibrary.requestAuthorization(completion)
-		}
-	}
-
 	func scan(_ image: UIImage) {
 		processingStartedOnQueue()
 
