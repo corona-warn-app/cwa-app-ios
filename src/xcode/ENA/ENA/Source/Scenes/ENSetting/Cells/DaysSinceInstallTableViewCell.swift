@@ -48,7 +48,7 @@ class DaysSinceInstallTableViewCell: UITableViewCell {
 			self.heightDidChange?()
 		}
 		
-		if viewModel.daysSinceInstall < 11 {
+		if viewModel.daysSinceInstall < 14 {
 			p2Label.text = String(format: AppStrings.Settings.daysSinceInstallP2a, viewModel.daysSinceInstall)
 		} else {
 			p2Label.text = AppStrings.Settings.daysSinceInstallP2b

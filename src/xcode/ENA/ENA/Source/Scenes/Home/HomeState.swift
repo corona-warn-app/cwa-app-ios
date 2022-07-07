@@ -101,7 +101,7 @@ class HomeState: ENStateHandlerUpdating {
 	}
 
 	var shouldShowDaysSinceInstallation: Bool {
-		daysSinceInstallation < 10
+		daysSinceInstallation < 14
 	}
 
 	var daysSinceInstallation: Int {
