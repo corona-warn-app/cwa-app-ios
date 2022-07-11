@@ -11,7 +11,6 @@ enum PPASubmitResourceError: Error, Equatable {
 	case responseError(Int)
 	case jsonError
 	case serverError(PPAServerErrorCode)
-	case serverFailure // (Error)
 	case ppacError(PPACError)
 	case appResetError
 	case onboardingError
