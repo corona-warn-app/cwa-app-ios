@@ -421,54 +421,54 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 			return
 		}
 		#endif
-		
-		client.submit(
-			payload: payload,
-			ppacToken: ppacToken,
+		let resource = PPASubmitResource(
 			isFake: false,
 			forceApiTokenHeader: forceApiTokenHeader,
-			completion: { [weak self] result in
-				switch result {
-				case .success:
-					Log.info("Analytics data successfully submitted \(String(describing: self?.applicationState)))", log: .ppa)
-					Log.info("Analytics submission post-processing self-reference is nil: \(self == nil) \(String(describing: self?.applicationState)))", log: .ppa)
-					// after successful submission, store the current enf risk exposure metadata as the previous one to get the next time a comparison.
-					self?.store.previousENFRiskExposureMetadata = self?.store.currentENFRiskExposureMetadata
-					self?.store.currentENFRiskExposureMetadata = nil
-					// after successful submission, store the current event risk exposure metadata as the previous one to get the next time a comparison.
-					self?.store.previousCheckinRiskExposureMetadata = self?.store.currentCheckinRiskExposureMetadata
-					self?.store.currentCheckinRiskExposureMetadata = nil
-					if let shouldIncludeTestResultMetadata = self?.shouldIncludeTestResultMetadata(for: .pcr),
-					   shouldIncludeTestResultMetadata {
-						self?.store.pcrTestResultMetadata = nil
-					}
-					if let shouldIncludeTestResultMetadata = self?.shouldIncludeTestResultMetadata(for: .antigen),
-					   shouldIncludeTestResultMetadata {
-						self?.store.antigenTestResultMetadata = nil
-					}
-					if let shouldIncludeKeySubmissionMetadata = self?.shouldIncludeKeySubmissionMetadata(for: .pcr), shouldIncludeKeySubmissionMetadata {
-						self?.store.pcrKeySubmissionMetadata = nil
-					}
-					if let shouldIncludeAntigenKeySubmissionMetadata = self?.shouldIncludeKeySubmissionMetadata(for: .antigen), shouldIncludeAntigenKeySubmissionMetadata {
-						self?.store.antigenKeySubmissionMetadata = nil
-					}
-					self?.store.lastSubmittedPPAData = payload.textFormatString()
-					self?.store.exposureWindowsMetadata?.newExposureWindowsQueue.removeAll()
-					self?.store.lastSubmissionAnalytics = Date()
-					self?.submissionState = .readyForSubmission
-					Log.info("Analytics submission successfully post-processed \(String(describing: self?.applicationState)))", log: .ppa)
-					completion?(result)
-				case let .failure(error):
-					Log.error("Analytics data were not submitted \(String(describing: self?.applicationState))). Error: \(error)", log: .ppa, error: error)
-					Log.info("Analytics submission post-processing self-reference is nil: \(self == nil) \(String(describing: self?.applicationState)))", log: .ppa)
-					// tech spec says, we want a fresh state if submission fails
-					self?.store.currentENFRiskExposureMetadata = nil
-					self?.store.currentCheckinRiskExposureMetadata = nil
-					self?.submissionState = .readyForSubmission
-					completion?(result)
-				}
-			}
+			payload: payload,
+			ppacToken: ppacToken
 		)
+		restServiceProvider.load(resource) { [weak self] result in
+
+			switch result {
+			case .success:
+				Log.info("Analytics data successfully submitted \(String(describing: self?.applicationState)))", log: .ppa)
+				Log.info("Analytics submission post-processing self-reference is nil: \(self == nil) \(String(describing: self?.applicationState)))", log: .ppa)
+				// after successful submission, store the current enf risk exposure metadata as the previous one to get the next time a comparison.
+				self?.store.previousENFRiskExposureMetadata = self?.store.currentENFRiskExposureMetadata
+				self?.store.currentENFRiskExposureMetadata = nil
+				// after successful submission, store the current event risk exposure metadata as the previous one to get the next time a comparison.
+				self?.store.previousCheckinRiskExposureMetadata = self?.store.currentCheckinRiskExposureMetadata
+				self?.store.currentCheckinRiskExposureMetadata = nil
+				if let shouldIncludeTestResultMetadata = self?.shouldIncludeTestResultMetadata(for: .pcr),
+				   shouldIncludeTestResultMetadata {
+					self?.store.pcrTestResultMetadata = nil
+				}
+				if let shouldIncludeTestResultMetadata = self?.shouldIncludeTestResultMetadata(for: .antigen),
+				   shouldIncludeTestResultMetadata {
+					self?.store.antigenTestResultMetadata = nil
+				}
+				if let shouldIncludeKeySubmissionMetadata = self?.shouldIncludeKeySubmissionMetadata(for: .pcr), shouldIncludeKeySubmissionMetadata {
+					self?.store.pcrKeySubmissionMetadata = nil
+				}
+				if let shouldIncludeAntigenKeySubmissionMetadata = self?.shouldIncludeKeySubmissionMetadata(for: .antigen), shouldIncludeAntigenKeySubmissionMetadata {
+					self?.store.antigenKeySubmissionMetadata = nil
+				}
+				self?.store.lastSubmittedPPAData = payload.textFormatString()
+				self?.store.exposureWindowsMetadata?.newExposureWindowsQueue.removeAll()
+				self?.store.lastSubmissionAnalytics = Date()
+				self?.submissionState = .readyForSubmission
+				Log.info("Analytics submission successfully post-processed \(String(describing: self?.applicationState)))", log: .ppa)
+				completion?(.success(()))
+			case let .failure(error):
+				Log.error("Analytics data were not submitted \(String(describing: self?.applicationState))). Error: \(error)", log: .ppa, error: error)
+				Log.info("Analytics submission post-processing self-reference is nil: \(self == nil) \(String(describing: self?.applicationState)))", log: .ppa)
+				// tech spec says, we want a fresh state if submission fails
+				self?.store.currentENFRiskExposureMetadata = nil
+				self?.store.currentCheckinRiskExposureMetadata = nil
+				self?.submissionState = .readyForSubmission
+				completion?( .failure(.restServiceError(error)))
+			}
+		}
 	}
 	
 	func gatherExposureRiskMetadata() -> [SAP_Internal_Ppdd_ExposureRiskMetadata] {
