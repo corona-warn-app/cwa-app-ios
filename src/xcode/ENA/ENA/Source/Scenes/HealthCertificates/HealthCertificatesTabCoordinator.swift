@@ -531,6 +531,8 @@ final class HealthCertificatesTabCoordinator {
 				} else {
 					Log.info("Did print pdf file successfully")
 				}
+				
+				FileManager.default.clearTemporaryDirectory()
 			}
 		}
 	}
@@ -539,6 +541,11 @@ final class HealthCertificatesTabCoordinator {
 		exportItem: PDFExportItem
 	) {
 		let activityViewController = UIActivityViewController(activityItems: [exportItem], applicationActivities: nil)
+		
+		activityViewController.completionWithItemsHandler = { _, _, _, _ in
+			FileManager.default.clearTemporaryDirectory()
+		}
+		
 		self.printNavigationController.present(activityViewController, animated: true, completion: nil)
 	}
 	
