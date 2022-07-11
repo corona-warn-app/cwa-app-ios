@@ -16,7 +16,7 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 		// GIVEN
 		let store = MockTestStore()
 		store.isPrivacyPreservingAnalyticsConsentGiven = true
-		let client = ClientMock()
+
 		var config = SAP_Internal_V2_ApplicationConfigurationIOS()
 		// probability will always succeed
 		config.privacyPreservingAnalyticsParameters.common.probabilityToSubmit = 3
@@ -28,7 +28,7 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 #endif
 		let analyticsSubmitter = PPAnalyticsSubmitter(
 			store: store,
-			client: client,
+			restServiceProvider: RestServiceProviderStub(),
 			appConfig: appConfigurationProvider,
 			coronaTestService: MockCoronaTestService(),
 			ppacService: PPACService(store: store, deviceCheck: deviceCheck)
@@ -95,7 +95,6 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 		// GIVEN
 		let store = MockTestStore()
 		store.isPrivacyPreservingAnalyticsConsentGiven = true
-		let client = ClientMock()
 		var config = SAP_Internal_V2_ApplicationConfigurationIOS()
 		// probability will always succeed
 		config.privacyPreservingAnalyticsParameters.common.probabilityToSubmit = 3
@@ -107,7 +106,7 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 #endif
 		let analyticsSubmitter = PPAnalyticsSubmitter(
 			store: store,
-			client: client,
+			restServiceProvider: RestServiceProviderStub(),
 			appConfig: appConfigurationProvider,
 			coronaTestService: MockCoronaTestService(),
 			ppacService: PPACService(store: store, deviceCheck: deviceCheck)
@@ -130,7 +129,6 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 		let store = MockTestStore()
 		store.isPrivacyPreservingAnalyticsConsentGiven = true
 
-		let client = ClientMock()
 		var config = SAP_Internal_V2_ApplicationConfigurationIOS()
 		// probability will always succeed
 		config.privacyPreservingAnalyticsParameters.common.probabilityToSubmit = 3
@@ -148,7 +146,7 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 		
 		let analyticsSubmitter = PPAnalyticsSubmitter(
 			store: store,
-			client: client,
+			restServiceProvider: RestServiceProviderStub(),
 			appConfig: appConfigurationProvider,
 			coronaTestService: coronaTestService,
 			ppacService: PPACService(store: store, deviceCheck: deviceCheck)
@@ -168,7 +166,6 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 		// GIVEN
 		let store = MockTestStore()
 		store.isPrivacyPreservingAnalyticsConsentGiven = true
-		let client = ClientMock()
 		var config = SAP_Internal_V2_ApplicationConfigurationIOS()
 		// probability will always succeed
 		config.privacyPreservingAnalyticsParameters.common.probabilityToSubmit = 3
@@ -188,7 +185,7 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 		
 		let analyticsSubmitter = PPAnalyticsSubmitter(
 			store: store,
-			client: client,
+			restServiceProvider: RestServiceProviderStub(),
 			appConfig: appConfigurationProvider,
 			coronaTestService: MockCoronaTestService(),
 			ppacService: PPACService(store: store, deviceCheck: deviceCheck)
@@ -208,7 +205,6 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 		// GIVEN
 		let store = MockTestStore()
 		store.isPrivacyPreservingAnalyticsConsentGiven = true
-		let client = ClientMock()
 		var config = SAP_Internal_V2_ApplicationConfigurationIOS()
 		// probability will always succeed
 		config.privacyPreservingAnalyticsParameters.common.probabilityToSubmit = 3
@@ -227,7 +223,7 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 		
 		let analyticsSubmitter = PPAnalyticsSubmitter(
 			store: store,
-			client: client,
+			restServiceProvider: RestServiceProviderStub(),
 			appConfig: appConfigurationProvider,
 			coronaTestService: MockCoronaTestService(),
 			ppacService: PPACService(store: store, deviceCheck: deviceCheck)
@@ -247,7 +243,6 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 	func testGIVEN_SubmissionIsTriggered_WHEN_UserConsentIsMissing_THEN_UserConsentErrorIsReturned() {
 		// GIVEN
 		let store = MockTestStore()
-		let client = ClientMock()
 		let config = SAP_Internal_V2_ApplicationConfigurationIOS()
 		let appConfigurationProvider = CachedAppConfigurationMock(with: config)
 #if targetEnvironment(simulator)
@@ -258,7 +253,7 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 		
 		let analyticsSubmitter = PPAnalyticsSubmitter(
 			store: store,
-			client: client,
+			restServiceProvider: RestServiceProviderStub(),
 			appConfig: appConfigurationProvider,
 			coronaTestService: MockCoronaTestService(),
 			ppacService: PPACService(store: store, deviceCheck: deviceCheck)
@@ -289,7 +284,6 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 		// GIVEN
 		let store = MockTestStore()
 		store.isPrivacyPreservingAnalyticsConsentGiven = true
-		let client = ClientMock()
 		let config = SAP_Internal_V2_ApplicationConfigurationIOS()
 		let appConfigurationProvider = CachedAppConfigurationMock(with: config)
 #if targetEnvironment(simulator)
@@ -299,7 +293,7 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 #endif
 		let analyticsSubmitter = PPAnalyticsSubmitter(
 			store: store,
-			client: client,
+			restServiceProvider: RestServiceProviderStub(),
 			appConfig: appConfigurationProvider,
 			coronaTestService: MockCoronaTestService(),
 			ppacService: PPACService(store: store, deviceCheck: deviceCheck)
@@ -328,7 +322,6 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 		// GIVEN
 		let store = MockTestStore()
 		store.isPrivacyPreservingAnalyticsConsentGiven = true
-		let client = ClientMock()
 		var config = SAP_Internal_V2_ApplicationConfigurationIOS()
 		// probability will always fail
 		config.privacyPreservingAnalyticsParameters.common.probabilityToSubmit = -1
@@ -340,7 +333,7 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 #endif
 		let analyticsSubmitter = PPAnalyticsSubmitter(
 			store: store,
-			client: client,
+			restServiceProvider: RestServiceProviderStub(),
 			appConfig: appConfigurationProvider,
 			coronaTestService: MockCoronaTestService(),
 			ppacService: PPACService(store: store, deviceCheck: deviceCheck)
@@ -369,7 +362,6 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 		// GIVEN
 		let store = MockTestStore()
 		store.isPrivacyPreservingAnalyticsConsentGiven = true
-		let client = ClientMock()
 		var config = SAP_Internal_V2_ApplicationConfigurationIOS()
 		config.privacyPreservingAnalyticsParameters.common.probabilityToSubmit = 3
 		let appConfigurationProvider = CachedAppConfigurationMock(with: config)
@@ -380,7 +372,7 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 #endif
 		let analyticsSubmitter = PPAnalyticsSubmitter(
 			store: store,
-			client: client,
+			restServiceProvider: RestServiceProviderStub(),
 			appConfig: appConfigurationProvider,
 			coronaTestService: MockCoronaTestService(),
 			ppacService: PPACService(store: store, deviceCheck: deviceCheck)
@@ -410,7 +402,6 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 		// GIVEN
 		let store = MockTestStore()
 		store.isPrivacyPreservingAnalyticsConsentGiven = true
-		let client = ClientMock()
 		var config = SAP_Internal_V2_ApplicationConfigurationIOS()
 		config.privacyPreservingAnalyticsParameters.common.probabilityToSubmit = 3
 		let appConfigurationProvider = CachedAppConfigurationMock(with: config)
@@ -421,7 +412,7 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 #endif
 		let analyticsSubmitter = PPAnalyticsSubmitter(
 			store: store,
-			client: client,
+			restServiceProvider: RestServiceProviderStub(),
 			appConfig: appConfigurationProvider,
 			coronaTestService: MockCoronaTestService(),
 			ppacService: PPACService(store: store, deviceCheck: deviceCheck)
@@ -454,7 +445,6 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 		// GIVEN
 		let store = MockTestStore()
 		store.isPrivacyPreservingAnalyticsConsentGiven = true
-		let client = ClientMock()
 		var config = SAP_Internal_V2_ApplicationConfigurationIOS()
 		config.privacyPreservingAnalyticsParameters.common.probabilityToSubmit = 3
 		let appConfigurationProvider = CachedAppConfigurationMock(with: config)
@@ -465,7 +455,7 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 #endif
 		let analyticsSubmitter = PPAnalyticsSubmitter(
 			store: store,
-			client: client,
+			restServiceProvider: RestServiceProviderStub(),
 			appConfig: appConfigurationProvider,
 			coronaTestService: MockCoronaTestService(),
 			ppacService: PPACService(store: store, deviceCheck: deviceCheck)
@@ -500,7 +490,6 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 		// GIVEN
 		let store = MockTestStore()
 		store.isPrivacyPreservingAnalyticsConsentGiven = true
-		let client = ClientMock()
 		var config = SAP_Internal_V2_ApplicationConfigurationIOS()
 		config.privacyPreservingAnalyticsParameters.common.probabilityToSubmit = 3
 		let appConfigurationProvider = CachedAppConfigurationMock(with: config)
@@ -511,7 +500,7 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 #endif
 		let analyticsSubmitter = PPAnalyticsSubmitter(
 			store: store,
-			client: client,
+			restServiceProvider: RestServiceProviderStub(),
 			appConfig: appConfigurationProvider,
 			coronaTestService: MockCoronaTestService(),
 			ppacService: PPACService(store: store, deviceCheck: deviceCheck)
@@ -543,7 +532,6 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 		// GIVEN
 		let store = MockTestStore()
 		store.isPrivacyPreservingAnalyticsConsentGiven = true
-		let client = ClientMock()
 		var config = SAP_Internal_V2_ApplicationConfigurationIOS()
 		config.privacyPreservingAnalyticsParameters.common.probabilityToSubmit = 3
 		let appConfigurationProvider = CachedAppConfigurationMock(with: config)
@@ -554,7 +542,7 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 #endif
 		let analyticsSubmitter = PPAnalyticsSubmitter(
 			store: store,
-			client: client,
+			restServiceProvider: RestServiceProviderStub(),
 			appConfig: appConfigurationProvider,
 			coronaTestService: MockCoronaTestService(),
 			ppacService: PPACService(store: store, deviceCheck: deviceCheck)
@@ -586,7 +574,6 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 		// GIVEN
 		let store = MockTestStore()
 		store.isPrivacyPreservingAnalyticsConsentGiven = true
-		let client = ClientMock()
 		let appConfigurationProvider = CachedAppConfigurationMock()
 #if targetEnvironment(simulator)
 		let deviceCheck = PPACDeviceCheckMock(true, deviceToken: "iPhone")
@@ -595,7 +582,7 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 #endif
 		let analyticsSubmitter = PPAnalyticsSubmitter(
 			store: store,
-			client: client,
+			restServiceProvider: RestServiceProviderStub(),
 			appConfig: appConfigurationProvider,
 			coronaTestService: MockCoronaTestService(),
 			ppacService: PPACService(store: store, deviceCheck: deviceCheck)
@@ -638,10 +625,8 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 		// GIVEN
 		let store = MockTestStore()
 		store.isPrivacyPreservingAnalyticsConsentGiven = true
-		let client = ClientMock()
-		client.onSubmitAnalytics = { _, _, _, completion in
-			completion(.failure(.generalError))
-		}
+		let restServiceProvider = RestServiceProviderStub(loadResources: [LoadResource(result: .failure(PPASubmitResourceError.generalError), willLoadResource: nil)], cacheResources: [], isFakeResourceLoadingActive: false)
+		
 		var config = SAP_Internal_V2_ApplicationConfigurationIOS()
 		// probability will always succeed
 		config.privacyPreservingAnalyticsParameters.common.probabilityToSubmit = 3
@@ -653,7 +638,7 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 #endif
 		let analyticsSubmitter = PPAnalyticsSubmitter(
 			store: store,
-			client: client,
+			restServiceProvider: restServiceProvider,
 			appConfig: appConfigurationProvider,
 			coronaTestService: MockCoronaTestService(),
 			ppacService: PPACService(store: store, deviceCheck: deviceCheck)
@@ -1210,7 +1195,6 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 	// MARK: - Helpers
 	
 	private func createMockSubmitter(with store: MockTestStore) -> PPAnalyticsSubmitter {
-		let client = ClientMock()
 		let config = SAP_Internal_V2_ApplicationConfigurationIOS()
 		let appConfigurationProvider = CachedAppConfigurationMock(with: config)
 #if targetEnvironment(simulator)
@@ -1220,7 +1204,7 @@ class PPAnalyticsSubmitterTests: CWATestCase {
 #endif
 		return PPAnalyticsSubmitter(
 			store: store,
-			client: client,
+			restServiceProvider: RestServiceProviderStub(),
 			appConfig: appConfigurationProvider,
 			coronaTestService: MockCoronaTestService(),
 			ppacService: PPACService(store: store, deviceCheck: deviceCheck)
