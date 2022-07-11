@@ -72,7 +72,5 @@
 		<string>OpenSans-SemiBold.ttf</string>
 		<string>OpenSans-SemiBoldItalic.ttf</string>
 	</array>
-	<key>NSPhotoLibraryUsageDescription</key>
-	<string>QR Code detection</string>
 </dict>
 </plist>
