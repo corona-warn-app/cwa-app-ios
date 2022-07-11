@@ -35,7 +35,7 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 	
 	init(
 		store: Store,
-		client: Client,
+		restServiceProvider: RestServiceProviding,
 		appConfig: AppConfigurationProviding,
 		coronaTestService: CoronaTestServiceProviding,
 		ppacService: PrivacyPreservingAccessControl
@@ -45,7 +45,7 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 			fatalError("I will never submit any analytics data. Could not cast to correct store protocol")
 		}
 		self.store = store
-		self.client = client
+		self.restServiceProvider = restServiceProvider
 		self.submissionState = .readyForSubmission
 		self.configurationProvider = appConfig
 		self.coronaTestService = coronaTestService
@@ -138,7 +138,6 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 	}
 	
 	#if !RELEASE
-	
 	func forcedSubmitData(completion: @escaping (Result<Void, PPASError>) -> Void) {
 		generatePPACAndSubmitData(
 			disableExposureWindowsProbability: true,
@@ -173,7 +172,7 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 	// MARK: - Private
 	
 	private let store: (Store & PPAnalyticsData)
-	private let client: Client
+	private let restServiceProvider: RestServiceProviding
 	private let configurationProvider: AppConfigurationProviding
 	private let coronaTestService: CoronaTestServiceProviding
 	private let ppacService: PrivacyPreservingAccessControl
